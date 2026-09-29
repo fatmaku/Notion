@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>LiveFX Overlay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/overlay.css">
+</head>
+<body>
+  <div id="stage"></div>
+  <script src="js/sounds.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/bus.js"></script>
+  <script>
+    (function () {
+      const renderer = new LiveFXRenderer.Renderer(document.getElementById('stage'));
+      const bus = new LiveFXBus.Bus({ role: 'overlay' });
+      const params = new URLSearchParams(location.search);
+      renderer.volume = Number(params.get('volume') ?? 0.8);
+
+      bus.onMessage((msg) => {
+        if (msg.type === 'fire') renderer.fire(msg.trigger);
+        if (msg.type === 'volume') renderer.volume = msg.volume;
+      });
+
+      // Browsers block audio until a user gesture; OBS browser sources are exempt.
+      // For a normal tab: click anywhere once to unlock audio.
+      document.addEventListener('pointerdown', () => renderer.ensureAudio(), { once: true });
+
+      // Expose for tests / preview button.
+      window.livefx = { renderer, bus };
+    })();
+  </script>
+</body>
+</html>
