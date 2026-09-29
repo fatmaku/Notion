@@ -1,0 +1,53 @@
+
+
+@page tam{size:A4;margin:0}
+*{box-sizing:border-box}
+@font-face{font-family:'OpenDyslexic';src:url('fonts/od-regular.woff2') format('woff2');font-weight:400;font-style:normal}
+@font-face{font-family:'OpenDyslexic';src:url('fonts/od-bold.woff2') format('woff2');font-weight:700;font-style:normal}
+@font-face{font-family:'OpenDyslexic';src:url('fonts/od-italic.woff2') format('woff2');font-weight:400;font-style:italic}
+@font-face{font-family:'Fredoka';src:url('fonts/fredoka-0.woff2') format('woff2');font-weight:400 700;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+1EF2-1EFF}
+@font-face{font-family:'Fredoka';src:url('fonts/fredoka-2.woff2') format('woff2');font-weight:400 700;unicode-range:U+0000-00FF,U+0131,U+2000-206F,U+20AC}
+@font-face{font-family:'Lexend';src:url('fonts/lexend-5.woff2') format('woff2');font-weight:400 700;unicode-range:U+0100-02BA,U+02BD-02C5,U+1E00-1E9F,U+1EF2-1EFF}
+@font-face{font-family:'Lexend';src:url('fonts/lexend-3.woff2') format('woff2');font-weight:400 700;unicode-range:U+0000-00FF,U+0131,U+2000-206F,U+20AC}
+:root{--sun:#F29B6B;--navy:#1E2D4A;--coral:#E8788A;--calm:#5E9B82;--mor:#8B6FC7;--ink:#2a2620;--cream:#FFFFFF;--sand:#F5EFE4}
+html,body{margin:0;padding:0}
+body{font-family:'Lexend','Fredoka',Verdana,sans-serif;color:var(--ink);background:var(--cream);font-size:15pt;line-height:1.8;text-align:left}
+p{margin:0 0 10px;orphans:2;widows:2}
+/* METİN AKAR: bölüm zorla yeni sayfada başlamaz, sayfayı doldurur.
+   Böylece %9-20 dolu boş sayfalar oluşmuyor. */
+.ch{page-break-before:always;break-before:page;margin:0}
+.ch.hikaye{}
+.ch.ekstra{}
+/* kutular sayfaya yayılsın, üstte toplanmasın */
+.ch.ekstra .pusula:first-of-type{margin-top:0}
+.kunye{page-break-after:always;break-after:page;font-size:11pt;color:#5d5248;line-height:1.75}
+.kunye b{color:var(--navy)}
+/* GÖRSEL: TAM SAYFA (kenardan kenara). Çerçeve yok -> ikinci arka plan tonu yok.
+   Yalnız %5,7 kırpılır (üst/alt %2,9) ve kenarlarda sahne fonu var. */
+.imgpage{page:tam;page-break-before:always;break-before:page;page-break-after:always;break-after:page;
+  width:210mm;height:297mm;margin:0;padding:0;overflow:hidden}
+.imgpage img{width:100%;height:100%;object-fit:cover;object-position:center 42%;display:block}
+h2.bl{page-break-after:avoid;break-after:avoid;font-family:'Fredoka',sans-serif;font-size:24pt;font-weight:700;color:var(--navy);margin:0 0 4px;line-height:1.22}
+.bl-eyebrow{page-break-after:avoid;break-after:avoid;font-family:'Fredoka',sans-serif;font-size:11pt;letter-spacing:.22em;text-transform:uppercase;color:var(--sun);margin:0 0 7px}
+.cizgi{page-break-after:avoid;break-after:avoid;height:3.5px;width:90px;background:var(--sun);margin:11px 0 18px;border-radius:2px}
+.pusula{border:2px solid var(--sun);border-radius:14px;padding:11px 13px;margin:13px 0;background:rgba(242,155,107,.09);page-break-inside:avoid;break-inside:avoid;font-size:1em;line-height:1.65}
+.pusula b:first-child{font-family:'Fredoka',sans-serif;font-size:14pt;color:#c9722f;display:block;margin-bottom:6px}
+.anne{border-left:6px solid var(--mor);border-radius:0 14px 14px 0;padding:13px 17px;margin:17px 0;background:rgba(139,111,199,.08);page-break-inside:avoid;break-inside:avoid;font-size:0.92em;line-height:1.7;color:#4a3d6b}
+.anne b:first-child{font-family:'Fredoka',sans-serif;font-size:12.5pt;color:#6a4fa8;display:block;margin-bottom:6px}
+.oyun{border:3px dashed var(--calm);border-radius:18px;padding:15px 18px;margin:18px 0;background:rgba(94,155,130,.08);page-break-inside:avoid;break-inside:avoid;font-size:1em;line-height:1.7}
+.oyun b:first-child{font-family:'Fredoka',sans-serif;font-size:14pt;color:#3f7a61;display:block;margin-bottom:6px}
+ol,ul{margin:0 0 14px;padding-left:26px}
+li{margin:0 0 8px;page-break-inside:avoid}
+.seri{font-family:'Fredoka',sans-serif;font-size:10.5pt;letter-spacing:.18em;text-transform:uppercase;color:var(--calm);margin:0 0 14px}
+.kaynak{font-size:8.5pt;line-height:1.55;color:#5d5248}
+.kaynak li{margin-bottom:4px}
+.cumle{border:2px dashed var(--coral);border-radius:14px;padding:11px 14px;margin:15px 0;
+  background:rgba(232,120,138,.08);page-break-inside:avoid;break-inside:avoid;font-size:1em}
+.cumle b:first-child{font-family:'Fredoka',sans-serif;font-size:13pt;color:#c1566c;display:block;margin-bottom:5px}
+.soncumle{font-family:'Fredoka',sans-serif;font-size:1.15em;color:var(--navy);text-align:center;
+  margin:20px 6mm;line-height:1.5;page-break-inside:avoid}
+
+/* --- EPUB: kırpma yok, akışkan yerleşim --- */
+.imgpage{width:auto !important;height:auto !important;display:block !important;padding:0 !important;margin:1.2em 0 !important;overflow:visible !important;text-align:center}
+.imgpage img{max-width:100% !important;width:auto !important;height:auto !important;object-fit:initial !important;display:inline-block !important;border-radius:6px}
+body{padding:0.8em}
