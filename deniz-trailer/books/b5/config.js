@@ -1,0 +1,26 @@
+// Book 5 · Deniz ve Değişiklikler Adası — trailer content (lines from the book).
+window.CFG = {
+  series: 'BENİM NÖROFARKLI PUSULAM · 5. KİTAP',
+  title: 'Deniz ve Değişiklikler Adası',
+  open:   { img: 'img1_02_Degisiklikler_Adasi.jpg', face: [.35, .35], size: 72,
+            text: 'Cumartesi gününün üzerine kocaman bir [park] çizmişti.' },
+  voices: { img: 'img1_02_Degisiklikler_Adasi.jpg', face: [.72, .2],
+            bubbles: ['“Park iptal.”', '“Ama park var!”', '“Yağmur yağıyor.”', '“Ama park var!”'],
+            text: 'Sanki yol bir anda [denize] [düşmüştü.]' },
+  pusula: { img: 'cover.jpg', cover: true, face: [.4, .45], zoom: [1.45, 1.25],
+            t1: '“Değişiklikler Adası’na {hoş} {geldin.}”',
+            t2: '“Üzülebilir ve yine de yeni plana {geçebilirsin.}”', size2: 74 },
+  montage: [
+    { label: 'MACERA 1', img: 'img2_03_Gecis_Koprusu.jpg', face: [.45, .4], text: '“Plan değişti. Yeni planı [görmem] gerekiyor.”', size: 72 },
+    { label: 'MACERA 2', img: 'img3_04_Kayip_Kirmizi_Kalem.jpg', face: [.4, .25], text: '“Panikledim. Arama [sırasına] ihtiyacım var.”', size: 72 },
+    { label: 'MACERA 3', img: 'img4_05_Mukemmel_Olmayan_Resim.jpg', face: [.6, .25], text: '“Bu bir [deneme.]”', size: 88 },
+    { label: 'MACERA 4', img: 'img5_06_Bekleme_Odasi.jpg', face: [.3, .45], text: 'Beş dakika, [elli] [dakika] gibi oldu.' },
+    { label: 'MACERA 5', img: 'img6_07_Ekran_Sehri.jpg', face: [.55, .35], text: '“Yarın [buradan] [devam.]”' },
+    { label: 'MACERA 6', img: 'img7_08_Hayir_Kalbi_Acisi.jpg', face: [.3, .45], text: '“Bu hayır [bana] [mı,] isteğime mi?”' },
+    { label: 'MACERA 7', img: 'img8_09_Iki_Istek_Tek_Beyin.jpg', face: [.5, .35], text: '“Hepsi aynı anda [bağırıyor.]”' },
+    { label: 'MACERA 8', img: 'img9_10_Yardim_Istemek.jpg', face: [.35, .3], text: '“Şu kısımda [yardım] [istiyorum.]”' },
+  ],
+  final:  { img: 'img10_11_Kopru_Cantam.jpg', face: [.25, .4],
+            t1: '“Değişiklik gelince kendimi daha az [kaybediyorum.]”', size1: 72,
+            t2: '“Fırtınayı durduramam; ama köprümü [yanımda] [taşıyabilirim.]”', size2: 72 },
+};

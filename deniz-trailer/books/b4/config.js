@@ -1,0 +1,26 @@
+// Book 4 · Deniz ve Arkadaşlık Pusulası — trailer content (lines from the book).
+window.CFG = {
+  series: 'BENİM NÖROFARKLI PUSULAM · 4. KİTAP',
+  title: 'Deniz ve Arkadaşlık Pusulası',
+  open:   { img: 'img1_02_Gorunmez_Konusma_Balonlari.jpg', face: [.45, .45],
+            text: 'Deniz parkta iki çocuğu [izliyordu.]' },
+  voices: { img: 'img1_02_Gorunmez_Konusma_Balonlari.jpg', face: [.45, .35],
+            bubbles: ['“Sen tam bir patates oldun!”', '“İstersen gel…”', 'Gerçekten mi?', 'Yoksa istemedi mi?'],
+            text: '“Herkeste harita var, bende [yok.]”' },
+  pusula: { img: 'img10_11_Arkadaslik_Pusulam.jpg', face: [.5, .3],
+            t1: '“Harita eksik olabilir. Ama {pusulan} {var.}”', size1: 76,
+            t2: '“Arkadaşlık bir gösteri değil, {alıştırmadır.}”', size2: 74 },
+  montage: [
+    { label: 'MACERA 1', img: 'img2_03_Saka_Mi_Gercek_Mi.jpg', face: [.3, .3], text: '“Bunu gerçek mi söyledin, [şaka] [mı?]”' },
+    { label: 'MACERA 2', img: 'img3_04_Oyuna_Girmenin_Uc_Kapisi.jpg', face: [.45, .35], text: '“Uzay [haritacısı] olabilirim.”' },
+    { label: 'MACERA 3', img: 'img4_05_Sira_Bekleyen_Roket.jpg', face: [.5, .3], text: '“Fikrin burada [bekleyebilir.]”' },
+    { label: 'MACERA 4', img: 'img5_06_Benim_Kuralim_Bizim_Oyunumuz.jpg', face: [.25, .2], text: '“Ben böyle istiyorum. [Sen] [nasıl] istiyorsun?”', size: 72 },
+    { label: 'MACERA 5', img: 'img6_07_Kaybedince_Deprem.jpg', face: [.3, .25], text: '“Kaybetmek bana [zor] [geldi.]”' },
+    { label: 'MACERA 6', img: 'img7_08_Kanit_Dedektifi.jpg', face: [.4, .35], text: 'Düşünce ile [kanıt] aynı şey değil.' },
+    { label: 'MACERA 7', img: 'img8_09_Dinozor_Yagmuru.jpg', face: [.3, .35], text: '“Şimdi [seni] [dinlemek] istiyorum.”' },
+    { label: 'MACERA 8', img: 'img9_10_Yan_Yana_Arkadasiz.jpg', face: [.4, .25], text: 'Kimse sürekli konuşmadı. Yine de [birlikteydiler.]', size: 72 },
+  ],
+  final:  { img: 'img10_11_Arkadaslik_Pusulam.jpg', face: [.45, .5],
+            t1: '“Anlamazsam [sorarım.]”', size1: 86,
+            t2: '“Arkadaş olmak, birbirimize [yer] [açmaktır.]”', size2: 76 },
+};

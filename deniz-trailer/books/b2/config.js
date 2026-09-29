@@ -1,0 +1,26 @@
+// Book 2 · Deniz ve Bedeninin Gizli Mesajları — trailer content (lines from the book).
+window.CFG = {
+  series: 'BENİM NÖROFARKLI PUSULAM · 2. KİTAP',
+  title: 'Deniz ve Bedeninin Gizli Mesajları',
+  open:   { img: 'img1_02_Beden_Postanesi.jpg', face: [.25, .3], size: 70,
+            text: '“Bedenim neden bazen fısıldıyor, bazen de [bağırıyor?]”' },
+  voices: { img: 'img1_02_Beden_Postanesi.jpg', face: [.55, .5],
+            bubbles: ['Mesane: “Doluyorum!”', 'Bağırsak: “Hazırım!”', 'Dişler: “Beni temizle!”', 'Beyin: “Uykuya geçelim!”'],
+            text: '“Çünkü bedenin bir [postane,]” dedi Pusula.' },
+  pusula: { img: 'img1_02_Beden_Postanesi.jpg', face: [.78, .15],
+            t1: '“Postanenin haritasını henüz {öğreniyorsun.}”', size1: 74,
+            t2: '“Kaza, yaşını {küçültmez.}”' },
+  montage: [
+    { label: 'MACERA 1', img: 'img2_03_Gec_Calan_Cis_Zili.jpg', face: [.3, .6], text: '“Zil çalmadan ben onu [buldum!]”' },
+    { label: 'MACERA 2', img: 'img3_04_Kaka_Treni.jpg', face: [.35, .25], text: '“Kakam canımı [acıtıyor.]”' },
+    { label: 'MACERA 3', img: 'img4_05_Kopuk_Dagi_Banyo_Haritasi.jpg', face: [.35, .3], text: '“Bu banyo değil. [Köpük] [Dağı] seferi!”' },
+    { label: 'MACERA 4', img: 'img5_06_Dis_Fircasi_Ejderhasi.jpg', face: [.45, .35], text: 'Artık ejderhanın bir [kapısı] vardı.' },
+    { label: 'MACERA 5', img: 'img6_07_Sac_Kesme_Uzay_Gorevi.jpg', face: [.3, .35], text: '“Birinci bölüm [hazır.]”' },
+    { label: 'MACERA 6', img: 'img7_08_Uyumayan_Beyin_Gece_Vardiyasi.jpg', face: [.25, .72], text: 'Bazı beyinlerin [kapatma] [düğmesi] yoktur.', size: 74 },
+    { label: 'MACERA 7', img: 'img8_09_Sabah_Istasyonlari.jpg', face: [.3, .3], text: '“Sabah yarış değildi. Sadece [haritasızdı.]”', size: 74 },
+    { label: 'MACERA 8', img: 'img9_10_Bedenimin_Kapisi.jpg', face: [.35, .4], text: '“Bedeninin kapısı [senin.]”' },
+  ],
+  final:  { img: 'img10_11_Bedenimin_Dilini_Biliyorum.jpg', face: [.45, .3],
+            t1: '“Bedenimin bir [dili] var.”', size1: 84,
+            t2: '“Bedenimin kapısını [ben] [korurum.]”', size2: 80 },
+};

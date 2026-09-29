@@ -1,0 +1,25 @@
+// Book 1 · Benim Nörofarklı Pusulam — trailer content (all lines from the book).
+window.CFG = {
+  series: 'BENİM NÖROFARKLI PUSULAM · 1. KİTAP',
+  title: 'Benim Nörofarklı Pusulam',
+  open:   { img: 'img2_01_Tanisma_Pencerede_Pusula.jpg', face: [.33, .35], size: 72,
+            text: 'Deniz yedi yaşında ve kafasında bir [süper] [beyin] taşıyor.' },
+  voices: { img: 'img4_03_Kirk_Yedi_Radyo_Sinif.jpg', face: [.45, .42],
+            bubbles: ['Kalorifer: gurul gurul', 'Silgi: gıcır gıcır', 'Kuş: cik cik', 'Ayak sesleri…', '“Deniz! Beni dinlemiyorsun!”'],
+            text: '“Senin kafanda [kırk] [yedi] radyo var.”' },
+  pusula: { img: 'img2_01_Tanisma_Pencerede_Pusula.jpg', face: [.78, .52],
+            t1: '“Merhaba Deniz. Benim adım {Pusula.}”',
+            t2: '“Farklı olmak, {bozuk} {olmak} {değildir.}”' },
+  montage: [
+    { label: 'MACERA 1', img: 'img3_02_Disko_Market.jpg', face: [.3, .42], text: '“Anne, burası [disko] gibi!”' },
+    { label: 'MACERA 3', img: 'img5_04_Etiket_Canavari.jpg', face: [.25, .2], text: 'Kazağın ensesinde bir [etiket] [canavarı] oturuyordu.', size: 72 },
+    { label: 'MACERA 4', img: 'img6_05_Yemek_Kalesi.jpg', face: [.5, .3], text: 'Kural bir: Sosise ketçap [DEĞMEZ.]' },
+    { label: 'MACERA 5', img: 'img7_06_Karnindaki_Trafik_Lambasi.jpg', face: [.45, .35], text: '“Ben kızgın değilmişim. [Açmışım!]”' },
+    { label: 'MACERA 6', img: 'img8_07_Sarj_Dansi.jpg', face: [.35, .35], text: '“Bu benim süper [şarj] [dansım.]”' },
+    { label: 'MACERA 7', img: 'img9_08_Firtina_ve_Sakin_Liman.jpg', face: [.4, .5], text: '“Buradayım. [Güvendesin.]”' },
+    { label: 'MACERA 8', img: 'img10_09_Bulutlara_Dokunma.jpg', face: [.35, .4], text: '“BABA! BULUT [ISLAKMIŞ!]”' },
+  ],
+  final:  { img: 'img11_10_Veda_Kullanim_Kilavuzu.jpg', face: [.45, .35],
+            t1: 'Gözlerin süper, kulakların süper, [derin] [süper.]', size1: 74,
+            t2: '“Farklıyız, [eksik] [değil.]”', size2: 90 },
+};

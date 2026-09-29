@@ -6,11 +6,11 @@ const FF = process.env.FFMPEG || 'ffmpeg';
 (async () => {
   const b = await chromium.launch();
   const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
-  await p.goto('file://' + __dirname + '/trailer.html?capture');
+  await p.goto('file://' + __dirname + '/' + (process.env.PAGE || 'trailer.html?capture'));
   await p.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(i => i.decode())); });
   const shot = async t => { await p.evaluate(t => render(t), t); return p.screenshot({ type: 'jpeg', quality: 92, clip: { x: 0, y: 0, width: 1080, height: 1920 } }); };
   if (process.argv[2] === '--stills') {
-    for (const t of process.argv[3].split(',').map(Number)) require('fs').writeFileSync(`${__dirname}/still-${t}.jpg`, await shot(t));
+    for (const t of process.argv[3].split(',').map(Number)) require('fs').writeFileSync(`${__dirname}/${process.env.PREFIX || "still"}-${t}.jpg`, await shot(t));
   } else {
     const fps = +(process.argv[3] || 30), dur = await p.evaluate(() => DUR), out = process.argv[2];
     const ff = spawn(FF, ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(fps), '-i', '-', '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', out], { stdio: ['pipe', 'inherit', 'inherit'] });
