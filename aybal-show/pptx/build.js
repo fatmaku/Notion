@@ -19,7 +19,7 @@ const ROAD_BOX = { x: M, y: 2.1, w: CW, h: 1.5 };
   const pres = new pptxgen();
   pres.layout = 'LAYOUT_WIDE';
   pres.title = 'Aybal — Pre-Seed Investor Deck';
-  pres.author = 'Tuncay Sancak (Founder & Inventor) · Gönül (Investor Relations)';
+  pres.author = 'Tuncay Sancak (Founder & Inventor) · Gönül Demet (Investor Relations)';
   pres.company = 'Aybal';
 
   let S, n = 0;
@@ -41,7 +41,7 @@ const ROAD_BOX = { x: M, y: 2.1, w: CW, h: 1.5 };
   const card = (x, y, w, h, fill = C.card, line = C.line) => ({ x, y, w, h, fill: { color: fill }, line: { color: line, width: 0.75 }, rectRadius: 0.14 });
 
   // 1 ─ COVER
-  slide(true, null, null, 'Open on the mission. Introduce yourself as founder and inventor of Aybal, and Gönül as investor relations.');
+  slide(true, null, null, 'Open on the mission. Introduce yourself as founder and inventor of Aybal, and Gönül Demet as investor relations.');
   S.background = { color: C.plum };
   I(G('hero-cover.jpg'), { x: 6.3, y: 0, w: W - 6.3, h: 7.5 }, 'fade:0:1500');
   T('PRE-SEED INVESTMENT OPPORTUNITY', { x: M, y: 0.7, w: 6, h: 0.25, fontSize: 10, bold: true, charSpacing: 4, color: C.gold2 }, 'fade:300');
@@ -51,7 +51,7 @@ const ROAD_BOX = { x: M, y: 2.1, w: CW, h: 1.5 };
     { text: 'Family Reading' },
   ], { x: M, y: 1.35, w: 6.4, h: 3.1, fontFace: HEAD, fontSize: 50, bold: true, color: C.cream, lineSpacingMultiple: 0.95 }, 'float:500:1200');
   I(G('wave-gold.png'), { x: M, y: 4.7, w: 4.6, h: 0.56 }, 'wipeL:1400:1400');
-  [['FOUNDER & INVENTOR', 'Tuncay Sancak'], ['INVESTOR RELATIONS', 'Gönül'], ['DECK', 'Pre-Seed · Sept 2026']].forEach(([l, v], i) => {
+  [['FOUNDER & INVENTOR', 'Tuncay Sancak'], ['INVESTOR RELATIONS', 'Gönül Demet'], ['DECK', 'Pre-Seed · Sept 2026']].forEach(([l, v], i) => {
     T([{ text: l, options: { fontSize: 8, bold: true, charSpacing: 2, color: C.gold2, breakLine: true } },
        { text: v, options: { fontFace: HEAD, fontSize: i == 2 ? 12 : 16, bold: i < 2, color: i == 2 ? C.light : C.cream } }],
       { x: M + i * 2.35, y: 5.5, w: 2.25, h: 0.75, paraSpaceAfter: 4 }, `float:${2000 + i * 200}`);
@@ -207,10 +207,10 @@ const ROAD_BOX = { x: M, y: 2.1, w: CW, h: 1.5 };
   T('Scenario outputs, not promises. Demand and retention remain unproven; an investment may result in total loss.', { x: 9.0, y: 5.75, w: 3.6, h: 0.75, fontSize: 11, color: C.muted }, 'fade:4200');
 
   // 11 ─ ROUND
-  slide(true, 'Aybal / The round', 'A focused €250k pre-seed round', 'The ask: €250k on a €1.30M pre-money cap, planned close March 2027. Gönül coordinates investor conversations.');
+  slide(true, 'Aybal / The round', 'A focused €250k pre-seed round', 'The ask: €250k on a €1.30M pre-money cap, planned close March 2027. Gönül Demet coordinates investor conversations.');
   T('€250,000', { x: M, y: 1.9, w: 6.3, h: 1.45, fontFace: HEAD, fontSize: 76, bold: true, color: C.gold2, valign: 'middle' }, 'zoom:300:900');
   T('≈ $285,000', { x: M, y: 3.4, w: 4, h: 0.35, fontSize: 17, color: C.dim }, 'fade:900');
-  [['VALUATION CAP', '€1.30M', 'pre-money · ~16% equity at cap'], ['PLANNED CLOSE', 'March 2027', 'Investor contact: Gönül']].forEach(([l, v, s], i) => {
+  [['VALUATION CAP', '€1.30M', 'pre-money · ~16% equity at cap'], ['PLANNED CLOSE', 'March 2027', 'Investor contact: Gönül Demet']].forEach(([l, v, s], i) => {
     const x = M + i * 3.1, dl = 1100 + i * 200;
     R(pres.shapes.LINE, { x, y: 4.3, w: 2.8, h: 0, line: { color: '6B5040', width: 0.75 } }, `wipeL:${dl}`);
     T([{ text: l, options: { fontSize: 10, bold: true, charSpacing: 3, color: C.gold2, breakLine: true } }, { text: v, options: { fontFace: HEAD, fontSize: 28, bold: true, color: C.cream, breakLine: true } }, { text: s, options: { fontSize: 12, color: C.dim } }],
@@ -295,7 +295,7 @@ const ROAD_BOX = { x: M, y: 2.1, w: CW, h: 1.5 };
 
   // 16 ─ TEAM
   slide(false, 'Aybal / Team', 'The people behind Aybal', 'Founder and inventor plus investor relations today; hires are tied to milestones.');
-  [['TS', 'Tuncay Sancak', 'FOUNDER & INVENTOR · MANAGING DIRECTOR', 'Invented and built the Aybal platform. Leads product, technology and content.', true], ['G', 'Gönül', 'INVESTOR RELATIONS & FUNDRAISING', 'Leads investor outreach for the pre-seed round and prepared this investment deck.', false]].forEach(([ini, nme, role, d, lead], i) => {
+  [['TS', 'Tuncay Sancak', 'FOUNDER & INVENTOR · MANAGING DIRECTOR', 'Invented and built the Aybal platform. Leads product, technology and content.', true], ['GD', 'Gönül Demet', 'INVESTOR RELATIONS & FUNDRAISING', 'Leads investor outreach for the pre-seed round and prepared this investment deck.', false]].forEach(([ini, nme, role, d, lead], i) => {
     const x = M + i * 5.99, dl = 300 + i * 300;
     R(pres.shapes.ROUNDED_RECTANGLE, { ...card(x, 1.95, 5.78, 1.55, lead ? C.plum : C.card, lead ? C.plum : C.line), shadow: shadow() }, `float:${dl}`);
     T(ini, { shape: pres.shapes.OVAL, x: x + 0.3, y: 2.25, w: 0.95, h: 0.95, fill: { color: lead ? C.wine : C.cream2 }, line: { color: C.gold, width: 1.5 }, align: 'center', valign: 'middle', fontFace: HEAD, fontSize: 26, bold: true, color: lead ? C.gold2 : C.wine }, `zoom:${dl + 200}:500`);
@@ -312,7 +312,7 @@ const ROAD_BOX = { x: M, y: 2.1, w: CW, h: 1.5 };
   T('Founder commitment: long-term and exclusive leadership, four-year vesting, non-compete and key-person insurance planned.', { x: M, y: 6.35, w: CW, h: 0.4, fontFace: HEAD, fontSize: 13.5, italic: true, color: C.wine }, 'fade:3400');
 
   // 17 ─ CLOSE
-  slide(false, null, null, 'Close with the vision and the ask. Invite follow-up via Gönül and founders@aybal.com.');
+  slide(false, null, null, 'Close with the vision and the ask. Invite follow-up via Gönül Demet and founders@aybal.com.');
   R(pres.shapes.RECTANGLE, { x: 8.9, y: 0, w: W - 8.9, h: 7.5, fill: { color: C.wine }, line: { color: C.wine, width: 0 } }, 'wipeU:0:900');
   R(pres.shapes.OVAL, { x: 8.1, y: 1.0, w: 1.9, h: 1.9, fill: { color: C.gold } }, 'zoom:700:900');
   I(`${__dirname}/../assets/tablet.jpg`, { x: 9.55, y: 3.0, w: 3.12, h: 3.9, shadow: { type: 'outer', color: '000000', blur: 30, offset: 10, angle: 90, opacity: 0.35 } }, 'float:1100:1100');
@@ -320,7 +320,7 @@ const ROAD_BOX = { x: M, y: 2.1, w: CW, h: 1.5 };
   T('Give every family a new voice in reading.', { x: M, y: 1.4, w: 7.4, h: 2.3, fontFace: HEAD, fontSize: 42, bold: true, color: C.ink }, 'float:500:1200');
   I(G('wave-wine.png'), { x: M, y: 3.9, w: 4.0, h: 0.5 }, 'wipeL:1300:1400');
   T('Join Aybal in proving the next chapter of family reading.', { x: M, y: 4.5, w: 7.5, h: 0.4, fontSize: 18, color: C.wine }, 'fade:1700');
-  [['FOUNDER & INVENTOR', 'Tuncay Sancak'], ['INVESTOR RELATIONS', 'Gönül'], ['CONTACT', 'founders@aybal.com\naybal.com']].forEach(([l, v], i) => {
+  [['FOUNDER & INVENTOR', 'Tuncay Sancak'], ['INVESTOR RELATIONS', 'Gönül Demet'], ['CONTACT', 'founders@aybal.com\naybal.com']].forEach(([l, v], i) => {
     T([{ text: l, options: { fontSize: 8, bold: true, charSpacing: 1.5, color: C.gold, breakLine: true } }, { text: v, options: { fontFace: HEAD, fontSize: 14, bold: true } }],
       { x: M + i * 2.3, y: 5.25, w: i == 2 ? 2.9 : 2.2, h: 0.95, paraSpaceAfter: 5 }, `float:${2000 + i * 200}`);
   });

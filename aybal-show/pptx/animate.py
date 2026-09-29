@@ -87,6 +87,16 @@ def timing(xml):
             f'</p:childTnLst></p:cTn></p:par></p:tnLst>{"<p:bldLst>" + bld + "</p:bldLst>" if bld else ""}</p:timing>')
 
 
+def fix_chart(xml):
+    """pptxgenjs writes a third axId (for a series axis it never defines) and invertIfNegative
+    into line charts; PowerPoint then drops the chart, so remove both."""
+    defined = set(re.findall(r'<c:(?:catAx|valAx|dateAx|serAx)>\s*<c:axId val="(\d+)"', xml))
+    def clean(m):
+        body = re.sub(r'<c:axId val="(\d+)"/>', lambda a: a.group(0) if a.group(1) in defined else '', m.group(0))
+        return re.sub(r'<c:invertIfNegative val="\d"/>', '', body)
+    return re.sub(r'<c:lineChart>.*?</c:lineChart>', clean, xml, flags=re.S)
+
+
 def main():
     zin = zipfile.ZipFile(SRC)
     with zipfile.ZipFile(DST, "w", zipfile.ZIP_DEFLATED) as zout:
@@ -97,6 +107,8 @@ def main():
                 assert "<p:timing" not in xml and "<p:transition" not in xml
                 xml = xml.replace("</p:clrMapOvr>", '</p:clrMapOvr><p:transition spd="slow"><p:fade/></p:transition>' + timing(xml), 1)
                 data = xml.encode("utf8")
+            elif re.fullmatch(r"ppt/charts/chart\d+\.xml", info.filename):
+                data = fix_chart(data.decode("utf8")).encode("utf8")
             zout.writestr(info, data)
     print("wrote", DST.name)
 
