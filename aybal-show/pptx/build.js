@@ -173,13 +173,8 @@ const ROAD_BOX = { x: M, y: 2.1, w: CW, h: 1.5 };
   slide(true, 'Aybal / Venture scenario', 'A venture case built on household growth', 'Let the chart draw. From 2,571 households in 2027 to 313,116 by 2033; revenue reaches €39.37M. Scenario, not forecast.');
   const yrs = ['2027', '2028', '2029', '2030', '2031', '2032', '2033'];
   // Intermediate values read from the original deck chart; 2033 revenue (€39.37M) is stated exactly.
-  S.addChart(pres.charts.LINE, [
-    { name: 'Revenue', labels: yrs, values: [0.1, 0.9, 2.9, 7.4, 15.1, 26.0, 39.37] },
-    { name: 'Exit ARR', labels: yrs, values: [0.3, 1.4, 4.6, 10.3, 19.2, 31.0, 43.0] }],
-    { x: 0.55, y: 1.8, w: 8.0, h: 4.95, chartColors: [C.pink, C.gold2], lineSize: 3, lineDataSymbol: 'circle', lineDataSymbolSize: 7, lineSmooth: true,
-      valAxisMaxVal: 50, valAxisMinVal: 0, valAxisMajorUnit: 10, valAxisLabelFormatCode: '"€"0"M"', valAxisLabelColor: C.dim, catAxisLabelColor: C.dim, valAxisLabelFontSize: 10, catAxisLabelFontSize: 11,
-      valGridLine: { color: '4A2232', size: 0.75 }, catGridLine: { style: 'none' }, catAxisLineShow: false, valAxisLineShow: false,
-      showLegend: true, legendPos: 't', legendColor: C.light, legendFontSize: 11, showTitle: false, plotArea: { fill: { color: C.plum } }, ...nm('wipeL:500:2800') });
+  // Rendered as an image (not a native chart) so it shows in every PowerPoint viewer.
+  I(G('growth-chart.png'), { x: 0.55, y: 1.8, w: 8.0, h: 4.95, altText: 'Venture scenario: revenue and exit ARR 2027–2033' }, 'wipeL:500:2800');
   T('2027  →  2033', { x: 9.0, y: 1.95, w: 3.6, h: 0.3, fontSize: 13, bold: true, charSpacing: 4, color: C.gold2 }, 'fade:600');
   T('313,116', { x: 9.0, y: 2.3, w: 3.8, h: 0.95, fontFace: HEAD, fontSize: 60, bold: true, color: C.cream, valign: 'middle' }, 'zoom:3100:800');
   T('subscriber households by 2033', { x: 9.0, y: 3.25, w: 3.6, h: 0.3, fontSize: 14, color: C.light }, 'fade:3300');

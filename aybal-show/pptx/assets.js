@@ -51,7 +51,23 @@ async function hero() { // crop to the cover panel ratio and fade the left edge 
   const g = svg(W, H, `<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#2E0B18" stop-opacity="1"/><stop offset=".22" stop-color="#2E0B18" stop-opacity=".6"/><stop offset=".5" stop-color="#2E0B18" stop-opacity="0"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#g)"/>`);
   await sharp(src).resize(W, H, { fit: 'cover' }).composite([{ input: g }]).jpeg({ quality: 88 }).toFile(out('hero-cover.jpg'));
 }
+async function growthChart() { // venture scenario line chart (values read from the original deck chart)
+  const W = 1600, H = 990, L = 150, R = 1560, T = 110, B = 900, yrs = [2027, 2028, 2029, 2030, 2031, 2032, 2033];
+  const rev = [0.1, 0.9, 2.9, 7.4, 15.1, 26.0, 39.37], arr = [0.3, 1.4, 4.6, 10.3, 19.2, 31.0, 43.0];
+  const x = i => L + (R - L) * i / 6, y = v => B - (B - T) * v / 50;
+  const path = a => { const p = a.map((v, i) => [x(i), y(v)]); let d = `M${p[0][0]} ${p[0][1]}`;
+    for (let i = 0; i < p.length - 1; i++) { const p0 = p[i - 1] || p[i], p1 = p[i], p2 = p[i + 1], p3 = p[i + 2] || p2;
+      d += ` C${p1[0] + (p2[0] - p0[0]) / 6} ${p1[1] + (p2[1] - p0[1]) / 6} ${p2[0] - (p3[0] - p1[0]) / 6} ${p2[1] - (p3[1] - p1[1]) / 6} ${p2[0]} ${p2[1]}`; } return d; };
+  let b = '<style>text{font-family:"DejaVu Sans",Arial,sans-serif}</style>';
+  for (let v = 0; v <= 50; v += 10) b += `<line x1="${L}" x2="${R}" y1="${y(v)}" y2="${y(v)}" stroke="#4A2232" stroke-width="2"/><text x="${L - 22}" y="${y(v) + 9}" font-size="26" fill="#B7A79E" text-anchor="end">€${v}M</text>`;
+  yrs.forEach((yr, i) => b += `<text x="${x(i)}" y="${B + 52}" font-size="28" fill="#B7A79E" text-anchor="middle">${yr}</text>`);
+  b += `<path d="${path(arr)} L${R} ${B} L${L} ${B}Z" fill="#D4B27A" opacity=".12"/>`;
+  [[arr, '#D4B27A'], [rev, '#E0859E']].forEach(([a, c]) => { b += `<path d="${path(a)}" fill="none" stroke="${c}" stroke-width="7" stroke-linecap="round"/>`; a.forEach((v, i) => b += `<circle cx="${x(i)}" cy="${y(v)}" r="10" fill="${c}"/>`); });
+  b += `<circle cx="${L + 480}" cy="40" r="11" fill="#E0859E"/><text x="${L + 502}" y="50" font-size="28" fill="#E9DFD3">Revenue</text><circle cx="${L + 680}" cy="40" r="11" fill="#D4B27A"/><text x="${L + 702}" y="50" font-size="28" fill="#E9DFD3">Exit ARR</text>`;
+  await sharp(svg(W, H, b)).png().toFile(out('growth-chart.png'));
+}
 module.exports = { run: async (curvePts) => {
+  await growthChart();
   await wave('wave-gold.png', '#B08A4A'); await wave('wave-wine.png', '#6E1630', 40);
   await dots(); await houses(); await curve(curvePts); await hero();
   await icon('shield', '#B08A4A'); for (const n of ['grid', 'people', 'growth']) await icon(n, '#D4B27A');
