@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aybal Investor Show</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+:root{
+  --cream:#F4EDE2; --cream-2:#EDE3D3; --wine:#6E1630; --wine-2:#8A2340; --plum:#2E0B18; --plum-2:#1F0710;
+  --gold:#B08A4A; --gold-2:#D4B27A; --ink:#2A0F16; --muted:#7A6A62; --line:#DCCFBF;
+  --serif:"Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans:"Jost", "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#12040A;color:var(--ink);font-family:var(--sans);overflow:hidden}
+body{display:flex;align-items:center;justify-content:center}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1440px;height:810px;flex:none;transform-origin:center center;overflow:hidden;box-shadow:0 30px 120px rgba(0,0,0,.6)}
+.slide{position:absolute;inset:0;background:var(--cream);opacity:0;visibility:hidden;transition:opacity .9s var(--ease),visibility 0s linear .9s;overflow:hidden}
+.slide.active{opacity:1;visibility:visible;transition:opacity .9s var(--ease),visibility 0s}
+.slide.dark{background:var(--plum);color:var(--cream)}
+.pad{position:absolute;inset:0;padding:64px 84px}
+.kicker{font:600 13px/1 var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--wine)}
+.dark .kicker{color:var(--gold-2)}
+h1,h2{font-family:var(--serif);font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+.dark h1,.dark h2{color:var(--cream)}
+h2{font-size:52px;line-height:1.05;margin-top:18px}
+.rule{height:1px;background:var(--line);margin-top:22px;transform-origin:left;transform:scaleX(0);transition:transform 1.2s var(--ease) .3s}
+.dark .rule{background:rgba(212,178,122,.28)}
+.active .rule{transform:scaleX(1)}
+.foot{position:absolute;left:84px;right:84px;bottom:34px;display:flex;justify-content:space-between;font:400 11px/1 var(--sans);letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+.dark .foot{color:rgba(244,237,226,.45)}
+.big{font-family:var(--serif);font-weight:700;color:var(--wine);line-height:.9;font-variant-numeric:lining-nums}
+.dark .big{color:var(--gold-2)}
+.muted{color:var(--muted)}
+.dark .muted{color:rgba(244,237,226,.6)}
+
+/* generic reveal: children with .r animate in with stagger via --d */
+.r{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--d,0) * 1ms)}
+.active .r{opacity:1;transform:none}
+.r.fade{transform:none}
+.r.left{transform:translateX(-40px)}
+.r.zoom{transform:scale(.92)}
+.active .r.left,.active .r.zoom{transform:none}
+
+/* ---------- 1 cover ---------- */
+#s1{background:var(--plum)}
+#s1 .photo{position:absolute;right:0;top:0;width:52%;height:100%;overflow:hidden}
+#s1 .photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.18);transition:transform 14s linear}
+#s1.active .photo img{transform:scale(1.02)}
+#s1 .photo:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--plum) 0%,rgba(46,11,24,.55) 22%,rgba(46,11,24,0) 50%)}
+#s1 h1{font-size:96px;line-height:.98;margin-top:72px;color:var(--cream)}
+#s1 h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom}
+#s1 h1 .w>span{display:inline-block;transform:translateY(105%);transition:transform 1.1s var(--ease);transition-delay:calc(var(--d)*1ms)}
+#s1.active h1 .w>span{transform:none}
+#s1 h1 em{font-style:italic;color:var(--gold-2)}
+.wave{display:flex;align-items:center;gap:5px;height:64px}
+.wave i{display:block;width:4px;border-radius:3px;background:var(--gold);height:10%;animation:wv 1.4s ease-in-out infinite;animation-delay:calc(var(--i)*-97ms)}
+@keyframes wv{0%,100%{height:12%}50%{height:var(--h,80%)}}
+.byline{display:flex;gap:44px;margin-top:34px}
+.byline div{font:400 14px/1.45 var(--sans);color:rgba(244,237,226,.72)}
+.byline b{display:block;font:600 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--gold-2);margin-bottom:9px}
+.byline strong{font:600 22px/1.2 var(--serif);color:var(--cream);letter-spacing:.01em}
+
+/* ---------- 2 thesis ---------- */
+.cards5{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:62px}
+.card{background:#FBF7F0;border:1px solid var(--line);border-radius:18px;padding:30px 24px 30px;min-height:300px;position:relative;overflow:hidden}
+.card .n{font:700 44px/1 var(--serif);color:var(--gold)}
+.card h3{font:700 27px/1.1 var(--serif);color:var(--wine);margin:26px 0 12px}
+.card p{font:400 16px/1.5 var(--sans);color:#4A3A36}
+.card:before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:linear-gradient(90deg,var(--wine),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease);transition-delay:calc(var(--d,0)*1ms + 400ms)}
+.active .card:before{transform:scaleX(1)}
+.thesis{margin-top:44px;font:italic 500 30px/1.3 var(--serif);color:var(--wine)}
+
+/* ---------- 3 gap ---------- */
+.dotfield{display:grid;grid-template-columns:repeat(17,1fr);gap:9px;width:560px}
+.dotfield i{display:block;aspect-ratio:1;border-radius:50%;background:rgba(212,178,122,.16);transition:background .5s,transform .5s var(--ease);transform:scale(.4)}
+.dotfield i.on{background:var(--gold-2);transform:scale(1)}
+.dotfield i.on.w{background:#C35A76}
+
+/* ---------- 4 product ---------- */
+.prod{display:grid;grid-template-columns:520px 1fr;gap:60px;margin-top:40px;align-items:start}
+.prod .imgwrap{position:relative;border-radius:20px;overflow:hidden;height:430px;box-shadow:0 30px 60px -30px rgba(46,11,24,.5)}
+.prod .imgwrap img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 10s linear}
+.active .prod .imgwrap img{transform:scale(1)}
+.reader{position:absolute;left:28px;right:28px;bottom:26px;background:rgba(251,247,240,.94);backdrop-filter:blur(6px);border-radius:16px;padding:20px 24px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.reader .txt{font:500 22px/1.45 var(--serif);color:var(--ink)}
+.reader .txt span{border-radius:5px;padding:0 2px;transition:background .25s,color .25s}
+.reader .txt span.hl{background:var(--gold-2);color:var(--plum)}
+.reader .txt span.done{color:var(--wine)}
+.reader .bar{height:3px;background:var(--line);border-radius:3px;margin-top:14px;overflow:hidden}
+.reader .bar i{display:block;height:100%;width:0;background:var(--wine)}
+.reader .meta{display:flex;justify-content:space-between;margin-top:9px;font:500 11px/1 var(--sans);letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font:500 14px/1 var(--sans);color:var(--wine);background:#FBF7F0}
+.timeline-mini{display:flex;align-items:center;gap:14px;margin-top:34px;font:400 15px/1.3 var(--sans);color:var(--muted)}
+.timeline-mini b{color:var(--ink);font-weight:600}
+.timeline-mini .arrow{flex:none;width:80px;height:2px;background:var(--line);position:relative;overflow:hidden}
+.timeline-mini .arrow:after{content:"";position:absolute;inset:0;background:var(--wine);transform:translateX(-100%);animation:slide 2.4s ease-in-out infinite}
+@keyframes slide{to{transform:translateX(100%)}}
+
+/* ---------- 5 market ---------- */
+.mkt{display:grid;grid-template-columns:600px 1fr;gap:40px;margin-top:30px;align-items:center}
+.circles{position:relative;height:520px}
+.circles .c{position:absolute;left:50%;bottom:0;border-radius:50%;transform:translateX(-50%) scale(0);transform-origin:50% 100%;transition:transform 1.4s var(--ease);display:flex;justify-content:center}
+.active .circles .c{transform:translateX(-50%) scale(1)}
+.circles .c span{font:700 20px/1 var(--serif);margin-top:36px;letter-spacing:.08em}
+.c.tam{width:520px;height:520px;background:radial-gradient(circle at 50% 30%,#F8EEDD,#EADBC2);border:1px solid var(--line);transition-delay:.2s}
+.c.sam{width:202px;height:202px;background:radial-gradient(circle at 50% 30%,#C9A36A,var(--gold));color:#fff;transition-delay:1s}
+.c.som{width:46px;height:46px;background:var(--wine);transition-delay:1.8s;box-shadow:0 0 0 0 rgba(110,22,48,.5);animation:pulse 2.4s infinite 3s}
+.c.sam span{color:#fff;margin-top:34px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(110,22,48,.45)}70%{box-shadow:0 0 0 22px rgba(110,22,48,0)}100%{box-shadow:0 0 0 0 rgba(110,22,48,0)}}
+.mrow{display:grid;grid-template-columns:90px 190px 1fr;align-items:baseline;gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+.mrow .lab{font:600 13px/1 var(--sans);letter-spacing:.24em;color:var(--gold)}
+.mrow .val{font:700 52px/1 var(--serif);color:var(--wine)}
+.mrow p{font:400 16px/1.45 var(--sans);color:#4A3A36}
+
+/* ---------- 6 pricing ---------- */
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:60px}
+.plan{background:#FBF7F0;border:1px solid var(--line);border-radius:22px;padding:34px 30px;min-height:330px;display:flex;flex-direction:column;position:relative}
+.plan.feat{background:var(--plum);color:var(--cream);border-color:var(--plum);transform:translateY(-14px)}
+.active .plan.feat.r{transform:translateY(-14px)}
+.plan .tag{font:600 12px/1 var(--sans);letter-spacing:.26em;color:var(--gold)}
+.plan .price{font:700 64px/1 var(--serif);color:var(--wine);margin:28px 0 8px}
+.plan.feat .price{color:var(--gold-2)}
+.plan .per{font:400 14px/1 var(--sans);color:var(--muted)}
+.plan.feat .per{color:rgba(244,237,226,.6)}
+.plan .mg{margin-top:auto}
+.plan .mg .t{display:flex;justify-content:space-between;font:500 14px/1 var(--sans);margin-bottom:10px}
+.plan .mg .track{height:8px;border-radius:8px;background:var(--cream-2);overflow:hidden}
+.plan.feat .mg .track{background:rgba(244,237,226,.12)}
+.plan .mg .fill{height:100%;width:0;border-radius:8px;background:linear-gradient(90deg,var(--wine),var(--gold));transition:width 1.6s var(--ease);transition-delay:calc(var(--d,0)*1ms + 500ms)}
+.plan .best{font:italic 500 22px/1.25 var(--serif);color:var(--gold-2)}
+.badge{position:absolute;top:-13px;right:24px;background:var(--gold);color:#fff;font:600 11px/1 var(--sans);letter-spacing:.2em;padding:8px 12px;border-radius:999px}
+.note{font:400 14px/1.5 var(--sans);color:var(--muted);margin-top:40px;max-width:1000px}
+
+/* ---------- 7 compare ---------- */
+table.cmp{width:100%;border-collapse:collapse;margin-top:44px}
+.cmp th{font:600 12px/1 var(--sans);letter-spacing:.22em;color:var(--muted);text-align:center;padding:0 0 22px}
+.cmp th:first-child{text-align:left}
+.cmp th.us{color:var(--wine)}
+.cmp td{padding:19px 0;border-top:1px solid var(--line);text-align:center;font:400 19px/1 var(--sans)}
+.cmp td:first-child{text-align:left;font:600 25px/1 var(--serif);color:var(--ink)}
+.cmp td.us{background:rgba(110,22,48,.05)}
+.cmp .sym{display:inline-block;width:22px;height:22px;border-radius:50%;transform:scale(0);transition:transform .6s cubic-bezier(.3,1.6,.5,1);transition-delay:calc(var(--d)*1ms)}
+.active .cmp .sym{transform:scale(1)}
+.sym.full{background:var(--wine)}
+.us .sym.full{background:var(--wine);box-shadow:0 0 0 5px rgba(110,22,48,.14)}
+.sym.none{border:2px solid #CDBFAE}
+.sym.part{width:0;height:0;border-radius:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:21px solid var(--gold)}
+.legend{display:flex;gap:28px;margin-top:22px;font:400 14px/1 var(--sans);color:var(--muted);align-items:center}
+.legend span{display:flex;align-items:center;gap:8px}
+.legend .sym{transform:scale(.7)!important}
+
+/* ---------- 8 roadmap ---------- */
+.road{position:relative;margin-top:120px;height:360px}
+.road svg{position:absolute;left:0;top:0;width:100%;height:120px;overflow:visible}
+.road .path{fill:none;stroke:var(--gold);stroke-width:3;stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 3.2s var(--ease) .3s}
+.active .road .path{stroke-dashoffset:0}
+.stops{position:absolute;left:0;right:0;top:0;display:grid;grid-template-columns:repeat(5,1fr)}
+.stop{position:relative;padding-top:90px}
+.stop .node{position:absolute;top:44px;left:0;width:26px;height:26px;border-radius:50%;background:var(--cream);border:3px solid var(--wine);transform:scale(0);transition:transform .7s cubic-bezier(.3,1.6,.5,1);transition-delay:calc(var(--d)*1ms)}
+.active .stop .node{transform:scale(1)}
+.stop.now .node{background:var(--wine);animation:pulse 2.4s infinite 2s}
+.stop .when{font:600 13px/1 var(--sans);letter-spacing:.24em;color:var(--gold);margin-top:18px}
+.stop h3{font:700 32px/1.05 var(--serif);color:var(--wine);margin:12px 0 10px}
+.stop p{font:400 16px/1.45 var(--sans);color:#4A3A36;max-width:220px}
+
+/* ---------- 9 growth ---------- */
+.growth{display:grid;grid-template-columns:820px 1fr;gap:50px;margin-top:26px}
+.chart svg{width:820px;height:500px;overflow:visible}
+.chart .grid line{stroke:rgba(244,237,226,.1)}
+.chart .ax{font:400 13px var(--sans);fill:rgba(244,237,226,.55)}
+.chart .ln{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.chart .rev{stroke:#E0859E}
+.chart .arr{stroke:var(--gold-2)}
+.chart .area{opacity:.22}
+.chart .yearline{stroke:rgba(244,237,226,.35);stroke-dasharray:4 5}
+.chart .dot{r:7}
+.lg{display:flex;gap:26px;font:400 14px/1 var(--sans);color:rgba(244,237,226,.75);margin:6px 0 0 60px}
+.lg i{display:inline-block;width:22px;height:4px;border-radius:3px;margin-right:9px;vertical-align:middle}
+.side .yr{font:700 22px/1 var(--sans);letter-spacing:.3em;color:var(--gold-2)}
+.side .hh{font:700 96px/1 var(--serif);color:var(--cream);margin-top:18px;font-variant-numeric:tabular-nums lining-nums}
+.side .hl{font:400 17px/1.4 var(--sans);color:rgba(244,237,226,.7);margin-top:6px}
+.side .rv{font:700 64px/1 var(--serif);color:#E0859E;margin-top:34px;font-variant-numeric:tabular-nums lining-nums}
+.houses{display:grid;grid-template-columns:repeat(20,1fr);gap:6px;margin-top:34px;width:420px}
+.houses i{display:block;aspect-ratio:1;background:rgba(244,237,226,.1);clip-path:polygon(50% 0,100% 45%,100% 100%,0 100%,0 45%);transition:background .3s}
+.houses i.on{background:var(--gold-2)}
+
+/* ---------- 10 ebitda ---------- */
+.ebit{display:grid;grid-template-columns:820px 1fr;gap:50px;margin-top:30px}
+.ebit svg{width:820px;height:490px;overflow:visible}
+.ebit .ax{font:400 13px var(--sans);fill:var(--muted)}
+.ebit .gl{stroke:var(--line)}
+.ebit .zero{stroke:var(--ink);stroke-width:1.5}
+.ebit rect{transform-box:fill-box;transition:transform 1s var(--ease)}
+.be{padding:26px 0;border-bottom:1px solid var(--line)}
+.be .big{font-size:80px}
+.be p{font:400 17px/1.3 var(--sans);color:#4A3A36;margin-top:8px}
+.be .flag{display:inline-block;font:600 11px/1 var(--sans);letter-spacing:.2em;padding:7px 10px;border-radius:999px;margin-bottom:14px}
+.warn{font:400 14px/1.5 var(--sans);color:var(--muted);margin-top:26px}
+
+/* ---------- 11 round ---------- */
+.round{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:40px}
+.round .amt{font:700 150px/.9 var(--serif);color:var(--gold-2);font-variant-numeric:tabular-nums lining-nums}
+.round .usd{font:400 22px/1 var(--sans);color:rgba(244,237,226,.6);margin-top:18px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:54px}
+.kv div{border-top:1px solid rgba(212,178,122,.3);padding-top:18px}
+.kv b{display:block;font:600 12px/1 var(--sans);letter-spacing:.24em;color:var(--gold-2);margin-bottom:12px}
+.kv span{font:700 40px/1 var(--serif);color:var(--cream)}
+.kv small{display:block;font:400 14px/1.4 var(--sans);color:rgba(244,237,226,.6);margin-top:8px}
+.vf h3{font:600 12px/1 var(--sans);letter-spacing:.24em;color:var(--gold-2);margin-bottom:32px}
+.vbar{margin-bottom:30px}
+.vbar .t{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.vbar .t b{font:700 44px/1 var(--serif);color:var(--cream)}
+.vbar .t span{font:400 15px/1 var(--sans);color:rgba(244,237,226,.65)}
+.vbar .track{height:14px;border-radius:14px;background:rgba(244,237,226,.08);overflow:hidden}
+.vbar .fill{height:100%;width:0;border-radius:14px;background:linear-gradient(90deg,var(--wine-2),var(--gold-2));transition:width 1.8s var(--ease);transition-delay:calc(var(--d)*1ms)}
+.cap{width:26px;height:14px;border-radius:14px;background:#fff;box-shadow:0 0 18px var(--gold-2)}
+.fine{font:400 13px/1.5 var(--sans);color:rgba(244,237,226,.5);margin-top:24px}
+
+/* ---------- 12 funds ---------- */
+.funds{display:grid;grid-template-columns:520px 1fr;gap:80px;margin-top:40px;align-items:center}
+.donut{position:relative;width:480px;height:480px}
+.donut svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut circle{fill:none;stroke-width:62;transition:stroke-dasharray 1.4s var(--ease);transition-delay:calc(var(--d)*1ms)}
+.donut .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut .ctr b{font:700 64px/1 var(--serif);color:var(--wine)}
+.donut .ctr span{font:500 12px/1 var(--sans);letter-spacing:.24em;color:var(--muted);margin-top:10px}
+.alloc{display:flex;flex-direction:column;gap:6px}
+.al{display:grid;grid-template-columns:18px 100px 1fr 140px;gap:18px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.al i{width:18px;height:18px;border-radius:5px}
+.al .p{font:700 44px/1 var(--serif);color:var(--wine)}
+.al .n{font:600 22px/1.2 var(--serif);color:var(--ink)}
+.al .e{font:500 18px/1 var(--sans);color:var(--muted);text-align:right}
+
+/* ---------- 13 gates ---------- */
+.stairs{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:end;height:520px;margin-top:20px}
+.step{position:relative;border-radius:18px 18px 0 0;background:#FBF7F0;border:1px solid var(--line);border-bottom:none;padding:26px 22px;height:calc(var(--h)*1px);transform:scaleY(0);transform-origin:bottom;transition:transform 1s var(--ease);transition-delay:calc(var(--d)*1ms)}
+.active .step{transform:none}
+.step .in{opacity:0;transition:opacity .6s;transition-delay:calc(var(--d)*1ms + 600ms)}
+.active .step .in{opacity:1}
+.step .no{font:700 36px/1 var(--serif);color:var(--gold)}
+.step .when{font:600 12px/1 var(--sans);letter-spacing:.22em;color:var(--muted);margin-top:12px}
+.step h3{font:700 30px/1 var(--serif);color:var(--wine);margin:14px 0 12px}
+.step p{font:400 15px/1.5 var(--sans);color:#4A3A36}
+.step.top{background:var(--wine);border-color:var(--wine)}
+.step.top h3,.step.top .no{color:var(--gold-2)}
+.step.top p,.step.top .when{color:rgba(244,237,226,.8)}
+
+/* ---------- 14 risks ---------- */
+.risks{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px}
+.risk{background:#FBF7F0;border:1px solid var(--line);border-radius:18px;padding:26px 24px;min-height:190px;position:relative;overflow:hidden}
+.risk h3{font:700 25px/1.1 var(--serif);color:var(--wine);margin-bottom:12px;padding-right:30px}
+.risk p{font:400 15px/1.5 var(--sans);color:#4A3A36}
+.risk .shield{position:absolute;right:18px;top:20px;width:26px;height:30px;color:var(--gold)}
+.risk.lead{background:var(--plum);border-color:var(--plum)}
+.risk.lead h3{color:var(--gold-2);font-size:30px}
+.risk.lead p{color:rgba(244,237,226,.75);font-size:16px}
+
+/* ---------- 15 founder ---------- */
+#s15{background:radial-gradient(1200px 700px at 78% 30%,#3E1022 0%,var(--plum) 55%,var(--plum-2) 100%)}
+.fgrid{display:grid;grid-template-columns:1fr 440px;gap:60px;height:100%}
+.mono{position:relative;width:150px;height:150px}
+.mono svg{position:absolute;inset:0;width:100%;height:100%}
+.mono .ring{fill:none;stroke:var(--gold-2);stroke-width:1.5;stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 2.4s var(--ease) .2s}
+.active .mono .ring{stroke-dashoffset:0}
+.mono b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:600 58px/1 var(--serif);color:var(--gold-2);letter-spacing:.02em}
+.fname{font:700 92px/.95 var(--serif);color:var(--cream);margin-top:26px}
+.fname span{display:inline-block;opacity:0;transform:translateY(40px) rotate(4deg);transition:opacity .7s,transform .9s var(--ease);transition-delay:calc(var(--d)*1ms)}
+.active .fname span{opacity:1;transform:none}
+.roles{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.role{font:600 13px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;padding:11px 16px;border-radius:999px;border:1px solid rgba(212,178,122,.45);color:var(--gold-2)}
+.role.main{background:var(--gold);border-color:var(--gold);color:var(--plum)}
+.bio{margin-top:34px;display:flex;flex-direction:column;gap:14px}
+.bio div{display:grid;grid-template-columns:24px 1fr;gap:16px;font:400 18px/1.45 var(--sans);color:rgba(244,237,226,.85)}
+.bio div:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold-2);margin:9px 0 0 6px}
+.fstats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;border:1px solid rgba(212,178,122,.3);border-radius:18px;overflow:hidden}
+.fstats div{padding:20px 18px;border-right:1px solid rgba(212,178,122,.2)}
+.fstats div:last-child{border-right:none}
+.fstats b{display:block;font:700 44px/1 var(--serif);color:var(--gold-2)}
+.fstats span{font:400 14px/1.3 var(--sans);color:rgba(244,237,226,.65)}
+.why{background:rgba(0,0,0,.28);border:1px solid rgba(212,178,122,.35);border-radius:22px;padding:36px 34px;align-self:center}
+.why h3{font:600 34px/1.1 var(--serif);color:var(--gold-2);text-align:center;margin-bottom:10px}
+.why .it{display:grid;grid-template-columns:62px 1fr;gap:20px;align-items:center;padding:22px 0;border-top:1px solid rgba(212,178,122,.2)}
+.why .ic{width:62px;height:62px;border-radius:50%;border:1px solid rgba(212,178,122,.5);display:flex;align-items:center;justify-content:center;color:var(--gold-2)}
+.why .ic svg{width:28px;height:28px}
+.why p{font:400 17px/1.4 var(--sans);color:rgba(244,237,226,.88)}
+
+/* ---------- 16 team ---------- */
+.people{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:44px}
+.person{display:grid;grid-template-columns:96px 1fr;gap:26px;align-items:center;background:#FBF7F0;border:1px solid var(--line);border-radius:22px;padding:30px 32px}
+.person.lead{background:var(--plum);border-color:var(--plum)}
+.av{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:600 40px/1 var(--serif);background:var(--cream-2);color:var(--wine);border:2px solid var(--gold)}
+.person.lead .av{background:var(--wine);color:var(--gold-2)}
+.person h3{font:700 36px/1 var(--serif);color:var(--wine)}
+.person.lead h3{color:var(--cream)}
+.person .rl{font:600 12px/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:10px}
+.person p{font:400 16px/1.5 var(--sans);color:#4A3A36;margin-top:10px}
+.person.lead p{color:rgba(244,237,226,.75)}
+.hire h4{font:700 28px/1 var(--serif);color:var(--ink);margin:44px 0 20px}
+.hires{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.hires:before{content:"";position:absolute;left:0;right:0;top:15px;height:2px;background:var(--line)}
+.hires:after{content:"";position:absolute;left:0;top:15px;height:2px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 2.6s var(--ease) .8s}
+.active .hires:after{transform:scaleX(1)}
+.h{position:relative;padding:44px 24px 0 0}
+.h:before{content:"";position:absolute;top:6px;left:0;width:20px;height:20px;border-radius:50%;background:var(--cream);border:3px solid var(--wine);z-index:1}
+.h b{display:block;font:600 21px/1.2 var(--serif);color:var(--wine)}
+.h span{display:block;font:400 15px/1.45 var(--sans);color:var(--muted);margin-top:6px}
+.commit{margin-top:34px;font:italic 500 22px/1.4 var(--serif);color:var(--wine)}
+
+/* ---------- 17 close ---------- */
+#s17{background:var(--cream)}
+#s17 .side{position:absolute;right:0;top:0;bottom:0;width:34%;background:var(--wine);overflow:hidden}
+#s17 .sun{position:absolute;left:-80px;top:140px;width:210px;height:210px;border-radius:50%;background:var(--gold);transform:scale(0);transition:transform 1.4s cubic-bezier(.3,1.4,.5,1) .5s}
+#s17.active .sun{transform:scale(1)}
+#s17 .tab{position:absolute;left:40px;right:40px;bottom:120px;height:320px;border-radius:16px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35);opacity:0;transform:translateY(40px);transition:all 1.2s var(--ease) .9s}
+#s17.active .tab{opacity:1;transform:none}
+#s17 .tab img{width:100%;height:100%;object-fit:cover}
+#s17 h1{font-size:88px;line-height:1;margin-top:40px;max-width:820px}
+.contact{display:flex;gap:40px;margin-top:50px}
+.contact div b{display:block;font:600 11px/1 var(--sans);letter-spacing:.24em;color:var(--gold);margin-bottom:10px;text-transform:uppercase}
+.contact div span{font:600 24px/1.2 var(--serif);color:var(--ink)}
+
+/* ---------- chrome ---------- */
+#progress{position:absolute;left:0;top:0;height:3px;background:linear-gradient(90deg,var(--wine),var(--gold));width:0;z-index:20;transition:width .6s var(--ease)}
+#autobar{position:absolute;left:0;bottom:0;height:2px;background:var(--gold-2);width:0;z-index:20;opacity:.8}
+#ctrl{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:6px;align-items:center;background:rgba(20,5,11,.78);backdrop-filter:blur(10px);border:1px solid rgba(212,178,122,.25);border-radius:999px;padding:6px;z-index:50;transition:opacity .5s}
+#ctrl.hide{opacity:0;pointer-events:none}
+#ctrl button{appearance:none;border:none;background:transparent;color:#F4EDE2;font:500 13px/1 var(--sans);letter-spacing:.08em;height:38px;min-width:38px;padding:0 14px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:8px}
+#ctrl button:hover{background:rgba(244,237,226,.1)}
+#ctrl button.on{background:var(--gold);color:var(--plum)}
+#ctrl .num{font:500 12px/1 var(--sans);color:rgba(244,237,226,.7);padding:0 10px;min-width:64px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;top:16px;left:50%;transform:translateX(-50%);font:400 12px/1 var(--sans);letter-spacing:.14em;color:rgba(244,237,226,.55);z-index:50;transition:opacity 1s;pointer-events:none;text-transform:uppercase}
+@media (prefers-reduced-motion: reduce){
+  *,*:before,*:after{transition-duration:.01ms!important;transition-delay:0s!important;animation-delay:0s!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+<div id="progress"></div><div id="autobar"></div>
+
+<!-- 1 COVER -->
+<section class="slide dark" id="s1" data-dur="9000">
+  <div class="photo"><img src="assets/hero.jpg" alt="Mother and child reading together"></div>
+  <div class="pad" style="width:62%">
+    <div class="kicker r" style="--d:200">Pre-Seed Investment Opportunity</div>
+    <h1>
+      <span class="w"><span style="--d:350">Aybal:</span></span><br>
+      <span class="w"><span style="--d:550">The</span></span> <span class="w"><span style="--d:650"><em>Voice</em></span></span> <span class="w"><span style="--d:750">of</span></span><br>
+      <span class="w"><span style="--d:900">Family</span></span> <span class="w"><span style="--d:1000">Reading</span></span>
+    </h1>
+    <div class="wave r fade" id="wave1" style="--d:1400;margin-top:34px"></div>
+    <div class="byline r" style="--d:1700">
+      <div><b>Founder &amp; Inventor</b><strong>Tuncay Sancak</strong></div>
+      <div><b>Investor Relations</b><strong>Gönül</strong></div>
+      <div><b>Deck</b>Pre-Seed · September 2026</div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 2 THESIS -->
+<section class="slide" id="s2" data-dur="9000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Investment thesis</div>
+    <h2 class="r" style="--d:100">A focused bet on family voice technology</h2>
+    <div class="rule"></div>
+    <div class="cards5">
+      <div class="card r" style="--d:300"><div class="n">01</div><h3>Built &amp; tested</h3><p>Working platform; <b data-count="1779">0</b> automated tests passed.</p></div>
+      <div class="card r" style="--d:450"><div class="n">02</div><h3>Multilingual edge</h3><p>3 interfaces, 13 voice languages; strong measured intelligibility.</p></div>
+      <div class="card r" style="--d:600"><div class="n">03</div><h3>Large family market</h3><p><b data-count="101" data-suffix="M">0</b> families across priority Western markets and Türkiye.</p></div>
+      <div class="card r" style="--d:750"><div class="n">04</div><h3>Credible economics</h3><p>Subscription model; venture case reaches break-even in Oct 2031.</p></div>
+      <div class="card r" style="--d:900"><div class="n">05</div><h3>Focused validation</h3><p>€250k to prove conversion, retention and acquisition efficiency.</p></div>
+    </div>
+    <p class="thesis r" style="--d:1300">Investment thesis: prove family engagement before scaling spend.</p>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 3 GAP -->
+<section class="slide dark" id="s3" data-dur="9000">
+  <div class="pad">
+    <div class="kicker r">Aybal / The market gap</div>
+    <h2 class="r" style="--d:100">Reading is available. Relevance is not.</h2>
+    <div class="rule"></div>
+    <div style="display:grid;grid-template-columns:600px 1fr;gap:80px;margin-top:50px;align-items:center">
+      <div>
+        <div class="big r" style="--d:300;font-size:190px"><span data-count="101" data-dur="2600">0</span>M</div>
+        <p class="r muted" style="--d:500;font-size:20px;line-height:1.45;margin-top:18px;max-width:520px">families with children across Germany, Türkiye, the UK, the rest of the EU and the US</p>
+        <div class="r" style="--d:700;margin-top:40px">
+          <div class="dotfield" id="dots3"></div>
+          <p class="muted" style="font-size:13px;margin-top:14px;letter-spacing:.08em">EACH DOT ≈ 1 MILLION FAMILIES</p>
+        </div>
+      </div>
+      <div>
+        <p class="r" style="--d:900;font:600 44px/1.2 var(--serif);color:var(--cream)">Families need audio that feels <em style="color:var(--gold-2)">personal</em>, speaks <em style="color:var(--gold-2)">their language</em> and works with <em style="color:var(--gold-2)">books they already own</em>.</p>
+        <p class="r muted" style="--d:1200;font-size:19px;line-height:1.55;margin-top:30px">Today’s offer is fragmented: fixed catalogues, limited personalization, weak family controls and little word-level interactivity.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 4 PRODUCT -->
+<section class="slide" id="s4" data-dur="11000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Validated build</div>
+    <h2 class="r" style="--d:100">From a family’s book to a shared listening moment</h2>
+    <div class="rule"></div>
+    <div class="prod">
+      <div>
+        <div class="big r" style="--d:300;font-size:130px"><span data-count="1779" data-dur="2400">0</span></div>
+        <p class="r" style="--d:400;font:600 20px/1.3 var(--sans);margin-top:8px">automated tests passed</p>
+        <p class="r" style="--d:600;font:400 19px/1.55 var(--sans);color:#4A3A36;margin-top:26px">Upload PDFs, EPUBs, Word files, text or photos of pages. Aybal converts them into read-aloud audio with word-by-word highlighting.</p>
+        <div class="chips r" style="--d:800"><span class="chip">3 interface languages</span><span class="chip">13 voice languages</span><span class="chip">≥94% measured intelligibility</span></div>
+        <div class="timeline-mini r" style="--d:1000"><span><b>Closed beta</b><br>12 Oct 2026</span><span class="arrow"></span><span><b>Germany launch</b><br>20 Nov 2026</span></div>
+      </div>
+      <div class="imgwrap r zoom" style="--d:300">
+        <img src="assets/product.jpg" alt="Aybal app on tablet and phone">
+        <div class="reader">
+          <div class="txt" id="readtxt"></div>
+          <div class="bar"><i id="readbar"></i></div>
+          <div class="meta"><span>▶ Reading aloud</span><span>Word-by-word</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 5 MARKET -->
+<section class="slide" id="s5" data-dur="10000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Annual market opportunity</div>
+    <h2 class="r" style="--d:100">A €7.6B category with a disciplined entry wedge</h2>
+    <div class="rule"></div>
+    <div class="mkt">
+      <div class="circles">
+        <div class="c tam"><span style="color:var(--gold)">TAM</span></div>
+        <div class="c sam"><span>SAM</span></div>
+        <div class="c som"></div>
+      </div>
+      <div>
+        <div class="mrow r" style="--d:400"><span class="lab">TAM</span><span class="val">€<span data-count="7.6" data-dec="1" data-suffix="B">0</span></span><p>Gross family reading spend in target markets</p></div>
+        <div class="mrow r" style="--d:1200"><span class="lab">SAM</span><span class="val">€<span data-count="1.14" data-dec="2" data-suffix="B" data-delay="800">0</span></span><p>15% assumed willingness to pay</p></div>
+        <div class="mrow r" style="--d:2000"><span class="lab">SOM</span><span class="val">€<span data-count="38" data-suffix="M" data-delay="1600">0</span></span><p>4% penetration of willing segment; directional, not forecast</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 6 PRICING -->
+<section class="slide" id="s6" data-dur="9000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Business model</div>
+    <h2 class="r" style="--d:100">Simple subscriptions, attractive web margins</h2>
+    <div class="rule"></div>
+    <div class="plans">
+      <div class="plan r" style="--d:300"><div class="tag">PLUS / MONTH</div><div class="price">€9.99</div><div class="per">per month</div>
+        <div class="mg"><div class="t"><span>€6.41 margin</span><b>76%</b></div><div class="track"><div class="fill" data-w="76" style="--d:300"></div></div></div></div>
+      <div class="plan r" style="--d:450"><div class="tag">PLUS / YEAR</div><div class="price">€79.99</div><div class="per">per year</div>
+        <div class="mg"><div class="t"><span>€4.21 monthly margin</span><b>75%</b></div><div class="track"><div class="fill" data-w="75" style="--d:450"></div></div></div></div>
+      <div class="plan r" style="--d:600"><div class="tag">FAMILY / MONTH</div><div class="price">€24.99</div><div class="per">per month</div>
+        <div class="mg"><div class="t"><span>€16.22 margin</span><b>77%</b></div><div class="track"><div class="fill" data-w="77" style="--d:600"></div></div></div></div>
+      <div class="plan feat r" style="--d:750"><span class="badge">BEST VALUE</span><div class="tag">FAMILY / YEAR</div><div class="price">€199.99</div><div class="per">per year</div>
+        <div class="mg"><p class="best">Best-value family commitment</p></div></div>
+    </div>
+    <p class="note r" style="--d:1100">Revenue begins with Germany launch in Nov 2026. Local pricing will adapt to Türkiye and UK purchasing power; margins shown are Germany/EU web purchases.</p>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 7 COMPARE -->
+<section class="slide" id="s7" data-dur="9000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Differentiation</div>
+    <h2 class="r" style="--d:100">Personalized by design—not bolted on</h2>
+    <div class="rule"></div>
+    <table class="cmp r fade" style="--d:200" id="cmp"></table>
+    <div class="legend r" style="--d:400"><span><i class="sym full"></i>Strong</span><span><i class="sym part"></i>Partial</span><span><i class="sym none"></i>Weak / absent</span>
+      <span style="margin-left:auto;color:var(--wine);font-weight:500">Measured voice intelligibility: German 98% • Turkish 97%</span></div>
+    <p class="note r" style="--d:600;margin-top:14px">Beta metrics will test whether technical differentiation translates into retention.</p>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 8 ROADMAP -->
+<section class="slide" id="s8" data-dur="9000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Roadmap</div>
+    <h2 class="r" style="--d:100">Validate. Launch. Expand. Compound.</h2>
+    <div class="rule"></div>
+    <div class="road">
+      <svg viewBox="0 0 1272 120" preserveAspectRatio="none"><path class="path" d="M13 110 C 200 110, 230 96, 267 94 S 480 84, 521 76 S 730 58, 775 52 S 980 26, 1029 22 S 1200 4, 1272 2"/></svg>
+      <div class="stops">
+        <div class="stop now" style="--d:500"><div class="node" style="--d:500;top:98px"></div><div style="padding-top:60px"><div class="when r" style="--d:600">OCT 2026</div><h3 class="r" style="--d:650">Closed beta</h3><p class="r" style="--d:700">50 founding families</p></div></div>
+        <div class="stop" style="--d:1100"><div class="node" style="--d:1100;top:80px"></div><div style="padding-top:42px"><div class="when r" style="--d:1150">NOV 2026</div><h3 class="r" style="--d:1200">Germany launch</h3><p class="r" style="--d:1250">Revenue starts</p></div></div>
+        <div class="stop" style="--d:1700"><div class="node" style="--d:1700;top:62px"></div><div style="padding-top:24px"><div class="when r" style="--d:1750">2027 – 28</div><h3 class="r" style="--d:1800">Prove retention</h3><p class="r" style="--d:1850">Gates 1–2; market expansion</p></div></div>
+        <div class="stop" style="--d:2300"><div class="node" style="--d:2300;top:36px"></div><div style="padding-top:0"><div class="when r" style="--d:2350">2029 – 30</div><h3 class="r" style="--d:2400">Scale to 5 markets</h3><p class="r" style="--d:2450">Platform pilot; subscriber growth</p></div></div>
+        <div class="stop" style="--d:2900"><div class="node" style="--d:2900;top:10px"></div><div style="padding-top:-20px;margin-top:-24px"><div class="when r" style="--d:2950">2030 – 33</div><h3 class="r" style="--d:3000">Profitability</h3><p class="r" style="--d:3050">Strong BE Aug ’30 · Venture BE Oct ’31</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 9 GROWTH (the show) -->
+<section class="slide dark" id="s9" data-dur="12000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Venture scenario</div>
+    <h2 class="r" style="--d:100">A venture case built on household growth</h2>
+    <div class="rule"></div>
+    <div class="growth">
+      <div class="chart r fade" style="--d:200">
+        <div class="lg"><span><i style="background:#E0859E"></i>Revenue</span><span><i style="background:var(--gold-2)"></i>Exit ARR</span></div>
+        <svg id="gsvg" viewBox="0 0 820 500"></svg>
+      </div>
+      <div class="side">
+        <div class="yr r" style="--d:300" id="gyear">2027</div>
+        <div class="hh r" style="--d:300" id="ghh">2,571</div>
+        <div class="hl r" style="--d:350">subscriber households</div>
+        <div class="houses r" style="--d:400" id="houses"></div>
+        <div class="rv r" style="--d:500" id="grev">€0.0M</div>
+        <div class="hl r" style="--d:550" id="grevl">revenue</div>
+        <div class="hl r" style="--d:600;font-size:14px;margin-top:22px;opacity:.6">From 2,571 households in 2027 to 313,116 by 2033 · scenario, not forecast</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 10 EBITDA -->
+<section class="slide" id="s10" data-dur="10000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Illustrative EBITDA scenarios</div>
+    <h2 class="r" style="--d:100">Profitability follows disciplined scale</h2>
+    <div class="rule"></div>
+    <div class="ebit">
+      <div class="r fade" style="--d:200">
+        <div class="lg" style="color:var(--muted)"><span><i style="background:var(--wine)"></i>Venture</span><span><i style="background:var(--gold)"></i>Strong</span></div>
+        <svg id="esvg" viewBox="0 0 820 490"></svg>
+      </div>
+      <div>
+        <div class="be r" style="--d:2200"><span class="flag" style="background:var(--gold);color:#fff">STRONG CASE</span><div class="big">AUG ’30</div><p>strong case break-even</p></div>
+        <div class="be r" style="--d:2800"><span class="flag" style="background:var(--wine);color:#fff">VENTURE CASE</span><div class="big">OCT ’31</div><p>venture case break-even</p></div>
+        <p class="warn r" style="--d:3200">Scenario outputs, not promises. Demand and retention remain unproven; an investment may result in total loss.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 11 ROUND -->
+<section class="slide dark" id="s11" data-dur="10000">
+  <div class="pad">
+    <div class="kicker r">Aybal / The round</div>
+    <h2 class="r" style="--d:100">A focused €250k pre-seed round</h2>
+    <div class="rule"></div>
+    <div class="round">
+      <div>
+        <div class="amt r" style="--d:300">€<span data-count="250000" data-dur="2600">0</span></div>
+        <div class="usd r" style="--d:500">≈ $285,000</div>
+        <div class="kv">
+          <div class="r" style="--d:700"><b>VALUATION CAP</b><span>€1.30M</span><small>pre-money · ~16% equity at cap</small></div>
+          <div class="r" style="--d:850"><b>PLANNED CLOSE</b><span>March 2027</span><small>Investor contact: Gönül</small></div>
+        </div>
+      </div>
+      <div class="vf">
+        <h3 class="r" style="--d:600">SCENARIO VALUATION FRAME</h3>
+        <div class="vbar r" style="--d:800"><div class="t"><b>€52M</b><span>downside reference</span></div><div class="track"><div class="fill" data-w="13" style="--d:1000"></div></div></div>
+        <div class="vbar r" style="--d:1000"><div class="t"><b>€175M</b><span>venture scenario — 2033</span></div><div class="track"><div class="fill" data-w="43.75" style="--d:1300"></div></div></div>
+        <div class="vbar r" style="--d:1200"><div class="t"><b>€400M</b><span>strong scenario — 2030</span></div><div class="track"><div class="fill" data-w="100" style="--d:1600"></div></div></div>
+        <p class="fine r" style="--d:1600">Subject to beta evidence, diligence and final legal terms. All valuations are forward-looking scenarios, not guarantees.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 12 FUNDS -->
+<section class="slide" id="s12" data-dur="9000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Use of funds</div>
+    <h2 class="r" style="--d:100">Capital goes first to execution capacity</h2>
+    <div class="rule"></div>
+    <div class="funds">
+      <div class="donut r zoom" style="--d:200">
+        <svg viewBox="0 0 200 200" id="donut"></svg>
+        <div class="ctr"><b>€250k</b><span>ALLOCATION</span></div>
+      </div>
+      <div class="alloc">
+        <div class="al r" style="--d:500"><i style="background:var(--wine)"></i><span class="p">50%</span><span class="n">Team</span><span class="e">€125,000</span></div>
+        <div class="al r" style="--d:900"><i style="background:var(--gold)"></i><span class="p">25%</span><span class="n">Marketing</span><span class="e">€62,500</span></div>
+        <div class="al r" style="--d:1300"><i style="background:#C35A76"></i><span class="p">15%</span><span class="n">EU voice operation + store app development</span><span class="e">€37,500</span></div>
+        <div class="al r" style="--d:1700"><i style="background:#3E1022"></i><span class="p">10%</span><span class="n">Legal / trust</span><span class="e">€25,000</span></div>
+        <p class="note r" style="--d:2000;margin-top:18px">Allocation totals reflect the operating budget and may vary slightly from round proceeds due to timing and FX.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 13 GATES -->
+<section class="slide" id="s13" data-dur="10000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Milestone gates</div>
+    <h2 class="r" style="--d:100">Scale only after evidence clears the gate</h2>
+    <div class="rule"></div>
+    <div class="stairs">
+      <div class="step" style="--h:280;--d:300"><div class="in"><div class="no">01</div><div class="when">APR 2027</div><h3>Activation</h3><p>300 trials<br>≥43% trial-to-pay<br>≤25% month-one churn</p></div></div>
+      <div class="step" style="--h:330;--d:700"><div class="in"><div class="no">02</div><div class="when">Q1 2028</div><h3>Retention</h3><p>12-month retention ≥38%<br>K-factor ≥0.25<br>LTV/CAC ≥3</p></div></div>
+      <div class="step" style="--h:380;--d:1100"><div class="in"><div class="no">03</div><div class="when">2029</div><h3>Efficiency</h3><p>Conversion ≥5.5%<br>DACH signup ≤€3.50<br>Paid CAC ≤€54</p></div></div>
+      <div class="step" style="--h:430;--d:1500"><div class="in"><div class="no">04</div><div class="when">2030</div><h3>Expansion</h3><p>Five markets live<br>Platform pilot</p></div></div>
+      <div class="step top" style="--h:490;--d:1900"><div class="in"><div class="no">05</div><div class="when">SCENARIO</div><h3>Outcome</h3><p>€400M enterprise value target — not a forecast</p></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 14 RISKS -->
+<section class="slide" id="s14" data-dur="9000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Risk management</div>
+    <h2 class="r" style="--d:100">Risk is explicit—and instrumented</h2>
+    <div class="rule"></div>
+    <div class="risks" id="risks"></div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 15 FOUNDER -->
+<section class="slide dark" id="s15" data-dur="12000">
+  <div class="pad">
+    <div class="fgrid">
+      <div>
+        <div style="display:flex;align-items:center;gap:28px">
+          <div class="mono r zoom" style="--d:100"><svg viewBox="0 0 150 150"><circle class="ring" cx="75" cy="75" r="70"/></svg><b>TS</b></div>
+          <div><div class="kicker r" style="--d:200">The founder &amp; inventor</div><p class="r muted" style="--d:300;font:italic 500 24px/1.3 var(--serif);margin-top:12px">The person who invented Aybal—and built it<br>before asking anyone to fund it.</p></div>
+        </div>
+        <div class="fname" id="fname">Tuncay Sancak</div>
+        <div class="roles r" style="--d:1400"><span class="role main">Founder &amp; Inventor</span><span class="role">Managing Director</span><span class="role">Product architect</span></div>
+        <div class="bio">
+          <div class="r" style="--d:1600">Product architect and Germany–Türkiye bridge.</div>
+          <div class="r" style="--d:1750">Former project lead, AI expert and data scientist at Mercedes-Benz.</div>
+          <div class="r" style="--d:1900">Native German and Turkish speaker, trilingual in business.</div>
+          <div class="r" style="--d:2050">Founder of the HappyiZ movement, with a network across families, professionals and educational institutions in Türkiye.</div>
+          <div class="r" style="--d:2200">Author of children’s books, including the gift book “Good That You Exist”, available in German, Turkish and English.</div>
+        </div>
+        <div class="fstats r" style="--d:2400">
+          <div><b data-count="1779" data-delay="2400">0</b><span>automated tests</span></div>
+          <div><b data-count="3" data-delay="2400">0</b><span>interface languages</span></div>
+          <div><b data-count="13" data-delay="2400">0</b><span>voice languages</span></div>
+          <div><b style="font-size:30px;line-height:44px">Built</b><span>before financing</span></div>
+        </div>
+      </div>
+      <div class="why r" style="--d:900">
+        <h3>Why this founder matters</h3>
+        <div class="it"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M12 8v8"/></svg></div><p>Product, technology and content already integrated</p></div>
+        <div class="it"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3 3-5 6-5s6 2 6 5M12 20c0-3 3-5 6-5 2 0 4 1 4 3"/></svg></div><p>Direct access to the initial DE/TR customer communities</p></div>
+        <div class="it"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20V14M10 20V10M16 20V6M3 9l6-5 5 4 7-6"/></svg></div><p>Founder-led, milestone-based team build after the round</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 16 TEAM -->
+<section class="slide" id="s16" data-dur="10000">
+  <div class="pad">
+    <div class="kicker r">Aybal / Team</div>
+    <h2 class="r" style="--d:100">The people behind Aybal</h2>
+    <div class="rule"></div>
+    <div class="people">
+      <div class="person lead r" style="--d:300"><div class="av">TS</div><div><h3>Tuncay Sancak</h3><div class="rl">Founder &amp; Inventor · Managing Director</div><p>Invented and built the Aybal platform. Leads product, technology and content.</p></div></div>
+      <div class="person r" style="--d:500"><div class="av">G</div><div><h3>Gönül</h3><div class="rl">Investor Relations &amp; Fundraising</div><p>Leads investor outreach for the pre-seed round and prepared this investment deck.</p></div></div>
+    </div>
+    <div class="hire">
+      <h4 class="r" style="--d:700">Team formation after financing</h4>
+      <div class="hires">
+        <div class="h r" style="--d:900"><b>Technical co-founder &amp; growth/community lead</b><span>from the round</span></div>
+        <div class="h r" style="--d:1400"><b>Customer service</b><span>from 1,500 subscriptions</span></div>
+        <div class="h r" style="--d:1900"><b>Second developer</b><span>from €40,000 MRR</span></div>
+        <div class="h r" style="--d:2400"><b>Country leads, partnerships, legal/data protection &amp; finance</b><span>from the seed round</span></div>
+      </div>
+    </div>
+    <p class="commit r" style="--d:2900">Founder commitment: long-term and exclusive leadership, four-year vesting, non-compete and key-person insurance planned.</p>
+  </div>
+  <div class="foot"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+<!-- 17 CLOSE -->
+<section class="slide" id="s17" data-dur="10000">
+  <div class="side"><div class="sun"></div><div class="tab"><img src="assets/tablet.jpg" alt="Aybal on a tablet"></div></div>
+  <div class="pad" style="right:34%">
+    <div class="kicker r">Thank you for your consideration</div>
+    <h1 class="r" style="--d:200">Give every family a new voice in reading.</h1>
+    <div class="wave r fade" id="wave2" style="--d:600;margin-top:34px"></div>
+    <p class="r" style="--d:800;font:400 24px/1.4 var(--sans);color:var(--wine);margin-top:26px">Join Aybal in proving the next chapter of family reading.</p>
+    <div class="contact r" style="--d:1100">
+      <div><b>Founder &amp; Inventor</b><span>Tuncay Sancak</span></div>
+      <div><b>Investor relations</b><span>Gönül</span></div>
+      <div><b>Contact</b><span>founders@aybal.com<br>aybal.com</span></div>
+    </div>
+    <p class="note r" style="--d:1400;font-size:12px">Confidential pre-seed materials. Forward-looking statements are subject to material risks and uncertainty.</p>
+  </div>
+  <div class="foot" style="right:37%"><span>Confidential • Pre-Seed • September 2026</span><span class="pg"></span></div>
+</section>
+
+</div></div>
+
+<div id="hint">← → navigate · Space: show mode · F: fullscreen</div>
+<div id="ctrl">
+  <button id="bPrev" aria-label="Previous">‹</button>
+  <span class="num" id="num">1 / 17</span>
+  <button id="bNext" aria-label="Next">›</button>
+  <button id="bPlay" aria-label="Play show">▶ Show</button>
+  <button id="bFs" aria-label="Fullscreen">⛶</button>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const stage=$('#stage'), slides=$$('.slide'), N=slides.length;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const params=new URLSearchParams(location.search);
+let cur=0, timers=[], raf=[], playing=false, autoT=null, autoStart=0;
+
+/* scale stage to viewport */
+function fit(){const s=Math.min(innerWidth/1440,innerHeight/810);stage.style.transform='scale('+s+')'}
+addEventListener('resize',fit);fit();
+$$('.pg').forEach((el,i)=>el.textContent=String(i+1).padStart(2,'0')+' / '+N);
+
+/* helpers */
+const later=(fn,ms)=>{const t=setTimeout(fn,reduce?0:ms);timers.push(t);return t};
+const easeOut=t=>1-Math.pow(1-t,3), easeIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function tween(ms,fn,ease=easeOut,delay=0){
+  later(()=>{const t0=performance.now();const step=now=>{const p=Math.max(0,Math.min(1,(now-t0)/(reduce?1:ms)));fn(ease(p));if(p<1)raf.push(requestAnimationFrame(step))};raf.push(requestAnimationFrame(step))},delay)}
+const fmt=(v,dec)=>v.toLocaleString('en-US',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+function counters(sl){
+  $$('[data-count]',sl).forEach(el=>{
+    const to=+el.dataset.count, dec=+(el.dataset.dec||0), suf=el.dataset.suffix||'', pre=el.dataset.prefix||'';
+    el.textContent=pre+fmt(0,dec)+suf;
+    tween(+(el.dataset.dur||1800),p=>el.textContent=pre+fmt(to*p,dec)+suf,easeOut,+(el.dataset.delay||0)+400);
+  });
+}
+function bars(sl){$$('.fill[data-w]',sl).forEach(el=>{el.style.width='0';later(()=>el.style.width=el.dataset.w+'%',60)})}
+
+/* waves */
+function wave(el,n,max){el.innerHTML='';for(let i=0;i<n;i++){const b=document.createElement('i');b.style.setProperty('--i',i);b.style.setProperty('--h',(25+Math.abs(Math.sin(i*.55)*Math.cos(i*.21))*75)+'%');el.appendChild(b)}}
+wave($('#wave1'),46);wave($('#wave2'),40);
+
+/* s3 dots */
+const d3=$('#dots3');for(let i=0;i<102;i++){d3.appendChild(document.createElement('i'))}
+d3.lastChild.remove();
+
+/* s4 reader */
+const sentence='Once upon a time, a little fox found a book that could read itself aloud — in her grandmother’s voice.'.split(' ');
+const rt=$('#readtxt');rt.innerHTML=sentence.map(w=>'<span>'+w+'</span>').join(' ');
+
+/* s7 compare table */
+const rows=[['Natural multilingual voices','fffn'],['Consented personal voices','fnpn'],['User-owned content','fnfp'],['Word-level highlighting','fnpf'],['Family accounts & controls','fpnf']];
+const cls={f:'full',n:'none',p:'part'};
+let th='<tr><th>Capability</th><th class="us">AYBAL</th><th>AUDIOBOOKS</th><th>GENERIC TTS</th><th>FAMILY APPS</th></tr>';
+rows.forEach((r,ri)=>{th+='<tr><td>'+r[0]+'</td>'+[...r[1]].map((c,ci)=>'<td'+(ci==0?' class="us"':'')+'><i class="sym '+cls[c]+'" style="--d:'+(500+ci*350+ri*90)+'"></i></td>').join('')+'</tr>'});
+$('#cmp').innerHTML=th;
+
+/* s14 risks */
+const risks=[['Retention & demand','Closed beta cohorts; gate spend on conversion and churn.'],['CAC & marketing','Channel tests, capped budgets, LTV/CAC thresholds.'],['Founder concentration','Priority hiring, documented operations, advisor support.'],['Voice / copyright / privacy','Consent controls, rights workflow, DPIA and regulatory review.'],['Trademark & app stores','Clearance before scale; preserve web-first economics.'],['Türkiye FX','Localized pricing and regular FX sensitivity review.'],['Platform contracts','Base case excludes uncontracted platform revenue.']];
+const shield='<svg class="shield" viewBox="0 0 24 28" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l9 4v7c0 6-4 11-9 13C7 24 3 19 3 13V6z"/><path d="M8 14l3 3 5-6"/></svg>';
+$('#risks').innerHTML='<div class="risk lead r" style="--d:250"><h3>Named up front. Mitigated by design.</h3><p>Seven risks, each with a concrete mitigation.</p></div>'+risks.map((r,i)=>'<div class="risk r" style="--d:'+(400+i*160)+'">'+shield+'<h3>'+r[0]+'</h3><p>'+r[1]+'</p></div>').join('');
+
+/* s15 founder name letters */
+const fn=$('#fname');fn.innerHTML=[...fn.textContent].map((c,i)=>'<span style="--d:'+(500+i*55)+'">'+(c==' '?'&nbsp;':c)+'</span>').join('');
+
+/* ---------- s9 growth chart ---------- */
+const years=[2027,2028,2029,2030,2031,2032,2033];
+// Values read from the original deck chart (only 2033 revenue €39.37M is stated exactly).
+const rev=[0.1,0.9,2.9,7.4,15.1,26.0,39.37], arr=[0.3,1.4,4.6,10.3,19.2,31.0,43.0];
+const G={l:60,r:800,t:20,b:450,max:50};
+const gx=i=>G.l+(G.r-G.l)*i/6, gy=v=>G.b-(G.b-G.t)*v/G.max;
+function smooth(pts){let d='M'+pts[0][0]+' '+pts[0][1];for(let i=0;i<pts.length-1;i++){const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;const c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];d+=' C'+c1+' '+c2+' '+p2}return d}
+(function(){
+  const s=$('#gsvg');let h='<defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4B27A"/><stop offset="1" stop-color="#D4B27A" stop-opacity="0"/></linearGradient><clipPath id="gclip"><rect id="gcr" x="0" y="0" width="0" height="500"/></clipPath></defs><g class="grid">';
+  for(let v=0;v<=50;v+=10){h+='<line x1="'+G.l+'" x2="'+G.r+'" y1="'+gy(v)+'" y2="'+gy(v)+'"/><text class="ax" x="'+(G.l-12)+'" y="'+(gy(v)+4)+'" text-anchor="end">€'+v+'M</text>'}
+  years.forEach((y,i)=>h+='<text class="ax" x="'+gx(i)+'" y="'+(G.b+28)+'" text-anchor="middle">'+y+'</text>');
+  const pa=arr.map((v,i)=>[gx(i),gy(v)]), pr=rev.map((v,i)=>[gx(i),gy(v)]);
+  h+='</g><g clip-path="url(#gclip)"><path class="area" fill="url(#ga)" d="'+smooth(pa)+' L'+G.r+' '+G.b+' L'+G.l+' '+G.b+'Z"/><path class="ln arr" d="'+smooth(pa)+'"/><path class="ln rev" d="'+smooth(pr)+'"/></g>';
+  h+='<line class="yearline" id="gyl" x1="'+G.l+'" x2="'+G.l+'" y1="'+G.t+'" y2="'+G.b+'"/>';
+  h+='<circle id="gda" class="dot" cx="'+G.l+'" cy="'+gy(arr[0])+'" r="7" fill="#D4B27A"/><circle id="gdr" class="dot" cx="'+G.l+'" cy="'+gy(rev[0])+'" r="7" fill="#E0859E"/>';
+  h+='<g id="glab" opacity="0"><text x="'+(G.r-6)+'" y="'+(gy(arr[6])-18)+'" text-anchor="end" style="font:700 22px var(--serif);fill:#D4B27A">€43M exit ARR</text><text x="'+(G.r-6)+'" y="'+(gy(rev[6])+34)+'" text-anchor="end" style="font:700 22px var(--serif);fill:#E0859E">€39.37M revenue</text></g>';
+  s.innerHTML=h;
+  const H=$('#houses');for(let i=0;i<100;i++)H.appendChild(document.createElement('i'));
+})();
+const interp=(a,x)=>{const i=Math.min(5,Math.floor(x)),f=x-i;return a[i]+(a[i+1]-a[i])*f};
+function growth(){
+  const hs=$$('#houses i'), dur=7000, hh0=2571, hh1=313116;
+  $('#glab').setAttribute('opacity',0);
+  tween(dur,p=>{
+    const x=p*6, X=G.l+(G.r-G.l)*p;
+    $('#gcr').setAttribute('width',X+8);
+    $('#gyl').setAttribute('x1',X);$('#gyl').setAttribute('x2',X);
+    const ra=interp(arr,x), rr=interp(rev,x);
+    $('#gda').setAttribute('cx',X);$('#gda').setAttribute('cy',gy(ra));
+    $('#gdr').setAttribute('cx',X);$('#gdr').setAttribute('cy',gy(rr));
+    $('#gyear').textContent=years[Math.min(6,Math.round(x))];
+    const hh=Math.round(hh0+(hh1-hh0)*(rr-rev[0])/(rev[6]-rev[0]));
+    $('#ghh').textContent=(p>=1?hh1:hh).toLocaleString('en-US');
+    $('#grev').textContent='€'+(p>=1?'39.37':rr.toFixed(1))+'M';
+    $('#grevl').textContent=(p>=1?'2033 revenue':'revenue');
+    const on=Math.max(1,Math.round(100*hh/hh1));hs.forEach((h,i)=>h.classList.toggle('on',i<on));
+    if(p>=1)$('#glab').setAttribute('opacity',1);
+  },easeIO,900);
+}
+
+/* ---------- s10 EBITDA ---------- */
+// Values read from the original deck chart.
+const ven=[-0.15,-0.45,-0.6,-0.4,0.2,1.6,3.35], str=[-0.1,-0.25,0.05,1.1,3.2,6.0,9.0];
+const E={l:60,r:800,t:20,b:440,min:-2,max:10};
+const ey=v=>E.t+(E.b-E.t)*(E.max-v)/(E.max-E.min);
+(function(){
+  let h='';for(let v=-2;v<=10;v+=2){h+='<line class="'+(v==0?'zero':'gl')+'" x1="'+E.l+'" x2="'+E.r+'" y1="'+ey(v)+'" y2="'+ey(v)+'"/><text class="ax" x="'+(E.l-12)+'" y="'+(ey(v)+4)+'" text-anchor="end">€'+v+'M</text>'}
+  const w=(E.r-E.l)/7;
+  years.forEach((y,i)=>{
+    const x0=E.l+w*i+w*.1, bw=w*.38;
+    [[ven[i],'#6E1630',x0],[str[i],'#B08A4A',x0+bw+4]].forEach(([v,c,x],k)=>{
+      const y1=v>=0?ey(v):ey(0), hh=Math.abs(ey(v)-ey(0));
+      h+='<rect data-i="'+i+'" x="'+x+'" y="'+y1+'" width="'+bw+'" height="'+Math.max(hh,1.5)+'" rx="5" fill="'+c+'" style="transform-origin:'+(v>=0?'bottom':'top')+';transform:scaleY(0);transition-delay:'+(300+i*260+k*120)+'ms"/>'});
+    h+='<text class="ax" x="'+(E.l+w*i+w/2)+'" y="'+(E.b+30)+'" text-anchor="middle">'+y+'</text>';
+  });
+  $('#esvg').innerHTML=h;
+})();
+function ebitda(){const rs=$$('#esvg rect');rs.forEach(r=>r.style.transform='scaleY(0)');later(()=>rs.forEach(r=>r.style.transform='scaleY(1)'),80)}
+
+/* ---------- s12 donut ---------- */
+const seg=[[50,'#6E1630'],[25,'#B08A4A'],[15,'#C35A76'],[10,'#3E1022']], C=2*Math.PI*69;
+$('#donut').innerHTML=seg.map((s,i)=>'<circle cx="100" cy="100" r="69" stroke="'+s[1]+'" style="--d:'+(400+i*400)+'" stroke-dasharray="0 '+C+'" stroke-dashoffset="0"/>').join('');
+function donut(){let acc=0;$$('#donut circle').forEach((c,i)=>{const len=C*seg[i][0]/100;c.setAttribute('stroke-dasharray','0 '+C);c.setAttribute('stroke-dashoffset',-acc);acc+=len;later(()=>c.setAttribute('stroke-dasharray',(len-1.5)+' '+C),60)})}
+
+/* per-slide loops */
+function dotsFill(){const ds=$$('#dots3 i');ds.forEach(d=>d.className='');ds.forEach((d,i)=>later(()=>{d.className='on'+(i%9==4?' w':'')},700+i*22))}
+function reader(){
+  const sp=$$('#readtxt span'),bar=$('#readbar');let i=0;
+  const tick=()=>{sp.forEach((s,k)=>{s.classList.toggle('hl',k==i);s.classList.toggle('done',k<i)});bar.style.width=(100*i/sp.length)+'%';i++;if(i<=sp.length)later(tick,380);else later(()=>{i=0;tick()},1400)};
+  later(tick,1200);
+}
+const run={s3:dotsFill,s4:reader,s9:growth,s10:ebitda,s12:donut};
+
+/* navigation */
+function go(n,fromAuto){
+  n=(n+N)%N;
+  timers.forEach(clearTimeout);timers=[];raf.forEach(cancelAnimationFrame);raf=[];
+  slides[cur].classList.remove('active');
+  cur=n;const sl=slides[cur];
+  // force restart of transitions
+  void sl.offsetWidth; sl.classList.add('active');
+  counters(sl);bars(sl);(run[sl.id]||(()=>{}))();
+  $('#num').textContent=(cur+1)+' / '+N;
+  $('#progress').style.width=(100*(cur+1)/N)+'%';
+  history.replaceState(null,'','#'+(cur+1));
+  if(playing)schedule();
+}
+function schedule(){
+  clearTimeout(autoT);const dur=+(slides[cur].dataset.dur||9000);autoStart=performance.now();
+  autoT=setTimeout(()=>{if(cur==N-1&&!params.has('loop')){setPlay(false);return}go(cur+1,true)},dur);
+  const ab=$('#autobar');ab.style.transition='none';ab.style.width='0';void ab.offsetWidth;ab.style.transition='width '+dur+'ms linear';ab.style.width='100%';
+}
+function setPlay(v){playing=v;$('#bPlay').classList.toggle('on',v);$('#bPlay').textContent=v?'❚❚ Pause':'▶ Show';
+  const ab=$('#autobar');if(!v){clearTimeout(autoT);ab.style.transition='none';ab.style.width='0'}else schedule()}
+$('#bNext').onclick=e=>{e.stopPropagation();go(cur+1)};
+$('#bPrev').onclick=e=>{e.stopPropagation();go(cur-1)};
+$('#bPlay').onclick=e=>{e.stopPropagation();setPlay(!playing)};
+$('#bFs').onclick=e=>{e.stopPropagation();fs()};
+function fs(){const d=document;if(!d.fullscreenElement)(d.documentElement.requestFullscreen||d.documentElement.webkitRequestFullscreen||(()=>{})).call(d.documentElement);else d.exitFullscreen&&d.exitFullscreen()}
+addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown','Enter'].includes(e.key)){go(cur+1);e.preventDefault()}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){go(cur-1);e.preventDefault()}
+  else if(e.key==' '){setPlay(!playing);e.preventDefault()}
+  else if(e.key=='f'||e.key=='F')fs();
+  else if(e.key=='Home')go(0);else if(e.key=='End')go(N-1);
+});
+$('#viewport').addEventListener('click',e=>{go(e.clientX>innerWidth/3?cur+1:cur-1)});
+let tx=null;addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{if(tx==null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)go(dx<0?cur+1:cur-1);tx=null});
+/* auto-hide chrome */
+let idle;const wake=()=>{$('#ctrl').classList.remove('hide');clearTimeout(idle);idle=setTimeout(()=>{$('#ctrl').classList.add('hide');$('#hint').style.opacity=0},2600)};
+addEventListener('mousemove',wake);addEventListener('touchstart',wake,{passive:true});wake();
+if(params.has('clean')){$('#ctrl').style.display='none';$('#hint').style.display='none'}
+
+const start=Math.max(0,Math.min(N-1,(parseInt(location.hash.slice(1))||1)-1));
+cur=start;go(start);
+if(params.has('play'))setPlay(true);
+})();
+</script>
+</body>
+</html>
