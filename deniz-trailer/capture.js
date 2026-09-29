@@ -4,17 +4,18 @@ const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const { spawn } = require('child_process');
 const FF = process.env.FFMPEG || 'ffmpeg';
 (async () => {
-  const b = await chromium.launch();
+  const b = await chromium.launch({ args: ['--allow-file-access-from-files', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   const p = await b.newPage({ viewport: { width: 1080, height: 1920 } });
   await p.goto('file://' + __dirname + '/' + (process.env.PAGE || 'trailer.html?capture'));
-  await p.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(i => i.decode())); });
+  await p.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(i => i.decode().catch(() => {}))); if (window.READY) await window.READY; });
   const shot = async t => { await p.evaluate(t => render(t), t); return p.screenshot({ type: 'jpeg', quality: 92, clip: { x: 0, y: 0, width: 1080, height: 1920 } }); };
   if (process.argv[2] === '--stills') {
     for (const t of process.argv[3].split(',').map(Number)) require('fs').writeFileSync(`${__dirname}/${process.env.PREFIX || "still"}-${t}.jpg`, await shot(t));
   } else {
     const fps = +(process.argv[3] || 30), dur = await p.evaluate(() => DUR), out = process.argv[2];
     const ff = spawn(FF, ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(fps), '-i', '-', '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', out], { stdio: ['pipe', 'inherit', 'inherit'] });
-    for (let i = 0; i < dur * fps; i++) {
+    const from = +(process.argv[4] || 0), to = Math.min(Math.round(dur * fps), +(process.argv[5] || Infinity));
+    for (let i = from; i < to; i++) {
       const buf = await shot(i / fps);
       if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
       if (i % 300 === 0) console.log('frame', i);

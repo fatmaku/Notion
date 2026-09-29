@@ -1,6 +1,12 @@
-"""Synthesizes a gentle 70 s music-box / pad score for the trailer (C major, 90 bpm)."""
+"""Synthesizes a gentle music-box / pad score (C major, 90 bpm).
+Usage: python3 music.py [duration] [out.wav] [chime times...] [finale start] (defaults: the 70 s trailer)."""
+import sys
 import numpy as np, wave
-SR, DUR, BPM = 44100, 70.0, 90
+SR, BPM = 44100, 90
+DUR = float(sys.argv[1]) if len(sys.argv) > 1 else 70.0
+OUTFILE = sys.argv[2] if len(sys.argv) > 2 else 'music.wav'
+CHIMES = [float(x) for x in sys.argv[3:-1]] if len(sys.argv) > 4 else [12.3, 19.8, 50.5, 64.6]
+END = float(sys.argv[-1]) if len(sys.argv) > 4 else 64.6
 beat = 60 / BPM
 t = np.arange(int(SR * DUR)) / SR
 out = np.zeros((len(t), 2))
@@ -38,22 +44,22 @@ bar = 4 * beat
 nbars = int(np.ceil(DUR / bar))
 for b in range(nbars):
     st = b * bar
-    if st > 67: break
-    c = 'C' if st >= 64 else prog[b % len(prog)]
+    if st > DUR - 3: break
+    c = 'C' if st >= END else prog[b % len(prog)]
     notes = CH[c]
     add(pad([N(n) for n in notes], bar + 1.2), st, gain=.16 if st < 22 else .2)
     add(bass(N(notes[0] - 12), bar), st, gain=.22 if st >= 6 else .1)
     # music-box arpeggio: sparse at start, busier in the montage, calm at the end
-    dens = 2 if st < 12 else 4 if st < 22 else 8 if st < 50 else 4
+    dens = 2 if st < 12 else 4 if st < 22 else 8 if st < END - 14 else 4
     pattern = [0, 1, 2, 1, 2, 0, 1, 2]
     for k in range(dens):
         n = notes[pattern[k % 8]] + 12 + (12 if (k % 4 == 3 and st >= 22) else 0)
         add(musicbox(N(n)), st + k * bar / dens, pan=np.sin(k) * .4, gain=.2)
-    if 50 <= st < 64:  # melody over the finale
+    if END - 14 <= st < END:  # melody over the finale
         for k, n in enumerate([76, 74, 72, 67] if b % 2 else [72, 74, 76, 79]):
             add(musicbox(N(n), 2.6), st + k * beat, gain=.24)
-for s in (12.3, 19.8, 50.5, 64.6): chime(s)
-add(musicbox(N(72), 5) + musicbox(N(76), 5) + musicbox(N(79), 5) + musicbox(N(84), 5), 64.6, gain=.2)
+for s in CHIMES: chime(s)
+add(musicbox(N(72), 5) + musicbox(N(76), 5) + musicbox(N(79), 5) + musicbox(N(84), 5), END, gain=.2)
 
 # simple stereo reverb (feedback delays), fade in/out, normalize
 rev = out.copy()
@@ -62,7 +68,7 @@ for d, g in [(.043, .35), (.071, .3), (.113, .25), (.167, .2), (.251, .15)]:
 rev[:int(1.5*SR)] *= np.linspace(0, 1, int(1.5*SR))[:, None]
 fo = int(3 * SR); rev[-fo:] *= np.linspace(1, 0, fo)[:, None]
 rev /= np.max(np.abs(rev)) / .8
-with wave.open('music.wav', 'wb') as w:
+with wave.open(OUTFILE, 'wb') as w:
     w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
     w.writeframes((rev * 32767).astype('<i2').tobytes())
-print('music.wav written')
+print(OUTFILE, 'written')

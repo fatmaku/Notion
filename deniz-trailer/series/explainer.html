@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benim Nörofarklı Pusulam – Seri Videosu</title>
+<style>
+@font-face{font-family:'Fredoka';src:url('../src/OEBPS/fonts/fredoka-0.woff2') format('woff2');font-weight:400 700;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+1EF2-1EFF}
+@font-face{font-family:'Fredoka';src:url('../src/OEBPS/fonts/fredoka-2.woff2') format('woff2');font-weight:400 700;unicode-range:U+0000-00FF,U+0131,U+2000-206F,U+20AC}
+:root{--sun:#F29B6B;--navy:#1E2D4A;--calm:#5E9B82;--coral:#E8788A;--sky:#8FDBFF}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;overflow:hidden}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#0d1426;font-family:'Fredoka',sans-serif;transform-origin:0 0}
+#gl,#fx{position:absolute;inset:0;width:1080px;height:1920px}
+#ui{position:absolute;inset:0;pointer-events:none}
+#ui>*{position:absolute;display:none}
+.shade{inset:0;background:linear-gradient(180deg,rgba(13,20,38,.55) 0%,rgba(13,20,38,0) 28%,rgba(13,20,38,0) 55%,rgba(13,20,38,.75) 100%)}
+.tag{left:70px;top:120px;font:600 30px 'Fredoka';letter-spacing:.24em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.chip{display:inline-block;padding:12px 26px;border-radius:999px;font:700 30px 'Fredoka';letter-spacing:.2em;color:#fff}
+.prob{left:60px;right:60px;top:200px;padding:30px 36px;border-radius:34px;background:rgba(20,26,48,.72);backdrop-filter:blur(6px)}
+.prob .chip{background:var(--coral)}
+.prob p{margin-top:18px;font:600 60px/1.16 'Fredoka';color:#fff}
+.sol{left:50px;right:50px;bottom:110px;padding:34px 36px 40px;border-radius:40px;background:rgba(15,24,44,.9);box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.sol .chip{background:var(--calm)}
+.sol p{margin-top:18px;font:500 50px/1.22 'Fredoka';color:#fff}
+.sol p b{color:var(--sun);font-weight:700}
+.steps{display:flex;align-items:center;justify-content:center;gap:0;margin-top:34px}
+.st{width:124px;height:124px;border-radius:50%;background:#26375A;border:4px solid var(--sky);display:flex;align-items:center;justify-content:center;font-size:62px;font-family:'Noto Color Emoji',sans-serif;flex:none}
+.ln{height:6px;width:70px;background:var(--sky);border-radius:3px;transform-origin:left;flex:none}
+.w{display:inline-block}
+.center{position:absolute;left:70px;right:70px;text-align:center;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.6)}
+.big{font:700 96px/1.05 'Fredoka'}
+.mid{font:600 58px/1.2 'Fredoka'}
+.small{font:500 40px/1.35 'Fredoka';color:#DDE6F7}
+.hl{color:var(--sun)}.sky{color:var(--sky)}
+.bookcard{inset:0}
+.bookcard .cov{position:absolute;left:50%;top:300px;width:600px;height:960px;margin-left:-300px;border-radius:24px;overflow:hidden;box-shadow:0 50px 100px rgba(0,0,0,.6);transform-style:preserve-3d}
+.bookcard .cov img{width:100%;height:100%;object-fit:cover}
+.bookcard .no{position:absolute;left:0;right:0;top:1330px;text-align:center;font:600 34px 'Fredoka';letter-spacing:.3em;color:var(--sun)}
+.bookcard .ti{position:absolute;left:60px;right:60px;top:1390px;text-align:center;font:700 80px/1.08 'Fredoka';color:#fff}
+.bookcard .su{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font:500 38px/1.3 'Fredoka';color:#B9C4DA}
+.fan{inset:0}
+.fan img{position:absolute;left:50%;top:420px;width:330px;height:528px;margin-left:-165px;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.55);transform-origin:50% 120%}
+#bfly{position:absolute;left:0;top:0;width:220px;height:200px;margin:-100px 0 0 -110px;pointer-events:none;filter:drop-shadow(0 0 18px rgba(120,210,255,.85));display:none}
+#bfly .wl,#bfly .wr{transform-box:fill-box}
+#bfly .wl{transform-origin:100% 50%}
+#bfly .wr{transform-origin:0% 50%}
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="1080" height="1920"></canvas>
+  <canvas id="fx" width="1080" height="1920"></canvas>
+  <div id="ui"></div>
+  <svg id="bfly" viewBox="-110 -100 220 200">
+    <defs><radialGradient id="wg" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#BDF0FF"/><stop offset=".45" stop-color="#4FB8EE"/><stop offset="1" stop-color="#1B5FB0"/></radialGradient></defs>
+    <g class="wl"><path d="M-6 -4 C-40 -80 -108 -70 -96 -18 C-90 8 -50 10 -6 4Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><path d="M-6 6 C-50 14 -84 40 -64 70 C-44 92 -14 50 -6 12Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><circle cx="-58" cy="-34" r="7" fill="#fff" opacity=".85"/><circle cx="-40" cy="46" r="5" fill="#fff" opacity=".8"/></g>
+    <g class="wr"><path d="M6 -4 C40 -80 108 -70 96 -18 C90 8 50 10 6 4Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><path d="M6 6 C50 14 84 40 64 70 C44 92 14 50 6 12Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><circle cx="58" cy="-34" r="7" fill="#fff" opacity=".85"/><circle cx="40" cy="46" r="5" fill="#fff" opacity=".8"/></g>
+    <ellipse cx="0" cy="4" rx="7" ry="34" fill="#12447F"/><circle cx="0" cy="-32" r="10" fill="#12447F"/>
+    <circle cx="-4" cy="-34" r="2.6" fill="#fff"/><circle cx="4" cy="-34" r="2.6" fill="#fff"/>
+    <path d="M-3 -40 C-10 -60 -20 -66 -24 -66 M3 -40 C10 -60 20 -66 24 -66" stroke="#12447F" stroke-width="3" fill="none"/>
+    <circle cx="-24" cy="-66" r="4" fill="#FFD27A"/><circle cx="24" cy="-66" r="4" fill="#FFD27A"/>
+  </svg>
+</div>
+<script>
+/* ================= content ================= */
+const I = (b, f) => ({ src: b === 3 ? `../src/OEBPS/images/${f}.jpg` : `../books/b${b}/OEBPS/images/${f}.jpg`, dep: `depth/b${b}_${f}.png` });
+const BOOKS = [
+ { n:1, cover:I(1,'cover'), title:'Benim Nörofarklı Pusulam', sub:'Kelebek Pusula ile Maceralar', pairs:[
+   { img:I(1,'img3_02_Disko_Market'), face:[.3,.42], p:'Market ışıkları, sesler… her şey [çok] [fazla.]', s:'Kısa bir mola verin. Çocuğa şu cümleyi öğretin: <b>“Gözlerim yoruldu.”</b>', steps:['👀','⏸️','🌳'] },
+   { img:I(1,'img8_07_Sarj_Dansi'), face:[.35,.35], p:'Sallanmak, zıplamak, el çırpmak… “[Rahat] [dur!]”', s:'Engellemeyin; beden böyle sakinleşir. <b>“Bu benim şarj dansım.”</b>', steps:['🙌','🔋','😊'] },
+   { img:I(1,'img9_08_Firtina_ve_Sakin_Liman'), face:[.4,.5], p:'Balon şişer, şişer… ve [patlar.]', s:'Az kelime: <b>“Buradayım. Güvendesin.”</b> Işığı ve sesi azaltın; sonra su ve sarılma.', steps:['🔅','🤫','💧','🤗'] } ]},
+ { n:2, cover:I(2,'cover'), title:'Deniz ve Bedeninin Gizli Mesajları', sub:'Tuvalet, Uyku ve Günlük Bakım Maceraları', pairs:[
+   { img:I(2,'img2_03_Gec_Calan_Cis_Zili'), face:[.3,.6], p:'Çiş sinyali [geç] [geliyor;] kazalar oluyor.', s:'Hissi beklemeyin, rutinle kontrol edin: <b>ayakkabı → tuvalet → kapı.</b>', steps:['👟','🚽','🚪'] },
+   { img:I(2,'img4_05_Kopuk_Dagi_Banyo_Haritasi'), face:[.35,.3], p:'Banyo, diş, saç kesimi: [duyusal] [bir] [dağ.]', s:'Resimli küçük adımlar, <b>iki seçenek</b> ve bir <b>mola işareti.</b>', steps:['🗺️','✌️','✋'] },
+   { img:I(2,'img7_08_Uyumayan_Beyin_Gece_Vardiyasi'), face:[.25,.72], p:'Beyin gece de [kapanmıyor.]', s:'İniş pisti: <b>loş ışık → kısa kitap → soruları kâğıda park et → yatak.</b>', steps:['💡','📖','📝','🛏️'] } ]},
+ { n:3, cover:I(3,'cover'), title:'Deniz Okulda Kendi Yolunu Buluyor', sub:'Öğrenme, Ödev ve Okul Cesareti Maceraları', pairs:[
+   { img:I(3,'img3_04_Baslama_Dugmesi'), face:[.4,.3], p:'On soru değil, bir dağ: [başlayamamak.]', s:'İlk adımı küçültün ve <b>iki dakika birlikte</b> başlayın.', steps:['👣','⏱️','✅'] },
+   { img:I(3,'img4_05_Cantadaki_Kayip_Gezegenler'), face:[.55,.4], p:'Unutulan kâğıtlar, [kaybolan] [eşyalar.]', s:'Her eşyaya <b>sabit bir ev</b> ve kapıda bir <b>kontrol resmi.</b>', steps:['📁','🎒','🚪'] },
+   { img:I(3,'img5_06_Zaman_Balonu'), face:[.45,.55], p:'“Beş dakika” görünmez; [geçişler] [zor.]', s:'Zamanı görünür yapın: <b>kum saati, 5 ve 2 dakika uyarısı.</b>', steps:['⏳','5️⃣','2️⃣','📂'] } ]},
+ { n:4, cover:I(4,'cover'), title:'Deniz ve Arkadaşlık Pusulası', sub:'Arkadaşlık, Oyun ve Sosyal Cesaret Maceraları', pairs:[
+   { img:I(4,'img2_03_Saka_Mi_Gercek_Mi'), face:[.3,.3], p:'Şaka mı, gerçek mi? [İmalar] [anlaşılmıyor.]', s:'Sormak serbest: <b>“Bunu gerçek mi söyledin, şaka mı?”</b>', steps:['❓','💬','👍'] },
+   { img:I(4,'img3_04_Oyuna_Girmenin_Uc_Kapisi'), face:[.45,.35], p:'Oyuna nasıl [girilir?]', s:'Üç kapı: <b>izle, sor, bir rol öner.</b>', steps:['👀','🙋','🎭'] },
+   { img:I(4,'img6_07_Kaybedince_Deprem'), face:[.3,.25], p:'Kaybedince içinde [deprem.]', s:'Duygu serbest, zarar vermek değil: <b>bir adım uzaklaş, duvarı it, nefes ver.</b>', steps:['👣','🧱','🌬️'] } ]},
+ { n:5, cover:I(5,'cover'), title:'Deniz ve Değişiklikler Adası', sub:'Değişim, Geçiş ve Esneklik Maceraları', pairs:[
+   { img:I(5,'img1_02_Degisiklikler_Adasi'), face:[.35,.35], p:'Plan değişince [dünya] [yıkılıyor.]', s:'<b>Eski plan → neden değişti → yeni plan.</b> Üzülmek serbest.', steps:['⬅️','🌧️','➡️'] },
+   { img:I(5,'img6_07_Ekran_Sehri'), face:[.55,.35], p:'Ekrandan ayrılmak [çok] [zor.]', s:'<b>10 ve 2 dakika uyarısı</b>, güvenli bitiş noktası, kaydet, sonraki etkinlik.', steps:['🔟','2️⃣','💾','⚽'] },
+   { img:I(5,'img9_10_Yardim_Istemek'), face:[.35,.3], p:'“Kendim yapmalıyım”… ve [takılıp] [kalmak.]', s:'Yardım istemek süper güçtür: <b>“Önce gösterir misiniz, sonra ben deneyeyim?”</b>', steps:['🙋','👀','💪'] } ]},
+];
+
+/* ================= timeline ================= */
+const T0 = 14, BOOK_LEN = 28.5, CARD = 3.0, PAIR = 8.5, OUT = T0 + 5 * BOOK_LEN, DUR = OUT + 16;
+const IMGS = [];            // {a,b,tex,face,z0,z1}
+const UI = [];              // {a,b,el,fn}
+const ui = document.getElementById('ui');
+const el = (cls, html) => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ui.appendChild(d); return d; };
+const words = s => s.split(' ').map(w => { let c = ''; if (/^\[.*\]$/.test(w)) { c = 'hl'; w = w.slice(1, -1); } else if (/^\{.*\}$/.test(w)) { c = 'sky'; w = w.slice(1, -1); } return `<span class="w ${c}">${w}</span>`; }).join(' ');
+
+// intro
+UI.push({ a: 0, b: T0 + .3, el: el('shade', ''), kind: 'fade' });
+IMGS.push({ a: 0, b: 7.4, img: I(3, 'img10_11_Benim_Yolum'), face: [.45, .6], z0: 1.45, z1: 1.1 });
+IMGS.push({ a: 6.6, b: T0 + .6, img: I(1, 'img2_01_Tanisma_Pencerede_Pusula'), face: [.45, .45], z0: 1.1, z1: 1.35 });
+UI.push({ a: .8, b: 6.6, el: el('center', `<div class="small" style="letter-spacing:.3em;color:#F29B6B">5 KİTAPLIK SERİ</div><div class="big" style="margin-top:22px">${words('Benim Nörofarklı [Pusulam]')}</div><div class="mid" style="margin-top:36px">${words('5 kitap · 40 macera · {1} {pusula}')}</div>`), top: 1180, kind: 'words' });
+UI.push({ a: 7.3, b: T0 - .2, el: el('center', `<div class="mid">${words('Otizm ve DEHB’li çocukların günlük [zorlukları]')}</div><div class="mid" style="margin-top:26px">${words('ve kitaplarda anlatılan {küçük} {çözümler.}')}</div>`), top: 1250, kind: 'words' });
+
+BOOKS.forEach((bk, i) => {
+  const a = T0 + i * BOOK_LEN;
+  const card = el('bookcard', `<div class="cov"><img src="${bk.cover.src}"></div><div class="no">${bk.n}. KİTAP</div><div class="ti">${bk.title}</div><div class="su">${bk.sub}</div>`);
+  UI.push({ a, b: a + CARD + .4, el: card, kind: 'book' });
+  bk.pairs.forEach((pr, j) => {
+    const s = a + CARD + j * PAIR;
+    IMGS.push({ a: s - .4, b: s + PAIR + .4, img: pr.img, face: pr.face, z0: j % 2 ? 1.08 : 1.28, z1: j % 2 ? 1.28 : 1.08 });
+    UI.push({ a: s - .2, b: s + PAIR + .2, el: el('shade', ''), kind: 'fade' });
+    UI.push({ a: s + .1, b: s + PAIR - .1, el: el('tag', `${bk.n}. KİTAP · ${j + 1}/3`), kind: 'fade' });
+    UI.push({ a: s + .3, b: s + PAIR - .2, el: el('prob', `<span class="chip">ZORLUK</span><p>${words(pr.p)}</p>`), kind: 'prob' });
+    const steps = pr.steps.map((e, k) => (k ? '<i class="ln"></i>' : '') + `<span class="st">${e}</span>`).join('');
+    UI.push({ a: s + 3.3, b: s + PAIR - .2, el: el('sol', `<span class="chip">ÇÖZÜM</span><p>${pr.s}</p><div class="steps">${steps}</div>`), kind: 'sol' });
+  });
+});
+// outro
+IMGS.push({ a: OUT - .4, b: OUT + 6.5, img: I(1, 'img11_10_Veda_Kullanim_Kilavuzu'), face: [.45, .35], z0: 1.4, z1: 1.08 });
+UI.push({ a: OUT + .4, b: OUT + 6.2, el: el('center', `<div class="big">${words('“Farklıyız, [eksik] [değil.]”')}</div><div class="small" style="margin-top:30px">— Pusula</div>`), top: 1320, kind: 'words' });
+const fan = el('fan', BOOKS.map(b => `<img src="${b.cover.src}">`).join('') + `<div class="center" style="top:1150px"><div class="mid">Benim Nörofarklı Pusulam</div><div class="small" style="margin-top:18px">5 kitaplık çocuk serisi · Yazar: <b style="color:#fff">Tuncay Sancak</b></div><div style="margin-top:44px"><span style="display:inline-block;padding:16px 36px;border-radius:999px;border:3px solid rgba(143,219,255,.8);font:600 40px Fredoka;color:#8FDBFF">happytuncay.com · @happytuncay</span></div><div class="small" style="margin-top:60px;font-size:28px;color:#8C99B5">Bu kitaplar tanı koymaz ve uzman değerlendirmesinin yerine geçmez.</div></div>`);
+UI.push({ a: OUT + 6.0, b: DUR, el: fan, kind: 'fan' });
+
+/* ================= WebGL depth-parallax renderer ================= */
+const gl = document.getElementById('gl').getContext('webgl', { preserveDrawingBuffer: true, premultipliedAlpha: false });
+const VS = `attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;v.y=1.-v.y;gl_Position=vec4(p,0,1);}`;
+const FS = `precision highp float;varying vec2 v;uniform sampler2D img,dep;uniform vec2 scale,center,off;uniform float dolly,alpha;
+void main(){vec2 uv=center+(v-.5)*scale;vec2 q=uv;
+ for(int i=0;i<4;i++){float d=texture2D(dep,q).r;q=uv+off*(d-.45)+(uv-center)*dolly*(d-.45);}
+ vec4 c=texture2D(img,clamp(q,0.,1.));float vig=smoothstep(1.15,.35,length((v-.5)*vec2(1.,.8)));
+ gl_FragColor=vec4(c.rgb*mix(.72,1.,vig),alpha);}`;
+function sh(t, s) { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); return o; }
+const prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog); gl.useProgram(prog);
+gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+const loc = n => gl.getUniformLocation(prog, n); const pl = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(pl); gl.vertexAttribPointer(pl, 2, gl.FLOAT, false, 0, 0);
+gl.uniform1i(loc('img'), 0); gl.uniform1i(loc('dep'), 1); gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+const texCache = {};
+function loadTex(url) { if (texCache[url]) return texCache[url]; const t = { tex: gl.createTexture(), w: 1, h: 1, ready: false };
+  const im = new Image(); t.p = new Promise(r => { im.onload = () => { gl.bindTexture(gl.TEXTURE_2D, t.tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    t.w = im.naturalWidth; t.h = im.naturalHeight; t.ready = true; r(); }; }); im.src = url; return texCache[url] = t; }
+IMGS.forEach(s => { s.t = loadTex(s.img.src); s.d = loadTex(s.img.dep); });
+window.READY = Promise.all(Object.values(texCache).map(t => t.p));
+
+/* ================= helpers ================= */
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v)), lerp = (a, b, p) => a + (b - a) * p, prog01 = (t, a, b) => clamp((t - a) / (b - a));
+const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2, easeOut = p => 1 - Math.pow(1 - p, 3);
+const easeBack = p => { const c = 1.7; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+function hash(n) { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+function drawImg(s, t) {
+  const p = ease(prog01(t, s.a, s.b)), z = lerp(s.z0, s.z1, p), A = 1080 / 1920, ia = s.t.w / s.t.h;
+  // visible fraction of the image (cover fit), then zoom
+  let sx = 1, sy = 1; if (ia > A) sx = A / ia; else sy = ia / A; sx /= z; sy /= z;
+  let cx = lerp(s.face[0], .5, p), cy = lerp(s.face[1], .5, p);
+  cx = clamp(cx, sx / 2 + .03, 1 - sx / 2 - .03); cy = clamp(cy, sy / 2 + .03, 1 - sy / 2 - .03);
+  const ph = s.a * 1.7;
+  const alpha = Math.min(prog01(t, s.a, s.a + .8), 1 - prog01(t, s.b - .8, s.b));
+  gl.uniform2f(loc('scale'), sx, sy); gl.uniform2f(loc('center'), cx, cy);
+  gl.uniform2f(loc('off'), .035 * Math.sin(t * .55 + ph), .02 * Math.cos(t * .43 + ph));
+  gl.uniform1f(loc('dolly'), .16 * (p - .5)); gl.uniform1f(loc('alpha'), s.a === 0 ? Math.min(1, prog01(t, 0, 1.2)) : alpha);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, s.t.tex); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, s.d.tex);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+
+const fx = document.getElementById('fx').getContext('2d');
+const DUST = Array.from({ length: 80 }, (_, i) => ({ x: hash(i) * 1080, y: hash(i + 99) * 1920, r: 1.5 + hash(i + 7) * 3.5, sp: 10 + hash(i + 3) * 30, ph: hash(i + 5) * 6.28, dr: hash(i + 11) * 2 - 1 }));
+const bf = document.getElementById('bfly'), wl = bf.querySelector('.wl'), wr = bf.querySelector('.wr');
+// the butterfly crosses the screen at the start of every book card and in the intro/outro
+const FLIGHTS = [[1.2, 6.5], ...BOOKS.map((b, i) => [T0 + i * BOOK_LEN - .2, T0 + i * BOOK_LEN + CARD + .6]), [OUT + 6.2, DUR]];
+function fly(t) {
+  for (let k = 0; k < FLIGHTS.length; k++) { const [a, b] = FLIGHTS[k]; if (t < a || t > b) continue;
+    const p = (t - a) / (b - a), dir = k % 2 ? -1 : 1, last = k === FLIGHTS.length - 1;
+    const x = last ? lerp(-150, 820, easeOut(Math.min(1, p * 1.6))) : 540 + dir * lerp(-700, 700, p), y = last ? 330 + Math.sin(t * 2) * 30 : 900 - Math.sin(p * Math.PI) * 520 + Math.sin(t * 3) * 25;
+    return { x, y, s: last ? 1.1 : .95, dx: last ? 1 : dir }; }
+  return null;
+}
+
+function renderUI(t) {
+  for (const u of UI) {
+    const on = t >= u.a && t <= u.b; u.el.style.display = on ? 'block' : 'none'; if (!on) continue;
+    const pin = prog01(t, u.a, u.a + .5), out = 1 - prog01(t, u.b - .45, u.b);
+    if (u.top !== undefined) u.el.style.top = u.top + 'px';
+    if (u.kind === 'fade') u.el.style.opacity = Math.min(pin, out);
+    if (u.kind === 'words' || u.kind === 'prob') {
+      u.el.style.opacity = u.kind === 'prob' ? Math.min(pin, out) : out;
+      if (u.kind === 'prob') u.el.style.transform = `translateY(${(1 - easeOut(pin)) * -60}px)`;
+      u.el.querySelectorAll('.w').forEach((w, i) => { const q = easeBack(prog01(t, u.a + .25 + i * .09, u.a + .75 + i * .09)); w.style.opacity = clamp(prog01(t, u.a + .25 + i * .09, u.a + .55 + i * .09)); w.style.transform = `translateY(${(1 - q) * 40}px)`; });
+    }
+    if (u.kind === 'sol') {
+      const q = easeOut(prog01(t, u.a, u.a + .7)); u.el.style.opacity = Math.min(q, out); u.el.style.transform = `translateY(${(1 - q) * 260}px)`;
+      const kids = [...u.el.querySelectorAll('.st,.ln')];
+      kids.forEach((k, i) => { const st = u.a + .9 + i * .28;
+        if (k.classList.contains('ln')) { k.style.transform = `scaleX(${easeOut(prog01(t, st, st + .35))})`; }
+        else { const e = easeBack(prog01(t, st, st + .45)); k.style.transform = `scale(${e}) rotate(${Math.sin(t * 2.2 + i) * 4}deg)`; k.style.opacity = clamp(prog01(t, st, st + .2));
+          k.style.boxShadow = `0 0 ${20 + 18 * Math.sin(t * 4 - i)}px rgba(143,219,255,.55)`; } });
+    }
+    if (u.kind === 'book') {
+      u.el.style.background = `radial-gradient(ellipse 90% 60% at 50% 38%,#2A3F6B 0%,#1E2D4A 45%,#0d1426 100%)`;
+      u.el.style.opacity = Math.min(prog01(t, u.a, u.a + .35), out);
+      const c = u.el.querySelector('.cov'), q = easeOut(prog01(t, u.a, u.a + 1.2));
+      c.style.transform = `perspective(1400px) rotateY(${lerp(70, -10, q) + Math.sin(t * 1.3) * 3}deg) rotateX(${Math.sin(t) * 3}deg) translateY(${(1 - q) * 200}px) scale(${lerp(.7, 1, q)})`;
+      ['.no', '.ti', '.su'].forEach((s, i) => { const e = easeOut(prog01(t, u.a + .5 + i * .25, u.a + 1.2 + i * .25)); const x = u.el.querySelector(s); x.style.opacity = e; x.style.transform = `translateY(${(1 - e) * 40}px)`; });
+    }
+    if (u.kind === 'fan') {
+      u.el.style.background = `radial-gradient(ellipse 90% 60% at 50% 30%,#2A3F6B 0%,#1E2D4A 45%,#0d1426 100%)`;
+      u.el.style.opacity = prog01(t, u.a, u.a + .6);
+      u.el.querySelectorAll('img').forEach((im, i) => { const e = easeBack(prog01(t, u.a + .3 + i * .15, u.a + 1.2 + i * .15)), ang = (i - 2) * 13 * e;
+        im.style.transform = `translateX(${(i - 2) * 95 * e}px) translateY(${(1 - e) * 500 + Math.abs(i - 2) * 30 * e}px) rotate(${ang + Math.sin(t + i) * 1.5}deg)`; });
+      const c = u.el.querySelector('.center'), e = easeOut(prog01(t, u.a + 1.4, u.a + 2.4)); c.style.opacity = e; c.style.transform = `translateY(${(1 - e) * 40}px)`;
+    }
+  }
+}
+
+function render(t) {
+  gl.viewport(0, 0, 1080, 1920); gl.clearColor(.05, .08, .15, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+  for (const s of IMGS) if (t >= s.a && t <= s.b && s.t.ready && s.d.ready) drawImg(s, t);
+  renderUI(t);
+  // particles + butterfly trail
+  fx.clearRect(0, 0, 1080, 1920); fx.globalCompositeOperation = 'lighter';
+  const fin = prog01(t, DUR - 1.2, DUR);
+  for (const d of DUST) { const y = ((d.y - t * d.sp) % 1920 + 1920) % 1920, x = d.x + Math.sin(t * .6 + d.ph) * 30 * d.dr, a = (.2 + .5 * Math.pow(Math.sin(t * 1.7 + d.ph) * .5 + .5, 3)) * (1 - fin);
+    const g = fx.createRadialGradient(x, y, 0, x, y, d.r * 4); g.addColorStop(0, `rgba(255,225,160,${a})`); g.addColorStop(1, 'rgba(255,200,120,0)'); fx.fillStyle = g; fx.beginPath(); fx.arc(x, y, d.r * 4, 0, 6.283); fx.fill(); }
+  const B = fly(t);
+  if (B) { for (let k = 1; k < 40; k++) { const P = fly(t - k * .035); if (!P) continue; const j = hash(k + Math.floor((t - k * .035) * 28.57)), a = (1 - k / 40) * .85, x = P.x + (j - .5) * 60, y = P.y + (hash(k * 3 + Math.floor((t - k * .035) * 28.57)) - .5) * 60 + k * 1.5, r = (2 + j * 5) * (1 - k / 55);
+      const g = fx.createRadialGradient(x, y, 0, x, y, r * 3); g.addColorStop(0, `rgba(${j > .5 ? '255,230,160' : '170,230,255'},${a})`); g.addColorStop(1, 'rgba(255,255,255,0)'); fx.fillStyle = g; fx.beginPath(); fx.arc(x, y, r * 3, 0, 6.283); fx.fill(); }
+    const flap = .25 + .75 * Math.abs(Math.sin(t * 13)); wl.style.transform = `scaleX(${flap})`; wr.style.transform = `scaleX(${flap})`;
+    bf.style.display = 'block'; bf.style.transform = `translate(${B.x}px,${B.y}px) scale(${B.s * 1.3}) rotate(${B.dx * 12}deg)`; }
+  else bf.style.display = 'none';
+  fx.globalCompositeOperation = 'source-over'; if (fin > 0) { fx.fillStyle = `rgba(0,0,0,${fin})`; fx.fillRect(0, 0, 1080, 1920); }
+}
+window.render = render; window.DUR = DUR;
+if (!location.search.includes('capture')) {
+  const st = document.getElementById('stage'); const fit = () => { const s = Math.min(innerWidth / 1080, innerHeight / 1920); st.style.transform = `scale(${s})`; st.style.marginLeft = ((innerWidth - 1080 * s) / 2) + 'px'; }; addEventListener('resize', fit); fit();
+  READY.then(() => { const t0 = performance.now(); const loop = () => { render(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); }; requestAnimationFrame(loop); });
+}
+</script>
+</body>
+</html>
