@@ -94,7 +94,7 @@ const IMGS = [];            // {a,b,tex,face,z0,z1}
 const UI = [];              // {a,b,el,fn}
 const ui = document.getElementById('ui');
 const el = (cls, html) => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ui.appendChild(d); return d; };
-const words = s => s.split(' ').map(w => { let c = ''; if (/^\[.*\]$/.test(w)) { c = 'hl'; w = w.slice(1, -1); } else if (/^\{.*\}$/.test(w)) { c = 'sky'; w = w.slice(1, -1); } return `<span class="w ${c}">${w}</span>`; }).join(' ');
+const words = s => s.split(' ').map(w => { const c = w.includes('[') ? 'hl' : w.includes('{') ? 'sky' : ''; w = w.replace(/[\[\]{}]/g, ''); return `<span class="w ${c}">${w}</span>`; }).join(' ');
 
 // intro
 UI.push({ a: 0, b: T0 + .3, el: el('shade', ''), kind: 'fade' });
