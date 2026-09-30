@@ -1,0 +1,157 @@
+/* LiveFX overlay – transparent, meant for an OBS "Browser Source" at 1920x1080 or 1080x1920.
+ *
+ * Layout variables (set on body, read by the effects):
+ *   --fx-fall   distance drops / confetti fall            (115vh landscape, 62vh portrait)
+ *   --fx-x0     left edge of the rain area                (0vw)
+ *   --fx-xspan  width of the rain area                    (100vw)
+ *   --fx-top    vertical anchor of cards                  (50%, 18% for .fx-pos-top, 32% for .fx-pos-safe in portrait)
+ *   --fx-ty     vertical self-offset of cards             (-50% = centred on --fx-top, 0 = top edge on --fx-top)
+ * Drops receive their horizontal position as --x (0..1); an inline `left` style still wins.
+ */
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  font-family: "Segoe UI", Inter, system-ui, -apple-system, sans-serif;
+}
+body {
+  --fx-fall: 115vh;
+  --fx-x0: 0vw;
+  --fx-xspan: 100vw;
+}
+/* Portrait (9:16): chat sits in the bottom ~35 %, so everything stays above it. */
+body.layout-portrait {
+  --fx-fall: 62vh;
+}
+#stage {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ---- positions (renderer adds fx-pos-<position> to cards, images and banners) ---- */
+.fx-pos-top {
+  --fx-top: 18%;
+  --fx-ty: 0%;
+}
+.fx-pos-center,
+.fx-pos-safe {
+  --fx-top: 50%;
+  --fx-ty: -50%;
+}
+body.layout-portrait .fx-pos-safe {
+  --fx-top: 32%;
+  --fx-ty: -50%;
+}
+
+/* ---- center card ---- */
+.fx-card {
+  position: absolute;
+  left: 50%;
+  top: var(--fx-top, 50%);
+  transform: translate(-50%, var(--fx-ty, -50%)) scale(0.2);
+  background: #111;
+  color: #fff;
+  border-radius: 32px;
+  padding: min(28px, 3vw) min(48px, 5vw);
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  max-width: 92vw;
+  box-sizing: border-box;
+  animation: fx-pop 2.6s cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
+}
+.fx-card .fx-emoji { font-size: min(160px, 22vw); line-height: 1; }
+.fx-card .fx-text {
+  font-size: min(64px, 9vw);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 8px;
+  text-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
+  overflow-wrap: anywhere;
+}
+.fx-card-image img { max-width: 40vw; max-height: 45vh; border-radius: 20px; display: block; }
+body.layout-portrait .fx-card-image img { max-width: 80vw; max-height: 40vh; }
+@keyframes fx-pop {
+  0%   { transform: translate(-50%, var(--fx-ty, -50%)) scale(0.2) rotate(-8deg); opacity: 0; }
+  12%  { transform: translate(-50%, var(--fx-ty, -50%)) scale(1.15) rotate(3deg); opacity: 1; }
+  20%  { transform: translate(-50%, var(--fx-ty, -50%)) scale(1) rotate(0); }
+  85%  { transform: translate(-50%, var(--fx-ty, -50%)) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, var(--fx-ty, -50%)) scale(0.6); opacity: 0; }
+}
+
+/* ---- banner (always at 12 %, ignores positions) ---- */
+.fx-banner {
+  position: absolute;
+  top: 12%;
+  left: 0;
+  width: 100%;
+  padding: 18px 0;
+  background: linear-gradient(90deg, #ff512f, #dd2476);
+  color: #fff;
+  font-size: min(72px, 8vw);
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  animation: fx-slide 3.2s ease-in-out forwards;
+}
+@keyframes fx-slide {
+  0%   { transform: translateX(-110%); }
+  15%  { transform: translateX(0); }
+  85%  { transform: translateX(0); }
+  100% { transform: translateX(110%); }
+}
+
+/* ---- emoji rain ---- */
+.fx-drop {
+  position: absolute;
+  top: -100px;
+  left: calc(var(--fx-x0, 0vw) + var(--x, 0) * var(--fx-xspan, 100vw));
+  animation-name: fx-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.35));
+}
+@keyframes fx-fall {
+  0%   { transform: translateY(0) rotate(0); opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(var(--fx-fall, 115vh)) rotate(360deg); opacity: 0; }
+}
+
+/* ---- confetti ---- */
+.fx-confetti {
+  position: absolute;
+  top: -20px;
+  left: calc(var(--fx-x0, 0vw) + var(--x, 0) * var(--fx-xspan, 100vw));
+  width: 14px;
+  height: 22px;
+  border-radius: 3px;
+  animation-name: fx-confetti-fall;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+@keyframes fx-confetti-fall {
+  0%   { transform: translateY(0) rotate(0) ; opacity: 1; }
+  100% { transform: translateY(var(--fx-fall, 115vh)) rotate(720deg); opacity: 0; }
+}
+
+/* ---- shake + flash ---- */
+.fx-shake { animation: fx-shake 0.5s ease-out; }
+@keyframes fx-shake {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-14px, 8px); }
+  40% { transform: translate(12px, -6px); }
+  60% { transform: translate(-8px, 6px); }
+  80% { transform: translate(6px, -4px); }
+}
+.fx-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  animation: fx-flash 0.4s ease-out forwards;
+}
+@keyframes fx-flash { 0% { opacity: 0.85; } 100% { opacity: 0; } }
