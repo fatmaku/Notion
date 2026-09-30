@@ -1,5 +1,6 @@
 import type { GameMode, RoundResult } from '../game/GameMode';
 import { ShooterMode } from '../game/shooter/ShooterMode';
+import { RunnerMode } from '../game/runner/RunnerMode';
 import { Records } from '../game/scoring/Records';
 import { DemoSource } from '../camera/DemoSource';
 import { CameraSource, explainCameraError } from '../camera/CameraSource';
@@ -13,7 +14,7 @@ import { DetectionScheduler } from '../vision/DetectionScheduler';
 import { Tracker } from '../vision/Tracker';
 import { fullFrameState, type WindowState } from '../vision/window/types';
 import { WindowTracker } from '../vision/window/WindowTracker';
-import { FrameGrabber } from '../vision/window/FrameGrabber';
+import { FrameGrabber, type GrayFrame } from '../vision/window/FrameGrabber';
 import { CalibrateScreen, type CalibrateScreenApi } from '../ui/screens/CalibrateScreen';
 import { Layers } from '../render/Layers';
 import { FxRenderer } from '../render/FxRenderer';
@@ -34,6 +35,7 @@ import { PlayScreen, setPauseVisible } from '../ui/screens/PlayScreen';
 import { ResultsScreen } from '../ui/screens/ResultsScreen';
 import { LeaderboardScreen } from '../ui/screens/LeaderboardScreen';
 import { Leaderboard, ensurePlayerId, type SubmitResponse } from '../net/Leaderboard';
+import { verifyRound } from '../../shared/verify';
 import { GameLoop } from './GameLoop';
 import { Settings } from './Settings';
 import { Storage } from './Storage';
@@ -63,6 +65,7 @@ export class App {
   windowTracker: WindowTracker | null = null;
   private readonly grabber = new FrameGrabber(240);
   private lastGrabAt = 0;
+  private lastGray: GrayFrame | null = null;
   private calibrating: CalibrateScreenApi | null = null;
   mode: GameMode | null = null;
   paused = false;
@@ -114,6 +117,8 @@ export class App {
     (window as unknown as { __wb: unknown }).__wb = {
       app: this,
       snapshot: () => ({ ...this.diag.snapshot(), ...(this.mode?.snapshot() ?? {}), screen: this.router.active?.el.className ?? '', paused: this.paused }),
+      /** e2e: the client's event log must replay to the same score the server would compute. */
+      verifyLast: () => (this.lastResult ? verifyRound({ ...this.lastResult, source: 'camera' }) : { ok: false, verifiedScore: 0, reason: 'no-round' }),
     };
     this.diag.set('version', __APP_VERSION__);
     if (p.skipTo) {
@@ -308,7 +313,7 @@ export class App {
       return;
     }
     this.session.seed = this.params.seed ?? ((Date.now() % 1000003) | 0);
-    const mode: GameMode = new ShooterMode(this.session.mode === 'side-runner' ? 'side-shooter' : this.session.mode);
+    const mode: GameMode = this.session.mode === 'side-runner' ? new RunnerMode() : new ShooterMode(this.session.mode);
     this.mode = mode;
     this.paused = false;
     const roundSeconds = this.params.round ?? this.settings.data.roundSeconds;
@@ -324,12 +329,17 @@ export class App {
       sfx: this.sfx,
       haptics: this.haptics,
       window: () => this.windowState,
+      ground: () => {
+        const ws = this.windowState;
+        return this.windowTracker && (ws.mode === 'tracking' || ws.mode === 'degraded') ? this.windowTracker.ground() : null;
+      },
+      grayFrame: () => this.lastGray,
       now: () => performance.now(),
       end: (r) => this.endRound(r),
       recenter: () => this.recenter(),
       roundSeconds,
     });
-    if (mode instanceof ShooterMode) mode.bestScore = this.records.best(mode.id);
+    if (mode instanceof ShooterMode || mode instanceof RunnerMode) mode.bestScore = this.records.best(mode.id);
     const screen = PlayScreen(this, mode);
     this.router.show(screen);
     this.playEl = screen.el;
@@ -369,6 +379,11 @@ export class App {
   }
 
   async submitScore(r: RoundResult): Promise<void> {
+    const pre = verifyRound(r);
+    if (!pre.ok) {
+      toast(pre.reason === 'endless' ? 'Endlos-Runden zählen nicht für die Rangliste.' : pre.reason === 'demo' ? 'Demo-Runden zählen nicht für die Rangliste.' : `Runde nicht gültig (${pre.reason}).`, 3000);
+      return;
+    }
     const name = this.settings.data.nickname || `Fahrgast${Math.floor(Math.random() * 1000)}`;
     const res: SubmitResponse = await this.leaderboard.submit(name, r).catch(() => ({ ok: false, error: 'network' }) as SubmitResponse);
     if (res.ok) toast(`Eingetragen als ${name}${res.rank ? ` – Platz ${res.rank}` : ''}`);
@@ -383,7 +398,10 @@ export class App {
     if (this.windowTracker && now - this.lastGrabAt >= 66 && videoReady(L.video)) {
       this.lastGrabAt = now;
       const g = this.grabber.grab(L.video, now);
-      if (g) this.windowTracker.observe(g);
+      if (g) {
+        this.lastGray = g;
+        this.windowTracker.observe(g);
+      }
       const ws = this.windowTracker.get();
       this.diag.set('win', `${ws.mode} ${(ws.confidence * 100).toFixed(0)}%`);
       this.diag.set('focal', `${this.windowTracker.focal.f.toFixed(0)}px s${this.windowTracker.focal.sign} n${this.windowTracker.focal.samples}`);

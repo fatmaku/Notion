@@ -604,7 +604,7 @@ export class ShooterMode implements GameMode {
       seed: this.ctx.session.seed,
       startedAt: this.startWall,
       source: this.ctx.session.source,
-      extra: { missionPoints: this.missionPoints, extraSec: this.extraSec },
+      extra: { missionPoints: this.missionPoints, extraSec: this.extraSec, roundSeconds: this.ctx.roundSeconds },
     };
   }
 

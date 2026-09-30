@@ -3,6 +3,8 @@ import type { Rng } from '../core/rng';
 import type { FrameSource } from '../camera/FrameSource';
 import type { Tracker } from '../vision/Tracker';
 import type { WindowState } from '../vision/window/types';
+import type { GrayFrame } from '../vision/window/FrameGrabber';
+import type { Vec2 } from '../core/types';
 import type { Layers } from '../render/Layers';
 import type { Settings } from '../app/Settings';
 import type { Session } from '../app/Session';
@@ -74,6 +76,10 @@ export interface GameCtx {
   sfx: Sfx;
   haptics: Haptics;
   window: () => WindowState;
+  /** Ground line endpoints (video px) when a window is tracked, else null. */
+  ground: () => [Vec2, Vec2] | null;
+  /** Latest downsampled gray frame (for experimental detectors). */
+  grayFrame: () => GrayFrame | null;
   now: () => number;
   /** Called by the mode when the round is over. */
   end: (r: RoundResult) => void;

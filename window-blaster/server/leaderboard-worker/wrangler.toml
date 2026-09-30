@@ -1,0 +1,13 @@
+name = "window-blaster-leaderboard"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+# 1) npx wrangler kv namespace create SCORES   → paste the returned id below
+# 2) npx wrangler deploy                         → prints the public URL
+[[kv_namespaces]]
+binding = "SCORES"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[vars]
+# Restrict CORS to your Pages origin once deployed, e.g. "https://fatmaku.github.io"
+ALLOWED_ORIGIN = "*"

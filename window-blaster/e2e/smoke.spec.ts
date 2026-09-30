@@ -42,6 +42,9 @@ test.describe('demo mode (synthetic scene + mock detector)', () => {
     expect(Number(mid.kills)).toBeGreaterThan(0);
     await expect(page.locator('.screen .title')).toBeVisible({ timeout: 25_000 });
     await expect(page.getByText('Runde vorbei')).toBeVisible();
+    // the event log must replay to exactly the displayed score (leaderboard anti-cheat contract)
+    const v = await page.evaluate(() => (window as unknown as { __wb: { verifyLast(): { ok: boolean; reason?: string } } }).__wb.verifyLast());
+    expect(v.ok, v.reason).toBe(true);
     await page.screenshot({ path: 'test-results/results.png' });
     expect(errors, errors.join('\n')).toEqual([]);
   });
