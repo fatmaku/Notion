@@ -85,6 +85,8 @@ def _run(cmd, total, progress):
                 progress(f"  %{pct}")
     err = proc.stderr.read()
     proc.wait()
+    proc.stdout.close()
+    proc.stderr.close()
     if proc.returncode != 0:
         raise media.MediaError("ffmpeg hatası: " + err.strip()[-2500:])
 

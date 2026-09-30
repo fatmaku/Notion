@@ -17,14 +17,31 @@ from pathlib import Path
 from . import config, db, media, score
 
 APPLE_EPOCH = 978307200  # 2001-01-01
+FDA_MSG = ("Fotoğraflar kütüphanesi okunamadı (izin yok). Sistem Ayarları › Gizlilik ve Güvenlik › Tam Disk Erişimi'nde "
+           "Terminal'i ekleyin; sonra Terminal'i tamamen kapatıp (Cmd+Q) Baslat.command'ı yeniden çalıştırın.")
+NOT_FOUND_MSG = ("Fotoğraflar kütüphanesi bulunamadı. Web arayüzünde 'Kütüphane yolu' alanına ya da komut satırında --kutuphane ile "
+                 "yolunu verin (Fotoğraflar › Ayarlar › Genel › Kütüphane konumu).")
+THUMB_EXT = (".jpg", ".jpeg", ".heic")
 
 
 def default_library():
     env = os.environ.get("ARSIV_PHOTOS_LIBRARY")
     if env:
         return Path(env).expanduser()
-    cands = sorted(Path.home().glob("Pictures/*.photoslibrary"))
-    return cands[0] if cands else None
+    try:  # Fotoğraflar'ın en son açtığı kütüphane
+        from osxphotos.utils import get_last_library_path  # type: ignore
+        p = get_last_library_path()
+        if p and Path(p).exists():
+            return Path(p)
+    except Exception:
+        pass
+    cands = list(Path.home().glob("Pictures/*.photoslibrary"))
+    if not cands:
+        return None
+    for c in cands:
+        if c.name.lower().startswith("photos library"):
+            return c
+    return max(cands, key=lambda c: c.stat().st_mtime)
 
 
 def _finish_item(item, thumb_src=None):
@@ -110,21 +127,24 @@ def _item_from_osxphotos(p):
         "has_audio": 1 if kind == "video" else 0,
     }
     thumb_src = None
-    if not item["available"]:
+    if not item["available"] or kind == "video":
         derivs = getattr(p, "path_derivatives", None) or []
-        derivs = [d for d in derivs if d and Path(d).exists()]
+        derivs = [d for d in derivs if d and d.lower().endswith(THUMB_EXT) and Path(d).exists()]
         if derivs:
             thumb_src = min(derivs, key=lambda d: Path(d).stat().st_size)
-    if not item["available"] and kind == "video" and not thumb_src:
-        thumb_src = None
     return _finish_item(item, thumb_src=thumb_src)
 
 
 # ---------------------------------------------------------------- doğrudan SQLite yolu
 def _copy_db(library):
     src = Path(library) / "database" / "Photos.sqlite"
-    if not src.exists():
-        raise FileNotFoundError(f"Photos.sqlite bulunamadı: {src}  (Terminal'e 'Tam Disk Erişimi' verildi mi?)")
+    try:
+        with open(src, "rb") as f:
+            f.read(1)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Photos.sqlite bulunamadı: {src}")
+    except PermissionError as e:
+        raise PermissionError(FDA_MSG) from e
     tmp = Path(tempfile.mkdtemp(prefix="arsiv-photos-"))
     for suf in ("", "-wal", "-shm"):
         s = Path(str(src) + suf)
@@ -142,55 +162,92 @@ def _import_sqlite(con, library, progress, limit=None):
     asset = "ZASSET" if "ZASSET" in tables else "ZGENERICASSET"
     cols = {r[1] for r in pc.execute(f"PRAGMA table_info({asset})")}
     attr_cols = {r[1] for r in pc.execute("PRAGMA table_info(ZADDITIONALASSETATTRIBUTES)")} if "ZADDITIONALASSETATTRIBUTES" in tables else set()
+    ext_cols = {r[1] for r in pc.execute("PRAGMA table_info(ZEXTENDEDATTRIBUTES)")} if "ZEXTENDEDATTRIBUTES" in tables else set()
+    comp_cols = {r[1] for r in pc.execute("PRAGMA table_info(ZCOMPUTEDASSETATTRIBUTES)")} if "ZCOMPUTEDASSETATTRIBUTES" in tables else set()
 
     def col(name, alias=None, table="a", have=cols):
         return f"{table}.{name} AS {alias or name}" if name in have else f"NULL AS {alias or name}"
 
-    sql = f"""SELECT a.Z_PK, a.ZUUID, a.ZFILENAME, a.ZDIRECTORY, a.ZDATECREATED, {col('ZDURATION')}, a.ZWIDTH, a.ZHEIGHT,
-                {col('ZFAVORITE')}, {col('ZKIND')}, {col('ZHIDDEN')}, {col('ZTRASHEDSTATE')}, {col('ZHASADJUSTMENTS')},
-                {col('ZLATITUDE')}, {col('ZLONGITUDE')}, {col('ZORIGINALFILENAME', table='aa', have=attr_cols)}, {col('ZTITLE', table='aa', have=attr_cols)},
-                {col('ZOVERALLAESTHETICSCORE')}
-              FROM {asset} a LEFT JOIN ZADDITIONALASSETATTRIBUTES aa ON aa.ZASSET = a.Z_PK"""
-    # albümler: Z_nnASSETS bağlantı tablosunu dinamik bul
+    adj = "ZADJUSTMENTSSTATE" if "ZADJUSTMENTSSTATE" in cols else "ZHASADJUSTMENTS"  # Photos 9.9+ (macOS 15) adı değiştirdi
+    dur_parts = [x for x in (("a.ZDURATION" if "ZDURATION" in cols else None), ("ea.ZDURATION" if "ZDURATION" in ext_cols else None)) if x]
+    dur_expr = (f"COALESCE({', '.join(dur_parts)})" if len(dur_parts) > 1 else dur_parts[0]) if dur_parts else "NULL"
+    score_expr = "a.ZOVERALLAESTHETICSCORE" if "ZOVERALLAESTHETICSCORE" in cols else ("ca.ZOVERALLAESTHETICSCORE" if "ZOVERALLAESTHETICSCORE" in comp_cols else "NULL")
+    sql = f"""SELECT a.Z_PK, a.ZUUID, a.ZFILENAME, a.ZDIRECTORY, a.ZDATECREATED, {dur_expr} AS ZDURATION, a.ZWIDTH, a.ZHEIGHT,
+                {col('ZFAVORITE')}, {col('ZKIND')}, {col('ZHIDDEN')}, {col('ZTRASHEDSTATE')}, {col(adj, alias='ZHASADJUSTMENTS')},
+                {col('ZLATITUDE')}, {col('ZLONGITUDE')}, {col('ZAVALANCHEUUID')}, {col('ZAVALANCHEPICKTYPE')}, {col('ZCLOUDBATCHPUBLISHDATE')},
+                {col('ZORIGINALFILENAME', table='aa', have=attr_cols)}, {col('ZTITLE', table='aa', have=attr_cols)},
+                {col('ZTIMEZONEOFFSET', table='aa', have=attr_cols)}, {score_expr} AS ZOVERALLAESTHETICSCORE
+              FROM {asset} a LEFT JOIN ZADDITIONALASSETATTRIBUTES aa ON aa.ZASSET = a.Z_PK
+              {'LEFT JOIN ZEXTENDEDATTRIBUTES ea ON ea.ZASSET = a.Z_PK' if ext_cols else ''}
+              {'LEFT JOIN ZCOMPUTEDASSETATTRIBUTES ca ON ca.ZASSET = a.Z_PK' if (comp_cols and 'ZOVERALLAESTHETICSCORE' not in cols) else ''}"""
+    # albümler: Z_nnASSETS bağlantı tablosunu dinamik bul (yalnızca kullanıcı 2 ve paylaşılan 1505 albümler, çöpte olmayanlar)
     albums = {}
     join = None
-    for t in tables:
+    for t in sorted(tables):
         if t.startswith("Z_") and t.endswith("ASSETS"):
             jc = [r[1] for r in pc.execute(f"PRAGMA table_info({t})")]
-            ac = [c for c in jc if c.endswith("ALBUMS")]
-            sc = [c for c in jc if c.endswith("ASSETS")]
+            ac = [c for c in jc if c.endswith("ALBUMS") and not c.startswith("Z_FOK")]
+            sc = [c for c in jc if c.endswith("ASSETS") and not c.startswith("Z_FOK")]
             if ac and sc:
                 join = (t, ac[0], sc[0])
                 break
     if join and "ZGENERICALBUM" in tables:
         t, ac, sc = join
-        for r in pc.execute(f"SELECT j.{sc} AS asset, g.ZTITLE AS title FROM {t} j JOIN ZGENERICALBUM g ON g.Z_PK=j.{ac} WHERE g.ZTITLE IS NOT NULL"):
+        gcols = {r[1] for r in pc.execute("PRAGMA table_info(ZGENERICALBUM)")}
+        where = "g.ZTITLE IS NOT NULL"
+        if "ZKIND" in gcols:
+            where += " AND g.ZKIND IN (2, 1505)"
+        if "ZTRASHEDSTATE" in gcols:
+            where += " AND COALESCE(g.ZTRASHEDSTATE, 0) = 0"
+        for r in pc.execute(f"SELECT j.{sc} AS asset, g.ZTITLE AS title FROM {t} j JOIN ZGENERICALBUM g ON g.Z_PK=j.{ac} WHERE {where}"):
             albums.setdefault(r["asset"], []).append(r["title"])
     rows = pc.execute(sql).fetchall()
     progress(f"{len(rows)} öğe bulundu (Photos.sqlite)")
-    added = updated = errors = 0
+    added = updated = errors = skipped = 0
     for i, r in enumerate(rows[:limit] if limit else rows, 1):
         try:
             if r["ZTRASHEDSTATE"]:
                 continue
+            pick = r["ZAVALANCHEPICKTYPE"]
+            if r["ZAVALANCHEUUID"] and pick not in (None, 0) and (int(pick) & 24) == 0:
+                skipped += 1  # seri çekimde seçilmemiş kare
+                continue
             kind = "video" if (r["ZKIND"] == 1 or str(r["ZFILENAME"] or "").lower().endswith((".mov", ".mp4", ".m4v"))) else "foto"
-            path = library / "originals" / (r["ZDIRECTORY"] or "") / (r["ZFILENAME"] or "")
-            created = dt.datetime.fromtimestamp(APPLE_EPOCH + float(r["ZDATECREATED"] or 0)) if r["ZDATECREATED"] else None
+            shared = r["ZCLOUDBATCHPUBLISHDATE"] is not None
+            rel = Path(r["ZDIRECTORY"] or "") / (r["ZFILENAME"] or "")
+            path = library / "originals" / rel
+            if shared:
+                for base in ("scopes/cloudsharing/data", "resources/cloudsharing/data"):
+                    cand = library / base / rel
+                    if cand.exists():
+                        path = cand
+                        break
+            ts = r["ZDATECREATED"]
+            created = None
+            if ts:
+                tzoff = r["ZTIMEZONEOFFSET"]
+                if tzoff is not None:
+                    created = dt.datetime.fromtimestamp(APPLE_EPOCH + float(ts), tz=dt.timezone(dt.timedelta(seconds=int(tzoff)))).replace(tzinfo=None)
+                else:
+                    created = dt.datetime.fromtimestamp(APPLE_EPOCH + float(ts))
+            lat, lon = r["ZLATITUDE"], r["ZLONGITUDE"]
+            if lat == -180.0 and lon == -180.0:  # Photos'un "konum yok" işareti
+                lat = lon = None
             uuid = r["ZUUID"]
             item = {
                 "uuid": "p:" + uuid, "source": "photos", "path": str(path) if path.exists() else None,
                 "path_original": str(path), "filename": r["ZORIGINALFILENAME"] or r["ZFILENAME"], "kind": kind,
                 "_created": created, "width": r["ZWIDTH"] or 0, "height": r["ZHEIGHT"] or 0,
                 "duration": round(float(r["ZDURATION"] or 0), 2), "favorite": 1 if r["ZFAVORITE"] else 0,
-                "edited": 1 if r["ZHASADJUSTMENTS"] else 0, "hidden": 1 if r["ZHIDDEN"] else 0,
-                "albums": albums.get(r["Z_PK"], []), "title": r["ZTITLE"], "lat": r["ZLATITUDE"], "lon": r["ZLONGITUDE"],
+                "edited": 1 if r["ZHASADJUSTMENTS"] else 0, "hidden": 1 if r["ZHIDDEN"] else 0, "shared": 1 if shared else 0,
+                "albums": albums.get(r["Z_PK"], []), "title": r["ZTITLE"], "lat": lat, "lon": lon,
                 "apple_score": r["ZOVERALLAESTHETICSCORE"], "available": 1 if path.exists() else 0,
                 "indexed_at": db.now(), "has_audio": 1 if kind == "video" else 0,
             }
             thumb_src = None
             if not item["available"] or kind == "video":
                 derivs = sorted(glob.glob(str(library / "resources" / "derivatives" / uuid[0] / f"{uuid}_*")))
-                derivs = [d for d in derivs if d.lower().endswith((".jpg", ".jpeg", ".heic"))]
+                derivs = [d for d in derivs if d.lower().endswith(THUMB_EXT)]
                 if derivs:
                     thumb_src = min(derivs, key=lambda d: Path(d).stat().st_size)
             _, created_new = db.upsert_item(con, _finish_item(item, thumb_src=thumb_src))
@@ -205,7 +262,7 @@ def _import_sqlite(con, library, progress, limit=None):
     con.commit()
     pc.close()
     shutil.rmtree(dbcopy.parent, ignore_errors=True)
-    return {"bulunan": len(rows), "yeni": added, "guncellenen": updated, "hata": errors}
+    return {"bulunan": len(rows), "yeni": added, "guncellenen": updated, "hata": errors, "seri_atlanan": skipped}
 
 
 def import_photos(con, library=None, progress=print, limit=None):
@@ -213,17 +270,34 @@ def import_photos(con, library=None, progress=print, limit=None):
     config.ensure_dirs()
     library = Path(library).expanduser() if library else default_library()
     if not library or not Path(library).exists():
-        raise FileNotFoundError("Fotoğraflar kütüphanesi bulunamadı. Yol verin: --kutuphane '~/Pictures/Photos Library.photoslibrary'")
+        raise FileNotFoundError(NOT_FOUND_MSG)
     started = db.now()
     try:
-        import osxphotos  # noqa: F401
-        progress("osxphotos ile içe aktarılıyor…")
-        res = _import_osxphotos(con, library, progress, limit)
+        import osxphotos  # type: ignore  # noqa: F401
+        have_osx = True
     except ImportError:
-        progress("osxphotos yok; Photos.sqlite doğrudan okunuyor (albüm/kişi bilgisi sınırlı). Tam veri için: pip install osxphotos")
-        res = _import_sqlite(con, library, progress, limit)
+        have_osx = False
+    try:
+        if have_osx:
+            progress("osxphotos ile içe aktarılıyor…")
+            try:
+                res = _import_osxphotos(con, library, progress, limit)
+            except PermissionError:
+                raise
+            except Exception as e:
+                progress(f"osxphotos okuyamadı ({e}); Photos.sqlite doğrudan okunuyor…")
+                res = _import_sqlite(con, library, progress, limit)
+        else:
+            progress("osxphotos yok; Photos.sqlite doğrudan okunuyor (albüm/kişi bilgisi sınırlı). Tam veri için: pip install osxphotos")
+            res = _import_sqlite(con, library, progress, limit)
+    except PermissionError as e:
+        raise PermissionError(FDA_MSG) from e
+    except sqlite3.OperationalError as e:
+        if "unable to open" in str(e).lower() or "permission" in str(e).lower():
+            raise PermissionError(FDA_MSG) from e
+        raise
     con.execute("INSERT INTO scans(root,source,started_at,finished_at,added,updated,skipped,errors) VALUES(?,?,?,?,?,?,?,?)",
-                (str(library), "photos", started, db.now(), res["yeni"], res["guncellenen"], 0, res["hata"]))
+                (str(library), "photos", started, db.now(), res["yeni"], res["guncellenen"], res.get("seri_atlanan", 0), res["hata"]))
     con.commit()
     progress(f"Bitti: {res}")
     return res
@@ -237,18 +311,21 @@ def ensure_local(con, item, progress=print):
     if item.get("source") != "photos":
         raise FileNotFoundError(f"Dosya yerelde yok: {path or item.get('filename')}")
     uuid = item["uuid"].split(":", 1)[1]
-    dest = config.CACHE / "photos-export"
+    dest = config.CACHE / "photos-export" / uuid
     dest.mkdir(parents=True, exist_ok=True)
-    exe = shutil.which("osxphotos")
-    if not exe:
+    exe = shutil.which("osxphotos") or str(Path(os.sys.executable).with_name("osxphotos"))
+    if not Path(exe).exists():
         raise FileNotFoundError("Orijinal Mac'te yok ve osxphotos kurulu değil. `pip install osxphotos` sonra tekrar deneyin "
-                                "ya da Fotoğraflar > Ayarlar > iCloud > 'Orijinalleri Bu Mac'e İndir'.")
-    progress(f"iCloud'dan indiriliyor: {item.get('filename')}")
-    subprocess.run([exe, "export", str(dest), "--uuid", uuid, "--download-missing", "--skip-original-if-edited",
-                    "--overwrite", "--no-progress"], capture_output=True, text=True, timeout=1800)
-    stem = Path(item.get("filename") or "").stem
-    found = sorted(dest.glob(f"{stem}*"), key=lambda p: p.stat().st_mtime, reverse=True)
+                                "ya da Fotoğraflar › Ayarlar › iCloud › 'Orijinalleri Bu Mac'e İndir'.")
+    progress(f"iCloud'dan indiriliyor: {item.get('filename')} (Fotoğraflar uygulaması açılabilir)")
+    r = subprocess.run([exe, "export", str(dest), "--uuid", uuid, "--download-missing", "--skip-original-if-edited",
+                        "--overwrite", "--no-progress"], capture_output=True, text=True, timeout=1800)
+    if r.returncode != 0:
+        raise FileNotFoundError(f"İndirilemedi ({item.get('filename')}): {r.stderr.strip()[-400:] or r.stdout.strip()[-400:]}\n"
+                                "İpucu: Sistem Ayarları › Gizlilik ve Güvenlik › Otomasyon › Terminal › Fotoğraflar izni gerekir.")
+    found = [p for p in dest.iterdir() if p.is_file() and not p.name.startswith(".")]
     if not found:
         raise FileNotFoundError(f"İndirilemedi: {item.get('filename')}")
-    db.set_item(con, item["id"], path=str(found[0]), available=1)
-    return str(found[0])
+    best = max(found, key=lambda p: p.stat().st_size)
+    db.set_item(con, item["id"], path=str(best), available=1)
+    return str(best)

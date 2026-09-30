@@ -12,18 +12,35 @@ Neden bu yaklaşım "en kolayı":
 - **Hatırlatır.** Yeniden paylaşım kuyruğunu haftalara dağıtır, "bugün geçen yıl" önerir, macOS bildirimi ve Takvim (.ics) desteği vardır.
 - **Pazarlama.** Açıklama + hashtag + kanca cümlesi üretir (isteğe bağlı Claude ile), performans CSV'nizden en iyi paylaşım saatlerini çıkarır, içerik fikirleri önerir.
 
-## Kurulum (macOS)
+## Kurulum (macOS) — çift tıklayarak
+
+Gereksinim: macOS 13 ve üstü, **Python 3.10 ve üstü** (3.12 önerilir). Xcode ve Homebrew gerekmez; ffmpeg yoksa taşınabilir bir kopya otomatik indirilir.
+
+1. Python yoksa: <https://www.python.org/downloads/macos/> › *Latest Python 3 Release* › sayfanın altındaki **macOS 64-bit universal2 installer** › .pkg dosyasını çift tıklayıp kurun.
+2. Bu klasörü (zip'i açtıktan sonra) Masaüstü'ne taşıyın.
+3. **`Kur.command`** dosyasını çift tıklayın. macOS "doğrulanamadı" derse:
+   - macOS 13/14: dosyaya sağ tıklayın › **Aç** › **Aç**.
+   - macOS 15 ve üstü: Sistem Ayarları › Gizlilik ve Güvenlik › en alta inin › **Yine de Aç** › parola.
+   - Her sürümde çalışan yol: Terminal'i açın, `bash ` yazın (boşlukla), `Kur.command` dosyasını pencereye sürükleyin, Enter'a basın.
+   Kur.command diğer `.command` dosyalarının karantina işaretini kaldırır; sonrakiler doğrudan açılır.
+4. Terminal'e fotoğraf izni verin: Sistem Ayarları › Gizlilik ve Güvenlik › **Tam Disk Erişimi** › "+" › Terminal. Sonra Terminal'i tamamen kapatın (Cmd+Q).
+5. **`Baslat.command`** dosyasını çift tıklayın; tarayıcı `http://127.0.0.1:8765` adresini açar. Durdurmak için pencerede Ctrl+C ya da `Durdur.command`.
+6. Arayüzde **İçe aktar** sekmesi › "Fotoğraflar › İçe aktar" (kütüphane alanını boş bırakın). İlk seferde Fotoğraflar uygulamasını kontrol izni isterse **İzin Ver** deyin.
+
+Sanal ortam ve paketler `~/ArsivStudyo/venv` altına kurulur; klasörü taşısanız da çalışır. Kurulum kaydı: `~/ArsivStudyo/kurulum.log`.
+
+### İleri düzey: elle kurulum
 
 ```bash
-brew install ffmpeg                      # video işleme (zorunlu)
+brew install ffmpeg                      # önerilir; yoksa imageio-ffmpeg'in taşınabilir ffmpeg'i kullanılır
 cd arsiv-studyo
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt          # pillow + numpy
-pip install osxphotos pillow-heif        # önerilir: Fotoğraflar kütüphanesi + HEIC
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt pillow-heif imageio-ffmpeg "osxphotos>=0.77"
 # pip install anthropic                  # isteğe bağlı: açıklama metnini Claude yazsın (ANTHROPIC_API_KEY)
+python3 -m arsiv sunucu
 ```
 
-Terminal'e **Sistem Ayarları › Gizlilik ve Güvenlik › Tam Disk Erişimi** verin (Fotoğraflar kütüphanesini okumak için).
+Apple'ın kendi `python3`'ü (Xcode araçlarıyla gelen 3.9) da çalışır, ancak o sürümde `osxphotos` eski (0.68) kalır.
 
 ## Hızlı başlangıç
 

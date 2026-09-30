@@ -333,7 +333,13 @@ def serve(db_path=None, host="127.0.0.1", port=8765, open_browser=True):
     config.ensure_dirs()
     db.connect(db_path).close()
     Handler.db_path = db_path
-    httpd = ThreadingHTTPServer((host, port), Handler)
+    try:
+        httpd = ThreadingHTTPServer((host, port), Handler)
+    except OSError as e:
+        if e.errno in (48, 98):  # EADDRINUSE (macOS / Linux)
+            raise SystemExit(f"{port} portu kullanımda: Arşiv Stüdyo zaten açık olabilir. Tarayıcıda http://{host}:{port}/ adresini açın "
+                             "ya da Durdur.command ile durdurup yeniden başlatın.")
+        raise
     url = f"http://{host}:{port}/"
     print(f"Arşiv Stüdyo çalışıyor: {url}  (durdurmak için Ctrl+C)", flush=True)
     if open_browser:
