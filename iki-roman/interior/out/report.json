@@ -12,7 +12,6 @@
     "words": 45414,
     "text_check": {
       "model_vs_docx": "ok",
-      "print_html_vs_model": "ok",
       "epub_vs_model": "ok"
     },
     "pdf": "/home/user/Notion/iki-roman/interior/out/BEN_YOKSAM_Innenteil_A5.pdf",
@@ -21,7 +20,7 @@
     "first_body_page_number": 7,
     "front_matter_pages": 6,
     "page_numbering": "Vorspann römisch (IHV), Werkteil beginnt mit 1 auf der ersten Werkseite (recto)",
-    "lines_per_page_typical": 31,
+    "lines_per_page_typical": 34,
     "chars_per_line_typical": 60,
     "fonts": {
       "/FWDZFX+Cinzel": true,
@@ -114,7 +113,11 @@
       "warnings": 0,
       "valid": true
     },
-    "epub_cover": "geçici (otomatik üretildi)"
+    "epub_cover": "../cover/out/BY/TR/eBook-Cover.jpg",
+    "tracking_adjustments_em": {
+      "ch-28": 0.02
+    },
+    "stranded_chapter_endings_remaining": {}
   },
   "SA": {
     "title": "ŞAHİDİ ARARKEN",
@@ -129,16 +132,15 @@
     "words": 39449,
     "text_check": {
       "model_vs_docx": "ok",
-      "print_html_vs_model": "ok",
       "epub_vs_model": "ok"
     },
     "pdf": "/home/user/Notion/iki-roman/interior/out/SAHIDI_ARARKEN_Innenteil_A5.pdf",
-    "pdf_pages": 201,
-    "body_pages": 195,
+    "pdf_pages": 200,
+    "body_pages": 194,
     "first_body_page_number": 7,
     "front_matter_pages": 6,
     "page_numbering": "Vorspann römisch (IHV), Werkteil beginnt mit 1 auf der ersten Werkseite (recto)",
-    "lines_per_page_typical": 33,
+    "lines_per_page_typical": 34,
     "chars_per_line_typical": 60,
     "fonts": {
       "/FWDZFX+Cinzel": true,
@@ -169,26 +171,26 @@
       "ch-12": 78,
       "ch-13": 94,
       "ch-14": 106,
-      "ch-15": 115,
-      "ch-16": 118,
-      "ch-17": 121,
-      "ch-18": 134,
-      "ch-19": 137,
-      "ch-20": 143,
-      "ch-21": 147,
-      "ch-22": 150,
-      "ch-23": 153,
-      "ch-24": 157,
-      "ch-25": 160,
-      "ch-26": 162,
-      "ch-27": 168,
-      "ch-28": 170,
-      "ch-29": 176,
-      "ch-30": 180,
-      "ch-31": 184,
-      "ch-32": 186,
-      "ch-33": 189,
-      "ch-34": 192
+      "ch-15": 114,
+      "ch-16": 117,
+      "ch-17": 120,
+      "ch-18": 133,
+      "ch-19": 136,
+      "ch-20": 142,
+      "ch-21": 146,
+      "ch-22": 149,
+      "ch-23": 152,
+      "ch-24": 156,
+      "ch-25": 159,
+      "ch-26": 161,
+      "ch-27": 167,
+      "ch-28": 169,
+      "ch-29": 175,
+      "ch-30": 179,
+      "ch-31": 183,
+      "ch-32": 185,
+      "ch-33": 188,
+      "ch-34": 191
     },
     "previews": [
       "SAHIDI_ARARKEN_p001.png",
@@ -196,11 +198,12 @@
       "SAHIDI_ARARKEN_p004.png",
       "SAHIDI_ARARKEN_p005.png",
       "SAHIDI_ARARKEN_p006.png",
+      "SAHIDI_ARARKEN_p007.png",
       "SAHIDI_ARARKEN_p008.png",
       "SAHIDI_ARARKEN_p013.png",
-      "SAHIDI_ARARKEN_p104.png",
-      "SAHIDI_ARARKEN_p105.png",
-      "SAHIDI_ARARKEN_p201.png"
+      "SAHIDI_ARARKEN_p102.png",
+      "SAHIDI_ARARKEN_p103.png",
+      "SAHIDI_ARARKEN_p200.png"
     ],
     "epub": "/home/user/Notion/iki-roman/interior/out/SAHIDI_ARARKEN.epub",
     "epubcheck": {
@@ -208,6 +211,11 @@
       "warnings": 0,
       "valid": true
     },
-    "epub_cover": "geçici (otomatik üretildi)"
+    "epub_cover": "../cover/out/SA/TR/eBook-Cover.jpg",
+    "tracking_adjustments_em": {
+      "ch-14": -0.008,
+      "ch-29": 0.01
+    },
+    "stranded_chapter_endings_remaining": {}
   }
 }

@@ -21,9 +21,9 @@ Zwei Romane, ein Kunstprojekt: **BEN YOKSAM – 1453 Uyanışın Bedeli** (Tunca
 
 | | BEN YOKSAM | ŞAHİDİ ARARKEN |
 |---|---|---|
-| Seiten (Innenteil-PDF) | siehe `cover/out/cover_report.json` → `pages` | dito |
-| Rückenbreite = Seiten × 0,0635 mm | `spine_mm` im Report | `spine_mm` im Report |
-| Fullcover-Maß (B × H) | 2 × 3,175 + 2 × 148 + Rücken × 216,35 mm | dito |
+| Seiten (Innenteil-PDF) | **281** | **200** |
+| Rückenbreite = Seiten × 0,0635 mm | **17,84 mm** | **12,70 mm** |
+| Fullcover-Maß (B × H) | **320,19 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 17,84) | **315,05 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 12,70) |
 | Beschnitt | 3,175 mm (0,125 in) umlaufend | dito |
 | Sicherheitszone Text | ≥ 6,35 mm (0,25 in) vom Trim | dito |
 | Rückentext | ≥ 1,6 mm (0,0625 in) von den Rückenkanten; Rückentext ab 79 Seiten erlaubt | dito |

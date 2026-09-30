@@ -1,0 +1,50 @@
+[
+  {
+    "pdf": "out/BEN_YOKSAM_Innenteil_A5.pdf",
+    "pages": 281,
+    "page_size_check": "pass",
+    "fonts_embedded_check": "pass",
+    "fonts": {
+      "/FWDZFX+Cinzel": true,
+      "/CMAGQR+Cinzel-Heavy": true,
+      "/IKUMJV+Literata-Italic": true,
+      "/JVDBRE+Literata": true,
+      "/STCGVO+Cinzel-Bold": true,
+      "/ZTAASF+Literata-Bold": true,
+      "/RJOZZM+DejaVu-Serif-Oblique": true
+    },
+    "margin_check": "pass",
+    "margin_problems": [],
+    "margin_worst_overshoot_mm": {
+      "inside": 0.0,
+      "outside": 0.0,
+      "top": 0.0,
+      "bottom": 0.0
+    },
+    "ok": true
+  },
+  {
+    "pdf": "out/SAHIDI_ARARKEN_Innenteil_A5.pdf",
+    "pages": 200,
+    "page_size_check": "pass",
+    "fonts_embedded_check": "pass",
+    "fonts": {
+      "/FWDZFX+Cinzel": true,
+      "/CMAGQR+Cinzel-Heavy": true,
+      "/IKUMJV+Literata-Italic": true,
+      "/JVDBRE+Literata": true,
+      "/STCGVO+Cinzel-Bold": true,
+      "/ZTAASF+Literata-Bold": true,
+      "/IADIDP+Literata-Semi-Bold-Italic": true
+    },
+    "margin_check": "pass",
+    "margin_problems": [],
+    "margin_worst_overshoot_mm": {
+      "inside": 0.0,
+      "outside": 0.0,
+      "top": 0.0,
+      "bottom": 0.0
+    },
+    "ok": true
+  }
+]

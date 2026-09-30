@@ -147,7 +147,7 @@ def spine_panel_html(book, x, y, sw):
     P = lambda mm: f'{mm:.3f}mm'
     # Textzeilen werden um 90° gedreht: Box hat Breite = Höhe des Rückens, wird dann rotiert.
     inner = sw - 2 * 1.8                     # 1,6 mm Pflichtabstand + Reserve
-    title_pt = max(6.0, min(12.0, inner / 0.72 * 2.835 * 0.92))   # Cap-Höhe Cinzel ≈ 0,72 em; 1 mm = 2,835 pt
+    title_pt = max(6.0, min(15.0, inner / 0.72 * 2.835 * 0.92))   # Cap-Höhe Cinzel ≈ 0,72 em; 1 mm = 2,835 pt
     author_pt = max(5.0, title_pt * 0.62)
     return f"""
     <img class="fill" src="file://{ASSETS}/{book}_spine_bg.png" style="left:{P(x)}; top:{P(y - BLEED)}; width:{P(sw)}; height:{P(TRIM_H + 2 * BLEED)};">

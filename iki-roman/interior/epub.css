@@ -27,7 +27,8 @@ section.frontispiece { text-align: center; }
 section.frontispiece img { max-width: 100%; }
 section.copyright { margin-top: 4em; font-size: 0.85em; }
 .copyright p { text-indent: 0; text-align: left; margin-bottom: 0.3em; }
-.copyright p.cp-title { font-family: "Cinzel", serif; font-weight: bold; margin-bottom: 1em; }
+.copyright p.cp-title { font-family: "Cinzel", serif; font-weight: bold; margin-bottom: 0.2em; }
+.copyright p.cp-subtitle { font-family: "Cinzel", serif; font-size: 0.9em; letter-spacing: 0.1em; margin-bottom: 1em; }
 .copyright p.cp-gap { margin-top: 1em; }
 section.toc h1 { font-family: "Cinzel", serif; font-weight: bold; font-size: 1.3em; text-align: center; letter-spacing: 0.1em; margin: 1.5em 0 1em; }
 .toc p { text-indent: 0; text-align: left; margin: 0.15em 0; }

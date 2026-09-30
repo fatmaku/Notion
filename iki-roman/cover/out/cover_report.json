@@ -86,20 +86,20 @@
     }
   },
   "SA": {
-    "pages": 165,
-    "pages_source": "SCHÄTZUNG – vor dem Upload mit der echten Seitenzahl neu bauen!",
-    "spine_mm": 10.48,
+    "pages": 200,
+    "pages_source": "interior/out/report.json",
+    "spine_mm": 12.7,
     "tr": {
       "geometry": {
-        "page_w": 312.83000000000004,
+        "page_w": 315.05,
         "page_h": 216.35,
-        "spine": 10.48,
+        "spine": 12.7,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 161.655
+        "front_x": 163.875
       },
       "fullcover_check": {
-        "width_mm": 312.83,
+        "width_mm": 315.05,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",
@@ -118,15 +118,15 @@
     },
     "en": {
       "geometry": {
-        "page_w": 312.83000000000004,
+        "page_w": 315.05,
         "page_h": 216.35,
-        "spine": 10.48,
+        "spine": 12.7,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 161.655
+        "front_x": 163.875
       },
       "fullcover_check": {
-        "width_mm": 312.83,
+        "width_mm": 315.05,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",
@@ -145,15 +145,15 @@
     },
     "de": {
       "geometry": {
-        "page_w": 312.83000000000004,
+        "page_w": 315.05,
         "page_h": 216.35,
-        "spine": 10.48,
+        "spine": 12.7,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 161.655
+        "front_x": 163.875
       },
       "fullcover_check": {
-        "width_mm": 312.83,
+        "width_mm": 315.05,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",

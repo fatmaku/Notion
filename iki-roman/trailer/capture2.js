@@ -3,7 +3,7 @@
 // Usage:
 //   node capture2.js --page engine2.html --format 16x9 --lang tr --out out/x.mp4 [--fps 30] [--from f --to f] [--quality 90] [--cut 60|30]
 //   node capture2.js --page engine2.html --format 16x9 --lang tr --stills 2,5,9 [--stills-dir out/storyboard]
-// Stills are written as JPEG to out/storyboard/<format>_<lang>_t<sec>.jpg.
+// Stills are written as JPEG to out/storyboard/<format>_<lang>_t<sec>.jpg. --swiftshader uses the GPU-emulation flags of the old engine.
 // ffmpeg: env FFMPEG, otherwise the imageio-ffmpeg binary (has libx264/aac), otherwise "ffmpeg" from PATH.
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const { spawn, execSync } = require('child_process');
@@ -26,7 +26,9 @@ function ffmpegBin() {
 }
 
 (async () => {
-  const b = await chromium.launch({ args: ['--allow-file-access-from-files', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--disable-gpu-vsync', '--font-render-hinting=none'] });
+  // Software compositing (--disable-gpu) screenshots this page 2.5-3x faster than the swiftshader path on this box; --swiftshader opts back in.
+  const gpuArgs = args.swiftshader ? ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] : ['--disable-gpu'];
+  const b = await chromium.launch({ args: ['--allow-file-access-from-files', ...gpuArgs, '--font-render-hinting=none', '--hide-scrollbars'] });
   const p = await b.newPage({ viewport: { width: Wd, height: Ht }, deviceScaleFactor: 1 });
   p.on('pageerror', e => console.error('page error:', e.message));
   await p.goto(url);

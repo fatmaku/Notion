@@ -84,6 +84,7 @@ section.titlepage { break-before: right; text-align: center; padding-top: 42mm; 
 section.copyright { height: 177mm; display: flex; flex-direction: column; justify-content: flex-end; }
 .copyright p { font-size: 8.5pt; line-height: 12pt; text-indent: 0; text-align: left; }
 .copyright p.cp-title { font-family: "Cinzel"; font-weight: 700; font-size: 9.5pt; margin-bottom: 4pt; }
+.copyright p.cp-subtitle { font-family: "Cinzel"; font-weight: 400; font-size: 8pt; letter-spacing: 0.1em; margin: -3pt 0 4pt 0; }
 .copyright p.cp-gap { margin-top: 8pt; }
 
 /* ---------- Inhaltsverzeichnis ----------

@@ -18,14 +18,11 @@ html,body{background:#000;overflow:hidden}
 #stage{position:relative;overflow:hidden;background:#000;transform-origin:0 0}
 #world{position:absolute;inset:0;will-change:transform}
 .scene{position:absolute;inset:0;overflow:hidden;opacity:0;visibility:hidden}
-.art{position:absolute;left:50%;top:50%;will-change:transform;filter:brightness(.86) saturate(1.04)}
-.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,6,4,0) 30%,rgba(8,6,4,.45) 60%,rgba(8,6,4,.82) 100%)}
-.leak{position:absolute;inset:-20%;mix-blend-mode:screen;pointer-events:none}
+.art{position:absolute;left:50%;top:50%;will-change:transform}
 #s-shared .half{position:absolute;top:0;bottom:0;width:50%;overflow:hidden}
 #s-shared .half.l{left:0}#s-shared .half.r{right:0}
-#s-shared .half img{position:absolute;left:50%;top:50%;filter:blur(18px) brightness(.38) saturate(.85)}
+#s-shared .half .art{will-change:transform}
 #s-shared .seam{position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:linear-gradient(180deg,rgba(230,200,120,0),var(--gold) 20%,var(--gold) 80%,rgba(230,200,120,0));box-shadow:0 0 18px rgba(230,200,120,.6)}
-#s-shared .glow{position:absolute;inset:0;background:radial-gradient(ellipse 45% 40% at 50% 42%,rgba(70,150,95,.28),rgba(70,150,95,0) 70%)}
 #s-fist{background:radial-gradient(ellipse 70% 60% at 50% 55%,#231409 0%,#120c14 45%,#070811 100%)}
 #s-fist .bg{position:absolute;inset:0}
 #s-fist .cards{position:absolute;left:0;top:0;perspective:1600px;transform-origin:50% 0}
@@ -61,12 +58,7 @@ html,body{background:#000;overflow:hidden}
 .tag{position:absolute;text-align:center}
 .tag .t1{font-family:'Cinzel';font-weight:700;color:var(--gold);letter-spacing:.08em;line-height:1.28;text-shadow:0 2px 10px rgba(0,0,0,.7),0 0 36px rgba(230,200,120,.25)}
 .tag .t2{font-family:'Literata';font-style:italic;font-weight:400;color:var(--cream);line-height:1.4;text-shadow:0 2px 10px rgba(0,0,0,.7)}
-#vignette{position:absolute;inset:0;background:radial-gradient(ellipse 80% 72% at 50% 48%,rgba(0,0,0,0) 50%,rgba(3,4,10,.62) 100%);pointer-events:none}
-#kflash{position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(255,214,150,.9),rgba(255,180,110,.35) 40%,rgba(0,0,0,0) 70%);opacity:0;pointer-events:none}
-#flash{position:absolute;inset:0;background:#fff4dc;opacity:0;pointer-events:none}
 #fx{position:absolute;left:0;top:0;pointer-events:none}
-#grain{position:absolute;left:0;top:0;mix-blend-mode:overlay;pointer-events:none;opacity:.55}
-#black{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
 #bfly{position:absolute;left:0;top:0;pointer-events:none;will-change:transform;filter:drop-shadow(0 0 12px rgba(120,200,255,.7))}
 #bfly .wl,#bfly .wr{transform-box:fill-box}
 #bfly .wl{transform-origin:100% 50%}
@@ -76,11 +68,11 @@ html,body{background:#000;overflow:hidden}
 <body>
 <div id="stage">
   <div id="world">
-    <div class="scene" id="s-by"><img class="art" id="art-by"><div class="shade"></div><div class="leak"></div></div>
-    <div class="scene" id="s-sa"><img class="art" id="art-sa"><div class="shade"></div><div class="leak"></div></div>
+    <div class="scene" id="s-by"></div>
+    <div class="scene" id="s-sa"></div>
     <div class="scene" id="s-shared">
-      <div class="half l"><img id="half-sa"></div><div class="half r"><img id="half-by"></div>
-      <div class="glow"></div><div class="seam"></div>
+      <div class="half l" id="half-l"></div><div class="half r" id="half-r"></div>
+      <div class="seam"></div>
     </div>
     <div class="scene" id="s-fist">
       <div class="sky" id="sky1"></div>
@@ -94,8 +86,8 @@ html,body{background:#000;overflow:hidden}
       <div class="sky" id="sky2"></div>
       <div class="ecov" id="ecov-sa"><img id="eimg-sa"></div>
       <div class="ecov" id="ecov-by"><img id="eimg-by"></div>
-      <div class="ename" id="ename-sa"></div>
-      <div class="ename" id="ename-by"></div>
+      <div class="ename" id="ename-sa" lang="tr"></div>
+      <div class="ename" id="ename-by" lang="tr"></div>
       <div class="cta" id="cta"></div>
       <div class="handle" id="handle"></div>
     </div>
@@ -125,12 +117,8 @@ html,body{background:#000;overflow:hidden}
       <circle cx="72" cy="50" r="2.4" fill="#0b2340"/><circle cx="128" cy="50" r="2.4" fill="#0b2340"/>
     </svg>
   </div>
-  <div id="vignette"></div>
-  <div id="kflash"></div>
-  <div id="flash"></div>
   <canvas id="fx"></canvas>
-  <canvas id="grain"></canvas>
-  <div id="black"></div>
+  <img id="src-sa" style="display:none"><img id="src-by" style="display:none">
 </div>
 <script>
 /* İki Roman book-trailer engine. URL: engine2.html?capture&format=16x9|9x16|1x1&lang=tr|en|de[&cut=60|30][&t=12.5]
@@ -146,9 +134,10 @@ const W = FM.W, H = FM.H, U = Math.min(W, H);
 const CFG = window.CFG, T = CFG.text;
 const CUTKEY = Q.get('cut') || FM.cut, CUT = CFG.cuts[CUTKEY], DUR = CUT.dur;
 const S = CUT.scenes;
+document.documentElement.lang = LANG;   // Cinzel has Turkish locale forms (dotted small-cap i): only wanted for TR text
 
-/* ---------- responsive layout (fractions of W / H; font sizes as fractions of U = min(W,H)) ---------- */
-/* kbBy / kbSa: Ken-Burns [fx0, fy0, zoom0, fx1, fy1, zoom1] – framed so that the covers' baked-in typography
+/* ---------- responsive layout (fractions of W / H; font sizes as fractions of U = min(W,H)) ----------
+   kbBy / kbSa: Ken-Burns [fx0, fy0, zoom0, fx1, fy1, zoom1] – framed so that the covers' baked-in typography
    (top ~44 % of the panel) stays out of frame; the push-in ends on the fist. */
 const LAYOUTS = {
   '16x9': { safe: [.05, .95, .05, .95], qY: .50, qSize: .052, qW: .80,
@@ -161,13 +150,13 @@ const LAYOUTS = {
     gfxY: .33, gfxS: 1.0, textTop: .50, textW: .86, lineSize: .046, titleY: .45, titleSize: .11,
     kbBy: [.42, .72, 1.9, .40, .70, 2.1], kbSa: [.55, .72, 1.9, .58, .70, 2.1],
     shGfxY: .36, shGfxS: 1.2, shTextY: .58,
-    cardH: .40, cardTop: .24, settle: .90, tagTop: .63, tagSize: .05, claimSize: .031, tagW: .86,
+    cardH: .40, cardTop: .24, settle: .90, tagTop: .63, tagSize: .05, claimSize: .029, tagW: .88,
     covH: .36, covTop: .18, covGap: .06, namesY: .56, ctaY: .64, handleY: .70, skyH: .07, skyW: .9 },
   '1x1': { safe: [.06, .94, .06, .94], qY: .50, qSize: .05, qW: .86,
     gfxY: .36, gfxS: .9, textTop: .58, textW: .86, lineSize: .046, titleY: .50, titleSize: .11,
     kbBy: [.5, .71, 1.35, .5, .70, 1.5], kbSa: [.5, .71, 1.35, .5, .70, 1.5],
     shGfxY: .38, shGfxS: 1.1, shTextY: .68,
-    cardH: .60, cardTop: .06, settle: .86, tagTop: .64, tagSize: .046, claimSize: .030, tagW: .88,
+    cardH: .60, cardTop: .06, settle: .86, tagTop: .64, tagSize: .046, claimSize: .028, tagW: .90,
     covH: .50, covTop: .08, covGap: .06, namesY: .61, ctaY: .72, handleY: .82, skyH: .08, skyW: .7 }
 };
 const L = LAYOUTS[FORMAT] || LAYOUTS['16x9'];
@@ -179,11 +168,11 @@ const lerp = (a, b, p) => a + (b - a) * p;
 const prog = (t, a, b) => clamp((t - a) / (b - a));
 const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
 const easeOut = p => 1 - Math.pow(1 - p, 3);
-const easeIn = p => p * p * p;
 const vis = (t, a, b, fi = .8, fo = .6) => Math.min(prog(t, a, a + fi), 1 - prog(t, b - fo, b));
 const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x) };
 const $ = id => document.getElementById(id);
 const px = v => v.toFixed(2) + 'px';
+const mkCanvas = (w, h) => { const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(w)); c.height = Math.max(1, Math.round(h)); return c; };
 
 /* ---------- assets ---------- */
 const A = '../assets/upscaled/';
@@ -196,27 +185,42 @@ const EBOOK = { w: 1600, h: 2560 };
 /* ---------- stage geometry ---------- */
 const stage = $('stage'), world = $('world');
 stage.style.width = W + 'px'; stage.style.height = H + 'px';
-for (const id of ['fx', 'grain']) { $(id).width = W; $(id).height = H; }
+const fx = $('fx'); fx.width = W; fx.height = H; const cx = fx.getContext('2d');
+$('src-sa').src = IMG.saFront; $('src-by').src = IMG.byFront;
 
-/* cover-fit an image into a box, returns base size */
+/* cover-fit an image into a box */
 function coverFit(iw, ih, bw, bh) { const s = Math.max(bw / iw, bh / ih); return { w: iw * s, h: ih * s }; }
-function setArt(img, src, bw, bh) {
-  const f = coverFit(FRONT.w, FRONT.h, bw, bh);
-  img.src = src; img.style.width = px(f.w); img.style.height = px(f.h); img.style.marginLeft = px(-f.w / 2); img.style.marginTop = px(-f.h / 2);
-  img._f = f; img._box = [bw, bh];
+/* a canvas element placed like an object-fit:cover image inside a box (centre anchored) */
+function placeArt(parent, canvas, bw, bh) {
+  const f = coverFit(canvas.width, canvas.height, bw, bh);
+  canvas.className = 'art'; canvas.style.width = px(f.w); canvas.style.height = px(f.h); canvas.style.marginLeft = px(-f.w / 2); canvas.style.marginTop = px(-f.h / 2);
+  canvas._f = f; canvas._box = [bw, bh]; parent.insertBefore(canvas, parent.firstChild); return canvas;
 }
 /* Ken-Burns transform: focus point (fx,fy in image fractions) at the box centre, scale s, clamped to keep coverage */
-function kb(img, fx, fy, s) {
-  const { w, h } = img._f, [bw, bh] = img._box;
+function kb(el, fx, fy, s) {
+  const { w, h } = el._f, [bw, bh] = el._box;
   let tx = (0.5 - fx) * w * s, ty = (0.5 - fy) * h * s;
   const mx = Math.max(0, (w * s - bw) / 2), my = Math.max(0, (h * s - bh) / 2);
   tx = clamp(tx, -mx, mx); ty = clamp(ty, -my, my);
-  img.style.transform = `translate(${tx.toFixed(2)}px,${ty.toFixed(2)}px) scale(${s.toFixed(4)})`;
+  el.style.transform = `translate(${tx.toFixed(2)}px,${ty.toFixed(2)}px) scale(${s.toFixed(4)})`;
 }
-setArt($('art-by'), IMG.byFront, W, H);
-setArt($('art-sa'), IMG.saFront, W, H);
-setArt($('half-sa'), IMG.saFront, W / 2, H);
-setArt($('half-by'), IMG.byFront, W / 2, H);
+/* Baked once at start-up (no per-frame CSS filters): the front art with a darkening gradient over its lower half
+   (keeps the cream lines readable over the fist / skyline) and blurred, darkened colour fields for the split screen. */
+const ART = {};
+function bakeArt(img, key) {
+  const c = mkCanvas(img.naturalWidth, img.naturalHeight), g = c.getContext('2d');
+  g.drawImage(img, 0, 0, c.width, c.height);
+  g.fillStyle = 'rgba(6,5,8,.10)'; g.fillRect(0, 0, c.width, c.height);
+  const lg = g.createLinearGradient(0, c.height * .48, 0, c.height); lg.addColorStop(0, 'rgba(8,6,4,0)'); lg.addColorStop(.5, 'rgba(8,6,4,.42)'); lg.addColorStop(1, 'rgba(8,6,4,.80)');
+  g.fillStyle = lg; g.fillRect(0, 0, c.width, c.height);
+  ART[key] = c; return c;
+}
+function bakeHalf(img, bw, bh) {
+  const f = coverFit(img.naturalWidth, img.naturalHeight, bw, bh), c = mkCanvas(f.w * .6, f.h * .6), g = c.getContext('2d');
+  g.filter = 'blur(12px) brightness(.38) saturate(.85)'; g.drawImage(img, 0, 0, c.width, c.height); g.filter = 'none';
+  if (!('filter' in g)) { g.fillStyle = 'rgba(4,4,8,.62)'; g.fillRect(0, 0, c.width, c.height); }
+  return c;
+}
 
 /* ---------- fist-bump cards ---------- */
 const cardH = L.cardH * H, cardW = cardH * TRIM.w / TRIM.h, cardTop = L.cardTop * H;
@@ -308,7 +312,7 @@ const RULE = `<svg viewBox="0 0 400 14" preserveAspectRatio="none"><line x1="0" 
 const ORN = `<svg viewBox="0 0 400 14" preserveAspectRatio="none"><line x1="60" y1="7" x2="180" y2="7" stroke="${GOLD}" stroke-width="1"/><line x1="220" y1="7" x2="340" y2="7" stroke="${GOLD}" stroke-width="1"/></svg><svg viewBox="0 0 14 14" style="position:absolute;left:50%;top:0;width:14px;height:14px;margin-left:-7px"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="${GOLD}"/></svg>`;
 function words(text) { return text.split(' ').map(w => `<span class="w">${w}</span>`).join(' '); }
 const LINES = [];      // {el, ws, a, b}
-function mkBlock(cfg, textLines, top, mode, textY) {
+function mkBlock(cfg, textLines, top, mode) {
   const b = document.createElement('div'); b.className = 'tblock';
   const bw = L.textW * W; b.style.left = px((W - bw) / 2); b.style.width = px(bw); b.style.top = px(top); b.style.display = 'none';
   const plate = document.createElement('div'); plate.className = 'plate'; b.appendChild(plate);
@@ -328,7 +332,6 @@ const BLOCKS = {
   shared: mkBlock(CUT.shared, T.shared.lines, L.shTextY * H, CUT.shared.mode)
 };
 for (const k in BLOCKS) TXT.appendChild(BLOCKS[k].el);
-if (BLOCKS.shared.mode === 'replace') { BLOCKS.shared.el.style.top = px(L.shTextY * H); }
 /* cold-open question */
 const qEl = document.createElement('div'); qEl.className = 'q'; qEl.textContent = T.question;
 qEl.style.fontSize = px(U * L.qSize); qEl.style.left = px((W - L.qW * W) / 2); qEl.style.width = px(L.qW * W); qEl.style.right = 'auto'; qEl.style.top = px(L.qY * H); qEl.style.display = 'none'; qEl.style.lineHeight = '1.35';
@@ -336,8 +339,8 @@ TXT.appendChild(qEl);
 /* title cards */
 function mkTitle(tc) {
   const d = document.createElement('div'); d.className = 'tcard'; d.style.top = px(L.titleY * H); d.style.left = px(SAFE.l); d.style.right = px(W - SAFE.r); d.style.display = 'none';
-  d.innerHTML = `<div class="orn" style="position:relative;width:${px(U * .34)};height:14px">${ORN}</div><div class="tt" style="font-size:${px(U * L.titleSize)}">${tc.title}</div>` +
-    (tc.subtitle ? `<div class="ts" style="font-size:${px(U * .036)}">${tc.subtitle}</div>` : '') + `<div class="ta" style="font-size:${px(U * .03)}">${tc.author}</div>`;
+  d.innerHTML = `<div class="orn" style="position:relative;width:${px(U * .34)};height:14px">${ORN}</div><div class="tt" lang="tr" style="font-size:${px(U * L.titleSize)}">${tc.title}</div>` +
+    (tc.subtitle ? `<div class="ts" style="font-size:${px(U * .036)}">${tc.subtitle}</div>` : '') + `<div class="ta" lang="tr" style="font-size:${px(U * .03)}">${tc.author}</div>`;
   TXT.appendChild(d);
   return { el: d, parts: [...d.children] };
 }
@@ -347,14 +350,33 @@ const tag = document.createElement('div'); tag.className = 'tag'; tag.style.top 
 tag.innerHTML = `<div class="t1" style="font-size:${px(U * L.tagSize)}">${T.tagline}</div><div class="t2" style="font-size:${px(U * L.claimSize)};margin-top:${px(U * .018)}">${T.claim}</div>`;
 TXT.appendChild(tag); const tagT1 = tag.querySelector('.t1'), tagT2 = tag.querySelector('.t2');
 
-/* ---------- canvases: rays, dust, grain ---------- */
-const fx = $('fx'), cx = fx.getContext('2d'), gr = $('grain'), gcx = gr.getContext('2d');
-const GRAIN = Array.from({ length: 3 }, (_, k) => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); const id = g.createImageData(256, 256); for (let i = 0; i < id.data.length; i += 4) { const v = 128 + (hash(i * .37 + k * 1e5) - .5) * 150; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; } g.putImageData(id, 0, 0); return gcx.createPattern(c, 'repeat'); });
+/* ---------- pre-rendered sprites for the fx canvas (blitted per frame; no per-frame gradient rasterisation) ---------- */
+function radialSprite(size, stops) { const c = mkCanvas(size, size), g = c.getContext('2d'); const rg = g.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2); stops.forEach(([o, col]) => rg.addColorStop(o, col)); g.fillStyle = rg; g.fillRect(0, 0, size, size); return c; }
+const SPR = {
+  vignette: (() => { const c = mkCanvas(W, H), g = c.getContext('2d'); const rg = g.createRadialGradient(W / 2, H * .48, 0, W / 2, H * .48, Math.max(W, H) * .62); rg.addColorStop(0, 'rgba(0,0,0,0)'); rg.addColorStop(.55, 'rgba(0,0,0,0)'); rg.addColorStop(1, 'rgba(3,4,10,.72)'); g.fillStyle = rg; g.fillRect(0, 0, W, H); return c; })(),
+  warm: radialSprite(512, [[0, 'rgba(255,190,110,.55)'], [.3, 'rgba(255,150,90,.18)'], [.6, 'rgba(255,120,80,0)']]),
+  cool: radialSprite(512, [[0, 'rgba(150,190,255,.45)'], [.3, 'rgba(110,150,230,.14)'], [.6, 'rgba(90,120,200,0)']]),
+  green: radialSprite(512, [[0, 'rgba(90,180,115,.34)'], [.4, 'rgba(70,150,95,.10)'], [.7, 'rgba(70,150,95,0)']]),
+  knock: radialSprite(512, [[0, 'rgba(255,214,150,.85)'], [.35, 'rgba(255,180,110,.30)'], [.7, 'rgba(255,160,90,0)']]),
+  dust: radialSprite(32, [[0, 'rgba(255,225,160,1)'], [1, 'rgba(255,200,120,0)']]),
+  rays: (() => {
+    const R = Math.round(U * .95), c = mkCanvas(2 * R, 2 * R), g = c.getContext('2d'); g.translate(R, R); g.globalCompositeOperation = 'lighter';
+    const n = 30; for (let i = 0; i < n; i++) {
+      const a = i / n * Math.PI * 2, len = R * (.55 + .45 * hash(i * 3 + 1)), wdt = .012 + .018 * hash(i * 7 + 2);
+      const lg = g.createLinearGradient(0, 0, Math.cos(a) * len, Math.sin(a) * len); lg.addColorStop(0, 'rgba(255,225,160,.45)'); lg.addColorStop(1, 'rgba(255,200,120,0)');
+      g.fillStyle = lg; g.beginPath(); g.moveTo(0, 0); g.lineTo(Math.cos(a - wdt) * len, Math.sin(a - wdt) * len); g.lineTo(Math.cos(a + wdt) * len, Math.sin(a + wdt) * len); g.closePath(); g.fill();
+    }
+    const rg = g.createRadialGradient(0, 0, 0, 0, 0, R * .36); rg.addColorStop(0, 'rgba(255,240,205,.9)'); rg.addColorStop(.35, 'rgba(255,205,130,.38)'); rg.addColorStop(1, 'rgba(255,180,100,0)');
+    g.fillStyle = rg; g.beginPath(); g.arc(0, 0, R * .36, 0, 6.283); g.fill(); return c;
+  })(),
+  grain: Array.from({ length: 3 }, (_, k) => { const c = mkCanvas(256, 256), g = c.getContext('2d'), id = g.createImageData(256, 256); for (let i = 0; i < id.data.length; i += 4) { const v = hash(i * .37 + k * 1e5) - .5; const bright = v > 0; id.data[i] = id.data[i + 1] = id.data[i + 2] = bright ? 255 : 0; id.data[i + 3] = Math.abs(v) * 2 * 42; } g.putImageData(id, 0, 0); return cx.createPattern(c, 'repeat'); })
+};
 const DUST = Array.from({ length: 70 }, (_, i) => ({ x: hash(i) * W, y: hash(i + 99) * H, r: 1 + hash(i + 7) * 2.2, sp: 6 + hash(i + 3) * 18, ph: hash(i + 5) * 6.28, dr: hash(i + 11) * 2 - 1 }));
+function blit(spr, x, y, size, alpha, comp = 'lighter') { if (alpha <= 0) return; cx.save(); cx.globalCompositeOperation = comp; cx.globalAlpha = alpha; cx.drawImage(spr, x - size / 2, y - size / 2, size, size); cx.restore(); }
+
 const bf = $('bfly'), wl = bf.querySelector('.wl'), wr = bf.querySelector('.wr');
 const bfS = U * .11; bf.style.width = px(bfS); bf.style.height = px(bfS * .9); bf.style.marginLeft = px(-bfS / 2); bf.style.marginTop = px(-bfS * .45);
-const leakBy = document.querySelector('#s-by .leak'), leakSa = document.querySelector('#s-sa .leak');
-const flash = $('flash'), kflash = $('kflash'), dim = $('dim'), black = $('black');
+const dim = $('dim');
 const SCN = { by: $('s-by'), sa: $('s-sa'), shared: $('s-shared'), fist: $('s-fist'), end: $('s-end') };
 function show(el, o) { if (o <= 0) { el.style.opacity = 0; el.style.visibility = 'hidden'; return false; } el.style.visibility = 'visible'; el.style.opacity = o.toFixed(3); return true; }
 function showD(el, o) { if (o <= 0) { el.style.display = 'none'; return false; } el.style.display = 'block'; el.style.opacity = o.toFixed(3); return true; }
@@ -371,7 +393,7 @@ function drawGfx(g, t) {
   const rise = (1 - easeOut(prog(t, g.a, g.a + 1.2))) * U * .015; g.el.style.transform = `translateY(${rise.toFixed(2)}px)`;
   const n = g.shapes.length;
   g.shapes.forEach((e, i) => { if (!e._len) return; const p = easeOut(prog(t, g.a + i / n * g.drawDur * .6, g.a + i / n * g.drawDur * .6 + g.drawDur * .5)); e.style.strokeDashoffset = (e._len * (1 - p)).toFixed(2); });
-  const fp = prog(t, g.a + g.drawDur * .5, g.a + g.drawDur * 1.1); g.svg.style.setProperty('--fo', fp); g.fills.forEach(e => e.setAttribute('fill-opacity', fp.toFixed(3)));
+  const fp = prog(t, g.a + g.drawDur * .5, g.a + g.drawDur * 1.1); g.fills.forEach(e => e.setAttribute('fill-opacity', fp.toFixed(3)));
   if (g.text) g.text.setAttribute('opacity', prog(t, g.a + g.drawDur * .8, g.a + g.drawDur * 1.4).toFixed(3));
 }
 function drawLines(block, t) {
@@ -394,17 +416,6 @@ function drawTitle(tc, span, t) {
   tc.el.style.transform = 'translateY(-50%)';
   return o;
 }
-function rays(x, y, t, e, rot) {
-  const R = U * .9, n = 28; cx.save(); cx.translate(x, y); cx.rotate(rot); cx.globalCompositeOperation = 'lighter';
-  for (let i = 0; i < n; i++) {
-    const a = i / n * Math.PI * 2, len = R * e * (.55 + .45 * hash(i * 3 + 1)), wdt = .012 + .018 * hash(i * 7 + 2);
-    const g = cx.createLinearGradient(0, 0, Math.cos(a) * len, Math.sin(a) * len);
-    g.addColorStop(0, `rgba(255,225,160,${(.42 * e).toFixed(3)})`); g.addColorStop(1, 'rgba(255,200,120,0)');
-    cx.fillStyle = g; cx.beginPath(); cx.moveTo(0, 0); cx.lineTo(Math.cos(a - wdt) * len, Math.sin(a - wdt) * len); cx.lineTo(Math.cos(a + wdt) * len, Math.sin(a + wdt) * len); cx.closePath(); cx.fill();
-  }
-  const g = cx.createRadialGradient(0, 0, 0, 0, 0, U * .34 * (0.4 + .6 * e)); g.addColorStop(0, `rgba(255,240,205,${(.85 * e).toFixed(3)})`); g.addColorStop(.35, `rgba(255,205,130,${(.35 * e).toFixed(3)})`); g.addColorStop(1, 'rgba(255,180,100,0)');
-  cx.fillStyle = g; cx.beginPath(); cx.arc(0, 0, U * .34, 0, 6.283); cx.fill(); cx.restore();
-}
 function butterflyAt(t, span) {
   if (t < span[0] || t > span[1]) return null;
   const p = prog(t, span[0], span[1]);
@@ -424,25 +435,25 @@ function render(t) {
   const oSh = t < S.shared[0] ? 0 : (t < S.fist[1] ? prog(t, S.shared[0], S.shared[0] + 1.0) : 0);
   const oFi = t < S.fist[0] ? 0 : (t < S.end[1] ? prog(t, S.fist[0], S.fist[0] + .8) : 0);
   const oEn = t < S.end[0] - .4 ? 0 : prog(t, S.end[0] - .4, S.end[0] + .6);
-  /* --- BY scene (Ken Burns from the sky to the fist) --- */
+  cx.clearRect(0, 0, W, H);
+  /* --- BY scene (slow push-in ending on the fist) --- */
   if (show(SCN.by, oBy)) {
     const p = ease(prog(t, S.by[0], S.by[1] + .5)), k = L.kbBy;
-    kb($('art-by'), lerp(k[0], k[3], p), lerp(k[1], k[4], p), lerp(k[2], k[5], p));
-    const lx = 78 + Math.sin(t * .31) * 14, ly = 22 + Math.cos(t * .21) * 12;
-    leakBy.style.background = `radial-gradient(circle at ${lx}% ${ly}%,rgba(255,180,100,.42),rgba(255,140,80,.14) 28%,rgba(0,0,0,0) 55%)`; leakBy.style.opacity = (.5 + .2 * Math.sin(t * .8)).toFixed(3);
+    kb(ART.by, lerp(k[0], k[3], p), lerp(k[1], k[4], p), lerp(k[2], k[5], p));
+    blit(SPR.warm, W * (.78 + Math.sin(t * .31) * .14), H * (.22 + Math.cos(t * .21) * .12), U * 1.4, (.32 + .14 * Math.sin(t * .8)) * oBy * (1 - oSa));
   }
   /* --- SA scene --- */
   if (show(SCN.sa, oSa)) {
     const p = ease(prog(t, S.sa[0], S.sa[1] + .5)), k = L.kbSa;
-    kb($('art-sa'), lerp(k[0], k[3], p), lerp(k[1], k[4], p), lerp(k[2], k[5], p));
-    const lx = 24 + Math.sin(t * .27) * 12, ly = 30 + Math.cos(t * .19) * 12;
-    leakSa.style.background = `radial-gradient(circle at ${lx}% ${ly}%,rgba(150,190,255,.34),rgba(110,150,230,.12) 28%,rgba(0,0,0,0) 55%)`; leakSa.style.opacity = (.45 + .2 * Math.sin(t * .7)).toFixed(3);
+    kb(ART.sa, lerp(k[0], k[3], p), lerp(k[1], k[4], p), lerp(k[2], k[5], p));
+    blit(SPR.cool, W * (.24 + Math.sin(t * .27) * .12), H * (.30 + Math.cos(t * .19) * .12), U * 1.5, (.4 + .16 * Math.sin(t * .7)) * oSa * (1 - oSh));
   }
   /* --- shared split scene --- */
   if (show(SCN.shared, oSh)) {
     const p = prog(t, S.shared[0], S.fist[1]);
-    kb($('half-sa'), .30, lerp(.40, .46, p), lerp(1.20, 1.30, p));   // moon side, blurred colour field
-    kb($('half-by'), .62, lerp(.40, .46, p), lerp(1.20, 1.30, p));   // sunset side
+    kb(ART.halfSa, .30, lerp(.40, .46, p), lerp(1.06, 1.14, p));   // moon side, blurred colour field
+    kb(ART.halfBy, .62, lerp(.40, .46, p), lerp(1.06, 1.14, p));   // sunset side
+    blit(SPR.green, W / 2, L.shGfxY * H, U * 1.3, .9 * oSh * (1 - oFi));
   }
   /* --- fist bump --- */
   let contact = null, imp = t - IMPACT;
@@ -482,38 +493,47 @@ function render(t) {
     if (on) { const out = 1 - prog(t, F.tagline[1] - .5, F.tagline[1]); const q1 = easeOut(prog(t, F.tagline[0], F.tagline[0] + 1.0)), q2 = easeOut(prog(t, F.claim[0], F.claim[0] + 1.0));
       tagT1.style.opacity = (q1 * out).toFixed(3); tagT1.style.transform = `translateY(${((1 - q1) * U * .02).toFixed(2)}px)`; tagT1.style.letterSpacing = lerp(.16, .08, q1).toFixed(3) + 'em';
       tagT2.style.opacity = (q2 * out).toFixed(3); tagT2.style.transform = `translateY(${((1 - q2) * U * .015).toFixed(2)}px)`; } }
-  /* --- flashes + shake --- */
+  /* --- shake --- */
   const ke = knockEnv(t);
   let fl = 0, shake = ke * U * .004;
   if (imp >= 0 && imp < .9) { fl = imp < .06 ? imp / .06 * .9 : .9 * Math.pow(1 - (imp - .06) / .84, 2.2); shake = Math.max(shake, (1 - imp / .5) * U * .014 * (imp < .5)); }
-  kflash.style.opacity = (ke * .55).toFixed(3);
-  flash.style.opacity = fl.toFixed(3);
   if (shake > 0.05) { const sx = (hash(frame * 2) - .5) * 2 * shake, sy = (hash(frame * 2 + 1) - .5) * 2 * shake; world.style.transform = `translate(${sx.toFixed(2)}px,${sy.toFixed(2)}px) scale(${(1 + shake * 2.2 / U).toFixed(4)})`; }
   else world.style.transform = 'none';
-  /* --- fx canvas: sunburst + dust --- */
-  cx.clearRect(0, 0, W, H);
+  /* --- fx canvas (on top): sunburst, dust, vignette, knock flash, impact flash, grain, fade --- */
   if (contact && imp > -.35) {
-    const e = imp < 0 ? prog(imp, -.35, 0) * .25 : Math.min(1, imp / .9) * lerp(1, .55, prog(imp, 1.2, 3.0));
-    rays(contact.x, contact.y, t, e * oFi * (1 - oEn), t * .08);
+    const e = imp < 0 ? prog(imp, -.35, 0) * .25 : Math.min(1, imp / .9) * lerp(1, .32, prog(imp, 1.0, 3.0));
+    const a = e * oFi * (1 - oEn); if (a > 0) { cx.save(); cx.translate(contact.x, contact.y); cx.rotate(t * .08); cx.scale(.4 + .6 * e, .4 + .6 * e); cx.globalCompositeOperation = 'lighter'; cx.globalAlpha = a; cx.drawImage(SPR.rays, -SPR.rays.width / 2, -SPR.rays.height / 2); cx.restore(); }
   }
   const dustA = (oBy > 0 || oSa > 0 || oEn > 0) ? .9 : (oFi > 0 ? .5 : 0);
   if (dustA > 0) {
-    cx.globalCompositeOperation = 'lighter';
+    cx.save(); cx.globalCompositeOperation = 'lighter';
     for (const d of DUST) {
-      const y = ((d.y - t * d.sp) % H + H) % H, x = d.x + Math.sin(t * .5 + d.ph) * 22 * d.dr;
-      const a = dustA * (.10 + .45 * Math.pow(Math.sin(t * 1.4 + d.ph) * .5 + .5, 3));
-      const g = cx.createRadialGradient(x, y, 0, x, y, d.r * 4); g.addColorStop(0, `rgba(255,225,160,${a.toFixed(3)})`); g.addColorStop(1, 'rgba(255,200,120,0)');
-      cx.fillStyle = g; cx.beginPath(); cx.arc(x, y, d.r * 4, 0, 6.283); cx.fill();
+      const y = ((d.y - t * d.sp) % H + H) % H, x = d.x + Math.sin(t * .5 + d.ph) * 22 * d.dr, r = d.r * 4;
+      cx.globalAlpha = dustA * (.10 + .45 * Math.pow(Math.sin(t * 1.4 + d.ph) * .5 + .5, 3));
+      cx.drawImage(SPR.dust, x - r, y - r, 2 * r, 2 * r);
     }
-    cx.globalCompositeOperation = 'source-over';
+    cx.restore();
   }
-  /* --- grain --- */
-  gcx.clearRect(0, 0, W, H); gcx.save(); gcx.translate(-Math.floor(hash(frame) * 256), -Math.floor(hash(frame + 7) * 256)); gcx.fillStyle = GRAIN[frame % 3]; gcx.fillRect(0, 0, W + 256, H + 256); gcx.restore();
-  /* --- fade to black --- */
-  black.style.opacity = (t < S.cold[1] ? 0 : prog(t, E.fadeOut, DUR)).toFixed(3);
+  cx.drawImage(SPR.vignette, 0, 0);
+  blit(SPR.knock, W / 2, H / 2, Math.max(W, H) * 1.3, ke * .6);
+  if (fl > 0) { cx.fillStyle = `rgba(255,244,220,${fl.toFixed(3)})`; cx.fillRect(0, 0, W, H); }
+  cx.save(); cx.translate(-Math.floor(hash(frame) * 256), -Math.floor(hash(frame + 7) * 256)); cx.fillStyle = SPR.grain[frame % 3]; cx.fillRect(0, 0, W + 256, H + 256); cx.restore();
+  const bl = t < S.cold[1] ? 0 : prog(t, E.fadeOut, DUR); if (bl > 0) { cx.fillStyle = `rgba(0,0,0,${bl.toFixed(3)})`; cx.fillRect(0, 0, W, H); }
 }
 window.render = render; window.DUR = DUR; window.STAGE = { W, H, format: FORMAT, lang: LANG, cut: CUTKEY };
-window.READY = Promise.all([...document.images].map(i => i.complete ? i.decode().catch(() => { }) : new Promise(r => { i.onload = () => i.decode().then(r, r); i.onerror = r; })));
+
+/* preload every face (title card / italic claim are display:none at t=0, so document.fonts.ready alone would not fetch them),
+   decode all images, then bake the art canvases. */
+const FONT_FACES = ['400 20px Cinzel', '700 20px Cinzel', '900 20px Cinzel', '400 20px Literata', 'italic 400 20px Literata', '600 20px Literata', '700 20px Literata'];
+const loaded = i => i.complete && i.naturalWidth ? i.decode().catch(() => { }) : new Promise(r => { i.onload = () => i.decode().then(r, r); i.onerror = r; });
+window.READY = Promise.all([...FONT_FACES.map(f => document.fonts.load(f, 'Şğıİ')), ...[...document.images].map(loaded)]).then(() => {
+  const sa = $('src-sa'), by = $('src-by');
+  placeArt(SCN.by, bakeArt(by, 'by'), W, H);
+  placeArt(SCN.sa, bakeArt(sa, 'sa'), W, H);
+  ART.halfSa = placeArt($('half-l'), bakeHalf(sa, W / 2, H), W / 2, H);
+  ART.halfBy = placeArt($('half-r'), bakeHalf(by, W / 2, H), W / 2, H);
+  sa.remove(); by.remove();
+});
 
 if (!Q.has('capture')) {
   const fit = () => { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `scale(${s})`; stage.style.marginLeft = ((innerWidth - W * s) / 2) + 'px'; stage.style.marginTop = ((innerHeight - H * s) / 2) + 'px'; };

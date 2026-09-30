@@ -420,6 +420,8 @@ LABEL_RE = re.compile(r"^([^:\n]{1,40}):")
 
 
 def runs_html(runs: list[Run], hyph: bool) -> str:
+    """Runs → HTML (<em>/<strong>); im Druck mit weichen Trennzeichen, außer im letzten Wort
+    des Absatzes (kein abgetrennter Wortrest als letzte Zeile)."""
     out = []
     for r in runs:
         t = hyphenate_text(r.text) if hyph else r.text
@@ -429,7 +431,11 @@ def runs_html(runs: list[Run], hyph: bool) -> str:
         if r.italic:
             t = f"<em>{t}</em>"
         out.append(t)
-    return "".join(out)
+    s = "".join(out)
+    if hyph and SHY in s:
+        cut = max(s.rfind(" "), s.rfind(" ")) + 1   # Beginn des letzten Wortes (Tags enthalten keine Leerzeichen)
+        s = s[:cut] + s[cut:].replace(SHY, "")
+    return s
 
 
 def split_runs(runs: list[Run], n: int) -> tuple[list[Run], list[Run]]:
@@ -479,9 +485,10 @@ def blocks_html(blocks: list[Block], mode: str) -> str:
     return "\n".join(out)
 
 
-def chapter_head_html(u: Unit, book: Book) -> str:
+def chapter_head_html(u: Unit, book: Book, mode: str = "print") -> str:
     num = f'<p class="ch-num">{esc(u.number)}</p>' if u.number else ""
-    attrs = f' data-head="{esc(u.name)}" data-verso="{esc(tr_upper(book.front.author))}"'
+    attrs = (f' data-head="{esc(u.name)}" data-verso="{esc(tr_upper(book.front.author))}"'
+             if mode == "print" else "")
     return f'<header class="ch-head">{num}<h1 class="ch-title"{attrs}>{esc(u.name)}</h1></header>'
 
 
@@ -508,8 +515,10 @@ def preface_html(u: Unit, mode: str) -> str:
 
 def copyright_lines(book: Book) -> list[tuple[str, str]]:
     a = book.front.author
-    return [
-        ("cp-title", book.front.title + (f" — {book.front.subtitle}" if book.front.subtitle else "")),
+    lines = [("cp-title", book.front.title)]
+    if book.front.subtitle:
+        lines.append(("cp-subtitle", book.front.subtitle))
+    return lines + [
         ("", f"© 2026 {a}. Tüm hakları saklıdır."),
         ("", "Bu kitabın hiçbir bölümü yazarın yazılı izni olmadan çoğaltılamaz."),
         ("cp-gap", "Kapak tasarımı: ____________"),
@@ -619,7 +628,10 @@ def make_temp_cover(book: Book, path: Path) -> None:
 # ----------------------------------------------------------------------------
 # 6. Druck-HTML + PDF
 # ----------------------------------------------------------------------------
-def print_html(book: Book, build_dir: Path, first_body_page: Optional[int]) -> str:
+def print_html(book: Book, build_dir: Path, first_body_page: Optional[int],
+               tracking: Optional[dict[str, float]] = None) -> str:
+    """Druck-HTML. `tracking`: {Kapitel-ID: letter-spacing in em} zur Vermeidung verwaister
+    Kapitelenden (1–2 Zeilen allein auf der letzten Seite)."""
     cfg, f = book.cfg, book.front
     css_path = HERE / "print.css"
     img_dir = build_dir / "img_print"
@@ -640,6 +652,9 @@ def print_html(book: Book, build_dir: Path, first_body_page: Optional[int]) -> s
     extra_css = f"@page :right {{ @top-center {{ {head_style} }} }}\n"
     if first_body_page:
         extra_css += f"@page :nth({first_body_page}) {{ counter-reset: page 1; }}\n"
+    for uid, em in sorted((tracking or {}).items()):
+        if em:
+            extra_css += f"#{uid} p {{ letter-spacing: {em:+.3f}em; }}\n"
 
     out = [f'<!DOCTYPE html>\n<html lang="tr"><head><meta charset="utf-8"/>',
            f"<title>{esc(f.title)}</title>",
@@ -655,17 +670,21 @@ def print_html(book: Book, build_dir: Path, first_body_page: Optional[int]) -> s
     out.append(f'<section class="page titlepage" id="titlepage">{titlepage_html(book)}</section>')
     cp = "".join(f'<p class="{c}">{esc(t)}</p>' if c else f"<p>{esc(t)}</p>" for c, t in copyright_lines(book))
     out.append(f'<section class="page copyright" id="copyright">{cp}</section>')
-    # Inhaltsverzeichnis (Tabelle: Nummernspalte + Titel mit Punktleader und Seitenzahl)
+    # Inhaltsverzeichnis (Tabelle: Nummernspalte + Titel mit Punktleader und Seitenzahl;
+    # ohne Nummernspalte, wenn kein Kapitel nummeriert ist)
+    numbered = any(u.number for u in book.chapters)
+    ncol = '<td class="n">{}</td>' if numbered else ""
+    span = ' colspan="2"' if numbered else ""
     toc = ['<nav class="toc" id="toc"><h1>İÇİNDEKİLER</h1><table>']
     for u in book.units:
         if u.kind == "act":
-            toc.append(f'<tr class="toc-act"><td colspan="2"><a href="#{u.id}">{esc(u.title)}</a></td></tr>')
+            toc.append(f'<tr class="toc-act"><td{span}><a href="#{u.id}">{esc(u.title)}</a></td></tr>')
         elif u.kind == "chapter":
-            num = f"{esc(u.number)}." if u.number else ""
-            toc.append(f'<tr class="toc-ch"><td class="n">{num}</td><td class="t"><a href="#{u.id}">{esc(u.name)}</a></td></tr>')
+            num = ncol.format(f"{esc(u.number)}." if u.number else "")
+            toc.append(f'<tr class="toc-ch">{num}<td class="t"><a href="#{u.id}">{esc(u.name)}</a></td></tr>')
             for b in u.blocks:
                 if b.kind == "h2":
-                    toc.append(f'<tr class="toc-sub"><td class="n"></td><td class="t"><a href="#{b.id}">{esc(b.paras[0].text.strip())}</a></td></tr>')
+                    toc.append(f'<tr class="toc-sub">{ncol.format("")}<td class="t"><a href="#{b.id}">{esc(b.paras[0].text.strip())}</a></td></tr>')
     toc.append("</table></nav>")
     out.append("\n".join(toc))
     # Werkteil
@@ -689,6 +708,39 @@ def print_html(book: Book, build_dir: Path, first_body_page: Optional[int]) -> s
     return "\n".join(out)
 
 
+def lines_per_page(pdf_bytes: bytes) -> list[int]:
+    """Textzeilen je Seite innerhalb des Satzspiegels (ohne Kolumnentitel/Pagina)."""
+    import pymupdf
+    top, bottom = (M_TOP - 0.5) * 72 / 25.4, (PAGE_H - M_BOTTOM + 0.5) * 72 / 25.4
+    counts = []
+    d = pymupdf.open(stream=pdf_bytes, filetype="pdf")
+    for page in d:
+        n = 0
+        for block in page.get_text("dict")["blocks"]:
+            for line in block.get("lines", []):
+                y0, y1 = line["bbox"][1], line["bbox"][3]
+                if y0 >= top and y1 <= bottom and any(sp["text"].strip() for sp in line["spans"]):
+                    n += 1
+        counts.append(n)
+    return counts
+
+
+TRACKING_STEPS = (-0.008, -0.015, 0.010, 0.020)   # em; Reihenfolge der Versuche je Kapitel
+
+
+def stranded_endings(book: Book, anchors: dict[str, int], counts: list[int], max_lines: int = 2) -> dict[str, int]:
+    """Kapitel, deren letzte Seite höchstens `max_lines` Zeilen trägt → {Kapitel-ID: Zeilen}."""
+    order = [u for u in book.units if u.kind in ("chapter", "preface")]
+    result = {}
+    for u in order:
+        start = anchors[u.id]
+        later = [anchors[v.id] for v in book.units if anchors[v.id] > start]
+        last = (min(later) - 1) if later else anchors["end"]
+        if last > start and 0 < counts[last - 1] <= max_lines:
+            result[u.id] = counts[last - 1]
+    return result
+
+
 def render_pdf(book: Book, out_dir: Path, build_dir: Path) -> dict:
     import logging
     import weasyprint
@@ -703,41 +755,63 @@ def render_pdf(book: Book, out_dir: Path, build_dir: Path) -> dict:
         return m
 
     html_path = build_dir / f"{book.cfg['slug']}_print.html"
-    # Durchlauf 1: Layout ermitteln
-    src = print_html(book, build_dir, None)
-    html_path.write_text(src, encoding="utf-8")
-    doc = weasyprint.HTML(string=src, base_url=str(html_path)).render()
-    anchors = anchors_of(doc)
-    first_body = anchors["body-start"]
-    # Durchlauf 2: Seitenzähler auf der ersten Werkseite auf 1 setzen
-    src = print_html(book, build_dir, first_body)
-    html_path.write_text(src, encoding="utf-8")
-    doc = weasyprint.HTML(string=src, base_url=str(html_path)).render()
-    anchors2 = anchors_of(doc)
-    if anchors2 != anchors:
-        # Layout hat sich (unerwartet) verschoben → dritter Durchlauf mit neuem Wert
-        first_body = anchors2["body-start"]
-        src = print_html(book, build_dir, first_body)
+
+    def render(first_body, tracking):
+        src = print_html(book, build_dir, first_body, tracking)
         html_path.write_text(src, encoding="utf-8")
         doc = weasyprint.HTML(string=src, base_url=str(html_path)).render()
-        anchors2 = anchors_of(doc)
-        if anchors2["body-start"] != first_body:
+        return src, doc, anchors_of(doc)
+
+    # Durchlauf 1: Layout ermitteln (erste Werkseite)
+    src, doc, anchors = render(None, None)
+    first_body = anchors["body-start"]
+    # Durchlauf 2 ff.: Seitenzähler-Neustart; verwaiste Kapitelenden per Laufweite korrigieren
+    tracking: dict[str, float] = {}
+    tried: dict[str, int] = {}
+    log = []
+    for attempt in range(1 + len(TRACKING_STEPS)):
+        src, doc, anchors = render(first_body, tracking)
+        if anchors["body-start"] != first_body:
             raise SystemExit("FEHLER: Seitenlayout instabil (body-start).")
+        pdf_bytes = doc.write_pdf()
+        counts = lines_per_page(pdf_bytes)
+        stranded = stranded_endings(book, anchors, counts)
+        log.append({"attempt": attempt, "tracking": dict(tracking), "stranded": dict(stranded)})
+        if not stranded:
+            break
+        changed = False
+        for uid in stranded:
+            k = tried.get(uid, 0)
+            if k < len(TRACKING_STEPS):
+                tracking[uid] = TRACKING_STEPS[k]
+                tried[uid] = k + 1
+                changed = True
+            else:
+                tracking.pop(uid, None)   # keine Stufe hilft → Original-Laufweite behalten
+        if not changed:
+            break
+    # Kapitel, bei denen keine Stufe half, laufen ohne Änderung
+    if any(uid in stranded and tried.get(uid, 0) >= len(TRACKING_STEPS) for uid in list(tracking)):
+        for uid in list(tracking):
+            if uid in stranded:
+                tracking.pop(uid)
+        src, doc, anchors = render(first_body, tracking)
+        pdf_bytes = doc.write_pdf()
+        counts = lines_per_page(pdf_bytes)
+        stranded = stranded_endings(book, anchors, counts)
     pdf_path = out_dir / f"{book.cfg['slug']}_Innenteil_A5.pdf"
-    doc.write_pdf(str(pdf_path))
+    pdf_path.write_bytes(pdf_bytes)
     n_pages = len(doc.pages)
     # Textprüfung des Druck-HTML (Werkteil)
     body_part = src.split('<div class="body">', 1)[1]
     text_check = diff_report(expected_body_text(book), html_to_text(body_part))
-    pages = {
-        "pdf": str(pdf_path),
-        "pages": n_pages,
-        "first_body_page": first_body,
-        "anchors": anchors2,
-    }
+    pages = {"pdf": str(pdf_path), "pages": n_pages, "first_body_page": first_body, "anchors": anchors,
+             "lines_per_page": counts, "tracking": tracking, "tracking_log": log}
     (build_dir / f"{book.cfg['slug']}_pages.json").write_text(json.dumps(pages, ensure_ascii=False, indent=1), encoding="utf-8")
     return {"pdf_path": pdf_path, "pages": n_pages, "first_body_page": first_body,
-            "anchors": anchors2, "print_html_text_check": text_check}
+            "anchors": anchors, "print_html_text_check": text_check,
+            "tracking": tracking, "stranded_remaining": stranded, "tracking_log": log,
+            "line_counts": counts}
 
 
 def verify_toc_numbers(pdf_path: Path, book: Book, anchors: dict[str, int], first_body: int) -> str:
@@ -862,7 +936,7 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
             body = f'<section class="plate" id="{u.id}"><img src="../images/{u.id}.jpg" alt="İllüstrasyon"/></section>'
             title = "İllüstrasyon"
         else:
-            body = (f'<section class="chapter" id="{u.id}" epub:type="chapter">{chapter_head_html(u, book)}\n'
+            body = (f'<section class="chapter" id="{u.id}" epub:type="chapter">{chapter_head_html(u, book, "epub")}\n'
                     f'{blocks_html(u.blocks, "epub")}</section>')
             title = u.title
         body_pages.append((u.id, fname, u, title, body))
@@ -949,7 +1023,8 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
     # OPF
     d = docx.Document(str(cfg["docx"]))
     modified = d.core_properties.modified or dt.datetime(2026, 1, 1)
-    modified = modified.replace(microsecond=0, tzinfo=None).isoformat() + "Z"
+    modified = max(modified.replace(microsecond=0, tzinfo=None), dt.datetime(2026, 1, 1))
+    modified = modified.isoformat() + "Z"
     items = []
     for pid, href, mt, prop in manifest:
         prop_attr = f' properties="{prop}"' if prop else ""
@@ -960,12 +1035,14 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
         lin = ' linear="no"' if s.endswith("|no") else ""
         refs.append(f'    <itemref idref="{s.split("|")[0]}"{lin}/>')
     refs = "\n".join(refs)
-    full_title = f.title + (f" — {f.subtitle}" if f.subtitle else "")
+    subtitle = (f'    <dc:title id="subtitle">{esc(f.subtitle)}</dc:title>\n'
+                f'    <meta refines="#subtitle" property="title-type">subtitle</meta>\n') if f.subtitle else ""
     opf = (f'<?xml version="1.0" encoding="utf-8"?>\n'
            f'<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid" xml:lang="tr">\n'
            f'  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">\n'
            f'    <dc:identifier id="bookid">{book_uuid}</dc:identifier>\n'
-           f'    <dc:title id="title">{esc(full_title)}</dc:title>\n'
+           f'    <dc:title id="title">{esc(f.title)}</dc:title>\n'
+           f'    <meta refines="#title" property="title-type">main</meta>\n{subtitle}'
            f'    <dc:creator id="creator">{esc(f.author)}</dc:creator>\n'
            f'    <meta refines="#creator" property="role" scheme="marc:relators">aut</meta>\n'
            f'    <dc:language>tr</dc:language>\n'
@@ -1030,6 +1107,8 @@ def make_previews(book: Book, pdf_path: Path, anchors: dict[str, int], n_pages: 
     import pymupdf
     prev_dir = out_dir / "preview"
     prev_dir.mkdir(parents=True, exist_ok=True)
+    for old in prev_dir.glob(f"{book.cfg['slug']}_p*.png"):   # veraltete Vorschauen entfernen
+        old.unlink()
     first_body = anchors["body-start"]
     pages: list[int] = [1, anchors["titlepage"], anchors["copyright"]]
     if "frontispiece" in anchors:
@@ -1039,6 +1118,8 @@ def make_previews(book: Book, pdf_path: Path, anchors: dict[str, int], n_pages: 
     if acts:
         pages.append(anchors[acts[0].id])
     chapters = book.chapters
+    if "preface" in anchors:
+        pages.append(anchors["preface"])
     pages.append(anchors[chapters[0].id])
     if len(chapters) > 1:
         pages.append(anchors[chapters[1].id])
@@ -1118,8 +1199,13 @@ def main(argv=None) -> int:
         import check_pdf
         chk = check_pdf.check_pdf(str(r["pdf_path"]), verbose=True)
         first_body = r["first_body_page"]
-        mid = list(range(first_body + 10, first_body + 40, 3))
-        stats = check_pdf.page_stats(str(r["pdf_path"]), mid)
+        import statistics
+        opener_pages = {r["anchors"][u.id] for u in book.units}
+        full_pages = [r["line_counts"][p - 1] for p in range(first_body, r["pages"] + 1)
+                      if p not in opener_pages and r["line_counts"][p - 1] >= 20]
+        stats = check_pdf.page_stats(str(r["pdf_path"]), [p for p in range(first_body, r["pages"] + 1)
+                                                          if p not in opener_pages][:40])
+        stats["lines_per_page_typical"] = statistics.mode(full_pages) if full_pages else None
         toc_check = verify_toc_numbers(r["pdf_path"], book, r["anchors"], first_body)
         entry.update({
             "pdf": str(r["pdf_path"]),
@@ -1136,6 +1222,8 @@ def main(argv=None) -> int:
             "margin_check": chk["margin_check"],
             "margin_problems": chk["margin_problems"],
             "toc_page_numbers_check": toc_check,
+            "tracking_adjustments_em": r["tracking"],
+            "stranded_chapter_endings_remaining": r["stranded_remaining"],
             "chapter_pages": {u.id: r["anchors"][u.id] - first_body + 1 for u in book.units if u.kind in ("chapter", "act", "plate")},
         })
         print(f"[{args.book}] PDF: {r['pdf_path']} ({r['pages']} Seiten, Werkteil ab PDF-Seite {first_body}); "
@@ -1154,8 +1242,10 @@ def main(argv=None) -> int:
         entry["epub_cover"] = r["cover"]
         print(f"[{args.book}] EPUB: {r['epub_path']}; epubcheck: {r['epubcheck']}; Textprüfung: {r['epub_text_check']}")
 
+    # Bericht erst jetzt (erneut) lesen, damit parallele Läufe des anderen Buches nicht überschrieben werden
+    report = json.loads(report_path.read_text(encoding="utf-8")) if report_path.exists() else {}
     report[args.book] = entry
-    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    report_path.write_text(json.dumps(dict(sorted(report.items())), ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"[{args.book}] Bericht: {report_path}")
     return 0
 

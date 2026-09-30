@@ -39,11 +39,12 @@ li {{ margin-bottom: 0.8mm; }}
 
 
 def stills_html(prefix, label):
-    files = sorted(glob.glob(os.path.join(STILLS, f'{prefix}_*.jpg')), key=lambda f: float(re.search(r'_t([\d.]+)\.jpg$', f).group(1)))
+    def tsec(f):
+        m = re.search(r'_t([\d_.]+)\.jpg$', f)
+        return m.group(1).replace('_', '.') if m else '0'
+    files = sorted(glob.glob(os.path.join(STILLS, f'{prefix}_*.jpg')), key=lambda f: float(tsec(f)))
     if not files:
         return ''
-    def tsec(f):
-        return re.search(r'_t([\d.]+)', f).group(1)
     figs = ''.join(f'<figure><img src="file://{f}"><figcaption>{label} · t = {tsec(f)} s</figcaption></figure>' for f in files)
     return f'<div class="stills">{figs}</div>'
 
