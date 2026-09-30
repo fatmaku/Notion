@@ -22,6 +22,12 @@ header { display: flex; justify-content: space-between; align-items: center; gap
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
 .dot.on { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
 .dot.warn { background: var(--warn); }
+.dot.err { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.pill select.inline { width: auto; padding: 2px 6px; border: none; background: transparent; color: var(--text); }
+.pill select.inline option { background: var(--panel-2); }
+.pill-toggle { cursor: pointer; user-select: none; }
+.pill-toggle input { width: auto; margin: 0; accent-color: var(--accent-2); }
+.pill-toggle input:disabled { opacity: .4; cursor: not-allowed; }
 
 .grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
 @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
@@ -39,6 +45,7 @@ label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px
 .row { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
 .row > * { flex: 1; }
 .row > button { flex: 0 0 auto; }
+.block { margin-top: 12px; }
 
 #transcript { min-height: 90px; max-height: 180px; overflow-y: auto; background: var(--bg); border-radius: 10px; padding: 12px; font-size: 15px; line-height: 1.5; border: 1px solid var(--border); }
 #transcript .interim { color: var(--muted); }
@@ -46,7 +53,9 @@ label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px
 
 .pad { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
 .pad button { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 6px; position: relative; }
-.pad .emoji { font-size: 32px; }
+.pad .emoji { font-size: 32px; line-height: 40px; }
+.pad img.thumb { width: 32px; height: 32px; object-fit: cover; border-radius: 6px; margin: 4px 0; background: var(--bg); }
+.pad .lbl { font-size: 12px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pad .key { position: absolute; top: 6px; right: 8px; font-size: 10px; color: var(--muted); background: var(--bg); padding: 1px 5px; border-radius: 4px; }
 .pad button.off { opacity: .4; }
 
@@ -56,9 +65,31 @@ label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
 th { color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
-td input { padding: 5px 8px; font-size: 13px; }
-td.kw { width: 45%; }
+td input, td select { padding: 5px 8px; font-size: 13px; }
+td select { min-width: 96px; }
+td.kw { width: 38%; }
+td input.check { width: auto; }
+td.acts { white-space: nowrap; }
+td.acts button { padding: 4px 7px; margin-right: 3px; }
+tr.off td input, tr.off td select { opacity: .5; }
+.table-wrap { overflow-x: auto; }
 .help { font-size: 13px; color: var(--muted); line-height: 1.6; }
 .help code { background: var(--bg); padding: 1px 6px; border-radius: 4px; color: var(--text); }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 #preview { width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--border); border-radius: 12px; background: repeating-conic-gradient(#1c1f27 0 25%, #14171d 0 50%) 0 0 / 24px 24px; }
+
+/* external API card */
+#token { font-family: ui-monospace, Menlo, monospace; font-size: 13px; letter-spacing: .02em; }
+pre.code { margin: 0; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; font-size: 12px; line-height: 1.5; overflow-x: auto; white-space: pre; color: var(--text); font-family: ui-monospace, Menlo, monospace; }
+ul.hints { margin: 12px 0 0; padding-left: 18px; }
+ul.hints li { margin-bottom: 6px; }
+.urls { font-size: 13px; color: var(--muted); line-height: 1.9; }
+.urls code { background: var(--bg); padding: 1px 6px; border-radius: 4px; color: var(--text); word-break: break-all; }
+
+@media (max-width: 600px) {
+  body { padding: 12px; }
+  header { margin-bottom: 14px; }
+  .card { padding: 14px; border-radius: 12px; }
+  .pad { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+  td.kw { width: auto; min-width: 140px; }
+}
