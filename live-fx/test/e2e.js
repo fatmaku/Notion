@@ -18,7 +18,9 @@ const filter = process.argv[2] || '';
     .readdirSync(DIR)
     .filter((f) => f.endsWith('.js') && f.startsWith(filter))
     .sort();
-  const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+  const browser = await chromium.launch({
+    args: ['--autoplay-policy=no-user-gesture-required', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream'],
+  });
   let failed = 0;
   try {
     for (const f of files) {
