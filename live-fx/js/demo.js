@@ -25,6 +25,37 @@
   const CONFETTI_COUNT = 90;
   const CONFETTI_COLORS = ['#ff595e', '#ffca3a', '#8ac926', '#1982c4', '#6a4c93', '#ffffff'];
   const FILE_SOUND_MAX_MS = 60000;
+  const SCENE_FADE_MS = 800;
+  const SCENE_PARTICLE_CAP = 40;
+  const LOOP_FADE_SEC = 1.5;
+  const STICKER_MS = 2800;
+  // Canvas twin of the scene styles in css/overlay.css: gradient stops (top -> bottom), decoration, particles.
+  const CANVAS_SCENES = {
+    rain: { stops: ['#232f3e', '#3d5470', '#4d5f70'], streaks: 'rgba(210,228,255,0.35)', every: 140, particles: [{ emoji: '💧', mode: 'fall', size: [16, 30], dur: [1200, 2000] }] },
+    night: { stops: ['#121840', '#05071c', '#020310'], stars: 90, decor: '🌙', every: 700, particles: [{ emoji: '✨', mode: 'twinkle', size: [12, 26], dur: [1500, 3000] }] },
+    forest: { stops: ['#0b2410', '#1d5a2a', '#2d7a3a', '#123a1c'], ground: '🌲🌳🌲🌲🌳🌲🌳🌲', every: 420, particles: [{ emoji: '🍃', mode: 'fall', size: [18, 34], dur: [3500, 6000] }, { emoji: '✨', mode: 'twinkle', size: [8, 14], dur: [1500, 3000] }] },
+    sea: { stops: ['#8fd8ff', '#47a6e8', '#1a6fbf', '#063a6e'], waves: true, every: 650, particles: [{ emoji: '🐟', mode: 'drift', size: [22, 40], dur: [7000, 12000] }, { emoji: '🫧', mode: 'rise', size: [12, 24], dur: [3000, 5000] }] },
+    fire: { stops: ['#1f0705', '#7a1d10', '#e8542b', '#ffb347'], glow: true, every: 160, particles: [{ emoji: '✨', mode: 'rise', size: [10, 22], dur: [1500, 2800] }] },
+    castle: { stops: ['#14082e', '#43176b', '#8a2f6e', '#2a1233'], ground: '🏰', groundScale: 1.8, stars: 40, every: 800, particles: [{ emoji: '🦇', mode: 'drift', size: [20, 34], dur: [5000, 9000] }, { emoji: '✨', mode: 'twinkle', size: [10, 20], dur: [1500, 3000] }] },
+    snow: { stops: ['#a3c4e6', '#d6e6f5', '#f4f8fc'], every: 180, particles: [{ emoji: '❄️', mode: 'fall', size: [12, 30], dur: [4000, 7000] }] },
+    desert: { stops: ['#ffd98a', '#ffb44d', '#f0a24a', '#a86a2a'], decor: '☀️', ground: '🌵  🐪   🌵', every: 900, particles: [{ emoji: '🍂', mode: 'drift', size: [14, 24], dur: [4000, 7000] }] },
+    city: { stops: ['#060a1e', '#141b48', '#2a2160', '#0d1230'], ground: '🏢🏬🏙️🏢🏨🏢🏬🏢', every: 1100, particles: [{ emoji: '🚕', mode: 'drive', size: [30, 42], dur: [4000, 7000] }, { emoji: '✨', mode: 'twinkle', size: [8, 14], dur: [1000, 2000] }] },
+    space: { stops: ['#1d1050', '#0a0626', '#030213'], stars: 120, decor: '🪐', every: 500, particles: [{ emoji: '✨', mode: 'twinkle', size: [8, 22], dur: [1500, 3000] }, { emoji: '☄️', mode: 'comet', size: [26, 40], dur: [1600, 2600] }] },
+    sunrise: { stops: ['#2b1055', '#6a4b9a', '#ef8f6a', '#ffc26b', '#ffe9a8'], sun: true, every: 700, particles: [{ emoji: '🐦', mode: 'drift', size: [16, 26], dur: [6000, 10000] }, { emoji: '✨', mode: 'twinkle', size: [10, 20], dur: [1500, 3000] }] },
+    storm: { stops: ['#05070c', '#1b222f', '#10141c'], streaks: 'rgba(210,228,255,0.35)', lightning: true, every: 110, particles: [{ emoji: '💧', mode: 'fall', size: [14, 28], dur: [900, 1600] }, { emoji: '⚡', mode: 'twinkle', size: [40, 90], dur: [400, 800] }] },
+  };
+
+  /** Splits into user-perceived characters (emoji incl. ZWJ sequences), whitespace dropped. */
+  function graphemes(str) {
+    const s = String(str || '');
+    let parts;
+    try {
+      parts = Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(s), (x) => x.segment);
+    } catch (_) {
+      parts = Array.from(s);
+    }
+    return parts.filter((g) => g.trim() !== '');
+  }
 
   function lsGet(key) {
     try {
@@ -88,6 +119,11 @@
       this.active = [];
       this.portrait = false;
       this.images = new Map(); // src -> HTMLImageElement (loaded or loading)
+      /** Persistent scene layer (drawn first) – { id, t0, until, caption, particles, ... } or null. */
+      this.scene = null;
+      this._sceneOut = null; // previous scene while it crossfades out
+      /** Optional hook called when a scene ends through its `duration`. */
+      this.onSceneEnd = null;
     }
 
     get W() {
@@ -101,6 +137,12 @@
       if (!trigger || typeof trigger !== 'object') return;
       const v = trigger.visual && typeof trigger.visual === 'object' ? trigger.visual : {};
       switch (v.kind) {
+        case 'scene':
+          this.setScene(v, now);
+          break;
+        case 'sticker':
+          this.sticker(v, now);
+          break;
         case 'rain':
           this.rain(v, now);
           break;
@@ -118,6 +160,62 @@
           this.card(v, now);
       }
       if (v.shake) this.shake(now);
+    }
+
+    /** Scene layer: same rules as the DOM renderer (crossfade, same scene = caption update, clear, duration). */
+    setScene(v, now) {
+      const id = typeof v.scene === 'string' && S.SCENES.includes(v.scene) ? v.scene : '';
+      if (!id) {
+        this.card({ emoji: v.emoji, text: v.text, position: v.position }, now);
+        return;
+      }
+      if (id === 'clear') {
+        this.clearScene(now);
+        return;
+      }
+      const caption = v.caption === false ? '' : typeof v.text === 'string' ? v.text.trim() : '';
+      const d = Number(v.duration);
+      const until = Number.isFinite(d) && d > 0 ? now + d * 1000 : 0;
+      if (this.scene && this.scene.id === id) {
+        this.scene.caption = caption;
+        this.scene.until = until;
+        return;
+      }
+      if (this.scene) this._sceneOut = { ...this.scene, tOut: now };
+      const def = CANVAS_SCENES[id] || { stops: ['#000', '#222'], particles: [] };
+      let intensity = Math.round(Number(v.intensity));
+      if (!Number.isFinite(intensity)) intensity = 2;
+      intensity = Math.min(3, Math.max(1, intensity));
+      const override = typeof v.emoji === 'string' && v.emoji.trim() ? graphemes(v.emoji).slice(0, 4) : null;
+      const stars = [];
+      for (let i = 0; i < (def.stars || 0); i++) stars.push({ x: Math.random(), y: Math.random() * 0.7, r: rand(0.6, 1.8), phase: Math.random() * Math.PI * 2 });
+      this.scene = {
+        id,
+        def,
+        t0: now,
+        until,
+        caption,
+        override,
+        every: Math.max(40, Math.round((def.every || 400) * (2 / intensity))),
+        lastSpawn: 0,
+        particles: [],
+        stars,
+        nextFlash: now + rand(800, 3000),
+        flashAt: -1e9,
+      };
+    }
+
+    clearScene(now = performance.now()) {
+      if (!this.scene) return;
+      this._sceneOut = { ...this.scene, tOut: now };
+      this.scene = null;
+    }
+
+    /** Emoji row with staggered bounce + optional text, 2.8 s (mirrors .fx-sticker). */
+    sticker(v, now) {
+      const list = graphemes(v.emoji).slice(0, 4);
+      if (!list.length) list.push('⭐');
+      this._add({ kind: 'sticker', t0: now, dur: STICKER_MS, emojis: list, text: typeof v.text === 'string' ? v.text : '', position: v.position });
     }
 
     _add(fx) {
@@ -198,6 +296,15 @@
     /** Removes finished effects. Returns the current shake offset {x, y} (0 when idle). */
     prune(now = performance.now()) {
       this.active = this.active.filter((fx) => now - fx.t0 < fx.dur);
+      if (this._sceneOut && now - this._sceneOut.tOut > SCENE_FADE_MS) this._sceneOut = null;
+      const sc = this.scene;
+      if (sc) {
+        sc.particles = sc.particles.filter((p) => now - p.t0 < p.dur);
+        if (sc.until && now >= sc.until) {
+          this.clearScene(now);
+          if (typeof this.onSceneEnd === 'function') this.onSceneEnd(sc.id);
+        }
+      }
     }
 
     /** Offset to apply to the whole frame (screen shake), like @keyframes fx-shake. */
@@ -217,6 +324,18 @@
     draw(now = performance.now()) {
       this.prune(now);
       const ctx = this.ctx;
+      // Scene layer first: the outgoing one fades under the incoming one (800 ms crossfade like the DOM).
+      for (const sc of [this._sceneOut, this.scene]) {
+        if (!sc) continue;
+        ctx.save();
+        try {
+          const alpha = sc.tOut !== undefined ? 1 - Math.min(1, (now - sc.tOut) / SCENE_FADE_MS) : Math.min(1, (now - sc.t0) / SCENE_FADE_MS);
+          this._drawScene(sc, now, alpha);
+        } catch (_) {
+          /* never let the scene break the frame */
+        }
+        ctx.restore();
+      }
       for (const fx of this.active) {
         const t = (now - fx.t0) / fx.dur;
         ctx.save();
@@ -226,6 +345,7 @@
           else if (fx.kind === 'rain') this._drawRain(fx, now);
           else if (fx.kind === 'confetti') this._drawConfetti(fx, now);
           else if (fx.kind === 'shake') this._drawFlash(now - fx.t0);
+          else if (fx.kind === 'sticker') this._drawSticker(fx, t, now);
         } catch (_) {
           /* never let one effect break the frame */
         }
@@ -410,6 +530,233 @@
       }
     }
 
+    _drawScene(sc, now, alpha) {
+      const ctx = this.ctx;
+      const W = this.W;
+      const H = this.H;
+      const def = sc.def;
+      ctx.globalAlpha = alpha;
+      const grad = ctx.createLinearGradient(0, 0, 0, H);
+      def.stops.forEach((c, i) => grad.addColorStop(i / (def.stops.length - 1), c));
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      if (sc.stars.length) {
+        for (const st of sc.stars) {
+          const tw = 0.45 + 0.55 * Math.abs(Math.sin(now / 900 + st.phase));
+          ctx.globalAlpha = alpha * tw;
+          ctx.fillStyle = '#fff';
+          ctx.beginPath();
+          ctx.arc(st.x * W, st.y * H, st.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.globalAlpha = alpha;
+      }
+      if (def.streaks) {
+        // Diagonal rain streaks scrolling downwards (repeating pattern like the CSS gradient).
+        ctx.strokeStyle = def.streaks;
+        ctx.lineWidth = 2;
+        const step = 26;
+        const off = (now / 2) % 120;
+        ctx.beginPath();
+        for (let x = -H * 0.2; x < W; x += step) {
+          for (let y = -120 + off; y < H; y += 120) {
+            ctx.moveTo(x + y * 0.14, y);
+            ctx.lineTo(x + (y + 34) * 0.14, y + 34);
+          }
+        }
+        ctx.stroke();
+      }
+      if (def.glow) {
+        const f = 0.8 + 0.2 * Math.abs(Math.sin(now / 70)) * Math.abs(Math.cos(now / 130));
+        const g = ctx.createRadialGradient(W / 2, H, 0, W / 2, H, H * 0.75 * f);
+        g.addColorStop(0, 'rgba(255,225,120,0.75)');
+        g.addColorStop(0.3, 'rgba(255,140,40,0.35)');
+        g.addColorStop(1, 'rgba(255,140,40,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, H);
+      }
+      if (def.sun) {
+        const t = Math.min(1, (now - sc.t0) / 16000);
+        const r = Math.min(210, W * 0.2);
+        const cy = H * (0.95 - 0.3 * t);
+        const g = ctx.createRadialGradient(W / 2, cy, 0, W / 2, cy, r);
+        g.addColorStop(0, '#fff6c8');
+        g.addColorStop(0.45, '#ffd36b');
+        g.addColorStop(1, 'rgba(255,170,80,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, W, H);
+      }
+      if (def.waves) {
+        for (let k = 0; k < 2; k++) {
+          ctx.fillStyle = k ? 'rgba(120,200,255,0.28)' : 'rgba(255,255,255,0.18)';
+          ctx.beginPath();
+          const base = H * (this.portrait ? 0.63 : 0.53) + k * 12;
+          ctx.moveTo(0, H);
+          for (let x = 0; x <= W; x += 8) {
+            const y = base + Math.sin(x / 90 + now / (900 + k * 400) * (k ? -1 : 1)) * 10 + Math.sin(x / 37 + now / 700) * 4;
+            ctx.lineTo(x, y);
+          }
+          ctx.lineTo(W, H);
+          ctx.closePath();
+          ctx.fill();
+        }
+      }
+      if (def.lightning) {
+        if (now >= sc.nextFlash) {
+          sc.flashAt = now;
+          sc.nextFlash = now + rand(2500, 6500);
+        }
+        const dt = now - sc.flashAt;
+        if (dt < 260) {
+          const a = dt < 80 ? 0.85 : dt < 130 ? 0.15 : dt < 200 ? 0.6 : 0.6 * (1 - (dt - 200) / 60);
+          ctx.globalAlpha = alpha * Math.max(0, a);
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, W, H);
+          ctx.globalAlpha = alpha;
+        }
+      }
+      ctx.textBaseline = 'alphabetic';
+      if (def.decor) {
+        const size = Math.min(180, W * 0.14);
+        ctx.font = `${size}px ${FONT}`;
+        ctx.textAlign = 'right';
+        ctx.shadowColor = 'rgba(255,255,255,0.55)';
+        ctx.shadowBlur = 40;
+        ctx.fillText(def.decor, W * 0.92, H * 0.06 + size - Math.abs(Math.sin(now / 4000)) * H * 0.04);
+        ctx.shadowBlur = 0;
+      }
+      if (def.ground) {
+        const size = Math.min(150, W * 0.12) * (def.groundScale || 1);
+        ctx.font = `${size}px ${FONT}`;
+        ctx.textAlign = 'center';
+        ctx.filter = 'brightness(0.25) saturate(0.5)';
+        ctx.fillText(def.ground, W / 2, (this.portrait ? H * 0.66 : H * 1.02) - size * 0.12, W);
+        ctx.filter = 'none';
+      }
+
+      // Particles: spawn on the interval, capped at 40, then draw by mode.
+      if (sc.tOut === undefined && def.particles.length && now - sc.lastSpawn >= sc.every && sc.particles.length < SCENE_PARTICLE_CAP) {
+        sc.lastSpawn = now;
+        const p = def.particles[Math.floor(Math.random() * def.particles.length)];
+        sc.particles.push({
+          t0: now,
+          dur: rand(p.dur[0], p.dur[1]),
+          emoji: sc.override ? sc.override[Math.floor(Math.random() * sc.override.length)] : p.emoji,
+          mode: p.mode,
+          x: Math.random(),
+          y: rand(0.04, 0.7),
+          size: rand(p.size[0], p.size[1]),
+          flip: Math.random() < 0.5 ? -1 : 1,
+        });
+      }
+      const fall = this._fall();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.shadowColor = 'rgba(0,0,0,0.3)';
+      ctx.shadowBlur = 6;
+      for (const p of sc.particles) {
+        const t = Math.min(1, (now - p.t0) / p.dur);
+        let x = p.x * W;
+        let y = 0;
+        let a = 1;
+        let scale = 1;
+        let rot = 0;
+        if (p.mode === 'fall') {
+          y = -80 + t * fall;
+          x += Math.sin(t * Math.PI) * 18;
+          a = t < 0.08 ? t / 0.08 : t > 0.9 ? (1 - t) / 0.1 : 1;
+          rot = Math.sin(t * Math.PI) * 20;
+        } else if (p.mode === 'rise') {
+          y = (this.portrait ? fall : fall - H * 0.1) - t * fall * 0.75;
+          x += t * 40 * p.flip;
+          a = t < 0.15 ? t / 0.15 : 1 - t;
+          scale = 0.6 + t * 0.5;
+        } else if (p.mode === 'drift' || p.mode === 'drive') {
+          x = -120 + t * (W + 260);
+          y = p.mode === 'drive' ? (this.portrait ? H * 0.63 : H * 0.99) - p.size : p.y * H + Math.sin(t * Math.PI) * -H * 0.03;
+          a = t < 0.1 ? t / 0.1 : t > 0.9 ? (1 - t) / 0.1 : 1;
+        } else if (p.mode === 'comet') {
+          y = p.y * 0.4 * H + t * t * fall * 0.45;
+          x -= t * t * W * 0.6;
+          a = t < 0.15 ? t / 0.15 : 1 - t;
+          rot = -20;
+        } else {
+          // twinkle
+          y = p.y * H;
+          a = Math.sin(t * Math.PI);
+          scale = 0.2 + 0.8 * Math.sin(t * Math.PI);
+          rot = t * 40;
+        }
+        ctx.save();
+        ctx.globalAlpha = alpha * Math.max(0, Math.min(1, a));
+        ctx.translate(x, y);
+        ctx.rotate((rot * Math.PI) / 180);
+        ctx.scale(scale * (p.mode === 'drift' || p.mode === 'drive' ? p.flip : 1), scale);
+        ctx.font = `${p.size}px ${FONT}`;
+        ctx.fillStyle = '#fff';
+        ctx.fillText(p.emoji, 0, 0);
+        ctx.restore();
+      }
+      ctx.shadowBlur = 0;
+
+      if (sc.caption) {
+        const size = Math.min(44, W * 0.045);
+        ctx.font = `700 ${size}px ${FONT}`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const tw = Math.min(W * 0.86, ctx.measureText(sc.caption).width + 60);
+        const th = size * 1.5 + 12;
+        const cy = this.portrait ? H * 0.3 + th / 2 : H * 0.93 - th / 2;
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = 'rgba(0,0,0,0.55)';
+        roundRect(ctx, W / 2 - tw / 2, cy - th / 2, tw, th, th / 2);
+        ctx.fill();
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = 'rgba(0,0,0,0.6)';
+        ctx.shadowBlur = 8;
+        ctx.fillText(sc.caption, W / 2, cy + 1, tw - 40);
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    _drawSticker(fx, t, now) {
+      const ctx = this.ctx;
+      const W = this.W;
+      const H = this.H;
+      const size = Math.min(150, W * 0.17);
+      const gap = Math.min(24, W * 0.02);
+      const textSize = fx.text ? Math.min(56, W * 0.07) : 0;
+      const rowW = fx.emojis.length * size + (fx.emojis.length - 1) * gap;
+      const totalH = size * 1.1 + (fx.text ? textSize * 1.2 + 4 : 0);
+      const life = kf([[0, 0], [0.12, 1], [0.85, 1], [1, 0]], t);
+      const scale = kf([[0, 0.4], [0.12, 1.08], [0.2, 1], [0.85, 1], [1, 0.7]], t);
+      const { top, ty } = this._anchor(fx);
+      const cy = top + ty * totalH + totalH / 2;
+      ctx.globalAlpha = life;
+      ctx.translate(W / 2, cy);
+      ctx.scale(scale, scale);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.font = `${size}px ${FONT}`;
+      ctx.shadowColor = 'rgba(0,0,0,0.45)';
+      ctx.shadowBlur = 18;
+      ctx.shadowOffsetY = 12;
+      fx.emojis.forEach((e, i) => {
+        const phase = ((now - fx.t0) / 900 - i * 0.13 / 0.9) % 1;
+        const bounce = -22 * Math.sin(Math.max(0, phase) * Math.PI);
+        const x = -rowW / 2 + size / 2 + i * (size + gap);
+        ctx.fillText(e, x, -totalH / 2 + bounce);
+      });
+      if (fx.text) {
+        ctx.shadowBlur = 24;
+        ctx.shadowOffsetY = 3;
+        ctx.fillStyle = '#fff';
+        ctx.font = `900 ${textSize}px ${FONT}`;
+        ctx.fillText(fx.text.toUpperCase(), 0, -totalH / 2 + size * 1.1 + 4, W * 0.92);
+      }
+    }
+
     _drawFlash(elapsed) {
       if (elapsed > 400) return;
       const ctx = this.ctx;
@@ -452,6 +799,7 @@
     recording: false,
     listening: false,
     volume: 0.8,
+    loopName: null,
     triggers: [],
     lastBlob: null,
     error: null,
@@ -532,10 +880,70 @@
     return audioCtx;
   }
 
+  // ---------- ambient loops (story mode) ----------
+  // One loop at a time, through mixNode so it is heard and recorded. LiveFXSounds.loop may be missing
+  // (older sounds.js) – then loops are silently ignored.
+  let ambient = null; // { name, handle, gain }
+
+  function playLoop(name) {
+    const sounds = global.LiveFXSounds;
+    if (!sounds || typeof sounds.loop !== 'function' || !name) return false;
+    if (ambient && ambient.name === name) return true;
+    const ctx = ensureAudio();
+    if (!ctx) return false;
+    stopLoop();
+    let gain;
+    let handle;
+    try {
+      gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(state.volume, ctx.currentTime + LOOP_FADE_SEC);
+      gain.connect(mixNode);
+      handle = sounds.loop(name, ctx, gain, 1);
+    } catch (_) {
+      handle = null;
+    }
+    if (!handle || typeof handle.stop !== 'function') return false;
+    ambient = { name, handle, gain };
+    state.loopName = name;
+    return true;
+  }
+
+  function stopLoop(fadeSec = LOOP_FADE_SEC) {
+    const l = ambient;
+    ambient = null;
+    state.loopName = null;
+    if (!l) return;
+    try {
+      const g = l.gain.gain;
+      g.cancelScheduledValues(audioCtx.currentTime);
+      g.setValueAtTime(g.value, audioCtx.currentTime);
+      g.linearRampToValueAtTime(0, audioCtx.currentTime + fadeSec);
+    } catch (_) {
+      /* ignore */
+    }
+    try {
+      l.handle.stop(fadeSec);
+    } catch (_) {
+      /* ignore */
+    }
+    setTimeout(() => {
+      try {
+        l.gain.disconnect();
+      } catch (_) {
+        /* ignore */
+      }
+    }, fadeSec * 1000 + 200);
+  }
+
   /** Mirrors renderer.playSound but routes everything through mixNode (heard + recorded). */
   function playSound(spec) {
     const parsed = S.parseSound(spec);
     if (!parsed) return;
+    if (parsed.kind === 'loop') {
+      playLoop(parsed.name);
+      return;
+    }
     const ctx = ensureAudio();
     if (!ctx) return;
     if (parsed.kind === 'builtin') {
@@ -596,10 +1004,13 @@
   function render(trigger) {
     if (!trigger || typeof trigger !== 'object') return;
     const silent = { ...trigger, sound: null }; // sounds are ours (mixNode), not the renderer's
+    const v = trigger.visual && typeof trigger.visual === 'object' ? trigger.visual : {};
+    if (v.kind === 'scene' && v.scene === 'clear') stopLoop(); // the renderer would do this for its own loop
     renderer.fire(silent);
     canvasFx.fire(trigger);
     if (trigger.sound) playSound(trigger.sound);
   }
+  canvasFx.onSceneEnd = () => stopLoop();
 
   /** Local fire: render here and tell every overlay on the bus. */
   function fire(trigger, source) {
@@ -699,6 +1110,14 @@
   volumeEl.addEventListener('input', () => {
     state.volume = clamp01(Number(volumeEl.value) || 0);
     renderer.volume = state.volume;
+    if (ambient && audioCtx) {
+      try {
+        ambient.gain.gain.cancelScheduledValues(audioCtx.currentTime);
+        ambient.gain.gain.setTargetAtTime(state.volume, audioCtx.currentTime, 0.05);
+      } catch (_) {
+        /* ignore */
+      }
+    }
   });
 
   // ---------- soundboard ----------
@@ -1009,6 +1428,8 @@
     handleText,
     startRecording,
     stopRecording,
+    playLoop,
+    stopLoop,
     matcher,
     bus,
     asr,

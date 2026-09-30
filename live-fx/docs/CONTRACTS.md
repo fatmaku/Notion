@@ -300,6 +300,18 @@ localStorage: `livefx.asr` (backend, unchanged), `livefx.asr.lang`, `livefx.asr.
 `livefx.asr.ignored` (JSON array of normalized sentences, cap 50).
 `window.livefx` additionally exposes `learnKeyword(triggerId, phrase) -> boolean`, `asrSettings` (getter, copy), `meter` (LiveFXMeter or null)
 and `selfCheck {start(), timeout(), active}`.
+Story mode (1.3, see `docs/DESIGN-STORY.md`): card `#story-card` above `#packs-card` with checkbox `#story-mode` (on: remembers
+tolerance/reaction/gap, sets `#asr-tolerance` medium, `#asr-reaction` safe, `#gap` 2, loads `LiveFXPacks.storyPackFor(lang)`,
+shows `#scene-pad`; off: restores the remembered values, hides the pad, keeps the pack) and `#scene-pad button[data-scene]`
+(one per `LiveFXSchema.SCENES` entry, emoji + German name, `clear` = „Szene beenden“; click fires the ad-hoc trigger
+`{id:'scene-<x>', visual:{kind:'scene', scene}, sound:'loop:<name>'|null}` via `fire()`, source „Szenen-Pad“; `.active` marks the last scene).
+Pack rows: `.pack[data-pack]`, story packs additionally `.pack.story` (`LiveFXPacks.list()` entries carry `story: true`).
+localStorage: `livefx.story` ('1'/'0'), `livefx.story.prev` (JSON `{tolerance, reaction, gap}`).
+`window.livefx` additionally exposes `setStoryMode(on)`, `storyMode` (getter) and `sceneTrigger(sceneId)`.
+Editor: kind options „Szene“ (`[data-field="scene"]` select with German labels, `[data-field="intensity"]` 1–3, text = caption) and
+„Sticker“ (emoji up to 4 emojis); sound select gets `optgroup[label="Atmosphäre (Loop)"]` with `loop:<name>` values from `LiveFXSounds.loops`
+(guarded – absent when the sounds package has no loops). `LiveFXAssets.thumbnailFor`: scene → scene emoji, sticker → first emoji.
+`LiveFXPacks` additionally exports `storyPackFor(lang) -> 'story-de'|'story-tr'|'story-en'`, `SCENE_INFO {id: {emoji, label, loop}}`, `SCENE_IDS`.
 Script order in `index.html`: `sounds, triggers, packs, schema, matcher, bus, store, assets, editor, meter, asr, smart, panel`.
 
 Client helpers the panel consumes:
