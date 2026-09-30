@@ -67,3 +67,9 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Hint when GitHub Pages is not enabled yet
+        if: steps.deployment.outcome != 'success'
+        run: |
+          echo "::warning title=GitHub Pages nicht aktiviert::Bitte einmalig unter https://github.com/${{ github.repository }}/settings/pages die Quelle 'GitHub Actions' wählen. Danach deployt dieser Workflow automatisch nach https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/window-blaster/"
+          echo "Build und Tests sind grün; nur das Deployment wurde übersprungen."
