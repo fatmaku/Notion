@@ -14,7 +14,9 @@ if (!existsSync(src)) {
 }
 mkdirSync(dst, { recursive: true });
 let bytes = 0;
+// vision_wasm_module_internal.* is only used with FilesetResolver's `useModule` flag, which we don't use.
 for (const f of readdirSync(src)) {
+  if (f.includes('vision_wasm_module_internal')) continue;
   cpSync(join(src, f), join(dst, f));
   bytes += statSync(join(dst, f)).size;
 }

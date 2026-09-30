@@ -5,4 +5,4 @@ test-results/
 playwright-report/
 *.log
 .vite/
-WindowBlaster-Mac.zip
+WindowBlaster-Mac*.zip

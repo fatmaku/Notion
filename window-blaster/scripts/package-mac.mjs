@@ -12,6 +12,7 @@ const opt = (k, d) => (args.includes(k) ? args[args.indexOf(k) + 1] : d);
 const caddyDir = opt('--caddy-dir', join(root, 'packaging', 'caddy'));
 const out = opt('--out', join(root, 'WindowBlaster-Mac.zip'));
 const includeLinux = args.includes('--with-linux');
+const split = args.includes('--split'); // app zip + separate Caddy zips (each < 30 MB)
 
 if (!existsSync(join(root, 'dist', 'precache.json'))) throw new Error('run `npm run build` first');
 const stage = join(root, 'packaging', 'stage');
@@ -47,7 +48,25 @@ for (const f of files) {
 const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version;
 writeFileSync(join(pkg, 'VERSION.txt'), `Window Blaster ${version}\nGebaut: ${new Date().toISOString()}\nCaddy: ${caddyVersion}\n`);
 
-rmSync(out, { force: true });
-execSync(`zip -qr -X "${out}" WindowBlaster-Mac`, { cwd: stage, stdio: 'inherit' });
-const size = execSync(`du -h "${out}" | cut -f1`, { encoding: 'utf8' }).trim();
-console.log(`[package] ${out} (${size})`);
+const report = (zipPath) => console.log(`[package] ${zipPath} (${execSync(`du -h "${zipPath}" | cut -f1`, { encoding: 'utf8' }).trim()})`);
+if (!split) {
+  rmSync(out, { force: true });
+  execSync(`zip -qr -X "${out}" WindowBlaster-Mac`, { cwd: stage, stdio: 'inherit' });
+  report(out);
+} else {
+  const base = out.replace(/\.zip$/, '');
+  const appZip = `${base}.zip`;
+  rmSync(appZip, { force: true });
+  execSync(`zip -qr -X "${appZip}" WindowBlaster-Mac -x "WindowBlaster-Mac/bin/caddy-*"`, { cwd: stage, stdio: 'inherit' });
+  report(appZip);
+  for (const [bin, label] of [
+    ['caddy-darwin-arm64', 'AppleSilicon'],
+    ['caddy-darwin-amd64', 'Intel'],
+    ...(includeLinux ? [['caddy-linux-amd64', 'Linux']] : []),
+  ]) {
+    const z = `${base}-Server-${label}.zip`;
+    rmSync(z, { force: true });
+    execSync(`zip -qr -X "${z}" WindowBlaster-Mac/bin/${bin}`, { cwd: stage, stdio: 'inherit' });
+    report(z);
+  }
+}

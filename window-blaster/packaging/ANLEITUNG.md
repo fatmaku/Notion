@@ -15,13 +15,15 @@ braucht Netz; ohne Netz werden Einträge gespeichert und später automatisch ges
 | `Start-Window-Blaster.command` | Doppelklick: startet den lokalen Server auf dem Mac und öffnet die Demo |
 | `Handy-vertrauen.command` | Einmalig: macht den Mac für dein Handy zu einer vertrauenswürdigen Adresse (nötig für Kamera **und** Offline-Installation über den Mac) |
 | `app/` | Die fertige App inkl. KI-Modell – braucht kein Node, kein npm |
-| `bin/` | Caddy, ein kleiner Open-Source-Webserver (Apple Silicon und Intel) |
+| `bin/` | Caddy, ein kleiner Open-Source-Webserver – kommt aus der separaten Server-Zip (Apple Silicon oder Intel) |
 | `quelltext/` | Kompletter Quellcode, falls du etwas ändern willst (`npm install`, `npm run dev`) |
 | `run/` | Entsteht beim ersten Start: Zertifikate und Konfiguration |
 
 ## Schritt 1 – Auf dem Mac starten
 
-1. Zip auf den Schreibtisch entpacken (Doppelklick).
+1. `WindowBlaster-Mac.zip` auf den Schreibtisch entpacken (Doppelklick). Danach die passende Server-Datei
+   **in denselben Ordner** entpacken: `WindowBlaster-Mac-Server-AppleSilicon.zip` (Chip „Apple M1/M2/M3/M4“) oder
+   `WindowBlaster-Mac-Server-Intel.zip` (Apple-Menü → „Über diesen Mac“ zeigt den Chip). Im Ordner `bin/` liegt dann `caddy-darwin-…`.
 2. `Start-Window-Blaster.command` doppelklicken.
    - Meldet macOS „kann nicht geöffnet werden“: **Systemeinstellungen → Datenschutz & Sicherheit → „Trotzdem öffnen“**,
      dann erneut doppelklicken. Alternative im Terminal (Ordnername anpassen):

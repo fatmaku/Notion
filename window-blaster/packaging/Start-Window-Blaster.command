@@ -9,6 +9,18 @@ echo
 ARCH=$(uname -m)
 BIN="bin/caddy-darwin-arm64"; [ "$ARCH" = "x86_64" ] && BIN="bin/caddy-darwin-amd64"
 [ "$(uname -s)" = "Linux" ] && BIN="bin/caddy-linux-amd64"
+if [ ! -f "$BIN" ]; then
+  echo "❌ Der Server fehlt noch: bitte die zweite Datei in denselben Ordner entpacken:"
+  echo "   Apple-Silicon-Mac (Chip „Apple M…“): WindowBlaster-Mac-Server-AppleSilicon.zip"
+  echo "   Intel-Mac:                           WindowBlaster-Mac-Server-Intel.zip"
+  echo "   (Apple-Menü → „Über diesen Mac“ zeigt den Chip.) Danach diese Datei erneut doppelklicken."
+  echo "   Erwartet wird: $PWD/$BIN"
+  echo
+  if command -v python3 >/dev/null 2>&1; then
+    echo "Notlösung ohne HTTPS (nur Mac-Browser): http://localhost:8080 …"; cd app && python3 -m http.server 8080
+  fi
+  read -r -p "Enter zum Schließen"; exit 1
+fi
 chmod +x bin/* 2>/dev/null || true
 xattr -dr com.apple.quarantine bin app 2>/dev/null || true
 mkdir -p run/data run/config
