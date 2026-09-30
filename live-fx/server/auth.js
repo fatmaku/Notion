@@ -17,6 +17,7 @@ const crypto = require('crypto');
 const { HttpError } = require('./router');
 
 const TOKEN_FILE = 'token.txt';
+const COOKIE_NAME = 'livefx';
 const TOKEN_RE = /^[A-Za-z0-9._~+/=-]{8,256}$/;
 const IPV4_RE = /^\d{1,3}(\.\d{1,3}){3}$/;
 const IPV6_RE = /^[0-9a-f:.]+$/i; // bracket-stripped literal like ::1 or fe80::1%eth0 (zone removed below)
@@ -108,10 +109,40 @@ function sameOrigin(req) {
   return origin === `http://${host}` || origin === `https://${host}`;
 }
 
-/** Bearer token (constant-time) OR (allowed Host AND same-origin browser request). */
+function safeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string' || !a || !b) return false;
+  const ba = Buffer.from(a, 'utf8');
+  const bb = Buffer.from(b, 'utf8');
+  return ba.length === bb.length && crypto.timingSafeEqual(ba, bb);
+}
+
+/** The panel receives the token as an HttpOnly cookie when index.html is served (see static.js). */
+function cookieOk(req, token) {
+  const raw = String((req.headers && req.headers.cookie) || '');
+  for (const part of raw.split(';')) {
+    const [k, ...rest] = part.trim().split('=');
+    if (k === COOKIE_NAME && safeEqual(rest.join('='), token)) return true;
+  }
+  return false;
+}
+
+function isLoopback(req) {
+  const ra = req.socket && req.socket.remoteAddress;
+  return ra === '127.0.0.1' || ra === '::1' || ra === '::ffff:127.0.0.1';
+}
+
+function cookieHeader(token) {
+  return `${COOKIE_NAME}=${token}; HttpOnly; SameSite=Strict; Path=/`;
+}
+
+/**
+ * Bearer token (constant-time) OR (allowed Host AND same-origin browser request AND the request
+ * either comes from this machine or carries the panel cookie). `sec-fetch-site`/`Origin` alone are
+ * forgeable by non-browser clients, so off-host they are never sufficient on their own.
+ */
 function isAuthorized(req, token) {
   if (bearerOk(req, token)) return true;
-  return hostAllowed(req) && sameOrigin(req);
+  return hostAllowed(req) && sameOrigin(req) && (isLoopback(req) || cookieOk(req, token));
 }
 
 /** Wraps a route handler; runs before the body is read, so unauthenticated bodies are never parsed. */
@@ -120,6 +151,7 @@ function requireAuth(handler) {
     if (!bearerOk(req, ctx && ctx.token)) {
       if (!hostAllowed(req)) throw new HttpError(403, 'bad_host', 'Host-Header nicht erlaubt (LIVEFX_ALLOWED_HOSTS setzen)');
       if (!sameOrigin(req)) throw new HttpError(401, 'unauthorized', 'Bearer-Token oder Same-Origin-Aufruf nötig');
+      if (!isLoopback(req) && !cookieOk(req, ctx && ctx.token)) throw new HttpError(401, 'unauthorized', 'Panel neu laden (Sitzungs-Cookie fehlt) oder Bearer-Token senden');
     }
     return handler(req, res, ctx);
   };
@@ -129,4 +161,4 @@ function register() {
   /* no routes of its own */
 }
 
-module.exports = { loadOrCreateToken, hostAllowed, isAuthorized, requireAuth, register };
+module.exports = { loadOrCreateToken, hostAllowed, isAuthorized, requireAuth, register, cookieHeader, cookieOk, isLoopback, COOKIE_NAME };

@@ -117,7 +117,7 @@ Upload contract: the browser sends `fetch('/api/assets', {method:'POST', body: f
 ```js
 loadOrCreateToken({dataDir, log}) -> string   // LIVEFX_TOKEN env, else data/token.txt (32 hex, mode 0600), created on first start
 hostAllowed(req) -> boolean                    // Host is localhost / an IP literal / listed in LIVEFX_ALLOWED_HOSTS (comma separated)
-isAuthorized(req, token) -> boolean            // Bearer token (constant-time compare) OR (hostAllowed AND (sec-fetch-site === 'same-origin' OR Origin === http(s)://<Host>))
+isAuthorized(req, token) -> boolean            // Bearer token (constant-time compare) OR (hostAllowed AND same-origin signal (sec-fetch-site / Origin) AND (loopback socket OR panel cookie `livefx=<token>`, HttpOnly, set when index.html is served))
 requireAuth(handler) -> handler                // wraps a route handler: 403 bad_host when !hostAllowed and no valid Bearer, 401 unauthorized otherwise
 register(router, ctx)                          // no routes of its own
 ```

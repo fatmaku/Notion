@@ -165,8 +165,9 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 
 - Der Server lauscht standardmäßig nur auf `127.0.0.1`.
 - Jede schreibende Route verlangt den Token **oder** einen Same-Origin-Aufruf aus dem Panel
-  (`Sec-Fetch-Site`/`Origin`-Prüfung + Host-Allowlist gegen DNS-Rebinding). Fremde Webseiten
-  können keine Effekte auslösen.
+  (`Sec-Fetch-Site`/`Origin`-Prüfung + HttpOnly-Sitzungs-Cookie, das nur die Panel-Seite setzt;
+  Host-Allowlist gegen DNS-Rebinding auf allen Routen). Fremde Webseiten und fremde Rechner im LAN
+  können ohne Token keine Effekte auslösen.
 - Ausgeliefert werden nur Panel, Overlay, `css/`, `js/` und hochgeladene Medien – nie Server-Code,
   Tests, `triggers.json` oder `token.txt`. Dateinamen werden bereinigt, Uploads per Magic-Bytes geprüft.
 - Alle Texte aus Triggern werden im Overlay escaped; Bildquellen sind auf `assets/…` und `https://…` beschränkt.

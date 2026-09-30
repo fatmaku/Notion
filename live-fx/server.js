@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 
 const pkg = require('./package.json');
-const { Router, HttpError, json, error } = require('./server/router');
+const { Router, HttpError, json, error, safeUrl } = require('./server/router');
 require('./js/triggers.js');
 require('./js/schema.js');
 require('./js/matcher.js');
@@ -67,6 +67,15 @@ function handleError(req, res, e) {
 }
 
 const server = http.createServer((req, res) => {
+  // DNS-rebinding guard for every route (reads included): only allowed Hosts, unless a Bearer is sent.
+  if (!safeUrl(req)) {
+    error(res, 400, 'bad_request', 'malformed URL or Host header');
+    return;
+  }
+  if (!auth.hostAllowed(req) && !req.headers.authorization) {
+    error(res, 403, 'bad_host', 'Host-Header nicht erlaubt (LIVEFX_ALLOWED_HOSTS setzen)');
+    return;
+  }
   router
     .dispatch(req, res, appCtx)
     .then((matched) => {

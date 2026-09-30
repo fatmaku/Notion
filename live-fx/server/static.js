@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { pipeline } = require('stream');
 const { HttpError } = require('./router');
 
 const MIME = {
@@ -70,6 +71,7 @@ function serve(req, res, ctx) {
       }
       const headers = {
         'content-type': MIME[path.extname(abs).toLowerCase()] || 'application/octet-stream',
+        ...(target.rel === 'index.html' && ctx.token ? { 'set-cookie': require('./auth').cookieHeader(ctx.token) } : {}),
         'content-length': st.size,
         'cache-control': target.cache,
         'last-modified': st.mtime.toUTCString(),
@@ -81,10 +83,8 @@ function serve(req, res, ctx) {
         return;
       }
       res.writeHead(200, headers);
-      const stream = fs.createReadStream(abs);
-      stream.on('error', () => res.destroy());
-      stream.on('close', resolve);
-      stream.pipe(res);
+      // pipeline() destroys the read stream when the client aborts (plain pipe() would leak the fd).
+      pipeline(fs.createReadStream(abs), res, () => resolve());
     });
   });
 }

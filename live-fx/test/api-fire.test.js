@@ -266,7 +266,7 @@ test('auth unit: loadOrCreateToken + hostAllowed + isAuthorized', async (t) => {
 
   await t.test('isAuthorized', () => {
     const tok = 'secret-token';
-    const req = (headers) => ({ headers });
+    const req = (headers) => ({ headers, socket: { remoteAddress: '127.0.0.1' } }); // local panel; off-host needs the cookie (see test/auth.test.js)
     assert.equal(auth.isAuthorized(req({ host: 'evil.example', authorization: `Bearer ${tok}` }), tok), true);
     assert.equal(auth.isAuthorized(req({ host: 'localhost', authorization: 'Bearer wrong-token' }), tok), false);
     assert.equal(auth.isAuthorized(req({ host: 'localhost', authorization: 'Bearer secret-toke' }), tok), false);

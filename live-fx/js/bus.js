@@ -35,6 +35,7 @@
       this.authError = false;
       this.seen = new Map(); // id -> true, insertion ordered (LRU)
       this.queue = [];
+      this.inFlight = null;
       this.draining = false;
       this.closed = false;
       this._sseTimer = null;
@@ -134,10 +135,19 @@
     // ---------- sending (HTTP queue) ----------
 
     _enqueue(payload) {
-      if (payload.type === 'volume') this.queue = this.queue.filter((q) => q.msg.type !== 'volume');
+      if (payload.type === 'volume') this.queue = this.queue.filter((q) => q.msg.type !== 'volume' || q === this.inFlight);
       this.queue.push({ msg: payload, attempt: 0 });
-      while (this.queue.length > QUEUE_MAX) this.queue.shift();
+      while (this.queue.length > QUEUE_MAX) {
+        const victim = this.queue[0] === this.inFlight ? 1 : 0; // never evict the item being sent
+        this.queue.splice(victim, 1);
+      }
       this._drain();
+    }
+
+    _drop(item) {
+      const i = this.queue.indexOf(item);
+      if (i !== -1) this.queue.splice(i, 1);
+      if (this.inFlight === item) this.inFlight = null;
     }
 
     async _drain() {
@@ -147,9 +157,10 @@
         while (this.queue.length && !this.closed) {
           const item = this.queue[0];
           if (item.msg.type === 'fire' && Date.now() - item.msg.ts > FIRE_MAX_AGE_MS) {
-            this.queue.shift(); // stale effect – nobody wants a meme five seconds late
+            this._drop(item); // stale effect – nobody wants a meme five seconds late
             continue;
           }
+          this.inFlight = item;
           let status = 0;
           try {
             const r = await fetch(`${this.serverBase}/fire`, {
@@ -162,27 +173,29 @@
             status = 0;
           }
           if (status >= 200 && status < 300) {
-            this.queue.shift();
+            this._drop(item);
             continue;
           }
           if (status === 401 || status === 403) {
             this.authError = true;
-            this.queue.shift();
+            this._drop(item);
             this._status();
             continue;
           }
           if (status >= 400 && status < 500) {
             console.warn('LiveFX: server rejected message', status, item.msg.type);
-            this.queue.shift();
+            this._drop(item);
             continue;
           }
           if (item.attempt >= SEND_RETRY_MS.length) {
-            this.queue.shift();
+            this._drop(item);
             continue;
           }
+          this.inFlight = null;
           await new Promise((r) => setTimeout(r, SEND_RETRY_MS[item.attempt++]));
         }
       } finally {
+        this.inFlight = null;
         this.draining = false;
         this._status();
       }

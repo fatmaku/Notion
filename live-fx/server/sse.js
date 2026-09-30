@@ -60,7 +60,7 @@ function createSse({ state, log = () => {}, version = '0.0.0' }) {
     const out = stamp(msg);
     const seq = state.nextSeq();
     const line = frame(seq, out);
-    ring.push({ seq, ts: Date.now(), line });
+    ring.push({ seq, ts: Date.now(), line, audience });
     if (ring.length > RING_SIZE) ring.shift();
     let n = 0;
     for (const c of Array.from(clients)) {
@@ -87,7 +87,9 @@ function createSse({ state, log = () => {}, version = '0.0.0' }) {
     const last = Number(req.headers['last-event-id']);
     if (Number.isFinite(last)) {
       const cutoff = Date.now() - REPLAY_MAX_AGE_MS;
-      for (const e of ring) if (e.seq > last && e.ts >= cutoff) write(client, e.line);
+      for (const e of ring) {
+        if (e.seq > last && e.ts >= cutoff && (e.audience === 'all' || e.audience === role)) write(client, e.line);
+      }
     }
 
     // Initial state so a fresh overlay picks up the current volume.

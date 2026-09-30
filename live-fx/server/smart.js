@@ -199,8 +199,8 @@ function createSmart({
       if (hit && hit.expires > now) return { ...hit.value, cached: true };
       if (hit) cache.delete(key);
 
-      if (!takeToken(now)) throw new HttpError(429, 'rate_limited', `höchstens ${maxPerMinute} Anfragen pro Minute`);
       if (inFlight) throw new HttpError(429, 'busy', 'eine Klassifikation läuft bereits');
+      if (!takeToken(now)) throw new HttpError(429, 'rate_limited', `höchstens ${maxPerMinute} Anfragen pro Minute`);
 
       inFlight = true;
       const started = Date.now();
