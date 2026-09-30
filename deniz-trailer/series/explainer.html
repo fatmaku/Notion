@@ -36,10 +36,12 @@ html,body{background:#000;overflow:hidden}
 .bookcard{inset:0}
 .bookcard .cov{position:absolute;left:50%;top:300px;width:600px;height:960px;margin-left:-300px;border-radius:24px;overflow:hidden;box-shadow:0 50px 100px rgba(0,0,0,.6);transform-style:preserve-3d}
 .bookcard .cov img{width:100%;height:100%;object-fit:cover}
+.crop .bookcard .no{top:1110px}.crop .bookcard .ti{top:1170px}.crop .bookcard .su{top:1380px}
 .bookcard .no{position:absolute;left:0;right:0;top:1330px;text-align:center;font:600 34px 'Fredoka';letter-spacing:.3em;color:var(--sun)}
 .bookcard .ti{position:absolute;left:60px;right:60px;top:1390px;text-align:center;font:700 80px/1.08 'Fredoka';color:#fff}
 .bookcard .su{position:absolute;left:60px;right:60px;top:1600px;text-align:center;font:500 38px/1.3 'Fredoka';color:#B9C4DA}
 .fan{inset:0}
+.crop .bookcard .cov{height:650px}.crop .bookcard .cov img{height:1000px;margin-top:-40px}.crop .fan img{height:380px;object-fit:cover;object-position:50% 15%}
 .fan img{position:absolute;left:50%;top:420px;width:330px;height:528px;margin-left:-165px;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.55);transform-origin:50% 120%}
 #bfly{position:absolute;left:0;top:0;width:220px;height:200px;margin:-100px 0 0 -110px;pointer-events:none;filter:drop-shadow(0 0 18px rgba(120,210,255,.85));display:none}
 #bfly .wl,#bfly .wr{transform-box:fill-box}
@@ -96,31 +98,98 @@ const ui = document.getElementById('ui');
 const el = (cls, html) => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ui.appendChild(d); return d; };
 const words = s => s.split(' ').map(w => { const c = w.includes('[') ? 'hl' : w.includes('{') ? 'sky' : ''; w = w.replace(/[\[\]{}]/g, ''); return `<span class="w ${c}">${w}</span>`; }).join(' ');
 
+/* ---------- language: ?lang=tr (default) | en | de ---------- */
+const LANG = new URLSearchParams(location.search).get('lang') || 'tr';
+const L = {
+ tr: { book: n => `${n}. KİTAP`, prob: 'ZORLUK', sol: 'ÇÖZÜM', quote: '“Farklıyız, [eksik] [değil.]”' },
+ en: { book: n => `BOOK ${n}`, prob: 'CHALLENGE', sol: 'SOLUTION', quote: '“Different, not [less.]”',
+   hook: ['Your child is not [broken.]', 'Their brain just came without a {manual.}'],
+   author: ['Tuncay Sancak was diagnosed with [ADHD] at 32 and [autism] at 33.', 'He wrote these books for his {own} {children.}'],
+   series: ['5 books · 40 adventures · {1} {compass}', 'Everyday struggles in autism and ADHD, and small solutions that [work.]'],
+   buddy: 'Deniz & Pusula, the butterfly',
+   themes: ['Senses, Meltdowns & Superpowers', 'Toilet, Sleep & Daily Care', 'Learning, Homework & School Courage', 'Friendship, Play & Social Courage', 'Change, Transitions & Flexibility'],
+   pairs: [
+    [['Supermarket lights, noise… it’s all [too] [much.]', 'Take a short break. Teach your child one sentence: <b>“My eyes are tired.”</b>'],
+     ['Rocking, jumping, flapping… “[Sit] [still!]”', 'Don’t stop it; this is how the body calms down. <b>“This is my charging dance.”</b>'],
+     ['The balloon fills up, fills up… and [pops.]', 'Few words: <b>“I’m here. You’re safe.”</b> Dim lights and sound; then water and a hug.']],
+    [['The pee signal comes [too] [late;] accidents happen.', 'Don’t wait for the feeling, check by routine: <b>shoes → toilet → door.</b>'],
+     ['Bath, teeth, haircut: a [sensory] [mountain.]', 'Small picture steps, <b>two choices</b> and a <b>break signal.</b>'],
+     ['The brain won’t [switch] [off] at night.', 'A landing strip: <b>dim light → short book → park questions on paper → bed.</b>']],
+    [['Not ten questions, a mountain: [can’t] [start.]', 'Shrink the first step and <b>start together for two minutes.</b>'],
+     ['Forgotten papers, [lost] [things.]', 'Give every item <b>a fixed home</b> and put <b>a check picture</b> by the door.'],
+     ['“Five minutes” is invisible; [transitions] [hurt.]', 'Make time visible: <b>hourglass, 5- and 2-minute warnings.</b>']],
+    [['Joke or real? [Hints] [get] [lost.]', 'Asking is allowed: <b>“Did you mean that, or was it a joke?”</b>'],
+     ['How do you [join] [the] [game?]', 'Three doors: <b>watch, ask, offer a role.</b>'],
+     ['Losing feels like an [earthquake.]', 'Feelings are allowed, hurting is not: <b>step away, push the wall, breathe out.</b>']],
+    [['When plans change, the [world] [falls] [apart.]', '<b>Old plan → why it changed → new plan.</b> Being sad is allowed.'],
+     ['Leaving the screen is [so] [hard.]', '<b>10- and 2-minute warnings</b>, a safe stopping point, save, next activity.'],
+     ['“I have to do it myself”… and [stuck.]', 'Asking for help is a superpower: <b>“Can you show me once? Then I’ll try.”</b>']]],
+   fan: ['5 children’s books by Tuncay Sancak', 'Search on Amazon: <b style="color:#fff">Tuncay Sancak</b>', 'E-book & paperback · English & German', 'These books do not diagnose and do not replace a professional assessment.'] },
+ de: { book: n => `BAND ${n}`, prob: 'HERAUSFORDERUNG', sol: 'LÖSUNG', quote: '„Anders, nicht [weniger.]“',
+   hook: ['Dein Kind ist nicht [kaputt.]', 'Sein Gehirn kam nur ohne {Bedienungsanleitung.}'],
+   author: ['Tuncay Sancak bekam mit 32 die Diagnose [ADHS] und mit 33 [Autismus.]', 'Er schrieb diese Bücher für seine {eigenen} {Kinder.}'],
+   series: ['5 Bücher · 40 Abenteuer · {1} {Kompass}', 'Alltagshürden bei Autismus und ADHS und kleine Lösungen, die [wirken.]'],
+   buddy: 'Deniz & Schmetterling Pusula',
+   themes: ['Sinne, Krisen & Superkräfte', 'Toilette, Schlaf & tägliche Pflege', 'Lernen, Hausaufgaben & Schulmut', 'Freundschaft, Spiel & sozialer Mut', 'Veränderung, Übergänge & Flexibilität'],
+   pairs: [
+    [['Supermarktlicht, Lärm… alles ist [zu] [viel.]', 'Kurze Pause machen. Bringen Sie Ihrem Kind einen Satz bei: <b>„Meine Augen sind müde.“</b>'],
+     ['Schaukeln, Hüpfen, Flattern… „[Sitz] [still!]“', 'Nicht unterbinden: So beruhigt sich der Körper. <b>„Das ist mein Auflade-Tanz.“</b>'],
+     ['Der Ballon wird voller, voller… und [platzt.]', 'Wenig Worte: <b>„Ich bin da. Du bist sicher.“</b> Licht und Lärm runter, danach Wasser und eine Umarmung.']],
+    [['Das Pipi-Signal kommt [zu] [spät;] es passieren Unfälle.', 'Nicht aufs Gefühl warten, per Routine prüfen: <b>Schuhe → Toilette → Tür.</b>'],
+     ['Baden, Zähne, Haare schneiden: ein [Reize-Berg.]', 'Kleine Bildschritte, <b>zwei Wahlmöglichkeiten</b> und ein <b>Pausenzeichen.</b>'],
+     ['Das Gehirn [schaltet] nachts nicht [ab.]', 'Eine Landebahn: <b>gedimmtes Licht → kurzes Buch → Fragen auf Papier parken → Bett.</b>']],
+    [['Keine zehn Aufgaben, ein Berg: [nicht] [anfangen] können.', 'Den ersten Schritt verkleinern und <b>zwei Minuten gemeinsam</b> beginnen.'],
+     ['Vergessene Zettel, [verlorene] [Sachen.]', 'Jedem Ding <b>ein festes Zuhause</b> und an der Tür <b>ein Kontrollbild.</b>'],
+     ['„Fünf Minuten“ sind unsichtbar; [Übergänge] [sind] [schwer.]', 'Zeit sichtbar machen: <b>Sanduhr, Hinweis bei 5 und 2 Minuten.</b>']],
+    [['Witz oder ernst? [Andeutungen] [gehen] [verloren.]', 'Nachfragen ist erlaubt: <b>„Meinst du das ernst oder ist das ein Witz?“</b>'],
+     ['Wie komme ich [ins] [Spiel?]', 'Drei Türen: <b>zuschauen, fragen, eine Rolle anbieten.</b>'],
+     ['Verlieren fühlt sich an wie ein [Erdbeben.]', 'Gefühle sind erlaubt, wehtun nicht: <b>einen Schritt weg, gegen die Wand drücken, ausatmen.</b>']],
+    [['Wenn Pläne sich ändern, [bricht] [die] [Welt] [zusammen.]', '<b>Alter Plan → warum er sich ändert → neuer Plan.</b> Traurig sein ist erlaubt.'],
+     ['Vom Bildschirm wegzukommen ist [so] [schwer.]', '<b>Hinweis bei 10 und 2 Minuten</b>, sicherer Endpunkt, speichern, nächste Aktivität.'],
+     ['„Ich muss das allein schaffen“… und [feststecken.]', 'Um Hilfe bitten ist eine Superkraft: <b>„Können Sie es mir einmal zeigen? Dann probiere ich es.“</b>']]],
+   fan: ['5 Kinderbücher von Tuncay Sancak', 'Auf Amazon suchen: <b style="color:#fff">Tuncay Sancak</b>', 'E-Book & Taschenbuch · Deutsch & Englisch', 'Diese Bücher stellen keine Diagnose und ersetzen keine fachliche Abklärung.'] },
+}[LANG];
+if (LANG !== 'tr') {
+  document.getElementById('stage').classList.add('crop');
+  BOOKS.forEach((b, i) => { b.title = L.themes[i]; b.sub = L.buddy; b.pairs.forEach((pr, j) => { [pr.p, pr.s] = L.pairs[i][j]; }); });
+}
+
 // intro
 UI.push({ a: 0, b: T0 + .3, el: el('shade', ''), kind: 'fade' });
-IMGS.push({ a: 0, b: 7.4, img: I(3, 'img10_11_Benim_Yolum'), face: [.45, .6], z0: 1.45, z1: 1.1 });
+IMGS.push({ a: 0, b: 7.4, img: I(3, 'img10_11_Benim_Yolum'), face: [.45, .6], z0: 1.45, z1: 1.1, instant: LANG !== 'tr' });
 IMGS.push({ a: 6.6, b: T0 + .6, img: I(1, 'img2_01_Tanisma_Pencerede_Pusula'), face: [.45, .45], z0: 1.1, z1: 1.35 });
-UI.push({ a: .8, b: 6.6, el: el('center', `<div class="small" style="letter-spacing:.3em;color:#F29B6B">5 KİTAPLIK SERİ</div><div class="big" style="margin-top:22px">${words('Benim Nörofarklı [Pusulam]')}</div><div class="mid" style="margin-top:36px">${words('5 kitap · 40 macera · {1} {pusula}')}</div>`), top: 1180, kind: 'words' });
-UI.push({ a: 7.3, b: T0 - .2, el: el('center', `<div class="mid">${words('Otizm ve DEHB’li çocukların günlük [zorlukları]')}</div><div class="mid" style="margin-top:26px">${words('ve kitaplarda anlatılan {küçük} {çözümler.}')}</div>`), top: 1250, kind: 'words' });
+if (LANG === 'tr') {
+  UI.push({ a: .8, b: 6.6, el: el('center', `<div class="small" style="letter-spacing:.3em;color:#F29B6B">5 KİTAPLIK SERİ</div><div class="big" style="margin-top:22px">${words('Benim Nörofarklı [Pusulam]')}</div><div class="mid" style="margin-top:36px">${words('5 kitap · 40 macera · {1} {pusula}')}</div>`), top: 1180, kind: 'words' });
+  UI.push({ a: 7.3, b: T0 - .2, el: el('center', `<div class="mid">${words('Otizm ve DEHB’li çocukların günlük [zorlukları]')}</div><div class="mid" style="margin-top:26px">${words('ve kitaplarda anlatılan {küçük} {çözümler.}')}</div>`), top: 1250, kind: 'words' });
+} else {
+  // hook: readable from the very first frame
+  UI.push({ a: -1.8, b: 3.6, el: el('center', `<div class="big">${words(L.hook[0])}</div><div class="mid" style="margin-top:34px">${words(L.hook[1])}</div>`), top: 1080, kind: 'words' });
+  UI.push({ a: 3.7, b: 8.6, el: el('center', `<div class="mid">${words(L.author[0])}</div><div class="mid" style="margin-top:28px">${words(L.author[1])}</div>`), top: 1180, kind: 'words' });
+  UI.push({ a: 8.7, b: T0 - .2, el: el('center', `<div class="mid">${words(L.series[0])}</div><div class="mid" style="margin-top:28px">${words(L.series[1])}</div>`), top: 1200, kind: 'words' });
+}
 
 BOOKS.forEach((bk, i) => {
   const a = T0 + i * BOOK_LEN;
-  const card = el('bookcard', `<div class="cov"><img src="${bk.cover.src}"></div><div class="no">${bk.n}. KİTAP</div><div class="ti">${bk.title}</div><div class="su">${bk.sub}</div>`);
+  const card = el('bookcard', `<div class="cov"><img src="${bk.cover.src}"></div><div class="no">${L.book(bk.n)}</div><div class="ti">${bk.title}</div><div class="su">${bk.sub}</div>`);
   UI.push({ a, b: a + CARD + .4, el: card, kind: 'book' });
   bk.pairs.forEach((pr, j) => {
     const s = a + CARD + j * PAIR;
     IMGS.push({ a: s - .4, b: s + PAIR + .4, img: pr.img, face: pr.face, z0: j % 2 ? 1.08 : 1.28, z1: j % 2 ? 1.28 : 1.08 });
     UI.push({ a: s - .2, b: s + PAIR + .2, el: el('shade', ''), kind: 'fade' });
-    UI.push({ a: s + .1, b: s + PAIR - .1, el: el('tag', `${bk.n}. KİTAP · ${j + 1}/3`), kind: 'fade' });
-    UI.push({ a: s + .3, b: s + PAIR - .2, el: el('prob', `<span class="chip">ZORLUK</span><p>${words(pr.p)}</p>`), kind: 'prob' });
+    UI.push({ a: s + .1, b: s + PAIR - .1, el: el('tag', `${L.book(bk.n)} · ${j + 1}/3`), kind: 'fade' });
+    UI.push({ a: s + .3, b: s + PAIR - .2, el: el('prob', `<span class="chip">${L.prob}</span><p>${words(pr.p)}</p>`), kind: 'prob' });
     const steps = pr.steps.map((e, k) => (k ? '<i class="ln"></i>' : '') + `<span class="st">${e}</span>`).join('');
-    UI.push({ a: s + 3.3, b: s + PAIR - .2, el: el('sol', `<span class="chip">ÇÖZÜM</span><p>${pr.s}</p><div class="steps">${steps}</div>`), kind: 'sol' });
+    UI.push({ a: s + 3.3, b: s + PAIR - .2, el: el('sol', `<span class="chip">${L.sol}</span><p>${pr.s}</p><div class="steps">${steps}</div>`), kind: 'sol' });
   });
 });
 // outro
 IMGS.push({ a: OUT - .4, b: OUT + 6.5, img: I(1, 'img11_10_Veda_Kullanim_Kilavuzu'), face: [.45, .35], z0: 1.4, z1: 1.08 });
-UI.push({ a: OUT + .4, b: OUT + 6.2, el: el('center', `<div class="big">${words('“Farklıyız, [eksik] [değil.]”')}</div><div class="small" style="margin-top:30px">— Pusula</div>`), top: 1320, kind: 'words' });
-const fan = el('fan', BOOKS.map(b => `<img src="${b.cover.src}">`).join('') + `<div class="center" style="top:1150px"><div class="mid">Benim Nörofarklı Pusulam</div><div class="small" style="margin-top:18px">5 kitaplık çocuk serisi · Yazar: <b style="color:#fff">Tuncay Sancak</b></div><div style="margin-top:44px"><span style="display:inline-block;padding:16px 36px;border-radius:999px;border:3px solid rgba(143,219,255,.8);font:600 40px Fredoka;color:#8FDBFF">happytuncay.com · @happytuncay</span></div><div class="small" style="margin-top:60px;font-size:28px;color:#8C99B5">Bu kitaplar tanı koymaz ve uzman değerlendirmesinin yerine geçmez.</div></div>`);
+UI.push({ a: OUT + .4, b: OUT + 6.2, el: el('center', `<div class="big">${words(L.quote)}</div><div class="small" style="margin-top:30px">— Pusula</div>`), top: 1320, kind: 'words' });
+const PILL = t => `<span style="display:inline-block;padding:16px 36px;border-radius:999px;border:3px solid rgba(143,219,255,.8);font:600 40px Fredoka;color:#8FDBFF">${t}</span>`;
+const fanText = LANG === 'tr'
+  ? `<div class="mid">Benim Nörofarklı Pusulam</div><div class="small" style="margin-top:18px">5 kitaplık çocuk serisi · Yazar: <b style="color:#fff">Tuncay Sancak</b></div><div style="margin-top:44px">${PILL('happytuncay.com · @happytuncay')}</div><div class="small" style="margin-top:60px;font-size:28px;color:#8C99B5">Bu kitaplar tanı koymaz ve uzman değerlendirmesinin yerine geçmez.</div>`
+  : `<div class="mid">${L.fan[0]}</div><div class="small" style="margin-top:22px">${L.fan[1]}</div><div class="small" style="margin-top:10px">${L.fan[2]}</div><div style="margin-top:40px">${PILL('@happytuncay')}</div><div class="small" style="margin-top:56px;font-size:28px;color:#8C99B5">${L.fan[3]}</div>`;
+const fan = el('fan', BOOKS.map(b => `<img src="${b.cover.src}">`).join('') + `<div class="center" style="top:1150px">${fanText}</div>`);
 UI.push({ a: OUT + 6.0, b: DUR, el: fan, kind: 'fan' });
 
 /* ================= WebGL depth-parallax renderer ================= */
@@ -160,7 +229,7 @@ function drawImg(s, t) {
   const alpha = Math.min(prog01(t, s.a, s.a + .8), 1 - prog01(t, s.b - .8, s.b));
   gl.uniform2f(loc('scale'), sx, sy); gl.uniform2f(loc('center'), cx, cy);
   gl.uniform2f(loc('off'), .035 * Math.sin(t * .55 + ph), .02 * Math.cos(t * .43 + ph));
-  gl.uniform1f(loc('dolly'), .16 * (p - .5)); gl.uniform1f(loc('alpha'), s.a === 0 ? Math.min(1, prog01(t, 0, 1.2)) : alpha);
+  gl.uniform1f(loc('dolly'), .16 * (p - .5)); gl.uniform1f(loc('alpha'), s.instant ? Math.min(1, 1 - prog01(t, s.b - .8, s.b)) : s.a === 0 ? Math.min(1, prog01(t, 0, 1.2)) : alpha);
   gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, s.t.tex); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, s.d.tex);
   gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 }
