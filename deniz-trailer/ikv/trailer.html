@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>İyi ki Varsın – Fragman</title>
+<link rel="stylesheet" href="../../aybal-show/assets/fonts.css">
+<style>
+/* Memoir trailer: dark, quiet, serif quotes over depth-parallax photos from the book. ?lang=tr|en|de */
+:root{--gold:#E9C88F;--rose:#F2A7B8;--ink:#0B0F1C;--soft:#C9CFDD}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;overflow:hidden}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink);transform-origin:0 0;font-family:'Jost',sans-serif}
+#gl,#fx{position:absolute;inset:0;width:1080px;height:1920px}
+#ui{position:absolute;inset:0}
+#ui>*{position:absolute;display:none}
+.shade{inset:0;background:linear-gradient(180deg,rgba(11,15,28,.35) 0%,rgba(11,15,28,0) 28%,rgba(11,15,28,.5) 50%,rgba(11,15,28,.82) 66%,rgba(11,15,28,.92) 100%)}
+.q{left:80px;right:80px;text-align:center;color:#fff;font:italic 500 76px/1.12 'Cormorant Garamond',serif;text-shadow:0 2px 6px rgba(0,0,0,.8),0 4px 30px rgba(0,0,0,.8)}
+.q.big{font:600 104px/1.05 'Cormorant Garamond',serif;font-style:normal}
+.q.sm{font:500 54px/1.25 'Jost',sans-serif;font-style:normal;color:#E7EAF2}
+.w{display:inline-block}
+.hl{color:var(--gold)}.sky{color:var(--rose)}
+.cap{left:90px;right:90px;bottom:120px;text-align:center;font:400 30px/1.45 'Jost',sans-serif;color:var(--soft);letter-spacing:.02em}
+.cap:before{content:"";display:block;width:60px;height:2px;background:var(--gold);margin:0 auto 18px;opacity:.8}
+.logo{left:50%;width:560px;margin-left:-280px;filter:drop-shadow(0 0 60px rgba(160,120,255,.55))}
+.end{left:70px;right:70px;text-align:center}
+.end .t{font:600 128px/1 'Cormorant Garamond',serif;color:#fff}
+.end .s{font:italic 500 46px/1.3 'Cormorant Garamond',serif;color:var(--gold);margin-top:34px}
+.end .a{font:500 36px/1.4 'Jost',sans-serif;color:#E7EAF2;margin-top:56px;letter-spacing:.08em}
+.end .p{display:inline-block;margin-top:48px;padding:16px 38px;border-radius:999px;border:2px solid rgba(233,200,143,.8);font:500 36px 'Jost',sans-serif;color:var(--gold)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="1080" height="1920"></canvas>
+  <canvas id="fx" width="1080" height="1920"></canvas>
+  <div id="ui"></div>
+</div>
+<script>
+const LANG = new URLSearchParams(location.search).get('lang') || 'tr';
+const IMG = f => ({ src: `${LANG}/OEBPS/images/${f}.jpg`, dep: `depth/${f}.png` });
+const T = {
+ tr: { hook: ['“Bana [dikkatsiz] dediler.”', 'Oysa dikkatim aynı anda {her} {şeye} gidiyordu.'],
+   head: '“Ben hep kafamın içinde [yaşadım.]”', capBaby: 'Ben. Daha o zamandan dünyayı merakla yoklayan bir çocuk.',
+   quiet: '“Kafam hiç susmadı. [Hiç.]”', capFam: 'Geldiğim yer: ailem. Köklerim de yaralarım da burada başladı.',
+   d1: '32 yaşında: [DEHB.]', d2: '33 yaşında: [Otizm.]', d3: '“Bu sıradan bir teşhis değildi. Bu, hayatımın {açıklamasıydı.}”',
+   sys: '“Nörofarklılık bir arıza değildir. Yanlış bir ortamda büyümüş, [doğru] [bir] [sistemdir.]”', capDog: 'Happy. Sözsüz anlayan, en karanlık günümde beni yere bağlayan dostum.',
+   alone: '“Sana bir yol göstermeyeceğim. Ama bu yolda [yalnız] [olmadığını] göstereceğim.”', capKids: 'Çocuklarım ve ben, yola çıkmadan önce — Happy de yanımızda.',
+   becoming: '“Ben tamamlanmadım. Her gün {oluyorum.}”', capVan: 'Karavanım. Kapadokya’da, balonların altında durup “iyi ki buradayım” dediğim sabah.',
+   title: 'İyi ki Varsın', sub: 'Ben Soruyum — AuDHD, Kırılış ve Yeniden Doğuş Yolculuğum' },
+ en: { hook: ['“They called me [inattentive.]”', 'But my attention went to {everything} {at} {once.}'],
+   head: '“I always lived inside my [head.]”', capBaby: 'Me. Even then, a child reaching out to test the world.',
+   quiet: '“My mind never went quiet. [Never.]”', capFam: 'Where I come from: my family. Here began both my roots and my wounds.',
+   d1: 'At 32: [ADHD.]', d2: 'At 33: [autism.]', d3: '“This was no ordinary diagnosis. This was the explanation of my {life.}”',
+   sys: '“Neurodivergence is not a malfunction. It’s a [correct] [system] that grew up in the wrong environment.”', capDog: 'Happy. My friend who understands without words and holds me on my darkest day.',
+   alone: '“I will not show you a path. But I will show you that you are [not] [alone] on this one.”', capKids: 'My children and me, before we set off — with Happy beside us.',
+   becoming: '“I am not finished, I am {becoming.}”', capVan: 'My caravan. In Cappadocia, under the balloons — the morning I said: good that I’m here.',
+   title: 'Good That You Exist', sub: 'I Am the Question — My Path Through AuDHD, Breaking and Beginning Again' },
+ de: { hook: ['„Man nannte mich [unaufmerksam.]“', 'Meine Aufmerksamkeit ging zu {allem} {gleichzeitig.}'],
+   head: '„Ich habe immer in meinem Kopf [gelebt.]“', capBaby: 'Ich. Schon damals ein Kind, das die Welt neugierig erkundete.',
+   quiet: '„Mein Kopf war nie still. [Nie.]“', capFam: 'Woher ich komme: meine Familie. Hier begannen meine Wurzeln und meine Wunden.',
+   d1: 'Mit 32 Jahren: [ADHS.]', d2: 'Mit 33 Jahren: [Autismus.]', d3: '„Das war keine gewöhnliche Diagnose. Das war die Erklärung meines {Lebens.}“',
+   sys: '„Neurodivergenz ist kein Defekt. Sie ist ein [richtiges] [System,] das in einer falschen Umgebung aufgewachsen ist.“', capDog: 'Happy. Mein Freund, der ohne Worte versteht und mich am dunkelsten Tag hält.',
+   alone: '„Ich werde dir keinen Weg weisen. Aber ich werde dir zeigen, dass du auf diesem Weg [nicht] [allein] bist.“', capKids: 'Meine Kinder und ich, bevor wir aufbrachen – Happy mittendrin.',
+   becoming: '„Ich werde nicht fertig. Ich {werde.}“', capVan: 'Mein Wohnwagen. In Kappadokien, unter den Ballons – der Morgen, an dem ich sagte: gut, dass ich hier bin.',
+   title: 'Gut, dass es dich gibt', sub: 'Ich bin die Frage — Mein Weg durch AuDHD, Zerbrechen und Neubeginn' },
+}[LANG];
+
+const DUR = 60;
+const ui = document.getElementById('ui');
+const el = (cls, html) => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ui.appendChild(d); return d; };
+const words = s => s.split(' ').map(w => { const c = w.includes('[') ? 'hl' : w.includes('{') ? 'sky' : ''; w = w.replace(/[\[\]{}]/g, ''); return `<span class="w ${c}">${w}</span>`; }).join(' ');
+const IMGS = [], UI = [];
+const txt = (a, b, top, s, cls = 'q') => UI.push({ a, b, top, el: el(cls, words(s)), kind: 'words' });
+const cap = (a, b, s) => UI.push({ a, b, el: el('cap', s), kind: 'fade' });
+const shade = (a, b) => UI.push({ a, b, el: el('shade', ''), kind: 'fade' });
+
+// 0 · hook over the childhood photo (readable on the very first frame)
+IMGS.push({ a: 0, b: 11.4, img: IMG('image0004'), face: [.5, .32], z0: 1.4, z1: 1.05, instant: true });
+shade(0, 18.2);
+txt(-1.6, 4.3, 1150, T.hook[0], 'q big');
+txt(.9, 4.3, 1450, T.hook[1], 'q sm');
+txt(4.8, 10.9, 1250, T.head); cap(5.4, 10.9, T.capBaby);
+// 1 · family
+IMGS.push({ a: 10.6, b: 18.6, img: IMG('image0007'), face: [.5, .3], z0: 1.08, z1: 1.3 });
+txt(11.6, 17.9, 1250, T.quiet); cap(12.2, 17.9, T.capFam);
+// 2 · diagnosis (dark)
+txt(18.8, 25.8, 640, T.d1, 'q big'); txt(20.0, 25.8, 800, T.d2, 'q big'); txt(21.6, 25.8, 1180, T.d3);
+UI.push({ a: 18.4, b: 26.2, el: el('logo', `<img src="${LANG}/OEBPS/images/image0001.png" style="width:100%">`), top: 1500, kind: 'logo-dim' });
+// 3 · Happy
+IMGS.push({ a: 25.6, b: 33.4, img: IMG('image0008'), face: [.5, .35], z0: 1.3, z1: 1.06 }); shade(25.8, 47.4);
+txt(26.4, 32.9, 1120, T.sys); cap(27.0, 32.9, T.capDog);
+// 4 · children
+IMGS.push({ a: 32.6, b: 40.4, img: IMG('image0006'), face: [.5, .45], z0: 1.06, z1: 1.28 });
+txt(33.4, 39.9, 1120, T.alone); cap(34.0, 39.9, T.capKids);
+// 5 · caravan
+IMGS.push({ a: 39.6, b: 47.8, img: IMG('image0002'), face: [.3, .55], face2: [.62, .5], z0: 1.12, z1: 1.2 });
+txt(40.4, 46.9, 1200, T.becoming); cap(41.0, 46.9, T.capVan);
+// 6 · end card
+UI.push({ a: 47.2, b: DUR, el: el('logo', `<img src="${LANG}/OEBPS/images/image0001.png" style="width:100%">`), top: 250, kind: 'logo' });
+const endEl = el('end', `<div class="t">${T.title}</div><div class="s">${T.sub}</div><div class="a">TUNCAY SANCAK · HAPPYTUNCAY</div><div class="p">happytuncay.com · @happytuncay</div>`);
+UI.push({ a: 48.4, b: DUR, top: 1000, el: endEl, kind: 'end' });
+
+/* ---------- WebGL depth parallax (same renderer as the series video) ---------- */
+const gl = document.getElementById('gl').getContext('webgl', { preserveDrawingBuffer: true });
+const VS = `attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;v.y=1.-v.y;gl_Position=vec4(p,0,1);}`;
+const FS = `precision highp float;varying vec2 v;uniform sampler2D img,dep;uniform vec2 scale,center,off;uniform float dolly,alpha;
+void main(){vec2 uv=center+(v-.5)*scale;vec2 q=uv;for(int i=0;i<4;i++){float d=texture2D(dep,q).r;q=uv+off*(d-.45)+(uv-center)*dolly*(d-.45);}
+ vec4 c=texture2D(img,clamp(q,0.,1.));float g=dot(c.rgb,vec3(.3,.59,.11));c.rgb=mix(vec3(g),c.rgb,.85);float vig=smoothstep(1.15,.3,length((v-.5)*vec2(1.,.8)));
+ gl_FragColor=vec4(c.rgb*mix(.55,1.,vig),alpha);}`;
+const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); return o; };
+const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr); gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+const loc = n => gl.getUniformLocation(pr, n), pl = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(pl); gl.vertexAttribPointer(pl, 2, gl.FLOAT, false, 0, 0);
+gl.uniform1i(loc('img'), 0); gl.uniform1i(loc('dep'), 1); gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+const cache = {};
+function tex(url) { if (cache[url]) return cache[url]; const t = { tex: gl.createTexture(), w: 1, h: 1, ready: false }; const im = new Image();
+  t.p = new Promise(r => { im.onload = () => { gl.bindTexture(gl.TEXTURE_2D, t.tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
+    [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.LINEAR)); [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE));
+    t.w = im.naturalWidth; t.h = im.naturalHeight; t.ready = true; r(); }; }); im.src = url; return cache[url] = t; }
+IMGS.forEach(s => { s.t = tex(s.img.src); s.d = tex(s.img.dep); });
+window.READY = Promise.all(Object.values(cache).map(t => t.p));
+
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v)), lerp = (a, b, p) => a + (b - a) * p, prog = (t, a, b) => clamp((t - a) / (b - a));
+const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2, easeOut = p => 1 - Math.pow(1 - p, 3);
+function hash(n) { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+function drawImg(s, t) {
+  const p = ease(prog(t, s.a, s.b)), z = lerp(s.z0, s.z1, p), A = 1080 / 1920, ia = s.t.w / s.t.h;
+  let sx = 1, sy = 1; if (ia > A) sx = A / ia; else sy = ia / A; sx /= z; sy /= z;
+  const f2 = s.face2 || [.5, .5]; let cx = lerp(s.face[0], f2[0], p), cy = lerp(s.face[1], f2[1], p);
+  cx = clamp(cx, sx / 2 + .01, 1 - sx / 2 - .01); cy = clamp(cy, sy / 2 + .01, 1 - sy / 2 - .01);
+  const alpha = s.instant ? 1 - prog(t, s.b - .8, s.b) : Math.min(prog(t, s.a, s.a + .8), 1 - prog(t, s.b - .8, s.b));
+  gl.uniform2f(loc('scale'), sx, sy); gl.uniform2f(loc('center'), cx, cy);
+  gl.uniform2f(loc('off'), .03 * Math.sin(t * .5 + s.a), .018 * Math.cos(t * .4 + s.a)); gl.uniform1f(loc('dolly'), .14 * (p - .5)); gl.uniform1f(loc('alpha'), alpha);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, s.t.tex); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, s.d.tex);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+const fx = document.getElementById('fx').getContext('2d');
+const DUST = Array.from({ length: 70 }, (_, i) => ({ x: hash(i) * 1080, y: hash(i + 9) * 1920, r: 1 + hash(i + 7) * 3, sp: 6 + hash(i + 3) * 18, ph: hash(i + 5) * 6.28 }));
+
+function render(t) {
+  gl.viewport(0, 0, 1080, 1920); gl.clearColor(.043, .059, .11, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+  for (const s of IMGS) if (t >= s.a && t <= s.b && s.t.ready && s.d.ready) drawImg(s, t);
+  for (const u of UI) {
+    const on = t >= u.a && t <= u.b; u.el.style.display = on ? 'block' : 'none'; if (!on) continue;
+    if (u.top !== undefined) u.el.style.top = u.top + 'px';
+    const pin = prog(t, u.a, u.a + .7), out = 1 - prog(t, u.b - .5, u.b);
+    if (u.kind === 'fade') u.el.style.opacity = Math.min(pin, out);
+    if (u.kind === 'words') { u.el.style.opacity = out;
+      u.el.querySelectorAll('.w').forEach((w, i) => { const a = u.a + .2 + i * .1, q = easeOut(prog(t, a, a + .7)); w.style.opacity = prog(t, a, a + .5); w.style.transform = `translateY(${(1 - q) * 24}px)`; w.style.filter = `blur(${(1 - q) * 6}px)`; }); }
+    if (u.kind === 'logo-dim') { u.el.style.opacity = .18 * Math.min(pin, out); u.el.style.transform = `perspective(1200px) rotateY(${Math.sin(t * .6) * 20}deg) scale(.8)`; }
+    if (u.kind === 'logo') { const q = easeOut(prog(t, u.a, u.a + 1.6)); u.el.style.opacity = q; u.el.style.transform = `perspective(1200px) translateY(${(1 - q) * 120}px) rotateY(${lerp(80, 0, q) + Math.sin(t * .9) * 10}deg) scale(${lerp(.6, 1, q)})`; }
+    if (u.kind === 'end') [...u.el.children].forEach((c, i) => { const a = u.a + i * .6, q = easeOut(prog(t, a, a + 1)); c.style.opacity = q; c.style.transform = `translateY(${(1 - q) * 30}px)`; });
+  }
+  fx.clearRect(0, 0, 1080, 1920); fx.globalCompositeOperation = 'lighter';
+  const fin = prog(t, DUR - 1.5, DUR);
+  for (const d of DUST) { const y = ((d.y - t * d.sp) % 1920 + 1920) % 1920, x = d.x + Math.sin(t * .5 + d.ph) * 25, a = (.15 + .45 * Math.pow(Math.sin(t * 1.3 + d.ph) * .5 + .5, 3)) * (1 - fin);
+    const g = fx.createRadialGradient(x, y, 0, x, y, d.r * 4); g.addColorStop(0, `rgba(255,220,170,${a})`); g.addColorStop(1, 'rgba(255,220,170,0)'); fx.fillStyle = g; fx.beginPath(); fx.arc(x, y, d.r * 4, 0, 6.283); fx.fill(); }
+  fx.globalCompositeOperation = 'source-over'; if (fin > 0) { fx.fillStyle = `rgba(0,0,0,${fin})`; fx.fillRect(0, 0, 1080, 1920); }
+}
+window.render = render; window.DUR = DUR;
+if (!location.search.includes('capture')) {
+  const st = document.getElementById('stage'); const fit = () => { const s = Math.min(innerWidth / 1080, innerHeight / 1920); st.style.transform = `scale(${s})`; st.style.marginLeft = ((innerWidth - 1080 * s) / 2) + 'px'; }; addEventListener('resize', fit); fit();
+  READY.then(() => { const t0 = performance.now(); const loop = () => { render(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); }; requestAnimationFrame(loop); });
+}
+</script>
+</body>
+</html>
