@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>LiveFX – Control Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/panel.css">
+  <link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+  <header>
+    <h1>🎬 LiveFX <span class="badge">LIVE MEME ENGINE</span></h1>
+    <div class="status">
+      <div class="pill"><span class="dot" id="dot-mic"></span> Mikro</div>
+      <div class="pill"><span class="dot" id="dot-server"></span> OBS-Bridge</div>
+      <div class="pill" id="pill-lang" title="Sprache der Spracherkennung">🌐 <select id="lang" class="inline">
+        <option value="de-DE">Deutsch</option>
+        <option value="en-US">English</option>
+        <option value="tr-TR">Türkçe</option>
+      </select></div>
+      <div class="pill" id="pill-asr" title="Spracherkennung: Browser oder externes Programm">🎧 <select id="asr" class="inline"></select></div>
+      <label class="pill pill-toggle" id="pill-smart" for="smart"><span class="dot" id="dot-smart"></span><input type="checkbox" id="smart"> KI-Modus</label>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div>
+      <section class="card">
+        <h2>Zuhören</h2>
+        <div class="row">
+          <button id="btn-listen" class="primary">🎙️ Mikro starten</button>
+          <button id="btn-open-overlay">Overlay öffnen (Vorschau-Tab)</button>
+          <button id="btn-mute" title="Effekte anhalten, aber weiter zuhören">⏸ Pause</button>
+        </div>
+        <div class="block">
+          <label>Live-Transkript – erkannte Trigger werden markiert</label>
+          <div id="transcript"><span class="interim">Klick auf „Mikro starten“ und sag z.B. „das ist krass“ oder „bruh“ …</span></div>
+        </div>
+        <div class="row block">
+          <div>
+            <label>Ohne Mikro testen: Text eintippen (simuliert Sprache)</label>
+            <input id="sim" placeholder="z.B. oh nein das war ein fail … und dann: applaus!">
+          </div>
+          <button id="btn-sim">Senden</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Soundboard / Hotkeys (1–9, 0, Q, W, E, R, T)</h2>
+        <div class="pad" id="pad"></div>
+      </section>
+
+      <section class="card">
+        <h2>Overlay-Vorschau</h2>
+        <iframe id="preview" src="overlay.html?volume=0.5" title="Overlay Vorschau"></iframe>
+        <p class="help">Das ist genau das, was OBS als Browser-Quelle einblendet – nur mit Schachbrett statt Transparenz.</p>
+      </section>
+
+      <section class="card">
+        <h2>Medien (Bilder &amp; Sounds)</h2>
+        <div id="asset-library"></div>
+        <p class="help">Hochgeladene Bilder und Sounds kannst du im Trigger-Editor (✎) auswählen.</p>
+      </section>
+    </div>
+
+    <div>
+      <section class="card">
+        <h2>Einstellungen</h2>
+        <div class="row">
+          <div><label>Lautstärke Overlay</label><input id="volume" type="range" min="0" max="1" step="0.05" value="0.8"></div>
+          <div><label>Mindestabstand zwischen Effekten (s)</label><input id="gap" type="number" min="0" step="0.1" value="1.2"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Trigger bearbeiten</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>An</th><th>Name</th><th>Stichwörter (Komma)</th><th>Sound</th><th>Aktionen</th></tr></thead>
+            <tbody id="trigger-rows"></tbody>
+          </table>
+        </div>
+        <div class="actions">
+          <button id="btn-add" class="small">+ Trigger</button>
+          <button id="btn-export" class="small">Export JSON</button>
+          <button id="btn-import" class="small">Import JSON</button>
+          <button id="btn-reset" class="small danger">Zurücksetzen</button>
+          <input type="file" id="file-import" accept="application/json" hidden>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Externe API (Stream Deck, Streamer.bot, Whisper …)</h2>
+        <div class="row">
+          <div><label>API-Token (Bearer)</label><input id="token" readonly placeholder="Server nötig (node server.js)" spellcheck="false"></div>
+          <button id="btn-copy-token" class="small" title="Token in die Zwischenablage kopieren">📋 Kopieren</button>
+        </div>
+        <p class="help" id="api-offline-hint" hidden>⚠️ Server nötig: Starte <code>node server.js</code> und öffne das Panel über <code>http://127.0.0.1:8787/</code>.</p>
+        <label class="block">Beispiel: Trigger per HTTP auslösen</label>
+        <pre class="code" id="curl-example"></pre>
+        <ul class="help hints">
+          <li><b>Stream Deck / Streamer.bot:</b> HTTP-Aktion <code>POST /api/fire</code> mit <code>{"id":"wow"}</code> und dem Bearer-Token – oder <code>{"trigger":{…}}</code> für einen Ad-hoc-Effekt.</li>
+          <li><b>Externe Spracherkennung</b> (Whisper, Handy-App): <code>POST /api/transcript</code> mit <code>{"text":"…","final":true}</code> und oben „Extern“ als Spracherkennung wählen.</li>
+          <li><b>Lautstärke:</b> <code>POST /fire</code> mit <code>{"type":"volume","volume":0.5}</code>.</li>
+        </ul>
+        <div class="block">
+          <label>Overlay-URLs für OBS</label>
+          <div class="urls">
+            <div>Querformat (16:9): <code id="url-landscape"></code></div>
+            <div>Hochkant (TikTok / IG, 9:16): <code id="url-portrait"></code></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>OBS / Streamlabs einrichten</h2>
+        <div class="help">
+          1. Terminal: <code>node server.js</code> im Ordner <code>live-fx</code> – dann dieses Panel über <code>http://127.0.0.1:8787/</code> öffnen.<br>
+          2. OBS → Quelle hinzufügen → <b>Browser</b> → URL <code>http://127.0.0.1:8787/overlay.html</code> (Querformat) oder <code>http://127.0.0.1:8787/overlay.html?layout=portrait</code> (Hochkant, hält den Chat-Bereich unten frei). Breite/Höhe wie dein Canvas (1920×1080 oder 1080×1920).<br>
+          3. In der Browser-Quelle <b>„Audio über OBS steuern“</b> aktivieren, damit die Sounds im Stream landen.<br>
+          4. Dieses Panel im normalen Browser offen lassen und Mikro starten. Fertig.
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Log</h2>
+        <div class="log" id="log"></div>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/sounds.js"></script>
+  <script src="js/triggers.js"></script>
+  <script src="js/schema.js"></script>
+  <script src="js/matcher.js"></script>
+  <script src="js/bus.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/assets.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/asr.js"></script>
+  <script src="js/smart.js"></script>
+  <script src="js/panel.js"></script>
+</body>
+</html>
