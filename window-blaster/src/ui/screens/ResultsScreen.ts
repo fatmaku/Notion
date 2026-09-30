@@ -19,18 +19,34 @@ export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolea
       { class: 'card' },
       h('div', { class: 'row', style: 'align-items:center;justify-content:space-between' }, h('h2', {}, `${MODES[r.mode].icon} ${T.results}`), h('span', { class: 'medal' }, MEDAL_ICON[medal])),
       h('div', { class: 'title', style: 'font-size:46px' }, fmtScore(r.score)),
-      flags.newBest ? h('div', { class: 'badge ok', style: 'margin-bottom:8px' }, `★ ${T.newBest}`) : h('div', { class: 'muted small' }, `${T.best}: ${fmtScore(app.records.best(r.mode))}`),
-      nm ? h('p', { class: 'small muted' }, `Noch ${fmtScore(nm.missing)} Punkte bis ${MEDAL_ICON[nm.medal]}`) : h('p', { class: 'small muted' }, 'Gold! Besser geht’s kaum.'),
       h(
         'div',
-        { class: 'stats' },
-        ...stat(T.kills, String(r.kills)),
-        ...stat(T.hits, `${r.hits} / ${r.shots} Schuss`),
-        ...stat(T.accuracy, `${acc} %`),
-        ...stat(T.maxCombo, `×${r.maxCombo}`),
-        ...stat(T.time, fmtTime(r.durationSec) + (r.extra.extraSec ? ` (+${Math.round(r.extra.extraSec)} s verdient)` : '')),
-        ...stat('Waffen', r.weapons.map((w) => WEAPON_TEXT[w as keyof typeof WEAPON_TEXT]?.icon ?? w).join(' ')),
+        { class: 'row', style: 'align-items:center;margin-bottom:8px' },
+        flags.newBest ? h('span', { class: 'badge ok' }, `★ ${T.newBest}`) : h('span', { class: 'muted small' }, `${T.best}: ${fmtScore(app.records.best(r.mode))}`),
+        app.session.daily ? h('span', { class: `badge ${flags.newDaily ? 'ok' : 'warn'}` }, `📅 Tages-Challenge · heute ${fmtScore(app.records.dailyBest(r.mode))}`) : null,
       ),
+      nm ? h('p', { class: 'small muted' }, `Noch ${fmtScore(nm.missing)} Punkte bis ${MEDAL_ICON[nm.medal]}`) : h('p', { class: 'small muted' }, 'Gold! Besser geht’s kaum.'),
+      r.mode === 'side-runner'
+        ? h(
+            'div',
+            { class: 'stats' },
+            ...stat('Übersprungen', String(r.kills)),
+            ...stat('Münzen', String(r.extra.coins ?? 0)),
+            ...stat('Treffer kassiert', String(r.extra.hitsTaken ?? 0)),
+            ...stat('Sprünge', String(r.shots)),
+            ...stat(T.maxCombo, `×${r.maxCombo}`),
+            ...stat(T.time, fmtTime(r.durationSec)),
+          )
+        : h(
+            'div',
+            { class: 'stats' },
+            ...stat(T.kills, String(r.kills)),
+            ...stat(T.hits, `${r.hits} / ${r.shots} Schuss`),
+            ...stat(T.accuracy, `${acc} %`),
+            ...stat(T.maxCombo, `×${r.maxCombo}`),
+            ...stat(T.time, fmtTime(r.durationSec) + (r.extra.extraSec ? ` (+${Math.round(r.extra.extraSec)} s verdient)` : '')),
+            ...stat('Waffen', r.weapons.map((w) => WEAPON_TEXT[w as keyof typeof WEAPON_TEXT]?.icon ?? w).join(' ')),
+          ),
       r.missions.length
         ? h(
             'ul',

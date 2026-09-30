@@ -45,7 +45,7 @@ export const T = {
   accuracy: 'Trefferquote',
   maxCombo: 'Beste Combo',
   missions: 'Missionen',
-  submitScore: 'In Rangliste eintragen',
+  submitScore: 'In weltweite Rangliste eintragen',
   nickname: 'Spielername',
   global: 'Weltweit',
   local: 'Dieses Gerät',

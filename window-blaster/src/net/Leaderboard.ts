@@ -14,6 +14,7 @@ export interface SubmitResponse {
   ok: boolean;
   rank?: number;
   weeklyRank?: number;
+  dailyRank?: number;
   verifiedScore?: number;
   error?: string;
 }
@@ -32,12 +33,13 @@ export class Leaderboard {
     return !!this.baseUrl;
   }
 
-  async top(mode: GameModeId, period: 'week' | 'all', limit = 25): Promise<LeaderboardEntry[]> {
+  async top(mode: GameModeId, period: 'day' | 'week' | 'all', limit = 25, vehicle = 'all'): Promise<LeaderboardEntry[]> {
     if (!this.baseUrl) return [];
     const u = new URL(`${this.baseUrl.replace(/\/$/, '')}/top`);
     u.searchParams.set('mode', mode);
     u.searchParams.set('period', period);
     u.searchParams.set('limit', String(limit));
+    u.searchParams.set('vehicle', vehicle);
     u.searchParams.set('me', this.playerId);
     const res = await fetch(u, { headers: { accept: 'application/json' } });
     if (!res.ok) throw new Error(`leaderboard ${res.status}`);

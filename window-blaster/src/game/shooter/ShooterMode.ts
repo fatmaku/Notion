@@ -562,7 +562,7 @@ export class ShooterMode implements GameMode {
     const t = this.t(now);
     const hs: HudState = {
       score: this.score,
-      best: this.ctx.session.source === 'demo' ? this.bestScore : this.bestScore,
+      best: this.bestScore,
       timeLeft: this.timeLeft(now),
       elapsed: (t - this.startedAt) / 1000,
       combo: this.combo.value,

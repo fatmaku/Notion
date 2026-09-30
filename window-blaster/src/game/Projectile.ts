@@ -8,6 +8,8 @@ export interface Projectile {
   kind: ProjectileKind;
   weapon: WeaponId;
   pos: Vec2;
+  /** Launch point (ballistic arcs are evaluated analytically from here). */
+  start: Vec2;
   vel: Vec2;
   gravity: number;
   born: number;
@@ -55,6 +57,7 @@ export class ProjectileSystem {
       kind,
       weapon,
       pos: { ...start },
+      start: { ...start },
       vel: solveBallistic(start, target, flightS, gravity),
       gravity,
       born: now,
@@ -76,6 +79,7 @@ export class ProjectileSystem {
       kind: 'rocket',
       weapon,
       pos: { ...start },
+      start: { ...start },
       vel: { x: (target.x - start.x) / flightS, y: (target.y - start.y) / flightS },
       gravity: 0,
       born: now,
@@ -121,13 +125,9 @@ export class ProjectileSystem {
         p.pos.x += p.vel.x * dt;
         p.pos.y += p.vel.y * dt;
       } else {
-        const t = age / 1000;
-        const start = ballisticAt(p.pos, p.vel, p.gravity, 0); // pos holds start until we compute
-        void start;
-        p.pos = ballisticAt(p.trail.length ? p.trail[0] : p.pos, p.vel, p.gravity, t);
+        p.pos = ballisticAt(p.start, p.vel, p.gravity, age / 1000);
       }
-      if (p.trail.length === 0) p.trail.push({ ...(p.kind === 'rocket' ? p.pos : p.pos) });
-      if (p.trail.length > 18) p.trail.splice(1, 1);
+      if (p.trail.length > 18) p.trail.shift();
       p.trail.push({ ...p.pos });
 
       const hitId = f > 0.25 ? contact(p.pos, p) : null;

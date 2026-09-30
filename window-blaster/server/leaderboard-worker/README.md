@@ -32,10 +32,10 @@ und Endlos-Runden werden abgelehnt. Pro Spieler zählt je Board nur der Bestwert
 
 | Methode | Pfad | Beschreibung |
 |---|---|---|
-| GET | `/top?mode=front-shooter&period=week\|all&vehicle=all\|car\|train\|bus\|other&limit=25&me=<playerId>` | Bestenliste |
+| GET | `/top?mode=front-shooter&period=day\|week\|all&vehicle=all\|car\|train\|bus\|other&limit=25&me=<playerId>` | Bestenliste |
 | POST | `/submit` `{ playerId, name, round: RoundResult }` | Runde einreichen (wird verifiziert) |
 | GET | `/health` | Statuscheck |
 
-Boards gibt es je Modus, je Fahrzeugtyp (plus „alle“), jeweils wöchentlich
-(ISO-Woche) und allzeit. Rate-Limits: 1 Einreichung / 20 s pro Spieler,
-40 / Stunde pro IP.
+Boards gibt es je Modus, je Fahrzeugtyp (plus „alle“), jeweils täglich (UTC),
+wöchentlich (ISO-Woche) und allzeit. Rate-Limits: 4 Einreichungen / Minute pro
+Spieler, 40 / Stunde pro IP.

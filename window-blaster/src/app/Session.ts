@@ -8,6 +8,8 @@ export interface Session {
   side: WindowSide;
   source: 'camera' | 'demo';
   seed: number;
+  /** Daily challenge: missions seeded by the date, so everyone plays the same set. */
+  daily: boolean;
 }
 
 export const defaultSession = (): Session => ({
@@ -17,4 +19,5 @@ export const defaultSession = (): Session => ({
   side: 'front',
   source: 'camera',
   seed: (Date.now() % 100000) | 0,
+  daily: false,
 });

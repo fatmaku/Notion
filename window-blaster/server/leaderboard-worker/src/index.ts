@@ -36,6 +36,14 @@ function isoWeek(d = new Date()): string {
   return `w${date.getUTCFullYear()}-${String(week).padStart(2, '0')}`;
 }
 
+function isoDay(d = new Date()): string {
+  return `d${d.toISOString().slice(0, 10)}`;
+}
+
+function periodKey(p: string | null): string {
+  return p === 'all' ? 'all' : p === 'day' ? isoDay() : isoWeek();
+}
+
 function flagFor(country: string | undefined): string {
   if (!country || country.length !== 2) return '';
   const cc = country.toUpperCase();
@@ -70,10 +78,11 @@ async function upsert(env: Env, key: string, e: Entry): Promise<number> {
   return rank || BOARD_SIZE + 1;
 }
 
+/** Soft rate limit via KV counters (KV requires expirationTtl ≥ 60 s). */
 async function rateLimited(env: Env, key: string, limit: number, ttl: number): Promise<boolean> {
   const cur = Number((await env.SCORES.get(key)) ?? 0);
   if (cur >= limit) return true;
-  await env.SCORES.put(key, String(cur + 1), { expirationTtl: ttl });
+  await env.SCORES.put(key, String(cur + 1), { expirationTtl: Math.max(60, ttl) });
   return false;
 }
 
@@ -96,7 +105,7 @@ export default {
 
     if (url.pathname === '/top' && request.method === 'GET') {
       const mode = url.searchParams.get('mode') ?? '';
-      const period = url.searchParams.get('period') === 'all' ? 'all' : isoWeek();
+      const period = periodKey(url.searchParams.get('period'));
       const vehicle = url.searchParams.get('vehicle') ?? 'all';
       const limit = Math.min(100, Math.max(1, Number(url.searchParams.get('limit') ?? 25)));
       const me = url.searchParams.get('me') ?? '';
@@ -118,7 +127,7 @@ export default {
       const round = body.round;
       if (!/^[a-f0-9]{16,32}$/.test(playerId) || !round || !MODES.has(round.mode)) return json({ ok: false, error: 'bad-request' }, 400, origin);
       const ip = request.headers.get('cf-connecting-ip') ?? 'unknown';
-      if (await rateLimited(env, `rl:p:${playerId}`, 1, 20)) return json({ ok: false, error: 'rate-limit' }, 429, origin);
+      if (await rateLimited(env, `rl:p:${playerId}`, 4, 60)) return json({ ok: false, error: 'rate-limit' }, 429, origin);
       if (await rateLimited(env, `rl:ip:${ip}`, 40, 3600)) return json({ ok: false, error: 'rate-limit' }, 429, origin);
       const v = verifyRound(round);
       if (!v.ok) return json({ ok: false, error: `rejected:${v.reason ?? 'unknown'}` }, 422, origin);
@@ -132,13 +141,16 @@ export default {
         at: Date.now(),
       };
       const week = isoWeek();
-      const [rank, weeklyRank] = await Promise.all([
+      const day = isoDay();
+      const [rank, weeklyRank, dailyRank] = await Promise.all([
         upsert(env, `board:${round.mode}:all:all`, entry),
         upsert(env, `board:${round.mode}:all:${week}`, entry),
+        upsert(env, `board:${round.mode}:all:${day}`, entry),
         upsert(env, `board:${round.mode}:${vehicle}:all`, entry),
         upsert(env, `board:${round.mode}:${vehicle}:${week}`, entry),
+        upsert(env, `board:${round.mode}:${vehicle}:${day}`, entry),
       ]);
-      return json({ ok: true, rank, weeklyRank, verifiedScore: v.verifiedScore }, 200, origin);
+      return json({ ok: true, rank, weeklyRank, dailyRank, verifiedScore: v.verifiedScore }, 200, origin);
     }
 
     return json({ error: 'not-found' }, 404, origin);

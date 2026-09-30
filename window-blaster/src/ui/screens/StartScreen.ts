@@ -16,6 +16,7 @@ export function StartScreen(app: App): Screen {
         'div',
         { class: 'col' },
         h('button', { class: 'btn block', onclick: () => app.beginFlow('camera') }, `🎥 ${T.play}`),
+        h('button', { class: 'btn block secondary', onclick: () => app.beginFlow('camera', true) }, `📅 Tages-Challenge · ${new Date().toLocaleDateString('de-DE')}`),
         h('button', { class: 'btn block secondary', onclick: () => app.beginFlow('demo') }, `🕹️ ${T.demo}`),
         h(
           'div',

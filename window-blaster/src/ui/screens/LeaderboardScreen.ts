@@ -49,8 +49,7 @@ export function LeaderboardScreen(app: App): Screen {
       return;
     }
     try {
-      const res = await app.leaderboard.top(mode, 'week');
-      const all = await app.leaderboard.top(mode, 'all');
+      const [day, res, all] = await Promise.all([app.leaderboard.top(mode, 'day'), app.leaderboard.top(mode, 'week'), app.leaderboard.top(mode, 'all')]);
       const list = (title: string, rows: typeof res) =>
         h(
           'div',
@@ -63,7 +62,7 @@ export function LeaderboardScreen(app: App): Screen {
             rows.length ? null : h('li', {}, h('span', { class: 'muted' }, 'Noch keine Einträge – sei der Erste!')),
           ),
         );
-      body.replaceChildren(scopeRow, list(T.weekly, res), list(T.allTime, all));
+      body.replaceChildren(scopeRow, list('Heute (Tages-Challenge)', day), list(T.weekly, res), list(T.allTime, all));
     } catch {
       body.replaceChildren(scopeRow, h('p', { class: 'muted' }, T.offline));
     }

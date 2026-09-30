@@ -1,10 +1,9 @@
 import type { GameMode, RoundResult } from '../game/GameMode';
 import { ShooterMode } from '../game/shooter/ShooterMode';
 import { RunnerMode } from '../game/runner/RunnerMode';
-import { Records } from '../game/scoring/Records';
+import { Records, todayKey } from '../game/scoring/Records';
 import { DemoSource } from '../camera/DemoSource';
 import { CameraSource, explainCameraError } from '../camera/CameraSource';
-import { MediaPipeDetector } from '../vision/MediaPipeDetector';
 import { Motion } from '../sensors/Motion';
 import { CameraScreen } from '../ui/screens/CameraScreen';
 import { videoReady, type FrameSource } from '../camera/FrameSource';
@@ -23,7 +22,7 @@ import { DebugOverlay } from '../debug/DebugOverlay';
 import { Sfx } from '../audio/Sfx';
 import { Haptics } from '../sensors/Haptics';
 import { WakeLock } from '../sensors/WakeLock';
-import { Rng } from '../core/rng';
+import { Rng, hashString } from '../core/rng';
 import { Router } from '../ui/Router';
 import { toast } from '../ui/dom';
 import { StartScreen } from '../ui/screens/StartScreen';
@@ -146,8 +145,9 @@ export class App {
     this.router.show(StartScreen(this));
   }
 
-  beginFlow(source: 'camera' | 'demo'): void {
+  beginFlow(source: 'camera' | 'demo', daily = false): void {
     this.session.source = source;
+    this.session.daily = daily;
     this.sfx.unlock();
     this.router.show(SafetyScreen(this));
   }
@@ -242,6 +242,8 @@ export class App {
       this.detector = new MockDetector(() => demo.truth(), { seed: this.session.seed, frame: { w: demo.width, h: demo.height } });
     } else {
       this.frame = new CameraSource(video);
+      // lazy: keeps the MediaPipe loader out of the initial bundle (demo mode never needs it)
+      const { MediaPipeDetector } = await import('../vision/MediaPipeDetector');
       this.detector = new MediaPipeDetector({
         wasmBase: `${import.meta.env.BASE_URL}mediapipe/wasm`,
         modelPath: `${import.meta.env.BASE_URL}models/efficientdet_lite0.tflite`,
@@ -312,7 +314,7 @@ export class App {
       void this.prepareAndPlay();
       return;
     }
-    this.session.seed = this.params.seed ?? ((Date.now() % 1000003) | 0);
+    this.session.seed = this.params.seed ?? (this.session.daily ? hashString(`${todayKey()}:${this.session.mode}`) : (Date.now() % 1000003) | 0);
     const mode: GameMode = this.session.mode === 'side-runner' ? new RunnerMode() : new ShooterMode(this.session.mode);
     this.mode = mode;
     this.paused = false;

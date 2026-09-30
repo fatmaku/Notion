@@ -31,6 +31,9 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
+      - name: Typecheck leaderboard worker
+        working-directory: window-blaster/server/leaderboard-worker
+        run: npm ci && npm run typecheck
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: End-to-end smoke test (headless, fake camera)
