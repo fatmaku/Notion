@@ -8,10 +8,14 @@ PYV="$HOME/ArsivStudyo/venv/bin/python"
 if [ ! -x "$PYV" ]; then
   echo "Önce 'Kur.command' dosyasını çalıştırın."; read -r -p "Enter… "; exit 1
 fi
-if curl -s -m 1 http://127.0.0.1:8765/api/stats >/dev/null 2>&1; then
+if curl -sf -m 1 http://127.0.0.1:8765/api/stats >/dev/null 2>&1; then
   echo "Arşiv Stüdyo zaten çalışıyor; tarayıcı açılıyor."
   open "http://127.0.0.1:8765/"
   read -r -p "Kapatmak için Enter'a basın… "; exit 0
+fi
+if lsof -ti tcp:8765 >/dev/null 2>&1; then
+  echo "8765 portunu başka bir program kullanıyor (eski bir sunucu olabilir). Kapatılıyor…"
+  kill $(lsof -ti tcp:8765) 2>/dev/null; sleep 1
 fi
 echo "Arşiv Stüdyo başlıyor… Tarayıcı açılmazsa şu adresi açın: http://127.0.0.1:8765"
 echo "Durdurmak için bu pencerede Ctrl+C ya da Durdur.command."
