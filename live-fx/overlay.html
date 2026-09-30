@@ -47,5 +47,8 @@
       window.livefx = { renderer, bus };
     })();
   </script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js').catch(() => {});
+  </script>
 </body>
 </html>

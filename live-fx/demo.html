@@ -65,5 +65,8 @@
   <script src="js/asr.js"></script>
   <script src="js/fx.js"></script>
   <script src="js/demo.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js').catch(() => {});
+  </script>
 </body>
 </html>

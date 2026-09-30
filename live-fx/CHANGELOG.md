@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0 – Handy, PWA, HTTPS, Offline-Erkennung
+
+- **Handy-Fernbedienung** (`mobile.html`): alle Trigger als große Kacheln, Suche, Pause, Lautstärke, Szenen-Reihe,
+  Live-Transkript; Link mit Token aus der Panel-Karte „📱 Handy“ (`/m?token=…`), Mikro am Handy bei HTTPS.
+- **PWA**: Manifest + Service Worker – Panel/Overlay/Demo/Handy laufen ohne Internet (App-Shell aus dem Cache).
+- **HTTPS** optional über `LIVEFX_TLS_CERT`/`LIVEFX_TLS_KEY` (`docs/HANDY-HTTPS.md`), `/api/config` liefert LAN-IPs.
+- **Offline-Erkennung (experimentell)**: Whisper im Web-Worker, einmalig `npm run setup-offline` (`docs/OFFLINE.md`).
+
 ## 1.3.0 – Story-Modus
 
 - **Szenen** (`visual.kind: 'scene'`): 13 Vollbild-Szenen (Regen, Nacht, Wald, Meer, Feuer, Schloss, Schnee, Wüste,
