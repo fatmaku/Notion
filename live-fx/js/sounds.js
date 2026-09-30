@@ -60,6 +60,22 @@
     src.stop(t0 + dur + 0.1);
   }
 
+  // Bell hit at an explicit time (shared by the `bell` one-shot and the `churchBells` loop).
+  function bellAt(ctx, out, t0, f, scale) {
+    const partials = [
+      { r: 0.5, peak: 0.16, dur: 2.2 }, // hum
+      { r: 1, peak: 0.28, dur: 2.3 },
+      { r: 2.76, peak: 0.16, dur: 1.6 },
+      { r: 5.4, peak: 0.09, dur: 1.0 },
+      { r: 8.93, peak: 0.04, dur: 0.6 },
+    ];
+    partials.forEach((p) => {
+      tone(ctx, out, { type: 'sine', freq: f * p.r, t0, dur: p.dur, peak: p.peak * scale, attack: 0.003, release: p.dur - 0.05 });
+    });
+    // Clapper strike transient.
+    noise(ctx, out, { t0, dur: 0.03, peak: 0.25 * scale, attack: 0.001, release: 0.025, filter: { type: 'bandpass', freq: 3000, q: 1 } });
+  }
+
   const SFX = {
     airhorn(ctx, out) {
       const t0 = ctx.currentTime;
@@ -264,20 +280,7 @@
     },
     bell(ctx, out) {
       // Church / boxing bell: inharmonic partials with a long decay.
-      const t0 = ctx.currentTime;
-      const f = 440;
-      const partials = [
-        { r: 0.5, peak: 0.16, dur: 2.2 }, // hum
-        { r: 1, peak: 0.28, dur: 2.3 },
-        { r: 2.76, peak: 0.16, dur: 1.6 },
-        { r: 5.4, peak: 0.09, dur: 1.0 },
-        { r: 8.93, peak: 0.04, dur: 0.6 },
-      ];
-      partials.forEach((p) => {
-        tone(ctx, out, { type: 'sine', freq: f * p.r, t0, dur: p.dur, peak: p.peak, attack: 0.003, release: p.dur - 0.05 });
-      });
-      // Clapper strike transient.
-      noise(ctx, out, { t0, dur: 0.03, peak: 0.25, attack: 0.001, release: 0.025, filter: { type: 'bandpass', freq: 3000, q: 1 } });
+      bellAt(ctx, out, ctx.currentTime, 440, 1);
     },
     ooh(ctx, out) {
       // Crowd "ooooh": filtered noise through formant-ish bandpasses, swelling then fading.
@@ -354,6 +357,355 @@
     },
   };
 
+
+  // ---------------------------------------------------------------------------------------------
+  // Ambient loops (story mode). Everything below is built from plain WebAudio nodes only: looping
+  // AudioBufferSourceNodes with generated noise/tone buffers, LFO oscillators that modulate filter
+  // frequency or gain, and periodic events pre-scheduled AHEAD seconds into the future. There is no
+  // setTimeout anywhere: a silent 5-s "scheduler" buffer re-arms the event queue via `onended`, so
+  // the loops also render correctly inside an OfflineAudioContext.
+  // ---------------------------------------------------------------------------------------------
+
+  const LOOP_FADE = 1.5; // seconds, fade-in and default fade-out
+  const LOOP_AHEAD = 30; // seconds of events kept scheduled ahead of currentTime
+  const LOOP_TICK = 5; // length of the silent scheduler buffer
+
+  // Pink-ish noise (Paul Kellet's filter), roughly -3 dB/oct, much softer than white noise.
+  function pinkNoiseBuffer(ctx, seconds) {
+    const len = Math.floor(ctx.sampleRate * seconds);
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+    for (let i = 0; i < len; i++) {
+      const w = Math.random() * 2 - 1;
+      b0 = 0.99886 * b0 + w * 0.0555179;
+      b1 = 0.99332 * b1 + w * 0.0750759;
+      b2 = 0.969 * b2 + w * 0.153852;
+      b3 = 0.8665 * b3 + w * 0.3104856;
+      b4 = 0.55 * b4 + w * 0.5329522;
+      b5 = -0.7616 * b5 - w * 0.016898;
+      d[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * 0.5362) * 0.11;
+      b6 = w * 0.115926;
+    }
+    return buf;
+  }
+
+  const rnd = (min, max) => min + Math.random() * (max - min);
+
+  // Small graph builder shared by all loop recipes. `master` is the fade gain; every long-running
+  // source is tracked so stop() can end it after the fade-out.
+  function makeLoopBuilder(ctx, master) {
+    const t0 = ctx.currentTime;
+    const sources = [];
+    let white = null;
+    let pink = null;
+    let stopped = false;
+    const L = {
+      ctx,
+      master,
+      t0,
+      get stopped() { return stopped; },
+      track(src) { sources.push(src); return src; },
+      gain(value, dest = master) {
+        const g = ctx.createGain();
+        g.gain.value = value;
+        g.connect(dest);
+        return g;
+      },
+      filter(type, freq, q = 1, dest = master) {
+        const f = ctx.createBiquadFilter();
+        f.type = type;
+        f.frequency.value = freq;
+        f.Q.value = q;
+        f.connect(dest);
+        return f;
+      },
+      // Looping noise bed (white or pink) feeding `dest`.
+      noise(kind, dest, seconds = 4) {
+        const src = ctx.createBufferSource();
+        if (kind === 'pink') src.buffer = pink || (pink = pinkNoiseBuffer(ctx, seconds));
+        else src.buffer = white || (white = noiseBuffer(ctx, seconds));
+        src.loop = true;
+        src.connect(dest);
+        src.start(t0);
+        return L.track(src);
+      },
+      // Continuous oscillator.
+      osc(type, freq, dest) {
+        const o = ctx.createOscillator();
+        o.type = type;
+        o.frequency.value = freq;
+        o.connect(dest);
+        o.start(t0);
+        return L.track(o);
+      },
+      // LFO: oscillator -> depth gain -> AudioParam (adds ±depth around the param's own value).
+      lfo(param, freq, depth, type = 'sine') {
+        const o = ctx.createOscillator();
+        o.type = type;
+        o.frequency.value = freq;
+        const g = ctx.createGain();
+        g.gain.value = depth;
+        o.connect(g).connect(param);
+        o.start(t0);
+        return L.track(o);
+      },
+      // One-shot tone at time t (uses the same envelope helper as the one-shot sounds).
+      tone(dest, opts) { tone(ctx, dest, opts); },
+      // One-shot noise burst at time t, sliced from a shared white-noise buffer (no per-event allocation).
+      burst(dest, { t0: t, dur, peak = 0.3, attack = 0.003, release = 0.02, filter = null }) {
+        const src = ctx.createBufferSource();
+        src.buffer = white || (white = noiseBuffer(ctx, 4));
+        const g = ctx.createGain();
+        env(g, t, attack, Math.max(0, dur - attack - release), release, peak);
+        let node = src;
+        if (filter) {
+          const f = ctx.createBiquadFilter();
+          f.type = filter.type || 'bandpass';
+          f.frequency.value = filter.freq || 1000;
+          f.Q.value = filter.q || 1;
+          src.connect(f);
+          node = f;
+        }
+        node.connect(g).connect(dest);
+        src.start(t, Math.random() * 3, dur + 0.1);
+        src.stop(t + dur + 0.1);
+      },
+      // Event stream: `nextGap()` returns the seconds until the next event, `fn(t)` schedules it.
+      // Events are kept LOOP_AHEAD s ahead; a silent LOOP_TICK-s buffer source re-arms the queue.
+      events(nextGap, fn, firstDelay = nextGap()) {
+        let cursor = t0 + firstDelay;
+        const silent = ctx.createBuffer(1, Math.floor(ctx.sampleRate * LOOP_TICK), ctx.sampleRate);
+        const fill = () => {
+          const horizon = ctx.currentTime + LOOP_AHEAD;
+          let guard = 0;
+          while (cursor < horizon && guard++ < 2000) {
+            fn(cursor);
+            cursor += Math.max(0.01, nextGap());
+          }
+        };
+        const arm = () => {
+          if (stopped) return;
+          try {
+            fill();
+            const s = ctx.createBufferSource();
+            s.buffer = silent;
+            s.connect(master);
+            s.onended = arm;
+            s.start(ctx.currentTime);
+            L.track(s);
+          } catch (_) {
+            /* context closed / rendering finished */
+          }
+        };
+        arm();
+      },
+      stopAll(at) {
+        stopped = true;
+        for (const s of sources) {
+          try { s.stop(at); } catch (_) { /* already stopped */ }
+        }
+      },
+    };
+    return L;
+  }
+
+  // ---- shared building blocks -----------------------------------------------------------------
+
+  function rainLayer(L, dest, level) {
+    // Pink noise, band-limited to the "hiss on leaves" range, with a gentle intensity wobble.
+    const g = L.gain(level, dest);
+    L.lfo(g.gain, 0.17, level * 0.25);
+    const hp = L.filter('highpass', 700, 0.7, g);
+    const lp = L.filter('lowpass', 7000, 0.5, hp);
+    L.noise('pink', lp);
+    // Random drip ticks: tiny descending sine blips.
+    const drips = L.gain(1, dest);
+    L.events(() => rnd(0.04, 0.35), (t) => {
+      const f = rnd(1200, 3200);
+      L.tone(drips, { type: 'sine', freq: f, glideTo: f * 0.6, t0: t, dur: 0.035, peak: rnd(0.03, 0.09) * level * 3, attack: 0.002, release: 0.02 });
+    });
+  }
+
+  function windLayer(L, dest, level) {
+    // White noise through a resonant bandpass whose centre sweeps slowly (0.1–0.3 Hz).
+    const g = L.gain(level, dest);
+    L.lfo(g.gain, 0.13, level * 0.4);
+    const bp = L.filter('bandpass', 520, 1.6, g);
+    L.lfo(bp.frequency, 0.21, 330);
+    L.noise('white', bp);
+    // Low rumble bed with its own slower swell.
+    const rg = L.gain(level * 0.8, dest);
+    L.lfo(rg.gain, 0.1, level * 0.3);
+    const lp = L.filter('lowpass', 220, 0.8, rg);
+    L.noise('pink', lp);
+  }
+
+  function thunderRumbles(L, dest, level, minGap, maxGap, firstDelay) {
+    L.events(() => rnd(minGap, maxGap), (t) => {
+      const f = rnd(40, 80);
+      const dur = 2.0;
+      L.tone(dest, { type: 'sine', freq: f, glideTo: f * 0.6, t0: t, dur, peak: 0.32 * level, attack: 0.15, release: 1.2 });
+      L.tone(dest, { type: 'triangle', freq: f * 1.5, glideTo: f * 0.8, t0: t + 0.05, dur: dur * 0.8, peak: 0.08 * level, attack: 0.2, release: 1.0 });
+      L.burst(dest, { t0: t, dur, peak: 0.22 * level, attack: 0.1, release: 1.4, filter: { type: 'lowpass', freq: 140, q: 0.7 } });
+    }, firstDelay);
+  }
+
+  // ---- loop recipes ---------------------------------------------------------------------------
+
+  const LOOPS = {
+    rain(L) {
+      rainLayer(L, L.master, 0.5);
+    },
+    wind(L) {
+      windLayer(L, L.master, 0.45);
+    },
+    fireplace(L) {
+      // Low rumble of the fire plus random short crackles (highpass noise, 30–60 ms) and pops.
+      const rg = L.gain(0.7);
+      L.lfo(rg.gain, 0.3, 0.2);
+      const lp = L.filter('lowpass', 170, 0.9, rg);
+      L.noise('pink', lp);
+      const cr = L.gain(1);
+      L.events(() => rnd(0.05, 0.45), (t) => {
+        L.burst(cr, { t0: t, dur: rnd(0.03, 0.06), peak: rnd(0.1, 0.3), attack: 0.002, release: 0.015, filter: { type: 'highpass', freq: rnd(2000, 4000), q: 0.8 } });
+        if (Math.random() < 0.25) L.tone(cr, { type: 'sine', freq: rnd(150, 260), glideTo: 70, t0: t, dur: 0.06, peak: 0.18, attack: 0.003, release: 0.04 });
+      });
+    },
+    birds(L) {
+      // Faint forest air plus random sine-glide chirps (2–4 kHz) grouped in short phrases.
+      const air = L.gain(0.08);
+      L.lfo(air.gain, 0.09, 0.03);
+      const bp = L.filter('bandpass', 2800, 0.6, air);
+      L.noise('pink', bp);
+      const chirps = L.gain(1);
+      L.events(() => rnd(0.5, 1.8), (t) => {
+        const n = 3 + Math.floor(Math.random() * 5);
+        const base = rnd(2000, 3400);
+        let tt = t;
+        for (let i = 0; i < n; i++) {
+          const f1 = base * rnd(0.9, 1.15);
+          const f2 = Math.min(4000, Math.max(2000, f1 * rnd(0.7, 1.4)));
+          const dur = rnd(0.05, 0.14);
+          L.tone(chirps, { type: 'sine', freq: f1, glideTo: f2, t0: tt, dur, peak: rnd(0.08, 0.16), attack: 0.008, release: dur * 0.4 });
+          tt += dur + rnd(0.04, 0.16);
+        }
+      }, rnd(0.2, 0.8));
+    },
+    sea(L) {
+      // Lowpass noise with an 8-s swell, plus foam hiss riding the same swell.
+      const wg = L.gain(0.45);
+      L.lfo(wg.gain, 1 / 8, 0.28);
+      const lp = L.filter('lowpass', 420, 0.9, wg);
+      L.lfo(lp.frequency, 1 / 8, 200);
+      L.noise('pink', lp);
+      const fg = L.gain(0.09);
+      L.lfo(fg.gain, 1 / 8, 0.06);
+      const hp = L.filter('highpass', 2500, 0.7, fg);
+      L.noise('white', hp);
+    },
+    thunder(L) {
+      rainLayer(L, L.master, 0.45);
+      thunderRumbles(L, L.master, 1, 6, 14, rnd(1, 4));
+    },
+    nightCrickets(L) {
+      // Periodic 4.2 kHz chirp trains (14 chirps every 0.17 s, then a short pause) over a night floor.
+      const floor = L.gain(0.05);
+      const bp = L.filter('bandpass', 900, 0.5, floor);
+      L.noise('pink', bp);
+      const cg = L.gain(1);
+      let i = 0;
+      L.events(() => {
+        i++;
+        return i % 14 === 0 ? 0.9 : 0.17 + (i % 3) * 0.02;
+      }, (t) => {
+        L.tone(cg, { type: 'sine', freq: 4200, t0: t, dur: 0.06, peak: 0.12, attack: 0.005, release: 0.03 });
+        L.tone(cg, { type: 'sine', freq: 4300, t0: t + 0.07, dur: 0.05, peak: 0.1, attack: 0.005, release: 0.03 });
+      }, 0.1);
+    },
+    heartbeatSlow(L) {
+      // Lub-dub every 1.2 s.
+      const g = L.gain(1);
+      L.events(() => 1.2, (t) => {
+        L.tone(g, { type: 'sine', freq: 75, glideTo: 40, t0: t, dur: 0.22, peak: 0.6, attack: 0.008, release: 0.15 }); // lub
+        L.tone(g, { type: 'sine', freq: 65, glideTo: 38, t0: t + 0.24, dur: 0.18, peak: 0.42, attack: 0.008, release: 0.12 }); // dub
+        L.burst(g, { t0: t, dur: 0.05, peak: 0.1, release: 0.04, filter: { type: 'lowpass', freq: 250 } });
+      }, 0.2);
+    },
+    churchBells(L) {
+      // Inharmonic bell hits every 3 s, alternating between two pitches, over a faint tower-wind bed.
+      const air = L.filter('lowpass', 300, 0.7, L.gain(0.12));
+      L.noise('pink', air);
+      const g = L.gain(1);
+      let i = 0;
+      L.events(() => 3, (t) => {
+        bellAt(L.ctx, g, t, i++ % 2 ? 392 : 440, 0.7);
+      }, 0.3);
+    },
+    cityHum(L) {
+      // 55 Hz drone + slowly breathing lowpass noise + an occasional distant horn (350/440 Hz).
+      L.osc('sine', 55, L.gain(0.22));
+      L.osc('triangle', 110, L.gain(0.06));
+      const ng = L.gain(0.35);
+      L.lfo(ng.gain, 0.06, 0.12);
+      const lp = L.filter('lowpass', 600, 0.7, ng);
+      L.lfo(lp.frequency, 0.045, 250);
+      L.noise('pink', lp);
+      const hg = L.gain(1);
+      L.events(() => rnd(4, 12), (t) => {
+        const dur = rnd(0.4, 0.9);
+        [350, 440].forEach((f) => {
+          L.tone(hg, { type: 'square', freq: f, t0: t, dur, peak: 0.07, attack: 0.05, release: 0.15, filter: { type: 'lowpass', freq: 1200, q: 1 } });
+        });
+      }, rnd(1, 5));
+    },
+    spaceDrone(L) {
+      // Three detuned sines through a slowly sweeping lowpass, plus sparse high pings.
+      const lp = L.filter('lowpass', 420, 2, L.gain(0.8));
+      L.lfo(lp.frequency, 0.07, 300);
+      [55, 55 * 1.007, 82.4].forEach((f) => L.osc('sine', f, L.gain(0.16, lp)));
+      L.osc('sawtooth', 110.3, L.gain(0.05, lp));
+      const pg = L.gain(1);
+      L.events(() => rnd(2, 6), (t) => {
+        const f = rnd(1800, 3600);
+        L.tone(pg, { type: 'sine', freq: f, glideTo: f * 0.94, t0: t, dur: 0.7, peak: 0.08, attack: 0.01, release: 0.6 });
+      }, rnd(0.5, 2.5));
+    },
+    storm(L) {
+      // Wind + rain + thunder, a notch louder than the single layers.
+      const mix = L.gain(1.05);
+      windLayer(L, mix, 0.4);
+      rainLayer(L, mix, 0.4);
+      thunderRumbles(L, mix, 0.7, 4, 10, rnd(0.8, 3));
+    },
+  };
+
+  function startLoop(name, ctx, out, volume = 1) {
+    const recipe = LOOPS[name];
+    if (!recipe) return null;
+    const t0 = ctx.currentTime;
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0, t0);
+    master.gain.linearRampToValueAtTime(volume, t0 + LOOP_FADE);
+    master.connect(out);
+    const L = makeLoopBuilder(ctx, master);
+    recipe(L);
+    return {
+      name,
+      gain: master,
+      stop(fadeSec = LOOP_FADE) {
+        if (L.stopped) return;
+        const t = ctx.currentTime;
+        const fade = Math.max(0.01, Number(fadeSec) || 0);
+        const current = Math.max(0.0001, Number(master.gain.value) || 0);
+        if (typeof master.gain.cancelScheduledValues === 'function') master.gain.cancelScheduledValues(t);
+        master.gain.setValueAtTime(current, t);
+        master.gain.exponentialRampToValueAtTime(0.0001, t + fade);
+        L.stopAll(t + fade + 0.05);
+      },
+    };
+  }
+
   global.LiveFXSounds = {
     names: Object.keys(SFX),
     play(name, ctx, out, volume = 1) {
@@ -365,5 +717,7 @@
       fn(ctx, g);
       return true;
     },
+    loops: Object.keys(LOOPS),
+    loop: startLoop,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

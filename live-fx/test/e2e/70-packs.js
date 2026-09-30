@@ -26,7 +26,7 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     const rows = () => panel.locator('#trigger-rows tr').count();
     const packSize = await panel.evaluate(() => window.LiveFXPacks.get('tr').length);
     const packRow = panel.locator('.pack[data-pack="tr"]');
-    assert.equal(await panel.locator('.pack').count(), 3, 'three pack rows');
+    assert.equal(await panel.locator('.pack:not(.story)').count(), 3, 'three meme pack rows (story packs are listed separately)');
     assert.ok((await packRow.textContent()).includes('Türkçe'), 'Turkish pack row present');
     const before = await rows();
 

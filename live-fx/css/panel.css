@@ -157,3 +157,14 @@ button.pill-link:hover { border-color: var(--accent-2); }
   #misses li { flex-direction: column; align-items: stretch; }
   #misses select[data-act="assign"] { width: 100%; }
 }
+
+/* story mode (1.3) */
+#story-card .story-toggle { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+#story-card .help { margin: 0 0 12px; }
+.scene-pad { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
+.scene-pad[hidden] { display: none; }
+.scene-pad button { padding: 10px 6px; }
+.scene-pad .emoji { font-size: 28px; line-height: 34px; }
+.scene-pad button[data-scene="clear"] { border-style: dashed; color: var(--muted); }
+.scene-pad button.active { border-color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-2) inset; }
+.pack .flag.story { font-size: 22px; }

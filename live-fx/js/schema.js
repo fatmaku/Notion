@@ -4,8 +4,13 @@
   'use strict';
 
   const VERSION = 2;
-  const KINDS = ['card', 'image', 'banner', 'rain', 'confetti'];
+  const KINDS = ['card', 'image', 'banner', 'rain', 'confetti', 'scene', 'sticker'];
   const POSITIONS = ['center', 'top', 'safe'];
+  // Story mode (1.3): full-screen ambient scenes that stay until the next one; 'clear' fades the current scene out.
+  const SCENES = ['rain', 'night', 'forest', 'sea', 'fire', 'castle', 'snow', 'desert', 'city', 'space', 'sunrise', 'storm', 'clear'];
+  // Ambient loop names known to js/sounds.js (`LiveFXSounds.loops`); kept here so the editor can list them without
+  // sounds.js loaded. Validation of "loop:<name>" only checks the name syntax (see BUILTIN_SOUND_RE).
+  const LOOPS = ['rain', 'wind', 'fireplace', 'birds', 'sea', 'thunder', 'nightCrickets', 'heartbeatSlow', 'churchBells', 'cityHum', 'spaceDrone', 'storm'];
   const LIMITS = {
     triggers: 200,
     keywords: 50,
@@ -15,6 +20,8 @@
     emoji: 16,
     hint: 120,
     rainCount: 60,
+    stickerEmoji: 32,
+    sceneDuration: 3600,
     cooldown: 3600,
     transcriptChars: 2000,
     assetBytes: 8 * 1024 * 1024,
@@ -56,6 +63,10 @@
       const url = s.slice(5);
       return ASSET_SOUND_RE.test(url) && !url.includes('..') ? { kind: 'file', url } : null;
     }
+    if (s.startsWith('loop:')) {
+      const name = s.slice(5);
+      return BUILTIN_SOUND_RE.test(name) ? { kind: 'loop', name } : null;
+    }
     return BUILTIN_SOUND_RE.test(s) ? { kind: 'builtin', name: s } : null;
   }
 
@@ -87,7 +98,8 @@
     out.kind = KINDS.includes(v.kind) ? v.kind : 'card';
     if (v.position !== undefined && !POSITIONS.includes(v.position)) warnings.push(`unknown visual.position "${String(v.position).slice(0, 20)}"`);
     out.position = POSITIONS.includes(v.position) ? v.position : 'center';
-    const emoji = str(v.emoji, LIMITS.emoji);
+    // Stickers hold up to 4 emojis (ZWJ sequences are long), every other kind keeps the 16-char limit.
+    const emoji = str(v.emoji, out.kind === 'sticker' ? LIMITS.stickerEmoji : LIMITS.emoji);
     if (emoji) out.emoji = emoji;
     const text = str(v.text, LIMITS.text);
     if (text) out.text = text;
@@ -111,6 +123,26 @@
       else warnings.push('invalid visual.count');
     }
     if (v.shake === true) out.shake = true;
+    if (out.kind === 'scene') {
+      if (SCENES.includes(v.scene)) out.scene = v.scene;
+      else {
+        warnings.push(`unknown visual.scene "${String(v.scene).slice(0, 20)}", falling back to card`);
+        out.kind = 'card';
+        return out;
+      }
+      if (v.intensity !== undefined && v.intensity !== null && v.intensity !== '') {
+        const n = Math.round(Number(v.intensity));
+        if (Number.isFinite(n)) out.intensity = Math.min(3, Math.max(1, n));
+        else warnings.push('invalid visual.intensity');
+      }
+      if (v.duration !== undefined && v.duration !== null && v.duration !== '') {
+        const d = Number(v.duration);
+        if (Number.isFinite(d) && d >= 0) out.duration = Math.min(LIMITS.sceneDuration, d);
+        else warnings.push('invalid visual.duration');
+      }
+      if (v.caption === false) out.caption = false;
+      else if (v.caption === true) out.caption = true;
+    }
     return out;
   }
 
@@ -230,6 +262,8 @@
     VERSION,
     KINDS,
     POSITIONS,
+    SCENES,
+    LOOPS,
     LIMITS,
     ID_RE,
     SAFE_NAME,

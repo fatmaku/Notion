@@ -68,9 +68,33 @@
   }
 
   /** Soundboard thumbnail: image triggers show their picture, everything else its emoji. */
+  // Pad thumbnails for scene triggers (story mode). LiveFXPacks.SCENE_INFO is preferred when loaded.
+  const SCENE_EMOJI = { rain: '🌧️', night: '🌙', forest: '🌲', sea: '🌊', fire: '🔥', castle: '🏰', snow: '❄️', desert: '🏜️', city: '🌆', space: '🪐', sunrise: '🌅', storm: '⛈️', clear: '🎬' };
+
+  /** First emoji (grapheme) of a string like "🐉🔥" – falls back to the whole string. */
+  function firstEmoji(str) {
+    const s = String(str || '');
+    try {
+      if (typeof Intl !== 'undefined' && typeof Intl.Segmenter === 'function') {
+        const it = new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(s)[Symbol.iterator]().next();
+        if (!it.done && it.value && it.value.segment) return it.value.segment;
+      }
+    } catch (_) {
+      /* no segmenter */
+    }
+    const m = s.match(/^\p{Extended_Pictographic}[\uFE0F\u200D\p{Emoji_Modifier}]*/u);
+    return m ? m[0] : s;
+  }
+
   function thumbnailFor(trigger) {
     const v = (trigger && trigger.visual) || {};
     if (v.kind === 'image' && typeof v.src === 'string' && v.src) return { img: v.src };
+    if (v.kind === 'scene') {
+      const P = global.LiveFXPacks;
+      const info = P && P.SCENE_INFO && typeof v.scene === 'string' && Object.prototype.hasOwnProperty.call(P.SCENE_INFO, v.scene) ? P.SCENE_INFO[v.scene] : null;
+      return { emoji: (info && info.emoji) || SCENE_EMOJI[v.scene] || '🎬' };
+    }
+    if (v.kind === 'sticker' && v.emoji) return { emoji: firstEmoji(v.emoji) };
     return { emoji: v.emoji || '✨' };
   }
 

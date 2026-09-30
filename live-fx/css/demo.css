@@ -287,3 +287,38 @@ body.idle #bar {
 #result code {
   color: #ffd27f;
 }
+
+/* ---- story mode inside the frame (vw/vh -> container units, like the cards above) ---- */
+#frame .fx-scene-caption {
+  font-size: min(44px, 4.5cqw);
+  max-width: 86cqw;
+}
+body.layout-portrait #frame .fx-scene-caption {
+  font-size: min(40px, 6.5cqw);
+  max-width: 88cqw;
+}
+#frame .fx-scene-decor {
+  font-size: min(180px, 14cqw);
+}
+body.layout-portrait #frame .fx-scene-decor {
+  font-size: min(140px, 24cqw);
+}
+#frame .fx-scene-ground {
+  font-size: min(150px, 12cqw);
+}
+body.layout-portrait #frame .fx-scene-ground {
+  font-size: min(120px, 22cqw);
+}
+#frame .fx-scene-castle .fx-scene-ground {
+  font-size: min(260px, 22cqw);
+}
+#frame .fx-scene-sunrise .fx-scene-l1 {
+  width: min(420px, 40cqw);
+  height: min(420px, 40cqw);
+}
+#frame .fx-sticker-emoji {
+  font-size: min(150px, 17cqw);
+}
+#frame .fx-sticker .fx-text {
+  font-size: min(56px, 7cqw);
+}

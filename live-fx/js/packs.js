@@ -1,4 +1,4 @@
-// LiveFX – language / culture meme packs (Türkçe, Deutsch, English). UMD, global `LiveFXPacks`.
+// LiveFX – language / culture meme packs (Türkçe, Deutsch, English) and story packs (1.3). UMD, global `LiveFXPacks`.
 //
 // A pack is a curated list of trigger objects (schema v2, see docs/CONTRACTS.md §1) that the panel
 // can add to the streamer's trigger list with one click. Rules baked into every pack:
@@ -7,7 +7,8 @@
 //     diacritics matter, so common ASCII spellings are listed as extra variants)
 //   - keywords avoid the exact words of the default pack (js/triggers.js) so a pack trigger does not
 //     always fire together with a default
-//   - only builtin sounds from js/sounds.js (or null) and only visual kinds card/banner/rain/confetti
+//   - only builtin sounds from js/sounds.js (or null) and only visual kinds card/banner/rain/confetti;
+//     story packs additionally use `scene` / `sticker` visuals and `loop:<name>` ambient sounds
 //   - every trigger has an English `hint` for the smart mode
 (function (global) {
   'use strict';
@@ -168,6 +169,153 @@
     ['yikes', 'Yikes', ['yikes', 'big yikes', 'oof', 'big oof', 'ick', 'the ick'], 'that was bad, yikes', 'crickets', card('😬', 'YIKES', '#2c3e50'), 6],
   ];
 
+  // ---------------------------------------------------------------------------------------------
+  // Story mode (1.3): scene + ambient-loop triggers and character stickers for reading aloud.
+  // Scene ids mirror LiveFXSchema.SCENES (schema.js loads after packs.js, so the list is repeated
+  // here; test/packs.test.js asserts both agree). `loop` = LiveFXSounds.loops name or null.
+  // ---------------------------------------------------------------------------------------------
+  const SCENE_INFO = Object.freeze({
+    rain: { emoji: '🌧️', label: 'Regen', loop: 'rain' },
+    night: { emoji: '🌙', label: 'Nacht', loop: 'nightCrickets' },
+    forest: { emoji: '🌲', label: 'Wald', loop: 'birds' },
+    sea: { emoji: '🌊', label: 'Meer', loop: 'sea' },
+    fire: { emoji: '🔥', label: 'Feuer', loop: 'fireplace' },
+    castle: { emoji: '🏰', label: 'Schloss', loop: 'churchBells' },
+    snow: { emoji: '❄️', label: 'Schnee', loop: 'wind' },
+    desert: { emoji: '🏜️', label: 'Wüste', loop: 'wind' },
+    city: { emoji: '🌆', label: 'Stadt', loop: 'cityHum' },
+    space: { emoji: '🪐', label: 'Weltraum', loop: 'spaceDrone' },
+    sunrise: { emoji: '🌅', label: 'Sonnenaufgang', loop: 'birds' },
+    storm: { emoji: '⛈️', label: 'Gewitter', loop: 'storm' },
+    clear: { emoji: '🎬', label: 'Szene beenden', loop: null },
+  });
+  const SCENE_IDS = Object.freeze(Object.keys(SCENE_INFO));
+  const loopFor = (sceneId) => (SCENE_INFO[sceneId] && SCENE_INFO[sceneId].loop ? `loop:${SCENE_INFO[sceneId].loop}` : null);
+
+  /** Scene visual: full-screen background + particles, stays until the next scene. */
+  const scene = (id, text, intensity, extra) =>
+    Object.assign({ kind: 'scene', position: 'center', scene: id, intensity: intensity || 2 }, text ? { text } : {}, extra || {});
+  /** Sticker visual: 2–4 emojis in formation at the top, over the running scene. */
+  const sticker = (emoji, text, extra) => Object.assign({ kind: 'sticker', position: 'top', emoji, text }, extra || {});
+  const SCENE_CD = 8;
+  const STICKER_CD = 6;
+
+  /** Scene row: [id, label, keywords, hint, sceneId, caption?, intensity?, sound override?]. */
+  const sceneRow = (r) => [r[0], r[1], r[2], r[3], r[7] === undefined ? loopFor(r[4]) : r[7], scene(r[4], r[5], r[6]), SCENE_CD];
+  /** Sticker row: [id, label, keywords, hint, sound, emoji, text]. */
+  const stickerRow = (r) => [r[0], r[1], r[2], r[3], r[4], sticker(r[5], r[6]), STICKER_CD];
+
+  // Deutsch – Märchen / Vorlesen
+  const STORY_DE = [
+    ...[
+      ['eswareinmal', 'Es war einmal', ['es war einmal', 'es war ein mal', 'vor langer zeit', 'es lebte einmal'], 'story opening, once upon a time', 'sunrise', 'Es war einmal…', 1],
+      ['regen', 'Regen', ['es regnete', 'regen', 'es regnet', 'im regen', 'regnete', 'regentropfen', 'in strömen'], 'it is raining in the story', 'rain', 'Es regnete…', 2],
+      ['nacht', 'Nacht', ['in der nacht', 'nachts', 'dunkel', 'dunkelheit', 'mitternacht', 'nacht brach herein', 'nacht', 'der mond'], 'night falls, darkness', 'night', null, 2],
+      ['wald', 'Wald', ['im wald', 'wald', 'der wald', 'dunklen wald', 'bäume', 'baeume', 'durch den wald', 'tiefen wald'], 'in the forest, trees', 'forest', null, 2],
+      ['meer', 'Meer', ['am meer', 'das meer', 'meer', 'ozean', 'wellen', 'am strand', 'strand'], 'at the sea, ocean, beach', 'sea', null, 2],
+      ['feuer', 'Feuer', ['am feuer', 'lagerfeuer', 'kamin', 'am kamin', 'feuer brannte', 'flammen', 'knisterte'], 'by the fire, fireplace, campfire', 'fire', null, 2],
+      ['schloss', 'Schloss', ['schloss', 'im schloss', 'könig', 'der könig', 'königin', 'burg', 'die burg', 'koenig'], 'castle, king, queen', 'castle', null, 2],
+      ['schnee', 'Schnee', ['schnee', 'es schneite', 'winter', 'im winter', 'schneeflocken', 'eis und schnee', 'verschneit'], 'snow, winter', 'snow', null, 2],
+      ['wueste', 'Wüste', ['wüste', 'wueste', 'in der wüste', 'sand', 'sanddünen', 'oase'], 'desert, sand, heat', 'desert', null, 2],
+      ['stadt', 'Stadt', ['stadt', 'in der stadt', 'die stadt', 'großstadt', 'grossstadt', 'straßen', 'die straßen der stadt'], 'in the city, streets', 'city', null, 2],
+      ['sterne', 'Sterne', ['sterne', 'die sterne', 'weltraum', 'weltall', 'im weltall', 'rakete', 'planeten', 'galaxie'], 'stars, outer space', 'space', null, 2],
+      ['morgen', 'Morgen', ['am morgen', 'sonnenaufgang', 'morgen', 'am nächsten morgen', 'die sonne ging auf', 'die sonne schien', 'morgens'], 'morning, sunrise, a new day', 'sunrise', null, 2],
+      ['gewitter', 'Gewitter', ['gewitter', 'donner', 'blitz', 'es donnerte', 'sturm', 'blitz und donner', 'unwetter'], 'storm, thunder, lightning', 'storm', null, 3],
+      ['ende', 'Ende', ['ende', 'das ende', 'und wenn sie nicht gestorben sind', 'so leben sie noch'], 'the end of the story', 'clear', 'ENDE', 1, 'tada'],
+    ].map(sceneRow),
+    ...[
+      ['drache', 'Drache', ['drache', 'der drache', 'ein drache', 'drachen', 'feuerspeiend'], 'a dragon appears', 'dramatic', '🐉🔥', 'Der Drache!'],
+      ['prinzessin', 'Prinzessin', ['prinzessin', 'die prinzessin', 'prinz', 'der prinz'], 'princess or prince', 'bell', '👸✨', 'Die Prinzessin'],
+      ['ritter', 'Ritter', ['ritter', 'der ritter', 'schwert', 'rüstung', 'ruestung'], 'knight, sword, armour', 'whoosh', '🛡️⚔️', 'Der Ritter'],
+      ['schatz', 'Schatz', ['schatz', 'der schatz', 'goldschatz', 'schatztruhe', 'edelsteine'], 'treasure, gold, jewels', 'coin', '💎💰', 'Der Schatz!'],
+      ['hexe', 'Hexe', ['hexe', 'die hexe', 'zauberer', 'der zauberer', 'böse hexe'], 'witch or wizard', 'laugh', '🧙🔮', 'Die Hexe'],
+      ['zauber', 'Zauber', ['zauber', 'zauberspruch', 'magie', 'verzaubert', 'zauberstab'], 'magic, a spell', 'tada', '✨🪄✨', 'Zauber!'],
+      ['herz', 'Verliebt', ['verliebt', 'verliebte sich', 'ein herz', 'herzen', 'küsste'], 'falling in love, a kiss', 'bell', '💖💕', 'Verliebt'],
+      ['schiff', 'Schiff', ['schiff', 'das schiff', 'segelschiff', 'boot', 'das boot'], 'a ship or boat', 'whoosh', '⛵🌊', 'Das Schiff'],
+      ['pferd', 'Pferd', ['pferd', 'das pferd', 'pferde', 'ritt', 'galoppierte'], 'a horse, riding', 'pop', '🐎💨', 'Das Pferd'],
+      ['hund', 'Hund', ['hund', 'der hund', 'hunde', 'welpe', 'bellte'], 'a dog', 'pop', '🐕🐾', 'Der Hund'],
+      ['katze', 'Katze', ['katze', 'die katze', 'kätzchen', 'kater', 'miaute'], 'a cat', 'pop', '🐱🐾', 'Die Katze'],
+      ['wolf', 'Wolf', ['wolf', 'der wolf', 'der böse wolf', 'wölfe'], 'a wolf, danger', 'dramatic', '🐺🌑', 'Der Wolf!'],
+      ['fee', 'Fee', ['fee', 'die fee', 'elfe', 'die gute fee'], 'a fairy or elf', 'bell', '🧚✨', 'Die Fee'],
+      ['riese', 'Riese', ['riese', 'der riese', 'troll', 'oger'], 'a giant, troll or ogre', 'boom', '🧌🪨', 'Der Riese'],
+    ].map(stickerRow),
+  ];
+
+  // Türkçe – masal
+  const STORY_TR = [
+    ...[
+      ['birvarmis', 'Bir varmış bir yokmuş', ['bir varmış bir yokmuş', 'bir varmis bir yokmus', 'bir varmış', 'masal başlıyor'], 'Turkish story opening, once upon a time', 'sunrise', 'Bir varmış, bir yokmuş…', 1],
+      ['yagmur', 'Yağmur', ['yağmur yağıyordu', 'yagmur yagiyordu', 'yağmur', 'yagmur', 'yağmur yağdı', 'yağmurlu', 'sağanak'], 'it is raining in the story', 'rain', 'Yağmur yağıyordu…', 2],
+      ['gece', 'Gece', ['gece', 'geceydi', 'gece oldu', 'karanlık', 'karanlik', 'gece yarısı', 'ay ışığı'], 'night falls, darkness', 'night', null, 2],
+      ['orman', 'Orman', ['ormanda', 'orman', 'ormanın derinliklerinde', 'ağaçlar', 'agaclar', 'ormana'], 'in the forest, trees', 'forest', null, 2],
+      ['deniz', 'Deniz', ['deniz', 'denizde', 'dalgalar', 'okyanus', 'deniz kenarında', 'sahilde', 'kumsal'], 'at the sea, ocean, beach', 'sea', null, 2],
+      ['ates', 'Ateş başı', ['ateşin başında', 'atesin basinda', 'kamp ateşi', 'şömine', 'somine', 'ateş yaktı', 'alevler'], 'by the fire, fireplace, campfire', 'fire', null, 2],
+      ['saray', 'Saray', ['sarayda', 'saray', 'kralın sarayı', 'kralin sarayi', 'padişah', 'padisah', 'kale', 'sultan'], 'palace, castle, sultan', 'castle', null, 2],
+      ['kar', 'Kar', ['kar yağıyordu', 'kar yagiyordu', 'kar', 'kış', 'kis', 'kar taneleri', 'buz gibi'], 'snow, winter', 'snow', null, 2],
+      ['col', 'Çöl', ['çöl', 'col', 'çölde', 'colde', 'kum', 'kumlar', 'deve'], 'desert, sand, heat', 'desert', null, 2],
+      ['sehir', 'Şehir', ['şehir', 'sehir', 'şehirde', 'sehirde', 'büyük şehir', 'sokaklar', 'kasaba'], 'in the city, streets', 'city', null, 2],
+      ['yildizlar', 'Yıldızlar', ['yıldızlar', 'yildizlar', 'uzay', 'uzayda', 'gökyüzü', 'gokyuzu', 'gezegen', 'roket'], 'stars, outer space', 'space', null, 2],
+      ['sabah', 'Sabah', ['sabah', 'sabah oldu', 'güneş doğdu', 'gunes dogdu', 'sabahleyin', 'gün doğdu', 'şafak'], 'morning, sunrise, a new day', 'sunrise', null, 2],
+      ['firtina', 'Fırtına', ['fırtına', 'firtina', 'gök gürledi', 'gok gurledi', 'şimşek', 'simsek', 'yıldırım', 'fırtına çıktı'], 'storm, thunder, lightning', 'storm', null, 3],
+      ['son', 'Son', ['son', 'masal bitti', 'masal sona erdi', 'ermiş muradına', 'gökten üç elma düştü'], 'the end of the story', 'clear', 'SON', 1, 'tada'],
+    ].map(sceneRow),
+    ...[
+      ['ejderha', 'Ejderha', ['ejderha', 'ejderhalar', 'ejder', 'dev ejderha'], 'a dragon appears', 'dramatic', '🐉🔥', 'Ejderha!'],
+      ['prenses', 'Prenses', ['prenses', 'prens', 'prensesi', 'güzel prenses'], 'princess or prince', 'bell', '👸✨', 'Prenses'],
+      ['sovalye', 'Şövalye', ['şövalye', 'sovalye', 'kılıç', 'kilic', 'zırh', 'şövalyeler'], 'knight, sword, armour', 'whoosh', '🛡️⚔️', 'Şövalye'],
+      ['hazine', 'Hazine', ['hazine', 'hazineyi', 'altınlar', 'altinlar', 'mücevher', 'hazine sandığı'], 'treasure, gold, jewels', 'coin', '💎💰', 'Hazine!'],
+      ['cadi', 'Cadı', ['cadı', 'cadi', 'kötü cadı', 'büyücü', 'buyucu', 'cadılar'], 'witch or wizard', 'laugh', '🧙🔮', 'Cadı'],
+      ['buyu', 'Büyü', ['büyü', 'buyu', 'sihir', 'sihirli', 'büyülü', 'büyü yaptı'], 'magic, a spell', 'tada', '✨🪄✨', 'Büyü!'],
+      ['gokkusagi', 'Gökkuşağı', ['gökkuşağı', 'gokkusagi', 'gökkuşağı çıktı', 'rengarenk'], 'a rainbow appears', 'bell', '🌈✨', 'Gökkuşağı'],
+      ['asik', 'Âşık', ['aşık oldu', 'asik oldu', 'aşık', 'sevdalandı', 'öptü'], 'falling in love, a kiss', 'bell', '💖💕', 'Âşık oldu'],
+      ['gemi', 'Gemi', ['gemi', 'gemiye', 'yelkenli', 'kayık', 'kayik', 'tekne'], 'a ship or boat', 'whoosh', '⛵🌊', 'Gemi'],
+      ['at', 'At', ['atına', 'atina', 'atıyla', 'beyaz at', 'atlar', 'at sırtında'], 'a horse, riding', 'pop', '🐎💨', 'At'],
+      ['kurt', 'Kurt', ['kurt', 'kurtlar', 'kötü kurt', 'kurdu'], 'a wolf, danger', 'dramatic', '🐺🌑', 'Kurt!'],
+      ['kus', 'Kuş', ['kuş', 'kus', 'kuşlar', 'kuslar', 'serçe'], 'a bird', 'pop', '🐦🪶', 'Kuş'],
+      ['dev', 'Dev', ['dev', 'devler', 'dev geldi', 'koca dev'], 'a giant, troll or ogre', 'boom', '🧌🪨', 'Dev'],
+      ['peri', 'Peri', ['peri', 'peri kızı', 'periler', 'iyi peri'], 'a fairy', 'bell', '🧚✨', 'Peri'],
+      ['kedi', 'Kedi', ['kedi', 'kediler', 'kedicik', 'miyav'], 'a cat', 'pop', '🐱🐾', 'Kedi'],
+      ['kopek', 'Köpek', ['köpek', 'kopek', 'köpekler', 'hav hav'], 'a dog', 'pop', '🐕🐾', 'Köpek'],
+    ].map(stickerRow),
+  ];
+
+  // English – fairy tales / reading aloud
+  const STORY_EN = [
+    ...[
+      ['onceupon', 'Once upon a time', ['once upon a time', 'once upon', 'long ago', 'long long ago'], 'story opening, once upon a time', 'sunrise', 'Once upon a time…', 1],
+      ['rain', 'Rain', ['it was raining', 'it rained', 'rain', 'raining', 'the rain', 'rainy', 'pouring rain'], 'it is raining in the story', 'rain', 'It was raining…', 2],
+      ['night', 'Night', ['at night', 'that night', 'night', 'dark', 'darkness', 'midnight', 'pitch black', 'the moon'], 'night falls, darkness', 'night', null, 2],
+      ['forest', 'Forest', ['in the forest', 'forest', 'the woods', 'dark forest', 'into the woods', 'trees', 'the forest'], 'in the forest, trees', 'forest', null, 2],
+      ['sea', 'Sea', ['the sea', 'at sea', 'ocean', 'the ocean', 'waves', 'the beach', 'the shore', 'on the beach'], 'at the sea, ocean, beach', 'sea', null, 2],
+      ['fire', 'Fireplace', ['by the fire', 'campfire', 'fireplace', 'the fire crackled', 'flames', 'bonfire'], 'by the fire, fireplace, campfire', 'fire', null, 2],
+      ['castle', 'Castle', ['castle', 'the castle', 'the king', 'king', 'kingdom', 'the palace', 'palace', 'tower'], 'castle, king, kingdom', 'castle', null, 2],
+      ['snow', 'Snow', ['snow', 'it snowed', 'snowing', 'winter', 'snowflakes', 'the snow', 'frozen'], 'snow, winter', 'snow', null, 2],
+      ['desert', 'Desert', ['desert', 'the desert', 'sand', 'dunes', 'sand dunes', 'oasis'], 'desert, sand, heat', 'desert', null, 2],
+      ['city', 'City', ['the city', 'city', 'big city', 'streets', 'downtown', 'the town', 'town'], 'in the city, streets', 'city', null, 2],
+      ['space', 'Space', ['stars', 'the stars', 'outer space', 'space', 'galaxy', 'rocket', 'planet', 'planets'], 'stars, outer space', 'space', null, 2],
+      ['morning', 'Morning', ['in the morning', 'sunrise', 'morning', 'the sun rose', 'next morning', 'dawn', 'at dawn'], 'morning, sunrise, a new day', 'sunrise', null, 2],
+      ['storm', 'Storm', ['storm', 'thunder', 'lightning', 'thunderstorm', 'the storm', 'thunder and lightning'], 'storm, thunder, lightning', 'storm', null, 3],
+      ['theend', 'The end', ['the end', 'lived happily', 'and they lived happily', 'end of story'], 'the end of the story', 'clear', 'THE END', 1, 'tada'],
+    ].map(sceneRow),
+    ...[
+      ['dragon', 'Dragon', ['dragon', 'the dragon', 'dragons', 'a dragon'], 'a dragon appears', 'dramatic', '🐉🔥', 'The dragon!'],
+      ['princess', 'Princess', ['princess', 'the princess', 'prince', 'the prince'], 'princess or prince', 'bell', '👸✨', 'The princess'],
+      ['knight', 'Knight', ['knight', 'the knight', 'sword', 'armor', 'armour', 'knights'], 'knight, sword, armour', 'whoosh', '🛡️⚔️', 'The knight'],
+      ['treasure', 'Treasure', ['treasure', 'the treasure', 'gold coins', 'jewels', 'treasure chest', 'gems'], 'treasure, gold, jewels', 'coin', '💎💰', 'Treasure!'],
+      ['witch', 'Witch', ['witch', 'the witch', 'wizard', 'the wizard', 'sorcerer', 'wicked witch'], 'witch or wizard', 'laugh', '🧙🔮', 'The witch'],
+      ['magic', 'Magic', ['magic', 'magic spell', 'spell', 'magical', 'enchanted', 'wand'], 'magic, a spell', 'tada', '✨🪄✨', 'Magic!'],
+      ['heart', 'In love', ['fell in love', 'in love', 'kissed', 'true love', 'a kiss'], 'falling in love, a kiss', 'bell', '💖💕', 'In love'],
+      ['ship', 'Ship', ['ship', 'the ship', 'sailboat', 'boat', 'the boat', 'sailing'], 'a ship or boat', 'whoosh', '⛵🌊', 'The ship'],
+      ['horse', 'Horse', ['horse', 'the horse', 'horses', 'galloped', 'pony'], 'a horse, riding', 'pop', '🐎💨', 'The horse'],
+      ['wolf', 'Wolf', ['wolf', 'the wolf', 'big bad wolf', 'wolves'], 'a wolf, danger', 'dramatic', '🐺🌑', 'The wolf!'],
+      ['fairy', 'Fairy', ['fairy', 'the fairy', 'fairies', 'fairy godmother', 'elf'], 'a fairy or elf', 'bell', '🧚✨', 'The fairy'],
+      ['giant', 'Giant', ['giant', 'the giant', 'troll', 'ogre', 'the troll'], 'a giant, troll or ogre', 'boom', '🧌🪨', 'The giant'],
+      ['dog', 'Dog', ['dog', 'the dog', 'puppy', 'dogs', 'barked'], 'a dog', 'pop', '🐕🐾', 'The dog'],
+      ['cat', 'Cat', ['cat', 'the cat', 'kitten', 'kitty', 'meow'], 'a cat', 'pop', '🐱🐾', 'The cat'],
+      ['rainbow', 'Rainbow', ['rainbow', 'a rainbow', 'the rainbow', 'rainbows'], 'a rainbow appears', 'bell', '🌈✨', 'Rainbow'],
+    ].map(stickerRow),
+  ];
+
   const packs = {
     tr: {
       id: 'tr',
@@ -190,18 +338,49 @@
       description: 'English internet slang: no cap, sheesh, big W, rizz, GOAT, poggers, F in the chat …',
       triggers: EN.map((r) => row('en', r)),
     },
+    'story-de': {
+      id: 'story-de',
+      label: '📖 Geschichten (DE)',
+      flag: '📖',
+      story: true,
+      description: 'Vorlesen: „es regnete“, „in der nacht“, „im wald“, „der drache“ … werden zu Szenen mit Atmosphäre.',
+      triggers: STORY_DE.map((r) => row('story-de', r)),
+    },
+    'story-tr': {
+      id: 'story-tr',
+      label: '📖 Masal (TR)',
+      flag: '📖',
+      story: true,
+      description: 'Masal okuma: „bir varmış bir yokmuş“, „yağmur yağıyordu“, „ormanda“, „ejderha“ … sahne olur.',
+      triggers: STORY_TR.map((r) => row('story-tr', r)),
+    },
+    'story-en': {
+      id: 'story-en',
+      label: '📖 Story (EN)',
+      flag: '📖',
+      story: true,
+      description: 'Reading aloud: "once upon a time", "it was raining", "in the forest", "the dragon" … become scenes.',
+      triggers: STORY_EN.map((r) => row('story-en', r)),
+    },
   };
 
   function clone(o) {
     return JSON.parse(JSON.stringify(o));
   }
 
-  /** Overview for the panel: [{id, label, flag, count, description}]. */
+  /** Overview for the panel: [{id, label, flag, count, description, story}]. */
   function list() {
     return Object.keys(packs).map((id) => {
       const p = packs[id];
-      return { id: p.id, label: p.label, flag: p.flag, count: p.triggers.length, description: p.description };
+      return { id: p.id, label: p.label, flag: p.flag, count: p.triggers.length, description: p.description, story: p.story === true };
     });
+  }
+
+  /** Story pack id for a BCP-47 language tag ("tr-TR" -> "story-tr"); unknown families fall back to German. */
+  function storyPackFor(lang) {
+    const family = String(lang || '').toLowerCase().split(/[-_]/)[0];
+    const id = `story-${family}`;
+    return Object.prototype.hasOwnProperty.call(packs, id) ? id : 'story-de';
   }
 
   /** Deep copies of a pack's triggers; unknown pack -> []. */
@@ -210,5 +389,5 @@
     return p ? clone(p.triggers) : [];
   }
 
-  global.LiveFXPacks = { packs, list, get };
+  global.LiveFXPacks = { packs, list, get, storyPackFor, SCENE_INFO, SCENE_IDS };
 })(typeof window !== 'undefined' ? window : globalThis);
