@@ -7,6 +7,8 @@
 //              stall watchdog (`stallMs` without any result while listening -> kill + respawn).
 //   external   Anything that can POST /api/transcript (Whisper, a phone app, …). The server relays
 //              the text to every panel over the bus; this backend just subscribes to it.
+//   whisper    Offline, experimental: mic -> 16 kHz PCM -> energy VAD -> js/whisper-worker.js
+//              (transformers.js from /vendor, ONNX model from /models – see docs/OFFLINE.md).
 //
 //   const asr = LiveFXASR.create('webspeech', { lang, bus, onText, onState, onError,
 //                                               alternatives, restartEveryMs, stallMs, voiceActivity, onEvent });
@@ -515,10 +517,441 @@
     }
   }
 
+  // ---------------------------------------------------------------- whisper (offline, experimental)
+  // Mic -> AudioContext -> ScriptProcessor (AudioWorklet fallback) -> 16 kHz mono Float32 -> energy VAD
+  // -> chunks to js/whisper-worker.js (transformers.js, vendored under /vendor, models under /models).
+  const WHISPER_DEFAULT_MODEL = 'onnx-community/whisper-tiny';
+  const WHISPER_WORKER_URL = 'js/whisper-worker.js';
+  const WHISPER_VENDOR_URL = '/vendor/transformers.min.js';
+  const WHISPER_MODEL_BASE = '/models/';
+  const WHISPER_RATE = 16000; // sample rate the model expects
+  const WHISPER_FRAME = 4096; // ScriptProcessor buffer size
+  const VAD_THRESHOLD = 0.01; // RMS above this = speech
+  const VAD_HANGOVER_MS = 600; // trailing silence kept before a chunk is cut
+  const VAD_MAX_CHUNK_S = 6; // cut while still speaking
+  const VAD_MIN_CHUNK_S = 0.4; // shorter chunks are dropped (clicks, breaths)
+  const WHISPER_MAX_PENDING = 3; // chunks in flight before we drop new ones (worker too slow)
+
+  let whisperProbe = null; // last result of probeWhisper(): null = never checked, true/false
+  let whisperProbing = null; // in-flight probe promise
+
+  function isHttp() {
+    return !!(global.location && /^https?:/.test(global.location.protocol));
+  }
+
+  function isSecureOrLocal() {
+    if (global.isSecureContext === true) return true;
+    const h = global.location && global.location.hostname;
+    return h === 'localhost' || h === '127.0.0.1' || h === '[::1]';
+  }
+
+  function hasWorker() {
+    return typeof global.Worker === 'function';
+  }
+
+  /** HEAD /vendor/transformers.min.js -> 200 means `npm run setup-offline` was run. Cached; false under file://. */
+  function probeWhisper() {
+    if (!isHttp() || typeof global.fetch !== 'function') {
+      whisperProbe = false;
+      return Promise.resolve(false);
+    }
+    if (whisperProbing) return whisperProbing;
+    whisperProbing = global
+      .fetch(WHISPER_VENDOR_URL, { method: 'HEAD', cache: 'no-store' })
+      .then((r) => !!(r && r.ok))
+      .catch(() => false)
+      .then((ok) => {
+        whisperProbe = ok;
+        whisperProbing = null;
+        return ok;
+      });
+    return whisperProbing;
+  }
+
+  function whisperSupported() {
+    if (!hasWorker() || !isHttp() || !isSecureOrLocal()) return false;
+    if (whisperProbe === null) probeWhisper(); // async; the next read of `backends` reflects it
+    return whisperProbe === true;
+  }
+
+  /** 'de-DE' -> 'de' (Whisper wants ISO-639-1 codes). */
+  function whisperLang(tag) {
+    const m = String(tag || '').toLowerCase().match(/^[a-z]{2,3}/);
+    return m ? m[0] : 'de';
+  }
+
+  function rms(frame) {
+    let sum = 0;
+    for (let i = 0; i < frame.length; i++) sum += frame[i] * frame[i];
+    return frame.length ? Math.sqrt(sum / frame.length) : 0;
+  }
+
+  class Whisper extends Base {
+    constructor(opts) {
+      super('whisper', opts);
+      this._model = typeof opts.model === 'string' && opts.model ? opts.model : WHISPER_DEFAULT_MODEL;
+      this._device = opts.device || null;
+      this._workerFactory = typeof opts.workerFactory === 'function' ? opts.workerFactory : null;
+      this._mediaFactory = typeof opts.mediaFactory === 'function' ? opts.mediaFactory : null;
+      this._active = false;
+      this._gen = 0; // start() generation; async steps of an older generation are ignored
+      this._ready = false; // worker reported `ready`
+      this._worker = null;
+      this._stream = null;
+      this._ctx = null;
+      this._source = null;
+      this._node = null;
+      this._pending = 0; // chunks sent, results not yet received
+      this._resetVad();
+      if (!this._hasWorker()) this._state = 'unsupported';
+    }
+
+    _hasWorker() {
+      return !!this._workerFactory || hasWorker();
+    }
+
+    _resetVad() {
+      this._carry = null; // input samples not yet resampled (fractional frame rest)
+      this._parts = []; // Float32Array pieces of the current chunk (16 kHz)
+      this._len = 0; // samples in `_parts`
+      this._speaking = false;
+      this._silence = 0; // trailing silent samples in the current chunk
+    }
+
+    get options() {
+      return { model: this._model };
+    }
+
+    /** Async: resolves when the mic and the worker are wired up (the model may still be loading). */
+    start() {
+      if (!this._hasWorker()) {
+        this._setState('unsupported');
+        this._error('unsupported', 'Offline-Erkennung braucht Web Worker (Chrome, Edge, Firefox, Safari).', true);
+        return Promise.resolve(false);
+      }
+      if (this._active) return Promise.resolve(true);
+      this._active = true;
+      this._ready = false;
+      this._pending = 0;
+      const gen = ++this._gen;
+      this._stats = Object.assign(makeStats(), { chunks: 0 });
+      this._stats.startedAt = now();
+      this._resetVad();
+      this._setState('starting');
+      try {
+        this._spawnWorker();
+      } catch (e) {
+        return Promise.resolve(this._fatal(`Whisper-Worker konnte nicht starten: ${e && e.message ? e.message : e}`));
+      }
+      return this._openMic(gen).then(
+        () => this._active && gen === this._gen,
+        (e) => {
+          if (gen !== this._gen) return false;
+          const msg = e && e.message ? e.message : String(e);
+          return this._fatal(/NotAllowed|Permission|denied|verweigert/i.test(msg) ? 'Mikrofon-Zugriff verweigert.' : `Mikrofon nicht verfügbar: ${msg}`);
+        },
+      );
+    }
+
+    stop() {
+      this._gen++;
+      this._shutdown();
+      if (this._state !== 'unsupported') this._setState('idle');
+    }
+
+    setLang(lang) {
+      // Sent with the next chunk; no restart needed (the model is multilingual).
+      if (lang) this._lang = lang;
+    }
+
+    _fatal(message) {
+      this._error('whisper', message, true);
+      this._shutdown();
+      this._setState('error');
+      return false;
+    }
+
+    _shutdown() {
+      this._active = false;
+      this._ready = false;
+      const w = this._worker;
+      this._worker = null;
+      if (w) {
+        try {
+          w.terminate();
+        } catch (_) {
+          /* ignore */
+        }
+      }
+      this._closeMic();
+      this._resetVad();
+    }
+
+    _closeMic() {
+      const { _node: node, _source: source, _ctx: ctx, _stream: stream } = this;
+      this._node = null;
+      this._source = null;
+      this._ctx = null;
+      this._stream = null;
+      if (node) {
+        try {
+          node.onaudioprocess = null;
+          if (node.port) node.port.onmessage = null;
+          node.disconnect();
+        } catch (_) {
+          /* ignore */
+        }
+      }
+      if (source) {
+        try {
+          source.disconnect();
+        } catch (_) {
+          /* ignore */
+        }
+      }
+      if (stream && typeof stream.getTracks === 'function') {
+        for (const t of stream.getTracks()) {
+          try {
+            t.stop();
+          } catch (_) {
+            /* ignore */
+          }
+        }
+      }
+      if (ctx && typeof ctx.close === 'function') {
+        try {
+          const p = ctx.close();
+          if (p && typeof p.catch === 'function') p.catch(() => {});
+        } catch (_) {
+          /* ignore */
+        }
+      }
+    }
+
+    // ---- worker --------------------------------------------------------------------------
+    _spawnWorker() {
+      const worker = this._workerFactory ? this._workerFactory() : new global.Worker(WHISPER_WORKER_URL);
+      if (!worker || typeof worker.postMessage !== 'function') throw new Error('workerFactory lieferte keinen Worker');
+      this._worker = worker;
+      worker.onmessage = (ev) => {
+        if (worker !== this._worker) return;
+        this._onWorkerMessage(ev && ev.data ? ev.data : {});
+      };
+      worker.onerror = (ev) => {
+        if (worker !== this._worker) return;
+        const msg = ev && ev.message ? ev.message : 'Worker-Fehler';
+        this._fatal(`Whisper-Worker: ${msg}`);
+      };
+      const load = { type: 'load', model: this._model, modelBase: WHISPER_MODEL_BASE, vendorUrl: WHISPER_VENDOR_URL };
+      if (this._device) load.device = this._device;
+      worker.postMessage(load);
+    }
+
+    _onWorkerMessage(m) {
+      switch (m.type) {
+        case 'progress': {
+          const pct = Math.max(0, Math.min(100, Math.round(Number(m.pct) || 0)));
+          this._setState('starting');
+          this._event('progress', m.file ? { pct, file: String(m.file) } : { pct });
+          return;
+        }
+        case 'ready':
+          this._ready = true;
+          this._event('ready', { model: this._model });
+          this._setState('listening');
+          return;
+        case 'result': {
+          if (this._pending > 0) this._pending--;
+          const text = typeof m.text === 'string' ? m.text.replace(/\s+/g, ' ').trim() : '';
+          if (!text) return;
+          const at = now();
+          this._countResult(true, at);
+          this._event('final', { text, isFinal: true });
+          safe(this._onText, text, true, { source: 'Whisper', lang: this._lang, at });
+          return;
+        }
+        case 'error':
+          this._fatal(m.message ? String(m.message) : 'Whisper-Fehler');
+          return;
+        default:
+      }
+    }
+
+    // ---- microphone ----------------------------------------------------------------------
+    async _openMic(gen) {
+      const AC = global.AudioContext || global.webkitAudioContext || null;
+      const md = global.navigator && global.navigator.mediaDevices;
+      if (!this._mediaFactory && (!md || typeof md.getUserMedia !== 'function')) throw new Error('getUserMedia nicht verfügbar');
+      if (!AC) throw new Error('WebAudio nicht verfügbar');
+      const stream = await (this._mediaFactory ? this._mediaFactory() : md.getUserMedia({ audio: true }));
+      if (gen !== this._gen || !this._active) {
+        // stop() while the permission prompt was open
+        if (stream && typeof stream.getTracks === 'function') stream.getTracks().forEach((t) => t.stop());
+        return;
+      }
+      this._stream = stream;
+      const ctx = new AC();
+      this._ctx = ctx;
+      if (ctx.state === 'suspended' && typeof ctx.resume === 'function') {
+        try {
+          const p = ctx.resume();
+          if (p && typeof p.catch === 'function') p.catch(() => {});
+        } catch (_) {
+          /* ignore */
+        }
+      }
+      const source = ctx.createMediaStreamSource(stream);
+      this._source = source;
+      if (typeof ctx.createScriptProcessor === 'function') {
+        const node = ctx.createScriptProcessor(WHISPER_FRAME, 1, 1);
+        node.onaudioprocess = (ev) => {
+          if (gen !== this._gen) return;
+          const buf = ev && ev.inputBuffer;
+          if (!buf || typeof buf.getChannelData !== 'function') return;
+          this._onFrame(buf.getChannelData(0), ctx.sampleRate);
+        };
+        source.connect(node);
+        node.connect(ctx.destination); // Chrome only pulls a ScriptProcessor that is connected
+        this._node = node;
+      } else if (ctx.audioWorklet && typeof ctx.audioWorklet.addModule === 'function' && typeof global.AudioWorkletNode === 'function') {
+        await this._openWorklet(ctx, source, gen);
+      } else {
+        throw new Error('ScriptProcessor/AudioWorklet nicht verfügbar');
+      }
+    }
+
+    /** AudioWorklet fallback: a tiny inline processor forwards every 128-sample render quantum. */
+    async _openWorklet(ctx, source, gen) {
+      const src = `class P extends AudioWorkletProcessor{process(i){const c=i[0]&&i[0][0];if(c)this.port.postMessage(c.slice());return true}}registerProcessor('livefx-pcm',P);`;
+      const url = URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+      try {
+        await ctx.audioWorklet.addModule(url);
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+      if (gen !== this._gen) return;
+      const node = new global.AudioWorkletNode(ctx, 'livefx-pcm');
+      node.port.onmessage = (ev) => {
+        if (gen !== this._gen) return;
+        if (ev && ev.data && ev.data.length) this._onFrame(ev.data, ctx.sampleRate);
+      };
+      source.connect(node);
+      this._node = node;
+    }
+
+    // ---- resampling + VAD ----------------------------------------------------------------
+    /** One input frame at `rate` Hz -> 16 kHz (box-filter decimation) -> VAD. */
+    _onFrame(frame, rate) {
+      if (!this._ready || !this._active) return; // nothing to do while the model loads
+      let input = frame;
+      if (this._carry && this._carry.length) {
+        input = new Float32Array(this._carry.length + frame.length);
+        input.set(this._carry, 0);
+        input.set(frame, this._carry.length);
+        this._carry = null;
+      }
+      let out;
+      const ratio = (Number(rate) || WHISPER_RATE) / WHISPER_RATE;
+      if (ratio <= 1) {
+        out = input instanceof Float32Array ? input : Float32Array.from(input);
+      } else {
+        const n = Math.floor(input.length / ratio);
+        out = new Float32Array(n);
+        for (let k = 0; k < n; k++) {
+          const a = Math.floor(k * ratio);
+          const b = Math.min(input.length, Math.floor((k + 1) * ratio));
+          let sum = 0;
+          for (let i = a; i < b; i++) sum += input[i];
+          out[k] = b > a ? sum / (b - a) : 0;
+        }
+        const used = Math.floor(n * ratio);
+        if (used < input.length) this._carry = input.slice(used);
+      }
+      if (out.length) this._vad(out);
+    }
+
+    _vad(frame) {
+      const loud = rms(frame) > VAD_THRESHOLD;
+      if (!this._speaking) {
+        if (!loud) return;
+        this._speaking = true;
+        this._silence = 0;
+      }
+      this._parts.push(frame);
+      this._len += frame.length;
+      if (loud) this._silence = 0;
+      else this._silence += frame.length;
+      const hangover = (VAD_HANGOVER_MS / 1000) * WHISPER_RATE;
+      if (this._silence >= hangover) {
+        // Trim the silence past the hangover so the chunk ends ~600 ms after the last word.
+        this._flush(this._len - (this._silence - hangover), this._len - this._silence);
+        this._resetChunk();
+        return;
+      }
+      const max = VAD_MAX_CHUNK_S * WHISPER_RATE;
+      if (this._len >= max) {
+        // Still speaking: cut at exactly 6 s and carry the rest into the next chunk.
+        const rest = this._flush(max, max);
+        this._resetChunk();
+        this._speaking = true;
+        if (rest && rest.length) {
+          this._parts.push(rest);
+          this._len = rest.length;
+          this._silence = Math.min(this._silence, rest.length);
+        }
+      }
+    }
+
+    _resetChunk() {
+      this._parts = [];
+      this._len = 0;
+      this._speaking = false;
+      this._silence = 0;
+    }
+
+    /**
+     * Joins the first `count` buffered samples into one chunk and sends it (unless the speech part
+     * `speech` is shorter than the minimum); returns the leftover samples.
+     */
+    _flush(count, speech) {
+      const total = this._len;
+      count = Math.max(0, Math.min(total, Math.floor(count)));
+      const all = new Float32Array(total);
+      let off = 0;
+      for (const p of this._parts) {
+        all.set(p, off);
+        off += p.length;
+      }
+      const rest = count < total ? all.slice(count) : null;
+      const audio = count < total ? all.slice(0, count) : all;
+      if (speech >= VAD_MIN_CHUNK_S * WHISPER_RATE) this._send(audio);
+      return rest;
+    }
+
+    _send(audio) {
+      const w = this._worker;
+      if (!w || !this._ready) return;
+      if (this._pending >= WHISPER_MAX_PENDING) {
+        this._event('dropped', { seconds: audio.length / WHISPER_RATE, pending: this._pending });
+        return;
+      }
+      this._stats.chunks++;
+      this._pending++;
+      const lang = whisperLang(this._lang);
+      this._event('chunk', { seconds: audio.length / WHISPER_RATE, lang });
+      try {
+        w.postMessage({ type: 'transcribe', audio, lang }, [audio.buffer]);
+      } catch (_) {
+        w.postMessage({ type: 'transcribe', audio, lang }); // environments without transferables
+      }
+    }
+  }
+
   // ---------------------------------------------------------------- public API
   const BACKENDS = {
     webspeech: { label: 'Browser (Chrome/Edge)', supported: () => !!speechCtor(), make: (o) => new WebSpeech(o) },
     external: { label: 'Extern (POST /api/transcript)', supported: (o) => External.supported(o && o.bus), make: (o) => new External(o) },
+    whisper: { label: 'Offline (Whisper, experimentell)', supported: () => whisperSupported(), make: (o) => new Whisper(o) },
   };
 
   function create(name, opts = {}) {
@@ -538,8 +971,12 @@
       return [
         { name: 'webspeech', label: BACKENDS.webspeech.label, supported: BACKENDS.webspeech.supported() },
         { name: 'external', label: BACKENDS.external.label, supported: isHttp },
+        { name: 'whisper', label: BACKENDS.whisper.label, supported: BACKENDS.whisper.supported() },
       ];
     },
     create,
+    // Offline backend: re-checks whether /vendor/transformers.min.js is served (after `npm run setup-offline`).
+    probeWhisper,
+    WHISPER_DEFAULT_MODEL,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
