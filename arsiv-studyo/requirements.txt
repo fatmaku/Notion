@@ -1,0 +1,9 @@
+# Çekirdek (zorunlu)
+pillow>=10.1
+numpy>=1.24
+
+# İsteğe bağlı — ihtiyaca göre açın:
+# pillow-heif>=0.16      # iPhone HEIC fotoğrafları (macOS'ta yoksa 'sips' ile de dönüştürülür)
+# osxphotos>=0.68        # macOS Fotoğraflar / iCloud Fotoğraflar kütüphanesi (albüm, kişi, etiket, estetik puan)
+# imageio-ffmpeg>=0.5    # ffmpeg kurulu değilse statik ffmpeg indirir (brew install ffmpeg tercih edilir)
+# anthropic>=1.0         # Açıklama/hashtag metnini Claude ile yazmak için (ANTHROPIC_API_KEY gerekir)

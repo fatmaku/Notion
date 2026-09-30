@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arşiv Stüdyo</title>
+<style>
+:root{--bg:#0f1420;--panel:#171e2e;--panel2:#1f2840;--line:#2b3650;--text:#e8ecf4;--muted:#9aa5bd;--accent:#ffd166;--ok:#4ade80;--warn:#f87171;--blue:#60a5fa}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--blue)}button{cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:7px 12px;border-radius:8px;font:inherit}
+button.primary{background:var(--accent);color:#111;border-color:var(--accent);font-weight:600}button.small{padding:3px 8px;font-size:13px}button:disabled{opacity:.5;cursor:default}
+input,select,textarea{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit}
+input[type=checkbox]{width:auto}textarea{width:100%;min-height:90px}
+header{display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5;flex-wrap:wrap}
+header h1{font-size:18px;margin:0;color:var(--accent)}nav{display:flex;gap:4px;flex-wrap:wrap}
+nav button{background:transparent;border-color:transparent;color:var(--muted)}nav button.active{background:var(--panel2);color:var(--text);border-color:var(--line)}
+main{padding:16px 18px 110px;max-width:1500px;margin:0 auto}section{display:none}section.active{display:block}
+h2{font-size:17px;margin:18px 0 10px}h3{font-size:15px;margin:14px 0 8px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}.stat b{display:block;font-size:24px}.stat span{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;position:relative;cursor:pointer}
+.card.sel{outline:3px solid var(--accent)}.card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#0a0e18}
+.card .meta{padding:7px 9px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.card .meta b{color:var(--text)}.badge{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.65);padding:2px 7px;border-radius:6px;font-size:11px}
+.badge.r{left:auto;right:6px;background:var(--accent);color:#111;font-weight:700}.badge.p{top:auto;bottom:38px;background:var(--ok);color:#111;font-weight:600}
+.card .chk{position:absolute;top:34px;left:6px;width:22px;height:22px;border-radius:6px;background:rgba(0,0,0,.6);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:14px}
+.card.sel .chk{background:var(--accent);color:#111;border-color:var(--accent)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0 12px}.bar input,.bar select{min-width:90px}.bar input[type=checkbox]{min-width:0;margin:0 4px 0 0}.bar label{white-space:nowrap}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.form label{display:block;font-size:13px;color:var(--muted);margin:8px 0 3px}.form input,.form select{width:100%}.form .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.list{display:flex;flex-direction:column;gap:8px}.item{display:flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px}
+.item img{width:56px;height:74px;object-fit:cover;border-radius:6px;background:#0a0e18}.item .t{flex:1;min-width:0}.item .t small{color:var(--muted);display:block}
+.item input{width:70px}.muted{color:var(--muted)}.ok{color:var(--ok)}.warn{color:var(--warn)}
+#tray{position:fixed;bottom:0;left:0;right:0;background:var(--panel2);border-top:1px solid var(--line);padding:10px 18px;display:none;gap:10px;align-items:center;z-index:6;flex-wrap:wrap}
+#tray.on{display:flex}pre.log{background:#0a0e18;border:1px solid var(--line);border-radius:8px;padding:10px;max-height:220px;overflow:auto;font-size:12px;white-space:pre-wrap}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600}
+dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:14px;max-width:900px;width:92vw;padding:0}dialog::backdrop{background:rgba(0,0,0,.7)}
+.dbody{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:16px}@media(max-width:800px){.dbody{grid-template-columns:1fr}}
+.dbody video,.dbody img.big{width:100%;max-height:70vh;object-fit:contain;background:#000;border-radius:10px}
+.pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:12px;margin:2px 3px 2px 0}
+.render{display:grid;grid-template-columns:120px 1fr;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px}
+.render img{width:120px;border-radius:8px;background:#000}.render video{width:100%;max-height:360px;background:#000;border-radius:8px}
+.idea{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}.idea b{display:block;margin-bottom:4px}
+.toast{position:fixed;top:60px;right:18px;background:var(--panel2);border:1px solid var(--accent);padding:10px 14px;border-radius:10px;z-index:9}
+.empty{color:var(--muted);padding:20px;text-align:center;border:1px dashed var(--line);border-radius:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎞 Arşiv Stüdyo</h1>
+  <nav id="nav">
+    <button data-tab="panel" class="active">Panel</button><button data-tab="kutuphane">Kütüphane</button><button data-tab="adaylar">Adaylar</button>
+    <button data-tab="paylasilanlar">Paylaşılanlar</button><button data-tab="studyo">Stüdyo</button><button data-tab="hatirlaticilar">Hatırlatıcılar</button>
+    <button data-tab="pazarlama">Pazarlama</button><button data-tab="iceaktar">İçe aktar</button>
+  </nav>
+  <span id="hdrstat" class="muted" style="margin-left:auto;font-size:13px"></span>
+</header>
+<main>
+<!-- PANEL -->
+<section id="panel" class="active">
+  <div class="cards" id="stats"></div>
+  <h2>Bugün geçen yıl</h2><div class="grid" id="otd"></div>
+  <h2>İçerik fikirleri</h2><div class="cards" id="ideas" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))"></div>
+  <h2>Yaklaşan hatırlatıcılar</h2><div class="list" id="panel-rem"></div>
+</section>
+<!-- KÜTÜPHANE -->
+<section id="kutuphane">
+  <div class="bar">
+    <input id="f-q" placeholder="ara: albüm, kişi, etiket, yıl…" style="min-width:220px">
+    <select id="f-kind"><option value="">foto+video</option><option value="video">video</option><option value="foto">foto</option></select>
+    <select id="f-orient"><option value="">her yön</option><option value="dikey">dikey</option><option value="yatay">yatay</option><option value="kare">kare</option></select>
+    <select id="f-year"><option value="">tüm yıllar</option></select>
+    <input id="f-mindur" type="number" placeholder="min sn" style="width:80px"><input id="f-maxdur" type="number" placeholder="max sn" style="width:80px">
+    <select id="f-posted"><option value="">paylaşım: hepsi</option><option value="0">paylaşılmamış</option><option value="1">paylaşılmış</option></select>
+    <select id="f-sort"><option value="score">puana göre</option><option value="date">yeni→eski</option><option value="date_asc">eski→yeni</option><option value="duration">süreye göre</option><option value="random">rastgele</option></select>
+    <label><input type="checkbox" id="f-fav"> favori</label><label><input type="checkbox" id="f-avail"> yerelde olan</label>
+    <input id="f-minscore" type="number" placeholder="min puan" style="width:90px">
+    <button class="primary" onclick="loadItems(0)">Ara</button><button onclick="selectAllVisible()">Görünenleri seç</button>
+  </div>
+  <div id="lib-info" class="muted" style="margin-bottom:8px"></div>
+  <div class="grid" id="lib"></div>
+  <div class="row" style="margin-top:12px"><button onclick="pageLib(-1)">‹ Önceki</button><span id="lib-page" class="muted"></span><button onclick="pageLib(1)">Sonraki ›</button></div>
+</section>
+<!-- ADAYLAR -->
+<section id="adaylar">
+  <div class="bar"><span class="muted">Henüz paylaşılmamış, puanı en yüksek öğeler.</span>
+    <select id="c-kind"><option value="">foto+video</option><option value="video">video</option><option value="foto">foto</option></select>
+    <input id="c-min" type="number" value="50" style="width:90px"> <button class="primary" onclick="loadCandidates()">Yenile</button>
+    <button onclick="collectSel('adaylar')">Seçilenleri klasörde topla</button></div>
+  <div class="grid" id="cands"></div>
+  <h2>Yeniden paylaşım kuyruğu <span class="muted" style="font-weight:400;font-size:13px">(en az 6 ay önce paylaşılmış, güçlü içerikler)</span></h2>
+  <div class="grid" id="reshare"></div>
+</section>
+<!-- PAYLAŞILANLAR -->
+<section id="paylasilanlar">
+  <div class="bar"><span class="muted">Instagram dışa aktarımından okunan paylaşımlar ve arşivdeki karşılıkları.</span>
+    <select id="p-matched"><option value="">hepsi</option><option value="1">eşleşen</option><option value="0">eşleşmeyen</option></select><button class="primary" onclick="loadPosts()">Yenile</button></div>
+  <div style="overflow:auto"><table id="posts"><thead><tr><th>Tarih</th><th>Tür</th><th>Açıklama</th><th>Eşleşen öğe</th><th>Nasıl</th><th>Performans</th><th></th></tr></thead><tbody></tbody></table></div>
+</section>
+<!-- STÜDYO -->
+<section id="studyo">
+  <div class="cols">
+    <div class="box form">
+      <h2 style="margin-top:0">Brief</h2>
+      <label>Şablon</label><select id="b-sablon"></select><div id="b-sablon-desc" class="muted" style="font-size:13px"></div>
+      <div class="two"><div><label>Format</label><select id="b-format"><option>9:16</option><option>4:5</option><option>1:1</option><option>16:9</option><option>3:4</option></select></div>
+      <div><label>En fazla süre (sn)</label><input id="b-max" type="number" value="60"></div></div>
+      <label>Başlık / alıntı</label><input id="b-baslik" placeholder="Deniz ile bir yaz">
+      <label>Alt başlık / açıklama etiketi / yazar</label><input id="b-alt" placeholder="2019'dan bugüne">
+      <div class="two"><div><label>Harekete çağrı (CTA)</label><input id="b-cta" placeholder="Devamı profilde"></div><div><label>Hesap etiketi</label><input id="b-etiket" placeholder="@hesabim"></div></div>
+      <div class="two"><div><label>Müzik</label><select id="b-muzik"><option value="sakin">sakin (sentez)</option><option value="enerjik">enerjik (sentez)</option><option value="duygusal">duygusal (sentez)</option><option value="yok">yok</option><option value="dosya">kendi dosyam…</option></select><input id="b-muzik-dosya" placeholder="/Users/…/muzik.mp3" style="display:none;margin-top:6px"></div>
+      <div><label>Geçiş</label><select id="b-gecis"><option value="fade">fade</option><option value="rastgele">rastgele</option><option value="smoothleft">smoothleft</option><option value="circleopen">circleopen</option><option value="slideup">slideup</option><option value="dissolve">dissolve</option><option value="zoomin">zoomin</option><option value="fadeblack">fadeblack</option><option value="wipeleft">wipeleft</option></select></div></div>
+      <div class="two"><div><label>Fotoğraf süresi (sn)</label><input id="b-foto" type="number" step="0.5" value="3"></div><div><label>Video kesiti en fazla (sn)</label><input id="b-klip" type="number" step="0.5" value="6"></div></div>
+      <div class="two"><div><label>Sığdırma</label><select id="b-sig"><option value="otomatik">otomatik</option><option value="kirp">kırp (kapla)</option><option value="bulanik">bulanık arka plan</option><option value="sigdir">düz renk</option></select></div>
+      <div><label>Kalite</label><select id="b-kalite"><option value="yuksek">yüksek</option><option value="orta">hızlı ön izleme</option></select></div></div>
+      <div class="two"><div><label>Vurgu rengi</label><input id="b-vurgu" type="color" value="#ffd166"></div><div><label>Arka plan rengi</label><input id="b-renk" type="color" value="#101828"></div></div>
+      <div class="row" style="margin-top:10px"><label><input type="checkbox" id="b-yil" checked> yıl etiketleri</label><label><input type="checkbox" id="b-sabitle"> titreşim giderme (yeniden)</label><label><input type="checkbox" id="b-gurultu"> gürültü azaltma (yeniden)</label></div>
+      <div class="row" style="margin-top:14px"><button class="primary" id="b-uret" onclick="renderNow()">🎬 Üret</button><button onclick="genCaption()">Açıklama öner</button><span id="b-msg" class="muted"></span></div>
+      <pre class="log" id="b-log" style="display:none;margin-top:10px"></pre>
+    </div>
+    <div class="box">
+      <h2 style="margin-top:0">Seçilen öğeler <span class="muted" id="sel-count"></span></h2>
+      <div class="muted" style="font-size:13px;margin-bottom:8px">Sıra videodaki sırayı belirler. Video için başlangıç saniyesi ve süre verebilirsiniz; "yazı" klip etiketidir (varsayılan: yıl).</div>
+      <div class="list" id="sel-list"></div>
+      <div class="row" style="margin-top:10px"><button onclick="clearSel()">Temizle</button><button onclick="go('kutuphane')">+ Kütüphaneden ekle</button></div>
+    </div>
+  </div>
+  <h2>Üretimler</h2><div id="renders"></div>
+</section>
+<!-- HATIRLATICILAR -->
+<section id="hatirlaticilar">
+  <div class="bar"><button class="primary" onclick="planReminders()">Yeniden paylaşım planı oluştur (4 hafta)</button>
+    <a href="/api/reminders.ics" download="hatirlaticilar.ics"><button>Takvime aktar (.ics)</button></a>
+    <select id="r-status"><option value="acik">açık</option><option value="tamam">tamamlanan</option><option value="hepsi">hepsi</option></select><button onclick="loadReminders()">Yenile</button></div>
+  <div class="box form" style="max-width:640px"><h3 style="margin-top:0">Yeni hatırlatıcı</h3>
+    <div class="two"><div><label>Tarih ve saat</label><input id="r-due" type="datetime-local"></div><div><label>Başlık</label><input id="r-title" placeholder="Hikâye paylaş"></div></div>
+    <label>Not</label><input id="r-note"><div class="row" style="margin-top:8px"><button class="primary" onclick="addReminder()">Ekle (seçili öğelerle)</button></div></div>
+  <div class="list" id="rems" style="margin-top:14px"></div>
+  <p class="muted" style="font-size:13px">macOS bildirimi için Terminal'de günlük çalıştırın: <code>python3 -m arsiv hatirlat bildir</code> (README'de launchd örneği var).</p>
+</section>
+<!-- PAZARLAMA -->
+<section id="pazarlama">
+  <div class="cols">
+    <div class="box form"><h2 style="margin-top:0">Açıklama & hashtag</h2>
+      <div class="muted" style="font-size:13px">Seçili öğelerden ve alanlardan üretir. ANTHROPIC_API_KEY tanımlıysa Claude ile yazılır; yoksa kural tabanlı.</div>
+      <label>Başlık</label><input id="m-baslik"><label>Alt başlık</label><input id="m-alt"><div class="two"><div><label>CTA</label><input id="m-cta"></div><div><label>Hesap</label><input id="m-etiket"></div></div>
+      <div class="row" style="margin-top:10px"><button class="primary" onclick="mCaption()">Üret</button><button onclick="copyText('m-out')">Kopyala</button></div>
+      <textarea id="m-out" style="margin-top:10px;min-height:200px"></textarea></div>
+    <div><div class="box"><h2 style="margin-top:0">En iyi paylaşım saatleri</h2><div id="besttimes"></div></div>
+      <div class="box" style="margin-top:14px"><h2 style="margin-top:0">Fikirler</h2><div class="cards" id="ideas2" style="grid-template-columns:1fr"></div></div></div>
+  </div>
+</section>
+<!-- İÇE AKTAR -->
+<section id="iceaktar">
+  <div class="cols">
+    <div class="box form"><h2 style="margin-top:0">1) Fotoğraflar (iCloud Fotoğraflar)</h2>
+      <div class="muted" style="font-size:13px">Mac'teki Fotoğraflar kütüphanesini okur; dosya kopyalamaz. En iyi sonuç için <code>pip install osxphotos</code>. Terminal'e Sistem Ayarları › Gizlilik › Tam Disk Erişimi verin.</div>
+      <label>Kütüphane yolu (boş = varsayılan)</label><input id="i-lib" placeholder="~/Pictures/Photos Library.photoslibrary">
+      <div class="row" style="margin-top:8px"><button class="primary" onclick="job('/api/import/photos',{library:val('i-lib')||null})">İçe aktar</button></div>
+      <h2>2) Klasör tara</h2><div class="muted" style="font-size:13px">iCloud Drive, harici disk, indirilmiş orijinaller… Alt klasörler albüm sayılır. Yeniden çalıştırınca yalnızca değişenler işlenir.</div>
+      <label>Klasör</label><input id="i-folder" placeholder="/Volumes/Arsiv/Videolar">
+      <div class="row" style="margin-top:8px"><button class="primary" onclick="job('/api/scan',{path:val('i-folder')})">Tara</button></div>
+      <h2>3) Instagram dışa aktarımı</h2><div class="muted" style="font-size:13px">Instagram › Ayarlar › Hesap Merkezi › Bilgilerini indir › <b>JSON</b>. Zip'i açıp klasörü verin. Eski paylaşımlar bulunur ve arşivle eşlenir.</div>
+      <label>Klasör</label><input id="i-ig" placeholder="~/Downloads/instagram-kullanici-2026">
+      <div class="row" style="margin-top:8px"><button class="primary" onclick="job('/api/import/instagram',{path:val('i-ig')})">İçe aktar ve eşle</button>
+        <button onclick="job('/api/import/instagram',{path:val('i-ig'),csv:true})">Performans CSV'si (Profesyonel Panel)</button></div>
+    </div>
+    <div class="box"><h2 style="margin-top:0">İşler</h2><div id="jobs"></div></div>
+  </div>
+</section>
+</main>
+<div id="tray"><b id="tray-n"></b><button class="primary" onclick="go('studyo')">🎬 Stüdyo'da aç</button><button onclick="collectSel()">📁 Klasörde topla</button><button onclick="markPostedSel(true)">✓ Paylaşıldı işaretle</button><button onclick="clearSel()">Temizle</button></div>
+<dialog id="detay"></dialog>
+<script>
+const $=s=>document.querySelector(s), val=id=>document.getElementById(id).value.trim();
+const state={tab:'panel',sel:new Map(),page:0,limit:60,total:0,templates:null,sablonlar:{}};
+try{JSON.parse(localStorage.getItem('sel')||'[]').forEach(([k,v])=>state.sel.set(k,v))}catch(e){}
+function saveSel(){try{localStorage.setItem('sel',JSON.stringify([...state.sel.entries()]))}catch(e){}updateTray()}
+async function api(p,opt){const r=await fetch(p,opt?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(opt)}:undefined);const j=await r.json();if(!r.ok||j.hata)throw new Error(j.hata||r.status);return j}
+function toast(m,ms=2500){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),ms)}
+function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function dur(s){s=Math.round(s||0);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`}
+function go(tab){state.tab=tab;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('main section').forEach(s=>s.classList.toggle('active',s.id===tab));
+  ({panel:loadPanel,kutuphane:()=>loadItems(0),adaylar:loadCandidates,paylasilanlar:loadPosts,studyo:loadStudio,hatirlaticilar:loadReminders,pazarlama:loadMarketing,iceaktar:loadJobs})[tab]()}
+$('#nav').addEventListener('click',e=>{if(e.target.dataset.tab)go(e.target.dataset.tab)});
+// ---------- kartlar
+function card(i,extra=''){const sel=state.sel.has(i.id);return `<div class="card ${sel?'sel':''}" data-id="${i.id}">
+ <img loading="lazy" src="/api/thumb/${i.id}" alt=""><span class="badge">${i.kind==='video'?'▶ '+dur(i.duration):'📷'} · ${esc(i.aspect)}</span><span class="badge r">${Math.round(i.social_score)}</span>
+ ${i.posted_at?'<span class="badge p">paylaşıldı</span>':''}<span class="chk" onclick="toggleSel(event,${i.id})">${sel?'✓':''}</span>
+ <div class="meta"><b>${esc((i.created_at||'').slice(0,10))}</b><span title="${esc(i.filename)}">${esc((i.filename||'').slice(0,16))}</span></div>${extra}</div>`}
+function bindGrid(el,items){el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openItem(+c.dataset.id)));el._items=items}
+function toggleSel(ev,id,item){ev&&ev.stopPropagation();if(state.sel.has(id))state.sel.delete(id);else{const it=item||findItem(id);state.sel.set(id,{id,filename:it?.filename,kind:it?.kind,duration:it?.duration,year:it?.year})}
+  document.querySelectorAll(`.card[data-id="${id}"]`).forEach(c=>{c.classList.toggle('sel',state.sel.has(id));c.querySelector('.chk').textContent=state.sel.has(id)?'✓':''});saveSel()}
+function findItem(id){for(const g of document.querySelectorAll('.grid')){const it=(g._items||[]).find(x=>x.id===id);if(it)return it}return null}
+function updateTray(){const n=state.sel.size;$('#tray').classList.toggle('on',n>0);$('#tray-n').textContent=`${n} öğe seçili`;$('#sel-count').textContent=n?`(${n})`:''}
+function clearSel(){state.sel.clear();document.querySelectorAll('.card.sel').forEach(c=>{c.classList.remove('sel');c.querySelector('.chk').textContent=''});saveSel();renderSelList()}
+function selectAllVisible(){($('#lib')._items||[]).forEach(i=>{if(!state.sel.has(i.id))toggleSel(null,i.id,i)})}
+// ---------- panel
+async function loadPanel(){const s=await api('/api/stats');$('#hdrstat').textContent=`${s.toplam} öğe · ${s.video} video · ${s.paylasilan} paylaşılmış`;
+ $('#stats').innerHTML=[['Toplam öğe',s.toplam],['Video',`${s.video} <small class="muted">(${s.video_saat} sa)</small>`],['Fotoğraf',s.foto],['Paylaşılmış',s.paylasilan],['Aday (≥55p)',s.aday],['Favori',s.favori],['Yerelde olmayan',s.yerel_degil],['Açık hatırlatıcı',s.hatirlatici_acik],['Üretim',s.uretim],['Boyut',`${s.boyut_gb} GB`]].map(([k,v])=>`<div class="stat"><b>${v}</b><span>${k}</span></div>`).join('');
+ const y=$('#f-year');if(y.options.length<=1)s.yillar.forEach(r=>y.insertAdjacentHTML('beforeend',`<option value="${r.year}">${r.year} (${r.n})</option>`));
+ const otd=await api('/api/onthisday');$('#otd').innerHTML=otd.length?otd.map(i=>card(i)).join(''):'<div class="empty">Bugün için geçmiş yıllardan öğe yok.</div>';bindGrid($('#otd'),otd);
+ const ideas=await api('/api/ideas');const html=ideas.map(i=>`<div class="idea"><b>${esc(i.baslik)}</b><span class="muted">${esc(i.aciklama)}</span><div class="row" style="margin-top:8px"><button class="small primary" onclick='useIdea(${JSON.stringify(i)})'>Stüdyo'da aç</button></div></div>`).join('')||'<div class="empty">Arşiv taranınca fikirler burada görünür.</div>';$('#ideas').innerHTML=html;$('#ideas2').innerHTML=html;
+ const rem=await api('/api/reminders?status=acik');$('#panel-rem').innerHTML=rem.slice(0,6).map(remRow).join('')||'<div class="empty">Açık hatırlatıcı yok. Hatırlatıcılar sekmesinden plan oluşturun.</div>'}
+async function useIdea(i){state.sel.clear();const res=await api('/api/items?ids='+i.ogeler.join(',')+'&limit=50');res.items.forEach(it=>state.sel.set(it.id,{id:it.id,filename:it.filename,kind:it.kind,duration:it.duration,year:it.year}));saveSel();go('studyo');$('#b-sablon').value=i.sablon;$('#b-baslik').value=i.baslik;sablonChanged()}
+// ---------- kütüphane
+function libQuery(){const p=new URLSearchParams();const m={q:'f-q',kind:'f-kind',orientation:'f-orient',year:'f-year',min_dur:'f-mindur',max_dur:'f-maxdur',posted:'f-posted',sort:'f-sort',min_score:'f-minscore'};
+ for(const k in m){const v=val(m[k]);if(v)p.set(k,v)}if($('#f-fav').checked)p.set('favorite','1');if($('#f-avail').checked)p.set('available','1');p.set('limit',state.limit);p.set('offset',state.page*state.limit);return p}
+async function loadItems(page){if(page!=null)state.page=page;const r=await api('/api/items?'+libQuery());state.total=r.total;$('#lib').innerHTML=r.items.map(i=>card(i)).join('')||'<div class="empty">Sonuç yok. Önce "İçe aktar" sekmesinden arşivi tarayın.</div>';bindGrid($('#lib'),r.items);
+ $('#lib-info').textContent=`${r.total} sonuç`;$('#lib-page').textContent=`sayfa ${state.page+1}/${Math.max(1,Math.ceil(r.total/state.limit))}`}
+function pageLib(d){const max=Math.ceil(state.total/state.limit)-1;state.page=Math.min(Math.max(0,state.page+d),Math.max(0,max));loadItems()}
+$('#f-q').addEventListener('keydown',e=>{if(e.key==='Enter')loadItems(0)});
+// ---------- adaylar
+async function loadCandidates(){const p=new URLSearchParams({min_score:val('c-min')||50,limit:60});if(val('c-kind'))p.set('kind',val('c-kind'));const r=await api('/api/candidates?'+p);
+ $('#cands').innerHTML=r.items.map(i=>card(i,`<div class="meta" style="padding-top:0"><span>${esc((i.score_reasons||[]).slice(0,3).join(' · '))}</span></div>`)).join('')||'<div class="empty">Aday yok. Puan eşiğini düşürün ya da arşivi tarayın.</div>';bindGrid($('#cands'),r.items);
+ const q=await api('/api/reshare');$('#reshare').innerHTML=q.map(i=>card(i,`<div class="meta" style="padding-top:0"><span>${esc((i.gerekce||[]).slice(0,2).join(' · '))}</span></div>`)).join('')||'<div class="empty">Kuyruk boş: Instagram dışa aktarımını içe aktarın ya da öğeleri "paylaşıldı" işaretleyin.</div>';bindGrid($('#reshare'),q)}
+// ---------- paylaşılanlar
+async function loadPosts(){const m=val('p-matched');const r=await api('/api/posts'+(m?'?matched='+m:''));$('#posts tbody').innerHTML=r.posts.map(p=>`<tr><td>${esc((p.posted_at||'').slice(0,16).replace('T',' '))}</td><td>${esc(p.kind)}</td><td style="max-width:320px">${esc((p.caption||'').slice(0,120))}</td>
+ <td>${p.item_id?`<img src="/api/thumb/${p.item_id}" style="width:48px;height:64px;object-fit:cover;border-radius:6px;cursor:pointer" onclick="openItem(${p.item_id})">`:'<span class="muted">—</span>'}</td><td>${esc(p.matched_by||'')} ${p.confidence?'('+Math.round(p.confidence*100)+'%)':''}</td>
+ <td>${p.reach?'erişim '+p.reach+' ':''}${p.likes?'❤ '+p.likes:''}</td><td>${p.item_id?`<button class="small" onclick="unlink(${p.id})">eşleşmeyi kaldır</button>`:`<button class="small" onclick="linkSel(${p.id})">seçili öğeyle eşle</button>`}</td></tr>`).join('')||'<tr><td colspan="7" class="muted">Paylaşım yok. İçe aktar sekmesinden Instagram dışa aktarımını yükleyin.</td></tr>'}
+async function unlink(id){await api(`/api/post/${id}/unlink`,{});loadPosts()}
+async function linkSel(id){const first=[...state.sel.keys()][0];if(!first)return toast('Önce kütüphaneden bir öğe seçin');await api(`/api/post/${id}/link`,{item_id:first});loadPosts()}
+// ---------- öğe detayı
+function openFinder(path){if(path)api('/api/open',{path}).then(r=>{if(r.not)toast(r.not)}).catch(()=>0)}
+async function openItem(id){const i=await api('/api/item/'+id);state.cur=i;const d=$('#detay');const media=i.kind==='video'?`<video controls preload="metadata" src="/api/file/${id}"></video>`:`<img class="big" src="/api/file/${id}">`;
+ const pills=[...(i.albums||[]).map(a=>'📁 '+a),...(i.persons||[]).map(p=>'👤 '+p),...(i.keywords||[]),...(i.labels||[])].map(x=>`<span class="pill">${esc(x)}</span>`).join('');
+ d.innerHTML=`<div class="dbody"><div>${i.available?media:'<div class="empty">Dosya bu Mac\'te yok (iCloud\'da). Üretim sırasında indirilmeye çalışılır.</div>'}</div><div>
+ <h2 style="margin-top:0">${esc(i.filename)}</h2><div class="muted">${esc((i.created_at||'').replace('T',' '))} · ${i.width}×${i.height} · ${esc(i.aspect)} ${i.kind==='video'?'· '+dur(i.duration):''} · ${esc(i.source)}</div>
+ <p><b style="color:var(--accent);font-size:20px">${Math.round(i.social_score)} puan</b> <span class="muted">${esc((i.score_reasons||[]).join(', '))}</span></p>
+ ${i.posted_at?`<p class="ok">✓ ${esc(i.posted_at.slice(0,10))} tarihinde paylaşılmış</p>`:'<p class="muted">Henüz paylaşılmamış görünüyor</p>'}<div>${pills}</div>
+ <p class="muted" style="font-size:12px;word-break:break-all">${esc(i.path||i.path_original||'')}</p>
+ <div class="row"><button class="primary" onclick="toggleSel(null,${id},state.cur);renderSelList();openItem(${id})">${state.sel.has(id)?'Seçimden çıkar':'Seç'}</button>
+ <button onclick="fav(${id},${i.favorite?0:1})">${i.favorite?'★ Favoriden çıkar':'☆ Favori'}</button><button onclick="markPosted(${id},${i.posted_at?0:1})">${i.posted_at?'Paylaşılmadı işaretle':'Paylaşıldı işaretle'}</button>
+ <button onclick="hideItem(${id})">Gizle</button><button data-path="${esc(i.path||'')}" onclick="openFinder(this.dataset.path)">Finder'da göster</button><button onclick="detay.close()">Kapat</button></div></div></div>`;d.showModal()}
+async function fav(id,v){await api(`/api/item/${id}/favorite`,{favorite:!!v});toast(v?'Favorilere eklendi':'Favoriden çıkarıldı');openItem(id)}
+async function markPosted(id,v){await api(`/api/item/${id}/posted`,{posted:!!v});openItem(id)}
+async function markPostedSel(v){for(const id of state.sel.keys())await api(`/api/item/${id}/posted`,{posted:v});toast('İşaretlendi');go(state.tab)}
+async function hideItem(id){await api(`/api/item/${id}/hide`,{hidden:true});detay.close();go(state.tab)}
+async function collectSel(){const name=prompt('Klasör adı:','secim-'+new Date().toISOString().slice(0,10));if(!name)return;const r=await api('/api/collect',{ids:[...state.sel.keys()],name});toast(`${r.toplanan} dosya → ${r.klasor}`,6000)}
+// ---------- stüdyo
+async function loadStudio(){if(!state.templates){state.templates=await api('/api/templates');const s=$('#b-sablon');s.innerHTML=Object.keys(state.templates.sablonlar).map(k=>`<option value="${k}">${k}</option>`).join('');s.onchange=sablonChanged;sablonChanged()}
+ renderSelList();loadRenders()}
+function sablonChanged(){const k=$('#b-sablon').value;$('#b-sablon-desc').textContent=state.templates.sablonlar[k]||'';if(k==='carousel')$('#b-format').value='4:5';}
+$('#b-muzik').addEventListener('change',()=>{$('#b-muzik-dosya').style.display=$('#b-muzik').value==='dosya'?'block':'none'});
+function renderSelList(){updateTray();const rows=[...state.sel.values()];$('#sel-list').innerHTML=rows.map((s,k)=>`<div class="item"><img src="/api/thumb/${s.id}" onclick="openItem(${s.id})"><div class="t"><b>${esc(s.filename||('#'+s.id))}</b><small>${s.kind==='video'?'video '+dur(s.duration):'foto'} · ${s.year||''}</small>
+ <div class="row" style="margin-top:4px">${s.kind==='video'?`<input placeholder="başl. sn" type="number" step="0.5" value="${s.baslangic??''}" onchange="selField(${s.id},'baslangic',this.value)"><input placeholder="süre sn" type="number" step="0.5" value="${s.sure??''}" onchange="selField(${s.id},'sure',this.value)">`:`<input placeholder="süre sn" type="number" step="0.5" value="${s.sure??''}" onchange="selField(${s.id},'sure',this.value)">`}
+ <input placeholder="yazı" value="${esc(s.yazi??'')}" onchange="selField(${s.id},'yazi',this.value)" style="width:110px"></div></div>
+ <div><button class="small" onclick="moveSel(${k},-1)">↑</button><button class="small" onclick="moveSel(${k},1)">↓</button><button class="small" onclick="toggleSel(null,${s.id});renderSelList()">✕</button></div></div>`).join('')||'<div class="empty">Kütüphane ya da Adaylar sekmesinden öğe seçin.</div>'}
+function selField(id,k,v){const s=state.sel.get(id);if(!s)return;s[k]=v===''?undefined:(k==='yazi'?v:parseFloat(v));saveSel()}
+function moveSel(k,d){const arr=[...state.sel.entries()];const j=k+d;if(j<0||j>=arr.length)return;[arr[k],arr[j]]=[arr[j],arr[k]];state.sel=new Map(arr);saveSel();renderSelList()}
+function brief(){const m=$('#b-muzik').value;return{sablon:$('#b-sablon').value,format:$('#b-format').value,max_sure:+val('b-max')||60,baslik:val('b-baslik'),altbaslik:val('b-alt'),cta:val('b-cta'),etiket:val('b-etiket'),
+ muzik:m==='dosya'?val('b-muzik-dosya'):m,gecis:$('#b-gecis').value,foto_suresi:+val('b-foto')||3,klip_max:+val('b-klip')||6,sigdirma:$('#b-sig').value,kalite:$('#b-kalite').value,vurgu:val('b-vurgu'),renk:val('b-renk'),
+ etiketler_goster:$('#b-yil').checked,sabitle:$('#b-sabitle').checked,gurultu:$('#b-gurultu').checked,ogeler:[...state.sel.values()].map(s=>({id:s.id,baslangic:s.baslangic,sure:s.sure,yazi:s.yazi}))}}
+async function renderNow(){if(!state.sel.size)return toast('Önce öğe seçin');const b=brief();$('#b-uret').disabled=true;$('#b-log').style.display='block';$('#b-log').textContent='başlatılıyor…';
+ try{const r=await api('/api/render',b);await pollJob(r.job,$('#b-log'));toast('Üretim hazır');loadRenders()}catch(e){toast('Hata: '+e.message,6000)}$('#b-uret').disabled=false}
+async function pollJob(jid,el){for(;;){const j=await api('/api/job/'+jid);if(el){el.textContent=j.log.join('\n');el.scrollTop=el.scrollHeight}if(j.durum!=='calisiyor'){if(j.durum==='hata')throw new Error(j.hata||'iş başarısız');return j}await new Promise(r=>setTimeout(r,1500))}}
+async function genCaption(){const b=brief();b.ids=b.ogeler.map(o=>o.id);const r=await api('/api/caption',b);$('#m-out').value=r.caption;go('pazarlama')}
+async function loadRenders(){const rs=await api('/api/renders');$('#renders').innerHTML=rs.map(r=>`<div class="render"><div>${r.cover?`<img src="/api/render/${r.id}/cover">`:''}<div class="muted" style="font-size:12px">${esc(r.template)} · ${esc((r.created_at||'').slice(0,16).replace('T',' '))}</div><b class="${r.status==='hazir'?'ok':(r.status==='hata'?'warn':'muted')}">${esc(r.status)}</b></div>
+ <div>${r.status==='hazir'&&r.output&&r.output.endsWith('.mp4')?`<video controls preload="metadata" src="/api/render/${r.id}/file"></video>`:''}${r.status==='hata'?`<div class="warn">${esc(r.error)}</div>`:''}
+ <div class="muted" style="font-size:12px;word-break:break-all;margin:6px 0">${esc(r.output||'')}</div>${r.caption?`<textarea id="cap-${r.id}">${esc(r.caption)}</textarea>`:''}
+ <div class="row" style="margin-top:6px">${r.caption?`<button class="small" onclick="copyText('cap-${r.id}')">Açıklamayı kopyala</button>`:''}<button class="small" data-path="${esc(r.output||'')}" onclick="openFinder(this.dataset.path)">Finder'da göster</button>
+ <button class="small" data-title="${esc(r.brief?.baslik||r.template)}" onclick="remindRender(${r.id},this.dataset.title)">Paylaşmayı hatırlat</button></div></div></div>`).join('')||'<div class="empty">Henüz üretim yok.</div>'}
+async function remindRender(id,title){const when=prompt('Ne zaman? (YYYY-AA-GG SS:DD)',new Date(Date.now()+864e5).toISOString().slice(0,10)+' 19:00');if(!when)return;await api('/api/reminders',{due:when.replace(' ','T'),title:'Paylaş: '+title,render_id:id});toast('Hatırlatıcı eklendi')}
+function copyText(id){const el=document.getElementById(id);el.select();navigator.clipboard?.writeText(el.value);toast('Kopyalandı')}
+// ---------- hatırlatıcılar
+function remRow(r){return `<div class="item"><div class="t"><b>${esc(r.title)}</b><small>${esc(r.due.slice(0,16).replace('T',' '))} · ${esc(r.note||'')}</small><div>${(r.item_ids||[]).slice(0,6).map(i=>`<img src="/api/thumb/${i}" style="width:36px;height:48px;margin:4px 4px 0 0;cursor:pointer" onclick="openItem(${i})">`).join('')}</div></div>
+ <div>${r.status==='acik'?`<button class="small" onclick="remStatus(${r.id},'tamam')">✓ Yapıldı</button> <button class="small" onclick="remStatus(${r.id},'atla')">Atla</button> <button class="small" onclick="remToStudio(${JSON.stringify(r.item_ids||[])})">Stüdyo</button>`:`<span class="muted">${esc(r.status)}</span>`}</div></div>`}
+async function loadReminders(){const r=await api('/api/reminders?status='+val('r-status'));$('#rems').innerHTML=r.map(remRow).join('')||'<div class="empty">Hatırlatıcı yok.</div>'}
+async function remStatus(id,s){await api(`/api/reminders/${id}/status`,{status:s});loadReminders()}
+async function remToStudio(ids){state.sel.clear();const res=await api('/api/items?ids='+ids.join(',')+'&limit=50');res.items.forEach(it=>state.sel.set(it.id,{id:it.id,filename:it.filename,kind:it.kind,duration:it.duration,year:it.year}));saveSel();go('studyo')}
+async function planReminders(){const r=await api('/api/reminders/plan',{weeks:4,per_week:3});toast(`${r.yeniden.length} yeniden paylaşım + ${r.bugun.length} 'bugün geçen yıl' hatırlatıcısı`);loadReminders()}
+async function addReminder(){if(!val('r-due')||!val('r-title'))return toast('Tarih ve başlık gerekli');await api('/api/reminders',{due:val('r-due'),title:val('r-title'),note:val('r-note'),item_ids:[...state.sel.keys()]});toast('Eklendi');loadReminders()}
+// ---------- pazarlama
+async function loadMarketing(){const b=await api('/api/besttimes');$('#besttimes').innerHTML=`<div class="muted" style="font-size:13px">${esc(b.not||('Kaynak: '+b.kaynak+(b.ornek_sayisi?' ('+b.ornek_sayisi+' paylaşım)':'')))} ${esc(b.sure_notu||'')}</div>
+ <table><thead><tr><th>Gün</th><th>Saat</th><th>Etkileşim</th></tr></thead><tbody>${b.saatler.map(s=>`<tr><td>${esc(s.gun_adi)}</td><td>${String(s.saat).padStart(2,'0')}:00</td><td>${s.puan??'—'}</td></tr>`).join('')}</tbody></table>`;
+ if(!$('#ideas2').innerHTML)loadPanel()}
+async function mCaption(){const r=await api('/api/caption',{ids:[...state.sel.keys()],baslik:val('m-baslik'),altbaslik:val('m-alt'),cta:val('m-cta'),etiket:val('m-etiket')});$('#m-out').value=r.caption}
+// ---------- içe aktar / işler
+async function job(url,body){try{const r=await api(url,body);toast('Başladı: '+r.job);loadJobs();pollJob(r.job).then(()=>{toast('Bitti: '+r.job);loadJobs();loadPanel()}).catch(e=>{toast('Hata: '+e.message,6000);loadJobs()})}catch(e){toast('Hata: '+e.message,6000)}}
+async function loadJobs(){const js=await api('/api/jobs');const ks=Object.keys(js).reverse();$('#jobs').innerHTML=ks.map(k=>`<div style="margin-bottom:10px"><b>${esc(k)}</b> <span class="${js[k].durum==='bitti'?'ok':(js[k].durum==='hata'?'warn':'muted')}">${esc(js[k].durum)}</span><pre class="log">${esc(js[k].log.slice(-12).join('\n'))}</pre></div>`).join('')||'<div class="empty">Henüz iş yok.</div>';
+ if(ks.some(k=>js[k].durum==='calisiyor')&&state.tab==='iceaktar')setTimeout(loadJobs,2000)}
+// ---------- başlat
+updateTray();loadPanel();
+</script>
+</body>
+</html>

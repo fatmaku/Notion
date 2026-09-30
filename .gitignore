@@ -2,3 +2,8 @@
 deniz-trailer/series/part*
 deniz-trailer/series/silent.mp4
 deniz-trailer/series/parts.txt
+
+# Arşiv Stüdyo
+__pycache__/
+*.pyc
+arsiv-studyo/.venv/
