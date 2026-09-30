@@ -48,6 +48,25 @@ def ffprobe_path():
     return str(sib) if sib.exists() else None
 
 
+@functools.lru_cache(maxsize=None)
+def filters():
+    """Kurulu ffmpeg'in filtre adları (eksik filtreleri atlamak için)."""
+    try:
+        out = subprocess.run([ffmpeg_path(), "-hide_banner", "-filters"], capture_output=True, text=True, timeout=30).stdout
+    except Exception:
+        return frozenset()
+    names = set()
+    for line in out.splitlines():
+        parts = line.split()
+        if len(parts) >= 3 and re.fullmatch(r"[.TSCA]{3}", parts[0]):
+            names.add(parts[1])
+    return frozenset(names)
+
+
+def has_filter(name):
+    return name in filters()
+
+
 def run_ffmpeg(args, timeout=None):
     cmd = [ffmpeg_path(), "-y", "-hide_banner", "-loglevel", "error", "-nostdin", *[str(a) for a in args]]
     r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)

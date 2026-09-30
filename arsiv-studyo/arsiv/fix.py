@@ -21,8 +21,11 @@ def fix_video(src, dst, fmt="9:16", fit="otomatik", stabilize=False, denoise=Fal
     inputs = ["-ss", f"{start:.3f}", "-t", f"{dur:.3f}", "-i", str(src)]
     n_in = 1
     pre = []
-    if info.get("hdr"):
+    if info.get("hdr") and media.has_filter("tonemap") and media.has_filter("zscale"):
         pre.append(ffilters.hdr_chain())
+    if stabilize and not media.has_filter("vidstabdetect"):
+        progress("uyarı: bu ffmpeg'de titreşim giderme (vidstab) yok; atlanıyor")
+        stabilize = False
     if stabilize:
         trf = Path(tempfile.mkdtemp(prefix="arsiv-stab-")) / "transforms.trf"
         progress("titreşim analizi (1/2)…")

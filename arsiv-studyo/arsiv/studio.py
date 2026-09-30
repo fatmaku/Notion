@@ -153,7 +153,7 @@ def _emit_clip(ctx, c, i, dst, W, H, offset, T, want_audio):
         idx = ctx.add_input(["-ss", f"{c['start']:.3f}", "-t", f"{c['dur']:.3f}", "-i", c["path"]])
         mode = b["sigdirma"] if b["sigdirma"] in ("kirp", "bulanik", "sigdir") else ffilters.auto_fit(c["w"], c["h"], W, H)
         src = f"{idx}:v"
-        if c.get("hdr"):
+        if c.get("hdr") and media.has_filter("tonemap") and media.has_filter("zscale"):
             ctx.lines.append(f"[{src}]{ffilters.hdr_chain()}[hdr{dst}]")
             src = f"hdr{dst}"
         ctx.lines += ffilters.fit_chain(src, f"fit{dst}", W, H, mode, b["renk"], uid=f"f{dst}")
