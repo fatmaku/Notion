@@ -148,4 +148,6 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 **Messung:** Ziele für die ersten 30 Tage — Trailer-Views, Besuche der Amazon-Produktseiten, Vorbestellungen und Rezensionen; wöchentlich in einer Tabelle nachhalten.
 
 ## 6. Empfohlene Lesereihenfolge
+**Empfehlung: zuerst BEN YOKSAM, dann ŞAHİDİ ARARKEN.** Laut Analysebericht hinterlässt BEN YOKSAM drei Fäden, die nur ŞAHİDİ ARARKEN einlöst: den Mann mit dem Tumorbericht (Kap. 50), das "zweite Buch, das am Todestag beginnt" (Kap. 46) und die Namenlosigkeit des Schreibenden. Die umgekehrte Reihenfolge funktioniert ebenfalls; beide Bücher laden zu einer zweiten Runde ein. Im Marketing als "empfohlen" nennen, immer mit dem Zusatz, dass jede Reihenfolge funktioniert.
+
 Der Analysebericht (`analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md`) begründet, in welcher Reihenfolge die dritte Geschichte am besten entsteht. Im Marketing wird diese Reihenfolge als „empfohlen“ genannt, immer mit dem Zusatz, dass jede Reihenfolge funktioniert.

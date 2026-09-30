@@ -165,4 +165,6 @@ Mektuplar, kayıp zamanlar ve tek bir kelime: <b>Şahit.</b> Bir araştırma ola
 **Ölçüm:** ilk 30 gün için hedefler — fragman izlenme, Amazon ürün sayfası ziyareti, ön sipariş/okur yorumu sayısı; her hafta tek bir tabloya işlenir.
 
 ## 6. Okuma sırası önerisi
+**Önerilen sıra: önce BEN YOKSAM, sonra ŞAHİDİ ARARKEN.** Analiz raporuna göre BEN YOKSAM üç ipucu bırakır ve bunları yalnızca ŞAHİDİ ARARKEN çözer: 50. bölümdeki "Tümör" raporlu adam, 46. bölümdeki "ikinci kitap, öldüğün gün başlayacak" ve yazanın adsızlığı. Ters sıra da çalışır; iki kitap da ikinci bir tura davet eder. Pazarlamada bu sıra "önerilen" olarak, "her sıra mümkündür" notuyla kullanılır.
+
 Analiz raporu (`analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md`) iki kitabın hangi sırayla okunmasının üçüncü hikâyeyi en iyi ortaya çıkardığını gerekçelendirir; pazarlama metinlerinde bu sıra "önerilen sıra" olarak, ama "her sıra mümkündür" notuyla kullanılır.

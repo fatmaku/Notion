@@ -147,4 +147,6 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 **Measurement:** targets for the first 30 days — trailer views, Amazon product page visits, pre-orders and reviews; tracked weekly in one table.
 
 ## 6. Recommended reading order
+**Recommendation: BEN YOKSAM first, then ŞAHİDİ ARARKEN.** According to the analysis report, BEN YOKSAM leaves three threads that only ŞAHİDİ ARARKEN resolves: the man with the tumour report (ch. 50), the "second book that begins on the day you die" (ch. 46) and the namelessness of the writer. The reverse order works too, and both books invite a second round. Marketing uses this order as "recommended", always adding that any order works.
+
 The analysis report (`analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md`) explains which order lets the third story emerge best. Marketing uses that order as "recommended", always adding that any order works.
