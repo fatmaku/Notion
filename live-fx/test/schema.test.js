@@ -294,7 +294,7 @@ test('isSafeName', () => {
 
 test('exported constants', () => {
   assert.equal(S.VERSION, 2);
-  assert.deepEqual(S.KINDS, ['card', 'image', 'banner', 'rain', 'confetti']);
+  assert.deepEqual(S.KINDS, ['card', 'image', 'banner', 'rain', 'confetti', 'scene', 'sticker']);
   assert.deepEqual(S.POSITIONS, ['center', 'top', 'safe']);
   assert.equal(S.LIMITS.triggers, 200);
   assert.equal(S.LIMITS.assetBytes, 8 * 1024 * 1024);

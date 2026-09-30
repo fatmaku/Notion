@@ -1,13 +1,17 @@
 // LiveFX – trigger editor dialog. `LiveFXEditor.open(trigger, {assets, sounds, onTest, onDelete})`
 // resolves with the normalized trigger on „Speichern“ or null on cancel/Escape. One <dialog> is
 // created lazily and reused. All injected strings are escaped. See docs/CONTRACTS.md §11.
+// Story mode (1.3): kinds `scene` (scene select, intensity, caption) and `sticker`, plus the
+// "Atmosphäre (Loop)" sound group (`loop:<name>` from LiveFXSounds.loops).
 (function (global) {
   'use strict';
 
   const S = () => global.LiveFXSchema;
   const esc = (s) => S().escapeHtml(s);
 
-  const KIND_LABELS = { card: 'Karte (Emoji + Text)', image: 'Bild', banner: 'Banner', rain: 'Emoji-Regen', confetti: 'Konfetti' };
+  const KIND_LABELS = { card: 'Karte (Emoji + Text)', image: 'Bild', banner: 'Banner', rain: 'Emoji-Regen', confetti: 'Konfetti', scene: 'Szene (Hintergrund + Atmosphäre)', sticker: 'Sticker (2–4 Emojis)' };
+  // German scene names for the scene select; unknown ids fall back to the id itself.
+  const SCENE_LABELS = { rain: 'Regen', night: 'Nacht', forest: 'Wald', sea: 'Meer', fire: 'Feuer', castle: 'Schloss', snow: 'Schnee', desert: 'Wüste', city: 'Stadt', space: 'Weltraum', sunrise: 'Sonnenaufgang', storm: 'Gewitter', clear: 'Szene beenden' };
   const POS_LABELS = { center: 'Mitte', top: 'Oben', safe: 'Sicher (Hochkant: über dem Chat)' };
   // Which fields each visual kind uses. Others are hidden (values are kept in the draft anyway).
   const FIELDS_BY_KIND = {
@@ -16,7 +20,24 @@
     banner: ['emoji', 'text', 'position'],
     rain: ['emoji', 'count'],
     confetti: ['emoji', 'text'],
+    scene: ['scene', 'intensity', 'text'],
+    sticker: ['emoji', 'text', 'position'],
   };
+
+  /** Scene ids: LiveFXSchema.SCENES when the schema knows scenes, else the pack table, else []. */
+  function sceneIds() {
+    const sc = S();
+    if (sc && Array.isArray(sc.SCENES) && sc.SCENES.length) return sc.SCENES.slice();
+    const P = global.LiveFXPacks;
+    return P && Array.isArray(P.SCENE_IDS) ? P.SCENE_IDS.slice() : [];
+  }
+
+  function sceneLabel(id) {
+    const P = global.LiveFXPacks;
+    const info = P && P.SCENE_INFO && Object.prototype.hasOwnProperty.call(P.SCENE_INFO, id) ? P.SCENE_INFO[id] : null;
+    const emoji = info && info.emoji ? `${info.emoji} ` : '';
+    return `${emoji}${SCENE_LABELS[id] || (info && info.label) || id}`;
+  }
 
   let dialog = null;
   let current = null; // {resolve, opts, trigger}
@@ -53,7 +74,9 @@
             <label class="fx-f fx-f-cooldown">Cooldown (s)<input name="cooldown" type="number" min="0" max="3600" step="0.5"></label>
             <label class="fx-f fx-f-kind">Effekt<select name="kind"></select></label>
             <label class="fx-f fx-f-position" data-field="position">Position<select name="position"></select></label>
-            <label class="fx-f fx-f-emoji" data-field="emoji">Emoji<input name="emoji" maxlength="16" placeholder="🤯"></label>
+            <label class="fx-f fx-f-scene" data-field="scene">Szene<select name="scene"></select></label>
+            <label class="fx-f fx-f-intensity" data-field="intensity">Intensität (1–3)<input name="intensity" type="number" min="1" max="3" step="1"></label>
+            <label class="fx-f fx-f-emoji" data-field="emoji">Emoji<input name="emoji" maxlength="32" placeholder="🤯"></label>
             <label class="fx-f fx-f-text" data-field="text">Text<input name="text" maxlength="80" placeholder="KRASS"></label>
             <div class="fx-f fx-f-colors fx-wide" data-field="colors">
               <div class="fx-color-row">
@@ -125,6 +148,9 @@
     const v = trigger.visual || {};
     const sc = S();
     field('kind').innerHTML = sc.KINDS.map((k) => option(k, KIND_LABELS[k] || k, (v.kind || 'card') === k)).join('');
+    const scenes = sceneIds();
+    const curScene = typeof v.scene === 'string' && scenes.includes(v.scene) ? v.scene : scenes[0] || '';
+    field('scene').innerHTML = scenes.map((id) => option(id, sceneLabel(id), id === curScene)).join('');
     field('position').innerHTML = sc.POSITIONS.map((p) => option(p, POS_LABELS[p] || p, (v.position || 'center') === p)).join('');
 
     const assets = normalizeAssets(opts.assets);
@@ -140,6 +166,11 @@
     const files = assets.sounds.map((a) => `file:${a.url}`);
     if (cur.startsWith('file:') && !files.includes(cur)) files.unshift(cur);
     html += files.map((f) => option(f, `🎵 ${f.replace(/^file:assets\//, '')}`, f === cur)).join('');
+    // Ambient loops ("loop:<name>", story mode). Guarded: older sounds.js has no `loops`.
+    const loopSrc = Array.isArray(opts.loops) ? opts.loops : global.LiveFXSounds && Array.isArray(global.LiveFXSounds.loops) ? global.LiveFXSounds.loops : [];
+    const loops = loopSrc.filter((n) => typeof n === 'string' && /^[a-z][a-zA-Z0-9]{0,30}$/.test(n)).map((n) => `loop:${n}`);
+    if (cur.startsWith('loop:') && !loops.includes(cur)) loops.unshift(cur);
+    if (loops.length) html += `<optgroup label="Atmosphäre (Loop)">${loops.map((l) => option(l, `🌫️ ${l.slice(5)}`, l === cur)).join('')}</optgroup>`;
     field('sound').innerHTML = html;
   }
 
@@ -153,6 +184,7 @@
     field('emoji').value = v.emoji || '';
     field('text').value = v.text || '';
     field('count').value = v.count || 20;
+    field('intensity').value = v.intensity === undefined || v.intensity === null ? 2 : v.intensity;
     field('shake').checked = v.shake === true;
     setColor('bg', v.bg, '#111111');
     setColor('color', v.color, '#ffffff');
@@ -234,6 +266,11 @@
     }
     if (kind === 'image') visual.src = field('src').value;
     if (kind === 'rain') visual.count = Number(field('count').value) || undefined;
+    if (kind === 'scene') {
+      visual.scene = field('scene').value;
+      const it = Number(field('intensity').value);
+      if (Number.isFinite(it) && field('intensity').value !== '') visual.intensity = Math.min(3, Math.max(1, Math.round(it)));
+    }
     if (field('shake').checked) visual.shake = true;
     const draft = {
       id: base.id,

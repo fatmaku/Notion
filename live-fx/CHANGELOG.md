@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.3.0 – Story-Modus
+
+- **Szenen** (`visual.kind: 'scene'`): 13 Vollbild-Szenen (Regen, Nacht, Wald, Meer, Feuer, Schloss, Schnee, Wüste,
+  Stadt, Weltraum, Sonnenaufgang, Gewitter, Szene beenden) mit animierten Partikeln, Überblendung, Bildunterschrift
+  und Intensität; bleiben bis zur nächsten Szene. **Sticker** (`sticker`): 2–4 Emojis in Formation.
+- **Atmosphäre-Loops** (`sound: "loop:<name>"`): 12 synthetische Endlos-Klänge (Regen, Wind, Kamin, Vögel, Meer,
+  Donner, Grillen, Herzschlag, Glocken, Stadt, Weltraum, Sturm) mit sanftem Ein-/Ausblenden; nur einer läuft.
+- **Geschichten-Pakete** 📖 Deutsch (28), Türkçe (30, „bir varmış bir yokmuş“, „yağmur yağıyordu“ …), English (29):
+  Szenen-Trigger mit Loop und Sticker für Drache, Prinzessin, Ritter, Schatz, Hexe … – Stichwörter kollidieren nicht
+  mit den Meme-Paketen.
+- **Panel-Karte „Story-Modus“**: ein Haken lädt das Paket der aktuellen Sprache, stellt Toleranz mittel /
+  Reaktion sicher / 2 s Abstand ein (beim Ausschalten wieder zurück) und zeigt das Szenen-Pad. Editor mit Effekt
+  „Szene“ (Szene, Intensität, Text) und „Sticker“, Sound-Gruppe „Atmosphäre (Loop)“; Pad-Kacheln zeigen das Szenen-Emoji.
+- Demo-Seite zeichnet Szenen und Loops mit auf. Anleitung: `docs/STORY.md`.
+
 ## 1.2.0 – Robuste Erkennung
 
 - **Dialekt-Toleranz** (aus / mittel / hoch): Der Matcher erkennt Stichwörter auch bei kleinen Abweichungen

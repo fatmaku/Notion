@@ -758,16 +758,24 @@
   });
 
   // ---------- trigger table ----------
+  /** Ambient loop names (`LiveFXSounds.loops`, guarded – older sounds.js has none). */
+  function loopNames() {
+    const l = LiveFXSounds && Array.isArray(LiveFXSounds.loops) ? LiveFXSounds.loops : [];
+    return l.filter((n) => typeof n === 'string' && /^[a-z][a-zA-Z0-9]{0,30}$/.test(n));
+  }
+
   function soundOptions(current) {
     const cur = typeof current === 'string' ? current : '';
+    const loops = loopNames().map((n) => `loop:${n}`);
     const opts = ['', ...LiveFXSounds.names];
-    if (cur && !opts.includes(cur)) opts.push(cur);
-    return opts
-      .map((s) => {
-        const label = s === '' ? '– keiner –' : s.startsWith('file:') ? `🎵 ${s.replace(/^file:assets\//, '')}` : s;
-        return `<option value="${esc(s)}"${s === cur ? ' selected' : ''}>${esc(label)}</option>`;
-      })
-      .join('');
+    if (cur && !opts.includes(cur) && !loops.includes(cur)) opts.push(cur);
+    const opt = (s) => {
+      const label = s === '' ? '– keiner –' : s.startsWith('file:') ? `🎵 ${s.replace(/^file:assets\//, '')}` : s.startsWith('loop:') ? `🌫️ ${s.slice(5)}` : s;
+      return `<option value="${esc(s)}"${s === cur ? ' selected' : ''}>${esc(label)}</option>`;
+    };
+    let html = opts.map(opt).join('');
+    if (loops.length) html += `<optgroup label="Atmosphäre (Loop)">${loops.map(opt).join('')}</optgroup>`;
+    return html;
   }
 
   function renderRows() {
@@ -869,8 +877,9 @@
       el.className = `pack${loaded ? ' loaded' : ''}`;
       el.dataset.pack = p.id;
       const count = loaded ? `✓ geladen (${present})` : present ? `${present} / ${p.count} Trigger` : `${p.count} Trigger`;
+      if (p.story) el.classList.add('story');
       el.innerHTML = `
-        <div class="flag">${esc(p.flag)}</div>
+        <div class="flag${p.story ? ' story' : ''}">${esc(p.flag)}</div>
         <div class="info">
           <div class="title">${esc(p.label)} <span class="count${loaded ? ' loaded' : ''}">${esc(count)}</span></div>
           <div class="desc">${esc(p.description)}</div>
@@ -884,6 +893,119 @@
       root.appendChild(el);
     }
   }
+
+  // ---------- story mode (1.3) ----------
+  // Reading aloud: the story pack of the current language family is loaded, the recognition is switched
+  // to tolerance "mittel", reaction "sicher" and a 2 s gap; the previous values come back when it is
+  // turned off (the pack stays). Persisted: `livefx.story` ('1'/'0') and `livefx.story.prev` (JSON).
+  const STORY_KEYS = { on: 'livefx.story', prev: 'livefx.story.prev' };
+  const STORY_GAP = 2;
+  let storyOn = false;
+  let storyPrev = null; // { tolerance, reaction, gap } captured when the mode was switched on
+
+  /** Scene ids: schema first, then the pack table (packs.js loads before schema.js), else nothing. */
+  function sceneIds() {
+    if (S && Array.isArray(S.SCENES) && S.SCENES.length) return S.SCENES.slice();
+    if (packsApi && Array.isArray(packsApi.SCENE_IDS)) return packsApi.SCENE_IDS.slice();
+    return [];
+  }
+
+  function sceneInfo(id) {
+    const info = packsApi && packsApi.SCENE_INFO && Object.prototype.hasOwnProperty.call(packsApi.SCENE_INFO, id) ? packsApi.SCENE_INFO[id] : null;
+    return { emoji: (info && info.emoji) || '🎬', label: (info && info.label) || id, loop: info && info.loop ? info.loop : null };
+  }
+
+  /** Ad-hoc trigger for the scene pad (not stored): `{id:'scene-<x>', visual:{kind:'scene', scene}, sound: loop|null}`. */
+  function sceneTrigger(id) {
+    const info = sceneInfo(id);
+    const loop = info.loop && loopNames().includes(info.loop) ? `loop:${info.loop}` : null;
+    return { id: `scene-${id}`, label: id === 'clear' ? info.label : `Szene: ${info.label}`, keywords: [], enabled: true, cooldown: 0, sound: loop, visual: { kind: 'scene', scene: id, position: 'center' } };
+  }
+
+  function renderScenePad() {
+    const pad = $('#scene-pad');
+    if (!pad) return;
+    pad.innerHTML = '';
+    for (const id of sceneIds()) {
+      const info = sceneInfo(id);
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.scene = id;
+      b.title = id === 'clear' ? 'Aktuelle Szene ausblenden und Atmosphäre stoppen' : `Szene „${info.label}“ starten`;
+      b.innerHTML = `<span class="emoji">${esc(info.emoji)}</span><span class="lbl">${esc(info.label)}</span>`;
+      b.addEventListener('click', () => {
+        fire(sceneTrigger(id), 'Szenen-Pad');
+        pad.querySelectorAll('button.active').forEach((x) => x.classList.remove('active'));
+        if (id !== 'clear') b.classList.add('active');
+      });
+      pad.appendChild(b);
+    }
+  }
+
+  function readStoryPrev() {
+    try {
+      const p = JSON.parse(lsGet(STORY_KEYS.prev) || 'null');
+      if (p && typeof p === 'object') return { tolerance: TOLERANCES.includes(p.tolerance) ? p.tolerance : 'medium', reaction: REACTIONS.includes(p.reaction) ? p.reaction : 'fast', gap: Number.isFinite(Number(p.gap)) ? Math.max(0, Number(p.gap)) : 1.2 };
+    } catch (_) {
+      /* corrupt entry */
+    }
+    return null;
+  }
+
+  function setGap(value) {
+    const g = Math.max(0, Number(value) || 0);
+    $('#gap').value = String(g);
+    matcher.globalMinGap = g;
+  }
+
+  function applyStorySettings() {
+    $('#asr-tolerance').value = 'medium';
+    $('#asr-reaction').value = 'safe';
+    applyAsrSettings();
+    setGap(STORY_GAP);
+  }
+
+  /** Loads the story pack for the current language family (idempotent). */
+  function loadStoryPack() {
+    if (!packsApi || typeof packsApi.storyPackFor !== 'function') return;
+    const id = packsApi.storyPackFor(settings.lang);
+    if (packsApi.packs[id]) loadPack(id);
+  }
+
+  function setStoryMode(on, { persist = true, restoring = false } = {}) {
+    const el = $('#story-mode');
+    const pad = $('#scene-pad');
+    storyOn = !!on;
+    if (el) el.checked = storyOn;
+    if (storyOn) {
+      if (!restoring) {
+        storyPrev = { tolerance: settings.tolerance, reaction: settings.reaction, gap: Number($('#gap').value) || 0 };
+        lsSet(STORY_KEYS.prev, JSON.stringify(storyPrev));
+      } else if (!storyPrev) storyPrev = readStoryPrev();
+      applyStorySettings();
+      loadStoryPack();
+      renderScenePad();
+      if (pad) pad.hidden = false;
+      if (!restoring) log('📖 Story-Modus an – lies vor, Szenen kommen von selbst');
+    } else {
+      if (pad) pad.hidden = true;
+      const prev = storyPrev || readStoryPrev();
+      if (prev) {
+        $('#asr-tolerance').value = prev.tolerance;
+        $('#asr-reaction').value = prev.reaction;
+        applyAsrSettings();
+        setGap(prev.gap);
+      }
+      storyPrev = null;
+      if (!restoring) log('📖 Story-Modus aus – Einstellungen wiederhergestellt (Paket bleibt)');
+    }
+    if (persist) lsSet(STORY_KEYS.on, storyOn ? '1' : '0');
+  }
+
+  $('#story-mode').addEventListener('change', (e) => setStoryMode(e.target.checked));
+  $('#lang').addEventListener('change', () => {
+    if (storyOn) loadStoryPack();
+  });
 
   function removeTrigger(id) {
     const idx = triggers.findIndex((t) => t.id === id);
@@ -905,6 +1027,7 @@
     const opts = {
       assets: LiveFXAssets.groupAssets(assets),
       sounds: LiveFXSounds.names,
+      loops: loopNames(),
       onTest: (draft) => fire(draft, 'Test'),
       onAssetsChange: () => library && library.refresh(),
       title: isNew ? 'Neuer Trigger' : `Trigger: ${labelOf(trigger)}`,
@@ -1111,6 +1234,7 @@
     triggers = loaded.triggers;
     commit({ save: false });
     log(`📂 Trigger geladen: ${sourceLabel(loaded.source)} (${triggers.length})`);
+    if (lsGet(STORY_KEYS.on) === '1') setStoryMode(true, { persist: false, restoring: true });
 
     if (online) {
       library = LiveFXAssets.mountLibrary($('#asset-library'), {
@@ -1155,6 +1279,11 @@
     },
     store: LiveFXStore,
     learnKeyword,
+    setStoryMode,
+    get storyMode() {
+      return storyOn;
+    },
+    sceneTrigger,
     get asrSettings() {
       return { ...settings, ignored: settings.ignored.slice() };
     },

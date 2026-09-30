@@ -10,7 +10,8 @@ Mikro ─► Spracherkennung ─► Keyword-Matcher (sofort) ──────�
                         └► Smart-Modus (KI, satzweise, optional) ──┤
 Stream Deck / Chat-Bot / Whisper ─► HTTP-API (Token) ──────────────┼─► Bridge (SSE) ─► Overlay in OBS ─► Stream
 Panel: eigene GIFs/PNGs/MP3s hochladen, Trigger bearbeiten ────────┘      (Karten, Emoji-Regen, Banner,
-                                                                          Konfetti, eigene Bilder, Sounds)
+                                                                          Konfetti, eigene Bilder, Sounds,
+                                                                          Story-Szenen mit Atmosphäre)
 ```
 
 ## Schnellstart (2 Minuten)
@@ -45,6 +46,14 @@ Für echte Streams bleibt OBS der Weg: [docs/OBS-ANLEITUNG.md](docs/OBS-ANLEITUN
 Im Panel unter **Meme-Pakete** mit einem Klick laden: **Türkçe (55 Trigger)** – yok artık, ohaa, helal olsun,
 aynen, kral, efsane, rezil, maşallah, eyvallah … – sowie Deutsch (31) und English (32) mit den gängigen
 Stream-/Internet-Ausdrücken. Jedes Paket lässt sich wieder entfernen; eigene Änderungen bleiben erhalten.
+
+## Story-Modus – Vorlesen mit Szenen (1.3)
+
+Karte **📖 Story-Modus** im Panel einschalten, vorlesen: „es regnete“, „in der Nacht“, „im Wald“, „der Drache“ …
+werden zu Vollbild-Szenen mit Atmosphäre-Sound (Regen, Grillen, Vögel, Kamin …), die bis zur nächsten Szene
+bleiben; Figuren erscheinen als Sticker oben. 13 Szenen, Geschichten-Pakete für Deutsch, Türkçe („bir varmış
+bir yokmuş“) und English, Szenen-Pad zur Handsteuerung, eigene Szenen-Trigger im Editor.
+Anleitung: [docs/STORY.md](docs/STORY.md).
 
 ## GIF-Suche (Tenor / Giphy)
 
@@ -87,6 +96,10 @@ Kommentare) und der Emoji-Regen fällt entsprechend kürzer.
 | `rain` | Emoji regnet von oben (Anzahl 1–60) |
 | `banner` | Breites Textbanner fährt durch |
 | `confetti` | Konfetti + optionale Karte |
+| `scene` | Vollbild-Szene (`scene`: rain, night, forest, sea, fire, castle, snow, desert, city, space, sunrise, storm, clear) mit Partikeln, `intensity` 1–3, `text` als Bildunterschrift; bleibt bis zur nächsten Szene |
+| `sticker` | 2–4 Emojis in Formation mit Hüpfer (Story-Modus) |
+
+Sound: eingebauter Name (`airhorn` …), eigene Datei (`file:assets/…`) oder Atmosphäre-Loop (`loop:rain`, `loop:birds` …, läuft bis zur nächsten Szene).
 
 Position: `center` (Mitte), `top` (oben), `safe` (im Hochkant-Layout im oberen Drittel, quer = Mitte).
 

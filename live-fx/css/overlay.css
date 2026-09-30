@@ -155,3 +155,498 @@ body.layout-portrait .fx-card-image img { max-width: 80vw; max-height: 40vh; }
   animation: fx-flash 0.4s ease-out forwards;
 }
 @keyframes fx-flash { 0% { opacity: 0.85; } 100% { opacity: 0; } }
+
+/* =====================================================================================
+ * Story mode (1.3) – persistent scene layer. The renderer inserts `.fx-scene` as the FIRST
+ * child of #stage (effects above it, transparent background below). Structure:
+ *   .fx-scene[data-scene=id].fx-scene-<id>
+ *     .fx-scene-bg        gradient (may be animated)
+ *     .fx-scene-layer.fx-scene-l1 / .fx-scene-l2   animated overlays (rain streaks, stars, waves, flashes)
+ *     .fx-scene-fx        extra element (sun, glow, fog)
+ *     .fx-scene-decor     top-right emoji (moon, sun, planet)
+ *     .fx-scene-ground    bottom row of emoji silhouettes (trees, castle, skyline)
+ *     .fx-scene-particles > .fx-particle.fx-particle-<mode>   emoji spawned while the scene is active (<= 40)
+ *     .fx-scene-caption   text (bottom-centre landscape, top third portrait)
+ * `.fx-scene-on` fades the layer in, `.fx-scene-out` fades it out (800 ms each, crossfade on swap).
+ * ===================================================================================== */
+.fx-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  will-change: opacity;
+}
+.fx-scene.fx-scene-on { opacity: 1; }
+.fx-scene.fx-scene-out { opacity: 0 !important; }
+.fx-scene-bg,
+.fx-scene-layer,
+.fx-scene-fx,
+.fx-scene-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.fx-scene-decor {
+  position: absolute;
+  top: 6%;
+  right: 8%;
+  font-size: min(180px, 14vw);
+  line-height: 1;
+  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.55));
+  animation: fx-scene-decor-float 8s ease-in-out infinite alternate;
+}
+@keyframes fx-scene-decor-float {
+  0%   { transform: translateY(0) rotate(-3deg); }
+  100% { transform: translateY(-4vh) rotate(3deg); }
+}
+.fx-scene-ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2%;
+  font-size: min(150px, 12vw);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: -0.15em;
+  filter: brightness(0.22) saturate(0.4);
+  opacity: 0.95;
+}
+body.layout-portrait .fx-scene-ground { font-size: min(120px, 22vw); bottom: 34%; }
+body.layout-portrait .fx-scene-decor { font-size: min(140px, 24vw); top: 8%; }
+
+/* ---- caption ---- */
+.fx-scene-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 7%;
+  transform: translateX(-50%);
+  max-width: 86vw;
+  padding: 12px 30px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: min(44px, 4.5vw);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  backdrop-filter: blur(6px);
+  animation: fx-caption-in 0.8s ease both;
+}
+body.layout-portrait .fx-scene-caption {
+  bottom: auto;
+  top: 26%;
+  max-width: 88vw;
+  font-size: min(40px, 6.5vw);
+}
+@keyframes fx-caption-in {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(16px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ---- particles (spawned by the renderer; modes share --x, --y, --flip) ---- */
+.fx-particle {
+  position: absolute;
+  left: calc(var(--fx-x0, 0vw) + var(--x, 0) * var(--fx-xspan, 100vw));
+  line-height: 1;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  will-change: transform, opacity;
+}
+.fx-particle-fall {
+  top: -80px;
+  animation-name: fx-particle-fall;
+}
+@keyframes fx-particle-fall {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  8%   { opacity: 1; }
+  50%  { transform: translate(18px, calc(var(--fx-fall, 115vh) * 0.5)) rotate(20deg); }
+  90%  { opacity: 1; }
+  100% { transform: translate(-12px, var(--fx-fall, 115vh)) rotate(-20deg); opacity: 0; }
+}
+.fx-particle-rise {
+  top: calc(var(--fx-fall, 115vh) - 10vh);
+  animation-name: fx-particle-rise;
+  animation-timing-function: ease-out;
+}
+body.layout-portrait .fx-particle-rise { top: var(--fx-fall, 62vh); }
+@keyframes fx-particle-rise {
+  0%   { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { transform: translate(calc(var(--flip, 1) * 40px), calc(-1 * var(--fx-fall, 115vh) * 0.75)) scale(1.1); opacity: 0; }
+}
+.fx-particle-drift {
+  top: var(--y, 30%);
+  left: calc(var(--fx-x0, 0vw) - 120px);
+  animation-name: fx-particle-drift;
+  animation-timing-function: linear;
+}
+@keyframes fx-particle-drift {
+  0%   { transform: translate(0, 0) scaleX(var(--flip, 1)); opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translate(calc(var(--fx-xspan, 100vw) * 0.5 + 120px), -3vh) scaleX(var(--flip, 1)); }
+  90%  { opacity: 1; }
+  100% { transform: translate(calc(var(--fx-xspan, 100vw) + 260px), 2vh) scaleX(var(--flip, 1)); opacity: 0; }
+}
+.fx-particle-drive {
+  top: auto;
+  bottom: 1%;
+  left: calc(var(--fx-x0, 0vw) - 120px);
+  animation-name: fx-particle-drive;
+  filter: drop-shadow(0 0 12px rgba(255, 220, 120, 0.8));
+}
+body.layout-portrait .fx-particle-drive { bottom: 36%; }
+@keyframes fx-particle-drive {
+  0%   { transform: translateX(0) scaleX(var(--flip, 1)); opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translateX(calc(var(--fx-xspan, 100vw) + 260px)) scaleX(var(--flip, 1)); opacity: 0; }
+}
+.fx-particle-twinkle {
+  top: var(--y, 30%);
+  animation-name: fx-particle-twinkle;
+  animation-timing-function: ease-in-out;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+@keyframes fx-particle-twinkle {
+  0%   { transform: scale(0.2) rotate(0deg); opacity: 0; }
+  50%  { transform: scale(1) rotate(20deg); opacity: 1; }
+  100% { transform: scale(0.3) rotate(40deg); opacity: 0; }
+}
+.fx-particle-comet {
+  top: calc(var(--y, 30%) * 0.4);
+  animation-name: fx-particle-comet;
+  animation-timing-function: ease-in;
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.9));
+}
+@keyframes fx-particle-comet {
+  0%   { transform: translate(0, 0) rotate(-20deg); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { transform: translate(calc(-1 * var(--fx-xspan, 100vw) * 0.6), calc(var(--fx-fall, 115vh) * 0.45)) rotate(-20deg); opacity: 0; }
+}
+
+/* ---- shared animations ---- */
+@keyframes fx-rain-move {
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: -30px 240px, -50px 480px; }
+}
+@keyframes fx-twinkle {
+  0%   { opacity: 0.35; }
+  100% { opacity: 1; }
+}
+@keyframes fx-wave {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes fx-flicker {
+  0%   { opacity: 0.75; transform: scale(1) translateY(0); }
+  30%  { opacity: 1; transform: scale(1.04, 1.02) translateY(-1%); }
+  60%  { opacity: 0.8; transform: scale(0.98) translateY(0.5%); }
+  100% { opacity: 0.95; transform: scale(1.03, 1.05) translateY(-1.5%); }
+}
+@keyframes fx-lightning {
+  0%, 100% { opacity: 0; }
+  36%  { opacity: 0; }
+  37%  { opacity: 0.85; }
+  38%  { opacity: 0.1; }
+  39.5% { opacity: 0.7; }
+  41%  { opacity: 0; }
+  78%  { opacity: 0; }
+  78.7% { opacity: 0.9; }
+  80%  { opacity: 0; }
+}
+@keyframes fx-shimmer {
+  0%   { transform: skewX(0deg) translateY(0); opacity: 0.35; }
+  50%  { transform: skewX(1.5deg) translateY(-6px); opacity: 0.6; }
+  100% { transform: skewX(-1.5deg) translateY(0); opacity: 0.35; }
+}
+@keyframes fx-sweep {
+  0%   { background-position: 50% 100%; }
+  100% { background-position: 50% 0%; }
+}
+@keyframes fx-sun-rise {
+  0%   { transform: translate(-50%, 40%) scale(0.8); opacity: 0.4; }
+  100% { transform: translate(-50%, -10%) scale(1); opacity: 1; }
+}
+@keyframes fx-fog {
+  0%   { transform: translateX(-10%); }
+  100% { transform: translateX(10%); }
+}
+@keyframes fx-glow-pulse {
+  0%   { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* ---- rain ---- */
+.fx-scene-rain .fx-scene-bg { background: linear-gradient(180deg, #232f3e 0%, #3d5470 55%, #4d5f70 100%); }
+.fx-scene-rain .fx-scene-l1,
+.fx-scene-storm .fx-scene-l1 {
+  background-image:
+    linear-gradient(172deg, transparent 0 44%, rgba(210, 228, 255, 0.45) 50%, transparent 56%),
+    linear-gradient(172deg, transparent 0 46%, rgba(210, 228, 255, 0.25) 50%, transparent 54%);
+  background-size: 22px 120px, 34px 240px;
+  animation: fx-rain-move 0.55s linear infinite;
+}
+.fx-scene-rain .fx-scene-l2 {
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.12), transparent 60%);
+}
+.fx-scene-rain .fx-scene-fx {
+  top: auto;
+  height: 12%;
+  background: linear-gradient(0deg, rgba(180, 200, 220, 0.35), transparent);
+}
+
+/* ---- night ---- */
+.fx-scene-night .fx-scene-bg { background: radial-gradient(ellipse at 75% 12%, #3a3f78 0%, #121840 35%, #05071c 75%, #020310 100%); }
+.fx-scene-night .fx-scene-l1,
+.fx-scene-space .fx-scene-l1 {
+  background-image:
+    radial-gradient(1.5px 1.5px at 20px 30px, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 90px 80px, #fff 50%, transparent 100%),
+    radial-gradient(2px 2px at 160px 20px, #dfe8ff 50%, transparent 100%),
+    radial-gradient(1px 1px at 230px 120px, #fff 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 300px 60px, #fff 50%, transparent 100%);
+  background-size: 340px 180px;
+  animation: fx-twinkle 2.6s ease-in-out infinite alternate;
+}
+.fx-scene-night .fx-scene-l2,
+.fx-scene-space .fx-scene-l2 {
+  background-image:
+    radial-gradient(1px 1px at 50px 140px, #fff 50%, transparent 100%),
+    radial-gradient(2px 2px at 120px 40px, #ffe9b0 50%, transparent 100%),
+    radial-gradient(1px 1px at 200px 100px, #fff 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 270px 160px, #cfe0ff 50%, transparent 100%);
+  background-size: 300px 220px;
+  animation: fx-twinkle 3.7s ease-in-out infinite alternate-reverse;
+}
+.fx-scene-night .fx-scene-fx {
+  top: auto;
+  height: 22%;
+  background: linear-gradient(0deg, #05081a 0%, rgba(5, 8, 26, 0.6) 60%, transparent 100%);
+}
+
+/* ---- forest ---- */
+.fx-scene-forest .fx-scene-bg { background: linear-gradient(180deg, #0b2410 0%, #1d5a2a 45%, #2d7a3a 70%, #123a1c 100%); }
+.fx-scene-forest .fx-scene-l1 {
+  background-image:
+    linear-gradient(100deg, transparent 0 38%, rgba(255, 250, 200, 0.16) 44%, transparent 50%),
+    linear-gradient(100deg, transparent 0 62%, rgba(255, 250, 200, 0.1) 66%, transparent 70%);
+  background-size: 100% 100%;
+  animation: fx-shimmer 6s ease-in-out infinite;
+  opacity: 0.6;
+}
+.fx-scene-forest .fx-scene-l2 {
+  top: auto;
+  height: 45%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, 0.5), transparent 70%);
+}
+.fx-scene-forest .fx-scene-ground { filter: brightness(0.3) saturate(0.6); }
+
+/* ---- sea ---- */
+.fx-scene-sea .fx-scene-bg { background: linear-gradient(180deg, #8fd8ff 0%, #47a6e8 30%, #1a6fbf 52%, #0b4a8a 53%, #063a6e 100%); }
+.fx-scene-sea .fx-scene-l1,
+.fx-scene-sea .fx-scene-l2 {
+  inset: auto;
+  left: -50%;
+  bottom: -150%;
+  width: 200%;
+  height: 200%;
+  border-radius: 43% 47% 45% 45%;
+  background: rgba(255, 255, 255, 0.18);
+  animation: fx-wave 11s linear infinite;
+}
+.fx-scene-sea .fx-scene-l2 {
+  bottom: -156%;
+  border-radius: 46% 44% 48% 42%;
+  background: rgba(120, 200, 255, 0.28);
+  animation-duration: 15s;
+  animation-direction: reverse;
+}
+.fx-scene-sea .fx-scene-fx {
+  top: auto;
+  height: 48%;
+  background: linear-gradient(0deg, rgba(3, 30, 60, 0.55), transparent);
+}
+body.layout-portrait .fx-scene-sea .fx-scene-bg { background: linear-gradient(180deg, #8fd8ff 0%, #47a6e8 40%, #1a6fbf 62%, #0b4a8a 63%, #063a6e 100%); }
+
+/* ---- fire ---- */
+.fx-scene-fire .fx-scene-bg { background: radial-gradient(ellipse at 50% 108%, #ffb347 0%, #e8542b 22%, #7a1d10 55%, #1f0705 100%); }
+.fx-scene-fire .fx-scene-l1 {
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 225, 120, 0.75) 0%, rgba(255, 140, 40, 0.35) 25%, transparent 55%);
+  transform-origin: 50% 100%;
+  animation: fx-flicker 0.42s ease-in-out infinite alternate;
+}
+.fx-scene-fire .fx-scene-l2 {
+  background: radial-gradient(ellipse at 50% 100%, rgba(255, 250, 200, 0.5) 0%, transparent 30%);
+  transform-origin: 50% 100%;
+  animation: fx-flicker 0.31s ease-in-out infinite alternate-reverse;
+}
+.fx-scene-fire .fx-scene-fx {
+  background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+/* ---- castle ---- */
+.fx-scene-castle .fx-scene-bg { background: linear-gradient(180deg, #14082e 0%, #43176b 45%, #8a2f6e 72%, #2a1233 100%); }
+.fx-scene-castle .fx-scene-l1 {
+  background-image: radial-gradient(1.5px 1.5px at 40px 40px, #fff 50%, transparent 100%), radial-gradient(1px 1px at 140px 90px, #ffd 50%, transparent 100%);
+  background-size: 220px 160px;
+  height: 60%;
+  animation: fx-twinkle 3s ease-in-out infinite alternate;
+}
+.fx-scene-castle .fx-scene-l2 {
+  top: auto;
+  height: 30%;
+  left: -20%;
+  right: -20%;
+  background: linear-gradient(0deg, rgba(230, 200, 255, 0.35), transparent);
+  animation: fx-fog 12s ease-in-out infinite alternate;
+}
+.fx-scene-castle .fx-scene-ground { font-size: min(260px, 22vw); filter: brightness(0.15); }
+body.layout-portrait .fx-scene-castle .fx-scene-ground { font-size: min(200px, 40vw); }
+
+/* ---- snow ---- */
+.fx-scene-snow .fx-scene-bg { background: linear-gradient(180deg, #a3c4e6 0%, #d6e6f5 55%, #f4f8fc 100%); }
+.fx-scene-snow .fx-scene-l1 {
+  background-image:
+    radial-gradient(2px 2px at 30px 30px, #fff 50%, transparent 100%),
+    radial-gradient(3px 3px at 110px 90px, #fff 50%, transparent 100%),
+    radial-gradient(2px 2px at 180px 150px, #fff 50%, transparent 100%);
+  background-size: 220px 220px;
+  animation: fx-rain-move 6s linear infinite;
+  opacity: 0.8;
+}
+.fx-scene-snow .fx-scene-fx {
+  top: auto;
+  height: 14%;
+  background: linear-gradient(0deg, #fff 0%, rgba(255, 255, 255, 0.7) 60%, transparent 100%);
+}
+.fx-scene-snow .fx-particle { filter: drop-shadow(0 2px 4px rgba(80, 120, 160, 0.4)); color: #fff; }
+
+/* ---- desert ---- */
+.fx-scene-desert .fx-scene-bg { background: linear-gradient(180deg, #ffd98a 0%, #ffb44d 34%, #f0a24a 56%, #d1893a 57%, #a86a2a 100%); }
+.fx-scene-desert .fx-scene-l1 {
+  top: 40%;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0 6px, transparent 6px 14px);
+  animation: fx-shimmer 1.6s ease-in-out infinite;
+}
+.fx-scene-desert .fx-scene-l2 {
+  top: auto;
+  height: 44%;
+  background: radial-gradient(ellipse at 30% 100%, rgba(120, 70, 20, 0.35), transparent 60%), radial-gradient(ellipse at 80% 90%, rgba(255, 230, 150, 0.3), transparent 50%);
+}
+.fx-scene-desert .fx-scene-decor { filter: drop-shadow(0 0 60px rgba(255, 230, 120, 0.9)); animation: fx-glow-pulse 3s ease-in-out infinite alternate; }
+.fx-scene-desert .fx-scene-ground { filter: brightness(0.35) saturate(0.7); }
+
+/* ---- city ---- */
+.fx-scene-city .fx-scene-bg { background: linear-gradient(180deg, #060a1e 0%, #141b48 55%, #2a2160 80%, #0d1230 100%); }
+.fx-scene-city .fx-scene-l1 {
+  top: 55%;
+  background-image: radial-gradient(1.5px 1.5px at 6px 8px, rgba(255, 225, 130, 0.9) 50%, transparent 100%);
+  background-size: 14px 18px;
+  animation: fx-twinkle 1.4s steps(2) infinite alternate;
+  opacity: 0.35;
+}
+.fx-scene-city .fx-scene-l2 {
+  top: auto;
+  height: 40%;
+  background: linear-gradient(0deg, rgba(255, 160, 90, 0.25), transparent);
+}
+.fx-scene-city .fx-scene-ground { filter: brightness(0.5) saturate(0.6); }
+
+/* ---- space ---- */
+.fx-scene-space .fx-scene-bg { background: radial-gradient(ellipse at 30% 30%, #1d1050 0%, #0a0626 45%, #030213 100%); }
+.fx-scene-space .fx-scene-fx {
+  background: radial-gradient(ellipse at 70% 70%, rgba(120, 80, 220, 0.25), transparent 50%), radial-gradient(ellipse at 20% 80%, rgba(40, 160, 220, 0.2), transparent 45%);
+}
+.fx-scene-space .fx-scene-decor { filter: drop-shadow(0 0 30px rgba(200, 180, 255, 0.7)); animation-duration: 14s; }
+
+/* ---- sunrise ---- */
+.fx-scene-sunrise .fx-scene-bg {
+  background: linear-gradient(180deg, #2b1055 0%, #6a4b9a 25%, #ef8f6a 50%, #ffc26b 75%, #ffe9a8 100%);
+  background-size: 100% 220%;
+  animation: fx-sweep 18s ease-out forwards;
+}
+.fx-scene-sunrise .fx-scene-l1 {
+  inset: auto;
+  left: 50%;
+  bottom: 6%;
+  width: min(420px, 40vw);
+  height: min(420px, 40vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff6c8 0%, #ffd36b 45%, rgba(255, 170, 80, 0) 72%);
+  filter: blur(2px);
+  animation: fx-sun-rise 16s ease-out forwards;
+}
+.fx-scene-sunrise .fx-scene-l2 {
+  background: radial-gradient(ellipse at 50% 95%, rgba(255, 240, 200, 0.45), transparent 55%);
+  animation: fx-glow-pulse 4s ease-in-out infinite alternate;
+}
+.fx-scene-sunrise .fx-scene-fx {
+  top: auto;
+  height: 10%;
+  background: linear-gradient(0deg, rgba(90, 40, 60, 0.55), transparent);
+}
+body.layout-portrait .fx-scene-sunrise .fx-scene-l1 { bottom: 38%; width: 60vw; height: 60vw; }
+
+/* ---- storm ---- */
+.fx-scene-storm .fx-scene-bg { background: linear-gradient(180deg, #05070c 0%, #1b222f 50%, #10141c 100%); }
+.fx-scene-storm .fx-scene-l1 { animation-duration: 0.4s; opacity: 0.85; }
+.fx-scene-storm .fx-scene-l2 {
+  background: radial-gradient(ellipse at 30% 0%, #fff 0%, rgba(255, 255, 255, 0.7) 20%, rgba(180, 200, 255, 0.2) 60%, transparent 100%);
+  animation: fx-lightning 5.5s linear infinite;
+}
+.fx-scene-storm .fx-scene-fx {
+  background: radial-gradient(ellipse at 50% 30%, transparent 30%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+/* ---- sticker (2-4 emojis in a row, staggered bounce, 2.8 s) ---- */
+.fx-sticker {
+  position: absolute;
+  left: 50%;
+  top: var(--fx-top, 50%);
+  transform: translate(-50%, var(--fx-ty, -50%));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  max-width: 92vw;
+  animation: fx-sticker-life 2.8s ease-in-out forwards;
+}
+.fx-sticker-row {
+  display: flex;
+  gap: min(24px, 2vw);
+}
+.fx-sticker-emoji {
+  font-size: min(150px, 17vw);
+  line-height: 1.1;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.45));
+  animation: fx-sticker-bounce 0.9s cubic-bezier(0.3, 0, 0.2, 1) infinite;
+  animation-delay: calc(var(--i, 0) * 0.13s);
+}
+.fx-sticker .fx-text {
+  font-size: min(56px, 7vw);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.5);
+  overflow-wrap: anywhere;
+}
+body.layout-portrait .fx-sticker-emoji { font-size: min(120px, 20vw); }
+@keyframes fx-sticker-life {
+  0%   { opacity: 0; transform: translate(-50%, var(--fx-ty, -50%)) scale(0.4); }
+  12%  { opacity: 1; transform: translate(-50%, var(--fx-ty, -50%)) scale(1.08); }
+  20%  { transform: translate(-50%, var(--fx-ty, -50%)) scale(1); }
+  85%  { opacity: 1; transform: translate(-50%, var(--fx-ty, -50%)) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, var(--fx-ty, -50%)) scale(0.7); }
+}
+@keyframes fx-sticker-bounce {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50%      { transform: translateY(-22px) rotate(4deg); }
+}
