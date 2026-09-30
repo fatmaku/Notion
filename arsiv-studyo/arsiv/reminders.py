@@ -4,7 +4,7 @@ import shutil
 import subprocess
 import uuid as uuidlib
 
-from . import db, score
+from . import db, i18n, score
 
 # Varsayılan iyi saatler (hafta günü 0=Pzt): analiz verisi yoksa kullanılır
 DEFAULT_HOURS = {0: [12, 19], 1: [11, 19], 2: [12, 19], 3: [12, 20], 4: [11, 18], 5: [10, 19], 6: [11, 19]}
@@ -16,10 +16,11 @@ def _best_hour(weekday, hours_by_day):
     return hs[0]
 
 
-def plan_reshares(con, weeks=4, per_week=3, min_days=180, start=None, progress=print):
+def plan_reshares(con, weeks=4, per_week=3, min_days=180, start=None, progress=print, lang=None):
     """Yeniden paylaşım kuyruğunu önümüzdeki haftalara dağıtır; hatırlatıcı oluşturur."""
     from . import marketing
-    queue = score.reshare_queue(con, min_days=min_days, limit=weeks * per_week * 2)
+    lang = lang or i18n.lang_of(con)
+    queue = score.reshare_queue(con, min_days=min_days, limit=weeks * per_week * 2, lang=lang)
     if not queue:
         progress("Yeniden paylaşım kuyruğu boş (önce Instagram dışa aktarımını içe aktarın ya da öğeleri 'paylaşıldı' işaretleyin).")
         return []
@@ -41,7 +42,7 @@ def plan_reshares(con, weeks=4, per_week=3, min_days=180, start=None, progress=p
         if date < today:
             date += dt.timedelta(days=7)
         due = dt.datetime.combine(date, dt.time(_best_hour(date.weekday(), hours), 0))
-        title = f"Yeniden paylaş: {item.get('filename') or item['id']}"
+        title = i18n.t(lang, "Yeniden paylaş: {f}", f=item.get('filename') or item['id'])
         rid = db.add_reminder(con, due.isoformat(), title, note="; ".join(item.get("gerekce") or []),
                               item_ids=[item["id"]], post_id=item.get("post_id"))
         created.append({"id": rid, "due": due.isoformat(), "title": title, "item_id": item["id"]})
@@ -50,8 +51,9 @@ def plan_reshares(con, weeks=4, per_week=3, min_days=180, start=None, progress=p
     return created
 
 
-def plan_on_this_day(con, days_ahead=14, min_score=55, progress=print):
+def plan_on_this_day(con, days_ahead=14, min_score=55, progress=print, lang=None):
     """Önümüzdeki günler için 'bugün geçen yıl' hatırlatıcıları."""
+    lang = lang or i18n.lang_of(con)
     created = []
     existing = {(r["due"][:10], r["title"]) for r in db.reminders(con, status="acik")}
     for k in range(days_ahead):
@@ -60,11 +62,11 @@ def plan_on_this_day(con, days_ahead=14, min_score=55, progress=print):
         if not items:
             continue
         years = sorted({str(i.get("year")) for i in items})
-        title = f"Bugün geçen yıl: {len(items)} öğe ({', '.join(years)})"
+        title = i18n.t(lang, "Bugün geçen yıl: {n} öğe ({y})", n=len(items), y=', '.join(years))
         if (date.isoformat(), title) in existing:
             continue
         due = dt.datetime.combine(date, dt.time(_best_hour(date.weekday(), {}), 0))
-        rid = db.add_reminder(con, due.isoformat(), title, note="Hikâye ya da 'Eskiden/Şimdi' için uygun", item_ids=[i["id"] for i in items])
+        rid = db.add_reminder(con, due.isoformat(), title, note=i18n.t(lang, "Hikâye ya da 'Eskiden/Şimdi' için uygun"), item_ids=[i["id"] for i in items])
         created.append({"id": rid, "due": due.isoformat(), "title": title})
     progress(f"{len(created)} 'bugün geçen yıl' hatırlatıcısı oluşturuldu")
     return created

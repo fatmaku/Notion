@@ -83,7 +83,7 @@ Veriler `~/ArsivStudyo/` altında tutulur (`arsiv.db`, `kucuk-resimler/`, `cikti
 
 ## Web arayüzü
 
-`python3 -m arsiv sunucu` → tarayıcıda:
+`python3 -m arsiv sunucu` → tarayıcıda. Sağ üstteki menüden dil seçilir: **Türkçe / Deutsch / English** (açıklama, hashtag ve etiket metinleri de seçilen dilde üretilir).
 
 - **Panel:** özet, bugün geçen yıl, içerik fikirleri, yaklaşan hatırlatıcılar
 - **Kütüphane:** arama + filtreler (tür, yön, yıl, süre, paylaşım durumu, favori), küçük resim ızgarası, öğe detayı (ön izleme, puan gerekçeleri, albüm/kişi/etiketler), seçim

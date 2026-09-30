@@ -1,7 +1,7 @@
 """Sosyal medya uygunluk puanı (0-100) ve aday / yeniden paylaşım listeleri."""
 import datetime as dt
 
-from . import config, db
+from . import config, db, i18n
 
 
 def _has_social_word(values):
@@ -21,7 +21,7 @@ def compute(item):
     a = asp_pts.get(aspect, 10)
     score += a
     if a >= 16:
-        why.append(f"dikey/kare format ({aspect})")
+        why.append("dikey/kare format")
 
     if kind == "video":
         if 5 <= dur <= 60:
@@ -93,7 +93,7 @@ def candidates(con, kind=None, unposted=True, min_score=50, limit=60, offset=0, 
                      sort="score", limit=limit, offset=offset, **filters)
 
 
-def reshare_queue(con, min_days=180, limit=60):
+def reshare_queue(con, min_days=180, limit=60, lang=None):
     """Eskiden paylaşılmış, yeniden paylaşmaya değer öğeler (en az min_days gün önce paylaşılmış)."""
     cutoff = (dt.datetime.now() - dt.timedelta(days=min_days)).isoformat()
     rows = con.execute("""
@@ -101,16 +101,17 @@ def reshare_queue(con, min_days=180, limit=60):
         FROM items i LEFT JOIN posts p ON p.id = i.post_id
         WHERE i.posted_at IS NOT NULL AND i.posted_at <= ? AND i.hidden=0
         ORDER BY (i.social_score + COALESCE(p.likes,0)/10.0) DESC, i.posted_at ASC LIMIT ?""", (cutoff, limit)).fetchall()
+    lang = lang or i18n.lang_of(con)
     out = []
     for r in rows:
         d = db.row_to_item(r)
         d["gerekce"] = []
         if d.get("likes"):
-            d["gerekce"].append(f"{d['likes']} beğeni almıştı")
+            d["gerekce"].append(i18n.t(lang, "{n} beğeni almıştı", n=d["likes"]))
         days = (dt.datetime.now() - dt.datetime.fromisoformat(d["posted_at"][:19])).days if d.get("posted_at") else None
         if days:
-            d["gerekce"].append(f"{days} gün önce paylaşıldı")
-        d["gerekce"] += d.get("score_reasons") or []
+            d["gerekce"].append(i18n.t(lang, "{n} gün önce paylaşıldı", n=days))
+        d["gerekce"] += [i18n.t(lang, x) for x in (d.get("score_reasons") or [])]
         out.append(d)
     return out
 

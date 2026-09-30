@@ -6,7 +6,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from . import config, db, ffilters, fix, media, music, photos_mac, text_overlay
+from . import config, db, ffilters, fix, i18n, media, music, photos_mac, text_overlay
 
 DEFAULT_BRIEF = {
     "sablon": "montaj",          # montaj | tekli | eskiden-simdi | alinti | carousel | yeniden
@@ -246,7 +246,8 @@ def render_video(b, clips, out_dir, progress):
                 _emit_clip(ctx, pair[0], 2 * k, f"t{k}", W, H // 2, off, T, True)
                 _emit_clip(ctx, pair[1], 2 * k + 1, f"b{k}", W, H // 2, off, T, True)
                 ctx.lines.append(f"[t{k}][b{k}]vstack,settb=AVTB,fps={ctx.fps},format=yuv420p[v{k}]")
-                windows.append((off, off + d, pair[0].get("label") or "ESKİDEN", pair[1].get("label") or "ŞİMDİ"))
+                lang = b.get("dil") or "tr"
+                windows.append((off, off + d, pair[0].get("label") or i18n.t(lang, "ESKİDEN"), pair[1].get("label") or i18n.t(lang, "ŞİMDİ")))
             else:
                 d = pair[0]["dur"]
                 _emit_clip(ctx, pair[0], 2 * k, f"v{k}", W, H, off, T, True)
@@ -334,6 +335,7 @@ def render_fix(b, clips, out_dir, progress):
 def render(con, brief, progress=print):
     """Brief'e göre üretim yapar; çıktı bilgilerini döndürür."""
     b = normalize_brief(brief)
+    b["dil"] = i18n.norm(b.get("dil") or i18n.lang_of(con))
     config.ensure_dirs()
     out_dir = _out_dir(b["baslik"] or b["sablon"])
     (out_dir / "brief.json").write_text(json.dumps(b, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -345,7 +347,7 @@ def render(con, brief, progress=print):
     else:
         res = render_video(b, clips, out_dir, progress)
     from . import marketing
-    caption = marketing.caption(b, [c["item"] for c in clips])
+    caption = marketing.caption(b, [c["item"] for c in clips], lang=b["dil"])
     (out_dir / "aciklama.txt").write_text(caption, encoding="utf-8")
     res.update(caption=caption, klasor=str(out_dir), sablon=b["sablon"], format=b["format"])
     progress(f"Hazır: {res['output']}")

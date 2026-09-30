@@ -9,7 +9,7 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-from . import config, db, media
+from . import config, db, i18n, media
 
 UI_DIR = Path(__file__).parent / "ui"
 _lock = threading.Lock()
@@ -46,7 +46,14 @@ class Handler(BaseHTTPRequestHandler):
             super().log_message(fmt, *args)
 
     # ------------------------------------------------------------ yardımcılar
+    def _lang(self):
+        return i18n.norm(self.headers.get("X-Lang") or db.get_setting(self._con(), "dil", "tr"))
+
     def _json(self, obj, status=200):
+        try:
+            obj = i18n.localize(obj, self._lang())
+        except Exception:
+            pass
         data = json.dumps(obj, ensure_ascii=False, default=str).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -133,7 +140,10 @@ class Handler(BaseHTTPRequestHandler):
                                                    year=q.get("year") or None, q=q.get("q") or None))
             if path == "/api/reshare":
                 from . import score
-                return self._json(score.reshare_queue(self._con(), min_days=int(q.get("min_days", 180)), limit=int(q.get("limit", 60))))
+                return self._json(score.reshare_queue(self._con(), min_days=int(q.get("min_days", 180)), limit=int(q.get("limit", 60)), lang=self._lang()))
+            if path == "/api/settings":
+                con = self._con()
+                return self._json({"dil": db.get_setting(con, "dil", "tr")})
             if path == "/api/onthisday":
                 from . import score
                 import datetime as dt
@@ -161,10 +171,10 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json({"sablonlar": studio.TEMPLATES, "varsayilan": studio.DEFAULT_BRIEF, "formatlar": list(config.FORMATS)})
             if path == "/api/besttimes":
                 from . import marketing
-                return self._json(marketing.best_times(self._con()))
+                return self._json(marketing.best_times(self._con(), lang=self._lang()))
             if path == "/api/ideas":
                 from . import marketing
-                return self._json(marketing.ideas(self._con()))
+                return self._json(marketing.ideas(self._con(), lang=self._lang()))
             if path == "/api/duplicates":
                 return self._json(db.duplicates(self._con(), limit=int(q.get("limit", 100))))
             if path == "/api/jobs":
@@ -248,6 +258,7 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/render":
                 from . import studio
                 brief = studio.normalize_brief(body)
+                brief["dil"] = body.get("dil") or self._lang()
                 if not brief["ogeler"]:
                     return self._json({"hata": "öğe seçilmedi"}, 400)
                 rid = db.add_render(con, brief["sablon"], brief, [o["id"] for o in brief["ogeler"]])
@@ -268,7 +279,11 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/caption":
                 from . import marketing
                 items = db.get_items(con, [int(x) for x in body.get("ids", [])])
-                return self._json({"caption": marketing.caption(body, items, use_claude=not body.get("claude_yok"))})
+                return self._json({"caption": marketing.caption(body, items, use_claude=not body.get("claude_yok"), lang=body.get("dil") or self._lang())})
+            if path == "/api/settings":
+                if body.get("dil"):
+                    db.set_setting(con, "dil", i18n.norm(body["dil"]))
+                return self._json({"dil": db.get_setting(con, "dil", "tr")})
             if path == "/api/collect":
                 from . import collect
                 res = collect.collect(con, [int(x) for x in body.get("ids", [])], body.get("name") or "secim", mode=body.get("mode", "link"))
@@ -282,8 +297,9 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json({"ok": True})
             if path == "/api/reminders/plan":
                 from . import reminders
-                a = reminders.plan_reshares(con, weeks=int(body.get("weeks", 4)), per_week=int(body.get("per_week", 3)), min_days=int(body.get("min_days", 180)), progress=lambda *_: None)
-                b2 = reminders.plan_on_this_day(con, days_ahead=int(body.get("weeks", 4)) * 7, progress=lambda *_: None)
+                lang = self._lang()
+                a = reminders.plan_reshares(con, weeks=int(body.get("weeks", 4)), per_week=int(body.get("per_week", 3)), min_days=int(body.get("min_days", 180)), progress=lambda *_: None, lang=lang)
+                b2 = reminders.plan_on_this_day(con, days_ahead=int(body.get("weeks", 4)) * 7, progress=lambda *_: None, lang=lang)
                 return self._json({"yeniden": a, "bugun": b2})
             if path.startswith("/api/item/") and path.endswith("/posted"):
                 import datetime as dt
