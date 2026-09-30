@@ -25,6 +25,7 @@ const smartMod = require('./server/smart');
 const apiFire = require('./server/api-fire');
 const apiTriggers = require('./server/api-triggers');
 const apiAssets = require('./server/api-assets');
+const apiGifs = require('./server/api-gifs');
 const apiTranscript = require('./server/api-transcript');
 const apiSmart = require('./server/api-smart');
 const staticFiles = require('./server/static');
@@ -46,7 +47,7 @@ const smart = smartMod.createSmart({ log, model: config.model, getTriggers: () =
 const appCtx = { bus, state, token, dataDir: DATA_DIR, rootDir: ROOT, config, smart, log };
 
 const router = new Router();
-for (const mod of [auth, apiFire, apiTriggers, apiAssets, apiTranscript, apiSmart, sse]) mod.register(router, appCtx);
+for (const mod of [auth, apiFire, apiTriggers, apiGifs, apiAssets, apiTranscript, apiSmart, sse]) mod.register(router, appCtx);
 router.route('GET', '/health', (req, res) => {
   const c = bus.counts();
   json(res, 200, { ok: true, version: pkg.version, overlays: c.overlays, panels: c.panels, uptime: Math.round(process.uptime()) });

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 – Memes, Sprachen, Demo
+
+- **Meme-Pakete** Türkçe (55), Deutsch (31), English (32) – im Panel per Klick laden/entfernen.
+- **GIF-Suche** (Tenor/Giphy) in der Medien-Bibliothek mit sicherem Server-Import und „Als Trigger“.
+- **Demo-Seite ohne OBS** (`demo.html`): Kamera + Effekte + Sounds aufnehmen und als Video herunterladen.
+- **12 neue Sounds** (26 gesamt); Vine-Boom übersteuert nicht mehr.
+- Panel: Demo-Karte, ausführlichere OBS-Schritte, Anleitungen (`docs/`) direkt verlinkt; Layout auf Handybreite ohne Überlauf.
+
 ## 1.0.0 – vom Prototyp zum Programm
 
 ### Neu

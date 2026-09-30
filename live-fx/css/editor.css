@@ -107,3 +107,41 @@ dialog.fx-editor::backdrop { background: rgba(0, 0, 0, 0.6); backdrop-filter: bl
 .asset-del { position: absolute; top: 4px; right: 4px; padding: 2px 7px !important; font-size: 11px !important; opacity: 0.7; }
 .asset-del:hover { opacity: 1; color: var(--accent, #ff4d6d); }
 .asset-play { font-size: 14px !important; padding: 4px 10px !important; }
+
+/* ---- GIF search (LiveFXAssets.mountLibrary -> .gif-search) ---- */
+.gif-search { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--fx-border, var(--border, #2b303c)); }
+.gif-title { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text, #e8eaf0); }
+.gif-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.gif-form .gif-q { flex: 1 1 180px; min-width: 0; width: auto; }
+.gif-form .gif-go { width: auto; }
+.gif-form input, .gif-form select, .gif-keys input {
+  width: auto;
+  font: inherit;
+  font-size: 13px;
+  color: var(--text, #e8eaf0);
+  background: var(--bg, #0f1115);
+  border: 1px solid var(--fx-border, var(--border, #2b303c));
+  border-radius: 8px;
+  padding: 7px 10px;
+  box-sizing: border-box;
+}
+.gif-form select { flex: 0 0 auto; width: auto; }
+.gif-status { font-size: 12px; color: var(--fx-muted, var(--muted, #8d93a3)); min-height: 16px; margin: 8px 0; }
+.gif-status.error { color: var(--accent, #ff4d6d); }
+.gif-status.ok { color: var(--ok, #3ddc84); }
+.gif-missing { margin: 0 0 8px; font-size: 13px; color: var(--fx-muted, var(--muted, #8d93a3)); }
+.gif-missing a { color: var(--accent-2, #7c5cff); }
+.gif-keys { display: flex; gap: 8px; flex-wrap: wrap; }
+.gif-keys input { flex: 1 1 160px; min-width: 0; width: auto; }
+.gif-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.gif-empty { grid-column: 1 / -1; font-size: 13px; color: var(--fx-muted, var(--muted, #8d93a3)); }
+.gif-item { background: var(--bg, #0f1115); border: 1px solid var(--fx-border, var(--border, #2b303c)); border-radius: 10px; padding: 6px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.gif-item.busy { opacity: 0.5; pointer-events: none; }
+.gif-preview { width: 100%; height: 110px; object-fit: contain; border-radius: 6px; background: repeating-conic-gradient(#1c2028 0 25%, #14171d 0 50%) 0 0 / 16px 16px; }
+.gif-actions { display: flex; gap: 6px; }
+.gif-actions button { flex: 1; padding: 5px 6px !important; font-size: 11px !important; white-space: nowrap; }
+.gif-attribution { margin-top: 8px; font-size: 11px; color: var(--fx-muted, var(--muted, #8d93a3)); text-align: right; }
+@media (max-width: 480px) {
+  .gif-results { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  .gif-form .gif-go { flex: 1 1 100%; }
+}

@@ -355,7 +355,79 @@
     matcher.setTriggers(triggers);
     renderPad();
     if (rows) renderRows();
+    renderPacks();
     if (save) LiveFXStore.save(triggers);
+  }
+
+  // ---------- meme packs ----------
+  const packsApi = window.LiveFXPacks;
+
+  /** How many triggers of a pack are currently in the list (by id). */
+  function packPresent(packId) {
+    const ids = new Set(packsApi.get(packId).map((t) => t.id));
+    return triggers.filter((t) => ids.has(t.id)).length;
+  }
+
+  function loadPack(packId) {
+    const pack = packsApi.packs[packId];
+    if (!pack) return;
+    const have = new Set(triggers.map((t) => t.id));
+    const fresh = packsApi.get(packId).filter((t) => !have.has(t.id));
+    const room = Math.max(0, S.LIMITS.triggers - triggers.length);
+    const added = fresh.slice(0, room);
+    if (fresh.length > room) log(`⚠️ Maximal ${S.LIMITS.triggers} Trigger – ${fresh.length - room} aus „${pack.label}“ nicht geladen`);
+    if (!added.length) {
+      log(`📦 ${pack.label}: bereits geladen`);
+      renderPacks();
+      return;
+    }
+    const n = S.normalizeTriggers(added);
+    for (const w of n.warnings) log(`⚠️ Paket: ${w}`);
+    triggers = triggers.concat(n.triggers);
+    commit();
+    log(`📦 ${pack.label}: ${n.triggers.length} Trigger geladen`);
+  }
+
+  function unloadPack(packId) {
+    const pack = packsApi.packs[packId];
+    if (!pack) return;
+    const prefix = `${packId}-`;
+    const before = triggers.length;
+    triggers = triggers.filter((t) => !String(t.id).startsWith(prefix));
+    const gone = before - triggers.length;
+    if (!gone) {
+      renderPacks();
+      return;
+    }
+    commit();
+    log(`🗑️ ${pack.label}: ${gone} Trigger entfernt`);
+  }
+
+  function renderPacks() {
+    const root = $('#packs');
+    if (!root || !packsApi) return;
+    root.innerHTML = '';
+    for (const p of packsApi.list()) {
+      const present = packPresent(p.id);
+      const loaded = p.count > 0 && present >= Math.ceil(p.count * 0.8);
+      const el = document.createElement('div');
+      el.className = `pack${loaded ? ' loaded' : ''}`;
+      el.dataset.pack = p.id;
+      const count = loaded ? `✓ geladen (${present})` : present ? `${present} / ${p.count} Trigger` : `${p.count} Trigger`;
+      el.innerHTML = `
+        <div class="flag">${esc(p.flag)}</div>
+        <div class="info">
+          <div class="title">${esc(p.label)} <span class="count${loaded ? ' loaded' : ''}">${esc(count)}</span></div>
+          <div class="desc">${esc(p.description)}</div>
+        </div>
+        <div class="btns">
+          <button type="button" class="small" data-act="load"${loaded ? ' disabled' : ''}>Laden</button>
+          <button type="button" class="small danger" data-act="unload"${present ? '' : ' disabled'}>Entfernen</button>
+        </div>`;
+      el.querySelector('[data-act="load"]').addEventListener('click', () => loadPack(p.id));
+      el.querySelector('[data-act="unload"]').addEventListener('click', () => unloadPack(p.id));
+      root.appendChild(el);
+    }
   }
 
   function removeTrigger(id) {
@@ -581,7 +653,18 @@
     log(`📂 Trigger geladen: ${sourceLabel(loaded.source)} (${triggers.length})`);
 
     if (online) {
-      library = LiveFXAssets.mountLibrary($('#asset-library'), { onChange: () => {} });
+      library = LiveFXAssets.mountLibrary($('#asset-library'), {
+        onChange: () => {},
+        // GIF search „Als Trigger“: open the editor prefilled with the imported image.
+        onCreateTrigger: (asset, result) => {
+          if (triggers.length >= S.LIMITS.triggers) return log(`⚠️ Maximal ${S.LIMITS.triggers} Trigger`);
+          const label = String((result && result.title) || asset.name).replace(/\s*#\d+.*$/, '').slice(0, S.LIMITS.label) || 'Meme';
+          openEditor(
+            { id: S.newId('t'), label, keywords: [], enabled: true, cooldown: 5, sound: 'pop', visual: { kind: 'image', src: asset.url, position: 'safe' } },
+            { isNew: true }
+          );
+        },
+      });
       smart.refreshStatus().then((st) => log(`🤖 ${smartReasonText(st)}`));
     } else {
       $('#asset-library').innerHTML = '<div class="help">Uploads brauchen den Server: <code>node server.js</code></div>';

@@ -223,7 +223,7 @@ Updates `lastFireAt`/`lastGlobalFire` exactly like `process()`. Internal maps ke
 `#asset-library`, `#pad button` (with `img.thumb` for image triggers), trigger rows `#trigger-rows tr` with buttons
 `[data-act="edit"|"test"|"del"]`, `#lang`, `#btn-listen`, `#btn-mute`, `#sim`, `#btn-sim`, `#log`, `#volume`, `#gap`,
 `#preview` (iframe `overlay.html?volume=0.5`), `#btn-add`, `#btn-export`, `#btn-import`, `#btn-reset`, `#transcript` (uses `<mark>`).
-Script order in `index.html`: `sounds, triggers, schema, matcher, bus, store, assets, editor, asr, smart, panel`.
+Script order in `index.html`: `sounds, triggers, packs, schema, matcher, bus, store, assets, editor, asr, smart, panel`.
 
 Client helpers the panel consumes:
 ```js
