@@ -25,6 +25,7 @@ import { WakeLock } from '../sensors/WakeLock';
 import { Rng, hashString } from '../core/rng';
 import { Router } from '../ui/Router';
 import { toast } from '../ui/dom';
+import { T } from '../ui/i18n/de';
 import { StartScreen } from '../ui/screens/StartScreen';
 import { SafetyScreen } from '../ui/screens/SafetyScreen';
 import { ModeScreen } from '../ui/screens/ModeScreen';
@@ -35,6 +36,7 @@ import { ResultsScreen } from '../ui/screens/ResultsScreen';
 import { LeaderboardScreen } from '../ui/screens/LeaderboardScreen';
 import { Leaderboard, ensurePlayerId, type SubmitResponse } from '../net/Leaderboard';
 import { verifyRound } from '../../shared/verify';
+import { OfflinePrep } from './OfflinePrep';
 import { GameLoop } from './GameLoop';
 import { Settings } from './Settings';
 import { Storage } from './Storage';
@@ -55,6 +57,8 @@ export class App {
   readonly overlay: DebugOverlay;
   readonly loop: GameLoop;
   readonly leaderboard: Leaderboard;
+  readonly offline = new OfflinePrep(import.meta.env.BASE_URL);
+  online = typeof navigator === 'undefined' ? true : navigator.onLine;
   session: Session = defaultSession();
 
   frame: FrameSource | null = null;
@@ -85,6 +89,14 @@ export class App {
     );
     this.leaderboard = new Leaderboard(import.meta.env.VITE_LEADERBOARD_URL || undefined, pid);
     this.motion.events.on('sample', (s) => this.windowTracker?.onMotion(s));
+    window.addEventListener('online', () => {
+      this.online = true;
+      void this.leaderboard.flush().then((n) => n && toast(`${n} Ranglisten-Eintrag/-Einträge nachgereicht`));
+      if (this.offline.state === 'missing' || this.offline.state === 'error') void this.offline.check();
+    });
+    window.addEventListener('offline', () => {
+      this.online = false;
+    });
     this.applySettings();
   }
 
@@ -105,9 +117,16 @@ export class App {
   }
 
   async boot(): Promise<void> {
-    if (import.meta.env.PROD && 'serviceWorker' in navigator && !this.params.test) {
+    if (import.meta.env.PROD && 'serviceWorker' in navigator && !this.params.nosw) {
       navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => undefined);
     }
+    void this.offline.check().then((st) => {
+      // auto-prepare on connections that are not metered (desktop / Wi-Fi); phones on mobile data get a button
+      const conn = (navigator as Navigator & { connection?: { saveData?: boolean; type?: string } }).connection;
+      const metered = conn?.saveData || conn?.type === 'cellular';
+      if (st === 'missing' && this.online && !metered && !this.params.test) void this.offline.prepare();
+    });
+    void this.leaderboard.flush();
     const p = this.params;
     if (p.mode) this.session.mode = p.mode;
     if (p.weapons?.length) this.session.weapons = [p.weapons[0], p.weapons[1] ?? p.weapons[0]];
@@ -387,9 +406,21 @@ export class App {
       return;
     }
     const name = this.settings.data.nickname || `Fahrgast${Math.floor(Math.random() * 1000)}`;
+    if (!this.leaderboard.configured) {
+      toast('Weltweite Rangliste nicht eingerichtet.');
+      return;
+    }
+    if (!this.online) {
+      this.leaderboard.enqueue(name, r);
+      toast(T.queuedScore, 3000);
+      return;
+    }
     const res: SubmitResponse = await this.leaderboard.submit(name, r).catch(() => ({ ok: false, error: 'network' }) as SubmitResponse);
-    if (res.ok) toast(`Eingetragen als ${name}${res.rank ? ` – Platz ${res.rank}` : ''}`);
-    else toast(res.error === 'not-configured' ? 'Weltweite Rangliste nicht eingerichtet.' : 'Eintragen fehlgeschlagen.');
+    if (res.ok) toast(`Eingetragen als ${name}${res.rank ? ` – Platz ${res.rank}` : ''}${res.dailyRank ? `, heute Platz ${res.dailyRank}` : ''}`);
+    else if (res.error === 'network') {
+      this.leaderboard.enqueue(name, r);
+      toast(T.queuedScore, 3000);
+    } else toast(`Eintragen abgelehnt (${res.error ?? 'Fehler'}).`);
   }
 
   // ------------------------------------------------------------------------ loop

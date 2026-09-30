@@ -23,11 +23,62 @@ export interface SubmitResponse {
  * Client for the optional global leaderboard (see server/leaderboard-worker).
  * When no URL is configured the app keeps working with local records only.
  */
+interface PendingSubmit {
+  name: string;
+  round: RoundResult;
+  queuedAt: number;
+}
+
+const PENDING_KEY = 'wb.pendingScores';
+
 export class Leaderboard {
   constructor(
     readonly baseUrl: string | undefined,
     private readonly playerId: string,
   ) {}
+
+  /** Rounds waiting for a connection. */
+  pending(): PendingSubmit[] {
+    try {
+      return JSON.parse(localStorage.getItem(PENDING_KEY) ?? '[]') as PendingSubmit[];
+    } catch {
+      return [];
+    }
+  }
+
+  private savePending(list: PendingSubmit[]): void {
+    try {
+      localStorage.setItem(PENDING_KEY, JSON.stringify(list.slice(-20)));
+    } catch {
+      /* ignore */
+    }
+  }
+
+  enqueue(name: string, round: RoundResult): void {
+    const list = this.pending();
+    list.push({ name, round, queuedAt: Date.now() });
+    this.savePending(list);
+  }
+
+  /** Sends queued rounds; keeps the ones that failed for network reasons. Returns how many were sent. */
+  async flush(): Promise<number> {
+    if (!this.baseUrl) return 0;
+    const list = this.pending();
+    if (!list.length) return 0;
+    const keep: PendingSubmit[] = [];
+    let sent = 0;
+    for (const item of list) {
+      try {
+        const res = await this.submit(item.name, item.round);
+        if (res.ok || (res.error && !/network|fetch/i.test(res.error))) sent += res.ok ? 1 : 0; // rejected rounds are dropped too
+        else keep.push(item);
+      } catch {
+        keep.push(item);
+      }
+    }
+    this.savePending(keep);
+    return sent;
+  }
 
   get configured(): boolean {
     return !!this.baseUrl;

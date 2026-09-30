@@ -64,6 +64,15 @@ export const T = {
   rotateHint: 'Bitte das Handy quer halten',
   noTargets: 'Keine Fahrzeuge im Bild – warte auf Verkehr …',
   windowLost: 'Scheibe verloren – tippe „Zentrieren“',
+  offlineReady: 'Offline bereit – läuft ohne Internet',
+  offlineMissing: 'Für offline vorbereiten',
+  offlineDownloading: 'Lade für offline …',
+  offlineError: 'Offline-Download fehlgeschlagen – nochmal versuchen',
+  offlineNoNet: 'Kein Netz – Offline-Daten fehlen noch',
+  online: 'Online',
+  offlineNow: 'Offline',
+  pendingScores: 'Wartende Ranglisten-Einträge',
+  queuedScore: 'Gespeichert – wird eingetragen, sobald du online bist.',
 } as const;
 
 export const VEHICLES: Record<VehicleType, { icon: string; name: string; desc: string }> = {

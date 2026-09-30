@@ -17,7 +17,23 @@ ein Ereignisprotokoll an die weltweite Rangliste.
 
 ---
 
-## Aufs Handy bekommen
+## Braucht das Spiel Internet?
+
+Nur **einmal** zum Installieren auf dem Handy. Beim ersten Start mit Netz lädt die App das Erkennungsmodell und die
+Laufzeit (ca. 30 MB) im Hintergrund und zeigt „Offline bereit ✓“ (auf Mobilfunk erst nach Tippen auf
+„Für offline vorbereiten“). Danach laufen Kamera, Erkennung, Scheiben-Tracking, Punkte, Missionen und Bestwerte
+komplett ohne Internet. Nur die weltweite Rangliste braucht Netz; offline gespielte Runden werden gespeichert
+und automatisch nachgereicht.
+
+## Ohne GitHub: Download-Paket für den Mac
+
+`npm run package` erzeugt `WindowBlaster-Mac.zip`: fertige App, ein lokaler HTTPS-Server (Caddy, für Apple Silicon
+und Intel, keine Installation nötig), `Start-Window-Blaster.command` (Doppelklick), `Handy-vertrauen.command`
+(macht den Mac für dein Handy zu einer vertrauenswürdigen Adresse, damit Kamera **und** Offline-Installation über den
+Mac funktionieren) und eine ausführliche deutsche `ANLEITUNG.md` – inklusive Betrieb ganz ohne WLAN-Router über die
+Internetfreigabe des Macs. Die Vorlagen liegen in `packaging/`.
+
+## Aufs Handy bekommen (mit GitHub)
 
 Die App braucht HTTPS (Kamera-Zugriff). Der einfachste Weg ist GitHub Pages:
 
@@ -26,7 +42,7 @@ Die App braucht HTTPS (Kamera-Zugriff). Der einfachste Weg ist GitHub Pages:
    auf diesen Branch (oder per **Actions → window-blaster → Run workflow**).
 3. Auf dem Handy öffnen: `https://fatmaku.github.io/Notion/window-blaster/`
 4. **Zum Homescreen hinzufügen** (Safari: Teilen → „Zum Home-Bildschirm“; Chrome: Menü → „App installieren“).
-   Dann läuft es im Vollbild, quer, und nach dem ersten Laden auch offline.
+   In der App „Für offline vorbereiten“ abwarten – dann läuft es im Vollbild, quer und dauerhaft offline.
 
 Lokal im WLAN testen (Handy und Rechner im selben Netz):
 
@@ -88,7 +104,8 @@ Actions-Variable `LEADERBOARD_URL` setzen; der nächste Deploy aktiviert die Ran
 npm install          # kopiert auch die MediaPipe-WASM-Laufzeit nach public/
 npm run dev          # http://localhost:5173  (Demo: ?demo=1&skipTo=play&mode=side-runner)
 npm test             # Vitest: Tracker, Scheiben-Erkennung, Physik, Scoring, Verifikation (50+ Tests)
-npm run e2e          # Playwright, headless Chromium mit Fake-Kamera: 9 Szenarien inkl. echtem MediaPipe-Start
+npm run e2e          # Playwright, headless Chromium mit Fake-Kamera: 10 Szenarien inkl. echtem MediaPipe-Start und Offline-Betrieb
+npm run package      # WindowBlaster-Mac.zip (braucht Caddy-Binaries in packaging/caddy, siehe scripts/package-mac.mjs)
 npm run build        # dist/ (≈ 100 kB JS + 34 MB WASM/Modell, nach dem ersten Laden gecacht)
 ```
 

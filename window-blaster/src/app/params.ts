@@ -14,6 +14,8 @@ export interface Params {
   round: number | null;
   /** e2e: deterministic scheduler timing, no audio. */
   test: boolean;
+  /** disable service worker registration */
+  nosw: boolean;
 }
 
 export function readParams(search = typeof location !== 'undefined' ? location.search : ''): Params {
@@ -36,5 +38,6 @@ export function readParams(search = typeof location !== 'undefined' ? location.s
     noShake: flag('noshake'),
     round: q.has('round') ? Number(q.get('round')) : null,
     test: flag('test'),
+    nosw: flag('nosw'),
   };
 }
