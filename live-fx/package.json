@@ -1,11 +1,21 @@
 {
   "name": "livefx",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Live memes, stickers and sound effects for livestreams – triggered by what the streamer says.",
   "private": true,
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node test/matcher.test.js && node test/e2e.js"
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node --test \"test/*.test.js\"",
+    "test:e2e": "node test/e2e.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "optionalDependencies": {
+    "@anthropic-ai/sdk": "^0.129.0",
+    "zod": "^4.0.0"
   },
   "devDependencies": {
     "playwright": "^1.56.1"

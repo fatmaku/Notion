@@ -63,3 +63,20 @@ hits = m.process('oh nein das war ein fail', 700);
 assert.strictEqual(hits.length, 1);
 assert.strictEqual(hits[0].trigger.id, 'fail', 'longer keyword "oh nein" beats "nein"');
 console.log('specificity test: OK');
+
+// 10. fireById honours cooldown / gap / disabled / unknown and separates id-less triggers
+m = new Matcher(triggers.concat([{ id: 'off', label: 'off', keywords: ['aus'], enabled: false }]));
+assert.deepStrictEqual(m.fireById('nope', 800).blocked, 'unknown');
+assert.deepStrictEqual(m.fireById('off', 800).blocked, 'disabled');
+assert.strictEqual(m.fireById('lol', 800).blocked, null);
+assert.strictEqual(m.fireById('lol', 801).blocked, 'cooldown');
+assert.strictEqual(m.fireById('wow', 800.5).blocked, 'gap');
+assert.strictEqual(m.fireById('wow', 802).blocked, null);
+assert.strictEqual(m.process('lol', 900).length, 1, 'speech match shares cooldown state with fireById');
+m = new Matcher([{ keywords: ['eins'] }, { keywords: ['zwei'] }]);
+assert.strictEqual(m.process('eins', 1000).length, 1);
+m.endUtterance();
+assert.strictEqual(m.process('zwei', 1000.1).length, 0, 'global gap');
+m.endUtterance();
+assert.strictEqual(m.process('zwei', 1003).length, 1, 'id-less triggers do not share a cooldown counter');
+console.log('fireById tests: OK');

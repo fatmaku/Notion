@@ -40,10 +40,40 @@
     }
 
     setTriggers(triggers) {
-      this.triggers = (triggers || []).filter((t) => t.enabled !== false).map((t) => ({
+      // Keep every trigger (fireById must report disabled ones), match only the enabled ones.
+      this.all = (triggers || []).map((t, i) => ({
         ...t,
+        _key: t.id || `idx-${i}`,
         _keywords: (t.keywords || []).map(normalize).filter(Boolean),
       }));
+      this.triggers = this.all.filter((t) => t.enabled !== false);
+    }
+
+    _cooldownState(trig, now) {
+      const last = this.lastFireAt.get(trig._key) ?? -Infinity;
+      if (now - last < (trig.cooldown ?? 3)) return 'cooldown';
+      if (now - this.lastGlobalFire < this.globalMinGap) return 'gap';
+      return null;
+    }
+
+    _markFired(trig, now) {
+      this.lastFireAt.set(trig._key, now);
+      this.lastGlobalFire = now;
+    }
+
+    /**
+     * Fires a trigger by id outside of speech matching (hotkeys, API, smart mode) while
+     * honouring the same cooldown / global gap rules.
+     * @returns {{trigger: object|null, blocked: null|'cooldown'|'gap'|'disabled'|'unknown'}}
+     */
+    fireById(id, now = Date.now() / 1000) {
+      const trig = (this.all || []).find((t) => t.id === id);
+      if (!trig) return { trigger: null, blocked: 'unknown' };
+      if (trig.enabled === false) return { trigger: trig, blocked: 'disabled' };
+      const blocked = this._cooldownState(trig, now);
+      if (blocked) return { trigger: trig, blocked };
+      this._markFired(trig, now);
+      return { trigger: trig, blocked: null };
     }
 
     /** Call when the recognizer finalizes an utterance so counters reset. */
@@ -74,23 +104,19 @@
             if (!matchedKeyword || kw.length > matchedKeyword.length) matchedKeyword = kw;
           }
         }
-        const already = this.firedInUtterance.get(trig.id) || 0;
+        const already = this.firedInUtterance.get(trig._key) || 0;
         if (occurrences <= already) continue;
 
         // New occurrence. Mark it consumed even if cooldown blocks it, so it
         // doesn't fire late when the cooldown expires mid-sentence.
-        this.firedInUtterance.set(trig.id, occurrences);
+        this.firedInUtterance.set(trig._key, occurrences);
         candidates.push({ trig, matchedKeyword });
       }
       candidates.sort((a, b) => b.matchedKeyword.length - a.matchedKeyword.length);
 
       for (const { trig, matchedKeyword } of candidates) {
-        const last = this.lastFireAt.get(trig.id) ?? -Infinity;
-        if (now - last < (trig.cooldown ?? 3)) continue;
-        if (now - this.lastGlobalFire < this.globalMinGap) continue;
-
-        this.lastFireAt.set(trig.id, now);
-        this.lastGlobalFire = now;
+        if (this._cooldownState(trig, now)) continue;
+        this._markFired(trig, now);
         fired.push({ trigger: trig, keyword: matchedKeyword });
       }
       return fired;
