@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#0b0f14" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Window Blaster" />
+    <meta name="description" content="Beifahrer-AR-Arcade: echte Autos vor dem Fenster in AR beschießen. Läuft komplett auf deinem Handy." />
+    <title>Window Blaster</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  </head>
+  <body>
+    <div id="stage">
+      <video id="cam" playsinline muted autoplay></video>
+      <canvas id="fx"></canvas>
+      <canvas id="hud"></canvas>
+      <div id="ui"></div>
+      <pre id="debug" hidden></pre>
+    </div>
+    <noscript>Window Blaster braucht JavaScript.</noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
