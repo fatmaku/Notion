@@ -1,5 +1,7 @@
-// LiveFX – allow-listed static file serving. Only the panel, the overlay, css/, js/ and uploaded
-// assets are reachable; server code, tests, data/triggers.json and data/token.txt are never served.
+// LiveFX – allow-listed static file serving. Only the panel, the overlay, the mobile page, the PWA
+// files (manifest, service worker, icons), css/, js/, docs/, vendored libraries (`vendor/`), offline
+// models (`<dataDir>/models`) and uploaded assets are reachable; server code, tests,
+// data/triggers.json and data/token.txt are never served.
 'use strict';
 
 const fs = require('fs');
@@ -25,6 +27,12 @@ const MIME = {
   '.ogg': 'audio/ogg',
   '.webm': 'video/webm',
   '.mp4': 'video/mp4',
+  '.webmanifest': 'application/manifest+json',
+  '.mjs': 'text/javascript; charset=utf-8',
+  '.wasm': 'application/wasm',
+  '.onnx': 'application/octet-stream',
+  '.bin': 'application/octet-stream',
+  '.txt': 'text/plain; charset=utf-8',
 };
 
 const ROOT_FILES = new Map([
@@ -32,9 +40,19 @@ const ROOT_FILES = new Map([
   ['/index.html', 'index.html'],
   ['/overlay.html', 'overlay.html'],
   ['/demo.html', 'demo.html'],
+  ['/mobile.html', 'mobile.html'],
+  ['/manifest.webmanifest', 'manifest.webmanifest'],
+  ['/sw.js', 'sw.js'],
 ]);
 const SUBDIR_RE = /^\/(css|js|docs)\/([a-z0-9][a-z0-9._-]{0,99}\.(css|js|md))$/i;
 const ASSET_RE = /^\/assets\/([a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp|mp3|wav|ogg))$/i;
+// PWA icons (`<root>/icons`) and vendored browser libraries (`<root>/vendor`, e.g. transformers.js).
+const ICON_RE = /^\/icons\/([a-z0-9][a-z0-9._-]{0,99}\.(svg|png))$/i;
+const VENDOR_RE = /^\/vendor\/([a-z0-9][a-z0-9._-]{0,99}\.(js|mjs|wasm))$/i;
+// Offline ASR models live under `<dataDir>/models/<repo>/…` (subdirectories allowed, no `..`).
+const MODEL_RE = /^\/models\/((?:[a-z0-9][a-z0-9._-]{0,99}\/){0,6}[a-z0-9][a-z0-9._-]{0,99}\.(json|onnx|bin|txt))$/i;
+// The service worker must be revalidated on every load and may control the whole origin.
+const EXTRA_HEADERS = { 'sw.js': { 'service-worker-allowed': '/' } };
 
 /** Maps a decoded pathname to {base, rel, cache} or null when not allow-listed. */
 function resolveTarget(pathname, { rootDir, dataDir }) {
@@ -44,6 +62,12 @@ function resolveTarget(pathname, { rootDir, dataDir }) {
   if (m) return { base: path.join(rootDir, m[1]), rel: m[2], cache: 'no-cache' };
   m = ASSET_RE.exec(pathname);
   if (m) return { base: path.join(dataDir, 'assets'), rel: m[1], cache: 'public, max-age=3600' };
+  m = ICON_RE.exec(pathname);
+  if (m) return { base: path.join(rootDir, 'icons'), rel: m[1], cache: 'public, max-age=86400' };
+  m = VENDOR_RE.exec(pathname);
+  if (m) return { base: path.join(rootDir, 'vendor'), rel: m[1], cache: 'public, max-age=86400' };
+  m = MODEL_RE.exec(pathname);
+  if (m) return { base: path.join(dataDir, 'models'), rel: m[1], cache: 'public, max-age=86400' };
   return null;
 }
 
@@ -74,6 +98,7 @@ function serve(req, res, ctx) {
       const headers = {
         'content-type': MIME[path.extname(abs).toLowerCase()] || 'application/octet-stream',
         ...(target.rel === 'index.html' && ctx.token ? { 'set-cookie': require('./auth').cookieHeader(ctx.token) } : {}),
+        ...(EXTRA_HEADERS[target.rel] || {}),
         'content-length': st.size,
         'cache-control': target.cache,
         'last-modified': st.mtime.toUTCString(),

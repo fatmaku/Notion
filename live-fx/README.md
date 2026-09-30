@@ -180,6 +180,7 @@ statt vom Browser-Mikro (funktioniert damit auch in Firefox/Safari oder offline 
 | `GET/POST /api/assets`, `DELETE /api/assets/<name>` | Medien-Bibliothek (Upload: Body = Datei, Header `x-filename`) |
 | `POST /api/smart/classify` | `{text}` → `{triggerId, confidence}` |
 | `GET /api/smart/status`, `GET /health` | Status |
+| `GET /m?token=<token>` | Handy-Login: setzt das Sitzungs-Cookie, leitet auf `/mobile.html` (10 Fehlversuche/Minute) |
 | `GET /events?role=overlay\|panel` | SSE-Stream (das benutzt das Overlay) |
 
 **Stream Deck**: Plugin „API Ninja“/„HTTP Request“ → POST mit obigem Body und Header.
@@ -194,6 +195,43 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 });
 ```
 
+## Handy & HTTPS
+
+Das Handy wird zur **Fernbedienung und zum zweiten Mikro**: Panel-Karte **📱 Handy** öffnen, den Link
+`http://<LAN-IP>:<port>/m?token=…` am Handy eintippen (oder per Messenger schicken) – der Link setzt das
+Sitzungs-Cookie und leitet auf `/mobile.html` weiter: alle Trigger als große Kacheln, Szenen-Leiste,
+Pause, Lautstärke, Live-Transkript, als Web-App auf den Homescreen legbar. Dafür muss der Server im
+LAN erreichbar sein: `HOST=0.0.0.0 node server.js`. Anleitung: [docs/HANDY.md](docs/HANDY.md).
+
+Soll das **Handy selbst zuhören**, braucht der Browser eine HTTPS-Verbindung (Mikro nur im „sicheren
+Kontext“). LiveFX spricht HTTPS mit einem selbst erstellten Zertifikat:
+
+```bash
+openssl req -x509 -newkey rsa:2048 -nodes -days 365 -subj "/CN=livefx" \
+  -addext "subjectAltName=IP:192.168.x.x" -keyout livefx-key.pem -out livefx-cert.pem
+HOST=0.0.0.0 LIVEFX_TLS_CERT=livefx-cert.pem LIVEFX_TLS_KEY=livefx-key.pem node server.js
+```
+
+Dann das Zertifikat einmal auf dem Handy als vertrauenswürdig installieren (iPhone: Profil +
+Zertifikatsvertrauenseinstellungen, Android: CA-Zertifikat) – Schritt für Schritt in
+[docs/HANDY-HTTPS.md](docs/HANDY-HTTPS.md). Ohne HTTPS bleibt das Handy eine Fernbedienung; das
+OBS-Overlay auf dem PC funktioniert in beiden Fällen. Fehlt eine der beiden Variablen oder ist eine
+Datei nicht lesbar, startet LiveFX nicht (deutsche Fehlermeldung, Exit 1).
+
+## Offline-Erkennung (experimentell)
+
+Ohne Google-Dienst und ohne Internet im Stream: ein **Whisper-Modell läuft direkt im Browser**
+(transformers.js, WebGPU/WASM). Einmalig mit Internet einrichten, danach im Panel die Engine
+**„Offline (Whisper, experimentell)“** wählen:
+
+```bash
+npm run setup-offline                 # Whisper tiny (≈ 40 MB) nach vendor/ + data/models/
+npm run setup-offline -- --model base # genauer, ≈ 150 MB
+```
+
+Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuche in
+[`docs/OFFLINE.md`](docs/OFFLINE.md).
+
 ## Konfiguration (Umgebungsvariablen)
 
 | Variable | Standard | Bedeutung |
@@ -203,6 +241,8 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 | `LIVEFX_DATA_DIR` | `live-fx/data` | Ablage für `triggers.json`, `token.txt`, `assets/` |
 | `LIVEFX_TOKEN` | (aus Datei) | API-Token vorgeben |
 | `LIVEFX_ALLOWED_HOSTS` | – | Zusätzliche Hostnamen, unter denen das Panel geöffnet werden darf (z. B. `livefx.local`) |
+| `LIVEFX_TLS_CERT` | – | Pfad zum Zertifikat (PEM) → Server läuft per HTTPS; nur zusammen mit `LIVEFX_TLS_KEY` |
+| `LIVEFX_TLS_KEY` | – | Pfad zum privaten Schlüssel (PEM); siehe [docs/HANDY-HTTPS.md](docs/HANDY-HTTPS.md) |
 | `LIVEFX_MODEL` | `claude-opus-5-5` | Modell für den Smart-Modus |
 | `LIVEFX_SMART` | `1` | `0` = Smart-Modus aus |
 | `LIVEFX_SMART_MOCK` | `0` | `1` = Test-Klassifikator ohne API-Key |
@@ -222,7 +262,8 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 ## Technik
 
 - Reines HTML/JS/CSS, **keine Dependencies**; Node nur für Server/Bridge. Optional: Anthropic SDK + zod für den Smart-Modus.
-- Spracherkennung: Web Speech API (Chrome/Edge) oder externer Push (`POST /api/transcript`).
+- Spracherkennung: Web Speech API (Chrome/Edge), externer Push (`POST /api/transcript`) oder
+  experimentell offline mit Whisper im Browser (`js/whisper-worker.js`, `docs/OFFLINE.md`).
 - Matcher (`js/matcher.js`): Whole-Word-Match, mehrsprachig (DE/EN/TR im Standardpaket), spezifischere
   Stichwörter gewinnen („oh nein“ vor „nein“), per-Trigger-Cooldown und globaler Mindestabstand gegen
   Effekt-Spam; zählt Vorkommen im laufenden Satz, damit Zwischenergebnisse nicht doppelt feuern.

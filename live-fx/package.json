@@ -1,6 +1,6 @@
 {
   "name": "livefx",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Live memes, stickers and sound effects for livestreams – triggered by what the streamer says.",
   "private": true,
   "main": "server.js",
@@ -8,7 +8,8 @@
     "start": "node server.js",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "node --test \"test/*.test.js\"",
-    "test:e2e": "node test/e2e.js"
+    "test:e2e": "node test/e2e.js",
+    "setup-offline": "node scripts/setup-offline.js"
   },
   "engines": {
     "node": ">=20"

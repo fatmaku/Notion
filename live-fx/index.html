@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <title>LiveFX – Control Panel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1115">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/panel.css">
   <link rel="stylesheet" href="css/editor.css">
 </head>
@@ -195,6 +198,23 @@
       </section>
 
 
+      <section class="card" id="mobile-card">
+        <h2>📱 Handy</h2>
+        <div class="help">Soundboard und Szenen vom Handy aus auslösen – Link am Handy öffnen (gleiches WLAN), fertig.</div>
+        <div class="block">
+          <label>Link fürs Handy</label>
+          <div class="urls"><code id="mobile-url"></code></div>
+          <div class="help" id="mobile-url-alt" hidden></div>
+        </div>
+        <div class="actions">
+          <button id="btn-copy-mobile" title="Handy-Link in die Zwischenablage kopieren" disabled>📋 Link kopieren</button>
+          <a class="btn" href="mobile.html" target="_blank">Am PC ansehen</a>
+          <a class="btn" href="docs/HANDY.md" target="_blank">Anleitung</a>
+        </div>
+        <p class="help" id="mobile-offline-hint" hidden>⚠️ Server nötig: <code>node server.js</code> starten und das Panel über <code>http://127.0.0.1:8787/</code> öffnen.</p>
+        <p class="help">Handy im selben WLAN; Server mit <code>HOST=0.0.0.0 node server.js</code> starten, sonst ist er nur am PC erreichbar. Mikro am Handy braucht HTTPS – siehe Anleitung.</p>
+      </section>
+
       <section class="card">
         <h2>OBS / Streamlabs einrichten (für echte Streams)</h2>
         <div class="help">
@@ -227,5 +247,9 @@
   <script src="js/asr.js"></script>
   <script src="js/smart.js"></script>
   <script src="js/panel.js"></script>
+  <script src="js/mobile-link.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js').catch(() => {});
+  </script>
 </body>
 </html>

@@ -96,7 +96,8 @@ bus.close()
 |---|---|---|---|
 | `GET /health` | none | | `{ok, version, overlays, panels, uptime}` |
 | `GET /events?role=panel\|overlay` | none | | SSE (section 2) |
-| `GET /api/config` | same-origin | | `{ok, version, token, smart:{available, reason, model, mock}, limits:{assetBytes}}` |
+| `GET /api/config` | same-origin | | `{ok, version, token, smart:{available, reason, model, mock}, limits:{assetBytes}, lanIps:string[] (IPv4, non-internal, from os.networkInterfaces()), secure:boolean (TLS on), port:number (actually bound port)}` |
+| `GET /m?token=<token>` | none (the token IS the credential) | query `token` | constant-time compare with the server token: 302 `location: /mobile.html` + `set-cookie: livefx=<token>; HttpOnly; SameSite=Strict; Path=/` (+ `; Secure` over TLS); wrong → 401 `unauthorized` (German message); > 10 wrong attempts per minute per `req.socket.remoteAddress` → 429 `rate_limited`; no `token` param → 302 to `/mobile.html` without a cookie (`server/api-mobile.js`, registered before static) |
 | `POST /fire` | auth | envelope (`fire` or `volume`) | `{ok, id, overlays}`; 400 `invalid_envelope` |
 | `POST /api/fire` | auth | `{id}` or `{trigger}`, `source?`, `force?` | `{ok, fired, reason?: 'cooldown'\|'gap'\|'disabled'\|'unknown', id}`; 404 `unknown_trigger` |
 | `GET /api/triggers` | none | | `{ok, version:2, triggers, removed, updatedAt}` (already merged with defaults) |
@@ -128,7 +129,9 @@ The panel reads the token from `GET /api/config` and shows it.
 
 `PORT` (8787; `0` = random, printed), `HOST` (`127.0.0.1`; `0.0.0.0` opt-in), `LIVEFX_DATA_DIR` (`<root>/data`),
 `LIVEFX_TOKEN`, `LIVEFX_ALLOWED_HOSTS`, `LIVEFX_MODEL` (`claude-opus-5-5`), `LIVEFX_SMART=0` (disable),
-`LIVEFX_SMART_MOCK=1`, `LIVEFX_SMART_TIMEOUT_MS` (1500).
+`LIVEFX_SMART_MOCK=1`, `LIVEFX_SMART_TIMEOUT_MS` (1500), `LIVEFX_TLS_CERT` + `LIVEFX_TLS_KEY` (PEM paths; both or
+neither – `https.createServer`, printed URLs `https://`, `config.secure = true`; one missing/unreadable → German
+error on stderr + exit 1; see docs/HANDY-HTTPS.md).
 
 ## 5. Server core (`server/router.js`, `server.js`) – owned by P0 (done)
 
@@ -171,7 +174,8 @@ createSmart({log, model, getTriggers, classifyFn?, parse?, timeoutMs?, maxPerMin
 ## 6. ASR abstraction (`js/asr.js`, global `LiveFXASR`; mic meter `js/meter.js`, global `LiveFXMeter`) – owned by P5
 
 ```js
-LiveFXASR.backends -> [{name:'webspeech', label:'Browser (Chrome/Edge)', supported}, {name:'external', label:'Extern (POST /api/transcript)', supported}]
+LiveFXASR.backends -> [{name:'webspeech', label:'Browser (Chrome/Edge)', supported}, {name:'external', label:'Extern (POST /api/transcript)', supported},
+                      {name:'whisper', label:'Offline (Whisper, experimentell)', supported}]
 LiveFXASR.create(name, {
   lang, bus,
   onText(text, isFinal, { source, lang, at, alternatives?: string[], confidence?: number }),
@@ -195,6 +199,28 @@ LiveFXASR.BACKOFF_MS, LiveFXASR.ALTERNATIVES_N (3), LiveFXASR.DEFAULT_STALL_MS (
 - Stall watchdog: re-armed on every `onstart`/`onresult`; fires only in state `listening` when `stallMs` passed without a result and (`voiceActivity` unset, or voice was seen since the last result – sampled once per second) -> `onError({code:'stalled', message:'Erkennung hängt – Neustart', fatal:false})`, `stats.stalls++`, abort + respawn (state `restarting`).
 - `setOptions()` works live: `alternatives` respawns the recognizer (`maxAlternatives` is read at `start()`), `restartEveryMs`/`stallMs` re-arm their timers. All timers are cleared by `stop()`, on fatal errors and whenever a generation is killed.
 - external: `start()` subscribes to `transcript` messages on the bus and calls `onText(m.text, m.final !== false, {source: 'Extern', lang: m.lang, at})`; `unsupported` when `bus.serverBase === null`. `alternatives`/`restartEveryMs`/`stallMs`/`voiceActivity` are ignored and `setOptions()` is a no-op; `stats` counts results/finals, `onEvent` gets `result`/`final`.
+
+### Backend `whisper` (LiveFX 1.4, offline, experimental – `js/asr.js` + `js/whisper-worker.js`, owned by package C)
+
+```js
+LiveFXASR.create('whisper', {
+  lang, onText, onState, onError, onEvent,
+  model: 'onnx-community/whisper-tiny',   // repo under /models/ (setup-offline: tiny | base)
+  device: null,                           // 'webgpu' | 'wasm'; default: worker picks webgpu when navigator.gpu exists
+  workerFactory: null,                    // () => Worker-like {postMessage, terminate, onmessage, onerror} – tests
+  mediaFactory: null,                     // () => Promise<MediaStream> – tests; default getUserMedia({audio:true})
+})
+  -> { name:'whisper', start() -> Promise<boolean>, stop(), setLang(lang), setOptions() /* no-op */, get state, get lang, get stats, get options: {model} }
+stats = makeStats() + { chunks }          // chunks = audio segments sent to the worker; results/finals = non-empty texts
+LiveFXASR.probeWhisper() -> Promise<boolean>   // HEAD /vendor/transformers.min.js === 200; cached; false under file://
+LiveFXASR.WHISPER_DEFAULT_MODEL                 // 'onnx-community/whisper-tiny'
+```
+- `backends[].supported` for `whisper` = `window.Worker` && http(s) && (`isSecureContext` or localhost) && the **last** probe answered 200. The first read of `backends` kicks off the probe asynchronously (reads before it finishes say `false`); `probeWhisper()` re-checks, e.g. after `npm run setup-offline`. `create()` only needs a Worker (or `workerFactory`); a missing library surfaces as a fatal `whisper` error from the worker.
+- `start()`: state `starting` → worker spawned (`js/whisper-worker.js`) and sent `{type:'load', model, modelBase:'/models/', vendorUrl:'/vendor/transformers.min.js', device?}` → `getUserMedia` (or `mediaFactory`) → `AudioContext` + `ScriptProcessorNode(4096)` (AudioWorklet fallback when `createScriptProcessor` is missing) → box-filter downsampling to 16 kHz mono Float32 → energy VAD: a chunk starts when frame RMS > 0.01, ends after 600 ms below the threshold (trailing silence trimmed to the hangover) or at 6 s (cut exactly at 96 000 samples, the rest starts the next chunk); chunks with < 0.4 s of speech are dropped; audio before `ready` is ignored. Each chunk → `worker.postMessage({type:'transcribe', audio: Float32Array, lang}, [audio.buffer])` with `lang` = ISO-639-1 of `lang` (`'de-DE'` → `'de'`); at most 3 chunks in flight, further ones are dropped (`onEvent({type:'dropped', seconds, pending})`).
+- Worker → backend: `progress {pct, file?}` → state `starting` + `onEvent({type:'progress', pct, file?})`; `ready` → `onEvent({type:'ready', model})` + state `listening`; `result {text}` → when `text.trim()` is non-empty: `onEvent({type:'final', text, isFinal:true})` + `onText(text, true, {source:'Whisper', lang, at})` (`lang` is the full tag, e.g. `de-DE`); `error {message}` → `onError({code:'whisper', message, fatal:true})`, everything torn down, state `error`. `worker.onerror` (script failed to load) is treated the same. Mic/permission failure → `onError({code:'whisper', message:'Mikrofon-Zugriff verweigert.' | 'Mikrofon nicht verfügbar: …', fatal:true})` + state `error`.
+- `stop()`: terminates the worker, stops the tracks, closes the context, state `idle` (safe twice; a `stop()` during the permission prompt releases the stream once it arrives). `setLang()` is stored and used for the next chunk – no restart (the model is multilingual). `onEvent` also gets `chunk {seconds, lang}` per sent chunk. No interim results, no restarts/stall watchdog (`restarts`/`stalls` stay 0).
+- Worker protocol (`js/whisper-worker.js`): `load` → `import(vendorUrl)` → `env.allowRemoteModels=false; env.allowLocalModels=true; env.localModelPath=modelBase; env.backends.onnx.wasm.wasmPaths=<vendor dir>` → `pipeline('automatic-speech-recognition', model, {dtype:'q8', device, progress_callback})` (`pct` = mean per-file progress) → `ready`; `transcribe` → `asr(audio, {language: lang, task:'transcribe', chunk_length_s: 30})` → `result {text}` (strictly sequential); every failure → `error {message}`.
+- Static routes (package A): `/vendor/<name>.(js|wasm|mjs)` → `<root>/vendor`, `/models/<path>.(json|onnx|bin|txt)` → `<dataDir>/models`. `scripts/setup-offline.js` fills both (`npm run setup-offline [-- --model tiny|base] [--data <dir>] [--force]`); it exports `{ modelFiles(repo), fileUrl(repo, file), REPOS, MODEL_FILES, parseArgs(argv), REGISTRY_URL }` for tests and only runs `main()` when executed directly.
 
 Web Speech facts (Chrome/Edge, measured): interim results every ~100–300 ms while speaking; the final result arrives ~0.5–1.5 s after the end of speech; `maxAlternatives` is only populated for final results (interims carry one alternative); Chrome ends a session after ~5–8 s of silence (`onend` -> backoff restart handles it) and recognition quality degrades on very long sessions (the planned restart every 60 s is the workaround); valid language tags: `de-DE`, `de-AT`, `de-CH`, `tr-TR`, `en-US`, `en-GB`, `en-IN`.
 
@@ -323,6 +349,28 @@ LiveFXStore.onRemoteChange(fn)                    // triggers-updated from anoth
 LiveFXAssets.list() / upload(file) / remove(name) / thumbnailFor(trigger) -> {img?: url, emoji?: string} / mountLibrary(el, {onChange})   // P3
 LiveFXEditor.open(trigger, {assets, sounds, onSave, onDelete}) -> Promise<trigger|null>   // P3, <dialog>
 ```
+
+Mobile (1.4, `mobile.html` + `js/mobile.js` + `css/mobile.css`, see `docs/DESIGN-MOBILE.md` §A): bus role `panel`, served like the panel
+(cookie via `GET /m?token=…`, never by the page). Ids: `#dot-server` (`.on|.warn|.err`), `#status` (connection / mic text), `#btn-mute`
+(„⏸ Pause“ ↔ „▶ Weiter“, `.paused`; a paused page fires nothing), `#volume` (range → bus `volume`), `#search` (filters `#pad button`
+by label/id/keyword, hidden tiles get `[hidden]`; `#count`, `#empty`), `#btn-mic` (+ `#mic-hint`: disabled with the HTTPS hint when
+`!isSecureContext`, disabled with a browser hint when WebSpeech is missing; otherwise runs `LiveFXASR.create('webspeech')` + `LiveFXMatcher`
+on the phone, source „Handy-Mikro“), `#transcript` (one line: bus `transcript` texts, `fire` messages as „🔥 label ← source“, own
+actions; uses `<mark>`), `#scenes-card` > `#scenes button[data-scene]` (one per `LiveFXSchema.SCENES`, `.active` on the last scene;
+fires the same ad-hoc trigger as the panel's `sceneTrigger(id)` – the scene table is copied into mobile.js – source „Handy-Szenen“),
+`#pad button[data-id]` (`img.thumb` or `.emoji` + `.lbl`, `.off` when disabled, `.fired` flash; tap fires with source „Handy“).
+`window.livefx` exposes `bus`, `fire`, `handleText`, `sceneTrigger`, `triggers`, `paused`, `asr`, `matcher`, `store`, `ready`.
+Script order: `triggers, packs, schema, matcher, bus, store, assets, asr, mobile` (no sounds.js/fx.js – the phone renders nothing).
+Panel card `#mobile-card` (`js/mobile-link.js`, loaded after panel.js): `#mobile-url` = `http(s)://<lanIps[0]|location.host>:<port>/m?token=<token>`
+from `/api/config` (`lanIps`/`port`/`secure` optional → `location.host`), `#mobile-url-alt` (further IPs), `#btn-copy-mobile`, `#mobile-offline-hint`.
+PWA: `manifest.webmanifest` (linked from index.html and mobile.html), `sw.js` (`SHELL_VERSION` constant → cache `livefx-shell-v<version>`;
+precaches the shell listed in `SHELL`; navigations network-first with cache fallback, other shell files cache-first with background refresh;
+network-only for `/api/*`, `/fire`, `/events`, `/assets/*`, `/docs/*`, `/m`, `/models/*`, `/health`), registered from index/overlay/demo/mobile
+with `if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js')`. Icons in `icons/`.
+Static allow-list additions (`server/static.js`): `/mobile.html`, `/manifest.webmanifest` (`application/manifest+json`), `/sw.js`
+(`service-worker-allowed: /`, `cache-control: no-cache`), `/icons/<safe>.(svg|png)` → `<root>/icons`, `/vendor/<safe>.(js|mjs|wasm)` →
+`<root>/vendor`, `/models/<safe path, subdirs allowed, no ..>.(json|onnx|bin|txt)` → `<dataDir>/models` (`.onnx`/`.bin` → `application/octet-stream`,
+`.wasm` → `application/wasm`); absent files are 404, never 500. Tests: `test/mobile.test.js`, `test/e2e/35-mobile.js`.
 
 ## 12. Test harness (P0, done)
 

@@ -6,6 +6,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const http = require('http');
+const https = require('https');
 
 const SERVER = path.join(__dirname, '..', '..', 'server.js');
 
@@ -25,8 +26,20 @@ function waitFor(fn, { timeoutMs = 10000, intervalMs = 50, what = 'condition' } 
   });
 }
 
-/** Starts server.js. Resolves once /health answers. */
-async function startServer({ env = {} } = {}) {
+/** GET over https accepting self-signed certs; resolves {status} (body discarded). */
+function httpsStatus(url) {
+  return new Promise((resolve, reject) => {
+    https
+      .get(url, { rejectUnauthorized: false }, (res) => {
+        res.resume();
+        res.on('end', () => resolve({ status: res.statusCode }));
+      })
+      .on('error', reject);
+  });
+}
+
+/** Starts server.js. Resolves once /health answers. `https: true` when env carries LIVEFX_TLS_CERT/KEY. */
+async function startServer({ env = {}, https: useHttps = false } = {}) {
   const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'livefx-test-'));
   const token = env.LIVEFX_TOKEN || 'test-token';
   const proc = spawn(process.execPath, [SERVER], {
@@ -51,12 +64,13 @@ async function startServer({ env = {} } = {}) {
   try {
     base = await waitFor(
       () => {
-        const m = /http:\/\/[^\s/]+:\d+/.exec(out);
+        const m = (useHttps ? /https:\/\/[^\s/]+:\d+/ : /http:\/\/[^\s/]+:\d+/).exec(out);
         return m ? m[0] : null;
       },
       { what: `server URL in stdout (stderr: ${err.slice(0, 300)})` }
     );
-    await waitFor(async () => (await fetch(`${base}/health`)).ok, { what: '/health' });
+    if (useHttps) await waitFor(async () => (await httpsStatus(`${base}/health`)).status === 200, { what: '/health (https)' });
+    else await waitFor(async () => (await fetch(`${base}/health`)).ok, { what: '/health' });
   } catch (e) {
     proc.kill('SIGKILL');
     throw new Error(`${e.message}\nstdout: ${out}\nstderr: ${err}`);
