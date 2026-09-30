@@ -85,10 +85,10 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 
 | # | Time | Picture | On-screen text | Sound |
 |---|---|---|---|---|
-| 1 | 0–7 s | Black. A warm flash and a slight shake with each knock. The question fades in at 3.2 s. | *How do you know that something exists?* | Three knocks on metal (1.0 / 1.8 / 2.6 s). Deep drone. |
+| 1 | 0–7 s | Black. A warm flash and a slight shake with each knock. The question fades in at 3.2 s. | *How do you know that something exists?* | Three knocks (1.0 / 1.8 / 2.6 s). Deep drone. |
 | 2 | 7–19 s | BEN YOKSAM cover art; slow push from the sky to the fist. Below: drawing of a black package with a red string, a small clock at 14:53. | *A black package at the door.* / *No sender. No address.* / *The book inside… is about him.* → Title card: **BEN YOKSAM** · 1453 — Uyanışın Bedeli · Tuncay Sancak | Pulsing bass, pad. |
-| 3 | 19–31 s | ŞAHİDİ ARARKEN cover art (cool side, moon). Drawing: typewriter, folded letter. | *A man who no longer speaks.* / *A typewriter. A letter.* / *And a single word: the witness.* → Title card: **ŞAHİDİ ARARKEN** · Mustafa Sefa Güvenir | Soft pad, drone continues. |
-| 4 | 31–44 s | Split screen: left cool, right warm; a thin gold seam. One by one: room outline, three light knocks, glass of water, bandaged thumb, chair. | *A green room.* / *Three knocks on metal.* / *A glass of water.* / *Two people remember the same scene.* | Three knocks again (34.0 / 34.8 / 35.6 s). Tension rises. |
+| 3 | 19–31 s | ŞAHİDİ ARARKEN cover art (cool side, moon). Drawing: a gazelle (the traveller), a folded letter. | *A traveller sets out.* / *A witness awaits him.* / *A man who no longer speaks… Who is the witness?* → Title card: **ŞAHİDİ ARARKEN** · Mustafa Sefa Güvenir | Soft pad, drone continues. |
+| 4 | 31–44 s | Split screen: left cool, right warm; a thin gold seam. One by one: room outline, three light knocks, glass of water, bandaged thumb, chair. | *A green room.* / *Three knocks.* / *A glass of water.* / *Two people remember the same scene.* | Three knocks again (34.0 / 34.8 / 35.6 s). Tension rises. |
 | 5 | 44–53 s | Both covers slide in from left and right; at 47.0 s the fists touch in the center; flash and sunburst. | **Two Novels – Two Paths – A Third Story** / *Each one a novel in its own right. Read together, a third book appears.* | Crescendo → deep hit at 47.0 s. |
 | 6 | 53–60 s | End card: both e-book covers side by side, author names, the butterfly crosses. | *Now on Amazon* · @happytuncay | Calm pad, 2 s fade-out. |
 
@@ -98,8 +98,8 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 |---|---|---|
 | 1 | 0–4 s | Three knocks + question |
 | 2 | 4–10 s | BEN YOKSAM: *A black package at the door.* / *The book inside… is about him.* + title card |
-| 3 | 10–16 s | ŞAHİDİ ARARKEN: *A man who no longer speaks.* / *And a single word: the witness.* + title card |
-| 4 | 16–21 s | Shared scene: *Three knocks on metal.* (knocks 17.0 / 17.6 / 18.2 s) / *Two people remember the same scene.* |
+| 3 | 10–16 s | ŞAHİDİ ARARKEN: *A traveller sets out.* / *A man who no longer speaks… Who is the witness?* + title card |
+| 4 | 16–21 s | Shared scene: *Three knocks.* (knocks 17.0 / 17.6 / 18.2 s) / *Two people remember the same scene.* |
 | 5 | 21–26 s | Fists meet at 23.0 s; tagline |
 | 6 | 26–30 s | End card |
 
@@ -110,9 +110,9 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 | 3.4 | How do you know that something exists? |
 | 8.0 | A black package at the door. No sender. No address. |
 | 14.0 | The book inside is about him. |
-| 20.0 | A man who no longer speaks. A typewriter. A letter. |
-| 26.5 | And a single word: the witness. |
-| 32.0 | A green room. Three knocks on metal. A glass of water. |
+| 20.0 | A traveller sets out. A witness awaits him. |
+| 26.5 | A man who no longer speaks. Who is the witness? |
+| 32.0 | A green room. Three knocks. A glass of water. |
 | 40.5 | Two people remember the same scene. |
 | 48.5 | Two novels. Two paths. A third story. |
 | 54.0 | Ben Yoksam and Şahidi Ararken. Now on Amazon. |
@@ -122,7 +122,7 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 ### 4.4 Music brief (for licensed music)
 - **Mood:** dark, cinematic, heavy; a subtle ney or kanun texture as an Istanbul hint is welcome, no "oriental" clichés.
 - **Tempo:** feels like 60–70 BPM, mostly drone and pad; crescendo 44–47 s, hit at 47.0 s (fists), then a calm resolution.
-- **Mandatory marks:** three metal knocks at 1.0 / 1.8 / 2.6 s and 34.0 / 34.8 / 35.6 s (60 s cut); in the 30 s cut at 1.0 / 1.8 / 2.6 and 17.0 / 17.6 / 18.2 s.
+- **Mandatory marks:** three knocks at 1.0 / 1.8 / 2.6 s and 34.0 / 34.8 / 35.6 s (60 s cut); in the 30 s cut at 1.0 / 1.8 / 2.6 and 17.0 / 17.6 / 18.2 s.
 - **License:** social media + Amazon + YouTube, worldwide, perpetual. The music in the delivered trailer is a **generated placeholder** and must be replaced before publication.
 
 ## 5. Launch plan

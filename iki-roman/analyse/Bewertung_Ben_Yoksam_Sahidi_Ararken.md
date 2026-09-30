@@ -1,7 +1,11 @@
 # BEN YOKSAM und ŞAHİDİ ARARKEN – Logik, Mystik, Spannung: einzeln und als Doppelwerk
 
+**Fassung 2 (30.09.2026).** Ersetzt Fassung 1. Neu: die adversariale Gegenprüfung der wichtigsten Befunde ist gelaufen (Abschnitt 8), die Punktwerte sind entsprechend korrigiert, und die minimalen Manuskriptkorrekturen der Fassung v2 (Abschnitt 6) sind berücksichtigt.
+
 **Gegenstand:** *BEN YOKSAM – 1453 Uyanışın Bedeli* (Tuncay Sancak, 44.851 Wörter, 5 Akte, 43 nummerierte Kapitel + DİKKAT) und *ŞAHİDİ ARARKEN* (Mustafa Sefa Güvenir, 39.569 Wörter, 34 Kapitel).
-**Methode:** Zehn unabhängige Leseläufe (je Akt/Abschnitt), je Buch vier Fachanalysen (Logik, Mystik, Romanhandwerk, Eigenständigkeit), zwei Querverbindungs-Analysen (Brücken, „drittes Buch“); alle Befunde mit Kapitel und Zitat. Die wichtigsten Befunde habe ich zusätzlich selbst per Volltextsuche geprüft (siehe Anhang). Eine geplante adversariale Gegenprüfung jedes Einzelbefunds und eine Jury-Bewertung wurden durch Sitzungslimits mehrfach abgebrochen; die Punktwerte unten sind deshalb mein Urteil auf Basis der Fachanalysen, nicht ein Jury-Mittelwert.
+**Methode:** Zehn unabhängige Leseläufe (je Akt/Abschnitt), je Buch vier Fachanalysen (Logik, Mystik, Romanhandwerk, Eigenständigkeit), zwei Querverbindungs-Analysen (Brücken, „drittes Buch“); alle Befunde mit Kapitel und Zitat. Danach eine **adversariale Gegenprüfung** der 13 gewichtigsten Befunde: je Befund ein unabhängiger Prüfer mit Volltextzugriff, Zitatpflicht und dem Auftrag, den Befund zu widerlegen; Ergebnis „bestätigt“ oder „widerlegt“ mit Konfidenz. Die wichtigsten Stellen habe ich zusätzlich selbst per Volltextsuche geprüft (Anhang). Ein Jury-Mittelwert aus mehreren Lesarten liegt wegen Sitzungslimits noch nicht vor; die Punktwerte sind mein Urteil auf Basis der Analysen und der Gegenprüfung.
+
+**Ergebnis der Gegenprüfung in einem Satz:** Von neun in Fassung 1 als „echte Kontinuitätsfehler“ geführten BY-Befunden und sieben SA-Befunden hat die Gegenprüfung **genau einen bestätigt** (der deutsche Kassettentext in BY Kap. 18); zehn weitere wurden mit Textbelegen widerlegt oder auf „Beobachtung“ herabgestuft, der Rest blieb ungeprüft (Kappung). Beide Bücher sind logisch deutlich stabiler, als Fassung 1 behauptet hat.
 
 ---
 
@@ -11,25 +15,25 @@
 
 **Ja, zusammen sind sie schlüssig, und es entsteht wirklich ein drittes Buch.** Die Brücken sind bis in den Wortlaut identisch (Eröffnungssatz, Arbeitsnotiz „Kapıyı açtım…“, Handnotiz „Okurken hangi elinle tuttuğunu kontrol et“, drei Metallschläge, „Kırılmış / Kapak“, Zeyneps Satz, das Motto). Die Struktur ist keine bloße Querverweiserei, sondern eine doppelte Schleife: BY enthält SA als „Sefa Abi'nin roman dosyası“, SA enthält BY als die Seiten des „adsız adam“, und jedes Buch enthält sogar noch die Einbettung des anderen (BY Kap. 50 sieht die Tumornacht, in der BY geschrieben wird; SA sieht in der Welt des Namenlosen den Professor, der „ihm ähnelt“).
 
-**Bewertung in einem Satz:** BEN YOKSAM ist das dichter gebaute, spannendere Buch mit einer außergewöhnlich stimmigen mystischen Ebene und einer Handvoll echter Kontinuitätsfehler; ŞAHİDİ ARARKEN hat den eleganteren Twist und die wärmere Stimme, aber einen harten Zeitwiderspruch, sichtbare Revisionsreste und Längen in den eingebetteten Briefen. Zusammen gelesen sind beide besser als allein.
+**Bewertung in einem Satz:** BEN YOKSAM ist das dichter gebaute, spannendere Buch mit einer außergewöhnlich stimmigen mystischen Ebene; seine Logik hält der Gegenprüfung bis auf eine Stelle stand, und diese ist in v2 mit einem Satz behoben. ŞAHİDİ ARARKEN hat den eleganteren Twist und die wärmere Stimme; sein vermeintlich harter Zeitwiderspruch und die „Revisionsreste“ erweisen sich als vom Text gerahmt (in v2 mit einem Wort zusätzlich abgesichert). Was beiden Büchern zur 10 fehlt, ist kein Logikproblem mehr, sondern Handwerk: Längen, Essay- und Predigtblöcke, Tempo im Mittelteil.
 
 **Empfohlene Reihenfolge:** zuerst BEN YOKSAM, dann ŞAHİDİ ARARKEN (Begründung in Abschnitt 5). Beide Bücher sind aber ausdrücklich so gebaut, dass auch die umgekehrte Reihenfolge und eine zweite Runde funktionieren.
 
 ## 2. Bewertungstabelle (1–10)
 
-| | Logik | Mystik | Spannung / als Roman | Gesamt | Trägt allein? |
+| | Logik F1 → F2 → v2 | Mystik | Spannung / als Roman | Gesamt (v2) | Trägt allein? |
 |---|---|---|---|---|---|
-| BEN YOKSAM | 7,5 | 8 | 7 | **7,5** | Ja (Eigenständigkeit 8,5) |
-| ŞAHİDİ ARARKEN | 6,5 | 7 | 6,5 | **6,5** | Ja (Eigenständigkeit 8) |
-| Zusammen gelesen („drittes Buch“) | 8 | 8 | 8,5 | **8,5** | Ja, als eigene Leseerfahrung |
+| BEN YOKSAM | 7,5 → 8,5 → **9** | 8 | 7 | **8** | Ja (Eigenständigkeit 8,5) |
+| ŞAHİDİ ARARKEN | 6,5 → 8 → **8,5** | 7 | 6,5 | **7,5** | Ja (Eigenständigkeit 8) |
+| Zusammen gelesen („drittes Buch“) | 8 → **8,5** | 8 | 8,5 | **8,5** | Ja, als eigene Leseerfahrung |
 
-Lesart der Zahlen: 7 = professionell und veröffentlichungsreif mit klaren Verbesserungsstellen; 8,5 = herausragend in der Anlage. Die Logik-Werte beziehen sich auf Kontinuität und Fairness der Auflösung, nicht auf „Realismus“.
+Lesart: F1 = Fassung 1 dieses Berichts (vor der Gegenprüfung); F2 = nach der Gegenprüfung, Manuskript unverändert; v2 = nach den sechs minimalen Korrekturen (Abschnitt 6). 7 = professionell und veröffentlichungsreif mit klaren Verbesserungsstellen; 8,5 = herausragend in der Anlage; 9 = praktisch fehlerfrei in dem, was geprüft werden konnte. Die Logik-Werte beziehen sich auf Kontinuität und Fairness der Auflösung, nicht auf „Realismus“. Mystik und Spannung ändern sich durch v2 nicht, weil v2 bewusst nichts am Aufbau ändert.
 
 ## 3. BEN YOKSAM für sich
 
 **Prämisse.** Ein namenloser Erzähler, Autor und Kommunikationstrainer mit zwei Kindern (Duru 17, Emir 11), findet am Morgen nach Leylas Tod ein schwarzes Paket mit rotem Faden vor der Tür; das Buch darin kennt sein Leben. Mit Nehir, der Anwältin Selin, Tarık und dem alten Uhrmacher Yusuf verfolgt er die Spur zu Meralis, einem Netzwerk, das mit Erwählungsrhetorik Menschen umbaut (Programm „FETİH-1453“). Die Auflösung zeigt: Das Paket ist der Alarm, den der 19-jährige Erzähler sich selbst gestellt hat und den Meralis gekapert hat; Cem, der Sohn Yusufs, ist der Antagonist.
 
-### 3.1 Logik
+### 3.1 Logik (9/10 nach v2)
 
 **Was hervorragend funktioniert (geprüft):**
 - **Die Zahlenachse geht über 50 Kapitel auf:** 2015 = 31 Jahre (Kap. 13), Kasım 2026 = 42 („Kırk iki yaşındaki hâlime“, Kap. 39), „yirmi üç yıl önce“ mit 19, Vater gestorben im Folgejahr, Laden vor 16 Jahren übertragen, Cem 8 vor 27 Jahren, Yusuf 24 im Jahr 1978.
@@ -38,19 +42,25 @@ Lesart der Zahlen: 7 = professionell und veröffentlichungsreif mit klaren Verbe
   - Sieben Marken „14.53 ↺“ → Folgeabsätze Bunu / Arka / Şehrin / Anladım / Diğer / Özellikle / Nabzımı = **BAŞA DÖN**.
   - Neun Sätze „Düğümün iki ucu aynı uzunluktaydı“ → Bileğimdeki / Ellerimdeki / Nereden / İçeri / Adamın / Rengi / Avucuma / Mührün / Aradığın = **BENİ ARAMA** (die Schlusszeile des Buchs).
 - **Fast jedes „Wunder“ bekommt einen Mechanismus** (Kap. 40, 45): Rauchmelderkamera, Depot-Tausch in elf Minuten, Glasfaserkamera, Rufumleitung, Motorriegel, gefälschte Klinikdaten. Die Unzuverlässigkeit des Erzählers ist durchgehend vom Text gerahmt (dreifache Feuererinnerung, Heftort, Schnur im Mantel, Durus Tonfalle).
+- **Die Vorgeschichte ist sauber verankert** (Ergebnis der Gegenprüfung): Der Heftdiebstahl liegt Monate vor dem Paketmorgen und wird dreimal datiert (Kap. 30 „Üç aydır“, Kap. 31 Emir: „En son senin eski fotoğraf kutunun altındaydı … Geçen yaz“, Kap. 45 „Defteri üç ay önce siz aldınız“); Cems Erklärung in Kap. 45 passt exakt dazu („hepsini fotoğraf kutusunun altına bıraktı“).
 
-**Echte Kontinuitätsfehler (mittel, per Volltext bestätigt):**
-1. **Die Ankara-Reise wird nie erzählt** (Kap. 45). Cem verankert Heftdiebstahl, Rauchmelderkamera und Feder in einer Ankara-Reise („Sen Ankara'dayken … Toplantının ortasında“); der Erzähler bestätigt „Hatırladım“. Im ganzen Roman gibt es genau eine Ankara-Erwähnung, eben diese; das Ticket in Kap. 28 wird in Kap. 29 nicht angetreten. Der zentrale „Wie wussten sie es?“-Beleg hängt in der Luft.
-2. **Zwei unvereinbare Kanäle für das Modell „vor sieben Jahren an Meralis“** (Kap. 12 vs. 45). Kap. 12 zeigt nur den Yusuf/Edirne-Kanal (Mail an anonymen Server, Zugticket, Schließfach 1453); Kap. 45 setzt den Weg zu Meralis als Faktum.
-3. **Edirne am selben Tag** (Kap. 12): Abfahrt 14.53, Übergabe in Edirne, Rückkehr „aynı akşam“, und der Erzähler schafft noch die letzten fünf Minuten von Durus Schulauftritt. Mit rund vier Stunden je Richtung geht das nicht auf.
-4. **Der deutsche Kassettentext** wird in Kap. 18 als „auf Yusufs Kassette gehört“ zitiert, obwohl die Kassette in Kap. 16 nur Geräusche abspielt; in Kap. 24 wird er als Neufund erneut entdeckt.
-5. **Ursprung des Knotens**: Kap. 40 „Düğüm bana aitti“ (mit 19) gegen das Kindheitsfoto in Kap. 1, das denselben Knoten am Handgelenk des Vier- bis Fünfjährigen zeigt.
-6. **Zustand der Buchbinderei**: „yıllardır kapalı“ (Kap. 11), „aylar önce“ verschwundener Mieter mit Zwangsvollstreckung (Kap. 15), laufende Heidelberg-Maschine ~30 Stunden vor Leylas Tod (Kap. 21/23).
-7. **Nehir und Yusuf**: „Yusuf kim?“ (Kap. 12) gegen ihre Anwesenheit im Atelier (Kap. 22/23); das Verschweigen ist als Schutz gerahmt, aber innerhalb von Kap. 23 widersprechen sich „Bir kez gördüm“, „ortadan kaybolmuştu“ und „kartı Yusuf'a ulaştırmıştı“.
-8. **Codewort „yamuk mantı“ ohne Payoff** (Kap. 21): ein einziger Treffer im Buch; ausgerechnet in Kap. 32, als der Erzähler Durus Stimme auf der Leitung misstraut, benutzt es niemand.
-9. **Ortslogik Kap. 31–34**: Wo Duru, Zeynep, Nehir und Emir sind, während der Erzähler mit Tarık und Yusuf am Tisch sitzt, ist nicht rekonstruierbar.
+**Gegenprüfung der Fassung-1-Befunde (je ein unabhängiger Prüfer, Volltext):**
 
-**Kleinere Punkte (gering):** Umschläge werden in Kap. 1 und Kap. 2/4 zu verschiedenen Zeitpunkten vorbereitet; „üç aydır kayıp“ für das rote Heft wird im Abstand von sieben Wochen zweimal identisch gesagt (Kap. 30 und 45); der Rhythmusrekorder „iki ay önce“ (Kap. 44) wurde nie eingesetzt; Nehirs Verbrennung verschwindet zwischen Kap. 26 und 32; Cems Schulterdrehung als Erkennungsmerkmal wird erst bei der Erkennung eingeführt (Kap. 45); die Umschläge liegen laut Kap. 28 im Anwaltssafe, werden in Kap. 46 aber neu geschrieben; Kapiteltitel „Sonmuş Gibi“ ist wahrscheinlich ein Tippfehler für „Sönmüş Gibi“ (Kühlschrank-Bild im ersten Absatz).
+| Nr. | Befund aus Fassung 1 | Ergebnis | Begründung des Prüfers (mit Beleg) |
+|---|---|---|---|
+| 1 | Die Ankara-Reise (Kap. 45) wird nie erzählt; das Ticket in Kap. 28 wird nicht angetreten | **widerlegt** (Konfidenz 0,88) | Die Reise ist Vorgeschichte, nicht erzählte Zeit: Kap. 30 „Üç aydır“, Kap. 31 „Geçen yaz“, Kap. 45 „üç ay önce“. Kap. 1 beschreibt nur die letzte Woche („Bir haftadır…“). Das Ticket in Kap. 28 ist eine von Meralis inszenierte Falle und liegt zeitlich nach dem Diebstahl. Kein Widerspruch. |
+| 2 | Zwei unvereinbare Kanäle für das Modell „vor sieben Jahren an Meralis“ (Kap. 12 vs. 45) | **widerlegt** (0,75) | Kap. 12 zeigt keine einmalige Kontaktaufnahme, sondern eine dreimonatige Streuaktion („üç ay boyunca aynı arşivi aramıştım … Kapalı forumlara üyelik başvuruları“). Die Mail selbst verschickt Material aus dem roten Heft („kırmızı defterdeki yedi sembol“, „Bana gerçeği gönderin. Bedeli neyse öderim.“). Leyla koppelt die Anfrage in Kap. 11 ausdrücklich ans Buch („Sen kitabı yıllar önce buldun“). Ein Kanal, zweimal beschrieben. |
+| 3 | Edirne am selben Tag (Kap. 12) und Durus Schulauftritt gehen zeitlich nicht auf | **widerlegt** (0,60, Rest: gering) | Der Text nennt für Durus Auftritt keine Uhrzeit. Belegt ist nur das Hinfahrtticket 14.53; die dritte Tonaufnahme („İstanbul'a dönüş yolundaydı“) hat anders als die erste kein Zuggeräusch. Rückfahrt per Straße (ca. 2,5 h) ist textlich gedeckt: Edirne ca. 18.30, Rückkehr ca. 21.30–22.00. Knapp, aber möglich. |
+| 4 | Der deutsche Kassettentext wird in Kap. 18 als „auf Yusufs Kassette gehört“ zitiert, obwohl die Kassette in Kap. 16 nur Geräusche abspielt | **bestätigt** (0,82, mittel) | Kap. 16 spielt genau sieben Geräusche; Nehir schaltet ab („Kasetçaları kapattı“); der Rekorder wird nie wieder erwähnt; Kap. 40: „sonra sesleri kullanıp kaçtım“. Der Satz in Kap. 18 widerspricht sich selbst („duyduğumuz“ / „Altına Türkçe çeviri yazılmıştı“); Kap. 24 findet den Text im Handbuch von 1978. **In v2 behoben** (Prolepse auf das Handbuch, s. Abschnitt 6). |
+| 5 | Ursprung des Knotens: Kap. 40 „Düğüm bana aitti“ gegen das Kindheitsfoto in Kap. 1 | **widerlegt** (0,88) | „Düğüm bana aitti“ ist ein Kontrast zu Meralis („Demek şekli önce Meralis seçmemişti“), und die Notiz sagt „Bu düğümü ben seçtim“: gewählt, nicht erfunden. Kap. 1 führt den Knoten mit gleich langen Enden als Familiencode des Vaters ein („Uçları eşit olanlar. Ötekiler süs.“); Kap. 2 nennt die Volkssitte des roten Fadens. Der 19-Jährige wählt das Familienzeichen. |
+
+**Nicht gegengeprüft (Kappung der Gegenprüfung), Status: Hinweis, nicht Fehler:**
+- Zustand der Buchbinderei: „yıllardır kapalı“ (Kap. 11), „aylar önce“ verschwundener Mieter mit Zwangsvollstreckung (Kap. 15), laufende Heidelberg-Maschine ~30 Stunden vor Leylas Tod (Kap. 21/23). Nach dem Muster der widerlegten Befunde könnte auch hier eine Erklärung im Text liegen (Meralis nutzt die stillgelegte Werkstatt); nicht abschließend geprüft.
+- Nehir und Yusuf: „Yusuf kim?“ (Kap. 12) gegen ihre Anwesenheit im Atelier (Kap. 22/23); das Verschweigen ist als Schutz gerahmt.
+- Ortslogik Kap. 31–34: Wo Duru, Zeynep, Nehir und Emir sind, während der Erzähler mit Tarık und Yusuf am Tisch sitzt, ist nicht rekonstruierbar (Übersichtsfrage, kein Widerspruch).
+- Codewort „yamuk mantı“ ohne Payoff (Kap. 21; von mir bestätigt: ein einziger Treffer im Buch). Das ist ein Handwerkspunkt (ungenutzte Waffe), kein Logikfehler.
+
+**Kleinere Punkte (gering, nicht gegengeprüft):** Umschläge werden in Kap. 1 und Kap. 2/4 zu verschiedenen Zeitpunkten vorbereitet; „üç aydır kayıp“ für das rote Heft wird im Abstand von sieben Wochen zweimal identisch gesagt (Kap. 30 und 45); der Rhythmusrekorder „iki ay önce“ (Kap. 44) wurde nie eingesetzt; Nehirs Verbrennung verschwindet zwischen Kap. 26 und 32; Cems Schulterdrehung als Erkennungsmerkmal wird erst bei der Erkennung eingeführt (Kap. 45); die Umschläge liegen laut Kap. 28 im Anwaltssafe, werden in Kap. 46 aber neu geschrieben; Kapiteltitel „Sonmuş Gibi“ ist wahrscheinlich ein Tippfehler für „Sönmüş Gibi“ (Kühlschrank-Bild im ersten Absatz).
 
 **Bewusst offen und funktionierend (keine Fehler):** die ŞAMAN-Seite mit alter Tinte („Açıklayamıyorum“), das Video des 19-Jährigen über „iki gelecek“, der Uploader des 19-Sekunden-Layers, die Kinderzeichnung mit 14.53 („Cümlenin başını da sonunu da o gece henüz bilmiyordum“), die posthume Erzählstimme (Kap. 48–50, vorbereitet durch Kap. 47 „Öldükten sonraki sen mi?“).
 
@@ -70,35 +80,41 @@ Schwächen: Kap. 5 hält den Roman nach dem stärksten frühen Cliffhanger („�
 
 **Prämisse.** Mustafa Sefa, Schriftsteller und Bühnenmensch, seit drei Monaten verstummt, erhält von Prof. Dr. Hakan Hıdıroğlu, Chefarzt der Erenköy-Klinik, einen Auftrag: die Geschichte eines Patienten zu schreiben, der nicht spricht, aber auf einer Schreibmaschine Briefe tippt. Im Schreibzimmer der Klinik (dem alten „tecrit odası“) liest er die Briefe (Ceylan-Fabel, Höllenhof um Azazil, Belam bin Baura, Selman-ı Fârisî, Hodris Totenbrief), spricht mit dem alten Muhibbi Amca und sucht den „Zeugen“. Die Auflösung: Sefa und Hakan sind dieselbe Person; die Briefe sind mit Hakans Händen getippt; es gab keinen Staatsauftrag; Muhibbi, Zehra und Nazım haben keine verifizierte Außenexistenz; ein Tumor erklärt Anfälle und Wortverluste.
 
-### 4.1 Logik
+### 4.1 Logik (8,5/10 nach v2)
 
 **Was hervorragend funktioniert (geprüft):**
 - **Der Twist ist fair und früh gepflanzt:** die belauschte Vorlesung „Ama o kişiyle aynı bedenden konuştuğunu bilmiyorsa?“ (AZ ÇOK, Z. 56) wird in BOŞ SIRA wörtlich als eigene Rede eingelöst („Kapının aralığından dinlediğimi sandığım sözler kürsüdeki ağzımdan çıkıyordu“). Hakans stolpernder linker Fuß (DAKTİLO) ↔ Vildan: „Birkaç defa da sol ayağınız eşiğe sürttü“ (VİLDAN'IN GÖRDÜĞÜ). Das „oluşum“ in der Bildgebung des Patienten ↔ Sefas Tumor. Vildans Verwunderung über „Aç mısınız, Sefa Bey kardeşim?“ (sie sieht einen Mann mit einem leeren Stuhl reden).
-- **Das Fettbuchstaben-Akrostichon existiert wirklich im Manuskript:** einzelne fett gesetzte Buchstaben im ersten Brief ergeben „bismillah, alemlere rahmet olan Allahın adıyla“. UNUTMA liest zunächst „Alemlerin Rabbi“, MEKTUBU KİM YAZDI? korrigiert zu „âlemlere rahmet olan“; die Selbstkorrektur ist gepflanzt. (Hinweis für den Druck: Die Fettbuchstaben sind im Satz erhalten.)
+- **Das Fettbuchstaben-Akrostichon existiert wirklich im Manuskript:** einzelne fett gesetzte Buchstaben im ersten Brief ergeben „bismillah, alemlere rahmet olan Allahın adıyla“. UNUTMA liest zunächst „Alemlerin Rabbi“, MEKTUBU KİM YAZDI? korrigiert zu „âlemlere rahmet olan“; die Selbstkorrektur ist gepflanzt. (Die Fettbuchstaben sind im Satz erhalten.)
+- **Der Erzähler rahmt seine eigene Unzuverlässigkeit von Seite 1 an** (Ergebnis der Gegenprüfung): Prolog „Bir konuşmayı tırnak içine aldım diye ses kayıt cihazına dönüşmüyorum. Doktorun cümlesini doğru duymuş olmam, o cümlenin doğru olduğunu da göstermiyor.“; DAKTİLO „O gün odadaki her duraksamayı gizem, her bakışı işaret sanmaya hazırdım; bunu sonradan fark ettim.“ Damit sind Wiederholungen, Zeitunschärfen und Fremdbestätigungen als Symptome gedeckt, und der Schlussteil (AYNI EL, HAKAN'IN CEVABI) löst sie auch tatsächlich ein.
 - Frühe Widersprüche werden später aufgelöst (Fitne-Lanze = „aklındaki mızrak“; Muhibbi nachts im Zimmer trotz „geceleri kalmıyorum“; Hodris Brief, der mehr weiß als der Erzähler, ist durch AYNI EL erklärt).
 
-**Echte Fehler (per Volltext bestätigt):**
-1. **Schwer: Uhrzeitwiderspruch am dritten Tag** (HODRİ → ON BİR). Nach dem Hodri-Brief bleiben „3 saat 15 dakika“ bis zum 11-Uhr-Termin (≈ 7:45); dann Anfall, Erwachen „Saat neredeyse öğlene geliyordu“, Waschen, langes Telefonat mit Emrah, Gottes-Regenwurm-Dialog, vokalloser Brief; und ON BİR beginnt mit „On bire on altı dakika vardı“. Der Erzähler markiert sonst jede Erinnerungslücke, hier nicht. Das ist der eine harte Logikfehler des Buchs.
-2. **Mittel: Revisionsreste in TECRİT ODASI.** Hakan erklärt das EEG zweimal, Sefa jubelt, Hakan verabschiedet sich, dann fragt Sefa „Hocam, EEG nedir?“, Hakan antwortet mit etwas anderem, Sefa fragt „Kabuk derken hocam?“, obwohl niemand „kabuk“ gesagt hat, und „O zaman ikimize de müsaade“ fällt zweimal. Als Perseveration Hakans wäre das lesbar, Sefas Repliken wiederholen sich aber ebenfalls.
-3. **Mittel: Zeugenstatus der Aufnahme** (KAYIT). Zehra hört mit Kopfhörer und identifiziert „Bunu ikinci kez yaşıyoruz“, Hakan bestätigt „Bu sensin“. Nach der Auflösung (Hakan = Erzähler; Zehra unverifiziert) war das eine Ein-Körper-Szene; sie wird nach dem Twist nicht nachgetragen.
-4. **Mittel: Hakikats „Erstgespräch“** (HAKİKAT MEDENİ) ist als erste Begegnung inszeniert, enthält aber „sizinle yaptığımız değerlendirmeler“ und eine fertige Diagnose.
-5. **Mittel: Muhibbis Stimme auf der Aufnahme** wird bewusst nie objektiv getestet („Bir çaycıyı ko…“); das ist Absicht, kostet aber Glaubwürdigkeit der klinischen Ebene.
-6. **Mittel: Existenz der „drei Romane“ und des Namens Mustafa Sefa Güvenir** bleibt ungeklärt (DAKTİLO, HAKAN'IN DOSYASI, VİLDAN'IN GÖRDÜĞÜ). Für das Doppelprojekt gewollt, im Buch nicht aufgefangen.
-7. **Mittel: Die Sortierliste in AYNI EL** („kime hangi hayatta rastladığım“) lässt Emrah Cebiroğlu, Suat Beşkardeş, Emrah Altuntecim, Mahmut aus.
+**Gegenprüfung der Fassung-1-Befunde:**
 
-**Kleinere Punkte:** metallischer Klang einmal (ON BİR) vs. dreimal (KAYIT, ÜÇ VURUŞ); die Abschiedsworte mit Muhibbi vertauscht erinnert (AŞK İLE ↔ ON BİR, von Muhibbi selbst kommentiert); Büfeci-Rechnung („Sizden bir şey almıyorum“ vs. zwei Tees); die Requisite „Finger“ des adsız adam heißt nacheinander „eli bantlı“, „sağ başparmağında beyaz bant“, „parmağı sargılı“, „parmağı bantlı“ (für die Wiedererkennbarkeit im Partnerbuch sollte es einheitlich der rechte Daumen sein); Hakikat spricht in VİLDAN'IN GÖRDÜĞÜ, ohne eingetreten zu sein; Notiz „Telefonuma“, gezeigt wird „Kâğıdı“ (ÜÇ VURUŞ); Anfallszählung „iki defa“ gegen drei Episoden; sen/siz-Wechsel in einem Satz Hakans (KAYIT); in den Briefen 300 vs. 305 Jahre, „kırk gün“ statt vierzig Jahre Tîh.
+| Nr. | Befund aus Fassung 1 | Ergebnis | Begründung des Prüfers (mit Beleg) |
+|---|---|---|---|
+| 1 | Schwerer Uhrzeitwiderspruch am dritten Tag (HODRİ „neredeyse öğlene geliyordu“ vor ON BİR „On bire on altı dakika vardı“) | **widerlegt** (0,82) | HODRİ Z. 736 liest die Uhr ab („Saate baktım, 3 saat 15 dakika sonra…“, ≈ 7.45). Der strittige Satz steht unmittelbar nach „Yine süresini bilmediğim bir zaman aralığında sandalyede yığılı kalmıştım. Süresini bilmiyordum…“: ein Eindruck nach Anfall und Schlaf, ohne „Saate baktım“. Die Ablesung kommt erst in ON BİR (10.44). ON BİR greift den vokallosen Brief auf („Bu sabah bir mektup okudum“), die zweite Badszene ist als zweiter Gang markiert („bir daha“, andere Handlung). Kein Fehler. **v2 setzt „sanki“ ein, damit kein Leser stolpert.** |
+| 2 | Revisionsreste in TECRİT ODASI (EEG zweimal erklärt, „Kabuk derken hocam?“, doppelter Abschied) | **widerlegt** (0,72) | Der Wortlaut stimmt, die Deutung nicht: Prolog und DAKTİLO (derselbe Tag) rahmen Dialoge ausdrücklich als Gedächtnisrekonstruktion und den Erzähler als jemanden, der „jedes Zögern für Geheimnis“ hält. Die Schleife ist die erste Perseveration des Erzählers, nicht des Autors; der Schlussteil bestätigt das Muster. Als Lesererfahrung bleibt die Stelle irritierend (Handwerkspunkt), als Logik ist sie gedeckt. |
+| 3 | Zeugenstatus der Aufnahme (KAYIT): Zehras Kopfhörer-Moment wird nach dem Twist nicht nachgetragen | **widerlegt** (0,80) | HAKAN'IN CEVABI kehrt exakt zu dieser Aufnahme zurück, nennt sie „ilk dinleyiş“ und zieht die Ein-Körper-Konsequenz: „Kaydı dinleyen de içindeki sesin sahibi de bendim.“ Davor benennt der Erzähler die KAYIT-Bestätigung als Selbstbestätigung: „Yine aynı hatayı yapıyordum: Kendi sesimi bir başkasına emanet edip ondan duymaya geliyordum.“ Nachgetragen. |
+| 4 | Hakikats „Erstgespräch“ (HAKİKAT MEDENİ) enthält „sizinle yaptığımız değerlendirmeler“ und eine fertige Diagnose | **widerlegt** (0,80) | „biz“ ist institutionell: Tag 3 Acil, Tag 4 Tetkikler und Neurologie-Gespräch, Tag 5 stationär „incelemeler ve gözlem“ (vom Erzähler kaum berichtet: „O gün yazı odasına dönmedim“). Im Gespräch: „Hakikat, nöroloji hekiminin benim iznimle aktardıklarıyla defterindeki birkaç notu karşılaştırdı“; die Klinikakte liegt auf dem Tisch. „Henüz tanışmadık“ betrifft die Mutter. |
+| 5 | Muhibbis Stimme auf der Aufnahme wird nie objektiv getestet | **widerlegt** (0,86) | Die Aufnahme wird mehrfach vor Dritten abgespielt: KAYIT („Muhibbi Amca'nın sesini de tanıdınız mı?“ – „Onu sen tanıyorsun.“), HAKAN'IN CEVABI (bis unmittelbar vor Muhibbis erste Antwort), ÜÇ VURUŞ (vor der Mutter). Muhibbi kündigt die Frage selbst an (ON BİR: „kayda geçen sözün kimin olduğuna sonra bakarız“). Die Nichtauflösung ist Programm, keine Lücke. |
+
+**Nicht gegengeprüft (Kappung), Status: Hinweis:**
+- Existenz der „drei Romane“ und des Namens Mustafa Sefa Güvenir bleibt ungeklärt (DAKTİLO, HAKAN'IN DOSYASI, VİLDAN'IN GÖRDÜĞÜ). Für das Doppelprojekt gewollt; im Buch nicht aufgefangen.
+- Die Sortierliste in AYNI EL („kime hangi hayatta rastladığım“) lässt Emrah Cebiroğlu, Suat Beşkardeş, Emrah Altuntecim, Mahmut aus.
+
+**Kleinere Punkte (gering):** metallischer Klang einmal (ON BİR) vs. dreimal (KAYIT, ÜÇ VURUŞ); die Abschiedsworte mit Muhibbi vertauscht erinnert (AŞK İLE ↔ ON BİR, von Muhibbi selbst kommentiert); Büfeci-Rechnung („Sizden bir şey almıyorum“ vs. zwei Tees); Hakikat spricht in VİLDAN'IN GÖRDÜĞÜ, ohne eingetreten zu sein; Notiz „Telefonuma“, gezeigt wird „Kâğıdı“ (ÜÇ VURUŞ); Anfallszählung „iki defa“ gegen drei Episoden; sen/siz-Wechsel in einem Satz Hakans (KAYIT); in den Briefen 300 vs. 305 Jahre, „kırk gün“ statt vierzig Jahre Tîh. Die Requisite „Finger“ des adsız adam hieß nacheinander „eli bantlı“, „sağ başparmağında beyaz bant“, „parmağı sargılı“, „parmağı bantlı“: **in v2 auf „sağ başparmağı bantlı“ vereinheitlicht** (Wiedererkennbarkeit im Partnerbuch, BY Kap. 13/40/50).
 
 **Bewusst offen und funktionierend:** „Bunu ikinci kez yaşıyoruz“ (achtmal, nie erklärt, mit Fragezeichen stehen gelassen) ist die beste Entscheidung des Finales; ebenso „Hesap kapalı“ und die Seite „Neden ben?“.
 
 ### 4.2 Mystik (7/10)
 
-Die Mystik ist das Skelett des Buchs, gespeist aus türkisch-anatolischer Volksfrömmigkeit und Kıssa-Literatur (İsrailiyyat um Adams Weinen, Nur-u Muhammed, „Ahmed gül kokmaz, güller Ahmed kokar“, Hızır-Topos, Yunus-Vokabular „Çalap“, „uçmağa göçtü“, „Hay'dan gelip Hû'ya“), nicht aus İbnü'l-Arabî im engeren Sinn, dessen Name nur als ausdrücklich „atfedilen“ Etikett dient. Das Leitmotto „İnsan öğrenmez, hatırlar!“ wird dreifach gebrochen: als Zuschreibung, als Programm Şeytans in FİTNE (Gutes vergessen machen) und als zu prüfender Satz im Schlussbrief. Wasser wandert von der Chiffre (Ceylan, Mabeh, Muhibbis Gefäß-Gleichnis) über den Wortverlust „bardak“ zum Glas Wasser für die Mutter; Şahit wandert vom metaphysischen Zeugen zum Menschen am Tisch: „şahidi kaybettiğim yer cümlemin sonu değil, masanın öte yanı“. Das Ende verweigert das Wunder („Bir mucize olmadı“), ohne die Mystik zur Symptomatik zu degradieren; weder „yalnızca kurgu“ noch „başka evrenin kanıtı“. Muhibbi Amca als Hızır/Pir mit doppelter Lesbarkeit ist gelungen. Die Hattat-Oduncu-Menkıbe (AŞK İLE) ist die geschlossenste mystische Erzählung des Buchs.
+Die Mystik ist das Skelett des Buchs, gespeist aus türkisch-anatolischer Volksfrömmigkeit und Kıssa-Literatur (İsrailiyyat um Adams Weinen, Nur-u Muhammed, „Ahmed gül kokmaz, güller Ahmed kokar“, Hızır-Topos, Yunus-Vokabular „Çalap“, „uçmağa göçtü“, „Hay'dan gelip Hû'ya“), nicht aus İbnü'l-Arabî im engeren Sinn, dessen Name nur als ausdrücklich „atfedilen“ Etikett dient. Das Leitmotto „İnsan öğrenmez, hatırlar!“ wird dreifach gebrochen: als Zuschreibung, als Prämisse, die selbst Şeytan in FİTNE anerkennt (sein Programm ist das Gegenteil, „unutturmak“), und als zu prüfender Satz im Schlussbrief. Wasser wandert von der Chiffre (Ceylan, Mabeh, Muhibbis Gefäß-Gleichnis) über den Wortverlust „bardak“ zum Glas Wasser für die Mutter; Şahit wandert vom metaphysischen Zeugen zum Menschen am Tisch: „şahidi kaybettiğim yer cümlemin sonu değil, masanın öte yanı“. Das Ende verweigert das Wunder („Bir mucize olmadı“), ohne die Mystik zur Symptomatik zu degradieren; weder „yalnızca kurgu“ noch „başka evrenin kanıtı“. Muhibbi Amca als Hızır/Pir mit doppelter Lesbarkeit ist gelungen. Die Hattat-Oduncu-Menkıbe (AŞK İLE) ist die geschlossenste mystische Erzählung des Buchs.
 
 Schwächen: Predigtgefahr in Mikails Lehrblock (MIZRAĞIN İKİ UCU), Muhibbis Medeniyet-Tirade (MUHİBBİ'NİN SOFRASI), Sefas „Sanat Allah için…“ samt Gedicht und im Solucan-Gerichtsdialog (HODRİ). Terminologisch: ein untergeordneter „iblis“ neben Şeytan/Azazil (FİTNE), während Muhibbi die übliche Identität verwendet (OKU). Fehlzuschreibung „Rava kalbi an Rabbi“ als Şems-Wort (die Formel ist „haddesenî kalbî an Rabbî“ der Bâyezîd/İbn-Arabî-Tradition). Das Barnabas-Evangelium fungiert zweimal als authentische Quelle. Im Mabeh-Brief tragen ausschließlich jüdische Figuren die negativen Rollen; der Erzähler setzt eine Randnotiz, der Brief selbst nicht. Die Besmele-Fassung „âlemlere rahmet olan Allah'ın adıyla“ vermischt rahmeten li'l-âlemîn (das gilt dem Propheten) mit der Basmala; als Symptom des kranken Schreibers lesbar, aber nicht markiert.
 
 ### 4.3 Als Roman, Spannung (6,5/10)
 
-Stärken: dramatische Ironie von hoher Präzision (die Auflösung steht in AZ ÇOK und wird nicht erkannt); gepflanzte Symptome statt Erklärungen; die Vorbemerkung setzt den unzuverlässigen Erzähler elegant ohne Spoiler („Bir konuşmayı tırnak içine aldım diye ses kayıt cihazına dönüşmüyorum“); das dokumentarisch inszenierte Finale (Akte, Video, Ärmelgeste, Perspektivsprung in HAKAN'IN CEVABI); die Körperbedrohung trägt (erster Anfall bei 15 % des Textes, Tumorverdacht in KÂĞIDIN ÖTE YANI); die Mutter als Gegengewicht ist die beste Nebenfigur.
+Stärken: dramatische Ironie von hoher Präzision (die Auflösung steht in AZ ÇOK und wird nicht erkannt); gepflanzte Symptome statt Erklärungen; die Vorbemerkung setzt den unzuverlässigen Erzähler elegant ohne Spoiler; das dokumentarisch inszenierte Finale (Akte, Video, Ärmelgeste, Perspektivsprung in HAKAN'IN CEVABI); die Körperbedrohung trägt (erster Anfall bei 15 % des Textes, Tumorverdacht in KÂĞIDIN ÖTE YANI); die Mutter als Gegengewicht ist die beste Nebenfigur.
 
 Schwächen: doppelt verzögerter Einstieg (8.200 Zeichen Ceylan-Fabel vor dem ersten Rahmensatz, dann 7.400 Zeichen Fallbericht in Anführungszeichen). Die Thriller-Prämisse wird vom Text selbst zu früh entleert („Belki de ortada devlete ait bir sır falan yoktur“ zwanzig Zeilen nach dem Versprechen; „Var da yok!“). Die eingebetteten Briefe bremsen (FİTNE 15.000 Zeichen, MIZRAĞIN İKİ UCU 25.000 Zeichen unmittelbar nach dem stärksten Cliffhanger des Mittelteils, SUSAYANIN YOLU 10.500 Zeichen). HODRİ ist mit 33.000 Zeichen überladen (Totenbrief, Wutmonolog von 4.160 Zeichen, Anfall, Telefonat, Gottesdialog, Vokalbrief). Der Twist ist ab Buchmitte lesbar; das Finale bestätigt, statt zu überraschen. Tote Nebenfäden (Emrah, Suat Beşkardeş, Mahmut, „yeğen“-Tarnung). Sprachliche Tics („Yahu“ 32-mal, „hocam“ 109-mal). Formelhafte Antithesen im Schlussteil („Bu defa“ 13-mal ab Z. 1526).
 
@@ -110,9 +126,9 @@ Schwächen: doppelt verzögerter Einstieg (8.200 Zeichen Ceylan-Fabel vor dem er
 |---|---|---|---|
 | Eröffnungssatz „Öleceğimi ilk kez o sabah düşünmedim.“ | Kap. 1 (Z. 50), Kap. 50 | KÂĞIDIN ÖTE YANI (Z. 1430) | stimmig, wörtlich identisch |
 | Arbeitsnotiz „Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.“ | Kap. 5, 46 (mit gezeichnetem leerem Stuhl) | KÂĞIDIN ÖTE YANI, ŞAHİT (Stuhl ohne Namen) | stimmig |
-| Siyah paket, kırmızı ip, weißes Buch im Paket | Kap. 2, 20, 40, 50 | KÂĞIDIN ÖTE YANI, İÇERİDEKİ YAZAR, SU | stimmig, eine Abweichung (Kind, s. u.) |
-| Bandagierter rechter Daumen | Kap. 13 (2015, Projektorkappe), 40, 50 | MEKTUBU KİM YAZDI?, KÂĞIDIN ÖTE YANI, İÇERİDEKİ YAZAR | stimmig; BY Kap. 50 löst die Zeitverschiebung ausdrücklich |
-| Kind hinter der Tür beim Paketöffnen | Kap. 2: Erzähler allein, Kinder bei Zeynep | SU: „içeriden çocuğunun sesini“ | **widersprüchlich** (einziger echter Faktenwiderspruch) |
+| Siyah paket, kırmızı ip, weißes Buch im Paket | Kap. 2, 20, 40, 50 | KÂĞIDIN ÖTE YANI, İÇERİDEKİ YAZAR, SU | stimmig, eine kleine Abweichung (Kind, s. u.) |
+| Bandagierter rechter Daumen | Kap. 13 (2015, Projektorkappe), 40, 50 | MEKTUBU KİM YAZDI?, KÂĞIDIN ÖTE YANI, İÇERİDEKİ YAZAR (v2: durchgehend „sağ başparmağı bantlı“) | stimmig; BY Kap. 50 löst die Zeitverschiebung ausdrücklich |
+| Kind hinter der Tür beim Paketöffnen | Kap. 2: Erzähler allein, Kinder bei Zeynep | SU: „içeriden çocuğunun sesini“ | Abweichung (gering, nicht gegengeprüft); durch SAs Toleranzformel gedeckt („Bana cevap vermediği bir hayatı da vardı“) |
 | Hakan Hıdıroğlu | „romandaki Hakan“, Hekim (Kap. 12) | Chefarzt und realer Körper (Auflösung) | stimmig im Beruf, chiastisch in der Realitätsebene (gewollt) |
 | Muhibbi Amca und der Teefleck | Kap. 12 („sayfanın kenarında çay lekesi“) | DAKTİLO (Nazım schüttet Tee), MUHİBBİ | stimmig bis ins Detail |
 | Erenköy, tecrit odası, Reha-Zentrum 2015 | Kap. 12, 13 | AZ ÇOK, TECRİT ODASI | stimmig |
@@ -122,9 +138,9 @@ Schwächen: doppelt verzögerter Einstieg (8.200 Zeichen Ceylan-Fabel vor dem er
 | Handnotiz „Okurken hangi elinle tuttuğunu kontrol et.“ | Kap. 40 (lange Form), Kap. 13 (Kurzform) | MEKTUBU KİM YAZDI?, SU | lange Form stimmig, Kurzform einseitig |
 | Sefas Live-Nachrichten („masaya sen yer açtın“) | Kap. 13 | İÇERİDEKİ YAZAR (sinngemäß) | sinngemäß stimmig |
 | Mann mit dem Tumorbericht | Kap. 50 | KÂĞIDIN ÖTE YANI, VİLDAN'IN GÖRDÜĞÜ | stimmig (BY zeigt SAs Tumornacht) |
-| „Bazen onları ben yazmıyorum gibi geliyor…“ | Kap. 46 | İÇERİDEKİ YAZAR | stimmig |
+| „Bazen onları ben yazmıyorum gibi geliyor…“ | Kap. 46 | İÇERİDEKİ YAZAR | stimmig, wörtlich |
 | Zeyneps Satz „…seni ikinci kez öldürmüş gibi oluruz.“ | Kap. 46 (Streichszene) | SU (Streichszene) | stimmig, zwei parallele Szenen |
-| Motto „İnsan hakikati öğrenmez, hatırlar!“ | Kap. 48 | Vorspann, AYNI EL, ŞAHİT | stimmig; BY vollzieht es, SA prüft es |
+| Motto „İnsan hakikati öğrenmez, hatırlar!“ | Kap. 48 | Vorspann, FİTNE, HODRİ, UNUTMA, AYNI EL, ŞAHİT | stimmig; BY vollzieht es, SA prüft es; auch Şeytan bejaht die Prämisse (Gegenprüfung) |
 | Schlussfragen | Präteritum, Kap. 50 | Futur, SU | stimmig: Vergangenheit und Zukunft derselben Frage |
 | „İkincisi, öldüğün gün başlayacak“ (Yusuf) | Kap. 46 | SA nennt sich am Ende selbst | einseitig, aber lesbar als Ankündigung von SA |
 | Zahlen: 11 | 111 Sekunden, 11.11, Sitz 11 | Kapitel ON BİR, Termin 11.00, „Yeni Kayıt 11“ | stille gemeinsame Zahl; 14.53/1453 nur BY; „dört yüz bir an“ (BY Kap. 49) ohne Anker in beiden Büchern |
@@ -137,43 +153,64 @@ Beim gemeinsamen Lesen entsteht eine echte Doppelschleife (A enthält B enthält
 
 Was der Leser zusätzlich versteht: Der gesuchte Zeuge aus SAs vokallosem Brief (unberühmt, „ünsüz“, Hauptrolle im eigenen Leben, durstig bis zum Tod) ist exakt BYs namenloser Erzähler; SAs Titelfrage wird von BY beantwortet, ohne dass ein Buch den Namen nennt. Die Selbstberufung ist ein Zwillingsplot (SA: „Seni çağıranın ben olduğumu bilmiyordum“; BY: „kendi alarmımı kurmuşum“). Das Emblem des Doppelwerks steht in beiden Texten: BYs Siegel „iki daire, arada boşluk – İki çark tamamen birleşirse dönemez“ und SAs zwei nebeneinanderliegende Seiten, deren Vertauschung die Wörter unverändert lässt. Beide Bücher verstecken Codes und warnen vor dem Überlesen (SA: fette Buchstaben; BY: Kapitellücken, Pfeile, Knotensätze).
 
-**Die größte unerklärte Naht:** BYs Erzähler durchsucht Sefas Oktoberdatei (Kap. 12) und findet den grünen Korridor, Hakan, Muhibbi und die drei Metallschläge, nicht aber das schwarze Paket, die rote Schnur, den bandagierten Daumen oder seinen eigenen Eröffnungssatz, die laut SA in derselben Nacht wie die Arbeitsnotiz geschrieben werden. Dass ein Mann mit einem schwarzen Paket vor der Tür seine eigene Lage in der Datei nicht erkennt, ist thematisch anschlussfähig (Blindheit für das eigene Bild), aber nicht adressiert. BY kapselt Abweichungen mit der Fassungslogik (Oktober/November), was die Naht abmildert.
+**Die drei Querbefunde aus Fassung 1 in der Gegenprüfung:**
+- *„Größte unerklärte Naht“ (BYs Erzähler findet in Sefas Oktoberdatei nicht seine eigene Lage):* **widerlegt** (0,82). BY zeigt den Dateiinhalt nur ausschnittweise: der Erzähler hat sie nicht fertig gelesen (Kap. 5 „hâlâ istediği notları bitirmemiştim“), sucht in Kap. 12 gezielt nur nach „koridor“; Sefa sagt am Telefon „Seni oraya koyduğumu da hatırlamıyorum“. Und der Erzähler „bemerkt“ die Türnotiz sehr wohl, unmittelbar nach dem Paket, reagiert mit einem Witz („Ben olsam önce kapıyı kapatır, adamı sonra düşünürdüm“) und zeichnet „nedenini bilmeden“ denselben leeren Stuhl; Kap. 46 kehrt dazu zurück. Der blinde Fleck ist inszeniert, nicht vergessen.
+- *Manuskripttausch in BY gegen Eigenproduktion in SA:* **widerlegt** (0,80). SAs „gizli bir kurye yoktu“ (AYNI EL) betrifft nur die Briefe des „Deli“ zwischen makam odası und yazı odası, nicht einen Austausch mit einem befreundeten Autor. SA dementiert keine Außenbegegnung („dış dünyada onunla karşılaştığımın kanıtı değildi“ ist Nicht-Bestätigung, kein Dementi; Vildan: „Bu, sizin onunla konuşmadığınızı kanıtlamaz“) und verweigert programmatisch beide Extreme. Die Asymmetrie ist die Pointe der Schleife.
+- *Motto als Credo in BY, als Şeytan-Programm in SA:* **kein Fehler** (0,90). Şeytan verkündet den Satz nicht als eigene Doktrin, sondern erkennt ihn als gottgegebene Anthropologie an („Allah halifesine öğrenmeyi bahşetti yetmedi hatırlamayı…“) und leitet daraus das Gegenprogramm ab: „onlara iyiliği unutturacağız“. İbn Arabî, Hodri, UNUTMA und Şeytan bejahen dieselbe Prämisse. BYs Sterbesatz „Hatırladığım yer orada başladı“ ist zusammen gelesen das Gelingen dessen, was Şeytan verhindern will.
 
-**Bestätigte Widersprüche zwischen den Büchern:** nur zwei kleine, beide auf SA-Seite: die Kinderstimme beim Paketöffnen (BY: allein) und das weiße Buch im Paket (BY Kap. 2: schwarz; das weiße war Leylas vertauschte Kopie, Kap. 40). Beide sind durch SAs eigene Toleranzformel gedeckt („Bana cevap vermediği bir hayatı da vardı“), werden aber konkret nicht aufgefangen. Ton- und Weltbildunterschiede (BYs entmystifizierende Aufklärung gegen SAs Volksfrömmigkeit) sind produktive Spannung, kein Fehler: Beide landen bei derselben Ethik (Brot, Wasser, der Mensch am Tisch).
+**Verbleibende kleine Abweichungen zwischen den Büchern (gering, nicht gegengeprüft), beide auf SA-Seite:** die Kinderstimme beim Paketöffnen (BY Kap. 2: allein) und das weiße Buch im Paket (BY Kap. 2: schwarz; das weiße war Leylas vertauschte Kopie, Kap. 40). Beide sind durch SAs eigene Toleranzformel gedeckt („Bana cevap vermediği bir hayatı da vardı“) und durch BYs Fassungslogik (Oktober/November) abgefedert. Ton- und Weltbildunterschiede (BYs entmystifizierende Aufklärung gegen SAs Volksfrömmigkeit) sind produktive Spannung, kein Fehler: Beide landen bei derselben Ethik (Brot, Wasser, der Mensch am Tisch).
 
 ### 5.3 Empfohlene Lesereihenfolge
 
 **BEN YOKSAM zuerst, dann ŞAHİDİ ARARKEN.** BY hinterlässt drei Fäden, die nur SA einlöst: den Mann mit „Tümör“ (Kap. 50), das „ikinci kitap, öldüğün gün başlayacak“ (Kap. 46) und die Namenlosigkeit des Schreibenden. SA nach BY gelesen zündet sofort in AZ ÇOK (Hakan, Erenköy), bei „Tümör olabilir“ und in der Tumornacht, in der BYs erster Satz geschrieben wird; das Finale von SA wird zur Antwort auf BYs Schlusskapitel. Umgekehrt funktioniert es ebenfalls (SA legt die Spur „Bir kapı, siyah paket, kırmızı ip“, BY erfüllt sie), aber SAs Schleife ist ohne BY abstrakter. Beide Bücher laden ausdrücklich zu einer zweiten Runde ein.
 
-## 6. Empfehlungen (priorisiert)
+## 6. Fassung v2: was geändert wurde, und was zur 10 fehlt
+
+**Grundsatz (Auftrag: „kurguyu bozmadan“):** Es wurde nichts an Handlung, Reihenfolge, Figuren, Kapiteln oder Auflösung verändert. Nur Stellen, die die Gegenprüfung als echten Fehler bestätigt hat oder die ein aufmerksamer Leser als Fehler *lesen könnte*, obwohl der Text sie deckt, wurden mit dem kleinstmöglichen Eingriff geschlossen (ein Wort oder ein Halbsatz). Seitenzahlen der Druckfassungen bleiben unverändert (281 / 200), Cover und Rückenbreiten bleiben gültig. Die vollständige Liste mit Wortlaut und Begründung steht in `analyse/Degisiklik_Listesi_v2.md` (Türkisch und Deutsch).
+
+| Buch | Stelle | alt → neu | Wirkung |
+|---|---|---|---|
+| BY | Kap. 18 „Birincil Ayna“ | „Yusuf'un kasetçalarında duyduğumuz eski Almanca metin“ → „Sonradan Yusuf'un 1978 tarihli el kitabında göreceğimiz eski Almanca metin“ | schließt den einzigen bestätigten Kontinuitätsfehler; nutzt die Prolepse, die das Buch schon in Kap. 7 verwendet |
+| BY | Kap. 18 | „Altına Türkçe çeviri yazılmıştı“ → „Altına Yusuf'un Türkçe çevirisi yazılmıştı“ | gleicht die Zuschreibung an Kap. 24 an |
+| SA | HODRİ | „Saat neredeyse öğlene geliyordu“ → „Saat sanki neredeyse öğlene geliyordu“ | macht den Eindruck nach dem Anfall unmissverständlich zum Eindruck; ON BİR (10.44) bleibt die einzige Ablesung |
+| SA | MEKTUBU KİM YAZDI? | „eli bantlı bir adam“ → „sağ başparmağı bantlı bir adam“ | Requisite vereinheitlicht |
+| SA | İÇERİDEKİ YAZAR | „parmağı sargılı adam“ → „sağ başparmağı bantlı adam“ | dito |
+| SA | İÇERİDEKİ YAZAR | „Parmağı bantlı adam“ → „Sağ başparmağı bantlı adam“ | dito; identisch mit BY Kap. 13/40/50 |
+
+**Was v2 damit erreicht:** Logik BY 9, SA 8,5. In dem, was geprüft werden konnte, gibt es in keinem Buch mehr einen bestätigten Widerspruch.
+
+**Was zur 10 fehlt und warum es nicht „minimal“ geht:**
+- *Logik (Rest bis 10):* die nicht gegengeprüften Hinweise (BY: Buchbinderei, Nehir/Yusuf, Ortslogik 31–34; SA: Sortierliste, drei Romane). Sie könnten nach dem Muster der anderen Befunde ebenfalls vom Text gedeckt sein; erst eine Prüfung mit Ergebnis würde die letzte Unsicherheit nehmen. Dazu zwei Handwerksstellen, die keine Fehler sind, aber als solche wirken: „yamuk mantı“ ohne Payoff (BY) und die EEG-Schleife (SA).
+- *Spannung (BY 7 → 8+):* Kap. 5 kürzen oder hinter den Nachtarbeitsbeat verschieben; Essayblöcke Kap. 17/20/26/38 um ein Drittel kürzen; Aphorismen im Schlussteil ausdünnen; Nachspiel 44–47 straffen. Das sind Streichungen, keine Umbauten, aber sie verändern Seitenzahl und Rhythmus und gehören dem Autor.
+- *Spannung (SA 6,5 → 8):* MIZRAĞIN İKİ UCU um ein Drittel kürzen und durch eine kurze Rahmenszene vom Cliffhanger trennen; HODRİ in zwei Kapitel teilen; FİTNE die dreifache Lanzenregel auf eine reduzieren; Einstieg (Ceylan-Fabel) um ein Drittel kürzen. Ebenfalls Streichungen ohne Plotänderung, aber mit spürbarer Umfangswirkung.
+- *Mystik (BY 8 → 9; SA 7 → 8):* BY: die Ambivalenz von Kap. 35 im Finale einlösen (ein Absatz), „Sessiz Ses“ entweder schweigen lassen oder umbenennen; SA: „Rava kalbi an Rabbi“ korrigieren, iblis/Şeytan vereinheitlichen, Besmele-Fassung als Fehler des Schreibers markieren (ein Halbsatz des Erzählers), Barnabas-Zitate mit Distanz versehen. Das sind Ein-Satz-Eingriffe, aber inhaltliche Entscheidungen des jeweiligen Autors, deshalb nicht in v2.
+
+## 7. Empfehlungen (nicht umgesetzt, Entscheidung der Autoren)
 
 **BEN YOKSAM**
-1. Ankara-Reise erzählen oder Cems Erklärung auf das nicht angetretene Ticket umbauen (Kap. 28/29/45). Das ist die eine Lücke, die die Auflösung trägt.
-2. Den Kanal „Modell an Meralis vor sieben Jahren“ in Kap. 12 oder 45 mit einem Satz schließen.
-3. Edirne: entweder Rückkehr am nächsten Tag oder Schulauftritt streichen (Kap. 12).
-4. Kassettentext: in Kap. 18 „gehört“ durch „gelesen“ ersetzen oder Kap. 16 ein Wort mehr abspielen lassen.
-5. „yamuk mantı“ in Kap. 32 einsetzen (ein Satz genügt) oder streichen.
-6. Kap. 5 kürzen oder hinter den Nachtarbeitsbeat verschieben; die Essayblöcke in 17, 20, 26, 38 um ein Drittel kürzen; Aphorismen im Schlussteil ausdünnen.
-7. Kleinigkeiten: Buchbinderei-Zustand vereinheitlichen, Umschlag-Chronologie, Knotenursprung (Kap. 1 vs. 40), Titel „Sönmüş Gibi“ prüfen.
+1. „yamuk mantı“ in Kap. 32 einsetzen (ein Satz genügt) oder streichen.
+2. Kapiteltitel „Sonmuş Gibi“ → „Sönmüş Gibi“ prüfen (Tippfehler oder Absicht).
+3. Kap. 5 kürzen oder hinter den Nachtarbeitsbeat verschieben; die Essayblöcke in 17, 20, 26, 38 um ein Drittel kürzen; Aphorismen im Schlussteil ausdünnen.
+4. Die nicht gegengeprüften Hinweise (Buchbinderei-Zustand, Nehir/Yusuf in Kap. 23, Ortslogik 31–34, Umschlag-Chronologie) einmal mit dem Manuskript abgleichen.
+5. Optional: Kap. 35/Finale, einen Absatz zur Zahlenambivalenz.
 
 **ŞAHİDİ ARARKEN**
-1. HODRİ/ON BİR: Uhrzeit „neredeyse öğlen“ ändern (z. B. „saat dokuzu geçiyordu“) oder den Termin verschieben. Ein Satz, aber der einzige harte Fehler.
-2. TECRİT ODASI: EEG-Dialog auf eine Erklärung, einen Abschied kürzen; „Kabuk derken hocam?“ streichen oder „kabuk“ vorher fallen lassen.
-3. KAYIT nach dem Twist nachtragen: ein Halbsatz in AYNI EL, der Zehras Kopfhörer-Moment in die Sortierliste aufnimmt.
-4. HAKİKAT MEDENİ: „sizinle yaptığımız değerlendirmeler“ streichen oder als vergessene Sitzungen markieren.
-5. Die Requisite „Finger“ auf „sağ başparmağı bantlı“ vereinheitlichen; die Kinderstimme in SU auf „bir çocuk sesi“ (unbestimmt) ändern oder streichen, damit BY Kap. 2 nicht widerspricht.
-6. MIZRAĞIN İKİ UCU um ein Drittel kürzen und vom Cliffhanger von HAKAN'IN DOSYASI durch eine kurze Rahmenszene trennen; FİTNE die dreifache Lanzenregel auf eine reduzieren; HODRİ in zwei Kapitel teilen.
-7. „Rava kalbi an Rabbi“ korrigieren; iblis/Şeytan-Terminologie vereinheitlichen; die Besmele-Fassung entweder als Fehler des Schreibers markieren oder korrigieren.
+1. TECRİT ODASI: Die EEG-Schleife ist gedeckt; wer sie trotzdem entschärfen will, gibt dem Erzähler einen Signal-Halbsatz („bunu daha önce sormuş muydum?“) statt zu kürzen.
+2. „Rava kalbi an Rabbi“ korrigieren; iblis/Şeytan-Terminologie vereinheitlichen; die Besmele-Fassung entweder als Fehler des Schreibers markieren oder korrigieren.
+3. MIZRAĞIN İKİ UCU um ein Drittel kürzen und vom Cliffhanger von HAKAN'IN DOSYASI durch eine kurze Rahmenszene trennen; FİTNE die dreifache Lanzenregel auf eine reduzieren; HODRİ in zwei Kapitel teilen.
+4. Sortierliste in AYNI EL um Emrah, Suat Beşkardeş, Mahmut ergänzen (ein Satz).
+5. Kinderstimme in SU auf „bir çocuk sesi“ (unbestimmt) ändern oder streichen, damit BY Kap. 2 nicht einmal scheinbar widerspricht.
 
 **Für das Paar**
-1. Die Naht in BY Kap. 12 mit einem Satz schließen (z. B. der Erzähler überfliegt die Datei bis zum Krankenhaustag und liest nicht weiter, weil…), oder in Kap. 46 die Novemberfassung ausdrücklich als die mit Paket und Schnur benennen.
-2. Auf den Covern, im Marketing und in den Klappentexten die Reihenfolge BY → SA als „empfohlen“ nennen, nie als Pflicht.
-3. Die beiden Schlussfragen (Präteritum/Futur) sind das stärkste gemeinsame Bild; sie gehören in jede Präsentation des Projekts.
+1. Auf den Covern, im Marketing und in den Klappentexten die Reihenfolge BY → SA als „empfohlen“ nennen, nie als Pflicht.
+2. Die beiden Schlussfragen (Präteritum/Futur) sind das stärkste gemeinsame Bild; sie gehören in jede Präsentation des Projekts.
 
-## 7. Anhang: Prüfstatus
+## 8. Anhang: Prüfstatus
 
-**Von mir per Volltextsuche bestätigt:** die drei Akrosticha in BY (Kapitellücken, sieben „14.53 ↺“, neun Knotensätze mit den genannten Folgeabsätzen); einzige Ankara-Erwähnung in Kap. 45; „yamuk mantı“ einmal; „aynı akşam“-Rückkehr; SA „3 saat 15 dakika“ (Z. 736) unmittelbar vor „neredeyse öğlene“ (Z. 737); der EEG-Dialog in TECRİT ODASI (selbst gelesen); „aynı bedenden“ in AZ ÇOK (Z. 56); „sol ayağınız eşiğe sürttü“ (Z. 1713); „ikinci kez yaşıyoruz“ achtmal; die Fettbuchstaben im ersten SA-Brief („bismillah, alemlere rahmet olan Allahın adıyla“, aus dem DOCX gelesen); die Kinderstimme in SU (Z. 1836) gegen „sabah çocuklar gittikten sonra“ in BY Kap. 2; die Brückenzitate in BY Kap. 12/13/46 und SA İÇERİDEKİ YAZAR/ŞAHİT/SU (selbst gelesen).
+**Adversarial gegengeprüft (13 Befunde, je ein unabhängiger Prüfer mit Volltext):** BY Ankara-Reise (widerlegt), BY zwei Kanäle (widerlegt), BY Edirne (widerlegt, Rest gering), BY Kassettentext (**bestätigt**, in v2 behoben), BY Knotenursprung (widerlegt); SA Uhrzeit HODRİ/ON BİR (widerlegt, in v2 abgesichert), SA EEG-Schleife (widerlegt), SA Zeugenstatus KAYIT (widerlegt), SA Hakikat-Erstgespräch (widerlegt), SA Muhibbis Stimme (widerlegt); Quer Manuskripttausch/Eigenproduktion (widerlegt), Quer Motto/Şeytan (kein Fehler), Quer Chronologie der Randnotiz/„Naht“ (widerlegt). Die Prüfer haben in allen Fällen zuerst die Zitate der Fassung 1 bestätigt und dann den Kontext beigebracht, der die Schlussfolgerung kippt.
 
-**Von den Fachanalysen belegt, von mir nicht einzeln nachgeprüft:** die übrigen Befunde in 3.1 und 4.1 (jeweils mit Kapitel und Zitat aus den Analysen übernommen), die Zeichenzählungen (Kapitellängen, Wortfrequenzen) und die Quellenprüfungen der mystischen Ebene.
+**Von mir per Volltextsuche bestätigt:** die drei Akrosticha in BY (Kapitellücken, sieben „14.53 ↺“, neun Knotensätze mit den genannten Folgeabsätzen); die Datierungen des Heftdiebstahls (Kap. 30, 31, 45); „yamuk mantı“ einmal; „aynı akşam“-Rückkehr; SA „3 saat 15 dakika“ (Z. 736) und der Kontext „Süresini bilmiyordum“ (Z. 737); der EEG-Dialog in TECRİT ODASI; „aynı bedenden“ in AZ ÇOK (Z. 56); „sol ayağınız eşiğe sürttü“ (Z. 1713); „ikinci kez yaşıyoruz“ achtmal; die Fettbuchstaben im ersten SA-Brief; die Kinderstimme in SU (Z. 1836) gegen „sabah çocuklar gittikten sonra“ in BY Kap. 2; die Brückenzitate in BY Kap. 12/13/46 und SA İÇERİDEKİ YAZAR/ŞAHİT/SU; alle sechs v2-Änderungen im Satz (PDF und EPUB, Seitenzahlen unverändert).
 
-**Noch zu prüfen (Kappung/abgebrochene Gegenprüfung):** Eine adversariale Gegenprüfung jedes Einzelbefunds durch unabhängige Prüfer wurde dreimal durch Sitzungslimits abgebrochen; die geringen Befunde (3.1 und 4.1 „Kleinere Punkte“) sind deshalb als Hinweise zu lesen, nicht als abschließend bestätigt. Ein Jury-Mittelwert aus mehreren Lesarten (Verlagslektor, Literaturkritiker, Leser) liegt nicht vor; die Tabelle in Abschnitt 2 ist mein Urteil.
+**Von den Fachanalysen belegt, nicht gegengeprüft (Kappung):** die als „Hinweis“ geführten Punkte in 3.1 und 4.1, die Zeichenzählungen (Kapitellängen, Wortfrequenzen) und die Quellenprüfungen der mystischen Ebene.
+
+**Noch offen:** Ein Jury-Mittelwert aus mehreren Lesarten (Verlagslektor, Literaturkritiker, Leser) liegt nicht vor; die Tabelle in Abschnitt 2 ist mein Urteil. Der Lauf ist vorbereitet und wird nachgereicht, sobald er ohne Sitzungslimit durchläuft; er ändert die Befundlage nicht, nur die Gewichtung.

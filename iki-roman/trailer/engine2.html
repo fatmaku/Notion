@@ -269,6 +269,9 @@ const SVGS = {
   package: `<svg viewBox="0 0 240 210"><g fill="#0b0908" stroke="${GOLD}" stroke-width="2.5" stroke-linejoin="round"><path d="M30 80 L170 80 L170 190 L30 190 Z"/><path d="M30 80 L70 46 L210 46 L170 80 Z"/><path d="M170 80 L210 46 L210 156 L170 190 Z"/></g>
     <g fill="none" stroke="${RED}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M100 190 L100 80 L140 46"/><path d="M30 132 L170 132 L210 98"/><path d="M100 132 C 80 116, 62 124, 82 137 C 92 143, 98 138, 100 132 Z"/><path d="M100 132 C 120 116, 138 124, 118 137 C 108 143, 102 138, 100 132 Z"/><path d="M100 132 L 90 158 M100 132 L 112 156"/></g></svg>`,
   clock: clockSvg(),
+  gazelle: `<svg viewBox="0 0 260 210"><g fill="${INK}" stroke="${GOLD}" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"><path d="M70 120 C 80 96, 150 92, 178 108 C 196 118, 194 142, 176 150 C 150 160, 96 158, 78 146 C 66 138, 62 128, 70 120 Z"/><path d="M172 110 C 178 92, 186 74, 196 62 C 202 55, 214 52, 222 58 C 230 64, 228 76, 218 80 C 208 84, 198 90, 188 104" /></g>
+    <g fill="none" stroke="${GOLD}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M212 54 C 214 36, 224 24, 234 16"/><path d="M220 52 C 226 36, 238 28, 248 22"/><path d="M214 58 C 206 50, 202 46, 204 40"/><path d="M92 152 L84 196"/><path d="M108 154 L104 198"/><path d="M150 156 L156 198"/><path d="M166 150 L176 196"/><path d="M70 122 C 60 118, 56 126, 62 134"/></g>
+    <circle cx="219" cy="63" r="2.4" fill="${GOLD}"/></svg>`,
   typewriter: `<svg viewBox="0 0 260 210"><g fill="${INK}" stroke="${GOLD}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M78 12 H182 V92 H78 Z" fill="rgba(239,230,211,.07)"/><path d="M92 30 H168 M92 44 H150 M92 58 H164 M92 72 H120" fill="none" stroke-width="2" opacity=".85"/>
     <rect x="56" y="84" width="148" height="18" rx="9"/><circle cx="48" cy="93" r="7"/><circle cx="212" cy="93" r="7"/><path d="M118 104 L130 92 L142 104" fill="none" stroke-width="2"/>
     <path d="M30 104 H230 L240 176 Q240 184 232 184 H28 Q20 184 20 176 Z"/>
@@ -297,7 +300,7 @@ function mkGfx(key, svgKey, cx, cy, w, h, opts = {}) {
 const gs = U * L.gfxS, gsh = U * L.shGfxS, gY = L.gfxY * H, shY = L.shGfxY * H;
 mkGfx('package', 'package', W / 2 - gs * .10, gY + gs * .01, gs * .30, gs * .26, { a: CUT.by.gfx[0], b: CUT.by.gfx[1] });
 mkGfx('clock', 'clock', W / 2 + gs * .15, gY + gs * .015, gs * .13, gs * .16, { a: CUT.by.gfx[0] + .8, b: CUT.by.gfx[1], drawDur: 1.2 });
-mkGfx('typewriter', 'typewriter', W / 2 - gs * .09, gY, gs * .30, gs * .24, { a: CUT.sa.gfx[0], b: CUT.sa.gfx[1] });
+mkGfx('gazelle', 'gazelle', W / 2 - gs * .09, gY, gs * .30, gs * .24, { a: CUT.sa.gfx[0], b: CUT.sa.gfx[1], drawDur: 1.6 });
 mkGfx('letter', 'letter', W / 2 + gs * .16, gY + gs * .03, gs * .16, gs * .14, { a: CUT.sa.gfx[0] + .9, b: CUT.sa.gfx[1] });
 const SH = CUT.shared;
 mkGfx('room', 'room', W / 2, shY, gsh * .40, gsh * .30, { a: SH.room, b: SH.gfxEnd, cls: 'green', drawDur: 1.8 });

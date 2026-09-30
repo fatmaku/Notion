@@ -1157,6 +1157,7 @@ def main(argv=None) -> int:
     ap.add_argument("--cover", type=Path, help="Cover-JPEG für das EPUB (sonst vorläufiges Cover)")
     ap.add_argument("--out", type=Path, default=HERE / "out", help="Ausgabeordner (Standard: out/)")
     ap.add_argument("--preview", action="store_true", help="PNG-Vorschauen (150 dpi) ausgewählter PDF-Seiten")
+    ap.add_argument("--docx", type=Path, help="abweichende Manuskriptdatei (z. B. korrigierte v2-Fassung)")
     args = ap.parse_args(argv)
     if not (args.pdf or args.epub):
         args.pdf = args.epub = True
@@ -1166,7 +1167,9 @@ def main(argv=None) -> int:
     build_dir = out_dir / "build"
     build_dir.mkdir(exist_ok=True)
 
-    cfg = BOOKS[args.book]
+    cfg = dict(BOOKS[args.book])
+    if args.docx:
+        cfg["docx"] = args.docx if args.docx.is_absolute() else (Path.cwd() / args.docx)
     print(f"[{args.book}] lese {cfg['docx'].name}")
     paras = parse_docx(cfg["docx"])
     book = build_book(args.book, paras)

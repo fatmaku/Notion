@@ -11,10 +11,10 @@
         title: 'BEN YOKSAM', subtitle: '1453 — Uyanışın Bedeli', author: 'Tuncay Sancak'
       },
       sa: {
-        lines: ['Artık konuşmayan bir adam.', 'Bir daktilo. Bir mektup.', 'Ve tek bir kelime: Şahit.'],
+        lines: ['Bir yolcu yola çıkar.', 'Bir şahit onu bekler.', 'Artık konuşmayan bir adam… Şahit kim?'],
         title: 'ŞAHİDİ ARARKEN', subtitle: '', author: 'Mustafa Sefa Güvenir'
       },
-      shared: { lines: ['Yeşil bir oda.', 'Metale üç vuruş.', 'Bir bardak su.', 'Aynı sahneyi iki kişi hatırlıyor.'] },
+      shared: { lines: ['Yeşil bir oda.', 'Üç vuruş.', 'Bir bardak su.', 'Aynı sahneyi iki kişi hatırlıyor.'] },
       tagline: 'İki Roman – İki Yol – Üçüncü Bir Hikâye',
       claim: 'Her biri tek başına bir roman. Birlikte okununca üçüncü bir kitap belirir.',
       cta: 'Şimdi Amazon’da',

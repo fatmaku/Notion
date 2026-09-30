@@ -86,10 +86,10 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 
 | # | Zeit | Bild | Text im Bild | Ton |
 |---|---|---|---|---|
-| 1 | 0–7 s | Schwarz. Bei jedem Schlag ein warmes Aufleuchten und ein leichtes Zittern. Bei 3,2 s erscheint die Frage. | *Wie erkennst du, dass etwas existiert?* | Drei Schläge auf Metall (1,0 / 1,8 / 2,6 s). Tiefer Drone. |
+| 1 | 0–7 s | Schwarz. Bei jedem Schlag ein warmes Aufleuchten und ein leichtes Zittern. Bei 3,2 s erscheint die Frage. | *Wie erkennst du, dass etwas existiert?* | Drei Schläge (1,0 / 1,8 / 2,6 s). Tiefer Drone. |
 | 2 | 7–19 s | BEN-YOKSAM-Coverbild; langsame Fahrt vom Himmel zur Faust. Unten Zeichnung: schwarzes Paket mit roter Schnur, kleine Uhr auf 14.53. | *Ein schwarzes Paket vor der Tür.* / *Kein Absender. Keine Adresse.* / *Das Buch darin … handelt von ihm.* → Titelkarte: **BEN YOKSAM** · 1453 — Uyanışın Bedeli · Tuncay Sancak | Pulsierender Bass, Pad. |
-| 3 | 19–31 s | ŞAHİDİ-ARARKEN-Coverbild (kühle Seite, Mond). Zeichnung: Schreibmaschine, gefalteter Brief. | *Ein Mann, der nicht mehr spricht.* / *Eine Schreibmaschine. Ein Brief.* / *Und ein einziges Wort: der Zeuge.* → Titelkarte: **ŞAHİDİ ARARKEN** · Mustafa Sefa Güvenir | Weiches Pad, Drone bleibt. |
-| 4 | 31–44 s | Splitscreen: links kühl, rechts warm; dünne Goldlinie in der Mitte. Nacheinander: Raumlinie, drei Lichtschläge, Wasserglas, verbundener Daumen, Stuhl. | *Ein grüner Raum.* / *Drei Schläge auf Metall.* / *Ein Glas Wasser.* / *Zwei Menschen erinnern sich an dieselbe Szene.* | Drei Schläge erneut (34,0 / 34,8 / 35,6 s). Spannung steigt. |
+| 3 | 19–31 s | ŞAHİDİ-ARARKEN-Coverbild (kühle Seite, Mond). Zeichnung: eine Gazelle (der Reisende), ein gefalteter Brief. | *Ein Reisender bricht auf.* / *Ein Zeuge erwartet ihn.* / *Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?* → Titelkarte: **ŞAHİDİ ARARKEN** · Mustafa Sefa Güvenir | Weiches Pad, Drone bleibt. |
+| 4 | 31–44 s | Splitscreen: links kühl, rechts warm; dünne Goldlinie in der Mitte. Nacheinander: Raumlinie, drei Lichtschläge, Wasserglas, verbundener Daumen, Stuhl. | *Ein grüner Raum.* / *Drei Schläge.* / *Ein Glas Wasser.* / *Zwei Menschen erinnern sich an dieselbe Szene.* | Drei Schläge erneut (34,0 / 34,8 / 35,6 s). Spannung steigt. |
 | 5 | 44–53 s | Beide Cover gleiten von links und rechts herein; bei 47,0 s berühren sich die Fäuste in der Mitte; Blitz und Sonnenaufgang. | **Zwei Romane – Zwei Wege – Eine dritte Geschichte** / *Jedes für sich ein Roman. Zusammen gelesen erscheint ein drittes Buch.* | Crescendo → tiefer Schlag bei 47,0 s. |
 | 6 | 53–60 s | Endkarte: beide E-Book-Cover nebeneinander, Autorennamen, Schmetterling fliegt durch. | *Jetzt bei Amazon* · @happytuncay | Ruhiges Pad, 2 s Fade-out. |
 
@@ -99,8 +99,8 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 |---|---|---|
 | 1 | 0–4 s | Drei Schläge + Frage |
 | 2 | 4–10 s | BEN YOKSAM: *Ein schwarzes Paket vor der Tür.* / *Das Buch darin … handelt von ihm.* + Titelkarte |
-| 3 | 10–16 s | ŞAHİDİ ARARKEN: *Ein Mann, der nicht mehr spricht.* / *Und ein einziges Wort: der Zeuge.* + Titelkarte |
-| 4 | 16–21 s | Gemeinsame Szene: *Drei Schläge auf Metall.* (Schläge 17,0 / 17,6 / 18,2 s) / *Zwei Menschen erinnern sich an dieselbe Szene.* |
+| 3 | 10–16 s | ŞAHİDİ ARARKEN: *Ein Reisender bricht auf.* / *Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?* + Titelkarte |
+| 4 | 16–21 s | Gemeinsame Szene: *Drei Schläge.* (Schläge 17,0 / 17,6 / 18,2 s) / *Zwei Menschen erinnern sich an dieselbe Szene.* |
 | 5 | 21–26 s | Fäuste treffen sich bei 23,0 s; Tagline |
 | 6 | 26–30 s | Endkarte |
 
@@ -111,9 +111,9 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 | 3,4 | Wie erkennst du, dass etwas existiert? |
 | 8,0 | Ein schwarzes Paket vor der Tür. Kein Absender. Keine Adresse. |
 | 14,0 | Das Buch darin handelt von ihm. |
-| 20,0 | Ein Mann, der nicht mehr spricht. Eine Schreibmaschine. Ein Brief. |
-| 26,5 | Und ein einziges Wort: der Zeuge. |
-| 32,0 | Ein grüner Raum. Drei Schläge auf Metall. Ein Glas Wasser. |
+| 20,0 | Ein Reisender bricht auf. Ein Zeuge erwartet ihn. |
+| 26,5 | Ein Mann, der nicht mehr spricht. Wer ist der Zeuge? |
+| 32,0 | Ein grüner Raum. Drei Schläge. Ein Glas Wasser. |
 | 40,5 | Zwei Menschen erinnern sich an dieselbe Szene. |
 | 48,5 | Zwei Romane. Zwei Wege. Eine dritte Geschichte. |
 | 54,0 | Ben Yoksam und Şahidi Ararken. Jetzt bei Amazon. |
@@ -123,7 +123,7 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 ### 4.4 Musik-Brief (für lizenzierte Musik)
 - **Stimmung:** dunkel, cineastisch, schwer; eine feine Ney- oder Kanun-Textur als Istanbul-Anklang ist willkommen, keine „Orient“-Klischees.
 - **Tempo:** Gefühl von 60–70 BPM, überwiegend Drone und Pad; Crescendo 44–47 s, Schlag bei 47,0 s (Fäuste), danach ruhige Auflösung.
-- **Pflicht-Marken:** drei Metallschläge bei 1,0 / 1,8 / 2,6 s und 34,0 / 34,8 / 35,6 s (60 s); im 30-s-Schnitt bei 1,0 / 1,8 / 2,6 und 17,0 / 17,6 / 18,2 s.
+- **Pflicht-Marken:** drei Schläge bei 1,0 / 1,8 / 2,6 s und 34,0 / 34,8 / 35,6 s (60 s); im 30-s-Schnitt bei 1,0 / 1,8 / 2,6 und 17,0 / 17,6 / 18,2 s.
 - **Lizenz:** Social Media + Amazon + YouTube, weltweit, unbefristet. Die Musik im gelieferten Trailer ist ein **generierter Platzhalter** und muss vor der Veröffentlichung ersetzt werden.
 
 ## 5. Launch-Plan

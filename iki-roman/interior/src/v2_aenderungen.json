@@ -1,0 +1,36 @@
+{
+ "BY": [
+  {
+   "alt": "Yusuf'un kasetçalarında duyduğumuz eski Almanca metin, yöntemi daha çıplak söylüyordu:",
+   "neu": "Sonradan Yusuf'un 1978 tarihli el kitabında göreceğimiz eski Almanca metin, yöntemi daha çıplak söylüyordu:",
+   "begruendung": "Kap. 18 Birincil Ayna: Der deutsche Fünfschritt wurde in Kap. 16 nie von der Kassette gehört (dort nur Geräusche); Kap. 24 findet ihn im Handbuch von 1978. Der Satz verweist jetzt vorausdeutend auf das Handbuch (Prolepse, wie in Kap. 7)."
+  },
+  {
+   "alt": "Altına Türkçe çeviri yazılmıştı:",
+   "neu": "Altına Yusuf'un Türkçe çevirisi yazılmıştı:",
+   "begruendung": "Kap. 18: Die Übersetzung wird wie in Kap. 24 Yusuf zugeschrieben."
+  }
+ ],
+ "SA": [
+  {
+   "alt": "Saat neredeyse öğlene geliyordu, bıyıklarıma",
+   "neu": "Saat sanki neredeyse öğlene geliyordu, bıyıklarıma",
+   "begruendung": "HODRİ: Nach dem Anfall ist die Uhrzeit ein Eindruck, keine Uhrablesung (ON BİR: 10:44). Ein Wort („sanki“) macht das eindeutig."
+  },
+  {
+   "alt": "KAPI'nın altında eli bantlı bir adam",
+   "neu": "KAPI'nın altında sağ başparmağı bantlı bir adam",
+   "begruendung": "MEKTUBU KİM YAZDI?: Requisite des adsız adam vereinheitlicht (rechter Daumen, wie in KÂĞIDIN ÖTE YANI und in BEN YOKSAM)."
+  },
+  {
+   "alt": "kırmızı ip, parmağı sargılı adam.",
+   "neu": "kırmızı ip, sağ başparmağı bantlı adam.",
+   "begruendung": "İÇERİDEKİ YAZAR: dito."
+  },
+  {
+   "alt": "Parmağı bantlı adam, kendi çantasını",
+   "neu": "Sağ başparmağı bantlı adam, kendi çantasını",
+   "begruendung": "İÇERİDEKİ YAZAR: dito."
+  }
+ ]
+}

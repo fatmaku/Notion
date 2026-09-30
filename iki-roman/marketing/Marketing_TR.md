@@ -103,10 +103,10 @@ Mektuplar, kayıp zamanlar ve tek bir kelime: <b>Şahit.</b> Bir araştırma ola
 
 | # | Zaman | Görüntü | Ekran metni | Ses |
 |---|---|---|---|---|
-| 1 | 0–7 sn | Siyah ekran. Her vuruşta sıcak bir parıltı ve hafif sarsıntı. 3,2 sn'de soru belirir. | *Bir şeyin var olduğunu nasıl anlarsın?* | Metale üç vuruş (1,0 / 1,8 / 2,6 sn). Derin dron. |
+| 1 | 0–7 sn | Siyah ekran. Her vuruşta sıcak bir parıltı ve hafif sarsıntı. 3,2 sn'de soru belirir. | *Bir şeyin var olduğunu nasıl anlarsın?* | Üç vuruş (1,0 / 1,8 / 2,6 sn). Derin dron. |
 | 2 | 7–19 sn | BEN YOKSAM kapak resmi; gökyüzünden yumruğa yavaş yaklaşma. Altta siyah paket ve kırmızı ip çizimi, 14.53'ü gösteren küçük bir saat. | *Kapının önünde siyah bir paket.* / *Gönderen yok. Adres yok.* / *İçindeki kitap… onu anlatıyor.* → Başlık kartı: **BEN YOKSAM** · 1453 — Uyanışın Bedeli · Tuncay Sancak | Nabız gibi bas vuruşu, pad. |
-| 3 | 19–31 sn | ŞAHİDİ ARARKEN kapak resmi (soğuk taraf, ay). Daktilo ve katlanmış mektup çizimi. | *Artık konuşmayan bir adam.* / *Bir daktilo. Bir mektup.* / *Ve tek bir kelime: Şahit.* → Başlık kartı: **ŞAHİDİ ARARKEN** · Mustafa Sefa Güvenir | Daktilo tıkırtısı yerine yumuşak pad; dron devam. |
-| 4 | 31–44 sn | Bölünmüş ekran: sol soğuk, sağ sıcak; ortada ince altın çizgi. Sırayla: oda çizgisi, üç vuruş parıltısı, su bardağı, sargılı başparmak, sandalye. | *Yeşil bir oda.* / *Metale üç vuruş.* / *Bir bardak su.* / *Aynı sahneyi iki kişi hatırlıyor.* | Üç vuruş tekrar (34,0 / 34,8 / 35,6 sn). Gerilim yükselir. |
+| 3 | 19–31 sn | ŞAHİDİ ARARKEN kapak resmi (soğuk taraf, ay). Ceylan (yolcu) ve katlanmış mektup çizimi. | *Bir yolcu yola çıkar.* / *Bir şahit onu bekler.* / *Artık konuşmayan bir adam… Şahit kim?* → Başlık kartı: **ŞAHİDİ ARARKEN** · Mustafa Sefa Güvenir | Daktilo tıkırtısı yerine yumuşak pad; dron devam. |
+| 4 | 31–44 sn | Bölünmüş ekran: sol soğuk, sağ sıcak; ortada ince altın çizgi. Sırayla: oda çizgisi, üç vuruş parıltısı, su bardağı, sargılı başparmak, sandalye. | *Yeşil bir oda.* / *Üç vuruş.* / *Bir bardak su.* / *Aynı sahneyi iki kişi hatırlıyor.* | Üç vuruş tekrar (34,0 / 34,8 / 35,6 sn). Gerilim yükselir. |
 | 5 | 44–53 sn | İki kapak soldan ve sağdan kayarak gelir; 47,0 sn'de yumruklar tam ortada birleşir; parlama ve güneş patlaması. | **İki Roman – İki Yol – Üçüncü Bir Hikâye** / *Her biri tek başına bir roman. Birlikte okununca üçüncü bir kitap belirir.* | Crescendo → 47,0 sn'de derin vuruş. |
 | 6 | 53–60 sn | Son kart: iki e-kitap kapağı yan yana, yazar adları, kelebek geçer. | *Şimdi Amazon'da* · @happytuncay | Sakin pad, 2 sn fade-out. |
 
@@ -116,8 +116,8 @@ Mektuplar, kayıp zamanlar ve tek bir kelime: <b>Şahit.</b> Bir araştırma ola
 |---|---|---|
 | 1 | 0–4 sn | Üç vuruş + soru |
 | 2 | 4–10 sn | BEN YOKSAM: *Kapının önünde siyah bir paket.* / *İçindeki kitap… onu anlatıyor.* + başlık kartı |
-| 3 | 10–16 sn | ŞAHİDİ ARARKEN: *Artık konuşmayan bir adam.* / *Ve tek bir kelime: Şahit.* + başlık kartı |
-| 4 | 16–21 sn | Ortak sahne: *Metale üç vuruş.* (vuruşlar 17,0 / 17,6 / 18,2 sn) / *Aynı sahneyi iki kişi hatırlıyor.* |
+| 3 | 10–16 sn | ŞAHİDİ ARARKEN: *Bir yolcu yola çıkar.* / *Artık konuşmayan bir adam… Şahit kim?* + başlık kartı |
+| 4 | 16–21 sn | Ortak sahne: *Üç vuruş.* (vuruşlar 17,0 / 17,6 / 18,2 sn) / *Aynı sahneyi iki kişi hatırlıyor.* |
 | 5 | 21–26 sn | Yumruklar 23,0 sn'de birleşir; tagline |
 | 6 | 26–30 sn | Son kart |
 
@@ -128,9 +128,9 @@ Mektuplar, kayıp zamanlar ve tek bir kelime: <b>Şahit.</b> Bir araştırma ola
 | 3,4 | Bir şeyin var olduğunu nasıl anlarsın? |
 | 8,0 | Kapının önünde siyah bir paket. Gönderen yok. Adres yok. |
 | 14,0 | İçindeki kitap… onu anlatıyor. |
-| 20,0 | Artık konuşmayan bir adam. Bir daktilo. Bir mektup. |
-| 26,5 | Ve tek bir kelime: Şahit. |
-| 32,0 | Yeşil bir oda. Metale üç vuruş. Bir bardak su. |
+| 20,0 | Bir yolcu yola çıkar. Bir şahit onu bekler. |
+| 26,5 | Artık konuşmayan bir adam. Şahit kim? |
+| 32,0 | Yeşil bir oda. Üç vuruş. Bir bardak su. |
 | 40,5 | Aynı sahneyi iki kişi hatırlıyor. |
 | 48,5 | İki roman. İki yol. Üçüncü bir hikâye. |
 | 54,0 | Ben Yoksam ve Şahidi Ararken. Şimdi Amazon'da. |
@@ -140,7 +140,7 @@ Mektuplar, kayıp zamanlar ve tek bir kelime: <b>Şahit.</b> Bir araştırma ola
 ### 4.4 Müzik brief'i (lisanslı müzik için)
 - **Ruh hali:** karanlık, sinematik, ağır; İstanbul'a gönderme yapan ince bir ney veya kanun dokusu kabul edilir, klişe "doğu" motiflerinden kaçınılır.
 - **Tempo:** 60–70 BPM hissi, çoğunlukla dron ve pad; 44–47 sn arasında crescendo, 47,0 sn'de vuruş (yumruk), ardından sakin çözülme.
-- **Zorunlu vuruşlar:** metale üç vuruş 1,0 / 1,8 / 2,6 sn ve 34,0 / 34,8 / 35,6 sn (60 sn kesim); 30 sn kesimde 1,0 / 1,8 / 2,6 ve 17,0 / 17,6 / 18,2 sn.
+- **Zorunlu vuruşlar:** üç vuruş 1,0 / 1,8 / 2,6 sn ve 34,0 / 34,8 / 35,6 sn (60 sn kesim); 30 sn kesimde 1,0 / 1,8 / 2,6 ve 17,0 / 17,6 / 18,2 sn.
 - **Lisans:** sosyal medya + Amazon + YouTube, dünya çapında, süresiz. Fragmandaki müzik **üretilmiş bir yer tutucudur**; yayın öncesi değiştirilmelidir.
 
 ## 5. Lansman planı

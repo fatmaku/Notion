@@ -9,9 +9,10 @@
     "acts": 5,
     "images": 4,
     "docx_paragraphs": 3663,
-    "words": 45414,
+    "words": 45420,
     "text_check": {
       "model_vs_docx": "ok",
+      "print_html_vs_model": "ok",
       "epub_vs_model": "ok"
     },
     "pdf": "/home/user/Notion/iki-roman/interior/out/BEN_YOKSAM_Innenteil_A5.pdf",
@@ -129,9 +130,10 @@
     "acts": 0,
     "images": 0,
     "docx_paragraphs": 1783,
-    "words": 39449,
+    "words": 39453,
     "text_check": {
       "model_vs_docx": "ok",
+      "print_html_vs_model": "ok",
       "epub_vs_model": "ok"
     },
     "pdf": "/home/user/Notion/iki-roman/interior/out/SAHIDI_ARARKEN_Innenteil_A5.pdf",

@@ -11,10 +11,10 @@
         title: 'BEN YOKSAM', subtitle: '1453 — Uyanışın Bedeli', author: 'Tuncay Sancak'
       },
       sa: {
-        lines: ['Ein Mann, der nicht mehr spricht.', 'Eine Schreibmaschine. Ein Brief.', 'Und ein einziges Wort: der Zeuge.'],
+        lines: ['Ein Reisender bricht auf.', 'Ein Zeuge erwartet ihn.', 'Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?'],
         title: 'ŞAHİDİ ARARKEN', subtitle: '', author: 'Mustafa Sefa Güvenir'
       },
-      shared: { lines: ['Ein grüner Raum.', 'Drei Schläge auf Metall.', 'Ein Glas Wasser.', 'Zwei Menschen erinnern sich an dieselbe Szene.'] },
+      shared: { lines: ['Ein grüner Raum.', 'Drei Schläge.', 'Ein Glas Wasser.', 'Zwei Menschen erinnern sich an dieselbe Szene.'] },
       tagline: 'Zwei Romane – Zwei Wege – Eine dritte Geschichte',
       claim: 'Jedes für sich ein Roman. Zusammen gelesen erscheint ein drittes Buch.',
       cta: 'Jetzt bei Amazon',
