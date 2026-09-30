@@ -99,8 +99,8 @@ bleiben `lang="tr"`.
 |---|---|---|---|
 | 0,0–7,0 | Schwarz. Drei warme Lichtblitze + leichtes Bildzittern bei 1,0 / 1,8 / 2,6 s. Ab 3,2 s die Frage (Cinzel, zentriert, leichter Tracking-Einlauf). | TR „Bir şeyin var olduğunu nasıl anlarsın?“ · EN „How do you know that something exists?“ · DE „Wie erkennst du, dass etwas existiert?“ (3,2–6,7 s) | Drone setzt ein; drei Metallschläge 1,0 / 1,8 / 2,6 s |
 | 7,0–19,0 | BEN-YOKSAM-Front (warme Seite), langsamer Push-in auf die Faust; ab 7,8 s schwarzes Paket mit roter Schnur (Linien-Grafik), ab 8,6 s Uhr 14:53. Goldene Linie über dem Textblock, Zeilen bauen sich wortweise auf. 17,0–19,3 s Titelkarte (Abdunklung). | 8,4 „Kapının önünde siyah bir paket.“ · 11,0 „Gönderen yok. Adres yok.“ · 13,6 „İçindeki kitap… onu anlatıyor.“ (bis 16,7) · 17,0 „BEN YOKSAM / 1453 — Uyanışın Bedeli / Tuncay Sancak“ (EN/DE-Zeilen siehe `config/`) | Pad Am–F–Dm–E, Sub-Puls alle 2 s (leise) |
-| 19,0–31,0 | ŞAHİDİ-ARARKEN-Front (kühle Seite), Push-in; ab 19,8 s Schreibmaschine, ab 20,7 s Brief (Gold-Linien). 29,0–31,3 s Titelkarte. | 20,4 „Artık konuşmayan bir adam.“ · 23,0 „Bir daktilo. Bir mektup.“ · 25,6 „Ve tek bir kelime: Şahit.“ (bis 28,7) · 29,0 „ŞAHİDİ ARARKEN / Mustafa Sefa Güvenir“ | Pad, Sub-Puls wächst |
-| 31,0–44,0 | Split-Screen: links kühl (SA), rechts warm (BY), weich verwischt, dünne goldene Naht. Grüner Raum-Umriss (32,0), Türblitze bei den Schlägen, Wasserglas (37,0), Hand mit verbundenem Daumen (38,8), Stuhl (40,6). Zeilen ersetzen einander. | 32,4 „Yeşil bir oda.“ · 34,2 „Metale üç vuruş.“ · 37,0 „Bir bardak su.“ · 40,0 „Aynı sahneyi iki kişi hatırlıyor.“ (bis 43,6) | Drei Metallschläge 34,0 / 34,8 / 35,6 s; ab 40,0 s Swell (steigendes Rauschen + Riser) |
+| 19,0–31,0 | ŞAHİDİ-ARARKEN-Front (kühle Seite), Push-in; ab 19,8 s die Gazelle (Ceylan aus dem ersten Brief, Linien-Grafik, zeichnet sich in 1,6 s), ab 20,7 s der Brief (Gold-Linien). 29,0–31,3 s Titelkarte. | 20,4 „Bir yolcu yola çıkar.“ · 23,0 „Bir şahit onu bekler.“ · 25,6 „Artık konuşmayan bir adam… Şahit kim?“ (bis 28,7) · 29,0 „ŞAHİDİ ARARKEN / Mustafa Sefa Güvenir“ (EN „A traveller sets out. / A witness awaits him. / A man who no longer speaks… Who is the witness?“, DE „Ein Reisender bricht auf. / Ein Zeuge erwartet ihn. / Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?“) | Pad, Sub-Puls wächst |
+| 31,0–44,0 | Split-Screen: links kühl (SA), rechts warm (BY), weich verwischt, dünne goldene Naht. Grüner Raum-Umriss (32,0), Türblitze bei den Schlägen, Wasserglas (37,0), Hand mit verbundenem Daumen (38,8), Stuhl (40,6). Zeilen ersetzen einander. | 32,4 „Yeşil bir oda.“ · 34,2 „Üç vuruş.“ (EN „Three knocks.“, DE „Drei Schläge.“) · 37,0 „Bir bardak su.“ · 40,0 „Aynı sahneyi iki kişi hatırlıyor.“ (bis 43,6) | Drei Metallschläge 34,0 / 34,8 / 35,6 s; ab 40,0 s Swell (steigendes Rauschen + Riser) |
 | 44,0–53,0 | Die beiden Frontcover gleiten als gekippte 3D-Karten von links (SA) und rechts (BY) herein, Fäuste berühren sich bei **47,0 s** exakt in der Mitte: Blitz, Sonnenstrahlen, Bildzittern, kurzer Rückstoß; die Karten setzen sich leicht ab. | 47,8 Tagline (Cinzel Gold) „İki Roman – İki Yol – Üçüncü Bir Hikâye“ · 48,8 Sub-Line (Literata kursiv) „Her biri tek başına bir roman. Birlikte okununca üçüncü bir kitap belirir.“ (bis 52,9) | Kurzer Dip vor 47,0, tiefer Impact-Hit mit langem Nachhall |
 | 53,0–60,0 | Endkarte: beide eBook-Cover nebeneinander (SA links, BY rechts) auf dunklem Grund mit Goldglühen, Skyline-Silhouette unten, Autorennamen (54,0), Schmetterling fliegt 54,2–59,2 s zwischen den Covern hindurch nach oben rechts. Fade to black ab 58,8 s. | 54,8 „Şimdi Amazon'da“ / „Now on Amazon“ / „Jetzt bei Amazon“ · 55,5 „@happytuncay“ | Ruhiges Pad, 2 s Fade-out |
 
@@ -110,8 +110,8 @@ bleiben `lang="tr"`.
 |---|---|---|---|
 | 0,0–4,0 | Schwarz, drei Lichtblitze 0,7 / 1,3 / 1,9 s, Frage 2,2–3,9 s | Frage (TR/EN/DE) | Drone, Schläge 0,7 / 1,3 / 1,9 |
 | 4,0–10,0 | BY-Front, Push-in, Paket + Uhr | 4,8 „Kapının önünde siyah bir paket.“ · 6,5 „İçindeki kitap… onu anlatıyor.“ · 8,5–10,3 Titelkarte BEN YOKSAM | Pad, Sub-Puls |
-| 10,0–16,0 | SA-Front, Push-in, Schreibmaschine + Brief | 10,8 „Artık konuşmayan bir adam.“ · 12,5 „Ve tek bir kelime: Şahit.“ · 14,5–16,3 Titelkarte ŞAHİDİ ARARKEN | Pad |
-| 16,0–21,0 | Split-Screen, grüner Raum (16,3), Glas (18,5), Hand (18,9), Stuhl (19,3) | 16,6 „Metale üç vuruş.“ · 19,0 „Aynı sahneyi iki kişi hatırlıyor.“ | Schläge 17,0 / 17,6 / 18,2; Swell ab 16,0 |
+| 10,0–16,0 | SA-Front, Push-in, Gazelle + Brief | 10,8 „Bir yolcu yola çıkar.“ · 12,5 „Artık konuşmayan bir adam… Şahit kim?“ · 14,5–16,3 Titelkarte ŞAHİDİ ARARKEN | Pad |
+| 16,0–21,0 | Split-Screen, grüner Raum (16,3), Glas (18,5), Hand (18,9), Stuhl (19,3) | 16,6 „Üç vuruş.“ · 19,0 „Aynı sahneyi iki kişi hatırlıyor.“ | Schläge 17,0 / 17,6 / 18,2; Swell ab 16,0 |
 | 21,0–26,0 | Karten gleiten herein, Kontakt bei **23,0 s** (9x16: Karten 40 % Höhe, seitlich leicht beschnitten; 1x1: 60 % Höhe) | 23,6 Tagline · 24,3 Sub-Line (bis 25,9) | Impact 23,0 |
 | 26,0–30,0 | Endkarte (Cover nebeneinander, 9x16 im Band 18–54 % der Höhe), Schmetterling 26,4–29,4, Fade ab 28,8 | 27,3 CTA · 27,8 „@happytuncay“ | Ruhiges Pad, Fade-out |
 
@@ -123,7 +123,7 @@ Erscheinen der nächsten Zeile; Titelkarten als Mehrzeiler; Tagline + Sub-Line a
 - Texte/Zeiten: nur in `config/<lang>.js` (die drei Dateien müssen dieselben `cuts` haben, weil Musik-Schläge und
   Impact in `render_all.sh` fest auf diese Zeiten gesetzt sind).
 - Layout je Format: Tabelle `LAYOUTS` oben im zweiten Script-Block von `engine2.html` (Anteile von Breite/Höhe).
-- Grafiken (Paket, Uhr, Schreibmaschine, Brief, Raum, Glas, Hand, Stuhl): Inline-SVG in `SVGS` in `engine2.html`;
+- Grafiken (Paket, Uhr, Gazelle, Schreibmaschine, Brief, Raum, Glas, Hand, Stuhl): Inline-SVG in `SVGS` in `engine2.html`;
   sie werden mit `stroke-dashoffset` „gezeichnet“, Füllungen blenden danach ein.
 - Qualität prüfen: Stills an den Szenenmarken rendern (siehe oben) und die JPEGs ansehen, bevor alles gerendert wird.
 
