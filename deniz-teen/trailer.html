@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deniz Teen Trailer</title>
+<style>
+@font-face{font-family:'Lexend';src:url('../deniz-trailer/src/OEBPS/fonts/lexend-5.woff2') format('woff2');font-weight:100 900;unicode-range:U+0100-02BA,U+02BD-02C5,U+1E00-1E9F,U+1EF2-1EFF}
+@font-face{font-family:'Lexend';src:url('../deniz-trailer/src/OEBPS/fonts/lexend-3.woff2') format('woff2');font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+2000-206F,U+20AC}
+/* Teen trailer: 60 s, depth-parallax illustrations, chapter title + Deniz's own sentence per chapter. ?book=rhythm|wave|bound|voice&lang=tr|en|de */
+:root{--teal:#3FB8C4;--coral:#F29B6B;--navy:#16213E;--mist:#DDE8F0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;overflow:hidden}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--navy);font-family:'Lexend',sans-serif;transform-origin:0 0}
+#gl,#fx{position:absolute;inset:0;width:1080px;height:1920px}
+#ui{position:absolute;inset:0}
+#ui>*{position:absolute;display:none}
+.shade{inset:0;background:linear-gradient(180deg,rgba(22,33,62,.7) 0%,rgba(22,33,62,.15) 26%,rgba(22,33,62,0) 45%,rgba(22,33,62,.55) 68%,rgba(22,33,62,.92) 100%)}
+.hook{left:70px;right:70px;top:1180px;text-align:center;color:#fff;text-shadow:0 3px 8px rgba(0,0,0,.6),0 6px 40px rgba(0,0,0,.6)}
+.hook .l1{font:700 82px/1.1 'Lexend'}
+.hook .l2{font:400 44px/1.35 'Lexend';margin-top:34px;color:var(--mist)}
+.w{display:inline-block}.hl{color:var(--coral)}.sky{color:#8FE3EC}
+.chap{left:60px;right:60px;top:120px}
+.chap .n{display:inline-block;padding:12px 24px;border-radius:999px;background:var(--teal);color:#08262B;font:700 28px 'Lexend';letter-spacing:.22em}
+.chap .t{margin-top:22px;font:700 70px/1.08 'Lexend';color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.key{left:50px;right:50px;bottom:120px;padding:36px 40px 42px;border-radius:40px;background:rgba(16,24,48,.9);box-shadow:0 30px 70px rgba(0,0,0,.45);border:2px solid rgba(63,184,196,.5)}
+.key .lb{font:600 26px 'Lexend';letter-spacing:.2em;color:var(--coral);text-transform:uppercase}
+.key .s{margin-top:18px;font:500 50px/1.28 'Lexend';color:#fff}
+.title{inset:0;background:radial-gradient(ellipse 90% 60% at 50% 36%,#2A3F6B 0%,#16213E 50%,#0B1226 100%)}
+.title .cov{position:absolute;left:50%;top:230px;width:620px;height:877px;margin-left:-310px;border-radius:22px;overflow:hidden;box-shadow:0 50px 100px rgba(0,0,0,.6)}
+.title .cov img{width:100%;height:100%;object-fit:cover}
+.title .se{position:absolute;left:0;right:0;top:1200px;text-align:center;font:600 30px 'Lexend';letter-spacing:.26em;color:var(--teal)}
+.title .ti{position:absolute;left:60px;right:60px;top:1260px;text-align:center;font:700 74px/1.1 'Lexend';color:#fff}
+.title .su{position:absolute;left:80px;right:80px;top:1500px;text-align:center;font:400 36px/1.4 'Lexend';color:#B9C8DE}
+.title .av{position:absolute;left:0;right:0;top:1650px;text-align:center}
+.title .av span{display:inline-block;padding:16px 34px;border-radius:999px;border:3px solid rgba(242,155,107,.9);font:600 34px 'Lexend';color:var(--coral)}
+.title .ag{position:absolute;left:0;right:0;top:1760px;text-align:center;font:400 28px 'Lexend';color:#8C9BB8;letter-spacing:.08em}
+#bfly{position:absolute;left:0;top:0;width:220px;height:200px;margin:-100px 0 0 -110px;pointer-events:none;filter:drop-shadow(0 0 18px rgba(120,210,255,.85));display:none}
+#bfly .wl,#bfly .wr{transform-box:fill-box}#bfly .wl{transform-origin:100% 50%}#bfly .wr{transform-origin:0% 50%}
+</style>
+</head>
+<body>
+<div id="stage"><canvas id="gl" width="1080" height="1920"></canvas><canvas id="fx" width="1080" height="1920"></canvas><div id="ui"></div>
+<svg id="bfly" viewBox="-110 -100 220 200">
+    <defs><radialGradient id="wg" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#BDF0FF"/><stop offset=".45" stop-color="#4FB8EE"/><stop offset="1" stop-color="#1B5FB0"/></radialGradient></defs>
+    <g class="wl"><path d="M-6 -4 C-40 -80 -108 -70 -96 -18 C-90 8 -50 10 -6 4Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><path d="M-6 6 C-50 14 -84 40 -64 70 C-44 92 -14 50 -6 12Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><circle cx="-58" cy="-34" r="7" fill="#fff" opacity=".85"/><circle cx="-40" cy="46" r="5" fill="#fff" opacity=".8"/></g>
+    <g class="wr"><path d="M6 -4 C40 -80 108 -70 96 -18 C90 8 50 10 6 4Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><path d="M6 6 C50 14 84 40 64 70 C44 92 14 50 6 12Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><circle cx="58" cy="-34" r="7" fill="#fff" opacity=".85"/><circle cx="40" cy="46" r="5" fill="#fff" opacity=".8"/></g>
+    <ellipse cx="0" cy="4" rx="7" ry="34" fill="#12447F"/><circle cx="0" cy="-32" r="10" fill="#12447F"/>
+    <circle cx="-4" cy="-34" r="2.6" fill="#fff"/><circle cx="4" cy="-34" r="2.6" fill="#fff"/>
+    <path d="M-3 -40 C-10 -60 -20 -66 -24 -66 M3 -40 C10 -60 20 -66 24 -66" stroke="#12447F" stroke-width="3" fill="none"/>
+    <circle cx="-24" cy="-66" r="4" fill="#FFD27A"/><circle cx="24" cy="-66" r="4" fill="#FFD27A"/>
+  </svg>
+</div>
+<script src="books.js"></script>
+<script>
+const Q = new URLSearchParams(location.search), LANG = Q.get('lang') || 'tr', BK = BOOKS[Q.get('book') || 'wave'], B = BK[LANG];
+const UIS = { tr: { ch: 'BÖLÜM', key: 'Deniz’in cümlesi', age: '12–16 yaş', av: 'E-kitap: happytuncay.com' },
+  en: { ch: 'CHAPTER', key: 'Deniz’s sentence', age: 'Ages 12–16', av: 'On Amazon: search “Tuncay Sancak”' },
+  de: { ch: 'KAPITEL', key: 'Deniz’ Satz', age: '12–16 Jahre', av: 'Auf Amazon: „Tuncay Sancak“ suchen' } }[LANG];
+const IM = i => ({ src: `img/${BK.img}_${i}.jpg`, dep: `depth/${BK.img}_${i}.png` });
+const COVER = BK.cover ? `img/cover_${BK.cover}_${LANG}.jpg` : `img/${BK.img}_0.jpg`;
+const DUR = 60, IMGS = [], UI = [];
+const ui = document.getElementById('ui');
+const el = (cls, html) => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ui.appendChild(d); return d; };
+const words = s => s.split(' ').map(w => { const c = w.includes('[') ? 'hl' : w.includes('{') ? 'sky' : ''; w = w.replace(/[\[\]{}]/g, ''); return `<span class="w ${c}">${w}</span>`; }).join(' ');
+
+// hook (first frame readable)
+IMGS.push({ a: 0, b: 3.9, img: IM(0), face: [.5, .35], z0: 1.35, z1: 1.18, instant: true });
+UI.push({ a: 0, b: 3.9, el: el('shade', ''), kind: 'fade0' });
+UI.push({ a: -1.6, b: 3.7, el: el('hook', `<div class="l1">${words(B.hook[0])}</div><div class="l2">${words(B.hook[1])}</div>`), kind: 'hook' });
+// title card
+const titleHTML = (av) => `<div class="cov"><img src="${COVER}"></div><div class="se">${B.series}</div><div class="ti">${B.title}</div><div class="su">${B.sub}</div>` + (av ? `<div class="av"><span>${UIS.av}</span></div><div class="ag">TUNCAY SANCAK · ${UIS.age}</div>` : '');
+UI.push({ a: 3.5, b: 8.4, el: el('title', titleHTML(false)), kind: 'title' });
+// chapters
+for (let i = 0; i < 5; i++) {
+  const c = 8 + i * 9;
+  IMGS.push({ a: c - .4, b: c + 4.9, img: IM(2 * i), face: [.5, .3], z0: 1.28, z1: 1.08 });
+  IMGS.push({ a: c + 4.1, b: c + 9.4, img: IM(2 * i + 1), face: [.5, .4], z0: 1.06, z1: 1.26 });
+  UI.push({ a: c - .2, b: c + 9.2, el: el('shade', ''), kind: 'fade' });
+  UI.push({ a: c + .3, b: c + 8.9, el: el('chap', `<span class="n">${UIS.ch} ${i + 1}</span><div class="t">${words(B.ch[i])}</div>`), kind: 'chap' });
+  UI.push({ a: c + 3.9, b: c + 8.9, el: el('key', `<div class="lb">${UIS.key}</div><div class="s">${words('“' + B.key[i] + '”')}</div>`), kind: 'key' });
+}
+// end card
+UI.push({ a: 52.8, b: DUR, el: el('title', titleHTML(true)), kind: 'title' });
+
+/* WebGL depth parallax */
+const gl = document.getElementById('gl').getContext('webgl', { preserveDrawingBuffer: true });
+const VS = `attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;v.y=1.-v.y;gl_Position=vec4(p,0,1);}`;
+const FS = `precision highp float;varying vec2 v;uniform sampler2D img,dep;uniform vec2 scale,center,off;uniform float dolly,alpha;
+void main(){vec2 uv=center+(v-.5)*scale;vec2 q=uv;for(int i=0;i<4;i++){float d=texture2D(dep,q).r;q=uv+off*(d-.45)+(uv-center)*dolly*(d-.45);}
+ vec4 c=texture2D(img,clamp(q,0.,1.));float vig=smoothstep(1.15,.35,length((v-.5)*vec2(1.,.8)));gl_FragColor=vec4(c.rgb*mix(.7,1.,vig),alpha);}`;
+const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); return o; };
+const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr); gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+const loc = n => gl.getUniformLocation(pr, n), pl = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(pl); gl.vertexAttribPointer(pl, 2, gl.FLOAT, false, 0, 0);
+gl.uniform1i(loc('img'), 0); gl.uniform1i(loc('dep'), 1); gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+const cache = {};
+function tex(url) { if (cache[url]) return cache[url]; const t = { tex: gl.createTexture(), w: 1, h: 1, ready: false }; const im = new Image();
+  t.p = new Promise(r => { im.onload = () => { gl.bindTexture(gl.TEXTURE_2D, t.tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
+    [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.LINEAR)); [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE));
+    t.w = im.naturalWidth; t.h = im.naturalHeight; t.ready = true; r(); }; }); im.src = url; return cache[url] = t; }
+IMGS.forEach(s => { s.t = tex(s.img.src); s.d = tex(s.img.dep); });
+window.READY = Promise.all(Object.values(cache).map(t => t.p));
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v)), lerp = (a, b, p) => a + (b - a) * p, prog = (t, a, b) => clamp((t - a) / (b - a));
+const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2, easeOut = p => 1 - Math.pow(1 - p, 3);
+const easeBack = p => { const c = 1.7; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+function hash(n) { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+function drawImg(s, t) {
+  const p = ease(prog(t, s.a, s.b)), z = lerp(s.z0, s.z1, p), A = 1080 / 1920, ia = s.t.w / s.t.h;
+  let sx = 1, sy = 1; if (ia > A) sx = A / ia; else sy = ia / A; sx /= z; sy /= z;
+  let cx = lerp(s.face[0], .5, p), cy = lerp(s.face[1], .5, p); cx = clamp(cx, sx / 2 + .01, 1 - sx / 2 - .01); cy = clamp(cy, sy / 2 + .01, 1 - sy / 2 - .01);
+  const alpha = s.instant ? 1 - prog(t, s.b - .7, s.b) : Math.min(prog(t, s.a, s.a + .8), 1 - prog(t, s.b - .8, s.b));
+  gl.uniform2f(loc('scale'), sx, sy); gl.uniform2f(loc('center'), cx, cy);
+  gl.uniform2f(loc('off'), .035 * Math.sin(t * .55 + s.a), .02 * Math.cos(t * .43 + s.a)); gl.uniform1f(loc('dolly'), .16 * (p - .5)); gl.uniform1f(loc('alpha'), alpha);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, s.t.tex); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, s.d.tex); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+const fx = document.getElementById('fx').getContext('2d');
+const DUST = Array.from({ length: 80 }, (_, i) => ({ x: hash(i) * 1080, y: hash(i + 99) * 1920, r: 1.5 + hash(i + 7) * 3.5, sp: 10 + hash(i + 3) * 30, ph: hash(i + 5) * 6.28 }));
+const bf = document.getElementById('bfly'), wl = bf.querySelector('.wl'), wr = bf.querySelector('.wr');
+const FL = [[3.6, 8.2, 1], [52.9, 57.5, -1]];
+function fly(t) { for (const [a, b, d] of FL) { if (t < a || t > b) continue; const p = (t - a) / (b - a); return { x: 540 + d * lerp(-700, 700, p), y: 1000 - Math.sin(p * Math.PI) * 700 + Math.sin(t * 3) * 25, d }; } return null; }
+function render(t) {
+  gl.viewport(0, 0, 1080, 1920); gl.clearColor(.086, .13, .24, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+  for (const s of IMGS) if (t >= s.a && t <= s.b && s.t.ready && s.d.ready) drawImg(s, t);
+  for (const u of UI) {
+    const on = t >= u.a && t <= u.b; u.el.style.display = on ? 'block' : 'none'; if (!on) continue;
+    const pin = prog(t, u.a, u.a + .5), out = 1 - prog(t, u.b - .45, u.b);
+    if (u.kind === 'fade') u.el.style.opacity = Math.min(pin, out);
+    if (u.kind === 'fade0') u.el.style.opacity = out;
+    const ws = (a0, st) => u.el.querySelectorAll('.w').forEach((w, i) => { const a = a0 + i * st, q = easeBack(prog(t, a, a + .5)); w.style.opacity = prog(t, a, a + .3); w.style.transform = `translateY(${(1 - q) * 34}px)`; });
+    if (u.kind === 'hook') { u.el.style.opacity = out; ws(u.a + .2, .08); }
+    if (u.kind === 'chap') { u.el.style.opacity = out; const n = u.el.querySelector('.n'), q = easeBack(prog(t, u.a, u.a + .5)); n.style.transform = `scale(${q})`; ws(u.a + .25, .07); }
+    if (u.kind === 'key') { const q = easeOut(prog(t, u.a, u.a + .7)); u.el.style.opacity = Math.min(q, out); u.el.style.transform = `translateY(${(1 - q) * 240}px)`; ws(u.a + .5, .07); }
+    if (u.kind === 'title') { u.el.style.opacity = Math.min(prog(t, u.a, u.a + .4), u.b >= DUR ? 1 : out);
+      const c = u.el.querySelector('.cov'), q = easeOut(prog(t, u.a, u.a + 1.3));
+      c.style.transform = `perspective(1400px) rotateY(${lerp(70, -8, q) + Math.sin(t * 1.2) * 3}deg) rotateX(${Math.sin(t) * 2.5}deg) translateY(${(1 - q) * 180}px) scale(${lerp(.72, 1, q)})`;
+      [...u.el.children].slice(1).forEach((x, i) => { const e = easeOut(prog(t, u.a + .5 + i * .22, u.a + 1.2 + i * .22)); x.style.opacity = e; x.style.transform = `translateY(${(1 - e) * 36}px)`; }); }
+  }
+  fx.clearRect(0, 0, 1080, 1920); fx.globalCompositeOperation = 'lighter'; const fin = prog(t, DUR - 1.2, DUR);
+  for (const d of DUST) { const y = ((d.y - t * d.sp) % 1920 + 1920) % 1920, x = d.x + Math.sin(t * .6 + d.ph) * 30, a = (.2 + .5 * Math.pow(Math.sin(t * 1.7 + d.ph) * .5 + .5, 3)) * (1 - fin);
+    const g = fx.createRadialGradient(x, y, 0, x, y, d.r * 4); g.addColorStop(0, `rgba(255,225,190,${a})`); g.addColorStop(1, 'rgba(255,225,190,0)'); fx.fillStyle = g; fx.beginPath(); fx.arc(x, y, d.r * 4, 0, 6.283); fx.fill(); }
+  const P = fly(t);
+  if (P) { for (let k = 1; k < 40; k++) { const Q2 = fly(t - k * .035); if (!Q2) continue; const j = hash(k + Math.floor((t - k * .035) * 28.57)), a = (1 - k / 40) * .85, x = Q2.x + (j - .5) * 60, y = Q2.y + (hash(k * 3 + Math.floor((t - k * .035) * 28.57)) - .5) * 60, r = (2 + j * 5) * (1 - k / 55);
+      const g = fx.createRadialGradient(x, y, 0, x, y, r * 3); g.addColorStop(0, `rgba(${j > .5 ? '255,230,160' : '170,230,255'},${a})`); g.addColorStop(1, 'rgba(255,255,255,0)'); fx.fillStyle = g; fx.beginPath(); fx.arc(x, y, r * 3, 0, 6.283); fx.fill(); }
+    const fl = .25 + .75 * Math.abs(Math.sin(t * 13)); wl.style.transform = `scaleX(${fl})`; wr.style.transform = `scaleX(${fl})`; bf.style.display = 'block'; bf.style.transform = `translate(${P.x}px,${P.y}px) scale(1.2) rotate(${P.d * 12}deg)`; }
+  else bf.style.display = 'none';
+  fx.globalCompositeOperation = 'source-over'; if (fin > 0) { fx.fillStyle = `rgba(0,0,0,${fin})`; fx.fillRect(0, 0, 1080, 1920); }
+}
+window.render = render; window.DUR = DUR;
+if (!location.search.includes('capture')) { const st = document.getElementById('stage'); const fit = () => { const s = Math.min(innerWidth / 1080, innerHeight / 1920); st.style.transform = `scale(${s})`; st.style.marginLeft = ((innerWidth - 1080 * s) / 2) + 'px'; }; addEventListener('resize', fit); fit();
+  READY.then(() => { const t0 = performance.now(); const loop = () => { render(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }); }
+</script>
+</body>
+</html>
