@@ -90,8 +90,19 @@ server.on('clientError', (e, socket) => {
   if (socket.writable) socket.end('HTTP/1.1 400 Bad Request\r\nconnection: close\r\n\r\n');
   else socket.destroy();
 });
+// When the default port is taken (another app on 8787), walk up to the next free one.
+const PORT_FIXED = process.env.PORT !== undefined;
+let port = PORT;
+let portTries = 0;
 server.on('error', (e) => {
-  if (e.code === 'EADDRINUSE') console.error(`Port ${PORT} ist schon belegt – anderen Port wählen: PORT=8788 node server.js`);
+  if (e.code === 'EADDRINUSE' && !PORT_FIXED && portTries < 20) {
+    portTries++;
+    console.log(`Port ${port} ist belegt (anderes Programm) – versuche ${port + 1} …`);
+    port += 1;
+    setTimeout(() => server.listen(port, HOST), 50);
+    return;
+  }
+  if (e.code === 'EADDRINUSE') console.error(`Port ${port} ist schon belegt – anderen Port wählen: PORT=8790 node server.js`);
   else console.error('Server-Fehler:', e.message);
   process.exit(1);
 });
@@ -106,7 +117,7 @@ process.on('SIGTERM', () => process.exit(0));
 
 smart.init().catch((e) => log('smart init failed:', e.message));
 
-server.listen(PORT, HOST, () => {
+server.on('listening', () => {
   const addr = server.address();
   const shownHost = addr.address === '0.0.0.0' || addr.address === '::' ? '127.0.0.1' : addr.address;
   const base = `http://${shownHost}:${addr.port}`;
@@ -115,4 +126,6 @@ server.listen(PORT, HOST, () => {
   console.log(`  OBS-Overlay:    ${base}/overlay.html   (hochkant: ${base}/overlay.html?layout=portrait)`);
   console.log(`  Daten:          ${DATA_DIR}`);
   if (HOST === '127.0.0.1') console.log('  Nur lokal erreichbar. Für OBS auf einem anderen PC: HOST=0.0.0.0 node server.js');
+  if (port !== PORT) console.log(`  Hinweis: Port ${PORT} war belegt, LiveFX nutzt jetzt ${port} – diese Adresse in Browser und OBS verwenden.`);
 });
+server.listen(port, HOST);
