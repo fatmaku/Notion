@@ -5,3 +5,5 @@ trailer/out/silent-*.mp4
 assets/upscaled/referenz_x4_lanczos.png
 **/_ebook.pdf
 __pycache__/
+trailer/out/tmp/
+out/
