@@ -65,6 +65,18 @@
 
     <div>
       <section class="card">
+        <h2>🎬 Demo-Clip aufnehmen – ohne OBS</h2>
+        <div class="help">
+          Kamera + Memes + Sounds in einem Fenster, Aufnahme per Knopfdruck, Video zum Herunterladen.
+          Ideal für den ersten Clip und für TikTok/Instagram-Tests.
+        </div>
+        <div class="actions">
+          <a class="btn primary" id="btn-demo" href="demo.html" target="_blank">🎬 Demo-Seite öffnen</a>
+          <a class="btn" href="docs/DEMO-CLIP.md" target="_blank">Anleitung</a>
+        </div>
+      </section>
+
+      <section class="card">
         <h2>Einstellungen</h2>
         <div class="row">
           <div><label>Lautstärke Overlay</label><input id="volume" type="range" min="0" max="1" step="0.05" value="0.8"></div>
@@ -118,13 +130,16 @@
         </div>
       </section>
 
+
       <section class="card">
-        <h2>OBS / Streamlabs einrichten</h2>
+        <h2>OBS / Streamlabs einrichten (für echte Streams)</h2>
         <div class="help">
           1. Terminal: <code>node server.js</code> im Ordner <code>live-fx</code> – dann dieses Panel über <code>http://127.0.0.1:8787/</code> öffnen.<br>
-          2. OBS → Quelle hinzufügen → <b>Browser</b> → URL <code>http://127.0.0.1:8787/overlay.html</code> (Querformat) oder <code>http://127.0.0.1:8787/overlay.html?layout=portrait</code> (Hochkant, hält den Chat-Bereich unten frei). Breite/Höhe wie dein Canvas (1920×1080 oder 1080×1920).<br>
-          3. In der Browser-Quelle <b>„Audio über OBS steuern“</b> aktivieren, damit die Sounds im Stream landen.<br>
-          4. Dieses Panel im normalen Browser offen lassen und Mikro starten. Fertig.
+          2. OBS → unten bei <b>Quellen</b> auf <b>+</b> → <b>Browser</b> → URL <code>http://127.0.0.1:8787/overlay.html</code> (Querformat) oder <code>http://127.0.0.1:8787/overlay.html?layout=portrait</code> (Hochkant, hält den Chat-Bereich unten frei). Breite/Höhe wie dein Canvas (1920×1080 oder 1080×1920).<br>
+          3. Die Browser-Quelle in der Liste <b>über</b> die Kamera schieben (Pfeil ▲), sonst verdeckt die Kamera die Memes.<br>
+          4. Doppelklick auf die Browser-Quelle → <b>„Audio über OBS steuern“</b> anhaken → im Audiomixer erscheint „LiveFX Overlay“.<br>
+          5. Test: hier Taste <b>1</b> drücken → Karte im OBS-Vorschaubild, Mixer-Balken zuckt. Dann <b>„Aufnahme starten“</b> bzw. „Stream starten“.<br>
+          <a href="docs/OBS-ANLEITUNG.md" target="_blank">Ausführliche Anleitung mit Fehlerhilfe</a> · <a href="docs/GIFS.md" target="_blank">GIF-Suche einrichten</a>
         </div>
       </section>
 

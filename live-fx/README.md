@@ -34,6 +34,23 @@ Browser öffnen (Vorschau läuft dann über BroadcastChannel; Uploads/Speichern 
 OBS läuft auf einem **anderen PC**? `HOST=0.0.0.0 node server.js` und im Overlay die IP des
 LiveFX-Rechners verwenden (`http://192.168.1.20:8787/overlay.html`).
 
+## Demo-Clip ohne OBS
+
+`http://127.0.0.1:8787/demo.html` → Kamera + Memes + Sounds in einem Fenster, „⏺ Aufnahme starten“,
+reden, „Stopp“, Video herunterladen (16:9 oder 9:16). Anleitung: [docs/DEMO-CLIP.md](docs/DEMO-CLIP.md).
+Für echte Streams bleibt OBS der Weg: [docs/OBS-ANLEITUNG.md](docs/OBS-ANLEITUNG.md).
+
+## Meme-Pakete (Türkçe / Deutsch / English)
+
+Im Panel unter **Meme-Pakete** mit einem Klick laden: **Türkçe (55 Trigger)** – yok artık, ohaa, helal olsun,
+aynen, kral, efsane, rezil, maşallah, eyvallah … – sowie Deutsch (31) und English (32) mit den gängigen
+Stream-/Internet-Ausdrücken. Jedes Paket lässt sich wieder entfernen; eigene Änderungen bleiben erhalten.
+
+## GIF-Suche (Tenor / Giphy)
+
+Im Panel unter **Medien → GIF-Suche** Memes direkt suchen, speichern oder per „Als Trigger“ sofort einem
+Stichwort zuordnen. Braucht einen kostenlosen API-Key von Tenor oder Giphy: [docs/GIFS.md](docs/GIFS.md).
+
 ## Wie kommt das Overlay in Instagram / TikTok / YouTube?
 
 | Plattform | Weg |
@@ -54,8 +71,9 @@ Kommentare) und der Emoji-Regen fällt entsprechend kürzer.
 - **Trigger-Editor** (✎ in der Trigger-Tabelle oder „+ Trigger“): Stichwörter, Effekt-Typ, Position,
   Emoji/Text/Farben, eigenes Bild, Sound (eingebaut oder hochgeladen), Cooldown, Screen-Shake,
   KI-Hinweis (für den Smart-Modus). „Testen“ spielt den Effekt sofort im Overlay.
-- **14 eingebaute Sounds** sind per WebAudio synthetisiert (Airhorn, Vine-Boom, Sad Trombone,
-  Rimshot, Grillen, Applaus, Record-Scratch, Ding, Buzzer, Tada, Trommelwirbel, Kasse, Whoosh, Pop)
+- **26 eingebaute Sounds** sind per WebAudio synthetisiert (Airhorn, Vine-Boom, Sad Trombone,
+  Rimshot, Grillen, Applaus, Record-Scratch, Ding, Buzzer, Tada, Trommelwirbel, Kasse, Whoosh, Pop,
+  Lachen, Boing, Slide-Whistle, Dramatic, Coin, Level-up, Glocke, Ooh, Herzschlag, Sirene, Nope, Gong)
   → **keine Lizenzkosten, keine Copyright-Strikes**.
 - Trigger werden serverseitig in `data/triggers.json` gespeichert (Panel und OBS sehen dasselbe);
   Export/Import als JSON bleibt möglich.

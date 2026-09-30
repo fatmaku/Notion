@@ -43,11 +43,11 @@ test('malformed Host header yields 400, not a crash', async () => {
 });
 
 test('static allow-list: app files served, server code and data hidden', async () => {
-  for (const p of ['/', '/index.html', '/overlay.html', '/js/bus.js', '/css/panel.css']) {
+  for (const p of ['/', '/index.html', '/overlay.html', '/demo.html', '/js/bus.js', '/css/panel.css', '/docs/CONTRACTS.md']) {
     const r = await api(server.base, 'GET', p);
     assert.strictEqual(r.status, 200, p);
   }
-  for (const p of ['/server.js', '/server/router.js', '/test/e2e.js', '/package.json', '/docs/CONTRACTS.md', '/data/token.txt', '/data/triggers.json', '/js/', '/css']) {
+  for (const p of ['/server.js', '/server/router.js', '/test/e2e.js', '/package.json', '/docs/../server.js', '/docs/x.txt', '/data/token.txt', '/data/triggers.json', '/js/', '/css']) {
     const r = await api(server.base, 'GET', p);
     assert.strictEqual(r.status, 404, p);
   }
