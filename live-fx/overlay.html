@@ -9,18 +9,34 @@
 <body>
   <div id="stage"></div>
   <script src="js/sounds.js"></script>
+  <script src="js/schema.js"></script>
   <script src="js/fx.js"></script>
   <script src="js/bus.js"></script>
   <script>
     (function () {
+      const params = new URLSearchParams(location.search);
+
+      // ?layout=portrait -> 9:16 layout (TikTok / IG live): effects stay out of the bottom chat area.
+      if (params.get('layout') === 'portrait') document.body.classList.add('layout-portrait');
+
       const renderer = new LiveFXRenderer.Renderer(document.getElementById('stage'));
       const bus = new LiveFXBus.Bus({ role: 'overlay' });
-      const params = new URLSearchParams(location.search);
-      renderer.volume = Number(params.get('volume') ?? 0.8);
+
+      // ?volume=0.5 pins the volume; without it the server's remembered volume (state message) applies.
+      const hasVolumeParam = params.has('volume');
+      const paramVolume = Number(params.get('volume'));
+      renderer.volume = hasVolumeParam && Number.isFinite(paramVolume) ? Math.min(1, Math.max(0, paramVolume)) : 0.8;
 
       bus.onMessage((msg) => {
+        if (!msg || typeof msg !== 'object') return;
         if (msg.type === 'fire') renderer.fire(msg.trigger);
-        if (msg.type === 'volume') renderer.volume = msg.volume;
+        else if (msg.type === 'volume') {
+          if (typeof msg.volume === 'number' && Number.isFinite(msg.volume)) renderer.volume = Math.min(1, Math.max(0, msg.volume));
+        } else if (msg.type === 'state') {
+          if (!hasVolumeParam && typeof msg.volume === 'number' && Number.isFinite(msg.volume)) {
+            renderer.volume = Math.min(1, Math.max(0, msg.volume));
+          }
+        }
       });
 
       // Browsers block audio until a user gesture; OBS browser sources are exempt.
