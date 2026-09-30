@@ -1,0 +1,289 @@
+/* LiveFX demo page – webcam + effects + recorder in one tab (no OBS needed).
+ * css/overlay.css is loaded first and provides the effects; this file frames the stage and
+ * styles the bottom bar. Effects inside #frame use --fx-xspan / --fx-fall in px (set by js/demo.js)
+ * so rain and confetti stay inside the framed area in 9:16 mode. */
+html, body {
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+body {
+  cursor: default;
+}
+body.idle {
+  cursor: none;
+}
+
+/* ---- framed stage ---- */
+#frame {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 0 0 1px #222;
+  container-type: size; /* lets the effect sizes below use cqw/cqh instead of vw/vh */
+}
+/* overlay.css sizes effects in vw/vh (full-screen OBS source). Inside the frame – which is much
+ * narrower in 9:16 mode – scale them by the frame instead, matching what CanvasFX records. */
+#frame .fx-card {
+  padding: min(28px, 3cqw) min(48px, 5cqw);
+  max-width: 92cqw;
+}
+#frame .fx-card .fx-emoji {
+  font-size: min(160px, 22cqw);
+}
+#frame .fx-card .fx-text {
+  font-size: min(64px, 9cqw);
+}
+#frame .fx-card-image img {
+  max-width: 40cqw;
+  max-height: 45cqh;
+}
+body.layout-portrait #frame .fx-card-image img {
+  max-width: 80cqw;
+  max-height: 40cqh;
+}
+#frame .fx-banner {
+  font-size: min(72px, 8cqw);
+}
+#cam {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* mirrored like a selfie camera */
+  background: #000;
+}
+#frame #stage {
+  position: absolute; /* overlay.css says fixed – keep effects inside the frame */
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+#rec-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(200, 30, 30, 0.9);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  animation: rec-blink 1.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes rec-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+#rec-canvas {
+  position: fixed;
+  left: -20000px;
+  top: 0;
+  pointer-events: none;
+}
+
+/* ---- notices ---- */
+#notice {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: min(720px, 92vw);
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.92);
+  border: 1px solid #f39c12;
+  color: #ffd27f;
+  font-size: 14px;
+  line-height: 1.4;
+  z-index: 20;
+}
+
+/* ---- bottom bar ---- */
+#bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 16px 12px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.85) 30%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 10;
+}
+body.idle #bar {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+#bar .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+#bar button,
+#bar select,
+#bar a {
+  font: inherit;
+  font-size: 14px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background: #1d1d1d;
+  color: #fff;
+  cursor: pointer;
+}
+#bar button:hover,
+#bar select:hover {
+  background: #2a2a2a;
+}
+#bar button.on {
+  background: #1e6b3a;
+  border-color: #2ecc71;
+}
+#bar .group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+#bar .group .label {
+  color: #aaa;
+  font-size: 13px;
+  margin-right: 2px;
+}
+#bar .fmt.active {
+  background: #333;
+  border-color: #fff;
+}
+#bar .hint {
+  color: #aaa;
+  font-size: 12px;
+}
+#bar .vol {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+#bar .vol input {
+  width: 110px;
+}
+#bar button.record {
+  margin-left: auto;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 18px;
+  background: #b71c1c;
+  border-color: #e53935;
+}
+#bar button.record:hover {
+  background: #d32f2f;
+}
+#bar button.record.recording {
+  background: #333;
+  border-color: #e53935;
+}
+#transcript {
+  flex: 1;
+  min-height: 22px;
+  font-size: 15px;
+  color: #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#transcript mark {
+  background: #ffd23f;
+  color: #111;
+  border-radius: 4px;
+  padding: 0 3px;
+}
+#transcript .interim {
+  opacity: 0.7;
+}
+#pad button {
+  font-size: 13px;
+  padding: 5px 10px;
+}
+#pad button img {
+  width: 18px;
+  height: 18px;
+  vertical-align: -4px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+
+/* ---- result dialog ---- */
+#result {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+}
+#result[hidden] {
+  display: none;
+}
+#result .box {
+  background: #161616;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 18px 20px;
+  max-width: min(900px, 94vw);
+  max-height: 94vh;
+  overflow: auto;
+}
+#result h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+#result video {
+  display: block;
+  max-width: 100%;
+  max-height: 60vh;
+  background: #000;
+  border-radius: 10px;
+}
+#result .actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+#result .actions a,
+#result .actions button {
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 9px 16px;
+  border-radius: 10px;
+  border: 1px solid #2ecc71;
+  background: #1e6b3a;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+#result .actions button {
+  background: #1d1d1d;
+  border-color: #444;
+  font-weight: 400;
+}
+#result .small {
+  color: #aaa;
+  font-size: 13px;
+  margin: 12px 0 0;
+}
+#result code {
+  color: #ffd27f;
+}

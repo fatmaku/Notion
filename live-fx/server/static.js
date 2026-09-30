@@ -30,6 +30,7 @@ const ROOT_FILES = new Map([
   ['/', 'index.html'],
   ['/index.html', 'index.html'],
   ['/overlay.html', 'overlay.html'],
+  ['/demo.html', 'demo.html'],
 ]);
 const SUBDIR_RE = /^\/(css|js)\/([a-z0-9][a-z0-9._-]{0,99}\.(css|js))$/i;
 const ASSET_RE = /^\/assets\/([a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp|mp3|wav|ogg))$/i;
