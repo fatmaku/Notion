@@ -112,12 +112,14 @@ function sseClient(base, { role = 'overlay', lastEventId } = {}) {
       let curData = [];
 
       function deliver(ev) {
+        ev._consumed = false;
         client.events.push(ev);
         for (let i = 0; i < waiters.length; i++) {
           const w = waiters[i];
           if (!w.type || ev.msg.type === w.type) {
             waiters.splice(i, 1);
             clearTimeout(w.timer);
+            ev._consumed = true; // each event is handed out by next() exactly once
             w.resolve(ev.msg);
             return;
           }

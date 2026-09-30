@@ -24,10 +24,13 @@ und Geräuschen. Plus Soundboard-Hotkeys für manuelle Kontrolle.
 | **Content-Loop** | Live-Clips mit Effekten sind sofort Short-tauglich → mehr Reels/Shorts aus Lives. |
 | **Lock-in** | Native Integration in die Live-Kamera – das kann kein OBS-Plugin bieten. |
 
-## Status
-- Funktionierender Prototyp (dieses Repo): Spracherkennung → Trigger → Overlay + Sounds, OBS-fertig, mehrsprachig (DE/EN/TR).
-- 15 Trigger, 14 lizenzfreie synthetische Sounds, 5 Effekt-Typen, eigene Memes importierbar.
-- Nächster Schritt: Nutzertest mit 10 Creators, dann LLM-basiertes semantisches Matching.
+## Status (v1.0)
+- Funktionierendes Programm (dieses Repo): Spracherkennung → Trigger → Overlay + Sounds, OBS-fertig, mehrsprachig (DE/EN/TR), Hochkant-Layout mit Safe-Zones für TikTok/Instagram.
+- Eigene Memes/GIFs/Sounds per Upload, Trigger-Editor, serverseitige Speicherung.
+- **Semantisches Matching** per Sprachmodell („das war so peinlich für ihn“ → Awkward) – optional zuschaltbar.
+- Offene API für Zuschauer-Trigger (Chat-Bots, Stream Deck) und externe Spracherkennung (Whisper/Deepgram) – die Bausteine für Monetarisierung und Latenz < 300 ms sind vorhanden.
+- Gehärtet: Token-Auth, Same-Origin-Schutz, Upload-Prüfung, automatisierte Tests (Unit + End-to-End).
+- Nächster Schritt: Nutzertest mit 10 Creators, Demo-Clip aus einem echten Live.
 
 ## Ask
 Pilot als Feature in *TikTok LIVE Studio* / *Instagram Live Producer*, oder Akquisition der Technologie + Team.

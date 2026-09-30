@@ -39,42 +39,60 @@ function safeUrl(req) {
   }
 }
 
+const DRAIN_CAP = 64 * 1024 * 1024;
+
 /**
- * Reads the request body into a Buffer. Rejects with HttpError 413 when the limit is exceeded
- * (the error handler answers with `connection: close`, so the client never hangs), 408 when the
- * client stalls, 400 when the request is aborted.
+ * Reads the request body into a Buffer. Rejects with HttpError 413 when the limit is exceeded,
+ * 408 when the client stalls, 400 when the request is aborted.
+ *
+ * Oversized bodies are drained (discarded) up to DRAIN_CAP before the 413 is sent, so the client
+ * receives the answer instead of a connection reset while it is still uploading; beyond the cap
+ * the socket is destroyed (the error handler also sends `connection: close`).
  */
 function readBody(req, { limit = 1e6, timeoutMs = 30000 } = {}) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     let size = 0;
     let done = false;
-    const declared = Number(req.headers['content-length']);
-    if (Number.isFinite(declared) && declared > limit) {
-      req.pause();
-      reject(new HttpError(413, 'payload_too_large', `body exceeds ${limit} bytes`));
-      return;
-    }
+    let tooLarge = false;
     const timer = setTimeout(() => finish(new HttpError(408, 'request_timeout', 'body not received in time')), timeoutMs);
     function finish(err, buf) {
       if (done) return;
       done = true;
       clearTimeout(timer);
-      if (err) {
-        req.pause();
-        reject(err);
-      } else resolve(buf);
+      if (err) reject(err);
+      else resolve(buf);
     }
+    function overflow() {
+      if (tooLarge) return;
+      tooLarge = true;
+      chunks.length = 0;
+      req.resume(); // keep discarding until 'end' (or the cap) so the response can be delivered
+    }
+    const declared = Number(req.headers['content-length']);
+    if (Number.isFinite(declared) && declared > DRAIN_CAP) {
+      req.destroy();
+      finish(new HttpError(413, 'payload_too_large', `body exceeds ${limit} bytes`));
+      return;
+    }
+    if (Number.isFinite(declared) && declared > limit) overflow();
     req.on('data', (c) => {
       size += c.length;
-      if (size > limit) {
-        finish(new HttpError(413, 'payload_too_large', `body exceeds ${limit} bytes`));
+      if (tooLarge || size > limit) {
+        overflow();
+        if (size > DRAIN_CAP) {
+          req.destroy();
+          finish(new HttpError(413, 'payload_too_large', `body exceeds ${limit} bytes`));
+        }
         return;
       }
       chunks.push(c);
     });
-    req.on('end', () => finish(null, Buffer.concat(chunks)));
-    req.on('error', (e) => finish(new HttpError(400, 'bad_request', e.message)));
+    req.on('end', () => {
+      if (tooLarge) finish(new HttpError(413, 'payload_too_large', `body exceeds ${limit} bytes`));
+      else finish(null, Buffer.concat(chunks));
+    });
+    req.on('error', (e) => finish(tooLarge ? new HttpError(413, 'payload_too_large', `body exceeds ${limit} bytes`) : new HttpError(400, 'bad_request', e.message)));
     req.on('aborted', () => finish(new HttpError(400, 'aborted', 'request aborted')));
   });
 }
