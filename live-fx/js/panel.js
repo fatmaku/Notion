@@ -325,7 +325,7 @@
       if (t.enabled === false) tr.classList.add('off');
       tr.innerHTML = `
         <td><input type="checkbox"${t.enabled === false ? '' : ' checked'} data-f="enabled" class="check" title="Aktiv"></td>
-        <td><input value="${esc(t.label)}" data-f="label" maxlength="40"></td>
+        <td class="name"><input value="${esc(t.label)}" data-f="label" maxlength="40"></td>
         <td class="kw"><input value="${esc((t.keywords || []).join(', '))}" data-f="keywords"></td>
         <td><select data-f="sound">${soundOptions(t.sound)}</select></td>
         <td class="acts"><button type="button" class="small" data-act="edit" title="Bearbeiten">✎</button><button type="button" class="small" data-act="test" title="Testen">▶</button><button type="button" class="small danger" data-act="del" title="Löschen">✕</button></td>`;

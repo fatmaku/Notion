@@ -67,7 +67,8 @@ th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--bord
 th { color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
 td input, td select { padding: 5px 8px; font-size: 13px; }
 td select { min-width: 96px; }
-td.kw { width: 38%; }
+td.kw { width: 34%; }
+td.name { width: 22%; min-width: 110px; }
 td input.check { width: auto; }
 td.acts { white-space: nowrap; }
 td.acts button { padding: 4px 7px; margin-right: 3px; }
