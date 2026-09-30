@@ -1,0 +1,40 @@
+== 1/5 music (generated placeholder)
+== 2/5 subtitles
+out/Iki_Roman_Fragman_16x9_60s_TR.srt: 16 cues
+out/Iki_Roman_Fragman_9x16_30s_TR.srt: 12 cues
+out/Iki_Roman_Fragman_1x1_30s_TR.srt: 12 cues
+out/Iki_Roman_Fragman_16x9_60s_EN.srt: 16 cues
+out/Iki_Roman_Fragman_9x16_30s_EN.srt: 12 cues
+out/Iki_Roman_Fragman_1x1_30s_EN.srt: 12 cues
+out/Iki_Roman_Fragman_16x9_60s_DE.srt: 16 cues
+out/Iki_Roman_Fragman_9x16_30s_DE.srt: 12 cues
+out/Iki_Roman_Fragman_1x1_30s_DE.srt: 12 cues
+== 3/5 videos (2 in parallel)
+   ok   out/Iki_Roman_Fragman_16x9_60s_TR.mp4 (1703 s)
+   ok   out/Iki_Roman_Fragman_16x9_60s_EN.mp4 (1704 s)
+   ok   out/Iki_Roman_Fragman_9x16_30s_TR.mp4 (834 s)
+   ok   out/Iki_Roman_Fragman_16x9_60s_DE.mp4 (1650 s)
+   ok   out/Iki_Roman_Fragman_9x16_30s_EN.mp4 (819 s)
+   ok   out/Iki_Roman_Fragman_1x1_30s_TR.mp4 (464 s)
+   ok   out/Iki_Roman_Fragman_9x16_30s_DE.mp4 (809 s)
+   ok   out/Iki_Roman_Fragman_1x1_30s_EN.mp4 (447 s)
+   ok   out/Iki_Roman_Fragman_1x1_30s_DE.mp4 (271 s)
+== 4/5 storyboard stills
+engine: {"W":1920,"H":1080,"format":"16x9","lang":"tr","cut":"60"} DUR=60s fonts=[Cinzel 400 normal, Cinzel 700 normal, Cinzel 900 normal, Literata 400 normal, Literata 400 italic, Literata 600 normal, Literata 700 normal]
+engine: {"W":1080,"H":1920,"format":"9x16","lang":"tr","cut":"30"} DUR=30s fonts=[Cinzel 400 normal, Cinzel 700 normal, Cinzel 900 normal, Literata 400 normal, Literata 400 italic, Literata 600 normal, Literata 700 normal]
+== 5/5 report -> out/render_report.txt
+İki Roman trailer render report  (2026-09-30 07:59)  ffmpeg: /usr/local/lib/python3.11/dist-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2
+file                                             size        res   fps     dur  video              audio  check
+Iki_Roman_Fragman_16x9_60s_DE.mp4            1057.8MB  1920x1080    30   60.00   h264   aac 44100Hz 166k  PASS
+Iki_Roman_Fragman_16x9_60s_EN.mp4            1056.2MB  1920x1080    30   60.00   h264   aac 44100Hz 166k  PASS
+Iki_Roman_Fragman_16x9_60s_TR.mp4            1056.1MB  1920x1080    30   60.00   h264   aac 44100Hz 166k  PASS
+Iki_Roman_Fragman_1x1_30s_DE.mp4              295.0MB  1080x1080    30   30.00   h264   aac 44100Hz 165k  PASS
+Iki_Roman_Fragman_1x1_30s_EN.mp4              294.4MB  1080x1080    30   30.00   h264   aac 44100Hz 165k  PASS
+Iki_Roman_Fragman_1x1_30s_TR.mp4              294.5MB  1080x1080    30   30.00   h264   aac 44100Hz 165k  PASS
+Iki_Roman_Fragman_9x16_30s_DE.mp4             520.2MB  1080x1920    30   30.00   h264   aac 44100Hz 165k  PASS
+Iki_Roman_Fragman_9x16_30s_EN.mp4             519.2MB  1080x1920    30   30.00   h264   aac 44100Hz 165k  PASS
+Iki_Roman_Fragman_9x16_30s_TR.mp4             519.9MB  1080x1920    30   30.00   h264   aac 44100Hz 165k  PASS
+
+SRT files: 9  stills: 35
+ALL PASS
+total 4440 s, failed renders: 0
