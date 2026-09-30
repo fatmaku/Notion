@@ -33,6 +33,7 @@ function register(router, ctx) {
       const updatedAt = c.state.updatedAt;
       json(res, 200, { ok: true, count: result.count, warnings: result.warnings, updatedAt });
       c.log(`triggers: ${result.count} gespeichert${result.warnings.length ? ` (${result.warnings.length} Hinweise)` : ''}`);
+      if (c.smart && typeof c.smart.clearCache === 'function') c.smart.clearCache(); // catalog changed
       c.bus.broadcast({ type: 'triggers-updated', updatedAt });
     })
   );
