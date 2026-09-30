@@ -117,3 +117,43 @@ a.btn { display: inline-block; text-decoration: none; cursor: pointer; border: 1
 a.btn:hover { border-color: var(--accent-2); }
 a.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
 .help a { color: var(--accent-2); }
+
+/* header language pill (button that scrolls to the recognition card) */
+button.pill-link { font: inherit; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+button.pill-link:hover { border-color: var(--accent-2); }
+
+/* recognition card */
+#asr-settings .row > div { min-width: 150px; }
+.checks { display: flex; gap: 16px; flex-wrap: wrap; }
+.check-line { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); margin: 0; cursor: pointer; }
+.check-line input { width: auto; margin: 0; accent-color: var(--accent-2); }
+.diag { display: flex; flex-direction: column; gap: 6px; }
+.meter-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--muted); }
+.meter-label { flex: 0 0 auto; }
+.meter { flex: 1 1 auto; height: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+#mic-level { --level: 0; height: 100%; width: calc(var(--level) * 100%); background: linear-gradient(90deg, var(--ok), var(--warn) 70%, var(--accent)); transition: width .08s linear; }
+.meter-db { flex: 0 0 auto; min-width: 54px; text-align: right; font-family: ui-monospace, Menlo, monospace; }
+.selfcheck { align-items: center; }
+.selfcheck .help { flex: 1 1 200px; }
+
+/* learning card under the transcript */
+#recog-learn { margin-top: 8px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 13px; }
+#recog-learn[hidden] { display: none; }
+#fuzzy-suggest { display: flex; flex-wrap: wrap; gap: 6px; }
+#fuzzy-suggest:empty { display: none; }
+#fuzzy-suggest button { padding: 5px 10px; font-size: 12px; border-color: rgba(124, 92, 255, .5); }
+#fuzzy-suggest + #misses:not(:empty) { margin-top: 8px; }
+#misses { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+#misses li { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; padding: 6px 0; border-top: 1px dashed var(--border); }
+#misses li:first-child { border-top: none; padding-top: 0; }
+#misses .miss-label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; flex: 0 0 auto; }
+#misses .words { display: flex; flex-wrap: wrap; gap: 4px; flex: 1 1 160px; min-width: 0; }
+#misses .chip { padding: 3px 8px; font-size: 12px; border-radius: 999px; background: var(--bg); }
+#misses .chip.sel { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
+#misses select[data-act="assign"] { width: auto; max-width: 100%; padding: 4px 8px; font-size: 12px; flex: 0 1 auto; }
+#misses button[data-act="ignore"] { padding: 4px 8px; font-size: 12px; color: var(--muted); }
+@media (max-width: 600px) {
+  .checks { flex-direction: column; gap: 8px; }
+  #misses li { flex-direction: column; align-items: stretch; }
+  #misses select[data-act="assign"] { width: 100%; }
+}

@@ -13,11 +13,7 @@
     <div class="status">
       <div class="pill"><span class="dot" id="dot-mic"></span> Mikro</div>
       <div class="pill"><span class="dot" id="dot-server"></span> OBS-Bridge</div>
-      <div class="pill" id="pill-lang" title="Sprache der Spracherkennung">🌐 <select id="lang" class="inline">
-        <option value="de-DE">Deutsch</option>
-        <option value="en-US">English</option>
-        <option value="tr-TR">Türkçe</option>
-      </select></div>
+      <button type="button" class="pill pill-link" id="pill-lang" title="Sprache der Spracherkennung – klicken für die Erkennungs-Einstellungen">🌐 <span id="pill-lang-value">de-DE</span></button>
       <div class="pill" id="pill-asr" title="Spracherkennung: Browser oder externes Programm">🎧 <select id="asr" class="inline"></select></div>
       <label class="pill pill-toggle" id="pill-smart" for="smart"><span class="dot" id="dot-smart"></span><input type="checkbox" id="smart"> KI-Modus</label>
     </div>
@@ -35,6 +31,10 @@
         <div class="block">
           <label>Live-Transkript – erkannte Trigger werden markiert</label>
           <div id="transcript"><span class="interim">Klick auf „Mikro starten“ und sag z.B. „das ist krass“ oder „bruh“ …</span></div>
+          <div id="recog-learn" hidden>
+            <div id="fuzzy-suggest"></div>
+            <ul id="misses"></ul>
+          </div>
         </div>
         <div class="row block">
           <div>
@@ -73,6 +73,62 @@
         <div class="actions">
           <a class="btn primary" id="btn-demo" href="demo.html" target="_blank">🎬 Demo-Seite öffnen</a>
           <a class="btn" href="docs/DEMO-CLIP.md" target="_blank">Anleitung</a>
+        </div>
+      </section>
+
+      <section class="card" id="asr-settings">
+        <h2>Erkennung</h2>
+        <div class="row">
+          <div>
+            <label for="lang">Sprache</label>
+            <select id="lang">
+              <optgroup label="Deutsch">
+                <option value="de-DE">Deutsch (Deutschland)</option>
+                <option value="de-AT">Deutsch (Österreich)</option>
+                <option value="de-CH">Deutsch (Schweiz)</option>
+              </optgroup>
+              <optgroup label="Türkçe">
+                <option value="tr-TR">Türkçe</option>
+              </optgroup>
+              <optgroup label="English">
+                <option value="en-US">English (US)</option>
+                <option value="en-GB">English (UK)</option>
+                <option value="en-IN">English (India)</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label for="asr-tolerance">Dialekt-Toleranz</label>
+            <select id="asr-tolerance" title="Wie stark ein gesprochenes Wort vom Stichwort abweichen darf">
+              <option value="off">aus</option>
+              <option value="medium">mittel</option>
+              <option value="high">hoch</option>
+            </select>
+          </div>
+          <div>
+            <label for="asr-reaction">Reaktion</label>
+            <select id="asr-reaction" title="schnell: feuert schon bei Zwischenergebnissen – sicher: erst wenn der Satz fertig erkannt ist">
+              <option value="fast">schnell (Zwischenergebnisse)</option>
+              <option value="safe">sicher (nur finale Sätze)</option>
+            </select>
+          </div>
+        </div>
+        <div class="checks block">
+          <label class="check-line"><input type="checkbox" id="asr-alternatives"> Alternativen prüfen (3 Lesarten)</label>
+          <label class="check-line"><input type="checkbox" id="asr-restart"> Erkenner alle 60 s neu starten</label>
+        </div>
+        <div class="block diag">
+          <div class="meter-row">
+            <span class="meter-label">Mikro</span>
+            <div class="meter" id="mic-meter" title="Mikrofonpegel (läuft, sobald das Mikro gestartet ist)"><div id="mic-level"></div></div>
+            <span class="meter-db" id="mic-db">–</span>
+          </div>
+          <div class="help" id="diag-state">Zustand: idle</div>
+          <div class="help" id="diag-latency">Erkennung: – · Matcher –</div>
+        </div>
+        <div class="row block selfcheck">
+          <button id="btn-selfcheck" class="small" title="Prüft Mikro, Erkennung und Matcher mit einem Stichwort">🔍 Selbsttest</button>
+          <span class="help" id="selfcheck-status"></span>
         </div>
       </section>
 
@@ -159,6 +215,7 @@
   <script src="js/store.js"></script>
   <script src="js/assets.js"></script>
   <script src="js/editor.js"></script>
+  <script src="js/meter.js"></script>
   <script src="js/asr.js"></script>
   <script src="js/smart.js"></script>
   <script src="js/panel.js"></script>
