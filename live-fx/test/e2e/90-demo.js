@@ -12,6 +12,13 @@ async function run({ browser, startServer, shotDir, log }) {
     const page = await ctx.newPage();
     const errors = [];
     page.on('pageerror', (e) => errors.push(String(e)));
+    // The harness runs Chromium with a fake camera/mic (recognition tests); this scenario is about the
+    // "no devices" path, so make getUserMedia reject like a machine without a webcam.
+    await page.addInitScript(() => {
+      if (navigator.mediaDevices) {
+        navigator.mediaDevices.getUserMedia = () => Promise.reject(new DOMException('Requested device not found', 'NotFoundError'));
+      }
+    });
     await page.goto(`${server.base}/demo.html`);
     await page.waitForFunction(() => window.livefxDemo && window.livefxDemo.state.ready, null, { timeout: 8000 });
 

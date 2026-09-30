@@ -90,6 +90,22 @@ Kommentare) und der Emoji-Regen fällt entsprechend kürzer.
 
 Position: `center` (Mitte), `top` (oben), `safe` (im Hochkant-Layout im oberen Drittel, quer = Mitte).
 
+## Robuste Erkennung (Dialekt, Lernen, Diagnose)
+
+Im Panel unter **Erkennung**:
+
+- **Sprache** mit Varianten (Deutsch DE/AT/CH, Türkçe, English US/GB/IN) – die Kopfzeile zeigt die aktive Sprache.
+- **Dialekt-Toleranz** aus / mittel / hoch: „grass“ löst trotzdem *krass* aus, „helal olsn“ *helal olsun*. Kurze
+  Wörter (≤ 4 Buchstaben) werden immer exakt verglichen, echte Stichwörter nie verwechselt („schön“ ≠ „schon“).
+- **Reaktion**: *schnell* feuert schon bei Zwischenergebnissen, *sicher* erst beim fertigen Satz.
+- **Alternativen prüfen**: bei einem Satz ohne Treffer werden bis zu 3 Lesarten der Spracherkennung geprüft.
+- **Lernen**: unscharfe Treffer bekommen einen „als Stichwort speichern“-Button; Sätze ohne Treffer erscheinen
+  unter dem Transkript – Wörter anklicken, Trigger zuweisen oder ignorieren.
+- **Diagnose + Selbsttest**: Mikro-Pegel, Zustand (letztes Ergebnis, Neustarts), Latenz; der Selbsttest sagt dir
+  in 8 s, ob Mikro, Erkennung und Matcher zusammenspielen.
+
+Alle Einstellungen greifen sofort und liegen im Browser (`livefx.asr.*`).
+
 ## Smart-Modus (KI, optional)
 
 Stichwörter treffen nicht alles: *„das war so peinlich für ihn“* enthält kein Trigger-Wort.
@@ -197,10 +213,12 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 - Matcher (`js/matcher.js`): Whole-Word-Match, mehrsprachig (DE/EN/TR im Standardpaket), spezifischere
   Stichwörter gewinnen („oh nein“ vor „nein“), per-Trigger-Cooldown und globaler Mindestabstand gegen
   Effekt-Spam; zählt Vorkommen im laufenden Satz, damit Zwischenergebnisse nicht doppelt feuern.
+  Optional unscharf (Dialekt-Toleranz): Akzent-Faltung + Damerau-Levenshtein mit Längen-Gates und
+  Stoppwort-Schutz, Details in `docs/DESIGN-RECOGNITION.md`.
 - Bridge: Server-Sent Events mit Event-IDs und Replay nach Reconnect; Nachrichten sind per ID
   dedupliziert, damit Vorschau (BroadcastChannel) und OBS (SSE) nie doppelt feuern.
 - Struktur: `server.js` (Composition Root) + `server/*.js` (Router, Static, SSE, Auth, State, APIs, Smart),
-  `js/*.js` (Schema, Matcher, Bus, Renderer, Store, Assets, Editor, ASR, Smart, Panel).
+  `js/*.js` (Schema, Matcher, Bus, Renderer, Store, Assets, Editor, Meter, ASR, Smart, Panel).
 
 ## Tests
 

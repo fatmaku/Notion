@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.2.0 – Robuste Erkennung
+
+- **Dialekt-Toleranz** (aus / mittel / hoch): Der Matcher erkennt Stichwörter auch bei kleinen Abweichungen
+  („grass“ → krass, „helal olsn“ → helal olsun) – mit Schutz vor Fehltreffern (kurze Wörter nur exakt, echte
+  Stichwörter und Stoppwörter werden nie unscharf gematcht). Standard: mittel; Server und Demo-Seite ziehen mit.
+- **Karte „Erkennung“** im Panel: Sprache mit Varianten (de-DE/AT/CH, tr-TR, en-US/GB/IN), Toleranz, Reaktion
+  „schnell“ (Zwischenergebnisse) oder „sicher“ (nur finale Sätze), Alternativen (3 Lesarten), geplanter
+  Neustart alle 60 s. Alles greift sofort, ohne Neuladen, und bleibt gespeichert.
+- **Lernen aus dem Stream**: unscharfe Treffer lassen sich per Klick als Stichwort speichern; Sätze ohne Treffer
+  erscheinen als Liste – Wörter anklicken, Trigger zuweisen oder ignorieren.
+- **Diagnose**: Mikro-Pegel, Zustand der Erkennung (letztes Ergebnis, Neustarts), Latenz nach Sprachende und
+  Matcher-Zeit; **Selbsttest** („sag krass“) prüft Mikro → Erkennung → Matcher in einem Schritt.
+- Spracherkennung: Watchdog gegen hängende Sitzungen, geplante Neustarts nur in Sprechpausen, Zwischenergebnisse
+  werden korrekt mit Leerzeichen zusammengesetzt.
+
 ## 1.1.0 – Memes, Sprachen, Demo
 
 - **Meme-Pakete** Türkçe (55), Deutsch (31), English (32) – im Panel per Klick laden/entfernen.

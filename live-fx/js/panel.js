@@ -19,7 +19,20 @@
   const bus = new LiveFXBus.Bus({ role: 'panel' });
   LiveFXStore.attachBus(bus);
   const online = bus.serverBase !== null;
-  const matcher = new LiveFXMatcher.Matcher([], { globalMinGap: Number($('#gap').value) || 0 });
+  // Recognition settings (localStorage `livefx.asr.*`, see docs/DESIGN-RECOGNITION.md §C).
+  const ASR_KEYS = { lang: 'livefx.asr.lang', tolerance: 'livefx.asr.tolerance', reaction: 'livefx.asr.reaction', alternatives: 'livefx.asr.alternatives', restart: 'livefx.asr.restart', ignored: 'livefx.asr.ignored' };
+  const TOLERANCES = ['off', 'medium', 'high'];
+  const REACTIONS = ['fast', 'safe'];
+  const RESTART_MS = 60000;
+  const STALL_MS = 20000;
+  const IGNORED_CAP = 50;
+  const MISSES_MAX = 8;
+  const MISS_CHIPS_MAX = 8; // longer phrases need an explicit word selection
+  const SUGGEST_MAX = 3;
+  const SELFCHECK_MS = 8000;
+  const LATENCY_WINDOW = 5;
+  const settings = { lang: 'de-DE', tolerance: 'medium', reaction: 'fast', alternatives: true, restart: false, ignored: [] };
+  const matcher = new LiveFXMatcher.Matcher([], { globalMinGap: Number($('#gap').value) || 0, tolerance: settings.tolerance, lang: settings.lang });
   let triggers = [];
   let paused = false;
   let asr = null; // current LiveFXASR backend instance
@@ -29,6 +42,15 @@
   let library = null;
   let pendingRemote = false; // triggers-updated arrived while the editor was open
   let config = null;
+  let meter = null; // LiveFXMeter instance (null when meter.js is missing)
+  let meterStarted = false;
+  let missSeq = 0;
+  let misses = []; // { id, text, norm, words } – last final utterances without any hit
+  let suggestions = []; // { trigger, spoken, keyword } – fuzzy hits the streamer may save as keywords
+  let lastMissNorm = null;
+  const latencies = []; // ms between end of speech (meter) and the final result
+  let lastMatcherMs = null;
+  let selfCheck = null; // { word, timer, startedAt, voiceSeenAt }
 
   // ---------- helpers ----------
   function lsGet(key) {
@@ -145,25 +167,72 @@
   }
 
   // ---------- speech → matcher → smart ----------
+  function fireSource(source, h) {
+    const spoken = h.spoken || h.keyword;
+    return h.fuzzy && spoken !== h.keyword ? `${source}: „${spoken}“ (≈ ${h.keyword})` : `${source}: „${spoken}“`;
+  }
+
+  /** Runs the matcher with timing; keeps the rolling matcher-time figure for #diag-latency. */
+  function runMatcher(text) {
+    const t0 = performance.now();
+    let hits;
+    try {
+      hits = matcher.process(text) || [];
+    } catch (e) {
+      log(`⚠️ Matcher-Fehler: ${e && e.message ? e.message : e}`);
+      hits = [];
+    }
+    lastMatcherMs = performance.now() - t0;
+    renderLatency();
+    return hits;
+  }
+
   function handleText(text, isFinal, meta) {
     const m = meta && typeof meta === 'object' ? meta : {};
     const source = String(m.source || 'Text');
     const str = String(text == null ? '' : text);
-    const hits = matcher.process(str);
+    // Reaction "sicher": interim results only feed the transcript, matching waits for the final sentence.
+    if (!isFinal && settings.reaction === 'safe') {
+      renderTranscript(str, false, []);
+      return;
+    }
+    const hits = runMatcher(str);
     utteranceHits += hits.length;
-    renderTranscript(str, !!isFinal, hits.map((h) => h.keyword));
-    for (const h of hits) fire(h.trigger, `${source}: „${h.keyword}“`);
-    if (isFinal) {
-      matcher.endUtterance();
-      const hitsInUtterance = utteranceHits;
-      utteranceHits = 0;
-      if (hitsInUtterance === 0 && smart && smart.status.available && smart.shouldClassify(str, 0, true)) {
-        classifySmart(str, m.lang || $('#lang').value);
+    renderTranscript(str, !!isFinal, hits.map((h) => h.spoken || h.keyword));
+    for (const h of hits) {
+      fire(h.trigger, fireSource(source, h));
+      if (h.fuzzy && h.spoken && h.spoken !== h.keyword) addSuggestion(h);
+    }
+    if (!isFinal) return;
+
+    // Alternative readings of the final sentence: only when the primary text hit nothing.
+    if (utteranceHits === 0 && Array.isArray(m.alternatives)) {
+      for (const alt of m.alternatives) {
+        const altText = String(alt == null ? '' : alt).trim();
+        if (!altText) continue;
+        const altHits = runMatcher(altText);
+        if (!altHits.length) continue;
+        utteranceHits += altHits.length;
+        for (const h of altHits) {
+          fire(h.trigger, fireSource(`${source} (Alt.)`, h));
+          if (h.fuzzy && h.spoken && h.spoken !== h.keyword) addSuggestion(h);
+        }
+        renderTranscript(altText, true, altHits.map((h) => h.spoken || h.keyword));
+        break;
       }
+    }
+    if (typeof matcher.endUtterance === 'function') matcher.endUtterance();
+    const hitsInUtterance = utteranceHits;
+    utteranceHits = 0;
+    recordLatency(m);
+    if (selfCheck) finishSelfCheck(str, hitsInUtterance);
+    if (hitsInUtterance === 0) {
+      const missId = addMiss(str);
+      if (smart && smart.status.available && smart.shouldClassify(str, 0, true)) classifySmart(str, m.lang || settings.lang, missId);
     }
   }
 
-  async function classifySmart(text, lang) {
+  async function classifySmart(text, lang, missId) {
     let r;
     try {
       r = await smart.classify(text, lang);
@@ -187,7 +256,383 @@
       return;
     }
     fire(res.trigger, `KI (${pct} %): „${text.slice(0, 40)}“`);
+    if (missId != null) removeMiss(missId); // the sentence was understood after all
   }
+
+  // ---------- learning card (fuzzy suggestions + misses) ----------
+  const learnEl = $('#recog-learn');
+  const suggestEl = $('#fuzzy-suggest');
+  const missesEl = $('#misses');
+  const normalize = (t) => (LiveFXMatcher.normalize ? LiveFXMatcher.normalize(t) : String(t || '').toLowerCase().trim());
+
+  function addSuggestion(h) {
+    const trig = h.trigger;
+    if (!trig || !trig.id) return;
+    const spoken = String(h.spoken).trim();
+    if (!spoken || suggestions.some((x) => x.trigger.id === trig.id && x.spoken === spoken)) return;
+    if ((trig.keywords || []).some((k) => normalize(k) === normalize(spoken))) return;
+    suggestions.push({ trigger: trig, spoken, keyword: h.keyword });
+    suggestions = suggestions.slice(-SUGGEST_MAX);
+    renderLearn();
+  }
+
+  /** Remembers a final sentence without any hit; returns its id (or null when skipped). */
+  function addMiss(text) {
+    const raw = String(text || '').trim();
+    const norm = normalize(raw);
+    if (!norm) return null;
+    if (norm === lastMissNorm) return null;
+    lastMissNorm = norm;
+    if (settings.ignored.includes(norm)) return null;
+    const id = ++missSeq;
+    misses.push({ id, text: raw.slice(0, 200), norm, words: norm.split(' ').filter(Boolean) });
+    misses = misses.slice(-MISSES_MAX);
+    renderLearn();
+    return id;
+  }
+
+  function removeMiss(id) {
+    const before = misses.length;
+    misses = misses.filter((x) => x.id !== id);
+    if (misses.length !== before) renderLearn();
+  }
+
+  function ignoreMiss(id) {
+    const miss = misses.find((x) => x.id === id);
+    if (!miss) return;
+    if (!settings.ignored.includes(miss.norm)) settings.ignored.push(miss.norm);
+    settings.ignored = settings.ignored.slice(-IGNORED_CAP);
+    lsSet(ASR_KEYS.ignored, JSON.stringify(settings.ignored));
+    misses = misses.filter((x) => x.norm !== miss.norm);
+    renderLearn();
+    log(`🙈 „${miss.text.slice(0, 40)}“ wird ignoriert`);
+  }
+
+  function triggerOptions() {
+    return triggers.map((t) => `<option value="${esc(t.id)}">${esc(labelOf(t))}</option>`).join('');
+  }
+
+  function renderLearn() {
+    if (!learnEl || !suggestEl || !missesEl) return;
+    suggestEl.innerHTML = suggestions
+      .map(
+        (sg) =>
+          `<button type="button" data-act="learn" data-trigger="${esc(sg.trigger.id)}" data-spoken="${esc(sg.spoken)}" title="Erkannt als „${esc(sg.keyword)}“">📚 „${esc(sg.spoken)}“ als Stichwort für ${esc(labelOf(sg.trigger))} speichern</button>`
+      )
+      .join('');
+    suggestEl.querySelectorAll('[data-act="learn"]').forEach((b) => {
+      b.addEventListener('click', () => learnKeyword(b.dataset.trigger, b.dataset.spoken));
+    });
+    missesEl.innerHTML = '';
+    for (const miss of misses) {
+      const li = document.createElement('li');
+      li.dataset.miss = String(miss.id);
+      li.innerHTML =
+        `<span class="miss-label" title="Kein Trigger hat auf diesen Satz reagiert">Kein Treffer</span>` +
+        `<span class="words">${miss.words.map((w) => `<button type="button" class="chip" data-word="${esc(w)}">${esc(w)}</button>`).join('')}</span>` +
+        `<select data-act="assign" title="Auswahl (oder ganzen Satz) als Stichwort speichern"><option value="">→ Trigger zuweisen…</option>${triggerOptions()}</select>` +
+        `<button type="button" data-act="ignore" title="Diesen Satz nicht mehr vorschlagen">Ignorieren</button>`;
+      li.querySelectorAll('.chip').forEach((chip) => chip.addEventListener('click', () => chip.classList.toggle('sel')));
+      li.querySelector('[data-act="assign"]').addEventListener('change', (e) => {
+        const sel = e.target;
+        const id = sel.value;
+        if (!id) return;
+        const picked = Array.from(li.querySelectorAll('.chip.sel')).map((c) => c.dataset.word);
+        let phrase = picked.join(' ');
+        if (!phrase) {
+          if (miss.words.length > MISS_CHIPS_MAX) {
+            log(`⚠️ Satz zu lang – bitte die passenden Wörter anklicken`);
+            sel.value = '';
+            return;
+          }
+          phrase = miss.text;
+        }
+        if (learnKeyword(id, phrase)) removeMiss(miss.id);
+        else sel.value = '';
+      });
+      li.querySelector('[data-act="ignore"]').addEventListener('click', () => ignoreMiss(miss.id));
+      missesEl.appendChild(li);
+    }
+    learnEl.hidden = !suggestions.length && !misses.length;
+  }
+
+  /**
+   * Adds `phrase` as a keyword of trigger `triggerId` (trimmed, capped at LIMITS.keywordLen), persists
+   * and re-renders. Returns true when the keyword was stored.
+   */
+  function learnKeyword(triggerId, phrase) {
+    const t = triggers.find((x) => x.id === triggerId);
+    const kw = String(phrase == null ? '' : phrase).trim().slice(0, S.LIMITS.keywordLen).trim();
+    if (!t) {
+      log(`⚠️ Lernen: Trigger „${String(triggerId).slice(0, 40)}“ nicht gefunden`);
+      return false;
+    }
+    if (!kw) return false;
+    const list = Array.isArray(t.keywords) ? t.keywords : [];
+    if (list.some((k) => normalize(k) === normalize(kw))) {
+      log(`ℹ️ „${kw}“ ist bei ${labelOf(t)} schon eingetragen`);
+      suggestions = suggestions.filter((x) => !(x.trigger.id === t.id && x.spoken === kw));
+      renderLearn();
+      return false;
+    }
+    if (list.length >= S.LIMITS.keywords) {
+      log(`⚠️ ${labelOf(t)}: maximal ${S.LIMITS.keywords} Stichwörter`);
+      return false;
+    }
+    t.keywords = list.concat([kw]);
+    commit();
+    log(`📚 „${kw}“ → ${labelOf(t)} gelernt`);
+    suggestions = suggestions.filter((x) => !(x.trigger.id === t.id && x.spoken === kw));
+    misses = misses.filter((x) => x.norm !== normalize(kw));
+    renderLearn();
+    return true;
+  }
+
+  // ---------- diagnostics ----------
+  function fmtMs(ms) {
+    if (!Number.isFinite(ms)) return '–';
+    return ms >= 100 ? `${Math.round(ms)} ms` : `${ms.toFixed(1).replace('.', ',')} ms`;
+  }
+
+  /** Latency of a final result: time since the meter last saw voice (only with mic + meter). */
+  function recordLatency(m) {
+    if (!meter || !Number.isFinite(m.at) || !Number.isFinite(meter.lastVoiceAt) || !meter.lastVoiceAt) return;
+    const d = m.at - meter.lastVoiceAt;
+    if (d < 0 || d > 10000) return;
+    latencies.push(d);
+    while (latencies.length > LATENCY_WINDOW) latencies.shift();
+    renderLatency();
+  }
+
+  function renderLatency() {
+    const el = $('#diag-latency');
+    if (!el) return;
+    const avg = latencies.length ? latencies.reduce((a, b) => a + b, 0) / latencies.length : null;
+    const rec = avg == null ? '–' : `~${Math.round(avg)} ms nach Sprachende`;
+    el.textContent = `Erkennung: ${rec} · Matcher ${fmtMs(lastMatcherMs)}`;
+  }
+
+  function renderDiagState() {
+    const el = $('#diag-state');
+    if (!el) return;
+    const state = asr ? asr.state : 'idle';
+    const st = asr && asr.stats && typeof asr.stats === 'object' ? asr.stats : null;
+    let text = `Zustand: ${state}`;
+    if (st) {
+      const last = Number.isFinite(st.lastResultAt) && st.lastResultAt > 0 ? `${Math.max(0, Math.round((performance.now() - st.lastResultAt) / 1000))} s` : '–';
+      const planned = Number(st.plannedRestarts) || 0;
+      const stalls = Number(st.stalls) || 0;
+      const restarts = Number(st.restarts) || 0; // total (planned + stalled + error restarts)
+      text += ` · letztes Ergebnis vor ${last} · Neustarts ${restarts} (geplant ${planned}, hängend ${stalls})`;
+    }
+    el.textContent = text;
+  }
+
+  function onAsrEvent(ev) {
+    if (!ev || typeof ev !== 'object') return;
+    if (ev.type === 'planned-restart') log('🔁 Erkenner planmäßig neu gestartet');
+    else if (ev.type === 'stall') log('⚠️ Erkennung hing – Neustart');
+    else if (ev.type === 'restart') log('🔁 Erkenner neu gestartet');
+    renderDiagState();
+  }
+
+  function onLevel(rms, peak) {
+    const level = $('#mic-level');
+    const db = $('#mic-db');
+    const r = Number(rms) || 0;
+    if (level) level.style.setProperty('--level', String(Math.min(1, Math.max(0, r * 4))));
+    if (db) db.textContent = r > 0.0001 ? `${Math.round(20 * Math.log10(r))} dB` : '−∞ dB';
+    if (selfCheck && meter && meter.isVoiceActive && meter.isVoiceActive()) selfCheck.voiceSeenAt = performance.now();
+    void peak;
+  }
+
+  function createMeter() {
+    const M = window.LiveFXMeter;
+    if (!M || typeof M.create !== 'function') return null;
+    try {
+      return M.create({ fps: 10, threshold: 0.02, onLevel });
+    } catch (e) {
+      log(`⚠️ Pegelmesser: ${e && e.message ? e.message : e}`);
+      return null;
+    }
+  }
+
+  /** Starts the mic meter (needs a user gesture); failures are logged once. */
+  async function startMeter() {
+    if (!meter || meterStarted || typeof meter.start !== 'function') return;
+    meterStarted = true;
+    try {
+      const ok = await meter.start();
+      if (!ok) {
+        log(`⚠️ Mikro-Pegel nicht verfügbar${meter.error ? `: ${meter.error}` : ''}`);
+        $('#mic-db').textContent = '–';
+      }
+    } catch (e) {
+      log(`⚠️ Mikro-Pegel: ${e && e.message ? e.message : e}`);
+    }
+  }
+
+  function stopMeter() {
+    if (!meter || !meterStarted) return;
+    meterStarted = false;
+    try {
+      if (typeof meter.stop === 'function') meter.stop();
+    } catch (_) {
+      /* ignore */
+    }
+    $('#mic-level').style.setProperty('--level', '0');
+    $('#mic-db').textContent = '–';
+  }
+
+  // ---------- self-check ----------
+  function setSelfCheckStatus(text) {
+    $('#selfcheck-status').textContent = text;
+  }
+
+  function selfCheckWord() {
+    const wow = triggers.find((t) => t.id === 'wow' && t.enabled !== false && (t.keywords || []).length);
+    const t = wow || triggers.find((x) => x.enabled !== false && (x.keywords || []).length);
+    return t ? String(t.keywords[0]) : null;
+  }
+
+  function startSelfCheck() {
+    const word = selfCheckWord();
+    if (!word) {
+      setSelfCheckStatus('❌ kein aktiver Trigger mit Stichwort');
+      return;
+    }
+    cancelSelfCheck();
+    selfCheck = { word, startedAt: performance.now(), voiceSeenAt: 0, timer: null };
+    selfCheck.timer = setTimeout(() => timeoutSelfCheck(), SELFCHECK_MS);
+    setSelfCheckStatus(`Test: sag „${word}“`);
+    startMeter();
+    if (asr && !asrActive()) {
+      asrWanted = true;
+      try {
+        asr.start();
+      } catch (e) {
+        log(`⚠️ Selbsttest: ${e && e.message ? e.message : e}`);
+      }
+    }
+  }
+
+  function cancelSelfCheck() {
+    if (selfCheck && selfCheck.timer) clearTimeout(selfCheck.timer);
+    selfCheck = null;
+  }
+
+  function timeoutSelfCheck() {
+    if (!selfCheck) return;
+    const sc = selfCheck;
+    cancelSelfCheck();
+    const voice = sc.voiceSeenAt > 0 || (meter && Number.isFinite(meter.lastVoiceAt) && meter.lastVoiceAt >= sc.startedAt);
+    setSelfCheckStatus(voice ? '❌ nichts erkannt – Sprache/Toleranz prüfen' : '❌ Mikro liefert kein Signal');
+    log(voice ? '🔍 Selbsttest: nichts erkannt' : '🔍 Selbsttest: kein Mikro-Signal');
+  }
+
+  /** Called with the next final sentence while a self-check is running. */
+  function finishSelfCheck(text, hitsInUtterance) {
+    if (!selfCheck) return;
+    const sc = selfCheck;
+    cancelSelfCheck();
+    const wantNorm = normalize(sc.word);
+    let found = false;
+    if (typeof matcher.explain === 'function') {
+      try {
+        found = (matcher.explain(text) || []).some((h) => normalize(h.keyword) === wantNorm);
+      } catch (_) {
+        found = false;
+      }
+    } else found = hitsInUtterance > 0 || normalize(text).includes(wantNorm);
+    const ms = Math.round(performance.now() - sc.startedAt);
+    const heard = String(text).trim().slice(0, 60);
+    if (found) setSelfCheckStatus(`✅ „${sc.word}“ erkannt (${ms} ms) – alles läuft`);
+    else setSelfCheckStatus(`❌ verstanden: „${heard}“ – kein Treffer für „${sc.word}“ (Toleranz erhöhen?)`);
+    log(found ? `🔍 Selbsttest ✅ „${sc.word}“` : `🔍 Selbsttest ❌ „${heard}“`);
+  }
+
+  $('#btn-selfcheck').addEventListener('click', startSelfCheck);
+
+  // ---------- recognition settings ----------
+  function readSettings() {
+    const lang = lsGet(ASR_KEYS.lang);
+    const tol = lsGet(ASR_KEYS.tolerance);
+    const rea = lsGet(ASR_KEYS.reaction);
+    const alt = lsGet(ASR_KEYS.alternatives);
+    const rst = lsGet(ASR_KEYS.restart);
+    const langEl = $('#lang');
+    if (lang && Array.from(langEl.options).some((o) => o.value === lang)) settings.lang = lang;
+    settings.tolerance = TOLERANCES.includes(tol) ? tol : 'medium';
+    settings.reaction = REACTIONS.includes(rea) ? rea : 'fast';
+    settings.alternatives = alt == null ? true : alt === '1';
+    settings.restart = rst === '1';
+    let ignored = [];
+    try {
+      const parsed = JSON.parse(lsGet(ASR_KEYS.ignored) || '[]');
+      if (Array.isArray(parsed)) ignored = parsed.filter((x) => typeof x === 'string').slice(-IGNORED_CAP);
+    } catch (_) {
+      /* corrupt entry – start fresh */
+    }
+    settings.ignored = ignored;
+  }
+
+  function reflectSettings() {
+    $('#lang').value = settings.lang;
+    $('#asr-tolerance').value = settings.tolerance;
+    $('#asr-reaction').value = settings.reaction;
+    $('#asr-alternatives').checked = settings.alternatives;
+    $('#asr-restart').checked = settings.restart;
+    $('#pill-lang-value').textContent = settings.lang;
+  }
+
+  /** Reads the stored settings, mirrors them into the card and pushes them to matcher/ASR. */
+  function loadAsrSettings() {
+    readSettings();
+    reflectSettings();
+    pushSettings();
+  }
+
+  function pushSettings() {
+    if (typeof matcher.setTolerance === 'function') matcher.setTolerance(settings.tolerance);
+    if (typeof matcher.setLang === 'function') matcher.setLang(settings.lang);
+    if (asr) {
+      if (typeof asr.setLang === 'function') asr.setLang(settings.lang);
+      if (typeof asr.setOptions === 'function') asr.setOptions({ alternatives: settings.alternatives, restartEveryMs: settings.restart ? RESTART_MS : 0, stallMs: STALL_MS });
+    }
+  }
+
+  /** Applies the card's controls immediately (no reload) and persists them. */
+  function applyAsrSettings() {
+    const before = { ...settings };
+    settings.lang = $('#lang').value || settings.lang;
+    settings.tolerance = TOLERANCES.includes($('#asr-tolerance').value) ? $('#asr-tolerance').value : 'medium';
+    settings.reaction = REACTIONS.includes($('#asr-reaction').value) ? $('#asr-reaction').value : 'fast';
+    settings.alternatives = $('#asr-alternatives').checked;
+    settings.restart = $('#asr-restart').checked;
+    lsSet(ASR_KEYS.lang, settings.lang);
+    lsSet(ASR_KEYS.tolerance, settings.tolerance);
+    lsSet(ASR_KEYS.reaction, settings.reaction);
+    lsSet(ASR_KEYS.alternatives, settings.alternatives ? '1' : '0');
+    lsSet(ASR_KEYS.restart, settings.restart ? '1' : '0');
+    $('#pill-lang-value').textContent = settings.lang;
+    pushSettings();
+    if (before.tolerance !== settings.tolerance) log(`🎯 Dialekt-Toleranz: ${{ off: 'aus', medium: 'mittel', high: 'hoch' }[settings.tolerance]}`);
+    if (before.reaction !== settings.reaction) log(settings.reaction === 'safe' ? '🐢 Reaktion: sicher (nur finale Sätze)' : '⚡ Reaktion: schnell');
+    if (before.lang !== settings.lang) log(`🌐 Sprache: ${settings.lang}`);
+  }
+
+  for (const id of ['#lang', '#asr-tolerance', '#asr-reaction', '#asr-alternatives', '#asr-restart']) {
+    $(id).addEventListener('change', applyAsrSettings);
+  }
+  $('#pill-lang').addEventListener('click', () => {
+    const card = $('#asr-settings');
+    if (card && typeof card.scrollIntoView === 'function') card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    try {
+      $('#lang').focus({ preventScroll: true });
+    } catch (_) {
+      /* ignore */
+    }
+  });
 
   // ---------- ASR ----------
   function asrActive() {
@@ -206,7 +651,11 @@
     if (state === 'listening') btn.textContent = ext ? '📡 Wartet auf externe Transkripte (Stop)' : '🎙️ Hört zu … (Stop)';
     else if (state === 'starting' || state === 'restarting') btn.textContent = '⏳ verbindet …';
     else btn.textContent = ext ? '📡 Externe Transkripte empfangen' : '🎙️ Mikro starten';
-    if (state === 'idle' || state === 'error' || state === 'unsupported') asrWanted = false;
+    if (state === 'idle' || state === 'error' || state === 'unsupported') {
+      asrWanted = false;
+      stopMeter();
+    }
+    renderDiagState();
   }
 
   function createAsr(name) {
@@ -219,8 +668,13 @@
     }
     const backend = LiveFXASR.backends.some((b) => b.name === name) ? name : 'webspeech';
     asr = LiveFXASR.create(backend, {
-      lang: $('#lang').value,
+      lang: settings.lang,
       bus,
+      alternatives: settings.alternatives,
+      restartEveryMs: settings.restart ? RESTART_MS : 0,
+      stallMs: STALL_MS,
+      voiceActivity: () => !!(meter && meterStarted && typeof meter.isVoiceActive === 'function' && meter.isVoiceActive()),
+      onEvent: onAsrEvent,
       onText: (text, isFinal, meta) => handleText(text, isFinal, meta),
       onState: (state) => reflectAsrState(state),
       onError: (err) => {
@@ -250,9 +704,9 @@
       return;
     }
     asrWanted = true;
+    if (asr.name !== 'external') startMeter();
     asr.start();
   });
-  $('#lang').addEventListener('change', () => asr && asr.setLang($('#lang').value));
   $('#asr').addEventListener('change', () => {
     const wanted = asrWanted || asrActive();
     lsSet('livefx.asr', $('#asr').value);
@@ -267,7 +721,7 @@
   function simulate() {
     const text = $('#sim').value.trim();
     if (!text) return;
-    handleText(text, true, { source: 'Text', lang: $('#lang').value });
+    handleText(text, true, { source: 'Text', lang: settings.lang });
     $('#sim').value = '';
   }
   $('#btn-sim').addEventListener('click', simulate);
@@ -356,6 +810,7 @@
     renderPad();
     if (rows) renderRows();
     renderPacks();
+    if (misses.length || suggestions.length) renderLearn();
     if (save) LiveFXStore.save(triggers);
   }
 
@@ -635,6 +1090,11 @@
   // ---------- boot ----------
   async function boot() {
     fillAsrSelect();
+    loadAsrSettings(); // matcher tolerance/lang before the triggers are indexed; the ASR gets them in createAsr
+    meter = createMeter();
+    renderLatency();
+    renderDiagState();
+    setInterval(renderDiagState, 1000);
     renderApiCard(null);
     if (!online) log('ℹ️ Kein Server (file://): nur Vorschau im selben Browser. Für OBS, Uploads und API: node server.js');
 
@@ -671,6 +1131,7 @@
     }
 
     createAsr($('#asr').value);
+    pushSettings();
     log('Bereit. Tipp: Ohne Mikro einfach oben Text eintippen.');
   }
 
@@ -693,6 +1154,20 @@
       return smart;
     },
     store: LiveFXStore,
+    learnKeyword,
+    get asrSettings() {
+      return { ...settings, ignored: settings.ignored.slice() };
+    },
+    get meter() {
+      return meter;
+    },
+    selfCheck: {
+      start: startSelfCheck,
+      timeout: timeoutSelfCheck,
+      get active() {
+        return !!selfCheck;
+      },
+    },
     ready: boot(),
   };
 })();

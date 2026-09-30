@@ -441,7 +441,7 @@
   const renderer = new LiveFXRenderer.Renderer(stageEl);
   const canvasFx = new CanvasFX(canvas);
   const bus = new LiveFXBus.Bus({ role: 'panel' });
-  const matcher = new LiveFXMatcher.Matcher([]);
+  const matcher = new LiveFXMatcher.Matcher([], LiveFXMatcher.TOLERANCES ? { tolerance: lsGet('livefx.asr.tolerance') || 'medium' } : {}); // same dialect tolerance as the panel
 
   const state = {
     ready: false,
