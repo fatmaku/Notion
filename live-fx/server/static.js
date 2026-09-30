@@ -19,6 +19,7 @@ const MIME = {
   '.webp': 'image/webp',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
+  '.md': 'text/plain; charset=utf-8',
   '.mp3': 'audio/mpeg',
   '.wav': 'audio/wav',
   '.ogg': 'audio/ogg',
@@ -30,8 +31,9 @@ const ROOT_FILES = new Map([
   ['/', 'index.html'],
   ['/index.html', 'index.html'],
   ['/overlay.html', 'overlay.html'],
+  ['/demo.html', 'demo.html'],
 ]);
-const SUBDIR_RE = /^\/(css|js)\/([a-z0-9][a-z0-9._-]{0,99}\.(css|js))$/i;
+const SUBDIR_RE = /^\/(css|js|docs)\/([a-z0-9][a-z0-9._-]{0,99}\.(css|js|md))$/i;
 const ASSET_RE = /^\/assets\/([a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp|mp3|wav|ogg))$/i;
 
 /** Maps a decoded pathname to {base, rel, cache} or null when not allow-listed. */
