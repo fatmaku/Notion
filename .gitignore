@@ -6,3 +6,8 @@ deniz-trailer/ikv/part*
 deniz-trailer/ikv/parts.txt
 deniz-teen/out/part*
 deniz-teen/out/parts.txt
+# raw book extractions (sources live in uploads; texts are kept)
+deniz-teen/*_??/**
+!deniz-teen/*_??/
+!deniz-teen/*_??/text.txt
+!deniz-teen/*_??/cover.png
