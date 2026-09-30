@@ -653,7 +653,18 @@
     log(`📂 Trigger geladen: ${sourceLabel(loaded.source)} (${triggers.length})`);
 
     if (online) {
-      library = LiveFXAssets.mountLibrary($('#asset-library'), { onChange: () => {} });
+      library = LiveFXAssets.mountLibrary($('#asset-library'), {
+        onChange: () => {},
+        // GIF search „Als Trigger“: open the editor prefilled with the imported image.
+        onCreateTrigger: (asset, result) => {
+          if (triggers.length >= S.LIMITS.triggers) return log(`⚠️ Maximal ${S.LIMITS.triggers} Trigger`);
+          const label = String((result && result.title) || asset.name).replace(/\s*#\d+.*$/, '').slice(0, S.LIMITS.label) || 'Meme';
+          openEditor(
+            { id: S.newId('t'), label, keywords: [], enabled: true, cooldown: 5, sound: 'pop', visual: { kind: 'image', src: asset.url, position: 'safe' } },
+            { isNew: true }
+          );
+        },
+      });
       smart.refreshStatus().then((st) => log(`🤖 ${smartReasonText(st)}`));
     } else {
       $('#asset-library').innerHTML = '<div class="help">Uploads brauchen den Server: <code>node server.js</code></div>';
