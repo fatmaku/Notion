@@ -12,6 +12,9 @@ import { MockDetector } from '../vision/MockDetector';
 import { DetectionScheduler } from '../vision/DetectionScheduler';
 import { Tracker } from '../vision/Tracker';
 import { fullFrameState, type WindowState } from '../vision/window/types';
+import { WindowTracker } from '../vision/window/WindowTracker';
+import { FrameGrabber } from '../vision/window/FrameGrabber';
+import { CalibrateScreen, type CalibrateScreenApi } from '../ui/screens/CalibrateScreen';
 import { Layers } from '../render/Layers';
 import { FxRenderer } from '../render/FxRenderer';
 import { Diagnostics } from '../debug/Diagnostics';
@@ -57,7 +60,10 @@ export class App {
   detector: Detector | null = null;
   scheduler: DetectionScheduler | null = null;
   tracker = new Tracker();
-  windowState: WindowState = fullFrameState(1280, 720);
+  windowTracker: WindowTracker | null = null;
+  private readonly grabber = new FrameGrabber(240);
+  private lastGrabAt = 0;
+  private calibrating: CalibrateScreenApi | null = null;
   mode: GameMode | null = null;
   paused = false;
   lastResult: RoundResult | null = null;
@@ -76,13 +82,22 @@ export class App {
       (v) => this.storage.set('playerId', v),
     );
     this.leaderboard = new Leaderboard(import.meta.env.VITE_LEADERBOARD_URL || undefined, pid);
+    this.motion.events.on('sample', (s) => this.windowTracker?.onMotion(s));
     this.applySettings();
+  }
+
+  get windowState(): WindowState {
+    return this.windowTracker?.get() ?? fullFrameState(this.layers.videoW || 1280, this.layers.videoH || 720);
   }
 
   applySettings(): void {
     const s = this.settings.data;
     this.sfx.enabled = s.sound && !this.params.test;
     this.haptics.enabled = s.haptics;
+    this.motion.invertPan = s.invertPan;
+    this.motion.invertTilt = s.invertTilt;
+    this.windowTracker?.setHfov(s.hfovDeg);
+    this.windowTracker?.setLatency(s.cameraLatencyMs);
     if (s.debug || this.params.debug) this.overlay.show();
     else this.overlay.hide();
   }
@@ -101,11 +116,12 @@ export class App {
       snapshot: () => ({ ...this.diag.snapshot(), ...(this.mode?.snapshot() ?? {}), screen: this.router.active?.el.className ?? '', paused: this.paused }),
     };
     this.diag.set('version', __APP_VERSION__);
-    if (p.skipTo === 'play') {
+    if (p.skipTo) {
       this.session.source = p.demo ? 'demo' : 'camera';
       try {
         await this.startSource();
-        this.startRound();
+        if (p.skipTo === 'calibrate') this.showCalibrate();
+        else this.startRound();
       } catch (e) {
         console.error(e);
         toast(String((e as Error).message ?? e));
@@ -149,8 +165,25 @@ export class App {
     else void this.prepareAndPlay();
   }
 
-  /** Camera + detector are running; continue to calibration / play. */
+  /** Camera + detector are running; continue to calibration. */
   afterCamera(): void {
+    this.showCalibrate();
+  }
+
+  showCalibrate(): void {
+    this.mode = null;
+    const screen = CalibrateScreen(this);
+    this.calibrating = screen;
+    this.router.show({
+      el: screen.el,
+      exit: () => {
+        if (this.calibrating === screen) this.calibrating = null;
+      },
+    });
+  }
+
+  afterCalibrate(): void {
+    this.calibrating = null;
     this.startRound();
   }
 
@@ -182,7 +215,7 @@ export class App {
       this.showStart();
       return;
     }
-    this.startRound();
+    this.showCalibrate();
   }
 
   /** Starts (or reuses) the frame source + detector pipeline for the current session. */
@@ -223,7 +256,7 @@ export class App {
     this.layers.beginFrame();
     const w = video.videoWidth;
     const h = video.videoHeight;
-    this.windowState = fullFrameState(w, h);
+    this.windowTracker = new WindowTracker({ frameW: w, frameH: h, hfovDeg: this.settings.data.hfovDeg, latencyMs: this.settings.data.cameraLatencyMs });
     this.tracker = new Tracker({ frame: { w, h }, confirmHits: 2 });
     await this.detector.init((f, label) => {
       this.diag.set('model', `${label} ${(f * 100).toFixed(0)}%`);
@@ -330,7 +363,9 @@ export class App {
   }
 
   recenter(): void {
-    /* window tracker hook (M3) */
+    const ok = this.windowTracker?.recenter() ?? false;
+    toast(ok ? 'Scheibe neu zentriert' : 'Keine Scheibe erkannt – ganzes Bild aktiv', 1500);
+    if (!ok) this.windowTracker?.setFullFrame();
   }
 
   async submitScore(r: RoundResult): Promise<void> {
@@ -345,6 +380,33 @@ export class App {
   private tick(dt: number, now: number): void {
     const L = this.layers;
     L.beginFrame();
+    if (this.windowTracker && now - this.lastGrabAt >= 66 && videoReady(L.video)) {
+      this.lastGrabAt = now;
+      const g = this.grabber.grab(L.video, now);
+      if (g) this.windowTracker.observe(g);
+      const ws = this.windowTracker.get();
+      this.diag.set('win', `${ws.mode} ${(ws.confidence * 100).toFixed(0)}%`);
+      this.diag.set('focal', `${this.windowTracker.focal.f.toFixed(0)}px s${this.windowTracker.focal.sign} n${this.windowTracker.focal.samples}`);
+      this.diag.set('gyro', `${this.motion.status} ${this.motion.samples}`);
+    }
+    if (this.calibrating) {
+      const ws = this.windowState;
+      if (ws.mode !== 'fullframe') this.fxDebug.outsideQuadDim(ws.quad, L.frameRect(), 0.35);
+      this.fxDebug.quad(ws.quad, ws.mode === 'tracking' ? '#22c55e' : ws.mode === 'degraded' ? '#f59e0b' : '#94a3b8', 3, ws.mode === 'fullframe' ? [12, 10] : []);
+      if (this.session.mode === 'side-runner' && this.windowTracker) {
+        const [a, b] = this.windowTracker.ground();
+        L.fx.strokeStyle = '#38bdf8';
+        L.fx.lineWidth = 3;
+        L.fx.setLineDash([14, 8]);
+        L.fx.beginPath();
+        L.fx.moveTo(a.x, a.y);
+        L.fx.lineTo(b.x, b.y);
+        L.fx.stroke();
+        L.fx.setLineDash([]);
+      }
+      for (const t of this.tracker.active) this.fxDebug.bracket(t.predict(now - this.settings.data.cameraLatencyMs), 'rgba(255,255,255,0.4)', 2);
+      this.calibrating.onFrame();
+    }
     if (this.mode) {
       if (!this.paused) this.mode.update(dt, now);
       if (!this.mode) return;

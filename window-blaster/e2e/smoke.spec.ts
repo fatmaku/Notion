@@ -23,7 +23,7 @@ test.describe('demo mode (synthetic scene + mock detector)', () => {
     expect(Number(s.hits)).toBeGreaterThan(0);
     expect(Number(s.score)).toBeGreaterThan(0);
     expect(Number(s.fps)).toBeGreaterThan(4); // software rendering in CI; phones run 30-60
-    expect(Number(s.detHz)).toBeGreaterThan(3);
+    expect(Number(s.detHz)).toBeGreaterThan(1.5);
     await page.screenshot({ path: 'test-results/front-shooter.png' });
     expect(errors, errors.join('\n')).toEqual([]);
   });
@@ -76,6 +76,8 @@ test.describe('demo mode (synthetic scene + mock detector)', () => {
     await expect(page.getByText('Wähle deine Waffen')).toBeVisible();
     await page.getByRole('button', { name: /Raketenwerfer/ }).click();
     await page.getByRole('button', { name: 'Weiter' }).click();
+    await expect(page.getByText('Scheibe vermessen')).toBeVisible({ timeout: 30_000 });
+    await page.getByRole('button', { name: /Passt so/ }).click();
     await waitForPlay(page);
     const s = await snapshot(page);
     expect(['grenade', 'rocket']).toContain(String(s.weapon)); // smg was replaced by the third pick

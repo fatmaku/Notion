@@ -9,6 +9,10 @@ export interface WindowState {
   mode: WindowMode;
 }
 
+export function isTrackingWindow(s: WindowState): boolean {
+  return s.mode === 'tracking' || s.mode === 'degraded';
+}
+
 export const fullFrameState = (w: number, h: number): WindowState => ({
   quad: [
     { x: 0, y: 0 },
