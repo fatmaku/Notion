@@ -102,56 +102,59 @@ const words = s => s.split(' ').map(w => { const c = w.includes('[') ? 'hl' : w.
 const LANG = new URLSearchParams(location.search).get('lang') || 'tr';
 const L = {
  tr: { book: n => `${n}. KİTAP`, prob: 'ZORLUK', sol: 'ÇÖZÜM', quote: '“Farklıyız, [eksik] [değil.]”' },
- en: { book: n => `BOOK ${n}`, prob: 'CHALLENGE', sol: 'SOLUTION', quote: '“Different, not [less.]”',
+ en: { book: n => `BOOK ${n}`, prob: 'CHALLENGE', sol: 'SOLUTION', quote: '“We’re different, not [less.]”',
    hook: ['Your child is not [broken.]', 'Their brain just came without a {manual.}'],
    author: ['Tuncay Sancak was diagnosed with [ADHD] at 32 and [autism] at 33.', 'He wrote these books for his {own} {children.}'],
    series: ['5 books · 40 adventures · {1} {compass}', 'Everyday struggles in autism and ADHD, and small solutions that [work.]'],
-   buddy: 'Deniz & Pusula, the butterfly',
+   series: 'My Neurodivergent Compass',
+   titles: ['My Neurodivergent Compass', 'Deniz and the Secret Messages of His Body', 'Deniz Finds His Own Way at School', 'Deniz and the Friendship Compass', 'Deniz and the Island of Changes'],
+   subs: ['Adventures with Pusula the Butterfly', 'Adventures about the Toilet, Sleep and Daily Care', 'Adventures about Learning, Homework and School Courage', 'Adventures about Friendship, Play and Social Courage', 'Adventures about Change, Transitions and Flexibility'],
    themes: ['Senses, Meltdowns & Superpowers', 'Toilet, Sleep & Daily Care', 'Learning, Homework & School Courage', 'Friendship, Play & Social Courage', 'Change, Transitions & Flexibility'],
    pairs: [
-    [['Supermarket lights, noise… it’s all [too] [much.]', 'Take a short break. Teach your child one sentence: <b>“My eyes are tired.”</b>'],
+    [['Supermarket lights, noise… it’s all [too] [much.]', 'Take a short break. Teach your child the magic sentence: <b>“My eyes are tired.”</b>'],
      ['Rocking, jumping, flapping… “[Sit] [still!]”', 'Don’t stop it; this is how the body calms down. <b>“This is my charging dance.”</b>'],
      ['The balloon fills up, fills up… and [pops.]', 'Few words: <b>“I’m here. You’re safe.”</b> Dim lights and sound; then water and a hug.']],
-    [['The pee signal comes [too] [late;] accidents happen.', 'Don’t wait for the feeling, check by routine: <b>shoes → toilet → door.</b>'],
-     ['Bath, teeth, haircut: a [sensory] [mountain.]', 'Small picture steps, <b>two choices</b> and a <b>break signal.</b>'],
+    [['The pee signal comes [too] [late;] accidents happen.', 'Don’t wait for the feeling, check by routine: <b>“I don’t know if I need to go. I’m going to check.”</b>'],
+     ['Bath, teeth, haircut: an expedition up [Bubble] [Mountain.]', 'Small picture steps, <b>two choices</b> and a <b>break signal.</b>'],
      ['The brain won’t [switch] [off] at night.', 'A landing strip: <b>dim light → short book → park questions on paper → bed.</b>']],
-    [['Not ten questions, a mountain: [can’t] [start.]', 'Shrink the first step and <b>start together for two minutes.</b>'],
-     ['Forgotten papers, [lost] [things.]', 'Give every item <b>a fixed home</b> and put <b>a check picture</b> by the door.'],
+    [['Not ten questions, a mountain: [can’t] [start.]', 'Shrink the first step: <b>“Let’s start together for two minutes.”</b>'],
+     ['Forgotten papers, [lost] [things.]', 'Give every item a home and ask: <b>“Where does this one live?”</b>'],
      ['“Five minutes” is invisible; [transitions] [hurt.]', 'Make time visible: <b>hourglass, 5- and 2-minute warnings.</b>']],
-    [['Joke or real? [Hints] [get] [lost.]', 'Asking is allowed: <b>“Did you mean that, or was it a joke?”</b>'],
+    [['Joke or real? [Hints] [get] [lost.]', 'Asking is allowed: <b>“Did you say that for real, or was it a joke?”</b>'],
      ['How do you [join] [the] [game?]', 'Three doors: <b>watch, ask, offer a role.</b>'],
      ['Losing feels like an [earthquake.]', 'Feelings are allowed, hurting is not: <b>step away, push the wall, breathe out.</b>']],
-    [['When plans change, the [world] [falls] [apart.]', '<b>Old plan → why it changed → new plan.</b> Being sad is allowed.'],
+    [['When plans change, the [world] [falls] [apart.]', '<b>Old plan → why it changed → new plan.</b> “You can be sad and still cross over to the new plan.”'],
      ['Leaving the screen is [so] [hard.]', '<b>10- and 2-minute warnings</b>, a safe stopping point, save, next activity.'],
-     ['“I have to do it myself”… and [stuck.]', 'Asking for help is a superpower: <b>“Can you show me once? Then I’ll try.”</b>']]],
-   fan: ['5 children’s books by Tuncay Sancak', 'Search on Amazon: <b style="color:#fff">Tuncay Sancak</b>', 'E-book & paperback · English & German', 'These books do not diagnose and do not replace a professional assessment.'] },
- de: { book: n => `BAND ${n}`, prob: 'HERAUSFORDERUNG', sol: 'LÖSUNG', quote: '„Anders, nicht [weniger.]“',
+     ['“I have to do it myself”… and [stuck.]', 'Asking for help is a superpower: <b>“Could you show me once, and then I’ll try?”</b>']]],
+   fan: ['My Neurodivergent Compass<br>5 children’s books by Tuncay Sancak', 'Search on Amazon: <b style="color:#fff">Tuncay Sancak</b>', 'E-book & paperback · English & German', 'These books do not diagnose and do not replace a professional assessment.'] },
+ de: { book: n => `BAND ${n}`, prob: 'HERAUSFORDERUNG', sol: 'LÖSUNG', quote: '„Wir sind anders, nicht [weniger.]“',
    hook: ['Dein Kind ist nicht [kaputt.]', 'Sein Gehirn kam nur ohne {Bedienungsanleitung.}'],
    author: ['Tuncay Sancak bekam mit 32 die Diagnose [ADHS] und mit 33 [Autismus.]', 'Er schrieb diese Bücher für seine {eigenen} {Kinder.}'],
    series: ['5 Bücher · 40 Abenteuer · {1} {Kompass}', 'Alltagshürden bei Autismus und ADHS und kleine Lösungen, die [wirken.]'],
-   buddy: 'Deniz & Schmetterling Pusula',
+   series: 'Mein Neurodiverser Kompass',
+   titles: ['Mein Neurodiverser Kompass', 'Deniz und die geheimen Botschaften seines Körpers', 'Deniz findet seinen eigenen Weg in der Schule', 'Deniz und der Freundschaftskompass', 'Deniz und die Insel der Veränderungen'],
+   subs: ['Abenteuer mit Pusula dem Schmetterling', 'Abenteuer über Toilette, Schlaf und tägliche Pflege', 'Abenteuer über Lernen, Hausaufgaben und Schulmut', 'Abenteuer über Freundschaft, Spiel und sozialen Mut', 'Abenteuer über Veränderung, Übergänge und Flexibilität'],
    themes: ['Sinne, Krisen & Superkräfte', 'Toilette, Schlaf & tägliche Pflege', 'Lernen, Hausaufgaben & Schulmut', 'Freundschaft, Spiel & sozialer Mut', 'Veränderung, Übergänge & Flexibilität'],
    pairs: [
-    [['Supermarktlicht, Lärm… alles ist [zu] [viel.]', 'Kurze Pause machen. Bringen Sie Ihrem Kind einen Satz bei: <b>„Meine Augen sind müde.“</b>'],
-     ['Schaukeln, Hüpfen, Flattern… „[Sitz] [still!]“', 'Nicht unterbinden: So beruhigt sich der Körper. <b>„Das ist mein Auflade-Tanz.“</b>'],
+    [['Supermarktlicht, Lärm… alles ist [zu] [viel.]', 'Kurze Pause machen. Bringen Sie Ihrem Kind den Zaubersatz bei: <b>„Meine Augen sind müde.“</b>'],
+     ['Schaukeln, Hüpfen, Flattern… „[Sitz] [still!]“', 'Nicht unterbinden: So beruhigt sich der Körper. <b>„Das ist mein Ladetanz.“</b>'],
      ['Der Ballon wird voller, voller… und [platzt.]', 'Wenig Worte: <b>„Ich bin da. Du bist sicher.“</b> Licht und Lärm runter, danach Wasser und eine Umarmung.']],
-    [['Das Pipi-Signal kommt [zu] [spät;] es passieren Unfälle.', 'Nicht aufs Gefühl warten, per Routine prüfen: <b>Schuhe → Toilette → Tür.</b>'],
-     ['Baden, Zähne, Haare schneiden: ein [Reize-Berg.]', 'Kleine Bildschritte, <b>zwei Wahlmöglichkeiten</b> und ein <b>Pausenzeichen.</b>'],
+    [['Das Pipi-Signal kommt [zu] [spät;] es passieren Unfälle.', 'Nicht aufs Gefühl warten, per Routine prüfen: <b>„Ich weiß nicht, ob ich muss. Ich schaue nach.“</b>'],
+     ['Baden, Zähne, Haare schneiden: eine Expedition auf den [Schaumberg.]', 'Kleine Bildschritte, <b>zwei Wahlmöglichkeiten</b> und ein <b>Pausenzeichen.</b>'],
      ['Das Gehirn [schaltet] nachts nicht [ab.]', 'Eine Landebahn: <b>gedimmtes Licht → kurzes Buch → Fragen auf Papier parken → Bett.</b>']],
-    [['Keine zehn Aufgaben, ein Berg: [nicht] [anfangen] können.', 'Den ersten Schritt verkleinern und <b>zwei Minuten gemeinsam</b> beginnen.'],
-     ['Vergessene Zettel, [verlorene] [Sachen.]', 'Jedem Ding <b>ein festes Zuhause</b> und an der Tür <b>ein Kontrollbild.</b>'],
+    [['Keine zehn Aufgaben, ein Berg: [nicht] [anfangen] können.', 'Den ersten Schritt verkleinern: <b>„Lass uns zwei Minuten zusammen anfangen.“</b>'],
+     ['Vergessene Zettel, [verlorene] [Sachen.]', 'Jedem Ding ein Zuhause geben und fragen: <b>„Wo ist das Zuhause von diesem Ding?“</b>'],
      ['„Fünf Minuten“ sind unsichtbar; [Übergänge] [sind] [schwer.]', 'Zeit sichtbar machen: <b>Sanduhr, Hinweis bei 5 und 2 Minuten.</b>']],
-    [['Witz oder ernst? [Andeutungen] [gehen] [verloren.]', 'Nachfragen ist erlaubt: <b>„Meinst du das ernst oder ist das ein Witz?“</b>'],
+    [['Witz oder ernst? [Andeutungen] [gehen] [verloren.]', 'Nachfragen ist erlaubt: <b>„Hast du das ernst gemeint oder als Spaß?“</b>'],
      ['Wie komme ich [ins] [Spiel?]', 'Drei Türen: <b>zuschauen, fragen, eine Rolle anbieten.</b>'],
      ['Verlieren fühlt sich an wie ein [Erdbeben.]', 'Gefühle sind erlaubt, wehtun nicht: <b>einen Schritt weg, gegen die Wand drücken, ausatmen.</b>']],
-    [['Wenn Pläne sich ändern, [bricht] [die] [Welt] [zusammen.]', '<b>Alter Plan → warum er sich ändert → neuer Plan.</b> Traurig sein ist erlaubt.'],
+    [['Wenn Pläne sich ändern, [bricht] [die] [Welt] [zusammen.]', '<b>Alter Plan → warum er sich ändert → neuer Plan.</b> „Du darfst traurig sein – und trotzdem zum neuen Plan wechseln.“'],
      ['Vom Bildschirm wegzukommen ist [so] [schwer.]', '<b>Hinweis bei 10 und 2 Minuten</b>, sicherer Endpunkt, speichern, nächste Aktivität.'],
-     ['„Ich muss das allein schaffen“… und [feststecken.]', 'Um Hilfe bitten ist eine Superkraft: <b>„Können Sie es mir einmal zeigen? Dann probiere ich es.“</b>']]],
-   fan: ['5 Kinderbücher von Tuncay Sancak', 'Auf Amazon suchen: <b style="color:#fff">Tuncay Sancak</b>', 'E-Book & Taschenbuch · Deutsch & Englisch', 'Diese Bücher stellen keine Diagnose und ersetzen keine fachliche Abklärung.'] },
+     ['„Ich muss das allein schaffen“… und [feststecken.]', 'Um Hilfe bitten ist eine Superkraft: <b>„Zeigen Sie es mir bitte einmal, und dann probiere ich es selbst?“</b>']]],
+   fan: ['Mein Neurodiverser Kompass<br>5 Kinderbücher von Tuncay Sancak', 'Auf Amazon suchen: <b style="color:#fff">Tuncay Sancak</b>', 'E-Book & Taschenbuch · Deutsch & Englisch', 'Diese Bücher stellen keine Diagnose und ersetzen keine fachliche Abklärung.'] },
 }[LANG];
 if (LANG !== 'tr') {
-  document.getElementById('stage').classList.add('crop');
-  BOOKS.forEach((b, i) => { b.title = L.themes[i]; b.sub = L.buddy; b.pairs.forEach((pr, j) => { [pr.p, pr.s] = L.pairs[i][j]; }); });
+  BOOKS.forEach((b, i) => { b.title = L.titles[i]; b.sub = L.subs[i]; b.cover = { src: `../intl/${LANG}${i + 1}/OEBPS/images/cover.jpg` }; b.pairs.forEach((pr, j) => { [pr.p, pr.s] = L.pairs[i][j]; }); });
 }
 
 // intro
@@ -170,7 +173,7 @@ if (LANG === 'tr') {
 
 BOOKS.forEach((bk, i) => {
   const a = T0 + i * BOOK_LEN;
-  const card = el('bookcard', `<div class="cov"><img src="${bk.cover.src}"></div><div class="no">${L.book(bk.n)}</div><div class="ti">${bk.title}</div><div class="su">${bk.sub}</div>`);
+  const card = el('bookcard', `<div class="cov"><img src="${bk.cover.src}"></div><div class="no">${L.book(bk.n)}</div><div class="ti"${bk.title.length > 38 ? ' style="font-size:62px"' : ''}>${bk.title}</div><div class="su">${bk.sub}</div>`);
   UI.push({ a, b: a + CARD + .4, el: card, kind: 'book' });
   bk.pairs.forEach((pr, j) => {
     const s = a + CARD + j * PAIR;
