@@ -129,6 +129,16 @@ class Handler(BaseHTTPRequestHandler):
                 if not item or not item.get("path"):
                     return self._json({"hata": "yerelde yok"}, 404)
                 return self._file(item["path"])
+            if path.startswith("/api/preview/"):
+                from . import preview
+                con = self._con()
+                item = db.get_item(con, int(path.rsplit("/", 1)[1]))
+                if not item:
+                    return self._json({"hata": "yok"}, 404)
+                st = preview.status(con, item)
+                if q.get("info") or st["durum"] != "hazir":
+                    return self._json({k: v for k, v in st.items() if k != "yol"}, 200)
+                return self._file(st["yol"], "image/jpeg" if item["kind"] == "foto" else "video/mp4")
             if path.startswith("/api/item/"):
                 item = db.get_item(self._con(), int(path.rsplit("/", 1)[1]))
                 return self._json(item or {"hata": "yok"}, 200 if item else 404)
