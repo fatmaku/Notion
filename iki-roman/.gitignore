@@ -1,0 +1,7 @@
+# Zwischenprodukte, die aus den Quellen neu erzeugt werden
+interior/out/build/
+trailer/out/frames/
+trailer/out/silent-*.mp4
+assets/upscaled/referenz_x4_lanczos.png
+**/_ebook.pdf
+__pycache__/

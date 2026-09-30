@@ -1,0 +1,174 @@
+{
+  "BY": {
+    "pages": 281,
+    "pages_source": "interior/out/report.json",
+    "spine_mm": 17.84,
+    "tr": {
+      "geometry": {
+        "page_w": 320.19,
+        "page_h": 216.35,
+        "spine": 17.84,
+        "back_x": 3.175,
+        "spine_x": 151.175,
+        "front_x": 169.01500000000001
+      },
+      "fullcover_check": {
+        "width_mm": 320.19,
+        "height_mm": 216.35,
+        "fonts": [
+          "/FICKVL+Literata-Semi-Bold",
+          "/FWDZFX+Cinzel",
+          "/IKUMJV+Literata-Italic",
+          "/JVDBRE+Literata",
+          "/STCGVO+Cinzel-Bold"
+        ],
+        "fonts_embedded": true,
+        "ok": true
+      },
+      "ebook_px": [
+        1600,
+        2560
+      ]
+    },
+    "en": {
+      "geometry": {
+        "page_w": 320.19,
+        "page_h": 216.35,
+        "spine": 17.84,
+        "back_x": 3.175,
+        "spine_x": 151.175,
+        "front_x": 169.01500000000001
+      },
+      "fullcover_check": {
+        "width_mm": 320.19,
+        "height_mm": 216.35,
+        "fonts": [
+          "/FICKVL+Literata-Semi-Bold",
+          "/FWDZFX+Cinzel",
+          "/IKUMJV+Literata-Italic",
+          "/JVDBRE+Literata",
+          "/STCGVO+Cinzel-Bold"
+        ],
+        "fonts_embedded": true,
+        "ok": true
+      },
+      "ebook_px": [
+        1600,
+        2560
+      ]
+    },
+    "de": {
+      "geometry": {
+        "page_w": 320.19,
+        "page_h": 216.35,
+        "spine": 17.84,
+        "back_x": 3.175,
+        "spine_x": 151.175,
+        "front_x": 169.01500000000001
+      },
+      "fullcover_check": {
+        "width_mm": 320.19,
+        "height_mm": 216.35,
+        "fonts": [
+          "/FICKVL+Literata-Semi-Bold",
+          "/FWDZFX+Cinzel",
+          "/IKUMJV+Literata-Italic",
+          "/JVDBRE+Literata",
+          "/STCGVO+Cinzel-Bold"
+        ],
+        "fonts_embedded": true,
+        "ok": true
+      },
+      "ebook_px": [
+        1600,
+        2560
+      ]
+    }
+  },
+  "SA": {
+    "pages": 165,
+    "pages_source": "SCHÄTZUNG – vor dem Upload mit der echten Seitenzahl neu bauen!",
+    "spine_mm": 10.48,
+    "tr": {
+      "geometry": {
+        "page_w": 312.83000000000004,
+        "page_h": 216.35,
+        "spine": 10.48,
+        "back_x": 3.175,
+        "spine_x": 151.175,
+        "front_x": 161.655
+      },
+      "fullcover_check": {
+        "width_mm": 312.83,
+        "height_mm": 216.35,
+        "fonts": [
+          "/FICKVL+Literata-Semi-Bold",
+          "/FWDZFX+Cinzel",
+          "/IKUMJV+Literata-Italic",
+          "/JVDBRE+Literata",
+          "/STCGVO+Cinzel-Bold"
+        ],
+        "fonts_embedded": true,
+        "ok": true
+      },
+      "ebook_px": [
+        1600,
+        2560
+      ]
+    },
+    "en": {
+      "geometry": {
+        "page_w": 312.83000000000004,
+        "page_h": 216.35,
+        "spine": 10.48,
+        "back_x": 3.175,
+        "spine_x": 151.175,
+        "front_x": 161.655
+      },
+      "fullcover_check": {
+        "width_mm": 312.83,
+        "height_mm": 216.35,
+        "fonts": [
+          "/FICKVL+Literata-Semi-Bold",
+          "/FWDZFX+Cinzel",
+          "/IKUMJV+Literata-Italic",
+          "/JVDBRE+Literata",
+          "/STCGVO+Cinzel-Bold"
+        ],
+        "fonts_embedded": true,
+        "ok": true
+      },
+      "ebook_px": [
+        1600,
+        2560
+      ]
+    },
+    "de": {
+      "geometry": {
+        "page_w": 312.83000000000004,
+        "page_h": 216.35,
+        "spine": 10.48,
+        "back_x": 3.175,
+        "spine_x": 151.175,
+        "front_x": 161.655
+      },
+      "fullcover_check": {
+        "width_mm": 312.83,
+        "height_mm": 216.35,
+        "fonts": [
+          "/FICKVL+Literata-Semi-Bold",
+          "/FWDZFX+Cinzel",
+          "/IKUMJV+Literata-Italic",
+          "/JVDBRE+Literata",
+          "/STCGVO+Cinzel-Bold"
+        ],
+        "fonts_embedded": true,
+        "ok": true
+      },
+      "ebook_px": [
+        1600,
+        2560
+      ]
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "_hinweis": "Einzige Textquelle für Cover, eBook-Cover und Marketing. TR ist die Hauptsprache. Titel bleiben in allen Sprachen türkisch (Markenname). Die Referenzgrafik nannte den Erzähler von BEN YOKSAM 'Adem/Adam' und sprach bei ŞAHİDİ ARARKEN von 'drei Jahren Schweigen' – beides kommt im Manuskript nicht vor (der Erzähler bleibt namenlos; Sefa schweigt seit drei Monaten, der Fall ist ein Mann ohne Sprechfähigkeit). Die Texte hier halten sich an die Manuskripte.",
+  "series": {
+    "tagline": {
+      "tr": "İki Roman – İki Yol – Üçüncü Bir Hikâye",
+      "en": "Two Novels – Two Paths – A Third Story",
+      "de": "Zwei Romane – Zwei Wege – Eine dritte Geschichte"
+    },
+    "claim": {
+      "tr": "Her biri tek başına bir roman. Birlikte okununca üçüncü bir kitap belirir.",
+      "en": "Each one a novel in its own right. Read together, a third book appears.",
+      "de": "Jedes für sich ein Roman. Zusammen gelesen erscheint ein drittes Buch."
+    }
+  },
+  "BY": {
+    "title": "BEN YOKSAM",
+    "title_lines": ["BEN", "YOKSAM"],
+    "subtitle": "1453 — UYANIŞIN BEDELİ",
+    "subtitle_translation": { "tr": "", "en": "1453 — The Price of Awakening", "de": "1453 — Der Preis des Erwachens" },
+    "author": "Tuncay Sancak",
+    "author_caps": "TUNCAY SANCAK",
+    "genre": {
+      "tr": "Mistik suç ve psikolojik gerilim romanı",
+      "en": "A mystical crime and psychological thriller",
+      "de": "Mystischer Kriminal- und Psychothriller"
+    },
+    "headline": {
+      "tr": "Bir şeyin var olduğunu nasıl anlarsın?",
+      "en": "How do you know that something exists?",
+      "de": "Wie erkennst du, dass etwas existiert?"
+    },
+    "questions": {
+      "tr": ["Gördüğün için mi?", "Hatırladığın için mi?", "Yoksa biri sana var olduğunu söylediği için mi?"],
+      "en": ["Because you see it?", "Because you remember it?", "Or because someone tells you it exists?"],
+      "de": ["Weil du es siehst?", "Weil du dich erinnerst?", "Oder weil dir jemand sagt, dass es existiert?"]
+    },
+    "blurb": {
+      "tr": [
+        "Bir sabah kapının önünde siyah bir paket duruyor: gönderen yok, adres yok. İçindeki kitap ise olmaması gereken bir şeyi anlatıyor: onu. Çocukluğunu, korkularını, unuttuğunu sandığı anıları ve kimsenin bilemeyeceği ayrıntıları.",
+        "Her sayfada 1453 bir tarih olmaktan çıkıp bir anahtara, kırmızı bir ip bir simgeye dönüşüyor; tesadüfler tesadüf olmaktan çıkıyor.",
+        "Sonra daha tehlikeli bir soru beliriyor: Ya seni uyandırmak isteyen şey, aslında seni yalnızca kendi istediği yere götürüyorsa?"
+      ],
+      "en": [
+        "One morning a black package lies at the door: no sender, no address. The book inside tells of something that should not exist: him. His childhood, his fears, the memories he thought he had forgotten, and details no one could know.",
+        "With every page, 1453 turns from a date into a key, a red string into a symbol, and coincidences stop being coincidental.",
+        "Then a more dangerous question arises: What if the thing that wants to wake you is only leading you where it wants you to go?"
+      ],
+      "de": [
+        "Eines Morgens liegt ein schwarzes Paket vor der Tür: ohne Absender, ohne Adresse. Doch das Buch darin enthält etwas, das nicht sein dürfte: ihn selbst. Seine Kindheit, seine Ängste, die Erinnerungen, die er vergessen glaubte, und Details, die niemand kennen dürfte.",
+        "Mit jeder Seite wird 1453 von einem Datum zu einem Schlüssel, ein roter Faden zum Symbol, und Zufälle verlieren ihre Zufälligkeit.",
+        "Doch bald stellt sich eine noch gefährlichere Frage: Was, wenn das, was dich aufwecken will, dich in Wahrheit nur dorthin führt, wohin es selbst dich bringen möchte?"
+      ]
+    }
+  },
+  "SA": {
+    "title": "ŞAHİDİ ARARKEN",
+    "title_lines": ["ŞAHİDİ", "ARARKEN"],
+    "subtitle": "",
+    "subtitle_translation": { "tr": "", "en": "In Search of the Witness", "de": "Auf der Suche nach dem Zeugen" },
+    "author": "Mustafa Sefa Güvenir",
+    "author_caps": "MUSTAFA SEFA GÜVENİR",
+    "genre": {
+      "tr": "Roman",
+      "en": "A Novel",
+      "de": "Roman"
+    },
+    "headline": {
+      "tr": "Konuşmayan bir insan neyi saklar?",
+      "en": "What does a person hide who no longer speaks?",
+      "de": "Was verbirgt ein Mensch, der nicht mehr spricht?"
+    },
+    "questions": {
+      "tr": ["Şahit kim?", "Susan adam mı?", "Hikâyeyi yazan mı?", "Gören mi?", "Yoksa bu kitabı şu anda elinde tutan kişi mi?"],
+      "en": ["Who is the witness?", "The silent man?", "The one who writes the story?", "The one who saw it?", "Or the person holding this book right now?"],
+      "de": ["Wer ist der Zeuge?", "Der schweigende Mann?", "Der, der die Geschichte schreibt?", "Der, der es gesehen hat?", "Oder die Person, die dieses Buch gerade in den Händen hält?"]
+    },
+    "blurb": {
+      "tr": [
+        "Mustafa Sefa alışılmadık bir görev alır: Artık konuşmayan bir adamın hikâyesini yazacaktır. Ama bu adamın geçmişine indikçe sarsılan yalnızca onun hikâyesi değil, Sefa'nın kendi gerçekliği olur.",
+        "Mektuplar, kayıp zamanlar ve tek bir kelime: Şahit. Bir araştırma olarak başlayan şey, hafızanın, kimliğin ve anlamın en derin katmanlarına yapılan bir yolculuğa dönüşür."
+      ],
+      "en": [
+        "Mustafa Sefa receives an unusual assignment: to write the story of a man who no longer speaks. But the deeper he descends into this man's past, the more it is not only that story but his own reality that begins to waver.",
+        "Letters, lost time, a single word: the witness. What begins as research becomes a journey into the deepest layers of memory, identity and meaning."
+      ],
+      "de": [
+        "Mustafa Sefa erhält einen ungewöhnlichen Auftrag: Er soll die Geschichte eines Mannes schreiben, der nicht mehr spricht. Doch je tiefer er in die Vergangenheit dieses Mannes eintaucht, desto mehr gerät nicht nur dessen Geschichte, sondern auch seine eigene Wirklichkeit ins Wanken.",
+        "Briefe, verlorene Zeiten, ein einziges Wort: der Zeuge. Was als Recherche beginnt, wird zu einer Reise in die tiefsten Schichten der Erinnerung, Identität und Bedeutung."
+      ]
+    }
+  }
+}

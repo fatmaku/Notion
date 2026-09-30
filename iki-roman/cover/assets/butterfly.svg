@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180" width="200" height="180">
+  <defs>
+    <radialGradient id="wing" cx="35%" cy="40%" r="75%">
+      <stop offset="0%" stop-color="#bfefff"/>
+      <stop offset="45%" stop-color="#4fc3f7"/>
+      <stop offset="100%" stop-color="#0b4f8a"/>
+    </radialGradient>
+    <radialGradient id="wing2" cx="40%" cy="45%" r="70%">
+      <stop offset="0%" stop-color="#e3f7ff"/>
+      <stop offset="50%" stop-color="#3fb0ea"/>
+      <stop offset="100%" stop-color="#0a3d6e"/>
+    </radialGradient>
+  </defs>
+  <!-- left upper wing -->
+  <path d="M100 92 C 78 40, 30 18, 14 42 C 2 60, 20 92, 60 100 C 78 104, 92 100, 100 92 Z" fill="url(#wing)" stroke="#062a4a" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- right upper wing -->
+  <path d="M100 92 C 122 40, 170 18, 186 42 C 198 60, 180 92, 140 100 C 122 104, 108 100, 100 92 Z" fill="url(#wing)" stroke="#062a4a" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- left lower wing -->
+  <path d="M100 98 C 84 110, 60 118, 44 140 C 36 152, 48 166, 66 160 C 84 154, 96 130, 100 112 Z" fill="url(#wing2)" stroke="#062a4a" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- right lower wing -->
+  <path d="M100 98 C 116 110, 140 118, 156 140 C 164 152, 152 166, 134 160 C 116 154, 104 130, 100 112 Z" fill="url(#wing2)" stroke="#062a4a" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- wing markings -->
+  <g fill="#062a4a" opacity="0.85">
+    <circle cx="44" cy="58" r="6"/><circle cx="156" cy="58" r="6"/>
+    <circle cx="62" cy="140" r="3.5"/><circle cx="138" cy="140" r="3.5"/>
+  </g>
+  <g fill="#ffffff" opacity="0.9">
+    <circle cx="36" cy="72" r="2.6"/><circle cx="164" cy="72" r="2.6"/>
+    <circle cx="26" cy="52" r="1.8"/><circle cx="174" cy="52" r="1.8"/>
+  </g>
+  <!-- body -->
+  <ellipse cx="100" cy="104" rx="5" ry="26" fill="#0b2340" stroke="#062a4a" stroke-width="1.5"/>
+  <circle cx="100" cy="76" r="5.5" fill="#0b2340"/>
+  <!-- antennae -->
+  <path d="M97 72 C 90 58, 80 52, 72 50" fill="none" stroke="#0b2340" stroke-width="2" stroke-linecap="round"/>
+  <path d="M103 72 C 110 58, 120 52, 128 50" fill="none" stroke="#0b2340" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="72" cy="50" r="2.4" fill="#0b2340"/><circle cx="128" cy="50" r="2.4" fill="#0b2340"/>
+</svg>

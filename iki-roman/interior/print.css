@@ -1,0 +1,134 @@
+/* print.css — Druck-Innenteil, A5 (148 × 210 mm) ohne Beschnitt, Amazon KDP.
+ * Gerendert mit WeasyPrint 70. Schriften: Literata (Brot), Cinzel (Auszeichnung).
+ * Buchspezifische Werte (Kolumnentitel-Stil, Seitenzähler-Neustart) werden von
+ * docx2book.py als <style> im HTML-Kopf ergänzt.
+ *
+ * ACHTUNG (Türkisch): niemals text-transform verwenden (i → I statt İ).
+ */
+
+/* ---------- Schriften (Pfade relativ zu dieser Datei) ---------- */
+@font-face { font-family: "Literata"; font-weight: 400; font-style: normal; src: url("../fonts/Literata-400.ttf"); }
+@font-face { font-family: "Literata"; font-weight: 400; font-style: italic; src: url("../fonts/Literata-400-italic.ttf"); }
+@font-face { font-family: "Literata"; font-weight: 600; font-style: normal; src: url("../fonts/Literata-600.ttf"); }
+@font-face { font-family: "Literata"; font-weight: 600; font-style: italic; src: url("../fonts/Literata-600-italic.ttf"); }
+@font-face { font-family: "Literata"; font-weight: 700; font-style: normal; src: url("../fonts/Literata-700.ttf"); }
+@font-face { font-family: "Cinzel"; font-weight: 400; font-style: normal; src: url("../fonts/Cinzel-400.ttf"); }
+@font-face { font-family: "Cinzel"; font-weight: 700; font-style: normal; src: url("../fonts/Cinzel-700.ttf"); }
+@font-face { font-family: "Cinzel"; font-weight: 900; font-style: normal; src: url("../fonts/Cinzel-900.ttf"); }
+
+/* ---------- Seiten ----------
+ * Satzspiegel: innen 20 mm, außen 15.5 mm, oben/unten 16.5 mm → 112.5 × 177 mm.
+ * Kolumnentitel/Pagina sitzen im Kopf-/Fußsteg, mindestens 8 mm vom Beschnitt entfernt.
+ */
+@page {
+  size: 148mm 210mm;
+  margin: 16.5mm 15.5mm 16.5mm 20mm;
+  @top-center {
+    content: none;
+    font-family: "Literata"; font-size: 8.5pt; font-style: italic; color: #000;
+    vertical-align: bottom; padding-bottom: 3.6mm;
+  }
+  @bottom-center {
+    content: counter(page);
+    font-family: "Literata"; font-size: 9pt; color: #000;
+    vertical-align: top; padding-top: 2.2mm;
+  }
+}
+/* rechte Seite (recto): Innensteg links; Kolumnentitel = Kapiteltitel */
+@page :right {
+  margin-left: 20mm; margin-right: 15.5mm;
+  @top-center { content: string(chapter, first-except); }
+}
+/* linke Seite (verso): Innensteg rechts; Kolumnentitel = Autorname (Versalien, gesperrt) */
+@page :left {
+  margin-left: 15.5mm; margin-right: 20mm;
+  @top-center { content: string(verso, first-except); font-style: normal; font-size: 7.5pt; letter-spacing: 0.16em; }
+}
+/* Leerseiten (vor recto-Zwang) bleiben völlig leer */
+@page :blank { @top-center { content: none; } @bottom-center { content: none; } }
+
+/* benannte Seiten */
+@page plain { @top-center { content: none; } @bottom-center { content: none; } }
+@page front { @top-center { content: none; } @bottom-center { content: counter(page, lower-roman); } }
+@page act   { @top-center { content: none; } @bottom-center { content: none; } }
+@page plate { @top-center { content: none; } @bottom-center { content: none; } }
+@page plain:blank, @page front:blank, @page act:blank, @page plate:blank, @page body:blank {
+  @top-center { content: none; } @bottom-center { content: none; }
+}
+
+/* ---------- Grundschrift ---------- */
+html { font-family: "Literata", serif; font-size: 10.5pt; line-height: 14.5pt; color: #000; }
+body { margin: 0; padding: 0; hyphens: manual; font-variant-ligatures: no-common-ligatures; font-kerning: normal; }
+p { margin: 0; text-align: justify; text-indent: 6mm; orphans: 2; widows: 2; }
+p.noindent, p.opening { text-indent: 0; }
+p.opening { margin-bottom: 0.35em; }
+p.blank { height: 14.5pt; }
+em { font-style: italic; }
+strong { font-weight: 700; }
+em strong, strong em { font-weight: 600; }
+
+/* ---------- Vorspann ---------- */
+section.page { page: plain; break-before: page; }
+section.halftitle { text-align: center; padding-top: 58mm; }
+section.halftitle .ht-title { font-family: "Cinzel"; font-weight: 400; font-size: 13pt; letter-spacing: 0.18em; text-indent: 0; text-align: center; }
+
+section.titlepage { break-before: right; text-align: center; padding-top: 42mm; }
+.titlepage p { text-indent: 0; text-align: center; }
+.tp-title { font-family: "Cinzel"; font-weight: 900; font-size: 26pt; line-height: 32pt; letter-spacing: 0.06em; }
+.tp-subtitle { font-family: "Cinzel"; font-weight: 400; font-size: 11pt; letter-spacing: 0.2em; margin-top: 7mm; }
+.tp-genre { font-style: italic; font-size: 10pt; margin-top: 12mm; }
+.tp-motto { font-style: italic; font-size: 10pt; margin-top: 20mm; }
+.tp-ornament { margin-top: 12mm; letter-spacing: 0.5em; font-size: 9pt; }
+.tp-author { font-family: "Cinzel"; font-weight: 400; font-size: 12.5pt; letter-spacing: 0.1em; margin-top: 12mm; }
+
+section.copyright { height: 177mm; display: flex; flex-direction: column; justify-content: flex-end; }
+.copyright p { font-size: 8.5pt; line-height: 12pt; text-indent: 0; text-align: left; }
+.copyright p.cp-title { font-family: "Cinzel"; font-weight: 700; font-size: 9.5pt; margin-bottom: 4pt; }
+.copyright p.cp-gap { margin-top: 8pt; }
+
+/* ---------- Inhaltsverzeichnis ----------
+ * Als Tabelle gesetzt: WeasyPrints leader() rechnet bei negativem text-indent falsch,
+ * in Tabellenzellen stehen die Seitenzahlen exakt am rechten Satzspiegelrand.
+ */
+nav.toc { page: front; break-before: right; }
+.toc h1 { font-family: "Cinzel"; font-weight: 700; font-size: 13pt; letter-spacing: 0.12em; text-align: center; margin: 22mm 0 12mm 0; }
+.toc table { width: 100%; border-collapse: collapse; font-size: 10pt; line-height: 14.5pt; }
+.toc td { padding: 0; vertical-align: baseline; text-align: left; }
+.toc tr { break-inside: avoid; }
+.toc td.n { width: 7mm; text-align: right; padding-right: 2mm; white-space: nowrap; }
+.toc a { color: inherit; text-decoration: none; }
+.toc td.t a::after { content: leader(".") target-counter(attr(href), page); font-style: normal; letter-spacing: 0; }
+.toc tr.toc-act td { font-family: "Cinzel"; font-weight: 400; font-size: 9.5pt; letter-spacing: 0.1em; padding-top: 9pt; break-after: avoid; }
+.toc tr.toc-act td a::after { content: leader(" ") target-counter(attr(href), page); letter-spacing: 0; }
+.toc tr.toc-sub td.t { padding-left: 5mm; font-style: italic; font-size: 9.5pt; }
+
+/* ---------- Werkteil ---------- */
+div.body { page: body; }
+section.preface { page: body; break-before: right; padding-top: 30mm; }
+.preface .epigraph { margin: 0 8mm 0 8mm; font-style: italic; text-align: left; text-indent: 0; }
+.preface .epigraph-source { text-align: right; text-indent: 0; margin: 4pt 8mm 0 0; font-size: 9.5pt; }
+.preface .preface-body { margin-top: 22mm; }
+
+section.act { page: act; break-before: right; break-after: page; text-align: center; padding-top: 72mm; }
+.act p, .act h1 { text-indent: 0; text-align: center; margin: 0; }
+.act .act-label { font-family: "Cinzel"; font-weight: 400; font-size: 11pt; letter-spacing: 0.22em; }
+.act .act-dash { font-family: "Cinzel"; font-weight: 400; font-size: 11pt; margin: 5mm 0; }
+.act h1.act-title { font-family: "Cinzel"; font-weight: 700; font-size: 20pt; line-height: 26pt; letter-spacing: 0.1em; }
+
+section.plate { page: plate; break-before: page; break-after: page; text-align: center; }
+section.plate img { display: block; margin-left: auto; margin-right: auto; }
+
+section.chapter { page: body; break-before: page; }
+header.ch-head { padding-top: 46mm; margin-bottom: 12mm; text-align: center; break-after: avoid; break-inside: avoid; }
+.ch-head p.ch-num { font-family: "Cinzel"; font-weight: 400; font-size: 12pt; letter-spacing: 0.25em; text-align: center; text-indent: 0; margin: 0 0 4mm 0; }
+h1.ch-title { font-family: "Cinzel"; font-weight: 700; font-size: 15.5pt; line-height: 21pt; letter-spacing: 0.03em; text-align: center; margin: 0; padding: 0 4mm; string-set: chapter attr(data-head), verso attr(data-verso); }
+h2.sub { font-family: "Cinzel"; font-weight: 700; font-size: 11.5pt; line-height: 14.5pt; text-align: left; margin: 14.5pt 0 7pt 0; break-after: avoid; }
+
+/* Einschübe (Book Inset): eingerückter Block, Sprecherlabel als fette Kapitälchen */
+div.inset { margin: 5pt 4mm 5pt 7mm; font-size: 9.5pt; line-height: 13pt; }
+div.inset p { text-indent: 0; text-align: left; margin: 0 0 2.5pt 0; }
+div.inset p:last-child { margin-bottom: 0; }
+div.inset .label { font-weight: 700; font-size: 8.3pt; letter-spacing: 0.06em; }
+
+/* Szenenwechsel-Ornament */
+p.scenebreak { text-align: center; text-indent: 0; margin: 7pt 0; letter-spacing: 0.6em; font-size: 9pt; break-before: avoid; break-after: avoid; }

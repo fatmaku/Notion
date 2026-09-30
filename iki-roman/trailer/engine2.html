@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>İki Roman – Fragman Motoru</title>
+<style>
+@font-face{font-family:'Cinzel';src:url('fonts/Cinzel-400.ttf') format('truetype');font-weight:400}
+@font-face{font-family:'Cinzel';src:url('fonts/Cinzel-700.ttf') format('truetype');font-weight:700}
+@font-face{font-family:'Cinzel';src:url('fonts/Cinzel-900.ttf') format('truetype');font-weight:900}
+@font-face{font-family:'Literata';src:url('fonts/Literata-400.ttf') format('truetype');font-weight:400;font-style:normal}
+@font-face{font-family:'Literata';src:url('fonts/Literata-400-italic.ttf') format('truetype');font-weight:400;font-style:italic}
+@font-face{font-family:'Literata';src:url('fonts/Literata-600.ttf') format('truetype');font-weight:600;font-style:normal}
+@font-face{font-family:'Literata';src:url('fonts/Literata-700.ttf') format('truetype');font-weight:700;font-style:normal}
+:root{--gold:#E6C878;--gold2:#C9A24E;--cream:#EFE6D3;--night:#0A1020;--warm:#1A0F08;--red:#C8102E}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;overflow:hidden}
+#stage{position:relative;overflow:hidden;background:#000;transform-origin:0 0}
+#world{position:absolute;inset:0;will-change:transform}
+.scene{position:absolute;inset:0;overflow:hidden;opacity:0;visibility:hidden}
+.art{position:absolute;left:50%;top:50%;will-change:transform;filter:brightness(.86) saturate(1.04)}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,6,4,0) 30%,rgba(8,6,4,.45) 60%,rgba(8,6,4,.82) 100%)}
+.leak{position:absolute;inset:-20%;mix-blend-mode:screen;pointer-events:none}
+#s-shared .half{position:absolute;top:0;bottom:0;width:50%;overflow:hidden}
+#s-shared .half.l{left:0}#s-shared .half.r{right:0}
+#s-shared .half img{position:absolute;left:50%;top:50%;filter:blur(18px) brightness(.38) saturate(.85)}
+#s-shared .seam{position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:linear-gradient(180deg,rgba(230,200,120,0),var(--gold) 20%,var(--gold) 80%,rgba(230,200,120,0));box-shadow:0 0 18px rgba(230,200,120,.6)}
+#s-shared .glow{position:absolute;inset:0;background:radial-gradient(ellipse 45% 40% at 50% 42%,rgba(70,150,95,.28),rgba(70,150,95,0) 70%)}
+#s-fist{background:radial-gradient(ellipse 70% 60% at 50% 55%,#231409 0%,#120c14 45%,#070811 100%)}
+#s-fist .bg{position:absolute;inset:0}
+#s-fist .cards{position:absolute;left:0;top:0;perspective:1600px;transform-origin:50% 0}
+.card{position:absolute;overflow:hidden;border-radius:5px;box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 0 1px rgba(230,200,120,.18);will-change:transform;background:#000}
+.card img{position:absolute;display:block}
+.sky{position:absolute;left:50%;bottom:0;transform:translateX(-50%);opacity:.2;-webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent)}
+#s-end{background:radial-gradient(ellipse 80% 70% at 50% 60%,#1c1208 0%,#0f0c10 50%,#070811 100%)}
+#s-end .eglow{position:absolute;left:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(230,200,120,.34),rgba(230,200,120,.10) 45%,rgba(230,200,120,0) 70%)}
+.ecov{position:absolute;overflow:hidden;border-radius:4px;box-shadow:0 26px 70px rgba(0,0,0,.6),0 0 0 1px rgba(230,200,120,.22)}
+.ecov img{display:block;width:100%;height:100%;object-fit:cover}
+.ename{position:absolute;text-align:center;font-family:'Cinzel';font-weight:400;color:var(--gold);letter-spacing:.16em;white-space:nowrap}
+.cta{position:absolute;left:0;right:0;text-align:center;font-family:'Cinzel';font-weight:700;color:var(--gold);letter-spacing:.14em}
+.handle{position:absolute;left:0;right:0;text-align:center;font-family:'Literata';font-weight:400;color:rgba(239,230,211,.75);letter-spacing:.08em}
+#dim{position:absolute;inset:0;background:rgba(6,6,10,.66);opacity:0}
+#gfx{position:absolute;inset:0;pointer-events:none}
+.g{position:absolute;will-change:transform,opacity;filter:drop-shadow(0 0 10px rgba(230,200,120,.35))}
+.g svg{display:block;width:100%;height:100%;overflow:visible}
+.g.green{filter:drop-shadow(0 0 14px rgba(120,220,150,.55))}
+#texts{position:absolute;inset:0;pointer-events:none}
+.q{position:absolute;left:0;right:0;text-align:center;font-family:'Cinzel';font-weight:400;color:var(--cream);text-shadow:0 2px 24px rgba(0,0,0,.7)}
+.tblock{position:absolute;text-align:center}
+.plate{position:absolute;left:-12%;right:-12%;top:-28%;bottom:-28%;background:radial-gradient(ellipse at center,rgba(6,5,4,.62),rgba(6,5,4,.30) 50%,rgba(6,5,4,0) 74%)}
+.rule{position:relative;height:14px;margin:0 auto 14px}
+.rule svg{display:block;width:100%;height:100%}
+.line{position:relative;font-family:'Literata';font-weight:400;color:var(--cream);line-height:1.42;text-shadow:0 2px 6px rgba(0,0,0,.7),0 2px 26px rgba(0,0,0,.6)}
+.line.abs{position:absolute;left:0;right:0}
+.line .w{display:inline-block;will-change:opacity,transform}
+.tcard{position:absolute;left:0;right:0;text-align:center}
+.tcard .tt{font-family:'Cinzel';font-weight:900;color:var(--gold);line-height:1.04;letter-spacing:.05em;text-shadow:0 2px 6px rgba(0,0,0,.6),0 0 40px rgba(230,200,120,.25)}
+.tcard .ts{font-family:'Cinzel';font-weight:400;color:var(--gold);letter-spacing:.14em;margin-top:.5em}
+.tcard .ta{font-family:'Cinzel';font-weight:400;color:var(--cream);letter-spacing:.28em;text-transform:uppercase;margin-top:1.1em}
+.tcard .orn{margin:0 auto .5em}
+.tag{position:absolute;text-align:center}
+.tag .t1{font-family:'Cinzel';font-weight:700;color:var(--gold);letter-spacing:.08em;line-height:1.28;text-shadow:0 2px 10px rgba(0,0,0,.7),0 0 36px rgba(230,200,120,.25)}
+.tag .t2{font-family:'Literata';font-style:italic;font-weight:400;color:var(--cream);line-height:1.4;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+#vignette{position:absolute;inset:0;background:radial-gradient(ellipse 80% 72% at 50% 48%,rgba(0,0,0,0) 50%,rgba(3,4,10,.62) 100%);pointer-events:none}
+#kflash{position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 50%,rgba(255,214,150,.9),rgba(255,180,110,.35) 40%,rgba(0,0,0,0) 70%);opacity:0;pointer-events:none}
+#flash{position:absolute;inset:0;background:#fff4dc;opacity:0;pointer-events:none}
+#fx{position:absolute;left:0;top:0;pointer-events:none}
+#grain{position:absolute;left:0;top:0;mix-blend-mode:overlay;pointer-events:none;opacity:.55}
+#black{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+#bfly{position:absolute;left:0;top:0;pointer-events:none;will-change:transform;filter:drop-shadow(0 0 12px rgba(120,200,255,.7))}
+#bfly .wl,#bfly .wr{transform-box:fill-box}
+#bfly .wl{transform-origin:100% 50%}
+#bfly .wr{transform-origin:0% 50%}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="world">
+    <div class="scene" id="s-by"><img class="art" id="art-by"><div class="shade"></div><div class="leak"></div></div>
+    <div class="scene" id="s-sa"><img class="art" id="art-sa"><div class="shade"></div><div class="leak"></div></div>
+    <div class="scene" id="s-shared">
+      <div class="half l"><img id="half-sa"></div><div class="half r"><img id="half-by"></div>
+      <div class="glow"></div><div class="seam"></div>
+    </div>
+    <div class="scene" id="s-fist">
+      <div class="sky" id="sky1"></div>
+      <div class="cards" id="cards">
+        <div class="card" id="card-sa"><img id="cimg-sa"></div>
+        <div class="card" id="card-by"><img id="cimg-by"></div>
+      </div>
+    </div>
+    <div class="scene" id="s-end">
+      <div class="eglow" id="eglow"></div>
+      <div class="sky" id="sky2"></div>
+      <div class="ecov" id="ecov-sa"><img id="eimg-sa"></div>
+      <div class="ecov" id="ecov-by"><img id="eimg-by"></div>
+      <div class="ename" id="ename-sa"></div>
+      <div class="ename" id="ename-by"></div>
+      <div class="cta" id="cta"></div>
+      <div class="handle" id="handle"></div>
+    </div>
+    <div id="dim"></div>
+    <div id="gfx"></div>
+    <div id="texts"></div>
+    <svg id="bfly" viewBox="0 0 200 180">
+      <defs>
+        <radialGradient id="bw1" cx="35%" cy="40%" r="75%"><stop offset="0%" stop-color="#bfefff"/><stop offset="45%" stop-color="#4fc3f7"/><stop offset="100%" stop-color="#0b4f8a"/></radialGradient>
+        <radialGradient id="bw2" cx="40%" cy="45%" r="70%"><stop offset="0%" stop-color="#e3f7ff"/><stop offset="50%" stop-color="#3fb0ea"/><stop offset="100%" stop-color="#0a3d6e"/></radialGradient>
+      </defs>
+      <g class="wl">
+        <path d="M100 92 C 78 40, 30 18, 14 42 C 2 60, 20 92, 60 100 C 78 104, 92 100, 100 92 Z" fill="url(#bw1)" stroke="#062a4a" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M100 98 C 84 110, 60 118, 44 140 C 36 152, 48 166, 66 160 C 84 154, 96 130, 100 112 Z" fill="url(#bw2)" stroke="#062a4a" stroke-width="2.2" stroke-linejoin="round"/>
+        <circle cx="44" cy="58" r="6" fill="#062a4a" opacity=".85"/><circle cx="62" cy="140" r="3.5" fill="#062a4a" opacity=".85"/>
+        <circle cx="36" cy="72" r="2.6" fill="#fff" opacity=".9"/><circle cx="26" cy="52" r="1.8" fill="#fff" opacity=".9"/>
+      </g>
+      <g class="wr">
+        <path d="M100 92 C 122 40, 170 18, 186 42 C 198 60, 180 92, 140 100 C 122 104, 108 100, 100 92 Z" fill="url(#bw1)" stroke="#062a4a" stroke-width="2.2" stroke-linejoin="round"/>
+        <path d="M100 98 C 116 110, 140 118, 156 140 C 164 152, 152 166, 134 160 C 116 154, 104 130, 100 112 Z" fill="url(#bw2)" stroke="#062a4a" stroke-width="2.2" stroke-linejoin="round"/>
+        <circle cx="156" cy="58" r="6" fill="#062a4a" opacity=".85"/><circle cx="138" cy="140" r="3.5" fill="#062a4a" opacity=".85"/>
+        <circle cx="164" cy="72" r="2.6" fill="#fff" opacity=".9"/><circle cx="174" cy="52" r="1.8" fill="#fff" opacity=".9"/>
+      </g>
+      <ellipse cx="100" cy="104" rx="5" ry="26" fill="#0b2340" stroke="#062a4a" stroke-width="1.5"/>
+      <circle cx="100" cy="76" r="5.5" fill="#0b2340"/>
+      <path d="M97 72 C 90 58, 80 52, 72 50 M103 72 C 110 58, 120 52, 128 50" fill="none" stroke="#0b2340" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="72" cy="50" r="2.4" fill="#0b2340"/><circle cx="128" cy="50" r="2.4" fill="#0b2340"/>
+    </svg>
+  </div>
+  <div id="vignette"></div>
+  <div id="kflash"></div>
+  <div id="flash"></div>
+  <canvas id="fx"></canvas>
+  <canvas id="grain"></canvas>
+  <div id="black"></div>
+</div>
+<script>
+/* İki Roman book-trailer engine. URL: engine2.html?capture&format=16x9|9x16|1x1&lang=tr|en|de[&cut=60|30][&t=12.5]
+   Exposes window.render(t) and window.DUR; without ?capture it previews in real time (space = pause, ←/→ = ±1 s). */
+const Q = new URLSearchParams(location.search);
+const FORMAT = Q.get('format') || '16x9', LANG = (Q.get('lang') || 'tr').toLowerCase();
+document.write(`<script src="config/${LANG}.js"><\/script>`);
+</script>
+<script>
+const FORMATS = { '16x9': { W: 1920, H: 1080, cut: '60' }, '9x16': { W: 1080, H: 1920, cut: '30' }, '1x1': { W: 1080, H: 1080, cut: '30' } };
+const FM = FORMATS[FORMAT] || FORMATS['16x9'];
+const W = FM.W, H = FM.H, U = Math.min(W, H);
+const CFG = window.CFG, T = CFG.text;
+const CUTKEY = Q.get('cut') || FM.cut, CUT = CFG.cuts[CUTKEY], DUR = CUT.dur;
+const S = CUT.scenes;
+
+/* ---------- responsive layout (fractions of W / H; font sizes as fractions of U = min(W,H)) ---------- */
+/* kbBy / kbSa: Ken-Burns [fx0, fy0, zoom0, fx1, fy1, zoom1] – framed so that the covers' baked-in typography
+   (top ~44 % of the panel) stays out of frame; the push-in ends on the fist. */
+const LAYOUTS = {
+  '16x9': { safe: [.05, .95, .05, .95], qY: .50, qSize: .052, qW: .80,
+    gfxY: .40, gfxS: 1.0, textTop: .60, textW: .64, lineSize: .046, titleY: .50, titleSize: .115,
+    kbBy: [.5, .66, 1.08, .5, .67, 1.22], kbSa: [.45, .66, 1.08, .55, .67, 1.22],
+    shGfxY: .40, shGfxS: 1.3, shTextY: .70,
+    cardH: .80, cardTop: .04, settle: .84, tagTop: .775, tagSize: .046, claimSize: .030, tagW: .86,
+    covH: .58, covTop: .07, covGap: .05, namesY: .685, ctaY: .775, handleY: .87, skyH: .09, skyW: .45 },
+  '9x16': { safe: [.06, .94, .15, .80], qY: .45, qSize: .05, qW: .86,
+    gfxY: .33, gfxS: 1.0, textTop: .50, textW: .86, lineSize: .046, titleY: .45, titleSize: .11,
+    kbBy: [.42, .72, 1.9, .40, .70, 2.1], kbSa: [.55, .72, 1.9, .58, .70, 2.1],
+    shGfxY: .36, shGfxS: 1.2, shTextY: .58,
+    cardH: .40, cardTop: .24, settle: .90, tagTop: .63, tagSize: .05, claimSize: .031, tagW: .86,
+    covH: .36, covTop: .18, covGap: .06, namesY: .56, ctaY: .64, handleY: .70, skyH: .07, skyW: .9 },
+  '1x1': { safe: [.06, .94, .06, .94], qY: .50, qSize: .05, qW: .86,
+    gfxY: .36, gfxS: .9, textTop: .58, textW: .86, lineSize: .046, titleY: .50, titleSize: .11,
+    kbBy: [.5, .71, 1.35, .5, .70, 1.5], kbSa: [.5, .71, 1.35, .5, .70, 1.5],
+    shGfxY: .38, shGfxS: 1.1, shTextY: .68,
+    cardH: .60, cardTop: .06, settle: .86, tagTop: .64, tagSize: .046, claimSize: .030, tagW: .88,
+    covH: .50, covTop: .08, covGap: .06, namesY: .61, ctaY: .72, handleY: .82, skyH: .08, skyW: .7 }
+};
+const L = LAYOUTS[FORMAT] || LAYOUTS['16x9'];
+const SAFE = { l: L.safe[0] * W, r: L.safe[1] * W, t: L.safe[2] * H, b: L.safe[3] * H };
+
+/* ---------- helpers ---------- */
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, p) => a + (b - a) * p;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const easeOut = p => 1 - Math.pow(1 - p, 3);
+const easeIn = p => p * p * p;
+const vis = (t, a, b, fi = .8, fo = .6) => Math.min(prog(t, a, a + fi), 1 - prog(t, b - fo, b));
+const hash = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x) };
+const $ = id => document.getElementById(id);
+const px = v => v.toFixed(2) + 'px';
+
+/* ---------- assets ---------- */
+const A = '../assets/upscaled/';
+const IMG = { saFront: A + 'SA_front.png', byFront: A + 'BY_front.png', saEbook: '../cover/out/SA/TR/eBook-Cover.jpg', byEbook: '../cover/out/BY/TR/eBook-Cover.jpg' };
+const FRONT = { w: 1461, h: 2048, bleed: 30 };              // front panel incl. 3 mm bleed
+const TRIM = { w: FRONT.w - 2 * FRONT.bleed, h: FRONT.h - 2 * FRONT.bleed };
+const CONTACT_Y = 0.656;                                    // fists meet at this fraction of the trimmed panel height
+const EBOOK = { w: 1600, h: 2560 };
+
+/* ---------- stage geometry ---------- */
+const stage = $('stage'), world = $('world');
+stage.style.width = W + 'px'; stage.style.height = H + 'px';
+for (const id of ['fx', 'grain']) { $(id).width = W; $(id).height = H; }
+
+/* cover-fit an image into a box, returns base size */
+function coverFit(iw, ih, bw, bh) { const s = Math.max(bw / iw, bh / ih); return { w: iw * s, h: ih * s }; }
+function setArt(img, src, bw, bh) {
+  const f = coverFit(FRONT.w, FRONT.h, bw, bh);
+  img.src = src; img.style.width = px(f.w); img.style.height = px(f.h); img.style.marginLeft = px(-f.w / 2); img.style.marginTop = px(-f.h / 2);
+  img._f = f; img._box = [bw, bh];
+}
+/* Ken-Burns transform: focus point (fx,fy in image fractions) at the box centre, scale s, clamped to keep coverage */
+function kb(img, fx, fy, s) {
+  const { w, h } = img._f, [bw, bh] = img._box;
+  let tx = (0.5 - fx) * w * s, ty = (0.5 - fy) * h * s;
+  const mx = Math.max(0, (w * s - bw) / 2), my = Math.max(0, (h * s - bh) / 2);
+  tx = clamp(tx, -mx, mx); ty = clamp(ty, -my, my);
+  img.style.transform = `translate(${tx.toFixed(2)}px,${ty.toFixed(2)}px) scale(${s.toFixed(4)})`;
+}
+setArt($('art-by'), IMG.byFront, W, H);
+setArt($('art-sa'), IMG.saFront, W, H);
+setArt($('half-sa'), IMG.saFront, W / 2, H);
+setArt($('half-by'), IMG.byFront, W / 2, H);
+
+/* ---------- fist-bump cards ---------- */
+const cardH = L.cardH * H, cardW = cardH * TRIM.w / TRIM.h, cardTop = L.cardTop * H;
+const cards = $('cards'); cards.style.width = W + 'px'; cards.style.height = H + 'px';
+const CARD = { sa: $('card-sa'), by: $('card-by') };
+function setCard(el, img, src, left, side) {
+  el.style.width = px(cardW); el.style.height = px(cardH); el.style.left = px(left); el.style.top = px(cardTop);
+  el.style.transformOrigin = side === 'sa' ? '100% 50%' : '0% 50%';
+  const iw = cardW * FRONT.w / TRIM.w, ih = cardH * FRONT.h / TRIM.h;
+  img.src = src; img.style.width = px(iw); img.style.height = px(ih);
+  img.style.left = px(-cardW * FRONT.bleed / TRIM.w); img.style.top = px(-cardH * FRONT.bleed / TRIM.h);
+}
+setCard(CARD.sa, $('cimg-sa'), IMG.saFront, W / 2 - cardW, 'sa');
+setCard(CARD.by, $('cimg-by'), IMG.byFront, W / 2, 'by');
+const CONTACT = { x: W / 2, y: cardTop + CONTACT_Y * cardH };
+
+/* skyline silhouette (from cover/assets/skyline.svg) */
+const SKY = `<svg viewBox="0 0 240 100" preserveAspectRatio="xMidYMax meet"><defs><linearGradient id="skg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3dc9a"/><stop offset="1" stop-color="#b8892e"/></linearGradient></defs><g fill="url(#skg)"><rect x="0" y="88" width="240" height="4" rx="2"/><rect x="30" y="34" width="5" height="54"/><polygon points="27,34 38,34 32.5,22"/><rect x="28" y="52" width="9" height="2.5"/><path d="M60 88 L60 66 A40 40 0 0 1 140 66 L140 88 Z"/><rect x="98" y="16" width="4" height="12"/><circle cx="100" cy="14" r="3"/><path d="M44 88 L44 76 A12 12 0 0 1 68 76 L68 88 Z"/><path d="M132 88 L132 76 A12 12 0 0 1 156 76 L156 88 Z"/><rect x="165" y="34" width="5" height="54"/><polygon points="162,34 173,34 167.5,22"/><rect x="163" y="52" width="9" height="2.5"/><rect x="200" y="44" width="16" height="44"/><polygon points="196,46 220,46 208,26"/><rect x="198" y="46" width="20" height="4"/></g></svg>`;
+for (const id of ['sky1', 'sky2']) { const e = $(id); e.innerHTML = SKY; e.style.width = px(L.skyW * W); e.style.height = px(L.skyH * H); e.firstChild.style.width = '100%'; e.firstChild.style.height = '100%'; }
+
+/* ---------- end card ---------- */
+const covH = L.covH * H, covW = covH * EBOOK.w / EBOOK.h, covGap = L.covGap * W, covTop = L.covTop * H;
+const covL = W / 2 - covGap / 2 - covW, covR = W / 2 + covGap / 2;
+function setCov(el, img, src, left) { el.style.width = px(covW); el.style.height = px(covH); el.style.left = px(left); el.style.top = px(covTop); img.src = src; }
+setCov($('ecov-sa'), $('eimg-sa'), IMG.saEbook, covL);
+setCov($('ecov-by'), $('eimg-by'), IMG.byEbook, covR);
+const eglow = $('eglow'); eglow.style.top = px(covTop + covH * .55); eglow.style.width = px(covW * 2 + covGap + U * .5); eglow.style.height = px(covH * 1.5);
+for (const [id, name, left] of [['ename-sa', T.sa.author, covL], ['ename-by', T.by.author, covR]]) {
+  const e = $(id); e.textContent = name; e.style.left = px(left - covW * .3); e.style.width = px(covW * 1.6); e.style.top = px(L.namesY * H); e.style.fontSize = px(U * .025);
+}
+$('cta').textContent = T.cta; $('cta').style.top = px(L.ctaY * H); $('cta').style.fontSize = px(U * .042);
+$('handle').textContent = T.handle; $('handle').style.top = px(L.handleY * H); $('handle').style.fontSize = px(U * .024);
+
+/* ---------- graphics (gold line art, drawn in with stroke-dashoffset) ---------- */
+const GOLD = '#E6C878', CREAM = '#EFE6D3', RED = '#C8102E', GREEN = '#9BD8A6', INK = 'rgba(10,8,6,.62)';
+function clockSvg() {
+  const cx = 60, cy = 56; let ticks = '';
+  for (let i = 0; i < 12; i++) { const a = i * Math.PI / 6, r1 = i % 3 ? 39 : 36; ticks += `<line x1="${(cx + Math.sin(a) * r1).toFixed(1)}" y1="${(cy - Math.cos(a) * r1).toFixed(1)}" x2="${(cx + Math.sin(a) * 43).toFixed(1)}" y2="${(cy - Math.cos(a) * 43).toFixed(1)}"/>`; }
+  const hh = (14 % 12 + 53 / 60) * Math.PI / 6, mm = 53 * Math.PI / 30;
+  return `<svg viewBox="0 0 120 150"><g fill="none" stroke="${GOLD}" stroke-width="2" stroke-linecap="round"><circle cx="${cx}" cy="${cy}" r="44" fill="${INK}"/>${ticks}
+  <line x1="${cx}" y1="${cy}" x2="${(cx + Math.sin(hh) * 24).toFixed(1)}" y2="${(cy - Math.cos(hh) * 24).toFixed(1)}" stroke-width="3.5"/>
+  <line x1="${cx}" y1="${cy}" x2="${(cx + Math.sin(mm) * 35).toFixed(1)}" y2="${(cy - Math.cos(mm) * 35).toFixed(1)}" stroke-width="2.5"/><circle cx="${cx}" cy="${cy}" r="3" fill="${GOLD}"/></g>
+  <text class="ct" x="60" y="132" text-anchor="middle" font-family="Cinzel" font-weight="700" font-size="23" fill="${GOLD}" letter-spacing="2">${T.clock}</text></svg>`;
+}
+const SVGS = {
+  package: `<svg viewBox="0 0 240 210"><g fill="#0b0908" stroke="${GOLD}" stroke-width="2.5" stroke-linejoin="round"><path d="M30 80 L170 80 L170 190 L30 190 Z"/><path d="M30 80 L70 46 L210 46 L170 80 Z"/><path d="M170 80 L210 46 L210 156 L170 190 Z"/></g>
+    <g fill="none" stroke="${RED}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M100 190 L100 80 L140 46"/><path d="M30 132 L170 132 L210 98"/><path d="M100 132 C 80 116, 62 124, 82 137 C 92 143, 98 138, 100 132 Z"/><path d="M100 132 C 120 116, 138 124, 118 137 C 108 143, 102 138, 100 132 Z"/><path d="M100 132 L 90 158 M100 132 L 112 156"/></g></svg>`,
+  clock: clockSvg(),
+  typewriter: `<svg viewBox="0 0 260 210"><g fill="${INK}" stroke="${GOLD}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M78 12 H182 V92 H78 Z" fill="rgba(239,230,211,.07)"/><path d="M92 30 H168 M92 44 H150 M92 58 H164 M92 72 H120" fill="none" stroke-width="2" opacity=".85"/>
+    <rect x="56" y="84" width="148" height="18" rx="9"/><circle cx="48" cy="93" r="7"/><circle cx="212" cy="93" r="7"/><path d="M118 104 L130 92 L142 104" fill="none" stroke-width="2"/>
+    <path d="M30 104 H230 L240 176 Q240 184 232 184 H28 Q20 184 20 176 Z"/>
+    <g fill="none" stroke-width="2">${[[66, 124, 9], [74, 142, 8], [66, 160, 9]].map(([x0, y, n]) => Array.from({ length: n }, (_, i) => `<circle cx="${x0 + i * 16}" cy="${y}" r="4.5"/>`).join('')).join('')}</g><rect x="96" y="172" width="68" height="6" rx="3"/></g></svg>`,
+  letter: `<svg viewBox="0 0 200 170"><g fill="rgba(239,230,211,.06)" stroke="${GOLD}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><rect x="30" y="24" width="140" height="122" rx="3"/><path d="M30 24 L100 84 L170 24" fill="none"/><path d="M30 96 H170" fill="none" stroke-dasharray="4 6" opacity=".6"/><path d="M52 110 H148 M52 124 H126" fill="none" opacity=".85"/><circle cx="100" cy="84" r="9" fill="#C9A24E" stroke="${GOLD}"/></g></svg>`,
+  room: `<svg viewBox="0 0 320 240"><g fill="none" stroke="${GREEN}" stroke-width="2" stroke-linejoin="round" opacity=".92"><rect x="12" y="12" width="296" height="216"/><rect x="96" y="66" width="128" height="104"/><path d="M12 12 L96 66 M308 12 L224 66 M12 228 L96 170 M308 228 L224 170"/>
+    <rect class="door" x="146" y="98" width="28" height="72" rx="1" fill="rgba(155,216,166,.10)"/><circle cx="167" cy="136" r="2"/><path d="M160 66 V80"/><circle cx="160" cy="84" r="4" fill="rgba(155,216,166,.35)"/></g><rect class="doorflash" x="146" y="98" width="28" height="72" fill="#DFF5E3" opacity="0"/></svg>`,
+  glass: `<svg viewBox="0 0 120 170"><g fill="none" stroke="${CREAM}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M37 72 Q60 80 83 72 L80 150 Q80 158 72 158 H48 Q40 158 40 150 Z" fill="rgba(120,180,220,.20)" stroke="none"/><path d="M32 18 L40 150 Q40 158 48 158 H72 Q80 158 80 150 L88 18 Z" fill="rgba(239,230,211,.05)"/><path d="M37 72 Q60 80 83 72"/><path d="M47 40 L51 130" stroke-width="1.4" opacity=".55"/></g></svg>`,
+  hand: `<svg viewBox="0 0 220 250"><g fill="#14100a" stroke="${GOLD}" stroke-width="2.5" stroke-linejoin="round"><rect x="66" y="52" width="24" height="112" rx="12"/><rect x="94" y="30" width="24" height="134" rx="12"/><rect x="122" y="40" width="24" height="124" rx="12"/><rect x="150" y="72" width="22" height="92" rx="11"/>
+    <g transform="rotate(-38 70 170)"><rect x="22" y="104" width="26" height="86" rx="13"/><g fill="${CREAM}" stroke="none"><rect x="19" y="118" width="32" height="8" rx="2"/><rect x="19" y="131" width="32" height="8" rx="2"/><rect x="19" y="144" width="32" height="8" rx="2"/></g><path d="M26 121 L44 150 M44 121 L26 150" fill="none" stroke="${GOLD}" stroke-width="1.2" opacity=".7"/></g>
+    <path d="M62 152 H172 Q184 152 184 164 V206 Q184 240 150 240 H92 Q62 240 62 206 Z"/></g></svg>`,
+  chair: `<svg viewBox="0 0 170 230"><g fill="${INK}" stroke="${GOLD}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><rect x="42" y="18" width="62" height="10" rx="3"/><path d="M44 28 L40 122 M104 28 L100 122" fill="none"/><path d="M43 56 H103 M42 78 H102" fill="none"/><path d="M32 122 H112 L138 148 H58 Z"/><path d="M36 122 L30 206 M110 122 L106 206 M134 148 L132 220 M60 148 L58 220" fill="none"/></g></svg>`
+};
+const gfxRoot = $('gfx'), GFX = {};
+function mkGfx(key, svgKey, cx, cy, w, h, opts = {}) {
+  const d = document.createElement('div'); d.className = 'g' + (opts.cls ? ' ' + opts.cls : ''); d.innerHTML = SVGS[svgKey];
+  d.style.width = px(w); d.style.height = px(h); d.style.left = px(cx - w / 2); d.style.top = px(cy - h / 2); d.style.display = 'none';
+  gfxRoot.appendChild(d);
+  const shapes = [...d.querySelectorAll('path,rect,circle,line')].filter(e => !e.classList.contains('doorflash') && e.getAttribute('stroke') !== 'none');
+  shapes.forEach(e => { let len = 0; try { len = e.getTotalLength(); } catch (x) { } e._len = len; if (len) e.style.strokeDasharray = len; });
+  const fills = [...d.querySelectorAll('[fill]')].filter(e => e.getAttribute('fill') !== 'none' && !e.classList.contains('doorflash'));
+  GFX[key] = { el: d, shapes, fills, svg: d.querySelector('svg'), a: opts.a, b: opts.b, drawDur: opts.drawDur || 1.4, text: d.querySelector('text') };
+  return GFX[key];
+}
+/* placement per scene */
+const gs = U * L.gfxS, gsh = U * L.shGfxS, gY = L.gfxY * H, shY = L.shGfxY * H;
+mkGfx('package', 'package', W / 2 - gs * .10, gY + gs * .01, gs * .30, gs * .26, { a: CUT.by.gfx[0], b: CUT.by.gfx[1] });
+mkGfx('clock', 'clock', W / 2 + gs * .15, gY + gs * .015, gs * .13, gs * .16, { a: CUT.by.gfx[0] + .8, b: CUT.by.gfx[1], drawDur: 1.2 });
+mkGfx('typewriter', 'typewriter', W / 2 - gs * .09, gY, gs * .30, gs * .24, { a: CUT.sa.gfx[0], b: CUT.sa.gfx[1] });
+mkGfx('letter', 'letter', W / 2 + gs * .16, gY + gs * .03, gs * .16, gs * .14, { a: CUT.sa.gfx[0] + .9, b: CUT.sa.gfx[1] });
+const SH = CUT.shared;
+mkGfx('room', 'room', W / 2, shY, gsh * .40, gsh * .30, { a: SH.room, b: SH.gfxEnd, cls: 'green', drawDur: 1.8 });
+mkGfx('chair', 'chair', W / 2 - gsh * .11, shY + gsh * .07, gsh * .085, gsh * .115, { a: SH.chair, b: SH.gfxEnd, drawDur: 1.0 });
+mkGfx('glass', 'glass', W / 2 + gsh * .015, shY + gsh * .085, gsh * .06, gsh * .085, { a: SH.glass, b: SH.gfxEnd, drawDur: 1.0 });
+mkGfx('hand', 'hand', W / 2 + gsh * .115, shY + gsh * .07, gsh * .10, gsh * .115, { a: SH.hand, b: SH.gfxEnd, drawDur: 1.2 });
+const DOORFLASH = GFX.room.el.querySelector('.doorflash');
+
+/* ---------- texts ---------- */
+const TXT = $('texts');
+const RULE = `<svg viewBox="0 0 400 14" preserveAspectRatio="none"><line x1="0" y1="7" x2="180" y2="7" stroke="${GOLD}" stroke-width="1" opacity=".9"/><line x1="220" y1="7" x2="400" y2="7" stroke="${GOLD}" stroke-width="1" opacity=".9"/></svg><svg viewBox="0 0 14 14" style="position:absolute;left:50%;top:0;width:14px;height:14px;margin-left:-7px"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="${GOLD}"/></svg>`;
+const ORN = `<svg viewBox="0 0 400 14" preserveAspectRatio="none"><line x1="60" y1="7" x2="180" y2="7" stroke="${GOLD}" stroke-width="1"/><line x1="220" y1="7" x2="340" y2="7" stroke="${GOLD}" stroke-width="1"/></svg><svg viewBox="0 0 14 14" style="position:absolute;left:50%;top:0;width:14px;height:14px;margin-left:-7px"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="${GOLD}"/></svg>`;
+function words(text) { return text.split(' ').map(w => `<span class="w">${w}</span>`).join(' '); }
+const LINES = [];      // {el, ws, a, b}
+function mkBlock(cfg, textLines, top, mode, textY) {
+  const b = document.createElement('div'); b.className = 'tblock';
+  const bw = L.textW * W; b.style.left = px((W - bw) / 2); b.style.width = px(bw); b.style.top = px(top); b.style.display = 'none';
+  const plate = document.createElement('div'); plate.className = 'plate'; b.appendChild(plate);
+  const rule = document.createElement('div'); rule.className = 'rule'; rule.innerHTML = RULE; rule.style.width = px(Math.min(bw, U * .42)); b.appendChild(rule);
+  const items = cfg.lines.map(([i, a, e]) => {
+    const d = document.createElement('div'); d.className = 'line' + (mode === 'replace' ? ' abs' : ''); d.innerHTML = words(textLines[i]);
+    d.style.fontSize = px(U * L.lineSize); d.style.padding = `0 ${px(U * .02)}`; b.appendChild(d);
+    const o = { el: d, ws: [...d.querySelectorAll('.w')], a, b: e, text: textLines[i] }; LINES.push(o); return o;
+  });
+  if (mode === 'replace') b.style.height = px(U * L.lineSize * 1.42 * 2.2);
+  const a0 = Math.min(...items.map(o => o.a)), b1 = Math.max(...items.map(o => o.b));
+  return { el: b, rule, plate, items, a: a0, b: b1, mode };
+}
+const BLOCKS = {
+  by: mkBlock(CUT.by, T.by.lines, L.textTop * H, CUT.by.mode),
+  sa: mkBlock(CUT.sa, T.sa.lines, L.textTop * H, CUT.sa.mode),
+  shared: mkBlock(CUT.shared, T.shared.lines, L.shTextY * H, CUT.shared.mode)
+};
+for (const k in BLOCKS) TXT.appendChild(BLOCKS[k].el);
+if (BLOCKS.shared.mode === 'replace') { BLOCKS.shared.el.style.top = px(L.shTextY * H); }
+/* cold-open question */
+const qEl = document.createElement('div'); qEl.className = 'q'; qEl.textContent = T.question;
+qEl.style.fontSize = px(U * L.qSize); qEl.style.left = px((W - L.qW * W) / 2); qEl.style.width = px(L.qW * W); qEl.style.right = 'auto'; qEl.style.top = px(L.qY * H); qEl.style.display = 'none'; qEl.style.lineHeight = '1.35';
+TXT.appendChild(qEl);
+/* title cards */
+function mkTitle(tc) {
+  const d = document.createElement('div'); d.className = 'tcard'; d.style.top = px(L.titleY * H); d.style.left = px(SAFE.l); d.style.right = px(W - SAFE.r); d.style.display = 'none';
+  d.innerHTML = `<div class="orn" style="position:relative;width:${px(U * .34)};height:14px">${ORN}</div><div class="tt" style="font-size:${px(U * L.titleSize)}">${tc.title}</div>` +
+    (tc.subtitle ? `<div class="ts" style="font-size:${px(U * .036)}">${tc.subtitle}</div>` : '') + `<div class="ta" style="font-size:${px(U * .03)}">${tc.author}</div>`;
+  TXT.appendChild(d);
+  return { el: d, parts: [...d.children] };
+}
+const TITLE = { by: mkTitle(T.by), sa: mkTitle(T.sa) };
+/* tagline + claim */
+const tag = document.createElement('div'); tag.className = 'tag'; tag.style.top = px(L.tagTop * H); tag.style.left = px((W - L.tagW * W) / 2); tag.style.width = px(L.tagW * W); tag.style.display = 'none';
+tag.innerHTML = `<div class="t1" style="font-size:${px(U * L.tagSize)}">${T.tagline}</div><div class="t2" style="font-size:${px(U * L.claimSize)};margin-top:${px(U * .018)}">${T.claim}</div>`;
+TXT.appendChild(tag); const tagT1 = tag.querySelector('.t1'), tagT2 = tag.querySelector('.t2');
+
+/* ---------- canvases: rays, dust, grain ---------- */
+const fx = $('fx'), cx = fx.getContext('2d'), gr = $('grain'), gcx = gr.getContext('2d');
+const GRAIN = Array.from({ length: 3 }, (_, k) => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'); const id = g.createImageData(256, 256); for (let i = 0; i < id.data.length; i += 4) { const v = 128 + (hash(i * .37 + k * 1e5) - .5) * 150; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; } g.putImageData(id, 0, 0); return gcx.createPattern(c, 'repeat'); });
+const DUST = Array.from({ length: 70 }, (_, i) => ({ x: hash(i) * W, y: hash(i + 99) * H, r: 1 + hash(i + 7) * 2.2, sp: 6 + hash(i + 3) * 18, ph: hash(i + 5) * 6.28, dr: hash(i + 11) * 2 - 1 }));
+const bf = $('bfly'), wl = bf.querySelector('.wl'), wr = bf.querySelector('.wr');
+const bfS = U * .11; bf.style.width = px(bfS); bf.style.height = px(bfS * .9); bf.style.marginLeft = px(-bfS / 2); bf.style.marginTop = px(-bfS * .45);
+const leakBy = document.querySelector('#s-by .leak'), leakSa = document.querySelector('#s-sa .leak');
+const flash = $('flash'), kflash = $('kflash'), dim = $('dim'), black = $('black');
+const SCN = { by: $('s-by'), sa: $('s-sa'), shared: $('s-shared'), fist: $('s-fist'), end: $('s-end') };
+function show(el, o) { if (o <= 0) { el.style.opacity = 0; el.style.visibility = 'hidden'; return false; } el.style.visibility = 'visible'; el.style.opacity = o.toFixed(3); return true; }
+function showD(el, o) { if (o <= 0) { el.style.display = 'none'; return false; } el.style.display = 'block'; el.style.opacity = o.toFixed(3); return true; }
+
+/* knock / impact envelopes */
+const IMPACT = CUT.fist.impact;
+const KNOCKS = [...CUT.knocks, ...CUT.shared.knocks];
+function knockEnv(t) { let e = 0; for (const k of KNOCKS) { const q = t - k; if (q >= 0 && q < .5) e = Math.max(e, Math.pow(1 - q / .5, 2)); } return e; }
+
+function drawGfx(g, t) {
+  if (!g.a || t < g.a || t > g.b + .05) { g.el.style.display = 'none'; return; }
+  g.el.style.display = 'block';
+  const o = vis(t, g.a, g.b, .5, .6); g.el.style.opacity = o.toFixed(3);
+  const rise = (1 - easeOut(prog(t, g.a, g.a + 1.2))) * U * .015; g.el.style.transform = `translateY(${rise.toFixed(2)}px)`;
+  const n = g.shapes.length;
+  g.shapes.forEach((e, i) => { if (!e._len) return; const p = easeOut(prog(t, g.a + i / n * g.drawDur * .6, g.a + i / n * g.drawDur * .6 + g.drawDur * .5)); e.style.strokeDashoffset = (e._len * (1 - p)).toFixed(2); });
+  const fp = prog(t, g.a + g.drawDur * .5, g.a + g.drawDur * 1.1); g.svg.style.setProperty('--fo', fp); g.fills.forEach(e => e.setAttribute('fill-opacity', fp.toFixed(3)));
+  if (g.text) g.text.setAttribute('opacity', prog(t, g.a + g.drawDur * .8, g.a + g.drawDur * 1.4).toFixed(3));
+}
+function drawLines(block, t) {
+  const on = t > block.a - .05 && t < block.b + .1; block.el.style.display = on ? 'block' : 'none'; if (!on) return;
+  block.rule.style.opacity = vis(t, block.a, block.b, .9, .5).toFixed(3);
+  block.plate.style.opacity = vis(t, block.a, block.b, 1.2, .6).toFixed(3);
+  for (const o of block.items) {
+    const lon = t > o.a - .05 && t < o.b + .05;
+    if (block.mode === 'replace') o.el.style.display = lon ? 'block' : 'none';
+    if (!lon) { o.el.style.opacity = 0; continue; }
+    o.el.style.opacity = 1;
+    const out = 1 - prog(t, o.b - .5, o.b);
+    o.ws.forEach((w, i) => { const q = easeOut(prog(t, o.a + i * .09, o.a + i * .09 + .55)); w.style.opacity = (q * out).toFixed(3); w.style.transform = `translateY(${((1 - q) * U * .012).toFixed(2)}px)`; });
+  }
+}
+function drawTitle(tc, span, t) {
+  const on = t > span[0] - .05 && t < span[1] + .05; tc.el.style.display = on ? 'block' : 'none'; if (!on) return 0;
+  const o = vis(t, span[0], span[1], .7, .5);
+  tc.parts.forEach((p, i) => { const q = easeOut(prog(t, span[0] + .1 + i * .25, span[0] + .1 + i * .25 + .8)); p.style.opacity = (q * (1 - prog(t, span[1] - .5, span[1]))).toFixed(3); p.style.transform = `translateY(${((1 - q) * U * .02).toFixed(2)}px)`; });
+  tc.el.style.transform = 'translateY(-50%)';
+  return o;
+}
+function rays(x, y, t, e, rot) {
+  const R = U * .9, n = 28; cx.save(); cx.translate(x, y); cx.rotate(rot); cx.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < n; i++) {
+    const a = i / n * Math.PI * 2, len = R * e * (.55 + .45 * hash(i * 3 + 1)), wdt = .012 + .018 * hash(i * 7 + 2);
+    const g = cx.createLinearGradient(0, 0, Math.cos(a) * len, Math.sin(a) * len);
+    g.addColorStop(0, `rgba(255,225,160,${(.42 * e).toFixed(3)})`); g.addColorStop(1, 'rgba(255,200,120,0)');
+    cx.fillStyle = g; cx.beginPath(); cx.moveTo(0, 0); cx.lineTo(Math.cos(a - wdt) * len, Math.sin(a - wdt) * len); cx.lineTo(Math.cos(a + wdt) * len, Math.sin(a + wdt) * len); cx.closePath(); cx.fill();
+  }
+  const g = cx.createRadialGradient(0, 0, 0, 0, 0, U * .34 * (0.4 + .6 * e)); g.addColorStop(0, `rgba(255,240,205,${(.85 * e).toFixed(3)})`); g.addColorStop(.35, `rgba(255,205,130,${(.35 * e).toFixed(3)})`); g.addColorStop(1, 'rgba(255,180,100,0)');
+  cx.fillStyle = g; cx.beginPath(); cx.arc(0, 0, U * .34, 0, 6.283); cx.fill(); cx.restore();
+}
+function butterflyAt(t, span) {
+  if (t < span[0] || t > span[1]) return null;
+  const p = prog(t, span[0], span[1]);
+  /* sweep from lower left across the gap between the covers to the upper right */
+  const P = [[-.08, .62], [.30, .50], [.50, .30], [.72, .38], [1.10, .16]];
+  const seg = Math.min(P.length - 2, Math.floor(p * (P.length - 1))), lp = ease(p * (P.length - 1) - seg);
+  const x = lerp(P[seg][0], P[seg + 1][0], lp) * W, y = lerp(P[seg][1], P[seg + 1][1], lp) * H + Math.sin(t * 2.6) * U * .012;
+  return { x, y, dx: P[seg + 1][0] - P[seg][0], s: .8 + .2 * Math.sin(p * Math.PI) };
+}
+
+/* ---------- main render ---------- */
+function render(t) {
+  const frame = Math.floor(t * 60);
+  /* --- scene opacities --- */
+  const oBy = t < S.by[0] ? 0 : Math.min(prog(t, S.by[0], S.by[0] + 1.0), t < S.sa[1] ? 1 : 0);
+  const oSa = t < S.sa[0] ? 0 : (t < S.shared[1] ? prog(t, S.sa[0], S.sa[0] + 1.0) : 0);
+  const oSh = t < S.shared[0] ? 0 : (t < S.fist[1] ? prog(t, S.shared[0], S.shared[0] + 1.0) : 0);
+  const oFi = t < S.fist[0] ? 0 : (t < S.end[1] ? prog(t, S.fist[0], S.fist[0] + .8) : 0);
+  const oEn = t < S.end[0] - .4 ? 0 : prog(t, S.end[0] - .4, S.end[0] + .6);
+  /* --- BY scene (Ken Burns from the sky to the fist) --- */
+  if (show(SCN.by, oBy)) {
+    const p = ease(prog(t, S.by[0], S.by[1] + .5)), k = L.kbBy;
+    kb($('art-by'), lerp(k[0], k[3], p), lerp(k[1], k[4], p), lerp(k[2], k[5], p));
+    const lx = 78 + Math.sin(t * .31) * 14, ly = 22 + Math.cos(t * .21) * 12;
+    leakBy.style.background = `radial-gradient(circle at ${lx}% ${ly}%,rgba(255,180,100,.42),rgba(255,140,80,.14) 28%,rgba(0,0,0,0) 55%)`; leakBy.style.opacity = (.5 + .2 * Math.sin(t * .8)).toFixed(3);
+  }
+  /* --- SA scene --- */
+  if (show(SCN.sa, oSa)) {
+    const p = ease(prog(t, S.sa[0], S.sa[1] + .5)), k = L.kbSa;
+    kb($('art-sa'), lerp(k[0], k[3], p), lerp(k[1], k[4], p), lerp(k[2], k[5], p));
+    const lx = 24 + Math.sin(t * .27) * 12, ly = 30 + Math.cos(t * .19) * 12;
+    leakSa.style.background = `radial-gradient(circle at ${lx}% ${ly}%,rgba(150,190,255,.34),rgba(110,150,230,.12) 28%,rgba(0,0,0,0) 55%)`; leakSa.style.opacity = (.45 + .2 * Math.sin(t * .7)).toFixed(3);
+  }
+  /* --- shared split scene --- */
+  if (show(SCN.shared, oSh)) {
+    const p = prog(t, S.shared[0], S.fist[1]);
+    kb($('half-sa'), .30, lerp(.40, .46, p), lerp(1.20, 1.30, p));   // moon side, blurred colour field
+    kb($('half-by'), .62, lerp(.40, .46, p), lerp(1.20, 1.30, p));   // sunset side
+  }
+  /* --- fist bump --- */
+  let contact = null, imp = t - IMPACT;
+  if (show(SCN.fist, oFi)) {
+    const x = prog(t, S.fist[0], IMPACT), p = x * (.35 + .65 * x);           // accelerating into the impact
+    const travel = cardW * .9, ang = 42 * (1 - p);
+    let rec = 0; if (imp > 0 && imp < .5) { const q = imp / .5; rec = Math.sin(q * Math.PI) * (1 - q) * .035 * cardW; }
+    const dx = (1 - p) * travel + rec;
+    const fadeIn = prog(t, S.fist[0], S.fist[0] + .6);
+    CARD.sa.style.transform = `translateX(${(-dx).toFixed(2)}px) rotateY(${(-ang).toFixed(2)}deg)`;
+    CARD.by.style.transform = `translateX(${dx.toFixed(2)}px) rotateY(${ang.toFixed(2)}deg)`;
+    CARD.sa.style.opacity = CARD.by.style.opacity = fadeIn.toFixed(3);
+    const st = lerp(1, L.settle, ease(prog(t, IMPACT + .7, IMPACT + 1.7)));
+    cards.style.transform = `scale(${st.toFixed(4)})`;
+    contact = { x: CONTACT.x, y: cardTop + (CONTACT.y - cardTop) * st };
+  }
+  /* --- end card --- */
+  const E = CUT.end;
+  if (show(SCN.end, oEn)) {
+    for (const [id, a] of [['ecov-sa', E.covers], ['ecov-by', E.covers + .15]]) { const q = easeOut(prog(t, a, a + 1.2)); const e = $(id); e.style.opacity = q.toFixed(3); e.style.transform = `translateY(${((1 - q) * U * .04).toFixed(2)}px)`; }
+    for (const [id, a] of [['ename-sa', E.names], ['ename-by', E.names + .15], ['cta', E.cta], ['handle', E.handle]]) { const q = easeOut(prog(t, a, a + .9)); const e = $(id); e.style.opacity = q.toFixed(3); e.style.transform = `translateY(${((1 - q) * U * .02).toFixed(2)}px)`; }
+    eglow.style.opacity = (.6 + .4 * prog(t, E.covers, E.covers + 2) + .08 * Math.sin(t * 1.3)).toFixed(3);
+  }
+  const B = oEn > 0 ? butterflyAt(t, E.butterfly) : null;
+  if (B) { const flap = .3 + .7 * Math.abs(Math.sin(t * 11)); wl.style.transform = `scaleX(${flap.toFixed(3)})`; wr.style.transform = `scaleX(${flap.toFixed(3)})`; bf.style.display = 'block'; bf.style.transform = `translate(${B.x.toFixed(1)}px,${B.y.toFixed(1)}px) scale(${B.s.toFixed(3)}) rotate(${(-B.dx * 30).toFixed(1)}deg)`; bf.style.opacity = vis(t, E.butterfly[0], E.butterfly[1], .6, .8).toFixed(3); }
+  else bf.style.display = 'none';
+  /* --- dim for title cards --- */
+  const dBy = drawTitle(TITLE.by, CUT.by.title, t), dSa = drawTitle(TITLE.sa, CUT.sa.title, t);
+  dim.style.opacity = Math.max(dBy, dSa).toFixed(3);
+  /* --- graphics --- */
+  for (const k in GFX) drawGfx(GFX[k], t);
+  { let d = 0; for (const k of CUT.shared.knocks) { const q = t - k; if (q >= 0 && q < .45) d = Math.max(d, Math.pow(1 - q / .45, 1.6)); } DOORFLASH.setAttribute('opacity', (d * .85).toFixed(3)); }
+  /* --- texts --- */
+  for (const k in BLOCKS) drawLines(BLOCKS[k], t);
+  { const qs = CUT.question, o = vis(t, qs[0], qs[1], 1.1, .6); if (showD(qEl, o)) { const p = easeOut(prog(t, qs[0], qs[0] + 2.2)); qEl.style.letterSpacing = lerp(.22, .12, p).toFixed(3) + 'em'; qEl.style.transform = `translateY(-50%) scale(${lerp(1.03, 1, p).toFixed(4)})`; } }
+  { const F = CUT.fist, on = t > F.tagline[0] - .05 && t < F.tagline[1] + .05; tag.style.display = on ? 'block' : 'none';
+    if (on) { const out = 1 - prog(t, F.tagline[1] - .5, F.tagline[1]); const q1 = easeOut(prog(t, F.tagline[0], F.tagline[0] + 1.0)), q2 = easeOut(prog(t, F.claim[0], F.claim[0] + 1.0));
+      tagT1.style.opacity = (q1 * out).toFixed(3); tagT1.style.transform = `translateY(${((1 - q1) * U * .02).toFixed(2)}px)`; tagT1.style.letterSpacing = lerp(.16, .08, q1).toFixed(3) + 'em';
+      tagT2.style.opacity = (q2 * out).toFixed(3); tagT2.style.transform = `translateY(${((1 - q2) * U * .015).toFixed(2)}px)`; } }
+  /* --- flashes + shake --- */
+  const ke = knockEnv(t);
+  let fl = 0, shake = ke * U * .004;
+  if (imp >= 0 && imp < .9) { fl = imp < .06 ? imp / .06 * .9 : .9 * Math.pow(1 - (imp - .06) / .84, 2.2); shake = Math.max(shake, (1 - imp / .5) * U * .014 * (imp < .5)); }
+  kflash.style.opacity = (ke * .55).toFixed(3);
+  flash.style.opacity = fl.toFixed(3);
+  if (shake > 0.05) { const sx = (hash(frame * 2) - .5) * 2 * shake, sy = (hash(frame * 2 + 1) - .5) * 2 * shake; world.style.transform = `translate(${sx.toFixed(2)}px,${sy.toFixed(2)}px) scale(${(1 + shake * 2.2 / U).toFixed(4)})`; }
+  else world.style.transform = 'none';
+  /* --- fx canvas: sunburst + dust --- */
+  cx.clearRect(0, 0, W, H);
+  if (contact && imp > -.35) {
+    const e = imp < 0 ? prog(imp, -.35, 0) * .25 : Math.min(1, imp / .9) * lerp(1, .55, prog(imp, 1.2, 3.0));
+    rays(contact.x, contact.y, t, e * oFi * (1 - oEn), t * .08);
+  }
+  const dustA = (oBy > 0 || oSa > 0 || oEn > 0) ? .9 : (oFi > 0 ? .5 : 0);
+  if (dustA > 0) {
+    cx.globalCompositeOperation = 'lighter';
+    for (const d of DUST) {
+      const y = ((d.y - t * d.sp) % H + H) % H, x = d.x + Math.sin(t * .5 + d.ph) * 22 * d.dr;
+      const a = dustA * (.10 + .45 * Math.pow(Math.sin(t * 1.4 + d.ph) * .5 + .5, 3));
+      const g = cx.createRadialGradient(x, y, 0, x, y, d.r * 4); g.addColorStop(0, `rgba(255,225,160,${a.toFixed(3)})`); g.addColorStop(1, 'rgba(255,200,120,0)');
+      cx.fillStyle = g; cx.beginPath(); cx.arc(x, y, d.r * 4, 0, 6.283); cx.fill();
+    }
+    cx.globalCompositeOperation = 'source-over';
+  }
+  /* --- grain --- */
+  gcx.clearRect(0, 0, W, H); gcx.save(); gcx.translate(-Math.floor(hash(frame) * 256), -Math.floor(hash(frame + 7) * 256)); gcx.fillStyle = GRAIN[frame % 3]; gcx.fillRect(0, 0, W + 256, H + 256); gcx.restore();
+  /* --- fade to black --- */
+  black.style.opacity = (t < S.cold[1] ? 0 : prog(t, E.fadeOut, DUR)).toFixed(3);
+}
+window.render = render; window.DUR = DUR; window.STAGE = { W, H, format: FORMAT, lang: LANG, cut: CUTKEY };
+window.READY = Promise.all([...document.images].map(i => i.complete ? i.decode().catch(() => { }) : new Promise(r => { i.onload = () => i.decode().then(r, r); i.onerror = r; })));
+
+if (!Q.has('capture')) {
+  const fit = () => { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `scale(${s})`; stage.style.marginLeft = ((innerWidth - W * s) / 2) + 'px'; stage.style.marginTop = ((innerHeight - H * s) / 2) + 'px'; };
+  addEventListener('resize', fit); fit();
+  let t0 = performance.now(), paused = false, tp = 0;
+  if (Q.has('t')) { paused = true; tp = +Q.get('t'); }
+  addEventListener('keydown', e => { if (e.code === 'Space') { if (paused) t0 = performance.now() - tp * 1000; else tp = (performance.now() - t0) / 1000; paused = !paused; } if (e.code === 'ArrowRight' || e.code === 'ArrowLeft') { const d = e.code === 'ArrowRight' ? 1 : -1; if (paused) tp = clamp(tp + d, 0, DUR); else t0 -= d * 1000; } });
+  const loop = () => { const t = paused ? tp : ((performance.now() - t0) / 1000) % DUR; render(t); requestAnimationFrame(loop); };
+  READY.then(() => requestAnimationFrame(loop));
+}
+</script>
+</body>
+</html>

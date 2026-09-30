@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 100" width="240" height="100">
+  <!-- stilisierte Istanbul-Silhouette (Kuppel, Minarette, Galata-Turm) in Gold -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f3dc9a"/>
+      <stop offset="100%" stop-color="#b8892e"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#g)">
+    <!-- Boden -->
+    <rect x="0" y="88" width="240" height="4" rx="2"/>
+    <!-- linkes Minarett -->
+    <rect x="30" y="34" width="5" height="54"/>
+    <polygon points="27,34 38,34 32.5,22"/>
+    <rect x="28" y="52" width="9" height="2.5"/>
+    <!-- Hauptkuppel -->
+    <path d="M60 88 L60 66 A40 40 0 0 1 140 66 L140 88 Z"/>
+    <rect x="98" y="16" width="4" height="12"/>
+    <circle cx="100" cy="14" r="3"/>
+    <!-- Nebenkuppeln -->
+    <path d="M44 88 L44 76 A12 12 0 0 1 68 76 L68 88 Z"/>
+    <path d="M132 88 L132 76 A12 12 0 0 1 156 76 L156 88 Z"/>
+    <!-- rechtes Minarett -->
+    <rect x="165" y="34" width="5" height="54"/>
+    <polygon points="162,34 173,34 167.5,22"/>
+    <rect x="163" y="52" width="9" height="2.5"/>
+    <!-- Galata-Turm -->
+    <rect x="200" y="44" width="16" height="44"/>
+    <polygon points="196,46 220,46 208,26"/>
+    <rect x="198" y="46" width="20" height="4"/>
+    <!-- Fenster -->
+    <g fill="#1a1a1a" opacity="0.55">
+      <rect x="205" y="54" width="2" height="4"/><rect x="209" y="54" width="2" height="4"/>
+      <rect x="205" y="64" width="2" height="4"/><rect x="209" y="64" width="2" height="4"/>
+      <rect x="97" y="72" width="6" height="16" rx="3"/>
+    </g>
+  </g>
+</svg>
