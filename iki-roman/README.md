@@ -12,7 +12,7 @@ Zwei Romane, ein Kunstprojekt: **BEN YOKSAM – 1453 Uyanışın Bedeli** (Tunca
 | `interior/src/` | `BEN_YOKSAM_1453_TR_v2.docx`, `SAHIDI_ARARKEN_TR_v2.docx` (korrigierte Manuskripte), `v2_aenderungen.json` (alle Änderungen maschinenlesbar) |
 | `trailer/out/` | 9 Videos `Iki_Roman_Fragman_<16x9_60s|9x16_30s|1x1_30s>_<TR|EN|DE>.mp4`, 9 Untertitel `.srt`, `storyboard/` (Stills), `render_report.txt` |
 | `marketing/` | `Marketing_Story_Storyboard_<TR|EN|DE>.pdf` (+ `.md`): Kernbotschaft, KDP-Listing, Keywords, Kategorien, A+, Storyboard, Sprechertext, Musik-Brief, Launch-Plan |
-| `analyse/` | `Bewertung_Ben_Yoksam_Sahidi_Ararken.md/.pdf` (Fassung 2, mit adversarialer Gegenprüfung): Logik-, Mystik- und Spannungsbewertung je Buch und als Doppelwerk; `Degisiklik_Listesi_v2.md/.pdf`: Änderungsliste der v2-Manuskripte (TR + DE); `build_pdf.py` (Markdown → PDF) |
+| `analyse/` | `Bewertung_Ben_Yoksam_Sahidi_Ararken.md/.pdf` (Fassung 2, mit adversarialer Gegenprüfung): Logik-, Mystik- und Spannungsbewertung je Buch und als Doppelwerk; `Degisiklik_Listesi_v2.md/.pdf`: Änderungsliste der v2-Manuskripte (TR + DE); `jury_ergebnisse.json` (Rohdaten der sechs Jury-Stimmen und der Gegenprüfung); `build_pdf.py` (Markdown → PDF) |
 | `assets/` | Referenzgrafik (1536 × 512) und die 4×-KI-Hochskalierung (Real-ESRGAN), zerlegte Panels, Portraits |
 | `fonts/` | Cinzel, Literata, Cormorant Garamond (SIL OFL) |
 
