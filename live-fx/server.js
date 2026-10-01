@@ -30,6 +30,8 @@ const apiGifs = require('./server/api-gifs');
 const apiTranscript = require('./server/api-transcript');
 const apiSmart = require('./server/api-smart');
 const apiMobile = require('./server/api-mobile');
+const apiChat = require('./server/api-chat');
+const apiGift = require('./server/api-gift');
 const staticFiles = require('./server/static');
 
 const ROOT = __dirname;
@@ -76,9 +78,11 @@ const state = stateMod.createState({ dataDir: DATA_DIR, defaults: globalThis.Liv
 const bus = sse.createSse({ state, log, version: pkg.version });
 const smart = smartMod.createSmart({ log, model: config.model, getTriggers: () => state.getTriggers() });
 const appCtx = { bus, state, token, dataDir: DATA_DIR, rootDir: ROOT, config, smart, log };
+// Viewer triggers (2.0): chat connectors + gift tiers, settings in data/chat.json.
+appCtx.chat = apiChat.createChat(appCtx);
 
 const router = new Router();
-for (const mod of [auth, apiFire, apiTriggers, apiGifs, apiAssets, apiTranscript, apiSmart, apiMobile, sse]) mod.register(router, appCtx);
+for (const mod of [auth, apiFire, apiTriggers, apiGifs, apiAssets, apiTranscript, apiSmart, apiMobile, apiChat, apiGift, sse]) mod.register(router, appCtx);
 router.route('GET', '/health', (req, res) => {
   const c = bus.counts();
   json(res, 200, { ok: true, version: pkg.version, overlays: c.overlays, panels: c.panels, uptime: Math.round(process.uptime()) });
@@ -141,6 +145,7 @@ server.on('error', (e) => {
 process.on('unhandledRejection', (e) => log('unhandled rejection:', e && e.stack ? e.stack : e));
 process.on('uncaughtException', (e) => log('uncaught exception:', e && e.stack ? e.stack : e));
 process.on('SIGINT', () => {
+  appCtx.chat.stop();
   bus.close();
   server.close(() => process.exit(0));
   setTimeout(() => process.exit(0), 500).unref();

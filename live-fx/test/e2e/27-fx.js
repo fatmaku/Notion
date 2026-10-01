@@ -343,6 +343,23 @@ async function run({ browser, startServer, shotDir, log }) {
     assert.deepEqual(cleared, { pending: 1, after: 0, active: 0 });
     assert.deepEqual(demoErrors, [], `demo errors: ${demoErrors.join('; ')}`);
     await dctx.close();
+
+    // ---------- panel theme select -> overlay follows via bus, server repeats it in `state` ----------
+    const tctx = await browser.newContext();
+    const panel = await tctx.newPage();
+    await panel.goto(`${server.base}/index.html`);
+    await panel.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
+    const ov = await tctx.newPage();
+    await ov.goto(`${server.base}/overlay.html`);
+    await ov.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
+    await panel.selectOption('#theme', 'kinderbuch');
+    await ov.waitForFunction(() => document.body.dataset.theme === 'kinderbuch', null, { timeout: 5000 });
+    assert.equal(await panel.evaluate(() => localStorage.getItem('livefx.theme')), 'kinderbuch');
+    const late = await tctx.newPage();
+    await late.goto(`${server.base}/overlay.html`);
+    await late.waitForFunction(() => document.body.dataset.theme === 'kinderbuch', null, { timeout: 5000 });
+    log('panel theme select -> overlay + late overlay (state) ok');
+    await tctx.close();
   } finally {
     await server.stop();
   }

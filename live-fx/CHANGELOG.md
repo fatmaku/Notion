@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.6.0 – Grafik-, Sound- und Technik-Upgrade
+
+- **Effekt-Engine v2**: Canvas-Partikel mit Physik (Schwerkraft, Wind, Drift, Rotation) und dynamischem
+  Partikel-Limit (60-fps-Budget), Glow, Motion-Blur, 3D-Kippkarten, Impact-Zoom, Lichtstrahlen; neue Effekte
+  **Text** (Neon / Verlauf / Bounce / Glitch, Buchstaben-Stagger), **Bauchbinde** (Lower-Third), **Kombi**
+  (Sequenz aus bis zu 6 Schritten); Szenen mit Parallax-Ebenen. Optionen pro Effekt: Glow, Kippen, Impact,
+  Intensität 1–3, zweite Farbe; Lautstärke pro Trigger (`gain`).
+- **Themes**: Neon (Standard), Pastell, Minimal, Kinderbuch – im Panel unter „Look“, `overlay.html?theme=…`
+  pinnt; der Server merkt sich das Theme für neu verbundene Overlays.
+- **Audio-Engine v2**: Mixer mit Effekt-/Atmosphäre-Bus, Master-Limiter, Ducking (Atmosphäre −8 dB während
+  Effekten), Stereo-Panning nach Position, Hall für Szenen, Intensitäts-Layer; **12 neue Sounds** (38 gesamt:
+  Bleat, Quietscheente, Fanfare, Kinderlachen, Schrei, Glasbruch, Kamera, Tür, Uhr, Glitzer, Punch, Whoosh 2),
+  Gruppen Impact / Lustig / Magie / Atmosphäre. Doku: `docs/SOUNDS.md`.
+- **Zuschauer-Trigger** 💬: Twitch-Chat (ohne Login), YouTube-Live-Chat (API-Key), Befehle `!airhorn` → Trigger,
+  Cooldown pro Zuschauer und global, Chat-Feed im Panel; **Geschenke-Webhook** `POST /api/gift` mit Stufen
+  (TikTok über TikFinity/Streamer.bot, YouTube Super Chat, Twitch Bits automatisch). Doku: `docs/VIEWER.md`.
+- **Kombis** 🔥 („krass“ 3× in 10 s → Konfetti) und **Intensität aus Stimme** (lauter sprechen = stärkerer Effekt).
+- **Pakete**: Türkçe 85 (+30), Deutsch 49 (+18), English 50 (+18); neu „👨‍👩‍👧 Familie & Kinder“ (27) und
+  „🎮 Gaming“ (27).
+
 ## 1.5.0 – Ton-Check & automatische Sprache
 
 - **Vorschau stumm** (`overlay.html?volume=0`): Die Overlay-Vorschau im Panel spielt keinen Ton mehr, damit der

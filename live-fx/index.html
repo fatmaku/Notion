@@ -150,7 +150,9 @@
         <div class="row">
           <div><label>Lautstärke Overlay</label><input id="volume" type="range" min="0" max="1" step="0.05" value="0.8"></div>
           <div><label>Mindestabstand zwischen Effekten (s)</label><input id="gap" type="number" min="0" step="0.1" value="1.2"></div>
+          <div><label>Look (Theme)</label><select id="theme"><option value="neon">Neon (Standard)</option><option value="pastel">Pastell</option><option value="minimal">Minimal</option><option value="kinderbuch">Kinderbuch</option></select></div>
         </div>
+        <label class="check-line block" for="intensity-voice" title="Mikro-Pegel beim Treffer bestimmt die Stufe: leise = 1, normal = 2, laut = 3"><input type="checkbox" id="intensity-voice"> Intensität aus Stimme (lauter sprechen = stärkerer Effekt, Stufe 1–3)</label>
       </section>
 
       <section class="card" id="story-card">
@@ -207,6 +209,61 @@
         </div>
       </section>
 
+      <section class="card" id="viewer-card">
+        <h2>💬 Zuschauer-Trigger (Twitch · YouTube · TikTok)</h2>
+        <div class="help">Zuschauer lösen Effekte per Chat-Befehl aus (z.B. <code>!airhorn</code>); Geschenke, Bits und Super Chats treffen Stufen. Twitch braucht keinen Login. <a href="docs/VIEWER.md" target="_blank">Anleitung</a></div>
+        <div class="viewer-status block">
+          <span class="pill" id="chat-pill-twitch"><span class="dot" id="dot-twitch"></span> Twitch: <span id="chat-status-twitch">aus</span></span>
+          <span class="pill" id="chat-pill-youtube"><span class="dot" id="dot-youtube"></span> YouTube: <span id="chat-status-youtube">aus</span></span>
+          <span class="pill">💬 <span id="chat-count">0</span> Nachrichten</span>
+        </div>
+        <p class="help" id="chat-offline-hint" hidden>⚠️ Server nötig: <code>node server.js</code> starten und das Panel über <code>http://127.0.0.1:8787/</code> öffnen.</p>
+        <div class="row block">
+          <div><label for="chat-twitch-channel">Twitch-Kanal</label><input id="chat-twitch-channel" placeholder="z.B. meinkanal" spellcheck="false" autocomplete="off"></div>
+          <label class="check-line chat-enable" for="chat-twitch-enabled"><input type="checkbox" id="chat-twitch-enabled"> an</label>
+        </div>
+        <div class="row block">
+          <div><label for="chat-yt-video">YouTube Video-ID oder Link</label><input id="chat-yt-video" placeholder="z.B. dQw4w9WgXcQ" spellcheck="false" autocomplete="off"></div>
+          <div><label for="chat-yt-key">YouTube API-Key <span id="chat-yt-haskey" class="auto-tag" hidden>gespeichert ✔</span></label><input id="chat-yt-key" type="password" placeholder="AIza…" autocomplete="new-password"></div>
+          <label class="check-line chat-enable" for="chat-yt-enabled"><input type="checkbox" id="chat-yt-enabled"> an</label>
+        </div>
+        <div class="row block">
+          <div><label for="chat-prefix">Präfix</label><input id="chat-prefix" value="!" maxlength="3"></div>
+          <div><label for="chat-cd-user">Cooldown pro Zuschauer (s)</label><input id="chat-cd-user" type="number" min="0" step="1" value="15"></div>
+          <div><label for="chat-cd-global">Cooldown global (s)</label><input id="chat-cd-global" type="number" min="0" step="0.5" value="3"></div>
+        </div>
+        <label class="check-line block" for="chat-allowall"><input type="checkbox" id="chat-allowall"> Alle Trigger erlauben – <code>!&lt;trigger-id&gt;</code> oder <code>!&lt;name&gt;</code> ohne Tabelle</label>
+        <div class="block">
+          <label>Befehle → Trigger</label>
+          <div class="table-wrap"><table class="cmd-table"><thead><tr><th>Befehl</th><th>Trigger</th><th></th></tr></thead><tbody id="chat-commands"></tbody></table></div>
+          <div class="actions"><button type="button" class="small" id="btn-chat-cmd-add">+ Befehl</button></div>
+        </div>
+        <div class="block">
+          <label>Geschenk-Stufen (ab Betrag → Trigger; TikTok-Coins, Bits ÷ 100, Super Chat in Währung)</label>
+          <div class="table-wrap"><table class="cmd-table"><thead><tr><th>ab Betrag</th><th>Trigger</th></tr></thead><tbody id="gift-tiers"></tbody></table></div>
+        </div>
+        <div class="actions">
+          <button type="button" class="primary" id="btn-chat-save">💾 Speichern</button>
+          <span class="help" id="chat-save-status"></span>
+        </div>
+        <div class="block">
+          <label>Chat (letzte 20 – ausgelöste Befehle sind markiert)</label>
+          <div class="chat-feed" id="chat-feed"><div class="help empty">Noch keine Nachrichten.</div></div>
+        </div>
+        <div class="row block">
+          <div><label for="chat-test-text">Test-Nachricht (als Zuschauer schicken)</label><input id="chat-test-text" placeholder="!airhorn"></div>
+          <div class="chat-test-user"><label for="chat-test-user">Name</label><input id="chat-test-user" value="Tester"></div>
+          <button type="button" id="btn-chat-test">Senden</button>
+        </div>
+        <p class="help">Geschenke per Webhook: <code>POST /api/gift</code> mit <code>{"platform":"tiktok","user":"…","amount":10}</code> und dem Bearer-Token (TikFinity, Streamer.bot, eigenes Skript).</p>
+      </section>
+
+      <section class="card" id="combos-card">
+        <h2>🔥 Kombis</h2>
+        <div class="help">Feuert ein Trigger mehrmals kurz hintereinander (z.B. 3× „krass“ in 10 s), zündet ein Extra-Effekt.</div>
+        <div class="table-wrap"><table class="cmd-table"><thead><tr><th>Trigger</th><th>×</th><th>in (s)</th><th>→ dann</th><th></th></tr></thead><tbody id="combo-rows"></tbody></table></div>
+        <div class="actions"><button type="button" class="small" id="btn-combo-add">+ Kombi</button></div>
+      </section>
 
       <section class="card" id="mobile-card">
         <h2>📱 Handy</h2>

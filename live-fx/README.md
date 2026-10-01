@@ -85,6 +85,19 @@ spielt die Vorschau Ton, hören Zuschauer jeden Effekt **doppelt**. Deshalb:
   Vorschau-Ton aus), **Mikro-Test** und **„Test-Sound in OBS“**.
 - Schritt-für-Schritt mit Fehlerhilfe („Zuschauer hören mich nicht“, „Echo“, „Effekte doppelt“): [`docs/AUDIO.md`](docs/AUDIO.md).
 
+## Grafik, Sound & Zuschauer (1.6)
+
+- **Effekte v2**: Partikel mit Physik auf einem Canvas (60 fps mit automatischem Limit), Glow, 3D-Karten, Impact-Zoom,
+  Lichtstrahlen; neue Effekt-Typen **Text** (Neon/Verlauf/Bounce/Glitch), **Bauchbinde** und **Kombi** (Sequenz).
+  Pro Effekt: Glow, Kippen, Impact, Intensität 1–3, Lautstärke (`gain`).
+- **Look (Theme)** im Panel: Neon, Pastell, Minimal, Kinderbuch – oder fest per `overlay.html?theme=pastel`.
+- **Sound-Mixer**: Limiter, Ducking der Atmosphäre, Stereo nach Position, Hall für Szenen, 38 Sounds in Gruppen
+  ([`docs/SOUNDS.md`](docs/SOUNDS.md)).
+- **Zuschauer-Trigger** 💬: Twitch-Chat ohne Login, YouTube-Live-Chat mit API-Key, `!befehl` → Trigger mit Cooldowns,
+  Geschenke-Webhook mit Stufen (TikTok via TikFinity/Streamer.bot) – [`docs/VIEWER.md`](docs/VIEWER.md).
+- **Kombis** („krass“ 3× in 10 s → Konfetti) und **Intensität aus Stimme**.
+- **Pakete**: Türkçe 85, Deutsch 49, English 50, neu „Familie & Kinder“ und „Gaming“.
+
 ## Eigene Memes, GIFs & Sounds
 
 - **Medien-Bibliothek** im Panel: PNG/JPG/GIF/WebP und MP3/WAV/OGG hochladen (bis 8 MB pro Datei).

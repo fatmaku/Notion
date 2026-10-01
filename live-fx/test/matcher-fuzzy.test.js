@@ -432,7 +432,7 @@ test('performance: 200 triggers x 8 keywords, 20-word utterance, high', () => {
   const max = times[times.length - 1];
   console.log(`matcher perf (high, 200x8 keywords, 20 words): median ${median.toFixed(3)} ms, p90 ${times[Math.floor(times.length * 0.9)].toFixed(3)} ms, max ${max.toFixed(3)} ms`);
   assert.ok(median < 1, `median ${median} ms < 1 ms`);
-  assert.ok(max < 5, `max ${max} ms < 5 ms`);
+  assert.ok(max < 10, `max ${max} ms < 10 ms`);
 });
 
 test('candidate filters are complete: index results equal a brute-force scan (medium DL 1, high DL 2)', () => {

@@ -1,8 +1,9 @@
-// LiveFX – language / culture meme packs (Türkçe, Deutsch, English) and story packs (1.3). UMD, global `LiveFXPacks`.
+// LiveFX – language / culture meme packs (Türkçe, Deutsch, English), story packs (1.3) and theme packs
+// „Familie & Kinder“ / „Gaming“ (2.0). UMD, global `LiveFXPacks`.
 //
 // A pack is a curated list of trigger objects (schema v2, see docs/CONTRACTS.md §1) that the panel
 // can add to the streamer's trigger list with one click. Rules baked into every pack:
-//   - ids are prefixed with the pack id (`tr-`, `de-`, `en-`) and never collide with the defaults
+//   - ids are prefixed with the pack id (`tr-`, `de-`, `en-`, `family-`, `gaming-`) and never collide with the defaults
 //   - keywords are whole words / phrases as spoken (the matcher lower-cases and matches whole words;
 //     diacritics matter, so common ASCII spellings are listed as extra variants)
 //   - keywords avoid the exact words of the default pack (js/triggers.js) so a pack trigger does not
@@ -92,6 +93,37 @@
     ['cekil', 'Çekil', ['çekil', 'cekil', 'çekil oradan', 'kaçın', 'uzaklaş'], 'get out of the way, move', 'whoosh', card('🏃', 'ÇEKİL!', '#e67e22', '#ffffff', { shake: true }), 5],
     ['buneya', 'Bu ne ya', ['bu ne ya', 'bu ne', 'nedir bu', 'ne oluyor', 'ne oluyor ya'], 'what is this, confused', 'scratch', card('😵', 'BU NE YA?', '#8e44ad'), 5],
     ['turkiye', 'Türkiye', ['türkiye', 'turkiye', 'türkler', 'turkler', 'biz türkler'], 'Turkey pride, national moment', 'tada', rain('🇹🇷', 20), 8],
+    // --- 2.0: +30 ---
+    ['amantanrim', 'Aman Tanrım', ['aman tanrım', 'aman tanrim', 'tanrım', 'aman ya rabbim'], 'oh my god, shocked exclamation', 'boom', card('😱', 'AMAN TANRIM', '#8e44ad', '#ffffff', { shake: true }), 5],
+    ['yasabir', 'Ya sabır', ['ya sabır', 'ya sabir', 'sabır ya rabbim', 'ya rabbim sabır'], 'give me patience, exasperated', 'gong', card('🧘', 'YA SABIR', '#34495e'), 5],
+    ['cus', 'Çüş', ['çüş', 'cus', 'çüş ya', 'çüüş'], 'whoa, hold your horses, too much', 'scratch', card('🐴', 'ÇÜŞ!', '#c0392b'), 5],
+    ['bayildim', 'Bayıldım', ['bayıldım', 'bayildim', 'bayıldım ya', 'bayılıyorum'], 'I love it, adore it', 'tada', rain('😍', 18), 5],
+    ['agla', 'Ağla', ['ağla', 'agla', 'ağla ağla', 'ağlayın'], 'cry about it, taunting', 'sadTrombone', card('😭', 'AĞLA', '#2c3e50'), 5],
+    ['kopuyorum', 'Kopuyorum', ['kopuyorum', 'koptum', 'gülmekten kopuyorum', 'kopacağım'], 'laughing hysterically', 'laugh', rain('🤣', 20), 5],
+    ['noluyo', 'Noluyo', ['noluyo', 'noluyor', 'noluyo ya', 'noluyo lan'], 'what is going on, confused', 'scratch', card('😵‍💫', 'NOLUYO?', '#34495e'), 4],
+    ['birdakika', 'Bir dakika', ['bi dakka', 'dur bakalım', 'bi saniye', 'dur dur'], 'hold on a minute, wait', 'drumroll', card('✋', 'Bir dakika…', '#7f8c8d'), 4],
+    ['tebrikler', 'Tebrikler', ['tebrikler', 'tebrik ederim', 'kutlarım', 'kutluyorum'], 'congratulations', 'tada', confetti('🎉', 'TEBRİKLER!'), 6],
+    ['yaparsin', 'Yaparsın', ['yaparsın', 'yaparsin', 'sen yaparsın', 'yapabilirsin'], 'you can do it, encouragement', 'levelUp', banner('💪', 'YAPARSIN!'), 6],
+    ['hadi', 'Hadi', ['hadi', 'hadi hadi', 'haydi', 'hadi ama'], 'come on, hurry, let us go', 'whoosh', card('🏃', 'HADİ!', '#e67e22'), 4],
+    ['napiyorsun', 'Ne yapıyorsun', ['ne yapıyorsun', 'napıyorsun', 'napiyorsun', 'ne yaptın sen'], 'what are you doing, facepalm', 'buzzer', card('🤦', 'NE YAPIYORSUN', '#c0392b'), 5],
+    ['gercekmi', 'Gerçek mi', ['gerçek mi', 'gercek mi', 'ciddi misin', 'cidden mi', 'şaka yapıyorsun'], 'seriously? are you for real?', 'ooh', card('🤨', 'Gerçek mi?', '#2980b9'), 4],
+    ['muhtesem', 'Muhteşem', ['muhteşem', 'muhtesem', 'mükemmel', 'harika', 'harikasın'], 'awesome, perfect, wonderful', 'tada', confetti('🌟', 'MUHTEŞEM!'), 6],
+    ['sonunda', 'Sonunda', ['sonunda', 'nihayet', 'en sonunda', 'oh be sonunda'], 'finally, at last', 'levelUp', banner('🏁', 'SONUNDA!'), 6],
+    ['kacti', 'Kaçtı', ['kaçtı', 'kacti', 'kaçırdım', 'kaçırdın', 'elimden kaçtı'], 'missed it, got away', 'slideWhistle', card('🙊', 'KAÇTI', '#7f8c8d'), 5],
+    ['patlat', 'Patlat', ['patlat', 'patlatıyoruz', 'patlattık', 'patlıyor'], 'blow it up, going off', 'boom', rain('💥', 20), 5],
+    ['neguzel', 'Ne güzel', ['ne güzel', 'ne guzel', 'çok güzel', 'güzel ya', 'güzelmiş'], 'how beautiful, how nice', 'bell', rain('✨', 18), 5],
+    ['tuh', 'Tüh', ['tüh', 'tuh', 'tüh be', 'tüh ya'], 'damn, pity', 'sadTrombone', card('😖', 'Tüh…', '#34495e'), 5],
+    ['korkma', 'Korkma', ['korkma', 'korkmayın', 'merak etme', 'endişelenme'], 'do not worry, do not be afraid', 'ding', card('🤗', 'Korkma', '#16a085'), 5],
+    ['dikkat', 'Dikkat', ['dikkat', 'dikkat et', 'dikkatli ol', 'uyarı'], 'warning, watch out', 'siren', banner('⚠️', 'DİKKAT!'), 6],
+    ['cay', 'Çay', ['çay', 'cay', 'çay koy', 'çay var mı', 'bir çay'], 'tea, tea break', 'pop', rain('🍵', 16), 6],
+    ['aciktim', 'Acıktım', ['acıktım', 'aciktim', 'karnım aç', 'açlıktan öldüm'], 'hungry', 'pop', rain('🥙', 16), 6],
+    ['uyku', 'Uykum geldi', ['uykum geldi', 'uykum var', 'uyuyacağım', 'yoruldum', 'çok yorgunum'], 'sleepy, tired', 'crickets', card('😴', 'Uykum geldi…', '#2c3e50'), 6],
+    ['gol', 'Gol', ['gol', 'gool', 'goool', 'gol oldu'], 'goal, scored', 'airhorn', confetti('⚽', 'GOOOL!'), 6],
+    ['hoppa', 'Hoppa', ['hoppa', 'hoppala', 'hop hop', 'hooop'], 'whoa, oops, surprised stumble', 'boing', card('🤸', 'HOPPA', '#e67e22'), 4],
+    ['yavas', 'Yavaş', ['yavaş', 'yavas', 'yavaş ol', 'ağır ol', 'sakin sakin'], 'slow down, easy', 'pop', card('🐢', 'Yavaş…', '#16a085'), 4],
+    ['bayram', 'Bayram', ['bayram', 'bayramınız kutlu olsun', 'bayramınız mübarek olsun', 'iyi bayramlar'], 'holiday greetings, festive', 'bell', rain('🎊', 20), 8],
+    ['hayirli', 'Hayırlı olsun', ['hayırlı olsun', 'hayirli olsun', 'hayırlısı', 'allah hayırlı etsin'], 'may it be blessed, congratulations', 'ding', card('🙏', 'Hayırlı olsun', '#27ae60'), 6],
+    ['uctum', 'Uçtum', ['uçtum', 'uctum', 'uçuyorum', 'havalara uçtum'], 'over the moon, flying high', 'whoosh', rain('🚀', 16), 5],
   ];
 
   // ---------------------------------------------------------------------------------------------
@@ -129,6 +161,25 @@
     ['bier', 'Bier', ['bier', 'ein bier', 'prost', 'bierchen', 'zum wohl'], 'beer, cheers', 'pop', rain('🍺', 18), 6],
     ['langweilig', 'Langweilig', ['langweilig', 'gähn', 'schnarch', 'öde'], 'bored, boring', 'crickets', card('🥱', 'langweilig…', '#7f8c8d'), 6],
     ['dankeschoen', 'Dankeschön', ['dankeschön', 'danke', 'vielen dank', 'danke dir', 'danke euch'], 'thank you', 'ding', rain('🙏', 16), 6],
+    // --- 2.0: +18 ---
+    ['keinplan', 'Kein Plan', ['kein plan', 'null ahnung', 'weiß nicht', 'kein schimmer'], 'no idea, clueless', 'crickets', card('🤷', 'KEIN PLAN', '#7f8c8d'), 5],
+    ['lost', 'Lost', ['lost', 'voll lost', 'bin lost', 'komplett lost'], 'lost, clueless, out of it', 'slideWhistle', card('🫠', 'LOST', '#34495e'), 5],
+    ['junge', 'Junge!', ['junge', 'junge junge', 'junge junge junge', 'ey junge'], 'boy oh boy, surprised', 'boom', card('😳', 'JUNGE.', '#111111'), 5],
+    ['wasnlos', 'Was ist los', ['was ist los', 'was los', 'was soll das', 'wie bitte'], 'what is going on, excuse me?', 'scratch', card('🤨', 'WAS LOS?', '#c0392b'), 4],
+    ['lecker', 'Lecker', ['lecker', 'mega lecker', 'schmeckt', 'köstlich'], 'tasty, delicious', 'pop', rain('😋', 16), 6],
+    ['losgehts', "Los geht's", ["los geht's", 'los gehts', "auf geht's", 'auf gehts', 'und los'], 'here we go, let us start', 'airhorn', confetti('🚀', "LOS GEHT'S!"), 6],
+    ['sauer', 'Sauer', ['sauer', 'ich bin sauer', 'bin sauer', 'stinksauer', 'wütend'], 'angry, mad', 'buzzer', card('😤', 'SAUER!', '#c0392b'), 5],
+    ['muede', 'Müde', ['müde', 'bin müde', 'so müde', 'ich geh pennen'], 'tired, sleepy', 'crickets', card('😴', 'müde…', '#2c3e50'), 6],
+    ['keinbock', 'Kein Bock', ['kein bock', 'null bock', 'null lust', 'kein nerv'], 'cannot be bothered, no motivation', 'sadTrombone', card('😑', 'KEIN BOCK', '#34495e'), 5],
+    ['bock', 'Bock', ['bock', 'hab bock', 'voll bock', 'bock drauf'], 'keen, motivated, up for it', 'airhorn', card('🔥', 'BOCK!', '#e67e22'), 5],
+    ['uff', 'Uff', ['uff', 'puh', 'phew', 'uff uff'], 'relief, phew', 'whoosh', card('😮‍💨', 'uff…', '#16a085'), 4],
+    ['jackpot', 'Jackpot', ['jackpot', 'volltreffer', 'bingo', 'treffer'], 'jackpot, bullseye, bingo', 'tada', confetti('🎰', 'JACKPOT!'), 6],
+    ['legende', 'Legende', ['legende', 'legendär', 'du bist eine legende', 'absolute legende'], 'legend, legendary', 'airhorn', banner('🏆', 'LEGENDE'), 6],
+    ['ohneworte', 'Ohne Worte', ['ohne worte', 'sprachlos', 'ich bin sprachlos', 'mir fehlen die worte'], 'speechless', 'crickets', card('😶', '…', '#2c3e50'), 5],
+    ['glueck', 'Glück gehabt', ['viel glück', 'glück gehabt', 'schwein gehabt', 'daumen drücken'], 'good luck, lucky escape', 'coin', rain('🍀', 18), 6],
+    ['party', 'Party', ['party', 'feiern', 'lass feiern', 'partyyy'], 'party, celebrate', 'tada', confetti('🎉', 'PARTY!'), 6],
+    ['autsch', 'Autsch', ['autsch', 'aua', 'au weia', 'das tat weh'], 'ouch, that hurt', 'boing', card('🤕', 'AUTSCH', '#c0392b'), 4],
+    ['hilfe', 'Hilfe', ['hilfe', 'hilf mir', 'hilfe hilfe', 'sos'], 'help, emergency', 'siren', banner('🆘', 'HILFE!'), 6],
   ];
 
   // ---------------------------------------------------------------------------------------------
@@ -167,6 +218,91 @@
     ['crying', 'Crying', ['crying', 'i\'m crying', 'sobbing', 'in tears', 'not me crying'], 'crying, emotional or laughing', 'rimshot', rain('😭', 22), 5],
     ['screaming', 'Screaming', ['screaming', 'i\'m screaming', 'im screaming', 'screaming crying', 'aaaah'], 'screaming, overwhelmed', 'boom', card('😱', 'SCREAMING', '#e74c3c', '#ffffff', { shake: true }), 5],
     ['yikes', 'Yikes', ['yikes', 'big yikes', 'oof', 'big oof', 'ick', 'the ick'], 'that was bad, yikes', 'crickets', card('😬', 'YIKES', '#2c3e50'), 6],
+    // --- 2.0: +18 ---
+    ['plottwist', 'Plot twist', ['plot twist', 'plottwist', 'twist', 'what a twist'], 'unexpected turn of events', 'dramatic', card('🌀', 'PLOT TWIST', '#8e44ad'), 6],
+    ['nah', 'Nah', ['nah', 'nah bro', 'nah man', 'hell nah'], 'no, refusing', 'nope', card('🙅', 'NAH.', '#111111'), 4],
+    ['lowkey', 'Lowkey', ['lowkey', 'low key', 'highkey', 'high key'], 'secretly / openly, lowkey highkey', 'pop', card('🤫', 'lowkey', '#34495e'), 4],
+    ['mid', 'Mid', ['mid', 'so mid', 'very mid', "that's mid"], 'mediocre, mid', 'sadTrombone', card('😐', 'MID', '#7f8c8d'), 5],
+    ['cooked', 'Cooked', ['cooked', "we're cooked", 'im cooked', "i'm cooked", "it's over"], 'doomed, it is over', 'boom', card('🍳', 'COOKED', '#c0392b'), 5],
+    ['lethimcook', 'Let him cook', ['let him cook', 'let her cook', 'let them cook', 'cooking'], 'let them do their thing, it is working', 'drumroll', card('👨‍🍳', 'LET HIM COOK', '#e67e22'), 5],
+    ['aura', 'Aura', ['aura', 'aura points', 'plus aura', 'minus aura'], 'aura, coolness points', 'whoosh', rain('✨', 18), 5],
+    ['sigma', 'Sigma', ['sigma', 'skibidi', 'skibidi sigma', 'what the sigma'], 'sigma / skibidi brainrot meme', 'boing', card('🗿', 'SIGMA', '#111111'), 5],
+    ['delulu', 'Delulu', ['delulu', 'delusional', 'delulu is the solulu', 'solulu'], 'delusional, delulu', 'laugh', card('🦄', 'DELULU', '#e84393'), 5],
+    ['iykyk', 'IYKYK', ['iykyk', 'if you know you know', 'if you know', 'ykyk'], 'if you know you know, insider', 'ding', card('🤝', 'IYKYK', '#16a085'), 4],
+    ['holymoly', 'Holy moly', ['holy moly', 'holy cow', 'holy smokes', 'holy'], 'astonished, holy moly', 'ooh', card('😲', 'HOLY MOLY', '#2980b9'), 5],
+    ['nicetry', 'Nice try', ['nice try', 'good try', 'close one', 'so close'], 'almost, nice try', 'slideWhistle', card('😅', 'NICE TRY', '#7f8c8d'), 5],
+    ['omg', 'OMG', ['omg', 'oh my god', 'oh my gosh', 'oh my'], 'oh my god, shocked', 'scratch', card('😱', 'OMG', '#8e44ad', '#ffffff', { shake: true }), 5],
+    ['bless', 'Bless', ['bless', 'bless up', 'blessed', 'god bless'], 'blessed, grateful', 'bell', rain('🙏', 16), 6],
+    ['hype', 'Hype', ['hype', 'hyped', 'so hyped', 'hype train'], 'hype, excitement', 'airhorn', confetti('🚂', 'HYPE TRAIN'), 6],
+    ['salty', 'Salty', ['salty', 'so salty', 'mad salty', 'butthurt'], 'bitter about losing, salty', 'buzzer', card('🧂', 'SALTY', '#34495e'), 5],
+    ['maincharacter', 'Main character', ['main character', 'main character energy', 'protagonist', 'npc'], 'main character energy vs npc', 'tada', banner('🎬', 'MAIN CHARACTER'), 6],
+    ['touchgrass', 'Touch grass', ['touch grass', 'go outside', 'grass', 'log off'], 'go outside, touch grass', 'pop', rain('🌱', 16), 6],
+  ];
+
+  // ---------------------------------------------------------------------------------------------
+  // Familie & Kinder (2.0) – DE / TR / EN mixed, soft sounds only (bell, pop, ding, coin, levelUp, tada, boing, laugh)
+  // ---------------------------------------------------------------------------------------------
+  const FAMILY = [
+    ['gutenacht', 'Gute Nacht', ['gute nacht', 'schlaf gut', 'träum schön', 'iyi uykular', 'sweet dreams'], 'good night, sleep well', 'bell', card('🌙', 'Gute Nacht', '#2c3e50', '#ffffff'), 8],
+    ['aferin', 'Aferin', ['aferin', 'aferin sana', 'aferin kızım', 'aferin oğlum', 'well done kiddo'], 'well done (Turkish praise for kids)', 'ding', confetti('👏', 'AFERİN!'), 5],
+    ['gutgemacht', 'Gut gemacht', ['prima', 'sehr gut', 'great job', 'çok güzel yaptın', 'well done'], 'great job, well done', 'tada', confetti('🌟', 'GUT GEMACHT!'), 5],
+    ['oyunzamani', 'Oyun zamanı', ['oyun zamanı', 'oyun zamani', 'spielzeit', 'playtime', 'play time'], 'playtime', 'levelUp', banner('🧸', 'OYUN ZAMANI'), 6],
+    ['bedtime', 'Bedtime', ['bedtime', 'schlafenszeit', 'yatma vakti', 'uyku vakti', 'ab ins bett'], 'bedtime', 'bell', card('🛏️', 'Bedtime', '#34495e'), 8],
+    ['essenfertig', 'Essen ist fertig', ['essen ist fertig', 'essen fertig', 'yemek hazır', 'yemek hazir', 'dinner is ready', 'food is ready'], 'dinner is ready', 'pop', rain('🍽️', 14), 8],
+    ['zaehneputzen', 'Zähne putzen', ['zähne putzen', 'zaehne putzen', 'diş fırçala', 'dis fircala', 'brush your teeth'], 'brush your teeth', 'pop', card('🪥', 'Zähne putzen!', '#2980b9'), 8],
+    ['aufraeumen', 'Aufräumen', ['aufräumen', 'aufraeumen', 'odanı topla', 'clean up', 'tidy up'], 'tidy up, clean the room', 'whoosh', card('🧹', 'Aufräumen!', '#16a085'), 8],
+    ['kuscheln', 'Kuscheln', ['kuscheln', 'kuschelzeit', 'sarıl', 'sarılalım', 'cuddle', 'hug'], 'cuddle, hug', 'bell', rain('🤗', 14), 6],
+    ['habdichlieb', 'Hab dich lieb', ['ich hab dich lieb', 'hab dich lieb', 'i love you', 'seni çok seviyorum', 'love you'], 'I love you', 'bell', rain('💕', 18), 6],
+    ['geburtstag', 'Happy Birthday', ['happy birthday', 'alles gute zum geburtstag', 'doğum günün kutlu olsun', 'dogum gunun kutlu olsun', 'geburtstag', 'iyi ki doğdun'], 'happy birthday', 'tada', confetti('🎂', 'HAPPY BIRTHDAY!'), 10],
+    ['kitzeln', 'Kitzeln', ['kitzeln', 'kitzel', 'gıdıklama', 'gidiklama', 'tickle', 'tickle tickle'], 'tickling', 'laugh', rain('😆', 16), 5],
+    ['langsam', 'Langsam', ['langsam', 'nicht so schnell', 'yavaş yavaş', 'slowly', 'slow down'], 'slow down, careful', 'pop', card('🐌', 'Langsam…', '#16a085'), 5],
+    ['bitte', 'Bitte', ['bitte', 'bitteschön', 'lütfen', 'please', 'bitte bitte'], 'please', 'ding', card('🙏', 'Bitte!', '#7c5cff'), 4],
+    ['dankemama', 'Danke Mama / Papa', ['danke mama', 'danke papa', 'teşekkürler anne', 'teşekkürler baba', 'thank you mom', 'thank you dad'], 'thank you mom / dad', 'bell', rain('💐', 14), 6],
+    ['mama', 'Mama', ['mama', 'anne', 'anneciğim', 'mom', 'mommy', 'mummy'], 'calling mom', 'bell', card('👩', 'MAMA', '#e84393'), 5],
+    ['papa', 'Papa', ['papa', 'baba', 'babacığım', 'dad', 'daddy'], 'calling dad', 'pop', card('👨', 'PAPA', '#2980b9'), 5],
+    ['juhu', 'Juhu', ['juhu', 'juhuu', 'yaşasın', 'yasasin', 'yay', 'hooray', 'hurra'], 'yay, hooray', 'tada', confetti('🎉', 'JUHU!'), 5],
+    ['hausaufgaben', 'Hausaufgaben', ['hausaufgaben', 'ödev', 'odev', 'homework', 'homework time'], 'homework time', 'drumroll', card('📚', 'Hausaufgaben', '#34495e'), 8],
+    ['maerchen', 'Märchen', ['märchen', 'masal', 'story time', 'vorlesen', 'masal zamanı', 'bedtime story'], 'story time, fairy tale', 'bell', card('📖', 'Märchenzeit', '#8e44ad'), 8],
+    ['baden', 'Baden', ['baden', 'badezeit', 'banyo', 'banyo vakti', 'bath time', 'bubble bath'], 'bath time', 'pop', rain('🫧', 18), 8],
+    ['zuckersuess', 'Zuckersüß', ['zuckersüß', 'zuckersuess', 'çok tatlı', 'cok tatli', 'so sweet', 'adorable'], 'so sweet, adorable', 'bell', rain('🍭', 14), 6],
+    ['nochmal', 'Nochmal', ['nochmal', 'noch einmal', 'bir daha', 'bir daha bir daha', 'once more', 'one more time'], 'again, one more time', 'boing', card('🔁', 'NOCHMAL!', '#e67e22'), 4],
+    ['ichkanndas', 'Ich kann das', ["ich hab's geschafft", 'ich habs geschafft', 'ich kann das', 'başardım ben', 'i did it', 'i can do it'], 'I did it, I can do it', 'levelUp', confetti('🏅', 'ICH KANN DAS!'), 6],
+    ['bussi', 'Bussi', ['bussi', 'küsschen', 'öpücük', 'opucuk', 'kiss kiss', 'muah'], 'kiss, smooch', 'pop', rain('😘', 14), 5],
+    ['gutenmorgen', 'Guten Morgen', ['guten morgen', 'günaydın', 'gunaydin', 'good morning', 'morgen zusammen'], 'good morning', 'bell', banner('☀️', 'GUTEN MORGEN'), 8],
+    ['ohoh', 'Oh oh', ['oh oh', 'uh-oh', 'eyvah eyvah', 'oopsie', 'hoppla'], 'uh-oh, small mishap', 'boing', card('😬', 'Oh oh…', '#e67e22'), 4],
+  ];
+
+  // ---------------------------------------------------------------------------------------------
+  // Gaming (2.0) – DE / TR / EN gamer talk
+  // ---------------------------------------------------------------------------------------------
+  const GAMING = [
+    ['headshot', 'Headshot', ['headshot', 'head shot', 'kopfschuss', 'kafadan', 'one tap', 'onetap'], 'headshot, one tap', 'boom', card('🎯', 'HEADSHOT!', '#c0392b', '#ffffff', { shake: true }), 4],
+    ['ggwp', 'GG WP', ['ggs', 'gg wp', 'ggwp', 'gg ez', 'well played'], 'good game well played', 'applause', confetti('🤝', 'GG WP'), 6],
+    ['ragequit', 'Rage quit', ['rage quit', 'ragequit', 'rage', 'ich rage', 'alt f4'], 'rage quit, angry exit', 'buzzer', card('😡', 'RAGE QUIT', '#c0392b'), 6],
+    ['ace', 'Ace', ['ace', 'aced', 'ace round', 'team kill', 'team wipe'], 'ace, whole enemy team eliminated', 'airhorn', confetti('🔥', 'ACE!'), 6],
+    ['noob', 'Noob', ['noob', 'newb', 'noobs', 'du bot', 'anfänger'], 'noob, beginner', 'laugh', card('🍼', 'NOOB', '#7f8c8d'), 5],
+    ['easy', 'Easy', ['easy', 'easy game', 'ez clap', 'too easy', 'viel zu leicht', 'çok kolay'], 'too easy', 'tada', card('😎', 'EASY', '#16a085'), 5],
+    ['respawn', 'Respawn', ['respawn', 'respawned', 'wiederbelebt', 'back in', 'revive'], 'respawn, back in the game', 'levelUp', card('♻️', 'RESPAWN', '#27ae60'), 5],
+    ['bossfight', 'Boss fight', ['boss fight', 'bossfight', 'boss kampf', 'final boss', 'endboss'], 'boss fight', 'dramatic', banner('👹', 'BOSS FIGHT'), 8],
+    ['lag', 'Lag', ['lag', 'lagging', 'laggt', 'ich lagge', 'mein ping'], 'lag, bad ping', 'scratch', card('🐌', 'LAG…', '#34495e'), 6],
+    ['gameover', 'Game over', ['game over', 'gameover', 'wasted', 'you died', 'du bist tot'], 'game over, died', 'sadTrombone', card('💀', 'GAME OVER', '#111111'), 6],
+    ['levelup', 'Level up', ['level up', 'levelup', 'aufgestiegen', 'seviye atladım', 'next level'], 'level up', 'levelUp', confetti('⬆️', 'LEVEL UP!'), 5],
+    ['loot', 'Loot', ['loot', 'legendary drop', 'epic loot', 'beute', 'rare drop'], 'loot, rare drop', 'coin', rain('💎', 20), 5],
+    ['speedrun', 'Speedrun', ['speedrun', 'speed run', 'world record', 'weltrekord', 'rekor'], 'speedrun, world record', 'drumroll', banner('⏱️', 'SPEEDRUN'), 6],
+    ['camper', 'Camper', ['camper', 'camping', 'campen', 'camperlord'], 'camper, camping', 'crickets', card('⛺', 'CAMPER', '#7f8c8d'), 6],
+    ['nerf', 'Nerf / Buff', ['nerf', 'nerfed', 'buff', 'buffed', 'overpowered'], 'nerf, buff, overpowered', 'boing', card('⚖️', 'NERF!', '#8e44ad'), 5],
+    ['crit', 'Critical hit', ['critical hit', 'crit', 'crit damage', 'kritischer treffer', 'krit'], 'critical hit', 'boom', card('💥', 'CRIT!', '#e67e22'), 4],
+    ['combo', 'Combo', ['combo', 'kombo', 'combo breaker', 'multikill', 'multi kill'], 'combo, multikill', 'airhorn', banner('🔗', 'COMBO!'), 5],
+    ['firstblood', 'First blood', ['first blood', 'firstblood', 'erster kill', 'ilk kan'], 'first blood, first kill', 'dramatic', banner('🩸', 'FIRST BLOOD'), 8],
+    ['afk', 'AFK', ['afk', 'bin afk', 'brb', 'kurz weg', 'bin gleich wieder da'], 'away from keyboard', 'pop', card('🚶', 'AFK', '#34495e'), 6],
+    ['glhf', 'GL HF', ['glhf', 'gl hf', 'good luck have fun', 'viel spaß', 'iyi oyunlar'], 'good luck have fun', 'ding', card('🍀', 'GL HF', '#27ae60'), 6],
+    ['trash', 'Trash', ['trash', 'du bist trash', 'so trash', 'müll', 'çöp'], 'trash, bad play', 'buzzer', card('🗑️', 'TRASH', '#7f8c8d'), 5],
+    ['mvp', 'MVP', ['mvp', 'top frag', 'topfrag', 'carry', 'carried', 'hardcarry'], 'mvp, carried the team', 'tada', confetti('🥇', 'MVP!'), 6],
+    ['niceshot', 'Nice shot', ['nice shot', 'schöner schuss', 'güzel atış', 'sick shot', 'what a shot'], 'nice shot', 'ding', card('🏹', 'NICE SHOT', '#2980b9'), 4],
+    ['hacker', 'Hacker', ['hacker', 'hacks', 'cheater', 'aimbot', 'wallhack'], 'hacker, cheater accusation', 'siren', banner('🚨', 'HACKER?!'), 6],
+    ['achievement', 'Achievement', ['achievement', 'achievement unlocked', 'erfolg freigeschaltet', 'trophy', 'trophäe'], 'achievement unlocked', 'levelUp', card('🏆', 'ACHIEVEMENT UNLOCKED', '#f1c40f', '#111111'), 6],
+    ['rush', 'Rush', ['rush b', 'rush', 'push', 'push push', 'go go go'], 'rush, push, go go go', 'whoosh', banner('🏃', 'RUSH!'), 5],
+    ['victory', 'Victory', ['victory royale', 'victory', 'sieg', 'zafer', 'winner winner', 'chicken dinner'], 'victory, we won', 'airhorn', confetti('🍗', 'VICTORY!'), 8],
   ];
 
   // ---------------------------------------------------------------------------------------------
@@ -337,6 +473,20 @@
       flag: '🇬🇧',
       description: 'English internet slang: no cap, sheesh, big W, rizz, GOAT, poggers, F in the chat …',
       triggers: EN.map((r) => row('en', r)),
+    },
+    family: {
+      id: 'family',
+      label: '👨‍👩‍👧 Familie & Kinder',
+      flag: '👨‍👩‍👧',
+      description: 'Sanfte Effekte für Familien-Streams und Vorlesen: gute nacht, aferin, oyun zamanı, bedtime, happy birthday …',
+      triggers: FAMILY.map((r) => row('family', r)),
+    },
+    gaming: {
+      id: 'gaming',
+      label: '🎮 Gaming',
+      flag: '🎮',
+      description: 'Gamer-Sprüche DE/TR/EN: headshot, gg wp, rage quit, ace, noob, boss fight, lag, level up, victory …',
+      triggers: GAMING.map((r) => row('gaming', r)),
     },
     'story-de': {
       id: 'story-de',
