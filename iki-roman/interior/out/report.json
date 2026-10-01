@@ -9,7 +9,7 @@
     "acts": 5,
     "images": 4,
     "docx_paragraphs": 3663,
-    "words": 45420,
+    "words": 45437,
     "text_check": {
       "model_vs_docx": "ok",
       "print_html_vs_model": "ok",
@@ -129,8 +129,8 @@
     "subtitle_is_heading1": false,
     "acts": 0,
     "images": 0,
-    "docx_paragraphs": 1783,
-    "words": 39453,
+    "docx_paragraphs": 1784,
+    "words": 39479,
     "text_check": {
       "model_vs_docx": "ok",
       "print_html_vs_model": "ok",

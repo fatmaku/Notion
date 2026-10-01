@@ -8,11 +8,11 @@ Zwei Romane, ein Kunstprojekt: **BEN YOKSAM – 1453 Uyanışın Bedeli** (Tunca
 |---|---|
 | `cover/out/<BUCH>/<TR|EN|DE>/` | `Fullcover.pdf` (KDP-Wrap), `Frontcover.pdf`, `Backcover.pdf`, `eBook-Cover.jpg` (1600 × 2560), `Vorschau.png`, `Fullcover_Guides.png` (mit Trim-/Beschnitt-/Sicherheitslinien) |
 | `cover/out/` | `Doppelansicht_<SPR>.png` (beide Fronten nebeneinander, Faust-Naht), `Panorama_Marketing_<SPR>.png` (sechs Panels, nur für Marketing), `cover_report.json` |
-| `interior/out/` | `BEN_YOKSAM_Innenteil_A5.pdf`, `SAHIDI_ARARKEN_Innenteil_A5.pdf` (Druck), `BEN_YOKSAM.epub`, `SAHIDI_ARARKEN.epub` (Kindle), epubcheck-Berichte, `preview/`, `report.json`. Gebaut aus den **v2-Manuskripten** in `interior/src/` (sechs minimale Korrekturen, Liste in `analyse/Degisiklik_Listesi_v2.md`) |
-| `interior/src/` | `BEN_YOKSAM_1453_TR_v2.docx`, `SAHIDI_ARARKEN_TR_v2.docx` (korrigierte Manuskripte), `v2_aenderungen.json` (alle Änderungen maschinenlesbar) |
+| `interior/out/` | `BEN_YOKSAM_Innenteil_A5.pdf`, `SAHIDI_ARARKEN_Innenteil_A5.pdf` (Druck), `BEN_YOKSAM.epub`, `SAHIDI_ARARKEN.epub` (Kindle), epubcheck-Berichte, `preview/`, `report.json`. Gebaut aus den **v3-Manuskripten** in `interior/src/` (zehn minimale Korrekturen ohne Plotänderung, Liste in `analyse/Degisiklik_Listesi_v2.md`) |
+| `interior/src/` | `*_v3.docx` (aktuelle korrigierte Manuskripte), `*_v2.docx` (erste Korrekturrunde), `v2_aenderungen.json`, `v3_aenderungen.json` (alle Änderungen maschinenlesbar) |
 | `trailer/out/` | 9 Videos `Iki_Roman_Fragman_<16x9_60s|9x16_30s|1x1_30s>_<TR|EN|DE>.mp4`, 9 Untertitel `.srt`, `storyboard/` (Stills), `render_report.txt` |
 | `marketing/` | `Marketing_Story_Storyboard_<TR|EN|DE>.pdf` (+ `.md`): Kernbotschaft, KDP-Listing, Keywords, Kategorien, A+, Storyboard, Sprechertext, Musik-Brief, Launch-Plan |
-| `analyse/` | `Bewertung_Ben_Yoksam_Sahidi_Ararken.md/.pdf` (Fassung 2, mit adversarialer Gegenprüfung): Logik-, Mystik- und Spannungsbewertung je Buch und als Doppelwerk; `Degisiklik_Listesi_v2.md/.pdf`: Änderungsliste der v2-Manuskripte (TR + DE); `jury_ergebnisse.json` (Rohdaten der sechs Jury-Stimmen und der Gegenprüfung); `build_pdf.py` (Markdown → PDF) |
+| `analyse/` | `Bewertung_Ben_Yoksam_Sahidi_Ararken.md/.pdf` (Fassung 2, mit adversarialer Gegenprüfung): Logik-, Mystik- und Spannungsbewertung je Buch und als Doppelwerk; `Degisiklik_Listesi_v2.md/.pdf`: Änderungsliste der Manuskriptfassungen v2 und v3 (TR + DE); `jury_ergebnisse.json` (Rohdaten der sechs Jury-Stimmen und der Gegenprüfung); `build_pdf.py` (Markdown → PDF) |
 | `assets/` | Referenzgrafik (1536 × 512) und die 4×-KI-Hochskalierung (Real-ESRGAN), zerlegte Panels, Portraits |
 | `fonts/` | Cinzel, Literata, Cormorant Garamond (SIL OFL) |
 
@@ -61,9 +61,9 @@ Hinweis: Die KDP-Hilfeseiten waren aus der Build-Umgebung nicht erreichbar; die 
 python3 cover/prep_art.py        # nur nötig, wenn sich die Referenzgrafik ändert
 python3 cover/build_cover.py
 
-# Innenteil + ePub (aus den v2-Manuskripten; ohne --docx wird das Original-Manuskript gesetzt)
-python3 interior/docx2book.py --book BY --pdf --epub --cover cover/out/BY/TR/eBook-Cover.jpg --docx interior/src/BEN_YOKSAM_1453_TR_v2.docx
-python3 interior/docx2book.py --book SA --pdf --epub --cover cover/out/SA/TR/eBook-Cover.jpg --docx interior/src/SAHIDI_ARARKEN_TR_v2.docx
+# Innenteil + ePub (aus den v3-Manuskripten; ohne --docx wird das Original-Manuskript gesetzt)
+python3 interior/docx2book.py --book BY --pdf --epub --cover cover/out/BY/TR/eBook-Cover.jpg --docx interior/src/BEN_YOKSAM_1453_TR_v3.docx
+python3 interior/docx2book.py --book SA --pdf --epub --cover cover/out/SA/TR/eBook-Cover.jpg --docx interior/src/SAHIDI_ARARKEN_TR_v3.docx
 python3 interior/check_pdf.py interior/out/*_Innenteil_A5.pdf --json interior/out/check_pdf.json
 
 # Trailer (9 Videos + SRT + Stills)

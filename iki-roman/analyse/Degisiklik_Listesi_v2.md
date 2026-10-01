@@ -1,7 +1,7 @@
-# İki Roman – v2 Değişiklik Listesi / Änderungsliste v2
+# İki Roman – Değişiklik Listesi v2 + v3 / Änderungsliste v2 + v3
 
-**Tarih / Datum:** 30.09.2026
-**Kaynak dosyalar / Quelldateien:** `interior/src/BEN_YOKSAM_1453_TR_v2.docx`, `interior/src/SAHIDI_ARARKEN_TR_v2.docx` (makine tarafından okunabilir liste: `interior/src/v2_aenderungen.json`)
+**Tarih / Datum:** 30.09.2026 (v2), 01.10.2026 (v3)
+**Güncel dosyalar / Aktuelle Dateien:** `interior/src/BEN_YOKSAM_1453_TR_v3.docx`, `interior/src/SAHIDI_ARARKEN_TR_v3.docx` (v3 = v2 + bölüm 5; makine tarafından okunabilir listeler: `interior/src/v2_aenderungen.json`, `v3_aenderungen.json`)
 
 ---
 
@@ -64,7 +64,7 @@ Bunlar kurguyu değil, ritmi ya da içerik tercihlerini ilgilendirir; bu yüzden
 
 ---
 
-## 4. Teknik doğrulama / Technische Prüfung (v2)
+## 4. Teknik doğrulama / Technische Prüfung (v3 = v2 + bölüm 5)
 
 | | BEN YOKSAM | ŞAHİDİ ARARKEN |
 |---|---|---|
@@ -72,5 +72,40 @@ Bunlar kurguyu değil, ritmi ya da içerik tercihlerini ilgilendirir; bu yüzden
 | Kenar boşluğu denetimi / Randprüfung | geçti / bestanden | geçti / bestanden |
 | Yazı tipleri gömülü / Fonts eingebettet | evet / ja | evet / ja |
 | EPUB (epubcheck) | 0 hata, 0 uyarı | 0 hata, 0 uyarı |
-| Değişikliklerin dizgide doğrulanması / Änderungen im Satz nachgewiesen | 2/2 (PDF + EPUB) | 4/4 (PDF + EPUB) |
+| Değişikliklerin dizgide doğrulanması / Änderungen im Satz nachgewiesen | 4/4 (PDF + EPUB) | 6/6 (PDF + EPUB) |
 | Kapak / Cover | geçerli (sırt 17,84 mm) | geçerli (sırt 12,70 mm) |
+
+---
+
+## 5. v3 – İkinci tur (01.10.2026) / Zweite Runde
+
+**TR – İlke:** Yazarların „devam“ demesi üzerine, raporun 7. bölümündeki önerilerden kurguya dokunmayan, tek kelime ya da tek cümleyle yapılabilen dört tanesi daha uygulandı. İkisi anlatıcının sesinde birer cümle ekler; olaylar, sıra ve çözüm aynen kalır. v2'deki altı değişiklik korunmuştur.
+
+**DE – Grundsatz:** Auf das „devam“ der Autoren hin wurden vier weitere Vorschläge aus Abschnitt 7 des Berichts umgesetzt, jeweils ein Wort oder ein Satz, ohne Eingriff in die Handlung. Zwei davon ergänzen je einen Satz in der Erzählerstimme; Ereignisse, Reihenfolge und Auflösung bleiben unverändert. Die sechs v2-Änderungen bleiben erhalten.
+
+| # | Kitap / Buch | Bölüm / Kapitel | Eski / alt | Yeni / neu |
+|---|---|---|---|---|
+| 7 | BEN YOKSAM | 11 „Emanetin Peşindeki Karga“ | yıllardır kapalı **duran** bir cilt atölyesine | yıllardır kapalı **görünen** bir cilt atölyesine |
+| 8 | BEN YOKSAM | 35 „Kızımın Dosyası“ | …önceden bıraktığı parçaların arasını biz tamamlıyorduk. | …biz tamamlıyorduk. **Acil durum kelimesini, yamuk mantıyı, o kapının önünde sormak aklıma bile gelmemişti; kelimeyi seçen de Duru'ydu.** |
+| 9 | ŞAHİDİ ARARKEN | AYNI EL | …hastane koridorunda kızına suyu az diye söylenen adam da. Onların… | …söylenen adam da. **Telefonun öbür ucundaki Mahmut, Suat Abi ve iki Emrah da.** Onların… |
+| 10 | ŞAHİDİ ARARKEN | TECRİT ODASI | „Hocam, EEG nedir?“ (ardından doğrudan Hakan'ın cevabı) | „Hocam, EEG nedir?“ **+ yeni anlatıcı paragrafı:** „Bunu az önce sormuş muydum? O gün fark etmedim; şimdi de emin değilim, olduğu gibi bırakıyorum.“ |
+
+**TR – Neden (7):** Atölye 11. bölümde dışarıdan „yıllardır kapalı“ görünür (paslı kepenk); 15. bölümde kiracının „aylar önce“ kaybolduğu, 23. bölümde Heidelberg makinesinin Leyla'nın ölümünden ~30 saat önce çalıştığı anlaşılır. Üç yer birbiriyle bağdaşır (gizlice kullanılan, dışarıdan ölü görünen atölye); „görünen“ kelimesi bu izlenimi izlenim olarak işaretler.
+**DE – Begründung (7):** Von außen wirkt die Werkstatt seit Jahren geschlossen, der Mieter ist seit Monaten weg, die Maschine wird heimlich benutzt. Ein Wort macht den Eindruck zum Eindruck.
+
+**TR – Neden (8):** 21. bölümde Duru'nun seçtiği acil durum parolası „yamuk mantı“ kitapta bir daha geçmiyordu. 32. bölümdeki kapı sahnesinde anlatıcı, kulaklıktan gelen „Duru“ sesinin mantığını değil varlığını kontrol eder; 35. bölümde bunun Duru'nun kendi kurduğu bir ses tuzağı olduğu ortaya çıkar. Eklenen cümle, parolanın sorulmadığını geriye dönük itiraf eder; hiçbir olay değişmez. Parolayı seçenin de Duru olması kitabın kör nokta temasına uyar.
+**DE – Begründung (8):** Das Codewort aus Kap. 21 bekommt seinen Payoff als rückblickendes Eingeständnis beim Aufdecken der Stimmfalle; Ereignisse unverändert.
+
+**TR – Neden (9):** AYNI EL'deki tasnif („kime hangi hayatta rastladığım“) Mahmut'u (kafe), Suat Beşkardeş'i ve iki Emrah'ı (HODRİ'deki telefon) dışarıda bırakıyordu. Onlar da anne ve Vildan gibi anlatıcının bakışının dışında kendi hayatlarını sürdüren kişilerdir; bir cümle listeyi tamamlar.
+**DE – Begründung (9):** Die Sortierliste wird um die vier Nebenfiguren mit eigenem Leben ergänzt.
+
+**TR – Neden (10):** Karşı-denetim, EEG diyaloğundaki tekrarları (iki kez açıklama, „Kabuk derken hocam?“, iki kez vedalaşma) önsöz ve DAKTİLO'daki çerçeveye dayanarak anlatıcının hafıza yeniden kurgusu saydı; ama jürinin iki üyesi de burayı „revizyon artığı“ olarak okudu. Anlatıcının tek cümlelik notu, tekrarı bilinçli bir araç olarak görünür kılar; diyalog kısaltılmadı.
+**DE – Begründung (10):** Ein Erzählersatz macht die als Stilmittel gedeckte EEG-Schleife für jeden Leser als solche erkennbar, ohne den Dialog zu kürzen.
+
+**Uygulanmayan, yeniden değerlendirilen / Geprüft, bewusst nicht geändert:**
+- „Sonmuş Gibi“ (BY, 1. bölüm başlığı): yazım hatası („Sönmüş“) ya da „son + -muş“ kelime oyunu („sanki sonmuş“, kitabın ilk cümlesine gönderme) olabilir; ikinci okuma mümkün olduğu için dokunulmadı, yazar kararı. / Tippfehler oder Wortspiel; Autorenfrage.
+- Ritim kaydedici (BY 44. bölüm „iki ay önce takmışlardı“): 13. bölümde kullanımda („geçen haftaki ritim kaydına baktı“, „ritim takibini uzattı“); hata yok. / Kein Fehler.
+- Nehir ve Yusuf (BY 12/23): „kartı Yusuf'a ulaştırmıştı“ yüz yüze görüşme gerektirmez; „Bir kez gördüm“ ve „ortadan kaybolmuştu“ ile bağdaşır. / Vereinbar, kein Eingriff.
+- „Rava kalbi an Rabbi“ (SA, Muhibbi): geleneksel biçim „haddesenî kalbî an Rabbî“ (Bâyezîd/İbn Arabî); Şems'e atıf halk rivayetidir ve çayhane bilgesi Muhibbi'nin ağzına uyar. İsteyen „Şems Tebrizi“ yerine „erenler“ yazabilir. / In der Figur stimmig; optional.
+- Besmele varyantı (SA): metin farkı zaten işaretliyor („hiç de küçük olmayan bir fark“); kalın harfler akrostiş olduğu için değiştirilemez. / Bereits markiert; Akrostichon.
+- SU'daki çocuk sesi: karşı-denetim çelişki saymadı (yazar görüsü olarak çerçeveli). / Kein Handlungsbedarf.
