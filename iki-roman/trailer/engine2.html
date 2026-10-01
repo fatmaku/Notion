@@ -176,7 +176,8 @@ const mkCanvas = (w, h) => { const c = document.createElement('canvas'); c.width
 
 /* ---------- assets ---------- */
 const A = '../assets/upscaled/';
-const IMG = { saFront: A + 'SA_front.png', byFront: A + 'BY_front.png', saEbook: '../cover/out/SA/TR/eBook-Cover.jpg', byEbook: '../cover/out/BY/TR/eBook-Cover.jpg' };
+const LU = LANG.toUpperCase();
+const IMG = { saFront: A + `SA_front_${LANG}.png`, byFront: A + `BY_front_${LANG}.png`, saEbook: `../cover/out/SA/${LU}/eBook-Cover.jpg`, byEbook: `../cover/out/BY/${LU}/eBook-Cover.jpg` };   // Titel sind je Sprache gesetzt (YOLCU / THE TRAVELLER / DER REISENDE …)
 const FRONT = { w: 1461, h: 2048, bleed: 30 };              // front panel incl. 3 mm bleed
 const TRIM = { w: FRONT.w - 2 * FRONT.bleed, h: FRONT.h - 2 * FRONT.bleed };
 const CONTACT_Y = 0.656;                                    // fists meet at this fraction of the trimmed panel height

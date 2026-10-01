@@ -1,0 +1,24 @@
+{
+ "BY": [
+  {
+   "kapitel": "Titelseite",
+   "alt": "BEN YOKSAM",
+   "neu": "YOLCU",
+   "begruendung": "Neuer Titel laut Autoren (01.10.2026); Untertitel „1453 — Uyanışın Bedeli“ bleibt."
+  }
+ ],
+ "SA": [
+  {
+   "kapitel": "Titelseite",
+   "alt": "ŞAHİDİ ARARKEN",
+   "neu": "ŞAHİT",
+   "begruendung": "Neuer Titel laut Autoren."
+  },
+  {
+   "kapitel": "SU (Schluss)",
+   "alt": "Kitabın adını yazdım: ŞAHİDİ ARARKEN",
+   "neu": "Kitabın adını yazdım: ŞAHİT",
+   "begruendung": "Das Buch nennt am Ende seinen eigenen Titel; folgt dem neuen Titel."
+  }
+ ]
+}

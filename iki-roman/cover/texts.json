@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Einzige Textquelle für Cover, eBook-Cover und Marketing. TR ist die Hauptsprache. Titel bleiben in allen Sprachen türkisch (Markenname). Die Referenzgrafik nannte den Erzähler von BEN YOKSAM 'Adem/Adam' und sprach bei ŞAHİDİ ARARKEN von 'drei Jahren Schweigen' – beides kommt im Manuskript nicht vor (der Erzähler bleibt namenlos; Sefa schweigt seit drei Monaten, der Fall ist ein Mann ohne Sprechfähigkeit). Die Texte hier halten sich an die Manuskripte.",
+  "_hinweis": "Einzige Textquelle für Cover, eBook-Cover und Marketing. TR ist die Hauptsprache. Seit 01.10.2026 heißen die Bücher YOLCU (vormals BEN YOKSAM) und ŞAHİT (vormals ŞAHİDİ ARARKEN); auf EN/DE-Covern werden die Titel übersetzt (title_i18n), die Autorennamen bleiben. Die Referenzgrafik nannte den Erzähler 'Adem/Adam' und sprach von 'drei Jahren Schweigen' – beides kommt im Manuskript nicht vor.",
   "series": {
     "tagline": {
       "tr": "İki Roman – İki Yol – Üçüncü Bir Hikâye",
@@ -13,10 +13,16 @@
     }
   },
   "BY": {
-    "title": "BEN YOKSAM",
-    "title_lines": ["BEN", "YOKSAM"],
+    "title": "YOLCU",
+    "title_lines": [
+      "YOLCU"
+    ],
     "subtitle": "1453 — UYANIŞIN BEDELİ",
-    "subtitle_translation": { "tr": "", "en": "1453 — The Price of Awakening", "de": "1453 — Der Preis des Erwachens" },
+    "subtitle_translation": {
+      "tr": "",
+      "en": "1453 — The Price of Awakening",
+      "de": "1453 — Der Preis des Erwachens"
+    },
     "author": "Tuncay Sancak",
     "author_caps": "TUNCAY SANCAK",
     "genre": {
@@ -30,9 +36,21 @@
       "de": "Wie erkennst du, dass etwas existiert?"
     },
     "questions": {
-      "tr": ["Gördüğün için mi?", "Hatırladığın için mi?", "Yoksa biri sana var olduğunu söylediği için mi?"],
-      "en": ["Because you see it?", "Because you remember it?", "Or because someone tells you it exists?"],
-      "de": ["Weil du es siehst?", "Weil du dich erinnerst?", "Oder weil dir jemand sagt, dass es existiert?"]
+      "tr": [
+        "Gördüğün için mi?",
+        "Hatırladığın için mi?",
+        "Yoksa biri sana var olduğunu söylediği için mi?"
+      ],
+      "en": [
+        "Because you see it?",
+        "Because you remember it?",
+        "Or because someone tells you it exists?"
+      ],
+      "de": [
+        "Weil du es siehst?",
+        "Weil du dich erinnerst?",
+        "Oder weil dir jemand sagt, dass es existiert?"
+      ]
     },
     "blurb": {
       "tr": [
@@ -50,13 +68,43 @@
         "Mit jeder Seite wird 1453 von einem Datum zu einem Schlüssel, ein roter Faden zum Symbol, und Zufälle verlieren ihre Zufälligkeit.",
         "Doch bald stellt sich eine noch gefährlichere Frage: Was, wenn das, was dich aufwecken will, dich in Wahrheit nur dorthin führt, wohin es selbst dich bringen möchte?"
       ]
+    },
+    "former_title": "BEN YOKSAM",
+    "title_i18n": {
+      "tr": "YOLCU",
+      "en": "THE TRAVELLER",
+      "de": "DER REISENDE"
+    },
+    "subtitle_i18n": {
+      "tr": "1453 — UYANIŞIN BEDELİ",
+      "en": "1453 — THE PRICE OF AWAKENING",
+      "de": "1453 — DER PREIS DES ERWACHENS"
+    },
+    "title_lines_i18n": {
+      "tr": [
+        "YOLCU"
+      ],
+      "en": [
+        "THE",
+        "TRAVELLER"
+      ],
+      "de": [
+        "DER",
+        "REISENDE"
+      ]
     }
   },
   "SA": {
-    "title": "ŞAHİDİ ARARKEN",
-    "title_lines": ["ŞAHİDİ", "ARARKEN"],
+    "title": "ŞAHİT",
+    "title_lines": [
+      "ŞAHİT"
+    ],
     "subtitle": "",
-    "subtitle_translation": { "tr": "", "en": "In Search of the Witness", "de": "Auf der Suche nach dem Zeugen" },
+    "subtitle_translation": {
+      "tr": "",
+      "en": "",
+      "de": ""
+    },
     "author": "Mustafa Sefa Güvenir",
     "author_caps": "MUSTAFA SEFA GÜVENİR",
     "genre": {
@@ -70,9 +118,27 @@
       "de": "Was verbirgt ein Mensch, der nicht mehr spricht?"
     },
     "questions": {
-      "tr": ["Şahit kim?", "Susan adam mı?", "Hikâyeyi yazan mı?", "Gören mi?", "Yoksa bu kitabı şu anda elinde tutan kişi mi?"],
-      "en": ["Who is the witness?", "The silent man?", "The one who writes the story?", "The one who saw it?", "Or the person holding this book right now?"],
-      "de": ["Wer ist der Zeuge?", "Der schweigende Mann?", "Der, der die Geschichte schreibt?", "Der, der es gesehen hat?", "Oder die Person, die dieses Buch gerade in den Händen hält?"]
+      "tr": [
+        "Şahit kim?",
+        "Susan adam mı?",
+        "Hikâyeyi yazan mı?",
+        "Gören mi?",
+        "Yoksa bu kitabı şu anda elinde tutan kişi mi?"
+      ],
+      "en": [
+        "Who is the witness?",
+        "The silent man?",
+        "The one who writes the story?",
+        "The one who saw it?",
+        "Or the person holding this book right now?"
+      ],
+      "de": [
+        "Wer ist der Zeuge?",
+        "Der schweigende Mann?",
+        "Der, der die Geschichte schreibt?",
+        "Der, der es gesehen hat?",
+        "Oder die Person, die dieses Buch gerade in den Händen hält?"
+      ]
     },
     "blurb": {
       "tr": [
@@ -86,6 +152,30 @@
       "de": [
         "Mustafa Sefa erhält einen ungewöhnlichen Auftrag: Er soll die Geschichte eines Mannes schreiben, der nicht mehr spricht. Doch je tiefer er in die Vergangenheit dieses Mannes eintaucht, desto mehr gerät nicht nur dessen Geschichte, sondern auch seine eigene Wirklichkeit ins Wanken.",
         "Briefe, verlorene Zeiten, ein einziges Wort: der Zeuge. Was als Recherche beginnt, wird zu einer Reise in die tiefsten Schichten der Erinnerung, Identität und Bedeutung."
+      ]
+    },
+    "former_title": "ŞAHİDİ ARARKEN",
+    "title_i18n": {
+      "tr": "ŞAHİT",
+      "en": "THE WITNESS",
+      "de": "DER ZEUGE"
+    },
+    "subtitle_i18n": {
+      "tr": "",
+      "en": "",
+      "de": ""
+    },
+    "title_lines_i18n": {
+      "tr": [
+        "ŞAHİT"
+      ],
+      "en": [
+        "THE",
+        "WITNESS"
+      ],
+      "de": [
+        "DER",
+        "ZEUGE"
       ]
     }
   }

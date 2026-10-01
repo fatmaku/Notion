@@ -8,11 +8,11 @@
       question: 'Wie erkennst du, dass etwas existiert?',
       by: {
         lines: ['Ein schwarzes Paket vor der Tür.', 'Kein Absender. Keine Adresse.', 'Das Buch darin … handelt von ihm.'],
-        title: 'BEN YOKSAM', subtitle: '1453 — Uyanışın Bedeli', author: 'Tuncay Sancak'
+        title: 'DER REISENDE', subtitle: '1453 — Der Preis des Erwachens', author: 'Tuncay Sancak'
       },
       sa: {
         lines: ['Ein Reisender bricht auf.', 'Ein Zeuge erwartet ihn.', 'Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?'],
-        title: 'ŞAHİDİ ARARKEN', subtitle: '', author: 'Mustafa Sefa Güvenir'
+        title: 'DER ZEUGE', subtitle: '', author: 'Mustafa Sefa Güvenir'
       },
       shared: { lines: ['Ein grüner Raum.', 'Drei Schläge.', 'Ein Glas Wasser.', 'Zwei Menschen erinnern sich an dieselbe Szene.'] },
       tagline: 'Zwei Romane – Zwei Wege – Eine dritte Geschichte',

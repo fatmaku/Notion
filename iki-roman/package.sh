@@ -7,8 +7,8 @@ rm -f out/Iki_Roman_KDP_Paket.zip
 zip -q -r out/Iki_Roman_KDP_Paket.zip \
   README.md \
   cover/out \
-  interior/out/BEN_YOKSAM_Innenteil_A5.pdf interior/out/SAHIDI_ARARKEN_Innenteil_A5.pdf \
-  interior/out/BEN_YOKSAM.epub interior/out/SAHIDI_ARARKEN.epub \
+  interior/out/YOLCU_Innenteil_A5.pdf interior/out/SAHIT_Innenteil_A5.pdf \
+  interior/out/YOLCU.epub interior/out/SAHIT.epub \
   interior/out/epubcheck_BY.txt interior/out/epubcheck_SA.txt interior/out/report.json \
   trailer/out/*.mp4 trailer/out/*.srt trailer/out/storyboard trailer/out/render_report.txt trailer/README-trailer.md \
   marketing/*.pdf marketing/*.md \

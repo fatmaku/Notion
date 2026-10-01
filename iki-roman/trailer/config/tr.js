@@ -8,11 +8,11 @@
       question: 'Bir şeyin var olduğunu nasıl anlarsın?',
       by: {
         lines: ['Kapının önünde siyah bir paket.', 'Gönderen yok. Adres yok.', 'İçindeki kitap… onu anlatıyor.'],
-        title: 'BEN YOKSAM', subtitle: '1453 — Uyanışın Bedeli', author: 'Tuncay Sancak'
+        title: 'YOLCU', subtitle: '1453 — Uyanışın Bedeli', author: 'Tuncay Sancak'
       },
       sa: {
         lines: ['Bir yolcu yola çıkar.', 'Bir şahit onu bekler.', 'Artık konuşmayan bir adam… Şahit kim?'],
-        title: 'ŞAHİDİ ARARKEN', subtitle: '', author: 'Mustafa Sefa Güvenir'
+        title: 'ŞAHİT', subtitle: '', author: 'Mustafa Sefa Güvenir'
       },
       shared: { lines: ['Yeşil bir oda.', 'Üç vuruş.', 'Bir bardak su.', 'Aynı sahneyi iki kişi hatırlıyor.'] },
       tagline: 'İki Roman – İki Yol – Üçüncü Bir Hikâye',

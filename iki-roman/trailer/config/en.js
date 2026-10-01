@@ -8,11 +8,11 @@
       question: 'How do you know that something exists?',
       by: {
         lines: ['A black package at the door.', 'No sender. No address.', 'The book inside… is about him.'],
-        title: 'BEN YOKSAM', subtitle: '1453 — Uyanışın Bedeli', author: 'Tuncay Sancak'
+        title: 'THE TRAVELLER', subtitle: '1453 — The Price of Awakening', author: 'Tuncay Sancak'
       },
       sa: {
         lines: ['A traveller sets out.', 'A witness awaits him.', 'A man who no longer speaks… Who is the witness?'],
-        title: 'ŞAHİDİ ARARKEN', subtitle: '', author: 'Mustafa Sefa Güvenir'
+        title: 'THE WITNESS', subtitle: '', author: 'Mustafa Sefa Güvenir'
       },
       shared: { lines: ['A green room.', 'Three knocks.', 'A glass of water.', 'Two people remember the same scene.'] },
       tagline: 'Two Novels – Two Paths – A Third Story',

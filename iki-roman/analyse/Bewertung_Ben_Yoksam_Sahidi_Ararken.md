@@ -2,6 +2,8 @@
 
 **Fassung 2.2 (01.10.2026).** Ersetzt Fassung 1. Neu: die adversariale Gegenprüfung der wichtigsten Befunde ist gelaufen (Abschnitt 8), die Punktwerte sind entsprechend korrigiert, die minimalen Manuskriptkorrekturen der Fassungen v2 und v3 (Abschnitt 6) sind berücksichtigt, und die unabhängige Jury-Bewertung liegt vor (Abschnitt 2).
 
+**Titeländerung (01.10.2026):** Die Bücher heißen jetzt **YOLCU** (vormals BEN YOKSAM; Untertitel „1453 — Uyanışın Bedeli“ bleibt) und **ŞAHİT** (vormals ŞAHİDİ ARARKEN). Dieser Bericht behält die Arbeitstitel und die Kürzel BY/SA, weil alle Zitate, Kapitelangaben und Prüfprotokolle darauf verweisen.
+
 **Gegenstand:** *BEN YOKSAM – 1453 Uyanışın Bedeli* (Tuncay Sancak, 44.851 Wörter, 5 Akte, 43 nummerierte Kapitel + DİKKAT) und *ŞAHİDİ ARARKEN* (Mustafa Sefa Güvenir, 39.569 Wörter, 34 Kapitel).
 **Methode:** Zehn unabhängige Leseläufe (je Akt/Abschnitt), je Buch vier Fachanalysen (Logik, Mystik, Romanhandwerk, Eigenständigkeit), zwei Querverbindungs-Analysen (Brücken, „drittes Buch“); alle Befunde mit Kapitel und Zitat. Danach eine **adversariale Gegenprüfung** der 14 gewichtigsten Befunde: je Befund ein unabhängiger Prüfer mit Volltextzugriff, Zitatpflicht und dem Auftrag, den Befund zu widerlegen; Ergebnis „bestätigt“ oder „widerlegt“ mit Konfidenz. Dazu eine **Jury** aus zwei Lesarten (Verlagslektor, aufmerksamer Leser) je Buch und für das Paar, ebenfalls mit Volltextzugriff; die dritte vorgesehene Stimme (Literaturkritiker) fiel dem Sitzungslimit zum Opfer. Die wichtigsten Stellen habe ich zusätzlich selbst per Volltextsuche geprüft (Anhang). Die Punktwerte in der Haupttabelle sind mein Urteil auf Basis der Analysen und der Gegenprüfung; die Jury-Werte stehen daneben, mit Erklärung der Abweichung.
 

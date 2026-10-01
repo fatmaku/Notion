@@ -1,6 +1,6 @@
 # İki Roman – Produktionspaket für Amazon KDP
 
-Zwei Romane, ein Kunstprojekt: **BEN YOKSAM – 1453 Uyanışın Bedeli** (Tuncay Sancak) und **ŞAHİDİ ARARKEN** (Mustafa Sefa Güvenir). Dieses Verzeichnis enthält alles, was für die Veröffentlichung als Taschenbuch (A5) und Kindle-eBook gebraucht wird, dazu Trailer, Marketing und die Analyse beider Bücher.
+Zwei Romane, ein Kunstprojekt: **YOLCU – 1453 Uyanışın Bedeli** (Tuncay Sancak; Arbeitstitel bis 01.10.2026: BEN YOKSAM) und **ŞAHİT** (Mustafa Sefa Güvenir; Arbeitstitel: ŞAHİDİ ARARKEN). Auf den EN/DE-Covern heißen sie THE TRAVELLER / THE WITNESS bzw. DER REISENDE / DER ZEUGE. Im Code und im Analysebericht bleiben die Kürzel BY und SA. Dieses Verzeichnis enthält alles, was für die Veröffentlichung als Taschenbuch (A5) und Kindle-eBook gebraucht wird, dazu Trailer, Marketing und die Analyse beider Bücher.
 
 ## Inhalt
 
@@ -8,19 +8,19 @@ Zwei Romane, ein Kunstprojekt: **BEN YOKSAM – 1453 Uyanışın Bedeli** (Tunca
 |---|---|
 | `cover/out/<BUCH>/<TR|EN|DE>/` | `Fullcover.pdf` (KDP-Wrap), `Frontcover.pdf`, `Backcover.pdf`, `eBook-Cover.jpg` (1600 × 2560), `Vorschau.png`, `Fullcover_Guides.png` (mit Trim-/Beschnitt-/Sicherheitslinien) |
 | `cover/out/` | `Doppelansicht_<SPR>.png` (beide Fronten nebeneinander, Faust-Naht), `Panorama_Marketing_<SPR>.png` (sechs Panels, nur für Marketing), `cover_report.json` |
-| `interior/out/` | `BEN_YOKSAM_Innenteil_A5.pdf`, `SAHIDI_ARARKEN_Innenteil_A5.pdf` (Druck), `BEN_YOKSAM.epub`, `SAHIDI_ARARKEN.epub` (Kindle), epubcheck-Berichte, `preview/`, `report.json`. Gebaut aus den **v3-Manuskripten** in `interior/src/` (zehn minimale Korrekturen ohne Plotänderung, Liste in `analyse/Degisiklik_Listesi_v2.md`) |
-| `interior/src/` | `*_v3.docx` (aktuelle korrigierte Manuskripte), `*_v2.docx` (erste Korrekturrunde), `v2_aenderungen.json`, `v3_aenderungen.json` (alle Änderungen maschinenlesbar) |
+| `interior/out/` | `YOLCU_Innenteil_A5.pdf`, `SAHIT_Innenteil_A5.pdf` (Druck), `YOLCU.epub`, `SAHIT.epub` (Kindle), epubcheck-Berichte, `preview/`, `report.json`. Gebaut aus den **v4-Manuskripten** in `interior/src/` (v3 + neue Titel; zehn minimale Korrekturen ohne Plotänderung, Liste in `analyse/Degisiklik_Listesi_v2.md`) |
+| `interior/src/` | `YOLCU_TR_v4.docx`, `SAHIT_TR_v4.docx` (aktuelle Manuskripte = Word-Fassung), ältere Stufen `*_v2.docx`, `*_v3.docx`, `v2/v3/v4_aenderungen.json` (alle Änderungen maschinenlesbar) |
 | `trailer/out/` | 9 Videos `Iki_Roman_Fragman_<16x9_60s|9x16_30s|1x1_30s>_<TR|EN|DE>.mp4`, 9 Untertitel `.srt`, `storyboard/` (Stills), `render_report.txt` |
 | `marketing/` | `Marketing_Story_Storyboard_<TR|EN|DE>.pdf` (+ `.md`): Kernbotschaft, KDP-Listing, Keywords, Kategorien, A+, Storyboard, Sprechertext, Musik-Brief, Launch-Plan |
 | `analyse/` | `Bewertung_Ben_Yoksam_Sahidi_Ararken.md/.pdf` (Fassung 2, mit adversarialer Gegenprüfung): Logik-, Mystik- und Spannungsbewertung je Buch und als Doppelwerk; `Degisiklik_Listesi_v2.md/.pdf`: Änderungsliste der Manuskriptfassungen v2 und v3 (TR + DE); `jury_ergebnisse.json` (Rohdaten der sechs Jury-Stimmen und der Gegenprüfung); `build_pdf.py` (Markdown → PDF) |
-| `assets/` | Referenzgrafik (1536 × 512) und die 4×-KI-Hochskalierung (Real-ESRGAN), zerlegte Panels, Portraits |
+| `assets/` | Referenzgrafik (1536 × 512) und die 4×-KI-Hochskalierung (Real-ESRGAN), zerlegte Panels, Portraits; `upscaled/*_front_<tr|en|de>.png` = Fronten mit den neu gesetzten Titeln (`cover/titles_on_fronts.py`) |
 | `fonts/` | Cinzel, Literata, Cormorant Garamond (SIL OFL) |
 
 ## Maße und KDP-Einstellungen
 
 **Taschenbuch (beide Bücher):** Trim **A5 = 148 × 210 mm (5,83 × 8,27 in)**, Innenteil Schwarz-Weiß auf **Creme**, Cover farbig, glänzend oder matt nach Wunsch.
 
-| | BEN YOKSAM | ŞAHİDİ ARARKEN |
+| | YOLCU (BY) | ŞAHİT (SA) |
 |---|---|---|
 | Seiten (Innenteil-PDF) | **281** | **200** |
 | Rückenbreite = Seiten × 0,0635 mm | **17,84 mm** | **12,70 mm** |
@@ -36,10 +36,10 @@ Die genauen Zahlen (Seiten, Rücken, Fullcover-Maß) stehen nach jedem Build in 
 
 ## Cover-Logik (so ist es gebaut)
 
-- Der KDP-Wrap ist immer **[Rückseite | Rücken | Front]** von links nach rechts. Die Referenzgrafik zeigte BEN YOKSAM spiegelverkehrt; das ist korrigiert.
-- Der Faustgruß entsteht, wenn beide Bücher **mit den Fronten nebeneinander liegen: ŞAHİDİ ARARKEN links, BEN YOKSAM rechts**. Das Panorama ist an der Berührungsstelle der Fäuste geteilt; jede Front läuft 3,175 mm über die Naht hinaus in den Beschnitt, damit die Berührung auch bei ±1 mm Schnitttoleranz erhalten bleibt (`Doppelansicht_*.png`).
+- Der KDP-Wrap ist immer **[Rückseite | Rücken | Front]** von links nach rechts. Die Referenzgrafik zeigte YOLCU (BEN YOKSAM) spiegelverkehrt; das ist korrigiert.
+- Der Faustgruß entsteht, wenn beide Bücher **mit den Fronten nebeneinander liegen: ŞAHİT links, YOLCU rechts**. Das Panorama ist an der Berührungsstelle der Fäuste geteilt; jede Front läuft 3,175 mm über die Naht hinaus in den Beschnitt, damit die Berührung auch bei ±1 mm Schnitttoleranz erhalten bleibt (`Doppelansicht_*.png`).
 - Beide Rückseiten nutzen dasselbe Template: Portrait oben rückenseitig mit identischer weicher Vignette und Gradation, Text außen, Tagline unten, Barcode-Feld unten rechts.
-- Titel, Autorennamen, Untertitel und Ornamente der Fronten stammen aus der KI-hochskalierten Referenz (Typografie wie freigegeben). Nur die Genrezeile ist je Sprache neu gesetzt (Vektor). Rückseiten und Rücken sind vollständig Vektortext (Cinzel, Literata).
+- Autorennamen und Ornamente der Fronten stammen aus der KI-hochskalierten Referenz. Die Titel (seit der Umbenennung) und Untertitel werden von `cover/titles_on_fronts.py` je Sprache neu gesetzt: alte Rasterschrift ausgemalt, neue goldene Cinzel-Typografie mit Verlauf, Kante, Halo und Schatten im Look der Referenz. Die Genrezeile ist je Sprache Vektortext; Rückseiten und Rücken sind vollständig Vektortext (Cinzel, Literata).
 
 ## Upload-Checkliste KDP
 
@@ -49,7 +49,7 @@ Die genauen Zahlen (Seiten, Rücken, Fullcover-Maß) stehen nach jedem Build in 
 3. Im KDP-**Cover-Calculator** (Print Options → „Cover Calculator“) die Maße gegenprüfen; die dort ausgegebene Breite muss mit `Fullcover.pdf` übereinstimmen (Toleranz 0,1 mm).
 4. **Fullcover.pdf** hochladen (eine Seite, Fonts eingebettet, RGB, keine Schnittmarken). Barcode-Option: „KDP druckt Barcode“ (die weiße Fläche ist dafür frei).
 5. KDP-Vorschau prüfen: Rückentext mittig, nichts in der Beschnittzone abgeschnitten, Faust an der Kante.
-6. **eBook**: `interior/out/<BUCH>.epub` + `cover/out/<BUCH>/TR/eBook-Cover.jpg`; Kindle-Previewer durchklicken (Inhaltsverzeichnis, Kapitelanfänge, Einschübe).
+6. **eBook**: `interior/out/YOLCU.epub` bzw. `SAHIT.epub` + `cover/out/<BY|SA>/TR/eBook-Cover.jpg`; Kindle-Previewer durchklicken (Inhaltsverzeichnis, Kapitelanfänge, Einschübe).
 7. **Druckprobe** bestellen, bevor die Bücher live gehen.
 
 Hinweis: Die KDP-Hilfeseiten waren aus der Build-Umgebung nicht erreichbar; die Werte oben entsprechen dem KDP-Standard (Beschnitt 0,125 in, Creme 0,0025 in/Seite, Randtabelle, Barcode 2 × 1,2 in, eBook-Cover 1600 × 2560). Schritt 3 stellt sicher, dass sie mit dem aktuellen KDP-Stand übereinstimmen.
@@ -58,12 +58,13 @@ Hinweis: Die KDP-Hilfeseiten waren aus der Build-Umgebung nicht erreichbar; die 
 
 ```bash
 # Cover (alle Sprachen), Seitenzahlen aus interior/out/report.json
-python3 cover/prep_art.py        # nur nötig, wenn sich die Referenzgrafik ändert
+python3 cover/prep_art.py          # nur nötig, wenn sich die Referenzgrafik ändert
+python3 cover/titles_on_fronts.py  # Titel je Sprache auf die Fronten setzen (texts.json)
 python3 cover/build_cover.py
 
-# Innenteil + ePub (aus den v3-Manuskripten; ohne --docx wird das Original-Manuskript gesetzt)
-python3 interior/docx2book.py --book BY --pdf --epub --cover cover/out/BY/TR/eBook-Cover.jpg --docx interior/src/BEN_YOKSAM_1453_TR_v3.docx
-python3 interior/docx2book.py --book SA --pdf --epub --cover cover/out/SA/TR/eBook-Cover.jpg --docx interior/src/SAHIDI_ARARKEN_TR_v3.docx
+# Innenteil + ePub (aus den v4-Manuskripten; ohne --docx wird das Original-Manuskript gesetzt)
+python3 interior/docx2book.py --book BY --pdf --epub --cover cover/out/BY/TR/eBook-Cover.jpg --docx interior/src/YOLCU_TR_v4.docx
+python3 interior/docx2book.py --book SA --pdf --epub --cover cover/out/SA/TR/eBook-Cover.jpg --docx interior/src/SAHIT_TR_v4.docx
 python3 interior/check_pdf.py interior/out/*_Innenteil_A5.pdf --json interior/out/check_pdf.json
 
 # Trailer (9 Videos + SRT + Stills)

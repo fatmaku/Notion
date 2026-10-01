@@ -51,8 +51,8 @@ UPLOADS = Path("/root/.claude/uploads/6549e111-23e7-5e00-8587-d424b5294a16")
 BOOKS = {
     "BY": {
         "docx": UPLOADS / "d3456fe2-BEN_YOKSAM_1453_TR.docx",
-        "slug": "BEN_YOKSAM",
-        "title": "BEN YOKSAM",
+        "slug": "YOLCU",
+        "title": "YOLCU",             # vormals BEN YOKSAM (Titeländerung 01.10.2026)
         "author": "Tuncay Sancak",
         "expected_h1": 45,
         "expected_images": 4,
@@ -60,8 +60,8 @@ BOOKS = {
     },
     "SA": {
         "docx": UPLOADS / "883e6864-SAHIDI_ARARKEN_TR.docx",
-        "slug": "SAHIDI_ARARKEN",
-        "title": "ŞAHİDİ ARARKEN",
+        "slug": "SAHIT",
+        "title": "ŞAHİT",             # vormals ŞAHİDİ ARARKEN
         "author": "Mustafa Sefa Güvenir",
         "expected_h1": 34,
         "expected_images": 0,

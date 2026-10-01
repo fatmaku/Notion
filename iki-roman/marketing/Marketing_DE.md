@@ -1,7 +1,9 @@
 # ZWEI ROMANE – ZWEI WEGE – EINE DRITTE GESCHICHTE
+
+> **Titel (01.10.2026):** **DER REISENDE** (türkisch: YOLCU; Arbeitstitel BEN YOKSAM) und **DER ZEUGE** (türkisch: ŞAHİT; Arbeitstitel ŞAHİDİ ARARKEN). Beide Romane liegen derzeit auf Türkisch vor.
 ## Marketing-Story, Amazon-KDP-Listing, Trailer-Storyboard und Launch-Plan
 
-**Bücher:** *BEN YOKSAM – 1453 Uyanışın Bedeli* (Tuncay Sancak) · *ŞAHİDİ ARARKEN* (Mustafa Sefa Güvenir)
+**Bücher:** *DER REISENDE – 1453 Uyanışın Bedeli* (Tuncay Sancak) · *DER ZEUGE* (Mustafa Sefa Güvenir)
 **Version:** 1.0 · September 2026 · Deutsche Fassung; die türkische Fassung ist die Hauptfassung, die englische ist inhaltsgleich.
 
 ---
@@ -10,7 +12,7 @@
 
 **Ein Kunstprojekt:** Zwei Autoren, zwei eigenständige Romane. Jeder lässt sich allein lesen und endet für sich. Wer beide liest, begegnet einer dritten Geschichte, die keines der Bücher allein erzählt.
 
-**Die gemeinsame Szene:** In beiden Romanen wird derselbe Moment aus zwei Blickrichtungen erzählt: ein grüner Raum, drei Schläge auf Metall, jemand bittet um Wasser, eine Hand macht Platz für das Glas, ein verbundener Daumen. Der Erzähler von *BEN YOKSAM* erinnert sich an die Szene; der Schriftsteller in *ŞAHİDİ ARARKEN* schreibt sie. Beide sind sich nicht sicher: erlebt, gelesen oder geschrieben?
+**Die gemeinsame Szene:** In beiden Romanen wird derselbe Moment aus zwei Blickrichtungen erzählt: ein grüner Raum, drei Schläge auf Metall, jemand bittet um Wasser, eine Hand macht Platz für das Glas, ein verbundener Daumen. Der Erzähler von *DER REISENDE* erinnert sich an die Szene; der Schriftsteller in *DER ZEUGE* schreibt sie. Beide sind sich nicht sicher: erlebt, gelesen oder geschrieben?
 
 **Die Cover-Sprache:** Legt man beide Bücher nebeneinander, berühren sich zwei Fäuste. Dieses Bild wird zu einem Satz:
 
@@ -21,7 +23,7 @@
 
 ## 2. Positionierung
 
-| | BEN YOKSAM | ŞAHİDİ ARARKEN |
+| | DER REISENDE | DER ZEUGE |
 |---|---|---|
 | Genre | Mystischer Kriminal- und Psychothriller | Sufisch-psychologischer Roman über Erinnerung und Zeugenschaft |
 | Versprechen | Wohin führt dich das, was dich aufweckt? | Wer ist der Zeuge: der Schreibende, der Sehende, der Lesende? |
@@ -36,8 +38,8 @@
 
 ## 3. Amazon-KDP-Listing-Texte
 
-### 3.1 BEN YOKSAM
-- **Titel:** BEN YOKSAM
+### 3.1 DER REISENDE
+- **Titel:** DER REISENDE
 - **Untertitel:** 1453 — Uyanışın Bedeli. Mistik suç ve psikolojik gerilim romanı
 - **Reihe:** İki Roman – Üçüncü Hikâye (ohne Bandnummer; die Bücher sind gleichrangig)
 - **Beschreibung (KDP-HTML, deutsch für eine spätere DE-Ausgabe; im TR-Listing die türkische Fassung verwenden):**
@@ -48,15 +50,15 @@ Weil du es siehst? Weil du dich erinnerst? Oder weil dir jemand sagt, dass es ex
 Eines Morgens liegt ein schwarzes Paket vor der Tür: ohne Absender, ohne Adresse. Doch das Buch darin enthält etwas, das nicht sein dürfte: ihn selbst. Seine Kindheit, seine Ängste, die Erinnerungen, die er vergessen glaubte, und Details, die niemand kennen dürfte.<br><br>
 Mit jeder Seite wird 1453 von einem Datum zu einem Schlüssel, ein roter Faden zum Symbol, und Zufälle verlieren ihre Zufälligkeit.<br><br>
 Doch bald stellt sich eine noch gefährlichere Frage: <i>Was, wenn das, was dich aufwecken will, dich in Wahrheit nur dorthin führt, wohin es selbst dich bringen möchte?</i><br><br>
-<b>Zwei Romane – Zwei Wege – Eine dritte Geschichte.</b> BEN YOKSAM ist ein eigenständiger Roman. Zusammen mit <i>Şahidi Ararken</i> von Mustafa Sefa Güvenir gelesen, erscheint eine dritte Geschichte, die keines der beiden Bücher allein erzählt.
+<b>Zwei Romane – Zwei Wege – Eine dritte Geschichte.</b> DER REISENDE ist ein eigenständiger Roman. Zusammen mit <i>Der Zeuge</i> von Mustafa Sefa Güvenir gelesen, erscheint eine dritte Geschichte, die keines der beiden Bücher allein erzählt.
 ```
 
 - **7 Keywords (je ≤ 50 Zeichen):** psychothriller türkisch · mystischer kriminalroman · innere stimmen erinnerung · istanbul thriller · verschwörung erwachen · schwarzes paket roter faden · sufismus und psychologie
 - **Kategorien (3):** Fiction › Thrillers › Psychological · Fiction › Mystery & Detective › Amateur Sleuth · Fiction › Literary
 - **Preisidee:** E-Book 4,99 €; Taschenbuch A5 (~190 Seiten) 12,99–14,99 € je nach KDP-Druckkosten.
 
-### 3.2 ŞAHİDİ ARARKEN
-- **Titel:** ŞAHİDİ ARARKEN · **Untertitel:** Roman
+### 3.2 DER ZEUGE
+- **Titel:** DER ZEUGE · **Untertitel:** Roman
 - **Beschreibung (KDP-HTML):**
 
 ```html
@@ -64,7 +66,7 @@ Doch bald stellt sich eine noch gefährlichere Frage: <i>Was, wenn das, was dich
 Mustafa Sefa erhält einen ungewöhnlichen Auftrag: Er soll die Geschichte eines Mannes schreiben, der nicht mehr spricht. Doch je tiefer er in die Vergangenheit dieses Mannes eintaucht, desto mehr gerät nicht nur dessen Geschichte, sondern auch seine eigene Wirklichkeit ins Wanken.<br><br>
 Briefe, verlorene Zeiten, ein einziges Wort: <b>der Zeuge.</b> Was als Recherche beginnt, wird zu einer Reise in die tiefsten Schichten der Erinnerung, Identität und Bedeutung.<br><br>
 Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, der es gesehen hat? <i>Oder die Person, die dieses Buch gerade in den Händen hält?</i><br><br>
-<b>Zwei Romane – Zwei Wege – Eine dritte Geschichte.</b> ŞAHİDİ ARARKEN ist ein eigenständiger Roman. Zusammen mit <i>Ben Yoksam</i> von Tuncay Sancak gelesen, erscheint eine dritte Geschichte, die keines der beiden Bücher allein erzählt.
+<b>Zwei Romane – Zwei Wege – Eine dritte Geschichte.</b> DER ZEUGE ist ein eigenständiger Roman. Zusammen mit <i>Der Reisende</i> von Tuncay Sancak gelesen, erscheint eine dritte Geschichte, die keines der beiden Bücher allein erzählt.
 ```
 
 - **7 Keywords:** sufi roman · zeuge und zeugenschaft · psychiatrie klinik roman · erinnerung und identität · spirituelle suche · schreibmaschine brief · moderne sufi geschichten
@@ -78,7 +80,7 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 
 ## 4. Trailer: Story und Storyboard
 
-**Regel:** Der Trailer stellt beide Bücher einzeln vor, zeigt dann die gemeinsame Szene und führt am Ende beide Cover zusammen. Die Anordnung folgt der Cover-Logik: ŞAHİDİ ARARKEN kommt von links, BEN YOKSAM von rechts; die Fäuste treffen sich exakt in der Mitte.
+**Regel:** Der Trailer stellt beide Bücher einzeln vor, zeigt dann die gemeinsame Szene und führt am Ende beide Cover zusammen. Die Anordnung folgt der Cover-Logik: DER ZEUGE kommt von links, DER REISENDE von rechts; die Fäuste treffen sich exakt in der Mitte.
 
 **Formate:** 16:9 · 60 s (YouTube, Amazon-Autorenseite) — 9:16 · 30 s (Reels, TikTok, Shorts) — 1:1 · 30 s (Instagram-Feed). Drei Sprachen: TR / EN / DE. Dateien: `trailer/out/Iki_Roman_Fragman_<Format>_<Dauer>s_<SPRACHE>.mp4` + `.srt`.
 
@@ -87,8 +89,8 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 | # | Zeit | Bild | Text im Bild | Ton |
 |---|---|---|---|---|
 | 1 | 0–7 s | Schwarz. Bei jedem Schlag ein warmes Aufleuchten und ein leichtes Zittern. Bei 3,2 s erscheint die Frage. | *Wie erkennst du, dass etwas existiert?* | Drei Schläge (1,0 / 1,8 / 2,6 s). Tiefer Drone. |
-| 2 | 7–19 s | BEN-YOKSAM-Coverbild; langsame Fahrt vom Himmel zur Faust. Unten Zeichnung: schwarzes Paket mit roter Schnur, kleine Uhr auf 14.53. | *Ein schwarzes Paket vor der Tür.* / *Kein Absender. Keine Adresse.* / *Das Buch darin … handelt von ihm.* → Titelkarte: **BEN YOKSAM** · 1453 — Uyanışın Bedeli · Tuncay Sancak | Pulsierender Bass, Pad. |
-| 3 | 19–31 s | ŞAHİDİ-ARARKEN-Coverbild (kühle Seite, Mond). Zeichnung: eine Gazelle (der Reisende), ein gefalteter Brief. | *Ein Reisender bricht auf.* / *Ein Zeuge erwartet ihn.* / *Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?* → Titelkarte: **ŞAHİDİ ARARKEN** · Mustafa Sefa Güvenir | Weiches Pad, Drone bleibt. |
+| 2 | 7–19 s | DER-REISENDE-Coverbild; langsame Fahrt vom Himmel zur Faust. Unten Zeichnung: schwarzes Paket mit roter Schnur, kleine Uhr auf 14.53. | *Ein schwarzes Paket vor der Tür.* / *Kein Absender. Keine Adresse.* / *Das Buch darin … handelt von ihm.* → Titelkarte: **DER REISENDE** · 1453 — Der Preis des Erwachens · Tuncay Sancak | Pulsierender Bass, Pad. |
+| 3 | 19–31 s | DER-ZEUGE-Coverbild (kühle Seite, Mond). Zeichnung: eine Gazelle (der Reisende), ein gefalteter Brief. | *Ein Reisender bricht auf.* / *Ein Zeuge erwartet ihn.* / *Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?* → Titelkarte: **DER ZEUGE** · Mustafa Sefa Güvenir | Weiches Pad, Drone bleibt. |
 | 4 | 31–44 s | Splitscreen: links kühl, rechts warm; dünne Goldlinie in der Mitte. Nacheinander: Raumlinie, drei Lichtschläge, Wasserglas, verbundener Daumen, Stuhl. | *Ein grüner Raum.* / *Drei Schläge.* / *Ein Glas Wasser.* / *Zwei Menschen erinnern sich an dieselbe Szene.* | Drei Schläge erneut (34,0 / 34,8 / 35,6 s). Spannung steigt. |
 | 5 | 44–53 s | Beide Cover gleiten von links und rechts herein; bei 47,0 s berühren sich die Fäuste in der Mitte; Blitz und Sonnenaufgang. | **Zwei Romane – Zwei Wege – Eine dritte Geschichte** / *Jedes für sich ein Roman. Zusammen gelesen erscheint ein drittes Buch.* | Crescendo → tiefer Schlag bei 47,0 s. |
 | 6 | 53–60 s | Endkarte: beide E-Book-Cover nebeneinander, Autorennamen, Schmetterling fliegt durch. | *Jetzt bei Amazon* · @happytuncay | Ruhiges Pad, 2 s Fade-out. |
@@ -98,8 +100,8 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 | # | Zeit | Inhalt |
 |---|---|---|
 | 1 | 0–4 s | Drei Schläge + Frage |
-| 2 | 4–10 s | BEN YOKSAM: *Ein schwarzes Paket vor der Tür.* / *Das Buch darin … handelt von ihm.* + Titelkarte |
-| 3 | 10–16 s | ŞAHİDİ ARARKEN: *Ein Reisender bricht auf.* / *Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?* + Titelkarte |
+| 2 | 4–10 s | DER REISENDE: *Ein schwarzes Paket vor der Tür.* / *Das Buch darin … handelt von ihm.* + Titelkarte |
+| 3 | 10–16 s | DER ZEUGE: *Ein Reisender bricht auf.* / *Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?* + Titelkarte |
 | 4 | 16–21 s | Gemeinsame Szene: *Drei Schläge.* (Schläge 17,0 / 17,6 / 18,2 s) / *Zwei Menschen erinnern sich an dieselbe Szene.* |
 | 5 | 21–26 s | Fäuste treffen sich bei 23,0 s; Tagline |
 | 6 | 26–30 s | Endkarte |
@@ -116,7 +118,7 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 | 32,0 | Ein grüner Raum. Drei Schläge. Ein Glas Wasser. |
 | 40,5 | Zwei Menschen erinnern sich an dieselbe Szene. |
 | 48,5 | Zwei Romane. Zwei Wege. Eine dritte Geschichte. |
-| 54,0 | Ben Yoksam und Şahidi Ararken. Jetzt bei Amazon. |
+| 54,0 | Der Reisende und Der Zeuge. Jetzt bei Amazon. |
 
 **Abgabe:** 48 kHz WAV, −16 LUFS, jeder Satz als eigene Datei. Einbindung mit `ffmpeg … -filter_complex amix` (Befehl in `trailer/README-trailer.md`).
 
@@ -148,6 +150,6 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 **Messung:** Ziele für die ersten 30 Tage — Trailer-Views, Besuche der Amazon-Produktseiten, Vorbestellungen und Rezensionen; wöchentlich in einer Tabelle nachhalten.
 
 ## 6. Empfohlene Lesereihenfolge
-**Empfehlung: zuerst BEN YOKSAM, dann ŞAHİDİ ARARKEN.** Laut Analysebericht hinterlässt BEN YOKSAM drei Fäden, die nur ŞAHİDİ ARARKEN einlöst: den Mann mit dem Tumorbericht (Kap. 50), das "zweite Buch, das am Todestag beginnt" (Kap. 46) und die Namenlosigkeit des Schreibenden. Die umgekehrte Reihenfolge funktioniert ebenfalls; beide Bücher laden zu einer zweiten Runde ein. Im Marketing als "empfohlen" nennen, immer mit dem Zusatz, dass jede Reihenfolge funktioniert.
+**Empfehlung: zuerst DER REISENDE, dann DER ZEUGE.** Laut Analysebericht hinterlässt DER REISENDE drei Fäden, die nur DER ZEUGE einlöst: den Mann mit dem Tumorbericht (Kap. 50), das "zweite Buch, das am Todestag beginnt" (Kap. 46) und die Namenlosigkeit des Schreibenden. Die umgekehrte Reihenfolge funktioniert ebenfalls; beide Bücher laden zu einer zweiten Runde ein. Im Marketing als "empfohlen" nennen, immer mit dem Zusatz, dass jede Reihenfolge funktioniert.
 
 Der Analysebericht (`analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md`) begründet, in welcher Reihenfolge die dritte Geschichte am besten entsteht. Im Marketing wird diese Reihenfolge als „empfohlen“ genannt, immer mit dem Zusatz, dass jede Reihenfolge funktioniert.

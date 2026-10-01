@@ -1,7 +1,7 @@
-# İki Roman – Değişiklik Listesi v2 + v3 / Änderungsliste v2 + v3
+# İki Roman – Değişiklik Listesi v2 + v3 + v4 / Änderungsliste v2 + v3 + v4
 
 **Tarih / Datum:** 30.09.2026 (v2), 01.10.2026 (v3)
-**Güncel dosyalar / Aktuelle Dateien:** `interior/src/BEN_YOKSAM_1453_TR_v3.docx`, `interior/src/SAHIDI_ARARKEN_TR_v3.docx` (v3 = v2 + bölüm 5; makine tarafından okunabilir listeler: `interior/src/v2_aenderungen.json`, `v3_aenderungen.json`)
+**Güncel dosyalar / Aktuelle Dateien:** `interior/src/YOLCU_TR_v4.docx`, `interior/src/SAHIT_TR_v4.docx` (v4 = v3 + yeni kitap adları, bölüm 6; makine tarafından okunabilir listeler: `interior/src/v2_aenderungen.json`, `v3_aenderungen.json`, `v4_aenderungen.json`)
 
 ---
 
@@ -109,3 +109,17 @@ Bunlar kurguyu değil, ritmi ya da içerik tercihlerini ilgilendirir; bu yüzden
 - „Rava kalbi an Rabbi“ (SA, Muhibbi): geleneksel biçim „haddesenî kalbî an Rabbî“ (Bâyezîd/İbn Arabî); Şems'e atıf halk rivayetidir ve çayhane bilgesi Muhibbi'nin ağzına uyar. İsteyen „Şems Tebrizi“ yerine „erenler“ yazabilir. / In der Figur stimmig; optional.
 - Besmele varyantı (SA): metin farkı zaten işaretliyor („hiç de küçük olmayan bir fark“); kalın harfler akrostiş olduğu için değiştirilemez. / Bereits markiert; Akrostichon.
 - SU'daki çocuk sesi: karşı-denetim çelişki saymadı (yazar görüsü olarak çerçeveli). / Kein Handlungsbedarf.
+
+---
+
+## 6. v4 – Yeni kitap adları (01.10.2026) / Neue Titel
+
+**TR:** Yazarların kararıyla kitap adları değişti: **BEN YOKSAM → YOLCU** (alt başlık „1453 — Uyanışın Bedeli“ korunuyor) ve **ŞAHİDİ ARARKEN → ŞAHİT**. Metinde yalnızca başlık sayfası ve ŞAHİT'in son bölümünde kitabın kendi adını yazdığı satır („Kitabın adını yazdım: ŞAHİT“) değişti; başka hiçbir cümleye dokunulmadı. YOLCU'daki anlatıcının romanı için geçen „1453 — Uyanışın Bedeli“ ifadeleri alt başlık olarak geçerli kalır. Kapaklarda (TR/EN/DE), sırtta, EPUB üst verisinde, fragmanlarda ve pazarlama belgelerinde yeni adlar kullanılır; EN/DE kapaklarda çevirileri: THE TRAVELLER / THE WITNESS, DER REISENDE / DER ZEUGE.
+
+**DE:** Auf Entscheidung der Autoren wurden die Titel geändert: **BEN YOKSAM → YOLCU** (Untertitel bleibt) und **ŞAHİDİ ARARKEN → ŞAHİT**. Im Text ändern sich nur die Titelseite und der Satz im Schlusskapitel von ŞAHİT, in dem das Buch seinen eigenen Namen schreibt; sonst kein Eingriff. Dateinamen: `YOLCU_Innenteil_A5.pdf`, `YOLCU.epub`, `SAHIT_Innenteil_A5.pdf`, `SAHIT.epub`.
+
+| # | Kitap / Buch | Yer / Stelle | Eski / alt | Yeni / neu |
+|---|---|---|---|---|
+| 11 | YOLCU | Başlık sayfası / Titelseite | BEN YOKSAM | YOLCU |
+| 12 | ŞAHİT | Başlık sayfası / Titelseite | ŞAHİDİ ARARKEN | ŞAHİT |
+| 13 | ŞAHİT | SU (son bölüm) | Kitabın adını yazdım: ŞAHİDİ ARARKEN | Kitabın adını yazdım: ŞAHİT |

@@ -142,7 +142,7 @@ def back_css():
     """
 
 
-def spine_panel_html(book, x, y, sw):
+def spine_panel_html(book, x, y, sw, lang='tr'):
     t = TEXTS[book]
     P = lambda mm: f'{mm:.3f}mm'
     # Textzeilen werden um 90° gedreht: Box hat Breite = Höhe des Rückens, wird dann rotiert.
@@ -151,7 +151,7 @@ def spine_panel_html(book, x, y, sw):
     author_pt = max(5.0, title_pt * 0.62)
     return f"""
     <img class="fill" src="file://{ASSETS}/{book}_spine_bg.png" style="left:{P(x)}; top:{P(y - BLEED)}; width:{P(sw)}; height:{P(TRIM_H + 2 * BLEED)};">
-    <div class="abs spine-title cinzel gold" style="left:{P(x + sw / 2 - 80)}; top:{P(y + 12 + 80 - sw / 2)}; width:160mm; height:{P(sw)}; font-size:{title_pt:.1f}pt; line-height:{P(sw)}; transform: rotate(90deg); transform-origin: 80mm {P(sw / 2)};">{t['title']}</div>
+    <div class="abs spine-title cinzel gold" style="left:{P(x + sw / 2 - 80)}; top:{P(y + 12 + 80 - sw / 2)}; width:160mm; height:{P(sw)}; font-size:{title_pt:.1f}pt; line-height:{P(sw)}; transform: rotate(90deg); transform-origin: 80mm {P(sw / 2)};">{t.get('title_i18n', {}).get(lang, t['title'])}</div>
     <img src="file://{HERE}/assets/butterfly.svg" class="abs" style="left:{P(x + sw / 2 - 2.6)}; top:{P(y + 108)}; width:5.2mm; height:4.7mm;">
     <div class="abs spine-author cinzel cream" style="left:{P(x + sw / 2 - 45)}; top:{P(y + 120 + 45 - sw / 2)}; width:90mm; height:{P(sw)}; font-size:{author_pt:.1f}pt; line-height:{P(sw)}; transform: rotate(90deg); transform-origin: 45mm {P(sw / 2)};">{t['author_caps']}</div>
     <img src="file://{HERE}/assets/skyline.svg" class="abs" style="left:{P(x + sw / 2 - 2.8)}; top:{P(y + TRIM_H - 12)}; width:5.6mm; height:2.4mm;">
@@ -170,7 +170,7 @@ def front_panel_html(book, lang, x, y, with_left_bleed=False):
     t = TEXTS[book]
     P = lambda mm: f'{mm:.3f}mm'
     genre = t['genre'][lang]
-    art = f'{book}_front.png' if lang == 'tr' else f'{book}_front_nogenre.png'
+    art = f'{book}_front_{lang}.png'     # Titel je Sprache gesetzt (titles_on_fronts.py)
     # Genrezeile: Position aus der Referenz (Panorama-y 800 bzw. 838 px → mm ab Beschnittoberkante)
     gy = {'SA': 800, 'BY': 838}[book] / 9.465 - BLEED    # mm ab Trim-Oberkante
     return f"""
@@ -198,7 +198,7 @@ def build_fullcover(book, lang, pages, outdir):
     </style></head><body>
     {back_panel_html(book, lang, bx, by)}
     {front_panel_html(book, lang, fx, by)}
-    {spine_panel_html(book, sx, by, sw)}
+    {spine_panel_html(book, sx, by, sw, lang)}
     </body></html>"""
     pdf = os.path.join(outdir, 'Fullcover.pdf')
     HTML(string=html, base_url=HERE).write_pdf(pdf)
@@ -220,7 +220,7 @@ def build_single(book, lang, outdir, which):
 def build_ebook(book, lang, outdir):
     """1600 × 2560 px. Seite in CSS-px (96 dpi) → Raster mit 96 dpi = exakt 1600 × 2560."""
     t = TEXTS[book]
-    art = f'{book}_ebook_art.png' if lang == 'tr' else f'{book}_ebook_art_nogenre.png'
+    art = f'{book}_ebook_art_{lang}.png'
     genre = t['genre'][lang]
     # Genrezeile: y-Position aus der Referenz skaliert (Panorama 800/838 px von 2048 → Art-Skalierung 1.095, Offset oben 174 px)
     gy_px = {'SA': 800, 'BY': 838}[book] * (1600 / 1461) + int(317 * 0.55)
