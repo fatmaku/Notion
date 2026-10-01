@@ -1,16 +1,23 @@
-// LiveFX – trigger schema v2: validation, normalization, merging, ids, HTML escaping.
+// LiveFX – trigger schema v3: validation, normalization, merging, ids, HTML escaping.
 // Single source of truth shared by the browser (panel, overlay) and the Node server (UMD).
+// v3 (LiveFX 2.0) adds the visual kinds `text`, `lower-third` and `combo`, the per-visual flags
+// `glow` / `tilt` / `impact` + `intensity`, the trigger-level `gain`, overlay `THEMES` and the
+// `theme` bus envelope. Every v2 trigger normalizes exactly as before (no new keys appear unless set).
 (function (global) {
   'use strict';
 
-  const VERSION = 2;
-  const KINDS = ['card', 'image', 'banner', 'rain', 'confetti', 'scene', 'sticker'];
+  const VERSION = 3;
+  const SCHEMA_VERSION = VERSION;
+  const KINDS = ['card', 'image', 'banner', 'rain', 'confetti', 'scene', 'sticker', 'text', 'lower-third', 'combo'];
   const POSITIONS = ['center', 'top', 'safe'];
   // Story mode (1.3): full-screen ambient scenes that stay until the next one; 'clear' fades the current scene out.
   const SCENES = ['rain', 'night', 'forest', 'sea', 'fire', 'castle', 'snow', 'desert', 'city', 'space', 'sunrise', 'storm', 'clear'];
   // Ambient loop names known to js/sounds.js (`LiveFXSounds.loops`); kept here so the editor can list them without
   // sounds.js loaded. Validation of "loop:<name>" only checks the name syntax (see BUILTIN_SOUND_RE).
   const LOOPS = ['rain', 'wind', 'fireplace', 'birds', 'sea', 'thunder', 'nightCrickets', 'heartbeatSlow', 'churchBells', 'cityHum', 'spaceDrone', 'storm'];
+  // v3: big animated word styles, overlay themes (css/overlay.css `body[data-theme]`).
+  const TEXT_STYLES = ['neon', 'gradient', 'bounce', 'glitch'];
+  const THEMES = ['neon', 'pastel', 'minimal', 'kinderbuch'];
   const LIMITS = {
     triggers: 200,
     keywords: 50,
@@ -27,6 +34,11 @@
     assetBytes: 8 * 1024 * 1024,
     sourceLen: 80,
     idLen: 64,
+    // v3
+    comboSteps: 6,
+    comboDelay: 10000,
+    title: 60,
+    subtitle: 80,
   };
   const ID_RE = /^[a-z0-9][a-z0-9_-]{0,39}$/i;
   const SAFE_NAME = /^[a-z0-9][a-z0-9._-]{0,99}$/i;
@@ -56,6 +68,8 @@
     const s = v.trim();
     return s.length > max ? s.slice(0, max) : s;
   }
+
+  const isSet = (v) => v !== undefined && v !== null && v !== '';
 
   function parseSound(s) {
     if (typeof s !== 'string' || !s) return null;
@@ -91,11 +105,38 @@
     return out;
   }
 
-  function normalizeVisual(raw, warnings) {
+  /** 1..3 or undefined (+ warning when not numeric). */
+  function normalizeIntensity(v, warnings) {
+    if (!isSet(v)) return undefined;
+    const n = Math.round(Number(v));
+    if (Number.isFinite(n)) return Math.min(3, Math.max(1, n));
+    warnings.push('invalid visual.intensity');
+    return undefined;
+  }
+
+  /** 0..1 or undefined (+ warning when not numeric). */
+  function normalizeGain(v, warnings) {
+    if (!isSet(v)) return undefined;
+    const n = Number(v);
+    if (Number.isFinite(n)) return Math.min(1, Math.max(0, n));
+    warnings.push('invalid gain');
+    return undefined;
+  }
+
+  /**
+   * @param {any} raw
+   * @param {string[]} warnings
+   * @param {number} [depth]  0 for a trigger's own visual, 1 inside a combo step (combos may not nest)
+   */
+  function normalizeVisual(raw, warnings, depth = 0) {
     const v = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
     const out = {};
     if (v.kind !== undefined && !KINDS.includes(v.kind)) warnings.push(`unknown visual.kind "${String(v.kind).slice(0, 20)}"`);
     out.kind = KINDS.includes(v.kind) ? v.kind : 'card';
+    if (out.kind === 'combo' && depth > 0) {
+      warnings.push('combo inside a combo is not allowed, falling back to card');
+      out.kind = 'card';
+    }
     if (v.position !== undefined && !POSITIONS.includes(v.position)) warnings.push(`unknown visual.position "${String(v.position).slice(0, 20)}"`);
     out.position = POSITIONS.includes(v.position) ? v.position : 'center';
     // Stickers hold up to 4 emojis (ZWJ sequences are long), every other kind keeps the 16-char limit.
@@ -103,12 +144,12 @@
     if (emoji) out.emoji = emoji;
     const text = str(v.text, LIMITS.text);
     if (text) out.text = text;
-    for (const f of ['bg', 'color']) {
-      if (v[f] === undefined || v[f] === null || v[f] === '') continue;
+    for (const f of ['bg', 'color', 'color2']) {
+      if (!isSet(v[f])) continue;
       if (typeof v[f] === 'string' && COLOR_RE.test(v[f].trim())) out[f] = v[f].trim();
       else warnings.push(`invalid visual.${f}`);
     }
-    if (v.src !== undefined && v.src !== null && v.src !== '') {
+    if (isSet(v.src)) {
       const src = typeof v.src === 'string' ? v.src.trim() : '';
       if ((ASSET_IMAGE_RE.test(src) && !src.includes('..')) || HTTP_SRC_RE.test(src)) out.src = src;
       else warnings.push('invalid visual.src');
@@ -117,12 +158,15 @@
       warnings.push('image trigger without src, falling back to card');
       out.kind = 'card';
     }
-    if (v.count !== undefined && v.count !== null && v.count !== '') {
+    if (isSet(v.count)) {
       const n = Math.round(Number(v.count));
       if (Number.isFinite(n)) out.count = Math.min(LIMITS.rainCount, Math.max(1, n));
       else warnings.push('invalid visual.count');
     }
     if (v.shake === true) out.shake = true;
+    // v3 flags (only `true` is stored, so v2 records never grow new keys).
+    for (const f of ['glow', 'tilt', 'impact']) if (v[f] === true) out[f] = true;
+
     if (out.kind === 'scene') {
       if (SCENES.includes(v.scene)) out.scene = v.scene;
       else {
@@ -130,18 +174,72 @@
         out.kind = 'card';
         return out;
       }
-      if (v.intensity !== undefined && v.intensity !== null && v.intensity !== '') {
-        const n = Math.round(Number(v.intensity));
-        if (Number.isFinite(n)) out.intensity = Math.min(3, Math.max(1, n));
-        else warnings.push('invalid visual.intensity');
-      }
-      if (v.duration !== undefined && v.duration !== null && v.duration !== '') {
+      const it = normalizeIntensity(v.intensity, warnings);
+      if (it !== undefined) out.intensity = it;
+      if (isSet(v.duration)) {
         const d = Number(v.duration);
         if (Number.isFinite(d) && d >= 0) out.duration = Math.min(LIMITS.sceneDuration, d);
         else warnings.push('invalid visual.duration');
       }
       if (v.caption === false) out.caption = false;
       else if (v.caption === true) out.caption = true;
+      return out;
+    }
+
+    // v3: `intensity` on every other kind (1..3, default 1 when absent). A non-scene visual that still
+    // carries a `scene` id is a v2 record whose kind was switched away from scene: its whole scene bundle
+    // (scene, duration, caption, intensity) is dropped like v2 did, so old data normalizes unchanged.
+    if (!isSet(v.scene)) {
+      const it = normalizeIntensity(v.intensity, warnings);
+      if (it !== undefined) out.intensity = it;
+    }
+
+    if (out.kind === 'text') {
+      if (!out.text) {
+        warnings.push('text visual without text, falling back to card');
+        out.kind = 'card';
+        return out;
+      }
+      if (isSet(v.style) && !TEXT_STYLES.includes(v.style)) warnings.push(`unknown visual.style "${String(v.style).slice(0, 20)}"`);
+      out.style = TEXT_STYLES.includes(v.style) ? v.style : 'neon';
+    } else if (out.kind === 'lower-third') {
+      const title = str(v.title, LIMITS.title) || out.text;
+      if (!title) {
+        warnings.push('lower-third without title, falling back to banner');
+        out.kind = 'banner';
+        return out;
+      }
+      out.title = title;
+      const subtitle = str(v.subtitle, LIMITS.subtitle);
+      if (subtitle) out.subtitle = subtitle;
+    } else if (out.kind === 'combo') {
+      const stepsRaw = Array.isArray(v.steps) ? v.steps : [];
+      if (!Array.isArray(v.steps)) warnings.push('combo without steps');
+      if (stepsRaw.length > LIMITS.comboSteps) warnings.push(`too many combo steps (${stepsRaw.length}), kept ${LIMITS.comboSteps}`);
+      const steps = [];
+      stepsRaw.slice(0, LIMITS.comboSteps).forEach((s, i) => {
+        if (!s || typeof s !== 'object' || Array.isArray(s)) {
+          warnings.push(`combo step #${i} is not an object, skipped`);
+          return;
+        }
+        let delay = Number(s.delay);
+        if (!Number.isFinite(delay) || delay < 0) {
+          if (isSet(s.delay)) warnings.push(`invalid delay in combo step #${i}`);
+          delay = 0;
+        }
+        const step = { delay: Math.min(LIMITS.comboDelay, Math.round(delay)), visual: normalizeVisual(s.visual, warnings, depth + 1) };
+        if (isSet(s.sound)) {
+          if (parseSound(s.sound)) step.sound = s.sound;
+          else warnings.push(`invalid sound in combo step #${i}`);
+        }
+        steps.push(step);
+      });
+      if (!steps.length) {
+        warnings.push('combo without usable steps, falling back to card');
+        out.kind = 'card';
+        return out;
+      }
+      out.steps = steps;
     }
     return out;
   }
@@ -174,14 +272,14 @@
     const enabled = raw.enabled !== false;
 
     let cooldown = 4;
-    if (raw.cooldown !== undefined && raw.cooldown !== null && raw.cooldown !== '') {
+    if (isSet(raw.cooldown)) {
       const c = Number(raw.cooldown);
       if (Number.isFinite(c) && c >= 0) cooldown = Math.min(LIMITS.cooldown, c);
       else warnings.push('invalid cooldown');
     }
 
     let sound = null;
-    if (raw.sound !== undefined && raw.sound !== null && raw.sound !== '') {
+    if (isSet(raw.sound)) {
       if (parseSound(raw.sound)) sound = raw.sound;
       else warnings.push(`invalid sound "${String(raw.sound).slice(0, 40)}"`);
     }
@@ -189,6 +287,9 @@
     const trigger = { id, label, keywords, enabled, cooldown, sound, visual: normalizeVisual(raw.visual, warnings) };
     const hint = str(raw.hint, LIMITS.hint);
     if (hint) trigger.hint = hint;
+    // v3: per-trigger volume multiplier (effective = master × gain). Only stored when given (default 1).
+    const gain = normalizeGain(raw.gain, warnings);
+    if (gain !== undefined) trigger.gain = gain;
     return { trigger, warnings: warnings.map((w) => `${id}: ${w}`) };
   }
 
@@ -232,10 +333,10 @@
     return (defaults || []).map((d) => d.id).filter((id) => !ids.has(id));
   }
 
-  /** Validates a bus envelope posted to /fire. Unknown keys are stripped. */
+  /** Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`. */
   function validateEnvelope(msg) {
     if (!msg || typeof msg !== 'object' || Array.isArray(msg)) return { ok: false, error: 'envelope is not an object' };
-    if (msg.type !== 'fire' && msg.type !== 'volume') return { ok: false, error: 'type must be "fire" or "volume"' };
+    if (msg.type !== 'fire' && msg.type !== 'volume' && msg.type !== 'theme') return { ok: false, error: 'type must be "fire", "volume" or "theme"' };
     const out = {
       id: typeof msg.id === 'string' && MSG_ID_RE.test(msg.id) ? msg.id : newId('m'),
       type: msg.type,
@@ -246,6 +347,9 @@
       if (!n) return { ok: false, error: 'trigger missing' };
       out.trigger = n.trigger;
       out.source = str(msg.source, LIMITS.sourceLen) || 'API';
+    } else if (msg.type === 'theme') {
+      if (!THEMES.includes(msg.theme)) return { ok: false, error: `theme must be one of ${THEMES.join(', ')}` };
+      out.theme = msg.theme;
     } else {
       const v = Number(msg.volume);
       if (!Number.isFinite(v)) return { ok: false, error: 'volume must be a number' };
@@ -260,10 +364,13 @@
 
   global.LiveFXSchema = {
     VERSION,
+    SCHEMA_VERSION,
     KINDS,
     POSITIONS,
     SCENES,
     LOOPS,
+    TEXT_STYLES,
+    THEMES,
     LIMITS,
     ID_RE,
     SAFE_NAME,

@@ -1,4 +1,4 @@
-// Unit tests for js/schema.js (trigger schema v2). Run: node --test "test/*.test.js"
+// Unit tests for js/schema.js (trigger schema v2 + v3 additions). Run: node --test "test/*.test.js"
 'use strict';
 
 const test = require('node:test');
@@ -293,8 +293,12 @@ test('isSafeName', () => {
 });
 
 test('exported constants', () => {
-  assert.equal(S.VERSION, 2);
-  assert.deepEqual(S.KINDS, ['card', 'image', 'banner', 'rain', 'confetti', 'scene', 'sticker']);
+  assert.equal(S.VERSION, 3);
+  assert.equal(S.SCHEMA_VERSION, 3);
+  assert.deepEqual(S.KINDS, ['card', 'image', 'banner', 'rain', 'confetti', 'scene', 'sticker', 'text', 'lower-third', 'combo']);
+  assert.deepEqual(S.TEXT_STYLES, ['neon', 'gradient', 'bounce', 'glitch']);
+  assert.deepEqual(S.THEMES, ['neon', 'pastel', 'minimal', 'kinderbuch']);
+  assert.equal(S.LIMITS.comboSteps, 6);
   assert.deepEqual(S.POSITIONS, ['center', 'top', 'safe']);
   assert.equal(S.LIMITS.triggers, 200);
   assert.equal(S.LIMITS.assetBytes, 8 * 1024 * 1024);
@@ -302,4 +306,155 @@ test('exported constants', () => {
   assert.ok(!S.ID_RE.test('-abc'));
   assert.ok(S.COLOR_RE.test('#12345678'));
   assert.ok(!S.COLOR_RE.test('red'));
+});
+
+// ---------------------------------------------------------------- schema v3 (LiveFX 2.0)
+
+test('v3: a v2 trigger normalizes byte-for-byte like before (no new keys appear)', () => {
+  const v2 = { id: 'wow', label: 'Wow', keywords: ['wow'], enabled: true, cooldown: 4, sound: 'airhorn', visual: { kind: 'card', position: 'center', emoji: '🤯', text: 'KRASS' } };
+  const r = S.normalizeTrigger(v2);
+  assert.deepEqual(r.warnings, []);
+  assert.deepEqual(r.trigger, v2);
+  assert.deepEqual(Object.keys(r.trigger).sort(), ['cooldown', 'enabled', 'id', 'keywords', 'label', 'sound', 'visual']);
+  // Scene fields on a non-scene kind are still dropped (v2 rule), including intensity.
+  const sw = S.normalizeTrigger({ id: 'c', visual: { kind: 'card', scene: 'rain', intensity: 3, duration: 4 } });
+  assert.deepEqual(sw.warnings, []);
+  assert.equal(sw.trigger.visual.intensity, undefined);
+  assert.equal(sw.trigger.visual.scene, undefined);
+});
+
+test('v3: glow / tilt / impact are stored only when true, intensity 1..3 on every kind', () => {
+  const r = S.normalizeTrigger({ id: 'g', visual: { kind: 'card', glow: true, tilt: true, impact: true, intensity: 3 } });
+  assert.deepEqual(r.warnings, []);
+  assert.equal(r.trigger.visual.glow, true);
+  assert.equal(r.trigger.visual.tilt, true);
+  assert.equal(r.trigger.visual.impact, true);
+  assert.equal(r.trigger.visual.intensity, 3);
+  const off = S.normalizeTrigger({ id: 'g', visual: { kind: 'rain', glow: 'yes', tilt: 1, impact: false, intensity: 0 } });
+  assert.equal(off.trigger.visual.glow, undefined);
+  assert.equal(off.trigger.visual.tilt, undefined);
+  assert.equal(off.trigger.visual.impact, undefined);
+  assert.equal(off.trigger.visual.intensity, 1);
+  assert.equal(S.normalizeTrigger({ id: 'g', visual: { kind: 'confetti', intensity: 9 } }).trigger.visual.intensity, 3);
+  assert.equal(S.normalizeTrigger({ id: 'g', visual: { kind: 'sticker', intensity: '2.2' } }).trigger.visual.intensity, 2);
+  const bad = S.normalizeTrigger({ id: 'g', visual: { kind: 'banner', intensity: 'max' } });
+  assert.equal(bad.trigger.visual.intensity, undefined);
+  assert.ok(bad.warnings.some((w) => /invalid visual.intensity/.test(w)));
+  assert.equal(S.normalizeTrigger({ id: 'g', visual: { kind: 'card' } }).trigger.visual.intensity, undefined, 'default (1) is implicit');
+});
+
+test('v3: gain clamps to 0..1, default stays implicit, invalid warns', () => {
+  assert.equal(S.normalizeTrigger({ id: 'v' }).trigger.gain, undefined);
+  assert.equal(S.normalizeTrigger({ id: 'v', gain: 0.4 }).trigger.gain, 0.4);
+  assert.equal(S.normalizeTrigger({ id: 'v', gain: '0.25' }).trigger.gain, 0.25);
+  assert.equal(S.normalizeTrigger({ id: 'v', gain: 7 }).trigger.gain, 1);
+  assert.equal(S.normalizeTrigger({ id: 'v', gain: -3 }).trigger.gain, 0);
+  assert.equal(S.normalizeTrigger({ id: 'v', gain: 0 }).trigger.gain, 0);
+  const bad = S.normalizeTrigger({ id: 'v', gain: 'loud' });
+  assert.equal(bad.trigger.gain, undefined);
+  assert.ok(bad.warnings.some((w) => /invalid gain/.test(w)));
+  // Round trip through the fire envelope.
+  const env = S.validateEnvelope({ type: 'fire', trigger: { id: 'v', gain: 0.5, visual: { kind: 'card', glow: true } } });
+  assert.equal(env.msg.trigger.gain, 0.5);
+  assert.equal(env.msg.trigger.visual.glow, true);
+});
+
+test('v3: text kind – style default neon, unknown style warns, colours, missing text falls back to card', () => {
+  const r = S.normalizeTrigger({ id: 't', visual: { kind: 'text', text: 'Hype', style: 'glitch', color: '#fff', color2: 'rgb(255, 0, 0)', glow: true } });
+  assert.deepEqual(r.warnings, []);
+  assert.deepEqual(r.trigger.visual, { kind: 'text', position: 'center', text: 'Hype', color: '#fff', color2: 'rgb(255, 0, 0)', glow: true, style: 'glitch' });
+  const def = S.normalizeTrigger({ id: 't', visual: { kind: 'text', text: 'x' } });
+  assert.equal(def.trigger.visual.style, 'neon');
+  const unk = S.normalizeTrigger({ id: 't', visual: { kind: 'text', text: 'x', style: 'rainbow', color2: 'red' } });
+  assert.equal(unk.trigger.visual.style, 'neon');
+  assert.equal(unk.trigger.visual.color2, undefined);
+  assert.ok(unk.warnings.some((w) => /unknown visual.style/.test(w)));
+  assert.ok(unk.warnings.some((w) => /invalid visual.color2/.test(w)));
+  const none = S.normalizeTrigger({ id: 't', visual: { kind: 'text', emoji: '🎉' } });
+  assert.equal(none.trigger.visual.kind, 'card');
+  assert.equal(none.trigger.visual.style, undefined);
+  assert.ok(none.warnings.some((w) => /text visual without text/.test(w)));
+  const long = S.normalizeTrigger({ id: 't', visual: { kind: 'text', text: 'y'.repeat(200) } });
+  assert.equal(long.trigger.visual.text.length, S.LIMITS.text);
+});
+
+test('v3: lower-third – title/subtitle limits, title falls back to text, missing title becomes banner', () => {
+  const r = S.normalizeTrigger({ id: 'lt', visual: { kind: 'lower-third', title: ' Max ', subtitle: 'Gast', color: '#f00', emoji: '🎤' } });
+  assert.deepEqual(r.warnings, []);
+  assert.deepEqual(r.trigger.visual, { kind: 'lower-third', position: 'center', emoji: '🎤', color: '#f00', title: 'Max', subtitle: 'Gast' });
+  const fromText = S.normalizeTrigger({ id: 'lt', visual: { kind: 'lower-third', text: 'Nur Text' } });
+  assert.equal(fromText.trigger.visual.title, 'Nur Text');
+  const long = S.normalizeTrigger({ id: 'lt', visual: { kind: 'lower-third', title: 't'.repeat(100), subtitle: 's'.repeat(100) } });
+  assert.equal(long.trigger.visual.title.length, S.LIMITS.title);
+  assert.equal(long.trigger.visual.subtitle.length, S.LIMITS.subtitle);
+  const none = S.normalizeTrigger({ id: 'lt', visual: { kind: 'lower-third', emoji: '🎤' } });
+  assert.equal(none.trigger.visual.kind, 'banner');
+  assert.ok(none.warnings.some((w) => /lower-third without title/.test(w)));
+});
+
+test('v3: combo – steps normalized recursively, delay clamped, sounds validated, bad steps skipped', () => {
+  const r = S.normalizeTrigger({
+    id: 'cb',
+    visual: {
+      kind: 'combo',
+      steps: [
+        { delay: 0, visual: { kind: 'text', text: 'GO', style: 'bounce' }, sound: 'airhorn' },
+        { delay: '450.6', visual: { kind: 'rain', count: 999 } },
+        { delay: 99999, visual: { kind: 'image' }, sound: 'nope!' },
+        'junk',
+        { visual: { kind: 'card', intensity: 7, glow: true } },
+      ],
+    },
+  });
+  const v = r.trigger.visual;
+  assert.equal(v.kind, 'combo');
+  assert.equal(v.steps.length, 4);
+  assert.deepEqual(v.steps[0], { delay: 0, visual: { kind: 'text', position: 'center', text: 'GO', style: 'bounce' }, sound: 'airhorn' });
+  assert.equal(v.steps[1].delay, 451);
+  assert.equal(v.steps[1].visual.count, S.LIMITS.rainCount);
+  assert.equal(v.steps[2].delay, S.LIMITS.comboDelay);
+  assert.equal(v.steps[2].visual.kind, 'card', 'image without src inside a step falls back to card');
+  assert.equal(v.steps[2].sound, undefined);
+  assert.equal(v.steps[3].delay, 0);
+  assert.equal(v.steps[3].visual.intensity, 3);
+  assert.equal(v.steps[3].visual.glow, true);
+  assert.ok(r.warnings.some((w) => /invalid sound in combo step #2/.test(w)));
+  assert.ok(r.warnings.some((w) => /combo step #3 is not an object/.test(w)));
+  assert.ok(r.warnings.some((w) => /without src/.test(w)));
+  // Round trip through the fire envelope keeps the steps.
+  const env = S.validateEnvelope({ type: 'fire', trigger: { id: 'cb', visual: v } });
+  assert.equal(env.msg.trigger.visual.steps.length, 4);
+});
+
+test('v3: combo – max 6 steps, no combo inside a combo, empty combo falls back to card', () => {
+  const many = S.normalizeTrigger({ id: 'cb', visual: { kind: 'combo', steps: Array.from({ length: 9 }, (_, i) => ({ delay: i * 100, visual: { kind: 'card', text: String(i) } })) } });
+  assert.equal(many.trigger.visual.steps.length, S.LIMITS.comboSteps);
+  assert.ok(many.warnings.some((w) => /too many combo steps \(9\)/.test(w)));
+
+  const nested = S.normalizeTrigger({
+    id: 'cb',
+    visual: { kind: 'combo', steps: [{ delay: 0, visual: { kind: 'combo', steps: [{ delay: 0, visual: { kind: 'card' } }] } }, { delay: 10, visual: { kind: 'banner', text: 'ok' } }] },
+  });
+  assert.equal(nested.trigger.visual.steps.length, 2);
+  assert.equal(nested.trigger.visual.steps[0].visual.kind, 'card', 'nested combo becomes a card');
+  assert.equal(nested.trigger.visual.steps[0].visual.steps, undefined);
+  assert.equal(nested.trigger.visual.steps[1].visual.kind, 'banner');
+  assert.ok(nested.warnings.some((w) => /combo inside a combo/.test(w)));
+
+  for (const bad of [undefined, 'x', [], [null, 7]]) {
+    const r = S.normalizeTrigger({ id: 'cb', visual: { kind: 'combo', steps: bad, emoji: '🎬' } });
+    assert.equal(r.trigger.visual.kind, 'card', `steps ${JSON.stringify(bad)}`);
+    assert.equal(r.trigger.visual.steps, undefined);
+    assert.ok(r.warnings.some((w) => /combo without/.test(w)));
+  }
+});
+
+test('v3: validateEnvelope accepts theme messages and rejects unknown themes', () => {
+  const ok = S.validateEnvelope({ type: 'theme', theme: 'pastel', id: 'th-1' });
+  assert.equal(ok.ok, true);
+  assert.deepEqual(Object.keys(ok.msg).sort(), ['id', 'theme', 'ts', 'type']);
+  assert.equal(ok.msg.theme, 'pastel');
+  assert.equal(S.validateEnvelope({ type: 'theme', theme: 'dark' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'theme' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'nope' }).ok, false);
 });

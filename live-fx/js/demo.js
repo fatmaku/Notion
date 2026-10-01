@@ -124,6 +124,74 @@
       this._sceneOut = null; // previous scene while it crossfades out
       /** Optional hook called when a scene ends through its `duration`. */
       this.onSceneEnd = null;
+      this._timers = new Set(); // combo step timers (cancelled by clear())
+    }
+
+    /** 1..3 (default 1) – scales rain / confetti counts like the DOM renderer. */
+    _intensity(v) {
+      const n = Math.round(Number(v && v.intensity));
+      return Number.isFinite(n) ? Math.min(3, Math.max(1, n)) : 1;
+    }
+
+    /** Cancels pending combo steps and drops every running effect (the scene stays). */
+    clear() {
+      for (const t of this._timers) clearTimeout(t);
+      this._timers.clear();
+      this.active = [];
+    }
+
+    /** Big animated word (v2 `text` kind): neon glow | gradient | bounce | glitch, 3 s, letters staggered. */
+    bigText(v, now) {
+      const text = typeof v.text === 'string' ? v.text.trim() : '';
+      if (!text) {
+        this.card({ emoji: v.emoji || '💬', position: v.position }, now);
+        return;
+      }
+      const styles = ['neon', 'gradient', 'bounce', 'glitch'];
+      this._add({
+        kind: 'text',
+        t0: now,
+        dur: 3000,
+        letters: graphemes(text).slice(0, 40),
+        style: styles.includes(v.style) ? v.style : 'neon',
+        c1: safeColor(v.color) || '#ff512f',
+        c2: safeColor(v.color2) || '#dd2476',
+        emoji: typeof v.emoji === 'string' ? v.emoji : '',
+        glow: v.glow === true || !styles.includes(v.style) || v.style === 'neon',
+        position: v.position,
+      });
+    }
+
+    /** Lower third (v2): bottom-left bar with title + subtitle, 4 s; portrait falls back to a banner. */
+    lowerThird(v, now) {
+      const title = typeof v.title === 'string' && v.title.trim() ? v.title.trim() : typeof v.text === 'string' ? v.text.trim() : '';
+      const subtitle = typeof v.subtitle === 'string' ? v.subtitle.trim() : '';
+      if (this.portrait) {
+        this.banner({ emoji: v.emoji, text: subtitle ? `${title} · ${subtitle}` : title }, now);
+        return;
+      }
+      this._add({ kind: 'lower-third', t0: now, dur: 4000, title: title || '…', subtitle, emoji: typeof v.emoji === 'string' ? v.emoji : '', accent: safeColor(v.color) || '#ff512f' });
+    }
+
+    /** Combo (v2): schedules each step's visual through fire(); sounds are the page's business (render()). */
+    combo(v, now) {
+      const steps = Array.isArray(v.steps) ? v.steps.slice(0, 6) : [];
+      if (!steps.length) {
+        this.card({ emoji: v.emoji || '🎬', text: v.text, position: v.position }, now);
+        return;
+      }
+      for (const s of steps) {
+        if (!s || typeof s !== 'object') continue;
+        const sv = s.visual && typeof s.visual === 'object' ? s.visual : {};
+        if (sv.kind === 'combo') continue;
+        let delay = Number(s.delay);
+        if (!Number.isFinite(delay) || delay < 0) delay = 0;
+        const t = setTimeout(() => {
+          this._timers.delete(t);
+          this.fire({ visual: sv });
+        }, Math.min(10000, delay));
+        this._timers.add(t);
+      }
     }
 
     get W() {
@@ -139,6 +207,15 @@
       switch (v.kind) {
         case 'scene':
           this.setScene(v, now);
+          break;
+        case 'text':
+          this.bigText(v, now);
+          break;
+        case 'lower-third':
+          this.lowerThird(v, now);
+          break;
+        case 'combo':
+          this.combo(v, now);
           break;
         case 'sticker':
           this.sticker(v, now);
@@ -271,7 +348,7 @@
     rain(v, now) {
       let count = Math.round(Number(v.count));
       if (!Number.isFinite(count) || count < 1) count = 20;
-      count = Math.min(S.LIMITS.rainCount, count);
+      count = Math.min(S.LIMITS.rainCount, count) * this._intensity(v);
       const emoji = typeof v.emoji === 'string' && v.emoji ? v.emoji : '✨';
       const drops = [];
       for (let i = 0; i < count; i++) {
@@ -282,7 +359,7 @@
 
     confetti(v, now) {
       const bits = [];
-      for (let i = 0; i < CONFETTI_COUNT; i++) {
+      for (let i = 0; i < CONFETTI_COUNT * this._intensity(v); i++) {
         bits.push({ x: Math.random(), color: CONFETTI_COLORS[i % CONFETTI_COLORS.length], dur: rand(2000, 3500), delay: rand(0, 600), rot: rand(0, 360) });
       }
       this._add({ kind: 'confetti', t0: now, dur: 4500, bits });
@@ -346,6 +423,8 @@
           else if (fx.kind === 'confetti') this._drawConfetti(fx, now);
           else if (fx.kind === 'shake') this._drawFlash(now - fx.t0);
           else if (fx.kind === 'sticker') this._drawSticker(fx, t, now);
+          else if (fx.kind === 'text') this._drawText(fx, t, now);
+          else if (fx.kind === 'lower-third') this._drawLowerThird(fx, t);
         } catch (_) {
           /* never let one effect break the frame */
         }
@@ -757,6 +836,141 @@
       }
     }
 
+    /** Canvas twin of .fx-bigtext: staggered letters, style-specific fill / glow / bounce / glitch. */
+    _drawText(fx, t, now) {
+      const ctx = this.ctx;
+      const W = this.W;
+      const H = this.H;
+      const size = Math.min(150, W * (this.portrait ? 0.16 : 0.13));
+      const emojiSize = fx.emoji ? Math.min(120, W * 0.14) : 0;
+      const life = kf([[0, 0], [0.1, 1], [0.88, 1], [1, 0]], t);
+      const scale = kf([[0, 0.8], [0.1, 1], [0.88, 1], [1, 1.15]], t);
+      const { top, ty } = this._anchor(fx);
+      const totalH = size * 1.05 + (emojiSize ? emojiSize + 6 : 0);
+      const cy = top + ty * totalH + totalH / 2;
+      ctx.font = `900 ${size}px ${FONT}`;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      const letters = fx.letters.map((g) => g.toUpperCase());
+      const widths = letters.map((g) => ctx.measureText(g).width + size * 0.04);
+      const rowW = widths.reduce((a, b) => a + b, 0);
+      const k = Math.min(1, (W * 0.94) / Math.max(1, rowW));
+      ctx.globalAlpha = life;
+      ctx.translate(W / 2, cy);
+      ctx.scale(scale * k, scale * k);
+      let y = -totalH / 2;
+      if (emojiSize) {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.font = `${emojiSize}px ${FONT}`;
+        ctx.fillStyle = '#fff';
+        ctx.fillText(fx.emoji, 0, y);
+        ctx.restore();
+        y += emojiSize + 6;
+      }
+      const baseline = y + size * 0.9;
+      const elapsed = now - fx.t0;
+      let fill = fx.style === 'bounce' ? fx.c1 : '#fff';
+      if (fx.style === 'gradient') {
+        const g = ctx.createLinearGradient(-rowW / 2, 0, rowW / 2, 0);
+        const off = (elapsed / 2000) % 1;
+        g.addColorStop(0, off < 0.5 ? fx.c1 : fx.c2);
+        g.addColorStop(0.5, off < 0.5 ? fx.c2 : fx.c1);
+        g.addColorStop(1, off < 0.5 ? fx.c1 : fx.c2);
+        fill = g;
+      }
+      let x = -rowW / 2;
+      letters.forEach((g, i) => {
+        const lt = Math.min(1, Math.max(0, (elapsed - i * 45) / 500));
+        if (lt <= 0) {
+          x += widths[i];
+          return;
+        }
+        const inY = (1 - lt) * 40;
+        const inS = 0.4 + 0.6 * lt;
+        let dy = inY;
+        if (fx.style === 'bounce') dy += -0.22 * size * Math.max(0, Math.sin(((elapsed - 500 - i * 70) / 800) * Math.PI * 2));
+        ctx.save();
+        ctx.globalAlpha = life * lt;
+        ctx.translate(x + widths[i] / 2, baseline + dy);
+        ctx.scale(inS, inS);
+        ctx.font = `900 ${size}px ${FONT}`;
+        ctx.textAlign = 'center';
+        if (fx.glow || fx.style === 'neon') {
+          const pulse = 0.7 + 0.3 * Math.abs(Math.sin(elapsed / 350));
+          ctx.shadowColor = fx.c1;
+          ctx.shadowBlur = 40 * pulse;
+        } else {
+          ctx.shadowColor = 'rgba(0,0,0,0.3)';
+          ctx.shadowOffsetY = 6;
+        }
+        if (fx.style === 'glitch') {
+          const j = Math.floor(elapsed / 70) % 3;
+          ctx.fillStyle = fx.c1;
+          ctx.fillText(g, [-6, 5, -3][j], -2);
+          ctx.fillStyle = fx.c2;
+          ctx.fillText(g, [5, -6, 3][j], 2);
+          ctx.fillStyle = '#fff';
+        } else ctx.fillStyle = fill;
+        ctx.fillText(g, 0, 0);
+        ctx.restore();
+        x += widths[i];
+      });
+    }
+
+    /** Canvas twin of .fx-lower-third: bar bottom-left, slides in / out, accent stripe, title + subtitle. */
+    _drawLowerThird(fx, t) {
+      const ctx = this.ctx;
+      const W = this.W;
+      const H = this.H;
+      const titleSize = Math.min(48, W * 0.042);
+      const subSize = fx.subtitle ? Math.min(28, W * 0.024) : 0;
+      const emojiSize = fx.emoji ? Math.min(72, W * 0.06) : 0;
+      ctx.font = `900 ${titleSize}px ${FONT}`;
+      const tw = ctx.measureText(fx.title.toUpperCase()).width;
+      ctx.font = `600 ${subSize}px ${FONT}`;
+      const sw = fx.subtitle ? ctx.measureText(fx.subtitle).width : 0;
+      const textW = Math.min(W * 0.6, Math.max(tw, sw));
+      const barW = 22 + (emojiSize ? emojiSize + 18 : 0) + textW + 36 + 12;
+      const barH = titleSize * 1.2 + (subSize ? subSize * 1.3 + 4 : 0) + 28;
+      const x0 = W * 0.04;
+      const y0 = H * 0.92 - barH;
+      const dx = kf([[0, -1.2], [0.12, 0], [0.88, 0], [1, -1.2]], t) * (barW + x0);
+      ctx.globalAlpha = kf([[0, 0], [0.12, 1], [0.88, 1], [1, 0]], t);
+      ctx.translate(dx, 0);
+      ctx.shadowColor = 'rgba(0,0,0,0.45)';
+      ctx.shadowBlur = 50;
+      ctx.shadowOffsetY = 16;
+      ctx.fillStyle = '#111';
+      roundRect(ctx, x0, y0, barW, barH, 16);
+      ctx.fill();
+      ctx.shadowColor = 'transparent';
+      ctx.fillStyle = fx.accent;
+      ctx.fillRect(x0, y0 + 4, 12, barH - 8);
+      let x = x0 + 22;
+      ctx.textBaseline = 'middle';
+      if (emojiSize) {
+        ctx.font = `${emojiSize}px ${FONT}`;
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#fff';
+        ctx.fillText(fx.emoji, x, y0 + barH / 2);
+        x += emojiSize + 18;
+      }
+      const tIn = kf([[0, 0], [0.06, 0], [0.21, 1], [1, 1]], t);
+      ctx.fillStyle = '#fff';
+      ctx.font = `900 ${titleSize}px ${FONT}`;
+      ctx.textAlign = 'left';
+      ctx.globalAlpha *= tIn;
+      const titleY = subSize ? y0 + 14 + titleSize * 0.6 : y0 + barH / 2;
+      ctx.fillText(fx.title.toUpperCase(), x - (1 - tIn) * 24, titleY, textW);
+      if (subSize) {
+        ctx.globalAlpha *= 0.85;
+        ctx.font = `600 ${subSize}px ${FONT}`;
+        ctx.fillText(fx.subtitle, x - (1 - tIn) * 24, titleY + titleSize * 0.6 + 4 + subSize * 0.65, textW);
+      }
+    }
+
     _drawFlash(elapsed) {
       if (elapsed > 400) return;
       const ctx = this.ctx;
@@ -1006,6 +1220,15 @@
     const silent = { ...trigger, sound: null }; // sounds are ours (mixNode), not the renderer's
     const v = trigger.visual && typeof trigger.visual === 'object' ? trigger.visual : {};
     if (v.kind === 'scene' && v.scene === 'clear') stopLoop(); // the renderer would do this for its own loop
+    if (v.kind === 'combo' && Array.isArray(v.steps)) {
+      // Combo step sounds go through the mix too (and are stripped from the renderer's copy, no double play).
+      silent.visual = { ...v, steps: v.steps.map((s) => (s && typeof s === 'object' ? { ...s, sound: null } : s)) };
+      v.steps.slice(0, 6).forEach((s) => {
+        if (!s || typeof s !== 'object' || !s.sound) return;
+        const delay = Number(s.delay);
+        setTimeout(() => playSound(s.sound), Number.isFinite(delay) && delay > 0 ? Math.min(10000, delay) : 0);
+      });
+    }
     renderer.fire(silent);
     canvasFx.fire(trigger);
     if (trigger.sound) playSound(trigger.sound);
