@@ -168,3 +168,21 @@ button.pill-link:hover { border-color: var(--accent-2); }
 .scene-pad button[data-scene="clear"] { border-style: dashed; color: var(--muted); }
 .scene-pad button.active { border-color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-2) inset; }
 .pack .flag.story { font-size: 22px; }
+
+/* audio (1.5): silent preview toggle, echo warning, Ton-Check card */
+.preview-row { align-items: center; }
+.preview-row .check-line { flex: 0 0 auto; font-weight: 600; }
+.preview-row .help { flex: 1 1 200px; }
+.warning { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; padding: 10px 12px; border-radius: 10px; font-size: 13px; line-height: 1.5; background: rgba(255, 176, 32, .12); border: 1px solid rgba(255, 176, 32, .6); color: var(--text); }
+.warning[hidden] { display: none; }
+.warning > span { flex: 1 1 240px; }
+.warning button { flex: 0 0 auto; border-color: var(--warn); }
+.audiocheck { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.audiocheck .check-line { align-items: flex-start; line-height: 1.4; }
+.audiocheck input { margin-top: 2px; }
+.audiocheck input:disabled { accent-color: var(--ok); cursor: default; }
+.audiocheck .auto-tag { font-size: 10px; color: var(--muted); background: var(--bg); padding: 1px 6px; border-radius: 999px; text-transform: uppercase; letter-spacing: .06em; }
+#audio-card .actions { align-items: center; }
+#audio-card .actions .help { flex: 1 1 200px; }
+#mic-test-status.ok { color: var(--ok); }
+#mic-test-status.err { color: var(--accent); }

@@ -33,7 +33,7 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     await panel.selectOption('#asr-reaction', 'fast');
     await panel.fill('#gap', '0.5');
     await panel.dispatchEvent('#gap', 'change');
-    assert.equal(await panel.inputValue('#lang'), 'de-DE', 'default language is German');
+    assert.equal(await panel.inputValue('#lang'), 'auto', 'default language is auto');
     assert.ok(await panel.locator('#scene-pad').isHidden(), 'scene pad hidden before story mode');
     assert.equal(await panel.locator('.pack.story').count(), 3, 'three story packs listed in the pack card');
 

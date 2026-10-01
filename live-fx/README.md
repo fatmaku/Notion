@@ -73,6 +73,18 @@ Stichwort zuordnen. Braucht einen kostenlosen API-Key von Tenor oder Giphy: [doc
 Im Hochkant-Layout bleiben alle Effekte oberhalb der unteren 35 % (dort liegen bei TikTok/IG die
 Kommentare) und der Emoji-Regen fällt entsprechend kürzer.
 
+## Ton & Echo (Mikro in OBS, keine Doppel-Effekte)
+
+Aus echten Streams gelernt: Das Mikro der Spracherkennung läuft **im Browser** – OBS hört es erst, wenn du es dort
+als Quelle **Audioeingabeaufnahme** anlegst. Und das Overlay läuft zweimal (Panel-Vorschau + OBS-Browser-Quelle):
+spielt die Vorschau Ton, hören Zuschauer jeden Effekt **doppelt**. Deshalb:
+
+- Die **Overlay-Vorschau im Panel ist stumm** (Schalter „Vorschau-Ton“ nur zum Reinhören); ist dabei ein OBS-Overlay
+  verbunden, zeigt das Panel eine **Echo-Warnung**.
+- Karte **🔊 Ton-Check**: fünf Haken (Mikro-Quelle, „Audio über OBS steuern“, Desktop-Audio stumm, Monitoring aus,
+  Vorschau-Ton aus), **Mikro-Test** und **„Test-Sound in OBS“**.
+- Schritt-für-Schritt mit Fehlerhilfe („Zuschauer hören mich nicht“, „Echo“, „Effekte doppelt“): [`docs/AUDIO.md`](docs/AUDIO.md).
+
 ## Eigene Memes, GIFs & Sounds
 
 - **Medien-Bibliothek** im Panel: PNG/JPG/GIF/WebP und MP3/WAV/OGG hochladen (bis 8 MB pro Datei).
@@ -107,7 +119,9 @@ Position: `center` (Mitte), `top` (oben), `safe` (im Hochkant-Layout im oberen D
 
 Im Panel unter **Erkennung**:
 
-- **Sprache** mit Varianten (Deutsch DE/AT/CH, Türkçe, English US/GB/IN) – die Kopfzeile zeigt die aktive Sprache.
+- **Sprache**: **Automatisch (DE/TR/EN)** erkennt beim Sprechen, ob du gerade Deutsch, Türkçe oder English
+  redest (Standard, 1.5) – oder fest mit Varianten (Deutsch DE/AT/CH, Türkçe, English US/GB/IN). Die Kopfzeile zeigt
+  „Auto · TR“ bzw. die feste Sprache, die Diagnose die erkannte Sprache und den Modus.
 - **Dialekt-Toleranz** aus / mittel / hoch: „grass“ löst trotzdem *krass* aus, „helal olsn“ *helal olsun*. Kurze
   Wörter (≤ 4 Buchstaben) werden immer exakt verglichen, echte Stichwörter nie verwechselt („schön“ ≠ „schon“).
 - **Reaktion**: *schnell* feuert schon bei Zwischenergebnissen, *sicher* erst beim fertigen Satz.

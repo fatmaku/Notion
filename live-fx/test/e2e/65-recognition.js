@@ -57,7 +57,7 @@ async function run(h) {
       let panel = await openPanel(ctx, base, errors);
       assert.equal(await panel.inputValue('#asr-tolerance'), 'medium', 'default tolerance is medium');
       assert.equal(await panel.inputValue('#asr-reaction'), 'fast', 'default reaction is fast');
-      assert.equal(await panel.inputValue('#lang'), 'de-DE', 'default language');
+      assert.equal(await panel.inputValue('#lang'), 'auto', 'default language');
       assert.equal(await panel.locator('#lang optgroup').count(), 3, 'three language groups');
       await panel.selectOption('#asr-tolerance', 'high');
       await panel.selectOption('#lang', 'de-AT');

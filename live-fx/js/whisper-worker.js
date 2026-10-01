@@ -3,7 +3,7 @@
 // `npm run setup-offline`). Protocol with js/asr.js (backend `whisper`):
 //
 //   in : { type:'load', model, modelBase='/models/', vendorUrl='/vendor/transformers.min.js', device? }
-//        { type:'transcribe', audio: Float32Array (16 kHz mono), lang: 'de'|'tr'|'en' }
+//        { type:'transcribe', audio: Float32Array (16 kHz mono), lang: 'de'|'tr'|'en'|null }  (null/'auto' = let Whisper detect)
 //   out: { type:'progress', pct, file }   while model files load
 //        { type:'ready' }
 //        { type:'result', text }          one per transcribe message (text may be '')
@@ -60,7 +60,10 @@ async function transcribe(m) {
   if (!asr) return post({ type: 'result', text: '' });
   try {
     const audio = m.audio instanceof Float32Array ? m.audio : Float32Array.from(m.audio || []);
-    const out = await asr(audio, { language: m.lang || 'de', task: 'transcribe', chunk_length_s: 30 });
+    const opts = { task: 'transcribe', chunk_length_s: 30 };
+    const lang = typeof m.lang === 'string' && m.lang && m.lang !== 'auto' ? m.lang : null;
+    if (lang) opts.language = lang; // omitted -> Whisper auto-detects the language
+    const out = await asr(audio, opts);
     const text = out && typeof out.text === 'string' ? out.text : Array.isArray(out) && out[0] && out[0].text ? out[0].text : '';
     post({ type: 'result', text });
   } catch (e) {

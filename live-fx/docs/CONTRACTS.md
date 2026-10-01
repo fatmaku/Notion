@@ -313,7 +313,7 @@ tokens with a shorter fold in a `rest` list). Performance (test/matcher-fuzzy.te
 `#asr` (select webspeech|external), `#smart` (checkbox), `#dot-smart`, `#dot-mic`, `#dot-server`, `#token`, `#btn-copy-token`,
 `#asset-library`, `#pad button` (with `img.thumb` for image triggers), trigger rows `#trigger-rows tr` with buttons
 `[data-act="edit"|"test"|"del"]`, `#lang`, `#btn-listen`, `#btn-mute`, `#sim`, `#btn-sim`, `#log`, `#volume`, `#gap`,
-`#preview` (iframe `overlay.html?volume=0.5`), `#btn-add`, `#btn-export`, `#btn-import`, `#btn-reset`, `#transcript` (uses `<mark>`).
+`#preview` (iframe `overlay.html?volume=0`, see Audio 1.5 below), `#btn-add`, `#btn-export`, `#btn-import`, `#btn-reset`, `#transcript` (uses `<mark>`).
 
 Recognition (1.2, see `docs/DESIGN-RECOGNITION.md` §C): header pill `#pill-lang` (button, `#pill-lang-value` shows the language,
 click scrolls to the card); card `#asr-settings` with `#lang` (optgroups Deutsch de-DE/de-AT/de-CH, Türkçe tr-TR, English en-US/en-GB/en-IN),
@@ -371,6 +371,29 @@ Static allow-list additions (`server/static.js`): `/mobile.html`, `/manifest.web
 (`service-worker-allowed: /`, `cache-control: no-cache`), `/icons/<safe>.(svg|png)` → `<root>/icons`, `/vendor/<safe>.(js|mjs|wasm)` →
 `<root>/vendor`, `/models/<safe path, subdirs allowed, no ..>.(json|onnx|bin|txt)` → `<dataDir>/models` (`.onnx`/`.bin` → `application/octet-stream`,
 `.wasm` → `application/wasm`); absent files are 404, never 500. Tests: `test/mobile.test.js`, `test/e2e/35-mobile.js`.
+
+Audio (1.5, package audio-ui): `#preview` src is `overlay.html?volume=0` by default; checkbox `#preview-sound` (localStorage
+`livefx.previewSound` '1'/'0', default off) switches the src to `overlay.html?volume=<#volume>`; while off, the panel pins the
+iframe renderer's volume back to 0 once a second and after every slider move (bus `volume` messages reach the preview like any
+overlay). `#echo-warning` (`.warning`, hidden by default, text „Echo-Gefahr …“) with `#echo-off` (turns the preview sound off)
+is shown when the preview sound is on AND `GET /health` reports `overlays >= 2` (the preview iframe is one of them; polled every 5 s
+plus immediately after toggling; never under file://). Card `#audio-card` („🔊 Ton-Check“, above the OBS card):
+`#audiocheck input[data-key]` with keys `mic-source`, `browser-audio`, `desktop-audio`, `monitoring` (localStorage
+`livefx.audiocheck.<key>` '1'/'0') and `preview-off` (disabled, mirrors `!previewSound`); `#btn-mic-test` + `#mic-test-status`
+(`.ok`/`.err`; runs the meter 5 s, „Mikro liefert Pegel ✔“ / „kein Pegel – Mikro prüfen“); `#btn-obs-sound` fires the ad-hoc trigger
+`{id:'audio-test', label:'TON-TEST', sound:'pop', visual:{kind:'card', emoji:'🔊', text:'TON-TEST', position:'center'}}`
+(normalized via `LiveFXSchema.normalizeTrigger`) with source „Ton-Check“ through `fire()`. Docs: `docs/AUDIO.md`.
+Auto language (1.5): `#lang` gets the first option `value="auto"` („Automatisch (DE/TR/EN)“, outside the optgroups) – default when
+`livefx.asr.lang` is unset; a stored value wins. With `auto`, `createAsr` picks backend `auto` (when `LiveFXASR.backends` lists it)
+for the webspeech/auto choice, passing `langs: ['de-DE','tr-TR','en-US']` and `lang:'auto'`; whisper/external get `lang:'auto'`;
+without an `auto` backend it falls back to webspeech with `de-DE`. Switching between `auto` and a fixed language rebuilds the
+recognizer (listening state is kept). `onEvent({type:'lang', lang, family, mode, reason})` updates `#diag-lang`
+(„Erkannte Sprache: Türkçe (tr-TR) · Modus: parallel“), `#pill-lang-value` („Auto“ → „Auto · TR“; fixed languages still show the tag),
+`matcher.setLang(lang)` and, in story mode, reloads the story pack of the detected family (`effectiveLang()`: fixed language, else last
+detected, else `de-DE`; also used for smart classify and `#sim`). `js/langdetect.js` is loaded before `js/asr.js`.
+`window.livefx` additionally exposes `previewSound {get(), set(bool)}`, `audioCheck {get(key), set(key, bool), keys, micTest(),
+testTrigger(), fireTest()}`, `echo` (getter `{overlays, risk}`), `pollHealth()`, `detectedLang` (getter, copy or null), `effectiveLang()`
+and `asrEvent(ev)` (the panel's `onEvent` handler – tests feed `lang` events through it). Test: `test/e2e/62-audio.js`.
 
 ## 12. Test harness (P0, done)
 
