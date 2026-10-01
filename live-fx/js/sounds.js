@@ -355,6 +355,210 @@
       noise(ctx, out, { t0, dur: 0.06, peak: 0.3, attack: 0.002, release: 0.05, filter: { type: 'lowpass', freq: 1200 } });
       noise(ctx, out, { t0, dur: 2.2, peak: 0.06, attack: 0.15, release: 1.8, filter: { type: 'bandpass', freq: 1800, q: 4 } });
     },
+    // ---- LiveFX 2.0 additions (audio-engine). Per-voice peaks stay <= 0.6, see docs/SOUNDS.md. ----
+    bleat(ctx, out) {
+      // Goat/sheep meme bleat: sawtooth with a fast, deep vibrato, slightly falling at the end.
+      const t0 = ctx.currentTime;
+      const dur = 0.75;
+      const osc = ctx.createOscillator();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(330, t0);
+      osc.frequency.setValueAtTime(330, t0 + 0.5);
+      osc.frequency.exponentialRampToValueAtTime(260, t0 + dur);
+      const lfo = ctx.createOscillator();
+      lfo.type = 'sine';
+      lfo.frequency.setValueAtTime(8, t0);
+      lfo.frequency.linearRampToValueAtTime(11, t0 + dur);
+      const depth = ctx.createGain();
+      depth.gain.value = 28; // Hz of vibrato, modulation only (not an audio-path gain)
+      lfo.connect(depth).connect(osc.frequency);
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.Q.value = 4;
+      lp.frequency.setValueAtTime(1500, t0);
+      lp.frequency.exponentialRampToValueAtTime(900, t0 + dur);
+      const g = ctx.createGain();
+      env(g, t0, 0.03, dur - 0.03 - 0.12, 0.12, 0.3);
+      osc.connect(lp).connect(g).connect(out);
+      osc.start(t0);
+      lfo.start(t0);
+      osc.stop(t0 + dur + 0.05);
+      lfo.stop(t0 + dur + 0.05);
+      // Nasal second voice and a little breath.
+      tone(ctx, out, { type: 'square', freq: 660, glideTo: 520, t0, dur, peak: 0.06, attack: 0.03, release: 0.12, filter: { type: 'bandpass', freq: 1800, q: 3 } });
+      noise(ctx, out, { t0, dur: 0.3, peak: 0.04, attack: 0.02, release: 0.2, filter: { type: 'bandpass', freq: 2500, q: 1 } });
+    },
+    duck(ctx, out) {
+      // Squeaky rubber duck: two-tone chirp (up, then down) with a thin square overtone.
+      const t0 = ctx.currentTime;
+      tone(ctx, out, { type: 'sine', freq: 1700, glideTo: 2500, t0, dur: 0.13, peak: 0.3, attack: 0.01, release: 0.03 });
+      tone(ctx, out, { type: 'square', freq: 1700, glideTo: 2500, t0, dur: 0.13, peak: 0.05, attack: 0.01, release: 0.03, filter: { type: 'lowpass', freq: 6000 } });
+      tone(ctx, out, { type: 'sine', freq: 2400, glideTo: 1400, t0: t0 + 0.16, dur: 0.2, peak: 0.3, attack: 0.01, release: 0.08 });
+      tone(ctx, out, { type: 'square', freq: 2400, glideTo: 1400, t0: t0 + 0.16, dur: 0.2, peak: 0.05, attack: 0.01, release: 0.08, filter: { type: 'lowpass', freq: 6000 } });
+      noise(ctx, out, { t0, dur: 0.36, peak: 0.04, attack: 0.02, release: 0.1, filter: { type: 'highpass', freq: 4000 } });
+    },
+    fanfare(ctx, out) {
+      // Three-note trumpet fanfare (C E G, the G held): square + saw through a lowpass, sub octave for body.
+      const t0 = ctx.currentTime;
+      [[0, 523.3, 0.17], [0.19, 659.3, 0.17], [0.38, 784, 1.0]].forEach(([d, f, dur], i) => {
+        const last = i === 2;
+        const start = t0 + d;
+        tone(ctx, out, { type: 'square', freq: f * 0.99, glideTo: f, t0: start, dur, peak: 0.16, attack: 0.02, release: last ? 0.4 : 0.05, filter: { type: 'lowpass', freq: 1600, q: 2 } });
+        tone(ctx, out, { type: 'sawtooth', freq: f * 1.004, t0: start, dur, peak: 0.1, attack: 0.02, release: last ? 0.4 : 0.05, filter: { type: 'lowpass', freq: 2400, q: 1.5 } });
+        tone(ctx, out, { type: 'sine', freq: f / 2, t0: start, dur, peak: 0.06, attack: 0.02, release: last ? 0.4 : 0.05 });
+      });
+      // Third and fifth under the held note make it a chord.
+      [523.3, 659.3].forEach((f) => {
+        tone(ctx, out, { type: 'square', freq: f, t0: t0 + 0.42, dur: 0.95, peak: 0.07, attack: 0.04, release: 0.4, filter: { type: 'lowpass', freq: 1400, q: 2 } });
+      });
+    },
+    kidlaugh(ctx, out) {
+      // Short child giggle: six rapid pulsed "hi" tones, rising a little then falling.
+      const t0 = ctx.currentTime;
+      const base = [720, 780, 820, 790, 740, 690];
+      base.forEach((f, i) => {
+        const start = t0 + i * 0.105;
+        tone(ctx, out, { type: 'sine', freq: f * 1.1, glideTo: f * 0.9, t0: start, dur: 0.08, peak: 0.26, attack: 0.012, release: 0.04 });
+        tone(ctx, out, { type: 'square', freq: f * 2.2, glideTo: f * 1.8, t0: start, dur: 0.07, peak: 0.045, attack: 0.012, release: 0.03, filter: { type: 'lowpass', freq: 3500, q: 2 } });
+        noise(ctx, out, { t0: start, dur: 0.06, peak: 0.08, attack: 0.005, release: 0.03, filter: { type: 'bandpass', freq: 2800, q: 2 } });
+      });
+    },
+    scream(ctx, out) {
+      // Wilhelm-ish "aaah!": a sawtooth voice falling an octave with vibrato, through sweeping formant
+      // bandpasses, plus breathy noise through the same formants.
+      const t0 = ctx.currentTime;
+      const dur = 1.0;
+      const bus = ctx.createGain();
+      env(bus, t0, 0.04, 0.55, dur - 0.59, 0.55);
+      bus.connect(out);
+      const osc = ctx.createOscillator();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(560, t0);
+      osc.frequency.exponentialRampToValueAtTime(470, t0 + 0.5);
+      osc.frequency.exponentialRampToValueAtTime(240, t0 + dur);
+      const lfo = ctx.createOscillator();
+      lfo.type = 'sine';
+      lfo.frequency.value = 6.5;
+      const depth = ctx.createGain();
+      depth.gain.value = 18; // vibrato depth in Hz (modulation only)
+      lfo.connect(depth).connect(osc.frequency);
+      const src = ctx.createBufferSource();
+      src.buffer = noiseBuffer(ctx, dur + 0.1);
+      const breath = ctx.createGain();
+      breath.gain.value = 0.35;
+      src.connect(breath);
+      [{ f: 900, to: 500, q: 6, g: 0.5 }, { f: 1500, to: 900, q: 8, g: 0.3 }].forEach((fm) => {
+        const bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.Q.value = fm.q;
+        bp.frequency.setValueAtTime(fm.f, t0);
+        bp.frequency.exponentialRampToValueAtTime(fm.to, t0 + dur);
+        const g = ctx.createGain();
+        g.gain.value = fm.g;
+        osc.connect(bp);
+        breath.connect(bp);
+        bp.connect(g).connect(bus);
+      });
+      osc.start(t0);
+      lfo.start(t0);
+      src.start(t0);
+      osc.stop(t0 + dur + 0.05);
+      lfo.stop(t0 + dur + 0.05);
+      src.stop(t0 + dur + 0.05);
+    },
+    glass(ctx, out) {
+      // Glass break: sharp noise burst, ringing inharmonic high partials and a few tinkling shards.
+      const t0 = ctx.currentTime;
+      noise(ctx, out, { t0, dur: 0.07, peak: 0.45, attack: 0.001, release: 0.05, filter: { type: 'highpass', freq: 3500 } });
+      noise(ctx, out, { t0: t0 + 0.05, dur: 0.3, peak: 0.2, attack: 0.005, release: 0.25, filter: { type: 'bandpass', freq: 6500, q: 1.2 } });
+      [[3150, 0.12, 0.9], [4720, 0.1, 0.7], [6180, 0.08, 0.55], [7900, 0.06, 0.45], [9950, 0.04, 0.35]].forEach(([f, peak, dur]) => {
+        tone(ctx, out, { type: 'sine', freq: f * 1.01, glideTo: f, t0, dur, peak, attack: 0.002, release: dur - 0.03 });
+      });
+      for (let i = 0; i < 7; i++) {
+        const start = t0 + 0.08 + i * 0.065 + (i % 2) * 0.02;
+        const f = 2500 + ((i * 1301) % 5000);
+        tone(ctx, out, { type: 'sine', freq: f, glideTo: f * 0.97, t0: start, dur: 0.18, peak: 0.06, attack: 0.002, release: 0.15 });
+      }
+    },
+    camera(ctx, out) {
+      // Camera shutter: mirror slap, "click", short motor whirr, second click when the shutter closes.
+      const t0 = ctx.currentTime;
+      noise(ctx, out, { t0, dur: 0.025, peak: 0.3, attack: 0.001, release: 0.02, filter: { type: 'lowpass', freq: 1800 } });
+      tone(ctx, out, { type: 'square', freq: 2300, glideTo: 1700, t0, dur: 0.018, peak: 0.28, attack: 0.001, release: 0.012 });
+      tone(ctx, out, { type: 'sawtooth', freq: 170, t0: t0 + 0.03, dur: 0.12, peak: 0.05, attack: 0.01, release: 0.04, filter: { type: 'lowpass', freq: 700, q: 2 } });
+      noise(ctx, out, { t0: t0 + 0.09, dur: 0.03, peak: 0.25, attack: 0.001, release: 0.025, filter: { type: 'highpass', freq: 3000 } });
+      tone(ctx, out, { type: 'square', freq: 1600, glideTo: 1200, t0: t0 + 0.09, dur: 0.016, peak: 0.2, attack: 0.001, release: 0.012 });
+    },
+    door(ctx, out) {
+      // Creaking door: slowly rising, wobbling sawtooth through a resonant band (stick-slip creak),
+      // plus a soft wooden knock at the start.
+      const t0 = ctx.currentTime;
+      const dur = 1.4;
+      noise(ctx, out, { t0, dur: 0.05, peak: 0.15, attack: 0.002, release: 0.04, filter: { type: 'lowpass', freq: 400 } });
+      const osc = ctx.createOscillator();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(95, t0);
+      osc.frequency.exponentialRampToValueAtTime(150, t0 + 0.5);
+      osc.frequency.exponentialRampToValueAtTime(120, t0 + 0.8);
+      osc.frequency.exponentialRampToValueAtTime(190, t0 + dur);
+      const lfo = ctx.createOscillator();
+      lfo.type = 'triangle';
+      lfo.frequency.setValueAtTime(9, t0);
+      lfo.frequency.linearRampToValueAtTime(16, t0 + dur);
+      const depth = ctx.createGain();
+      depth.gain.value = 22; // Hz wobble (modulation only)
+      lfo.connect(depth).connect(osc.frequency);
+      const bp = ctx.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.Q.value = 5;
+      bp.frequency.setValueAtTime(700, t0);
+      bp.frequency.exponentialRampToValueAtTime(1400, t0 + dur);
+      const g = ctx.createGain();
+      env(g, t0 + 0.04, 0.08, dur - 0.04 - 0.08 - 0.25, 0.25, 0.3);
+      osc.connect(bp).connect(g).connect(out);
+      osc.start(t0);
+      lfo.start(t0);
+      osc.stop(t0 + dur + 0.05);
+      lfo.stop(t0 + dur + 0.05);
+      tone(ctx, out, { type: 'sawtooth', freq: 191, glideTo: 380, t0: t0 + 0.04, dur: dur - 0.04, peak: 0.07, attack: 0.1, release: 0.25, filter: { type: 'bandpass', freq: 2200, q: 6 } });
+    },
+    tick(ctx, out) {
+      // Clock "tick ... tock": two wooden clicks half a second apart, the second one lower.
+      const t0 = ctx.currentTime;
+      [[0, 2100, 1400, 2800, 0.3], [0.5, 1500, 950, 1900, 0.26]].forEach(([d, f1, f2, nf, peak]) => {
+        const start = t0 + d;
+        noise(ctx, out, { t0: start, dur: 0.02, peak, attack: 0.001, release: 0.015, filter: { type: 'highpass', freq: nf } });
+        tone(ctx, out, { type: 'sine', freq: f1, glideTo: f2, t0: start, dur: 0.03, peak, attack: 0.001, release: 0.025 });
+        tone(ctx, out, { type: 'triangle', freq: f2 / 2, t0: start, dur: 0.05, peak: 0.12, attack: 0.001, release: 0.04, filter: { type: 'lowpass', freq: 1500 } });
+      });
+    },
+    sparkle(ctx, out) {
+      // Magic glitter: rapid rising bell arpeggio with a bright octave and a high shimmer wash.
+      const t0 = ctx.currentTime;
+      [1568, 1760, 2093, 2349, 2637, 3136, 3520, 4186].forEach((f, i) => {
+        const start = t0 + i * 0.055;
+        tone(ctx, out, { type: 'sine', freq: f, t0: start, dur: 0.55, peak: 0.16, attack: 0.003, release: 0.45 });
+        tone(ctx, out, { type: 'sine', freq: f * 2.01, t0: start, dur: 0.35, peak: 0.05, attack: 0.003, release: 0.3 });
+      });
+      noise(ctx, out, { t0: t0 + 0.1, dur: 0.8, peak: 0.05, attack: 0.1, release: 0.6, filter: { type: 'highpass', freq: 7000 } });
+    },
+    punch(ctx, out) {
+      // Punch: low thud plus a short noise slap.
+      const t0 = ctx.currentTime;
+      tone(ctx, out, { type: 'sine', freq: 130, glideTo: 45, t0, dur: 0.28, peak: 0.6, attack: 0.003, release: 0.2 });
+      tone(ctx, out, { type: 'triangle', freq: 220, glideTo: 60, t0, dur: 0.12, peak: 0.25, attack: 0.003, release: 0.08 });
+      noise(ctx, out, { t0, dur: 0.06, peak: 0.4, attack: 0.002, release: 0.04, filter: { type: 'bandpass', freq: 1200, q: 0.8 } });
+      noise(ctx, out, { t0: t0 + 0.01, dur: 0.16, peak: 0.3, attack: 0.005, release: 0.12, filter: { type: 'lowpass', freq: 450 } });
+    },
+    whoosh2(ctx, out) {
+      // Double swish: one rising, one falling noise sweep with a faint airy sine underneath.
+      const t0 = ctx.currentTime;
+      noise(ctx, out, { t0, dur: 0.3, peak: 0.4, attack: 0.07, release: 0.12, filter: { type: 'bandpass', freq: 300, glideTo: 2800, q: 1.5 } });
+      noise(ctx, out, { t0: t0 + 0.32, dur: 0.4, peak: 0.4, attack: 0.08, release: 0.22, filter: { type: 'bandpass', freq: 2800, glideTo: 350, q: 1.5 } });
+      noise(ctx, out, { t0, dur: 0.72, peak: 0.1, attack: 0.1, release: 0.3, filter: { type: 'highpass', freq: 6000 } });
+      tone(ctx, out, { type: 'sine', freq: 180, glideTo: 700, t0, dur: 0.3, peak: 0.07, attack: 0.08, release: 0.1 });
+      tone(ctx, out, { type: 'sine', freq: 700, glideTo: 160, t0: t0 + 0.32, dur: 0.4, peak: 0.07, attack: 0.08, release: 0.2 });
+    },
   };
 
 
@@ -706,8 +910,393 @@
     };
   }
 
+  // ---------------------------------------------------------------------------------------------
+  // LiveFX 2.0 – groups, intensity layers and the mixer.
+  // ---------------------------------------------------------------------------------------------
+
+  // Sound groups for the panel/editor. Every one-shot name appears in exactly one of the first three
+  // groups; `ambient-loops` mirrors `loops`. `names` is exported in this grouped order.
+  const GROUPS = {
+    impact: ['airhorn', 'boom', 'punch', 'rimshot', 'drumroll', 'buzzer', 'nope', 'dramatic', 'siren', 'heartbeat', 'gong', 'glass', 'door', 'camera', 'scratch', 'whoosh', 'whoosh2'],
+    funny: ['sadTrombone', 'crickets', 'applause', 'laugh', 'kidlaugh', 'ooh', 'boing', 'slideWhistle', 'bleat', 'duck', 'scream', 'tick'],
+    magic: ['ding', 'pop', 'tada', 'fanfare', 'cash', 'coin', 'levelUp', 'bell', 'sparkle'],
+    'ambient-loops': Object.keys(LOOPS),
+  };
+  const NAMES = GROUPS.impact.concat(GROUPS.funny, GROUPS.magic);
+  // Safety net: a recipe that is missing from the groups is still playable and listed.
+  for (const n of Object.keys(SFX)) if (!NAMES.includes(n)) NAMES.push(n);
+
+  // Optional dedicated intensity layers: `fn(ctx, out, level)` adds the extra voice(s) for
+  // `intensity` 2 (level 2) or 3 (level 3). Sounds without an entry get the generic detuned,
+  // slightly delayed replay (see `playLayer`). Peaks stay within the 0.6 per-voice budget.
+  const LAYERS = {
+    boom(ctx, out, level) {
+      const t0 = ctx.currentTime;
+      tone(ctx, out, { type: 'sine', freq: 80, glideTo: 24, t0, dur: 1.6, peak: 0.45, attack: 0.01, release: 1.2 }); // sub octave
+      if (level >= 3) noise(ctx, out, { t0, dur: 0.5, peak: 0.3, attack: 0.01, release: 0.4, filter: { type: 'lowpass', freq: 300 } });
+    },
+    punch(ctx, out, level) {
+      const t0 = ctx.currentTime;
+      tone(ctx, out, { type: 'sine', freq: 70, glideTo: 30, t0, dur: 0.4, peak: 0.45, attack: 0.003, release: 0.3 });
+      noise(ctx, out, { t0, dur: 0.1, peak: level >= 3 ? 0.4 : 0.25, attack: 0.002, release: 0.08, filter: { type: 'bandpass', freq: 2500, q: 0.7 } });
+    },
+    airhorn(ctx, out, level) {
+      const t0 = ctx.currentTime;
+      [207.5, 311].forEach((f) => {
+        tone(ctx, out, { type: 'sawtooth', freq: f * 0.97, glideTo: f, t0, dur: 0.9, peak: level >= 3 ? 0.14 : 0.1, attack: 0.02, release: 0.25, filter: { type: 'lowpass', freq: 1800, q: 2 } });
+      });
+    },
+    glass(ctx, out, level) {
+      const t0 = ctx.currentTime;
+      noise(ctx, out, { t0: t0 + 0.02, dur: 0.5, peak: 0.25, attack: 0.005, release: 0.4, filter: { type: 'bandpass', freq: 5000, q: 0.8 } });
+      for (let i = 0; i < (level >= 3 ? 10 : 5); i++) {
+        const f = 2000 + ((i * 1733) % 6000);
+        tone(ctx, out, { type: 'sine', freq: f, glideTo: f * 0.96, t0: t0 + 0.1 + i * 0.05, dur: 0.25, peak: 0.06, attack: 0.002, release: 0.2 });
+      }
+    },
+    applause(ctx, out, level) {
+      const t0 = ctx.currentTime;
+      for (let i = 0; i < (level >= 3 ? 50 : 25); i++) {
+        noise(ctx, out, { t0: t0 + Math.random() * 2.2, dur: 0.04, peak: 0.12, filter: { type: 'bandpass', freq: 1200 + Math.random() * 3000, q: 1.5 } });
+      }
+      if (level >= 3) tone(ctx, out, { type: 'sine', freq: 1800, glideTo: 2600, t0: t0 + 0.6, dur: 0.5, peak: 0.08, attack: 0.05, release: 0.3 }); // a whistle
+    },
+  };
+
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, Number.isFinite(Number(v)) ? Number(v) : lo));
+  const dbToGain = (db) => Math.pow(10, db / 20);
+
+  // A thin view onto an AudioContext for one voice: `currentTime` is shifted by `when`, every
+  // oscillator/buffer source is detuned by `cents`, and the latest scheduled stop() time is
+  // recorded so the mixer knows when the voice ends (ducking release, stats) without timers.
+  // Methods are bound explicitly – native AudioContext methods refuse a foreign `this`.
+  function voiceContext(ctx, { when = 0, cents = 0 } = {}) {
+    const rate = cents ? Math.pow(2, cents / 1200) : 1;
+    const sources = [];
+    let end = ctx.currentTime + when;
+    const track = (src) => {
+      sources.push(src);
+      const stop = src.stop;
+      src.stop = function (t) {
+        if (Number.isFinite(t) && t > end) end = t;
+        return stop.call(src, t);
+      };
+      return src;
+    };
+    return {
+      get currentTime() { return ctx.currentTime + when; },
+      get sampleRate() { return ctx.sampleRate; },
+      get end() { return end; },
+      sources,
+      createGain: () => ctx.createGain(),
+      createBiquadFilter: () => ctx.createBiquadFilter(),
+      createBuffer: (c, l, r) => ctx.createBuffer(c, l, r),
+      createOscillator() {
+        const o = ctx.createOscillator();
+        if (cents && o.detune) o.detune.value = cents;
+        return track(o);
+      },
+      createBufferSource() {
+        const s = ctx.createBufferSource();
+        if (rate !== 1 && s.playbackRate) s.playbackRate.value = rate;
+        return track(s);
+      },
+    };
+  }
+
+  // Synthetic impulse response: stereo white noise with an exponential decay (-60 dB at `seconds`).
+  function impulseResponse(ctx, seconds) {
+    const len = Math.max(1, Math.floor(ctx.sampleRate * seconds));
+    const buf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let ch = 0; ch < 2; ch++) {
+      const d = buf.getChannelData(ch);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.exp((-6.9 * i) / len);
+    }
+    return buf;
+  }
+
+  /**
+   * Mixer (LiveFX 2.0). Graph:
+   *   voice -> [StereoPanner] -> sfxBus ----------------------------\
+   *   loop  -> ambientBus -> duckGain -> (dry) ----------------------> master -> limiter -> out
+   *                                   \-> convolver -> wetGain -----/
+   * `limiter` is a DynamicsCompressorNode (threshold -6 dB, ratio 12, attack 3 ms). Everything is
+   * scheduled with AudioParam automation only – no timers – so it also works in an OfflineAudioContext.
+   */
+  const mixer = {
+    ctx: null,
+    out: null,
+    sfxBus: null,
+    ambientBus: null,
+    duckGain: null,
+    master: null,
+    limiter: null,
+    convolver: null,
+    wetGain: null,
+    autoDuck: true,
+    duckMs: 300,
+    duckDb: -8,
+    _voices: [],
+    _loop: null,
+    _levels: { master: 1, sfx: 1, ambient: 1 },
+    _reverb: { on: false, seconds: 1.8, mix: 0.25 },
+    _duckUntil: 0,
+
+    /** Builds the graph on `ctx` (idempotent for the same ctx; a new ctx rebuilds). Returns the mixer. */
+    init(ctx, out) {
+      if (!ctx) return this;
+      const dest = out || ctx.destination;
+      if (this.ctx === ctx && this.out === dest && this.master) return this;
+      if (this._loop) {
+        try { this._loop.stop(0.01); } catch (_) { /* ignore */ }
+        this._loop = null;
+      }
+      this.ctx = ctx;
+      this.out = dest;
+      this._voices = [];
+      this.sfxBus = ctx.createGain();
+      this.ambientBus = ctx.createGain();
+      this.duckGain = ctx.createGain();
+      this.master = ctx.createGain();
+      this.sfxBus.gain.value = this._levels.sfx;
+      this.ambientBus.gain.value = this._levels.ambient;
+      this.duckGain.gain.value = 1;
+      this.master.gain.value = this._levels.master;
+      this.convolver = null;
+      this.wetGain = null;
+      if (typeof ctx.createDynamicsCompressor === 'function') {
+        const lim = ctx.createDynamicsCompressor();
+        lim.threshold.value = -6;
+        lim.knee.value = 6;
+        lim.ratio.value = 12;
+        lim.attack.value = 0.003;
+        lim.release.value = 0.25;
+        this.limiter = lim;
+        this.master.connect(lim);
+        lim.connect(dest);
+      } else {
+        this.limiter = null;
+        this.master.connect(dest);
+      }
+      this.sfxBus.connect(this.master);
+      this.ambientBus.connect(this.duckGain);
+      this.duckGain.connect(this.master);
+      if (this._reverb.on) this.reverb(true, this._reverb);
+      return this;
+    },
+
+    // Creates an AudioContext on first use when nobody called init(). Returns null without WebAudio.
+    _ensure() {
+      if (this.ctx && this.master) return this.ctx;
+      const AC = typeof AudioContext !== 'undefined' ? AudioContext : (typeof webkitAudioContext !== 'undefined' ? webkitAudioContext : null);
+      if (!AC) return null;
+      try {
+        this.init(new AC());
+      } catch (_) {
+        return null;
+      }
+      return this.ctx;
+    },
+
+    _prune() {
+      const now = this.ctx.currentTime;
+      this._voices = this._voices.filter((v) => v.end > now);
+    },
+
+    /**
+     * Plays a one-shot on the sfx bus. opts: gain 0..1 (default 1), pan -1..1 (0), intensity 1..3 (1),
+     * when (seconds from now, 0). Returns `{stop(), name, end}` (`end` = scheduled end time, ctx clock).
+     */
+    play(name, opts = {}) {
+      const ctx = this._ensure();
+      if (!ctx || !SFX[name]) return null;
+      const o = opts && typeof opts === 'object' ? opts : {};
+      const gain = clamp(o.gain === undefined ? 1 : o.gain, 0, 1);
+      const pan = clamp(o.pan === undefined ? 0 : o.pan, -1, 1);
+      const intensity = Math.round(clamp(o.intensity === undefined ? 1 : o.intensity, 1, 3));
+      const when = clamp(o.when === undefined ? 0 : o.when, 0, 60);
+      if (ctx.state === 'suspended' && typeof ctx.resume === 'function') {
+        try { const p = ctx.resume(); if (p && p.catch) p.catch(() => {}); } catch (_) { /* ignore */ }
+      }
+      const vg = ctx.createGain();
+      vg.gain.value = gain;
+      let tail = vg;
+      if (pan !== 0 || o.pan !== undefined) {
+        if (typeof ctx.createStereoPanner === 'function') {
+          const p = ctx.createStereoPanner();
+          p.pan.value = pan;
+          vg.connect(p);
+          tail = p;
+        } else if (typeof ctx.createPanner === 'function') {
+          // Fallback for engines without StereoPannerNode (old Safari): equal-power 3-D panner.
+          const p = ctx.createPanner();
+          p.panningModel = 'equalpower';
+          if (typeof p.setPosition === 'function') p.setPosition(pan, 0, 1 - Math.abs(pan));
+          vg.connect(p);
+          tail = p;
+        }
+      }
+      tail.connect(this.sfxBus);
+      const voices = [voiceContext(ctx, { when })];
+      SFX[name](voices[0], vg);
+      for (let level = 2; level <= intensity; level++) voices.push(this._playLayer(name, vg, level, when));
+      const voice = {
+        name,
+        get end() { return Math.max.apply(null, voices.map((v) => v.end)); },
+        stop() {
+          const now = ctx.currentTime;
+          try {
+            vg.gain.cancelScheduledValues(now);
+            vg.gain.setTargetAtTime(0, now, 0.02);
+          } catch (_) { /* ignore */ }
+          for (const v of voices) for (const s of v.sources) { try { s.stop(now + 0.1); } catch (_) { /* already stopped */ } }
+          voice._stopped = now + 0.12;
+        },
+      };
+      this._prune();
+      this._voices.push({ get end() { return voice._stopped ? Math.min(voice._stopped, voice.end) : voice.end; } });
+      if (this.autoDuck && this._loop) this.duck(this.duckMs, this.duckDb);
+      return voice;
+    },
+
+    _playLayer(name, out, level, when) {
+      const ctx = this.ctx;
+      const lg = ctx.createGain();
+      lg.connect(out);
+      if (LAYERS[name]) {
+        lg.gain.value = 1;
+        const vc = voiceContext(ctx, { when });
+        LAYERS[name](vc, lg, level);
+        return vc;
+      }
+      // Generic: a detuned replay a few ms late at lower gain – thicker and wider without clipping.
+      lg.gain.value = level === 2 ? 0.5 : 0.4;
+      const vc = voiceContext(ctx, { when: when + 0.014 * (level - 1), cents: level === 2 ? 9 : -14 });
+      SFX[name](vc, lg);
+      return vc;
+    },
+
+    /** Starts an ambient loop on the ambient bus (fades in 1.5 s); replaces a running loop (fade-out). */
+    startLoop(name, opts = {}) {
+      const ctx = this._ensure();
+      if (!ctx || !LOOPS[name]) return null;
+      const o = opts && typeof opts === 'object' ? opts : {};
+      const gain = clamp(o.gain === undefined ? 1 : o.gain, 0, 1);
+      if (this._loop && this._loop.name === name) return this._loop;
+      this.stopLoop(o.fade);
+      const h = startLoop(name, ctx, this.ambientBus, gain);
+      this._loop = h;
+      return h;
+    },
+
+    stopLoop(fadeSec = LOOP_FADE) {
+      const h = this._loop;
+      this._loop = null;
+      if (!h) return false;
+      try { h.stop(fadeSec); } catch (_) { /* ignore */ }
+      return true;
+    },
+
+    /**
+     * Ducks the ambient bus by `db` immediately and releases it back over `ms` after the last
+     * active sfx voice ends (or after `ms` from now when nothing plays). Pure automation.
+     */
+    duck(ms = 300, db = -8) {
+      if (!this.ctx || !this.duckGain) return false;
+      const ctx = this.ctx;
+      const now = ctx.currentTime;
+      const release = Math.max(0.02, clamp(ms, 0, 60000) / 1000);
+      const low = dbToGain(clamp(db, -60, 0));
+      this._prune();
+      let endAt = now;
+      for (const v of this._voices) if (v.end > endAt) endAt = v.end;
+      if (endAt === now) endAt = now + release;
+      const p = this.duckGain.gain;
+      if (typeof p.cancelScheduledValues === 'function') p.cancelScheduledValues(now);
+      p.setTargetAtTime(low, now, 0.015);
+      p.setTargetAtTime(1, endAt, release / 4); // ~98 % restored after `release`
+      this._duckUntil = endAt + release;
+      return true;
+    },
+
+    setMaster(v) {
+      const g = clamp(v, 0, 1);
+      this._levels.master = g;
+      if (this.master) this._ramp(this.master.gain, g);
+      return g;
+    },
+
+    setBus(bus, v) {
+      if (bus !== 'sfx' && bus !== 'ambient') return null;
+      const g = clamp(v, 0, 1);
+      this._levels[bus] = g;
+      const node = bus === 'sfx' ? this.sfxBus : this.ambientBus;
+      if (node) this._ramp(node.gain, g);
+      return g;
+    },
+
+    _ramp(param, v) {
+      const now = this.ctx.currentTime;
+      try {
+        if (typeof param.cancelScheduledValues === 'function') param.cancelScheduledValues(now);
+        param.setTargetAtTime(v, now, 0.02);
+      } catch (_) {
+        param.value = v;
+      }
+    },
+
+    /** Synthetic reverb on the ambient bus (scenes). `reverb(true, {seconds, mix})`, `reverb(false)`. */
+    reverb(on, opts = {}) {
+      const o = opts && typeof opts === 'object' ? opts : {};
+      const seconds = clamp(o.seconds === undefined ? this._reverb.seconds : o.seconds, 0.1, 10);
+      const mix = clamp(o.mix === undefined ? this._reverb.mix : o.mix, 0, 1);
+      this._reverb = { on: !!on, seconds, mix };
+      const ctx = this.ctx;
+      if (!ctx || !this.master) return this._reverb.on; // applied by init()
+      if (!on) {
+        if (this.wetGain) this._ramp(this.wetGain.gain, 0);
+        return false;
+      }
+      if (typeof ctx.createConvolver !== 'function') return false;
+      if (!this.convolver || this.convolver._seconds !== seconds) {
+        if (this.convolver) {
+          try { this.convolver.disconnect(); } catch (_) { /* ignore */ }
+        }
+        const cv = ctx.createConvolver();
+        cv.buffer = impulseResponse(ctx, seconds);
+        cv._seconds = seconds;
+        if (!this.wetGain) {
+          this.wetGain = ctx.createGain();
+          this.wetGain.gain.value = 0;
+          this.wetGain.connect(this.master);
+        }
+        this.duckGain.connect(cv);
+        cv.connect(this.wetGain);
+        this.convolver = cv;
+      }
+      this._ramp(this.wetGain.gain, mix);
+      return true;
+    },
+
+    get stats() {
+      if (this.ctx) this._prune();
+      const now = this.ctx ? this.ctx.currentTime : 0;
+      return {
+        voices: this._voices.length,
+        ducked: !!this.ctx && now < this._duckUntil,
+        master: this._levels.master,
+        sfx: this._levels.sfx,
+        ambient: this._levels.ambient,
+        reverb: this._reverb.on,
+        loop: this._loop ? this._loop.name : null,
+        limiter: !!this.limiter,
+      };
+    },
+  };
+
   global.LiveFXSounds = {
-    names: Object.keys(SFX),
+    names: NAMES,
+    GROUPS,
     play(name, ctx, out, volume = 1) {
       const fn = SFX[name];
       if (!fn) return false;
@@ -719,5 +1308,7 @@
     },
     loops: Object.keys(LOOPS),
     loop: startLoop,
+    startLoop,
+    mixer,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

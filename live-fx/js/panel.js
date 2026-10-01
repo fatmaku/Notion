@@ -103,8 +103,13 @@
       log(`⏸ (pausiert) ${labelOf(trigger)} ← ${src}`);
       return;
     }
-    bus.send({ type: 'fire', trigger: publicTrigger(trigger), source: src });
-    log(`🔥 ${labelOf(trigger)}  ←  ${src}`);
+    let out = publicTrigger(trigger);
+    // 2.0: „Intensität aus Stimme“ – the mic level at the moment of the hit picks the effect strength.
+    const intensity = voiceIntensity();
+    if (intensity) out = { ...out, visual: { ...(out.visual || {}), intensity } };
+    bus.send({ type: 'fire', trigger: out, source: src });
+    log(`🔥 ${labelOf(trigger)}  ←  ${src}${intensity ? `  · Intensität ${intensity}` : ''}`);
+    recordComboFire(trigger, src);
   }
 
   /** Hotkeys and pad buttons: explicit user action, ignores cooldowns but not the enabled flag. */
@@ -921,6 +926,7 @@
     if (rows) renderRows();
     renderPacks();
     if (misses.length || suggestions.length) renderLearn();
+    refreshTriggerSelects();
     if (save) LiveFXStore.save(triggers);
   }
 
@@ -1234,6 +1240,7 @@
   bus.onMessage((msg) => {
     if (!msg || typeof msg !== 'object') return;
     if (msg.type === 'fire' && msg.trigger) log(`🔥 ${labelOf(msg.trigger)}  ←  ${String(msg.source || 'extern').slice(0, 80)}`);
+    else if (msg.type === 'chat' || msg.type === 'gift') onChatEvent(msg);
   });
 
   // ---------- smart mode ----------
@@ -1267,6 +1274,24 @@
     $('#btn-mute').textContent = paused ? '▶ Weiter' : '⏸ Pause';
     log(paused ? '⏸ Effekte pausiert' : '▶ Effekte wieder aktiv');
   });
+  // ---------- theme ----------
+  // Persisted in localStorage `livefx.theme`; the overlay follows the bus message unless `?theme=` pins it,
+  // and the server repeats it in the `state` message so a freshly connected OBS source gets the same look.
+  const THEME_KEY = 'livefx.theme';
+  function applyTheme(name, { send = true } = {}) {
+    const themes = (window.LiveFXSchema && window.LiveFXSchema.THEMES) || ['neon', 'pastel', 'minimal', 'kinderbuch'];
+    const theme = themes.includes(name) ? name : 'neon';
+    if ($('#theme')) $('#theme').value = theme;
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* private mode */ }
+    if (send) bus.send({ type: 'theme', theme });
+    return theme;
+  }
+  let savedTheme = 'neon';
+  try { savedTheme = localStorage.getItem(THEME_KEY) || 'neon'; } catch (e) { /* ignore */ }
+  applyTheme(savedTheme, { send: false });
+  if ($('#theme')) $('#theme').addEventListener('change', (e) => { applyTheme(e.target.value); log(`Theme: ${e.target.value}`, 'Panel'); });
+  if (savedTheme !== 'neon') setTimeout(() => bus.send({ type: 'theme', theme: savedTheme }), 1500);
+
   $('#volume').addEventListener('input', (e) => {
     bus.send({ type: 'volume', volume: Math.min(1, Math.max(0, Number(e.target.value) || 0)) });
     enforcePreviewMute(true);
@@ -1456,6 +1481,415 @@
     cb.addEventListener('change', () => audioCheckSet(cb.dataset.key, cb.checked));
   });
 
+  // ---------- viewer triggers (2.0): chat commands, gift tiers, chat feed ----------
+  // Settings live on the server (data/chat.json, GET/PUT /api/chat); the panel only mirrors them.
+  // Chat + gift events arrive on the panel SSE channel (`{type:'chat'|'gift'}`) and fill the feed.
+  const CHAT_FEED_MAX = 20;
+  const CHAT_STATUS_POLL_MS = 10000;
+  const CHAT_STATE_TEXT = { off: 'aus', connecting: 'verbindet …', connected: 'verbunden', disconnected: 'getrennt – neuer Versuch', error: 'Fehler', ended: 'Stream beendet' };
+  let chatSettings = null; // last public settings from the server (apiKey never included)
+  let chatStatus = null;
+  let chatFeed = []; // last CHAT_FEED_MAX chat / gift events (newest last)
+
+  function triggerOptionsHtml(current, emptyLabel) {
+    const cur = typeof current === 'string' ? current : '';
+    let html = `<option value="">${esc(emptyLabel || '– Trigger –')}</option>`;
+    let found = !cur;
+    for (const t of triggers) {
+      if (t.id === cur) found = true;
+      html += `<option value="${esc(t.id)}"${t.id === cur ? ' selected' : ''}>${esc(labelOf(t))}</option>`;
+    }
+    if (!found) html += `<option value="${esc(cur)}" selected>${esc(cur)} (fehlt)</option>`;
+    return html;
+  }
+
+  /** Trigger <select>s outside the trigger table (commands, tiers, combos) follow the trigger list. */
+  function refreshTriggerSelects() {
+    document.querySelectorAll('select[data-trigger-select]').forEach((sel) => {
+      const cur = sel.value;
+      sel.innerHTML = triggerOptionsHtml(cur, sel.dataset.empty);
+      sel.value = cur;
+    });
+  }
+
+  function addCommandRow(cmd, triggerId) {
+    const tbody = $('#chat-commands');
+    if (!tbody) return null;
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      `<td class="cmd"><input data-f="cmd" value="${esc(cmd || '')}" placeholder="!befehl" maxlength="40" spellcheck="false"></td>` +
+      `<td><select data-f="trigger" data-trigger-select data-empty="– Trigger wählen –">${triggerOptionsHtml(triggerId || '', '– Trigger wählen –')}</select></td>` +
+      `<td class="acts"><button type="button" class="small danger" data-act="del" title="Befehl entfernen">✕</button></td>`;
+    tr.querySelector('[data-act="del"]').addEventListener('click', () => tr.remove());
+    tbody.appendChild(tr);
+    return tr;
+  }
+
+  function renderCommands(commands) {
+    const tbody = $('#chat-commands');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    for (const [cmd, id] of Object.entries(commands || {})) addCommandRow(cmd, id);
+  }
+
+  function readCommands() {
+    const out = {};
+    document.querySelectorAll('#chat-commands tr').forEach((tr) => {
+      const cmd = tr.querySelector('[data-f="cmd"]').value.trim();
+      const id = tr.querySelector('[data-f="trigger"]').value;
+      if (cmd && id) out[cmd] = id;
+    });
+    return out;
+  }
+
+  function renderTiers(tiers) {
+    const tbody = $('#gift-tiers');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    const list = Array.isArray(tiers) && tiers.length ? tiers.slice(0, 3) : [{ min: 1 }, { min: 10 }, { min: 100 }];
+    while (list.length < 3) list.push({ min: list.length ? list[list.length - 1].min * 10 : 1, trigger: '' });
+    for (const tier of list) {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        `<td class="num"><input data-f="min" type="number" min="0" step="1" value="${esc(String(tier.min ?? 0))}"></td>` +
+        `<td><select data-f="trigger" data-trigger-select data-empty="– kein Effekt –">${triggerOptionsHtml(tier.trigger || '', '– kein Effekt –')}</select></td>`;
+      tbody.appendChild(tr);
+    }
+  }
+
+  function readTiers() {
+    const out = [];
+    document.querySelectorAll('#gift-tiers tr').forEach((tr) => {
+      const min = Number(tr.querySelector('[data-f="min"]').value);
+      const trigger = tr.querySelector('[data-f="trigger"]').value;
+      if (Number.isFinite(min) && min >= 0) out.push({ min, trigger });
+    });
+    return out;
+  }
+
+  function reflectChatSettings(st) {
+    chatSettings = st;
+    if (!st) return;
+    $('#chat-twitch-channel').value = st.twitch.channel || '';
+    $('#chat-twitch-enabled').checked = !!st.twitch.enabled;
+    $('#chat-yt-video').value = st.youtube.videoId || '';
+    $('#chat-yt-enabled').checked = !!st.youtube.enabled;
+    $('#chat-yt-key').value = '';
+    $('#chat-yt-key').placeholder = st.youtube.hasKey ? '•••••••• (gespeichert – nur zum Ändern eintippen)' : 'AIza…';
+    $('#chat-yt-haskey').hidden = !st.youtube.hasKey;
+    $('#chat-prefix').value = st.prefix || '!';
+    $('#chat-cd-user').value = String(Math.round((Number(st.cooldownPerUserMs) || 0) / 1000));
+    $('#chat-cd-global').value = String((Number(st.cooldownGlobalMs) || 0) / 1000);
+    $('#chat-allowall').checked = !!st.allowAll;
+    renderCommands(st.commands);
+    renderTiers(st.gifts && st.gifts.tiers);
+  }
+
+  function renderChatStatus(st) {
+    chatStatus = st || null;
+    for (const p of ['twitch', 'youtube']) {
+      const state = st ? st[p] : 'off';
+      const err = st ? st[`${p}Error`] : null;
+      const dot = $(`#dot-${p}`);
+      const txt = $(`#chat-status-${p}`);
+      if (dot) {
+        dot.classList.remove('on', 'warn', 'err');
+        if (state === 'connected') dot.classList.add('on');
+        else if (state === 'connecting' || state === 'disconnected') dot.classList.add('warn');
+        else if (state === 'error') dot.classList.add('err');
+      }
+      if (txt) txt.textContent = CHAT_STATE_TEXT[state] || state || 'aus';
+      const pill = $(`#chat-pill-${p}`);
+      if (pill) pill.title = err ? String(err) : state === 'connected' ? 'Verbunden – Befehle aus dem Chat werden ausgelöst' : '';
+    }
+    const count = $('#chat-count');
+    if (count) count.textContent = st ? String(st.messages || 0) : '0';
+  }
+
+  function setChatSaveStatus(text, cls) {
+    const el = $('#chat-save-status');
+    if (!el) return;
+    el.textContent = text || '';
+    el.className = `help${cls ? ` ${cls}` : ''}`;
+  }
+
+  async function chatRequest(method, path, body) {
+    const opts = { method, cache: 'no-store', headers: {} };
+    if (body !== undefined) {
+      opts.headers['content-type'] = 'application/json';
+      opts.body = JSON.stringify(body);
+    }
+    const r = await fetch(path, opts);
+    const d = await r.json().catch(() => null);
+    if (!r.ok || !d || !d.ok) throw new Error((d && (d.message || d.error)) || `HTTP ${r.status}`);
+    return d;
+  }
+
+  async function loadChat() {
+    if (!online) {
+      $('#chat-offline-hint').hidden = false;
+      renderTiers(null);
+      return null;
+    }
+    try {
+      const d = await chatRequest('GET', '/api/chat');
+      reflectChatSettings(d.settings);
+      renderChatStatus(d.status);
+      chatFeed = (Array.isArray(d.recent) ? d.recent : []).slice(-CHAT_FEED_MAX);
+      renderChatFeed();
+      return d;
+    } catch (e) {
+      log(`⚠️ Zuschauer-Trigger: ${e.message}`);
+      return null;
+    }
+  }
+
+  let chatStatusInFlight = false;
+  async function refreshChatStatus() {
+    if (!online || chatStatusInFlight) return;
+    chatStatusInFlight = true;
+    try {
+      const d = await chatRequest('GET', '/api/chat');
+      renderChatStatus(d.status);
+      if (d.settings && chatSettings) {
+        chatSettings.youtube.hasKey = d.settings.youtube.hasKey;
+        $('#chat-yt-haskey').hidden = !d.settings.youtube.hasKey;
+      }
+    } catch (_) {
+      /* server gone – the OBS-Bridge dot shows it */
+    } finally {
+      chatStatusInFlight = false;
+    }
+  }
+
+  function readChatForm() {
+    const patch = {
+      twitch: { channel: $('#chat-twitch-channel').value.trim(), enabled: $('#chat-twitch-enabled').checked },
+      youtube: { videoId: $('#chat-yt-video').value.trim(), enabled: $('#chat-yt-enabled').checked },
+      prefix: $('#chat-prefix').value.trim() || '!',
+      cooldownPerUserMs: Math.max(0, Math.round((Number($('#chat-cd-user').value) || 0) * 1000)),
+      cooldownGlobalMs: Math.max(0, Math.round((Number($('#chat-cd-global').value) || 0) * 1000)),
+      allowAll: $('#chat-allowall').checked,
+      commands: readCommands(),
+      gifts: { tiers: readTiers() },
+    };
+    const key = $('#chat-yt-key').value.trim();
+    if (key) patch.youtube.apiKey = key; // only sent when typed; the server keeps the stored one otherwise
+    return patch;
+  }
+
+  async function saveChat(patch) {
+    if (!online) {
+      setChatSaveStatus('Server nötig (node server.js)', 'err');
+      return null;
+    }
+    const body = patch && typeof patch === 'object' ? patch : readChatForm();
+    setChatSaveStatus('speichert …');
+    try {
+      const d = await chatRequest('PUT', '/api/chat', body);
+      reflectChatSettings(d.settings);
+      renderChatStatus(d.status);
+      const warn = Array.isArray(d.warnings) ? d.warnings : [];
+      for (const w of warn) log(`⚠️ Zuschauer-Trigger: ${w}`);
+      setChatSaveStatus(warn.length ? `gespeichert – ${warn.length} Hinweis(e) im Log` : '✔ gespeichert', warn.length ? '' : 'ok');
+      const n = Object.keys(d.settings.commands || {}).length;
+      log(`💬 Zuschauer-Trigger gespeichert: ${n} Befehl${n === 1 ? '' : 'e'}${d.settings.twitch.enabled ? ` · Twitch #${d.settings.twitch.channel}` : ''}${d.settings.youtube.enabled ? ' · YouTube' : ''}`);
+      return d;
+    } catch (e) {
+      setChatSaveStatus(`Fehler: ${e.message}`, 'err');
+      log(`❌ Zuschauer-Trigger: ${e.message}`);
+      return null;
+    }
+  }
+
+  async function testChat(text, user) {
+    const t = String(text == null ? $('#chat-test-text').value : text).trim();
+    if (!t) return null;
+    if (!online) {
+      log('⚠️ Test-Nachricht braucht den Server (node server.js)');
+      return null;
+    }
+    try {
+      const d = await chatRequest('POST', '/api/chat/test', { platform: 'test', user: String(user == null ? $('#chat-test-user').value : user).trim() || 'Tester', text: t });
+      if (d.fired) log(`💬 Test „${t}“ → ${d.trigger} ausgelöst`);
+      else if (d.reason) log(`💬 Test „${t}“ → ${d.trigger || d.command} blockiert (${d.reason})`);
+      else if (d.command) log(`💬 Test „${t}“ → kein Trigger für ${d.command}`);
+      else log(`💬 Test „${t}“ → nur Chat (kein Befehl)`);
+      if (text == null) $('#chat-test-text').value = '';
+      return d;
+    } catch (e) {
+      log(`❌ Test-Nachricht: ${e.message}`);
+      return null;
+    }
+  }
+
+  function chatLineHtml(ev) {
+    if (ev.type === 'gift') {
+      const amount = `${ev.amount}${ev.currency ? ` ${ev.currency}` : ''}${ev.gift ? ` · ${ev.gift}` : ''}`;
+      const fx = ev.fired ? `→ ${esc(labelOf(triggers.find((t) => t.id === ev.fired) || { id: ev.fired }))}` : ev.tier == null ? 'keine Stufe' : `blockiert (${esc(ev.reason || '?')})`;
+      return `<div class="chat-line gift" data-type="gift"><span class="platform">${esc(ev.platform)}</span><span class="user">🎁 ${esc(ev.user)}</span><span class="text">${esc(amount)}${ev.text ? ` – ${esc(ev.text)}` : ''}</span><span class="fx">${fx}</span></div>`;
+    }
+    const cls = ev.fired ? ' fired' : ev.blocked ? ' blocked' : '';
+    let fx = '';
+    if (ev.fired) fx = `→ ${esc(labelOf(triggers.find((t) => t.id === ev.fired) || { id: ev.fired }))}`;
+    else if (ev.blocked) fx = esc(ev.blocked.startsWith('cooldown') ? 'Cooldown' : ev.blocked);
+    return `<div class="chat-line${cls}" data-type="chat"${ev.fired ? ` data-fired="${esc(ev.fired)}"` : ''}><span class="platform">${esc(ev.platform)}</span><span class="user">${esc(ev.user)}</span><span class="text">${esc(ev.text)}</span>${fx ? `<span class="fx">${fx}</span>` : ''}</div>`;
+  }
+
+  function renderChatFeed() {
+    const el = $('#chat-feed');
+    if (!el) return;
+    if (!chatFeed.length) {
+      el.innerHTML = '<div class="help empty">Noch keine Nachrichten.</div>';
+      return;
+    }
+    el.innerHTML = chatFeed.map(chatLineHtml).join('');
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function onChatEvent(msg) {
+    chatFeed.push(msg);
+    chatFeed = chatFeed.slice(-CHAT_FEED_MAX);
+    renderChatFeed();
+    if (chatStatus && msg.type === 'chat') {
+      chatStatus.messages = (Number(chatStatus.messages) || 0) + 1;
+      $('#chat-count').textContent = String(chatStatus.messages);
+    }
+    if (msg.type === 'gift') log(`🎁 ${msg.user} (${msg.platform}): ${msg.amount}${msg.currency ? ` ${msg.currency}` : ''}${msg.fired ? ` → ${msg.fired}` : msg.tier == null ? ' – keine Stufe' : ` – ${msg.reason}`}`);
+  }
+
+  $('#btn-chat-save').addEventListener('click', () => saveChat());
+  $('#btn-chat-cmd-add').addEventListener('click', () => {
+    const tr = addCommandRow(`${$('#chat-prefix').value.trim() || '!'}`, '');
+    if (tr) tr.querySelector('[data-f="cmd"]').focus();
+  });
+  $('#btn-chat-test').addEventListener('click', () => testChat());
+  $('#chat-test-text').addEventListener('keydown', (e) => e.key === 'Enter' && testChat());
+
+  // ---------- combos (2.0): N fires of one trigger within a window -> an extra trigger ----------
+  // Rules `{keywordTriggerId, times, withinMs, fireTriggerId}` in localStorage `livefx.combos`.
+  const COMBO_KEY = 'livefx.combos';
+  const COMBO_DEFAULT = [{ keywordTriggerId: 'wow', times: 3, withinMs: 10000, fireTriggerId: 'win' }]; // 3× „krass“ in 10 s -> confetti
+  const COMBO_MAX = 20;
+  let combos = [];
+  const comboFires = new Map(); // trigger id -> [ms, ...] (fires via fire(), any source except combos)
+
+  function cleanCombo(r) {
+    if (!r || typeof r !== 'object') return null;
+    const kw = typeof r.keywordTriggerId === 'string' ? r.keywordTriggerId.trim() : '';
+    const fireId = typeof r.fireTriggerId === 'string' ? r.fireTriggerId.trim() : '';
+    const times = Math.min(20, Math.max(2, Math.round(Number(r.times) || 0)));
+    const withinMs = Math.min(600000, Math.max(500, Math.round(Number(r.withinMs) || 0)));
+    return { keywordTriggerId: kw, times, withinMs, fireTriggerId: fireId };
+  }
+
+  function readCombos() {
+    const raw = lsGet(COMBO_KEY);
+    if (raw == null) return COMBO_DEFAULT.map(cleanCombo);
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed.map(cleanCombo).filter(Boolean).slice(0, COMBO_MAX);
+    } catch (_) {
+      /* corrupt entry */
+    }
+    return [];
+  }
+
+  function setCombos(list, { persist = true, render = true } = {}) {
+    combos = (Array.isArray(list) ? list : []).map(cleanCombo).filter(Boolean).slice(0, COMBO_MAX);
+    if (persist) lsSet(COMBO_KEY, JSON.stringify(combos));
+    if (render) renderCombos();
+    return combos;
+  }
+
+  function readComboRows() {
+    const out = [];
+    document.querySelectorAll('#combo-rows tr').forEach((tr) => {
+      out.push({
+        keywordTriggerId: tr.querySelector('[data-f="keyword"]').value,
+        times: Number(tr.querySelector('[data-f="times"]').value),
+        withinMs: Math.round((Number(tr.querySelector('[data-f="within"]').value) || 0) * 1000),
+        fireTriggerId: tr.querySelector('[data-f="fire"]').value,
+      });
+    });
+    return out;
+  }
+
+  function renderCombos() {
+    const tbody = $('#combo-rows');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    for (const r of combos) {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        `<td><select data-f="keyword" data-trigger-select data-empty="– Trigger –">${triggerOptionsHtml(r.keywordTriggerId, '– Trigger –')}</select></td>` +
+        `<td class="num"><input data-f="times" type="number" min="2" max="20" step="1" value="${esc(String(r.times))}"></td>` +
+        `<td class="num"><input data-f="within" type="number" min="1" max="600" step="1" value="${esc(String(Math.round(r.withinMs / 1000)))}"></td>` +
+        `<td><select data-f="fire" data-trigger-select data-empty="– Effekt –">${triggerOptionsHtml(r.fireTriggerId, '– Effekt –')}</select></td>` +
+        `<td class="acts"><button type="button" class="small danger" data-act="del" title="Kombi entfernen">✕</button></td>`;
+      tr.querySelectorAll('[data-f]').forEach((inp) => inp.addEventListener('change', () => setCombos(readComboRows(), { render: false })));
+      tr.querySelector('[data-act="del"]').addEventListener('click', () => {
+        tr.remove();
+        setCombos(readComboRows(), { render: false });
+      });
+      tbody.appendChild(tr);
+    }
+  }
+
+  /** Called from fire(): counts the fire and triggers matching combo rules. Combo fires never count. */
+  function recordComboFire(trigger, source) {
+    if (!trigger || !trigger.id || String(source || '').startsWith('Kombi')) return;
+    const now = Date.now();
+    const list = (comboFires.get(trigger.id) || []).filter((t) => now - t < 600000);
+    list.push(now);
+    comboFires.set(trigger.id, list);
+    for (const r of combos) {
+      if (r.keywordTriggerId !== trigger.id || !r.fireTriggerId) continue;
+      const hits = list.filter((t) => now - t <= r.withinMs).length;
+      if (hits < r.times) continue;
+      comboFires.set(trigger.id, []); // start over so 6 fires make two combos, not four
+      const target = triggers.find((t) => t.id === r.fireTriggerId);
+      if (!target) {
+        log(`⚠️ Kombi: Trigger „${r.fireTriggerId}“ fehlt`);
+        continue;
+      }
+      if (target.enabled === false) continue;
+      log(`🔥 Kombi: ${r.times}× ${labelOf(trigger)} in ${Math.round(r.withinMs / 1000)} s → ${labelOf(target)}`);
+      fire(target, `Kombi ${r.times}× ${labelOf(trigger)}`);
+      break;
+    }
+  }
+
+  $('#btn-combo-add').addEventListener('click', () => {
+    if (combos.length >= COMBO_MAX) return log(`⚠️ Maximal ${COMBO_MAX} Kombis`);
+    const first = triggers[0] ? triggers[0].id : '';
+    setCombos(combos.concat([{ keywordTriggerId: first, times: 3, withinMs: 10000, fireTriggerId: '' }]));
+  });
+
+  // ---------- intensity from voice (2.0) ----------
+  // The meter's level/peak at the hit maps to visual.intensity 1..3 (< 0.3 -> 1, < 0.6 -> 2, else 3).
+  const INTENSITY_KEY = 'livefx.intensityFromVoice';
+  let intensityFromVoice = lsGet(INTENSITY_KEY) === '1';
+
+  function voiceIntensity() {
+    if (!intensityFromVoice || !meter) return null;
+    const level = Math.max(Number(meter.level) || 0, Number(meter.peak) || 0);
+    if (!meterStarted && !(level > 0)) return null; // mic not running and nothing stubbed: leave the trigger alone
+    return level < 0.3 ? 1 : level < 0.6 ? 2 : 3;
+  }
+
+  function setIntensityFromVoice(on, { persist = true } = {}) {
+    intensityFromVoice = !!on;
+    const cb = $('#intensity-voice');
+    if (cb) cb.checked = intensityFromVoice;
+    if (persist) {
+      lsSet(INTENSITY_KEY, intensityFromVoice ? '1' : '0');
+      log(intensityFromVoice ? '🎚️ Intensität aus Stimme an – lauter sprechen = stärkerer Effekt' : '🎚️ Intensität aus Stimme aus');
+    }
+  }
+
+  $('#intensity-voice').addEventListener('change', (e) => setIntensityFromVoice(e.target.checked));
+
   // ---------- external API card ----------
   function renderApiCard(token) {
     const origin = online ? location.origin : 'http://127.0.0.1:8787';
@@ -1516,6 +1950,10 @@
     commit({ save: false });
     log(`📂 Trigger geladen: ${sourceLabel(loaded.source)} (${triggers.length})`);
     if (lsGet(STORY_KEYS.on) === '1') setStoryMode(true, { persist: false, restoring: true });
+    setCombos(readCombos(), { persist: false });
+    setIntensityFromVoice(intensityFromVoice, { persist: false });
+    await loadChat();
+    if (online) setInterval(refreshChatStatus, CHAT_STATUS_POLL_MS);
 
     if (online) {
       library = LiveFXAssets.mountLibrary($('#asset-library'), {
@@ -1541,6 +1979,7 @@
   }
 
   window.livefx = {
+    theme: { get: () => $("#theme").value, set: (name) => applyTheme(name) },
     bus,
     matcher,
     fire,
@@ -1599,6 +2038,35 @@
     },
     asrEvent: onAsrEvent, // same path as the backend's onEvent (tests feed `lang` events here)
     effectiveLang,
+    // 2.0 viewer triggers / combos / voice intensity
+    chat: {
+      load: loadChat,
+      save: saveChat,
+      test: testChat,
+      get settings() {
+        return chatSettings ? JSON.parse(JSON.stringify(chatSettings)) : null;
+      },
+      get status() {
+        return chatStatus ? { ...chatStatus } : null;
+      },
+      get feed() {
+        return chatFeed.slice();
+      },
+    },
+    combos: {
+      get rules() {
+        return combos.map((r) => ({ ...r }));
+      },
+      set: (rules) => setCombos(rules),
+      record: recordComboFire,
+    },
+    get intensityFromVoice() {
+      return intensityFromVoice;
+    },
+    set intensityFromVoice(on) {
+      setIntensityFromVoice(on);
+    },
+    voiceIntensity,
     ready: boot(),
   };
 })();

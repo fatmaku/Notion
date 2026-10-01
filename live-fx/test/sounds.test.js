@@ -8,9 +8,12 @@ const { LiveFXSounds } = globalThis;
 
 const LOOPS = ['rain', 'wind', 'fireplace', 'birds', 'sea', 'thunder', 'nightCrickets', 'heartbeatSlow', 'churchBells', 'cityHum', 'spaceDrone', 'storm'];
 const NEW_SOUNDS = ['laugh', 'boing', 'slideWhistle', 'dramatic', 'coin', 'levelUp', 'bell', 'ooh', 'heartbeat', 'siren', 'nope', 'gong'];
+// LiveFX 2.0 (audio-engine): 12 more one-shots.
+const SOUNDS_20 = ['bleat', 'duck', 'fanfare', 'kidlaugh', 'scream', 'glass', 'camera', 'door', 'tick', 'sparkle', 'punch', 'whoosh2'];
+const TOTAL = 38;
 
 function makeFakeContext() {
-  const log = { started: 0, stops: [], nodes: 0 };
+  const log = { started: 0, stops: [], nodes: 0, edges: [], gains: [], panners: [], compressors: [], convolvers: [] };
   const currentTime = 12.5;
   function param(initial) {
     return {
@@ -39,13 +42,22 @@ function makeFakeContext() {
       },
       setTargetAtTime(v, t, tc) {
         assert.ok(Number.isFinite(v) && Number.isFinite(t) && tc > 0);
+        this.events.push(['target', v, t, tc]);
         return this;
       },
+      isParam: true,
     };
   }
   function node(extra) {
     log.nodes++;
-    return Object.assign({ connect: (target) => target, disconnect() {} }, extra);
+    const n = Object.assign({
+      connect(target) {
+        log.edges.push([n, target]);
+        return target;
+      },
+      disconnect() {},
+    }, extra);
+    return n;
   }
   function source(extra) {
     return node(Object.assign({
@@ -64,7 +76,27 @@ function makeFakeContext() {
     sampleRate: 44100,
     destination: node({}),
     createOscillator: () => source({ type: 'sine', frequency: param(440), detune: param(0) }),
-    createGain: () => node({ gain: param(1) }),
+    createGain: () => {
+      const g = node({ gain: param(1) });
+      log.gains.push(g);
+      return g;
+    },
+    createStereoPanner: () => {
+      const p = node({ pan: param(0) });
+      log.panners.push(p);
+      return p;
+    },
+    createDynamicsCompressor: () => {
+      const c = node({ threshold: param(-24), knee: param(30), ratio: param(12), attack: param(0.003), release: param(0.25) });
+      log.compressors.push(c);
+      return c;
+    },
+    createConvolver: () => {
+      const c = node({ buffer: null, normalize: true });
+      log.convolvers.push(c);
+      return c;
+    },
+    state: 'running',
     createBiquadFilter: () => node({ type: 'lowpass', frequency: param(350), Q: param(1), gain: param(0) }),
     createBufferSource: () => source({ buffer: null, loop: false, playbackRate: param(1) }),
     createBuffer(channels, length, sampleRate) {
@@ -75,10 +107,22 @@ function makeFakeContext() {
   return { ctx, log };
 }
 
-test('names: 26 built-in sounds including the 12 new ones', () => {
-  assert.strictEqual(LiveFXSounds.names.length, 26);
-  for (const n of NEW_SOUNDS) assert.ok(LiveFXSounds.names.includes(n), `missing sound ${n}`);
-  assert.strictEqual(new Set(LiveFXSounds.names).size, 26, 'names must be unique');
+test(`names: ${TOTAL} built-in sounds including the 1.x and 2.0 additions`, () => {
+  assert.strictEqual(LiveFXSounds.names.length, TOTAL);
+  for (const n of NEW_SOUNDS.concat(SOUNDS_20)) assert.ok(LiveFXSounds.names.includes(n), `missing sound ${n}`);
+  assert.strictEqual(new Set(LiveFXSounds.names).size, TOTAL, 'names must be unique');
+});
+
+test('GROUPS: impact/funny/magic partition names, ambient-loops mirrors loops', () => {
+  const G = LiveFXSounds.GROUPS;
+  assert.deepStrictEqual(Object.keys(G), ['impact', 'funny', 'magic', 'ambient-loops']);
+  const all = G.impact.concat(G.funny, G.magic);
+  assert.strictEqual(all.length, TOTAL);
+  assert.strictEqual(new Set(all).size, TOTAL, 'a sound belongs to exactly one group');
+  assert.deepStrictEqual(all, LiveFXSounds.names, 'names are exported in grouped order');
+  assert.deepStrictEqual(G['ambient-loops'], LiveFXSounds.loops);
+  assert.strictEqual(typeof LiveFXSounds.startLoop, 'function');
+  assert.strictEqual(LiveFXSounds.startLoop, LiveFXSounds.loop);
 });
 
 test('play() returns false for unknown names', () => {
@@ -117,7 +161,7 @@ test('play() honours the volume argument via the master gain', () => {
 
 test('loops: 12 ambient loop names in the documented order', () => {
   assert.deepStrictEqual(LiveFXSounds.loops, LOOPS);
-  assert.strictEqual(LiveFXSounds.names.length, 26, 'one-shot names unchanged');
+  assert.strictEqual(LiveFXSounds.names.length, TOTAL, 'one-shot names unchanged');
 });
 
 test('loop() returns null for unknown names', () => {
@@ -163,4 +207,300 @@ test('loop() honours the volume argument in the fade-in target', () => {
   const { ctx } = makeFakeContext();
   const h = LiveFXSounds.loop('rain', ctx, ctx.destination);
   assert.deepStrictEqual(h.gain.gain.events[1], ['linear', 1, ctx.currentTime + 1.5]);
+});
+
+// ---- level budget (LiveFX 2.0) ----
+// Gains that feed an AudioParam (LFO depth, vibrato in Hz) are modulation, not audio level, and are skipped.
+
+function audioPathGainPeaks(log) {
+  const modulation = new Set(log.edges.filter(([, target]) => target && target.isParam).map(([src]) => src));
+  const peaks = [];
+  for (const g of log.gains) {
+    if (modulation.has(g)) continue;
+    // Envelopes are scheduled via events (the fake's initial `.value` 1 is never heard); static gains use `.value`.
+    const values = g.gain.events.filter((e) => e[0] !== 'cancel').map((e) => e[1]);
+    peaks.push(values.length ? Math.max(...values) : g.gain.value);
+  }
+  return peaks;
+}
+
+for (const name of LiveFXSounds.names) {
+  const budget = SOUNDS_20.includes(name) ? 0.6 : 1; // 2.0 sounds: 0.6 per voice; legacy recipes never exceed unity
+  test(`play('${name}') keeps every audio-path gain <= ${budget}`, () => {
+    const { ctx, log } = makeFakeContext();
+    LiveFXSounds.play(name, ctx, ctx.destination, 0.5);
+    const peaks = audioPathGainPeaks(log);
+    assert.ok(peaks.length >= 1);
+    for (const p of peaks) assert.ok(p <= budget + 1e-9, `gain ${p} exceeds ${budget}`);
+  });
+}
+
+// ---- mixer (LiveFX 2.0) ----
+
+function freshMixer() {
+  const { ctx, log } = makeFakeContext();
+  const mixer = LiveFXSounds.mixer;
+  mixer.stopLoop(0.01);
+  mixer.reverb(false);
+  mixer.autoDuck = true;
+  mixer.init(ctx);
+  mixer.setMaster(1);
+  mixer.setBus('sfx', 1);
+  mixer.setBus('ambient', 1);
+  return { ctx, log, mixer };
+}
+
+test('mixer.init builds sfx + ambient busses -> master -> limiter -> destination', () => {
+  const { ctx, log, mixer } = freshMixer();
+  assert.strictEqual(mixer.ctx, ctx);
+  assert.strictEqual(log.compressors.length, 1, 'exactly one limiter');
+  const lim = log.compressors[0];
+  assert.strictEqual(lim.threshold.value, -6);
+  assert.strictEqual(lim.ratio.value, 12);
+  assert.ok(lim.attack.value <= 0.005, 'fast attack');
+  const has = (a, b) => log.edges.some(([s, t]) => s === a && t === b);
+  assert.ok(has(mixer.master, lim), 'master feeds the limiter');
+  assert.ok(has(lim, ctx.destination), 'limiter feeds the destination');
+  assert.ok(!has(mixer.master, ctx.destination), 'master does not bypass the limiter');
+  assert.ok(has(mixer.sfxBus, mixer.master), 'sfx bus -> master');
+  assert.ok(has(mixer.ambientBus, mixer.duckGain) && has(mixer.duckGain, mixer.master), 'ambient bus -> duck -> master');
+  assert.strictEqual(mixer.init(ctx), mixer, 'init is idempotent for the same ctx');
+  assert.strictEqual(log.compressors.length, 1);
+  assert.deepStrictEqual(mixer.stats, { voices: 0, ducked: false, master: 1, sfx: 1, ambient: 1, reverb: false, loop: null, limiter: true });
+});
+
+test('mixer.init without createDynamicsCompressor falls back to master -> destination', () => {
+  const { ctx, log } = makeFakeContext();
+  delete ctx.createDynamicsCompressor;
+  const mixer = LiveFXSounds.mixer;
+  mixer.init(ctx);
+  assert.strictEqual(mixer.limiter, null);
+  assert.ok(log.edges.some(([s, t]) => s === mixer.master && t === ctx.destination));
+  assert.strictEqual(mixer.stats.limiter, false);
+});
+
+for (const name of LiveFXSounds.names) {
+  test(`mixer.play('${name}') schedules sources on the sfx bus and returns {stop}`, () => {
+    const { ctx, log, mixer } = freshMixer();
+    const before = log.started;
+    const v = mixer.play(name);
+    assert.ok(v && typeof v.stop === 'function');
+    assert.strictEqual(v.name, name);
+    assert.ok(log.started > before, 'at least one source started');
+    assert.ok(v.end > ctx.currentTime && v.end <= ctx.currentTime + 3.1, `end ${v.end} within 3 s`);
+    assert.strictEqual(mixer.stats.voices, 1);
+    assert.strictEqual(log.panners.length, 0, 'no panner without pan');
+    v.stop();
+    assert.ok(log.stops.some((t) => Math.abs(t - (ctx.currentTime + 0.1)) < 1e-9), 'stop() stops sources shortly after now');
+    assert.strictEqual(mixer.stats.voices, 1, 'voice still counted until its short fade ends');
+  });
+}
+
+test('mixer.play returns null for unknown names and without init in Node (no AudioContext)', () => {
+  const { mixer } = freshMixer();
+  assert.strictEqual(mixer.play('doesNotExist'), null);
+  mixer.ctx = null;
+  mixer.master = null;
+  assert.strictEqual(typeof AudioContext, 'undefined');
+  assert.strictEqual(mixer.play('pop'), null, 'auto-init is guarded when AudioContext is missing');
+  freshMixer();
+});
+
+test('mixer.play auto-inits with a global AudioContext when nobody called init()', () => {
+  const { ctx, log } = makeFakeContext();
+  const mixer = LiveFXSounds.mixer;
+  mixer.stopLoop(0.01);
+  mixer.ctx = null;
+  mixer.master = null;
+  globalThis.AudioContext = function FakeAC() { return ctx; };
+  try {
+    const v = mixer.play('pop');
+    assert.ok(v, 'played');
+    assert.strictEqual(mixer.ctx, ctx);
+    assert.strictEqual(log.compressors.length, 1);
+  } finally {
+    delete globalThis.AudioContext;
+  }
+  freshMixer();
+});
+
+test('mixer.play honours gain (clamped 0..1), when and creates a panner with the clamped pan', () => {
+  const { ctx, log, mixer } = freshMixer();
+  const v = mixer.play('pop', { gain: 2.5, pan: 3, when: 0.5 });
+  assert.strictEqual(log.panners.length, 1);
+  assert.strictEqual(log.panners[0].pan.value, 1, 'pan clamped to 1');
+  assert.ok(log.edges.some(([s, t]) => s === log.panners[0] && t === mixer.sfxBus), 'panner -> sfx bus');
+  const voiceGain = log.gains.find((g) => log.edges.some(([s, t]) => s === g && t === log.panners[0]));
+  assert.ok(voiceGain, 'voice gain feeds the panner');
+  assert.strictEqual(voiceGain.gain.value, 1, 'gain clamped to 1');
+  assert.ok(v.end >= ctx.currentTime + 0.5, '`when` shifts the voice into the future');
+  mixer.play('pop', { pan: -7 });
+  assert.strictEqual(log.panners[1].pan.value, -1);
+  mixer.play('pop', { gain: -3 });
+  const zero = log.gains[log.gains.length - 1];
+  assert.ok(log.gains.some((g) => g.gain.value === 0), 'negative gain clamps to 0');
+  assert.ok(zero);
+});
+
+test('mixer.play pan fallback: no StereoPannerNode -> createPanner (equalpower) or plain connect', () => {
+  const { ctx, log, mixer } = freshMixer();
+  delete ctx.createStereoPanner;
+  let positioned = null;
+  ctx.createPanner = () => Object.assign(log.gains.length ? {} : {}, {
+    panningModel: '',
+    setPosition(x, y, z) { positioned = [x, y, z]; },
+    connect(t) { log.edges.push([this, t]); return t; },
+  });
+  mixer.play('pop', { pan: 0.5 });
+  assert.deepStrictEqual(positioned, [0.5, 0, 0.5]);
+  delete ctx.createPanner;
+  assert.ok(mixer.play('pop', { pan: 0.5 }), 'still plays without any panner');
+});
+
+test('mixer.play intensity: 3 creates more sources than 1 (generic and dedicated layers)', () => {
+  for (const name of ['pop', 'boom', 'coin']) {
+    const a = freshMixer();
+    a.mixer.play(name, { intensity: 1 });
+    const one = a.log.started;
+    const b = freshMixer();
+    b.mixer.play(name, { intensity: 2 });
+    const two = b.log.started;
+    const c = freshMixer();
+    c.mixer.play(name, { intensity: 3 });
+    const three = c.log.started;
+    assert.ok(two > one, `${name}: intensity 2 adds a layer (${two} > ${one})`);
+    assert.ok(three > two, `${name}: intensity 3 adds another layer (${three} > ${two})`);
+    assert.strictEqual(c.mixer.stats.voices, 1, 'layers belong to one voice');
+    for (const p of audioPathGainPeaks(c.log)) assert.ok(p <= 1, `layer gain ${p} within 0..1`);
+  }
+  // Generic layers are detuned; a dedicated layer (boom) is not.
+  const g = freshMixer();
+  const oscs = [];
+  const orig = g.ctx.createOscillator;
+  g.ctx.createOscillator = () => { const o = orig(); oscs.push(o); return o; };
+  g.mixer.play('pop', { intensity: 3 });
+  const cents = oscs.map((o) => o.detune.value);
+  assert.ok(cents.includes(9) && cents.includes(-14) && cents.includes(0), `detune set per layer: ${cents}`);
+});
+
+test('mixer.setMaster / setBus clamp to 0..1 and ramp the gains', () => {
+  const { mixer } = freshMixer();
+  assert.strictEqual(mixer.setMaster(1.7), 1);
+  assert.strictEqual(mixer.setMaster(-1), 0);
+  assert.strictEqual(mixer.setMaster('0.4'), 0.4);
+  assert.strictEqual(mixer.stats.master, 0.4);
+  const last = mixer.master.gain.events[mixer.master.gain.events.length - 1];
+  assert.strictEqual(last[0], 'target');
+  assert.strictEqual(last[1], 0.4);
+  assert.strictEqual(mixer.setBus('sfx', 5), 1);
+  assert.strictEqual(mixer.setBus('ambient', 0.25), 0.25);
+  assert.strictEqual(mixer.setBus('nope', 0.5), null);
+  assert.strictEqual(mixer.stats.sfx, 1);
+  assert.strictEqual(mixer.stats.ambient, 0.25);
+  assert.strictEqual(mixer.ambientBus.gain.events.slice(-1)[0][1], 0.25);
+  // Levels survive a re-init on a new context.
+  const { ctx } = makeFakeContext();
+  mixer.init(ctx);
+  assert.strictEqual(mixer.master.gain.value, 0.4);
+  assert.strictEqual(mixer.ambientBus.gain.value, 0.25);
+});
+
+test('mixer.startLoop/stopLoop run one loop on the ambient bus with the existing fades', () => {
+  const { ctx, log, mixer } = freshMixer();
+  const h = mixer.startLoop('rain', { gain: 0.7 });
+  assert.ok(h && h.name === 'rain');
+  assert.strictEqual(mixer.stats.loop, 'rain');
+  assert.ok(log.edges.some(([s, t]) => s === h.gain && t === mixer.ambientBus), 'loop master gain -> ambient bus');
+  assert.deepStrictEqual(h.gain.gain.events[0], ['set', 0, ctx.currentTime]);
+  assert.deepStrictEqual(h.gain.gain.events[1], ['linear', 0.7, ctx.currentTime + 1.5]);
+  assert.strictEqual(mixer.startLoop('rain'), h, 'same name is a no-op');
+  const h2 = mixer.startLoop('wind');
+  assert.notStrictEqual(h2, h);
+  const fade = h.gain.gain.events.filter((e) => e[0] === 'exp').pop();
+  assert.ok(fade && Math.abs(fade[2] - (ctx.currentTime + 1.5)) < 1e-9, 'old loop faded out over 1.5 s');
+  assert.strictEqual(mixer.stats.loop, 'wind');
+  assert.strictEqual(mixer.startLoop('doesNotExist'), null);
+  assert.strictEqual(mixer.stopLoop(0.5), true);
+  assert.strictEqual(mixer.stats.loop, null);
+  assert.strictEqual(mixer.stopLoop(), false);
+});
+
+test('mixer.duck lowers the ambient (duck) gain now and restores it after the last sfx + release', () => {
+  const { ctx, mixer } = freshMixer();
+  const v = mixer.play('boom');
+  assert.strictEqual(mixer.duck(300, -8), true);
+  const ev = mixer.duckGain.gain.events;
+  const down = ev.find((e) => e[0] === 'target' && e[1] < 1);
+  assert.ok(down, 'ducked');
+  assert.ok(Math.abs(down[1] - Math.pow(10, -8 / 20)) < 1e-9, '-8 dB');
+  assert.strictEqual(down[2], ctx.currentTime, 'immediately');
+  const up = ev.filter((e) => e[0] === 'target' && e[1] === 1).pop();
+  assert.ok(up, 'restore scheduled');
+  assert.ok(Math.abs(up[2] - v.end) < 1e-9, 'restore starts when the last sfx ends');
+  assert.ok(Math.abs(up[3] - 0.3 / 4) < 1e-9, 'time constant = release / 4');
+  assert.strictEqual(mixer.stats.ducked, true);
+  // Without active sfx the release starts right away.
+  const m2 = freshMixer();
+  m2.mixer.duck(500, -12);
+  const up2 = m2.mixer.duckGain.gain.events.filter((e) => e[0] === 'target' && e[1] === 1).pop();
+  assert.ok(Math.abs(up2[2] - (m2.ctx.currentTime + 0.5)) < 1e-9);
+  // Ducking is a no-op before init.
+  const m3 = LiveFXSounds.mixer;
+  const keep = m3.duckGain;
+  m3.duckGain = null;
+  assert.strictEqual(m3.duck(), false);
+  m3.duckGain = keep;
+});
+
+test('mixer.play auto-ducks while a loop runs (autoDuck can be turned off)', () => {
+  const { mixer } = freshMixer();
+  mixer.play('pop');
+  assert.strictEqual(mixer.duckGain.gain.events.length, 0, 'no loop -> no ducking');
+  mixer.startLoop('sea');
+  mixer.play('pop');
+  assert.ok(mixer.duckGain.gain.events.some((e) => e[0] === 'target' && e[1] < 1), 'ducked while the loop runs');
+  const n = mixer.duckGain.gain.events.length;
+  mixer.autoDuck = false;
+  mixer.play('pop');
+  assert.strictEqual(mixer.duckGain.gain.events.length, n);
+  mixer.autoDuck = true;
+  mixer.stopLoop(0.01);
+});
+
+test('mixer.reverb builds a decaying stereo impulse into a convolver on the ambient path', () => {
+  const { ctx, log, mixer } = freshMixer();
+  assert.strictEqual(mixer.reverb(true, { seconds: 2, mix: 0.3 }), true);
+  assert.strictEqual(log.convolvers.length, 1);
+  const cv = log.convolvers[0];
+  assert.strictEqual(cv.buffer.numberOfChannels, 2);
+  assert.strictEqual(cv.buffer.length, ctx.sampleRate * 2);
+  const d = cv.buffer.getChannelData(0);
+  const head = Math.max(...Array.from(d.slice(0, 2000)).map(Math.abs));
+  const tail = Math.max(...Array.from(d.slice(-2000)).map(Math.abs));
+  assert.ok(head > 0.3 && tail < 0.01, `exponential decay (head ${head}, tail ${tail})`);
+  const has = (a, b) => log.edges.some(([s, t]) => s === a && t === b);
+  assert.ok(has(mixer.duckGain, cv) && has(cv, mixer.wetGain) && has(mixer.wetGain, mixer.master), 'duck -> convolver -> wet -> master');
+  assert.strictEqual(mixer.wetGain.gain.events.slice(-1)[0][1], 0.3, 'wet = mix');
+  assert.strictEqual(mixer.stats.reverb, true);
+  mixer.reverb(true, { mix: 0.5 });
+  assert.strictEqual(log.convolvers.length, 1, 'same length reuses the impulse');
+  mixer.reverb(true, { seconds: 1 });
+  assert.strictEqual(log.convolvers.length, 2, 'new length rebuilds the impulse');
+  assert.strictEqual(mixer.reverb(false), false);
+  assert.strictEqual(mixer.wetGain.gain.events.slice(-1)[0][1], 0);
+  assert.strictEqual(mixer.stats.reverb, false);
+  // Without ConvolverNode reverb is refused.
+  const m = freshMixer();
+  delete m.ctx.createConvolver;
+  assert.strictEqual(m.mixer.reverb(true), false);
+});
+
+test('backwards compat: play(name, ctx, out, volume) and loop() keep working beside the mixer', () => {
+  const { ctx, log } = makeFakeContext();
+  assert.strictEqual(LiveFXSounds.play('bleat', ctx, ctx.destination, 0.5), true);
+  assert.strictEqual(log.gains[0].gain.value, 0.5);
+  assert.ok(log.edges.some(([s, t]) => s === log.gains[0] && t === ctx.destination));
+  const h = LiveFXSounds.startLoop('storm', ctx, ctx.destination, 1);
+  assert.strictEqual(h.name, 'storm');
+  h.stop(0.2);
 });

@@ -51,6 +51,7 @@ function register(router, ctx) {
       if (!v.ok) throw new HttpError(400, 'invalid_envelope', v.error);
       const msg = v.msg;
       if (msg.type === 'volume') ctx.state.volume = msg.volume;
+      if (msg.type === 'theme') ctx.state.theme = msg.theme;
       ctx.bus.broadcast(msg, { audience: 'all' });
       json(res, 200, { ok: true, id: msg.id, overlays: ctx.bus.counts().overlays });
     })
