@@ -9,10 +9,14 @@
 //              the text to every panel over the bus; this backend just subscribes to it.
 //   whisper    Offline, experimental: mic -> 16 kHz PCM -> energy VAD -> js/whisper-worker.js
 //              (transformers.js from /vendor, ONNX model from /models – see docs/OFFLINE.md).
+//   auto       DE/TR/EN without a fixed language: composes webspeech recognizers and switches the
+//              language from what js/langdetect.js hears (one recognizer, swapped in a speech gap) or
+//              runs one recognizer per language in parallel where the browser allows it (LiveFX 1.5).
 //
 //   const asr = LiveFXASR.create('webspeech', { lang, bus, onText, onState, onError,
 //                                               alternatives, restartEveryMs, stallMs, voiceActivity, onEvent });
 //   asr.start(); asr.setLang('en-US'); asr.setOptions({ alternatives: true }); asr.stats; asr.stop();
+//   LiveFXASR.create('auto', { langs: ['de-DE', 'tr-TR', 'en-US'], window: 3, switchAfter: 2, parallel: 'try', ... });
 (function (global) {
   'use strict';
 
@@ -125,6 +129,8 @@
       this._restartEveryMs = 0;
       this._stallMs = DEFAULT_STALL_MS;
       this._voiceActivity = typeof opts.voiceActivity === 'function' ? opts.voiceActivity : null;
+      // Internal (backend `auto`): every engine error code before the ignore/fatal filtering.
+      this._onRawError = typeof opts.onRawError === 'function' ? opts.onRawError : null;
       this._applyOptions(opts);
       if (!speechCtor()) this._state = 'unsupported';
     }
@@ -402,6 +408,7 @@
       rec.onerror = (e) => {
         if (rec !== this._rec) return;
         const code = (e && e.error) || 'unknown';
+        if (this._onRawError) safe(this._onRawError, code);
         if (IGNORED_ERRORS.includes(code)) return;
         if (FATAL_ERRORS.includes(code)) {
           this._error(code, code === 'audio-capture' ? 'Kein Mikrofon gefunden.' : 'Mikrofon-Zugriff verweigert.', true);
@@ -574,9 +581,10 @@
     return whisperProbe === true;
   }
 
-  /** 'de-DE' -> 'de' (Whisper wants ISO-639-1 codes). */
+  /** 'de-DE' -> 'de' (Whisper wants ISO-639-1 codes); 'auto' / null -> null (the worker lets Whisper detect). */
   function whisperLang(tag) {
-    const m = String(tag || '').toLowerCase().match(/^[a-z]{2,3}/);
+    if (tag == null || tag === '' || String(tag).toLowerCase() === 'auto') return null;
+    const m = String(tag).toLowerCase().match(/^[a-z]{2,3}/);
     return m ? m[0] : 'de';
   }
 
@@ -947,11 +955,468 @@
     }
   }
 
+  // ---------------------------------------------------------------- auto (DE/TR/EN, LiveFX 1.5)
+  // Composes WebSpeech recognizers. Switching mode: one recognizer; every final result is scored by
+  // js/langdetect.js, and when the last `switchAfter` finals agree on another family the recognizer
+  // is restarted in that language in the next speech gap. Parallel mode (`parallel: 'try'|'on'`):
+  // one recognizer per family runs at the same time; interims come from the leading language only,
+  // finals are deduped per utterance and the best-scoring one is forwarded. Chrome aborts the first
+  // recognizer when a second one starts – that `aborted` within AUTO_PARALLEL_PROBE_MS of start()
+  // makes 'try' fall back to switching mode.
+  const AUTO_LANGS = Object.freeze(['de-DE', 'tr-TR', 'en-US']);
+  const AUTO_WINDOW = 3;
+  const AUTO_SWITCH_AFTER = 2;
+  const AUTO_PARALLEL_MODES = Object.freeze(['try', 'on', 'off']);
+  const AUTO_PARALLEL_PROBE_MS = 1500; // aborted/not-allowed within this after start() -> parallel unsupported
+  const AUTO_DEDUPE_MS = 800; // finals from different recognizers closer than this are one utterance
+  const AUTO_DEDUPE_TEXT_MS = 3000; // near-identical text within this is a duplicate too
+  const AUTO_CONFIDENT = 0.75; // a final whose own language scores this high is forwarded without waiting
+
+  function langDetect() {
+    if (global.LiveFXLangDetect) return global.LiveFXLangDetect;
+    if (typeof require === 'function') {
+      try {
+        return require('./langdetect.js');
+      } catch (_) {
+        /* not available */
+      }
+    }
+    return null;
+  }
+
+  function autoFamily(tag) {
+    const m = String(tag || '')
+      .toLowerCase()
+      .match(/^(de|tr|en)(?=$|[-_])/);
+    return m ? m[1] : null;
+  }
+
+  function autoStats() {
+    return Object.assign(makeStats(), { switches: 0, parallel: false, detected: { de: 0, tr: 0, en: 0 } });
+  }
+
+  function plainText(t) {
+    return String(t || '')
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, ' ')
+      .trim();
+  }
+
+  /** Same utterance heard twice: equal after normalisation, or one contains the other and is >= 80 % as long. */
+  function sameText(a, b) {
+    const x = plainText(a);
+    const y = plainText(b);
+    if (!x || !y) return false;
+    if (x === y) return true;
+    const [s, l] = x.length <= y.length ? [x, y] : [y, x];
+    return s.length / l.length >= 0.8 && l.includes(s);
+  }
+
+  class Auto extends Base {
+    constructor(opts) {
+      super('auto', opts);
+      this._ld = langDetect();
+      this._inners = []; // live WebSpeech instances (1 in switching mode, one per family in parallel mode)
+      this._innerOpts = {};
+      for (const k of ['alternatives', 'restartEveryMs', 'stallMs']) if (k in opts) this._innerOpts[k] = opts[k];
+      this._voiceActivity = typeof opts.voiceActivity === 'function' ? opts.voiceActivity : null;
+      this._window = Math.max(1, Math.floor(Number(opts.window)) || AUTO_WINDOW);
+      this._switchAfter = Math.min(this._window, Math.max(1, Math.floor(Number(opts.switchAfter)) || AUTO_SWITCH_AFTER));
+      this._parallelMode = Auto.parallelMode(opts.parallel);
+      this._tags = {}; // family -> tag
+      this._families = []; // in `langs` order
+      const list = Array.isArray(opts.langs) && opts.langs.length ? opts.langs : AUTO_LANGS;
+      for (const t of list) this._addLang(t);
+      if (!this._families.length) for (const t of AUTO_LANGS) this._addLang(t);
+      const f0 = autoFamily(opts.lang);
+      if (f0 && this._tags[f0]) this._tags[f0] = opts.lang;
+      this._family = f0 && this._tags[f0] ? f0 : this._families[0];
+      this._lang = this._tags[this._family];
+      this._active = false;
+      this._pinned = false;
+      this._history = []; // last `window` detections of finals (switching mode)
+      this._switchTo = null; // pending { family, score } waiting for a speech gap
+      this._switchTimer = null;
+      this._switchDeferred = 0;
+      this._parallel = false; // parallel mode currently running
+      this._probeUntil = 0; // parallel 'try': fall back to switching on aborted/not-allowed before this
+      this._hold = null; // parallel: best final of the current utterance, waiting for competitors
+      this._lastForwarded = null; // parallel: { text, at } of the last forwarded final (dedupe)
+      this._stats = autoStats();
+      if (!speechCtor()) this._state = 'unsupported';
+    }
+
+    static parallelMode(v) {
+      if (v === true) return 'on';
+      if (v === false) return 'off';
+      return AUTO_PARALLEL_MODES.includes(v) ? v : 'try';
+    }
+
+    _addLang(tag) {
+      const f = autoFamily(tag);
+      if (!f) return;
+      if (!this._tags[f]) this._families.push(f);
+      this._tags[f] = tag;
+    }
+
+    get family() {
+      return this._family;
+    }
+
+    get langs() {
+      return this._families.map((f) => this._tags[f]);
+    }
+
+    get pinned() {
+      return this._pinned;
+    }
+
+    get parallel() {
+      return this._parallel;
+    }
+
+    get options() {
+      const p = this._inners[0];
+      const base = p
+        ? p.options
+        : {
+            alternatives: !!this._innerOpts.alternatives,
+            restartEveryMs: Math.max(0, Number(this._innerOpts.restartEveryMs) || 0),
+            stallMs: 'stallMs' in this._innerOpts ? Math.max(0, Number(this._innerOpts.stallMs) || 0) : DEFAULT_STALL_MS,
+          };
+      return Object.assign(base, { langs: this.langs, window: this._window, switchAfter: this._switchAfter, parallel: this._parallelMode });
+    }
+
+    /** Live: alternatives/restartEveryMs/stallMs go to every recognizer; window/switchAfter apply at once; parallel at the next start(). */
+    setOptions(o) {
+      if (!o || typeof o !== 'object') return;
+      if ('window' in o) this._window = Math.max(1, Math.floor(Number(o.window)) || AUTO_WINDOW);
+      if ('switchAfter' in o) this._switchAfter = Math.max(1, Math.floor(Number(o.switchAfter)) || AUTO_SWITCH_AFTER);
+      this._switchAfter = Math.min(this._window, this._switchAfter);
+      if ('parallel' in o) this._parallelMode = Auto.parallelMode(o.parallel);
+      for (const k of ['alternatives', 'restartEveryMs', 'stallMs']) if (k in o) this._innerOpts[k] = o[k];
+      for (const r of this._inners) r.setOptions(o);
+    }
+
+    start() {
+      if (this._state === 'unsupported' || !speechCtor()) {
+        this._setState('unsupported');
+        this._error('unsupported', 'Dieser Browser kann keine Spracherkennung. Bitte Chrome oder Edge nutzen.', true);
+        return;
+      }
+      if (this._active) return;
+      this._active = true;
+      this._stats = autoStats();
+      this._stats.startedAt = now();
+      this._history = [];
+      this._hold = null;
+      this._lastForwarded = null;
+      this._switchTo = null;
+      this._parallel = this._parallelMode !== 'off' && this._families.length > 1;
+      this._stats.parallel = this._parallel;
+      this._probeUntil = this._parallel && this._parallelMode === 'try' ? now() + AUTO_PARALLEL_PROBE_MS : 0;
+      this._spawnInner(this._family);
+      if (this._parallel) for (const f of this._families) if (f !== this._family) this._spawnInner(f);
+      this._event('lang', { lang: this._lang, family: this._family, score: null, mode: this._mode(), reason: 'start' });
+      this._emitState();
+    }
+
+    stop() {
+      this._shutdown();
+      if (this._state !== 'unsupported') this._setState('idle');
+    }
+
+    _shutdown() {
+      this._active = false;
+      this._cancelSwitch();
+      if (this._hold && this._hold.timer) clearTimeout(this._hold.timer);
+      this._hold = null;
+      const inners = this._inners;
+      this._inners = [];
+      for (const r of inners) r.stop();
+    }
+
+    /** 'auto' | null -> follow the detector again; a tag -> pin that family (no automatic switching). */
+    setLang(tag) {
+      if (tag == null || tag === '' || String(tag).toLowerCase() === 'auto') {
+        if (!this._pinned) return;
+        this._pinned = false;
+        this._history = [];
+        this._event('lang', { lang: this._lang, family: this._family, score: null, mode: this._mode(), reason: 'unpinned' });
+        return;
+      }
+      const f = autoFamily(tag);
+      if (!f) return;
+      this._pinned = true;
+      this._addLang(tag);
+      this._applyLang(f, null, 'pinned');
+    }
+
+    _mode() {
+      return this._parallel ? 'parallel' : 'switch';
+    }
+
+    _primary() {
+      for (const r of this._inners) if (autoFamily(r.lang) === this._family) return r;
+      return this._inners[0] || null;
+    }
+
+    _spawnInner(f) {
+      let rec = null;
+      const o = Object.assign({}, this._innerOpts, {
+        lang: this._tags[f],
+        voiceActivity: this._voiceActivity,
+        onText: (text, isFinal, meta) => this._innerText(rec, text, isFinal, meta),
+        onState: () => this._innerState(rec),
+        onError: (e) => this._innerError(rec, e),
+        onEvent: (e) => this._innerEvent(rec, e),
+        onRawError: (code) => this._innerRawError(rec, code),
+      });
+      rec = new WebSpeech(o);
+      this._inners.push(rec);
+      rec.start();
+      return rec;
+    }
+
+    _has(rec) {
+      return !!rec && this._inners.includes(rec);
+    }
+
+    // ---- language switching ------------------------------------------------------------------
+    /** Makes `f` the current family (switching mode: swap the recognizer; parallel: new leader). */
+    _applyLang(f, score, reason) {
+      this._cancelSwitch();
+      const tag = this._tags[f];
+      if (!tag) return;
+      const changed = f !== this._family || tag !== this._lang;
+      this._family = f;
+      this._lang = tag;
+      this._history = [];
+      if (!changed) return;
+      if (this._active) {
+        if (this._parallel) {
+          if (!this._inners.some((r) => autoFamily(r.lang) === f)) this._spawnInner(f);
+        } else {
+          const p = this._inners[0];
+          if (p) p.setLang(tag);
+        }
+      }
+      this._stats.switches++;
+      this._event('lang', { lang: tag, family: f, score: score == null ? null : score, mode: this._mode(), reason });
+      this._emitState();
+    }
+
+    _cancelSwitch() {
+      if (this._switchTimer) clearTimeout(this._switchTimer);
+      this._switchTimer = null;
+      this._switchTo = null;
+      this._switchDeferred = 0;
+    }
+
+    /** Switching mode: remember the detection and switch when the last `switchAfter` finals agree. */
+    _observe(det) {
+      if (!det || !det.lang) return;
+      this._history.push(det);
+      if (this._history.length > this._window) this._history.splice(0, this._history.length - this._window);
+      if (this._pinned) return;
+      const n = this._switchAfter;
+      if (this._history.length < n) return;
+      const lastN = this._history.slice(-n);
+      const f = lastN[0].lang;
+      if (f === this._family || !this._tags[f]) return;
+      if (!lastN.every((d) => d.lang === f)) return;
+      const score = Math.round((lastN.reduce((s, d) => s + d.score, 0) / n) * 1000) / 1000;
+      this._requestSwitch(f, score);
+    }
+
+    /** Without a meter the switch happens right after the final; with one it waits for a gap (max 10 s). */
+    _requestSwitch(f, score) {
+      if (this._switchTo && this._switchTo.family === f) return;
+      this._cancelSwitch();
+      this._switchTo = { family: f, score };
+      if (!this._voiceActivity) {
+        this._applyLang(f, score, 'detected');
+        return;
+      }
+      this._switchTick();
+    }
+
+    _switchTick() {
+      this._switchTimer = null;
+      const req = this._switchTo;
+      if (!req || !this._active) return;
+      let voice = false;
+      try {
+        voice = !!this._voiceActivity();
+      } catch (_) {
+        voice = false;
+      }
+      if (!voice || this._switchDeferred >= RESTART_DEFER_MAX_MS) {
+        this._applyLang(req.family, req.score, 'detected');
+        return;
+      }
+      this._switchDeferred += RESTART_DEFER_STEP_MS;
+      this._switchTimer = setTimeout(() => this._switchTick(), RESTART_DEFER_STEP_MS);
+    }
+
+    // ---- results -----------------------------------------------------------------------------
+    _innerText(rec, text, isFinal, meta) {
+      if (!this._active || !this._has(rec)) return;
+      const tag = rec.lang;
+      const fam = autoFamily(tag);
+      const m = Object.assign({}, meta, { source: 'auto', lang: tag, recognizer: tag });
+      if (!isFinal) {
+        if (this._parallel && fam !== this._family) return; // interims only from the leading language
+        this._forward(text, false, m);
+        return;
+      }
+      const det = this._ld ? this._ld.detect(text) : { lang: null, score: 0, scores: { de: 0, tr: 0, en: 0 } };
+      if (det.lang && this._stats.detected[det.lang] != null) this._stats.detected[det.lang]++;
+      if (!this._parallel) {
+        this._forward(text, true, m);
+        this._observe(det);
+        return;
+      }
+      this._offer({ text, meta: m, at: m.at, fam, det, score: this._finalScore(det, fam, m), timer: null });
+    }
+
+    _forward(text, isFinal, meta) {
+      this._countResult(isFinal, meta.at);
+      this._event(isFinal ? 'final' : 'result', { text, isFinal, recognizer: meta.recognizer });
+      safe(this._onText, text, isFinal, meta);
+    }
+
+    /** How plausible a final from recognizer `fam` is: its own language detected -> high, another one -> low. */
+    _finalScore(det, fam, meta) {
+      let s;
+      if (det.lang === fam) s = 0.5 + det.score / 2;
+      else if (det.lang) s = (1 - det.score) * 0.5;
+      else s = 0.3;
+      if (typeof meta.confidence === 'number') s += Math.max(0, Math.min(1, meta.confidence)) * 0.1;
+      return s;
+    }
+
+    static confident(c) {
+      return c.det.lang === c.fam && c.det.score >= AUTO_CONFIDENT;
+    }
+
+    /** Parallel mode: collect the finals of one utterance (<= AUTO_DEDUPE_MS apart or same text), forward the best. */
+    _offer(c) {
+      const lf = this._lastForwarded;
+      if (lf && (c.at - lf.at < AUTO_DEDUPE_MS || (c.at - lf.at < AUTO_DEDUPE_TEXT_MS && sameText(lf.text, c.text)))) {
+        this._event('duplicate', { text: c.text, recognizer: c.meta.recognizer });
+        return;
+      }
+      const h = this._hold;
+      if (h) {
+        if (c.at - h.at < AUTO_DEDUPE_MS || sameText(h.text, c.text)) {
+          if (c.score > h.score) {
+            this._event('duplicate', { text: h.text, recognizer: h.meta.recognizer });
+            Object.assign(h, { text: c.text, meta: c.meta, fam: c.fam, det: c.det, score: c.score });
+          } else {
+            this._event('duplicate', { text: c.text, recognizer: c.meta.recognizer });
+          }
+          if (Auto.confident(h)) this._flushHold();
+          return;
+        }
+        this._flushHold(); // a new utterance: release the previous one first
+      }
+      this._hold = c;
+      if (Auto.confident(c)) {
+        this._flushHold();
+        return;
+      }
+      c.timer = setTimeout(() => this._flushHold(), AUTO_DEDUPE_MS);
+    }
+
+    _flushHold() {
+      const h = this._hold;
+      if (!h) return;
+      if (h.timer) clearTimeout(h.timer);
+      this._hold = null;
+      this._lastForwarded = { text: h.text, at: h.at };
+      this._forward(h.text, true, h.meta);
+      const f = h.det.lang && this._tags[h.det.lang] ? h.det.lang : null;
+      if (f && !this._pinned && f !== this._family) this._applyLang(f, h.det.score, 'detected');
+    }
+
+    // ---- inner recognizer plumbing -------------------------------------------------------------
+    _innerRawError(rec, code) {
+      if (!this._parallel || !this._probeUntil || !this._has(rec)) return;
+      if (now() > this._probeUntil) {
+        this._probeUntil = 0;
+        return;
+      }
+      if (code === 'aborted' || (code === 'not-allowed' && rec !== this._primary())) this._fallbackToSwitch();
+    }
+
+    /** Parallel recognizers are not supported here: keep the primary, stop the rest, switch mode from now on. */
+    _fallbackToSwitch() {
+      this._parallel = false;
+      this._stats.parallel = false;
+      this._probeUntil = 0;
+      this._flushHold();
+      const keep = this._primary();
+      const rest = this._inners.filter((r) => r !== keep);
+      this._inners = keep ? [keep] : [];
+      for (const r of rest) r.stop();
+      if (!keep && this._active) this._spawnInner(this._family);
+      this._event('lang', { lang: this._lang, family: this._family, score: null, mode: 'switch', reason: 'parallel-unsupported' });
+      this._emitState();
+    }
+
+    _innerError(rec, e) {
+      if (!this._has(rec)) return;
+      const err = Object.assign({}, e, { recognizer: rec.lang });
+      if (e && e.fatal) {
+        safe(this._onError, err);
+        this._shutdown();
+        this._setState('error');
+        return;
+      }
+      safe(this._onError, err);
+    }
+
+    _innerEvent(rec, e) {
+      if (!this._has(rec) || !e) return;
+      if (e.type === 'result' || e.type === 'final') return; // emitted by _forward for forwarded text only
+      const s = this._stats;
+      if (e.type === 'restart') s.restarts++;
+      else if (e.type === 'planned-restart') {
+        s.restarts++;
+        s.plannedRestarts++;
+      } else if (e.type === 'stall') {
+        s.restarts++;
+        s.stalls++;
+      }
+      this._event(e.type, Object.assign({}, e, { recognizer: rec.lang }));
+    }
+
+    _innerState(rec) {
+      if (!this._has(rec)) return;
+      this._emitState();
+    }
+
+    /** Aggregate state: any recognizer listening wins, then starting, restarting, error. */
+    _emitState() {
+      if (!this._active) return;
+      const states = this._inners.map((r) => r.state);
+      for (const s of ['listening', 'starting', 'restarting', 'error']) {
+        if (states.includes(s)) {
+          this._setState(s);
+          return;
+        }
+      }
+      if (states.length) this._setState(states[0]);
+    }
+  }
+
   // ---------------------------------------------------------------- public API
   const BACKENDS = {
     webspeech: { label: 'Browser (Chrome/Edge)', supported: () => !!speechCtor(), make: (o) => new WebSpeech(o) },
     external: { label: 'Extern (POST /api/transcript)', supported: (o) => External.supported(o && o.bus), make: (o) => new External(o) },
     whisper: { label: 'Offline (Whisper, experimentell)', supported: () => whisperSupported(), make: (o) => new Whisper(o) },
+    auto: { label: 'Automatisch (DE/TR/EN)', supported: () => !!speechCtor(), make: (o) => new Auto(o) },
   };
 
   function create(name, opts = {}) {
@@ -970,6 +1435,7 @@
       const isHttp = !!(global.location && /^https?:/.test(global.location.protocol));
       return [
         { name: 'webspeech', label: BACKENDS.webspeech.label, supported: BACKENDS.webspeech.supported() },
+        { name: 'auto', label: BACKENDS.auto.label, supported: BACKENDS.auto.supported() },
         { name: 'external', label: BACKENDS.external.label, supported: isHttp },
         { name: 'whisper', label: BACKENDS.whisper.label, supported: BACKENDS.whisper.supported() },
       ];
@@ -978,5 +1444,8 @@
     // Offline backend: re-checks whether /vendor/transformers.min.js is served (after `npm run setup-offline`).
     probeWhisper,
     WHISPER_DEFAULT_MODEL,
+    AUTO_LANGS,
+    AUTO_PARALLEL_PROBE_MS,
+    AUTO_DEDUPE_MS,
   };
 })(typeof window !== 'undefined' ? window : globalThis);
