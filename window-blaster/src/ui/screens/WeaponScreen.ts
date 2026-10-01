@@ -1,12 +1,13 @@
 import type { App } from '../../app/App';
 import type { WeaponId } from '../../core/types';
 import { WEAPONS } from '../../game/weapons/configs';
-import { h } from '../dom';
+import { fmtScore, h, toast } from '../dom';
 import { T, WEAPON_TEXT } from '../i18n/de';
 import type { Screen } from '../Router';
 
 export function WeaponScreen(app: App): Screen {
-  let picked: WeaponId[] = [...new Set(app.session.weapons)];
+  let picked: WeaponId[] = [...new Set(app.session.weapons)].filter((w) => app.unlocks.weaponUnlocked(w));
+  if (!picked.length) picked = ['smg'];
   const grid = h('div', { class: 'choice-grid' });
   const next = h('button', { class: 'btn grow' }, T.next) as HTMLButtonElement;
   const bar = (label: string, v: number) =>
@@ -16,11 +17,16 @@ export function WeaponScreen(app: App): Screen {
       ...(Object.keys(WEAPONS) as WeaponId[]).map((k) => {
         const w = WEAPONS[k];
         const idx = picked.indexOf(k);
+        const locked = !app.unlocks.weaponUnlocked(k);
         return h(
           'button',
           {
-            class: `choice${idx >= 0 ? ' selected' : ''}`,
+            class: `choice${idx >= 0 ? ' selected' : ''}${locked ? ' locked' : ''}`,
             onclick: () => {
+              if (locked) {
+                toast(`🔒 ${WEAPON_TEXT[k].name}: im Shop für ${fmtScore(w.price)} Punkte freischalten`, 2500);
+                return;
+              }
               if (idx >= 0) picked.splice(idx, 1);
               else {
                 picked.push(k);
@@ -29,7 +35,7 @@ export function WeaponScreen(app: App): Screen {
               render();
             },
           },
-          h('div', { class: 'icon' }, WEAPON_TEXT[k].icon, idx >= 0 ? h('span', { class: 'badge ok', style: 'margin-left:8px' }, `Slot ${idx + 1}`) : null),
+          h('div', { class: 'icon' }, WEAPON_TEXT[k].icon, idx >= 0 ? h('span', { class: 'badge ok', style: 'margin-left:8px' }, `Slot ${idx + 1}`) : locked ? h('span', { class: 'badge', style: 'margin-left:8px' }, `🔒 ${fmtScore(w.price)}`) : null),
           h('div', { class: 'name' }, WEAPON_TEXT[k].name),
           h('div', { class: 'desc' }, WEAPON_TEXT[k].desc),
           bar('Schaden', w.ui.damage),
@@ -56,7 +62,7 @@ export function WeaponScreen(app: App): Screen {
       h('h2', {}, T.weaponTitle),
       h('p', { class: 'muted small' }, T.weaponHint),
       grid,
-      h('div', { class: 'row', style: 'margin-top:16px' }, h('button', { class: 'btn secondary', onclick: () => app.showModeScreen() }, T.back), next),
+      h('div', { class: 'row', style: 'margin-top:16px' }, h('button', { class: 'btn secondary', onclick: () => app.showModeScreen() }, T.back), h('button', { class: 'btn secondary', onclick: () => app.showShop(() => app.afterMode()) }, '🎁'), next),
     ),
   );
   return { el };

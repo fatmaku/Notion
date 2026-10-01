@@ -94,4 +94,25 @@ export const WEAPON_TEXT: Record<WeaponId, { icon: string; name: string; desc: s
   rocket: { icon: '🚀', name: 'Raketenwerfer', desc: 'Lock-on, Zielverfolgung, riesige Explosion. 3 pro Runde.' },
   milkshake: { icon: '🥤', name: 'Milkshake', desc: 'Klatscht drauf – das Auto rutscht weg.' },
   paint: { icon: '🎨', name: 'Farbpistole', desc: 'Flecken bleiben kleben. Deckung bringt Bonus.' },
+  egg: { icon: '🥚', name: 'Ei', desc: 'Klassiker. Gelber Fleck plus Schalensplitter.' },
+  tomato: { icon: '🍅', name: 'Tomate', desc: 'Saftiger roter Klatscher, gut für Combos.' },
+  snowball: { icon: '⛄', name: 'Schneeball', desc: 'Schnell geworfen – das Auto friert ein und rutscht.' },
+  banana: { icon: '🍌', name: 'Bananenschale', desc: 'Landet vor dem Auto. Kurz später: Rutschpartie.' },
+  waterballoon: { icon: '🎈', name: 'Wasserbombe', desc: 'Riesiger Platscher, wäscht Farbe wieder ab.' },
+  tp: { icon: '🧻', name: 'Klopapier', desc: 'Wickelt das Auto ein. Zählt als Deckung.' },
+  laser: { icon: '🔦', name: 'Laserpointer', desc: 'Halten: das Auto heizt auf und löst sich auf.' },
+  glove: { icon: '🥊', name: 'Boxhandschuh', desc: 'POW! Kräftiger Schlag, kein Nachladen.' },
 };
+
+export const SHOP = {
+  title: 'Freischalten',
+  balance: 'Guthaben',
+  buy: 'Freischalten',
+  owned: 'Freigeschaltet',
+  selected: 'Ausgewählt',
+  select: 'Auswählen',
+  locked: 'Gesperrt',
+  notEnough: 'Noch nicht genug Punkte',
+  earned: 'Punkte-Guthaben',
+  hint: 'Jede Runde füllt dein Guthaben. Damit schaltest du Waffen, Hand-Skins, Fadenkreuze und Farbpaletten frei.',
+} as const;

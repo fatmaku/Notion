@@ -13,13 +13,36 @@ function nearer(a: HitTarget, b: HitTarget): HitTarget {
   return a.box.y + a.box.h >= b.box.y + b.box.h ? a : b;
 }
 
-/** Point test against slightly enlarged boxes (detection boxes are tight). */
-export function targetAt(p: Vec2, targets: readonly HitTarget[], slack = 0.06): HitTarget | null {
+/** Point test against slightly enlarged boxes (detection boxes are tight; small far boxes get a minimum size). */
+export function targetAt(p: Vec2, targets: readonly HitTarget[], slack = 0.1, minSize = 28): HitTarget | null {
   let best: HitTarget | null = null;
   for (const t of targets) {
-    if (containsPoint(expand(t.box, t.box.w * slack, t.box.h * slack), p)) best = best ? nearer(best, t) : t;
+    const px = Math.max(t.box.w * slack, (minSize - t.box.w) / 2);
+    const py = Math.max(t.box.h * slack, (minSize - t.box.h) / 2);
+    if (containsPoint(expand(t.box, px, py), p)) best = best ? nearer(best, t) : t;
   }
   return best;
+}
+
+/** Does the segment a→b cross rect r (slab test)? */
+export function segmentHitsRect(a: Vec2, b: Vec2, r: Rect): boolean {
+  let t0 = 0;
+  let t1 = 1;
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  const clip = (p: number, q: number): boolean => {
+    if (p === 0) return q >= 0;
+    const t = q / p;
+    if (p < 0) {
+      if (t > t1) return false;
+      if (t > t0) t0 = t;
+    } else {
+      if (t < t0) return false;
+      if (t < t1) t1 = t;
+    }
+    return true;
+  };
+  return clip(-dx, a.x - r.x) && clip(dx, r.x + r.w - a.x) && clip(-dy, a.y - r.y) && clip(dy, r.y + r.h - a.y);
 }
 
 /** Distance from point to the nearest edge of a rect (0 if inside). */
@@ -30,8 +53,8 @@ export function distToRect(p: Vec2, r: Rect): number {
 }
 
 /** Snap an aim point onto the closest target within `radius` px (returns original point otherwise). */
-export function aimAssist(p: Vec2, targets: readonly HitTarget[], radius: number): { point: Vec2; target: HitTarget | null } {
-  const direct = targetAt(p, targets);
+export function aimAssist(p: Vec2, targets: readonly HitTarget[], radius: number, slack = 0.1): { point: Vec2; target: HitTarget | null } {
+  const direct = targetAt(p, targets, slack);
   if (direct) return { point: p, target: direct };
   let best: HitTarget | null = null;
   let bestD = radius;

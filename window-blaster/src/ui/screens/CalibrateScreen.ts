@@ -1,7 +1,7 @@
 import type { App } from '../../app/App';
 import type { Quad, Vec2 } from '../../core/types';
 import { clamp } from '../../core/math/vec';
-import { h, toast } from '../dom';
+import { capturePointer, h, toast } from '../dom';
 import { T } from '../i18n/de';
 import type { Screen } from '../Router';
 
@@ -33,7 +33,7 @@ export function CalibrateScreen(app: App): CalibrateScreenApi {
   const startDrag = (idx: number) => (e: PointerEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    capturePointer(e.target as HTMLElement, e.pointerId);
     dragging = idx;
     editQuad = app.windowTracker ? (app.windowTracker.get().quad.map((p) => ({ ...p })) as Quad) : null;
   };

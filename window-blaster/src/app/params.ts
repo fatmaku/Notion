@@ -1,4 +1,4 @@
-import type { GameModeId, WeaponId } from '../core/types';
+import { ALL_WEAPONS, type GameModeId, type WeaponId } from '../core/types';
 
 /** URL query parameters used for demos, debugging and end-to-end tests. */
 export interface Params {
@@ -22,7 +22,7 @@ export function readParams(search = typeof location !== 'undefined' ? location.s
   const q = new URLSearchParams(search);
   const flag = (k: string) => q.has(k) && q.get(k) !== '0' && q.get(k) !== 'false';
   const modes: GameModeId[] = ['front-shooter', 'side-shooter', 'side-runner'];
-  const weaponIds: WeaponId[] = ['smg', 'grenade', 'rocket', 'milkshake', 'paint'];
+  const weaponIds: readonly WeaponId[] = ALL_WEAPONS;
   const mode = q.get('mode');
   const w = q.get('weapons');
   const skip = q.get('skipTo');

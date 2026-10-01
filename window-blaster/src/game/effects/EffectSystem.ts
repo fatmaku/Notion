@@ -12,6 +12,9 @@ export interface Effect {
 }
 
 const ease = (t: number) => 1 - (1 - t) * (1 - t);
+const clamp01 = (t: number) => (t < 0 ? 0 : t > 1 ? 1 : Number.isFinite(t) ? t : 0);
+/** Round canvas sizes up to buckets so jittering boxes don't reallocate backing stores every frame. */
+const bucket = (n: number) => Math.max(8, Math.ceil(n / 32) * 32);
 
 /** Real-pixel patch that hides a vehicle by stretching the road/scenery from its sides over it. */
 export class StretchFill implements Effect {
@@ -20,6 +23,7 @@ export class StretchFill implements Effect {
   private lostAt = 0;
   private born: number;
   private readonly tmp = document.createElement('canvas');
+  private readonly mask = document.createElement('canvas');
   constructor(
     readonly trackId: number,
     box: Rect,
@@ -37,6 +41,9 @@ export class StretchFill implements Effect {
     } else if (!this.lostAt) this.lostAt = now;
     if (this.lostAt && now - this.lostAt > 450) return false;
     return now - this.born < this.maxLifeMs;
+  }
+  expire(now: number): void {
+    if (!this.lostAt) this.lostAt = now;
   }
   draw(ctx: CanvasRenderingContext2D, now: number, video: HTMLVideoElement): void {
     const vw = video.videoWidth;
@@ -58,32 +65,35 @@ export class StretchFill implements Effect {
     const t = this.tmp;
     const W = Math.max(2, Math.round(w));
     const H = Math.max(2, Math.round(h));
-    if (t.width !== W || t.height !== H) {
-      t.width = W;
-      t.height = H;
+    const BW = bucket(W);
+    const BH = bucket(H);
+    if (t.width < BW || t.height < BH) {
+      t.width = Math.max(t.width, BW);
+      t.height = Math.max(t.height, BH);
+      this.mask.width = t.width;
+      this.mask.height = t.height;
     }
     const c = t.getContext('2d');
-    if (!c) return;
+    const mc = this.mask.getContext('2d');
+    if (!c || !mc) return;
     c.globalCompositeOperation = 'source-over';
     c.globalAlpha = 1;
-    c.clearRect(0, 0, W, H);
+    c.clearRect(0, 0, t.width, t.height);
     try {
       if (hasL) c.drawImage(video, lx, y, strip, h, 0, 0, W, H);
       if (hasR) {
         if (hasL) {
-          const g = c.createLinearGradient(0, 0, W, 0);
+          // draw the right strip through a horizontal gradient mask (reused canvas)
+          mc.globalCompositeOperation = 'source-over';
+          mc.clearRect(0, 0, this.mask.width, this.mask.height);
+          mc.drawImage(video, rx, y, strip, h, 0, 0, W, H);
+          const g = mc.createLinearGradient(0, 0, W, 0);
           g.addColorStop(0, 'rgba(0,0,0,0)');
           g.addColorStop(1, 'rgba(0,0,0,1)');
-          // draw right strip through a gradient mask
-          const m = document.createElement('canvas');
-          m.width = W;
-          m.height = H;
-          const mc = m.getContext('2d')!;
-          mc.drawImage(video, rx, y, strip, h, 0, 0, W, H);
           mc.globalCompositeOperation = 'destination-in';
           mc.fillStyle = g;
           mc.fillRect(0, 0, W, H);
-          c.drawImage(m, 0, 0);
+          c.drawImage(this.mask, 0, 0, W, H, 0, 0, W, H);
         } else c.drawImage(video, rx, y, strip, h, 0, 0, W, H);
       }
     } catch {
@@ -108,9 +118,9 @@ export class StretchFill implements Effect {
     c.fillStyle = gy;
     c.fillRect(0, 0, W, H);
     const fade = this.lostAt ? Math.max(0, 1 - (now - this.lostAt) / 450) : 1;
-    const fadeIn = Math.min(1, (now - this.born) / 250);
+    const fadeIn = clamp01((now - this.born) / 250);
     ctx.globalAlpha = fade * fadeIn;
-    ctx.drawImage(t, x, y, w, h);
+    ctx.drawImage(t, 0, 0, W, H, x, y, w, h);
     ctx.globalAlpha = 1;
   }
 }
@@ -159,10 +169,8 @@ export class Shatter implements Effect {
     return (now - this.born) / 1000 < this.life;
   }
   draw(ctx: CanvasRenderingContext2D, now: number): void {
-    const t = (now - this.born) / 1000 / this.life;
+    const t = clamp01((now - this.born) / 1000 / this.life);
     ctx.globalAlpha = Math.max(0, 1 - t * t);
-    const k = this.snap.width / (this.tiles[0]?.sw * 4 || 1);
-    void k;
     for (const tile of this.tiles) {
       ctx.save();
       ctx.translate(tile.x, tile.y);
@@ -193,8 +201,9 @@ export class Fireball implements Effect {
     return now - this.born < this.lifeMs;
   }
   draw(ctx: CanvasRenderingContext2D, now: number): void {
-    const t = Math.min(1, (now - this.born) / this.lifeMs);
+    const t = clamp01((now - this.born) / this.lifeMs);
     const r = this.radius * (0.3 + 0.7 * ease(t));
+    if (!(r > 0) || !Number.isFinite(this.at.x + this.at.y)) return;
     const g = ctx.createRadialGradient(this.at.x, this.at.y, 0, this.at.x, this.at.y, r);
     g.addColorStop(0, `rgba(255,255,220,${(1 - t) * 0.95})`);
     g.addColorStop(0.35, `rgba(255,170,40,${(1 - t) * 0.9})`);
@@ -220,9 +229,10 @@ export class Wreck implements Effect {
   private lostAt = 0;
   private smokeAcc = 0;
   private readonly born: number;
+  private readonly baked: HTMLCanvasElement;
   constructor(
     readonly trackId: number,
-    private readonly snap: HTMLCanvasElement,
+    snap: HTMLCanvasElement,
     box: Rect,
     now: number,
     private readonly particles: Particles,
@@ -230,6 +240,23 @@ export class Wreck implements Effect {
   ) {
     this.last = { ...box };
     this.born = now;
+    // bake once: desaturated, darkened copy (ctx.filter per frame is expensive)
+    this.baked = document.createElement('canvas');
+    this.baked.width = snap.width;
+    this.baked.height = snap.height;
+    const c = this.baked.getContext('2d');
+    if (c) {
+      try {
+        c.filter = 'grayscale(1) brightness(0.35) contrast(1.2)';
+      } catch {
+        /* unsupported */
+      }
+      c.drawImage(snap, 0, 0);
+      c.filter = 'none';
+      c.globalAlpha = 0.45;
+      c.fillStyle = '#000';
+      c.fillRect(0, 0, snap.width, snap.height);
+    }
   }
   update(dt: number, now: number, boxOf: BoxOf): boolean {
     const b = boxOf(this.trackId);
@@ -250,20 +277,16 @@ export class Wreck implements Effect {
   }
   draw(ctx: CanvasRenderingContext2D, now: number): void {
     const b = this.last;
+    if (!(b.w > 0 && b.h > 0)) return;
     const fade = this.lostAt ? Math.max(0, 1 - (now - this.lostAt) / 500) : 1;
     ctx.globalAlpha = fade;
-    ctx.save();
-    try {
-      ctx.filter = 'grayscale(1) brightness(0.35) contrast(1.2)';
-    } catch {
-      /* unsupported */
-    }
-    ctx.drawImage(this.snap, b.x - b.w * 0.04, b.y - b.h * 0.04, b.w * 1.08, b.h * 1.08);
-    ctx.restore();
-    ctx.globalAlpha = fade * 0.45;
-    ctx.fillStyle = '#000';
-    ctx.fillRect(b.x, b.y, b.w, b.h);
+    ctx.drawImage(this.baked, b.x - b.w * 0.04, b.y - b.h * 0.04, b.w * 1.08, b.h * 1.08);
     ctx.globalAlpha = 1;
+  }
+
+  /** Let the system retire the oldest persistent effects. */
+  expire(now: number): void {
+    if (!this.lostAt) this.lostAt = now;
   }
 }
 
@@ -294,7 +317,7 @@ export class Skid implements Effect {
     return t < 1;
   }
   draw(ctx: CanvasRenderingContext2D, now: number): void {
-    const t = Math.min(1, (now - this.born) / this.lifeMs);
+    const t = clamp01((now - this.born) / this.lifeMs);
     const b = this.box;
     const dx = this.dir * ease(t) * b.w * 1.6;
     const rot = this.dir * Math.sin(t * Math.PI) * 0.35 + this.dir * t * 0.25;
@@ -324,8 +347,8 @@ export class ShrinkVanish implements Effect {
     return now - this.born < this.lifeMs;
   }
   draw(ctx: CanvasRenderingContext2D, now: number): void {
-    const t = Math.min(1, (now - this.born) / this.lifeMs);
-    const s = 1 - ease(t);
+    const t = clamp01((now - this.born) / this.lifeMs);
+    const s = Math.max(0.001, 1 - ease(t));
     const b = this.box;
     ctx.save();
     ctx.globalAlpha = 1 - t;
@@ -356,7 +379,7 @@ export class Popup implements Effect {
     return now - this.born < this.lifeMs;
   }
   draw(ctx: CanvasRenderingContext2D, now: number): void {
-    const t = Math.min(1, (now - this.born) / this.lifeMs);
+    const t = clamp01((now - this.born) / this.lifeMs);
     const pop = t < 0.15 ? 0.6 + (t / 0.15) * 0.5 : 1.1 - (t - 0.15) * 0.1;
     ctx.save();
     ctx.globalAlpha = 1 - t * t;
@@ -371,6 +394,44 @@ export class Popup implements Effect {
     ctx.fillStyle = this.color;
     ctx.fillText(this.text, 0, 0);
     ctx.restore();
+  }
+}
+
+/** Expanding splash ring in the decal colour (paint / milkshake / egg impacts). */
+export class SplashRing implements Effect {
+  layer = 'over' as const;
+  private readonly born: number;
+  constructor(
+    private readonly at: Vec2,
+    private readonly radius: number,
+    private readonly color: string,
+    now: number,
+    private readonly lifeMs = 320,
+  ) {
+    this.born = now;
+  }
+  update(_dt: number, now: number): boolean {
+    return now - this.born < this.lifeMs;
+  }
+  draw(ctx: CanvasRenderingContext2D, now: number): void {
+    const t = clamp01((now - this.born) / this.lifeMs);
+    const r = this.radius * (0.2 + 1.1 * ease(t));
+    if (!(r > 0)) return;
+    ctx.globalAlpha = (1 - t) * 0.9;
+    ctx.strokeStyle = this.color;
+    ctx.lineWidth = Math.max(1, this.radius * 0.18 * (1 - t));
+    ctx.beginPath();
+    ctx.arc(this.at.x, this.at.y, r, 0, Math.PI * 2);
+    ctx.stroke();
+    // droplets on the ring
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2 + t * 0.5;
+      ctx.beginPath();
+      ctx.arc(this.at.x + Math.cos(a) * r * 1.15, this.at.y + Math.sin(a) * r * 1.15, this.radius * 0.09 * (1 - t) + 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
   }
 }
 
@@ -390,7 +451,7 @@ export class Hitmarker implements Effect {
     return now - this.born < 140;
   }
   draw(ctx: CanvasRenderingContext2D, now: number): void {
-    const t = (now - this.born) / 140;
+    const t = clamp01((now - this.born) / 140);
     const s = this.size * (1 + t * 0.6);
     ctx.globalAlpha = 1 - t;
     ctx.strokeStyle = this.color;
@@ -418,8 +479,19 @@ export class EffectSystem {
   constructor(rng: Rng) {
     this.particles = new Particles(rng);
   }
+  /** Persistent per-vehicle effects (wrecks, fill patches) are capped; the oldest fade out. */
+  maxUnder = 6;
+  maxOver = 60;
+
   add(e: Effect): void {
-    (e.layer === 'under' ? this.under : this.over).push(e);
+    if (e.layer === 'under') {
+      this.under.push(e);
+      const persistent = this.under.filter((x) => 'expire' in x) as (Effect & { expire(now: number): void })[];
+      while (persistent.length > this.maxUnder) persistent.shift()!.expire(performance.now());
+    } else {
+      this.over.push(e);
+      if (this.over.length > this.maxOver) this.over.splice(0, this.over.length - this.maxOver);
+    }
   }
   update(dt: number, now: number, boxOf: BoxOf): void {
     for (const list of [this.under, this.over]) {

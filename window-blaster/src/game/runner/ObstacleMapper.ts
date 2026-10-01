@@ -5,7 +5,7 @@ export type ObstacleKind = 'ground' | 'overhead' | 'coin';
 
 export interface Obstacle {
   id: number | string;
-  cls: TargetClass | 'pole' | 'coin';
+  cls: TargetClass | 'pole' | 'coin' | 'bird';
   kind: ObstacleKind;
   /** hit box in video px (already shrunk) */
   box: Rect;

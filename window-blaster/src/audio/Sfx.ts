@@ -63,6 +63,10 @@ export class Sfx {
     g.gain.setValueAtTime(gain, t0);
     g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
     o.connect(g).connect(this.master);
+    o.onended = () => {
+      o.disconnect();
+      g.disconnect();
+    };
     o.start(t0);
     o.stop(t0 + dur + 0.02);
   }
@@ -88,6 +92,12 @@ export class Sfx {
       node = node.connect(hp);
     }
     node.connect(g).connect(this.master);
+    s.onended = () => {
+      s.disconnect();
+      f.disconnect();
+      g.disconnect();
+      node.disconnect();
+    };
     s.start(t0);
     s.stop(t0 + dur + 0.02);
   }

@@ -138,8 +138,13 @@ export class DemoSource implements FrameSource {
     this.video.muted = true;
     this.video.playsInline = true;
     await this.video.play().catch(() => undefined);
+    const minDt = 1000 / this.opts.fps - 2;
+    let lastDraw = 0;
     const tick = (t: number) => {
-      this.draw(t);
+      if (t - lastDraw >= minDt) {
+        lastDraw = t;
+        this.draw(t);
+      }
       this.raf = requestAnimationFrame(tick);
     };
     this.raf = requestAnimationFrame(tick);

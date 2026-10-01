@@ -16,6 +16,9 @@ export interface SettingsData {
   roundSeconds: number;
   showBoxes: boolean;
   safetyAcceptedAt: number;
+  /** 0 = entspannt, 1 = normal, 2 = hart (bird density, hit tolerance) */
+  difficulty: number;
+  leftHanded: boolean;
 }
 
 export const DEFAULT_SETTINGS: SettingsData = {
@@ -32,6 +35,8 @@ export const DEFAULT_SETTINGS: SettingsData = {
   roundSeconds: 60,
   showBoxes: false,
   safetyAcceptedAt: 0,
+  difficulty: 1,
+  leftHanded: false,
 };
 
 export class Settings {

@@ -5,7 +5,7 @@ import { fmtScore, fmtTime, h } from '../dom';
 import { MODES, T, WEAPON_TEXT } from '../i18n/de';
 import type { Screen } from '../Router';
 
-export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolean; newDaily: boolean }): Screen {
+export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolean; newDaily: boolean; newlyAffordable?: { icon: string; name: string }[] }): Screen {
   const medal = medalFor(r.mode, r.score);
   const nm = nextMedal(r.mode, r.score);
   const acc = r.shots ? Math.round((r.hits / r.shots) * 100) : 0;
@@ -54,13 +54,14 @@ export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolea
             ...r.missions.map((m) => h('li', { class: m.done ? 'me' : '' }, h('span', { class: 'name' }, `${m.done ? '✓' : '○'} ${m.text}`), h('span', { class: 'score' }, m.done ? `+${m.reward}` : `${m.progress}/${m.goal}`))),
           )
         : null,
+      h('p', { class: 'small' }, `💰 +${fmtScore(r.score)} Guthaben → ${fmtScore(app.unlocks.balance)} Punkte`, flags.newlyAffordable?.length ? h('span', { class: 'badge ok', style: 'margin-left:8px' }, `Neu freischaltbar: ${flags.newlyAffordable.map((i) => i.icon).join(' ')}`) : null),
       r.source === 'demo' ? h('p', { class: 'small muted' }, 'Demo-Runde (synthetische Szene) – zählt nicht für die weltweite Rangliste.') : null,
       h(
         'div',
         { class: 'col', style: 'margin-top:12px' },
         h('button', { class: 'btn block', onclick: () => app.startRound() }, `🔁 ${T.again}`),
         r.source === 'camera' ? submitBtn : null,
-        h('div', { class: 'row' }, h('button', { class: 'btn secondary grow', onclick: () => app.showLeaderboard() }, `🏆 ${T.leaderboard}`), h('button', { class: 'btn secondary grow', onclick: () => app.showStart() }, T.menu)),
+        h('div', { class: 'row' }, h('button', { class: 'btn secondary grow', onclick: () => app.showLeaderboard() }, `🏆 ${T.leaderboard}`), h('button', { class: 'btn secondary grow', onclick: () => app.showShop() }, '🎁 Shop'), h('button', { class: 'btn secondary grow', onclick: () => app.showStart() }, T.menu)),
       ),
     ),
   );

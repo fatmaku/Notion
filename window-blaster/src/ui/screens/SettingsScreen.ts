@@ -63,6 +63,8 @@ export function SettingsScreen(app: App, onBack: () => void): Screen {
       toggle('showBoxes', '🟩 Erkennungsboxen anzeigen'),
       toggle('debug', '🧪 Diagnose-Overlay'),
       range('roundSeconds', 'Rundenlänge (0 = endlos)', 0, 180, 30, ' s'),
+      range('difficulty', 'Schwierigkeit (0 entspannt · 1 normal · 2 hart)', 0, 2, 1),
+      toggle('leftHanded', '🤚 Linkshänder-Layout (Knöpfe getauscht)'),
       range('hfovDeg', 'Kamera-Sichtfeld (Tracking-Stärke)', 50, 100, 1, '°'),
       range('cameraLatencyMs', 'Kamera-Latenzausgleich', 0, 200, 10, ' ms'),
       toggle('invertPan', '↔️ Tracking horizontal invertieren'),

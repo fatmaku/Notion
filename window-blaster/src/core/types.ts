@@ -33,5 +33,6 @@ export interface Detection {
 
 export type GameModeId = 'front-shooter' | 'side-shooter' | 'side-runner';
 export type VehicleType = 'car' | 'train' | 'bus' | 'other';
-export type WeaponId = 'smg' | 'grenade' | 'rocket' | 'milkshake' | 'paint';
+export type WeaponId = 'smg' | 'grenade' | 'rocket' | 'milkshake' | 'paint' | 'egg' | 'tomato' | 'snowball' | 'waterballoon' | 'banana' | 'tp' | 'laser' | 'glove';
+export const ALL_WEAPONS: readonly WeaponId[] = ['smg', 'grenade', 'rocket', 'milkshake', 'paint', 'egg', 'tomato', 'snowball', 'waterballoon', 'banana', 'tp', 'laser', 'glove'];
 export type WindowSide = 'left' | 'right' | 'front';

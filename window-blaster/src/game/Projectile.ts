@@ -1,7 +1,7 @@
 import type { Rect, Vec2, WeaponId } from '../core/types';
 import { center } from '../core/math/rect';
 
-export type ProjectileKind = 'grenade' | 'rocket' | 'milkshake';
+export type ProjectileKind = 'grenade' | 'rocket' | 'milkshake' | 'egg' | 'tomato' | 'snowball' | 'balloon' | 'banana' | 'tp';
 
 export interface Projectile {
   id: number;
@@ -18,6 +18,10 @@ export interface Projectile {
   target: Vec2;
   /** Track to home in on (rockets). */
   homingId: number | null;
+  /** Track this projectile was aimed at (lead-corrected); checked on arrival. */
+  targetId: number | null;
+  /** Position at the previous step, for sweep tests. */
+  prev: Vec2;
   homing: number;
   trail: Vec2[];
   /** 1 at launch → ~0.35 near the target: fakes perspective. */
@@ -51,19 +55,21 @@ export class ProjectileSystem {
   readonly list: Projectile[] = [];
   private nextId = 1;
 
-  spawnBallistic(kind: 'grenade' | 'milkshake', weapon: WeaponId, start: Vec2, target: Vec2, flightS: number, gravity: number, now: number): Projectile {
+  spawnBallistic(kind: ProjectileKind, weapon: WeaponId, start: Vec2, target: Vec2, flightS: number, gravity: number, now: number, targetId: number | null = null): Projectile {
     const p: Projectile = {
       id: this.nextId++,
       kind,
       weapon,
       pos: { ...start },
       start: { ...start },
+      prev: { ...start },
       vel: solveBallistic(start, target, flightS, gravity),
       gravity,
       born: now,
       flightMs: flightS * 1000,
       target: { ...target },
       homingId: null,
+      targetId,
       homing: 0,
       trail: [],
       scale: 1,
@@ -80,12 +86,14 @@ export class ProjectileSystem {
       weapon,
       pos: { ...start },
       start: { ...start },
+      prev: { ...start },
       vel: { x: (target.x - start.x) / flightS, y: (target.y - start.y) / flightS },
       gravity: 0,
       born: now,
       flightMs: flightS * 1000,
       target: { ...target },
       homingId,
+      targetId: homingId,
       homing,
       trail: [],
       scale: 1,
@@ -108,6 +116,7 @@ export class ProjectileSystem {
       const f = Math.min(1, age / p.flightMs);
       p.scale = 1 - 0.65 * f;
       p.spin += dt * 9;
+      p.prev = { ...p.pos };
       if (p.kind === 'rocket') {
         if (p.homingId !== null) {
           const b = boxOf(p.homingId);
@@ -130,14 +139,18 @@ export class ProjectileSystem {
       if (p.trail.length > 18) p.trail.shift();
       p.trail.push({ ...p.pos });
 
-      const hitId = f > 0.25 ? contact(p.pos, p) : null;
+      // contact: only in the second half of the flight (the arc passes "over" nearer traffic before that)
+      const hitId = f > 0.45 ? contact(p.pos, p) : null;
       if (hitId !== null) {
         out.push({ p, at: { ...p.pos }, reason: 'contact', contactId: hitId });
         this.list.splice(i, 1);
         continue;
       }
       if (age >= p.flightMs) {
-        out.push({ p, at: { ...p.target }, reason: 'arrived', contactId: null });
+        // arrival: if we were aimed at a tracked target, land on where it is now
+        const tb = p.targetId !== null ? boxOf(p.targetId) : null;
+        const at = tb ? { x: Math.min(Math.max(p.target.x, tb.x), tb.x + tb.w), y: Math.min(Math.max(p.target.y, tb.y), tb.y + tb.h) } : { ...p.target };
+        out.push({ p, at, reason: 'arrived', contactId: tb ? p.targetId : null });
         this.list.splice(i, 1);
       }
     }

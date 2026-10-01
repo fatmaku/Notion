@@ -68,6 +68,7 @@ test.describe('demo mode (synthetic scene + mock detector)', () => {
     await expect(page.getByText('Nur als Fahrgast')).toBeVisible();
     await page.getByRole('button', { name: /Zug \/ Bahn/ }).click();
     const hold = page.getByRole('button', { name: /Ich bin nicht am Steuer/ });
+    await hold.scrollIntoViewIfNeeded();
     const box = (await hold.boundingBox())!;
     await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
     await page.mouse.down();

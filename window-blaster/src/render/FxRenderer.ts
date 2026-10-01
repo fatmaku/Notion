@@ -6,10 +6,55 @@ import type { Track } from '../vision/Tracker';
 export class FxRenderer {
   constructor(readonly ctx: CanvasRenderingContext2D) {}
 
+  crosshairStyle: 'classic' | 'dot' | 'brackets' | 'neon' = 'classic';
+
   crosshair(p: Vec2, r: number, color = 'rgba(255,255,255,0.85)', active = false): void {
     const c = this.ctx;
+    if (!(r > 0)) return;
     c.strokeStyle = color;
     c.lineWidth = active ? 3 : 2;
+    if (this.crosshairStyle === 'dot') {
+      c.fillStyle = color;
+      c.beginPath();
+      c.arc(p.x, p.y, Math.max(2, r * 0.22), 0, Math.PI * 2);
+      c.fill();
+      c.beginPath();
+      c.arc(p.x, p.y, r * 1.1, 0, Math.PI * 2);
+      c.stroke();
+      return;
+    }
+    if (this.crosshairStyle === 'brackets') {
+      const l = r * 0.6;
+      c.beginPath();
+      for (const [sx, sy] of [
+        [-1, -1],
+        [1, -1],
+        [1, 1],
+        [-1, 1],
+      ]) {
+        c.moveTo(p.x + sx * r, p.y + sy * (r - l));
+        c.lineTo(p.x + sx * r, p.y + sy * r);
+        c.lineTo(p.x + sx * (r - l), p.y + sy * r);
+      }
+      c.stroke();
+      c.fillStyle = color;
+      c.fillRect(p.x - 1.5, p.y - 1.5, 3, 3);
+      return;
+    }
+    if (this.crosshairStyle === 'neon') {
+      c.save();
+      c.shadowColor = '#22d3ee';
+      c.shadowBlur = 12;
+      c.strokeStyle = '#22d3ee';
+      c.beginPath();
+      c.arc(p.x, p.y, r, 0, Math.PI * 2);
+      c.stroke();
+      c.beginPath();
+      c.arc(p.x, p.y, r * 0.45, 0, Math.PI * 2);
+      c.stroke();
+      c.restore();
+      return;
+    }
     c.beginPath();
     c.arc(p.x, p.y, r, 0, Math.PI * 2);
     c.stroke();
@@ -158,6 +203,92 @@ export class FxRenderer {
         c.fill();
         break;
       }
+      case 'egg': {
+        c.rotate(p.spin * 0.6);
+        c.fillStyle = '#fbf3e0';
+        c.beginPath();
+        c.ellipse(0, 0, 13 * s, 17 * s, 0, 0, Math.PI * 2);
+        c.fill();
+        c.fillStyle = 'rgba(0,0,0,0.08)';
+        c.beginPath();
+        c.ellipse(3 * s, 4 * s, 7 * s, 9 * s, 0, 0, Math.PI * 2);
+        c.fill();
+        break;
+      }
+      case 'tomato': {
+        c.rotate(p.spin * 0.4);
+        c.fillStyle = '#e5322d';
+        c.beginPath();
+        c.arc(0, 0, 15 * s, 0, Math.PI * 2);
+        c.fill();
+        c.fillStyle = '#2f9e44';
+        for (let i = 0; i < 5; i++) {
+          const a = (i / 5) * Math.PI * 2;
+          c.beginPath();
+          c.ellipse(Math.cos(a) * 6 * s, -12 * s + Math.sin(a) * 3 * s, 6 * s, 2.5 * s, a, 0, Math.PI * 2);
+          c.fill();
+        }
+        break;
+      }
+      case 'snowball': {
+        c.fillStyle = '#f8fbff';
+        c.beginPath();
+        c.arc(0, 0, 14 * s, 0, Math.PI * 2);
+        c.fill();
+        c.fillStyle = 'rgba(160,200,255,0.5)';
+        c.beginPath();
+        c.arc(4 * s, 4 * s, 8 * s, 0, Math.PI * 2);
+        c.fill();
+        break;
+      }
+      case 'balloon': {
+        c.rotate(Math.sin(p.spin) * 0.2);
+        c.fillStyle = '#38bdf8';
+        c.beginPath();
+        c.ellipse(0, 0, 16 * s, 20 * s, 0, 0, Math.PI * 2);
+        c.fill();
+        c.fillStyle = 'rgba(255,255,255,0.5)';
+        c.beginPath();
+        c.ellipse(-5 * s, -7 * s, 4 * s, 7 * s, -0.4, 0, Math.PI * 2);
+        c.fill();
+        c.fillStyle = '#0ea5e9';
+        c.fillRect(-3 * s, 19 * s, 6 * s, 5 * s);
+        break;
+      }
+      case 'banana': {
+        c.rotate(p.spin);
+        c.strokeStyle = '#f7e26b';
+        c.lineWidth = 9 * s;
+        c.lineCap = 'round';
+        c.beginPath();
+        c.arc(0, 8 * s, 18 * s, Math.PI * 1.15, Math.PI * 1.85);
+        c.stroke();
+        c.strokeStyle = '#8b5a2b';
+        c.lineWidth = 3 * s;
+        c.beginPath();
+        c.moveTo(-15 * s, -4 * s);
+        c.lineTo(-19 * s, -8 * s);
+        c.stroke();
+        break;
+      }
+      case 'tp': {
+        c.rotate(p.spin * 1.5);
+        c.fillStyle = '#f8fafc';
+        c.beginPath();
+        c.arc(0, 0, 15 * s, 0, Math.PI * 2);
+        c.fill();
+        c.fillStyle = '#cbd5e1';
+        c.beginPath();
+        c.arc(0, 0, 6 * s, 0, Math.PI * 2);
+        c.fill();
+        c.strokeStyle = '#f8fafc';
+        c.lineWidth = 6 * s;
+        c.beginPath();
+        c.moveTo(15 * s, 0);
+        c.lineTo(45 * s, 10 * s);
+        c.stroke();
+        break;
+      }
       case 'milkshake': {
         c.rotate(p.spin * 0.5);
         c.fillStyle = '#fff';
@@ -175,6 +306,59 @@ export class FxRenderer {
         break;
       }
     }
+    c.restore();
+  }
+
+  /** Laser beam from the muzzle to the hit point. */
+  beam(from: Vec2, to: Vec2, t: number): void {
+    const c = this.ctx;
+    c.save();
+    c.lineCap = 'round';
+    c.strokeStyle = 'rgba(255,60,60,0.35)';
+    c.lineWidth = 9;
+    c.beginPath();
+    c.moveTo(from.x, from.y);
+    c.lineTo(to.x, to.y);
+    c.stroke();
+    c.strokeStyle = '#ff3b3b';
+    c.lineWidth = 3;
+    c.stroke();
+    c.strokeStyle = '#fff';
+    c.lineWidth = 1;
+    c.stroke();
+    c.fillStyle = `rgba(255,120,120,${0.6 + 0.4 * Math.sin(t * 40)})`;
+    c.beginPath();
+    c.arc(to.x, to.y, 7 + Math.sin(t * 50) * 2, 0, Math.PI * 2);
+    c.fill();
+    c.restore();
+  }
+
+  /** Comic "POW!" burst for the boxing glove. */
+  pow(at: Vec2, size: number, age: number): void {
+    const c = this.ctx;
+    const t = Math.max(0, Math.min(1, age));
+    const s = size * (0.6 + 0.6 * (1 - (1 - t) * (1 - t)));
+    c.save();
+    c.translate(at.x, at.y);
+    c.rotate(-0.15);
+    c.globalAlpha = 1 - t * t;
+    c.fillStyle = '#ffd233';
+    c.strokeStyle = '#111';
+    c.lineWidth = Math.max(2, s * 0.05);
+    c.beginPath();
+    for (let i = 0; i < 16; i++) {
+      const a = (i / 16) * Math.PI * 2;
+      const rr = i % 2 ? s * 0.55 : s * 0.85;
+      c.lineTo(Math.cos(a) * rr, Math.sin(a) * rr * 0.75);
+    }
+    c.closePath();
+    c.fill();
+    c.stroke();
+    c.fillStyle = '#e11d48';
+    c.font = `900 ${s * 0.5}px Impact, system-ui, sans-serif`;
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    c.fillText('POW!', 0, 2);
     c.restore();
   }
 

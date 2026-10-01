@@ -20,6 +20,18 @@ interface ObstacleMemo {
   coinTaken: boolean;
 }
 
+interface Bird {
+  id: string;
+  x: number;
+  /** center height above ground */
+  h: number;
+  vx: number;
+  golden: boolean;
+  phase: number;
+  born: number;
+  done: boolean;
+}
+
 interface Coin {
   id: string;
   x: number;
@@ -44,6 +56,10 @@ export class RunnerMode implements GameMode {
   private readonly memo = new Map<number | string, ObstacleMemo>();
   private readonly feed: { text: string; born: number; color: string }[] = [];
   private coins: Coin[] = [];
+  private birds: Bird[] = [];
+  private nextBirdAt = 0;
+  private goldenCaught = 0;
+  private birdsDodged = 0;
   private poles = new PoleDetector();
   private fx!: FxRenderer;
   private hud!: HudRenderer;
@@ -86,6 +102,7 @@ export class RunnerMode implements GameMode {
     this.lastNow = now;
     this.lastCoinAt = now;
     this.lastHurtAt = now;
+    this.nextBirdAt = now + 6000;
     this.R = this.runnerHeight();
     this.phys = new RunnerPhysics(defaultParams(this.R));
   }
@@ -226,6 +243,63 @@ export class RunnerMode implements GameMode {
     this.obstacles = out;
   }
 
+  /** Birds fly in at head height – duck under them. A rare golden bird flies high: catch it with a jump. */
+  private updateBirds(dt: number, now: number, runner: Rect): void {
+    const q = this.area().quad;
+    const left = Math.min(q[0].x, q[3].x);
+    const right = Math.max(q[1].x, q[2].x);
+    const elapsed = (this.t(now) - this.startedAt) / 1000;
+    if (now >= this.nextBirdAt) {
+      const golden = this.ctx.rng.chance(0.18);
+      const speed = this.flowSpeed * 1.05 + 90;
+      this.birds.push({
+        id: `b${now}`,
+        x: this.dir > 0 ? left - 40 : right + 40,
+        h: golden ? this.R * this.ctx.rng.range(2.0, 2.5) : this.R * 0.82,
+        vx: this.dir * speed,
+        golden,
+        phase: this.ctx.rng.range(0, 6.28),
+        born: now,
+        done: false,
+      });
+      // difficulty ramp: 7 s → 2.5 s between birds over two minutes
+      const diff = this.ctx.settings.data.difficulty;
+      const gap = Math.max(2500, 7000 - elapsed * 37) * (diff <= 0 ? 1.5 : diff >= 2 ? 0.7 : 1);
+      this.nextBirdAt = now + gap * this.ctx.rng.range(0.7, 1.3);
+    }
+    for (const b of this.birds) {
+      b.x += b.vx * dt;
+      b.phase += dt * 14;
+      if (b.done) continue;
+      const r = this.R * 0.18;
+      const cy = this.groundY(b.x) - b.h;
+      const bbox = { x: b.x - r * 1.3, y: cy - r * 0.7, w: r * 2.6, h: r * 1.4 };
+      if (b.golden) {
+        if (intersect(runner, bbox)) {
+          b.done = true;
+          this.goldenCaught++;
+          this.addPoints(300, { x: b.x, y: cy - r }, '#ffd233', 26);
+          this.effects.particles.sparks({ x: b.x, y: cy }, 18, 260, ['#ffd233', '#fff7c0']);
+          this.ctx.sfx.play('coin');
+          this.pushFeed('GOLDENER VOGEL! +300', '#ffd233');
+          this.record({ t: Math.round(this.t(now) - this.startedAt), kind: 'bonus', id: 'goldbird', points: 300 }, now);
+        }
+      }
+    }
+    this.birds = this.birds.filter((b) => b.x > left - 120 && b.x < right + 120 && now - b.born < 30000);
+  }
+
+  private birdObstacles(): Obstacle[] {
+    const out: Obstacle[] = [];
+    for (const b of this.birds) {
+      if (b.golden || b.done) continue;
+      const r = this.R * 0.18;
+      const cy = this.groundY(b.x) - b.h;
+      out.push({ id: b.id, cls: 'bird', kind: 'overhead', box: { x: b.x - r * 1.1, y: cy - r * 0.6, w: r * 2.2, h: r * 1.2 }, top: 0, vx: b.vx, raw: { x: b.x - r, y: cy - r, w: 2 * r, h: 2 * r } });
+    }
+    return out;
+  }
+
   private updateCoins(dt: number, now: number, runner: Rect): void {
     const q = this.area().quad;
     const left = Math.min(q[0].x, q[3].x);
@@ -270,6 +344,7 @@ export class RunnerMode implements GameMode {
     this.R = this.R * 0.95 + this.runnerHeight() * 0.05;
     this.phys.p = defaultParams(this.R);
     this.buildObstacles(now);
+    this.obstacles.push(...this.birdObstacles());
 
     const rx = this.runnerX();
     const gy = this.groundY(rx);
@@ -294,6 +369,7 @@ export class RunnerMode implements GameMode {
       if (!m.cleared && !m.hit && passed) {
         m.cleared = true;
         this.cleared++;
+        if (o.cls === 'bird') this.birdsDodged++;
         const c = this.combo.bump(1, t);
         const pts = runnerObstaclePoints(c);
         this.addPoints(pts, { x: runner.x + runner.w / 2, y: runner.y - 10 }, c >= 3 ? '#ffb020' : '#fff', 22);
@@ -307,6 +383,7 @@ export class RunnerMode implements GameMode {
     for (const id of [...this.memo.keys()]) if (!this.obstacles.some((o) => o.id === id)) this.memo.delete(id);
 
     this.updateCoins(dt, now, runner);
+    this.updateBirds(dt, now, runner);
 
     // survival points
     this.timeAcc += dt;
@@ -336,7 +413,7 @@ export class RunnerMode implements GameMode {
     this.ctx.sfx.play('ouch');
     this.ctx.haptics.heavy();
     const rx = this.runnerX();
-    this.effects.add(new Popup('AUTSCH!', { x: rx, y: this.groundY(rx) - this.R * 1.4 }, now, '#ef4444', 30));
+    this.effects.add(new Popup(o.cls === 'bird' ? 'VOGEL! DUCKEN!' : 'AUTSCH!', { x: rx, y: this.groundY(rx) - this.R * 1.4 }, now, '#ef4444', 30));
     this.effects.particles.sparks({ x: rx, y: this.groundY(rx) - this.R * 0.5 }, 12, 300, ['#ef4444', '#fff']);
     this.record({ t: Math.round(t - this.startedAt), kind: 'life', cls: String(o.cls), points: 0 }, now);
     if (this.lives <= 0) this.finish(now);
@@ -369,7 +446,7 @@ export class RunnerMode implements GameMode {
   }
 
   private record(ev: RoundEvent, now: number): void {
-    if (ev.kind !== 'bonus') this.events.push(ev);
+    if (ev.kind !== 'bonus' || ev.id === 'goldbird') this.events.push(ev);
     for (const m of this.missions.onEvent(ev)) {
       this.missionPoints += m.reward;
       this.score += m.reward;
@@ -428,6 +505,7 @@ export class RunnerMode implements GameMode {
 
     // obstacles
     for (const o of this.obstacles) {
+      if (o.cls === 'bird') continue;
       const m = this.memo.get(o.id);
       c.strokeStyle = m?.hit ? 'rgba(239,68,68,0.8)' : o.kind === 'overhead' ? 'rgba(56,189,248,0.8)' : 'rgba(255,176,32,0.8)';
       c.lineWidth = 3;
@@ -453,6 +531,25 @@ export class RunnerMode implements GameMode {
       c.stroke();
     }
 
+    // birds (+ warning arrow shortly before they enter)
+    for (const b of this.birds) {
+      const cy = this.groundY(b.x) - b.h;
+      const inside = b.x > left && b.x < right;
+      if (!inside && !b.done) {
+        const ax = this.dir > 0 ? left + 18 : right - 18;
+        c.fillStyle = b.golden ? 'rgba(255,210,51,0.9)' : 'rgba(239,68,68,0.9)';
+        c.beginPath();
+        c.moveTo(ax + this.dir * 14, cy);
+        c.lineTo(ax - this.dir * 6, cy - 12);
+        c.lineTo(ax - this.dir * 6, cy + 12);
+        c.closePath();
+        c.fill();
+        continue;
+      }
+      if (b.done) continue;
+      this.drawBird(c, b, cy);
+    }
+
     // runner
     const rx = this.runnerX();
     const gy = this.groundY(rx);
@@ -472,7 +569,7 @@ export class RunnerMode implements GameMode {
       weapon: { icon: '🏃', name: 'Runner', ammo: `${this.cleared} übersprungen`, reload: 1, empty: false },
       missions: this.missions.results().map((m) => ({ text: m.text, progress: m.progress, goal: m.goal, done: m.done })),
       feed: this.feed,
-      hint: a.free ? 'Frei-Modus (keine Scheibe erkannt)' : this.obstacles.length === 0 && t - this.startedAt > 5000 ? 'Warte auf Hindernisse …' : null,
+      hint: a.free ? 'Frei-Modus (keine Scheibe erkannt)' : t - this.startedAt < 4000 ? 'Tippen = Sprung · Wischen nach unten = Ducken (Vögel!)' : this.obstacles.length === 0 && t - this.startedAt > 5000 ? 'Warte auf Hindernisse …' : null,
       windowMode: this.ctx.window().mode,
       lives: this.lives,
       extra: `🪙 ${this.coinsTaken}`,
@@ -480,6 +577,67 @@ export class RunnerMode implements GameMode {
     this.hud.draw(hs, now);
   }
 
+  private drawBird(c: CanvasRenderingContext2D, b: Bird, cy: number): void {
+    const r = this.R * 0.18;
+    const flap = Math.sin(b.phase);
+    c.save();
+    c.translate(b.x, cy);
+    c.scale(b.vx > 0 ? 1 : -1, 1);
+    // shadow on the ground
+    c.restore();
+    c.save();
+    c.globalAlpha = 0.25;
+    c.fillStyle = '#000';
+    c.beginPath();
+    c.ellipse(b.x, this.groundY(b.x), r * 1.1, r * 0.25, 0, 0, Math.PI * 2);
+    c.fill();
+    c.restore();
+    c.save();
+    c.translate(b.x, cy);
+    c.scale(b.vx > 0 ? 1 : -1, 1);
+    const body = b.golden ? '#ffd233' : '#2b2b2b';
+    const wing = b.golden ? '#ffb020' : '#444';
+    // wings
+    c.fillStyle = wing;
+    c.beginPath();
+    c.moveTo(-r * 0.2, 0);
+    c.quadraticCurveTo(-r * 1.4, -r * (0.2 + flap * 1.1), -r * 2.2, -r * flap * 1.4);
+    c.quadraticCurveTo(-r * 1.2, r * 0.3, -r * 0.2, r * 0.25);
+    c.closePath();
+    c.fill();
+    c.beginPath();
+    c.moveTo(r * 0.1, 0);
+    c.quadraticCurveTo(r * 0.9, -r * (0.2 + flap * 1.1), r * 1.7, -r * flap * 1.4);
+    c.quadraticCurveTo(r * 0.8, r * 0.3, r * 0.1, r * 0.25);
+    c.closePath();
+    c.fill();
+    // body + head + beak
+    c.fillStyle = body;
+    c.beginPath();
+    c.ellipse(0, 0, r * 0.9, r * 0.5, 0, 0, Math.PI * 2);
+    c.fill();
+    c.beginPath();
+    c.arc(r * 0.95, -r * 0.2, r * 0.35, 0, Math.PI * 2);
+    c.fill();
+    c.fillStyle = '#f59e0b';
+    c.beginPath();
+    c.moveTo(r * 1.25, -r * 0.2);
+    c.lineTo(r * 1.7, -r * 0.1);
+    c.lineTo(r * 1.25, r * 0.02);
+    c.closePath();
+    c.fill();
+    c.fillStyle = '#fff';
+    c.beginPath();
+    c.arc(r * 1.02, -r * 0.28, r * 0.09, 0, Math.PI * 2);
+    c.fill();
+    c.restore();
+  }
+
+  /**
+   * The runner is a hand "walking" on index and middle finger – the classic
+   * childhood hand puppet. Palm = body, two fingers = legs, thumb up front,
+   * ring + pinky curled at the back, a shirt cuff at the wrist.
+   */
   private drawRunner(c: CanvasRenderingContext2D, r: Rect): void {
     const R = this.R;
     const facing = -this.dir; // faces oncoming obstacles
@@ -488,56 +646,77 @@ export class RunnerMode implements GameMode {
     const air = !this.phys.grounded;
     const duck = this.phys.ducking && this.phys.grounded;
     const ph = this.runPhase;
+    const skin = this.skin.color;
+    const shade = this.skin.shade;
+    const sq = duck ? 0.62 : 1; // squash when ducking
     c.save();
     c.translate(cx, feet);
-    c.scale(facing, 1);
-    const s = r.h / R; // squash when ducking
-    // legs
-    c.strokeStyle = '#1e3a8a';
-    c.lineWidth = Math.max(3, R * 0.11);
+    c.scale(facing, sq);
     c.lineCap = 'round';
-    const legA = air ? 0.5 : Math.sin(ph) * 0.9;
-    const legB = air ? -0.4 : Math.sin(ph + Math.PI) * 0.9;
-    for (const [a, side] of [
-      [legA, -1],
-      [legB, 1],
-    ] as const) {
+    c.lineJoin = 'round';
+    const legLen = R * 0.42;
+    const knee = R * 0.22;
+    const fw = Math.max(3, R * 0.11); // finger width
+    // legs = index (front) and middle (back) finger, two segments each
+    const legs: [number, number][] = air ? [[0.9, -0.6], [-0.7, 0.9]] : [[Math.sin(ph) * 0.9, Math.max(0, Math.sin(ph + 1.2)) * 1.1], [Math.sin(ph + Math.PI) * 0.9, Math.max(0, Math.sin(ph + Math.PI + 1.2)) * 1.1]];
+    const hipY = -legLen - knee * 0.4;
+    legs.forEach(([swing, bend], i) => {
+      const hx = (i === 0 ? 0.09 : -0.09) * R;
+      const kx = hx + Math.sin(swing) * knee;
+      const ky = hipY + Math.cos(swing) * knee;
+      const fx = kx + Math.sin(swing - bend) * legLen;
+      const fy = Math.min(0, ky + Math.cos(swing - bend) * legLen);
+      c.strokeStyle = i === 0 ? skin : shade;
+      c.lineWidth = fw;
       c.beginPath();
-      c.moveTo(side * R * 0.06, -R * 0.42 * s);
-      c.lineTo(side * R * 0.06 + Math.sin(a) * R * 0.22, -R * 0.42 * s + Math.cos(a) * R * 0.4 * s);
+      c.moveTo(hx, hipY);
+      c.lineTo(kx, ky);
+      c.lineTo(fx, fy);
       c.stroke();
-    }
-    // body
-    c.fillStyle = '#ef4444';
+      // fingernail
+      c.fillStyle = '#f9e0d2';
+      c.beginPath();
+      c.arc(fx + Math.sin(swing - bend) * fw * 0.3, fy, fw * 0.36, 0, Math.PI * 2);
+      c.fill();
+    });
+    // palm
+    c.fillStyle = skin;
     c.beginPath();
-    c.ellipse(0, -R * 0.55 * s, R * 0.2, R * 0.26 * s, 0, 0, Math.PI * 2);
+    c.ellipse(0, hipY - R * 0.24, R * 0.26, R * 0.3, 0, 0, Math.PI * 2);
     c.fill();
-    // arms
-    c.strokeStyle = '#fcd9b6';
-    c.lineWidth = Math.max(3, R * 0.09);
-    const arm = air ? -1.2 : Math.sin(ph + Math.PI) * 0.8;
+    // curled ring + pinky at the back
+    c.fillStyle = shade;
     c.beginPath();
-    c.moveTo(0, -R * 0.68 * s);
-    c.lineTo(Math.cos(arm) * R * 0.28, -R * 0.68 * s + Math.sin(arm) * R * 0.2);
+    c.arc(-R * 0.22, hipY - R * 0.05, fw * 0.75, 0, Math.PI * 2);
+    c.arc(-R * 0.3, hipY - R * 0.16, fw * 0.6, 0, Math.PI * 2);
+    c.fill();
+    // thumb up front (arm-like, swings while running)
+    const thumb = air ? -1.3 : -0.9 + Math.sin(ph) * 0.35;
+    c.strokeStyle = skin;
+    c.lineWidth = fw * 1.05;
+    c.beginPath();
+    c.moveTo(R * 0.16, hipY - R * 0.3);
+    c.lineTo(R * 0.16 + Math.cos(thumb) * R * 0.28, hipY - R * 0.3 + Math.sin(thumb) * R * 0.28);
     c.stroke();
-    // head + cap
-    c.fillStyle = '#fcd9b6';
+    // shirt cuff at the wrist (top)
+    c.fillStyle = this.skin.cuff;
+    c.fillRect(-R * 0.2, hipY - R * 0.62, R * 0.4, R * 0.12);
+    c.fillStyle = '#e5e7eb';
+    c.fillRect(-R * 0.2, hipY - R * 0.66, R * 0.4, R * 0.05);
+    // googly eye on the palm
+    c.fillStyle = '#fff';
     c.beginPath();
-    c.arc(R * 0.04, -R * 0.9 * s, R * 0.16, 0, Math.PI * 2);
+    c.arc(R * 0.1, hipY - R * 0.3, R * 0.07, 0, Math.PI * 2);
     c.fill();
-    c.fillStyle = '#ef4444';
-    c.beginPath();
-    c.arc(R * 0.04, -R * 0.93 * s, R * 0.17, Math.PI, Math.PI * 2);
-    c.fill();
-    c.fillRect(R * 0.04, -R * 0.95 * s, R * 0.3, R * 0.06);
-    // eye
     c.fillStyle = '#111';
     c.beginPath();
-    c.arc(R * 0.12, -R * 0.9 * s, R * 0.03, 0, Math.PI * 2);
+    c.arc(R * 0.12, hipY - R * 0.3, R * 0.035, 0, Math.PI * 2);
     c.fill();
     c.restore();
-    void duck;
   }
+
+  /** Hand skin (colours) – selectable in the shop. */
+  skin: { color: string; shade: string; cuff: string } = { color: '#f2c9a8', shade: '#d9a684', cuff: '#2563eb' };
 
   visualOffset(): Vec2 {
     const o = this.shake.offset();

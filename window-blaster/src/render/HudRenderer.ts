@@ -47,13 +47,19 @@ export class HudRenderer {
     const sar = this.safe('right');
     const sab = this.safe('bottom');
     const font = (px: number, w = 800) => `${w} ${px * k}px system-ui, -apple-system, sans-serif`;
-    const shadow = () => {
-      c.shadowColor = 'rgba(0,0,0,0.8)';
-      c.shadowBlur = 6 * k;
-      c.shadowOffsetY = 1;
+    // shadowBlur per fillText is very expensive on Safari → outline text instead
+    const rawFill = c.fillText.bind(c);
+    const fillText = (txt: string, x: number, y: number) => {
+      const f = c.fillStyle;
+      c.lineWidth = 3 * k;
+      c.lineJoin = 'round';
+      c.strokeStyle = 'rgba(0,0,0,0.75)';
+      c.strokeText(txt, x, y);
+      c.fillStyle = f;
+      rawFill(txt, x, y);
     };
     c.save();
-    shadow();
+    c.fillText = fillText as typeof c.fillText;
     c.textBaseline = 'top';
 
     // score (top-left)

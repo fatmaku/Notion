@@ -1,16 +1,19 @@
 import type { GameModeId, Rect, TargetClass, Vec2, WeaponId } from '../../core/types';
 import { PAINTABLE_ONLY, SHOOTABLE } from '../../core/types';
-import { center, centerness } from '../../core/math/rect';
+import { center, centerness, iou } from '../../core/math/rect';
 import { rectInQuadFraction } from '../../core/math/polygon';
 import type { GameCtx, GameMode, ModeActions, PointerEv, RoundEvent, RoundResult } from '../GameMode';
 import { HP, WEAPONS, type HitEffect, type WeaponConfig } from '../weapons/configs';
 import { Weapon } from '../weapons/Weapon';
 import { ProjectileSystem, type Detonation } from '../Projectile';
-import { aimAssist, applySpread, blast, distToRect, targetAt, type HitTarget } from '../HitResolver';
-import { EffectSystem, Fireball, Hitmarker, Popup, Shatter, ShrinkVanish, Skid, StretchFill, Wreck } from '../effects/EffectSystem';
+import { aimAssist, applySpread, blast, distToRect, segmentHitsRect, targetAt, type HitTarget } from '../HitResolver';
+import { EffectSystem, Fireball, Hitmarker, Popup, Shatter, ShrinkVanish, Skid, SplashRing, StretchFill, Wreck } from '../effects/EffectSystem';
 import { HitStop, Shake } from '../effects/Shake';
 import { captureRegion } from '../effects/snapshot';
-import { coverage, drawDecal, makeDecal, type Decal } from '../effects/Decals';
+import { PAINT_COLORS, bakeDecals, coverage, drawDecal, makeDecal, type Decal } from '../effects/Decals';
+import type { Unlocks } from '../../app/Unlocks';
+import { CARWASH_BONUS } from '../../../shared/scoring';
+import type { ProjectileKind } from '../Projectile';
 import { Combo } from '../scoring/Combo';
 import { Missions } from '../scoring/Missions';
 import { COVERAGE_BONUS, hitPoints, type ScoreClass } from '../../../shared/scoring';
@@ -26,10 +29,19 @@ interface TargetState {
   coverage: number;
   coverageStep: number;
   lastHitAt: number;
+  /** last known box / velocity so paint survives a tracker re-identification */
+  lastBox: Rect | null;
+  lastVel: Vec2;
+  pendingSkid: boolean;
 }
 
-/** What happens to the vehicle after it is "killed" by this weapon. */
-const AFTER: Record<WeaponId, 'wreck' | 'vanish' | 'none'> = { smg: 'wreck', grenade: 'vanish', rocket: 'wreck', milkshake: 'vanish', paint: 'none' };
+interface LostState {
+  st: TargetState;
+  lostAt: number;
+}
+
+
+const SKID_TEXT: Partial<Record<WeaponId, string>> = { milkshake: 'WEGGERUTSCHT!', banana: 'BANANE! AUSGERUTSCHT!', snowball: 'EINGEFROREN & WEGGERUTSCHT!' };
 
 const KILL_TEXT: Record<string, string[]> = {
   car: ['AUTO ZERLEGT!', 'VOLLTREFFER!', 'BOOM!'],
@@ -53,6 +65,7 @@ export class ShooterMode implements GameMode {
   private missions!: Missions;
   private readonly events: RoundEvent[] = [];
   private readonly targets = new Map<number, TargetState>();
+  private readonly lost: LostState[] = [];
   private readonly feed: { text: string; born: number; color: string }[] = [];
   private fx!: FxRenderer;
   private hud!: HudRenderer;
@@ -76,6 +89,11 @@ export class ShooterMode implements GameMode {
   private lastEmptySfx = 0;
   private cachedTargets: HitTarget[] = [];
 
+  /** Deferred actions (chain skids etc.) driven by the update loop, discarded on round end. */
+  private readonly delayed: { at: number; run: () => void }[] = [];
+  private palette: readonly string[] = PAINT_COLORS;
+  private laserBeam: { from: Vec2; to: Vec2; until: number } | null = null;
+  private readonly pows: { at: Vec2; size: number; born: number }[] = [];
   private aim: Vec2 | null = null;
   private aimDown = false;
   private aimShownUntil = 0;
@@ -127,6 +145,18 @@ export class ShooterMode implements GameMode {
     return (this.endsAt - this.t(now)) / 1000;
   }
 
+  /** Selected crosshair / paint palette from the shop. */
+  applyUnlocks(u: Unlocks): void {
+    this.fx.crosshairStyle = u.selected('crosshair')?.crosshair ?? 'classic';
+    this.palette = u.selected('palette')?.palette ?? PAINT_COLORS;
+  }
+
+  /** Difficulty scales aim assistance: 0 relaxed, 1 normal, 2 hard. */
+  private assistScale(): number {
+    const d = this.ctx.settings.data.difficulty;
+    return d <= 0 ? 1.5 : d >= 2 ? 0.7 : 1;
+  }
+
   actions(): ModeActions {
     return {
       swap: () => this.swap(),
@@ -161,11 +191,48 @@ export class ShooterMode implements GameMode {
   private state(id: number, cls: TargetClass): TargetState {
     let s = this.targets.get(id);
     if (!s) {
+      // a vehicle the tracker lost for a moment and re-identified keeps its paint and damage
+      const tr = this.ctx.tracker.byId(id);
+      const box = tr?.predict(this.visualTime(this.lastNow));
+      let adopted: TargetState | null = null;
+      if (box) {
+        let bestI = -1;
+        let bestScore = 0.2;
+        for (let i = 0; i < this.lost.length; i++) {
+          const l = this.lost[i];
+          if (!l.st.lastBox) continue;
+          const dt = this.lastNow - l.lostAt;
+          const pb = { ...l.st.lastBox, x: l.st.lastBox.x + l.st.lastVel.x * dt, y: l.st.lastBox.y + l.st.lastVel.y * dt };
+          const score = iou(pb, box);
+          if (score > bestScore) {
+            bestScore = score;
+            bestI = i;
+          }
+        }
+        if (bestI >= 0) adopted = this.lost.splice(bestI, 1)[0].st;
+      }
       const hp = HP[cls] ?? 3;
-      s = { hp, maxHp: hp, state: 'alive', decals: [], coverage: 0, coverageStep: 0, lastHitAt: 0 };
+      s = adopted ?? { hp, maxHp: hp, state: 'alive', decals: [], coverage: 0, coverageStep: 0, lastHitAt: 0, lastBox: null, lastVel: { x: 0, y: 0 }, pendingSkid: false };
       this.targets.set(id, s);
     }
     return s;
+  }
+
+  /** Remember boxes of decorated targets; move vanished tracks to the lost list for 1.5 s. */
+  private syncTargetMemory(now: number): void {
+    const vt = this.visualTime(now);
+    for (const [id, st] of this.targets) {
+      const tr = this.ctx.tracker.byId(id);
+      if (tr) {
+        st.lastBox = tr.predict(vt);
+        st.lastVel = { ...tr.vel };
+      } else {
+        this.targets.delete(id);
+        if (st.state === 'alive' && (st.decals.length || st.hp < st.maxHp)) this.lost.push({ st, lostAt: now });
+      }
+    }
+    while (this.lost.length && now - this.lost[0].lostAt > 1500) this.lost.shift();
+    if (this.lost.length > 12) this.lost.splice(0, this.lost.length - 12);
   }
 
   private liveTargets(now: number): HitTarget[] {
@@ -205,12 +272,23 @@ export class ShooterMode implements GameMode {
       if (w.cfg.homing) this.updateLock(this.aim, now);
     }
 
-    const dets = this.projectiles.update(dt, now, this.boxOf, (p) => targetAt(p, this.cachedTargets)?.id ?? null);
+    const dets = this.projectiles.update(dt, now, this.boxOf, (p, proj) => {
+      const direct = targetAt(p, this.cachedTargets, 0.12);
+      if (direct) return direct.id;
+      for (const tg of this.cachedTargets) if (segmentHitsRect(proj.prev, p, tg.box)) return tg.id;
+      return null;
+    });
     for (const d of dets) this.detonate(d, now);
+    for (let i = this.delayed.length - 1; i >= 0; i--) {
+      if (now >= this.delayed[i].at) {
+        const job = this.delayed.splice(i, 1)[0];
+        job.run();
+      }
+    }
 
     this.effects.update(dt, now, this.boxOf);
     this.combo.update(t);
-    for (const id of [...this.targets.keys()]) if (!this.ctx.tracker.byId(id)) this.targets.delete(id);
+    this.syncTargetMemory(now);
 
     const d = this.ctx.diag;
     d.set('targets', this.cachedTargets.length);
@@ -297,12 +375,18 @@ export class ShooterMode implements GameMode {
     this.shake.add(w.cfg.recoil);
     this.ctx.haptics.light();
     const targets = this.cachedTargets.length ? this.cachedTargets : this.liveTargets(now);
-    const assist = aimAssist(aim, targets, w.cfg.aimAssist * this.unit);
+    // assist radius grows with target speed: fast side-window traffic is hard to tap precisely
+    const fastest = targets.reduce((m, tg) => Math.max(m, this.ctx.tracker.byId(tg.id)?.speed ?? 0), 0);
+    const assist = aimAssist(aim, targets, w.cfg.aimAssist * this.unit * this.assistScale() * (1 + Math.min(1.5, fastest / 600)));
 
     if (w.cfg.kind === 'hitscan') {
       const point = applySpread(assist.point, w.cfg.spreadDeg, this.pxPerDeg(), this.ctx.rng);
       const target = targetAt(point, targets);
-      this.ctx.sfx.play(w.cfg.id === 'paint' ? 'paint' : 'shot', { pitch: 0.9 + this.ctx.rng.next() * 0.2 });
+      if (w.cfg.id === 'laser') {
+        this.laserBeam = { from: this.launchPoint(), to: point, until: now + 80 };
+        if (this.shots % 6 === 1) this.ctx.sfx.play('lock', { pitch: 0.5 + this.ctx.rng.next() * 0.1 });
+      } else if (w.cfg.id === 'glove') this.ctx.sfx.play('hit', { pitch: 0.5 });
+      else this.ctx.sfx.play(w.cfg.id === 'paint' ? 'paint' : 'shot', { pitch: 0.9 + this.ctx.rng.next() * 0.2 });
       if (target) this.applyHit(target, w.cfg, point, now, 1, 1);
       else {
         this.effects.add(new Hitmarker(point, now, 6 * this.unit, 'rgba(255,255,255,0.5)'));
@@ -313,13 +397,24 @@ export class ShooterMode implements GameMode {
     }
 
     const start = this.launchPoint();
+    const flightS = w.cfg.flightS ?? 0.9;
+    // lead: aim where the target will be when the projectile arrives
+    let aimPoint = assist.point;
+    if (assist.target) {
+      const tr = this.ctx.tracker.byId(assist.target.id);
+      if (tr) {
+        const future = tr.predict(this.visualTime(now) + flightS * 1000);
+        const cur = assist.target.box;
+        aimPoint = { x: assist.point.x + (future.x + future.w / 2 - (cur.x + cur.w / 2)), y: assist.point.y + (future.y + future.h / 2 - (cur.y + cur.h / 2)) };
+      }
+    }
     if (w.cfg.id === 'rocket') {
       const homingId = this.lockProgress(now) >= 1 ? this.lockId : (assist.target?.id ?? null);
-      this.projectiles.spawnRocket(w.cfg.id, start, assist.point, w.cfg.flightS ?? 0.8, homingId, w.cfg.homing ?? 0, now);
+      this.projectiles.spawnRocket(w.cfg.id, start, aimPoint, flightS, homingId, w.cfg.homing ?? 0, now);
       this.ctx.sfx.play('rocket');
       this.ctx.haptics.medium();
     } else {
-      this.projectiles.spawnBallistic(w.cfg.id as 'grenade' | 'milkshake', w.cfg.id, start, assist.point, w.cfg.flightS ?? 0.9, (w.cfg.gravityPx ?? 1400) * this.unit, now);
+      this.projectiles.spawnBallistic((w.cfg.sprite ?? 'grenade') as ProjectileKind, w.cfg.id, start, aimPoint, flightS, (w.cfg.gravityPx ?? 1400) * this.unit, now, assist.target?.id ?? null);
       this.ctx.sfx.play('throw');
     }
   }
@@ -347,10 +442,12 @@ export class ShooterMode implements GameMode {
       for (const h of hitsHere) this.applyHit(h.target, cfg, d.at, now, h.factor, Math.max(1, multi));
       return;
     }
-    // milkshake: point impact
+    // thrown item: point impact
     const target = (d.contactId !== null ? targets.find((x) => x.id === d.contactId) : null) ?? targetAt(d.at, targets);
-    this.ctx.sfx.play('splat');
-    this.effects.particles.drops(d.at, 22, 420 * this.unit, ['#fff1e0', '#ffc2d9', '#ffe4ec']);
+    const col = cfg.splatColor ?? '#fff1e0';
+    this.ctx.sfx.play(cfg.effect === 'freeze' ? 'hit' : 'splat', { pitch: cfg.effect === 'freeze' ? 1.6 : 1 });
+    this.effects.particles.drops(d.at, 22, 420 * this.unit, [col, '#ffffff']);
+    if (cfg.id === 'egg') this.effects.particles.debris(d.at, 10, 260 * this.unit, '#fbf3e0');
     if (target) this.applyHit(target, cfg, d.at, now, 1, 1);
     else {
       this.effects.add(new Popup('Daneben', d.at, now, '#ffc2d9', 22 * this.unit, 600));
@@ -374,45 +471,100 @@ export class ShooterMode implements GameMode {
     let kill = false;
     st.lastHitAt = t;
 
-    if (eff === 'paint' || !shootable) {
-      // paint splat (paint gun) or harmless chip on signs/lights
-      const decal = makeDecal(box, point.x, point.y, eff === 'paint' ? 'paint' : 'shake', this.ctx.rng, now);
-      if (eff !== 'explode') st.decals.push(decal);
-      this.effects.particles.drops(point, eff === 'paint' ? 6 : 3, 260 * this.unit, [decal.color]);
-      if (eff !== 'paint') this.effects.particles.sparks(point, 4, 200 * this.unit);
+    if (eff === 'wash' && shootable) {
+      // water balloon: big splash, washes paint off (car wash bonus if it was dirty)
+      const removed = st.decals.length;
+      st.decals = [];
+      st.coverage = 0;
+      st.coverageStep = 0;
+      this.effects.add(new SplashRing(point, box.w * 0.6, cfg.splatColor ?? '#7dd3fc', now, 450));
+      this.effects.particles.drops(point, 40, 520 * this.unit, ['#7dd3fc', '#bae6fd', '#ffffff']);
       this.hits++;
       this.combo.bump(cfg.comboWeight, t);
-      if (eff === 'paint' && shootable) this.checkCoverage(st, target, now);
-    } else if (eff === 'skid') {
-      st.state = 'skidding';
+      this.pushFeed(removed >= 3 ? 'AUTOWÄSCHE!' : 'PLATSCH!', '#7dd3fc');
+      if (removed >= 3) {
+        this.addPoints(CARWASH_BONUS, center(box), '#7dd3fc', 24);
+        this.record({ t: Math.round(t - this.startedAt), kind: 'bonus', id: 'carwash', points: CARWASH_BONUS, cls: target.cls, weapon: cfg.id }, now);
+      }
+    } else if (eff === 'paint' || eff === 'splat' || eff === 'wrap' || !shootable) {
+      // sticky stuff: paint, egg/tomato splats, toilet paper – or a harmless chip on signs/lights
+      const kind: Decal['kind'] = !shootable ? (eff === 'explode' || eff === 'punch' ? 'shake' : eff === 'wrap' ? 'tp' : eff === 'paint' ? 'paint' : 'splat') : eff === 'paint' ? 'paint' : eff === 'wrap' ? 'tp' : 'splat';
+      const decal = makeDecal(box, point.x, point.y, kind, this.ctx.rng, now, eff === 'paint' ? undefined : cfg.splatColor, this.palette);
+      const sticky = eff === 'paint' || eff === 'splat' || eff === 'wrap';
+      if (sticky && st.coverageStep < 100) {
+        st.decals.push(decal);
+        if (eff === 'wrap') for (let i = 0; i < 2; i++) st.decals.push(makeDecal(box, box.x + this.ctx.rng.range(0.1, 0.9) * box.w, box.y + this.ctx.rng.range(0.15, 0.85) * box.h, 'tp', this.ctx.rng, now + i * 60, cfg.splatColor));
+        if (st.decals.length > 40) st.decals.splice(0, st.decals.length - 40);
+      }
+      if (sticky) this.effects.add(new SplashRing(point, decal.r * box.w * 0.9, decal.color, now));
+      this.effects.particles.drops(point, sticky ? 10 : 3, 300 * this.unit, [decal.color]);
+      if (!sticky) this.effects.particles.sparks(point, 4, 200 * this.unit);
+      this.hits++;
+      this.combo.bump(cfg.comboWeight, t);
+      if (sticky && shootable) this.checkCoverage(st, target, now);
+      if (eff === 'splat') this.pushFeed(cfg.id === 'egg' ? 'EI DRAUF!' : 'TOMATE!', decal.color);
+    } else if (eff === 'skid' || eff === 'freeze') {
+      if (st.pendingSkid) return;
+      st.pendingSkid = true;
       kill = true;
       this.kills++;
-      const snap = captureRegion(this.ctx.frame.video, box);
-      const dir = point.x < box.x + box.w / 2 ? 1 : -1;
-      if (snap) {
-        const sc = snap.canvas.getContext('2d');
-        if (sc) {
-          const local = { x: point.x - snap.box.x, y: point.y - snap.box.y };
-          const d = makeDecal({ x: 0, y: 0, w: snap.box.w, h: snap.box.h }, local.x, local.y, 'shake', this.ctx.rng, now - 300);
-          drawDecal(sc, { x: 0, y: 0, w: snap.box.w, h: snap.box.h }, d, now);
-        }
-        this.effects.add(new Skid(snap.canvas, snap.box, dir, now, this.effects.particles));
-      }
-      this.afterKill(target, cfg, now);
-      this.combo.bump(1, t);
-      this.ctx.sfx.play('skid');
+      this.hits++;
+      // 1) the item lands: a splat (or frost patch) that visibly sticks to the moving car
+      const col = cfg.splatColor ?? '#fff1e0';
+      const splat = makeDecal(box, point.x, point.y, eff === 'freeze' ? 'ice' : 'shake', this.ctx.rng, now, col);
+      st.decals.push(splat);
+      this.effects.add(new SplashRing(point, splat.r * box.w, col, now, 380));
+      this.effects.particles.drops(point, 24, 420 * this.unit, [col, '#ffffff']);
       this.ctx.haptics.medium();
       this.hitStop.trigger(t, cfg.hitStopMs);
-      this.pushFeed('WEGGERUTSCHT!', '#ffc2d9');
+      if (eff === 'freeze') this.pushFeed('EINGEFROREN!', '#dff6ff');
+      // 2) a moment later the car loses grip and slides away with its splat baked in
+      const tid = target.id;
+      const dir = point.x < box.x + box.w / 2 ? 1 : -1;
+      this.delayed.push({
+        at: now + (cfg.skidDelayMs ?? 350),
+        run: () => {
+          const s2 = this.targets.get(tid);
+          const b2 = this.boxOf(tid) ?? box;
+          if (s2) s2.state = 'skidding';
+          const snap = captureRegion(this.ctx.frame.video, b2);
+          if (snap) {
+            bakeDecals(snap.canvas, snap.box, b2, s2?.decals ?? [splat], this.lastNow);
+            this.effects.add(new Skid(snap.canvas, snap.box, dir, this.lastNow, this.effects.particles));
+          }
+          this.afterKill({ id: tid, box: b2, cls: target.cls }, cfg, this.lastNow);
+          this.ctx.sfx.play('skid');
+          this.pushFeed(SKID_TEXT[cfg.id] ?? 'WEGGERUTSCHT!', '#ffc2d9');
+        },
+      });
+      this.combo.bump(1, t);
       // chain: a neighbour slips on the same puddle
       const neighbour = this.cachedTargets.find((o) => o.id !== target.id && SHOOTABLE.has(o.cls) && this.targets.get(o.id)?.state !== 'skidding' && distToRect(center(box), o.box) < box.w * 1.5);
-      if (neighbour && multi < 2) setTimeout(() => !this.ended && this.applyHit(neighbour, cfg, center(neighbour.box), this.lastNow, 1, 2), 160);
+      if (neighbour && multi < 2) {
+        const nid = neighbour.id;
+        this.delayed.push({
+          at: now + 160,
+          run: () => {
+            const live = this.cachedTargets.find((o) => o.id === nid);
+            if (live) this.applyHit(live, cfg, center(live.box), this.lastNow, 1, 2);
+          },
+        });
+      }
     } else {
-      // explode: chip damage, then destruction
+      // explode / punch / laser heat: chip damage, then destruction
       st.hp -= cfg.damage * factor;
       this.hits++;
-      this.effects.add(new Hitmarker(point, now, 10 * this.unit));
-      this.effects.particles.sparks(point, 6, 260 * this.unit);
+      if (eff === 'punch') {
+        this.pows.push({ at: point, size: Math.max(60, box.h * 0.8), born: now });
+        if (this.pows.length > 6) this.pows.shift();
+        this.shake.add(5);
+        this.effects.particles.sparks(point, 12, 380 * this.unit, ['#ffd233', '#fff']);
+      } else if (cfg.id === 'laser') {
+        if (this.shots % 3 === 0) this.effects.particles.sparks(point, 3, 160 * this.unit, ['#ff6a6a', '#fff']);
+      } else {
+        this.effects.add(new Hitmarker(point, now, 10 * this.unit));
+        this.effects.particles.sparks(point, 6, 260 * this.unit);
+      }
       if (st.hp <= 0.001) {
         st.state = 'destroyed';
         kill = true;
@@ -420,6 +572,7 @@ export class ShooterMode implements GameMode {
         const snap = captureRegion(this.ctx.frame.video, box);
         const c = center(box);
         const R = Math.max(box.w, box.h) * 0.7;
+        if (snap) bakeDecals(snap.canvas, snap.box, box, st.decals, now);
         if (snap) this.effects.add(new Shatter(snap.canvas, snap.box, point, 320 * this.unit + R * 2, this.ctx.rng, now));
         if (cfg.blastR === 0) {
           this.effects.add(new Fireball(c, R, now));
@@ -437,7 +590,7 @@ export class ShooterMode implements GameMode {
         this.pushFeed(multi > 1 ? `MEHRFACHTREFFER ×${multi}` : this.ctx.rng.pick(texts), multi > 1 ? '#ffb020' : '#fff');
       } else {
         this.combo.bump(cfg.comboWeight, t);
-        this.ctx.sfx.play('hit', { pitch: 1 + Math.min(6, this.combo.value) * 0.08 });
+        if (cfg.id !== 'laser') this.ctx.sfx.play('hit', { pitch: 1 + Math.min(6, this.combo.value) * 0.08 });
       }
     }
 
@@ -451,16 +604,16 @@ export class ShooterMode implements GameMode {
   }
 
   private afterKill(target: HitTarget, cfg: WeaponConfig, now: number, snap: HTMLCanvasElement | null = null, snapBox: Rect | null = null): void {
-    const after = AFTER[cfg.id];
+    const after = cfg.after;
     const front = this.id === 'front-shooter';
     if (after === 'wreck') {
       const s = snap && snapBox ? { canvas: snap, box: snapBox } : captureRegion(this.ctx.frame.video, target.box);
       if (s) this.effects.add(new Wreck(target.id, s.canvas, s.box, now, this.effects.particles));
       else if (front && this.ctx.settings.data.stretchFill) this.effects.add(new StretchFill(target.id, target.box, now));
     } else if (after === 'vanish') {
-      if (!snap) {
+      if (!snap && cfg.effect !== 'skid') {
         const s = captureRegion(this.ctx.frame.video, target.box);
-        if (s && cfg.effect !== 'skid') this.effects.add(new ShrinkVanish(s.canvas, s.box, now));
+        if (s) this.effects.add(new ShrinkVanish(s.canvas, s.box, now));
       }
       if (front && this.ctx.settings.data.stretchFill) this.effects.add(new StretchFill(target.id, target.box, now));
       this.ctx.sfx.play('vanish');
@@ -530,9 +683,15 @@ export class ShooterMode implements GameMode {
     if (win.mode === 'tracking' || win.mode === 'degraded') this.fx.outsideQuadDim(win.quad, L.frameRect(), win.mode === 'tracking' ? 0.3 : 0.15);
     this.effects.drawUnder(c, now, this.ctx.frame.video);
 
-    // decals + brackets on live targets
+    // decals ride on every tracked vehicle that carries them, even outside the target filter
     const vt = this.visualTime(now);
     const tsec = now / 1000;
+    const inTargets = new Set(this.cachedTargets.map((tg) => tg.id));
+    for (const [id, st] of this.targets) {
+      if (!st.decals.length || inTargets.has(id) || st.state !== 'alive') continue;
+      const b = this.boxOf(id);
+      if (b) for (const d of st.decals) drawDecal(c, b, d, now);
+    }
     for (const tg of this.cachedTargets) {
       const st = this.targets.get(tg.id);
       if (st) for (const d of st.decals) drawDecal(c, tg.box, d, now);
@@ -546,6 +705,13 @@ export class ShooterMode implements GameMode {
       if (b) this.fx.lockRing(b, this.lockProgress(now), tsec);
     }
     for (const p of this.projectiles.list) this.fx.projectile(p);
+    if (this.laserBeam && now < this.laserBeam.until) this.fx.beam(this.laserBeam.from, this.laserBeam.to, now / 1000);
+    for (let i = this.pows.length - 1; i >= 0; i--) {
+      const pw = this.pows[i];
+      const age = (now - pw.born) / 500;
+      if (age >= 1) this.pows.splice(i, 1);
+      else this.fx.pow(pw.at, pw.size, age);
+    }
     this.effects.drawOver(c, now, this.ctx.frame.video);
 
     if (this.ctx.settings.data.showBoxes) for (const tr of this.ctx.tracker.tracks) this.fx.debugTrack(tr, tr.predict(vt));
@@ -618,6 +784,7 @@ export class ShooterMode implements GameMode {
 
   abort(): RoundResult {
     this.ended = true;
+    this.delayed.length = 0;
     this.ctx.loop.timeScale = 1;
     return this.buildResult(performance.now());
   }

@@ -1,7 +1,7 @@
 // Pure scoring formulas shared by the client and the leaderboard worker, so the
 // server can replay a round's event log and verify the claimed score.
 
-export type ScoreWeapon = 'smg' | 'grenade' | 'rocket' | 'milkshake' | 'paint';
+export type ScoreWeapon = 'smg' | 'grenade' | 'rocket' | 'milkshake' | 'paint' | 'egg' | 'tomato' | 'snowball' | 'waterballoon' | 'banana' | 'tp' | 'laser' | 'glove';
 export type ScoreClass = 'car' | 'truck' | 'bus' | 'train' | 'sign' | 'light' | 'other';
 
 export const BASE_POINTS: Record<ScoreWeapon, { hit: number; kill: number }> = {
@@ -10,6 +10,14 @@ export const BASE_POINTS: Record<ScoreWeapon, { hit: number; kill: number }> = {
   rocket: { hit: 250, kill: 150 },
   milkshake: { hit: 120, kill: 80 },
   paint: { hit: 6, kill: 0 },
+  egg: { hit: 60, kill: 0 },
+  tomato: { hit: 70, kill: 0 },
+  snowball: { hit: 130, kill: 90 },
+  waterballoon: { hit: 90, kill: 0 },
+  banana: { hit: 140, kill: 90 },
+  tp: { hit: 40, kill: 0 },
+  laser: { hit: 4, kill: 150 },
+  glove: { hit: 40, kill: 120 },
 };
 
 export const CLASS_FACTOR: Record<ScoreClass, number> = {
@@ -52,6 +60,8 @@ export function hitPoints(i: HitPointsInput): number {
 }
 
 export const COVERAGE_BONUS: Record<number, number> = { 25: 50, 50: 150, 100: 500 };
+export const CARWASH_BONUS = 100;
+export const GOLDBIRD_BONUS = 300;
 export const MISSION_REWARD_DEFAULT = 500;
 
 /** Runner scoring. */

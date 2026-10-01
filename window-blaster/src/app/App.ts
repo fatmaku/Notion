@@ -37,11 +37,15 @@ import { LeaderboardScreen } from '../ui/screens/LeaderboardScreen';
 import { Leaderboard, ensurePlayerId, type SubmitResponse } from '../net/Leaderboard';
 import { verifyRound } from '../../shared/verify';
 import { OfflinePrep } from './OfflinePrep';
+import { ErrorLog } from '../debug/ErrorLog';
+import { Unlocks } from './Unlocks';
+import { ShopScreen } from '../ui/screens/ShopScreen';
 import { GameLoop } from './GameLoop';
 import { Settings } from './Settings';
 import { Storage } from './Storage';
 import { defaultSession, type Session } from './Session';
 import type { Params } from './params';
+import type { WeaponId } from '../core/types';
 
 export class App {
   readonly storage = new Storage();
@@ -58,6 +62,8 @@ export class App {
   readonly loop: GameLoop;
   readonly leaderboard: Leaderboard;
   readonly offline = new OfflinePrep(import.meta.env.BASE_URL);
+  readonly errors = new ErrorLog();
+  readonly unlocks = new Unlocks(this.storage);
   online = typeof navigator === 'undefined' ? true : navigator.onLine;
   session: Session = defaultSession();
 
@@ -82,6 +88,12 @@ export class App {
     this.router = new Router($('ui'));
     this.overlay = new DebugOverlay($('debug'), this.diag);
     this.loop = new GameLoop((dt, now) => this.tick(dt, now));
+    this.errors.install();
+    this.loop.onError = (e) => {
+      this.errors.push('tick', e);
+      this.diag.set('tickErrors', this.loop.errors);
+      if (this.loop.errors === 1) toast('Fehler abgefangen – Spiel läuft weiter (Details im Menü)', 2500);
+    };
     this.fxDebug = new FxRenderer(this.layers.fx);
     const pid = ensurePlayerId(
       () => this.storage.get<string | null>('playerId', null),
@@ -106,6 +118,7 @@ export class App {
 
   applySettings(): void {
     const s = this.settings.data;
+    document.body.classList.toggle('left-handed', s.leftHanded);
     this.sfx.enabled = s.sound && !this.params.test;
     this.haptics.enabled = s.haptics;
     this.motion.invertPan = s.invertPan;
@@ -228,6 +241,19 @@ export class App {
     this.router.show(LeaderboardScreen(this));
   }
 
+  showShop(onBack?: () => void): void {
+    this.router.show(ShopScreen(this, onBack ?? (() => this.showStart())));
+  }
+
+  /** Push selected skins / crosshair / palette into the running mode and body classes. */
+  applyUnlocks(): void {
+    document.body.classList.toggle('left-handed', this.settings.data.leftHanded);
+    const m = this.mode as (GameMode & { skin?: { color: string; shade: string; cuff: string }; applyUnlocks?: (u: Unlocks) => void }) | null;
+    const skin = this.unlocks.selected('skin')?.skin;
+    if (m && skin && 'skin' in m) m.skin = skin;
+    m?.applyUnlocks?.(this.unlocks);
+  }
+
   // ------------------------------------------------------------------- pipeline
 
   private async prepareAndPlay(): Promise<void> {
@@ -334,6 +360,8 @@ export class App {
       return;
     }
     this.session.seed = this.params.seed ?? (this.session.daily ? hashString(`${todayKey()}:${this.session.mode}`) : (Date.now() % 1000003) | 0);
+    // URL params may name locked weapons (tests / links); allow them only when unlocked or in test mode
+    if (!this.params.test) this.session.weapons = this.session.weapons.map((w) => (this.unlocks.weaponUnlocked(w) ? w : 'smg')) as [WeaponId, WeaponId];
     const mode: GameMode = this.session.mode === 'side-runner' ? new RunnerMode() : new ShooterMode(this.session.mode);
     this.mode = mode;
     this.paused = false;
@@ -361,6 +389,7 @@ export class App {
       roundSeconds,
     });
     if (mode instanceof ShooterMode || mode instanceof RunnerMode) mode.bestScore = this.records.best(mode.id);
+    this.applyUnlocks();
     const screen = PlayScreen(this, mode);
     this.router.show(screen);
     this.playEl = screen.el;
@@ -375,8 +404,11 @@ export class App {
     this.layers.video.style.transform = '';
     this.lastResult = r;
     const flags = this.records.save(r);
+    const before = this.unlocks.balance;
+    this.unlocks.earn(r.score);
+    const newlyAffordable = this.unlocks.newlyAffordable(before);
     this.wakeLock.release();
-    this.router.show(ResultsScreen(this, r, flags));
+    this.router.show(ResultsScreen(this, r, { ...flags, newlyAffordable }));
   }
 
   abortRound(): void {

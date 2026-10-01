@@ -1,6 +1,6 @@
 import type { App } from '../../app/App';
 import type { VehicleType } from '../../core/types';
-import { h } from '../dom';
+import { capturePointer, h } from '../dom';
 import { T, VEHICLES } from '../i18n/de';
 import type { Screen } from '../Router';
 
@@ -52,7 +52,7 @@ export function SafetyScreen(app: App): Screen {
   };
   hold.addEventListener('pointerdown', (e) => {
     e.preventDefault();
-    hold.setPointerCapture(e.pointerId);
+    capturePointer(hold, e.pointerId);
     app.sfx.unlock();
     t0 = performance.now();
     raf = requestAnimationFrame(step);

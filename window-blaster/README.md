@@ -58,7 +58,10 @@ Ohne Kamera ausprobieren (Desktop reicht): Startbildschirm → **Demo ohne Kamer
 
 1. **Sicherheits-Gate:** Fahrzeugtyp wählen (Auto / Zug / Bus / Sonstiges) und den Knopf 2 Sekunden halten.
 2. **Modus:** Front-Shooter, Seiten-Shooter (mit Fensterseite links/rechts) oder Fenster-Runner.
-3. **Waffen:** zwei Slots, im Spiel per 🔁 wechselbar. Alle Waffen sind von Anfang an frei.
+3. **Waffen:** zwei Slots, im Spiel per 🔁 wechselbar. Fünf Waffen sind von Anfang an frei (MP, Granate, Rakete,
+   Milkshake, Farbpistole); acht weitere schaltest du im **Shop 🎁** mit gesammelten Punkten frei: Ei, Tomate,
+   Schneeball (friert ein), Bananenschale, Wasserbombe (wäscht Farbe ab – „Autowäsche“-Bonus), Klopapier (wickelt ein),
+   Laserpointer (halten – das Auto löst sich auf) und Boxhandschuh (POW!). Dazu Hand-Skins, Fadenkreuze und Farbpaletten.
 4. **Kamera & Sensoren freigeben** – ein Tipp erledigt Kamera- und Bewegungssensor-Zugriff (iOS braucht beides in derselben Geste).
 5. **Scheibe vermessen:** Die App findet die helle Scheibe im dunklen Innenraum automatisch, zeigt vier Ecken
    und einen Status („Scheibe erkannt · 74 %“). Ecken bei Bedarf ziehen, im Runner zusätzlich die Bodenlinie.
@@ -66,8 +69,9 @@ Ohne Kamera ausprobieren (Desktop reicht): Startbildschirm → **Demo ohne Kamer
 6. **Spielen:**
    - Tippen = schießen (MP und Farbpistole: halten = Dauerfeuer). Granate/Milkshake fliegen im Bogen zum Tippunkt,
      die Rakete wird durch Halten aufgeschaltet („LOCK“) und beim Loslassen abgefeuert.
-   - Runner: Tippen oder 🅰️ = Sprung (kurz tippen = kleiner Sprung), Ducken-Knopf oder nach unten wischen = ducken.
-     Lange Fahrzeuge kann man als Plattform benutzen.
+   - Runner: Du bist eine **Hand, die auf zwei Fingern läuft**. Tippen = Sprung (kurz tippen = kleiner Sprung),
+     Ducken-Knopf oder nach unten wischen = ducken – nötig, weil **Vögel** auf Kopfhöhe angeflogen kommen (Warnpfeil am Rand).
+     Der seltene goldene Vogel fliegt höher und bringt +300, wenn du ihn im Sprung fängst. Lange Fahrzeuge kann man als Plattform benutzen.
    - ⌖ zentriert die Scheibe neu, ⏸ pausiert.
 
 ### Punkte und Anreiz
@@ -78,6 +82,10 @@ Ohne Kamera ausprobieren (Desktop reicht): Startbildschirm → **Demo ohne Kamer
 - 3 Missionen pro Runde („2 LKW mit Milkshake“, „5er-Combo“, …), je +300…900.
 - Farbpistole: Deckungsboni bei 25 / 50 / 100 %. Milkshake lässt Nachbarautos mitrutschen.
 - Medaillen 🥉🥈🥇, Bestwerte je Modus, Tagesbestwert, Fahrt-Statistik – alles lokal gespeichert.
+- **Guthaben:** Jede Runde zahlt ihre Punkte auf dein Konto ein; im Shop kaufst du damit Waffen (1.500–20.000) und Skins.
+- Wurfsachen zielen automatisch **vor** fahrende Autos (Vorhalt), Treffer werden entlang der Flugbahn geprüft.
+- Farbe, Ei, Tomate und Klopapier bleiben am Auto kleben – auch wenn die Erkennung kurz aussetzt; Milkshake, Schneeball
+  und Banane zeigen erst den Treffer, dann rutscht das Auto weg.
 - **Tages-Challenge:** dieselben Missionen für alle, jeden Tag neu.
 - **Weltweite Rangliste** (täglich / wöchentlich / allzeit, je Modus und Fahrzeugtyp), sobald der kleine
   Server eingerichtet ist – siehe unten. Demo- und Endlos-Runden zählen nicht.
@@ -88,6 +96,9 @@ Ohne Kamera ausprobieren (Desktop reicht): Startbildschirm → **Demo ohne Kamer
 - Frontscheibe funktioniert am zuverlässigsten (Autos voraus sind lange im Bild), Seitenfenster ist Arcade pur.
 - Bei Nacht oder Regen erkennt das Modell weniger; dann eher Runner mit „Ganzes Bild“.
 - Fünfmal schnell oben links tippen öffnet die Diagnose (Erkennungs-ms, Delegate GPU/CPU, Gyro, Scheibenstatus).
+- Ein Fehler im Spiel friert nichts mehr ein: Er wird abgefangen, das Spiel läuft weiter, und der Startbildschirm zeigt
+  „Letzter Fehler“ mit Kopier-Knopf – schick mir den Text, wenn etwas hakt.
+- Einstellungen: Schwierigkeit (Vogeldichte, Zielhilfe) und Linkshänder-Layout.
 - Einstellungen: Sichtfeld der Kamera (Tracking-Stärke), Latenzausgleich, Tracking invertieren, Sound, Vibration,
   Rundenlänge, realistisches Füllen verschwundener Autos, experimenteller Masten-/Baum-Detektor für den Runner.
 

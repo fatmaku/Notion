@@ -10,6 +10,9 @@ export class GameLoop {
   /** Game time in ms (affected by timeScale). */
   gameTime = 0;
 
+  errors = 0;
+  onError: ((e: unknown) => void) | null = null;
+
   constructor(private readonly tick: (dt: number, now: number, gameTime: number) => void) {}
 
   start(): void {
@@ -31,8 +34,14 @@ export class GameLoop {
         this.frames = 0;
         this.fpsT = now;
       }
-      this.tick(scaled, now, this.gameTime);
+      // schedule first so a throwing frame can never end the loop
       this.raf = requestAnimationFrame(frame);
+      try {
+        this.tick(scaled, now, this.gameTime);
+      } catch (e) {
+        this.errors++;
+        this.onError?.(e);
+      }
     };
     this.raf = requestAnimationFrame(frame);
   }

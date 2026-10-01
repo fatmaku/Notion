@@ -26,6 +26,7 @@ export interface SchedulerStats {
 export class DetectionScheduler {
   private running = false;
   private timer: ReturnType<typeof setTimeout> | null = null;
+  private wake: (() => void) | null = null;
   private lastTs = -1;
   private hzWindow: number[] = [];
   readonly stats: SchedulerStats = { lastCostMs: 0, avgCostMs: 0, hz: 0, runs: 0, errors: 0 };
@@ -54,6 +55,8 @@ export class DetectionScheduler {
     this.running = false;
     if (this.timer) clearTimeout(this.timer);
     this.timer = null;
+    this.wake?.();
+    this.wake = null;
   }
 
   get isRunning(): boolean {
@@ -83,8 +86,10 @@ export class DetectionScheduler {
       const byDuty = cost * (1 / this.o.maxDuty - 1);
       const wait = Math.min(this.o.maxIntervalMs, Math.max(this.o.minIntervalMs - cost, byDuty, 4));
       await new Promise<void>((res) => {
+        this.wake = res;
         this.timer = setTimeout(res, wait);
       });
+      this.wake = null;
     }
   }
 

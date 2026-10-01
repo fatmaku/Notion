@@ -64,6 +64,11 @@ vertrauenswürdigen Zertifikaten). Android-Sonderweg: In Chrome `chrome://flags/
 - **Neue Version einspielen:** Ordner `app/` ersetzen, Server neu starten, App am Handy einmal mit Netz öffnen – sie aktualisiert sich selbst und behält Modell und Bestwerte.
 - **Diagnose im Spiel:** Fünfmal schnell oben links tippen (Erkennungs-ms, GPU/CPU, Gyro, Scheibenstatus).
 
+## Neu in dieser Version
+Hand-Läufer und Vögel (ducken!), Vorhalt für Wurfsachen, klebende Farb- und Milchshake-Spritzer, acht neue Waffen im
+Shop (Punkte-Guthaben aus jeder Runde), Fehler werden abgefangen und auf dem Startbildschirm angezeigt statt das Spiel
+einzufrieren.
+
 ## Sicherheit & Datenschutz
 Nur als Fahrgast spielen. Kamera wird ausschließlich live auf dem Gerät ausgewertet; keine Aufnahme, kein Upload.
 Das Zertifikat aus `Handy-vertrauen.command` gilt nur für deinen Mac; es lässt sich in den Handy-Einstellungen jederzeit löschen.

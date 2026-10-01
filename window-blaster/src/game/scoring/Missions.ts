@@ -32,10 +32,16 @@ export const MISSION_POOL: MissionDef[] = [
   { id: 'multi', text: 'Mehrfachtreffer mit einer Granate', goal: 1, reward: 700, modes: shooter, needsWeapon: ['grenade'], step: (e) => (e.kind === 'kill' && e.weapon === 'grenade' && (e.multi ?? 1) >= 2 ? 1 : 0) },
   { id: 'rocket1', text: 'Eine Rakete ins Ziel bringen', goal: 1, reward: 500, modes: shooter, needsWeapon: ['rocket'], step: (e) => (e.kind === 'kill' && e.weapon === 'rocket' ? 1 : 0) },
   { id: 'smg2', text: '2 Fahrzeuge nur mit der MP zerlegen', goal: 2, reward: 500, modes: shooter, needsWeapon: ['smg'], step: (e) => (e.kind === 'kill' && e.weapon === 'smg' ? 1 : 0) },
+  { id: 'egg3', text: '3 Autos mit Eiern treffen', goal: 3, reward: 400, modes: shooter, needsWeapon: ['egg'], step: (e) => (e.kind === 'hit' && e.weapon === 'egg' ? 1 : 0) },
+  { id: 'wash1', text: 'Eine Autowäsche mit der Wasserbombe', goal: 1, reward: 400, modes: shooter, needsWeapon: ['waterballoon'], step: (e) => (e.kind === 'bonus' && e.id === 'carwash' ? 1 : 0) },
+  { id: 'freeze2', text: '2 Autos einfrieren', goal: 2, reward: 500, modes: shooter, needsWeapon: ['snowball'], step: (e) => (e.kind === 'kill' && e.weapon === 'snowball' ? 1 : 0) },
+  { id: 'pow3', text: '3 Volltreffer mit dem Boxhandschuh', goal: 3, reward: 500, modes: shooter, needsWeapon: ['glove'], step: (e) => ((e.kind === 'hit' || e.kind === 'kill') && e.weapon === 'glove' && e.centered ? 1 : 0) },
   { id: 'jump10', text: '10 Hindernisse überspringen', goal: 10, reward: 500, modes: ['side-runner'], step: (e) => (e.kind === 'obstacle' ? 1 : 0) },
   { id: 'jump25', text: '25 Hindernisse überspringen', goal: 25, reward: 900, modes: ['side-runner'], step: (e) => (e.kind === 'obstacle' ? 1 : 0) },
   { id: 'coins8', text: '8 Münzen sammeln', goal: 8, reward: 400, modes: ['side-runner'], step: (e) => (e.kind === 'coin' ? 1 : 0) },
   { id: 'survive45', text: '45 Sekunden ohne Treffer', goal: 45, reward: 700, modes: ['side-runner'], absolute: true, step: (e) => (e.kind === 'bonus' && e.id === 'unhurt' ? e.size ?? 0 : 0) },
+  { id: 'duck5', text: '5 Vögeln geduckt ausweichen', goal: 5, reward: 500, modes: ['side-runner'], step: (e) => (e.kind === 'obstacle' && e.cls === 'bird' ? 1 : 0) },
+  { id: 'gold2', text: '2 goldene Vögel fangen', goal: 2, reward: 600, modes: ['side-runner'], step: (e) => (e.kind === 'bonus' && e.id === 'goldbird' ? 1 : 0) },
 ];
 
 export class Missions {

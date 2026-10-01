@@ -1,6 +1,6 @@
 import type { App } from '../../app/App';
 import type { GameMode, PointerEv } from '../../game/GameMode';
-import { h } from '../dom';
+import { capturePointer, h } from '../dom';
 import { T } from '../i18n/de';
 import type { Screen } from '../Router';
 
@@ -17,7 +17,7 @@ export function PlayScreen(app: App, mode: GameMode): Screen {
   el.addEventListener('pointerdown', (e) => {
     if (e.target !== el) return;
     e.preventDefault();
-    el.setPointerCapture(e.pointerId);
+    capturePointer(el, e.pointerId);
     app.sfx.unlock();
     mode.pointer(toEv(e, 'down'));
   });
@@ -36,7 +36,7 @@ export function PlayScreen(app: App, mode: GameMode): Screen {
     b.addEventListener('pointerdown', (e) => {
       e.stopPropagation();
       e.preventDefault();
-      b.setPointerCapture(e.pointerId);
+      capturePointer(b, e.pointerId);
       onDown?.();
     });
     const up = (e: Event) => {

@@ -1,7 +1,7 @@
 // Replays a round's event log with the shared scoring formulas. Used by the
 // leaderboard worker to verify claimed scores and by the client's tests to
 // make sure the event log it produces is complete and consistent.
-import { COVERAGE_BONUS, LIMITS, RUNNER, hitPoints, runnerObstaclePoints, type ScoreClass, type ScoreWeapon } from './scoring';
+import { CARWASH_BONUS, COVERAGE_BONUS, GOLDBIRD_BONUS, LIMITS, RUNNER, hitPoints, runnerObstaclePoints, type ScoreClass, type ScoreWeapon } from './scoring';
 
 export interface VerifyEvent {
   t: number;
@@ -33,7 +33,7 @@ export interface VerifyResult {
   reason?: string;
 }
 
-const WEAPONS: ScoreWeapon[] = ['smg', 'grenade', 'rocket', 'milkshake', 'paint'];
+const WEAPONS: ScoreWeapon[] = ['smg', 'grenade', 'rocket', 'milkshake', 'paint', 'egg', 'tomato', 'snowball', 'waterballoon', 'banana', 'tp', 'laser', 'glove'];
 const CLASSES: ScoreClass[] = ['car', 'truck', 'bus', 'train', 'sign', 'light', 'other'];
 const MISSION_REWARDS = new Set([300, 400, 500, 600, 700, 800, 900]);
 
@@ -65,6 +65,14 @@ export function verifyRound(r: VerifyRound): VerifyResult {
         break;
       }
       case 'bonus': {
+        if (e.id === 'goldbird') {
+          if (e.points !== GOLDBIRD_BONUS) return { ok: false, verifiedScore: 0, reason: 'bonus' };
+          break;
+        }
+        if (e.id === 'carwash') {
+          if (e.points !== CARWASH_BONUS) return { ok: false, verifiedScore: 0, reason: 'bonus' };
+          break;
+        }
         const m = /^coverage(\d+)$/.exec(e.id ?? '');
         if (!m || COVERAGE_BONUS[Number(m[1])] !== e.points) return { ok: false, verifiedScore: 0, reason: 'bonus' };
         break;
