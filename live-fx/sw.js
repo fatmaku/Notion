@@ -12,7 +12,7 @@
 // also compares it with the server's /health version and re-precaches when they differ).
 'use strict';
 
-const SHELL_VERSION = '1.4.0';
+const SHELL_VERSION = '1.5.0';
 const CACHE = `livefx-shell-v${SHELL_VERSION}`;
 const CACHE_PREFIX = 'livefx-shell-';
 
@@ -41,6 +41,7 @@ const SHELL = [
   '/js/assets.js',
   '/js/editor.js',
   '/js/meter.js',
+  '/js/langdetect.js',
   '/js/asr.js',
   '/js/smart.js',
   '/js/fx.js',

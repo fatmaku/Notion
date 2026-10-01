@@ -31,7 +31,11 @@
   const SUGGEST_MAX = 3;
   const SELFCHECK_MS = 8000;
   const LATENCY_WINDOW = 5;
-  const settings = { lang: 'de-DE', tolerance: 'medium', reaction: 'fast', alternatives: true, restart: false, ignored: [] };
+  // 1.5: `lang: 'auto'` = automatic DE/TR/EN detection (backend `auto`, docs/CONTRACTS.md §6); new users start with it.
+  const AUTO_LANGS = ['de-DE', 'tr-TR', 'en-US'];
+  const LANG_NAMES = { de: 'Deutsch', tr: 'Türkçe', en: 'English' };
+  const settings = { lang: 'auto', tolerance: 'medium', reaction: 'fast', alternatives: true, restart: false, ignored: [] };
+  let detected = null; // { lang, family, mode, reason } – last `lang` event of the auto backend
   const matcher = new LiveFXMatcher.Matcher([], { globalMinGap: Number($('#gap').value) || 0, tolerance: settings.tolerance, lang: settings.lang });
   let triggers = [];
   let paused = false;
@@ -228,7 +232,7 @@
     if (selfCheck) finishSelfCheck(str, hitsInUtterance);
     if (hitsInUtterance === 0) {
       const missId = addMiss(str);
-      if (smart && smart.status.available && smart.shouldClassify(str, 0, true)) classifySmart(str, m.lang || settings.lang, missId);
+      if (smart && smart.status.available && smart.shouldClassify(str, 0, true)) classifySmart(str, m.lang || effectiveLang(), missId);
     }
   }
 
@@ -428,8 +432,59 @@
     el.textContent = text;
   }
 
+  /** Language tag the matcher/smart/story code should use right now (auto → last detected, default de-DE). */
+  function effectiveLang() {
+    if (settings.lang !== 'auto') return settings.lang;
+    return detected && typeof detected.lang === 'string' && detected.lang ? detected.lang : AUTO_LANGS[0];
+  }
+
+  function familyOf(tag) {
+    return String(tag || '').toLowerCase().split(/[-_]/)[0];
+  }
+
+  function renderLangPill() {
+    const el = $('#pill-lang-value');
+    if (!el) return;
+    if (settings.lang !== 'auto') el.textContent = settings.lang;
+    else el.textContent = detected && detected.family ? `Auto · ${String(detected.family).toUpperCase()}` : 'Auto';
+  }
+
+  function renderDiagLang() {
+    const el = $('#diag-lang');
+    if (!el) return;
+    if (settings.lang !== 'auto') {
+      el.textContent = `Sprache: ${settings.lang} (fest eingestellt)`;
+      return;
+    }
+    if (!detected) {
+      el.textContent = 'Erkannte Sprache: – (automatisch: Deutsch / Türkçe / English)';
+      return;
+    }
+    const fam = familyOf(detected.family || detected.lang);
+    const name = LANG_NAMES[fam] || fam.toUpperCase();
+    el.textContent = `Erkannte Sprache: ${name} (${detected.lang})${detected.mode ? ` · Modus: ${detected.mode}` : ''}`;
+  }
+
+  /** `lang` event of the auto backend: remember, show, follow with matcher + story pack. */
+  function onLangDetected(ev) {
+    const lang = typeof ev.lang === 'string' && ev.lang ? ev.lang : null;
+    if (!lang) return;
+    const family = typeof ev.family === 'string' && ev.family ? ev.family : familyOf(lang);
+    const prevFamily = detected ? detected.family : null;
+    detected = { lang, family, mode: typeof ev.mode === 'string' ? ev.mode : null, reason: typeof ev.reason === 'string' ? ev.reason : null };
+    renderLangPill();
+    renderDiagLang();
+    if (settings.lang !== 'auto') return;
+    if (typeof matcher.setLang === 'function') matcher.setLang(lang);
+    if (prevFamily !== family) {
+      log(`🌐 Sprache erkannt: ${LANG_NAMES[family] || family} (${lang})${detected.mode ? ` · ${detected.mode}` : ''}`);
+      if (storyOn) loadStoryPack();
+    }
+  }
+
   function onAsrEvent(ev) {
     if (!ev || typeof ev !== 'object') return;
+    if (ev.type === 'lang') return onLangDetected(ev);
     if (ev.type === 'planned-restart') log('🔁 Erkenner planmäßig neu gestartet');
     else if (ev.type === 'stall') log('⚠️ Erkennung hing – Neustart');
     else if (ev.type === 'restart') log('🔁 Erkenner neu gestartet');
@@ -582,7 +637,8 @@
     $('#asr-reaction').value = settings.reaction;
     $('#asr-alternatives').checked = settings.alternatives;
     $('#asr-restart').checked = settings.restart;
-    $('#pill-lang-value').textContent = settings.lang;
+    renderLangPill();
+    renderDiagLang();
   }
 
   /** Reads the stored settings, mirrors them into the card and pushes them to matcher/ASR. */
@@ -594,9 +650,9 @@
 
   function pushSettings() {
     if (typeof matcher.setTolerance === 'function') matcher.setTolerance(settings.tolerance);
-    if (typeof matcher.setLang === 'function') matcher.setLang(settings.lang);
+    if (typeof matcher.setLang === 'function') matcher.setLang(settings.lang === 'auto' ? (detected ? detected.lang : null) : settings.lang);
     if (asr) {
-      if (typeof asr.setLang === 'function') asr.setLang(settings.lang);
+      if (typeof asr.setLang === 'function') asr.setLang(asrLangFor(asr.name));
       if (typeof asr.setOptions === 'function') asr.setOptions({ alternatives: settings.alternatives, restartEveryMs: settings.restart ? RESTART_MS : 0, stallMs: STALL_MS });
     }
   }
@@ -614,11 +670,29 @@
     lsSet(ASR_KEYS.reaction, settings.reaction);
     lsSet(ASR_KEYS.alternatives, settings.alternatives ? '1' : '0');
     lsSet(ASR_KEYS.restart, settings.restart ? '1' : '0');
-    $('#pill-lang-value').textContent = settings.lang;
+    if (before.lang !== settings.lang) detected = null;
+    renderLangPill();
+    renderDiagLang();
     pushSettings();
+    // auto ↔ fixed language switches the backend (webspeech ↔ auto) – rebuild the recognizer.
+    if (before.lang !== settings.lang && asr && (before.lang === 'auto' || settings.lang === 'auto')) recreateAsr();
     if (before.tolerance !== settings.tolerance) log(`🎯 Dialekt-Toleranz: ${{ off: 'aus', medium: 'mittel', high: 'hoch' }[settings.tolerance]}`);
     if (before.reaction !== settings.reaction) log(settings.reaction === 'safe' ? '🐢 Reaktion: sicher (nur finale Sätze)' : '⚡ Reaktion: schnell');
-    if (before.lang !== settings.lang) log(`🌐 Sprache: ${settings.lang}`);
+    if (before.lang !== settings.lang) log(settings.lang === 'auto' ? '🌐 Sprache: automatisch (Deutsch / Türkçe / English)' : `🌐 Sprache: ${settings.lang}`);
+  }
+
+  /** Rebuilds the ASR with the current settings; keeps listening when it was active. */
+  function recreateAsr() {
+    const wanted = asrWanted || asrActive();
+    createAsr($('#asr').value);
+    if (wanted) {
+      asrWanted = true;
+      try {
+        asr.start();
+      } catch (e) {
+        log(`⚠️ Erkenner: ${e && e.message ? e.message : e}`);
+      }
+    }
   }
 
   for (const id of ['#lang', '#asr-tolerance', '#asr-reaction', '#asr-alternatives', '#asr-restart']) {
@@ -666,9 +740,9 @@
         /* ignore */
       }
     }
-    const backend = LiveFXASR.backends.some((b) => b.name === name) ? name : 'webspeech';
-    asr = LiveFXASR.create(backend, {
-      lang: settings.lang,
+    const backend = pickBackend(name);
+    const opts = {
+      lang: asrLangFor(backend),
       bus,
       alternatives: settings.alternatives,
       restartEveryMs: settings.restart ? RESTART_MS : 0,
@@ -681,9 +755,37 @@
         log(`${err.fatal ? '❌' : '⚠️'} ${err.message || err.code}`);
         if (err.fatal) reflectAsrState('error');
       },
-    });
+    };
+    if (backend === 'auto') opts.langs = AUTO_LANGS.slice();
+    asr = LiveFXASR.create(backend, opts);
+    if (backend !== name && settings.lang === 'auto' && name === 'webspeech') log('ℹ️ Automatische Sprache: Backend „auto“ fehlt – Browser-Erkennung mit Deutsch');
     reflectAsrState(asr.state === 'unsupported' ? 'idle' : asr.state);
     return asr;
+  }
+
+  function hasBackend(n) {
+    try {
+      return LiveFXASR.backends.some((b) => b.name === n);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /**
+   * Backend for the `#asr` choice + language: `auto` language upgrades the browser backend to `auto`
+   * (when js/asr.js provides it), falls back to webspeech otherwise; external/whisper stay as chosen.
+   */
+  function pickBackend(name) {
+    let backend = hasBackend(name) ? name : 'webspeech';
+    if (settings.lang === 'auto' && (backend === 'webspeech' || backend === 'auto')) backend = hasBackend('auto') ? 'auto' : 'webspeech';
+    else if (backend === 'auto' && !hasBackend('auto')) backend = 'webspeech';
+    return backend;
+  }
+
+  /** Language tag handed to a backend: `auto` for auto/whisper, the first auto language for webspeech. */
+  function asrLangFor(backend) {
+    if (settings.lang !== 'auto') return settings.lang;
+    return backend === 'auto' || backend === 'whisper' || backend === 'external' ? 'auto' : AUTO_LANGS[0];
   }
 
   function fillAsrSelect() {
@@ -721,7 +823,7 @@
   function simulate() {
     const text = $('#sim').value.trim();
     if (!text) return;
-    handleText(text, true, { source: 'Text', lang: settings.lang });
+    handleText(text, true, { source: 'Text', lang: effectiveLang() });
     $('#sim').value = '';
   }
   $('#btn-sim').addEventListener('click', simulate);
@@ -968,7 +1070,7 @@
   /** Loads the story pack for the current language family (idempotent). */
   function loadStoryPack() {
     if (!packsApi || typeof packsApi.storyPackFor !== 'function') return;
-    const id = packsApi.storyPackFor(settings.lang);
+    const id = packsApi.storyPackFor(effectiveLang());
     if (packsApi.packs[id]) loadPack(id);
   }
 
@@ -1165,7 +1267,10 @@
     $('#btn-mute').textContent = paused ? '▶ Weiter' : '⏸ Pause';
     log(paused ? '⏸ Effekte pausiert' : '▶ Effekte wieder aktiv');
   });
-  $('#volume').addEventListener('input', (e) => bus.send({ type: 'volume', volume: Math.min(1, Math.max(0, Number(e.target.value) || 0)) }));
+  $('#volume').addEventListener('input', (e) => {
+    bus.send({ type: 'volume', volume: Math.min(1, Math.max(0, Number(e.target.value) || 0)) });
+    enforcePreviewMute(true);
+  });
   $('#gap').addEventListener('change', (e) => (matcher.globalMinGap = Math.max(0, Number(e.target.value) || 0)));
 
   $('#btn-copy-token').addEventListener('click', async () => {
@@ -1179,6 +1284,176 @@
       input.select();
       log('📋 Token markiert – mit Strg+C kopieren');
     }
+  });
+
+  // ---------- audio (1.5): silent preview, echo warning, Ton-Check ----------
+  // The preview iframe is an overlay like the one in OBS: with sound on, every effect would play twice
+  // (panel tab + OBS browser source) and OBS' desktop audio would capture the tab on top (echo).
+  // Default: `overlay.html?volume=0`; `livefx.previewSound` ('1'/'0' in localStorage) switches it on.
+  const PREVIEW_KEY = 'livefx.previewSound';
+  const AUDIOCHECK_PREFIX = 'livefx.audiocheck.';
+  const AUDIOCHECK_KEYS = ['mic-source', 'browser-audio', 'desktop-audio', 'monitoring', 'preview-off'];
+  const HEALTH_POLL_MS = 5000;
+  const MIC_TEST_MS = 5000;
+  let previewSound = lsGet(PREVIEW_KEY) === '1';
+  let overlaysConnected = null; // from /health (the preview iframe counts as one); null = unknown / offline
+  let micTest = null; // { startedAt, timer, hadMeter }
+
+  function clampVolume(v) {
+    const n = Number(v);
+    return Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0;
+  }
+
+  function previewVolume() {
+    return previewSound ? clampVolume($('#volume').value) : 0;
+  }
+
+  /** Points the preview at `overlay.html?volume=<0|slider>` (only when it differs – avoids reloads). */
+  function applyPreviewSrc() {
+    const f = $('#preview');
+    if (!f) return;
+    const src = `overlay.html?volume=${previewVolume()}`;
+    if (f.getAttribute('src') !== src) f.setAttribute('src', src);
+  }
+
+  /**
+   * Keeps the muted preview silent: bus `volume` messages (slider, phone, API) reach the iframe like any
+   * overlay, so its renderer volume is pinned back to 0 (same origin). Cheap, runs once a second.
+   */
+  function enforcePreviewMute(delayed) {
+    if (previewSound) return;
+    const apply = () => {
+      if (previewSound) return;
+      try {
+        const w = $('#preview').contentWindow;
+        const r = w && w.livefx && w.livefx.renderer;
+        if (r && r.volume !== 0) r.volume = 0;
+      } catch (_) {
+        /* cross-origin / not loaded yet */
+      }
+    };
+    apply();
+    if (delayed) setTimeout(apply, 400);
+  }
+
+  function setPreviewSound(on, { persist = true } = {}) {
+    const next = !!on;
+    const changed = next !== previewSound;
+    previewSound = next;
+    const cb = $('#preview-sound');
+    if (cb) cb.checked = previewSound;
+    if (persist) lsSet(PREVIEW_KEY, previewSound ? '1' : '0');
+    applyPreviewSrc();
+    enforcePreviewMute(true);
+    renderAudioCheck();
+    renderEchoWarning();
+    if (changed) {
+      log(previewSound ? '🔈 Vorschau-Ton an – nur zum Reinhören, vor dem Stream wieder aus' : '🔇 Vorschau-Ton aus');
+      pollHealth();
+    }
+  }
+
+  /** Echo risk: the preview plays sound AND another overlay (OBS) is connected (overlays ≥ 2). */
+  function echoRisk() {
+    return previewSound && Number.isFinite(overlaysConnected) && overlaysConnected >= 2;
+  }
+
+  function renderEchoWarning() {
+    const el = $('#echo-warning');
+    if (!el) return;
+    const show = echoRisk();
+    if (show && el.hidden) log('⚠️ Echo-Gefahr: OBS-Overlay verbunden und Vorschau-Ton an');
+    el.hidden = !show;
+  }
+
+  let healthInFlight = false;
+  async function pollHealth() {
+    if (!online || healthInFlight) return;
+    healthInFlight = true;
+    try {
+      const r = await fetch('/health', { cache: 'no-store' });
+      const d = await r.json();
+      overlaysConnected = r.ok && d && Number.isFinite(Number(d.overlays)) ? Number(d.overlays) : null;
+    } catch (_) {
+      overlaysConnected = null;
+    } finally {
+      healthInFlight = false;
+    }
+    renderEchoWarning();
+  }
+
+  // Ton-Check list: `livefx.audiocheck.<key>` = '1'/'0'; `preview-off` mirrors the preview switch.
+  function audioCheckGet(key) {
+    if (key === 'preview-off') return !previewSound;
+    return lsGet(AUDIOCHECK_PREFIX + key) === '1';
+  }
+
+  function audioCheckSet(key, on) {
+    if (!AUDIOCHECK_KEYS.includes(key) || key === 'preview-off') return;
+    lsSet(AUDIOCHECK_PREFIX + key, on ? '1' : '0');
+    renderAudioCheck();
+  }
+
+  function renderAudioCheck() {
+    document.querySelectorAll('#audiocheck input[data-key]').forEach((cb) => {
+      const key = cb.dataset.key;
+      if (!AUDIOCHECK_KEYS.includes(key)) return;
+      cb.checked = audioCheckGet(key);
+    });
+  }
+
+  function setMicTestStatus(text, cls) {
+    const el = $('#mic-test-status');
+    if (!el) return;
+    el.textContent = text;
+    el.className = `help${cls ? ` ${cls}` : ''}`;
+  }
+
+  /** Mic test: runs the meter for 5 s and reports whether it saw any level above the voice threshold. */
+  async function startMicTest() {
+    if (micTest) return;
+    if (!meter) {
+      setMicTestStatus('❌ kein Pegelmesser (Browser ohne WebAudio?)', 'err');
+      return;
+    }
+    const hadMeter = meterStarted;
+    micTest = { startedAt: performance.now(), timer: null, hadMeter };
+    setMicTestStatus('⏳ Sprich jetzt … (5 s)');
+    await startMeter();
+    if (!micTest) return;
+    micTest.timer = setTimeout(finishMicTest, MIC_TEST_MS);
+  }
+
+  function finishMicTest() {
+    if (!micTest) return;
+    const mt = micTest;
+    micTest = null;
+    const seen = Number.isFinite(meter && meter.lastVoiceAt) && meter.lastVoiceAt >= mt.startedAt;
+    const level = meter && Number.isFinite(meter.peak) ? meter.peak : 0;
+    const ok = seen || level >= 0.02;
+    setMicTestStatus(ok ? '✔ Mikro liefert Pegel – in OBS muss sich der Balken deiner Mikro-Quelle genauso bewegen' : '❌ kein Pegel – Mikro prüfen (Berechtigung, richtiges Gerät, stumm?)', ok ? 'ok' : 'err');
+    log(ok ? '🎙️ Mikro-Test: Pegel da' : '🎙️ Mikro-Test: kein Pegel');
+    if (!mt.hadMeter && !asrActive()) stopMeter();
+  }
+
+  /** Ad-hoc test trigger for OBS: card „TON-TEST“ with the `pop` sound (through the bus, not the muted preview). */
+  function audioTestTrigger() {
+    const raw = { id: 'audio-test', label: 'TON-TEST', keywords: [], enabled: true, cooldown: 0, sound: 'pop', visual: { kind: 'card', emoji: '🔊', text: 'TON-TEST', position: 'center' } };
+    const n = typeof S.normalizeTrigger === 'function' ? S.normalizeTrigger(raw) : null;
+    return n && n.trigger ? n.trigger : raw;
+  }
+
+  function fireAudioTest() {
+    fire(audioTestTrigger(), 'Ton-Check');
+    if (previewSound) log('ℹ️ Vorschau-Ton ist an – du hörst den Test auch hier im Panel');
+  }
+
+  $('#preview-sound').addEventListener('change', (e) => setPreviewSound(e.target.checked));
+  $('#echo-off').addEventListener('click', () => setPreviewSound(false));
+  $('#btn-mic-test').addEventListener('click', startMicTest);
+  $('#btn-obs-sound').addEventListener('click', fireAudioTest);
+  document.querySelectorAll('#audiocheck input[data-key]').forEach((cb) => {
+    cb.addEventListener('change', () => audioCheckSet(cb.dataset.key, cb.checked));
   });
 
   // ---------- external API card ----------
@@ -1219,6 +1494,12 @@
     renderDiagState();
     setInterval(renderDiagState, 1000);
     renderApiCard(null);
+    setPreviewSound(previewSound, { persist: false });
+    setInterval(() => enforcePreviewMute(false), 1000);
+    if (online) {
+      pollHealth();
+      setInterval(pollHealth, HEALTH_POLL_MS);
+    }
     if (!online) log('ℹ️ Kein Server (file://): nur Vorschau im selben Browser. Für OBS, Uploads und API: node server.js');
 
     smart = LiveFXSmart.create({ bus, onStatus: reflectSmart });
@@ -1297,6 +1578,27 @@
         return !!selfCheck;
       },
     },
+    previewSound: {
+      get: () => previewSound,
+      set: (on) => setPreviewSound(on),
+    },
+    audioCheck: {
+      get: audioCheckGet,
+      set: audioCheckSet,
+      keys: AUDIOCHECK_KEYS.slice(),
+      micTest: startMicTest,
+      testTrigger: audioTestTrigger,
+      fireTest: fireAudioTest,
+    },
+    get echo() {
+      return { overlays: overlaysConnected, risk: echoRisk() };
+    },
+    pollHealth,
+    get detectedLang() {
+      return detected ? { ...detected } : null;
+    },
+    asrEvent: onAsrEvent, // same path as the backend's onEvent (tests feed `lang` events here)
+    effectiveLang,
     ready: boot(),
   };
 })();

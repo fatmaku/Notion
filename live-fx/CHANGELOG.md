@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.5.0 – Ton-Check & automatische Sprache
+
+- **Vorschau stumm** (`overlay.html?volume=0`): Die Overlay-Vorschau im Panel spielt keinen Ton mehr, damit der
+  Stream Effekte nicht doppelt bekommt. Schalter **„Vorschau-Ton“** (`livefx.previewSound`) nur zum Reinhören;
+  ein stummer Preview bleibt stumm, auch wenn der Lautstärke-Regler (Panel/Handy/API) `volume`-Nachrichten schickt.
+- **Echo-Warnung**: Ist Vorschau-Ton an und ein zweites Overlay (OBS) verbunden (`/health` alle 5 s), warnt das
+  Panel mit Ausschalt-Knopf.
+- **Karte „🔊 Ton-Check“**: fünf Haken (Mikro als OBS-Quelle, „Audio über OBS steuern“, Desktop-Audio, Monitoring,
+  Vorschau-Ton – letzter automatisch), **Mikro-Test** (5 s Pegel) und **„Test-Sound in OBS“** (Karte TON-TEST mit
+  `pop` über die Bridge). Neue Anleitung `docs/AUDIO.md` (Echo-Ursachen, OBS-Mikro, Monitoring, Fehlerhilfe);
+  OBS-Anleitung mit Mikro-Schritt; Demo-Seite mit Hinweis.
+- **Automatische Sprache**: `#lang` → „Automatisch (DE/TR/EN)“ (Standard für neue Nutzer; gespeicherte Sprache bleibt).
+  Nutzt das Backend `auto` von `js/asr.js` (`langs: de-DE/tr-TR/en-US`, `lang`-Events), Whisper bekommt `lang:'auto'`;
+  fehlt das Backend, Browser-Erkennung mit Deutsch. Diagnose „Erkannte Sprache: Türkçe (tr-TR) · Modus: parallel“,
+  Kopfzeile „Auto · TR“, Matcher und Story-Paket folgen der erkannten Sprache.
+
 ## 1.4.0 – Handy, PWA, HTTPS, Offline-Erkennung
 
 - **Handy-Fernbedienung** (`mobile.html`): alle Trigger als große Kacheln, Suche, Pause, Lautstärke, Szenen-Reihe,

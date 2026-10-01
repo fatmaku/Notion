@@ -55,7 +55,15 @@
 
       <section class="card">
         <h2>Overlay-Vorschau</h2>
-        <iframe id="preview" src="overlay.html?volume=0.5" title="Overlay Vorschau"></iframe>
+        <iframe id="preview" src="overlay.html?volume=0" title="Overlay Vorschau"></iframe>
+        <div class="row block preview-row">
+          <label class="check-line" for="preview-sound" title="Standard: aus – sonst hört der Stream Effekte doppelt (Panel-Tab + OBS)"><input type="checkbox" id="preview-sound"> 🔈 Vorschau-Ton</label>
+          <span class="help">Die Vorschau ist stumm, damit OBS den Ton nicht doppelt bekommt. Nur zum Reinhören einschalten.</span>
+        </div>
+        <div id="echo-warning" class="warning" hidden role="alert">
+          <span>⚠️ Echo-Gefahr: OBS-Overlay ist verbunden und Vorschau-Ton ist an. Schalte den Vorschau-Ton aus, sonst hören Zuschauer Effekte doppelt.</span>
+          <button type="button" class="small" id="echo-off">🔇 Vorschau-Ton aus</button>
+        </div>
         <p class="help">Das ist genau das, was OBS als Browser-Quelle einblendet – nur mit Schachbrett statt Transparenz.</p>
       </section>
 
@@ -85,6 +93,7 @@
           <div>
             <label for="lang">Sprache</label>
             <select id="lang">
+              <option value="auto">Automatisch (DE/TR/EN)</option>
               <optgroup label="Deutsch">
                 <option value="de-DE">Deutsch (Deutschland)</option>
                 <option value="de-AT">Deutsch (Österreich)</option>
@@ -128,6 +137,7 @@
           </div>
           <div class="help" id="diag-state">Zustand: idle</div>
           <div class="help" id="diag-latency">Erkennung: – · Matcher –</div>
+          <div class="help" id="diag-lang">Erkannte Sprache: –</div>
         </div>
         <div class="row block selfcheck">
           <button id="btn-selfcheck" class="small" title="Prüft Mikro, Erkennung und Matcher mit einem Stichwort">🔍 Selbsttest</button>
@@ -215,6 +225,26 @@
         <p class="help">Handy im selben WLAN; Server mit <code>HOST=0.0.0.0 node server.js</code> starten, sonst ist er nur am PC erreichbar. Mikro am Handy braucht HTTPS – siehe Anleitung.</p>
       </section>
 
+      <section class="card" id="audio-card">
+        <h2>🔊 Ton-Check (Mikro &amp; Echo)</h2>
+        <div class="help">Zuschauer hören dich nicht oder alles doppelt? Diese fünf Haken reichen – Details in der <a href="docs/AUDIO.md" target="_blank">Ton-Anleitung</a>.</div>
+        <ul class="audiocheck block" id="audiocheck">
+          <li><label class="check-line"><input type="checkbox" data-key="mic-source"> Mikrofon in OBS als Quelle „Audioeingabeaufnahme“ hinzugefügt</label></li>
+          <li><label class="check-line"><input type="checkbox" data-key="browser-audio"> Browser-Quelle: „Audio über OBS steuern“ aktiviert</label></li>
+          <li><label class="check-line"><input type="checkbox" data-key="desktop-audio"> Desktop-Audio in OBS stumm oder Chrome-Tab ausgeschlossen</label></li>
+          <li><label class="check-line"><input type="checkbox" data-key="monitoring"> Kein Audio-Monitoring (Erweiterte Audioeigenschaften → „Monitoring aus“)</label></li>
+          <li><label class="check-line" title="Wird automatisch vom Schalter „Vorschau-Ton“ gesetzt"><input type="checkbox" data-key="preview-off" disabled> Vorschau-Ton im Panel aus <span class="auto-tag">automatisch</span></label></li>
+        </ul>
+        <div class="actions">
+          <button type="button" id="btn-mic-test" title="Zeigt 5 s lang den Mikrofonpegel">🎙️ Mikro-Test</button>
+          <span class="help" id="mic-test-status"></span>
+        </div>
+        <div class="actions">
+          <button type="button" id="btn-obs-sound" title="Schickt eine Test-Karte mit Sound an OBS (nicht an die stumme Vorschau)">🔊 Test-Sound in OBS</button>
+          <span class="help">Hörst du es in der OBS-Vorschau mit Monitoring? Nein → Schritt 2 prüfen.</span>
+        </div>
+      </section>
+
       <section class="card">
         <h2>OBS / Streamlabs einrichten (für echte Streams)</h2>
         <div class="help">
@@ -222,8 +252,9 @@
           2. OBS → unten bei <b>Quellen</b> auf <b>+</b> → <b>Browser</b> → URL <code>http://127.0.0.1:8787/overlay.html</code> (Querformat) oder <code>http://127.0.0.1:8787/overlay.html?layout=portrait</code> (Hochkant, hält den Chat-Bereich unten frei). Breite/Höhe wie dein Canvas (1920×1080 oder 1080×1920).<br>
           3. Die Browser-Quelle in der Liste <b>über</b> die Kamera schieben (Pfeil ▲), sonst verdeckt die Kamera die Memes.<br>
           4. Doppelklick auf die Browser-Quelle → <b>„Audio über OBS steuern“</b> anhaken → im Audiomixer erscheint „LiveFX Overlay“.<br>
+          4b. Dein <b>Mikrofon</b> als eigene Quelle: <b>+</b> → <b>Audioeingabeaufnahme</b> → Mikro wählen. <b>Desktop-Audio</b> stumm schalten, sonst kommt der Panel-Tab doppelt rein (Echo).<br>
           5. Test: hier Taste <b>1</b> drücken → Karte im OBS-Vorschaubild, Mixer-Balken zuckt. Dann <b>„Aufnahme starten“</b> bzw. „Stream starten“.<br>
-          <a href="docs/OBS-ANLEITUNG.md" target="_blank">Ausführliche Anleitung mit Fehlerhilfe</a> · <a href="docs/GIFS.md" target="_blank">GIF-Suche einrichten</a>
+          <a href="docs/OBS-ANLEITUNG.md" target="_blank">Ausführliche Anleitung mit Fehlerhilfe</a> · <a href="docs/AUDIO.md" target="_blank">Ton &amp; Echo</a> · <a href="docs/GIFS.md" target="_blank">GIF-Suche einrichten</a>
         </div>
       </section>
 
@@ -244,6 +275,7 @@
   <script src="js/assets.js"></script>
   <script src="js/editor.js"></script>
   <script src="js/meter.js"></script>
+  <script src="js/langdetect.js"></script>
   <script src="js/asr.js"></script>
   <script src="js/smart.js"></script>
   <script src="js/panel.js"></script>

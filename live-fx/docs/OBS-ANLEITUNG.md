@@ -18,7 +18,11 @@ Ziel: Deine Kamera + LiveFX-Overlay + Sounds landen zusammen im Stream (TikTok, 
    - „Quelle aktualisieren, wenn Szene aktiv wird“ ✅ (optional, schadet nicht).
    - OK.
 4. Die Browser-Quelle muss in der Liste **über** der Kamera stehen (mit den Pfeilen ▲▼ verschieben) – sonst liegt das Meme hinter dem Bild.
-5. Sound-Check: Im Panel Taste **1** drücken → Karte erscheint in OBS, und im OBS-**Audiomixer** bewegt sich der Balken „LiveFX Overlay“. Wenn nicht: Zahnrad im Mixer → „Audio-Erweiterte Eigenschaften“ → Audioüberwachung auf „Überwachen und ausgeben“, falls du es auch selbst hören willst.
+5. **Mikrofon** als eigene Quelle: **+** → **Audioeingabeaufnahme** → dein Mikro → OK. Ohne diesen Schritt hören
+   dich die Zuschauer nicht – das Mikro der Spracherkennung läuft nur im Browser. Dazu **Desktop-Audio** im Mixer
+   stumm schalten (sonst kommt der Panel-Tab doppelt rein) und Audio-Monitoring aus lassen. Alles Weitere, inkl.
+   Echo-Fehlerhilfe: [`docs/AUDIO.md`](AUDIO.md) bzw. die Karte **🔊 Ton-Check** im Panel.
+6. Sound-Check: Im Panel Taste **1** drücken → Karte erscheint in OBS, und im OBS-**Audiomixer** bewegt sich der Balken „LiveFX Overlay“. Wenn nicht: Zahnrad im Mixer → „Audio-Erweiterte Eigenschaften“ → Audioüberwachung auf „Überwachen und ausgeben“, falls du es auch selbst hören willst.
 
 ## 3. Hochkant für TikTok / Instagram
 1. OBS → **Einstellungen** → **Video** → Basis- und Ausgabeauflösung `1080x1920` → OK.
@@ -47,6 +51,7 @@ Dann in OBS **„Stream starten“**. Im LiveFX-Panel **„Mikro starten“** �
 |---|---|
 | Overlay bleibt leer | URL prüfen (`127.0.0.1:8787`), läuft `node server.js` noch? Im Panel muss „OBS-Bridge“ grün sein. |
 | Bild da, kein Ton | „Audio über OBS steuern“ in der Browser-Quelle anhaken; Mixer-Balken prüfen. |
-| Effekt kommt doppelt | Nur **eine** Browser-Quelle mit dem Overlay anlegen. |
-| Mikro erkennt nichts | Panel nur in Chrome/Edge; Mikro-Berechtigung erlauben; Sprache im Panel passend wählen (Deutsch/English/Türkçe). |
+| Zuschauer hören mich nicht | Mikro als OBS-Quelle „Audioeingabeaufnahme“ anlegen (Schritt 5) – siehe `docs/AUDIO.md`. |
+| Echo / Effekt kommt doppelt | Vorschau-Ton im Panel aus (Standard), Desktop-Audio stumm, Monitoring aus, nur **eine** Browser-Quelle mit dem Overlay – Ton-Check im Panel bzw. `docs/AUDIO.md`. |
+| Mikro erkennt nichts | Panel nur in Chrome/Edge; Mikro-Berechtigung erlauben; Sprache im Panel auf „Automatisch (DE/TR/EN)“ lassen oder passend wählen. |
 | OBS auf anderem PC | LiveFX mit `HOST=0.0.0.0 node server.js` starten und im Overlay die IP des LiveFX-PCs verwenden. |
