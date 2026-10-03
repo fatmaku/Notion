@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiveFX – Deine Stimme wird zum Effekt</title>
+<meta name="description" content="LiveFX hört dem Creator zu und blendet in unter einer Sekunde Memes, Sounds und Szenen in den Live-Stream ein. Für TikTok LIVE, Instagram, YouTube und Twitch – läuft lokal, DE/TR/EN.">
+<meta name="theme-color" content="#0f1115">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f1115'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='34' font-family='Arial' font-weight='800' fill='%23ff2d75'%3EFX%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#0f1115;--bg2:#161922;--card:#1c1f29;--card2:#232735;--line:#2a2f3c;--text:#f3f4f8;--muted:#9aa3b5;--dim:#6b7280;--pink:#ff2d75;--mint:#2dffb5;--gold:#ffd166;--violet:#7c5cff;--r:14px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--mint)}img,video{max-width:100%;height:auto;display:block}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 16px}
+[data-lang]{display:none}html[lang=de] [data-lang=de],html[lang=tr] [data-lang=tr],html[lang=en] [data-lang=en]{display:revert}
+h1,h2,h3{margin:0 0 .4em;line-height:1.15;letter-spacing:-.01em}
+h1{font-size:clamp(2.1rem,7vw,4.2rem);font-weight:800}
+h2{font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:800}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0 0 1em}.muted{color:var(--muted)}.sub{font-size:1.1rem;color:var(--muted);max-width:620px}
+section{padding:56px 0}@media(min-width:900px){section{padding:88px 0}}
+.kicker{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);margin-bottom:10px}
+.kicker.mint{color:var(--mint)}.kicker.gold{color:var(--gold)}
+header{position:sticky;top:0;z-index:20;background:rgba(15,17,21,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.15rem;text-decoration:none;color:var(--text)}
+.logo .tag{font-size:.62rem;font-weight:800;letter-spacing:.12em;padding:3px 7px;border-radius:999px;background:var(--violet);color:#fff}
+.lang{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:.8rem;font-weight:700;padding:5px 10px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed=true]{background:var(--pink);color:#fff}
+.navlinks{display:none;gap:18px;font-size:.9rem}.navlinks a{color:var(--muted);text-decoration:none}.navlinks a:hover{color:var(--text)}
+@media(min-width:900px){.navlinks{display:flex}}
+.hero{padding:64px 0 40px;background:radial-gradient(ellipse 70% 50% at 20% 0%,rgba(124,92,255,.22),transparent 60%),radial-gradient(ellipse 50% 40% at 90% 20%,rgba(255,45,117,.16),transparent 60%)}
+@media(min-width:900px){.hero{padding:110px 0 70px}.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}}
+.hero h1 .accent{color:var(--pink)}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 18px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:12px;font-weight:800;text-decoration:none;font-size:1rem;border:1px solid transparent;transition:transform .12s}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--pink);color:#fff;box-shadow:0 8px 30px rgba(255,45,117,.35)}
+.btn.ghost{background:var(--card);color:var(--text);border-color:var(--line)}
+.btn.mint{background:var(--mint);color:#06130d}
+.hero-note{font-size:.85rem;color:var(--dim)}
+.hero-shot{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6);margin-top:28px}
+@media(min-width:900px){.hero-shot{margin-top:0}}
+.videobox{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.videobox video{width:100%;aspect-ratio:16/9;background:#000}
+.videobox .cap{padding:12px 16px;font-size:.85rem;color:var(--muted)}
+.grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:560px){.grid.c2,.grid.c4{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.grid.c3{grid-template-columns:repeat(3,1fr)}.grid.c4{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.card .ico{width:44px;height:44px;border-radius:12px;background:var(--card2);display:grid;place-items:center;font-size:1.35rem;margin-bottom:12px}
+.card p{margin:0;color:var(--muted);font-size:.93rem}
+.steps{counter-reset:s}.step{position:relative;padding-left:60px}
+.step .n{position:absolute;left:20px;top:20px;width:30px;height:30px;border-radius:50%;background:var(--pink);color:#fff;font-weight:800;display:grid;place-items:center;font-size:.9rem}
+.step code{display:inline-block;margin-top:8px;background:#0b0d12;border:1px solid var(--line);padding:4px 8px;border-radius:6px;font-size:.82rem;color:var(--mint);word-break:break-all}
+.gallery{display:grid;gap:12px;grid-template-columns:1fr 1fr;align-items:start}
+@media(min-width:900px){.gallery{grid-template-columns:repeat(6,1fr)}.gallery figure:nth-child(1){grid-column:span 4}.gallery figure:nth-child(2){grid-column:span 2}.gallery figure:nth-child(n+3){grid-column:span 2}}
+.gallery figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.gallery img{width:100%;height:auto;object-fit:cover;aspect-ratio:16/10}
+.gallery figure:nth-child(2) img{object-position:50% 32%}.gallery figure:nth-child(4) img{object-position:top}
+.gallery figcaption{padding:8px 12px;font-size:.78rem;color:var(--muted)}
+.packs{display:grid;gap:12px;grid-template-columns:1fr 1fr}@media(min-width:900px){.packs{grid-template-columns:repeat(5,1fr)}}
+.pack{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;text-align:center}
+.pack .big{font-size:2.2rem;font-weight:800;line-height:1}.pack .big.pink{color:var(--pink)}.pack .big.mint{color:var(--mint)}.pack .big.gold{color:var(--gold)}.pack .big.violet{color:#a995ff}
+.pack .name{font-weight:700;margin-top:6px}.pack .ex{font-size:.8rem;color:var(--muted);margin-top:6px}
+.price{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column}
+.price.hl{background:linear-gradient(180deg,#2a1530,var(--card));border-color:var(--pink)}
+.price .tier{font-weight:800;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.price.hl .tier{color:var(--pink)}
+.price .amt{font-size:2rem;font-weight:800;margin:6px 0 2px}.price .per{font-size:.85rem;color:var(--muted);margin-bottom:12px}
+.price ul{margin:0 0 16px;padding-left:18px;color:var(--muted);font-size:.92rem}.price li{margin:4px 0}.price .btn{margin-top:auto;justify-content:center}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";color:var(--pink);font-weight:800}.faq details[open] summary::after{content:"–"}
+.faq details p{color:var(--muted);padding-bottom:16px;margin:0}
+.dl{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.dl pre{background:#0b0d12;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font-size:.85rem;color:var(--mint);margin:12px 0}
+footer{border-top:1px solid var(--line);padding:32px 0;font-size:.85rem;color:var(--muted)}
+footer .cols{display:flex;flex-wrap:wrap;gap:18px 32px;justify-content:space-between}
+footer a{color:var(--muted)}
+.ribbon{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:.85rem;color:var(--dim);margin-top:20px}
+.ribbon>span{display:inline-flex;align-items:center;gap:6px}.ribbon i{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">🎬 LiveFX <span class="tag">LIVE MEME ENGINE</span></a>
+    <nav class="navlinks">
+      <a href="#features"><span data-lang="de">Funktionen</span><span data-lang="tr">Özellikler</span><span data-lang="en">Features</span></a>
+      <a href="#how"><span data-lang="de">So geht’s</span><span data-lang="tr">Nasıl çalışır</span><span data-lang="en">How it works</span></a>
+      <a href="#packs"><span data-lang="de">Pakete</span><span data-lang="tr">Paketler</span><span data-lang="en">Packs</span></a>
+      <a href="#pricing"><span data-lang="de">Preise</span><span data-lang="tr">Fiyatlar</span><span data-lang="en">Pricing</span></a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Sprache / Dil / Language">
+      <button type="button" data-set-lang="de" aria-pressed="true">DE</button>
+      <button type="button" data-set-lang="tr" aria-pressed="false">TR</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker"><span data-lang="de">Live-Memes, Sticker & Sounds aus deiner Sprache</span><span data-lang="tr">Sesinden canlı meme, sticker ve ses</span><span data-lang="en">Live memes, stickers & sounds from your voice</span></span>
+      <h1><span data-lang="de">Deine Stimme wird zum <span class="accent">Effekt.</span></span><span data-lang="tr">Sesin <span class="accent">efekte</span> dönüşür.</span><span data-lang="en">Your voice becomes the <span class="accent">effect.</span></span></h1>
+      <p class="sub"><span data-lang="de">LiveFX hört dir im Live-Stream zu. Sagst du „krass“, „yok artık“ oder „es regnete“, erscheint in unter einer Sekunde das passende Meme, der Sound oder die Szene – hands-free, auf TikTok LIVE, Instagram, YouTube und Twitch.</span><span data-lang="tr">LiveFX canlı yayında seni dinler. „Yok artık“, „ohaa“ ya da „yağmur yağıyordu“ dediğinde bir saniyeden kısa sürede uygun meme, ses veya sahne belirir – eller serbest, TikTok LIVE, Instagram, YouTube ve Twitch’te.</span><span data-lang="en">LiveFX listens to you while you stream. Say "bruh", "let’s go" or "it was raining" and the matching meme, sound or scene appears in under a second – hands-free, on TikTok LIVE, Instagram, YouTube and Twitch.</span></p>
+      <div class="ctas">
+        <a class="btn primary" href="#download">⬇ Download (ZIP)</a>
+        <a class="btn ghost" href="mailto:hallo@example.com?subject=LiveFX%20Pilot"><span data-lang="de">Pilot anfragen</span><span data-lang="tr">Pilot talep et</span><span data-lang="en">Request a pilot</span></a>
+      </div>
+      <p class="hero-note"><span data-lang="de">Kostenlos · läuft lokal · Chrome/Edge + OBS · Version 1.6</span><span data-lang="tr">Ücretsiz · yerel çalışır · Chrome/Edge + OBS · Sürüm 1.6</span><span data-lang="en">Free · runs locally · Chrome/Edge + OBS · version 1.6</span></p>
+      <div class="ribbon">
+        <span><i></i><span data-lang="de">< 1 s Reaktion</span><span data-lang="tr">< 1 sn tepki</span><span data-lang="en">< 1 s reaction</span></span>
+        <span><i></i>DE · TR · EN</span>
+        <span><i></i><span data-lang="de">238 Trigger in 5 Paketen</span><span data-lang="tr">5 pakette 238 tetikleyici</span><span data-lang="en">238 triggers in 5 packs</span></span>
+        <span><i></i><span data-lang="de">13 Story-Szenen</span><span data-lang="tr">13 hikâye sahnesi</span><span data-lang="en">13 story scenes</span></span>
+      </div>
+    </div>
+    <div class="hero-shot"><img src="landing-assets/overlay-neon.jpg" width="1280" height="720" alt="LiveFX Overlay: Neon-Text KRASS! mit Konfetti"></div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="wrap">
+    <span class="kicker gold"><span data-lang="de">Trailer</span><span data-lang="tr">Tanıtım</span><span data-lang="en">Trailer</span></span>
+    <h2><span data-lang="de">30 Sekunden, die mehr sagen als jede Folie</span><span data-lang="tr">30 saniye, her slayttan daha fazlasını anlatır</span><span data-lang="en">30 seconds that say more than any slide</span></h2>
+    <div class="videobox">
+      <video controls preload="none" playsinline poster="landing-assets/overlay-neon.jpg" src="video/LiveFX_Trailer_16x9.mp4">
+        <span data-lang="de">Dein Browser kann das Video nicht abspielen.</span><span data-lang="tr">Tarayıcın videoyu oynatamıyor.</span><span data-lang="en">Your browser cannot play this video.</span>
+      </video>
+      <div class="cap"><span data-lang="de">Kamera an, Creator spricht, Effekte erscheinen – dann Story-Modus: Vorlesen wird zu Szenen.</span><span data-lang="tr">Kamera açık, yayıncı konuşuyor, efektler beliriyor – sonra hikâye modu: okumak sahnelere dönüşüyor.</span><span data-lang="en">Camera on, creator talks, effects appear – then story mode: reading aloud turns into scenes.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <span class="kicker"><span data-lang="de">Funktionen</span><span data-lang="tr">Özellikler</span><span data-lang="en">Features</span></span>
+    <h2><span data-lang="de">Alles, was Kurzvideos haben – jetzt live</span><span data-lang="tr">Kısa videoların sahip olduğu her şey – artık canlı</span><span data-lang="en">Everything short videos have – now live</span></h2>
+    <p class="sub"><span data-lang="de">Wie Live-Untertitel, nur mit Bildern, Animationen und Geräuschen.</span><span data-lang="tr">Canlı altyazı gibi, ama görsel, animasyon ve seslerle.</span><span data-lang="en">Like live captions, but with images, animations and sounds.</span></p>
+    <div class="grid c4">
+      <div class="card"><div class="ico">🎙</div><h3><span data-lang="de">Stimme → Effekt</span><span data-lang="tr">Ses → Efekt</span><span data-lang="en">Voice → Effect</span></h3><p><span data-lang="de">Sag „krass“, „yok artık“ oder „bruh“ – in unter einer Sekunde erscheint Meme, Sound oder Szene.</span><span data-lang="tr">„Yok artık“, „ohaa“ ya da „helal olsun“ de – bir saniyeden kısa sürede meme, ses veya sahne belirir.</span><span data-lang="en">Say "krass", "yok artık" or "bruh" – meme, sound or scene appears in under a second.</span></p></div>
+      <div class="card"><div class="ico">🌍</div><h3><span data-lang="de">DE / TR / EN automatisch</span><span data-lang="tr">DE / TR / EN otomatik</span><span data-lang="en">DE / TR / EN automatic</span></h3><p><span data-lang="de">Erkennt beim Sprechen, welche Sprache du gerade redest – mit Dialekt-Toleranz und Lernfunktion.</span><span data-lang="tr">Konuşurken hangi dili kullandığını anlar – ağız toleransı ve öğrenme fonksiyonuyla.</span><span data-lang="en">Detects which language you are speaking – with dialect tolerance and a learning function.</span></p></div>
+      <div class="card"><div class="ico">📖</div><h3><span data-lang="de">Story-Modus</span><span data-lang="tr">Hikâye modu</span><span data-lang="en">Story mode</span></h3><p><span data-lang="de">Vorlesen wird Kino: 13 Vollbild-Szenen (Regen, Nacht, Wald, Drache …) mit Atmosphäre-Sound.</span><span data-lang="tr">Okumak sinemaya dönüşür: 13 tam ekran sahne (yağmur, gece, orman, ejderha …) ve atmosfer sesleri.</span><span data-lang="en">Reading aloud becomes cinema: 13 full-screen scenes (rain, night, forest, dragon …) with ambient sound.</span></p></div>
+      <div class="card"><div class="ico">✨</div><h3><span data-lang="de">Effekt-Engine v2</span><span data-lang="tr">Efekt motoru v2</span><span data-lang="en">Effects engine v2</span></h3><p><span data-lang="de">Partikel mit Physik bei 60 fps, Neon-/Glitch-Text, Bauchbinden, Konfetti, Kombis, 4 Looks.</span><span data-lang="tr">60 fps fizikli parçacıklar, neon/glitch yazı, alt bant, konfeti, kombolar, 4 görünüm.</span><span data-lang="en">Physics particles at 60 fps, neon/glitch text, lower thirds, confetti, combos, 4 themes.</span></p></div>
+      <div class="card"><div class="ico">🔊</div><h3><span data-lang="de">38 eigene Sounds</span><span data-lang="tr">38 özgün ses</span><span data-lang="en">38 built-in sounds</span></h3><p><span data-lang="de">Synthetisch erzeugt – keine Lizenzkosten, keine Copyright-Strikes. Mixer mit Limiter und Ducking.</span><span data-lang="tr">Sentetik üretim – lisans ücreti yok, telif cezası yok. Limiter ve ducking içeren mikser.</span><span data-lang="en">Synthesised – no licence fees, no copyright strikes. Mixer with limiter and ducking.</span></p></div>
+      <div class="card"><div class="ico">💬</div><h3><span data-lang="de">Zuschauer-Trigger</span><span data-lang="tr">İzleyici tetikleyicileri</span><span data-lang="en">Viewer triggers</span></h3><p><span data-lang="de">Twitch-Chat, YouTube-Chat, Geschenke-Webhook: Zuschauer lösen Effekte per Befehl oder Geschenk aus.</span><span data-lang="tr">Twitch sohbeti, YouTube sohbeti, hediye webhook’u: izleyiciler komut veya hediyeyle efekt tetikler.</span><span data-lang="en">Twitch chat, YouTube chat, gift webhook: viewers fire effects via commands or gifts.</span></p></div>
+      <div class="card"><div class="ico">📱</div><h3><span data-lang="de">Handy-Fernbedienung</span><span data-lang="tr">Telefon kumandası</span><span data-lang="en">Phone remote</span></h3><p><span data-lang="de">Alle Trigger als Kacheln auf dem Handy, Szenen-Reihe, Lautstärke, Pause – als PWA, auch offline.</span><span data-lang="tr">Tüm tetikleyiciler telefonda kutucuk olarak, sahne sırası, ses, duraklat – PWA, çevrimdışı da çalışır.</span><span data-lang="en">All triggers as tiles on your phone, scene row, volume, pause – as a PWA, works offline.</span></p></div>
+      <div class="card"><div class="ico">🔌</div><h3><span data-lang="de">Offene API</span><span data-lang="tr">Açık API</span><span data-lang="en">Open API</span></h3><p><span data-lang="de">Stream Deck, Chat-Bots, Whisper/Deepgram: alles per HTTP mit Token. OBS, Streamlabs, TikTok LIVE Studio.</span><span data-lang="tr">Stream Deck, sohbet botları, Whisper/Deepgram: hepsi token’lı HTTP ile. OBS, Streamlabs, TikTok LIVE Studio.</span><span data-lang="en">Stream Deck, chat bots, Whisper/Deepgram: all via HTTP with a token. OBS, Streamlabs, TikTok LIVE Studio.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <span class="kicker mint"><span data-lang="de">So geht’s</span><span data-lang="tr">Nasıl çalışır</span><span data-lang="en">How it works</span></span>
+    <h2><span data-lang="de">In 2 Minuten im Stream</span><span data-lang="tr">2 dakikada yayında</span><span data-lang="en">In your stream in 2 minutes</span></h2>
+    <div class="grid c3 steps">
+      <div class="card step"><span class="n">1</span><h3><span data-lang="de">Server starten</span><span data-lang="tr">Sunucuyu başlat</span><span data-lang="en">Start the server</span></h3><p><span data-lang="de">ZIP entpacken, Node.js installiert haben, einen Befehl im Terminal.</span><span data-lang="tr">ZIP’i aç, Node.js kurulu olsun, terminalde tek komut.</span><span data-lang="en">Unzip, have Node.js installed, one command in the terminal.</span></p><code>node server.js</code></div>
+      <div class="card step"><span class="n">2</span><h3><span data-lang="de">Panel öffnen</span><span data-lang="tr">Paneli aç</span><span data-lang="en">Open the panel</span></h3><p><span data-lang="de">Chrome oder Edge: „Mikro starten“, Paket laden (Türkçe, Deutsch, English …), etwas sagen.</span><span data-lang="tr">Chrome veya Edge: „Mikrofonu başlat“, paket yükle (Türkçe, Deutsch, English …), bir şey söyle.</span><span data-lang="en">Chrome or Edge: "Start mic", load a pack (Türkçe, Deutsch, English …), say something.</span></p><code>http://127.0.0.1:8787/</code></div>
+      <div class="card step"><span class="n">3</span><h3><span data-lang="de">OBS-Browserquelle</span><span data-lang="tr">OBS tarayıcı kaynağı</span><span data-lang="en">OBS browser source</span></h3><p><span data-lang="de">In OBS/Streamlabs/TikTok LIVE Studio eine Browser-Quelle anlegen – Hochkant mit ?layout=portrait.</span><span data-lang="tr">OBS/Streamlabs/TikTok LIVE Studio’da bir tarayıcı kaynağı ekle – dikey için ?layout=portrait.</span><span data-lang="en">Add a browser source in OBS/Streamlabs/TikTok LIVE Studio – portrait with ?layout=portrait.</span></p><code>http://127.0.0.1:8787/overlay.html</code></div>
+    </div>
+  </div>
+</section>
+
+<section id="shots">
+  <div class="wrap">
+    <span class="kicker gold">Screenshots</span>
+    <h2><span data-lang="de">So sieht es aus</span><span data-lang="tr">Böyle görünüyor</span><span data-lang="en">What it looks like</span></h2>
+    <div class="gallery">
+      <figure><img src="landing-assets/overlay-neon.jpg" loading="lazy" alt="Overlay 16:9 – „Krass!“ → Neon-Text + Konfetti"><figcaption><span data-lang="de">Overlay 16:9 – „Krass!“ → Neon-Text + Konfetti</span><span data-lang="tr">Overlay 16:9 – „Krass!“ → neon yazı + konfeti</span><span data-lang="en">Overlay 16:9 – "Krass!" → neon text + confetti</span></figcaption></figure>
+      <figure><img src="landing-assets/overlay-portrait-rain.jpg" loading="lazy" alt="Hochkant 9:16 – Story-Modus „Es regnete…“"><figcaption><span data-lang="de">Hochkant 9:16 – Story-Modus „Es regnete…“</span><span data-lang="tr">Dikey 9:16 – hikâye modu „Yağmur yağıyordu…“</span><span data-lang="en">Portrait 9:16 – story mode "It was raining…"</span></figcaption></figure>
+      <figure><img src="landing-assets/panel.jpg" loading="lazy" alt="Control Panel – Soundboard, Erkennung, Story-Modus"><figcaption><span data-lang="de">Control Panel – Soundboard, Erkennung, Story-Modus</span><span data-lang="tr">Kontrol paneli – soundboard, tanıma, hikâye modu</span><span data-lang="en">Control panel – soundboard, recognition, story mode</span></figcaption></figure>
+      <figure><img src="landing-assets/mobile.jpg" loading="lazy" alt="Handy-Fernbedienung (PWA)"><figcaption><span data-lang="de">Handy-Fernbedienung (PWA)</span><span data-lang="tr">Telefon kumandası (PWA)</span><span data-lang="en">Phone remote (PWA)</span></figcaption></figure>
+      <figure><img src="landing-assets/demo.jpg" loading="lazy" alt="Demo-Seite – Clip aufnehmen ohne OBS"><figcaption><span data-lang="de">Demo-Seite – Clip aufnehmen ohne OBS</span><span data-lang="tr">Demo sayfası – OBS olmadan klip kaydet</span><span data-lang="en">Demo page – record a clip without OBS</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="packs">
+  <div class="wrap">
+    <span class="kicker"><span data-lang="de">Meme-Pakete</span><span data-lang="tr">Meme paketleri</span><span data-lang="en">Meme packs</span></span>
+    <h2><span data-lang="de">Ein Klick, 238 Trigger</span><span data-lang="tr">Tek tık, 238 tetikleyici</span><span data-lang="en">One click, 238 triggers</span></h2>
+    <p class="sub"><span data-lang="de">Im Panel laden, wieder entfernen, eigene Trigger dazu – plus Geschichten-Pakete für den Story-Modus in drei Sprachen.</span><span data-lang="tr">Panelden yükle, kaldır, kendi tetikleyicilerini ekle – artı üç dilde hikâye modu için masal paketleri.</span><span data-lang="en">Load them in the panel, remove them again, add your own – plus story packs for story mode in three languages.</span></p>
+    <div class="packs">
+      <div class="pack"><div class="big pink">85</div><div class="name">Türkçe</div><div class="ex"><span data-lang="de">yok artık · ohaa · helal olsun · efsane</span><span data-lang="tr">yok artık · ohaa · helal olsun · efsane</span><span data-lang="en">yok artık · ohaa · helal olsun · efsane</span></div></div>
+      <div class="pack"><div class="big mint">49</div><div class="name">Deutsch</div><div class="ex"><span data-lang="de">krass · oh nein · Applaus · Fail</span><span data-lang="tr">krass · oh nein · Applaus · Fail</span><span data-lang="en">krass · oh nein · Applaus · Fail</span></div></div>
+      <div class="pack"><div class="big gold">50</div><div class="name">English</div><div class="ex"><span data-lang="de">bruh · let’s go · mind blown · GG</span><span data-lang="tr">bruh · let’s go · mind blown · GG</span><span data-lang="en">bruh · let’s go · mind blown · GG</span></div></div>
+      <div class="pack"><div class="big violet">27</div><div class="name"><span data-lang="de">Familie & Kinder</span><span data-lang="tr">Aile & Çocuk</span><span data-lang="en">Family & Kids</span></div><div class="ex"><span data-lang="de">Kinderlachen · Quietscheente · Glitzer</span><span data-lang="tr">çocuk kahkahası · ördek · pırıltı</span><span data-lang="en">kids’ laughter · rubber duck · sparkle</span></div></div>
+      <div class="pack"><div class="big pink">27</div><div class="name">Gaming</div><div class="ex"><span data-lang="de">GG · Clutch · Rage · Level-up</span><span data-lang="tr">GG · Clutch · Rage · Level-up</span><span data-lang="en">GG · clutch · rage · level-up</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <span class="kicker mint"><span data-lang="de">Preise</span><span data-lang="tr">Fiyatlar</span><span data-lang="en">Pricing</span></span>
+    <h2><span data-lang="de">Kostenlos starten, mit dem Stream wachsen</span><span data-lang="tr">Ücretsiz başla, yayınla birlikte büyü</span><span data-lang="en">Start free, grow with your stream</span></h2>
+    <div class="grid c4">
+      <div class="price">
+        <div class="tier">Free</div><div class="amt">0 €</div><div class="per"><span data-lang="de">für immer</span><span data-lang="tr">sonsuza kadar</span><span data-lang="en">forever</span></div>
+        <ul><li><span data-lang="de">Alle Kernfunktionen</span><span data-lang="tr">Tüm temel özellikler</span><span data-lang="en">All core features</span></li><li><span data-lang="de">Standard-Pakete DE/TR/EN</span><span data-lang="tr">Standart paketler DE/TR/EN</span><span data-lang="en">Standard packs DE/TR/EN</span></li><li><span data-lang="de">OBS-Overlay, Hochkant</span><span data-lang="tr">OBS overlay, dikey</span><span data-lang="en">OBS overlay, portrait</span></li><li><span data-lang="de">38 Sounds, 13 Szenen</span><span data-lang="tr">38 ses, 13 sahne</span><span data-lang="en">38 sounds, 13 scenes</span></li></ul>
+        <a class="btn ghost" href="#download">Download</a>
+      </div>
+      <div class="price hl">
+        <div class="tier">Pro</div><div class="amt">9,99 €</div><div class="per"><span data-lang="de">pro Monat</span><span data-lang="tr">aylık</span><span data-lang="en">per month</span></div>
+        <ul><li><span data-lang="de">KI-Modus (Sätze ohne Stichwort)</span><span data-lang="tr">Yapay zekâ modu (anahtar kelimesiz cümleler)</span><span data-lang="en">AI mode (sentences without keywords)</span></li><li><span data-lang="de">Alle Szenen & Looks</span><span data-lang="tr">Tüm sahneler ve görünümler</span><span data-lang="en">All scenes & themes</span></li><li><span data-lang="de">Handy-Fernbedienung, Sync</span><span data-lang="tr">Telefon kumandası, senkron</span><span data-lang="en">Phone remote, sync</span></li><li><span data-lang="de">Priorität-Support</span><span data-lang="tr">Öncelikli destek</span><span data-lang="en">Priority support</span></li></ul>
+        <a class="btn primary" href="mailto:hallo@example.com?subject=LiveFX%20Pro"><span data-lang="de">Warteliste</span><span data-lang="tr">Bekleme listesi</span><span data-lang="en">Waitlist</span></a>
+      </div>
+      <div class="price">
+        <div class="tier">Creator-Packs</div><div class="amt"><span data-lang="de">ab 2,99 €</span><span data-lang="tr">2,99 €’dan</span><span data-lang="en">from €2.99</span></div><div class="per"><span data-lang="de">pro Paket · 70/30 für Creator</span><span data-lang="tr">paket başına · yayıncıya %70</span><span data-lang="en">per pack · 70/30 for creators</span></div>
+        <ul><li><span data-lang="de">Meme- & Story-Pakete von Creatorn</span><span data-lang="tr">Yayıncılardan meme ve hikâye paketleri</span><span data-lang="en">Meme & story packs by creators</span></li><li><span data-lang="de">Eigene Pakete verkaufen</span><span data-lang="tr">Kendi paketlerini sat</span><span data-lang="en">Sell your own packs</span></li><li><span data-lang="de">Marktplatz (geplant)</span><span data-lang="tr">Pazar yeri (planlanıyor)</span><span data-lang="en">Marketplace (planned)</span></li></ul>
+        <a class="btn ghost" href="mailto:hallo@example.com?subject=LiveFX%20Creator-Packs"><span data-lang="de">Creator werden</span><span data-lang="tr">Yayıncı ol</span><span data-lang="en">Become a creator</span></a>
+      </div>
+      <div class="price">
+        <div class="tier">B2B</div><div class="amt"><span data-lang="de">Lizenz</span><span data-lang="tr">Lisans</span><span data-lang="en">Licence</span></div><div class="per"><span data-lang="de">auf Anfrage</span><span data-lang="tr">talep üzerine</span><span data-lang="en">on request</span></div>
+        <ul><li><span data-lang="de">SDK / White-Label</span><span data-lang="tr">SDK / beyaz etiket</span><span data-lang="en">SDK / white label</span></li><li><span data-lang="de">Plattform-Integration</span><span data-lang="tr">Platform entegrasyonu</span><span data-lang="en">Platform integration</span></li><li><span data-lang="de">Agenturen & Streaming-Software</span><span data-lang="tr">Ajanslar ve yayın yazılımları</span><span data-lang="en">Agencies & streaming software</span></li></ul>
+        <a class="btn mint" href="mailto:hallo@example.com?subject=LiveFX%20Pilot"><span data-lang="de">Pilot anfragen</span><span data-lang="tr">Pilot talep et</span><span data-lang="en">Request a pilot</span></a>
+      </div>
+    </div>
+    <p class="muted" style="font-size:.82rem;margin-top:14px"><span data-lang="de">Pro und Creator-Packs sind in Vorbereitung; heute ist alles kostenlos.</span><span data-lang="tr">Pro ve Creator paketleri hazırlanıyor; bugün her şey ücretsiz.</span><span data-lang="en">Pro and creator packs are in preparation; today everything is free.</span></p>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <span class="kicker">Download</span>
+    <h2><span data-lang="de">LiveFX herunterladen</span><span data-lang="tr">LiveFX’i indir</span><span data-lang="en">Download LiveFX</span></h2>
+    <div class="dl">
+      <p><span data-lang="de">ZIP entpacken, Node.js (ab 18) installieren, Server starten – fertig. Keine Installation, kein Account.</span><span data-lang="tr">ZIP’i aç, Node.js (18+) kur, sunucuyu başlat – bitti. Kurulum yok, hesap yok.</span><span data-lang="en">Unzip, install Node.js (18+), start the server – done. No installer, no account.</span></p>
+      <pre>cd live-fx
+node server.js            # → http://127.0.0.1:8787</pre>
+      <div class="ctas" style="margin:8px 0 0">
+        <a class="btn primary" href="[Download-Link]/LiveFX-1.6.zip">⬇ LiveFX 1.6 (ZIP)</a>
+        <a class="btn ghost" href="[Repo-Link]"><span data-lang="de">Quellcode & Doku</span><span data-lang="tr">Kaynak kod ve belgeler</span><span data-lang="en">Source & docs</span></a>
+      </div>
+      <p class="muted" style="font-size:.82rem;margin:14px 0 0"><span data-lang="de">Anleitungen für OBS, TikTok LIVE Studio, Instagram Live Producer, Handy und Ton-Check liegen im Ordner docs/.</span><span data-lang="tr">OBS, TikTok LIVE Studio, Instagram Live Producer, telefon ve ses kontrolü kılavuzları docs/ klasöründe.</span><span data-lang="en">Guides for OBS, TikTok LIVE Studio, Instagram Live Producer, phone and audio check are in the docs/ folder.</span></p>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <div class="wrap">
+    <span class="kicker gold">FAQ</span>
+    <h2><span data-lang="de">Häufige Fragen</span><span data-lang="tr">Sık sorulan sorular</span><span data-lang="en">Frequently asked questions</span></h2>
+    <details><summary><span data-lang="de">Datenschutz – wo laufen meine Daten?</span><span data-lang="tr">Gizlilik – verilerim nerede işleniyor?</span><span data-lang="en">Privacy – where does my data go?</span></summary><p><span data-lang="de">LiveFX läuft komplett lokal auf deinem Rechner. Trigger, Medien und Einstellungen liegen in einem Ordner bei dir; es gibt keinen Account, keine Cloud und kein Tracking. Der optionale KI-Modus schickt nur dann einzelne Sätze an ein Sprachmodell, wenn du ihn mit eigenem API-Key einschaltest.</span><span data-lang="tr">LiveFX tamamen bilgisayarında yerel çalışır. Tetikleyiciler, medya ve ayarlar senin klasöründe durur; hesap, bulut veya izleme yok. İsteğe bağlı yapay zekâ modu yalnızca kendi API anahtarınla açtığında tek tek cümleleri bir dil modeline gönderir.</span><span data-lang="en">LiveFX runs entirely on your own machine. Triggers, media and settings live in a folder on your computer; there is no account, no cloud and no tracking. The optional AI mode only sends individual sentences to a language model if you enable it with your own API key.</span></p></details>
+    <details><summary><span data-lang="de">Brauche ich Internet?</span><span data-lang="tr">İnternet gerekli mi?</span><span data-lang="en">Do I need an internet connection?</span></summary><p><span data-lang="de">Nur für die Spracherkennung von Chrome/Edge (die läuft bei Google bzw. Microsoft). Overlay, Panel, Sounds und Effekte funktionieren offline. Experimentell gibt es eine Offline-Erkennung mit Whisper im Browser.</span><span data-lang="tr">Yalnızca Chrome/Edge’in konuşma tanıması için (Google/Microsoft tarafında çalışır). Overlay, panel, sesler ve efektler çevrimdışı çalışır. Deneysel olarak tarayıcıda Whisper ile çevrimdışı tanıma da var.</span><span data-lang="en">Only for Chrome/Edge speech recognition (which runs at Google/Microsoft). Overlay, panel, sounds and effects work offline. An experimental offline recognition with Whisper in the browser is available.</span></p></details>
+    <details><summary><span data-lang="de">Geht das auch nur mit dem Handy?</span><span data-lang="tr">Sadece telefonla olur mu?</span><span data-lang="en">Can I use it with just my phone?</span></summary><p><span data-lang="de">Das Handy ist Fernbedienung und Mikro (bei HTTPS). Das Overlay selbst braucht OBS, Streamlabs, TikTok LIVE Studio oder den Instagram Live Producer – Drittanbieter-Apps kommen auf dem Handy nicht ins Live-Bild. Genau dafür bauen wir das native Mobile-SDK.</span><span data-lang="tr">Telefon kumanda ve mikrofondur (HTTPS ile). Overlay için OBS, Streamlabs, TikTok LIVE Studio veya Instagram Live Producer gerekir – üçüncü taraf uygulamalar telefonda canlı görüntüye giremez. Yerel mobil SDK’yı tam bunun için geliştiriyoruz.</span><span data-lang="en">The phone works as remote control and microphone (with HTTPS). The overlay itself needs OBS, Streamlabs, TikTok LIVE Studio or Instagram Live Producer – third-party apps cannot draw into the live picture on a phone. That is exactly what the native mobile SDK is for.</span></p></details>
+    <details><summary><span data-lang="de">Hören meine Zuschauer Effekte doppelt (Echo)?</span><span data-lang="tr">İzleyiciler efektleri iki kez mi duyar (yankı)?</span><span data-lang="en">Will my viewers hear effects twice (echo)?</span></summary><p><span data-lang="de">Nein: Die Overlay-Vorschau im Panel ist stumm, nur die OBS-Browserquelle spielt Ton. Die Karte „Ton-Check“ im Panel prüft Mikro-Quelle, „Audio über OBS steuern“ und Monitoring in fünf Haken – und warnt, wenn ein Echo droht.</span><span data-lang="tr">Hayır: Paneldeki overlay önizlemesi sessizdir, sesi yalnızca OBS tarayıcı kaynağı çalar. Paneldeki „Ses kontrolü“ kartı mikrofon kaynağını, „Sesi OBS üzerinden kontrol et“ ve monitoring’i beş adımda kontrol eder – yankı riski varsa uyarır.</span><span data-lang="en">No: the overlay preview in the panel is muted; only the OBS browser source plays sound. The "Audio check" card in the panel verifies mic source, "Control audio via OBS" and monitoring in five checks – and warns if an echo is likely.</span></p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap cols">
+    <div><strong style="color:var(--text)">LiveFX</strong> · <span data-lang="de">von [Name], Autorin & Live-Streamerin</span><span data-lang="tr">[Name] tarafından, yazar ve yayıncı</span><span data-lang="en">by [Name], author & live streamer</span> · © 2026</div>
+    <div>
+      <a href="#impressum"><span data-lang="de">Impressum</span><span data-lang="tr">Künye</span><span data-lang="en">Imprint</span></a> ·
+      <a href="#impressum"><span data-lang="de">Datenschutz</span><span data-lang="tr">Gizlilik</span><span data-lang="en">Privacy</span></a> ·
+      <a href="mailto:hallo@example.com"><span data-lang="de">Kontakt</span><span data-lang="tr">İletişim</span><span data-lang="en">Contact</span></a>
+    </div>
+  </div>
+  <div class="wrap" id="impressum" style="margin-top:18px;font-size:.78rem;color:var(--dim)">
+    <span data-lang="de">Impressum: [Name] · [Straße Nr.] · [PLZ Ort] · [E-Mail] · Umsatzsteuer-ID: [ID] – Datenschutz: Diese Seite setzt keine Cookies und lädt keine externen Ressourcen. LiveFX verarbeitet Sprache lokal; die Spracherkennung von Chrome/Edge unterliegt den Bedingungen des Browser-Herstellers.</span><span data-lang="tr">Künye: [Name] · [Adres] · [E-posta] · Vergi no: [ID] – Gizlilik: Bu sayfa çerez kullanmaz ve harici kaynak yüklemez. LiveFX konuşmayı yerel işler; Chrome/Edge konuşma tanıması tarayıcı üreticisinin koşullarına tabidir.</span><span data-lang="en">Imprint: [Name] · [Street] · [City] · [E-mail] · VAT ID: [ID] – Privacy: this page sets no cookies and loads no external resources. LiveFX processes speech locally; Chrome/Edge speech recognition is subject to the browser vendor’s terms.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var LANGS = ['de', 'tr', 'en'];
+  var root = document.documentElement;
+  function setLang(l) {
+    if (LANGS.indexOf(l) < 0) l = 'de';
+    root.setAttribute('lang', l);
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === l));
+    });
+    try { localStorage.setItem('livefx.landing.lang', l); } catch (e) {}
+  }
+  document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang')); });
+  });
+  var saved = null;
+  try { saved = localStorage.getItem('livefx.landing.lang'); } catch (e) {}
+  var fromHash = (location.hash.match(/lang=(de|tr|en)/) || [])[1];
+  setLang(fromHash || saved || 'de');
+})();
+</script>
+</body>
+</html>
