@@ -29,7 +29,7 @@ if ! ls "$DIR" >/dev/null 2>&1; then
 fi
 if [ ! -f "$DIR/app/index.html" ]; then
   echo "❌ Der Ordner „app“ fehlt neben dieser Startdatei."
-  echo "   Bitte WindowBlaster.zip neu doppelklicken und die Startdatei IM neuen Ordner benutzen."
+  echo "   Bitte WindowBlaster.zip neu herunterladen, entpacken und die Startdatei IM neuen Ordner benutzen."
   pause_and_exit 1
 fi
 
@@ -53,7 +53,7 @@ fi
 
 if [ ! -f "$BIN" ]; then
   echo "❌ Das Server-Programm fehlt: $BIN"
-  echo "   Bitte WindowBlaster.zip neu doppelklicken und die Startdatei IM neuen Ordner benutzen."
+  echo "   Bitte WindowBlaster.zip neu herunterladen, entpacken und die Startdatei IM neuen Ordner benutzen."
   pause_and_exit 1
 fi
 
@@ -72,7 +72,7 @@ if [ $STATUS -ne 0 ] && [ $STATUS -ne 130 ]; then
   echo "⚠️  Der Server wurde beendet (Code $STATUS)."
   if [ $STATUS -eq 137 ] || [ $STATUS -eq 9 ]; then
     echo "   macOS hat das Programm gestoppt. Lösung: Systemeinstellungen → Datenschutz & Sicherheit"
-    echo "   → ganz unten „Trotzdem erlauben“ bei windowblaster, dann diese Datei erneut starten."
+    echo "   → ganz unten „Dennoch erlauben“ bei windowblaster, dann diese Datei erneut starten."
   fi
   echo "   Hilfe: Datei ANLEITUNG.html in diesem Ordner → Abschnitt „Wenn es nicht startet“."
   pause_and_exit $STATUS

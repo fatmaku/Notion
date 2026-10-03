@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net"
 	"net/http"
@@ -99,7 +100,9 @@ func TestHTTPSServesAppWithTrustedCA(t *testing.T) {
 		"/anleitung":               "text/html; charset=utf-8",
 	}
 	for p, want := range cases {
-		res, err := client.Get(url + p)
+		req, _ := http.NewRequest("GET", url+p, nil)
+		req.Header.Set("Origin", "http://192.168.1.5:8080") // like the phone page's cross-origin probe
+		res, err := client.Do(req)
 		if err != nil {
 			t.Fatalf("%s: %v", p, err)
 		}
@@ -160,6 +163,7 @@ func TestTrackingAndPhonesInStatus(t *testing.T) {
 	h.ServeHTTP(httptest.NewRecorder(), req)
 	st := httptest.NewRequest("GET", "/wb-status", nil)
 	st.RemoteAddr = "127.0.0.1:4444"
+	st.Host = "localhost:8080"
 	rec := httptest.NewRecorder()
 	h.ServeHTTP(rec, st)
 	var doc statusDoc
@@ -218,44 +222,133 @@ func startTLS(t *testing.T, ca *localCA, h http.Handler) string {
 	return "https://" + ln.Addr().String()
 }
 
-func TestImportsOldCaddyCA(t *testing.T) {
-	parent := t.TempDir()
-	old := filepath.Join(parent, "WindowBlaster-Mac 2", "run", "data", "caddy", "pki", "authorities", "local")
-	if err := os.MkdirAll(old, 0o755); err != nil {
-		t.Fatal(err)
-	}
-	for _, f := range []string{"root.crt", "root.key"} {
-		b, err := os.ReadFile(filepath.Join("testdata", "caddy-root", f))
-		if err != nil {
+func TestLeafCacheIsBounded(t *testing.T) {
+	ca, _, _ := loadOrCreateCA(t.TempDir())
+	for i := 0; i < 300; i++ {
+		if _, err := ca.getCertificate(&tls.ClientHelloInfo{ServerName: fmt.Sprintf("x%d.local", i)}); err != nil {
 			t.Fatal(err)
 		}
-		if err := os.WriteFile(filepath.Join(old, f), b, 0o600); err != nil {
+		if _, err := ca.getCertificate(&tls.ClientHelloInfo{ServerName: fmt.Sprintf("evil%d.example", i)}); err != nil {
 			t.Fatal(err)
 		}
 	}
-	data := t.TempDir()
-	if _, ok := importOldCaddyCA(data, []string{parent}); !ok {
-		t.Fatal("old Caddy CA not imported")
+	if n := len(ca.leaves); n > 64 {
+		t.Fatalf("leaf cache grew to %d", n)
 	}
-	ca, created, err := loadOrCreateCA(data)
-	if err != nil || created {
-		t.Fatalf("load imported: %v created=%v", err, created)
+	if _, ok := ca.leaves["evil1.example"]; ok {
+		t.Fatal("minted a leaf for a foreign domain")
 	}
-	if !strings.HasPrefix(ca.cert.Subject.CommonName, "Caddy Local Authority") {
-		t.Fatalf("unexpected CA %q", ca.cert.Subject.CommonName)
+}
+
+func TestStatusDetailsOnlyForLocalPage(t *testing.T) {
+	ca, _, _ := loadOrCreateCA(t.TempDir())
+	s := newServer(testApp(t), ca, 8080, 8443)
+	h := s.handler(false)
+	get := func(host, origin string) (*httptest.ResponseRecorder, statusDoc) {
+		r := httptest.NewRequest("GET", "/wb-status", nil)
+		r.RemoteAddr = "127.0.0.1:4444"
+		r.Host = host
+		if origin != "" {
+			r.Header.Set("Origin", origin)
+		}
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, r)
+		var doc statusDoc
+		_ = json.Unmarshal(rec.Body.Bytes(), &doc)
+		return rec, doc
 	}
-	// leaves signed directly by the imported root verify against it
-	pool := x509.NewCertPool()
-	pool.AddCert(ca.cert)
-	leaf, err := ca.leafFor("192.168.2.1")
+	if rec, doc := get("localhost:8080", ""); doc.Addrs == nil && len(localIPv4s()) > 0 || rec.Header().Get("Access-Control-Allow-Origin") != "" {
+		t.Fatalf("local page must get details without CORS: %+v", doc)
+	}
+	if _, doc := get("localhost:8080", "https://evil.example"); doc.Addrs != nil || doc.Phones != nil {
+		t.Fatal("foreign origin got details")
+	}
+	if _, doc := get("rebind.evil.example:8080", ""); doc.Addrs != nil || doc.Phones != nil {
+		t.Fatal("DNS-rebinding host got details")
+	}
+	if rec, _ := get("192.168.1.2:8080", ""); rec.Header().Get("Access-Control-Allow-Origin") != "*" {
+		t.Fatal("minimal status must stay readable cross-origin for the phone probe")
+	}
+}
+
+func TestTrustOnlyFromProbeOrServiceWorker(t *testing.T) {
+	ca, _, _ := loadOrCreateCA(t.TempDir())
+	s := newServer(testApp(t), ca, 8080, 8443)
+	h := s.handler(true)
+	do := func(target string, hdr map[string]string) {
+		r := httptest.NewRequest("GET", target, nil)
+		r.RemoteAddr = "192.168.1.23:5555"
+		for k, v := range hdr {
+			r.Header.Set(k, v)
+		}
+		h.ServeHTTP(httptest.NewRecorder(), r)
+	}
+	do("/", nil)
+	if s.phones["192.168.1.23"].HTTPS {
+		t.Fatal("a clicked-through page load must not count as trusted")
+	}
+	do("/sw.js", map[string]string{"Service-Worker": "script"})
+	if !s.phones["192.168.1.23"].HTTPS {
+		t.Fatal("service-worker script fetch proves trust")
+	}
+	for i := 0; i < 40; i++ {
+		r := httptest.NewRequest("GET", "/", nil)
+		r.RemoteAddr = fmt.Sprintf("10.0.0.%d:1", i)
+		h.ServeHTTP(httptest.NewRecorder(), r)
+	}
+	if len(s.phones) > maxPhones {
+		t.Fatalf("phone list grew to %d", len(s.phones))
+	}
+}
+
+func TestNoListingsNoSymlinkEscape(t *testing.T) {
+	app := testApp(t)
+	secret := filepath.Join(t.TempDir(), "secret.txt")
+	_ = os.WriteFile(secret, []byte("TOPSECRET"), 0o600)
+	_ = os.MkdirAll(filepath.Join(app, "assets"), 0o755)
+	if err := os.Symlink(secret, filepath.Join(app, "link.txt")); err != nil {
+		t.Skip("no symlinks here")
+	}
+	ca, _, _ := loadOrCreateCA(t.TempDir())
+	h := newServer(app, ca, 8080, 8443).handler(false)
+	for _, p := range []string{"/link.txt", "/assets/"} {
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, httptest.NewRequest("GET", p, nil))
+		if rec.Code == 200 || strings.Contains(rec.Body.String(), "TOPSECRET") {
+			t.Fatalf("%s served: %d %s", p, rec.Code, rec.Body.String())
+		}
+	}
+}
+
+func TestCAIsNameConstrainedToLocalAddresses(t *testing.T) {
+	ca, _, err := loadOrCreateCA(t.TempDir())
 	if err != nil {
 		t.Fatal(err)
 	}
-	if _, err := leaf.Leaf.Verify(x509.VerifyOptions{DNSName: "192.168.2.1", Roots: pool}); err != nil {
+	if !ca.cert.PermittedDNSDomainsCritical || len(ca.cert.PermittedIPRanges) == 0 {
+		t.Fatal("CA must carry name constraints")
+	}
+	for name, want := range map[string]bool{"192.168.178.20": true, "10.1.2.3": true, "172.20.0.5": true, "100.70.1.1": true, "mac.local": true, "localhost": true, "8.8.8.8": false, "evil.example.com": false, "bank.de": false} {
+		if allowedName(name) != want {
+			t.Fatalf("allowedName(%s) = %v", name, !want)
+		}
+	}
+	// a request for a foreign name never yields a certificate for it
+	c, err := ca.getCertificate(&tls.ClientHelloInfo{ServerName: "evil.example.com"})
+	if err != nil {
 		t.Fatal(err)
 	}
-	// nothing to import → no-op
-	if _, ok := importOldCaddyCA(t.TempDir(), []string{t.TempDir()}); ok {
-		t.Fatal("import from empty dir")
+	if c.Leaf.VerifyHostname("evil.example.com") == nil {
+		t.Fatal("minted a certificate for a foreign domain")
+	}
+	// and even a hand-made leaf for a public name would fail the CA's constraints
+	pool := x509.NewCertPool()
+	pool.AddCert(ca.cert)
+	bad, err := ca.leafFor("example.com")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := bad.Leaf.Verify(x509.VerifyOptions{DNSName: "example.com", Roots: pool}); err == nil {
+		t.Fatal("name constraints not enforced")
 	}
 }

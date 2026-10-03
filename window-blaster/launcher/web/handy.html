@@ -33,12 +33,15 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
   <h1>🚗 Window <b>Blaster</b></h1>
   <p class="muted" style="margin:0">Einmalige Einrichtung – danach spielst du ohne Mac und ohne Internet.</p>
 
-  <div class="warn" id="notChrome" hidden>⚠️ Bitte diese Seite in <b>Chrome</b> öffnen – andere Browser (Firefox, Samsung Internet, Apps wie WhatsApp) können das Spiel nicht als App mit Offline-Speicher installieren.</div>
+  <div class="warn" id="notChrome" hidden>⚠️ Bitte diese Seite in <b>Chrome</b> öffnen – andere Browser (Firefox, Samsung Internet, Apps wie WhatsApp) können das Spiel nicht als App mit Offline-Speicher installieren.
+    <a class="btn" id="chromeBtn" href="#">In Chrome öffnen</a>
+    <a class="btn sec" id="copyBtn" href="#">Adresse kopieren</a></div>
   <div class="warn" id="notSafari" hidden>⚠️ Bitte diese Seite in <b>Safari</b> öffnen (nicht Chrome/Firefox auf dem iPhone) – nur Safari kann das Zertifikat installieren. Tipp: Adresse kopieren und in Safari einfügen.</div>
 
   <div class="card" id="trustCard">
     <div class="status wait" id="statusWait"><span class="spin"></span><span>Prüfe, ob dein Handy dem Mac schon vertraut …</span></div>
     <div class="status ok" id="statusOk" hidden>✅ Dein Handy vertraut dem Mac – alles bereit!</div>
+    <div class="status wait" id="statusQuick" hidden>⚠️ Nur vorübergehend erlaubt („ohne Zertifikat“). Für Offline bitte Schritt 2 und 3 erledigen, dann diese Seite in einem neuen Tab öffnen.</div>
     <a class="btn go" id="playBtn" hidden href="#">▶ Spiel öffnen</a>
   </div>
 
@@ -68,6 +71,7 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
     </div>
     <div class="card">
       <h2><span class="num">4</span> Als App speichern – für offline</h2>
+      <p class="small muted" style="margin:0 0 6px">Wichtig: erst oben <b>„Spiel öffnen“</b> tippen – <b>im Spiel</b> zum Home-Bildschirm hinzufügen, nicht diese Einrichtungsseite.</p>
       <ol>
         <li>Im Spiel in Safari auf <b class="ui">Teilen ⬆︎</b> tippen (bei iOS 26 erst <b class="ui">•••</b> unten rechts, dann <b class="ui">Teilen</b>) → <b class="ui">Zum Home-Bildschirm</b> → „Als Web-App öffnen“ eingeschaltet lassen → <b class="ui">Hinzufügen</b>.</li>
         <li>Das Spiel <b>über das neue Symbol auf dem Home-Bildschirm</b> öffnen (wichtig – die App hat ihren eigenen Speicher).</li>
@@ -82,22 +86,22 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
     <div class="card">
       <h2><span class="num">1</span> Zertifikat laden</h2>
       <a class="btn" href="/zertifikat.crt">📄 Zertifikat herunterladen</a>
-      <p class="small muted">Die Datei <b>WindowBlaster-Zertifikat.crt</b> landet in „Downloads“. Erscheint „Zertifikat kann nicht installiert werden“, ist das normal – weiter mit Schritt 2.</p>
+      <p class="small muted">Die Datei <b>WindowBlaster-Zertifikat.crt</b> landet in „Downloads“. Erscheint eine Meldung wie „CA-Zertifikate können nicht installiert werden“, ist das normal – weiter mit Schritt 2.</p>
     </div>
     <div class="card">
       <h2><span class="num">2</span> Zertifikat installieren</h2>
       <ol>
         <li>App <b>Einstellungen</b> öffnen, oben ins Suchfeld <b>„CA-Zertifikat“</b> eingeben und den Treffer antippen.</li>
-        <li><b class="ui">Trotzdem installieren</b> → PIN/Muster eingeben.<br><span class="small muted">Ohne Bildschirmsperre verlangt Android jetzt, eine PIN einzurichten – das ist Pflicht für eigene Zertifikate.</span></li>
+        <li>Unbedingt <b>„CA-Zertifikat“</b> wählen (nicht „VPN- und App-Nutzerzertifikat“ oder „WLAN-Zertifikat“) → <b class="ui">Trotzdem installieren</b> → PIN/Muster eingeben.<br><span class="small muted">Ohne Bildschirmsperre verlangt Android jetzt, eine PIN einzurichten – das ist Pflicht für eigene Zertifikate.</span></li>
         <li>Die Datei <b>WindowBlaster-Zertifikat.crt</b> aus „Downloads“ antippen.</li>
         <li>Zurück zu Chrome, zu dieser Seite. Oben wird es grün, dann <b>„Spiel öffnen“</b>.</li>
       </ol>
-      <p class="small muted">Suche findet nichts? Pixel: Einstellungen → Sicherheit & Datenschutz → Weitere Sicherheitseinstellungen → Verschlüsselung & Anmeldedaten → Zertifikat installieren → CA-Zertifikat. Samsung: Einstellungen → Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Von Gerätespeicher installieren → CA-Zertifikat.</p>
+      <p class="small muted">Suche findet nichts? Pixel: Einstellungen → Sicherheit & Datenschutz → Weitere Sicherheits- und Datenschutzeinstellungen (Android 13: Weitere Sicherheitseinstellungen) → Verschlüsselung & Anmeldedaten → Zertifikat installieren → CA-Zertifikat. Samsung: Einstellungen → Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Von Gerätespeicher installieren → CA-Zertifikat.</p>
     </div>
     <div class="card">
       <h2><span class="num">3</span> Als App installieren – für offline</h2>
       <ol>
-        <li>Im Spiel in Chrome: Menü <b class="ui">⋮</b> → <b class="ui">App installieren</b> (oder „Zum Startbildschirm hinzufügen“).</li>
+        <li>Im Spiel in Chrome: Menü <b class="ui">⋮</b> → <b class="ui">App installieren</b> (oder „Zum Startbildschirm hinzufügen“ → „Installieren“).<br><span class="small muted">Siehst du oben ein ✕ statt der Adressleiste (geöffnet aus Google Lens/Google-App)? Erst ⋮ → „In Chrome öffnen“.</span></li>
         <li>Die App öffnen und warten, bis <b>„Offline bereit ✓“</b> steht.</li>
       </ol>
       <p class="small muted">Fertig! Ab jetzt läuft das Spiel ohne Mac und ohne Internet.</p>
@@ -117,15 +121,15 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
     <details>
       <summary>Nur schnell ausprobieren, ohne Zertifikat?</summary>
       <p class="small">Geht auch: <a class="btn sec" id="quickBtn" href="#">Spiel ohne Zertifikat öffnen</a></p>
-      <p class="small muted">Der Browser warnt dann („Keine private Verbindung“) → „Details“ → „Website besuchen“. Kamera und Spiel funktionieren, aber <b>nicht offline</b> – dafür braucht es die Schritte oben.</p>
+      <p class="small muted">Der Browser warnt dann – iPhone: „Keine private Verbindung“ → „Details einblenden“ → „diese Website besuchen“; Android: „Ihre Verbindung ist nicht privat“ → „Erweitert“ → „Weiter zu … (unsicher)“. Kamera und Spiel funktionieren, aber <b>nicht offline</b> – dafür braucht es die Schritte oben.</p>
     </details>
     <details>
       <summary>Hilfe</summary>
       <ul class="small">
-        <li>Die Prüfung bleibt gelb? Beim iPhone den Schalter in <b>Zertifikatsvertrauenseinstellungen</b> vergessen? Danach diese Seite neu laden.</li>
-        <li>Kamera-Frage kommt nicht: Einstellungen → Safari (bzw. Chrome) → Kamera → „Fragen“ oder „Erlauben“.</li>
+        <li>Die Prüfung bleibt gelb? iPhone: Schalter in <b>Zertifikatsvertrauenseinstellungen</b> vergessen? Android: als <b>„CA-Zertifikat“</b> installiert (nicht VPN/App oder WLAN)? Danach diese Seite neu laden.</li>
+        <li>Kamera-Frage kommt nicht – iPhone: Einstellungen → (ab iOS 18: Apps →) Safari → Kamera → „Fragen“; im Safari-Tab auch „aA“ → Website-Einstellungen → Kamera. Die Home-Bildschirm-App fragt bei jedem Start neu → „Erlauben“. Android: Schloss-/Regler-Symbol links neben der Adresse → Berechtigungen → Kamera „Zulassen“ (oder Einstellungen → Apps → Chrome → Berechtigungen → Kamera).</li>
         <li>„Offline bereit“ erscheint nicht: Die App vom Home-Bildschirm aus öffnen, während der Mac-Server läuft und das Handy im selben WLAN ist.</li>
-        <li>Zertifikat wieder entfernen: iPhone → Allgemein → VPN und Geräteverwaltung; Android → Einstellungen → „Nutzerzertifikate“.</li>
+        <li>Zertifikat wieder entfernen: iPhone → Allgemein → VPN und Geräteverwaltung; Android → Einstellungen → Suche „Vertrauenswürdige Anmeldedaten“ → Tab „Nutzer“ → Window Blaster → Entfernen.</li>
       </ul>
     </details>
   </div>
@@ -141,9 +145,25 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
   var isAndroid = /Android/.test(ua);
   document.getElementById(isIOS ? 'ios' : isAndroid ? 'android' : 'other').hidden = false;
   if (isIOS && /CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua)) document.getElementById('notSafari').hidden = false;
-  if (isAndroid && (/Firefox\/|SamsungBrowser|; wv\)|FBAN|FBAV|Instagram|WhatsApp/.test(ua) || !/Chrome\//.test(ua))) document.getElementById('notChrome').hidden = false;
+  if (isAndroid && (/Firefox\/|SamsungBrowser|; wv\)|FBAN|FBAV|Instagram|WhatsApp/.test(ua) || !/Chrome\//.test(ua))) {
+    document.getElementById('notChrome').hidden = false;
+    document.getElementById('chromeBtn').href = 'intent://' + location.host + location.pathname + '#Intent;scheme=http;package=com.android.chrome;end';
+    document.getElementById('copyBtn').addEventListener('click', function (e) {
+      e.preventDefault();
+      var btn = e.currentTarget;
+      var done = function () { btn.textContent = 'Kopiert – in Chrome einfügen'; };
+      if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(done, function () { prompt('Adresse kopieren:', location.href); });
+      else prompt('Adresse kopieren:', location.href);
+    });
+  }
+  // opened from a home-screen icon of THIS setup page by mistake → go to the game instead
+  if (navigator.standalone) { location.replace(game); return; }
   document.getElementById('playBtn').href = game;
   document.getElementById('quickBtn').href = game;
+  // a "visit anyway" certificate exception makes the trust check succeed without real trust
+  var quick = false;
+  try { quick = sessionStorage.getItem('wbQuick') === '1'; } catch (e) {}
+  document.getElementById('quickBtn').addEventListener('click', function () { try { sessionStorage.setItem('wbQuick', '1'); } catch (e) {} });
   var trusted = false;
   function setTrusted(url) {
     if (trusted) return;
@@ -151,7 +171,7 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
     game = url;
     document.getElementById('playBtn').href = url;
     document.getElementById('statusWait').hidden = true;
-    document.getElementById('statusOk').hidden = false;
+    document.getElementById(quick ? 'statusQuick' : 'statusOk').hidden = false;
     document.getElementById('playBtn').hidden = false;
   }
   // true if https://<name>:port/ answers with a certificate the phone trusts
@@ -160,7 +180,7 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
       var url = 'https://' + name + ':' + HTTPS_PORT + '/';
       var ctl = typeof AbortController === 'function' ? new AbortController() : null;
       var t = setTimeout(function () { if (ctl) ctl.abort(); resolve(null); }, 4000);
-      fetch(url + 'wb-status', { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
+      fetch(url + 'wb-status?probe=1', { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
         .then(function (r) { return r.json(); })
         .then(function (s) { clearTimeout(t); resolve(s && s.ok ? url : null); })
         .catch(function () { clearTimeout(t); resolve(null); });

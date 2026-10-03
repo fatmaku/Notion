@@ -75,12 +75,6 @@ func run(cfg config) error {
 	if err != nil {
 		return err
 	}
-	if _, err := os.Stat(filepath.Join(dataDir, caCertFile)); errors.Is(err, os.ErrNotExist) {
-		pkgParent := filepath.Dir(filepath.Dir(appDir))
-		if from, ok := importOldCaddyCA(dataDir, []string{pkgParent}); ok {
-			fmt.Printf("🔐 Zertifikat der Vorversion übernommen (%s) – ein Handy, das ihm schon vertraut, muss nichts neu einrichten.\n", from)
-		}
-	}
 	ca, created, err := loadOrCreateCA(dataDir)
 	if err != nil {
 		return fmt.Errorf("Zertifikat konnte nicht angelegt werden (%s): %w", dataDir, err)
@@ -108,13 +102,15 @@ func run(cfg config) error {
 	}
 
 	s := newServer(appDir, ca, httpPort, httpsPort)
-	httpSrv := &http.Server{Handler: s.handler(false), ReadHeaderTimeout: 15 * time.Second}
-	httpsSrv := &http.Server{Handler: s.handler(true), ReadHeaderTimeout: 15 * time.Second, TLSConfig: ca.tlsConfig(), ErrorLog: quietTLSLog()}
+	// No WriteTimeout: a phone on slow Wi-Fi needs minutes for the 30 MB of detection files.
+	httpSrv := &http.Server{Handler: s.handler(false), ReadHeaderTimeout: 15 * time.Second, ReadTimeout: time.Minute, IdleTimeout: 2 * time.Minute}
+	httpsSrv := &http.Server{Handler: s.handler(true), ReadHeaderTimeout: 15 * time.Second, ReadTimeout: time.Minute, IdleTimeout: 2 * time.Minute, TLSConfig: ca.tlsConfig(), ErrorLog: quietTLSLog()}
 
 	errc := make(chan error, 2)
 	go func() { errc <- httpSrv.Serve(httpLn) }()
 	go func() { errc <- httpsSrv.ServeTLS(httpsLn, "", "") }()
 
+	keepAwake()
 	printBanner(s, created, dataDir, cfg.quiet)
 	if cfg.open {
 		go func() {
@@ -215,6 +211,18 @@ func alreadyRunning(httpsPort int) (int, bool) {
 		return 0, false
 	}
 	return doc.HTTPPort, true
+}
+
+// keepAwake prevents idle sleep on macOS while the server runs (the user is busy on
+// the phone for minutes); caffeinate exits by itself when this process ends.
+func keepAwake() {
+	if runtime.GOOS != "darwin" {
+		return
+	}
+	cmd := exec.Command("caffeinate", "-i", "-w", fmt.Sprint(os.Getpid()))
+	if cmd.Start() == nil {
+		go func() { _ = cmd.Wait() }()
+	}
 }
 
 func openBrowser(url string) {

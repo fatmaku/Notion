@@ -16,10 +16,16 @@ function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
     switch (o.state) {
       case 'ready':
         badge.className = 'badge ok';
-        badge.textContent = `✓ ${T.offlineReady}${net}`;
+        badge.textContent = app.androidBrowserTab ? '✓ Offline-Daten geladen – jetzt als App installieren' : `✓ ${T.offlineReady}${net}`;
         break;
       case 'missing':
       case 'error':
+        if (app.iosBrowserTab) {
+          // only the home-screen app keeps offline data on iPhone – see the install hint below
+          badge.className = 'badge';
+          badge.textContent = 'Offline nur in der Home-Bildschirm-App';
+          break;
+        }
         badge.className = app.online ? 'badge warn' : 'badge bad';
         badge.textContent = app.online ? (o.state === 'error' ? T.offlineError : `${o.missingLabel} für Offline-Betrieb fehlen`) : T.offlineNoNet;
         if (app.online) {
@@ -34,7 +40,9 @@ function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
         break;
       case 'unsupported':
         badge.className = 'badge';
-        badge.textContent = 'Offline-Speicher hier nicht verfügbar (kein sicheres HTTPS)';
+        badge.textContent = o.swBroken
+          ? 'Offline geht nur mit installiertem Zertifikat – siehe Handy-Einrichtung am Mac'
+          : 'Offline-Speicher hier nicht verfügbar (kein sicheres HTTPS)';
         break;
       default:
         badge.className = 'badge';
@@ -95,12 +103,25 @@ function installHint(app: App): HTMLElement | null {
       {
         class: 'btn block secondary',
         style: 'margin-top:12px',
-        onclick: () => {
-          void p.prompt();
+        onclick: (e: Event) => {
+          // Chrome allows prompt() only once per event – drop the button right away
+          (e.currentTarget as HTMLElement).remove();
           app.installPrompt = null;
+          p.prompt().catch(() => undefined);
         },
       },
       '📲 Als App installieren (für offline)',
+    );
+  }
+  if (app.androidBrowserTab) {
+    return h(
+      'div',
+      { class: 'small', style: 'margin-top:12px;padding:10px 12px;border-radius:12px;background:rgba(56,189,248,0.12);color:#bae6fd' },
+      '📲 Für offline: Chrome-Menü ',
+      h('b', {}, '⋮'),
+      ' → ',
+      h('b', {}, 'App installieren'),
+      ' (oder „Zum Startbildschirm hinzufügen“ → „Installieren“), dann das Spiel über das neue Symbol öffnen.',
     );
   }
   return null;

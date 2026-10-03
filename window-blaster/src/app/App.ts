@@ -133,6 +133,11 @@ export class App {
     else this.overlay.hide();
   }
 
+  /** Android browser tab (not the installed app): offline data may be evicted, and there is no icon to start from. */
+  get androidBrowserTab(): boolean {
+    return /Android/.test(navigator.userAgent) && !matchMedia('(display-mode: standalone)').matches && !matchMedia('(display-mode: fullscreen)').matches;
+  }
+
   /** iPhone/iPad Safari tab (not the home-screen app): offline storage would not carry over to the app. */
   get iosBrowserTab(): boolean {
     const nav = navigator as Navigator & { standalone?: boolean };
@@ -143,7 +148,7 @@ export class App {
   async boot(): Promise<void> {
     if (import.meta.env.PROD && 'serviceWorker' in navigator && !this.params.nosw) {
       const hadController = !!navigator.serviceWorker.controller;
-      navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => undefined);
+      navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => this.offline.markServiceWorkerBroken());
       // a new version activated: the running page may still reference old, now-deleted files → reload when safe
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         if (!hadController) return; // first install claiming the page – nothing stale
@@ -154,6 +159,10 @@ export class App {
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       this.installPrompt = e as Event & { prompt(): Promise<void> };
+      if (!this.mode && this.router.active?.el.dataset.screen === 'start') this.router.show(StartScreen(this));
+    });
+    window.addEventListener('appinstalled', () => {
+      this.installPrompt = null;
       if (!this.mode && this.router.active?.el.dataset.screen === 'start') this.router.show(StartScreen(this));
     });
     void this.offline.check().then((st) => {

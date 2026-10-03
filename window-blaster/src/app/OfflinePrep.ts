@@ -19,6 +19,8 @@ export class OfflinePrep {
   totalBytes = 0;
   missingBytes = 0;
   error = '';
+  /** The service worker could not register (e.g. certificate warning clicked through) → nothing works offline. */
+  swBroken = false;
   private assets: AssetEntry[] = [];
   /** Must equal the service worker's cache name (src/sw.ts). */
   private readonly cacheName = `wb-${__APP_VERSION__}-${__BUILD_ID__}`;
@@ -30,12 +32,19 @@ export class OfflinePrep {
   }
 
   private set(s: OfflineState): void {
+    // cached files alone are useless without a service worker that serves them
+    if (this.swBroken && s === 'ready') s = 'unsupported';
     this.state = s;
     this.events.emit('change', s);
   }
 
   get supported(): boolean {
-    return typeof caches !== 'undefined' && window.isSecureContext;
+    return typeof caches !== 'undefined' && window.isSecureContext && !this.swBroken;
+  }
+
+  markServiceWorkerBroken(): void {
+    this.swBroken = true;
+    if (this.state !== 'downloading') this.set('unsupported');
   }
 
   async check(): Promise<OfflineState> {

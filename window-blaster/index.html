@@ -27,20 +27,35 @@
          blank page if the app script fails to load/execute, and implements ?reset=1. -->
     <script>
       (function () {
-        function resetApp(done) {
-          var jobs = [];
-          try {
-            if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations)
-              jobs.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); }));
-            if (window.caches && caches.keys)
-              jobs.push(caches.keys().then(function (ks) { return Promise.all(ks.filter(function (k) { return k.indexOf('wb-') === 0; }).map(function (k) { return caches.delete(k); })); }));
-          } catch (e) {}
-          Promise.all(jobs).then(done, done);
+        // Reset = forget the cached app shell and the service worker, but KEEP the ~30 MB offline
+        // data (MediaPipe + model). Only when the server is reachable – offline it would brick the app.
+        function resetApp(done, offline) {
+          fetch('./?wbping=' + Date.now(), { cache: 'no-store' }).then(function (r) {
+            if (!r.ok) throw new Error(String(r.status));
+            var jobs = [];
+            try {
+              if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations)
+                jobs.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); }));
+              if (window.caches && caches.keys)
+                jobs.push(caches.keys().then(function (ks) {
+                  return Promise.all(ks.filter(function (k) { return k.indexOf('wb-') === 0; }).map(function (k) {
+                    return caches.open(k).then(function (c) {
+                      return c.keys().then(function (reqs) {
+                        return Promise.all(reqs.filter(function (q) { return !/\/(mediapipe|models)\//.test(q.url); }).map(function (q) { return c.delete(q); }));
+                      });
+                    });
+                  }));
+                }));
+            } catch (e) {}
+            Promise.all(jobs).then(done, done);
+          }).catch(function () { (offline || done)(); });
         }
         window.__wbReset = resetApp;
         if (/[?&]reset=1/.test(location.search)) {
           document.write('<p style="font:18px system-ui;color:#eee;background:#0b0f14;padding:24px">Setze Window Blaster zurück …</p>');
-          resetApp(function () { location.replace(location.pathname); });
+          resetApp(function () { location.replace(location.pathname); }, function () {
+            document.body.innerHTML = '<p style="font:18px system-ui;color:#eee;background:#0b0f14;padding:24px">Zurücksetzen geht nur, wenn der Mac-Server erreichbar ist (gleiches WLAN). Nichts wurde gelöscht.</p>';
+          });
           return;
         }
         var shown = false;
@@ -56,7 +71,11 @@
             '<p style="color:#9aa7b8;font-size:14px">Punkte und Freischaltungen bleiben erhalten. Hilft beides nicht: Browser aktualisieren (iPhone: iOS-Update; Mac: Safari/Chrome aktuell).</p>' +
             '<pre style="white-space:pre-wrap;color:#fca5a5;font-size:12px">' + String(reason).replace(/[<>&]/g, '') + '\n' + navigator.userAgent + '</pre>';
           document.body.appendChild(d);
-          document.getElementById('wbReset').onclick = function () { resetApp(function () { location.replace(location.pathname); }); };
+          document.getElementById('wbReset').onclick = function () {
+            resetApp(function () { location.replace(location.pathname); }, function () {
+              alert('Zurücksetzen geht nur im WLAN des Macs, während Window Blaster dort läuft. Es wurde nichts gelöscht – probiere „Nur neu laden“.');
+            });
+          };
           document.getElementById('wbReload').onclick = function () { location.reload(); };
         }
         window.addEventListener('error', function (e) {

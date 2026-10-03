@@ -100,7 +100,7 @@ func readCA(certPath, keyPath string) (*localCA, error) {
 	return &localCA{cert: cert, der: cb.Bytes, key: signer, leaves: map[string]*tls.Certificate{}}, nil
 }
 
-// parseKey accepts PKCS#8 (ours) and SEC1 "EC PRIVATE KEY" (Caddy's local CA).
+// parseKey accepts PKCS#8 (ours) and SEC1 "EC PRIVATE KEY".
 func parseKey(b *pem.Block) (crypto.Signer, error) {
 	if k, err := x509.ParsePKCS8PrivateKey(b.Bytes); err == nil {
 		if s, ok := k.(crypto.Signer); ok {
@@ -120,35 +120,6 @@ func samePublicKey(cert *x509.Certificate, key crypto.Signer) bool {
 	return ok && pub.Equal(cert.PublicKey)
 }
 
-// importOldCaddyCA adopts the local CA of the previous, Caddy-based download
-// (folder "WindowBlaster-Mac…" next to the new one), so a phone that already
-// trusts it keeps working. Only sibling folders are searched – no extra
-// privacy prompts for other folders.
-func importOldCaddyCA(dataDir string, searchDirs []string) (string, bool) {
-	for _, d := range searchDirs {
-		matches, _ := filepath.Glob(filepath.Join(d, "WindowBlaster-Mac*", "run", "data", "caddy", "pki", "authorities", "local", "root.crt"))
-		for _, certPath := range matches {
-			keyPath := filepath.Join(filepath.Dir(certPath), "root.key")
-			ca, err := readCA(certPath, keyPath)
-			if err != nil {
-				continue
-			}
-			keyDER, err := x509.MarshalPKCS8PrivateKey(ca.key)
-			if err != nil {
-				continue
-			}
-			if os.WriteFile(filepath.Join(dataDir, caKeyFile), pem.EncodeToMemory(&pem.Block{Type: "PRIVATE KEY", Bytes: keyDER}), 0o600) != nil {
-				continue
-			}
-			if os.WriteFile(filepath.Join(dataDir, caCertFile), pem.EncodeToMemory(&pem.Block{Type: "CERTIFICATE", Bytes: ca.der}), 0o644) != nil {
-				continue
-			}
-			return certPath, true
-		}
-	}
-	return "", false
-}
-
 func createCA() (*localCA, error) {
 	key, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
 	if err != nil {
@@ -158,16 +129,21 @@ func createCA() (*localCA, error) {
 	tmpl := &x509.Certificate{
 		SerialNumber: randomSerial(),
 		Subject: pkix.Name{
-			CommonName:         fmt.Sprintf("Window Blaster Mac %s", host),
+			// the date makes a re-created CA distinguishable in the phone's trust settings
+			CommonName:         fmt.Sprintf("Window Blaster Mac %s (%s)", host, time.Now().Format("2006-01-02")),
 			Organization:       []string{"Window Blaster (lokal)"},
 			OrganizationalUnit: []string{"Nur für das Spiel auf diesem Mac"},
 		},
 		NotBefore:             time.Now().Add(-time.Hour),
-		NotAfter:              time.Now().AddDate(10, 0, 0),
+		NotAfter:              time.Now().AddDate(3, 0, 0),
 		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageCRLSign | x509.KeyUsageDigitalSignature,
 		BasicConstraintsValid: true,
 		IsCA:                  true,
 		MaxPathLenZero:        true,
+		// Only valid for addresses in the local network – never for real websites.
+		PermittedDNSDomainsCritical: true,
+		PermittedDNSDomains:         []string{"local", "localhost"},
+		PermittedIPRanges:           localRanges(),
 	}
 	der, err := x509.CreateCertificate(rand.Reader, tmpl, tmpl, &key.PublicKey, key)
 	if err != nil {
@@ -178,6 +154,31 @@ func createCA() (*localCA, error) {
 		return nil, err
 	}
 	return &localCA{cert: cert, der: der, key: key, leaves: map[string]*tls.Certificate{}}, nil
+}
+
+// localRanges are the address ranges the CA may issue for: private, CGNAT (some
+// hotspots), link-local and loopback IPv4.
+func localRanges() []*net.IPNet {
+	var out []*net.IPNet
+	for _, c := range []string{"10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "100.64.0.0/10", "169.254.0.0/16", "127.0.0.0/8"} {
+		_, n, _ := net.ParseCIDR(c)
+		out = append(out, n)
+	}
+	return out
+}
+
+// allowedName reports whether a leaf may be issued for name (mirrors the CA's constraints,
+// so a stranger on the Wi-Fi cannot make the server mint certificates for real domains).
+func allowedName(name string) bool {
+	if ip := net.ParseIP(name); ip != nil {
+		for _, n := range localRanges() {
+			if n.Contains(ip) {
+				return true
+			}
+		}
+		return false
+	}
+	return name == "localhost" || (strings.HasSuffix(name, ".local") && len(name) <= 253 && !strings.ContainsAny(name, " /\\"))
 }
 
 func randomSerial() *big.Int {
@@ -228,8 +229,8 @@ func (ca *localCA) getCertificate(hello *tls.ClientHelloInfo) (*tls.Certificate,
 			}
 		}
 	}
-	if name == "" {
-		name = "localhost"
+	if name == "" || !allowedName(name) {
+		name = "localhost" // unknown names get a cert that simply won't match – no minting for strangers
 	}
 	return ca.leafFor(name)
 }
@@ -271,6 +272,9 @@ func (ca *localCA) leafFor(name string) (*tls.Certificate, error) {
 		return nil, err
 	}
 	c := &tls.Certificate{Certificate: [][]byte{der}, PrivateKey: key, Leaf: leaf}
+	if len(ca.leaves) >= 64 {
+		ca.leaves = map[string]*tls.Certificate{} // bounded: a stranger cycling names cannot grow memory
+	}
 	ca.leaves[name] = c
 	return c, nil
 }

@@ -47,7 +47,7 @@ code{font:13px ui-monospace,Menlo,monospace;background:#0e141c;padding:1px 6px;b
         <div class="qr">{{.Primary.QR}}</div>
         <div>
           <ol class="steps">
-            <li>Handy ins <b>gleiche WLAN</b> wie den Mac.</li>
+            <li>Handy ins <b>gleiche WLAN</b> wie den Mac (mobile Daten am besten kurz aus).</li>
             <li><b>Kamera-App</b> am Handy öffnen und auf diesen Code halten.</li>
             <li>Auf den gelben Link tippen – die Handy-Seite führt dich durch alles Weitere.</li>
           </ol>
@@ -88,6 +88,7 @@ code{font:13px ui-monospace,Menlo,monospace;background:#0e141c;padding:1px 6px;b
           <li>Gleiches WLAN? <b>Gäste-, Hotel- und Zug-WLANs</b> lassen Geräte oft nicht miteinander sprechen → zu Hause einrichten oder die Internetfreigabe des Macs nutzen.</li>
           <li>Hat der Mac gefragt „Eingehende Netzwerkverbindungen akzeptieren?“ → <b>Erlauben</b>. Sonst: Systemeinstellungen → Netzwerk → Firewall → Optionen → „windowblaster…“ erlauben.</li>
           <li>VPN am Handy oder Mac ausschalten.</li>
+          <li>Android: WLAN des Macs gewählt, aber die Seite lädt nicht? <b>Mobile Daten kurz ausschalten</b> und bei „Keine Internetverbindung – trotzdem verbunden bleiben?“ auf <b>Ja</b> tippen. Samsung: Einstellungen → Verbindungen → WLAN → ⋮ → Intelligentes WLAN → „Zu mobilen Daten wechseln“ aus.</li>
           <li>Adresse exakt abtippen, mit <code>http://</code> und <code>:{{.HTTPPort}}</code>.</li>
         </ul>
       </details>
@@ -102,8 +103,12 @@ code{font:13px ui-monospace,Menlo,monospace;background:#0e141c;padding:1px 6px;b
 (function () {
   var map = { seen: 'c-seen', cert: 'c-cert', https: 'c-https', game: 'c-game', offline: 'c-off' };
   function mark(id, on) { var el = document.getElementById(id); if (el) el.className = on ? 'done' : ''; if (el && on) el.querySelector('.dot').textContent = '✓'; }
+  var addrKey = null;
   function poll() {
     fetch('/wb-status', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (s) {
+      var key = (s.addrs || []).map(function (a) { return a.ip; }).join(',');
+      if (addrKey !== null && key !== addrKey) { location.reload(); return; }
+      addrKey = key;
       var ph = s.phones || [];
       var any = function (k) { return ph.some(function (p) { return p[k]; }); };
       mark(map.seen, ph.length > 0);

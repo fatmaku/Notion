@@ -7,15 +7,20 @@ WINDOW BLASTER – SO STARTEST DU ES
    - Die Datei "Start-Window-Blaster.command" aus diesem Ordner
      ins Terminal-Fenster ziehen
    - Enter drücken
-   (Fragt der Mac nach Zugriff auf "Schreibtisch" oder "Downloads" → OK)
+   (Fragt der Mac nach Zugriff auf "Schreibtisch" oder "Downloads" → Erlauben)
 
 2) Es öffnet sich im Browser die Seite "Handy verbinden" mit einem QR-Code.
    Das Terminal-Fenster offen lassen.
 
-3) Handy ins gleiche WLAN wie den Mac, mit der Handy-Kamera den QR-Code
-   scannen und der Handy-Seite folgen.
+3) Handy ins gleiche WLAN wie den Mac (mobile Daten am besten kurz aus),
+   mit der Handy-Kamera den QR-Code scannen und der Handy-Seite folgen.
 
-Ab dem zweiten Mal reicht ein Doppelklick auf "Start-Window-Blaster.command".
+Ab dem zweiten Mal reicht ein Doppelklick auf "Start-Window-Blaster.command"
+in DIESEM Ordner. Nach jedem neuen Download (Update) den ersten Start
+wieder wie in Schritt 1 über das Terminal machen.
+
+Beim Einrichten des Handys: MacBook aufgeklappt lassen und am besten
+ans Ladekabel. Danach läuft das Spiel auf dem Handy ohne Mac und offline.
 
 Alles Weitere – mit Bildern der Schritte und Hilfe bei Problemen:
 Doppelklick auf  ANLEITUNG.html

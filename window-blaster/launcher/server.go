@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"net"
 	"net/http"
+	"os"
 	"path"
 	"strings"
 	"sync"
@@ -78,9 +79,12 @@ var mimeTypes = map[string]string{
 }
 
 func (s *server) appHandler() http.Handler {
-	fs := http.FileServer(http.Dir(s.appDir))
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		p := path.Clean(r.URL.Path)
+		if r.URL.Path != "/" && strings.HasSuffix(r.URL.Path, "/") {
+			http.NotFound(w, r) // no directory listings
+			return
+		}
 		if ct, ok := mimeTypes[strings.ToLower(path.Ext(p))]; ok {
 			w.Header().Set("Content-Type", ct)
 		}
@@ -90,7 +94,15 @@ func (s *server) appHandler() http.Handler {
 			// index.html, sw.js, precache.json …: always revalidate so updates arrive
 			w.Header().Set("Cache-Control", "no-cache")
 		}
-		fs.ServeHTTP(w, r)
+		// os.Root keeps symlinks from reaching outside the app folder. Opened per request,
+		// so a replaced app folder (update while running) is picked up instead of a stale handle.
+		root, err := os.OpenRoot(s.appDir)
+		if err != nil {
+			http.Error(w, "Spiel-Ordner nicht lesbar", http.StatusInternalServerError)
+			return
+		}
+		defer root.Close()
+		http.FileServerFS(root.FS()).ServeHTTP(w, r)
 	})
 }
 
@@ -130,6 +142,9 @@ func (s *server) track(r *http.Request, isTLS bool) {
 	defer s.mu.Unlock()
 	ph, ok := s.phones[key]
 	if !ok {
+		if len(s.phones) >= maxPhones {
+			return // a crowded or hostile network must not flood memory or the terminal
+		}
 		ph = &phone{IP: key, Device: deviceFrom(r.UserAgent()), FirstSeen: time.Now()}
 		s.phones[key] = ph
 		s.order = append(s.order, key)
@@ -141,9 +156,13 @@ func (s *server) track(r *http.Request, isTLS bool) {
 			event("📄", fmt.Sprintf("%s hat das Zertifikat geladen – jetzt am Handy installieren und vertrauen", ph.Device))
 		}
 	}
-	if isTLS && !ph.HTTPS {
+	// Trust is only proven by requests a browser makes without a certificate warning:
+	// the /handy probe (fetch fails on untrusted certs) or the service-worker script
+	// (browsers refuse to register a worker on a clicked-through certificate).
+	trusted := (p == "/wb-status" && r.URL.Query().Get("probe") == "1") || (p == "/sw.js" && r.Header.Get("Service-Worker") == "script")
+	if isTLS && trusted && !ph.HTTPS {
 		ph.HTTPS = true
-		event("🔒", fmt.Sprintf("%s ist sicher verbunden (HTTPS ok)", ph.Device))
+		event("🔒", fmt.Sprintf("%s vertraut dem Mac (sichere Verbindung ok)", ph.Device))
 	}
 	if isTLS && (p == "/" || p == "/index.html") && !ph.Game {
 		ph.Game = true
@@ -154,6 +173,8 @@ func (s *server) track(r *http.Request, isTLS bool) {
 		event("📦", fmt.Sprintf("%s lädt die Fahrzeug-Erkennung (für offline) …", ph.Device))
 	}
 }
+
+const maxPhones = 16
 
 func event(icon, msg string) {
 	fmt.Printf("%s %s  %s\n", time.Now().Format("15:04:05"), icon, msg)
@@ -172,12 +193,10 @@ type statusDoc struct {
 }
 
 func (s *server) status(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Content-Type", "application/json")
 	doc := statusDoc{OK: true, Secure: r.TLS != nil, Version: version, HTTPPort: s.httpPort, HTTPSPort: s.httpsPort}
-	ip := remoteIP(r)
-	if ip != nil && ip.IsLoopback() {
+	if s.isLocalPage(r) {
 		// details only for the Mac itself
 		doc.Addrs = localIPv4s()
 		s.mu.Lock()
@@ -185,8 +204,29 @@ func (s *server) status(w http.ResponseWriter, r *http.Request) {
 			doc.Phones = append(doc.Phones, *s.phones[k])
 		}
 		s.mu.Unlock()
+	} else {
+		// minimal document: the phone page probes it cross-origin
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 	}
 	_ = json.NewEncoder(w).Encode(doc)
+}
+
+// isLocalPage reports a request from the Mac's own connect page: loopback client,
+// localhost Host header (no DNS rebinding) and no foreign Origin.
+func (s *server) isLocalPage(r *http.Request) bool {
+	ip := remoteIP(r)
+	if ip == nil || !ip.IsLoopback() {
+		return false
+	}
+	host := r.Host
+	if h, _, err := net.SplitHostPort(host); err == nil {
+		host = h
+	}
+	if host != "localhost" && host != "127.0.0.1" && host != "::1" {
+		return false
+	}
+	origin := r.Header.Get("Origin")
+	return origin == "" || origin == fmt.Sprintf("http://localhost:%d", s.httpPort) || origin == fmt.Sprintf("http://127.0.0.1:%d", s.httpPort)
 }
 
 func (s *server) certDER(w http.ResponseWriter, r *http.Request) {
@@ -244,6 +284,8 @@ func (s *server) mobileconfig(w http.ResponseWriter, r *http.Request) {
 	<string>Window Blaster – Mac-Zertifikat</string>
 	<key>PayloadIdentifier</key>
 	<string>de.windowblaster.local.%s</string>
+	<key>PayloadOrganization</key>
+	<string>Window Blaster (lokal)</string>
 	<key>PayloadRemovalDisallowed</key>
 	<false/>
 	<key>PayloadType</key>
@@ -254,7 +296,21 @@ func (s *server) mobileconfig(w http.ResponseWriter, r *http.Request) {
 	<integer>1</integer>
 </dict>
 </plist>
-`, wrapped.String(), name, s.ca.uuidFrom("root"), s.ca.uuidFrom("root"), s.ca.uuidFrom("profile"), s.ca.uuidFrom("profile"))
+`, wrapped.String(), name, s.ca.uuidFrom("root"), s.ca.uuidFrom("root"), profileID(), s.ca.uuidFrom("profile"))
+}
+
+// profileID is stable per Mac, so a newer profile replaces the old one on the iPhone.
+func profileID() string {
+	var b strings.Builder
+	for _, r := range strings.ToLower(shortHostname()) {
+		if (r >= 'a' && r <= 'z') || (r >= '0' && r <= '9') || r == '-' {
+			b.WriteRune(r)
+		}
+	}
+	if b.Len() == 0 {
+		return "mac"
+	}
+	return b.String()
 }
 
 // ---------------------------------------------------------------- pages
@@ -353,6 +409,7 @@ func printBanner(s *server, createdCA bool, dataDir string, quiet bool) {
 		fmt.Printf("\n   🔐 Neues Mac-Zertifikat erstellt (gespeichert in %s).\n", dataDir)
 	}
 	fmt.Println("\n   Dieses Fenster offen lassen, solange das Handy den Mac braucht.")
-	fmt.Println("   Beenden: Fenster schließen oder Strg+C.")
+	fmt.Println("   MacBook bitte aufgeklappt lassen (am besten am Strom), bis das Handy „Offline bereit ✓“ zeigt.")
+	fmt.Println("   Beenden: Fenster schließen oder control + C drücken.")
 	fmt.Println("────────────────────────────────────────────────────────────────────")
 }
