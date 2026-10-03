@@ -1,15 +1,15 @@
-İki Roman trailer render report  (2026-10-01 04:14)  ffmpeg: /usr/local/lib/python3.11/dist-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2
+İki Roman trailer render report  (2026-10-03 06:31)  ffmpeg: /usr/local/lib/python3.11/dist-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2
 file                                             size        res   fps     dur  video              audio  check
 Iki_Roman_Fragman_16x9_60s_DE.mp4              61.8MB  1920x1080    30   60.00   h264   aac 44100Hz 166k  PASS
 Iki_Roman_Fragman_16x9_60s_EN.mp4              61.8MB  1920x1080    30   60.00   h264   aac 44100Hz 166k  PASS
-Iki_Roman_Fragman_16x9_60s_TR.mp4              61.7MB  1920x1080    30   60.00   h264   aac 44100Hz 166k  PASS
+Iki_Roman_Fragman_16x9_60s_TR.mp4              61.8MB  1920x1080    30   60.00   h264   aac 44100Hz 166k  PASS
 Iki_Roman_Fragman_16x9_60s_TR_web.mp4          23.7MB  1920x1080    30   60.00   h264   aac 44100Hz 130k  PASS
-Iki_Roman_Fragman_1x1_30s_DE.mp4               23.5MB  1080x1080    30   30.00   h264   aac 44100Hz 165k  PASS
+Iki_Roman_Fragman_1x1_30s_DE.mp4               23.4MB  1080x1080    30   30.00   h264   aac 44100Hz 165k  PASS
 Iki_Roman_Fragman_1x1_30s_EN.mp4               23.5MB  1080x1080    30   30.00   h264   aac 44100Hz 165k  PASS
-Iki_Roman_Fragman_1x1_30s_TR.mp4               23.4MB  1080x1080    30   30.00   h264   aac 44100Hz 165k  PASS
+Iki_Roman_Fragman_1x1_30s_TR.mp4               23.5MB  1080x1080    30   30.00   h264   aac 44100Hz 165k  PASS
 Iki_Roman_Fragman_9x16_30s_DE.mp4              23.4MB  1080x1920    30   30.00   h264   aac 44100Hz 165k  PASS
 Iki_Roman_Fragman_9x16_30s_EN.mp4              23.4MB  1080x1920    30   30.00   h264   aac 44100Hz 165k  PASS
-Iki_Roman_Fragman_9x16_30s_TR.mp4              23.4MB  1080x1920    30   30.00   h264   aac 44100Hz 165k  PASS
+Iki_Roman_Fragman_9x16_30s_TR.mp4              23.5MB  1080x1920    30   30.00   h264   aac 44100Hz 165k  PASS
 
 SRT files: 9  stills: 38
 ALL PASS
