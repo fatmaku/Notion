@@ -19,7 +19,7 @@
       claim: 'Her biri tek başına bir roman. Birlikte okununca üçüncü bir kitap belirir.',
       cta: 'Şimdi Amazon’da',
       handle: '@happytuncay',
-      clock: '14:53'
+      clock: '14.53'
     },
     /* Zeitleisten. Alle Zeiten in Sekunden. lines: [Index in text.*.lines, Einblendung, Ausblendung]. */
     cuts: {

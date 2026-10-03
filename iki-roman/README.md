@@ -12,7 +12,7 @@ Zwei Romane, ein Kunstprojekt: **YOLCU – 1453 Uyanışın Bedeli** (Tuncay San
 | `interior/src/` | `YOLCU_TR_v4.docx`, `SAHIT_TR_v5.docx` (aktuelle Manuskripte = Word-Fassung), ältere Stufen `*_v2.docx`, `*_v3.docx`, `SAHIT_TR_v4.docx`, `v2/v3/v4/v5_aenderungen.json`, `v5_duzeltmeler.json` (alle Änderungen maschinenlesbar) |
 | `trailer/out/` | 9 Videos `Iki_Roman_Fragman_<16x9_60s|9x16_30s|1x1_30s>_<TR|EN|DE>.mp4`, 9 Untertitel `.srt`, `storyboard/` (Stills), `render_report.txt` |
 | `marketing/` | `Marketing_Story_Storyboard_<TR|EN|DE>.pdf` (+ `.md`): Kernbotschaft, KDP-Listing, Keywords, Kategorien, A+, Storyboard, Sprechertext, Musik-Brief, Launch-Plan |
-| `analyse/` | `Bewertung_Ben_Yoksam_Sahidi_Ararken.md/.pdf` (Fassung 2, mit adversarialer Gegenprüfung): Logik-, Mystik- und Spannungsbewertung je Buch und als Doppelwerk; `Degisiklik_Listesi_v2.md/.pdf`: Änderungsliste der Manuskriptfassungen v2 und v3 (TR + DE); `jury_ergebnisse.json` (Rohdaten der sechs Jury-Stimmen und der Gegenprüfung); `Sefa_Degisiklikleri_v5.md/.pdf` (Prüfung von Sefas neuer Fassung, TR) + `sefa_v5_pruefung.json`; `build_pdf.py` (Markdown → PDF) |
+| `analyse/` | `Bewertung_Ben_Yoksam_Sahidi_Ararken.md/.pdf` (Fassung 2, mit adversarialer Gegenprüfung): Logik-, Mystik- und Spannungsbewertung je Buch und als Doppelwerk; `Degisiklik_Listesi_v2.md/.pdf`: Änderungsliste der Manuskriptfassungen v2 und v3 (TR + DE); `jury_ergebnisse.json` (Rohdaten der sechs Jury-Stimmen und der Gegenprüfung); `Sefa_Degisiklikleri_v5.md/.pdf` (Prüfung von Sefas neuer Fassung, TR) + `sefa_v5_pruefung.json`; `Son_Kontrol_Raporu.md/.pdf` (Schlusskontrolle 03.10.2026: Brücken, KDP-Maße, TR/EN/DE-Prüfung, TR); `build_pdf.py` (Markdown → PDF) |
 | `assets/` | Referenzgrafik (1536 × 512) und die 4×-KI-Hochskalierung (Real-ESRGAN), zerlegte Panels, Portraits; `upscaled/*_front_<tr|en|de>.png` = Fronten mit den neu gesetzten Titeln (`cover/titles_on_fronts.py`) |
 | `fonts/` | Cinzel, Literata, Cormorant Garamond (SIL OFL) |
 
@@ -37,7 +37,7 @@ Die genauen Zahlen (Seiten, Rücken, Fullcover-Maß) stehen nach jedem Build in 
 ## Cover-Logik (so ist es gebaut)
 
 - Der KDP-Wrap ist immer **[Rückseite | Rücken | Front]** von links nach rechts. Die Referenzgrafik zeigte YOLCU (BEN YOKSAM) spiegelverkehrt; das ist korrigiert.
-- Der Faustgruß entsteht, wenn beide Bücher **mit den Fronten nebeneinander liegen: ŞAHİT links, YOLCU rechts**. Das Panorama ist an der Berührungsstelle der Fäuste geteilt; jede Front läuft 3,175 mm über die Naht hinaus in den Beschnitt, damit die Berührung auch bei ±1 mm Schnitttoleranz erhalten bleibt (`Doppelansicht_*.png`).
+- Der Faustgruß entsteht, wenn beide Bücher **mit den Fronten nebeneinander liegen: ŞAHİT links, YOLCU rechts**. Das Panorama ist an der Berührungsstelle der Fäuste geteilt (`Doppelansicht_*.png`). Bei ŞAHİT liegt diese Stelle an der Vorderkante: Dort läuft die Front 3,175 mm in den Beschnitt, die Faust reicht auch bei Schnitttoleranz bis an die Kante. Bei YOLCU liegt sie am Rückenfalz, wo es keinen Beschnitt gibt; deshalb läuft das Frontmotiv 1,6 mm in den Rücken (`FOLD_OVERLAP` in `build_cover.py`), damit bei leichtem Falzversatz kein dunkler Rückenstreifen vor der Faust erscheint. An den gedruckten Büchern kann die Berührung um 1–2 mm abweichen; exakt ist sie in der Doppelansicht.
 - Beide Rückseiten nutzen dasselbe Template: Portrait oben rückenseitig mit identischer weicher Vignette und Gradation, Text außen, Tagline unten, Barcode-Feld unten rechts.
 - Autorennamen und Ornamente der Fronten stammen aus der KI-hochskalierten Referenz. Die Titel (seit der Umbenennung) und Untertitel werden von `cover/titles_on_fronts.py` je Sprache neu gesetzt: alte Rasterschrift ausgemalt, neue goldene Cinzel-Typografie mit Verlauf, Kante, Halo und Schatten im Look der Referenz. Die Genrezeile ist je Sprache Vektortext; Rückseiten und Rücken sind vollständig Vektortext (Cinzel, Literata).
 
@@ -70,9 +70,12 @@ python3 interior/check_pdf.py interior/out/*_Innenteil_A5.pdf --json interior/ou
 # Trailer (9 Videos + SRT + Stills)
 bash trailer/render_all.sh
 
+# Gesamtpaket (ZIP mit Ordnerstruktur, Anleitung 00_OKU_BENI.txt) → out/Iki_Roman_KDP_Paket.zip
+bash package.sh
+
 # Marketing-PDFs und Analyse-PDFs
 python3 marketing/build_marketing.py
-python3 analyse/build_pdf.py analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md analyse/Degisiklik_Listesi_v2.md analyse/Sefa_Degisiklikleri_v5.md
+python3 analyse/build_pdf.py analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md analyse/Degisiklik_Listesi_v2.md analyse/Sefa_Degisiklikleri_v5.md analyse/Son_Kontrol_Raporu.md
 ```
 
 Abhängigkeiten: Python 3.11 mit weasyprint, pillow, pypdf, pymupdf, fonttools, numpy, opencv-python-headless, imageio-ffmpeg, epubcheck (Java), markdown, python-docx; Node 22 mit Playwright (Chromium) für den Trailer.

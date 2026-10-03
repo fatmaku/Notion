@@ -3,7 +3,7 @@
 > **Titles (1 Oct 2026):** **THE TRAVELLER** (Turkish: YOLCU; working title BEN YOKSAM) and **THE WITNESS** (Turkish: ŞAHİT; working title ŞAHİDİ ARARKEN). Both novels are currently available in Turkish.
 ## Marketing Story, Amazon KDP Listing, Trailer Storyboard and Launch Plan
 
-**Books:** *THE TRAVELLER – 1453 Uyanışın Bedeli* (Tuncay Sancak) · *THE WITNESS* (Mustafa Sefa Güvenir)
+**Books:** *THE TRAVELLER. 1453 — The Price of Awakening* (Turkish: *YOLCU – 1453 Uyanışın Bedeli*; Tuncay Sancak) · *THE WITNESS* (Turkish: *ŞAHİT*; Mustafa Sefa Güvenir)
 **Version:** 1.0 · September 2026 · English edition; the Turkish edition is the primary one, the German edition has the same content.
 
 ---
@@ -12,7 +12,7 @@
 
 **An art project:** two authors, two independent novels. Each can be read alone and ends on its own. Whoever reads both meets a third story that neither book tells by itself.
 
-**The shared scene:** both novels narrate the same moment from two directions: a green room, three knocks on metal, someone asking for water, a hand making room for the glass, a bandaged thumb. The narrator of *THE TRAVELLER* remembers the scene; the writer in *THE WITNESS* writes it. Neither is sure: lived, read or written?
+**The shared scene:** both novels narrate the same moment from two directions: a green room, three knocks on metal, someone asking for water, a hand making room for the glass, a taped thumb. The narrator of *THE TRAVELLER* remembers the scene; the writer in *THE WITNESS* writes it. Neither is sure: lived, read or written?
 
 **The cover language:** placed side by side, the two covers meet in a fist bump. That image becomes one sentence:
 
@@ -28,7 +28,7 @@
 | Genre | Mystical crime and psychological thriller | Sufi-psychological novel about memory and witnessing |
 | Promise | Where does the thing that wakes you lead you? | Who is the witness: the one who writes, sees or reads? |
 | Tone | Tense, investigative, inner voices | Conversational, warm, Sufi parables, clinical realism |
-| Reader | Thriller and conspiracy-novel readers; readers critical of the "awakening" discourse | Spiritual seekers, Sufi literature, the psychology/literature intersection |
+| Reader | Thriller and conspiracy-novel readers; readers critical of the ADHD/autism and "awakening" discourse | Spiritual seekers, Sufi literature, the psychology/literature intersection |
 | Shared core | Remembering is not proof; witnessing is responsibility | Same |
 
 **Audiences (by priority):**
@@ -39,14 +39,14 @@
 ## 3. Amazon KDP listing texts
 
 ### 3.1 THE TRAVELLER
-- **Title:** THE TRAVELLER · **Subtitle:** 1453 — Uyanışın Bedeli. Mistik suç ve psikolojik gerilim romanı
+- **Title:** THE TRAVELLER · **Subtitle:** 1453 — The Price of Awakening. A mystical crime and psychological thriller
 - **Series:** İki Roman – Üçüncü Hikâye (no volume numbers; the books are equals)
 - **Description (KDP HTML, English for a later EN edition; use the Turkish version in the TR listing):**
 
 ```html
 <b>How do you know that something exists?</b><br>
 Because you see it? Because you remember it? Or because someone tells you it exists?<br><br>
-One morning a black package lies at the door: no sender, no address. The book inside tells of something that should not exist: him. His childhood, his fears, the memories he thought he had forgotten, and details no one could know.<br><br>
+One day a black package lies at the door: no sender, no address. The book inside tells of something that should not exist: him. His childhood, his fears, the memories he thought he had forgotten, and details no one could know.<br><br>
 With every page, 1453 turns from a date into a key, a red string into a symbol, and coincidences stop being coincidental.<br><br>
 Then a more dangerous question arises: <i>What if the thing that wants to wake you is only leading you where it wants you to go?</i><br><br>
 <b>Two Novels – Two Paths – A Third Story.</b> THE TRAVELLER is a stand-alone novel. Read together with <i>The Witness</i> by Mustafa Sefa Güvenir, a third story appears that neither book tells alone.
@@ -54,15 +54,15 @@ Then a more dangerous question arises: <i>What if the thing that wants to wake y
 
 - **7 keywords (≤ 50 characters each):** turkish psychological thriller · mystical crime novel · inner voices memory · istanbul thriller · conspiracy awakening · black package red string · sufism and psychology
 - **Categories (3):** Fiction › Thrillers › Psychological · Fiction › Mystery & Detective › Amateur Sleuth · Fiction › Literary
-- **Price idea:** e-book 4.99 €/$; A5 paperback (282 pages) 12.99–14.99 depending on KDP print cost.
+- **Price idea:** e-book 4.99 €/$; A5 paperback (282 pages) 12.99–14.99 € depending on KDP print cost.
 
 ### 3.2 THE WITNESS
-- **Title:** THE WITNESS · **Subtitle:** Roman (A Novel)
+- **Title:** THE WITNESS · **Subtitle:** A Novel
 - **Description (KDP HTML):**
 
 ```html
 <b>What does a person hide who no longer speaks?</b><br><br>
-Mustafa Sefa receives an unusual assignment: to write the story of a man who no longer speaks. But the deeper he descends into this man's past, the more it is not only that story but his own reality that begins to waver.<br><br>
+Mustafa Sefa receives an unusual assignment: to write the story of a man who no longer speaks. But as he descends deeper into this man's past, it is not only the man's story that begins to waver, but his own reality.<br><br>
 Letters, lost time, a single word: <b>the witness.</b> What begins as research becomes a journey into the deepest layers of memory, identity and meaning.<br><br>
 Who is the witness? The silent man? The one who writes the story? The one who saw it? <i>Or the person holding this book right now?</i><br><br>
 <b>Two Novels – Two Paths – A Third Story.</b> THE WITNESS is a stand-alone novel. Read together with <i>The Traveller</i> by Tuncay Sancak, a third story appears that neither book tells alone.
@@ -70,7 +70,7 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 
 - **7 keywords:** sufi novel · witness and witnessing · psychiatric clinic novel · memory and identity · spiritual search · typewriter and letter · modern sufi stories
 - **Categories (3):** Fiction › Literary · Fiction › Religious › General · Fiction › Psychological
-- **Price idea:** e-book 4.99; A5 paperback (202 pages) 11.99–13.99.
+- **Price idea:** e-book 4.99 €/$; A5 paperback (202 pages) 11.99–13.99 €.
 
 ### 3.3 Shared elements
 - **Author page (Amazon Author Central):** both authors, the project text, the panorama (`cover/out/Panorama_Marketing_EN.png`).
@@ -90,7 +90,7 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 | 1 | 0–7 s | Black. A warm flash and a slight shake with each knock. The question fades in at 3.2 s. | *How do you know that something exists?* | Three knocks (1.0 / 1.8 / 2.6 s). Deep drone. |
 | 2 | 7–19 s | THE TRAVELLER cover art; slow push from the sky to the fist. Below: drawing of a black package with a red string, a small clock at 14:53. | *A black package at the door.* / *No sender. No address.* / *The book inside… is about him.* → Title card: **THE TRAVELLER** · 1453 — The Price of Awakening · Tuncay Sancak | Pulsing bass, pad. |
 | 3 | 19–31 s | THE WITNESS cover art (cool side, moon). Drawing: a gazelle (the traveller), a folded letter. | *A traveller sets out.* / *A witness awaits him.* / *A man who no longer speaks… Who is the witness?* → Title card: **THE WITNESS** · Mustafa Sefa Güvenir | Soft pad, drone continues. |
-| 4 | 31–44 s | Split screen: left cool, right warm; a thin gold seam. One by one: room outline, three light knocks, glass of water, bandaged thumb, chair. | *A green room.* / *Three knocks.* / *A glass of water.* / *Two people remember the same scene.* | Three knocks again (34.0 / 34.8 / 35.6 s). Tension rises. |
+| 4 | 31–44 s | Split screen: left cool, right warm; a thin gold seam. One by one: room outline, three light knocks, glass of water, taped thumb, chair. | *A green room.* / *Three knocks.* / *A glass of water.* / *Two people remember the same scene.* | Three knocks again (34.0 / 34.8 / 35.6 s). Tension rises. |
 | 5 | 44–53 s | Both covers slide in from left and right; at 47.0 s the fists touch in the center; flash and sunburst. | **Two Novels – Two Paths – A Third Story** / *Each one a novel in its own right. Read together, a third book appears.* | Crescendo → deep hit at 47.0 s. |
 | 6 | 53–60 s | End card: both e-book covers side by side, author names, the butterfly crosses. | *Now on Amazon* · @happytuncay | Calm pad, 2 s fade-out. |
 
@@ -124,7 +124,7 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 ### 4.4 Music brief (for licensed music)
 - **Mood:** dark, cinematic, heavy; a subtle ney or kanun texture as an Istanbul hint is welcome, no "oriental" clichés.
 - **Tempo:** feels like 60–70 BPM, mostly drone and pad; crescendo 44–47 s, hit at 47.0 s (fists), then a calm resolution.
-- **Mandatory marks:** three knocks at 1.0 / 1.8 / 2.6 s and 34.0 / 34.8 / 35.6 s (60 s cut); in the 30 s cut at 1.0 / 1.8 / 2.6 and 17.0 / 17.6 / 18.2 s.
+- **Mandatory marks:** three knocks at 1.0 / 1.8 / 2.6 s and 34.0 / 34.8 / 35.6 s (60 s cut); in the 30 s cut at 0.7 / 1.3 / 1.9 and 17.0 / 17.6 / 18.2 s.
 - **License:** social media + Amazon + YouTube, worldwide, perpetual. The music in the delivered trailer is a **generated placeholder** and must be replaced before publication.
 
 ## 5. Launch plan
@@ -151,4 +151,4 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 ## 6. Recommended reading order
 **Recommendation: THE TRAVELLER first, then THE WITNESS.** According to the analysis report, THE TRAVELLER leaves three threads that only THE WITNESS resolves: the man with the tumour report (ch. 50), the "second book that begins on the day you die" (ch. 46) and the namelessness of the writer. The reverse order works too, and both books invite a second round. Marketing uses this order as "recommended", always adding that any order works.
 
-The analysis report (`analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md`) explains which order lets the third story emerge best. Marketing uses that order as "recommended", always adding that any order works.
+Source: analysis report (`analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md`).

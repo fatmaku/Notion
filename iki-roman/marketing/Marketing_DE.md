@@ -3,7 +3,7 @@
 > **Titel (01.10.2026):** **DER REISENDE** (türkisch: YOLCU; Arbeitstitel BEN YOKSAM) und **DER ZEUGE** (türkisch: ŞAHİT; Arbeitstitel ŞAHİDİ ARARKEN). Beide Romane liegen derzeit auf Türkisch vor.
 ## Marketing-Story, Amazon-KDP-Listing, Trailer-Storyboard und Launch-Plan
 
-**Bücher:** *DER REISENDE – 1453 Uyanışın Bedeli* (Tuncay Sancak) · *DER ZEUGE* (Mustafa Sefa Güvenir)
+**Bücher:** *DER REISENDE. 1453 — Der Preis des Erwachens* (türkisch: *YOLCU – 1453 Uyanışın Bedeli*; Tuncay Sancak) · *DER ZEUGE* (türkisch: *ŞAHİT*; Mustafa Sefa Güvenir)
 **Version:** 1.0 · September 2026 · Deutsche Fassung; die türkische Fassung ist die Hauptfassung, die englische ist inhaltsgleich.
 
 ---
@@ -12,7 +12,7 @@
 
 **Ein Kunstprojekt:** Zwei Autoren, zwei eigenständige Romane. Jeder lässt sich allein lesen und endet für sich. Wer beide liest, begegnet einer dritten Geschichte, die keines der Bücher allein erzählt.
 
-**Die gemeinsame Szene:** In beiden Romanen wird derselbe Moment aus zwei Blickrichtungen erzählt: ein grüner Raum, drei Schläge auf Metall, jemand bittet um Wasser, eine Hand macht Platz für das Glas, ein verbundener Daumen. Der Erzähler von *DER REISENDE* erinnert sich an die Szene; der Schriftsteller in *DER ZEUGE* schreibt sie. Beide sind sich nicht sicher: erlebt, gelesen oder geschrieben?
+**Die gemeinsame Szene:** In beiden Romanen wird derselbe Moment aus zwei Blickrichtungen erzählt: ein grüner Raum, drei Schläge auf Metall, jemand bittet um Wasser, eine Hand macht Platz für das Glas, ein Daumen mit Pflaster. Der Erzähler von *DER REISENDE* erinnert sich an die Szene; der Schriftsteller in *DER ZEUGE* schreibt sie. Beide sind sich nicht sicher: erlebt, gelesen oder geschrieben?
 
 **Die Cover-Sprache:** Legt man beide Bücher nebeneinander, berühren sich zwei Fäuste. Dieses Bild wird zu einem Satz:
 
@@ -28,7 +28,7 @@
 | Genre | Mystischer Kriminal- und Psychothriller | Sufisch-psychologischer Roman über Erinnerung und Zeugenschaft |
 | Versprechen | Wohin führt dich das, was dich aufweckt? | Wer ist der Zeuge: der Schreibende, der Sehende, der Lesende? |
 | Ton | Angespannt, ermittelnd, innere Stimmen | Gesprächshaft, warm, Sufi-Parabeln, klinischer Realismus |
-| Leser | Thriller- und Verschwörungsroman-Leser; Leser, die den „Erwachens“-Diskurs kritisch sehen | Spirituell Suchende, Sufi-Literatur, Schnittstelle Psychologie/Literatur |
+| Leser | Thriller- und Verschwörungsroman-Leser; Leser, die den ADHS-/Autismus- und „Erwachens“-Diskurs kritisch sehen | Spirituell Suchende, Sufi-Literatur, Schnittstelle Psychologie/Literatur |
 | Gemeinsamer Kern | Erinnern ist kein Beweis; Zeugenschaft ist Verantwortung | Dito |
 
 **Zielgruppen (nach Priorität):**
@@ -40,14 +40,14 @@
 
 ### 3.1 DER REISENDE
 - **Titel:** DER REISENDE
-- **Untertitel:** 1453 — Uyanışın Bedeli. Mistik suç ve psikolojik gerilim romanı
+- **Untertitel:** 1453 — Der Preis des Erwachens. Mystischer Kriminal- und Psychothriller
 - **Reihe:** İki Roman – Üçüncü Hikâye (ohne Bandnummer; die Bücher sind gleichrangig)
 - **Beschreibung (KDP-HTML, deutsch für eine spätere DE-Ausgabe; im TR-Listing die türkische Fassung verwenden):**
 
 ```html
 <b>Wie erkennst du, dass etwas existiert?</b><br>
 Weil du es siehst? Weil du dich erinnerst? Oder weil dir jemand sagt, dass es existiert?<br><br>
-Eines Morgens liegt ein schwarzes Paket vor der Tür: ohne Absender, ohne Adresse. Doch das Buch darin enthält etwas, das nicht sein dürfte: ihn selbst. Seine Kindheit, seine Ängste, die Erinnerungen, die er vergessen glaubte, und Details, die niemand kennen dürfte.<br><br>
+Eines Tages liegt ein schwarzes Paket vor der Tür: ohne Absender, ohne Adresse. Doch das Buch darin enthält etwas, das nicht sein dürfte: ihn selbst. Seine Kindheit, seine Ängste, die Erinnerungen, die er vergessen glaubte, und Details, die niemand kennen dürfte.<br><br>
 Mit jeder Seite wird 1453 von einem Datum zu einem Schlüssel, ein roter Faden zum Symbol, und Zufälle verlieren ihre Zufälligkeit.<br><br>
 Doch bald stellt sich eine noch gefährlichere Frage: <i>Was, wenn das, was dich aufwecken will, dich in Wahrheit nur dorthin führt, wohin es selbst dich bringen möchte?</i><br><br>
 <b>Zwei Romane – Zwei Wege – Eine dritte Geschichte.</b> DER REISENDE ist ein eigenständiger Roman. Zusammen mit <i>Der Zeuge</i> von Mustafa Sefa Güvenir gelesen, erscheint eine dritte Geschichte, die keines der beiden Bücher allein erzählt.
@@ -91,7 +91,7 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 | 1 | 0–7 s | Schwarz. Bei jedem Schlag ein warmes Aufleuchten und ein leichtes Zittern. Bei 3,2 s erscheint die Frage. | *Wie erkennst du, dass etwas existiert?* | Drei Schläge (1,0 / 1,8 / 2,6 s). Tiefer Drone. |
 | 2 | 7–19 s | DER-REISENDE-Coverbild; langsame Fahrt vom Himmel zur Faust. Unten Zeichnung: schwarzes Paket mit roter Schnur, kleine Uhr auf 14.53. | *Ein schwarzes Paket vor der Tür.* / *Kein Absender. Keine Adresse.* / *Das Buch darin … handelt von ihm.* → Titelkarte: **DER REISENDE** · 1453 — Der Preis des Erwachens · Tuncay Sancak | Pulsierender Bass, Pad. |
 | 3 | 19–31 s | DER-ZEUGE-Coverbild (kühle Seite, Mond). Zeichnung: eine Gazelle (der Reisende), ein gefalteter Brief. | *Ein Reisender bricht auf.* / *Ein Zeuge erwartet ihn.* / *Ein Mann, der nicht mehr spricht … Wer ist der Zeuge?* → Titelkarte: **DER ZEUGE** · Mustafa Sefa Güvenir | Weiches Pad, Drone bleibt. |
-| 4 | 31–44 s | Splitscreen: links kühl, rechts warm; dünne Goldlinie in der Mitte. Nacheinander: Raumlinie, drei Lichtschläge, Wasserglas, verbundener Daumen, Stuhl. | *Ein grüner Raum.* / *Drei Schläge.* / *Ein Glas Wasser.* / *Zwei Menschen erinnern sich an dieselbe Szene.* | Drei Schläge erneut (34,0 / 34,8 / 35,6 s). Spannung steigt. |
+| 4 | 31–44 s | Splitscreen: links kühl, rechts warm; dünne Goldlinie in der Mitte. Nacheinander: Raumlinie, drei Lichtschläge, Wasserglas, Daumen mit Pflaster, Stuhl. | *Ein grüner Raum.* / *Drei Schläge.* / *Ein Glas Wasser.* / *Zwei Menschen erinnern sich an dieselbe Szene.* | Drei Schläge erneut (34,0 / 34,8 / 35,6 s). Spannung steigt. |
 | 5 | 44–53 s | Beide Cover gleiten von links und rechts herein; bei 47,0 s berühren sich die Fäuste in der Mitte; Blitz und Sonnenaufgang. | **Zwei Romane – Zwei Wege – Eine dritte Geschichte** / *Jedes für sich ein Roman. Zusammen gelesen erscheint ein drittes Buch.* | Crescendo → tiefer Schlag bei 47,0 s. |
 | 6 | 53–60 s | Endkarte: beide E-Book-Cover nebeneinander, Autorennamen, Schmetterling fliegt durch. | *Jetzt bei Amazon* · @happytuncay | Ruhiges Pad, 2 s Fade-out. |
 
@@ -125,7 +125,7 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 ### 4.4 Musik-Brief (für lizenzierte Musik)
 - **Stimmung:** dunkel, cineastisch, schwer; eine feine Ney- oder Kanun-Textur als Istanbul-Anklang ist willkommen, keine „Orient“-Klischees.
 - **Tempo:** Gefühl von 60–70 BPM, überwiegend Drone und Pad; Crescendo 44–47 s, Schlag bei 47,0 s (Fäuste), danach ruhige Auflösung.
-- **Pflicht-Marken:** drei Schläge bei 1,0 / 1,8 / 2,6 s und 34,0 / 34,8 / 35,6 s (60 s); im 30-s-Schnitt bei 1,0 / 1,8 / 2,6 und 17,0 / 17,6 / 18,2 s.
+- **Pflicht-Marken:** drei Schläge bei 1,0 / 1,8 / 2,6 s und 34,0 / 34,8 / 35,6 s (60 s); im 30-s-Schnitt bei 0,7 / 1,3 / 1,9 und 17,0 / 17,6 / 18,2 s.
 - **Lizenz:** Social Media + Amazon + YouTube, weltweit, unbefristet. Die Musik im gelieferten Trailer ist ein **generierter Platzhalter** und muss vor der Veröffentlichung ersetzt werden.
 
 ## 5. Launch-Plan
@@ -150,6 +150,6 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 **Messung:** Ziele für die ersten 30 Tage — Trailer-Views, Besuche der Amazon-Produktseiten, Vorbestellungen und Rezensionen; wöchentlich in einer Tabelle nachhalten.
 
 ## 6. Empfohlene Lesereihenfolge
-**Empfehlung: zuerst DER REISENDE, dann DER ZEUGE.** Laut Analysebericht hinterlässt DER REISENDE drei Fäden, die nur DER ZEUGE einlöst: den Mann mit dem Tumorbericht (Kap. 50), das "zweite Buch, das am Todestag beginnt" (Kap. 46) und die Namenlosigkeit des Schreibenden. Die umgekehrte Reihenfolge funktioniert ebenfalls; beide Bücher laden zu einer zweiten Runde ein. Im Marketing als "empfohlen" nennen, immer mit dem Zusatz, dass jede Reihenfolge funktioniert.
+**Empfehlung: zuerst DER REISENDE, dann DER ZEUGE.** Laut Analysebericht hinterlässt DER REISENDE drei Fäden, die nur DER ZEUGE einlöst: den Mann mit dem Tumorbericht (Kap. 50), das „zweite Buch, das am Todestag beginnt“ (Kap. 46) und die Namenlosigkeit des Schreibenden. Die umgekehrte Reihenfolge funktioniert ebenfalls; beide Bücher laden zu einer zweiten Runde ein. Im Marketing wird sie als „empfohlen“ genannt, immer mit dem Zusatz, dass jede Reihenfolge funktioniert.
 
-Der Analysebericht (`analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md`) begründet, in welcher Reihenfolge die dritte Geschichte am besten entsteht. Im Marketing wird diese Reihenfolge als „empfohlen“ genannt, immer mit dem Zusatz, dass jede Reihenfolge funktioniert.
+Quelle: Analysebericht (`analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md`).

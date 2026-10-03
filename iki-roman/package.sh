@@ -50,6 +50,7 @@ mkdir -p "$P/6_Raporlar"
 cp analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.pdf "$P/6_Raporlar/Analiz_Raporu_YOLCU_SAHIT_DE.pdf"
 cp analyse/Degisiklik_Listesi_v2.pdf               "$P/6_Raporlar/Degisiklik_Listesi_TR_DE.pdf"
 cp analyse/Sefa_Degisiklikleri_v5.pdf              "$P/6_Raporlar/SAHIT_v5_Sefa_Degisiklikleri_TR.pdf"
+cp analyse/Son_Kontrol_Raporu.pdf                  "$P/6_Raporlar/Son_Kontrol_Raporu_TR.pdf"
 
 cp 00_OKU_BENI.txt "$P/"
 (cd out && zip -q -r Iki_Roman_KDP_Paket.zip Iki_Roman_KDP_Paket)

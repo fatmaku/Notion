@@ -142,6 +142,11 @@ def back_css():
     """
 
 
+# YOLCU: Die Faust beginnt genau am Rückenfalz (ŞAHİT liegt links daneben). Damit bei Falzversatz kein dunkler
+# Rückenstreifen vor der Faust erscheint, bleibt das Frontmotiv auf den letzten 1,6 mm des Rückens sichtbar.
+FOLD_OVERLAP = 1.6
+
+
 def spine_panel_html(book, x, y, sw, lang='tr'):
     t = TEXTS[book]
     P = lambda mm: f'{mm:.3f}mm'
@@ -150,7 +155,7 @@ def spine_panel_html(book, x, y, sw, lang='tr'):
     title_pt = max(6.0, min(15.0, inner / 0.72 * 2.835 * 0.92))   # Cap-Höhe Cinzel ≈ 0,72 em; 1 mm = 2,835 pt
     author_pt = max(5.0, title_pt * 0.62)
     return f"""
-    <img class="fill" src="file://{ASSETS}/{book}_spine_bg.png" style="left:{P(x)}; top:{P(y - BLEED)}; width:{P(sw)}; height:{P(TRIM_H + 2 * BLEED)};">
+    <img class="fill" src="file://{ASSETS}/{book}_spine_bg.png" style="left:{P(x)}; top:{P(y - BLEED)}; width:{P(sw - (FOLD_OVERLAP if book == 'BY' else 0))}; height:{P(TRIM_H + 2 * BLEED)}; object-fit: cover; object-position: left;">
     <div class="abs spine-title cinzel gold" style="left:{P(x + sw / 2 - 80)}; top:{P(y + 12 + 80 - sw / 2)}; width:160mm; height:{P(sw)}; font-size:{title_pt:.1f}pt; line-height:{P(sw)}; transform: rotate(90deg); transform-origin: 80mm {P(sw / 2)};">{t.get('title_i18n', {}).get(lang, t['title'])}</div>
     <img src="file://{HERE}/assets/butterfly.svg" class="abs" style="left:{P(x + sw / 2 - 2.6)}; top:{P(y + 108)}; width:5.2mm; height:4.7mm;">
     <div class="abs spine-author cinzel cream" style="left:{P(x + sw / 2 - 45)}; top:{P(y + 120 + 45 - sw / 2)}; width:90mm; height:{P(sw)}; font-size:{author_pt:.1f}pt; line-height:{P(sw)}; transform: rotate(90deg); transform-origin: 45mm {P(sw / 2)};">{t['author_caps']}</div>

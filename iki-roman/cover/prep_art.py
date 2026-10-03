@@ -90,16 +90,42 @@ def feather_paste(dst, patch, x, y, fade_l=0, fade_r=0, fade_t=0, fade_b=0, alph
 
 
 def ebook_art(front_rgb):
-    """1461 × 2048 → 1600 × 2560: Breite skalieren, Himmel oben und Wasser unten weich verlängern."""
-    im = Image.fromarray(front_rgb)
-    im = im.resize((1600, int(round(2048 * 1600 / 1461))), Image.LANCZOS)   # 1600 × 2243
-    need = 2560 - im.height                                                  # 317
+    """1461 × 2048 → 1600 × 2560: auf volle Breite skalieren; die fehlende Höhe oben (Himmel) und unten (Wasser)
+    mit einem stark weichgezeichneten Randstreifen füllen, der über OV Pixel stufenlos ins Bild übergeht
+    (keine harte Kante), mit leichter Abdunklung nach außen und Filmkorn wie im Bild. Text liegt nie im Übergang:
+    die Autorenzeile beginnt erst ~100 px unter der Oberkante des Motivs."""
+    im = Image.fromarray(front_rgb).resize((1600, int(round(2048 * 1600 / 1461))), Image.LANCZOS)   # 1600 × 2243
+    H0 = im.height
+    need = 2560 - H0                                                         # 317
     top_h, bot_h = int(need * 0.55), need - int(need * 0.55)
-    top = im.crop((0, 0, 1600, 60)).resize((1600, top_h), Image.LANCZOS).filter(ImageFilter.GaussianBlur(6))
-    bot = im.crop((0, im.height - 60, 1600, im.height)).resize((1600, bot_h), Image.LANCZOS).filter(ImageFilter.GaussianBlur(6))
-    out = Image.new('RGB', (1600, 2560))
-    out.paste(top, (0, 0)); out.paste(im, (0, top_h)); out.paste(bot, (0, top_h + im.height))
-    return out
+    OV = 90
+    a = np.asarray(im).astype(np.float32)
+    out = np.zeros((2560, 1600, 3), np.float32)
+    out[top_h:top_h + H0] = a
+    rng = np.random.default_rng(11)
+
+    def band(rows, h, outer_first):
+        """Randzeilen → auf Höhe h gestreckt, sehr weich; Abdunklung zum äußeren Rand."""
+        src = cv2.GaussianBlur(rows, (0, 0), 6)
+        st = cv2.resize(src, (1600, h), interpolation=cv2.INTER_CUBIC)
+        st = cv2.GaussianBlur(st, (0, 0), 22)
+        t = np.linspace(1.0, 0.0, h, dtype=np.float32) if outer_first else np.linspace(0.0, 1.0, h, dtype=np.float32)
+        st *= (1 - 0.30 * t[:, None, None] ** 1.5)
+        return st + rng.normal(0, 3.0, st.shape).astype(np.float32)
+
+    def smooth(n):
+        x = np.linspace(0, 1, n, dtype=np.float32); return x * x * (3 - 2 * x)
+
+    # oben: Streifen über top_h + OV Zeilen; im Bereich des Bildes (OV) von 1 → 0 überblenden
+    top = band(a[:40], top_h + OV, outer_first=True)
+    w = np.ones(top_h + OV, np.float32); w[top_h:] = 1 - smooth(OV)
+    seg = out[:top_h + OV]; out[:top_h + OV] = top * w[:, None, None] + seg * (1 - w[:, None, None])
+    # unten: analog
+    y0 = top_h + H0 - OV
+    bot = band(a[-40:], bot_h + OV, outer_first=False)
+    w = np.ones(bot_h + OV, np.float32); w[:OV] = smooth(OV)
+    seg = out[y0:]; out[y0:] = bot * w[:, None, None] + seg * (1 - w[:, None, None])
+    return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
 
 
 def main():
