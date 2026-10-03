@@ -30,7 +30,7 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <body>
 <main>
 <h1>🚗 Window <span>Blaster</span> – Anleitung</h1>
-<p class="lead">Für MacBook + iPhone oder Android-Handy · Version {{.Version}}</p>
+<p class="lead">Für MacBook (macOS 11 Big Sur oder neuer) + iPhone oder Android-Handy · Version {{.Version}}</p>
 <nav class="small"><a href="#kurz">Kurzfassung</a><a href="#mac">MacBook</a><a href="#iphone">iPhone</a><a href="#android">Android</a><a href="#offline">Offline</a><a href="#hilfe">Wenn es nicht startet</a></nav>
 
 <div class="note ok"><b>Braucht das Spiel Internet?</b> Nein. Der Mac schickt das Spiel <b>einmal</b> über dein WLAN aufs Handy. Danach läuft es auf dem Handy komplett ohne Mac und ohne Internet – im Auto, Zug oder Bus. Am besten richtest du es <b>zu Hause</b> ein.</div>
@@ -40,7 +40,7 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <ol>
   <li><b>Entpacken:</b> Doppelklick auf <code>WindowBlaster.zip</code> (Safari entpackt oft schon von selbst – dann liegt der Ordner bereits in „Downloads“). Es entsteht der Ordner <b>WindowBlaster</b> (oder „WindowBlaster 2“, wenn es schon einen gibt – das ist egal). Zieh ihn auf den Schreibtisch.<br><span class="small muted">Hast du noch eine ältere Version (Ordner „WindowBlaster-Mac…“)? Die darf in den Papierkorb. Das Handy richtest du einmal neu ein (Schritt 5); ein altes Profil „Caddy Local Authority“ kannst du am iPhone unter Einstellungen → Allgemein → VPN und Geräteverwaltung löschen.</span></li>
   <li><b>Erster Start (nur einmal so):</b> Programm <b>Terminal</b> öffnen (<kbd>⌘</kbd>+<kbd>Leertaste</kbd>, „Terminal“ tippen, <kbd>↩</kbd>). Tippe <code>bash</code> und ein <b>Leerzeichen</b>. Zieh dann die Datei <b>Start-Window-Blaster.command</b> aus dem Ordner ins Terminal-Fenster und drück <kbd>↩</kbd>.<br><span class="small muted">Fragt der Mac nach Zugriff auf „Schreibtisch“ oder „Downloads“ → <b class="ui">Erlauben</b>. Ab dem zweiten Mal genügt ein Doppelklick auf die Startdatei – nach jedem <b>neuen Download</b> (Update) aber wieder einmal über das Terminal starten.</span></li>
-  <li><b>Verbindungsseite:</b> Im Browser öffnet sich „Window Blaster – Handy verbinden“ mit einem großen QR-Code. Das Terminal-Fenster <b>offen lassen</b>.</li>
+  <li><b>Verbindungsseite:</b> Im Browser öffnet sich „Window Blaster – Handy verbinden“ mit einem großen QR-Code. Das Terminal-Fenster <b>offen lassen</b> und das MacBook <b>aufgeklappt</b> (am besten am Strom), bis das Handy „Offline bereit ✓“ zeigt – zugeklappt schläft der Mac ein.</li>
   <li><b>Handy verbinden:</b> Handy ins <b>gleiche WLAN</b> wie den Mac, mobile Daten am besten kurz aus. Kamera-App öffnen, QR-Code scannen, auf den Link tippen.</li>
   <li><b>Zertifikat (einmalig):</b> Die Handy-Seite führt dich durch 2–3 kurze Schritte. Wenn sie grün „vertraut dem Mac“ zeigt → <b class="ui">Spiel öffnen</b>.</li>
   <li><b>Als App speichern:</b> Spiel zum Home-Bildschirm hinzufügen, <b>von dort</b> öffnen und warten, bis <b>„Offline bereit ✓“</b> erscheint. Fertig!</li>
@@ -107,7 +107,10 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <tr><td>Terminal: „Killed: 9“ / „Code 137“</td><td>macOS hat das Programm gestoppt. Systemeinstellungen → Datenschutz &amp; Sicherheit → nach unten scrollen → bei „windowblaster…“ <b>Dennoch erlauben</b> → Startdatei erneut starten. Hilft das nicht: Ordner löschen, Zip neu herunterladen und erster Start über das Terminal.</td></tr>
 <tr><td>Terminal: „kein freier Port“</td><td>Ein anderes Programm belegt die Ports. Mac neu starten und dann nur Window Blaster starten.</td></tr>
 <tr><td>Terminal: „Datenordner … nicht beschreibbar“</td><td>Im Benutzerordner fehlen Schreibrechte für „Library/Application Support“. Mac neu starten; hilft das nicht, im Finder (<kbd>⇧</kbd>+<kbd>⌘</kbd>+<kbd>G</kbd>, <code>~/Library/Application Support</code>) → Ablage → Informationen → Freigabe & Zugriffsrechte → „Lesen &amp; Schreiben“ für dich.</td></tr>
-<tr><td>Terminal: „Window Blaster läuft bereits“</td><td>Ein anderes Terminal-Fenster mit dem Spiel ist noch offen – das ist in Ordnung, die Verbindungsseite öffnet sich trotzdem.</td></tr>
+<tr><td>Terminal: „Window Blaster läuft bereits“</td><td>Ein anderes Terminal-Fenster mit demselben Spiel ist noch offen – das ist in Ordnung, die Verbindungsseite öffnet sich trotzdem. Ist dort eine <b>ältere Version</b> offen, beendet der neue Start sie automatisch.</td></tr>
+<tr><td>Terminal: „die alte Version läuft noch“</td><td>Das andere Terminal-Fenster schließen (im Terminal <kbd>⌘</kbd>+<kbd>Q</kbd>) und die Startdatei erneut starten.</td></tr>
+<tr><td>Terminal: „macOS … ist zu alt“</td><td>Window Blaster braucht macOS 11 (Big Sur) oder neuer: Apple-Menü  → Über diesen Mac → Softwareupdate.</td></tr>
+<tr><td>Handy-Einrichtung bricht ab / „Prüfe …“ bleibt hängen</td><td>Ist der Mac eingeschlafen? MacBook aufgeklappt lassen, am besten am Strom, und die Handy-Seite neu laden.</td></tr>
 <tr><td>Mac fragt „Eingehende Netzwerkverbindungen akzeptieren?“</td><td><b>Erlauben</b> – sonst erreicht das Handy den Mac nicht.</td></tr>
 <tr><td>Browser zeigt eine leere oder alte Seite</td><td>Neu laden (<kbd>⌘</kbd>+<kbd>R</kbd>). Hilft das nicht: <code>http://localhost:{{.HTTPPort}}/?reset=1</code> öffnen – setzt den Spiel-Zwischenspeicher zurück (Punkte bleiben).</td></tr>
 <tr><td>Handy öffnet die Seite nicht</td><td>Gleiches WLAN? VPN aus? Adresse genau mit <code>http://</code> und <code>:{{.HTTPPort}}</code>? Auf der Verbindungsseite unter „Andere Adressen“ probieren. Gäste-/Zug-WLAN → Internetfreigabe. Android: WLAN des Macs gewählt, aber die Seite lädt nicht? <b>Mobile Daten kurz ausschalten</b> und bei „Keine Internetverbindung – trotzdem verbunden bleiben?“ auf <b>Ja</b> tippen. Samsung: Einstellungen → Verbindungen → WLAN → ⋮ → Intelligentes WLAN → „Zu mobilen Daten wechseln“ aus.</td></tr>

@@ -352,3 +352,72 @@ func TestCAIsNameConstrainedToLocalAddresses(t *testing.T) {
 		t.Fatal("name constraints not enforced")
 	}
 }
+
+func TestNewerStartTakesOverFromOldVersion(t *testing.T) {
+	free := func() int {
+		ln, err := net.Listen("tcp", "127.0.0.1:0")
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer ln.Close()
+		return ln.Addr().(*net.TCPAddr).Port
+	}
+	httpPort, httpsPort := free(), free()
+	data := t.TempDir()
+	appA, appB := testApp(t), testApp(t)
+	_ = os.WriteFile(filepath.Join(appA, "precache.json"), []byte(`{"v":1,"files":[]}`), 0o644)
+	_ = os.WriteFile(filepath.Join(appB, "precache.json"), []byte(`{"v":2,"files":[]}`), 0o644)
+	_ = os.WriteFile(filepath.Join(appB, "marker.txt"), []byte("NEU"), 0o644)
+	cfg := func(app string) config {
+		return config{appDir: app, dataDir: data, httpPort: httpPort, httpsPort: httpsPort, open: false, quiet: true}
+	}
+	doneA := make(chan error, 1)
+	go func() { doneA <- run(cfg(appA)) }()
+	waitUp := func() {
+		for i := 0; i < 50; i++ {
+			if _, ok := alreadyRunning(httpsPort); ok {
+				return
+			}
+			time.Sleep(100 * time.Millisecond)
+		}
+		t.Fatal("server did not come up")
+	}
+	waitUp()
+	// same folder again → reuses the running instance and returns at once
+	if err := run(cfg(appA)); err != nil {
+		t.Fatal(err)
+	}
+	doneB := make(chan error, 1)
+	go func() { doneB <- run(cfg(appB)) }()
+	select {
+	case err := <-doneA:
+		if err != nil {
+			t.Fatal(err)
+		}
+	case <-time.After(6 * time.Second):
+		t.Fatal("old instance did not quit")
+	}
+	waitUp()
+	res, err := http.Get(fmt.Sprintf("http://127.0.0.1:%d/marker.txt", httpPort))
+	if err != nil {
+		t.Fatal(err)
+	}
+	body, _ := io.ReadAll(res.Body)
+	res.Body.Close()
+	if string(body) != "NEU" {
+		t.Fatalf("new version not served: %d %q", res.StatusCode, body)
+	}
+	if doc, _ := alreadyRunning(httpsPort); doc.HTTPPort != httpPort {
+		t.Fatalf("ports moved: %+v", doc)
+	}
+	// a web page must not be able to stop the server
+	req, _ := http.NewRequest("POST", fmt.Sprintf("http://127.0.0.1:%d/wb-quit", httpPort), nil)
+	req.Header.Set("Origin", "https://evil.example")
+	if r, err := http.DefaultClient.Do(req); err == nil {
+		r.Body.Close()
+		if r.StatusCode != http.StatusForbidden {
+			t.Fatalf("cross-origin quit allowed: %d", r.StatusCode)
+		}
+	}
+	_ = doneB
+}

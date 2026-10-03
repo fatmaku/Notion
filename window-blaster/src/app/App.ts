@@ -148,12 +148,16 @@ export class App {
   async boot(): Promise<void> {
     if (import.meta.env.PROD && 'serviceWorker' in navigator && !this.params.nosw) {
       const hadController = !!navigator.serviceWorker.controller;
-      navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => this.offline.markServiceWorkerBroken());
+      this.registerWorker(1);
       // a new version activated: the running page may still reference old, now-deleted files → reload when safe
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         if (!hadController) return; // first install claiming the page – nothing stale
         this.pendingReload = true;
         this.reloadIfSafe();
+      });
+      // a deferred update is applied as soon as an offline download ends
+      this.offline.events.on('change', (s) => {
+        if (s !== 'downloading' && s !== 'checking') this.reloadIfSafe();
       });
     }
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -207,13 +211,39 @@ export class App {
     this.mode = null;
     this.paused = false;
     this.wakeLock.release();
-    if (this.reloadIfSafe()) return;
+    if (this.reloadIfSafe(true)) return;
     this.router.show(StartScreen(this));
   }
 
-  /** Reload into the new version unless a round or a download is running. Returns true if reloading. */
-  private reloadIfSafe(): boolean {
-    if (!this.pendingReload || this.mode || this.offline.state === 'downloading' || this.calibrating) return false;
+  /**
+   * Registers the service worker. An install that fails (e.g. Wi-Fi dropped) is retried once;
+   * after that the start screen stops promising offline play.
+   */
+  private registerWorker(retries: number): void {
+    navigator.serviceWorker
+      .register(`${import.meta.env.BASE_URL}sw.js`)
+      .then((reg) => {
+        const watch = (w: ServiceWorker | null) =>
+          w?.addEventListener('statechange', () => {
+            if (w.state === 'activated') void this.offline.check();
+            if (w.state === 'redundant' && !reg.active) {
+              if (retries > 0) setTimeout(() => this.registerWorker(retries - 1), 4000);
+              else this.offline.markServiceWorkerBroken();
+            }
+          });
+        watch(reg.installing);
+        reg.addEventListener('updatefound', () => watch(reg.installing));
+      })
+      .catch(() => this.offline.markServiceWorkerBroken());
+  }
+
+  /**
+   * Reload into the new version only at a clean point: on the start screen (or while going there),
+   * never during a round, calibration, a download or the setup screens.
+   */
+  private reloadIfSafe(goingToStart = false): boolean {
+    const onStart = goingToStart || this.router.active?.el.dataset.screen === 'start';
+    if (!this.pendingReload || !onStart || this.mode || this.offline.state === 'downloading' || this.calibrating) return false;
     toast('Neue Version – lädt neu …', 1500);
     setTimeout(() => location.reload(), 300);
     return true;

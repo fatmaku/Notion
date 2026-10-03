@@ -8,7 +8,7 @@
     "postinstall": "node scripts/copy-mediapipe.mjs",
     "dev": "vite",
     "build": "node scripts/copy-mediapipe.mjs && tsc --noEmit -p tsconfig.json && vite build && node scripts/write-precache.mjs",
-    "package": "npm run build && node scripts/package-mac.mjs",
+    "package": "node scripts/package-mac.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run",

@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 	"sync"
 	"time"
@@ -36,6 +37,8 @@ type server struct {
 	httpPort  int
 	httpsPort int
 	started   time.Time
+	build     string        // build id of the served app (precache.json "v")
+	quit      chan struct{} // a newer start asked this instance to make room
 
 	mu     sync.Mutex
 	phones map[string]*phone
@@ -43,7 +46,22 @@ type server struct {
 }
 
 func newServer(appDir string, ca *localCA, httpPort, httpsPort int) *server {
-	return &server{appDir: appDir, ca: ca, httpPort: httpPort, httpsPort: httpsPort, started: time.Now(), phones: map[string]*phone{}}
+	return &server{appDir: appDir, ca: ca, httpPort: httpPort, httpsPort: httpsPort, started: time.Now(), build: readBuild(appDir), quit: make(chan struct{}, 1), phones: map[string]*phone{}}
+}
+
+// readBuild returns the build id of the app in dir ("" if unknown).
+func readBuild(dir string) string {
+	b, err := os.ReadFile(filepath.Join(dir, "precache.json"))
+	if err != nil {
+		return ""
+	}
+	var doc struct {
+		V json.Number `json:"v"`
+	}
+	if json.Unmarshal(b, &doc) != nil {
+		return ""
+	}
+	return doc.V.String()
 }
 
 func (s *server) handler(isTLS bool) http.Handler {
@@ -54,6 +72,7 @@ func (s *server) handler(isTLS bool) http.Handler {
 	mux.HandleFunc("/zertifikat.crt", s.certDER)
 	mux.HandleFunc("/zertifikat.mobileconfig", s.mobileconfig)
 	mux.HandleFunc("/wb-status", s.status)
+	mux.HandleFunc("/wb-quit", s.quitHandler)
 	mux.Handle("/", s.appHandler())
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		s.track(r, isTLS)
@@ -188,6 +207,8 @@ type statusDoc struct {
 	Version   string      `json:"version"`
 	HTTPPort  int         `json:"httpPort"`
 	HTTPSPort int         `json:"httpsPort"`
+	AppDir    string      `json:"appDir,omitempty"`
+	Build     string      `json:"build,omitempty"`
 	Addrs     []localAddr `json:"addrs"`
 	Phones    []phone     `json:"phones"`
 }
@@ -198,6 +219,7 @@ func (s *server) status(w http.ResponseWriter, r *http.Request) {
 	doc := statusDoc{OK: true, Secure: r.TLS != nil, Version: version, HTTPPort: s.httpPort, HTTPSPort: s.httpsPort}
 	if s.isLocalPage(r) {
 		// details only for the Mac itself
+		doc.AppDir, doc.Build = s.appDir, s.build
 		doc.Addrs = localIPv4s()
 		s.mu.Lock()
 		for _, k := range s.order {
@@ -209,6 +231,19 @@ func (s *server) status(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 	}
 	_ = json.NewEncoder(w).Encode(doc)
+}
+
+// quitHandler lets a newer start on the same Mac stop this instance (POST, local only).
+func (s *server) quitHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost || !s.isLocalPage(r) || r.Header.Get("Origin") != "" {
+		http.Error(w, "nicht erlaubt", http.StatusForbidden)
+		return
+	}
+	w.WriteHeader(http.StatusNoContent)
+	select {
+	case s.quit <- struct{}{}:
+	default:
+	}
 }
 
 // isLocalPage reports a request from the Mac's own connect page: loopback client,

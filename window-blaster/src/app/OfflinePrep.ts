@@ -83,7 +83,6 @@ export class OfflinePrep {
     this.set('downloading');
     this.progress = 0;
     try {
-      const cache = await caches.open(this.cacheName);
       let done = 0;
       const total = this.totalBytes || 1;
       for (const a of this.assets) {
@@ -109,9 +108,12 @@ export class OfflinePrep {
           this.events.emit('change', this.state);
         }
         const blob = new Blob(chunks as BlobPart[], { type: res.headers.get('content-type') ?? 'application/octet-stream' });
-        await cache.put(u, new Response(blob, { status: 200, headers: { 'content-type': blob.type, 'content-length': String(blob.size) } }));
+        // open per file: never keep writing into a cache handle a service worker may have replaced
+        await (await caches.open(this.cacheName)).put(u, new Response(blob, { status: 200, headers: { 'content-type': blob.type, 'content-length': String(blob.size) } }));
         done += a.size;
       }
+      // verify: everything must really be retrievable now
+      for (const a of this.assets) if (!(await caches.match(this.url(a.path)))) throw new Error(`${a.path} fehlt nach dem Laden`);
       this.missingBytes = 0;
       this.progress = 1;
       try {

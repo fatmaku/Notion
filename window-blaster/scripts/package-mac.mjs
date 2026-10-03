@@ -1,10 +1,10 @@
 // Builds the self-contained download WindowBlaster.zip (one zip, one folder, < 30 MB):
 //   WindowBlaster/Start-Window-Blaster.command   start (removes quarantine, picks the right server)
 //   WindowBlaster/LIESMICH-ZUERST.txt / ANLEITUNG.html
-//   WindowBlaster/app/                            built game (run `npm run build` first)
+//   WindowBlaster/app/                            built game (built here first; --no-build skips)
 //   WindowBlaster/bin/windowblaster-mac-{arm64,intel}   Go server (launcher/), built here
-//   WindowBlaster/quelltext/                      source (git-tracked files, minus the model copy)
-// Usage: node scripts/package-mac.mjs [--out WindowBlaster.zip] [--with-linux]
+//   WindowBlaster/quelltext.zip                   source (git-tracked files, minus the model copy)
+// Usage: node scripts/package-mac.mjs [--out WindowBlaster.zip] [--with-linux] [--no-build]
 import { chmodSync, cpSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
@@ -17,6 +17,8 @@ const out = opt('--out', join(root, 'WindowBlaster.zip'));
 const withLinux = args.includes('--with-linux');
 const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version;
 
+// always package a fresh build – a stale dist/ once shipped an outdated boot watchdog
+if (!args.includes('--no-build')) execSync('npm run build', { cwd: root, stdio: 'inherit' });
 if (!existsSync(join(root, 'dist', 'precache.json'))) throw new Error('run `npm run build` first');
 
 // 1) server binaries (pure Go, no cgo; arm64 gets the linker's ad-hoc code signature)

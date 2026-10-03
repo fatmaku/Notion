@@ -81,13 +81,20 @@ func run(cfg config) error {
 	}
 
 	// A Window Blaster server from an earlier start still running (e.g. another Terminal window)?
-	// Reuse it instead of moving to other ports – the phone's game address includes the port.
+	// Same folder and build → reuse it. Another version → ask it to stop and take over the same
+	// ports, never move to other ports – the phone's game address includes the port.
 	if other, ok := alreadyRunning(cfg.httpsPort); ok {
-		fmt.Printf("\n✅ Window Blaster läuft bereits (in einem anderen Terminal-Fenster).\n   Verbindungsseite: http://localhost:%d/verbinden\n", other)
-		if cfg.open {
-			openBrowser(fmt.Sprintf("http://localhost:%d/verbinden", other))
+		if other.AppDir == appDir && other.Build == readBuild(appDir) {
+			fmt.Printf("\n✅ Window Blaster läuft bereits (in einem anderen Terminal-Fenster).\n   Verbindungsseite: http://localhost:%d/verbinden\n", other.HTTPPort)
+			if cfg.open {
+				openBrowser(fmt.Sprintf("http://localhost:%d/verbinden", other.HTTPPort))
+			}
+			return nil
 		}
-		return nil
+		fmt.Println("\n🔄 Eine andere Window-Blaster-Version läuft noch in einem anderen Terminal-Fenster – sie wird beendet, die neue startet.")
+		if !stopOther(cfg.httpsPort, other.HTTPPort) {
+			return fmt.Errorf("die alte Version läuft noch. Bitte das andere Terminal-Fenster schließen (im Terminal: ⌘ + Q) und diese Startdatei erneut starten")
+		}
 	}
 	httpLn, httpPort, err := listenFirst(cfg.httpPort)
 	if err != nil {
@@ -124,6 +131,8 @@ func run(cfg config) error {
 	select {
 	case <-sig:
 		fmt.Println("\n👋 Server wird beendet …")
+	case <-s.quit:
+		fmt.Println("\n🔄 Eine neuere Window-Blaster-Version wurde gestartet – dieses Fenster kann geschlossen werden.")
 	case err := <-errc:
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
 			return fmt.Errorf("Server-Fehler: %w", err)
@@ -194,23 +203,58 @@ func listenFirst(start int) (net.Listener, int, error) {
 	return nil, 0, fmt.Errorf("kein freier Port ab %d gefunden: %v", start, lastErr)
 }
 
-// alreadyRunning asks the HTTPS port whether a Window Blaster server answers there
-// and returns its HTTP port.
-func alreadyRunning(httpsPort int) (int, bool) {
-	client := &http.Client{
+func localClient() *http.Client {
+	return &http.Client{
 		Timeout:   1500 * time.Millisecond,
 		Transport: &http.Transport{Proxy: nil, TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}, //nolint:gosec // local self-check only
 	}
-	res, err := client.Get(fmt.Sprintf("https://127.0.0.1:%d/wb-status", httpsPort))
+}
+
+// alreadyRunning asks the HTTPS port whether a Window Blaster server answers there
+// and returns its status (with folder and build, as the Mac's own page sees it).
+func alreadyRunning(httpsPort int) (statusDoc, bool) {
+	var doc statusDoc
+	req, _ := http.NewRequest("GET", fmt.Sprintf("https://127.0.0.1:%d/wb-status", httpsPort), nil)
+	req.Host = "localhost"
+	res, err := localClient().Do(req)
 	if err != nil {
-		return 0, false
+		return doc, false
 	}
 	defer res.Body.Close()
-	var doc statusDoc
 	if json.NewDecoder(res.Body).Decode(&doc) != nil || !doc.OK || doc.HTTPPort == 0 {
-		return 0, false
+		return doc, false
 	}
-	return doc.HTTPPort, true
+	return doc, true
+}
+
+// stopOther asks the running instance to quit and waits until both ports are free.
+func stopOther(httpsPort, httpPort int) bool {
+	req, _ := http.NewRequest("POST", fmt.Sprintf("https://127.0.0.1:%d/wb-quit", httpsPort), nil)
+	req.Host = "localhost"
+	res, err := localClient().Do(req)
+	if err != nil {
+		return false
+	}
+	res.Body.Close()
+	if res.StatusCode != http.StatusNoContent {
+		return false // an older version without /wb-quit
+	}
+	for i := 0; i < 50; i++ {
+		if portFree(httpsPort) && portFree(httpPort) {
+			return true
+		}
+		time.Sleep(100 * time.Millisecond)
+	}
+	return false
+}
+
+func portFree(p int) bool {
+	ln, err := net.Listen("tcp", fmt.Sprintf(":%d", p))
+	if err != nil {
+		return false
+	}
+	ln.Close()
+	return true
 }
 
 // keepAwake prevents idle sleep on macOS while the server runs (the user is busy on

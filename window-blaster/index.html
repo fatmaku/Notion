@@ -29,9 +29,20 @@
       (function () {
         // Reset = forget the cached app shell and the service worker, but KEEP the ~30 MB offline
         // data (MediaPipe + model). Only when the server is reachable – offline it would brick the app.
-        function resetApp(done, offline) {
-          fetch('./?wbping=' + Date.now(), { cache: 'no-store' }).then(function (r) {
+        // The ping bypasses the service worker (it never answers wb-status / wbping from its cache).
+        function ping() {
+          return fetch('/wb-status?t=' + Date.now(), { cache: 'no-store' }).then(function (r) {
+            if (r.status === 404) {
+              // served without the Mac launcher (e.g. web hosting): any fresh answer counts
+              return fetch('./?wbping=' + Date.now(), { cache: 'no-store' }).then(function (r2) { if (!r2.ok) throw new Error(String(r2.status)); });
+            }
             if (!r.ok) throw new Error(String(r.status));
+            return r.json().then(function (j) { if (!j || j.ok !== true) throw new Error('no server'); });
+          });
+        }
+        function resetApp(done, offline) {
+          ping().then(function () {
+            window.__wbResetting = true; // main.ts must not register the worker again meanwhile
             var jobs = [];
             try {
               if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations)
@@ -52,8 +63,10 @@
         }
         window.__wbReset = resetApp;
         if (/[?&]reset=1/.test(location.search)) {
+          window.__wbResetting = true;
           document.write('<p style="font:18px system-ui;color:#eee;background:#0b0f14;padding:24px">Setze Window Blaster zurück …</p>');
           resetApp(function () { location.replace(location.pathname); }, function () {
+            window.__wbResetting = false;
             document.body.innerHTML = '<p style="font:18px system-ui;color:#eee;background:#0b0f14;padding:24px">Zurücksetzen geht nur, wenn der Mac-Server erreichbar ist (gleiches WLAN). Nichts wurde gelöscht.</p>';
           });
           return;
@@ -63,6 +76,7 @@
           if (shown || window.__wbBooted) return;
           shown = true;
           var d = document.createElement('div');
+          d.id = 'wbBootFail';
           d.setAttribute('style', 'position:fixed;inset:0;z-index:99;background:#0b0f14;color:#eef2f7;font:17px/1.5 -apple-system,system-ui,sans-serif;padding:28px;overflow:auto');
           d.innerHTML = '<h2 style="margin:0 0 10px">🚗 Window Blaster startet nicht</h2>' +
             '<p>Meist liegt das an einer alten Version im Zwischenspeicher des Browsers.</p>' +
@@ -83,12 +97,21 @@
           var t = e && e.target;
           // resource errors (captured, non-bubbling): only a failed app script matters
           if (t && t.tagName) {
-            if (t.tagName === 'SCRIPT') show('Programmdatei konnte nicht geladen werden: ' + (t.src || ''));
+            if (t.tagName === 'SCRIPT') failedHard = true, show('Programmdatei konnte nicht geladen werden: ' + (t.src || ''));
             return;
           }
+          failedHard = true;
           show((e && (e.message || (e.error && e.error.message))) || 'Unbekannter Fehler');
         }, true);
-        setTimeout(function () { show('Zeitüberschreitung beim Start (15 s)'); }, 15000);
+        // the app booted after all (slow Wi-Fi): withdraw a timeout screen
+        window.__wbBootOk = function () { var o = document.getElementById('wbBootFail'); if (o && !failedHard) o.remove(); };
+        var failedHard = false;
+        // count only visible time – iOS keeps the clock running while the user is in Settings
+        var budget = 30000, started = 0, timer = 0;
+        function arm() { if (window.__wbBooted || shown) return; started = Date.now(); timer = setTimeout(function () { show('Zeitüberschreitung beim Start (30 s) – langsames WLAN? Erst „Nur neu laden“ probieren.'); }, budget); }
+        function pause() { if (!timer) return; clearTimeout(timer); timer = 0; budget = Math.max(1000, budget - (Date.now() - started)); }
+        document.addEventListener('visibilitychange', function () { if (document.hidden) pause(); else if (!timer) arm(); });
+        if (!document.hidden) arm();
       })();
     </script>
     <script type="module" src="/src/main.ts"></script>

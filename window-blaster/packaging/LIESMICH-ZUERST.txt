@@ -1,5 +1,6 @@
 WINDOW BLASTER – SO STARTEST DU ES
 ==================================
+(Voraussetzung: macOS 11 Big Sur oder neuer)
 
 1) ERSTER START (nur einmal so):
    - Programm "Terminal" öffnen:  Cmd + Leertaste  →  "Terminal" tippen  →  Enter

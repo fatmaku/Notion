@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 // Service worker.
-// - install: the app shell (list from precache.json, generated at build time) is cached
+// - install: the app shell (list from precache.json, generated at build time) is staged
 //   all-or-nothing – if anything fails, the previous version keeps running untouched.
 // - activate: already downloaded offline data (MediaPipe WASM + model, ~30 MB) is carried
 //   over from the previous version if the files are unchanged, then old caches are removed.
@@ -15,6 +15,11 @@ const HEAVY = /\/(mediapipe|models)\//;
 const NAV_TIMEOUT_MS = 2500;
 const scopeUrl = new URL(sw.registration.scope);
 const abs = (p: string) => new URL(p, scopeUrl).href;
+// install downloads into a staging cache, so a failed install never touches the cache that
+// holds the offline data (OfflinePrep writes there in parallel)
+const STAGING = `${CACHE}-staging`;
+// Mac launcher pages and live status must always come from the network, never from this cache
+const LAUNCHER = /^\/(wb-status|wb-quit|verbinden|handy|anleitung|zertifikat\.)/;
 
 sw.addEventListener('install', (event) => {
   event.waitUntil(
@@ -22,12 +27,12 @@ sw.addEventListener('install', (event) => {
       const res = await fetch(abs('precache.json'), { cache: 'no-store' });
       if (!res.ok) throw new Error(`precache.json ${res.status}`);
       const { files } = (await res.json()) as { files: string[] };
-      const cache = await caches.open(CACHE);
+      const staging = await caches.open(STAGING);
       try {
-        // addAll is atomic: one failed file → nothing cached → install fails → old version stays
-        await cache.addAll([...files, './', 'offline-assets.json'].map((f) => new Request(abs(f), { cache: 'reload' })));
+        // addAll is atomic: one failed file → install fails → old version stays
+        await staging.addAll([...files, './', 'offline-assets.json'].map((f) => new Request(abs(f), { cache: 'reload' })));
       } catch (e) {
-        await caches.delete(CACHE);
+        await caches.delete(STAGING);
         throw e;
       }
       await sw.skipWaiting();
@@ -39,6 +44,12 @@ sw.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
       const fresh = await caches.open(CACHE);
+      const staging = await caches.open(STAGING);
+      for (const req of await staging.keys()) {
+        const r = await staging.match(req);
+        if (r) await fresh.put(req, r);
+      }
+      await caches.delete(STAGING);
       // which heavy files does this version expect (path → size)?
       let wanted: Map<string, number> | null = null;
       try {
@@ -48,7 +59,8 @@ sw.addEventListener('activate', (event) => {
         wanted = null;
       }
       for (const k of await caches.keys()) {
-        if (!k.startsWith('wb-') || k === CACHE) continue;
+        // skip ourselves and any newer install still staging its shell
+        if (!k.startsWith('wb-') || k === CACHE || k.endsWith('-staging')) continue;
         const old = await caches.open(k);
         for (const req of await old.keys()) {
           if (!HEAVY.test(new URL(req.url).pathname) || (await fresh.match(req))) continue;
@@ -87,6 +99,7 @@ sw.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== sw.location.origin) return;
+  if (LAUNCHER.test(url.pathname) || url.searchParams.has('wbping')) return;
 
   if (req.mode === 'navigate') {
     event.respondWith(
@@ -97,7 +110,9 @@ sw.addEventListener('fetch', (event) => {
           if (res.ok && url.pathname === scopeUrl.pathname) void cache.put(abs('./'), res.clone());
           return res;
         } catch {
-          const cached = (await cache.match(abs('./'))) ?? (await caches.match(abs('./')));
+          // offline: only the game itself falls back to the cached shell
+          const inApp = url.pathname === scopeUrl.pathname || url.pathname === `${scopeUrl.pathname}index.html`;
+          const cached = inApp ? ((await cache.match(abs('./'))) ?? (await caches.match(abs('./')))) : undefined;
           return cached ?? new Response('<!doctype html><meta charset="utf-8"><h1>Offline</h1><p>Window Blaster wurde auf diesem Gerät noch nicht vollständig geladen. Bitte einmal im WLAN des Macs öffnen.</p>', { status: 503, headers: { 'content-type': 'text/html; charset=utf-8' } });
         }
       })(),

@@ -41,6 +41,12 @@ chmod +x "$DIR"/bin/* "$DIR"/*.command 2>/dev/null
 
 OS="$(uname -s)"
 if [ "$OS" = "Darwin" ]; then
+  MACOS="$(sw_vers -productVersion 2>/dev/null)"
+  if [ -n "$MACOS" ] && [ "${MACOS%%.*}" -lt 11 ]; then
+    echo "❌ Dein macOS ($MACOS) ist zu alt – Window Blaster braucht macOS 11 (Big Sur) oder neuer."
+    echo "   Prüfen/aktualisieren: Apple-Menü  → Über diesen Mac → Softwareupdate."
+    pause_and_exit 1
+  fi
   # Apple Silicon auch dann erkennen, wenn das Terminal unter Rosetta läuft
   if [ "$(sysctl -n hw.optional.arm64 2>/dev/null)" = "1" ]; then
     BIN="$DIR/bin/windowblaster-mac-arm64"; OTHER="$DIR/bin/windowblaster-mac-intel"

@@ -35,7 +35,7 @@ und automatisch nachgereicht.
 | `LIESMICH-ZUERST.txt`, `ANLEITUNG.html` | Kurz- und Langanleitung (MacBook, iPhone, Android, Hilfe bei Problemen). |
 | `bin/windowblaster-mac-arm64`, `bin/windowblaster-mac-intel` | Kleiner Spiel-Server (Go, Quellcode in `launcher/`). |
 | `app/` | Das fertige Spiel. |
-| `quelltext/` | Quellcode. |
+| `quelltext.zip` | Quellcode. |
 
 Der Server (`launcher/`) liefert das Spiel am Mac über `http://localhost:8080` aus (sicherer Kontext, keine
 Zertifikatswarnung) und an Handys über HTTPS (`:8443`) mit einer eigenen kleinen Zertifizierungsstelle. Deren
@@ -127,7 +127,7 @@ npm install          # kopiert auch die MediaPipe-WASM-Laufzeit nach public/
 npm run dev          # http://localhost:5173  (Demo: ?demo=1&skipTo=play&mode=side-runner)
 npm test             # Vitest: Tracker, Scheiben-Erkennung, Physik, Scoring, Verifikation (50+ Tests)
 npm run e2e          # Playwright, headless Chromium mit Fake-Kamera: 10 Szenarien inkl. echtem MediaPipe-Start und Offline-Betrieb
-npm run package      # WindowBlaster.zip: App + Go-Server für Mac (braucht Go ≥ 1.22, siehe launcher/)
+npm run package      # WindowBlaster.zip: App + Go-Server für Mac (baut die App neu; braucht Go ≥ 1.24, siehe launcher/; Mac: macOS 11+)
 (cd launcher && go test ./...)   # Server-Tests: Zertifikate, MIME-Typen, Seiten, Tracking
 npm run build        # dist/ (≈ 100 kB JS + 34 MB WASM/Modell, nach dem ersten Laden gecacht)
 ```
