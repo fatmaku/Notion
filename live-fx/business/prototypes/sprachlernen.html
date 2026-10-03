@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiveFX WortBild</title>
+<meta name="description" content="LiveFX Vision-Prototyp: gesprochenes Wort wird zu Bild, Wort in der Zielsprache und Aussprache (DE/TR/EN).">
+<style>
+:root{
+  --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --line:#2a303c; --text:#eceef3; --muted:#9aa3b2;
+  --pink:#ff2d75; --green:#2dffb5; --gold:#ffd166; --blue:#5ad1ff;
+  --der:#4f9dff; --die:#ff5a6e; --das:#3fd68a;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{min-height:100vh;overflow-x:hidden}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding:12px 16px 40px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--pink),var(--gold));display:grid;place-items:center;font-weight:800;color:#0f1115;flex:none}
+h1{font-size:1.15rem;margin:0;line-height:1.2}
+.badge{display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:99px;border:1px solid var(--gold);color:var(--gold);margin-top:2px}
+.langsw{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden;flex:none}
+.langsw button{background:transparent;border:0;padding:6px 12px;font-weight:700;font-size:.85rem;color:var(--muted)}
+.langsw button[aria-pressed="true"]{background:var(--gold);color:#0f1115}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:var(--muted);min-width:0}
+select,input[type=text]{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 10px;min-width:0;width:100%}
+.modes{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.modes button{background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:7px 12px;font-size:.88rem}
+.modes button[aria-pressed="true"]{border-color:var(--gold);color:var(--gold);background:#2a2412}
+.inrow{display:flex;gap:8px;margin-top:10px}
+.inrow input{flex:1}
+.btn{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 14px;white-space:nowrap}
+.btn.primary{background:var(--pink);border-color:var(--pink);color:#fff;font-weight:700}
+.btn.mic.on{background:var(--green);border-color:var(--green);color:#0f1115}
+.opts{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:.88rem;color:var(--muted)}
+.opts label{display:flex;align-items:center;gap:6px}
+.status{min-height:1.4em;margin:10px 2px 0;font-size:.88rem;color:var(--muted)}
+.status.warn{color:var(--gold)}
+.card{position:relative;margin-top:12px;background:radial-gradient(120% 90% at 50% 0%,#232836 0%,var(--panel) 60%);border:1px solid var(--line);border-radius:22px;padding:18px 16px 16px;text-align:center;min-height:330px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.card .cat{position:absolute;top:10px;left:12px;font-size:.75rem;color:var(--muted)}
+.card .score{position:absolute;top:10px;right:12px;font-size:.8rem;color:var(--green);font-weight:700}
+.emoji{font-size:clamp(110px,30vmin,220px);line-height:1.05;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.word{font-size:clamp(40px,10vw,68px);font-weight:800;line-height:1.1;margin-top:6px;word-break:break-word}
+.word .art{margin-right:.25em;font-weight:700}
+.word .wn{white-space:nowrap;display:inline-block}
+.word.long{font-size:clamp(28px,7.6vw,56px)}
+.art.der{color:var(--der)} .art.die{color:var(--die)} .art.das{color:var(--das)}
+.syl{display:inline-block;padding:0 .04em .08em;border-bottom:4px solid var(--gold);border-radius:0 0 50% 50%/0 0 12px 12px;margin:0 .03em}
+.syl:nth-child(odd of .syl){border-color:var(--blue)}
+.src{margin-top:6px;color:var(--muted);font-size:.95rem}
+.trio{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+.trio span{background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:3px 10px;font-size:.88rem}
+.trio b{color:var(--gold);font-size:.75rem;margin-right:4px}
+.ex{margin-top:10px;font-size:1.05rem}
+.ex2{color:var(--muted);font-size:.88rem}
+.speakrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.fb{margin-top:10px;font-weight:800;font-size:1.2rem;min-height:1.4em}
+.fb.ok{color:var(--green)} .fb.no{color:var(--gold)}
+.empty{color:var(--muted);max-width:30ch}
+.empty .big{font-size:64px;display:block;margin-bottom:8px}
+.cardin{animation:pop .38s ease-out}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:none;opacity:1}}
+.confetti{position:absolute;inset:0;pointer-events:none}
+.confetti i{position:absolute;top:40%;left:50%;width:8px;height:12px;border-radius:2px;animation:conf 1s ease-out forwards}
+@keyframes conf{to{transform:translate(var(--x),var(--y)) rotate(320deg);opacity:0}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px;font-size:.88rem;color:var(--muted)}
+.chips button{background:transparent;border:1px dashed var(--line);border-radius:99px;padding:4px 10px;color:var(--text)}
+.hist h2{font-size:.95rem;margin:0 0 8px;color:var(--muted);font-weight:600}
+.hist{margin-top:12px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.tile{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:6px 4px;text-align:center;min-width:0}
+.tile .e{font-size:30px;display:block;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.tile .w{font-size:.78rem;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.histfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+.note{font-size:.78rem;color:var(--muted);margin-top:14px;border-left:3px solid var(--gold);padding-left:10px}
+.muted{color:var(--muted)}
+#printArea{display:none}
+@media (max-width:520px){
+  h1{font-size:1rem}
+  .inrow{flex-wrap:wrap}
+  .inrow input{flex:1 1 100%;order:-1}
+  .inrow .btn{flex:1}
+}
+@media (prefers-reduced-motion:reduce){
+  .cardin,.confetti i{animation:none}
+}
+@media print{
+  body{background:#fff;color:#000}
+  .wrap{display:none}
+  #printArea{display:block}
+  @page{size:A4;margin:10mm}
+  .pgrid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,66mm);gap:4mm;page-break-after:always}
+  .pcard{border:1.5px dashed #999;border-radius:6mm;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3mm}
+  .pcard .pe{font-size:30mm;line-height:1}
+  .pcard .pw{font-size:9mm;font-weight:800}
+  .pcard .ps{font-size:4mm;color:#444}
+  .art.der{color:#1f63d1}.art.die{color:#d1263c}.art.das{color:#14945a}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">FX</div>
+      <div>
+        <h1 data-i18n="title">WortBild</h1>
+        <span class="badge" data-i18n="badge">Prototyp · Vision</span>
+      </div>
+    </div>
+    <div class="langsw" role="group" data-i18n-aria="uiLang" aria-label="Sprache der Oberfläche">
+      <button type="button" data-ui="de">DE</button><button type="button" data-ui="tr">TR</button><button type="button" data-ui="en">EN</button>
+    </div>
+  </header>
+
+  <section class="panel" aria-labelledby="ctlh">
+    <h2 id="ctlh" class="muted" style="position:absolute;left:-9999px" data-i18n="settings">Einstellungen</h2>
+    <div class="controls">
+      <label class="f"><span data-i18n="speak">Ich spreche</span>
+        <select id="selSrc">
+          <option value="auto" data-i18n="auto">Automatisch</option>
+          <option value="de" data-i18n="lang_de">Deutsch</option>
+          <option value="tr" data-i18n="lang_tr">Türkisch</option>
+          <option value="en" data-i18n="lang_en">Englisch</option>
+        </select>
+      </label>
+      <label class="f"><span data-i18n="show">Zeige</span>
+        <select id="selDst">
+          <option value="de" data-i18n="lang_de">Deutsch</option>
+          <option value="tr" data-i18n="lang_tr">Türkisch</option>
+          <option value="en" data-i18n="lang_en">Englisch</option>
+        </select>
+      </label>
+    </div>
+    <div class="modes" role="group" data-i18n-aria="mode" aria-label="Modus">
+      <button type="button" data-mode="translate" data-i18n="m_translate">Übersetzen</button>
+      <button type="button" data-mode="read" data-i18n="m_read">Lesehilfe</button>
+      <button type="button" data-mode="repeat" data-i18n="m_repeat">Nachsprechen</button>
+      <button type="button" data-mode="quiz" data-i18n="m_quiz">Quiz</button>
+    </div>
+    <form class="inrow" id="form" autocomplete="off">
+      <button type="button" class="btn mic" id="btnMic" data-i18n="mic">🎤 Zuhören</button>
+      <input type="text" id="inp" data-i18n-ph="placeholder" placeholder="">
+      <button type="submit" class="btn primary" data-i18n="go">Los</button>
+    </form>
+    <div class="opts">
+      <label><input type="checkbox" id="optAuto" checked> <span data-i18n="autoSpeak">Automatisch vorlesen</span></label>
+      <label><input type="checkbox" id="optSlow"> <span data-i18n="slow">Langsam</span></label>
+    </div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+
+  <section class="card" id="card" aria-live="polite"></section>
+
+  <div class="chips" id="chips"></div>
+
+  <section class="panel hist">
+    <h2 data-i18n="history">Verlauf (letzte 10)</h2>
+    <div class="tiles" id="tiles"></div>
+    <div class="histfoot">
+      <span class="muted" id="histEmpty" style="font-size:.85rem"></span>
+      <button type="button" class="btn" id="btnPrint" data-i18n="print">🖨 Karteikarten drucken</button>
+    </div>
+  </section>
+
+  <p class="note" data-i18n="privacy">Hinweis</p>
+  <p class="note" style="border-color:var(--pink)" data-i18n="footer">LiveFX</p>
+</div>
+<div id="printArea"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- UI-Texte (DE = Master, TR/EN vollwertig) ---------- */
+var I18N = {
+de:{
+  title:'WortBild – Sprachlern-Modus', badge:'Prototyp · Vision', uiLang:'Sprache der Oberfläche', settings:'Einstellungen',
+  speak:'Ich spreche', show:'Zeige', auto:'Automatisch erkennen', lang_de:'Deutsch', lang_tr:'Türkisch', lang_en:'Englisch',
+  mode:'Modus', m_translate:'Übersetzen', m_read:'Lesehilfe', m_repeat:'Nachsprechen', m_quiz:'Quiz',
+  mic:'🎤 Zuhören', micStop:'⏹ Stopp', placeholder:'Wort oder Satz, z. B. „Der Apfel ist rot“', go:'Los',
+  autoSpeak:'Automatisch vorlesen', slow:'Langsam', speakWord:'🔊 Aussprache', speakSentence:'🔊 Beispielsatz',
+  empty:'Sag oder tippe ein Wort – es wird zum Bild.', try:'Probier mal:', history:'Verlauf (letzte 10)',
+  historyEmpty:'Noch keine Wörter.', print:'🖨 Karteikarten drucken', said:'gesagt',
+  noHit:'Kein bekanntes Wort gefunden – also keine Karte. Lieber keine als eine falsche.',
+  heard:'Erkannt: {w} ({l})', fuzzy:'ähnlich wie „{x}“', queue:'+{n} weitere Karte(n) folgen',
+  listening:'Ich höre zu … ({l})', micOff:'Mikrofon aus.',
+  noMic:'Spracherkennung ist in diesem Browser nicht verfügbar (z. B. Firefox oder Datei-Modus). Tippe das Wort einfach ins Textfeld – oder öffne die Seite in Chrome oder Edge über einen lokalen Webserver (localhost).',
+  micErr:'Mikrofon-Fehler ({e}). Die Texteingabe funktioniert immer.',
+  noVoice_de:'Keine deutsche Stimme auf diesem Gerät – der Text bleibt sichtbar.',
+  noVoice_tr:'Keine türkische Stimme auf diesem Gerät – der Text bleibt sichtbar.',
+  noVoice_en:'Keine englische Stimme auf diesem Gerät – der Text bleibt sichtbar.',
+  noTTS:'Dieser Browser hat keine Sprachausgabe – der Text bleibt sichtbar.', speaking:'🔊 spricht …',
+  repeatPrompt:'Jetzt du: Sprich „{w}“ nach (oder tippe es).', repeatOk:'✓ Erkannt!', repeatAgain:'Nochmal – hör noch einmal hin.',
+  quizQ:'Wie heißt das auf {l}?', quizIn_de:'Deutsch', quizIn_tr:'Türkisch', quizIn_en:'Englisch',
+  quizScore:'Treffer: {a} von {b}', quizRight:'✓ Richtig: {w}', quizWrong:'Noch nicht – versuch es nochmal.',
+  quizSkip:'Auflösen und weiter', quizAnswer:'Lösung: {w}', quizNext:'Nächstes Bild',
+  printTitle:'LiveFX WortBild – Karteikarten', printEmpty:'Noch keine Wörter im Verlauf – gedruckt werden 8 Beispielwörter.',
+  privacy:'Datenschutz-Hinweis: Die Spracherkennung im Browser läuft je nach Browser über Server des Anbieters (z. B. Google bei Chrome). Die Texteingabe bleibt immer auf dem Gerät. Die Vollversion von LiveFX hat einen Offline-Modus, der lokal arbeitet.',
+  footer:'LiveFX Vision-Prototyp „WortBild“ · eine HTML-Datei, läuft offline im Browser · Wörterbuch und Aussprache ohne Cloud, ohne Konto · keine Noten, nur Üben.',
+  cat_food:'Essen & Trinken', cat_animals:'Tiere', cat_family:'Familie', cat_body:'Körper', cat_clothes:'Kleidung',
+  cat_home:'Zuhause', cat_school:'Schule', cat_nature:'Natur & Wetter', cat_traffic:'Verkehr', cat_feel:'Farben & Gefühle'
+},
+tr:{
+  title:'Kelime-Resim – Dil Öğrenme Modu', badge:'Prototip · Vizyon', uiLang:'Arayüz dili', settings:'Ayarlar',
+  speak:'Konuştuğum dil', show:'Göster', auto:'Otomatik algıla', lang_de:'Almanca', lang_tr:'Türkçe', lang_en:'İngilizce',
+  mode:'Mod', m_translate:'Çeviri', m_read:'Okuma desteği', m_repeat:'Tekrar et', m_quiz:'Bil bakalım',
+  mic:'🎤 Dinle', micStop:'⏹ Durdur', placeholder:'Kelime ya da cümle, örn. „Kedi uyuyor“', go:'Tamam',
+  autoSpeak:'Otomatik seslendir', slow:'Yavaş', speakWord:'🔊 Telaffuz', speakSentence:'🔊 Örnek cümle',
+  empty:'Bir kelime söyle ya da yaz – resme dönüşsün.', try:'Dene:', history:'Geçmiş (son 10)',
+  historyEmpty:'Henüz kelime yok.', print:'🖨 Kelime kartlarını yazdır', said:'söylenen',
+  noHit:'Bilinen bir kelime bulunamadı, bu yüzden kart yok. Yanlış kart göstermektense hiç göstermemek daha iyi.',
+  heard:'Algılandı: {w} ({l})', fuzzy:'„{x}“ kelimesine benziyor', queue:'+{n} kart daha geliyor',
+  listening:'Dinliyorum … ({l})', micOff:'Mikrofon kapalı.',
+  noMic:'Bu tarayıcıda konuşma tanıma yok (örneğin Firefox ya da dosya modu). Kelimeyi metin kutusuna yazman yeterli – ya da sayfayı Chrome veya Edge’de yerel bir web sunucusu (localhost) üzerinden aç.',
+  micErr:'Mikrofon hatası ({e}). Metinle giriş her zaman çalışır.',
+  noVoice_de:'Bu cihazda Almanca ses yok – metin ekranda kalıyor.',
+  noVoice_tr:'Bu cihazda Türkçe ses yok – metin ekranda kalıyor.',
+  noVoice_en:'Bu cihazda İngilizce ses yok – metin ekranda kalıyor.',
+  noTTS:'Bu tarayıcıda sesli okuma yok – metin ekranda kalıyor.', speaking:'🔊 seslendiriyor …',
+  repeatPrompt:'Şimdi sıra sende: „{w}“ kelimesini tekrar et (ya da yaz).', repeatOk:'✓ Algılandı!', repeatAgain:'Bir daha – tekrar dinle.',
+  quizQ:'Bunun {l} adı ne?', quizIn_de:'Almanca', quizIn_tr:'Türkçe', quizIn_en:'İngilizce',
+  quizScore:'Doğru: {a} / {b}', quizRight:'✓ Doğru: {w}', quizWrong:'Henüz değil – bir daha dene.',
+  quizSkip:'Cevabı göster ve devam et', quizAnswer:'Cevap: {w}', quizNext:'Sonraki resim',
+  printTitle:'LiveFX Kelime-Resim – Kelime kartları', printEmpty:'Geçmişte henüz kelime yok – 8 örnek kelime yazdırılıyor.',
+  privacy:'Gizlilik notu: Tarayıcıdaki konuşma tanıma, tarayıcıya göre sağlayıcının sunucuları üzerinden çalışır (örneğin Chrome’da Google). Metinle giriş her zaman cihazda kalır. LiveFX’in tam sürümünde yerel çalışan bir çevrimdışı mod var.',
+  footer:'LiveFX vizyon prototipi „Kelime-Resim“ · tek bir HTML dosyası, tarayıcıda çevrimdışı çalışır · sözlük ve telaffuz bulutsuz, hesapsız · not yok, sadece alıştırma.',
+  cat_food:'Yiyecek ve İçecek', cat_animals:'Hayvanlar', cat_family:'Aile', cat_body:'Vücut', cat_clothes:'Giysiler',
+  cat_home:'Ev', cat_school:'Okul', cat_nature:'Doğa ve Hava', cat_traffic:'Ulaşım', cat_feel:'Renkler ve Duygular'
+},
+en:{
+  title:'WordPicture – Language Learning Mode', badge:'Prototype · Vision', uiLang:'Interface language', settings:'Settings',
+  speak:'I speak', show:'Show in', auto:'Detect automatically', lang_de:'German', lang_tr:'Turkish', lang_en:'English',
+  mode:'Mode', m_translate:'Translate', m_read:'Reading help', m_repeat:'Repeat after me', m_quiz:'Quiz',
+  mic:'🎤 Listen', micStop:'⏹ Stop', placeholder:'A word or sentence, e.g. “I have two dogs”', go:'Go',
+  autoSpeak:'Read aloud automatically', slow:'Slow', speakWord:'🔊 Pronunciation', speakSentence:'🔊 Example sentence',
+  empty:'Say or type a word – it turns into a picture.', try:'Try:', history:'History (last 10)',
+  historyEmpty:'No words yet.', print:'🖨 Print flashcards', said:'said',
+  noHit:'No known word found, so no card. Better no card than a wrong one.',
+  heard:'Recognised: {w} ({l})', fuzzy:'close to “{x}”', queue:'+{n} more card(s) coming',
+  listening:'Listening … ({l})', micOff:'Microphone off.',
+  noMic:'Speech recognition isn’t available in this browser (e.g. Firefox or file mode). Just type the word into the text box – or open the page in Chrome or Edge via a local web server (localhost).',
+  micErr:'Microphone error ({e}). Typing always works.',
+  noVoice_de:'No German voice on this device – the text stays on screen.',
+  noVoice_tr:'No Turkish voice on this device – the text stays on screen.',
+  noVoice_en:'No English voice on this device – the text stays on screen.',
+  noTTS:'This browser has no speech output – the text stays on screen.', speaking:'🔊 speaking …',
+  repeatPrompt:'Your turn: say “{w}” (or type it).', repeatOk:'✓ Got it!', repeatAgain:'Once more – listen again.',
+  quizQ:'What is this in {l}?', quizIn_de:'German', quizIn_tr:'Turkish', quizIn_en:'English',
+  quizScore:'Correct: {a} of {b}', quizRight:'✓ Correct: {w}', quizWrong:'Not yet – try again.',
+  quizSkip:'Reveal and continue', quizAnswer:'Answer: {w}', quizNext:'Next picture',
+  printTitle:'LiveFX WordPicture – Flashcards', printEmpty:'No words in the history yet – printing 8 sample words.',
+  privacy:'Privacy note: depending on the browser, in-browser speech recognition runs on the provider’s servers (e.g. Google in Chrome). Typed input always stays on the device. The full version of LiveFX has an offline mode that works locally.',
+  footer:'LiveFX vision prototype “WordPicture” · a single HTML file, runs offline in the browser · dictionary and pronunciation without cloud or account · no grades, just practice.',
+  cat_food:'Food & drink', cat_animals:'Animals', cat_family:'Family', cat_body:'Body', cat_clothes:'Clothes',
+  cat_home:'Home', cat_school:'School', cat_nature:'Nature & weather', cat_traffic:'Transport', cat_feel:'Colours & feelings'
+}};
+
+/* ---------- Wörterbuch: 85 Konzepte, 10 Kategorien ----------
+   [id, emoji, cat, deArt, deWort, deSilben, deFormen, deSatz, trWort, trFormen, trSatz, enWort, enFormen, enSatz] */
+var RAW = [
+['apple','🍎','food','der','Apfel','Ap·fel','äpfel|aepfel','Der Apfel ist rot.','elma','elmalar|elmayı','Elma kırmızı.','apple','apples','The apple is red.'],
+['bread','🍞','food','das','Brot','Brot','brote|brötchen','Das Brot ist frisch.','ekmek','ekmeği','Ekmek taze.','bread','','The bread is fresh.'],
+['water','💧','food','das','Wasser','Was·ser','','Ich trinke Wasser.','su','suyu|suyun','Su içiyorum.','water','','I drink water.'],
+['milk','🥛','food','die','Milch','Milch','','Die Milch ist kalt.','süt','sütü','Süt soğuk.','milk','','The milk is cold.'],
+['cheese','🧀','food','der','Käse','Kä·se','','Der Käse ist gelb.','peynir','peyniri','Peynir sarı.','cheese','','The cheese is yellow.'],
+['banana','🍌','food','die','Banane','Ba·na·ne','bananen','Die Banane ist süß.','muz','muzlar|muzu','Muz tatlı.','banana','bananas','The banana is sweet.'],
+['egg','🥚','food','das','Ei','Ei','eier','Ich esse ein Ei.','yumurta','yumurtalar|yumurtayı','Bir yumurta yiyorum.','egg','eggs','I am eating an egg.'],
+['cake','🍰','food','der','Kuchen','Ku·chen','torte','Der Kuchen ist lecker.','pasta','kek|pastayı','Pasta çok lezzetli.','cake','cakes','The cake is delicious.'],
+['tea','🍵','food','der','Tee','Tee','','Der Tee ist heiß.','çay','çayı','Çay sıcak.','tea','','The tea is hot.'],
+['cat','🐈','animals','die','Katze','Kat·ze','katzen|kater','Die Katze schläft.','kedi','kediler|kediyi|kedim','Kedi uyuyor.','cat','cats|kitten','The cat is sleeping.'],
+['dog','🐕','animals','der','Hund','Hund','hunde','Der Hund bellt.','köpek','köpekler|köpeği','Köpek havlıyor.','dog','dogs|puppy','The dog is barking.'],
+['bird','🐦','animals','der','Vogel','Vo·gel','vögel','Der Vogel singt.','kuş','kuşlar|kuşu','Kuş şarkı söylüyor.','bird','birds','The bird is singing.'],
+['fish','🐟','animals','der','Fisch','Fisch','fische','Der Fisch schwimmt.','balık','balıklar|balığı','Balık yüzüyor.','fish','fishes','The fish is swimming.'],
+['horse','🐎','animals','das','Pferd','Pferd','pferde','Das Pferd rennt.','at','atlar|atı','At koşuyor.','horse','horses|pony','The horse is running.'],
+['cow','🐄','animals','die','Kuh','Kuh','kühe','Die Kuh gibt Milch.','inek','inekler|ineği','İnek süt verir.','cow','cows','The cow gives milk.'],
+['butterfly','🦋','animals','der','Schmetterling','Schmet·ter·ling','schmetterlinge','Der Schmetterling fliegt.','kelebek','kelebekler|kelebeği','Kelebek uçuyor.','butterfly','butterflies','The butterfly is flying.'],
+['rabbit','🐇','animals','der','Hase','Ha·se','hasen|kaninchen','Der Hase hüpft.','tavşan','tavşanlar|tavşanı','Tavşan zıplıyor.','rabbit','rabbits|bunny','The rabbit is hopping.'],
+['bear','🐻','animals','der','Bär','Bär','bären','Der Bär ist groß.','ayı','ayılar|ayıyı','Ayı çok büyük.','bear','bears','The bear is big.'],
+['lion','🦁','animals','der','Löwe','Lö·we','löwen','Der Löwe brüllt.','aslan','aslanlar|aslanı','Aslan kükrüyor.','lion','lions','The lion is roaring.'],
+['mother','👩','family','die','Mutter','Mut·ter','mama|mutti|mütter','Meine Mutter lacht.','anne','annem|anneler|anneyi','Annem gülüyor.','mother','mom|mum|mothers','My mother is laughing.'],
+['father','👨','family','der','Vater','Va·ter','papa|väter','Mein Vater kocht.','baba','babam|babalar','Babam yemek yapıyor.','father','dad|fathers','My father is cooking.'],
+['baby','👶','family','das','Baby','Ba·by','babys','Das Baby schläft.','bebek','bebekler|bebeği','Bebek uyuyor.','baby','babies','The baby is sleeping.'],
+['grandma','👵','family','die','Oma','O·ma','omas|großmutter|grossmutter','Oma erzählt eine Geschichte.','büyükanne','büyükannem|babaanne|anneanne|nine','Büyükannem bir masal anlatıyor.','grandma','grandmother|granny','Grandma is telling a story.'],
+['grandpa','👴','family','der','Opa','O·pa','opas|großvater|grossvater','Opa liest die Zeitung.','dede','dedem|büyükbaba','Dedem gazete okuyor.','grandpa','grandfather','Grandpa is reading the newspaper.'],
+['sister','👧','family','die','Schwester','Schwes·ter','schwestern','Meine Schwester malt.','kız kardeş','kız kardeşim|abla|ablam','Kız kardeşim resim yapıyor.','sister','sisters','My sister is painting.'],
+['brother','👦','family','der','Bruder','Bru·der','brüder','Mein Bruder spielt Fußball.','erkek kardeş','erkek kardeşim|ağabey|abi|abim','Erkek kardeşim futbol oynuyor.','brother','brothers','My brother is playing football.'],
+['friend','🧑‍🤝‍🧑','family','der','Freund','Freund','freunde|freundin|freundinnen','Mein Freund hilft mir.','arkadaş','arkadaşım|arkadaşlar','Arkadaşım bana yardım ediyor.','friend','friends','My friend is helping me.'],
+['hand','✋','body','die','Hand','Hand','hände','Ich wasche meine Hand.','el','eller|elim|elimi','Elimi yıkıyorum.','hand','hands','I am washing my hand.'],
+['eye','👁️','body','das','Auge','Au·ge','augen','Das Auge ist blau.','göz','gözler|gözü|gözlerim','Göz mavi.','eye','eyes','The eye is blue.'],
+['ear','👂','body','das','Ohr','Ohr','ohren','Ich höre mit dem Ohr.','kulak','kulaklar|kulağı|kulakla','Kulakla duyuyorum.','ear','ears','I hear with my ear.'],
+['nose','👃','body','die','Nase','Na·se','nasen','Meine Nase ist kalt.','burun','burnu|burnum','Burnum soğuk.','nose','noses','My nose is cold.'],
+['mouth','👄','body','der','Mund','Mund','münder','Mach den Mund auf.','ağız','ağzı|ağzını','Ağzını aç.','mouth','','Open your mouth.'],
+['foot','🦶','body','der','Fuß','Fuß','füße|fuss|füsse','Mein Fuß tut weh.','ayak','ayaklar|ayağı|ayağım','Ayağım ağrıyor.','foot','feet','My foot hurts.'],
+['tooth','🦷','body','der','Zahn','Zahn','zähne','Ich putze meine Zähne.','diş','dişler|dişlerimi','Dişlerimi fırçalıyorum.','tooth','teeth','I am brushing my teeth.'],
+['heart','❤️','body','das','Herz','Herz','herzen','Mein Herz schlägt schnell.','kalp','kalbim|kalbi','Kalbim hızlı atıyor.','heart','hearts','My heart is beating fast.'],
+['shoe','👟','clothes','der','Schuh','Schuh','schuhe','Der Schuh ist neu.','ayakkabı','ayakkabılar|ayakkabıyı','Ayakkabı yeni.','shoe','shoes','The shoe is new.'],
+['tshirt','👕','clothes','das','T-Shirt','T-Shirt','t shirt|tshirt|shirt','Das T-Shirt ist grün.','tişört','tişörtler|tişörtü','Tişört yeşil.','T-shirt','t shirt|tshirt|shirt','The T-shirt is green.'],
+['hat','🧢','clothes','die','Mütze','Müt·ze','mützen|kappe','Die Mütze ist warm.','şapka','şapkalar|şapkayı|bere','Şapka sıcak tutar.','hat','hats|cap','The hat is warm.'],
+['jacket','🧥','clothes','die','Jacke','Ja·cke','jacken|mantel','Zieh die Jacke an.','ceket','mont|ceketi|ceketini','Ceketini giy.','jacket','coat','Put on your jacket.'],
+['dress','👗','clothes','das','Kleid','Kleid','kleider','Das Kleid ist schön.','elbise','elbiseler','Elbise çok güzel.','dress','dresses','The dress is pretty.'],
+['sock','🧦','clothes','die','Socke','So·cke','socken','Die Socken sind warm.','çorap','çoraplar|çorabı','Çoraplar sıcak.','sock','socks','The socks are warm.'],
+['glasses','👓','clothes','die','Brille','Bril·le','brillen','Ich trage eine Brille.','gözlük','gözlüğü|gözlüğüm','Gözlük takıyorum.','glasses','','I wear glasses.'],
+['house','🏠','home','das','Haus','Haus','häuser|hause','Das Haus ist groß.','ev','evler|evi|evde|eve','Ev büyük.','house','houses|home','The house is big.'],
+['door','🚪','home','die','Tür','Tür','türen','Mach die Tür zu.','kapı','kapılar|kapıyı','Kapıyı kapat.','door','doors','Close the door.'],
+['bed','🛏️','home','das','Bett','Bett','betten','Ich gehe ins Bett.','yatak','yatağa|yatağı','Yatağa gidiyorum.','bed','beds','I am going to bed.'],
+['chair','🪑','home','der','Stuhl','Stuhl','stühle','Der Stuhl ist bequem.','sandalye','sandalyeler|sandalyeyi','Sandalye rahat.','chair','chairs','The chair is comfortable.'],
+['lamp','💡','home','die','Lampe','Lam·pe','lampen','Die Lampe leuchtet.','lamba','lambalar|lambayı','Lamba yanıyor.','lamp','lamps','The lamp is on.'],
+['key','🔑','home','der','Schlüssel','Schlüs·sel','','Wo ist der Schlüssel?','anahtar','anahtarı','Anahtar nerede?','key','keys','Where is the key?'],
+['window','🪟','home','das','Fenster','Fens·ter','','Das Fenster ist offen.','pencere','pencereler|pencereyi','Pencere açık.','window','windows','The window is open.'],
+['clock','⏰','home','die','Uhr','Uhr','uhren|wecker','Die Uhr tickt.','saat','saati','Saat tık tak ediyor.','clock','clocks|watch','The clock is ticking.'],
+['book','📖','school','das','Buch','Buch','bücher','Ich lese ein Buch.','kitap','kitaplar|kitabı','Bir kitap okuyorum.','book','books','I am reading a book.'],
+['pencil','✏️','school','der','Stift','Stift','stifte|bleistift','Der Stift ist gelb.','kalem','kalemler|kalemi','Kalem sarı.','pencil','pencils|pen','The pencil is yellow.'],
+['school','🏫','school','die','Schule','Schu·le','schulen','Die Schule beginnt.','okul','okula|okulu|okulda','Okul başlıyor.','school','schools','School is starting.'],
+['teacher','🧑‍🏫','school','die','Lehrerin','Leh·re·rin','lehrer|lehrerinnen','Die Lehrerin erklärt.','öğretmen','öğretmenler|öğretmenim','Öğretmen anlatıyor.','teacher','teachers','The teacher is explaining.'],
+['backpack','🎒','school','der','Rucksack','Ruck·sack','schulranzen|ranzen','Mein Rucksack ist schwer.','çanta','çantam|okul çantası','Çantam ağır.','backpack','schoolbag|bag','My backpack is heavy.'],
+['scissors','✂️','school','die','Schere','Sche·re','scheren','Die Schere schneidet Papier.','makas','makası','Makas kâğıdı keser.','scissors','','The scissors cut paper.'],
+['ball','⚽','school','der','Ball','Ball','bälle|fußball','Wir spielen Ball.','top','toplar|topu','Top oynuyoruz.','ball','balls|football','We are playing ball.'],
+['computer','💻','school','der','Computer','Com·pu·ter','laptop','Der Computer ist an.','bilgisayar','bilgisayarı','Bilgisayar açık.','computer','laptop','The computer is on.'],
+['sun','☀️','nature','die','Sonne','Son·ne','','Die Sonne scheint.','güneş','güneşi','Güneş parlıyor.','sun','sunny','The sun is shining.'],
+['moon','🌙','nature','der','Mond','Mond','','Der Mond ist hell.','ay','','Ay parlak.','moon','','The moon is bright.'],
+['rain','🌧️','nature','der','Regen','Re·gen','regnet','Der Regen fällt.','yağmur','yağmuru','Yağmur yağıyor.','rain','raining','The rain is falling.'],
+['snow','❄️','nature','der','Schnee','Schnee','','Der Schnee ist weiß.','kar','karı','Kar beyaz.','snow','','The snow is white.'],
+['tree','🌳','nature','der','Baum','Baum','bäume','Der Baum ist hoch.','ağaç','ağaçlar|ağacı','Ağaç çok uzun.','tree','trees','The tree is tall.'],
+['flower','🌸','nature','die','Blume','Blu·me','blumen','Die Blume duftet.','çiçek','çiçekler|çiçeği','Çiçek güzel kokuyor.','flower','flowers','The flower smells nice.'],
+['star','⭐','nature','der','Stern','Stern','sterne','Der Stern funkelt.','yıldız','yıldızlar','Yıldız parlıyor.','star','stars','The star is twinkling.'],
+['sea','🌊','nature','das','Meer','Meer','ozean','Das Meer ist blau.','deniz','denize|denizi','Deniz mavi.','sea','ocean','The sea is blue.'],
+['mountain','⛰️','nature','der','Berg','Berg','berge','Der Berg ist hoch.','dağ','dağlar|dağa','Dağ çok yüksek.','mountain','mountains','The mountain is high.'],
+['cloud','☁️','nature','die','Wolke','Wol·ke','wolken','Die Wolke ist grau.','bulut','bulutlar|bulutu','Bulut gri.','cloud','clouds','The cloud is grey.'],
+['car','🚗','traffic','das','Auto','Au·to','autos','Das Auto fährt schnell.','araba','arabalar|arabayı','Araba hızlı gidiyor.','car','cars','The car is fast.'],
+['bus','🚌','traffic','der','Bus','Bus','busse','Der Bus kommt.','otobüs','otobüse|otobüsü','Otobüs geliyor.','bus','buses','The bus is coming.'],
+['bike','🚲','traffic','das','Fahrrad','Fahr·rad','fahrräder|rad','Ich fahre Fahrrad.','bisiklet','bisiklete|bisikleti','Bisiklete biniyorum.','bike','bicycle|bikes','I am riding my bike.'],
+['train','🚆','traffic','der','Zug','Zug','züge','Der Zug ist pünktlich.','tren','trene|treni','Tren zamanında geldi.','train','trains','The train is on time.'],
+['plane','✈️','traffic','das','Flugzeug','Flug·zeug','flugzeuge','Das Flugzeug fliegt hoch.','uçak','uçaklar|uçağı','Uçak yüksekten uçuyor.','plane','airplane|planes','The plane is flying high.'],
+['ship','🚢','traffic','das','Schiff','Schiff','schiffe|boot','Das Schiff ist groß.','gemi','gemiler|gemiyi','Gemi çok büyük.','ship','ships|boat','The ship is big.'],
+['trafficlight','🚦','traffic','die','Ampel','Am·pel','ampeln','Die Ampel ist rot.','trafik ışığı','trafik ışıkları','Trafik ışığı kırmızı.','traffic light','traffic lights','The traffic light is red.'],
+['street','🛣️','traffic','die','Straße','Stra·ße','strasse|straßen','Die Straße ist lang.','yol','yolu|yollar','Yol çok uzun.','street','road|streets','The street is long.'],
+['red','🔴','feel','','rot','rot','rote|roter|rotes','Die Erdbeere ist rot.','kırmızı','','Çilek kırmızı.','red','','The strawberry is red.'],
+['blue','🔵','feel','','blau','blau','blaue|blauer|blaues','Der Himmel ist blau.','mavi','','Gökyüzü mavi.','blue','','The sky is blue.'],
+['green','🟢','feel','','grün','grün','grüne|grüner|grünes|gruen','Das Gras ist grün.','yeşil','','Çimen yeşil.','green','','The grass is green.'],
+['yellow','🟡','feel','','gelb','gelb','gelbe|gelber|gelbes','Die Zitrone ist gelb.','sarı','','Limon sarı.','yellow','','The lemon is yellow.'],
+['happy','😊','feel','','fröhlich','fröh·lich','froh|glücklich','Ich bin fröhlich.','mutlu','mutluyum','Ben mutluyum.','happy','glad','I am happy.'],
+['sad','😢','feel','','traurig','trau·rig','','Das Kind ist traurig.','üzgün','üzgünüm','Çocuk üzgün.','sad','','The child is sad.'],
+['angry','😠','feel','','wütend','wü·tend','sauer|böse','Der Mann ist wütend.','kızgın','sinirli','Adam kızgın.','angry','mad','The man is angry.'],
+['tired','😴','feel','','müde','mü·de','','Ich bin müde.','yorgun','yorgunum|uykulu','Ben yorgunum.','tired','sleepy','I am tired.'],
+['scared','😨','feel','','ängstlich','ängst·lich','angst','Die Katze hat Angst.','korkmuş','korku|korkuyorum','Kedi korkmuş.','scared','afraid','The cat is scared.']
+];
+var LANGS = ['de','tr','en'];
+var BCP = {de:'de-DE', tr:'tr-TR', en:'en-US'};
+var STOP = {
+  de:'der die das und ist ein eine einen ich du wir mein meine dein nicht es war im in mit auf habe hat sind zwei'.split(' '),
+  tr:'bir ve bu çok da de ben sen biz o ne var yok mı mi değil ile için iki benim'.split(' '),
+  en:'the a an and is are i you we my your it was in on of to have has with two'.split(' ')
+};
+var CONCEPTS = RAW.map(function(r){
+  function sp(s){ return s ? s.split('|') : []; }
+  return { id:r[0], e:r[1], cat:r[2],
+    de:{art:r[3], w:r[4], syl:r[5], f:sp(r[6]), s:r[7]},
+    tr:{w:r[8], f:sp(r[9]), s:r[10]},
+    en:{w:r[11], f:sp(r[12]), s:r[13]} };
+});
+
+/* ---------- Normalisierung & Index ---------- */
+function lower(s, lang){
+  s = String(s).normalize('NFC');
+  if (lang === 'tr') { try { return s.toLocaleLowerCase('tr'); } catch(e){ return s.replace(/I/g,'ı').replace(/İ/g,'i').toLowerCase(); } }
+  return s.replace(/İ/g,'i').toLowerCase();
+}
+function norm(s, lang){ return lower(s, lang).replace(/[^\p{L}\p{N}]+/gu,' ').trim(); }
+var FOLD = {'ı':'i','ş':'s','ğ':'g','ç':'c','ö':'o','ü':'u','ä':'a','â':'a','î':'i','û':'u','é':'e','ß':'ss'};
+function fold(s){ return s.replace(/[ışğçöüäâîûéß]/g, function(c){ return FOLD[c]; }); }
+
+var INDEX = {}, PHRASES = {}, FUZZ = {};
+LANGS.forEach(function(L){
+  var map = new Map(), phr = [], fz = [];
+  CONCEPTS.forEach(function(c, i){
+    var forms = [c[L].w].concat(c[L].f);
+    forms.forEach(function(f){
+      var n = fold(norm(f, L));
+      if (!n) return;
+      if (n.indexOf(' ') >= 0) phr.push({toks:n.split(' '), i:i});
+      else { if (!map.has(n)) map.set(n, i); if (n.length >= 5) fz.push([n, i]); }
+    });
+  });
+  phr.sort(function(a,b){ return b.toks.length - a.toks.length; });
+  INDEX[L] = map; PHRASES[L] = phr; FUZZ[L] = fz;
+});
+
+function dl1(a, b){ // Damerau-Levenshtein <= 1 ?
+  if (a === b) return true;
+  var la = a.length, lb = b.length;
+  if (Math.abs(la - lb) > 1) return false;
+  var i = 0; while (i < la && i < lb && a[i] === b[i]) i++;
+  if (la === lb) {
+    if (a.slice(i+1) === b.slice(i+1)) return true; // Ersetzung
+    return a[i] === b[i+1] && a[i+1] === b[i] && a.slice(i+2) === b.slice(i+2); // Vertauschung
+  }
+  return la > lb ? a.slice(i+1) === b.slice(i) : a.slice(i) === b.slice(i+1);
+}
+var TR_SUF = ['nın','nin','nun','nün','dan','den','tan','ten','lar','ler','yla','yle','la','le','ya','ye','yı','yi','yu','yü','da','de','ta','te','ım','im','um','üm','sı','si','su','sü','ın','in','un','ün','nı','ni','nu','nü','ı','i','u','ü','a','e','m'];
+var MUT = {'b':'p','c':'ç','d':'t','ğ':'k','g':'k'};
+function trStem(tok, depth){ // tok: normalisiert (mit türk. Zeichen)
+  var map = INDEX.tr;
+  for (var k = 0; k < TR_SUF.length; k++) {
+    var s = TR_SUF[k];
+    if (tok.length - s.length >= 3 && tok.slice(-s.length) === s) {
+      var st = tok.slice(0, -s.length), f = fold(st);
+      if (map.has(f)) return {i:map.get(f), via:st};
+      var last = st.slice(-1);
+      if (MUT[last]) { var f2 = fold(st.slice(0,-1) + MUT[last]); if (map.has(f2)) return {i:map.get(f2), via:st}; }
+      if (depth < 1) { var r = trStem(st, depth + 1); if (r) return r; }
+    }
+  }
+  return null;
+}
+function lookupTok(tok, L){
+  var f = fold(tok), map = INDEX[L];
+  if (map.has(f)) return {i:map.get(f), how:'exact'};
+  if (L === 'tr') { var r = trStem(tok, 0); if (r) return {i:r.i, how:'suffix'}; }
+  if (f.length >= 5) {
+    var fz = FUZZ[L];
+    for (var k = 0; k < fz.length; k++) if (dl1(f, fz[k][0])) return {i:fz[k][1], how:'fuzzy', near:fz[k][0]};
+  }
+  return null;
+}
+function matchLang(text, L){
+  var toks = norm(text, L).split(' ').filter(Boolean);
+  var ft = toks.map(fold), used = new Array(toks.length), hits = [], stop = 0;
+  PHRASES[L].forEach(function(p){
+    for (var s = 0; s + p.toks.length <= ft.length; s++) {
+      var ok = true;
+      for (var j = 0; j < p.toks.length; j++) if (used[s+j] || ft[s+j] !== p.toks[j]) { ok = false; break; }
+      if (ok) { for (j = 0; j < p.toks.length; j++) used[s+j] = 1; hits.push({pos:s, i:p.i, word:toks.slice(s, s+p.toks.length).join(' '), how:'exact'}); }
+    }
+  });
+  toks.forEach(function(t, k){
+    if (STOP[L].indexOf(t) >= 0) stop++;
+    if (used[k]) return;
+    var r = lookupTok(t, L);
+    if (r) hits.push({pos:k, i:r.i, word:t, how:r.how, near:r.near});
+  });
+  hits.sort(function(a,b){ return a.pos - b.pos; });
+  return {lang:L, hits:hits, score:hits.length * 2 + stop};
+}
+function analyse(text, srcSel){
+  if (srcSel !== 'auto') return matchLang(text, srcSel);
+  var best = null;
+  LANGS.forEach(function(L){
+    var r = matchLang(text, L);
+    if (!best || r.score > best.score || (r.score === best.score && L === ui)) best = r;
+  });
+  return best;
+}
+
+/* ---------- Türkische Silbentrennung (regelmäßig) ---------- */
+function trSyl(word){
+  return word.split(' ').map(function(w){
+    var V = 'aeıioöuüâîû', vs = [];
+    for (var i = 0; i < w.length; i++) if (V.indexOf(w[i]) >= 0) vs.push(i);
+    if (vs.length < 2) return w;
+    var cuts = [];
+    for (var k = 1; k < vs.length; k++) { var c = vs[k] - vs[k-1] - 1; cuts.push(c === 0 ? vs[k] : vs[k] - 1); }
+    var out = [], prev = 0;
+    cuts.forEach(function(c){ out.push(w.slice(prev, c)); prev = c; });
+    out.push(w.slice(prev));
+    return out.join('·');
+  }).join(' ');
+}
+function sylOf(c, L){ return L === 'de' ? c.de.syl : L === 'tr' ? trSyl(c.tr.w) : c.en.w; }
+function full(c, L){ return L === 'de' && c.de.art ? c.de.art + ' ' + c.de.w : c[L].w; }
+
+/* ---------- Zustand ---------- */
+var $ = function(id){ return document.getElementById(id); };
+function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e){ return null; } }
+var nav = (navigator.language || 'de').slice(0,2).toLowerCase();
+var ui = store('lfx.ui') || (I18N[nav] ? nav : 'en'); if (!I18N[ui]) ui = 'de';
+var srcSel = store('lfx.wb.src') || 'auto';
+var dst = store('lfx.wb.dst') || (ui === 'de' ? 'tr' : 'de');
+var mode = store('lfx.wb.mode') || 'translate';
+var history = [], queue = [], qTimer = null, current = null, awaiting = false;
+var quiz = {c:null, right:0, total:0, revealed:false};
+var speakingNow = false, lastStatusKey = null, lastStatusVars = null, lastStatusWarn = false;
+
+function t(k, v){ var s = (I18N[ui][k] != null ? I18N[ui][k] : I18N.de[k]) || k; if (v) s = s.replace(/\{(\w+)\}/g, function(m, n){ return v[n] != null ? v[n] : m; }); return s; }
+function langName(L){ return t('lang_' + L); }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function setStatus(k, v, warn){ lastStatusKey = k; lastStatusVars = v; lastStatusWarn = !!warn; var el = $('status'); el.textContent = k ? t(k, v) : ''; el.className = 'status' + (warn ? ' warn' : ''); }
+function setStatusText(txt, warn){ lastStatusKey = null; var el = $('status'); el.textContent = txt; el.className = 'status' + (warn ? ' warn' : ''); }
+
+function applyI18n(){
+  document.documentElement.lang = ui;
+  document.title = 'LiveFX ' + t('title').split(' – ')[0];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){ el.textContent = t(el.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ el.placeholder = t(el.getAttribute('data-i18n-ph')); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(function(el){ el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
+  document.querySelectorAll('[data-ui]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-ui') === ui)); });
+  $('btnMic').textContent = rec && listening ? t('micStop') : t('mic');
+  if (lastStatusKey) setStatus(lastStatusKey, lastStatusVars, lastStatusWarn);
+  renderChips(); renderHistory(); renderCard();
+}
+
+/* ---------- Karte ---------- */
+function sylHTML(c, L){
+  var s = sylOf(c, L), parts = s.split('·');
+  if (parts.length < 2) return esc(c[L].w);
+  return parts.map(function(p){ return '<span class="syl">' + esc(p) + '</span>'; }).join('');
+}
+function wordHTML(c, L){
+  var art = (L === 'de' && c.de.art) ? '<span class="art ' + c.de.art + '">' + c.de.art + '</span>' : '';
+  return art + '<span class="wn">' + sylHTML(c, L) + '</span>';
+}
+function trioHTML(c){
+  return '<div class="trio">' + LANGS.map(function(L){ return '<span><b>' + L.toUpperCase() + '</b>' + esc(full(c, L)) + '</span>'; }).join('') + '</div>';
+}
+function renderCard(anim){
+  var el = $('card');
+  if (mode === 'quiz') { renderQuiz(el, anim); return; }
+  if (!current) {
+    el.innerHTML = '<div class="empty"><span class="big" aria-hidden="true">🗣️➜🖼️</span>' + esc(t('empty')) + '</div>';
+    return;
+  }
+  var c = current.c, S = current.src, D = current.dst;
+  var h = '<span class="cat">' + esc(t('cat_' + c.cat)) + '</span>' +
+    '<div class="emoji" aria-hidden="true">' + c.e + '</div>' +
+    '<div class="word' + (full(c, D).length > 10 ? ' long' : '') + '" lang="' + D + '">' + wordHTML(c, D) + '</div>';
+  if (S !== D) h += '<div class="src">' + esc(t('said')) + ': <span lang="' + S + '">' + esc(full(c, S)) + '</span> (' + esc(langName(S)) + ')</div>';
+  h += trioHTML(c);
+  h += '<div class="ex" lang="' + D + '">' + esc(c[D].s) + '</div>';
+  if (S !== D) h += '<div class="ex2" lang="' + S + '">' + esc(c[S].s) + '</div>';
+  h += '<div class="speakrow"><button type="button" class="btn" id="bSpeakW">' + esc(t('speakWord')) + '</button>' +
+       '<button type="button" class="btn" id="bSpeakS">' + esc(t('speakSentence')) + '</button></div>';
+  h += '<div class="fb" id="fb"></div>';
+  el.innerHTML = h;
+  if (anim) { el.classList.remove('cardin'); void el.offsetWidth; el.classList.add('cardin'); }
+  $('bSpeakW').onclick = function(){ speak(full(c, D), D); };
+  $('bSpeakS').onclick = function(){ speak(c[D].s, D); };
+  if (mode === 'repeat' && awaiting) { var fb = $('fb'); fb.className = 'fb'; fb.textContent = t('repeatPrompt', {w: full(c, D)}); }
+}
+function confetti(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var box = document.createElement('div'); box.className = 'confetti';
+  var cols = ['#ff2d75','#2dffb5','#ffd166','#5ad1ff'];
+  for (var i = 0; i < 26; i++) {
+    var p = document.createElement('i'); var a = Math.random() * Math.PI * 2, d = 80 + Math.random() * 120;
+    p.style.background = cols[i % 4]; p.style.setProperty('--x', Math.cos(a) * d + 'px'); p.style.setProperty('--y', Math.sin(a) * d + 'px');
+    box.appendChild(p);
+  }
+  $('card').appendChild(box); setTimeout(function(){ box.remove(); }, 1100);
+}
+
+/* ---------- Quiz ---------- */
+function newQuiz(){
+  var pool = CONCEPTS.filter(function(c){ return !quiz.c || c.id !== quiz.c.id; });
+  quiz.c = pool[Math.floor(Math.random() * pool.length)]; quiz.revealed = false;
+  renderCard(true);
+}
+function renderQuiz(el, anim){
+  if (!quiz.c) { newQuiz(); return; }
+  var c = quiz.c;
+  var h = '<span class="cat">' + esc(t('cat_' + c.cat)) + '</span><span class="score" id="qScore">' + esc(t('quizScore', {a:quiz.right, b:quiz.total})) + '</span>' +
+    '<div class="emoji" aria-hidden="true">' + c.e + '</div>' +
+    '<div class="word' + (quiz.revealed && full(c, dst).length > 10 ? ' long' : '') + '" lang="' + dst + '">' + (quiz.revealed ? wordHTML(c, dst) : '?') + '</div>' +
+    '<div class="src">' + esc(t('quizQ', {l: t('quizIn_' + dst)})) + '</div>' +
+    '<div class="speakrow">' + (quiz.revealed
+      ? '<button type="button" class="btn" id="bSpeakW">' + esc(t('speakWord')) + '</button><button type="button" class="btn primary" id="bNext">' + esc(t('quizNext')) + '</button>'
+      : '<button type="button" class="btn" id="bSkip">' + esc(t('quizSkip')) + '</button>') + '</div>' +
+    '<div class="fb" id="fb"></div>';
+  el.innerHTML = h;
+  if (anim) { el.classList.remove('cardin'); void el.offsetWidth; el.classList.add('cardin'); }
+  if ($('bSkip')) $('bSkip').onclick = function(){ quiz.total++; quiz.revealed = true; renderCard(); var fb = $('fb'); fb.className = 'fb no'; fb.textContent = t('quizAnswer', {w: full(c, dst)}); if ($('optAuto').checked) speak(full(c, dst), dst); };
+  if ($('bNext')) $('bNext').onclick = newQuiz;
+  if ($('bSpeakW')) $('bSpeakW').onclick = function(){ speak(full(c, dst), dst); };
+}
+function quizAnswer(text){
+  if (!quiz.c || quiz.revealed) { newQuiz(); return; }
+  var r = matchLang(text, dst);
+  var ok = r.hits.some(function(h){ return CONCEPTS[h.i] === quiz.c; });
+  var fb = $('fb');
+  if (ok) {
+    quiz.right++; quiz.total++; quiz.revealed = true; renderCard();
+    fb = $('fb'); fb.className = 'fb ok'; fb.textContent = t('quizRight', {w: full(quiz.c, dst)}); confetti();
+    if ($('optAuto').checked) speak(full(quiz.c, dst), dst);
+    pushHistory(quiz.c, dst);
+  } else { fb.className = 'fb no'; fb.textContent = t('quizWrong'); }
+}
+
+/* ---------- Verlauf ---------- */
+function pushHistory(c, L){
+  history = history.filter(function(h){ return h.c !== c; });
+  history.unshift({c:c, L:L}); if (history.length > 10) history.length = 10;
+  renderHistory();
+}
+function renderHistory(){
+  var box = $('tiles'); box.innerHTML = '';
+  history.forEach(function(h){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'tile';
+    b.innerHTML = '<span class="e" aria-hidden="true">' + h.c.e + '</span><span class="w" lang="' + h.L + '">' + esc(full(h.c, h.L)) + '</span>';
+    b.title = t('speakWord'); b.onclick = function(){ speak(full(h.c, h.L), h.L); };
+    box.appendChild(b);
+  });
+  $('histEmpty').textContent = history.length ? '' : t('historyEmpty');
+}
+function renderChips(){
+  var L = srcSel === 'auto' ? ui : srcSel;
+  var pick = ['apple','cat','house','water','dog','butterfly','sun','book'];
+  var box = $('chips'); box.innerHTML = '<span>' + esc(t('try')) + '</span>';
+  pick.forEach(function(id){
+    var c = CONCEPTS.filter(function(x){ return x.id === id; })[0];
+    var b = document.createElement('button'); b.type = 'button'; b.lang = L; b.textContent = c[L].w;
+    b.onclick = function(){ $('inp').value = c[L].w; handleInput(c[L].w); };
+    box.appendChild(b);
+  });
+}
+
+/* ---------- Aussprache (SpeechSynthesis) ---------- */
+var tts = window.speechSynthesis || null, voices = [];
+function loadVoices(){ try { voices = tts ? tts.getVoices() : []; } catch(e){ voices = []; } }
+if (tts) { loadVoices(); try { tts.addEventListener('voiceschanged', loadVoices); } catch(e){} }
+function voiceFor(L){
+  var v = voices.filter(function(x){ return (x.lang || '').toLowerCase().replace('_','-').indexOf(L) === 0; });
+  v.sort(function(a,b){ return (b.localService ? 1 : 0) - (a.localService ? 1 : 0); });
+  return v[0] || null;
+}
+function speak(text, L){
+  if (!tts || typeof SpeechSynthesisUtterance === 'undefined') { setStatus('noTTS', null, true); return; }
+  loadVoices();
+  var v = voiceFor(L);
+  try { tts.cancel(); } catch(e){}
+  if (!v) { setStatus('noVoice_' + L, null, true); return; }
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = BCP[L]; u.voice = v; u.rate = $('optSlow').checked ? 0.6 : 0.85;
+  u.onstart = function(){ speakingNow = true; };
+  u.onend = u.onerror = function(){ speakingNow = false; if (mode === 'repeat' && awaiting) listenBriefly(); };
+  speakingNow = true;
+  tts.speak(u);
+}
+
+/* ---------- Eingabe verarbeiten ---------- */
+function showConcept(c, S, how, near){
+  var D = mode === 'read' ? S : dst;
+  current = {c:c, src:S, dst:D};
+  awaiting = (mode === 'repeat');
+  renderCard(true);
+  pushHistory(c, D);
+  var txt = t('heard', {w: full(c, S), l: langName(S)});
+  if (how === 'fuzzy') txt += ' · ' + t('fuzzy', {x: near});
+  if (queue.length) txt += ' · ' + t('queue', {n: queue.length});
+  setStatusText(txt);
+  if ($('optAuto').checked || mode === 'repeat') speak(full(c, D), D);
+}
+function nextFromQueue(){
+  qTimer = null;
+  if (!queue.length) return;
+  var q = queue.shift(); showConcept(q.c, q.S, q.how, q.near);
+  if (queue.length) qTimer = setTimeout(nextFromQueue, 1600);
+}
+function handleInput(text){
+  text = String(text || '').trim(); if (!text) return;
+  if (mode === 'quiz') { quizAnswer(text); return; }
+  if (mode === 'repeat' && awaiting && current) {
+    var r0 = matchLang(text, current.dst);
+    var ok = r0.hits.some(function(h){ return CONCEPTS[h.i] === current.c; });
+    var fb = $('fb');
+    if (ok) { awaiting = false; fb.className = 'fb ok'; fb.textContent = t('repeatOk'); confetti(); }
+    else { fb.className = 'fb no'; fb.textContent = t('repeatAgain'); speak(full(current.c, current.dst), current.dst); }
+    if (ok) return;
+    // kein Treffer für das aktuelle Wort: ist es ein neues bekanntes Wort? dann neue Karte
+    var rN = analyse(text, srcSel); if (!rN.hits.length) return;
+  }
+  var r = analyse(text, srcSel);
+  if (!r.hits.length) { setStatus('noHit', null, true); return; }
+  var seen = {}, list = [];
+  r.hits.forEach(function(h){ if (!seen[h.i] && list.length < 3) { seen[h.i] = 1; list.push({c:CONCEPTS[h.i], S:r.lang, how:h.how, near:h.near}); } });
+  if (qTimer) { clearTimeout(qTimer); qTimer = null; }
+  queue = list;
+  nextFromQueue();
+}
+
+/* ---------- Mikrofon (Web Speech) ---------- */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+var rec = null, listening = false, briefTimer = null;
+function recLang(){ return BCP[srcSel === 'auto' ? (mode === 'quiz' || (mode === 'repeat' && awaiting) ? dst : ui) : (mode === 'quiz' ? dst : srcSel)]; }
+function startRec(){
+  if (!SR) { setStatus('noMic', null, true); return; }
+  try {
+    rec = new SR(); rec.lang = recLang(); rec.continuous = true; rec.interimResults = false;
+    rec.onresult = function(ev){
+      if (speakingNow) return; // Echo-Schutz: während die Stimme spricht, wird nichts übernommen
+      for (var i = ev.resultIndex; i < ev.results.length; i++) if (ev.results[i].isFinal) { var s = ev.results[i][0].transcript; $('inp').value = s; handleInput(s); }
+    };
+    rec.onerror = function(e){ setStatus('micErr', {e: e.error || '?'}, true); };
+    rec.onend = function(){ if (listening) { try { rec.start(); } catch(e){ stopRec(); } } };
+    rec.start(); listening = true; $('btnMic').classList.add('on'); $('btnMic').textContent = t('micStop');
+    var L = rec.lang.slice(0,2); setStatus('listening', {l: langName(L)});
+  } catch(e) { setStatus('micErr', {e: e.message || '?'}, true); }
+}
+function stopRec(){
+  listening = false; if (briefTimer) { clearTimeout(briefTimer); briefTimer = null; }
+  try { rec && rec.stop(); } catch(e){}
+  $('btnMic').classList.remove('on'); $('btnMic').textContent = t('mic'); setStatus('micOff');
+}
+function listenBriefly(){ // Nachsprechen: 4 s zuhören
+  if (!SR || listening) return;
+  startRec(); briefTimer = setTimeout(stopRec, 4000);
+}
+
+/* ---------- Drucken ---------- */
+function printCards(){
+  var items = history.length ? history.slice() : CONCEPTS.slice(0, 8).map(function(c){ return {c:c, L:dst}; });
+  if (!history.length) setStatus('printEmpty', null, true);
+  var h = '';
+  for (var p = 0; p < items.length; p += 8) {
+    h += '<div class="pgrid">';
+    items.slice(p, p + 8).forEach(function(it){
+      var c = it.c, L = it.L;
+      h += '<div class="pcard"><div class="pe">' + c.e + '</div><div class="pw">' + wordHTML(c, L) + '</div><div class="ps">' +
+        LANGS.filter(function(x){ return x !== L; }).map(function(x){ return x.toUpperCase() + ': ' + esc(full(c, x)); }).join(' · ') + '</div></div>';
+    });
+    h += '</div>';
+  }
+  $('printArea').innerHTML = '<h2 style="font:600 5mm system-ui;margin:0 0 3mm">' + esc(t('printTitle')) + '</h2>' + h;
+  setTimeout(function(){ try { window.print(); } catch(e){} }, 50);
+}
+
+/* ---------- Verdrahtung ---------- */
+function syncControls(){
+  $('selSrc').value = srcSel; $('selDst').value = dst;
+  document.querySelectorAll('[data-mode]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-mode') === mode)); });
+  $('selDst').disabled = (mode === 'read');
+}
+document.querySelectorAll('[data-ui]').forEach(function(b){ b.onclick = function(){ ui = b.getAttribute('data-ui'); store('lfx.ui', ui); applyI18n(); }; });
+$('selSrc').onchange = function(){ srcSel = this.value; store('lfx.wb.src', srcSel); renderChips(); if (listening) { stopRec(); startRec(); } };
+$('selDst').onchange = function(){ dst = this.value; store('lfx.wb.dst', dst); if (current && mode !== 'read') current.dst = dst; renderCard(); };
+document.querySelectorAll('[data-mode]').forEach(function(b){ b.onclick = function(){
+  mode = b.getAttribute('data-mode'); store('lfx.wb.mode', mode); awaiting = false;
+  if (current) current.dst = mode === 'read' ? current.src : dst;
+  syncControls(); renderCard(true);
+}; });
+$('form').onsubmit = function(e){ e.preventDefault(); handleInput($('inp').value); $('inp').select(); };
+$('btnMic').onclick = function(){ listening ? stopRec() : startRec(); };
+$('btnPrint').onclick = printCards;
+
+syncControls();
+applyI18n();
+if (!SR) setStatus('noMic', null, true);
+
+/* Test-Schnittstelle */
+window.WortBild = { analyse:analyse, matchLang:matchLang, concepts:CONCEPTS, input:handleInput, i18n:I18N,
+  setUi:function(L){ ui = L; applyI18n(); }, setMode:function(m){ var b = document.querySelector('[data-mode="'+m+'"]'); b && b.click(); },
+  current:function(){ return current; } };
+})();
+</script>
+</body>
+</html>

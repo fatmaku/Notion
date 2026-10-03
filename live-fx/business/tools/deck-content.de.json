@@ -1,0 +1,373 @@
+{
+  "meta": {
+    "lang": "de",
+    "langTag": "de-DE",
+    "deckTitle": "LiveFX – Pitch",
+    "subject": "LiveFX: Deine Stimme wird zum Effekt – und zum Bild",
+    "author": "Tuncay Sancak",
+    "footerBrand": "LiveFX",
+    "footerNote": "Vertraulich · Oktober 2026",
+    "visionBadge": "Vision",
+    "assetsDir": "landing-assets",
+    "images": {
+      "overlayNeon": "overlay-neon.jpg",
+      "overlayPortrait": "overlay-portrait-rain.jpg",
+      "mobile": "mobile.jpg",
+      "panel": "panel.jpg",
+      "demo": "demo.jpg"
+    },
+    "_hinweis": "Übersetzer: nur die Textwerte übersetzen. Feldnamen, 'layout', 'section'-Logik, Zahlenwerte in 'low'/'high'/'from'/'to' und die Reihenfolge der Arrays nicht ändern. Quellen: DE [Quelle n], TR [Kaynak n], EN [Source n] mit denselben Nummern. Bilder: Die Screenshots in landing-assets/ zeigen deutsche Oberflächentexte (z. B. „Es regnete in Strömen“). In TR/EN unter meta.images eigene Screenshots eintragen (Pfad relativ zu assetsDir, gleiches Seitenverhältnis: overlayNeon 16:9, overlayPortrait 9:16, mobile ca. 1:2,2), z. B. die Trailer-Standbilder ../video/stills/tr-16x9-6_9s.jpg bzw. ../video/stills/en-9x16-6_9s.jpg – sonst bleiben die deutschen Screenshots stehen. Titel dürfen länger sein: Das Skript verkleinert die Schrift selbst (einzeilig bis 24 pt, sonst zweizeilig)."
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "section": "Heute: LiveFX 2.0",
+      "kicker": "LIVE MEME ENGINE  ·  v2.0",
+      "brand": "LiveFX",
+      "tagline": "Deine Stimme wird zum Effekt.",
+      "lead": "Memes, Sounds und Szenen in Echtzeit – ausgelöst durch das, was der Creator sagt. In unter einer Sekunde, hands-free, auf TikTok LIVE, Instagram, YouTube und Twitch.",
+      "vision": "Und morgen: Du redest. Es wird Bild.",
+      "name": "Tuncay Sancak",
+      "role": "Gründer & Erfinder, Geschäftsführer",
+      "contact": "Investor Relations: Gönül Demet  ·  [E-Mail]  ·  Oktober 2026  ·  Vertraulich",
+      "notes": "Kurz vorstellen: Ich streame selbst, ich schreibe Bücher, und ich habe LiveFX gebaut, weil ich im Live-Stream genau das vermisst habe, was jedes Kurzvideo hat. Was ihr heute seht, läuft in meinen eigenen Streams. Am Ende zeige ich, wohin es geht: vom Meme-Overlay zur Bildsprache für alles Gesprochene. 30 Sekunden, dann direkt zum Problem."
+    },
+    {
+      "layout": "problem",
+      "kicker": "Das Problem",
+      "title": "Live ist roh. Der Schnitt kommt zu spät.",
+      "rows": [
+        ["✂", "Alles, was Kurzvideos viral macht, entsteht danach", "Memes, Sounds, Zooms, Sticker – im Schnitt, nach der Aufnahme. Live gibt es davon nichts."],
+        ["🎛", "Der Creator ist Moderator, Regisseur und Cutter zugleich", "Mit zwei Händen, einer Kamera und einem Chat, der nicht wartet."],
+        ["🔔", "Bestehende Tools reagieren auf Zuschauer oder Tasten", "Alerts bei Spenden und Follows, Soundboards per Hotkey. Beides braucht einen Klick."]
+      ],
+      "callout": "Niemand reagiert auf das gesprochene Wort.",
+      "calloutSub": "Auto-Untertitel haben gezeigt: Echtzeit-Text aus Sprache funktioniert. Echtzeit-Effekte aus Sprache gibt es noch nicht.",
+      "quote": "„Ich sage ‚krass‘ – und nichts passiert, außer dass ich selbst zur Tastatur greife.“  – Tuncay Sancak, aus dem eigenen Stream",
+      "notes": "Auto-Untertitel haben bewiesen, dass Echtzeit-Text aus Sprache funktioniert und von Plattformen nativ eingebaut wird. Echtzeit-Effekte aus Sprache gibt es nicht. Genau diese Lücke füllen wir. Beispiel aus meinem Stream: Ich sage „krass“ – und nichts passiert, außer dass ich selbst zur Tastatur greife."
+    },
+    {
+      "layout": "solution",
+      "kicker": "Die Lösung",
+      "title": "Stimme → Effekt in unter einer Sekunde",
+      "steps": [
+        ["🎙", "Mikro", "Creator spricht"],
+        ["🧠", "Erkennung", "DE / TR / EN automatisch"],
+        ["⚡", "Matcher", "Dialekt-tolerant, sofort"],
+        ["🖥", "Overlay", "Browser-Quelle in OBS"],
+        ["📺", "Stream", "TikTok · IG · YouTube · Twitch"]
+      ],
+      "examples": [
+        ["„Krass“", "🤯 Neon-Text + Airhorn"],
+        ["„Yok artık“", "Meme-Karte + Vine-Boom"],
+        ["„Es regnete…“", "Regen-Szene + Atmosphäre-Loop"]
+      ],
+      "facts": [
+        "< 1 s Reaktion – Treffer schon auf Zwischenergebnissen der Erkennung",
+        "Hands-free – keine Taste, kein Klick, kein zweiter Monitor",
+        "Läuft lokal auf dem Rechner der Creatorin – Datenschutz eingebaut",
+        "KI-Modus (optional) fängt Sätze ohne Stichwort: „das war so peinlich“ → Awkward"
+      ],
+      "notes": "Wichtig: Keyword-Matching ist sofort (Zwischenergebnisse der Erkennung), keine Cloud nötig. Der optionale KI-Modus fängt Sätze ohne Stichwort („das war so peinlich für ihn“ → Awkward). Alles läuft auf dem Rechner der Creatorin – Datenschutz ist eingebaut, nicht nachgerüstet."
+    },
+    {
+      "layout": "demo",
+      "kicker": "So sieht es im Stream aus",
+      "title": "Demo",
+      "captions": [
+        "Overlay 16:9 – „Krass!“ → Neon-Text + Konfetti",
+        "Hochkant 9:16 – Story-Modus: „Es regnete…“",
+        "Handy-Fernbedienung (PWA)"
+      ],
+      "bar": "▶  Trailer (30 s): video/LiveFX_Trailer_16x9.mp4  ·  Live-Demo: Mikro starten, „das ist ja krass“ sagen – oder Story-Modus an und einen Absatz vorlesen.",
+      "notes": "Wenn möglich live zeigen: Mikro starten, „das ist ja krass“ sagen, Effekt erscheint. Zweiter Take: Story-Modus an, einen Absatz vorlesen – „es regnete“, „in der Nacht“, „der Drache“ – und die Szenen wechseln. Fallback ist der Trailer. Satz, der hängen bleibt: Das erste Video, in dem Memes auf meine Sprache reagierten, hat mich mehr überzeugt als jede Folie."
+    },
+    {
+      "layout": "features",
+      "kicker": "Kein Prototyp",
+      "title": "Produkt heute – Version 2.0",
+      "features": [
+        ["🎙", "Erkennung", "Browser-ASR, Auto-Sprache DE/TR/EN, Dialekt-Toleranz, Lernfunktion, Selbsttest; extern via Whisper/Deepgram, Offline-Whisper (experimentell)"],
+        ["✨", "Effekt-Engine v2", "Canvas-Partikel mit Physik (60 fps), Neon/Glitch-Text, Bauchbinden, Kombis, 4 Themes"],
+        ["📖", "Story-Modus", "13 Vollbild-Szenen, 12 Atmosphäre-Loops, Geschichten-Pakete DE/TR/EN"],
+        ["📦", "Pakete", "Türkçe 85 · Deutsch 49 · English 50 · Familie & Kinder 27 · Gaming 27 – plus GIF-Suche"],
+        ["🔊", "Sound-Engine", "38 synthetische Sounds (keine Lizenzkosten), Mixer mit Limiter, Ducking, Stereo, Hall"],
+        ["💬", "Zuschauer-Trigger", "Twitch-Chat, YouTube-Chat, Geschenke-Webhook (TikTok via TikFinity / Streamer.bot)"],
+        ["📱", "Handy & Plattformen", "Handy-Fernbedienung (PWA), OBS/Streamlabs, TikTok LIVE Studio, IG Live Producer, Demo ohne OBS"],
+        ["🔌", "Offene API", "HTTP-API mit Token (Stream Deck, Chat-Bots, externe ASR), 240+ automatisierte Tests"]
+      ],
+      "notes": "Das ist kein Prototyp mehr: Releases von 0.1 bis 2.0, Unit- und End-to-End-Tests, Anleitungen in DE/TR. Version 2.0 war ein Härtungs-Release für Bühne und Verkauf. Zwei Dinge betonen: (1) eigene Sounds und Pakete = keine Copyright-Strikes, (2) die Zuschauer-Trigger sind die Brücke zur Monetarisierung – ein Geschenk kann heute schon einen Effekt auslösen."
+    },
+    {
+      "layout": "whyNow",
+      "kicker": "Timing",
+      "title": "Warum jetzt",
+      "stats": [
+        ["~50 %", "des Einkommens von Live-Streamern kommt aus Geschenken; 20–100 T Follower: 500–3.000 USD/Monat [Quelle 5, 6]"],
+        ["> 100 Mio.", "Creator gingen 2025 allein in Südostasien, im Kaukasus und in Zentralasien auf TikTok LIVE, +77 % [Quelle 2]"],
+        ["≈ 14 %", "der Creator Economy (~216–260 Mrd. USD 2026) entfallen auf Live [Quelle 3, 4]"]
+      ],
+      "cards": [
+        ["Live ist Umsatzkanal", "Live-Commerce und Gifting (TikTok LIVE, IG Badges, Super Chat) machen Live zum Geschäft – nicht zum Nebenformat."],
+        ["Technik ist reif", "Streaming-ASR < 300 ms, Modelle im Browser, WebGPU in allen großen Browsern [Quelle 27], KI-Klassifikation für < 1 USD/Stunde."],
+        ["Plattformen konkurrieren über Creator-Tools", "CapCut ↔ TikTok, Edits ↔ Instagram. Live-Tools sind der nächste Schritt – und niemand hat Sprach-Effekte."]
+      ],
+      "sources": "Quellen: QUELLEN.md (Recherche 30.09.2026 und 03.10.2026) – [Quelle 2–6, 27]",
+      "notes": "Live ist kein Nebenkanal mehr, sondern ein Umsatzkanal. Und: Die Türkei ist ein junger, meme-affiner TikTok-Markt mit kaum lokalisierten Tools – unser größtes Paket ist das türkische, das ist kein Zufall. Technik: Was vor drei Jahren einen Server brauchte, läuft heute im Browser – das ist auch die Grundlage für die Vision ab Folie 12."
+    },
+    {
+      "layout": "market",
+      "kicker": "TAM · SAM · SOM · angrenzende Märkte",
+      "title": "Markt – Spannen statt Punktzahlen",
+      "chart": {
+        "title": "Marktgröße in Mrd. USD (Spannen aus Sekundärquellen)",
+        "series": ["untere Schätzung", "obere Schätzung"],
+        "labels": ["Live-Streaming 2026", "Live-Streaming 2030", "Creator Economy 2026", "davon Live (≈ 14 %)"],
+        "low": [97, 250, 216, 30],
+        "high": [157, 345, 260, 36]
+      },
+      "cards": [
+        ["TAM", "Live-Streaming-Markt [Quelle 1, 2]", "97–157 Mrd. USD (2026) → 250–345 Mrd. USD (2030), CAGR ~27 %"],
+        ["SAM", "Live-Creator-Tools · Schätzung", "1–3 Mrd. USD – abgeleitet aus Streamlabs-/StreamYard-/Voicemod-Preisen × aktive Live-Creator"],
+        ["SOM", "Jahr 3 · Schätzung", "5.000–15.000 zahlende Pro-Nutzer × 9,99 €/Monat ≈ 0,6–1,8 Mio. € ARR (wie Businessplan; DACH + Türkei + EN-Nische)"]
+      ],
+      "adjacentTitle": "Angrenzende Märkte der Vision (Folien 12–15)",
+      "adjacent": [
+        ["3,67 Mrd. USD", "KI-Videogenerierung und -schnitt 2026 [Quelle 23]"],
+        ["1,54 Mrd. USD", "Sprachlern-Apps, In-App-Umsatz 2025 [Quelle 33]"],
+        ["2,68 Mrd. USD", "Videoschnitt-Software 2026 [Quelle 51]"],
+        ["374 Mio. €", "Hörbuchmarkt Deutschland 2025, +13 % [Quelle 19]"]
+      ],
+      "sources": "Quellen: QUELLEN.md [Quelle 1–4, 19, 23, 33, 51] · SAM/SOM sind eigene Schätzungen, keine Studie.",
+      "notes": "Ehrlich sagen: TAM ist Sekundärquelle mit großer Spanne; SAM und SOM sind unsere Schätzung, keine Studie. Der Punkt ist nicht die genaue Zahl, sondern: Schon ein kleiner Anteil zahlender Live-Creator trägt ein Team – und der eigentliche Hebel ist die Plattform-Integration, nicht das Abo. Unten neu: Die Vision öffnet angrenzende Märkte – KI-Video 3,67 Mrd. USD [Quelle 23], Sprachlern-Apps 1,54 Mrd. USD [Quelle 33], Videoschnitt 2,68 Mrd. USD [Quelle 51], Hörbuch DE 374 Mio. € [Quelle 19]. Die rechnen wir nicht in den SOM ein. Der SOM entspricht dem Businessplan (Kapitel 6): 5.000–15.000 zahlende Nutzer im Jahr 3; das Basis-Szenario rechnet mit Ø 7.500 Pro-Nutzern."
+    },
+    {
+      "layout": "model",
+      "kicker": "Free → Pro → Packs → B2B",
+      "title": "Geschäftsmodell",
+      "tiers": [
+        ["Free", "0 €", "Kernfunktionen, Standard-Pakete, OBS-Overlay. Verbreitung und Community."],
+        ["Pro", "9,99 €/Monat", "KI-Modus, alle Szenen und Themes, Handy-Fernbedienung, Cloud-Sync, Priorität-Support."],
+        ["Creator-Packs", "70 / 30", "Marktplatz für Meme- und Story-Pakete von Creatorn für Creator. Nutzer werden Lieferanten."],
+        ["B2B-Lizenz", "auf Anfrage", "SDK / White-Label für Streaming-Software, Agenturen, Plattform-Integration."]
+      ],
+      "anchorTitle": "Preis-Anker im Markt",
+      "anchorText": "Streamlabs Ultra 27 USD/Monat  ·  StreamYard Core 35 USD/Monat  ·  Restream 16 USD/Monat  ·  Voicemod Pro 10 USD/Monat [Quelle 11, 12, 13]\nPro liegt bewusst auf Voicemod-Niveau und deutlich unter Streamlabs. Vision (Schätzung): Pro+ „Studio & Szenen“ 14,99 €, WortBild Familie 4,99 €, Schul- und Verlagslizenzen – siehe Folien 13–15.",
+      "notes": "9,99 € liegt bewusst unter Streamlabs Ultra und auf Voicemod-Niveau – Creator kennen diesen Preispunkt. Der Marktplatz macht aus Nutzern Lieferanten: Wer ein türkisches Meme-Paket baut, verkauft es. B2B ist der Weg zur Plattform: dieselbe Engine läuft als Browser-Quelle in TikTok LIVE Studio. Die Vision ergänzt Pro+ und Bildungslizenzen – alle Preise dort sind Schätzungen."
+    },
+    {
+      "layout": "traction",
+      "kicker": "Aus echten Streams gereift",
+      "title": "Traction",
+      "stats": [
+        ["[Zahl]", "eigene Live-Streams mit LiveFX seit [Monat/Jahr] – [Zahl] Stunden"],
+        ["2.0", "aktuelle Version (Releases 0.1 → 2.0), 240+ automatisierte Tests, Anleitungen DE/TR"],
+        ["238", "Trigger in 5 Paketen, 3 Story-Pakete, 38 Sounds, 13 Szenen – in 3 Sprachen"],
+        ["[Zahl]", "Follower · [Zahl] Creator auf der Warteliste · [Zahl] Downloads"]
+      ],
+      "practiceTitle": "Was aus der Praxis kam",
+      "practice": [
+        "Echo-Problem (Panel + OBS) → stumme Vorschau, Ton-Check-Karte",
+        "Dialekte („grass“ → krass, „helal olsn“) → Toleranz + Lernfunktion",
+        "TikTok-/IG-Chat verdeckt das untere Drittel → Hochkant-Safe-Zones",
+        "Vorlesen im Stream → Story-Modus mit Szenen und Atmosphäre"
+      ],
+      "next": "Nächste 60 Tage: 10 Creator-Tests TR/DE · Landingpage + Trailer · Community-Launch · erste Pro-Abos",
+      "notes": "Zahlen vor dem Termin eintragen – nur echte. Die Story: Das Produkt ist in echten Streams gereift (Echo-Problem, Dialekte, Hochkant-Safe-Zones kamen alle aus der Praxis). Jetzt geht es um die ersten 10 externen Creator und um messbare Watchtime-Effekte."
+    },
+    {
+      "layout": "competition",
+      "kicker": "2×2",
+      "title": "Wettbewerb – der leere Quadrant",
+      "quads": [
+        "Native Plattform-Effekte\nSticker-Gifting",
+        "Streamlabs / StreamElements\nAlerts bei Spenden & Follows",
+        "Voicemod · Soundboards\nStream Deck (Hotkey)",
+        "LiveFX"
+      ],
+      "onlyOne": "einziger Anbieter",
+      "axisX": ["manuell", "automatisch"],
+      "axisY": ["Zuschauer-gesteuert", "Sprach-gesteuert"],
+      "axisCaption": "Bedienung →",
+      "onlyTitle": "Nur bei LiveFX",
+      "only": [
+        "Reagiert auf das gesprochene Wort",
+        "Türkçe-Pakete (85 Trigger) + Story-Pakete",
+        "Story-Szenen mit Atmosphäre-Loops",
+        "Offene API für Zuschauer- & externe Trigger",
+        "Läuft lokal – keine Cloud, kein Login",
+        "Eigene Sounds – keine Copyright-Strikes"
+      ],
+      "notes": "Der rechte untere Quadrant ist leer – noch. Wer ihn besetzen könnte, sind die Plattformen selbst; deshalb reden wir mit ihnen. Streamlabs & Co. sind keine Gegner, sondern Hosts: LiveFX läuft als Browser-Quelle in jedem von ihnen."
+    },
+    {
+      "layout": "roadmap",
+      "kicker": "Nach Hebel sortiert",
+      "title": "Roadmap",
+      "milestones": [
+        ["Q4 2026", "Natives Mobile-SDK", "Effekte direkt in der Kamera-App statt nur OBS · Offline-Erkennung stabil · 10 Creator-Tests"],
+        ["Q1 2027", "Plattform-Integration", "TikTok LIVE Studio Plug-in / Instagram Live Producer · Installer · Marktplatz-Beta · Highlights finden"],
+        ["Q2 2027", "KI-Verstehen v2", "Stimmung, Kontext, Ironie · Multi-Trigger pro Satz · Pro-Abo · Live-Commerce-Trigger"],
+        ["Q3–Q4 2027", "Story-Engine", "Ganze Geschichten als Szenenfolge · prozedural gezeichnete Szenen (Erzählfilm) · zuschauer-gestiftete Effekte · Plattform-Pilot"]
+      ],
+      "footer": "Mobile-SDK löst das größte Problem (Handy-Streamer ohne OBS). Plattform-Integration ist der Ask dieses Decks. KI-Verstehen und Story-Engine sind die technische Differenzierung – und der Einstieg in die Vision 2027–2029.",
+      "notes": "Reihenfolge nach Hebel: Mobile-SDK löst das größte Problem (Handy-Streamer ohne OBS). Plattform-Integration ist der Ask dieses Decks. KI-Verstehen und Story-Engine sind unsere technische Differenzierung. Wichtig: Die Szenen werden prozedural gezeichnet, nicht von einer Video-KI generiert – das ist die Brücke zu den nächsten vier Folien."
+    },
+    {
+      "layout": "vision",
+      "section": "Vision 2027–2029",
+      "vision": true,
+      "kicker": "Die Vision",
+      "title": "Live-Video aus Worten: Du redest. Es wird Bild.",
+      "pipeline": [
+        ["🎙", "Stimme", "Mikro, Vorlesen oder eine fertige Videodatei"],
+        ["🧠", "Verstehen", "Lexikon DE/TR/EN, Dialekt-tolerant, KI optional"],
+        ["🎬", "Szene", "Weltzustand ≤ 1 KB, eine gemeinsame Zeitleiste"],
+        ["📺", "Video", "Im Browser gezeichnet, 60 fps, auf dem eigenen Gerät"]
+      ],
+      "lines": [
+        ["🌳", "Erzählfilm", "Aus jedem Satz wächst ein fortlaufender Bilderbuch-Film – unter oder neben dem Live-Bild."],
+        ["🍎", "WortBild", "Gesprochenes Wort → Bild, Wort in der Zielsprache und Aussprache. Lernen und Lesehilfe."],
+        ["🥽", "Räume", "Bühne, Klassenzimmer, Hörbuch mit Bildern, AR am Handy, VR und Display-Brille."],
+        ["✂", "Studio", "Live-Editor und Auto-Edit: Video rein, fertig geschnitten raus – ohne Upload."]
+      ],
+      "today": ["HEUTE", "Aus Stimme wird in unter einer Sekunde Meme, Sound oder Szene – in den eigenen Streams des Gründers im Einsatz."],
+      "tomorrow": ["MORGEN", "Aus Stimme wird ein Film, ein Wortbild mit Aussprache oder ein fertiger Clip – im Stream, in der Schule, auf der Bühne, in der Brille."],
+      "tagline": "Zeichnen statt generieren – mit dem Rechenbudget eines Untertitels, nicht eines Rechenzentrums.",
+      "notes": "Live-Untertitel haben gezeigt, dass Plattformen Sprache in Echtzeit verarbeiten wollen – kostenlos und auf Milliarden Geräten. Wir sind die nächste Stufe: Bild statt Text. Eine Engine, eine Zeitleiste, vier Linien: Erzählfilm, WortBild, Räume, Studio. Alles läuft im Browser auf dem eigenen Gerät: Ein Satz wird zu einem Zustands-Delta von wenigen hundert Byte, gezeichnet in einem Canvas. Kein Video-Diffusionsmodell, kein GPU-Server. Ehrlich: Das ist Vision für 2027–2029 – deshalb das Badge. Grundlage ist der Code, der heute schon läuft (Story-Modus, Effekt-Engine, Offline-Erkennung). WebGPU ist inzwischen in allen großen Browsern verfügbar [Quelle 27] – wir nutzen es nur optional."
+    },
+    {
+      "layout": "sceneEngine",
+      "vision": true,
+      "kicker": "Linie A · Erzählfilm",
+      "title": "Generative Scene Engine: Live-Video aus Worten",
+      "scene": {
+        "transcript": "„Es war Nacht … ein Mädchen ging in den Wald … es begann zu regnen … plötzlich ein Drache!“",
+        "atmo": "🌧 Atmo: Regen",
+        "state": "{ort: \"wald\", zeit: \"nacht\", wetter: \"regen\", figuren: [👧, 🐉], stimmung: \"spannend\"}"
+      },
+      "cost": {
+        "title": "Kosten pro Stunde Begleitvideo",
+        "scale": "logarithmische Skala · Video-KI nach Listenpreis 0,05–0,75 USD/s [Quelle 24, 25] · KI-Kosten LiveFX: Projektmessung",
+        "bars": [
+          { "label": "Video-KI", "from": 180, "to": 2700, "value": "180–2.700 USD" },
+          { "label": "LiveFX mit Text-KI", "from": 0.25, "to": 0.75, "value": "0,25–0,75 USD" },
+          { "label": "LiveFX ohne KI", "from": 0, "to": 0, "value": "0 €" }
+        ]
+      },
+      "rolesTitle": "Jeder Satz verändert den Weltzustand:",
+      "roles": ["Ort", "Zeit", "Wetter", "Figur", "Objekt", "Aktion", "Stimmung"],
+      "bullets": [
+        "Die Streamerin liest vor oder erzählt – darunter entsteht Satz für Satz ein animierter Film: Nacht, Wald, Regen, Drache.",
+        "Läuft mit 60 fps im Browser neben OBS, offline und deterministisch: gleiche Zeitleiste, gleiches Bild – jede Erzählung wird sofort zum Clip.",
+        "240- bis über 10.000-mal günstiger als Video-KI – und live überhaupt erst möglich.",
+        "Für Vorlese-, Hörbuch- und Podcast-Formate: Hörbuch DE 374 Mio. €, +13 % [Quelle 19]; YouTube > 1 Mrd. Podcast-Zuschauer pro Monat [Quelle 21]."
+      ],
+      "honest": ["Bewusst Bilderbuch, kein Fotorealismus", "Stilisierte Welt aus Emoji/SVG und Partikeln – gerade deshalb live, billig und kinderfreundlich. Optionale KI wählt nur die Szene, sie erzeugt keine Bilder."],
+      "notes": "So sieht es aus: Die Streamerin tut nichts außer reden. „Es war Nacht“ – der Himmel wird dunkel. „Ein Mädchen ging in den Wald“ – Bäume wachsen, die Figur läuft ein. „Es begann zu regnen“ – Regen, Atmosphäre-Loop wechselt. „Plötzlich ein Drache“ – Blitz, Kamera-Ruck, Drache. Technisch: Ein Satz erzeugt ein Delta von 200–500 Byte, Szenen wechseln 1- bis 3-mal pro Minute, gezeichnet wird in einem Canvas mit höchstens 1.200 Partikeln – dieses Budget hält unsere Effekt-Engine schon heute neben OBS. Kosten: Video-KI kostet nach Listenpreis 0,05 USD (Veo 3.1 Lite, 720p) bis 0,75 USD pro Sekunde [Quelle 24, 25], also 180–2.700 USD pro Stunde, und live geht es gar nicht. LiveFX: 0 € ohne KI, 0,25–0,75 USD pro Stunde mit optionaler Text-KI. Markt: Hörbuch DE 374 Mio. € [Quelle 19], 23,8 Mio. Menschen hören wöchentlich Podcasts [Quelle 20], YouTube über 1 Mrd. Podcast-Zuschauer [Quelle 21]; KI-Video wächst von 3,67 auf 24,89 Mrd. USD bis 2036 [Quelle 23]. Zeitplan: MVP Deutsch Q2 2027, TR/EN und Welten-Packs Q3 2027. Erster Verlags-Fall: die eigene Kinderbuchreihe."
+    },
+    {
+      "layout": "wordImage",
+      "vision": true,
+      "kicker": "Linie B · WortBild",
+      "title": "Sprachenlernen & Bildung: jedes Wort ein Bild",
+      "card": {
+        "emoji": "🍎",
+        "word": "elma",
+        "syllables": "el · ma",
+        "other": ["apple", "der Apfel"],
+        "speak": "„elma“ – tr-TR",
+        "langs": ["DE", "TR", "EN"]
+      },
+      "modesTitle": "Drei Modi",
+      "modes": ["Übersetzen", "Lesehilfe", "Nachsprechen"],
+      "bullets": [
+        "Ein Kind sagt „Apfel“ – sofort: 🍎, „elma“ in der Zielsprache, „der Apfel“ mit farbigem Artikel und die Aussprache. Ohne Klick.",
+        "Lesehilfe in der eigenen Sprache: für Kinder vor dem Lesealter, DaZ, Integrationskurse und neurodiverse Lernende.",
+        "Lokal, ohne Konto, offline – Schul-Datenschutz als Verkaufsargument. Aussprache über die Systemstimmen des Geräts [Quelle 29]."
+      ],
+      "stats": [
+        ["12,7 Mio.", "zahlende Duolingo-Abonnenten, Q2 2026 [Quelle 32]"],
+        ["307.000", "neue Teilnehmende in Integrationskursen 2025 [Quelle 36]"],
+        ["5 Mrd. €", "DigitalPakt 2.0 über fünf Jahre, Start 1.9.2026 [Quelle 40]"]
+      ],
+      "revenue": "Erlöse (Schätzung): WortBild Familie 4,99 €/Monat · Schullizenz 300–800 €/Jahr · Kurslizenz 49 € pro Lehrkraft und Jahr · Verlags-Edition für zweisprachige Bücher",
+      "notes": "Der persönlichste Teil: Ich schreibe Kinderbücher über Neurodiversität, und ich bin deutsch-türkisch. Die Lehrkraft stellt drei Dinge ein – „Ich spreche: Deutsch“, „Zeige: Türkçe“, Modus – und liest vor. Jedes Wort aus der Lernliste wird zu Bild, Wort und Aussprache. Nachsprechen ist bewusst keine Aussprachebewertung, sondern ein grüner Haken. Technik: Wort → Bild ist ein Tabellen-Lookup, die Aussprache liefert das Betriebssystem (speechSynthesis) [Quelle 29], ein Schul-Tablet reicht, Serverkosten pro Kind: null. Markt: Duolingo 58,7 Mio. tägliche Nutzer und 12,7 Mio. Zahlende [Quelle 32], Sprachlern-Apps 1,54 Mrd. USD In-App [Quelle 33], 20,4 % der Schüler:innen unter 16 sprechen zu Hause vorwiegend eine andere Sprache [Quelle 37], 2,65 Mio. Menschen mit Einwanderungsgeschichte aus der Türkei [Quelle 38], 25 % der Viertklässler unter dem Lese-Mindeststandard [Quelle 39]. Preis-Anker: ANTON-Schullizenz 250–700 € [Quelle 41]. Ehrlich: Der Integrationsbereich ist in Euro klein, er bringt Glaubwürdigkeit und Förderung; das Volumen liegt bei Familien, Verlagen und Plattformen. Wir sagen „unterstützt Vokabellernen“, nicht „doppelt so schnell“."
+    },
+    {
+      "layout": "studio",
+      "vision": true,
+      "kicker": "Linien D + C · Studio und Räume",
+      "title": "Auto-Edit, Editor, VR/AR – und ein größerer Markt",
+      "studioTitle": "LiveFX Studio: Live-Schnitt und Auto-Edit",
+      "studioItems": [
+        ["Live → Highlights", "Nach dem Stream 3–5 Clips im Format 9:16 – dort, wo Memes, Geschenke und Chat am dichtesten waren. Ohne Upload."],
+        ["Datei rein → fertig raus", "Video ziehen → lokales Transkript → Effekte, Szenen, Schnitte als Chips → MP4 per Hardware-Encoder [Quelle 57, 59]."]
+      ],
+      "timeline": {
+        "file": "🎞 Video.mp4\n„Höre zu … (lokal)“",
+        "legend": ["Meme", "Szene", "Zoom", "Schnitt"]
+      },
+      "roomsTitle": "LiveFX Räume: ein Zustand, viele Bildschirme",
+      "rooms": [
+        ["🎤 Bühne & Events", "geht heute", "now"],
+        ["🏫 Klassenzimmer", "geht heute", "now"],
+        ["🎧 Hörbuch mit Bildern", "2027", "soon"],
+        ["📱 AR am Handy", "2027", "soon"],
+        ["🥽 WebXR / VR", "Vision 2028", "vision"],
+        ["👓 Display-Brille", "Vision 2028", "vision"]
+      ],
+      "market": {
+        "title": "Erweiterter Markt",
+        "header": ["Segment", "Größe"],
+        "rows": [
+          ["Videoschnitt-Software 2026", "2,68 Mrd. USD [Quelle 51]"],
+          ["KI-Video (Generierung + Schnitt) 2026", "3,67 Mrd. USD [Quelle 23]"],
+          ["Sprachlern-Apps (In-App) 2025", "1,54 Mrd. USD [Quelle 33]"],
+          ["Hörbuch Deutschland 2025", "374 Mio. € [Quelle 19]"],
+          ["Smart Glasses 2026", "13,6 Mio. Geräte / 5,1 Mrd. USD [Quelle 45]"],
+          ["Live-Streaming (Kern) 2026", "97–157 Mrd. USD [Quelle 1, 2]"]
+        ],
+        "note": "Preis-Anker: OpusClip 15–29 USD, Descript 16–65 USD pro Monat [Quelle 54, 55]. LiveFX Pro+ 14,99 € (Schätzung) – ohne Cloud-Kosten, ohne Minutenlimit. XR und Brille: Schaufenster, keine Umsatzlinie."
+      },
+      "notes": "Zwei Türen in dasselbe Werkzeug. Erstens Live → Highlights: Unser Server kennt schon heute jeden Trigger, jedes Geschenk, jede Chat-Nachricht mit Zeitstempel – daraus werden 3–5 Clips pro Stream. Zweitens Auto-Edit: Eine 20-Minuten-MP4 wird ins Fenster gezogen, Whisper transkribiert lokal im Browser [Quelle 60], LiveFX setzt Effekte, Szenen und Schnitte als verschiebbare Chips, der Export läuft über WebCodecs und den Hardware-Encoder des Geräts [Quelle 57, 58, 59]. Die Datei verlässt den Rechner nie, die Grenzkosten pro Video liegen bei null. Räume: Bühne und Klassenzimmer gehen heute schon (Vollbild, Handy als Regie). Hörbuch mit Bildern und AR am Handy kommen 2027. WebXR [Quelle 47, 48] und Display-Brillen wie Meta Ray-Ban Display [Quelle 46] sind Vision – IDC erwartet 2026 13,6 Mio. Smart Glasses [Quelle 45], Display-Brillen sind davon nur ein kleiner Teil. Wettbewerb ehrlich: CapCut hat 736 Mio. MAU [Quelle 52]; wir treten nicht als Universal-Editor an, sondern über Sprache → Effekt, Szenen, TR/DE und lokale Verarbeitung. Käufer-Signal: Canva kaufte 2026 Cavalry und MangoAI [Quelle 56]."
+    },
+    {
+      "layout": "team",
+      "section": "Team und Ask",
+      "kicker": "Gründer, Erfinder, Nutzer",
+      "title": "Team",
+      "photo": "TS",
+      "name": "Tuncay Sancak",
+      "role": "Gründer & Erfinder · Geschäftsführer · deutsch-türkischer Autor & Live-Streamer",
+      "bullets": [
+        "Produkt, Inhalte, Community – und die eigenen Streams als Testlabor",
+        "Meme- und Story-Pakete in TR / DE / EN aus erster Hand",
+        "Kinderbuchreihe zu Neurodiversität – Brücke zu WortBild und Erzählfilm",
+        "Bücher: [Titel] · Streams: [Plattform / @handle] · [E-Mail]"
+      ],
+      "second": {"initials": "GD", "name": "Gönül Demet", "role": "Investor Relations", "text": "Ansprechpartnerin für Investoren und die Pre-Seed-Runde"},
+      "open": [
+        ["[Position offen] – Tech-Lead", "Audio / Realtime, Mobile-SDK, Canvas/WebGPU"],
+        ["[Position offen] – Creator-Partnerschaften", "Growth TR + DACH, Creator-Programm, Bildungsvertrieb"],
+        ["Beirat / Partner", "Gesucht: Creator-Management TR · Ex-Produktverantwortung „Live“ einer Plattform · Edtech/Didaktik"]
+      ],
+      "notes": "Der Gründer ist Nutzer, Content-Lieferant und Produktverantwortlicher in einer Person – das ist der Grund, warum das Produkt in Dialekten, Hochkant und Türkçe funktioniert. Und als Kinderbuchautor bringt er den ersten Verlags- und Bildungsfall selbst mit. Gönül Demet verantwortet Investor Relations und ist Ansprechpartnerin für die Pre-Seed-Runde. Mit dem Pre-Seed (500.000 €) kommen zwei Hires; für WortBild holen wir fachliche Prüfung über einen Edtech-Beirat."
+    },
+    {
+      "layout": "ask",
+      "kicker": "Der Ask",
+      "title": "Lasst uns Live-Streams zuhören lassen.",
+      "cards": [
+        ["Pilot Plattform", "LiveFX als Feature in TikTok LIVE Studio, Instagram Live Producer oder YouTube Live. Browser-Quelle läuft heute. 8 Wochen, 20 Creator, gemessene Watchtime, Gifts und Clips."],
+        ["Pilot Bildung & Sprachen", "Bildungsträger, Integrationskurse, Schulen, Sprachlern-Plattformen und Verlage: WortBild und Erzählfilm in [Zahl] Kursen/Klassen bzw. mit [Zahl] Titeln testen."],
+        ["Partner", "Streaming-Software (OBS-Plug-in, Streamlabs), Creator-Agenturen TR / DACH, Audio- und ASR-Anbieter, Editor-Anbieter (Studio-SDK)."],
+        ["Pre-Seed: 500.000 €", "Für LiveFX 2.0 und die Vision-Linien A–D (zuerst WortBild und Story-Engine), 24 Monate. Parallel offen für Übernahme-Gespräche (Technologie + Team)."]
+      ],
+      "funds": {"title": "500.000 € Pre-Seed · 24 Monate · Mittelverwendung – Vorschlag – bitte bestätigen", "items": [["Produkt & Engineering", "250 T€ · 50 %", 50], ["Vision-Linien A–D", "100 T€ · 20 %", 20], ["Go-to-Market & Piloten", "75 T€ · 15 %", 15], ["Recht, Marke, Datenschutz", "50 T€ · 10 %", 10], ["Reserve", "25 T€ · 5 %", 5]]},
+      "contact": "Tuncay Sancak, Gründer & Geschäftsführer   ·   Investor Relations: Gönül Demet   ·   [E-Mail]   ·   Demo: [Link]",
+      "altNote": "Dieses Deck gibt es auch auf Türkisch und Englisch: LiveFX_Pitch_TR.pptx · LiveFX_Pitch_EN.pptx",
+      "notes": "Konkret enden: Was wir brauchen, ist ein Ansprechpartner im Live-Team und ein 8-Wochen-Pilot mit 20 Creatorn. Wir liefern Overlay, Pakete, Support und die Messung (Watchtime, Gifts, Clips aus Lives). Neu: Für WortBild und Erzählfilm suchen wir einen zweiten Pilot mit Bildungsträgern, Sprachlern-Plattformen oder Verlagen – der erste Verlagsfall ist die eigene Kinderbuchreihe. Zur Runde: 500.000 € Pre-Seed für LiveFX und alle Projekte, 24 Monate. Mittelverwendung als Vorschlag: Team 250 T€, Vision-Linien 100 T€ (zuerst WortBild/Sprachenlernen und Story-Engine), Go-to-Market 75 T€, Recht/Marke/Datenschutz 50 T€, Reserve 25 T€. Ohne jeden Umsatz reicht das rund 22 Monate; das konservative Szenario ist über drei Jahre gedeckt (Businessplan 11.6). Ansprechpartnerin für Investoren: Gönül Demet. Das Deck gibt es auch auf Türkisch und Englisch."
+    }
+  ]
+}

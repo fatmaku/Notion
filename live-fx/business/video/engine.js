@@ -7,6 +7,116 @@ const RATIO = Q.get('ratio') === '16x9' ? '16x9' : '9x16';
 const P = RATIO === '9x16';
 const W = P ? 1080 : 1920, H = P ? 1920 : 1080;
 const DUR = 50;
+/* ?lang=de (default) | tr | en – every on-screen text lives in STR; de reproduces the original trailer frame for frame. */
+const LANG = ['tr', 'en'].includes(Q.get('lang')) ? Q.get('lang') : 'de';
+if (LANG !== 'de') document.documentElement.lang = LANG;
+
+const STR = {
+  de: {
+    hookA: 'Live-Untertitel?', hookB: 'Wir machen', hookC: 'LIVE-MEMES.', hookD: '',
+    s1Label: 'Du sagst es – es passiert.',
+    s1: [
+      { lang: 'Deutsch', text: [{ t: 'das ist ' }, { t: 'krass', kw: 1 }, { t: ' …' }], em: '🤯', tt: 'KRASS!', snd: '🔊 Airhorn' },
+      { lang: 'Türkçe', text: [{ t: 'yok artık', kw: 1 }, { t: '!' }], em: '😱', tt: 'YOK ARTIK!', snd: '🔊 Vine-Boom' },
+      { lang: 'English', text: [{ t: "let's go", kw: 1 }], em: '🚀', tt: "LET'S GO", snd: '🔊 Whoosh' },
+    ],
+    s1Big: "LET'S GO!",
+    s2Title: '3 Sprachen.<br><span class="green">Automatisch.</span>',
+    s2Count: '<b>0</b> Memes im Paket',
+    s2Ex: ['„krass!“ · „oh nein“ · „bruh“', '„yok artık!“ · „ohaa“ · „helal olsun“', '„no way!“ · „let’s go“ · „lol“'],
+    s2Sub: 'Die Sprache wird beim Reden erkannt – kein Umschalten.',
+    s2Gif: '🔎 GIF-Suche: Tenor · Giphy', s2Own: '⬆️ Eigene Memes &amp; Sounds',
+    s3Label: '📖 Story-Modus: Vorlesen wird zur Szene',
+    s3Amb1: '🌧️ Atmo: Regen', s3Amb2: '🦗 Atmo: Grillen · Nachtwind',
+    s3Cap: 'Echte Szene aus dem LiveFX-Overlay',
+    s3: [
+      { lang: 'Deutsch', text: [{ t: 'Es ' }, { t: 'regnete', kw: 1 }, { t: ' in der ' }, { t: 'Nacht', kw: 1 }, { t: '…' }], st: 'Es regnete<br>in der Nacht…' },
+      { lang: 'Türkçe', text: [{ t: 'bir varmış bir yokmuş', kw: 1 }, { t: '…' }], st: 'Bir varmış,<br>bir yokmuş…' },
+    ],
+    s4Label: 'Zuschauer machen mit.',
+    s4Tiers: [['1 Gift', '🙂 Sticker'], ['10 Gifts', '😱 Emoji-Regen'], ['100 Gifts', '🏰 Vollbild-Szene']],
+    s4Sub: 'Chat-Befehle (Twitch · YouTube) &amp; Geschenke-Stufen (TikTok via Webhook)',
+    s5Title: 'Überall, wo du <span class="pink">live</span> gehst.',
+    s5Cap0: 'Control Panel – spricht, hört zu, zeigt', s5CapA: 'Control Panel – hört zu, erkennt, zeigt', s5CapB: 'Overlay in OBS – Browser-Quelle, sofort live',
+    s5Feats: ['📱 Handy als Fernbedienung', '🎨 4 Looks (Neon, Pastell, Minimal …)', '✈️ Läuft komplett offline', '🔊 Sounds ohne Lizenz-Risiko'],
+    s6Tag: 'Deine Stimme<br>wird zum Effekt.',
+    s6Pilot: 'Pilot-Partner gesucht:',
+    s6Foot: 'Open Source · OBS-ready · Deutsch / Türkçe / English',
+    sz: {},
+  },
+  tr: {
+    hookA: 'Canlı altyazı mı?', hookB: 'Biz', hookC: 'CANLI MEME', hookD: 'yapıyoruz.',
+    s1Label: 'Sen söylersin – olur.',
+    s1: [
+      { lang: 'Türkçe', text: [{ t: 'bu çok fena … ' }, { t: 'efsane', kw: 1 }, { t: '!' }], em: '🏆', tt: 'EFSANE!', snd: '🔊 Airhorn' },
+      { lang: 'Türkçe', text: [{ t: 'yok artık', kw: 1 }, { t: '!' }], em: '😱', tt: 'YOK ARTIK!', snd: '🔊 Vine-Boom' },
+      { lang: 'Türkçe', text: [{ t: 'hadi bakalım', kw: 1 }, { t: '!' }], em: '🚀', tt: 'HADİ BAKALIM', snd: '🔊 Whoosh' },
+    ],
+    s1Big: 'HADİ BAKALIM!',
+    s2Title: '3 dil.<br><span class="green">Otomatik.</span>',
+    s2Count: 'Pakette <b>0</b> meme',
+    s2Ex: ['“krass!” · “oh nein” · “bruh”', '“yok artık!” · “ohaa” · “efsane”', '“no way!” · “let’s go” · “lol”'],
+    s2Sub: 'Dil, sen konuşurken kendiliğinden tanınır.',
+    s2Gif: '🔎 GIF arama: Tenor · Giphy', s2Own: '⬆️ Kendi meme ve seslerin',
+    s3Label: '📖 Hikâye modu: Okudukların sahneye dönüşür',
+    s3Amb1: '🌧️ Ortam sesi: Yağmur', s3Amb2: '🦗 Ortam sesi: Cırcır böceği · Gece rüzgârı',
+    s3Cap: 'LiveFX katmanından gerçek bir sahne',
+    s3: [
+      { lang: 'Türkçe', text: [{ t: 'Gece', kw: 1 }, { t: ' ' }, { t: 'yağmur yağıyordu', kw: 1 }, { t: '…' }], st: 'Gece yağmur<br>yağıyordu…' },
+      { lang: 'Türkçe', text: [{ t: 'bir varmış bir yokmuş', kw: 1 }, { t: '…' }], st: 'Bir varmış,<br>bir yokmuş…' },
+    ],
+    s4Label: 'İzleyiciler de oyunda.',
+    s4Tiers: [['1 hediye', '🙂 Çıkartma'], ['10 hediye', '😱 Emoji yağmuru'], ['100 hediye', '🏰 Tam ekran sahne']],
+    s4Sub: 'Sohbet komutları (Twitch · YouTube) ve hediye seviyeleri (TikTok, webhook ile)',
+    s5Title: '<span class="pink">Canlı</span> yayın nerede, LiveFX orada.',
+    s5Cap0: 'Kontrol paneli – dinler, tanır, gösterir', s5CapA: 'Kontrol paneli – dinler, tanır, gösterir', s5CapB: 'OBS’te katman – tarayıcı kaynağı, anında yayında',
+    s5Feats: ['📱 Telefonun uzaktan kumanda olur', '🎨 4 tema (Neon, Pastel, Minimal …)', '✈️ Tamamen çevrimdışı çalışır', '🔊 Lisans derdi olmayan sesler'],
+    s6Tag: 'Sesin<br>efekte dönüşür.',
+    s6Pilot: 'Pilot ortaklar arıyoruz:',
+    s6Foot: 'Açık kaynak · OBS’e hazır · Deutsch / Türkçe / English',
+    sz: { hookC: [128, 190], s1Big: [118, 150], s3Label: 34, s3Amb: 30, s4Tier: 32, s4TierMin: 160, s2Ex: 34 },
+  },
+  en: {
+    hookA: 'Live captions?', hookB: 'We do', hookC: 'LIVE MEMES.', hookD: '',
+    s1Label: 'You say it – it happens.',
+    s1: [
+      { lang: 'English', text: [{ t: "that's insane … " }, { t: 'wild', kw: 1 }, { t: '!' }], em: '🤯', tt: 'WILD!', snd: '🔊 Airhorn' },
+      { lang: 'English', text: [{ t: 'oh my god', kw: 1 }, { t: '!' }], em: '😱', tt: 'OMG', snd: '🔊 Scratch' },
+      { lang: 'English', text: [{ t: "let's go", kw: 1 }, { t: '!' }], em: '🚀', tt: "LET'S GO", snd: '🔊 Whoosh' },
+    ],
+    s1Big: "LET'S GO!",
+    s2Title: '3 languages.<br><span class="green">Automatic.</span>',
+    s2Count: '<b>0</b> memes in the pack',
+    s2Ex: ['“krass!” · “oh nein” · “bruh”', '“yok artık!” · “ohaa” · “efsane”', '“no way!” · “let’s go” · “lol”'],
+    s2Sub: 'The language is detected while you talk – no switching.',
+    s2Gif: '🔎 GIF search: Tenor · Giphy', s2Own: '⬆️ Your own memes &amp; sounds',
+    s3Label: '📖 Story mode: reading aloud becomes a scene',
+    s3Amb1: '🌧️ Ambience: rain', s3Amb2: '🦗 Ambience: crickets · night wind',
+    s3Cap: 'Real scene from the LiveFX overlay',
+    s3: [
+      { lang: 'English', text: [{ t: 'It was ' }, { t: 'raining', kw: 1 }, { t: ' at ' }, { t: 'night', kw: 1 }, { t: '…' }], st: 'It was raining<br>at night…' },
+      { lang: 'English', text: [{ t: 'once upon a time', kw: 1 }, { t: '…' }], st: 'Once upon<br>a time…' },
+    ],
+    s4Label: 'Viewers join in.',
+    s4Tiers: [['1 gift', '🙂 Sticker'], ['10 gifts', '😱 Emoji rain'], ['100 gifts', '🏰 Full-screen scene']],
+    s4Sub: 'Chat commands (Twitch · YouTube) &amp; gift tiers (TikTok via webhook)',
+    s5Title: 'Wherever you go <span class="pink">live</span>.',
+    s5Cap0: 'Control panel – listens, recognises, shows', s5CapA: 'Control panel – listens, recognises, shows', s5CapB: 'Overlay in OBS – browser source, live instantly',
+    s5Feats: ['📱 Your phone as a remote', '🎨 4 looks (Neon, Pastel, Minimal …)', '✈️ Runs fully offline', '🔊 Sounds with no licensing risk'],
+    s6Tag: 'Your voice<br>becomes the effect.',
+    s6Pilot: 'Looking for pilot partners:',
+    s6Foot: 'Open source · OBS-ready · Deutsch / Türkçe / English',
+    sz: { s3Label: 36, s2Ex: 34, s4Tier: 34, s4TierMin: 150 },
+  },
+};
+const T = STR[LANG];
+/* Overlay screenshots: assets/<name>.<lang>.jpg where a localized shot exists (shot from the real overlay in that
+   language), otherwise the German original. The control panel has no localized UI yet, so panel.jpg stays German. */
+const LOC_ASSETS = { tr: ['overlay-story', 'overlay-card'], en: ['overlay-story', 'overlay-card'] };
+const asset = (name) => 'assets/' + name + ((LOC_ASSETS[LANG] || []).includes(name) ? '.' + LANG : '') + '.jpg';
+const img = (name, attrs = '') => '<img src="' + asset(name) + '" data-fallback="assets/' + name + '.jpg"' + (attrs ? ' ' + attrs : '') + '>';
+/* per-language size override: sz(key, default9x16, default16x9) – arrays in T.sz are [9x16, 16x9] */
+const sz = (k, dp, dl = dp) => { const v = T.sz[k]; return v == null ? (P ? dp : dl) : Array.isArray(v) ? v[P ? 0 : 1] : v; };
 
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, p) => a + (b - a) * p;
@@ -135,9 +245,10 @@ function stars(t, amt, n = 160) {
 /* ======================= SCENE 0 (0–4): hook ======================= */
 const topY = P ? H * .085 : H * .09, barY = P ? H * .78 : H * .80, midY = P ? H * .46 : H * .47;
 scene(0, 4.2, (s) => {
-  const a = el(s, 'abs c big', 'Live-Untertitel? <span style="font-family:' + EMOJI_FONT + '">🙄</span>', { top: (H * .42) + 'px', fontSize: (P ? 88 : 96) + 'px', color: '#9aa3b8' });
-  const b = el(s, 'abs c big', 'Wir machen', { top: (P ? H * .36 : H * .33) + 'px', fontSize: (P ? 86 : 92) + 'px' });
-  const c = el(s, 'abs c big neon', 'LIVE-MEMES.', { top: (P ? H * .43 : H * .44) + 'px', fontSize: (P ? 150 : 200) + 'px', letterSpacing: '.02em' });
+  const a = el(s, 'abs c big', T.hookA + ' <span style="font-family:' + EMOJI_FONT + '">🙄</span>', { top: (H * .42) + 'px', fontSize: (P ? 88 : 96) + 'px', color: '#9aa3b8' });
+  const b = el(s, 'abs c big', T.hookB, { top: (P ? H * .36 : H * .33) + 'px', fontSize: (P ? 86 : 92) + 'px' });
+  const c = el(s, 'abs c big neon', T.hookC, { top: (P ? H * .43 : H * .44) + 'px', fontSize: sz('hookC', 150, 200) + 'px', letterSpacing: '.02em' });
+  const d = T.hookD ? el(s, 'abs c big', T.hookD, { top: (P ? H * .53 : H * .62) + 'px', fontSize: (P ? 86 : 92) + 'px' }) : null;
   return (t) => {
     const ap = pop(t, .4, .6), aOut = prog(t, 1.5, 1.9);
     show(a, t >= .35 && t < 1.95);
@@ -149,24 +260,25 @@ scene(0, 4.2, (s) => {
     const flick = t < 2.9 ? (hash(Math.floor(t * 40)) > .3 ? 1 : .25) : 1;
     c.style.opacity = prog(t, 2.1, 2.3) * flick;
     c.style.transform = `scale(${lerp(.7, 1, pop(t, 2.1, .55))})`;
+    if (d) { show(d, t >= 2.4); d.style.opacity = prog(t, 2.4, 2.7); d.style.transform = `translateY(${(1 - easeOut(prog(t, 2.4, 2.9))) * 40}px)`; }
   };
 });
 
 /* ================= SCENE 1 (4–14): Du sagst es – es passiert ================= */
 const S1 = { card: null };
 scene(4, 14.2, (s) => {
-  const lab = el(s, 'abs c', '<span class="label">Du sagst es – es passiert.</span>', { top: topY + 'px' });
+  const lab = el(s, 'abs c', '<span class="label">' + T.s1Label + '</span>', { top: topY + 'px' });
   const bar = mkBar(s, barY);
   const card = el(s, 'card', '<div class="em"></div><div class="tt"></div>');
   const em = card.querySelector('.em'), tt = card.querySelector('.tt');
   const snd = el(s, 'snd', '🔊 Airhorn', { left: '50%', top: (midY + 300) + 'px' });
   const rocket = el(s, 'rocket', '🚀');
-  const lg = el(s, 'abs c big neon-y', "LET'S GO!", { top: (P ? H * .30 : H * .28) + 'px', fontSize: (P ? 150 : 170) + 'px' });
+  const lg = el(s, 'abs c big neon-y', T.s1Big, { top: (P ? H * .30 : H * .28) + 'px', fontSize: sz('s1Big', 150, 170) + 'px' });
   const PH = [
-    { ta: 4.6, fire: 6.0, end: 7.7, lang: 'Deutsch', text: [{ t: 'das ist ' }, { t: 'krass', kw: 1 }, { t: ' …' }], em: '🤯', tt: 'KRASS!', snd: '🔊 Airhorn' },
-    { ta: 7.9, fire: 8.9, end: 10.8, lang: 'Türkçe', text: [{ t: 'yok artık', kw: 1 }, { t: '!' }], em: '😱', tt: 'YOK ARTIK!', snd: '🔊 Vine-Boom' },
-    { ta: 11.0, fire: 11.8, end: 14.2, lang: 'English', text: [{ t: "let's go", kw: 1 }], em: '🚀', tt: "LET'S GO", snd: '🔊 Whoosh' },
-  ];
+    { ta: 4.6, fire: 6.0, end: 7.7 },
+    { ta: 7.9, fire: 8.9, end: 10.8 },
+    { ta: 11.0, fire: 11.8, end: 14.2 },
+  ].map((p, i) => Object.assign(p, T.s1[i]));
   return (t) => {
     lab.style.opacity = prog(t, 4.1, 4.5); lab.style.transform = `scale(${lerp(.8, 1, pop(t, 4.1, .5))})`;
     const ph = PH.find((p) => t >= p.ta && t < p.end) || PH[2];
@@ -215,21 +327,22 @@ scene(4, 14.2, (s) => {
 
 /* ================= SCENE 2 (14–22): 3 Sprachen, automatisch ================= */
 scene(14, 22.2, (s) => {
-  const title = el(s, 'abs c big', '3 Sprachen.<br><span class="green">Automatisch.</span>', { top: (P ? H * .09 : H * .07) + 'px', fontSize: (P ? 100 : 104) + 'px' });
+  const title = el(s, 'abs c big', T.s2Title, { top: (P ? H * .09 : H * .07) + 'px', fontSize: (P ? 100 : 104) + 'px' });
   const L = [
-    { fl: '🇩🇪', nm: 'Deutsch', ex: '„krass!“ · „oh nein“ · „bruh“', n: 49 },
-    { fl: '🇹🇷', nm: 'Türkçe', ex: '„yok artık!“ · „ohaa“ · „helal olsun“', n: 85 },
-    { fl: '🇬🇧', nm: 'English', ex: '„no way!“ · „let’s go“ · „lol“', n: 50 },
+    { fl: '🇩🇪', nm: 'Deutsch', ex: T.s2Ex[0], n: 49 },
+    { fl: '🇹🇷', nm: 'Türkçe', ex: T.s2Ex[1], n: 85 },
+    { fl: '🇬🇧', nm: 'English', ex: T.s2Ex[2], n: 50 },
   ];
   const cardsW = 560, gap = P ? 28 : 60;
   const cards = L.map((l, i) => {
     const left = P ? (W - cardsW) / 2 : (W - 3 * cardsW - 2 * gap) / 2 + i * (cardsW + gap);
     const top = P ? H * .245 + i * (330 + gap) : H * .33;
-    const c = el(s, 'flagcard', `<div class="fl" style="font-family:${EMOJI_FONT}">${l.fl}</div><div class="nm">${l.nm}</div><div class="ex">${l.ex}</div><div class="ct"><b>0</b> Memes im Paket</div>`, { left: left + 'px', top: top + 'px' });
+    const c = el(s, 'flagcard', `<div class="fl" style="font-family:${EMOJI_FONT}">${l.fl}</div><div class="nm">${l.nm}</div><div class="ex">${l.ex}</div><div class="ct">${T.s2Count}</div>`, { left: left + 'px', top: top + 'px' });
+    if (T.sz.s2Ex) c.querySelector('.ex').style.fontSize = T.sz.s2Ex + 'px';
     return { el: c, ct: c.querySelector('.ct b'), n: l.n, at: 14.9 + i * .7 };
   });
-  const sub = el(s, 'abs c', 'Die Sprache wird beim Reden erkannt – kein Umschalten.', { top: (P ? H * .825 : H * .78) + 'px', fontSize: (P ? 40 : 44) + 'px', color: 'var(--mute)', padding: '0 80px', fontWeight: 500 });
-  const gif = el(s, 'abs c', '<span class="pill y">🔎 GIF-Suche: Tenor · Giphy</span> <span class="pill g">⬆️ Eigene Memes &amp; Sounds</span>', { top: (P ? H * .885 : H * .87) + 'px' });
+  const sub = el(s, 'abs c', T.s2Sub, { top: (P ? H * .825 : H * .78) + 'px', fontSize: (P ? 40 : 44) + 'px', color: 'var(--mute)', padding: '0 80px', fontWeight: 500 });
+  const gif = el(s, 'abs c', `<span class="pill y">${T.s2Gif}</span> <span class="pill g">${T.s2Own}</span>`, { top: (P ? H * .885 : H * .87) + 'px' });
   return (t) => {
     title.style.opacity = prog(t, 14.1, 14.5); title.style.transform = `translateY(${(1 - easeOut(prog(t, 14.1, 14.7))) * 50}px)`;
     cards.forEach((c) => {
@@ -258,17 +371,19 @@ scene(22, 30.2, (s) => {
     <rect x="432" y="60" width="4" height="30" fill="#ff2d75"/><path d="M436 60 L470 68 L436 78 Z" fill="#ff2d75"/>
     <rect x="572" y="60" width="4" height="30" fill="#2dffb5"/><path d="M576 60 L610 68 L576 78 Z" fill="#2dffb5"/></svg>`, {}); castle.id = 'castle';
   const wins = castle.querySelectorAll('.win rect');
-  const lab = el(s, 'abs c', '<span class="label">📖 Story-Modus: Vorlesen wird zur Szene</span>', { top: topY + 'px' });
+  const lab = el(s, 'abs c', '<span class="label">' + T.s3Label + '</span>', { top: topY + 'px' });
+  if (T.sz.s3Label) lab.firstChild.style.fontSize = T.sz.s3Label + 'px';
   const bar = mkBar(s, barY);
   const st = el(s, 'story-text', '');
   const ambPos = P ? { top: (topY + 130) + 'px' } : { top: (topY + 130) + 'px', right: 'auto', left: '60px' };
-  const amb1 = el(s, 'amb', '🌧️ Atmo: Regen', ambPos);
-  const amb2 = el(s, 'amb', '🦗 Atmo: Grillen · Nachtwind', ambPos);
-  const frame = el(s, 'frame', '<img src="assets/overlay-story.jpg"><div class="cap">Echte Szene aus dem LiveFX-Overlay</div>', P ? { width: '440px', height: '782px', left: (W / 2 - 220) + 'px', top: (H * .22) + 'px' } : { width: '394px', height: '700px', left: (W - 60 - 394) + 'px', top: (H * .16) + 'px' });
+  const amb1 = el(s, 'amb', T.s3Amb1, ambPos);
+  const amb2 = el(s, 'amb', T.s3Amb2, ambPos);
+  if (T.sz.s3Amb) amb1.style.fontSize = amb2.style.fontSize = T.sz.s3Amb + 'px';
+  const frame = el(s, 'frame', img('overlay-story') + '<div class="cap">' + T.s3Cap + '</div>', P ? { width: '440px', height: '782px', left: (W / 2 - 220) + 'px', top: (H * .22) + 'px' } : { width: '394px', height: '700px', left: (W - 60 - 394) + 'px', top: (H * .16) + 'px' });
   const PH = [
-    { ta: 22.5, fire: 24.2, end: 26.4, lang: 'Deutsch', text: [{ t: 'Es ' }, { t: 'regnete', kw: 1 }, { t: ' in der ' }, { t: 'Nacht', kw: 1 }, { t: '…' }], st: 'Es regnete<br>in der Nacht…' },
-    { ta: 26.4, fire: 27.8, end: 30.2, lang: 'Türkçe', text: [{ t: 'bir varmış bir yokmuş', kw: 1 }, { t: '…' }], st: 'Bir varmış,<br>bir yokmuş…' },
-  ];
+    { ta: 22.5, fire: 24.2, end: 26.4 },
+    { ta: 26.4, fire: 27.8, end: 30.2 },
+  ].map((p, i) => Object.assign(p, T.s3[i]));
   return (t) => {
     lab.style.opacity = prog(t, 22.1, 22.5) * (1 - prog(t, 28.3, 28.6)); lab.style.transform = `scale(${lerp(.8, 1, pop(t, 22.1, .5))})`;
     const ph = PH.find((p) => t >= p.ta && t < p.end) || PH[1];
@@ -295,7 +410,7 @@ scene(22, 30.2, (s) => {
 
 /* ================= SCENE 4 (30–38): Zuschauer machen mit ================= */
 scene(30, 38.2, (s) => {
-  const lab = el(s, 'abs c', '<span class="label">Zuschauer machen mit.</span>', { top: topY + 'px' });
+  const lab = el(s, 'abs c', '<span class="label">' + T.s4Label + '</span>', { top: topY + 'px' });
   const chatY = P ? H * .20 : H * .22;
   const chats = [
     { at: 30.6, html: '<b>mert_99</b>: <span class="cmd">!airhorn</span>', fx: '📣', snd: '🔊 Airhorn' },
@@ -305,11 +420,12 @@ scene(30, 38.2, (s) => {
   const fx = el(s, 'abs', '', { left: 0, right: 0, top: (P ? H * .42 : H * .30) + 'px', textAlign: 'center', fontSize: (P ? 300 : 260) + 'px', lineHeight: 1, fontFamily: EMOJI_FONT });
   const snd = el(s, 'snd', '', { left: '50%', top: (P ? H * .60 : H * .60) + 'px' });
   const tiers = [
-    { at: 35.2, g: '🎁', n: '1 Gift', e: '🙂 Sticker' },
-    { at: 35.8, g: '🎁🎁', n: '10 Gifts', e: '😱 Emoji-Regen' },
-    { at: 36.4, g: '🎁🎁🎁', n: '100 Gifts', e: '🏰 Vollbild-Szene' },
+    { at: 35.2, g: '🎁', n: T.s4Tiers[0][0], e: T.s4Tiers[0][1] },
+    { at: 35.8, g: '🎁🎁', n: T.s4Tiers[1][0], e: T.s4Tiers[1][1] },
+    { at: 36.4, g: '🎁🎁🎁', n: T.s4Tiers[2][0], e: T.s4Tiers[2][1] },
   ].map((c, i) => Object.assign(c, { el: el(s, 'tier', `<span class="g" style="font-family:${EMOJI_FONT}">${c.g}</span><span class="n">${c.n}</span><span class="arr">→</span><span>${c.e.slice(3)}</span><span class="e" style="font-family:${EMOJI_FONT}">${c.e.slice(0, 2)}</span>`, { top: ((P ? H * .62 : H * .60) + i * 110) + 'px', ...(P ? {} : { left: (W / 2 - 500) + 'px', right: 'auto', width: '1000px' }) }) }));
-  const sub = el(s, 'abs c', 'Chat-Befehle (Twitch · YouTube) &amp; Geschenke-Stufen (TikTok via Webhook)', { top: (P ? H * .88 : H * .91) + 'px', fontSize: '36px', color: 'var(--mute)', padding: '0 60px', fontWeight: 500 });
+  if (T.sz.s4Tier) tiers.forEach((c) => { c.el.style.fontSize = T.sz.s4Tier + 'px'; c.el.style.whiteSpace = 'nowrap'; c.el.querySelector('.n').style.minWidth = T.sz.s4TierMin + 'px'; });
+  const sub = el(s, 'abs c', T.s4Sub, { top: (P ? H * .88 : H * .91) + 'px', fontSize: '36px', color: 'var(--mute)', padding: '0 60px', fontWeight: 500 });
   return (t) => {
     lab.style.opacity = prog(t, 30.1, 30.5); lab.style.transform = `scale(${lerp(.8, 1, pop(t, 30.1, .5))})`;
     let active = null;
@@ -341,19 +457,19 @@ scene(30, 38.2, (s) => {
 
 /* ================= SCENE 5 (38–44): Überall ================= */
 scene(38, 44.2, (s) => {
-  const title = el(s, 'abs c big', 'Überall, wo du <span class="pink">live</span> gehst.', { top: (P ? H * .07 : H * .06) + 'px', fontSize: (P ? 80 : 86) + 'px', padding: '0 60px' });
+  const title = el(s, 'abs c big', T.s5Title, { top: (P ? H * .07 : H * .06) + 'px', fontSize: (P ? 80 : 86) + 'px', padding: '0 60px' });
   const fw = P ? 940 : 900, fh = Math.round(fw * 0.5625);
-  const frame = el(s, 'frame', '<img src="assets/panel.jpg" class="a"><img src="assets/overlay-card.jpg" class="b" style="position:absolute;inset:0"><div class="cap">Control Panel – spricht, hört zu, zeigt</div>', { width: fw + 'px', height: fh + 'px', left: (P ? (W - fw) / 2 : 80) + 'px', top: (P ? H * .17 : H * .20) + 'px' });
+  const frame = el(s, 'frame', img('panel', 'class="a"') + img('overlay-card', 'class="b" style="position:absolute;inset:0"') + '<div class="cap">' + T.s5Cap0 + '</div>', { width: fw + 'px', height: fh + 'px', left: (P ? (W - fw) / 2 : 80) + 'px', top: (P ? H * .17 : H * .20) + 'px' });
   const imgB = frame.querySelector('.b'), cap = frame.querySelector('.cap');
   const obs = el(s, 'abs', '<span class="pill">🎥 OBS · Streamlabs · TikTok LIVE Studio</span>', P ? { left: 0, right: 0, textAlign: 'center', top: (H * .17 + fh + 40) + 'px' } : { left: '80px', top: (H * .20 + fh + 36) + 'px', width: fw + 'px', textAlign: 'center' });
   const B = [['Instagram Live', '#ff2d75'], ['TikTok LIVE', '#2dffb5'], ['YouTube Live', '#ff4d4d'], ['Twitch', '#c084fc']];
   const badges = B.map(([n, c], i) => el(s, 'badge', n, { borderColor: c, color: c, ...(P ? { left: '50%', top: (H * .17 + fh + 190 + i * 112) + 'px' } : { left: (80 + fw + 90) + 'px', top: (H * .20 + i * 118) + 'px' }) }));
-  const feats = ['📱 Handy als Fernbedienung', '🎨 4 Looks (Neon, Pastell, Minimal …)', '✈️ Läuft komplett offline', '🔊 Sounds ohne Lizenz-Risiko'].map((f, i) => el(s, 'abs', `<span class="pill g">${f}</span>`, P ? { left: 0, right: 0, textAlign: 'center', top: (H * .17 + fh + 190 + 4 * 112 + 30 + i * 96) + 'px' } : { left: (80 + fw + 90) + 'px', top: (H * .20 + 4 * 118 + 30 + i * 86) + 'px' }));
+  const feats = T.s5Feats.map((f, i) => el(s, 'abs', `<span class="pill g">${f}</span>`, P ? { left: 0, right: 0, textAlign: 'center', top: (H * .17 + fh + 190 + 4 * 112 + 30 + i * 96) + 'px' } : { left: (80 + fw + 90) + 'px', top: (H * .20 + 4 * 118 + 30 + i * 86) + 'px' }));
   return (t) => {
     title.style.opacity = prog(t, 38.1, 38.5); title.style.transform = `translateY(${(1 - easeOut(prog(t, 38.1, 38.7))) * 40}px)`;
     const fp = easeOut(prog(t, 38.3, 38.9));
     frame.style.opacity = fp; frame.style.transform = `scale(${lerp(.9, 1, fp)})`;
-    const sw = prog(t, 41.2, 41.7); imgB.style.opacity = sw; cap.textContent = sw > .5 ? 'Overlay in OBS – Browser-Quelle, sofort live' : 'Control Panel – hört zu, erkennt, zeigt';
+    const sw = prog(t, 41.2, 41.7); imgB.style.opacity = sw; cap.textContent = sw > .5 ? T.s5CapB : T.s5CapA;
     obs.style.opacity = prog(t, 38.9, 39.3);
     badges.forEach((b, i) => { const a = 39.3 + i * .3, p = pop(t, a, .45); b.style.opacity = clamp(prog(t, a, a + .2)); b.style.transform = `${P ? 'translateX(-50%) ' : ''}scale(${p})`; });
     feats.forEach((f, i) => { const a = 40.9 + i * .35, p = easeOut(prog(t, a, a + .4)); f.style.opacity = p; f.style.transform = `translateX(${(1 - p) * (P ? 0 : 60)}px) translateY(${(1 - p) * (P ? 30 : 0)}px)`; });
@@ -364,11 +480,11 @@ scene(38, 44.2, (s) => {
 /* ================= SCENE 6 (44–50): CTA ================= */
 scene(44, 50.01, (s) => {
   const logo = el(s, 'abs c logo', '<span style="font-family:' + EMOJI_FONT + '">🎬</span> Live<span class="fx">FX</span>', { top: (P ? H * .22 : H * .16) + 'px', fontSize: (P ? 170 : 180) + 'px' });
-  const tag = el(s, 'abs c big neon', 'Deine Stimme<br>wird zum Effekt.', { top: (P ? H * .36 : H * .38) + 'px', fontSize: (P ? 98 : 96) + 'px', padding: '0 40px' });
+  const tag = el(s, 'abs c big neon', T.s6Tag, { top: (P ? H * .36 : H * .38) + 'px', fontSize: (P ? 98 : 96) + 'px', padding: '0 40px' });
   const url = el(s, 'abs c', '<span class="pill y" style="font-size:52px;padding:20px 50px">livefx.app</span>', { top: (P ? H * .56 : H * .66) + 'px' });
-  const pil = el(s, 'abs c', 'Pilot-Partner gesucht:', { top: (P ? H * .68 : H * .80) + 'px', fontSize: '42px', color: 'var(--mute)', fontWeight: 500 });
+  const pil = el(s, 'abs c', T.s6Pilot, { top: (P ? H * .68 : H * .80) + 'px', fontSize: '42px', color: 'var(--mute)', fontWeight: 500 });
   const pil2 = el(s, 'abs c big', 'TikTok <span class="mute">·</span> Meta <span class="mute">·</span> YouTube', { top: (P ? H * .715 : H * .855) + 'px', fontSize: (P ? 66 : 62) + 'px' });
-  const foot = el(s, 'abs c', 'Open Source · OBS-ready · Deutsch / Türkçe / English', { top: (P ? H * .86 : H * .94) + 'px', fontSize: '32px', color: 'var(--mute)' });
+  const foot = el(s, 'abs c', T.s6Foot, { top: (P ? H * .86 : H * .94) + 'px', fontSize: '32px', color: 'var(--mute)' });
   return (t) => {
     const lp = pop(t, 44.2, .7); logo.style.opacity = clamp(prog(t, 44.2, 44.5)); logo.style.transform = `scale(${lerp(.5, 1, lp)})`;
     tag.style.opacity = prog(t, 45.0, 45.4); tag.style.transform = `translateY(${(1 - easeOut(prog(t, 45.0, 45.6))) * 50}px)`;
@@ -411,7 +527,13 @@ function render(t) {
   black.style.opacity = Math.max(1 - prog(t, 0, .4), prog(t, 49.2, 50));
 }
 window.render = render; window.DUR = DUR; window.RATIO = RATIO;
-window.READY = Promise.all([document.fonts.ready, ...[...document.images].map((i) => i.decode().catch(() => {}))]);
+/* a missing localized shot falls back to the German one before READY resolves */
+const decodeImg = (i) => i.decode().catch(() => {
+  const fb = i.dataset.fallback;
+  if (!fb || i.getAttribute('src') === fb) return;
+  i.src = fb; return i.decode().catch(() => {});
+});
+window.READY = Promise.all([document.fonts.ready, ...[...document.images].map(decodeImg)]);
 
 if (!Q.has('capture')) {
   const fit = () => { const s = Math.min(innerWidth / W, innerHeight / H); stage.style.transform = `scale(${s})`; stage.style.marginLeft = ((innerWidth - W * s) / 2) + 'px'; };

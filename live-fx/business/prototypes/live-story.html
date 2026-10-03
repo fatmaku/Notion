@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiveFX Erzählfilm</title>
+<meta name="description" content="LiveFX Vision-Prototyp: Aus erzählten Wörtern entsteht live eine animierte Szene im Browser (DE/TR/EN).">
+<style>
+:root{
+  --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --line:#2a303c; --text:#eceef3; --muted:#9aa3b2;
+  --pink:#ff2d75; --green:#2dffb5; --gold:#ffd166; --blue:#5ad1ff; --r:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{min-height:100vh;overflow-x:hidden}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:12px 16px 40px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--blue));display:grid;place-items:center;font-weight:800;color:#0f1115;flex:none}
+h1{font-size:1.15rem;margin:0;line-height:1.2}
+.badge{display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:99px;border:1px solid var(--green);color:var(--green);margin-top:2px}
+.langsw{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden;flex:none}
+.langsw button{background:transparent;border:0;padding:6px 12px;font-weight:700;font-size:.85rem;color:var(--muted)}
+.langsw button[aria-pressed="true"]{background:var(--green);color:#0f1115}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.stage{background:#000;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;justify-content:center}
+canvas{display:block;width:100%;height:auto;aspect-ratio:16/9;touch-action:pan-y}
+.portrait canvas{aspect-ratio:9/16;width:auto;height:min(78vh,calc((100vw - 36px) * 1.7778))}
+.stats{display:flex;flex-wrap:wrap;gap:6px 14px;font:12px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--muted);margin-top:6px}
+.stats .rec{color:var(--pink);font-weight:700}
+.transcript{margin-top:8px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-height:2.4em;font-size:.95rem}
+.transcript .lbl{color:var(--muted);font-size:.75rem;display:block}
+.decide{margin-top:8px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:10px;padding:8px 10px;font-size:.9rem;min-height:2.4em}
+.chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin:2px 4px 2px 0;font-size:.82rem}
+.chip b{color:var(--gold);font-weight:600}
+.chip.r-place{border-color:#2a6b52}.chip.r-time{border-color:#3b4a8a}.chip.r-weather{border-color:#2f6f8f}.chip.r-figure{border-color:#7a3b5c}.chip.r-object{border-color:#6b5a2a}.chip.r-action{border-color:#5a3b7a}.chip.r-mood{border-color:#7a2a3b}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-bottom:12px}
+.panel h2{font-size:.9rem;margin:0 0 8px;color:var(--muted);font-weight:600}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.row:first-child{margin-top:0}
+label.f{display:flex;flex-direction:column;gap:3px;font-size:.78rem;color:var(--muted);min-width:0;flex:1}
+select,input[type=text],input[type=number],textarea{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-width:0;width:100%}
+textarea{min-height:92px;resize:vertical}
+.btn{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;white-space:nowrap}
+.btn.primary{background:var(--green);border-color:var(--green);color:#0f1115;font-weight:700}
+.btn.pink{background:var(--pink);border-color:var(--pink);color:#fff;font-weight:700}
+.btn.on{background:var(--pink);border-color:var(--pink);color:#fff}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{background:transparent;border:0;padding:8px 12px}
+.seg button[aria-pressed="true"]{background:var(--green);color:#0f1115;font-weight:700}
+.log{list-style:none;margin:0;padding:0;max-height:220px;overflow:auto;font-size:.82rem}
+.log li{padding:5px 0;border-bottom:1px solid var(--line)}
+.log li .s{color:var(--muted);display:block}
+pre{margin:0;background:var(--panel2);border-radius:10px;padding:8px;font-size:11px;line-height:1.35;max-height:240px;overflow:auto;white-space:pre-wrap;word-break:break-word}
+.note{font-size:.78rem;color:var(--muted);margin:10px 0 0;border-left:3px solid var(--green);padding-left:10px}
+.hint{font-size:.8rem;color:var(--gold);margin-top:6px;min-height:1em}
+.sr{position:absolute;left:-9999px}
+.exrow{display:flex;gap:6px;flex-wrap:nowrap;align-items:center;margin-top:8px}
+.exrow .btn{padding:6px 10px}
+@media (max-width:520px){h1{font-size:1rem}.row .btn{flex:1 1 auto}}
+@media (max-width:480px){.langrow label.f{flex-basis:100%}.langrow #btnMic{flex:1 1 100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">FX</div>
+      <div>
+        <h1 data-i18n="title">Erzählfilm</h1>
+        <span class="badge" data-i18n="badge">Prototyp · Vision</span>
+      </div>
+    </div>
+    <div class="langsw" role="group" data-i18n-aria="uiLang" aria-label="Sprache der Oberfläche">
+      <button type="button" data-ui="de">DE</button><button type="button" data-ui="tr">TR</button><button type="button" data-ui="en">EN</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <main>
+      <div class="stage" id="stage"><canvas id="cv" width="960" height="540" role="img" data-i18n-aria="canvasLabel" aria-label="Szene"></canvas></div>
+      <div class="stats" id="stats" aria-live="off"></div>
+      <div class="transcript"><span class="lbl" data-i18n="transcript">Gehört / getippt</span><span id="trText">–</span></div>
+      <div class="decide" id="decide" role="status" aria-live="polite"></div>
+    </main>
+
+    <aside>
+      <section class="panel">
+        <h2 data-i18n="inputTitle">Erzählen</h2>
+        <div class="row langrow">
+          <label class="f"><span data-i18n="storyLang">Sprache der Geschichte</span>
+            <select id="selLang">
+              <option value="auto" data-i18n="auto">Automatisch erkennen</option>
+              <option value="de" data-i18n="lang_de">Deutsch</option>
+              <option value="tr" data-i18n="lang_tr">Türkisch</option>
+              <option value="en" data-i18n="lang_en">Englisch</option>
+            </select>
+          </label>
+          <button type="button" class="btn" id="btnMic" data-i18n="mic">🎤 Mikro</button>
+        </div>
+        <form class="row" id="form" autocomplete="off">
+          <label class="f"><span class="sr" data-i18n="sentence">Satz</span>
+            <input type="text" id="inp" data-i18n-ph="inputPh" placeholder=""></label>
+        </form>
+        <div class="row">
+          <label class="f"><span class="sr" data-i18n="storyText">Geschichte</span>
+            <textarea id="story" data-i18n-ph="storyPh" placeholder=""></textarea></label>
+        </div>
+        <div class="row">
+          <button type="button" class="btn primary" id="btnSim" data-i18n="simulate">▶ Vorlesen simulieren</button>
+        </div>
+        <div class="exrow">
+          <span class="muted" style="font-size:.8rem;color:var(--muted)" data-i18n="examples">Beispiel:</span>
+          <button type="button" class="btn" data-ex="de">DE</button><button type="button" class="btn" data-ex="tr">TR</button><button type="button" class="btn" data-ex="en">EN</button>
+        </div>
+        <div class="hint" id="hint"></div>
+      </section>
+
+      <section class="panel">
+        <h2 data-i18n="sceneTitle">Szene &amp; Ausgabe</h2>
+        <div class="row">
+          <div class="seg" role="group" data-i18n-aria="format" aria-label="Format">
+            <button type="button" data-fmt="16x9">16:9</button><button type="button" data-fmt="9x16" data-i18n="portrait">9:16-Band</button>
+          </div>
+          <label class="f" style="max-width:110px"><span data-i18n="seed">Seed</span><input type="number" id="seed" value="7" min="0" step="1"></label>
+        </div>
+        <div class="row">
+          <button type="button" class="btn" id="btnReplay" data-i18n="replay">↺ Nochmal abspielen</button>
+          <button type="button" class="btn" id="btnNew" data-i18n="new">✕ Neue Szene</button>
+          <button type="button" class="btn pink" id="btnRec" data-i18n="record">⏺ Aufnehmen (WebM)</button>
+        </div>
+        <div class="row">
+          <button type="button" class="btn" id="btnExport" data-i18n="export">⬇ Zeitleiste (JSON)</button>
+          <button type="button" class="btn" id="btnImport" data-i18n="import">⬆ Zeitleiste laden</button>
+          <input type="file" id="file" accept="application/json,.json" hidden>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 data-i18n="logTitle">Szenen-Entscheidungen</h2>
+        <ul class="log" id="log"></ul>
+      </section>
+
+      <section class="panel">
+        <h2 data-i18n="worldTitle">Weltzustand (live)</h2>
+        <pre id="world"></pre>
+      </section>
+    </aside>
+  </div>
+  <p class="note" data-i18n="how">So funktioniert’s</p>
+  <p class="note" style="border-color:var(--gold)" data-i18n="privacy">Hinweis</p>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ======================= UI-Texte ======================= */
+var I18N = {
+de:{
+  title:'Erzählfilm – Live-Story-Engine', badge:'Prototyp · Vision', uiLang:'Sprache der Oberfläche', canvasLabel:'Live generierte Szene',
+  transcript:'Gehört / getippt', inputTitle:'Erzählen', storyLang:'Sprache der Geschichte', auto:'Automatisch erkennen',
+  lang_de:'Deutsch', lang_tr:'Türkisch', lang_en:'Englisch', mic:'🎤 Mikrofon', micStop:'⏹ Mikrofon aus', sentence:'Satz', storyText:'Geschichte',
+  inputPh:'Satz tippen – Enter = Satz fertig', storyPh:'Geschichte einfügen und „Vorlesen simulieren“ drücken …',
+  simulate:'▶ Vorlesen simulieren', simStop:'⏸ Anhalten', examples:'Beispiel:', sceneTitle:'Szene & Ausgabe', format:'Format',
+  portrait:'9:16-Band', seed:'Seed', replay:'↺ Nochmal abspielen', new:'✕ Neue Szene', record:'⏺ Aufnehmen (WebM)', recStop:'⏹ Aufnahme beenden',
+  export:'⬇ Zeitleiste (JSON)', import:'⬆ Zeitleiste laden', logTitle:'Szenen-Entscheidungen', worldTitle:'Weltzustand (live)',
+  stats:'{fps} fps · Skript {ms} ms/Frame · Partikel {n} · Qualität {q} % · Cloud-Kosten: 0,00 €', recording:'● Aufnahme läuft',
+  idle:'Bereit. Tippe einen Satz, lies vor oder starte ein Beispiel – jedes erkannte Wort wird zu einer Szenen-Entscheidung.',
+  noHit:'„{s}“ – keine Treffer, die Szene bleibt, wie sie ist.', detected:'Sprache: {l}', noFigure:'keine Figur da',
+  r_place:'Ort', r_landmark:'Wahrzeichen', r_time:'Zeit', r_weather:'Wetter', r_figure:'Figur', r_object:'Objekt', r_action:'Aktion', r_mood:'Stimmung',
+  r_stop:'Wetter endet → klar', r_end:'Ende → Abblende', r_open:'Märchenanfang → neue Szene', r_shake:'Kamera-Ruck', r_pron:'Pronomen',
+  camera:'Kamerabild (Platzhalter)', recSaved:'Aufnahme gespeichert: {f}', recNo:'Aufnahme wird von diesem Browser nicht unterstützt (MediaRecorder fehlt).',
+  imported:'Zeitleiste geladen: {n} Ereignisse.', importErr:'Die Datei konnte nicht gelesen werden (kein LiveFX-Zeitleisten-JSON).',
+  noMic:'Spracherkennung ist in diesem Browser nicht verfügbar (z. B. Firefox oder Datei-Modus). Tippen und „Vorlesen simulieren“ funktionieren immer; für das Mikro die Seite in Chrome oder Edge über einen lokalen Webserver (localhost) öffnen.',
+  micErr:'Mikrofon-Fehler ({e}). Die Texteingabe funktioniert immer.', listening:'Ich höre zu … ({l})',
+  how:'So funktioniert’s: Wörter wie Nacht, Regen, Wald, Drache oder plötzlich steuern Himmel, Wetter, Kulisse, Figuren und Stimmung. Alles wird live im Browser gezeichnet – ein Canvas, eine Animationsschleife, kein Video-KI-Modell, keine Cloud. Gleicher Seed und gleiche Zeitleiste ergeben exakt dasselbe Bild.',
+  privacy:'Datenschutz-Hinweis: Die Spracherkennung im Browser läuft je nach Browser über Server des Anbieters (z. B. Google bei Chrome). Getippter Text bleibt immer auf dem Gerät. Die Vollversion von LiveFX hat einen Offline-Modus, der lokal arbeitet.'
+},
+tr:{
+  title:'Anlatı Filmi – Canlı Hikâye Motoru', badge:'Prototip · Vizyon', uiLang:'Arayüz dili', canvasLabel:'Canlı oluşturulan sahne',
+  transcript:'Duyulan / yazılan', inputTitle:'Anlat', storyLang:'Hikâyenin dili', auto:'Otomatik algıla',
+  lang_de:'Almanca', lang_tr:'Türkçe', lang_en:'İngilizce', mic:'🎤 Mikrofon', micStop:'⏹ Mikrofonu kapat', sentence:'Cümle', storyText:'Hikâye',
+  inputPh:'Cümle yaz – Enter = cümle bitti', storyPh:'Hikâyeyi yapıştır ve „Okumayı canlandır“a bas …',
+  simulate:'▶ Okumayı canlandır', simStop:'⏸ Durdur', examples:'Örnek:', sceneTitle:'Sahne ve çıktı', format:'Biçim',
+  portrait:'9:16 bant', seed:'Tohum (seed)', replay:'↺ Yeniden oynat', new:'✕ Yeni sahne', record:'⏺ Kaydet (WebM)', recStop:'⏹ Kaydı bitir',
+  export:'⬇ Zaman çizelgesi (JSON)', import:'⬆ Zaman çizelgesi yükle', logTitle:'Sahne kararları', worldTitle:'Dünya durumu (canlı)',
+  stats:'{fps} fps · betik {ms} ms/kare · parçacık {n} · kalite %{q} · bulut maliyeti: 0,00 €', recording:'● Kayıt sürüyor',
+  idle:'Hazır. Bir cümle yaz, sesli oku ya da bir örnek başlat – tanınan her kelime bir sahne kararına dönüşür.',
+  noHit:'„{s}“ – eşleşme yok, sahne olduğu gibi kalıyor.', detected:'Dil: {l}', noFigure:'sahnede karakter yok',
+  r_place:'Mekân', r_landmark:'Simge yapı', r_time:'Zaman', r_weather:'Hava', r_figure:'Karakter', r_object:'Nesne', r_action:'Eylem', r_mood:'Duygu',
+  r_stop:'Hava duruldu → açık', r_end:'Son → kararma', r_open:'Masal başlangıcı → yeni sahne', r_shake:'Kamera sarsıntısı', r_pron:'Zamir',
+  camera:'Kamera görüntüsü (yer tutucu)', recSaved:'Kayıt kaydedildi: {f}', recNo:'Bu tarayıcı kaydı desteklemiyor (MediaRecorder yok).',
+  imported:'Zaman çizelgesi yüklendi: {n} olay.', importErr:'Dosya okunamadı (LiveFX zaman çizelgesi JSON’u değil).',
+  noMic:'Bu tarayıcıda konuşma tanıma yok (örneğin Firefox ya da dosya modu). Yazmak ve „Okumayı canlandır“ her zaman çalışır; mikrofon için sayfayı Chrome veya Edge’de yerel bir web sunucusu (localhost) üzerinden aç.',
+  micErr:'Mikrofon hatası ({e}). Metinle giriş her zaman çalışır.', listening:'Dinliyorum … ({l})',
+  how:'Nasıl çalışır: gece, yağmur, orman, ejderha ya da birden gibi kelimeler gökyüzünü, havayı, dekoru, karakterleri ve duyguyu yönetir. Her şey canlı olarak tarayıcıda çiziliyor – tek bir tuval, tek bir animasyon döngüsü, video yapay zekâsı yok, bulut yok. Aynı tohum ve aynı zaman çizelgesi birebir aynı görüntüyü verir.',
+  privacy:'Gizlilik notu: Tarayıcıdaki konuşma tanıma, tarayıcıya göre sağlayıcının sunucuları üzerinden çalışır (örneğin Chrome’da Google). Yazılan metin her zaman cihazda kalır. LiveFX’in tam sürümünde yerel çalışan bir çevrimdışı mod var.'
+},
+en:{
+  title:'Story Film – Live Story Engine', badge:'Prototype · Vision', uiLang:'Interface language', canvasLabel:'Scene generated live',
+  transcript:'Heard / typed', inputTitle:'Tell a story', storyLang:'Story language', auto:'Detect automatically',
+  lang_de:'German', lang_tr:'Turkish', lang_en:'English', mic:'🎤 Mic', micStop:'⏹ Mic off', sentence:'Sentence', storyText:'Story',
+  inputPh:'Type a sentence – Enter = sentence done', storyPh:'Paste a story and press “Simulate reading” …',
+  simulate:'▶ Simulate reading', simStop:'⏸ Pause', examples:'Example:', sceneTitle:'Scene & output', format:'Format',
+  portrait:'9:16 band', seed:'Seed', replay:'↺ Replay', new:'✕ New scene', record:'⏺ Record (WebM)', recStop:'⏹ Stop recording',
+  export:'⬇ Timeline (JSON)', import:'⬆ Load timeline', logTitle:'Scene decisions', worldTitle:'World state (live)',
+  stats:'{fps} fps · script {ms} ms/frame · particles {n} · quality {q}% · cloud cost: €0.00', recording:'● Recording',
+  idle:'Ready. Type a sentence, read aloud or start an example – every recognised word becomes a scene decision.',
+  noHit:'“{s}” – no matches, the scene stays as it is.', detected:'Language: {l}', noFigure:'no character on stage',
+  r_place:'Place', r_landmark:'Landmark', r_time:'Time', r_weather:'Weather', r_figure:'Character', r_object:'Object', r_action:'Action', r_mood:'Mood',
+  r_stop:'Weather ends → clear', r_end:'The end → fade out', r_open:'Story opening → new scene', r_shake:'Camera shake', r_pron:'Pronoun',
+  camera:'Camera feed (placeholder)', recSaved:'Recording saved: {f}', recNo:'This browser can’t record (MediaRecorder missing).',
+  imported:'Timeline loaded: {n} events.', importErr:'Couldn’t read the file (not a LiveFX timeline JSON).',
+  noMic:'Speech recognition isn’t available in this browser (e.g. Firefox or file mode). Typing and “Simulate reading” always work; for the mic, open the page in Chrome or Edge via a local web server (localhost).',
+  micErr:'Microphone error ({e}). Typing always works.', listening:'Listening … ({l})',
+  how:'How it works: words like night, rain, forest, dragon or suddenly control the sky, weather, backdrop, characters and mood. Everything is drawn live in the browser – one canvas, one animation loop, no video AI model, no cloud. The same seed and the same timeline produce exactly the same picture.',
+  privacy:'Privacy note: depending on the browser, in-browser speech recognition runs on the provider’s servers (e.g. Google in Chrome). Typed text always stays on the device. The full version of LiveFX has an offline mode that works locally.'
+}};
+
+/* Namen der Szenen-Werte in der Oberflächensprache */
+var NAMES = {
+  place:{forest:['Wald','orman','forest'],sea:['Meer','deniz','sea'],city:['Stadt','şehir','city'],castle:['Schloss','kale','castle'],desert:['Wüste','çöl','desert'],mountains:['Berge','dağlar','mountains'],village:['Dorf','köy','village'],meadow:['Wiese','çayır','meadow'],space:['Weltraum','uzay','space'],cave:['Höhle','mağara','cave']},
+  time:{night:['Nacht','gece','night'],morning:['Morgen','sabah','morning'],day:['Tag','gündüz','day'],evening:['Abend','akşam','evening']},
+  weather:{clear:['klar','açık','clear'],rain:['Regen','yağmur','rain'],snow:['Schnee','kar','snow'],storm:['Gewitter','fırtına','thunderstorm'],wind:['Wind','rüzgâr','wind'],fog:['Nebel','sis','fog']},
+  mood:{happy:['fröhlich','neşeli','happy'],tense:['spannend','gerilimli','tense'],sad:['traurig','hüzünlü','sad'],scary:['gruselig','ürkütücü','spooky'],calm:['ruhig','sakin','calm']},
+  figure:{girl:['Mädchen','kız','girl'],boy:['Junge','oğlan','boy'],grandma:['Oma','nine','grandma'],grandpa:['Opa','dede','grandpa'],king:['König','kral','king'],princess:['Prinzessin','prenses','princess'],knight:['Ritter','şövalye','knight'],witch:['Hexe','cadı','witch'],dragon:['Drache','ejderha','dragon'],cat:['Katze','kedi','cat'],dog:['Hund','köpek','dog'],horse:['Pferd','at','horse'],bird:['Vogel','kuş','bird'],fish:['Fisch','balık','fish'],bear:['Bär','ayı','bear'],fox:['Fuchs','tilki','fox'],rabbit:['Hase','tavşan','rabbit'],owl:['Eule','baykuş','owl'],robot:['Roboter','robot','robot'],unicorn:['Einhorn','tek boynuzlu at','unicorn'],ghost:['Geist','hayalet','ghost'],astronaut:['Astronautin','astronot','astronaut']},
+  object:{tree:['Baum','ağaç','tree'],house:['Haus','ev','house'],treasure:['Schatz','hazine','treasure'],ship:['Schiff','gemi','ship'],car:['Auto','araba','car'],flower:['Blume','çiçek','flower'],fire:['Feuer','ateş','fire'],star:['Stern','yıldız','star'],ball:['Ball','top','ball'],book:['Buch','kitap','book'],bridge:['Brücke','köprü','bridge'],tent:['Zelt','çadır','tent'],lantern:['Laterne','fener','lantern'],cake:['Kuchen','pasta','cake'],key:['Schlüssel','anahtar','key'],heart:['Herz','kalp','heart']},
+  action:{come:['kommen','gelmek','come'],go:['gehen','yürümek','walk'],run:['rennen','koşmak','run'],fly:['fliegen','uçmak','fly'],jump:['springen','zıplamak','jump'],swim:['schwimmen','yüzmek','swim'],sleep:['schlafen','uyumak','sleep'],dance:['tanzen','dans etmek','dance'],cry:['weinen','ağlamak','cry'],laugh:['lachen','gülmek','laugh'],vanish:['verschwinden','kaybolmak','vanish']}
+};
+var SPRITE = {girl:'👧',boy:'👦',grandma:'👵',grandpa:'👴',king:'🤴',princess:'👸',knight:'🤺',witch:'🧙‍♀️',dragon:'🐉',cat:'🐈',dog:'🐕',horse:'🐎',bird:'🐦',fish:'🐟',bear:'🐻',fox:'🦊',rabbit:'🐇',owl:'🦉',robot:'🤖',unicorn:'🦄',ghost:'👻',astronaut:'🧑‍🚀',
+  tree:'🌳',house:'🏠',treasure:'💰',ship:'⛵',car:'🚗',flower:'🌸',fire:'🔥',star:'⭐',ball:'⚽',book:'📖',bridge:'🌉',tent:'⛺',lantern:'🏮',cake:'🎂',key:'🔑',heart:'❤️'};
+
+/* ======================= Lexikon DE / TR / EN ======================= */
+var LEX = {
+place:{
+  forest:['wald|walde|waldes|wälder|urwald|dschungel','orman|ormanda|ormana|ormanın|ormandaki|ormanı|ağaçlık','forest|woods|wood|jungle'],
+  sea:['meer|meeres|ozean|strand|küste','deniz|denize|denizde|denizin|okyanus|sahil|kıyı','sea|ocean|beach|shore|coast'],
+  city:['stadt|städte|großstadt|grossstadt|hochhäuser','şehir|şehre|şehirde|şehrin|kent|kentte','city|town|skyscrapers'],
+  castle:['schloss|schloß|schlosses|burg|palast','kale|kalenin|kaleye|kalede|saray|sarayın|şato','castle|palace'],
+  desert:['wüste|wüsten|oase','çöl|çölde|çöle|vaha','desert|oasis'],
+  mountains:['berg|berge|bergen|gebirge|gipfel','dağ|dağlar|dağda|dağa|dağın|dağların|zirve','mountain|mountains|hills|peak'],
+  village:['dorf|dorfes|dörfchen|dörfer','köy|köyde|köye|köyün|köyü|kasaba','village|hamlet'],
+  meadow:['wiese|wiesen|feld|felder|garten','çayır|çimen|çimenlik|bahçe|bahçede|tarla','meadow|field|fields|garden'],
+  space:['weltraum|weltall|universum|planet|planeten','uzay|uzayda|uzaya|gezegen|evren','space|outer space|planet|galaxy|universe'],
+  cave:['höhle|höhlen','mağara|mağarada|mağaraya','cave|cavern']
+},
+time:{
+  night:['nacht|nachts|mitternacht|dunkel|dunkelheit|mond','gece|geceleyin|gecenin|karanlık|karanlıkta|ay ışığı','night|midnight|dark|darkness|moonlight'],
+  morning:['morgen|morgens|frühmorgens|sonnenaufgang|morgengrauen','sabah|sabahleyin|sabahın|şafak|gün doğumu','morning|dawn|sunrise'],
+  day:['tag|tages|mittag|mittags|tagsüber','gündüz|öğlen|öğle|gün ortası','day|noon|daytime|midday'],
+  evening:['abend|abends|sonnenuntergang|dämmerung','akşam|akşamüstü|akşamleyin|gün batımı','evening|sunset|dusk']
+},
+weather:{
+  clear:['sonnig|sonnenschein|heiter','güneşli|güneş açtı','sunny|sunshine'],
+  rain:['regen|regnete|regnet|regnen|regnerisch|regentropfen|nieselregen','yağmur|yağmurda|yağmurlu|yağmuru|sağanak','rain|rained|raining|rainy|raindrops|drizzle'],
+  snow:['schnee|schneite|schneit|schneien|schneeflocken','kar|karlı|karda|kar tanesi|kar taneleri','snow|snowed|snowing|snowy|snowflakes'],
+  storm:['gewitter|blitz|blitze|blitzte|donner|donnerte','fırtına|fırtınada|şimşek|şimşekler|gök gürültüsü|yıldırım','thunderstorm|storm|lightning|thunder'],
+  wind:['wind|windig|sturm|wehte|böen','rüzgar|rüzgâr|rüzgarlı|rüzgârlı|esiyordu|esti','wind|windy|breeze|gale'],
+  fog:['nebel|neblig|dunst','sis|sisli|pus','fog|foggy|mist|misty']
+},
+figure:{
+  girl:['mädchen|mädchens|tochter','kız|kızı|kızın|kızcağız','girl|daughter'],
+  boy:['junge|jungen|knabe|sohn','oğlan|oğlu|erkek çocuk|çocuk','boy|lad'],
+  grandma:['oma|großmutter|grossmutter','nine|büyükanne|babaanne|anneanne','grandma|granny|grandmother'],
+  grandpa:['opa|großvater|grossvater','dede|büyükbaba','grandpa|grandfather'],
+  king:['könig|königs|prinz|prinzen','kral|kralı|prens','king|prince'],
+  princess:['prinzessin|königin','prenses|prensesi|kraliçe','princess|queen'],
+  knight:['ritter','şövalye|şövalyesi','knight'],
+  witch:['hexe|zauberer|zauberin','cadı|büyücü','witch|wizard'],
+  dragon:['drache|drachen|drachens','ejderha|ejderhanın|ejderhayı|ejder','dragon|dragons'],
+  cat:['katze|kater|kätzchen','kedi|kedicik|kediyi','cat|kitten'],
+  dog:['hund|hündchen|welpe','köpek|köpeği|köpekçik','dog|puppy'],
+  horse:['pferd|pony','at|atı','horse|pony'],
+  bird:['vogel|vögel|vögelchen','kuş|kuşu|kuşlar','bird|birds'],
+  fish:['fisch|fische','balık|balığı','fish'],
+  bear:['bär|bären','ayı|ayıyı','bear'],
+  fox:['fuchs|füchsin','tilki|tilkiyi','fox'],
+  rabbit:['hase|hasen|kaninchen','tavşan|tavşanı','rabbit|bunny|hare'],
+  owl:['eule|uhu','baykuş','owl'],
+  robot:['roboter','robot','robot'],
+  unicorn:['einhorn','tek boynuzlu at|unicorn','unicorn'],
+  ghost:['geist|gespenst','hayalet|hortlak','ghost'],
+  astronaut:['astronautin|astronaut','astronot','astronaut']
+},
+object:{
+  tree:['baum|bäume|tanne','ağaç|ağacı|ağaçlar','tree|trees'],
+  house:['haus|häuser|hütte|häuschen','ev|evi|kulübe|kulübesi','house|hut|cottage'],
+  treasure:['schatz|schatztruhe|gold','hazine|hazineyi|altın','treasure|gold'],
+  ship:['schiff|boot','gemi|gemiyi|tekne','ship|boat'],
+  car:['auto|autos','araba|arabayı','car'],
+  flower:['blume|blumen','çiçek|çiçekler|çiçeği','flower|flowers'],
+  fire:['feuer|lagerfeuer|flammen','ateş|ateşi|kamp ateşi|alev','fire|campfire|flames'],
+  star:['stern|sterne','yıldız|yıldızlar','star|stars'],
+  ball:['ball','top|topu','ball'],
+  book:['buch|bücher','kitap|kitabı','book'],
+  bridge:['brücke','köprü|köprüyü|köprünün','bridge'],
+  tent:['zelt','çadır|çadırı','tent'],
+  lantern:['laterne|lampe|kerze','fener|feneri|mum','lantern|lamp|candle'],
+  cake:['kuchen|torte','pasta|kek','cake'],
+  key:['schlüssel','anahtar|anahtarı','key'],
+  heart:['herz|herzen','kalp|kalbi','heart']
+},
+action:{
+  come:['kam|kommt|kommen|kamen|erschien|erscheint|stand|tauchte auf','geldi|gelir|geliyor|gelmiş|çıktı|çıkmış|belirdi|vardı|varmış','came|comes|come|appeared|appears|arrived'],
+  go:['ging|geht|gehen|lief|spazierte|wanderte','gitti|gidiyor|gitmiş|yürüdü|yürüyordu|yürümüş','went|goes|walked|walks|walking'],
+  run:['rannte|rennt|rennen|rannten','koştu|koşuyor|koşmuş|koştular','ran|runs|running|run'],
+  fly:['flog|fliegt|fliegen|flogen|hob ab','uçtu|uçuyor|uçmuş|uçtular|havalandı','flew|flies|fly|flying|took off'],
+  jump:['sprang|springt|springen|hüpfte|hüpft','zıpladı|zıplıyor|zıplamış|atladı','jumped|jumps|jump|hopped'],
+  swim:['schwamm|schwimmt|schwimmen','yüzdü|yüzüyor|yüzmüş','swam|swims|swimming|swim'],
+  sleep:['schlief|schläft|schlafen|eingeschlafen','uyudu|uyuyor|uyuyordu|uyumuş|uyuya kaldı','slept|sleeps|sleeping|asleep|sleep'],
+  dance:['tanzte|tanzt|tanzen','dans etti|dans ediyor|dans etmiş','danced|dances|dancing|dance'],
+  cry:['weinte|weint|weinen','ağladı|ağlıyor|ağlamış','cried|cries|crying|wept'],
+  laugh:['lachte|lacht|lachen','güldü|gülüyor|gülmüş','laughed|laughs|laughing'],
+  vanish:['verschwand|verschwindet|verschwinden','kayboldu|kaybolmuş|yok oldu|gözden kayboldu','vanished|disappeared|vanishes|disappears']
+},
+mood:{
+  happy:['fröhlich|glücklich|lustig|freute|freude','mutlu|neşeli|sevinçli|sevindi','happy|cheerful|joyful|glad'],
+  tense:['plötzlich|spannend|auf einmal|unerwartet','birden|aniden|birdenbire|heyecanlı','suddenly|all of a sudden|exciting'],
+  sad:['traurig|unglücklich|einsam','üzgün|hüzünlü|mutsuz|yalnız','sad|unhappy|lonely'],
+  scary:['gruselig|unheimlich|angst|schaurig|fürchtete','korkunç|ürkütücü|korku|korktu|korkmuş','scary|creepy|spooky|afraid|scared'],
+  calm:['ruhig|still|friedlich|leise','sakin|sessiz|huzurlu','calm|quiet|peaceful']
+},
+stop:{ x:['hörte auf|hört auf|aufgehört|vorbei|kein|keine|nicht mehr','durdu|durmuş|dindi|dinmiş|kesildi|bitti','stopped|stops|ended|no more'] },
+end:{ x:['ende','son','the end'] },
+open:{ x:['es war einmal|vor langer zeit','bir varmış bir yokmuş|evvel zaman içinde','once upon a time|long ago'] },
+pron:{ x:['er|sie|es|ihn|ihm','o|onu|ona','he|she|it|they|him|her'] }
+};
+var LANGS = ['de','tr','en'], LI = {de:0, tr:1, en:2};
+var BCP = {de:'de-DE', tr:'tr-TR', en:'en-US'};
+var STOPW = {
+  de:'der die das und ist ein eine einen im in mit auf war über den dem zu da los am'.split(' '),
+  tr:'bir ve bu çok da de ile için üzerinden küçük büyük olmuş'.split(' '),
+  en:'the a an and is was in on of to over at into there'.split(' ')
+};
+var NATURE = {forest:1, sea:1, desert:1, mountains:1, meadow:1, cave:1, space:1};
+
+/* ======================= Normalisierung & Index ======================= */
+function lower(s, L){ s = String(s).normalize('NFC'); if (L === 'tr') { try { return s.toLocaleLowerCase('tr'); } catch(e){} } return s.replace(/İ/g,'i').toLowerCase(); }
+function norm(s, L){ return lower(s, L).replace(/[^\p{L}\p{N}]+/gu,' ').trim(); }
+var FOLD = {'ı':'i','ş':'s','ğ':'g','ç':'c','ö':'o','ü':'u','ä':'a','â':'a','î':'i','û':'u','é':'e','ß':'ss'};
+function fold(s){ return s.replace(/[ışğçöüäâîûéß]/g, function(c){ return FOLD[c]; }); }
+var IDX = {}, PHR = {}, FZ = {}, LEXCOUNT = {de:0, tr:0, en:0};
+LANGS.forEach(function(L){
+  var map = new Map(), phr = [], fz = [];
+  Object.keys(LEX).forEach(function(role){
+    Object.keys(LEX[role]).forEach(function(id){
+      LEX[role][id][LI[L]].split('|').forEach(function(f){
+        var n = fold(norm(f, L)); if (!n) return; LEXCOUNT[L]++;
+        var e = {role:role, id:id};
+        if (n.indexOf(' ') >= 0) phr.push({toks:n.split(' '), e:e});
+        else { if (!map.has(n)) map.set(n, []); map.get(n).push(e); if (n.length >= 5 && role !== 'pron' && role !== 'stop') fz.push([n, e]); }
+      });
+    });
+  });
+  phr.sort(function(a,b){ return b.toks.length - a.toks.length; });
+  IDX[L] = map; PHR[L] = phr; FZ[L] = fz;
+});
+function dl1(a, b){
+  if (a === b) return true;
+  var la = a.length, lb = b.length; if (Math.abs(la - lb) > 1) return false;
+  var i = 0; while (i < la && i < lb && a[i] === b[i]) i++;
+  if (la === lb) return a.slice(i+1) === b.slice(i+1) || (a[i] === b[i+1] && a[i+1] === b[i] && a.slice(i+2) === b.slice(i+2));
+  return la > lb ? a.slice(i+1) === b.slice(i) : a.slice(i) === b.slice(i+1);
+}
+var TR_SUF = ['ndan','nden','nın','nin','nun','nün','dan','den','tan','ten','lar','ler','yla','yle','daki','deki','la','le','ya','ye','yı','yi','yu','yü','da','de','ta','te','ım','im','um','üm','sı','si','su','sü','ın','in','un','ün','nı','ni','nu','nü','na','ne','ı','i','u','ü','a','e'];
+var MUT = {'b':'p','c':'ç','d':'t','ğ':'k','g':'k'};
+function trStem(tok, depth){
+  for (var k = 0; k < TR_SUF.length; k++) {
+    var s = TR_SUF[k];
+    if (tok.length - s.length >= 3 && tok.slice(-s.length) === s) {
+      var st = tok.slice(0, -s.length), f = fold(st);
+      if (IDX.tr.has(f)) return IDX.tr.get(f);
+      var last = st.slice(-1);
+      if (MUT[last]) { var f2 = fold(st.slice(0,-1) + MUT[last]); if (IDX.tr.has(f2)) return IDX.tr.get(f2); }
+      if (depth < 1) { var r = trStem(st, depth + 1); if (r) return r; }
+    }
+  }
+  return null;
+}
+function lookup(tok, L){
+  var f = fold(tok);
+  if (IDX[L].has(f)) return IDX[L].get(f);
+  if (L === 'tr') { var r = trStem(tok, 0); if (r) return r; }
+  if (f.length >= 6) { var fz = FZ[L]; for (var k = 0; k < fz.length; k++) if (dl1(f, fz[k][0])) return [fz[k][1]]; }
+  return null;
+}
+function matchLang(text, L){
+  var toks = norm(text, L).split(' ').filter(Boolean), ft = toks.map(fold);
+  var used = [], hits = [], stop = 0;
+  PHR[L].forEach(function(p){
+    for (var s = 0; s + p.toks.length <= ft.length; s++) {
+      var ok = true;
+      for (var j = 0; j < p.toks.length; j++) if (used[s+j] || ft[s+j] !== p.toks[j]) { ok = false; break; }
+      if (ok) { for (j = 0; j < p.toks.length; j++) used[s+j] = 1; hits.push({pos:s, role:p.e.role, id:p.e.id, word:toks.slice(s, s + p.toks.length).join(' ')}); }
+    }
+  });
+  toks.forEach(function(tk, k){
+    if (STOPW[L].indexOf(tk) >= 0) stop++;
+    if (used[k]) return;
+    var r = lookup(tk, L);
+    if (r) r.forEach(function(e){ hits.push({pos:k, role:e.role, id:e.id, word:tk}); });
+  });
+  hits.sort(function(a,b){ return a.pos - b.pos; });
+  var content = hits.filter(function(h){ return h.role !== 'pron'; }).length;
+  return {lang:L, hits:hits, score:content * 3 + stop + (hits.length - content)};
+}
+var lastLang = null;
+function analyse(text){
+  if (langSel !== 'auto') return matchLang(text, langSel);
+  var best = null;
+  LANGS.forEach(function(L){
+    var r = matchLang(text, L);
+    if (!best || r.score > best.score || (r.score === best.score && L === (lastLang || ui))) best = r;
+  });
+  if (best.score > 0) lastLang = best.lang;
+  return best;
+}
+
+/* ======================= Regisseur: Treffer → Zustands-Delta ======================= */
+var FAST = ['place','landmark','time','weather','mood'];
+function direct(text, final, w){
+  var r = analyse(text), hits = r.hits, d = {}, dec = [];
+  function by(role){ return hits.filter(function(h){ return h.role === role; }); }
+  function last(a){ return a[a.length - 1]; }
+  var op = by('open'); if (op.length) { d.reset = 1; dec.push({w:op[0].word, role:'open'}); }
+  var pl = by('place');
+  if (pl.length) {
+    var nat = pl.filter(function(h){ return NATURE[h.id]; }), str = pl.filter(function(h){ return !NATURE[h.id]; });
+    if (nat.length && str.length) {
+      d.place = last(nat).id; d.landmark = last(str).id;
+      dec.push({w:last(nat).word, role:'place', id:d.place}); dec.push({w:last(str).word, role:'landmark', id:d.landmark, vrole:'place'});
+    } else { d.place = last(pl).id; d.landmark = null; dec.push({w:last(pl).word, role:'place', id:d.place}); }
+  }
+  var tm = by('time'); if (tm.length) { d.time = last(tm).id; dec.push({w:last(tm).word, role:'time', id:d.time}); }
+  var we = by('weather'), st = by('stop');
+  if (st.length && (we.length || w.weather !== 'clear')) { d.weather = 'clear'; dec.push({w:st[0].word, role:'stop'}); }
+  else if (we.length) { d.weather = last(we).id; dec.push({w:last(we).word, role:'weather', id:d.weather}); }
+  var md = by('mood'); if (md.length) { d.mood = last(md).id; dec.push({w:last(md).word, role:'mood', id:d.mood}); }
+  if (final) {
+    var fg = by('figure'), seen = {};
+    fg.forEach(function(h){ if (!seen[h.id]) { seen[h.id] = 1; (d.add = d.add || []).push(h.id); dec.push({w:h.word, role:'figure', id:h.id}); } });
+    if (fg.length) d.focus = last(fg).id;
+    var ob = by('object'), so = {};
+    ob.forEach(function(h){ if (!so[h.id]) { so[h.id] = 1; (d.obj = d.obj || []).push(h.id); dec.push({w:h.word, role:'object', id:h.id}); } });
+    var known = w.figs.filter(function(f){ return f.exitT == null; }).map(function(f){ return f.id; });
+    by('action').forEach(function(h){
+      var before = fg.filter(function(f){ return f.pos < h.pos; }), after = fg.filter(function(f){ return f.pos > h.pos; });
+      var who = before.length ? last(before).id : after.length ? after[0].id : (w.lastFig && known.indexOf(w.lastFig) >= 0 ? w.lastFig : null);
+      if (!who) { if (h.id !== 'come') dec.push({w:h.word, role:'action', id:h.id, none:1}); return; }
+      if (h.id === 'come' && known.indexOf(who) < 0 && !seen[who]) return;
+      (d.act = d.act || []).push({who:who, what:h.id});
+      dec.push({w:h.word, role:'action', id:h.id, who:who, pron:!fg.length});
+    });
+    if (md.some(function(h){ return h.id === 'tense'; })) { d.shake = 1; dec.push({w:md.filter(function(h){ return h.id === 'tense'; })[0].word, role:'shake'}); }
+    if (by('end').length) { d.end = 1; dec.push({w:by('end')[0].word, role:'end'}); }
+  }
+  // nur Änderungen gegenüber dem aktuellen Weltzustand übernehmen
+  if (!d.reset) FAST.forEach(function(k){ if (k in d && d[k] === w[k] && (k !== 'place' || !('landmark' in d) || d.landmark === w.landmark)) delete d[k]; });
+  if ('landmark' in d && !('place' in d) && d.landmark === w.landmark) delete d.landmark;
+  return {lang:r.lang, delta:d, dec:dec, hits:hits.length};
+}
+
+/* ======================= Zeitleiste (LTF v1) & Weltzustand ======================= */
+var FSLOT = [0.30, 0.70, 0.50, 0.15, 0.85, 0.40], OSLOT = [0.22, 0.78, 0.60, 0.08, 0.92, 0.42];
+function W0(){ return {place:'meadow', landmark:null, time:'day', weather:'clear', mood:'calm',
+  bgPrev:null, bgT:-1e9, wPrev:'clear', wT:-1e9, moodPrev:'calm', moodT:-1e9,
+  figs:[], objs:[], lastFig:null, shakeT:-1e9, endT:null, cap:'', capT:-1e9}; }
+function applyEv(w, e){
+  var t = e.t;
+  w.figs = w.figs.filter(function(f){ return f.exitT == null || t < f.exitT + 1.6; });
+  if (e.kind === 'caption') { w.cap = e.text; w.capT = t; return; }
+  if (e.kind !== 'state') return;
+  var d = e.delta || {}, old = {place:w.place, landmark:w.landmark, time:w.time};
+  var content = false;
+  if (d.reset) { w.figs.forEach(function(f){ if (f.exitT == null) f.exitT = t; }); w.objs = []; w.lastFig = null; w.endT = null;
+    if (w.time !== 'day') w.time = 'day'; if (w.weather !== 'clear') { w.wPrev = w.weather; w.weather = 'clear'; w.wT = t; }
+    if (w.mood !== 'calm') { w.moodPrev = w.mood; w.mood = 'calm'; w.moodT = t; } }
+  if (d.place && d.place !== w.place) { w.place = d.place; w.objs = []; content = true; }
+  if ('landmark' in d) w.landmark = d.landmark;
+  if (d.time) { w.time = d.time; content = true; }
+  if (old.place !== w.place || old.landmark !== w.landmark || old.time !== w.time) { w.bgPrev = old; w.bgT = t; }
+  if (d.weather && d.weather !== w.weather) { w.wPrev = w.weather; w.weather = d.weather; w.wT = t; content = true; }
+  if (d.mood && d.mood !== w.mood) { w.moodPrev = w.mood; w.mood = d.mood; w.moodT = t; content = true; }
+  (d.add || []).forEach(function(id){
+    var alive = w.figs.filter(function(f){ return f.exitT == null; });
+    if (alive.some(function(f){ return f.id === id; })) return;
+    var used = alive.map(function(f){ return f.slot; }), slot = FSLOT.filter(function(s){ return used.indexOf(s) < 0; })[0];
+    if (slot == null) { alive[0].exitT = t; slot = alive[0].slot; }
+    w.figs.push({id:id, t0:t, slot:slot, side:slot < 0.5 ? -1 : 1, act:null, actT:t, exitT:null});
+    content = true;
+  });
+  if (d.focus) w.lastFig = d.focus;
+  (d.obj || []).forEach(function(id){
+    if (w.objs.some(function(o){ return o.id === id; })) return;
+    var used = w.objs.map(function(o){ return o.slot; }), slot = OSLOT.filter(function(s){ return used.indexOf(s) < 0; })[0];
+    if (slot == null) { slot = w.objs[0].slot; w.objs.shift(); }
+    w.objs.push({id:id, t0:t, slot:slot}); content = true;
+  });
+  (d.act || []).forEach(function(a){
+    w.figs.forEach(function(f){ if (f.id === a.who && f.exitT == null) { f.act = a.what; f.actT = t; if (a.what === 'vanish') f.exitT = t; } });
+    w.lastFig = a.who; content = true;
+  });
+  if (d.shake) w.shakeT = t;
+  if (d.end) w.endT = t; else if (content || d.reset) w.endT = null;
+}
+var timeline = [], fcache = {n:-1, w:null};
+function worldAt(t){
+  var n = 0; while (n < timeline.length && timeline[n].t <= t) n++;
+  if (n < fcache.n || !fcache.w) { fcache = {n:0, w:W0()}; }
+  for (var i = fcache.n; i < n; i++) applyEv(fcache.w, timeline[i]);
+  fcache.n = n;
+  return fcache.w;
+}
+function addEvent(e){
+  var i = timeline.length; while (i > 0 && timeline[i-1].t > e.t) i--;
+  timeline.splice(i, 0, e);
+  if (i < fcache.n) fcache = {n:-1, w:null};
+}
+
+/* ======================= Renderer ======================= */
+var cv = document.getElementById('cv'), ctx = cv.getContext('2d', {alpha:false});
+var fmt = '16x9', LW = 960, LH = 540, DPR = 1, seed = 7, quality = 1;
+var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function mulberry32(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function hashStr(s){ var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function clamp(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+function ease(x){ x = clamp(x); return x * x * (3 - 2 * x); }
+function lerp(a, b, k){ return a + (b - a) * k; }
+var HEX = {};
+function rgb(h){ if (HEX[h]) return HEX[h]; var n = parseInt(h.slice(1), 16); return (HEX[h] = [n >> 16 & 255, n >> 8 & 255, n & 255]); }
+function mix(a, b, k){ var A = rgb(a), B = rgb(b); return 'rgb(' + Math.round(lerp(A[0],B[0],k)) + ',' + Math.round(lerp(A[1],B[1],k)) + ',' + Math.round(lerp(A[2],B[2],k)) + ')'; }
+function mixHex(a, b, k){ var A = rgb(a), B = rgb(b); var r = [0,1,2].map(function(i){ return Math.round(lerp(A[i],B[i],k)); }); return '#' + ((1 << 24) + (r[0] << 16) + (r[1] << 8) + r[2]).toString(16).slice(1); }
+
+var SKY = {day:['#4aa8ff','#bfe7ff'], morning:['#ff8f8b','#ffd9a0'], evening:['#2c1e5a','#ff7e5f'], night:['#060a20','#1b2552'], space:['#04020c','#1a0f33']};
+var SHADE = {day:null, morning:['#ffb27a',0.14], evening:['#4a2350',0.38], night:['#081030',0.62]};
+var SUN = {morning:[0.17,0.62,1], day:[0.5,0.17,1], evening:[0.83,0.62,1], night:[0.5,1.05,0]};
+var MOON = {night:[0.78,0.18,1], evening:[0.78,0.5,0], morning:[0.2,0.5,0], day:[0.78,0.5,0]};
+var MOOD = {happy:['#ffd166',0.10,0.15,1.3], tense:['#ff2d75',0.10,0.45,1.6], sad:['#3c5aa0',0.22,0.35,0.6], scary:['#28003c',0.32,0.62,0.9], calm:['#000000',0,0.12,1]};
+function skyOf(b){ return b.place === 'space' ? SKY.space : SKY[b.time]; }
+function nightOf(b){ return b.place === 'space' || b.time === 'night' ? 1 : b.time === 'evening' ? 0.3 : 0; }
+
+function region(){ return fmt === '16x9' ? {x:0, y:0, w:LW, h:LH} : {x:0, y:Math.round(LH * 0.42), w:LW, h:LH - Math.round(LH * 0.42)}; }
+var PAD = 90;
+function mk(w, h){ var c = document.createElement('canvas'); c.width = Math.ceil(w * DPR); c.height = Math.ceil(h * DPR); var g = c.getContext('2d'); g.setTransform(DPR,0,0,DPR,0,0); return {c:c, g:g}; }
+
+/* --- Kulissen (offscreen, nur bei Zustandswechsel neu) --- */
+var bundles = new Map();
+function shadeFn(time){ var s = SHADE[time]; return function(c){ return s ? mixHex(c, s[0], s[1]) : c; }; }
+function hills(g, w, h, y, amp, col, r, freq){
+  g.fillStyle = col; g.beginPath(); g.moveTo(0, h);
+  var p1 = r() * 6, p2 = r() * 6;
+  for (var x = 0; x <= w; x += 8) g.lineTo(x, y - amp * (0.6 * Math.sin(x / w * Math.PI * freq + p1) + 0.4 * Math.sin(x / w * Math.PI * freq * 2.7 + p2)));
+  g.lineTo(w, h); g.closePath(); g.fill();
+}
+function emojiAt(g, e, x, y, size){ g.font = size + 'px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'alphabetic'; g.fillText(e, x, y); }
+function drawCastle(g, cx, base, s, S){
+  var stone = S('#9a9cb3'), dark = S('#6e7088'), roof = S('#7d4fa0');
+  g.fillStyle = stone; g.fillRect(cx - 120 * s, base - 110 * s, 240 * s, 110 * s);
+  for (var i = -120; i < 120; i += 24) g.fillRect(cx + i * s, base - 124 * s, 14 * s, 14 * s);
+  [[-130, 190], [0, 240], [130, 190]].forEach(function(tw){
+    var x = cx + tw[0] * s, hh = tw[1] * s;
+    g.fillStyle = stone; g.fillRect(x - 26 * s, base - hh, 52 * s, hh);
+    g.fillStyle = roof; g.beginPath(); g.moveTo(x - 34 * s, base - hh); g.lineTo(x, base - hh - 60 * s); g.lineTo(x + 34 * s, base - hh); g.fill();
+    g.fillStyle = S('#ffd166'); g.fillRect(x - 6 * s, base - hh + 30 * s, 12 * s, 18 * s);
+  });
+  g.fillStyle = dark; g.beginPath(); g.moveTo(cx - 26 * s, base); g.lineTo(cx - 26 * s, base - 50 * s); g.arc(cx, base - 50 * s, 26 * s, Math.PI, 0); g.lineTo(cx + 26 * s, base); g.fill();
+}
+function drawCity(g, x0, x1, base, hmin, hmax, col, win, r, lit){
+  for (var x = x0; x < x1;) {
+    var bw = 40 + r() * 60, bh = hmin + r() * (hmax - hmin);
+    g.fillStyle = col; g.fillRect(x, base - bh, bw - 4, bh);
+    for (var wy = base - bh + 10; wy < base - 12; wy += 16) for (var wx = x + 6; wx < x + bw - 12; wx += 12) {
+      if (r() < (lit ? 0.45 : 0.7)) { g.fillStyle = lit && r() < 0.8 ? '#ffd166' : win; g.fillRect(wx, wy, 6, 8); }
+    }
+    x += bw;
+  }
+}
+function drawHouses(g, x0, x1, base, s, S, r, lit){
+  for (var x = x0; x < x1;) {
+    var w = (60 + r() * 30) * s, h = (44 + r() * 20) * s;
+    g.fillStyle = S('#efe0c2'); g.fillRect(x, base - h, w, h);
+    g.fillStyle = S('#c8603f'); g.beginPath(); g.moveTo(x - 8 * s, base - h); g.lineTo(x + w / 2, base - h - 34 * s); g.lineTo(x + w + 8 * s, base - h); g.fill();
+    g.fillStyle = lit ? '#ffd166' : S('#6b8fb0'); g.fillRect(x + w * 0.2, base - h * 0.7, 12 * s, 12 * s); g.fillRect(x + w * 0.62, base - h * 0.7, 12 * s, 12 * s);
+    g.fillStyle = S('#7a4a2a'); g.fillRect(x + w * 0.42, base - 22 * s, 12 * s, 22 * s);
+    x += w + (30 + r() * 80) * s;
+  }
+}
+function buildBundle(b, sw, sh){
+  var key = b.place + '|' + (b.landmark || '') + '|' + b.time + '|' + sw + 'x' + sh + '|' + DPR + '|' + seed;
+  if (bundles.has(key)) return bundles.get(key);
+  var bw = sw + PAD * 2, far = mk(bw, sh), mid = mk(bw, sh), gr = mk(bw, sh);
+  var r = mulberry32(seed * 7919 + hashStr(b.place)), S = shadeFn(b.time), lit = b.time === 'night' || b.time === 'evening';
+  var hz = sh * 0.68, F = far.g, M = mid.g, G = gr.g, i, x, y, h;
+  switch (b.place) {
+    case 'forest':
+      hills(F, bw, sh, hz - 30, 40, S('#2f6e44'), r, 2);
+      for (i = 0; i < 30; i++) { x = r() * bw; h = 70 + r() * 110; y = hz + 10 + r() * 30;
+        M.fillStyle = S(i % 3 ? '#1f5233' : '#24603b');
+        for (var k = 0; k < 3; k++) { M.beginPath(); M.moveTo(x - h * (0.32 - k * 0.06), y - k * h * 0.28); M.lineTo(x, y - h - k * h * 0.12 + k * h * 0.1); M.lineTo(x + h * (0.32 - k * 0.06), y - k * h * 0.28); M.fill(); }
+        M.fillStyle = S('#4a3222'); M.fillRect(x - 4, y, 8, 14); }
+      G.fillStyle = S('#2d6b3a'); G.fillRect(0, hz + 24, bw, sh);
+      break;
+    case 'sea':
+      F.fillStyle = S('#2a5f8f'); F.beginPath(); F.ellipse(bw * 0.72, hz - 4, 120, 26, 0, Math.PI, 0); F.fill();
+      M.fillStyle = S('#1e6fa8'); M.fillRect(0, hz, bw, sh);
+      M.strokeStyle = S('#7cc4f0'); M.lineWidth = 2;
+      for (y = hz + 12; y < sh * 0.9; y += 18) { M.beginPath(); for (x = 0; x <= bw; x += 10) M.lineTo(x, y + Math.sin(x / 40 + y) * 3); M.stroke(); }
+      G.fillStyle = S('#e8cf8f'); G.beginPath(); G.moveTo(0, sh); G.lineTo(0, sh * 0.88); for (x = 0; x <= bw; x += 20) G.lineTo(x, sh * 0.87 + Math.sin(x / 70) * 6); G.lineTo(bw, sh); G.fill();
+      break;
+    case 'city':
+      drawCity(F, 0, bw, hz + 10, sh * 0.25, sh * 0.55, S('#3b4660'), S('#8fb0d8'), r, lit);
+      drawCity(M, 0, bw, hz + 30, sh * 0.12, sh * 0.3, S('#283148'), S('#a6c2e6'), r, lit);
+      G.fillStyle = S('#2a2a30'); G.fillRect(0, hz + 30, bw, sh); G.fillStyle = S('#d9d9d9');
+      for (x = 0; x < bw; x += 60) G.fillRect(x, sh * 0.9, 30, 4);
+      break;
+    case 'castle':
+      hills(F, bw, sh, hz - 20, 30, S('#4f7f5a'), r, 1.5);
+      drawCastle(M, bw / 2, hz + 30, sh / 540 * 0.9, S);
+      G.fillStyle = S('#5d9a55'); G.fillRect(0, hz + 28, bw, sh);
+      break;
+    case 'desert':
+      hills(F, bw, sh, hz - 10, 30, S('#e3b065'), r, 1.4);
+      hills(M, bw, sh, hz + 30, 22, S('#d79a4a'), r, 2.2);
+      for (i = 0; i < 4; i++) emojiAt(M, '🌵', r() * bw, hz + 40 + r() * 20, 44 + r() * 20);
+      G.fillStyle = S('#f0c27b'); G.fillRect(0, hz + 50, bw, sh);
+      break;
+    case 'mountains':
+      for (i = 0; i < 7; i++) { x = i * bw / 6 + r() * 60; h = sh * (0.35 + r() * 0.25);
+        F.fillStyle = S('#6c7a99'); F.beginPath(); F.moveTo(x - 160, hz + 10); F.lineTo(x, hz - h); F.lineTo(x + 160, hz + 10); F.fill();
+        F.fillStyle = S('#f4f6fb'); F.beginPath(); F.moveTo(x - 40, hz - h + 50); F.lineTo(x, hz - h); F.lineTo(x + 40, hz - h + 50); F.fill(); }
+      hills(M, bw, sh, hz + 20, 40, S('#4d5b78'), r, 3);
+      G.fillStyle = S('#6b8f5a'); G.fillRect(0, hz + 40, bw, sh);
+      break;
+    case 'village':
+      hills(F, bw, sh, hz - 20, 30, S('#6da86a'), r, 1.6);
+      drawHouses(M, 20, bw, hz + 34, sh / 540, S, r, lit);
+      G.fillStyle = S('#79b862'); G.fillRect(0, hz + 32, bw, sh); G.fillStyle = S('#c9a46a'); G.fillRect(0, sh * 0.9, bw, 12);
+      break;
+    case 'space':
+      F.fillStyle = '#8a6bd1'; F.beginPath(); F.arc(bw * 0.25, sh * 0.3, sh * 0.09, 0, 7); F.fill();
+      F.strokeStyle = '#d7c8ff'; F.lineWidth = 3; F.beginPath(); F.ellipse(bw * 0.25, sh * 0.3, sh * 0.15, sh * 0.03, -0.3, 0, 7); F.stroke();
+      F.fillStyle = '#ff8a5c'; F.beginPath(); F.arc(bw * 0.8, sh * 0.22, sh * 0.05, 0, 7); F.fill();
+      for (i = 0; i < 8; i++) { M.fillStyle = '#5b5e6b'; M.beginPath(); M.arc(r() * bw, sh * (0.2 + r() * 0.4), 4 + r() * 10, 0, 7); M.fill(); }
+      G.fillStyle = '#8b8f9c'; G.beginPath(); G.moveTo(0, sh); for (x = 0; x <= bw; x += 20) G.lineTo(x, hz + 40 + Math.sin(x / 90) * 10); G.lineTo(bw, sh); G.fill();
+      for (i = 0; i < 9; i++) { G.fillStyle = '#6f7380'; G.beginPath(); G.ellipse(r() * bw, hz + 70 + r() * (sh - hz - 90), 18 + r() * 20, 6 + r() * 5, 0, 0, 7); G.fill(); }
+      break;
+    case 'cave':
+      F.fillStyle = S('#2b2622'); F.fillRect(0, 0, bw, sh);
+      F.globalCompositeOperation = 'destination-out'; F.beginPath(); F.ellipse(bw * 0.5, hz, bw * 0.26, sh * 0.5, 0, Math.PI, 0); F.fill(); F.globalCompositeOperation = 'source-over';
+      M.fillStyle = S('#3a332d');
+      for (i = 0; i < 22; i++) { x = r() * bw; h = 30 + r() * 90; M.beginPath(); M.moveTo(x - 14, 0); M.lineTo(x, h); M.lineTo(x + 14, 0); M.fill(); }
+      for (i = 0; i < 10; i++) { x = r() * bw; h = 20 + r() * 60; M.beginPath(); M.moveTo(x - 16, hz + 40); M.lineTo(x, hz + 40 - h); M.lineTo(x + 16, hz + 40); M.fill(); }
+      G.fillStyle = S('#2f2a25'); G.fillRect(0, hz + 36, bw, sh);
+      break;
+    default: // meadow
+      hills(F, bw, sh, hz - 20, 30, S('#6fbf73'), r, 1.3);
+      for (i = 0; i < 14; i++) { M.fillStyle = S('#3f9a4d'); M.beginPath(); M.arc(r() * bw, hz + 30, 14 + r() * 20, Math.PI, 0); M.fill(); }
+      G.fillStyle = S('#7ccf6a'); G.fillRect(0, hz + 28, bw, sh);
+      for (i = 0; i < 60; i++) { G.fillStyle = ['#ffd166','#ff8fb1','#ffffff'][i % 3]; G.fillRect(r() * bw, hz + 40 + r() * (sh - hz - 50), 3, 3); }
+  }
+  if (b.landmark && b.landmark !== b.place) {
+    var lx = bw * 0.7, lb = hz + 6;
+    if (b.landmark === 'castle') drawCastle(F, lx, lb, sh / 540 * 0.42, S);
+    else if (b.landmark === 'city') drawCity(F, lx - 140, lx + 140, lb, sh * 0.1, sh * 0.26, S('#3b4660'), S('#8fb0d8'), r, lit);
+    else if (b.landmark === 'village') drawHouses(F, lx - 120, lx + 120, lb, sh / 540 * 0.55, S, r, lit);
+  }
+  var out = {far:far.c, mid:mid.c, ground:gr.c};
+  if (bundles.size > 14) bundles.delete(bundles.keys().next().value);
+  bundles.set(key, out);
+  return out;
+}
+
+/* --- Sprite-Cache (Emoji → Offscreen-Canvas) --- */
+var sprites = new Map();
+function sprite(e, size){
+  var px = Math.round(size * DPR), key = e + '@' + px;
+  if (sprites.has(key)) return sprites.get(key);
+  var c = document.createElement('canvas'); c.width = c.height = Math.ceil(px * 1.25); var g = c.getContext('2d');
+  g.font = px + 'px "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText(e, c.width / 2, c.height / 2 + px * 0.06);
+  if (sprites.size > 80) sprites.delete(sprites.keys().next().value);
+  sprites.set(key, c); return c;
+}
+function drawSprite(e, x, y, size, flip, rot, alpha){
+  var c = sprite(e, size), s = c.width / DPR;
+  ctx.save(); ctx.globalAlpha = alpha; ctx.translate(x, y); if (rot) ctx.rotate(rot); if (flip) ctx.scale(-1, 1);
+  ctx.drawImage(c, -s / 2, -s / 2, s, s); ctx.restore();
+}
+
+/* --- Partikel-Pool (ohne Allokation im Frame) --- */
+var MAXP = 600, P = new Float32Array(MAXP * 4), STARS = new Float32Array(150 * 3), FOG = null, GLOW = null, VIG = null;
+function seedPools(){
+  var r = mulberry32(seed * 104729 + 1);
+  for (var i = 0; i < P.length; i++) P[i] = r();
+  for (i = 0; i < STARS.length; i++) STARS[i] = r();
+  bundles.clear();
+}
+function prepStatic(){
+  var f = mk(240, 120); var g = f.g, gr = g.createRadialGradient(120, 60, 4, 120, 60, 110);
+  gr.addColorStop(0, 'rgba(235,240,255,0.55)'); gr.addColorStop(1, 'rgba(235,240,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, 240, 120); FOG = f.c;
+  var s = mk(200, 200); g = s.g; gr = g.createRadialGradient(100, 100, 20, 100, 100, 100);
+  gr.addColorStop(0, 'rgba(255,240,180,0.9)'); gr.addColorStop(0.35, 'rgba(255,220,120,0.35)'); gr.addColorStop(1, 'rgba(255,220,120,0)'); g.fillStyle = gr; g.fillRect(0, 0, 200, 200); GLOW = s.c;
+}
+function prepVignette(sw, sh){
+  var v = mk(sw, sh), g = v.g, gr = g.createRadialGradient(sw / 2, sh / 2, Math.min(sw, sh) * 0.3, sw / 2, sh / 2, Math.max(sw, sh) * 0.75);
+  gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,1)'); g.fillStyle = gr; g.fillRect(0, 0, sw, sh); VIG = {c:v.c, w:sw, h:sh};
+}
+var drawnParticles = 0;
+function weather(kind, t, t0, a, sw, sh, q){
+  if (a <= 0.01 || kind === 'clear') return;
+  var i, n, x, y, len, sp, dt = t - t0 + 40;
+  ctx.save(); ctx.globalAlpha = a;
+  if (kind === 'rain' || kind === 'storm') {
+    n = Math.floor(400 * q); var slant = kind === 'storm' ? 0.35 : 0.15;
+    ctx.strokeStyle = kind === 'storm' ? 'rgba(200,215,255,0.65)' : 'rgba(180,205,255,0.55)'; ctx.lineWidth = 1.3; ctx.beginPath();
+    for (i = 0; i < n; i++) { var o = i * 4; sp = 600 + P[o+2] * 400; len = 12 + P[o+3] * 16;
+      y = (P[o+1] * (sh + 40) + dt * sp) % (sh + 40) - 20; x = ((P[o] * (sw + 200) + dt * sp * slant) % (sw + 200)) - 100;
+      ctx.moveTo(x, y); ctx.lineTo(x - len * slant, y - len); }
+    ctx.stroke(); drawnParticles += n;
+  } else if (kind === 'snow') {
+    n = Math.floor(250 * q); ctx.fillStyle = 'rgba(255,255,255,0.9)'; ctx.beginPath();
+    for (i = 0; i < n; i++) { var o2 = i * 4; sp = 30 + P[o2+2] * 60; var rr = 1.2 + P[o2+3] * 2.6;
+      y = (P[o2+1] * (sh + 20) + dt * sp) % (sh + 20) - 10; x = (P[o2] * sw + Math.sin(dt * 0.8 + i) * 18 + sw) % sw;
+      ctx.moveTo(x + rr, y); ctx.arc(x, y, rr, 0, 6.283); }
+    ctx.fill(); drawnParticles += n;
+  } else if (kind === 'wind') {
+    n = Math.floor(90 * q); ctx.strokeStyle = 'rgba(235,245,255,0.35)'; ctx.lineWidth = 1.5; ctx.beginPath();
+    for (i = 0; i < n; i++) { var o3 = i * 4; sp = 500 + P[o3+2] * 500; len = 30 + P[o3+3] * 60;
+      x = (P[o3] * (sw + 200) + dt * sp) % (sw + 200) - 100; y = P[o3+1] * sh * 0.95 + Math.sin(dt * 2 + i) * 6;
+      ctx.moveTo(x, y); ctx.lineTo(x - len, y); }
+    ctx.stroke(); drawnParticles += n;
+    for (i = 0; i < Math.floor(8 * q); i++) { var o4 = (200 + i) * 4; x = (P[o4] * (sw + 100) + dt * (180 + P[o4+2] * 120)) % (sw + 100) - 50;
+      y = sh * (0.3 + P[o4+1] * 0.6) + Math.sin(dt * 3 + i) * 20; drawSprite('🍂', x, y, 22, false, dt * 3 + i, a); }
+  } else if (kind === 'fog') {
+    for (i = 0; i < 8; i++) { var o5 = (300 + i) * 4; x = (P[o5] * (sw + 480) + dt * (10 + P[o5+2] * 14)) % (sw + 480) - 240;
+      y = sh * (0.35 + P[o5+1] * 0.55); ctx.globalAlpha = a * 0.85; ctx.drawImage(FOG, x - 240, y - 80, 480 + P[o5+3] * 200, 160); }
+    drawnParticles += 8;
+  }
+  ctx.restore();
+}
+function lightning(t, t0, a, sw, sh){
+  var k = 0, tk = t0 + 1.0, prev = -1e9;
+  while (tk <= t && k < 400) { prev = tk; tk += 4 + 5 * mulberry32(seed * 31 + k * 977)(); k++; }
+  var dt = t - prev; if (dt > 0.22 || a <= 0) return;
+  var fl = (1 - dt / 0.22) * a;
+  ctx.save(); ctx.fillStyle = 'rgba(255,255,255,' + (0.55 * fl) + ')'; ctx.fillRect(0, 0, sw, sh);
+  var r = mulberry32(seed * 131 + k * 7), x = sw * (0.2 + r() * 0.6), y = 0;
+  ctx.strokeStyle = 'rgba(255,250,210,' + fl + ')'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x, y);
+  while (y < sh * 0.6) { x += (r() - 0.5) * 50; y += 20 + r() * 30; ctx.lineTo(x, y); }
+  ctx.stroke(); ctx.restore();
+}
+
+/* --- Ein Frame: render(zustand, t, seed) --- */
+function render(t, ptrX, ptrY){
+  var w = worldAt(t), R = region(), sw = R.w, sh = R.h;
+  drawnParticles = 0;
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, LW, LH);
+  if (fmt === '9x16') drawCameraBox(R.y);
+  ctx.save(); ctx.translate(R.x, R.y); ctx.beginPath(); ctx.rect(0, 0, sw, sh); ctx.clip();
+  var sk = t - w.shakeT; if (sk >= 0 && sk < 0.3 && !reduced) ctx.translate(Math.sin(sk * 95) * 9 * (1 - sk / 0.3), Math.cos(sk * 70) * 6 * (1 - sk / 0.3));
+  var cur = {place:w.place, landmark:w.landmark, time:w.time}, prev = w.bgPrev || cur, kb = ease((t - w.bgT) / 1.5);
+  // Himmel
+  var A = skyOf(prev), B = skyOf(cur), g = ctx.createLinearGradient(0, 0, 0, sh);
+  g.addColorStop(0, mix(A[0], B[0], kb)); g.addColorStop(1, mix(A[1], B[1], kb)); ctx.fillStyle = g; ctx.fillRect(-20, -20, sw + 40, sh + 40);
+  // Sterne
+  var nt = lerp(nightOf(prev), nightOf(cur), kb);
+  if (nt > 0.02) { var ns = Math.floor(150 * quality), st;
+    ctx.fillStyle = '#ffffff';
+    for (st = 0; st < ns; st++) { var so = st * 3; ctx.globalAlpha = nt * (0.35 + 0.65 * Math.abs(Math.sin(t * (0.6 + STARS[so+2]) + so)));
+      ctx.fillRect(STARS[so] * sw, STARS[so+1] * sh * 0.62, 1.6, 1.6); }
+    ctx.globalAlpha = 1; drawnParticles += ns; }
+  // Sonne & Mond
+  var sp0 = SUN[prev.time], sp1 = SUN[cur.time], sa = lerp(prev.place === 'space' ? 0 : sp0[2], cur.place === 'space' ? 0 : sp1[2], kb);
+  if (sa > 0.01) { var sx = lerp(sp0[0], sp1[0], kb) * sw, sy = lerp(sp0[1], sp1[1], kb) * sh, sr = sh * 0.07;
+    ctx.globalAlpha = sa; ctx.drawImage(GLOW, sx - sr * 3, sy - sr * 3, sr * 6, sr * 6);
+    ctx.fillStyle = cur.time === 'evening' || cur.time === 'morning' ? '#ffb56b' : '#fff1b0'; ctx.beginPath(); ctx.arc(sx, sy, sr, 0, 6.283); ctx.fill(); ctx.globalAlpha = 1; }
+  var m0 = MOON[prev.time], m1 = MOON[cur.time], ma = lerp(m0[2], m1[2], kb);
+  if (ma > 0.01) { var mx = lerp(m0[0], m1[0], kb) * sw, my = lerp(m0[1], m1[1], kb) * sh, mr = sh * 0.055;
+    ctx.globalAlpha = ma; ctx.fillStyle = '#f3f0dc'; ctx.beginPath(); ctx.arc(mx, my, mr, 0, 6.283); ctx.fill();
+    ctx.fillStyle = mix(A[0], B[0], kb); ctx.beginPath(); ctx.arc(mx + mr * 0.45, my - mr * 0.2, mr * 0.85, 0, 6.283); ctx.fill(); ctx.globalAlpha = 1; }
+  // Kulissen mit Parallax (0,1 / 0,3 / 0,6 / 1,0)
+  var pan = reduced ? 0 : Math.sin(t * 0.06) * 60, px = (ptrX || 0) * 24, py = (ptrY || 0) * 10;
+  function layers(bb, alpha){
+    if (alpha <= 0.01) return;
+    ctx.globalAlpha = alpha;
+    ctx.drawImage(bb.far, -PAD - (pan + px) * 0.1, py * 0.1, sw + PAD * 2, sh);
+    ctx.drawImage(bb.mid, -PAD - (pan + px) * 0.3, py * 0.3, sw + PAD * 2, sh);
+    ctx.drawImage(bb.ground, -PAD - (pan + px) * 0.6, py * 0.6, sw + PAD * 2, sh);
+    ctx.globalAlpha = 1;
+  }
+  if (kb < 1) layers(buildBundle(prev, sw, sh), 1);
+  layers(buildBundle(cur, sw, sh), kb < 1 ? kb : 1);
+  var fx = -(pan + px) * 1.0, ground = sh * 0.87, tempo = lerp(MOOD[w.moodPrev][3], MOOD[w.mood][3], ease((t - w.moodT) / 1.5));
+  // Objekte
+  w.objs.forEach(function(o){ var k = ease((t - o.t0) / 0.5), size = sh * 0.12;
+    if (k > 0) drawSprite(SPRITE[o.id], o.slot * sw + fx * 0.6, ground - size * 0.45 * k, size * (0.4 + 0.6 * k), false, 0, k); });
+  // Figuren
+  w.figs.forEach(function(f, idx){
+    var size = sh * 0.17, base = f.slot * sw, x, y = ground - size * 0.5, rot = 0, alpha = 1, flip = f.side < 0;
+    var ke = ease((t - f.t0) / 1.2); x = lerp(f.side < 0 ? -size : sw + size, base, ke);
+    var dt = t - f.actT, extra = null;
+    if (f.act && t >= f.actT) switch (f.act) {
+      case 'fly': var up = ease(dt / 1.6); y -= up * sh * 0.4 + Math.sin(dt * 2.2 * tempo) * sh * 0.03 * up; x += Math.sin(dt * 0.6) * sw * 0.14 * up; rot = Math.sin(dt * 2.2) * 0.12; flip = Math.cos(dt * 0.6) > 0; break;
+      case 'jump': y -= Math.abs(Math.sin(dt * 3.2 * tempo)) * sh * 0.13; break;
+      case 'run': x += Math.sin(dt * 1.6 * tempo) * sw * 0.14; flip = Math.cos(dt * 1.6 * tempo) > 0; y -= Math.abs(Math.sin(dt * 12)) * 5; break;
+      case 'go': x += Math.sin(dt * 0.7 * tempo) * sw * 0.08; flip = Math.cos(dt * 0.7 * tempo) > 0; break;
+      case 'swim': y += Math.sin(dt * 2) * 6; rot = Math.sin(dt * 2) * 0.15; break;
+      case 'sleep': rot = -0.35 * ease(dt / 0.8); extra = 'sleep'; break;
+      case 'dance': rot = Math.sin(dt * 6 * tempo) * 0.3; y -= Math.abs(Math.sin(dt * 6 * tempo)) * 8; break;
+      case 'cry': extra = 'cry'; break;
+      case 'laugh': y -= Math.abs(Math.sin(dt * 9)) * 6; break;
+    }
+    if (!f.act || f.act === 'come') y += Math.sin(t * 3 * tempo + idx) * 2.5;
+    if (f.exitT != null && t >= f.exitT) { var ko = clamp((t - f.exitT) / 1.2);
+      if (f.act === 'vanish') { alpha = 1 - ko; rot += ko * 2; } else { x = lerp(x, f.side < 0 ? -size : sw + size, ease(ko)); alpha = 1 - ko * 0.5; } }
+    if (alpha <= 0.01) return;
+    x += fx * 0.85;
+    drawSprite(SPRITE[f.id], x, y, size, flip, rot, alpha);
+    if (extra === 'sleep') for (var z = 0; z < 2; z++) { var zt = (dt * 0.6 + z * 0.5) % 1; drawSprite('💤', x + size * 0.35 + zt * 18, y - size * 0.5 - zt * 50, 26, false, 0, alpha * (1 - zt)); }
+    if (extra === 'cry') for (var c = 0; c < 3; c++) { var ct = (dt * 1.2 + c / 3) % 1; drawSprite('💧', x + (c - 1) * 10, y - size * 0.1 + ct * size * 0.6, 14, false, 0, alpha * (1 - ct)); }
+  });
+  // Wetter (Überblendung 1 s)
+  var kw = clamp((t - w.wT) / 1);
+  if (kw < 1) weather(w.wPrev, t, w.wT - 40, 1 - kw, sw, sh, quality);
+  weather(w.weather, t, w.wT, kw, sw, sh, quality);
+  if (w.weather === 'storm') lightning(t, w.wT, kw, sw, sh);
+  if (w.wPrev === 'storm' && kw < 1) lightning(t, w.wT - 1000, 1 - kw, sw, sh);
+  // Stimmung: Farbton + Vignette
+  var km = ease((t - w.moodT) / 1.5), M0 = MOOD[w.moodPrev], M1 = MOOD[w.mood];
+  ctx.fillStyle = mix(M0[0], M1[0], km); ctx.globalAlpha = lerp(M0[1], M1[1], km); ctx.fillRect(0, 0, sw, sh);
+  if (!VIG || VIG.w !== sw || VIG.h !== sh) prepVignette(sw, sh);
+  ctx.globalAlpha = lerp(M0[2], M1[2], km); ctx.drawImage(VIG.c, 0, 0, sw, sh); ctx.globalAlpha = 1;
+  // Lichtblitz bei „plötzlich“
+  if (sk >= 0 && sk < 0.35 && !reduced) { ctx.fillStyle = 'rgba(255,255,255,' + (0.45 * (1 - sk / 0.35)) + ')'; ctx.fillRect(0, 0, sw, sh); }
+  // Untertitel
+  if (w.cap && t - w.capT < 6) { var ca = clamp((6 - (t - w.capT)) / 0.6), txt = w.cap.length > 72 ? '…' + w.cap.slice(-71) : w.cap, fs = Math.round(sh * 0.045);
+    ctx.font = '600 ' + fs + 'px system-ui,-apple-system,"Segoe UI",sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    var tw = Math.min(sw - 24, ctx.measureText(txt).width + 28); ctx.globalAlpha = ca * 0.6; ctx.fillStyle = '#000';
+    ctx.fillRect((sw - tw) / 2, sh - fs * 2.3, tw, fs * 1.7); ctx.globalAlpha = ca; ctx.fillStyle = '#fff'; ctx.fillText(txt, sw / 2, sh - fs * 1.45, sw - 36); ctx.globalAlpha = 1; }
+  // Abblende bei „Ende“
+  if (w.endT != null) { ctx.fillStyle = '#000'; ctx.globalAlpha = clamp((t - w.endT) / 2) * 0.94; ctx.fillRect(0, 0, sw, sh); ctx.globalAlpha = 1; }
+  ctx.restore();
+  return w;
+}
+function drawCameraBox(h){
+  var g = ctx.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#1a1d26'); g.addColorStop(1, '#0d0f14');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, LW, h);
+  ctx.fillStyle = '#2a2f3c'; ctx.beginPath(); ctx.arc(LW / 2, h * 0.42, h * 0.16, 0, 6.283); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(LW / 2, h * 0.98, h * 0.34, h * 0.3, 0, Math.PI, 0); ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)'; ctx.setLineDash([8, 8]); ctx.strokeRect(14, 14, LW - 28, h - 28); ctx.setLineDash([]);
+  ctx.fillStyle = 'rgba(255,255,255,0.55)'; ctx.font = '600 20px system-ui,sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.fillText(t_('camera'), LW / 2, 44);
+}
+
+/* ======================= Steuerung ======================= */
+var $ = function(id){ return document.getElementById(id); };
+function store(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e){ return null; } }
+var nav = (navigator.language || 'de').slice(0,2).toLowerCase();
+var ui = store('lfx.ui') || (I18N[nav] ? nav : 'en'); if (!I18N[ui]) ui = 'de';
+var langSel = store('lfx.ls.lang') || 'auto';
+function t_(k, v){ var s = (I18N[ui][k] != null ? I18N[ui][k] : I18N.de[k]) || k; if (v) s = s.replace(/\{(\w+)\}/g, function(m, n){ return v[n] != null ? v[n] : m; }); return s; }
+function nm(role, id){ var r = NAMES[role]; return r && r[id] ? r[id][LI[ui]] : id; }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function q(s){ return ui === 'en' ? '“' + s + '”' : '„' + s + '“'; }
+function num(n, d){ return n.toLocaleString(ui === 'en' ? 'en-GB' : ui === 'tr' ? 'tr-TR' : 'de-DE', {minimumFractionDigits:d, maximumFractionDigits:d}); }
+
+var startPerf = performance.now(), ptr = {x:0, y:0};
+function now(){ return (performance.now() - startPerf) / 1000; }
+function setFormat(f){
+  fmt = f; store('lfx.ls.fmt', f);
+  if (f === '16x9') { LW = 960; LH = 540; } else { LW = 540; LH = 960; }
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(LW * DPR); cv.height = Math.round(LH * DPR);
+  $('stage').classList.toggle('portrait', f === '9x16');
+  document.querySelectorAll('[data-fmt]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-fmt') === f)); });
+  bundles.clear(); sprites.clear(); VIG = null;
+}
+function setSeed(s){ seed = (parseInt(s, 10) >>> 0) || 0; $('seed').value = seed; seedPools(); }
+
+var lastDec = null, logItems = [];
+function decText(d){
+  var head = '<b>' + esc(q(d.w)) + '</b> → ';
+  switch (d.role) {
+    case 'open': case 'stop': case 'end': case 'shake': return head + esc(t_('r_' + d.role));
+    case 'landmark': return head + esc(t_('r_landmark') + ': ' + nm('place', d.id));
+    case 'action': return head + esc(t_('r_action') + ': ' + nm('action', d.id) + (d.none ? ' (' + t_('noFigure') + ')' : ' (' + (d.pron ? t_('r_pron') + ' → ' : '') + nm('figure', d.who) + ')'));
+    default: return head + esc(t_('r_' + d.role) + ': ' + nm(d.role, d.id));
+  }
+}
+function renderDecisions(){
+  var box = $('decide');
+  if (!lastDec) { box.textContent = t_('idle'); return; }
+  if (!lastDec.dec.length) { box.textContent = t_('noHit', {s: lastDec.text}); return; }
+  box.innerHTML = '<span class="chip">' + esc(t_('detected', {l: t_('lang_' + lastDec.lang)})) + '</span>' +
+    lastDec.dec.map(function(d){ return '<span class="chip r-' + d.role + '">' + decText(d) + '</span>'; }).join('');
+}
+function renderLog(){
+  $('log').innerHTML = logItems.map(function(it){
+    return '<li><span class="s">' + esc(it.text) + '</span>' + (it.dec.length ? it.dec.map(function(d){ return '<span class="chip r-' + d.role + '">' + decText(d) + '</span>'; }).join('') : '–') + '</li>';
+  }).join('');
+}
+function caption(text){ addEvent({t: +now().toFixed(3), kind:'caption', text:text}); $('trText').textContent = text; }
+function processSentence(text, final){
+  text = String(text || '').trim(); if (!text) return null;
+  var t = +now().toFixed(3), w = worldAt(t);
+  var r = direct(text, final, w);
+  if (Object.keys(r.delta).length) addEvent({t:t, kind:'state', delta:r.delta, src:text, lang:r.lang});
+  if (final) {
+    lastDec = {text:text, lang:r.lang, dec:r.dec}; renderDecisions();
+    logItems.unshift({text:text, dec:r.dec}); if (logItems.length > 12) logItems.length = 12; renderLog();
+  }
+  return r;
+}
+function sentences(txt){ return (String(txt).match(/[^.!?…\n]+[.!?…]*/g) || []).map(function(s){ return s.trim(); }).filter(Boolean); }
+
+/* Vorlesen simulieren: Wort für Wort, Zwischenstände steuern Kulisse/Wetter („schnell“), Satzende Figuren („sicher“) */
+var sim = null;
+function stopSim(){ if (sim) { clearTimeout(sim.timer); sim = null; } $('btnSim').textContent = t_('simulate'); }
+function startSim(text){
+  stopSim();
+  var ss = sentences(text); if (!ss.length) return;
+  sim = {ss:ss, si:0, wi:0, words:ss[0].split(/\s+/), timer:null};
+  $('btnSim').textContent = t_('simStop');
+  (function step(){
+    if (!sim) return;
+    var cur = sim.words.slice(0, sim.wi + 1).join(' ');
+    caption(cur);
+    if (sim.wi < sim.words.length - 1) { processSentence(cur, false); sim.wi++; sim.timer = setTimeout(step, 300); }
+    else { processSentence(cur, true); sim.si++; sim.wi = 0;
+      if (sim.si >= sim.ss.length) { stopSim(); return; }
+      sim.words = sim.ss[sim.si].split(/\s+/); sim.timer = setTimeout(step, 900); }
+  })();
+}
+var EXAMPLES = {
+  de:'Es war einmal ein kleines Dorf. Es war Nacht. Ein Mädchen ging in den Wald. Es begann zu regnen. Plötzlich stand da ein Drache. Er flog los. Der Regen hörte auf. Am Morgen schlief das Mädchen. Ende.',
+  tr:'Bir varmış bir yokmuş, küçük bir köy varmış. Gece olmuş. Küçük bir kız ormana gitmiş. Yağmur yağmaya başlamış. Birden bir ejderha çıkmış. Ejderha uçmuş. Yağmur durmuş. Sabah olunca kız uyumuş. Son.',
+  en:'Once upon a time there was a little village. It was night. A girl walked into the forest. It started to rain. Suddenly a dragon appeared. It flew away. The rain stopped. In the morning the girl was asleep. The end.'
+};
+
+/* Mikrofon */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null, rec = null, listening = false;
+var lastHint = null;
+function hint(k, v){ lastHint = k ? [k, v] : null; $('hint').textContent = k ? t_(k, v) : ''; }
+function startRec(){
+  if (!SR) { hint('noMic'); return; }
+  try {
+    rec = new SR(); rec.lang = BCP[langSel === 'auto' ? ui : langSel]; rec.continuous = true; rec.interimResults = true;
+    rec.onresult = function(ev){
+      for (var i = ev.resultIndex; i < ev.results.length; i++) { var s = ev.results[i][0].transcript; caption(s); processSentence(s, ev.results[i].isFinal); }
+    };
+    rec.onerror = function(e){ hint('micErr', {e: e.error || '?'}); };
+    rec.onend = function(){ if (listening) { try { rec.start(); } catch(e){ stopRec(); } } };
+    rec.start(); listening = true; $('btnMic').classList.add('on'); $('btnMic').textContent = t_('micStop');
+    hint('listening', {l: t_('lang_' + rec.lang.slice(0,2))});
+  } catch(e) { hint('micErr', {e: e.message || '?'}); }
+}
+function stopRec(){ listening = false; try { rec && rec.stop(); } catch(e){} $('btnMic').classList.remove('on'); $('btnMic').textContent = t_('mic'); hint(null); }
+
+/* Aufnahme */
+var recorder = null, chunks = [];
+function toggleRecord(){
+  if (recorder) { recorder.stop(); return; }
+  if (!window.MediaRecorder || !cv.captureStream) { hint('recNo'); return; }
+  var types = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'], mime = types.filter(function(m){ return MediaRecorder.isTypeSupported(m); })[0];
+  try { recorder = new MediaRecorder(cv.captureStream(30), mime ? {mimeType:mime, videoBitsPerSecond:6e6} : undefined); } catch(e){ hint('recNo'); recorder = null; return; }
+  chunks = [];
+  recorder.ondataavailable = function(e){ if (e.data && e.data.size) chunks.push(e.data); };
+  recorder.onstop = function(){
+    var f = 'livefx-erzaehlfilm-' + fmt + '-' + Date.now() + '.webm';
+    download(new Blob(chunks, {type:'video/webm'}), f); recorder = null; $('btnRec').textContent = t_('record'); $('btnRec').classList.remove('on'); hint('recSaved', {f:f});
+  };
+  recorder.start(500); $('btnRec').textContent = t_('recStop'); $('btnRec').classList.add('on');
+}
+function download(blob, name){ var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000); }
+
+/* Zeitleiste exportieren / importieren */
+function ltf(){ return {v:1, lang: lastLang || (langSel === 'auto' ? ui : langSel), seed:seed, start:new Date(Date.now() - now() * 1000).toISOString(), format:fmt, events:timeline}; }
+function replay(){ startPerf = performance.now(); fcache = {n:-1, w:null}; }
+
+/* Hauptschleife mit Frame-Budget */
+var frames = 0, fpsT = performance.now(), fps = 0, msAcc = 0, msShow = 0, slow = 0, lastF = performance.now(), worldT = 0;
+function loop(ts){
+  var dtF = ts - lastF; lastF = ts;
+  if (dtF > 20 && dtF < 200) { if (++slow >= 30) { quality = Math.max(0.3, quality * 0.6); slow = 0; } } else slow = 0;
+  var t0 = performance.now(), w = render(now(), ptr.x, ptr.y), sc = performance.now() - t0;
+  msAcc += sc; frames++;
+  if (ts - fpsT >= 500) { fps = frames * 1000 / (ts - fpsT); msShow = msAcc / frames; frames = 0; msAcc = 0; fpsT = ts;
+    renderStats(); }
+  if (ts - worldT > 300) { worldT = ts; $('world').textContent = JSON.stringify(worldJSON(w), null, 1); }
+  requestAnimationFrame(loop);
+}
+function renderStats(){ $('stats').innerHTML = esc(t_('stats', {fps: num(fps, 0), ms: num(msShow, 2), n: drawnParticles, q: Math.round(quality * 100)})) + (recorder ? ' <span class="rec">' + esc(t_('recording')) + '</span>' : ''); }
+function worldJSON(w){
+  return {t:+now().toFixed(1), place:w.place, landmark:w.landmark, time:w.time, weather:w.weather, mood:w.mood,
+    characters:w.figs.filter(function(f){ return f.exitT == null; }).map(function(f){ return {id:f.id, sprite:SPRITE[f.id], x:f.slot, pose:f.act || 'idle'}; }),
+    objects:w.objs.map(function(o){ return {id:o.id, sprite:SPRITE[o.id], x:o.slot}; }),
+    ended:w.endT != null, events:timeline.length, bytes:JSON.stringify(timeline).length};
+}
+
+function applyI18n(){
+  document.documentElement.lang = ui;
+  document.title = 'LiveFX ' + t_('title').split(' – ')[0];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){ el.textContent = t_(el.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ el.placeholder = t_(el.getAttribute('data-i18n-ph')); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(function(el){ el.setAttribute('aria-label', t_(el.getAttribute('data-i18n-aria'))); });
+  document.querySelectorAll('[data-ui]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-ui') === ui)); });
+  $('btnSim').textContent = sim ? t_('simStop') : t_('simulate');
+  $('btnMic').textContent = listening ? t_('micStop') : t_('mic');
+  $('btnRec').textContent = recorder ? t_('recStop') : t_('record');
+  if (lastHint) hint(lastHint[0], lastHint[1]); else if (!SR) hint('noMic');
+  renderDecisions(); renderLog(); renderStats();
+}
+
+document.querySelectorAll('[data-ui]').forEach(function(b){ b.onclick = function(){ ui = b.getAttribute('data-ui'); store('lfx.ui', ui); applyI18n(); }; });
+document.querySelectorAll('[data-fmt]').forEach(function(b){ b.onclick = function(){ setFormat(b.getAttribute('data-fmt')); }; });
+document.querySelectorAll('[data-ex]').forEach(function(b){ b.onclick = function(){ var L = b.getAttribute('data-ex'); $('story').value = EXAMPLES[L]; startSim(EXAMPLES[L]); }; });
+$('selLang').value = langSel;
+$('selLang').onchange = function(){ langSel = this.value; store('lfx.ls.lang', langSel); if (listening) { stopRec(); startRec(); } };
+$('form').onsubmit = function(e){ e.preventDefault(); var v = $('inp').value; sentences(v).forEach(function(s){ caption(s); processSentence(s, true); }); $('inp').value = ''; };
+$('btnSim').onclick = function(){ sim ? stopSim() : startSim($('story').value); };
+$('btnMic').onclick = function(){ listening ? stopRec() : startRec(); };
+$('btnReplay').onclick = function(){ stopSim(); replay(); };
+$('btnNew').onclick = function(){ stopSim(); timeline = []; logItems = []; lastDec = null; lastLang = null; replay(); renderDecisions(); renderLog(); $('trText').textContent = '–'; };
+$('btnRec').onclick = toggleRecord;
+$('seed').onchange = function(){ setSeed(this.value); store('lfx.ls.seed', seed); };
+$('btnExport').onclick = function(){ download(new Blob([JSON.stringify(ltf(), null, 1)], {type:'application/json'}), 'livefx-zeitleiste-' + Date.now() + '.json'); };
+$('btnImport').onclick = function(){ $('file').click(); };
+$('file').onchange = function(){
+  var f = this.files && this.files[0]; if (!f) return; var fr = new FileReader();
+  fr.onload = function(){ try { var j = JSON.parse(fr.result); if (j.v !== 1 || !Array.isArray(j.events)) throw 0;
+      stopSim(); timeline = j.events.filter(function(e){ return e && typeof e.t === 'number'; }).sort(function(a,b){ return a.t - b.t; });
+      if (j.seed != null) setSeed(j.seed); if (j.format === '9x16' || j.format === '16x9') setFormat(j.format); replay(); hint('imported', {n: timeline.length});
+    } catch(e){ hint('importErr'); } };
+  fr.readAsText(f); this.value = '';
+};
+cv.addEventListener('pointermove', function(e){ var r = cv.getBoundingClientRect(); ptr.x = ((e.clientX - r.left) / r.width - 0.5) * 2; ptr.y = ((e.clientY - r.top) / r.height - 0.5) * 2; });
+cv.addEventListener('pointerleave', function(){ ptr.x = ptr.y = 0; });
+window.addEventListener('deviceorientation', function(e){ if (e.gamma != null) { ptr.x = Math.max(-1, Math.min(1, e.gamma / 30)); ptr.y = Math.max(-1, Math.min(1, ((e.beta || 45) - 45) / 30)); } });
+
+prepStatic();
+setSeed(store('lfx.ls.seed') || 7);
+setFormat(store('lfx.ls.fmt') || '16x9');
+applyI18n();
+requestAnimationFrame(loop);
+
+/* Test-Schnittstelle */
+window.LiveStory = {
+  say:function(s){ caption(s); return processSentence(s, true); },
+  world:function(){ return worldJSON(worldAt(now())); },
+  lastDecisions:function(){ return lastDec; },
+  renderAt:function(t){ return render(t, 0, 0); },
+  hash:function(){ var d = ctx.getImageData(0, 0, cv.width, cv.height).data, h = 2166136261; for (var i = 0; i < d.length; i += 7) { h ^= d[i]; h = Math.imul(h, 16777619); } return (h >>> 0).toString(16); },
+  setTimeline:function(ev, s){ timeline = ev.slice(); fcache = {n:-1, w:null}; bundles.clear(); sprites.clear(); if (s != null) setSeed(s); },
+  timeline:function(){ return JSON.parse(JSON.stringify(timeline)); },
+  reset:function(){ $('btnNew').click(); }, setFormat:setFormat, setUi:function(L){ ui = L; applyI18n(); },
+  lexCount:LEXCOUNT, i18n:I18N
+};
+})();
+</script>
+</body>
+</html>
