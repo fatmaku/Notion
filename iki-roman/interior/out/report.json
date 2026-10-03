@@ -130,7 +130,7 @@
     "acts": 0,
     "images": 0,
     "docx_paragraphs": 1784,
-    "words": 39602,
+    "words": 39604,
     "text_check": {
       "model_vs_docx": "ok",
       "print_html_vs_model": "ok",

@@ -128,9 +128,9 @@ Bunlar kurguyu değil, ritmi ya da içerik tercihlerini ilgilendirir; bu yüzden
 
 ## 7. v5 – Sefa Abi'nin yeni dosyası (03.10.2026) / Sefas neue Fassung (nur ŞAHİT)
 
-**TR:** Mustafa Sefa Güvenir yeni bir dosya gönderdi (`SAHIDI_ARARKEN_TR.odt`). Dosya özgün el yazması üzerine yapılmış ve ona göre 17 noktada değişmiş. Değişiklikler stilli v4'e tek tek işlendi; önceki düzeltmeler (yeni ad, „sağ başparmağı bantlı“, „sanki“, EEG notu, AYNI EL listesi) korundu. İki editörün onayladığı açık yazım/noktalama hataları 11 küçük dokunuşla düzeltildi. Ayrıntılı rapor ve yazara üç soru: `analyse/Sefa_Degisiklikleri_v5.md`. Sonuç: 201 sayfa (önce 200), sırt 12,76 mm, kapaklar yeniden üretildi, EPUB 0 hata.
+**TR:** Mustafa Sefa Güvenir yeni bir dosya gönderdi (`SAHIDI_ARARKEN_TR.odt`). Dosya özgün el yazması üzerine yapılmış ve ona göre 17 noktada değişmiş. Değişiklikler stilli v4'e tek tek işlendi; önceki düzeltmeler (yeni ad, „sağ başparmağı bantlı“, „sanki“, EEG notu, AYNI EL listesi) korundu. İki editörün onayladığı açık yazım/noktalama hataları 11 küçük dokunuşla düzeltildi. Ayrıntılı rapor ve yazarın „en mantıklısı olsun“ cevabına göre verilen üç karar: `analyse/Sefa_Degisiklikleri_v5.md`. Sonuç: 201 sayfa (önce 200), sırt 12,76 mm, kapaklar yeniden üretildi, EPUB 0 hata.
 
-**DE:** Mustafa Sefa Güvenir hat eine neue Fassung geschickt (ODT, auf Basis des Originalmanuskripts, 17 Änderungen). Alle 17 wurden stilerhaltend in v4 übernommen; unsere früheren Korrekturen bleiben erhalten. Elf kleine, doppelt bestätigte Rechtschreib- und Zeichensetzungskorrekturen. Ergebnis: 201 Seiten (vorher 200), Rücken 12,76 mm, Cover neu gebaut, EPUB fehlerfrei. Bericht mit drei Rückfragen an den Autor: `analyse/Sefa_Degisiklikleri_v5.md`.
+**DE:** Mustafa Sefa Güvenir hat eine neue Fassung geschickt (ODT, auf Basis des Originalmanuskripts, 17 Änderungen). Alle 17 wurden stilerhaltend in v4 übernommen; unsere früheren Korrekturen bleiben erhalten. Elf kleine, doppelt bestätigte Rechtschreib- und Zeichensetzungskorrekturen. Ergebnis: 201 Seiten (vorher 200), Rücken 12,76 mm, Cover neu gebaut, EPUB fehlerfrei. Bericht mit den drei Entscheidungen (Autor: „en mantıklısı olsun“): `analyse/Sefa_Degisiklikleri_v5.md`.
 
 | # | Bölüm / Kapitel | Sefa Abi'nin değişikliği (özet) | Düzeltme / Korrektur |
 |---|---|---|---|
@@ -148,6 +148,7 @@ Bunlar kurguyu değil, ritmi ya da içerik tercihlerini ilgilendirir; bu yüzden
 | 25 | UNUTMA | „tecrit odasına açılıyordu“ | „yeni bir başlangıc**a**“ |
 | 26 | UNUTMA | „mürekkep yalamış mı … beyaz yaka mı dersiniz“ | sonda nokta |
 | 27 | UNUTMA | alıntı motto: „hakikati“ | – |
-| 28 | UNUTMA | hakikat/iman/akıl eklemesi | „ak**le**tmediği“, „attır**ır**dı“, „sayılsın**?**“ |
+| 28 | UNUTMA | hakikat/iman/akıl eklemesi | „**insan aklın yetmediği yerde** iman eder“ (önce „iman aklatmediği yerde“), „attır**ır**dı“, „sayılsın**?**“ |
+| 31 | HODRİ | (yazarın kararı „en mantıklısı olsun“) Hodri mektubundaki motto | „İnsan öğrenmez, hatırlar!“ → „İnsan **hakikati** öğrenmez, hatırlar!“ |
 | 29 | AN | „Doğum“ → „Doğmak“ (alt başlık) | – |
 | 30 | FİTNE | Şeytan'ın sözünde motto: „hakikati“ | – |

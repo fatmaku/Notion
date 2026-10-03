@@ -48,28 +48,30 @@ Her değişiklik için bağımsız bir editör, metnin tamamında bağlamı okuy
 | 5 | TECRİT ODASI | Yeni paragraf: „Lan çocukluktan, Hoca kelimesi de beni kızdırmak içindi …“ | ✅ alındı | Paragraf sonundaki fazla boşluk silindi |
 | 6 | TECRİT ODASI | Mahmut'un aktardığı sözdeki iç tek tırnaklar kaldırıldı | ✅ alındı | Sonda nokta geri eklendi: „…sıfır kelam**.**” (bölümde noktasız biten tek satırdı) |
 | 7 | TECRİT ODASI | „tek bir endişe kaldı“ → „tek bir endişe **vardı**“ | ✅ aynen alındı | – |
-| 8 | UNUTMA | Telefonda „kızım“ → „**Zehra**“; „eski tecrit odasına bırakacak evrakları … bu adam neyi bekliyor“; anlatıcı: „kibarca ya da dolaylı bağırma şekliydi sanırım“ | ✅ aynen alındı | – (soru 3'e bakın) |
+| 8 | UNUTMA | Telefonda „kızım“ → „**Zehra**“; „eski tecrit odasına bırakacak evrakları … bu adam neyi bekliyor“; anlatıcı: „kibarca ya da dolaylı bağırma şekliydi sanırım“ | ✅ aynen alındı | – (karar 3) |
 | 9 | UNUTMA | Nazım tomarı „**ne ara** kucağıma bırakmıştı“ | ✅ aynen alındı | – |
 | 10 | UNUTMA | Nazım: „bildik de ne oldu?“, „söylendi“, „Sabah olur“ çıkarıldı | ✅ alındı | Çatı uyumu: „bulacağ**ım** söylendi“ (edilgen fiille belirtme eki düşer) |
 | 11 | UNUTMA | „…baktım, **bir hayalet gibi koridor boyunca süzüldü**“; „…işiydi **ve adam haklıydı**“ | ✅ alındı | Paragraf sonundaki fazla boşluk silindi |
 | 12 | UNUTMA | „…eski bir tecrit yeriydi“ → „…eski bir tecrit **odasına açılıyordu**“ | ✅ alındı | Ortak yüklem: „yeni bir başlangıc**a**, … tecrit odasına açılıyordu“ |
 | 13 | UNUTMA | „…sizin gibi kişiler, **artık mürekkep yalamış mı dersiniz beyaz yaka mı dersiniz**“ | ✅ alındı | Sonda nokta: „…dersiniz**.**”“ |
 | 14 | UNUTMA | Alıntılanan motto: „İnsan **hakikati** öğrenmez, hatırlar“ | ✅ aynen alındı | – |
-| 15 | UNUTMA | Hakikat, iman ve akıl üzerine uzun ekleme; „örtme“ (küfür/hamr) bağlantısı | ✅ alındı | Yazım: „aklatmediği“ → „ak**le**tmediği“ (soru 1), „attırıdı“ → „attır**ır**dı“; düşen soru işareti geri: „…sayılsın**?** Hakk'ı örtmeye…“ |
+| 15 | UNUTMA | Hakikat, iman ve akıl üzerine uzun ekleme; „örtme“ (küfür/hamr) bağlantısı | ✅ alındı | „iman aklatmediği yerde iman eder“ → „**insan aklın yetmediği yerde** iman eder“ (karar 1), „attırıdı“ → „attır**ır**dı“; düşen soru işareti geri: „…sayılsın**?** Hakk'ı örtmeye…“ |
 | 16 | AN (alt başlık) | „**Doğum** Ölmenin …“ → „**Doğmak** Ölmenin …“ | ✅ aynen alındı | – |
 | 17 | FİTNE | Şeytan'ın sözünde motto: „İnsan **hakikati** öğrenmez, hatırlar!“ | ✅ aynen alındı | – |
 
-**Toplam:** 17 değişikliğin 17'si alındı. 9'u aynen, 8'i küçük yazım/noktalama düzeltmesiyle (toplam 11 küçük dokunuş). Hiçbir değişiklik reddedilmedi.
+**Toplam:** 17 değişikliğin 17'si alındı. 9'u aynen, 8'i küçük yazım/noktalama düzeltmesiyle (toplam 11 küçük dokunuş). Hiçbir değişiklik reddedilmedi. Ayrıca Sefa Abi'nin kararıyla HODRİ'deki motto da „hakikati“ biçimine çekildi (karar 2).
 
 ---
 
-## Sefa Abi'ye üç küçük soru
+## Üç soru ve kararlar (Sefa Abi: „en mantıklısı olsun“)
 
-1. **15 numara, „aklatmediği“:** Böyle bir kelime yok. Şimdilik en yakın biçimi yazdık: „iman **akletmediği** yerde iman eder“. Kastedilen „insan **aklın yetmediği** yerde iman eder“ ise söylemen yeterli, tek kelimeyle değiştiririz.
-2. **Motto, HODRİ mektubu:** Sefa Abi mottoyu üç yerde „İnsan **hakikati** öğrenmez, hatırlar!“ yaptı. Kitapta kısa biçimde kalan tek yer HODRİ'nin mektubu: „İnsan öğrenmez, hatırlar! Şahit unuttu, sen anlatınca hatırlayacak …“. Bunu da „hakikati“ ile mi yazalım (tam birlik, YOLCU köprüsü daha net), yoksa Hodri'nin kendi ağzı olarak kısa mı kalsın? İkisi de doğru; karar yazarın.
-3. **8 numara, Zehra ve „eski tecrit odası“:** Hakan Hoca telefonda artık Zehra ile konuşuyor ve odanın „eski tecrit odası“ olduğunu, Nazım bunu anlatmadan birkaç sayfa önce söylüyor. İkinci editör bunu bir çelişki saymadı (Sefa telefonun yalnızca bir ucunu duyuyor, Zehra hastanede de görünüyor). Yine de bilinçli bir tohum mu, emin olmak için soruyoruz.
+1. **15 numara, „aklatmediği“ → „insan aklın yetmediği yerde iman eder“.** Cümlenin mantığı: akıl insanı bir yere kadar götürür; aklın yetmediği yerde insan iman eder; iman ise akla takla attırır. Önceki „iman … iman eder“ hem döngüseldi hem de „aklatmediği“ diye bir sözcük yok. Yeni hâli: „Akıl insanı aklının aldığı yere kadar götürür ama **insan aklın yetmediği yerde** iman eder, iman ise akla takla attırırdı.“
+2. **Motto, HODRİ mektubu → „İnsan hakikati öğrenmez, hatırlar!“** Mektubu yazan Hodri, açılıştaki mottoyu da „hakikati“ ile yazıyor; aynı kişinin aynı sözü iki ayrı biçimde yazması mantıksızdı. Artık ŞAHİT'teki altı geçişin altısı da YOLCU 48. bölümle harfi harfine aynı. Şeytan'ın konuşmasındaki ikinci, farklı cümle („insan öğrenmez, onlara kötülüğü öğretmek fıtratlarına ters“) ayrı bir önerme olduğu için bilerek değiştirilmedi.
+3. **8 numara, Zehra ve „eski tecrit odası“ → Sefa Abi'nin metni aynen kaldı.** En mantıklısı zaten bu: Zehra kitapta 488. paragrafta Vildan'ın masasında da beliriyor; telefon konuşması bunu önceden hazırlıyor. Sefa telefonda „eski tecrit odası“ sözünü duyuyor ama anlamıyor; Nazım birkaç sayfa sonra açıklıyor („Burası eskiden … tecrit odasıydı“) ve hemen ardından gelen „Şimdi anladım“ cümlesi tam yerine oturuyor.
 
-İsteğe bağlı küçük notlar (hata değil, yalnızca üslup): 9 numarada „ne ara kucağıma bırakmıştı“ soru işaretiyle de bitebilir; 13 numarada „beyaz yaka“ yerine Nazım'ın ağzına daha uygun „okumuş“ ya da „kravatlı“ düşünülebilir.
+Bu iki küçük değişiklik sayfa sayısını değiştirmedi (201); kapaklar geçerli, EPUB 0 hata.
+
+İsteğe bağlı küçük notlar (hata değil, yalnızca üslup; dokunulmadı): 9 numarada „ne ara kucağıma bırakmıştı“ soru işaretiyle de bitebilir; 13 numarada „beyaz yaka“ yerine Nazım'ın ağzına daha uygun „okumuş“ ya da „kravatlı“ düşünülebilir.
 
 ---
 

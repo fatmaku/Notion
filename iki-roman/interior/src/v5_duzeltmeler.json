@@ -50,8 +50,8 @@
  {
   "nr": 15,
   "alt": "aklatmediği",
-  "neu": "akletmediği",
-  "neden": "Yazım: „aklatmediği“ diye bir sözcük yok; en yakın doğru biçim „akletmediği“. Kastedilen „aklın yetmediği yerde“ ise yazar değiştirebilir (soru listesinde)."
+  "neu": "insan aklın yetmediği yerde iman eder (Satz: „ama iman aklatmediği yerde iman eder“ → „ama insan aklın yetmediği yerde iman eder“)",
+  "neden": "Yazım + mantık: „aklatmediği“ diye bir sözcük yok; cümlenin mantığı „akıl bir yere kadar götürür, aklın yetmediği yerde insan iman eder“. Yazarın cevabı: „en mantıklısı olsun“ (03.10.2026)."
  },
  {
   "nr": 15,
@@ -64,5 +64,17 @@
   "alt": "sayılsın, Hakk'ı örtmeye",
   "neu": "sayılsın? Hakk'ı örtmeye",
   "neden": "Özgün metindeki soru işareti eklemeyle düşmüştü; „neden … sayılsın“ soru cümlesi, ardından yeni cümle başlıyor."
+ },
+ {
+  "nr": "HODRİ",
+  "alt": "İnsan öğrenmez, hatırlar! Şahit unuttu",
+  "neu": "İnsan hakikati öğrenmez, hatırlar! Şahit unuttu",
+  "neden": "Motto birliği: Hodri açılış mottosunu (par. 41) „hakikati“ ile yazıyor; yazar üç yeri bu biçime çekmişti. Yazarın cevabı: „en mantıklısı olsun“."
+ },
+ {
+  "nr": 8,
+  "alt": "(Zehra, „eski tecrit odası“)",
+  "neu": "(değişiklik yok)",
+  "neden": "En mantıklısı Sefa Abi'nin metni: Zehra 488'de Vildan'ın masasında da beliriyor; Sefa „eski tecrit odası“ sözünü telefonda duyup anlamıyor, Nazım 349'da açıklıyor, 350'deki „Şimdi anladım“ tam yerine oturuyor."
  }
 ]
