@@ -504,3 +504,92 @@ test('backwards compat: play(name, ctx, out, volume) and loop() keep working bes
   assert.strictEqual(h.name, 'storm');
   h.stop(0.2);
 });
+
+// ---- 2.0 review: option robustness ----
+
+test('mixer.play: NaN / non-numeric options mean "default" (pan 0, gain 1, intensity 1), not the clamp floor', () => {
+  const { ctx, log, mixer } = freshMixer();
+  const gains = log.gains.length;
+  const v = mixer.play('pop', { gain: NaN, pan: NaN, intensity: 'x', when: undefined });
+  assert.ok(v, 'played');
+  assert.strictEqual(log.gains[gains].gain.value, 1, 'voice gain defaults to 1 for NaN');
+  assert.strictEqual(log.panners.length, 0, 'pan NaN -> centre, no panner');
+  assert.strictEqual(mixer.play('pop', { pan: '0.5' }) && log.panners.length, 1, 'numeric strings still pan');
+  assert.strictEqual(log.panners[0].pan.value, 0.5);
+  // gain 0 is a legitimate (silent) value and still plays.
+  const g0 = log.gains.length;
+  assert.ok(mixer.play('pop', { gain: 0 }));
+  assert.strictEqual(log.gains[g0].gain.value, 0);
+  // intensity rounding: 2.5 -> 3, -1 -> 1, '3' -> 3
+  const sources = () => log.started;
+  const s1 = sources();
+  mixer.play('pop', { intensity: -1 });
+  const one = sources() - s1;
+  const s2 = sources();
+  mixer.play('pop', { intensity: '3' });
+  const three = sources() - s2;
+  const s3 = sources();
+  mixer.play('pop', { intensity: 2.5 });
+  const twoHalf = sources() - s3;
+  assert.ok(three > one, `intensity '3' layers more voices than -1 (${three} vs ${one})`);
+  assert.strictEqual(twoHalf, three, '2.5 rounds up to 3');
+  void ctx;
+});
+
+test('mixer.setMaster / setBus / duck ignore NaN instead of muting', () => {
+  const { mixer } = freshMixer();
+  mixer.setMaster(0.6);
+  assert.strictEqual(mixer.setMaster(NaN), 0.6, 'NaN keeps the level and returns it');
+  assert.strictEqual(mixer.setMaster(undefined), 0.6);
+  assert.strictEqual(mixer.setMaster(''), 0.6);
+  assert.strictEqual(mixer.stats.master, 0.6);
+  assert.strictEqual(mixer.setBus('sfx', NaN), 1);
+  assert.strictEqual(mixer.stats.sfx, 1);
+  assert.strictEqual(mixer.duck(NaN, NaN), true);
+  const ev = mixer.duckGain.gain.events;
+  const down = ev.find((e) => e[0] === 'target' && e[1] < 1);
+  assert.ok(Math.abs(down[1] - Math.pow(10, -8 / 20)) < 1e-9, 'duck NaN db -> default -8 dB');
+  const up = ev.filter((e) => e[0] === 'target' && e[1] === 1).pop();
+  assert.ok(Math.abs(up[3] - 0.3 / 4) < 1e-9, 'duck NaN ms -> default 300 ms');
+});
+
+test('mixer.duck / stopLoop before init and without a loop are safe no-ops', () => {
+  const mixer = LiveFXSounds.mixer;
+  mixer.stopLoop(0.01);
+  const keep = { ctx: mixer.ctx, master: mixer.master, duckGain: mixer.duckGain };
+  mixer.ctx = null;
+  mixer.master = null;
+  mixer.duckGain = null;
+  assert.strictEqual(mixer.duck(250), false);
+  assert.strictEqual(mixer.stopLoop(), false);
+  assert.strictEqual(mixer.play('pop'), null, 'no AudioContext in Node -> null, no throw');
+  assert.deepStrictEqual(mixer.stats.loop, null);
+  Object.assign(mixer, keep);
+  freshMixer();
+});
+
+test('mixer.init on a new context disconnects the old graph (no second path to the old destination)', () => {
+  const a = freshMixer();
+  const disconnected = [];
+  for (const n of [a.mixer.master, a.mixer.limiter, a.mixer.sfxBus, a.mixer.ambientBus, a.mixer.duckGain]) {
+    n.disconnect = () => disconnected.push(n);
+  }
+  const oldMaster = a.mixer.master;
+  const { ctx } = makeFakeContext();
+  a.mixer.init(ctx);
+  assert.ok(disconnected.includes(oldMaster), 'old master disconnected');
+  assert.strictEqual(disconnected.length, 5);
+  assert.strictEqual(a.mixer.ctx, ctx);
+  freshMixer();
+});
+
+test('mixer.startLoop with the same name twice keeps the running loop (no restart, no cross-fade)', () => {
+  const { log, mixer } = freshMixer();
+  const h = mixer.startLoop('rain');
+  const started = log.started;
+  const h2 = mixer.startLoop('rain', { gain: 0.2 });
+  assert.strictEqual(h2, h);
+  assert.strictEqual(log.started, started, 'nothing new scheduled');
+  assert.strictEqual(h.gain.gain.events.filter((e) => e[0] === 'exp').length, 0, 'no fade-out on the running loop');
+  mixer.stopLoop(0.01);
+});

@@ -964,6 +964,9 @@
   };
 
   const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, Number.isFinite(Number(v)) ? Number(v) : lo));
+  // Option values: a non-finite value (NaN, undefined, '') means "not given" and yields the default –
+  // otherwise `pan: NaN` would clamp to hard left and `gain: NaN` / `setMaster(NaN)` to silence.
+  const num = (v, def) => (v === undefined || v === null || v === '' || !Number.isFinite(Number(v)) ? def : Number(v));
   const dbToGain = (db) => Math.pow(10, db / 20);
 
   // A thin view onto an AudioContext for one voice: `currentTime` is shifted by `when`, every
@@ -1051,6 +1054,12 @@
         try { this._loop.stop(0.01); } catch (_) { /* ignore */ }
         this._loop = null;
       }
+      // Rebuild: detach the old graph from its destination so it does not keep playing / leak.
+      for (const n of [this.master, this.limiter, this.sfxBus, this.ambientBus, this.duckGain, this.convolver, this.wetGain]) {
+        if (n && typeof n.disconnect === 'function') {
+          try { n.disconnect(); } catch (_) { /* ignore */ }
+        }
+      }
       this.ctx = ctx;
       this.out = dest;
       this._voices = [];
@@ -1111,17 +1120,17 @@
       const ctx = this._ensure();
       if (!ctx || !SFX[name]) return null;
       const o = opts && typeof opts === 'object' ? opts : {};
-      const gain = clamp(o.gain === undefined ? 1 : o.gain, 0, 1);
-      const pan = clamp(o.pan === undefined ? 0 : o.pan, -1, 1);
-      const intensity = Math.round(clamp(o.intensity === undefined ? 1 : o.intensity, 1, 3));
-      const when = clamp(o.when === undefined ? 0 : o.when, 0, 60);
+      const gain = clamp(num(o.gain, 1), 0, 1);
+      const pan = clamp(num(o.pan, 0), -1, 1);
+      const intensity = Math.round(clamp(num(o.intensity, 1), 1, 3));
+      const when = clamp(num(o.when, 0), 0, 60);
       if (ctx.state === 'suspended' && typeof ctx.resume === 'function') {
         try { const p = ctx.resume(); if (p && p.catch) p.catch(() => {}); } catch (_) { /* ignore */ }
       }
       const vg = ctx.createGain();
       vg.gain.value = gain;
       let tail = vg;
-      if (pan !== 0 || o.pan !== undefined) {
+      if (pan !== 0 || Number.isFinite(Number(o.pan))) {
         if (typeof ctx.createStereoPanner === 'function') {
           const p = ctx.createStereoPanner();
           p.pan.value = pan;
@@ -1181,7 +1190,7 @@
       const ctx = this._ensure();
       if (!ctx || !LOOPS[name]) return null;
       const o = opts && typeof opts === 'object' ? opts : {};
-      const gain = clamp(o.gain === undefined ? 1 : o.gain, 0, 1);
+      const gain = clamp(num(o.gain, 1), 0, 1);
       if (this._loop && this._loop.name === name) return this._loop;
       this.stopLoop(o.fade);
       const h = startLoop(name, ctx, this.ambientBus, gain);
@@ -1205,8 +1214,8 @@
       if (!this.ctx || !this.duckGain) return false;
       const ctx = this.ctx;
       const now = ctx.currentTime;
-      const release = Math.max(0.02, clamp(ms, 0, 60000) / 1000);
-      const low = dbToGain(clamp(db, -60, 0));
+      const release = Math.max(0.02, clamp(num(ms, 300), 0, 60000) / 1000);
+      const low = dbToGain(clamp(num(db, -8), -60, 0));
       this._prune();
       let endAt = now;
       for (const v of this._voices) if (v.end > endAt) endAt = v.end;
@@ -1219,7 +1228,9 @@
       return true;
     },
 
+    /** Master level 0..1 (20 ms ramp). A non-numeric value keeps the current level and returns it. */
     setMaster(v) {
+      if (!Number.isFinite(Number(v)) || v === '' || v === null) return this._levels.master;
       const g = clamp(v, 0, 1);
       this._levels.master = g;
       if (this.master) this._ramp(this.master.gain, g);
@@ -1228,6 +1239,7 @@
 
     setBus(bus, v) {
       if (bus !== 'sfx' && bus !== 'ambient') return null;
+      if (!Number.isFinite(Number(v)) || v === '' || v === null) return this._levels[bus];
       const g = clamp(v, 0, 1);
       this._levels[bus] = g;
       const node = bus === 'sfx' ? this.sfxBus : this.ambientBus;

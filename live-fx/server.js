@@ -144,13 +144,23 @@ server.on('error', (e) => {
 });
 process.on('unhandledRejection', (e) => log('unhandled rejection:', e && e.stack ? e.stack : e));
 process.on('uncaughtException', (e) => log('uncaught exception:', e && e.stack ? e.stack : e));
-process.on('SIGINT', () => {
-  appCtx.chat.stop();
+// Graceful shutdown on both signals: chat connectors close their sockets (no reconnect storm against
+// Twitch / YouTube while we are going down), SSE clients are told goodbye, then the listener closes.
+let shuttingDown = false;
+function shutdown() {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  try {
+    appCtx.chat.stop();
+  } catch (e) {
+    log('chat stop failed:', e.message);
+  }
   bus.close();
   server.close(() => process.exit(0));
   setTimeout(() => process.exit(0), 500).unref();
-});
-process.on('SIGTERM', () => process.exit(0));
+}
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
 
 smart.init().catch((e) => log('smart init failed:', e.message));
 

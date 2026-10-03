@@ -1289,7 +1289,7 @@
   let savedTheme = 'neon';
   try { savedTheme = localStorage.getItem(THEME_KEY) || 'neon'; } catch (e) { /* ignore */ }
   applyTheme(savedTheme, { send: false });
-  if ($('#theme')) $('#theme').addEventListener('change', (e) => { applyTheme(e.target.value); log(`Theme: ${e.target.value}`, 'Panel'); });
+  if ($('#theme')) $('#theme').addEventListener('change', (e) => { applyTheme(e.target.value); log(`🎨 Theme: ${e.target.value}`); });
   if (savedTheme !== 'neon') setTimeout(() => bus.send({ type: 'theme', theme: savedTheme }), 1500);
 
   $('#volume').addEventListener('input', (e) => {
@@ -1732,7 +1732,7 @@
     const cls = ev.fired ? ' fired' : ev.blocked ? ' blocked' : '';
     let fx = '';
     if (ev.fired) fx = `→ ${esc(labelOf(triggers.find((t) => t.id === ev.fired) || { id: ev.fired }))}`;
-    else if (ev.blocked) fx = esc(ev.blocked.startsWith('cooldown') ? 'Cooldown' : ev.blocked);
+    else if (ev.blocked) fx = esc(String(ev.blocked).startsWith('cooldown') ? 'Cooldown' : String(ev.blocked));
     return `<div class="chat-line${cls}" data-type="chat"${ev.fired ? ` data-fired="${esc(ev.fired)}"` : ''}><span class="platform">${esc(ev.platform)}</span><span class="user">${esc(ev.user)}</span><span class="text">${esc(ev.text)}</span>${fx ? `<span class="fx">${fx}</span>` : ''}</div>`;
   }
 
@@ -1932,7 +1932,9 @@
     setInterval(() => enforcePreviewMute(false), 1000);
     if (online) {
       pollHealth();
-      setInterval(pollHealth, HEALTH_POLL_MS);
+      // Background polling pauses while the tab is hidden (explicit calls still work); a hidden tab
+      // cannot show the echo warning anyway, and OBS keeps its own overlay count.
+      setInterval(() => !document.hidden && pollHealth(), HEALTH_POLL_MS);
     }
     if (!online) log('ℹ️ Kein Server (file://): nur Vorschau im selben Browser. Für OBS, Uploads und API: node server.js');
 
@@ -1953,7 +1955,7 @@
     setCombos(readCombos(), { persist: false });
     setIntensityFromVoice(intensityFromVoice, { persist: false });
     await loadChat();
-    if (online) setInterval(refreshChatStatus, CHAT_STATUS_POLL_MS);
+    if (online) setInterval(() => !document.hidden && refreshChatStatus(), CHAT_STATUS_POLL_MS);
 
     if (online) {
       library = LiveFXAssets.mountLibrary($('#asset-library'), {
@@ -1979,7 +1981,7 @@
   }
 
   window.livefx = {
-    theme: { get: () => $("#theme").value, set: (name) => applyTheme(name) },
+    theme: { get: () => ($('#theme') ? $('#theme').value : 'neon'), set: (name) => applyTheme(name) },
     bus,
     matcher,
     fire,

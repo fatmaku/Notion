@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.0 – Release „Reif für Bühne und Verkauf“
+
+- **Review-Durchlauf** über alle Teile aus 1.5/1.6 (Zuschauer-Trigger, Geschenke-Webhook, Effekt-Engine v2,
+  Audio-Mixer, Auto-Sprache, Panel-Karten): Härtung gegen fehlerhafte Eingaben, Escaping, Grenzwerte,
+  sauberes Beenden der Chat-Verbindungen; Regressionstests dazu.
+- **Business-Ordner** `business/`: Marketingvideo 9:16 und 16:9 (aus Code gerendert), Pitch-Deck (PPTX),
+  Businessplan (MD + DOCX), Marktanalyse mit Quellen, LinkedIn-Texte DE/TR, Landingpage DE/TR/EN.
+- Versionsnummern, Service-Worker-Shell und Doku auf 2.0 gezogen.
+
 ## 1.6.0 – Grafik-, Sound- und Technik-Upgrade
 
 - **Effekt-Engine v2**: Canvas-Partikel mit Physik (Schwerkraft, Wind, Drift, Rotation) und dynamischem

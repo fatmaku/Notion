@@ -446,15 +446,19 @@
     _tick(now) {
       this.raf = 0;
       const t0 = typeof performance !== 'undefined' ? performance.now() : now;
-      const dt = this.last ? clamp((now - this.last) / 1000, 0.001, 0.05) : 1 / 60;
+      // `real` = wall-clock seconds since the last frame; the physics step is clamped (stable integration),
+      // but particles AGE by real time (capped at 1 s) – otherwise a slow-painting page (2 fps) would
+      // stretch a 3 s burst to a minute and keep this loop alive the whole time.
+      const real = this.last ? Math.max(0, (now - this.last) / 1000) : 1 / 60;
+      const dt = clamp(real, 0.001, 0.05);
       this.last = now;
       this._spawnAmbient(now);
-      this._update(dt);
+      this._update(dt, Math.min(real, 1));
       this._draw();
       const ms = (typeof performance !== 'undefined' ? performance.now() : now) - t0;
       this.stats.frameMs = Math.round(ms * 100) / 100;
       // fps: average over ~1 s windows.
-      this.fpsAcc += dt;
+      this.fpsAcc += real;
       this.fpsN++;
       if (this.fpsAcc >= 1) {
         this.stats.fps = Math.round(this.fpsN / this.fpsAcc);
@@ -477,13 +481,13 @@
       else this.stop();
     }
 
-    _update(dt) {
+    _update(dt, ageStep = dt) {
       const fall = this.fallPx();
       const items = this.items;
       let n = 0;
       for (let i = 0; i < items.length; i++) {
         const p = items[i];
-        p.age += dt;
+        p.age += ageStep;
         if (p.age >= p.life) continue;
         p.vy += p.g * dt;
         p.vx += (p.wind - p.vx) * 0.4 * dt;
@@ -639,6 +643,18 @@
       if (parsed.kind === 'builtin') {
         const mixer = this._mixer();
         if (mixer) {
+          // One AudioContext for everything: hand the renderer's context to the mixer before its first
+          // play() would create a second one (file sounds / loops already use `this.audioCtx`).
+          if (!mixer.ctx && typeof mixer.init === 'function') {
+            const ctx = this.ensureAudio();
+            if (ctx) {
+              try {
+                mixer.init(ctx);
+              } catch (_) {
+                /* mixer keeps creating its own context */
+              }
+            }
+          }
           if (this._mixerSynced !== mixer && typeof mixer.setMaster === 'function') {
             this._mixerSynced = mixer;
             try {
@@ -648,8 +664,8 @@
             }
           }
           try {
-            mixer.play(parsed.name, { gain, pan: clamp(Number(opts.pan) || 0, -1, 1), intensity: clamp(Number(opts.intensity) || 1, 1, 3) });
-            this.stats.sounds++;
+            const voice = mixer.play(parsed.name, { gain, pan: clamp(Number(opts.pan) || 0, -1, 1), intensity: clamp(Number(opts.intensity) || 1, 1, 3) });
+            if (voice !== null) this.stats.sounds++; // null = unknown name / no WebAudio
           } catch (_) {
             /* unknown builtin name */
           }
@@ -978,6 +994,17 @@
         span.textContent = g;
         group.appendChild(span);
       });
+      if (style === 'glitch') {
+        // Two offset copies of the same letter structure (identical wrapping) that the CSS clips + jitters.
+        const originals = Array.from(word.children);
+        for (const cls of ['fx-glitch-a', 'fx-glitch-b']) {
+          const layer = document.createElement('span');
+          layer.className = `fx-glitch-layer ${cls}`;
+          layer.setAttribute('aria-hidden', 'true');
+          for (const child of originals) layer.appendChild(child.cloneNode(true));
+          word.appendChild(layer);
+        }
+      }
       el.appendChild(word);
       if (v.emoji) {
         const e = document.createElement('div');
