@@ -1,0 +1,129 @@
+{
+  "lang": "en",
+  "file": "Portfolio_Investor_Deck_EN.pptx",
+  "deckTitle": "One Voice, Three Products – Portfolio Investment",
+  "footer": "CONFIDENTIAL  •  PORTFOLIO INVESTMENT  •  OCTOBER 2026",
+  "proposal": "Proposal – please confirm",
+  "sections": ["Opening", "Portfolio", "The offer", "Close"],
+  "s1": {
+    "kicker": "PORTFOLIO INVESTMENT  ·  OCTOBER 2026",
+    "title": "One voice,\nthree products",
+    "sub": "Aybal · LiveFX · the “My Neurodivergent Compass” book series – voice technology for families, education and creators in German, Turkish and English",
+    "askLabel": "TOTAL ROUND",
+    "ask": "€500,000",
+    "people": [["FOUNDER & INVENTOR (AYBAL)", "Tuncay Sancak"], ["INVESTOR RELATIONS", "Gönül Demet"]],
+    "imgLabels": ["Aybal", "LiveFX"]
+  },
+  "s2": {
+    "kicker": "PORTFOLIO / THESIS",
+    "title": "One voice, three products",
+    "pillars": [
+      ["Voice technology", "Read-aloud with natural and personal voices (Aybal) and speech → live effect in under a second (LiveFX)."],
+      ["Three languages", "German, Turkish and English from day one: Aybal with 3 interface and 13 voice languages, LiveFX with automatic DE/TR/EN recognition."],
+      ["Family · education · creators", "One audience, three entry points: families read (Aybal), creators and teachers stream (LiveFX), children learn with their own stories (book series)."]
+    ],
+    "bottom": "One investment, one shared voice and content stack, three revenue paths."
+  },
+  "s3": {
+    "kicker": "PORTFOLIO / OVERVIEW",
+    "title": "The portfolio at a glance",
+    "cards": [
+      {"tag": "AYBAL", "what": "Family reading with voice", "status": "Platform built · closed beta from 12 Oct 2026 · Germany launch 20 Nov 2026", "nums": [["1,779", "automated tests"], ["13", "voice languages"], ["101M", "families in target markets"]], "src": "Source: aybal-show/Aybal_Investor_Deck.pptx"},
+      {"tag": "LIVEFX", "what": "Voice → live effect", "status": "Version 2.0 working · no revenue yet · Turkish launch Q4 2026", "nums": [["238", "triggers in 5 packs"], ["13", "animated scenes"], ["240+", "automated tests"]], "src": "Source: live-fx/business/BUSINESSPLAN.md, PITCH-DECK.md"},
+      {"tag": "BOOK SERIES", "what": "Content IP on neurodiversity", "status": "5 books in TR/DE/EN · trailers in 3 languages · teen spin-off in progress", "nums": [["5", "books"], ["3", "languages"], ["4", "teen titles"]], "src": "Source: deniz-trailer/, deniz-teen/books.js"}
+    ]
+  },
+  "s4": {
+    "kicker": "PORTFOLIO / AYBAL",
+    "title": "Aybal: the voice of family reading",
+    "body": "Families upload PDFs, EPUBs, Word files, text or photos of pages – Aybal reads them aloud with word-by-word highlighting.",
+    "stats": [["€7.6B", "TAM: family reading spend in target markets"], ["€1.14B", "SAM: 15% assumed willingness to pay"], ["€38M", "SOM: directional, not a forecast"]],
+    "facts": ["Pricing: Plus €9.99/month · Family €24.99/month · web margin 75–77%", "Measured intelligibility: German 98% · Turkish 97%", "Break-even (scenario): strong case Aug 2030 · venture case Oct 2031"],
+    "round": "Own round: €250,000 pre-seed · valuation cap €1.30M pre-money · planned close March 2027",
+    "src": "Source: Aybal_Investor_Deck.pptx, slides 3–12"
+  },
+  "s5": {
+    "kicker": "PORTFOLIO / LIVEFX",
+    "title": "LiveFX: live streams that listen",
+    "body": "The creator speaks – in under a second a meme, a sound or an animated scene appears in the stream. Story mode for reading aloud, viewer triggers via chat and gifts.",
+    "stats": [["$97–157B", "global live-streaming market 2026"], ["1–3M", "creators in the TR/DE/EN space (SAM, estimate)"], ["5,000–15,000", "paying users in year 3 (SOM, estimate)"]],
+    "facts": ["Pricing: Free · Pro €9.99/month or €79/year · packs €2.99–4.99", "Base case (estimate): revenue €51k / €336k / €1,039k in Y1–Y3", "Need per business plan: €250–350k seed for 18–24 months"],
+    "src": "Source: live-fx/business/BUSINESSPLAN.md (sections 1, 6, 9, 11), market data there [Source 1, 2]"
+  },
+  "s6": {
+    "kicker": "PORTFOLIO / CONTENT IP",
+    "title": "One book series, three languages",
+    "series": ["Benim Nörofarklı Pusulam", "Mein neurodiverser Kompass", "My Neurodivergent Compass"],
+    "books": ["My Neurodivergent Compass", "Deniz and the Secret Messages of His Body", "Deniz Finds His Own Way at School", "Deniz and the Friendship Compass", "Deniz and the Island of Changes"],
+    "extra": "Gift book “İyi ki Varsın / Gut, dass es dich gibt / Good That You Exist” · teen spin-off with 4 Deniz titles",
+    "trailers": "Available: 5 book trailers (TR), series videos in DE/TR/EN, gift-book trailer in 3 languages",
+    "feeds": [["→ Aybal", "Read-aloud titles with voice in three languages"], ["→ LiveFX", "Story mode, world packs, first publisher pilot"]],
+    "caption": "LiveFX story film (vision trailer)",
+    "src": "Source: file names in deniz-trailer/, deniz-teen/books.js"
+  },
+  "s7": {
+    "kicker": "PORTFOLIO / SYNERGIES",
+    "title": "Synergies: one stack, one audience",
+    "items": [
+      ["Speech and voice stack", "Recognition, speech output and word timing power both products: read-aloud with word highlighting (Aybal), scenes and pronunciation (LiveFX)."],
+      ["Shared content IP", "The book series supplies read-aloud titles for Aybal and story packs for LiveFX story mode."],
+      ["DE/TR/EN markets", "Both start in the German-Turkish community: Aybal with its Germany launch, LiveFX with Turkish creators."],
+      ["Cross-selling", "Read-aloud streams lead families to Aybal; Aybal families are the target group for LiveFX WortBild (language learning)."]
+    ],
+    "note": "Synergies are hypotheses and not yet measured.",
+    "caption": "LiveFX WortBild (vision trailer)"
+  },
+  "s8": {
+    "kicker": "THE OFFER / ROUND",
+    "title": "€500,000 for three projects",
+    "chartTitle": "Split (proposal)",
+    "split": [["Aybal", 250000, "€250,000", "as in the Aybal deck"], ["LiveFX", 200000, "€200,000", "part of the seed range in its business plan"], ["Book series / content", 50000, "€50,000", "audio editions, print, rights"]],
+    "total": "€500,000",
+    "note": "Aybal terms per its own deck: €1.30M pre-money cap, ~16% at cap, planned close March 2027. Terms for LiveFX and content: [open]."
+  },
+  "s9": {
+    "kicker": "THE OFFER / USE OF FUNDS",
+    "title": "Use of funds by project",
+    "aybalHead": "Aybal · €250,000 (per Aybal deck)",
+    "aybalBars": [["Team", 50, "€125,000"], ["Marketing", 25, "€62,500"], ["EU voice ops + store app", 15, "€37,500"], ["Legal / trust", 10, "€25,000"]],
+    "livefxHead": "LiveFX · €200,000",
+    "livefxText": "Covers the year-1 base-case costs (€165k) plus a buffer. The business plan names €250–350k; the rest from revenue, grants or a follow-on round.",
+    "livefxItems": ["Mobile developer (first hire)", "Creator partner programme, marketing", "Platform and education pilots"],
+    "contentHead": "Book series · €50,000",
+    "contentItems": ["DE/TR/EN audio editions for Aybal", "Editing, translation, print editions", "Rights, licences, ISBNs"],
+    "src": "Sources: Aybal_Investor_Deck.pptx slide 12; BUSINESSPLAN.md sections 11.3–11.4"
+  },
+  "s10": {
+    "kicker": "THE OFFER / MILESTONES",
+    "title": "24 months: milestones by project",
+    "quarters": ["Q4 26", "Q1 27", "Q2 27", "Q3 27", "Q4 27", "Q1 28", "Q2 28", "Q3 28"],
+    "lanes": [
+      {"name": "Aybal", "items": [[0, "Beta (50 families) · Germany launch"], [1, "Close March 2027"], [2, "Gate 1: activation"], [5, "Gate 2: retention"], [6, "Market expansion 2027–28"]]},
+      {"name": "LiveFX", "items": [[0, "Turkish launch"], [1, "Pro plan, DE/EN"], [2, "Mobile app"], [3, "Pro+, platform pilot"], [4, "School licence"], [6, "Scene SDK v1 (2028)"]]},
+      {"name": "Books", "items": [[1, "Audio editions in Aybal"], [3, "Publisher pilot in LiveFX"], [5, "Teen spin-off [date]"]]}
+    ],
+    "note": "Aybal and LiveFX per project documents; book series: proposal – please confirm."
+  },
+  "s11": {
+    "kicker": "THE OFFER / STRUCTURE & RISKS",
+    "title": "Structure options and risks",
+    "optHead": "Structure – neutral, legal review required",
+    "options": [
+      ["A · One holding", "One entry point, pooled IP; in exchange a new valuation of all parts and transfer of the Aybal terms."],
+      ["B · Separate SPVs", "Valuation and risk per project, Aybal round unchanged; in exchange more contracts and IP licences."],
+      ["C · Hybrid", "Aybal round as planned; LiveFX and content in a second company under a licence agreement."]
+    ],
+    "legal": "Not a recommendation – legal and tax advice required.",
+    "riskHead": "Key risks",
+    "risks": ["Demand and retention unproven", "Key-person risk in every project", "Focus: three projects, small team", "Voice, copyright, children's data", "Platform dependency, TRY exchange rate"]
+  },
+  "s12": {
+    "kicker": "CLOSE",
+    "title": "Team and contact",
+    "team": [["TS", "Tuncay Sancak", "Founder & Inventor · Managing Director (Aybal)"], ["GD", "Gönül Demet", "Investor Relations & Fundraising (Aybal)"], ["?", "[Name]", "Founder of LiveFX · author of the book series"]],
+    "hiring": "After the round: technical co-founder & growth (Aybal), mobile developer (LiveFX), community TR/DE",
+    "closing": "One voice for families, classrooms and live streams.",
+    "contact": "Contact: Gönül Demet · [email] · [phone]",
+    "disclaimer": "Scenarios and forward-looking statements, not forecasts. An investment may result in total loss."
+  }
+}

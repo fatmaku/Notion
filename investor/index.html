@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eine Stimme, drei Produkte</title>
+<meta name="description" content="Portfolio-Investment Aybal · LiveFX · Buchreihe – Unterlagen in Deutsch, Türkisch und Englisch.">
+<link rel="stylesheet" href="../aybal-show/assets/fonts.css">
+<style>
+:root {
+  --bg: #15111A; --bg2: #1B1520; --card: #241C2A; --line: #3A2E40;
+  --text: #F4EDE2; --muted: #BDB3C4; --dim: #8C8294;
+  --gold: #D4B27A; --wine: #6E1630; --pink: #FF2D75; --mint: #2DFFB5; --violet: #A08FFF;
+  --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Jost', Arial, Helvetica, sans-serif;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.55; overflow-x: hidden; }
+a { color: inherit; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+header.bar { position: sticky; top: 0; z-index: 5; background: rgba(21,17,26,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+header.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 56px; }
+.brand { font-family: var(--serif); font-weight: 700; font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.langs { display: flex; gap: 4px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 3px; flex: none; }
+.langs button { font: 600 13px var(--sans); letter-spacing: .08em; color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.langs button[aria-pressed="true"] { background: var(--gold); color: var(--bg); }
+.langs button:focus-visible, a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+
+.hero { padding: 40px 0 28px; display: grid; gap: 28px; }
+.hero > * { min-width: 0; }
+@media (min-width: 900px) { .hero { grid-template-columns: 1.15fr .85fr; align-items: center; padding: 64px 0 40px; } }
+.kicker { font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(40px, 9vw, 72px); line-height: 1; margin: 12px 0 14px; }
+.lead { color: var(--muted); font-size: 18px; max-width: 34em; margin: 0 0 20px; }
+.wave { display: flex; align-items: center; gap: 3px; height: 34px; margin: 6px 0 22px; overflow: hidden; }
+.wave i { flex: none; width: 4px; border-radius: 4px; }
+.askrow { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+.ask { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 12px 18px; }
+.ask small { display: block; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.ask b { font-family: var(--serif); font-size: 34px; line-height: 1.1; }
+.people { font-size: 14px; color: var(--muted); }
+.people b { color: var(--text); font-weight: 600; }
+.mosaic { display: grid; grid-template-columns: 1.1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; aspect-ratio: 5 / 4; }
+.mosaic figure { margin: 0; position: relative; border-radius: 16px; overflow: hidden; background: var(--card); }
+.mosaic figure:first-child { grid-row: span 2; }
+.mosaic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mosaic figcaption { position: absolute; left: 10px; bottom: 10px; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: rgba(21,17,26,.85); border: 1px solid currentColor; }
+
+section { padding: 36px 0; border-top: 1px solid var(--line); }
+h2 { font-family: var(--serif); font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 8px 0 20px; }
+.grid3 { display: grid; gap: 16px; }
+@media (min-width: 860px) { .grid3 { grid-template-columns: repeat(3, 1fr); } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.tag { align-self: flex-start; font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; border: 1.5px solid currentColor; border-radius: 999px; padding: 2px 12px; }
+.card h3 { font-family: var(--serif); font-size: 24px; line-height: 1.15; margin: 0; }
+.card p { margin: 0; color: var(--muted); }
+.status { font-size: 14px; color: var(--text); }
+.nums { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; margin: 4px 0; }
+.nums b { display: block; font-family: var(--serif); font-size: 26px; line-height: 1.05; overflow-wrap: anywhere; }
+.nums span { font-size: 13px; color: var(--muted); }
+.links { list-style: none; margin: auto 0 0; padding: 10px 0 0; border-top: 1px solid var(--line); display: grid; gap: 6px; font-size: 14px; }
+.links a { text-decoration: none; display: inline-flex; gap: 6px; align-items: baseline; }
+.links a::before { content: '→'; color: var(--gold); }
+.links a:hover { text-decoration: underline; }
+.src { font-size: 12px; color: var(--dim); font-style: italic; }
+
+.split { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+.splithead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: center; margin-bottom: 14px; }
+.prop { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--pink); border: 1.5px solid var(--pink); border-radius: 999px; padding: 3px 12px; }
+.bars { display: flex; height: 36px; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+.bars div { display: flex; align-items: center; justify-content: center; color: var(--bg); font-weight: 700; font-size: 14px; }
+.legend { display: grid; gap: 12px; }
+@media (min-width: 720px) { .legend { grid-template-columns: repeat(3, 1fr); } }
+.legend b { font-size: 16px; }
+.legend .amt { font-family: var(--serif); font-size: 26px; font-weight: 700; display: block; line-height: 1.1; }
+.legend small { color: var(--muted); font-size: 13px; }
+.note { font-size: 13px; color: var(--muted); margin: 14px 0 0; }
+
+.docs { display: grid; gap: 14px; }
+@media (min-width: 720px) { .docs { grid-template-columns: repeat(3, 1fr); } }
+.doc { background: var(--bg2); border: 1px solid var(--line); border-radius: 16px; padding: 18px; text-decoration: none; display: flex; flex-direction: column; gap: 6px; transition: border-color .15s; }
+.doc:hover { border-color: var(--gold); }
+.doc .type { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.doc b { font-family: var(--serif); font-size: 22px; line-height: 1.15; }
+.doc span { color: var(--muted); font-size: 14px; }
+.other { font-size: 13px; color: var(--muted); margin-top: 12px; }
+.other a { color: var(--gold); }
+
+.syn { display: grid; gap: 14px; }
+@media (min-width: 720px) { .syn { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .syn { grid-template-columns: repeat(4, 1fr); } }
+.syn div { background: var(--bg2); border-radius: 16px; padding: 18px; }
+.syn b { display: block; margin-bottom: 6px; }
+.syn span { color: var(--muted); font-size: 14px; }
+
+footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+footer .contact { color: var(--text); font-weight: 600; font-size: 16px; margin-bottom: 8px; }
+footer .disc { font-size: 12px; color: var(--dim); font-style: italic; margin-top: 10px; }
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <div class="brand" data-t="brand">Eine Stimme, drei Produkte</div>
+  <div class="langs" role="group" aria-label="Sprache / Dil / Language">
+    <button type="button" data-lang="de" aria-pressed="true">DE</button>
+    <button type="button" data-lang="tr" aria-pressed="false">TR</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</div></header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <div class="kicker" data-t="kicker"></div>
+      <h1 data-t="title"></h1>
+      <p class="lead" data-t="lead"></p>
+      <div class="wave" id="wave" aria-hidden="true"></div>
+      <div class="askrow">
+        <div class="ask"><small data-t="askLabel"></small><b data-t="ask"></b></div>
+        <div class="people" data-t="people"></div>
+      </div>
+    </div>
+    <div class="mosaic">
+      <figure><img src="../aybal-show/assets/hero.jpg" alt="" data-alt="altAybal"><figcaption style="color:var(--gold)">Aybal</figcaption></figure>
+      <figure><img src="../live-fx/business/landing-assets/overlay-neon.jpg" alt="" data-alt="altFx"><figcaption style="color:var(--pink)">LiveFX</figcaption></figure>
+      <figure><img id="still" src="../live-fx/business/video/stills/vision-de-16x9-8s.jpg" alt="" data-alt="altStory"><figcaption style="color:var(--violet)" data-t="storyCap"></figcaption></figure>
+    </div>
+  </div>
+
+  <section id="docs">
+    <div class="kicker" data-t="docsKicker"></div>
+    <h2 data-t="docsTitle"></h2>
+    <div class="docs">
+      <a class="doc" id="lMemo" href="PORTFOLIO.de.md"><span class="type" data-t="memoType"></span><b data-t="memoTitle"></b><span data-t="memoDesc"></span></a>
+      <a class="doc" id="lDeck" href="Portfolio_Investor_Deck_DE.pptx"><span class="type" data-t="deckType"></span><b data-t="deckTitle"></b><span data-t="deckDesc"></span></a>
+      <a class="doc" id="lOne" href="OnePager_DE.pdf"><span class="type" data-t="oneType"></span><b data-t="oneTitle"></b><span data-t="oneDesc"></span></a>
+    </div>
+    <p class="other"><span data-t="otherLangs"></span>
+      <a href="PORTFOLIO.de.md">Memo DE</a> · <a href="PORTFOLIO.tr.md">Memo TR</a> · <a href="PORTFOLIO.en.md">Memo EN</a> ·
+      <a href="Portfolio_Investor_Deck_DE.pptx">Deck DE</a> · <a href="Portfolio_Investor_Deck_TR.pptx">Deck TR</a> · <a href="Portfolio_Investor_Deck_EN.pptx">Deck EN</a> ·
+      <a href="OnePager_DE.pdf">One-Pager DE</a> · <a href="OnePager_TR.pdf">One-Pager TR</a> · <a href="OnePager_EN.pdf">One-Pager EN</a> ·
+      <a href="README.md">README</a></p>
+  </section>
+
+  <section id="projects">
+    <div class="kicker" data-t="projKicker"></div>
+    <h2 data-t="projTitle"></h2>
+    <div class="grid3">
+      <article class="card">
+        <span class="tag" style="color:var(--gold)">Aybal</span>
+        <h3 data-t="aTitle"></h3>
+        <p data-t="aText"></p>
+        <div class="status" data-t="aStatus"></div>
+        <div class="nums" data-nums="aNums" style="--c:var(--gold)"></div>
+        <div class="src">aybal-show/Aybal_Investor_Deck.pptx</div>
+        <ul class="links">
+          <li><a href="../aybal-show/index.html" data-t="aL1"></a></li>
+          <li><a href="../aybal-show/Aybal_Investor_Deck.pptx" data-t="aL2"></a></li>
+          <li><a href="../aybal-show/Aybal_Investor_Show.mp4" data-t="aL3"></a></li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag" style="color:var(--pink)">LiveFX</span>
+        <h3 data-t="fTitle"></h3>
+        <p data-t="fText"></p>
+        <div class="status" data-t="fStatus"></div>
+        <div class="nums" data-nums="fNums" style="--c:var(--pink)"></div>
+        <div class="src">live-fx/business/BUSINESSPLAN.md · PITCH-DECK.md</div>
+        <ul class="links">
+          <li><a href="../live-fx/business/landing.html" data-t="fL1"></a></li>
+          <li><a href="../live-fx/business/BUSINESSPLAN.md" data-t="fL2"></a></li>
+          <li><a href="../live-fx/business/LiveFX_Pitch.pptx" data-t="fL3"></a></li>
+          <li><a id="lFxTrailer" href="../live-fx/business/video/LiveFX_Trailer_16x9.mp4" data-t="fL4"></a></li>
+          <li><a id="lFxVision" href="../live-fx/business/video/LiveFX_Vision_de_16x9.mp4" data-t="fL5"></a></li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag" style="color:var(--violet)" data-t="bTag"></span>
+        <h3 data-t="bTitle"></h3>
+        <p data-t="bText"></p>
+        <div class="status" data-t="bStatus"></div>
+        <div class="nums" data-nums="bNums" style="--c:var(--violet)"></div>
+        <div class="src">deniz-trailer/ · deniz-teen/books.js</div>
+        <ul class="links">
+          <li><a id="lSeries" href="../deniz-trailer/series/Mein_Neurodiverser_Kompass_Serie_DE_1080p.mp4" data-t="bL1"></a></li>
+          <li><a id="lIkv" href="../deniz-trailer/ikv/Gut_dass_es_dich_gibt_Trailer_DE.mp4" data-t="bL2"></a></li>
+          <li><a href="../deniz-trailer/Kitap1_Benim_Norofarkli_Pusulam_Fragman.mp4" data-t="bL3"></a></li>
+          <li><a href="../deniz-teen/trailer.html" data-t="bL4"></a></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="split">
+    <div class="kicker" data-t="splitKicker"></div>
+    <h2 data-t="splitTitle"></h2>
+    <div class="split">
+      <div class="splithead"><b data-t="splitHead"></b><span class="prop" data-t="proposal"></span></div>
+      <div class="bars">
+        <div style="width:50%;background:var(--gold)" data-pct="50"></div>
+        <div style="width:40%;background:var(--pink)" data-pct="40"></div>
+        <div style="width:10%;background:var(--violet)" data-pct="10"></div>
+      </div>
+      <div class="legend" id="legend"></div>
+      <p class="note" data-t="splitNote"></p>
+    </div>
+  </section>
+
+  <section id="synergies">
+    <div class="kicker" data-t="synKicker"></div>
+    <h2 data-t="synTitle"></h2>
+    <div class="syn" id="syn"></div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <div class="contact" data-t="contact"></div>
+  <div data-t="team"></div>
+  <div class="disc" data-t="disc"></div>
+</div></footer>
+
+<script>
+(function () {
+  var I18N = {
+    de: {
+      brand: 'Eine Stimme, drei Produkte', kicker: 'Portfolio-Investment · Vertraulich · Oktober 2026', title: 'Eine Stimme, drei Produkte',
+      lead: 'Aybal, LiveFX und die Buchreihe „Mein neurodiverser Kompass“: Sprachtechnologie für Familie, Bildung und Creator – in Deutsch, Türkisch und Englisch.',
+      askLabel: 'Gesamtvolumen', ask: '500.000 €',
+      people: '<b>Tuncay Sancak</b> · Gründer & Erfinder (Aybal)<br><b>Gönül Demet</b> · Investor Relations',
+      altAybal: 'Mutter und Kind lesen gemeinsam ein Buch (Aybal)', altFx: 'LiveFX-Effekt „KRASS!“ mit Konfetti', altStory: 'LiveFX-Erzählfilm: eine Szene entsteht aus gesprochenen Worten', storyCap: 'Story',
+      docsKicker: 'Unterlagen', docsTitle: 'Alles für das Investorengespräch',
+      memoType: 'Memo · Markdown', memoTitle: 'Investment-Memo', memoDesc: 'These, Projekte mit Quellen, Synergien, Aufteilung, Struktur, Meilensteine, Risiken.',
+      deckType: 'Pitch-Deck · PowerPoint', deckTitle: 'Portfolio-Deck (12 Folien)', deckDesc: 'Präsentation mit Aufteilungs-Diagramm und 24-Monats-Zeitleiste.',
+      oneType: 'One-Pager · PDF', oneTitle: 'Eine Seite A4', oneDesc: 'Kurzfassung zum Versenden vor dem ersten Termin.',
+      otherLangs: 'Alle Sprachen: ',
+      projKicker: 'Portfolio', projTitle: 'Drei Projekte, ein Publikum',
+      aTitle: 'Die Stimme des Familienvorlesens', aText: 'Familien laden eigene Bücher und Dokumente hoch; Aybal liest sie vor und hebt Wort für Wort hervor.', aStatus: 'Plattform gebaut · Closed Beta ab 12.10.2026 · Deutschland-Launch 20.11.2026',
+      aNums: [['1.779', 'automatisierte Tests'], ['13', 'Stimmsprachen'], ['101 Mio.', 'Familien im Zielmarkt'], ['250.000 €', 'Pre-Seed laut Deck']],
+      aL1: 'Investor-Show (HTML)', aL2: 'Aybal-Investor-Deck (PPTX)', aL3: 'Investor-Show als Video (MP4)',
+      fTitle: 'Live-Streams, die zuhören', fText: 'Der Creator spricht – Memes, Sounds und animierte Szenen erscheinen in unter einer Sekunde. Story-Modus, Zuschauer-Trigger.', fStatus: 'Version 2.0 funktionsfähig · noch keine Umsätze · TR-Launch Q4 2026',
+      fNums: [['238', 'Trigger in 5 Paketen'], ['13', 'animierte Szenen'], ['97–157 Mrd. USD', 'Live-Streaming-Markt 2026'], ['250–350 T€', 'Seed-Bedarf laut Businessplan']],
+      fL1: 'Landingpage', fL2: 'Businessplan', fL3: 'LiveFX-Pitch-Deck (PPTX)', fL4: 'Trailer (MP4)', fL5: 'Vision-Trailer (MP4)',
+      bTag: 'Buchreihe', bTitle: 'Mein neurodiverser Kompass', bText: 'Fünf Bände in Türkisch, Deutsch und Englisch – Content-IP, die Aybal (Vorlesen) und LiveFX (Story-Modus) speist.', bStatus: '5 Bände · Trailer in 3 Sprachen · Teen-Ableger mit 4 Titeln in Arbeit',
+      bNums: [['5', 'Bände'], ['3', 'Sprachen'], ['4', 'Teen-Titel'], ['1', 'Geschenkbuch in 3 Sprachen']],
+      bL1: 'Serien-Video DE (MP4)', bL2: 'Trailer „Gut, dass es dich gibt“ (MP4)', bL3: 'Buch-Trailer Band 1, TR (MP4)', bL4: 'Teen-Trailer (HTML)',
+      splitKicker: 'Angebot', splitTitle: '500.000 € für drei Projekte', splitHead: 'Vorgeschlagene Aufteilung', proposal: 'Vorschlag – bitte bestätigen',
+      legend: [['Aybal', '250.000 €', 'wie im Aybal-Deck (Cap 1,30 Mio. € pre-money)'], ['LiveFX', '200.000 €', 'Basis-Kosten Jahr 1 (165 T€) plus Puffer'], ['Buchreihe', '50.000 €', 'Hörfassungen, Editionen, Rechte']],
+      splitNote: 'Struktur (Holding, getrennte Gesellschaften oder Hybrid) neutral dargestellt – Rechts- und Steuerberatung erforderlich.',
+      synKicker: 'Synergien', synTitle: 'Ein Stack, ein Publikum',
+      syn: [['Sprach- und Stimm-Stack', 'Erkennung, Sprachausgabe und Wort-Timing tragen beide Produkte.'], ['Content-IP', 'Die Buchreihe liefert Vorlese-Titel für Aybal und Story-Packs für LiveFX.'], ['Märkte DE/TR/EN', 'Beide starten in der deutsch-türkischen Community.'], ['Cross-Selling', 'Vorlese-Streams führen Familien zu Aybal, Aybal-Familien zu WortBild.']],
+      contact: 'Kontakt: Gönül Demet (Investor Relations) · [E-Mail] · [Telefon]',
+      team: 'Team: Tuncay Sancak – Gründer & Erfinder, Geschäftsführer (Aybal) · Gönül Demet – Investor Relations & Fundraising · [Name] – Gründerin LiveFX, Autorin der Buchreihe',
+      disc: 'Vertraulich. Szenarien und Schätzungen aus den Projektunterlagen, keine Prognosen. Eine Investition kann zum Totalverlust führen.',
+      pct: function (n) { return n + ' %'; }
+    },
+    tr: {
+      brand: 'Tek ses, üç ürün', kicker: 'Portföy yatırımı · Gizli · Ekim 2026', title: 'Tek ses, üç ürün',
+      lead: 'Aybal, LiveFX ve “Benim Nörofarklı Pusulam” kitap serisi: aile, eğitim ve içerik üreticileri için ses teknolojisi – Türkçe, Almanca ve İngilizce.',
+      askLabel: 'Toplam yatırım', ask: '500.000 €',
+      people: '<b>Tuncay Sancak</b> · Kurucu & Mucit (Aybal)<br><b>Gönül Demet</b> · Yatırımcı İlişkileri',
+      altAybal: 'Anne ve çocuk birlikte kitap okuyor (Aybal)', altFx: 'Konfetili LiveFX efekti “KRASS!”', altStory: 'LiveFX anlatı filmi: konuşulan kelimelerden bir sahne oluşuyor', storyCap: 'Hikâye',
+      docsKicker: 'Belgeler', docsTitle: 'Yatırımcı görüşmesi için her şey',
+      memoType: 'Not · Markdown', memoTitle: 'Yatırım notu', memoDesc: 'Tez, kaynaklı projeler, sinerjiler, dağılım, yapı, kilometre taşları, riskler.',
+      deckType: 'Sunum · PowerPoint', deckTitle: 'Portföy sunumu (12 slayt)', deckDesc: 'Dağılım grafiği ve 24 aylık zaman çizelgesiyle sunum.',
+      oneType: 'Tek sayfa · PDF', oneTitle: 'A4 tek sayfa özet', oneDesc: 'İlk görüşmeden önce göndermek için kısa özet.',
+      otherLangs: 'Tüm diller: ',
+      projKicker: 'Portföy', projTitle: 'Üç proje, tek kitle',
+      aTitle: 'Ailece okumanın sesi', aText: 'Aileler kendi kitaplarını ve belgelerini yükler; Aybal bunları sesli okur ve her kelimeyi vurgular.', aStatus: 'Platform hazır · Kapalı beta 12.10.2026 · Almanya lansmanı 20.11.2026',
+      aNums: [['1.779', 'otomatik test'], ['13', 'ses dili'], ['101 milyon', 'hedef pazarda aile'], ['250.000 €', 'sunuma göre pre-seed']],
+      aL1: 'Yatırımcı gösterisi (HTML)', aL2: 'Aybal yatırımcı sunumu (PPTX)', aL3: 'Gösteri videosu (MP4)',
+      fTitle: 'Dinleyen canlı yayınlar', fText: 'Yayıncı konuşur – meme, ses ve animasyonlu sahneler bir saniyenin altında belirir. Hikâye modu, izleyici tetikleyicileri.', fStatus: 'Sürüm 2.0 çalışıyor · henüz gelir yok · TR lansmanı 4Ç 2026',
+      fNums: [['238', 'tetikleyici, 5 paket'], ['13', 'animasyonlu sahne'], ['97–157 milyar USD', '2026 canlı yayın pazarı'], ['250–350 bin €', 'iş planına göre seed ihtiyacı']],
+      fL1: 'Açılış sayfası', fL2: 'İş planı (Almanca)', fL3: 'LiveFX sunumu (PPTX)', fL4: 'Fragman (MP4)', fL5: 'Vizyon fragmanı (MP4)',
+      bTag: 'Kitap serisi', bTitle: 'Benim Nörofarklı Pusulam', bText: 'Türkçe, Almanca ve İngilizce beş kitap – Aybal’ı (sesli okuma) ve LiveFX’i (hikâye modu) besleyen içerik.', bStatus: '5 kitap · 3 dilde fragmanlar · 4 kitaplık gençlik serisi hazırlanıyor',
+      bNums: [['5', 'kitap'], ['3', 'dil'], ['4', 'gençlik kitabı'], ['1', '3 dilde hediye kitap']],
+      bL1: 'Seri videosu TR (MP4)', bL2: '“İyi ki Varsın” fragmanı (MP4)', bL3: '1. kitap fragmanı (MP4)', bL4: 'Gençlik serisi fragmanı (HTML)',
+      splitKicker: 'Teklif', splitTitle: 'Üç proje için 500.000 €', splitHead: 'Önerilen dağılım', proposal: 'Öneri – lütfen onaylayın',
+      legend: [['Aybal', '250.000 €', 'Aybal sunumundaki gibi (tavan 1,30 milyon € pre-money)'], ['LiveFX', '200.000 €', '1. yıl baz maliyeti (165 bin €) ve tampon'], ['Kitap serisi', '50.000 €', 'Sesli sürümler, baskılar, haklar']],
+      splitNote: 'Yapı (holding, ayrı şirketler ya da hibrit) tarafsız sunulmuştur – hukuk ve vergi danışmanlığı gereklidir.',
+      synKicker: 'Sinerjiler', synTitle: 'Tek altyapı, tek kitle',
+      syn: [['Konuşma ve ses altyapısı', 'Tanıma, seslendirme ve kelime zamanlaması iki ürünü de taşır.'], ['Ortak içerik', 'Kitap serisi Aybal’a okuma kitapları, LiveFX’e hikâye paketleri sağlar.'], ['DE/TR/EN pazarları', 'İkisi de Türk-Alman topluluğundan başlar.'], ['Çapraz satış', 'Okuma yayınları aileleri Aybal’a, Aybal aileleri WortBild’e taşır.']],
+      contact: 'İletişim: Gönül Demet (Yatırımcı İlişkileri) · [E-posta] · [Telefon]',
+      team: 'Ekip: Tuncay Sancak – Kurucu & Mucit, Genel Müdür (Aybal) · Gönül Demet – Yatırımcı İlişkileri ve Fon Yaratma · [İsim] – LiveFX kurucusu, kitap serisinin yazarı',
+      disc: 'Gizlidir. Senaryolar ve tahminler proje belgelerinden alınmıştır, öngörü değildir. Yatırım, sermayenin tamamen kaybına yol açabilir.',
+      pct: function (n) { return '%' + n; }
+    },
+    en: {
+      brand: 'One voice, three products', kicker: 'Portfolio investment · Confidential · October 2026', title: 'One voice, three products',
+      lead: 'Aybal, LiveFX and the “My Neurodivergent Compass” book series: voice technology for families, education and creators – in German, Turkish and English.',
+      askLabel: 'Total round', ask: '€500,000',
+      people: '<b>Tuncay Sancak</b> · Founder & Inventor (Aybal)<br><b>Gönül Demet</b> · Investor Relations',
+      altAybal: 'Mother and child reading a book together (Aybal)', altFx: 'LiveFX effect “KRASS!” with confetti', altStory: 'LiveFX story film: a scene built from spoken words', storyCap: 'Story',
+      docsKicker: 'Documents', docsTitle: 'Everything for the investor conversation',
+      memoType: 'Memo · Markdown', memoTitle: 'Investment memo', memoDesc: 'Thesis, sourced project profiles, synergies, split, structure, milestones, risks.',
+      deckType: 'Pitch deck · PowerPoint', deckTitle: 'Portfolio deck (12 slides)', deckDesc: 'Presentation with use-of-funds chart and 24-month timeline.',
+      oneType: 'One-pager · PDF', oneTitle: 'One A4 page', oneDesc: 'Short version to send ahead of the first meeting.',
+      otherLangs: 'All languages: ',
+      projKicker: 'Portfolio', projTitle: 'Three projects, one audience',
+      aTitle: 'The voice of family reading', aText: 'Families upload their own books and documents; Aybal reads them aloud with word-by-word highlighting.', aStatus: 'Platform built · closed beta from 12 Oct 2026 · Germany launch 20 Nov 2026',
+      aNums: [['1,779', 'automated tests'], ['13', 'voice languages'], ['101M', 'families in target markets'], ['€250,000', 'pre-seed per deck']],
+      aL1: 'Investor show (HTML)', aL2: 'Aybal investor deck (PPTX)', aL3: 'Investor show video (MP4)',
+      fTitle: 'Live streams that listen', fText: 'The creator speaks – memes, sounds and animated scenes appear in under a second. Story mode, viewer triggers.', fStatus: 'Version 2.0 working · no revenue yet · Turkish launch Q4 2026',
+      fNums: [['238', 'triggers in 5 packs'], ['13', 'animated scenes'], ['$97–157B', 'live-streaming market 2026'], ['€250–350k', 'seed need per business plan']],
+      fL1: 'Landing page', fL2: 'Business plan (German)', fL3: 'LiveFX pitch deck (PPTX)', fL4: 'Trailer (MP4)', fL5: 'Vision trailer (MP4)',
+      bTag: 'Book series', bTitle: 'My Neurodivergent Compass', bText: 'Five books in Turkish, German and English – content IP that feeds Aybal (read-aloud) and LiveFX (story mode).', bStatus: '5 books · trailers in 3 languages · teen spin-off with 4 titles in progress',
+      bNums: [['5', 'books'], ['3', 'languages'], ['4', 'teen titles'], ['1', 'gift book in 3 languages']],
+      bL1: 'Series video EN (MP4)', bL2: '“Good That You Exist” trailer (MP4)', bL3: 'Book 1 trailer, TR (MP4)', bL4: 'Teen trailer (HTML)',
+      splitKicker: 'The offer', splitTitle: '€500,000 for three projects', splitHead: 'Proposed split', proposal: 'Proposal – please confirm',
+      legend: [['Aybal', '€250,000', 'as in the Aybal deck (€1.30M pre-money cap)'], ['LiveFX', '€200,000', 'year-1 base costs (€165k) plus buffer'], ['Book series', '€50,000', 'audio editions, print, rights']],
+      splitNote: 'Structure (holding, separate companies or hybrid) presented neutrally – legal and tax advice required.',
+      synKicker: 'Synergies', synTitle: 'One stack, one audience',
+      syn: [['Speech and voice stack', 'Recognition, speech output and word timing power both products.'], ['Shared content IP', 'The book series supplies read-aloud titles for Aybal and story packs for LiveFX.'], ['DE/TR/EN markets', 'Both launch in the German-Turkish community.'], ['Cross-selling', 'Read-aloud streams lead families to Aybal, Aybal families to WortBild.']],
+      contact: 'Contact: Gönül Demet (Investor Relations) · [email] · [phone]',
+      team: 'Team: Tuncay Sancak – Founder & Inventor, Managing Director (Aybal) · Gönül Demet – Investor Relations & Fundraising · [Name] – Founder of LiveFX, author of the book series',
+      disc: 'Confidential. Scenarios and estimates from the project documents, not forecasts. An investment may result in total loss.',
+      pct: function (n) { return n + '%'; }
+    }
+  };
+  var FILES = {
+    de: { memo: 'PORTFOLIO.de.md', deck: 'Portfolio_Investor_Deck_DE.pptx', one: 'OnePager_DE.pdf', trailer: 'LiveFX_Trailer_16x9.mp4', vision: 'LiveFX_Vision_de_16x9.mp4', series: 'Mein_Neurodiverser_Kompass_Serie_DE_1080p.mp4', ikv: 'Gut_dass_es_dich_gibt_Trailer_DE.mp4' },
+    tr: { memo: 'PORTFOLIO.tr.md', deck: 'Portfolio_Investor_Deck_TR.pptx', one: 'OnePager_TR.pdf', trailer: 'LiveFX_Trailer_tr_16x9.mp4', vision: 'LiveFX_Vision_tr_16x9.mp4', series: 'Pusulam_Serisi_Zorluklar_ve_Cozumler_1080p.mp4', ikv: 'Iyi_ki_Varsin_Fragman_TR.mp4' },
+    en: { memo: 'PORTFOLIO.en.md', deck: 'Portfolio_Investor_Deck_EN.pptx', one: 'OnePager_EN.pdf', trailer: 'LiveFX_Trailer_en_16x9.mp4', vision: 'LiveFX_Vision_en_16x9.mp4', series: 'My_Neurodivergent_Compass_Series_EN_1080p.mp4', ikv: 'Good_That_You_Exist_Trailer_EN.mp4' }
+  };
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function $(id) { return document.getElementById(id); }
+
+  var wave = $('wave'), html = '';
+  for (var i = 0; i < 60; i++) {
+    var a = Math.abs(Math.sin(i * 0.55) * 0.75 + Math.sin(i * 1.7) * 0.25);
+    html += '<i style="height:' + Math.round(6 + 28 * a) + 'px;background:' + (i < 30 ? 'var(--gold)' : 'var(--pink)') + '"></i>';
+  }
+  wave.innerHTML = html;
+
+  function apply(lang) {
+    var d = I18N[lang], f = FILES[lang];
+    document.documentElement.lang = lang;
+    document.title = d.title;
+    document.querySelectorAll('[data-t]').forEach(function (el) {
+      var k = el.getAttribute('data-t');
+      if (k === 'people') el.innerHTML = d[k]; else el.textContent = d[k];
+    });
+    document.querySelectorAll('[data-alt]').forEach(function (el) { el.alt = d[el.getAttribute('data-alt')]; });
+    document.querySelectorAll('[data-nums]').forEach(function (el) {
+      el.innerHTML = d[el.getAttribute('data-nums')].map(function (n) { return '<div><b style="color:var(--c)">' + esc(n[0]) + '</b><span>' + esc(n[1]) + '</span></div>'; }).join('');
+    });
+    document.querySelectorAll('[data-pct]').forEach(function (el) { el.textContent = d.pct(el.getAttribute('data-pct')); });
+    var cols = ['var(--gold)', 'var(--pink)', 'var(--violet)'];
+    $('legend').innerHTML = d.legend.map(function (r, i) { return '<div><b style="color:' + cols[i] + '">' + esc(r[0]) + '</b><span class="amt">' + esc(r[1]) + '</span><small>' + esc(r[2]) + '</small></div>'; }).join('');
+    $('syn').innerHTML = d.syn.map(function (r) { return '<div><b>' + esc(r[0]) + '</b><span>' + esc(r[1]) + '</span></div>'; }).join('');
+    $('lMemo').href = f.memo; $('lDeck').href = f.deck; $('lOne').href = f.one;
+    $('lFxTrailer').href = '../live-fx/business/video/' + f.trailer;
+    $('lFxVision').href = '../live-fx/business/video/' + f.vision;
+    $('lSeries').href = '../deniz-trailer/series/' + f.series;
+    $('lIkv').href = '../deniz-trailer/ikv/' + f.ikv;
+    $('still').src = '../live-fx/business/video/stills/vision-' + lang + '-16x9-8s.jpg';
+    document.querySelectorAll('.langs button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
+    try { localStorage.setItem('portfolio-lang', lang); } catch (e) { /* storage unavailable */ }
+  }
+
+  var start = 'de';
+  try {
+    var q = new URLSearchParams(location.search).get('lang');
+    var saved = localStorage.getItem('portfolio-lang');
+    var nav = (navigator.language || 'de').slice(0, 2);
+    start = [q, saved, nav].filter(function (l) { return l && I18N[l]; })[0] || 'de';
+  } catch (e) { /* default */ }
+  apply(start);
+  document.querySelectorAll('.langs button').forEach(function (b) {
+    b.addEventListener('click', function () { apply(b.getAttribute('data-lang')); });
+  });
+})();
+</script>
+</body>
+</html>
