@@ -101,54 +101,89 @@ def import_export(con, root, progress=print, match=True):
     res = {"bulunan": len(entries), "yeni": new}
     if match:
         res["eslesen"] = match_posts(con, progress)
+    try:
+        con.execute("PRAGMA optimize")  # sorgu planlayıcısı için istatistikler
+    except Exception:
+        pass
     progress(f"Bitti: {res}")
     return res
 
 
 def match_posts(con, progress=print, only_unmatched=True):
-    """Paylaşımları arşiv öğeleriyle eşler: önce görsel hash, sonra tarih yakınlığı."""
-    where = "WHERE item_id IS NULL" if only_unmatched else ""
+    """Paylaşımları arşiv öğeleriyle eşler.
+    1) Görsel hash (güvenilir) → öğe 'paylaşıldı' işaretlenir.
+    2) Tarih yakınlığı (tahmin) → yalnızca öneri olarak saklanır (matched_by='tarih?'); kullanıcı 'Paylaşılanlar'da onaylar."""
+    where = "WHERE item_id IS NULL OR matched_by='tarih?'" if only_unmatched else ""
     posts = [dict(r) for r in con.execute(f"SELECT * FROM posts {where}")]
-    matched = 0
-    for post in posts:
+    # Hash'ler bir kez yüklenir ve numpy ile vektörel karşılaştırılır (200k öğe × 1000 paylaşım saniyeler sürer)
+    import numpy as np
+    pool = {}
+    for kind in ("foto", "video"):
+        rows = con.execute("SELECT id, dhash, duration FROM items WHERE dhash IS NOT NULL AND kind=?", (kind,)).fetchall()
+        rows = [r for r in rows if r["dhash"]]
+        pool[kind] = (np.array([r["id"] for r in rows], dtype=np.int64),
+                      np.array([int(r["dhash"], 16) for r in rows], dtype=np.uint64),
+                      np.array([r["duration"] or 0 for r in rows], dtype=np.float64))
+    lut = np.array([bin(i).count("1") for i in range(256)], dtype=np.uint8)
+
+    def popcount(x):
+        if hasattr(np, "bitwise_count"):
+            return np.bitwise_count(x)
+        return lut[x.view(np.uint8)].reshape(-1, 8).sum(axis=1)
+
+    matched = suggested = 0
+    for k, post in enumerate(posts, 1):
         best = None
         if post.get("media_dhash"):
             is_video = (post.get("duration") or 0) > 0
-            rows = con.execute("SELECT id, dhash, duration, kind FROM items WHERE dhash IS NOT NULL AND kind=?",
-                               ("video" if is_video else "foto",)).fetchall()
-            for r in rows:
-                d = media.hamming(post["media_dhash"], r["dhash"])
-                if d <= 10:
-                    if is_video and post.get("duration") and abs((r["duration"] or 0) - post["duration"]) > 2.5:
-                        continue
-                    conf = 1.0 - d / 20.0
-                    if best is None or conf > best[1]:
-                        best = (r["id"], conf, "gorsel")
-        if best is None and post.get("posted_at"):
-            # Tarih yakınlığı: paylaşımdan en çok 21 gün önce çekilmiş, aynı türde, en yüksek puanlı öğe
-            pa = dt.datetime.fromisoformat(post["posted_at"][:19])
-            lo, hi = (pa - dt.timedelta(days=21)).isoformat(), (pa + dt.timedelta(hours=2)).isoformat()
-            kind = "video" if post.get("kind") in ("reel", "igtv") or (post.get("duration") or 0) > 0 else None
-            sql = "SELECT id, duration, social_score, created_at FROM items WHERE created_at BETWEEN ? AND ? AND posted_at IS NULL"
-            args = [lo, hi]
-            if kind:
-                sql += " AND kind=?"; args.append(kind)
-            cands = con.execute(sql + " ORDER BY social_score DESC LIMIT 20", args).fetchall()
-            for r in cands:
-                if post.get("duration") and abs((r["duration"] or 0) - post["duration"]) > 3:
-                    continue
-                days = (pa - dt.datetime.fromisoformat(r["created_at"][:19])).days
-                conf = max(0.15, 0.6 - days * 0.02)
-                if post.get("duration"):
-                    conf += 0.2
-                if best is None or conf > best[1]:
-                    best = (r["id"], round(conf, 2), "tarih")
+            ids, hs, durs = pool["video" if is_video else "foto"]
+            if len(ids):
+                d = popcount(hs ^ np.uint64(int(post["media_dhash"], 16))).astype(np.int32)
+                ok = d <= 10
+                pdur = post.get("duration") or 0
+                if is_video and pdur:
+                    ok &= np.abs(durs - pdur) <= 2.5
+                if ok.any():
+                    j = int(np.argmin(np.where(ok, d, 99)))
+                    best = (int(ids[j]), 1.0 - int(d[j]) / 20.0, "gorsel")
         if best:
             db.link_post(con, post["id"], best[0], best[2], best[1])
             matched += 1
+        elif post.get("posted_at"):
+            # Tahmin: paylaşımdan en çok 3 gün önce çekilmiş, aynı türde; çok aday varsa belirsiz → öneri yok
+            pa = dt.datetime.fromisoformat(post["posted_at"][:19])
+            lo, hi = (pa - dt.timedelta(days=3)).isoformat(), (pa + dt.timedelta(hours=2)).isoformat()
+            kind = "video" if post.get("kind") in ("reel", "igtv") or (post.get("duration") or 0) > 0 else None
+            if kind:  # tarih aralığı dizini kullanılsın (posted_at dizini neredeyse tüm tabloyu tarar)
+                sql = "SELECT id, duration, social_score FROM items INDEXED BY ix_items_kind_created WHERE kind=? AND created_at BETWEEN ? AND ? AND posted_at IS NULL"
+                args = [kind, lo, hi]
+            else:
+                sql = "SELECT id, duration, social_score FROM items INDEXED BY ix_items_created WHERE created_at BETWEEN ? AND ? AND posted_at IS NULL"
+                args = [lo, hi]
+            cands = [r for r in con.execute(sql + " ORDER BY social_score DESC LIMIT 8", args)
+                     if not (post.get("duration") and abs((r["duration"] or 0) - post["duration"]) > 3)]
+            if 0 < len(cands) <= 5:
+                con.execute("UPDATE posts SET item_id=?, matched_by='tarih?', confidence=? WHERE id=?",
+                            (cands[0]["id"], round(0.35 / len(cands), 2), post["id"]))
+                suggested += 1
+        if k % 50 == 0:
+            con.commit()
     con.commit()
-    progress(f"{matched}/{len(posts)} paylaşım eşleşti")
+    progress(f"{matched}/{len(posts)} paylaşım görsel olarak eşleşti; {suggested} tahmini eşleşme onayınızı bekliyor")
     return matched
+
+
+def _parse_when(s):
+    s = (s or "").strip()
+    if not s:
+        return None
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%dT%H:%M", "%m/%d/%Y %H:%M", "%m/%d/%Y %I:%M %p",
+                "%m/%d/%Y", "%d.%m.%Y %H:%M", "%d.%m.%Y %H:%M:%S", "%d.%m.%Y", "%Y-%m-%d", "%d/%m/%Y %H:%M"):
+        try:
+            return dt.datetime.strptime(s, fmt)
+        except ValueError:
+            pass
+    return media.parse_iso(s)
 
 
 def import_insights_csv(con, path, progress=print):
@@ -157,28 +192,37 @@ def import_insights_csv(con, path, progress=print):
     Beklenen sütunlar (Türkçe/İngilizce başlıklar tanınır): tarih|date, erişim|reach, beğeni|likes,
     yorum|comments, kaydetme|saves, paylaşım|shares, açıklama|caption (isteğe bağlı)."""
     import csv
-    aliases = {"tarih": "posted_at", "date": "posted_at", "yayın tarihi": "posted_at", "publish time": "posted_at",
+    aliases = {"yayın tarihi": "posted_at", "publish time": "posted_at", "veröffentlichungszeit": "posted_at", "tarih": "posted_at", "date": "posted_at", "datum": "posted_at",
+               "reichweite": "reach", "gefällt mir": "likes", "kommentare": "comments", "gespeichert": "saves", "geteilt": "shares", "beschreibung": "caption",
                "erişim": "reach", "reach": "reach", "beğeni": "likes", "beğeniler": "likes", "likes": "likes",
                "yorum": "comments", "yorumlar": "comments", "comments": "comments", "kaydetme": "saves", "kaydetmeler": "saves",
                "saves": "saves", "paylaşım": "shares", "paylaşımlar": "shares", "shares": "shares",
                "açıklama": "caption", "description": "caption", "caption": "caption", "tür": "kind", "post type": "kind"}
-    n = 0
+    n = skipped = 0
     with open(path, newline="", encoding="utf-8-sig") as f:
-        for row in csv.DictReader(f):
+        sample = f.read(4096); f.seek(0)
+        try:
+            dialect = csv.Sniffer().sniff(sample, delimiters=",;\t")
+        except csv.Error:
+            dialect = csv.excel
+        for row in csv.DictReader(f, dialect=dialect):
             d = {}
             for k, v in row.items():
                 key = aliases.get((k or "").strip().lower())
-                if key:
+                if key and not d.get(key) and v and _parse_ok(key, v):  # önce gelen anlamlı sütun kazanır ('Date: Lifetime' ezmez)
                     d[key] = v
-            if not d.get("posted_at"):
-                continue
-            pa = media.parse_iso(d["posted_at"].replace("/", "-").replace(" ", "T", 1))
+            pa = _parse_when(d.get("posted_at"))
             if not pa:
+                skipped += 1
                 continue
             lo, hi = (pa - dt.timedelta(hours=12)).isoformat(), (pa + dt.timedelta(hours=12)).isoformat()
             post = con.execute("SELECT id FROM posts WHERE posted_at BETWEEN ? AND ? ORDER BY ABS(julianday(posted_at)-julianday(?)) LIMIT 1",
                                (lo, hi, pa.isoformat())).fetchone()
-            nums = {k: int(float(d[k].replace(".", "").replace(",", "") or 0)) for k in ("reach", "likes", "comments", "saves", "shares") if d.get(k)}
+            nums = {}
+            for k in ("reach", "likes", "comments", "saves", "shares"):
+                digits = "".join(ch for ch in str(d.get(k) or "") if ch.isdigit())
+                if digits:
+                    nums[k] = int(digits)
             if post:
                 if nums:
                     con.execute(f"UPDATE posts SET {', '.join(k + '=?' for k in nums)} WHERE id=?", [*nums.values(), post["id"]])
@@ -187,5 +231,9 @@ def import_insights_csv(con, path, progress=print):
                                      "caption": d.get("caption"), "media_path": None, **nums})
             n += 1
     con.commit()
-    progress(f"{n} satır işlendi")
+    progress(f"{n} satır işlendi" + (f", {skipped} satırda tarih okunamadı" if skipped else ""))
     return n
+
+
+def _parse_ok(key, v):
+    return key != "posted_at" or _parse_when(v) is not None

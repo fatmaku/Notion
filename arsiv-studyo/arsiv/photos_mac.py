@@ -6,12 +6,13 @@ Orijinal dosya Mac'te yoksa (iCloud'da "Mac Depolamasını Optimize Et"), öğe 
 Fotoğraflar'ın kendi türevlerinden alınır; üretim sırasında `ensure_local` osxphotos ile indirir.
 """
 import datetime as dt
-import glob
 import os
 import shutil
 import sqlite3
 import subprocess
 import tempfile
+import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 from . import config, db, media, score
@@ -44,29 +45,108 @@ def default_library():
     return max(cands, key=lambda c: c.stat().st_mtime)
 
 
-def _finish_item(item, thumb_src=None):
+def _finish_item(item, thumb_src=None, known=None):
+    """Tarih/oran/puan alanlarını tamamlar; küçük resim ve hash'leri yalnızca eksikse üretir."""
     created = item.pop("_created", None) or dt.datetime.now()
     item.update(created_at=created.replace(microsecond=0).isoformat(), year=created.year, month=created.month,
                 day=created.day, hour=created.hour, weekday=created.weekday())
     item["aspect"], item["orientation"] = media.classify_aspect(item.get("width"), item.get("height"))
+    prev = (known or {}).get(item["uuid"]) or {}
     thumb = config.THUMBS / f"{item['uuid']}.jpg"
-    src = thumb_src or item.get("path")
-    if src and Path(src).exists():
+    if thumb.exists() and prev.get("dhash"):
+        item["thumb"], item["dhash"] = str(thumb), prev["dhash"]
+    else:
+        src = thumb_src or item.get("path")
+        if src and Path(src).exists():
+            try:
+                if not thumb.exists():
+                    media.thumbnail(src, thumb, "foto" if thumb_src else item["kind"], duration=item.get("duration") or 0)
+                item["thumb"] = str(thumb)
+                item["dhash"] = media.dhash_file(thumb)
+            except Exception as e:
+                item["notes"] = f"küçük resim yok: {e}"[:300]
+    path = item.get("path")
+    if path and Path(path).exists():
         try:
-            if not thumb.exists():
-                media.thumbnail(src, thumb, "foto" if thumb_src else item["kind"], duration=item.get("duration") or 0)
-            item["thumb"] = str(thumb)
-            item["dhash"] = media.dhash_file(thumb)
-        except Exception as e:
-            item["notes"] = f"küçük resim yok: {e}"[:300]
-    if item.get("path") and Path(item["path"]).exists():
-        try:
-            item["qhash"] = media.quick_hash(item["path"])
-            item["size"] = Path(item["path"]).stat().st_size
+            size = Path(path).stat().st_size
+            item["size"] = size
+            item["qhash"] = prev["qhash"] if (prev.get("qhash") and prev.get("size") == size) else media.quick_hash(path, size)
         except OSError:
             pass
     item["social_score"], item["score_reasons"] = score.compute(item)
     return item
+
+
+def _known(con):
+    """Önceki içe aktarımdan kalan hash'ler: yeniden içe aktarmada tekrar hesaplanmaz."""
+    return {r["uuid"]: {"dhash": r["dhash"], "qhash": r["qhash"], "size": r["size"]}
+            for r in con.execute("SELECT uuid, dhash, qhash, size FROM items WHERE source='photos'")}
+
+
+def _deriv_index(library):
+    """resources/derivatives altındaki küçük JPEG'leri bir kez listeler: uuid → [yollar]."""
+    idx = {}
+    base = Path(library) / "resources" / "derivatives"
+    if not base.is_dir():
+        return idx
+    for sub in base.iterdir():
+        if not sub.is_dir():
+            continue
+        try:
+            for e in os.scandir(sub):
+                n = e.name.lower()
+                if n.endswith(THUMB_EXT):
+                    idx.setdefault(e.name.split("_", 1)[0], []).append(e.path)
+        except OSError:
+            continue
+    return idx
+
+
+def _pick_deriv(paths):
+    """Küçük resim için uygun türev: ~40 KB'den büyük en küçüğü (çok küçük önizlemeler bulanık olur)."""
+    sized = []
+    for d in paths or []:
+        try:
+            sized.append((Path(d).stat().st_size, d))
+        except OSError:
+            pass
+    if not sized:
+        return None
+    sized.sort()
+    big = [d for sz, d in sized if sz >= 40_000]
+    return big[0] if big else sized[-1][1]
+
+
+def _store(con, jobs, total, progress, known, label):
+    """(item, thumb_src) çiftlerini paralel tamamlar, ana iş parçacığında kısa işlemlerle yazar."""
+    added = updated = errors = done = 0
+    last = time.monotonic()
+    workers = max(2, min(8, (os.cpu_count() or 4)))
+
+    def work(pair):
+        item, src = pair
+        try:
+            return _finish_item(item, thumb_src=src, known=known), None
+        except Exception as e:  # tek öğe hatası tüm içe aktarmayı durdurmasın
+            return None, f"{item.get('filename')}: {e}"
+
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for item, err in ex.map(work, jobs):
+            done += 1
+            if err:
+                errors += 1
+                progress(f"  ! {err}")
+            else:
+                _, created = db.upsert_item(con, item)
+                added += created
+                updated += (not created)
+            if time.monotonic() - last > 0.5:  # yazma kilidini kısa tut
+                con.commit()
+                last = time.monotonic()
+            if done % 500 == 0:
+                progress(f"  {done}/{total} ({label}: yeni {added}, güncellenen {updated}, hata {errors})")
+    con.commit()
+    return added, updated, errors
 
 
 # ---------------------------------------------------------------- osxphotos yolu
@@ -74,25 +154,25 @@ def _import_osxphotos(con, library, progress, limit=None):
     import osxphotos  # type: ignore
     pdb = osxphotos.PhotosDB(dbfile=str(library)) if library else osxphotos.PhotosDB()
     photos = pdb.photos(intrash=False)
+    if limit:
+        photos = photos[:limit]
     progress(f"{len(photos)} öğe bulundu (osxphotos)")
-    added = updated = errors = 0
-    for i, p in enumerate(photos[:limit] if limit else photos, 1):
-        try:
-            item = _item_from_osxphotos(p)
-            _, created = db.upsert_item(con, item)
-            added += created
-            updated += (not created)
-        except Exception as e:
-            errors += 1
-            progress(f"  ! {getattr(p, 'original_filename', '?')}: {e}")
-        if i % 200 == 0:
-            con.commit()
-            progress(f"  {i}/{len(photos)} (yeni {added}, güncellenen {updated}, hata {errors})")
-    con.commit()
+    lib = Path(getattr(pdb, "library_path", None) or library or "")
+    dindex = _deriv_index(lib) if str(lib) else {}
+    known = _known(con)
+
+    def jobs():
+        for p in photos:
+            try:
+                yield _item_from_osxphotos(p, dindex)
+            except Exception as e:
+                progress(f"  ! {getattr(p, 'original_filename', '?')}: {e}")
+
+    added, updated, errors = _store(con, jobs(), len(photos), progress, known, "osxphotos")
     return {"bulunan": len(photos), "yeni": added, "guncellenen": updated, "hata": errors}
 
 
-def _item_from_osxphotos(p):
+def _item_from_osxphotos(p, dindex=None):
     kind = "video" if p.ismovie else "foto"
     path_edited = getattr(p, "path_edited", None)
     path = p.path
@@ -126,13 +206,11 @@ def _item_from_osxphotos(p):
         "available": 1 if (use_path and Path(use_path).exists()) else 0, "indexed_at": db.now(),
         "has_audio": 1 if kind == "video" else 0,
     }
-    thumb_src = None
-    if not item["available"] or kind == "video":
-        derivs = getattr(p, "path_derivatives", None) or []
-        derivs = [d for d in derivs if d and d.lower().endswith(THUMB_EXT) and Path(d).exists()]
-        if derivs:
-            thumb_src = min(derivs, key=lambda d: Path(d).stat().st_size)
-    return _finish_item(item, thumb_src=thumb_src)
+    # Küçük resim için Fotoğraflar'ın kendi küçük JPEG türevleri (12 MP orijinali çözmekten ~40 kat hızlı)
+    derivs = (dindex or {}).get(p.uuid)
+    if derivs is None:
+        derivs = [d for d in (getattr(p, "path_derivatives", None) or []) if d and d.lower().endswith(THUMB_EXT)]
+    return item, _pick_deriv(derivs)
 
 
 # ---------------------------------------------------------------- doğrudan SQLite yolu
@@ -202,67 +280,67 @@ def _import_sqlite(con, library, progress, limit=None):
         for r in pc.execute(f"SELECT j.{sc} AS asset, g.ZTITLE AS title FROM {t} j JOIN ZGENERICALBUM g ON g.Z_PK=j.{ac} WHERE {where}"):
             albums.setdefault(r["asset"], []).append(r["title"])
     rows = pc.execute(sql).fetchall()
+    if limit:
+        rows = rows[:limit]
     progress(f"{len(rows)} öğe bulundu (Photos.sqlite)")
-    added = updated = errors = skipped = 0
-    for i, r in enumerate(rows[:limit] if limit else rows, 1):
-        try:
-            if r["ZTRASHEDSTATE"]:
-                continue
-            pick = r["ZAVALANCHEPICKTYPE"]
-            if r["ZAVALANCHEUUID"] and pick not in (None, 0) and (int(pick) & 24) == 0:
-                skipped += 1  # seri çekimde seçilmemiş kare
-                continue
-            kind = "video" if (r["ZKIND"] == 1 or str(r["ZFILENAME"] or "").lower().endswith((".mov", ".mp4", ".m4v"))) else "foto"
-            shared = r["ZCLOUDBATCHPUBLISHDATE"] is not None
-            rel = Path(r["ZDIRECTORY"] or "") / (r["ZFILENAME"] or "")
-            path = library / "originals" / rel
-            if shared:
-                for base in ("scopes/cloudsharing/data", "resources/cloudsharing/data"):
-                    cand = library / base / rel
-                    if cand.exists():
-                        path = cand
-                        break
-            ts = r["ZDATECREATED"]
-            created = None
-            if ts:
-                tzoff = r["ZTIMEZONEOFFSET"]
-                if tzoff is not None:
-                    created = dt.datetime.fromtimestamp(APPLE_EPOCH + float(ts), tz=dt.timezone(dt.timedelta(seconds=int(tzoff)))).replace(tzinfo=None)
-                else:
-                    created = dt.datetime.fromtimestamp(APPLE_EPOCH + float(ts))
-            lat, lon = r["ZLATITUDE"], r["ZLONGITUDE"]
-            if lat == -180.0 and lon == -180.0:  # Photos'un "konum yok" işareti
-                lat = lon = None
-            uuid = r["ZUUID"]
-            item = {
-                "uuid": "p:" + uuid, "source": "photos", "path": str(path) if path.exists() else None,
-                "path_original": str(path), "filename": r["ZORIGINALFILENAME"] or r["ZFILENAME"], "kind": kind,
-                "_created": created, "width": r["ZWIDTH"] or 0, "height": r["ZHEIGHT"] or 0,
-                "duration": round(float(r["ZDURATION"] or 0), 2), "favorite": 1 if r["ZFAVORITE"] else 0,
-                "edited": 1 if r["ZHASADJUSTMENTS"] else 0, "hidden": 1 if r["ZHIDDEN"] else 0, "shared": 1 if shared else 0,
-                "albums": albums.get(r["Z_PK"], []), "title": r["ZTITLE"], "lat": lat, "lon": lon,
-                "apple_score": r["ZOVERALLAESTHETICSCORE"], "available": 1 if path.exists() else 0,
-                "indexed_at": db.now(), "has_audio": 1 if kind == "video" else 0,
-            }
-            thumb_src = None
-            if not item["available"] or kind == "video":
-                derivs = sorted(glob.glob(str(library / "resources" / "derivatives" / uuid[0] / f"{uuid}_*")))
-                derivs = [d for d in derivs if d.lower().endswith(THUMB_EXT)]
-                if derivs:
-                    thumb_src = min(derivs, key=lambda d: Path(d).stat().st_size)
-            _, created_new = db.upsert_item(con, _finish_item(item, thumb_src=thumb_src))
-            added += created_new
-            updated += (not created_new)
-        except Exception as e:
-            errors += 1
-            progress(f"  ! {r['ZFILENAME']}: {e}")
-        if i % 200 == 0:
-            con.commit()
-            progress(f"  {i}/{len(rows)}")
-    con.commit()
+    dindex = _deriv_index(library)
+    known = _known(con)
+    stat = {"seri": 0}
+
+    def jobs():
+        for r in rows:
+            try:
+                if r["ZTRASHEDSTATE"]:
+                    continue
+                pick = r["ZAVALANCHEPICKTYPE"]
+                if r["ZAVALANCHEUUID"] and pick not in (None, 0) and (int(pick) & 24) == 0:
+                    stat["seri"] += 1  # seri çekimde seçilmemiş kare
+                    continue
+                yield _item_from_row(r, library, albums, dindex)
+            except Exception as e:
+                progress(f"  ! {r['ZFILENAME']}: {e}")
+
+    added, updated, errors = _store(con, jobs(), len(rows), progress, known, "Photos.sqlite")
     pc.close()
     shutil.rmtree(dbcopy.parent, ignore_errors=True)
-    return {"bulunan": len(rows), "yeni": added, "guncellenen": updated, "hata": errors, "seri_atlanan": skipped}
+    return {"bulunan": len(rows), "yeni": added, "guncellenen": updated, "hata": errors, "seri_atlanan": stat["seri"]}
+
+
+def _item_from_row(r, library, albums, dindex):
+    kind = "video" if (r["ZKIND"] == 1 or str(r["ZFILENAME"] or "").lower().endswith((".mov", ".mp4", ".m4v"))) else "foto"
+    shared = r["ZCLOUDBATCHPUBLISHDATE"] is not None
+    rel = Path(r["ZDIRECTORY"] or "") / (r["ZFILENAME"] or "")
+    path = library / "originals" / rel
+    if shared:
+        for base in ("scopes/cloudsharing/data", "resources/cloudsharing/data"):
+            cand = library / base / rel
+            if cand.exists():
+                path = cand
+                break
+    ts = r["ZDATECREATED"]
+    created = None
+    if ts:
+        tzoff = r["ZTIMEZONEOFFSET"]
+        if tzoff is not None:
+            created = dt.datetime.fromtimestamp(APPLE_EPOCH + float(ts), tz=dt.timezone(dt.timedelta(seconds=int(tzoff)))).replace(tzinfo=None)
+        else:
+            created = dt.datetime.fromtimestamp(APPLE_EPOCH + float(ts))
+    lat, lon = r["ZLATITUDE"], r["ZLONGITUDE"]
+    if lat == -180.0 and lon == -180.0:  # Photos'un "konum yok" işareti
+        lat = lon = None
+    uuid = r["ZUUID"]
+    exists = path.exists()
+    item = {
+        "uuid": "p:" + uuid, "source": "photos", "path": str(path) if exists else None,
+        "path_original": str(path), "filename": r["ZORIGINALFILENAME"] or r["ZFILENAME"], "kind": kind,
+        "_created": created, "width": r["ZWIDTH"] or 0, "height": r["ZHEIGHT"] or 0,
+        "duration": round(float(r["ZDURATION"] or 0), 2), "favorite": 1 if r["ZFAVORITE"] else 0,
+        "edited": 1 if r["ZHASADJUSTMENTS"] else 0, "hidden": 1 if r["ZHIDDEN"] else 0, "shared": 1 if shared else 0,
+        "albums": albums.get(r["Z_PK"], []), "title": r["ZTITLE"], "lat": lat, "lon": lon,
+        "apple_score": r["ZOVERALLAESTHETICSCORE"], "available": 1 if exists else 0,
+        "indexed_at": db.now(), "has_audio": 1 if kind == "video" else 0,
+    }
+    return item, _pick_deriv(dindex.get(uuid))
 
 
 def import_photos(con, library=None, progress=print, limit=None):
@@ -299,6 +377,10 @@ def import_photos(con, library=None, progress=print, limit=None):
     con.execute("INSERT INTO scans(root,source,started_at,finished_at,added,updated,skipped,errors) VALUES(?,?,?,?,?,?,?,?)",
                 (str(library), "photos", started, db.now(), res["yeni"], res["guncellenen"], res.get("seri_atlanan", 0), res["hata"]))
     con.commit()
+    try:
+        con.execute("PRAGMA optimize")  # sorgu planlayıcısı için istatistikler
+    except Exception:
+        pass
     progress(f"Bitti: {res}")
     return res
 

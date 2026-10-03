@@ -34,6 +34,10 @@ SCHEMA = [
     "CREATE INDEX IF NOT EXISTS ix_items_qhash ON items(qhash)",
     "CREATE INDEX IF NOT EXISTS ix_items_path ON items(path)",
     "CREATE INDEX IF NOT EXISTS ix_items_md ON items(month, day)",
+    "CREATE INDEX IF NOT EXISTS ix_items_year ON items(year)",
+    "CREATE INDEX IF NOT EXISTS ix_items_kind_created ON items(kind, created_at)",
+    "CREATE INDEX IF NOT EXISTS ix_items_cand ON items(social_score) WHERE hidden=0 AND posted_at IS NULL",
+    "CREATE INDEX IF NOT EXISTS ix_items_posted ON items(posted_at)",
     """CREATE TABLE IF NOT EXISTS posts(
         id INTEGER PRIMARY KEY,
         platform TEXT DEFAULT 'instagram', kind TEXT, posted_at TEXT,
@@ -74,23 +78,57 @@ def now():
     return dt.datetime.now().replace(microsecond=0).isoformat()
 
 
+_READY = set()
+_FTS_DDL = "CREATE VIRTUAL TABLE IF NOT EXISTS items_fts USING fts5(text, tokenize='unicode61 remove_diacritics 2')"
+
+
 def connect(path=None):
-    """Veritabanını açar (yoksa oluşturur) ve şemayı hazırlar."""
+    """Veritabanını açar. Şema yalnızca süreç başına bir kez hazırlanır (her istekte değil)."""
     global HAS_FTS
     p = Path(path or config.DB_PATH)
     p.parent.mkdir(parents=True, exist_ok=True)
+    key = str(p.resolve())
+    if not p.exists():  # dosya silinmiş/yeni: şema yeniden kurulmalı
+        _READY.discard(key)
     con = sqlite3.connect(str(p), check_same_thread=False, timeout=30)
     con.row_factory = sqlite3.Row
+    if key in _READY:
+        return con
     con.execute("PRAGMA journal_mode=WAL")
-    for s in SCHEMA:
-        con.execute(s)
+    con.execute("PRAGMA synchronous=NORMAL")
+    for stmt in SCHEMA:
+        con.execute(stmt)
     try:
-        con.execute("CREATE VIRTUAL TABLE IF NOT EXISTS items_fts USING fts5(uuid UNINDEXED, text, tokenize='unicode61 remove_diacritics 2')")
+        cols = [r[1] for r in con.execute("PRAGMA table_info(items_fts)")]
+        if "uuid" in cols:  # eski şema: dizinsiz uuid sütunu her güncellemede tüm tabloyu tarıyordu
+            con.execute("DROP TABLE items_fts")
+            cols = []
+        con.execute(_FTS_DDL)
         HAS_FTS = True
+        if not cols:
+            rebuild_fts(con)
     except sqlite3.OperationalError:
         HAS_FTS = False
     con.commit()
+    _READY.add(key)
     return con
+
+
+def rebuild_fts(con):
+    con.execute("DELETE FROM items_fts")
+    batch = []
+    for r in con.execute("SELECT * FROM items"):
+        batch.append((r["id"], fts_text(dict(r))))
+        if len(batch) >= 5000:
+            con.executemany("INSERT INTO items_fts(rowid, text) VALUES(?,?)", batch)
+            batch = []
+    if batch:
+        con.executemany("INSERT INTO items_fts(rowid, text) VALUES(?,?)", batch)
+
+
+def _fts_put(con, item_id, full):
+    con.execute("DELETE FROM items_fts WHERE rowid=?", (item_id,))
+    con.execute("INSERT INTO items_fts(rowid, text) VALUES(?,?)", (item_id, fts_text(full)))
 
 
 # ---------------------------------------------------------------- yardımcılar
@@ -129,11 +167,17 @@ def fts_text(d):
             except ValueError:
                 v = [v]
         parts.extend(str(x) for x in v)
-    return " ".join(p for p in parts if p)
+    return tr_fold(" ".join(p for p in parts if p))
+
+
+def tr_fold(s):
+    """Türkçe İ/ı/I → i (FTS5 unicode61 noktasız ı'yı katlamaz)."""
+    return str(s).replace("İ", "i").replace("ı", "i").replace("I", "i")
 
 
 def fts_query(q):
-    words = [w.strip('"*') for w in q.split() if w.strip('"*')]
+    words = [tr_fold(w).replace('"', "").replace("*", "") for w in str(q).split()]
+    words = [w for w in words if w]
     return " ".join(f'"{w}"*' for w in words) if words else '""'
 
 
@@ -153,9 +197,7 @@ def upsert_item(con, d):
                           [d[k] for k in cols])
         item_id, created = cur.lastrowid, True
     if HAS_FTS:
-        full = dict(con.execute("SELECT * FROM items WHERE id=?", (item_id,)).fetchone())
-        con.execute("DELETE FROM items_fts WHERE uuid=?", (d["uuid"],))
-        con.execute("INSERT INTO items_fts(uuid, text) VALUES(?,?)", (d["uuid"], fts_text(full)))
+        _fts_put(con, item_id, dict(con.execute("SELECT * FROM items WHERE id=?", (item_id,)).fetchone()))
     return item_id, created
 
 
@@ -177,9 +219,7 @@ def set_item(con, item_id, **fields):
         return
     con.execute(f"UPDATE items SET {', '.join(k + '=?' for k in fields)} WHERE id=?", [*fields.values(), item_id])
     if HAS_FTS and (set(fields) & {"albums", "keywords", "persons", "labels", "title", "description", "place"}):
-        full = dict(con.execute("SELECT * FROM items WHERE id=?", (item_id,)).fetchone())
-        con.execute("DELETE FROM items_fts WHERE uuid=?", (full["uuid"],))
-        con.execute("INSERT INTO items_fts(uuid, text) VALUES(?,?)", (full["uuid"], fts_text(full)))
+        _fts_put(con, item_id, dict(con.execute("SELECT * FROM items WHERE id=?", (item_id,)).fetchone()))
     con.commit()
 
 
@@ -196,14 +236,14 @@ SORTS = {
 def search(con, q=None, kind=None, aspect=None, orientation=None, year=None, year_from=None, year_to=None,
            month=None, day=None, min_dur=None, max_dur=None, favorite=None, edited=None, posted=None,
            min_score=None, available=None, source=None, album=None, person=None, ids=None, hidden=False,
-           sort="score", limit=60, offset=0):
-    """Filtreli arama. {'items': [...], 'total': n} döndürür."""
+           sort="score", limit=60, offset=0, with_total=True):
+    """Filtreli arama. {'items': [...], 'total': n} döndürür (with_total=False ise total=None)."""
     where, args = [], []
     if not hidden:
         where.append("hidden=0")
     if q:
         if HAS_FTS:
-            where.append("uuid IN (SELECT uuid FROM items_fts WHERE items_fts MATCH ?)")
+            where.append("id IN (SELECT rowid FROM items_fts WHERE items_fts MATCH ?)")
             args.append(fts_query(q))
         else:
             like = f"%{q}%"
@@ -250,7 +290,7 @@ def search(con, q=None, kind=None, aspect=None, orientation=None, year=None, yea
     if ids:
         where.append(f"id IN ({','.join('?' * len(ids))})"); args += list(ids)
     sql_where = ("WHERE " + " AND ".join(where)) if where else ""
-    total = con.execute(f"SELECT COUNT(*) FROM items {sql_where}", args).fetchone()[0]
+    total = con.execute(f"SELECT COUNT(*) FROM items {sql_where}", args).fetchone()[0] if with_total else None
     order = SORTS.get(sort, SORTS["score"])
     rows = con.execute(f"SELECT * FROM items {sql_where} ORDER BY {order} LIMIT ? OFFSET ?",
                        args + [int(limit), int(offset)]).fetchall()
@@ -268,18 +308,15 @@ def duplicates(con, limit=200):
 
 
 def stats(con):
-    s = {}
-    s["toplam"] = con.execute("SELECT COUNT(*) FROM items WHERE hidden=0").fetchone()[0]
-    s["foto"] = con.execute("SELECT COUNT(*) FROM items WHERE kind='foto' AND hidden=0").fetchone()[0]
-    s["video"] = con.execute("SELECT COUNT(*) FROM items WHERE kind='video' AND hidden=0").fetchone()[0]
-    s["video_saat"] = round((con.execute("SELECT COALESCE(SUM(duration),0) FROM items WHERE kind='video'").fetchone()[0] or 0) / 3600, 1)
-    s["boyut_gb"] = round((con.execute("SELECT COALESCE(SUM(size),0) FROM items").fetchone()[0] or 0) / 1e9, 1)
-    s["paylasilan"] = con.execute("SELECT COUNT(*) FROM items WHERE posted_at IS NOT NULL").fetchone()[0]
-    s["aday"] = con.execute("SELECT COUNT(*) FROM items WHERE social_score>=55 AND posted_at IS NULL AND hidden=0").fetchone()[0]
-    s["favori"] = con.execute("SELECT COUNT(*) FROM items WHERE favorite=1").fetchone()[0]
-    s["yerel_degil"] = con.execute("SELECT COUNT(*) FROM items WHERE available=0").fetchone()[0]
-    s["yillar"] = [dict(r) for r in con.execute("SELECT year, COUNT(*) n FROM items WHERE year IS NOT NULL GROUP BY year ORDER BY year")]
-    s["kaynaklar"] = [dict(r) for r in con.execute("SELECT source, COUNT(*) n FROM items GROUP BY source")]
+    r = con.execute("""SELECT SUM(hidden=0), SUM(kind='foto' AND hidden=0), SUM(kind='video' AND hidden=0),
+                              COALESCE(SUM(CASE WHEN kind='video' THEN duration END),0), COALESCE(SUM(size),0),
+                              SUM(posted_at IS NOT NULL), SUM(social_score>=55 AND posted_at IS NULL AND hidden=0),
+                              SUM(favorite=1), SUM(available=0) FROM items""").fetchone()
+    r = [x or 0 for x in r]
+    s = {"toplam": r[0], "foto": r[1], "video": r[2], "video_saat": round(r[3] / 3600, 1), "boyut_gb": round(r[4] / 1e9, 1),
+         "paylasilan": r[5], "aday": r[6], "favori": r[7], "yerel_degil": r[8]}
+    s["yillar"] = [dict(x) for x in con.execute("SELECT year, COUNT(*) n FROM items WHERE year IS NOT NULL GROUP BY year ORDER BY year")]
+    s["kaynaklar"] = [dict(x) for x in con.execute("SELECT source, COUNT(*) n FROM items GROUP BY source")]
     s["paylasim"] = con.execute("SELECT COUNT(*) FROM posts").fetchone()[0]
     s["hatirlatici_acik"] = con.execute("SELECT COUNT(*) FROM reminders WHERE status='acik'").fetchone()[0]
     s["uretim"] = con.execute("SELECT COUNT(*) FROM renders WHERE status='hazir'").fetchone()[0]
@@ -290,14 +327,20 @@ def stats(con):
 
 
 def top_values(con, col, n=30):
-    counts = {}
-    for (v,) in con.execute(f"SELECT {col} FROM items WHERE {col} IS NOT NULL AND {col}<>'[]'"):
-        try:
-            for x in json.loads(v):
-                counts[x] = counts.get(x, 0) + 1
-        except ValueError:
-            pass
-    return sorted(counts.items(), key=lambda kv: -kv[1])[:n]
+    assert col in LIST_COLS
+    try:
+        rows = con.execute(f"""SELECT j.value AS v, COUNT(*) AS n FROM items, json_each(items.{col}) j
+                               WHERE items.{col} IS NOT NULL AND items.{col}<>'[]' GROUP BY j.value ORDER BY n DESC LIMIT ?""", (n,))
+        return [(x["v"], x["n"]) for x in rows]
+    except sqlite3.OperationalError:  # json1 yoksa
+        counts = {}
+        for (v,) in con.execute(f"SELECT {col} FROM items WHERE {col} IS NOT NULL AND {col}<>'[]'"):
+            try:
+                for x in json.loads(v):
+                    counts[x] = counts.get(x, 0) + 1
+            except ValueError:
+                pass
+        return sorted(counts.items(), key=lambda kv: -kv[1])[:n]
 
 
 # ---------------------------------------------------------------- paylaşımlar

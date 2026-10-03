@@ -30,18 +30,27 @@ def plan_reshares(con, weeks=4, per_week=3, min_days=180, start=None, progress=p
         hours.setdefault(row["gun"], []).append(row["saat"])
     today = start or dt.date.today()
     monday = today - dt.timedelta(days=today.weekday())
-    days = DEFAULT_DAYS[:per_week]
+    per_week = max(1, min(7, int(per_week)))
+    days = sorted(DEFAULT_DAYS[:per_week])
+    # önce gelecekteki boş zaman dilimlerini sırala, sonra dağıt (aynı gün/saate iki hatırlatıcı düşmesin)
+    taken = {r["due"][:13] for r in db.reminders(con, status="acik")}
+    slots = []
+    for w in range(weeks + 2):
+        for d in days:
+            date = monday + dt.timedelta(days=w * 7 + d)
+            if date < today:
+                continue
+            due = dt.datetime.combine(date, dt.time(_best_hour(date.weekday(), hours), 0))
+            if due.isoformat()[:13] not in taken:
+                slots.append(due)
+    slots = slots[:weeks * per_week]
     created, k = [], 0
     for item in queue:
         if (item["id"],) in existing:
             continue
-        if k >= weeks * per_week:
+        if k >= len(slots):
             break
-        week, slot = divmod(k, per_week)
-        date = monday + dt.timedelta(days=week * 7 + days[slot])
-        if date < today:
-            date += dt.timedelta(days=7)
-        due = dt.datetime.combine(date, dt.time(_best_hour(date.weekday(), hours), 0))
+        due = slots[k]
         title = i18n.t(lang, "Yeniden paylaş: {f}", f=item.get('filename') or item['id'])
         rid = db.add_reminder(con, due.isoformat(), title, note="; ".join(item.get("gerekce") or []),
                               item_ids=[item["id"]], post_id=item.get("post_id"))
@@ -80,8 +89,9 @@ def due(con, hours=24):
 def notify(title, text):
     """macOS bildirimi (osascript); yoksa konsola yazar."""
     if shutil.which("osascript"):
-        safe_t, safe_x = title.replace('"', "'"), text.replace('"', "'")
-        subprocess.run(["osascript", "-e", f'display notification "{safe_x}" with title "{safe_t}"'], capture_output=True)
+        # değerler betik kaynağına gömülmez, argüman olarak verilir (kaçış sorunu yok)
+        subprocess.run(["osascript", "-e", "on run argv", "-e", "display notification (item 2 of argv) with title (item 1 of argv)",
+                        "-e", "end run", str(title), str(text)], capture_output=True)
     print(f"🔔 {title} — {text}")
 
 
@@ -92,17 +102,23 @@ def notify_due(con, hours=24):
     return rows
 
 
+def _ics(v):
+    """RFC 5545 metin kaçışı (satır sonu enjeksiyonunu engeller)."""
+    return (str(v).replace("\\", "\\\\").replace(";", "\\;").replace(",", "\\,")
+            .replace("\r\n", "\\n").replace("\n", "\\n").replace("\r", ""))
+
+
 def export_ics(con, path, status="acik"):
     """Takvim uygulamasına aktarılabilir .ics dosyası (uyarılı)."""
     lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//ArsivStudyo//TR", "CALSCALE:GREGORIAN"]
     for r in db.reminders(con, status=status):
         start = dt.datetime.fromisoformat(r["due"][:19])
         end = start + dt.timedelta(minutes=30)
-        desc = (r.get("note") or "").replace("\n", "\\n").replace(",", "\\,")
+        desc = _ics(r.get("note") or "")
         lines += ["BEGIN:VEVENT", f"UID:arsiv-{r['id']}-{uuidlib.uuid4().hex[:8]}",
-                  f"DTSTAMP:{dt.datetime.utcnow():%Y%m%dT%H%M%SZ}", f"DTSTART:{start:%Y%m%dT%H%M%S}", f"DTEND:{end:%Y%m%dT%H%M%S}",
-                  f"SUMMARY:{r['title']}", f"DESCRIPTION:{desc}", "BEGIN:VALARM", "TRIGGER:-PT0M", "ACTION:DISPLAY",
-                  f"DESCRIPTION:{r['title']}", "END:VALARM", "END:VEVENT"]
+                  f"DTSTAMP:{dt.datetime.now(dt.timezone.utc):%Y%m%dT%H%M%SZ}", f"DTSTART:{start:%Y%m%dT%H%M%S}", f"DTEND:{end:%Y%m%dT%H%M%S}",
+                  f"SUMMARY:{_ics(r['title'])}", f"DESCRIPTION:{desc}", "BEGIN:VALARM", "TRIGGER:-PT0M", "ACTION:DISPLAY",
+                  f"DESCRIPTION:{_ics(r['title'])}", "END:VALARM", "END:VEVENT"]
     lines.append("END:VCALENDAR")
     with open(path, "w", encoding="utf-8") as f:
         f.write("\r\n".join(lines) + "\r\n")
@@ -111,3 +127,21 @@ def export_ics(con, path, status="acik"):
 
 def mark(con, rid, status="tamam"):
     db.set_reminder(con, rid, status=status)
+
+
+def plan_special_days(con, days_ahead=35, lang=None, lead_days=3):
+    """Özel günlerden `lead_days` gün önce hazırlık hatırlatıcısı (ör. Dünya Kitap Günü)."""
+    from . import takvim
+    lang = lang or i18n.lang_of(con)
+    existing = {r["title"] for r in db.reminders(con, status="hepsi", limit=5000)}
+    created = []
+    for d in takvim.upcoming(lang, days=days_ahead):
+        due = dt.datetime.combine(dt.date.fromisoformat(d["tarih"]) - dt.timedelta(days=lead_days), dt.time(10, 0))
+        if due < dt.datetime.now():
+            due = dt.datetime.now().replace(minute=0, second=0, microsecond=0) + dt.timedelta(hours=1)
+        title = i18n.t(lang, "Hazırlan: {ad} ({tarih})", ad=d["ad"], tarih=d["tarih"][8:10] + "." + d["tarih"][5:7])
+        if title in existing:
+            continue
+        rid = db.add_reminder(con, due.replace(microsecond=0).isoformat(), title, note=d["fikir"])
+        created.append({"id": rid, "due": due.isoformat(), "title": title})
+    return created

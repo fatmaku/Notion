@@ -15,7 +15,13 @@ def _safe(name):
 def collect(con, item_ids, name, mode="link", dest=None, progress=print):
     """mode: link (sert bağ, olmazsa sembolik), symlink, copy. Klasör yolunu döndürür."""
     config.ensure_dirs()
-    folder = Path(dest).expanduser() if dest else config.COLLECT / _safe(name)
+    name = _safe(name).lstrip(".") or "koleksiyon"
+    folder = Path(dest).expanduser() if dest else config.COLLECT / name
+    if not dest:
+        root = config.COLLECT.resolve()
+        folder.mkdir(parents=True, exist_ok=True)
+        if folder.resolve() == root or root not in folder.resolve().parents:
+            folder = config.COLLECT / "koleksiyon"
     folder.mkdir(parents=True, exist_ok=True)
     items = db.get_items(con, list(item_ids))
     rows, ok, missing = [], 0, 0
@@ -26,7 +32,7 @@ def collect(con, item_ids, name, mode="link", dest=None, progress=print):
             rows.append([it["id"], it.get("filename"), it.get("created_at"), "", "yerelde yok"])
             continue
         stamp = (it.get("created_at") or "")[:10].replace("-", "")
-        dst = folder / f"{stamp}_{it['social_score']:.0f}p_{Path(src).name}"
+        dst = folder / f"{stamp}_{it['social_score']:.0f}p_{it['id']}_{Path(src).name}"  # id: aynı adlı farklı dosyalar çakışmasın
         if not dst.exists():
             try:
                 if mode == "copy":

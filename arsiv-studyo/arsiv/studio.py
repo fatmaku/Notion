@@ -6,7 +6,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from . import config, db, ffilters, fix, i18n, media, music, photos_mac, text_overlay
+from . import config, db, ffilters, fix, highlights, i18n, media, music, photos_mac, text_overlay
 
 DEFAULT_BRIEF = {
     "sablon": "montaj",          # montaj | tekli | eskiden-simdi | alinti | carousel | yeniden
@@ -30,28 +30,86 @@ TEMPLATES = {
 }
 
 
+HEX = re.compile(r"#?[0-9A-Fa-f]{6}")
+AUDIO_EXT = {".mp3", ".m4a", ".wav", ".aac", ".aif", ".aiff", ".flac", ".ogg"}
+FONT_EXT = {".ttf", ".otf", ".ttc"}
+
+
+def _safe_user_file(value, exts):
+    """Kullanıcının kendi dosyası: var olan, uzantısı uygun ve ev klasörü altında olmalı."""
+    try:
+        p = Path(str(value)).expanduser().resolve()
+    except (OSError, ValueError):
+        return None
+    if p.suffix.lower() not in exts or not p.is_file():
+        return None
+    try:
+        p.relative_to(Path.home().resolve())
+    except ValueError:
+        if not str(p).startswith(("/Library/Fonts", "/System/Library/Fonts", "/Volumes/")):
+            return None
+    return str(p)
+
+
 def normalize_brief(brief):
+    brief = brief or {}
     b = dict(DEFAULT_BRIEF)
-    b.update({k: v for k, v in (brief or {}).items() if v is not None})
+    b.update({k: v for k, v in brief.items() if v is not None})
+    if b["sablon"] not in TEMPLATES:
+        b["sablon"] = "montaj"
+    if b["sablon"] == "carousel" and not brief.get("format"):
+        b["format"] = "4:5"
     if b["format"] not in config.FORMATS:
         b["format"] = "4:5" if b["sablon"] == "carousel" else "9:16"
     items = []
     for o in b.get("ogeler") or []:
-        if isinstance(o, dict) and o.get("id") is not None:
-            items.append({**o, "id": int(o["id"])})
+        if isinstance(o, dict) and str(o.get("id", "")).isdigit():
+            it = {"id": int(o["id"])}
+            for k in ("baslangic", "sure"):
+                try:
+                    if o.get(k) not in (None, ""):
+                        it[k] = max(0.0, float(o[k]))
+                except (TypeError, ValueError):
+                    pass
+            if it.get("sure") is not None:
+                it["sure"] = max(1.0, it["sure"])
+            if o.get("yazi") not in (None, ""):
+                it["yazi"] = str(o["yazi"])[:60]
+            items.append(it)
         elif isinstance(o, (int, str)) and str(o).isdigit():
             items.append({"id": int(o)})
-    b["ogeler"] = items
+    b["ogeler"] = items[:60]
     for k in ("foto_suresi", "klip_max", "max_sure", "gecis_suresi", "muzik_ses", "orijinal_ses"):
         try:
             b[k] = float(b[k])
         except (TypeError, ValueError):
             b[k] = DEFAULT_BRIEF[k]
-    b["fps"] = int(b.get("fps") or 30)
+    b["foto_suresi"] = min(30.0, max(1.0, b["foto_suresi"]))
+    b["klip_max"] = min(600.0, max(1.0, b["klip_max"]))
+    b["max_sure"] = min(600.0, max(2.0, b["max_sure"]))
+    b["gecis_suresi"] = min(2.0, max(0.0, b["gecis_suresi"]))
+    b["muzik_ses"] = min(2.0, max(0.0, b["muzik_ses"]))
+    b["orijinal_ses"] = min(2.0, max(0.0, b["orijinal_ses"]))
+    try:
+        b["fps"] = 25 if int(b.get("fps") or 30) == 25 else (60 if int(b.get("fps") or 30) == 60 else 30)
+    except (TypeError, ValueError):
+        b["fps"] = 30
     if b["gecis"] not in ffilters.TRANSITIONS and b["gecis"] != "rastgele":
         b["gecis"] = "fade"
-    if b["sablon"] not in TEMPLATES:
-        b["sablon"] = "montaj"
+    for k in ("renk", "vurgu"):  # ffmpeg filtre grafiğine girer: yalnızca #RRGGBB
+        b[k] = ("#" + str(b[k]).lstrip("#")) if HEX.fullmatch(str(b[k] or "")) else DEFAULT_BRIEF[k]
+    m = str(b.get("muzik") or "yok")
+    if m.lower() in ("", "yok", "none", "hayir", "false"):
+        b["muzik"] = "yok"
+    elif m not in music.MOODS:
+        b["muzik"] = _safe_user_file(m, AUDIO_EXT) or "sakin"
+    b["yazi_tipi"] = _safe_user_file(b["yazi_tipi"], FONT_EXT) if b.get("yazi_tipi") else None
+    if b["sigdirma"] not in ("otomatik", "kirp", "bulanik", "sigdir"):
+        b["sigdirma"] = "otomatik"
+    if b["kalite"] not in ("yuksek", "orta"):
+        b["kalite"] = "yuksek"
+    for k in ("baslik", "altbaslik", "cta", "etiket"):
+        b[k] = str(b.get(k) or "")[:300]
     if b["sablon"] in ("tekli", "alinti", "yeniden"):
         b["klip_max"] = b["max_sure"]
     return b
@@ -95,32 +153,45 @@ def _run(cmd, total, progress):
 def build_clips(con, b, progress):
     items = db.get_items(con, [o["id"] for o in b["ogeler"]])
     by_id = {it["id"]: it for it in items}
+    carousel = b["sablon"] == "carousel"
     clips, total, T = [], 0.0, (b["gecis_suresi"] if len(b["ogeler"]) > 1 else 0.0)
     for o in b["ogeler"]:
         it = by_id.get(o["id"])
         if not it:
             progress(f"  ! öğe bulunamadı: {o['id']}")
             continue
-        path = photos_mac.ensure_local(con, it, progress)
+        try:  # tek bir eksik/indirilemeyen dosya tüm üretimi durdurmasın
+            path = photos_mac.ensure_local(con, it, progress)
+            info = media.probe(path) if it["kind"] == "video" else None
+        except (FileNotFoundError, media.MediaError, OSError) as e:
+            progress(f"  ! atlandı: {it.get('filename')}: {e}")
+            continue
         c = {"item": it, "path": path, "kind": it["kind"], "start": 0.0, "has_audio": False, "hdr": False,
              "w": it.get("width") or 0, "h": it.get("height") or 0, "label": o.get("yazi")}
         if it["kind"] == "foto":
             default = min(b["max_sure"], 8.0) if b["sablon"] in ("alinti", "tekli") else b["foto_suresi"]
             c["dur"] = float(o.get("sure") or default)
         else:
-            info = media.probe(path)
+            vdur = float(info["duration"] or 0)
             c.update(has_audio=info["has_audio"], hdr=info.get("hdr", False), w=info["width"] or c["w"], h=info["height"] or c["h"])
-            c["start"] = max(0.0, float(o.get("baslangic") or 0))
-            avail = max(0.5, float(info["duration"] or 0) - c["start"] - 0.05)
-            c["dur"] = min(avail, float(o.get("sure") or b["klip_max"] or avail))
+            want = float(o.get("sure") or b["klip_max"] or vdur)
+            if o.get("baslangic") is not None:
+                c["start"] = min(float(o["baslangic"]), max(0.0, vdur - 1.0))
+            elif vdur > want + 1 and b["sablon"] in ("montaj", "tekli", "eskiden-simdi", "yeniden"):
+                c["start"] = highlights.best_start(path, vdur, want)  # uzun videoda en iyi anı otomatik bul
+                if c["start"]:
+                    progress(f"  ✨ {it.get('filename')}: en iyi an {c['start']:.1f}. saniyeden başlıyor")
+            avail = max(0.5, vdur - c["start"] - 0.05)
+            c["dur"] = max(0.5, min(avail, want))
         if c["label"] is None and b.get("etiketler_goster") and b["sablon"] == "montaj":
             c["label"] = str(it.get("year") or "")
-        room = b["max_sure"] - (total - T if clips else 0.0)
-        if room < 1.5 and clips:
-            progress(f"  ! süre sınırı ({b['max_sure']} sn): kalan öğeler atlandı")
-            break
-        if c["dur"] > room:
-            c["dur"] = room
+        if not carousel:
+            room = b["max_sure"] - (total - T if clips else 0.0)
+            if room < 1.5 and clips:
+                progress(f"  ! süre sınırı ({b['max_sure']:.0f} sn): kalan öğeler atlandı")
+                break
+            if c["dur"] > room:
+                c["dur"] = room
         clips.append(c)
         total += c["dur"] - (T if len(clips) > 1 else 0.0)
     if not clips:
@@ -147,7 +218,7 @@ def _emit_clip(ctx, c, i, dst, W, H, offset, T, want_audio):
     if c["kind"] == "foto":
         mode = b["sigdirma"] if b["sigdirma"] in ("kirp", "bulanik", "sigdir", "otomatik") else "otomatik"
         key = (c["item"].get("qhash") or c["item"]["uuid"]).replace(":", "_")
-        pre = text_overlay.prep_photo(c["path"], W, H, mode, config.CACHE / f"kb-{key}-{W}x{H}-{mode}.jpg")
+        pre = text_overlay.prep_photo(c["path"], W, H, mode, config.CACHE / f"kb-{key}-{W}x{H}-{mode}-{b['renk'].lstrip('#')}.jpg", bg=b["renk"])
         idx = ctx.add_input(["-i", pre])
         ctx.lines += ffilters.kenburns(f"{idx}:v", f"kb{dst}", W, H, frames, fps, variant=i)
         ctx.lines.append(f"[kb{dst}]settb=AVTB,fps={fps},format=yuv420p[{dst}]")
@@ -159,7 +230,9 @@ def _emit_clip(ctx, c, i, dst, W, H, offset, T, want_audio):
             ctx.lines.append(f"[{src}]{ffilters.hdr_chain()}[hdr{dst}]")
             src = f"hdr{dst}"
         ctx.lines += ffilters.fit_chain(src, f"fit{dst}", W, H, mode, b["renk"], uid=f"f{dst}")
-        ctx.lines.append(f"[fit{dst}]setpts=PTS-STARTPTS,settb=AVTB,fps={fps},format=yuv420p[{dst}]")
+        # klibi tam olarak nominal uzunluğa sabitle (eksik kare → son kare tutulur): geçiş zinciri kaymaz
+        ctx.lines.append(f"[fit{dst}]setpts=PTS-STARTPTS,settb=AVTB,fps={fps},format=yuv420p,"
+                         f"tpad=stop_mode=clone:stop_duration={c['dur']:.3f},trim=duration={frames / fps:.4f},setpts=PTS-STARTPTS,settb=AVTB,fps={fps}[{dst}]")
         if want_audio and c["has_audio"] and b["orijinal_ses"] > 0:
             fd = max(0.3, T)
             ctx.lines.append(f"[{idx}:a]volume={b['orijinal_ses']:.2f},aformat=sample_rates=48000:channel_layouts=stereo,"
@@ -194,14 +267,13 @@ def _audio(ctx, total):
     b = ctx.b
     m = b.get("muzik")
     if m and str(m).lower() not in ("", "yok", "none", "hayir", "false"):
-        mp = Path(str(m)).expanduser()
-        if mp.exists():
-            idx = ctx.add_input(["-stream_loop", "-1", "-t", f"{total:.3f}", "-i", mp])
-        else:
-            wav = config.CACHE / f"muzik-{m}-{int(total)}s.wav"
+        if m in music.MOODS:
+            wav = config.CACHE / f"muzik-{m}-{total:.2f}s.wav"
             if not wav.exists():
-                music.synth(str(m), total, wav)
+                music.synth(str(m), max(1.0, total), wav)
             idx = ctx.add_input(["-i", wav])
+        else:  # kullanıcının kendi dosyası (normalize_brief doğruladı)
+            idx = ctx.add_input(["-protocol_whitelist", "file", "-stream_loop", "-1", "-t", f"{total:.3f}", "-i", m])
         ctx.lines.append(f"[{idx}:a]volume={b['muzik_ses']:.2f},aformat=sample_rates=48000:channel_layouts=stereo,"
                          f"afade=t=in:d=1,afade=t=out:st={max(0, total - 2.5):.3f}:d=2.5[am]")
         ctx.alabels.append("am")
@@ -209,9 +281,10 @@ def _audio(ctx, total):
         idx = ctx.add_input(["-f", "lavfi", "-t", f"{total:.3f}", "-i", "anullsrc=r=48000:cl=stereo"])
         ctx.lines.append(f"[{idx}:a]anull[aout]")
     elif len(ctx.alabels) == 1:
-        ctx.lines.append(f"[{ctx.alabels[0]}]{ffilters.loudness()}[aout]")
+        ctx.lines.append(f"[{ctx.alabels[0]}]{ffilters.loudness()},apad=whole_dur={total:.3f}[aout]")
     else:
-        ctx.lines.append("".join(f"[{a}]" for a in ctx.alabels) + f"amix=inputs={len(ctx.alabels)}:duration=longest:normalize=0,{ffilters.loudness()}[aout]")
+        ctx.lines.append("".join(f"[{a}]" for a in ctx.alabels) + f"amix=inputs={len(ctx.alabels)}:duration=longest:normalize=0,"
+                         f"{ffilters.loudness()},apad=whole_dur={total:.3f}[aout]")
 
 
 def _encode(ctx, base, total, out, progress):
@@ -231,7 +304,8 @@ def render_video(b, clips, out_dir, progress):
     W, H = config.FORMATS[b["format"]]
     ctx = _Ctx(W, H, b, out_dir)
     font, accent = b.get("yazi_tipi"), b["vurgu"]
-    T = b["gecis_suresi"] if len(clips) > 1 else 0.0
+    # geçiş en kısa klibin yarısından uzun olamaz (yoksa zaman çizelgesi çöker)
+    T = min(b["gecis_suresi"], 0.45 * min(c["dur"] for c in clips)) if len(clips) > 1 else 0.0
     labels, durs, windows = [], [], []
     if b["sablon"] == "eskiden-simdi" and len(clips) >= 2:
         pairs = [clips[i:i + 2] for i in range(0, len(clips), 2)]
@@ -243,8 +317,9 @@ def render_video(b, clips, out_dir, progress):
                 d = (max(vids) if vids else pair[0]["dur"])  # fotoğraflar videonun süresine uyar
                 for x in pair:
                     x["dur"] = d if x["kind"] == "foto" else min(x["dur"], d)
-                _emit_clip(ctx, pair[0], 2 * k, f"t{k}", W, H // 2, off, T, True)
-                _emit_clip(ctx, pair[1], 2 * k + 1, f"b{k}", W, H // 2, off, T, True)
+                Ht = (H // 2) & ~1  # çift yükseklik: tek sayılı yükseklik ffmpeg'i çökertiyordu (4:5)
+                _emit_clip(ctx, pair[0], 2 * k, f"t{k}", W, Ht, off, T, True)
+                _emit_clip(ctx, pair[1], 2 * k + 1, f"b{k}", W, H - Ht, off, T, True)
                 ctx.lines.append(f"[t{k}][b{k}]vstack,settb=AVTB,fps={ctx.fps},format=yuv420p[v{k}]")
                 lang = b.get("dil") or "tr"
                 windows.append((off, off + d, pair[0].get("label") or i18n.t(lang, "ESKİDEN"), pair[1].get("label") or i18n.t(lang, "ŞİMDİ")))
@@ -323,7 +398,7 @@ def render_fix(b, clips, out_dir, progress):
     crf, preset = (18, "medium") if b["kalite"] == "yuksek" else (23, "veryfast")
     r = fix.fix_video(c["path"], out, b["format"], b["sigdirma"] if b["sigdirma"] != "otomatik" else "otomatik",
                       stabilize=bool(b.get("sabitle")), denoise=bool(b.get("gurultu")), sharpen=bool(b.get("keskinlik", True)),
-                      color=bool(b.get("renk_duzelt", True)), start=c["start"], max_dur=b["max_sure"], headline=b.get("baslik") or None,
+                      color=bool(b.get("renk_duzelt", True)), start=c["start"], max_dur=min(c["dur"], b["max_sure"]), headline=b.get("baslik") or None,
                       handle=b.get("etiket") or None, accent=b["vurgu"], bg=b["renk"], font=b.get("yazi_tipi"), fps=b["fps"],
                       crf=crf, preset=preset, progress=progress)
     cover = out.with_name("kapak.jpg")

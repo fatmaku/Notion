@@ -58,6 +58,24 @@ def analyze_file(path, st, root, source, make_thumb=True):
     return item
 
 
+def dataless_item(path, st, root, source):
+    """iCloud'da duran (indirilmemiş) dosya: okumadan, yalnızca dosya sistemi bilgisiyle kaydet."""
+    p = Path(path)
+    kind = "video" if p.suffix.lower() in config.VIDEO_EXT else "foto"
+    created = dt.datetime.fromtimestamp(st.st_mtime)
+    try:
+        albums = [x for x in p.relative_to(root).parts[:-1] if x and not x.startswith(".")]
+    except ValueError:
+        albums = []
+    item = {"uuid": _uuid_for(p), "source": source, "path": str(p), "filename": p.name, "kind": kind, "size": st.st_size,
+            "mtime": st.st_mtime, "available": 0, "indexed_at": db.now(), "albums": albums,
+            "created_at": created.replace(microsecond=0).isoformat(), "year": created.year, "month": created.month,
+            "day": created.day, "hour": created.hour, "weekday": created.weekday(), "aspect": "bilinmiyor",
+            "orientation": "bilinmiyor", "notes": "iCloud'da (indirilmemiş)"}
+    item["social_score"], item["score_reasons"] = score.compute(item)
+    return item
+
+
 def scan_folder(con, root, source="klasor", workers=4, progress=print, make_thumb=True, force=False):
     """Klasörü (alt klasörleriyle) tarar. Değişmemiş dosyaları atlar. Özet sözlük döndürür."""
     root = Path(root).expanduser().resolve()
@@ -71,14 +89,22 @@ def scan_folder(con, root, source="klasor", workers=4, progress=print, make_thum
             files.append(p)
     progress(f"{len(files)} medya dosyası bulundu: {root}")
     existing = {r["path"]: (r["size"], r["mtime"]) for r in con.execute("SELECT path, size, mtime FROM items WHERE source=?", (source,))}
-    todo, skipped = [], 0
+    todo, skipped, cloud = [], 0, []
     for p in files:
         st = p.stat()
         ex = existing.get(str(p))
         if not force and ex and ex[0] == st.st_size and abs((ex[1] or 0) - st.st_mtime) < 1:
             skipped += 1
             continue
+        if media.is_dataless(st):
+            cloud.append((p, st))
+            continue
         todo.append((p, st))
+    for p, st in cloud:
+        db.upsert_item(con, dataless_item(p, st, root, source))
+    if cloud:
+        con.commit()
+        progress(f"{len(cloud)} dosya yalnızca iCloud'da (indirilmedi, okunmadı); Finder'da 'Şimdi İndir' ile indirip yeniden tarayın.")
     added = updated = errors = 0
 
     def work(args):
@@ -97,8 +123,8 @@ def scan_folder(con, root, source="klasor", workers=4, progress=print, make_thum
                 _, created = db.upsert_item(con, item)
                 added += created
                 updated += (not created)
+            con.commit()  # kısa işlem: arayüz yazmaları beklemesin
             if i % 50 == 0 or i == len(todo):
-                con.commit()
                 progress(f"  {i}/{len(todo)} işlendi (yeni {added}, güncellenen {updated}, hata {errors})")
     # kaybolan dosyalar
     present = {str(p) for p in files}
@@ -112,5 +138,9 @@ def scan_folder(con, root, source="klasor", workers=4, progress=print, make_thum
     con.commit()
     summary = {"klasor": str(root), "bulunan": len(files), "yeni": added, "guncellenen": updated,
                "atlanan": skipped, "hata": errors, "kaybolan": missing}
+    try:
+        con.execute("PRAGMA optimize")  # sorgu planlayıcısı için istatistikler
+    except Exception:
+        pass
     progress(f"Bitti: {summary}")
     return summary

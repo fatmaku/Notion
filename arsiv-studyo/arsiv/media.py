@@ -206,8 +206,8 @@ def _sips_convert(src):
     return dst
 
 
-def open_image(path):
-    """Pillow ile açar; HEIC ve EXIF döndürmeyi halleder."""
+def open_image(path, draft=None):
+    """Pillow ile açar; HEIC ve EXIF döndürmeyi halleder. draft=(w,h) JPEG'i küçültülmüş çözer (çok daha hızlı)."""
     from PIL import Image, ImageOps
     p = Path(path)
     if p.suffix.lower() in (".heic", ".heif") and not _heif():
@@ -216,6 +216,11 @@ def open_image(path):
             raise MediaError("HEIC için `pip install pillow-heif` gerekli (macOS'ta sips de bulunamadı)")
         p = conv
     img = Image.open(p)
+    if draft and img.format == "JPEG":
+        try:
+            img.draft("RGB", draft)
+        except Exception:
+            pass
     try:
         img = ImageOps.exif_transpose(img)
     except Exception:
@@ -252,7 +257,7 @@ def thumbnail(src, dst, kind, size=480, at=None, duration=0.0):
     dst = Path(dst)
     dst.parent.mkdir(parents=True, exist_ok=True)
     if kind == "foto":
-        img = open_image(src)
+        img = open_image(src, draft=(size, size))
         img.thumbnail((size, size))
         img.convert("RGB").save(dst, "JPEG", quality=85)
     else:
@@ -269,7 +274,7 @@ def dhash(img):
     """9x8 gri farklarından 64 bit algısal hash (16 hex)."""
     from PIL import Image
     g = img.convert("L").resize((9, 8), Image.LANCZOS)
-    px = list(g.getdata())
+    px = list(g.get_flattened_data()) if hasattr(g, 'get_flattened_data') else list(g.getdata())
     bits = 0
     for y in range(8):
         for x in range(8):
@@ -298,6 +303,14 @@ def quick_hash(path, size=None):
             f.seek(-65536, 2)
             h.update(f.read(65536))
     return h.hexdigest()[:24]
+
+
+SF_DATALESS = 0x40000000
+
+
+def is_dataless(st):
+    """macOS: dosya iCloud'da duruyor, diskte içeriği yok (okumak indirmeyi tetikler)."""
+    return bool(getattr(st, "st_flags", 0) & SF_DATALESS)
 
 
 def classify_aspect(w, h):

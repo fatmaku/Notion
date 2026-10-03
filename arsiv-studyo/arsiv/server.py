@@ -1,8 +1,13 @@
 """Yerel web arayüzü: standart kütüphane http.server + JSON API. Dış bağımlılık yok."""
+import itertools
 import json
 import mimetypes
 import os
+import sqlite3
+import subprocess
+import sys
 import threading
+import time
 import traceback
 import urllib.parse
 import webbrowser
@@ -12,30 +17,99 @@ from pathlib import Path
 from . import config, db, i18n, media
 
 UI_DIR = Path(__file__).parent / "ui"
+UI_FILES = {"i18n.js": "application/javascript; charset=utf-8", "yok.svg": "image/svg+xml"}
+ALLOWED_HOSTS = {"127.0.0.1", "localhost", "[::1]", "::1"}
+MAX_BODY = 2 * 1024 * 1024
 _lock = threading.Lock()
+_render_slot = threading.Semaphore(1)  # aynı anda tek ffmpeg üretimi: Mac'i kilitlemesin
+_ids = itertools.count(1)
 _jobs = {}  # id -> {"tur":..., "durum":..., "log":[...]}
+_stats_cache = {"t": 0.0, "v": None}
+
+
+def _invalidate():
+    _stats_cache["t"] = 0.0
+
+
+def _new_job(kind):
+    jid = f"{kind}-{next(_ids)}"
+    _jobs[jid] = {"tur": kind, "durum": "calisiyor", "log": [], "sonuc": None, "basladi": time.time()}
+    return jid
+
+
+def _log(jid, msg):
+    j = _jobs[jid]
+    j["log"].append(str(msg))
+    if len(j["log"]) > 300:
+        del j["log"][:-200]
 
 
 def _job(kind, fn, *args):
-    jid = f"{kind}-{len(_jobs) + 1}"
-    _jobs[jid] = {"tur": kind, "durum": "calisiyor", "log": [], "sonuc": None}
-
-    def log(msg):
-        _jobs[jid]["log"].append(str(msg))
-        _jobs[jid]["log"] = _jobs[jid]["log"][-200:]
+    """İş parçacığında çalışan iş (üretim gibi zaten ffmpeg alt sürecine dayanan işler için)."""
+    jid = _new_job(kind)
 
     def run():
         try:
-            _jobs[jid]["sonuc"] = fn(log, *args)
+            _jobs[jid]["sonuc"] = fn(lambda m: _log(jid, m), *args)
             _jobs[jid]["durum"] = "bitti"
         except Exception as e:
-            log(f"HATA: {e}")
+            _log(jid, f"HATA: {e}")
             _jobs[jid]["durum"] = "hata"
             _jobs[jid]["hata"] = str(e)
             traceback.print_exc()
+        finally:
+            _invalidate()
 
     threading.Thread(target=run, daemon=True).start()
     return jid
+
+
+def _proc_job(kind, argv, db_path=None):
+    """Uzun içe aktarma işleri ayrı süreçte çalışır: arayüz donmaz (Python GIL'i paylaşılmaz)."""
+    jid = _new_job(kind)
+    cmd = [sys.executable, "-m", "arsiv"] + (["--db", str(db_path)] if db_path else []) + [str(a) for a in argv]
+    env = dict(os.environ, PYTHONUNBUFFERED="1")
+
+    def run():
+        try:
+            proc = subprocess.Popen(cmd, cwd=str(Path(__file__).resolve().parent.parent), stdout=subprocess.PIPE,
+                                    stderr=subprocess.STDOUT, text=True, env=env, bufsize=1)
+            _jobs[jid]["pid"] = proc.pid
+            last = ""
+            for line in proc.stdout:
+                line = line.rstrip()
+                if line:
+                    last = line
+                    _log(jid, line)
+            proc.wait()
+            if proc.returncode == 0:
+                _jobs[jid]["durum"] = "bitti"
+            else:
+                _jobs[jid]["durum"] = "hata"
+                _jobs[jid]["hata"] = last.replace("HATA: ", "") or f"çıkış kodu {proc.returncode}"
+        except Exception as e:
+            _log(jid, f"HATA: {e}")
+            _jobs[jid]["durum"] = "hata"
+            _jobs[jid]["hata"] = str(e)
+        finally:
+            _invalidate()
+
+    threading.Thread(target=run, daemon=True).start()
+    return jid
+
+
+def _under(path, *roots):
+    try:
+        rp = Path(path).resolve()
+    except OSError:
+        return False
+    for r in roots:
+        try:
+            rp.relative_to(Path(r).resolve())
+            return True
+        except ValueError:
+            continue
+    return False
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -99,6 +173,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def _body(self):
         n = int(self.headers.get("Content-Length") or 0)
+        if n > MAX_BODY:
+            return {}
         raw = self.rfile.read(n) if n else b""
         try:
             return json.loads(raw.decode("utf-8")) if raw else {}
@@ -108,18 +184,45 @@ class Handler(BaseHTTPRequestHandler):
     def _con(self):
         return db.connect(self.db_path)
 
+    def _host_ok(self):
+        """DNS rebinding koruması: yalnızca localhost adlarıyla gelen isteklere yanıt ver."""
+        host = (self.headers.get("Host") or "").strip()
+        name = host.rsplit(":", 1)[0] if not host.startswith("[") else host.split("]")[0] + "]"
+        return name in ALLOWED_HOSTS
+
+    def _post_ok(self):
+        """CSRF koruması: başka sitelerden gelen 'basit' POST'ları reddet."""
+        ctype = (self.headers.get("Content-Type") or "").split(";")[0].strip().lower()
+        if ctype != "application/json":
+            return False
+        if (self.headers.get("Sec-Fetch-Site") or "").lower() == "cross-site":
+            return False
+        origin = self.headers.get("Origin")
+        if origin:
+            o = urllib.parse.urlparse(origin)
+            if o.hostname not in ALLOWED_HOSTS or o.port != self.server.server_address[1]:
+                return False
+        return True
+
     # ------------------------------------------------------------ GET
     def do_GET(self):
         u = urllib.parse.urlparse(self.path)
         q = {k: v[0] for k, v in urllib.parse.parse_qs(u.query).items()}
         path = u.path
+        if not self._host_ok():
+            return self._json({"hata": "forbidden"}, 403)
         try:
             if path in ("/", "/index.html"):
                 return self._file(UI_DIR / "index.html", "text/html; charset=utf-8", cache=False)
             if path.startswith("/ui/"):
-                return self._file(UI_DIR / path[4:].replace("..", ""), cache=False)
+                name = path[4:]
+                if name not in UI_FILES:  # yalnızca bilinen dosyalar (yol geçişi yok)
+                    return self._json({"hata": "yok"}, 404)
+                return self._file(UI_DIR / name, UI_FILES[name], cache=False)
             if path == "/api/stats":
-                return self._json(db.stats(self._con()))
+                if not _stats_cache["v"] or time.time() - _stats_cache["t"] > 30:
+                    _stats_cache["v"], _stats_cache["t"] = db.stats(self._con()), time.time()
+                return self._json(_stats_cache["v"])
             if path == "/api/items":
                 return self._json(self._items(q))
             if path.startswith("/api/thumb/"):
@@ -179,6 +282,9 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/templates":
                 from . import studio
                 return self._json({"sablonlar": studio.TEMPLATES, "varsayilan": studio.DEFAULT_BRIEF, "formatlar": list(config.FORMATS)})
+            if path == "/api/calendar":
+                from . import takvim
+                return self._json(takvim.upcoming(self._lang(), days=min(366, int(q.get("days", 60)))))
             if path == "/api/besttimes":
                 from . import marketing
                 return self._json(marketing.best_times(self._con(), lang=self._lang()))
@@ -225,7 +331,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"hata": "yok"}, 404)
         t = item.get("thumb")
         if not t or not Path(t).exists():
-            if item.get("path") and Path(item["path"]).exists():
+            src = item.get("path")
+            if src and Path(src).exists() and not media.is_dataless(Path(src).stat()):
                 try:
                     config.ensure_dirs()
                     t = str(config.THUMBS / f"{item['uuid']}.jpg")
@@ -241,30 +348,33 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         u = urllib.parse.urlparse(self.path)
         path = u.path
+        if not self._host_ok() or not self._post_ok():
+            return self._json({"hata": "forbidden"}, 403)
         body = self._body()
+        if not isinstance(body, dict):
+            return self._json({"hata": "geçersiz istek"}, 400)
+        _invalidate()
         try:
             con = self._con()
             if path == "/api/scan":
-                from . import scan
-                root = body.get("path")
-                if not root or not Path(root).expanduser().exists():
+                root = Path(str(body.get("path") or "")).expanduser()
+                if not str(body.get("path") or "").strip() or not root.is_dir():
                     return self._json({"hata": "klasör bulunamadı"}, 400)
-                jid = _job("tara", lambda log, r: scan.scan_folder(db.connect(self.db_path), r, source=body.get("source") or "klasor", progress=log), root)
-                return self._json({"job": jid})
+                if root.resolve() in (Path("/"), Path.home().resolve()):
+                    return self._json({"hata": "Tüm disk ya da ev klasörünün tamamı taranamaz; bir alt klasör seçin."}, 400)
+                src = "".join(ch for ch in str(body.get("source") or "klasor") if ch.isalnum() or ch in "-_")[:30] or "klasor"
+                return self._json({"job": _proc_job("tara", ["tara", str(root), "--kaynak", src], self.db_path)})
             if path == "/api/import/photos":
-                from . import photos_mac
-                jid = _job("fotograflar", lambda log, lib: photos_mac.import_photos(db.connect(self.db_path), lib, progress=log), body.get("library") or None)
-                return self._json({"job": jid})
+                lib = str(body.get("library") or "").strip()
+                if lib and not Path(lib).expanduser().is_dir():
+                    return self._json({"hata": "kütüphane bulunamadı"}, 400)
+                return self._json({"job": _proc_job("fotograflar", ["fotograflar"] + (["--kutuphane", lib] if lib else []), self.db_path)})
             if path == "/api/import/instagram":
-                from . import instagram
-                root = body.get("path")
-                if not root or not Path(root).expanduser().exists():
+                root = Path(str(body.get("path") or "")).expanduser()
+                if not str(body.get("path") or "").strip() or not root.exists():
                     return self._json({"hata": "klasör bulunamadı"}, 400)
-                if body.get("csv"):
-                    jid = _job("instagram-csv", lambda log, r: instagram.import_insights_csv(db.connect(self.db_path), r, progress=log), root)
-                else:
-                    jid = _job("instagram", lambda log, r: instagram.import_export(db.connect(self.db_path), r, progress=log), root)
-                return self._json({"job": jid})
+                argv = ["instagram", str(root)] + (["--csv"] if body.get("csv") else [])
+                return self._json({"job": _proc_job("instagram-csv" if body.get("csv") else "instagram", argv, self.db_path)})
             if path == "/api/render":
                 from . import studio
                 brief = studio.normalize_brief(body)
@@ -275,6 +385,9 @@ class Handler(BaseHTTPRequestHandler):
 
                 def run(log, brief=brief, rid=rid):
                     c = db.connect(self.db_path)
+                    if not _render_slot.acquire(blocking=False):
+                        log("sırada: önceki üretim bitince başlayacak…")
+                        _render_slot.acquire()
                     db.set_render(c, rid, status="calisiyor")
                     try:
                         res = studio.render(c, brief, progress=log)
@@ -284,8 +397,17 @@ class Handler(BaseHTTPRequestHandler):
                     except Exception as e:
                         db.set_render(c, rid, status="hata", error=str(e))
                         raise
+                    finally:
+                        _render_slot.release()
                 jid = _job("uretim", run)
                 return self._json({"job": jid, "render_id": rid})
+            if path.startswith("/api/render/") and path.endswith("/photos"):
+                from . import paylas
+                r = db.get_render(con, int(path.split("/")[3]))
+                if not r or r.get("status") != "hazir" or not r.get("output"):
+                    return self._json({"hata": "çıktı yok"}, 404)
+                ok, msg = paylas.add_to_photos(r["output"])
+                return self._json({"ok": ok, "mesaj": msg}, 200 if ok else 400)
             if path == "/api/caption":
                 from . import marketing
                 items = db.get_items(con, [int(x) for x in body.get("ids", [])])
@@ -296,21 +418,36 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json({"dil": db.get_setting(con, "dil", "tr")})
             if path == "/api/collect":
                 from . import collect
-                res = collect.collect(con, [int(x) for x in body.get("ids", [])], body.get("name") or "secim", mode=body.get("mode", "link"))
+                mode = body.get("mode", "link")
+                if mode not in ("link", "symlink", "copy"):
+                    return self._json({"hata": "geçersiz mod"}, 400)
+                ids = [int(x) for x in body.get("ids", [])][:5000]
+                res = collect.collect(con, ids, str(body.get("name") or "secim")[:80], mode=mode)
                 return self._json(res)
             if path == "/api/reminders":
-                rid = db.add_reminder(con, body["due"], body["title"], note=body.get("note"), item_ids=body.get("item_ids") or [],
-                                      render_id=body.get("render_id"))
+                due = str(body.get("due") or "")[:19]
+                try:
+                    import datetime as dt
+                    dt.datetime.fromisoformat(due)
+                except ValueError:
+                    return self._json({"hata": "tarih geçersiz"}, 400)
+                rid = db.add_reminder(con, due, str(body.get("title") or "")[:200], note=(str(body["note"])[:1000] if body.get("note") else None),
+                                      item_ids=[int(x) for x in (body.get("item_ids") or [])][:200],
+                                      render_id=int(body["render_id"]) if body.get("render_id") else None)
                 return self._json({"id": rid})
             if path.startswith("/api/reminders/") and path.endswith("/status"):
-                db.set_reminder(con, int(path.split("/")[3]), status=body.get("status", "tamam"))
+                st = body.get("status", "tamam")
+                if st not in ("acik", "tamam", "atla"):
+                    return self._json({"hata": "geçersiz durum"}, 400)
+                db.set_reminder(con, int(path.split("/")[3]), status=st)
                 return self._json({"ok": True})
             if path == "/api/reminders/plan":
                 from . import reminders
                 lang = self._lang()
                 a = reminders.plan_reshares(con, weeks=int(body.get("weeks", 4)), per_week=int(body.get("per_week", 3)), min_days=int(body.get("min_days", 180)), progress=lambda *_: None, lang=lang)
                 b2 = reminders.plan_on_this_day(con, days_ahead=int(body.get("weeks", 4)) * 7, progress=lambda *_: None, lang=lang)
-                return self._json({"yeniden": a, "bugun": b2})
+                c2 = reminders.plan_special_days(con, days_ahead=int(body.get("weeks", 4)) * 7 + 7, lang=lang)
+                return self._json({"yeniden": a, "bugun": b2, "ozel": c2})
             if path.startswith("/api/item/") and path.endswith("/posted"):
                 import datetime as dt
                 iid = int(path.split("/")[3])
@@ -343,13 +480,24 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json({"ok": True})
             if path == "/api/open":
                 import platform
-                import subprocess
-                target = body.get("path")
-                if target and Path(target).exists() and platform.system() == "Darwin":
-                    subprocess.Popen(["open", "-R", target] if Path(target).is_file() else ["open", target])
-                    return self._json({"ok": True})
-                return self._json({"ok": False, "not": "Finder'da gösterme yalnızca macOS'ta çalışır"})
+                target = str(body.get("path") or "")
+                if platform.system() != "Darwin":
+                    return self._json({"ok": False, "not": "Finder'da gösterme yalnızca macOS'ta çalışır"})
+                allowed = target and Path(target).exists() and (
+                    con.execute("SELECT 1 FROM items WHERE path=? LIMIT 1", (target,)).fetchone()
+                    or _under(target, config.RENDERS, config.COLLECT))
+                if not allowed:
+                    return self._json({"hata": "izin yok"}, 403)
+                subprocess.Popen(["open", "-R", target])  # yalnızca Finder'da gösterir, hiçbir şeyi çalıştırmaz
+                return self._json({"ok": True})
             return self._json({"hata": "bulunamadı"}, 404)
+        except (ValueError, KeyError, TypeError) as e:
+            return self._json({"hata": f"geçersiz istek: {e}"}, 400)
+        except sqlite3.OperationalError as e:
+            if "locked" in str(e):
+                return self._json({"hata": "Veritabanı şu an meşgul (içe aktarma sürüyor); birkaç saniye sonra tekrar deneyin."}, 503)
+            traceback.print_exc()
+            return self._json({"hata": str(e)}, 500)
         except Exception as e:
             traceback.print_exc()
             return self._json({"hata": str(e)}, 500)

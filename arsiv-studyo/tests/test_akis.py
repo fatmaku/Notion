@@ -55,7 +55,8 @@ class Akis(unittest.TestCase):
         self.assertEqual(reel["matched_by"], "gorsel")
         captions = [p["caption"] or "" for p in posts]
         self.assertTrue(any("Kitap lansmanı bugün! 📚" in c for c in captions), f"mojibake düzeltilmeli: {captions}")
-        self.assertEqual(db.search(self.con, posted=True)["total"], len({p["item_id"] for p in posts if p["item_id"]}))
+        confirmed = {p["item_id"] for p in posts if p["item_id"] and p["matched_by"] != "tarih?"}
+        self.assertEqual(db.search(self.con, posted=True)["total"], len(confirmed))
 
     def test_03_arama_ve_puan(self):
         self.assertEqual(db.search(self.con, q="yaz tatili")["total"], 3)

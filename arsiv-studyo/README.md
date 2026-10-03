@@ -12,6 +12,18 @@ Neden bu yaklaşım "en kolayı":
 - **Hatırlatır.** Yeniden paylaşım kuyruğunu haftalara dağıtır, "bugün geçen yıl" önerir, macOS bildirimi ve Takvim (.ics) desteği vardır.
 - **Pazarlama.** Açıklama + hashtag + kanca cümlesi üretir (isteğe bağlı Claude ile), performans CSV'nizden en iyi paylaşım saatlerini çıkarır, içerik fikirleri önerir.
 
+## Yenilikler (sürüm 0.2)
+
+- **Hız:** 200 000 öğelik arşivde arama ~0,1 sn, panel ~1 sn; Instagram eşleme (1000 paylaşım) ~2 sn. Küçük resimler Fotoğraflar'ın kendi önizlemelerinden paralel üretilir; yeniden içe aktarmada değişmeyenler atlanır. İçe aktarma ayrı süreçte çalışır, arayüz donmaz.
+- **En iyi an otomatik:** Uzun videolarda başlangıç verilmezse keskinlik + hareket analiziyle en iyi bölüm seçilir.
+- **Güvenli alanlar:** Yazılar Reels/TikTok/Shorts'un düğme ve açıklama alanlarının altında kalmaz; uzun kelimeler bölünür, sığmayan yazı küçültülür.
+- **Özel günler takvimi:** Dünya Kitap Günü, 23 Nisan, Anneler Günü/Muttertag, Öğretmenler Günü, Welttag des Buches… Panelde 60 gün ileriye; hatırlatıcı planı 3 gün önceden haber verir.
+- **Yıl özeti:** "2025 yılının en iyileri" fikri tek tıkla 10 anlık montaj.
+- **iPhone'a gönder:** Üretimler sekmesinde "Fotoğraflar'a ekle (iPhone)" videoyu macOS Fotoğraflar'daki *Arşiv Stüdyo* albümüne koyar; iCloud Fotoğraflar ile telefona gelir, Instagram'dan doğrudan paylaşılır. (İlk seferde Sistem Ayarları › Gizlilik ve Güvenlik › Otomasyon › Terminal › Fotoğraflar izni.)
+- **Instagram tahminleri:** Görsel eşleşmeyen paylaşımlar için tarih tahmini artık yalnızca öneridir; *Paylaşılanlar* sekmesinde ✓ Onayla / ✕ Yanlış.
+- **iCloud Drive taraması:** Yalnızca iCloud'da duran (indirilmemiş) dosyalar okunmaz, böylece 2 TB'lık indirme tetiklenmez.
+- **Güvenlik:** Sunucu yalnızca bu Mac'ten gelen isteklere yanıt verir; başka web sitelerinin uygulamaya istek göndermesi engellenir.
+
 ## Kurulum (macOS) — çift tıklayarak
 
 Gereksinim: macOS 13 ve üstü, **Python 3.10 ve üstü** (3.12 önerilir). Xcode ve Homebrew gerekmez; ffmpeg yoksa taşınabilir bir kopya otomatik indirilir.
@@ -45,7 +57,7 @@ Apple'ın kendi `python3`'ü (Xcode araçlarıyla gelen 3.9) da çalışır, anc
 ## Hızlı başlangıç
 
 ```bash
-# 1) iCloud Fotoğraflar kütüphanesini indeksle (dosya kopyalamaz; 2 TB için dakikalar sürer)
+# 1) iCloud Fotoğraflar kütüphanesini indeksle (dosya kopyalamaz; ilk seferde büyük arşivde ~30-90 dk, sonrakiler çok daha hızlı)
 python3 -m arsiv fotograflar
 
 # 1b) Klasörleri de tarayabilirsiniz (iCloud Drive, harici disk, eski yedekler). Alt klasörler albüm sayılır.

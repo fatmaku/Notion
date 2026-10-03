@@ -54,6 +54,7 @@ dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);bo
     <button data-tab="paylasilanlar">Paylaşılanlar</button><button data-tab="studyo">Stüdyo</button><button data-tab="hatirlaticilar">Hatırlatıcılar</button>
     <button data-tab="pazarlama">Pazarlama</button><button data-tab="iceaktar">İçe aktar</button>
   </nav>
+  <span id="jobind" onclick="go('iceaktar')" style="display:none;cursor:pointer;background:var(--panel2);border:1px solid var(--accent);border-radius:999px;padding:4px 12px;font-size:13px;margin-left:auto"></span>
   <span id="hdrstat" class="muted" style="margin-left:auto;font-size:13px"></span>
   <select id="lang" title="Dil / Sprache / Language" onchange="setLang(this.value)"><option value="tr">Türkçe</option><option value="de">Deutsch</option><option value="en">English</option></select>
 </header>
@@ -61,6 +62,8 @@ dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);bo
 <!-- PANEL -->
 <section id="panel" class="active">
   <div class="cards" id="stats"></div>
+  <div id="welcome"></div>
+  <h2>Yaklaşan özel günler</h2><div class="cards" id="cal" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))"></div>
   <h2>Bugün geçen yıl</h2><div class="grid" id="otd"></div>
   <h2>İçerik fikirleri</h2><div class="cards" id="ideas" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))"></div>
   <h2>Yaklaşan hatırlatıcılar</h2><div class="list" id="panel-rem"></div>
@@ -189,7 +192,8 @@ try{JSON.parse(localStorage.getItem('sel')||'[]').forEach(([k,v])=>state.sel.set
 function saveSel(){try{localStorage.setItem('sel',JSON.stringify([...state.sel.entries()]))}catch(e){}updateTray()}
 async function api(p,opt){const h={'X-Lang':LANG};const r=await fetch(p,opt?{method:'POST',headers:{...h,'Content-Type':'application/json'},body:JSON.stringify(opt)}:{headers:h});const j=await r.json();if(!r.ok||j.hata)throw new Error(j.hata||r.status);return j}
 function toast(m,ms=2500){const d=document.createElement('div');d.className='toast';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),ms)}
-function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const ids=a=>(a||[]).map(Number).filter(Number.isFinite);
 function dur(s){s=Math.round(s||0);return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`}
 function go(tab){state.tab=tab;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('main section').forEach(s=>s.classList.toggle('active',s.id===tab));
   ({panel:loadPanel,kutuphane:()=>loadItems(0),adaylar:loadCandidates,paylasilanlar:loadPosts,studyo:loadStudio,hatirlaticilar:loadReminders,pazarlama:loadMarketing,iceaktar:loadJobs})[tab]()}
@@ -212,12 +216,18 @@ function updateTray(){const n=state.sel.size;$('#tray').classList.toggle('on',n>
 function clearSel(){state.sel.clear();document.querySelectorAll('.card.sel').forEach(c=>{c.classList.remove('sel');c.querySelector('.chk').textContent=''});saveSel();renderSelList()}
 function selectAllVisible(){($('#lib')._items||[]).forEach(i=>{if(!state.sel.has(i.id))toggleSel(null,i.id,i)})}
 // ---------- panel
-async function loadPanel(){const s=await api('/api/stats');$('#hdrstat').textContent=t('{n} öğe · {v} video · {p} paylaşılmış',{n:s.toplam,v:s.video,p:s.paylasilan});
- $('#stats').innerHTML=[['Toplam öğe',s.toplam],['Video',`${s.video} <small class="muted">(${s.video_saat} sa)</small>`],['Fotoğraf',s.foto],['Paylaşılmış',s.paylasilan],['Aday (≥55p)',s.aday],['Favori',s.favori],['Yerelde olmayan',s.yerel_degil],['Açık hatırlatıcı',s.hatirlatici_acik],['Üretim',s.uretim],['Boyut',`${s.boyut_gb} GB`]].map(([k,v])=>`<div class="stat"><b>${v}</b><span>${k}</span></div>`).join('');
+let panelBusy=false;
+async function loadPanel(){if(panelBusy)return;panelBusy=true;try{const s=await api('/api/stats');$('#hdrstat').textContent=t('{n} öğe · {v} video · {p} paylaşılmış',{n:s.toplam,v:s.video,p:s.paylasilan});
+ $('#welcome').innerHTML=s.toplam?'':`<div class="box" style="margin-bottom:14px"><h2 style="margin-top:0">👋 ${t('Hoş geldiniz! 3 adımda başlayın')}</h2>
+  <ol style="line-height:1.9"><li>${t('İçe aktar sekmesinde Fotoğraflar kütüphanenizi tarayın (dosya kopyalanmaz).')}</li><li>${t('Instagram dışa aktarımınızı ekleyin: eski paylaşımlar bulunur.')}</li><li>${t('Adaylar sekmesinden en iyi içerikleri seçip Stüdyo\'da video üretin.')}</li></ol>
+  <button class="primary" onclick="go('iceaktar')">${t('İçe aktar')} →</button></div>`;
+ $('#stats').innerHTML=[['Toplam öğe',s.toplam],['Video',`${s.video} <small class="muted">(${s.video_saat} ${t('sa')})</small>`],['Fotoğraf',s.foto],['Paylaşılmış',s.paylasilan],['Aday (≥55p)',s.aday],['Favori',s.favori],['Yerelde olmayan',s.yerel_degil],['Açık hatırlatıcı',s.hatirlatici_acik],['Üretim',s.uretim],['Boyut',`${s.boyut_gb} GB`]].map(([k,v])=>`<div class="stat"><b>${v}</b><span>${t(k)}</span></div>`).join('');
  const y=$('#f-year');if(y.options.length<=1)s.yillar.forEach(r=>y.insertAdjacentHTML('beforeend',`<option value="${r.year}">${r.year} (${r.n})</option>`));
- const otd=await api('/api/onthisday');$('#otd').innerHTML=otd.length?otd.map(i=>card(i)).join(''):'<div class="empty">Bugün için geçmiş yıllardan öğe yok.</div>';bindGrid($('#otd'),otd);
- const ideas=await api('/api/ideas');const html=ideas.map(i=>`<div class="idea"><b>${esc(i.baslik)}</b><span class="muted">${esc(i.aciklama)}</span><div class="row" style="margin-top:8px"><button class="small primary" onclick='useIdea(${JSON.stringify(i)})'>Stüdyo'da aç</button></div></div>`).join('')||'<div class="empty">Arşiv taranınca fikirler burada görünür.</div>';$('#ideas').innerHTML=html;$('#ideas2').innerHTML=html;
- const rem=await api('/api/reminders?status=acik');$('#panel-rem').innerHTML=rem.slice(0,6).map(remRow).join('')||'<div class="empty">Açık hatırlatıcı yok. Hatırlatıcılar sekmesinden plan oluşturun.</div>'}
+ const cal=await api('/api/calendar?days=60');state.cal=cal;$('#cal').innerHTML=cal.map((c,k)=>`<div class="idea"><b>${esc(c.ad)}</b><span class="muted">${esc(c.tarih.slice(8,10)+'.'+c.tarih.slice(5,7))} · ${c.kalan_gun?t('{n} gün sonra',{n:c.kalan_gun}):t('bugün')}<br>${esc(c.fikir)}</span><div class="row" style="margin-top:8px"><button class="small primary" onclick="useCal(${k})">${t("Stüdyo'da aç")}</button></div></div>`).join('')||`<div class="empty">${t('Önümüzdeki 60 günde özel gün yok.')}</div>`;
+ const otd=await api('/api/onthisday');$('#otd').innerHTML=otd.length?otd.map(i=>card(i)).join(''):'<div class="empty">'+t('Bugün için geçmiş yıllardan öğe yok.')+'</div>';bindGrid($('#otd'),otd);
+ const ideas=await api('/api/ideas');state.ideas=ideas;const html=ideas.map((i,k)=>`<div class="idea"><b>${esc(i.baslik)}</b><span class="muted">${esc(i.aciklama)}</span><div class="row" style="margin-top:8px"><button class="small primary" onclick="useIdea(state.ideas[${k}])">${t("Stüdyo'da aç")}</button></div></div>`).join('')||'<div class="empty">'+t('Arşiv taranınca fikirler burada görünür.')+'</div>';$('#ideas').innerHTML=html;$('#ideas2').innerHTML=html;
+ const rem=await api('/api/reminders?status=acik');$('#panel-rem').innerHTML=rem.slice(0,6).map(remRow).join('')||'<div class="empty">'+t('Açık hatırlatıcı yok. Hatırlatıcılar sekmesinden plan oluşturun.')+'</div>'}finally{panelBusy=false}}
+function useCal(k){const c=state.cal[k];go('studyo');setTimeout(()=>{$('#b-sablon').value=c.sablon;$('#b-baslik').value=c.ad;sablonChanged();if(!state.sel.size)toast(t('Şimdi Kütüphane ya da Adaylar sekmesinden bu konuya uygun öğeler seçin.'),5000)},300)}
 async function useIdea(i){state.sel.clear();const res=await api('/api/items?ids='+i.ogeler.join(',')+'&limit=50');res.items.forEach(it=>state.sel.set(it.id,{id:it.id,filename:it.filename,kind:it.kind,duration:it.duration,year:it.year}));saveSel();go('studyo');$('#b-sablon').value=i.sablon;$('#b-baslik').value=i.baslik;sablonChanged()}
 // ---------- kütüphane
 function libQuery(){const p=new URLSearchParams();const m={q:'f-q',kind:'f-kind',orientation:'f-orient',year:'f-year',min_dur:'f-mindur',max_dur:'f-maxdur',posted:'f-posted',sort:'f-sort',min_score:'f-minscore'};
@@ -232,9 +242,10 @@ async function loadCandidates(){const p=new URLSearchParams({min_score:val('c-mi
  const q=await api('/api/reshare');$('#reshare').innerHTML=q.map(i=>card(i,`<div class="meta" style="padding-top:0"><span>${esc((i.gerekce||[]).slice(0,2).join(' · '))}</span></div>`)).join('')||'<div class="empty">Kuyruk boş: Instagram dışa aktarımını içe aktarın ya da öğeleri "paylaşıldı" işaretleyin.</div>';bindGrid($('#reshare'),q)}
 // ---------- paylaşılanlar
 async function loadPosts(){const m=val('p-matched');const r=await api('/api/posts'+(m?'?matched='+m:''));$('#posts tbody').innerHTML=r.posts.map(p=>`<tr><td>${esc((p.posted_at||'').slice(0,16).replace('T',' '))}</td><td>${esc(p.kind)}</td><td style="max-width:320px">${esc((p.caption||'').slice(0,120))}</td>
- <td>${p.item_id?`<img src="/api/thumb/${p.item_id}" style="width:48px;height:64px;object-fit:cover;border-radius:6px;cursor:pointer" onclick="openItem(${p.item_id})">`:'<span class="muted">—</span>'}</td><td>${esc(p.matched_by||'')} ${p.confidence?'('+Math.round(p.confidence*100)+'%)':''}</td>
- <td>${p.reach?t('erişim ')+p.reach+' ':''}${p.likes?'❤ '+p.likes:''}</td><td>${p.item_id?`<button class="small" onclick="unlink(${p.id})">eşleşmeyi kaldır</button>`:`<button class="small" onclick="linkSel(${p.id})">seçili öğeyle eşle</button>`}</td></tr>`).join('')||'<tr><td colspan="7" class="muted">Paylaşım yok. İçe aktar sekmesinden Instagram dışa aktarımını yükleyin.</td></tr>'}
+ <td>${p.item_id?`<img src="/api/thumb/${p.item_id}" style="width:48px;height:64px;object-fit:cover;border-radius:6px;cursor:pointer" onclick="openItem(${p.item_id})">`:'<span class="muted">—</span>'}</td><td>${p.matched_by==='tarih?'?'<b style="color:var(--accent)">'+t('tahmin')+'</b>':esc(t(p.matched_by||''))} ${p.confidence?'('+Math.round(p.confidence*100)+'%)':''}</td>
+ <td>${p.reach?t('erişim ')+p.reach+' ':''}${p.likes?'❤ '+p.likes:''}</td><td>${p.matched_by==='tarih?'?`<button class="small primary" onclick="confirmPost(${p.id},${Number(p.item_id)})">✓ ${t('Onayla')}</button> <button class="small" onclick="unlink(${p.id})">✕ ${t('Yanlış')}</button>`:(p.item_id?`<button class="small" onclick="unlink(${p.id})">eşleşmeyi kaldır</button>`:`<button class="small" onclick="linkSel(${p.id})">seçili öğeyle eşle</button>`)}</td></tr>`).join('')||'<tr><td colspan="7" class="muted">Paylaşım yok. İçe aktar sekmesinden Instagram dışa aktarımını yükleyin.</td></tr>'}
 async function unlink(id){await api(`/api/post/${id}/unlink`,{});loadPosts()}
+async function confirmPost(id,item){await api(`/api/post/${id}/link`,{item_id:item});toast(t('Onaylandı'));loadPosts()}
 async function linkSel(id){const first=[...state.sel.keys()][0];if(!first)return toast('Önce kütüphaneden bir öğe seçin');await api(`/api/post/${id}/link`,{item_id:first});loadPosts()}
 // ---------- öğe detayı
 function openFinder(path){if(path)api('/api/open',{path}).then(r=>{if(r.not)toast(r.not)}).catch(()=>0)}
@@ -247,7 +258,7 @@ async function loadPreview(id,kind){const box=$('#media');if(!box)return;clearTi
  catch(e){box.innerHTML=`<div class="wait">⚠️ ${esc(e.message)}</div>`}
  box.insertAdjacentHTML('beforeend',`<button class="navb l" onclick="navItem(-1)">‹</button><button class="navb r" onclick="navItem(1)">›</button>`)}
 function navItem(d){const l=state.list||[];const k=l.findIndex(x=>x.id===state.cur?.id);if(k<0)return;const n=l[(k+d+l.length)%l.length];if(n)openItem(n.id)}
-document.addEventListener('keydown',e=>{const d=$('#detay');if(!d.open)return;if(e.key==='ArrowRight')navItem(1);if(e.key==='ArrowLeft')navItem(-1);if(e.key===' '){const v=d.querySelector('video');if(v){e.preventDefault();v.paused?v.play():v.pause()}}});
+document.addEventListener('keydown',e=>{const d=$('#detay');if(!d.open)return;if(/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName||''))return;if(e.key==='ArrowRight')navItem(1);if(e.key==='ArrowLeft')navItem(-1);if(e.key===' '){const v=d.querySelector('video');if(v){e.preventDefault();v.paused?v.play():v.pause()}}});
 async function openItem(id){const i=await api('/api/item/'+id);state.cur=i;const d=$('#detay');
  const pills=[...(i.albums||[]).map(a=>'📁 '+a),...(i.persons||[]).map(p=>'👤 '+p),...(i.keywords||[]).map(k=>'# '+k),...(i.labels||[])].map(x=>`<span class="pill">${esc(x)}</span>`).join('');
  const kv=[[t('Tarih'),(i.created_at||'').replace('T',' ')],[t('Boyut'),`${i.width}×${i.height} · ${i.aspect}`],[t('Süre'),i.kind==='video'?dur(i.duration):'—'],[t('Kaynak'),i.source+(i.available?'':' · ☁️ '+t('yalnızca iCloud'))],[t('Yer'),i.place||'—']];
@@ -287,20 +298,21 @@ async function renderNow(){if(!state.sel.size)return toast('Önce öğe seçin')
  try{const r=await api('/api/render',b);await pollJob(r.job,$('#b-log'));toast('Üretim hazır');loadRenders()}catch(e){toast(t('Hata: ')+e.message,6000)}$('#b-uret').disabled=false}
 async function pollJob(jid,el){for(;;){const j=await api('/api/job/'+jid);if(el){el.textContent=j.log.join('\n');el.scrollTop=el.scrollHeight}if(j.durum!=='calisiyor'){if(j.durum==='hata')throw new Error(j.hata||'iş başarısız');return j}await new Promise(r=>setTimeout(r,1500))}}
 async function genCaption(){const b=brief();b.ids=b.ogeler.map(o=>o.id);const r=await api('/api/caption',b);$('#m-out').value=r.caption;go('pazarlama')}
-async function loadRenders(){const rs=await api('/api/renders');$('#renders').innerHTML=rs.map(r=>`<div class="render"><div>${r.cover?`<img src="/api/render/${r.id}/cover">`:''}<div class="muted" style="font-size:12px">${esc(r.template)} · ${esc((r.created_at||'').slice(0,16).replace('T',' '))}</div><b class="${r.status==='hazir'?'ok':(r.status==='hata'?'warn':'muted')}">${esc(r.status)}</b></div>
+async function loadRenders(){const rs=await api('/api/renders');$('#renders').innerHTML=rs.map(r=>`<div class="render"><div>${r.cover?`<img src="/api/render/${r.id}/cover">`:''}<div class="muted" style="font-size:12px">${esc(r.template)} · ${esc((r.created_at||'').slice(0,16).replace('T',' '))}</div><b class="${r.status==='hazir'?'ok':(r.status==='hata'?'warn':'muted')}">${esc(t(r.status))}</b></div>
  <div>${r.status==='hazir'&&r.output&&r.output.endsWith('.mp4')?`<video controls preload="metadata" src="/api/render/${r.id}/file"></video>`:''}${r.status==='hata'?`<div class="warn">${esc(r.error)}</div>`:''}
  <div class="muted" style="font-size:12px;word-break:break-all;margin:6px 0">${esc(r.output||'')}</div>${r.caption?`<textarea id="cap-${r.id}">${esc(r.caption)}</textarea>`:''}
  <div class="row" style="margin-top:6px">${r.caption?`<button class="small" onclick="copyText('cap-${r.id}')">Açıklamayı kopyala</button>`:''}<button class="small" data-path="${esc(r.output||'')}" onclick="openFinder(this.dataset.path)">Finder'da göster</button>
- <button class="small" data-title="${esc(r.brief?.baslik||r.template)}" onclick="remindRender(${r.id},this.dataset.title)">Paylaşmayı hatırlat</button></div></div></div>`).join('')||'<div class="empty">Henüz üretim yok.</div>'}
+ <button class="small" data-title="${esc(r.brief?.baslik||r.template)}" onclick="remindRender(${r.id},this.dataset.title)">Paylaşmayı hatırlat</button>${r.status==='hazir'?` <button class="small primary" onclick="toPhotos(${r.id},this)">📱 ${t("Fotoğraflar'a ekle (iPhone)")}</button>`:''}</div></div></div>`).join('')||'<div class="empty">Henüz üretim yok.</div>'}
+async function toPhotos(id,btn){btn.disabled=true;try{const r=await api(`/api/render/${id}/photos`,{});toast(t("iPhone'a gönderildi: Fotoğraflar › 'Arşiv Stüdyo' albümü"),6000)}catch(e){toast(t('Hata: ')+e.message,8000)}btn.disabled=false}
 async function remindRender(id,title){const when=prompt(t('Ne zaman? (YYYY-AA-GG SS:DD)'),new Date(Date.now()+864e5).toISOString().slice(0,10)+' 19:00');if(!when)return;await api('/api/reminders',{due:when.replace(' ','T'),title:t('Paylaş: ')+title,render_id:id});toast('Hatırlatıcı eklendi')}
 function copyText(id){const el=document.getElementById(id);el.select();navigator.clipboard?.writeText(el.value);toast('Kopyalandı')}
 // ---------- hatırlatıcılar
-function remRow(r){return `<div class="item"><div class="t"><b>${esc(r.title)}</b><small>${esc(r.due.slice(0,16).replace('T',' '))} · ${esc(r.note||'')}</small><div>${(r.item_ids||[]).slice(0,6).map(i=>`<img src="/api/thumb/${i}" style="width:36px;height:48px;margin:4px 4px 0 0;cursor:pointer" onclick="openItem(${i})">`).join('')}</div></div>
- <div>${r.status==='acik'?`<button class="small" onclick="remStatus(${r.id},'tamam')">✓ Yapıldı</button> <button class="small" onclick="remStatus(${r.id},'atla')">Atla</button> <button class="small" onclick="remToStudio(${JSON.stringify(r.item_ids||[])})">Stüdyo</button>`:`<span class="muted">${esc(r.status)}</span>`}</div></div>`}
+function remRow(r){return `<div class="item"><div class="t"><b>${esc(r.title)}</b><small>${esc(r.due.slice(0,16).replace('T',' '))} · ${esc(r.note||'')}</small><div>${ids(r.item_ids).slice(0,6).map(i=>`<img src="/api/thumb/${i}" style="width:36px;height:48px;margin:4px 4px 0 0;cursor:pointer" onclick="openItem(${i})">`).join('')}</div></div>
+ <div>${r.status==='acik'?`<button class="small" onclick="remStatus(${r.id},'tamam')">✓ Yapıldı</button> <button class="small" onclick="remStatus(${r.id},'atla')">Atla</button> <button class="small" onclick="remToStudio([${ids(r.item_ids).join(',')}])">Stüdyo</button>`:`<span class="muted">${esc(r.status)}</span>`}</div></div>`}
 async function loadReminders(){const r=await api('/api/reminders?status='+val('r-status'));$('#rems').innerHTML=r.map(remRow).join('')||'<div class="empty">Hatırlatıcı yok.</div>'}
 async function remStatus(id,s){await api(`/api/reminders/${id}/status`,{status:s});loadReminders()}
 async function remToStudio(ids){state.sel.clear();const res=await api('/api/items?ids='+ids.join(',')+'&limit=50');res.items.forEach(it=>state.sel.set(it.id,{id:it.id,filename:it.filename,kind:it.kind,duration:it.duration,year:it.year}));saveSel();go('studyo')}
-async function planReminders(){const r=await api('/api/reminders/plan',{weeks:4,per_week:3});toast(t("{a} yeniden paylaşım + {b} 'bugün geçen yıl' hatırlatıcısı",{a:r.yeniden.length,b:r.bugun.length}));loadReminders()}
+async function planReminders(){const r=await api('/api/reminders/plan',{weeks:4,per_week:3});toast(t("{a} yeniden paylaşım + {b} 'bugün geçen yıl' hatırlatıcısı",{a:r.yeniden.length,b:r.bugun.length})+(r.ozel?.length?' + '+t('{n} özel gün',{n:r.ozel.length}):''));loadReminders()}
 async function addReminder(){if(!val('r-due')||!val('r-title'))return toast('Tarih ve başlık gerekli');await api('/api/reminders',{due:val('r-due'),title:val('r-title'),note:val('r-note'),item_ids:[...state.sel.keys()]});toast('Eklendi');loadReminders()}
 // ---------- pazarlama
 async function loadMarketing(){const b=await api('/api/besttimes');$('#besttimes').innerHTML=`<div class="muted" style="font-size:13px">${esc(b.not||(t('Kaynak: ')+t(b.kaynak)+(b.ornek_sayisi?' ('+b.ornek_sayisi+t(' paylaşım')+')':'')))} ${esc(b.sure_notu||'')}</div>
@@ -309,10 +321,16 @@ async function loadMarketing(){const b=await api('/api/besttimes');$('#besttimes
 async function mCaption(){const r=await api('/api/caption',{ids:[...state.sel.keys()],baslik:val('m-baslik'),altbaslik:val('m-alt'),cta:val('m-cta'),etiket:val('m-etiket')});$('#m-out').value=r.caption}
 // ---------- içe aktar / işler
 async function job(url,body){try{const r=await api(url,body);toast(t('Başladı: ')+r.job);loadJobs();pollJob(r.job).then(()=>{toast(t('Bitti: ')+r.job);loadJobs();loadPanel()}).catch(e=>{toast(t('Hata: ')+e.message,6000);loadJobs()})}catch(e){toast(t('Hata: ')+e.message,6000)}}
-async function loadJobs(){const js=await api('/api/jobs');const ks=Object.keys(js).reverse();$('#jobs').innerHTML=ks.map(k=>`<div style="margin-bottom:10px"><b>${esc(k)}</b> <span class="${js[k].durum==='bitti'?'ok':(js[k].durum==='hata'?'warn':'muted')}">${esc(js[k].durum)}</span><pre class="log">${esc(js[k].log.slice(-12).join('\n'))}</pre></div>`).join('')||'<div class="empty">Henüz iş yok.</div>';
+async function loadJobs(){const js=await api('/api/jobs');const ks=Object.keys(js).reverse();$('#jobs').innerHTML=ks.map(k=>`<div style="margin-bottom:10px"><b>${esc(k)}</b> <span class="${js[k].durum==='bitti'?'ok':(js[k].durum==='hata'?'warn':'muted')}">${esc(t(js[k].durum))}</span>${js[k].hata?`<div class="warn">${esc(js[k].hata)}</div>`:''}<pre class="log">${esc(js[k].log.slice(-12).join('\n'))}</pre></div>`).join('')||'<div class="empty">Henüz iş yok.</div>';
  if(ks.some(k=>js[k].durum==='calisiyor')&&state.tab==='iceaktar')setTimeout(loadJobs,2000)}
 // ---------- başlat
-applyLang();updateTray();loadPanel();
+async function watchJobs(){try{const js=await api('/api/jobs');const run=Object.values(js).filter(j=>j.durum==='calisiyor');const el=$('#jobind');
+ if(run.length){const last=(run[0].log||[]).slice(-1)[0]||'';el.innerHTML=`⏳ ${t('Çalışıyor')}: ${esc(t(run[0].tur))} <small class="muted">${esc(last.slice(0,60))}</small>`;el.style.display='inline-block'}else el.style.display='none';
+ if(run.length||state.hadRun){state.hadRun=run.length>0;if(!run.length&&state.tab==='panel')loadPanel()}}catch(e){}setTimeout(watchJobs,run_interval())}
+function run_interval(){return document.hidden?15000:4000}
+// geçersiz (silinmiş) seçimleri temizle
+(async()=>{if(!state.sel.size)return;try{const r=await api('/api/items?ids='+[...state.sel.keys()].join(',')+'&limit=500');const ok=new Set(r.items.map(i=>i.id));for(const k of [...state.sel.keys()])if(!ok.has(k))state.sel.delete(k);saveSel()}catch(e){}})();
+applyLang();updateTray();loadPanel();watchJobs();
 </script>
 </body>
 </html>

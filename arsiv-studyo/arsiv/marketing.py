@@ -166,7 +166,7 @@ def rule_caption(brief, items, tone="samimi", lang="tr"):
 
 LANG_NAMES = {"tr": "Türkçe", "de": "Almanca (Deutsch)", "en": "İngilizce (English)"}
 SYSTEM_PROMPT = """Sen bir sosyal medya editörüsün. Açıklamayı {dil} dilinde yazarsın. Instagram/TikTok için kısa, samimi ve doğal açıklamalar yazarsın.
-Kurallar: ilk cümle güçlü bir kanca olsun; 2-4 kısa paragraf; sonda bir harekete çağrı; en sonda 10-15 alakalı Türkçe hashtag
+Kurallar: ilk cümle güçlü bir kanca olsun; 2-4 kısa paragraf; sonda bir harekete çağrı; en sonda 10-15 alakalı {dil} hashtag
 (bir satırda). Abartılı reklam dili ve emoji bombardımanı yok (en çok 3 emoji). Yalnızca açıklama metnini döndür."""
 
 
@@ -242,7 +242,7 @@ def best_times(con, lang=None):
     return {"kaynak": "analiz", "saatler": out, "sure_notu": dur_note, "ornek_sayisi": len(scored)}
 
 
-def ideas(con, n=6, lang=None):
+def ideas(con, n=8, lang=None):
     """Arşive bakarak içerik fikirleri üretir."""
     from . import score
     lang = lang or i18n.lang_of(con)
@@ -252,25 +252,32 @@ def ideas(con, n=6, lang=None):
     if otd:
         out.append({"baslik": T("Bugün geçen yıl"), "aciklama": T("{n} uygun öğe var; hikâye olarak paylaş.", n=len(otd)), "sablon": "montaj",
                     "ogeler": [i["id"] for i in otd[:5]]})
-    yatay = db.search(con, kind="video", orientation="yatay", posted=False, min_score=40, min_dur=5, limit=5)["items"]
+    yatay = db.search(con, kind="video", orientation="yatay", posted=False, min_score=40, min_dur=5, limit=5, with_total=False)["items"]
     if yatay:
         out.append({"baslik": T("Yatay videoları dikeye çevir"), "aciklama": T("{n}+ yatay video bulanık arka planla Reel olabilir.", n=len(yatay)),
                     "sablon": "yeniden", "ogeler": [yatay[0]["id"]]})
     years = [r["year"] for r in con.execute("SELECT DISTINCT year FROM items WHERE year IS NOT NULL ORDER BY year")]
     if len(years) >= 3:
-        old = db.search(con, year=years[0], min_score=50, limit=1)["items"]
-        new = db.search(con, year=years[-1], min_score=50, limit=1)["items"]
+        old = db.search(con, year=years[0], min_score=50, limit=1, with_total=False)["items"]
+        new = db.search(con, year=years[-1], min_score=50, limit=1, with_total=False)["items"]
         if old and new:
             out.append({"baslik": T("Eskiden ({a}) / Şimdi ({b})", a=years[0], b=years[-1]), "aciklama": T("Aynı konuda iki dönem: üst-alt karşılaştırma."),
                         "sablon": "eskiden-simdi", "ogeler": [old[0]["id"], new[0]["id"]]})
-    fav = db.search(con, favorite=True, posted=False, kind="foto", limit=6)["items"]
+    fav = db.search(con, favorite=True, posted=False, kind="foto", limit=6, with_total=False)["items"]
     if len(fav) >= 3:
         out.append({"baslik": T("Favorilerden carousel"), "aciklama": T("{n} favori fotoğraf, 4:5 kaydırmalı gönderi.", n=len(fav)),
                     "sablon": "carousel", "ogeler": [i["id"] for i in fav[:6]]})
-    top = db.search(con, kind="video", posted=False, min_score=65, limit=3)["items"]
+    top = db.search(con, kind="video", posted=False, min_score=65, limit=3, with_total=False)["items"]
     if top:
         out.append({"baslik": T("Hiç paylaşılmamış en güçlü video"), "aciklama": ", ".join(T(x) for x in (top[0].get("score_reasons") or [])) or T("Yüksek puan."),
                     "sablon": "tekli", "ogeler": [top[0]["id"]]})
+    # Yıl özeti: geçen yılın (Aralık'tan itibaren bu yılın) en iyi 10 anı
+    today = dt.date.today()
+    yr = today.year if today.month >= 12 else today.year - 1
+    best = db.search(con, year=yr, sort="score", limit=10, with_total=False)["items"]
+    if len(best) >= 4:
+        out.append({"baslik": T("{y} yılının en iyileri", y=yr), "aciklama": T("{n} en yüksek puanlı an: tek tıkla yıl özeti montajı.", n=len(best)),
+                    "sablon": "montaj", "ogeler": [i["id"] for i in best]})
     q = score.reshare_queue(con, limit=3, lang=lang)
     if q:
         out.append({"baslik": T("Yeniden paylaşım zamanı"), "aciklama": "; ".join(q[0].get("gerekce") or [])[:140], "sablon": "yeniden",
