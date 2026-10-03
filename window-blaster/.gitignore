@@ -6,3 +6,5 @@ playwright-report/
 *.log
 .vite/
 WindowBlaster-Mac*.zip
+WindowBlaster*.zip
+launcher/dist/

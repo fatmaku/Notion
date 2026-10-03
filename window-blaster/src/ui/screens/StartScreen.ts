@@ -76,11 +76,41 @@ function errorCard(app: App): HTMLElement | null {
   return el;
 }
 
+function installHint(app: App): HTMLElement | null {
+  if (app.iosBrowserTab) {
+    return h(
+      'div',
+      { class: 'small', style: 'margin-top:12px;padding:10px 12px;border-radius:12px;background:rgba(56,189,248,0.12);color:#bae6fd' },
+      '📲 Für offline: unten auf ',
+      h('b', {}, 'Teilen ⬆︎'),
+      ' → ',
+      h('b', {}, 'Zum Home-Bildschirm'),
+      ', dann das Spiel über das neue Symbol öffnen. Nur die App speichert alles für unterwegs.',
+    );
+  }
+  if (app.installPrompt) {
+    const p = app.installPrompt;
+    return h(
+      'button',
+      {
+        class: 'btn block secondary',
+        style: 'margin-top:12px',
+        onclick: () => {
+          void p.prompt();
+          app.installPrompt = null;
+        },
+      },
+      '📲 Als App installieren (für offline)',
+    );
+  }
+  return null;
+}
+
 export function StartScreen(app: App): Screen {
   const offline = offlineRow(app);
   const el = h(
     'div',
-    { class: 'screen' },
+    { class: 'screen', 'data-screen': 'start' },
     h(
       'div',
       { class: 'card' },
@@ -101,6 +131,7 @@ export function StartScreen(app: App): Screen {
         ),
       ),
       offline.el,
+      installHint(app),
       errorCard(app),
       h('p', { class: 'footer' }, `v${__APP_VERSION__} · ${T.safetyPrivacy}`),
     ),

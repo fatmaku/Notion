@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Window Blaster – Handy einrichten</title>
+<style>
+:root{--bg:#0b0f14;--card:#151c26;--text:#eef2f7;--muted:#9aa7b8;--accent:#ffb020;--ok:#22c55e;--bad:#ef4444;--line:rgba(255,255,255,.08);color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.5 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
+main{max-width:620px;margin:0 auto;padding:calc(18px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom))}
+h1{font-size:26px;margin:0 0 4px}h1 b{color:var(--accent)}
+h2{font-size:19px;margin:0 0 8px;display:flex;gap:10px;align-items:center}
+.num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#111;display:grid;place-items:center;font-weight:900;font-size:15px;flex:none}
+.card{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--line);margin:14px 0}
+.muted{color:var(--muted)}.small{font-size:14px}
+.btn{display:block;text-align:center;text-decoration:none;background:var(--accent);color:#111;font-weight:800;padding:15px 18px;border-radius:14px;margin:10px 0 0;font-size:18px}
+.btn.sec{background:#273244;color:var(--text);font-size:15px;padding:12px}
+.btn.go{background:var(--ok);color:#06210f;font-size:20px;padding:18px}
+ol{margin:6px 0 0;padding-left:22px}li{margin:7px 0}
+b.ui{background:#273244;padding:1px 7px;border-radius:7px;font-weight:700;white-space:nowrap}
+.status{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:14px;font-weight:700}
+.status.wait{background:rgba(255,176,32,.12);color:#fde68a}
+.status.ok{background:rgba(34,197,94,.15);color:#bbf7d0}
+.status .spin{width:18px;height:18px;border:3px solid rgba(253,230,138,.35);border-top-color:#fde68a;border-radius:50%;animation:s 1s linear infinite;flex:none}
+@keyframes s{to{transform:rotate(360deg)}}
+.warn{background:rgba(239,68,68,.13);color:#fecaca;padding:12px 14px;border-radius:14px;margin:12px 0}
+[hidden]{display:none!important}
+details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <h1>🚗 Window <b>Blaster</b></h1>
+  <p class="muted" style="margin:0">Einmalige Einrichtung – danach spielst du ohne Mac und ohne Internet.</p>
+
+  <div class="warn" id="notSafari" hidden>⚠️ Bitte diese Seite in <b>Safari</b> öffnen (nicht Chrome/Firefox auf dem iPhone) – nur Safari kann das Zertifikat installieren. Tipp: Adresse kopieren und in Safari einfügen.</div>
+
+  <div class="card" id="trustCard">
+    <div class="status wait" id="statusWait"><span class="spin"></span><span>Prüfe, ob dein Handy dem Mac schon vertraut …</span></div>
+    <div class="status ok" id="statusOk" hidden>✅ Dein Handy vertraut dem Mac – alles bereit!</div>
+    <a class="btn go" id="playBtn" hidden href="#">▶ Spiel öffnen</a>
+  </div>
+
+  <!-- ===================== iPhone ===================== -->
+  <section id="ios" hidden>
+    <div class="card">
+      <h2><span class="num">1</span> Zertifikat laden</h2>
+      <a class="btn" href="/zertifikat.mobileconfig">📄 Profil laden</a>
+      <p class="small muted">Es erscheint „Diese Website versucht, ein Konfigurationsprofil zu laden“ → <b class="ui">Zulassen</b> → <b class="ui">Schließen</b>.</p>
+    </div>
+    <div class="card">
+      <h2><span class="num">2</span> Profil installieren</h2>
+      <ol>
+        <li>App <b>Einstellungen</b> öffnen.</li>
+        <li>Ganz oben auf <b class="ui">Profil geladen</b> tippen.<br><span class="small muted">Nicht da? <b>Allgemein → VPN und Geräteverwaltung → „Window Blaster – Mac-Zertifikat“</b>.</span></li>
+        <li><b class="ui">Installieren</b> → Code eingeben → <b class="ui">Installieren</b> → <b class="ui">Fertig</b>.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2><span class="num">3</span> Dem Zertifikat vertrauen</h2>
+      <ol>
+        <li>Einstellungen → <b>Allgemein</b> → <b>Info</b> → ganz nach unten → <b class="ui">Zertifikatsvertrauenseinstellungen</b>.</li>
+        <li>Den Schalter bei <b>„{{.CAName}}“</b> einschalten → <b class="ui">Fortfahren</b>.</li>
+        <li>Zurück zu Safari, zu dieser Seite. Oben wird es grün, dann <b>„Spiel öffnen“</b>.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2><span class="num">4</span> Als App speichern – für offline</h2>
+      <ol>
+        <li>Im Spiel in Safari unten auf <b class="ui">Teilen ⬆︎</b> tippen → <b class="ui">Zum Home-Bildschirm</b> → <b class="ui">Hinzufügen</b>.</li>
+        <li>Das Spiel <b>über das neue Symbol auf dem Home-Bildschirm</b> öffnen (wichtig – die App hat ihren eigenen Speicher).</li>
+        <li>Warten, bis auf dem Startbildschirm <b>„Offline bereit ✓“</b> steht (lädt ca. 30 MB vom Mac).</li>
+      </ol>
+      <p class="small muted">Fertig! Ab jetzt läuft das Spiel ohne Mac und ohne Internet – im Auto, Zug oder Bus.</p>
+    </div>
+  </section>
+
+  <!-- ===================== Android ===================== -->
+  <section id="android" hidden>
+    <div class="card">
+      <h2><span class="num">1</span> Zertifikat laden</h2>
+      <a class="btn" href="/zertifikat.crt">📄 Zertifikat herunterladen</a>
+      <p class="small muted">Die Datei <b>WindowBlaster-Zertifikat.crt</b> landet in „Downloads“. Erscheint „Zertifikat kann nicht installiert werden“, ist das normal – weiter mit Schritt 2.</p>
+    </div>
+    <div class="card">
+      <h2><span class="num">2</span> Zertifikat installieren</h2>
+      <ol>
+        <li>App <b>Einstellungen</b> öffnen, oben ins Suchfeld <b>„Zertifikat“</b> eingeben.</li>
+        <li><b class="ui">CA-Zertifikat</b> wählen (heißt manchmal „Zertifikat installieren“ → „CA-Zertifikat“) → <b class="ui">Trotzdem installieren</b> → PIN.</li>
+        <li>Die Datei <b>WindowBlaster-Zertifikat.crt</b> aus „Downloads“ antippen.</li>
+        <li>Zurück zu Chrome, zu dieser Seite. Oben wird es grün, dann <b>„Spiel öffnen“</b>.</li>
+      </ol>
+      <p class="small muted">Samsung: Einstellungen → Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Von Gerätespeicher installieren → CA-Zertifikat.</p>
+    </div>
+    <div class="card">
+      <h2><span class="num">3</span> Als App installieren – für offline</h2>
+      <ol>
+        <li>Im Spiel in Chrome: Menü <b class="ui">⋮</b> → <b class="ui">App installieren</b> (oder „Zum Startbildschirm hinzufügen“).</li>
+        <li>Die App öffnen und warten, bis <b>„Offline bereit ✓“</b> steht.</li>
+      </ol>
+      <p class="small muted">Fertig! Ab jetzt läuft das Spiel ohne Mac und ohne Internet.</p>
+    </div>
+  </section>
+
+  <!-- ===================== other ===================== -->
+  <section id="other" hidden>
+    <div class="card">
+      <h2>Zertifikat</h2>
+      <a class="btn" href="/zertifikat.crt">📄 Zertifikat herunterladen</a>
+      <p class="small muted">Als vertrauenswürdige Stammzertifizierungsstelle installieren, dann „Spiel öffnen“.</p>
+    </div>
+  </section>
+
+  <div class="card">
+    <details>
+      <summary>Nur schnell ausprobieren, ohne Zertifikat?</summary>
+      <p class="small">Geht auch: <a class="btn sec" id="quickBtn" href="#">Spiel ohne Zertifikat öffnen</a></p>
+      <p class="small muted">Der Browser warnt dann („Keine private Verbindung“) → „Details“ → „Website besuchen“. Kamera und Spiel funktionieren, aber <b>nicht offline</b> – dafür braucht es die Schritte oben.</p>
+    </details>
+    <details>
+      <summary>Hilfe</summary>
+      <ul class="small">
+        <li>Die Prüfung bleibt gelb? Beim iPhone den Schalter in <b>Zertifikatsvertrauenseinstellungen</b> vergessen? Danach diese Seite neu laden.</li>
+        <li>Kamera-Frage kommt nicht: Einstellungen → Safari (bzw. Chrome) → Kamera → „Fragen“ oder „Erlauben“.</li>
+        <li>„Offline bereit“ erscheint nicht: Die App vom Home-Bildschirm aus öffnen, während der Mac-Server läuft und das Handy im selben WLAN ist.</li>
+        <li>Zertifikat wieder entfernen: iPhone → Allgemein → VPN und Geräteverwaltung; Android → Einstellungen → „Nutzerzertifikate“.</li>
+      </ul>
+    </details>
+  </div>
+</main>
+<script>
+(function () {
+  var HTTPS_PORT = {{.HTTPSPort}};
+  var host = location.hostname;
+  var game = 'https://' + host + ':' + HTTPS_PORT + '/';
+  var ua = navigator.userAgent;
+  var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/.test(ua);
+  document.getElementById(isIOS ? 'ios' : isAndroid ? 'android' : 'other').hidden = false;
+  if (isIOS && /CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua)) document.getElementById('notSafari').hidden = false;
+  document.getElementById('playBtn').href = game;
+  document.getElementById('quickBtn').href = game;
+  var trusted = false;
+  function setTrusted() {
+    if (trusted) return;
+    trusted = true;
+    document.getElementById('statusWait').hidden = true;
+    document.getElementById('statusOk').hidden = false;
+    document.getElementById('playBtn').hidden = false;
+  }
+  function check() {
+    if (trusted) return;
+    var ctl = typeof AbortController === 'function' ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctl) ctl.abort(); }, 4000);
+    fetch(game + 'wb-status', { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (s) { clearTimeout(t); if (s && s.ok) setTrusted(); })
+      .catch(function () { clearTimeout(t); });
+  }
+  check();
+  setInterval(check, 2500);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
+})();
+</script>
+</body>
+</html>

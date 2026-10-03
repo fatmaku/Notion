@@ -23,6 +23,12 @@ test.describe('demo mode (synthetic scene + mock detector)', () => {
     expect(Number(s.hits)).toBeGreaterThan(0);
     expect(Number(s.score)).toBeGreaterThan(0);
     expect(Number(s.fps)).toBeGreaterThan(4); // software rendering in CI; phones run 30-60
+    // regression: the HUD must never monkey-patch the 2D context (it nested one wrapper per frame)
+    const patched = await page.evaluate(() => {
+      const c = (document.getElementById('hud') as HTMLCanvasElement).getContext('2d')!;
+      return Object.prototype.hasOwnProperty.call(c, 'fillText') || c.fillText !== CanvasRenderingContext2D.prototype.fillText;
+    });
+    expect(patched).toBe(false);
     expect(Number(s.detHz)).toBeGreaterThan(1.5);
     await page.screenshot({ path: 'test-results/front-shooter.png' });
     expect(errors, errors.join('\n')).toEqual([]);

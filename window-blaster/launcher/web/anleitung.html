@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Window Blaster – Anleitung für MacBook und Handy</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#111827;--muted:#5b6575;--accent:#d97706;--ok:#15803d;--line:#e5e7eb;--code:#f1f3f6}
+@media (prefers-color-scheme:dark){:root{--bg:#0b0f14;--card:#151c26;--text:#eef2f7;--muted:#9aa7b8;--accent:#ffb020;--ok:#4ade80;--line:rgba(255,255,255,.09);--code:#0e141c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 -apple-system,system-ui,"Segoe UI",Roboto,sans-serif}
+main{max-width:860px;margin:0 auto;padding:28px 18px 70px}
+h1{font-size:32px;margin:0 0 6px;letter-spacing:-.01em}h1 span{color:var(--accent)}
+h2{font-size:23px;margin:34px 0 10px;padding-top:6px}
+h3{font-size:18px;margin:20px 0 6px}
+.lead{color:var(--muted);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:14px 0}
+.big ol{counter-reset:s;list-style:none;padding:0;margin:0}
+.big ol>li{counter-increment:s;position:relative;padding:12px 0 12px 52px;border-top:1px solid var(--line)}
+.big ol>li:first-child{border-top:0}
+.big ol>li::before{content:counter(s);position:absolute;left:0;top:10px;width:36px;height:36px;border-radius:50%;background:var(--accent);color:#111;font-weight:900;display:grid;place-items:center}
+b.ui{background:var(--code);border:1px solid var(--line);padding:0 7px;border-radius:7px;white-space:nowrap}
+code,kbd{font:15px ui-monospace,Menlo,monospace;background:var(--code);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+.note{border-left:4px solid var(--accent);padding:8px 14px;background:var(--card);border-radius:0 12px 12px 0;margin:12px 0}
+.ok{border-left-color:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:15.5px}td,th{border-top:1px solid var(--line);padding:9px 8px;vertical-align:top;text-align:left}th{color:var(--muted);font-weight:700}
+.muted{color:var(--muted)}.small{font-size:14.5px}
+nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
+</style>
+</head>
+<body>
+<main>
+<h1>🚗 Window <span>Blaster</span> – Anleitung</h1>
+<p class="lead">Für MacBook + iPhone oder Android-Handy · Version {{.Version}}</p>
+<nav class="small"><a href="#kurz">Kurzfassung</a><a href="#mac">MacBook</a><a href="#iphone">iPhone</a><a href="#android">Android</a><a href="#offline">Offline</a><a href="#hilfe">Wenn es nicht startet</a></nav>
+
+<div class="note ok"><b>Braucht das Spiel Internet?</b> Nein. Der Mac schickt das Spiel <b>einmal</b> über dein WLAN aufs Handy. Danach läuft es auf dem Handy komplett ohne Mac und ohne Internet – im Auto, Zug oder Bus. Am besten richtest du es <b>zu Hause</b> ein.</div>
+
+<h2 id="kurz">Kurzfassung – in 6 Schritten</h2>
+<div class="card big">
+<ol>
+  <li><b>Entpacken:</b> Doppelklick auf <code>WindowBlaster.zip</code>. Es entsteht der Ordner <b>WindowBlaster</b>. Zieh ihn auf den Schreibtisch.</li>
+  <li><b>Erster Start (nur einmal so):</b> Programm <b>Terminal</b> öffnen (<kbd>⌘</kbd>+<kbd>Leertaste</kbd>, „Terminal“ tippen, <kbd>↩</kbd>). Tippe <code>bash</code> und ein <b>Leerzeichen</b>. Zieh dann die Datei <b>Start-Window-Blaster.command</b> aus dem Ordner ins Terminal-Fenster und drück <kbd>↩</kbd>.<br><span class="small muted">Fragt der Mac nach Zugriff auf „Schreibtisch“ → <b class="ui">OK</b>. Ab dem zweiten Mal genügt ein Doppelklick auf die Startdatei.</span></li>
+  <li><b>Verbindungsseite:</b> Im Browser öffnet sich „Window Blaster – Handy verbinden“ mit einem großen QR-Code. Das Terminal-Fenster <b>offen lassen</b>.</li>
+  <li><b>Handy verbinden:</b> Handy ins <b>gleiche WLAN</b> wie den Mac. Kamera-App öffnen, QR-Code scannen, auf den Link tippen.</li>
+  <li><b>Zertifikat (einmalig):</b> Die Handy-Seite führt dich durch 2–3 kurze Schritte. Wenn sie grün „vertraut dem Mac“ zeigt → <b class="ui">Spiel öffnen</b>.</li>
+  <li><b>Als App speichern:</b> Spiel zum Home-Bildschirm hinzufügen, <b>von dort</b> öffnen und warten, bis <b>„Offline bereit ✓“</b> erscheint. Fertig!</li>
+</ol>
+</div>
+
+<h2 id="mac">MacBook – ausführlich</h2>
+<h3>Erster Start</h3>
+<p>macOS blockiert Programme aus dem Internet, die nicht im App Store sind („Apple konnte nicht überprüfen …“). Der Start über das Terminal umgeht das sicher – <b>nur für diesen Ordner</b>: Die Startdatei entfernt beim ersten Lauf die Sperre für den Ordner WindowBlaster, danach geht auch der Doppelklick.</p>
+<ol>
+  <li>Terminal öffnen: <kbd>⌘</kbd>+<kbd>Leertaste</kbd> → „Terminal“ → <kbd>↩</kbd>.</li>
+  <li><code>bash </code> tippen (mit Leerzeichen danach).</li>
+  <li>Die Datei <b>Start-Window-Blaster.command</b> aus dem Finder ins Terminal-Fenster ziehen – der Pfad erscheint automatisch.</li>
+  <li><kbd>↩</kbd> drücken.</li>
+</ol>
+<p>Im Terminal steht dann „Window Blaster läuft“, ein QR-Code und die Adressen. Gleichzeitig öffnet sich die Verbindungsseite im Browser.</p>
+<div class="note"><b>Lieber per Doppelklick?</b> Doppelklick auf <b>Start-Window-Blaster.command</b> → Meldung „nicht geöffnet“ → <b class="ui">Fertig</b>. Dann  → <b>Systemeinstellungen → Datenschutz &amp; Sicherheit</b> → ganz unten bei „Start-Window-Blaster.command wurde blockiert“ → <b class="ui">Trotzdem öffnen</b> → Passwort → nochmal <b class="ui">Trotzdem öffnen</b>.</div>
+<h3>Am Mac spielen</h3>
+<p>Auf der Verbindungsseite <b class="ui">▶ Demo am Mac spielen</b> – oder im Browser <code>http://localhost:{{.HTTPPort}}/?demo=1</code>. Der Mac zeigt eine simulierte Straße; das echte Spiel mit Autos vor dem Fenster braucht die Rückkamera des Handys.</p>
+<h3>Beenden</h3>
+<p>Terminal-Fenster schließen (oder <kbd>ctrl</kbd>+<kbd>C</kbd>). Der Mac wird nur zum Einrichten und für Updates gebraucht.</p>
+
+<h2 id="iphone">iPhone – ausführlich</h2>
+<div class="card big">
+<ol>
+  <li><b>QR-Code scannen</b> mit der Kamera-App → gelben Link antippen. Die Seite öffnet sich in <b>Safari</b> (wichtig: nur Safari kann Zertifikate installieren).</li>
+  <li><b class="ui">📄 Profil laden</b> → <b class="ui">Zulassen</b> → <b class="ui">Schließen</b>.</li>
+  <li><b>Einstellungen</b> öffnen → oben <b class="ui">Profil geladen</b> → <b class="ui">Installieren</b> → Code → <b class="ui">Installieren</b> → <b class="ui">Fertig</b>.<br><span class="small muted">Nicht zu sehen? Einstellungen → Allgemein → VPN und Geräteverwaltung.</span></li>
+  <li><b>Einstellungen → Allgemein → Info</b> → ganz unten <b class="ui">Zertifikatsvertrauenseinstellungen</b> → Schalter bei „Window Blaster Mac …“ <b>ein</b> → <b class="ui">Fortfahren</b>.</li>
+  <li>Zurück zu Safari: Die Seite zeigt grün „Dein Handy vertraut dem Mac“ → <b class="ui">▶ Spiel öffnen</b>.</li>
+  <li>Im Spiel: <b class="ui">Teilen ⬆︎</b> → <b class="ui">Zum Home-Bildschirm</b> → <b class="ui">Hinzufügen</b>.</li>
+  <li><b>Das neue Symbol auf dem Home-Bildschirm</b> antippen (nicht Safari!) und warten, bis <b>„Offline bereit ✓“</b> erscheint. Fertig.</li>
+</ol>
+</div>
+
+<h2 id="android">Android – ausführlich</h2>
+<div class="card big">
+<ol>
+  <li><b>QR-Code scannen</b> (Kamera oder Google Lens) → Link in <b>Chrome</b> öffnen.</li>
+  <li><b class="ui">📄 Zertifikat herunterladen</b>. Hinweis „kann nicht installiert werden“ ist normal.</li>
+  <li><b>Einstellungen</b> → ins Suchfeld <b>„Zertifikat“</b> → <b class="ui">CA-Zertifikat</b> → <b class="ui">Trotzdem installieren</b> → PIN → Datei <b>WindowBlaster-Zertifikat.crt</b> wählen.<br><span class="small muted">Samsung: Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Von Gerätespeicher installieren → CA-Zertifikat.</span></li>
+  <li>Zurück zu Chrome: grün → <b class="ui">▶ Spiel öffnen</b>.</li>
+  <li>Menü <b class="ui">⋮</b> → <b class="ui">App installieren</b> → App öffnen → warten auf <b>„Offline bereit ✓“</b>.</li>
+</ol>
+</div>
+
+<h2 id="offline">Unterwegs & ohne WLAN</h2>
+<ul>
+  <li>Ist das Spiel einmal als App installiert und zeigt „Offline bereit ✓“, braucht es <b>weder Mac noch Internet</b>.</li>
+  <li>Kein WLAN-Router in der Nähe (Auto, Ferienwohnung)? Der Mac kann selbst ein WLAN aufmachen: <b>Systemeinstellungen → Allgemein → Teilen → Internetfreigabe</b> (Verbindung teilen von: irgendein Anschluss, z. B. „Thunderbolt-Bridge“; für Geräte über: <b>WLAN</b>) → einschalten. Das Handy verbindet sich mit dem WLAN des Macs – ganz ohne Internet. Dann wie oben den QR-Code scannen.</li>
+  <li>Zug-, Hotel- und Gäste-WLANs blockieren oft die Verbindung zwischen Geräten. Dort lieber die Internetfreigabe nutzen – oder zu Hause einrichten.</li>
+  <li>Updates: Neue Version entpacken, starten, die Handy-App einmal im selben WLAN öffnen – sie aktualisiert sich und behält Punkte und Freischaltungen. Das Zertifikat muss <b>nicht</b> neu installiert werden.</li>
+</ul>
+
+<h2 id="hilfe">Wenn es nicht startet</h2>
+<div class="card">
+<table>
+<tr><th>Was du siehst</th><th>Was hilft</th></tr>
+<tr><td>Doppelklick: „… wurde nicht geöffnet“ / „Apple konnte nicht überprüfen …“</td><td>Erster Start über das Terminal (siehe <a href="#mac">MacBook</a>), oder Systemeinstellungen → Datenschutz &amp; Sicherheit → <b>Trotzdem öffnen</b>.</td></tr>
+<tr><td>Terminal: „Operation not permitted“</td><td>Systemeinstellungen → Datenschutz &amp; Sicherheit → Dateien und Ordner → Terminal → „Schreibtisch“ erlauben. Oder den Ordner WindowBlaster in deinen Benutzerordner verschieben.</td></tr>
+<tr><td>Terminal: „Der Ordner app fehlt“ / „Programm fehlt“</td><td>Die Zip wurde nicht vollständig entpackt. Ordner löschen, <code>WindowBlaster.zip</code> neu doppelklicken. Alte Ordner wie „WindowBlaster-Mac“ oder „WindowBlaster-Mac 2“ können weg.</td></tr>
+<tr><td>Mac fragt „Eingehende Netzwerkverbindungen akzeptieren?“</td><td><b>Erlauben</b> – sonst erreicht das Handy den Mac nicht.</td></tr>
+<tr><td>Browser zeigt eine leere oder alte Seite</td><td>Neu laden (<kbd>⌘</kbd>+<kbd>R</kbd>). Hilft das nicht: <code>http://localhost:{{.HTTPPort}}/?reset=1</code> öffnen – setzt den Spiel-Zwischenspeicher zurück (Punkte bleiben).</td></tr>
+<tr><td>Handy öffnet die Seite nicht</td><td>Gleiches WLAN? VPN aus? Adresse genau mit <code>http://</code> und <code>:{{.HTTPPort}}</code>? Auf der Verbindungsseite unter „Andere Adressen“ probieren. Gäste-/Zug-WLAN → Internetfreigabe.</td></tr>
+<tr><td>Handy-Seite bleibt gelb „Prüfe …“</td><td>iPhone: Schalter in <b>Zertifikatsvertrauenseinstellungen</b> einschalten. Android: Zertifikat als <b>CA-Zertifikat</b> installieren. Dann Seite neu laden.</td></tr>
+<tr><td>Keine Kamera-Abfrage im Spiel</td><td>iPhone: Einstellungen → Apps → Safari → Kamera → „Fragen“. Android: Chrome → Website-Einstellungen → Kamera.</td></tr>
+<tr><td>„Offline bereit“ erscheint nicht</td><td>Die App <b>vom Home-Bildschirm</b> öffnen, während der Mac-Server läuft und das Handy im selben WLAN ist. Auf dem Startbildschirm „Für offline vorbereiten“ tippen.</td></tr>
+<tr><td>Spiel hakt oder friert ein</td><td>Startbildschirm → „Letzter Fehler“ → <b>Kopieren</b> und den Text an den Entwickler schicken.</td></tr>
+</table>
+</div>
+
+<h2>Sicherheit & Datenschutz</h2>
+<ul class="small">
+  <li>Nur als <b>Fahrgast</b> spielen – nie am Steuer.</li>
+  <li>Die Kamera wird nur live auf dem Handy ausgewertet. Es wird nichts aufgenommen oder hochgeladen.</li>
+  <li>Das Zertifikat gilt nur für deinen eigenen Mac (es liegt in <code>~/Library/Application Support/WindowBlaster</code>) und lässt sich am Handy jederzeit entfernen.</li>
+  <li>Der Mac-Server liefert nur den Ordner <code>app</code> aus und läuft nur, solange das Terminal-Fenster offen ist.</li>
+</ul>
+</main>
+</body>
+</html>

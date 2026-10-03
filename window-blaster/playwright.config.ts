@@ -20,6 +20,8 @@ export default defineConfig({
         '--enable-unsafe-swiftshader',
         '--ignore-gpu-blocklist',
         '--autoplay-policy=no-user-gesture-required',
+        // all tests talk to local servers; never route them through an environment proxy
+        '--proxy-server=direct://',
       ],
     },
   },

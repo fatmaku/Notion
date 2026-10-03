@@ -1,0 +1,21 @@
+WINDOW BLASTER – SO STARTEST DU ES
+==================================
+
+1) ERSTER START (nur einmal so):
+   - Programm "Terminal" öffnen:  Cmd + Leertaste  →  "Terminal" tippen  →  Enter
+   - "bash" tippen und EIN Leerzeichen
+   - Die Datei "Start-Window-Blaster.command" aus diesem Ordner
+     ins Terminal-Fenster ziehen
+   - Enter drücken
+   (Fragt der Mac nach Zugriff auf "Schreibtisch" oder "Downloads" → OK)
+
+2) Es öffnet sich im Browser die Seite "Handy verbinden" mit einem QR-Code.
+   Das Terminal-Fenster offen lassen.
+
+3) Handy ins gleiche WLAN wie den Mac, mit der Handy-Kamera den QR-Code
+   scannen und der Handy-Seite folgen.
+
+Ab dem zweiten Mal reicht ein Doppelklick auf "Start-Window-Blaster.command".
+
+Alles Weitere – mit Bildern der Schritte und Hilfe bei Problemen:
+Doppelklick auf  ANLEITUNG.html

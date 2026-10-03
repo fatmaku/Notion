@@ -27,11 +27,22 @@ und automatisch nachgereicht.
 
 ## Ohne GitHub: Download-Paket für den Mac
 
-`npm run package` erzeugt `WindowBlaster-Mac.zip`: fertige App, ein lokaler HTTPS-Server (Caddy, für Apple Silicon
-und Intel, keine Installation nötig), `Start-Window-Blaster.command` (Doppelklick), `Handy-vertrauen.command`
-(macht den Mac für dein Handy zu einer vertrauenswürdigen Adresse, damit Kamera **und** Offline-Installation über den
-Mac funktionieren) und eine ausführliche deutsche `ANLEITUNG.md` – inklusive Betrieb ganz ohne WLAN-Router über die
-Internetfreigabe des Macs. Die Vorlagen liegen in `packaging/`.
+`npm run package` erzeugt **eine** Datei `WindowBlaster.zip` (unter 30 MB) mit dem Ordner `WindowBlaster/`:
+
+| Inhalt | Zweck |
+|---|---|
+| `Start-Window-Blaster.command` | Startet alles. Erster Start im Terminal (`bash ` + Datei hineinziehen), danach Doppelklick. Entfernt die macOS-Download-Sperre nur für diesen Ordner. |
+| `LIESMICH-ZUERST.txt`, `ANLEITUNG.html` | Kurz- und Langanleitung (MacBook, iPhone, Android, Hilfe bei Problemen). |
+| `bin/windowblaster-mac-arm64`, `bin/windowblaster-mac-intel` | Kleiner Spiel-Server (Go, Quellcode in `launcher/`). |
+| `app/` | Das fertige Spiel. |
+| `quelltext/` | Quellcode. |
+
+Der Server (`launcher/`) liefert das Spiel am Mac über `http://localhost:8080` aus (sicherer Kontext, keine
+Zertifikatswarnung) und an Handys über HTTPS (`:8443`) mit einer eigenen kleinen Zertifizierungsstelle. Deren
+Schlüssel liegt in `~/Library/Application Support/WindowBlaster`, deshalb muss das Handy bei Updates **nicht** neu
+vertrauen. Zertifikate werden pro Adresse erzeugt, eine neue WLAN-IP stört also nicht. Er zeigt am Mac die Seite
+`/verbinden` mit QR-Code und Live-Status („Handy verbunden → Zertifikat geladen → vertraut → Spiel offen → offline“)
+und führt das Handy über `/handy` Schritt für Schritt durch Zertifikat, Vertrauen, Home-Bildschirm und Offline-Daten.
 
 ## Aufs Handy bekommen (mit GitHub)
 
@@ -116,7 +127,8 @@ npm install          # kopiert auch die MediaPipe-WASM-Laufzeit nach public/
 npm run dev          # http://localhost:5173  (Demo: ?demo=1&skipTo=play&mode=side-runner)
 npm test             # Vitest: Tracker, Scheiben-Erkennung, Physik, Scoring, Verifikation (50+ Tests)
 npm run e2e          # Playwright, headless Chromium mit Fake-Kamera: 10 Szenarien inkl. echtem MediaPipe-Start und Offline-Betrieb
-npm run package      # WindowBlaster-Mac.zip (braucht Caddy-Binaries in packaging/caddy, siehe scripts/package-mac.mjs)
+npm run package      # WindowBlaster.zip: App + Go-Server für Mac (braucht Go ≥ 1.22, siehe launcher/)
+(cd launcher && go test ./...)   # Server-Tests: Zertifikate, MIME-Typen, Seiten, Tracking
 npm run build        # dist/ (≈ 100 kB JS + 34 MB WASM/Modell, nach dem ersten Laden gecacht)
 ```
 

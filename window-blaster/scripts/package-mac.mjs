@@ -1,7 +1,11 @@
-// Builds the self-contained Mac download package (WindowBlaster-Mac.zip):
-// built app, Caddy binaries (darwin arm64/amd64), start scripts, German guide, source.
-// Usage: node scripts/package-mac.mjs [--caddy-dir <dir with mac_arm64/caddy, mac_amd64/caddy>] [--out <zip>]
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync, chmodSync } from 'node:fs';
+// Builds the self-contained download WindowBlaster.zip (one zip, one folder, < 30 MB):
+//   WindowBlaster/Start-Window-Blaster.command   start (removes quarantine, picks the right server)
+//   WindowBlaster/LIESMICH-ZUERST.txt / ANLEITUNG.html
+//   WindowBlaster/app/                            built game (run `npm run build` first)
+//   WindowBlaster/bin/windowblaster-mac-{arm64,intel}   Go server (launcher/), built here
+//   WindowBlaster/quelltext/                      source (git-tracked files, minus the model copy)
+// Usage: node scripts/package-mac.mjs [--out WindowBlaster.zip] [--with-linux]
+import { chmodSync, cpSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,64 +13,58 @@ import { fileURLToPath } from 'node:url';
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const args = process.argv.slice(2);
 const opt = (k, d) => (args.includes(k) ? args[args.indexOf(k) + 1] : d);
-const caddyDir = opt('--caddy-dir', join(root, 'packaging', 'caddy'));
-const out = opt('--out', join(root, 'WindowBlaster-Mac.zip'));
-const includeLinux = args.includes('--with-linux');
-const split = args.includes('--split'); // app zip + separate Caddy zips (each < 30 MB)
+const out = opt('--out', join(root, 'WindowBlaster.zip'));
+const withLinux = args.includes('--with-linux');
+const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version;
 
 if (!existsSync(join(root, 'dist', 'precache.json'))) throw new Error('run `npm run build` first');
+
+// 1) server binaries (pure Go, no cgo; arm64 gets the linker's ad-hoc code signature)
+const launcher = join(root, 'launcher');
+const env = { ...process.env, CGO_ENABLED: '0', GOTOOLCHAIN: process.env.GOTOOLCHAIN ?? 'local' };
+const targets = [
+  ['darwin', 'arm64', 'windowblaster-mac-arm64'],
+  ['darwin', 'amd64', 'windowblaster-mac-intel'],
+  ...(withLinux ? [['linux', 'amd64', 'windowblaster-linux-amd64']] : []),
+];
+for (const [os, arch, name] of targets) {
+  execSync(`go build -trimpath -ldflags "-s -w -X main.version=${version}" -o dist/${name} .`, { cwd: launcher, env: { ...env, GOOS: os, GOARCH: arch }, stdio: 'inherit' });
+}
+
+// 2) assemble
 const stage = join(root, 'packaging', 'stage');
 rmSync(stage, { recursive: true, force: true });
-const pkg = join(stage, 'WindowBlaster-Mac');
+const pkg = join(stage, 'WindowBlaster');
 mkdirSync(join(pkg, 'bin'), { recursive: true });
-
 cpSync(join(root, 'dist'), join(pkg, 'app'), { recursive: true });
-for (const [src, dst] of [
-  ['mac_arm64/caddy', 'caddy-darwin-arm64'],
-  ['mac_amd64/caddy', 'caddy-darwin-amd64'],
-  ...(includeLinux ? [['linux_amd64/caddy', 'caddy-linux-amd64']] : []),
-]) {
-  const p = join(caddyDir, src);
-  if (!existsSync(p)) throw new Error(`missing caddy binary: ${p}`);
-  cpSync(p, join(pkg, 'bin', dst));
-  chmodSync(join(pkg, 'bin', dst), 0o755);
+for (const [, , name] of targets) {
+  cpSync(join(launcher, 'dist', name), join(pkg, 'bin', name));
+  chmodSync(join(pkg, 'bin', name), 0o755);
 }
-for (const f of ['Start-Window-Blaster.command', 'Handy-vertrauen.command', 'ANLEITUNG.md']) {
-  cpSync(join(root, 'packaging', f), join(pkg, f));
-  if (f.endsWith('.command')) chmodSync(join(pkg, f), 0o755);
-}
-const caddyVersion = existsSync(join(caddyDir, 'VERSION')) ? readFileSync(join(caddyDir, 'VERSION'), 'utf8').trim() : 'unbekannt';
-writeFileSync(join(pkg, 'bin', 'LIZENZ-Caddy.txt'), `Caddy ${caddyVersion} – Apache License 2.0 – https://github.com/caddyserver/caddy\n`);
+cpSync(join(root, 'packaging', 'Start-Window-Blaster.command'), join(pkg, 'Start-Window-Blaster.command'));
+chmodSync(join(pkg, 'Start-Window-Blaster.command'), 0o755);
+cpSync(join(root, 'packaging', 'LIESMICH-ZUERST.txt'), join(pkg, 'LIESMICH-ZUERST.txt'));
+// the guide is the same template the server shows at /anleitung
+const guide = readFileSync(join(launcher, 'web', 'anleitung.html'), 'utf8').replaceAll('{{.Version}}', version).replaceAll('{{.HTTPPort}}', '8080');
+if (guide.includes('{{')) throw new Error('anleitung.html contains template actions the package cannot render');
+writeFileSync(join(pkg, 'ANLEITUNG.html'), guide);
+writeFileSync(join(pkg, 'bin', 'LIZENZEN.txt'), `Window Blaster Server ${version} – enthält rsc.io/qr (BSD-3-Clause) und die Go-Standardbibliothek (BSD-3-Clause).\nMediaPipe Tasks Vision (Apache-2.0) und EfficientDet-Lite0 (Apache-2.0) im Ordner app.\n`);
+writeFileSync(join(pkg, 'VERSION.txt'), `Window Blaster ${version}\nGebaut: ${new Date().toISOString()}\n`);
 
-// source without node_modules / build output (git-tracked files)
+// 3) source: git-tracked files; skip the 7 MB model copy (same file as app/models)
 const files = execSync('git ls-files', { cwd: root, encoding: 'utf8' }).split('\n').filter(Boolean);
 for (const f of files) {
+  if (f.endsWith('.tflite')) continue;
   const dst = join(pkg, 'quelltext', f);
   mkdirSync(dirname(dst), { recursive: true });
   cpSync(join(root, f), dst);
 }
-const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version;
-writeFileSync(join(pkg, 'VERSION.txt'), `Window Blaster ${version}\nGebaut: ${new Date().toISOString()}\nCaddy: ${caddyVersion}\n`);
+mkdirSync(join(pkg, 'quelltext', 'public', 'models'), { recursive: true });
+writeFileSync(join(pkg, 'quelltext', 'public', 'models', 'HINWEIS.txt'), 'Das Modell efficientdet_lite0.tflite liegt im Ordner app/models – zum Entwickeln nach public/models/ kopieren.\n');
 
-const report = (zipPath) => console.log(`[package] ${zipPath} (${execSync(`du -h "${zipPath}" | cut -f1`, { encoding: 'utf8' }).trim()})`);
-if (!split) {
-  rmSync(out, { force: true });
-  execSync(`zip -qr -X "${out}" WindowBlaster-Mac`, { cwd: stage, stdio: 'inherit' });
-  report(out);
-} else {
-  const base = out.replace(/\.zip$/, '');
-  const appZip = `${base}.zip`;
-  rmSync(appZip, { force: true });
-  execSync(`zip -qr -X "${appZip}" WindowBlaster-Mac -x "WindowBlaster-Mac/bin/caddy-*"`, { cwd: stage, stdio: 'inherit' });
-  report(appZip);
-  for (const [bin, label] of [
-    ['caddy-darwin-arm64', 'AppleSilicon'],
-    ['caddy-darwin-amd64', 'Intel'],
-    ...(includeLinux ? [['caddy-linux-amd64', 'Linux']] : []),
-  ]) {
-    const z = `${base}-Server-${label}.zip`;
-    rmSync(z, { force: true });
-    execSync(`zip -qr -X "${z}" WindowBlaster-Mac/bin/${bin}`, { cwd: stage, stdio: 'inherit' });
-    report(z);
-  }
-}
+// 4) zip (keeps Unix permissions; no macOS resource forks)
+rmSync(out, { force: true });
+execSync(`zip -qr -X "${out}" WindowBlaster`, { cwd: stage, stdio: 'inherit' });
+const mb = statSync(out).size / 1048576;
+console.log(`[package] ${out} (${mb.toFixed(1)} MB)`);
+if (mb > 29.5) throw new Error('package exceeds the 30 MB chat upload limit');

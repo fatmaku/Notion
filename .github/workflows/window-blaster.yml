@@ -31,6 +31,13 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+          cache-dependency-path: window-blaster/launcher/go.sum
+      - name: Launcher tests + Linux build for e2e
+        working-directory: window-blaster/launcher
+        run: go test ./... && CGO_ENABLED=0 go build -o dist/windowblaster-linux-amd64 .
       - name: Typecheck leaderboard worker
         working-directory: window-blaster/server/leaderboard-worker
         run: npm ci && npm run typecheck

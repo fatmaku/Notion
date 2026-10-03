@@ -23,6 +23,55 @@
       <pre id="debug" hidden></pre>
     </div>
     <noscript>Window Blaster braucht JavaScript.</noscript>
+    <!-- Boot watchdog: plain ES5, runs before the app. Shows a German help screen instead of a
+         blank page if the app script fails to load/execute, and implements ?reset=1. -->
+    <script>
+      (function () {
+        function resetApp(done) {
+          var jobs = [];
+          try {
+            if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations)
+              jobs.push(navigator.serviceWorker.getRegistrations().then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); }));
+            if (window.caches && caches.keys)
+              jobs.push(caches.keys().then(function (ks) { return Promise.all(ks.filter(function (k) { return k.indexOf('wb-') === 0; }).map(function (k) { return caches.delete(k); })); }));
+          } catch (e) {}
+          Promise.all(jobs).then(done, done);
+        }
+        window.__wbReset = resetApp;
+        if (/[?&]reset=1/.test(location.search)) {
+          document.write('<p style="font:18px system-ui;color:#eee;background:#0b0f14;padding:24px">Setze Window Blaster zurück …</p>');
+          resetApp(function () { location.replace(location.pathname); });
+          return;
+        }
+        var shown = false;
+        function show(reason) {
+          if (shown || window.__wbBooted) return;
+          shown = true;
+          var d = document.createElement('div');
+          d.setAttribute('style', 'position:fixed;inset:0;z-index:99;background:#0b0f14;color:#eef2f7;font:17px/1.5 -apple-system,system-ui,sans-serif;padding:28px;overflow:auto');
+          d.innerHTML = '<h2 style="margin:0 0 10px">🚗 Window Blaster startet nicht</h2>' +
+            '<p>Meist liegt das an einer alten Version im Zwischenspeicher des Browsers.</p>' +
+            '<p><button id="wbReset" style="font:700 17px system-ui;padding:14px 18px;border:0;border-radius:12px;background:#ffb020;color:#111">App zurücksetzen &amp; neu laden</button> ' +
+            '<button id="wbReload" style="font:700 17px system-ui;padding:14px 18px;border:0;border-radius:12px;background:#273244;color:#eef2f7;margin-top:8px">Nur neu laden</button></p>' +
+            '<p style="color:#9aa7b8;font-size:14px">Punkte und Freischaltungen bleiben erhalten. Hilft beides nicht: Browser aktualisieren (iPhone: iOS-Update; Mac: Safari/Chrome aktuell).</p>' +
+            '<pre style="white-space:pre-wrap;color:#fca5a5;font-size:12px">' + String(reason).replace(/[<>&]/g, '') + '\n' + navigator.userAgent + '</pre>';
+          document.body.appendChild(d);
+          document.getElementById('wbReset').onclick = function () { resetApp(function () { location.replace(location.pathname); }); };
+          document.getElementById('wbReload').onclick = function () { location.reload(); };
+        }
+        window.addEventListener('error', function (e) {
+          if (window.__wbBooted) return;
+          var t = e && e.target;
+          // resource errors (captured, non-bubbling): only a failed app script matters
+          if (t && t.tagName) {
+            if (t.tagName === 'SCRIPT') show('Programmdatei konnte nicht geladen werden: ' + (t.src || ''));
+            return;
+          }
+          show((e && (e.message || (e.error && e.error.message))) || 'Unbekannter Fehler');
+        }, true);
+        setTimeout(function () { show('Zeitüberschreitung beim Start (15 s)'); }, 15000);
+      })();
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

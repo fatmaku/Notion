@@ -1,104 +1,73 @@
 #!/bin/bash
-# Window Blaster – lokaler HTTPS-Server für Mac (Doppelklick).
-# Nutzt den mitgelieferten Caddy-Webserver mit eigener lokaler Zertifikatsstelle.
-cd "$(dirname "$0")"
-clear
-echo "🚗  Window Blaster – lokaler Server"
+# Window Blaster – Start auf dem Mac.
+#
+# Erster Start:  Terminal öffnen, "bash " tippen (mit Leerzeichen), diese Datei ins
+#                Terminal-Fenster ziehen, Enter.   (Danach genügt ein Doppelklick.)
+#
+# Was passiert: Die macOS-Download-Sperre wird NUR für diesen Ordner entfernt, dann
+# startet der kleine Spiel-Server und öffnet die Verbindungsseite im Browser.
+
+DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$DIR" || exit 1
+
+pause_and_exit() {
+  echo
+  read -r -p "Enter drücken zum Schließen …" _
+  exit "${1:-1}"
+}
+
+clear 2>/dev/null
+echo "🚗  Window Blaster wird gestartet …"
+echo "    Ordner: $DIR"
 echo
 
-ARCH=$(uname -m)
-BIN="bin/caddy-darwin-arm64"; [ "$ARCH" = "x86_64" ] && BIN="bin/caddy-darwin-amd64"
-[ "$(uname -s)" = "Linux" ] && BIN="bin/caddy-linux-amd64"
-if [ ! -f "$BIN" ]; then
-  echo "❌ Der Server fehlt noch: bitte die zweite Datei in denselben Ordner entpacken:"
-  echo "   Apple-Silicon-Mac (Chip „Apple M…“): WindowBlaster-Mac-Server-AppleSilicon.zip"
-  echo "   Intel-Mac:                           WindowBlaster-Mac-Server-Intel.zip"
-  echo "   (Apple-Menü → „Über diesen Mac“ zeigt den Chip.) Danach diese Datei erneut doppelklicken."
-  echo "   Erwartet wird: $PWD/$BIN"
-  echo
-  if command -v python3 >/dev/null 2>&1; then
-    echo "Notlösung ohne HTTPS (nur Mac-Browser): http://localhost:8080 …"; cd app && python3 -m http.server 8080
-  fi
-  read -r -p "Enter zum Schließen"; exit 1
+if [ ! -f "$DIR/app/index.html" ]; then
+  echo "❌ Der Ordner „app“ fehlt neben dieser Startdatei."
+  echo "   Bitte WindowBlaster.zip neu doppelklicken und die Startdatei IM neuen Ordner benutzen."
+  pause_and_exit 1
 fi
-chmod +x bin/* 2>/dev/null || true
-xattr -dr com.apple.quarantine bin app 2>/dev/null || true
-mkdir -p run/data run/config
 
-# Adressen: localhost, alle eigenen IPs, Internetfreigabe (192.168.2.1) und <mac>.local
-IPS=$(ifconfig 2>/dev/null | awk '/inet / && $2 != "127.0.0.1" {print $2}')
-[ -z "$IPS" ] && IPS=$(hostname -I 2>/dev/null)
-HOST=$(scutil --get LocalHostName 2>/dev/null || hostname -s)
-HOSTS="localhost 127.0.0.1 192.168.2.1 ${HOST}.local $IPS"
-ADDR=""
-for h in $HOSTS; do ADDR="${ADDR}${ADDR:+, }https://${h}:8443"; done
+# macOS-Sperre für heruntergeladene Dateien entfernen – nur dieser Ordner.
+if command -v xattr >/dev/null 2>&1; then
+  xattr -dr com.apple.quarantine "$DIR" 2>/dev/null
+fi
+chmod +x "$DIR"/bin/* "$DIR"/*.command 2>/dev/null
 
-cat > run/Caddyfile <<CADDY
-{
-	local_certs
-	skip_install_trust
-	auto_https disable_redirects
-	admin off
-}
-
-# HTTPS für Handy und Mac (Kamera + Offline-Installation nach Zertifikat-Import)
-${ADDR} {
-	root * app
-	encode gzip
-	header Cache-Control "no-cache"
-	header /mediapipe/* Cache-Control "public, max-age=31536000, immutable"
-	header /models/* Cache-Control "public, max-age=31536000, immutable"
-	header /models/*.tflite Content-Type application/octet-stream
-	header /manifest.webmanifest Content-Type application/manifest+json
-	file_server
-}
-
-# HTTP: Zertifikat fürs Handy abholen + Android-Notweg
-http://:8080 {
-	handle /zertifikat.crt {
-		root * run/data/caddy/pki/authorities/local
-		rewrite * /root.crt
-		header Content-Type application/x-x509-ca-cert
-		header Content-Disposition "attachment; filename=WindowBlaster-Zertifikat.crt"
-		file_server
-	}
-	handle {
-		root * app
-		encode gzip
-		file_server
-	}
-}
-CADDY
-
-export XDG_DATA_HOME="$PWD/run/data" XDG_CONFIG_HOME="$PWD/run/config" HOME="${HOME:-$PWD/run}"
-
-MAINIP=$(echo $IPS | awk '{print $1}')
-echo "Auf dem Mac:      https://localhost:8443/        (Demo: https://localhost:8443/?demo=1)"
-echo
-echo "Auf dem Handy (gleiches WLAN oder WLAN der Mac-Internetfreigabe):"
-for ip in $IPS; do echo "   https://$ip:8443/"; done
-echo "   https://${HOST}.local:8443/"
-echo
-echo "Zertifikat fürs Handy (einmalig, für Offline-Installation):"
-echo "   http://${MAINIP:-<Mac-IP>}:8080/zertifikat.crt   – Anleitung: Handy-vertrauen.command"
-echo
-echo "Beenden mit Strg+C oder Fenster schließen."
-echo "────────────────────────────────────────────────────────────"
-( sleep 2; open "https://localhost:8443/?demo=1" 2>/dev/null || true ) &
-"$BIN" run --config run/Caddyfile --adapter caddyfile
-STATUS=$?
-if [ $STATUS -ne 0 ]; then
-  echo
-  echo "⚠️  Caddy konnte nicht starten (Code $STATUS)."
-  echo "   Falls macOS das Programm blockiert: Systemeinstellungen → Datenschutz & Sicherheit → „Trotzdem öffnen“,"
-  echo "   oder im Terminal:  xattr -dr com.apple.quarantine \"$PWD\""
-  echo "   Notlösung ohne HTTPS (nur Mac-Browser / Android mit Chrome-Flag):"
-  if command -v python3 >/dev/null 2>&1; then
-    echo "   Starte Python-Server auf http://localhost:8080 …"
-    cd app && python3 -m http.server 8080
-  elif command -v ruby >/dev/null 2>&1; then
-    echo "   Starte Ruby-Server auf http://localhost:8080 …"
-    ruby -run -e httpd app -p 8080
+OS="$(uname -s)"
+if [ "$OS" = "Darwin" ]; then
+  # Apple Silicon auch dann erkennen, wenn das Terminal unter Rosetta läuft
+  if [ "$(sysctl -n hw.optional.arm64 2>/dev/null)" = "1" ]; then
+    BIN="$DIR/bin/windowblaster-mac-arm64"; OTHER="$DIR/bin/windowblaster-mac-intel"
+  else
+    BIN="$DIR/bin/windowblaster-mac-intel"; OTHER="$DIR/bin/windowblaster-mac-arm64"
   fi
-  read -r -p "Enter zum Schließen"
+else
+  BIN="$DIR/bin/windowblaster-linux-amd64"; OTHER=""
+fi
+
+if [ ! -f "$BIN" ]; then
+  echo "❌ Das Server-Programm fehlt: $BIN"
+  echo "   Bitte WindowBlaster.zip neu doppelklicken und die Startdatei IM neuen Ordner benutzen."
+  pause_and_exit 1
+fi
+
+"$BIN" --app "$DIR/app" "$@"
+STATUS=$?
+
+# 126/127: falsche Architektur oder nicht ausführbar → das andere Programm probieren
+if { [ $STATUS -eq 126 ] || [ $STATUS -eq 127 ] || [ $STATUS -eq 86 ]; } && [ -n "$OTHER" ] && [ -f "$OTHER" ]; then
+  echo "↻ Versuche die andere Programm-Variante …"
+  "$OTHER" --app "$DIR/app" "$@"
+  STATUS=$?
+fi
+
+if [ $STATUS -ne 0 ] && [ $STATUS -ne 130 ]; then
+  echo
+  echo "⚠️  Der Server wurde beendet (Code $STATUS)."
+  if [ $STATUS -eq 137 ] || [ $STATUS -eq 9 ]; then
+    echo "   macOS hat das Programm gestoppt. Lösung: Systemeinstellungen → Datenschutz & Sicherheit"
+    echo "   → ganz unten „Trotzdem erlauben“ bei windowblaster, dann diese Datei erneut starten."
+  fi
+  echo "   Hilfe: Datei ANLEITUNG.html in diesem Ordner → Abschnitt „Wenn es nicht startet“."
+  pause_and_exit $STATUS
 fi

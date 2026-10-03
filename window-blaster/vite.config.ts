@@ -16,7 +16,8 @@ export default defineConfig(() => ({
   server: { host: true, port: 5173 },
   preview: { host: true, port: 4173 },
   build: {
-    target: 'es2022',
+    // iOS 14.5+/Safari 14.1+, Chrome 90+: transpile newer syntax so older iPhones still boot
+    target: ['es2020', 'safari14', 'chrome90', 'firefox90'],
     sourcemap: false,
     chunkSizeWarningLimit: 1200,
     rollupOptions: {

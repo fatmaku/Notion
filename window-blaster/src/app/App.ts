@@ -65,6 +65,10 @@ export class App {
   readonly errors = new ErrorLog();
   readonly unlocks = new Unlocks(this.storage);
   online = typeof navigator === 'undefined' ? true : navigator.onLine;
+  /** Android/Chrome install prompt (beforeinstallprompt), shown as a button on the start screen. */
+  installPrompt: (Event & { prompt(): Promise<void> }) | null = null;
+  /** A new app version took over (service worker): reload at the next safe moment. */
+  private pendingReload = false;
   session: Session = defaultSession();
 
   frame: FrameSource | null = null;
@@ -129,15 +133,35 @@ export class App {
     else this.overlay.hide();
   }
 
+  /** iPhone/iPad Safari tab (not the home-screen app): offline storage would not carry over to the app. */
+  get iosBrowserTab(): boolean {
+    const nav = navigator as Navigator & { standalone?: boolean };
+    const ios = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    return ios && nav.standalone === false;
+  }
+
   async boot(): Promise<void> {
     if (import.meta.env.PROD && 'serviceWorker' in navigator && !this.params.nosw) {
+      const hadController = !!navigator.serviceWorker.controller;
       navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => undefined);
+      // a new version activated: the running page may still reference old, now-deleted files → reload when safe
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!hadController) return; // first install claiming the page – nothing stale
+        this.pendingReload = true;
+        this.reloadIfSafe();
+      });
     }
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.installPrompt = e as Event & { prompt(): Promise<void> };
+      if (!this.mode && this.router.active?.el.dataset.screen === 'start') this.router.show(StartScreen(this));
+    });
     void this.offline.check().then((st) => {
-      // auto-prepare on connections that are not metered (desktop / Wi-Fi); phones on mobile data get a button
+      // auto-prepare on connections that are not metered (desktop / Wi-Fi); phones on mobile data get a button.
+      // In an iPhone Safari tab the download would land in Safari's storage, not the home-screen app's → skip.
       const conn = (navigator as Navigator & { connection?: { saveData?: boolean; type?: string } }).connection;
       const metered = conn?.saveData || conn?.type === 'cellular';
-      if (st === 'missing' && this.online && !metered && !this.params.test) void this.offline.prepare();
+      if (st === 'missing' && this.online && !metered && !this.params.test && !this.iosBrowserTab) void this.offline.prepare();
     });
     void this.leaderboard.flush();
     const p = this.params;
@@ -174,7 +198,16 @@ export class App {
     this.mode = null;
     this.paused = false;
     this.wakeLock.release();
+    if (this.reloadIfSafe()) return;
     this.router.show(StartScreen(this));
+  }
+
+  /** Reload into the new version unless a round or a download is running. Returns true if reloading. */
+  private reloadIfSafe(): boolean {
+    if (!this.pendingReload || this.mode || this.offline.state === 'downloading' || this.calibrating) return false;
+    toast('Neue Version – lädt neu …', 1500);
+    setTimeout(() => location.reload(), 300);
+    return true;
   }
 
   beginFlow(source: 'camera' | 'demo', daily = false): void {
@@ -288,7 +321,18 @@ export class App {
     } else {
       this.frame = new CameraSource(video);
       // lazy: keeps the MediaPipe loader out of the initial bundle (demo mode never needs it)
-      const { MediaPipeDetector } = await import('../vision/MediaPipeDetector');
+      let MediaPipeDetector: typeof import('../vision/MediaPipeDetector').MediaPipeDetector;
+      try {
+        ({ MediaPipeDetector } = await import('../vision/MediaPipeDetector'));
+      } catch (e) {
+        // the page belongs to an older version whose files are gone → reload once into the current one
+        if (!sessionStorage.getItem('wb.chunkReload')) {
+          sessionStorage.setItem('wb.chunkReload', '1');
+          location.reload();
+        }
+        throw new Error('Ein Programmteil fehlt (alte Version im Zwischenspeicher). Bitte die Seite neu laden.');
+      }
+      sessionStorage.removeItem('wb.chunkReload');
       this.detector = new MediaPipeDetector({
         wasmBase: `${import.meta.env.BASE_URL}mediapipe/wasm`,
         modelPath: `${import.meta.env.BASE_URL}models/efficientdet_lite0.tflite`,
