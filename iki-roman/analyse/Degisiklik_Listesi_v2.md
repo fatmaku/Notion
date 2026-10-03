@@ -1,7 +1,7 @@
-# İki Roman – Değişiklik Listesi v2 + v3 + v4 / Änderungsliste v2 + v3 + v4
+# İki Roman – Değişiklik Listesi v2 – v5 / Änderungsliste v2 – v5
 
 **Tarih / Datum:** 30.09.2026 (v2), 01.10.2026 (v3)
-**Güncel dosyalar / Aktuelle Dateien:** `interior/src/YOLCU_TR_v4.docx`, `interior/src/SAHIT_TR_v4.docx` (v4 = v3 + yeni kitap adları, bölüm 6; makine tarafından okunabilir listeler: `interior/src/v2_aenderungen.json`, `v3_aenderungen.json`, `v4_aenderungen.json`)
+**Güncel dosyalar / Aktuelle Dateien:** `interior/src/YOLCU_TR_v4.docx`, `interior/src/SAHIT_TR_v5.docx` (YOLCU v4 = v3 + yeni ad; ŞAHİT v5 = v4 + Sefa Abi'nin 17 değişikliği, bölüm 7; makine tarafından okunabilir listeler: `interior/src/v2_aenderungen.json`, `v3_aenderungen.json`, `v4_aenderungen.json`, `v5_aenderungen.json`, `v5_duzeltmeler.json`)
 
 ---
 
@@ -123,3 +123,31 @@ Bunlar kurguyu değil, ritmi ya da içerik tercihlerini ilgilendirir; bu yüzden
 | 11 | YOLCU | Başlık sayfası / Titelseite | BEN YOKSAM | YOLCU |
 | 12 | ŞAHİT | Başlık sayfası / Titelseite | ŞAHİDİ ARARKEN | ŞAHİT |
 | 13 | ŞAHİT | SU (son bölüm) | Kitabın adını yazdım: ŞAHİDİ ARARKEN | Kitabın adını yazdım: ŞAHİT |
+
+---
+
+## 7. v5 – Sefa Abi'nin yeni dosyası (03.10.2026) / Sefas neue Fassung (nur ŞAHİT)
+
+**TR:** Mustafa Sefa Güvenir yeni bir dosya gönderdi (`SAHIDI_ARARKEN_TR.odt`). Dosya özgün el yazması üzerine yapılmış ve ona göre 17 noktada değişmiş. Değişiklikler stilli v4'e tek tek işlendi; önceki düzeltmeler (yeni ad, „sağ başparmağı bantlı“, „sanki“, EEG notu, AYNI EL listesi) korundu. İki editörün onayladığı açık yazım/noktalama hataları 11 küçük dokunuşla düzeltildi. Ayrıntılı rapor ve yazara üç soru: `analyse/Sefa_Degisiklikleri_v5.md`. Sonuç: 201 sayfa (önce 200), sırt 12,76 mm, kapaklar yeniden üretildi, EPUB 0 hata.
+
+**DE:** Mustafa Sefa Güvenir hat eine neue Fassung geschickt (ODT, auf Basis des Originalmanuskripts, 17 Änderungen). Alle 17 wurden stilerhaltend in v4 übernommen; unsere früheren Korrekturen bleiben erhalten. Elf kleine, doppelt bestätigte Rechtschreib- und Zeichensetzungskorrekturen. Ergebnis: 201 Seiten (vorher 200), Rücken 12,76 mm, Cover neu gebaut, EPUB fehlerfrei. Bericht mit drei Rückfragen an den Autor: `analyse/Sefa_Degisiklikleri_v5.md`.
+
+| # | Bölüm / Kapitel | Sefa Abi'nin değişikliği (özet) | Düzeltme / Korrektur |
+|---|---|---|---|
+| 14 | Yolcu ile Şahit Başlangıç | motto: „İnsan **hakikati** öğrenmez, hatırlar!“ | – |
+| 15 | DAKTİLO | Vildan'ın ayrıldığı cümle eklendi, iki paragraf birleşti | „müsaadenizle**,**” dedi ve ayrıldı**.** |
+| 16 | TECRİT ODASI | ceylan benzetmesi; „evde … hatırladım“ | „evde olduğ**um**u“ |
+| 17 | TECRİT ODASI | „hâlin **de** mi yoktu?“ | – |
+| 18 | TECRİT ODASI | yeni paragraf „Lan çocukluktan …“ | sondaki boşluk |
+| 19 | TECRİT ODASI | iç tek tırnaklar kaldırıldı | „sıfır kelam**.**”“ |
+| 20 | TECRİT ODASI | „kaldı“ → „vardı“ | – |
+| 21 | UNUTMA | telefonda Zehra, „eski tecrit odası“, „dolaylı bağırma“ | – |
+| 22 | UNUTMA | „ne ara kucağıma bırakmıştı“ | – |
+| 23 | UNUTMA | Nazım: „bildik de ne oldu?“, „söylendi“ | „bulacağ**ım** söylendi“ |
+| 24 | UNUTMA | „bir hayalet gibi … süzüldü“, „ve adam haklıydı“ | sondaki boşluk |
+| 25 | UNUTMA | „tecrit odasına açılıyordu“ | „yeni bir başlangıc**a**“ |
+| 26 | UNUTMA | „mürekkep yalamış mı … beyaz yaka mı dersiniz“ | sonda nokta |
+| 27 | UNUTMA | alıntı motto: „hakikati“ | – |
+| 28 | UNUTMA | hakikat/iman/akıl eklemesi | „ak**le**tmediği“, „attır**ır**dı“, „sayılsın**?**“ |
+| 29 | AN | „Doğum“ → „Doğmak“ (alt başlık) | – |
+| 30 | FİTNE | Şeytan'ın sözünde motto: „hakikati“ | – |

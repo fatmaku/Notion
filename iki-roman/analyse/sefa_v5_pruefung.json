@@ -1,0 +1,753 @@
+{
+ "results": [
+  {
+   "assessment": {
+    "nr": 1,
+    "kategori": "anlam değişikliği",
+    "ozet_tr": "Kitabın açılış vecizesine (par. 41, İbnü'l-Arabî atfıyla biten ceylan hikâyesinin son satırı) \"hakikati\" nesnesi ekleniyor; genel \"insan öğrenmez, hatırlar\" tezi \"insan hakikati öğrenmez, hatırlar\" biçimine daraltılarak YOLCU 3526 ve ŞAHİT'in geç bölümleriyle (1560, 1733) birebir eşitleniyor.",
+    "dil_sorunlari": [],
+    "tutarlilik": [
+     {
+      "konu": "HODRİ mektubunda vecizenin kısa biçimi kalıyor",
+      "kanit": "Par. 705 (HODRİ): \"İnsan öğrenmez, hatırlar! Şahit unuttu, sen anlatınca hatırlayacak\" – 1, 14 ve 17 numaralı değişikliklerden sonra kitapta kalan tek kısa biçim (41, 360, 473, 1560, 1733 hepsi \"hakikati\" ile). Par. 473'teki küçük harfli \"insan öğrenmez, onlara kötülüğü öğretmek fıtratlarına ters\" ise vecize alıntısı değil, Şeytan'ın serbest tekrarı; sorun yok.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "YOLCU'da tek geçiş: par. 3526 (48. bölüm, 14.53 ölüm anı) \"Ben öldüm. / Ve hikâye orada başlamadı. / İnsan hakikati öğrenmez, hatırlar! / Hatırladığım yer orada başladı.\" Değişiklikle ŞAHİT'in açılış vecizesi bu cümleyle kelimesi kelimesine aynı oluyor (ŞAHİT'te tırnak içinde, YOLCU'da çıplak cümle; ikisinde de ünlem). Daha önce yalnızca ŞAHİT'in geç bölümleri (1560 AYNI EL, 1733 ŞAHİT) bu biçimdeydi. Köprü güçleniyor: 17 numaralı köprü (\"Motto ve son sorular\") ve jürinin \"taşıyıcı cümlelerin iki metinde birebir özdeşliği\" bulgusu artık kitabın ilk sayfası için de geçerli.",
+    "onceki_bulgulara_etkisi": "Vildan'ın bulunuşu, Zehra'nın statüsü ve Nazım'ın rolüne dokunmuyor. Motto bulgularını etkiliyor: (a) analyse_SA_mystik, quer_drittesbuch ve lesen_SA_1/2 açılış vecizesini kısa biçimiyle (\"İnsan öğrenmez, hatırlar!\") alıntılıyor; alıntılar güncellenmeli, \"üç kez kırılan motto\" tezi (İbnü'l-Arabî atfı – Şeytan'ın ağzı – son mektupta sınama) aynen geçerli. (b) \"ŞAHİT kısa, YOLCU uzun biçimi kullanıyor\" türünden sözcük düzeyindeki ayrım kalkıyor; ayrım artık yalnızca işlevde (YOLCU uygular, ŞAHİT sınar). (c) Özgün metinde anlatıcının geç bölümlerde vecizeye \"hakikati\" eklemesi bilinçli bir gelişim gibi okunabilirdi; yazarın 1/14/17 ile baştan eşitlemesi bunun gözden kaçmış bir tutarsızlık olduğunu gösteriyor.",
+    "tavsiye": "olduğu gibi al",
+    "gerekce": "Yazım (\"hakikat\" kitapta onlarca kez, hiç şapkasız), dilbilgisi (\"hakikati\" belirtili nesne, ikinci yüklemde eksiltili) ve noktalama (\"!\" kapanış tırnağından önce; kitapta 13 kez bu düzen, tersine hiç) kusursuz. 14 ve 17 numaralı değişikliklerle birlikte vecize ŞAHİT boyunca ve YOLCU 3526 ile tek biçime kavuşuyor; par. 360'ın \"ilk mektuptaki\" alıntısı da artık par. 41 ile örtüşüyor. Tek açık nokta bu değişikliğin dışında: par. 705 (HODRİ) hâlâ kısa biçimde – yazara ayrıca sorulmalı (bilinçli paraphrase mı, gözden kaçma mı)."
+   },
+   "verdict": {
+    "nr": 1,
+    "bestaetigte_sorunlar": [],
+    "widerlegte_sorunlar": [
+     "Par. 705 (HODRİ mektubu) \"İnsan öğrenmez, hatırlar! Şahit unuttu, sen anlatınca hatırlayacak\" kısa biçimi bir hata değildir: Bu metin 1 numaralı değişikliğin konusu değil, bir figürün mektubunda sözü serbestçe aktarmasıdır. Yazım ya da dilbilgisi hatası yoktur, belgelenebilir bir içerik çelişkisi de yoktur. Par. 473'te de \"insan öğrenmez, onlara kötülüğü öğretmek fıtratlarına ters\" serbest biçimi kalmıştır. Yazara isteğe bağlı bir üslup sorusu olarak iletilebilir, ancak bu değişiklik için bir sorun sayılmaz."
+    ],
+    "tavsiye_final": "olduğu gibi al",
+    "reasoning": "Par. 41'deki yeni biçim olan “İnsan hakikati öğrenmez, hatırlar!” yazım bakımından doğrudur: \\\"hakikat\\\" şapkasız yazılır. Dilbilgisi de doğrudur: \\\"hakikati\\\" belirtili nesnedir ve ikinci yüklem eksiltilidir. Noktalama da kitabın kullanımına uyar: Ünlem işareti kapanış tırnağından önce gelir. Bu biçim 14 numaralı değişiklikle (par. 360: \\\"ilk mektuptaki\\\" alıntı), 17 numaralı değişiklikle (par. 473), par. 1560 ve 1733 ile ve YOLCU 3526 ile örtüşür. Böylece par. 360'ın ilk mektuba yaptığı geri gönderme de artık birebir doğru oluyor. Meslektaşın tek bulgusu par. 705 (HODRİ) ile ilgili. O paragraf bu değişikliğin kapsamı dışında kalıyor ve bir figürün sözü serbestçe aktarması olarak okunabiliyor. Açık bir yazım ya da dilbilgisi hatası yok, kanıtlanabilir bir çelişki de yok. Bu yüzden bulguyu çürütülmüş sayıyorum. Yazara en fazla isteğe bağlı bir not olarak iletilebilir.",
+    "confidence": 0.9
+   }
+  },
+  {
+   "assessment": {
+    "nr": 2,
+    "kategori": "içerik eklemesi",
+    "ozet_tr": "DAKTİLO bölümünün son iki paragrafı tek paragrafta birleştiriliyor ve bölümün sonuna Vildan Hanım'ın izin isteyip ayrıldığını bildiren yeni bir cümle ekleniyor; böylece bölüm artık anlatıcının geriye dönük düşüncesiyle değil, bir sahne hareketiyle kapanıyor.",
+    "dil_sorunlari": [
+     {
+      "yer": "“...müsaadenizle” dedi ve ayrıldı",
+      "sorun": "Cümle sonunda nokta yok; paragraf (ve bölüm) noktasız bitiyor.",
+      "oneri": "“...müsaadenizle,” dedi ve ayrıldı."
+     },
+     {
+      "yer": "Vildan Hanım “Benden başka talebiniz yoksa müsaadenizle” dedi",
+      "sorun": "Kitabın kuralı, 'dedi' öncesinde virgülün kapanış tırnağının içinde olması (77 örnek: “Kâğıtlar işte,” dedim.) ve özneden sonra tırnak öncesi virgül (Vildan'a, “Şunu,” dedim. – p. 1438). Yeni cümlede her iki virgül de eksik.",
+      "oneri": "Vildan Hanım, “Benden başka talebiniz yoksa müsaadenizle,” dedi ve ayrıldı."
+     },
+     {
+      "yer": "Benden başka talebiniz yoksa",
+      "sorun": "'Benden başka' ilk okuyuşta 'benim dışımda' diye anlaşılabiliyor; ayrıca Vildan bu sahnede Hakan Hoca'ya hep 'hocam' diye hitap ediyor (p. 213: “...imzalamanız gerekiyor, hocam.”). Hata değil, netlik ve hitap tutarlılığı önerisi.",
+      "oneri": "Vildan Hanım, “Başka bir talebiniz yoksa müsaadenizle hocam,” dedi ve ayrıldı."
+     },
+     {
+      "yer": "...nazik olmak arasındaki farkı bilmediğimi anlıyorum. Vildan Hanım “...” dedi ve ayrıldı",
+      "sorun": "Aynı paragrafta geriye dönük anlatıcı yorumundan (şimdiki zaman: 'anlıyorum') birden sahne eylemine (geçmiş zaman) dönülüyor; bölüm eskiden güçlü bir düşünce cümlesiyle bitiyordu, şimdi lojistik bir cümleyle bitiyor. Üslup notu, yazım hatası değil.",
+      "oneri": "Vildan cümlesini ayrı paragraf yapmak veya 'Sonra başka bir konuya geçti.' cümlesinin hemen ardına almak; 'O gün bunu nezaket sandım; ... anlıyorum.' cümlesi bölüm sonu olarak kalır."
+     }
+    ],
+    "tutarlilik": [
+     {
+      "konu": "Vildan'ın bir sonraki bölümde (TECRİT ODASI) bulunmaması",
+      "kanit": "Yeni cümle çelişki yaratmıyor, aksine açık bir noktayı kapatıyor: p. 241 “Bu odanın anahtarları yalnızca sende ve bende var.” ve p. 249 “Ben yokken Vildan Hanım seninle ilgilenir.” – Vildan odaya inenler arasında değil; artık koridorda ayrıldığı açıkça söyleniyor.",
+      "ciddiyet": "düşük"
+     },
+     {
+      "konu": "Mekân dikişi (değişiklikten önce de vardı)",
+      "kanit": "DAKTİLO koridorda, asansöre varmadan biter (p. 224 “Asansöre varmadan...”); TECRİT ODASI ise oturur vaziyeti ima eder: p. 239 “Yahu kalk be adam, bir gör odanı evvela.” Yeni cümle bunu ne düzeltiyor ne ağırlaştırıyor; sadece bölüm sonunu daha 'sahne' haline getirdiği için dikiş biraz daha görünür oluyor.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "ilgisiz – Vildan Hanım yolcu_v4.txt'te hiç geçmiyor (0 eşleşme); ortak motif ya da alıntı söz konusu değil.",
+    "onceki_bulgulara_etkisi": "Önceki raporlardaki Vildan bulgularını (lesen_SA_1: saat ikideki toplantının ertelenmesi, Vildan'ın yorgun bakışı, 'dosya' kelime arama motifi) değiştirmiyor; Vildan'ın sahnedeki varlığına dair açık soruyu ('üçümüz' yürürken Vildan nereye gitti?) lehte kapatıyor. Zehra'nın statüsü, motto (“İnsan hakikati öğrenmez, hatırlar”) ve Nazım'ın rolüyle ilgisi yok.",
+    "tavsiye": "al, yazım düzelt",
+    "gerekce": "İçerik olarak zararsız ve tutarlılığı artırıyor (Vildan'ın TECRİT ODASI'nda olmaması artık gerekçeli). Ancak eklenen cümle noktasız ve kitabın tırnak-virgül kuralına aykırı; en az şu düzeltmeyle alınmalı: “Vildan Hanım, “Benden başka talebiniz yoksa müsaadenizle,” dedi ve ayrıldı.” Paragraf birleştirmesi kitabın başka yerlerinde de görülen bir biçim (p. 218, 221), kabul edilebilir; yine de Vildan cümlesinin bölümün son düşünce cümlesinden önce ya da ayrı paragrafta durması bölüm sonunu korur – bu yerleşim tercihi yazara bırakılabilir."
+   },
+   "verdict": {
+    "nr": 2,
+    "bestaetigte_sorunlar": [
+     "“…müsaadenizle” dedi ve ayrıldı: Cümle (ve DAKTİLO bölümü) noktasız bitiyor. Kitapta düz anlatı paragrafları noktalama ile kapanıyor, bu yüzden bu açık bir yazım eksiği; “dedi ve ayrıldı.” olmalı.",
+     "“Benden başka talebiniz yoksa müsaadenizle” dedi: Kapanış tırnağından önce virgül yok. DAKTİLO bölümündeki diğer bütün örneklerde virgül var (“…nasıl arzu ederseniz,” dedi / “…istifa edebiliyor,” dedim); kitabın genelinde de 78'e 21 oranında virgüllü kullanım ağır basıyor. Doğrusu: “…müsaadenizle,” dedi."
+    ],
+    "widerlegte_sorunlar": [
+     "Vildan Hanım “Benden…: Özneden sonra, tırnaktan önce virgül şart değil. Aynı bölümde virgülsüz örnek var (p. 171: Hakan Hoca “Buyurun,” diyerek). TDK de virgül zorunluluğu getirmiyor, o yüzden bu kısım geçerli değil.",
+     "Benden başka talebiniz yoksa: Türkçede deyimsel ve doğru bir kullanım (‘benden başka bir isteğiniz’). Vildan Hakan Hoca'ya her zaman ‘hocam’ demiyor (p. 217 “Siz istediniz.”, p. 219 “İsterseniz toplantıyı tamamen iptal edeyim.”). Yalnızca üslup önerisi, hata değil.",
+     "…anlıyorum. Vildan Hanım … dedi ve ayrıldı: Zaman kayması, bölüm sonunun yeri ve paragraf bölme önerisi üslup tercihidir; yazar bunlara kendisi karar verebilir. Dil hatası değil.",
+     "Vildan'ın TECRİT ODASI'nda bulunmaması: Bir çelişki yok, bölümde Vildan yalnızca p. 249'da anılıyor ve bu tutarlı. Bulgu değil, olumlu bir tespit.",
+     "Mekân dikişi (p. 224 “Asansöre varmadan…” / p. 239 “Yahu kalk be adam…”): Değişiklikten önce de vardı ve yeni cümle bunu ortaya çıkarmıyor. Bu değişikliğe karşı bir bulgu sayılmaz."
+    ],
+    "tavsiye_final": "al, yazım düzelt",
+    "reasoning": "Metni p. 230 bağlamında ve DAKTİLO'nun tamamında (91–230) kontrol ettim. Eklenen cümle içerik açısından tutarlı; TECRİT ODASI'nda Vildan geçmiyor, yalnızca p. 249'da adı anılıyor. Kalan iki sorun gerçek yazım sorunu. Birincisi, paragraf ve bölüm sonunda nokta yok. İkincisi, kapanış tırnağından önceki virgül eksik. Bu bölümde diğer 6 örneğin hepsi virgüllü, kitabın genelinde de 78'e 21. Özneden sonra virgül şartı geçerli değil, çünkü aynı bölümde p. 171'de “Hakan Hoca “Buyurun,” diyerek” var. Hitap ve netlik önerisi, zaman kayması ve bölüm sonunun yeri üslup meselesi. Mekân dikişi ise değişiklikten önce de vardı. Önerilen düzeltme şu: Vildan Hanım “Benden başka talebiniz yoksa müsaadenizle,” dedi ve ayrıldı. Paragraf birleştirmesi yazara bırakılabilir.",
+    "confidence": 0.85
+   }
+  },
+  {
+   "assessment": {
+    "nr": 3,
+    "kategori": "üslup",
+    "ozet_tr": "Bayılma sahnesinde \"Ekran hâlâ açıktı.\" cümlesine \"ama giderek vurulan ceylan gibi kararıyordu\" benzetmesi ekleniyor; uyanışta \"ev olduğunu çıkardım\" (çıkarım) \"evde olduğunu hatırladım\" (hatırlama) oluyor — açılıştaki ceylan hikâyesine ve kitabın \"hatırlamak\" motifine gönderme.",
+    "dil_sorunlari": [
+     {
+      "yer": "\"birkaç saniye sonra evde olduğunu hatırladım\" (sahit_v5.txt 263)",
+      "sorun": "Kişi uyumsuzluğu: \"olduğunu\" eski \"bulunduğum yer… ev olduğunu çıkardım\" yapısından kalmış; \"-de\" eklenince üçüncü kişi özne kalmıyor, evde olan ve hatırlayan anlatıcının kendisi.",
+      "oneri": "\"birkaç saniye sonra evde olduğumu hatırladım\" (eski yapı korunacaksa: \"orasının ev olduğunu hatırladım\")."
+     },
+     {
+      "yer": "\"Ekran hâlâ açıktı ama giderek vurulan ceylan gibi kararıyordu.\"",
+      "sorun": "\"giderek\" zarfı \"vurulan\"ın önüne düşmüş, \"giderek vurulan\" diye okunuyor; kitaptaki benzetmeler belirsiz \"bir\" ile kuruluyor (aynı paragraf: \"bir ağaç kütüğü gibi\", \"yabancı bir harita gibi\"); tek başına \"vurulan\" ayrıca \"âşık olan\" çağrışımı taşıyor (701: ceylan \"aşktan nameler söylüyordu\").",
+      "oneri": "\"Ekran hâlâ açıktı ama vurulmuş bir ceylan gibi giderek kararıyordu.\" — 30'daki \"Gözleri karardı\" yankısı istenirse: \"vurulmuş bir ceylanın gözleri gibi giderek kararıyordu\"."
+     },
+     {
+      "yer": "\"Her şey kararmadan önce … Sonra bilincim kapandı. Ekran hâlâ açıktı ama … kararıyordu.\"",
+      "sorun": "Üç cümle içinde \"karar-\" tekrarı; gözün ve ekranın kararması üst üste biniyor (düşük önem).",
+      "oneri": "Bilinçli yankı (30: \"Gözleri karardı\") olarak bırakılabilir; rahatsız ederse ilkini \"Her şey sönmeden önce\" yapmak yeter."
+     }
+    ],
+    "tutarlilik": [
+     {
+      "konu": "Bilinç kapandıktan sonra süreç gözlemi",
+      "kanit": "263: \"Sonra bilincim kapandı. Ekran hâlâ açıktı ama giderek … kararıyordu.\" — anlatıcı bilinci kapandıktan sonra ekranın yavaş yavaş kararmasını izliyor. Eski metinde de \"imleç yanıp sönüyordu\" vardı; yeni ekleme buna süreli bir gözlem katıyor. Kendi görüşünün kararması olarak da okunabildiğinden çelişki hafif. İsim, yer, zaman, kimin bulunduğu (yalnızca anne, sigara odasında) değişmiyor.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "Ceylan imgesi yalnızca ŞAHİT'te (yolcu_v4.txt'de \"ceylan\" 0 geçiş); benzetme kitap içi bir köprü kuruyor: 262 \"İlk okuduğum ceylan hikâyesini orada bıraktım\", 30 \"ıslık çalarak gelen okun acısını… Gözleri karardı, yerde gördüğü kendi kanına bakarken ölüyordu\", 31 ceylanın son cümlesi \"Hani bin ömrüm olacaktı?\" ↔ 263 \"Hani ben şehit olacaktım, Allah'ım?\", 131 \"Yolcu, bu arada, bir ceylan\". \"çıkardım → hatırladım\" ortak leitmotife değiyor: ŞAHİT 361/474/1561/1734 \"İnsan hakikati öğrenmez, hatırlar\"; YOLCU 3526 \"İnsan hakikati öğrenmez, hatırlar!\" + 3527 \"Hatırladığım yer orada başladı.\" (ölüm sonrası uyanış). Düşüş → uyanış → \"hatırladım\" sırası YOLCU'nun kapanışıyla paralel; köprüyü dolaylı olarak güçlendirir, zayıflatmaz. Mottonun söylenişi değişmiyor.",
+    "onceki_bulgulara_etkisi": "Dokunmuyor: sahne evde, yalnızca anne var; Vildan, Zehra, Nazım geçmiyor; Hakan Hoca yalnızca 265'te anılıyor ve o paragraf değişmedi. Motto değerlendirmesi aynı kalır; \"hatırladım\" yalnızca motife küçük bir yankı ekler.",
+    "tavsiye": "al, yazım düzelt",
+    "gerekce": "Benzetme açılış hikâyesiyle (\"okun acısı\", \"Gözleri karardı\", \"Hani bin ömrüm olacaktı?\") bilinçli ve yerinde bir bağ kuruyor; \"hatırladım\" kitabın ana motifine oturuyor. Alınmalı, ancak \"evde olduğunu\" → \"evde olduğumu\" zorunlu dil bilgisi düzeltmesi; \"giderek\"in yeri ve \"vurulmuş bir ceylan gibi\" hafif editör dokunuşu. Not: değişiklik sahit_v5.txt'de 263 numaralı paragraftadır (changes.json orig_idx 263; 262, Sefa dosyasındaki indeks)."
+   },
+   "verdict": {
+    "nr": 3,
+    "bestaetigte_sorunlar": [
+     "\"birkaç saniye sonra evde olduğunu hatırladım\" (sahit_v5.txt, 263. paragraf): kişi uyumsuzluğu. Eski yapı \"ev olduğunu çıkardım\" idi ve öznesi \"bulunduğum yer\"di. \"-de\" eklenince evde olan anlatıcının kendisi oluyor, bu yüzden 3. tekil iyelik (\"olduğunu\") yanlış kalıyor. Doğrusu \"evde olduğumu hatırladım\". Bu açık bir dil bilgisi hatası, düzeltilmesi zorunlu."
+    ],
+    "widerlegte_sorunlar": [
+     "\"Ekran hâlâ açıktı ama giderek vurulan ceylan gibi kararıyordu.\": \"giderek\" zarfının yeri dil bilgisi hatası sayılmaz. Benzetme öbeği zarf görevinde olduğu için \"giderek\" doğal olarak \"kararıyordu\"ya bağlanıyor. \"bir\" olmadan kurulan benzetme kitapta da var (18. paragraf: \"ceylan gibi ölmeniz gerek\", 30. paragraf: \"ceylan onun gibi\"). \"vurulan\" yerine \"vurulmuş\" demek ise yazarın üslubuna bırakılacak bir tercih. \"Âşık olan\" çağrışımı da zayıf bir yorum. En fazla isteğe bağlı bir öneri olabilir.",
+     "\"Her şey kararmadan önce … Ekran hâlâ açıktı ama … kararıyordu.\": \"karar-\" tekrarı bir hata değil. Açılıştaki ceylan hikâyesine (30. paragraf: \"Gözleri karardı\") bilinçli bir yankı olarak okunabilir. Bu bir üslup meselesi; arkadaşın kendisi de önemini düşük görüyor.",
+     "Tutarlılık (\"Sonra bilincim kapandı. Ekran hâlâ açıktı ama giderek … kararıyordu.\"): Yeni bir çelişki yok. Özgün metinde de bilinç kapandıktan sonra \"Ekran hâlâ açıktı. Mesajım yarım kalmış, imleç yanıp sönüyordu\" ve \"İçimden yardım diye bağırdığımı hatırlıyorum\" cümleleri vardı. Yani olayı sonradan yeniden kuran bir anlatım zaten metnin parçası. Ekran ışığının kendiliğinden sönmesi de gerçekçi. İsim, yer, zaman ve kişiler değişmiyor."
+    ],
+    "tavsiye_final": "al, yazım düzelt",
+    "reasoning": "sahit_v5.txt'deki 263. paragraf (changes.json'da orig_idx 263) Sefa'nın metniyle birebir aynı. Değişiklik içerik bakımından yerinde: ceylan benzetmesi açılış hikâyesine (30. paragraf: okun acısı, \\\"Gözleri karardı\\\") bağlanıyor, \\\"hatırladım\\\" ise kitabın hatırlama motifine (363. paragraf) uyuyor. Arkadaşın dört bulgusundan yalnızca \\\"evde olduğunu\\\" → \\\"evde olduğumu\\\" düzeltmesi, sıkı ölçüte göre açık bir dil bilgisi hatası olarak kaldı. \\\"giderek\\\"in yeri, \\\"bir\\\" eksikliği, \\\"vurulan\\\"/\\\"vurulmuş\\\" seçimi ve \\\"karar-\\\" tekrarı üsluba ait; anlatıcının bilinci kapandıktan sonra ekranı gözlemlemesi de özgün metinde zaten vardı. Bu yüzden değişiklik alınmalı, yalnızca bu tek dil bilgisi düzeltmesi yapılmalı.",
+    "confidence": 0.85
+   }
+  },
+  {
+   "assessment": {
+    "nr": 4,
+    "kategori": "üslup",
+    "ozet_tr": "Annenin sabah sitemine \"de\" bağlacı eklenerek \"hâlin mi yoktu?\" sorusu \"hâlin de mi yoktu?\" biçimine getiriliyor; anlam değil, vurgu değişiyor: \"bunu bile yapamadın mı\" tonu güçleniyor.",
+    "dil_sorunlari": [],
+    "tutarlilik": [],
+    "kitaplar_arasi": "ilgisiz",
+    "onceki_bulgulara_etkisi": "Yok. Vildan'ın varlığı, Zehra'nın konumu, motto ya da Nazım'ın rolüne dokunmuyor; tek cümlelik bir vurgu düzeltmesi.",
+    "tavsiye": "olduğu gibi al",
+    "gerekce": "Yazım kusursuz: \"de\" bağlacı ve \"mi\" soru eki TDK'ye uygun biçimde ayrı; \"hâlin\" şapkalı yazımı bir sonraki paragraftaki \"dünkü hâlimi\" / \"ne hâlim ne vaktim\" (sahit_v5 §267) ile uyumlu; soru işareti kapatma tırnağının içinde, kitabın alışkanlığına uygun (krş. §264). Yapı yazarın sesine yabancı değil: aynı kalıp §880'de de var (\"Olma ihtimalin de mi yoktu?\"). İçerik olarak eklenen \"de\" sahneyi güçlendiriyor: okur anlatıcının bir gece önce bayılıp yerde süründüğünü biliyor; annenin \"üstünü örtecek hâlin de mi yoktu\" demesi, \"hâl\" sözcüğünün çift anlamı (takat / durum) üzerinden istemsiz bir dramatik ironi yaratıyor ve §267'deki \"ne hâlim ne vaktim vardı\"ya köprü kuruyor. Annenin aynı sitemi gece (§264) ve sabah (§266) iki kez etmesi özgün metinde zaten vardı; bu değişiklik onu ne artırıyor ne azaltıyor. Düzeni bozma riski yok, v5'e zaten işlenmiş hâliyle kalabilir."
+   },
+   "verdict": null
+  },
+  {
+   "assessment": {
+    "nr": 5,
+    "kategori": "içerik eklemesi",
+    "ozet_tr": "Mahmut'un \"Hocam, ne oldu lan sana bu aralar?\" sorusuyla Sefa'nın \"Bilmiyorum Mahmut\" cevabı arasına, \"lan\"ın çocukluktan kalma, \"hoca\" hitabının ise Mahmut'un onu kızdırmak için kullandığı bir takılma olduğunu ve o gün öfkelenecek dermanı bile olmadığını açıklayan tek cümlelik bir anlatıcı yorumu ekleniyor.",
+    "dil_sorunlari": [
+     {
+      "yer": "\"Lan çocukluktan,\"",
+      "sorun": "Yüklemsiz, eksiltili parça; ayrıca kelime olarak anılan \"lan\" tırnaksız. Kitap kelime-olarak-kelimeyi tırnakla veriyor (265: \"“Bayılmak” deyince\").",
+      "oneri": "\"“Lan” çocukluktan kalmaydı;\" (veya \"Lan demesi çocukluktan kalmaydı;\")"
+     },
+     {
+      "yer": "\"Hoca kelimesi\"",
+      "sorun": "Büyük harfli \"Hoca\" kitapta yalnızca Hakan Hoca yerine geçerken kullanılıyor (107: \"Hoca konuştukça\", 350: \"Hoca odayı\"); cins isim olarak hep küçük (287: \"hoca geliyor\", 298: \"ne hocası\", 1424: \"Bana hoca demelerine\"). Burada büyük harf Hakan Hoca'ya gönderme sanılabilir.",
+      "oneri": "\"“hoca” kelimesi\" (küçük harf, tırnak içinde)"
+     },
+     {
+      "yer": "\"…kızdırmak içindi, gıcık ederek mutlu olurdu Mahmut ama hiç öfkelenecek dermanım yoktu.\"",
+      "sorun": "Üç bağımsız cümle virgülle art arda bağlanmış (virgül kayması); kitap bu durumlarda noktalı virgül/nokta kullanıyor. \"gıcık ederek\" nesnesiz kalıyor.",
+      "oneri": "\"…kızdırmak içindi. Beni gıcık ederek mutlu olurdu Mahmut ama o gün öfkelenecek dermanım bile yoktu.\" (\"ama\" öncesi virgülsüz kullanım kitabın baskın tercihine uygun, 173'e 5)"
+     },
+     {
+      "yer": "\"yoktu. \" (paragraf sonu)",
+      "sorun": "Sefa'nın metninde paragraf sonunda fazladan boşluk var; v5'e de aynen taşınmış (sahit_v5 satır 289).",
+      "oneri": "Sondaki boşluğu sil."
+     }
+    ],
+    "tutarlilik": [
+     {
+      "konu": "287'deki \"ayarım kaçtı\" ile 289'daki \"öfkelenecek dermanım yoktu\" arasındaki gerilim",
+      "kanit": "287: \"son zamanlarda herkesten duyduğum soruyu işitince ayarım kaçtı:\" → 289: \"ama hiç öfkelenecek dermanım yoktu.\" İki paragraf arayla önce sinirlenme, sonra sinirlenecek hâl olmadığı söyleniyor. 294'teki \"yüzümde yalnızca yorgun bir gülümseme kaldı\" yorgunluk okumasını destekliyor, yani 'bozuldum ama tepki verecek takatim yoktu' diye okunabilir; yine de yan yana durunca göze batıyor.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "ilgisiz (Mahmut, Çeşmi Nar Kafe ve \"hoca\" takılması yolcu_v4.txt'te geçmiyor; ortak motif/leitsatz söz konusu değil)",
+    "onceki_bulgulara_etkisi": "Vildan'ın mevcudiyeti, Zehra'nın statüsü, motto ve Nazım'ın rolüne dokunmuyor. Anlatıcının \"hoca\" unvanına itiraz motifini güçlendiriyor ve önceki kurulumla uyumlu: 73 (\"bana hocam demeyin… hiçbir hocalık vasfı olmayan insanlara\"), 298 (\"Ulan, ne hocası? Ben yazardım\"), 301 (\"hak etmediğim unvan\"), 508, 1424. Mahmut'un \"çocukluk arkadaşım\" olması (286) ve 1584'teki dost listesinde yer alması \"lan çocukluktan\" ifadesiyle örtüşüyor. Eklenen paragraf 287'nin iki noktayla açtığı soru–cevap akışını bozmuyor; soru ile cevap arasına kısa anlatıcı yorumu olarak giriyor.",
+    "tavsiye": "al, yazım düzelt",
+    "gerekce": "Ekleme, Mahmut'un neden \"lan\" ve \"hocam\" dediğini açıklayarak sahneyi besliyor ve romanın \"hoca\" motifini destekliyor; içerik çelişkisi yok. Ancak cümle yüklemsiz bir parçayla başlıyor, virgül kaymalı ve \"Hoca\" büyük harfi kitabın yazım düzeniyle çelişiyor; sondaki boşluk da temizlenmeli. Önerilen düzeltilmiş hâl: \"“Lan” çocukluktan kalmaydı; “hoca” kelimesi de beni kızdırmak içindi. Beni gıcık ederek mutlu olurdu Mahmut ama o gün öfkelenecek dermanım bile yoktu.\" 287'deki \"ayarım kaçtı\" ile olan hafif gerilim istenirse yazara tek cümleyle sorulabilir, düzeni bozmaz."
+   },
+   "verdict": {
+    "nr": 5,
+    "bestaetigte_sorunlar": [
+     "\"…dermanım yoktu. \" paragrafının sonunda fazladan bir boşluk var (sahit_v5 289; changes.json'daki Sefa metninde de aynı). Bu teknik bir temizlik meselesi, sondaki boşluk silinmeli."
+    ],
+    "widerlegte_sorunlar": [
+     "\"Lan çocukluktan,\" yüklemsiz bir parça ama hata sayılmaz. Anlatıcının konuşma diline yakın, eksiltili üslubu; \"Lan\" sözcüğü Mahmut'un hemen üstteki repliğine (288: \"ne oldu lan sana\") gönderme yaptığı için anlam açık.",
+     "\"Lan\"ın tırnaksız yazılması hata değil, çünkü kitap kelime olarak anılan kelimeyi tutarlı biçimde tırnaklamıyor. Örneğin tırnaksız \"Bence kelimesi ile aynı manaya ge…\" var, yanında tırnaklı \"“Bayılmak” deyince\" de var. Belirgin bir kitap kuralı olmadığı için bu bir ihlal sayılmaz.",
+     "\"Hoca kelimesi\"ndeki büyük harf açık bir hata değil. Kelime, Mahmut'un 288'deki \"Hocam\" hitabından alıntı. Kitapta kelime olarak anılırken büyük harfle yazılmış \"Ben “Hoca” demeye çalışıyordum\" örneği de var. Cümle Mahmut'tan ve onun hitabından söz ettiği için Hakan Hoca'yla karıştırılması pek olası değil. En fazla bir üslup tercihi, şüpheli olduğu için düşürüldü.",
+     "\"…kızdırmak içindi, gıcık ederek mutlu olurdu Mahmut ama…\" virgül kayması değil. TDK'ye göre sıralı cümleler virgülle ayrılabilir, bu geçerli bir kullanım. Noktalı virgül ya da nokta önerisi biçemsel bir tercih, düzeltilmesi gereken bir hata değil.",
+     "\"gıcık ederek\"in nesnesiz kalması hata değil. Nesne (\"beni\") önceki yan cümleden anlaşılıyor; konuşma dilinde bu eksiltme olağan.",
+     "287'deki \"ayarım kaçtı\" ile 289'daki \"öfkelenecek dermanım yoktu\" arasında çelişki yok. Biri içten bozulmayı, öbürü dışa vuracak takati olmamayı anlatıyor. 294'teki \"yüzümde yalnızca yorgun bir gülümseme kaldı\" bu okumayı doğruluyor."
+    ],
+    "tavsiye_final": "al, yazım düzelt",
+    "reasoning": "Ekleme sahneyi besliyor: Mahmut'un \\\"lan\\\" ve \\\"hocam\\\" deme alışkanlığını açıklıyor ve içerik çelişkisi yok. Meslektaşın dil önerilerinin çoğu biçemsel; TDK'ye göre (sıralı cümlelerde virgül) ya da kitabın kendi kullanımına göre (tırnaksız \\\"Bence kelimesi\\\", büyük harfli \\\"“Hoca” demeye\\\") hata sayılmıyorlar. \\\"Lan çocukluktan\\\" eksiltisi anlatıcının konuşma diline yakın üslubuna uyuyor. Kesin olarak doğrulanan tek sorun sahit_v5 289'un sonundaki fazladan boşluk (od ile doğrulandı: \\\"yoktu. \\\\n\\\"). Bu yüzden öneri, ekleme alınsın ve yalnızca sondaki boşluk silinsin. Büyük harfli \\\"Hoca\\\" istenirse yazara sorulabilir, ama zorunlu bir düzeltme değil.",
+    "confidence": 0.8
+   }
+  },
+  {
+   "assessment": {
+    "nr": 6,
+    "kategori": "yazım/noktalama",
+    "ozet_tr": "İçerik aynı kalıyor; yalnızca Mahmut'un arkadaşların dedikodusunu aktardığını gösteren iç tek tırnaklar (‘…’) ve cümle sonundaki nokta silinmiş.",
+    "dil_sorunlari": [
+     {
+      "yer": "“… Sadece selam, sıfır kelam”",
+      "sorun": "Kapanış tırnağından önce nokta yok. TECRİT ODASI bölümünde tırnakla biten 49 diyalog satırının tamamı noktalama ile kapanıyor (örn. 290 “…konuşasım yok bu aralar.”, 295 “…gerçekten bilmiyorum.”); bu satır bölümdeki tek istisna olur.",
+      "oneri": "“… Sadece selam, sıfır kelam.”"
+     },
+     {
+      "yer": "“O geveze adama ne oldu? …”",
+      "sorun": "Satır, 292 “Ne dedikodusu?” sorusuna cevap olarak arkadaşların sözünün aktarımıdır; üçüncü şahıs (“o geveze adam”) bunu açıkça gösterir. Kitap alıntı içinde alıntıyı TDK'ye uygun biçimde tek tırnakla veriyor (192 “‘Mustafa Sefa Bey, …?’ diye sordular.”, 318 ‘Kalan üç lastikten…’, 1221 “‘Yürü be melun merkep…’”). Tek tırnağın kaldırılması bu tutarlılığı bozar; hata değil ama kesinlik kaybı.",
+      "oneri": "Özgün biçim korunsun: “‘O geveze adama ne oldu? Geliyor, başı önünde kahvesini içiyor, gidiyor. Sadece selam, sıfır kelam.’” Yazar tek tırnaktan bilinçli vazgeçtiyse en azından nokta eklenmeli."
+     }
+    ],
+    "tutarlilik": [],
+    "kitaplar_arasi": "ilgisiz (“sıfır kelam”/“geveze” ifadesi yolcu_v4.txt'de geçmiyor; ortak motif yok)",
+    "onceki_bulgulara_etkisi": "Yok. Vildan'ın varlığı, Zehra'nın statüsü, leitmotif ve Nazım'ın rolüyle ilgisi bulunmuyor; “geveze” nitelemesi 262 (“geveze, her haltı bilen… adamı”) ve 567 ile uyumlu.",
+    "tavsiye": "alma",
+    "gerekce": "Değişiklik yalnızca doğru olan iki noktalama işaretini silmekten ibaret: eksik nokta bölümün tek istisnası olur, iç tek tırnak ise TDK'ye ve kitabın 192/318/1221'deki uygulamasına uygun. Özgün satır olduğu gibi kalmalı; tek tırnaksız biçim tercih edilecekse mutlaka “…sıfır kelam.” diye nokta eklenmeli."
+   },
+   "verdict": {
+    "nr": 6,
+    "bestaetigte_sorunlar": [
+     "“… Sadece selam, sıfır kelam” satırında kapanış tırnağından önce nokta eksik. Bu, TECRİT ODASI bölümünde noktalamasız biten tek diyalog satırı (v5 233–296 arası taranınca tek istisna 293). Özgün metinde nokta vardı (“…sıfır kelam.’”), yani nokta silinerek bir gerileme oluşmuş. Düzeltme: “… Sadece selam, sıfır kelam.”"
+    ],
+    "widerlegte_sorunlar": [
+     "“O geveze adama ne oldu? …” satırında iç tek tırnağın (‘…’) kaldırılması hata değil. Mahmut arkadaşlarının sözünü doğrudan kendi ağzından aktarabilir; 294'teki “Mahmut bunu öyle ciddi söyledi” cümlesi de bu okumayla çelişmiyor. Bu, yazarın üslup tercihi. Kolega da bunun “hata değil” olduğunu kendisi kabul ediyor. 192 ve 1221 örnekleri bir tercih gösteriyor ama bir zorunluluk getirmiyor."
+    ],
+    "tavsiye_final": "al, yazım düzelt",
+    "reasoning": "v5'teki 293. satır şöyle: “O geveze adama ne oldu? Geliyor, başı önünde kahvesini içiyor, gidiyor. Sadece selam, sıfır kelam” (/tmp/claude-0/-home-user-Notion/6549e111-23e7-5e00-8587-d424b5294a16/scratchpad/books/sahit_v5.txt). Özgün metinde, yani sahidi_ararken.txt'nin 303. satırında, aynı satır “‘…sıfır kelam.’” biçiminde. Kitabın genelinde noktalamasız biten çok sayıda diyalog var (yaklaşık 244 satır, çoğu ilk bölümlerdeki şiirsel kısımlarda). Ama TECRİT ODASI bölümünde tırnakla biten bütün diyalog satırları noktalamayla kapanıyor. 293 tek istisna, üstelik özgün metinde bulunan bir nokta silinmiş. Bu yüzden eksik nokta bölümdeki kullanıma aykırı, açık bir noktalama hatası ve geçerli bir bulgu. Tek tırnağın kaldırılması ise ne dilbilgisi hatası ne de içerikle çelişki. Mahmut'un aktarımı tek tırnak olmadan da anlaşılıyor ve yazarın üslup özgürlüğü kapsamında kalıyor, bu bulgu geçersiz. Sonuç olarak değişiklik kabul edilmeli, yalnızca sona nokta eklenmeli: “O geveze adama ne oldu? Geliyor, başı önünde kahvesini içiyor, gidiyor. Sadece selam, sıfır kelam.”",
+    "confidence": 0.85
+   }
+  },
+  {
+   "assessment": {
+    "nr": 7,
+    "kategori": "üslup",
+    "ozet_tr": "Kafeden hastaneye yürüyüş paragrafının son cümlesinde “aklımda tek bir endişe kaldı” ifadesi “aklımda tek bir endişe vardı” olarak değiştirilmiş; anlam değişmiyor, yalnızca bir önceki paragraftaki “yorgun bir gülümseme kaldı” (294) ile oluşan “kaldı” tekrarı giderilmiş, buna karşılık “düşünceler azaldı, geriye tek bu kaldı” nüansı hafifçe düzleşmiş.",
+    "dil_sorunlari": [
+     {
+      "yer": "296, son cümle: “Hastaneye kadar aklımda tek bir endişe vardı: Bu kitabı yazamamak…”",
+      "sorun": "İki noktadan sonra cümle değil ad öbeği geliyor; TDK’ya göre küçük harfle başlamalı. Değişiklikten önce de böyleydi, Sefa’nın müdahalesi değil.",
+      "oneri": "“…tek bir endişe vardı: bu kitabı yazamamak…” (isteğe bağlı; kitapta iki nokta sonrası tam cümleler büyük harfle başlıyor, bu yer tek istisna gibi görünüyor)"
+     },
+     {
+      "yer": "296: “hastaneye doğru yürüdüm. … Başım önde, gözlerim parmak uçlarımda yürüdüm”",
+      "sorun": "İki cümle arayla “yürüdüm” tekrarı; değişiklikle ilgisi yok, mevcut metinde de var.",
+      "oneri": "İkincisi “Başım önde, gözlerim parmak uçlarımda ilerledim” yapılabilir (isteğe bağlı, yazara bırakılabilir)"
+     }
+    ],
+    "tutarlilik": [],
+    "kitaplar_arasi": "ilgisiz",
+    "onceki_bulgulara_etkisi": "Yok. Vildan’ın varlığı, Zehra’nın konumu, “İnsan hakikati öğrenmez, hatırlar” mottosu ve Nazım Efendi’nin rolüyle ilgili hiçbir yere dokunmuyor; bölümdeki olay örgüsü (nöbet gecesi → annemle kahvaltı → Çeşmi Nar Kafe → İntaş Işıkları → hastane) ve Sefa’nın ceylan hikâyesini daha önce tecrit odasında okumuş olması (262) aynen korunuyor.",
+    "tavsiye": "olduğu gibi al",
+    "gerekce": "Tek kelimelik üslup düzeltmesi: 294’teki “gülümseme kaldı” ile iki paragraf içinde yinelenen “kaldı” fiili kalkıyor, cümle dil bilgisi ve noktalama açısından kusursuz (“,” deyip” biçimi kitabın 80+ yerdeki kuralıyla uyumlu). “Kaldı”nın taşıdığı “öteki düşünceler silindi, geriye bir tek bu kaldı” nüansı hafifçe zayıflıyor ama önceki cümle (“Bu düşünceler beni mutsuz etmeye başlayınca ceylana döndüm”) bu daralmayı zaten anlatıyor; anlam kaybı yok, tutarlılık sorunu yok. Düzene herhangi bir etkisi olmadan v5’e alınabilir; iki nokta sonrası küçük harf ve “yürüdüm” tekrarı ayrı, isteğe bağlı redaksiyon notlarıdır."
+   },
+   "verdict": {
+    "nr": 7,
+    "bestaetigte_sorunlar": [],
+    "widerlegte_sorunlar": [
+     "“tek bir endişe vardı: Bu kitabı yazamamak…” – Widerlegt: Die Stelle stand schon vor der Änderung so im Text (orig hatte „kaldı: Bu kitabı yazamamak…“), Sefas Eingriff hat sie also nicht verursacht. Mit Auslassungspunkten kann man den Ausdruck als elliptischen Ausrufesatz lesen. Es ist auch nicht „die einzige Ausnahme“ im Buch: Auch bei „kısa notlar vardı: Üç roman. Sahne. Suskunluk.“ und „tek kelime yazılmıştı: YAZAR.“ steht nach dem Doppelpunkt eine großgeschriebene Nominalgruppe. Das ist die Stilentscheidung des Autors und kein eindeutiger Rechtschreibfehler.",
+     "„hastaneye doğru yürüdüm. … gözlerim parmak uçlarımda yürüdüm“ – Widerlegt: Die Wiederholung ist eine stilistische Frage und weder Tipp- noch Grammatikfehler. Sie stand schon im Original und hat mit der Änderung nichts zu tun. Die Entscheidung bleibt beim Autor."
+    ],
+    "tavsiye_final": "olduğu gibi al",
+    "reasoning": "Die Stelle steht in sahit_v5.txt unter Absatzindex 296 (in changes.json orig_idx 295). Die einzige Änderung ist „kaldı:“ → „vardı:“. Sie ist grammatisch und in der Zeichensetzung einwandfrei und vermeidet die Wiederholung des „kaldı“ aus „gülümseme kaldı“ in Absatz 294. Einen inhaltlichen Widerspruch gibt es nicht. Beide Befunde des Kollegen betreffen den unveränderten Originaltext und sind stilistisch. Die Großschreibung nach dem Doppelpunkt ist im Buch nicht einheitlich (siehe „Üç roman.“ und „YAZAR.“), daher ist die Aussage „tek istisna“ falsch. Keiner der Befunde ist ein eindeutiger Tipp- oder Grammatikfehler, beide gelten als widerlegt.",
+    "confidence": 0.85
+   }
+  },
+  {
+   "assessment": {
+    "nr": 8,
+    "kategori": "anlam değişikliği",
+    "ozet_tr": "Hakan'ın telefondaki muhatabı anonim \"kızım\"dan Zehra'ya dönüşüyor, \"yeğenim ... odasında\" yerine oda açıkça \"eski tecrit odası\" diye adlandırılıyor, Hakan Nazım'a karşı sabırsız/azarlayıcı bir ton alıyor (\"bu adam neyi bekliyor\") ve anlatıcı bunu artık \"kibarca\" değil \"dolaylı bağırma\" olarak yorumluyor.",
+    "dil_sorunlari": [
+     {
+      "yer": "“…teslim etsin artık, bu adam neyi bekliyor”",
+      "sorun": "Soru cümlesi kapanış tırnağından önce noktalamasız bitiyor; UNUTMA bölümünde diğer alıntılar (ör. 314, 318, 320) noktalama ile kapanıyor, eski metin de noktayla bitiyordu.",
+      "oneri": "“…teslim etsin artık; bu adam neyi bekliyor?”"
+     },
+     {
+      "yer": "“Eski tecrit odasına bırakacak evrakları; verdiğim o evrakları teslim etsin artık”",
+      "sorun": "“evrakları” iki kez; “bırakacak” (bildirme) ile “teslim etsin” (emir) aynı talimatı iki kez veriyor, öznesiz devrik “bırakacak” askıda kalıyor.",
+      "oneri": "“Verdiğim evrakları artık eski tecrit odasına bıraksın; bu adam neyi bekliyor?”"
+     },
+     {
+      "yer": "“Nazım Efendi nerede Zehra?”",
+      "sorun": "TDK'ye göre hitaptan önce virgül gerekir; kitapta 103'te “Nerede kalmıştık, Sefa?” örneği var (ancak kitap çoğu yerde virgülsüz, düşük öncelik).",
+      "oneri": "“Nazım Efendi nerede, Zehra?”"
+     },
+     {
+      "yer": "“Bu, bana kibarca ya da dolaylı bağırma şekliydi sanırım;”",
+      "sorun": "Zarf (“kibarca”) ile sıfat (“dolaylı”) “ya da” ile bağlanıp aynı adı (“bağırma şekli”) niteliyor; dil bilgisel uyumsuzluk.",
+      "oneri": "“Bu, sanırım bana kibarca, daha doğrusu dolaylı yoldan bağırma biçimiydi; “Her gelişmede beni rahatsız etme; otur, içinden geldiği gibi yaz,” demekti.”"
+     }
+    ],
+    "tutarlilik": [
+     {
+      "konu": "Zehra'nın 316'da hastane dahili hattında olması",
+      "kanit": "315: “masasındaki telefonu kaldırdı ve üç tuşa bastı” (dahili hat). 44/46/80: Zehra Marmara Üniversitesi'nde Hakan'ın sekreteri/asistanı. 308: “Az önce karşılaştığım Vildan Hanım masasında yoktu” (Zehra da orada değil). Hastanede ilk görülüşü 488: “Vildan Hanım’ın yerinde Zehra Hanım oturuyordu”. 950–951: “Siz burada mı çalışıyorsunuz, üniversitede mi?” / “Üniversitede. Hakan Hoca'nın imzalaması gereken proje evraklarını getirdim. Vildan Hanım arşive indi, masasını işgal ettim.” Yeni metin Zehra'yı romanın hiçbir yerinde açıklanmayan biçimde hastane içine yerleştiriyor.",
+      "ciddiyet": "orta"
+     },
+     {
+      "konu": "“Eski tecrit odası” bilgisinin erken ifşası",
+      "kanit": "Sefa odanın eski tecrit odası olduğunu 349'da Nazım'dan öğreniyor: “Burası eskiden, benim gençlik yıllarımda, vakaların tutulduğu tecrit odasıydı.” 350: “Şimdi anladım: Hoca odayı benim için değiştirmişti”. 316'da Hakan bunu Sefa'nın önünde söylerse 350'deki “şimdi anladım” zayıflar; Sefa'nın 316'da tepkisizliği açıklanmamış kalır (kasıtlı “okursun ama görmezsin” tohumu ise anlatıcı asidesi gerekir).",
+      "ciddiyet": "orta"
+     },
+     {
+      "konu": "Hakan'ın sabırsızlığı ile Nazım'ın beklentisi",
+      "kanit": "316 yeni: “bu adam neyi bekliyor”. 331 Nazım: “Açıkçası bu kadar erken beklemiyordum. Bir hafta olur, on gün olur… Ama bu kadar erken değil.” Nazım'a göre teslim daha geç planlanmıştı; 310 (“Nazım Efendi mektupları getirdi mi?”) Hakan'ın beklentisiyle uyumlu, ama Hakan'ın yaşlı çalışanını Sefa'nın önünde “bu adam” diye azarlaması 241/249'daki ölçülü portreye göre sertleşme.",
+      "ciddiyet": "düşük"
+     },
+     {
+      "konu": "“Yeğenim” örtüsünün düşmesi",
+      "kanit": "249: “Herkes seni benim araştırmacı-yazar yeğenim olarak biliyor; bilmeyenlere de öyle söylerim.” Eski cümle (“Yeğenim onu odasında bekliyor olacak”) örtü hikâyesini sekreter önünde pekiştiriyordu; yeni cümlede kayboluyor. Çelişki değil, kayıp; muhatap Zehra ise (Sefa'yı “Sefa Bey” diye tanıyan üniversite asistanı) yeğen demenin düşmesi tutarlı.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "ilgisiz — YOLCU'da Zehra, Nazım, Vildan geçmiyor; “tecrit” yalnızca 2584'te başka anlamda (“Tecrit et — güvenilir ilişkileri parçala”). Ortak motto bu pasajda yok.",
+    "onceki_bulgulara_etkisi": "Zehra'nın statüsü bulgusuna doğrudan dokunur: önceki değerlendirme Zehra'yı üniversite asistanı (hastanede ancak 488'den itibaren, 951'de açık beyan) olarak sabitlemişti; yeni metin onu 316'da hastane dahili hattına taşıyor. Vildan'ın yokluğu (308) ile birlikte telefonun karşısındaki kişi sorusu keskinleşir. Nazım'ın rolü: tecrit odası ifşası 349'dan 316'ya kayar, Hakan'ın Nazım'a tavrı sertleşir. Motto ve Vildan'ın bölüm sonundaki rolü etkilenmez.",
+    "tavsiye": "yazara sor",
+    "gerekce": "Üslup değişikliği (Hakan'ın sabırsızlığı, anlatıcının “dolaylı bağırma” yorumu) alınabilir; ancak “Zehra” adı 950–951 ile çelişen, açıklanmamış bir konum iddiası getiriyor ve “eski tecrit odası” ibaresi 349–350'deki ifşa sahnesini önceden tüketiyor. Yazar iki noktayı bilinçli tohum olarak istiyorsa alınır, aksi hâlde “kızım” ve “odasına” korunmalı; her durumda soru işareti ve tekrarlı “evrakları” düzeltilmeli."
+   },
+   "verdict": {
+    "nr": 8,
+    "bestaetigte_sorunlar": [],
+    "widerlegte_sorunlar": [
+     "“…teslim etsin artık, bu adam neyi bekliyor” cümlesinin noktalamasız bitmesi kitabın kullanımına aykırı değil: Kitapta 224 alıntı noktalamasız kapanıyor. Bunların arasında soru cümleleri de var (65, 72, 95, 102 “Nerede kalmıştık Sefa”). Meslektaşın “UNUTMA bölümünde diğer alıntılar noktalamayla kapanıyor” iddiası da yanlış: Aynı bölümde 336 “Valla çok iyi olur Nazım Abi” ve soru niteliğindeki 352 “…beyaz yaka mı dersiniz” noktalamasız kapanıyor.",
+     "“Eski tecrit odasına bırakacak evrakları; verdiğim o evrakları teslim etsin artık” bölümündeki “evrakları” tekrarı ve devrik “bırakacak” yapısı hata değil: Bu, telefonda sabırsızca konuşan bir figürün ağız özelliği. Devrik cümle Türkçede dil bilgisi açısından doğru (öznesi bağlamdan anlaşılan Nazım Efendi). Tekrar da üslup tercihi.",
+     "“Nazım Efendi nerede Zehra?” cümlesinde hitaptan önce virgül olmaması kitabın kendi kullanımına uygun: Yazarın özgün metninde de “nerede kızım?” virgülsüzdü. 102'de “Nerede kalmıştık Sefa” virgülsüz geçiyor. Açık bir yazım hatası sayılmaz.",
+     "“Bu, bana kibarca ya da dolaylı bağırma şekliydi sanırım;” cümlesinde dil bilgisi uyumsuzluğu yok: “bağırma” bir fiilimsi. Hem “kibarca” hem de zarf işleviyle kullanılan “dolaylı” onu niteleyebilir. “Kibarca bağırma” bilinçli bir çelişki sanatı (oksimoron). Noktalı virgülden sonraki “demekti” yüklemi de aynı “Bu” öznesine bağlanıyor.",
+     "Zehra'nın 316'da dahili hatta olması kanıtlanabilir bir çelişki değil: Sefa konuşmanın yalnızca Hakan tarafını duyuyor. Zehra romanda hastanede tekrar tekrar Vildan Hanım'ın masasında beliriyor (488, 946). Varlığı bilinçli olarak belirsiz bırakılıyor (1487–1492, 1579, 1593 “telefonda o cümleleri bulamadım”). 950'deki “Siz burada mı çalışıyorsunuz, üniversitede mi?” sorusu da bu belirsizlikle çelişmiyor, aksine onu destekliyor.",
+     "“Eski tecrit odası” ifadesi 349–350'deki sahneyi önceden tüketmiyor: Sefa 316'da bu odanın kendi odası olduğunu bilmek zorunda değil. 350'deki “Şimdi anladım” cümlesinin konusu da Hoca'nın odayı onun için değiştirmiş olması ve Nazım'ın anısı. Bu bir zayıflama olabilir ama mantıksal bir çelişki değil.",
+     "Hakan'ın “bu adam neyi bekliyor” diyerek sabırsızlanması 331 ile çelişmiyor: Nazım'ın “bu kadar erken beklemiyordum” sözü kendi beklentisini anlatıyor. Hakan'ın sertleşmesi karakterin üslubuyla ilgili, içerik çelişkisi değil.",
+     "“Yeğenim” örtüsünün düşmesi çelişki değil: Bunu meslektaş da kabul ediyor. Muhatap Zehra olduğu için bu değişiklik tutarlı."
+    ],
+    "tavsiye_final": "olduğu gibi al",
+    "reasoning": "Bağlamı sahit_v5.txt'te 299–352. paragraflar arasında, ayrıca 44, 80, 102–103, 249, 349–350, 488, 946–951 ve Zehra geçen bütün yerlerde okudum. Noktalama: Kitapta 224 alıntı noktalamasız kapanıyor, UNUTMA bölümünün içinde de böyle örnekler var (336 ve soru niteliğindeki 352). Bu yüzden eksik soru işareti kitabın kullanımına aykırı sayılmaz. Hitap virgülü: Kitapta virgülsüz kullanım da var (102), yazarın özgün metni de virgülsüzdü. Tekrar, devrik cümle ve “kibarca ya da dolaylı bağırma” ifadesi figürün konuşma diline ve yazarın üslubuna ait. Dil bilgisi açısından savunulabilirler, açık bir hata içermiyorlar. İçerikle ilgili dört bulgunun hiçbiri kanıtlanabilir bir çelişki değil: Zehra'nın hastanede belirmesi romanda bilinçli bir motif (488, 946, 1487–1492, 1593). Eski tecrit odasından söz edilmesi de en fazla bir ipucu, 350'deki sahneyi geçersiz kılmıyor. Kesin bir yazım ya da dil bilgisi hatası kalmadığı için değişiklik olduğu gibi alınabilir. Yazar yine de isterse 316'nın sonuna soru işareti ekleyebilir; bu isteğe bağlı bir düzeltme, zorunlu değil.",
+    "confidence": 0.75
+   }
+  },
+  {
+   "assessment": {
+    "nr": 9,
+    "kategori": "üslup",
+    "ozet_tr": "Nazım Efendi'nin kâğıt tomarını vermesi düz bir eylem olmaktan çıkıp (\"kucağıma bıraktı\") anlatıcının fark etmeden yaşadığı bir ana dönüşüyor (\"ne ara kucağıma bırakmıştı\"); böylece Nazım'ın sessiz, hayaletimsi varlığı vurgulanıyor.",
+    "dil_sorunlari": [
+     {
+      "yer": "\"Meşin gibi kararmış, nasırlı elleriyle tuttuğu kâğıt tomarını ne ara kucağıma bırakmıştı.\" (sahit_v5.txt, dizin 328)",
+      "sorun": "\"ne ara\" soru sözü içeren bağımsız bir cümle; yüklem de soruya açık (\"ne ara … bırakmıştı\"). TDK'ya göre soru anlamı taşıyan cümle soru işaretiyle biter; kitap da anlatıcının iç sorularını soru işaretiyle kapatıyor (dizin 325: \"Daha ne ilginç şeyler beni bekliyor olabilirdi ki?\"). Nokta ile bitince cümle askıda kalıyor.",
+      "oneri": "Ya \"…kâğıt tomarını ne ara kucağıma bırakmıştı?\" ya da soru işaretinden kaçınılacaksa \"…kâğıt tomarını ne ara kucağıma bıraktığını fark etmemiştim.\" / \"…kâğıt tomarı ne ara kucağıma gelmişti, anlamadım.\""
+     }
+    ],
+    "tutarlilik": [
+     {
+      "konu": "Teslimi fark etmeme ile sonraki gözlem arasında hafif gerilim",
+      "kanit": "Dizin 338: \"Nazım Efendi kâğıtları uzatırken de mahcup görünmüştü.\" Anlatıcı kâğıtların uzatıldığı anı görmüş ve Nazım'ın yüz ifadesini kaydetmiş; dizin 328'deki yeni cümle ise tomarın \"ne ara\" kucağına bırakıldığını fark etmediğini söylüyor. Yüzü izleyip elleri kaçırmış diye okunabilir, çelişki değil ama küçük bir pürüz.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "ilgisiz (Nazım Efendi ve bu sahne yolcu_v4.txt'te geçmiyor; ortak motto veya alıntıya dokunmuyor)",
+    "onceki_bulgulara_etkisi": "Nazım'ın rolüne dair değerlendirmeyi pekiştiriyor: Sefa'nın 11 no.lu değişikliğiyle (dizin 337: \"bir hayalet gibi koridor boyunca süzüldü\") ve \"deliler… bir de veliler\" diyaloğuyla (dizin 342-344, 357) birlikte Nazım'ı sezdirilmiş bir veli/ermiş figürüne yaklaştırıyor; anlatıcının teslimi fark etmemesi bu örüntünün parçası. Vildan'ın varlığı, Zehra'nın statüsü ve mottoyla ilgisi yok.",
+    "tavsiye": "al, yazım düzelt",
+    "gerekce": "Değişiklik küçük ama işlevli: \"ne ara\" + \"-mıştı\" ile teslim anı anlatıcının algısından kaçırılıyor, bu da Nazım'ın hayaletimsi çizgisini (337) ve veli imasını (342-357) destekliyor; bağlamla uyumlu, konuşma dilindeki \"ne ara\" anlatıcının \"Ulan\", \"Amma da fazlaymış\" gibi sesine oturuyor. Tek pürüz noktalama: soru sözlü cümle noktayla bitmiş; soru işareti eklenmeli ya da \"bıraktığını fark etmemiştim\" biçiminde yan cümleye çevrilmeli. \"Kucağıma\" ifadesi kapıda ayakta duran anlatıcı için özgün metinde de vardı, bu değişiklikten bağımsız. Dizin 338'deki \"uzatırken… mahcup görünmüştü\" ile hafif gerilim kabul edilebilir; yazara sorulacak kadar ağır değil."
+   },
+   "verdict": {
+    "nr": 9,
+    "bestaetigte_sorunlar": [],
+    "widerlegte_sorunlar": [
+     "\"…kâğıt tomarını ne ara kucağıma bırakmıştı.\" (v5 dizin 328) cümlesinde soru işareti eksik değil, tartışmalı bir tercih. Cümle bilgi soran bir soru gibi değil, anlatıcının şaşkınlığını bildiren ünlem havasında bir fark ediş cümlesi olarak okunuyor; \"-mıştı\" kipi de \"meğer\" anlamı taşıyor. TDK'nın soru işareti kuralı soru anlamı taşıyan cümleler içindir; buradaki ünlem-şaşkınlık kullanımında nokta da yaygındır. Kitap da soru sözlü şaşkınlık cümlelerini noktayla kapatıyor (dizin 1708: \"aralarına nasıl da kendimden emin bir yol çizmiştim.\"). Bu durumda açık bir yazım ya da dilbilgisi hatası yok; isteğe bağlı bir üslup tercihi.",
+     "Dizin 328'deki \"ne ara kucağıma bırakmıştı\" ile dizin 339'daki \"Nazım Efendi kâğıtları uzatırken de mahcup görünmüştü\" arasında çelişki yok. Anlatıcı yüze bakıp elin hareketini kaçırmış olabilir. Kolega da bunu çelişki saymıyor; belgelenebilir bir tutarsızlık değil."
+    ],
+    "tavsiye_final": "olduğu gibi al",
+    "reasoning": "Bağlamı sahit_v5.txt'te okudum. Değişen paragraf dosyada 329. satırda, dizin etiketi 328 (görevdeki \\\"Index 327\\\" changes.json'daki orig_idx'e karşılık geliyor). Özgün metinde \\\"kucağıma bıraktı.\\\" yazıyordu; değişiklikle \\\"ne ara\\\" eklenmiş ve fiil \\\"bırakmıştı\\\" olmuş. Bu küçük ve işe yarayan bir dokunuş: Nazım'ın hayalet gibi silik çizgisini (337) ve sonraki ima sahnesini (342–344) destekliyor. Noktalama bulgusu tartışmaya açık. \\\"Ne ara\\\" + \\\"-mıştı\\\" kalıbı Türkçede şaşkınlık bildiren, ünleme yakın bir kullanım. Kitap da soru sözlü şaşkınlık cümlesini noktayla bitiriyor (1708, \\\"nasıl da … çizmiştim.\\\"). Ayrıca sorun tırnak içi konuşmada değil, anlatıcı metninde. Bu yüzden açık bir hata sayılmaz, şüphe hâlinde çürütülmüş kabul edilir. Yazar ya da editör isterse soru işareti koyabilir, ama zorunlu değil. Tutarlılık bulgusunu kolega kendisi de \\\"çelişki değil\\\" diye niteliyor; belgelenebilir bir çelişki yok.",
+    "confidence": 0.65
+   }
+  },
+  {
+   "assessment": {
+    "nr": 10,
+    "kategori": "üslup",
+    "ozet_tr": "Nazım'ın cevabı halk ağzına ve kaderci tona çekiliyor (\"bilsem ne olacak\" → \"bildik de ne oldu\"), haberin kaynağı belirsizleşiyor (\"söyledi\" → edilgen \"söylendi\", yani Hakan doğrudan değil aracıyla bildirmiş oluyor) ve zaman sıralamasındaki anlamsız \"Sabah olur\" çıkarılıyor.",
+    "dil_sorunlari": [
+     {
+      "yer": "“Sadece sizi burada bulacağımı söylendi.”",
+      "sorun": "Edilgen 'söylendi' ile -AcAK yan cümlesi belirtme eki almaz; 'bulacağımı' + 'söylendi' çatı uyumsuzluğu (ya nesne ya edilgen). Kitabın kendi kullanımı da ekstir: par. 382 “şahitle tanışacağım söylenmişti”, par. 1006 “ertesi sabah yapılacağı söylendi”.",
+      "oneri": "“Sadece sizi burada bulacağım söylendi.” — ya da Nazım'ın ağzına daha uygun etken biçim: “Sadece sizi burada bulacağımı söylediler.”"
+     }
+    ],
+    "tutarlilik": [],
+    "kitaplar_arasi": "ilgisiz (Nazım yolcu_v4.txt'te hiç geçmiyor; cümle ortak bir motif/alıntı içermiyor).",
+    "onceki_bulgulara_etkisi": "Nazım'ın rolünü ilgilendirir ve #8 ile birlikte okunmalı: v5 par. 316'da Hakan talimatı Zehra'ya veriyor (“Nazım Efendi nerede Zehra? … teslim etsin artık, bu adam neyi bekliyor”); bu yüzden Nazım'ın “söyledi” yerine “söylendi” demesi kurguyla tutarlı, hatta daha doğru. “Bir hafta olur, on gün olur… bu kadar erken değil” ile Hakan'ın “neyi bekliyor” sabırsızlığı arasındaki gerilim iki bakış açısı olarak zaten eski metinde vardı, çelişki yaratmaz; par. 1094–1097 (“Kâğıtları bıraktığın zaman burada kim vardı?” “Sen.”) ile de uyumlu. “Sabah olur”un çıkması zaman çizgisini sadeleştirir (sahne öğle öncesi, Sefa bir gün önce de odadaydı: par. 303, 313). Vildan'ın varlığı, Zehra'nın statüsü, motto: etkilenmez.",
+    "tavsiye": "al, yazım düzelt",
+    "gerekce": "Değişiklik Nazım'ın karakterine (par. 349 “Burada iyi anılarım yok”, par. 354 “Ben kendimi bilirim… cahil herifin tekiyim”) ve UNUTMA bölümünün bilmek/unutmak izleğine (par. 357) daha iyi oturuyor; edilgen çatı #8'deki Zehra aracılığıyla uyumlu; “Sabah olur” kaldırılınca sıralama mantıklı. Tek engel dil bilgisi: “bulacağımı söylendi” → “bulacağım söylendi” (veya “bulacağımı söylediler”) yapılarak alınmalı."
+   },
+   "verdict": {
+    "nr": 10,
+    "bestaetigte_sorunlar": [
+     "“Sadece sizi burada bulacağımı söylendi.” cümlesinde çatı uyumsuzluğu var: edilgen “söylendi” fiilinin öznesi olan yan cümle belirtme eki almaz; doğrusu “bulacağım söylendi” (ya da etken “bulacağımı söyledi/söylediler”). Bu, Sefa'nın “söyledi”yi “söylendi” yapıp “-ı” ekini silmeyi unuttuğu yarım kalmış bir düzeltme gibi görünüyor. Kitapta bu yapının tek örneği burası; kitabın kendi kullanımı ekli değil: 382. paragraf “tanışacağım söylenmişti”, 1006. paragraf “yapılacağı söylendi”."
+    ],
+    "widerlegte_sorunlar": [
+     "Yöresel/ağız konuşması olarak savunma geçerli değil: Nazım'ın ağız özellikleri başka yerlerde (“getirem mi”, “bi solukta”) ses ve ek düzeyinde; bu cümlenin geri kalanı ise standart Türkçe. “-ı söylendi” ağız özelliği değil, düzeltme sırasında kalmış bir kırıntı.",
+     "“bildik de ne oldu?” konuşma dili; hata değil, yazarın üslubu.",
+     "“Sabah olur” ifadesinin çıkarılması mantık açısından sorunsuz; çelişki yaratmıyor."
+    ],
+    "tavsiye_final": "al, yazım düzelt",
+    "reasoning": "Paragraf 331 (sahit_v5.txt) doğrulandı: Sefa “söyledi” yerine “söylendi” yazmış ama “bulacağımı” biçimini korumuş. Türkçede edilgen fiilin öznesi olan -DIK/-AcAK yan cümlesi yalın hâlde olmalı (“bulacağım söylendi”). Kitabın kendi tutarlı kullanımı da (382, 1006) bunu destekliyor; sahit_v5, yolcu_v4 ve sahidi_ararken içinde “-ı/-i + söylendi” yapısının başka örneği yok. Nazım'ın ağzını savunan bir okumayla çürütmeyi denedim, ama ağız özellikleri başka biçimde görünüyor; bu cümle bir düzeltmeden kalmış hata. Değişikliğin geri kalanı (“bildik de ne oldu”, “Sabah olur”un çıkarılması) kabul edilebilir. Önerilen düzeltme: “Sadece sizi burada bulacağım söylendi.”",
+    "confidence": 0.85
+   }
+  },
+  {
+   "assessment": {
+    "nr": 11,
+    "kategori": "içerik eklemesi",
+    "ozet_tr": "Nazım Efendi'nin kapıdan uzaklaşmasına \"bir hayalet gibi koridor boyunca süzüldü\" imgesi, paragraf sonuna da Hakan Hoca'yı onaylayan \"ve adam haklıydı\" yargısı eklendi; başka bir değişiklik yok.",
+    "dil_sorunlari": [
+     {
+      "yer": "\"Bir süre kapının önünde arkasından baktım, bir hayalet gibi koridor boyunca süzüldü.\"",
+      "sorun": "Özne değişen iki bağımsız cümle virgülle bağlanmış (ben baktım / o süzüldü); kitabın geri kalanında bu tür yerlerde noktalı virgül ya da nokta kullanılıyor (örn. 325, 338).",
+      "oneri": "\"Bir süre kapının önünde arkasından baktım; koridor boyunca bir hayalet gibi süzülüp gitti.\" (noktalı virgül + \"bir hayalet gibi\"nin fiile yaklaştırılması)"
+     },
+     {
+      "yer": "\"Arkasını döner dönmez topukladı. ... bir hayalet gibi koridor boyunca süzüldü.\"",
+      "sorun": "\"topukladı\" (hızla, gürültülü adımlarla uzaklaştı) ile \"süzüldü\" (sessizce kaydı) aynı hareket için birbirine yakın iki zıt imge; üslup gerilimi düşük düzeyde.",
+      "oneri": "Hayalet imgesi kalacaksa \"topukladı\" yerine \"uzaklaştı\" düşünülebilir; ya da olduğu gibi bırakılıp yazara bırakılır."
+     },
+     {
+      "yer": "\"Yazmak konsantrasyon işiydi ve adam haklıydı. \"",
+      "sorun": "Cümle sonunda fazladan boşluk var. Ayrıca aynı bölümde 12 paragraf önce (325) \"Ama Hakan Hoca haklıydı.\" zaten geçiyor; \"adam\" anlatıcının Hakan Hoca için başka yerde kullanmadığı, hafif laubali bir ifade.",
+      "oneri": "Boşluğu sil. İsteğe bağlı: \"Yazmak konsantrasyon işiydi; Hoca haklıydı.\" ya da \"...işiydi ve haklıydı da.\""
+     }
+    ],
+    "tutarlilik": [
+     {
+      "konu": "Mekân: koridor",
+      "kanit": "240: \"Girişin arka tarafına düşen koridorun sonunda ... Oda tam arka köşedeydi.\"; 1078: \"burası ana giriş katının arkasındaki yazı odası ... koridorun sonundan dışarı çıkıyordum.\" Oda koridorun ucunda; Nazım'ın koridor boyunca uzaklaşması mekânla uyumlu, çelişki yok.",
+      "ciddiyet": "düşük"
+     },
+     {
+      "konu": "Hakan Hoca'nın 'kilitsiz kapı' uyarısı (değişiklikten önce de vardı, Sefa'nın eklemesi değil)",
+      "kanit": "241: Hakan Hoca yalnızca \"Bu odanın anahtarları yalnızca sende ve bende var ... Buraya sadece ikimiz girebiliriz\" diyor; kilitli olmayan kapıyı yanlışlıkla açanlar uyarısı metinde sahnelenmiyor. \"söylemişti\" sahne dışı bir konuşmaya bağlanabilir; sorun yeni metinden kaynaklanmıyor.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "ilgisiz — yolcu_v4.txt'de \\\"hayalet\\\", \\\"süzül-\\\" ya da bu sahneye bağlı ortak bir motif/alıntı yok; leitmotif (\\\"İnsan öğrenmez, hatırlar\\\") bu paragrafa değmiyor.",
+    "onceki_bulgulara_etkisi": "Nazım'ın rolüne hafifçe dokunuyor, olumlu yönde: 1582'de Nazım ile Zehra'nın \\\"ikimizin anlatısında da\\\" bulunan, gerçekliği askıda figürler olduğu söyleniyor (\\\"o iki insan diye anlattığım hayatlar aynı bedenden geçiyordu\\\"); 1763'te \\\"Nazım'ın korkusu bir insanın resmî özgeçmişi değildi\\\". İlk karşılaşmada \\\"hayalet gibi\\\" imgesi bu belirsizliği erkenden sezdiriyor, çelişmiyor. Vildan'ın varlığı, Zehra'nın statüsü ve motto etkilenmiyor.",
+    "tavsiye": "al, yazım düzelt",
+    "gerekce": "Eklemeler anlatıyla ve Nazım'ın sonraki belirsiz konumuyla uyumlu; yalnızca virgülle bağlanmış özne değişimi (noktalı virgül), sondaki fazla boşluk ve isteğe bağlı olarak \\\"adam\\\"/\\\"haklıydı\\\" tekrarı düzeltilmeli. Düzeni bozmaz, v5'e olduğu yerde alınabilir."
+   },
+   "verdict": {
+    "nr": 11,
+    "bestaetigte_sorunlar": [
+     "\"Yazmak konsantrasyon işiydi ve adam haklıydı. \" cümlesinin sonunda fazladan bir boşluk var. Boşluk Sefa'nın metninden geliyor (changes.json nr 11, sefa alanı); v5'te sonunda boşluk kalan yalnızca 3 satır var. Basılı metinde görünmez, yine de silinmesi gerekir."
+    ],
+    "widerlegte_sorunlar": [
+     "\"Bir süre kapının önünde arkasından baktım, bir hayalet gibi koridor boyunca süzüldü.\" cümlesi hata sayılmaz. TDK'ye göre sıralı cümleler, özneleri farklı olsa da virgülle ayrılabilir. Kitapta da bu kullanım yaygın (örn. 367: \"Doğdu ceylan yeni formunda, bedeni aynıydı ama cisimsizdi, nefes almıyordu...\"). Noktalı virgül yalnızca bir üslup tercihi, zorunlu değil.",
+     "\"topukladı\" ile \"bir hayalet gibi ... süzüldü\" çelişmiyor. \"Topuklamak\" hızla uzaklaşmak, kaçmak demek; gürültüyü değil hızı anlatır. Hızla gidip sessizce gözden kaybolmak tutarlı bir imge, burada yalnızca yazarın üslubu söz konusu.",
+     "\"ve adam haklıydı\" ifadesindeki \"adam\" kelimesi hata değil. Ben-anlatıcının iç sesinde gündelik bir ifade ve yazarın üslubu. \"haklıydı\" kelimesinin 325'teki \"Ama Hakan Hoca haklıydı.\" cümlesinden 12 paragraf sonra yeniden geçmesi bir tekrar ama hata değil; hatta 322'deki \"Yazmak konsantrasyon işidir\" sözüne bilinçli bir geri dönüş.",
+     "Mekân (koridor) konusunda çelişki yok. Kolegin kendisi de çelişki bulmadı (240 ve 1078 ile uyumlu), dolayısıyla bu bir kusur değil.",
+     "\"Hakan Hoca, kilitli olmayan kapıları ... söylemişti\" cümlesi Sefa'nın eklemesi değil, özgün el yazmasında da var (sahidi_ararken.txt satır 349, changes.json orig). Sahne dışında yapılmış bir konuşmaya gönderme olabilir, belgelenebilir bir çelişki yok."
+    ],
+    "tavsiye_final": "al, yazım düzelt",
+    "reasoning": "v5'te ilgili paragraf aslında 337 numaralı (dosyanın 338. satırı); görevde verilen 336 numarası changes.json'daki orig_idx'e göre. Sefa'nın iki eklemesi (\"bir hayalet gibi koridor boyunca süzüldü\", \"ve adam haklıydı\") dilbilgisi açısından doğru. Virgülle bağlanmış sıralı cümleler hem TDK kurallarına hem kitabın genel kullanımına uyuyor. Topukladı/süzüldü, \\\"adam\\\" ve haklıydı tekrarı yalnızca üslup meselesi. Tutarlılık notları ya çelişki taşımıyor ya da özgün metinden geliyor. Kalan tek somut kusur, Sefa'nın paragrafının sonundaki fazladan boşluk. Bu yüzden değişiklik alınmalı, yalnızca sondaki boşluk silinmeli.",
+    "confidence": 0.85
+   }
+  },
+  {
+   "assessment": {
+    "nr": 12,
+    "kategori": "üslup",
+    "ozet_tr": "Paragrafın son cümlesinde durağan koşaç yapısı („Aynı kapı … eski bir tecrit yeriydi“) yerine kapıyı hareketli bir imgeye çeviren fiil gelmiş („… eski bir tecrit odasına açılıyordu“); anlam aynı, yalnızca „tecrit yeri“ ifadesi kitabın geri kalanındaki „tecrit odası“ terimine çekilmiş ve kapı „açılan“ bir eşiğe dönüşmüş. (Not: Görev metnindeki ALT alıntı „tecrit odasının yeriydi“ yanlış; sahidi_ararken.txt 362 ve changes.json'a göre özgün ifade „eski bir tecrit yeriydi“.)",
+    "dil_sorunlari": [
+     {
+      "yer": "sahit_v5.txt 350, son cümle: „Aynı kapı, birimiz için yeni bir başlangıç, diğeri için eski bir tecrit odasına açılıyordu.“",
+      "sorun": "Yüklem „açılıyordu“ yönelme hâli istiyor; ikinci öğe „tecrit odasına“ -a almış, ilk öğe „yeni bir başlangıç“ yalın kalmış. Eski cümlede koşaç („…yeriydi“) her iki öğeyi yalın hâlde taşıyordu; fiil değişince eksiltili yapı bozulmuş (hâl uyumsuzluğu).",
+      "oneri": "„Aynı kapı, birimiz için yeni bir başlangıca, diğeri için eski bir tecrit odasına açılıyordu.“"
+     },
+     {
+      "yer": "sahit_v5.txt 350: „birimiz için … diğeri için“",
+      "sorun": "Değişiklikten önce de vardı, bu düzeltmenin parçası değil: „birimiz“ (bizden biri) ile „diğeri“ (üçüncü kişi) koşutluğu zayıf; düşük öncelik.",
+      "oneri": "İsteğe bağlı: „birimiz için … diğerimiz için“."
+     }
+    ],
+    "tutarlilik": [],
+    "kitaplar_arasi": "ilgisiz. Kapı imgesi YOLCU'da da var (yolcu_v4.txt 2939 „İki ayrı el, aynı kapıyı farklı nedenlerle aralık bırakmıştı“; 3633 „Kapı açıldıktan sonra kimin geçmesine izin verdiğim de bendim“), ama bu ortak bir alıntı/leitmotif değil, genel bir imge; „tecrit odası“ YOLCU'da geçmiyor (2584'teki „Tecrit et“ başka bağlam). Köprüyü ne güçlendirir ne zayıflatır.",
+    "onceki_bulgulara_etkisi": "Vildan'ın bulunuşu, Zehra'nın konumu ve motto („İnsan hakikati öğrenmez, hatırlar“, 360) bu paragrafa değmiyor. Nazım'ın rolüne dair değerlendirmeyi değiştirmez, aksine destekler: Yeni ifade, Nazım'ı odanın hafızasını taşıyan kişi olarak kuran sonraki pasajlarla (1078 „Nazım'ın korktuğu eşik, benim her gün anahtarımla açtığım eşikti“; 1595 „Nazım'ın girmekten korktuğu tecrit odası“) aynı imge dilini kullanıyor. Terim tutarlılığı da artıyor: Hakan Hoca 316'da „Eski tecrit odasına bırakacak evrakları“, Nazım 349'da „tecrit odasıydı“, 1076'da „Eski tecrit dediğin“, 1567'de „Eski tecrit odasını“ diyor; eski „tecrit yeri“ bu dizide tek aykırı kullanımdı.",
+    "tavsiye": "al, yazım düzelt",
+    "gerekce": "Değişiklik içerik ve terim bakımından romanın geri kalanıyla uyumlu, kapı/eşik motifini (1078, 1595) erkenden kuruyor ve kitabın kendi „tecrit odası“ terimine bağlanıyor; düzeni bozmaz. Tek engel dil bilgisel: „açılıyordu“ yüklemiyle ilk öğe de yönelme hâline alınmalı („yeni bir başlangıca“). Bu tek ekle alınabilir; yazara sormaya gerek yok, çünkü anlam değişmiyor."
+   },
+   "verdict": {
+    "nr": 12,
+    "bestaetigte_sorunlar": [
+     "„Aynı kapı, birimiz için yeni bir başlangıç, diğeri için eski bir tecrit odasına açılıyordu.“ cümlesinde ortak yüklem uyumsuzluğu var. „açılıyordu“ yüklemi yönelme hâli ister; koşut ikinci öğe „tecrit odasına“ bu eki almış, birinci öğe „yeni bir başlangıç“ ise yalın kalmış. Eski metindeki „…tecrit yeriydi“ ek-fiili iki öğeyi de yalın hâlde taşıyordu, yüklem değişince eksiltili yapı bozuldu. Bu, ders kitaplarındaki klasik ek eksikliği / ortak öğe anlatım bozukluğudur. Düzeltme: „…birimiz için yeni bir başlangıca, diğeri için eski bir tecrit odasına açılıyordu.“"
+    ],
+    "widerlegte_sorunlar": [
+     "„birimiz için … diğeri için“ koşutluğu hata değil. „biri/birimiz … diğeri“ eşleşmesi yerleşik bir kullanımdır, yazarın üslubu sayılır. Ayrıca Sefa'nın değişikliğinden önce de vardı ve bu düzeltmenin parçası değil; „diğerimiz“ önerisi gereksiz."
+    ],
+    "tavsiye_final": "al, yazım düzelt",
+    "reasoning": "changes.json'da Nr. 12'nin eski hâli „…eski bir tecrit yeriydi.“, Sefa'nın hâli „…eski bir tecrit odasına açılıyordu.“. Yeni yüklem, „birimiz için X, diğeri için Y“ koşut yapısında iki öğenin de yönelme hâlinde olmasını gerektiriyor. Birinci öğenin ekleme cümlesi gibi okunup kurtarılması zorlama olur: virgüllü koşut dizilim iki öğenin aynı yükleme bağlı tümleçler olduğunu açıkça gösteriyor. Bu yüzden ilk befund açık bir dil bilgisi hatası olarak kalıyor. İçerik açısından değişiklik tutarlı. „Eski tecrit odası“ terimi kitapta zaten var (316, 349, 1567, 1595). Bir önceki paragraf (349) odanın eskiden tecrit odası olduğunu söylüyor, kapı motifi de 1595'le uyumlu. İkinci befund konuşma dili ve üslup tercihi, eskiden de vardı; bu yüzden reddedildi. Önerim: değişiklik alınsın, yalnızca „başlangıç“ kelimesi „başlangıca“ yapılsın.",
+    "confidence": 0.85
+   }
+  },
+  {
+   "assessment": {
+    "nr": 13,
+    "kategori": "üslup",
+    "ozet_tr": "Nazım'ın \"veliler\" açıklaması genişliyor: \"Ya da sizin gibi kişiler\" ayrımı kalkıp Sefa doktorlarla aynı kefeye konuyor ve tanıma halk ağzından \"mürekkep yalamış / beyaz yaka\" ikilemi ekleniyor; bilgi değişmiyor, Nazım'ın sesi renkleniyor.",
+    "dil_sorunlari": [
+     {
+      "yer": "“…artık mürekkep yalamış mı dersiniz beyaz yaka mı dersiniz”",
+      "sorun": "Kapanış tırnağından önce noktalama yok. UNUTMA bölümünde 42 diyalog satırının 38'i tırnak içinde nokta/soru işaretiyle kapanıyor (340 “…ben bu odaya girmem.”, 351 “…ne demek istedin?”); dört istisnanın üçü (316, 336, 352) Sefa'nın yeni/değiştirilmiş satırları.",
+      "oneri": "“…beyaz yaka mı dersiniz.” (retorik vurgu istenirse “…dersiniz?”); kitabın geneliyle uyum için nokta."
+     },
+     {
+      "yer": "mürekkep yalamış mı dersiniz beyaz yaka mı dersiniz",
+      "sorun": "“… mı dersiniz, … mı dersiniz” kalıbında iki seçenek arasındaki virgül eksik.",
+      "oneri": "mürekkep yalamış mı dersiniz, beyaz yaka mı dersiniz"
+     },
+     {
+      "yer": "Doktorlar demek istedim hocam, sizin gibi kişiler, artık mürekkep…",
+      "sorun": "Üç ayrı yargı art arda virgülle bağlanmış (virgül yığılması); eski metinde cümle sınırı vardı (“…hocam. Ya da…”).",
+      "oneri": "Doktorlar demek istedim hocam; sizin gibi kişiler… Artık mürekkep yalamış mı dersiniz, beyaz yaka mı dersiniz. (En azından “hocam, sizin gibi kişiler; artık…”)"
+     },
+     {
+      "yer": "beyaz yaka",
+      "sorun": "TDK madde başı “beyaz yakalı”; “beyaz yaka” plaza/İK jargonu. Kendini “cahil herif” diye tanıtan, “getirem mi ben bi solukta”, “He!”, “bildik de ne oldu” diyen yaşlı odacının ağzında kayıt dışı duruyor; “mürekkep yalamış” ise tam ona göre.",
+      "oneri": "Ya yazım olarak “beyaz yakalı mı dersiniz”; ya da kayda uygun karşılık: “…mürekkep yalamış mı dersiniz, okumuş mu dersiniz” / “kravatlı mı dersiniz”. Yazara tek satırlık not; engel değil."
+     }
+    ],
+    "tutarlilik": [
+     {
+      "konu": "Nazım'ın konuşma kaydı (karakter sesi)",
+      "kanit": "335 “Yok, ben girmeyeyim Beyim, Size çay getirem mi ben bi solukta”; 354 “Cahil herifin tekiyim, hepsi bu.”; 1077 “He.”; 1272 “He, demek oluyormuş.” — kısa, köy ağzı, deyimli. “Beyaz yaka” bu sesle uyuşmuyor; olgusal çelişki değil, ton kayması.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "ilgisiz — ortak motto ya da ortak alıntı içermiyor. YOLCU'daki “mürekkep” geçişleri (266, 2381, 2608, 2629, 2780) fiziksel iz/mavi mürekkep motifidir; “mürekkep yalamış” deyimiyle köprü kurmaz.",
+    "onceki_bulgulara_etkisi": "Nazım'ın rolüne dokunuyor: Nr. 10 (“bildik de ne oldu”, “söylendi”) ve Nr. 11 (“bir hayalet gibi koridor boyunca süzüldü”) ile birlikte Nazım'ın sesi daha somut ve halk ağzına yakın kuruluyor; bu değişiklik aynı yönde, yalnız “beyaz yaka” o çizgiden sapıyor. Sefa'nın Nazım'ı doktor sanması bilgi düzeyiyle tutarlı (331: ona yalnızca “sizi burada bulacağımı söylendi”; yazar olduğunu 353'te öğreniyor). Vildan, Zehra ve motto (360 “İnsan hakikati öğrenmez, hatırlar”) etkilenmiyor. Sefa'nın yeni satırlarında kapanış noktalamasının sistematik düşmesi örüntüsü (316, 336, 352) bir kez daha doğrulanıyor; redaksiyonda toplu düzeltilmeli.",
+    "tavsiye": "al, yazım düzelt",
+    "gerekce": "İçerikçe kazanç: Nazım'ın “veli” tanımı somutlaşıyor, “mürekkep yalamış” deyimi romanın mürekkep/daktilo motifiyle (304, 541, 708, 1766) sessizce rezonans kuruyor ve Sefa'nın “ben veli meli değilim, sadece yazıyorum” cevabını daha iyi hazırlıyor. Kusurlar mekanik (ara virgül, kapanış noktalaması, virgül yığılması) ve tek paragrafta çözülüyor. “Beyaz yaka” kayıt sorunu yazara not olarak iletilmeli, değişikliği bekletmeye değmez. Tek paragraf, aynı konum: v5 düzenini bozmaz."
+   },
+   "verdict": {
+    "nr": 13,
+    "bestaetigte_sorunlar": [
+     "“…mürekkep yalamış mı dersiniz beyaz yaka mı dersiniz” satırında kapanış tırnağından önce nokta yok. Değiştirilen eski satır (“…Ya da sizin gibi kişiler.”) noktayla bitiyordu; UNUTMA bölümünde de tam diyalog satırlarının büyük çoğunluğu (ör. 340 “…ben bu odaya girmem.”, 351 “…ne demek istedin?”) noktalamayla kapanıyor. Öneri: “…beyaz yaka mı dersiniz.”"
+    ],
+    "widerlegte_sorunlar": [
+     "“mürekkep yalamış mı dersiniz beyaz yaka mı dersiniz”de ara virgül eksikliği: TDK'ye göre bu virgül zorunlu değil. Bu yapıdaki “mı … mı” seçenekleri virgülsüz de yazılabiliyor (“Gelir mi gelmez mi belli değil”). Ayrıca söz konuşma dilinde; bu bir hata değil, üslup tercihi.",
+     "“Doktorlar demek istedim hocam, sizin gibi kişiler, artık…” için virgül yığılması: “sizin gibi kişiler”, “doktorlar”ı açıklayan bir ara söz; “artık … dersiniz” de konuşma akışında söylenen bir ek. Bu, odacının sözlü anlatımına uyan bir yapı ve dil bilgisi hatası değil.",
+     "“beyaz yaka”nın TDK'de yalnızca “beyaz yakalı” olarak geçmesi: Ad olarak kullanılan “beyaz yaka” (“beyaz yakalar”) yaygın ve anlaşılır bir söyleyiş. “… mı dersiniz” kalıbında da doğal duruyor. Ortada bir yazım hatası yok.",
+     "Nazım'ın konuşma diliyle “beyaz yaka” arasında ton kayması: Bu bir üslup değerlendirmesi, kanıtlanabilir bir içerik çelişkisi değil. “Mürekkep yalamış” deyimini bilen bir odacının gündelik “beyaz yaka” deyişini de kullanması makul; yazar kendi üslubunu seçmekte özgür."
+    ],
+    "tavsiye_final": "al, yazım düzelt",
+    "reasoning": "Metin sahit_v5.txt 352 numaralı satırda kontrol edildi (bağlam: 340–354), eski hâli de sahidi_ararken.txt 364 numaralı satırda. Tek somut sorun mekanik: Sefa'nın yeni satırında kapanış tırnağından önce noktalama yok. Değiştirilen eski satır noktayla bitiyordu; UNUTMA bölümünde de tam diyalog satırlarının çoğu noktalamayla kapanıyor. Bir sınırlama var: Kitabın tamamında 881 tam diyalog satırının 235'i (yaklaşık %27) noktalamasız bitiyor. Bunlar özellikle eski el yazmasından gelen bölümlerde (ör. 55–102, 369–402, 517–582). Yani kitaptaki kullanım tutarlı değil, ama çoğunluk ve bu bölümün kullanımı noktadan yana; bu yüzden bulgu, düşük ağırlıkla da olsa geçerli. Ara virgül, virgül yığılması ve “beyaz yaka” ile ilgili diğer bulgular TDK açısından açık hata değil. Bunlar sözlü üsluba ve yazarın tercihine giriyor; kanıtlanabilir bir içerik çelişkisi de yok. İçerik açısından değişiklik Nazım'ın “veli” açıklamasını somutlaştırıyor ve 353 numaralı satıra iyi bağlanıyor. Bu yüzden önerim, değişikliği tek yazım düzeltmesiyle (sona nokta) almak.",
+    "confidence": 0.82
+   }
+  },
+  {
+   "assessment": {
+    "nr": 14,
+    "kategori": "anlam değişikliği",
+    "ozet_tr": "UNUTMA'da anlatıcının ilk mektuptan aktardığı İbnü'l-Arabî sözü kısa biçimden (“İnsan öğrenmez, hatırlar”) kitabın sonunda ve YOLCU'da kullanılan uzun biçime (“İnsan hakikati öğrenmez, hatırlar”) getiriliyor; paragrafta başka hiçbir kelime değişmiyor.",
+    "dil_sorunlari": [],
+    "tutarlilik": [
+     {
+      "konu": "Alıntı ile ilk mektubun metni (bağımlılık: Değişiklik 1)",
+      "kanit": "Paragraf 360 sözü “ilk mektuptaki” uyarı olarak aktarıyor. v5 Dizin 40–41: “Muhyiddin İbnü'l-Arabî'ye atfedilen sözle: / “İnsan hakikati öğrenmez, hatırlar!”” — Değişiklik 1 ile birlikte alındığında tutarlı; Değişiklik 1 alınmazsa anlatıcı mektubu yanlış alıntılamış olur.",
+      "ciddiyet": "düşük"
+     },
+     {
+      "konu": "Leitmotifin kalan kısa biçimi (HODRİ)",
+      "kanit": "v5 Dizin 705 (Hodri'nin mektubu): “İnsan öğrenmez, hatırlar! Şahit unuttu, sen anlatınca hatırlayacak” — Sefa 41, 360 ve 473'ü uzun biçime çekmiş, 705'e dokunmamış. Bu değişiklikten sonra kitaptaki tek kısa biçim burası kalıyor (473'teki “insan öğrenmez, onlara kötülüğü…” ve 363'teki “öğrenmekten çok hatırlaması” ise alıntı değil, serbest anıştırma). Olay örgüsüyle çelişki yok; motto yazımında kalan son tutarsızlık.",
+      "ciddiyet": "orta"
+     }
+    ],
+    "kitaplar_arasi": "Köprüyü güçlendiriyor. YOLCU v4 Dizin 3526 (48. bölüm “Saat 14.53”): “İnsan hakikati öğrenmez, hatırlar!” — birebir aynı uzun biçim. Değişiklik 1, 14 ve 17 ile ŞAHİT'teki açık alıntıların tamamı (41, 360, 473, 1560, 1733) YOLCU'daki sözle kelimesi kelimesine örtüşüyor; tek istisna Hodri'nin mektubu (705). Özgün metinde kısa/uzun ayrımı sistemli değildi (ilk mektup kısa, AYNI EL uzun), dolayısıyla “Şeytan'ın kısa biçimi – anlatıcının sınanmış uzun biçimi” diye okunabilecek bilinçli bir karşıtlık kaybolmuyor.",
+    "onceki_bulgulara_etkisi": "Motto bulgusunu doğrudan ilgilendiriyor: analyse_SA_mystik (“üç kez kırılan motto”), quer_drittesbuch (“BY uygular, SA sınar”) ve jüri raporundaki “İnsan (hakikati) öğrenmez, hatırlar” başlığı Başlangıç/UNUTMA/FİTNE alıntılarını kısa biçimle veriyordu; bu alıntılar v5'e göre güncellenmeli, başlıktaki parantez artık yalnızca HODRİ (705) için geçerli. Bulgunun özü (YOLCU'da uygulanan, ŞAHİT'te sınanan motto) ve jürinin “kelimesi kelimesine örtüşen taşıyıcı cümleler” köprüsü değişmiyor, hatta güçleniyor. Vildan'ın varlığı, Zehra'nın konumu ve Nazım'ın rolüyle ilgisi yok.",
+    "tavsiye": "olduğu gibi al",
+    "gerekce": "Tek kelimelik ekleme; “hakikati” TDK'ya ve kitabın yazımına uygun (kitapta hakikat/hakikati 78 kez, hiçbirinde şapka yok), belirtme hâli cümleye oturuyor; tırnak içi noktalama özgün metinle aynı (“sözü” ile devam ettiği için ünlem yok, 1733'teki kullanımla uyumlu). Alıntı artık hem ilk mektupla (41) hem YOLCU 3526 ile birebir örtüşüyor. İki şart: Değişiklik 1 ile birlikte alınmalı (aksi hâlde anlatıcı mektubu yanlış aktarır) ve yazara ayrıca sorulmalı: Hodri'nin mektubundaki (705) kısa biçim bilinçli mi, yoksa o da uzun biçime çekilecek mi."
+   },
+   "verdict": {
+    "nr": 14,
+    "bestaetigte_sorunlar": [],
+    "widerlegte_sorunlar": [
+     "Değişiklik 1'e bağımlılık (Dizin 40–41): v5'te 41 zaten “İnsan hakikati öğrenmez, hatırlar!” biçiminde; 360'taki “İnsan hakikati öğrenmez, hatırlar” sözü ilk mektupla birebir örtüşüyor. Metinde bugün bir çelişki yok. Bu bir hata değil, yalnızca birlikte alma notu: Değişiklik 1 alınmazsa 14 de alınmamalı.",
+     "Hodri'nin mektubundaki kısa biçim (Dizin 705, “İnsan öğrenmez, hatırlar! Şahit unuttu…”): Değişiklik 14'ün kapsamı dışında. 705, Hodri'nin kendi ağzından yazdığı, “aha oradaydı”, “hasılı” gibi konuşma diliyle dolu bir mektup. Söz orada İbnü'l-Arabî'ye atfedilerek ya da ilk mektuptan alıntı olarak verilmiyor, bir figürün kendi sözü olarak geçiyor. Yazarın üslubu ve karakter sesi sayılır. Ne yazım hatası ne de belgelenebilir bir içerik çelişkisi; en fazla yazara sorulacak bir üslup tercihi."
+    ],
+    "tavsiye_final": "olduğu gibi al",
+    "reasoning": "v5 360: '…Muhyiddin İbnü'l-Arabî'ye atfedilen “İnsan hakikati öğrenmez, hatırlar” sözü.' Tek kelimelik ekleme (hakikati) TDK'ya uygun ve belirtme hâli cümleye oturuyor. Tırnak içi noktalama orijinal 360 ile aynı: tırnağın ardından cümle “sözü” ile devam ettiği için içerde ünlem yok, 1733'teki kullanım da buna benziyor. Alıntı v5'te ilk mektupla (41), FİTNE 473 (Değişiklik 17) ve YOLCU 3526 ile birebir örtüşüyor. Meslektaşın iki bulgusu metinde gerçek bir hata göstermiyor. Birincisi yalnızca Değişiklik 1 ile paket hâlinde alma notu; v5'te 1 zaten işlenmiş. İkincisi Hodri'nin kendi sesiyle yazdığı mektupla (705) ilgili, kapsam dışında kalan bir üslup sorusu. Pratik not: 1 ile 14'ü birlikte alın. 705'teki kısa biçimin bilinçli olup olmadığı, isteğe bağlı olarak yazara ayrıca sorulabilir. Dosyalar: /tmp/claude-0/-home-user-Notion/6549e111-23e7-5e00-8587-d424b5294a16/scratchpad/books/sahit_v5.txt (Dizin 41, 360, 473, 705, 1733), /tmp/claude-0/-home-user-Notion/6549e111-23e7-5e00-8587-d424b5294a16/scratchpad/sefa_odt/changes.json (nr 1, 14, 17).",
+    "confidence": 0.9
+   }
+  },
+  {
+   "assessment": {
+    "nr": 15,
+    "kategori": "içerik eklemesi",
+    "ozet_tr": "Anlatıcının \"insan neyle kâmildi\" sorgusuna hakikat, iman ve teslimiyet üzerine bir ara düşünce ekleniyor. Alkol sorusu da küfür/kâfir ile hamr arasındaki \"örtme\" kelime oyununa bağlanarak aklı örtenin haram oluşuyla sonuçlandırılıyor.",
+    "dil_sorunlari": [
+     {
+      "yer": "362: \"İman, evet iman aklının ermediği hakikate inanmak teslim olmaktı.\"",
+      "sorun": "Virgüller eksik: \"evet iman\" ara söz olarak ayrılmamış, iki yüklem öbeği (\"inanmak\" / \"teslim olmaktı\") arasında ayraç yok. \"aklının\" sözcüğünün iyelik sahibi açık değil.",
+      "oneri": "\"İman, evet iman, aklın ermediği hakikate inanmak, ona teslim olmaktı.\""
+     },
+     {
+      "yer": "362: \"Akıl insanı aklının aldığı yere kadar götürür\"",
+      "sorun": "Virgül olmadığı için \"akıl insanı\" bir tamlama gibi (aklıyla hareket eden insan) okunabiliyor.",
+      "oneri": "\"Akıl, insanı aklının aldığı yere kadar götürür(dü)\""
+     },
+     {
+      "yer": "362: \"ama iman aklatmediği yerde iman eder\"",
+      "sorun": "\"aklatmediği\" diye bir sözcük yok, büyük olasılıkla \"akletmediği\" ya da \"aklın yetmediği\" kastediliyor. Ayrıca \"iman ... iman eder\" mantıkça döngüsel: özne iman, yüklem de \"iman eder\".",
+      "oneri": "\"aklın yetmediği yerde ise insan iman eder(di)\". Hangi sözcüğün kastedildiğini yazara sorun."
+     },
+     {
+      "yer": "362: \"iman ise akla takla attırıdı.\"",
+      "sorun": "Yazım hatası: bir \"r\" eksik. Ayrıca zaman uyumsuz: \"götürür / eder\" geniş zamanda, \"attırıdı\" ise hikâye kipinde. Paragrafın geri kalanı -dı/-ırdı ile ilerliyor (ürerdi, kâmildi).",
+      "oneri": "\"attırırdı\". Cümlenin tamamı tek kipte olmalı: \"götürürdü … ederdi … attırırdı\" ya da özdeyiş olarak \"götürür … eder … attırır\"."
+     },
+     {
+      "yer": "362: \"Öyle olmasaydı, aklı örten alkol neden kötülüklerin anası sayılsın, Hakk'ı örtmeye…\"",
+      "sorun": "Asıl metindeki soru işareti kaldırılmış. Soru cümlesi virgülle bildirme cümlesine bağlanınca bir virgül hatası (comma splice) oluşuyor. \"sayılsın\" soru kipinde kalıyor ama işareti yok.",
+      "oneri": "\"…neden kötülüklerin anası sayılsın? Madem Hakk'ı örtmeye kâfirlik deniyordu, …\""
+     },
+     {
+      "yer": "362: \"kafirlik\", \"kafirin\"",
+      "sorun": "TDK'ye göre doğru yazım \"kâfir\". Kitap düzeltme işaretini tutarlı kullanıyor (kâmil, zekâ, inkâr, mekân, âşık).",
+      "oneri": "\"kâfirlik\", \"kâfirin\". 1162. paragraftaki \"kafir olan krala\" da \"kâfir\" yapılmalı."
+     },
+     {
+      "yer": "362: \"kafirin de hakikatini örten, iman etmemesiydi.\"",
+      "sorun": "Anlam belirsiz. \"hakikatini\" kâfirin kendi hakikati olarak okunuyor, oysa önceki önerme (Hakk'ı örtmek = kâfirlik) kâfirin hakikati örtmesini anlatıyor. \"de\" bağlacı da yanlış yerde, virgül gereksiz.",
+      "oneri": "\"kâfirin hakikati örtmesi de iman etmemesiydi.\" Kendi hakikati kastediliyorsa: \"kâfirin kendi hakikatini örten de iman etmeyişiydi.\""
+     },
+     {
+      "yer": "362: \"Demek ki aklı örtenin haram edilmesi de bundan sebepti?\"",
+      "sorun": "\"bundan sebepti\" dilbilgisine aykırı. \"Demek ki\" ile kurulan kesin bir yargı soru işaretiyle bitiyor. \"haram edilmek\" yerine yerleşik kalıp \"haram kılınmak\".",
+      "oneri": "\"Aklı örtenin haram kılınması da bu sebepten miydi?\" ya da \"Demek ki aklı örtenin haram kılınması da bundandı.\""
+     }
+    ],
+    "tutarlilik": [
+     {
+      "konu": "\"Öyle olmasaydı\" ifadesinin göndergesi kayıyor",
+      "kanit": "Asıl metinde \"Akıl da kâmildi, hem de en önemlilerinden. Öyle olmasaydı, aklı örten alkol…\" denir; \"öyle\" aklın en önemli parça olmasını işaret eder. Ekleme bu iki cümlenin arasına girdiği için \"Öyle olmasaydı\" artık \"iman ise akla takla attırırdı\" cümlesine bağlanıyor ve akıl yürütme kopuyor (362). Çözüm: ekleme alkol/kâfir cümlelerinden sonraya, paragraf sonuna taşınmalı, ya da \"Öyle olmasaydı\" yerine \"Akıl bu kadar kıymetli olmasaydı\" yazılmalı.",
+      "ciddiyet": "orta"
+     },
+     {
+      "konu": "Motto ile hafif kavramsal gerilim",
+      "kanit": "Ekte \"Kendi hakikatinden vazgeçtiği yerde miydi?\" sorusu var (362). Hemen ardından gelen 363'te \"insanın öğrenmekten çok hatırlaması gerektiğini\", 360'ta ise \"İnsan hakikati öğrenmez, hatırlar\" deniyor; yani hakikat insanın içinde olup hatırlanan bir şey. \"Vazgeçmek\" ile \"hatırlamak\" çelişmiyor ama okuru şaşırtabilir. İsterseniz \"nefsinin hakikatinden\" gibi bir nitelemeyle netleştirilebilir.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "İlgisiz. Mottonun metni değişmiyor; YOLCU'da (3526) \\\"İnsan hakikati öğrenmez, hatırlar!\\\" olarak duruyor. Eklemede iman/akıl ya da küfür/örtme motifi YOLCU'da karşılık bulmuyor. Roman içinde ise \\\"aklı örten\\\" motifini güçlendiriyor: FİTNE bölümünde (471–473) şeytan \\\"Bunun için de aklı örten gerek bize\\\" diyor, ek bu sahneye önceden bir kelime oyunu köprüsü kuruyor.",
+    "onceki_bulgulara_etkisi": "Vildan'ın varlığına, Zehra'nın durumuna ya da Nazım'ın rolüne dokunmuyor; anlatıcı tecrit odasında yalnız düşünüyor. Mottonun metnini de değiştirmiyor. Tek etkisi, 363'teki \\\"hatırlama\\\" düşüncesinin önüne bir \\\"hakikat/iman\\\" girişi koyması; motto bulgusu geçerliliğini koruyor.",
+    "tavsiye": "yazara sor",
+    "gerekce": "Ekleme tematik olarak yerinde ve \\\"aklı örten\\\" motifini (471–473) zenginleştiriyor. Ancak üç noktada yazarın niyeti bilinmeden düzeltme yapılamaz: anlamı belirsiz \\\"aklatmediği\\\" sözcüğü, \\\"kafirin de hakikatini örten\\\" ifadesinin kimin hakikatini kastettiği ve eklemenin \\\"Öyle olmasaydı\\\" bağını koparması. Bunlara ek olarak açık hatalar var: \\\"attırıdı\\\", \\\"bundan sebepti\\\", kaybolan soru işareti ve \\\"kafir\\\"deki eksik düzeltme işareti. Önerilen düzeltilmiş biçim (ekleme paragraf sonuna taşınmış): \\\"…Akıl da kâmildi, hem de en önemlilerinden. Öyle olmasaydı aklı örten alkol neden kötülüklerin anası sayılsın? Madem Hakk'ı örtmeye kâfirlik deniyordu, kâfirin hakikati örtmesi de iman etmemesiydi. Aklı örtenin haram kılınması da bu sebepten miydi? Hakikate nasıl erişirdi insan? Kendi hakikatinden vazgeçtiği yerde miydi? İman, evet iman, aklın ermediği hakikate inanmak, ona teslim olmaktı. Akıl, insanı aklının aldığı yere kadar götürürdü; aklın yetmediği yerde ise insan iman ederdi. İman akla takla attırırdı.\\\""
+   },
+   "verdict": {
+    "nr": 15,
+    "bestaetigte_sorunlar": [
+     "362: \"iman aklatmediği yerde iman eder\" – \"aklatmediği\" diye bir sözcük yok, açık yazım hatası. En olası düzeltme \"akletmediği\", ama cümlenin öznesi \"iman\" olduğu için kastedilen \"insan aklın yetmediği yerde iman eder\" de olabilir. Hangisi olduğu yazara sorulmalı.",
+     "362: \"iman ise akla takla attırıdı.\" – yazım hatası, bir \"r\" eksik. Doğrusu \"attırırdı\".",
+     "362: \"…neden kötülüklerin anası sayılsın, Hakk'ı örtmeye madem…\" – asıl metinde (sahidi_ararken) bulunan soru işareti eklemeyle düşmüş. \"neden … sayılsın\" bir soru cümlesi ve virgülle sonraki bildirme cümlesine bağlanmış. Doğrusu: \"…sayılsın? Hakk'ı örtmeye madem…\""
+    ],
+    "widerlegte_sorunlar": [
+     "362: \"İman, evet iman aklının ermediği…\" – \"evet iman\"dan sonraki virgül ve \"inanmak / teslim olmaktı\" arasındaki virgül noktalamayla ilgili bir üslup tercihi, kesin bir dilbilgisi hatası değil. \"aklının\" iyelik ekiyle bağlamdaki insana gönderme yapıyor ve anlaşılır.",
+     "362: \"Akıl insanı aklının aldığı yere kadar götürür\" – virgül olmaması üslup meselesi. Cümlenin yüklemi \"götürür\" olduğu için \"akıl insanı\" tamlama olarak okunmuyor.",
+     "362: \"iman … iman eder\" döngüselliği – bu tekrar yazarın retorik üslubu, ayrıca hata sayılmaz. Hatalı sözcük yukarıda zaten onaylandı.",
+     "362: \"götürür / eder\" ile \"attırırdı\" arasındaki kip uyumsuzluğu – özdeyiş gibi kurulmuş geniş zamanlı bir cümlenin anlatı kipine geçmesi üslup tercihi. Bu paragrafta zaten \"ürerdi\" ve \"vardı\" yan yana duruyor.",
+     "362: \"kafirlik\", \"kafirin\" – kitapta tutarsızlık yok. Kitabın diğer tek kullanımı (1162: \"kafir olan krala\") ve asıl el yazması da \"kafir\" yazıyor. Yazar kendi içinde tutarlı, \"kâfir\" yazımı isteğe bağlı bir öneri olarak kalır.",
+     "362: \"kafirin de hakikatini örten, iman etmemesiydi.\" – dilbilgisi açısından doğru: \"Kâfirin hakikatini örten şey, iman etmemesiydi.\" Belirsizlik ancak yorum düzeyinde, hata değil.",
+     "362: \"Demek ki aklı örtenin haram edilmesi de bundan sebepti?\" – \"bundan sebep\" eski ya da halk ağzında yerleşik bir bağlaç kalıbı. \"haram etmek\" de kullanılan bir deyim. Soru işaretli \"Demek ki…?\" ise retorik bir çıkarım sorusu, yazarın üslubu.",
+     "Tutarlılık: \"Öyle olmasaydı\" ifadesinin göndergesinin kayması – ortada belgelenebilir bir içerik çelişkisi yok, yalnızca bağlantı biraz gevşemiş. Yazara bir not olarak iletilebilir ama hata sayılmaz.",
+     "Tutarlılık: \"Kendi hakikatinden vazgeçtiği yerde\" ile 360/363'teki \"hatırlamak\" motifi arasındaki gerilim – meslektaş da çelişki olmadığını kabul ediyor. Sorudur, iddia değil. Çürütüldü."
+    ],
+    "tavsiye_final": "yazara sor",
+    "reasoning": "sahit_v5.txt'nin 363. satırını (paragraf 362) ve sahidi_ararken.txt'nin 374. satırını karşılaştırdım. Eklemenin tamamı Sefa'dan geliyor. Onaylanan üç sorunun hepsi açık hata: (1) \\\"aklatmediği\\\" diye bir sözcük yok, (2) \\\"attırıdı\\\"da bir \\\"r\\\" eksik, (3) asıl metindeki \\\"sayılsın?\\\" sorusunun soru işareti kaybolmuş. Bunların dışında kalan noktalama, kip, kelime seçimi ve anlam önerileri üslup ya da yorum meselesi. \\\"kafir\\\" yazımı da kitabın tek diğer kullanımıyla (1162) ve el yazmasıyla tutarlı, hata değil. Ekleme konu bakımından uygun ve alınabilir. Ancak \\\"aklatmediği\\\" ile kastedilen sözcük (\\\"akletmediği\\\" mi, yoksa \\\"aklın yetmediği\\\" mi; cümlenin öznesi de değişebilir) metinden kesin olarak çıkarılamıyor. Bu yüzden önerim \\\"yazara sor\\\". Yazar \\\"akletmediği\\\" derse ekleme şu düzeltmelerle alınabilir: \\\"akletmediği\\\", \\\"attırırdı\\\", \\\"sayılsın? Hakk'ı…\\\". İsteğe bağlı olarak yazara \\\"Öyle olmasaydı\\\" bağlantısı da sorulabilir.",
+    "confidence": 0.75
+   }
+  },
+  {
+   "assessment": {
+    "nr": 16,
+    "kategori": "başlık",
+    "ozet_tr": "AN bölümünün alt başlığında isim olan \"Doğum\" yerine mastar \"Doğmak\" geliyor. Böylece \"Doğmak … Ölmek\" diye kurulan paralel mastar yapısı oluşuyor, anlam aynı kalıyor.",
+    "dil_sorunlari": [],
+    "tutarlilik": [],
+    "kitaplar_arasi": "ilgisiz. Başlık \"İnsan (hakikati) öğrenmez, hatırlar\" leitmotivine dokunmuyor. yolcu_v4.txt'de \"diriliş\", \"doğmak\" ya da benzer bir ölüm-diriliş cümlesi geçmiyor. Biçim açısından yolcu_v4'teki Heading 2 başlıkları da her kelimesi büyük harfle başlayan yazımı kullanıyor (\"Kurmacaya Dair Kısa Bir Not\", Abs. 20), yani başlığın yazım biçimi iki kitapta tutarlı.",
+    "onceki_bulgulara_etkisi": "Hiçbir önceki bulguya dokunmuyor. Vildan'ın orada bulunması, Zehra'nın statüsü, motto ve Nazım'ın rolü bu başlıkla ilgisiz. Sadece mastar paralelliği, bölümün açılış cümlesi \"Doğdu ceylan yeni formunda\" (Abs. 367) ile daha doğrudan bir yankı kuruyor. Ayrıca Abs. 757'deki \"Ölümü, yeniden dirilişi, şahidi…\" ifadesiyle uyumlu.",
+    "tavsiye": "olduğu gibi al",
+    "gerekce": "Yeni başlık dil bilgisi açısından doğru. Eksiltili yapı olan \"Doğmak ölmenin [ilk adımıdır], ölmek yeniden dirilişin ilk adımıdır\" virgülle doğru işaretlenmiş. Başlıklarda her kelimenin büyük harfle başlaması TDK'ye uygun ve kitabın kendi kullanımıyla örtüşüyor. \"Doğum\" yerine \"Doğmak\" gelmesi, ikinci yarıdaki \"Ölmek\" ile simetri kuruyor ve vecize etkisini güçlendiriyor. Başlığın sonundaki \"diriliş\" isim olarak kalmış, ama \"yeniden diriliş\" yerleşik bir terim ve kitapta da böyle geçiyor (Abs. 757). Bu yüzden \"dirilmenin\" biçimine çevirmeye gerek yok. Bölümün içeriğiyle (ceylanın ten ölümünden sonra yeni formda doğması, Abs. 367–368) çelişen bir şey yok."
+   },
+   "verdict": null
+  },
+  {
+   "assessment": {
+    "nr": 17,
+    "kategori": "anlam değişikliği",
+    "ozet_tr": "FİTNE bölümünde Şeytan'ın konuşmasındaki “İnsan öğrenmez, hatırlar!” cümlesine “hakikati” eklenmiş. Böylece söz, açılış mottosu (41) ve 360. paragraftaki alıntıyla kelimesi kelimesine aynı hâle geliyor. Paragrafın geri kalanı değişmemiş (diff yalnızca “+ hakikati”).",
+    "dil_sorunlari": [],
+    "tutarlilik": [
+     {
+      "konu": "Leitsatz'ın kitapta kısa biçimde kalan tek geçişi",
+      "kanit": "Bu değişiklikten sonra kitaptaki tüm geçişler uzun biçimde: 41 “İnsan hakikati öğrenmez, hatırlar!”, 360 “…atfedilen “İnsan hakikati öğrenmez, hatırlar” sözü”, 473, 1560 ve 1733. Yalnızca 705'te (Hodri Mehmet'in mektubu) şu cümle kalıyor: “İnsan öğrenmez, hatırlar! Şahit unuttu, sen anlatınca hatırlayacak…” Değişiklik bu uyumsuzluğu yaratmıyor ama artık tek istisna bu. Ya 705 de “İnsan hakikati öğrenmez, hatırlar!” yapılmalı ya da kısa biçimin Hodri'nin bilerek kullandığı bir varyant olduğu yazara sorulmalı.",
+      "ciddiyet": "orta"
+     },
+     {
+      "konu": "Aynı paragrafta ikinci “insan öğrenmez” artık yarım bir yankı gibi okunuyor",
+      "kanit": "473: “İnsan hakikati öğrenmez, hatırlar! … İnsana başka meşguliyetler vereceğiz ki unutsun, insan öğrenmez, onlara kötülüğü öğretmek fıtratlarına ters…” İkinci geçiş kötülüğü öğrenmekle ilgili. Mantık sağlam: hakikat hatırlanır, kötülük öğretilemez. Buraya “hakikati” eklenmemeli. Yine de okur ikinci geçişi mottonun eksik tekrarı sanabilir. Müdahale gerekmiyor.",
+      "ciddiyet": "düşük"
+     },
+     {
+      "konu": "Şeytan, İbnü'l-Arabî'ye atfedilen sözü peygamberin doğumundan önce söylüyor (bu değişiklikten önce de vardı)",
+      "kanit": "40: “Muhyiddin İbnü'l-Arabî'ye atfedilen sözle:” / 473: “…‘Alemlere rahmet olarak gönderildi’ denilen doğmadan…” Şeytan'ın sözü eski metinde de mottoyla birebir aynıydı. Değişiklik yalnızca bu eşleşmeyi koruyor, yeni bir sorun getirmiyor. Mektup yazarının kurduğu çerçeve içinde bilinçli bir yankı olarak okunabilir.",
+      "ciddiyet": "düşük"
+     }
+    ],
+    "kitaplar_arasi": "Köprü güçleniyor. YOLCU'da (yolcu_v4.txt 3526) ayrı satır olarak “İnsan hakikati öğrenmez, hatırlar!” geçiyor; aynı biçim ben_yoksam.txt'de de var. ŞAHİT'teki Şeytan sözü artık bununla harfi harfine aynı: ünlem ve “hakikati” dahil. Önceden 473 YOLCU'daki biçimden ayrılıyordu. İki kitap arasında tek açık nokta ŞAHİT 705'teki kısa biçim.",
+    "onceki_bulgulara_etkisi": "Motto bulgusunu doğrudan ilgilendiriyor. Nr. 1 (motto, 41) ve Nr. 14 (360) ile başlayan “hakikati” uyumlaştırmasını FİTNE bölümünde tamamlıyor; açıkta kalan tek yer 705. Vildan'ın orada bulunması, Zehra'nın konumu ve Nazım'ın rolüyle ilgili bulgulara etkisi yok.",
+    "tavsiye": "olduğu gibi al",
+    "gerekce": "Eklenen kelimede dil hatası yok. “hakikati” belirtme hâlinde doğru kullanılmış ve kitapta 28 kez geçtiği gibi şapkasız yazılmış. Ünlem ve virgül eski metinle aynı. Paragrafın sonunda kapanış tırnağından önce nokta yok (“olacaklar”); FİTNE bölümünde bu kullanım yarı yarıya, ve bu değişiklikten bağımsız. Şeytan'ın akıl yürütmesi tutarlı kalıyor: hakikat öğrenilmez, hatırlanır; o yüzden saldırı “unutturmak” üzerinden. Kötülüğün öğretilemeyeceğini ise sonraki “insan öğrenmez, … fıtratlarına ters” cümlesi taşıyor. Değişiklik motto ve YOLCU köprüsüyle birebir uyum sağlıyor. Ayrıca yazara sorulmalı: 705'teki Hodri mektubundaki “İnsan öğrenmez, hatırlar!” de uyumlaştırılsın mı?"
+   },
+   "verdict": {
+    "nr": 17,
+    "bestaetigte_sorunlar": [],
+    "widerlegte_sorunlar": [
+     "705'teki “İnsan öğrenmez, hatırlar! Şahit unuttu, sen anlatınca hatırlayacak…” kısa biçimi bu değişikliğin hatası değil. Ne yazım ne dilbilgisi hatası; Hodri'nin mektubunda (karakter sesi) bir varyant ve içerikte çelişki yaratmıyor. Değişiklik 17'ye karşı bir bulgu olarak geçersiz. En fazla yazara ayrıca hatırlatılabilecek bir not.",
+     "473'teki ikinci “insan öğrenmez, onlara kötülüğü öğretmek fıtratlarına ters” geçişi doğru ve bilinçli. Kollega da müdahale gerekmediğini söylüyor. Bulgu yok.",
+     "Şeytan'ın “‘Alemlere rahmet olarak gönderildi’ denilen doğmadan” önce İbnü'l-Arabî'ye atfedilen sözü söylemesi bu değişiklikle gelmedi; eski metinde de “İnsan öğrenmez, hatırlar!” vardı. Söz ayrıca yalnızca ‘atfedilen’ diye anılıyor, yani Şeytan'ın daha önceki bir hakikati dile getirmesi kurgu içinde tutarlı. Belgelenebilir bir çelişki yok.",
+     "Yan not: Kollega “hakikati” kelimesinin kitapta 28 kez geçtiğini söylüyor ama gerçek sayı 20 (19 küçük harfle). Şapkasız yazım tutarlı (“hakîkat” hiç yok), bu yüzden sonuç değişmiyor."
+    ],
+    "tavsiye_final": "olduğu gibi al",
+    "reasoning": "changes.json Nr. 17'de tek fark var: “İnsan öğrenmez, hatırlar!” → “İnsan hakikati öğrenmez, hatırlar!” (sahit_v5.txt 473). “hakikati” belirtme hâlinde doğru kullanılmış ve kitaptaki şapkasız yazımla uyumlu. Noktalama eski metinle aynı. Değişiklik, 41'deki mottoyu (“İnsan hakikati öğrenmez, hatırlar!”), 360/1560/1733'teki geçişleri ve YOLCU 3526'yı birebir karşılıyor. Böylece tutarlılığı artırıyor. Kollega'nın üç tutarlılık bulgusundan hiçbiri değişikliğin yol açtığı bir tipo, dilbilgisi hatası ya da çelişki değil. 705'teki kısa biçim (orijinal el yazmasında 46. satırdaki motto da kısaydı) Hodri'nin mektubunda geçiyor. Bu, yazarın kendi kararına kalmış bağımsız bir uyumlaştırma sorusu. Değişiklik 17'yi engelleyen bir sorun değil.",
+    "confidence": 0.9
+   }
+  }
+ ],
+ "motto": "**Leitsatz denetimi: ŞAHİT (sahit_v5.txt) ve YOLCU (yolcu_v4.txt)**\n\n**1. Tüm geçişler**\n\nGrep ile şu kalıplar arandı: \"öğrenmez\", \"hatırlar\" ile \"öğren-\" birlikte, virgülsüz yazım. Virgülsüz yazım (\"öğrenmez hatırlar\") iki dosyada da yok.\n\n| # | Dosya | Paragraf (satır) | Bölüm | Tam ifade | Konuşan / bağlam |\n|---|---|---|---|---|---|\n| 1 | sahit_v5 | 41 (42) | ### Yolcu ile Şahit Başlangıç | \"İnsan hakikati öğrenmez, hatırlar!\" | İlk mektubun (Hodri) sonu, İbnü'l-Arabî'ye atfen verilen epigraf |\n| 2 | sahit_v5 | 360 (361) | ### UNUTMA | \"İnsan hakikati öğrenmez, hatırlar\" (ünlemsiz, cümle içinde) | Sefa ilk mektubu düşünürken sözü alıntılıyor |\n| 3 | sahit_v5 | 473 (474) | ### FİTNE | \"İnsan hakikati öğrenmez, hatırlar!\" | Şeytan, iblise stratejisini anlatıyor |\n| 3b | sahit_v5 | 473 (474) | ### FİTNE | \"insan öğrenmez, onlara kötülüğü öğretmek fıtratlarına ters\" (\"hatırlar\" yok) | Aynı Şeytan konuşmasında tekrar. Burada \"öğrenmez\" kötülüğü öğrenmemek anlamında |\n| 4 | sahit_v5 | 705 (706) | ### HODRİ | \"İnsan öğrenmez, hatırlar!\" (**kısa biçim**) | Hodri mektubunda Sefa'ya \"unutma, hatırla\" diye sesleniyor |\n| 5 | sahit_v5 | 1560 (1561) | ### AYNI EL | \"İnsan hakikati öğrenmez, hatırlar!\" | Sefa'nın kayıttan sonraki iç sesi |\n| 6 | sahit_v5 | 1733 (1734) | ### ŞAHİT | \"İnsan hakikati öğrenmez, hatırlar,\" diye bir söz vardı | Final mektubu, söz burada sınanıyor |\n| 7 | yolcu_v4 | 3526 (3527) | ### 48. Saat 14.53 | \"İnsan hakikati öğrenmez, hatırlar!\" | Anlatıcının ölüm anı: \"Ve hikâye orada başlamadı… Hatırladığım yer orada başladı.\" |\n\nSefa'nın üç değişikliği eski metin (sahidi_ararken.txt) ile karşılaştırılarak bulundu: #1, #2 ve #3. #5 ve #6 zaten \"hakikati\" biçimindeydi. Kısa biçimde kalan tek tam geçiş #4.\n\n**2. Değerlendirme**\n\n**(a) Biçimlerin karışması açıklanabilir mi?**\n- Hayır, bu bir tutarsızlık. Kalan tek kısa biçim #4 ve onu Hodri yazıyor. #1'deki epigraf da Hodri'nin ilk mektubunda, orada \"hakikati\" var. Aynı yazar, aynı söz, iki farklı biçim.\n- Bunu \"halk ağzı\" diye savunmak zor. #4, \"hatırlarsan şahidi bulacaksın\" diyerek sözün işlevini açıkça kuran yer.\n- Diğer farklar meşru:\n  - #2'de ünlem yok, çünkü söz cümle içinde alıntılanıyor.\n  - #6'da ünlem yerine virgül var, çünkü ardından \"diye\" geliyor.\n  - #3b ayrı bir önerme (\"kötülüğü öğrenmez\"), sözün bir varyantı değil.\n\n**(b) Neler değişmeli, neler bilerek farklı kalmalı?**\n- **Değişmeli:** Yalnızca #4 (paragraf 705). \"İnsan öğrenmez, hatırlar!\" yerine \"İnsan hakikati öğrenmez, hatırlar!\" yazılmalı.\n- **Bilerek farklı kalmalı:**\n  - #3b (\"insan öğrenmez, onlara kötülüğü…\") dokunulmamalı. Buraya \"hakikati\" eklenirse cümlenin mantığı bozulur. Ayrıca Şeytan'ın tekrarda \"hakikati\"yi düşürmesi artık anlamlı bir kesinti olarak okunuyor.\n  - #2 ve #6'daki noktalama olduğu gibi kalmalı.\n- **İsteğe bağlı:** #3'te Şeytan'ın ağzında \"hakikati\" kalabilir, çünkü \"hakikat hatırlanır, o hâlde unutturacağız\" mantığını güçlendiriyor. Bunu kısa biçime geri almak ancak bilinçli bir \"Şeytan sözü budar\" kararıyla olmalı. Bu durumda #3b ile yankı daha sert olur. Önerim: kalsın.\n\n**(c) Angleichung YOLCU köprüsünü güçlendirir mi?**\n- Evet. YOLCU sözü tek bir yerde, atıfsız ve \"hakikati\"li biçimde kullanıyor (#7, ölüm anı).\n- ŞAHİT bütünüyle aynı biçimi taşırsa okur, Kap. 48'deki satırı ŞAHİT epigrafının (#1) birebir alıntısı olarak tanır. Bu, quer_bruecken.json'daki Brücke 17'yi (BY Kap. 48 ile SA AYNI EL) sağlamlaştırır.\n- Hodri'deki kısa biçim (#4) kalırsa \"asıl söz hangisi\" sorusu doğar ve köprü bulanıklaşır.\n- Dikkat edilecek nokta: ŞAHİT'te söz artık 6 kez geçiyor. Biçim birliği yeterli, yeni tekrar eklenmemeli. #6'daki \"sözü sınamak\" anı ile YOLCU'daki ölüm anı arasındaki karşı nokta, aynı biçim sayesinde net okunur.\n\nDosyalar:\n- /tmp/claude-0/-home-user-Notion/6549e111-23e7-5e00-8587-d424b5294a16/scratchpad/books/sahit_v5.txt\n- /tmp/claude-0/-home-user-Notion/6549e111-23e7-5e00-8587-d424b5294a16/scratchpad/books/yolcu_v4.txt\n- /tmp/claude-0/-home-user-Notion/6549e111-23e7-5e00-8587-d424b5294a16/scratchpad/books/sahidi_ararken.txt (karşılaştırma için eski metin)"
+}

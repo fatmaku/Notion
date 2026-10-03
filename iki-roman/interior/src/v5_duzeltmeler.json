@@ -1,0 +1,68 @@
+[
+ {
+  "nr": 2,
+  "alt": "“Benden başka talebiniz yoksa müsaadenizle” dedi ve ayrıldı",
+  "neu": "“Benden başka talebiniz yoksa müsaadenizle,” dedi ve ayrıldı.",
+  "neden": "Tırnak içinde virgül (kitabın kuralı, DAKTİLO bölümündeki tüm örnekler gibi) ve bölüm sonunda eksik nokta."
+ },
+ {
+  "nr": 3,
+  "alt": "evde olduğunu hatırladım",
+  "neu": "evde olduğumu hatırladım",
+  "neden": "Kişi uyumu: evde olan ve hatırlayan anlatıcının kendisi („-de“ eklenince eski „ev olduğunu“ yapısı geçersiz kaldı)."
+ },
+ {
+  "nr": 5,
+  "alt": "…dermanım yoktu.␠",
+  "neu": "…dermanım yoktu.",
+  "neden": "Paragraf sonundaki fazla boşluk silindi."
+ },
+ {
+  "nr": 6,
+  "alt": "Sadece selam, sıfır kelam”",
+  "neu": "Sadece selam, sıfır kelam.”",
+  "neden": "Kapanış tırnağından önce nokta (TECRİT ODASI bölümünde noktasız biten tek diyalog satırıydı; özgün metinde nokta vardı). İç tek tırnağın kaldırılması Sefa Abi'nin tercihi olarak korundu."
+ },
+ {
+  "nr": 10,
+  "alt": "bulacağımı söylendi",
+  "neu": "bulacağım söylendi",
+  "neden": "Çatı uyumu: edilgen „söylendi“ ile yan cümle belirtme eki almaz („şahitle tanışacağım söylenmişti“ gibi)."
+ },
+ {
+  "nr": 11,
+  "alt": "…adam haklıydı.␠",
+  "neu": "…adam haklıydı.",
+  "neden": "Paragraf sonundaki fazla boşluk silindi."
+ },
+ {
+  "nr": 12,
+  "alt": "birimiz için yeni bir başlangıç, diğeri",
+  "neu": "birimiz için yeni bir başlangıca, diğeri",
+  "neden": "Ortak yüklem „açılıyordu“ yönelme hâli ister; ikinci öğe gibi birinci öğe de: „yeni bir başlangıca … tecrit odasına açılıyordu“."
+ },
+ {
+  "nr": 13,
+  "alt": "beyaz yaka mı dersiniz”",
+  "neu": "beyaz yaka mı dersiniz.”",
+  "neden": "Kapanış tırnağından önce nokta (eski satır noktayla bitiyordu; UNUTMA bölümündeki diyaloglar noktalamayla kapanıyor)."
+ },
+ {
+  "nr": 15,
+  "alt": "aklatmediği",
+  "neu": "akletmediği",
+  "neden": "Yazım: „aklatmediği“ diye bir sözcük yok; en yakın doğru biçim „akletmediği“. Kastedilen „aklın yetmediği yerde“ ise yazar değiştirebilir (soru listesinde)."
+ },
+ {
+  "nr": 15,
+  "alt": "attırıdı",
+  "neu": "attırırdı",
+  "neden": "Yazım: bir „r“ eksik."
+ },
+ {
+  "nr": 15,
+  "alt": "sayılsın, Hakk'ı örtmeye",
+  "neu": "sayılsın? Hakk'ı örtmeye",
+  "neden": "Özgün metindeki soru işareti eklemeyle düşmüştü; „neden … sayılsın“ soru cümlesi, ardından yeni cümle başlıyor."
+ }
+]

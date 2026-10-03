@@ -1,0 +1,429 @@
+[
+ {
+  "nr": 1,
+  "op": "replace",
+  "orig_idx": [
+   41,
+   42
+  ],
+  "sefa_idx": [
+   41,
+   42
+  ],
+  "kapitel": "Yolcu ile Şahit Başlangıç",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "“İnsan öğrenmez, hatırlar!”"
+  ],
+  "sefa": [
+   "“İnsan hakikati öğrenmez, hatırlar!”"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 2,
+  "op": "replace",
+  "orig_idx": [
+   230,
+   232
+  ],
+  "sefa_idx": [
+   230,
+   231
+  ],
+  "kapitel": "DAKTİLO",
+  "orig_styles": [
+   "Normal",
+   "Normal"
+  ],
+  "orig": [
+   "“Bulunca haber verin,” dedim. “Ben de anahtarımı nerede aradığımı unutursam size danışayım.”",
+   "Bu kez o güldü. Sonra başka bir konuya geçti. Ben de onun bıraktığı kelimenin peşinden gitmedim. O gün bunu nezaket sandım; geriye dönüp düşününce, fark etmemekle nazik olmak arasındaki farkı bilmediğimi anlıyorum."
+  ],
+  "sefa": [
+   "“Bulunca haber verin,” dedim. “Ben de anahtarımı nerede aradığımı unutursam size danışayım.” Bu kez o güldü. Sonra başka bir konuya geçti. Ben de onun bıraktığı kelimenin peşinden gitmedim. O gün bunu nezaket sandım; geriye dönüp düşününce, fark etmemekle nazik olmak arasındaki farkı bilmediğimi anlıyorum. Vildan Hanım “Benden başka talebiniz yoksa müsaadenizle” dedi ve ayrıldı"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 3,
+  "op": "replace",
+  "orig_idx": [
+   263,
+   264
+  ],
+  "sefa_idx": [
+   262,
+   263
+  ],
+  "kapitel": "TECRİT ODASI",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "Akşam yemeğinden sonra annem sigara odasına geçip sigarasını içti. Ben elektronik sigara kullandığım için evin her yerinde içebiliyordum. Yemekten yaklaşık bir saat sonra maden suyuna alıç sirkesi karıştırıp içerdim. O akşam da öyle yaptım. Maden suyumu bitirince ayağa kalktım. Otururken yazdığım kısa mesajı okuyup bir dostuma gönderecektim. Fakat ayağa kalkar kalkmaz parmağım gönder tuşuna basmadı. Bedenim kasılmaya başladı. Bilincim açıktı ama bedenime hâkim olamıyordum; bir ağaç kütüğü gibi yere devrildim. Gözlerimi bile oynatamıyordum; kendimi felç olmuş gibi hissettim. Nefesim kesiliyor gibiydi. Her şey kararmadan önce aklımdan geçen son cümle şuydu: “Hani ben şehit olacaktım, Allah'ım?” Sonra bilincim kapandı. Ekran hâlâ açıktı. Mesajım yarım kalmış, imleç yanıp sönüyordu; sanki benden önce o nefes alıyor, cümleyi tek başına tamamlamaya çalışıyordu. İçimden yardım diye bağırdığımı hatırlıyorum; sesim çıktı mı, bilmiyorum. Ne kadar süre yerde kaldığımı bilmiyorum. Bir süre sonra gözlerimi yerde açtım. Önce bulunduğum yeri anlamaya çalıştım. Halının deseni gözümün önünde yabancı bir harita gibi duruyordu; birkaç saniye sonra ev olduğunu çıkardım. Bedenim benden önce uyanmış gibiydi: kaslarım kasılıp çözülüyor, ben yalnızca seyrediyordum. Her yanım tutulmuş, ağrımaya başlamıştı. Yardım çağırmayı düşündüm ama seslenebilir miydim, emin değildim. Annem birkaç adım ötedeydi; onun yanına gitmekle kendi başıma kalkmaya çalışmak arasında, o an bana tek bir koridor kadar mesafe vardı. Midem bulanıp kusacak gibi olunca lavaboya gitmek için emeklemeye başladım. Bizim koridor ince ve uzundur; yaklaşık on beş metre. Tek endişem, koridorun sonunda oturup sigara içen, tabletinden dizi izleyen annemin beni bu hâlde görmesiydi. Banyo koridorun sonunda, sol taraftaydı. Tahmin ettiğim gibi kustum; başım dönmeye devam etse de öğürmem gerekmedi. Şükürler olsun, annem ne gördü ne duydu. Son iki yıldır az işitmeye başlamıştı; gittiğimiz doktor bunun yaşa bağlı işitme kaybı olduğunu söylemişti. Sonunda salona ulaştım ve üçlü koltuğa uzandım. Daha doğrusu, kendimi koltuğa bıraktım. Bir bacağım yerde, yüzüm koyduğum tarafa dönük, bir kolum aşağı sarkmış halde; sarhoş biri gibi yarı baygın uyuyakalmışım. Gece mi sabah mı olduğunu bilmediğim bir ara, üstüm açık ve biçimsiz yatışıma söylenen annemin sesini duydum:"
+  ],
+  "sefa": [
+   "Akşam yemeğinden sonra annem sigara odasına geçip sigarasını içti. Ben elektronik sigara kullandığım için evin her yerinde içebiliyordum. Yemekten yaklaşık bir saat sonra maden suyuna alıç sirkesi karıştırıp içerdim. O akşam da öyle yaptım. Maden suyumu bitirince ayağa kalktım. Otururken yazdığım kısa mesajı okuyup bir dostuma gönderecektim. Fakat ayağa kalkar kalkmaz parmağım gönder tuşuna basmadı. Bedenim kasılmaya başladı. Bilincim açıktı ama bedenime hâkim olamıyordum; bir ağaç kütüğü gibi yere devrildim. Gözlerimi bile oynatamıyordum; kendimi felç olmuş gibi hissettim. Nefesim kesiliyor gibiydi. Her şey kararmadan önce aklımdan geçen son cümle şuydu: “Hani ben şehit olacaktım, Allah'ım?” Sonra bilincim kapandı. Ekran hâlâ açıktı ama giderek vurulan ceylan gibi kararıyordu. Mesajım yarım kalmış, imleç yanıp sönüyordu; sanki benden önce o nefes alıyor, cümleyi tek başına tamamlamaya çalışıyordu. İçimden yardım diye bağırdığımı hatırlıyorum; sesim çıktı mı, bilmiyorum. Ne kadar süre yerde kaldığımı bilmiyorum. Bir süre sonra gözlerimi yerde açtım. Önce bulunduğum yeri anlamaya çalıştım. Halının deseni gözümün önünde yabancı bir harita gibi duruyordu; birkaç saniye sonra evde olduğunu hatırladım. Bedenim benden önce uyanmış gibiydi: kaslarım kasılıp çözülüyor, ben yalnızca seyrediyordum. Her yanım tutulmuş, ağrımaya başlamıştı. Yardım çağırmayı düşündüm ama seslenebilir miydim, emin değildim. Annem birkaç adım ötedeydi; onun yanına gitmekle kendi başıma kalkmaya çalışmak arasında, o an bana tek bir koridor kadar mesafe vardı. Midem bulanıp kusacak gibi olunca lavaboya gitmek için emeklemeye başladım. Bizim koridor ince ve uzundur; yaklaşık on beş metre. Tek endişem, koridorun sonunda oturup sigara içen, tabletinden dizi izleyen annemin beni bu hâlde görmesiydi. Banyo koridorun sonunda, sol taraftaydı. Tahmin ettiğim gibi kustum; başım dönmeye devam etse de öğürmem gerekmedi. Şükürler olsun, annem ne gördü ne duydu. Son iki yıldır az işitmeye başlamıştı; gittiğimiz doktor bunun yaşa bağlı işitme kaybı olduğunu söylemişti. Sonunda salona ulaştım ve üçlü koltuğa uzandım. Daha doğrusu, kendimi koltuğa bıraktım. Bir bacağım yerde, yüzüm koyduğum tarafa dönük, bir kolum aşağı sarkmış halde; sarhoş biri gibi yarı baygın uyuyakalmışım. Gece mi sabah mı olduğunu bilmediğim bir ara, üstüm açık ve biçimsiz yatışıma söylenen annemin sesini duydum:"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 4,
+  "op": "replace",
+  "orig_idx": [
+   266,
+   267
+  ],
+  "sefa_idx": [
+   265,
+   266
+  ],
+  "kapitel": "TECRİT ODASI",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "“Oğlum, sen bensiz ne yapacaksın? Üstüne bir pike ya da battaniye alacak hâlin mi yoktu?”"
+  ],
+  "sefa": [
+   "“Oğlum, sen bensiz ne yapacaksın? Üstüne bir pike ya da battaniye alacak hâlin de mi yoktu?”"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 5,
+  "op": "insert",
+  "orig_idx": [
+   289,
+   289
+  ],
+  "sefa_idx": [
+   288,
+   289
+  ],
+  "kapitel": "TECRİT ODASI",
+  "orig_styles": [],
+  "orig": [],
+  "sefa": [
+   "Lan çocukluktan, Hoca kelimesi de beni kızdırmak içindi, gıcık ederek mutlu olurdu Mahmut ama hiç öfkelenecek dermanım yoktu. "
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 6,
+  "op": "replace",
+  "orig_idx": [
+   292,
+   293
+  ],
+  "sefa_idx": [
+   292,
+   293
+  ],
+  "kapitel": "TECRİT ODASI",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "“‘O geveze adama ne oldu? Geliyor, başı önünde kahvesini içiyor, gidiyor. Sadece selam, sıfır kelam.’”"
+  ],
+  "sefa": [
+   "“O geveze adama ne oldu? Geliyor, başı önünde kahvesini içiyor, gidiyor. Sadece selam, sıfır kelam”"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 7,
+  "op": "replace",
+  "orig_idx": [
+   295,
+   296
+  ],
+  "sefa_idx": [
+   295,
+   296
+  ],
+  "kapitel": "TECRİT ODASI",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "Kahvemi olabildiğince hızlı içtim. “Ben gideyim, işlerim var,” deyip aceleyle kalktım ve hastaneye doğru yürüdüm. Yaklaşık bir kilometre boyunca “Bana ne oldu böyle?” diye düşündüm. Başım önde, gözlerim parmak uçlarımda yürüdüm; yalnızca İntaş Işıkları'nda karşıya geçerken başımı kaldırdım. Bu düşünceler beni mutsuz etmeye başlayınca ceylana döndüm: Onun yolculuğu beni nereye götürecek, nasıl bir hikâye çıkacaktı? Hastaneye kadar aklımda tek bir endişe kaldı: Bu kitabı yazamamak…"
+  ],
+  "sefa": [
+   "Kahvemi olabildiğince hızlı içtim. “Ben gideyim, işlerim var,” deyip aceleyle kalktım ve hastaneye doğru yürüdüm. Yaklaşık bir kilometre boyunca “Bana ne oldu böyle?” diye düşündüm. Başım önde, gözlerim parmak uçlarımda yürüdüm; yalnızca İntaş Işıkları'nda karşıya geçerken başımı kaldırdım. Bu düşünceler beni mutsuz etmeye başlayınca ceylana döndüm: Onun yolculuğu beni nereye götürecek, nasıl bir hikâye çıkacaktı? Hastaneye kadar aklımda tek bir endişe vardı: Bu kitabı yazamamak…"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 8,
+  "op": "replace",
+  "orig_idx": [
+   315,
+   317
+  ],
+  "sefa_idx": [
+   315,
+   317
+  ],
+  "kapitel": "UNUTMA",
+  "orig_styles": [
+   "Normal",
+   "Normal"
+  ],
+  "orig": [
+   "“Alo, Nazım Efendi nerede kızım? Tamam, işi bitince söyle. Yeğenim onu odasında bekliyor olacak; verdiğim evrakları teslim etsin.”",
+   "Bu, bana kibarca “Her gelişmede beni rahatsız etme; otur, içinden geldiği gibi yaz,” demekti."
+  ],
+  "sefa": [
+   "“Alo, Nazım Efendi nerede Zehra? Tamam, işi bitince söyle. Eski tecrit odasına bırakacak evrakları; verdiğim o evrakları teslim etsin artık, bu adam neyi bekliyor”",
+   "Bu, bana kibarca ya da dolaylı bağırma şekliydi sanırım; “Her gelişmede beni rahatsız etme; otur, içinden geldiği gibi yaz,” demekti."
+  ],
+  "sefa_bold_letters": [
+   0,
+   0
+  ]
+ },
+ {
+  "nr": 9,
+  "op": "replace",
+  "orig_idx": [
+   327,
+   328
+  ],
+  "sefa_idx": [
+   327,
+   328
+  ],
+  "kapitel": "UNUTMA",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "Saçlarındaki ve ağzına kadar sarkan bıyığındaki beyazlar tenini olduğundan daha esmer gösteriyordu. Çökmüş avurtlarına, çukuruna kaçmış gözlerine gölgeler çökmüştü. Bana “Çok zayıfsın,” diyenler bu ihtiyarı görseydi keşke, diye geçirdim içimden. Meşin gibi kararmış, nasırlı elleriyle tuttuğu kâğıt tomarını kucağıma bıraktı."
+  ],
+  "sefa": [
+   "Saçlarındaki ve ağzına kadar sarkan bıyığındaki beyazlar tenini olduğundan daha esmer gösteriyordu. Çökmüş avurtlarına, çukuruna kaçmış gözlerine gölgeler çökmüştü. Bana “Çok zayıfsın,” diyenler bu ihtiyarı görseydi keşke, diye geçirdim içimden. Meşin gibi kararmış, nasırlı elleriyle tuttuğu kâğıt tomarını ne ara kucağıma bırakmıştı."
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 10,
+  "op": "replace",
+  "orig_idx": [
+   330,
+   331
+  ],
+  "sefa_idx": [
+   330,
+   331
+  ],
+  "kapitel": "UNUTMA",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "“Ben bilmem; bilsem ne olacak? Sadece sizi burada bulacağımı söyledi. Açıkçası bu kadar erken beklemiyordum. Sabah olur, bir hafta olur, on gün olur… Ama bu kadar erken değil.”"
+  ],
+  "sefa": [
+   "“Ben bilmem; bildik de ne oldu? Sadece sizi burada bulacağımı söylendi. Açıkçası bu kadar erken beklemiyordum. Bir hafta olur, on gün olur… Ama bu kadar erken değil.”"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 11,
+  "op": "replace",
+  "orig_idx": [
+   336,
+   337
+  ],
+  "sefa_idx": [
+   336,
+   337
+  ],
+  "kapitel": "UNUTMA",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "Arkasını döner dönmez topukladı. Bir süre kapının önünde arkasından baktım. Kâğıtları poşetten çıkarıp masaya boca ederken kapıyı kapattım ama kilitlemeyi unuttum. Hakan Hoca, kilitli olmayan kapıları yanlışlıkla açmaya çalışanların çıkabileceğini, bunun da dikkatimi dağıtacağını söylemişti. Yazmak konsantrasyon işiydi."
+  ],
+  "sefa": [
+   "Arkasını döner dönmez topukladı. Bir süre kapının önünde arkasından baktım, bir hayalet gibi koridor boyunca süzüldü. Kâğıtları poşetten çıkarıp masaya boca ederken kapıyı kapattım ama kilitlemeyi unuttum. Hakan Hoca, kilitli olmayan kapıları yanlışlıkla açmaya çalışanların çıkabileceğini, bunun da dikkatimi dağıtacağını söylemişti. Yazmak konsantrasyon işiydi ve adam haklıydı. "
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 12,
+  "op": "replace",
+  "orig_idx": [
+   349,
+   350
+  ],
+  "sefa_idx": [
+   349,
+   350
+  ],
+  "kapitel": "UNUTMA",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "Az önce bu yaşlı adama kâğıtları taşıma işini verdiği için Hakan Hoca'ya içimden hayıflanmıştım. Şimdi anladım: Hoca odayı benim için değiştirmişti; ama Nazım Efendi'nin hatırasını silememişti. Aynı kapı, birimiz için yeni bir başlangıç, diğeri için eski bir tecrit yeriydi."
+  ],
+  "sefa": [
+   "Az önce bu yaşlı adama kâğıtları taşıma işini verdiği için Hakan Hoca'ya içimden hayıflanmıştım. Şimdi anladım: Hoca odayı benim için değiştirmişti; ama Nazım Efendi'nin hatırasını silememişti. Aynı kapı, birimiz için yeni bir başlangıç, diğeri için eski bir tecrit odasına açılıyordu."
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 13,
+  "op": "replace",
+  "orig_idx": [
+   351,
+   352
+  ],
+  "sefa_idx": [
+   351,
+   352
+  ],
+  "kapitel": "UNUTMA",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "“Doktorlar demek istedim hocam. Ya da sizin gibi kişiler.”"
+  ],
+  "sefa": [
+   "“Doktorlar demek istedim hocam, sizin gibi kişiler, artık mürekkep yalamış mı dersiniz beyaz yaka mı dersiniz”"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 14,
+  "op": "replace",
+  "orig_idx": [
+   359,
+   360
+  ],
+  "sefa_idx": [
+   359,
+   360
+  ],
+  "kapitel": "UNUTMA",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "Açık avludaki küllüğe üçüncü sigaramı bastırıp odaya döndüm. Kendimi ilk mektuptaki şifreye odaklanmış buldum. Şifre çözülemeyecek kadar zor değildi ki… Benim gibi vasat bir yazarın görebileceği şifre mi olurdu? Bu yalnızca yazılanları daha ilginç hâle getirmişti; şifre çözülünce gizemini yitirmiş, okuduğum ilk hikâye gibi bir kenara bırakılmıştı. Oysa orada iki sağlam uyarı vardı: İlki unutmamaya dair bir uyarıydı; ikincisi, Muhyiddin İbnü'l-Arabî'ye atfedilen “İnsan öğrenmez, hatırlar” sözü. Çözülebilir bir şifreyle oyalanacağıma bu sözlere yoğunlaşmalıydım; hislerim de bunu söylüyordu. Mektubu yeniden okudum, bu kez birkaç defa basılmış harflere takılmadan."
+  ],
+  "sefa": [
+   "Açık avludaki küllüğe üçüncü sigaramı bastırıp odaya döndüm. Kendimi ilk mektuptaki şifreye odaklanmış buldum. Şifre çözülemeyecek kadar zor değildi ki… Benim gibi vasat bir yazarın görebileceği şifre mi olurdu? Bu yalnızca yazılanları daha ilginç hâle getirmişti; şifre çözülünce gizemini yitirmiş, okuduğum ilk hikâye gibi bir kenara bırakılmıştı. Oysa orada iki sağlam uyarı vardı: İlki unutmamaya dair bir uyarıydı; ikincisi, Muhyiddin İbnü'l-Arabî'ye atfedilen “İnsan hakikati öğrenmez, hatırlar” sözü. Çözülebilir bir şifreyle oyalanacağıma bu sözlere yoğunlaşmalıydım; hislerim de bunu söylüyordu. Mektubu yeniden okudum, bu kez birkaç defa basılmış harflere takılmadan."
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 15,
+  "op": "replace",
+  "orig_idx": [
+   361,
+   362
+  ],
+  "sefa_idx": [
+   361,
+   362
+  ],
+  "kapitel": "UNUTMA",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "Peki insan? Allah'ın halifesi olduğu söylenen, hayvan bedeninin içine, ten kafesine hapsolmuş insan neyle kâmildi? Üremekse hayvanlar da bitkiler de ürerdi. Beşer, ten; beşeriyet de tenle ilgili değil miydi? Zekâ hayvanlarda da vardı; hatta bir demet maydanozda bile düzen vardı. Zekâ bir yazılımsa, yazılım da bir işletim sistemi değil miydi? Akıl mıydı insanı tamamlayan? Zekâyı akıldan ayıran tek şey vicdan filtresi miydi? Akıl da kâmildi, hem de en önemlilerinden. Öyle olmasaydı, aklı örten alkol neden kötülüklerin anası sayılsın?"
+  ],
+  "sefa": [
+   "Peki insan? Allah'ın halifesi olduğu söylenen, hayvan bedeninin içine, ten kafesine hapsolmuş insan neyle kâmildi? Üremekse hayvanlar da bitkiler de ürerdi. Beşer, ten; beşeriyet de tenle ilgili değil miydi? Zekâ hayvanlarda da vardı; hatta bir demet maydanozda bile düzen vardı. Zekâ bir yazılımsa, yazılım da bir işletim sistemi değil miydi? Akıl mıydı insanı tamamlayan? Zekâyı akıldan ayıran tek şey vicdan filtresi miydi? Akıl da kâmildi, hem de en önemlilerinden. Hakikate nasıl erişirdi insan? Kendi hakikatinden vazgeçtiği yerde miydi? İman, evet iman aklının ermediği hakikate inanmak teslim olmaktı. Akıl insanı aklının aldığı yere kadar götürür ama iman aklatmediği yerde iman eder, iman ise akla takla attırıdı. Öyle olmasaydı, aklı örten alkol neden kötülüklerin anası sayılsın, Hakk'ı örtmeye madem kafirlik deniyordu, kafirin de hakikatini örten, iman etmemesiydi. Demek ki aklı örtenin haram edilmesi de bundan sebepti?"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ },
+ {
+  "nr": 16,
+  "op": "replace",
+  "orig_idx": [
+   365,
+   366
+  ],
+  "sefa_idx": [
+   365,
+   366
+  ],
+  "kapitel": "AN",
+  "orig_styles": [
+   "Heading 2"
+  ],
+  "orig": [
+   "Doğum Ölmenin, Ölmek Yeniden Dirilişin İlk Adımıdır"
+  ],
+  "sefa": [
+   "Doğmak Ölmenin, Ölmek Yeniden Dirilişin İlk Adımıdır"
+  ],
+  "sefa_bold_letters": [
+   2
+  ]
+ },
+ {
+  "nr": 17,
+  "op": "replace",
+  "orig_idx": [
+   472,
+   473
+  ],
+  "sefa_idx": [
+   472,
+   473
+  ],
+  "kapitel": "FİTNE",
+  "orig_styles": [
+   "Normal"
+  ],
+  "orig": [
+   "“Çürüme, paslanma, oksitlenme, yani varlığı inkâr edilemez olsa da işlemeyen bir akıl bırakacağız avuçlarına, zira aklı veren de Allah, alan da Allah. Biz o akılları Âdemoğullarından alamayız ama pas içinde bırakırız, aklı örtecek ve nihayetinde ahmaklaşan akıllar… Çok işimiz var iblis, biz insana kötülüğü öğretmeyeceğiz, iyiliği unutturacağız. İnsan öğrenmez, hatırlar! Biz insandan onu en üstün yapan aklı alamayız ama aklını ahmaklaştırırız. İnsana başka meşguliyetler vereceğiz ki unutsun, insan öğrenmez, onlara kötülüğü öğretmek fıtratlarına ters, onlara iyiliği unutturacağız, iyi olmayı da iyi kalmayı da… Ordularımız hazır mı, onlarla dünyaya gideceğiz ve ‘Alemlere rahmet olarak gönderildi’ denilen doğmadan Âdemoğullarından günahkâr olanları bulacağız, onlar bizim en iyi müttefiklerimiz olacaklar”"
+  ],
+  "sefa": [
+   "“Çürüme, paslanma, oksitlenme, yani varlığı inkâr edilemez olsa da işlemeyen bir akıl bırakacağız avuçlarına, zira aklı veren de Allah, alan da Allah. Biz o akılları Âdemoğullarından alamayız ama pas içinde bırakırız, aklı örtecek ve nihayetinde ahmaklaşan akıllar… Çok işimiz var iblis, biz insana kötülüğü öğretmeyeceğiz, iyiliği unutturacağız. İnsan hakikati öğrenmez, hatırlar! Biz insandan onu en üstün yapan aklı alamayız ama aklını ahmaklaştırırız. İnsana başka meşguliyetler vereceğiz ki unutsun, insan öğrenmez, onlara kötülüğü öğretmek fıtratlarına ters, onlara iyiliği unutturacağız, iyi olmayı da iyi kalmayı da… Ordularımız hazır mı, onlarla dünyaya gideceğiz ve ‘Alemlere rahmet olarak gönderildi’ denilen doğmadan Âdemoğullarından günahkâr olanları bulacağız, onlar bizim en iyi müttefiklerimiz olacaklar”"
+  ],
+  "sefa_bold_letters": [
+   0
+  ]
+ }
+]

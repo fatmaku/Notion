@@ -1,6 +1,6 @@
 [
   {
-    "pdf": "out/BEN_YOKSAM_Innenteil_A5.pdf",
+    "pdf": "out/YOLCU_Innenteil_A5.pdf",
     "pages": 281,
     "page_size_check": "pass",
     "fonts_embedded_check": "pass",
@@ -24,8 +24,8 @@
     "ok": true
   },
   {
-    "pdf": "out/SAHIDI_ARARKEN_Innenteil_A5.pdf",
-    "pages": 200,
+    "pdf": "out/SAHIT_Innenteil_A5.pdf",
+    "pages": 201,
     "page_size_check": "pass",
     "fonts_embedded_check": "pass",
     "fonts": {

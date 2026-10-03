@@ -8,11 +8,11 @@ Zwei Romane, ein Kunstprojekt: **YOLCU – 1453 Uyanışın Bedeli** (Tuncay San
 |---|---|
 | `cover/out/<BUCH>/<TR|EN|DE>/` | `Fullcover.pdf` (KDP-Wrap), `Frontcover.pdf`, `Backcover.pdf`, `eBook-Cover.jpg` (1600 × 2560), `Vorschau.png`, `Fullcover_Guides.png` (mit Trim-/Beschnitt-/Sicherheitslinien) |
 | `cover/out/` | `Doppelansicht_<SPR>.png` (beide Fronten nebeneinander, Faust-Naht), `Panorama_Marketing_<SPR>.png` (sechs Panels, nur für Marketing), `cover_report.json` |
-| `interior/out/` | `YOLCU_Innenteil_A5.pdf`, `SAHIT_Innenteil_A5.pdf` (Druck), `YOLCU.epub`, `SAHIT.epub` (Kindle), epubcheck-Berichte, `preview/`, `report.json`. Gebaut aus den **v4-Manuskripten** in `interior/src/` (v3 + neue Titel; zehn minimale Korrekturen ohne Plotänderung, Liste in `analyse/Degisiklik_Listesi_v2.md`) |
-| `interior/src/` | `YOLCU_TR_v4.docx`, `SAHIT_TR_v4.docx` (aktuelle Manuskripte = Word-Fassung), ältere Stufen `*_v2.docx`, `*_v3.docx`, `v2/v3/v4_aenderungen.json` (alle Änderungen maschinenlesbar) |
+| `interior/out/` | `YOLCU_Innenteil_A5.pdf`, `SAHIT_Innenteil_A5.pdf` (Druck), `YOLCU.epub`, `SAHIT.epub` (Kindle), epubcheck-Berichte, `preview/`, `report.json`. Gebaut aus `YOLCU_TR_v4.docx` und `SAHIT_TR_v5.docx` in `interior/src/` (ŞAHİT v5 = v4 + Sefa Abis 17 Änderungen vom 03.10.2026; Liste in `analyse/Degisiklik_Listesi_v2.md`) |
+| `interior/src/` | `YOLCU_TR_v4.docx`, `SAHIT_TR_v5.docx` (aktuelle Manuskripte = Word-Fassung), ältere Stufen `*_v2.docx`, `*_v3.docx`, `SAHIT_TR_v4.docx`, `v2/v3/v4/v5_aenderungen.json`, `v5_duzeltmeler.json` (alle Änderungen maschinenlesbar) |
 | `trailer/out/` | 9 Videos `Iki_Roman_Fragman_<16x9_60s|9x16_30s|1x1_30s>_<TR|EN|DE>.mp4`, 9 Untertitel `.srt`, `storyboard/` (Stills), `render_report.txt` |
 | `marketing/` | `Marketing_Story_Storyboard_<TR|EN|DE>.pdf` (+ `.md`): Kernbotschaft, KDP-Listing, Keywords, Kategorien, A+, Storyboard, Sprechertext, Musik-Brief, Launch-Plan |
-| `analyse/` | `Bewertung_Ben_Yoksam_Sahidi_Ararken.md/.pdf` (Fassung 2, mit adversarialer Gegenprüfung): Logik-, Mystik- und Spannungsbewertung je Buch und als Doppelwerk; `Degisiklik_Listesi_v2.md/.pdf`: Änderungsliste der Manuskriptfassungen v2 und v3 (TR + DE); `jury_ergebnisse.json` (Rohdaten der sechs Jury-Stimmen und der Gegenprüfung); `build_pdf.py` (Markdown → PDF) |
+| `analyse/` | `Bewertung_Ben_Yoksam_Sahidi_Ararken.md/.pdf` (Fassung 2, mit adversarialer Gegenprüfung): Logik-, Mystik- und Spannungsbewertung je Buch und als Doppelwerk; `Degisiklik_Listesi_v2.md/.pdf`: Änderungsliste der Manuskriptfassungen v2 und v3 (TR + DE); `jury_ergebnisse.json` (Rohdaten der sechs Jury-Stimmen und der Gegenprüfung); `Sefa_Degisiklikleri_v5.md/.pdf` (Prüfung von Sefas neuer Fassung, TR) + `sefa_v5_pruefung.json`; `build_pdf.py` (Markdown → PDF) |
 | `assets/` | Referenzgrafik (1536 × 512) und die 4×-KI-Hochskalierung (Real-ESRGAN), zerlegte Panels, Portraits; `upscaled/*_front_<tr|en|de>.png` = Fronten mit den neu gesetzten Titeln (`cover/titles_on_fronts.py`) |
 | `fonts/` | Cinzel, Literata, Cormorant Garamond (SIL OFL) |
 
@@ -22,9 +22,9 @@ Zwei Romane, ein Kunstprojekt: **YOLCU – 1453 Uyanışın Bedeli** (Tuncay San
 
 | | YOLCU (BY) | ŞAHİT (SA) |
 |---|---|---|
-| Seiten (Innenteil-PDF) | **281** | **200** |
-| Rückenbreite = Seiten × 0,0635 mm | **17,84 mm** | **12,70 mm** |
-| Fullcover-Maß (B × H) | **320,19 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 17,84) | **315,05 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 12,70) |
+| Seiten (Innenteil-PDF) | **281** | **201** |
+| Rückenbreite = Seiten × 0,0635 mm | **17,84 mm** | **12,76 mm** |
+| Fullcover-Maß (B × H) | **320,19 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 17,84) | **315,11 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 12,76) |
 | Beschnitt | 3,175 mm (0,125 in) umlaufend | dito |
 | Sicherheitszone Text | ≥ 6,35 mm (0,25 in) vom Trim | dito |
 | Rückentext | ≥ 1,6 mm (0,0625 in) von den Rückenkanten; Rückentext ab 79 Seiten erlaubt | dito |
@@ -62,9 +62,9 @@ python3 cover/prep_art.py          # nur nötig, wenn sich die Referenzgrafik ä
 python3 cover/titles_on_fronts.py  # Titel je Sprache auf die Fronten setzen (texts.json)
 python3 cover/build_cover.py
 
-# Innenteil + ePub (aus den v4-Manuskripten; ohne --docx wird das Original-Manuskript gesetzt)
+# Innenteil + ePub (aus YOLCU v4 und ŞAHİT v5; ohne --docx wird das Original-Manuskript gesetzt)
 python3 interior/docx2book.py --book BY --pdf --epub --cover cover/out/BY/TR/eBook-Cover.jpg --docx interior/src/YOLCU_TR_v4.docx
-python3 interior/docx2book.py --book SA --pdf --epub --cover cover/out/SA/TR/eBook-Cover.jpg --docx interior/src/SAHIT_TR_v4.docx
+python3 interior/docx2book.py --book SA --pdf --epub --cover cover/out/SA/TR/eBook-Cover.jpg --docx interior/src/SAHIT_TR_v5.docx
 python3 interior/check_pdf.py interior/out/*_Innenteil_A5.pdf --json interior/out/check_pdf.json
 
 # Trailer (9 Videos + SRT + Stills)
@@ -72,7 +72,7 @@ bash trailer/render_all.sh
 
 # Marketing-PDFs und Analyse-PDFs
 python3 marketing/build_marketing.py
-python3 analyse/build_pdf.py analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md analyse/Degisiklik_Listesi_v2.md
+python3 analyse/build_pdf.py analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.md analyse/Degisiklik_Listesi_v2.md analyse/Sefa_Degisiklikleri_v5.md
 ```
 
 Abhängigkeiten: Python 3.11 mit weasyprint, pillow, pypdf, pymupdf, fonttools, numpy, opencv-python-headless, imageio-ffmpeg, epubcheck (Java), markdown, python-docx; Node 22 mit Playwright (Chromium) für den Trailer.
