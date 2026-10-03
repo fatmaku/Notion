@@ -1,6 +1,6 @@
 {
   "BY": {
-    "title": "BEN YOKSAM",
+    "title": "YOLCU",
     "author": "Tuncay Sancak",
     "chapters": 44,
     "heading1_paragraphs": 45,
@@ -9,13 +9,13 @@
     "acts": 5,
     "images": 4,
     "docx_paragraphs": 3663,
-    "words": 45437,
+    "words": 45436,
     "text_check": {
       "model_vs_docx": "ok",
       "print_html_vs_model": "ok",
       "epub_vs_model": "ok"
     },
-    "pdf": "/home/user/Notion/iki-roman/interior/out/BEN_YOKSAM_Innenteil_A5.pdf",
+    "pdf": "/home/user/Notion/iki-roman/interior/out/YOLCU_Innenteil_A5.pdf",
     "pdf_pages": 281,
     "body_pages": 275,
     "first_body_page_number": 7,
@@ -92,23 +92,23 @@
       "ch-44": 269
     },
     "previews": [
-      "BEN_YOKSAM_p001.png",
-      "BEN_YOKSAM_p002.png",
-      "BEN_YOKSAM_p003.png",
-      "BEN_YOKSAM_p004.png",
-      "BEN_YOKSAM_p005.png",
-      "BEN_YOKSAM_p006.png",
-      "BEN_YOKSAM_p007.png",
-      "BEN_YOKSAM_p011.png",
-      "BEN_YOKSAM_p012.png",
-      "BEN_YOKSAM_p013.png",
-      "BEN_YOKSAM_p014.png",
-      "BEN_YOKSAM_p015.png",
-      "BEN_YOKSAM_p144.png",
-      "BEN_YOKSAM_p145.png",
-      "BEN_YOKSAM_p281.png"
+      "YOLCU_p001.png",
+      "YOLCU_p002.png",
+      "YOLCU_p003.png",
+      "YOLCU_p004.png",
+      "YOLCU_p005.png",
+      "YOLCU_p006.png",
+      "YOLCU_p007.png",
+      "YOLCU_p011.png",
+      "YOLCU_p012.png",
+      "YOLCU_p013.png",
+      "YOLCU_p014.png",
+      "YOLCU_p015.png",
+      "YOLCU_p144.png",
+      "YOLCU_p145.png",
+      "YOLCU_p281.png"
     ],
-    "epub": "/home/user/Notion/iki-roman/interior/out/BEN_YOKSAM.epub",
+    "epub": "/home/user/Notion/iki-roman/interior/out/YOLCU.epub",
     "epubcheck": {
       "errors": 0,
       "warnings": 0,
@@ -121,7 +121,7 @@
     "stranded_chapter_endings_remaining": {}
   },
   "SA": {
-    "title": "ŞAHİDİ ARARKEN",
+    "title": "ŞAHİT",
     "author": "Mustafa Sefa Güvenir",
     "chapters": 34,
     "heading1_paragraphs": 34,
@@ -130,13 +130,13 @@
     "acts": 0,
     "images": 0,
     "docx_paragraphs": 1784,
-    "words": 39479,
+    "words": 39477,
     "text_check": {
       "model_vs_docx": "ok",
       "print_html_vs_model": "ok",
       "epub_vs_model": "ok"
     },
-    "pdf": "/home/user/Notion/iki-roman/interior/out/SAHIDI_ARARKEN_Innenteil_A5.pdf",
+    "pdf": "/home/user/Notion/iki-roman/interior/out/SAHIT_Innenteil_A5.pdf",
     "pdf_pages": 200,
     "body_pages": 194,
     "first_body_page_number": 7,
@@ -195,19 +195,19 @@
       "ch-34": 191
     },
     "previews": [
-      "SAHIDI_ARARKEN_p001.png",
-      "SAHIDI_ARARKEN_p003.png",
-      "SAHIDI_ARARKEN_p004.png",
-      "SAHIDI_ARARKEN_p005.png",
-      "SAHIDI_ARARKEN_p006.png",
-      "SAHIDI_ARARKEN_p007.png",
-      "SAHIDI_ARARKEN_p008.png",
-      "SAHIDI_ARARKEN_p013.png",
-      "SAHIDI_ARARKEN_p102.png",
-      "SAHIDI_ARARKEN_p103.png",
-      "SAHIDI_ARARKEN_p200.png"
+      "SAHIT_p001.png",
+      "SAHIT_p003.png",
+      "SAHIT_p004.png",
+      "SAHIT_p005.png",
+      "SAHIT_p006.png",
+      "SAHIT_p007.png",
+      "SAHIT_p008.png",
+      "SAHIT_p013.png",
+      "SAHIT_p102.png",
+      "SAHIT_p103.png",
+      "SAHIT_p200.png"
     ],
-    "epub": "/home/user/Notion/iki-roman/interior/out/SAHIDI_ARARKEN.epub",
+    "epub": "/home/user/Notion/iki-roman/interior/out/SAHIT.epub",
     "epubcheck": {
       "errors": 0,
       "warnings": 0,
