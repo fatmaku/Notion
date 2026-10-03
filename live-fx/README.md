@@ -312,9 +312,15 @@ npm test             # beides
 Playwright wird lokal (`npm install playwright`) oder aus der globalen Installation aufgelöst;
 Browser: `PLAYWRIGHT_BROWSERS_PATH` bzw. `npx playwright install chromium`.
 
+## Business & Pitch
+
+Alles für Vorstellung und Verkauf liegt in [`business/`](business/README.md): Marketingvideo (9:16 und 16:9),
+Pitch-Deck (PPTX), Businessplan (MD + DOCX), Marktanalyse mit Quellen, LinkedIn-Artikel (DE/TR) und eine
+statische Landingpage (DE/TR/EN).
+
 ## Roadmap Richtung Produkt
 
 1. **Native Mobile-SDK** für In-App-Live (die eigentliche Lücke bei Instagram/TikTok).
 2. **Meme-Bibliothek** mit lizenzierten GIFs/Sounds (Giphy/Tenor-API), Community-Packs.
-3. **Zuschauer-Trigger**: Chat-Kommandos / Geschenke lösen Effekte aus (Monetarisierung) – die API dafür ist da.
+3. **Plattform-Integration**: Pilot mit TikTok/Meta/YouTube, Zuschauer-Trigger nativ (Geschenke → Effekte).
 4. Kontext-Timing (Effekt erst am Satzende) und Streaming-ASR mit < 300 ms Latenz.
