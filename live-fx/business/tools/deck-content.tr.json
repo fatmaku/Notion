@@ -1,0 +1,714 @@
+{
+  "meta": {
+    "lang": "tr",
+    "langTag": "tr-TR",
+    "deckTitle": "LiveFX – Sunum",
+    "subject": "LiveFX: Sesin efekte dönüşür – ve görüntüye",
+    "author": "[İsim]",
+    "footerBrand": "LiveFX",
+    "visionBadge": "VİZYON",
+    "assetsDir": "landing-assets",
+    "images": {
+      "overlayNeon": "../video/stills/tr-16x9-6_9s.jpg",
+      "overlayPortrait": "../video/stills/tr-9x16-29_6s.jpg",
+      "mobile": "mobile.jpg",
+      "panel": "panel.jpg",
+      "demo": "demo.jpg"
+    },
+    "_hinweis": "Türkçe sürüm (deck-content.de.json'dan çevrildi; Almanca ana sürümdür). Yalnızca metin değerleri çevrildi; alan adları, 'layout', sayı değerleri ve dizilerin sırası Almanca dosyayla aynıdır. Kaynaklar: [Kaynak n], numaralar QUELLEN.tr.md ile aynı. Görseller: overlayNeon ve overlayPortrait için Türkçe fragman kareleri (../video/stills/tr-…) kullanılıyor; mobile, panel ve demo Almanca ekran görüntüleri olarak kalıyor."
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "section": "Bugün: LiveFX 2.0",
+      "kicker": "LIVE MEME ENGINE  ·  v2.0",
+      "brand": "LiveFX",
+      "tagline": "Sesin efekte dönüşür.",
+      "lead": "Yayıncının söylediklerine göre gerçek zamanlı meme'ler, sesler ve sahneler. Bir saniyeden kısa sürede, eller serbest – TikTok LIVE, Instagram, YouTube ve Twitch'te.",
+      "vision": "Ve yarın: Sen anlat – sahne oluşsun.",
+      "name": "[İsim]",
+      "role": "Kurucu, yazar ve canlı yayıncı",
+      "contact": "[Tarih]  ·  [E-posta]",
+      "notes": "Kısaca kendimi tanıtıyorum: Kendim yayın yapıyorum, kitap yazıyorum ve LiveFX'i, her kısa videoda olup da canlı yayında tam olarak eksik olan şey için geliştirdim. Bugün gördükleriniz kendi yayınlarımda çalışıyor. Sonunda nereye gittiğimizi göstereceğim: meme katmanından, konuşulan her şeyin görsel diline. 30 saniye, sonra doğrudan soruna geçiyoruz."
+    },
+    {
+      "layout": "problem",
+      "kicker": "SORUN",
+      "title": "Canlı yayın ham. Kurgu hep geç kalıyor.",
+      "rows": [
+        [
+          "✂",
+          "Kısa videoları viral yapan her şey sonradan ekleniyor",
+          "Meme'ler, sesler, zoom'lar, çıkartmalar – kayıttan sonra, kurguda. Canlıda bunların hiçbiri yok."
+        ],
+        [
+          "🎛",
+          "Yayıncı aynı anda sunucu, yönetmen ve kurgucu",
+          "İki el, bir kamera ve beklemeyen bir sohbetle."
+        ],
+        [
+          "🔔",
+          "Mevcut araçlar izleyiciye ya da tuşlara tepki veriyor",
+          "Bağış ve takipte uyarılar, kısayol tuşlu ses panoları. İkisi de bir tıklama istiyor."
+        ]
+      ],
+      "callout": "Söylenen söze kimse tepki vermiyor.",
+      "calloutSub": "Otomatik altyazılar gösterdi: Sesten gerçek zamanlı metin çalışıyor. Sesten gerçek zamanlı efekt ise henüz yok.",
+      "quote": "“‘Efsane’ diyorum – ve hiçbir şey olmuyor, klavyeye kendim uzanmazsam.”  – [İsim], kendi yayınından",
+      "notes": "Otomatik altyazılar, sesten gerçek zamanlı metnin çalıştığını ve platformların bunu yerleşik olarak sunduğunu kanıtladı. Sesten gerçek zamanlı efekt ise yok. Tam bu boşluğu dolduruyoruz. Yayınımdan bir örnek: “Efsane” diyorum – ve klavyeye kendim uzanmazsam hiçbir şey olmuyor."
+    },
+    {
+      "layout": "solution",
+      "kicker": "ÇÖZÜM",
+      "title": "Ses → efekt, bir saniyeden kısa sürede",
+      "steps": [
+        [
+          "🎙",
+          "Mikrofon",
+          "Yayıncı konuşur"
+        ],
+        [
+          "🧠",
+          "Tanıma",
+          "DE / TR / EN otomatik"
+        ],
+        [
+          "⚡",
+          "Eşleştirici",
+          "Şiveye toleranslı, anında"
+        ],
+        [
+          "🖥",
+          "Katman",
+          "OBS'te tarayıcı kaynağı"
+        ],
+        [
+          "📺",
+          "Yayın",
+          "TikTok · IG · YouTube · Twitch"
+        ]
+      ],
+      "examples": [
+        [
+          "“Krass”",
+          "🤯 Neon yazı + Airhorn"
+        ],
+        [
+          "“Yok artık”",
+          "Meme kartı + Vine-Boom"
+        ],
+        [
+          "“Yağmur yağıyordu…”",
+          "Yağmur sahnesi + atmosfer döngüsü"
+        ]
+      ],
+      "facts": [
+        "< 1 sn tepki – eşleşme, tanımanın ara sonuçlarında bile",
+        "Eller serbest – tuş yok, tıklama yok, ikinci ekran yok",
+        "Yayıncının kendi bilgisayarında, yerel çalışır – veri koruma baştan",
+        "Yapay zekâ modu (isteğe bağlı) anahtar kelimesiz cümleleri yakalar: “çok utanç vericiydi” → Awkward"
+      ],
+      "notes": "Önemli: Anahtar kelime eşleştirme anında gerçekleşiyor (tanımanın ara sonuçları), bulut gerekmiyor. İsteğe bağlı yapay zekâ modu anahtar kelime içermeyen cümleleri de yakalıyor (“onun için çok utanç vericiydi” → Awkward). Her şey yayıncının kendi bilgisayarında çalışıyor – veri koruma sonradan eklenmedi, baştan var."
+    },
+    {
+      "layout": "demo",
+      "kicker": "YAYINDA BÖYLE GÖRÜNÜYOR",
+      "title": "Demo",
+      "captions": [
+        "Katman 16:9 – “Efsane!” → neon yazı + konfeti",
+        "Dikey 9:16 – hikâye modu: “Gece yağmur yağıyordu…”",
+        "Telefondan kumanda (PWA)"
+      ],
+      "bar": "▶  Fragman (30 sn): video/LiveFX_Trailer_tr_16x9.mp4  ·  Canlı demo: mikrofonu aç, “bu çok fena… efsane!” de – ya da hikâye modunu aç ve bir paragraf oku.",
+      "notes": "Mümkünse canlı gösterin: Mikrofonu açın, “bu çok fena… efsane!” deyin, efekt beliriyor. İkinci deneme: Hikâye modunu açın, bir paragraf okuyun – “yağmur yağıyordu”, “gece”, “ejderha” – ve sahneler değişiyor. Yedek plan fragman. Akılda kalacak cümle: Meme'lerin konuşmama tepki verdiği ilk video beni her slayttan daha çok ikna etti."
+    },
+    {
+      "layout": "features",
+      "kicker": "PROTOTİP DEĞİL",
+      "title": "Bugünkü ürün – sürüm 2.0",
+      "features": [
+        [
+          "🎙",
+          "Tanıma",
+          "Tarayıcı ASR, otomatik dil DE/TR/EN, şive toleransı, öğrenme işlevi, kendi kendine test; harici Whisper/Deepgram, çevrimdışı Whisper (deneysel)"
+        ],
+        [
+          "✨",
+          "Efekt motoru v2",
+          "Fizikli Canvas parçacıkları (60 fps), neon/glitch yazı, alt yazı bantları, kombolar, 4 tema"
+        ],
+        [
+          "📖",
+          "Hikâye modu",
+          "13 tam ekran sahne, 12 atmosfer döngüsü, DE/TR/EN hikâye paketleri"
+        ],
+        [
+          "📦",
+          "Paketler",
+          "Türkçe 85 · Deutsch 49 · English 50 · Aile ve Çocuk 27 · Oyun 27 – artı GIF arama"
+        ],
+        [
+          "🔊",
+          "Ses motoru",
+          "38 sentetik ses (lisans ücreti yok), limiter, ducking, stereo ve yankılı mikser"
+        ],
+        [
+          "💬",
+          "İzleyici tetikleyicileri",
+          "Twitch sohbeti, YouTube sohbeti, hediye webhook'u (TikTok için TikFinity / Streamer.bot)"
+        ],
+        [
+          "📱",
+          "Telefon ve platformlar",
+          "Telefondan kumanda (PWA), OBS/Streamlabs, TikTok LIVE Studio, IG Live Producer, OBS'siz demo"
+        ],
+        [
+          "🔌",
+          "Açık API",
+          "Token'lı HTTP API (Stream Deck, sohbet botları, harici ASR), 240+ otomatik test"
+        ]
+      ],
+      "notes": "Bu artık bir prototip değil: 0.1'den 2.0'a sürümler, birim ve uçtan uca testler, DE/TR kılavuzlar. 2.0 sahne ve satış için bir sağlamlaştırma sürümüydü. İki şeyin altını çizin: (1) kendi seslerimiz ve paketlerimiz = telif ihlali yok, (2) izleyici tetikleyicileri gelir modeline köprü – bir hediye bugün bile bir efekti tetikleyebiliyor."
+    },
+    {
+      "layout": "whyNow",
+      "kicker": "ZAMANLAMA",
+      "title": "Neden şimdi",
+      "stats": [
+        [
+          "~%50",
+          "canlı yayıncı gelirinin hediyelerden geliyor; 20–100 bin takipçi: ayda 500–3.000 USD [Kaynak 5, 6]"
+        ],
+        [
+          "> 100 milyon",
+          "içerik üreticisi 2025'te yalnızca Güneydoğu Asya, Kafkasya ve Orta Asya'da TikTok LIVE'a çıktı – %77 artış [Kaynak 2]"
+        ],
+        [
+          "≈ %14",
+          "içerik üreticisi ekonomisinin (2026'da ~216–260 milyar USD) payı canlı yayına ait [Kaynak 3, 4]"
+        ]
+      ],
+      "cards": [
+        [
+          "Canlı yayın bir gelir kanalı",
+          "Canlı ticaret ve hediyeler (TikTok LIVE, IG Badges, Super Chat) canlı yayını yan format değil, işin kendisi yapıyor."
+        ],
+        [
+          "Teknoloji olgun",
+          "Akışlı ASR < 300 ms, tarayıcıda modeller, tüm büyük tarayıcılarda WebGPU [Kaynak 27], saati < 1 USD'ye yapay zekâ sınıflandırması."
+        ],
+        [
+          "Platformlar üretici araçlarıyla yarışıyor",
+          "CapCut ↔ TikTok, Edits ↔ Instagram. Sıradaki adım canlı yayın araçları – ve kimsede sesle tetiklenen efekt yok."
+        ]
+      ],
+      "sources": "Kaynaklar: QUELLEN.tr.md (araştırma 30.09.2026 ve 03.10.2026) – [Kaynak 2–6, 27]",
+      "notes": "Canlı yayın artık yan kanal değil, bir gelir kanalı. Ayrıca: Türkiye, yerelleştirilmiş araçların neredeyse hiç olmadığı, genç ve meme'e yatkın bir TikTok pazarı – en büyük paketimizin Türkçe olması tesadüf değil. Teknoloji: Üç yıl önce sunucu gerektiren şey bugün tarayıcıda çalışıyor – bu, 12. slayttan itibaren anlatacağım vizyonun da temeli."
+    },
+    {
+      "layout": "market",
+      "kicker": "TAM · SAM · SOM · KOMŞU PAZARLAR",
+      "title": "Pazar – tek rakam değil, aralıklar",
+      "chart": {
+        "title": "Pazar büyüklüğü, milyar USD (ikincil kaynaklardan aralıklar)",
+        "series": [
+          "alt tahmin",
+          "üst tahmin"
+        ],
+        "labels": [
+          "Canlı yayın 2026",
+          "Canlı yayın 2030",
+          "Üretici ekonomisi 2026",
+          "canlı payı (≈ %14)"
+        ],
+        "low": [
+          97,
+          250,
+          216,
+          30
+        ],
+        "high": [
+          157,
+          345,
+          260,
+          36
+        ]
+      },
+      "cards": [
+        [
+          "TAM",
+          "Canlı yayın pazarı [Kaynak 1, 2]",
+          "97–157 milyar USD (2026) → 250–345 milyar USD (2030), yıllık büyüme yaklaşık %27"
+        ],
+        [
+          "SAM",
+          "Canlı yayın araçları · tahmin",
+          "1–3 milyar USD – Streamlabs/StreamYard/Voicemod fiyatları × aktif canlı yayıncılar"
+        ],
+        [
+          "SOM",
+          "3. yıl · tahmin",
+          "20–40 bin Pro abone × ayda 9,99 € ≈ 2,4–4,8 milyon € ARR (DACH + Türkiye + EN niş)"
+        ]
+      ],
+      "adjacentTitle": "Vizyonun komşu pazarları (slayt 12–15)",
+      "adjacent": [
+        [
+          "3,67 milyar USD",
+          "Yapay zekâ ile video üretimi ve kurgusu, 2026 [Kaynak 23]"
+        ],
+        [
+          "1,54 milyar USD",
+          "Dil öğrenme uygulamaları, uygulama içi gelir 2025 [Kaynak 33]"
+        ],
+        [
+          "2,68 milyar USD",
+          "Video kurgu yazılımı, 2026 [Kaynak 51]"
+        ],
+        [
+          "374 milyon €",
+          "Almanya sesli kitap pazarı 2025, +%13 [Kaynak 19]"
+        ]
+      ],
+      "sources": "Kaynaklar: QUELLEN.tr.md [Kaynak 1–4, 19, 23, 33, 51] · SAM/SOM kendi tahminimizdir, bir araştırma değildir.",
+      "notes": "Dürüstçe söyleyin: TAM geniş aralıklı ikincil kaynaklardan geliyor; SAM ve SOM bir araştırma değil, bizim tahminimiz. Mesele tam rakam değil: Ödeme yapan canlı yayıncıların küçük bir payı bile bir ekibi taşır – ve asıl kaldıraç abonelik değil, platform entegrasyonu. Altta yeni: Vizyon komşu pazarlar açıyor – yapay zekâ video 3,67 milyar USD [Kaynak 23], dil öğrenme uygulamaları 1,54 milyar USD [Kaynak 33], video kurgu 2,68 milyar USD [Kaynak 51], Almanya sesli kitap 374 milyon € [Kaynak 19]. Bunları SOM'a bilerek katmıyoruz."
+    },
+    {
+      "layout": "model",
+      "kicker": "FREE → PRO → PAKETLER → B2B",
+      "title": "İş modeli",
+      "tiers": [
+        [
+          "Free",
+          "0 €",
+          "Temel işlevler, standart paketler, OBS katmanı. Yaygınlık ve topluluk."
+        ],
+        [
+          "Pro",
+          "aylık 9,99 €",
+          "Yapay zekâ modu, tüm sahneler ve temalar, telefondan kumanda, bulut senkronu, öncelikli destek."
+        ],
+        [
+          "Üretici paketleri",
+          "70 / 30",
+          "Üreticiden üreticiye meme ve hikâye paketleri pazaryeri. Kullanıcılar tedarikçiye dönüşür."
+        ],
+        [
+          "B2B lisansı",
+          "talep üzerine",
+          "Yayın yazılımları, ajanslar ve platform entegrasyonu için SDK / white-label."
+        ]
+      ],
+      "anchorTitle": "Pazardaki fiyat çıpaları",
+      "anchorText": "Streamlabs Ultra aylık 27 USD  ·  StreamYard Core aylık 35 USD  ·  Restream aylık 16 USD  ·  Voicemod Pro aylık 10 USD [Kaynak 11, 12, 13]\nPro bilerek Voicemod seviyesinde ve Streamlabs'in belirgin biçimde altında. Vizyon (tahmin): Pro+ “Studio & Sahneler” 14,99 €, Kelime-Resim Aile 4,99 €, okul ve yayınevi lisansları – bkz. slayt 13–15.",
+      "notes": "9,99 € bilerek Streamlabs Ultra'nın altında ve Voicemod seviyesinde – içerik üreticileri bu fiyat noktasını tanıyor. Pazaryeri kullanıcıları tedarikçiye dönüştürüyor: Türkçe bir meme paketi hazırlayan, onu satıyor. B2B platforma giden yol: Aynı motor, TikTok LIVE Studio'da tarayıcı kaynağı olarak çalışıyor. Vizyon Pro+ ve eğitim lisanslarını ekliyor – oradaki tüm fiyatlar tahmin."
+    },
+    {
+      "layout": "traction",
+      "kicker": "GERÇEK YAYINLARDA OLGUNLAŞTI",
+      "title": "Traction",
+      "stats": [
+        [
+          "[Sayı]",
+          "LiveFX'li kendi canlı yayını, [Ay/Yıl]'dan beri – [Sayı] saat"
+        ],
+        [
+          "2.0",
+          "güncel sürüm (0.1 → 2.0), 240+ otomatik test, DE/TR kılavuzlar"
+        ],
+        [
+          "238",
+          "tetikleyici, 5 pakette; 3 hikâye paketi, 38 ses, 13 sahne – 3 dilde"
+        ],
+        [
+          "[Sayı]",
+          "takipçi · bekleme listesinde [Sayı] üretici · [Sayı] indirme"
+        ]
+      ],
+      "practiceTitle": "Pratikten gelenler",
+      "practice": [
+        "Yankı sorunu (panel + OBS) → sessiz önizleme, ses kontrol kartı",
+        "Şiveler (“grass” → krass, “helal olsn”) → tolerans + öğrenme işlevi",
+        "TikTok/IG sohbeti alt üçte biri kapatıyor → dikey güvenli alanlar",
+        "Yayında kitap okuma → sahneli ve atmosferli hikâye modu"
+      ],
+      "next": "Sonraki 60 gün: 10 üretici testi TR/DE · açılış sayfası + fragman · topluluk lansmanı · ilk Pro abonelikleri",
+      "notes": "Rakamları görüşmeden önce girin – yalnızca gerçek olanları. Hikâye şu: Ürün gerçek yayınlarda olgunlaştı (yankı sorunu, şiveler, dikey güvenli alanlar – hepsi pratikten geldi). Şimdi sıra ilk 10 dış içerik üreticisinde ve ölçülebilir izlenme süresi etkisinde."
+    },
+    {
+      "layout": "competition",
+      "kicker": "2×2",
+      "title": "Rekabet – boş kalan çeyrek",
+      "quads": [
+        "Platformların yerel efektleri\nÇıkartma hediyeleri",
+        "Streamlabs / StreamElements\nBağış ve takip uyarıları",
+        "Voicemod · ses panoları\nStream Deck (kısayol)",
+        "LiveFX"
+      ],
+      "onlyOne": "tek sağlayıcı",
+      "axisX": [
+        "manuel",
+        "otomatik"
+      ],
+      "axisY": [
+        "izleyici kontrollü",
+        "ses kontrollü"
+      ],
+      "axisCaption": "Kullanım →",
+      "onlyTitle": "Yalnızca LiveFX'te",
+      "only": [
+        "Söylenen söze tepki verir",
+        "Türkçe paketler (85 tetikleyici) + hikâye paketleri",
+        "Atmosfer döngülü hikâye sahneleri",
+        "İzleyici ve harici tetikleyiciler için açık API",
+        "Yerel çalışır – bulut yok, giriş yok",
+        "Kendi seslerimiz – telif ihlali yok"
+      ],
+      "notes": "Sağ alt çeyrek boş – şimdilik. Onu doldurabilecek olanlar platformların kendisi; bu yüzden onlarla konuşuyoruz. Streamlabs ve benzerleri rakip değil, ev sahibi: LiveFX her birinde tarayıcı kaynağı olarak çalışıyor."
+    },
+    {
+      "layout": "roadmap",
+      "kicker": "KALDIRACA GÖRE SIRALI",
+      "title": "Yol haritası",
+      "milestones": [
+        [
+          "2026 4. çeyrek",
+          "Yerel mobil SDK",
+          "Efektler yalnızca OBS'te değil, doğrudan kamera uygulamasında · kararlı çevrimdışı tanıma · 10 üretici testi"
+        ],
+        [
+          "2027 1. çeyrek",
+          "Platform entegrasyonu",
+          "TikTok LIVE Studio eklentisi / Instagram Live Producer · kurulum programı · pazaryeri beta · öne çıkanları bul"
+        ],
+        [
+          "2027 2. çeyrek",
+          "Yapay zekâ ile anlama v2",
+          "Duygu, bağlam, ironi · cümle başına çoklu tetikleme · Pro aboneliği · canlı ticaret tetikleyicileri"
+        ],
+        [
+          "2027 3.–4. çeyrek",
+          "Hikâye motoru",
+          "Bütün hikâyeler sahne dizisi olarak · prosedürel çizilen sahneler (Anlatı Filmi) · izleyici hediyeli efektler · platform pilotu"
+        ]
+      ],
+      "footer": "Mobil SDK en büyük sorunu çözer (OBS'siz telefon yayıncıları). Platform entegrasyonu bu sunumun talebi. Yapay zekâ ile anlama ve hikâye motoru teknik farkımız – ve 2027–2029 vizyonuna giriş.",
+      "notes": "Kaldıraca göre sıralama: Mobil SDK en büyük sorunu çözüyor (OBS kullanmayan telefon yayıncıları). Platform entegrasyonu bu sunumun talebi. Yapay zekâ ile anlama ve hikâye motoru teknik farkımız. Önemli: Sahneler bir video yapay zekâsı tarafından üretilmiyor, prosedürel olarak çiziliyor – sonraki dört slayta köprü bu."
+    },
+    {
+      "layout": "vision",
+      "section": "Vizyon 2027–2029",
+      "vision": true,
+      "kicker": "VİZYON",
+      "title": "Kelimelerden canlı video: Sen anlat – sahne oluşsun.",
+      "pipeline": [
+        [
+          "🎙",
+          "Ses",
+          "Mikrofon, sesli okuma ya da hazır bir video dosyası"
+        ],
+        [
+          "🧠",
+          "Anlama",
+          "DE/TR/EN sözlük, şiveye toleranslı, yapay zekâ isteğe bağlı"
+        ],
+        [
+          "🎬",
+          "Sahne",
+          "≤ 1 KB dünya durumu, tek ortak zaman çizelgesi"
+        ],
+        [
+          "📺",
+          "Video",
+          "Tarayıcıda çizilir, 60 fps, kişinin kendi cihazında"
+        ]
+      ],
+      "lines": [
+        [
+          "🌳",
+          "Anlatı Filmi",
+          "Her cümleden, canlı görüntünün altında ya da yanında akan bir resimli kitap filmi büyür."
+        ],
+        [
+          "🍎",
+          "Kelime-Resim",
+          "Söylenen kelime → resim, hedef dildeki kelime ve telaffuz. Öğrenme ve okuma desteği."
+        ],
+        [
+          "🥽",
+          "Mekânlar",
+          "Sahne, sınıf, resimli sesli kitap, telefonda AR, VR ve ekranlı gözlük."
+        ],
+        [
+          "✂",
+          "Studio",
+          "Canlı editör ve otomatik kurgu: Video girer, kurgulanmış çıkar – yükleme olmadan."
+        ]
+      ],
+      "today": [
+        "BUGÜN",
+        "Ses bir saniyeden kısa sürede meme'e, sese ya da sahneye dönüşür – kurucunun kendi yayınlarında kullanılıyor."
+      ],
+      "tomorrow": [
+        "YARIN",
+        "Ses bir filme, telaffuzlu bir kelime kartına ya da hazır bir klibe dönüşür – yayında, okulda, sahnede, gözlükte."
+      ],
+      "tagline": "Üretmek yerine çizmek – bir veri merkezinin değil, bir altyazının işlem bütçesiyle.",
+      "notes": "Canlı altyazılar, platformların sesi gerçek zamanlı işlemek istediğini gösterdi – ücretsiz ve milyarlarca cihazda. Biz bir sonraki aşamayız: metin yerine görüntü. Tek motor, tek zaman çizelgesi, dört hat: Anlatı Filmi, Kelime-Resim, Mekânlar, Studio. Her şey kişinin kendi cihazındaki tarayıcıda çalışıyor: Bir cümle birkaç yüz baytlık bir durum farkına dönüşüyor ve tek bir Canvas'ta çiziliyor. Video difüzyon modeli yok, GPU sunucusu yok. Dürüst olalım: Bu 2027–2029 vizyonu – rozet bu yüzden orada. Temeli bugün çalışan kod (hikâye modu, efekt motoru, çevrimdışı tanıma). WebGPU artık tüm büyük tarayıcılarda var [Kaynak 27] – onu yalnızca isteğe bağlı kullanıyoruz."
+    },
+    {
+      "layout": "sceneEngine",
+      "vision": true,
+      "kicker": "A HATTI · ANLATI FİLMİ",
+      "title": "Generative Scene Engine: kelimelerden canlı video",
+      "scene": {
+        "transcript": "“Geceydi … bir kız ormana gitti … yağmur başladı … birden bir ejderha!”",
+        "atmo": "🌧 Atmosfer: Yağmur",
+        "state": "{yer:\"orman\", zaman:\"gece\", hava:\"yağmur\", kişiler:[👧,🐉], ton:\"gerilim\"}"
+      },
+      "cost": {
+        "title": "Saatlik eşlik videosu maliyeti",
+        "scale": "logaritmik ölçek · video yapay zekâsı liste fiyatı saniyesi 0,05–0,75 USD [Kaynak 24, 25] · LiveFX yapay zekâ maliyeti: proje ölçümü",
+        "bars": [
+          {
+            "label": "Video yapay zekâsı",
+            "from": 180,
+            "to": 2700,
+            "value": "180–2.700 USD"
+          },
+          {
+            "label": "LiveFX + metin YZ",
+            "from": 0.25,
+            "to": 0.75,
+            "value": "0,25–0,75 USD"
+          },
+          {
+            "label": "LiveFX, YZ'siz",
+            "from": 0,
+            "to": 0,
+            "value": "0 €"
+          }
+        ]
+      },
+      "rolesTitle": "Her cümle dünya durumunu değiştirir:",
+      "roles": [
+        "Yer",
+        "Zaman",
+        "Hava",
+        "Karakter",
+        "Nesne",
+        "Eylem",
+        "Ruh hâli"
+      ],
+      "bullets": [
+        "Yayıncı kitap okur ya da anlatır – altında cümle cümle animasyonlu bir film oluşur: gece, orman, yağmur, ejderha.",
+        "Tarayıcıda OBS'in yanında 60 fps, çevrimdışı ve deterministik: aynı zaman çizelgesi, aynı görüntü – her anlatı anında klibe dönüşür.",
+        "Video yapay zekâsından 240 ile 10.000 kattan fazla ucuz – ve canlı ancak böyle mümkün.",
+        "Sesli okuma, sesli kitap ve podcast formatları için: Almanya sesli kitap 374 milyon €, +%13 [Kaynak 19]; YouTube'da ayda > 1 milyar podcast izleyicisi [Kaynak 21]."
+      ],
+      "honest": [
+        "Bilerek resimli kitap, fotogerçekçilik değil",
+        "Emoji/SVG ve parçacıklardan stilize bir dünya – tam da bu yüzden canlı, ucuz ve çocuk dostu. İsteğe bağlı yapay zekâ yalnızca sahneyi seçer, görüntü üretmez."
+      ],
+      "notes": "Şöyle görünüyor: Yayıncı konuşmaktan başka bir şey yapmıyor. “Geceydi” – gökyüzü kararıyor. “Bir kız ormana gitti” – ağaçlar büyüyor, karakter içeri yürüyor. “Yağmur başladı” – yağmur yağıyor, atmosfer döngüsü değişiyor. “Birden bir ejderha” – şimşek, kamera sarsıntısı, ejderha. Teknik olarak: Bir cümle 200–500 baytlık bir fark üretiyor, sahneler dakikada 1–3 kez değişiyor, çizim en fazla 1.200 parçacıklı tek bir Canvas'ta – efekt motorumuz bu bütçeyi bugün bile OBS'in yanında tutuyor. Maliyet: Video yapay zekâsı liste fiyatıyla saniyesi 0,05 USD (Veo 3.1 Lite, 720p) ile 0,75 USD arasında [Kaynak 24, 25], yani saati 180–2.700 USD – ve canlı hiç mümkün değil. LiveFX: yapay zekâsız 0 €, isteğe bağlı metin yapay zekâsıyla saati 0,25–0,75 USD. Pazar: Almanya sesli kitap 374 milyon € [Kaynak 19], Almanya'da 23,8 milyon kişi her hafta podcast dinliyor [Kaynak 20], YouTube'da 1 milyardan fazla podcast izleyicisi [Kaynak 21]; yapay zekâ video pazarı 2036'ya kadar 3,67'den 24,89 milyar USD'ye büyüyor [Kaynak 23]. Takvim: Almanca MVP 2027 2. çeyrek, TR/EN ve dünya paketleri 2027 3. çeyrek. İlk yayınevi örneği: kurucunun kendi çocuk kitabı serisi."
+    },
+    {
+      "layout": "wordImage",
+      "vision": true,
+      "kicker": "B HATTI · KELİME-RESİM",
+      "title": "Dil öğrenme ve eğitim: her kelime bir resim",
+      "card": {
+        "emoji": "🍎",
+        "word": "elma",
+        "syllables": "el · ma",
+        "other": [
+          "apple",
+          "der Apfel"
+        ],
+        "speak": "“elma” – tr-TR",
+        "langs": [
+          "DE",
+          "TR",
+          "EN"
+        ]
+      },
+      "modesTitle": "Üç mod",
+      "modes": [
+        "Çeviri",
+        "Okuma desteği",
+        "Tekrar et"
+      ],
+      "bullets": [
+        "Bir çocuk “Apfel” der – anında: 🍎, hedef dilde “elma”, renkli artikeliyle “der Apfel” ve telaffuz. Tıklamadan.",
+        "Kendi dilinde okuma desteği: okuma çağı öncesi çocuklar, DaZ, uyum kursları ve nöroçeşitli öğrenenler için.",
+        "Yerel, hesapsız, çevrimdışı – okul veri koruması bir satış argümanı. Telaffuz cihazın sistem sesleriyle [Kaynak 29]."
+      ],
+      "stats": [
+        [
+          "12,7 milyon",
+          "ücretli Duolingo abonesi, Haziran 2026 [Kaynak 32]"
+        ],
+        [
+          "307.000",
+          "2025'te uyum kursuna başlayan kişi [Kaynak 36]"
+        ],
+        [
+          "5 milyar €",
+          "DigitalPakt 2.0, beş yıl, başlangıç 1.9.2026 [Kaynak 40]"
+        ]
+      ],
+      "revenue": "Gelirler (tahmin): Kelime-Resim Aile aylık 4,99 € · okul lisansı yıllık 300–800 € · kurs lisansı öğretmen başına yıllık 49 € · iki dilli kitaplar için yayınevi sürümü",
+      "notes": "En kişisel kısım: Nöroçeşitlilik üzerine çocuk kitapları yazıyorum ve Alman-Türk'üm. Öğretmen üç şey seçiyor – “Konuştuğum dil: Almanca”, “Göster: Türkçe” ve mod – sonra kitap okuyor. Öğrenme listesindeki her kelime resme, kelimeye ve telaffuza dönüşüyor. Tekrar et modu bilerek bir telaffuz puanlaması değil, yeşil bir onay işareti. Teknik: Kelime → resim bir tablo araması, telaffuzu işletim sistemi sağlıyor (speechSynthesis) [Kaynak 29], bir okul tableti yetiyor, çocuk başına sunucu maliyeti: sıfır. Pazar: Duolingo'nun 58,7 milyon günlük kullanıcısı ve 12,7 milyon ücretli abonesi var [Kaynak 32], dil öğrenme uygulamaları uygulama içi 1,54 milyar USD [Kaynak 33]; Almanya'da 16 yaş altı öğrencilerin %20,4'ü evde ağırlıklı olarak başka bir dil konuşuyor [Kaynak 37], Türkiye kökenli göç geçmişine sahip 2,65 milyon kişi [Kaynak 38], dördüncü sınıfların %25'i okumada asgari standardın altında [Kaynak 39]. Fiyat çıpası: ANTON okul lisansı 250–700 € [Kaynak 41]. Dürüst olalım: Uyum alanı euro olarak küçük, ama güvenilirlik ve destek fonlarına erişim sağlıyor; hacim ailelerde, yayınevlerinde ve platformlarda. “İki kat hızlı” değil, “kelime öğrenmeyi destekler” diyoruz."
+    },
+    {
+      "layout": "studio",
+      "vision": true,
+      "kicker": "D + C HATLARI · STUDIO VE MEKÂNLAR",
+      "title": "Otomatik kurgu, editör, VR/AR – ve daha büyük bir pazar",
+      "studioTitle": "LiveFX Studio: canlı kurgu ve otomatik kurgu",
+      "studioItems": [
+        [
+          "Canlı → öne çıkanlar",
+          "Yayından sonra 9:16 formatında 3–5 klip – meme'lerin, hediyelerin ve sohbetin en yoğun olduğu anlardan. Yüklemesiz."
+        ],
+        [
+          "Dosya girer → hazır çıkar",
+          "Videoyu sürükle → yerel transkript → çip olarak efekt, sahne ve kesmeler → donanım kodlayıcıyla MP4 [Kaynak 57, 59]."
+        ]
+      ],
+      "timeline": {
+        "file": "🎞 Video.mp4\n“Dinliyorum … (yerel)”",
+        "legend": [
+          "Meme",
+          "Sahne",
+          "Zoom",
+          "Kesme"
+        ]
+      },
+      "roomsTitle": "LiveFX Mekânlar: tek durum, birçok ekran",
+      "rooms": [
+        [
+          "🎤 Sahne ve etkinlik",
+          "bugün var",
+          "now"
+        ],
+        [
+          "🏫 Sınıf",
+          "bugün var",
+          "now"
+        ],
+        [
+          "🎧 Resimli sesli kitap",
+          "2027",
+          "soon"
+        ],
+        [
+          "📱 Telefonda AR",
+          "2027",
+          "soon"
+        ],
+        [
+          "🥽 WebXR / VR",
+          "Vizyon 2028",
+          "vision"
+        ],
+        [
+          "👓 Ekranlı gözlük",
+          "Vizyon 2028",
+          "vision"
+        ]
+      ],
+      "market": {
+        "title": "Genişleyen pazar",
+        "header": [
+          "Segment",
+          "Büyüklük"
+        ],
+        "rows": [
+          [
+            "Video kurgu yazılımı 2026",
+            "2,68 milyar USD [Kaynak 51]"
+          ],
+          [
+            "Yapay zekâ video (üretim + kurgu) 2026",
+            "3,67 milyar USD [Kaynak 23]"
+          ],
+          [
+            "Dil öğrenme uygulamaları (uygulama içi) 2025",
+            "1,54 milyar USD [Kaynak 33]"
+          ],
+          [
+            "Almanya sesli kitap 2025",
+            "374 milyon € [Kaynak 19]"
+          ],
+          [
+            "Akıllı gözlük 2026",
+            "13,6 milyon cihaz / 5,1 milyar USD [Kaynak 45]"
+          ],
+          [
+            "Canlı yayın (çekirdek) 2026",
+            "97–157 milyar USD [Kaynak 1, 2]"
+          ]
+        ],
+        "note": "Fiyat çıpaları: OpusClip aylık 15–29 USD, Descript aylık 16–65 USD [Kaynak 54, 55]. LiveFX Pro+ 14,99 € (tahmin) – bulut maliyeti yok, dakika sınırı yok. XR ve gözlük: vitrin, gelir kalemi değil."
+      },
+      "notes": "Aynı araca açılan iki kapı. Birincisi, canlı → öne çıkanlar: Sunucumuz bugün bile her tetikleyiciyi, her hediyeyi, her sohbet mesajını zaman damgasıyla biliyor – bundan yayın başına 3–5 klip çıkıyor. İkincisi, otomatik kurgu: 20 dakikalık bir MP4 pencereye sürükleniyor, Whisper tarayıcıda yerel olarak transkript çıkarıyor [Kaynak 60], LiveFX efektleri, sahneleri ve kesmeleri taşınabilir çipler olarak yerleştiriyor, dışa aktarım WebCodecs ve cihazın donanım kodlayıcısıyla yapılıyor [Kaynak 57, 58, 59]. Dosya bilgisayardan hiç çıkmıyor, video başına marjinal maliyet sıfır. Mekânlar: Sahne ve sınıf bugün bile çalışıyor (tam ekran, telefon reji masası olarak). Resimli sesli kitap ve telefonda AR 2027'de geliyor. WebXR [Kaynak 47, 48] ve Meta Ray-Ban Display gibi ekranlı gözlükler [Kaynak 46] vizyon – IDC 2026 için 13,6 milyon akıllı gözlük bekliyor [Kaynak 45], ekranlı gözlükler bunun yalnızca küçük bir kısmı. Rekabete dürüst bakış: CapCut'ın 736 milyon aylık aktif kullanıcısı var [Kaynak 52]; evrensel bir editör olarak değil, ses → efekt, sahneler, TR/DE ve yerel işlemeyle yarışıyoruz. Alıcı sinyali: Canva 2026'da Cavalry ve MangoAI'ı satın aldı [Kaynak 56]."
+    },
+    {
+      "layout": "team",
+      "section": "Ekip ve talep",
+      "kicker": "KULLANICI, YAZAR, KURUCU",
+      "title": "Ekip",
+      "photo": "[Fotoğraf]",
+      "name": "[İsim]",
+      "role": "Kurucu · Alman-Türk yazar ve canlı yayıncı",
+      "bullets": [
+        "Ürün, içerik, topluluk – ve test laboratuvarı olarak kendi yayınları",
+        "TR / DE / EN meme ve hikâye paketleri, birinci elden",
+        "Nöroçeşitlilik üzerine çocuk kitabı serisi – Kelime-Resim ve Anlatı Filmi'ne köprü",
+        "Kitaplar: [Başlık] · Yayınlar: [Platform / @kullanıcı] · [E-posta]"
+      ],
+      "open": [
+        [
+          "[Açık pozisyon] – Teknik lider",
+          "Ses / gerçek zamanlı, mobil SDK, Canvas/WebGPU"
+        ],
+        [
+          "[Açık pozisyon] – Üretici ortaklıkları",
+          "Büyüme TR + DACH, üretici programı, eğitim satışı"
+        ],
+        [
+          "Danışma kurulu / ortaklar",
+          "[İsim] · [İsim] · Eğitim teknolojisi/didaktik: [İsim]"
+        ]
+      ],
+      "notes": "Kurucu tek kişide kullanıcı, içerik sağlayıcı ve ürün sorumlusu – ürünün şivelerde, dikey formatta ve Türkçede çalışmasının nedeni bu. Çocuk kitabı yazarı olarak ilk yayınevi ve eğitim örneğini de kendisi getiriyor. Seed yatırımla iki işe alım geliyor; Kelime-Resim için içerik kontrolünü bir eğitim teknolojisi danışma kurulu üstleniyor."
+    },
+    {
+      "layout": "ask",
+      "kicker": "TALEBİMİZ",
+      "title": "Canlı yayınlara kulak verelim.",
+      "cards": [
+        [
+          "Platform pilotu",
+          "LiveFX, TikTok LIVE Studio, Instagram Live Producer ya da YouTube Live'da bir özellik olarak. Tarayıcı kaynağı bugün çalışıyor. 8 hafta, 20 üretici; izlenme süresi, hediyeler ve klipler ölçülür."
+        ],
+        [
+          "Eğitim ve dil pilotu",
+          "Eğitim kurumları, uyum kursları, okullar, dil öğrenme platformları ve yayınevleri: Kelime-Resim ve Anlatı Filmi'ni [Sayı] kurs/sınıfta ya da [Sayı] kitapla test edin."
+        ],
+        [
+          "Ortaklar",
+          "Yayın yazılımları (OBS eklentisi, Streamlabs), TR / DACH üretici ajansları, ses ve ASR sağlayıcıları, editör sağlayıcıları (Studio SDK)."
+        ],
+        [
+          "Görüşme ve seed",
+          "Satın alma görüşmesi: teknoloji + ekip. Paralelinde: 18 ay için [Sayı] € seed – 2 işe alım, üretici programı, pilotlar."
+        ]
+      ],
+      "contact": "İletişim: [E-posta]   ·   Demo: [Bağlantı]   ·   Kod ve doküman: live-fx/   ·   [İsim]",
+      "altNote": "Bu sunum Almanca ve İngilizce de mevcut: LiveFX_Pitch.pptx · LiveFX_Pitch_EN.pptx",
+      "notes": "Somut bitirin: İhtiyacımız olan, canlı yayın ekibinde bir muhatap ve 20 üreticiyle 8 haftalık bir pilot. Biz katmanı, paketleri, desteği ve ölçümü (izlenme süresi, hediyeler, canlı yayınlardan klipler) sağlıyoruz. Yeni: Kelime-Resim ve Anlatı Filmi için eğitim kurumları, dil öğrenme platformları ya da yayınevleriyle ikinci bir pilot arıyoruz – ilk yayınevi örneği kurucunun kendi çocuk kitabı serisi. Bu sunum Almanca ve İngilizce de mevcut."
+    }
+  ]
+}

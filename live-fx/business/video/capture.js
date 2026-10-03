@@ -4,6 +4,8 @@
 //   node capture.js 16x9              -> LiveFX_Trailer_16x9.mp4  (1920×1080)
 //   node capture.js 9x16 --stills     -> stills/9x16-<t>.jpg for 4 key frames (no video)
 //   node capture.js 9x16 --stills=2,12.6,25.5   custom times
+//   node capture.js 9x16 --lang=tr    -> LiveFX_Trailer_tr_9x16.mp4 (also --lang=en; stills -> stills/tr-9x16-<t>.jpg)
+//   without --lang (or --lang=de) everything behaves exactly as before (German master, unsuffixed file names).
 // Env: FFMPEG (binary path, default "ffmpeg"), FPS (default 30), CRF (default 20), PRESET (default medium).
 // Needs a full ffmpeg (libx264 + aac), e.g. apt-get install ffmpeg. The Playwright-bundled ffmpeg is VP8/webm-only.
 // Audio: music.wav (node music.js) is muxed with -shortest and a 2 s fade-out at the end of the video.
@@ -16,9 +18,12 @@ const path = require('path');
 const FF = process.env.FFMPEG || 'ffmpeg';
 const ratio = process.argv.includes('16x9') ? '16x9' : '9x16';
 const stillArg = process.argv.find((a) => a.startsWith('--stills'));
+const langArg = (process.argv.find((a) => a.startsWith('--lang=')) || '--lang=de').slice(7);
+if (!['de', 'tr', 'en'].includes(langArg)) { console.error(`unknown --lang=${langArg} (de | tr | en)`); process.exit(2); }
+const LANG = langArg, SUF = LANG === 'de' ? '' : `${LANG}_`;   // de keeps the original file names
 const FPS = Number(process.env.FPS || 30), CRF = process.env.CRF || '20', PRESET = process.env.PRESET || 'medium';
 const W = ratio === '9x16' ? 1080 : 1920, H = ratio === '9x16' ? 1920 : 1080;
-const OUT = path.join(__dirname, `LiveFX_Trailer_${ratio}.mp4`);
+const OUT = path.join(__dirname, `LiveFX_Trailer_${SUF}${ratio}.mp4`);
 const MUSIC = path.join(__dirname, 'music.wav');
 const KEY_STILLS = [2.7, 6.9, 29.6, 48.3];
 
@@ -26,7 +31,7 @@ const KEY_STILLS = [2.7, 6.9, 29.6, 48.3];
   const b = await chromium.launch({ args: ['--allow-file-access-from-files', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   const p = await b.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   p.on('pageerror', (e) => { console.error('page error:', e); process.exitCode = 1; });
-  await p.goto('file://' + path.join(__dirname, 'trailer.html') + `?capture&ratio=${ratio}`);
+  await p.goto('file://' + path.join(__dirname, 'trailer.html') + `?capture&ratio=${ratio}` + (LANG === 'de' ? '' : `&lang=${LANG}`));
   await p.evaluate(async () => { await window.READY; });
   const dur = await p.evaluate(() => DUR);
   const shot = async (t, quality = 90) => { await p.evaluate((t) => render(t), t); return p.screenshot({ type: 'jpeg', quality, clip: { x: 0, y: 0, width: W, height: H } }); };
@@ -35,20 +40,20 @@ const KEY_STILLS = [2.7, 6.9, 29.6, 48.3];
     const times = stillArg.includes('=') ? stillArg.split('=')[1].split(',').map(Number) : KEY_STILLS;
     fs.mkdirSync(path.join(__dirname, 'stills'), { recursive: true });
     for (const t of times) {
-      const f = path.join(__dirname, 'stills', `${ratio}-${String(t).replace('.', '_')}s.jpg`);
+      const f = path.join(__dirname, 'stills', `${LANG === 'de' ? '' : LANG + '-'}${ratio}-${String(t).replace('.', '_')}s.jpg`);
       fs.writeFileSync(f, await shot(t, 85)); console.log('still', f);
     }
     await b.close(); return;
   }
 
-  const tmp = path.join(__dirname, `.video_${ratio}.mp4`);
+  const tmp = path.join(__dirname, `.video_${SUF}${ratio}.mp4`);
   const ff = spawn(FF, ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(FPS), '-i', '-',
     '-c:v', 'libx264', '-preset', PRESET, '-crf', CRF, '-pix_fmt', 'yuv420p', '-movflags', '+faststart', tmp], { stdio: ['pipe', 'inherit', 'inherit'] });
   const n = Math.round(dur * FPS), t0 = Date.now();
   for (let i = 0; i < n; i++) {
     const buf = await shot(i / FPS);
     if (!ff.stdin.write(buf)) await new Promise((r) => ff.stdin.once('drain', r));
-    if (i % (FPS * 5) === 0) console.log(`${ratio} frame ${i}/${n}  (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
+    if (i % (FPS * 5) === 0) console.log(`${SUF}${ratio} frame ${i}/${n}  (${((Date.now() - t0) / 1000).toFixed(0)} s)`);
   }
   ff.stdin.end(); await new Promise((r) => ff.on('close', r));
   await b.close();

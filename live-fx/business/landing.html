@@ -26,6 +26,7 @@ header{position:sticky;top:0;z-index:20;background:rgba(15,17,21,.86);backdrop-f
 .nav{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
 .logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:1.15rem;text-decoration:none;color:var(--text)}
 .logo .tag{font-size:.62rem;font-weight:800;letter-spacing:.12em;padding:3px 7px;border-radius:999px;background:var(--violet);color:#fff}
+.logo{white-space:nowrap}@media(max-width:430px){.logo .tag{display:none}}
 .lang{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
 .lang button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:.8rem;font-weight:700;padding:5px 10px;border-radius:999px;cursor:pointer}
 .lang button[aria-pressed=true]{background:var(--pink);color:#fff}
@@ -80,6 +81,17 @@ footer{border-top:1px solid var(--line);padding:32px 0;font-size:.85rem;color:va
 footer .cols{display:flex;flex-wrap:wrap;gap:18px 32px;justify-content:space-between}
 footer a{color:var(--muted)}
 .ribbon{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:.85rem;color:var(--dim);margin-top:20px}
+.lines{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:560px){.lines{grid-template-columns:1fr 1fr}}@media(min-width:1000px){.lines{grid-template-columns:repeat(4,1fr)}}
+.line{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--lc,var(--mint));border-radius:var(--r);padding:18px}
+.line .lt{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--lc,var(--mint))}
+.line h3{margin-top:4px}.line p{margin:0;color:var(--muted);font-size:.92rem}
+.badge{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--gold);color:var(--gold);vertical-align:middle;margin-left:6px}
+.vgrid{display:grid;gap:18px;grid-template-columns:1fr;margin-top:22px}@media(min-width:900px){.vgrid{grid-template-columns:1.4fr 1fr;align-items:start}}
+.protos{display:grid;gap:12px}.protos .btn{justify-content:flex-start;white-space:normal}
+.docs{display:grid;gap:10px;grid-template-columns:1fr;margin-top:16px}@media(min-width:700px){.docs{grid-template-columns:repeat(3,1fr)}}
+.docs a{display:flex;flex-direction:column;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;text-decoration:none;color:var(--text);font-weight:700;font-size:.92rem}
+.docs a small{color:var(--muted);font-weight:400;font-size:.78rem}
 .ribbon>span{display:inline-flex;align-items:center;gap:6px}.ribbon i{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block}
 </style>
 </head>
@@ -90,6 +102,7 @@ footer a{color:var(--muted)}
     <nav class="navlinks">
       <a href="#features"><span data-lang="de">Funktionen</span><span data-lang="tr">Özellikler</span><span data-lang="en">Features</span></a>
       <a href="#how"><span data-lang="de">So geht’s</span><span data-lang="tr">Nasıl çalışır</span><span data-lang="en">How it works</span></a>
+      <a href="#vision"><span data-lang="de">Vision</span><span data-lang="tr">Vizyon</span><span data-lang="en">Vision</span></a>
       <a href="#packs"><span data-lang="de">Pakete</span><span data-lang="tr">Paketler</span><span data-lang="en">Packs</span></a>
       <a href="#pricing"><span data-lang="de">Preise</span><span data-lang="tr">Fiyatlar</span><span data-lang="en">Pricing</span></a>
       <a href="#faq">FAQ</a>
@@ -113,7 +126,7 @@ footer a{color:var(--muted)}
         <a class="btn primary" href="#download">⬇ Download (ZIP)</a>
         <a class="btn ghost" href="mailto:hallo@example.com?subject=LiveFX%20Pilot"><span data-lang="de">Pilot anfragen</span><span data-lang="tr">Pilot talep et</span><span data-lang="en">Request a pilot</span></a>
       </div>
-      <p class="hero-note"><span data-lang="de">Kostenlos · läuft lokal · Chrome/Edge + OBS · Version 1.6</span><span data-lang="tr">Ücretsiz · yerel çalışır · Chrome/Edge + OBS · Sürüm 1.6</span><span data-lang="en">Free · runs locally · Chrome/Edge + OBS · version 1.6</span></p>
+      <p class="hero-note"><span data-lang="de">Kostenlos · läuft lokal · Chrome/Edge + OBS · Version 2.0</span><span data-lang="tr">Ücretsiz · yerel çalışır · Chrome/Edge + OBS · Sürüm 2.0</span><span data-lang="en">Free · runs locally · Chrome/Edge + OBS · version 2.0</span></p>
       <div class="ribbon">
         <span><i></i><span data-lang="de">< 1 s Reaktion</span><span data-lang="tr">< 1 sn tepki</span><span data-lang="en">< 1 s reaction</span></span>
         <span><i></i>DE · TR · EN</span>
@@ -121,19 +134,19 @@ footer a{color:var(--muted)}
         <span><i></i><span data-lang="de">13 Story-Szenen</span><span data-lang="tr">13 hikâye sahnesi</span><span data-lang="en">13 story scenes</span></span>
       </div>
     </div>
-    <div class="hero-shot"><img src="landing-assets/overlay-neon.jpg" width="1280" height="720" alt="LiveFX Overlay: Neon-Text KRASS! mit Konfetti"></div>
+    <div class="hero-shot"><div data-lang="de"><img src="landing-assets/overlay-neon.jpg" width="1280" height="720" alt="LiveFX-Overlay: Neon-Text KRASS! mit Konfetti"></div><div data-lang="tr"><img src="video/assets/overlay-card.tr.jpg" width="1280" height="720" alt="LiveFX overlay: neon yazı EFSANE! ve konfeti"></div><div data-lang="en"><img src="video/assets/overlay-card.en.jpg" width="1280" height="720" alt="LiveFX overlay: neon text WILD! with confetti"></div></div>
   </div>
 </section>
 
 <section id="video">
   <div class="wrap">
     <span class="kicker gold"><span data-lang="de">Trailer</span><span data-lang="tr">Tanıtım</span><span data-lang="en">Trailer</span></span>
-    <h2><span data-lang="de">30 Sekunden, die mehr sagen als jede Folie</span><span data-lang="tr">30 saniye, her slayttan daha fazlasını anlatır</span><span data-lang="en">30 seconds that say more than any slide</span></h2>
+    <h2><span data-lang="de">50 Sekunden, die mehr sagen als jede Folie</span><span data-lang="tr">50 saniye, her slayttan daha fazlasını anlatır</span><span data-lang="en">50 seconds that say more than any slide</span></h2>
     <div class="videobox">
-      <video controls preload="none" playsinline poster="landing-assets/overlay-neon.jpg" src="video/LiveFX_Trailer_16x9.mp4">
-        <span data-lang="de">Dein Browser kann das Video nicht abspielen.</span><span data-lang="tr">Tarayıcın videoyu oynatamıyor.</span><span data-lang="en">Your browser cannot play this video.</span>
-      </video>
-      <div class="cap"><span data-lang="de">Kamera an, Creator spricht, Effekte erscheinen – dann Story-Modus: Vorlesen wird zu Szenen.</span><span data-lang="tr">Kamera açık, yayıncı konuşuyor, efektler beliriyor – sonra hikâye modu: okumak sahnelere dönüşüyor.</span><span data-lang="en">Camera on, creator talks, effects appear – then story mode: reading aloud turns into scenes.</span></div>
+      <div data-lang="de"><video controls preload="none" playsinline poster="landing-assets/overlay-neon.jpg" src="video/LiveFX_Trailer_16x9.mp4">Dein Browser kann das Video nicht abspielen.</video></div>
+      <div data-lang="tr"><video controls preload="none" playsinline poster="video/stills/tr-16x9-6_9s.jpg" src="video/LiveFX_Trailer_tr_16x9.mp4">Tarayıcın videoyu oynatamıyor.</video></div>
+      <div data-lang="en"><video controls preload="none" playsinline poster="video/stills/en-16x9-6_9s.jpg" src="video/LiveFX_Trailer_en_16x9.mp4">Your browser cannot play this video.</video></div>
+      <div class="cap"><span data-lang="de">Kamera an, Creator spricht, Effekte erscheinen – dann Story-Modus: Vorlesen wird zu Szenen. · <a href="video/LiveFX_Trailer_9x16.mp4">Hochkant 9:16</a></span><span data-lang="tr">Kamera açık, yayıncı konuşuyor, efektler beliriyor – sonra hikâye modu: okumak sahnelere dönüşüyor. · <a href="video/LiveFX_Trailer_tr_9x16.mp4">Dikey 9:16</a></span><span data-lang="en">Camera on, creator talks, effects appear – then story mode: reading aloud turns into scenes. · <a href="video/LiveFX_Trailer_en_9x16.mp4">Portrait 9:16</a></span></div>
     </div>
   </div>
 </section>
@@ -173,8 +186,8 @@ footer a{color:var(--muted)}
     <span class="kicker gold">Screenshots</span>
     <h2><span data-lang="de">So sieht es aus</span><span data-lang="tr">Böyle görünüyor</span><span data-lang="en">What it looks like</span></h2>
     <div class="gallery">
-      <figure><img src="landing-assets/overlay-neon.jpg" loading="lazy" alt="Overlay 16:9 – „Krass!“ → Neon-Text + Konfetti"><figcaption><span data-lang="de">Overlay 16:9 – „Krass!“ → Neon-Text + Konfetti</span><span data-lang="tr">Overlay 16:9 – „Krass!“ → neon yazı + konfeti</span><span data-lang="en">Overlay 16:9 – "Krass!" → neon text + confetti</span></figcaption></figure>
-      <figure><img src="landing-assets/overlay-portrait-rain.jpg" loading="lazy" alt="Hochkant 9:16 – Story-Modus „Es regnete…“"><figcaption><span data-lang="de">Hochkant 9:16 – Story-Modus „Es regnete…“</span><span data-lang="tr">Dikey 9:16 – hikâye modu „Yağmur yağıyordu…“</span><span data-lang="en">Portrait 9:16 – story mode "It was raining…"</span></figcaption></figure>
+      <figure><div data-lang="de"><img src="landing-assets/overlay-neon.jpg" loading="lazy" alt="Overlay 16:9 – „Krass!“ → Neon-Text + Konfetti"></div><div data-lang="tr"><img src="video/assets/overlay-card.tr.jpg" loading="lazy" alt="Overlay 16:9 – „Efsane!“ → neon yazı + konfeti"></div><div data-lang="en"><img src="video/assets/overlay-card.en.jpg" loading="lazy" alt="Overlay 16:9 – &quot;Wild!&quot; → neon text + confetti"></div><figcaption><span data-lang="de">Overlay 16:9 – „Krass!“ → Neon-Text + Konfetti</span><span data-lang="tr">Overlay 16:9 – „Efsane!“ → neon yazı + konfeti</span><span data-lang="en">Overlay 16:9 – "Wild!" → neon text + confetti</span></figcaption></figure>
+      <figure><div data-lang="de"><img src="landing-assets/overlay-portrait-rain.jpg" loading="lazy" alt="Hochkant 9:16 – Story-Modus „Es regnete…“"></div><div data-lang="tr"><img src="video/assets/overlay-story.tr.jpg" loading="lazy" alt="Dikey 9:16 – hikâye modu „Gece yağmur yağıyordu…“"></div><div data-lang="en"><img src="video/assets/overlay-story.en.jpg" loading="lazy" alt="Portrait 9:16 – story mode &quot;It was raining at night…&quot;"></div><figcaption><span data-lang="de">Hochkant 9:16 – Story-Modus „Es regnete…“</span><span data-lang="tr">Dikey 9:16 – hikâye modu „Gece yağmur yağıyordu…“</span><span data-lang="en">Portrait 9:16 – story mode "It was raining at night…"</span></figcaption></figure>
       <figure><img src="landing-assets/panel.jpg" loading="lazy" alt="Control Panel – Soundboard, Erkennung, Story-Modus"><figcaption><span data-lang="de">Control Panel – Soundboard, Erkennung, Story-Modus</span><span data-lang="tr">Kontrol paneli – soundboard, tanıma, hikâye modu</span><span data-lang="en">Control panel – soundboard, recognition, story mode</span></figcaption></figure>
       <figure><img src="landing-assets/mobile.jpg" loading="lazy" alt="Handy-Fernbedienung (PWA)"><figcaption><span data-lang="de">Handy-Fernbedienung (PWA)</span><span data-lang="tr">Telefon kumandası (PWA)</span><span data-lang="en">Phone remote (PWA)</span></figcaption></figure>
       <figure><img src="landing-assets/demo.jpg" loading="lazy" alt="Demo-Seite – Clip aufnehmen ohne OBS"><figcaption><span data-lang="de">Demo-Seite – Clip aufnehmen ohne OBS</span><span data-lang="tr">Demo sayfası – OBS olmadan klip kaydet</span><span data-lang="en">Demo page – record a clip without OBS</span></figcaption></figure>
@@ -193,6 +206,35 @@ footer a{color:var(--muted)}
       <div class="pack"><div class="big gold">50</div><div class="name">English</div><div class="ex"><span data-lang="de">bruh · let’s go · mind blown · GG</span><span data-lang="tr">bruh · let’s go · mind blown · GG</span><span data-lang="en">bruh · let’s go · mind blown · GG</span></div></div>
       <div class="pack"><div class="big violet">27</div><div class="name"><span data-lang="de">Familie & Kinder</span><span data-lang="tr">Aile & Çocuk</span><span data-lang="en">Family & Kids</span></div><div class="ex"><span data-lang="de">Kinderlachen · Quietscheente · Glitzer</span><span data-lang="tr">çocuk kahkahası · ördek · pırıltı</span><span data-lang="en">kids’ laughter · rubber duck · sparkle</span></div></div>
       <div class="pack"><div class="big pink">27</div><div class="name">Gaming</div><div class="ex"><span data-lang="de">GG · Clutch · Rage · Level-up</span><span data-lang="tr">GG · Clutch · Rage · Level-up</span><span data-lang="en">GG · clutch · rage · level-up</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="vision" style="background:radial-gradient(ellipse 60% 40% at 80% 0%,rgba(45,255,181,.10),transparent 60%)">
+  <div class="wrap">
+    <span class="kicker mint"><span data-lang="de">Vision 2027–2029</span><span data-lang="tr">Vizyon 2027–2029</span><span data-lang="en">Vision 2027–2029</span></span><span class="badge">Vision</span>
+    <h2><span data-lang="de">Du redest. Es wird Bild.</span><span data-lang="tr">Sen anlat – sahne oluşsun.</span><span data-lang="en">You talk. It becomes a scene.</span></h2>
+    <p class="sub"><span data-lang="de">Was jemand erzählt, vorliest oder unterrichtet, wird in derselben Sekunde zur Szene, zur Wortkarte mit Aussprache oder zum fertig geschnittenen Clip. Gezeichnet im Browser statt generiert im Rechenzentrum: mit dem Rechenbudget eines Untertitels.</span><span data-lang="tr">Anlatılan, okunan ya da öğretilen her şey aynı saniyede bir sahneye, sesli bir kelime kartına ya da kurgulanmış bir klibe dönüşür. Veri merkezinde üretilmez, tarayıcıda çizilir: bir altyazının işlem gücüyle.</span><span data-lang="en">Whatever someone tells, reads aloud or teaches becomes a scene, a word card with pronunciation or a finished clip in the same second. Drawn in the browser instead of generated in a data centre, on the compute budget of a subtitle.</span></p>
+    <div class="lines">
+      <div class="line" style="--lc:var(--mint)"><div class="lt">A</div><h3><span data-lang="de">Erzählfilm</span><span data-lang="tr">Anlatı Filmi</span><span data-lang="en">Story Film</span></h3><p><span data-lang="de">Du liest vor, darunter entsteht Satz für Satz ein animierter Bilderbuch-Film: Nacht, Wald, Regen, Drache. Deterministisch in Canvas, ohne Video-KI.</span><span data-lang="tr">Sen okursun, altında cümle cümle animasyonlu bir resimli kitap filmi oluşur: gece, orman, yağmur, ejderha. Canvas’ta deterministik, video yapay zekâsı olmadan.</span><span data-lang="en">You read aloud, and an animated picture-book film builds up underneath, sentence by sentence: night, forest, rain, dragon. Deterministic in canvas, no video AI.</span></p></div>
+      <div class="line" style="--lc:var(--gold)"><div class="lt">B</div><h3><span data-lang="de">WortBild</span><span data-lang="tr">Kelime-Resim</span><span data-lang="en">WordPicture</span></h3><p><span data-lang="de">Ein gesagtes Wort erscheint als Bild mit dem Wort in der Zielsprache und Aussprache 🔊 – oder in der eigenen Sprache als Lesehilfe. Für Kinder, Schule, DaZ und Türkisch.</span><span data-lang="tr">Söylenen kelime resim olarak, hedef dildeki karşılığı ve telaffuzuyla 🔊 belirir – ya da okuma desteği olarak kendi dilinde. Çocuklar, okul, Almanca ve Türkçe öğrenimi için.</span><span data-lang="en">A spoken word appears as a picture with the word in the target language and its pronunciation 🔊, or in your own language as a reading aid. For children, schools, German and Turkish learners.</span></p></div>
+      <div class="line" style="--lc:#5ad1ff"><div class="lt">C</div><h3><span data-lang="de">LiveFX Räume</span><span data-lang="tr">LiveFX Mekânlar</span><span data-lang="en">LiveFX Spaces</span></h3><p><span data-lang="de">Dieselbe Zeitleiste auf Bühne, Leinwand im Klassenzimmer, Hörbuch und Podcast mit Bild, AR im Handy und später in der Brille.</span><span data-lang="tr">Aynı zaman çizelgesi sahnede, sınıftaki perdede, resimli sesli kitapta ve podcast’te, telefonda AR ile, ileride de akıllı gözlükte.</span><span data-lang="en">The same timeline on stage, on the classroom screen, in audiobooks and podcasts with pictures, in phone AR and later in smart glasses.</span></p></div>
+      <div class="line" style="--lc:var(--pink)"><div class="lt">D</div><h3>LiveFX Studio</h3><p><span data-lang="de">Live schneiden oder ein fertiges Video hineinwerfen: Transkript, Memes, Szenen und Schnitt entstehen automatisch, Export im Browser.</span><span data-lang="tr">Canlı kurgula ya da hazır bir videoyu sürükle bırak: transkript, meme’ler, sahneler ve kesmeler kendiliğinden oluşur, dışa aktarma tarayıcıda.</span><span data-lang="en">Edit live, or drop in a finished video: transcript, memes, scenes and cuts are added automatically, and export runs in the browser.</span></p></div>
+    </div>
+    <div class="vgrid">
+      <div class="videobox">
+        <div data-lang="de"><video controls preload="none" playsinline poster="video/stills/vision-de-16x9-15s.jpg" src="video/LiveFX_Vision_de_16x9.mp4">Dein Browser kann das Video nicht abspielen.</video></div>
+        <div data-lang="tr"><video controls preload="none" playsinline poster="video/stills/vision-tr-16x9-15s.jpg" src="video/LiveFX_Vision_tr_16x9.mp4">Tarayıcın videoyu oynatamıyor.</video></div>
+        <div data-lang="en"><video controls preload="none" playsinline poster="video/stills/vision-en-16x9-15s.jpg" src="video/LiveFX_Vision_en_16x9.mp4">Your browser cannot play this video.</video></div>
+        <div class="cap"><span data-lang="de">Vision-Trailer, 35 s · <a href="video/LiveFX_Vision_de_9x16.mp4">Hochkant 9:16</a></span><span data-lang="tr">Vizyon fragmanı, 35 sn · <a href="video/LiveFX_Vision_tr_9x16.mp4">Dikey 9:16</a></span><span data-lang="en">Vision trailer, 35 s · <a href="video/LiveFX_Vision_en_9x16.mp4">Portrait 9:16</a></span></div>
+      </div>
+      <div class="protos">
+        <h3><span data-lang="de">Selbst ausprobieren</span><span data-lang="tr">Kendin dene</span><span data-lang="en">Try it yourself</span></h3>
+        <p class="muted" style="margin:0;font-size:.9rem"><span data-lang="de">Zwei Prototypen als einzelne HTML-Dateien, offline, ohne Konto. Oberfläche DE/TR/EN, Umschalter oben rechts.</span><span data-lang="tr">Tek HTML dosyası olarak iki prototip, çevrimdışı, hesap gerektirmez. Arayüz DE/TR/EN, dil seçimi sağ üstte.</span><span data-lang="en">Two prototypes, each a single HTML file, offline, no account. Interface in DE/TR/EN, switch at the top right.</span></p>
+        <a class="btn ghost" href="prototypes/live-story.html">🎬 <span data-lang="de">Erzählfilm: Live-Story-Engine</span><span data-lang="tr">Anlatı Filmi: canlı hikâye motoru</span><span data-lang="en">Story Film: live story engine</span></a>
+        <a class="btn ghost" href="prototypes/sprachlernen.html">🍎 <span data-lang="de">WortBild: Sprachen lernen</span><span data-lang="tr">Kelime-Resim: dil öğren</span><span data-lang="en">WordPicture: learn languages</span></a>
+        <p class="muted" style="margin:0;font-size:.82rem"><span data-lang="de">Mikrofon in Chrome/Edge; Tippen geht überall.</span><span data-lang="tr">Mikrofon Chrome/Edge’de; yazarak her tarayıcıda.</span><span data-lang="en">Microphone in Chrome/Edge; typing works everywhere.</span></p>
+      </div>
     </div>
   </div>
 </section>
@@ -236,9 +278,25 @@ footer a{color:var(--muted)}
       <pre>cd live-fx
 node server.js            # → http://127.0.0.1:8787</pre>
       <div class="ctas" style="margin:8px 0 0">
-        <a class="btn primary" href="[Download-Link]/LiveFX-1.6.zip">⬇ LiveFX 1.6 (ZIP)</a>
+        <a class="btn primary" href="[Download-Link]/LiveFX-2.0.zip">⬇ LiveFX 2.0 (ZIP)</a>
         <a class="btn ghost" href="[Repo-Link]"><span data-lang="de">Quellcode & Doku</span><span data-lang="tr">Kaynak kod ve belgeler</span><span data-lang="en">Source & docs</span></a>
       </div>
+      <h3 style="margin-top:22px"><span data-lang="de">Unterlagen für Partner, Förderer und Presse</span><span data-lang="tr">Ortaklar, destekçiler ve basın için belgeler</span><span data-lang="en">Documents for partners, funders and press</span></h3>
+      <div data-lang="de"><div class="docs">
+        <a href="LiveFX_Pitch.pptx">📊 Pitch-Deck<small>PowerPoint, 17 Folien</small></a>
+        <a href="BUSINESSPLAN.docx">📄 Businessplan<small>Word, inkl. Vision 2027–2029</small></a>
+        <a href="VISION.md">🔭 Vision<small>Markdown, die vier Linien A–D</small></a>
+      </div></div>
+      <div data-lang="tr"><div class="docs">
+        <a href="LiveFX_Pitch_TR.pptx">📊 Sunum (pitch deck)<small>PowerPoint, 17 slayt</small></a>
+        <a href="BUSINESSPLAN.tr.docx">📄 İş planı<small>Word, Vizyon 2027–2029 dâhil</small></a>
+        <a href="VISION.tr.md">🔭 Vizyon<small>Markdown, A–D dört hattı</small></a>
+      </div></div>
+      <div data-lang="en"><div class="docs">
+        <a href="LiveFX_Pitch_EN.pptx">📊 Pitch deck<small>PowerPoint, 17 slides</small></a>
+        <a href="BUSINESSPLAN.en.docx">📄 Business plan<small>Word, incl. Vision 2027–2029</small></a>
+        <a href="VISION.en.md">🔭 Vision<small>Markdown, the four lines A–D</small></a>
+      </div></div>
       <p class="muted" style="font-size:.82rem;margin:14px 0 0"><span data-lang="de">Anleitungen für OBS, TikTok LIVE Studio, Instagram Live Producer, Handy und Ton-Check liegen im Ordner docs/.</span><span data-lang="tr">OBS, TikTok LIVE Studio, Instagram Live Producer, telefon ve ses kontrolü kılavuzları docs/ klasöründe.</span><span data-lang="en">Guides for OBS, TikTok LIVE Studio, Instagram Live Producer, phone and audio check are in the docs/ folder.</span></p>
     </div>
   </div>
@@ -258,7 +316,7 @@ node server.js            # → http://127.0.0.1:8787</pre>
 
 <footer>
   <div class="wrap cols">
-    <div><strong style="color:var(--text)">LiveFX</strong> · <span data-lang="de">von [Name], Autorin & Live-Streamerin</span><span data-lang="tr">[Name] tarafından, yazar ve yayıncı</span><span data-lang="en">by [Name], author & live streamer</span> · © 2026</div>
+    <div><strong style="color:var(--text)">LiveFX</strong> · <span data-lang="de">von [Name], Autorin & Live-Streamerin</span><span data-lang="tr">[İsim] tarafından, yazar ve yayıncı</span><span data-lang="en">by [Name], author & live streamer</span> · © 2026</div>
     <div>
       <a href="#impressum"><span data-lang="de">Impressum</span><span data-lang="tr">Künye</span><span data-lang="en">Imprint</span></a> ·
       <a href="#impressum"><span data-lang="de">Datenschutz</span><span data-lang="tr">Gizlilik</span><span data-lang="en">Privacy</span></a> ·
@@ -266,7 +324,7 @@ node server.js            # → http://127.0.0.1:8787</pre>
     </div>
   </div>
   <div class="wrap" id="impressum" style="margin-top:18px;font-size:.78rem;color:var(--dim)">
-    <span data-lang="de">Impressum: [Name] · [Straße Nr.] · [PLZ Ort] · [E-Mail] · Umsatzsteuer-ID: [ID] – Datenschutz: Diese Seite setzt keine Cookies und lädt keine externen Ressourcen. LiveFX verarbeitet Sprache lokal; die Spracherkennung von Chrome/Edge unterliegt den Bedingungen des Browser-Herstellers.</span><span data-lang="tr">Künye: [Name] · [Adres] · [E-posta] · Vergi no: [ID] – Gizlilik: Bu sayfa çerez kullanmaz ve harici kaynak yüklemez. LiveFX konuşmayı yerel işler; Chrome/Edge konuşma tanıması tarayıcı üreticisinin koşullarına tabidir.</span><span data-lang="en">Imprint: [Name] · [Street] · [City] · [E-mail] · VAT ID: [ID] – Privacy: this page sets no cookies and loads no external resources. LiveFX processes speech locally; Chrome/Edge speech recognition is subject to the browser vendor’s terms.</span>
+    <span data-lang="de">Impressum: [Name] · [Straße Nr.] · [PLZ Ort] · [E-Mail] · Umsatzsteuer-ID: [ID] – Datenschutz: Diese Seite setzt keine Cookies und lädt keine externen Ressourcen. LiveFX verarbeitet Sprache lokal; die Spracherkennung von Chrome/Edge unterliegt den Bedingungen des Browser-Herstellers.</span><span data-lang="tr">Künye: [İsim] · [Adres] · [E-posta] · Vergi no: [ID] – Gizlilik: Bu sayfa çerez kullanmaz ve harici kaynak yüklemez. LiveFX konuşmayı yerel işler; Chrome/Edge konuşma tanıması tarayıcı üreticisinin koşullarına tabidir.</span><span data-lang="en">Imprint: [Name] · [Street] · [City] · [E-mail] · VAT ID: [ID] – Privacy: this page sets no cookies and loads no external resources. LiveFX processes speech locally; Chrome/Edge speech recognition is subject to the browser vendor’s terms.</span>
   </div>
 </footer>
 
@@ -280,6 +338,7 @@ node server.js            # → http://127.0.0.1:8787</pre>
     document.querySelectorAll('[data-set-lang]').forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === l));
     });
+    document.querySelectorAll('video').forEach(function (v) { try { v.pause(); } catch (e) {} });
     try { localStorage.setItem('livefx.landing.lang', l); } catch (e) {}
   }
   document.querySelectorAll('[data-set-lang]').forEach(function (b) {
