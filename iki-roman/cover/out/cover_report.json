@@ -1,19 +1,19 @@
 {
   "BY": {
-    "pages": 281,
+    "pages": 282,
     "pages_source": "interior/out/report.json",
-    "spine_mm": 17.84,
+    "spine_mm": 17.91,
     "tr": {
       "geometry": {
-        "page_w": 320.19,
+        "page_w": 320.26000000000005,
         "page_h": 216.35,
-        "spine": 17.84,
+        "spine": 17.91,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 169.01500000000001
+        "front_x": 169.085
       },
       "fullcover_check": {
-        "width_mm": 320.19,
+        "width_mm": 320.26,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",
@@ -32,15 +32,15 @@
     },
     "en": {
       "geometry": {
-        "page_w": 320.19,
+        "page_w": 320.26000000000005,
         "page_h": 216.35,
-        "spine": 17.84,
+        "spine": 17.91,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 169.01500000000001
+        "front_x": 169.085
       },
       "fullcover_check": {
-        "width_mm": 320.19,
+        "width_mm": 320.26,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",
@@ -59,15 +59,15 @@
     },
     "de": {
       "geometry": {
-        "page_w": 320.19,
+        "page_w": 320.26000000000005,
         "page_h": 216.35,
-        "spine": 17.84,
+        "spine": 17.91,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 169.01500000000001
+        "front_x": 169.085
       },
       "fullcover_check": {
-        "width_mm": 320.19,
+        "width_mm": 320.26,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",
@@ -86,20 +86,20 @@
     }
   },
   "SA": {
-    "pages": 201,
+    "pages": 202,
     "pages_source": "interior/out/report.json",
-    "spine_mm": 12.76,
+    "spine_mm": 12.83,
     "tr": {
       "geometry": {
-        "page_w": 315.11,
+        "page_w": 315.18,
         "page_h": 216.35,
-        "spine": 12.76,
+        "spine": 12.83,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 163.935
+        "front_x": 164.00500000000002
       },
       "fullcover_check": {
-        "width_mm": 315.11,
+        "width_mm": 315.18,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",
@@ -118,15 +118,15 @@
     },
     "en": {
       "geometry": {
-        "page_w": 315.11,
+        "page_w": 315.18,
         "page_h": 216.35,
-        "spine": 12.76,
+        "spine": 12.83,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 163.935
+        "front_x": 164.00500000000002
       },
       "fullcover_check": {
-        "width_mm": 315.11,
+        "width_mm": 315.18,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",
@@ -145,15 +145,15 @@
     },
     "de": {
       "geometry": {
-        "page_w": 315.11,
+        "page_w": 315.18,
         "page_h": 216.35,
-        "spine": 12.76,
+        "spine": 12.83,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 163.935
+        "front_x": 164.00500000000002
       },
       "fullcover_check": {
-        "width_mm": 315.11,
+        "width_mm": 315.18,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",

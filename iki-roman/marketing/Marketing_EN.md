@@ -54,7 +54,7 @@ Then a more dangerous question arises: <i>What if the thing that wants to wake y
 
 - **7 keywords (≤ 50 characters each):** turkish psychological thriller · mystical crime novel · inner voices memory · istanbul thriller · conspiracy awakening · black package red string · sufism and psychology
 - **Categories (3):** Fiction › Thrillers › Psychological · Fiction › Mystery & Detective › Amateur Sleuth · Fiction › Literary
-- **Price idea:** e-book 4.99 €/$; A5 paperback (~190 pages) 12.99–14.99 depending on KDP print cost.
+- **Price idea:** e-book 4.99 €/$; A5 paperback (282 pages) 12.99–14.99 depending on KDP print cost.
 
 ### 3.2 THE WITNESS
 - **Title:** THE WITNESS · **Subtitle:** Roman (A Novel)
@@ -70,7 +70,7 @@ Who is the witness? The silent man? The one who writes the story? The one who sa
 
 - **7 keywords:** sufi novel · witness and witnessing · psychiatric clinic novel · memory and identity · spiritual search · typewriter and letter · modern sufi stories
 - **Categories (3):** Fiction › Literary · Fiction › Religious › General · Fiction › Psychological
-- **Price idea:** e-book 4.99; A5 paperback (~165 pages) 11.99–13.99.
+- **Price idea:** e-book 4.99; A5 paperback (202 pages) 11.99–13.99.
 
 ### 3.3 Shared elements
 - **Author page (Amazon Author Central):** both authors, the project text, the panorama (`cover/out/Panorama_Marketing_EN.png`).

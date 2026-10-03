@@ -146,7 +146,7 @@ Schwächen: doppelt verzögerter Einstieg (8.200 Zeichen Ceylan-Fabel vor dem er
 | Kind hinter der Tür beim Paketöffnen | Kap. 2: Erzähler allein, Kinder bei Zeynep | SU: „içeriden çocuğunun sesini“ | gegengeprüft, **kein Widerspruch** (0,85): in SA eine gerahmte Autorenvision, in BY Kap. 50 dasselbe Tableau („Kırmızı bir ip, siyah bir paket. Ardından masanın çevresine çocukları oturttu.“), s. 5.2 |
 | Hakan Hıdıroğlu | „romandaki Hakan“, Hekim (Kap. 12) | Chefarzt und realer Körper (Auflösung) | stimmig im Beruf, chiastisch in der Realitätsebene (gewollt) |
 | Muhibbi Amca und der Teefleck | Kap. 12 („sayfanın kenarında çay lekesi“) | DAKTİLO (Nazım schüttet Tee), MUHİBBİ | stimmig bis ins Detail |
-| Erenköy, tecrit odası, Reha-Zentrum 2015 | Kap. 12, 13 | AZ ÇOK, TECRİT ODASI | stimmig |
+| Erenköy, Reha-Zentrum 2015 | Kap. 12, 13 | AZ ÇOK, TECRİT ODASI (das „tecrit odası“ selbst nur in ŞAHİT) | stimmig |
 | Grüner Korridor, Arzt reicht Wasser | Kap. 5, 12 („Yeşil oda… Su uzatan bir doktor… Hakan“) | Grün ist das Schreibzimmer; das Glas reicht der Neurologe | zirkulär stimmig, in der Szene einseitig (BY verweist auf die Oktober-Fassung) |
 | Drei Metallschläge, Bitte um Wasser | Kap. 12, 40 | MEKTUBU KİM YAZDI?, ÜÇ VURUŞ (Tablett) | stimmig, produktiver Gegenlauf |
 | „Kırılmış.“ / „Kapak.“ | Kap. 13, 50 (Projektorkappe „Üst kapak kırık“) | MEKTUBU KİM YAZDI? | stimmig; nur BY liefert die Auflösung |

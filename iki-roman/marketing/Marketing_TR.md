@@ -63,7 +63,7 @@ Sonra daha tehlikeli bir soru beliriyor: <i>Ya seni uyandırmak isteyen şey, as
   7. tasavvuf ve psikoloji
 
 - **Kategoriler (3):** Fiction › Thrillers › Psychological · Fiction › Mystery & Detective › Amateur Sleuth · Fiction › Literary
-- **Fiyat önerisi:** e-kitap 4,99 € / 149 TL bandı; baskı A5 ~190 sayfa, KDP maliyetine göre 12,99–14,99 €.
+- **Fiyat önerisi:** e-kitap 4,99 € / 149 TL bandı; baskı A5, 282 sayfa, KDP maliyetine göre 12,99–14,99 €.
 
 ### 3.2 ŞAHİT
 - **Başlık:** ŞAHİT
@@ -88,7 +88,7 @@ Mektuplar, kayıp zamanlar ve tek bir kelime: <b>Şahit.</b> Bir araştırma ola
   7. modern sufi hikâyeleri
 
 - **Kategoriler (3):** Fiction › Literary · Fiction › Religious › General · Fiction › Psychological
-- **Fiyat önerisi:** e-kitap 4,99 € / 149 TL; baskı A5 ~165 sayfa, 11,99–13,99 €.
+- **Fiyat önerisi:** e-kitap 4,99 € / 149 TL; baskı A5, 202 sayfa, 11,99–13,99 €.
 
 ### 3.3 Ortak alanlar
 - **Yazar sayfası (Amazon Author Central):** iki yazar, ortak proje metni, panorama görseli (`cover/out/Panorama_Marketing_TR.png`).

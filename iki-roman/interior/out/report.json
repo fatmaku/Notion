@@ -16,8 +16,8 @@
       "epub_vs_model": "ok"
     },
     "pdf": "/home/user/Notion/iki-roman/interior/out/YOLCU_Innenteil_A5.pdf",
-    "pdf_pages": 281,
-    "body_pages": 275,
+    "pdf_pages": 282,
+    "body_pages": 276,
     "first_body_page_number": 7,
     "front_matter_pages": 6,
     "page_numbering": "Vorspann römisch (IHV), Werkteil beginnt mit 1 auf der ersten Werkseite (recto)",
@@ -106,7 +106,7 @@
       "YOLCU_p015.png",
       "YOLCU_p144.png",
       "YOLCU_p145.png",
-      "YOLCU_p281.png"
+      "YOLCU_p282.png"
     ],
     "epub": "/home/user/Notion/iki-roman/interior/out/YOLCU.epub",
     "epubcheck": {
@@ -137,8 +137,8 @@
       "epub_vs_model": "ok"
     },
     "pdf": "/home/user/Notion/iki-roman/interior/out/SAHIT_Innenteil_A5.pdf",
-    "pdf_pages": 201,
-    "body_pages": 195,
+    "pdf_pages": 202,
+    "body_pages": 196,
     "first_body_page_number": 7,
     "front_matter_pages": 6,
     "page_numbering": "Vorspann römisch (IHV), Werkteil beginnt mit 1 auf der ersten Werkseite (recto)",
@@ -205,7 +205,7 @@
       "SAHIT_p013.png",
       "SAHIT_p104.png",
       "SAHIT_p105.png",
-      "SAHIT_p201.png"
+      "SAHIT_p202.png"
     ],
     "epub": "/home/user/Notion/iki-roman/interior/out/SAHIT.epub",
     "epubcheck": {

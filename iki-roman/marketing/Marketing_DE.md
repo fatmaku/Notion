@@ -55,7 +55,7 @@ Doch bald stellt sich eine noch gefährlichere Frage: <i>Was, wenn das, was dich
 
 - **7 Keywords (je ≤ 50 Zeichen):** psychothriller türkisch · mystischer kriminalroman · innere stimmen erinnerung · istanbul thriller · verschwörung erwachen · schwarzes paket roter faden · sufismus und psychologie
 - **Kategorien (3):** Fiction › Thrillers › Psychological · Fiction › Mystery & Detective › Amateur Sleuth · Fiction › Literary
-- **Preisidee:** E-Book 4,99 €; Taschenbuch A5 (~190 Seiten) 12,99–14,99 € je nach KDP-Druckkosten.
+- **Preisidee:** E-Book 4,99 €; Taschenbuch A5 (282 Seiten) 12,99–14,99 € je nach KDP-Druckkosten.
 
 ### 3.2 DER ZEUGE
 - **Titel:** DER ZEUGE · **Untertitel:** Roman
@@ -71,7 +71,7 @@ Wer ist der Zeuge? Der schweigende Mann? Der, der die Geschichte schreibt? Der, 
 
 - **7 Keywords:** sufi roman · zeuge und zeugenschaft · psychiatrie klinik roman · erinnerung und identität · spirituelle suche · schreibmaschine brief · moderne sufi geschichten
 - **Kategorien (3):** Fiction › Literary · Fiction › Religious › General · Fiction › Psychological
-- **Preisidee:** E-Book 4,99 €; Taschenbuch A5 (~165 Seiten) 11,99–13,99 €.
+- **Preisidee:** E-Book 4,99 €; Taschenbuch A5 (202 Seiten) 11,99–13,99 €.
 
 ### 3.3 Gemeinsame Elemente
 - **Autorenseite (Amazon Author Central):** beide Autoren, Projekttext, Panorama (`cover/out/Panorama_Marketing_DE.png`).

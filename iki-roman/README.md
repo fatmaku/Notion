@@ -22,9 +22,9 @@ Zwei Romane, ein Kunstprojekt: **YOLCU – 1453 Uyanışın Bedeli** (Tuncay San
 
 | | YOLCU (BY) | ŞAHİT (SA) |
 |---|---|---|
-| Seiten (Innenteil-PDF) | **281** | **201** |
-| Rückenbreite = Seiten × 0,0635 mm | **17,84 mm** | **12,76 mm** |
-| Fullcover-Maß (B × H) | **320,19 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 17,84) | **315,11 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 12,76) |
+| Seiten (Innenteil-PDF) | **282** | **202** |
+| Rückenbreite = Seiten × 0,0635 mm | **17,91 mm** | **12,83 mm** |
+| Fullcover-Maß (B × H) | **320,26 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 17,91) | **315,18 × 216,35 mm** (= 2 × 3,175 + 2 × 148 + 12,83) |
 | Beschnitt | 3,175 mm (0,125 in) umlaufend | dito |
 | Sicherheitszone Text | ≥ 6,35 mm (0,25 in) vom Trim | dito |
 | Rückentext | ≥ 1,6 mm (0,0625 in) von den Rückenkanten; Rückentext ab 79 Seiten erlaubt | dito |
@@ -44,7 +44,7 @@ Die genauen Zahlen (Seiten, Rücken, Fullcover-Maß) stehen nach jedem Build in 
 ## Upload-Checkliste KDP
 
 1. **Innenteil-PDF** hochladen (`interior/out/*_Innenteil_A5.pdf`), Trim 5,83 × 8,27 in, **ohne Beschnitt**, Schwarz-Weiß, Creme.
-2. Seitenzahl aus der KDP-Vorschau mit `cover_report.json` vergleichen. Weicht sie ab (KDP kann eine Leerseite anhängen), Cover neu bauen:
+2. Seitenzahl aus der KDP-Vorschau mit `cover_report.json` vergleichen (beide Innenteile haben eine gerade Seitenzahl; bei ungerader Zahl hängt `docx2book.py` eine leere Schlussseite an, damit KDP nichts ergänzen muss). Weicht sie trotzdem ab, Cover neu bauen:
    `python3 cover/build_cover.py --pages-by <N> --pages-sa <M>`
 3. Im KDP-**Cover-Calculator** (Print Options → „Cover Calculator“) die Maße gegenprüfen; die dort ausgegebene Breite muss mit `Fullcover.pdf` übereinstimmen (Toleranz 0,1 mm).
 4. **Fullcover.pdf** hochladen (eine Seite, Fonts eingebettet, RGB, keine Schnittmarken). Barcode-Option: „KDP druckt Barcode“ (die weiße Fläche ist dafür frei).

@@ -800,8 +800,19 @@ def render_pdf(book: Book, out_dir: Path, build_dir: Path) -> dict:
         counts = lines_per_page(pdf_bytes)
         stranded = stranded_endings(book, anchors, counts)
     pdf_path = out_dir / f"{book.cfg['slug']}_Innenteil_A5.pdf"
-    pdf_path.write_bytes(pdf_bytes)
     n_pages = len(doc.pages)
+    if n_pages % 2:
+        # KDP verlangt intern eine gerade Seitenzahl und hängt sonst selbst eine Leerseite an; dann passt die
+        # Rückenbreite des Covers nicht mehr. Deshalb hier eine leere Schlussseite (verso) im gleichen Format.
+        import io
+        from pypdf import PdfReader, PdfWriter
+        rd = PdfReader(io.BytesIO(pdf_bytes)); wr = PdfWriter(clone_from=rd)
+        mb = rd.pages[-1].mediabox
+        wr.add_blank_page(width=float(mb.width), height=float(mb.height))
+        buf = io.BytesIO(); wr.write(buf); pdf_bytes = buf.getvalue()
+        n_pages += 1
+        counts = list(counts) + [0]          # Leerseite: 0 Zeilen
+    pdf_path.write_bytes(pdf_bytes)
     # Textprüfung des Druck-HTML (Werkteil)
     body_part = src.split('<div class="body">', 1)[1]
     text_check = diff_report(expected_body_text(book), html_to_text(body_part))

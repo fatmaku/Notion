@@ -1,0 +1,93 @@
+İKİ ROMAN – KDP PAKETİ
+YOLCU (Tuncay Sancak) · ŞAHİT (Mustafa Sefa Güvenir)
+====================================================================
+
+İki roman. İki yol. Üçüncü bir hikâye.
+Her biri tek başına bir roman. Birlikte okununca üçüncü bir kitap belirir.
+Önerilen okuma sırası: önce YOLCU, sonra ŞAHİT (zorunlu değil).
+
+
+KLASÖRLER
+---------
+1_KDP_YOLCU_TR     YOLCU – Amazon KDP'ye hemen yüklenebilir (Türkçe)
+2_KDP_SAHIT_TR     ŞAHİT – Amazon KDP'ye hemen yüklenebilir (Türkçe)
+3_Kapaklar_EN_DE   İngilizce ve Almanca kapaklar (çeviriler ve reklam için, aşağıdaki nota bakın)
+4_Fragmanlar       Fragmanlar TR / EN / DE: 16:9 (60 sn, YouTube), 9:16 (30 sn, Reels/TikTok/Shorts),
+                   1:1 (30 sn, Instagram) + altyazı (.srt). TR klasöründe ayrıca küçük web sürümü.
+5_Pazarlama        Pazarlama hikâyesi, KDP açıklama metinleri, anahtar kelimeler, kategoriler,
+                   storyboard, yayın planı (TR/EN/DE PDF) + iki kitabın yan yana görselleri
+6_Raporlar         Analiz raporu, değişiklik listesi, Sefa Abi'nin son dosyasının denetimi
+
+
+HER KİTAP KLASÖRÜNDE
+--------------------
+*_Ic_Sayfalar_A5.pdf   Baskı iç sayfaları (KDP "Manuscript")
+*_Tam_Kapak_KDP.pdf    Baskı kapağı: arka + sırt + ön, tek PDF (KDP "Book Cover")
+*_On_Kapak.pdf         Yalnız ön kapak (tanıtım, matbaa)
+*_Arka_Kapak.pdf       Yalnız arka kapak
+*_Kapak_Onizleme.png   Tam kapağın önizlemesi
+*_Kindle.epub          E-kitap (KDP "Kindle eBook" → "Manuscript")
+*_eKitap_Kapagi.jpg    E-kitap kapağı 1600 × 2560 px (KDP "Kindle eBook" → "Cover")
+*_Word.docx            Son el yazması (Word; LibreOffice ile de açılır)
+
+
+ÖLÇÜLER (KDP'de seçilecek)
+--------------------------
+                         YOLCU               ŞAHİT
+Kitap boyutu (Trim)      A5 = 5,83 × 8,27 in (148 × 210 mm)
+İç sayfa                 Siyah-beyaz, krem kâğıt ("Black & white interior with cream paper")
+Kenar taşması (Bleed)    İç sayfa: YOK ("No bleed")   ·   Kapak: var (PDF'te hazır)
+Kapak yüzeyi             Mat ya da parlak (tercih)
+Sayfa sayısı             282                 202
+Sırt genişliği           17,91 mm            12,83 mm
+Tam kapak ölçüsü         320,26 × 216,35 mm  315,18 × 216,35 mm
+Barkod                   KDP basar (arka kapakta sağ alttaki beyaz alan bunun için boş)
+
+
+KDP'YE YÜKLEME – ADIM ADIM (her kitap için)
+--------------------------------------------
+Baskı kitap (Paperback)
+ 1. Paperback Details: başlık (YOLCU / ŞAHİT), alt başlık (YOLCU: "1453 — Uyanışın Bedeli"),
+    yazar, açıklama, anahtar kelimeler, kategoriler → 5_Pazarlama içindeki PDF'te hazır.
+    Seri adı: "İki Roman – Üçüncü Hikâye" (kitaplar numarasız).
+ 2. Paperback Content → Print Options: A5 (5,83 × 8,27 in), Black & white, Cream paper, No bleed.
+ 3. Manuscript: *_Ic_Sayfalar_A5.pdf
+ 4. Book Cover: "Upload a cover you already have" → *_Tam_Kapak_KDP.pdf
+    (KDP sayfa sayısını gösterir: YOLCU 282, ŞAHİT 202 olmalı. Farklıysa kapak yeniden üretilir.)
+ 5. "Launch Previewer" ile kontrol: sırt yazısı ortada, kenarda kesilen yazı yok, yumruk kenarda.
+ 6. Yayından önce mutlaka bir deneme baskısı (proof copy) sipariş edin.
+
+E-kitap (Kindle eBook)
+ 1. Kindle eBook Details: aynı başlık, yazar, açıklama, anahtar kelimeler.
+ 2. Kindle eBook Content → Manuscript: *_Kindle.epub
+ 3. Kindle eBook Cover: *_eKitap_Kapagi.jpg
+ 4. "Launch Previewer" ile içindekiler, bölüm başları ve iç sesler kontrol edilir.
+
+
+DİL NOTU – ÖNEMLİ
+-----------------
+Romanların metni şimdilik yalnızca TÜRKÇE. KDP'ye bugün yüklenebilecek olan 1_ ve 2_ klasörleridir.
+3_Kapaklar_EN_DE içindeki İngilizce/Almanca kapaklar (THE TRAVELLER / THE WITNESS,
+DER REISENDE / DER ZEUGE) çeviriler hazır olduğunda kullanılmak içindir; reklam ve tanıtımda
+şimdiden kullanılabilir. Çeviri yapılınca sayfa sayısı değişeceği için EN/DE tam kapaklar
+(Fullcover) yeni sayfa sayısıyla yeniden üretilmelidir; ön kapak ve e-kitap kapağı aynen kalır.
+Fragmanlar ve pazarlama metinleri üç dilde de hazırdır.
+
+
+SINIRLAR (açıkça)
+-----------------
+- Görseller tek bir referans görselden 4 kat büyütüldü (≈ 240 dpi A5). Baskıya uygun; stüdyo
+  orijinali gelirse kapaklar aynı düzenle yeniden üretilebilir.
+- Fragman müziği yer tutucudur; seslendirme yok. Lisanslı müzik ve seslendirme metni
+  pazarlama PDF'inde zaman kodlarıyla hazır.
+- KDP sitesi bu ortamdan açılamadı; ölçüler KDP standardına göre hesaplandı. Yüklemede
+  KDP'nin "Cover Calculator" değeri ile tam kapak ölçüsünü bir kez karşılaştırın.
+
+
+--------------------------------------------------------------------
+KURZ AUF DEUTSCH
+Ordner 1_ und 2_ sind sofort bei KDP hochladbar (Türkisch): Innenteil-PDF (A5, ohne Beschnitt,
+s/w Creme), Fullcover-PDF, EPUB, eBook-Cover-JPG, Word-Datei. YOLCU 282 Seiten / Rücken 17,91 mm,
+ŞAHİT 202 Seiten / Rücken 12,83 mm. EN/DE-Cover (Ordner 3_) sind für spätere Übersetzungen und
+Werbung; die Fullcover müssen dann mit der neuen Seitenzahl neu gebaut werden. Trailer und Marketing
+liegen in TR/EN/DE bei. Vor Veröffentlichung eine Druckprobe bestellen.
