@@ -37,9 +37,9 @@ done
 
 for l in TR EN DE; do
   mkdir -p "$P/4_Fragmanlar/$l"
-  cp trailer/out/Iki_Roman_Fragman_*_"$l".mp4 trailer/out/Iki_Roman_Fragman_*_"$l".srt "$P/4_Fragmanlar/$l/"
+  cp trailer/out/Iki_Roman_Fragman_*_"$l".mp4 trailer/out/Iki_Roman_Fragman_*_"$l".srt "$P/4_Fragmanlar/$l/"   # volle Qualität
 done
-cp trailer/out/Iki_Roman_Fragman_16x9_60s_TR_web.mp4 "$P/4_Fragmanlar/TR/"
+for l in TR EN DE; do cp "trailer/out/Iki_Roman_Fragman_16x9_60s_${l}_web.mp4" "$P/4_Fragmanlar/$l/"; done
 cp trailer/out/render_report.txt "$P/4_Fragmanlar/"
 
 mkdir -p "$P/5_Pazarlama/Storyboard"
@@ -54,5 +54,23 @@ cp analyse/Son_Kontrol_Raporu.pdf                  "$P/6_Raporlar/Son_Kontrol_Ra
 
 cp 00_OKU_BENI.txt "$P/"
 (cd out && zip -q -r Iki_Roman_KDP_Paket.zip Iki_Roman_KDP_Paket)
-ls -la out/Iki_Roman_KDP_Paket.zip
-(cd out && unzip -l Iki_Roman_KDP_Paket.zip | tail -1)
+# Zusätzlich in zwei Teilen (< 500 MiB je Datei, z. B. für Upload/Mail):
+#   Teil 1: Bücher, Cover, Marketing, Berichte · Teil 2: Trailer
+rm -f out/Iki_Roman_1_Kitaplar_Kapaklar_Pazarlama.zip out/Iki_Roman_2_Fragmanlar.zip
+(cd out && zip -q -r Iki_Roman_1_Kitaplar_Kapaklar_Pazarlama.zip Iki_Roman_KDP_Paket -x 'Iki_Roman_KDP_Paket/4_Fragmanlar/*')
+(cd out && zip -q -r Iki_Roman_2_Fragmanlar.zip Iki_Roman_KDP_Paket/00_OKU_BENI.txt Iki_Roman_KDP_Paket/4_Fragmanlar)
+# Teile unter 30 MiB (Upload-Grenze des Chat-Clients): out/parcalar/
+rm -rf out/parcalar && mkdir -p out/parcalar && (
+  cd out; Q=Iki_Roman_KDP_Paket
+  zip -q -j parcalar/01a_YOLCU_Baski_KDP.zip $Q/00_OKU_BENI.txt $Q/1_KDP_YOLCU_TR/YOLCU_Ic_Sayfalar_A5.pdf $Q/1_KDP_YOLCU_TR/YOLCU_Tam_Kapak_KDP.pdf $Q/1_KDP_YOLCU_TR/YOLCU_Kapak_Onizleme.png
+  zip -q -j parcalar/01b_YOLCU_Kindle_Word_Kapaklar.zip $Q/1_KDP_YOLCU_TR/YOLCU_Kindle.epub $Q/1_KDP_YOLCU_TR/YOLCU_eKitap_Kapagi.jpg $Q/1_KDP_YOLCU_TR/YOLCU_Word.docx $Q/1_KDP_YOLCU_TR/YOLCU_On_Kapak.pdf $Q/1_KDP_YOLCU_TR/YOLCU_Arka_Kapak.pdf
+  zip -q -r parcalar/02_KDP_SAHIT_TR.zip $Q/00_OKU_BENI.txt $Q/2_KDP_SAHIT_TR
+  zip -q -j parcalar/03_Raporlar.zip $Q/6_Raporlar/*
+  for b in YOLCU SAHIT; do for l in EN DE; do zip -q -j parcalar/04_Kapak_${b}_${l}.zip $Q/3_Kapaklar_EN_DE/${b}_${l}_*; done; done
+  for l in TR EN DE; do zip -q -j parcalar/05_Pazarlama_${l}.zip $Q/5_Pazarlama/Marketing_Story_Storyboard_${l}.pdf $Q/5_Pazarlama/Doppelansicht_${l}.png $Q/5_Pazarlama/Panorama_Marketing_${l}.png; done
+  zip -q -j parcalar/06_Storyboard_Kareleri.zip $Q/5_Pazarlama/Storyboard/*
+  zip -q -j parcalar/07_Fragman_Altyazilar_SRT.zip $Q/4_Fragmanlar/*/*.srt $Q/4_Fragmanlar/render_report.txt
+  for l in TR EN DE; do cp $Q/4_Fragmanlar/$l/Iki_Roman_Fragman_16x9_60s_${l}_web.mp4 $Q/4_Fragmanlar/$l/Iki_Roman_Fragman_9x16_30s_${l}.mp4 $Q/4_Fragmanlar/$l/Iki_Roman_Fragman_1x1_30s_${l}.mp4 parcalar/; done
+)
+ls -la out/*.zip
+(cd out && for z in *.zip; do printf '%-48s ' "$z"; unzip -l "$z" | tail -1; done)

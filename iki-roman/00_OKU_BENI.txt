@@ -13,7 +13,8 @@ KLASÖRLER
 2_KDP_SAHIT_TR     ŞAHİT – Amazon KDP'ye hemen yüklenebilir (Türkçe)
 3_Kapaklar_EN_DE   İngilizce ve Almanca kapaklar (çeviriler ve reklam için, aşağıdaki nota bakın)
 4_Fragmanlar       Fragmanlar TR / EN / DE: 16:9 (60 sn, YouTube), 9:16 (30 sn, Reels/TikTok/Shorts),
-                   1:1 (30 sn, Instagram) + altyazı (.srt). TR klasöründe ayrıca küçük web sürümü.
+                   1:1 (30 sn, Instagram) + altyazı (.srt). 16:9 için her dilde ayrıca küçük bir
+                   web sürümü (_web.mp4, ~23 MB) var; tam kaliteli sürüm ~62 MB.
 5_Pazarlama        Pazarlama hikâyesi, KDP açıklama metinleri, anahtar kelimeler, kategoriler,
                    storyboard, yayın planı (TR/EN/DE PDF) + iki kitabın yan yana görselleri
 6_Raporlar         Analiz raporu, değişiklik listesi, Sefa Abi'nin son dosyasının denetimi

@@ -11,5 +11,5 @@ Iki_Roman_Fragman_9x16_30s_DE.mp4              23.4MB  1080x1920    30   30.00  
 Iki_Roman_Fragman_9x16_30s_EN.mp4              23.3MB  1080x1920    30   30.00   h264   aac 44100Hz 165k  PASS
 Iki_Roman_Fragman_9x16_30s_TR.mp4              23.4MB  1080x1920    30   30.00   h264   aac 44100Hz 165k  PASS
 
-SRT files: 9  stills: 38
+SRT files: 9  stills: 23
 ALL PASS
