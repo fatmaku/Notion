@@ -4,8 +4,9 @@
     "langTag": "de-DE",
     "deckTitle": "LiveFX – Pitch",
     "subject": "LiveFX: Deine Stimme wird zum Effekt – und zum Bild",
-    "author": "[Name]",
+    "author": "Tuncay Sancak",
     "footerBrand": "LiveFX",
+    "footerNote": "Vertraulich · Oktober 2026",
     "visionBadge": "Vision",
     "assetsDir": "landing-assets",
     "images": {
@@ -26,9 +27,9 @@
       "tagline": "Deine Stimme wird zum Effekt.",
       "lead": "Memes, Sounds und Szenen in Echtzeit – ausgelöst durch das, was der Creator sagt. In unter einer Sekunde, hands-free, auf TikTok LIVE, Instagram, YouTube und Twitch.",
       "vision": "Und morgen: Du redest. Es wird Bild.",
-      "name": "[Name]",
-      "role": "Gründerin, Autorin & Live-Streamerin",
-      "contact": "[Datum]  ·  [E-Mail]",
+      "name": "Tuncay Sancak",
+      "role": "Gründer & Erfinder, Geschäftsführer",
+      "contact": "Investor Relations: Gönül Demet  ·  [E-Mail]  ·  Oktober 2026  ·  Vertraulich",
       "notes": "Kurz vorstellen: Ich streame selbst, ich schreibe Bücher, und ich habe LiveFX gebaut, weil ich im Live-Stream genau das vermisst habe, was jedes Kurzvideo hat. Was ihr heute seht, läuft in meinen eigenen Streams. Am Ende zeige ich, wohin es geht: vom Meme-Overlay zur Bildsprache für alles Gesprochene. 30 Sekunden, dann direkt zum Problem."
     },
     {
@@ -42,7 +43,7 @@
       ],
       "callout": "Niemand reagiert auf das gesprochene Wort.",
       "calloutSub": "Auto-Untertitel haben gezeigt: Echtzeit-Text aus Sprache funktioniert. Echtzeit-Effekte aus Sprache gibt es noch nicht.",
-      "quote": "„Ich sage ‚krass‘ – und nichts passiert, außer dass ich selbst zur Tastatur greife.“  – [Name], aus dem eigenen Stream",
+      "quote": "„Ich sage ‚krass‘ – und nichts passiert, außer dass ich selbst zur Tastatur greife.“  – Tuncay Sancak, aus dem eigenen Stream",
       "notes": "Auto-Untertitel haben bewiesen, dass Echtzeit-Text aus Sprache funktioniert und von Plattformen nativ eingebaut wird. Echtzeit-Effekte aus Sprache gibt es nicht. Genau diese Lücke füllen wir. Beispiel aus meinem Stream: Ich sage „krass“ – und nichts passiert, außer dass ich selbst zur Tastatur greife."
     },
     {
@@ -128,7 +129,7 @@
       "cards": [
         ["TAM", "Live-Streaming-Markt [Quelle 1, 2]", "97–157 Mrd. USD (2026) → 250–345 Mrd. USD (2030), CAGR ~27 %"],
         ["SAM", "Live-Creator-Tools · Schätzung", "1–3 Mrd. USD – abgeleitet aus Streamlabs-/StreamYard-/Voicemod-Preisen × aktive Live-Creator"],
-        ["SOM", "Jahr 3 · Schätzung", "20–40 T Pro-Abos × 9,99 €/Monat ≈ 2,4–4,8 Mio. € ARR (DACH + Türkei + EN-Nische)"]
+        ["SOM", "Jahr 3 · Schätzung", "5.000–15.000 zahlende Pro-Nutzer × 9,99 €/Monat ≈ 0,6–1,8 Mio. € ARR (wie Businessplan; DACH + Türkei + EN-Nische)"]
       ],
       "adjacentTitle": "Angrenzende Märkte der Vision (Folien 12–15)",
       "adjacent": [
@@ -138,7 +139,7 @@
         ["374 Mio. €", "Hörbuchmarkt Deutschland 2025, +13 % [Quelle 19]"]
       ],
       "sources": "Quellen: QUELLEN.md [Quelle 1–4, 19, 23, 33, 51] · SAM/SOM sind eigene Schätzungen, keine Studie.",
-      "notes": "Ehrlich sagen: TAM ist Sekundärquelle mit großer Spanne; SAM und SOM sind unsere Schätzung, keine Studie. Der Punkt ist nicht die genaue Zahl, sondern: Schon ein kleiner Anteil zahlender Live-Creator trägt ein Team – und der eigentliche Hebel ist die Plattform-Integration, nicht das Abo. Unten neu: Die Vision öffnet angrenzende Märkte – KI-Video 3,67 Mrd. USD [Quelle 23], Sprachlern-Apps 1,54 Mrd. USD [Quelle 33], Videoschnitt 2,68 Mrd. USD [Quelle 51], Hörbuch DE 374 Mio. € [Quelle 19]. Die rechnen wir nicht in den SOM ein."
+      "notes": "Ehrlich sagen: TAM ist Sekundärquelle mit großer Spanne; SAM und SOM sind unsere Schätzung, keine Studie. Der Punkt ist nicht die genaue Zahl, sondern: Schon ein kleiner Anteil zahlender Live-Creator trägt ein Team – und der eigentliche Hebel ist die Plattform-Integration, nicht das Abo. Unten neu: Die Vision öffnet angrenzende Märkte – KI-Video 3,67 Mrd. USD [Quelle 23], Sprachlern-Apps 1,54 Mrd. USD [Quelle 33], Videoschnitt 2,68 Mrd. USD [Quelle 51], Hörbuch DE 374 Mio. € [Quelle 19]. Die rechnen wir nicht in den SOM ein. Der SOM entspricht dem Businessplan (Kapitel 6): 5.000–15.000 zahlende Nutzer im Jahr 3; das Basis-Szenario rechnet mit Ø 7.500 Pro-Nutzern."
     },
     {
       "layout": "model",
@@ -230,7 +231,7 @@
         ["🥽", "Räume", "Bühne, Klassenzimmer, Hörbuch mit Bildern, AR am Handy, VR und Display-Brille."],
         ["✂", "Studio", "Live-Editor und Auto-Edit: Video rein, fertig geschnitten raus – ohne Upload."]
       ],
-      "today": ["HEUTE", "Aus Stimme wird in unter einer Sekunde Meme, Sound oder Szene – in den eigenen Streams der Gründerin im Einsatz."],
+      "today": ["HEUTE", "Aus Stimme wird in unter einer Sekunde Meme, Sound oder Szene – in den eigenen Streams des Gründers im Einsatz."],
       "tomorrow": ["MORGEN", "Aus Stimme wird ein Film, ein Wortbild mit Aussprache oder ein fertiger Clip – im Stream, in der Schule, auf der Bühne, in der Brille."],
       "tagline": "Zeichnen statt generieren – mit dem Rechenbudget eines Untertitels, nicht eines Rechenzentrums.",
       "notes": "Live-Untertitel haben gezeigt, dass Plattformen Sprache in Echtzeit verarbeiten wollen – kostenlos und auf Milliarden Geräten. Wir sind die nächste Stufe: Bild statt Text. Eine Engine, eine Zeitleiste, vier Linien: Erzählfilm, WortBild, Räume, Studio. Alles läuft im Browser auf dem eigenen Gerät: Ein Satz wird zu einem Zustands-Delta von wenigen hundert Byte, gezeichnet in einem Canvas. Kein Video-Diffusionsmodell, kein GPU-Server. Ehrlich: Das ist Vision für 2027–2029 – deshalb das Badge. Grundlage ist der Code, der heute schon läuft (Story-Modus, Effekt-Engine, Offline-Erkennung). WebGPU ist inzwischen in allen großen Browsern verfügbar [Quelle 27] – wir nutzen es nur optional."
@@ -334,23 +335,24 @@
     {
       "layout": "team",
       "section": "Team und Ask",
-      "kicker": "Nutzerin, Autorin, Gründerin",
+      "kicker": "Gründer, Erfinder, Nutzer",
       "title": "Team",
-      "photo": "[Foto]",
-      "name": "[Name]",
-      "role": "Gründerin · deutsch-türkische Autorin & Live-Streamerin",
+      "photo": "TS",
+      "name": "Tuncay Sancak",
+      "role": "Gründer & Erfinder · Geschäftsführer · deutsch-türkischer Autor & Live-Streamer",
       "bullets": [
         "Produkt, Inhalte, Community – und die eigenen Streams als Testlabor",
         "Meme- und Story-Pakete in TR / DE / EN aus erster Hand",
         "Kinderbuchreihe zu Neurodiversität – Brücke zu WortBild und Erzählfilm",
         "Bücher: [Titel] · Streams: [Plattform / @handle] · [E-Mail]"
       ],
+      "second": {"initials": "GD", "name": "Gönül Demet", "role": "Investor Relations", "text": "Ansprechpartnerin für Investoren und die Pre-Seed-Runde"},
       "open": [
         ["[Position offen] – Tech-Lead", "Audio / Realtime, Mobile-SDK, Canvas/WebGPU"],
         ["[Position offen] – Creator-Partnerschaften", "Growth TR + DACH, Creator-Programm, Bildungsvertrieb"],
-        ["Beirat / Partner", "[Name] · [Name] · Edtech/Didaktik: [Name]"]
+        ["Beirat / Partner", "Gesucht: Creator-Management TR · Ex-Produktverantwortung „Live“ einer Plattform · Edtech/Didaktik"]
       ],
-      "notes": "Die Gründerin ist Nutzerin, Content-Lieferantin und Produktverantwortliche in einer Person – das ist der Grund, warum das Produkt in Dialekten, Hochkant und Türkçe funktioniert. Und als Kinderbuchautorin bringt sie den ersten Verlags- und Bildungsfall selbst mit. Mit dem Seed kommen zwei Hires; für WortBild holen wir fachliche Prüfung über einen Edtech-Beirat."
+      "notes": "Der Gründer ist Nutzer, Content-Lieferant und Produktverantwortlicher in einer Person – das ist der Grund, warum das Produkt in Dialekten, Hochkant und Türkçe funktioniert. Und als Kinderbuchautor bringt er den ersten Verlags- und Bildungsfall selbst mit. Gönül Demet verantwortet Investor Relations und ist Ansprechpartnerin für die Pre-Seed-Runde. Mit dem Pre-Seed (500.000 €) kommen zwei Hires; für WortBild holen wir fachliche Prüfung über einen Edtech-Beirat."
     },
     {
       "layout": "ask",
@@ -360,11 +362,12 @@
         ["Pilot Plattform", "LiveFX als Feature in TikTok LIVE Studio, Instagram Live Producer oder YouTube Live. Browser-Quelle läuft heute. 8 Wochen, 20 Creator, gemessene Watchtime, Gifts und Clips."],
         ["Pilot Bildung & Sprachen", "Bildungsträger, Integrationskurse, Schulen, Sprachlern-Plattformen und Verlage: WortBild und Erzählfilm in [Zahl] Kursen/Klassen bzw. mit [Zahl] Titeln testen."],
         ["Partner", "Streaming-Software (OBS-Plug-in, Streamlabs), Creator-Agenturen TR / DACH, Audio- und ASR-Anbieter, Editor-Anbieter (Studio-SDK)."],
-        ["Gespräch & Seed", "Übernahme-Gespräch: Technologie + Team. Parallel: Seed [Zahl] € für 18 Monate – 2 Hires, Creator-Programm, Piloten."]
+        ["Pre-Seed: 500.000 €", "Für LiveFX 2.0 und die Vision-Linien A–D (zuerst WortBild und Story-Engine), 24 Monate. Parallel offen für Übernahme-Gespräche (Technologie + Team)."]
       ],
-      "contact": "Kontakt: [E-Mail]   ·   Demo: [Link]   ·   Code & Doku: live-fx/   ·   [Name]",
+      "funds": {"title": "500.000 € Pre-Seed · 24 Monate · Mittelverwendung – Vorschlag – bitte bestätigen", "items": [["Produkt & Engineering", "250 T€ · 50 %", 50], ["Vision-Linien A–D", "100 T€ · 20 %", 20], ["Go-to-Market & Piloten", "75 T€ · 15 %", 15], ["Recht, Marke, Datenschutz", "50 T€ · 10 %", 10], ["Reserve", "25 T€ · 5 %", 5]]},
+      "contact": "Tuncay Sancak, Gründer & Geschäftsführer   ·   Investor Relations: Gönül Demet   ·   [E-Mail]   ·   Demo: [Link]",
       "altNote": "Dieses Deck gibt es auch auf Türkisch und Englisch: LiveFX_Pitch_TR.pptx · LiveFX_Pitch_EN.pptx",
-      "notes": "Konkret enden: Was wir brauchen, ist ein Ansprechpartner im Live-Team und ein 8-Wochen-Pilot mit 20 Creatorn. Wir liefern Overlay, Pakete, Support und die Messung (Watchtime, Gifts, Clips aus Lives). Neu: Für WortBild und Erzählfilm suchen wir einen zweiten Pilot mit Bildungsträgern, Sprachlern-Plattformen oder Verlagen – der erste Verlagsfall ist die eigene Kinderbuchreihe. Das Deck gibt es auch auf Türkisch und Englisch."
+      "notes": "Konkret enden: Was wir brauchen, ist ein Ansprechpartner im Live-Team und ein 8-Wochen-Pilot mit 20 Creatorn. Wir liefern Overlay, Pakete, Support und die Messung (Watchtime, Gifts, Clips aus Lives). Neu: Für WortBild und Erzählfilm suchen wir einen zweiten Pilot mit Bildungsträgern, Sprachlern-Plattformen oder Verlagen – der erste Verlagsfall ist die eigene Kinderbuchreihe. Zur Runde: 500.000 € Pre-Seed für LiveFX und alle Projekte, 24 Monate. Mittelverwendung als Vorschlag: Team 250 T€, Vision-Linien 100 T€ (zuerst WortBild/Sprachenlernen und Story-Engine), Go-to-Market 75 T€, Recht/Marke/Datenschutz 50 T€, Reserve 25 T€. Ohne jeden Umsatz reicht das rund 22 Monate; das konservative Szenario ist über drei Jahre gedeckt (Businessplan 11.6). Ansprechpartnerin für Investoren: Gönül Demet. Das Deck gibt es auch auf Türkisch und Englisch."
     }
   ]
 }

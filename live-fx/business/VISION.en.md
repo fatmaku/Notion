@@ -3,7 +3,7 @@
 **You talk. It becomes a scene.** Vision 2027–2029: live video from words, language learning, new spaces and an editor that cuts by itself.
 
 Date: October 2026 · Product version: 2.0 · Confidential
-Founder: [Name] · Contact: [Email]
+Founder & Inventor, Managing Director: Tuncay Sancak · Investor Relations: Gönül Demet · Contact: [Email]
 
 > Deutsch: VISION.md · Türkçe: VISION.tr.md
 
@@ -336,6 +336,7 @@ No platform logos, no real names or faces; future features carry the "Vision" ba
 - **Education pilot partners:** [Number] German-as-a-second-language and integration courses, [Number] primary-school classes, media centres, education providers.
 - **Publisher and audiobook pilot partners:** children's book and audiobook publishers for "audiobook with pictures" and bilingual editions; the first case is the founder's own children's book series.
 - **Team:** web/graphics development (Canvas, WebCodecs), children's-book-style illustration, voice talent DE/TR/EN, didactics (advisory board).
-- **Funding:** EXIST, education and integration foundations (no revenue assumed in the plan).
+- **Financing:** €500,000 pre-seed for LiveFX and all its projects (2.0 product and lines A–D); ~20% (€100,000) takes the vision lines from prototype to product, WordPicture/language learning and the story engine (Story Film) first. Proposed use of funds over 24 months in `BUSINESSPLAN.en.md` section 11.6.
+- **Grants:** EXIST, education and integration foundations (no revenue assumed in the plan).
 
-Contact: [Name] · [Email] · [Website]
+Contact: Tuncay Sancak (Founder & Inventor, Managing Director) · Investor Relations: Gönül Demet · [Email] · [Website]

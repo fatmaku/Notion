@@ -59,7 +59,7 @@ The gift model is LiveFX's direct lever: with viewer triggers (since 1.6) a gift
 - Gifting is established and the price threshold is low (coin prices in the cent range) – many small gifts that can become visible as effects.
 - Hardly any localised creator tools: Streamlabs, Voicemod and the like are English-language and do not react to spoken Turkish.
 - The Turkish-speaking diaspora in Germany, Austria, the Netherlands and France is a second market with purchasing power and the same memes – and the bridge to DE/EN.
-- The founder is herself part of this community (a children's book series in Turkish, live streams), the largest meme pack is Turkish (85 triggers) and the "Masal" story pack opens with "bir varmış bir yokmuş" ("once upon a time").
+- The founder is himself part of this community (a children's book series in Turkish, live streams), the largest meme pack is Turkish (85 triggers) and the "Masal" story pack opens with "bir varmış bir yokmuş" ("once upon a time").
 
 **Risk:** fluctuations in the lira affect willingness to pay in TRY; pricing in Turkey should be regional (purchasing power) – estimate: Pro subscription in TRY at roughly the level of a streaming subscription.
 

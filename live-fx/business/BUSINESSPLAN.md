@@ -3,11 +3,11 @@
 **Live-Streams, die zuhören.** Memes, Sounds und animierte Szenen in Echtzeit – ausgelöst durch die Stimme des Creators.
 
 Stand: Oktober 2026 · Produktstand: Version 2.0 · Vertraulich
-Gründerin: [Name] · Kontakt: [E-Mail] · [Ort]
+Gründer & Erfinder, Geschäftsführer: Tuncay Sancak · Investor Relations: Gönül Demet · Kontakt: [E-Mail] · [Ort]
 
 > Auch auf Türkisch: BUSINESSPLAN.tr.md · In English: BUSINESSPLAN.en.md
 
-> Alle Marktzahlen stammen aus öffentlichen Sekundärquellen und werden als Spannen angegeben; Nachweise als [Quelle n] im Text, Liste im Anhang. Eigene Annahmen sind ausdrücklich als „Schätzung“ gekennzeichnet. Zahlen in [eckigen Klammern] ergänzt die Gründerin.
+> Alle Marktzahlen stammen aus öffentlichen Sekundärquellen und werden als Spannen angegeben; Nachweise als [Quelle n] im Text, Liste im Anhang. Eigene Annahmen sind ausdrücklich als „Schätzung“ gekennzeichnet. Zahlen in [eckigen Klammern] ergänzt der Gründer.
 
 ---
 
@@ -21,13 +21,13 @@ Gründerin: [Name] · Kontakt: [E-Mail] · [Ort]
 |---|---|
 | **Problem** | Alles, was Kurzvideos viral macht, entsteht *nach* der Aufnahme im Schnitt. Live ist roh. Bestehende Tools reagieren auf Zuschauer-Events oder Tastendruck – keines auf das gesprochene Wort. |
 | **Lösung** | Sprache → Effekt. Stichwort-Matching mit Dialekt-Toleranz und Lernfunktion, optional KI-Verstehen ohne Stichwort, Story-Modus für Vorlesen, Zuschauer-Trigger per Chat und Geschenk, Handy-Fernbedienung. |
-| **Status** | Version 2.0, funktionsfähig, 238 fertige Trigger in fünf Paketen, 13 Szenen, 38 Sounds, automatisierte Tests, im Einsatz in den eigenen Live-Streams der Gründerin. |
+| **Status** | Version 2.0, funktionsfähig, 238 fertige Trigger in fünf Paketen, 13 Szenen, 38 Sounds, automatisierte Tests, im Einsatz in den eigenen Live-Streams des Gründers. |
 | **Markt** | Live-Streaming weltweit 2026: 97–157 Mrd. USD [Quelle 1, 2]; Creator Economy ~216–260 Mrd. USD [Quelle 3, 4]; Geschenke ≈ 50 % des Einkommens von TikTok-LIVE-Streamern [Quelle 5, 6]. |
 | **Geschäftsmodell** | Free + Pro-Abo (9,99 €/Monat), Creator-Packs (2,99–4,99 €), Agentur-Lizenz, B2B-Plattformlizenz; strategischer Exit an TikTok/Meta/YouTube. |
 | **Go-to-Market** | Türkischsprachige Creator-Community zuerst, dann DE/EN; eigene Streams als Showcase; Creator-Partnerprogramm; LinkedIn und Presse. |
-| **Bedarf** | Mobile-Entwickler:in, Plattform-Partnerschaften, Pilot-Partner; Seed-Finanzierung [250–350 T€] für 18–24 Monate (Schätzung) oder Bootstrapping mit langsamerem Wachstum. |
+| **Bedarf** | **500.000 € Pre-Seed** für LiveFX und alle Projekte (Produkt 2.0 und Vision-Linien A–D), Mittelverwendung über 24 Monate (Vorschlag – bitte bestätigen, Kapitel 11.6); dazu Mobile-Entwickler:in, Plattform-Partnerschaften, Pilot-Partner. |
 
-Ask: Pilot-Partnerschaft mit einer Plattform (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) oder einem Creator-Tool-Anbieter – alternativ Übernahme von Technologie und Team.
+Ask: 500.000 € Pre-Seed (Kapitel 11.6) und eine Pilot-Partnerschaft mit einer Plattform (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) oder einem Creator-Tool-Anbieter – alternativ Übernahme von Technologie und Team.
 
 ---
 
@@ -131,7 +131,7 @@ Markenanmeldung „LiveFX“ (DE/EU/TR) ist zu prüfen; Patentfähigkeit einzeln
 | **Video-Editing** (Creator, Podcaster, Agenturen) | Clips und Shorts ohne stundenlangen Schnitt, ohne Upload | Studio: Highlights aus dem Stream, Auto-Edit fertiger Videos, lokaler MP4-Export | Vision (ab 2027) |
 | **VR/AR, Bühne und Events** (Veranstalter, Bibliotheken, Hardware-Partner) | Effekte auf Zuruf, immersive Erzählungen | Bühnenmodus (heute), AR am Handy, WebXR und Display-Brillen als Schaufenster | Bühne heute; AR/XR Vision (2027–2029) |
 
-Startsegment ist die **türkischsprachige Creator-Community** (Türkei und Diaspora in Deutschland/Europa): größtes Paket, kaum Wettbewerb, ausgeprägte Meme-Kultur, und die Gründerin ist selbst Teil dieser Community.
+Startsegment ist die **türkischsprachige Creator-Community** (Türkei und Diaspora in Deutschland/Europa): größtes Paket, kaum Wettbewerb, ausgeprägte Meme-Kultur, und der Gründer ist selbst Teil dieser Community.
 
 Ab 2027 kommen mit der Vision (Kapitel 15) drei angrenzende Zielgruppen dazu: **Bildung und Sprachenlernen** (Familien, Schulen, Kurse), **Verlage und Audio** (Hörbuch, Podcast, Vorlesen) und **Video-Editing** (Creator und Agenturen, die nachträglich schneiden). VR/AR und Brillen sind bis 2029 Schaufenster, keine eigene Umsatzlinie.
 
@@ -209,7 +209,7 @@ Weitere Anbieter im Umfeld: StreamYard (~35 USD/Monat) und Restream (~16 USD/Mon
 4. **Story-Modus.** Vorlesen wird zur animierten Szene mit Atmosphäre – ein unbesetzter Nischenmarkt (Autor:innen, Eltern, Lehrkräfte).
 5. **Lokal, offline, ohne Lizenzrisiko.** Daten bleiben beim Creator, 38 eigene Sounds, GIF-Provider mit API-Lizenz.
 6. **Offen.** Zuschauer-Trigger (Chat, Geschenke), Handy-Fernbedienung, Stream Deck, externe Spracherkennung, Webhooks.
-7. **Aus der Praxis.** Entwickelt und getestet in den eigenen Live-Streams der Gründerin (Ton-Check, Echo-Warnung, Safe-Zones kommen aus echten Problemen).
+7. **Aus der Praxis.** Entwickelt und getestet in den eigenen Live-Streams des Gründers (Ton-Check, Echo-Warnung, Safe-Zones kommen aus echten Problemen).
 
 ---
 
@@ -230,7 +230,7 @@ Weitere Anbieter im Umfeld: StreamYard (~35 USD/Monat) und Restream (~16 USD/Mon
 
 ## 10. Go-to-Market
 
-**Phase 1 – Türkische Community (Monat 1–4).** Launch im türkischsprachigen Raum: eigene Streams der Gründerin als dauerhafter Showcase, 10–20 Creator-Botschafter:innen mit Zugang und Feedback-Schleife über die Lernfunktion, Discord/Telegram-Gruppe, wöchentliche Pack-Drops. Clips aus echten Streams („Das Meme kam, weil ich ‚yok artık‘ gesagt habe“) sind das Marketing – das Produkt ist sein eigener Werbeträger.
+**Phase 1 – Türkische Community (Monat 1–4).** Launch im türkischsprachigen Raum: eigene Streams des Gründers als dauerhafter Showcase, 10–20 Creator-Botschafter:innen mit Zugang und Feedback-Schleife über die Lernfunktion, Discord/Telegram-Gruppe, wöchentliche Pack-Drops. Clips aus echten Streams („Das Meme kam, weil ich ‚yok artık‘ gesagt habe“) sind das Marketing – das Produkt ist sein eigener Werbeträger.
 
 **Phase 2 – DE/EN (Monat 4–9).** Deutschsprachige Creator (Twitch, YouTube, Instagram) und englischsprachige Early Adopters; Vorlese- und Bildungs-Streams als zweiter Flügel (Buchhandel, Bibliotheken, Lehrkräfte-Communities). Einträge in OBS-Plugin-Verzeichnissen, Streamlabs-App-Store, Stream-Deck-Marketplace.
 
@@ -240,7 +240,7 @@ Weitere Anbieter im Umfeld: StreamYard (~35 USD/Monat) und Restream (~16 USD/Mon
 
 | Kanal | Maßnahme | KPI |
 |---|---|---|
-| Eigene Streams | LiveFX in jedem Stream der Gründerin, Clips als Shorts/Reels | Clips/Woche, Views, Downloads |
+| Eigene Streams | LiveFX in jedem Stream des Gründers, Clips als Shorts/Reels | Clips/Woche, Views, Downloads |
 | Creator-Partnerprogramm | 10–20 Botschafter:innen TR/DE, Umsatzbeteiligung an Packs | aktive Partner, Referral-Registrierungen |
 | LinkedIn und Presse | Vorstellungsartikel (DE/TR), Fachpresse Creator-Economy/Edtech, Podcasts | Kontakte zu Plattform-Teams, Pilot-Anfragen |
 | Community | Discord/Telegram, Pack-Drops, Lernfunktion als Feedback-Kanal | aktive Mitglieder, eingereichte Trigger |
@@ -251,7 +251,7 @@ Weitere Anbieter im Umfeld: StreamYard (~35 USD/Monat) und Restream (~16 USD/Mon
 
 ## 11. Finanzplan (3 Jahre) – Schätzung
 
-Alle Zahlen sind **Schätzungen** der Gründerin auf Basis der Annahmen unten; es gibt noch keine Umsätze. Jahr 1 beginnt mit dem Launch des Pro-Abos.
+Alle Zahlen sind **Schätzungen** des Gründers auf Basis der Annahmen unten; es gibt noch keine Umsätze. Jahr 1 beginnt mit dem Launch des Pro-Abos.
 
 ### 11.1 Annahmen
 
@@ -282,7 +282,7 @@ Alle Zahlen sind **Schätzungen** der Gründerin auf Basis der Annahmen unten; e
 |---|---|---|---|
 | Personal: Mobile-/Web-Entwicklung | 75 | 160 | 240 |
 | Personal: Backend/ML (ab J2), Community/Support (ab J2) | 0 | 60 | 160 |
-| Gründerin (Gehalt) | 30 | 48 | 60 |
+| Gründer (Gehalt) | 30 | 48 | 60 |
 | Freelance Design, Sound, Illustration (Packs) | 15 | 25 | 40 |
 | Marketing, Creator-Partnerprogramm, Events | 25 | 60 | 120 |
 | Infrastruktur, KI-API (nur Pro), Store-Gebühren | 8 | 25 | 60 |
@@ -299,7 +299,7 @@ Konservativ wird mit einem kleineren Team geplant (Kosten ≈ 120 / 230 / 330 T�
 | **Basis** | **−114** | **−62** | **+329** | **+153** |
 | Optimistisch | −66 | +373 | +1.501 | +1.808 |
 
-**Finanzierungsbedarf (Schätzung):** 250–350 T€ Seed für 18–24 Monate decken das Basis-Szenario bis zum Break-even in Jahr 3 inklusive Puffer. Alternative: Bootstrapping – Pro-Abo und Packs finanzieren eine:n Entwickler:in in Teilzeit, das Wachstum verlangsamt sich entsprechend (ungefähr konservatives Szenario). Förderprogramme (EXIST, Gründungsstipendien, Medien-/Edtech-Förderung) werden parallel geprüft.
+**Finanzierungsbedarf:** 500.000 € Pre-Seed für LiveFX und alle Projekte; Mittelverwendung, Liquidität und Reichweite in Abschnitt 11.6.
 
 ### 11.5 Zusätzliche Erlösquellen ab Jahr 2/3 (Schätzung)
 
@@ -319,13 +319,53 @@ Die Vision (Kapitel 15) ist in den Tabellen 11.2–11.4 **nicht** enthalten. Die
 | Zusatzkosten (Illustration, Sprecher-Audios, Didaktik, Bildungsvertrieb, XR-Prototyp) | | 30 | 115 | 210 |
 | **Deckungsbeitrag Vision** | | **≈ −3** | **≈ +77** | **≈ +407** |
 
-**Wirkung auf das Basis-Ergebnis (Schätzung):** −114 → ≈ −117 T€ (J1), −62 → ≈ +15 T€ (J2), +329 → ≈ +736 T€ (J3). Der Break-even rückt damit im Basis-Szenario von Jahr 3 in Jahr 2. Konservativ ist mit etwa der Hälfte des Zusatzumsatzes zu rechnen, optimistisch mit dem 1,5- bis 2-Fachen. SDK- und Plattform-Erlöse werden **nicht** zusätzlich gezählt; sie stecken schon in der B2B-Zeile (0 / 50 / 150 T€). Die Vision erhöht deren Wahrscheinlichkeit, ohne sie zu verdoppeln. XR und Brille sind mit 0 € angesetzt. Der Finanzierungsbedarf (250–350 T€) ändert sich nicht, weil die Vision erst ab Jahr 2 nennenswerte Kosten verursacht und diese aus den Zusatzerlösen trägt.
+**Wirkung auf das Basis-Ergebnis (Schätzung):** −114 → ≈ −117 T€ (J1), −62 → ≈ +15 T€ (J2), +329 → ≈ +736 T€ (J3). Der Break-even rückt damit im Basis-Szenario von Jahr 3 in Jahr 2. Konservativ ist mit etwa der Hälfte des Zusatzumsatzes zu rechnen, optimistisch mit dem 1,5- bis 2-Fachen. SDK- und Plattform-Erlöse werden **nicht** zusätzlich gezählt; sie stecken schon in der B2B-Zeile (0 / 50 / 150 T€). Die Vision erhöht deren Wahrscheinlichkeit, ohne sie zu verdoppeln. XR und Brille sind mit 0 € angesetzt. Der Finanzierungsbedarf von 500.000 € schließt die Vision-Linien bereits ein: ~20 % der Mittel (100 T€) bringen sie vom Prototyp zum Produkt, zuerst WortBild/Sprachenlernen und die Story-Engine (Abschnitt 11.6).
+
+### 11.6 Finanzierung: 500.000 € Pre-Seed
+
+**Bedarf:** **500.000 € Pre-Seed** für LiveFX und alle Projekte – das Produkt 2.0 und die Vision-Linien A–D (Erzählfilm, WortBild, Räume, Studio). Die Mittel sind für 24 Monate geplant (J1–J2, 2027–2028). Die Umsatz- und Kostenszenarien aus 11.2–11.5 bleiben unverändert.
+
+**Mittelverwendung über 24 Monate – Vorschlag – bitte bestätigen**
+
+| Bereich | Anteil | Betrag | Bezug im Finanzplan (J1 + J2, T€) |
+|---|---|---|---|
+| Produkt- und Engineering-Team | ~50 % | 250.000 € | Personal inkl. Gründergehalt 373 (11.3) |
+| Vision-Linien vom Prototyp zum Produkt – zuerst WortBild/Sprachenlernen und Story-Engine (Erzählfilm) | ~20 % | 100.000 € | Zusatzkosten Vision 145 (11.5) |
+| Go-to-Market, Creator-Partnerprogramm, Piloten | ~15 % | 75.000 € | Marketing, Creator-Programm, Events 85 (11.3) |
+| Recht, Marke, Datenschutz | ~10 % | 50.000 € | Recht, Marke, Steuer, Verwaltung 32 (11.3) |
+| Reserve | ~5 % | 25.000 € | – |
+| **Summe** | **100 %** | **500.000 €** | |
+
+Die Runde finanziert die Bruttokosten der ersten 24 Monate vor: Basis 563 T€ (165 + 398, Tabelle 11.3) plus Vision 145 T€ (30 + 115, Tabelle 11.5) = 708 T€. Davon trägt die Runde 475 T€ (ohne Reserve), die übrigen 233 T€ tragen die Umsätze von 606 T€ (Basis 51 + 336 = 387 T€, Vision 27 + 192 = 219 T€). Der Umsatzüberschuss von 373 T€ plus die Reserve von 25 T€ ergeben den Kassenbestand von 398 T€ Ende J2 (Tabelle unten): 500 − 708 + 606 = 398. Freelance-Kosten (40 T€) und Infrastruktur (33 T€) werden vollständig aus Umsätzen bezahlt. Der Posten Recht/Marke/Datenschutz liegt mit 50 T€ um 18 T€ über dem Ansatz in 11.3; bei Bestätigung des Vorschlags wird diese Zeile in 11.3 angepasst, bis dahin deckt die Reserve die Differenz.
+
+**Liquidität mit 500 T€ (T€, Jahresendwerte)** – Kassenbestand Ende Jahr = Vorjahr + Jahresergebnis aus 11.4 bzw. 11.5:
+
+| Szenario (Ergebnis J1 / J2 / J3) | Start | Ende J1 | Ende J2 | Ende J3 |
+|---|---|---|---|---|
+| Konservativ (−105 / −149 / −62) | 500 | 395 | 246 | 184 |
+| **Basis (−114 / −62 / +329)** | **500** | **386** | **324** | **653** |
+| Basis inkl. Vision (−117 / +15 / +736) | 500 | 383 | 398 | 1.134 |
+| Optimistisch (−66 / +373 / +1.501) | 500 | 434 | 807 | 2.308 |
+
+Rechenbeispiel Basis: 500 − 114 = 386; 386 − 62 = 324; 324 + 329 = 653. Kontrolle: 500 + kumuliertes Ergebnis +153 (11.4) = 653.
+
+**Reichweite (Runway):**
+
+- **Ohne jeden Umsatz** trägt die Runde die Basis-Kosten aus 11.3 rund **22 Monate**: J1 kostet 165 T€ (Rest 335 T€), J2 kostet 398 T€, also ≈ 33 T€ pro Monat; 335 ÷ 33 ≈ 10 Monate; 12 + 10 = 22 Monate. Mit den Vision-Kosten aus 11.5 (J1 30 T€, J2 115 T€) sind es rund 19 Monate (500 − 195 = 305; 305 ÷ 43 ≈ 7 Monate).
+- **Konservativ** reicht die Runde über alle drei Jahre (kumuliert −316 T€) und lässt 184 T€ Puffer.
+- **Basis:** Der niedrigste Jahresendstand ist 324 T€ (Ende J2), der Break-even liegt in J3 (mit Vision in J2). Der Puffer sichert Verzögerungen bei Plattform-Pilot und Bildungsvertrieb ab und dient als Brücke zur Seed-Runde.
+
+Alternative, falls die Runde nicht zustande kommt: Bootstrapping – Pro-Abo und Packs finanzieren eine:n Entwickler:in in Teilzeit, das Wachstum verlangsamt sich entsprechend (ungefähr konservatives Szenario). Förderprogramme (EXIST, Gründungsstipendien, Medien-/Edtech-Förderung) werden parallel geprüft.
+
+*Hinweis zur Versionsgeschichte: Frühere Fassungen nannten einen Seed-Bedarf von 250–350 T€ für 18–24 Monate, nur für das Kernprodukt. Die 500 T€ ersetzen diese Angabe und schließen die Vision-Linien ein.*
 
 ---
 
 ## 12. Team und Bedarf
 
-**Gründerin [Name].** Autorin einer fünfbändigen Kinderbuchreihe zu Neurodiversität (Türkisch, mit Buch-Trailern), Live-Streamerin, deutsch-türkisch, Produktvision und Community. Nutzt LiveFX in jedem eigenen Stream – Vorlesen mit Story-Modus ist aus der eigenen Praxis entstanden.
+**Tuncay Sancak – Gründer & Erfinder, Geschäftsführer.** Hat LiveFX erfunden und gebaut. Autor und Live-Streamer, deutsch-türkisch; Kinderbuchreihe zu Neurodiversität (Türkisch, mit Buch-Trailern); Produktvision und Community. Nutzt LiveFX in jedem eigenen Stream – Vorlesen mit Story-Modus ist aus der eigenen Praxis entstanden.
+
+**Gönül Demet – Investor Relations.** Ansprechpartnerin für Investoren und die Pre-Seed-Runde (Kontakt: [E-Mail] · [Telefon]).
 
 **Entwicklung bisher.** KI-gestützt aufgebaut, mit dokumentierter Architektur (Schema, Contracts, Design-Dokumente), Changelog und automatisierten Tests – ein Stand, den ein Entwicklungsteam direkt übernehmen kann.
 
@@ -368,9 +408,9 @@ Die Vision (Kapitel 15) ist in den Tabellen 11.2–11.4 **nicht** enthalten. Die
 
 | Quartal | Produkt | Markt | Organisation |
 |---|---|---|---|
-| **Q4 2026** | Landingpage und Download-Paket (Windows/Mac), Onboarding-Assistent, Live-Commerce-Trigger im Standardpaket | Launch TR-Community, 10–20 Creator-Botschafter:innen, LinkedIn-Artikel DE/TR, Marketingvideo | Marke anmelden, Seed-Gespräche, Beirat ansprechen |
+| **Q4 2026** | Landingpage und Download-Paket (Windows/Mac), Onboarding-Assistent, Live-Commerce-Trigger im Standardpaket | Launch TR-Community, 10–20 Creator-Botschafter:innen, LinkedIn-Artikel DE/TR, Marketingvideo | Marke anmelden, Pre-Seed-Gespräche (500 T€), Beirat ansprechen |
 | **Q1 2027** | Pro-Abo live (Zahlung), erste Creator-Packs, Community-Pack-Upload (Beta), Streaming-ASR-Test < 300 ms | DE/EN-Launch, Marktplatz-Einträge (OBS, Streamlabs, Stream Deck), Vorlese-Pilot mit [Zahl] Lehrkräften/Autor:innen | Mobile-Entwickler:in eingestellt |
-| **Q2 2027** | Mobile-App (Fernbedienung + Mikro, Stores), Bildungs-Paket, Agentur-Lizenz (Mehrplatz) | Creator-Partnerprogramm offiziell, erste Agenturen, Presse Edtech/Creator Economy | Seed abgeschlossen oder Bootstrapping-Pfad bestätigt |
+| **Q2 2027** | Mobile-App (Fernbedienung + Mikro, Stores), Bildungs-Paket, Agentur-Lizenz (Mehrplatz) | Creator-Partnerprogramm offiziell, erste Agenturen, Presse Edtech/Creator Economy | Pre-Seed (500 T€) abgeschlossen oder Bootstrapping-Pfad bestätigt |
 | **Q3 2027** | Marktplatz offen, KI-Verstehen als Pro-Standard, SDK-Prototyp | Plattform-Pilot gestartet (Ziel: ein Partner), [Zahl] registrierte Nutzer, [Zahl] Pro-Abos | Community/Support-Rolle besetzt |
 
 Messgrößen: registrierte Nutzer, aktive Streamer pro Woche, Conversion Free → Pro, Pack-Umsatz, Anzahl Partner-Creator, Plattform-Gespräche mit Folgetermin.
@@ -422,7 +462,7 @@ Alle vier Linien teilen ein JSON-Format, die **LiveFX-Zeitleiste (LTF v1)**, und
 
 ### 15.3 Sprachenlernen im Detail
 
-Ein Kind sagt „Apfel“ – es erscheint 🍎, darunter „elma“, klein „der Apfel“ mit farbigem Artikel und Silben, und eine Stimme spricht „elma“. Die Lehrkraft wählt nur „Ich spreche“, „Zeige“ und den Modus (Übersetzen, Lesehilfe, Nachsprechen). Zielgruppen sind Familien, Grundschulen (20,4 % der Schüler:innen unter 16 sprechen zu Hause vorwiegend eine andere Sprache [Quelle 37]; 25 % der Viertklässler:innen liegen unter dem Lese-Mindeststandard [Quelle 39]), DaZ- und Integrationskurse sowie Türkisch als Herkunftssprache (2,65 Mio. Menschen mit Einwanderungsgeschichte aus der Türkei [Quelle 38]). Die Lesehilfe knüpft an die Neurodiversitäts-Bücher der Gründerin an. Preis-Anker ist die ANTON-Schullizenz mit 250–700 € pro Schule und Jahr [Quelle 41]; kostenlose Konkurrenz sind Microsoft Reading Coach [Quelle 42] und Google Read Along [Quelle 43]. Für Schulen erzwingt das Schulprofil Spracherkennung auf dem Gerät (`processLocally`, Chrome 139+ [Quelle 28]) oder Offline-Whisper.
+Ein Kind sagt „Apfel“ – es erscheint 🍎, darunter „elma“, klein „der Apfel“ mit farbigem Artikel und Silben, und eine Stimme spricht „elma“. Die Lehrkraft wählt nur „Ich spreche“, „Zeige“ und den Modus (Übersetzen, Lesehilfe, Nachsprechen). Zielgruppen sind Familien, Grundschulen (20,4 % der Schüler:innen unter 16 sprechen zu Hause vorwiegend eine andere Sprache [Quelle 37]; 25 % der Viertklässler:innen liegen unter dem Lese-Mindeststandard [Quelle 39]), DaZ- und Integrationskurse sowie Türkisch als Herkunftssprache (2,65 Mio. Menschen mit Einwanderungsgeschichte aus der Türkei [Quelle 38]). Die Lesehilfe knüpft an die Neurodiversitäts-Bücher des Gründers an. Preis-Anker ist die ANTON-Schullizenz mit 250–700 € pro Schule und Jahr [Quelle 41]; kostenlose Konkurrenz sind Microsoft Reading Coach [Quelle 42] und Google Read Along [Quelle 43]. Für Schulen erzwingt das Schulprofil Spracherkennung auf dem Gerät (`processLocally`, Chrome 139+ [Quelle 28]) oder Offline-Whisper.
 
 ### 15.4 Auto-Edit im Detail
 
@@ -445,7 +485,7 @@ LiveFX Studio hat zwei Türen: **Live → Highlights** (nach dem Stream 3–5 Ku
 | Pro+ „Studio & Szenen“ | 14,99 €/Monat | KI-Szenen, Auto-Edit aus Datei, MP4-Export, Batch, Hörbuch-Visualizer |
 | WortBild Familie | 4,99 €/Monat | Sprachenlernen und Lesehilfe ohne Streaming-Funktionen |
 | Packs | 2,99–4,99 € | Welten-, Vokabel- und Stil-Packs |
-| Lizenzen | Schule 300–800 €/Jahr · Kurs 49 €/Lehrkraft/Jahr · Event 19–49 €/Tag bzw. 299 €/Jahr · Verlag [2.000 €] pro Titel und Jahr (Schätzung, von der Gründerin zu prüfen) · SDK nach Vereinbarung | Bildung, Bühne, Verlage, Plattformen |
+| Lizenzen | Schule 300–800 €/Jahr · Kurs 49 €/Lehrkraft/Jahr · Event 19–49 €/Tag bzw. 299 €/Jahr · Verlag [2.000 €] pro Titel und Jahr (Schätzung, vom Gründer zu prüfen) · SDK nach Vereinbarung | Bildung, Bühne, Verlage, Plattformen |
 
 Die Erlöse daraus stehen getrennt in Abschnitt 11.5, die Meilensteine in Abschnitt 14.2.
 

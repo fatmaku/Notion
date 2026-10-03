@@ -9,7 +9,8 @@
 > `LiveFX_Pitch_TR.pptx`, EN: `deck-content.en.json` → `LiveFX_Pitch_EN.pptx`; im Ordner `business/` ausführen).
 > Folien 12–15 sind **Vision** (Badge „Vision“ auf der Folie); verbindliche Grundlage ist die Vision-Spezifikation
 > (Erzählfilm, WortBild, Räume, Studio). Quellen ab [Quelle 19] stehen in `QUELLEN.md`.
-> Platzhalter in eckigen Klammern (`[Name]`, `[Zahl]`) bewusst nicht ausgefüllt – keine erfundenen Zahlen.
+> Stand: Oktober 2026 · Vertraulich (Fußzeile jeder Folie: „Vertraulich · Oktober 2026“).
+> Platzhalter in eckigen Klammern (`[Zahl]`, `[E-Mail]`) bewusst nicht ausgefüllt – keine erfundenen Zahlen.
 > Marktzahlen: Quellen in `QUELLEN.md` [Quelle n]; Schätzungen sind als solche markiert.
 
 ---
@@ -20,7 +21,7 @@
 *Deine Stimme wird zum Effekt.*
 Memes, Sounds und Szenen in Echtzeit – ausgelöst durch das, was der Creator sagt.
 *Und morgen: Du redest. Es wird Bild.*
-[Name] · Gründerin, Autorin & Live-Streamerin · [Datum] · [E-Mail]
+Tuncay Sancak · Gründer & Erfinder, Geschäftsführer · Investor Relations: Gönül Demet · [E-Mail] · Oktober 2026 · Vertraulich
 
 > **Notizen:** Kurz vorstellen: Ich streame selbst, ich schreibe Bücher, und ich habe LiveFX gebaut, weil ich im
 > Live-Stream genau das vermisst habe, was jedes Kurzvideo hat. Was ihr heute seht, läuft in meinen eigenen
@@ -92,7 +93,7 @@ Screenshots (bzw. 30-s-Trailer `video/LiveFX_Trailer_16x9.mp4`):
   [Quelle 27], Prompt-Caching macht KI-Klassifikation für < 1 USD/Stunde möglich.
 - **Plattformen konkurrieren über Creator-Tools** (CapCut ↔ TikTok, Edits ↔ Instagram) – Live-Tools sind der nächste Schritt.
 
-Quellen: siehe `QUELLEN.md` (Stand 30.09.2026, Ergänzung 03.10.2026).
+Quellen: siehe `QUELLEN.md` (Recherche vom 30.09.2026 und 03.10.2026).
 
 > **Notizen:** Live ist kein Nebenkanal mehr, sondern ein Umsatzkanal. Und: Die Türkei ist ein junger, meme-affiner
 > TikTok-Markt mit kaum lokalisierten Tools – unser größtes Paket ist das türkische, das ist kein Zufall.
@@ -105,7 +106,7 @@ Quellen: siehe `QUELLEN.md` (Stand 30.09.2026, Ergänzung 03.10.2026).
 | **TAM** – Live-Streaming-Markt | 97–157 Mrd. USD (2026) → 250–345 Mrd. USD (2030), CAGR ~27 % | [Quelle 1, 2] |
 | **Live-Anteil Creator Economy** | ≈ 30–36 Mrd. USD (14 % von ~216–260 Mrd.) | [Quelle 3, 4] |
 | **SAM** – Creator-Tools für Live (Software-Ausgaben) *(Schätzung)* | 1–3 Mrd. USD | abgeleitet aus Streamlabs/StreamYard/Voicemod-Preisen × aktiven Live-Creatorn |
-| **SOM** – Jahr 3 *(Schätzung)* | 20–40 T Pro-Abos × 9,99 €/Monat ≈ 2,4–4,8 Mio. € ARR | DACH + Türkei + EN-Nische, Fokus TikTok/IG |
+| **SOM** – Jahr 3 *(Schätzung)* | 5.000–15.000 zahlende Pro-Nutzer × 9,99 €/Monat ≈ 0,6–1,8 Mio. € ARR | wie Businessplan Kap. 6 (0,3–0,5 % der SAM-Creator); DACH + Türkei + EN-Nische, Fokus TikTok/IG |
 
 **Angrenzende Märkte der Vision (Folien 12–15, nicht im SOM enthalten):**
 
@@ -120,6 +121,7 @@ Quellen: siehe `QUELLEN.md` (Stand 30.09.2026, Ergänzung 03.10.2026).
 > Studie. Der Punkt ist nicht die genaue Zahl, sondern: Schon ein kleiner Anteil zahlender Live-Creator trägt ein
 > Team – und der eigentliche Hebel ist die Plattform-Integration, nicht das Abo. Unten neu: Die Vision öffnet
 > angrenzende Märkte (KI-Video, Sprachlernen, Videoschnitt, Hörbuch) – die rechnen wir bewusst nicht in den SOM ein.
+> Der SOM entspricht dem Businessplan; das Basis-Szenario rechnet im Jahr 3 mit Ø 7.500 Pro-Nutzern.
 
 ## Folie 8 – Geschäftsmodell
 
@@ -138,7 +140,7 @@ Schul-, Kurs-, Event- und Verlagslizenzen – Details auf den Folien 13–15.
 
 ## Folie 9 – Traction
 
-- **Im Einsatz in den eigenen Live-Streams der Gründerin** seit [Monat/Jahr] – [Zahl] Streams, [Zahl] Stunden
+- **Im Einsatz in den eigenen Live-Streams des Gründers** seit [Monat/Jahr] – [Zahl] Streams, [Zahl] Stunden
 - **Produkt**: aktuelle Version 2.0 (Releases 0.1 → 2.0), 240+ automatisierte Tests, Anleitungen DE/TR, Demo-Clips
 - **Inhalte**: 5 Trigger-Pakete (238 Trigger), 3 Story-Pakete, 38 Sounds, 13 Szenen – in 3 Sprachen
 - **Community**: [Zahl] Follower · [Zahl] Creator auf der Warteliste · [Zahl] Downloads
@@ -189,7 +191,7 @@ Schaubild (aus Formen): **Stimme → Verstehen → Szene → Video**
 
 Vier Linien (Linienfarben): 🌳 **Erzählfilm** (Grün) · 🍎 **WortBild** (Gold) · 🥽 **Räume** (Hellblau) · ✂ **Studio** (Pink)
 
-- **Heute:** Aus Stimme wird in unter einer Sekunde Meme, Sound oder Szene – in den eigenen Streams der Gründerin im Einsatz.
+- **Heute:** Aus Stimme wird in unter einer Sekunde Meme, Sound oder Szene – in den eigenen Streams des Gründers im Einsatz.
 - **Morgen:** Aus Stimme wird ein Film, ein Wortbild mit Aussprache oder ein fertiger Clip – im Stream, in der Schule,
   auf der Bühne, in der Brille.
 - *Zeichnen statt generieren – mit dem Rechenbudget eines Untertitels, nicht eines Rechenzentrums.*
@@ -285,16 +287,18 @@ Cloud-Kosten, ohne Minutenlimit. XR und Brille: Schaufenster, keine Umsatzlinie.
 
 ## Folie 16 – Team
 
-- **[Name]** – Gründerin · deutsch-türkische Autorin & Live-Streamerin · Produkt, Inhalte, Community, eigene Streams
+- **Tuncay Sancak** – Gründer & Erfinder, Geschäftsführer · deutsch-türkischer Autor & Live-Streamer · Produkt, Inhalte, Community, eigene Streams
   als Testlabor · Pakete in TR/DE/EN aus erster Hand · Kinderbuchreihe zu Neurodiversität (Brücke zu WortBild und
   Erzählfilm)
 - **[Position offen]** – Tech-Lead (Audio/Realtime, Mobile-SDK, Canvas/WebGPU)
 - **[Position offen]** – Creator-Partnerschaften / Growth (TR + DACH), Bildungsvertrieb
-- Beirat / Partner: [Name], [Name] · Edtech/Didaktik: [Name]
+- **Gönül Demet** – Investor Relations · Ansprechpartnerin für Investoren und die Pre-Seed-Runde
+- Beirat / Partner (gesucht): Creator-Management TR · Ex-Produktverantwortung „Live“ einer Plattform · Edtech/Didaktik
 
-> **Notizen:** Die Gründerin ist Nutzerin, Content-Lieferantin und Produktverantwortliche in einer Person – das ist
-> der Grund, warum das Produkt in Dialekten, Hochkant und Türkçe funktioniert. Als Kinderbuchautorin bringt sie den
-> ersten Verlags- und Bildungsfall selbst mit. Mit dem Seed kommen zwei Hires; WortBild prüft ein Edtech-Beirat fachlich.
+> **Notizen:** Der Gründer ist Nutzer, Content-Lieferant und Produktverantwortlicher in einer Person – das ist
+> der Grund, warum das Produkt in Dialekten, Hochkant und Türkçe funktioniert. Als Kinderbuchautor bringt er den
+> ersten Verlags- und Bildungsfall selbst mit. Gönül Demet verantwortet Investor Relations. Mit dem Pre-Seed
+> (500.000 €) kommen zwei Hires; WortBild prüft ein Edtech-Beirat fachlich.
 
 ## Folie 17 – Ask
 
@@ -306,13 +310,25 @@ Cloud-Kosten, ohne Minutenlimit. XR und Brille: Schaufenster, keine Umsatzlinie.
   WortBild und Erzählfilm in [Zahl] Kursen/Klassen bzw. mit [Zahl] Titeln testen
 - **Partner**: Streaming-Software (OBS-Plug-in, Streamlabs), Creator-Agenturen TR/DACH, Audio-/ASR-Anbieter,
   Editor-Anbieter (Studio-SDK)
-- **Gespräch & Seed**: Übernahme-Gespräch (Technologie + Team); parallel Seed [Zahl] € für 18 Monate (2 Hires,
-  Creator-Programm, Piloten)
+- **Pre-Seed: 500.000 €** für LiveFX 2.0 und die Vision-Linien A–D (zuerst WortBild und Story-Engine), 24 Monate;
+  parallel offen für Übernahme-Gespräche (Technologie + Team)
 
-Kontakt: [E-Mail] · Demo: [Link] · Code & Doku: live-fx/
+**Mittelverwendung über 24 Monate – Vorschlag – bitte bestätigen** (Balken auf der Folie; Details Businessplan 11.6):
+
+| Bereich | Anteil | Betrag |
+|---|---|---|
+| Produkt- und Engineering-Team | ~50 % | 250.000 € |
+| Vision-Linien vom Prototyp zum Produkt (zuerst WortBild/Sprachenlernen und Story-Engine) | ~20 % | 100.000 € |
+| Go-to-Market, Creator-Programm, Piloten | ~15 % | 75.000 € |
+| Recht, Marke, Datenschutz | ~10 % | 50.000 € |
+| Reserve | ~5 % | 25.000 € |
+| **Summe** | **100 %** | **500.000 €** |
+
+Kontakt: Tuncay Sancak, Gründer & Geschäftsführer · Investor Relations: Gönül Demet · [E-Mail] · Demo: [Link] · Code & Doku: live-fx/
 *Dieses Deck gibt es auch auf Türkisch und Englisch: `LiveFX_Pitch_TR.pptx` · `LiveFX_Pitch_EN.pptx`*
 
 > **Notizen:** Konkret enden: Was wir brauchen, ist ein Ansprechpartner im Live-Team und ein 8-Wochen-Pilot mit
 > 20 Creatorn. Wir liefern Overlay, Pakete, Support und die Messung (Watchtime, Gifts, Clips aus Lives). Neu: Für
 > WortBild und Erzählfilm suchen wir einen zweiten Pilot mit Bildungsträgern, Sprachlern-Plattformen oder Verlagen –
-> der erste Verlagsfall ist die eigene Kinderbuchreihe.
+> der erste Verlagsfall ist die eigene Kinderbuchreihe. Zur Runde: Ohne jeden Umsatz reichen die 500.000 € rund 22 Monate;
+> das konservative Szenario ist über drei Jahre gedeckt (Businessplan 11.6). Ansprechpartnerin für Investoren: Gönül Demet.

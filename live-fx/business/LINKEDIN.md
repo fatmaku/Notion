@@ -1,6 +1,8 @@
 # LinkedIn – Vorstellung von LiveFX · LiveFX tanıtımı · Introducing LiveFX
 
-> **Drei Sprachen, gleiche Inhalte:** Deutsch (Master), Türkçe und English – jeweils Artikel, kurzer Post, Hook-Post, Vision-Post, Hashtags und Antwort-Vorlagen für Kommentare. Platzhalter in [eckigen Klammern] bitte vor dem Posten ausfüllen (TR: [İsim]/[Sayı], EN: [Name]/[Number]) – vor allem die eigenen Anekdoten, sie sind das Herz des Textes. Marktzahlen: Spannen aus `QUELLEN.md`, zitiert als [Quelle n] / [Kaynak n] / [Source n] mit denselben Nummern; Liste am Ende.
+> **Drei Sprachen, gleiche Inhalte:** Deutsch (Master), Türkçe und English – jeweils Artikel, kurzer Post, Hook-Post, Vision-Post, Hashtags und Antwort-Vorlagen für Kommentare. Platzhalter in [eckigen Klammern] bitte vor dem Posten ausfüllen (TR: [Sayı], EN: [Number]) – vor allem die eigenen Anekdoten, sie sind das Herz des Textes. Marktzahlen: Spannen aus `QUELLEN.md`, zitiert als [Quelle n] / [Kaynak n] / [Source n] mit denselben Nummern; Liste am Ende.
+>
+> **Autor:** Alle Texte sind in der Ich-Form von Tuncay Sancak (Gründer & Erfinder, Geschäftsführer von LiveFX) geschrieben und mit seinem Namen unterschrieben. Stand: Oktober 2026.
 >
 > **Posting-Tipp:** Erst den Hook-Post (C) mit dem 30-s-Video, zwei Tage später den Artikel (A) als LinkedIn-Artikel, den kurzen Post (B) als Teaser dazu. Türkische und englische Fassung am selben Tag wie A, idealerweise mit demselben Video. Den Vision-Post (D) ein bis zwei Wochen später mit dem Vision-Trailer (Folien 12–15 des Pitch-Decks als PDF-Karussell gehen auch).
 
@@ -21,7 +23,7 @@
 
 **Ich habe ein Werkzeug gebaut, das Live-Streams so lebendig macht wie geschnittene Videos. Es hört zu.**
 
-Jeder kennt es: Kurzvideos auf TikTok und Instagram leben von Memes, Sound-Effekten und Stickern. Alles davon entsteht im Schnitt – nachdem die Aufnahme vorbei ist. Live ist das Gegenteil. Live ist roh. Wer streamt, ist gleichzeitig Moderatorin, Regisseurin und Cutterin – und der Schnitt kommt nie.
+Jeder kennt es: Kurzvideos auf TikTok und Instagram leben von Memes, Sound-Effekten und Stickern. Alles davon entsteht im Schnitt – nachdem die Aufnahme vorbei ist. Live ist das Gegenteil. Live ist roh. Wer streamt, ist gleichzeitig Moderator, Regisseur und Cutter – und der Schnitt kommt nie.
 
 Dabei entsteht der Umsatz heute live: Geschenke, Live-Commerce, Community. Live-Streaming ist der am schnellsten wachsende Teil der Creator Economy. Die Schätzungen für 2026 liegen zwischen 97 und 157 Milliarden Dollar [Quelle 1, 2], und bei TikTok LIVE machen Geschenke rund die Hälfte des Einkommens der Streamer aus [Quelle 5, 6].
 
@@ -62,6 +64,8 @@ Pilot-Partner – eine Plattform, ein Streaming-Tool, eine Agentur, ein Bildungs
 
 Wenn du live streamst, Creator-Tools baust oder bei einer Plattform an Live arbeitest: Schreib mir. [Kontakt / Link]
 
+— Tuncay Sancak · Gründer & Erfinder, Geschäftsführer · LiveFX
+
 ---
 
 <a id="de-b"></a>
@@ -79,6 +83,8 @@ Live-Streaming wächst auf über 100 Milliarden Dollar [Quelle 1, 2] – und nie
 
 Ich suche Pilot-Partner und Creator, die testen wollen. Wer bei einer Plattform an Live arbeitet: Lasst uns reden. [Link]
 
+— Tuncay Sancak · Gründer & Erfinder, Geschäftsführer · LiveFX
+
 ---
 
 <a id="de-c"></a>
@@ -91,6 +97,8 @@ Ich sage „krass“ → 🤯 + Airhorn. Ich lese „es regnete“ vor → Regen
 Ich hab's gebaut. Es heißt LiveFX, läuft in meinen eigenen Lives, auf Türkisch, Deutsch und Englisch.
 
 Creator zum Testen und Pilot-Partner gesucht. Video unten. 👇 [Demo-Video]
+
+— Tuncay Sancak · Gründer & Erfinder, Geschäftsführer · LiveFX
 
 ---
 
@@ -108,9 +116,11 @@ Meine Vision für LiveFX 2027–2029 in vier Linien:
 
 Das Besondere: Nichts davon braucht ein Rechenzentrum. LiveFX zeichnet, statt zu generieren – im Browser, auf dem eigenen Gerät, mit dem Rechenbudget eines Untertitels. Video-KI kostet pro Stunde 180–2.700 Dollar [Quelle 24, 25], LiveFX läuft lokal.
 
-Ehrlich gesagt: Das ist Vision, kein fertiges Produkt. Die Basis – Spracherkennung in drei Sprachen, Story-Szenen, Effekt-Engine – läuft heute schon in meinen Streams. [Eigener Satz, z. B. warum dir als Autorin das Vorlesen mit Bildern am Herzen liegt.]
+Ehrlich gesagt: Das ist Vision, kein fertiges Produkt. Die Basis – Spracherkennung in drei Sprachen, Story-Szenen, Effekt-Engine – läuft heute schon in meinen Streams. [Eigener Satz, z. B. warum dir als Autor das Vorlesen mit Bildern am Herzen liegt.]
 
 Ich suche Pilot-Partner: Plattformen, Bildungsträger, Sprachlern-Apps und Verlage. Wer mitdenken will: Schreib mir. [Vision-Trailer anhängen · Link]
+
+— Tuncay Sancak · Gründer & Erfinder, Geschäftsführer · LiveFX
 
 ---
 
@@ -118,7 +128,7 @@ Ich suche Pilot-Partner: Plattformen, Bildungsträger, Sprachlern-Apps und Verla
 ## Hashtags (Deutsch)
 
 5–8 pro Post wählen:
-#LiveStreaming #CreatorEconomy #TikTokLIVE #InstagramLive #Twitch #Memes #Spracherkennung #SpeechRecognition #StartUp #Gründerin #Vorlesen #Kinderbuch #Bildung #EdTech #Sprachenlernen #DaZ #LiveCommerce #OBS #AR #Innovation #Türkiye
+#LiveStreaming #CreatorEconomy #TikTokLIVE #InstagramLive #Twitch #Memes #Spracherkennung #SpeechRecognition #StartUp #Gründer #Vorlesen #Kinderbuch #Bildung #EdTech #Sprachenlernen #DaZ #LiveCommerce #OBS #AR #Innovation #Türkiye
 
 Für den Vision-Post (D) zusätzlich: #Sprachenlernen #EdTech #Videoschnitt #AugmentedReality #WebDev
 
@@ -217,6 +227,8 @@ Pilot ortaklar – LiveFX'i benimle test edecek bir platform, bir yayın aracı,
 
 Canlı yayın yapıyorsan, creator araçları geliştiriyorsan ya da bir platformda canlı yayın üzerinde çalışıyorsan: Yaz bana. [İletişim / Link]
 
+— Tuncay Sancak · Kurucu & Mucit, Genel Müdür · LiveFX
+
 ---
 
 <a id="tr-b"></a>
@@ -234,6 +246,8 @@ Canlı yayın pazarı 100 milyar doları aşıyor [Kaynak 1, 2] – ve kimse can
 
 Pilot ortaklar ve test edecek yayıncılar arıyorum. Bir platformda canlı yayın üzerinde çalışıyorsan: Konuşalım. [Link]
 
+— Tuncay Sancak · Kurucu & Mucit, Genel Müdür · LiveFX
+
 ---
 
 <a id="tr-c"></a>
@@ -246,6 +260,8 @@ Ya yayının seni *dinlese* – ve meme'leri kendisi ekrana getirse?
 Ben yaptım. Adı LiveFX; kendi canlı yayınlarımda, Türkçe, Almanca ve İngilizce çalışıyor.
 
 Test edecek yayıncılar ve pilot ortaklar arıyorum. Video aşağıda. 👇 [Demo videosu]
+
+— Tuncay Sancak · Kurucu & Mucit, Genel Müdür · LiveFX
 
 ---
 
@@ -267,13 +283,15 @@ Dürüst olayım: Bu bir vizyon, hazır bir ürün değil. Temeli – üç dilde
 
 Pilot ortaklar arıyorum: platformlar, eğitim kurumları, dil öğrenme uygulamaları ve yayınevleri. Birlikte düşünmek isteyen yazsın. [Vizyon fragmanı · Link]
 
+— Tuncay Sancak · Kurucu & Mucit, Genel Müdür · LiveFX
+
 ---
 
 <a id="tr-tags"></a>
 ## Hashtag'ler (Türkçe)
 
 Her gönderi için 5–8 tane seç:
-#CanlıYayın #CreatorEkonomisi #TikTokLIVE #InstagramLive #Twitch #Meme #KonuşmaTanıma #Girişim #KadınGirişimci #Masal #ÇocukKitabı #Eğitim #CanlıSatış #Türkiye #DilÖğrenme #YapayZekâ #ArtırılmışGerçeklik
+#CanlıYayın #CreatorEkonomisi #TikTokLIVE #InstagramLive #Twitch #Meme #KonuşmaTanıma #Girişim #Kurucu #Masal #ÇocukKitabı #Eğitim #CanlıSatış #Türkiye #DilÖğrenme #YapayZekâ #ArtırılmışGerçeklik
 
 ---
 
@@ -370,6 +388,8 @@ Pilot partners – a platform, a streaming tool, an agency, an education provide
 
 If you stream live, build creator tools or work on live at a platform: message me. [Contact / link]
 
+— Tuncay Sancak · Founder & Inventor, Managing Director · LiveFX
+
 ---
 
 <a id="en-b"></a>
@@ -387,6 +407,8 @@ Live streaming is heading past $100 billion [Source 1, 2] – and nobody makes l
 
 I'm looking for pilot partners and creators who want to test it. If you work on live at a platform: let's talk. [Link]
 
+— Tuncay Sancak · Founder & Inventor, Managing Director · LiveFX
+
 ---
 
 <a id="en-c"></a>
@@ -399,6 +421,8 @@ I say "no way" → 🤯 + air horn. I read "it was raining" → rain scene with 
 I built it. It's called LiveFX, and it runs in my own lives – in Turkish, German and English.
 
 Looking for creators to test it and for pilot partners. Video below. 👇 [Demo video]
+
+— Tuncay Sancak · Founder & Inventor, Managing Director · LiveFX
 
 ---
 
@@ -420,13 +444,15 @@ To be honest: this is a vision, not a finished product. The foundation – speec
 
 I'm looking for pilot partners: platforms, education providers, language-learning apps and publishers. If you'd like to think this through with me, get in touch. [Attach vision trailer · link]
 
+— Tuncay Sancak · Founder & Inventor, Managing Director · LiveFX
+
 ---
 
 <a id="en-tags"></a>
 ## Hashtags (English)
 
 Pick 5–8 per post:
-#LiveStreaming #CreatorEconomy #TikTokLIVE #InstagramLive #Twitch #Memes #SpeechRecognition #Startup #FemaleFounder #WomenInTech #ReadAloud #ChildrensBooks #Education #EdTech #LanguageLearning #LiveCommerce #OBS #Innovation #Türkiye
+#LiveStreaming #CreatorEconomy #TikTokLIVE #InstagramLive #Twitch #Memes #SpeechRecognition #Startup #Founder #TechFounder #ReadAloud #ChildrensBooks #Education #EdTech #LanguageLearning #LiveCommerce #OBS #Innovation #Türkiye
 
 For the vision post (D), add: #LanguageLearning #EdTech #VideoEditing #AugmentedReality #WebDev
 

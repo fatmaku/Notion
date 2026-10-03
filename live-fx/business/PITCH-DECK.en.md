@@ -9,7 +9,8 @@
 > `LiveFX_Pitch.pptx`, TR: `deck-content.tr.json` → `LiveFX_Pitch_TR.pptx`; run inside the `business/` folder).
 > Slides 12–15 are **Vision** (“Vision” badge on the slide); the binding basis is the vision specification
 > (Story Film, WortBild, Spaces, Studio). Sources from [Source 19] onward are listed in `QUELLEN.md`.
-> Placeholders in square brackets (`[Name]`, `[Number]`) are deliberately left blank – no invented figures.
+> Date: October 2026 · Confidential (footer on every slide: “Confidential · October 2026”).
+> Placeholders in square brackets (`[Number]`, `[Email]`) are deliberately left blank – no invented figures.
 > Market figures: sources in `QUELLEN.md` [Source n], same numbers in all three languages; estimates are marked as such.
 
 ---
@@ -20,7 +21,7 @@
 *Your voice becomes the effect.*
 Memes, sounds and scenes in real time – triggered by what the creator says.
 *And tomorrow: You talk. It becomes a scene.*
-[Name] · Founder, author & live streamer · [Date] · [Email]
+Tuncay Sancak · Founder & Inventor, Managing Director · Investor Relations: Gönül Demet · [Email] · October 2026 · Confidential
 
 > **Notes:** Quick intro: I stream myself, I write books, and I built LiveFX because my live streams were missing
 > exactly what every short video has. What you see today runs in my own streams. At the end I'll show where this is
@@ -91,7 +92,7 @@ Screenshots (or the 30-second trailer `video/LiveFX_Trailer_en_16x9.mp4`):
   [Source 27], prompt caching makes AI classification possible for < $1/hour.
 - **Platforms compete on creator tools** (CapCut ↔ TikTok, Edits ↔ Instagram) – live tools are the next step.
 
-Sources: see `QUELLEN.md` (as of 09/30/2026, addendum 10/03/2026).
+Sources: see `QUELLEN.md` (research of 30 Sep and 3 Oct 2026).
 
 > **Notes:** Live is no longer a side channel – it's a revenue channel. And Turkey is a young, meme-loving TikTok
 > market with hardly any localized tools – our biggest pack is the Turkish one, and that's no accident.
@@ -104,7 +105,7 @@ Sources: see `QUELLEN.md` (as of 09/30/2026, addendum 10/03/2026).
 | **TAM** – live streaming market | $97–157B (2026) → $250–345B (2030), CAGR ~27% | [Source 1, 2] |
 | **Live share of the creator economy** | ≈ $30–36B (14% of ~$216–260B) | [Source 3, 4] |
 | **SAM** – creator tools for live (software spend) *(estimate)* | $1–3B | derived from Streamlabs/StreamYard/Voicemod prices × active live creators |
-| **SOM** – year 3 *(estimate)* | 20–40K Pro subscriptions × €9.99/month ≈ €2.4–4.8M ARR | DACH + Turkey + EN niche, focus on TikTok/IG |
+| **SOM** – year 3 *(estimate)* | 5,000–15,000 paying Pro users × €9.99/month ≈ €0.6–1.8M ARR | as in business plan section 6 (0.3–0.5% of SAM creators); DACH + Turkey + EN niche, focus on TikTok/IG |
 
 **Adjacent markets of the vision (slides 12–15, not included in the SOM):**
 
@@ -119,6 +120,7 @@ Sources: see `QUELLEN.md` (as of 09/30/2026, addendum 10/03/2026).
 > study. The point isn't the exact number – it's that even a small share of paying live creators sustains a team, and
 > the real lever is platform integration, not the subscription. New at the bottom: the vision opens adjacent markets
 > (AI video, language learning, video editing, audiobooks) – which we deliberately don't count in the SOM.
+> The SOM matches the business plan; the base scenario assumes an average of 7,500 Pro users in year 3.
 
 ## Slide 8 – Business model
 
@@ -286,16 +288,17 @@ costs, no minute caps. XR and glasses: a showcase, not a revenue line.
 
 ## Slide 16 – Team
 
-- **[Name]** – founder · German-Turkish author & live streamer · product, content, community, her own streams as the
+- **Tuncay Sancak** – Founder & Inventor, Managing Director · German-Turkish author & live streamer · product, content, community, his own streams as the
   test lab · packs in TR/DE/EN, first-hand · children's book series on neurodiversity (the bridge to WortBild and
   Story Film)
 - **[Open position]** – tech lead (audio/real-time, mobile SDK, Canvas/WebGPU)
 - **[Open position]** – creator partnerships / growth (TR + DACH), education sales
-- Advisory board / partners: [Name], [Name] · EdTech/didactics: [Name]
+- **Gönül Demet** – Investor Relations · contact for investors and the pre-seed round
+- Advisory board / partners (wanted): creator management TR · former platform “Live” product lead · EdTech/didactics
 
 > **Notes:** The founder is user, content supplier and product owner in one person – that's why the product works
-> with dialects, in portrait and in Turkish. As a children's book author, she brings the first publishing and
-> education case herself. The seed round funds two hires; an EdTech advisory board reviews WortBild.
+> with dialects, in portrait and in Turkish. As a children's book author, he brings the first publishing and
+> education case himself. Gönül Demet leads investor relations. The pre-seed round (€500,000) funds two hires; an EdTech advisory board reviews WortBild.
 
 ## Slide 17 – Ask
 
@@ -307,13 +310,25 @@ costs, no minute caps. XR and glasses: a showcase, not a revenue line.
   platforms and publishers – test WortBild and Story Film in [Number] courses/classes or with [Number] titles
 - **Partners**: streaming software (OBS plug-in, Streamlabs), creator agencies TR/DACH, audio/ASR vendors,
   editor vendors (Studio SDK)
-- **Talks & seed**: acquisition talks (technology + team); in parallel a €[Number] seed for 18 months (2 hires,
-  creator program, pilots)
+- **Pre-seed: €500,000** for LiveFX 2.0 and vision lines A–D (WortBild and the story engine first), 24 months;
+  in parallel, open to acquisition talks (technology + team)
 
-Contact: [Email] · Demo: [Link] · Code & docs: live-fx/
+**Use of funds over 24 months – Proposal – please confirm** (bar on the slide; details in business plan 11.6):
+
+| Area | Share | Amount |
+|---|---|---|
+| Product and engineering team | ~50% | €250,000 |
+| Vision lines from prototype to product (WortBild/language learning and the story engine first) | ~20% | €100,000 |
+| Go-to-market, creator programme, pilots | ~15% | €75,000 |
+| Legal, trademark, data protection | ~10% | €50,000 |
+| Reserve | ~5% | €25,000 |
+| **Total** | **100%** | **€500,000** |
+
+Contact: Tuncay Sancak, Founder & Managing Director · Investor Relations: Gönül Demet · [Email] · Demo: [Link] · Code & docs: live-fx/
 *This deck is also available in German and Turkish: `LiveFX_Pitch.pptx` · `LiveFX_Pitch_TR.pptx`*
 
 > **Notes:** End concretely: what we need is a contact on the live team and an 8-week pilot with 20 creators. We
 > deliver the overlay, packs, support and the measurement (watch time, gifts, clips from lives). New: for WortBild and
 > Story Film we're looking for a second pilot with education providers, language-learning platforms or publishers –
-> the first publisher case is the founder's own children's book series.
+> the first publisher case is the founder's own children's book series. On the round: with no revenue at all, the €500,000
+> lasts about 22 months; the conservative scenario is covered for three years (business plan 11.6). Investor contact: Gönül Demet.

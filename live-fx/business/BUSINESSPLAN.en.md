@@ -3,7 +3,7 @@
 **Live streams that listen.** Memes, sounds and animated scenes in real time – triggered by the creator's voice.
 
 Date: October 2026 · Product version: 2.0 · Confidential
-Founder: [Name] · Contact: [Email] · [City]
+Founder & Inventor, Managing Director: Tuncay Sancak · Investor Relations: Gönül Demet · Contact: [Email] · [City]
 
 > Deutsch: BUSINESSPLAN.md · Türkçe: BUSINESSPLAN.tr.md
 
@@ -25,9 +25,9 @@ Founder: [Name] · Contact: [Email] · [City]
 | **Market** | Global live streaming 2026: USD 97–157bn [Source 1, 2]; creator economy ~USD 216–260bn [Source 3, 4]; gifts ≈ 50% of TikTok LIVE streamers' income [Source 5, 6]. |
 | **Business model** | Free + Pro subscription (€9.99/month), creator packs (€2.99–4.99), agency licence, B2B platform licence; strategic exit to TikTok/Meta/YouTube. |
 | **Go-to-market** | Turkish-speaking creator community first, then DE/EN; the founder's own streams as a showcase; creator partner programme; LinkedIn and press. |
-| **Needs** | Mobile developer, platform partnerships, pilot partners; seed funding of [€250–350k] for 18–24 months (estimate) or bootstrapping with slower growth. |
+| **Needs** | **€500,000 pre-seed** for LiveFX and all its projects (2.0 product and vision lines A–D), use of funds over 24 months (proposal – please confirm, section 11.6); plus a mobile developer, platform partnerships, pilot partners. |
 
-Ask: a pilot partnership with a platform (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) or a creator-tool provider – alternatively an acquisition of technology and team.
+Ask: €500,000 pre-seed (section 11.6) and a pilot partnership with a platform (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) or a creator-tool provider – alternatively an acquisition of technology and team.
 
 ---
 
@@ -131,7 +131,7 @@ Registration of the "LiveFX" trademark (DE/EU/TR) is to be examined; the patenta
 | **Video editing** (creators, podcasters, agencies) | Clips and Shorts without hours of editing, without upload | Studio: highlights from the stream, auto-edit of finished videos, local MP4 export | Vision (from 2027) |
 | **VR/AR, stage and events** (organisers, libraries, hardware partners) | Effects on cue, immersive storytelling | Stage mode (today), AR on the phone, WebXR and display glasses as a showcase | stage today; AR/XR Vision (2027–2029) |
 
-The launch segment is the **Turkish-speaking creator community** (Turkey and the diaspora in Germany/Europe): the largest pack, hardly any competition, a strong meme culture, and the founder is herself part of this community.
+The launch segment is the **Turkish-speaking creator community** (Turkey and the diaspora in Germany/Europe): the largest pack, hardly any competition, a strong meme culture, and the founder is himself part of this community.
 
 From 2027 the vision (chapter 15) adds three adjacent target groups: **education and language learning** (families, schools, courses), **publishers and audio** (audiobooks, podcasts, reading aloud) and **video editing** (creators and agencies who edit after the fact). Until 2029, VR/AR and glasses are a showcase, not a revenue line of their own.
 
@@ -299,7 +299,7 @@ The conservative case assumes a smaller team (costs ≈ €120k / €230k / €3
 | **Base** | **−114** | **−62** | **+329** | **+153** |
 | Optimistic | −66 | +373 | +1,501 | +1,808 |
 
-**Funding requirement (estimate):** €250–350k seed for 18–24 months covers the base scenario up to break-even in year 3, including a buffer. Alternative: bootstrapping – the Pro subscription and packs finance a part-time developer, and growth slows accordingly (roughly the conservative scenario). Funding programmes (EXIST, founder grants, media/edtech funding) are being examined in parallel.
+**Funding requirement:** €500,000 pre-seed for LiveFX and all its projects; use of funds, cash and runway in section 11.6.
 
 ### 11.5 Additional revenue streams from year 2/3 (estimate)
 
@@ -319,13 +319,53 @@ The vision (chapter 15) is **not** included in tables 11.2–11.4. This table sh
 | Additional costs (illustration, voice recordings, didactics, education sales, XR prototype) | | 30 | 115 | 210 |
 | **Vision contribution margin** | | **≈ −3** | **≈ +77** | **≈ +407** |
 
-**Effect on the base result (estimate):** −114 → ≈ −117 €k (Y1), −62 → ≈ +15 €k (Y2), +329 → ≈ +736 €k (Y3). In the base scenario, break-even therefore moves from year 3 to year 2. In the conservative case, expect roughly half of the additional revenue; in the optimistic case, 1.5 to 2 times as much. SDK and platform revenues are **not** counted on top; they are already in the B2B line (0 / 50 / 150 €k). The vision raises their likelihood without doubling them. XR and glasses are set at €0. The funding requirement (€250–350k) does not change, because the vision only causes significant costs from year 2 and covers them from the additional revenue.
+**Effect on the base result (estimate):** −114 → ≈ −117 €k (Y1), −62 → ≈ +15 €k (Y2), +329 → ≈ +736 €k (Y3). In the base scenario, break-even therefore moves from year 3 to year 2. In the conservative case, expect roughly half of the additional revenue; in the optimistic case, 1.5 to 2 times as much. SDK and platform revenues are **not** counted on top; they are already in the B2B line (0 / 50 / 150 €k). The vision raises their likelihood without doubling them. XR and glasses are set at €0. The €500,000 funding requirement already includes the vision lines: ~20% of the funds (€100k) take them from prototype to product, WordPicture/language learning and the story engine first (section 11.6).
+
+### 11.6 Funding: €500,000 pre-seed
+
+**Requirement:** a **€500,000 pre-seed** round for LiveFX and all its projects – the 2.0 product and vision lines A–D (Story Film, WordPicture, Spaces, Studio). The funds are planned over 24 months (Y1–Y2, 2027–2028). The revenue and cost scenarios in 11.2–11.5 remain unchanged.
+
+**Use of funds over 24 months – Proposal – please confirm**
+
+| Area | Share | Amount | Reference in the financial plan (Y1 + Y2, €k) |
+|---|---|---|---|
+| Product and engineering team | ~50% | €250,000 | Personnel incl. founder salary 373 (11.3) |
+| Vision lines from prototype to product – WordPicture/language learning and the story engine (Story Film) first | ~20% | €100,000 | Additional vision costs 145 (11.5) |
+| Go-to-market, creator partner programme, pilots | ~15% | €75,000 | Marketing, creator programme, events 85 (11.3) |
+| Legal, trademark, data protection | ~10% | €50,000 | Legal, trademark, tax, administration 32 (11.3) |
+| Reserve | ~5% | €25,000 | – |
+| **Total** | **100%** | **€500,000** | |
+
+The round pre-finances the gross costs of the first 24 months: base €563k (165 + 398, table 11.3) plus vision €145k (30 + 115, table 11.5) = €708k. The round covers €475k of this (excluding the reserve); revenue of €606k covers the remaining €233k (base 51 + 336 = €387k, vision 27 + 192 = €219k). The revenue surplus of €373k plus the €25k reserve make up the €398k cash at the end of Y2 (table below): 500 − 708 + 606 = 398. Freelance costs (€40k) and infrastructure (€33k) are paid entirely from revenue. At €50k, the legal/trademark/data-protection line is €18k above the figure in 11.3; once the proposal is confirmed, that line in 11.3 will be adjusted – until then the reserve covers the difference.
+
+**Cash with €500k (€k, year-end values)** – year-end cash = previous year + annual result from 11.4 or 11.5:
+
+| Scenario (result Y1 / Y2 / Y3) | Start | End Y1 | End Y2 | End Y3 |
+|---|---|---|---|---|
+| Conservative (−105 / −149 / −62) | 500 | 395 | 246 | 184 |
+| **Base (−114 / −62 / +329)** | **500** | **386** | **324** | **653** |
+| Base incl. vision (−117 / +15 / +736) | 500 | 383 | 398 | 1,134 |
+| Optimistic (−66 / +373 / +1,501) | 500 | 434 | 807 | 2,308 |
+
+Worked example, base: 500 − 114 = 386; 386 − 62 = 324; 324 + 329 = 653. Check: 500 + cumulative result +153 (11.4) = 653.
+
+**Runway:**
+
+- **With no revenue at all**, the round covers the base costs from 11.3 for about **22 months**: Y1 costs €165k (€335k left), Y2 costs €398k, i.e. ≈ €33k per month; 335 ÷ 33 ≈ 10 months; 12 + 10 = 22 months. Including the vision costs from 11.5 (Y1 €30k, Y2 €115k) it is about 19 months (500 − 195 = 305; 305 ÷ 43 ≈ 7 months).
+- **Conservative:** the round lasts across all three years (cumulative −€316k) and leaves a €184k buffer.
+- **Base:** the lowest year-end balance is €324k (end of Y2); break-even falls in Y3 (in Y2 with the vision). The buffer protects against delays in the platform pilot and education sales and bridges to the seed round.
+
+Alternative if the round does not close: bootstrapping – the Pro subscription and packs finance a part-time developer, and growth slows accordingly (roughly the conservative scenario). Funding programmes (EXIST, founder grants, media/edtech funding) are being examined in parallel.
+
+*Version note: earlier versions stated a seed requirement of €250–350k for 18–24 months, for the core product only. The €500k replaces that figure and includes the vision lines.*
 
 ---
 
 ## 12. Team and needs
 
-**Founder [Name].** Author of a five-volume children's book series on neurodiversity (Turkish, with book trailers), live streamer, German-Turkish, product vision and community. Uses LiveFX in every one of her own streams – reading aloud with story mode grew out of her own practice.
+**Tuncay Sancak – Founder & Inventor, Managing Director.** Invented and built LiveFX. Author and live streamer, German-Turkish; children's book series on neurodiversity (Turkish, with book trailers); product vision and community. Uses LiveFX in every one of his own streams – reading aloud with story mode grew out of his own practice.
+
+**Gönül Demet – Investor Relations.** Contact for investors and the pre-seed round (contact: [Email] · [Phone]).
 
 **Development so far.** Built with AI support, with documented architecture (schema, contracts, design documents), a changelog and automated tests – a state a development team can take over directly.
 
@@ -368,9 +408,9 @@ The vision (chapter 15) is **not** included in tables 11.2–11.4. This table sh
 
 | Quarter | Product | Market | Organisation |
 |---|---|---|---|
-| **Q4 2026** | Landing page and download package (Windows/Mac), onboarding wizard, live-commerce triggers in the standard pack | Launch in the TR community, 10–20 creator ambassadors, LinkedIn articles DE/TR, marketing video | Register trademark, seed talks, approach advisory board |
+| **Q4 2026** | Landing page and download package (Windows/Mac), onboarding wizard, live-commerce triggers in the standard pack | Launch in the TR community, 10–20 creator ambassadors, LinkedIn articles DE/TR, marketing video | Register trademark, pre-seed talks (€500k), approach advisory board |
 | **Q1 2027** | Pro subscription live (payment), first creator packs, community pack upload (beta), streaming ASR test < 300 ms | DE/EN launch, marketplace listings (OBS, Streamlabs, Stream Deck), read-aloud pilot with [Number] teachers/authors | Mobile developer hired |
-| **Q2 2027** | Mobile app (remote + mic, stores), education pack, agency licence (multi-seat) | Creator partner programme official, first agencies, press edtech/creator economy | Seed closed or bootstrapping path confirmed |
+| **Q2 2027** | Mobile app (remote + mic, stores), education pack, agency licence (multi-seat) | Creator partner programme official, first agencies, press edtech/creator economy | Pre-seed (€500k) closed or bootstrapping path confirmed |
 | **Q3 2027** | Marketplace open, AI understanding as Pro standard, SDK prototype | Platform pilot started (target: one partner), [Number] registered users, [Number] Pro subscriptions | Community/support role filled |
 
 Metrics: registered users, active streamers per week, conversion Free → Pro, pack revenue, number of partner creators, platform meetings with a follow-up.

@@ -3,7 +3,7 @@
 **Sen anlat – sahne oluşsun.** Vizyon 2027–2029: kelimelerden canlı video, dil öğrenme, yeni mekânlar ve kendi kendine kurgu yapan bir editör.
 
 Tarih: Ekim 2026 · Ürün sürümü: 2.0 · Gizli
-Kurucu: [İsim] · İletişim: [E-posta]
+Kurucu & Mucit, Genel Müdür: Tuncay Sancak · Investor Relations: Gönül Demet · İletişim: [E-posta]
 
 > Almanca: VISION.md · English: VISION.en.md
 
@@ -336,6 +336,7 @@ Platform logosu yok, gerçek isim ya da yüz yok; gelecekteki işlevler „Vizyo
 - **Eğitim pilot ortağı:** [Sayı] DaZ ve uyum kursu, [Sayı] ilkokul sınıfı, medya merkezleri, eğitim kurumları.
 - **Yayınevi ve sesli kitap pilot ortağı:** „Resimli sesli kitap“ ve iki dilli baskılar için çocuk kitabı ve sesli kitap yayınevleri; ilk örnek kurucunun kendi çocuk kitabı serisi.
 - **Ekip:** Web/grafik geliştirme (Canvas, WebCodecs), çocuk kitabı tarzında illüstrasyon, DE/TR/EN seslendirme sanatçıları, didaktik (danışma kurulu).
+- **Finansman:** LiveFX ve tüm projeleri (2.0 ürünü ve A–D hatları) için 500.000 € ön tohum (pre-seed) yatırım; bunun ~%20'si (100.000 €) vizyon hatlarını prototipten ürüne taşıyor, önce Kelime-Resim/dil öğrenme ve hikâye motoru (Anlatı Filmi). 24 aylık fon kullanımı önerisi `BUSINESSPLAN.tr.md` bölüm 11.6'da.
 - **Hibe ve destek:** EXIST, eğitim ve uyum vakıfları (planlamada gelir varsayımı olmadan).
 
-İletişim: [İsim] · [E-posta] · [Web sitesi]
+İletişim: Tuncay Sancak (Kurucu & Mucit, Genel Müdür) · Investor Relations: Gönül Demet · [E-posta] · [Web sitesi]

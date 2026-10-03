@@ -4,8 +4,9 @@
     "langTag": "tr-TR",
     "deckTitle": "LiveFX – Sunum",
     "subject": "LiveFX: Sesin efekte dönüşür – ve görüntüye",
-    "author": "[İsim]",
+    "author": "Tuncay Sancak",
     "footerBrand": "LiveFX",
+    "footerNote": "Gizli · Ekim 2026",
     "visionBadge": "VİZYON",
     "assetsDir": "landing-assets",
     "images": {
@@ -26,9 +27,9 @@
       "tagline": "Sesin efekte dönüşür.",
       "lead": "Yayıncının söylediklerine göre gerçek zamanlı meme'ler, sesler ve sahneler. Bir saniyeden kısa sürede, eller serbest – TikTok LIVE, Instagram, YouTube ve Twitch'te.",
       "vision": "Ve yarın: Sen anlat – sahne oluşsun.",
-      "name": "[İsim]",
-      "role": "Kurucu, yazar ve canlı yayıncı",
-      "contact": "[Tarih]  ·  [E-posta]",
+      "name": "Tuncay Sancak",
+      "role": "Kurucu & Mucit, Genel Müdür",
+      "contact": "Investor Relations: Gönül Demet  ·  [E-posta]  ·  Ekim 2026  ·  Gizli",
       "notes": "Kısaca kendimi tanıtıyorum: Kendim yayın yapıyorum, kitap yazıyorum ve LiveFX'i, her kısa videoda olup da canlı yayında tam olarak eksik olan şey için geliştirdim. Bugün gördükleriniz kendi yayınlarımda çalışıyor. Sonunda nereye gittiğimizi göstereceğim: meme katmanından, konuşulan her şeyin görsel diline. 30 saniye, sonra doğrudan soruna geçiyoruz."
     },
     {
@@ -54,7 +55,7 @@
       ],
       "callout": "Söylenen söze kimse tepki vermiyor.",
       "calloutSub": "Otomatik altyazılar gösterdi: Sesten gerçek zamanlı metin çalışıyor. Sesten gerçek zamanlı efekt ise henüz yok.",
-      "quote": "“‘Efsane’ diyorum – ve hiçbir şey olmuyor, klavyeye kendim uzanmazsam.”  – [İsim], kendi yayınından",
+      "quote": "“‘Efsane’ diyorum – ve hiçbir şey olmuyor, klavyeye kendim uzanmazsam.”  – Tuncay Sancak, kendi yayınından",
       "notes": "Otomatik altyazılar, sesten gerçek zamanlı metnin çalıştığını ve platformların bunu yerleşik olarak sunduğunu kanıtladı. Sesten gerçek zamanlı efekt ise yok. Tam bu boşluğu dolduruyoruz. Yayınımdan bir örnek: “Efsane” diyorum – ve klavyeye kendim uzanmazsam hiçbir şey olmuyor."
     },
     {
@@ -248,7 +249,7 @@
         [
           "SOM",
           "3. yıl · tahmin",
-          "20–40 bin Pro abone × ayda 9,99 € ≈ 2,4–4,8 milyon € ARR (DACH + Türkiye + EN niş)"
+          "5.000–15.000 ücretli Pro kullanıcı × ayda 9,99 € ≈ 0,6–1,8 milyon € ARR (iş planıyla aynı; DACH + Türkiye + EN niş)"
         ]
       ],
       "adjacentTitle": "Vizyonun komşu pazarları (slayt 12–15)",
@@ -271,7 +272,7 @@
         ]
       ],
       "sources": "Kaynaklar: QUELLEN.tr.md [Kaynak 1–4, 19, 23, 33, 51] · SAM/SOM kendi tahminimizdir, bir araştırma değildir.",
-      "notes": "Dürüstçe söyleyin: TAM geniş aralıklı ikincil kaynaklardan geliyor; SAM ve SOM bir araştırma değil, bizim tahminimiz. Mesele tam rakam değil: Ödeme yapan canlı yayıncıların küçük bir payı bile bir ekibi taşır – ve asıl kaldıraç abonelik değil, platform entegrasyonu. Altta yeni: Vizyon komşu pazarlar açıyor – yapay zekâ video 3,67 milyar USD [Kaynak 23], dil öğrenme uygulamaları 1,54 milyar USD [Kaynak 33], video kurgu 2,68 milyar USD [Kaynak 51], Almanya sesli kitap 374 milyon € [Kaynak 19]. Bunları SOM'a bilerek katmıyoruz."
+      "notes": "Dürüstçe söyleyin: TAM geniş aralıklı ikincil kaynaklardan geliyor; SAM ve SOM bir araştırma değil, bizim tahminimiz. Mesele tam rakam değil: Ödeme yapan canlı yayıncıların küçük bir payı bile bir ekibi taşır – ve asıl kaldıraç abonelik değil, platform entegrasyonu. Altta yeni: Vizyon komşu pazarlar açıyor – yapay zekâ video 3,67 milyar USD [Kaynak 23], dil öğrenme uygulamaları 1,54 milyar USD [Kaynak 33], video kurgu 2,68 milyar USD [Kaynak 51], Almanya sesli kitap 374 milyon € [Kaynak 19]. Bunları SOM'a bilerek katmıyoruz. SOM iş planıyla aynı (bölüm 6): 3. yılda 5.000–15.000 ücretli kullanıcı; temel senaryo ortalama 7.500 Pro kullanıcıyla hesaplıyor."
     },
     {
       "layout": "model",
@@ -657,17 +658,23 @@
     {
       "layout": "team",
       "section": "Ekip ve talep",
-      "kicker": "KULLANICI, YAZAR, KURUCU",
+      "kicker": "KURUCU, MUCİT, KULLANICI",
       "title": "Ekip",
-      "photo": "[Fotoğraf]",
-      "name": "[İsim]",
-      "role": "Kurucu · Alman-Türk yazar ve canlı yayıncı",
+      "photo": "TS",
+      "name": "Tuncay Sancak",
+      "role": "Kurucu & Mucit · Genel Müdür · Alman-Türk yazar ve canlı yayıncı",
       "bullets": [
         "Ürün, içerik, topluluk – ve test laboratuvarı olarak kendi yayınları",
         "TR / DE / EN meme ve hikâye paketleri, birinci elden",
         "Nöroçeşitlilik üzerine çocuk kitabı serisi – Kelime-Resim ve Anlatı Filmi'ne köprü",
         "Kitaplar: [Başlık] · Yayınlar: [Platform / @kullanıcı] · [E-posta]"
       ],
+      "second": {
+        "initials": "GD",
+        "name": "Gönül Demet",
+        "role": "Investor Relations (yatırımcı ilişkileri)",
+        "text": "Yatırımcılar ve ön tohum turu için iletişim kişisi"
+      },
       "open": [
         [
           "[Açık pozisyon] – Teknik lider",
@@ -679,10 +686,10 @@
         ],
         [
           "Danışma kurulu / ortaklar",
-          "[İsim] · [İsim] · Eğitim teknolojisi/didaktik: [İsim]"
+          "Aranıyor: TR içerik üreticisi yönetimi · bir platformun eski „Live“ ürün sorumlusu · eğitim teknolojisi/didaktik"
         ]
       ],
-      "notes": "Kurucu tek kişide kullanıcı, içerik sağlayıcı ve ürün sorumlusu – ürünün şivelerde, dikey formatta ve Türkçede çalışmasının nedeni bu. Çocuk kitabı yazarı olarak ilk yayınevi ve eğitim örneğini de kendisi getiriyor. Seed yatırımla iki işe alım geliyor; Kelime-Resim için içerik kontrolünü bir eğitim teknolojisi danışma kurulu üstleniyor."
+      "notes": "Kurucu tek kişide kullanıcı, içerik sağlayıcı ve ürün sorumlusu – ürünün şivelerde, dikey formatta ve Türkçede çalışmasının nedeni bu. Çocuk kitabı yazarı olarak ilk yayınevi ve eğitim örneğini de kendisi getiriyor. Gönül Demet yatırımcı ilişkilerinden (Investor Relations) sorumlu ve ön tohum turu için iletişim kişisi. Ön tohum yatırımla (500.000 €) iki işe alım geliyor; Kelime-Resim için içerik kontrolünü bir eğitim teknolojisi danışma kurulu üstleniyor."
     },
     {
       "layout": "ask",
@@ -702,13 +709,43 @@
           "Yayın yazılımları (OBS eklentisi, Streamlabs), TR / DACH üretici ajansları, ses ve ASR sağlayıcıları, editör sağlayıcıları (Studio SDK)."
         ],
         [
-          "Görüşme ve seed",
-          "Satın alma görüşmesi: teknoloji + ekip. Paralelinde: 18 ay için [Sayı] € seed – 2 işe alım, üretici programı, pilotlar."
+          "Ön tohum: 500.000 €",
+          "LiveFX 2.0 ve A–D vizyon hatları için (önce Kelime-Resim ve hikâye motoru), 24 ay. Paralelinde satın alma görüşmelerine açığız (teknoloji + ekip)."
         ]
       ],
-      "contact": "İletişim: [E-posta]   ·   Demo: [Bağlantı]   ·   Kod ve doküman: live-fx/   ·   [İsim]",
+      "funds": {
+        "title": "500.000 € ön tohum (pre-seed) · 24 ay · fon kullanımı – Öneri – lütfen onaylayın",
+        "items": [
+          [
+            "Ürün ve mühendislik",
+            "250 bin € · %50",
+            50
+          ],
+          [
+            "Vizyon hatları A–D",
+            "100 bin € · %20",
+            20
+          ],
+          [
+            "Pazara giriş ve pilotlar",
+            "75 bin € · %15",
+            15
+          ],
+          [
+            "Hukuk, marka, veri koruma",
+            "50 bin € · %10",
+            10
+          ],
+          [
+            "Rezerv",
+            "25 bin € · %5",
+            5
+          ]
+        ]
+      },
+      "contact": "Tuncay Sancak, Kurucu & Genel Müdür   ·   Investor Relations: Gönül Demet   ·   [E-posta]   ·   Demo: [Bağlantı]",
       "altNote": "Bu sunum Almanca ve İngilizce de mevcut: LiveFX_Pitch.pptx · LiveFX_Pitch_EN.pptx",
-      "notes": "Somut bitirin: İhtiyacımız olan, canlı yayın ekibinde bir muhatap ve 20 üreticiyle 8 haftalık bir pilot. Biz katmanı, paketleri, desteği ve ölçümü (izlenme süresi, hediyeler, canlı yayınlardan klipler) sağlıyoruz. Yeni: Kelime-Resim ve Anlatı Filmi için eğitim kurumları, dil öğrenme platformları ya da yayınevleriyle ikinci bir pilot arıyoruz – ilk yayınevi örneği kurucunun kendi çocuk kitabı serisi. Bu sunum Almanca ve İngilizce de mevcut."
+      "notes": "Somut bitirin: İhtiyacımız olan, canlı yayın ekibinde bir muhatap ve 20 üreticiyle 8 haftalık bir pilot. Biz katmanı, paketleri, desteği ve ölçümü (izlenme süresi, hediyeler, canlı yayınlardan klipler) sağlıyoruz. Yeni: Kelime-Resim ve Anlatı Filmi için eğitim kurumları, dil öğrenme platformları ya da yayınevleriyle ikinci bir pilot arıyoruz – ilk yayınevi örneği kurucunun kendi çocuk kitabı serisi. Tur hakkında: LiveFX ve tüm projeleri için 500.000 € ön tohum yatırım, 24 ay. Öneri olarak fon kullanımı: ekip 250 bin €, vizyon hatları 100 bin € (önce Kelime-Resim/dil öğrenme ve hikâye motoru), pazara giriş 75 bin €, hukuk/marka/veri koruma 50 bin €, rezerv 25 bin €. Hiç gelir olmasa bile bu yaklaşık 22 ay yetiyor; temkinli senaryo üç yıl boyunca karşılanıyor (iş planı 11.6). Yatırımcılar için iletişim: Gönül Demet. Bu sunum Almanca ve İngilizce de mevcut."
     }
   ]
 }

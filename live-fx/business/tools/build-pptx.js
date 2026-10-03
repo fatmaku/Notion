@@ -85,7 +85,7 @@ const W = 13.333, H = 7.5, M = 0.6, CW = W - 2 * M;
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE';
 pres.title = D.meta.deckTitle;
-pres.author = D.meta.author || '[Name]';
+pres.author = D.meta.author || 'LiveFX';
 pres.subject = D.meta.subject || '';
 pres.lang = D.meta.langTag || 'de-DE';
 pres.theme = { headFontFace: FONT, bodyFontFace: FONT };
@@ -148,6 +148,8 @@ function titleSize(text, w, fs) {
 
 // ---------- Helfer ----------
 let slideNo = 0;
+// Fußzeile: optional meta.footerNote (z. B. „Vertraulich · Oktober 2026“) vor Marke und Foliennummer
+const footerText = () => [D.meta.footerNote, D.meta.footerBrand || 'LiveFX', slideNo].filter((v) => v !== undefined && v !== '').join('  ·  ');
 let currentSection = null;
 function newSlide(sd) {
   if (sd.section && sd.section !== currentSection) {
@@ -168,7 +170,7 @@ function header(s, sd, opts = {}) {
     s.addText(sd.title, { x: M, y: 0.48, w: tw, h: 0.85, fontFace: FONT, fontSize: fs, bold: true, color: WHITE, isTextBox: true, margin: 0, valign: 'top', fit: SHRINK ? 'shrink' : undefined, objectName: 'Titel' });
   }
   if (sd.vision) visionBadge(s);
-  s.addText(`${D.meta.footerBrand || 'LiveFX'}  ·  ${slideNo}`, { x: W - M - 2.5, y: H - 0.42, w: 2.5, h: 0.25, fontFace: FONT, fontSize: 9, color: DIM, align: 'right', isTextBox: true, margin: 0, objectName: 'Fuß' });
+  s.addText(footerText(), { x: W - M - 5, y: H - 0.42, w: 5, h: 0.25, fontFace: FONT, fontSize: 9, color: DIM, align: 'right', isTextBox: true, margin: 0, objectName: 'Fuß' });
   if (sd.notes) s.addNotes(sd.notes);
 }
 function visionBadge(s) {
@@ -594,12 +596,23 @@ L.studio = (sd) => {
 
 L.team = (sd) => {
   const s = newSlide(sd); header(s, sd);
-  card(s, M, 1.5, 5.6, 4.95, CARD2);
+  const two = !!sd.second;               // zweite Person (z. B. Investor Relations) als eigene Karte darunter
+  const h1 = two ? 3.55 : 4.95;
+  card(s, M, 1.5, 5.6, h1, CARD2);
   s.addShape(pres.shapes.OVAL, { x: M + 0.4, y: 1.9, w: 1.3, h: 1.3, fill: { color: PINK }, line: { color: PINK } });
-  label(s, sd.photo, M + 0.4, 1.9, 1.3, 1.3, { fontSize: 12, align: 'center', valign: 'middle', bold: true });
+  label(s, sd.photo, M + 0.4, 1.9, 1.3, 1.3, { fontSize: 20, align: 'center', valign: 'middle', bold: true });
   label(s, sd.name, M + 1.95, 2.0, 3.4, 0.5, { fontSize: 22, bold: true });
   label(s, sd.role, M + 1.95, 2.5, 3.45, 0.75, { fontSize: 12, color: PINK });
-  bullets(s, sd.bullets, M + 0.4, 3.5, 4.9, 2.8, { fontSize: 12.5, gap: 6 });
+  bullets(s, sd.bullets, M + 0.4, 3.4, 4.9, two ? 1.55 : 2.9, { fontSize: 12.5, gap: two ? 4 : 6 });
+  if (two) {
+    const p = sd.second, y = 5.2;
+    card(s, M, y, 5.6, 1.25, CARD2);
+    s.addShape(pres.shapes.OVAL, { x: M + 0.4, y: y + 0.22, w: 0.8, h: 0.8, fill: { color: CARD }, line: { color: GOLD, width: 1.5 } });
+    label(s, p.initials, M + 0.4, y + 0.22, 0.8, 0.8, { fontSize: 15, align: 'center', valign: 'middle', bold: true, color: GOLD });
+    label(s, p.name, M + 1.45, y + 0.14, 3.95, 0.38, { fontSize: 17, bold: true });
+    label(s, p.role, M + 1.45, y + 0.52, 3.95, 0.28, { fontSize: 11.5, bold: true, color: GOLD });
+    label(s, p.text, M + 1.45, y + 0.82, 3.95, 0.36, { fontSize: 11, color: MUTED });
+  }
   sd.open.forEach((o, i) => {
     const y = 1.5 + i * 1.68, col = [MINT, GOLD, MUTED][i];
     card(s, 6.5, y, 6.23, 1.52);
@@ -615,17 +628,37 @@ L.ask = (sd) => {
   s.addImage({ path: img('overlayNeon'), x: 0, y: 0, w: W, h: H, transparency: 82 });
   label(s, String(sd.kicker).toUpperCase(), M, 0.55, 6, 0.3, { fontSize: 11, bold: true, color: MINT, charSpacing: 4 });
   label(s, sd.title, M, 0.92, CW, 0.9, { fontSize: 34, bold: true, min: 20 });
+  const F = sd.funds;                     // optional: Mittelverwendung als gestapelter Balken unter den Karten
   const n = sd.cards.length, g = 0.15, cw = (CW - g * (n - 1)) / n;
+  const cy = F ? 1.95 : 2.0, ch = F ? 2.3 : 3.55;
   sd.cards.forEach((a, i) => {
     const x = M + i * (cw + g), col = [PINK, GOLD, MINT, SKY][i];
-    card(s, x, 2.0, cw, 3.55, CARD, i === 1 ? GOLD : undefined);
-    label(s, a[0], x + 0.25, 2.18, cw - 0.5, 0.75, { fontSize: 18, bold: true, color: col });
-    label(s, a[1], x + 0.25, 2.98, cw - 0.5, 2.5, { fontSize: 13, color: WHITE });
+    card(s, x, cy, cw, ch, CARD, i === n - 1 && F ? SKY : (i === 1 && !F ? GOLD : undefined));
+    label(s, a[0], x + 0.25, cy + 0.16, cw - 0.5, F ? 0.5 : 0.75, { fontSize: F ? 16 : 18, bold: true, color: col });
+    label(s, a[1], x + 0.25, cy + (F ? 0.7 : 0.98), cw - 0.5, F ? 1.5 : 2.5, { fontSize: F ? 12.5 : 13, color: WHITE });
   });
+  if (F) {
+    const fy = 4.38, bx = M + 0.3, bw = CW - 0.6, cols = [PINK, MINT, GOLD, SKY, MUTED];
+    card(s, M, fy, CW, 1.32, CARD2);
+    label(s, F.title, bx, fy + 0.09, bw, 0.28, { fontSize: 12, bold: true, color: GOLD });
+    let x = bx;
+    F.items.forEach((it, i) => {
+      const w = bw * it[2] / 100;
+      s.addShape(pres.shapes.RECTANGLE, { x, y: fy + 0.44, w: Math.max(w - 0.03, 0.05), h: 0.24, fill: { color: cols[i % cols.length] }, line: { color: cols[i % cols.length] } });
+      x += w;
+    });
+    const lw = bw / F.items.length;
+    F.items.forEach((it, i) => {
+      const lx = bx + i * lw;
+      dot(s, lx, fy + 0.84, cols[i % cols.length], 0.12);
+      label(s, it[0], lx + 0.2, fy + 0.77, lw - 0.3, 0.26, { fontSize: 10, bold: true });
+      label(s, it[1], lx + 0.2, fy + 1.02, lw - 0.3, 0.24, { fontSize: 10, color: MUTED });
+    });
+  }
   card(s, M, 5.8, CW, 0.78, CARD2);
   label(s, sd.contact, M + 0.3, 5.82, CW - 0.6, 0.74, { fontSize: 15, bold: true, valign: 'middle', align: 'center' });
   label(s, sd.altNote, M, 6.72, CW - 1.6, 0.3, { fontSize: 10, color: MUTED, italic: true });
-  s.addText(`${D.meta.footerBrand || 'LiveFX'}  ·  ${slideNo}`, { x: W - M - 2.5, y: H - 0.42, w: 2.5, h: 0.25, fontFace: FONT, fontSize: 9, color: DIM, align: 'right', isTextBox: true, margin: 0 });
+  s.addText(footerText(), { x: W - M - 5, y: H - 0.42, w: 5, h: 0.25, fontFace: FONT, fontSize: 9, color: DIM, align: 'right', isTextBox: true, margin: 0 });
   if (sd.notes) s.addNotes(sd.notes);
 };
 

@@ -3,7 +3,7 @@
 **Dinleyen canlı yayınlar.** Gerçek zamanlı meme'ler, sesler ve animasyonlu sahneler – içerik üreticisinin sesiyle tetiklenir.
 
 Tarih: Ekim 2026 · Ürün sürümü: 2.0 · Gizli
-Kurucu: [İsim] · İletişim: [E-posta] · [Şehir]
+Kurucu & Mucit, Genel Müdür: Tuncay Sancak · Investor Relations: Gönül Demet · İletişim: [E-posta] · [Şehir]
 
 > Almanca: BUSINESSPLAN.md · English: BUSINESSPLAN.en.md
 
@@ -25,9 +25,9 @@ Kurucu: [İsim] · İletişim: [E-posta] · [Şehir]
 | **Pazar** | Dünya genelinde canlı yayın 2026: 97–157 milyar USD [Kaynak 1, 2]; içerik üreticisi ekonomisi ~216–260 milyar USD [Kaynak 3, 4]; hediyeler TikTok LIVE yayıncılarının gelirinin ≈ %50'si [Kaynak 5, 6]. |
 | **İş modeli** | Free + Pro aboneliği (aylık 9,99 €), içerik üreticisi paketleri (2,99–4,99 €), ajans lisansı, B2B platform lisansı; TikTok/Meta/YouTube'a stratejik çıkış (exit). |
 | **Pazara giriş** | Önce Türkçe konuşan içerik üreticisi topluluğu, sonra DE/EN; vitrin olarak kendi yayınlarımız; içerik üreticisi ortaklık programı; LinkedIn ve basın. |
-| **İhtiyaç** | Mobil geliştirici, platform ortaklıkları, pilot ortaklar; 18–24 ay için [250–350 bin €] tohum yatırım (tahmin) ya da daha yavaş büyümeyle kendi kaynaklarla ilerleme (bootstrapping). |
+| **İhtiyaç** | LiveFX ve tüm projeleri (2.0 ürünü ve A–D vizyon hatları) için **500.000 € ön tohum (pre-seed) yatırım**, 24 aylık fon kullanımı (Öneri – lütfen onaylayın, bölüm 11.6); ayrıca mobil geliştirici, platform ortaklıkları, pilot ortaklar. |
 
-Talebimiz: Bir platformla (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) ya da bir içerik üreticisi aracı sağlayıcısıyla pilot ortaklık – alternatif olarak teknoloji ve ekibin devralınması.
+Talebimiz: 500.000 € ön tohum yatırım (bölüm 11.6) ve bir platformla (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) ya da bir içerik üreticisi aracı sağlayıcısıyla pilot ortaklık – alternatif olarak teknoloji ve ekibin devralınması.
 
 ---
 
@@ -299,7 +299,7 @@ Temkinli senaryoda daha küçük bir ekiple (giderler ≈ 120 / 230 / 330 bin �
 | **Temel** | **−114** | **−62** | **+329** | **+153** |
 | İyimser | −66 | +373 | +1.501 | +1.808 |
 
-**Finansman ihtiyacı (tahmin):** 18–24 ay için 250–350 bin € tohum yatırım, temel senaryoyu tampon dahil 3. yıldaki başa baş noktasına kadar karşılıyor. Alternatif: bootstrapping – Pro aboneliği ve paketler yarı zamanlı bir geliştiriciyi finanse ediyor, büyüme buna göre yavaşlıyor (yaklaşık temkinli senaryo). Destek programları (EXIST, girişim bursları, medya/eğitim teknolojisi destekleri) paralel olarak inceleniyor.
+**Finansman ihtiyacı:** LiveFX ve tüm projeleri için 500.000 € ön tohum yatırım; fon kullanımı, likidite ve nakit ömrü 11.6 bölümünde.
 
 ### 11.5 2./3. yıldan itibaren ek gelir kaynakları (tahmin)
 
@@ -319,13 +319,53 @@ Vizyon (15. bölüm) 11.2–11.4 tablolarında **yer almıyor**. Bu tablo onu te
 | Ek giderler (illüstrasyon, seslendirme kayıtları, didaktik, eğitim satışı, XR prototipi) | | 30 | 115 | 210 |
 | **Vizyonun katkı payı** | | **≈ −3** | **≈ +77** | **≈ +407** |
 
-**Temel senaryo sonucuna etkisi (tahmin):** −114 → ≈ −117 bin € (Y1), −62 → ≈ +15 bin € (Y2), +329 → ≈ +736 bin € (Y3). Böylece temel senaryoda başa baş noktası 3. yıldan 2. yıla çekiliyor. Temkinli senaryoda ek gelirin yaklaşık yarısı, iyimser senaryoda 1,5 ila 2 katı beklenmeli. SDK ve platform gelirleri ayrıca **sayılmıyor**; bunlar zaten B2B satırında (0 / 50 / 150 bin €) yer alıyor. Vizyon bunların olasılığını artırıyor ama ikiye katlamıyor. XR ve gözlük 0 € olarak hesaplandı. Finansman ihtiyacı (250–350 bin €) değişmiyor, çünkü vizyon ancak 2. yıldan itibaren kayda değer maliyet doğuruyor ve bunu ek gelirlerden karşılıyor.
+**Temel senaryo sonucuna etkisi (tahmin):** −114 → ≈ −117 bin € (Y1), −62 → ≈ +15 bin € (Y2), +329 → ≈ +736 bin € (Y3). Böylece temel senaryoda başa baş noktası 3. yıldan 2. yıla çekiliyor. Temkinli senaryoda ek gelirin yaklaşık yarısı, iyimser senaryoda 1,5 ila 2 katı beklenmeli. SDK ve platform gelirleri ayrıca **sayılmıyor**; bunlar zaten B2B satırında (0 / 50 / 150 bin €) yer alıyor. Vizyon bunların olasılığını artırıyor ama ikiye katlamıyor. XR ve gözlük 0 € olarak hesaplandı. 500.000 €'luk finansman ihtiyacı vizyon hatlarını zaten kapsıyor: fonların ~%20'si (100 bin €) onları prototipten ürüne taşıyor, önce Kelime-Resim/dil öğrenme ve hikâye motoru (bölüm 11.6).
+
+### 11.6 Finansman: 500.000 € ön tohum (pre-seed)
+
+**İhtiyaç:** LiveFX ve tüm projeleri için **500.000 € ön tohum (pre-seed) yatırım** – 2.0 ürünü ve A–D vizyon hatları (Anlatı Filmi, Kelime-Resim, Mekânlar, Studio). Fonların kullanımı 24 ay için planlanıyor (Y1–Y2, 2027–2028). 11.2–11.5'teki gelir ve gider senaryoları değişmiyor.
+
+**24 ay boyunca fon kullanımı – Öneri – lütfen onaylayın**
+
+| Alan | Pay | Tutar | Finansal plandaki karşılığı (Y1 + Y2, bin €) |
+|---|---|---|---|
+| Ürün ve mühendislik ekibi | ~%50 | 250.000 € | Kurucu maaşı dahil personel 373 (11.3) |
+| Vizyon hatlarının prototipten ürüne taşınması – önce Kelime-Resim/dil öğrenme ve hikâye motoru (Anlatı Filmi) | ~%20 | 100.000 € | Vizyon ek giderleri 145 (11.5) |
+| Pazara giriş, içerik üreticisi ortaklık programı, pilotlar | ~%15 | 75.000 € | Pazarlama, içerik üreticisi programı, etkinlikler 85 (11.3) |
+| Hukuk, marka, veri koruma | ~%10 | 50.000 € | Hukuk, marka, vergi, yönetim 32 (11.3) |
+| Rezerv | ~%5 | 25.000 € | – |
+| **Toplam** | **%100** | **500.000 €** | |
+
+Yatırım, ilk 24 ayın brüt giderlerini önceden finanse ediyor: temel senaryo 563 bin € (165 + 398, tablo 11.3) artı vizyon 145 bin € (30 + 115, tablo 11.5) = 708 bin €. Bunun 475 bin €'sunu (rezerv hariç) yatırım, kalan 233 bin €'yu 606 bin €'luk gelirler karşılıyor (temel 51 + 336 = 387 bin €, vizyon 27 + 192 = 219 bin €). 373 bin €'luk gelir fazlası ile 25 bin €'luk rezerv, Y2 sonundaki 398 bin €'luk nakdi oluşturuyor (aşağıdaki tablo): 500 − 708 + 606 = 398. Serbest çalışan giderleri (40 bin €) ve altyapı (33 bin €) tamamen gelirlerden ödeniyor. Hukuk/marka/veri koruma kalemi 50 bin € ile 11.3'teki tutarın 18 bin € üzerinde; öneri onaylanırsa 11.3'teki bu satır güncellenecek, o zamana kadar fark rezervden karşılanıyor.
+
+**500 bin € ile likidite (bin €, yıl sonu değerleri)** – yıl sonu nakit = önceki yıl + 11.4 ya da 11.5'teki yıllık sonuç:
+
+| Senaryo (sonuç Y1 / Y2 / Y3) | Başlangıç | Y1 sonu | Y2 sonu | Y3 sonu |
+|---|---|---|---|---|
+| Temkinli (−105 / −149 / −62) | 500 | 395 | 246 | 184 |
+| **Temel (−114 / −62 / +329)** | **500** | **386** | **324** | **653** |
+| Vizyon dahil temel (−117 / +15 / +736) | 500 | 383 | 398 | 1.134 |
+| İyimser (−66 / +373 / +1.501) | 500 | 434 | 807 | 2.308 |
+
+Temel senaryo hesap örneği: 500 − 114 = 386; 386 − 62 = 324; 324 + 329 = 653. Kontrol: 500 + kümülatif sonuç +153 (11.4) = 653.
+
+**Nakit ömrü (runway):**
+
+- **Hiç gelir olmasa bile** yatırım, 11.3'teki temel giderleri yaklaşık **22 ay** karşılıyor: Y1 165 bin € (kalan 335 bin €), Y2 398 bin €, yani ayda ≈ 33 bin €; 335 ÷ 33 ≈ 10 ay; 12 + 10 = 22 ay. 11.5'teki vizyon giderleriyle (Y1 30 bin €, Y2 115 bin €) yaklaşık 19 ay (500 − 195 = 305; 305 ÷ 43 ≈ 7 ay).
+- **Temkinli** senaryoda yatırım üç yılın tamamına yetiyor (kümülatif −316 bin €) ve 184 bin € tampon bırakıyor.
+- **Temel:** En düşük yıl sonu bakiyesi 324 bin € (Y2 sonu); başa baş noktası Y3'te (vizyonla Y2'de). Tampon, platform pilotu ve eğitim satışındaki gecikmelere karşı güvence ve tohum (seed) turuna köprü işlevi görüyor.
+
+Yatırım gerçekleşmezse alternatif: bootstrapping – Pro aboneliği ve paketler yarı zamanlı bir geliştiriciyi finanse ediyor, büyüme buna göre yavaşlıyor (yaklaşık temkinli senaryo). Destek programları (EXIST, girişim bursları, medya/eğitim teknolojisi destekleri) paralel olarak inceleniyor.
+
+*Sürüm notu: Önceki sürümlerde yalnızca çekirdek ürün için 18–24 aylık 250–350 bin € tohum yatırım ihtiyacı yer alıyordu. 500 bin € bu rakamın yerini alıyor ve vizyon hatlarını da kapsıyor.*
 
 ---
 
 ## 12. Ekip ve ihtiyaç
 
-**Kurucu [İsim].** Nöroçeşitlilik üzerine beş ciltlik bir çocuk kitabı serisinin yazarı (Türkçe, kitap fragmanlarıyla), canlı yayıncı, Alman-Türk, ürün vizyonu ve topluluk. LiveFX'i kendi yayınlarının hepsinde kullanıyor – hikâye moduyla kitap okuma kendi pratiğinden doğdu.
+**Tuncay Sancak – Kurucu & Mucit, Genel Müdür.** LiveFX'i icat etti ve geliştirdi. Yazar ve canlı yayıncı, Alman-Türk; nöroçeşitlilik üzerine çocuk kitabı serisi (Türkçe, kitap fragmanlarıyla); ürün vizyonu ve topluluk. LiveFX'i kendi yayınlarının hepsinde kullanıyor – hikâye moduyla kitap okuma kendi pratiğinden doğdu.
+
+**Gönül Demet – Investor Relations (yatırımcı ilişkileri).** Yatırımcılar ve ön tohum turu için iletişim kişisi (iletişim: [E-posta] · [Telefon]).
 
 **Bugüne kadarki geliştirme.** Yapay zekâ desteğiyle; belgelenmiş mimari (şema, sözleşmeler, tasarım dokümanları), değişiklik günlüğü ve otomatik testlerle kuruldu – bir geliştirme ekibinin doğrudan devralabileceği bir durum.
 
@@ -368,9 +408,9 @@ Vizyon (15. bölüm) 11.2–11.4 tablolarında **yer almıyor**. Bu tablo onu te
 
 | Çeyrek | Ürün | Pazar | Organizasyon |
 |---|---|---|---|
-| **2026 4. çeyrek** | Açılış sayfası ve indirme paketi (Windows/Mac), kurulum asistanı, standart pakette canlı ticaret tetikleyicileri | TR topluluğunda lansman, 10–20 içerik üreticisi elçi, LinkedIn makalesi DE/TR, tanıtım videosu | Marka tescili, tohum yatırım görüşmeleri, danışma kuruluna davet |
+| **2026 4. çeyrek** | Açılış sayfası ve indirme paketi (Windows/Mac), kurulum asistanı, standart pakette canlı ticaret tetikleyicileri | TR topluluğunda lansman, 10–20 içerik üreticisi elçi, LinkedIn makalesi DE/TR, tanıtım videosu | Marka tescili, ön tohum yatırım görüşmeleri (500 bin €), danışma kuruluna davet |
 | **2027 1. çeyrek** | Pro aboneliği yayında (ödeme), ilk içerik üreticisi paketleri, topluluk paket yüklemesi (beta), < 300 ms akışlı ASR testi | DE/EN lansmanı, pazar yeri kayıtları (OBS, Streamlabs, Stream Deck), [Sayı] öğretmen/yazarla kitap okuma pilotu | Mobil geliştirici işe alındı |
-| **2027 2. çeyrek** | Mobil uygulama (uzaktan kumanda + mikrofon, mağazalar), eğitim paketi, ajans lisansı (çok kullanıcılı) | İçerik üreticisi ortaklık programı resmî olarak başladı, ilk ajanslar, eğitim teknolojisi/içerik üreticisi ekonomisi basını | Tohum yatırım tamamlandı ya da bootstrapping yolu teyit edildi |
+| **2027 2. çeyrek** | Mobil uygulama (uzaktan kumanda + mikrofon, mağazalar), eğitim paketi, ajans lisansı (çok kullanıcılı) | İçerik üreticisi ortaklık programı resmî olarak başladı, ilk ajanslar, eğitim teknolojisi/içerik üreticisi ekonomisi basını | Ön tohum yatırım (500 bin €) tamamlandı ya da bootstrapping yolu teyit edildi |
 | **2027 3. çeyrek** | Pazar yeri açık, Pro'da standart olarak yapay zekâ ile anlama, SDK prototipi | Platform pilotu başladı (hedef: bir ortak), [Sayı] kayıtlı kullanıcı, [Sayı] Pro aboneliği | Topluluk/destek rolü dolduruldu |
 
 Ölçütler: kayıtlı kullanıcılar, haftalık aktif yayıncılar, Free → Pro dönüşümü, paket geliri, ortak içerik üreticisi sayısı, devam toplantısı getiren platform görüşmeleri.

@@ -9,7 +9,8 @@
 > kurulum için `tools/README.md`).
 > 12–15. slaytlar **Vizyon**dur (slaytta “Vizyon“ rozeti); bağlayıcı temel vizyon belgesidir `VISION.tr.md`
 > (Anlatı Filmi, Kelime-Resim, Mekânlar, Studio). [Kaynak 19] ve sonrası `QUELLEN.tr.md` dosyasındadır.
-> Köşeli parantez içindeki yer tutucular (`[İsim]`, `[Sayı]`) bilerek doldurulmadı – uydurma rakam yok.
+> Tarih: Ekim 2026 · Gizli (her slaytın alt bilgisi: „Gizli · Ekim 2026“).
+> Köşeli parantez içindeki yer tutucular (`[Sayı]`, `[E-posta]`) bilerek doldurulmadı – uydurma rakam yok.
 > Pazar verileri: kaynaklar `QUELLEN.tr.md` içinde [Kaynak n]; tahminler tahmin olarak işaretlenmiştir.
 
 ---
@@ -20,7 +21,7 @@
 *Sesin efekte dönüşür.*
 Yayıncının söylediklerine göre gerçek zamanlı meme'ler, sesler ve sahneler.
 *Ve yarın: Sen anlat – sahne oluşsun.*
-[İsim] · Kurucu, yazar ve canlı yayıncı · [Tarih] · [E-posta]
+Tuncay Sancak · Kurucu & Mucit, Genel Müdür · Investor Relations: Gönül Demet · [E-posta] · Ekim 2026 · Gizli
 
 > **Notlar:** Kısaca kendimi tanıtıyorum: Kendim yayın yapıyorum, kitap yazıyorum ve LiveFX'i, her kısa videoda
 > olup da canlı yayında tam olarak eksik olan şey için geliştirdim. Bugün gördükleriniz kendi yayınlarımda çalışıyor.
@@ -92,7 +93,7 @@ Görseller (ya da 30 sn'lik fragman `video/LiveFX_Trailer_tr_16x9.mp4`):
   [Kaynak 27]; prompt caching sayesinde yapay zekâ sınıflandırması saati < 1 USD.
 - **Platformlar üretici araçlarıyla yarışıyor** (CapCut ↔ TikTok, Edits ↔ Instagram) – sıradaki adım canlı yayın araçları.
 
-Kaynaklar: bkz. `QUELLEN.tr.md` (30.09.2026 itibarıyla, 03.10.2026 eki).
+Kaynaklar: bkz. `QUELLEN.tr.md` (30.09.2026 ve 03.10.2026 tarihli araştırma).
 
 > **Notlar:** Canlı yayın artık yan kanal değil, bir gelir kanalı. Ayrıca: Türkiye, yerelleştirilmiş araçların
 > neredeyse hiç olmadığı, genç ve meme'e yatkın bir TikTok pazarı – en büyük paketimizin Türkçe olması tesadüf değil.
@@ -105,7 +106,7 @@ Kaynaklar: bkz. `QUELLEN.tr.md` (30.09.2026 itibarıyla, 03.10.2026 eki).
 | **TAM** – canlı yayın pazarı | 97–157 milyar USD (2026) → 250–345 milyar USD (2030), yıllık büyüme yaklaşık %27 | [Kaynak 1, 2] |
 | **Üretici ekonomisinde canlı payı** | ≈ 30–36 milyar USD (~216–260 milyarın %14'ü) | [Kaynak 3, 4] |
 | **SAM** – canlı yayın için üretici araçları (yazılım harcaması) *(tahmin)* | 1–3 milyar USD | Streamlabs/StreamYard/Voicemod fiyatları × aktif canlı yayıncılardan türetildi |
-| **SOM** – 3. yıl *(tahmin)* | 20–40 bin Pro abone × ayda 9,99 € ≈ 2,4–4,8 milyon € ARR | DACH + Türkiye + EN niş, odak TikTok/IG |
+| **SOM** – 3. yıl *(tahmin)* | 5.000–15.000 ücretli Pro kullanıcı × ayda 9,99 € ≈ 0,6–1,8 milyon € ARR | iş planı bölüm 6 ile aynı (SAM içerik üreticilerinin %0,3–0,5'i); DACH + Türkiye + EN niş, odak TikTok/IG |
 
 **Vizyonun komşu pazarları (slayt 12–15, SOM'a dahil değil):**
 
@@ -120,6 +121,7 @@ Kaynaklar: bkz. `QUELLEN.tr.md` (30.09.2026 itibarıyla, 03.10.2026 eki).
 > bizim tahminimiz. Mesele tam rakam değil: Ödeme yapan canlı yayıncıların küçük bir payı bile bir ekibi taşır – ve
 > asıl kaldıraç abonelik değil, platform entegrasyonu. Altta yeni: Vizyon komşu pazarlar açıyor (yapay zekâ video,
 > dil öğrenme, video kurgu, sesli kitap) – bunları SOM'a bilerek katmıyoruz.
+> SOM iş planıyla aynı; temel senaryo 3. yılda ortalama 7.500 Pro kullanıcıyla hesaplıyor.
 
 ## Slayt 8 – İş modeli
 
@@ -285,16 +287,17 @@ bulut maliyeti yok, dakika sınırı yok. XR ve gözlük: vitrin, gelir kalemi d
 
 ## Slayt 16 – Ekip
 
-- **[İsim]** – Kurucu · Alman-Türk yazar ve canlı yayıncı · ürün, içerik, topluluk, test laboratuvarı olarak kendi
+- **Tuncay Sancak** – Kurucu & Mucit, Genel Müdür · Alman-Türk yazar ve canlı yayıncı · ürün, içerik, topluluk, test laboratuvarı olarak kendi
   yayınları · TR/DE/EN paketler birinci elden · nöroçeşitlilik üzerine çocuk kitabı serisi (Kelime-Resim ve Anlatı
   Filmi'ne köprü)
 - **[Açık pozisyon]** – Teknik lider (ses/gerçek zamanlı, mobil SDK, Canvas/WebGPU)
 - **[Açık pozisyon]** – Üretici ortaklıkları / büyüme (TR + DACH), eğitim satışı
-- Danışma kurulu / ortaklar: [İsim], [İsim] · Eğitim teknolojisi/didaktik: [İsim]
+- **Gönül Demet** – Investor Relations (yatırımcı ilişkileri) · yatırımcılar ve ön tohum turu için iletişim kişisi
+- Danışma kurulu / ortaklar (aranıyor): TR içerik üreticisi yönetimi · bir platformun eski „Live“ ürün sorumlusu · eğitim teknolojisi/didaktik
 
 > **Notlar:** Kurucu tek kişide kullanıcı, içerik sağlayıcı ve ürün sorumlusu – ürünün şivelerde, dikey formatta ve
 > Türkçede çalışmasının nedeni bu. Çocuk kitabı yazarı olarak ilk yayınevi ve eğitim örneğini de kendisi getiriyor.
-> Seed yatırımla iki işe alım geliyor; Kelime-Resim'i bir eğitim teknolojisi danışma kurulu içerik açısından denetliyor.
+> Gönül Demet yatırımcı ilişkilerinden sorumlu. Ön tohum yatırımla (500.000 €) iki işe alım geliyor; Kelime-Resim'i bir eğitim teknolojisi danışma kurulu içerik açısından denetliyor.
 
 ## Slayt 17 – Talep
 
@@ -306,13 +309,25 @@ bulut maliyeti yok, dakika sınırı yok. XR ve gözlük: vitrin, gelir kalemi d
   Kelime-Resim ve Anlatı Filmi'ni [Sayı] kurs/sınıfta ya da [Sayı] kitapla test edin
 - **Ortaklar**: yayın yazılımları (OBS eklentisi, Streamlabs), TR/DACH üretici ajansları, ses/ASR sağlayıcıları,
   editör sağlayıcıları (Studio SDK)
-- **Görüşme ve seed**: satın alma görüşmesi (teknoloji + ekip); paralelinde 18 ay için [Sayı] € seed (2 işe alım,
-  üretici programı, pilotlar)
+- **Ön tohum: 500.000 €** LiveFX 2.0 ve A–D vizyon hatları için (önce Kelime-Resim ve hikâye motoru), 24 ay;
+  paralelinde satın alma görüşmelerine açığız (teknoloji + ekip)
 
-İletişim: [E-posta] · Demo: [Bağlantı] · Kod ve doküman: live-fx/
+**24 ay boyunca fon kullanımı – Öneri – lütfen onaylayın** (slayttaki çubuk; ayrıntılar iş planı 11.6):
+
+| Alan | Pay | Tutar |
+|---|---|---|
+| Ürün ve mühendislik ekibi | ~%50 | 250.000 € |
+| Vizyon hatlarının prototipten ürüne taşınması (önce Kelime-Resim/dil öğrenme ve hikâye motoru) | ~%20 | 100.000 € |
+| Pazara giriş, içerik üreticisi programı, pilotlar | ~%15 | 75.000 € |
+| Hukuk, marka, veri koruma | ~%10 | 50.000 € |
+| Rezerv | ~%5 | 25.000 € |
+| **Toplam** | **%100** | **500.000 €** |
+
+İletişim: Tuncay Sancak, Kurucu & Genel Müdür · Investor Relations: Gönül Demet · [E-posta] · Demo: [Bağlantı] · Kod ve doküman: live-fx/
 *Bu sunum Almanca ve İngilizce de mevcut: `LiveFX_Pitch.pptx` · `LiveFX_Pitch_EN.pptx`*
 
 > **Notlar:** Somut bitirin: İhtiyacımız olan, canlı yayın ekibinde bir muhatap ve 20 üreticiyle 8 haftalık bir pilot.
 > Biz katmanı, paketleri, desteği ve ölçümü (izlenme süresi, hediyeler, canlı yayınlardan klipler) sağlıyoruz. Yeni:
 > Kelime-Resim ve Anlatı Filmi için eğitim kurumları, dil öğrenme platformları ya da yayınevleriyle ikinci bir pilot
-> arıyoruz – ilk yayınevi örneği kurucunun kendi çocuk kitabı serisi.
+> arıyoruz – ilk yayınevi örneği kurucunun kendi çocuk kitabı serisi. Tur hakkında: Hiç gelir olmasa bile 500.000 €
+> yaklaşık 22 ay yetiyor; temkinli senaryo üç yıl boyunca karşılanıyor (iş planı 11.6). Yatırımcı iletişimi: Gönül Demet.

@@ -2,7 +2,9 @@
 
 > 🇩🇪 [Deutsch](#-deutsch) · 🇹🇷 [Türkçe](#-türkçe) · 🇬🇧 [English](#-english)
 >
-> Produktstand **2.0** (siehe `../CHANGELOG.md`) · Vision 2027–2029 · Stand 03.10.2026
+> Produktstand **2.0** (siehe `../CHANGELOG.md`) · Vision 2027–2029 · Stand Oktober 2026 · Vertraulich
+>
+> Gründer & Erfinder, Geschäftsführer: **Tuncay Sancak** · Investor Relations: **Gönül Demet** · Pre-Seed-Bedarf: **500.000 €** (LiveFX 2.0 + Vision-Linien A–D, Mittelverwendung über 24 Monate in `BUSINESSPLAN.md` 11.6)
 
 Alle Unterlagen gibt es in drei Sprachen. Deutsch ist die Master-Fassung. Dateinamen: Deutsch ohne Suffix, Türkisch `.tr`, Englisch `.en`; Präsentationen `_TR`/`_EN`; Videos mit Sprachkürzel `_tr_`/`_en_` (beim Haupt-Trailer ist Deutsch ohne Kürzel).
 
@@ -29,7 +31,7 @@ Alle Unterlagen gibt es in drei Sprachen. Deutsch ist die Master-Fassung. Datein
 | Prototyp A · Erzählfilm (Live-Story) | `prototypes/live-story.html` (Umschalter DE) | dieselbe Datei, Umschalter TR | dieselbe Datei, Umschalter EN |
 | Prototypen-Anleitung | `prototypes/README.md` (🇩🇪) | `prototypes/README.md` (🇹🇷) | `prototypes/README.md` (🇬🇧) |
 | Landingpage | `landing.html` (DE) | `landing.html#lang=tr` | `landing.html#lang=en` |
-| Werkzeug-Anleitung | `tools/README.md` | – (nur DE) | – (nur DE) |
+| Werkzeug-Anleitung | `tools/README.md` | `tools/README.md` (🇹🇷 bölümü) | `tools/README.md` (🇬🇧 section) |
 
 Weitere Dateien: `landing-assets/` (Bilder der Landingpage), `video/stills/` (Standbilder aller Trailer, z. B. `vision-tr-16x9-15s.jpg`, `en-9x16-6_9s.jpg`), `video/assets/` (Overlay-Screenshots je Sprache, Schrift), `video/trailer.html` + `engine.js` + `capture.js` + `music.js`/`music.wav` (Haupt-Trailer), `video/vision.html` + `vision-engine.js` + `capture-vision.js` + `music-vision.js`/`music-vision.wav` (Vision-Trailer).
 
@@ -67,7 +69,7 @@ node tools/build-pptx.js tools/deck-content.en.json LiveFX_Pitch_EN.pptx
 
 Trailer: Render-Befehle stehen in `VIDEO.md` (Haupt-Trailer, `video/capture.js`) und `video/VISION-TRAILER.md` (Vision-Trailer, `video/capture-vision.js --lang=de|tr|en`). Vorschau im Browser: `video/vision.html?ratio=16x9&lang=tr`. Prototypen brauchen nichts: Datei im Browser öffnen.
 
-Platzhalter für Angaben zur Gründerin: `[Name]`, `[Zahl]`, `[E-Mail]` – nichts erfinden, vor dem Versand ausfüllen.
+Platzhalter für noch fehlende Angaben: `[Zahl]`, `[E-Mail]`, `[Telefon]` – nichts erfinden, vor dem Versand ausfüllen.
 
 ---
 
@@ -81,13 +83,13 @@ Türkçe dosyalar yukarıdaki tablonun **TR** sütununda: `VISION.tr.md`, `BUSIN
 
 ### Sık kullanılan akışlar
 
-- **Yatırımcı veya destek kurumu:** `BUSINESSPLAN.tr.docx` + `LiveFX_Pitch_TR.pptx` (PDF olarak) + iki fragmanın bağlantısı. Göndermeden önce yer tutucuları doldur: `[İsim]`, `[Sayı]`.
+- **Yatırımcı veya destek kurumu:** `BUSINESSPLAN.tr.docx` + `LiveFX_Pitch_TR.pptx` (PDF olarak) + iki fragmanın bağlantısı. Göndermeden önce yer tutucuları doldur: `[Sayı]`, `[E-posta]`. Kurucu & Mucit, Genel Müdür: Tuncay Sancak · Investor Relations: Gönül Demet · ön tohum ihtiyacı: 500.000 € (`BUSINESSPLAN.tr.md` 11.6).
 - **Eğitim, yayınevleri, uyum projeleri:** `VISION.tr.md` 5. bölüm (Kelime-Resim) + `prototypes/sprachlernen.html` canlı gösterim.
 - **Rakamları güncellemek:** yeni kaynağı `QUELLEN.md`’ye (sıradaki numara) ve üç dil sürümüne ekle; atıf: [Kaynak n].
 
 ### Araçlar ve yeniden üretim
 
-Word ve PowerPoint dosyaları kaynak metinlerden üretilir (`tools/`, ayrıntılar `tools/README.md`’de, Almanca). Bir kez: `npm i docx pptxgenjs --prefix tools`.
+Word ve PowerPoint dosyaları kaynak metinlerden üretilir (`tools/`, ayrıntılar `tools/README.md`’de, Türkçe bölüm dahil). Bir kez: `npm i docx pptxgenjs --prefix tools`.
 
 ```bash
 node tools/build-docx.js BUSINESSPLAN.tr.md BUSINESSPLAN.tr.docx tr
@@ -108,14 +110,14 @@ The English files are in the **EN** column of the table above: `VISION.en.md`, `
 
 ### Typical workflows
 
-- **Investor or funding body:** `BUSINESSPLAN.en.docx` + `LiveFX_Pitch_EN.pptx` (exported as PDF) + links to both trailers. Fill in the placeholders `[Name]`, `[Number]` first.
+- **Investor or funding body:** `BUSINESSPLAN.en.docx` + `LiveFX_Pitch_EN.pptx` (exported as PDF) + links to both trailers. Fill in the placeholders `[Number]`, `[Email]` first. Founder & Inventor, Managing Director: Tuncay Sancak · Investor Relations: Gönül Demet · pre-seed ask: €500,000 (`BUSINESSPLAN.en.md` 11.6).
 - **Platform pitch (TikTok, Meta, YouTube):** pitch deck plus the 16:9 vision trailer.
 - **Education, publishers, integration programmes:** `VISION.en.md` chapter 5 (WordPicture) plus a live demo of `prototypes/sprachlernen.html`.
 - **Updating figures:** add the new source to `QUELLEN.md` (next number) and to all three language versions; cite as [Source n].
 
 ### Tools and regeneration
 
-Word and PowerPoint files are generated from source text (`tools/`, instructions in `tools/README.md`, German). One-off setup: `npm i docx pptxgenjs --prefix tools`.
+Word and PowerPoint files are generated from source text (`tools/`, instructions in `tools/README.md`, including an English section). One-off setup: `npm i docx pptxgenjs --prefix tools`.
 
 ```bash
 node tools/build-docx.js BUSINESSPLAN.en.md BUSINESSPLAN.en.docx en

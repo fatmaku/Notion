@@ -59,7 +59,7 @@ Das Geschenk-Modell ist der direkte Hebel für LiveFX: Mit Zuschauer-Triggern (s
 - Gifting ist etabliert und preislich niedrigschwellig (Jeton-Preise im Cent-Bereich) – viele kleine Geschenke, die als Effekt sichtbar werden können.
 - Kaum lokalisierte Creator-Tools: Streamlabs, Voicemod und Co. sind englischsprachig und reagieren nicht auf türkische Sprache.
 - Die türkischsprachige Diaspora in Deutschland, Österreich, den Niederlanden und Frankreich ist ein zweiter, zahlungskräftiger Markt mit denselben Memes – und die Brücke zu DE/EN.
-- Die Gründerin ist selbst Teil dieser Community (Kinderbuchreihe auf Türkisch, Live-Streams), das größte Meme-Paket ist türkisch (85 Trigger) und das Geschichten-Paket „Masal“ beginnt mit „bir varmış bir yokmuş“.
+- Der Gründer ist selbst Teil dieser Community (Kinderbuchreihe auf Türkisch, Live-Streams), das größte Meme-Paket ist türkisch (85 Trigger) und das Geschichten-Paket „Masal“ beginnt mit „bir varmış bir yokmuş“.
 
 **Risiko:** Währungsschwankungen der Lira wirken auf die Zahlungsbereitschaft in TL; die Preisgestaltung in der Türkei sollte regional (Kaufkraft) erfolgen – Schätzung: Pro-Abo in TL etwa auf dem Niveau eines Streaming-Abos.
 

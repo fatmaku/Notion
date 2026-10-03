@@ -3,11 +3,11 @@
 **Du redest. Es wird Bild.** Vision 2027–2029: Live-Video aus Worten, Sprachenlernen, neue Räume und ein Editor, der von selbst schneidet.
 
 Stand: Oktober 2026 · Produktstand: Version 2.0 · Vertraulich
-Gründerin: [Name] · Kontakt: [E-Mail]
+Gründer & Erfinder, Geschäftsführer: Tuncay Sancak · Investor Relations: Gönül Demet · Kontakt: [E-Mail]
 
 > Auch auf Türkisch: VISION.tr.md · In English: VISION.en.md
 
-> Marktzahlen stammen aus öffentlichen Sekundärquellen und tragen [Quelle n] (Liste in `QUELLEN.md`, Nummern 1–60). Eigene Preise, Mengen und Umsätze sind als „Schätzung“ gekennzeichnet. Funktionen, die es noch nicht gibt, sind mit **Vision** markiert. Angaben in [eckigen Klammern] ergänzt die Gründerin.
+> Marktzahlen stammen aus öffentlichen Sekundärquellen und tragen [Quelle n] (Liste in `QUELLEN.md`, Nummern 1–60). Eigene Preise, Mengen und Umsätze sind als „Schätzung“ gekennzeichnet. Funktionen, die es noch nicht gibt, sind mit **Vision** markiert. Angaben in [eckigen Klammern] ergänzt der Gründer.
 
 ---
 
@@ -17,7 +17,7 @@ Heute hört LiveFX der Streamerin zu und blendet in unter einer Sekunde Memes, G
 
 Die nächste Stufe macht aus LiveFX eine **Bildsprache für alles Gesprochene**. Was jemand erzählt, vorliest oder unterrichtet, erscheint in derselben Sekunde als fortlaufende Szene, als Wortbild mit Aussprache oder als fertig geschnittener Clip, im Stream, im Klassenzimmer, auf der Bühne, in der Brille und im Schnittprogramm. Gerendert wird im Browser auf dem eigenen Gerät, mit dem **Rechenbudget eines Untertitels statt eines Rechenzentrums**.
 
-**Claim:** „Du redest. Es wird Bild.“ (Türkischer Vorschlag, von der Gründerin zu prüfen: „Sen anlat – sahne oluşsun.“)
+**Claim:** „Du redest. Es wird Bild.“ (Türkischer Vorschlag, vom Gründer zu prüfen: „Sen anlat – sahne oluşsun.“)
 
 **Die vier Linien**
 
@@ -116,7 +116,7 @@ Ein Satz erzeugt ein Delta von 200–500 Byte, Szenen wechseln ein- bis dreimal 
 
 - **Machbarkeit:** Prototyp vorhanden (`prototypes/live-story.html`). MVP im echten Datenfluss (DE, 4 Orte, 20 Figuren) in 8–12 Wochen, TR/EN und KI-Delta weitere 8 Wochen, Welten-Packs im eigenen Stil 6–9 Monate.
 - **Markt:** Vorlese-, Hörbuch-, Podcast- und Talk-Formate, die heute nur Ton oder ein Standbild haben. Hörbuchmarkt Deutschland 2025: 374 Mio €, +13 % [Quelle 19]. 23,8 Mio Menschen in Deutschland hören wöchentlich Podcasts [Quelle 20], YouTube hat über 1 Mrd monatliche Podcast-Zuschauer [Quelle 21]. 32,3 % der 1- bis 8-Jährigen wird selten oder nie vorgelesen [Quelle 22]. KI-Videogenerierung und -schnitt: 3,67 Mrd USD 2026, 24,89 Mrd USD 2036 [Quelle 23]. Synthesia zeigt mit rund 150 Mio USD ARR die Zahlungsbereitschaft für „Video ohne Kamera“ [Quelle 26].
-- **Erlöse (Schätzung):** Erzählfilm mit Lexikon in Pro (9,99 €), KI-Szenenplanung in Pro+ (14,99 €), Welten-Packs 2,99–4,99 € (Märchen/Masal, Meer, Weltraum, Stadt, Schule), Verlagslizenz [2.000 €] pro Titel und Jahr (Schätzung, von der Gründerin zu prüfen; erster Fall die eigene Kinderbuchreihe der Gründerin), später Scene-SDK als B2B-Lizenz.
+- **Erlöse (Schätzung):** Erzählfilm mit Lexikon in Pro (9,99 €), KI-Szenenplanung in Pro+ (14,99 €), Welten-Packs 2,99–4,99 € (Märchen/Masal, Meer, Weltraum, Stadt, Schule), Verlagslizenz [2.000 €] pro Titel und Jahr (Schätzung, vom Gründer zu prüfen; erster Fall die eigene Kinderbuchreihe des Gründers), später Scene-SDK als B2B-Lizenz.
 
 ### 4.5 Risiken
 
@@ -139,7 +139,7 @@ Ein Kind sagt „Apfel“. Sofort erscheint ein großes 🍎, darunter „elma�
 | Modus | Was passiert | Für wen |
 |---|---|---|
 | **Übersetzen** | Wort in der Zielsprache, mit Aussprache | Familien, Schule, Integrationskurse, Herkunftssprache Türkisch |
-| **Lesehilfe** | gleiche Sprache, großes Wort mit Silben und Bild | Kinder vor dem Lesealter, Kinder mit Lese- oder Aufmerksamkeitsschwierigkeiten, DaZ; anschlussfähig an die Neurodiversitäts-Bücher der Gründerin |
+| **Lesehilfe** | gleiche Sprache, großes Wort mit Silben und Bild | Kinder vor dem Lesealter, Kinder mit Lese- oder Aufmerksamkeitsschwierigkeiten, DaZ; anschlussfähig an die Neurodiversitäts-Bücher des Gründers |
 | **Nachsprechen** | Karte spricht vor, das Kind spricht nach, ein grüner Haken zeigt „erkannt“ | Üben ohne Noten; bewusst **keine** Aussprachebewertung |
 
 Am Tablet wiederholt Antippen die Aussprache. Nach der Stunde lässt sich die Wortliste als Karteikarten drucken.
@@ -265,7 +265,7 @@ Kein Upload, kein Cloud-Transcoding. Das Whisper-Modell (≈ 40–150 MB) wird e
 
 ## 9. Geschäftsmodell und Preisarchitektur
 
-Alle Preise sind **Schätzungen** und von der Gründerin zu prüfen.
+Alle Preise sind **Schätzungen** und vom Gründer zu prüfen.
 
 | Stufe | Preis | Inhalt |
 |---|---|---|
@@ -277,7 +277,7 @@ Alle Preise sind **Schätzungen** und von der Gründerin zu prüfen.
 | **Schullizenz** | 300–800 €/Jahr | WortBild + Erzählfilm, Offline-Profil |
 | **Kurslizenz** | 49 € pro Lehrkraft und Jahr | Integrations- und DaZ-Kurse |
 | **Event-/Bühnenlizenz** | 19–49 €/Tag oder 299 €/Jahr | Bühnenmodus, Event-Packs |
-| **Verlagslizenz** | [2.000 €] pro Titel und Jahr (Schätzung, von der Gründerin zu prüfen) | Hörbuch mit Bildern, zweisprachige Bücher |
+| **Verlagslizenz** | [2.000 €] pro Titel und Jahr (Schätzung, vom Gründer zu prüfen) | Hörbuch mit Bildern, zweisprachige Bücher |
 | **Scene-SDK / Plattform** | nach Vereinbarung | LTF, Renderer, Packs als Lizenz oder White-Label |
 
 **Zusatzumsatz durch die Vision, Basis-Szenario (Schätzung, T€):** ≈ 27 (2027), ≈ 192 (2028), ≈ 617 (2029); nach Zusatzkosten ein Deckungsbeitrag von ≈ −3, +77 und +407 T€. Die Herleitung steht im Businessplan, Kapitel „Zukunft“. SDK- und Plattform-Erlöse sind dort nicht doppelt gezählt; XR und Brille stehen mit 0 € in der Rechnung.
@@ -334,8 +334,9 @@ Keine Plattform-Logos, keine echten Namen oder Gesichter; Zukunftsfunktionen tra
 
 - **Pilot-Partner Plattform:** Live-Teams von Streaming- und Kurzvideo-Plattformen für „Live → Clip“ oder das Scene-SDK.
 - **Pilot-Partner Bildung:** [Zahl] DaZ- und Integrationskurse, [Zahl] Grundschulklassen, Medienzentren, Bildungsträger.
-- **Pilot-Partner Verlage und Hörbuch:** Kinderbuch- und Hörbuchverlage für „Hörbuch mit Bildern“ und zweisprachige Editionen; erster Fall ist die eigene Kinderbuchreihe der Gründerin.
+- **Pilot-Partner Verlage und Hörbuch:** Kinderbuch- und Hörbuchverlage für „Hörbuch mit Bildern“ und zweisprachige Editionen; erster Fall ist die eigene Kinderbuchreihe des Gründers.
 - **Team:** Web-/Grafik-Entwicklung (Canvas, WebCodecs), Illustration im Kinderbuch-Stil, Sprecher:innen DE/TR/EN, Didaktik (Beirat).
+- **Finanzierung:** 500.000 € Pre-Seed für LiveFX und alle Projekte (Produkt 2.0 und Linien A–D); ~20 % (100.000 €) bringen die Vision-Linien vom Prototyp zum Produkt, zuerst WortBild/Sprachenlernen und die Story-Engine (Erzählfilm). Mittelverwendung über 24 Monate als Vorschlag in `BUSINESSPLAN.md` Abschnitt 11.6.
 - **Förderung:** EXIST, Bildungs- und Integrationsstiftungen (ohne Umsatzannahme in der Planung).
 
-Kontakt: [Name] · [E-Mail] · [Website]
+Kontakt: Tuncay Sancak (Gründer & Erfinder, Geschäftsführer) · Investor Relations: Gönül Demet · [E-Mail] · [Website]
