@@ -38,7 +38,7 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <h2 id="kurz">Kurzfassung – in 6 Schritten</h2>
 <div class="card big">
 <ol>
-  <li><b>Entpacken:</b> Doppelklick auf <code>WindowBlaster.zip</code>. Es entsteht der Ordner <b>WindowBlaster</b>. Zieh ihn auf den Schreibtisch.</li>
+  <li><b>Entpacken:</b> Doppelklick auf <code>WindowBlaster.zip</code>. Es entsteht der Ordner <b>WindowBlaster</b>. Zieh ihn auf den Schreibtisch.<br><span class="small muted">Hast du schon eine ältere Version (Ordner „WindowBlaster-Mac“)? Lass sie liegen, bis das neue Spiel einmal gestartet ist – es übernimmt dabei das alte Handy-Zertifikat. Danach darf der alte Ordner in den Papierkorb.</span></li>
   <li><b>Erster Start (nur einmal so):</b> Programm <b>Terminal</b> öffnen (<kbd>⌘</kbd>+<kbd>Leertaste</kbd>, „Terminal“ tippen, <kbd>↩</kbd>). Tippe <code>bash</code> und ein <b>Leerzeichen</b>. Zieh dann die Datei <b>Start-Window-Blaster.command</b> aus dem Ordner ins Terminal-Fenster und drück <kbd>↩</kbd>.<br><span class="small muted">Fragt der Mac nach Zugriff auf „Schreibtisch“ → <b class="ui">OK</b>. Ab dem zweiten Mal genügt ein Doppelklick auf die Startdatei.</span></li>
   <li><b>Verbindungsseite:</b> Im Browser öffnet sich „Window Blaster – Handy verbinden“ mit einem großen QR-Code. Das Terminal-Fenster <b>offen lassen</b>.</li>
   <li><b>Handy verbinden:</b> Handy ins <b>gleiche WLAN</b> wie den Mac. Kamera-App öffnen, QR-Code scannen, auf den Link tippen.</li>
@@ -67,11 +67,11 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <div class="card big">
 <ol>
   <li><b>QR-Code scannen</b> mit der Kamera-App → gelben Link antippen. Die Seite öffnet sich in <b>Safari</b> (wichtig: nur Safari kann Zertifikate installieren).</li>
-  <li><b class="ui">📄 Profil laden</b> → <b class="ui">Zulassen</b> → <b class="ui">Schließen</b>.</li>
-  <li><b>Einstellungen</b> öffnen → oben <b class="ui">Profil geladen</b> → <b class="ui">Installieren</b> → Code → <b class="ui">Installieren</b> → <b class="ui">Fertig</b>.<br><span class="small muted">Nicht zu sehen? Einstellungen → Allgemein → VPN und Geräteverwaltung.</span></li>
+  <li><b class="ui">📄 Profil laden</b> → <b class="ui">Zulassen</b> → <b class="ui">Schließen</b>. <span class="small muted">(Apple Watch gekoppelt? Bei der Gerätefrage <b>iPhone</b> wählen.)</span></li>
+  <li><b>Innerhalb von 8 Minuten:</b> <b>Einstellungen</b> öffnen → oben <b class="ui">Profil geladen</b> → <b class="ui">Installieren</b> (oben rechts) → Code → <b class="ui">Installieren</b> (oben rechts) → nochmal <b class="ui">Installieren</b> (unten) → <b class="ui">Fertig</b>. Das rote „Nicht überprüft“ ist normal.<br><span class="small muted">„Profil geladen“ nicht zu sehen? Einstellungen → Allgemein → VPN und Geräteverwaltung – oder Schritt 2 wiederholen.</span></li>
   <li><b>Einstellungen → Allgemein → Info</b> → ganz unten <b class="ui">Zertifikatsvertrauenseinstellungen</b> → Schalter bei „Window Blaster Mac …“ <b>ein</b> → <b class="ui">Fortfahren</b>.</li>
   <li>Zurück zu Safari: Die Seite zeigt grün „Dein Handy vertraut dem Mac“ → <b class="ui">▶ Spiel öffnen</b>.</li>
-  <li>Im Spiel: <b class="ui">Teilen ⬆︎</b> → <b class="ui">Zum Home-Bildschirm</b> → <b class="ui">Hinzufügen</b>.</li>
+  <li>Im Spiel: <b class="ui">Teilen ⬆︎</b> (iOS 26: erst <b class="ui">•••</b> unten rechts, dann <b class="ui">Teilen</b>) → <b class="ui">Zum Home-Bildschirm</b> → „Als Web-App öffnen“ an lassen → <b class="ui">Hinzufügen</b>.</li>
   <li><b>Das neue Symbol auf dem Home-Bildschirm</b> antippen (nicht Safari!) und warten, bis <b>„Offline bereit ✓“</b> erscheint. Fertig.</li>
 </ol>
 </div>
@@ -81,7 +81,7 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <ol>
   <li><b>QR-Code scannen</b> (Kamera oder Google Lens) → Link in <b>Chrome</b> öffnen.</li>
   <li><b class="ui">📄 Zertifikat herunterladen</b>. Hinweis „kann nicht installiert werden“ ist normal.</li>
-  <li><b>Einstellungen</b> → ins Suchfeld <b>„Zertifikat“</b> → <b class="ui">CA-Zertifikat</b> → <b class="ui">Trotzdem installieren</b> → PIN → Datei <b>WindowBlaster-Zertifikat.crt</b> wählen.<br><span class="small muted">Samsung: Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Von Gerätespeicher installieren → CA-Zertifikat.</span></li>
+  <li><b>Einstellungen</b> → ins Suchfeld <b>„CA-Zertifikat“</b> → Treffer antippen → <b class="ui">Trotzdem installieren</b> → PIN (ohne Bildschirmsperre verlangt Android, eine einzurichten) → Datei <b>WindowBlaster-Zertifikat.crt</b> aus „Downloads“ wählen.<br><span class="small muted">Pixel: Sicherheit & Datenschutz → Weitere Sicherheitseinstellungen → Verschlüsselung & Anmeldedaten → Zertifikat installieren → CA-Zertifikat. Samsung: Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Von Gerätespeicher installieren → CA-Zertifikat.</span></li>
   <li>Zurück zu Chrome: grün → <b class="ui">▶ Spiel öffnen</b>.</li>
   <li>Menü <b class="ui">⋮</b> → <b class="ui">App installieren</b> → App öffnen → warten auf <b>„Offline bereit ✓“</b>.</li>
 </ol>
@@ -92,7 +92,8 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
   <li>Ist das Spiel einmal als App installiert und zeigt „Offline bereit ✓“, braucht es <b>weder Mac noch Internet</b>.</li>
   <li>Kein WLAN-Router in der Nähe (Auto, Ferienwohnung)? Der Mac kann selbst ein WLAN aufmachen: <b>Systemeinstellungen → Allgemein → Teilen → Internetfreigabe</b> (Verbindung teilen von: irgendein Anschluss, z. B. „Thunderbolt-Bridge“; für Geräte über: <b>WLAN</b>) → einschalten. Das Handy verbindet sich mit dem WLAN des Macs – ganz ohne Internet. Dann wie oben den QR-Code scannen.</li>
   <li>Zug-, Hotel- und Gäste-WLANs blockieren oft die Verbindung zwischen Geräten. Dort lieber die Internetfreigabe nutzen – oder zu Hause einrichten.</li>
-  <li>Updates: Neue Version entpacken, starten, die Handy-App einmal im selben WLAN öffnen – sie aktualisiert sich und behält Punkte und Freischaltungen. Das Zertifikat muss <b>nicht</b> neu installiert werden.</li>
+  <li>Der Mac kann danach wochen- oder monatelang aus bleiben – das Spiel auf dem Handy läuft weiter.</li>
+  <li><b>Updates:</b> Neue Zip entpacken und starten. Am Handy im selben WLAN die App im App-Umschalter nach oben wegwischen und neu öffnen – sie lädt die neue Version, startet sich einmal neu und behält Punkte, Freischaltungen und Offline-Daten. Die Versionsnummer steht unten auf dem Startbildschirm. Das Zertifikat muss <b>nicht</b> neu installiert werden.</li>
 </ul>
 
 <h2 id="hilfe">Wenn es nicht startet</h2>
@@ -101,7 +102,8 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <tr><th>Was du siehst</th><th>Was hilft</th></tr>
 <tr><td>Doppelklick: „… wurde nicht geöffnet“ / „Apple konnte nicht überprüfen …“</td><td>Erster Start über das Terminal (siehe <a href="#mac">MacBook</a>), oder Systemeinstellungen → Datenschutz &amp; Sicherheit → <b>Trotzdem öffnen</b>.</td></tr>
 <tr><td>Terminal: „Operation not permitted“</td><td>Systemeinstellungen → Datenschutz &amp; Sicherheit → Dateien und Ordner → Terminal → „Schreibtisch“ erlauben. Oder den Ordner WindowBlaster in deinen Benutzerordner verschieben.</td></tr>
-<tr><td>Terminal: „Der Ordner app fehlt“ / „Programm fehlt“</td><td>Die Zip wurde nicht vollständig entpackt. Ordner löschen, <code>WindowBlaster.zip</code> neu doppelklicken. Alte Ordner wie „WindowBlaster-Mac“ oder „WindowBlaster-Mac 2“ können weg.</td></tr>
+<tr><td>Terminal: „Der Ordner app fehlt“ / „Programm fehlt“ / „kein Zugriff“</td><td>Hat der Mac nach Zugriff auf „Schreibtisch“ oder „Downloads“ gefragt und du hast „Nicht erlauben“ gewählt? Systemeinstellungen → Datenschutz &amp; Sicherheit → Dateien und Ordner → Terminal → einschalten. Sonst: Ordner löschen, <code>WindowBlaster.zip</code> neu doppelklicken.</td></tr>
+<tr><td>Terminal: „Window Blaster läuft bereits“</td><td>Ein anderes Terminal-Fenster mit dem Spiel ist noch offen – das ist in Ordnung, die Verbindungsseite öffnet sich trotzdem.</td></tr>
 <tr><td>Mac fragt „Eingehende Netzwerkverbindungen akzeptieren?“</td><td><b>Erlauben</b> – sonst erreicht das Handy den Mac nicht.</td></tr>
 <tr><td>Browser zeigt eine leere oder alte Seite</td><td>Neu laden (<kbd>⌘</kbd>+<kbd>R</kbd>). Hilft das nicht: <code>http://localhost:{{.HTTPPort}}/?reset=1</code> öffnen – setzt den Spiel-Zwischenspeicher zurück (Punkte bleiben).</td></tr>
 <tr><td>Handy öffnet die Seite nicht</td><td>Gleiches WLAN? VPN aus? Adresse genau mit <code>http://</code> und <code>:{{.HTTPPort}}</code>? Auf der Verbindungsseite unter „Andere Adressen“ probieren. Gäste-/Zug-WLAN → Internetfreigabe.</td></tr>

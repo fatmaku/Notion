@@ -13,6 +13,8 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -73,11 +75,26 @@ func run(cfg config) error {
 	if err != nil {
 		return err
 	}
+	if _, err := os.Stat(filepath.Join(dataDir, caCertFile)); errors.Is(err, os.ErrNotExist) {
+		pkgParent := filepath.Dir(filepath.Dir(appDir))
+		if from, ok := importOldCaddyCA(dataDir, []string{pkgParent}); ok {
+			fmt.Printf("🔐 Zertifikat der Vorversion übernommen (%s) – ein Handy, das ihm schon vertraut, muss nichts neu einrichten.\n", from)
+		}
+	}
 	ca, created, err := loadOrCreateCA(dataDir)
 	if err != nil {
 		return fmt.Errorf("Zertifikat konnte nicht angelegt werden (%s): %w", dataDir, err)
 	}
 
+	// A Window Blaster server from an earlier start still running (e.g. another Terminal window)?
+	// Reuse it instead of moving to other ports – the phone's game address includes the port.
+	if other, ok := alreadyRunning(cfg.httpsPort); ok {
+		fmt.Printf("\n✅ Window Blaster läuft bereits (in einem anderen Terminal-Fenster).\n   Verbindungsseite: http://localhost:%d/verbinden\n", other)
+		if cfg.open {
+			openBrowser(fmt.Sprintf("http://localhost:%d/verbinden", other))
+		}
+		return nil
+	}
 	httpLn, httpPort, err := listenFirst(cfg.httpPort)
 	if err != nil {
 		return err
@@ -85,6 +102,9 @@ func run(cfg config) error {
 	httpsLn, httpsPort, err := listenFirst(cfg.httpsPort)
 	if err != nil {
 		return err
+	}
+	if httpsPort != cfg.httpsPort {
+		fmt.Printf("⚠️  Port %d ist von einem anderen Programm belegt – nutze %d. Ein Handy, das schon eingerichtet war, braucht dann die neue Adresse.\n", cfg.httpsPort, httpsPort)
 	}
 
 	s := newServer(appDir, ca, httpPort, httpsPort)
@@ -176,6 +196,25 @@ func listenFirst(start int) (net.Listener, int, error) {
 		lastErr = err
 	}
 	return nil, 0, fmt.Errorf("kein freier Port ab %d gefunden: %v", start, lastErr)
+}
+
+// alreadyRunning asks the HTTPS port whether a Window Blaster server answers there
+// and returns its HTTP port.
+func alreadyRunning(httpsPort int) (int, bool) {
+	client := &http.Client{
+		Timeout:   1500 * time.Millisecond,
+		Transport: &http.Transport{Proxy: nil, TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}, //nolint:gosec // local self-check only
+	}
+	res, err := client.Get(fmt.Sprintf("https://127.0.0.1:%d/wb-status", httpsPort))
+	if err != nil {
+		return 0, false
+	}
+	defer res.Body.Close()
+	var doc statusDoc
+	if json.NewDecoder(res.Body).Decode(&doc) != nil || !doc.OK || doc.HTTPPort == 0 {
+		return 0, false
+	}
+	return doc.HTTPPort, true
 }
 
 func openBrowser(url string) {

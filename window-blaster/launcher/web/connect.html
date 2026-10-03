@@ -63,6 +63,9 @@ code{font:13px ui-monospace,Menlo,monospace;background:#0e141c;padding:1px 6px;b
         <li id="c-off"><span class="dot">5</span> Handy lädt die Daten für den Offline-Betrieb</li>
       </ul>
       <p class="small muted" id="phoneinfo"></p>
+      <details><summary>iPhone erreicht den Mac nicht? Zertifikat per AirDrop</summary>
+        <p class="small">Lade das <a href="/zertifikat.mobileconfig" style="color:var(--accent)">iPhone-Profil</a> herunter und schick die Datei per AirDrop ans iPhone → dort „Profil geladen“ wie auf der Handy-Seite beschrieben. Für das Spiel selbst müssen Mac und Handy aber im selben Netz sein (z. B. Internetfreigabe des Macs).</p>
+      </details>
       {{if .Others}}
       <details><summary>Klappt nicht? Andere Adressen dieses Macs</summary>
         <div class="others">{{range .Others}}<div><div class="qr">{{.QR}}</div><div class="small muted">{{.Label}}</div><div class="url small">{{.URL}}</div></div>{{end}}</div>

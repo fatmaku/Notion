@@ -21,6 +21,12 @@ echo "🚗  Window Blaster wird gestartet …"
 echo "    Ordner: $DIR"
 echo
 
+if ! ls "$DIR" >/dev/null 2>&1; then
+  echo "❌ Kein Zugriff auf den Ordner (macOS-Datenschutz)."
+  echo "   Systemeinstellungen → Datenschutz & Sicherheit → Dateien und Ordner → Terminal"
+  echo "   → „Schreibtisch“ bzw. „Downloads“ einschalten. Dann neu starten."
+  pause_and_exit 1
+fi
 if [ ! -f "$DIR/app/index.html" ]; then
   echo "❌ Der Ordner „app“ fehlt neben dieser Startdatei."
   echo "   Bitte WindowBlaster.zip neu doppelklicken und die Startdatei IM neuen Ordner benutzen."

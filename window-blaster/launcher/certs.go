@@ -84,18 +84,69 @@ func readCA(certPath, keyPath string) (*localCA, error) {
 	if err != nil {
 		return nil, err
 	}
-	k, err := x509.ParsePKCS8PrivateKey(kb.Bytes)
+	signer, err := parseKey(kb)
 	if err != nil {
 		return nil, err
 	}
-	signer, ok := k.(crypto.Signer)
-	if !ok {
-		return nil, fmt.Errorf("unbekannter Schlüsseltyp")
+	if !cert.IsCA {
+		return nil, fmt.Errorf("kein CA-Zertifikat")
+	}
+	if !samePublicKey(cert, signer) {
+		return nil, fmt.Errorf("Schlüssel passt nicht zum Zertifikat")
 	}
 	if time.Until(cert.NotAfter) < 30*24*time.Hour {
 		return nil, fmt.Errorf("Zertifikat läuft bald ab")
 	}
 	return &localCA{cert: cert, der: cb.Bytes, key: signer, leaves: map[string]*tls.Certificate{}}, nil
+}
+
+// parseKey accepts PKCS#8 (ours) and SEC1 "EC PRIVATE KEY" (Caddy's local CA).
+func parseKey(b *pem.Block) (crypto.Signer, error) {
+	if k, err := x509.ParsePKCS8PrivateKey(b.Bytes); err == nil {
+		if s, ok := k.(crypto.Signer); ok {
+			return s, nil
+		}
+		return nil, fmt.Errorf("unbekannter Schlüsseltyp")
+	}
+	if k, err := x509.ParseECPrivateKey(b.Bytes); err == nil {
+		return k, nil
+	}
+	return nil, fmt.Errorf("Schlüssel nicht lesbar")
+}
+
+func samePublicKey(cert *x509.Certificate, key crypto.Signer) bool {
+	type equaler interface{ Equal(crypto.PublicKey) bool }
+	pub, ok := key.Public().(equaler)
+	return ok && pub.Equal(cert.PublicKey)
+}
+
+// importOldCaddyCA adopts the local CA of the previous, Caddy-based download
+// (folder "WindowBlaster-Mac…" next to the new one), so a phone that already
+// trusts it keeps working. Only sibling folders are searched – no extra
+// privacy prompts for other folders.
+func importOldCaddyCA(dataDir string, searchDirs []string) (string, bool) {
+	for _, d := range searchDirs {
+		matches, _ := filepath.Glob(filepath.Join(d, "WindowBlaster-Mac*", "run", "data", "caddy", "pki", "authorities", "local", "root.crt"))
+		for _, certPath := range matches {
+			keyPath := filepath.Join(filepath.Dir(certPath), "root.key")
+			ca, err := readCA(certPath, keyPath)
+			if err != nil {
+				continue
+			}
+			keyDER, err := x509.MarshalPKCS8PrivateKey(ca.key)
+			if err != nil {
+				continue
+			}
+			if os.WriteFile(filepath.Join(dataDir, caKeyFile), pem.EncodeToMemory(&pem.Block{Type: "PRIVATE KEY", Bytes: keyDER}), 0o600) != nil {
+				continue
+			}
+			if os.WriteFile(filepath.Join(dataDir, caCertFile), pem.EncodeToMemory(&pem.Block{Type: "CERTIFICATE", Bytes: ca.der}), 0o644) != nil {
+				continue
+			}
+			return certPath, true
+		}
+	}
+	return "", false
 }
 
 func createCA() (*localCA, error) {

@@ -217,3 +217,45 @@ func startTLS(t *testing.T, ca *localCA, h http.Handler) string {
 	t.Cleanup(func() { _ = srv.Close() })
 	return "https://" + ln.Addr().String()
 }
+
+func TestImportsOldCaddyCA(t *testing.T) {
+	parent := t.TempDir()
+	old := filepath.Join(parent, "WindowBlaster-Mac 2", "run", "data", "caddy", "pki", "authorities", "local")
+	if err := os.MkdirAll(old, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	for _, f := range []string{"root.crt", "root.key"} {
+		b, err := os.ReadFile(filepath.Join("testdata", "caddy-root", f))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(old, f), b, 0o600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	data := t.TempDir()
+	if _, ok := importOldCaddyCA(data, []string{parent}); !ok {
+		t.Fatal("old Caddy CA not imported")
+	}
+	ca, created, err := loadOrCreateCA(data)
+	if err != nil || created {
+		t.Fatalf("load imported: %v created=%v", err, created)
+	}
+	if !strings.HasPrefix(ca.cert.Subject.CommonName, "Caddy Local Authority") {
+		t.Fatalf("unexpected CA %q", ca.cert.Subject.CommonName)
+	}
+	// leaves signed directly by the imported root verify against it
+	pool := x509.NewCertPool()
+	pool.AddCert(ca.cert)
+	leaf, err := ca.leafFor("192.168.2.1")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := leaf.Leaf.Verify(x509.VerifyOptions{DNSName: "192.168.2.1", Roots: pool}); err != nil {
+		t.Fatal(err)
+	}
+	// nothing to import → no-op
+	if _, ok := importOldCaddyCA(t.TempDir(), []string{t.TempDir()}); ok {
+		t.Fatal("import from empty dir")
+	}
+}

@@ -33,6 +33,7 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
   <h1>🚗 Window <b>Blaster</b></h1>
   <p class="muted" style="margin:0">Einmalige Einrichtung – danach spielst du ohne Mac und ohne Internet.</p>
 
+  <div class="warn" id="notChrome" hidden>⚠️ Bitte diese Seite in <b>Chrome</b> öffnen – andere Browser (Firefox, Samsung Internet, Apps wie WhatsApp) können das Spiel nicht als App mit Offline-Speicher installieren.</div>
   <div class="warn" id="notSafari" hidden>⚠️ Bitte diese Seite in <b>Safari</b> öffnen (nicht Chrome/Firefox auf dem iPhone) – nur Safari kann das Zertifikat installieren. Tipp: Adresse kopieren und in Safari einfügen.</div>
 
   <div class="card" id="trustCard">
@@ -46,15 +47,16 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
     <div class="card">
       <h2><span class="num">1</span> Zertifikat laden</h2>
       <a class="btn" href="/zertifikat.mobileconfig">📄 Profil laden</a>
-      <p class="small muted">Es erscheint „Diese Website versucht, ein Konfigurationsprofil zu laden“ → <b class="ui">Zulassen</b> → <b class="ui">Schließen</b>.</p>
+      <p class="small muted">Es erscheint „Diese Website versucht, ein Konfigurationsprofil zu laden“ → <b class="ui">Zulassen</b> → <b class="ui">Schließen</b>.<br>Mit Apple Watch gekoppelt? Bei der Frage nach dem Gerät <b class="ui">iPhone</b> wählen.</p>
     </div>
     <div class="card">
       <h2><span class="num">2</span> Profil installieren</h2>
       <ol>
         <li>App <b>Einstellungen</b> öffnen.</li>
         <li>Ganz oben auf <b class="ui">Profil geladen</b> tippen.<br><span class="small muted">Nicht da? <b>Allgemein → VPN und Geräteverwaltung → „Window Blaster – Mac-Zertifikat“</b>.</span></li>
-        <li><b class="ui">Installieren</b> → Code eingeben → <b class="ui">Installieren</b> → <b class="ui">Fertig</b>.</li>
+        <li><b class="ui">Installieren</b> (oben rechts) → Code eingeben → <b class="ui">Installieren</b> (oben rechts) → nochmal <b class="ui">Installieren</b> (unten) → <b class="ui">Fertig</b>.</li>
       </ol>
+      <p class="small muted">Das rote „Nicht überprüft“ ist normal – das Zertifikat kommt von deinem eigenen Mac. Bitte innerhalb von 8 Minuten installieren, sonst verschwindet „Profil geladen“ wieder (dann einfach Schritt 1 wiederholen).</p>
     </div>
     <div class="card">
       <h2><span class="num">3</span> Dem Zertifikat vertrauen</h2>
@@ -67,7 +69,7 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
     <div class="card">
       <h2><span class="num">4</span> Als App speichern – für offline</h2>
       <ol>
-        <li>Im Spiel in Safari unten auf <b class="ui">Teilen ⬆︎</b> tippen → <b class="ui">Zum Home-Bildschirm</b> → <b class="ui">Hinzufügen</b>.</li>
+        <li>Im Spiel in Safari auf <b class="ui">Teilen ⬆︎</b> tippen (bei iOS 26 erst <b class="ui">•••</b> unten rechts, dann <b class="ui">Teilen</b>) → <b class="ui">Zum Home-Bildschirm</b> → „Als Web-App öffnen“ eingeschaltet lassen → <b class="ui">Hinzufügen</b>.</li>
         <li>Das Spiel <b>über das neue Symbol auf dem Home-Bildschirm</b> öffnen (wichtig – die App hat ihren eigenen Speicher).</li>
         <li>Warten, bis auf dem Startbildschirm <b>„Offline bereit ✓“</b> steht (lädt ca. 30 MB vom Mac).</li>
       </ol>
@@ -85,12 +87,12 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
     <div class="card">
       <h2><span class="num">2</span> Zertifikat installieren</h2>
       <ol>
-        <li>App <b>Einstellungen</b> öffnen, oben ins Suchfeld <b>„Zertifikat“</b> eingeben.</li>
-        <li><b class="ui">CA-Zertifikat</b> wählen (heißt manchmal „Zertifikat installieren“ → „CA-Zertifikat“) → <b class="ui">Trotzdem installieren</b> → PIN.</li>
+        <li>App <b>Einstellungen</b> öffnen, oben ins Suchfeld <b>„CA-Zertifikat“</b> eingeben und den Treffer antippen.</li>
+        <li><b class="ui">Trotzdem installieren</b> → PIN/Muster eingeben.<br><span class="small muted">Ohne Bildschirmsperre verlangt Android jetzt, eine PIN einzurichten – das ist Pflicht für eigene Zertifikate.</span></li>
         <li>Die Datei <b>WindowBlaster-Zertifikat.crt</b> aus „Downloads“ antippen.</li>
         <li>Zurück zu Chrome, zu dieser Seite. Oben wird es grün, dann <b>„Spiel öffnen“</b>.</li>
       </ol>
-      <p class="small muted">Samsung: Einstellungen → Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Von Gerätespeicher installieren → CA-Zertifikat.</p>
+      <p class="small muted">Suche findet nichts? Pixel: Einstellungen → Sicherheit & Datenschutz → Weitere Sicherheitseinstellungen → Verschlüsselung & Anmeldedaten → Zertifikat installieren → CA-Zertifikat. Samsung: Einstellungen → Sicherheit und Datenschutz → Weitere Sicherheitseinstellungen → Von Gerätespeicher installieren → CA-Zertifikat.</p>
     </div>
     <div class="card">
       <h2><span class="num">3</span> Als App installieren – für offline</h2>
@@ -131,6 +133,7 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
 <script>
 (function () {
   var HTTPS_PORT = {{.HTTPSPort}};
+  var LOCAL_NAME = {{.LocalName}};
   var host = location.hostname;
   var game = 'https://' + host + ':' + HTTPS_PORT + '/';
   var ua = navigator.userAgent;
@@ -138,24 +141,42 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
   var isAndroid = /Android/.test(ua);
   document.getElementById(isIOS ? 'ios' : isAndroid ? 'android' : 'other').hidden = false;
   if (isIOS && /CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua)) document.getElementById('notSafari').hidden = false;
+  if (isAndroid && (/Firefox\/|SamsungBrowser|; wv\)|FBAN|FBAV|Instagram|WhatsApp/.test(ua) || !/Chrome\//.test(ua))) document.getElementById('notChrome').hidden = false;
   document.getElementById('playBtn').href = game;
   document.getElementById('quickBtn').href = game;
   var trusted = false;
-  function setTrusted() {
+  function setTrusted(url) {
     if (trusted) return;
     trusted = true;
+    game = url;
+    document.getElementById('playBtn').href = url;
     document.getElementById('statusWait').hidden = true;
     document.getElementById('statusOk').hidden = false;
     document.getElementById('playBtn').hidden = false;
   }
+  // true if https://<name>:port/ answers with a certificate the phone trusts
+  function probe(name) {
+    return new Promise(function (resolve) {
+      var url = 'https://' + name + ':' + HTTPS_PORT + '/';
+      var ctl = typeof AbortController === 'function' ? new AbortController() : null;
+      var t = setTimeout(function () { if (ctl) ctl.abort(); resolve(null); }, 4000);
+      fetch(url + 'wb-status', { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
+        .then(function (r) { return r.json(); })
+        .then(function (s) { clearTimeout(t); resolve(s && s.ok ? url : null); })
+        .catch(function () { clearTimeout(t); resolve(null); });
+    });
+  }
+  var checking = false;
   function check() {
-    if (trusted) return;
-    var ctl = typeof AbortController === 'function' ? new AbortController() : null;
-    var t = setTimeout(function () { if (ctl) ctl.abort(); }, 4000);
-    fetch(game + 'wb-status', { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
-      .then(function (r) { return r.json(); })
-      .then(function (s) { clearTimeout(t); if (s && s.ok) setTrusted(); })
-      .catch(function () { clearTimeout(t); });
+    if (trusted || checking) return;
+    checking = true;
+    // Prefer the Mac's Bonjour name on iPhone: the game keeps the same address (and with it the
+    // saved progress and the installed app) even when the Wi-Fi hands the Mac a new IP.
+    var names = isIOS && LOCAL_NAME && LOCAL_NAME !== host ? [LOCAL_NAME, host] : [host];
+    Promise.all(names.map(probe)).then(function (urls) {
+      checking = false;
+      for (var i = 0; i < urls.length; i++) if (urls[i]) return setTrusted(urls[i]);
+    });
   }
   check();
   setInterval(check, 2500);

@@ -51,16 +51,20 @@ writeFileSync(join(pkg, 'ANLEITUNG.html'), guide);
 writeFileSync(join(pkg, 'bin', 'LIZENZEN.txt'), `Window Blaster Server ${version} – enthält rsc.io/qr (BSD-3-Clause) und die Go-Standardbibliothek (BSD-3-Clause).\nMediaPipe Tasks Vision (Apache-2.0) und EfficientDet-Lite0 (Apache-2.0) im Ordner app.\n`);
 writeFileSync(join(pkg, 'VERSION.txt'), `Window Blaster ${version}\nGebaut: ${new Date().toISOString()}\n`);
 
-// 3) source: git-tracked files; skip the 7 MB model copy (same file as app/models)
-const files = execSync('git ls-files', { cwd: root, encoding: 'utf8' }).split('\n').filter(Boolean);
+// 3) source as ONE nested quelltext.zip (no second, confusing start script in the folder);
+//    tracked + new-but-not-ignored files, minus the 7 MB model copy (same file as app/models)
+const files = execSync('git ls-files --cached --others --exclude-standard', { cwd: root, encoding: 'utf8' }).split('\n').filter(Boolean);
+const src = join(stage, 'quelltext');
 for (const f of files) {
-  if (f.endsWith('.tflite')) continue;
-  const dst = join(pkg, 'quelltext', f);
+  if (f.endsWith('.tflite') || f.startsWith('launcher/testdata/') || !existsSync(join(root, f))) continue;
+  const dst = join(src, f);
   mkdirSync(dirname(dst), { recursive: true });
   cpSync(join(root, f), dst);
 }
-mkdirSync(join(pkg, 'quelltext', 'public', 'models'), { recursive: true });
-writeFileSync(join(pkg, 'quelltext', 'public', 'models', 'HINWEIS.txt'), 'Das Modell efficientdet_lite0.tflite liegt im Ordner app/models – zum Entwickeln nach public/models/ kopieren.\n');
+mkdirSync(join(src, 'public', 'models'), { recursive: true });
+writeFileSync(join(src, 'public', 'models', 'HINWEIS.txt'), 'Das Modell efficientdet_lite0.tflite liegt im Ordner app/models des Spiels – zum Entwickeln nach public/models/ kopieren.\n');
+execSync(`zip -qr -X "${join(pkg, 'quelltext.zip')}" .`, { cwd: src, stdio: 'inherit' });
+rmSync(src, { recursive: true, force: true });
 
 // 4) zip (keeps Unix permissions; no macOS resource forks)
 rmSync(out, { force: true });

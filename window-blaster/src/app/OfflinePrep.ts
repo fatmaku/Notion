@@ -20,7 +20,8 @@ export class OfflinePrep {
   missingBytes = 0;
   error = '';
   private assets: AssetEntry[] = [];
-  private readonly cacheName = `wb-${__APP_VERSION__}`;
+  /** Must equal the service worker's cache name (src/sw.ts). */
+  private readonly cacheName = `wb-${__APP_VERSION__}-${__BUILD_ID__}`;
 
   constructor(private readonly base: string) {}
 
@@ -47,12 +48,13 @@ export class OfflinePrep {
       const res = await fetch(this.url('offline-assets.json'), { cache: 'no-cache' });
       if (!res.ok) throw new Error('no manifest');
       this.assets = ((await res.json()) as { files: AssetEntry[] }).files;
-      const cache = await caches.open(this.cacheName);
       let missing = 0;
       let total = 0;
       for (const a of this.assets) {
         total += a.size;
-        if (!(await cache.match(this.url(a.path)))) missing += a.size;
+        // any Window Blaster cache counts: right after an update the service worker may still be
+        // copying the offline data from the previous version's cache into the new one
+        if (!(await caches.match(this.url(a.path)))) missing += a.size;
       }
       this.totalBytes = total;
       this.missingBytes = missing;
@@ -77,7 +79,7 @@ export class OfflinePrep {
       const total = this.totalBytes || 1;
       for (const a of this.assets) {
         const u = this.url(a.path);
-        if (await cache.match(u)) {
+        if (await caches.match(u)) {
           done += a.size;
           this.progress = done / total;
           this.events.emit('change', this.state);

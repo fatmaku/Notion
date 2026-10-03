@@ -266,8 +266,10 @@ type qrLink struct {
 }
 
 type pageData struct {
-	Version     string
-	Host        string
+	Version string
+	Host    string
+	// LocalName is the Mac's Bonjour name (name.local): a game address that survives DHCP changes.
+	LocalName   string
 	HTTPPort    int
 	HTTPSPort   int
 	Addrs       []localAddr
@@ -282,6 +284,7 @@ func (s *server) data() pageData {
 	d := pageData{
 		Version:     version,
 		Host:        shortHostname(),
+		LocalName:   strings.ToLower(shortHostname()) + ".local",
 		HTTPPort:    s.httpPort,
 		HTTPSPort:   s.httpsPort,
 		Addrs:       localIPv4s(),
