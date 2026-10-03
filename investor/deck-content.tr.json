@@ -1,129 +1,638 @@
 {
   "lang": "tr",
-  "file": "Portfolio_Investor_Deck_TR.pptx",
-  "deckTitle": "Tek ses, üç ürün – Portföy yatırımı",
-  "footer": "GİZLİ  •  PORTFÖY YATIRIMI  •  EKİM 2026",
+  "file": "LiveFX_Investor_Deck_TR.pptx",
+  "deckTitle": "LiveFX – Yatırımcı Sunumu (Pre-Seed, Ekim 2026)",
+  "footer": "GİZLİ  ·  PRE-SEED  ·  EKİM 2026",
   "proposal": "Öneri – lütfen onaylayın",
-  "sections": ["Giriş", "Portföy", "Teklif", "Kapanış"],
+  "sections": [
+    "Fırsat",
+    "Ürün ve vizyon",
+    "Pazar ve model",
+    "Plan ve tur",
+    "Ekip"
+  ],
   "s1": {
-    "kicker": "PORTFÖY YATIRIMI  ·  EKİM 2026",
-    "title": "Tek ses,\nüç ürün",
-    "sub": "Aybal · LiveFX · “Benim Nörofarklı Pusulam“ kitap serisi – Türkçe, Almanca ve İngilizce olarak aile, eğitim ve içerik üreticileri için ses teknolojisi",
-    "askLabel": "TOPLAM YATIRIM",
+    "kicker": "PRE-SEED YATIRIM FIRSATI",
+    "title": "LiveFX:\nDinleyen\ncanlı yayınlar",
+    "sub": "Yayıncının sesi bir saniyeden kısa sürede meme’e, sese ve sahneye dönüşür – yarın da konuşulan her şeyin görüntüsüne.",
+    "askLabel": "TUR",
     "ask": "500.000 €",
-    "people": [["KURUCU & MUCİT (AYBAL)", "Tuncay Sancak"], ["YATIRIMCI İLİŞKİLERİ", "Gönül Demet"]],
-    "imgLabels": ["Aybal", "LiveFX"]
-  },
-  "s2": {
-    "kicker": "PORTFÖY / TEZ",
-    "title": "Tek ses, üç ürün",
-    "pillars": [
-      ["Ses teknolojisi", "Doğal ve kişisel seslerle sesli okuma (Aybal) ve konuşmadan bir saniyenin altında canlı efekt (LiveFX)."],
-      ["Üç dil", "Baştan itibaren Türkçe, Almanca, İngilizce: Aybal'da 3 arayüz ve 13 ses dili, LiveFX'te DE/TR/EN otomatik dil tanıma."],
-      ["Aile · Eğitim · Yayıncılar", "Tek kitle, üç giriş noktası: aileler okur (Aybal), yayıncılar ve öğretmenler canlı yayın yapar (LiveFX), çocuklar kendi hikâyeleriyle öğrenir (kitap serisi)."]
+    "askSub": "LiveFX ve tüm LiveFX hatları için · 24 ay",
+    "people": [
+      [
+        "KURUCU & MUCİT",
+        "Tuncay Sancak"
+      ],
+      [
+        "YATIRIMCI İLİŞKİLERİ",
+        "Gönül Demet"
+      ]
     ],
-    "bottom": "Tek yatırım, ortak ses ve içerik altyapısı, üç gelir kanalı."
-  },
-  "s3": {
-    "kicker": "PORTFÖY / GENEL BAKIŞ",
-    "title": "Portföye genel bakış",
-    "cards": [
-      {"tag": "AYBAL", "what": "Sesle ailece okuma", "status": "Platform hazır · Kapalı beta 12.10.2026 · Almanya lansmanı 20.11.2026", "nums": [["1.779", "otomatik test"], ["13", "ses dili"], ["101 mn", "hedef pazarda aile"]], "src": "Kaynak: aybal-show/Aybal_Investor_Deck.pptx"},
-      {"tag": "LIVEFX", "what": "Sesten canlı efekte", "status": "Sürüm 2.0 çalışıyor · henüz gelir yok · Türk topluluğunda lansman 4Ç 2026", "nums": [["238", "tetikleyici, 5 paket"], ["13", "animasyonlu sahne"], ["240+", "otomatik test"]], "src": "Kaynak: live-fx/business/BUSINESSPLAN.md, PITCH-DECK.md"},
-      {"tag": "KİTAP SERİSİ", "what": "Nöroçeşitlilik üzerine içerik", "status": "TR/DE/EN 5 kitap · 3 dilde fragmanlar · Gençlik serisi hazırlanıyor", "nums": [["5", "kitap"], ["3", "dil"], ["4", "gençlik kitabı"]], "src": "Kaynak: deniz-trailer/, deniz-teen/books.js"}
+    "imgLabels": [
+      "LiveFX 2.0",
+      "Vizyon"
     ]
   },
+  "s2": {
+    "kicker": "LIVEFX / YATIRIM TEZİ",
+    "title": "Canlı yayında tetikleyici olarak sese odaklı bir yatırım",
+    "cards": [
+      [
+        "Hazır ve test edildi",
+        "Sürüm 2.0 çalışıyor: 238 tetikleyici, 13 sahne, 240’tan fazla otomatik test."
+      ],
+      [
+        "Boş bir alan",
+        "Yaygın hiçbir araç yayıncının söylediğine tepki vermiyor."
+      ],
+      [
+        "Para yayında",
+        "Hediyeler yayıncı gelirinin ≈ %50’si [Kaynak 5, 6]."
+      ],
+      [
+        "Hesaplamak değil çizmek",
+        "Sahneler tarayıcıda: video yapay zekâsından 240 ile 10.000 kattan fazla ucuz."
+      ],
+      [
+        "Tek motor, dört hat",
+        "Anlatı Filmi, Kelime-Resim, Mekânlar, Studio – ikinci teknoloji yığını yok."
+      ]
+    ],
+    "bottom": "500.000 € ürünü pazara taşır, iki vizyon hattını prototipten ürüne çevirir."
+  },
+  "s3": {
+    "kicker": "LIVEFX / PAZARDAKİ BOŞLUK",
+    "title": "Kısa videolar kurgulanır. Canlı yayın ham kalır",
+    "axisX": [
+      "manuel",
+      "otomatik"
+    ],
+    "axisY": [
+      "İzleyici\nkontrollü",
+      "Ses\nkontrollü"
+    ],
+    "cells": [
+      [
+        "Platform efektleri, çıkartmalar",
+        "elle seçilir"
+      ],
+      [
+        "Uyarılar (Streamlabs, StreamElements)",
+        "takibe, bağışa tepki verir"
+      ],
+      [
+        "Voicemod, Stream Deck",
+        "eller gerekir"
+      ],
+      [
+        "LiveFX",
+        "sese tepki verir – bu alanda tek"
+      ]
+    ],
+    "stats": [
+      [
+        "~%50",
+        "Hediyelerin canlı yayıncı gelirindeki payı [Kaynak 5, 6]"
+      ],
+      [
+        "500–3.000 USD",
+        "20–100 bin takipçide aylık hediye geliri [Kaynak 5]"
+      ],
+      [
+        "100 milyon+",
+        "yayıncı 2025’te yalnızca GD Asya, Kafkasya ve Orta Asya’da TikTok’ta canlı yayın yaptı, +%77 [Kaynak 2]"
+      ]
+    ],
+    "src": "Kaynaklar: QUELLEN.tr.md · 2×2, PITCH-DECK.tr.md slayt 10’a göre"
+  },
   "s4": {
-    "kicker": "PORTFÖY / AYBAL",
-    "title": "Aybal: ailece okumanın sesi",
-    "body": "Aileler PDF, EPUB, Word dosyası, metin ya da kitap sayfası fotoğrafı yükler – Aybal sesli okur ve her kelimeyi vurgular.",
-    "stats": [["7,6 milyar €", "TAM: hedef pazarlarda aile okuma harcaması"], ["1,14 milyar €", "SAM: varsayılan ödeme isteği %15"], ["38 milyon €", "SOM: yön gösterici, tahmin değil"]],
-    "facts": ["Fiyatlar: Plus aylık 9,99 € · Family aylık 24,99 € · web marjı %75–77", "Ölçülen anlaşılırlık: Almanca %98 · Türkçe %97", "Başabaş (senaryo): güçlü senaryo Ağustos 2030 · girişim senaryosu Ekim 2031"],
-    "round": "Kendi turu: 250.000 € pre-seed · değerleme tavanı 1,30 milyon € (pre-money) · planlanan kapanış Mart 2027",
-    "src": "Kaynak: Aybal_Investor_Deck.pptx, slayt 3–12"
+    "kicker": "LIVEFX / KANITLANMIŞ ÜRÜN",
+    "title": "Sesten efekte bir saniyeden kısa sürede",
+    "body": "Yayıncı „yok artık“, „helal olsun“ ya da „alkış“ der – meme belirir, ses çalar. Sesli okuduğunda katman animasyonlu bir sahneye dönüşür.",
+    "stats": [
+      [
+        "238",
+        "tetikleyici, 5 paket"
+      ],
+      [
+        "13 · 12",
+        "sahne · atmosfer döngüsü"
+      ],
+      [
+        "38",
+        "lisanssız ses"
+      ],
+      [
+        "3",
+        "dil, otomatik tanıma"
+      ],
+      [
+        "< 1 sn",
+        "ses → efekt"
+      ],
+      [
+        "240+",
+        "otomatik test"
+      ]
+    ],
+    "features": "Hikâye modu · izleyici tetikleyicileri (sohbet, hediye) · telefondan kumanda · çevrimdışı · açık API · OBS/Streamlabs → TikTok LIVE, Instagram, YouTube, Twitch",
+    "status": "Sürüm 2.0  →  TR lansmanı 4Ç 2026  →  Pro abonelik 1Ç 2027",
+    "src": "Kaynak: BUSINESSPLAN.tr.md §3; testler: PITCH-DECK.tr.md slayt 9 · henüz gelir yok"
   },
   "s5": {
-    "kicker": "PORTFÖY / LIVEFX",
-    "title": "LiveFX: dinleyen canlı yayınlar",
-    "body": "Yayıncı konuşur – bir saniyenin altında yayında meme, ses ya da animasyonlu bir sahne belirir. Sesli okuma için hikâye modu, sohbet ve hediyeyle izleyici tetikleyicileri.",
-    "stats": [["97–157 milyar USD", "2026 dünya canlı yayın pazarı"], ["1–3 milyon", "TR/DE/EN dil alanında yayıncı (SAM, tahmin)"], ["5.000–15.000", "3. yılda ücretli kullanıcı (SOM, tahmin)"]],
-    "facts": ["Fiyatlar: Ücretsiz · Pro aylık 9,99 € ya da yıllık 79 € · paketler 2,99–4,99 €", "Baz senaryo (tahmin): 1.–3. yıl gelir 51 / 336 / 1.039 bin €", "İş planına göre ihtiyaç: 18–24 ay için 250–350 bin € seed"],
-    "src": "Kaynak: live-fx/business/BUSINESSPLAN.md (bölüm 1, 6, 9, 11), pazar verileri orada [Kaynak 1, 2]"
+    "kicker": "LIVEFX / VİZYON 2027–2029",
+    "title": "Sen anlat – sahne oluşsun",
+    "lines": [
+      [
+        "A",
+        "Anlatı Filmi",
+        "Generative Scene Engine: Anlatılan cümlelerden canlı ve kesintisiz bir animasyon filmi oluşur.",
+        "Prototip"
+      ],
+      [
+        "B",
+        "Kelime-Resim",
+        "Dil öğrenme: kelime → resim + hedef dil + telaffuz; okuma desteği, tekrar etme.",
+        "Prototip"
+      ],
+      [
+        "C",
+        "Mekânlar",
+        "Aynı zaman çizelgesi sahnede, projeksiyonda, telefonda AR’da, VR’da ve gözlükte.",
+        "Sahne bugün"
+      ],
+      [
+        "D",
+        "Studio",
+        "Yayından öne çıkan anlar, hazır videoların otomatik kurgusu, yerel dışa aktarım.",
+        "Vizyon"
+      ]
+    ],
+    "bottom": "Gelire yakınlığa göre sıra: önce Kelime-Resim ve hikâye motoru – XR vitrin olarak kalır.",
+    "src": "Kaynak: VISION.tr.md §1, BUSINESSPLAN.tr.md §15 · Görseller: vizyon fragmanı"
   },
   "s6": {
-    "kicker": "PORTFÖY / İÇERİK",
-    "title": "Üç dilde tek kitap serisi",
-    "series": ["Benim Nörofarklı Pusulam", "Mein neurodiverser Kompass", "My Neurodivergent Compass"],
-    "books": ["Benim Nörofarklı Pusulam", "Deniz ve Bedeninin Gizli Mesajları", "Deniz Okulda Kendi Yolunu Buluyor", "Deniz ve Arkadaşlık Pusulası", "Deniz ve Değişiklikler Adası"],
-    "extra": "Hediye kitap “İyi ki Varsın / Gut, dass es dich gibt / Good That You Exist“ · 4 Deniz kitabıyla gençlik serisi",
-    "trailers": "Hazır: 5 kitap fragmanı (TR), DE/TR/EN seri videoları, hediye kitap için 3 dilde fragman",
-    "feeds": [["→ Aybal", "Üç dilde sesli okuma kitapları"], ["→ LiveFX", "Hikâye modu, dünya paketleri, ilk yayıncı pilotu"]],
-    "caption": "LiveFX anlatı filmi (vizyon fragmanı)",
-    "src": "Kaynak: deniz-trailer/ dosya adları, deniz-teen/books.js"
+    "kicker": "LIVEFX / PROTOTİPLER",
+    "title": "İki hat şimdiden tarayıcıda çalışıyor",
+    "caps": [
+      [
+        "A · Anlatı Filmi",
+        "live-story.html: 22 karakter, 10 mekân, hava, duygu · 60 fps"
+      ],
+      [
+        "B · Kelime-Resim",
+        "sprachlernen.html: 85 kelime DE/TR/EN, hece, telaffuz"
+      ]
+    ],
+    "costHead": "Üretmek yerine çizmek",
+    "cost": [
+      [
+        "Video yapay zekâsı",
+        "180–2.700 USD",
+        "saat başına [Kaynak 24, 25]"
+      ],
+      [
+        "LiveFX",
+        "0 € – 0,75 USD",
+        "saat başına (proje ölçümü)"
+      ]
+    ],
+    "costNote": "240 ile 10.000 kattan fazla ucuz – ve canlı çalışan tek çözüm.",
+    "src": "Kaynak: prototypes/README.md, VISION.tr.md §2 · prototiplerin ekran görüntüleri"
   },
   "s7": {
-    "kicker": "PORTFÖY / SİNERJİLER",
-    "title": "Sinerjiler: tek altyapı, tek kitle",
-    "items": [
-      ["Konuşma ve ses altyapısı", "Tanıma, seslendirme ve kelime zamanlaması iki ürünü de taşır: kelime vurgulu sesli okuma (Aybal), sahneler ve telaffuz (LiveFX)."],
-      ["Ortak içerik", "Kitap serisi Aybal'a sesli okuma kitapları, LiveFX hikâye moduna hikâye paketleri sağlar."],
-      ["DE/TR/EN pazarları", "İkisi de Türk-Alman topluluğundan başlar: Aybal Almanya lansmanıyla, LiveFX Türk yayıncılarla."],
-      ["Çapraz satış", "Sesli okuma yayınları aileleri Aybal'a taşır; Aybal aileleri LiveFX WortBild'in (dil öğrenme) hedef kitlesidir."]
+    "kicker": "LIVEFX / PAZAR",
+    "title": "Net bir giriş noktası olan büyüme pazarı",
+    "rings": [
+      [
+        "TAM",
+        "10–20 milyon",
+        "gelir elde eden canlı yayıncı"
+      ],
+      [
+        "SAM",
+        "1–3 milyon",
+        "TR/DE/EN"
+      ],
+      [
+        "SOM",
+        "5–15 bin",
+        "3. yıl ücretli"
+      ]
     ],
-    "note": "Sinerjiler varsayımdır, henüz ölçülmedi.",
-    "caption": "LiveFX WortBild (vizyon fragmanı)"
+    "ringNote": "Aşağıdan yukarı, tahmin (BUSINESSPLAN.tr.md §6)",
+    "coreHead": "Ana pazar: canlı yayın",
+    "core": [
+      [
+        "97–157 milyar USD",
+        "Canlı yayın 2026 [K 1, 2]"
+      ],
+      [
+        "216–260 milyar USD",
+        "İçerik üreticisi ekonomisi 2026 [K 3, 4]"
+      ],
+      [
+        "~%14",
+        "Canlı yayın payı ≈ 36 milyar USD [K 3]"
+      ]
+    ],
+    "adjHead": "Komşu pazarlar (vizyon)",
+    "adj": [
+      [
+        "3,67 milyar USD",
+        "Yapay zekâ ile video 2026 [K 23]"
+      ],
+      [
+        "2,68 milyar USD",
+        "Video kurgu 2026 [K 51]"
+      ],
+      [
+        "1,54 milyar USD",
+        "Dil öğrenme uygulamaları 2025 [K 33]"
+      ],
+      [
+        "374 milyon €",
+        "Almanya sesli kitap 2025 [K 19]"
+      ],
+      [
+        "5,1 milyar USD",
+        "Akıllı gözlük 2026 [K 45]"
+      ]
+    ],
+    "src": "[K n] = QUELLEN.tr.md’deki [Kaynak n] · komşu pazarlar SOM’a dahil değil"
   },
   "s8": {
-    "kicker": "TEKLİF / YATIRIM TURU",
-    "title": "Üç proje için 500.000 €",
-    "chartTitle": "Dağılım (öneri)",
-    "split": [["Aybal", 250000, "250.000 €", "Aybal sunumundaki gibi"], ["LiveFX", 200000, "200.000 €", "İş planındaki seed aralığının bir kısmı"], ["Kitap serisi / içerik", 50000, "50.000 €", "Sesli sürümler, baskılar, haklar"]],
-    "total": "500.000 €",
-    "note": "Aybal koşulları kendi sunumuna göre: değerleme tavanı 1,30 milyon € (pre-money), tavanda ~%16, planlanan kapanış Mart 2027. LiveFX ve içerik için koşullar: [açık]."
+    "kicker": "LIVEFX / İŞ MODELİ",
+    "title": "Yayıncılar için freemium, kurumlar için lisans",
+    "tiers": [
+      [
+        "Free",
+        "0 €",
+        "Temel işlev, standart paketler, telefondan kumanda"
+      ],
+      [
+        "Pro",
+        "Aylık 9,99 €",
+        "Yapay zekâ ile anlama, tüm sahneler, izleyici tetikleyicileri; yıllık 79 €"
+      ],
+      [
+        "Pro+ (vizyon)",
+        "Aylık 14,99 €",
+        "Yapay zekâ sahneleri, otomatik kurgu, MP4"
+      ],
+      [
+        "Kelime-Resim Aile",
+        "Aylık 4,99 €",
+        "Dil öğrenme ve okuma desteği"
+      ],
+      [
+        "Paketler",
+        "2,99–4,99 €",
+        "Meme, hikâye, dünya, kelime paketleri; pazar yeri %70/%30"
+      ],
+      [
+        "Okul lisansı",
+        "Yılda 300–800 €",
+        "Kurs 49 €/öğretmen · etkinlik · yayınevi · ajans · B2B/SDK"
+      ]
+    ],
+    "anchorHead": "Fiyat çıpaları",
+    "anchors": [
+      "Streamlabs Ultra aylık 27 USD [K 11, 12]",
+      "StreamYard ~35 · Restream ~16 USD [K 12]",
+      "Voicemod aylık ~10 USD [K 13]",
+      "ANTON okul lisansı yılda 250–700 € [K 41]"
+    ],
+    "unit": "Yerel yazılım: marjinal maliyet sıfıra yakın. Yapay zekâ yalnızca Pro’da: yayın saati başına 0,25–0,75 USD.",
+    "src": "Kaynak: BUSINESSPLAN.tr.md §9, §15.6 · vizyon ve lisans fiyatları tahmindir"
   },
   "s9": {
-    "kicker": "TEKLİF / FON KULLANIMI",
-    "title": "Projelere göre fon kullanımı",
-    "aybalHead": "Aybal · 250.000 € (Aybal sunumuna göre)",
-    "aybalBars": [["Ekip", 50, "125.000 €"], ["Pazarlama", 25, "62.500 €"], ["AB ses altyapısı + mağaza uygulaması", 15, "37.500 €"], ["Hukuk / güven", 10, "25.000 €"]],
-    "livefxHead": "LiveFX · 200.000 €",
-    "livefxText": "1. yılın baz maliyetlerini (165 bin €) ve bir tamponu karşılar. İş planı 250–350 bin € öngörür; kalanı gelir, teşvik ya da sonraki turla.",
-    "livefxItems": ["Mobil geliştirici (ilk işe alım)", "Yayıncı ortaklık programı, pazarlama", "Platform ve eğitim pilotları"],
-    "contentHead": "Kitap serisi · 50.000 €",
-    "contentItems": ["Aybal için DE/TR/EN sesli sürümler", "Editörlük, çeviri, baskılar", "Haklar, lisanslar, ISBN"],
-    "src": "Kaynaklar: Aybal_Investor_Deck.pptx slayt 12; BUSINESSPLAN.md bölüm 11.3–11.4"
+    "kicker": "LIVEFX / FARKLILAŞMA VE RİSKLER",
+    "title": "Her zaman orada olan tek tetikleyici: ses",
+    "cols": [
+      "",
+      "LiveFX",
+      "Uyarılar",
+      "Voicemod",
+      "Platform",
+      "Kurgu"
+    ],
+    "rows": [
+      [
+        "Sesle kontrol",
+        "fnnnn"
+      ],
+      [
+        "Türkçe / 3 dil",
+        "fnnpf"
+      ],
+      [
+        "Hikâye/sahne modu",
+        "fnnnn"
+      ],
+      [
+        "Yerel / çevrimdışı",
+        "fnfpp"
+      ],
+      [
+        "Açık API",
+        "fpnnn"
+      ],
+      [
+        "Canlı (sonradan değil)",
+        "ffffn"
+      ]
+    ],
+    "legend": [
+      "evet",
+      "kısmen",
+      "hayır"
+    ],
+    "riskHead": "Riskler – açıkça",
+    "risks": [
+      [
+        "Talep kanıtlanmadı",
+        "Kohortlu kapılar, bütçe onaydan sonra"
+      ],
+      [
+        "Platform kopyalar",
+        "Erken pilot, dil paketleri hendek olarak"
+      ],
+      [
+        "OBS’siz telefon yayıncıları",
+        "Önce mobil geliştirici"
+      ],
+      [
+        "Okul/aile veri koruması",
+        "Yerel, hesapsız, cihazda tanıma"
+      ],
+      [
+        "Vizyon dağıtır",
+        "%20 bütçe tavanı, XR yalnızca vitrin"
+      ]
+    ],
+    "src": "Kaynak: BUSINESSPLAN.tr.md §7, §13"
   },
   "s10": {
-    "kicker": "TEKLİF / KİLOMETRE TAŞLARI",
-    "title": "24 ay: projelere göre kilometre taşları",
-    "quarters": ["4Ç 26", "1Ç 27", "2Ç 27", "3Ç 27", "4Ç 27", "1Ç 28", "2Ç 28", "3Ç 28"],
-    "lanes": [
-      {"name": "Aybal", "items": [[0, "Beta (50 aile) · Almanya lansmanı"], [1, "Kapanış Mart 2027"], [2, "Kapı 1: aktivasyon"], [5, "Kapı 2: elde tutma"], [6, "Pazar genişlemesi 2027–28"]]},
-      {"name": "LiveFX", "items": [[0, "TR lansmanı"], [1, "Pro abonelik, DE/EN"], [2, "Mobil uygulama"], [3, "Pro+, platform pilotu"], [4, "Okul lisansı"], [6, "Scene-SDK v1 (2028)"]]},
-      {"name": "Kitap serisi", "items": [[1, "Aybal'da sesli sürümler"], [3, "LiveFX'te yayıncı pilotu"], [5, "Gençlik serisi [Tarih]"]]}
+    "kicker": "LIVEFX / YOL HARİTASI VE PAZARA GİRİŞ",
+    "title": "Başlat. Ücretlendir. Genişlet",
+    "steps": [
+      [
+        "4Ç 2026",
+        "TR lansmanı",
+        "İndirme, 10–20 elçi"
+      ],
+      [
+        "1Ç 2027",
+        "Pro canlı",
+        "DE/EN, Kelime-Resim 300 kelime"
+      ],
+      [
+        "2Ç 2027",
+        "Mobil uygulama",
+        "Anlatı Filmi DE, ajans lisansı"
+      ],
+      [
+        "3Ç 2027",
+        "Platform pilotu",
+        "Pro+, Anlatı Filmi TR/EN"
+      ],
+      [
+        "4Ç 2027",
+        "Okul lisansı",
+        "Zaman çizelgesi editörü, MP4"
+      ],
+      [
+        "2028",
+        "Scene-SDK v1",
+        "SDK pilotu, aile aboneliği"
+      ],
+      [
+        "2029",
+        "Pilot ya da exit",
+        "Anlatı Filmi 2.0, yayınevleri"
+      ]
     ],
-    "note": "Aybal ve LiveFX proje belgelerine göre; kitap serisi: öneri – lütfen onaylayın."
+    "gtm": [
+      [
+        "1 · TR topluluğu",
+        "Kendi yayınlar, paket yayınları"
+      ],
+      [
+        "2 · DE/EN",
+        "Okuma ve eğitim yayınları"
+      ],
+      [
+        "3 · Ortaklar",
+        "Yayıncı programı, ajanslar"
+      ],
+      [
+        "4 · Platform ve eğitim",
+        "8 hafta, 20 yayıncı; kurslar"
+      ]
+    ],
+    "src": "Kaynak: BUSINESSPLAN.tr.md §10, §14.1, §14.2"
   },
   "s11": {
-    "kicker": "TEKLİF / YAPI VE RİSKLER",
-    "title": "Yapı seçenekleri ve riskler",
-    "optHead": "Yapı – tarafsız, hukuki inceleme gerekli",
-    "options": [
-      ["A · Tek holding", "Tek giriş, toplu fikri mülkiyet; buna karşılık tüm parçaların yeniden değerlemesi ve Aybal koşullarının aktarımı."],
-      ["B · Ayrı şirketler (SPV)", "Her proje için ayrı değerleme ve risk, Aybal turu değişmez; buna karşılık daha çok sözleşme ve lisans."],
-      ["C · Hibrit", "Aybal turu planlandığı gibi; LiveFX ve içerik, lisans sözleşmesiyle ikinci bir şirkette."]
+    "kicker": "LIVEFX / FİNANSAL SENARYO",
+    "title": "Baz senaryo: 3. yılda başabaş, vizyonla 2. yılda",
+    "chartTitle": "Baz senaryo, bin € (tahmin)",
+    "years": [
+      "1. yıl 2027",
+      "2. yıl 2028",
+      "3. yıl 2029"
     ],
-    "legal": "Tavsiye değildir – hukuk ve vergi danışmanlığı gereklidir.",
-    "riskHead": "Başlıca riskler",
-    "risks": ["Talep ve elde tutma kanıtlanmadı", "Tüm projelerde kilit kişi riski", "Odak: üç proje, küçük ekip", "Ses, telif hakkı, çocuk verileri", "Platform bağımlılığı, TL kur riski"]
+    "series": [
+      [
+        "Çekirdek gelir",
+        [
+          51,
+          336,
+          1039
+        ]
+      ],
+      [
+        "Vizyon geliri",
+        [
+          27,
+          192,
+          617
+        ]
+      ],
+      [
+        "Toplam maliyet",
+        [
+          195,
+          513,
+          920
+        ]
+      ]
+    ],
+    "results": [
+      [
+        "Çekirdek sonuç",
+        "−114 / −62 / +329 bin €"
+      ],
+      [
+        "Vizyon dahil",
+        "≈ −117 / +15 / +736 bin €"
+      ],
+      [
+        "Temkinli, 3 yıl",
+        "toplam −316 bin €"
+      ]
+    ],
+    "runHead": "Neden 500.000 €?",
+    "run": [
+      [
+        "≈ 22 ay",
+        "Sıfır gelirle pist (250–350 bin €: ≈ 15–18 ay)"
+      ],
+      [
+        "≈ 184 bin €",
+        "Temkinli senaryodan sonra kalan (250 bin € yetmez)"
+      ],
+      [
+        "100 bin €",
+        "2027’de A ve B vizyon hatları için"
+      ]
+    ],
+    "src": "Kaynak: BUSINESSPLAN.tr.md §11.2–11.5 · toplam maliyet = çekirdek + vizyon · senaryodur, öngörü değildir"
   },
   "s12": {
-    "kicker": "KAPANIŞ",
-    "title": "Ekip ve iletişim",
-    "team": [["TS", "Tuncay Sancak", "Kurucu & Mucit · Genel Müdür (Aybal)"], ["GD", "Gönül Demet", "Yatırımcı İlişkileri ve Fon Yaratma (Aybal)"], ["?", "[İsim]", "LiveFX kurucusu · kitap serisinin yazarı"]],
-    "hiring": "Yatırımdan sonra: teknik kurucu ortak ve büyüme (Aybal), mobil geliştirici (LiveFX), topluluk TR/DE",
-    "closing": "Aileler, sınıflar ve canlı yayınlar için tek ses.",
-    "contact": "İletişim: Gönül Demet · [E-posta] · [Telefon]",
-    "disclaimer": "Senaryolar ve ileriye dönük ifadeler tahmin değildir. Yatırım, sermayenin tamamen kaybına yol açabilir."
+    "kicker": "LIVEFX / FON KULLANIMI",
+    "title": "Sermaye önce uygulama kapasitesine",
+    "total": "500 bin €",
+    "totalSub": "24 AY",
+    "split": [
+      [
+        50,
+        "Ürün ve mühendislik ekibi",
+        "250.000 €",
+        "Mobil/web, 13. aydan backend/ML, kurucu kısmen"
+      ],
+      [
+        20,
+        "Vizyon hatları → ürün",
+        "100.000 €",
+        "Önce Kelime-Resim ve hikâye motoru"
+      ],
+      [
+        15,
+        "Pazara giriş ve pilotlar",
+        "75.000 €",
+        "Yayıncı programı, platform, eğitim"
+      ],
+      [
+        10,
+        "Hukuk, marka, veri koruma",
+        "50.000 €",
+        "Marka, GDPR/KVKK, platform onayları"
+      ],
+      [
+        5,
+        "Yedek",
+        "25.000 €",
+        "Tampon"
+      ]
+    ],
+    "note": "BUSINESSPLAN.tr.md §11.3 ve §11.5 maliyet tablolarından türetilmiştir; altyapı ve yapay zekâ API’si Pro gelirlerinden karşılanır."
+  },
+  "s13": {
+    "kicker": "LIVEFX / KİLOMETRE TAŞI KAPILARI",
+    "title": "Kanıt kapıdan geçmeden ölçeklendirme yok",
+    "gates": [
+      [
+        "01",
+        "1Y 2027",
+        "Aktivasyon",
+        [
+          "Pro canlı, mobil geliştirici ekipte",
+          "20 beta yayıncı + 10–20 elçi",
+          "4. hafta elde tutma ≥ %[Sayı]"
+        ]
+      ],
+      [
+        "02",
+        "2Y 2027",
+        "Çekiş",
+        [
+          "20.000 kayıtlı kullanıcı",
+          "≈ 800 ücretli Pro",
+          "1 platform pilotu, 5 okul"
+        ]
+      ],
+      [
+        "03",
+        "1Y 2028",
+        "Elde tutma",
+        [
+          "Free → Pro ≥ %4",
+          "3. ay elde tutma ≥ %[Sayı]",
+          "Kelime-Resim pilotu değerlendirildi"
+        ]
+      ],
+      [
+        "04",
+        "2Y 2028",
+        "Ölçek",
+        [
+          "80.000 kayıtlı kullanıcı",
+          "≈ 3.200 Pro",
+          "B2B 50 bin €, 40 okul",
+          "1 SDK ortağı"
+        ]
+      ],
+      [
+        "05",
+        "2029",
+        "Sonuç",
+        [
+          "3. yılda başabaş yolu",
+          "Sonraki tur ya da platform görüşmesi"
+        ]
+      ]
+    ],
+    "note": "Hedef değerler baz senaryodan (BUSINESSPLAN.tr.md §11.1, §11.5, §14) – henüz ulaşılmadı, tahmin. [Sayı] ilk kohortlardan sonra belirlenir."
+  },
+  "s14": {
+    "kicker": "LIVEFX / EKİP VE TUR",
+    "title": "LiveFX’in arkasındaki ekip",
+    "team": [
+      [
+        "TS",
+        "Tuncay Sancak",
+        "KURUCU & MUCİT · GENEL MÜDÜR",
+        "LiveFX’i icat etti ve finansmandan önce 2.0’a kadar geliştirdi. Mercedes-Benz’de eski proje lideri, yapay zekâ uzmanı ve veri bilimci; ana dili Almanca ve Türkçe. „İyi ki Varsın“ dahil çocuk kitaplarının yazarı."
+      ],
+      [
+        "GD",
+        "Gönül Demet",
+        "YATIRIMCI İLİŞKİLERİ & FON TOPLAMA",
+        "Pre-seed turu için yatırımcılarla iletişimi yürütüyor ve bu belgeleri hazırladı."
+      ]
+    ],
+    "hireHead": "Finansmandan sonra ekip",
+    "hires": [
+      [
+        "Mobil geliştirici",
+        "turla birlikte"
+      ],
+      [
+        "Topluluk ve ortaklar TR/DE",
+        "1–2. yıl"
+      ],
+      [
+        "Grafik/web geliştirici (Canvas)",
+        "1–2. yıl"
+      ],
+      [
+        "Backend/ML",
+        "13. aydan itibaren"
+      ]
+    ],
+    "askLine": "500.000 € pre-seed · Koşullar [açık]",
+    "contact": "Yatırımcı iletişimi: Gönül Demet · [E-posta]",
+    "disclaimer": "Gizli pre-seed belgeleri. Geleceğe yönelik ifadeler önemli risklere tabidir; yatırım, sermayenin tamamen kaybına yol açabilir."
   }
 }

@@ -1,129 +1,637 @@
 {
   "lang": "de",
-  "file": "Portfolio_Investor_Deck_DE.pptx",
-  "deckTitle": "Eine Stimme, drei Produkte – Portfolio-Investment",
-  "footer": "VERTRAULICH  •  PORTFOLIO-INVESTMENT  •  OKTOBER 2026",
+  "file": "LiveFX_Investor_Deck_DE.pptx",
+  "deckTitle": "LiveFX – Investor-Deck (Pre-Seed, Oktober 2026)",
+  "footer": "VERTRAULICH  ·  PRE-SEED  ·  OKTOBER 2026",
   "proposal": "Vorschlag – bitte bestätigen",
-  "sections": ["Einstieg", "Portfolio", "Angebot", "Abschluss"],
+  "sections": [
+    "Gelegenheit",
+    "Produkt & Vision",
+    "Markt & Modell",
+    "Plan & Runde",
+    "Team"
+  ],
   "s1": {
-    "kicker": "PORTFOLIO-INVESTMENT  ·  OKTOBER 2026",
-    "title": "Eine Stimme,\ndrei Produkte",
-    "sub": "Aybal · LiveFX · Buchreihe „Mein neurodiverser Kompass“ – Sprachtechnologie für Familie, Bildung und Creator in Deutsch, Türkisch und Englisch",
-    "askLabel": "GESAMTVOLUMEN",
+    "kicker": "PRE-SEED-INVESTMENTGELEGENHEIT",
+    "title": "LiveFX:\nLive-Streams,\ndie zuhören",
+    "sub": "Die Stimme des Creators wird in unter einer Sekunde zu Meme, Sound und Szene – und morgen zum Bild für alles Gesprochene.",
+    "askLabel": "DIE RUNDE",
     "ask": "500.000 €",
-    "people": [["GRÜNDER & ERFINDER (AYBAL)", "Tuncay Sancak"], ["INVESTOR RELATIONS", "Gönül Demet"]],
-    "imgLabels": ["Aybal", "LiveFX"]
-  },
-  "s2": {
-    "kicker": "PORTFOLIO / THESE",
-    "title": "Eine Stimme, drei Produkte",
-    "pillars": [
-      ["Sprachtechnologie", "Vorlesen mit natürlichen und persönlichen Stimmen (Aybal) und Sprache → Live-Effekt in unter einer Sekunde (LiveFX)."],
-      ["Drei Sprachen", "Deutsch, Türkisch, Englisch von Anfang an: Aybal mit 3 Oberflächen- und 13 Stimmsprachen, LiveFX mit automatischer DE/TR/EN-Erkennung."],
-      ["Familie · Bildung · Creator", "Ein Publikum, drei Zugänge: Familien lesen (Aybal), Creator und Lehrkräfte streamen (LiveFX), Kinder lernen mit eigenen Geschichten (Buchreihe)."]
+    "askSub": "für LiveFX und alle LiveFX-Linien · 24 Monate",
+    "people": [
+      [
+        "GRÜNDER & ERFINDER",
+        "Tuncay Sancak"
+      ],
+      [
+        "INVESTOR RELATIONS",
+        "Gönül Demet"
+      ]
     ],
-    "bottom": "Ein Investment, ein gemeinsamer Stimm- und Content-Stack, drei Erlöspfade."
-  },
-  "s3": {
-    "kicker": "PORTFOLIO / ÜBERBLICK",
-    "title": "Das Portfolio auf einen Blick",
-    "cards": [
-      {"tag": "AYBAL", "what": "Familienvorlesen mit Stimme", "status": "Plattform gebaut · Closed Beta ab 12.10.2026 · Deutschland-Launch 20.11.2026", "nums": [["1.779", "automatisierte Tests"], ["13", "Stimmsprachen"], ["101 Mio.", "Familien im Zielmarkt"]], "src": "Quelle: aybal-show/Aybal_Investor_Deck.pptx"},
-      {"tag": "LIVEFX", "what": "Stimme → Live-Effekt", "status": "Version 2.0 funktionsfähig · noch keine Umsätze · TR-Launch Q4 2026", "nums": [["238", "Trigger in 5 Paketen"], ["13", "animierte Szenen"], ["240+", "automatisierte Tests"]], "src": "Quelle: live-fx/business/BUSINESSPLAN.md, PITCH-DECK.md"},
-      {"tag": "BUCHREIHE", "what": "Content-IP zu Neurodiversität", "status": "5 Bände in TR/DE/EN · Trailer in 3 Sprachen · Teen-Ableger in Arbeit", "nums": [["5", "Bände"], ["3", "Sprachen"], ["4", "Teen-Titel"]], "src": "Quelle: deniz-trailer/, deniz-teen/books.js"}
+    "imgLabels": [
+      "LiveFX 2.0",
+      "Vision"
     ]
   },
+  "s2": {
+    "kicker": "LIVEFX / INVESTMENT-THESE",
+    "title": "Eine fokussierte Wette auf Sprache als Live-Auslöser",
+    "cards": [
+      [
+        "Gebaut & getestet",
+        "Version 2.0 läuft: 238 Trigger, 13 Szenen, 240+ automatisierte Tests."
+      ],
+      [
+        "Leere Lücke",
+        "Kein verbreitetes Tool reagiert auf das, was der Creator sagt."
+      ],
+      [
+        "Geld im Stream",
+        "Geschenke ≈ 50 % des Streamer-Einkommens [Quelle 5, 6]."
+      ],
+      [
+        "Zeichnen statt rechnen",
+        "Szenen im Browser: 240- bis > 10.000-mal günstiger als Video-KI."
+      ],
+      [
+        "Eine Engine, vier Linien",
+        "Erzählfilm, WortBild, Räume, Studio – ohne zweiten Tech-Stack."
+      ]
+    ],
+    "bottom": "500.000 € bringen das Produkt in den Markt und zwei Vision-Linien vom Prototyp zum Produkt."
+  },
+  "s3": {
+    "kicker": "LIVEFX / DIE MARKTLÜCKE",
+    "title": "Kurzvideos werden geschnitten. Live bleibt roh",
+    "axisX": [
+      "manuell",
+      "automatisch"
+    ],
+    "axisY": [
+      "Zuschauer-\ngesteuert",
+      "Sprach-\ngesteuert"
+    ],
+    "cells": [
+      [
+        "Native Effekte, Sticker",
+        "manuell gewählt"
+      ],
+      [
+        "Alerts (Streamlabs, StreamElements)",
+        "reagieren auf Follows, Spenden"
+      ],
+      [
+        "Voicemod, Stream Deck",
+        "brauchen Hände"
+      ],
+      [
+        "LiveFX",
+        "reagiert auf die Stimme – allein im Feld"
+      ]
+    ],
+    "stats": [
+      [
+        "~50 %",
+        "Anteil der Geschenke am Einkommen von Live-Streamern [Quelle 5, 6]"
+      ],
+      [
+        "500–3.000 USD",
+        "Geschenke pro Monat bei 20–100 T Followern [Quelle 5]"
+      ],
+      [
+        "> 100 Mio.",
+        "Creator gingen 2025 allein in SEA, Kaukasus, Zentralasien auf TikTok live, +77 % [Quelle 2]"
+      ]
+    ],
+    "src": "Quellen: QUELLEN.md · 2×2 nach PITCH-DECK.md, Folie 10"
+  },
   "s4": {
-    "kicker": "PORTFOLIO / AYBAL",
-    "title": "Aybal: die Stimme des Familienvorlesens",
-    "body": "Familien laden PDFs, EPUBs, Word-Dateien, Text oder Fotos von Buchseiten hoch – Aybal liest vor und hebt Wort für Wort hervor.",
-    "stats": [["7,6 Mrd. €", "TAM: Familien-Lesemarkt in den Zielmärkten"], ["1,14 Mrd. €", "SAM: 15 % angenommene Zahlungsbereitschaft"], ["38 Mio. €", "SOM: richtungsweisend, keine Prognose"]],
-    "facts": ["Preise: Plus 9,99 €/Monat · Family 24,99 €/Monat · Web-Marge 75–77 %", "Verständlichkeit gemessen: Deutsch 98 % · Türkisch 97 %", "Break-even (Szenario): Strong Case Aug. 2030 · Venture Case Okt. 2031"],
-    "round": "Eigene Runde: 250.000 € Pre-Seed · Cap 1,30 Mio. € pre-money · Closing geplant März 2027",
-    "src": "Quelle: Aybal_Investor_Deck.pptx, Folien 3–12"
+    "kicker": "LIVEFX / VALIDIERTER BUILD",
+    "title": "Von der Stimme zum Effekt in unter einer Sekunde",
+    "body": "Der Creator sagt „krass“, „yok artık“ oder „Applaus“ – das Meme erscheint, der Sound spielt. Liest er vor, wird das Overlay zur animierten Szene.",
+    "stats": [
+      [
+        "238",
+        "Trigger in 5 Paketen"
+      ],
+      [
+        "13 · 12",
+        "Szenen · Atmosphäre-Loops"
+      ],
+      [
+        "38",
+        "lizenzfreie Sounds"
+      ],
+      [
+        "3",
+        "Sprachen, automatisch erkannt"
+      ],
+      [
+        "< 1 s",
+        "Stimme → Effekt"
+      ],
+      [
+        "240+",
+        "automatisierte Tests"
+      ]
+    ],
+    "features": "Story-Modus · Zuschauer-Trigger (Chat, Geschenke) · Handy-Fernbedienung · offline · offene API · OBS/Streamlabs → TikTok LIVE, Instagram, YouTube, Twitch",
+    "status": "Version 2.0  →  TR-Launch Q4 2026  →  Pro-Abo Q1 2027",
+    "src": "Quelle: BUSINESSPLAN.md §3; Tests: PITCH-DECK.md, Folie 9 · noch keine Umsätze"
   },
   "s5": {
-    "kicker": "PORTFOLIO / LIVEFX",
-    "title": "LiveFX: Live-Streams, die zuhören",
-    "body": "Der Creator spricht – in unter einer Sekunde erscheinen Meme, Sound oder eine animierte Szene im Stream. Story-Modus fürs Vorlesen, Zuschauer-Trigger per Chat und Geschenk.",
-    "stats": [["97–157 Mrd. USD", "Live-Streaming-Markt weltweit 2026"], ["1–3 Mio.", "Creator im TR/DE/EN-Raum (SAM, Schätzung)"], ["5.000–15.000", "zahlende Nutzer in Jahr 3 (SOM, Schätzung)"]],
-    "facts": ["Preise: Free · Pro 9,99 €/Monat oder 79 €/Jahr · Packs 2,99–4,99 €", "Basis-Szenario (Schätzung): Umsatz 51 / 336 / 1.039 T€ in J1–J3", "Bedarf laut Businessplan: 250–350 T€ Seed für 18–24 Monate"],
-    "src": "Quelle: live-fx/business/BUSINESSPLAN.md (Abschn. 1, 6, 9, 11), Marktzahlen dort [Quelle 1, 2]"
+    "kicker": "LIVEFX / VISION 2027–2029",
+    "title": "Du redest. Es wird Bild",
+    "lines": [
+      [
+        "A",
+        "Erzählfilm",
+        "Generative Scene Engine: Aus erzählten Sätzen entsteht live ein fortlaufender animierter Film.",
+        "Prototyp"
+      ],
+      [
+        "B",
+        "WortBild",
+        "Sprachenlernen: Wort → Bild + Zielsprache + Aussprache; Lesehilfe, Nachsprechen.",
+        "Prototyp"
+      ],
+      [
+        "C",
+        "Räume",
+        "Dieselbe Zeitleiste auf Bühne, Beamer, Handy-AR, VR und Display-Brille.",
+        "Bühne heute"
+      ],
+      [
+        "D",
+        "Studio",
+        "Highlights aus dem Stream, Auto-Edit fertiger Videos, lokaler Export.",
+        "Vision"
+      ]
+    ],
+    "bottom": "Reihenfolge nach Umsatznähe: WortBild und Story-Engine zuerst – XR bleibt Schaufenster.",
+    "src": "Quelle: VISION.md §1, BUSINESSPLAN.md §15 · Bilder: Vision-Trailer"
   },
   "s6": {
-    "kicker": "PORTFOLIO / CONTENT-IP",
-    "title": "Eine Buchreihe in drei Sprachen",
-    "series": ["Benim Nörofarklı Pusulam", "Mein neurodiverser Kompass", "My Neurodivergent Compass"],
-    "books": ["Mein neurodiverser Kompass", "Deniz und die geheimen Botschaften seines Körpers", "Deniz findet seinen eigenen Weg in der Schule", "Deniz und der Freundschaftskompass", "Deniz und die Insel der Veränderungen"],
-    "extra": "Geschenkbuch „İyi ki Varsın / Gut, dass es dich gibt / Good That You Exist“ · Teen-Ableger mit 4 Deniz-Titeln",
-    "trailers": "Vorhanden: 5 Buch-Trailer (TR), Serien-Videos DE/TR/EN, Trailer zum Geschenkbuch in 3 Sprachen",
-    "feeds": [["→ Aybal", "Vorlese-Titel mit Stimme in drei Sprachen"], ["→ LiveFX", "Story-Modus, Welten-Packs, erster Verlags-Pilot"]],
-    "caption": "LiveFX-Erzählfilm (Vision-Trailer)",
-    "src": "Quelle: Dateinamen in deniz-trailer/, deniz-teen/books.js"
+    "kicker": "LIVEFX / PROTOTYPEN",
+    "title": "Zwei Linien laufen schon im Browser",
+    "caps": [
+      [
+        "A · Erzählfilm",
+        "live-story.html: 22 Figuren, 10 Orte, Wetter, Stimmung · 60 fps"
+      ],
+      [
+        "B · WortBild",
+        "sprachlernen.html: 85 Wörter DE/TR/EN, Silben, Aussprache"
+      ]
+    ],
+    "costHead": "Zeichnen statt generieren",
+    "cost": [
+      [
+        "Video-KI",
+        "180–2.700 USD",
+        "pro Stunde [Quelle 24, 25]"
+      ],
+      [
+        "LiveFX",
+        "0 € – 0,75 USD",
+        "pro Stunde (Projektmessung)"
+      ]
+    ],
+    "costNote": "240- bis über 10.000-mal günstiger – und als einziges live.",
+    "src": "Quelle: prototypes/README.md, VISION.md §2 · Screenshots der Prototypen"
   },
   "s7": {
-    "kicker": "PORTFOLIO / SYNERGIEN",
-    "title": "Synergien: ein Stack, ein Publikum",
-    "items": [
-      ["Sprach- und Stimm-Stack", "Erkennung, Sprachausgabe und Wort-Timing tragen beide Produkte: Vorlesen mit Wort-Hervorhebung (Aybal), Szenen und Aussprache (LiveFX)."],
-      ["Content-IP", "Die Buchreihe liefert Vorlese-Titel für Aybal und Geschichten-Packs für den LiveFX-Story-Modus."],
-      ["Märkte DE/TR/EN", "Beide starten in der deutsch-türkischen Community: Aybal mit dem Deutschland-Launch, LiveFX mit TR-Creatorn."],
-      ["Cross-Selling", "Vorlese-Streams führen Familien zu Aybal; Aybal-Familien sind Zielgruppe für WortBild (Sprachenlernen) von LiveFX."]
+    "kicker": "LIVEFX / MARKT",
+    "title": "Ein Wachstumsmarkt mit klarem Einstieg",
+    "rings": [
+      [
+        "TAM",
+        "10–20 Mio.",
+        "monetarisierende Live-Creator"
+      ],
+      [
+        "SAM",
+        "1–3 Mio.",
+        "TR/DE/EN"
+      ],
+      [
+        "SOM",
+        "5–15 T",
+        "Zahlende J3"
+      ]
     ],
-    "note": "Synergien sind Hypothesen und noch nicht gemessen.",
-    "caption": "LiveFX WortBild (Vision-Trailer)"
+    "ringNote": "Bottom-up, Schätzung (BUSINESSPLAN.md §6)",
+    "coreHead": "Kernmarkt Live",
+    "core": [
+      [
+        "97–157 Mrd. USD",
+        "Live-Streaming 2026 [Q 1, 2]"
+      ],
+      [
+        "216–260 Mrd. USD",
+        "Creator Economy 2026 [Q 3, 4]"
+      ],
+      [
+        "~14 %",
+        "Live-Anteil ≈ 36 Mrd. USD [Q 3]"
+      ]
+    ],
+    "adjHead": "Angrenzend (Vision)",
+    "adj": [
+      [
+        "3,67 Mrd. USD",
+        "KI-Video 2026 [Q 23]"
+      ],
+      [
+        "2,68 Mrd. USD",
+        "Videoschnitt 2026 [Q 51]"
+      ],
+      [
+        "1,54 Mrd. USD",
+        "Sprachlern-Apps 2025 [Q 33]"
+      ],
+      [
+        "374 Mio. €",
+        "Hörbuch DE 2025 [Q 19]"
+      ],
+      [
+        "5,1 Mrd. USD",
+        "Smart Glasses 2026 [Q 45]"
+      ]
+    ],
+    "src": "[Q n] = [Quelle n] in QUELLEN.md · angrenzende Märkte nicht im SOM enthalten"
   },
   "s8": {
-    "kicker": "ANGEBOT / RUNDE",
-    "title": "500.000 € für drei Projekte",
-    "chartTitle": "Aufteilung (Vorschlag)",
-    "split": [["Aybal", 250000, "250.000 €", "wie im Aybal-Deck"], ["LiveFX", 200000, "200.000 €", "Teil der Seed-Spanne laut Businessplan"], ["Buchreihe / Content", 50000, "50.000 €", "Hörfassungen, Editionen, Rechte"]],
-    "total": "500.000 €",
-    "note": "Aybal-Konditionen laut eigenem Deck: Cap 1,30 Mio. € pre-money, ~16 % bei Cap, Closing geplant März 2027. Konditionen für LiveFX und Content: [offen]."
+    "kicker": "LIVEFX / GESCHÄFTSMODELL",
+    "title": "Freemium für Creator, Lizenzen für Institutionen",
+    "tiers": [
+      [
+        "Free",
+        "0 €",
+        "Kernfunktion, Standard-Pakete, Handy-Fernbedienung"
+      ],
+      [
+        "Pro",
+        "9,99 €/Monat",
+        "KI-Verstehen, alle Szenen, Zuschauer-Trigger; 79 €/Jahr"
+      ],
+      [
+        "Pro+ (Vision)",
+        "14,99 €/Monat",
+        "KI-Szenen, Auto-Edit, MP4-Export"
+      ],
+      [
+        "WortBild Familie",
+        "4,99 €/Monat",
+        "Sprachenlernen und Lesehilfe"
+      ],
+      [
+        "Packs",
+        "2,99–4,99 €",
+        "Meme-, Story-, Welten-, Vokabel-Packs; Marktplatz 70/30"
+      ],
+      [
+        "Schullizenz",
+        "300–800 €/Jahr",
+        "Kurs 49 €/Lehrkraft · Event · Verlag · Agentur · B2B/SDK"
+      ]
+    ],
+    "anchorHead": "Preisanker",
+    "anchors": [
+      "Streamlabs Ultra 27 USD/Monat [Q 11, 12]",
+      "StreamYard ~35 · Restream ~16 USD [Q 12]",
+      "Voicemod ~10 USD/Monat [Q 13]",
+      "ANTON-Schullizenz 250–700 €/Jahr [Q 41]"
+    ],
+    "unit": "Lokale Software: Grenzkosten nahe null. KI nur bei Pro: 0,25–0,75 USD pro Stream-Stunde.",
+    "src": "Quelle: BUSINESSPLAN.md §9, §15.6 · Preise der Vision und Lizenzen sind Schätzungen"
   },
   "s9": {
-    "kicker": "ANGEBOT / MITTELVERWENDUNG",
-    "title": "Mittelverwendung je Projekt",
-    "aybalHead": "Aybal · 250.000 € (laut Aybal-Deck)",
-    "aybalBars": [["Team", 50, "125.000 €"], ["Marketing", 25, "62.500 €"], ["EU-Stimmbetrieb + Store-App", 15, "37.500 €"], ["Recht / Vertrauen", 10, "25.000 €"]],
-    "livefxHead": "LiveFX · 200.000 €",
-    "livefxText": "Deckt die Basis-Kosten von Jahr 1 (165 T€) plus Puffer. Der Businessplan nennt 250–350 T€; der Rest über Umsätze, Förderung oder Folgerunde.",
-    "livefxItems": ["Mobile-Entwickler:in (erste Einstellung)", "Creator-Partnerprogramm, Marketing", "Plattform- und Bildungs-Piloten"],
-    "contentHead": "Buchreihe · 50.000 €",
-    "contentItems": ["Hörfassungen DE/TR/EN für Aybal", "Lektorat, Übersetzung, Editionen", "Rechte, Lizenzen, ISBN"],
-    "src": "Quellen: Aybal_Investor_Deck.pptx Folie 12; BUSINESSPLAN.md Abschn. 11.3–11.4"
+    "kicker": "LIVEFX / DIFFERENZIERUNG & RISIKEN",
+    "title": "Der einzige Auslöser, der immer da ist: die Stimme",
+    "cols": [
+      "",
+      "LiveFX",
+      "Alerts",
+      "Voicemod",
+      "Native",
+      "Editoren"
+    ],
+    "rows": [
+      [
+        "Sprachgesteuert",
+        "fnnnn"
+      ],
+      [
+        "Türkisch / 3 Sprachen",
+        "fnnpf"
+      ],
+      [
+        "Story-/Szenen-Modus",
+        "fnnnn"
+      ],
+      [
+        "Lokal / offline",
+        "fnfpp"
+      ],
+      [
+        "Offene API",
+        "fpnnn"
+      ],
+      [
+        "Live (nicht nachträglich)",
+        "ffffn"
+      ]
+    ],
+    "legend": [
+      "ja",
+      "teilweise",
+      "nein"
+    ],
+    "riskHead": "Risiken – offen benannt",
+    "risks": [
+      [
+        "Nachfrage unbewiesen",
+        "Gates mit Kohorten, Budget erst nach Freigabe"
+      ],
+      [
+        "Plattform baut nach",
+        "früher Pilot, Sprach-Packs als Burggraben"
+      ],
+      [
+        "Handy-Creator ohne OBS",
+        "Mobile-Entwickler:in zuerst"
+      ],
+      [
+        "Datenschutz Schule/Familie",
+        "lokal, ohne Konten, On-Device-ASR"
+      ],
+      [
+        "Vision verzettelt",
+        "20 % Budgetdeckel, XR nur Schaufenster"
+      ]
+    ],
+    "src": "Quelle: BUSINESSPLAN.md §7, §13"
   },
   "s10": {
-    "kicker": "ANGEBOT / MEILENSTEINE",
-    "title": "24 Monate: Meilensteine je Projekt",
-    "quarters": ["Q4 26", "Q1 27", "Q2 27", "Q3 27", "Q4 27", "Q1 28", "Q2 28", "Q3 28"],
-    "lanes": [
-      {"name": "Aybal", "items": [[0, "Beta (50 Familien) · DE-Launch"], [1, "Closing März 2027"], [2, "Gate 1: Aktivierung"], [5, "Gate 2: Retention"], [6, "Marktausbau 2027–28"]]},
-      {"name": "LiveFX", "items": [[0, "TR-Launch"], [1, "Pro-Abo, DE/EN"], [2, "Mobile-App"], [3, "Pro+, Plattform-Pilot"], [4, "Schullizenz"], [6, "Scene-SDK v1 (2028)"]]},
-      {"name": "Buchreihe", "items": [[1, "Hörfassungen in Aybal"], [3, "Verlags-Pilot in LiveFX"], [5, "Teen-Ableger [Datum]"]]}
+    "kicker": "LIVEFX / ROADMAP & GO-TO-MARKET",
+    "title": "Starten. Bezahlen lassen. Erweitern",
+    "steps": [
+      [
+        "Q4 2026",
+        "TR-Launch",
+        "Download, 10–20 Botschafter:innen"
+      ],
+      [
+        "Q1 2027",
+        "Pro live",
+        "DE/EN, WortBild 300 Wörter"
+      ],
+      [
+        "Q2 2027",
+        "Mobile-App",
+        "Erzählfilm DE, Agentur-Lizenz"
+      ],
+      [
+        "Q3 2027",
+        "Plattform-Pilot",
+        "Pro+, Erzählfilm TR/EN"
+      ],
+      [
+        "Q4 2027",
+        "Schullizenz",
+        "Timeline-Editor, MP4-Export"
+      ],
+      [
+        "2028",
+        "Scene-SDK v1",
+        "SDK-Pilot, Familien-Abo"
+      ],
+      [
+        "2029",
+        "Pilot oder Exit",
+        "Erzählfilm 2.0, Verlage"
+      ]
     ],
-    "note": "Aybal und LiveFX laut Projektunterlagen; Buchreihe: Vorschlag – bitte bestätigen."
+    "gtm": [
+      [
+        "1 · TR-Community",
+        "eigene Streams, Pack-Drops"
+      ],
+      [
+        "2 · DE/EN",
+        "Vorlese- und Bildungs-Streams"
+      ],
+      [
+        "3 · Partner",
+        "Creator-Programm, Agenturen"
+      ],
+      [
+        "4 · Plattform & Bildung",
+        "8 Wochen, 20 Creator; Kurse"
+      ]
+    ],
+    "src": "Quelle: BUSINESSPLAN.md §10, §14.1, §14.2"
   },
   "s11": {
-    "kicker": "ANGEBOT / STRUKTUR & RISIKEN",
-    "title": "Struktur-Optionen und Risiken",
-    "optHead": "Struktur – neutral, rechtliche Prüfung nötig",
-    "options": [
-      ["A · Eine Holding", "Ein Einstieg, gebündelte IP; dafür Neubewertung aller Teile und Übertragung der Aybal-Konditionen."],
-      ["B · Getrennte SPVs", "Bewertung und Risiko je Projekt, Aybal-Runde unverändert; dafür mehr Verträge und IP-Lizenzen."],
-      ["C · Hybrid", "Aybal-Runde wie geplant, LiveFX und Content in einer zweiten Gesellschaft mit Lizenzvertrag."]
+    "kicker": "LIVEFX / FINANZSZENARIO",
+    "title": "Basis-Szenario: Break-even in J3, mit Vision in J2",
+    "chartTitle": "Basis-Szenario, T€ (Schätzung)",
+    "years": [
+      "J1 2027",
+      "J2 2028",
+      "J3 2029"
     ],
-    "legal": "Keine Empfehlung – Rechts- und Steuerberatung erforderlich.",
-    "riskHead": "Wesentliche Risiken",
-    "risks": ["Nachfrage und Retention unbewiesen", "Schlüsselpersonen in allen Projekten", "Fokus: drei Projekte, kleines Team", "Stimme, Urheberrecht, Kinder-Datenschutz", "Plattformabhängigkeit, Wechselkurs TRY"]
+    "series": [
+      [
+        "Umsatz Kern",
+        [
+          51,
+          336,
+          1039
+        ]
+      ],
+      [
+        "Umsatz Vision",
+        [
+          27,
+          192,
+          617
+        ]
+      ],
+      [
+        "Kosten gesamt",
+        [
+          195,
+          513,
+          920
+        ]
+      ]
+    ],
+    "results": [
+      [
+        "Ergebnis Kern",
+        "−114 / −62 / +329 T€"
+      ],
+      [
+        "inkl. Vision",
+        "≈ −117 / +15 / +736 T€"
+      ],
+      [
+        "Konservativ, 3 J.",
+        "−316 T€ kumuliert"
+      ]
+    ],
+    "runHead": "Warum 500.000 € statt 250–350 T€",
+    "run": [
+      [
+        "≈ 22 Monate",
+        "Runway bei null Umsatz (250–350 T€: ≈ 15–18)"
+      ],
+      [
+        "≈ 184 T€",
+        "Rest nach konservativem Szenario (250 T€ reichen nicht)"
+      ],
+      [
+        "100 T€",
+        "für Vision-Linien A und B in 2027"
+      ]
+    ],
+    "src": "Quelle: BUSINESSPLAN.md §11.2–11.5 · Kosten gesamt = Kern + Vision · Szenarien, keine Prognosen"
   },
   "s12": {
-    "kicker": "ABSCHLUSS",
-    "title": "Team und Kontakt",
-    "team": [["TS", "Tuncay Sancak", "Gründer & Erfinder · Geschäftsführer (Aybal)"], ["GD", "Gönül Demet", "Investor Relations & Fundraising (Aybal)"], ["?", "[Name]", "Gründerin LiveFX · Autorin der Buchreihe"]],
-    "hiring": "Nach der Runde: technische:r Mitgründer:in & Growth (Aybal), Mobile-Entwickler:in (LiveFX), Community TR/DE",
-    "closing": "Eine Stimme für Familien, Klassenzimmer und Live-Streams.",
-    "contact": "Kontakt: Gönül Demet · [E-Mail] · [Telefon]",
-    "disclaimer": "Szenarien und zukunftsbezogene Aussagen, keine Prognosen. Eine Investition kann zum Totalverlust führen."
+    "kicker": "LIVEFX / MITTELVERWENDUNG",
+    "title": "Kapital zuerst in Ausführungskapazität",
+    "total": "500 T€",
+    "totalSub": "24 MONATE",
+    "split": [
+      [
+        50,
+        "Produkt- & Engineering-Team",
+        "250.000 €",
+        "Mobile/Web, Backend/ML ab M13, Gründer anteilig"
+      ],
+      [
+        20,
+        "Vision-Linien → Produkt",
+        "100.000 €",
+        "WortBild und Story-Engine zuerst"
+      ],
+      [
+        15,
+        "Go-to-Market & Piloten",
+        "75.000 €",
+        "Creator-Programm, Plattform, Bildung"
+      ],
+      [
+        10,
+        "Recht, Marke, Datenschutz",
+        "50.000 €",
+        "Marke, DSGVO, Plattform-Freigaben"
+      ],
+      [
+        5,
+        "Reserve",
+        "25.000 €",
+        "Puffer"
+      ]
+    ],
+    "note": "Abgeleitet aus den Kostentabellen BUSINESSPLAN.md §11.3 und §11.5; Infrastruktur und KI-API werden aus Pro-Umsätzen getragen."
+  },
+  "s13": {
+    "kicker": "LIVEFX / MEILENSTEIN-GATES",
+    "title": "Skalieren erst, wenn die Evidenz das Gate passiert",
+    "gates": [
+      [
+        "01",
+        "H1 2027",
+        "Aktivierung",
+        [
+          "Pro live, Mobile-Dev an Bord",
+          "20 Beta-Creator + 10–20 Botschafter:innen",
+          "W4-Retention ≥ [Zahl] %"
+        ]
+      ],
+      [
+        "02",
+        "H2 2027",
+        "Traktion",
+        [
+          "20.000 Registrierte",
+          "≈ 800 zahlende Pro",
+          "1 Plattform-Pilot, 5 Schulen"
+        ]
+      ],
+      [
+        "03",
+        "H1 2028",
+        "Bindung",
+        [
+          "Free → Pro ≥ 4 %",
+          "M3-Retention ≥ [Zahl] %",
+          "WortBild-Pilot ausgewertet"
+        ]
+      ],
+      [
+        "04",
+        "H2 2028",
+        "Skalierung",
+        [
+          "80.000 Registrierte",
+          "≈ 3.200 Pro, B2B 50 T€",
+          "40 Schulen, 1 SDK-Partner"
+        ]
+      ],
+      [
+        "05",
+        "2029",
+        "Ergebnis",
+        [
+          "Break-even-Pfad J3",
+          "Folgerunde oder Plattform-Gespräch"
+        ]
+      ]
+    ],
+    "note": "Zielwerte aus dem Basis-Szenario (BUSINESSPLAN.md §11.1, §11.5, §14) – nicht erreicht, Schätzung. [Zahl] wird nach den ersten Kohorten festgelegt."
+  },
+  "s14": {
+    "kicker": "LIVEFX / TEAM & RUNDE",
+    "title": "Die Menschen hinter LiveFX",
+    "team": [
+      [
+        "TS",
+        "Tuncay Sancak",
+        "GRÜNDER & ERFINDER · GESCHÄFTSFÜHRER",
+        "Hat LiveFX erfunden und bis 2.0 gebaut – vor jeder Finanzierung. Ex-Projektleiter, KI-Experte und Data Scientist bei Mercedes-Benz; DE/TR-Muttersprachler. Autor von Kinderbüchern, u. a. „Gut, dass es dich gibt“."
+      ],
+      [
+        "GD",
+        "Gönül Demet",
+        "INVESTOR RELATIONS & FUNDRAISING",
+        "Leitet die Investorenansprache für die Pre-Seed-Runde und hat diese Unterlagen erstellt."
+      ]
+    ],
+    "hireHead": "Aufbau nach der Finanzierung",
+    "hires": [
+      [
+        "Mobile-Entwickler:in",
+        "ab der Runde"
+      ],
+      [
+        "Community & Partner TR/DE",
+        "Jahr 1–2"
+      ],
+      [
+        "Grafik-/Web-Dev (Canvas)",
+        "Jahr 1–2"
+      ],
+      [
+        "Backend/ML",
+        "ab Monat 13"
+      ]
+    ],
+    "askLine": "500.000 € Pre-Seed · Konditionen [offen]",
+    "contact": "Investor-Kontakt: Gönül Demet · [E-Mail]",
+    "disclaimer": "Vertrauliche Pre-Seed-Unterlagen. Zukunftsbezogene Aussagen unterliegen erheblichen Risiken; eine Investition kann zum Totalverlust führen."
   }
 }

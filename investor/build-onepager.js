@@ -1,6 +1,6 @@
-// One-pager generator: builds OnePager_DE.pdf, OnePager_TR.pdf, OnePager_EN.pdf (A4, one page each).
+// LiveFX one-pager generator: builds OnePager_DE.pdf, OnePager_TR.pdf, OnePager_EN.pdf (A4, one page each).
 // Usage: node build-onepager.js [de|tr|en ...]
-// Uses Playwright (Chromium) and the Aybal brand fonts from ../aybal-show/assets/fonts.css.
+// Uses Playwright (Chromium), the Lexend font and stills from ../live-fx/business/video/.
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -8,156 +8,161 @@ let chromium;
 try { ({ chromium } = require('playwright')); } catch (e) { ({ chromium } = require('/opt/node22/lib/node_modules/playwright')); }
 
 const ROOT = path.resolve(__dirname, '..');
-const FONTS = 'file://' + path.join(ROOT, 'aybal-show/assets/fonts.css');
+const VID = path.join(ROOT, 'live-fx/business/video');
+const url = (p) => 'file://' + p;
 
 const T = {
   de: {
     lang: 'de', file: 'OnePager_DE.pdf',
-    kicker: 'Portfolio-Investment · Vertraulich · Oktober 2026',
-    title: 'Eine Stimme, drei Produkte',
-    sub: 'Sprachtechnologie für Familie, Bildung und Creator – in Deutsch, Türkisch und Englisch.',
-    askLabel: 'Gesamtvolumen', ask: '500.000 €',
-    pillars: [['Sprachtechnologie', 'Vorlesen mit Stimme (Aybal) und Sprache → Live-Effekt in < 1 s (LiveFX)'], ['Drei Sprachen', 'DE/TR/EN von Anfang an – nicht nachträglich lokalisiert'], ['Familie · Bildung · Creator', 'Ein Publikum, drei Zugänge, gemeinsame Content-IP']],
-    projects: [
-      { c: 'gold', tag: 'Aybal', what: 'Familienvorlesen mit natürlichen und persönlichen Stimmen; eigene Bücher und Dokumente werden Wort für Wort vorgelesen.', status: 'Plattform gebaut · Closed Beta ab 12.10.2026 · DE-Launch 20.11.2026', nums: [['1.779', 'automatisierte Tests'], ['13', 'Stimmsprachen'], ['101 Mio.', 'Familien im Zielmarkt'], ['7,6 Mrd. €', 'TAM']], extra: 'Plus 9,99 €/Monat · Family 24,99 €/Monat · Break-even (Szenario) Aug. 2030 / Okt. 2031', src: 'Aybal_Investor_Deck.pptx' },
-      { c: 'pink', tag: 'LiveFX', what: 'Live-Streams, die zuhören: Memes, Sounds und Szenen per Stimme; Story-Modus, Zuschauer-Trigger.', status: 'Version 2.0 funktionsfähig · noch keine Umsätze · TR-Launch Q4 2026', nums: [['238', 'Trigger in 5 Paketen'], ['13', 'animierte Szenen'], ['97–157 Mrd. USD', 'Live-Streaming-Markt 2026'], ['5.000–15.000', 'Zahlende J3 (SOM, Schätz.)']], extra: 'Pro 9,99 €/Monat · Bedarf laut Businessplan 250–350 T€ Seed', src: 'live-fx/business/BUSINESSPLAN.md' },
-      { c: 'violet', tag: 'Buchreihe', what: '„Benim Nörofarklı Pusulam / Mein neurodiverser Kompass / My Neurodivergent Compass“ – Content-IP für Aybal und LiveFX.', status: '5 Bände in TR/DE/EN · Trailer in 3 Sprachen · Teen-Ableger in Arbeit', nums: [['5', 'Bände'], ['3', 'Sprachen'], ['4', 'Teen-Titel'], ['1', 'Geschenkbuch in 3 Sprachen']], extra: '„İyi ki Varsın / Gut, dass es dich gibt / Good That You Exist“', src: 'deniz-trailer/, deniz-teen/books.js' },
-    ],
-    splitHead: 'Vorgeschlagene Aufteilung der 500.000 €', proposal: 'Vorschlag – bitte bestätigen',
-    split: [['Aybal', '250.000 €', 50, 'wie im Aybal-Deck: Cap 1,30 Mio. € pre-money'], ['LiveFX', '200.000 €', 40, 'Basis-Kosten J1 165 T€ + Puffer'], ['Buchreihe', '50.000 €', 10, 'Hörfassungen, Editionen, Rechte']],
-    synHead: 'Synergien', syn: ['Gemeinsamer Sprach- und Stimm-Stack', 'Buchreihe speist Aybal-Titel und LiveFX-Story-Packs', 'Gemeinsame DE/TR-Community als Startmarkt', 'Cross-Selling: Vorlese-Streams → Aybal → WortBild'],
-    msHead: '24 Monate (Auszug)', ms: [['Aybal', 'Beta Q4 26 · Closing Mär. 27 · Gate 1 Apr. 27 · Gate 2 Q1 28'], ['LiveFX', 'TR-Launch Q4 26 · Pro Q1 27 · Mobile Q2 27 · Plattform-Pilot Q3 27'], ['Buchreihe', 'Hörfassungen Q1 27 · Verlags-Pilot Q3 27 (Vorschlag)']],
-    structHead: 'Struktur', struct: 'Holding, getrennte SPVs oder Hybrid – neutral dargestellt, Rechts- und Steuerberatung erforderlich.',
-    riskHead: 'Risiken', risk: 'Nachfrage unbewiesen · Schlüsselpersonen · Fokus · Stimme/Urheberrecht/Kinder-Datenschutz · Plattformen · TRY',
-    team: 'Tuncay Sancak – Gründer & Erfinder (Aybal) · Gönül Demet – Investor Relations · [Name] – Gründerin LiveFX, Autorin der Buchreihe',
-    contact: 'Kontakt: Gönül Demet · [E-Mail] · [Telefon]',
-    disc: 'Szenarien und Schätzungen aus den Projektunterlagen, keine Prognosen. Eine Investition kann zum Totalverlust führen.',
+    kicker: 'Vertraulich · Pre-Seed · Oktober 2026',
+    title: 'LiveFX – Live-Streams, die zuhören',
+    sub: 'Die Stimme des Creators wird in unter einer Sekunde zu Meme, Sound und animierter Szene – und morgen zum Bild für alles Gesprochene.',
+    askLabel: 'Pre-Seed-Runde', ask: '500.000 €', askSub: 'für LiveFX und alle LiveFX-Linien · 24 Monate',
+    three: [['Problem', 'Kurzvideos werden geschnitten, Live bleibt roh. Alerts reagieren auf Zuschauer, Soundboards auf Tasten – kein Tool auf das, was der Creator sagt.'], ['Lösung', 'Sprache → Effekt: DE/TR/EN automatisch erkannt, Dialekt-Toleranz, Story-Modus, Zuschauer-Trigger, Handy-Fernbedienung, offline, offene API.'], ['Status', 'Version 2.0 funktionsfähig, im Einsatz in eigenen Streams; noch keine Umsätze. TR-Launch Q4 2026, Pro-Abo Q1 2027.']],
+    nums: [['238', 'Trigger in 5 Paketen'], ['13 · 12', 'Szenen · Loops'], ['38', 'eigene Sounds'], ['< 1 s', 'Stimme → Effekt'], ['240+', 'automat. Tests'], ['3', 'Sprachen auto']],
+    visionHead: 'Vision 2027–2029: Du redest. Es wird Bild.',
+    vision: [['A', 'Erzählfilm', 'Live-Video aus Worten · Prototyp'], ['B', 'WortBild', 'Sprachenlernen mit Bild + Aussprache · Prototyp'], ['C', 'Räume', 'Bühne, Klassenzimmer, AR/VR, Brille'], ['D', 'Studio', 'Highlights und Auto-Edit fertiger Videos']],
+    mktHead: 'Markt', mkt: [['97–157 Mrd. USD', 'Live-Streaming 2026 [Q 1, 2]'], ['~50 %', 'Geschenke am Streamer-Einkommen [Q 5, 6]'], ['10–20 Mio. / 1–3 Mio.', 'TAM / SAM Creator (Schätzung)'], ['5.000–15.000', 'Zahlende J3 (SOM, Schätzung)'], ['1,54 Mrd. USD', 'Sprachlern-Apps [Q 33]'], ['3,67 Mrd. USD', 'KI-Video 2026 [Q 23]']],
+    modelHead: 'Geschäftsmodell', model: ['Free · Pro 9,99 €/Monat · Packs 2,99–4,99 €', 'Vision: Pro+ 14,99 € · WortBild Familie 4,99 €/Monat', 'Lizenzen: Schule 300–800 €/Jahr · Kurs · Event · Verlag · Agentur · B2B/SDK', 'Grenzkosten nahe null (lokal); Szenen 240- bis > 10.000-mal günstiger als Video-KI'],
+    splitHead: 'Mittelverwendung 500.000 € (24 Monate)', proposal: 'Vorschlag – bitte bestätigen',
+    split: [[50, 'Team', '250.000 €'], [20, 'Vision-Linien', '100.000 €'], [15, 'GTM & Piloten', '75.000 €'], [10, 'Recht & Datenschutz', '50.000 €'], [5, 'Reserve', '25.000 €']],
+    gatesHead: 'KPI-Gates (Zielwerte, Schätzung)',
+    gates: [['H1 2027', 'Pro live · 20 Beta-Creator · W4-Retention ≥ [Zahl] %'], ['H2 2027', '20.000 Registrierte · ≈ 800 Pro · 1 Plattform-Pilot'], ['H1 2028', 'Free → Pro ≥ 4 % · M3-Retention ≥ [Zahl] %'], ['H2 2028', '80.000 Registrierte · ≈ 3.200 Pro · B2B 50 T€']],
+    finHead: 'Szenario & Runway', fin: ['Basis (BP §11): Ergebnis −114 / −62 / +329 T€ (J1–J3); mit Vision Break-even in J2', 'Runway bei null Umsatz ≈ 22 Monate (250–350 T€ laut BP: ≈ 15–18)', 'Konservativ −316 T€ über 3 J. – mit 500 T€ gedeckt'],
+    team: 'Tuncay Sancak – Gründer & Erfinder, Geschäftsführer · Gönül Demet – Investor Relations & Fundraising · Konditionen [offen]',
+    contact: 'Investor-Kontakt: Gönül Demet · [E-Mail]',
+    disc: 'Quellen: live-fx/business (BUSINESSPLAN, MARKTANALYSE, VISION, QUELLEN); [Q n] = Quelle n. Szenarien und Schätzungen, keine Prognosen. Eine Investition kann zum Totalverlust führen.',
   },
   tr: {
     lang: 'tr', file: 'OnePager_TR.pdf',
-    kicker: 'Portföy yatırımı · Gizli · Ekim 2026',
-    title: 'Tek ses, üç ürün',
-    sub: 'Aile, eğitim ve içerik üreticileri için ses teknolojisi – Türkçe, Almanca ve İngilizce.',
-    askLabel: 'Toplam yatırım', ask: '500.000 €',
-    pillars: [['Ses teknolojisi', 'Sesli okuma (Aybal) ve konuşmadan < 1 sn’de canlı efekt (LiveFX)'], ['Üç dil', 'Baştan itibaren TR/DE/EN – sonradan yerelleştirme değil'], ['Aile · Eğitim · Yayıncılar', 'Tek kitle, üç giriş noktası, ortak içerik']],
-    projects: [
-      { c: 'gold', tag: 'Aybal', what: 'Doğal ve kişisel seslerle ailece sesli okuma; ailenin kendi kitapları ve belgeleri kelime kelime okunur.', status: 'Platform hazır · Kapalı beta 12.10.2026 · Almanya lansmanı 20.11.2026', nums: [['1.779', 'otomatik test'], ['13', 'ses dili'], ['101 milyon', 'hedef pazarda aile'], ['7,6 milyar €', 'TAM']], extra: 'Plus aylık 9,99 € · Family aylık 24,99 € · Başabaş (senaryo) Ağu. 2030 / Eki. 2031', src: 'Aybal_Investor_Deck.pptx' },
-      { c: 'pink', tag: 'LiveFX', what: 'Dinleyen canlı yayınlar: sesle meme, ses efekti ve sahneler; hikâye modu, izleyici tetikleyicileri.', status: 'Sürüm 2.0 çalışıyor · henüz gelir yok · TR lansmanı 4Ç 2026', nums: [['238', 'tetikleyici, 5 paket'], ['13', 'animasyonlu sahne'], ['97–157 milyar USD', '2026 canlı yayın pazarı'], ['5.000–15.000', '3. yıl ücretli (SOM, tahmin)']], extra: 'Pro aylık 9,99 € · İş planına göre ihtiyaç 250–350 bin € seed', src: 'live-fx/business/BUSINESSPLAN.md' },
-      { c: 'violet', tag: 'Kitap serisi', what: '“Benim Nörofarklı Pusulam / Mein neurodiverser Kompass / My Neurodivergent Compass” – Aybal ve LiveFX için içerik.', status: 'TR/DE/EN 5 kitap · 3 dilde fragmanlar · Gençlik serisi hazırlanıyor', nums: [['5', 'kitap'], ['3', 'dil'], ['4', 'gençlik kitabı'], ['1', '3 dilde hediye kitap']], extra: '“İyi ki Varsın / Gut, dass es dich gibt / Good That You Exist”', src: 'deniz-trailer/, deniz-teen/books.js' },
-    ],
-    splitHead: '500.000 €’nun önerilen dağılımı', proposal: 'Öneri – lütfen onaylayın',
-    split: [['Aybal', '250.000 €', 50, 'Aybal sunumundaki gibi: tavan 1,30 milyon € pre-money'], ['LiveFX', '200.000 €', 40, '1. yıl baz maliyeti 165 bin € + tampon'], ['Kitap serisi', '50.000 €', 10, 'Sesli sürümler, baskılar, haklar']],
-    synHead: 'Sinerjiler', syn: ['Ortak konuşma ve ses altyapısı', 'Kitap serisi Aybal kitaplarını ve LiveFX hikâye paketlerini besler', 'Başlangıç pazarı olarak ortak TR/DE topluluğu', 'Çapraz satış: okuma yayınları → Aybal → WortBild'],
-    msHead: '24 ay (özet)', ms: [['Aybal', 'Beta 4Ç 26 · Kapanış Mart 27 · Kapı 1 Nisan 27 · Kapı 2 1Ç 28'], ['LiveFX', 'TR lansmanı 4Ç 26 · Pro 1Ç 27 · Mobil 2Ç 27 · Platform pilotu 3Ç 27'], ['Kitap serisi', 'Sesli sürümler 1Ç 27 · Yayıncı pilotu 3Ç 27 (öneri)']],
-    structHead: 'Yapı', struct: 'Holding, ayrı SPV’ler ya da hibrit – tarafsız sunulmuştur, hukuk ve vergi danışmanlığı gereklidir.',
-    riskHead: 'Riskler', risk: 'Talep kanıtlanmadı · Kilit kişiler · Odak · Ses/telif/çocuk verileri · Platformlar · TL kuru',
-    team: 'Tuncay Sancak – Kurucu & Mucit (Aybal) · Gönül Demet – Yatırımcı İlişkileri · [İsim] – LiveFX kurucusu, kitap serisinin yazarı',
-    contact: 'İletişim: Gönül Demet · [E-posta] · [Telefon]',
-    disc: 'Senaryolar ve tahminler proje belgelerinden alınmıştır, öngörü değildir. Yatırım, sermayenin tamamen kaybına yol açabilir.',
+    kicker: 'Gizli · Pre-Seed · Ekim 2026',
+    title: 'LiveFX – Dinleyen canlı yayınlar',
+    sub: 'Yayıncının sesi bir saniyeden kısa sürede meme’e, sese ve animasyonlu sahneye dönüşür – yarın da konuşulan her şeyin görüntüsüne.',
+    askLabel: 'Pre-seed turu', ask: '500.000 €', askSub: 'LiveFX ve tüm LiveFX hatları için · 24 ay',
+    three: [['Sorun', 'Kısa videolar kurgulanır, canlı yayın ham kalır. Uyarılar izleyiciye, ses panoları tuşlara tepki verir – hiçbir araç yayıncının söylediğine tepki vermez.'], ['Çözüm', 'Konuşma → efekt: DE/TR/EN otomatik tanıma, şive toleransı, hikâye modu, izleyici tetikleyicileri, telefondan kumanda, çevrimdışı, açık API.'], ['Durum', 'Sürüm 2.0 çalışıyor, kendi yayınlarda kullanımda; henüz gelir yok. TR lansmanı 4Ç 2026, Pro abonelik 1Ç 2027.']],
+    nums: [['238', 'tetikleyici, 5 paket'], ['13 · 12', 'sahne · döngü'], ['38', 'kendi sesleri'], ['< 1 sn', 'ses → efekt'], ['240+', 'otomatik test'], ['3', 'dil otomatik']],
+    visionHead: 'Vizyon 2027–2029: Sen anlat – sahne oluşsun.',
+    vision: [['A', 'Anlatı Filmi', 'Kelimelerden canlı video · prototip'], ['B', 'Kelime-Resim', 'Resim + telaffuzla dil öğrenme · prototip'], ['C', 'Mekânlar', 'Sahne, sınıf, AR/VR, gözlük'], ['D', 'Studio', 'Öne çıkan anlar ve otomatik kurgu']],
+    mktHead: 'Pazar', mkt: [['97–157 milyar USD', 'Canlı yayın 2026 [K 1, 2]'], ['~%50', 'Hediyelerin yayıncı gelirindeki payı [K 5, 6]'], ['10–20 / 1–3 milyon', 'TAM / SAM yayıncı (tahmin)'], ['5.000–15.000', '3. yıl ücretli (SOM, tahmin)'], ['1,54 milyar USD', 'Dil öğrenme uygulamaları [K 33]'], ['3,67 milyar USD', 'Yapay zekâ ile video 2026 [K 23]']],
+    modelHead: 'İş modeli', model: ['Free · Pro aylık 9,99 € · paketler 2,99–4,99 €', 'Vizyon: Pro+ 14,99 € · Kelime-Resim Aile aylık 4,99 €', 'Lisanslar: okul yılda 300–800 € · kurs · etkinlik · yayınevi · ajans · B2B/SDK', 'Marjinal maliyet sıfıra yakın (yerel); sahneler video yapay zekâsından 240 ile 10.000 kattan fazla ucuz'],
+    splitHead: '500.000 €’nun kullanımı (24 ay)', proposal: 'Öneri – lütfen onaylayın',
+    split: [[50, 'Ekip', '250.000 €'], [20, 'Vizyon hatları', '100.000 €'], [15, 'Pazara giriş, pilotlar', '75.000 €'], [10, 'Hukuk, veri koruma', '50.000 €'], [5, 'Yedek', '25.000 €']],
+    gatesHead: 'KPI kapıları (hedef değer, tahmin)',
+    gates: [['1Y 2027', 'Pro canlı · 20 beta yayıncı · 4. hafta elde tutma ≥ %[Sayı]'], ['2Y 2027', '20.000 kayıtlı · ≈ 800 Pro · 1 platform pilotu'], ['1Y 2028', 'Free → Pro ≥ %4 · 3. ay elde tutma ≥ %[Sayı]'], ['2Y 2028', '80.000 kayıtlı · ≈ 3.200 Pro · B2B 50 bin €']],
+    finHead: 'Senaryo ve pist', fin: ['Baz (İP §11): sonuç −114 / −62 / +329 bin € (1.–3. yıl); vizyonla başabaş 2. yılda', 'Sıfır gelirle pist ≈ 22 ay (İP’deki 250–350 bin € ile: ≈ 15–18 ay)', 'Temkinli senaryo 3 yılda −316 bin € – 500 bin € ile karşılanır'],
+    team: 'Tuncay Sancak – Kurucu & Mucit, Genel Müdür · Gönül Demet – Yatırımcı İlişkileri & Fon Toplama · Koşullar [açık]',
+    contact: 'Yatırımcı iletişimi: Gönül Demet · [E-posta]',
+    disc: 'Kaynaklar: live-fx/business (BUSINESSPLAN, MARKTANALYSE, VISION, QUELLEN); [K n] = Kaynak n. Senaryolar ve tahminler, öngörü değildir. Yatırım, sermayenin tamamen kaybına yol açabilir.',
   },
   en: {
     lang: 'en', file: 'OnePager_EN.pdf',
-    kicker: 'Portfolio investment · Confidential · October 2026',
-    title: 'One voice, three products',
-    sub: 'Voice technology for families, education and creators – in German, Turkish and English.',
-    askLabel: 'Total round', ask: '€500,000',
-    pillars: [['Voice technology', 'Read-aloud with voice (Aybal) and speech → live effect in < 1 s (LiveFX)'], ['Three languages', 'DE/TR/EN from day one – not localised later'], ['Family · education · creators', 'One audience, three entry points, shared content IP']],
-    projects: [
-      { c: 'gold', tag: 'Aybal', what: 'Family read-aloud with natural and personal voices; a family’s own books and documents read word by word.', status: 'Platform built · closed beta from 12 Oct 2026 · Germany launch 20 Nov 2026', nums: [['1,779', 'automated tests'], ['13', 'voice languages'], ['101M', 'families in target markets'], ['€7.6B', 'TAM']], extra: 'Plus €9.99/month · Family €24.99/month · break-even (scenario) Aug 2030 / Oct 2031', src: 'Aybal_Investor_Deck.pptx' },
-      { c: 'pink', tag: 'LiveFX', what: 'Live streams that listen: memes, sounds and scenes by voice; story mode, viewer triggers.', status: 'Version 2.0 working · no revenue yet · Turkish launch Q4 2026', nums: [['238', 'triggers in 5 packs'], ['13', 'animated scenes'], ['$97–157B', 'live-streaming market 2026'], ['5,000–15,000', 'paying users Y3 (SOM, est.)']], extra: 'Pro €9.99/month · need per business plan €250–350k seed', src: 'live-fx/business/BUSINESSPLAN.md' },
-      { c: 'violet', tag: 'Book series', what: '“Benim Nörofarklı Pusulam / Mein neurodiverser Kompass / My Neurodivergent Compass” – content IP for Aybal and LiveFX.', status: '5 books in TR/DE/EN · trailers in 3 languages · teen spin-off in progress', nums: [['5', 'books'], ['3', 'languages'], ['4', 'teen titles'], ['1', 'gift book in 3 languages']], extra: '“İyi ki Varsın / Gut, dass es dich gibt / Good That You Exist”', src: 'deniz-trailer/, deniz-teen/books.js' },
-    ],
-    splitHead: 'Proposed split of the €500,000', proposal: 'Proposal – please confirm',
-    split: [['Aybal', '€250,000', 50, 'as in the Aybal deck: €1.30M pre-money cap'], ['LiveFX', '€200,000', 40, 'year-1 base costs €165k + buffer'], ['Book series', '€50,000', 10, 'audio editions, print, rights']],
-    synHead: 'Synergies', syn: ['Shared speech and voice stack', 'Book series feeds Aybal titles and LiveFX story packs', 'Shared DE/TR community as launch market', 'Cross-selling: read-aloud streams → Aybal → WortBild'],
-    msHead: '24 months (excerpt)', ms: [['Aybal', 'Beta Q4 26 · close Mar 27 · Gate 1 Apr 27 · Gate 2 Q1 28'], ['LiveFX', 'Turkish launch Q4 26 · Pro Q1 27 · mobile Q2 27 · platform pilot Q3 27'], ['Book series', 'Audio editions Q1 27 · publisher pilot Q3 27 (proposal)']],
-    structHead: 'Structure', struct: 'Holding, separate SPVs or hybrid – presented neutrally, legal and tax advice required.',
-    riskHead: 'Risks', risk: 'Demand unproven · key people · focus · voice/copyright/children’s data · platforms · TRY',
-    team: 'Tuncay Sancak – Founder & Inventor (Aybal) · Gönül Demet – Investor Relations · [Name] – Founder of LiveFX, author of the book series',
-    contact: 'Contact: Gönül Demet · [email] · [phone]',
-    disc: 'Scenarios and estimates from the project documents, not forecasts. An investment may result in total loss.',
+    kicker: 'Confidential · Pre-Seed · October 2026',
+    title: 'LiveFX – Live streams that listen',
+    sub: 'The creator’s voice becomes a meme, a sound and an animated scene in under a second – and tomorrow, a picture for everything spoken.',
+    askLabel: 'Pre-seed round', ask: '€500,000', askSub: 'for LiveFX and every LiveFX line · 24 months',
+    three: [['Problem', 'Short videos get edited, live stays raw. Alerts react to viewers, soundboards to keys – no tool reacts to what the creator says.'], ['Solution', 'Voice → effect: DE/TR/EN auto-detected, dialect tolerance, story mode, viewer triggers, phone remote, offline, open API.'], ['Status', 'Version 2.0 works and is used in our own streams; no revenue yet. TR launch Q4 2026, Pro subscription Q1 2027.']],
+    nums: [['238', 'triggers in 5 packs'], ['13 · 12', 'scenes · loops'], ['38', 'own sounds'], ['< 1 s', 'voice → effect'], ['240+', 'automated tests'], ['3', 'languages, auto']],
+    visionHead: 'Vision 2027–2029: You talk. It becomes a scene.',
+    vision: [['A', 'Story Film', 'Live video from words · prototype'], ['B', 'WordPicture', 'Language learning with picture + pronunciation · prototype'], ['C', 'Spaces', 'Stage, classroom, AR/VR, glasses'], ['D', 'Studio', 'Highlights and auto-edit of finished videos']],
+    mktHead: 'Market', mkt: [['USD 97–157bn', 'live streaming 2026 [S 1, 2]'], ['~50%', 'gifts in streamer income [S 5, 6]'], ['10–20m / 1–3m', 'TAM / SAM creators (estimate)'], ['5,000–15,000', 'paying users Y3 (SOM, estimate)'], ['USD 1.54bn', 'language-learning apps [S 33]'], ['USD 3.67bn', 'AI video 2026 [S 23]']],
+    modelHead: 'Business model', model: ['Free · Pro €9.99/month · packs €2.99–4.99', 'Vision: Pro+ €14.99 · WordPicture Family €4.99/month', 'Licences: school €300–800/year · course · events · publishers · agencies · B2B/SDK', 'Marginal cost close to zero (local); scenes 240 to 10,000+ times cheaper than video AI'],
+    splitHead: 'Use of the €500,000 (24 months)', proposal: 'Proposal – please confirm',
+    split: [[50, 'Team', '€250,000'], [20, 'Vision lines', '€100,000'], [15, 'GTM & pilots', '€75,000'], [10, 'Legal & privacy', '€50,000'], [5, 'Reserve', '€25,000']],
+    gatesHead: 'KPI gates (targets, estimate)',
+    gates: [['H1 2027', 'Pro live · 20 beta creators · week-4 retention ≥ [number]%'], ['H2 2027', '20,000 registered · ≈ 800 Pro · 1 platform pilot'], ['H1 2028', 'Free → Pro ≥ 4% · month-3 retention ≥ [number]%'], ['H2 2028', '80,000 registered · ≈ 3,200 Pro · B2B €50k']],
+    finHead: 'Scenario & runway', fin: ['Base (BP §11): result −114 / −62 / +329 €k (Y1–Y3); with the vision, break-even in Y2', 'Runway at zero revenue ≈ 22 months (the BP’s €250–350k: ≈ 15–18)', 'Conservative −316 €k over 3 years – covered by €500k'],
+    team: 'Tuncay Sancak – Founder & Inventor, Managing Director · Gönül Demet – Investor Relations & Fundraising · Terms [open]',
+    contact: 'Investor contact: Gönül Demet · [email]',
+    disc: 'Sources: live-fx/business (BUSINESSPLAN, MARKTANALYSE, VISION, QUELLEN); [S n] = Source n. Scenarios and estimates, not forecasts. An investment may result in total loss.',
   },
 };
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const col = { pink: '#FF2D75', mint: '#2DFFB5', gold: '#FFD166', blue: '#6CC4FF', grey: '#5A6070' };
+const pct = (lang, v) => (lang === 'tr' ? `%${v}` : lang === 'de' ? `${v} %` : `${v}%`);
 
 function html(d) {
-  const col = { gold: '#D4B27A', pink: '#FF2D75', violet: '#A08FFF' };
-  return `<!doctype html><html lang="${d.lang}"><head><meta charset="utf-8"><title>${esc(d.title)}</title>
-<link rel="stylesheet" href="${FONTS}">
-<style>
+  const lc = [col.mint, col.gold, col.blue, col.pink], stills = ['8s', '15s', '22s', '29s'];
+  const sc = [col.pink, col.mint, col.gold, col.blue, col.grey];
+  return `<!doctype html><html lang="${d.lang}"><head><meta charset="utf-8"><style>
+@font-face{font-family:'Lexend';src:url('${url(path.join(VID, 'assets/lexend-5.woff2'))}') format('woff2');font-weight:400 700;unicode-range:U+0100-02BA,U+02BD-02C5,U+1E00-1E9F,U+1EF2-1EFF}
+@font-face{font-family:'Lexend';src:url('${url(path.join(VID, 'assets/lexend-3.woff2'))}') format('woff2');font-weight:400 700;unicode-range:U+0000-00FF,U+0131,U+2000-206F,U+20AC}
 @page { size: A4; margin: 0; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 210mm; height: 297mm; }
-body { background: #15111A; color: #F4EDE2; font-family: 'Jost', Arial, sans-serif; font-size: 8.6pt; line-height: 1.38; padding: 11mm 12mm 9mm; display: flex; flex-direction: column; gap: 4.2mm; }
-h1, h2, .num, .ask { font-family: 'Cormorant Garamond', Georgia, serif; }
-.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 8mm; }
-.kicker { font-size: 7.5pt; letter-spacing: .22em; text-transform: uppercase; color: #D4B27A; font-weight: 600; }
-h1 { font-size: 33pt; line-height: 1; font-weight: 700; margin: 2mm 0 1.5mm; }
-.sub { color: #BDB3C4; font-size: 10pt; max-width: 120mm; }
-.askbox { background: #241C2A; border: 1px solid #3A2E40; border-radius: 4mm; padding: 3.5mm 5mm; text-align: right; min-width: 48mm; }
-.askbox small { display: block; font-size: 7pt; letter-spacing: .2em; text-transform: uppercase; color: #D4B27A; font-weight: 600; }
-.ask { font-size: 26pt; font-weight: 700; line-height: 1.05; }
-.wave { display: flex; align-items: center; gap: 1.1mm; height: 7mm; }
-.wave i { display: block; width: 1.2mm; border-radius: 1mm; }
-.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
-.pillar { border-top: 0; background: #1E1823; border-radius: 3mm; padding: 2.6mm 3.4mm; }
-.pillar b { display: block; font-size: 9.4pt; margin-bottom: .6mm; }
-.pillar span { color: #BDB3C4; }
-.projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
-.proj { background: #241C2A; border: 1px solid #3A2E40; border-radius: 3.5mm; padding: 3.6mm; display: flex; flex-direction: column; gap: 2mm; }
-.tag { align-self: flex-start; border: 1.2px solid currentColor; border-radius: 9mm; padding: .5mm 3mm; font-size: 7pt; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
-.proj p { color: #E6DCEB; }
-.status { color: #BDB3C4; font-size: 7.8pt; }
-.nums { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6mm 2.5mm; }
-.num { font-size: 15pt; font-weight: 700; line-height: 1.05; }
-.nums small { display: block; color: #BDB3C4; font-size: 7pt; line-height: 1.25; }
-.extra { font-size: 7.8pt; color: #E6DCEB; }
-.src { margin-top: auto; font-size: 6.6pt; color: #8C8294; font-style: italic; }
-.split { background: #241C2A; border: 1px solid #3A2E40; border-radius: 3.5mm; padding: 3.6mm 4mm; }
-.split .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5mm; }
-h2 { font-size: 13.5pt; font-weight: 700; }
-.prop { border: 1.2px solid #FF2D75; color: #FF2D75; border-radius: 9mm; padding: .5mm 3mm; font-size: 7pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-.bar { display: flex; height: 7mm; border-radius: 2mm; overflow: hidden; margin-bottom: 2.2mm; }
-.bar div { display: flex; align-items: center; justify-content: center; color: #15111A; font-weight: 700; font-size: 8pt; }
-.legend { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 3mm; }
-.legend b { font-size: 9.5pt; }
-.legend .amt { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 14pt; font-weight: 700; margin-left: 1.5mm; }
-.legend small { display: block; color: #BDB3C4; font-size: 7.4pt; }
-.two { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
-.box { background: #1E1823; border-radius: 3mm; padding: 3mm 3.6mm; }
-.box h3 { font-size: 7.5pt; letter-spacing: .18em; text-transform: uppercase; color: #D4B27A; margin-bottom: 1.4mm; }
-.box ul { list-style: none; }
-.box li { padding-left: 3.4mm; position: relative; margin-bottom: .8mm; }
-.box li::before { content: ''; position: absolute; left: 0; top: 1.6mm; width: 1.5mm; height: 1.5mm; border-radius: 50%; background: #FF2D75; }
-.ms div { margin-bottom: 1mm; display: grid; grid-template-columns: 21mm 1fr; gap: 2mm; }
-.foot { margin-top: auto; border-top: 1px solid #3A2E40; padding-top: 2.6mm; display: flex; flex-direction: column; gap: 1mm; }
-.foot .contact { font-weight: 600; font-size: 9.2pt; color: #FFFFFF; }
-.foot .disc { font-size: 6.8pt; color: #8C8294; font-style: italic; }
+body { background: #0F1115; color: #FFFFFF; font-family: 'Lexend', Arial, sans-serif; font-size: 8pt; line-height: 1.38; padding: 10mm 11mm 8mm; display: flex; flex-direction: column; gap: 3mm; overflow: hidden; }
+.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 6mm; }
+.kicker { font-size: 7pt; letter-spacing: .22em; text-transform: uppercase; color: #FF2D75; font-weight: 600; }
+h1 { font-size: 23pt; line-height: 1.05; font-weight: 700; margin: 1.6mm 0 1.4mm; }
+h1 span { color: #FF2D75; }
+.sub { color: #A9B0BD; font-size: 9pt; max-width: 122mm; }
+.askbox { background: #3A0F22; border: 1px solid #FF2D75; border-radius: 4mm; padding: 3mm 4.5mm; min-width: 50mm; }
+.askbox small { display: block; font-size: 6.6pt; letter-spacing: .2em; text-transform: uppercase; color: #FF2D75; font-weight: 600; }
+.ask { font-size: 24pt; font-weight: 700; line-height: 1.1; }
+.askbox .s { color: #E6E8EE; font-size: 7pt; }
+.wave { display: flex; align-items: center; gap: 1mm; height: 6mm; }
+.wave i { display: block; width: 1.1mm; border-radius: 1mm; }
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.6mm; }
+.box { background: #1A1D24; border: 1px solid #2A2E38; border-radius: 3mm; padding: 2.6mm 3.2mm; }
+.box h3 { font-size: 6.8pt; letter-spacing: .18em; text-transform: uppercase; color: #FFD166; margin-bottom: 1.2mm; }
+.box p { color: #D9DCE3; }
+.nums { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2mm; }
+.num { background: #1A1D24; border-radius: 3mm; padding: 2mm 2.6mm; }
+.num b { display: block; font-size: 15pt; line-height: 1.1; }
+.num small { color: #A9B0BD; font-size: 6.8pt; }
+.vh { font-size: 10.5pt; font-weight: 700; }
+.vision { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.6mm; }
+.vcard { background: #1A1D24; border-radius: 3mm; overflow: hidden; }
+.vcard img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+.vcard div { padding: 1.8mm 2.4mm 2.2mm; }
+.vcard b { font-size: 8.6pt; }
+.vcard .l { display: inline-block; width: 4.2mm; height: 4.2mm; border-radius: 50%; color: #0F1115; text-align: center; font-weight: 700; font-size: 6.6pt; line-height: 4.2mm; margin-right: 1.2mm; }
+.vcard small { display: block; color: #A9B0BD; font-size: 6.8pt; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 2.6mm; }
+.mkt { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4mm 3mm; }
+.mkt b { display: block; font-size: 10pt; }
+.mkt small { color: #A9B0BD; font-size: 6.6pt; }
+ul { list-style: none; }
+li { padding-left: 3.2mm; position: relative; margin-bottom: .7mm; color: #D9DCE3; }
+li::before { content: ''; position: absolute; left: 0; top: 1.4mm; width: 1.4mm; height: 1.4mm; border-radius: 50%; background: #2DFFB5; }
+.split .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2mm; }
+.split h3 { margin: 0; }
+.prop { border: 1.2px solid #FF2D75; color: #FF2D75; border-radius: 9mm; padding: .4mm 2.6mm; font-size: 6.4pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.bar { display: flex; height: 6.5mm; border-radius: 2mm; overflow: hidden; margin-bottom: 1.8mm; }
+.bar div { display: flex; align-items: center; justify-content: center; color: #0F1115; font-weight: 700; font-size: 7.4pt; }
+.legend { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2mm; }
+.legend b { display: block; font-size: 9pt; }
+.legend small { color: #A9B0BD; font-size: 6.8pt; }
+.gates div { display: grid; grid-template-columns: 15mm 1fr; gap: 1.6mm; margin-bottom: .9mm; color: #D9DCE3; }
+.gates b { color: #FFFFFF; }
+.foot { margin-top: auto; border-top: 1px solid #2A2E38; padding-top: 2.2mm; display: flex; flex-direction: column; gap: .8mm; }
+.foot .contact { font-weight: 600; font-size: 8.6pt; }
+.foot .disc { font-size: 6.4pt; color: #8A909C; font-style: italic; }
 </style></head><body>
 <div class="top"><div>
 <div class="kicker">${esc(d.kicker)}</div>
-<h1>${esc(d.title)}</h1>
+<h1>${esc(d.title).replace('LiveFX', '<span>LiveFX</span>')}</h1>
 <div class="sub">${esc(d.sub)}</div>
 </div>
-<div class="askbox"><small>${esc(d.askLabel)}</small><div class="ask">${esc(d.ask)}</div></div></div>
-<div class="wave">${Array.from({ length: 70 }, (_, i) => { const a = Math.abs(Math.sin(i * 0.55) * 0.75 + Math.sin(i * 1.7) * 0.25); return `<i style="height:${(1.2 + 5.6 * a).toFixed(1)}mm;background:${i < 35 ? '#D4B27A' : '#FF2D75'}"></i>`; }).join('')}</div>
-<div class="pillars">${d.pillars.map(([h, t]) => `<div class="pillar"><b>${esc(h)}</b><span>${esc(t)}</span></div>`).join('')}</div>
-<div class="projects">${d.projects.map((p) => `<div class="proj"><span class="tag" style="color:${col[p.c]}">${esc(p.tag)}</span>
-<p>${esc(p.what)}</p><div class="status">${esc(p.status)}</div>
-<div class="nums">${p.nums.map(([n, l]) => `<div><div class="num" style="color:${col[p.c]}">${esc(n)}</div><small>${esc(l)}</small></div>`).join('')}</div>
-<div class="extra">${esc(p.extra)}</div><div class="src">${esc(p.src)}</div></div>`).join('')}</div>
-<div class="split"><div class="head"><h2>${esc(d.splitHead)}</h2><span class="prop">${esc(d.proposal)}</span></div>
-<div class="bar">${d.split.map(([, , p], i) => `<div style="width:${p}%;background:${[col.gold, col.pink, col.violet][i]}">${p} %</div>`).join('')}</div>
-<div class="legend">${d.split.map(([n, a, , s], i) => `<div><b style="color:${[col.gold, col.pink, col.violet][i]}">${esc(n)}</b><span class="amt">${esc(a)}</span><small>${esc(s)}</small></div>`).join('')}</div></div>
+<div class="askbox"><small>${esc(d.askLabel)}</small><div class="ask">${esc(d.ask)}</div><div class="s">${esc(d.askSub)}</div></div></div>
+<div class="wave">${Array.from({ length: 80 }, (_, i) => { const a = Math.abs(Math.sin(i * 0.55) * 0.75 + Math.sin(i * 1.7) * 0.25); return `<i style="height:${(1.2 + 4.8 * a).toFixed(1)}mm;background:${i < 40 ? col.pink : col.mint}"></i>`; }).join('')}</div>
+<div class="three">${d.three.map(([h, t]) => `<div class="box"><h3>${esc(h)}</h3><p>${esc(t)}</p></div>`).join('')}</div>
+<div class="nums">${d.nums.map(([n, l], i) => `<div class="num"><b style="color:${[col.pink, col.mint, col.gold, col.blue][i % 4]}">${esc(n)}</b><small>${esc(l)}</small></div>`).join('')}</div>
+<div class="vh">${esc(d.visionHead)}</div>
+<div class="vision">${d.vision.map(([L, n, t], i) => `<div class="vcard"><img src="${url(path.join(VID, `stills/vision-${d.lang}-16x9-${stills[i]}.jpg`))}"><div><span class="l" style="background:${lc[i]}">${L}</span><b>${esc(n)}</b><small>${esc(t)}</small></div></div>`).join('')}</div>
 <div class="two">
-<div class="box"><h3>${esc(d.synHead)}</h3><ul>${d.syn.map((s) => `<li>${esc(s)}</li>`).join('')}</ul></div>
-<div class="box ms"><h3>${esc(d.msHead)}</h3>${d.ms.map(([n, t]) => `<div><b>${esc(n)}</b><span>${esc(t)}</span></div>`).join('')}</div>
-<div class="box"><h3>${esc(d.structHead)}</h3>${esc(d.struct)}</div>
-<div class="box"><h3>${esc(d.riskHead)}</h3>${esc(d.risk)}</div>
+<div class="box"><h3>${esc(d.mktHead)}</h3><div class="mkt">${d.mkt.map(([n, l]) => `<div><b>${esc(n)}</b><small>${esc(l)}</small></div>`).join('')}</div></div>
+<div class="box"><h3>${esc(d.modelHead)}</h3><ul>${d.model.map((s) => `<li>${esc(s)}</li>`).join('')}</ul></div>
+</div>
+<div class="box split"><div class="head"><h3>${esc(d.splitHead)}</h3><span class="prop">${esc(d.proposal)}</span></div>
+<div class="bar">${d.split.map(([p], i) => `<div style="width:${p}%;background:${sc[i]}">${pct(d.lang, p)}</div>`).join('')}</div>
+<div class="legend">${d.split.map(([, n, a], i) => `<div><b style="color:${sc[i] === col.grey ? '#A9B0BD' : sc[i]}">${esc(a)}</b><small>${esc(n)}</small></div>`).join('')}</div></div>
+<div class="two">
+<div class="box gates"><h3>${esc(d.gatesHead)}</h3>${d.gates.map(([w, t]) => `<div><b>${esc(w)}</b><span>${esc(t)}</span></div>`).join('')}</div>
+<div class="box"><h3>${esc(d.finHead)}</h3><ul>${d.fin.map((s) => `<li>${esc(s)}</li>`).join('')}</ul></div>
 </div>
 <div class="foot"><div>${esc(d.team)}</div><div class="contact">${esc(d.contact)}</div><div class="disc">${esc(d.disc)}</div></div>
-</body></html>`.replace(/(\d+) %/g, d.lang === 'tr' ? '%$1' : (d.lang === 'en' ? '$1%' : '$1 %'));
+</body></html>`;
 }
 
 (async () => {
@@ -171,9 +176,9 @@ h2 { font-size: 13.5pt; font-weight: 700; }
     const page = await browser.newPage();
     await page.goto('file://' + f);
     await page.evaluate(() => document.fonts.ready);
-    const h = await page.evaluate(() => document.body.scrollHeight);
+    const over = await page.evaluate(() => { const b = document.body; return b.scrollHeight - b.clientHeight; });
     await page.pdf({ path: path.join(__dirname, d.file), format: 'A4', printBackground: true, margin: { top: 0, right: 0, bottom: 0, left: 0 }, pageRanges: '1' });
-    console.log('wrote', d.file, 'content height px', h);
+    console.log('wrote', d.file, over > 0 ? `OVERFLOW ${over}px` : 'fits');
     await page.close();
   }
   await browser.close();
