@@ -2,6 +2,7 @@
 // (`POST /api/fire {id}`), and `GET /api/config`. See docs/CONTRACTS.md §4.
 'use strict';
 
+const os = require('os');
 require('../js/schema.js');
 const { readJson, HttpError, json } = require('./router');
 const { requireAuth } = require('./auth');
@@ -12,6 +13,24 @@ function str(v, max) {
   if (typeof v !== 'string') return '';
   const s = v.trim();
   return s.length > max ? s.slice(0, max) : s;
+}
+
+/** IPv4 addresses of this machine that other devices in the LAN can reach (no loopback). */
+function lanIps() {
+  const out = [];
+  let ifaces = {};
+  try {
+    ifaces = os.networkInterfaces() || {};
+  } catch (_) {
+    return out;
+  }
+  for (const list of Object.values(ifaces)) {
+    for (const a of list || []) {
+      const v4 = a.family === 'IPv4' || a.family === 4;
+      if (v4 && !a.internal && a.address && !out.includes(a.address)) out.push(a.address);
+    }
+  }
+  return out;
 }
 
 /** Strips matcher-internal keys (`_key`, `_keywords`, …) before a trigger leaves the server. */
@@ -32,6 +51,7 @@ function register(router, ctx) {
       if (!v.ok) throw new HttpError(400, 'invalid_envelope', v.error);
       const msg = v.msg;
       if (msg.type === 'volume') ctx.state.volume = msg.volume;
+      if (msg.type === 'theme') ctx.state.theme = msg.theme;
       ctx.bus.broadcast(msg, { audience: 'all' });
       json(res, 200, { ok: true, id: msg.id, overlays: ctx.bus.counts().overlays });
     })
@@ -75,7 +95,8 @@ function register(router, ctx) {
     })
   );
 
-  // Panel bootstrap: version, token (shown to the streamer for external tools), smart status, limits.
+  // Panel bootstrap: version, token (shown to the streamer for external tools), smart status, limits,
+  // plus what the "Handy" card needs to build the phone link: LAN IPs, bound port, https or not.
   router.route(
     'GET',
     '/api/config',
@@ -87,6 +108,9 @@ function register(router, ctx) {
         token: ctx.token,
         smart: { available: !!smart.available, reason: smart.reason ?? null, model: smart.model ?? null, mock: !!smart.mock },
         limits: { assetBytes: Schema.LIMITS.assetBytes },
+        lanIps: lanIps(),
+        secure: !!ctx.config.secure,
+        port: Number(ctx.config.port) || 0,
       });
     })
   );

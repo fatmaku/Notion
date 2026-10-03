@@ -1,4 +1,4 @@
-// Unit tests for js/packs.js (language / culture meme packs + story packs 1.3). Run: node --test "test/*.test.js"
+// Unit tests for js/packs.js (language / culture meme packs, story packs 1.3, theme packs 2.0). Run: node --test "test/*.test.js"
 'use strict';
 
 const test = require('node:test');
@@ -14,8 +14,9 @@ const S = globalThis.LiveFXSchema;
 const P = globalThis.LiveFXPacks;
 const defaults = globalThis.LiveFXDefaultTriggers;
 const soundNames = globalThis.LiveFXSounds.names;
-const MIN = { tr: 35, de: 25, en: 25, 'story-de': 25, 'story-tr': 25, 'story-en': 25 };
+const MIN = { tr: 85, de: 49, en: 50, family: 25, gaming: 25, 'story-de': 25, 'story-tr': 25, 'story-en': 25 };
 const MEME = ['tr', 'de', 'en'];
+const THEME = ['family', 'gaming']; // 2.0 theme packs: mixed DE/TR/EN
 const STORY = ['story-de', 'story-tr', 'story-en'];
 // The story packs use visual kinds `scene` / `sticker` and `loop:` sounds (schema / sounds packages of 1.3).
 // When those land later than the packs, the affected assertions are skipped with a console message.
@@ -26,9 +27,9 @@ if (!LOOPS) console.log('packs.test: LiveFXSounds.loops missing – skipping loo
 
 const lower = (k) => String(k).toLowerCase();
 
-test('packs: list() describes tr / de / en + story packs with counts', () => {
+test('packs: list() describes tr / de / en + theme + story packs with counts', () => {
   const list = P.list();
-  assert.deepEqual(list.map((p) => p.id).sort(), ['de', 'en', 'story-de', 'story-en', 'story-tr', 'tr']);
+  assert.deepEqual(list.map((p) => p.id).sort(), ['de', 'en', 'family', 'gaming', 'story-de', 'story-en', 'story-tr', 'tr']);
   for (const p of list) {
     assert.equal(typeof p.label, 'string');
     assert.equal(typeof p.flag, 'string');
@@ -40,6 +41,8 @@ test('packs: list() describes tr / de / en + story packs with counts', () => {
   assert.equal(P.packs['story-de'].label, '📖 Geschichten (DE)');
   assert.equal(P.packs['story-tr'].label, '📖 Masal (TR)');
   assert.equal(P.packs['story-en'].label, '📖 Story (EN)');
+  assert.equal(P.packs.family.label, '👨‍👩‍👧 Familie & Kinder');
+  assert.equal(P.packs.gaming.label, '🎮 Gaming');
 });
 
 test('packs: storyPackFor() maps language tags to story packs', () => {
@@ -273,5 +276,67 @@ test('story packs: every story keyword fires its own trigger (defaults + meme pa
         assert.ok(hits.some((h) => h.trigger.id === trig.id), `${trig.id}: "${kw}" fires (got ${hits.map((h) => h.trigger.id).join(',') || 'nothing'})`);
       }
     }
+  }
+});
+
+// ---- theme packs (2.0) ----
+
+const SOFT_SOUNDS = ['bell', 'pop', 'ding', 'coin', 'levelUp', 'tada', 'boing', 'laugh', 'whoosh', 'drumroll', 'applause'];
+
+test('theme packs: >= 25 triggers, meme-style visuals, builtin sounds, family uses soft sounds only', () => {
+  for (const id of THEME) {
+    const list = P.get(id);
+    assert.ok(list.length >= 25, `${id}: ${list.length} triggers`);
+    assert.equal(P.packs[id].story, undefined, `${id} is not a story pack`);
+    for (const t of list) {
+      assert.ok(['card', 'banner', 'rain', 'confetti'].includes(t.visual.kind), `${t.id}: visual kind ${t.visual.kind}`);
+      if (t.sound !== null) assert.ok(soundNames.includes(t.sound), `${t.id}: unknown sound "${t.sound}"`);
+      if (id === 'family') assert.ok(t.sound === null || SOFT_SOUNDS.includes(t.sound), `${t.id}: "${t.sound}" is not a soft sound`);
+    }
+  }
+});
+
+test('theme packs: signature phrases present', () => {
+  const kws = (id) => new Set(P.get(id).flatMap((t) => t.keywords.map(lower)));
+  const fam = kws('family');
+  for (const must of ['gute nacht', 'aferin', 'oyun zamanı', 'bedtime', 'happy birthday', 'essen ist fertig', 'mama', 'baba']) assert.ok(fam.has(must), `family keyword "${must}"`);
+  const g = kws('gaming');
+  for (const must of ['headshot', 'gg wp', 'rage quit', 'noob', 'respawn', 'boss fight', 'lag', 'level up', 'victory', 'first blood']) assert.ok(g.has(must), `gaming keyword "${must}"`);
+});
+
+test('theme packs: 2.0 additions to tr / de / en are present', () => {
+  const kws = (id) => new Set(P.get(id).flatMap((t) => t.keywords.map(lower)));
+  const tr = kws('tr');
+  for (const must of ['hadi bakalım', 'aman tanrım', 'olm', 'ya sabır', 'eyvallah', 'çüş', 'oha', 'bayıldım', 'ağla', 'kral', 'efsane']) assert.ok(tr.has(must), `tr keyword "${must}"`);
+  const de = kws('de');
+  for (const must of ['alter schwede', 'geil', 'läuft bei dir', 'kein plan', 'diggi', 'ehrenmann', 'cringy', 'safe', 'lost', 'jackpot']) assert.ok(de.has(must), `de keyword "${must}"`);
+  const en = kws('en');
+  for (const must of ['no cap', 'slay', 'bruh moment', 'sus', 'rizz', 'big w', 'big l', 'lessgo', 'plot twist', 'cooked', 'hype']) assert.ok(en.has(must), `en keyword "${must}"`);
+});
+
+test('theme packs: defaults + family + gaming (+ one meme pack) fit into the trigger limit and normalize cleanly', () => {
+  for (const fam of MEME) {
+    const all = defaults.concat(P.get('family'), P.get('gaming'), P.get(fam));
+    assert.ok(all.length <= S.LIMITS.triggers, `${fam}: ${all.length} <= ${S.LIMITS.triggers}`);
+    const n = S.normalizeTriggers(all);
+    assert.deepEqual(n.warnings, []);
+    assert.equal(n.triggers.length, all.length);
+  }
+});
+
+test('theme packs: the matcher fires them next to the defaults (exact short words included)', () => {
+  const m = new globalThis.LiveFXMatcher.Matcher(defaults.concat(P.get('gaming'), P.get('family')), { globalMinGap: 0 });
+  const cases = [
+    ['das war ein headshot digga', 'gaming-headshot'],
+    ['ok ggwp jungs', 'gaming-ggwp'],
+    ['ich hab lag', 'gaming-lag'],
+    ['aferin sana', 'family-aferin'],
+    ['so, essen ist fertig', 'family-essenfertig'],
+    ['hadi oyun zamanı', 'family-oyunzamani'],
+  ];
+  for (const [text, id] of cases) {
+    const hits = m.process(text, 0);
+    assert.ok(hits.some((h) => h.trigger.id === id), `"${text}" -> ${id} (got ${hits.map((h) => h.trigger.id).join(',') || 'nothing'})`);
+    m.endUtterance();
   }
 });

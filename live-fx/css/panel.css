@@ -168,3 +168,47 @@ button.pill-link:hover { border-color: var(--accent-2); }
 .scene-pad button[data-scene="clear"] { border-style: dashed; color: var(--muted); }
 .scene-pad button.active { border-color: var(--accent-2); box-shadow: 0 0 0 1px var(--accent-2) inset; }
 .pack .flag.story { font-size: 22px; }
+
+/* audio (1.5): silent preview toggle, echo warning, Ton-Check card */
+.preview-row { align-items: center; }
+.preview-row .check-line { flex: 0 0 auto; font-weight: 600; }
+.preview-row .help { flex: 1 1 200px; }
+.warning { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; padding: 10px 12px; border-radius: 10px; font-size: 13px; line-height: 1.5; background: rgba(255, 176, 32, .12); border: 1px solid rgba(255, 176, 32, .6); color: var(--text); }
+.warning[hidden] { display: none; }
+.warning > span { flex: 1 1 240px; }
+.warning button { flex: 0 0 auto; border-color: var(--warn); }
+.audiocheck { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.audiocheck .check-line { align-items: flex-start; line-height: 1.4; }
+.audiocheck input { margin-top: 2px; }
+.audiocheck input:disabled { accent-color: var(--ok); cursor: default; }
+.audiocheck .auto-tag { font-size: 10px; color: var(--muted); background: var(--bg); padding: 1px 6px; border-radius: 999px; text-transform: uppercase; letter-spacing: .06em; }
+#audio-card .actions { align-items: center; }
+#audio-card .actions .help { flex: 1 1 200px; }
+#mic-test-status.ok { color: var(--ok); }
+#mic-test-status.err { color: var(--accent); }
+
+/* 2.0: viewer triggers (chat commands, gifts), combos */
+.viewer-status { display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; }
+.viewer-status .pill { padding: 4px 10px; }
+.chat-enable { flex: 0 0 auto; padding-bottom: 10px; }
+.chat-test-user { flex: 0 0 120px; }
+.auto-tag { font-size: 10px; color: var(--ok); background: var(--bg); padding: 1px 6px; border-radius: 999px; letter-spacing: .04em; margin-left: 6px; }
+.cmd-table td { padding: 5px 4px; }
+.cmd-table td.num { width: 70px; }
+.cmd-table td.num input { width: 70px; }
+.cmd-table td.cmd { width: 36%; }
+.cmd-table td.acts { width: 36px; }
+.cmd-table td.acts button { padding: 4px 7px; }
+.chat-feed { max-height: 180px; overflow-y: auto; font-size: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 6px 10px; }
+.chat-feed .chat-line { padding: 3px 0; border-bottom: 1px dashed var(--border); display: flex; gap: 8px; align-items: baseline; }
+.chat-feed .chat-line:last-child { border-bottom: none; }
+.chat-feed .chat-line .platform { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; flex: 0 0 52px; }
+.chat-feed .chat-line .user { color: var(--accent-2); font-weight: 600; flex: 0 0 auto; }
+.chat-feed .chat-line .text { color: var(--text); flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+.chat-feed .chat-line.fired { background: rgba(61, 220, 132, .08); border-left: 3px solid var(--ok); padding-left: 6px; border-radius: 4px; }
+.chat-feed .chat-line.fired .text { color: var(--ok); }
+.chat-feed .chat-line.blocked .text { color: var(--muted); }
+.chat-feed .chat-line.gift { background: rgba(255, 176, 32, .1); border-left: 3px solid var(--warn); padding-left: 6px; border-radius: 4px; }
+.chat-feed .chat-line .fx { font-size: 11px; color: var(--muted); flex: 0 0 auto; }
+#chat-save-status.ok { color: var(--ok); }
+#chat-save-status.err { color: var(--accent); }

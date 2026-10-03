@@ -73,6 +73,31 @@ Stichwort zuordnen. Braucht einen kostenlosen API-Key von Tenor oder Giphy: [doc
 Im Hochkant-Layout bleiben alle Effekte oberhalb der unteren 35 % (dort liegen bei TikTok/IG die
 Kommentare) und der Emoji-Regen fällt entsprechend kürzer.
 
+## Ton & Echo (Mikro in OBS, keine Doppel-Effekte)
+
+Aus echten Streams gelernt: Das Mikro der Spracherkennung läuft **im Browser** – OBS hört es erst, wenn du es dort
+als Quelle **Audioeingabeaufnahme** anlegst. Und das Overlay läuft zweimal (Panel-Vorschau + OBS-Browser-Quelle):
+spielt die Vorschau Ton, hören Zuschauer jeden Effekt **doppelt**. Deshalb:
+
+- Die **Overlay-Vorschau im Panel ist stumm** (Schalter „Vorschau-Ton“ nur zum Reinhören); ist dabei ein OBS-Overlay
+  verbunden, zeigt das Panel eine **Echo-Warnung**.
+- Karte **🔊 Ton-Check**: fünf Haken (Mikro-Quelle, „Audio über OBS steuern“, Desktop-Audio stumm, Monitoring aus,
+  Vorschau-Ton aus), **Mikro-Test** und **„Test-Sound in OBS“**.
+- Schritt-für-Schritt mit Fehlerhilfe („Zuschauer hören mich nicht“, „Echo“, „Effekte doppelt“): [`docs/AUDIO.md`](docs/AUDIO.md).
+
+## Grafik, Sound & Zuschauer (1.6)
+
+- **Effekte v2**: Partikel mit Physik auf einem Canvas (60 fps mit automatischem Limit), Glow, 3D-Karten, Impact-Zoom,
+  Lichtstrahlen; neue Effekt-Typen **Text** (Neon/Verlauf/Bounce/Glitch), **Bauchbinde** und **Kombi** (Sequenz).
+  Pro Effekt: Glow, Kippen, Impact, Intensität 1–3, Lautstärke (`gain`).
+- **Look (Theme)** im Panel: Neon, Pastell, Minimal, Kinderbuch – oder fest per `overlay.html?theme=pastel`.
+- **Sound-Mixer**: Limiter, Ducking der Atmosphäre, Stereo nach Position, Hall für Szenen, 38 Sounds in Gruppen
+  ([`docs/SOUNDS.md`](docs/SOUNDS.md)).
+- **Zuschauer-Trigger** 💬: Twitch-Chat ohne Login, YouTube-Live-Chat mit API-Key, `!befehl` → Trigger mit Cooldowns,
+  Geschenke-Webhook mit Stufen (TikTok via TikFinity/Streamer.bot) – [`docs/VIEWER.md`](docs/VIEWER.md).
+- **Kombis** („krass“ 3× in 10 s → Konfetti) und **Intensität aus Stimme**.
+- **Pakete**: Türkçe 85, Deutsch 49, English 50, neu „Familie & Kinder“ und „Gaming“.
+
 ## Eigene Memes, GIFs & Sounds
 
 - **Medien-Bibliothek** im Panel: PNG/JPG/GIF/WebP und MP3/WAV/OGG hochladen (bis 8 MB pro Datei).
@@ -107,7 +132,9 @@ Position: `center` (Mitte), `top` (oben), `safe` (im Hochkant-Layout im oberen D
 
 Im Panel unter **Erkennung**:
 
-- **Sprache** mit Varianten (Deutsch DE/AT/CH, Türkçe, English US/GB/IN) – die Kopfzeile zeigt die aktive Sprache.
+- **Sprache**: **Automatisch (DE/TR/EN)** erkennt beim Sprechen, ob du gerade Deutsch, Türkçe oder English
+  redest (Standard, 1.5) – oder fest mit Varianten (Deutsch DE/AT/CH, Türkçe, English US/GB/IN). Die Kopfzeile zeigt
+  „Auto · TR“ bzw. die feste Sprache, die Diagnose die erkannte Sprache und den Modus.
 - **Dialekt-Toleranz** aus / mittel / hoch: „grass“ löst trotzdem *krass* aus, „helal olsn“ *helal olsun*. Kurze
   Wörter (≤ 4 Buchstaben) werden immer exakt verglichen, echte Stichwörter nie verwechselt („schön“ ≠ „schon“).
 - **Reaktion**: *schnell* feuert schon bei Zwischenergebnissen, *sicher* erst beim fertigen Satz.
@@ -180,6 +207,7 @@ statt vom Browser-Mikro (funktioniert damit auch in Firefox/Safari oder offline 
 | `GET/POST /api/assets`, `DELETE /api/assets/<name>` | Medien-Bibliothek (Upload: Body = Datei, Header `x-filename`) |
 | `POST /api/smart/classify` | `{text}` → `{triggerId, confidence}` |
 | `GET /api/smart/status`, `GET /health` | Status |
+| `GET /m?token=<token>` | Handy-Login: setzt das Sitzungs-Cookie, leitet auf `/mobile.html` (10 Fehlversuche/Minute) |
 | `GET /events?role=overlay\|panel` | SSE-Stream (das benutzt das Overlay) |
 
 **Stream Deck**: Plugin „API Ninja“/„HTTP Request“ → POST mit obigem Body und Header.
@@ -194,6 +222,43 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 });
 ```
 
+## Handy & HTTPS
+
+Das Handy wird zur **Fernbedienung und zum zweiten Mikro**: Panel-Karte **📱 Handy** öffnen, den Link
+`http://<LAN-IP>:<port>/m?token=…` am Handy eintippen (oder per Messenger schicken) – der Link setzt das
+Sitzungs-Cookie und leitet auf `/mobile.html` weiter: alle Trigger als große Kacheln, Szenen-Leiste,
+Pause, Lautstärke, Live-Transkript, als Web-App auf den Homescreen legbar. Dafür muss der Server im
+LAN erreichbar sein: `HOST=0.0.0.0 node server.js`. Anleitung: [docs/HANDY.md](docs/HANDY.md).
+
+Soll das **Handy selbst zuhören**, braucht der Browser eine HTTPS-Verbindung (Mikro nur im „sicheren
+Kontext“). LiveFX spricht HTTPS mit einem selbst erstellten Zertifikat:
+
+```bash
+openssl req -x509 -newkey rsa:2048 -nodes -days 365 -subj "/CN=livefx" \
+  -addext "subjectAltName=IP:192.168.x.x" -keyout livefx-key.pem -out livefx-cert.pem
+HOST=0.0.0.0 LIVEFX_TLS_CERT=livefx-cert.pem LIVEFX_TLS_KEY=livefx-key.pem node server.js
+```
+
+Dann das Zertifikat einmal auf dem Handy als vertrauenswürdig installieren (iPhone: Profil +
+Zertifikatsvertrauenseinstellungen, Android: CA-Zertifikat) – Schritt für Schritt in
+[docs/HANDY-HTTPS.md](docs/HANDY-HTTPS.md). Ohne HTTPS bleibt das Handy eine Fernbedienung; das
+OBS-Overlay auf dem PC funktioniert in beiden Fällen. Fehlt eine der beiden Variablen oder ist eine
+Datei nicht lesbar, startet LiveFX nicht (deutsche Fehlermeldung, Exit 1).
+
+## Offline-Erkennung (experimentell)
+
+Ohne Google-Dienst und ohne Internet im Stream: ein **Whisper-Modell läuft direkt im Browser**
+(transformers.js, WebGPU/WASM). Einmalig mit Internet einrichten, danach im Panel die Engine
+**„Offline (Whisper, experimentell)“** wählen:
+
+```bash
+npm run setup-offline                 # Whisper tiny (≈ 40 MB) nach vendor/ + data/models/
+npm run setup-offline -- --model base # genauer, ≈ 150 MB
+```
+
+Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuche in
+[`docs/OFFLINE.md`](docs/OFFLINE.md).
+
 ## Konfiguration (Umgebungsvariablen)
 
 | Variable | Standard | Bedeutung |
@@ -203,6 +268,8 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 | `LIVEFX_DATA_DIR` | `live-fx/data` | Ablage für `triggers.json`, `token.txt`, `assets/` |
 | `LIVEFX_TOKEN` | (aus Datei) | API-Token vorgeben |
 | `LIVEFX_ALLOWED_HOSTS` | – | Zusätzliche Hostnamen, unter denen das Panel geöffnet werden darf (z. B. `livefx.local`) |
+| `LIVEFX_TLS_CERT` | – | Pfad zum Zertifikat (PEM) → Server läuft per HTTPS; nur zusammen mit `LIVEFX_TLS_KEY` |
+| `LIVEFX_TLS_KEY` | – | Pfad zum privaten Schlüssel (PEM); siehe [docs/HANDY-HTTPS.md](docs/HANDY-HTTPS.md) |
 | `LIVEFX_MODEL` | `claude-opus-5-5` | Modell für den Smart-Modus |
 | `LIVEFX_SMART` | `1` | `0` = Smart-Modus aus |
 | `LIVEFX_SMART_MOCK` | `0` | `1` = Test-Klassifikator ohne API-Key |
@@ -222,7 +289,8 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 ## Technik
 
 - Reines HTML/JS/CSS, **keine Dependencies**; Node nur für Server/Bridge. Optional: Anthropic SDK + zod für den Smart-Modus.
-- Spracherkennung: Web Speech API (Chrome/Edge) oder externer Push (`POST /api/transcript`).
+- Spracherkennung: Web Speech API (Chrome/Edge), externer Push (`POST /api/transcript`) oder
+  experimentell offline mit Whisper im Browser (`js/whisper-worker.js`, `docs/OFFLINE.md`).
 - Matcher (`js/matcher.js`): Whole-Word-Match, mehrsprachig (DE/EN/TR im Standardpaket), spezifischere
   Stichwörter gewinnen („oh nein“ vor „nein“), per-Trigger-Cooldown und globaler Mindestabstand gegen
   Effekt-Spam; zählt Vorkommen im laufenden Satz, damit Zwischenergebnisse nicht doppelt feuern.
@@ -244,9 +312,15 @@ npm test             # beides
 Playwright wird lokal (`npm install playwright`) oder aus der globalen Installation aufgelöst;
 Browser: `PLAYWRIGHT_BROWSERS_PATH` bzw. `npx playwright install chromium`.
 
+## Business & Pitch
+
+Alles für Vorstellung und Verkauf liegt in [`business/`](business/README.md): Marketingvideo (9:16 und 16:9),
+Pitch-Deck (PPTX), Businessplan (MD + DOCX), Marktanalyse mit Quellen, LinkedIn-Artikel (DE/TR) und eine
+statische Landingpage (DE/TR/EN).
+
 ## Roadmap Richtung Produkt
 
 1. **Native Mobile-SDK** für In-App-Live (die eigentliche Lücke bei Instagram/TikTok).
 2. **Meme-Bibliothek** mit lizenzierten GIFs/Sounds (Giphy/Tenor-API), Community-Packs.
-3. **Zuschauer-Trigger**: Chat-Kommandos / Geschenke lösen Effekte aus (Monetarisierung) – die API dafür ist da.
+3. **Plattform-Integration**: Pilot mit TikTok/Meta/YouTube, Zuschauer-Trigger nativ (Geschenke → Effekte).
 4. Kontext-Timing (Effekt erst am Satzende) und Streaming-ASR mit < 300 ms Latenz.

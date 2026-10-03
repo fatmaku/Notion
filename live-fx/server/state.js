@@ -123,6 +123,7 @@ function createState({ dataDir, defaults = [], log = () => {} }) {
   const state = {
     version: VERSION,
     volume: null,
+    theme: null,
     seq: 0,
     updatedAt: null,
     matcher: null,

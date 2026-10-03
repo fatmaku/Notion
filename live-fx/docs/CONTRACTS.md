@@ -16,7 +16,7 @@ Rules for every package:
 
 ---
 
-## 1. Trigger schema v2 (`js/schema.js`, global `LiveFXSchema`, UMD – loads in Node and browser)
+## 1. Trigger schema v3 (`js/schema.js`, global `LiveFXSchema`, UMD – loads in Node and browser)
 
 ```js
 {
@@ -26,20 +26,39 @@ Rules for every package:
   enabled: boolean,      // default true (only `false` disables)
   cooldown: number,      // seconds 0..3600, default 4
   hint?: string,         // <= 120 chars, free-text description for smart mode ("streamer is stunned")
-  sound: string | null,  // "airhorn" (builtin, LiveFXSounds.names) | "file:assets/boom.mp3" | null
+  sound: string | null,  // "airhorn" (builtin, LiveFXSounds.names) | "file:assets/boom.mp3" | "loop:rain" | null
+  gain?: number,         // v3: 0..1 per-trigger volume multiplier (effective = master × gain); absent = 1
   visual: {
-    kind: 'card'|'image'|'banner'|'rain'|'confetti',   // default 'card'
+    kind: 'card'|'image'|'banner'|'rain'|'confetti'|'scene'|'sticker'|'text'|'lower-third'|'combo',   // default 'card'
     position: 'center'|'top'|'safe',                    // default 'center'
-    emoji?: string,      // <= 16 chars
+    emoji?: string,      // <= 16 chars (<= 32 for sticker)
     text?: string,       // <= 80 chars
     bg?: string,         // /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%]+\))$/i
     color?: string,      // same as bg
+    color2?: string,     // v3, same as bg (second colour of `text` gradients / glitch layers)
     src?: string,        // /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp)$/i  or  /^https?:\/\/[^\s"'<>]{1,500}$/i
     count?: integer,     // 1..60 (rain)
-    shake?: boolean
+    shake?: boolean,
+    // v3 – on every kind (only `true` / explicit values are stored, so v2 records never gain keys):
+    glow?: true,         // glow layers (box/text shadow, drop-shadow on emoji)
+    tilt?: true,         // 3D card tilt (card / image / confetti card)
+    impact?: true,       // stage zoom bump (#stage.fx-impact, 250 ms) + mixer.duck(250)
+    intensity?: 1|2|3,   // default 1: particle cap 400/800/1200, light rays + ring behind cards at >= 2, spark burst at 3
+    // kind 'scene' (1.3): scene (SCENES), intensity (default 2), duration (s, 0..3600), caption (bool)
+    // kind 'text' (v3):
+    style?: 'neon'|'gradient'|'bounce'|'glitch',   // default 'neon'; `text` is required (else -> card)
+    // kind 'lower-third' (v3): landscape only – the overlay renders a banner in portrait
+    title?: string,      // <= 60 chars, falls back to `text`; missing -> kind 'banner'
+    subtitle?: string,   // <= 80 chars
+    // kind 'combo' (v3):
+    steps?: [{ delay: ms (0..10000), visual: {…normalized recursively…}, sound?: string }]   // 1..6 steps; a step may not be a combo (-> card + warning)
   }
 }
 ```
+
+v2 compatibility: `normalizeTrigger` accepts every v2 record unchanged (byte-for-byte equal output). A non-scene
+visual that still carries a `scene` id (v2 editor kind switch) drops the whole scene bundle incl. `intensity`,
+exactly like v2 did.
 
 Sound encoding is the **string form** `"file:assets/x.mp3"` – keeps `<select value>` binding, JSON
 export/import and old data valid; one regex validates it.
@@ -48,7 +67,7 @@ Exports of `LiveFXSchema`:
 
 | Export | Meaning |
 |---|---|
-| `VERSION` (=2), `KINDS`, `POSITIONS`, `LIMITS` | `LIMITS = {triggers:200, keywords:50, keywordLen:60, label:40, text:80, emoji:16, hint:120, rainCount:60, cooldown:3600, transcriptChars:2000, assetBytes:8*1024*1024, sourceLen:80, idLen:64}` |
+| `VERSION` (=3), `SCHEMA_VERSION` (=3), `KINDS`, `POSITIONS`, `SCENES`, `LOOPS`, `TEXT_STYLES`, `THEMES`, `LIMITS` | `LIMITS = {triggers:200, keywords:50, keywordLen:60, label:40, text:80, emoji:16, hint:120, rainCount:60, stickerEmoji:32, sceneDuration:3600, cooldown:3600, transcriptChars:2000, assetBytes:8*1024*1024, sourceLen:80, idLen:64, comboSteps:6, comboDelay:10000, title:60, subtitle:80}`; `TEXT_STYLES = ['neon','gradient','bounce','glitch']`; `THEMES = ['neon','pastel','minimal','kinderbuch']` |
 | `ID_RE`, `SAFE_NAME`, `IMAGE_EXT`, `SOUND_EXT`, `ASSET_IMAGE_RE`, `ASSET_SOUND_RE`, `COLOR_RE` | regexes / lists above; `SAFE_NAME = /^[a-z0-9][a-z0-9._-]{0,99}$/i` |
 | `isSafeName(name)` | `SAFE_NAME` **and** no `..` |
 | `newId(prefix='m')` | `"<prefix>-<12 hex>"` via `crypto.randomUUID` (fallback time+random) |
@@ -57,7 +76,7 @@ Exports of `LiveFXSchema`:
 | `normalizeTriggers(any)` | `{triggers, warnings}`; non-array -> `{triggers: [], warnings: [...]}`; caps at `LIMITS.triggers` |
 | `mergeWithDefaults({triggers, removed}, defaults)` | appends deep copies of defaults whose id is neither present nor listed in `removed` |
 | `deriveRemoved(triggers, defaults)` | ids of defaults missing from `triggers` |
-| `validateEnvelope(msg)` | for `/fire`: `{ok:true, msg}` with `type` in `fire\|volume`, `id` (kept if `/^[\w.-]{1,64}$/`, else new), `ts`, normalized `trigger` + `source` (<= 80, default "API") or clamped `volume`; unknown keys (e.g. `_keywords`) stripped. `{ok:false, error}` otherwise. |
+| `validateEnvelope(msg)` | for `/fire`: `{ok:true, msg}` with `type` in `fire\|volume\|theme`, `id` (kept if `/^[\w.-]{1,64}$/`, else new), `ts`, normalized `trigger` + `source` (<= 80, default "API"), clamped `volume`, or `theme` (one of `THEMES`); unknown keys (e.g. `_keywords`) stripped. `{ok:false, error}` otherwise. |
 | `escapeHtml(s)` | `& < > " '` |
 
 ## 2. Bus message envelope (BroadcastChannel and SSE carry identical JSON)
@@ -66,8 +85,9 @@ Exports of `LiveFXSchema`:
 { id: string, type: string, ts: number, ...payload }
 fire:              { trigger, source }                    panel/API -> overlays (panel logs foreign ones)
 volume:            { volume: 0..1 }                       panel -> overlays; server remembers in state.volume
+theme:             { theme: 'neon'|'pastel'|'minimal'|'kinderbuch' }   panel -> overlays (v3); overlay ignores it when the URL has ?theme=
 transcript:        { text, final: boolean, lang?, source } server -> panels (external ASR push)
-state:             { volume: number|null, overlays, panels, version }   server -> each new SSE subscriber
+state:             { volume: number|null, theme?: string|null, overlays, panels, version }   server -> each new SSE subscriber (theme = last `theme` message, 1.6)
 triggers-updated:  { updatedAt }                          server -> all after PUT /api/triggers
 ```
 - `id` is created by the **sender** (`LiveFXSchema.newId()`); the server assigns one only if missing.
@@ -96,7 +116,8 @@ bus.close()
 |---|---|---|---|
 | `GET /health` | none | | `{ok, version, overlays, panels, uptime}` |
 | `GET /events?role=panel\|overlay` | none | | SSE (section 2) |
-| `GET /api/config` | same-origin | | `{ok, version, token, smart:{available, reason, model, mock}, limits:{assetBytes}}` |
+| `GET /api/config` | same-origin | | `{ok, version, token, smart:{available, reason, model, mock}, limits:{assetBytes}, lanIps:string[] (IPv4, non-internal, from os.networkInterfaces()), secure:boolean (TLS on), port:number (actually bound port)}` |
+| `GET /m?token=<token>` | none (the token IS the credential) | query `token` | constant-time compare with the server token: 302 `location: /mobile.html` + `set-cookie: livefx=<token>; HttpOnly; SameSite=Strict; Path=/` (+ `; Secure` over TLS); wrong → 401 `unauthorized` (German message); > 10 wrong attempts per minute per `req.socket.remoteAddress` → 429 `rate_limited`; no `token` param → 302 to `/mobile.html` without a cookie (`server/api-mobile.js`, registered before static) |
 | `POST /fire` | auth | envelope (`fire` or `volume`) | `{ok, id, overlays}`; 400 `invalid_envelope` |
 | `POST /api/fire` | auth | `{id}` or `{trigger}`, `source?`, `force?` | `{ok, fired, reason?: 'cooldown'\|'gap'\|'disabled'\|'unknown', id}`; 404 `unknown_trigger` |
 | `GET /api/triggers` | none | | `{ok, version:2, triggers, removed, updatedAt}` (already merged with defaults) |
@@ -128,7 +149,9 @@ The panel reads the token from `GET /api/config` and shows it.
 
 `PORT` (8787; `0` = random, printed), `HOST` (`127.0.0.1`; `0.0.0.0` opt-in), `LIVEFX_DATA_DIR` (`<root>/data`),
 `LIVEFX_TOKEN`, `LIVEFX_ALLOWED_HOSTS`, `LIVEFX_MODEL` (`claude-opus-5-5`), `LIVEFX_SMART=0` (disable),
-`LIVEFX_SMART_MOCK=1`, `LIVEFX_SMART_TIMEOUT_MS` (1500).
+`LIVEFX_SMART_MOCK=1`, `LIVEFX_SMART_TIMEOUT_MS` (1500), `LIVEFX_TLS_CERT` + `LIVEFX_TLS_KEY` (PEM paths; both or
+neither – `https.createServer`, printed URLs `https://`, `config.secure = true`; one missing/unreadable → German
+error on stderr + exit 1; see docs/HANDY-HTTPS.md).
 
 ## 5. Server core (`server/router.js`, `server.js`) – owned by P0 (done)
 
@@ -171,7 +194,8 @@ createSmart({log, model, getTriggers, classifyFn?, parse?, timeoutMs?, maxPerMin
 ## 6. ASR abstraction (`js/asr.js`, global `LiveFXASR`; mic meter `js/meter.js`, global `LiveFXMeter`) – owned by P5
 
 ```js
-LiveFXASR.backends -> [{name:'webspeech', label:'Browser (Chrome/Edge)', supported}, {name:'external', label:'Extern (POST /api/transcript)', supported}]
+LiveFXASR.backends -> [{name:'webspeech', label:'Browser (Chrome/Edge)', supported}, {name:'external', label:'Extern (POST /api/transcript)', supported},
+                      {name:'whisper', label:'Offline (Whisper, experimentell)', supported}]
 LiveFXASR.create(name, {
   lang, bus,
   onText(text, isFinal, { source, lang, at, alternatives?: string[], confidence?: number }),
@@ -195,6 +219,28 @@ LiveFXASR.BACKOFF_MS, LiveFXASR.ALTERNATIVES_N (3), LiveFXASR.DEFAULT_STALL_MS (
 - Stall watchdog: re-armed on every `onstart`/`onresult`; fires only in state `listening` when `stallMs` passed without a result and (`voiceActivity` unset, or voice was seen since the last result – sampled once per second) -> `onError({code:'stalled', message:'Erkennung hängt – Neustart', fatal:false})`, `stats.stalls++`, abort + respawn (state `restarting`).
 - `setOptions()` works live: `alternatives` respawns the recognizer (`maxAlternatives` is read at `start()`), `restartEveryMs`/`stallMs` re-arm their timers. All timers are cleared by `stop()`, on fatal errors and whenever a generation is killed.
 - external: `start()` subscribes to `transcript` messages on the bus and calls `onText(m.text, m.final !== false, {source: 'Extern', lang: m.lang, at})`; `unsupported` when `bus.serverBase === null`. `alternatives`/`restartEveryMs`/`stallMs`/`voiceActivity` are ignored and `setOptions()` is a no-op; `stats` counts results/finals, `onEvent` gets `result`/`final`.
+
+### Backend `whisper` (LiveFX 1.4, offline, experimental – `js/asr.js` + `js/whisper-worker.js`, owned by package C)
+
+```js
+LiveFXASR.create('whisper', {
+  lang, onText, onState, onError, onEvent,
+  model: 'onnx-community/whisper-tiny',   // repo under /models/ (setup-offline: tiny | base)
+  device: null,                           // 'webgpu' | 'wasm'; default: worker picks webgpu when navigator.gpu exists
+  workerFactory: null,                    // () => Worker-like {postMessage, terminate, onmessage, onerror} – tests
+  mediaFactory: null,                     // () => Promise<MediaStream> – tests; default getUserMedia({audio:true})
+})
+  -> { name:'whisper', start() -> Promise<boolean>, stop(), setLang(lang), setOptions() /* no-op */, get state, get lang, get stats, get options: {model} }
+stats = makeStats() + { chunks }          // chunks = audio segments sent to the worker; results/finals = non-empty texts
+LiveFXASR.probeWhisper() -> Promise<boolean>   // HEAD /vendor/transformers.min.js === 200; cached; false under file://
+LiveFXASR.WHISPER_DEFAULT_MODEL                 // 'onnx-community/whisper-tiny'
+```
+- `backends[].supported` for `whisper` = `window.Worker` && http(s) && (`isSecureContext` or localhost) && the **last** probe answered 200. The first read of `backends` kicks off the probe asynchronously (reads before it finishes say `false`); `probeWhisper()` re-checks, e.g. after `npm run setup-offline`. `create()` only needs a Worker (or `workerFactory`); a missing library surfaces as a fatal `whisper` error from the worker.
+- `start()`: state `starting` → worker spawned (`js/whisper-worker.js`) and sent `{type:'load', model, modelBase:'/models/', vendorUrl:'/vendor/transformers.min.js', device?}` → `getUserMedia` (or `mediaFactory`) → `AudioContext` + `ScriptProcessorNode(4096)` (AudioWorklet fallback when `createScriptProcessor` is missing) → box-filter downsampling to 16 kHz mono Float32 → energy VAD: a chunk starts when frame RMS > 0.01, ends after 600 ms below the threshold (trailing silence trimmed to the hangover) or at 6 s (cut exactly at 96 000 samples, the rest starts the next chunk); chunks with < 0.4 s of speech are dropped; audio before `ready` is ignored. Each chunk → `worker.postMessage({type:'transcribe', audio: Float32Array, lang}, [audio.buffer])` with `lang` = ISO-639-1 of `lang` (`'de-DE'` → `'de'`); at most 3 chunks in flight, further ones are dropped (`onEvent({type:'dropped', seconds, pending})`).
+- Worker → backend: `progress {pct, file?}` → state `starting` + `onEvent({type:'progress', pct, file?})`; `ready` → `onEvent({type:'ready', model})` + state `listening`; `result {text}` → when `text.trim()` is non-empty: `onEvent({type:'final', text, isFinal:true})` + `onText(text, true, {source:'Whisper', lang, at})` (`lang` is the full tag, e.g. `de-DE`); `error {message}` → `onError({code:'whisper', message, fatal:true})`, everything torn down, state `error`. `worker.onerror` (script failed to load) is treated the same. Mic/permission failure → `onError({code:'whisper', message:'Mikrofon-Zugriff verweigert.' | 'Mikrofon nicht verfügbar: …', fatal:true})` + state `error`.
+- `stop()`: terminates the worker, stops the tracks, closes the context, state `idle` (safe twice; a `stop()` during the permission prompt releases the stream once it arrives). `setLang()` is stored and used for the next chunk – no restart (the model is multilingual). `onEvent` also gets `chunk {seconds, lang}` per sent chunk. No interim results, no restarts/stall watchdog (`restarts`/`stalls` stay 0).
+- Worker protocol (`js/whisper-worker.js`): `load` → `import(vendorUrl)` → `env.allowRemoteModels=false; env.allowLocalModels=true; env.localModelPath=modelBase; env.backends.onnx.wasm.wasmPaths=<vendor dir>` → `pipeline('automatic-speech-recognition', model, {dtype:'q8', device, progress_callback})` (`pct` = mean per-file progress) → `ready`; `transcribe` → `asr(audio, {language: lang, task:'transcribe', chunk_length_s: 30})` → `result {text}` (strictly sequential); every failure → `error {message}`.
+- Static routes (package A): `/vendor/<name>.(js|wasm|mjs)` → `<root>/vendor`, `/models/<path>.(json|onnx|bin|txt)` → `<dataDir>/models`. `scripts/setup-offline.js` fills both (`npm run setup-offline [-- --model tiny|base] [--data <dir>] [--force]`); it exports `{ modelFiles(repo), fileUrl(repo, file), REPOS, MODEL_FILES, parseArgs(argv), REGISTRY_URL }` for tests and only runs `main()` when executed directly.
 
 Web Speech facts (Chrome/Edge, measured): interim results every ~100–300 ms while speaking; the final result arrives ~0.5–1.5 s after the end of speech; `maxAlternatives` is only populated for final results (interims carry one alternative); Chrome ends a session after ~5–8 s of silence (`onend` -> backoff restart handles it) and recognition quality degrades on very long sessions (the planned restart every 60 s is the workaround); valid language tags: `de-DE`, `de-AT`, `de-CH`, `tr-TR`, `en-US`, `en-GB`, `en-IN`.
 
@@ -270,24 +316,33 @@ form (DL ≤ 1), and for high DL ≤ 2 a pigeonhole piece index (three 2-char pi
 tokens with a shorter fold in a `rest` list). Performance (test/matcher-fuzzy.test.js): 200 triggers × 8 keywords,
 20-word utterance, high – median ≈ 0.5 ms, max ≈ 1.3 ms (Node 22).
 
-## 9. Renderer additions (`js/fx.js`) – owned by P3
+## 9. Renderer (`js/fx.js`, global `LiveFXRenderer`) – owned by P3 / fx-engine (v2 in LiveFX 2.0)
 
-- `renderer.fire(trigger)`: `sound` via `LiveFXSchema.parseSound`: builtin -> `LiveFXSounds.play`; file -> `<audio src=url>` appended to `#stage` (removed on `ended`/`error`), routed through `ctx.createMediaElementSource(audio) -> GainNode(volume) -> destination`, fallback `audio.volume` without AudioContext.
-- `emoji`/`text` through `escapeHtml`; `img.setAttribute('src', v.src)` only after `ASSET_IMAGE_RE`/http regex check; `count` clamped to `LIMITS.rainCount`; drops/confetti set `--x` (0..1) instead of inline `left`; cards/images/banners get class `fx-pos-<position>`.
-- `renderer.stats = { fires, sounds, fileSounds }`.
+- `renderer.fire(trigger)`: `sound` via `LiveFXSchema.parseSound`: builtin -> `LiveFXSounds.play`; file -> `<audio src=url>` appended to `#stage` (removed on `ended`/`error`), routed through `ctx.createMediaElementSource(audio) -> GainNode(volume × gain) -> destination`, fallback `audio.volume` without AudioContext; `loop:<name>` -> `renderer.playLoop`.
+- `emoji`/`text` through `escapeHtml` (or text nodes); `img.setAttribute('src', v.src)` only after `ASSET_IMAGE_RE`/http regex check; `count` clamped to `LIMITS.rainCount`; DOM drops set `--x` (0..1) instead of inline `left`; cards/images/banners/text get class `fx-pos-<position>`.
+- Exports: `LiveFXRenderer = { Renderer, ParticleLayer, escapeHtml, THEMES, TEXT_STYLES }`.
+- `renderer.stats = { fires, sounds, fileSounds, scenes, combos, particles, fps, frameMs, reduced, canvas }` – `fps`/`particles` are refreshed by the particle loop (`fps` starts at 60 and is always numeric), `reduced` counts auto-reductions of the particle cap, `canvas` says whether the canvas layer is available.
+- **Canvas particle layer** (`renderer.particles`, class `ParticleLayer`): one `<canvas class="fx-canvas">` right above the scene layers in `#stage`, one `requestAnimationFrame` loop that only runs while particles or a scene parallax are alive. Cap 400 / 800 / 1200 at intensity 1 / 2 / 3 (`particles.setCap(i)`, `particles.cap`); when a frame takes > 20 ms for 30 consecutive frames the cap drops to 60 % (min 120) and stays there (`particles.reducedTo`). `confetti` renders on the canvas (90 × intensity rotating rects, gravity / wind / drift / 3D wobble) with the old `.fx-confetti` DOM path as fallback when `getContext('2d')` is unavailable; `rain` keeps its `count` DOM `.fx-drop` nodes **and** adds `count × intensity × 2` canvas emoji (sprite-cached `fillText`). Scenes add three parallax emoji layers (far / mid / near) on the canvas while keeping the DOM particles (<= 40), crossfade, caption and loop behaviour intact.
+- **v3 kinds**: `text` -> `.fx-bigtext.fx-text-<style>` with `.fx-word[data-text] > .fx-w > span.fx-letter[--i]` (3 s; style `gradient` clips the gradient per `.fx-letter`, style `glitch` adds two `aria-hidden` clones `span.fx-glitch-layer.fx-glitch-a|b` of the letter structure inside `.fx-word`); `lower-third` -> `.fx-lower-third > .fx-lt-bar > .fx-lt-emoji? + .fx-lt-text > .fx-lt-title + .fx-lt-subtitle?` (4 s, landscape only – `body.layout-portrait` renders a banner "title · subtitle" instead); `combo` -> each step is scheduled with `setTimeout` and fired through `renderer.fire({visual, sound, gain})`, so it counts in `stats.fires`; `stats.combos++` per combo; nested combos are skipped.
+- **Decoration** (every card-like kind): `.fx-blur-in` (entry motion blur), `.fx-glow` (`glow: true`), `.fx-tilt` (`tilt: true`, animation `fx-pop-tilt`), `--fx-i` = intensity; at intensity >= 2 `.fx-rays` + `.fx-ring` are prepended (`.fx-has-rays`), at 3 a spark burst is added on the canvas. `impact: true` -> `#stage.fx-impact` for 250 ms (CSS zoom 1 -> 1.04 -> 1). `shake` unchanged.
+- `renderer.clear()`: cancels pending combo steps, clears canvas particles and removes every transient effect node (scene layers, the canvas and `<audio>` elements stay). `renderer._timers` holds the pending combo timers.
+- **Themes**: `renderer.setTheme(name)` -> `body[data-theme=name]` (neon removes the attribute) and `renderer.theme`; unknown names fall back to `neon`. Returns the active name.
+- **Audio**: on the first builtin sound the renderer hands its own AudioContext to `LiveFXSounds.mixer.init(ctx)` when the mixer has none (one shared context); `stats.sounds` counts only when `mixer.play` returned non-null. Canvas particles age by wall-clock time (physics step clamped to 50 ms), so bursts end on time even at low fps. `renderer.playSound(spec, {gain, pan, intensity})`; `gain` defaults to 1 (trigger-level `gain`), `pan` is derived from the visual (`-0.6` lower-third, rain / confetti / sticker from the `--fx-x0`/`--fx-xspan` band centre, else 0). When `LiveFXSounds.mixer` exists (audio engine v2) builtin sounds go through `mixer.play(name, {gain, pan, intensity})`, the volume setter calls `mixer.setMaster(volume)` and `impact` calls `mixer.duck(250)`; otherwise the old `LiveFXSounds.play(name, ctx, destination, volume × gain)` is used. Everything is guarded, the old sounds.js keeps working.
 
-## 10. Overlay layout (`overlay.html`, `css/overlay.css`) – owned by P2
+## 10. Overlay layout (`overlay.html`, `css/overlay.css`) – owned by P2 / fx-engine
 
-- `?layout=portrait` adds `body.layout-portrait`. Rain/confetti use `left: calc(var(--fx-x0, 0vw) + var(--x) * var(--fx-xspan, 100vw))` and fall `translateY(var(--fx-fall, 115vh))`; portrait sets `--fx-fall: 62vh` (drops fade before the bottom 35 %, where TikTok/IG chat sits).
+- `?layout=portrait` adds `body.layout-portrait`. Rain/confetti use `left: calc(var(--fx-x0, 0vw) + var(--x) * var(--fx-xspan, 100vw))` and fall `translateY(var(--fx-fall, 115vh))`; portrait sets `--fx-fall: 62vh` (drops fade before the bottom 35 %, where TikTok/IG chat sits). The canvas layer reads the same variables (vw/vh/px/%) for its band and fall distance.
 - `.fx-pos-top { top: 18% }`; `.fx-pos-safe` = center in landscape, `top: 32%` in portrait; portrait image cards `max-width: 80vw; max-height: 40vh`.
-- Overlay handles `state` (volume when no `?volume=` param) and `volume` messages; includes `js/schema.js`.
+- Overlay handles `state` (volume when no `?volume=`, theme when no `?theme=`), `volume` and `theme` messages; includes `js/schema.js`. `?theme=neon|pastel|minimal|kinderbuch` pins the theme (bus `theme` messages are then ignored).
+- **Theme variables** on `:root`, overridden by `body[data-theme="…"]`: `--fx-font`, `--fx-card-bg`, `--fx-card-border`, `--fx-accent`, `--fx-accent-2`, `--fx-text`, `--fx-radius`, `--fx-glow`, `--fx-shadow`. `neon` (no attribute) is the classic look; `pastel` (light pink card, soft border), `minimal` (dark translucent, 10 px radius, no uppercase glow), `kinderbuch` (warm cream card, dashed orange border, 48 px radius, playful font fallback).
+- Layers in `#stage` (bottom to top): `.fx-scene` (0..n, incl. fading ones) -> `canvas.fx-canvas` -> transient effects. Animated layers carry `will-change`; nodes are removed on their main `animationend` (timeout fallback).
 
 ## 11. Panel DOM ids (fixed for tests) – owned by P6
 
-`#asr` (select webspeech|external), `#smart` (checkbox), `#dot-smart`, `#dot-mic`, `#dot-server`, `#token`, `#btn-copy-token`,
+`#asr` (select, options in `LiveFXASR.backends` order: webspeech|auto|external|whisper), `#smart` (checkbox), `#dot-smart`, `#dot-mic`, `#dot-server`, `#token`, `#btn-copy-token`,
 `#asset-library`, `#pad button` (with `img.thumb` for image triggers), trigger rows `#trigger-rows tr` with buttons
 `[data-act="edit"|"test"|"del"]`, `#lang`, `#btn-listen`, `#btn-mute`, `#sim`, `#btn-sim`, `#log`, `#volume`, `#gap`,
-`#preview` (iframe `overlay.html?volume=0.5`), `#btn-add`, `#btn-export`, `#btn-import`, `#btn-reset`, `#transcript` (uses `<mark>`).
+`#preview` (iframe `overlay.html?volume=0`, see Audio 1.5 below), `#btn-add`, `#btn-export`, `#btn-import`, `#btn-reset`, `#transcript` (uses `<mark>`).
 
 Recognition (1.2, see `docs/DESIGN-RECOGNITION.md` §C): header pill `#pill-lang` (button, `#pill-lang-value` shows the language,
 click scrolls to the card); card `#asr-settings` with `#lang` (optgroups Deutsch de-DE/de-AT/de-CH, Türkçe tr-TR, English en-US/en-GB/en-IN),
@@ -324,6 +379,52 @@ LiveFXAssets.list() / upload(file) / remove(name) / thumbnailFor(trigger) -> {im
 LiveFXEditor.open(trigger, {assets, sounds, onSave, onDelete}) -> Promise<trigger|null>   // P3, <dialog>
 ```
 
+Mobile (1.4, `mobile.html` + `js/mobile.js` + `css/mobile.css`, see `docs/DESIGN-MOBILE.md` §A): bus role `panel`, served like the panel
+(cookie via `GET /m?token=…`, never by the page). Ids: `#dot-server` (`.on|.warn|.err`), `#status` (connection / mic text), `#btn-mute`
+(„⏸ Pause“ ↔ „▶ Weiter“, `.paused`; a paused page fires nothing), `#volume` (range → bus `volume`), `#search` (filters `#pad button`
+by label/id/keyword, hidden tiles get `[hidden]`; `#count`, `#empty`), `#btn-mic` (+ `#mic-hint`: disabled with the HTTPS hint when
+`!isSecureContext`, disabled with a browser hint when WebSpeech is missing; otherwise runs `LiveFXASR.create('webspeech')` + `LiveFXMatcher`
+on the phone, source „Handy-Mikro“), `#transcript` (one line: bus `transcript` texts, `fire` messages as „🔥 label ← source“, own
+actions; uses `<mark>`), `#scenes-card` > `#scenes button[data-scene]` (one per `LiveFXSchema.SCENES`, `.active` on the last scene;
+fires the same ad-hoc trigger as the panel's `sceneTrigger(id)` – the scene table is copied into mobile.js – source „Handy-Szenen“),
+`#pad button[data-id]` (`img.thumb` or `.emoji` + `.lbl`, `.off` when disabled, `.fired` flash; tap fires with source „Handy“).
+`window.livefx` exposes `bus`, `fire`, `handleText`, `sceneTrigger`, `triggers`, `paused`, `asr`, `matcher`, `store`, `ready`.
+Script order: `triggers, packs, schema, matcher, bus, store, assets, asr, mobile` (no sounds.js/fx.js – the phone renders nothing).
+Panel card `#mobile-card` (`js/mobile-link.js`, loaded after panel.js): `#mobile-url` = `http(s)://<lanIps[0]|location.host>:<port>/m?token=<token>`
+from `/api/config` (`lanIps`/`port`/`secure` optional → `location.host`), `#mobile-url-alt` (further IPs), `#btn-copy-mobile`, `#mobile-offline-hint`.
+PWA: `manifest.webmanifest` (linked from index.html and mobile.html), `sw.js` (`SHELL_VERSION` constant → cache `livefx-shell-v<version>`;
+precaches the shell listed in `SHELL`; navigations network-first with cache fallback, other shell files cache-first with background refresh;
+network-only for `/api/*`, `/fire`, `/events`, `/assets/*`, `/docs/*`, `/m`, `/models/*`, `/health`), registered from index/overlay/demo/mobile
+with `if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js')`. Icons in `icons/`.
+Static allow-list additions (`server/static.js`): `/mobile.html`, `/manifest.webmanifest` (`application/manifest+json`), `/sw.js`
+(`service-worker-allowed: /`, `cache-control: no-cache`), `/icons/<safe>.(svg|png)` → `<root>/icons`, `/vendor/<safe>.(js|mjs|wasm)` →
+`<root>/vendor`, `/models/<safe path, subdirs allowed, no ..>.(json|onnx|bin|txt)` → `<dataDir>/models` (`.onnx`/`.bin` → `application/octet-stream`,
+`.wasm` → `application/wasm`); absent files are 404, never 500. Tests: `test/mobile.test.js`, `test/e2e/35-mobile.js`.
+
+Audio (1.5, package audio-ui): `#preview` src is `overlay.html?volume=0` by default; checkbox `#preview-sound` (localStorage
+`livefx.previewSound` '1'/'0', default off) switches the src to `overlay.html?volume=<#volume>`; while off, the panel pins the
+iframe renderer's volume back to 0 once a second and after every slider move (bus `volume` messages reach the preview like any
+overlay). `#echo-warning` (`.warning`, hidden by default, text „Echo-Gefahr …“) with `#echo-off` (turns the preview sound off)
+is shown when the preview sound is on AND `GET /health` reports `overlays >= 2` (the preview iframe is one of them; polled every 5 s
+plus immediately after toggling; never under file://). Card `#audio-card` („🔊 Ton-Check“, above the OBS card):
+`#audiocheck input[data-key]` with keys `mic-source`, `browser-audio`, `desktop-audio`, `monitoring` (localStorage
+`livefx.audiocheck.<key>` '1'/'0') and `preview-off` (disabled, mirrors `!previewSound`); `#btn-mic-test` + `#mic-test-status`
+(`.ok`/`.err`; runs the meter 5 s, „Mikro liefert Pegel ✔“ / „kein Pegel – Mikro prüfen“); `#btn-obs-sound` fires the ad-hoc trigger
+`{id:'audio-test', label:'TON-TEST', sound:'pop', visual:{kind:'card', emoji:'🔊', text:'TON-TEST', position:'center'}}`
+(normalized via `LiveFXSchema.normalizeTrigger`) with source „Ton-Check“ through `fire()`. Docs: `docs/AUDIO.md`.
+Auto language (1.5): `#lang` gets the first option `value="auto"` („Automatisch (DE/TR/EN)“, outside the optgroups) – default when
+`livefx.asr.lang` is unset; a stored value wins. With `auto`, `createAsr` picks backend `auto` (when `LiveFXASR.backends` lists it)
+for the webspeech/auto choice, passing `langs: ['de-DE','tr-TR','en-US']` and `lang:'auto'`; whisper/external get `lang:'auto'`;
+without an `auto` backend it falls back to webspeech with `de-DE`. Switching between `auto` and a fixed language rebuilds the
+recognizer (listening state is kept). `onEvent({type:'lang', lang, family, mode, reason})` updates `#diag-lang`
+(„Erkannte Sprache: Türkçe (tr-TR) · Modus: parallel“), `#pill-lang-value` („Auto“ → „Auto · TR“; fixed languages still show the tag),
+`matcher.setLang(lang)` and, in story mode, reloads the story pack of the detected family (`effectiveLang()`: fixed language, else last
+detected, else `de-DE`; also used for smart classify and `#sim`). `js/langdetect.js` is loaded before `js/asr.js`.
+Theme (1.6): select `#theme` (neon|pastel|minimal|kinderbuch, localStorage `livefx.theme`, default neon) sends the `theme` bus message; `window.livefx.theme {get(), set(name)}` (set returns the applied name, unknown → 'neon'); `window.livefx.setTriggers(list)` and `window.livefx.ready` (Promise from `boot()`, tests await it) exist as well. Health and chat-status polling pause while `document.hidden`.
+`window.livefx` additionally exposes `previewSound {get(), set(bool)}`, `audioCheck {get(key), set(key, bool), keys, micTest(),
+testTrigger(), fireTest()}`, `echo` (getter `{overlays, risk}`), `pollHealth()`, `detectedLang` (getter, copy or null), `effectiveLang()`
+and `asrEvent(ev)` (the panel's `onEvent` handler – tests feed `lang` events through it). Test: `test/e2e/62-audio.js`.
+
 ## 12. Test harness (P0, done)
 
 ```js
@@ -335,3 +436,132 @@ sseClient(base, {role, lastEventId} = {}) -> Promise<{next(type?, ms = 3000) -> 
 // test/e2e.js                 -> runs test/e2e/*.js in name order; each exports async run({browser, startServer, api, sseClient, shotDir, log})
 //                                `node test/e2e.js 30` runs only files starting with "30"
 ```
+
+## 13. Sounds (`js/sounds.js`, global `LiveFXSounds`, UMD) – LiveFX 2.0 audio-engine
+
+Everything is synthesized (no files). Full list with descriptions: `docs/SOUNDS.md`.
+
+```js
+LiveFXSounds.names   // 38 one-shot names in grouped order (impact, funny, magic) – stable identifiers, used by `sound: "<name>"`
+LiveFXSounds.GROUPS  // {impact:[17], funny:[12], magic:[9], 'ambient-loops':[12]} – every one-shot in exactly one of the first three
+LiveFXSounds.loops   // 12 ambient loop names (`sound: "loop:<name>"`): rain, wind, fireplace, birds, sea, thunder, nightCrickets, heartbeatSlow, churchBells, cityHum, spaceDrone, storm
+LiveFXSounds.play(name, ctx, out, volume = 1) -> boolean            // legacy one-shot (unchanged): GainNode(volume) -> out, false for unknown names
+LiveFXSounds.loop(name, ctx, out, volume = 1) -> {name, gain, stop(fadeSec = 1.5)} | null   // legacy loop (unchanged); `startLoop` is an alias
+LiveFXSounds.mixer   // singleton, see below
+```
+
+New 2.0 one-shots: `bleat, duck, fanfare, kidlaugh, scream, glass, camera, door, tick, sparkle, punch, whoosh2`.
+Level budget: 2.0 recipes never schedule an audio-path gain above 0.6 per voice; legacy recipes stay <= 1.
+
+Mixer graph: `voice -> [StereoPannerNode] -> sfxBus(Gain)`, `loop -> ambientBus(Gain) -> duckGain(Gain) -> {dry, ConvolverNode -> wetGain}`,
+both into `master(Gain) -> DynamicsCompressorNode(threshold -6 dB, ratio 12, attack 3 ms, release 250 ms) -> out`.
+All timing is AudioParam automation (no timers) so it also renders in an OfflineAudioContext.
+
+```js
+mixer.init(ctx, out = ctx.destination) -> mixer     // builds the graph; idempotent for the same ctx/out, a new ctx rebuilds (levels/reverb kept)
+mixer.play(name, {gain = 1, pan = 0, intensity = 1, when = 0} = {}) -> {stop(), name, end} | null
+    // null for unknown names or without WebAudio; auto-creates an AudioContext when init() was never called (guarded `typeof AudioContext`)
+    // gain clamped 0..1, pan clamped -1..1 (panner only when `pan` is given), when clamped 0..60 s, intensity rounded 1..3
+    // intensity 2/3 add layered voices: dedicated layers for boom/punch/airhorn/glass/applause, else a detuned (+9/-14 ct), 14 ms-delayed replay at 0.5/0.4
+    // auto-ducks (duckMs/duckDb) while a loop runs when `mixer.autoDuck` (default true)
+mixer.startLoop(name, {gain = 1, fade} = {}) -> loop handle | null  // one loop at a time on the ambient bus, same name = no-op, other name cross-fades (1.5 s)
+mixer.stopLoop(fadeSec = 1.5) -> boolean
+mixer.duck(ms = 300, db = -8) -> boolean          // duckGain -> 10^(db/20) now (tc 15 ms), back to 1 via setTargetAtTime(1, lastSfxEnd, ms/4000); false before init
+mixer.setMaster(v) -> number                      // clamped 0..1, 20 ms ramp; non-numeric keeps and returns the current level (same for setBus)
+// Non-finite option values mean default (gain 1, pan 0, intensity 1, when 0); duck(NaN, NaN) uses 300 ms / -8 dB; init() on a new ctx/out disconnects the old graph.
+mixer.setBus('sfx' | 'ambient', v) -> number | null
+mixer.reverb(on, {seconds = 1.8, mix = 0.25} = {}) -> boolean   // synthetic stereo noise IR (exp. decay, -60 dB at `seconds`) on the ambient path, wet = mix
+mixer.stats -> {voices, ducked, master, sfx, ambient, reverb, loop: name | null, limiter: boolean}
+mixer.autoDuck = true; mixer.duckMs = 300; mixer.duckDb = -8   // defaults used by play()
+```
+
+Renderer integration (fx.js, other package): `LiveFXSounds.mixer.init(ctx)` once, then `mixer.play(name, {gain, pan, intensity})`
+instead of `LiveFXSounds.play(name, ctx, ctx.destination, volume)`; scenes via `mixer.startLoop(name)` / `mixer.stopLoop()`.
+Guard with `typeof LiveFXSounds.mixer === 'object'` to stay compatible with older sounds.js.
+
+## 14. Zuschauer-Trigger (`server/api-chat.js`, `server/api-gift.js`, `server/chat-twitch.js`, `server/chat-youtube.js`) – LiveFX 2.0 viewer-triggers
+
+Chat commands from Twitch / YouTube (and anything that posts to the API) fire stored triggers; gifts hit
+tiers. User guide: `docs/VIEWER.md`.
+
+### Routes (all `requireAuth`)
+
+| Route | Request | Response |
+|---|---|---|
+| `GET /api/chat` | | `{ok, settings, status, recent}` – `settings` is the public shape below (`youtube.apiKey` is never returned, only `youtube.hasKey`), `status = {twitch, youtube: 'off'\|'connecting'\|'connected'\|'disconnected'\|'error'\|'ended', twitchError, youtubeError, messages, twitchMessages, youtubeMessages}`, `recent` = last 20 chat/gift events |
+| `PUT /api/chat` | partial settings (any subset of the keys below; `youtube.apiKey` only when sent as a string – `''` clears it) | `{ok, settings, status, warnings:string[]}`; invalid values are dropped with a warning, never a 4xx. Persists `data/chat.json` (mode 0600) and restarts the connector whose block changed |
+| `POST /api/chat/test` | `{text (<= 500), platform?: 'twitch'\|'youtube'\|'tiktok'\|'test'\|'other' (default test), user? (default Tester)}` | `{ok, fired, trigger, command, reason}` – the message takes the real ingest path; 400 `invalid_text` |
+| `POST /api/gift` | `{amount (number >= 0), platform?, user?, currency?, gift?, text?}` | `{ok, fired, tier (min of the tier or null), trigger, reason: null\|'no_tier'\|'disabled'\|'unknown', amount}`; 400 `invalid_amount` |
+
+### Settings (`data/chat.json`, defaults = `apiChat.DEFAULTS`)
+
+```js
+{ twitch: { channel: '', enabled: false },                 // channel normalized: lower-case, URL/#/@ stripped, /^[a-z0-9_]{1,25}$/
+  youtube: { apiKey: '', videoId: '', enabled: false },    // videoId: bare id or youtube.com / youtu.be URL -> id; apiKey server-side only
+  prefix: '!',                                             // 1–3 chars, no whitespace
+  cooldownPerUserMs: 15000, cooldownGlobalMs: 3000,        // 0 .. 3600000
+  commands: { '!airhorn': 'trigger-id' },                  // keys lower-cased + prefixed, <= 40 chars, <= 100 entries; value must match LiveFXSchema.ID_RE; '' removes
+  allowAll: false,                                         // also accept !<trigger id> and !<slug(label)> (slug: lower, ı->i, ß->ss, NFKD, [^a-z0-9]+ -> '-')
+  gifts: { tiers: [ { min: 1, trigger: '' }, { min: 10, trigger: '' }, { min: 100, trigger: '' } ] } } // <= 10, sorted by min
+```
+
+### Ingest + fire path
+
+`chat.ingest({platform, user, text, login?, bits?, ts?})`: the first whitespace-separated word, lower-cased, is the
+command when it starts with `prefix`. Resolution: `commands[word]` → (allowAll) trigger id → label slug. Order of
+checks: per-user cooldown (`platform:login|user`) → global cooldown → `fireTrigger(ctx, id, {source})`, which mirrors
+`POST /api/fire {id}`: `state.matcher.fireById(id)` (cooldown / gap / disabled / unknown) and a `type:'fire'` envelope
+with `source: 'chat:<platform>:<user>'` to `audience:'all'`. Blocked reasons: `'cooldown:user' | 'cooldown:global' |
+'cooldown' | 'gap' | 'disabled' | 'unknown'`. Twitch `bits=<n>` → `chat.gift({amount: n/100, currency:'USD', gift:'bits'})`
+in addition to the command check. Gifts fire the highest tier with `min <= amount` with `force:true` (no cooldown; the
+enabled flag still counts) and `source: 'gift:<platform>:<user>'`.
+
+Every chat message is broadcast to **panels only**: `{type:'chat', id, ts, platform, user, text, command?, fired?: triggerId,
+blocked?: reason}`; every gift as `{type:'gift', id, ts, platform, user, amount, currency, gift, text, tier, fired, trigger,
+reason}`. The last 50 are kept in memory (`chat.recent(n)`), `status.messages` counts every ingested message.
+
+### Connectors
+
+```js
+// server/chat-twitch.js – anonymous IRC over WebSocket (global WebSocket, Node >= 22), zero deps
+createTwitchChat({channel, onMessage, onState, url?, WebSocketImpl?, log?, backoffMinMs?, backoffMaxMs?}) -> { start(), stop(), state, channel, messages, lastError, inject(line) }
+//   sends CAP REQ :twitch.tv/tags twitch.tv/commands, NICK justinfan<5 digits>, JOIN #<channel>; answers PING with PONG;
+//   001/366 -> 'connected'; RECONNECT / close -> 'disconnected' + exponential backoff (1 s .. 30 s) while started
+//   onMessage({platform:'twitch', user: display-name|nick, login, text, ts, bits?, id?})
+parseLine(line) -> {command, tags, prefix, params, trailing, user?, login?, channel?, text?, bits?} | null
+normalizeChannel(raw) -> string ('' when invalid)
+// server/chat-youtube.js – YouTube Data API v3 polling
+createYouTubeChat({apiKey, videoId, onMessage, onGift, onState, fetchImpl?, apiBase?, log?}) -> { start(), stop(), state, videoId, liveChatId, messages, polls, lastError }
+//   videos?part=liveStreamingDetails&id=<videoId> -> activeLiveChatId, then liveChat/messages?part=snippet,authorDetails&pageToken=…
+//   next poll after max(pollingIntervalMillis, 2000); errors retry after 15 s; 403 (quota / bad key) stops; offlineAt -> 'ended'
+//   items published > 15 s before start() are skipped (chat backlog); superChatEvent/superStickerEvent -> onGift({platform:'youtube', user, amount: amountMicros/1e6, currency, gift:'superchat'|'supersticker', text, ts})
+normalizeVideoId(raw) -> string
+```
+Env overrides for tests: `LIVEFX_TWITCH_WS_URL` (fake IRC server, see `test/helpers/ws-server.js`), `LIVEFX_YOUTUBE_API_BASE`.
+`server.js` creates `appCtx.chat = apiChat.createChat(appCtx)` before registering routes and calls `chat.stop()` on SIGINT.
+
+### Panel (`js/panel.js`, `index.html`) – ids fixed for tests
+
+Card `#viewer-card`: `#chat-twitch-channel`, `#chat-twitch-enabled`, `#chat-yt-video`, `#chat-yt-key` (password; sent only when
+non-empty), `#chat-yt-haskey` („gespeichert ✔“, hidden without key), `#chat-yt-enabled`, `#chat-prefix`, `#chat-cd-user` /
+`#chat-cd-global` (seconds), `#chat-allowall`, command rows `#chat-commands tr` with `[data-f="cmd"]` input + `[data-f="trigger"]`
+select, `#btn-chat-cmd-add`, gift rows `#gift-tiers tr` (`[data-f="min"]`, `[data-f="trigger"]`, always 3 rows), `#btn-chat-save` +
+`#chat-save-status`, status pills `#dot-twitch` / `#chat-status-twitch`, `#dot-youtube` / `#chat-status-youtube`, `#chat-count`,
+feed `#chat-feed .chat-line[.fired data-fired=<id>][.blocked][.gift]` (last 20), `#chat-test-text`, `#chat-test-user`, `#btn-chat-test`.
+Status is polled every 10 s (`GET /api/chat`, status only – the form is never overwritten while editing).
+Card `#combos-card`: rows `#combo-rows tr` (`[data-f="keyword"|"times"|"within"|"fire"]`), `#btn-combo-add`. Rules
+`{keywordTriggerId, times (2..20), withinMs (500..600000), fireTriggerId}` in localStorage `livefx.combos` (default:
+`[{wow, 3, 10000, win}]` = 3× „krass“ in 10 s → Konfetti); evaluated in `fire()` for every non-combo fire; a combo resets the
+counter of its keyword trigger and fires with source `Kombi <n>× <label>` (never counted again).
+Settings card: `#intensity-voice` (localStorage `livefx.intensityFromVoice` '1'/'0'); when on, `fire()` reads
+`max(meter.level, meter.peak)` and attaches `visual.intensity` 1 (< 0.3) / 2 (< 0.6) / 3 to the sent trigger (only when the
+meter runs or a level is set) and logs „· Intensität n“.
+`window.livefx` additions: `chat {load(), save(patch?), test(text?, user?), settings, status, feed}`, `combos {rules, set(rules),
+record(trigger, source)}`, `intensityFromVoice` (get/set), `voiceIntensity()`. Tests: `test/chat.test.js`, `test/gift.test.js`,
+`test/e2e/72-viewer.js`.
+
+### Packs 2.0 (`js/packs.js`)
+
+`tr` 85 / `de` 49 / `en` 50 triggers (defaults + all three = 199 ≤ `LIMITS.triggers`), plus theme packs `family`
+(„👨‍👩‍👧 Familie & Kinder“, 27, soft sounds only) and `gaming` („🎮 Gaming“, 27). Theme packs are listed like meme packs
+(`story: false`); keyword rules as before (unique within a pack, never a default keyword, no fuzzy stop-word tokens).

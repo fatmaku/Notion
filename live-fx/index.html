@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <title>LiveFX – Control Panel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1115">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/panel.css">
   <link rel="stylesheet" href="css/editor.css">
 </head>
@@ -52,7 +55,15 @@
 
       <section class="card">
         <h2>Overlay-Vorschau</h2>
-        <iframe id="preview" src="overlay.html?volume=0.5" title="Overlay Vorschau"></iframe>
+        <iframe id="preview" src="overlay.html?volume=0" title="Overlay Vorschau"></iframe>
+        <div class="row block preview-row">
+          <label class="check-line" for="preview-sound" title="Standard: aus – sonst hört der Stream Effekte doppelt (Panel-Tab + OBS)"><input type="checkbox" id="preview-sound"> 🔈 Vorschau-Ton</label>
+          <span class="help">Die Vorschau ist stumm, damit OBS den Ton nicht doppelt bekommt. Nur zum Reinhören einschalten.</span>
+        </div>
+        <div id="echo-warning" class="warning" hidden role="alert">
+          <span>⚠️ Echo-Gefahr: OBS-Overlay ist verbunden und Vorschau-Ton ist an. Schalte den Vorschau-Ton aus, sonst hören Zuschauer Effekte doppelt.</span>
+          <button type="button" class="small" id="echo-off">🔇 Vorschau-Ton aus</button>
+        </div>
         <p class="help">Das ist genau das, was OBS als Browser-Quelle einblendet – nur mit Schachbrett statt Transparenz.</p>
       </section>
 
@@ -82,6 +93,7 @@
           <div>
             <label for="lang">Sprache</label>
             <select id="lang">
+              <option value="auto">Automatisch (DE/TR/EN)</option>
               <optgroup label="Deutsch">
                 <option value="de-DE">Deutsch (Deutschland)</option>
                 <option value="de-AT">Deutsch (Österreich)</option>
@@ -125,6 +137,7 @@
           </div>
           <div class="help" id="diag-state">Zustand: idle</div>
           <div class="help" id="diag-latency">Erkennung: – · Matcher –</div>
+          <div class="help" id="diag-lang">Erkannte Sprache: –</div>
         </div>
         <div class="row block selfcheck">
           <button id="btn-selfcheck" class="small" title="Prüft Mikro, Erkennung und Matcher mit einem Stichwort">🔍 Selbsttest</button>
@@ -137,7 +150,9 @@
         <div class="row">
           <div><label>Lautstärke Overlay</label><input id="volume" type="range" min="0" max="1" step="0.05" value="0.8"></div>
           <div><label>Mindestabstand zwischen Effekten (s)</label><input id="gap" type="number" min="0" step="0.1" value="1.2"></div>
+          <div><label>Look (Theme)</label><select id="theme"><option value="neon">Neon (Standard)</option><option value="pastel">Pastell</option><option value="minimal">Minimal</option><option value="kinderbuch">Kinderbuch</option></select></div>
         </div>
+        <label class="check-line block" for="intensity-voice" title="Mikro-Pegel beim Treffer bestimmt die Stufe: leise = 1, normal = 2, laut = 3"><input type="checkbox" id="intensity-voice"> Intensität aus Stimme (lauter sprechen = stärkerer Effekt, Stufe 1–3)</label>
       </section>
 
       <section class="card" id="story-card">
@@ -194,6 +209,98 @@
         </div>
       </section>
 
+      <section class="card" id="viewer-card">
+        <h2>💬 Zuschauer-Trigger (Twitch · YouTube · TikTok)</h2>
+        <div class="help">Zuschauer lösen Effekte per Chat-Befehl aus (z.B. <code>!airhorn</code>); Geschenke, Bits und Super Chats treffen Stufen. Twitch braucht keinen Login. <a href="docs/VIEWER.md" target="_blank">Anleitung</a></div>
+        <div class="viewer-status block">
+          <span class="pill" id="chat-pill-twitch"><span class="dot" id="dot-twitch"></span> Twitch: <span id="chat-status-twitch">aus</span></span>
+          <span class="pill" id="chat-pill-youtube"><span class="dot" id="dot-youtube"></span> YouTube: <span id="chat-status-youtube">aus</span></span>
+          <span class="pill">💬 <span id="chat-count">0</span> Nachrichten</span>
+        </div>
+        <p class="help" id="chat-offline-hint" hidden>⚠️ Server nötig: <code>node server.js</code> starten und das Panel über <code>http://127.0.0.1:8787/</code> öffnen.</p>
+        <div class="row block">
+          <div><label for="chat-twitch-channel">Twitch-Kanal</label><input id="chat-twitch-channel" placeholder="z.B. meinkanal" spellcheck="false" autocomplete="off"></div>
+          <label class="check-line chat-enable" for="chat-twitch-enabled"><input type="checkbox" id="chat-twitch-enabled"> an</label>
+        </div>
+        <div class="row block">
+          <div><label for="chat-yt-video">YouTube Video-ID oder Link</label><input id="chat-yt-video" placeholder="z.B. dQw4w9WgXcQ" spellcheck="false" autocomplete="off"></div>
+          <div><label for="chat-yt-key">YouTube API-Key <span id="chat-yt-haskey" class="auto-tag" hidden>gespeichert ✔</span></label><input id="chat-yt-key" type="password" placeholder="AIza…" autocomplete="new-password"></div>
+          <label class="check-line chat-enable" for="chat-yt-enabled"><input type="checkbox" id="chat-yt-enabled"> an</label>
+        </div>
+        <div class="row block">
+          <div><label for="chat-prefix">Präfix</label><input id="chat-prefix" value="!" maxlength="3"></div>
+          <div><label for="chat-cd-user">Cooldown pro Zuschauer (s)</label><input id="chat-cd-user" type="number" min="0" step="1" value="15"></div>
+          <div><label for="chat-cd-global">Cooldown global (s)</label><input id="chat-cd-global" type="number" min="0" step="0.5" value="3"></div>
+        </div>
+        <label class="check-line block" for="chat-allowall"><input type="checkbox" id="chat-allowall"> Alle Trigger erlauben – <code>!&lt;trigger-id&gt;</code> oder <code>!&lt;name&gt;</code> ohne Tabelle</label>
+        <div class="block">
+          <label>Befehle → Trigger</label>
+          <div class="table-wrap"><table class="cmd-table"><thead><tr><th>Befehl</th><th>Trigger</th><th></th></tr></thead><tbody id="chat-commands"></tbody></table></div>
+          <div class="actions"><button type="button" class="small" id="btn-chat-cmd-add">+ Befehl</button></div>
+        </div>
+        <div class="block">
+          <label>Geschenk-Stufen (ab Betrag → Trigger; TikTok-Coins, Bits ÷ 100, Super Chat in Währung)</label>
+          <div class="table-wrap"><table class="cmd-table"><thead><tr><th>ab Betrag</th><th>Trigger</th></tr></thead><tbody id="gift-tiers"></tbody></table></div>
+        </div>
+        <div class="actions">
+          <button type="button" class="primary" id="btn-chat-save">💾 Speichern</button>
+          <span class="help" id="chat-save-status"></span>
+        </div>
+        <div class="block">
+          <label>Chat (letzte 20 – ausgelöste Befehle sind markiert)</label>
+          <div class="chat-feed" id="chat-feed"><div class="help empty">Noch keine Nachrichten.</div></div>
+        </div>
+        <div class="row block">
+          <div><label for="chat-test-text">Test-Nachricht (als Zuschauer schicken)</label><input id="chat-test-text" placeholder="!airhorn"></div>
+          <div class="chat-test-user"><label for="chat-test-user">Name</label><input id="chat-test-user" value="Tester"></div>
+          <button type="button" id="btn-chat-test">Senden</button>
+        </div>
+        <p class="help">Geschenke per Webhook: <code>POST /api/gift</code> mit <code>{"platform":"tiktok","user":"…","amount":10}</code> und dem Bearer-Token (TikFinity, Streamer.bot, eigenes Skript).</p>
+      </section>
+
+      <section class="card" id="combos-card">
+        <h2>🔥 Kombis</h2>
+        <div class="help">Feuert ein Trigger mehrmals kurz hintereinander (z.B. 3× „krass“ in 10 s), zündet ein Extra-Effekt.</div>
+        <div class="table-wrap"><table class="cmd-table"><thead><tr><th>Trigger</th><th>×</th><th>in (s)</th><th>→ dann</th><th></th></tr></thead><tbody id="combo-rows"></tbody></table></div>
+        <div class="actions"><button type="button" class="small" id="btn-combo-add">+ Kombi</button></div>
+      </section>
+
+      <section class="card" id="mobile-card">
+        <h2>📱 Handy</h2>
+        <div class="help">Soundboard und Szenen vom Handy aus auslösen – Link am Handy öffnen (gleiches WLAN), fertig.</div>
+        <div class="block">
+          <label>Link fürs Handy</label>
+          <div class="urls"><code id="mobile-url"></code></div>
+          <div class="help" id="mobile-url-alt" hidden></div>
+        </div>
+        <div class="actions">
+          <button id="btn-copy-mobile" title="Handy-Link in die Zwischenablage kopieren" disabled>📋 Link kopieren</button>
+          <a class="btn" href="mobile.html" target="_blank">Am PC ansehen</a>
+          <a class="btn" href="docs/HANDY.md" target="_blank">Anleitung</a>
+        </div>
+        <p class="help" id="mobile-offline-hint" hidden>⚠️ Server nötig: <code>node server.js</code> starten und das Panel über <code>http://127.0.0.1:8787/</code> öffnen.</p>
+        <p class="help">Handy im selben WLAN; Server mit <code>HOST=0.0.0.0 node server.js</code> starten, sonst ist er nur am PC erreichbar. Mikro am Handy braucht HTTPS – siehe Anleitung.</p>
+      </section>
+
+      <section class="card" id="audio-card">
+        <h2>🔊 Ton-Check (Mikro &amp; Echo)</h2>
+        <div class="help">Zuschauer hören dich nicht oder alles doppelt? Diese fünf Haken reichen – Details in der <a href="docs/AUDIO.md" target="_blank">Ton-Anleitung</a>.</div>
+        <ul class="audiocheck block" id="audiocheck">
+          <li><label class="check-line"><input type="checkbox" data-key="mic-source"> Mikrofon in OBS als Quelle „Audioeingabeaufnahme“ hinzugefügt</label></li>
+          <li><label class="check-line"><input type="checkbox" data-key="browser-audio"> Browser-Quelle: „Audio über OBS steuern“ aktiviert</label></li>
+          <li><label class="check-line"><input type="checkbox" data-key="desktop-audio"> Desktop-Audio in OBS stumm oder Chrome-Tab ausgeschlossen</label></li>
+          <li><label class="check-line"><input type="checkbox" data-key="monitoring"> Kein Audio-Monitoring (Erweiterte Audioeigenschaften → „Monitoring aus“)</label></li>
+          <li><label class="check-line" title="Wird automatisch vom Schalter „Vorschau-Ton“ gesetzt"><input type="checkbox" data-key="preview-off" disabled> Vorschau-Ton im Panel aus <span class="auto-tag">automatisch</span></label></li>
+        </ul>
+        <div class="actions">
+          <button type="button" id="btn-mic-test" title="Zeigt 5 s lang den Mikrofonpegel">🎙️ Mikro-Test</button>
+          <span class="help" id="mic-test-status"></span>
+        </div>
+        <div class="actions">
+          <button type="button" id="btn-obs-sound" title="Schickt eine Test-Karte mit Sound an OBS (nicht an die stumme Vorschau)">🔊 Test-Sound in OBS</button>
+          <span class="help">Hörst du es in der OBS-Vorschau mit Monitoring? Nein → Schritt 2 prüfen.</span>
+        </div>
+      </section>
 
       <section class="card">
         <h2>OBS / Streamlabs einrichten (für echte Streams)</h2>
@@ -202,8 +309,9 @@
           2. OBS → unten bei <b>Quellen</b> auf <b>+</b> → <b>Browser</b> → URL <code>http://127.0.0.1:8787/overlay.html</code> (Querformat) oder <code>http://127.0.0.1:8787/overlay.html?layout=portrait</code> (Hochkant, hält den Chat-Bereich unten frei). Breite/Höhe wie dein Canvas (1920×1080 oder 1080×1920).<br>
           3. Die Browser-Quelle in der Liste <b>über</b> die Kamera schieben (Pfeil ▲), sonst verdeckt die Kamera die Memes.<br>
           4. Doppelklick auf die Browser-Quelle → <b>„Audio über OBS steuern“</b> anhaken → im Audiomixer erscheint „LiveFX Overlay“.<br>
+          4b. Dein <b>Mikrofon</b> als eigene Quelle: <b>+</b> → <b>Audioeingabeaufnahme</b> → Mikro wählen. <b>Desktop-Audio</b> stumm schalten, sonst kommt der Panel-Tab doppelt rein (Echo).<br>
           5. Test: hier Taste <b>1</b> drücken → Karte im OBS-Vorschaubild, Mixer-Balken zuckt. Dann <b>„Aufnahme starten“</b> bzw. „Stream starten“.<br>
-          <a href="docs/OBS-ANLEITUNG.md" target="_blank">Ausführliche Anleitung mit Fehlerhilfe</a> · <a href="docs/GIFS.md" target="_blank">GIF-Suche einrichten</a>
+          <a href="docs/OBS-ANLEITUNG.md" target="_blank">Ausführliche Anleitung mit Fehlerhilfe</a> · <a href="docs/AUDIO.md" target="_blank">Ton &amp; Echo</a> · <a href="docs/GIFS.md" target="_blank">GIF-Suche einrichten</a>
         </div>
       </section>
 
@@ -224,8 +332,13 @@
   <script src="js/assets.js"></script>
   <script src="js/editor.js"></script>
   <script src="js/meter.js"></script>
+  <script src="js/langdetect.js"></script>
   <script src="js/asr.js"></script>
   <script src="js/smart.js"></script>
   <script src="js/panel.js"></script>
+  <script src="js/mobile-link.js"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js').catch(() => {});
+  </script>
 </body>
 </html>

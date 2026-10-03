@@ -3,26 +3,46 @@
 // created lazily and reused. All injected strings are escaped. See docs/CONTRACTS.md §11.
 // Story mode (1.3): kinds `scene` (scene select, intensity, caption) and `sticker`, plus the
 // "Atmosphäre (Loop)" sound group (`loop:<name>` from LiveFXSounds.loops).
+// LiveFX 2.0 (schema v3): kinds `text` (style, two colours), `lower-third` (title, subtitle) and `combo`
+// (steps as JSON with validation), the flags glow / tilt / impact, an intensity select and a gain slider.
 (function (global) {
   'use strict';
 
   const S = () => global.LiveFXSchema;
   const esc = (s) => S().escapeHtml(s);
 
-  const KIND_LABELS = { card: 'Karte (Emoji + Text)', image: 'Bild', banner: 'Banner', rain: 'Emoji-Regen', confetti: 'Konfetti', scene: 'Szene (Hintergrund + Atmosphäre)', sticker: 'Sticker (2–4 Emojis)' };
+  const KIND_LABELS = {
+    card: 'Karte (Emoji + Text)',
+    image: 'Bild',
+    banner: 'Banner',
+    rain: 'Emoji-Regen',
+    confetti: 'Konfetti',
+    scene: 'Szene (Hintergrund + Atmosphäre)',
+    sticker: 'Sticker (2–4 Emojis)',
+    text: 'Großer Text (animiert)',
+    'lower-third': 'Bauchbinde (Titel + Untertitel)',
+    combo: 'Combo (mehrere Schritte)',
+  };
+  const STYLE_LABELS = { neon: 'Neon (pulsierend)', gradient: 'Farbverlauf', bounce: 'Hüpfend', glitch: 'Glitch' };
   // German scene names for the scene select; unknown ids fall back to the id itself.
   const SCENE_LABELS = { rain: 'Regen', night: 'Nacht', forest: 'Wald', sea: 'Meer', fire: 'Feuer', castle: 'Schloss', snow: 'Schnee', desert: 'Wüste', city: 'Stadt', space: 'Weltraum', sunrise: 'Sonnenaufgang', storm: 'Gewitter', clear: 'Szene beenden' };
   const POS_LABELS = { center: 'Mitte', top: 'Oben', safe: 'Sicher (Hochkant: über dem Chat)' };
   // Which fields each visual kind uses. Others are hidden (values are kept in the draft anyway).
   const FIELDS_BY_KIND = {
-    card: ['emoji', 'text', 'colors', 'position'],
-    image: ['image', 'text', 'position'],
-    banner: ['emoji', 'text', 'position'],
-    rain: ['emoji', 'count'],
-    confetti: ['emoji', 'text'],
+    card: ['emoji', 'text', 'colors', 'position', 'intensity', 'fx'],
+    image: ['image', 'text', 'position', 'intensity', 'fx'],
+    banner: ['emoji', 'text', 'position', 'intensity', 'fx'],
+    rain: ['emoji', 'count', 'intensity', 'fx'],
+    confetti: ['emoji', 'text', 'intensity', 'fx'],
     scene: ['scene', 'intensity', 'text'],
-    sticker: ['emoji', 'text', 'position'],
+    sticker: ['emoji', 'text', 'position', 'intensity', 'fx'],
+    text: ['emoji', 'text', 'style', 'colors', 'position', 'intensity', 'fx'],
+    'lower-third': ['emoji', 'title', 'subtitle', 'colors', 'intensity', 'fx'],
+    combo: ['steps', 'fx'],
   };
+  // Which colour pickers of the colour row each kind shows.
+  const COLORS_BY_KIND = { card: ['bg', 'color'], text: ['color', 'color2'], 'lower-third': ['color'] };
+  const STEPS_PLACEHOLDER = '[\n  { "delay": 0, "visual": { "kind": "text", "text": "WOW", "style": "neon" }, "sound": "airhorn" },\n  { "delay": 600, "visual": { "kind": "confetti" } }\n]';
 
   /** Scene ids: LiveFXSchema.SCENES when the schema knows scenes, else the pack table, else []. */
   function sceneIds() {
@@ -75,14 +95,22 @@
             <label class="fx-f fx-f-kind">Effekt<select name="kind"></select></label>
             <label class="fx-f fx-f-position" data-field="position">Position<select name="position"></select></label>
             <label class="fx-f fx-f-scene" data-field="scene">Szene<select name="scene"></select></label>
-            <label class="fx-f fx-f-intensity" data-field="intensity">Intensität (1–3)<input name="intensity" type="number" min="1" max="3" step="1"></label>
+            <label class="fx-f fx-f-intensity" data-field="intensity">Intensität<select name="intensity"><option value="1">1 – dezent</option><option value="2">2 – kräftig (Lichtstrahlen)</option><option value="3">3 – maximal</option></select></label>
+            <label class="fx-f fx-f-style" data-field="style">Stil<select name="style"></select></label>
             <label class="fx-f fx-f-emoji" data-field="emoji">Emoji<input name="emoji" maxlength="32" placeholder="🤯"></label>
             <label class="fx-f fx-f-text" data-field="text">Text<input name="text" maxlength="80" placeholder="KRASS"></label>
+            <label class="fx-f fx-f-title" data-field="title">Titel<input name="title" maxlength="60" placeholder="Max Mustermann"></label>
+            <label class="fx-f fx-f-subtitle" data-field="subtitle">Untertitel<input name="subtitle" maxlength="80" placeholder="Gast von heute"></label>
             <div class="fx-f fx-f-colors fx-wide" data-field="colors">
               <div class="fx-color-row">
-                <label>Hintergrund<span class="fx-color-pick"><input type="color" name="bg" value="#111111"><label class="fx-check fx-inline"><input type="checkbox" name="bgDefault"> Standard</label></span></label>
-                <label>Textfarbe<span class="fx-color-pick"><input type="color" name="color" value="#ffffff"><label class="fx-check fx-inline"><input type="checkbox" name="colorDefault"> Standard</label></span></label>
+                <label data-color="bg">Hintergrund<span class="fx-color-pick"><input type="color" name="bg" value="#111111"><label class="fx-check fx-inline"><input type="checkbox" name="bgDefault"> Standard</label></span></label>
+                <label data-color="color">Textfarbe<span class="fx-color-pick"><input type="color" name="color" value="#ffffff"><label class="fx-check fx-inline"><input type="checkbox" name="colorDefault"> Standard</label></span></label>
+                <label data-color="color2">Zweite Farbe<span class="fx-color-pick"><input type="color" name="color2" value="#dd2476"><label class="fx-check fx-inline"><input type="checkbox" name="color2Default"> Standard</label></span></label>
               </div>
+            </div>
+            <div class="fx-f fx-f-steps fx-wide" data-field="steps">
+              <label>Combo-Schritte (JSON, max. 6 – <code>delay</code> in ms, <code>visual</code> wie oben, optional <code>sound</code>)<textarea name="steps" rows="6" spellcheck="false"></textarea></label>
+              <div class="fx-steps-error" hidden></div>
             </div>
             <div class="fx-f fx-f-image fx-wide" data-field="image">
               <label>Bild<select name="src"></select></label>
@@ -96,6 +124,12 @@
             <label class="fx-f fx-f-sound">Sound<select name="sound"></select></label>
             <label class="fx-f fx-f-count" data-field="count">Anzahl<input name="count" type="number" min="1" max="60" step="1"></label>
             <label class="fx-f fx-f-shake fx-check"><input type="checkbox" name="shake"> Screen-Shake</label>
+            <div class="fx-f fx-f-fx fx-wide fx-flags" data-field="fx">
+              <label class="fx-check fx-inline"><input type="checkbox" name="glow"> Glow</label>
+              <label class="fx-check fx-inline"><input type="checkbox" name="tilt"> 3D-Kippen</label>
+              <label class="fx-check fx-inline"><input type="checkbox" name="impact"> Impact (Zoom-Stoß)</label>
+            </div>
+            <label class="fx-f fx-f-gain fx-wide">Lautstärke dieses Triggers <output name="gainOut">100 %</output><input name="gain" type="range" min="0" max="1" step="0.05" value="1"></label>
           </div>
           <div class="fx-editor-warnings" hidden></div>
         </div>
@@ -136,6 +170,9 @@
     d.querySelector('[name="src"]').addEventListener('change', updatePreview);
     d.querySelector('[name="bgDefault"]').addEventListener('change', updateColorState);
     d.querySelector('[name="colorDefault"]').addEventListener('change', updateColorState);
+    d.querySelector('[name="color2Default"]').addEventListener('change', updateColorState);
+    d.querySelector('[name="gain"]').addEventListener('input', updateGainLabel);
+    d.querySelector('[name="steps"]').addEventListener('input', () => validateSteps(true));
     d.querySelector('.fx-image-file').addEventListener('change', onImageFile);
     return d;
   }
@@ -152,6 +189,8 @@
     const curScene = typeof v.scene === 'string' && scenes.includes(v.scene) ? v.scene : scenes[0] || '';
     field('scene').innerHTML = scenes.map((id) => option(id, sceneLabel(id), id === curScene)).join('');
     field('position').innerHTML = sc.POSITIONS.map((p) => option(p, POS_LABELS[p] || p, (v.position || 'center') === p)).join('');
+    const styles = Array.isArray(sc.TEXT_STYLES) && sc.TEXT_STYLES.length ? sc.TEXT_STYLES : ['neon', 'gradient', 'bounce', 'glitch'];
+    field('style').innerHTML = styles.map((st) => option(st, STYLE_LABELS[st] || st, (v.style || 'neon') === st)).join('');
 
     const assets = normalizeAssets(opts.assets);
     const imgs = assets.images.slice();
@@ -184,12 +223,57 @@
     field('emoji').value = v.emoji || '';
     field('text').value = v.text || '';
     field('count').value = v.count || 20;
-    field('intensity').value = v.intensity === undefined || v.intensity === null ? 2 : v.intensity;
+    const defaultIntensity = v.kind === 'scene' ? 2 : 1;
+    field('intensity').value = String(v.intensity === undefined || v.intensity === null ? defaultIntensity : Math.min(3, Math.max(1, Math.round(Number(v.intensity)) || defaultIntensity)));
     field('shake').checked = v.shake === true;
+    field('title').value = v.title || '';
+    field('subtitle').value = v.subtitle || '';
+    field('steps').value = Array.isArray(v.steps) && v.steps.length ? JSON.stringify(v.steps, null, 2) : '';
+    field('steps').placeholder = STEPS_PLACEHOLDER;
+    for (const f of ['glow', 'tilt', 'impact']) field(f).checked = v[f] === true;
+    const gain = Number(trigger.gain);
+    field('gain').value = String(Number.isFinite(gain) ? Math.min(1, Math.max(0, gain)) : 1);
+    updateGainLabel();
     setColor('bg', v.bg, '#111111');
     setColor('color', v.color, '#ffffff');
+    setColor('color2', v.color2, '#dd2476');
+    validateSteps(false);
     updateVisibility();
     updatePreview();
+  }
+
+  function updateGainLabel() {
+    const out = dialog.querySelector('[name="gainOut"]');
+    if (out) out.value = `${Math.round(Number(field('gain').value) * 100)} %`;
+  }
+
+  /**
+   * Parses the combo steps textarea. Returns `{steps, error}`; `error` is a German message when the JSON
+   * is invalid or not an array of step objects. `show` renders the message under the textarea.
+   */
+  function validateSteps(show) {
+    const raw = field('steps').value.trim();
+    const box = dialog.querySelector('.fx-steps-error');
+    let steps = [];
+    let error = '';
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) error = 'Combo-Schritte müssen ein JSON-Array sein ([ … ]).';
+        else if (!parsed.length) error = 'Mindestens ein Schritt wird gebraucht.';
+        else if (parsed.length > 6) error = `Maximal 6 Schritte (aktuell ${parsed.length}).`;
+        else if (parsed.some((st) => !st || typeof st !== 'object' || Array.isArray(st))) error = 'Jeder Schritt muss ein Objekt { "delay": …, "visual": { … } } sein.';
+        else if (parsed.some((st) => st.visual && st.visual.kind === 'combo')) error = 'Ein Combo-Schritt darf selbst keine Combo sein.';
+        else steps = parsed;
+      } catch (e) {
+        error = `Ungültiges JSON: ${e.message}`;
+      }
+    } else error = 'Combo-Schritte fehlen.';
+    if (show || !error) {
+      box.textContent = error;
+      box.hidden = !error;
+    }
+    return { steps, error };
   }
 
   /** <input type=color> only understands #rrggbb; other formats keep "Standard" checked. */
@@ -202,13 +286,17 @@
   }
 
   function updateColorState() {
-    for (const n of ['bg', 'color']) field(n).disabled = field(`${n}Default`).checked;
+    for (const n of ['bg', 'color', 'color2']) field(n).disabled = field(`${n}Default`).checked;
   }
 
   function updateVisibility() {
     const kind = field('kind').value;
     const show = FIELDS_BY_KIND[kind] || FIELDS_BY_KIND.card;
     for (const el of dialog.querySelectorAll('[data-field]')) el.hidden = !show.includes(el.dataset.field);
+    const colors = COLORS_BY_KIND[kind] || COLORS_BY_KIND.card;
+    for (const el of dialog.querySelectorAll('[data-color]')) el.hidden = !colors.includes(el.dataset.color);
+    // 3D tilt only makes sense for card-like kinds.
+    dialog.querySelector('[name="tilt"]').closest('label').hidden = !['card', 'image', 'confetti'].includes(kind);
   }
 
   function updatePreview() {
@@ -260,18 +348,38 @@
     const text = field('text').value.trim();
     if (emoji) visual.emoji = emoji;
     if (text) visual.text = text;
-    if (kind === 'card') {
-      if (!field('bgDefault').checked) visual.bg = field('bg').dataset.raw || field('bg').value;
-      if (!field('colorDefault').checked) visual.color = field('color').dataset.raw || field('color').value;
-    }
+    const colors = COLORS_BY_KIND[kind] || [];
+    if (colors.includes('bg') && !field('bgDefault').checked) visual.bg = field('bg').dataset.raw || field('bg').value;
+    if (colors.includes('color') && !field('colorDefault').checked) visual.color = field('color').dataset.raw || field('color').value;
+    if (colors.includes('color2') && !field('color2Default').checked) visual.color2 = field('color2').dataset.raw || field('color2').value;
     if (kind === 'image') visual.src = field('src').value;
     if (kind === 'rain') visual.count = Number(field('count').value) || undefined;
-    if (kind === 'scene') {
-      visual.scene = field('scene').value;
+    if (kind === 'scene') visual.scene = field('scene').value;
+    if (kind === 'text') visual.style = field('style').value;
+    if (kind === 'lower-third') {
+      const title = field('title').value.trim();
+      const subtitle = field('subtitle').value.trim();
+      if (title) visual.title = title;
+      if (subtitle) visual.subtitle = subtitle;
+    }
+    current.stepsError = '';
+    if (kind === 'combo') {
+      const { steps, error } = validateSteps(true);
+      visual.steps = steps;
+      current.stepsError = error;
+    }
+    const show = FIELDS_BY_KIND[kind] || FIELDS_BY_KIND.card;
+    if (show.includes('intensity')) {
       const it = Number(field('intensity').value);
-      if (Number.isFinite(it) && field('intensity').value !== '') visual.intensity = Math.min(3, Math.max(1, Math.round(it)));
+      const def = kind === 'scene' ? 2 : 1;
+      if (Number.isFinite(it) && field('intensity').value !== '' && (kind === 'scene' || Math.round(it) !== def)) visual.intensity = Math.min(3, Math.max(1, Math.round(it)));
     }
     if (field('shake').checked) visual.shake = true;
+    if (show.includes('fx')) {
+      if (field('glow').checked) visual.glow = true;
+      if (field('impact').checked) visual.impact = true;
+      if (field('tilt').checked && !field('tilt').closest('label').hidden) visual.tilt = true;
+    }
     const draft = {
       id: base.id,
       label: field('label').value.trim(),
@@ -281,6 +389,8 @@
       sound: field('sound').value || null,
       visual,
     };
+    const gain = Number(field('gain').value);
+    if (Number.isFinite(gain) && gain < 1) draft.gain = Math.max(0, gain);
     const hint = field('hint').value.trim();
     if (hint) draft.hint = hint;
     // Keep unknown extra keys of the original (e.g. hotkey) so nothing silently disappears.
@@ -292,7 +402,9 @@
     const draft = readDraft();
     const n = S().normalizeTrigger(draft, { usedIds: new Set() });
     if (!n) return { trigger: null, warnings: ['Trigger ungültig'] };
-    return { trigger: n.trigger, warnings: n.warnings.map((w) => w.replace(/^[^:]+: /, '')) };
+    const warnings = n.warnings.map((w) => w.replace(/^[^:]+: /, ''));
+    if (current.stepsError) warnings.unshift(`Combo-Schritte: ${current.stepsError}`);
+    return { trigger: n.trigger, warnings };
   }
 
   function showWarnings(list) {
@@ -321,6 +433,11 @@
     if (!field('label').value.trim()) {
       showWarnings(['Bitte einen Namen eingeben.']);
       field('label').focus();
+      return;
+    }
+    if (current.stepsError) {
+      showWarnings(warnings);
+      field('steps').focus();
       return;
     }
     showWarnings(warnings);

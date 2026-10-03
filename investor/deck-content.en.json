@@ -1,0 +1,637 @@
+{
+  "lang": "en",
+  "file": "LiveFX_Investor_Deck_EN.pptx",
+  "deckTitle": "LiveFX – Investor Deck (Pre-Seed, October 2026)",
+  "footer": "CONFIDENTIAL  ·  PRE-SEED  ·  OCTOBER 2026",
+  "proposal": "Proposal – please confirm",
+  "sections": [
+    "Opportunity",
+    "Product & vision",
+    "Market & model",
+    "Plan & round",
+    "Team"
+  ],
+  "s1": {
+    "kicker": "PRE-SEED INVESTMENT OPPORTUNITY",
+    "title": "LiveFX:\nLive streams\nthat listen",
+    "sub": "The creator's voice becomes a meme, a sound and a scene in under a second – and tomorrow, a picture for everything spoken.",
+    "askLabel": "THE ROUND",
+    "ask": "€500,000",
+    "askSub": "for LiveFX and every LiveFX line · 24 months",
+    "people": [
+      [
+        "FOUNDER & INVENTOR",
+        "Tuncay Sancak"
+      ],
+      [
+        "INVESTOR RELATIONS",
+        "Gönül Demet"
+      ]
+    ],
+    "imgLabels": [
+      "LiveFX 2.0",
+      "Vision"
+    ]
+  },
+  "s2": {
+    "kicker": "LIVEFX / INVESTMENT THESIS",
+    "title": "A focused bet on voice as the live trigger",
+    "cards": [
+      [
+        "Built & tested",
+        "Version 2.0 runs: 238 triggers, 13 scenes, 240+ automated tests."
+      ],
+      [
+        "An empty gap",
+        "No widely used tool reacts to what the creator says."
+      ],
+      [
+        "Money in the stream",
+        "Gifts ≈ 50% of streamer income [Source 5, 6]."
+      ],
+      [
+        "Draw, don't compute",
+        "Scenes in the browser: 240 to 10,000+ times cheaper than video AI."
+      ],
+      [
+        "One engine, four lines",
+        "Story Film, WordPicture, Spaces, Studio – no second tech stack."
+      ]
+    ],
+    "bottom": "€500,000 takes the product to market and two vision lines from prototype to product."
+  },
+  "s3": {
+    "kicker": "LIVEFX / THE MARKET GAP",
+    "title": "Short videos get edited. Live stays raw",
+    "axisX": [
+      "manual",
+      "automatic"
+    ],
+    "axisY": [
+      "Viewer-\ndriven",
+      "Voice-\ndriven"
+    ],
+    "cells": [
+      [
+        "Native effects, stickers",
+        "picked by hand"
+      ],
+      [
+        "Alerts (Streamlabs, StreamElements)",
+        "react to follows, donations"
+      ],
+      [
+        "Voicemod, Stream Deck",
+        "need hands"
+      ],
+      [
+        "LiveFX",
+        "reacts to the voice – alone in the field"
+      ]
+    ],
+    "stats": [
+      [
+        "~50%",
+        "share of gifts in live streamers' income [Source 5, 6]"
+      ],
+      [
+        "USD 500–3,000",
+        "gifts per month at 20–100k followers [Source 5]"
+      ],
+      [
+        "> 100m",
+        "creators went live on TikTok in 2025 in SE Asia, the Caucasus and Central Asia alone, +77% [Source 2]"
+      ]
+    ],
+    "src": "Sources: QUELLEN.en.md · 2×2 after PITCH-DECK.en.md, slide 10"
+  },
+  "s4": {
+    "kicker": "LIVEFX / VALIDATED BUILD",
+    "title": "From voice to effect in under a second",
+    "body": "The creator says \"no way\", \"yok artık\" or \"applause\" – the meme appears, the sound plays. When he reads aloud, the overlay turns into an animated scene.",
+    "stats": [
+      [
+        "238",
+        "triggers in 5 packs"
+      ],
+      [
+        "13 · 12",
+        "scenes · ambience loops"
+      ],
+      [
+        "38",
+        "licence-free sounds"
+      ],
+      [
+        "3",
+        "languages, auto-detected"
+      ],
+      [
+        "< 1 s",
+        "voice → effect"
+      ],
+      [
+        "240+",
+        "automated tests"
+      ]
+    ],
+    "features": "Story mode · viewer triggers (chat, gifts) · phone remote · offline · open API · OBS/Streamlabs → TikTok LIVE, Instagram, YouTube, Twitch",
+    "status": "v2.0  →  TR launch Q4 2026  →  Pro Q1 2027",
+    "src": "Source: BUSINESSPLAN.en.md §3; tests: PITCH-DECK.en.md, slide 9 · no revenue yet"
+  },
+  "s5": {
+    "kicker": "LIVEFX / VISION 2027–2029",
+    "title": "You talk. It becomes a scene",
+    "lines": [
+      [
+        "A",
+        "Story Film",
+        "Generative Scene Engine: narrated sentences become a continuous animated film, live.",
+        "Prototype"
+      ],
+      [
+        "B",
+        "WordPicture",
+        "Language learning: word → picture + target language + pronunciation; reading aid, repeat.",
+        "Prototype"
+      ],
+      [
+        "C",
+        "Spaces",
+        "The same timeline on stage, projector, phone AR, VR and display glasses.",
+        "Stage today"
+      ],
+      [
+        "D",
+        "Studio",
+        "Highlights from the stream, auto-edit of finished videos, local export.",
+        "Vision"
+      ]
+    ],
+    "bottom": "Ordered by closeness to revenue: WordPicture and the story engine first – XR stays a showcase.",
+    "src": "Source: VISION.en.md §1, BUSINESSPLAN.en.md §15 · images: vision trailer"
+  },
+  "s6": {
+    "kicker": "LIVEFX / PROTOTYPES",
+    "title": "Two lines already run in the browser",
+    "caps": [
+      [
+        "A · Story Film",
+        "live-story.html: 22 characters, 10 places, weather, mood · 60 fps"
+      ],
+      [
+        "B · WordPicture",
+        "sprachlernen.html: 85 words DE/TR/EN, syllables, pronunciation"
+      ]
+    ],
+    "costHead": "Draw, don't generate",
+    "cost": [
+      [
+        "Video AI",
+        "USD 180–2,700",
+        "per hour [Source 24, 25]"
+      ],
+      [
+        "LiveFX",
+        "€0 – USD 0.75",
+        "per hour (project measurement)"
+      ]
+    ],
+    "costNote": "240 to more than 10,000 times cheaper – and the only one that runs live.",
+    "src": "Source: prototypes/README.md, VISION.en.md §2 · screenshots of the prototypes"
+  },
+  "s7": {
+    "kicker": "LIVEFX / MARKET",
+    "title": "A growth market with a clear entry point",
+    "rings": [
+      [
+        "TAM",
+        "10–20m",
+        "monetising live creators"
+      ],
+      [
+        "SAM",
+        "1–3m",
+        "TR/DE/EN"
+      ],
+      [
+        "SOM",
+        "5–15k",
+        "paying, Y3"
+      ]
+    ],
+    "ringNote": "Bottom-up, estimate (BUSINESSPLAN.en.md §6)",
+    "coreHead": "Core market: live",
+    "core": [
+      [
+        "USD 97–157bn",
+        "live streaming 2026 [S 1, 2]"
+      ],
+      [
+        "USD 216–260bn",
+        "creator economy 2026 [S 3, 4]"
+      ],
+      [
+        "~14%",
+        "live share ≈ USD 36bn [S 3]"
+      ]
+    ],
+    "adjHead": "Adjacent (vision)",
+    "adj": [
+      [
+        "USD 3.67bn",
+        "AI video 2026 [S 23]"
+      ],
+      [
+        "USD 2.68bn",
+        "video editing 2026 [S 51]"
+      ],
+      [
+        "USD 1.54bn",
+        "language-learning apps 2025 [S 33]"
+      ],
+      [
+        "€374m",
+        "German audiobooks 2025 [S 19]"
+      ],
+      [
+        "USD 5.1bn",
+        "smart glasses 2026 [S 45]"
+      ]
+    ],
+    "src": "[S n] = [Source n] in QUELLEN.en.md · adjacent markets are not included in the SOM"
+  },
+  "s8": {
+    "kicker": "LIVEFX / BUSINESS MODEL",
+    "title": "Freemium for creators, licences for institutions",
+    "tiers": [
+      [
+        "Free",
+        "€0",
+        "Core function, standard packs, phone remote"
+      ],
+      [
+        "Pro",
+        "€9.99/month",
+        "AI understanding, all scenes, viewer triggers; €79/year"
+      ],
+      [
+        "Pro+ (vision)",
+        "€14.99/month",
+        "AI scenes, auto-edit, MP4 export"
+      ],
+      [
+        "WordPicture Family",
+        "€4.99/month",
+        "Language learning and reading aid"
+      ],
+      [
+        "Packs",
+        "€2.99–4.99",
+        "Meme, story, world, vocabulary packs; marketplace 70/30"
+      ],
+      [
+        "School licence",
+        "€300–800/year",
+        "Course €49/teacher · events · publishers · agencies · B2B/SDK"
+      ]
+    ],
+    "anchorHead": "Price anchors",
+    "anchors": [
+      "Streamlabs Ultra USD 27/month [S 11, 12]",
+      "StreamYard ~35 · Restream ~16 USD [S 12]",
+      "Voicemod ~USD 10/month [S 13]",
+      "ANTON school licence €250–700/year [S 41]"
+    ],
+    "unit": "Local software: marginal cost close to zero. AI only with Pro: USD 0.25–0.75 per stream hour.",
+    "src": "Source: BUSINESSPLAN.en.md §9, §15.6 · vision and licence prices are estimates"
+  },
+  "s9": {
+    "kicker": "LIVEFX / DIFFERENTIATION & RISKS",
+    "title": "The only trigger that is always there: the voice",
+    "cols": [
+      "",
+      "LiveFX",
+      "Alerts",
+      "Voicemod",
+      "Native",
+      "Editors"
+    ],
+    "rows": [
+      [
+        "Voice-driven",
+        "fnnnn"
+      ],
+      [
+        "Turkish / 3 languages",
+        "fnnpf"
+      ],
+      [
+        "Story/scene mode",
+        "fnnnn"
+      ],
+      [
+        "Local / offline",
+        "fnfpp"
+      ],
+      [
+        "Open API",
+        "fpnnn"
+      ],
+      [
+        "Live (not after the fact)",
+        "ffffn"
+      ]
+    ],
+    "legend": [
+      "yes",
+      "partly",
+      "no"
+    ],
+    "riskHead": "Risks – named up front",
+    "risks": [
+      [
+        "Demand unproven",
+        "Cohort gates, budget only after release"
+      ],
+      [
+        "A platform copies it",
+        "Early pilot, language packs as a moat"
+      ],
+      [
+        "Phone creators without OBS",
+        "Mobile developer first"
+      ],
+      [
+        "Data protection school/family",
+        "Local, no accounts, on-device ASR"
+      ],
+      [
+        "Vision spreads the team",
+        "20% budget cap, XR only a showcase"
+      ]
+    ],
+    "src": "Source: BUSINESSPLAN.en.md §7, §13"
+  },
+  "s10": {
+    "kicker": "LIVEFX / ROADMAP & GO-TO-MARKET",
+    "title": "Launch. Monetise. Expand",
+    "steps": [
+      [
+        "Q4 2026",
+        "TR launch",
+        "Download, 10–20 ambassadors"
+      ],
+      [
+        "Q1 2027",
+        "Pro live",
+        "DE/EN, WordPicture 300 words"
+      ],
+      [
+        "Q2 2027",
+        "Mobile app",
+        "Story Film DE, agency licence"
+      ],
+      [
+        "Q3 2027",
+        "Platform pilot",
+        "Pro+, Story Film TR/EN"
+      ],
+      [
+        "Q4 2027",
+        "School licence",
+        "Timeline editor, MP4 export"
+      ],
+      [
+        "2028",
+        "Scene SDK v1",
+        "SDK pilot, family plan"
+      ],
+      [
+        "2029",
+        "Pilot or exit",
+        "Story Film 2.0, publishers"
+      ]
+    ],
+    "gtm": [
+      [
+        "1 · TR community",
+        "Own streams, pack drops"
+      ],
+      [
+        "2 · DE/EN",
+        "Read-aloud and education streams"
+      ],
+      [
+        "3 · Partners",
+        "Creator programme, agencies"
+      ],
+      [
+        "4 · Platform & education",
+        "8 weeks, 20 creators; courses"
+      ]
+    ],
+    "src": "Source: BUSINESSPLAN.en.md §10, §14.1, §14.2"
+  },
+  "s11": {
+    "kicker": "LIVEFX / FINANCIAL SCENARIO",
+    "title": "Base case: break-even in Y3, with the vision in Y2",
+    "chartTitle": "Base case, €k (estimate)",
+    "years": [
+      "Y1 2027",
+      "Y2 2028",
+      "Y3 2029"
+    ],
+    "series": [
+      [
+        "Core revenue",
+        [
+          51,
+          336,
+          1039
+        ]
+      ],
+      [
+        "Vision revenue",
+        [
+          27,
+          192,
+          617
+        ]
+      ],
+      [
+        "Total costs",
+        [
+          195,
+          513,
+          920
+        ]
+      ]
+    ],
+    "results": [
+      [
+        "Core result",
+        "−114 / −62 / +329 €k"
+      ],
+      [
+        "Incl. vision",
+        "≈ −117 / +15 / +736 €k"
+      ],
+      [
+        "Conservative, 3 yrs",
+        "−316 €k cumulative"
+      ]
+    ],
+    "runHead": "Why €500,000 instead of €250–350k",
+    "run": [
+      [
+        "≈ 22 months",
+        "runway at zero revenue (€250–350k: ≈ 15–18)"
+      ],
+      [
+        "≈ €184k",
+        "left after the conservative case (€250k is not enough)"
+      ],
+      [
+        "€100k",
+        "for vision lines A and B in 2027"
+      ]
+    ],
+    "src": "Source: BUSINESSPLAN.en.md §11.2–11.5 · total costs = core + vision · scenarios, not forecasts"
+  },
+  "s12": {
+    "kicker": "LIVEFX / USE OF FUNDS",
+    "title": "Capital goes first to execution capacity",
+    "total": "€500k",
+    "totalSub": "24 MONTHS",
+    "split": [
+      [
+        50,
+        "Product & engineering team",
+        "€250,000",
+        "Mobile/web, backend/ML from M13, founder in part"
+      ],
+      [
+        20,
+        "Vision lines → product",
+        "€100,000",
+        "WordPicture and story engine first"
+      ],
+      [
+        15,
+        "Go-to-market & pilots",
+        "€75,000",
+        "Creator programme, platform, education"
+      ],
+      [
+        10,
+        "Legal, trademark, privacy",
+        "€50,000",
+        "Trademark, GDPR, platform approvals"
+      ],
+      [
+        5,
+        "Reserve",
+        "€25,000",
+        "Buffer"
+      ]
+    ],
+    "note": "Derived from the cost tables in BUSINESSPLAN.en.md §11.3 and §11.5; infrastructure and AI API are paid from Pro revenue."
+  },
+  "s13": {
+    "kicker": "LIVEFX / MILESTONE GATES",
+    "title": "Scale only after evidence clears the gate",
+    "gates": [
+      [
+        "01",
+        "H1 2027",
+        "Activation",
+        [
+          "Pro live, mobile dev on board",
+          "20 beta creators + 10–20 ambassadors",
+          "Week-4 retention ≥ [number]%"
+        ]
+      ],
+      [
+        "02",
+        "H2 2027",
+        "Traction",
+        [
+          "20,000 registered users",
+          "≈ 800 paying Pro",
+          "1 platform pilot, 5 schools"
+        ]
+      ],
+      [
+        "03",
+        "H1 2028",
+        "Retention",
+        [
+          "Free → Pro ≥ 4%",
+          "Month-3 retention ≥ [number]%",
+          "WordPicture pilot evaluated"
+        ]
+      ],
+      [
+        "04",
+        "H2 2028",
+        "Scale",
+        [
+          "80,000 registered users",
+          "≈ 3,200 Pro, B2B €50k",
+          "40 schools, 1 SDK partner"
+        ]
+      ],
+      [
+        "05",
+        "2029",
+        "Outcome",
+        [
+          "Break-even path in Y3",
+          "Follow-on round or platform talks"
+        ]
+      ]
+    ],
+    "note": "Targets from the base case (BUSINESSPLAN.en.md §11.1, §11.5, §14) – not achieved, estimate. [number] is set after the first cohorts."
+  },
+  "s14": {
+    "kicker": "LIVEFX / TEAM & ROUND",
+    "title": "The people behind LiveFX",
+    "team": [
+      [
+        "TS",
+        "Tuncay Sancak",
+        "FOUNDER & INVENTOR · MANAGING DIRECTOR",
+        "Invented LiveFX and built it to 2.0 before any funding. Former project lead, AI expert and data scientist at Mercedes-Benz; native German and Turkish speaker. Author of children's books, including \"Good That You Exist\"."
+      ],
+      [
+        "GD",
+        "Gönül Demet",
+        "INVESTOR RELATIONS & FUNDRAISING",
+        "Leads investor outreach for the pre-seed round and prepared these materials."
+      ]
+    ],
+    "hireHead": "Team build after financing",
+    "hires": [
+      [
+        "Mobile developer",
+        "from the round"
+      ],
+      [
+        "Community & partners TR/DE",
+        "years 1–2"
+      ],
+      [
+        "Graphics/web dev (Canvas)",
+        "years 1–2"
+      ],
+      [
+        "Backend/ML",
+        "from month 13"
+      ]
+    ],
+    "askLine": "€500,000 pre-seed · terms [open]",
+    "contact": "Investor contact: Gönül Demet · [email]",
+    "disclaimer": "Confidential pre-seed materials. Forward-looking statements are subject to material risks and uncertainty; an investment may result in total loss."
+  }
+}

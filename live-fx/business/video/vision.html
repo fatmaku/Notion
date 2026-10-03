@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiveFX Vision-Trailer</title>
+<!-- Vision-Trailer (35 s). Deterministic: window.render(t) draws the exact frame for time t on one canvas.
+     URL: vision.html?ratio=9x16|16x9&lang=de|tr|en   (+ &capture for frame stepping, &t=12 to start the preview at 12 s)
+     Renderer: vision-engine.js · Capture: node capture-vision.js · Music: node music-vision.js -->
+<style>
+@font-face{font-family:'Lexend';src:url('assets/lexend-5.woff2') format('woff2');font-weight:400 700;unicode-range:U+0100-02BA,U+02BD-02C5,U+1E00-1E9F,U+1EF2-1EFF}
+@font-face{font-family:'Lexend';src:url('assets/lexend-3.woff2') format('woff2');font-weight:400 700;unicode-range:U+0000-00FF,U+0131,U+2000-206F,U+20AC}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;overflow:hidden;height:100%}
+#c{display:block;transform-origin:0 0;font-family:'Lexend',sans-serif}
+#warm{position:absolute;left:-9999px;font-family:'Lexend';font-weight:700}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="warm">ÄÖÜäöüß çğıİöşüÇĞŞÖÜ €·„“”…–<span style="font-weight:500">ÄÖÜäöüß çğıİöşüÇĞŞÖÜ €·„“”…–</span></div>
+<script src="vision-engine.js"></script>
+</body>
+</html>

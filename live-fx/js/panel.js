@@ -31,7 +31,11 @@
   const SUGGEST_MAX = 3;
   const SELFCHECK_MS = 8000;
   const LATENCY_WINDOW = 5;
-  const settings = { lang: 'de-DE', tolerance: 'medium', reaction: 'fast', alternatives: true, restart: false, ignored: [] };
+  // 1.5: `lang: 'auto'` = automatic DE/TR/EN detection (backend `auto`, docs/CONTRACTS.md §6); new users start with it.
+  const AUTO_LANGS = ['de-DE', 'tr-TR', 'en-US'];
+  const LANG_NAMES = { de: 'Deutsch', tr: 'Türkçe', en: 'English' };
+  const settings = { lang: 'auto', tolerance: 'medium', reaction: 'fast', alternatives: true, restart: false, ignored: [] };
+  let detected = null; // { lang, family, mode, reason } – last `lang` event of the auto backend
   const matcher = new LiveFXMatcher.Matcher([], { globalMinGap: Number($('#gap').value) || 0, tolerance: settings.tolerance, lang: settings.lang });
   let triggers = [];
   let paused = false;
@@ -99,8 +103,13 @@
       log(`⏸ (pausiert) ${labelOf(trigger)} ← ${src}`);
       return;
     }
-    bus.send({ type: 'fire', trigger: publicTrigger(trigger), source: src });
-    log(`🔥 ${labelOf(trigger)}  ←  ${src}`);
+    let out = publicTrigger(trigger);
+    // 2.0: „Intensität aus Stimme“ – the mic level at the moment of the hit picks the effect strength.
+    const intensity = voiceIntensity();
+    if (intensity) out = { ...out, visual: { ...(out.visual || {}), intensity } };
+    bus.send({ type: 'fire', trigger: out, source: src });
+    log(`🔥 ${labelOf(trigger)}  ←  ${src}${intensity ? `  · Intensität ${intensity}` : ''}`);
+    recordComboFire(trigger, src);
   }
 
   /** Hotkeys and pad buttons: explicit user action, ignores cooldowns but not the enabled flag. */
@@ -228,7 +237,7 @@
     if (selfCheck) finishSelfCheck(str, hitsInUtterance);
     if (hitsInUtterance === 0) {
       const missId = addMiss(str);
-      if (smart && smart.status.available && smart.shouldClassify(str, 0, true)) classifySmart(str, m.lang || settings.lang, missId);
+      if (smart && smart.status.available && smart.shouldClassify(str, 0, true)) classifySmart(str, m.lang || effectiveLang(), missId);
     }
   }
 
@@ -428,8 +437,59 @@
     el.textContent = text;
   }
 
+  /** Language tag the matcher/smart/story code should use right now (auto → last detected, default de-DE). */
+  function effectiveLang() {
+    if (settings.lang !== 'auto') return settings.lang;
+    return detected && typeof detected.lang === 'string' && detected.lang ? detected.lang : AUTO_LANGS[0];
+  }
+
+  function familyOf(tag) {
+    return String(tag || '').toLowerCase().split(/[-_]/)[0];
+  }
+
+  function renderLangPill() {
+    const el = $('#pill-lang-value');
+    if (!el) return;
+    if (settings.lang !== 'auto') el.textContent = settings.lang;
+    else el.textContent = detected && detected.family ? `Auto · ${String(detected.family).toUpperCase()}` : 'Auto';
+  }
+
+  function renderDiagLang() {
+    const el = $('#diag-lang');
+    if (!el) return;
+    if (settings.lang !== 'auto') {
+      el.textContent = `Sprache: ${settings.lang} (fest eingestellt)`;
+      return;
+    }
+    if (!detected) {
+      el.textContent = 'Erkannte Sprache: – (automatisch: Deutsch / Türkçe / English)';
+      return;
+    }
+    const fam = familyOf(detected.family || detected.lang);
+    const name = LANG_NAMES[fam] || fam.toUpperCase();
+    el.textContent = `Erkannte Sprache: ${name} (${detected.lang})${detected.mode ? ` · Modus: ${detected.mode}` : ''}`;
+  }
+
+  /** `lang` event of the auto backend: remember, show, follow with matcher + story pack. */
+  function onLangDetected(ev) {
+    const lang = typeof ev.lang === 'string' && ev.lang ? ev.lang : null;
+    if (!lang) return;
+    const family = typeof ev.family === 'string' && ev.family ? ev.family : familyOf(lang);
+    const prevFamily = detected ? detected.family : null;
+    detected = { lang, family, mode: typeof ev.mode === 'string' ? ev.mode : null, reason: typeof ev.reason === 'string' ? ev.reason : null };
+    renderLangPill();
+    renderDiagLang();
+    if (settings.lang !== 'auto') return;
+    if (typeof matcher.setLang === 'function') matcher.setLang(lang);
+    if (prevFamily !== family) {
+      log(`🌐 Sprache erkannt: ${LANG_NAMES[family] || family} (${lang})${detected.mode ? ` · ${detected.mode}` : ''}`);
+      if (storyOn) loadStoryPack();
+    }
+  }
+
   function onAsrEvent(ev) {
     if (!ev || typeof ev !== 'object') return;
+    if (ev.type === 'lang') return onLangDetected(ev);
     if (ev.type === 'planned-restart') log('🔁 Erkenner planmäßig neu gestartet');
     else if (ev.type === 'stall') log('⚠️ Erkennung hing – Neustart');
     else if (ev.type === 'restart') log('🔁 Erkenner neu gestartet');
@@ -582,7 +642,8 @@
     $('#asr-reaction').value = settings.reaction;
     $('#asr-alternatives').checked = settings.alternatives;
     $('#asr-restart').checked = settings.restart;
-    $('#pill-lang-value').textContent = settings.lang;
+    renderLangPill();
+    renderDiagLang();
   }
 
   /** Reads the stored settings, mirrors them into the card and pushes them to matcher/ASR. */
@@ -594,9 +655,9 @@
 
   function pushSettings() {
     if (typeof matcher.setTolerance === 'function') matcher.setTolerance(settings.tolerance);
-    if (typeof matcher.setLang === 'function') matcher.setLang(settings.lang);
+    if (typeof matcher.setLang === 'function') matcher.setLang(settings.lang === 'auto' ? (detected ? detected.lang : null) : settings.lang);
     if (asr) {
-      if (typeof asr.setLang === 'function') asr.setLang(settings.lang);
+      if (typeof asr.setLang === 'function') asr.setLang(asrLangFor(asr.name));
       if (typeof asr.setOptions === 'function') asr.setOptions({ alternatives: settings.alternatives, restartEveryMs: settings.restart ? RESTART_MS : 0, stallMs: STALL_MS });
     }
   }
@@ -614,11 +675,29 @@
     lsSet(ASR_KEYS.reaction, settings.reaction);
     lsSet(ASR_KEYS.alternatives, settings.alternatives ? '1' : '0');
     lsSet(ASR_KEYS.restart, settings.restart ? '1' : '0');
-    $('#pill-lang-value').textContent = settings.lang;
+    if (before.lang !== settings.lang) detected = null;
+    renderLangPill();
+    renderDiagLang();
     pushSettings();
+    // auto ↔ fixed language switches the backend (webspeech ↔ auto) – rebuild the recognizer.
+    if (before.lang !== settings.lang && asr && (before.lang === 'auto' || settings.lang === 'auto')) recreateAsr();
     if (before.tolerance !== settings.tolerance) log(`🎯 Dialekt-Toleranz: ${{ off: 'aus', medium: 'mittel', high: 'hoch' }[settings.tolerance]}`);
     if (before.reaction !== settings.reaction) log(settings.reaction === 'safe' ? '🐢 Reaktion: sicher (nur finale Sätze)' : '⚡ Reaktion: schnell');
-    if (before.lang !== settings.lang) log(`🌐 Sprache: ${settings.lang}`);
+    if (before.lang !== settings.lang) log(settings.lang === 'auto' ? '🌐 Sprache: automatisch (Deutsch / Türkçe / English)' : `🌐 Sprache: ${settings.lang}`);
+  }
+
+  /** Rebuilds the ASR with the current settings; keeps listening when it was active. */
+  function recreateAsr() {
+    const wanted = asrWanted || asrActive();
+    createAsr($('#asr').value);
+    if (wanted) {
+      asrWanted = true;
+      try {
+        asr.start();
+      } catch (e) {
+        log(`⚠️ Erkenner: ${e && e.message ? e.message : e}`);
+      }
+    }
   }
 
   for (const id of ['#lang', '#asr-tolerance', '#asr-reaction', '#asr-alternatives', '#asr-restart']) {
@@ -666,9 +745,9 @@
         /* ignore */
       }
     }
-    const backend = LiveFXASR.backends.some((b) => b.name === name) ? name : 'webspeech';
-    asr = LiveFXASR.create(backend, {
-      lang: settings.lang,
+    const backend = pickBackend(name);
+    const opts = {
+      lang: asrLangFor(backend),
       bus,
       alternatives: settings.alternatives,
       restartEveryMs: settings.restart ? RESTART_MS : 0,
@@ -681,9 +760,37 @@
         log(`${err.fatal ? '❌' : '⚠️'} ${err.message || err.code}`);
         if (err.fatal) reflectAsrState('error');
       },
-    });
+    };
+    if (backend === 'auto') opts.langs = AUTO_LANGS.slice();
+    asr = LiveFXASR.create(backend, opts);
+    if (backend !== name && settings.lang === 'auto' && name === 'webspeech') log('ℹ️ Automatische Sprache: Backend „auto“ fehlt – Browser-Erkennung mit Deutsch');
     reflectAsrState(asr.state === 'unsupported' ? 'idle' : asr.state);
     return asr;
+  }
+
+  function hasBackend(n) {
+    try {
+      return LiveFXASR.backends.some((b) => b.name === n);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /**
+   * Backend for the `#asr` choice + language: `auto` language upgrades the browser backend to `auto`
+   * (when js/asr.js provides it), falls back to webspeech otherwise; external/whisper stay as chosen.
+   */
+  function pickBackend(name) {
+    let backend = hasBackend(name) ? name : 'webspeech';
+    if (settings.lang === 'auto' && (backend === 'webspeech' || backend === 'auto')) backend = hasBackend('auto') ? 'auto' : 'webspeech';
+    else if (backend === 'auto' && !hasBackend('auto')) backend = 'webspeech';
+    return backend;
+  }
+
+  /** Language tag handed to a backend: `auto` for auto/whisper, the first auto language for webspeech. */
+  function asrLangFor(backend) {
+    if (settings.lang !== 'auto') return settings.lang;
+    return backend === 'auto' || backend === 'whisper' || backend === 'external' ? 'auto' : AUTO_LANGS[0];
   }
 
   function fillAsrSelect() {
@@ -721,7 +828,7 @@
   function simulate() {
     const text = $('#sim').value.trim();
     if (!text) return;
-    handleText(text, true, { source: 'Text', lang: settings.lang });
+    handleText(text, true, { source: 'Text', lang: effectiveLang() });
     $('#sim').value = '';
   }
   $('#btn-sim').addEventListener('click', simulate);
@@ -819,6 +926,7 @@
     if (rows) renderRows();
     renderPacks();
     if (misses.length || suggestions.length) renderLearn();
+    refreshTriggerSelects();
     if (save) LiveFXStore.save(triggers);
   }
 
@@ -968,7 +1076,7 @@
   /** Loads the story pack for the current language family (idempotent). */
   function loadStoryPack() {
     if (!packsApi || typeof packsApi.storyPackFor !== 'function') return;
-    const id = packsApi.storyPackFor(settings.lang);
+    const id = packsApi.storyPackFor(effectiveLang());
     if (packsApi.packs[id]) loadPack(id);
   }
 
@@ -1132,6 +1240,7 @@
   bus.onMessage((msg) => {
     if (!msg || typeof msg !== 'object') return;
     if (msg.type === 'fire' && msg.trigger) log(`🔥 ${labelOf(msg.trigger)}  ←  ${String(msg.source || 'extern').slice(0, 80)}`);
+    else if (msg.type === 'chat' || msg.type === 'gift') onChatEvent(msg);
   });
 
   // ---------- smart mode ----------
@@ -1165,7 +1274,28 @@
     $('#btn-mute').textContent = paused ? '▶ Weiter' : '⏸ Pause';
     log(paused ? '⏸ Effekte pausiert' : '▶ Effekte wieder aktiv');
   });
-  $('#volume').addEventListener('input', (e) => bus.send({ type: 'volume', volume: Math.min(1, Math.max(0, Number(e.target.value) || 0)) }));
+  // ---------- theme ----------
+  // Persisted in localStorage `livefx.theme`; the overlay follows the bus message unless `?theme=` pins it,
+  // and the server repeats it in the `state` message so a freshly connected OBS source gets the same look.
+  const THEME_KEY = 'livefx.theme';
+  function applyTheme(name, { send = true } = {}) {
+    const themes = (window.LiveFXSchema && window.LiveFXSchema.THEMES) || ['neon', 'pastel', 'minimal', 'kinderbuch'];
+    const theme = themes.includes(name) ? name : 'neon';
+    if ($('#theme')) $('#theme').value = theme;
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* private mode */ }
+    if (send) bus.send({ type: 'theme', theme });
+    return theme;
+  }
+  let savedTheme = 'neon';
+  try { savedTheme = localStorage.getItem(THEME_KEY) || 'neon'; } catch (e) { /* ignore */ }
+  applyTheme(savedTheme, { send: false });
+  if ($('#theme')) $('#theme').addEventListener('change', (e) => { applyTheme(e.target.value); log(`🎨 Theme: ${e.target.value}`); });
+  if (savedTheme !== 'neon') setTimeout(() => bus.send({ type: 'theme', theme: savedTheme }), 1500);
+
+  $('#volume').addEventListener('input', (e) => {
+    bus.send({ type: 'volume', volume: Math.min(1, Math.max(0, Number(e.target.value) || 0)) });
+    enforcePreviewMute(true);
+  });
   $('#gap').addEventListener('change', (e) => (matcher.globalMinGap = Math.max(0, Number(e.target.value) || 0)));
 
   $('#btn-copy-token').addEventListener('click', async () => {
@@ -1180,6 +1310,585 @@
       log('📋 Token markiert – mit Strg+C kopieren');
     }
   });
+
+  // ---------- audio (1.5): silent preview, echo warning, Ton-Check ----------
+  // The preview iframe is an overlay like the one in OBS: with sound on, every effect would play twice
+  // (panel tab + OBS browser source) and OBS' desktop audio would capture the tab on top (echo).
+  // Default: `overlay.html?volume=0`; `livefx.previewSound` ('1'/'0' in localStorage) switches it on.
+  const PREVIEW_KEY = 'livefx.previewSound';
+  const AUDIOCHECK_PREFIX = 'livefx.audiocheck.';
+  const AUDIOCHECK_KEYS = ['mic-source', 'browser-audio', 'desktop-audio', 'monitoring', 'preview-off'];
+  const HEALTH_POLL_MS = 5000;
+  const MIC_TEST_MS = 5000;
+  let previewSound = lsGet(PREVIEW_KEY) === '1';
+  let overlaysConnected = null; // from /health (the preview iframe counts as one); null = unknown / offline
+  let micTest = null; // { startedAt, timer, hadMeter }
+
+  function clampVolume(v) {
+    const n = Number(v);
+    return Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0;
+  }
+
+  function previewVolume() {
+    return previewSound ? clampVolume($('#volume').value) : 0;
+  }
+
+  /** Points the preview at `overlay.html?volume=<0|slider>` (only when it differs – avoids reloads). */
+  function applyPreviewSrc() {
+    const f = $('#preview');
+    if (!f) return;
+    const src = `overlay.html?volume=${previewVolume()}`;
+    if (f.getAttribute('src') !== src) f.setAttribute('src', src);
+  }
+
+  /**
+   * Keeps the muted preview silent: bus `volume` messages (slider, phone, API) reach the iframe like any
+   * overlay, so its renderer volume is pinned back to 0 (same origin). Cheap, runs once a second.
+   */
+  function enforcePreviewMute(delayed) {
+    if (previewSound) return;
+    const apply = () => {
+      if (previewSound) return;
+      try {
+        const w = $('#preview').contentWindow;
+        const r = w && w.livefx && w.livefx.renderer;
+        if (r && r.volume !== 0) r.volume = 0;
+      } catch (_) {
+        /* cross-origin / not loaded yet */
+      }
+    };
+    apply();
+    if (delayed) setTimeout(apply, 400);
+  }
+
+  function setPreviewSound(on, { persist = true } = {}) {
+    const next = !!on;
+    const changed = next !== previewSound;
+    previewSound = next;
+    const cb = $('#preview-sound');
+    if (cb) cb.checked = previewSound;
+    if (persist) lsSet(PREVIEW_KEY, previewSound ? '1' : '0');
+    applyPreviewSrc();
+    enforcePreviewMute(true);
+    renderAudioCheck();
+    renderEchoWarning();
+    if (changed) {
+      log(previewSound ? '🔈 Vorschau-Ton an – nur zum Reinhören, vor dem Stream wieder aus' : '🔇 Vorschau-Ton aus');
+      pollHealth();
+    }
+  }
+
+  /** Echo risk: the preview plays sound AND another overlay (OBS) is connected (overlays ≥ 2). */
+  function echoRisk() {
+    return previewSound && Number.isFinite(overlaysConnected) && overlaysConnected >= 2;
+  }
+
+  function renderEchoWarning() {
+    const el = $('#echo-warning');
+    if (!el) return;
+    const show = echoRisk();
+    if (show && el.hidden) log('⚠️ Echo-Gefahr: OBS-Overlay verbunden und Vorschau-Ton an');
+    el.hidden = !show;
+  }
+
+  let healthInFlight = false;
+  async function pollHealth() {
+    if (!online || healthInFlight) return;
+    healthInFlight = true;
+    try {
+      const r = await fetch('/health', { cache: 'no-store' });
+      const d = await r.json();
+      overlaysConnected = r.ok && d && Number.isFinite(Number(d.overlays)) ? Number(d.overlays) : null;
+    } catch (_) {
+      overlaysConnected = null;
+    } finally {
+      healthInFlight = false;
+    }
+    renderEchoWarning();
+  }
+
+  // Ton-Check list: `livefx.audiocheck.<key>` = '1'/'0'; `preview-off` mirrors the preview switch.
+  function audioCheckGet(key) {
+    if (key === 'preview-off') return !previewSound;
+    return lsGet(AUDIOCHECK_PREFIX + key) === '1';
+  }
+
+  function audioCheckSet(key, on) {
+    if (!AUDIOCHECK_KEYS.includes(key) || key === 'preview-off') return;
+    lsSet(AUDIOCHECK_PREFIX + key, on ? '1' : '0');
+    renderAudioCheck();
+  }
+
+  function renderAudioCheck() {
+    document.querySelectorAll('#audiocheck input[data-key]').forEach((cb) => {
+      const key = cb.dataset.key;
+      if (!AUDIOCHECK_KEYS.includes(key)) return;
+      cb.checked = audioCheckGet(key);
+    });
+  }
+
+  function setMicTestStatus(text, cls) {
+    const el = $('#mic-test-status');
+    if (!el) return;
+    el.textContent = text;
+    el.className = `help${cls ? ` ${cls}` : ''}`;
+  }
+
+  /** Mic test: runs the meter for 5 s and reports whether it saw any level above the voice threshold. */
+  async function startMicTest() {
+    if (micTest) return;
+    if (!meter) {
+      setMicTestStatus('❌ kein Pegelmesser (Browser ohne WebAudio?)', 'err');
+      return;
+    }
+    const hadMeter = meterStarted;
+    micTest = { startedAt: performance.now(), timer: null, hadMeter };
+    setMicTestStatus('⏳ Sprich jetzt … (5 s)');
+    await startMeter();
+    if (!micTest) return;
+    micTest.timer = setTimeout(finishMicTest, MIC_TEST_MS);
+  }
+
+  function finishMicTest() {
+    if (!micTest) return;
+    const mt = micTest;
+    micTest = null;
+    const seen = Number.isFinite(meter && meter.lastVoiceAt) && meter.lastVoiceAt >= mt.startedAt;
+    const level = meter && Number.isFinite(meter.peak) ? meter.peak : 0;
+    const ok = seen || level >= 0.02;
+    setMicTestStatus(ok ? '✔ Mikro liefert Pegel – in OBS muss sich der Balken deiner Mikro-Quelle genauso bewegen' : '❌ kein Pegel – Mikro prüfen (Berechtigung, richtiges Gerät, stumm?)', ok ? 'ok' : 'err');
+    log(ok ? '🎙️ Mikro-Test: Pegel da' : '🎙️ Mikro-Test: kein Pegel');
+    if (!mt.hadMeter && !asrActive()) stopMeter();
+  }
+
+  /** Ad-hoc test trigger for OBS: card „TON-TEST“ with the `pop` sound (through the bus, not the muted preview). */
+  function audioTestTrigger() {
+    const raw = { id: 'audio-test', label: 'TON-TEST', keywords: [], enabled: true, cooldown: 0, sound: 'pop', visual: { kind: 'card', emoji: '🔊', text: 'TON-TEST', position: 'center' } };
+    const n = typeof S.normalizeTrigger === 'function' ? S.normalizeTrigger(raw) : null;
+    return n && n.trigger ? n.trigger : raw;
+  }
+
+  function fireAudioTest() {
+    fire(audioTestTrigger(), 'Ton-Check');
+    if (previewSound) log('ℹ️ Vorschau-Ton ist an – du hörst den Test auch hier im Panel');
+  }
+
+  $('#preview-sound').addEventListener('change', (e) => setPreviewSound(e.target.checked));
+  $('#echo-off').addEventListener('click', () => setPreviewSound(false));
+  $('#btn-mic-test').addEventListener('click', startMicTest);
+  $('#btn-obs-sound').addEventListener('click', fireAudioTest);
+  document.querySelectorAll('#audiocheck input[data-key]').forEach((cb) => {
+    cb.addEventListener('change', () => audioCheckSet(cb.dataset.key, cb.checked));
+  });
+
+  // ---------- viewer triggers (2.0): chat commands, gift tiers, chat feed ----------
+  // Settings live on the server (data/chat.json, GET/PUT /api/chat); the panel only mirrors them.
+  // Chat + gift events arrive on the panel SSE channel (`{type:'chat'|'gift'}`) and fill the feed.
+  const CHAT_FEED_MAX = 20;
+  const CHAT_STATUS_POLL_MS = 10000;
+  const CHAT_STATE_TEXT = { off: 'aus', connecting: 'verbindet …', connected: 'verbunden', disconnected: 'getrennt – neuer Versuch', error: 'Fehler', ended: 'Stream beendet' };
+  let chatSettings = null; // last public settings from the server (apiKey never included)
+  let chatStatus = null;
+  let chatFeed = []; // last CHAT_FEED_MAX chat / gift events (newest last)
+
+  function triggerOptionsHtml(current, emptyLabel) {
+    const cur = typeof current === 'string' ? current : '';
+    let html = `<option value="">${esc(emptyLabel || '– Trigger –')}</option>`;
+    let found = !cur;
+    for (const t of triggers) {
+      if (t.id === cur) found = true;
+      html += `<option value="${esc(t.id)}"${t.id === cur ? ' selected' : ''}>${esc(labelOf(t))}</option>`;
+    }
+    if (!found) html += `<option value="${esc(cur)}" selected>${esc(cur)} (fehlt)</option>`;
+    return html;
+  }
+
+  /** Trigger <select>s outside the trigger table (commands, tiers, combos) follow the trigger list. */
+  function refreshTriggerSelects() {
+    document.querySelectorAll('select[data-trigger-select]').forEach((sel) => {
+      const cur = sel.value;
+      sel.innerHTML = triggerOptionsHtml(cur, sel.dataset.empty);
+      sel.value = cur;
+    });
+  }
+
+  function addCommandRow(cmd, triggerId) {
+    const tbody = $('#chat-commands');
+    if (!tbody) return null;
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      `<td class="cmd"><input data-f="cmd" value="${esc(cmd || '')}" placeholder="!befehl" maxlength="40" spellcheck="false"></td>` +
+      `<td><select data-f="trigger" data-trigger-select data-empty="– Trigger wählen –">${triggerOptionsHtml(triggerId || '', '– Trigger wählen –')}</select></td>` +
+      `<td class="acts"><button type="button" class="small danger" data-act="del" title="Befehl entfernen">✕</button></td>`;
+    tr.querySelector('[data-act="del"]').addEventListener('click', () => tr.remove());
+    tbody.appendChild(tr);
+    return tr;
+  }
+
+  function renderCommands(commands) {
+    const tbody = $('#chat-commands');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    for (const [cmd, id] of Object.entries(commands || {})) addCommandRow(cmd, id);
+  }
+
+  function readCommands() {
+    const out = {};
+    document.querySelectorAll('#chat-commands tr').forEach((tr) => {
+      const cmd = tr.querySelector('[data-f="cmd"]').value.trim();
+      const id = tr.querySelector('[data-f="trigger"]').value;
+      if (cmd && id) out[cmd] = id;
+    });
+    return out;
+  }
+
+  function renderTiers(tiers) {
+    const tbody = $('#gift-tiers');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    const list = Array.isArray(tiers) && tiers.length ? tiers.slice(0, 3) : [{ min: 1 }, { min: 10 }, { min: 100 }];
+    while (list.length < 3) list.push({ min: list.length ? list[list.length - 1].min * 10 : 1, trigger: '' });
+    for (const tier of list) {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        `<td class="num"><input data-f="min" type="number" min="0" step="1" value="${esc(String(tier.min ?? 0))}"></td>` +
+        `<td><select data-f="trigger" data-trigger-select data-empty="– kein Effekt –">${triggerOptionsHtml(tier.trigger || '', '– kein Effekt –')}</select></td>`;
+      tbody.appendChild(tr);
+    }
+  }
+
+  function readTiers() {
+    const out = [];
+    document.querySelectorAll('#gift-tiers tr').forEach((tr) => {
+      const min = Number(tr.querySelector('[data-f="min"]').value);
+      const trigger = tr.querySelector('[data-f="trigger"]').value;
+      if (Number.isFinite(min) && min >= 0) out.push({ min, trigger });
+    });
+    return out;
+  }
+
+  function reflectChatSettings(st) {
+    chatSettings = st;
+    if (!st) return;
+    $('#chat-twitch-channel').value = st.twitch.channel || '';
+    $('#chat-twitch-enabled').checked = !!st.twitch.enabled;
+    $('#chat-yt-video').value = st.youtube.videoId || '';
+    $('#chat-yt-enabled').checked = !!st.youtube.enabled;
+    $('#chat-yt-key').value = '';
+    $('#chat-yt-key').placeholder = st.youtube.hasKey ? '•••••••• (gespeichert – nur zum Ändern eintippen)' : 'AIza…';
+    $('#chat-yt-haskey').hidden = !st.youtube.hasKey;
+    $('#chat-prefix').value = st.prefix || '!';
+    $('#chat-cd-user').value = String(Math.round((Number(st.cooldownPerUserMs) || 0) / 1000));
+    $('#chat-cd-global').value = String((Number(st.cooldownGlobalMs) || 0) / 1000);
+    $('#chat-allowall').checked = !!st.allowAll;
+    renderCommands(st.commands);
+    renderTiers(st.gifts && st.gifts.tiers);
+  }
+
+  function renderChatStatus(st) {
+    chatStatus = st || null;
+    for (const p of ['twitch', 'youtube']) {
+      const state = st ? st[p] : 'off';
+      const err = st ? st[`${p}Error`] : null;
+      const dot = $(`#dot-${p}`);
+      const txt = $(`#chat-status-${p}`);
+      if (dot) {
+        dot.classList.remove('on', 'warn', 'err');
+        if (state === 'connected') dot.classList.add('on');
+        else if (state === 'connecting' || state === 'disconnected') dot.classList.add('warn');
+        else if (state === 'error') dot.classList.add('err');
+      }
+      if (txt) txt.textContent = CHAT_STATE_TEXT[state] || state || 'aus';
+      const pill = $(`#chat-pill-${p}`);
+      if (pill) pill.title = err ? String(err) : state === 'connected' ? 'Verbunden – Befehle aus dem Chat werden ausgelöst' : '';
+    }
+    const count = $('#chat-count');
+    if (count) count.textContent = st ? String(st.messages || 0) : '0';
+  }
+
+  function setChatSaveStatus(text, cls) {
+    const el = $('#chat-save-status');
+    if (!el) return;
+    el.textContent = text || '';
+    el.className = `help${cls ? ` ${cls}` : ''}`;
+  }
+
+  async function chatRequest(method, path, body) {
+    const opts = { method, cache: 'no-store', headers: {} };
+    if (body !== undefined) {
+      opts.headers['content-type'] = 'application/json';
+      opts.body = JSON.stringify(body);
+    }
+    const r = await fetch(path, opts);
+    const d = await r.json().catch(() => null);
+    if (!r.ok || !d || !d.ok) throw new Error((d && (d.message || d.error)) || `HTTP ${r.status}`);
+    return d;
+  }
+
+  async function loadChat() {
+    if (!online) {
+      $('#chat-offline-hint').hidden = false;
+      renderTiers(null);
+      return null;
+    }
+    try {
+      const d = await chatRequest('GET', '/api/chat');
+      reflectChatSettings(d.settings);
+      renderChatStatus(d.status);
+      chatFeed = (Array.isArray(d.recent) ? d.recent : []).slice(-CHAT_FEED_MAX);
+      renderChatFeed();
+      return d;
+    } catch (e) {
+      log(`⚠️ Zuschauer-Trigger: ${e.message}`);
+      return null;
+    }
+  }
+
+  let chatStatusInFlight = false;
+  async function refreshChatStatus() {
+    if (!online || chatStatusInFlight) return;
+    chatStatusInFlight = true;
+    try {
+      const d = await chatRequest('GET', '/api/chat');
+      renderChatStatus(d.status);
+      if (d.settings && chatSettings) {
+        chatSettings.youtube.hasKey = d.settings.youtube.hasKey;
+        $('#chat-yt-haskey').hidden = !d.settings.youtube.hasKey;
+      }
+    } catch (_) {
+      /* server gone – the OBS-Bridge dot shows it */
+    } finally {
+      chatStatusInFlight = false;
+    }
+  }
+
+  function readChatForm() {
+    const patch = {
+      twitch: { channel: $('#chat-twitch-channel').value.trim(), enabled: $('#chat-twitch-enabled').checked },
+      youtube: { videoId: $('#chat-yt-video').value.trim(), enabled: $('#chat-yt-enabled').checked },
+      prefix: $('#chat-prefix').value.trim() || '!',
+      cooldownPerUserMs: Math.max(0, Math.round((Number($('#chat-cd-user').value) || 0) * 1000)),
+      cooldownGlobalMs: Math.max(0, Math.round((Number($('#chat-cd-global').value) || 0) * 1000)),
+      allowAll: $('#chat-allowall').checked,
+      commands: readCommands(),
+      gifts: { tiers: readTiers() },
+    };
+    const key = $('#chat-yt-key').value.trim();
+    if (key) patch.youtube.apiKey = key; // only sent when typed; the server keeps the stored one otherwise
+    return patch;
+  }
+
+  async function saveChat(patch) {
+    if (!online) {
+      setChatSaveStatus('Server nötig (node server.js)', 'err');
+      return null;
+    }
+    const body = patch && typeof patch === 'object' ? patch : readChatForm();
+    setChatSaveStatus('speichert …');
+    try {
+      const d = await chatRequest('PUT', '/api/chat', body);
+      reflectChatSettings(d.settings);
+      renderChatStatus(d.status);
+      const warn = Array.isArray(d.warnings) ? d.warnings : [];
+      for (const w of warn) log(`⚠️ Zuschauer-Trigger: ${w}`);
+      setChatSaveStatus(warn.length ? `gespeichert – ${warn.length} Hinweis(e) im Log` : '✔ gespeichert', warn.length ? '' : 'ok');
+      const n = Object.keys(d.settings.commands || {}).length;
+      log(`💬 Zuschauer-Trigger gespeichert: ${n} Befehl${n === 1 ? '' : 'e'}${d.settings.twitch.enabled ? ` · Twitch #${d.settings.twitch.channel}` : ''}${d.settings.youtube.enabled ? ' · YouTube' : ''}`);
+      return d;
+    } catch (e) {
+      setChatSaveStatus(`Fehler: ${e.message}`, 'err');
+      log(`❌ Zuschauer-Trigger: ${e.message}`);
+      return null;
+    }
+  }
+
+  async function testChat(text, user) {
+    const t = String(text == null ? $('#chat-test-text').value : text).trim();
+    if (!t) return null;
+    if (!online) {
+      log('⚠️ Test-Nachricht braucht den Server (node server.js)');
+      return null;
+    }
+    try {
+      const d = await chatRequest('POST', '/api/chat/test', { platform: 'test', user: String(user == null ? $('#chat-test-user').value : user).trim() || 'Tester', text: t });
+      if (d.fired) log(`💬 Test „${t}“ → ${d.trigger} ausgelöst`);
+      else if (d.reason) log(`💬 Test „${t}“ → ${d.trigger || d.command} blockiert (${d.reason})`);
+      else if (d.command) log(`💬 Test „${t}“ → kein Trigger für ${d.command}`);
+      else log(`💬 Test „${t}“ → nur Chat (kein Befehl)`);
+      if (text == null) $('#chat-test-text').value = '';
+      return d;
+    } catch (e) {
+      log(`❌ Test-Nachricht: ${e.message}`);
+      return null;
+    }
+  }
+
+  function chatLineHtml(ev) {
+    if (ev.type === 'gift') {
+      const amount = `${ev.amount}${ev.currency ? ` ${ev.currency}` : ''}${ev.gift ? ` · ${ev.gift}` : ''}`;
+      const fx = ev.fired ? `→ ${esc(labelOf(triggers.find((t) => t.id === ev.fired) || { id: ev.fired }))}` : ev.tier == null ? 'keine Stufe' : `blockiert (${esc(ev.reason || '?')})`;
+      return `<div class="chat-line gift" data-type="gift"><span class="platform">${esc(ev.platform)}</span><span class="user">🎁 ${esc(ev.user)}</span><span class="text">${esc(amount)}${ev.text ? ` – ${esc(ev.text)}` : ''}</span><span class="fx">${fx}</span></div>`;
+    }
+    const cls = ev.fired ? ' fired' : ev.blocked ? ' blocked' : '';
+    let fx = '';
+    if (ev.fired) fx = `→ ${esc(labelOf(triggers.find((t) => t.id === ev.fired) || { id: ev.fired }))}`;
+    else if (ev.blocked) fx = esc(String(ev.blocked).startsWith('cooldown') ? 'Cooldown' : String(ev.blocked));
+    return `<div class="chat-line${cls}" data-type="chat"${ev.fired ? ` data-fired="${esc(ev.fired)}"` : ''}><span class="platform">${esc(ev.platform)}</span><span class="user">${esc(ev.user)}</span><span class="text">${esc(ev.text)}</span>${fx ? `<span class="fx">${fx}</span>` : ''}</div>`;
+  }
+
+  function renderChatFeed() {
+    const el = $('#chat-feed');
+    if (!el) return;
+    if (!chatFeed.length) {
+      el.innerHTML = '<div class="help empty">Noch keine Nachrichten.</div>';
+      return;
+    }
+    el.innerHTML = chatFeed.map(chatLineHtml).join('');
+    el.scrollTop = el.scrollHeight;
+  }
+
+  function onChatEvent(msg) {
+    chatFeed.push(msg);
+    chatFeed = chatFeed.slice(-CHAT_FEED_MAX);
+    renderChatFeed();
+    if (chatStatus && msg.type === 'chat') {
+      chatStatus.messages = (Number(chatStatus.messages) || 0) + 1;
+      $('#chat-count').textContent = String(chatStatus.messages);
+    }
+    if (msg.type === 'gift') log(`🎁 ${msg.user} (${msg.platform}): ${msg.amount}${msg.currency ? ` ${msg.currency}` : ''}${msg.fired ? ` → ${msg.fired}` : msg.tier == null ? ' – keine Stufe' : ` – ${msg.reason}`}`);
+  }
+
+  $('#btn-chat-save').addEventListener('click', () => saveChat());
+  $('#btn-chat-cmd-add').addEventListener('click', () => {
+    const tr = addCommandRow(`${$('#chat-prefix').value.trim() || '!'}`, '');
+    if (tr) tr.querySelector('[data-f="cmd"]').focus();
+  });
+  $('#btn-chat-test').addEventListener('click', () => testChat());
+  $('#chat-test-text').addEventListener('keydown', (e) => e.key === 'Enter' && testChat());
+
+  // ---------- combos (2.0): N fires of one trigger within a window -> an extra trigger ----------
+  // Rules `{keywordTriggerId, times, withinMs, fireTriggerId}` in localStorage `livefx.combos`.
+  const COMBO_KEY = 'livefx.combos';
+  const COMBO_DEFAULT = [{ keywordTriggerId: 'wow', times: 3, withinMs: 10000, fireTriggerId: 'win' }]; // 3× „krass“ in 10 s -> confetti
+  const COMBO_MAX = 20;
+  let combos = [];
+  const comboFires = new Map(); // trigger id -> [ms, ...] (fires via fire(), any source except combos)
+
+  function cleanCombo(r) {
+    if (!r || typeof r !== 'object') return null;
+    const kw = typeof r.keywordTriggerId === 'string' ? r.keywordTriggerId.trim() : '';
+    const fireId = typeof r.fireTriggerId === 'string' ? r.fireTriggerId.trim() : '';
+    const times = Math.min(20, Math.max(2, Math.round(Number(r.times) || 0)));
+    const withinMs = Math.min(600000, Math.max(500, Math.round(Number(r.withinMs) || 0)));
+    return { keywordTriggerId: kw, times, withinMs, fireTriggerId: fireId };
+  }
+
+  function readCombos() {
+    const raw = lsGet(COMBO_KEY);
+    if (raw == null) return COMBO_DEFAULT.map(cleanCombo);
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed.map(cleanCombo).filter(Boolean).slice(0, COMBO_MAX);
+    } catch (_) {
+      /* corrupt entry */
+    }
+    return [];
+  }
+
+  function setCombos(list, { persist = true, render = true } = {}) {
+    combos = (Array.isArray(list) ? list : []).map(cleanCombo).filter(Boolean).slice(0, COMBO_MAX);
+    if (persist) lsSet(COMBO_KEY, JSON.stringify(combos));
+    if (render) renderCombos();
+    return combos;
+  }
+
+  function readComboRows() {
+    const out = [];
+    document.querySelectorAll('#combo-rows tr').forEach((tr) => {
+      out.push({
+        keywordTriggerId: tr.querySelector('[data-f="keyword"]').value,
+        times: Number(tr.querySelector('[data-f="times"]').value),
+        withinMs: Math.round((Number(tr.querySelector('[data-f="within"]').value) || 0) * 1000),
+        fireTriggerId: tr.querySelector('[data-f="fire"]').value,
+      });
+    });
+    return out;
+  }
+
+  function renderCombos() {
+    const tbody = $('#combo-rows');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    for (const r of combos) {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        `<td><select data-f="keyword" data-trigger-select data-empty="– Trigger –">${triggerOptionsHtml(r.keywordTriggerId, '– Trigger –')}</select></td>` +
+        `<td class="num"><input data-f="times" type="number" min="2" max="20" step="1" value="${esc(String(r.times))}"></td>` +
+        `<td class="num"><input data-f="within" type="number" min="1" max="600" step="1" value="${esc(String(Math.round(r.withinMs / 1000)))}"></td>` +
+        `<td><select data-f="fire" data-trigger-select data-empty="– Effekt –">${triggerOptionsHtml(r.fireTriggerId, '– Effekt –')}</select></td>` +
+        `<td class="acts"><button type="button" class="small danger" data-act="del" title="Kombi entfernen">✕</button></td>`;
+      tr.querySelectorAll('[data-f]').forEach((inp) => inp.addEventListener('change', () => setCombos(readComboRows(), { render: false })));
+      tr.querySelector('[data-act="del"]').addEventListener('click', () => {
+        tr.remove();
+        setCombos(readComboRows(), { render: false });
+      });
+      tbody.appendChild(tr);
+    }
+  }
+
+  /** Called from fire(): counts the fire and triggers matching combo rules. Combo fires never count. */
+  function recordComboFire(trigger, source) {
+    if (!trigger || !trigger.id || String(source || '').startsWith('Kombi')) return;
+    const now = Date.now();
+    const list = (comboFires.get(trigger.id) || []).filter((t) => now - t < 600000);
+    list.push(now);
+    comboFires.set(trigger.id, list);
+    for (const r of combos) {
+      if (r.keywordTriggerId !== trigger.id || !r.fireTriggerId) continue;
+      const hits = list.filter((t) => now - t <= r.withinMs).length;
+      if (hits < r.times) continue;
+      comboFires.set(trigger.id, []); // start over so 6 fires make two combos, not four
+      const target = triggers.find((t) => t.id === r.fireTriggerId);
+      if (!target) {
+        log(`⚠️ Kombi: Trigger „${r.fireTriggerId}“ fehlt`);
+        continue;
+      }
+      if (target.enabled === false) continue;
+      log(`🔥 Kombi: ${r.times}× ${labelOf(trigger)} in ${Math.round(r.withinMs / 1000)} s → ${labelOf(target)}`);
+      fire(target, `Kombi ${r.times}× ${labelOf(trigger)}`);
+      break;
+    }
+  }
+
+  $('#btn-combo-add').addEventListener('click', () => {
+    if (combos.length >= COMBO_MAX) return log(`⚠️ Maximal ${COMBO_MAX} Kombis`);
+    const first = triggers[0] ? triggers[0].id : '';
+    setCombos(combos.concat([{ keywordTriggerId: first, times: 3, withinMs: 10000, fireTriggerId: '' }]));
+  });
+
+  // ---------- intensity from voice (2.0) ----------
+  // The meter's level/peak at the hit maps to visual.intensity 1..3 (< 0.3 -> 1, < 0.6 -> 2, else 3).
+  const INTENSITY_KEY = 'livefx.intensityFromVoice';
+  let intensityFromVoice = lsGet(INTENSITY_KEY) === '1';
+
+  function voiceIntensity() {
+    if (!intensityFromVoice || !meter) return null;
+    const level = Math.max(Number(meter.level) || 0, Number(meter.peak) || 0);
+    if (!meterStarted && !(level > 0)) return null; // mic not running and nothing stubbed: leave the trigger alone
+    return level < 0.3 ? 1 : level < 0.6 ? 2 : 3;
+  }
+
+  function setIntensityFromVoice(on, { persist = true } = {}) {
+    intensityFromVoice = !!on;
+    const cb = $('#intensity-voice');
+    if (cb) cb.checked = intensityFromVoice;
+    if (persist) {
+      lsSet(INTENSITY_KEY, intensityFromVoice ? '1' : '0');
+      log(intensityFromVoice ? '🎚️ Intensität aus Stimme an – lauter sprechen = stärkerer Effekt' : '🎚️ Intensität aus Stimme aus');
+    }
+  }
+
+  $('#intensity-voice').addEventListener('change', (e) => setIntensityFromVoice(e.target.checked));
 
   // ---------- external API card ----------
   function renderApiCard(token) {
@@ -1219,6 +1928,14 @@
     renderDiagState();
     setInterval(renderDiagState, 1000);
     renderApiCard(null);
+    setPreviewSound(previewSound, { persist: false });
+    setInterval(() => enforcePreviewMute(false), 1000);
+    if (online) {
+      pollHealth();
+      // Background polling pauses while the tab is hidden (explicit calls still work); a hidden tab
+      // cannot show the echo warning anyway, and OBS keeps its own overlay count.
+      setInterval(() => !document.hidden && pollHealth(), HEALTH_POLL_MS);
+    }
     if (!online) log('ℹ️ Kein Server (file://): nur Vorschau im selben Browser. Für OBS, Uploads und API: node server.js');
 
     smart = LiveFXSmart.create({ bus, onStatus: reflectSmart });
@@ -1235,6 +1952,10 @@
     commit({ save: false });
     log(`📂 Trigger geladen: ${sourceLabel(loaded.source)} (${triggers.length})`);
     if (lsGet(STORY_KEYS.on) === '1') setStoryMode(true, { persist: false, restoring: true });
+    setCombos(readCombos(), { persist: false });
+    setIntensityFromVoice(intensityFromVoice, { persist: false });
+    await loadChat();
+    if (online) setInterval(() => !document.hidden && refreshChatStatus(), CHAT_STATUS_POLL_MS);
 
     if (online) {
       library = LiveFXAssets.mountLibrary($('#asset-library'), {
@@ -1260,6 +1981,7 @@
   }
 
   window.livefx = {
+    theme: { get: () => ($('#theme') ? $('#theme').value : 'neon'), set: (name) => applyTheme(name) },
     bus,
     matcher,
     fire,
@@ -1297,6 +2019,56 @@
         return !!selfCheck;
       },
     },
+    previewSound: {
+      get: () => previewSound,
+      set: (on) => setPreviewSound(on),
+    },
+    audioCheck: {
+      get: audioCheckGet,
+      set: audioCheckSet,
+      keys: AUDIOCHECK_KEYS.slice(),
+      micTest: startMicTest,
+      testTrigger: audioTestTrigger,
+      fireTest: fireAudioTest,
+    },
+    get echo() {
+      return { overlays: overlaysConnected, risk: echoRisk() };
+    },
+    pollHealth,
+    get detectedLang() {
+      return detected ? { ...detected } : null;
+    },
+    asrEvent: onAsrEvent, // same path as the backend's onEvent (tests feed `lang` events here)
+    effectiveLang,
+    // 2.0 viewer triggers / combos / voice intensity
+    chat: {
+      load: loadChat,
+      save: saveChat,
+      test: testChat,
+      get settings() {
+        return chatSettings ? JSON.parse(JSON.stringify(chatSettings)) : null;
+      },
+      get status() {
+        return chatStatus ? { ...chatStatus } : null;
+      },
+      get feed() {
+        return chatFeed.slice();
+      },
+    },
+    combos: {
+      get rules() {
+        return combos.map((r) => ({ ...r }));
+      },
+      set: (rules) => setCombos(rules),
+      record: recordComboFire,
+    },
+    get intensityFromVoice() {
+      return intensityFromVoice;
+    },
+    set intensityFromVoice(on) {
+      setIntensityFromVoice(on);
+    },
+    voiceIntensity,
     ready: boot(),
   };
 })();

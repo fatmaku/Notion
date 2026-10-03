@@ -9,6 +9,7 @@
 'use strict';
 
 const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
@@ -28,6 +29,9 @@ const apiAssets = require('./server/api-assets');
 const apiGifs = require('./server/api-gifs');
 const apiTranscript = require('./server/api-transcript');
 const apiSmart = require('./server/api-smart');
+const apiMobile = require('./server/api-mobile');
+const apiChat = require('./server/api-chat');
+const apiGift = require('./server/api-gift');
 const staticFiles = require('./server/static');
 
 const ROOT = __dirname;
@@ -39,15 +43,46 @@ const log = (...args) => console.log(new Date().toISOString(), ...args);
 
 fs.mkdirSync(path.join(DATA_DIR, 'assets'), { recursive: true });
 
-const config = { version: pkg.version, host: HOST, port: PORT, model: process.env.LIVEFX_MODEL || 'claude-opus-5-5' };
+/**
+ * Optional TLS: both LIVEFX_TLS_CERT and LIVEFX_TLS_KEY must be set and readable (PEM). The phone's
+ * microphone (getUserMedia / Web Speech) only works in a secure context, see docs/HANDY-HTTPS.md.
+ * Returns null when TLS is not configured; exits with a German hint when the setup is half done.
+ */
+function loadTls() {
+  const certPath = (process.env.LIVEFX_TLS_CERT || '').trim();
+  const keyPath = (process.env.LIVEFX_TLS_KEY || '').trim();
+  if (!certPath && !keyPath) return null;
+  if (!certPath || !keyPath) {
+    console.error('HTTPS-Konfiguration unvollständig: LIVEFX_TLS_CERT und LIVEFX_TLS_KEY müssen BEIDE gesetzt sein');
+    console.error(`  LIVEFX_TLS_CERT=${certPath || '(fehlt)'}  LIVEFX_TLS_KEY=${keyPath || '(fehlt)'}`);
+    console.error('  Anleitung: docs/HANDY-HTTPS.md (Zertifikat mit openssl erzeugen)');
+    process.exit(1);
+  }
+  const read = (what, file) => {
+    try {
+      return fs.readFileSync(file);
+    } catch (e) {
+      console.error(`HTTPS-${what} nicht lesbar: ${file} (${e.message})`);
+      console.error('  Anleitung: docs/HANDY-HTTPS.md (Zertifikat mit openssl erzeugen)');
+      process.exit(1);
+    }
+    return null; // unreachable, keeps the linter's consistent-return happy
+  };
+  return { cert: read('Zertifikat (LIVEFX_TLS_CERT)', certPath), key: read('Schlüssel (LIVEFX_TLS_KEY)', keyPath) };
+}
+const tls = loadTls();
+
+const config = { version: pkg.version, host: HOST, port: PORT, model: process.env.LIVEFX_MODEL || 'claude-opus-5-5', secure: !!tls };
 const token = auth.loadOrCreateToken({ dataDir: DATA_DIR, log });
 const state = stateMod.createState({ dataDir: DATA_DIR, defaults: globalThis.LiveFXDefaultTriggers, log });
 const bus = sse.createSse({ state, log, version: pkg.version });
 const smart = smartMod.createSmart({ log, model: config.model, getTriggers: () => state.getTriggers() });
 const appCtx = { bus, state, token, dataDir: DATA_DIR, rootDir: ROOT, config, smart, log };
+// Viewer triggers (2.0): chat connectors + gift tiers, settings in data/chat.json.
+appCtx.chat = apiChat.createChat(appCtx);
 
 const router = new Router();
-for (const mod of [auth, apiFire, apiTriggers, apiGifs, apiAssets, apiTranscript, apiSmart, sse]) mod.register(router, appCtx);
+for (const mod of [auth, apiFire, apiTriggers, apiGifs, apiAssets, apiTranscript, apiSmart, apiMobile, apiChat, apiGift, sse]) mod.register(router, appCtx);
 router.route('GET', '/health', (req, res) => {
   const c = bus.counts();
   json(res, 200, { ok: true, version: pkg.version, overlays: c.overlays, panels: c.panels, uptime: Math.round(process.uptime()) });
@@ -67,7 +102,7 @@ function handleError(req, res, e) {
   error(res, status, e instanceof HttpError ? e.code : 'internal', status >= 500 ? 'internal error' : e.message);
 }
 
-const server = http.createServer((req, res) => {
+function handler(req, res) {
   // DNS-rebinding guard for every route (reads included): only allowed Hosts, unless a Bearer is sent.
   if (!safeUrl(req)) {
     error(res, 400, 'bad_request', 'malformed URL or Host header');
@@ -83,7 +118,8 @@ const server = http.createServer((req, res) => {
       if (!matched) error(res, 404, 'not_found', 'not found');
     })
     .catch((e) => handleError(req, res, e));
-});
+}
+const server = tls ? https.createServer({ cert: tls.cert, key: tls.key }, handler) : http.createServer(handler);
 server.requestTimeout = 30000;
 server.headersTimeout = 35000;
 server.on('clientError', (e, socket) => {
@@ -108,24 +144,38 @@ server.on('error', (e) => {
 });
 process.on('unhandledRejection', (e) => log('unhandled rejection:', e && e.stack ? e.stack : e));
 process.on('uncaughtException', (e) => log('uncaught exception:', e && e.stack ? e.stack : e));
-process.on('SIGINT', () => {
+// Graceful shutdown on both signals: chat connectors close their sockets (no reconnect storm against
+// Twitch / YouTube while we are going down), SSE clients are told goodbye, then the listener closes.
+let shuttingDown = false;
+function shutdown() {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  try {
+    appCtx.chat.stop();
+  } catch (e) {
+    log('chat stop failed:', e.message);
+  }
   bus.close();
   server.close(() => process.exit(0));
   setTimeout(() => process.exit(0), 500).unref();
-});
-process.on('SIGTERM', () => process.exit(0));
+}
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
 
 smart.init().catch((e) => log('smart init failed:', e.message));
 
 server.on('listening', () => {
   const addr = server.address();
   const shownHost = addr.address === '0.0.0.0' || addr.address === '::' ? '127.0.0.1' : addr.address;
-  const base = `http://${shownHost}:${addr.port}`;
+  const base = `${tls ? 'https' : 'http'}://${shownHost}:${addr.port}`;
+  config.port = addr.port; // the bound port (may differ from PORT after the fallback or with PORT=0)
   console.log(`LiveFX läuft auf ${base}/`);
   console.log(`  Control Panel:  ${base}/`);
   console.log(`  OBS-Overlay:    ${base}/overlay.html   (hochkant: ${base}/overlay.html?layout=portrait)`);
   console.log(`  Daten:          ${DATA_DIR}`);
-  if (HOST === '127.0.0.1') console.log('  Nur lokal erreichbar. Für OBS auf einem anderen PC: HOST=0.0.0.0 node server.js');
+  console.log(`  Handy:          ${base}/m?token=…   (Link steht in der Karte „Handy“ im Panel)`);
+  if (tls) console.log('  HTTPS aktiv (LIVEFX_TLS_CERT/KEY) – Zertifikat auf dem Handy vertrauen, siehe docs/HANDY-HTTPS.md');
+  if (HOST === '127.0.0.1') console.log('  Nur lokal erreichbar. Für OBS/Handy auf einem anderen Gerät: HOST=0.0.0.0 node server.js');
   if (port !== PORT) console.log(`  Hinweis: Port ${PORT} war belegt, LiveFX nutzt jetzt ${port} – diese Adresse in Browser und OBS verwenden.`);
 });
 server.listen(port, HOST);

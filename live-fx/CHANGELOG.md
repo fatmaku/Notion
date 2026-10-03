@@ -1,5 +1,58 @@
 # Changelog
 
+## 2.0.0 – Release „Reif für Bühne und Verkauf“
+
+- **Review-Durchlauf** über alle Teile aus 1.5/1.6 (Zuschauer-Trigger, Geschenke-Webhook, Effekt-Engine v2,
+  Audio-Mixer, Auto-Sprache, Panel-Karten): Härtung gegen fehlerhafte Eingaben, Escaping, Grenzwerte,
+  sauberes Beenden der Chat-Verbindungen; Regressionstests dazu.
+- **Business-Ordner** `business/`: Marketingvideo 9:16 und 16:9 (aus Code gerendert), Pitch-Deck (PPTX),
+  Businessplan (MD + DOCX), Marktanalyse mit Quellen, LinkedIn-Texte DE/TR, Landingpage DE/TR/EN.
+- Versionsnummern, Service-Worker-Shell und Doku auf 2.0 gezogen.
+
+## 1.6.0 – Grafik-, Sound- und Technik-Upgrade
+
+- **Effekt-Engine v2**: Canvas-Partikel mit Physik (Schwerkraft, Wind, Drift, Rotation) und dynamischem
+  Partikel-Limit (60-fps-Budget), Glow, Motion-Blur, 3D-Kippkarten, Impact-Zoom, Lichtstrahlen; neue Effekte
+  **Text** (Neon / Verlauf / Bounce / Glitch, Buchstaben-Stagger), **Bauchbinde** (Lower-Third), **Kombi**
+  (Sequenz aus bis zu 6 Schritten); Szenen mit Parallax-Ebenen. Optionen pro Effekt: Glow, Kippen, Impact,
+  Intensität 1–3, zweite Farbe; Lautstärke pro Trigger (`gain`).
+- **Themes**: Neon (Standard), Pastell, Minimal, Kinderbuch – im Panel unter „Look“, `overlay.html?theme=…`
+  pinnt; der Server merkt sich das Theme für neu verbundene Overlays.
+- **Audio-Engine v2**: Mixer mit Effekt-/Atmosphäre-Bus, Master-Limiter, Ducking (Atmosphäre −8 dB während
+  Effekten), Stereo-Panning nach Position, Hall für Szenen, Intensitäts-Layer; **12 neue Sounds** (38 gesamt:
+  Bleat, Quietscheente, Fanfare, Kinderlachen, Schrei, Glasbruch, Kamera, Tür, Uhr, Glitzer, Punch, Whoosh 2),
+  Gruppen Impact / Lustig / Magie / Atmosphäre. Doku: `docs/SOUNDS.md`.
+- **Zuschauer-Trigger** 💬: Twitch-Chat (ohne Login), YouTube-Live-Chat (API-Key), Befehle `!airhorn` → Trigger,
+  Cooldown pro Zuschauer und global, Chat-Feed im Panel; **Geschenke-Webhook** `POST /api/gift` mit Stufen
+  (TikTok über TikFinity/Streamer.bot, YouTube Super Chat, Twitch Bits automatisch). Doku: `docs/VIEWER.md`.
+- **Kombis** 🔥 („krass“ 3× in 10 s → Konfetti) und **Intensität aus Stimme** (lauter sprechen = stärkerer Effekt).
+- **Pakete**: Türkçe 85 (+30), Deutsch 49 (+18), English 50 (+18); neu „👨‍👩‍👧 Familie & Kinder“ (27) und
+  „🎮 Gaming“ (27).
+
+## 1.5.0 – Ton-Check & automatische Sprache
+
+- **Vorschau stumm** (`overlay.html?volume=0`): Die Overlay-Vorschau im Panel spielt keinen Ton mehr, damit der
+  Stream Effekte nicht doppelt bekommt. Schalter **„Vorschau-Ton“** (`livefx.previewSound`) nur zum Reinhören;
+  ein stummer Preview bleibt stumm, auch wenn der Lautstärke-Regler (Panel/Handy/API) `volume`-Nachrichten schickt.
+- **Echo-Warnung**: Ist Vorschau-Ton an und ein zweites Overlay (OBS) verbunden (`/health` alle 5 s), warnt das
+  Panel mit Ausschalt-Knopf.
+- **Karte „🔊 Ton-Check“**: fünf Haken (Mikro als OBS-Quelle, „Audio über OBS steuern“, Desktop-Audio, Monitoring,
+  Vorschau-Ton – letzter automatisch), **Mikro-Test** (5 s Pegel) und **„Test-Sound in OBS“** (Karte TON-TEST mit
+  `pop` über die Bridge). Neue Anleitung `docs/AUDIO.md` (Echo-Ursachen, OBS-Mikro, Monitoring, Fehlerhilfe);
+  OBS-Anleitung mit Mikro-Schritt; Demo-Seite mit Hinweis.
+- **Automatische Sprache**: `#lang` → „Automatisch (DE/TR/EN)“ (Standard für neue Nutzer; gespeicherte Sprache bleibt).
+  Nutzt das Backend `auto` von `js/asr.js` (`langs: de-DE/tr-TR/en-US`, `lang`-Events), Whisper bekommt `lang:'auto'`;
+  fehlt das Backend, Browser-Erkennung mit Deutsch. Diagnose „Erkannte Sprache: Türkçe (tr-TR) · Modus: parallel“,
+  Kopfzeile „Auto · TR“, Matcher und Story-Paket folgen der erkannten Sprache.
+
+## 1.4.0 – Handy, PWA, HTTPS, Offline-Erkennung
+
+- **Handy-Fernbedienung** (`mobile.html`): alle Trigger als große Kacheln, Suche, Pause, Lautstärke, Szenen-Reihe,
+  Live-Transkript; Link mit Token aus der Panel-Karte „📱 Handy“ (`/m?token=…`), Mikro am Handy bei HTTPS.
+- **PWA**: Manifest + Service Worker – Panel/Overlay/Demo/Handy laufen ohne Internet (App-Shell aus dem Cache).
+- **HTTPS** optional über `LIVEFX_TLS_CERT`/`LIVEFX_TLS_KEY` (`docs/HANDY-HTTPS.md`), `/api/config` liefert LAN-IPs.
+- **Offline-Erkennung (experimentell)**: Whisper im Web-Worker, einmalig `npm run setup-offline` (`docs/OFFLINE.md`).
+
 ## 1.3.0 – Story-Modus
 
 - **Szenen** (`visual.kind: 'scene'`): 13 Vollbild-Szenen (Regen, Nacht, Wald, Meer, Feuer, Schloss, Schnee, Wüste,
