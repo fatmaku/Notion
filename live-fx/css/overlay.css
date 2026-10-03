@@ -861,16 +861,22 @@ body.layout-portrait .fx-word { font-size: min(110px, 16vw); }
   0%   { text-shadow: 0 0 6px #fff, 0 0 14px var(--c1), 0 0 34px var(--c1), 0 0 70px var(--c2); }
   100% { text-shadow: 0 0 10px #fff, 0 0 26px var(--c1), 0 0 60px var(--c1), 0 0 120px var(--c2); }
 }
-/* gradient: animated background-clip text */
+/* gradient: animated background-clip text. The clip lives on every letter (not on .fx-word): the letters are
+ * composited layers of their own (will-change + animation) and a parent's background-clip: text cannot see
+ * text painted in child layers – Chromium then paints nothing at all. Negative per-letter delays phase-shift
+ * the sheen so it still travels across the word. */
 .fx-text-gradient .fx-word {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.3));
+}
+.fx-text-gradient .fx-letter {
   background: linear-gradient(90deg, var(--c1), var(--c2), var(--c1), var(--c2));
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.3));
-  animation: fx-gradient-move 2s linear infinite;
+  animation: fx-letter-in 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both, fx-gradient-move 2s linear infinite;
+  animation-delay: calc(var(--i, 0) * 45ms), calc(var(--i, 0) * -120ms);
 }
 @keyframes fx-gradient-move {
   0%   { background-position: 0% 50%; }
@@ -886,19 +892,21 @@ body.layout-portrait .fx-word { font-size: min(110px, 16vw); }
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-0.22em); }
 }
-/* glitch: clip-path jitter on two offset copies (attr(data-text)) */
+/* glitch: clip-path jitter on two offset copies. The copies are DOM clones of the letter spans
+ * (`.fx-glitch-layer`, built by the renderer) so they wrap exactly like the word; `data-text` stays on
+ * .fx-word for tests / tools. */
 .fx-text-glitch .fx-word { color: #fff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-.fx-text-glitch .fx-word::before,
-.fx-text-glitch .fx-word::after {
-  content: attr(data-text);
+.fx-glitch-layer {
   position: absolute;
   inset: 0;
-  white-space: pre-wrap;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   pointer-events: none;
-  letter-spacing: inherit;
+  text-shadow: none;
 }
-.fx-text-glitch .fx-word::before { color: var(--c1); clip-path: inset(0 0 60% 0); animation: fx-glitch-a 0.42s steps(2) infinite; }
-.fx-text-glitch .fx-word::after { color: var(--c2); clip-path: inset(55% 0 0 0); animation: fx-glitch-b 0.37s steps(2) infinite; }
+.fx-glitch-layer.fx-glitch-a { color: var(--c1); clip-path: inset(0 0 60% 0); animation: fx-glitch-a 0.42s steps(2) infinite; }
+.fx-glitch-layer.fx-glitch-b { color: var(--c2); clip-path: inset(55% 0 0 0); animation: fx-glitch-b 0.37s steps(2) infinite; }
 @keyframes fx-glitch-a {
   0%   { transform: translate(-6px, -2px); clip-path: inset(0 0 62% 0); }
   33%  { transform: translate(5px, 1px); clip-path: inset(10% 0 40% 0); }

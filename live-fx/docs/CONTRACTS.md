@@ -87,7 +87,7 @@ fire:              { trigger, source }                    panel/API -> overlays 
 volume:            { volume: 0..1 }                       panel -> overlays; server remembers in state.volume
 theme:             { theme: 'neon'|'pastel'|'minimal'|'kinderbuch' }   panel -> overlays (v3); overlay ignores it when the URL has ?theme=
 transcript:        { text, final: boolean, lang?, source } server -> panels (external ASR push)
-state:             { volume: number|null, overlays, panels, version }   server -> each new SSE subscriber
+state:             { volume: number|null, theme?: string|null, overlays, panels, version }   server -> each new SSE subscriber (theme = last `theme` message, 1.6)
 triggers-updated:  { updatedAt }                          server -> all after PUT /api/triggers
 ```
 - `id` is created by the **sender** (`LiveFXSchema.newId()`); the server assigns one only if missing.
@@ -323,11 +323,11 @@ tokens with a shorter fold in a `rest` list). Performance (test/matcher-fuzzy.te
 - Exports: `LiveFXRenderer = { Renderer, ParticleLayer, escapeHtml, THEMES, TEXT_STYLES }`.
 - `renderer.stats = { fires, sounds, fileSounds, scenes, combos, particles, fps, frameMs, reduced, canvas }` – `fps`/`particles` are refreshed by the particle loop (`fps` starts at 60 and is always numeric), `reduced` counts auto-reductions of the particle cap, `canvas` says whether the canvas layer is available.
 - **Canvas particle layer** (`renderer.particles`, class `ParticleLayer`): one `<canvas class="fx-canvas">` right above the scene layers in `#stage`, one `requestAnimationFrame` loop that only runs while particles or a scene parallax are alive. Cap 400 / 800 / 1200 at intensity 1 / 2 / 3 (`particles.setCap(i)`, `particles.cap`); when a frame takes > 20 ms for 30 consecutive frames the cap drops to 60 % (min 120) and stays there (`particles.reducedTo`). `confetti` renders on the canvas (90 × intensity rotating rects, gravity / wind / drift / 3D wobble) with the old `.fx-confetti` DOM path as fallback when `getContext('2d')` is unavailable; `rain` keeps its `count` DOM `.fx-drop` nodes **and** adds `count × intensity × 2` canvas emoji (sprite-cached `fillText`). Scenes add three parallax emoji layers (far / mid / near) on the canvas while keeping the DOM particles (<= 40), crossfade, caption and loop behaviour intact.
-- **v3 kinds**: `text` -> `.fx-bigtext.fx-text-<style>` with `.fx-word[data-text] > .fx-w > span.fx-letter[--i]` (3 s); `lower-third` -> `.fx-lower-third > .fx-lt-bar > .fx-lt-emoji? + .fx-lt-text > .fx-lt-title + .fx-lt-subtitle?` (4 s, landscape only – `body.layout-portrait` renders a banner "title · subtitle" instead); `combo` -> each step is scheduled with `setTimeout` and fired through `renderer.fire({visual, sound, gain})`, so it counts in `stats.fires`; `stats.combos++` per combo; nested combos are skipped.
+- **v3 kinds**: `text` -> `.fx-bigtext.fx-text-<style>` with `.fx-word[data-text] > .fx-w > span.fx-letter[--i]` (3 s; style `gradient` clips the gradient per `.fx-letter`, style `glitch` adds two `aria-hidden` clones `span.fx-glitch-layer.fx-glitch-a|b` of the letter structure inside `.fx-word`); `lower-third` -> `.fx-lower-third > .fx-lt-bar > .fx-lt-emoji? + .fx-lt-text > .fx-lt-title + .fx-lt-subtitle?` (4 s, landscape only – `body.layout-portrait` renders a banner "title · subtitle" instead); `combo` -> each step is scheduled with `setTimeout` and fired through `renderer.fire({visual, sound, gain})`, so it counts in `stats.fires`; `stats.combos++` per combo; nested combos are skipped.
 - **Decoration** (every card-like kind): `.fx-blur-in` (entry motion blur), `.fx-glow` (`glow: true`), `.fx-tilt` (`tilt: true`, animation `fx-pop-tilt`), `--fx-i` = intensity; at intensity >= 2 `.fx-rays` + `.fx-ring` are prepended (`.fx-has-rays`), at 3 a spark burst is added on the canvas. `impact: true` -> `#stage.fx-impact` for 250 ms (CSS zoom 1 -> 1.04 -> 1). `shake` unchanged.
 - `renderer.clear()`: cancels pending combo steps, clears canvas particles and removes every transient effect node (scene layers, the canvas and `<audio>` elements stay). `renderer._timers` holds the pending combo timers.
 - **Themes**: `renderer.setTheme(name)` -> `body[data-theme=name]` (neon removes the attribute) and `renderer.theme`; unknown names fall back to `neon`. Returns the active name.
-- **Audio**: `renderer.playSound(spec, {gain, pan, intensity})`; `gain` defaults to 1 (trigger-level `gain`), `pan` is derived from the visual (`-0.6` lower-third, rain / confetti / sticker from the `--fx-x0`/`--fx-xspan` band centre, else 0). When `LiveFXSounds.mixer` exists (audio engine v2) builtin sounds go through `mixer.play(name, {gain, pan, intensity})`, the volume setter calls `mixer.setMaster(volume)` and `impact` calls `mixer.duck(250)`; otherwise the old `LiveFXSounds.play(name, ctx, destination, volume × gain)` is used. Everything is guarded, the old sounds.js keeps working.
+- **Audio**: on the first builtin sound the renderer hands its own AudioContext to `LiveFXSounds.mixer.init(ctx)` when the mixer has none (one shared context); `stats.sounds` counts only when `mixer.play` returned non-null. Canvas particles age by wall-clock time (physics step clamped to 50 ms), so bursts end on time even at low fps. `renderer.playSound(spec, {gain, pan, intensity})`; `gain` defaults to 1 (trigger-level `gain`), `pan` is derived from the visual (`-0.6` lower-third, rain / confetti / sticker from the `--fx-x0`/`--fx-xspan` band centre, else 0). When `LiveFXSounds.mixer` exists (audio engine v2) builtin sounds go through `mixer.play(name, {gain, pan, intensity})`, the volume setter calls `mixer.setMaster(volume)` and `impact` calls `mixer.duck(250)`; otherwise the old `LiveFXSounds.play(name, ctx, destination, volume × gain)` is used. Everything is guarded, the old sounds.js keeps working.
 
 ## 10. Overlay layout (`overlay.html`, `css/overlay.css`) – owned by P2 / fx-engine
 
@@ -339,7 +339,7 @@ tokens with a shorter fold in a `rest` list). Performance (test/matcher-fuzzy.te
 
 ## 11. Panel DOM ids (fixed for tests) – owned by P6
 
-`#asr` (select webspeech|external), `#smart` (checkbox), `#dot-smart`, `#dot-mic`, `#dot-server`, `#token`, `#btn-copy-token`,
+`#asr` (select, options in `LiveFXASR.backends` order: webspeech|auto|external|whisper), `#smart` (checkbox), `#dot-smart`, `#dot-mic`, `#dot-server`, `#token`, `#btn-copy-token`,
 `#asset-library`, `#pad button` (with `img.thumb` for image triggers), trigger rows `#trigger-rows tr` with buttons
 `[data-act="edit"|"test"|"del"]`, `#lang`, `#btn-listen`, `#btn-mute`, `#sim`, `#btn-sim`, `#log`, `#volume`, `#gap`,
 `#preview` (iframe `overlay.html?volume=0`, see Audio 1.5 below), `#btn-add`, `#btn-export`, `#btn-import`, `#btn-reset`, `#transcript` (uses `<mark>`).
@@ -420,6 +420,7 @@ recognizer (listening state is kept). `onEvent({type:'lang', lang, family, mode,
 („Erkannte Sprache: Türkçe (tr-TR) · Modus: parallel“), `#pill-lang-value` („Auto“ → „Auto · TR“; fixed languages still show the tag),
 `matcher.setLang(lang)` and, in story mode, reloads the story pack of the detected family (`effectiveLang()`: fixed language, else last
 detected, else `de-DE`; also used for smart classify and `#sim`). `js/langdetect.js` is loaded before `js/asr.js`.
+Theme (1.6): select `#theme` (neon|pastel|minimal|kinderbuch, localStorage `livefx.theme`, default neon) sends the `theme` bus message; `window.livefx.theme {get(), set(name)}` (set returns the applied name, unknown → 'neon'); `window.livefx.setTriggers(list)` and `window.livefx.ready` (Promise from `boot()`, tests await it) exist as well. Health and chat-status polling pause while `document.hidden`.
 `window.livefx` additionally exposes `previewSound {get(), set(bool)}`, `audioCheck {get(key), set(key, bool), keys, micTest(),
 testTrigger(), fireTest()}`, `echo` (getter `{overlays, risk}`), `pollHealth()`, `detectedLang` (getter, copy or null), `effectiveLang()`
 and `asrEvent(ev)` (the panel's `onEvent` handler – tests feed `lang` events through it). Test: `test/e2e/62-audio.js`.
@@ -466,7 +467,8 @@ mixer.play(name, {gain = 1, pan = 0, intensity = 1, when = 0} = {}) -> {stop(), 
 mixer.startLoop(name, {gain = 1, fade} = {}) -> loop handle | null  // one loop at a time on the ambient bus, same name = no-op, other name cross-fades (1.5 s)
 mixer.stopLoop(fadeSec = 1.5) -> boolean
 mixer.duck(ms = 300, db = -8) -> boolean          // duckGain -> 10^(db/20) now (tc 15 ms), back to 1 via setTargetAtTime(1, lastSfxEnd, ms/4000); false before init
-mixer.setMaster(v) -> number                      // clamped 0..1, 20 ms ramp
+mixer.setMaster(v) -> number                      // clamped 0..1, 20 ms ramp; non-numeric keeps and returns the current level (same for setBus)
+// Non-finite option values mean default (gain 1, pan 0, intensity 1, when 0); duck(NaN, NaN) uses 300 ms / -8 dB; init() on a new ctx/out disconnects the old graph.
 mixer.setBus('sfx' | 'ambient', v) -> number | null
 mixer.reverb(on, {seconds = 1.8, mix = 0.25} = {}) -> boolean   // synthetic stereo noise IR (exp. decay, -60 dB at `seconds`) on the ambient path, wet = mix
 mixer.stats -> {voices, ducked, master, sfx, ambient, reverb, loop: name | null, limiter: boolean}

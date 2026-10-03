@@ -161,3 +161,16 @@ test('langdetect: tag() / family() / STOPWORDS', async (t) => {
     assert.equal(ctx.LiveFXLangDetect.detect('yok artik').lang, 'tr');
   });
 });
+
+test('langdetect review: numbers-only, emoji-only and giant input never detect or throw', () => {
+  for (const v of ['123 456', '4567 8901 2345', '🔥🔥🔥 🎉', '١٢٣', 'a'.repeat(20000)]) {
+    const r = L.detect(v);
+    assert.equal(r.lang, null, JSON.stringify(v.slice(0, 20)));
+    assert.ok(Number.isFinite(r.score));
+  }
+  assert.deepEqual(L.detect(null), { lang: null, score: 0, scores: { de: 0, tr: 0, en: 0 } });
+  assert.deepEqual(L.tokenize('123, 456!'), ['123', '456']);
+  assert.equal(L.tag(undefined), null);
+  assert.equal(L.tag('de', null), 'de-DE');
+  assert.equal(L.tag('tr', ['xx', 'tr_TR']), 'tr_TR');
+});

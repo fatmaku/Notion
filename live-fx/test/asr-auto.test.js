@@ -635,3 +635,88 @@ test('auto: stop() and setLang()', async (t) => {
     assert.equal(asr.lang, 'en-US', 'pinned: the leader stays');
   });
 });
+
+test('auto: review – robustness', async (t) => {
+  await t.test('setLang(undefined) / setLang("") while unpinned is a silent no-op; after pinning it unpins once', (t) => {
+    const { asr, langEvents } = startSwitching(t);
+    const n = langEvents().length;
+    asr.setLang(undefined);
+    asr.setLang('');
+    asr.setLang(42);
+    assert.equal(langEvents().length, n, 'no event when nothing changes');
+    assert.equal(asr.lang, 'de-DE');
+    assert.equal(FakeSR.instances.length, 1, 'recognizer untouched');
+    asr.setLang('EN-us');
+    assert.equal(asr.pinned, true);
+    assert.equal(asr.lang, 'EN-us', 'tag kept as given, family matched case-insensitively');
+    asr.setLang(undefined);
+    assert.equal(asr.pinned, false);
+    assert.equal(langEvents().pop().reason, 'unpinned');
+    asr.setLang(undefined);
+    assert.equal(langEvents().filter((e) => e.reason === 'unpinned').length, 1);
+  });
+
+  await t.test('a throwing onEvent / onText callback does not break recognition or switching', (t) => {
+    const errors = [];
+    const orig = console.error;
+    console.error = (...a) => errors.push(a);
+    t.after(() => (console.error = orig));
+    const texts = [];
+    const ctx = setup(t, {
+      parallel: 'off',
+      onEvent: () => {
+        throw new Error('listener bug');
+      },
+      onText: (text) => {
+        texts.push(text);
+        if (texts.length === 1) throw new Error('consumer bug');
+      },
+    });
+    ctx.asr.start();
+    last().emit('start');
+    assert.equal(ctx.asr.state, 'listening');
+    last().say('yok artik abi');
+    last().say('tamam tamam anladım');
+    assert.equal(texts.length, 2, 'both finals delivered although the first consumer threw');
+    assert.equal(ctx.asr.lang, 'tr-TR', 'language switch still happened');
+    assert.equal(ctx.asr.stats.finals, 2);
+    assert.ok(errors.length >= 3, `callback failures are logged (${errors.length})`);
+  });
+
+  await t.test('stop() during the parallel probe window: late aborted/not-allowed from stale recognizers are ignored', (t) => {
+    const { asr, langEvents, states, errors } = startParallel(t);
+    const [de, tr, en] = FakeSR.instances;
+    advance(300);
+    asr.stop();
+    assert.equal(asr.state, 'idle');
+    const n = langEvents().length;
+    tr.emit('error', { error: 'aborted' });
+    en.emit('error', { error: 'not-allowed' });
+    de.emit('error', { error: 'network' });
+    tr.emit('end');
+    en.emit('end');
+    de.emit('end');
+    advance(2000);
+    assert.equal(langEvents().length, n, 'no parallel-unsupported event after stop()');
+    assert.equal(asr.state, 'idle');
+    assert.equal(states.filter((s) => s === 'error').length, 0);
+    assert.equal(errors.length, 0, 'stale recognizer errors are not surfaced');
+    assert.equal(FakeSR.instances.length, 3, 'nothing respawned');
+    asr.start();
+    assert.equal(asr.stats.parallel, true, 'parallel mode is tried again on the next start()');
+    assert.equal(FakeSR.instances.length, 6);
+  });
+
+  await t.test('setOptions / stats / options getters work before start() and after stop()', (t) => {
+    const { asr } = setup(t);
+    asr.setOptions({ window: 0, switchAfter: 99, parallel: 'nope', alternatives: true });
+    const o = asr.options;
+    assert.equal(o.window, 3, 'window 0 -> default');
+    assert.equal(o.switchAfter, 3, 'switchAfter capped at window');
+    assert.equal(o.parallel, 'try', 'unknown parallel mode -> try');
+    assert.equal(o.alternatives, true);
+    assert.deepEqual(asr.stats.detected, { de: 0, tr: 0, en: 0 });
+    asr.stop();
+    assert.equal(asr.state, 'idle');
+  });
+});

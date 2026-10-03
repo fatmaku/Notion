@@ -458,3 +458,42 @@ test('v3: validateEnvelope accepts theme messages and rejects unknown themes', (
   assert.equal(S.validateEnvelope({ type: 'theme' }).ok, false);
   assert.equal(S.validateEnvelope({ type: 'nope' }).ok, false);
 });
+
+test('v3 review: combo with 100 steps / delay 1e9, negative gain, string intensity, unknown style', () => {
+  const steps = Array.from({ length: 100 }, (_, i) => ({ delay: i === 0 ? 1e9 : -5, visual: { kind: 'card', text: String(i), intensity: '3' } }));
+  const r = S.normalizeTrigger({ id: 'big', gain: -1, visual: { kind: 'combo', steps } });
+  const v = r.trigger.visual;
+  assert.equal(v.steps.length, S.LIMITS.comboSteps);
+  assert.equal(v.steps[0].delay, S.LIMITS.comboDelay, 'delay 1e9 clamped to the limit');
+  assert.equal(v.steps[1].delay, 0, 'negative delay -> 0 with a warning');
+  assert.ok(r.warnings.some((w) => /invalid delay in combo step #1/.test(w)));
+  assert.ok(r.warnings.some((w) => /too many combo steps \(100\)/.test(w)));
+  assert.equal(v.steps[0].visual.intensity, 3, "intensity '3' (string) -> 3");
+  assert.equal(r.trigger.gain, 0, 'negative gain clamps to 0');
+  assert.equal(JSON.stringify(r.trigger).includes('"steps":[{'), true);
+
+  const t = S.normalizeTrigger({ id: 'tx', visual: { kind: 'text', text: 'Hi', style: 'disco', intensity: '2.6' } });
+  assert.equal(t.trigger.visual.style, 'neon');
+  assert.equal(t.trigger.visual.intensity, 3, 'string intensity is rounded');
+  assert.ok(t.warnings.some((w) => /unknown visual.style "disco"/.test(w)));
+  // the whole thing survives the fire envelope (what the overlay receives)
+  const env = S.validateEnvelope({ type: 'fire', trigger: { id: 'big', gain: -1, visual: { kind: 'combo', steps } } });
+  assert.equal(env.ok, true);
+  assert.equal(env.msg.trigger.visual.steps.length, S.LIMITS.comboSteps);
+  assert.equal(env.msg.trigger.gain, 0);
+});
+
+test('v3 review: colours and image sources that would break out of a style/src attribute are rejected', () => {
+  const r = S.normalizeTrigger({
+    id: 'x',
+    visual: { kind: 'card', bg: '#fff; background:url(javascript:1)', color: 'red', color2: 'rgba(0,0,0,.5)', src: 'javascript:alert(1)' },
+  });
+  assert.equal(r.trigger.visual.bg, undefined);
+  assert.equal(r.trigger.visual.color, undefined, 'named colours are not in the allow-list');
+  assert.equal(r.trigger.visual.color2, 'rgba(0,0,0,.5)');
+  assert.equal(r.trigger.visual.src, undefined);
+  assert.equal(r.warnings.filter((w) => /invalid visual\.(bg|color|src)/.test(w)).length, 3);
+  const lt = S.normalizeTrigger({ id: 'lt', visual: { kind: 'lower-third', title: '<b>x</b>'.repeat(20), subtitle: 7 } });
+  assert.equal(lt.trigger.visual.title.length, S.LIMITS.title, 'title cut to the limit');
+  assert.equal(lt.trigger.visual.subtitle, undefined, 'non-string subtitle dropped');
+});

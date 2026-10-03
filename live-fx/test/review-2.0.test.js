@@ -407,5 +407,5 @@ test('review: sw.js shell lists every browser file on disk, caches nothing live'
   const re = new RegExp(netOnly.slice(1, -1));
   for (const p of ['/api/chat', '/api/gift', '/fire', '/events', '/assets/x.mp3', '/health', '/m', '/models/x', '/docs/VIEWER.md']) assert.ok(re.test(p), `${p} must be network-only`);
   assert.ok(!shell.some((p) => p.startsWith('/api/')));
-  assert.match(src, /SHELL_VERSION = '1\.6\.0'/);
+  assert.match(src, /SHELL_VERSION = '2\.0\.0'/);
 });
