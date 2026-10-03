@@ -23,7 +23,8 @@ function register(router, ctx) {
     requireAuth(async (req, res) => {
       const body = await readJson(req);
       if (!ctx.chat) throw new HttpError(503, 'chat_unavailable', 'Chat-Modul nicht initialisiert');
-      const amount = Number(body.amount);
+      // Only a number or a numeric string counts: `true`, `[]`, `null` would silently become 1 / 0.
+      const amount = typeof body.amount === 'number' || (typeof body.amount === 'string' && body.amount.trim()) ? Number(body.amount) : NaN;
       if (!Number.isFinite(amount) || amount < 0) throw new HttpError(400, 'invalid_amount', 'amount muss eine Zahl ≥ 0 sein');
       const r = ctx.chat.gift({
         platform: str(body.platform, 20).toLowerCase() || 'other',

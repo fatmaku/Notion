@@ -43,6 +43,7 @@ const SHELL = [
   '/js/meter.js',
   '/js/langdetect.js',
   '/js/asr.js',
+  '/js/whisper-worker.js',
   '/js/smart.js',
   '/js/fx.js',
   '/js/demo.js',

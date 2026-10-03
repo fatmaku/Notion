@@ -13,7 +13,9 @@
 
 const DEFAULT_API_BASE = 'https://www.googleapis.com/youtube/v3';
 const MIN_POLL_MS = 2000;
+const MAX_POLL_MS = 60000; // the API's pollingIntervalMillis is clamped: a huge value overflows setTimeout into a hot loop
 const DEFAULT_POLL_MS = 5000;
+const FETCH_TIMEOUT_MS = 20000;
 const ERROR_RETRY_MS = 15000;
 const BACKLOG_MS = 15000; // messages older than start - 15 s are history, not live chat
 const VIDEO_RE = /^[A-Za-z0-9_-]{6,20}$/;
@@ -43,9 +45,17 @@ function createYouTubeChat({ apiKey, videoId, onMessage, onGift, onState, fetchI
   let wanted = false;
   let timer = null;
   let gen = 0; // bumps on stop() so an in-flight poll of an old run is ignored
+  let inflight = null; // AbortController of the current request (aborted on stop())
   const api = { state: 'off', videoId: vid, liveChatId: null, messages: 0, polls: 0, lastError: null, nextPageToken: null, startedAt: 0 };
 
+  /** The API key is part of every request URL – it must never show up in a status or log line. */
+  function scrub(text) {
+    const t = String(text || '');
+    return key ? t.split(key).join('[key]') : t;
+  }
+
   function setState(s, detail) {
+    if (detail) detail = scrub(detail);
     if (api.state === s && !detail) return;
     api.state = s;
     if (detail) api.lastError = detail;
@@ -64,12 +74,25 @@ function createYouTubeChat({ apiKey, videoId, onMessage, onGift, onState, fetchI
   }
 
   async function getJson(u) {
-    const res = await fetchFn(u, { headers: { accept: 'application/json' } });
+    const ac = typeof AbortController === 'function' ? new AbortController() : null;
+    inflight = ac;
+    const kill = ac ? setTimeout(() => ac.abort(), FETCH_TIMEOUT_MS) : null;
+    if (kill && typeof kill.unref === 'function') kill.unref();
+    let res;
     let data = null;
     try {
-      data = await res.json();
-    } catch (_) {
-      data = null;
+      res = await fetchFn(u, { headers: { accept: 'application/json' }, signal: ac ? ac.signal : undefined });
+      try {
+        data = await res.json(); // the timeout also covers a stalled body
+      } catch (e) {
+        if (ac && ac.signal.aborted) throw e;
+        data = null; // not JSON (e.g. an HTML error page) – handled via res.ok below
+      }
+    } catch (e) {
+      throw new Error(ac && ac.signal.aborted ? 'Zeitüberschreitung (YouTube antwortet nicht)' : scrub(e && e.message));
+    } finally {
+      if (kill) clearTimeout(kill);
+      if (inflight === ac) inflight = null;
     }
     if (!res.ok) {
       const reason = data && data.error && Array.isArray(data.error.errors) && data.error.errors[0] ? data.error.errors[0].reason : '';
@@ -87,7 +110,7 @@ function createYouTubeChat({ apiKey, videoId, onMessage, onGift, onState, fetchI
     timer = setTimeout(() => {
       timer = null;
       poll(myGen).catch((e) => log(`youtube: poll crashed: ${e.message}`));
-    }, Math.max(MIN_POLL_MS, ms));
+    }, Math.min(MAX_POLL_MS, Math.max(MIN_POLL_MS, Number.isFinite(ms) ? ms : DEFAULT_POLL_MS)));
     if (typeof timer.unref === 'function') timer.unref();
   }
 
@@ -140,6 +163,7 @@ function createYouTubeChat({ apiKey, videoId, onMessage, onGift, onState, fetchI
     if (!wanted || myGen !== gen) return;
     try {
       if (!api.liveChatId) {
+        api.nextPageToken = null; // a page token belongs to one liveChatId
         api.liveChatId = await resolveChatId(myGen);
         if (myGen !== gen) return;
       }
@@ -158,7 +182,7 @@ function createYouTubeChat({ apiKey, videoId, onMessage, onGift, onState, fetchI
       schedule(Number.isFinite(ms) && ms > 0 ? ms : DEFAULT_POLL_MS, myGen);
     } catch (e) {
       if (myGen !== gen) return;
-      log(`youtube: ${e.message}`);
+      log(`youtube: ${scrub(e.message)}`);
       if (e.reason === 'liveChatEnded' || e.reason === 'liveChatNotFound') {
         api.liveChatId = null;
         api.nextPageToken = null;
@@ -201,6 +225,14 @@ function createYouTubeChat({ apiKey, videoId, onMessage, onGift, onState, fetchI
     gen++;
     if (timer) clearTimeout(timer);
     timer = null;
+    if (inflight) {
+      try {
+        inflight.abort();
+      } catch (_) {
+        /* ignore */
+      }
+      inflight = null;
+    }
     setState('off');
     return api;
   };
@@ -208,4 +240,4 @@ function createYouTubeChat({ apiKey, videoId, onMessage, onGift, onState, fetchI
   return api;
 }
 
-module.exports = { createYouTubeChat, normalizeVideoId, DEFAULT_API_BASE, MIN_POLL_MS };
+module.exports = { createYouTubeChat, normalizeVideoId, DEFAULT_API_BASE, MIN_POLL_MS, MAX_POLL_MS };

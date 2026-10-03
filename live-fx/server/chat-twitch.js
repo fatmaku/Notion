@@ -14,6 +14,9 @@
 const DEFAULT_URL = 'wss://irc-ws.chat.twitch.tv:443';
 const BACKOFF_MIN_MS = 1000;
 const BACKOFF_MAX_MS = 30000;
+const CONNECT_TIMEOUT_MS = 15000; // a socket that neither opens nor closes is dropped and retried
+const MAX_BUFFER = 64 * 1024; // IRC lines are < 4 KB with tags; anything bigger is garbage, not chat
+const BITS_RE = /^\d{1,9}$/;
 const CHANNEL_RE = /^[a-z0-9_]{1,25}$/i;
 
 /** Normalizes a channel name: lower-cased, leading `#`, `@` or a twitch.tv URL stripped. '' when invalid. */
@@ -77,19 +80,20 @@ function parseLine(line) {
     out.login = nick;
     out.channel = (params[0] || '').replace(/^#/, '');
     out.text = trailing || '';
-    const bits = Number(tags.bits);
-    if (Number.isFinite(bits) && bits > 0) out.bits = bits;
+    const bits = BITS_RE.test(tags.bits || '') ? Number(tags.bits) : 0;
+    if (bits > 0) out.bits = bits;
   }
   return out;
 }
 
-function createTwitchChat({ channel, onMessage, onState, url, WebSocketImpl, log = () => {}, backoffMinMs = BACKOFF_MIN_MS, backoffMaxMs = BACKOFF_MAX_MS } = {}) {
+function createTwitchChat({ channel, onMessage, onState, url, WebSocketImpl, log = () => {}, backoffMinMs = BACKOFF_MIN_MS, backoffMaxMs = BACKOFF_MAX_MS, connectTimeoutMs = CONNECT_TIMEOUT_MS } = {}) {
   const chan = normalizeChannel(channel);
   const WS = WebSocketImpl || globalThis.WebSocket;
   const target = url || DEFAULT_URL;
   let ws = null;
   let wanted = false;
   let timer = null;
+  let connectTimer = null;
   let attempts = 0;
   const api = { state: 'off', channel: chan, messages: 0, lastError: null };
 
@@ -181,20 +185,50 @@ function createTwitchChat({ channel, onMessage, onState, url, WebSocketImpl, log
     }
     ws = sock;
     let buf = '';
+    const closeSock = () => {
+      try {
+        sock.close();
+      } catch (_) {
+        /* ignore */
+      }
+    };
+    const clearConnectTimer = () => {
+      if (connectTimer) clearTimeout(connectTimer);
+      connectTimer = null;
+    };
+    // Handshake watchdog: an unreachable host can sit in CONNECTING for minutes without a close event.
+    connectTimer = setTimeout(() => {
+      connectTimer = null;
+      if (ws !== sock) return;
+      log('twitch: connect timeout');
+      ws = null;
+      closeSock();
+      if (wanted) {
+        setState('disconnected', 'Zeitüberschreitung beim Verbinden');
+        scheduleReconnect();
+      }
+    }, connectTimeoutMs);
+    if (typeof connectTimer.unref === 'function') connectTimer.unref();
     sock.addEventListener('open', () => {
       if (ws !== sock) return;
+      clearConnectTimer();
       send('CAP REQ :twitch.tv/tags twitch.tv/commands');
       send(`NICK justinfan${Math.floor(10000 + Math.random() * 89999)}`);
       send(`JOIN #${chan}`);
     });
     sock.addEventListener('message', (ev) => {
       if (ws !== sock) return;
-      buf += typeof ev.data === 'string' ? ev.data : String(ev.data || '');
+      if (typeof ev.data !== 'string') return; // Twitch IRC is text-only; binary frames are not chat
+      buf += ev.data;
       let idx;
       while ((idx = buf.indexOf('\n')) !== -1) {
         const line = buf.slice(0, idx);
         buf = buf.slice(idx + 1);
         handleLine(line);
+      }
+      if (buf.length > MAX_BUFFER) {
+        log('twitch: dropping oversized partial line');
+        buf = '';
       }
     });
     sock.addEventListener('error', () => {
@@ -203,6 +237,7 @@ function createTwitchChat({ channel, onMessage, onState, url, WebSocketImpl, log
     });
     sock.addEventListener('close', () => {
       if (ws !== sock) return;
+      clearConnectTimer();
       ws = null;
       if (wanted) {
         setState('disconnected');
@@ -226,6 +261,8 @@ function createTwitchChat({ channel, onMessage, onState, url, WebSocketImpl, log
     wanted = false;
     if (timer) clearTimeout(timer);
     timer = null;
+    if (connectTimer) clearTimeout(connectTimer);
+    connectTimer = null;
     const sock = ws;
     ws = null;
     if (sock) {

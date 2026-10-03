@@ -26,6 +26,10 @@ const COMMANDS_MAX = 100;
 const TIERS_MAX = 10;
 const COOLDOWN_MAX_MS = 3600000;
 const PLATFORMS = ['twitch', 'youtube', 'tiktok', 'test', 'other'];
+const WARNINGS_MAX = 20; // a PUT with thousands of junk keys must not echo thousands of warnings
+const BITS_MAX = 1e9;
+// C0 / C1 control characters and DEL – chat text is single-line, display names never need them.
+const CONTROL_RE = /[\u0000-\u001f\u007f-\u009f]/g;
 
 const DEFAULTS = Object.freeze({
   twitch: { channel: '', enabled: false },
@@ -46,8 +50,15 @@ const DEFAULTS = Object.freeze({
 
 function str(v, max) {
   if (typeof v !== 'string') return '';
-  const s = v.trim();
+  const s = v.replace(CONTROL_RE, '').trim();
   return s.length > max ? s.slice(0, max) : s;
+}
+
+/** Caps the warning list so a junk-filled PUT cannot echo back an unbounded response. */
+function capWarnings(warnings) {
+  if (warnings.length <= WARNINGS_MAX) return warnings;
+  const extra = warnings.length - WARNINGS_MAX;
+  return warnings.slice(0, WARNINGS_MAX).concat([`… und ${extra} weitere Hinweise`]);
 }
 
 function clone(o) {
@@ -68,7 +79,7 @@ function slug(s) {
 
 /** Normalizes a command key: trimmed, lower-cased, prefix added when missing, no inner whitespace. */
 function commandKey(raw, prefix) {
-  let k = String(raw || '').trim().toLowerCase();
+  let k = String(raw || '').replace(CONTROL_RE, '').trim().toLowerCase();
   if (!k) return '';
   if (/\s/.test(k)) return '';
   if (!k.startsWith(prefix)) k = prefix + k;
@@ -131,8 +142,19 @@ function mergeSettings(current, patch) {
   }
   if (p.prefix !== undefined) {
     const pre = str(p.prefix, 3);
-    if (pre && !/\s/.test(pre)) out.prefix = pre;
-    else warnings.push('Präfix muss 1–3 Zeichen ohne Leerzeichen sein');
+    if (pre && !/\s/.test(pre)) {
+      if (pre !== out.prefix && p.commands === undefined) {
+        // Only the prefix changed: re-key the stored commands so `!lol` becomes `#lol` instead of dying.
+        const rekeyed = {};
+        for (const [k, v] of Object.entries(out.commands)) {
+          const bare = k.startsWith(out.prefix) ? k.slice(out.prefix.length) : k;
+          const nk = commandKey(bare, pre);
+          if (nk) rekeyed[nk] = v;
+        }
+        out.commands = rekeyed;
+      }
+      out.prefix = pre;
+    } else warnings.push('Präfix muss 1–3 Zeichen ohne Leerzeichen sein');
   }
   for (const k of ['cooldownPerUserMs', 'cooldownGlobalMs']) {
     if (p[k] === undefined) continue;
@@ -147,7 +169,7 @@ function mergeSettings(current, patch) {
       const cmds = {};
       for (const [rawKey, rawVal] of Object.entries(p.commands)) {
         const key = commandKey(rawKey, out.prefix);
-        if (!key) {
+        if (!key || key === '__proto__' || key === 'constructor') {
           warnings.push(`Befehl „${String(rawKey).slice(0, 20)}“ ungültig`);
           continue;
         }
@@ -189,7 +211,7 @@ function mergeSettings(current, patch) {
       out.gifts.tiers = tiers;
     }
   }
-  return { settings: out, warnings };
+  return { settings: out, warnings: capWarnings(warnings) };
 }
 
 function createChat(ctx, { twitchFactory, youtubeFactory, env = process.env } = {}) {
@@ -261,8 +283,9 @@ function createChat(ctx, { twitchFactory, youtubeFactory, env = process.env } = 
 
   /** Resolves `!word` to a trigger id: explicit mapping first, then (allowAll) id or label slug. */
   function resolveCommand(word) {
-    const explicit = settings.commands[word];
-    if (explicit) return explicit;
+    // Own properties only: `!constructor` / `__proto__` must never resolve to Object.prototype members.
+    const explicit = Object.hasOwn(settings.commands, word) ? settings.commands[word] : null;
+    if (typeof explicit === 'string' && explicit) return explicit;
     if (!settings.allowAll) return null;
     const name = word.slice(settings.prefix.length);
     if (!name) return null;
@@ -279,7 +302,7 @@ function createChat(ctx, { twitchFactory, youtubeFactory, env = process.env } = 
     const result = { platform, user, text, command: null, fired: null, reason: null, trigger: null };
     if (!text) return result;
     const bits = Number(raw && raw.bits);
-    if (Number.isFinite(bits) && bits > 0) gift({ platform, user, amount: bits / 100, currency: 'USD', gift: 'bits', raw: bits, text });
+    if (Number.isInteger(bits) && bits > 0 && bits <= BITS_MAX) gift({ platform, user, amount: bits / 100, currency: 'USD', gift: 'bits', raw: bits, text });
     const prefix = settings.prefix;
     const first = text.split(/\s+/)[0].toLowerCase();
     if (first.startsWith(prefix) && first.length > prefix.length) {
