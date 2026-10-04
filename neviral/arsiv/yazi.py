@@ -96,30 +96,20 @@ def hook(item, tops, lang, nost, seed=0):
     return random.Random(f"{item.get('id')}-{seed}").choice(opts)
 
 
-def rule_captions(item, tops, nost, handle=""):
-    """{dil: {platform: {'hook','caption','hashtags','title'}}}"""
+def rule_captions(item, tops, nost, handle="", hooks=None):
+    """{dil: {platform: {'hook','caption','hashtags','title'}, '_varyantlar': [...]}}  hooks: {dil: seçilen kanca}"""
+    from . import metin
     out = {}
-    rng = random.Random(item.get("id"))
+    keys = [k for k, _ in tops] or ["gunluk"]
     for lang in LANGS:
-        out[lang] = {}
-        h = hook(item, tops, lang, nost)
-        body = rng.choice(BODY[lang])
-        topic = konu.topic_name(tops[0][0], lang) if tops else ""
+        var = metin.variants(item, keys, lang, nost, n=6)
+        h = (hooks or {}).get(lang) or (var[0]["text"] if var else hook(item, tops, lang, nost))
+        s1, s2 = metin.story(item, keys, lang)
+        out[lang] = {"_varyantlar": var}
         for p in algoritma.PLATFORMS:
             tags = hashtags(tops, lang, p, nost)
-            cta = CTA[p][lang]
-            if p == "tiktok":
-                cap = f"{h} {topic.lower()} · {cta}"
-            elif p == "yt_shorts":
-                cap = f"{body}\n{cta}"
-            elif p == "ig_feed":
-                cap = f"{h}\n\n{body}\n\n{cta}"
-            else:
-                cap = f"{h}\n\n{body}\n\n{cta}"
-            if handle:
-                cap += f"\n{handle}"
-            title = (h if len(h) <= 70 else h[:67] + "…") + (" #Shorts" if p == "yt_shorts" else "")
-            out[lang][p] = {"hook": h, "caption": cap + "\n\n" + " ".join(tags), "hashtags": tags, "title": title}
+            title = h if p != "yt_shorts" else ((h if len(h) <= 62 else h[:60] + "…") + " #Shorts")
+            out[lang][p] = {"hook": h, "caption": metin.compose(p, lang, h, s1, s2, tags, item, handle), "hashtags": tags, "title": title}
     return out
 
 

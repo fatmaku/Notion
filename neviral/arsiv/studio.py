@@ -6,7 +6,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from . import config, db, ffilters, fix, highlights, i18n, kalite, media, music, photos_mac, text_overlay
+from . import config, db, ffilters, fix, highlights, i18n, kalite, media, music, photos_mac, tasarim, text_overlay
 
 DEFAULT_BRIEF = {
     "sablon": "montaj",          # montaj | tekli | eskiden-simdi | alinti | carousel | yeniden
@@ -18,7 +18,7 @@ DEFAULT_BRIEF = {
     "muzik": "sakin", "muzik_ses": 0.7, "orijinal_ses": 1.0,
     "renk": "#101828", "vurgu": "#FFD166", "yazi_tipi": None,
     "kalite": "yuksek", "fps": 30, "etiketler_goster": True,
-    "sabitle": False, "gurultu": False, "keskinlik": True, "renk_duzelt": True,
+    "sabitle": False, "gurultu": False, "keskinlik": True, "renk_duzelt": True, "stil": "otomatik",
 }
 TEMPLATES = {
     "montaj": "Montaj: fotoğraf + video kesitleri, geçişler, giriş/kapanış kartı, müzik",
@@ -109,6 +109,8 @@ def normalize_brief(brief):
     if b["kalite"] not in ("yuksek", "orta"):
         b["kalite"] = "yuksek"
     b["iyilestir"] = bool(b.get("iyilestir"))
+    if b.get("stil") not in tasarim.STYLES and b.get("stil") != "klasik":
+        b["stil"] = "otomatik"
     for k in ("baslik", "altbaslik", "cta", "etiket"):
         b[k] = str(b.get(k) or "")[:300]
     if b["sablon"] in ("tekli", "alinti", "yeniden"):
@@ -303,6 +305,89 @@ def _encode(ctx, base, total, out, progress):
 
 
 # ---------------------------------------------------------------- video şablonları
+def _classic_cards(ctx, b, windows, base, total, W, H):
+    font, accent = b.get("yazi_tipi"), b["vurgu"]
+    # kartlar
+    k = 0
+    intro_end = 0.0
+    if b["sablon"] == "alinti":
+        base = _overlay(ctx, base, text_overlay.quote_card(W, H, b["baslik"] or "", b.get("altbaslik"), accent, font), 0.3, total, 0.6, k, total); k += 1
+    elif b["baslik"]:
+        intro_end = min(3.2, total * 0.45)
+        base = _overlay(ctx, base, text_overlay.intro_card(W, H, b["baslik"], b.get("altbaslik") if b["sablon"] != "tekli" else None, accent, font),
+                        0.0, intro_end, 0.5, k, total); k += 1
+    if b["sablon"] == "tekli" and b.get("altbaslik"):
+        base = _overlay(ctx, base, text_overlay.caption_card(W, H, b["altbaslik"], accent, font), intro_end, total, 0.4, k, total); k += 1
+    for (s, e, top, bottom) in windows:
+        s2 = max(s + 0.15, intro_end + 0.2 if s < intro_end else s + 0.15)
+        e2 = e - 0.15
+        if e2 - s2 < 0.8:
+            continue
+        img = text_overlay.split_labels(W, H, top, bottom, accent, font) if bottom else text_overlay.label_card(W, H, top, accent, "bottom-left", font)
+        base = _overlay(ctx, base, img, s2, e2, 0.3, k, total); k += 1
+    if b.get("cta") and total > 4:
+        base = _overlay(ctx, base, text_overlay.cta_card(W, H, b["cta"], b.get("etiket"), accent, font), total - 3.0, total, 0.5, k, total); k += 1
+    if b.get("etiket") and b["sablon"] != "alinti":
+        base = _overlay(ctx, base, text_overlay.handle_card(W, H, b["etiket"], font), 0.0, total, 0.0, k, total); k += 1
+    return base
+
+
+def _accent_for(b, clips):
+    if b.get("vurgu") and b["vurgu"].upper() != DEFAULT_BRIEF["vurgu"].upper():
+        return b["vurgu"]  # kullanıcı rengi seçti
+    c = clips[0]
+    src = c["path"] if c["kind"] == "foto" else (c["item"].get("thumb") or None)
+    return tasarim.palette(src)["vurgu"] if src else b["vurgu"]
+
+
+def _styled_cards(ctx, b, clips, windows, base, total, W, H, stil):
+    """Tasarım stili: renk derecelendirme + hareketli kanca + stil kartları."""
+    g = tasarim.grade(stil, W, H, grain=b.get("kalite") == "yuksek")
+    if g:
+        ctx.lines.append(f"[{base}]{g}[gr]")
+        base = "gr"
+    accent = _accent_for(b, clips)
+    k = 100
+    hook_end = 0.0
+    hook = b["baslik"]
+    if hook:
+        alinti = b["sablon"] == "alinti"
+        sub = b.get("altbaslik") if (alinti or b["sablon"] not in ("tekli",)) else None
+        anim = 1.4 if stil != "sinema" else 1.8
+        hook_end = total if alinti else min(max(2.8, anim + 1.4), total * 0.55)
+        seq_dir = ctx.out_dir / "kanca"
+        pattern, n, static = tasarim.hook_sequence(hook, stil, W, H, seq_dir, accent, fps=ctx.fps, anim_dur=anim, sub=sub)
+        idx = ctx.add_input(["-framerate", ctx.fps, "-start_number", 0, "-i", pattern])
+        ctx.lines.append(f"[{idx}:v]format=rgba,setpts=PTS-STARTPTS[hk]")
+        ctx.lines.append(f"[{base}][hk]overlay=0:0:eof_action=pass:enable='lte(t,{n / ctx.fps:.3f})'[hka]")
+        base = "hka"
+        if hook_end > n / ctx.fps:
+            base = _overlay_png(ctx, base, static, n / ctx.fps, hook_end, 0.0 if alinti else 0.35, k, total); k += 1
+    if b["sablon"] == "tekli" and b.get("altbaslik"):
+        base = _overlay(ctx, base, tasarim.caption_panel(W, H, b["altbaslik"], stil, accent), hook_end, total, 0.4, k, total); k += 1
+    for (s0, e0, top, bottom) in windows:
+        s2 = max(s0 + 0.15, hook_end + 0.2 if s0 < hook_end else s0 + 0.15)
+        e2 = e0 - 0.15
+        if e2 - s2 < 0.8:
+            continue
+        img = tasarim.chip(W, H, top, stil, accent, "top" if bottom else "bottom-left")
+        if bottom:
+            low = tasarim.chip(W, H // 2, bottom, stil, accent, "top")
+            img.alpha_composite(low, (0, H // 2 + int(min(W, H) * 0.02)))
+        base = _overlay(ctx, base, img, s2, e2, 0.3, k, total); k += 1
+    if b.get("cta") and total > 4:
+        base = _overlay(ctx, base, tasarim.end_card(W, H, b["cta"], b.get("etiket"), stil, accent), total - 3.0, total, 0.5, k, total); k += 1
+    if b.get("etiket") and b["sablon"] != "alinti":
+        base = _overlay(ctx, base, tasarim.handle_mark(W, H, b["etiket"], stil), 0.0, total, 0.0, k, total); k += 1
+    return base
+
+
+def _overlay_png(ctx, base, png, start, end, fade, k, total):
+    idx = ctx.add_input(["-loop", "1", "-framerate", ctx.fps, "-t", f"{total:.3f}", "-i", png])
+    ctx.lines += ffilters.overlay_chain(base, idx, f"ov{k}", start, end, fade=fade, uid=f"o{k}")
+    return f"ov{k}"
+
+
 def render_video(b, clips, out_dir, progress):
     W, H = config.FORMATS[b["format"]]
     ctx = _Ctx(W, H, b, out_dir)
@@ -341,36 +426,24 @@ def render_video(b, clips, out_dir, progress):
                 windows.append((off, off + c["dur"], c["label"], None))
             t = off + c["dur"]
     base, total = _xfade(ctx, labels, durs, T)
-    # kartlar
-    k = 0
-    intro_end = 0.0
-    if b["sablon"] == "alinti":
-        base = _overlay(ctx, base, text_overlay.quote_card(W, H, b["baslik"] or "", b.get("altbaslik"), accent, font), 0.3, total, 0.6, k, total); k += 1
-    elif b["baslik"]:
-        intro_end = min(3.2, total * 0.45)
-        base = _overlay(ctx, base, text_overlay.intro_card(W, H, b["baslik"], b.get("altbaslik") if b["sablon"] != "tekli" else None, accent, font),
-                        0.0, intro_end, 0.5, k, total); k += 1
-    if b["sablon"] == "tekli" and b.get("altbaslik"):
-        base = _overlay(ctx, base, text_overlay.caption_card(W, H, b["altbaslik"], accent, font), intro_end, total, 0.4, k, total); k += 1
-    for (s, e, top, bottom) in windows:
-        s2 = max(s + 0.15, intro_end + 0.2 if s < intro_end else s + 0.15)
-        e2 = e - 0.15
-        if e2 - s2 < 0.8:
-            continue
-        img = text_overlay.split_labels(W, H, top, bottom, accent, font) if bottom else text_overlay.label_card(W, H, top, accent, "bottom-left", font)
-        base = _overlay(ctx, base, img, s2, e2, 0.3, k, total); k += 1
-    if b.get("cta") and total > 4:
-        base = _overlay(ctx, base, text_overlay.cta_card(W, H, b["cta"], b.get("etiket"), accent, font), total - 3.0, total, 0.5, k, total); k += 1
-    if b.get("etiket") and b["sablon"] != "alinti":
-        base = _overlay(ctx, base, text_overlay.handle_card(W, H, b["etiket"], font), 0.0, total, 0.0, k, total); k += 1
+    stil = b.get("stil") or "klasik"
+    if stil in tasarim.STYLES:
+        base = _styled_cards(ctx, b, clips, windows, base, total, W, H, stil)
+    else:
+        base = _classic_cards(ctx, b, windows, base, total, W, H)
     _audio(ctx, total)
     out = out_dir / f"{_slug(b['baslik'] or b['sablon'])}-{b['format'].replace(':', 'x')}.mp4"
     progress(f"render: {len(clips)} klip, {total:.1f} sn, {W}x{H}")
     cover = _encode(ctx, base, total, out, progress)
     if b["sablon"] == "alinti":  # ayrıca JPG kart
-        still = text_overlay.fit_image(text_overlay._open(clips[0]["path"] if clips[0]["kind"] == "foto" else str(cover)), W, H, "kirp").convert("RGBA")
-        still.alpha_composite(text_overlay.quote_card(W, H, b["baslik"] or "", b.get("altbaslik"), accent, font))
-        still.convert("RGB").save(out_dir / "alinti.jpg", quality=92)
+        if b.get("stil") in tasarim.STYLES:
+            img, _, _ = tasarim.preview(clips[0]["path"], clips[0]["kind"], b["baslik"] or "", b["stil"], _accent_for(b, clips),
+                                        W=W, H=H, sub=b.get("altbaslik") or None, at=clips[0].get("start", 0) + 0.5)
+            img.save(out_dir / "alinti.jpg", quality=92)
+        else:
+            still = text_overlay.fit_image(text_overlay._open(clips[0]["path"] if clips[0]["kind"] == "foto" else str(cover)), W, H, "kirp").convert("RGBA")
+            still.alpha_composite(text_overlay.quote_card(W, H, b["baslik"] or "", b.get("altbaslik"), accent, font))
+            still.convert("RGB").save(out_dir / "alinti.jpg", quality=92)
     return {"output": str(out), "cover": str(cover), "duration": round(total, 2)}
 
 
@@ -415,6 +488,10 @@ def render(con, brief, progress=print):
     b = normalize_brief(brief)
     b["dil"] = i18n.norm(b.get("dil") or i18n.lang_of(con))
     config.ensure_dirs()
+    if b.get("stil") == "otomatik":  # konuya göre stil: kitap → editoryal, çocuk → masal, hayvan/kutlama → pop…
+        from . import konu
+        its = db.get_items(con, [o["id"] for o in b["ogeler"]][:3])
+        b["stil"] = tasarim.style_for([k for it in its for k, _ in konu.topics(it)])
     out_dir = _out_dir(b["baslik"] or b["sablon"])
     (out_dir / "brief.json").write_text(json.dumps(b, ensure_ascii=False, indent=2), encoding="utf-8")
     clips = build_clips(con, b, progress)

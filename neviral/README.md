@@ -12,6 +12,20 @@ Neden bu yaklaşım "en kolayı":
 - **Hatırlatır.** Yeniden paylaşım kuyruğunu haftalara dağıtır, "bugün geçen yıl" önerir, macOS bildirimi ve Takvim (.ics) desteği vardır.
 - **Pazarlama.** Açıklama + hashtag + kanca cümlesi üretir (isteğe bağlı Claude ile), performans CSV'nizden en iyi paylaşım saatlerini çıkarır, içerik fikirleri önerir.
 
+## ✦ Premium tasarım, güçlü kancalar, karşılaştırma (sürüm 0.5)
+
+Önceki sürümlerde ekrandaki yazılar sistem yazı tipi + düz sarı kutuydu, metinler birkaç kalıp cümleden oluşuyordu — "ucuz" görünüyordu. Şimdi:
+
+- **5 tasarım stili** (uygulamayla gelen açık lisanslı yazı tipleri, OFL): *Editoryal* (zarif serif, ince çizgi, film greni), *Pop* (kalın büyük harf, fosforlu vurgu, kelime kelime), *Masal* (çocuk kitabı hissi, yumuşak kâğıt kart), *Minimal* (sade alt panel, modern grotesk), *Sinema* (sinemaskop bantlar, geniş aralıklı başlık). Konuya göre otomatik seçilir (kitap → Masal/Editoryal, etkinlik → Pop…), ya da siz seçersiniz.
+- **Görselden vurgu rengi:** Her videonun vurgu rengi kendi fotoğrafından çıkarılır; yazılar arka planla uyumlu ve okunur kalır.
+- **Animasyonlu kanca:** Başlık ilk saniyede satır satır / kelime kelime / süzülerek gelir; renk derecelendirmesi (sıcak, sinematik, canlı…) ve isteğe bağlı film greni.
+- **Kanca formülleri + puan:** Merak boşluğu, soru, önce/sonra, sayı/yıl, sahne arkası, "ilk kez"… Her konu için TR/DE/EN onlarca formül; her kanca 0-100 puanlanır ve **neden** gösterilir (ideal uzunluk, ekranda okunur, yorum çağırır, merak uyandırır, ana konuya uygun) — klişeler ("throwback", "anılar"…) cezalandırılır.
+- **Hikâye anlatan açıklamalar:** İlk satır kanca, ardından 2 satır hikâye, sonra platforma uygun çağrı (gönder / kaydet / yorumla).
+- **🧪 Karşılaştır:** Viral › *Texte & Details* içinde 6 kanca varyantı (puanlı), kendi başlığınızı yazıp canlı puanlatma ve 5 stilin gerçek önizlemesi (okunurluk puanı, 🏆 en iyi, ⭐ konuya uygun). Seçiminizle tek tıkla paket.
+- **A/B testi:** Pakette aynı video iki farklı kancayla (`B-…mp4`) üretilir — Instagram'ın "deneme/test" özelliğiyle hangisinin tuttuğunu görün.
+
+Komut satırı: `viral paket 123 --stil masal --ab` · `viral eniyi 10 --stil otomatik`.
+
 ## 🔥 neviral — viral potansiyel (sürüm 0.3)
 
 **Viral** sekmesi tüm arşivi en yüksek viral potansiyelden en düşüğe sıralar. Her öğe için:
@@ -30,7 +44,7 @@ Algoritma kural kitabı platformların 2025-2026 açıklamalarına dayanır (Ins
 
 **📥 Dışarıdan puanlat:** Viral sekmesinde dosyaları (WhatsApp, AirDrop, telefon, kamera…) kutuya sürükleyin ya da seçin; dosya `~/ArsivStudyo/harici/` altına kopyalanır, saniyeler içinde analiz edilip puanlanır ve listede *yalnızca dışarıdan yüklenenler* filtresiyle bulunur.
 
-**⚙️ Paket seçenekleri:** Platformlar, diller (TR/DE/EN), video formatı (9:16, 4:5, 1:1), süre (otomatik ya da 7-90 sn), müzik, kendi ekran yazınız (kanca), otomatik düzeltme, hatırlatıcı ve Claude metinleri seçilebilir; son seçimleriniz hatırlanır.
+**⚙️ Paket seçenekleri:** Platformlar, diller (TR/DE/EN), video formatı (9:16, 4:5, 1:1), süre (otomatik ya da 7-90 sn), müzik, kendi ekran yazınız (kanca), otomatik düzeltme, hatırlatıcı ve Claude metinleri seçilebilir; tasarım stili ve A/B testi seçilebilir; son seçimleriniz hatırlanır.
 
 Komut satırı: `python3 -m arsiv viral analiz` · `viral liste --platform tiktok` · `viral paket 123 --dil tr de en` · `viral eniyi 10`.
 

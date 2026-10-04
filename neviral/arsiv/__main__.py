@@ -182,10 +182,12 @@ def cmd_viral(args):
     elif args.alt == "puanla":
         _print(viral.rescore(con, progress=_print), "öğe puanlandı")
     elif args.alt == "paket":
-        r = viral.package(con, args.id, platforms=args.platform, langs=args.dil, progress=_print, use_claude=not args.claude_yok)
+        r = viral.package(con, args.id, platforms=args.platform, langs=args.dil, progress=_print, use_claude=not args.claude_yok,
+                          opts={"stil": args.stil, "ab": args.ab, "hook": args.kanca or ""})
         _print(json.dumps(r, ensure_ascii=False))
     elif args.alt == "eniyi":
-        viral.top_packages(con, args.n, platforms=args.platform, langs=args.dil, progress=_print, use_claude=not args.claude_yok)
+        viral.top_packages(con, args.n, platforms=args.platform, langs=args.dil, progress=_print, use_claude=not args.claude_yok,
+                           opts={"stil": args.stil, "ab": args.ab})
     else:
         lang = i18n_lang(con)
         res = viral.rank(con, lang=lang, platform=args.platform, kind=args.tur, limit=args.limit)
@@ -276,8 +278,12 @@ def main(argv=None):
     a = ss.add_parser("analiz"); a.add_argument("--zorla", action="store_true"); a.add_argument("--derin", type=int, default=300)
     ss.add_parser("puanla")
     a = ss.add_parser("liste"); a.add_argument("--platform"); a.add_argument("--tur", choices=["foto", "video"]); a.add_argument("--limit", type=int, default=30)
+    from .tasarim import STYLES
+    stiller = [*STYLES, "klasik", "otomatik"]
     a = ss.add_parser("paket"); a.add_argument("id", type=int); a.add_argument("--platform", nargs="*"); a.add_argument("--dil", nargs="*"); a.add_argument("--claude-yok", action="store_true")
+    a.add_argument("--stil", choices=stiller, default="otomatik"); a.add_argument("--ab", action="store_true", help="2 video: en iyi + ikinci kanca"); a.add_argument("--kanca", help="ekrandaki başlık")
     a = ss.add_parser("eniyi"); a.add_argument("n", type=int, nargs="?", default=10); a.add_argument("--platform", nargs="*"); a.add_argument("--dil", nargs="*"); a.add_argument("--claude-yok", action="store_true")
+    a.add_argument("--stil", choices=stiller, default="otomatik"); a.add_argument("--ab", action="store_true")
     s.set_defaults(f=cmd_viral, platform=None, tur=None, limit=30)
     sp.add_parser("durum", help="özet").set_defaults(f=cmd_durum)
 

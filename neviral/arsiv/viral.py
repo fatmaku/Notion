@@ -340,6 +340,9 @@ def package(con, item_id, platforms=None, langs=None, progress=print, use_claude
     mb = (ai or {}).get("en_iyi_pazar") or v["mb"]
     main_lang = konu.MARKETS[mb][3] if konu.MARKETS[mb][3] in langs else langs[0]
     hook = str(opts.get("hook") or "").strip()[:60] or texts[main_lang][v["best"] if v["best"] in texts[main_lang] else "ig_reels"]["hook"]
+    from . import metin, tasarim
+    stil = opts.get("stil") if (opts.get("stil") in tasarim.STYLES or opts.get("stil") == "klasik") else tasarim.style_for([k for k, _ in tops])
+    alt_hooks = [x["text"] for x in metin.variants(it, [k for k, _ in tops], main_lang, nost, n=4) if x["text"] != hook]
     vids = [p for p in platforms if p in VIDEO_PLATFORMS]
     res = {"klasor": None, "output": None, "cover": None}
     if vids:
@@ -357,11 +360,19 @@ def package(con, item_id, platforms=None, langs=None, progress=print, use_claude
         enhance = opts.get("iyilestir", True) is not False
         brief = {"sablon": "tekli", "format": fmt, "baslik": hook[:60], "altbaslik": "", "cta": "", "etiket": st["hesap"],
                  "ogeler": [{"id": it["id"], "sure": min(7, length) if it["kind"] == "foto" else length}], "max_sure": length,
-                 "muzik": music, "kalite": "yuksek", "iyilestir": enhance, "dil": main_lang}
-        progress(i18n.t(st["dil"], "video üretiliyor ({f}, en çok {n} sn)", f=fmt, n=int(length)))
+                 "muzik": music, "kalite": "yuksek", "iyilestir": enhance, "dil": main_lang, "stil": stil}
+        progress(i18n.t(st["dil"], "video üretiliyor ({f}, en çok {n} sn)", f=fmt, n=int(length)) + f" · {stil}")
         res = studio.render(con, brief, progress=progress)
+        if opts.get("ab") and alt_hooks:  # A/B: aynı video, farklı kanca (Instagram'ın deneme/test özelliği için)
+            progress("A/B: B varyantı")
+            res_b = studio.render(con, dict(brief, baslik=alt_hooks[0][:60]), progress=lambda *_: None)
+            b_path = Path(res["klasor"]) / ("B-" + Path(res_b["output"]).name)
+            Path(res_b["output"]).replace(b_path)
+            res["ab"] = {"A": {"hook": hook, "dosya": res["output"]}, "B": {"hook": alt_hooks[0], "dosya": str(b_path)}}
     out_dir = Path(res["klasor"]) if res.get("klasor") else studio._out_dir("neviral-" + (it.get("filename") or str(it["id"])))
     files = [res["output"]] if res.get("output") else []
+    if res.get("ab"):
+        files.append(res["ab"]["B"]["dosya"])
     try:
         (out_dir / "aciklama.txt").unlink()  # tek dilli eski açıklama; yerine aciklamalar.txt
     except OSError:
@@ -381,9 +392,13 @@ def package(con, item_id, platforms=None, langs=None, progress=print, use_claude
     pkg = {"uygulama": "neviral", "oge": it["id"], "dosya": it.get("filename"), "viral_puan": it.get("viral_score"),
            "platform_puanlari": v["p"], "en_iyi_platform": v["best"], "pazarlar": v["m"], "en_iyi_pazar": mb, "ana_dil": main_lang,
            "konular": [k for k, _ in tops], "kaynak": "claude" if ai else "kural", "aciklama": (ai or {}).get("aciklama"),
-           "zamanlar": times, "metinler": {l: {p: texts[l][p] for p in platforms} for l in langs}, "dosyalar": files}
+           "stil": stil, "kanca": hook, "ab_test": res.get("ab"),
+           "kanca_varyantlari": {l: (texts[l].get("_varyantlar") if isinstance(texts.get(l), dict) else None) for l in langs},
+           "zamanlar": times, "metinler": {l: {p: texts[l][p] for p in platforms if p in texts[l]} for l in langs}, "dosyalar": files}
     (out_dir / "paket.json").write_text(json.dumps(pkg, ensure_ascii=False, indent=2), encoding="utf-8")
-    lines = [f"neviral · {it.get('filename')} · {it.get('viral_score')}/100", ""]
+    lines = [f"neviral · {it.get('filename')} · {it.get('viral_score')}/100 · {stil}", ""]
+    if res.get("ab"):
+        lines += [f"A/B: A = {res['ab']['A']['hook']}  |  B = {res['ab']['B']['hook']}", ""]
     for p in platforms:
         lines.append("=" * 60)
         lines.append(f"{algoritma.platform_name(p, main_lang)} · {v['p'].get(p)}/100")
@@ -442,3 +457,40 @@ def ingest_external(con, path):
     con.execute("UPDATE items SET viral_score=?, viral=?, analyzed_at=? WHERE id=?", (sc, json.dumps(info, separators=(",", ":")), db.now(), iid))
     con.commit()
     return iid
+
+
+def compare(con, item_id, lang="tr", hook=None, size=(360, 640)):
+    """Tasarım karşılaştırması: her stil için önizleme + okunurluk puanı + konuya uygunluk; kanca varyantları."""
+    import hashlib
+    from . import metin, tasarim
+    it = db.get_item(con, int(item_id))
+    if not it:
+        raise ValueError("öğe yok")
+    tops = konu.topics(it)
+    keys = [k for k, _ in tops]
+    nost = konu.nostalgia(it, dt.date.today().year)
+    var = {l: metin.variants(it, keys, l, nost, n=6) for l in yazi.LANGS}
+    hook = (hook or (var[lang][0]["text"] if var[lang] else "neviral")).strip()[:60]
+    src = it.get("thumb") if it.get("kind") == "video" else (it.get("path") or it.get("thumb"))
+    if it.get("kind") == "video" and it.get("path") and Path(it["path"]).exists():
+        src, kind = it["path"], "video"
+    else:
+        kind = "foto"
+    rec = tasarim.style_for(keys)
+    out_dir = config.CACHE / "stil"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    h = hashlib.sha1(hook.encode()).hexdigest()[:10]
+    styles = []
+    accent = None
+    for s in tasarim.style_list(lang):
+        name = f"{it['id']}-{s['key']}-{h}.jpg"
+        f = out_dir / name
+        img, leg, accent = tasarim.preview(src, kind, hook, s["key"], accent, W=size[0], H=size[1], at=1.0)
+        img.save(f, quality=85)
+        fit = 12 if s["key"] == rec else 0
+        styles.append({**s, "url": f"/api/viral/onizleme/{name}", "okunurluk": leg, "puan": round(min(100, leg * 0.85 + fit + 8), 1),
+                       "onerilen": s["key"] == rec})
+    best = max(styles, key=lambda x: x["puan"])["key"]
+    for s in styles:
+        s["en_iyi"] = s["key"] == best
+    return {"kanca": hook, "kancalar": var, "stiller": styles, "onerilen_stil": rec, "en_iyi_stil": best}

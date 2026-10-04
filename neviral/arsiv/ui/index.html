@@ -49,6 +49,11 @@ dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);bo
 .pbar{display:flex;align-items:center;gap:6px;font-size:12px;margin:2px 0}.pbar span.n{width:150px;color:var(--muted)}.pbar .t{flex:1;height:7px;background:var(--panel2);border-radius:4px;overflow:hidden;max-width:180px}.pbar .t i{display:block;height:100%;background:var(--accent)}
 .chip{display:inline-block;font-size:12px;border-radius:999px;padding:2px 8px;margin:2px 4px 2px 0;background:var(--panel2);border:1px solid var(--line)}.chip.ok{border-color:var(--ok);color:var(--ok)}.chip.w{border-color:var(--accent);color:var(--accent)}
 .tabs{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}.tabs button{padding:4px 10px;font-size:13px}.tabs button.on{background:var(--accent);color:#111;border-color:var(--accent)}
+.hk{display:flex;flex-direction:column;gap:4px;margin:8px 0}.hrow{display:flex;align-items:center;gap:10px;text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:7px 10px;cursor:pointer;color:inherit}
+.hrow.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}.hrow .hs{font-size:20px;font-weight:800;min-width:30px}.hrow .ht{flex:1;display:flex;flex-direction:column;gap:2px}.hrow small{color:var(--muted);font-size:11px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin-top:8px;transition:opacity .2s}.sgrid.busy{opacity:.45;pointer-events:none}
+.scard{display:flex;flex-direction:column;gap:2px;padding:4px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;cursor:pointer;color:inherit;text-align:left;font-size:12px}
+.scard img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:9px;background:#000}.scard.on{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}.scard .sn{display:flex;justify-content:space-between;padding:0 3px}.scard .sb{font-size:11px;min-height:14px;padding:0 3px}.scard small{padding:0 3px}
 .capbox{background:#0a0e18;border:1px solid var(--line);border-radius:8px;padding:10px;white-space:pre-wrap;font-size:13px;margin:6px 0}
 @media(max-width:800px){.vrow{grid-template-columns:70px 1fr}.vrow .vrank{display:none}.vrow img{width:70px;height:94px}}
 .form .row label{display:inline-flex;align-items:center;gap:6px;margin:4px 14px 4px 0;color:var(--text);font-size:14px}
@@ -280,7 +285,7 @@ async function useIdea(i){state.sel.clear();const res=await api('/api/items?ids=
 // ---------- neviral
 state.vpage=0;state.vlimit=30;state.vtotal=0;
 function vColor(x){return x>=80?'#4ade80':x>=65?'#ffd166':x>=50?'#fb923c':'#9aa5bd'}
-async function vSettings(){try{const s=await api('/api/viral/settings');$('#v-tr').value=Math.round(s.kitle.TR*100);$('#v-de').value=Math.round(s.kitle.DE*100);$('#v-int').value=Math.round(s.kitle.INT*100);$('#v-hesap').value=s.hesap||'';$('#v-tz').value=s.saat_dilimi;state.vclaude=s.claude}catch(e){}}
+async function vSettings(){try{const s=await api('/api/viral/settings');$('#v-tr').value=Math.round(s.kitle.TR*100);$('#v-de').value=Math.round(s.kitle.DE*100);$('#v-int').value=Math.round(s.kitle.INT*100);$('#v-hesap').value=s.hesap||'';$('#v-tz').value=s.saat_dilimi;state.vclaude=s.claude;state.vstiller=s.stiller||[]}catch(e){}}
 async function vSaveSettings(){await api('/api/viral/settings',{kitle:{TR:+val('v-tr')||0,DE:+val('v-de')||0,INT:+val('v-int')||0},hesap:val('v-hesap'),saat_dilimi:val('v-tz')});toast(t('Kaydedildi; yeniden puanlanıyor…'));setTimeout(()=>vLoad(0),4000)}
 async function vAnalyze(){try{const r=await api('/api/viral/analyze',{});toast(t('Analiz başladı (arka planda). Büyük arşivde birkaç dakika sürebilir.'),5000);pollJob(r.job).then(()=>{toast(t('Analiz bitti'));vLoad(0)}).catch(e=>toast(t('Hata: ')+e.message,6000))}catch(e){toast(t('Hata: ')+e.message,6000)}}
 function vTop(){vOptOpen({n:10})}
@@ -301,6 +306,7 @@ function vRowHtml(it,label){const n=it.neviral;return `<div class="vrow"><div cl
 function vPage(d){const max=Math.ceil(state.vtotal/state.vlimit)-1;state.vpage=Math.min(Math.max(0,state.vpage+d),Math.max(0,max));vLoad()}
 function vPackage(id){vOptOpen({id})}
 function vOptOpen(target){state.vtarget=target;let o={};try{o=JSON.parse(localStorage.getItem('vopt')||'{}')}catch(e){}
+ if(target.stil)o.stil=target.stil;const S=[['otomatik',t('otomatik (konuya göre en iyisi)')]].concat((state.vstiller||[]).map(x=>[x.key,'✦ '+x.ad+' — '+x.aciklama]),[['klasik',t('klasik (sade)')]]);
  const P=[['ig_reels','Instagram Reels'],['ig_feed','Instagram gönderi / carousel'],['tiktok','TikTok'],['yt_shorts','YouTube Shorts'],['fb_reels','Facebook Reels']];
  const plats=o.platforms||P.map(x=>x[0]), langs=o.langs||['tr','de','en'];
  const d=$('#vopt');d.innerHTML=`<form method="dialog" class="form" style="padding:18px;min-width:min(560px,90vw)">
@@ -310,7 +316,9 @@ function vOptOpen(target){state.vtarget=target;let o={};try{o=JSON.parse(localSt
  <div class="two"><div><label>${t('Video formatı')}</label><select name="format">${['9:16','4:5','1:1'].map(f=>`<option ${o.format===f?'selected':''}>${f}</option>`).join('')}</select></div>
  <div><label>${t('Video süresi')}</label><select name="sure"><option value="">${t('otomatik (platforma göre)')}</option>${[7,15,30,45,60,90].map(x=>`<option value="${x}" ${String(o.sure)===String(x)?'selected':''}>${x} ${t('sn')}</option>`).join('')}</select></div></div>
  <div class="two"><div><label>${t('Müzik')}</label><select name="muzik">${[['auto','otomatik'],['yok','yok'],['sakin','sakin (sentez)'],['enerjik','enerjik (sentez)'],['duygusal','duygusal (sentez)']].map(([k,a])=>`<option value="${k}" ${o.muzik===k?'selected':''}>${t(a)}</option>`).join('')}</select></div>
- <div><label>${t('Ekrandaki kanca')} <small class="muted">(${t('boş = otomatik')})</small></label><input name="hook" maxlength="60" placeholder="${t('ör. Bu kitabın hikâyesi…')}"></div></div>
+ <div><label>${t('Ekrandaki kanca')} <small class="muted">(${t('boş = otomatik')})</small></label><input name="hook" maxlength="60" value="${esc(target.hook||'')}" placeholder="${t('ör. Bu kitabın hikâyesi…')}"></div></div>
+ <div class="two"><div><label>${t('Tasarım stili')}</label><select name="stil">${S.map(([k,a])=>`<option value="${k}" ${(o.stil||'otomatik')===k?'selected':''}>${esc(a)}</option>`).join('')}</select></div>
+ <div><label>${t('A/B testi')}</label><label style="font-weight:400"><input type="checkbox" name="ab" ${o.ab?'checked':''}> ${t('2 video: en iyi kanca + ikinci kanca')}</label></div></div>
  <div class="row" style="margin-top:10px"><label><input type="checkbox" name="iyilestir" ${o.iyilestir===false?'':'checked'}> ${t('Otomatik renk/ışık/netlik düzeltmesi')}</label>
  <label><input type="checkbox" name="hatirlat" ${o.hatirlat===false?'':'checked'}> ${t('En iyi saate hatırlatıcı ekle')}</label>
  ${state.vclaude?`<label><input type="checkbox" name="claude" ${o.claude===false?'':'checked'}> ✨ ${t('Claude görsele bakıp metin yazsın')}</label>`:''}</div>
@@ -319,7 +327,7 @@ function vOptOpen(target){state.vtarget=target;let o={};try{o=JSON.parse(localSt
 async function vOptSubmit(ev){const f=ev.target;if(ev.submitter&&ev.submitter.value!=='ok')return;
  const pl=[...f.querySelectorAll('[name=pl]:checked')].map(x=>x.value), lg=[...f.querySelectorAll('[name=lg]:checked')].map(x=>x.value);
  if(!pl.length||!lg.length){ev.preventDefault();return toast(t('En az bir platform ve bir dil seçin'))}
- const opts={format:f.format.value,sure:f.sure.value||null,muzik:f.muzik.value,hook:f.hook.value.trim(),iyilestir:f.iyilestir.checked,hatirlat:f.hatirlat.checked};
+ const opts={format:f.format.value,sure:f.sure.value||null,muzik:f.muzik.value,hook:f.hook.value.trim(),iyilestir:f.iyilestir.checked,hatirlat:f.hatirlat.checked,stil:f.stil.value,ab:f.ab.checked};
  const claude=f.claude?f.claude.checked:true;
  try{localStorage.setItem('vopt',JSON.stringify(Object.assign({platforms:pl,langs:lg,claude},opts,{hook:''})))}catch(e){}
  const tg=state.vtarget;const body={platforms:pl,langs:lg,opts,claude_yok:!claude};
@@ -348,10 +356,26 @@ async function vOpen(id){const it=await api('/api/viral/item/'+id);state.cur=it;
   <h3>${t('Metinler')}</h3><div class="tabs" id="v-ltabs">${['tr','de','en'].map(l=>`<button data-l="${l}" onclick="vTab('l','${l}')">${l.toUpperCase()}</button>`).join('')}</div>
   <div class="tabs" id="v-ptabs">${Object.keys(n.metinler.tr).map(p=>`<button data-p="${p}" onclick="vTab('p','${p}')">${esc((n.platformlar.find(x=>x.key===p)||{ad:p}).ad)}</button>`).join('')}</div>
   <div id="v-cap"></div><div class="muted" style="font-size:12px" id="v-sig"></div>
-  <div class="row" style="margin-top:10px"><button class="primary" onclick="vPackage(${it.id},this)">⚡ ${t('Paket hazırla')}</button><button onclick="detay.close()">${t('Kapat')}</button></div>
+  <h3>🧪 ${t('Kanca & tasarım karşılaştır')}</h3><div class="muted" style="font-size:12px">${t('Hangi başlık ve hangi tasarım en çok etki bırakır? Seçin, karşılaştırın, seçiminizle paketleyin.')}</div>
+  <div id="v-cmp"><div class="wait" style="padding:14px"><div class="spin"></div> <span class="muted">${t('5 tasarım önizlemesi hazırlanıyor…')}</span></div></div>
+  <div class="row" style="margin-top:10px"><button class="primary" onclick="vOptOpen({id:${it.id},hook:state.vhook||'',stil:state.vstil||''})">⚡ ${t('Seçimle paket hazırla')}</button><button onclick="vPackage(${it.id},this)">${t('Paket hazırla')}</button><button onclick="detay.close()">${t('Kapat')}</button></div>
   <p class="muted" style="font-size:12px">${state.vclaude?'✨ '+t('Paket hazırlanırken Claude görsele bakıp metinleri yeniden yazar.'):t('İpucu: ANTHROPIC_API_KEY tanımlarsanız Claude görsele bakıp metinleri yazar.')}</p></div></div>`;
- if(!d.open)d.showModal();vRenderCap();loadPreview(id,it.kind)}
-function vTab(kind,v){if(kind==='l')state.vlang=v;else state.vplat=v;vRenderCap()}
+ state.vhook='';state.vstil='';state.cmp=null;if(!d.open)d.showModal();vRenderCap();loadPreview(id,it.kind);vCompare(id)}
+function vTab(kind,v){if(kind==='l')state.vlang=v;else state.vplat=v;vRenderCap();if(kind==='l')vCmpRender()}
+// ---------- kanca & tasarım karşılaştırma
+async function vCompare(id,hook){const box=$('#v-cmp');if(!box)return;box.querySelectorAll('.sgrid').forEach(g=>g.classList.add('busy'));
+ try{const c=await api('/api/viral/karsilastir/'+id+(hook?'?hook='+encodeURIComponent(hook):''));if(!state.cur||state.cur.id!==id)return;
+  state.cmp=c;state.vhook=c.kanca;if(!state.vstil)state.vstil=c.en_iyi_stil;vCmpRender()}catch(e){box.innerHTML=`<div class="warn">${esc(e.message)}</div>`}}
+function vCmpRender(){const c=state.cmp,box=$('#v-cmp');if(!c||!box)return;const hs=c.kancalar[state.vlang]||[];const stamp=Date.now();
+ box.innerHTML=`<div class="hk">${hs.map((h,i)=>`<button class="hrow ${h.text===state.vhook?'on':''}" data-i="${i}"><span class="hs" style="color:${vColor(h.score)}">${Math.round(h.score)}</span><span class="ht"><b>${esc(h.text)}</b><small>${h.why.slice(0,3).map(x=>'✓ '+esc(x)).join(' · ')}${h.warn.length?' <span class="warn">⚠ '+h.warn.map(esc).join(' · ')+'</span>':''}</small></span>${i===0?`<span class="chip ok">🏆 ${t('en güçlü')}</span>`:''}</button>`).join('')}</div>
+ <div class="row" style="margin:6px 0"><input id="v-own" maxlength="60" style="flex:1;min-width:180px" placeholder="${t('Kendi başlığınızı yazın ve puanlayın…')}"><b id="v-ownsc" style="min-width:34px;text-align:right">—</b><button class="small" id="v-ownbtn">${t('Önizle')}</button></div><div class="muted" id="v-ownwhy" style="font-size:12px"></div>
+ <div class="sgrid">${c.stiller.map(s=>`<button class="scard ${s.key===state.vstil?'on':''}" data-k="${s.key}" title="${esc(s.aciklama)}"><img src="${s.url}?v=${stamp}" alt="${esc(s.ad)}" loading="lazy"><span class="sn"><b>${esc(s.ad)}</b> <span style="color:${vColor(s.puan)}">${Math.round(s.puan)}</span></span><span class="sb">${s.en_iyi?'🏆 '+t('en iyi'):''}${s.onerilen?' ⭐ '+t('konuya uygun'):''}</span><small class="muted">${t('okunurluk')} ${Math.round(s.okunurluk)}</small></button>`).join('')}</div>`;
+ box.querySelectorAll('.hrow').forEach(b=>b.onclick=()=>{state.vhook=hs[+b.dataset.i].text;vCompare(state.cur.id,state.vhook);box.querySelectorAll('.hrow').forEach(x=>x.classList.toggle('on',x===b))});
+ box.querySelectorAll('.scard').forEach(b=>b.onclick=()=>{state.vstil=b.dataset.k;box.querySelectorAll('.scard').forEach(x=>x.classList.toggle('on',x===b))});
+ const own=$('#v-own');let tm;own.oninput=()=>{clearTimeout(tm);tm=setTimeout(async()=>{const v=own.value.trim();if(!v){$('#v-ownsc').textContent='—';$('#v-ownwhy').textContent='';return}
+  try{const r=await api('/api/viral/hookpuan',{text:v,lang:state.vlang,topics:(state.cur.neviral.konular||[]).map(x=>x.key)});const sc=$('#v-ownsc');sc.textContent=Math.round(r.puan);sc.style.color=vColor(r.puan);
+   $('#v-ownwhy').innerHTML=r.neden.map(x=>'✓ '+esc(x)).join(' · ')+(r.uyari.length?' <span class="warn">⚠ '+r.uyari.map(esc).join(' · ')+'</span>':'')}catch(e){}},250)};
+ $('#v-ownbtn').onclick=()=>{const v=own.value.trim();if(v){state.vhook=v;vCompare(state.cur.id,v)}}}
 function vRenderCap(){const n=state.cur.neviral;const m=n.metinler[state.vlang]||{};const pk=m[state.vplat]?state.vplat:Object.keys(m)[0];state.vplat=pk;const x=m[pk];
  document.querySelectorAll('#v-ltabs button').forEach(b=>b.classList.toggle('on',b.dataset.l===state.vlang));document.querySelectorAll('#v-ptabs button').forEach(b=>b.classList.toggle('on',b.dataset.p===pk));
  $('#v-cap').innerHTML=x?`<div class="muted" style="font-size:12px">${t('Ekrandaki kanca')}: <b>${esc(x.hook)}</b>${pk==='yt_shorts'?' · '+t('Başlık')+': <b>'+esc(x.title)+'</b>':''}</div><div class="capbox" id="v-captext">${esc(x.caption)}</div><button class="small" onclick="navigator.clipboard?.writeText(document.getElementById('v-captext').innerText);toast(t('Kopyalandı'))">📋 ${t('Kopyala')}</button>`:'';

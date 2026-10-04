@@ -1,5 +1,6 @@
 """Yerel web arayüzü: standart kütüphane http.server + JSON API. Dış bağımlılık yok."""
 import itertools
+import re
 import json
 import mimetypes
 import os
@@ -305,10 +306,25 @@ class Handler(BaseHTTPRequestHandler):
                 total = con.execute("SELECT COUNT(*) FROM items WHERE hidden=0 AND viral_score IS NOT NULL").fetchone()[0]
                 it["neviral"] = viral.present(con, it, self._lang(), total=total, detail=True)
                 return self._json(it)
+            if path.startswith("/api/viral/karsilastir/"):
+                from . import viral
+                try:
+                    return self._json(viral.compare(self._con(), int(path.rsplit("/", 1)[1]), lang=self._lang(),
+                                                    hook=(q.get("hook") or "")[:60] or None))
+                except ValueError:
+                    return self._json({"hata": "yok"}, 404)
+            if path.startswith("/api/viral/onizleme/"):
+                name = path.rsplit("/", 1)[1]
+                f = config.CACHE / "stil" / name
+                if not re.fullmatch(r"\d+-\w+-[0-9a-f]{10}\.jpg", name) or not f.is_file():
+                    return self._json({"hata": "yok"}, 404)
+                return self._file(f, "image/jpeg", cache=False)
             if path == "/api/viral/settings":
                 from . import viral, yazi
                 st = viral.settings(self._con())
                 st["claude"] = yazi.claude_available()
+                from . import tasarim
+                st["stiller"] = tasarim.style_list(self._lang())
                 return self._json(st)
             if path == "/api/calendar":
                 from . import takvim
@@ -504,8 +520,14 @@ class Handler(BaseHTTPRequestHandler):
                 from . import viral
                 st = viral.save_settings(con, kitle=body.get("kitle"), saat_dilimi=body.get("saat_dilimi"), hesap=body.get("hesap"))
                 return self._json({"ayarlar": st, "job": _proc_job("neviral-puan", ["viral", "puanla"], self.db_path)})
+            if path == "/api/viral/hookpuan":
+                from . import metin
+                lang = body.get("lang") if body.get("lang") in ("tr", "de", "en") else self._lang()
+                tops = [str(x)[:20] for x in (body.get("topics") or [body.get("topic") or ""]) if isinstance(x, str)][:3]
+                sc, why, warn = metin.score_for(str(body.get("text") or "")[:120], lang, tops)
+                return self._json({"puan": sc, "neden": why, "uyari": warn})
             if path in ("/api/viral/package", "/api/viral/top"):
-                from . import viral
+                from . import tasarim, viral
                 plats = [x for x in (body.get("platforms") or []) if isinstance(x, str)][:6] or None
                 langs = [x for x in (body.get("langs") or []) if x in ("tr", "de", "en")] or None
                 use_ai = not body.get("claude_yok")
@@ -514,7 +536,9 @@ class Handler(BaseHTTPRequestHandler):
                         "sure": float(o["sure"]) if str(o.get("sure") or "").replace(".", "", 1).isdigit() else None,
                         "muzik": o.get("muzik") if o.get("muzik") in ("auto", "yok", "sakin", "enerjik", "duygusal") else "auto",
                         "hook": str(o.get("hook") or "")[:60], "iyilestir": o.get("iyilestir", True) is not False,
-                        "hatirlat": o.get("hatirlat", True) is not False}
+                        "hatirlat": o.get("hatirlat", True) is not False,
+                        "stil": o.get("stil") if o.get("stil") in (*tasarim.STYLES, "klasik", "otomatik") else "otomatik",
+                        "ab": o.get("ab") is True}
                 if path == "/api/viral/package":
                     iid = int(body["id"])
                     fn = lambda log, iid=iid: viral.package(db.connect(self.db_path), iid, plats, langs, log, use_ai, opts)  # noqa: E731

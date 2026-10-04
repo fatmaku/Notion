@@ -38,9 +38,9 @@ TR_CHARS = re.compile(r"[ğşıİĞŞ]")
 DE_CHARS = re.compile(r"[äßÄ]|\b(und|der|die|das|mit|im|am|zum)\b", re.I)
 
 
-def _text(item):
+def _text(item, persons=True):
     parts = [item.get("filename") or "", item.get("title") or "", item.get("description") or "", item.get("place") or ""]
-    for k in ("albums", "keywords", "labels", "persons"):
+    for k in ("albums", "keywords", "labels") + (("persons",) if persons else ()):
         parts += [str(x) for x in (item.get(k) or [])]
     return " ".join(parts)
 
@@ -55,7 +55,7 @@ def _low(txt):
 
 def topics(item, year_now=None):
     """[(konu, güven)] en güçlüden zayıfa. Eski içerik ayrıca 'nostalji' açısı taşır (ayrı alan)."""
-    txt = _low(_text(item))
+    txt = _low(_text(item, persons=False))  # kişi adları konu sayılmaz ('Deniz' bir isim, deniz değil)
     found = []
     for key, (_, words, _) in TOPICS.items():
         hits = sum(1 for w in words if w and _WORD_RE[w].search(txt))
