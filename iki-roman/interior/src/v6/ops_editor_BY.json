@@ -1,4 +1,24 @@
 [
- {"op": "replace", "old": "Sessiz Ses konuşmadı.", "new": "Sessiz Ses konuşmadı. Ona bu adı en çok sustuğu için vermiştim; konuştuğu nadir anlarda da sesini hiç yükseltmezdi.", "match": "Sessiz Ses konuşmadı.", "kap": "2. Siyah Paket", "neden": "„Sessiz Ses“ hem susan tanık hem de en otoriter iç ses olarak okunuyordu (jüri); ilk geçtiği yerde adı tek cümleyle açıklanıyor, sonraki konuşmaları tutarlı hâle geliyor."},
- {"op": "insert_after", "match": "Bunu öğrenmeleri zaman aldı.", "text": "Ölüm belgesine 14.53 yazılmıştı. Emir, monitörün saatiyle koridordaki saat arasında iki dakika fark olduğunu söyledi; doktorun hangisine bakarak saati söylediğini kimse bilmiyordu. Duru karganın 14.52'de konduğunu anlatmaktan vazgeçmedi. İkisi de haklı olabilirdi. Babamın saati bana suçluluğun bir saate ihtiyacı olduğunu öğretmişti; çocuklarımın elinde aynı saat suçluluk olarak değil, hatıra olarak kaldı.", "kap": "49. Geride Kalanlar", "neden": "Sayıların çift anlamı (35. bölümde babanın saati: „zihnim 14.53'ü seçmişti“) finalde de açık kalıyor; olay örgüsü değişmiyor, ölüm saati yalnızca kesinlik iddiasını kaybediyor (jüri önerisi)."}
+ {
+  "op": "replace",
+  "old": "Sessiz Ses konuşmadı.",
+  "new": "Sessiz Ses konuşmadı. Ona bu adı en çok sustuğu için vermiştim; konuştuğu nadir anlarda da sesini hiç yükseltmezdi.",
+  "match": "Sessiz Ses konuşmadı.",
+  "kap": "2. Siyah Paket",
+  "neden": "„Sessiz Ses“ hem susan tanık hem de en otoriter iç ses olarak okunuyordu (jüri); ilk geçtiği yerde adı tek cümleyle açıklanıyor, sonraki konuşmaları tutarlı hâle geliyor."
+ },
+ {
+  "op": "insert_after",
+  "match": "Bunu öğrenmeleri zaman aldı.",
+  "text": "Ölüm belgesine 14.53 yazılmıştı. Emir, monitörün saatiyle koridordaki saat arasında iki dakika fark olduğunu söyledi; doktorun hangisine bakarak saati söylediğini kimse bilmiyordu. Duru karganın 14.52'de konduğunu anlatmaktan vazgeçmedi. İkisi de haklı olabilirdi. Babamın saati bana suçluluğun bir saate ihtiyacı olduğunu öğretmişti; çocuklarımın elinde aynı saat suçluluk olarak değil, hatıra olarak kaldı.",
+  "kap": "49. Geride Kalanlar",
+  "neden": "Sayıların çift anlamı (35. bölümde babanın saati: „zihnim 14.53'ü seçmişti“) finalde de açık kalıyor; olay örgüsü değişmiyor, ölüm saati yalnızca kesinlik iddiasını kaybediyor (jüri önerisi)."
+ },
+ {
+  "op": "replace",
+  "old": "Başka kişilerin isimlerini kapattım. Cevap yerine bir soru geldi:",
+  "new": "Başka kişilerin isimlerini kapattım. Kısa bir cevap geldi:",
+  "kap": "13. Bedenin İtirazı",
+  "neden": "Ardından gelen mesaj soru değil; „Cevap yerine bir soru geldi“ metinle çelişiyordu (lektör notu)."
+ }
 ]
