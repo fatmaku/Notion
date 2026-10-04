@@ -1,0 +1,9 @@
+[
+ {"op": "replace", "old": "Allah halifesini yaratmış’ dedi", "new": "Allah halifesini yaratmış’ dedi.", "why": "Nokta.", "kap": "FİT NE?"},
+ {"op": "replace", "old": "İblis, şeytana yaklaştı ve fısıldadı", "new": "İblis, şeytana yaklaştı ve fısıldadı:", "why": "Konuşmadan önce iki nokta.", "kap": "FİT NE?"},
+ {"op": "replace", "old": "hafifçe geriye yaslandı ama hala hiddetliydi", "new": "hafifçe geriye yaslandı ama hâlâ hiddetliydi.", "why": "Nokta; „hâlâ“.", "kap": "FİT NE?"},
+ {"op": "replace", "old": "Sorumu düzelterek sordum bu seferinde", "new": "Sorumu düzelterek sordum bu seferinde:", "why": "İki nokta.", "kap": "MUHİBBİ"},
+ {"op": "replace", "old": "Hanzeb’i dinlemeye devam etti", "new": "Hanzeb’i dinlemeye devam etti.", "why": "Nokta.", "kap": "MIZRAĞIN İKİ UCU"},
+ {"op": "replace", "old": "gerdan bükerek konuşmaya", "new": "gerdan bükerek konuşmaya:", "why": "İki nokta.", "kap": "MIZRAĞIN İKİ UCU"},
+ {"op": "clean_whitespace", "why": "Paragraf başı/sonu boşluk ve sekmeler, çift boşluklar.", "kap": "(tüm kitap)"}
+]

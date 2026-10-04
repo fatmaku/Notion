@@ -204,6 +204,7 @@ class TitleBlock:
     author: str = ""
     frontispiece: Optional[Para] = None
     paras: list[Para] = field(default_factory=list)
+    dedication: list[Para] = field(default_factory=list)   # Absatzvorlage „Dedication“ (SA)
 
 
 @dataclass
@@ -279,6 +280,10 @@ def build_book(key: str, paras: list[Para]) -> Book:
 
     for p in paras[i:]:
         st = p.style
+        if st == "Dedication":
+            if p.text.strip():
+                front.dedication.append(p)
+            continue
         if p.image is not None:
             n_plate += 1
             new_unit(Unit("plate", f"plate-{n_plate}", para=p))
@@ -373,7 +378,7 @@ def docx_text(paras: list[Para]) -> str:
 
 def model_text(book: Book) -> str:
     """Text des Modells in Manuskriptreihenfolge (ohne Nummern-Splitting)."""
-    out = [p.text for p in book.front.paras]
+    out = [p.text for p in book.front.paras] + [p.text for p in book.front.dedication]
     for u in book.units:
         if u.kind in ("chapter", "act"):
             out.append(u.title)
@@ -528,6 +533,15 @@ def copyright_lines(book: Book) -> list[tuple[str, str]]:
     ]
 
 
+def dedication_html(book: Book) -> str:
+    """Ithaf: erster kurzer Absatz („Bu Kitap:“) als Einleitung, Rest zentriert kursiv."""
+    out = []
+    for k, p in enumerate(book.front.dedication):
+        cls = "ded-lead" if k == 0 and len(p.text) < 30 else "ded"
+        out.append(f'<p class="{cls}">{runs_html(p.runs, False)}</p>')
+    return "\n".join(out)
+
+
 def titlepage_html(book: Book) -> str:
     f = book.front
     parts = [f'<p class="tp-title">{esc(f.title)}</p>']
@@ -670,6 +684,8 @@ def print_html(book: Book, build_dir: Path, first_body_page: Optional[int],
     out.append(f'<section class="page titlepage" id="titlepage">{titlepage_html(book)}</section>')
     cp = "".join(f'<p class="{c}">{esc(t)}</p>' if c else f"<p>{esc(t)}</p>" for c, t in copyright_lines(book))
     out.append(f'<section class="page copyright" id="copyright">{cp}</section>')
+    if f.dedication:
+        out.append(f'<section class="page dedication" id="dedication">{dedication_html(book)}</section>')
     # Inhaltsverzeichnis (Tabelle: Nummernspalte + Titel mit Punktleader und Seitenzahl;
     # ohne Nummernspalte, wenn kein Kapitel nummeriert ist)
     numbered = any(u.number for u in book.chapters)
@@ -931,6 +947,9 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
     cp = "".join(f'<p class="{c}">{esc(t)}</p>' if c else f"<p>{esc(t)}</p>" for c, t in copyright_lines(book))
     add_page("copyright", "copyright.xhtml", "Telif", f'<section class="copyright" epub:type="copyright-page">{cp}</section>',
              "frontmatter")
+    if f.dedication:
+        add_page("dedication", "dedication.xhtml", "İthaf",
+                 f'<section class="dedication" epub:type="dedication">{dedication_html(book)}</section>', "frontmatter")
 
     # Werkteil-Dateien (zuerst erzeugen, damit das HTML-IHV die Dateinamen kennt)
     body_pages = []   # (pid, fname, unit)
@@ -1122,6 +1141,8 @@ def make_previews(book: Book, pdf_path: Path, anchors: dict[str, int], n_pages: 
         old.unlink()
     first_body = anchors["body-start"]
     pages: list[int] = [1, anchors["titlepage"], anchors["copyright"]]
+    if "dedication" in anchors:
+        pages.append(anchors["dedication"])
     if "frontispiece" in anchors:
         pages.append(anchors["frontispiece"])
     pages += list(range(anchors["toc"], first_body))            # IHV-Seite(n) (+ evtl. Leerseite)

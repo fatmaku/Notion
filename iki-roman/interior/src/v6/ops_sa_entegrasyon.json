@@ -1,0 +1,497 @@
+[
+ {
+  "op": "replace",
+  "old": "Şahit ve Yolcu",
+  "new": "ŞAHİT",
+  "why": "Kitabın adı ŞAHİT olarak kalıyor (Tuncay'ın kararı); „Yolcu“ ve „Şahit“ ithafta kalın harfle duruyor.",
+  "kap": "(Ön kısım)",
+  "match": "Şahit ve Yolcu"
+ },
+ {
+  "op": "delete_empty",
+  "to": "Bu Kitap:",
+  "why": "Boş satırlar (dizgi sayfayı kendisi düzenliyor).",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "style",
+  "match": "Bu Kitap:",
+  "style": "Dedication",
+  "why": "İthaf kendi sayfasında, ortalı dizilsin diye ayrı biçim.",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "style",
+  "match": "İyi bir insan, adam, eş",
+  "style": "Dedication",
+  "why": "İthaf kendi sayfasında, ortalı dizilsin diye ayrı biçim.",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "style",
+  "match": "Galip Kaşkaya",
+  "style": "Dedication",
+  "why": "İthaf kendi sayfasında, ortalı dizilsin diye ayrı biçim.",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "replace",
+  "old": "kardeş arkadaş,",
+  "new": "kardeş, arkadaş,",
+  "why": "Virgül.",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "replace",
+  "old": " ithaf edilmiştir",
+  "new": " ithaf edilmiştir.",
+  "why": "Nokta.",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "delete_empty",
+  "from": "Galip Kaşkaya",
+  "to": "Farkında mısın? Deliler",
+  "why": "Boş satırlar.",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "strip_ws_runs",
+  "match": "Sefarizmalar",
+  "why": "Sekme karakterleri; kaynak satırı dizgide sağa yaslanıyor.",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "style",
+  "match": "Sefarizmalar",
+  "style": "Normal",
+  "why": "Epigraf kaynağı (v5'teki gibi).",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "replace",
+  "old": "ahmaksın",
+  "new": "ahmaksın.",
+  "why": "Nokta.",
+  "kap": "(Ön kısım)",
+  "match": "Farkında mısın? Deliler"
+ },
+ {
+  "op": "delete_empty",
+  "from": "Sefarizmalar",
+  "to": "Bu hikâye hatırladığım gibi başlamadı",
+  "why": "Boş satırlar.",
+  "kap": "(Ön kısım)"
+ },
+ {
+  "op": "replace",
+  "old": "böyle bir dönemden geçiyor:",
+  "new": "böyle bir dönemden geçiyordum:",
+  "why": "Fiil eksik kalmış (dizinin sonu „bakıyordum“).",
+  "kap": "AZ ÇOK"
+ },
+ {
+  "op": "replace",
+  "old": "açmıyordum mesela... Derken",
+  "new": "açmıyordum mesela… Derken",
+  "why": "Üç nokta tek karakter.",
+  "kap": "AZ ÇOK"
+ },
+ {
+  "op": "replace",
+  "old": "ben bile bitiremedim tanımı daha”",
+  "new": "ben bile bitiremedim tanımı daha.”",
+  "why": "Nokta.",
+  "kap": "AZ ÇOK"
+ },
+ {
+  "op": "replace",
+  "old": "değildi ve Vildan Hanımı da bunlar şaşırtıyordu. ",
+  "new": "değildi ve Vildan Hanım'ı da bunlar şaşırtıyordu.",
+  "why": "Kesme işareti.",
+  "kap": "DAKTİLO"
+ },
+ {
+  "op": "replace",
+  "old": "“Mustafa Sefa Bey, yazdıklarınız tamamen",
+  "new": "“‘Mustafa Sefa Bey, yazdıklarınız tamamen",
+  "why": "İç tırnak açılmamıştı (kapanış ’ vardı).",
+  "kap": "DAKTİLO"
+ },
+ {
+  "op": "replace",
+  "old": "aşamasında, muallak...”",
+  "new": "aşamasında, muallak…”",
+  "why": "Üç nokta tek karakter.",
+  "kap": "DAKTİLO"
+ },
+ {
+  "op": "replace",
+  "old": "kendisine ulaşmak, yani vakanın yazdıklarını derlemek, romanlaştırmak senin, vakayı tedavi etmek benim, sırrı çözmek devletin işi”",
+  "new": "kendisine ulaşmak. Yani vakanın yazdıklarını derlemek, romanlaştırmak senin; vakayı tedavi etmek benim; sırrı çözmek devletin işi.”",
+  "why": "Cümle bölündü, nokta.",
+  "kap": "DAKTİLO"
+ },
+ {
+  "op": "replace",
+  "old": "“Hayır, yarın olarak kalsın. Hastaların da işi beklemesin”",
+  "new": "“Hayır, yarına kalsın. Hastaların da işi beklemesin.”",
+  "why": "„yarın olarak kalsın“ → „yarına kalsın“ (toplantı yarına alındı); nokta.",
+  "kap": "DAKTİLO"
+ },
+ {
+  "op": "replace",
+  "old": "Biz de ardı sıra beraberinde çıktık.",
+  "new": "Biz de ardı sıra çıktık.",
+  "why": "„ardı sıra beraberinde“ çift anlatım.",
+  "kap": "DAKTİLO"
+ },
+ {
+  "op": "style",
+  "match": "Derken Vildan Hanım yanımızdan ayrılmıştı.",
+  "style": "Normal",
+  "why": "Açılış biçimi yalnız bölümün ilk paragrafında.",
+  "kap": "TECRİT ODASI"
+ },
+ {
+  "op": "replace",
+  "old": "Derken Vildan Hanım yanımızdan ayrılmıştı. ",
+  "new": "Derken Vildan Hanım yanımızdan ayrılmıştı.",
+  "why": "Sondaki boşluk.",
+  "kap": "TECRİT ODASI"
+ },
+ {
+  "op": "replace",
+  "old": "“Kitap yazacağım, yazma demiyorum yaz elbet ama nedir bu dağınıklık, artık ben de yoruluyorum arkanı toplamaktan. İnanılmaz düzensizsin, uyku düzenin zaten yoktu, hepten saldın kendini”",
+  "new": "“‘Kitap yazacağım’ diyorsun; yazma demiyorum, yaz elbet. Ama nedir bu dağınıklık? Artık ben de yoruluyorum arkanı toplamaktan. İnanılmaz düzensizsin; uyku düzenin zaten yoktu, hepten saldın kendini.”",
+  "why": "Annenin sözü: „Kitap yazacağım“ oğlunun sözü, iç tırnakla; soru ve noktalar.",
+  "kap": "TECRİT ODASI"
+ },
+ {
+  "op": "replace",
+  "old": "Hocam kelimesi beni esprili",
+  "new": "“Hocam” kelimesi beni esprili",
+  "why": "Alıntılanan kelime tırnakta.",
+  "kap": "TECRİT ODASI"
+ },
+ {
+  "op": "replace",
+  "old": "Lan demesindeki hikmet ise çocukluktan gelen dostluğumuzdandı. ",
+  "new": "“Lan” demesindeki hikmet ise çocukluktan gelen dostluğumuzdandı.",
+  "why": "Alıntılanan kelime tırnakta; sondaki boşluk.",
+  "kap": "TECRİT ODASI"
+ },
+ {
+  "op": "insert_after",
+  "match": "“Hocam, EEG nedir?”",
+  "text": "Bunu az önce sormuş muydum? O gün fark etmedim; şimdi de emin değilim, olduğu gibi bırakıyorum.",
+  "why": "v3'teki anlatıcı cümlesi geri geldi: EEG iki kez anlatıldıktan sonra yine sorulması bir revizyon artığı gibi değil, hafıza kaybının izi gibi okunsun (Sefa'nın temel aldığı dosyada bu cümle yoktu).",
+  "kap": "TECRİT ODASI"
+ },
+ {
+  "op": "replace",
+  "old": "“Nazım Efendi siz misiniz”",
+  "new": "“Nazım Efendi siz misiniz?”",
+  "why": "Soru işareti.",
+  "kap": "UNUTMA"
+ },
+ {
+  "op": "replace",
+  "old": "Bir hafta olur, on gün olur… Ama bu kadar erken değil”",
+  "new": "Bir hafta olur, on gün olur… Ama bu kadar erken değil.”",
+  "why": "Nokta.",
+  "kap": "UNUTMA"
+ },
+ {
+  "op": "replace",
+  "old": "“Abi, sen Nazım Efendi misin onu söyle?”",
+  "new": "“Abi, sen Nazım Efendi misin, onu söyle.”",
+  "why": "Emir cümlesi (soru işareti değil).",
+  "kap": "UNUTMA"
+ },
+ {
+  "op": "replace",
+  "old": "yani okumuş, mürekkep yalamış ademler”",
+  "new": "yani okumuş, mürekkep yalamış ademler.”",
+  "why": "Nokta.",
+  "kap": "UNUTMA"
+ },
+ {
+  "op": "replace",
+  "old": "yalamak için değil, yazmak için kullanıyorum”",
+  "new": "yalamak için değil, yazmak için kullanıyorum.”",
+  "why": "Nokta.",
+  "kap": "UNUTMA"
+ },
+ {
+  "op": "replace",
+  "old": "Sanki biraz gereksiz mi yükseldim diye düşünürken, biraz mahcuptum:",
+  "new": "Gereksiz yere mi yükseldim diye düşünürken biraz mahcup oldum:",
+  "why": "„Sanki … mi … biraz … biraz“ toparlandı.",
+  "kap": "UNUTMA"
+ },
+ {
+  "op": "replace",
+  "old": "Oysa orada sağlam bir ikaz vardı: Muhyiddin İbnü'l-Arabî'nin;",
+  "new": "Oysa orada sağlam bir ikaz vardı, Muhyiddin İbnü'l-Arabî'ye atfedilen bir söz:",
+  "why": "Söz İbnü'l-Arabî'ye atfediliyor (kesin kaynak yok, v5'teki gibi „atfedilen“).",
+  "kap": "UNUTMA"
+ },
+ {
+  "op": "replace",
+  "old": "“İnsan hakikati öğrenmez, hatırlar” Çözülebilir bir şifreyle oyalanacağıma bu sözlere",
+  "new": "“İnsan hakikati öğrenmez, hatırlar!” Çözülebilir bir şifreyle oyalanacağıma bu söze",
+  "why": "Motto kitabın her yerindeki biçimde (ünlemle); tek söz → „bu söze“.",
+  "kap": "UNUTMA"
+ },
+ {
+  "op": "replace",
+  "old": "İndirilen ilk ayetten ve Peygamberimize gelen ilk ve ilk vahiyden bahsediyordu.",
+  "new": "İndirilen ilk ayetten, Peygamberimize gelen ilk vahiyden bahsediyordu.",
+  "why": "„ilk ve ilk“ yazım hatası.",
+  "kap": "OKU"
+ },
+ {
+  "op": "replace",
+  "old": "kendime de zulüm olacak”",
+  "new": "kendime de zulüm olacak.”",
+  "why": "Nokta.",
+  "kap": "OKU"
+ },
+ {
+  "op": "replace",
+  "old": "“Alimlik meslek değildir ancak mesleğini aşk ile yapan alimdir yeğenim, alimi alim yapan okuduğu kendinden önceki peygamberlerin hayatları, sahabelerin hayatı, alimlerin yaptıkları veya yazdıklarını okuyarak, öğrenerek yola çıkarlar.",
+  "new": "“Alimlik meslek değildir, ancak mesleğini aşk ile yapan alimdir yeğenim. Alimler, kendilerinden önceki peygamberlerin, sahabelerin, alimlerin hayatlarını, yaptıklarını, yazdıklarını okuyarak, öğrenerek yola çıkarlar.",
+  "why": "Cümle yapısı (özne iki kez değişiyordu).",
+  "kap": "OKU"
+ },
+ {
+  "op": "replace",
+  "old": "meşakkati zorlu bir yolculuktur. İlim öğrendikçe",
+  "new": "meşakkatli, zorlu bir yolculuktur. İlim, öğrendikçe",
+  "why": "„meşakkatli“; virgül.",
+  "kap": "OKU"
+ },
+ {
+  "op": "replace",
+  "old": "İşte alim kişiler hatırladıkça havsala tatmin olur ve keyif verir. İşte kişi O’dur ki ilmi öğrenmek, öğrendikçe hatırlamaya başlamak keyif verir böylece insana ve diğer insanlar o kişiye alim derler.",
+  "new": "İşte alim kişi hatırladıkça havsalası tatmin olur, keyif alır. İlmi öğrenmek, öğrendikçe hatırlamaya başlamak kime keyif veriyorsa, diğer insanlar o kişiye alim derler.",
+  "why": "İki cümle anlaşılır hale getirildi (anlam aynı).",
+  "kap": "OKU"
+ },
+ {
+  "op": "replace",
+  "old": "çünkü bayılmanın içerisine sanırım uykumda karışmıştı. Saat neredeyse öğlene geliyordu,",
+  "new": "çünkü bayılmanın içine sanırım uyku da karışmıştı. Saat öğlene geliyor gibiydi,",
+  "why": "„uykumda“ → „uyku da“; saat bir izlenim (ON BİR'deki 10.44 ile çelişmesin, v2'deki düzeltme yeni cümleye uyarlandı).",
+  "kap": "HODRİ"
+ },
+ {
+  "op": "replace",
+  "old": "harekete etmeye halim",
+  "new": "hareket etmeye halim",
+  "why": "Yazım hatası.",
+  "kap": "HODRİ"
+ },
+ {
+  "op": "replace",
+  "old": "doğru ve afili bol cümlelerdi",
+  "new": "doğru ve bol afili cümlelerdi",
+  "why": "Sözcük sırası.",
+  "kap": "HODRİ"
+ },
+ {
+  "op": "replace",
+  "old": "Yaşamadıklarımı dahası yaşantıma yansıtmadığım sözlerim mi yansıyordu bu öfkeye.",
+  "new": "Yaşamadıklarım, dahası yaşantıma yansıtmadığım sözlerim mi yansıyordu bu öfkeye?",
+  "why": "Soru işareti, virgül.",
+  "kap": "HODRİ"
+ },
+ {
+  "op": "replace",
+  "old": "Sen zaferden değil, seferden mesulsün kulum”",
+  "new": "Sen zaferden değil, seferden mesulsün kulum.”",
+  "why": "Nokta.",
+  "kap": "HODRİ"
+ },
+ {
+  "op": "replace",
+  "old": "hak etmiyor muşum”",
+  "new": "hak etmiyormuşum.”",
+  "why": "„-muşum“ bitişik yazılır; nokta.",
+  "kap": "HODRİ"
+ },
+ {
+  "op": "replace",
+  "old": "Peki Ya ALLAH bunun hesabını sormayacak mı sana.",
+  "new": "Peki ya ALLAH bunun hesabını sormayacak mı sana?",
+  "why": "Soru işareti.",
+  "kap": "HODRİ"
+ },
+ {
+  "op": "replace",
+  "old": "eşrefi mahlukat eder Mütekamil olmaya müşteri insanı.",
+  "new": "mütekâmil olmaya müşteri insanı eşrefi mahlukat eder.",
+  "why": "Sözcük sırası (nesne fiilden önce); „müşteri“ (talip) Sefa'nın sözcüğü olarak kaldı.",
+  "kap": "HODRİ"
+ },
+ {
+  "op": "replace",
+  "old": "“Hürriyet, Hakk’a esaret halkasındadır”",
+  "new": "“Hürriyet, Hakk’a esaret halkasındadır.”",
+  "why": "Nokta.",
+  "kap": "HODRİ"
+ },
+ {
+  "op": "replace",
+  "old": "iki çayla donat denmiş kendisine”",
+  "new": "iki çayla donat denmiş kendisine.”",
+  "why": "Nokta.",
+  "kap": "ON BİR"
+ },
+ {
+  "op": "replace",
+  "old": "Hakan’dan telefonumu almış kesin, Hakan da ne yapacağını sorunca kahvaltıdan bahsetmiş, Hakan da bu jesti yapmıştır. ",
+  "new": "Telefonumu Hakan’dan almış olmalı, diye düşündüm; ne yapacağını sorunca Hakan da kahvaltıdan bahsetmiş, bu jesti de o yapmıştır.",
+  "why": "İç ses netleşti (üç kez „Hakan da“).",
+  "kap": "ON BİR"
+ },
+ {
+  "op": "replace",
+  "old": "“Özellikle mi seçtiniz?” diye aklımdan geçirdim",
+  "new": "“Özellikle mi seçtiniz?” diye aklımdan geçirdim.",
+  "why": "Nokta.",
+  "kap": "KAYIT"
+ },
+ {
+  "op": "replace",
+  "old": "“Neyi?” der gibi yüzüme baktı",
+  "new": "“Neyi?” der gibi yüzüme baktı.",
+  "why": "Nokta.",
+  "kap": "KAYIT"
+ },
+ {
+  "op": "replace",
+  "old": "Allah için; savaşmak, yemek, içmek,",
+  "new": "Her şey Allah için; savaşmak, yemek, içmek,",
+  "why": "Sefa „Sanat …“ kısmını HODRİ'ye taşıdı; kalan cümle öznesiz başlıyordu.",
+  "kap": "MIZRAĞIN İKİ UCU"
+ },
+ {
+  "op": "replace",
+  "old": "KAPI'nın altında eli bantlı bir adam",
+  "new": "KAPI'nın altında sağ başparmağı bantlı bir adam",
+  "why": "Köprü: YOLCU'daki „sağ başparmak“ ve „bantlı başparmak“ ile aynı ayrıntı (v2'den; Sefa'nın temel aldığı dosyada yoktu).",
+  "kap": "MEKTUBU KİM YAZDI?"
+ },
+ {
+  "op": "replace",
+  "old": "kırmızı ip, parmağı sargılı adam.",
+  "new": "kırmızı ip, sağ başparmağı bantlı adam.",
+  "why": "Köprü (aynı).",
+  "kap": "İÇERİDEKİ YAZAR"
+ },
+ {
+  "op": "replace",
+  "old": "Parmağı bantlı adam, kendi çantasını",
+  "new": "Sağ başparmağı bantlı adam, kendi çantasını",
+  "why": "Köprü (aynı).",
+  "kap": "İÇERİDEKİ YAZAR"
+ },
+ {
+  "op": "replace",
+  "old": "Bu beni küçültmedi odayı büyüttü.",
+  "new": "Bu beni küçültmedi, odayı büyüttü.",
+  "why": "Virgül.",
+  "kap": "SUSUZLUK"
+ },
+ {
+  "op": "replace",
+  "old": "Ben de burada olacağım”",
+  "new": "Ben de burada olacağım.”",
+  "why": "Nokta.",
+  "kap": "HAKİKAT MEDENİ"
+ },
+ {
+  "op": "replace",
+  "old": "“Ne oldu oğlum, bir durum mu var”",
+  "new": "“Ne oldu oğlum, bir durum mu var?”",
+  "why": "Soru işareti.",
+  "kap": "HAKİKAT MEDENİ"
+ },
+ {
+  "op": "replace",
+  "old": "“Yok ana, sen sadece gel”",
+  "new": "“Yok ana, sen sadece gel.”",
+  "why": "Nokta.",
+  "kap": "HAKİKAT MEDENİ"
+ },
+ {
+  "op": "replace",
+  "old": "bu oğlum olduğun sonucunu hiç değiştirmedi”",
+  "new": "bu oğlum olduğun sonucunu hiç değiştirmedi.”",
+  "why": "Nokta.",
+  "kap": "HAKİKAT MEDENİ"
+ },
+ {
+  "op": "replace",
+  "old": "Oysa annem benim yanımda oturuyordu ve aklımda susmayan o ses, Hakan’ın mı benim mi yanında oturuyor.",
+  "new": "Oysa annem benim yanımda oturuyordu. Aklımda susmayan o ses soruyordu: Hakan’ın mı, benim mi yanında oturuyor?",
+  "why": "Soru cümlesi olarak kuruldu.",
+  "kap": "HAKİKAT MEDENİ"
+ },
+ {
+  "op": "replace",
+  "old": "Gözümün önünde bir sahne canlandı; su dolu bir akvaryuma, her yeri zincirlerle sarılı bir sihirbaz… Boğuluyor ama ne seyirciler ne de asistanlar buna müdahale etmiyorlar, çünkü bu gösterinin bir parçası zannediyor herkes. İşte ben o gün öğrencilere tam da kendi durumumu anlatırken, yani bir bedende çift kişilik dersini anlatırken, onlar verdiğim dersin gereği bu tavırları yaptığımı düşünmüşler, kameranın kadrajı dahi olmayan kişiye mi anlık olarak dönmüştü? Öğrenciler bu derse bir örnek verdiğimi mi zannetmişlerdi de kimsenin sesi çıkmamıştı?",
+  "new": "Gözümün önünde bir sahne canlandı: su dolu bir akvaryumda, her yeri zincirlerle sarılı bir sihirbaz… Boğuluyor ama ne seyirciler ne de asistanlar müdahale ediyor, çünkü herkes bunu gösterinin bir parçası sanıyor. Ben o gün öğrencilere tam da kendi durumumu, bir bedende iki kişiliği anlatırken, onlar bu tavırları dersin gereği yaptığımı düşünmüşlerdi. Kameranın kadrajında bile olmayan birine dönüp konuşmam da mı dersin parçasıydı? Öğrenciler bir örnek verdiğimi mi sanmışlardı da kimsenin sesi çıkmamıştı?",
+  "why": "Sefa'nın yeni imgesi korundu; cümleler toparlandı (özne/zaman uyumu).",
+  "kap": "BOŞ SIRA"
+ },
+ {
+  "op": "replace",
+  "old": "hastane koridorunda kızına suyu az diye söylenen adam da. Onların",
+  "new": "hastane koridorunda kızına suyu az diye söylenen adam da. Kafedeki Mahmut da, telefonun öbür ucundaki iki Emrah da. Onların",
+  "why": "Ayrım listesi: Mahmut (TECRİT ODASI) ve HODRİ'de Sefa'nın genişlettiği iki Emrah da „kendi hayatı olan insanlar“ tarafında (v3'teki satırın kısaltılmış hâli; Suat artık kitapta geçmiyor).",
+  "kap": "AYNI EL"
+ },
+ {
+  "op": "replace",
+  "old": "İşte az önce aklımdan geçenler de maalesef bunlardı, boğuluyordum ve kimse bunun farkında değildi öğrencilerden.",
+  "new": "İşte az önce aklımdan geçen de buydu: Boğuluyordum ve öğrencilerden kimse bunun farkında değildi.",
+  "why": "Cümle düzeni.",
+  "kap": "AYNI EL"
+ },
+ {
+  "op": "insert_after",
+  "match": "Zehra'nın ilk davetini de aradım.",
+  "text": "Üç romanımı da sordum. Hakikat, makam odasındaki çekmeceden getirtti. Sağ üst gözden çıktıkları sırayla, ilk günkü gibi üst üste duruyorlardı. Kapaklarında adım yazıyordu: Mustafa Sefa Güvenir. Basılmış, satılmış, birilerinin elinden geçmiş kitaplardı; onları ben uydurmamıştım. Sayfaların kenarındaki kurşun kalem notlarını ise tanıdım. Mektuplardaki düzeltmelerle aynı eldendi. Kitaplar bir yazarın yaşadığını kanıtlıyordu; o yazarın masanın öbür yanında ayrı bir sandalyede oturduğunu kanıtlamıyordu. Hakan'ın ilk gün, “Bu işin sonunda romanlarınızı imzalamanızı da isteyeceğim,” dediğini hatırladım. İmzalamadan çantama koydum. İş henüz bitmemişti.",
+  "why": "Sefa'nın notu („Romanlarım nerede?“): DAKTİLO'da Hakan'ın çekmeceden çıkardığı üç roman sonra hiç görünmüyordu. Kanıt incelemesinin yapıldığı bölümde romanlar geri geliyor: varlıkları yazarı kanıtlıyor, ikinci bir bedeni değil.",
+  "kap": "AYNI EL"
+ },
+ {
+  "op": "insert_after",
+  "match": "Yalnız kapının öte yanında bir insanın ihtiyacı vardı ve ben onu duymuştum.",
+  "text": "Çantamdan üç romanımı çıkardım. Hakan bu işin sonunda onları imzalamamı istemişti. İş bitmiş miydi, bilmiyordum; bir yere varmıştı. Üçünün de ilk sayfasını açıp imzaladım. Kime yazdığımı imzanın üstüne yazmadım. Hakan'a mı, kendime mi, yoksa bir gün onları raftan alacak birine mi; o soruyu kapının aralığına bıraktım.",
+  "why": "DAKTİLO'daki söz („romanlarınızı imzalamanızı da isteyeceğim“) kapanıyor; son sayfadaki köprü cümleleri değişmedi.",
+  "kap": "SU"
+ },
+ {
+  "op": "replace",
+  "old": "ŞAHİDİ ARARKEN",
+  "new": "ŞAHİT",
+  "why": "Kitabın adı (son sayfa).",
+  "kap": "SU"
+ },
+ {
+  "op": "delete",
+  "match": "Romanlarım nerede?",
+  "why": "Sefa'nın kendine notu, metnin parçası değil; içeriği AYNI EL ve SU'da işlendi.",
+  "kap": "SU"
+ },
+ {
+  "op": "delete",
+  "match": "Sefanın yazdığı üç roman nerede?",
+  "why": "Not (aynı).",
+  "kap": "SU"
+ }
+]
