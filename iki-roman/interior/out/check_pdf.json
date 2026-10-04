@@ -1,6 +1,6 @@
 [
   {
-    "pdf": "out/YOLCU_Innenteil_A5.pdf",
+    "pdf": "interior/out/YOLCU_Innenteil_A5.pdf",
     "pages": 260,
     "page_size_check": "pass",
     "fonts_embedded_check": "pass",
@@ -24,7 +24,7 @@
     "ok": true
   },
   {
-    "pdf": "out/SAHIT_Innenteil_A5.pdf",
+    "pdf": "interior/out/SAHIT_Innenteil_A5.pdf",
     "pages": 194,
     "page_size_check": "pass",
     "fonts_embedded_check": "pass",

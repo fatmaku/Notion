@@ -39,9 +39,9 @@ Kitap boyutu (Trim)      A5 = 5,83 × 8,27 in (148 × 210 mm)
 İç sayfa                 Siyah-beyaz, krem kâğıt ("Black & white interior with cream paper")
 Kenar taşması (Bleed)    İç sayfa: YOK ("No bleed")   ·   Kapak: var (PDF'te hazır)
 Kapak yüzeyi             Mat ya da parlak (tercih)
-Sayfa sayısı             282                 202
-Sırt genişliği           17,91 mm            12,83 mm
-Tam kapak ölçüsü         320,26 × 216,35 mm  315,18 × 216,35 mm
+Sayfa sayısı             260                 194
+Sırt genişliği           16,51 mm            12,32 mm
+Tam kapak ölçüsü         318,86 × 216,35 mm  314,67 × 216,35 mm
 Barkod                   KDP basar (arka kapakta sağ alttaki beyaz alan bunun için boş)
 
 
@@ -54,7 +54,7 @@ Baskı kitap (Paperback)
  2. Paperback Content → Print Options: A5 (5,83 × 8,27 in), Black & white, Cream paper, No bleed.
  3. Manuscript: *_Ic_Sayfalar_A5.pdf
  4. Book Cover: "Upload a cover you already have" → *_Tam_Kapak_KDP.pdf
-    (KDP sayfa sayısını gösterir: YOLCU 282, ŞAHİT 202 olmalı. Farklıysa kapak yeniden üretilir.)
+    (KDP sayfa sayısını gösterir: YOLCU 260, ŞAHİT 194 olmalı. Farklıysa kapak yeniden üretilir.)
  5. "Launch Previewer" ile kontrol: sırt yazısı ortada, kenarda kesilen yazı yok, yumruk kenarda.
  6. Yayından önce mutlaka bir deneme baskısı (proof copy) sipariş edin.
 
@@ -88,7 +88,7 @@ SINIRLAR (açıkça)
 --------------------------------------------------------------------
 KURZ AUF DEUTSCH
 Ordner 1_ und 2_ sind sofort bei KDP hochladbar (Türkisch): Innenteil-PDF (A5, ohne Beschnitt,
-s/w Creme), Fullcover-PDF, EPUB, eBook-Cover-JPG, Word-Datei. YOLCU 282 Seiten / Rücken 17,91 mm,
-ŞAHİT 202 Seiten / Rücken 12,83 mm. EN/DE-Cover (Ordner 3_) sind für spätere Übersetzungen und
+s/w Creme), Fullcover-PDF, EPUB, eBook-Cover-JPG, Word-Datei. YOLCU 260 Seiten / Rücken 16,51 mm,
+ŞAHİT 194 Seiten / Rücken 12,32 mm. EN/DE-Cover (Ordner 3_) sind für spätere Übersetzungen und
 Werbung; die Fullcover müssen dann mit der neuen Seitenzahl neu gebaut werden. Trailer und Marketing
 liegen in TR/EN/DE bei. Vor Veröffentlichung eine Druckprobe bestellen.

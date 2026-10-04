@@ -74,7 +74,9 @@ def main():
                 "ops_SA_alle.json": "Sıkılaştırma (beş lektör bloğu)", "ops_BY_alle.json": "Sıkılaştırma (altı lektör bloğu)",
                 "ops_editor_SA.json": "Editör müdahaleleri (jüri önerileri, lektör notları)",
                 "ops_editor_BY.json": "Editör müdahaleleri (jüri önerileri, lektör notları)",
-                "fix_SA_alle.json": "Bağımsız kontrol sonrası dikiş düzeltmeleri", "fix_BY_alle.json": "Bağımsız kontrol sonrası dikiş düzeltmeleri"}
+                "fix_SA_alle.json": "Bağımsız kontrol sonrası dikiş düzeltmeleri", "fix_BY_alle.json": "Bağımsız kontrol sonrası dikiş düzeltmeleri",
+                "kor_SA_alle.json": "Son okuma (düzelti): yazım, dilbilgisi, noktalama, tutarlılık", "kor_BY_alle.json": "Son okuma (düzelti): yazım, dilbilgisi, noktalama, tutarlılık",
+                "ops_editor2_SA.json": "Jüri v6 sonrası editör müdahaleleri (içerik tutarlılığı, köprüler)", "ops_editor2_BY.json": "Jüri v6 sonrası editör müdahaleleri (içerik tutarlılığı)"}
         L += [f"## {HEAD.get(name, name)}", ""]
         cur = None
         for op in ops:
@@ -83,7 +85,9 @@ def main():
             kind = op["op"]
             pid = op.get("pid")
             kap = op.get("kap") or (chap[pid] if pid is not None and pid < len(chap) else "")
-            why = op.get("neden") or op.get("why") or op.get("sorun") or ""
+            why = op.get("neden") or op.get("why") or op.get("sorun") or op.get("not") or ""
+            if op.get("tur"):
+                why = f"[{op['tur']}] {why}"
             if kap != cur:
                 L += ["", f"### {kap}", ""]
                 cur = kap

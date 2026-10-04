@@ -6,17 +6,19 @@
 
 1. **ŞAHİT – Sefa Abi'nin son dosyası esas alındı.** Kitabın adı ŞAHİT olarak kaldı (Tuncay'ın kararı); Sefa Abi'nin ithafı („Bu Kitap: … Galip Kaşkaya'ya …“) kendi sayfasında. Sefa Abi'nin kendine yazdığı not („Romanlarım nerede?“) metinden çıkarıldı ve içeriği işlendi: DAKTİLO'da Hakan'ın çekmeceden çıkardığı üç roman AYNI EL'de delil olarak geri geliyor, SU'da imzalanıyor („Bu işin sonunda romanlarınızı imzalamanızı da isteyeceğim“ sözü kapanıyor). YOLCU ile köprü olan „sağ başparmağı bantlı adam“ üç yerde geri getirildi. Sefa Abi'nin yeni pasajlarındaki yazım ve noktalama hataları düzeltildi; yeni sahneler ve tercihleri (ilk bölümün adı „Başlangıç“, „FİT NE?“, „Doğum …“) korundu.
 2. **Diyalog noktalaması:** 282 diyalog satırının sonunda eksik olan nokta / soru işareti / üç nokta eklendi (TDK: tırnak içindeki sözün noktalaması kapanış tırnağından önce gelir). Hattat–oduncu menkıbesindeki kısa çizgili diyaloglar „– “ ile dizildi. Liste: `interior/src/v6/punct_log.json`.
-3. **Sıkılaştırma (iki kitap, olay örgüsü değişmeden):** jürinin işaret ettiği yerler (YOLCU: 5. bölüm, deneme blokları 17/20/26/38, 40 ve 45'teki soru–cevap çözümü, 44–47; ŞAHİT: açılış masalı, FİT NE?, HODRİ, MIZRAĞIN İKİ UCU, SUSAYANIN YOLU, vaaz pasajları, „Yahu / hocam / Bu defa“ tekrarları) on bir lektör bloğunda kısaltıldı. **YOLCU 44.749 → 40.621 kelime (−%9,2), ŞAHİT 39.918 → 36.400 kelime (−%8,8).** HODRİ iki bölüme ayrıldı; yeni bölüm **SOLUCAN** („Mektup, hiç bitmesin istesem de bitmişti.“ ile başlıyor). ŞAHİT artık 35 bölüm.
+3. **Sıkılaştırma (iki kitap, olay örgüsü değişmeden):** jürinin işaret ettiği yerler (YOLCU: 5. bölüm, deneme blokları 17/20/26/38, 40 ve 45'teki soru–cevap çözümü, 44–47; ŞAHİT: açılış masalı, FİT NE?, HODRİ, MIZRAĞIN İKİ UCU, SUSAYANIN YOLU, vaaz pasajları, „Yahu / hocam / Bu defa“ tekrarları) on bir lektör bloğunda kısaltıldı. **YOLCU 44.749 → 40.669 kelime (−%9,1), ŞAHİT 39.918 → 36.452 kelime (−%8,7)** (son okuma ve düzeltmeler dâhil). HODRİ iki bölüme ayrıldı; yeni bölüm **SOLUCAN** („Mektup, hiç bitmesin istesem de bitmişti.“ ile başlıyor). ŞAHİT artık 35 bölüm.
 4. **Editör müdahaleleri (jüri önerileri):** YOLCU'da „Sessiz Ses“in adı ilk geçtiği yerde tek cümleyle açıklandı; 49. bölümde ölüm saatinin (14.53) kesinliği 35. bölümdeki babanın saati gibi açık bırakıldı; 13. bölümde „Cevap yerine bir soru geldi“ → „Kısa bir cevap geldi“. ŞAHİT'te „Rava kalbi an Rabbi“ sözü Şems'e değil „erenler“e bağlandı; ÜÇ VURUŞ'ta telefona yazılan not „kâğıt“ değil „ekran“ olarak gösteriliyor.
 5. **Bağımsız kontrol:** dört ayrı kontrolcü her kesintiyi bağlamında okudu ve iki kitabın tamamında, silinen her somut ayrıntının başka yerde geçip geçmediğini aradı. Beş dikiş düzeltmesi yapıldı. İki kesinti editör tarafından geri alındı (aşağıda).
-6. **Kilitli içerik makineyle doğrulandı:** YOLCU'nun üç şifresi (SENİ BUL, BAŞA DÖN, BENİ ARAMA), ŞAHİT'in kalın harf şifresi („bismillah, alemlere rahmet olan Allahın adıyla“), iki kitap arasındaki köprü cümleleri, slogan, son sorular. Sonuç: `interior/src/v6/check_text_v6.json` (OK).
+6. **Bağımsız jüri (beş okuma) ve sonrası:** iki kitap birer yayınevi editörü ve birer dikkatli okur gözüyle, çift ise ayrıca bir okumayla değerlendirildi (`analyse/Juri_v6.pdf`). Jürinin bulduğu gerçek hatalar giderildi: YOLCU'da Edirne treninin saati (dönüş treni 14.53), 35./40. bölüm zaman çizgisi, 39. bölümdeki „Berlin“, 44. bölümdeki kalp cihazı, konuşanı belirsiz satırlar, 50. bölümdeki kapı (BAŞA DÖN'e bağlandı); ŞAHİT'te klinik tutarlılık („ön tanı“, sağ ayak), Selman kıssasının kaynağa uygunluğu (Kelbli tüccarlar, Vâdi'l-Kurâ, Amuriye/Emirdağ), „Belam“ (Baura babasının adı), „dumansız ateş“, besmele ifadesinin yazan elin hatası olarak işaretlenmesi, iki kitap arasındaki köprüler (yeşil acil odası ve plastik bardak, boş sandalye, „bir çocuk sesi“, harfi harfine aynı SES cümlesi).
+7. **Son okuma (düzelti):** dört düzeltmen iki kitabı kelime kelime okudu: ŞAHİT'te 208, YOLCU'da 24 düzeltme (TDK yazımı, ek hataları, anlamı ters dönmüş cümleler, eksik sözcükler, „hâlâ / hikâye / kâğıt / âşık / Âdem / Hz.“ birliği). Üslup ve söz seçimi değiştirilmedi.
+8. **Kilitli içerik makineyle doğrulandı:** YOLCU'nun üç şifresi (SENİ BUL, BAŞA DÖN, BENİ ARAMA), ŞAHİT'in kalın harf şifresi („bismillah, alemlere rahmet olan Allahın adıyla“), iki kitap arasındaki köprü cümleleri, slogan, son sorular. Sonuç: `interior/src/v6/check_text_v6.json` (OK).
 
 ### Geri alınan kesintiler
 - BY replace (paragraf 624): Leyla'nın şaman gelenekleri listesi kalıyor: 39. bölümdeki tekrarı (2791) zaten kısaltıldı; ikisi birden gidince „o geleneklerden“ dayanaksız kalıyordu.
 - BY delete (paragraf 2792): „ŞAMAN, bu yüzden bir kimlik değil, hatırlatma olmalıydı“ bölümün kısaltma (Ş-A-M-A-N) listesinin anahtar cümlesi; Leyla'nın „eşiği geçen ve geri dönen“ tanımını kapatıyor.
 
 ### Kurz auf Deutsch
-ŞAHİT basiert jetzt auf Sefas „Edisyon“ (Titel ŞAHİT, Widmung, Faden „drei Romane“ geschlossen, Brücke „sağ başparmağı bantlı“ wiederhergestellt, Satzfehler und 282 fehlende Satzzeichen in Dialogen korrigiert). Beide Bücher wurden ohne Plotänderung gestrafft: YOLCU −9,2 %, ŞAHİT −8,8 %; HODRİ ist in zwei Kapitel geteilt (neu: SOLUCAN). Jede Änderung steht unten mit Begründung; zwei Kürzungen wurden zurückgenommen, fünf Nahtstellen nach unabhängiger Gegenprüfung korrigiert. Akrosticha, Brückensätze, Motto und Schlussfragen sind maschinell geprüft.
+ŞAHİT basiert jetzt auf Sefas „Edisyon“ (Titel ŞAHİT, Widmung, Faden „drei Romane“ geschlossen, Brücke „sağ başparmağı bantlı“ wiederhergestellt, Satzfehler und 282 fehlende Satzzeichen in Dialogen korrigiert). Beide Bücher wurden ohne Plotänderung gestrafft: YOLCU −9,1 %, ŞAHİT −8,7 %; HODRİ ist in zwei Kapitel geteilt (neu: SOLUCAN). Jede Änderung steht unten mit Begründung; zwei Kürzungen wurden zurückgenommen, fünf Nahtstellen nach unabhängiger Gegenprüfung korrigiert. Danach eine unabhängige Jury (fünf Lesungen), deren Fehlerbefunde behoben wurden, und ein vollständiges Korrektorat (ŞAHİT 208, YOLCU 24 Korrekturen). Akrosticha, Brückensätze, Motto und Schlussfragen sind maschinell geprüft.
 
 ---
 
@@ -208,46 +210,46 @@ Toplam 73 işlem.
 
 Toplam 337 işlem.
 
-**Toplam:** 39.918 → 36.400 kelime (-3.518; -8.8 %)
+**Toplam:** 39.918 → 36.452 kelime (-3.466; -8.7 %)
 
 | Bölüm | Önce | Sonra | Fark |
 |---|---:|---:|---:|
 | (Ön kısım) | 130 | 130 | +0 |
 | Başlangıç | 1038 | 884 | -154 |
-| AZ ÇOK | 1466 | 1382 | -84 |
+| AZ ÇOK | 1466 | 1383 | -83 |
 | DAKTİLO | 2827 | 2565 | -262 |
-| TECRİT ODASI | 1986 | 1791 | -195 |
+| TECRİT ODASI | 1986 | 1793 | -193 |
 | UNUTMA | 1940 | 1714 | -226 |
-| AN | 562 | 552 | -10 |
-| FİT NE? | 1869 | 1708 | -161 |
-| MUHİBBİ | 958 | 889 | -69 |
-| OKU | 1851 | 1668 | -183 |
-| AŞK İLE | 1680 | 1608 | -72 |
-| GÜL KOKUSU | 995 | 945 | -50 |
-| HODRİ | 4275 | 1916 | -2359 |
-| SOLUCAN | 0 | 1907 | +1907 |
+| AN | 562 | 553 | -9 |
+| FİT NE? | 1869 | 1707 | -162 |
+| MUHİBBİ | 958 | 890 | -68 |
+| OKU | 1851 | 1670 | -181 |
+| AŞK İLE | 1680 | 1609 | -71 |
+| GÜL KOKUSU | 995 | 947 | -48 |
+| HODRİ | 4275 | 1914 | -2361 |
+| SOLUCAN | 0 | 1905 | +1905 |
 | ON BİR | 2423 | 2230 | -193 |
-| KAYIT | 1473 | 1414 | -59 |
+| KAYIT | 1473 | 1425 | -48 |
 | NAZIM'IN ANAHTARI | 365 | 365 | +0 |
 | HAKAN'IN DOSYASI | 367 | 354 | -13 |
 | MIZRAĞIN İKİ UCU | 3142 | 2428 | -714 |
 | ŞEHRİN ÜÇ ŞAHİDİ | 423 | 412 | -11 |
-| SUSAYANIN YOLU | 1292 | 1127 | -165 |
+| SUSAYANIN YOLU | 1292 | 1140 | -152 |
 | MUHİBBİ'NİN SOFRASI | 839 | 737 | -102 |
-| MEKTUBU KİM YAZDI? | 474 | 455 | -19 |
-| KÂĞIDIN ÖTE YANI | 435 | 427 | -8 |
+| MEKTUBU KİM YAZDI? | 474 | 469 | -5 |
+| KÂĞIDIN ÖTE YANI | 435 | 432 | -3 |
 | ANNEMİN SESİ | 567 | 541 | -26 |
 | SUSUZLUK | 422 | 364 | -58 |
 | MUHİBBİ YOK | 318 | 304 | -14 |
-| HAKİKAT MEDENİ | 1100 | 1055 | -45 |
+| HAKİKAT MEDENİ | 1100 | 1057 | -43 |
 | BOŞ SIRA | 344 | 324 | -20 |
 | AYNI EL | 1242 | 1214 | -28 |
 | HAKAN'IN CEVABI | 566 | 539 | -27 |
 | VİLDAN'IN GÖRDÜĞÜ | 682 | 663 | -19 |
 | ÜÇ VURUŞ | 333 | 296 | -37 |
-| İÇERİDEKİ YAZAR | 450 | 418 | -32 |
+| İÇERİDEKİ YAZAR | 450 | 419 | -31 |
 | ŞAHİT | 466 | 464 | -2 |
-| SU | 618 | 610 | -8 |
+| SU | 618 | 611 | -7 |
 
 ### Sıkılaştırma (beş lektör bloğu)
 
@@ -735,31 +737,31 @@ Toplam 337 işlem.
 
 Toplam 326 işlem.
 
-**Toplam:** 44.749 → 40.621 kelime (-4.128; -9.2 %)
+**Toplam:** 44.749 → 40.669 kelime (-4.080; -9.1 %)
 
 | Bölüm | Önce | Sonra | Fark |
 |---|---:|---:|---:|
 | (Ön kısım) | 1 | 1 | +0 |
 | 1453 — UYANIŞIN BEDELİ | 17 | 17 | +0 |
 | DİKKAT | 341 | 341 | +0 |
-| 1. Sonmuş Gibi Sıradan Bir Sabah | 1586 | 1513 | -73 |
+| 1. Sonmuş Gibi Sıradan Bir Sabah | 1586 | 1512 | -74 |
 | 2. Siyah Paket | 1400 | 1339 | -61 |
 | 3. Kamera Boşluğu | 501 | 497 | -4 |
 | 4. Sahte Görüntü, Gerçek Yas | 701 | 667 | -34 |
 | 5. Bir Tanının Geldiği Yer | 2973 | 2222 | -751 |
-| 7. Silinen Satır | 843 | 789 | -54 |
+| 7. Silinen Satır | 843 | 790 | -53 |
 | 8. İki Kötü Seçenek | 486 | 464 | -22 |
-| 9. Bölgesel Bir İmparatorluk | 985 | 937 | -48 |
-| 11. Emanetin Peşindeki Karga | 1028 | 990 | -38 |
+| 9. Bölgesel Bir İmparatorluk | 985 | 938 | -47 |
+| 11. Emanetin Peşindeki Karga | 1028 | 992 | -36 |
 | 12. Yedi Yıl Önce Çaldığım Kapı | 2153 | 1967 | -186 |
 | 13. Bedenin İtirazı | 1074 | 1023 | -51 |
-| 15. Nüshaların Söylemediği | 723 | 704 | -19 |
-| 16. Görmek ile Yetişmek Arasındaki Mesafe | 588 | 571 | -17 |
+| 15. Nüshaların Söylemediği | 723 | 705 | -18 |
+| 16. Görmek ile Yetişmek Arasındaki Mesafe | 588 | 572 | -16 |
 | 17. Ormanda Beceri, Şehirde Belirti | 1802 | 1501 | -301 |
 | 18. Birincil Ayna | 293 | 256 | -37 |
 | 20. İnanmayan İlk Kişi | 1818 | 1561 | -257 |
-| 21. Bir Hata, İki Kız Kardeş | 837 | 800 | -37 |
-| 22. On Bir Saniyenin İçindeki Ses | 332 | 332 | +0 |
+| 21. Bir Hata, İki Kız Kardeş | 837 | 804 | -33 |
+| 22. On Bir Saniyenin İçindeki Ses | 332 | 333 | +1 |
 | 23. Silah Olmayan Ses | 710 | 694 | -16 |
 | 24. Yusuf'un Dili | 495 | 495 | +0 |
 | 25. Unuttuğumu Ateş Seçti | 827 | 795 | -32 |
@@ -767,24 +769,24 @@ Toplam 326 işlem.
 | 28. Bir Gün Daha Yaşamak | 352 | 333 | -19 |
 | 29. Trenin İçindeki Ben | 325 | 325 | +0 |
 | 30. Yüzümün Benden Habersiz Hayatı | 1072 | 1002 | -70 |
-| 31. Lambaları Yanan Boş Kat | 840 | 805 | -35 |
+| 31. Lambaları Yanan Boş Kat | 840 | 806 | -34 |
 | 32. Leyla'nın Son Kaynağı | 462 | 462 | +0 |
 | 34. Unutulmuş Dükkânın Anahtarı | 645 | 606 | -39 |
-| 35. Kızımın Dosyası | 1456 | 1333 | -123 |
-| 36. İki Ayrı Gelecek | 943 | 903 | -40 |
+| 35. Kızımın Dosyası | 1456 | 1330 | -126 |
+| 36. İki Ayrı Gelecek | 943 | 906 | -37 |
 | 37. Görünmeyen Kameranın Gördüğü | 529 | 519 | -10 |
 | 38. Adı Hastalık Olan Yetenek | 1689 | 1255 | -434 |
-| 39. ŞAMAN | 544 | 522 | -22 |
-| 40. Yusuf Olmadan Önce | 2596 | 2224 | -372 |
-| 42. Labirentin Emanetleri | 883 | 867 | -16 |
-| 43. Başlangıç Sensin | 961 | 943 | -18 |
-| 44. Bedenin Bildiği Tarih | 419 | 405 | -14 |
-| 45. Beni Öldürmeyen Adam | 2263 | 1908 | -355 |
+| 39. ŞAMAN | 544 | 523 | -21 |
+| 40. Yusuf Olmadan Önce | 2596 | 2225 | -371 |
+| 42. Labirentin Emanetleri | 883 | 872 | -11 |
+| 43. Başlangıç Sensin | 961 | 944 | -17 |
+| 44. Bedenin Bildiği Tarih | 419 | 418 | -1 |
+| 45. Beni Öldürmeyen Adam | 2263 | 1909 | -354 |
 | 46. Son Olabilecek Şeyler | 988 | 902 | -86 |
 | 47. Son Olduğunu Bilmeden | 1462 | 1272 | -190 |
 | 48. Saat 14.53 | 296 | 296 | +0 |
 | 49. Geride Kalanlar | 739 | 790 | +51 |
-| 50. Boş Bırakılan Son Cümle | 1335 | 1292 | -43 |
+| 50. Boş Bırakılan Son Cümle | 1335 | 1307 | -28 |
 
 ### Sıkılaştırma (altı lektör bloğu)
 
@@ -1246,3 +1248,583 @@ Toplam 326 işlem.
 #### 39. ŞAMAN
 
 - **değiştirildi:** „Ben o geleneklerden birinin“ → „Ben Leyla'nın saydığı geleneklerden birinin“ — „o gelenekler“ silinen Tunguz cümlesine bağlıydı; Leyla'nın 5. bölümdeki listesine açıkça bağlandı.
+
+
+## D. ŞAHİT – Son okuma ve jüri sonrası düzeltmeler
+
+Toplam 235 işlem.
+
+**Toplam:** 36.400 → 36.452 kelime (+52; +0.1 %)
+
+| Bölüm | Önce | Sonra | Fark |
+|---|---:|---:|---:|
+| (Ön kısım) | 130 | 130 | +0 |
+| Başlangıç | 884 | 884 | +0 |
+| AZ ÇOK | 1382 | 1383 | +1 |
+| DAKTİLO | 2565 | 2565 | +0 |
+| TECRİT ODASI | 1791 | 1793 | +2 |
+| UNUTMA | 1714 | 1714 | +0 |
+| AN | 552 | 553 | +1 |
+| FİT NE? | 1708 | 1707 | -1 |
+| MUHİBBİ | 889 | 890 | +1 |
+| OKU | 1668 | 1670 | +2 |
+| AŞK İLE | 1608 | 1609 | +1 |
+| GÜL KOKUSU | 945 | 947 | +2 |
+| HODRİ | 1916 | 1914 | -2 |
+| SOLUCAN | 1907 | 1905 | -2 |
+| ON BİR | 2230 | 2230 | +0 |
+| KAYIT | 1414 | 1425 | +11 |
+| NAZIM'IN ANAHTARI | 365 | 365 | +0 |
+| HAKAN'IN DOSYASI | 354 | 354 | +0 |
+| MIZRAĞIN İKİ UCU | 2428 | 2428 | +0 |
+| ŞEHRİN ÜÇ ŞAHİDİ | 412 | 412 | +0 |
+| SUSAYANIN YOLU | 1127 | 1140 | +13 |
+| MUHİBBİ'NİN SOFRASI | 737 | 737 | +0 |
+| MEKTUBU KİM YAZDI? | 455 | 469 | +14 |
+| KÂĞIDIN ÖTE YANI | 427 | 432 | +5 |
+| ANNEMİN SESİ | 541 | 541 | +0 |
+| SUSUZLUK | 364 | 364 | +0 |
+| MUHİBBİ YOK | 304 | 304 | +0 |
+| HAKİKAT MEDENİ | 1055 | 1057 | +2 |
+| BOŞ SIRA | 324 | 324 | +0 |
+| AYNI EL | 1214 | 1214 | +0 |
+| HAKAN'IN CEVABI | 539 | 539 | +0 |
+| VİLDAN'IN GÖRDÜĞÜ | 663 | 663 | +0 |
+| ÜÇ VURUŞ | 296 | 296 | +0 |
+| İÇERİDEKİ YAZAR | 418 | 419 | +1 |
+| ŞAHİT | 464 | 464 | +0 |
+| SU | 610 | 611 | +1 |
+
+### Son okuma (düzelti): yazım, dilbilgisi, noktalama, tutarlılık
+
+
+#### Başlangıç
+
+- **değiştirildi:** „Şahitle“ → „şahitle“ — [tutarlılık] [14]’teki aynı soruyla uyum: cins isim küçük harfle (büyük harfle özel ad olsa kesme gerekirdi)
+- **değiştirildi:** „aşığız“ → „âşığız“ — [tutarlılık] âşık (TDK) yazımıyla birlik
+- **değiştirildi:** „Halk etmiştir“ → „halk etmiştir“ — [yazım] halk etmek = yaratmak; cümle içinde küçük harf
+- **değiştirildi:** „Nâsıra’lı“ → „Nâsıralı“ — [yazım] -lı yapım eki kesmeyle ayrılmaz (TDK)
+- **değiştirildi:** „Ahmed’ten“ → „Ahmed’den“ — [yazım] ünsüz uyumu: d ile biten ada -den
+- **değiştirildi:** „tüm aşıklar“ → „tüm âşıklar“ — [tutarlılık] âşık (TDK) yazımıyla birlik
+
+#### AZ ÇOK
+
+- **değiştirildi:** „Bana tarif edilen bina, amfinin bulunduğu aynı bina,“ → „Bana tarif edilen binada, amfinin bulunduğu aynı binada,“ — [dilbilgisi] yüklemsiz kalan özne; bulunma durumu eki
+- **değiştirildi:** „müdahale mi eder” dedi“ → „müdahale mi eder?” dedi“ — [noktalama] soru cümlesinde eksik soru işareti
+- **değiştirildi:** „otursa mıydım.“ → „otursa mıydım?“ — [noktalama] soru cümlesi soru işaretiyle biter
+- **değiştirildi:** „arttırdım“ → „artırdım“ — [yazım] artır- (TDK), çoğaltmak anlamında
+- **değiştirildi:** „ateş basan halinden“ → „ateş basan hâlinden“ — [tutarlılık] kitapta baskın yazım: hâl
+- **değiştirildi:** „aile evradımdan“ → „aile efradımdan“ — [yazım] efrat (fertler) → efradımdan
+- **değiştirildi:** „tabi siz de“ → „tabii siz de“ — [yazım] tabii (elbette); tabi = bağımlı
+- **değiştirildi:** „Memnun oldum Hocam.“ → „Memnun oldum hocam.“ — [yazım] seslenmede tek başına hocam küçük harf (kitap genelinde)
+- **değiştirildi:** „Kaptan Arif sokağa“ → „Kaptan Arif Sokağı’na“ — [tutarlılık] sokak adı; [127] Kaptan Arif Sokağı’nı ile uyum
+- **değiştirildi:** „her sosyal medya yorumlarına“ → „her sosyal medya yorumuna“ — [dilbilgisi] her + tekil
+- **değiştirildi:** „Bu vakanın kişilik“ → „Bu vaka kişilik“ — [dilbilgisi] bozuk cümle: özne yalın olmalı (Bu vaka … önem arz ediyor)
+- **değiştirildi:** „karışmış durumdaki şu anda“ → „karışmış durumda ki şu anda“ — [yazım] o kadar … ki: bağlaç ki ayrı yazılır
+
+#### DAKTİLO
+
+- **değiştirildi:** „pür dikkat“ → „pürdikkat“ — [yazım] TDK: pürdikkat bitişik
+- **değiştirildi:** „binbir dil“ → „bin bir dil“ — [yazım] TDK: bin bir ayrı yazılır
+- **değiştirildi:** „kapanmış halde“ → „kapanmış hâlde“ — [tutarlılık] kitapta baskın yazım: hâl
+- **değiştirildi:** „yetenekli vakanızla“ → „yetenekli hastanızla“ — [anlam] Hakan’ın [150]’deki ‘hasta değil, vaka’ düzeltmesi ancak Sefa ‘hasta’ derse anlamlı (bkz. [104], [111])
+- **değiştirildi:** „Yolcu ve Şahidin“ → „Yolcu ve Şahit'in“ — [yazım] özel ad olarak büyük harfli Şahit kesmeyle; [320] Yolcu ile Şahit'i ile uyum
+- **değiştirildi:** „Kapıdan çıkınca“ → „Kapıdan çıkmadan“ — [anlam] Vildan odadan [218]’de çıkıyor, onlar [219]’da ardından çıkıyor; ‘çıkınca’ çelişiyordu
+
+#### TECRİT ODASI
+
+- **değiştirildi:** „sarkmış halde“ → „sarkmış hâlde“ — [tutarlılık] aynı paragrafta ‘bu hâlde’; baskın yazım hâl
+- **değiştirildi:** „tavırlarındaki değişimi“ → „tavırlarımdaki değişimi“ — [dilbilgisi] iyelik: anlatıcının tavırları
+- **değiştirildi:** „hikayesi?“ → „hikâyesi?“ — [tutarlılık] kitapta baskın yazım: hikâye
+
+#### UNUTMA
+
+- **değiştirildi:** „Beyim, Size“ → „beyim, size“ — [yazım] cümle içinde seslenme ve zamir küçük harf
+
+#### AN
+
+- **değiştirildi:** „kimse bu şahit önemli“ → „her kimse bu şahit, önemli“ — [dilbilgisi] ‘kimse’ (hiç kimse) ile karışmasın: her kimse (kim ise)
+- **değiştirildi:** „Meryem Oğlu“ → „Meryem oğlu“ — [tutarlılık] [36] Meryem oğlu İsa ile uyum
+- **değiştirildi:** „Hz İsa’ya“ → „Hz. İsa’ya“ — [yazım] Hz. kısaltması noktalı
+- **değiştirildi:** „Hz İsa’nın“ → „Hz. İsa’nın“ — [yazım] Hz. kısaltması noktalı
+- **değiştirildi:** „Hz Muhammed’i“ → „Hz. Muhammed’i“ — [yazım] Hz. kısaltması noktalı
+- **değiştirildi:** „son sözlerini henüz“ → „son sözleri henüz“ — [dilbilgisi] özne yalın: sözleri … yankılandı
+
+#### FİT NE?
+
+- **değiştirildi:** „şeddeliydi“ → „şiddetliydi“ — [yazım] şiddetli
+- **değiştirildi:** „saflar halinde“ → „saflar hâlinde“ — [tutarlılık] kitapta baskın yazım: hâl
+- **değiştirildi:** „nereye gidiyorsunuz’ dedim“ → „nereye gidiyorsunuz?’ dedim“ — [noktalama] soru cümlesinde eksik soru işareti
+- **değiştirildi:** „olağanca“ → „olanca“ — [yazım] olanca hızımla
+- **değiştirildi:** „‘Adem’e“ → „‘Âdem’e“ — [tutarlılık] kitapta baskın yazım: Âdem
+- **değiştirildi:** „Müsaade istemem“ → „Müsaade istedim“ — [anlam] İblis izin istemiş ve almıştır ([450]); ‘istemem’ anlamı tersine çeviriyordu
+- **değiştirildi:** „Havva ve Adem’i“ → „Havva ve Âdem’i“ — [tutarlılık] kitapta baskın yazım: Âdem
+- **değiştirildi:** „Şecere Adem’in“ → „Şecere Âdem’in“ — [tutarlılık] kitapta baskın yazım: Âdem
+- **değiştirildi:** „Adem’in ağlaması“ → „Âdem’in ağlaması“ — [tutarlılık] kitapta baskın yazım: Âdem
+- **değiştirildi:** „Toprak olan“ → „toprak olan“ — [yazım] cümle içinde cins isim küçük harf (su, hava, ateş gibi)
+- **değiştirildi:** „arttırarak“ → „artırarak“ — [yazım] artır- (TDK)
+- **değiştirildi:** „Bu nedir İblis“ → „Bu nedir iblis“ — [tutarlılık] seslenmede bölüm boyunca küçük harf (Söyle iblis, Aptal iblis)
+- **değiştirildi:** „Adem’in“ → „Âdem’in“ — [tutarlılık] kitapta baskın yazım: Âdem
+- **değiştirildi:** „isimlerin hepsi“ → „isimlerinin hepsi“ — [dilbilgisi] Âdem soyunun isimlerinin hepsi (iyelik)
+- **değiştirildi:** „sen hala“ → „sen hâlâ“ — [yazım] hâlâ (henüz); hala = babanın kız kardeşi
+- **değiştirildi:** „yer yüzüne“ → „yeryüzüne“ — [yazım] yeryüzü bitişik
+- **değiştirildi:** „bu tahtta oturttuğum“ → „bu tahta oturttuğum“ — [dilbilgisi] oturtmak yönelme durumu ister
+
+#### MUHİBBİ
+
+- **değiştirildi:** „halim harap“ → „hâlim harap“ — [tutarlılık] kitapta baskın yazım: hâl
+- **değiştirildi:** „yavana atılır“ → „yabana atılır“ — [yazım] yabana atılmak
+- **değiştirildi:** „iyi misiniz” dedi“ → „iyi misiniz?” dedi“ — [noktalama] soru cümlesinde eksik soru işareti
+- **değiştirildi:** „ne hocası...”“ → „ne hocası…”“ — [noktalama] kitap genelinde üç nokta karakteri (…)
+- **değiştirildi:** „Hemen Hocam.“ → „Hemen hocam.“ — [yazım] seslenmede tek başına hocam küçük harf (kitap genelinde)
+- **değiştirildi:** „o hoşbeş“ → „o hoş beş“ — [tutarlılık] TDK: hoş beş ayrı; aynı paragrafta ‘İki hoş beşten’
+- **değiştirildi:** „Kriton Curi parkı“ → „Kriton Curi Parkı“ — [yazım] özel adın parçası büyük harf
+- **değiştirildi:** „neler yazıyorsunuz” gibi“ → „neler yazıyorsunuz?” gibi“ — [noktalama] soru cümlesinde eksik soru işareti
+- **değiştirildi:** „yığınlar halinde“ → „yığınlar hâlinde“ — [tutarlılık] kitapta baskın yazım: hâl
+
+#### OKU
+
+- **değiştirildi:** „iyi hikayeler“ → „iyi hikâyeler“ — [tutarlılık] hikâye (kitaptaki baskın yazım)
+- **değiştirildi:** „Hala karışık!“ → „Hâlâ karışık!“ — [yazım] hâlâ (henüz anlamında)
+- **değiştirildi:** „Hz Adem’i“ → „Hz. Âdem’i“ — [tutarlılık] Hz. noktalı; Âdem (kitaptaki baskın yazım)
+- **değiştirildi:** „kan dökücü Can Tayfasına“ → „kan dökücü can tayfasına“ — [tutarlılık] aynı paragrafta 'can tayfası' küçük harfle
+- **değiştirildi:** „söylenen hikâyelerine.“ → „söylenen hikâyelerine ulaşacaktım.“ — [dilbilgisi] eksik yüklem: 'tanışacaktım' -la ister, 'hikâyelerine' yüklemsiz kalıyordu
+- **değiştirildi:** „Tabi en doğrusunu“ → „Tabii en doğrusunu“ — [yazım] tabii (elbette), tabi (bağlı) değil
+- **değiştirildi:** „akıl baliğ“ → „âkil bâliğ“ — [yazım] âkil bâliğ
+- **değiştirildi:** „ilk minik adımı“ → „ilk minik adımını“ — [dilbilgisi] belirtme hâli: adımını atmak
+- **değiştirildi:** „ciddi miydi acaba”“ → „ciddi miydi acaba?”“ — [noktalama] iç sesteki soru cümlesi soru işaretiyle bitmeli
+- **değiştirildi:** „köpek necisi hayvandır“ → „köpek necis hayvandır“ — [yazım] necis (murdar); 'necisi' yanlış
+- **değiştirildi:** „sanatın neden icra etmesi“ → „sanatın neden icra edilmesi“ — [dilbilgisi] edilgen: sanat icra edilir
+- **değiştirildi:** „Pek tabi,“ → „Pek tabii,“ — [yazım] tabii (elbette)
+- **değiştirildi:** „yazar bir ademle“ → „yazar bir âdemle“ — [tutarlılık] âdem (insan); kitapta 'arif âdem'
+- **değiştirildi:** „anlatacağım hikayeyi“ → „anlatacağım hikâyeyi“ — [tutarlılık] hikâye
+
+#### AŞK İLE
+
+- **değiştirildi:** „Kasım Ay’ının“ → „Kasım ayının“ — [yazım] ay adıyla 'ay' sözcüğü: Kasım ayının
+- **değiştirildi:** „Pazar yerinde“ → „pazar yerinde“ — [yazım] pazar yeri özel ad değil
+- **değiştirildi:** „Sağ omuzunun“ → „Sağ omzunun“ — [yazım] omuz → omzu (ünlü düşmesi)
+- **değiştirildi:** „60 senendir“ → „60 senedir“ — [yazım] yazım hatası: senedir
+- **değiştirildi:** „oğlum B’de mi görmedin“ → „oğlum B de mi görmedin“ — [yazım] bağlaç 'de' ayrı yazılır (B de mi)
+- **değiştirildi:** „terbiye eden ademin“ → „terbiye eden âdemin“ — [tutarlılık] âdem (insan)
+- **değiştirildi:** „sesi kulaklarımda yattığım“ → „sesi kulaklarımda, yattığım“ — [noktalama] iki yargı arasında virgül eksik; cümle yanlış okunuyordu
+- **değiştirildi:** „odun kırmaya aşık“ → „odun kırmaya âşık“ — [tutarlılık] âşık (aynı paragrafta 'âşık olmadığın')
+- **değiştirildi:** „yazmaya aşık senden“ → „yazmaya âşık senden“ — [tutarlılık] âşık
+- **değiştirildi:** „yazmaya aşık değilsen“ → „yazmaya âşık değilsen“ — [tutarlılık] âşık
+- **değiştirildi:** „Allah, Allah; Ne“ → „Allah, Allah; ne“ — [noktalama] noktalı virgülden sonra küçük harf
+
+#### GÜL KOKUSU
+
+- **değiştirildi:** „namazımı niyaz ettim“ → „namazımı eda ettim“ — [anlam] namaz niyaz edilmez; eda edilir
+- **değiştirildi:** „mesaini bitirenlerle“ → „mesaisini bitirenlerle“ — [dilbilgisi] 3. tekil iyelik: mesaisini
+- **değiştirildi:** „yoktu, kağıtlar masanın“ → „yoktu, kâğıtlar masanın“ — [tutarlılık] kâğıt
+- **değiştirildi:** „bu kağıtları gül kokusunda bulayıp“ → „bu kâğıtları gül kokusuna bulayıp“ — [dilbilgisi] bulamak yönelme ister: kokusuna bulamak; kâğıt
+- **değiştirildi:** „Kağıtları çıkarttım“ → „Kâğıtları çıkarttım“ — [tutarlılık] kâğıt
+- **değiştirildi:** „hayat hikayemi“ → „hayat hikâyemi“ — [tutarlılık] hikâye
+- **değiştirildi:** „roman karakterlerin çoğu“ → „roman karakterlerinin çoğu“ — [dilbilgisi] tamlayan eki eksik: karakterlerinin çoğu
+- **değiştirildi:** „hızımı arttırarak“ → „hızımı artırarak“ — [yazım] artırmak (TDK)
+- **değiştirildi:** „sebebini ikimizde biliyoruz“ → „sebebini ikimiz de biliyoruz“ — [yazım] bağlaç 'de' ayrı: ikimiz de
+- **değiştirildi:** „İşte konumuzda tam“ → „İşte konumuz da tam“ — [yazım] bağlaç 'da' ayrı: konumuz da
+- **değiştirildi:** „direnen ve diremeyenler“ → „direnen ve direnemeyenler“ — [yazım] direnmek → direnemeyenler
+- **değiştirildi:** „Kim neyin sahip ki“ → „Kim neyin sahibi ki“ — [dilbilgisi] neyin sahibi (tamlanan eki eksik)
+
+#### HODRİ
+
+- **değiştirildi:** „Onikiler caminde“ → „Onikiler camisinde“ — [yazım] cami → camisi (kitapta da 'camisinde')
+- **değiştirildi:** „vakit veya Cuma namazlarını“ → „vakit veya cuma namazlarını“ — [yazım] cuma namazı küçük harfle (bkz. 'bir cuma günü')
+- **değiştirildi:** „“Aç mısın” dedim?“ → „“Aç mısın?” dedim.“ — [noktalama] soru işareti alıntının içinde olmalı
+- **değiştirildi:** „kafamı Hodri ’ye“ → „kafamı Hodri’ye“ — [noktalama] kesme işaretinden önce boşluk olmaz
+- **değiştirildi:** „hiç tanımadığı bir müptezelin“ → „hiç tanımadığım bir müptezelin“ — [dilbilgisi] özne anlatıcı: tanımadığım
+- **değiştirildi:** „Gayri ihtiyari ardıma“ → „Gayriihtiyari ardıma“ — [yazım] gayriihtiyari bitişik (TDK)
+- **değiştirildi:** „yüzü traşlı“ → „yüzü tıraşlı“ — [yazım] tıraşlı (TDK)
+- **değiştirildi:** „caddesindeki Gül Pastanesine“ → „Caddesi’ndeki Gül Pastanesi’ne“ — [yazım] özel ad: Mandıra Caddesi’ndeki, Gül Pastanesi’ne (bkz. Gül Pastanesi’nin)
+- **değiştirildi:** „o yarım hikayesi“ → „o yarım hikâyesi“ — [tutarlılık] hikâye
+- **değiştirildi:** „zaten aşıklardır“ → „zaten âşıklardır“ — [tutarlılık] âşık
+- **değiştirildi:** „yarım hikayelerini“ → „yarım hikâyelerini“ — [tutarlılık] hikâye
+- **değiştirildi:** „tam da Cuma namazı“ → „tam da cuma namazı“ — [yazım] cuma namazı küçük harfle
+- **değiştirildi:** „çimenle olan hikayesini“ → „çimenle olan hikâyesini“ — [tutarlılık] hikâye
+- **değiştirildi:** „Fikirtepe’ de“ → „Fikirtepe’de“ — [noktalama] kesme işaretinden sonra boşluk olmaz
+- **değiştirildi:** „rüyam hala bitmedi“ → „rüyam hâlâ bitmedi“ — [yazım] hâlâ (henüz)
+- **değiştirildi:** „o sıkıntılı halde kalmamıştı“ → „o sıkıntılı hal de kalmamıştı“ — [yazım] bağlaç 'de' ayrı: hal de kalmamıştı
+- **değiştirildi:** „birkaç aşık dervişin hikayelerini“ → „birkaç âşık dervişin hikâyelerini“ — [tutarlılık] âşık, hikâye
+- **değiştirildi:** „dünyada gelmeden“ → „dünyaya gelmeden“ — [dilbilgisi] yönelme hâli: dünyaya gelmek
+- **değiştirildi:** „Mustafa Sefa, Umre ziyaretimi“ → „Mustafa Sefa, umre ziyaretimi“ — [yazım] umre küçük harfle (bkz. 'umreye gittim')
+- **değiştirildi:** „Fikirtepe ’de“ → „Fikirtepe’de“ — [noktalama] kesme işaretinden önce boşluk olmaz
+- **değiştirildi:** „aylarını hiçte hastane“ → „aylarını hiç de hastane“ — [yazım] bağlaç 'de' ayrı: hiç de
+- **değiştirildi:** „“abdestin var mı“ → „“Abdestin var mı“ — [yazım] alıntı cümlesi büyük harfle başlar
+
+#### SOLUCAN
+
+- **değiştirildi:** „Saygı adı başlığı altında“ → „Saygı adı altında“ — [dilbilgisi] iki sözcük üst üste kalmış (adı/başlığı); 'adı altında'
+- **değiştirildi:** „tabi saklar“ → „tabii saklar“ — [yazım] tabii (elbette)
+- **değiştirildi:** „mütevaziliğinin“ → „mütevazılığının“ — [yazım] mütevazı → mütevazılık (TDK)
+- **değiştirildi:** „haşmetli hünkarımız“ → „haşmetli hünkârımız“ — [yazım] hünkâr (TDK)
+- **değiştirildi:** „jargonlu hikayeler“ → „jargonlu hikâyeler“ — [tutarlılık] hikâye
+- **değiştirildi:** „baş danışması ile“ → „başdanışmanı ile“ — [yazım] başdanışman bitişik; 'danışması' yanlış
+- **değiştirildi:** „Tüyap Kongre Merkezinde“ → „Tüyap Kongre Merkezi’nde“ — [yazım] özel ada gelen ek kesmeyle ayrılır
+- **değiştirildi:** „fark ettik abi bizde“ → „fark ettik abi biz de“ — [yazım] bağlaç 'de' ayrı: biz de
+- **değiştirildi:** „Allah’ın benden razı olmadan“ → „Allah benden razı olmadan“ — [dilbilgisi] özne yalın olmalı: Allah benden razı olmadan
+- **değiştirildi:** „katipleriniz“ → „kâtipleriniz“ — [tutarlılık] kâtip (kitapta 'kâtip')
+- **değiştirildi:** „150 milyon metre kare“ → „150 milyon kilometre kare“ — [olgu] Dünya'nın kara yüzölçümü ~150 milyon km²
+- **değiştirildi:** „bu kadarının yapmışsın“ → „bu kadarını yapmışsın“ — [dilbilgisi] belirtme hâli: bu kadarını
+- **değiştirildi:** „Katiplerim“ → „Kâtiplerim“ — [tutarlılık] kâtip
+- **değiştirildi:** „her elçimin ordularımı vardı peşinden takip eden.“ → „her elçimin orduları mı vardı peşinden takip eden?“ — [yazım] soru eki ayrı yazılır; cümle soru
+- **değiştirildi:** „Hakk’ı Hakikati“ → „Hakk’ı hakikati“ — [tutarlılık] bkz. [734] 'Hakk’ı hakikati'
+- **değiştirildi:** „üç kağıtçı“ → „üçkâğıtçı“ — [yazım] üçkâğıtçı bitişik (TDK)
+- **değiştirildi:** „anti sosyal“ → „antisosyal“ — [yazım] antisosyal bitişik (TDK)
+- **değiştirildi:** „kendi hikayesinin“ → „kendi hikâyesinin“ — [tutarlılık] hikâye
+- **değiştirildi:** „oranda taktim ve tahsis“ → „oranda takdir ve tahsis“ — [yazım] takdir (taktim değil)
+- **değiştirildi:** „Bulduğunu zannediyor mu evet, içiyor mu? Evet.“ → „Bulduğunu zannediyor mu? Evet. İçiyor mu? Evet.“ — [noktalama] soru-cevap dizisinde eksik soru işareti ve büyük harf
+
+#### ON BİR
+
+- **değiştirildi:** „deniz Ben artık deniz değilim mi der?“ → „deniz ‘Ben artık deniz değilim’ mi der?“ — [noktalama] iç alıntı tırnak içine
+- **değiştirildi:** „Sen Şahit kim? diye“ → „Sen ‘Şahit kim?’ diye“ — [noktalama] iç alıntı tırnak içine
+- **değiştirildi:** „Bir gün Kim şahitlik ediyor?, sonra Şahitlik kime ait?, belki en sonunda Bu soruyu duyan ne? diyeceksin“ → „Bir gün ‘Kim şahitlik ediyor?’ sonra ‘Şahitlik kime ait?’ belki en sonunda ‘Bu soruyu duyan ne?’ diyeceksin“ — [noktalama] iç alıntılar tırnak içine; '?,' birleşimi kaldırıldı
+
+#### MIZRAĞIN İKİ UCU
+
+- **değiştirildi:** „vermişti, İşte bunu“ → „vermişti, işte bunu“ — [noktalama] Virgülden sonra büyük harf: ', İşte' → ', işte'
+- **değiştirildi:** „aynını yaptılar“ → „aynısını yaptılar“ — [yazım] 'aynını' → 'aynısını'
+- **değiştirildi:** „Kızıl denizi“ → „Kızıldeniz’i“ — [yazım] Özel ad bitişik ve kesme işaretiyle: Kızıldeniz’i (TDK)
+- **değiştirildi:** „Allahtan emir“ → „Allah’tan emir“ — [yazım] Özel ada gelen ek kesmeyle ayrılır
+- **değiştirildi:** „endişelerini arttırmak“ → „endişelerini artırmak“ — [yazım] 'arttır-' → 'artır-' (TDK, çoğaltmak anlamında)
+- **değiştirildi:** „vehmini arttırdı“ → „vehmini artırdı“ — [yazım] 'arttır-' → 'artır-' (TDK)
+- **değiştirildi:** „Allahtan yüz“ → „Allah’tan yüz“ — [yazım] Özel ada gelen ek kesmeyle ayrılır
+- **değiştirildi:** „adı Balakt’ı.“ → „adı Balakt’tı.“ — [dilbilgisi] Ek-fiil: 'Balakt’tı' (adı Balakt idi); 'Balakt’ı' belirtme hâli
+- **değiştirildi:** „kuklam bu olmadı“ → „kuklam bu olmalı“ — [anlam] Anlam ters: şeytan kuklasını seçiyor → 'bu olmalı'
+- **değiştirildi:** „zevki sefaya“ → „zevk ü sefaya“ — [yazım] TDK: zevk ü sefa
+- **değiştirildi:** „âlimdir’ Vezir“ → „âlimdir.’ Vezir“ — [noktalama] Alıntı cümlesi bitiyor, yeni cümle başlıyor: nokta eksik
+- **değiştirildi:** „karısına çok aşıktı“ → „karısına çok âşıktı“ — [tutarlılık] âşık (TDK; kitapta birleştirme)
+- **değiştirildi:** „ondan ricalimiz vardır“ → „ondan ricamız vardır“ — [yazım] 'rical' (devlet adamları) değil, 'rica': ricamız
+- **değiştirildi:** „Diye geçirdi“ → „diye içinden geçirdi“ — [noktalama] ’ Diye → ’ diye; 'içinden' eksik (kitaptaki kullanım: diye geçirdim içimden)
+- **değiştirildi:** „‘tamam bu işi bitmiş bilin’ Artık“ → „‘Tamam bu işi bitmiş bilin.’ Artık“ — [noktalama] Alıntı büyük harfle başlar, cümle sonu noktası eksik
+- **değiştirildi:** „bize sahiplenir“ → „bizi sahiplenir“ — [dilbilgisi] 'sahiplenmek' belirtme hâli ister: bizi sahiplenir
+- **değiştirildi:** „ilk söz sahibi senin olacağına“ → „ilk söz sahibinin sen olacağına“ — [dilbilgisi] Yanlış hâl eki: 'ilk söz sahibinin sen olacağına dair'
+- **değiştirildi:** „‘Musaa peygamberdir“ → „‘Musa peygamberdir“ — [yazım] Yazım hatası: Musaa → Musa
+- **değiştirildi:** „Ceylanın burada“ → „Ceylan’ın burada“ — [yazım] Bölümde özel ad olarak kullanılıyor (Ceylan’ın, 1198): kesme işareti
+- **değiştirildi:** „Mikail Ceylanı“ → „Mikail Ceylan’ı“ — [yazım] Özel ada gelen ek kesmeyle ayrılır
+- **değiştirildi:** „şeytandır’ Belam“ → „şeytandır.’ Belam“ — [noktalama] Alıntı cümlesi bitiyor: nokta eksik
+- **değiştirildi:** „Sonra ağaçları,“ → „Sonra ağaçların,“ — [dilbilgisi] Sıralama 'ağaçların, ... taşların ettiği' olmalı (ilgi hâli)
+- **değiştirildi:** „Konkoça Sahrasına“ → „Konkoça Sahrası’na“ — [yazım] Özel ada gelen ek kesmeyle ayrılır
+- **değiştirildi:** „kalabalığı neredeyse her birini“ → „kalabalığın neredeyse her birini“ — [dilbilgisi] Çift nesne: 'kalabalığın neredeyse her birini'
+- **değiştirildi:** „alemlerin onun yüzü“ → „alemleri onun yüzü“ — [dilbilgisi] 'alemleri ... yaratan Allah' (belirtme hâli)
+- **değiştirildi:** „ümmeti Muhammed’in“ → „ümmet-i Muhammed’in“ — [yazım] Farsça tamlama: ümmet-i Muhammed
+- **değiştirildi:** „diye yad edilen“ → „diye yâd edilen“ — [yazım] 'yâd etmek' (anmak); 'yad' = yabancı
+- **değiştirildi:** „en başta gelen, hatta“ → „en başta geleni, hatta“ — [dilbilgisi] 'öğrenmişti' fiilinin nesnesi: en başta geleni
+- **değiştirildi:** „aşıklar düşer“ → „âşıklar düşer“ — [tutarlılık] âşık (TDK; kitapta birleştirme)
+- **değiştirildi:** „Ademler gelir“ → „Âdemler gelir“ — [tutarlılık] Âdem (kitapta baskın biçim)
+
+#### ŞEHRİN ÜÇ ŞAHİDİ
+
+- **değiştirildi:** „evrakların arasında başını“ → „evrakların arasından başını“ — [dilbilgisi] Başını ... arasından kaldırdı (ayrılma hâli)
+- **değiştirildi:** „ağırlığını arttırmak“ → „ağırlığını artırmak“ — [yazım] 'arttır-' → 'artır-' (TDK)
+
+#### SUSAYANIN YOLU
+
+- **değiştirildi:** „onun diğer çocuklar gibi“ → „onu diğer çocuklar gibi“ — [dilbilgisi] 'sokağa salmak' belirtme hâli ister: onu
+- **değiştirildi:** „Abülmülk ailenin“ → „Abülmülk ailesinin“ — [dilbilgisi] İyelik eki eksik: Abülmülk ailesinin
+- **değiştirildi:** „Dİhkan“ → „Dihkan“ — [yazım] Büyük harf hatası: Dİhkan → Dihkan
+- **değiştirildi:** „Hakk bir dinin“ → „Hak bir dinin“ — [yazım] 'Hakk' yalnız ünlüyle başlayan ekten önce; burada 'Hak'
+- **değiştirildi:** „olup, biteni“ → „olup biteni“ — [noktalama] 'olup bitmek' kalıbına virgül girmez
+- **değiştirildi:** „içindeki Hak ateşi, taptığı hiçbir ateş kadar yakıcı değildi“ → „taptığı hiçbir ateş, içindeki Hak ateşi kadar yakıcı değildi“ — [anlam] Anlam ters: Hak ateşinin taptığı ateşlerden zayıf olduğunu söylüyordu; bağlam tersini istiyor
+- **değiştirildi:** „Orada bulunan piskopos, bu işi“ → „Orada bulunan piskopostan, bu işi“ — [anlam] Özne hatası: Şam’a giden Mabeh, piskopos değil (bkz. 1261)
+- **değiştirildi:** „bir başka piskopostan öğrendiği“ → „bir başka piskoposun bildiğini öğrendiği“ — [anlam] Özne hatası düzeltmesinin devamı
+- **değiştirildi:** „buradaki kimsede bir süre“ → „buradaki kimse de bir süre“ — [yazım] Bağlaç 'de' ayrı yazılır: kimse de
+- **değiştirildi:** „aradığı kısmen“ → „aradığını kısmen“ — [dilbilgisi] Belirtme hâli eksik: aradığını
+- **değiştirildi:** „ateş hala serinlememiştir“ → „ateş hâlâ serinlememiştir“ — [yazım] hâlâ (henüz anlamında); 'hala' = babanın kız kardeşi
+- **değiştirildi:** „Barnabas İncilinde“ → „Barnabas İncili’nde“ — [yazım] Özel ada gelen ek kesmeyle ayrılır
+- **değiştirildi:** „Kendisinin Arap topraklarından“ → „Kendisi Arap topraklarından“ — [dilbilgisi] Özne ilgi hâlinde olamaz: Kendisi ... çıkacak
+- **değiştirildi:** „1.Hediyenden“ → „1. Hediyenden“ — [noktalama] Sıra sayısı noktasından sonra boşluk
+- **değiştirildi:** „2.Ama“ → „2. Ama“ — [noktalama] Sıra sayısı noktasından sonra boşluk
+- **değiştirildi:** „evladım” bir süre“ → „evladım.” Bir süre“ — [noktalama] Alıntı bitiyor, yeni cümle başlıyor: nokta ve büyük harf
+- **değiştirildi:** „Arap Haydutlarına saldırılarına“ → „Arap haydutlarının saldırılarına“ — [dilbilgisi] Tamlama bozuk: Arap haydutlarının saldırılarına (küçük harf)
+- **değiştirildi:** „henüz emin olmuştur“ → „henüz emin olamamıştır“ — [anlam] Anlam ters: 'henüz' ve sonraki haber, emin olmadığını gösteriyor
+- **değiştirildi:** „bir başka yanına“ → „bir başkası yanına“ — [dilbilgisi] Kelime eksik/özne: 'bir başkası yanına koşarak gelmişti'
+- **değiştirildi:** „Yesrib’e Kuba köyüne hicret“ → „Yesrib’e, Kuba köyüne biri hicret“ — [dilbilgisi] Özne eksik ('biri'); açıklayıcı iki yönelme arasına virgül
+- **değiştirildi:** „verildiğini görünce“ → „verdiğini görünce“ — [dilbilgisi] 'hurmaları ... verdiğini' (etken; nesne belirtme hâlinde)
+- **değiştirildi:** „peygamberlik alametinin ikincisidir“ → „peygamberlik alametlerinin ikincisidir“ — [dilbilgisi] 'ikincisi' çoğul tamlayan ister: alametlerinin
+- **değiştirildi:** „Cebrail (AS) peygamberimize“ → „Cebrail’in (AS) peygamberimize“ — [dilbilgisi] 'aktarması' tamlayanı ilgi hâli ister: Cebrail’in
+- **değiştirildi:** „40 altın ve üç yüz“ → „40 altın vermesini ve üç yüz“ — [dilbilgisi] Eksik yüklem: altın 'ekilmez'; 'vermesini' eklendi
+- **değiştirildi:** „Hicaz’lı“ → „Hicazlı“ — [yazım] Yapım eki -lı kesmeyle ayrılmaz
+
+#### MUHİBBİ'NİN SOFRASI
+
+- **değiştirildi:** „yapıyordu, hala şahidi“ → „yapıyordu, hâlâ şahidi“ — [yazım] hâlâ (henüz anlamında)
+- **değiştirildi:** „Bilali Habeşi“ → „Bilal-i Habeşi“ — [yazım] Farsça tamlama: Bilal-i Habeşi (bkz. Selman-ı Farisi)
+- **değiştirildi:** „"Habeşî"“ → „‘Habeşî’“ — [noktalama] Konuşma içindeki alıntı tek tırnakla, düz tırnak yerine
+- **değiştirildi:** „Ümeyye Bilal’e,“ → „Ümeyye Bilal’i,“ — [dilbilgisi] 'kamçılatmış ... ezmiştir' belirtme hâli ister: Bilal’i
+- **değiştirildi:** „Hz Ebu Bekir“ → „Hz. Ebu Bekir“ — [yazım] Kısaltma noktası: Hz.
+- **değiştirildi:** „Muhibbi amca“ → „Muhibbi Amca“ — [tutarlılık] Kitapta her yerde 'Muhibbi Amca'
+- **değiştirildi:** „Selman’ı Farisi’yi“ → „Selman-ı Farisi’yi“ — [yazım] Farsça tamlama: Selman-ı Farisi (bkz. 1283)
+- **değiştirildi:** „batılı olmayı“ → „Batılı olmayı“ — [yazım] TDK: Batılı
+
+#### VİLDAN'IN GÖRDÜĞÜ
+
+- **değiştirildi:** „diğeri mesaini paylaştığı“ → „diğeri mesaisini paylaştığı“ — [dilbilgisi] İyelik eki hatalı: mesaisini
+
+### Jüri v6 sonrası editör müdahaleleri (içerik tutarlılığı, köprüler)
+
+
+#### HAKİKAT MEDENİ
+
+- **değiştirildi:** „Dosyanın bir sayfasında şizofreni tanısını gördüm.“ → „Dosyanın bir sayfasında şizofreni ön tanısını gördüm.“ — Beyindeki oluşum ve nöbetler henüz netleşmemişken kesin tanı klinik olarak tutarsız; „ön tanı“ (jüri).
+- **değiştirildi:** „Bu tanı Hakan’a mı aitti yoksa bana mı?“ → „Bu ön tanı Hakan’a mı aitti yoksa bana mı?“ — Aynı.
+
+#### DAKTİLO
+
+- **değiştirildi:** „Hakan Hoca'nın sol ayağı eşiğe hafifçe takıldı.“ → „Hakan Hoca'nın sağ ayağı eşiğe hafifçe takıldı.“ — Oluşum konuşma bölgesine yakın (sol yarıküre); motor belirti sağ tarafta olur (jüri, nöroloji).
+
+#### VİLDAN'IN GÖRDÜĞÜ
+
+- **değiştirildi:** „Birkaç defa da sol ayağınız eşiğe sürttü.“ → „Birkaç defa da sağ ayağınız eşiğe sürttü.“ — Aynı (DAKTİLO ile uyumlu).
+
+#### SOLUCAN
+
+- **değiştirildi:** „Saat öğlene geliyor gibiydi, bıyıklarıma“ → „Saatin kaç olduğunu bilmiyordum; bıyıklarıma“ — ON BİR'de saat 10.44 okunuyor; nöbet sonrası „öğlene geliyor gibiydi“ izlenimi okurda çelişki gibi duruyordu (iki jüri).
+
+#### ÜÇ VURUŞ
+
+- **değiştirildi:** „Ertesi gün Psikiyatr Dr. Hakikat Bey’e“ → „Ertesi gün Prof. Dr. Hakikat Bey’e“ — KAYIT'taki unvanla aynı („Prof. Dr. Hakikat Medeni“).
+
+#### TECRİT ODASI
+
+- **değiştirildi:** „“Hani konuşmakta zorlandığını ve çalışmak istemediğini söylemiştin ya…“ → „“Hani konuşmakta zorlandığını, kabuğuna çekildiğini ve çalışmak istemediğini söylemiştin ya…“ — Hemen ardından gelen „Kabuk derken hocam?“ sorusunun dayanağı (AZ ÇOK'taki „kabuğuma çekilmiştim“ sözünü Hakan geri veriyor); iki jüri „kimse kabuk demedi“ diye işaretledi.
+
+#### SUSAYANIN YOLU
+
+- **değiştirildi:** „Hicaz bölgesine gidecek olan Yahudi bir kervancı başı ile tanışır.“ → „Hicaz bölgesine gidecek olan Kelb kabilesinden bir kervancı başı ile tanışır.“ — Kaynaklarda (İbn İshak) Selman'ı köle olarak satan Kelbli tüccarlardır; Yahudi'ye satılır (jüri: olgu düzeltmesi).
+- **değiştirildi:** „Yahudi kervancı başı, sözünde durmayarak Mabeh’i köle olarak satmıştır. Yesrib’e götürülen Mabeh, bir hurma bahçesinde çalıştırılmak üzere, yine bir Yahudi’ye …“ → „kervancı başı, sözünde durmayarak Mabeh’i Vâdi’l-Kurâ’da bir Yahudi’ye köle olarak satmıştır. Yesrib’e götürülen Mabeh, bir hurma bahçesinde çalıştırılmak üzer…“ — Aynı (kaynaktaki sıra).
+- **değiştirildi:** „Amuriye (Sivrihisar) taraflarında“ → „Amuriye (bugünkü Emirdağ yakınları) taraflarında“ — Amorium Sivrihisar değil, Emirdağ'a bağlı Hisarköy'dedir (jüri).
+- **değiştirildi:** „Arap lisanını bilmeyen Mabeh bir tercüman ister“ → „derdini Arap lisanıyla anlatamayan Mabeh bir tercüman ister“ — Mabeh daha önce Araplarla konuşuyor; „hiç bilmeyen“ çelişkiydi.
+
+#### FİT NE?
+
+- **değiştirildi:** „isli ateşlerden libaslar“ → „dumansız ateşlerden libaslar“ — Cinler/şeytan „dumansız ateşten“ (mâric min nâr) yaratılmıştır (jüri).
+
+#### MIZRAĞIN İKİ UCU
+
+- **değiştirildi:** „Belam’ın güzel karısı kapıyı açtı“ → „Güzel karısı kapıyı açtı“ — Ad düzeltmesinden sonra arka arkaya iki „Belam’ın“ kalmasın.
+
+#### OKU
+
+- **değiştirildi:** „çünkü inançlarına göre dünyaya yani bu aleme geliş bir günahtır.“ → „çünkü inançlarına göre insan, Âdem’den miras kalan bir günahla dünyaya gelir.“ — Hristiyan „asli günah“ inancı doğru aktarıldı (jüri); Muhibbi'nin karşılaştırması aynen duruyor.
+
+#### MEKTUBU KİM YAZDI?
+
+- **değiştirildi:** „Ben alıştığım tamlamayı araya sokmuş, okuduğumu düzeltirken kendimi doğru sanmıştım.“ → „Ben alıştığım tamlamayı araya sokmuş, okuduğumu düzeltirken kendimi doğru sanmıştım. Oysa âlemlere rahmet olmak Peygamber’in sıfatıydı; mektubu yazan el, o sıf…“ — Kalın harf şifresindeki ifade Peygamber'in sıfatı; anlatıcı bunu yazanın hatası olarak işaretliyor (jüri önerisi; şifre değişmedi).
+
+#### KAYIT
+
+- **değiştirildi:** „Acil serviste tansiyonum, şekerim, ateşim ölçüldü.“ → „Acil servisin duvarları soluk yeşildi. Hakan Hoca plastik bir bardakla su uzattı; içtim. Tansiyonum, şekerim, ateşim ölçüldü.“ — İki kitap köprüsü: YOLCU 12'deki „Yeşil oda … Su uzatan bir doktor … ‘Hakan’ … plastik bardak“ sahnesi ŞAHİT'te bu acil odasına bağlanıyor (çift jürisi).
+
+#### MEKTUBU KİM YAZDI?
+
+- **değiştirildi:** „Sahnedeki kayıtta metale üç kez vuruluyor, ardından biri su istiyordu.“ → „Sahnedeki kayıtta metale üç kez vuruluyor, sonra biri su istiyordu.“ — YOLCU 12'de alıntılanan cümleyle harfi harfine aynı.
+
+#### KÂĞIDIN ÖTE YANI
+
+- **eklendi:** „Altına boş bir sandalye çizdim.“ — YOLCU 5'te aynı notun altında „boş bir sandalye“ çizili; köprü tamamlandı (çift jürisi).
+
+#### SU
+
+- **değiştirildi:** „Adam başını çevirdi; içeriden çocuğunun sesini duydu. Paketle ilgili sorumu orada bırakıp çocuğa gitti.“ → „Adam başını çevirdi; içeriden bir çocuk sesi duydu. Paketle ilgili sorumu orada bırakıp sese gitti.“ — YOLCU 2'de paket geldiğinde çocuklar evde değil; „bir çocuk sesi“ iki kitapla da uyumlu.
+
+#### İÇERİDEKİ YAZAR
+
+- **değiştirildi:** „O dünyaya bir profesör girmişti.“ → „O dünyaya bir doktor girmişti.“ — YOLCU'da Hakan „su uzatan bir doktor“ olarak geçiyor; „profesör“ YOLCU'da yok.
+- **değiştirildi:** „Muhibbi'nin sorduğu soru bir odanın duvarına dönüşüyor;“ → „Muhibbi'nin adı bir sayfanın kenarında çay lekesine dönüşüyor;“ — YOLCU 12'deki gerçek yankı: Muhibbi'nin geçtiği sayfanın kenarında çay lekesi.
+
+#### HODRİ
+
+- **değiştirildi:** „yarım hikayemin“ → „yarım hikâyemin“ — Yazım birliği (hikâye).
+- **değiştirildi:** „ne de Âşık olduğum hatundu“ → „ne de âşık olduğum hatundu“ — Cümle ortasında büyük harf.
+
+#### AZ ÇOK
+
+- **değiştirildi:** „sahne insanı olmuş bir ademin“ → „sahne insanı olmuş bir âdemin“ — Yazım birliği („âdem“ = insan; kitabın geri kalanıyla aynı).
+
+#### UNUTMA
+
+- **değiştirildi:** „mürekkep yalamış ademler.“ → „mürekkep yalamış âdemler.“ — Aynı.
+
+
+## E. YOLCU – Son okuma ve jüri sonrası düzeltmeler
+
+Toplam 35 işlem.
+
+**Toplam:** 40.621 → 40.669 kelime (+48; +0.1 %)
+
+| Bölüm | Önce | Sonra | Fark |
+|---|---:|---:|---:|
+| (Ön kısım) | 1 | 1 | +0 |
+| 1453 — UYANIŞIN BEDELİ | 17 | 17 | +0 |
+| DİKKAT | 341 | 341 | +0 |
+| 1. Sonmuş Gibi Sıradan Bir Sabah | 1513 | 1512 | -1 |
+| 2. Siyah Paket | 1339 | 1339 | +0 |
+| 3. Kamera Boşluğu | 497 | 497 | +0 |
+| 4. Sahte Görüntü, Gerçek Yas | 667 | 667 | +0 |
+| 5. Bir Tanının Geldiği Yer | 2222 | 2222 | +0 |
+| 7. Silinen Satır | 789 | 790 | +1 |
+| 8. İki Kötü Seçenek | 464 | 464 | +0 |
+| 9. Bölgesel Bir İmparatorluk | 937 | 938 | +1 |
+| 11. Emanetin Peşindeki Karga | 990 | 992 | +2 |
+| 12. Yedi Yıl Önce Çaldığım Kapı | 1967 | 1967 | +0 |
+| 13. Bedenin İtirazı | 1023 | 1023 | +0 |
+| 15. Nüshaların Söylemediği | 704 | 705 | +1 |
+| 16. Görmek ile Yetişmek Arasındaki Mesafe | 571 | 572 | +1 |
+| 17. Ormanda Beceri, Şehirde Belirti | 1501 | 1501 | +0 |
+| 18. Birincil Ayna | 256 | 256 | +0 |
+| 20. İnanmayan İlk Kişi | 1561 | 1561 | +0 |
+| 21. Bir Hata, İki Kız Kardeş | 800 | 804 | +4 |
+| 22. On Bir Saniyenin İçindeki Ses | 332 | 333 | +1 |
+| 23. Silah Olmayan Ses | 694 | 694 | +0 |
+| 24. Yusuf'un Dili | 495 | 495 | +0 |
+| 25. Unuttuğumu Ateş Seçti | 795 | 795 | +0 |
+| 26. Aynı Yöntemin Farklı Logoları | 1181 | 1181 | +0 |
+| 28. Bir Gün Daha Yaşamak | 333 | 333 | +0 |
+| 29. Trenin İçindeki Ben | 325 | 325 | +0 |
+| 30. Yüzümün Benden Habersiz Hayatı | 1002 | 1002 | +0 |
+| 31. Lambaları Yanan Boş Kat | 805 | 806 | +1 |
+| 32. Leyla'nın Son Kaynağı | 462 | 462 | +0 |
+| 34. Unutulmuş Dükkânın Anahtarı | 606 | 606 | +0 |
+| 35. Kızımın Dosyası | 1333 | 1330 | -3 |
+| 36. İki Ayrı Gelecek | 903 | 906 | +3 |
+| 37. Görünmeyen Kameranın Gördüğü | 519 | 519 | +0 |
+| 38. Adı Hastalık Olan Yetenek | 1255 | 1255 | +0 |
+| 39. ŞAMAN | 522 | 523 | +1 |
+| 40. Yusuf Olmadan Önce | 2224 | 2225 | +1 |
+| 42. Labirentin Emanetleri | 867 | 872 | +5 |
+| 43. Başlangıç Sensin | 943 | 944 | +1 |
+| 44. Bedenin Bildiği Tarih | 405 | 418 | +13 |
+| 45. Beni Öldürmeyen Adam | 1908 | 1909 | +1 |
+| 46. Son Olabilecek Şeyler | 902 | 902 | +0 |
+| 47. Son Olduğunu Bilmeden | 1272 | 1272 | +0 |
+| 48. Saat 14.53 | 296 | 296 | +0 |
+| 49. Geride Kalanlar | 790 | 790 | +0 |
+| 50. Boş Bırakılan Son Cümle | 1292 | 1307 | +15 |
+
+### Son okuma (düzelti): yazım, dilbilgisi, noktalama, tutarlılık
+
+
+#### DİKKAT
+
+- **değiştirildi:** „yanım... Hepsinin“ → „yanım… Hepsinin“ — [tutarlılık] Üç nokta: kitapta tek karakterli … da kullanılıyor (…bana geri…, Nehir…); tek biçime getirildi
+
+#### 2. Siyah Paket
+
+- **değiştirildi:** „Paket halinde“ → „Paket hâlinde“ — [tutarlılık] Kitapta her yerde hâl/hâlde/hâline; TDK: hâlinde
+
+#### 5. Bir Tanının Geldiği Yer
+
+- **değiştirildi:** „gün...”“ → „gün…”“ — [tutarlılık] Üç nokta tek karaktere (…) getirildi
+
+#### 7. Silinen Satır
+
+- **değiştirildi:** „kişiler...”“ → „kişiler…”“ — [tutarlılık] Üç nokta tek karaktere (…) getirildi
+- **değiştirildi:** „önizleme kopyasını“ → „ön izleme kopyasını“ — [tutarlılık] Kitapta hem önizleme hem ön izleme (1373) var; TDK’ye uygun ayrı yazımda birleştirildi (krş. ön inceleme)
+- **değiştirildi:** „acil talep aldı“ → „acil onay aldı“ — [anlam] Talepte bulunan Selin; savcıdan alınan şey onaydır (krş. 382: savcılık onayından sonra)
+
+#### 9. Bölgesel Bir İmparatorluk
+
+- **değiştirildi:** „çevrimiçi“ → „çevrim içi“ — [yazım] TDK: çevrim içi (ayrı)
+
+#### 11. Emanetin Peşindeki Karga
+
+- **değiştirildi:** „hakedişe“ → „hak edişe“ — [yazım] TDK: hak ediş (ayrı)
+- **değiştirildi:** „çevrimdışı“ → „çevrim dışı“ — [yazım] TDK: çevrim dışı (ayrı)
+
+#### 15. Nüshaların Söylemediği
+
+- **değiştirildi:** „işyerinin“ → „iş yerinin“ — [yazım] TDK: iş yeri; kitapta başka yerde de iş yeri (1203, 2572)
+
+#### 21. Bir Hata, İki Kız Kardeş
+
+- **değiştirildi:** „ilk şansı bile“ → „ilk şans için bile“ — [dilbilgisi] Belirtme durumundaki şansı’yı yönetecek fiil yok; belge istemek ‘için’ gerektirir
+
+#### 22. On Bir Saniyenin İçindeki Ses
+
+- **değiştirildi:** „çevrimdışı“ → „çevrim dışı“ — [yazım] TDK: çevrim dışı (ayrı)
+
+#### 25. Unuttuğumu Ateş Seçti
+
+- **değiştirildi:** „aynı ânı“ → „aynı anı“ — [tutarlılık] Kitapta ‘an’ her yerde düzeltme işaretsiz (güldükleri anı, öldüğü anı, tuttuğu anı)
+
+#### 31. Lambaları Yanan Boş Kat
+
+- **değiştirildi:** „özgüvenli“ → „öz güvenli“ — [yazım] TDK: öz güven (ayrı)
+- **değiştirildi:** „sigorta dosyasında sonradan“ → „sigorta dosyasının sonradan“ — [dilbilgisi] Değiştirilen şey dosyanın kendisi (sonraki cümle: poliçenin sürüm geçmişi); -ında eki öznesiz bırakıyor
+
+#### 35. Kızımın Dosyası
+
+- **değiştirildi:** „Taksiye dükkânın“ → „Taksiden dükkânın“ — [dilbilgisi] inmek ayrılma durumu ister: taksiden inmiş (taksiye 2381’de binmişti)
+
+#### 36. İki Ayrı Gelecek
+
+- **değiştirildi:** „belediye çalışması görünen“ → „belediye çalışması gibi görünen“ — [dilbilgisi] Eksik kelime: ad + görünmek için ‘gibi’ gerekli
+- **değiştirildi:** „önizlemede“ → „ön izlemede“ — [tutarlılık] ön izleme yazımında birleştirildi (bkz. 629, 1373)
+- **değiştirildi:** „çevrimdışı“ → „çevrim dışı“ — [yazım] TDK: çevrim dışı (ayrı)
+
+#### 40. Yusuf Olmadan Önce
+
+- **değiştirildi:** „itaattan“ → „itaatten“ — [yazım] TDK: itaat, -ti → itaatten (krş. 1877 itaatle)
+- **değiştirildi:** „alçakgönüllüydü“ → „alçak gönüllüydü“ — [yazım] TDK: alçak gönüllü (ayrı)
+
+#### 43. Başlangıç Sensin
+
+- **değiştirildi:** „çevrimdışı“ → „çevrim dışı“ — [yazım] TDK: çevrim dışı (ayrı)
+
+#### 45. Beni Öldürmeyen Adam
+
+- **değiştirildi:** „çevrimdışıydı“ → „çevrim dışıydı“ — [yazım] TDK: çevrim dışı (ayrı)
+
+#### 47. Son Olduğunu Bilmeden
+
+- **değiştirildi:** „Siyah Kitap da“ → „Siyah kitap da“ — [tutarlılık] Kitapta her yerde ‘siyah kitap’ küçük harfle (özel ad değil); cümle başı olduğu için yalnız Siyah büyük
+
+### Jüri v6 sonrası editör müdahaleleri (içerik tutarlılığı)
+
+
+#### 16. Görmek ile Yetişmek Arasındaki Mesafe
+
+- **değiştirildi:** „Emir ulaştıktan sonra gri paltolunun“ → „Arama emri ulaştıktan sonra gri paltolunun“ — Cümle başındaki „Emir“ oğul Emir gibi okunuyordu (jüri).
+
+#### 35. Kızımın Dosyası
+
+- **değiştirildi:** „ikincisinde Yusuf'la beyaz kitabın sayfalarını tasnif ediyor,“ → „ikincisinde kütüphanede sınava çalışıyor,“ — 40. bölüme göre anlatıcı 19 yaşında belgeleri Yusuf'a bırakıp hayatına dönmüştü; babası öldüğünde (20) Yusuf'la çalışıyor olması çelişkiydi ve 40'taki açıklamayı önceden veriyordu (iki jüri).
+
+#### 39. ŞAMAN
+
+- **değiştirildi:** „Leyla'nın Berlin'de sorduğu soru geri döndü:“ → „Leyla'nın son görüşmemizde sorduğu soru geri döndü:“ — 5. bölümde soru „son yüz yüze görüşmemizde“ soruluyor, Berlin'de değil (jüri).
+
+#### 1. Sonmuş Gibi Sıradan Bir Sabah
+
+- **kısaltıldı:** „üstüne yalnızca“ → „üstüne“ — 4. bölümde zarflarda isimler, 28'de „Ben açamazsam ölüm belgesiyle açın“ notu var; „yalnızca“ çelişki yaratıyordu (jüri).
+
+#### 12. Yedi Yıl Önce Çaldığım Kapı
+
+- **değiştirildi:** „İstanbul'dan Edirne'ye, 14.53.“ → „Edirne'den İstanbul'a, 14.53.“ — 14.53'te İstanbul'dan kalkan trenle aynı akşam dönüp okul gösterisinin son beş dakikasına yetişmek mümkün değildi; dönüş treni 14.53 (yön de 1453'ün yönü) (jüri).
+
+#### 44. Bedenin Bildiği Tarih
+
+- **değiştirildi:** „İlk rapor normal görünmüştü.“ → „İlk rapor normal görünmüştü. Nehir'e “Doktor, yaşım için fena olmadığımı söyledi,” derken bu cihazdan hiç söz etmemiştim.“ — 4. bölümdeki „yaşım için fena değilim“ sözü ile iki ay önce takılan cihaz arasındaki çelişki, anlatıcının saklaması olarak açıklanıyor (iki jüri).
+
+#### 42. Labirentin Emanetleri
+
+- **değiştirildi:** „Tünelin çıkışında Nehir bekliyordu.“ → „Nehir önden koşmuş, tünelin çıkışında arabanın kapısını açık tutuyordu.“ — Nehir grupla birlikte batı kapısından çıkıyordu; çıkışta „bekliyor“ olması çelişkiydi (jüri).
+
+#### 21. Bir Hata, İki Kız Kardeş
+
+- **değiştirildi:** „“Çocuğun kayıp. Kavganızı sonra yaparsınız.”“ → „“Çocuğun kayıp,” dedi Duru telefondan. “Kavganızı sonra yaparsınız.”“ — Konuşan belli değildi (jüri).
+
+#### 37. Görünmeyen Kameranın Gördüğü
+
+- **değiştirildi:** „“Bu kez oturan bendim. İmzayı atınca geçmişi kapattığımı sandım.”“ → „“Hareketi de hatırlamak istemedim. İmzayı atınca geçmişi kapattığımı sandım.”“ — „Bu kez oturan bendim“ anlaşılmıyordu (iki jüri); bir önceki cümleye (hareket) ve devamındaki „kaçınma“ya bağlandı.
+
+#### 50. Boş Bırakılan Son Cümle
+
+- **değiştirildi:** „Sonra yeniden bir kapı sezdim. Kolu yoktu.“ → „Sonra yeniden bir kapı sezdim. Kolu yoktu. Başka bir bedenin kapısı değildi bu; kitabın başına dönen, okunduğu her yerde yeniden açılan kapıydı.“ — Pasaj tenasüh (ruh göçü) gibi okunabiliyordu (iki jüri); kapı, kitabın BAŞA DÖN şifresine bağlandı.
+
+#### 2. Siyah Paket
+
+- **değiştirildi:** „Ellerimdeki poşetleri yere bıraktım.“ → „Elimdeki poşetleri yere bıraktım.“ — Birkaç satır önce poşetler yalnız sol elde; „ellerimdeki“ çelişkiydi (jüri). Paragrafın ilk harfi (şifre) değişmedi.
