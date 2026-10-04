@@ -63,7 +63,7 @@ BOOKS = {
         "slug": "SAHIT",
         "title": "ŞAHİT",             # vormals ŞAHİDİ ARARKEN
         "author": "Mustafa Sefa Güvenir",
-        "expected_h1": 34,
+        "expected_h1": 35,          # v6: HODRİ geteilt (neues Kapitel SOLUCAN)
         "expected_images": 0,
         "heads_italic": False,     # Kapiteltitel sind Versalien → gesperrte Kapitälchen-Optik
         "genre": "Roman",
