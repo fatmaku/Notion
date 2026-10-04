@@ -38,6 +38,9 @@ T = {
         "Bugün geçen yıl: {n} öğe ({y})": "Heute vor Jahren: {n} Elemente ({y})",
         "Hikâye ya da 'Eskiden/Şimdi' için uygun": "Geeignet für Story oder „Damals/Heute“",
         # stüdyo
+        "video üretiliyor ({f}, en çok {n} sn)": "Video wird erstellt ({f}, max. {n} s)",
+        "metinler hazırlanıyor": "Texte werden vorbereitet",
+        "Paket hazır": "Paket fertig",
         "ESKİDEN": "DAMALS", "ŞİMDİ": "HEUTE",
         "Hazırlan: {ad} ({tarih})": "Vorbereiten: {ad} ({tarih})",
         # pazarlama
@@ -76,6 +79,9 @@ T = {
         "Yeniden paylaş: {f}": "Repost: {f}",
         "Bugün geçen yıl: {n} öğe ({y})": "On this day: {n} items ({y})",
         "Hikâye ya da 'Eskiden/Şimdi' için uygun": "Good for a story or 'Then/Now'",
+        "video üretiliyor ({f}, en çok {n} sn)": "rendering video ({f}, max {n} s)",
+        "metinler hazırlanıyor": "preparing captions",
+        "Paket hazır": "Package ready",
         "ESKİDEN": "THEN", "ŞİMDİ": "NOW",
         "Hazırlan: {ad} ({tarih})": "Get ready: {ad} ({tarih})",
         "Yeterli performans verisi yok; Instagram Profesyonel Panel CSV'sini içe aktarın.": "Not enough performance data; import the CSV from the Instagram professional dashboard.",

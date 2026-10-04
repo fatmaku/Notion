@@ -263,8 +263,11 @@ def present(con, it, lang, st=None, total=None, detail=False):
     return out
 
 
-def rank(con, lang="tr", platform=None, kind=None, market=None, topic=None, posted=None, min_score=None, q=None, limit=50, offset=0):
+def rank(con, lang="tr", platform=None, kind=None, market=None, topic=None, posted=None, min_score=None, q=None, limit=50, offset=0,
+         source=None):
     where, args = ["hidden=0", "viral_score IS NOT NULL"], []
+    if source == "harici":
+        where.append("source='harici'")
     if kind:
         where.append("kind=?"); args.append(kind)
     if market in konu.MARKETS:
@@ -313,8 +316,11 @@ def _enhance_photo(src, out, q, size=(1080, 1350)):
 VIDEO_PLATFORMS = ("ig_reels", "tiktok", "yt_shorts", "fb_reels")
 
 
-def package(con, item_id, platforms=None, langs=None, progress=print, use_claude=True):
-    """Tek tıkla: platforma uygun video (+ akış görseli), 3 dilde metinler, en iyi saat, hatırlatıcı."""
+def package(con, item_id, platforms=None, langs=None, progress=print, use_claude=True, opts=None):
+    """Tek tıkla: platforma uygun video (+ akış görseli), 3 dilde metinler, en iyi saat, hatırlatıcı.
+    opts: format ('9:16'|'4:5'|'1:1'), sure (sn ya da None=otomatik), muzik ('auto'|'yok'|'sakin'|'enerjik'|'duygusal'),
+          hook (ekrandaki yazı; boş = otomatik), iyilestir (bool), hatirlat (bool)"""
+    opts = dict(opts or {})
     from . import studio
     it = db.get_item(con, int(item_id))
     if not it:
@@ -328,22 +334,31 @@ def package(con, item_id, platforms=None, langs=None, progress=print, use_claude
     langs = [l for l in (langs or list(yazi.LANGS)) if l in yazi.LANGS] or ["tr"]
     tops = konu.topics(it)
     nost = konu.nostalgia(it, dt.date.today().year)
-    progress("metinler hazırlanıyor" + (" (Claude görsele bakıyor)" if use_claude and yazi.claude_available() else ""))
+    progress(i18n.t(st["dil"], "metinler hazırlanıyor") + (" (Claude)" if use_claude and yazi.claude_available() else ""))
     ai = yazi.claude_captions(it, tops, nost, st["hesap"]) if use_claude else None
     texts = ai["metinler"] if ai else yazi.rule_captions(it, tops, nost, st["hesap"])
     mb = (ai or {}).get("en_iyi_pazar") or v["mb"]
     main_lang = konu.MARKETS[mb][3] if konu.MARKETS[mb][3] in langs else langs[0]
-    hook = texts[main_lang][v["best"] if v["best"] in texts[main_lang] else "ig_reels"]["hook"]
+    hook = str(opts.get("hook") or "").strip()[:60] or texts[main_lang][v["best"] if v["best"] in texts[main_lang] else "ig_reels"]["hook"]
     vids = [p for p in platforms if p in VIDEO_PLATFORMS]
     res = {"klasor": None, "output": None, "cover": None}
     if vids:
         length = min(algoritma.PLATFORMS[p]["sure"][1] for p in vids)
+        try:
+            if opts.get("sure"):
+                length = max(3, min(float(opts["sure"]), max(algoritma.PLATFORMS[p]["sure"][2] for p in vids)))
+        except (TypeError, ValueError):
+            pass
+        fmt = opts.get("format") if opts.get("format") in ("9:16", "4:5", "1:1") else "9:16"
         mood = "enerjik" if any(k in ("hayvan", "kutlama", "yemek") for k, _ in tops[:1]) else "sakin"
-        brief = {"sablon": "tekli", "format": "9:16", "baslik": hook[:60], "altbaslik": "", "cta": "", "etiket": st["hesap"],
-                 "ogeler": [{"id": it["id"], "sure": 7 if it["kind"] == "foto" else length}], "max_sure": length,
-                 "muzik": "yok" if (it["kind"] == "video" and it.get("has_audio")) else mood, "kalite": "yuksek",
-                 "iyilestir": True, "dil": main_lang}
-        progress(f"video üretiliyor (9:16, en çok {length} sn, otomatik renk/netlik düzeltmesi)")
+        music = opts.get("muzik") or "auto"
+        if music == "auto":
+            music = "yok" if (it["kind"] == "video" and it.get("has_audio")) else mood
+        enhance = opts.get("iyilestir", True) is not False
+        brief = {"sablon": "tekli", "format": fmt, "baslik": hook[:60], "altbaslik": "", "cta": "", "etiket": st["hesap"],
+                 "ogeler": [{"id": it["id"], "sure": min(7, length) if it["kind"] == "foto" else length}], "max_sure": length,
+                 "muzik": music, "kalite": "yuksek", "iyilestir": enhance, "dil": main_lang}
+        progress(i18n.t(st["dil"], "video üretiliyor ({f}, en çok {n} sn)", f=fmt, n=int(length)))
         res = studio.render(con, brief, progress=progress)
     out_dir = Path(res["klasor"]) if res.get("klasor") else studio._out_dir("neviral-" + (it.get("filename") or str(it["id"])))
     files = [res["output"]] if res.get("output") else []
@@ -384,21 +399,46 @@ def package(con, item_id, platforms=None, langs=None, progress=print, use_claude
     db.set_render(con, rid, output=res.get("output") or str(out_dir), cover=res.get("cover") or (files[-1] if files else None),
                   caption=cap, status="hazir", duration=res.get("duration"))
     first = times.get(v["best"] if v["best"] in times else platforms[0]) or []
-    if first:
+    if first and opts.get("hatirlat", True) is not False:
         db.add_reminder(con, first[0]["kullanici"], f"neviral · {algoritma.platform_name(v['best'] if v['best'] in times else platforms[0], main_lang)}: {it.get('filename')}",
                         note=hook, item_ids=[it["id"]], render_id=rid)
-    progress(f"Paket hazır: {out_dir}")
+    progress(i18n.t(st["dil"], "Paket hazır") + f": {out_dir}")
     return {"klasor": str(out_dir), "render_id": rid, "dosyalar": files, "kaynak": pkg["kaynak"], "en_iyi_pazar": mb}
 
 
-def top_packages(con, n=10, platforms=None, langs=None, progress=print, use_claude=True):
+def top_packages(con, n=10, platforms=None, langs=None, progress=print, use_claude=True, opts=None):
     rows = con.execute("SELECT id FROM items WHERE hidden=0 AND posted_at IS NULL AND viral_score IS NOT NULL ORDER BY viral_score DESC LIMIT ?",
                        (int(n),)).fetchall()
     out = []
     for k, r in enumerate(rows, 1):
         progress(f"[{k}/{len(rows)}] öğe #{r['id']}")
         try:
-            out.append(package(con, r["id"], platforms, langs, progress, use_claude))
+            out.append(package(con, r["id"], platforms, langs, progress, use_claude, opts))
         except Exception as e:
             progress(f"  ! #{r['id']}: {e}")
     return out
+
+
+# ---------------------------------------------------------------- dışarıdan yüklenen dosya
+def ingest_external(con, path):
+    """Dışarıdan gelen (yüklenen) dosyayı arşive 'harici' kaynağıyla ekler, hemen analiz edip puanlar."""
+    from . import scan
+    path = Path(path)
+    st_ = path.stat()
+    item = scan.analyze_file(path, st_, path.parent, "harici")
+    iid, _ = db.upsert_item(con, item)
+    q = {}
+    try:
+        if item.get("thumb"):
+            q = kalite.image_metrics(item["thumb"])
+        if item["kind"] == "video":
+            q.update(kalite.video_metrics(path, item.get("duration")))
+    except Exception:
+        pass
+    con.execute("UPDATE items SET quality=? WHERE id=?", (json.dumps(q), iid))
+    it = db.get_item(con, iid)
+    stg = settings(con)
+    sc, info = score_item(it, q, stg["kitle"], learn(con), dt.date.today().year)
+    con.execute("UPDATE items SET viral_score=?, viral=?, analyzed_at=? WHERE id=?", (sc, json.dumps(info, separators=(",", ":")), db.now(), iid))
+    con.commit()
+    return iid

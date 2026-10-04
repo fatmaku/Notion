@@ -28,6 +28,10 @@ Neden bu yaklaşım "en kolayı":
 
 Algoritma kural kitabı platformların 2025-2026 açıklamalarına dayanır (Instagram: DM ile gönderim ve izlenme süresi, orijinallik; TikTok: tamamlanma oranı, tekrar izleme, arama anahtar kelimeleri; Shorts: izlendi/kaydırıldı oranı; Facebook: paylaşım/yorum, aile/nostalji). Puan bir **tahmindir**; Instagram Profesyonel Panel CSV'sini içe aktardıkça uygulama sizin kitlenizde neyin çalıştığını öğrenir ve puanları buna göre ayarlar. `ANTHROPIC_API_KEY` tanımlıysa paket hazırlanırken Claude fotoğrafa bakarak metinleri gerçek içeriğe göre yazar.
 
+**📥 Dışarıdan puanlat:** Viral sekmesinde dosyaları (WhatsApp, AirDrop, telefon, kamera…) kutuya sürükleyin ya da seçin; dosya `~/ArsivStudyo/harici/` altına kopyalanır, saniyeler içinde analiz edilip puanlanır ve listede *yalnızca dışarıdan yüklenenler* filtresiyle bulunur.
+
+**⚙️ Paket seçenekleri:** Platformlar, diller (TR/DE/EN), video formatı (9:16, 4:5, 1:1), süre (otomatik ya da 7-90 sn), müzik, kendi ekran yazınız (kanca), otomatik düzeltme, hatırlatıcı ve Claude metinleri seçilebilir; son seçimleriniz hatırlanır.
+
 Komut satırı: `python3 -m arsiv viral analiz` · `viral liste --platform tiktok` · `viral paket 123 --dil tr de en` · `viral eniyi 10`.
 
 ## Yenilikler (sürüm 0.2)

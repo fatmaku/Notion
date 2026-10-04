@@ -117,6 +117,48 @@ class Viral(unittest.TestCase):
         img = next(f for f in r["dosyalar"] if f.endswith("instagram-4x5.jpg"))
         self.assertEqual(Image.open(img).size, (1080, 1350))
 
+    def test_paket_secenekleri(self):
+        iid = self.con.execute("SELECT id FROM items WHERE filename='uzun-vlog.mp4'").fetchone()[0]
+        r = viral.package(self.con, iid, platforms=["tiktok"], langs=["en"], progress=quiet,
+                          opts={"format": "4:5", "sure": 7, "muzik": "enerjik", "hook": "Mein eigener Hook", "iyilestir": False, "hatirlat": False})
+        info = media.probe(next(f for f in r["dosyalar"] if f.endswith(".mp4")))
+        self.assertEqual((info["width"], info["height"]), (1080, 1350))
+        self.assertAlmostEqual(info["duration"], 7, delta=0.5)
+        pkg = json.loads((Path(r["klasor"]) / "brief.json").read_text())
+        self.assertEqual(pkg["baslik"], "Mein eigener Hook")
+
+    def test_disaridan_yukleme(self):
+        import http.client
+        import threading
+        from arsiv import server
+        server.Handler.db_path = str(TMP / "viral.db")
+        httpd = server.ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+        port = httpd.server_address[1]
+        threading.Thread(target=httpd.serve_forever, daemon=True).start()
+        try:
+            data = (self.arsiv / "2024/Kitap Fuari/imza.mp4").read_bytes()
+
+            def up(headers):
+                c = http.client.HTTPConnection("127.0.0.1", port, timeout=60)
+                c.request("POST", "/api/upload?name=" + "WhatsApp%20Video.mp4", body=data, headers=headers)
+                r = c.getresponse(); body = r.read(); c.close()
+                return r.status, body
+            st, _ = up({"Content-Type": "application/octet-stream"})
+            self.assertEqual(st, 403, "özel başlık olmadan (CSRF) reddedilmeli")
+            st, body = up({"Content-Type": "application/octet-stream", "X-Neviral": "1", "X-Lang": "de"})
+            self.assertEqual(st, 200, body[:300])
+            it = json.loads(body)
+            self.assertEqual(it["source"], "harici")
+            self.assertGreater(it["viral_score"], 0)
+            self.assertTrue(it["neviral"]["platformlar"])
+            self.assertIn("hook", it["quality"])
+            st, _ = up({"Content-Type": "application/octet-stream", "X-Neviral": "1", "Origin": "http://evil.example"})
+            self.assertEqual(st, 403)
+            r = viral.rank(self.con, source="harici", posted=None)
+            self.assertGreaterEqual(r["total"], 1)
+        finally:
+            httpd.shutdown()
+
     def test_ayarlar(self):
         st = viral.save_settings(self.con, kitle={"TR": 10, "DE": 80, "INT": 10}, saat_dilimi="Europe/Istanbul", hesap="@neviral")
         self.assertAlmostEqual(st["kitle"]["DE"], 0.8, delta=0.01)

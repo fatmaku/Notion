@@ -20,6 +20,7 @@ UI_DIR = Path(__file__).parent / "ui"
 UI_FILES = {"i18n.js": "application/javascript; charset=utf-8", "yok.svg": "image/svg+xml"}
 ALLOWED_HOSTS = {"127.0.0.1", "localhost", "[::1]", "::1"}
 MAX_BODY = 2 * 1024 * 1024
+MAX_UPLOAD = 8 * 1024 ** 3  # 8 GB
 _lock = threading.Lock()
 _render_slot = threading.Semaphore(1)  # aynı anda tek ffmpeg üretimi: Mac'i kilitlemesin
 _ids = itertools.count(1)
@@ -288,6 +289,7 @@ class Handler(BaseHTTPRequestHandler):
                     return float(q[k]) if q.get(k) else None
                 pv = q.get("posted")
                 return self._json(viral.rank(self._con(), lang=self._lang(), platform=q.get("platform") or None, kind=q.get("kind") or None,
+                                             source=q.get("source") or None,
                                              market=q.get("market") or None, topic=q.get("topic") or None,
                                              posted=None if pv in (None, "") else pv == "1", min_score=num("min_score"), q=q.get("q") or None,
                                              limit=min(200, int(q.get("limit", 50))), offset=int(q.get("offset", 0))))
@@ -371,9 +373,77 @@ class Handler(BaseHTTPRequestHandler):
         return self._file(t, "image/jpeg")
 
     # ------------------------------------------------------------ POST
+    def _drain(self, limit=64 * 1024 * 1024):
+        """Reddedilen küçük gövdeyi oku ki bağlantı düzgün kapansın; büyükse bağlantıyı kapat."""
+        n = int(self.headers.get("Content-Length") or 0)
+        if 0 < n <= limit:
+            while n > 0:
+                chunk = self.rfile.read(min(1 << 20, n))
+                if not chunk:
+                    break
+                n -= len(chunk)
+        elif n:
+            self.close_connection = True
+
+    def _upload(self, q):
+        """Dışarıdan dosya yükleme: gövde doğrudan diske akar (büyük videolar için), sonra anında analiz + puan."""
+        import datetime as dt
+        import re
+        name = Path(q.get("name") or "dosya").name
+        ext = Path(name).suffix.lower()
+        if ext not in config.MEDIA_EXT:
+            return self._json({"hata": f"desteklenmeyen dosya türü: {ext or '?'}"}, 400)
+        n = int(self.headers.get("Content-Length") or 0)
+        if n <= 0 or n > MAX_UPLOAD:
+            return self._json({"hata": "dosya boş ya da çok büyük"}, 400)
+        stem = re.sub(r"[^\w\-. ]+", "_", Path(name).stem, flags=re.UNICODE).strip(" .") or "dosya"
+        folder = config.HOME / "harici" / dt.date.today().isoformat()
+        folder.mkdir(parents=True, exist_ok=True)
+        dst = folder / f"{stem}{ext}"
+        k = 1
+        while dst.exists():
+            dst = folder / f"{stem}-{k}{ext}"; k += 1
+        tmp = dst.with_name("." + dst.name + ".part")
+        remaining = n
+        with open(tmp, "wb") as f:
+            while remaining > 0:
+                chunk = self.rfile.read(min(1 << 20, remaining))
+                if not chunk:
+                    break
+                f.write(chunk)
+                remaining -= len(chunk)
+        if remaining:
+            tmp.unlink(missing_ok=True)
+            return self._json({"hata": "yükleme yarıda kesildi"}, 400)
+        tmp.replace(dst)
+        from . import viral
+        con = self._con()
+        try:
+            iid = viral.ingest_external(con, dst)
+        except Exception as e:
+            return self._json({"hata": f"dosya okunamadı: {e}"}, 400)
+        it = db.get_item(con, iid)
+        total = con.execute("SELECT COUNT(*) FROM items WHERE hidden=0 AND viral_score IS NOT NULL").fetchone()[0]
+        it["neviral"] = viral.present(con, it, self._lang(), total=total)
+        _invalidate()
+        return self._json(it)
+
     def do_POST(self):
         u = urllib.parse.urlparse(self.path)
         path = u.path
+        if path == "/api/upload":
+            # özel başlık zorunlu: başka sitelerden gelen istekler ön kontrole (preflight) takılır
+            origin = self.headers.get("Origin")
+            if not self._host_ok() or self.headers.get("X-Neviral") != "1" or \
+                    (self.headers.get("Sec-Fetch-Site") or "").lower() == "cross-site" or \
+                    (origin and urllib.parse.urlparse(origin).hostname not in ALLOWED_HOSTS):
+                self._drain()
+                return self._json({"hata": "forbidden"}, 403)
+            try:
+                return self._upload({k: v[0] for k, v in urllib.parse.parse_qs(u.query).items()})
+            except Exception as e:
+                traceback.print_exc()
+                return self._json({"hata": str(e)}, 500)
         if not self._host_ok() or not self._post_ok():
             return self._json({"hata": "forbidden"}, 403)
         body = self._body()
@@ -439,12 +509,18 @@ class Handler(BaseHTTPRequestHandler):
                 plats = [x for x in (body.get("platforms") or []) if isinstance(x, str)][:6] or None
                 langs = [x for x in (body.get("langs") or []) if x in ("tr", "de", "en")] or None
                 use_ai = not body.get("claude_yok")
+                o = body.get("opts") if isinstance(body.get("opts"), dict) else {}
+                opts = {"format": o.get("format") if o.get("format") in ("9:16", "4:5", "1:1") else "9:16",
+                        "sure": float(o["sure"]) if str(o.get("sure") or "").replace(".", "", 1).isdigit() else None,
+                        "muzik": o.get("muzik") if o.get("muzik") in ("auto", "yok", "sakin", "enerjik", "duygusal") else "auto",
+                        "hook": str(o.get("hook") or "")[:60], "iyilestir": o.get("iyilestir", True) is not False,
+                        "hatirlat": o.get("hatirlat", True) is not False}
                 if path == "/api/viral/package":
                     iid = int(body["id"])
-                    fn = lambda log, iid=iid: viral.package(db.connect(self.db_path), iid, plats, langs, log, use_ai)  # noqa: E731
+                    fn = lambda log, iid=iid: viral.package(db.connect(self.db_path), iid, plats, langs, log, use_ai, opts)  # noqa: E731
                 else:
                     n = max(1, min(50, int(body.get("n", 10))))
-                    fn = lambda log, n=n: viral.top_packages(db.connect(self.db_path), n, plats, langs, log, use_ai)  # noqa: E731
+                    fn = lambda log, n=n: viral.top_packages(db.connect(self.db_path), n, plats, langs, log, use_ai, opts)  # noqa: E731
 
                 def run(log, fn=fn):
                     if not _render_slot.acquire(blocking=False):
