@@ -948,161 +948,452 @@ r += 1
 note(T, f"A{r}", "Lesart: Gate erfüllt, wenn mindestens die Schwelle (konservatives Szenario) erreicht ist; das Ziel ist das Basis-Szenario.")
 
 # ------------------------------------------------------------------ Blatt: Bewertung
+# Teil A: Referenzmethoden (Investorensicht) – je Methode Gründer-Sicht (großzügig, belegt, gekennzeichnet)
+#         und konservative Investorensicht zum Vergleich.
+# Teil B: Angebot der Gründer (10 % für 250.000 €), Verhandlungsspanne, 10×-Prüfung, Begründung, Wandeldarlehen.
 V = wb.create_sheet("Bewertung")
-widths(V, {"A": 50, "B": 16, "C": 16, "D": 16, "E": 16, "F": 16, "G": 70})
-put(V, "A1", "Bewertung Pre-Seed – drei Methoden (Vorschlag – mit Steuer-/Rechtsberater prüfen)", F_TITLE)
-note(V, "A2", "Alle Eingaben blau; Quellen in Spalte G. Keine Umsätze, Produkt v2.1 funktionsfähig; Solo-Gründer + Investor Relations.")
-r = 4
-section(V, r, "1. Berkus-Methode (5 Faktoren × max. 500.000 €)", 7)
+widths(V, {"A": 62, "B": 17, "C": 17, "D": 17, "E": 17, "F": 17, "G": 95})
+F_PCT_IN = Font(name=FONT, color="0000FF")
+XMULT = '0.00"x"'
+put(V, "A1", "Bewertung Pre-Seed – Referenzmethoden (Investorensicht) und Angebot der Gründer "
+             "(Vorschlag – mit Steuer-/Rechtsberater prüfen)", F_TITLE)
+note(V, "A2", "Alle Eingaben blau; Quellen in Spalte G. „Gründer-Sicht“ = bewusst großzügig gerechnet, jede Annahme belegt und "
+              "als Gründer-Annahme gekennzeichnet; „konservativ“ = frühere Investorensicht zum Vergleich. Keine Umsätze, Produkt v2.1.")
+note(V, "A3", "Teil A (1–5): Referenzmethoden (Investorensicht) – Berkus, Scorecard, VC-Methode, Risk Factor Summation. "
+              "Teil B (6–10): Angebot der Gründer, Verhandlungsspanne, 10×-Prüfung, Begründung, Wandeldarlehen/SAFE. $→€ jeweils 1:1 (Annahme).")
+r = 5
+# ---------------- 1. Berkus
+section(V, r, "1. Referenzmethode (Investorensicht): Berkus – Gründer-Sicht und konservativ", 7)
 r += 1
-header_row(V, r, ["Faktor", "Max. €", "Score (0–1)", "Wert €", "", "", "Begründung (ehrlich)"])
+put(V, f"A{r}", "Max. € je Faktor – Gründer-Sicht (moderne „moderate 2×“-Variante)")
+put(V, f"B{r}", 1000000, F_IN, EUR, FILL_KEY, key="berkus_max_f")
+note(V, f"G{r}", "Gründer-Annahme: moderne Berkus-Anpassung „moderat (2×)“ mit 0–1 Mio. $ je Faktor, max. 5 Mio. $ "
+                 "(valu.vc 2026; icanpitch 2026). Begründung: Berkus zuletzt 2016 aktualisiert, Seed-Bewertungen seitdem deutlich gestiegen.")
+r += 1
+put(V, f"A{r}", "Max. € je Faktor – konservativ (klassisch, Dave Berkus)")
+put(V, f"B{r}", 500000, F_IN, EUR, key="berkus_max_c")
+note(V, f"G{r}", "Original-Methode: bis 0,5 Mio. $ je Faktor, max. 2,5 Mio. $ (berkus.com).")
+r += 1
+header_row(V, r, ["Faktor", "Score Gründer (0–1)", "Wert Gründer €", "Score konservativ", "Wert konservativ €", "",
+                  "Begründung (Gründer-Sicht · konservativ)"])
 r += 1
 berkus = [
-    ("Idee / Grundwert (Problem, Markt)", 0.6, "Neuer Auslöser Stimme → Effekt; großer Markt (BP §6), aber Zahlungsbereitschaft unbewiesen."),
-    ("Prototyp / Produkt (Technologierisiko)", 0.7, "v2.1 funktionsfähig: 238 Trigger + 143 freie Sticker, Leistungsmodus (Bildzeit −63 bis −69 %), "
-     "sichere GIF-Suche, automatisierte Tests, im Einsatz in eigenen Streams."),
-    ("Team (Umsetzungsqualität)", 0.3, "Solo-Gründer + Investor Relations; erste Einstellung offen; Ein-Personen-Risiko (BP §13)."),
-    ("Strategische Beziehungen", 0.1, "Noch keine Plattform-, Bildungs- oder Vertriebspartnerschaft unterzeichnet."),
-    ("Produkteinführung / Umsatz", 0.1, "Noch kein Umsatz, keine zahlenden Nutzer; Pro-Abo erst ab Monat 3."),
+    ("Idee / Grundwert (Problem, Markt)", 0.7, 0.6,
+     "Hoch: neuer Auslöser Stimme → Effekt, großer Markt (BP §6) · konservativ: Zahlungsbereitschaft unbewiesen."),
+    ("Prototyp / Produkt (Technologierisiko)", 0.8, 0.7,
+     "Hoch: v2.1 funktionsfähig und getestet (575+ automatisierte Tests, e2e-Suite), 238 Trigger + 143 freie Sticker, "
+     "Leistungsmodus, sichere GIF-Suche, im Einsatz in eigenen Streams · nicht 1,0: noch keine zahlenden Nutzer."),
+    ("Team (Umsetzungsqualität)", 0.5, 0.3,
+     "Mittel: Gründer hat Produkt allein bis v2.1 gebaut + Investor Relations · konservativ: Solo-Gründer, Ein-Personen-Risiko (BP §13)."),
+    ("Strategische Beziehungen", 0.25, 0.1,
+     "Niedrig–mittel: eigene TR-Community, Gespräche mit Plattform-/Bildungspartnern geplant · keine Partnerschaft unterzeichnet."),
+    ("Produkteinführung / Umsatz", 0.1, 0.1, "Niedrig (beide Sichten): noch kein Umsatz; Pro-Abo ab Monat 3."),
 ]
 b_first = r
-for lab, sc, why in berkus:
+for lab, scf, scc, why in berkus:
     put(V, f"A{r}", lab)
-    put(V, f"B{r}", 500000, F_IN, EUR)
-    put(V, f"C{r}", sc, F_IN, "0.00")
-    put(V, f"D{r}", f"=B{r}*C{r}", fmt=EUR)
+    put(V, f"B{r}", scf, F_IN, "0.00")
+    put(V, f"C{r}", f"={ref('berkus_max_f')}*B{r}", fmt=EUR)
+    put(V, f"D{r}", scc, F_IN, "0.00")
+    put(V, f"E{r}", f"={ref('berkus_max_c')}*D{r}", fmt=EUR)
     put(V, f"G{r}", why)
     r += 1
 put(V, f"A{r}", "Berkus-Wert (Pre-Money)", bold=True)
-put(V, f"B{r}", f"=SUM(B{b_first}:B{r-1})", fmt=EUR)
-put(V, f"D{r}", f"=SUM(D{b_first}:D{r-1})", fmt=EUR, bold=True, fill=FILL_KEY, key="val_berkus")
-note(V, f"G{r}", "Methode: Dave Berkus, je Faktor bis 0,5 Mio. € (Pre-Revenue).")
+put(V, f"C{r}", f"=SUM(C{b_first}:C{r-1})", fmt=EUR, bold=True, fill=FILL_KEY, key="val_berkus_f")
+put(V, f"E{r}", f"=SUM(E{b_first}:E{r-1})", fmt=EUR, bold=True, key="val_berkus")
 r += 2
 
-section(V, r, "2. Scorecard-Methode (Payne) – Referenz: Median-Pre-Money Pre-Seed DACH/Türkiye", 7)
+# ---------------- 2. Scorecard
+section(V, r, "2. Referenzmethode (Investorensicht): Scorecard (Payne) – Gründer-Sicht und konservativ", 7)
 r += 1
-put(V, f"A{r}", "Referenz Median-Pre-Money Pre-Seed (pre-revenue, DACH/TR)")
-put(V, f"B{r}", 1500000, F_IN, EUR, FILL_KEY, key="sc_ref")
-note(V, f"G{r}", "Abgeleitet: DE Pre-Seed typ. 0,5–1,5 Mio. € (upxcale.de), DE 1–5 Mio. € (capvisory.de); Europa Median Q1 2025 "
-     "4,57 Mio. USD (Equidam, institutionelle Runden, daher zu hoch für Solo-pre-revenue); Türkiye niedriger → 1,5 Mio. € (Schätzung).")
+put(V, f"A{r}", "Referenz-Pre-Money Pre-Seed – Gründer-Sicht")
+put(V, f"B{r}", 2500000, F_IN, EUR, FILL_KEY, key="sc_ref_f")
+note(V, f"G{r}", "Gründer-Annahme 2,5 Mio. €: im unteren Teil der DACH-Pre-Seed-Spanne 1,5–5 Mio. € (upxcale; Mitte wäre 3,25 Mio. €) und "
+                 "DE 1–5 Mio. € (capvisory; Mitte 3 Mio. €), deutlich unter dem Europa-Median 4,57 Mio. $ ≈ 4,2 Mio. € (Equidam Q1 2025).")
 r += 1
-header_row(V, r, ["Faktor", "Gewicht", "Vergleich (100 % = Median)", "Beitrag", "", "", "Begründung"])
+put(V, f"A{r}", "Referenz-Pre-Money Pre-Seed – konservativ (DACH/TR, Solo, pre-revenue)")
+put(V, f"B{r}", 1500000, F_IN, EUR, key="sc_ref")
+note(V, f"G{r}", "DE Pre-Seed typ. 0,5–1,5 Mio. € (upxcale); Türkiye niedriger → 1,5 Mio. € (Schätzung, frühere Investorensicht).")
+r += 1
+header_row(V, r, ["Faktor", "Gewicht", "Vergleich Gründer (100 % = Referenz)", "Beitrag Gründer", "Vergleich konservativ",
+                  "Beitrag konservativ", "Begründung (Gründer-Sicht · konservativ)"])
 r += 1
 scorecard = [
-    ("Team", 0.30, 0.60, "Solo-Gründer, Hires offen; Produkt- und Community-Erfahrung als Streamer/Autor"),
-    ("Marktgröße / Chance", 0.25, 1.25, "Live-Streaming 97–157 Mrd. USD, SAM 1–3 Mio. Creator (BP §6); Vision-Märkte zusätzlich"),
-    ("Produkt / Technologie", 0.15, 1.20, "funktionsfähige v2.1, lokale Verarbeitung, Tests; geringe Grenzkosten"),
-    ("Wettbewerbsumfeld", 0.10, 0.90, "kein direkter Sprach-Trigger-Wettbewerber, aber Plattformen können nachbauen"),
-    ("Marketing / Vertrieb / Partner", 0.10, 0.70, "eigene Streams + TR-Community; noch keine Partner, kein Vertrieb"),
-    ("Bedarf weiterer Finanzierung", 0.05, 1.00, "schlanke Runde mit Gates; Folgerunde nötig (siehe Liquidität)"),
-    ("Sonstiges (IP, Bildung, Datenschutz lokal)", 0.05, 1.10, "WortBild/Bildung als zweites Standbein, offline-fähig"),
+    ("Team", 0.30, 1.00, 0.60, "Durchschnitt: Produkt bis v2.1 allein gebaut, Streamer/Autor mit Community · konservativ: Solo, Hires offen"),
+    ("Marktgröße / Chance", 0.25, 1.40, 1.25, "Stark: Live-Streaming 97–157 Mrd. USD, SAM 1–3 Mio. Creator (BP §6) + Vision-Märkte A–D"),
+    ("Produkt / Technologie", 0.15, 1.40, 1.20, "Stark: ausgeliefertes v2.1 mit 575+ Tests und e2e-Suite, lokale Verarbeitung, geringe Grenzkosten"),
+    ("Wettbewerbsumfeld", 0.10, 1.30, 0.90, "Günstig: kein direkter Sprach-Trigger-Wettbewerber (Nische) · Risiko: Plattformen können nachbauen"),
+    ("Marketing / Vertrieb / Partner", 0.10, 0.80, 0.70, "Unter Durchschnitt: eigene Streams + TR-Community, noch keine Partner/Vertrieb"),
+    ("Bedarf weiterer Finanzierung", 0.05, 1.00, 1.00, "Neutral: schlanke Runde mit Gates; Folgerunde nötig (siehe Liquidität)"),
+    ("Sonstiges (IP, Bildung, Datenschutz lokal)", 0.05, 1.20, 1.10, "Eigene Inhalte/IP, WortBild als zweites Standbein, offline-fähig"),
 ]
 s_first = r
-for lab, w, sc, why in scorecard:
+for lab, w, scf, scc, why in scorecard:
     put(V, f"A{r}", lab)
     put(V, f"B{r}", w, F_IN, PCT)
-    put(V, f"C{r}", sc, F_IN, PCT)
+    put(V, f"C{r}", scf, F_IN, PCT)
     put(V, f"D{r}", f"=B{r}*C{r}", fmt="0.000")
+    put(V, f"E{r}", scc, F_IN, PCT)
+    put(V, f"F{r}", f"=B{r}*E{r}", fmt="0.000")
     put(V, f"G{r}", why)
     r += 1
 put(V, f"A{r}", "Summe Gewichte / Faktor")
 put(V, f"B{r}", f"=SUM(B{s_first}:B{r-1})", fmt=PCT, key="sc_wsum")
-put(V, f"D{r}", f"=SUM(D{s_first}:D{r-1})", fmt="0.000", key="sc_factor")
+put(V, f"D{r}", f"=SUM(D{s_first}:D{r-1})", fmt="0.000", key="sc_factor_f")
+put(V, f"F{r}", f"=SUM(F{s_first}:F{r-1})", fmt="0.000", key="sc_factor")
 r += 1
 put(V, f"A{r}", "Scorecard-Wert (Pre-Money)", bold=True)
-put(V, f"D{r}", f"={ref('sc_ref')}*D{r-1}", fmt=EUR, bold=True, fill=FILL_KEY, key="val_scorecard")
+put(V, f"D{r}", f"={ref('sc_ref_f')}*D{r-1}", fmt=EUR, bold=True, fill=FILL_KEY, key="val_scorecard_f")
+put(V, f"F{r}", f"={ref('sc_ref')}*F{r-1}", fmt=EUR, bold=True, key="val_scorecard")
 r += 2
 
-section(V, r, "3. VC-Methode (Exit Jahr 5)", 7)
+# ---------------- 3. VC-Methode
+section(V, r, "3. Referenzmethode (Investorensicht): VC-Methode (Exit Jahr 5)", 7)
 r += 1
-vc = [
-    ("vc_rev5", "Umsatz J5 (Basis, aus GuV)", f"='GuV 5 Jahre'!$G${GR['basis']['rev']}", EUR, None, "GuV 5 Jahre, Basis J5"),
-    ("vc_mult", "Exit-Multiple (Umsatz)", 4.0, MULT, F_IN,
-     "SaaS Capital 2025: private B2B-SaaS 4,8x (bootstrapped) / 5,3x (VC-finanziert); unter 2 Mio. USD ARR 2–3,5x. "
-     "Abschlag für B2C/Creator-Tool (höherer Churn) → 4,0x (konservativ)."),
-    ("vc_exit", "Exit-Wert Jahr 5", "=B{r0}*B{r1}", EUR, None, "Umsatz × Multiple"),
-    ("vc_ret", "Ziel-Rendite (Multiple auf Einsatz)", 15, MULT, F_IN, "Pre-Seed üblich 10–20x; Mittelwert 15x"),
-    ("vc_dil", "Verwässerung durch spätere Runden (Seed, Series A, ESOP)", 0.45, PCT, F_IN,
-     "Carta 2025: Median Seed ≈ 20 %, Series A ≈ 18 %; + ESOP ≈ 10 % → 1 − 0,8 × 0,82 × 0,9 ≈ 41 %; Annahme 45 %"),
-    ("vc_post", "Post-Money heute = Exit ÷ Ziel-Rendite × (1 − Verwässerung)", "=B{r2}/B{r3}*(1-B{r4})", EUR, None, ""),
-    ("vc_invest", "Investition (Pre-Seed)", f"={ref('start_cash')}", EUR, None, ""),
-    ("val_vc", "VC-Wert (Pre-Money) = Post-Money − Investition", "=MAX(0,B{r5}-B{r6})", EUR, None, "Untergrenze 0"),
+header_row(V, r, ["Position", "Gründer: Optimistisch (Upside)", "Gründer: Basis (2. Linie)", "Konservativ: Basis", "", "",
+                  "Quelle / Kennzeichnung"])
+r += 1
+VCC = {"f": "B", "fb": "C", "c": "D"}
+vc_spec = [
+    ("rev5", "Umsatz J5 (aus GuV)", {"f": f"={ref('guv_rev_opt_5')}", "fb": f"={ref('guv_rev_basis_5')}", "c": f"={ref('guv_rev_basis_5')}"},
+     EUR, False, "GuV 5 Jahre, J5 (2031): optimistisches bzw. Basis-Szenario"),
+    ("mult", "Exit-Multiple (Umsatz)", {"f": 6.0, "fb": 6.0, "c": 4.0}, MULT, True,
+     "Gründer-Annahme 6,0x: SaaS Capital 2025 – VC-finanzierte private SaaS 5,3x (bootstrapped 4,8x) + Wachstumsaufschlag; "
+     "konservativ 4,0x (B2C-/Creator-Abschlag, unter 2 Mio. USD ARR 2–3,5x)."),
+    ("exit", "Exit-Wert Jahr 5 = Umsatz × Multiple", "rev5*mult", EUR, False, ""),
+    ("ret", "Ziel-Rendite (Multiple auf Einsatz)", {"f": 10, "fb": 10, "c": 15}, MULT, True,
+     "Gründer-Annahme 10x = Untergrenze der Pre-Seed-üblichen 10–20x; konservativ Mittelwert 15x."),
+    ("dil", "Verwässerung durch spätere Runden (Seed, Series A, ESOP)", {"f": 0.40, "fb": 0.40, "c": 0.45}, PCT, True,
+     "Carta 2025: Seed ≈ 20 %, Series A ≈ 18 % → 1 − 0,8 × 0,82 ≈ 34 %; Gründer-Annahme 40 % (ohne vollen ESOP), konservativ 45 % (inkl. ESOP ≈ 10 %)."),
+    ("post", "Post-Money heute = Exit ÷ Ziel-Rendite × (1 − Verwässerung)", "exit/ret*(1-dil)", EUR, False, ""),
+    ("invest", "Investition (Pre-Seed)", {"f": f"={ref('start_cash')}", "fb": f"={ref('start_cash')}", "c": f"={ref('start_cash')}"},
+     EUR, False, ""),
+    ("pre", "VC-Wert (Pre-Money) = Post-Money − Investition", "MAX(0,post-invest)", EUR, False, "Untergrenze 0"),
 ]
-vc_rows = {}
-base = r
-for i, (key, lab, val, fmt, font, src) in enumerate(vc):
-    vc_rows[i] = base + i
-for i, (key, lab, val, fmt, font, src) in enumerate(vc):
-    rr = base + i
-    if isinstance(val, str):
-        val = val.format(**{f"r{k}": vc_rows[k] for k in vc_rows})
-    put(V, f"A{rr}", lab, bold=(key == "val_vc"))
-    put(V, f"B{rr}", val, font, fmt, FILL_KEY if key == "val_vc" else None, key=key, bold=(key == "val_vc"))
+VCR = {}
+for i, (k_, *_r) in enumerate(vc_spec):
+    VCR[k_] = r + i
+KEYMAP = {"f": "vcf_", "fb": "vcb_", "c": "vc_"}
+CONS_KEYS = {"rev5": "vc_rev5", "mult": "vc_mult", "exit": "vc_exit", "ret": "vc_ret", "dil": "vc_dil", "post": "vc_post",
+             "invest": "vc_invest", "pre": "val_vc"}
+for k_, lab, vals, fmt, is_in, src in vc_spec:
+    rr = VCR[k_]
+    put(V, f"A{rr}", lab, bold=(k_ == "pre"))
+    for sk, col in VCC.items():
+        if isinstance(vals, dict):
+            val = vals[sk]
+        else:
+            expr = vals
+            for name in sorted(VCR, key=len, reverse=True):
+                expr = expr.replace(name, f"{col}{VCR[name]}")
+            val = "=" + expr
+        key = CONS_KEYS[k_] if sk == "c" else KEYMAP[sk] + k_
+        if sk == "f" and k_ == "pre":
+            key = "val_vc_f"
+        if sk == "fb" and k_ == "pre":
+            key = "val_vc_fb"
+        put(V, f"{col}{rr}", val, F_IN if is_in else None, fmt,
+            FILL_KEY if (k_ == "pre" and sk == "f") else None, key=key, bold=(k_ == "pre"))
     note(V, f"G{rr}", src)
-r = base + len(vc) + 1
-put(V, f"A{r}", "VC-Methode: Pre-Money bei Exit-Multiple (Zeilen) × Ziel-Rendite (Spalten)", F_BOLD)
+r = r + len(vc_spec) + 1
+put(V, f"A{r}", "VC-Methode (Umsatz J5 Basis, Verwässerung konservativ): Pre-Money bei Exit-Multiple (Zeilen) × Ziel-Rendite (Spalten)", F_BOLD)
 r += 1
 rets = [10, 15, 20]
 mults = [3, 4, 5, 6]
 put(V, f"A{r}", "Multiple ↓ / Rendite →")
-for k, rt in enumerate(rets):
-    put(V, f"{L(2+k)}{r}", rt, F_IN, MULT)
+for k2, rt in enumerate(rets):
+    put(V, f"{L(2+k2)}{r}", rt, F_IN, MULT)
 hdr = r
 r += 1
 for mlt in mults:
     put(V, f"A{r}", mlt, F_IN, MULT)
-    for k in range(len(rets)):
-        col = L(2 + k)
+    for k2 in range(len(rets)):
+        col = L(2 + k2)
         put(V, f"{col}{r}", f"=MAX(0,{ref('vc_rev5')}*$A{r}/{col}${hdr}*(1-{ref('vc_dil')})-{ref('vc_invest')})", fmt=EUR)
     r += 1
 grid_first, grid_last = hdr + 1, r - 1
 reg("vc_grid_min", V, f"B{grid_first}")
 r += 1
 
-section(V, r, "4. Ergebnis und Empfehlung", 7)
+# ---------------- 4. Risk Factor Summation
+section(V, r, "4. Referenzmethode (Investorensicht): Risk Factor Summation – nur Gründer-Sicht", 7)
 r += 1
-header_row(V, r, ["Methode", "Pre-Money €", "Gewicht", "", "", "", "Warum dieses Gewicht"])
+put(V, f"A{r}", "Basiswert = Scorecard-Referenz Gründer-Sicht")
+put(V, f"B{r}", f"={ref('sc_ref_f')}", fmt=EUR, key="rfs_base")
+note(V, f"G{r}", "Methode (Ohio TechAngels/Payne): 12 Risiken, je −2 … +2, je Stufe ± 250.000 $ auf den regionalen Vergleichswert (eqvista; rho.co).")
 r += 1
-res_first = r
-for lab, k, w, why in [("Berkus", "val_berkus", 0.4, "pre-revenue-Standard, Produktstand gut abbildbar"),
-                       ("Scorecard", "val_scorecard", 0.4, "Marktvergleich DACH/TR"),
-                       ("VC-Methode", "val_vc", 0.2, "hängt stark an 5-Jahres-Prognose ohne Umsatzhistorie → geringeres Gewicht")]:
+put(V, f"A{r}", "Betrag je Stufe (€)")
+put(V, f"B{r}", 250000, F_IN, EUR, key="rfs_step")
+r += 1
+header_row(V, r, ["Risikofaktor", "Score (−2 … +2)", "Zu-/Abschlag €", "", "", "", "Begründung (Gründer-Sicht)"])
+r += 1
+rfs = [
+    ("Management", -1, "Solo-Gründer, erste Einstellung offen"),
+    ("Entwicklungsstadium", 1, "v2.1 ausgeliefert und in eigenen Streams im Einsatz; noch kein Umsatz"),
+    ("Gesetzgebung / Politik", 0, "DSGVO/DSFA, Jugendschutz budgetiert; lokale Verarbeitung"),
+    ("Herstellung / Lieferkette", 1, "reine Software, keine Lieferkette"),
+    ("Vertrieb / Marketing", -1, "noch kein Vertrieb, keine Partner"),
+    ("Kapitalbeschaffung", -1, "Folgerunde (Seed) nötig – siehe Liquidität"),
+    ("Wettbewerb", 1, "kein direkter Sprach-Trigger-Wettbewerber; Nachbau durch Plattformen möglich"),
+    ("Technologie", 1, "funktionsfähig, 575+ Tests + e2e; Streaming-ASR < 300 ms noch offen"),
+    ("Rechtsstreit", 0, "GIF über KLIPY/GIPHY-API; Marke noch nicht eingetragen"),
+    ("International", 1, "DE/TR/EN von Beginn an, türkische Nische"),
+    ("Reputation", 0, "neutral"),
+    ("Exit-Potenzial", 0, "strategische Käufer denkbar, aber unbelegt → neutral"),
+]
+rfs_first = r
+for lab, sc, why in rfs:
     put(V, f"A{r}", lab)
-    put(V, f"B{r}", f"={ref(k)}", fmt=EUR)
-    put(V, f"C{r}", w, F_IN, PCT)
+    put(V, f"B{r}", sc, F_IN, '+0;-0;0')
+    put(V, f"C{r}", f"=B{r}*{ref('rfs_step')}", fmt='+#,##0" €";-#,##0" €";"0 €"')
     put(V, f"G{r}", why)
     r += 1
-res_last = r - 1
-put(V, f"A{r}", "Spanne (Minimum)")
-put(V, f"B{r}", f"=MIN(B{res_first}:B{res_last})", fmt=EUR, key="val_min"); r += 1
-put(V, f"A{r}", "Spanne (Maximum)")
-put(V, f"B{r}", f"=MAX(B{res_first}:B{res_last})", fmt=EUR, key="val_max"); r += 1
-put(V, f"A{r}", "Gewichteter Mittelwert")
-put(V, f"B{r}", f"=SUMPRODUCT(B{res_first}:B{res_last},C{res_first}:C{res_last})/SUM(C{res_first}:C{res_last})", fmt=EUR, key="val_wavg"); r += 1
-put(V, f"A{r}", "Empfohlene Pre-Money-Bewertung (auf 50 T€ gerundet)", bold=True)
-put(V, f"B{r}", f"=ROUND({ref('val_wavg')}/50000,0)*50000", fmt=EUR, bold=True, fill=FILL_KEY, key="val_reco"); r += 1
-put(V, f"A{r}", "Investition")
-put(V, f"B{r}", f"={ref('start_cash')}", fmt=EUR); r += 1
-put(V, f"A{r}", "Post-Money = Pre-Money + 250.000 €", bold=True)
-put(V, f"B{r}", f"={ref('val_reco')}+{ref('start_cash')}", fmt=EUR, bold=True, key="val_post"); r += 1
-put(V, f"A{r}", "Anteil Investor:innen (250.000 € ÷ Post-Money)", bold=True)
-put(V, f"B{r}", f"={ref('start_cash')}/{ref('val_post')}", fmt=PCT, bold=True, fill=FILL_KEY, key="val_stake"); r += 1
-put(V, f"A{r}", "Anteil Gründer nach der Runde (ohne ESOP)")
-put(V, f"B{r}", f"=1-{ref('val_stake')}", fmt=PCT, key="val_founder"); r += 2
-
-section(V, r, "5. Alternative: Wandeldarlehen / SAFE (Vorschlag – mit Steuer-/Rechtsberater prüfen)", 7)
+put(V, f"A{r}", "Summe Scores / Zu-/Abschlag")
+put(V, f"B{r}", f"=SUM(B{rfs_first}:B{r-1})", fmt='+0;-0;0', key="rfs_score")
+put(V, f"C{r}", f"=SUM(C{rfs_first}:C{r-1})", fmt='+#,##0" €";-#,##0" €";"0 €"', key="rfs_adj")
 r += 1
-put(V, f"A{r}", "Valuation Cap (Pre-Money) ≈ empfohlene Bewertung × Faktor")
-put(V, f"C{r}", 1.2, F_IN, '0.00"x"')
-put(V, f"B{r}", f"=ROUND({ref('val_reco')}*C{r}/50000,0)*50000", fmt=EUR, fill=FILL_KEY, key="cap")
-note(V, f"G{r}", "Cap leicht über dem Preis der Eigenkapital-Variante, weil die Wandlung erst in der Seed-Runde erfolgt; Spanne 1,0–1,2 Mio. €.")
+put(V, f"A{r}", "Risk-Factor-Summation-Wert (Pre-Money)", bold=True)
+put(V, f"C{r}", f"={ref('rfs_base')}+{ref('rfs_adj')}", fmt=EUR, bold=True, fill=FILL_KEY, key="val_rfs")
+r += 2
+
+# ---------------- 5. Zusammenfassung Referenzmethoden
+section(V, r, "5. Referenzmethoden (Investorensicht) – Zusammenfassung", 7)
+r += 1
+header_row(V, r, ["Methode", "Gründer-Sicht €", "Gewicht", "Konservativ €", "Gewicht", "", "Lesart"])
+r += 1
+methods = [
+    ("Berkus", "val_berkus_f", 0.25, "val_berkus", 0.4, "Gründer: 2×-Variante; konservativ: klassisch"),
+    ("Scorecard", "val_scorecard_f", 0.30, "val_scorecard", 0.4, "Marktvergleich; Gründer-Referenz 2,5 Mio. €, konservativ 1,5 Mio. €"),
+    ("VC-Methode", "val_vc_f", 0.20, "val_vc", 0.2, "Gründer: optimistisches Szenario (Upside), Basis-Linie siehe unten; konservativ: Basis"),
+    ("Risk Factor Summation", "val_rfs", 0.25, None, 0.0, "nur Gründer-Sicht (konservative Sicht nutzte drei Methoden)"),
+]
+WEIGHTS_F = {}
+WEIGHTS_C = {}
+m_first = r
+for lab, kf, wf, kc, wc, why in methods:
+    put(V, f"A{r}", lab)
+    put(V, f"B{r}", f"={ref(kf)}", fmt=EUR)
+    put(V, f"C{r}", wf, F_IN, PCT, key=f"w_f_{kf}")
+    if kc:
+        put(V, f"D{r}", f"={ref(kc)}", fmt=EUR)
+    else:
+        put(V, f"D{r}", 0, fmt=EUR)
+    put(V, f"E{r}", wc, F_IN, PCT, key=f"w_c_{kc or 'rfs'}")
+    put(V, f"G{r}", why)
+    WEIGHTS_F[lab] = wf
+    WEIGHTS_C[lab] = wc
+    if lab == "VC-Methode":
+        vc_wrow = r
+    r += 1
+m_last = r - 1
+m_last_c = m_last - 1  # konservativ: ohne RFS
+put(V, f"A{r}", "Spanne (Minimum)")
+put(V, f"B{r}", f"=MIN(B{m_first}:B{m_last})", fmt=EUR, key="val_min_f")
+put(V, f"D{r}", f"=MIN(D{m_first}:D{m_last_c})", fmt=EUR, key="val_min"); r += 1
+put(V, f"A{r}", "Spanne (Maximum)")
+put(V, f"B{r}", f"=MAX(B{m_first}:B{m_last})", fmt=EUR, key="val_max_f")
+put(V, f"D{r}", f"=MAX(D{m_first}:D{m_last_c})", fmt=EUR, key="val_max"); r += 1
+put(V, f"A{r}", "Gewichteter Mittelwert", bold=True)
+put(V, f"B{r}", f"=SUMPRODUCT(B{m_first}:B{m_last},C{m_first}:C{m_last})/SUM(C{m_first}:C{m_last})", fmt=EUR, bold=True,
+    fill=FILL_KEY, key="val_wavg_f")
+put(V, f"D{r}", f"=SUMPRODUCT(D{m_first}:D{m_last},E{m_first}:E{m_last})/SUM(E{m_first}:E{m_last})", fmt=EUR, bold=True, key="val_wavg")
+r += 1
+put(V, f"A{r}", "Gewichteter Mittelwert Gründer-Sicht mit VC-Basis-Linie statt optimistisch")
+put(V, f"B{r}", f"={ref('val_wavg_f')}+C{vc_wrow}*({ref('val_vc_fb')}-{ref('val_vc_f')})/SUM(C{m_first}:C{m_last})", fmt=EUR,
+    key="val_wavg_f_vcb")
+note(V, f"G{r}", "Zeigt, wie stark der Gründer-Mittelwert am optimistischen Szenario hängt.")
+r += 1
+put(V, f"A{r}", "Konservativ: gewichteter Mittelwert auf 50 T€ gerundet (frühere Empfehlung, nur Referenz)")
+put(V, f"D{r}", f"=ROUND({ref('val_wavg')}/50000,0)*50000", fmt=EUR, key="val_reco_c")
+r += 1
+put(V, f"A{r}", "Kontrolle: Gewichte je Sicht = 100 %")
+put(V, f"B{r}", f'=IF(AND(ROUND(SUM(C{m_first}:C{m_last}),4)=1,ROUND(SUM(E{m_first}:E{m_last}),4)=1),"OK","PRÜFEN")', key="val_wcheck")
+r += 2
+
+# ---------------- 6. Angebot der Gründer
+section(V, r, "6. Angebot der Gründer – max. 10 % für 250.000 €", 7)
+r += 1
+put(V, f"A{r}", "Investition (Pre-Seed)")
+put(V, f"B{r}", f"={ref('start_cash')}", fmt=EUR); r += 1
+put(V, f"A{r}", "Angebotener Anteil Investor:innen", bold=True)
+put(V, f"B{r}", 0.10, F_IN, PCT, FILL_KEY, key="offer_stake")
+note(V, f"G{r}", "Vorgabe der Gründer: höchstens 10 % für 250.000 €.")
+r += 1
+put(V, f"A{r}", "Post-Money = Investition ÷ Anteil", bold=True)
+put(V, f"B{r}", f"={ref('start_cash')}/{ref('offer_stake')}", fmt=EUR, bold=True, key="offer_post"); r += 1
+put(V, f"A{r}", "Pre-Money = Post-Money − Investition", bold=True)
+put(V, f"B{r}", f"={ref('offer_post')}-{ref('start_cash')}", fmt=EUR, bold=True, fill=FILL_KEY, key="offer_pre"); r += 1
+put(V, f"A{r}", "Anteil Gründer nach der Runde (ohne ESOP)")
+put(V, f"B{r}", f"=1-{ref('offer_stake')}", fmt=PCT, key="offer_founder"); r += 1
+put(V, f"A{r}", "Kontrolle: Post-Money × Anteil = Investition")
+put(V, f"B{r}", f'=IF(ROUND({ref("offer_post")}*{ref("offer_stake")}-{ref("start_cash")},2)=0,"OK","PRÜFEN")', key="offer_check"); r += 1
+r += 1
+put(V, f"A{r}", "Abstand zu den Referenzmethoden (transparent)", F_BOLD); r += 1
+put(V, f"A{r}", "Angebot Pre-Money ÷ gewichteter Mittelwert Gründer-Sicht")
+put(V, f"B{r}", f"={ref('offer_pre')}/{ref('val_wavg_f')}", fmt=XMULT, fill=FILL_KEY, key="offer_gap"); r += 1
+put(V, f"A{r}", "Angebot Pre-Money − gewichteter Mittelwert Gründer-Sicht (€)")
+put(V, f"B{r}", f"={ref('offer_pre')}-{ref('val_wavg_f')}", fmt=EUR, key="offer_gap_eur"); r += 1
+put(V, f"A{r}", "Angebot Pre-Money ÷ Gründer-Mittelwert mit VC-Basis-Linie")
+put(V, f"B{r}", f"={ref('offer_pre')}/{ref('val_wavg_f_vcb')}", fmt=XMULT, key="offer_gap_vcb"); r += 1
+put(V, f"A{r}", "Angebot Pre-Money ÷ Minimum der Gründer-Spanne")
+put(V, f"B{r}", f"={ref('offer_pre')}/{ref('val_min_f')}", fmt=XMULT, key="offer_gap_minf"); r += 1
+put(V, f"A{r}", "Angebot Pre-Money ÷ gewichteter Mittelwert konservativ")
+put(V, f"B{r}", f"={ref('offer_pre')}/{ref('val_wavg')}", fmt=XMULT, key="offer_gap_c"); r += 1
+put(V, f"A{r}", "Einordnung ggü. Gründer-Spanne (Formel)", bold=True)
+put(V, f"B{r}",
+    f'=IF({ref("offer_pre")}<{ref("val_min_f")},"unterhalb der Gründer-Spanne – unter allen vier Methoden",'
+    f'IF({ref("offer_pre")}<={ref("val_wavg_f")},"innerhalb der Gründer-Spanne, unter dem gewichteten Mittel",'
+    f'IF({ref("offer_pre")}<={ref("val_max_f")},"innerhalb der Gründer-Spanne, über dem gewichteten Mittel","oberhalb der Gründer-Spanne")))',
+    key="offer_position"); r += 1
+put(V, f"A{r}", "Einordnung ggü. konservativer Investorensicht (Formel)", bold=True)
+put(V, f"B{r}",
+    f'=IF({ref("offer_pre")}>{ref("val_max")},"oberhalb aller konservativen Methoden",'
+    f'IF({ref("offer_pre")}>={ref("val_wavg")},"über dem konservativen Mittel","unter dem konservativen Mittel"))',
+    key="offer_position_c"); r += 1
+note(V, f"A{r}", "Lesart: Gegenüber der großzügigen, belegten Gründer-Sicht ist das Angebot zurückhaltend; gegenüber der konservativen "
+                 "Investorensicht ist es ambitioniert – Verhandlungsgrundlage sind die Argumente in Abschnitt 9.")
+r += 2
+
+# ---------------- 7. Verhandlungsspanne
+section(V, r, "7. Verhandlungsspanne – Anteil Investor:innen → Bewertung", 7)
+r += 1
+header_row(V, r, ["Anteil Investor:innen", "Post-Money €", "Pre-Money €", "Anteil Gründer", "Pre ÷ Gründer-Mittel",
+                  "Pre ÷ konservatives Mittel", "Lesart"])
+r += 1
+NEG = [(0.08, "höhere Bewertung als das Angebot (Gründer-freundlich)"), (0.10, "Angebot der Gründer (Obergrenze laut Gründer)"),
+       (0.125, "Verhandlungskorridor bis hier: 10–12,5 % → Pre-Money 1,75–2,25 Mio. €"),
+       (0.15, "außerhalb der Gründer-Vorgabe (nur Vergleich)")]
+neg_rows = []
+for i, (st, lab) in enumerate(NEG):
+    put(V, f"A{r}", st, F_IN, PCT, key=f"neg_{i}_stake")
+    put(V, f"B{r}", f"={ref('start_cash')}/A{r}", fmt=EUR, key=f"neg_{i}_post")
+    put(V, f"C{r}", f"=B{r}-{ref('start_cash')}", fmt=EUR, key=f"neg_{i}_pre",
+        fill=FILL_KEY if abs(st - 0.10) < 1e-9 else None)
+    put(V, f"D{r}", f"=1-A{r}", fmt=PCT, key=f"neg_{i}_founder")
+    put(V, f"E{r}", f"=C{r}/{ref('val_wavg_f')}", fmt=XMULT, key=f"neg_{i}_gapf")
+    put(V, f"F{r}", f"=C{r}/{ref('val_wavg')}", fmt=XMULT, key=f"neg_{i}_gapc")
+    put(V, f"G{r}", lab)
+    neg_rows.append((i, lab))
+    r += 1
+r += 1
+
+# ---------------- 8. Was müsste für 10× gelten
+section(V, r, "8. Was müsste für 10× Investor-Rendite gelten? (Prüfung des Angebots)", 7)
+r += 1
+put(V, f"A{r}", "Post-Money (Angebot der Gründer)")
+put(V, f"B{r}", f"={ref('offer_post')}", fmt=EUR, key="need_post"); r += 1
+put(V, f"A{r}", "Verwässerung durch spätere Runden (Prüfannahme, Investorensicht)")
+put(V, f"B{r}", 0.45, F_IN, PCT, key="need_dil")
+note(V, f"G{r}", "Bewusst die konservative Annahme (Carta + ESOP); mit Gründer-Annahme 40 % siehe Spalte E der Szenario-Tabelle.")
+r += 1
+put(V, f"A{r}", "Exit-Multiples auf den Umsatz J5 (Prüfwerte)")
+put(V, f"B{r}", 4.0, F_IN, MULT, key="need_m1")
+put(V, f"C{r}", 6.0, F_IN, MULT, key="need_m2")
+note(V, f"G{r}", "4x = konservativ (B2C-Abschlag), 6x = Gründer-Annahme (SaaS Capital 5,3x + Wachstumsaufschlag).")
+r += 1
+header_row(V, r, ["Ziel-Rendite", "Nötiger Exit-Wert J5 €", "Nötiger Umsatz J5 bei 4x €", "Nötiger Umsatz J5 bei 6x €",
+                  "Getragen ab Szenario (4x)", "Getragen ab Szenario (6x)", "Formel"])
+r += 1
+NEED_RET = [5, 10]
+
+
+def sup_formula(x):
+    return (f'=IF({ref("guv_rev_kons_5")}>={x},"Konservativ",IF({ref("guv_rev_basis_5")}>={x},"Basis",'
+            f'IF({ref("guv_rev_opt_5")}>={x},"Optimistisch","keines")))')
+
+
+for tr in NEED_RET:
+    put(V, f"A{r}", tr, F_IN, MULT, key=f"need_ret_{tr}")
+    put(V, f"B{r}", f"={ref('need_post')}*A{r}/(1-{ref('need_dil')})", fmt=EUR, key=f"need_exit_{tr}",
+        fill=FILL_KEY if tr == 10 else None)
+    put(V, f"C{r}", f"=B{r}/{ref('need_m1')}", fmt=EUR, key=f"need_rev_{tr}_m1")
+    put(V, f"D{r}", f"=B{r}/{ref('need_m2')}", fmt=EUR, key=f"need_rev_{tr}_m2")
+    put(V, f"E{r}", sup_formula(f"C{r}"), key=f"sup_{tr}_m1")
+    put(V, f"F{r}", sup_formula(f"D{r}"), key=f"sup_{tr}_m2")
+    note(V, f"G{r}", "Exit = Post-Money × Ziel-Rendite ÷ (1 − Verwässerung); Umsatz = Exit ÷ Multiple; Szenario = niedrigstes, dessen Umsatz J5 reicht")
+    r += 1
+r += 1
+header_row(V, r, ["Szenario (GuV)", "Umsatz J5 €", "Implizite Rendite 4x (45 %)", "Implizite Rendite 6x (45 %)",
+                  "Implizite Rendite 6x (Gründer 40 %)", "Umsatz J5 ÷ Bedarf 10x @ 6x", "Lesart"])
+r += 1
+for s in SCEN:
+    put(V, f"A{r}", SCEN_DE[s])
+    put(V, f"B{r}", f"={ref(f'guv_rev_{s}_5')}", fmt=EUR, key=f"imp_rev_{s}")
+    put(V, f"C{r}", f"=B{r}*{ref('need_m1')}*(1-{ref('need_dil')})/{ref('need_post')}", fmt=XMULT, key=f"imp_{s}_m1")
+    put(V, f"D{r}", f"=B{r}*{ref('need_m2')}*(1-{ref('need_dil')})/{ref('need_post')}", fmt=XMULT, key=f"imp_{s}_m2")
+    put(V, f"E{r}", f"=B{r}*{ref('need_m2')}*(1-{ref('vcf_dil')})/{ref('need_post')}", fmt=XMULT, key=f"imp_{s}_m2f")
+    put(V, f"F{r}", f"=B{r}/{ref('need_rev_10_m2')}", fmt=PCT, key=f"cov_{s}")
+    r += 1
+note(V, f"A{r}", "Ehrliche Lesart (Standardeingaben): Das Basis-Szenario trägt ≈ 4,2x (6x-Multiple) bzw. ≈ 2,8x (4x) – nicht 10x. "
+                 "10x setzt das optimistische Szenario voraus: bei 6x und 45 % Verwässerung ≈ 9,8x (98 % des nötigen Umsatzes), "
+                 "bei 40 % Verwässerung ≈ 10,7x. 5x trägt das optimistische Szenario bei 4x und 6x.")
+r += 2
+
+# ---------------- 9. Begründung / Argumente
+section(V, r, "9. Begründung / Argumente für das Angebot (10 % für 250.000 € → Pre-Money 2,25 Mio. €)", 7)
+r += 1
+ARGUMENTS = [
+    ("product",
+     "Funktionsfähiges Produkt v2.1 statt Konzept: Stimme → Effekt in Echtzeit, Leistungsmodus, sichere GIF-Suche; 575+ automatisierte Tests "
+     "und eine e2e-Testsuite (Playwright) – das Technologierisiko ist weitgehend abgebaut.",
+     "Konsept değil, çalışan ürün v2.1: gerçek zamanlı ses → efekt, performans modu, güvenli GIF araması; 575+ otomatik test ve "
+     "uçtan uca (e2e) test paketi (Playwright) – teknoloji riski büyük ölçüde azaltıldı.",
+     "A working product (v2.1), not a concept: real-time voice → effect, performance mode, safe GIF search; 575+ automated tests and an "
+     "end-to-end (Playwright) suite – technology risk is largely retired."),
+    ("ip",
+     "Eigenes IP und eigene Inhalte: 238 Sprach-Trigger, 143 freie Sticker, Text- und Sticker-Inhalte sowie die Matcher-Logik sind selbst "
+     "entwickelt; Markenanmeldung LiveFX (DE/EU/TR) ist budgetiert.",
+     "Kendi fikri mülkiyeti ve içeriği: 238 ses tetikleyicisi, 143 ücretsiz çıkartma, metin/çıkartma içerikleri ve eşleştirme mantığı "
+     "kendi geliştirmemiz; LiveFX marka tescili (DE/AB/TR) bütçede.",
+     "Own IP and content: 238 voice triggers, 143 free stickers, text/sticker content and the matcher logic are built in-house; "
+     "LiveFX trademark filing (DE/EU/TR) is budgeted."),
+    ("languages",
+     "Drei Sprachen (DE/TR/EN) inkl. türkischer Nische: kaum spezialisierte Streaming-Tools auf Türkisch, eigene TR-Community als Startmarkt.",
+     "Türkçe nişi dahil üç dil (DE/TR/EN): Türkçe için uzmanlaşmış yayın aracı neredeyse yok; başlangıç pazarı olarak kendi TR topluluğumuz.",
+     "Three languages (DE/TR/EN) incl. a Turkish niche: hardly any specialised streaming tools in Turkish; own Turkish community as launch market."),
+    ("vision",
+     "Vision-Optionen A–D auf derselben Engine: Erzählfilm/Story-Engine (A), WortBild Sprachenlernen (B), Räume/VR-AR (C), "
+     "Studio/Auto-Edit (D) – Optionswert über das Creator-Tool hinaus.",
+     "Aynı motor üzerinde A–D vizyon seçenekleri: Anlatı filmi/Story-Engine (A), WortBild dil öğrenimi (B), Odalar/VR-AR (C), "
+     "Stüdyo/Otomatik kurgu (D) – içerik üretici aracının ötesinde opsiyon değeri.",
+     "Vision options A–D on the same engine: narrative film/story engine (A), WortBild language learning (B), rooms/VR-AR (C), "
+     "studio/auto-edit (D) – option value beyond the creator tool."),
+    ("market",
+     "Marktgröße: Live-Streaming-Markt 97–157 Mrd. USD, SAM 1–3 Mio. Creator (BP §6); Bildung/Sprachenlernen als zweiter Markt.",
+     "Pazar büyüklüğü: canlı yayın pazarı 97–157 milyar USD, SAM 1–3 milyon içerik üretici (BP §6); ikinci pazar olarak eğitim/dil öğrenimi.",
+     "Market size: live-streaming market USD 97–157 bn, SAM 1–3 m creators (BP §6); education/language learning as a second market."),
+    ("capital_efficiency",
+     "Kapitaleffizienz: Produkt bis v2.1 ohne externes Kapital gebaut; die 250.000 € tragen laut Modell 18 Monate bis Gate 2.",
+     "Sermaye verimliliği: ürün v2.1'e kadar dış sermaye olmadan geliştirildi; modele göre 250.000 € Gate 2'ye kadar 18 ay yetiyor.",
+     "Capital efficiency: product built to v2.1 without external capital; per the model, the €250,000 lasts 18 months to Gate 2."),
+    ("trailer",
+     "Vision-Trailer und Prototypen (Erzählfilm, WortBild als lauffähige HTML-Prototypen; 30-s-Produkttrailer) machen die Linien sichtbar – "
+     "Investor:innen sehen mehr als eine Folie.",
+     "Vizyon fragmanı ve prototipler (Anlatı filmi, WortBild çalışan HTML prototipleri; 30 sn ürün fragmanı) hatları görünür kılıyor – "
+     "yatırımcılar bir slayttan fazlasını görüyor.",
+     "Vision trailer and prototypes (narrative film and WortBild as runnable HTML prototypes; 30-s product trailer) make the lines tangible – "
+     "investors see more than a slide."),
+]
+for aid, de, tr_, en in ARGUMENTS:
+    put(V, f"A{r}", "• " + de)
+    r += 1
+note(V, f"A{r}", "Ehrlich dagegen: Solo-Gründer, noch kein Umsatz und keine Partner; konservative Methoden ergeben 0,2–1,4 Mio. € Pre-Money.")
+r += 2
+
+# ---------------- 10. Wandeldarlehen / SAFE
+section(V, r, "10. Alternative: Wandeldarlehen / SAFE (Vorschlag – mit Steuer-/Rechtsberater prüfen)", 7)
+r += 1
+put(V, f"A{r}", "Valuation Cap (Pre-Money)", bold=True)
+put(V, f"B{r}", 2250000, F_IN, EUR, FILL_KEY, key="cap")
+put(V, f"C{r}", f'=IF(ROUND({ref("cap")}-{ref("offer_pre")},0)=0,"= Angebot Pre-Money","weicht vom Angebot ab")', key="cap_check")
+note(V, f"G{r}", "Cap = Pre-Money des Gründer-Angebots (2,25 Mio. €) → Anteil am Cap ≈ 10 %.")
 r += 1
 put(V, f"A{r}", "Discount auf den Preis der Folgerunde")
 put(V, f"B{r}", 0.20, F_IN, PCT, key="discount")
 note(V, f"G{r}", "DACH marktüblich 15–25 % (z. B. lexr.com, vektora.eu); Vorschlag 20 %, verhandelbar 15–20 %.")
 r += 1
 put(V, f"A{r}", "Zins p. a. (wandelt mit)")
-put(V, f"B{r}", 0.05, F_IN, PCT, key="cla_interest")
+put(V, f"B{r}", 0.0, F_IN, PCT, key="cla_interest")
 r += 1
 put(V, f"A{r}", "Laufzeit bis Wandlung (Monate)")
 put(V, f"B{r}", 18, F_IN, "0", key="cla_months")
@@ -1116,11 +1407,15 @@ r += 1
 put(V, f"A{r}", "Wandlungsbewertung = MIN(Cap; Seed-Pre × (1 − Discount))")
 put(V, f"B{r}", f"=MIN({ref('cap')},{ref('seed_pre_example')}*(1-{ref('discount')}))", fmt=EUR, key="cla_conv_val")
 r += 1
-put(V, f"A{r}", "Anteil bei Wandlung (vereinfacht, vor Seed-Geld)", bold=True)
+put(V, f"A{r}", "Anteil bei Wandlung im Beispiel (vereinfacht, vor Seed-Geld)", bold=True)
 put(V, f"B{r}", f"={ref('cla_amount')}/({ref('cla_conv_val')}+{ref('cla_amount')})", fmt=PCT, bold=True, key="cla_stake")
 r += 1
-put(V, f"A{r}", "Max. Anteil am Cap ohne Zins (250.000 ÷ (Cap + 250.000))")
-put(V, f"B{r}", f"={ref('start_cash')}/({ref('cap')}+{ref('start_cash')})", fmt=PCT, key="cap_stake")
+put(V, f"A{r}", "Max. Anteil am Cap ohne Zins (250.000 ÷ (Cap + 250.000))", bold=True)
+put(V, f"B{r}", f"={ref('start_cash')}/({ref('cap')}+{ref('start_cash')})", fmt=PCT, bold=True, fill=FILL_KEY, key="cap_stake")
+r += 1
+put(V, f"A{r}", "Max. Anteil am Cap mit Zins (Wandlungsbetrag ÷ (Cap + Wandlungsbetrag))")
+put(V, f"B{r}", f"={ref('cla_amount')}/({ref('cap')}+{ref('cla_amount')})", fmt=PCT, key="cap_stake_int")
+note(V, f"G{r}", "Mit 5 % Zins über 18 Monate liegt der Anteil leicht über 10 % – ggf. Zins niedriger oder Cap entsprechend höher verhandeln.")
 r += 2
 note(V, f"A{r}", "Alle Bewertungen: Vorschlag – mit Steuer-/Rechtsberater prüfen. Keine Anlageberatung.")
 
@@ -1290,6 +1585,11 @@ terms = [
     ("Pre-Money-Bewertung", "Yatırım öncesi değerleme", "Pre-money valuation"),
     ("Post-Money-Bewertung", "Yatırım sonrası değerleme", "Post-money valuation"),
     ("Anteil Investor:innen", "Yatırımcı payı", "Investor stake"),
+    ("Angebot der Gründer", "Kurucuların teklifi", "Founders' offer"),
+    ("Referenzmethoden (Investorensicht)", "Referans yöntemler (yatırımcı bakışı)", "Reference methods (investor view)"),
+    ("Gründer-Sicht / konservative Sicht", "Kurucu bakışı / temkinli bakış", "Founder view / conservative view"),
+    ("Verhandlungsspanne", "Pazarlık aralığı", "Negotiation range"),
+    ("Begründung / Argumente", "Gerekçe / argümanlar", "Rationale / arguments"),
     ("Wandeldarlehen / SAFE, Valuation Cap, Discount", "Dönüştürülebilir kredi / SAFE, değerleme tavanı, iskonto",
      "Convertible loan / SAFE, valuation cap, discount"),
     ("Vorschlag – mit Steuer-/Rechtsberater prüfen", "Öneri – vergi/hukuk danışmanıyla kontrol edin",
@@ -1381,6 +1681,109 @@ def k(x):  # in T€ (eine Nachkommastelle)
     return None if x is None else round(x / 1000, 1)
 
 
+def vc_view(prefix, pre_key, scen_label):
+    return {"scenario": scen_label, "revenue_y5_eur": v(prefix + "rev5"), "exit_multiple": v(prefix + "mult"),
+            "exit_value_eur": v(prefix + "exit"), "target_return": v(prefix + "ret"), "later_dilution": v(prefix + "dil"),
+            "post_money_today_eur": v(prefix + "post"), "pre_money_eur": v(pre_key)}
+
+
+FOUNDER_VIEW = {
+    "label": "Gründer-Sicht (großzügig, jede Annahme belegt und gekennzeichnet)",
+    "berkus_eur": v("val_berkus_f"), "berkus_max_per_factor_eur": v("berkus_max_f"),
+    "berkus_variant": "moderne „moderate 2×“-Variante (0–1 Mio. $ je Faktor; valu.vc / icanpitch 2026), $→€ 1:1",
+    "berkus_scores": [{"factor": lab, "score": scf, "value_eur": round(v("berkus_max_f") * scf)} for lab, scf, scc, _ in berkus],
+    "scorecard_eur": v("val_scorecard_f"), "scorecard_reference_eur": v("sc_ref_f"), "scorecard_factor": v("sc_factor_f"),
+    "scorecard_reference_note": "unterer Teil der DACH-Spanne 1,5–5 Mio. € (upxcale) / DE 1–5 Mio. € (capvisory), unter Europa-Median ≈ 4,2 Mio. € (Equidam)",
+    "scorecard_scores": [{"factor": lab, "weight": w, "comparison": scf} for lab, w, scf, scc, _ in scorecard],
+    "vc_method": vc_view("vcf_", "val_vc_f", "Optimistisch (Upside)"),
+    "vc_method_basis_line": vc_view("vcb_", "val_vc_fb", "Basis (2. Linie)"),
+    "rfs_eur": v("val_rfs"), "rfs_base_eur": v("rfs_base"), "rfs_step_eur": v("rfs_step"), "rfs_score_sum": v("rfs_score"),
+    "rfs_scores": [{"risk": lab, "score": sc} for lab, sc, _ in rfs],
+    "range_min_eur": v("val_min_f"), "range_max_eur": v("val_max_f"), "weighted_avg_eur": v("val_wavg_f"),
+    "weighted_avg_with_vc_basis_eur": v("val_wavg_f_vcb"),
+    "weights": {"berkus": WEIGHTS_F["Berkus"], "scorecard": WEIGHTS_F["Scorecard"], "vc": WEIGHTS_F["VC-Methode"],
+                "rfs": WEIGHTS_F["Risk Factor Summation"]},
+}
+CONS_VIEW = {
+    "label": "Konservative Investorensicht (frühere Rechnung, nur Vergleich)",
+    "berkus_eur": v("val_berkus"), "berkus_max_per_factor_eur": v("berkus_max_c"),
+    "berkus_scores": [{"factor": lab, "score": scc, "value_eur": round(v("berkus_max_c") * scc)} for lab, scf, scc, _ in berkus],
+    "scorecard_eur": v("val_scorecard"), "scorecard_reference_eur": v("sc_ref"), "scorecard_factor": v("sc_factor"),
+    "vc_method": dict(vc_view("vc_", "val_vc", "Basis"), revenue_y5_basis_eur=v("vc_rev5")),
+    "range_min_eur": v("val_min"), "range_max_eur": v("val_max"), "weighted_avg_eur": v("val_wavg"),
+    "weighted_avg_rounded_eur": v("val_reco_c"),
+    "weights": {"berkus": WEIGHTS_C["Berkus"], "scorecard": WEIGHTS_C["Scorecard"], "vc": WEIGHTS_C["VC-Methode"]},
+}
+SUP = {f"{tr}x": {"mult4": v(f"sup_{tr}_m1"), "mult6": v(f"sup_{tr}_m2")} for tr in NEED_RET}
+imp = {s: {"revenue_y5_eur": v(f"imp_rev_{s}"), "implied_return_mult4_dil45": v(f"imp_{s}_m1"),
+           "implied_return_mult6_dil45": v(f"imp_{s}_m2"), "implied_return_mult6_dil40": v(f"imp_{s}_m2f"),
+           "coverage_of_10x_mult6_revenue_need": v(f"cov_{s}")} for s in SCEN}
+SUP["summary_de"] = (
+    f"10x bei 4x-Multiple: {v('sup_10_m1')}; 10x bei 6x: {v('sup_10_m2')} – das optimistische Szenario erreicht "
+    f"{imp['opt']['implied_return_mult6_dil45']:.1f}x (45 % Verwässerung) bzw. {imp['opt']['implied_return_mult6_dil40']:.1f}x (40 %). "
+    f"Basis trägt {imp['basis']['implied_return_mult6_dil45']:.1f}x (6x) bzw. {imp['basis']['implied_return_mult4_dil45']:.1f}x (4x). "
+    f"5x: ab Szenario {v('sup_5_m2')} (6x) bzw. {v('sup_5_m1')} (4x).")
+SUP["summary_de"] = __import__("re").sub(r"(\d)\.(\d)x", r"\1,\2x", SUP["summary_de"])
+VALUATION = {
+    "primary_view": "founder_view",
+    "label": "Referenzmethoden (Investorensicht) + Angebot der Gründer",
+    # Altschlüssel (stabil) = Gründer-Sicht (primär); konservative Werte unter conservative_view.*
+    "berkus_eur": FOUNDER_VIEW["berkus_eur"],
+    "berkus_scores": FOUNDER_VIEW["berkus_scores"],
+    "scorecard_eur": FOUNDER_VIEW["scorecard_eur"],
+    "scorecard_reference_eur": FOUNDER_VIEW["scorecard_reference_eur"],
+    "scorecard_factor": FOUNDER_VIEW["scorecard_factor"],
+    "vc_method": dict(FOUNDER_VIEW["vc_method"], revenue_y5_basis_eur=v("vcb_rev5")),
+    "range_min_eur": FOUNDER_VIEW["range_min_eur"], "range_max_eur": FOUNDER_VIEW["range_max_eur"],
+    "weighted_avg_eur": FOUNDER_VIEW["weighted_avg_eur"],
+    "weights": FOUNDER_VIEW["weights"],
+    "founder_view": FOUNDER_VIEW,
+    "conservative_view": CONS_VIEW,
+    "reference": {"label": "Referenzmethoden (Investorensicht)", "primary": "founder_view",
+                  "founder_view_weighted_avg_eur": FOUNDER_VIEW["weighted_avg_eur"],
+                  "founder_view_range_eur": [FOUNDER_VIEW["range_min_eur"], FOUNDER_VIEW["range_max_eur"]],
+                  "conservative_view_weighted_avg_eur": CONS_VIEW["weighted_avg_eur"],
+                  "conservative_view_rounded_pre_money_eur": CONS_VIEW["weighted_avg_rounded_eur"],
+                  "conservative_view_range_eur": [CONS_VIEW["range_min_eur"], CONS_VIEW["range_max_eur"]]},
+    "offer_label": "Angebot der Gründer",
+    "offer_stake": v("offer_stake"),
+    "offer_post_money_eur": v("offer_post"),
+    "offer_pre_money_eur": v("offer_pre"),
+    "founder_stake_after": v("offer_founder"),
+    "post_money_eur": v("offer_post"),
+    "investor_stake": v("offer_stake"),
+    "gap_vs_reference_avg": v("offer_gap"),
+    "gap_vs_reference_avg_eur": v("offer_gap_eur"),
+    "gap_vs_reference_avg_with_vc_basis": v("offer_gap_vcb"),
+    "gap_vs_founder_range_min": v("offer_gap_minf"),
+    "gap_vs_conservative_avg": v("offer_gap_c"),
+    "offer_position_vs_founder_view": v("offer_position"),
+    "offer_position_vs_conservative_view": v("offer_position_c"),
+    "required_exit_value_eur": {f"{tr}x": v(f"need_exit_{tr}") for tr in NEED_RET},
+    "required_exit_assumptions": {"post_money_eur": v("need_post"), "later_dilution": v("need_dil"),
+                                  "exit_multiples": [v("need_m1"), v("need_m2")]},
+    "implied_revenue_y5_eur": {"mult4": v("need_rev_10_m1"), "mult6": v("need_rev_10_m2"), "for_target_return": "10x"},
+    "implied_revenue_y5_by_return_eur": {f"{tr}x": {"mult4": v(f"need_rev_{tr}_m1"), "mult6": v(f"need_rev_{tr}_m2")} for tr in NEED_RET},
+    "implied_return_by_scenario": imp,
+    "supported_by_scenario": SUP,
+    "negotiation_table": [{"investor_stake": v(f"neg_{i}_stake"), "post_money_eur": v(f"neg_{i}_post"),
+                           "pre_money_eur": v(f"neg_{i}_pre"), "founder_stake_after": v(f"neg_{i}_founder"),
+                           "pre_vs_founder_avg": v(f"neg_{i}_gapf"), "pre_vs_conservative_avg": v(f"neg_{i}_gapc"),
+                           "note": lab} for i, lab in neg_rows],
+    "negotiation_range": {"investor_stake": [0.10, 0.125], "pre_money_eur": [v("neg_2_pre"), v("neg_1_pre")]},
+    "arguments": [{"id": aid, "de": de, "tr": tr_, "en": en} for aid, de, tr_, en in ARGUMENTS],
+    "arguments_caveat_de": "Ehrlich dagegen: Solo-Gründer, noch kein Umsatz und keine Partner; konservative Methoden ergeben 0,2–1,4 Mio. € Pre-Money.",
+    "convertible": {"valuation_cap_eur": v("cap"), "cap_basis": "Pre-Money des Gründer-Angebots", "cap_check": v("cap_check"),
+                    "discount": v("discount"), "interest_pa": v("cla_interest"),
+                    "months_to_conversion": v("cla_months"), "conversion_amount_eur": v("cla_amount"),
+                    "example_seed_pre_money_eur": v("seed_pre_example"), "conversion_valuation_eur": v("cla_conv_val"),
+                    "stake_at_conversion": v("cla_stake"), "max_stake_at_cap_no_interest": v("cap_stake"),
+                    "max_stake_at_cap_with_interest": v("cap_stake_int"),
+                    "discount_range_note": "15–20 % verhandelbar"},
+    "checks": {"offer": v("offer_check"), "weights": v("val_wcheck")},
+    "note": "Vorschlag – mit Steuer-/Rechtsberater prüfen",
+}
+
 out = {
     "meta": {
         "title": "LiveFX – Finanzmodell und Bewertung Pre-Seed 250.000 €",
@@ -1432,28 +1835,7 @@ out = {
         for s in SCEN
     },
     "wortbild_revenue_memo_eur": [v(f"wortbild_rev_{j}") for j in (1, 2, 3)],
-    "valuation": {
-        "berkus_eur": v("val_berkus"),
-        "berkus_scores": [{"factor": lab, "score": sc, "value_eur": round(500000 * sc)} for lab, sc, _ in berkus],
-        "scorecard_eur": v("val_scorecard"),
-        "scorecard_reference_eur": v("sc_ref"),
-        "scorecard_factor": v("sc_factor"),
-        "vc_method": {"revenue_y5_basis_eur": v("vc_rev5"), "exit_multiple": v("vc_mult"), "exit_value_eur": v("vc_exit"),
-                       "target_return": v("vc_ret"), "later_dilution": v("vc_dil"), "post_money_today_eur": v("vc_post"),
-                       "pre_money_eur": v("val_vc")},
-        "range_min_eur": v("val_min"), "range_max_eur": v("val_max"), "weighted_avg_eur": v("val_wavg"),
-        "weights": {"berkus": 0.4, "scorecard": 0.4, "vc": 0.2},
-        "recommended_pre_money_eur": v("val_reco"),
-        "post_money_eur": v("val_post"),
-        "investor_stake": v("val_stake"),
-        "founder_stake_after": v("val_founder"),
-        "convertible": {"valuation_cap_eur": v("cap"), "discount": v("discount"), "interest_pa": v("cla_interest"),
-                         "months_to_conversion": v("cla_months"), "conversion_amount_eur": v("cla_amount"),
-                         "example_seed_pre_money_eur": v("seed_pre_example"), "conversion_valuation_eur": v("cla_conv_val"),
-                         "stake_at_conversion": v("cla_stake"), "max_stake_at_cap_no_interest": v("cap_stake"),
-                         "discount_range_note": "15–20 % verhandelbar"},
-        "note": "Vorschlag – mit Steuer-/Rechtsberater prüfen",
-    },
+    "valuation": VALUATION,
     "gates": [],
     "sensitivity_basis": [
         {"case": name, "revenue_j3_eur": v(f"sens_rev3_{name}"), "delta_vs_base": v(f"sens_rev3d_{name}"),
@@ -1495,6 +1877,11 @@ for gid, m, theme, kpi, metric, frees in gate_rows:
                      "optimistic": v(f"gate_{kind}_{mm}_opt")})
     out["gates"].append(item)
 
-with open(JSON_OUT, "w", encoding="utf-8") as fh:
+_fd, _tmp = tempfile.mkstemp(prefix=".finance-250k.", suffix=".json.tmp", dir=os.path.dirname(JSON_OUT))
+with os.fdopen(_fd, "w", encoding="utf-8") as fh:
     json.dump(out, fh, ensure_ascii=False, indent=2)
+    fh.flush()
+    os.fsync(fh.fileno())
+os.chmod(_tmp, 0o644)
+os.replace(_tmp, JSON_OUT)  # atomar: andere Agenten lesen nie eine halbe Datei
 print("geschrieben:", JSON_OUT)

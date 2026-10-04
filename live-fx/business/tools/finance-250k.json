@@ -370,69 +370,473 @@
     216200
   ],
   "valuation": {
-    "berkus_eur": 900000,
+    "primary_view": "founder_view",
+    "label": "Referenzmethoden (Investorensicht) + Angebot der Gründer",
+    "berkus_eur": 2350000,
     "berkus_scores": [
       {
         "factor": "Idee / Grundwert (Problem, Markt)",
-        "score": 0.6,
-        "value_eur": 300000
+        "score": 0.7,
+        "value_eur": 700000
       },
       {
         "factor": "Prototyp / Produkt (Technologierisiko)",
-        "score": 0.7,
-        "value_eur": 350000
+        "score": 0.8,
+        "value_eur": 800000
       },
       {
         "factor": "Team (Umsetzungsqualität)",
-        "score": 0.3,
-        "value_eur": 150000
+        "score": 0.5,
+        "value_eur": 500000
       },
       {
         "factor": "Strategische Beziehungen",
-        "score": 0.1,
-        "value_eur": 50000
+        "score": 0.25,
+        "value_eur": 250000
       },
       {
         "factor": "Produkteinführung / Umsatz",
         "score": 0.1,
-        "value_eur": 50000
+        "value_eur": 100000
       }
     ],
-    "scorecard_eur": 1406250,
-    "scorecard_reference_eur": 1500000,
-    "scorecard_factor": 0.9375,
+    "scorecard_eur": 2950000,
+    "scorecard_reference_eur": 2500000,
+    "scorecard_factor": 1.18,
     "vc_method": {
-      "revenue_y5_basis_eur": 3151812.5,
-      "exit_multiple": 4,
-      "exit_value_eur": 12607250,
-      "target_return": 15,
-      "later_dilution": 0.45,
-      "post_money_today_eur": 462265.83,
-      "pre_money_eur": 212265.83
+      "scenario": "Optimistisch (Upside)",
+      "revenue_y5_eur": 7444105,
+      "exit_multiple": 6,
+      "exit_value_eur": 44664630,
+      "target_return": 10,
+      "later_dilution": 0.4,
+      "post_money_today_eur": 2679877.8,
+      "pre_money_eur": 2429877.8,
+      "revenue_y5_basis_eur": 3151812.5
     },
-    "range_min_eur": 212265.83,
-    "range_max_eur": 1406250,
-    "weighted_avg_eur": 964953.17,
+    "range_min_eur": 2350000,
+    "range_max_eur": 3000000,
+    "weighted_avg_eur": 2708475.56,
     "weights": {
-      "berkus": 0.4,
-      "scorecard": 0.4,
-      "vc": 0.2
+      "berkus": 0.25,
+      "scorecard": 0.3,
+      "vc": 0.2,
+      "rfs": 0.25
     },
-    "recommended_pre_money_eur": 950000,
-    "post_money_eur": 1200000,
-    "investor_stake": 0.2083,
-    "founder_stake_after": 0.7917,
+    "founder_view": {
+      "label": "Gründer-Sicht (großzügig, jede Annahme belegt und gekennzeichnet)",
+      "berkus_eur": 2350000,
+      "berkus_max_per_factor_eur": 1000000,
+      "berkus_variant": "moderne „moderate 2×“-Variante (0–1 Mio. $ je Faktor; valu.vc / icanpitch 2026), $→€ 1:1",
+      "berkus_scores": [
+        {
+          "factor": "Idee / Grundwert (Problem, Markt)",
+          "score": 0.7,
+          "value_eur": 700000
+        },
+        {
+          "factor": "Prototyp / Produkt (Technologierisiko)",
+          "score": 0.8,
+          "value_eur": 800000
+        },
+        {
+          "factor": "Team (Umsetzungsqualität)",
+          "score": 0.5,
+          "value_eur": 500000
+        },
+        {
+          "factor": "Strategische Beziehungen",
+          "score": 0.25,
+          "value_eur": 250000
+        },
+        {
+          "factor": "Produkteinführung / Umsatz",
+          "score": 0.1,
+          "value_eur": 100000
+        }
+      ],
+      "scorecard_eur": 2950000,
+      "scorecard_reference_eur": 2500000,
+      "scorecard_factor": 1.18,
+      "scorecard_reference_note": "unterer Teil der DACH-Spanne 1,5–5 Mio. € (upxcale) / DE 1–5 Mio. € (capvisory), unter Europa-Median ≈ 4,2 Mio. € (Equidam)",
+      "scorecard_scores": [
+        {
+          "factor": "Team",
+          "weight": 0.3,
+          "comparison": 1.0
+        },
+        {
+          "factor": "Marktgröße / Chance",
+          "weight": 0.25,
+          "comparison": 1.4
+        },
+        {
+          "factor": "Produkt / Technologie",
+          "weight": 0.15,
+          "comparison": 1.4
+        },
+        {
+          "factor": "Wettbewerbsumfeld",
+          "weight": 0.1,
+          "comparison": 1.3
+        },
+        {
+          "factor": "Marketing / Vertrieb / Partner",
+          "weight": 0.1,
+          "comparison": 0.8
+        },
+        {
+          "factor": "Bedarf weiterer Finanzierung",
+          "weight": 0.05,
+          "comparison": 1.0
+        },
+        {
+          "factor": "Sonstiges (IP, Bildung, Datenschutz lokal)",
+          "weight": 0.05,
+          "comparison": 1.2
+        }
+      ],
+      "vc_method": {
+        "scenario": "Optimistisch (Upside)",
+        "revenue_y5_eur": 7444105,
+        "exit_multiple": 6,
+        "exit_value_eur": 44664630,
+        "target_return": 10,
+        "later_dilution": 0.4,
+        "post_money_today_eur": 2679877.8,
+        "pre_money_eur": 2429877.8
+      },
+      "vc_method_basis_line": {
+        "scenario": "Basis (2. Linie)",
+        "revenue_y5_eur": 3151812.5,
+        "exit_multiple": 6,
+        "exit_value_eur": 18910875,
+        "target_return": 10,
+        "later_dilution": 0.4,
+        "post_money_today_eur": 1134652.5,
+        "pre_money_eur": 884652.5
+      },
+      "rfs_eur": 3000000,
+      "rfs_base_eur": 2500000,
+      "rfs_step_eur": 250000,
+      "rfs_score_sum": 2,
+      "rfs_scores": [
+        {
+          "risk": "Management",
+          "score": -1
+        },
+        {
+          "risk": "Entwicklungsstadium",
+          "score": 1
+        },
+        {
+          "risk": "Gesetzgebung / Politik",
+          "score": 0
+        },
+        {
+          "risk": "Herstellung / Lieferkette",
+          "score": 1
+        },
+        {
+          "risk": "Vertrieb / Marketing",
+          "score": -1
+        },
+        {
+          "risk": "Kapitalbeschaffung",
+          "score": -1
+        },
+        {
+          "risk": "Wettbewerb",
+          "score": 1
+        },
+        {
+          "risk": "Technologie",
+          "score": 1
+        },
+        {
+          "risk": "Rechtsstreit",
+          "score": 0
+        },
+        {
+          "risk": "International",
+          "score": 1
+        },
+        {
+          "risk": "Reputation",
+          "score": 0
+        },
+        {
+          "risk": "Exit-Potenzial",
+          "score": 0
+        }
+      ],
+      "range_min_eur": 2350000,
+      "range_max_eur": 3000000,
+      "weighted_avg_eur": 2708475.56,
+      "weighted_avg_with_vc_basis_eur": 2399430.5,
+      "weights": {
+        "berkus": 0.25,
+        "scorecard": 0.3,
+        "vc": 0.2,
+        "rfs": 0.25
+      }
+    },
+    "conservative_view": {
+      "label": "Konservative Investorensicht (frühere Rechnung, nur Vergleich)",
+      "berkus_eur": 900000,
+      "berkus_max_per_factor_eur": 500000,
+      "berkus_scores": [
+        {
+          "factor": "Idee / Grundwert (Problem, Markt)",
+          "score": 0.6,
+          "value_eur": 300000
+        },
+        {
+          "factor": "Prototyp / Produkt (Technologierisiko)",
+          "score": 0.7,
+          "value_eur": 350000
+        },
+        {
+          "factor": "Team (Umsetzungsqualität)",
+          "score": 0.3,
+          "value_eur": 150000
+        },
+        {
+          "factor": "Strategische Beziehungen",
+          "score": 0.1,
+          "value_eur": 50000
+        },
+        {
+          "factor": "Produkteinführung / Umsatz",
+          "score": 0.1,
+          "value_eur": 50000
+        }
+      ],
+      "scorecard_eur": 1406250,
+      "scorecard_reference_eur": 1500000,
+      "scorecard_factor": 0.9375,
+      "vc_method": {
+        "scenario": "Basis",
+        "revenue_y5_eur": 3151812.5,
+        "exit_multiple": 4,
+        "exit_value_eur": 12607250,
+        "target_return": 15,
+        "later_dilution": 0.45,
+        "post_money_today_eur": 462265.83,
+        "pre_money_eur": 212265.83,
+        "revenue_y5_basis_eur": 3151812.5
+      },
+      "range_min_eur": 212265.83,
+      "range_max_eur": 1406250,
+      "weighted_avg_eur": 964953.17,
+      "weighted_avg_rounded_eur": 950000,
+      "weights": {
+        "berkus": 0.4,
+        "scorecard": 0.4,
+        "vc": 0.2
+      }
+    },
+    "reference": {
+      "label": "Referenzmethoden (Investorensicht)",
+      "primary": "founder_view",
+      "founder_view_weighted_avg_eur": 2708475.56,
+      "founder_view_range_eur": [
+        2350000,
+        3000000
+      ],
+      "conservative_view_weighted_avg_eur": 964953.17,
+      "conservative_view_rounded_pre_money_eur": 950000,
+      "conservative_view_range_eur": [
+        212265.83,
+        1406250
+      ]
+    },
+    "offer_label": "Angebot der Gründer",
+    "offer_stake": 0.1,
+    "offer_post_money_eur": 2500000,
+    "offer_pre_money_eur": 2250000,
+    "founder_stake_after": 0.9,
+    "post_money_eur": 2500000,
+    "investor_stake": 0.1,
+    "gap_vs_reference_avg": 0.8307,
+    "gap_vs_reference_avg_eur": -458475.56,
+    "gap_vs_reference_avg_with_vc_basis": 0.9377,
+    "gap_vs_founder_range_min": 0.9574,
+    "gap_vs_conservative_avg": 2.3317,
+    "offer_position_vs_founder_view": "unterhalb der Gründer-Spanne – unter allen vier Methoden",
+    "offer_position_vs_conservative_view": "oberhalb aller konservativen Methoden",
+    "required_exit_value_eur": {
+      "5x": 22727272.73,
+      "10x": 45454545.45
+    },
+    "required_exit_assumptions": {
+      "post_money_eur": 2500000,
+      "later_dilution": 0.45,
+      "exit_multiples": [
+        4,
+        6
+      ]
+    },
+    "implied_revenue_y5_eur": {
+      "mult4": 11363636.36,
+      "mult6": 7575757.58,
+      "for_target_return": "10x"
+    },
+    "implied_revenue_y5_by_return_eur": {
+      "5x": {
+        "mult4": 5681818.18,
+        "mult6": 3787878.79
+      },
+      "10x": {
+        "mult4": 11363636.36,
+        "mult6": 7575757.58
+      }
+    },
+    "implied_return_by_scenario": {
+      "kons": {
+        "revenue_y5_eur": 602316.6,
+        "implied_return_mult4_dil45": 0.53,
+        "implied_return_mult6_dil45": 0.7951,
+        "implied_return_mult6_dil40": 0.8673,
+        "coverage_of_10x_mult6_revenue_need": 0.0795
+      },
+      "basis": {
+        "revenue_y5_eur": 3151812.5,
+        "implied_return_mult4_dil45": 2.7736,
+        "implied_return_mult6_dil45": 4.1604,
+        "implied_return_mult6_dil40": 4.5386,
+        "coverage_of_10x_mult6_revenue_need": 0.416
+      },
+      "opt": {
+        "revenue_y5_eur": 7444105,
+        "implied_return_mult4_dil45": 6.5508,
+        "implied_return_mult6_dil45": 9.8262,
+        "implied_return_mult6_dil40": 10.72,
+        "coverage_of_10x_mult6_revenue_need": 0.9826
+      }
+    },
+    "supported_by_scenario": {
+      "5x": {
+        "mult4": "Optimistisch",
+        "mult6": "Optimistisch"
+      },
+      "10x": {
+        "mult4": "keines",
+        "mult6": "keines"
+      },
+      "summary_de": "10x bei 4x-Multiple: keines; 10x bei 6x: keines – das optimistische Szenario erreicht 9,8x (45 % Verwässerung) bzw. 10,7x (40 %). Basis trägt 4,2x (6x) bzw. 2,8x (4x). 5x: ab Szenario Optimistisch (6x) bzw. Optimistisch (4x)."
+    },
+    "negotiation_table": [
+      {
+        "investor_stake": 0.08,
+        "post_money_eur": 3125000,
+        "pre_money_eur": 2875000,
+        "founder_stake_after": 0.92,
+        "pre_vs_founder_avg": 1.0615,
+        "pre_vs_conservative_avg": 2.9794,
+        "note": "höhere Bewertung als das Angebot (Gründer-freundlich)"
+      },
+      {
+        "investor_stake": 0.1,
+        "post_money_eur": 2500000,
+        "pre_money_eur": 2250000,
+        "founder_stake_after": 0.9,
+        "pre_vs_founder_avg": 0.8307,
+        "pre_vs_conservative_avg": 2.3317,
+        "note": "Angebot der Gründer (Obergrenze laut Gründer)"
+      },
+      {
+        "investor_stake": 0.125,
+        "post_money_eur": 2000000,
+        "pre_money_eur": 1750000,
+        "founder_stake_after": 0.875,
+        "pre_vs_founder_avg": 0.6461,
+        "pre_vs_conservative_avg": 1.8136,
+        "note": "Verhandlungskorridor bis hier: 10–12,5 % → Pre-Money 1,75–2,25 Mio. €"
+      },
+      {
+        "investor_stake": 0.15,
+        "post_money_eur": 1666666.67,
+        "pre_money_eur": 1416666.67,
+        "founder_stake_after": 0.85,
+        "pre_vs_founder_avg": 0.523,
+        "pre_vs_conservative_avg": 1.4681,
+        "note": "außerhalb der Gründer-Vorgabe (nur Vergleich)"
+      }
+    ],
+    "negotiation_range": {
+      "investor_stake": [
+        0.1,
+        0.125
+      ],
+      "pre_money_eur": [
+        1750000,
+        2250000
+      ]
+    },
+    "arguments": [
+      {
+        "id": "product",
+        "de": "Funktionsfähiges Produkt v2.1 statt Konzept: Stimme → Effekt in Echtzeit, Leistungsmodus, sichere GIF-Suche; 575+ automatisierte Tests und eine e2e-Testsuite (Playwright) – das Technologierisiko ist weitgehend abgebaut.",
+        "tr": "Konsept değil, çalışan ürün v2.1: gerçek zamanlı ses → efekt, performans modu, güvenli GIF araması; 575+ otomatik test ve uçtan uca (e2e) test paketi (Playwright) – teknoloji riski büyük ölçüde azaltıldı.",
+        "en": "A working product (v2.1), not a concept: real-time voice → effect, performance mode, safe GIF search; 575+ automated tests and an end-to-end (Playwright) suite – technology risk is largely retired."
+      },
+      {
+        "id": "ip",
+        "de": "Eigenes IP und eigene Inhalte: 238 Sprach-Trigger, 143 freie Sticker, Text- und Sticker-Inhalte sowie die Matcher-Logik sind selbst entwickelt; Markenanmeldung LiveFX (DE/EU/TR) ist budgetiert.",
+        "tr": "Kendi fikri mülkiyeti ve içeriği: 238 ses tetikleyicisi, 143 ücretsiz çıkartma, metin/çıkartma içerikleri ve eşleştirme mantığı kendi geliştirmemiz; LiveFX marka tescili (DE/AB/TR) bütçede.",
+        "en": "Own IP and content: 238 voice triggers, 143 free stickers, text/sticker content and the matcher logic are built in-house; LiveFX trademark filing (DE/EU/TR) is budgeted."
+      },
+      {
+        "id": "languages",
+        "de": "Drei Sprachen (DE/TR/EN) inkl. türkischer Nische: kaum spezialisierte Streaming-Tools auf Türkisch, eigene TR-Community als Startmarkt.",
+        "tr": "Türkçe nişi dahil üç dil (DE/TR/EN): Türkçe için uzmanlaşmış yayın aracı neredeyse yok; başlangıç pazarı olarak kendi TR topluluğumuz.",
+        "en": "Three languages (DE/TR/EN) incl. a Turkish niche: hardly any specialised streaming tools in Turkish; own Turkish community as launch market."
+      },
+      {
+        "id": "vision",
+        "de": "Vision-Optionen A–D auf derselben Engine: Erzählfilm/Story-Engine (A), WortBild Sprachenlernen (B), Räume/VR-AR (C), Studio/Auto-Edit (D) – Optionswert über das Creator-Tool hinaus.",
+        "tr": "Aynı motor üzerinde A–D vizyon seçenekleri: Anlatı filmi/Story-Engine (A), WortBild dil öğrenimi (B), Odalar/VR-AR (C), Stüdyo/Otomatik kurgu (D) – içerik üretici aracının ötesinde opsiyon değeri.",
+        "en": "Vision options A–D on the same engine: narrative film/story engine (A), WortBild language learning (B), rooms/VR-AR (C), studio/auto-edit (D) – option value beyond the creator tool."
+      },
+      {
+        "id": "market",
+        "de": "Marktgröße: Live-Streaming-Markt 97–157 Mrd. USD, SAM 1–3 Mio. Creator (BP §6); Bildung/Sprachenlernen als zweiter Markt.",
+        "tr": "Pazar büyüklüğü: canlı yayın pazarı 97–157 milyar USD, SAM 1–3 milyon içerik üretici (BP §6); ikinci pazar olarak eğitim/dil öğrenimi.",
+        "en": "Market size: live-streaming market USD 97–157 bn, SAM 1–3 m creators (BP §6); education/language learning as a second market."
+      },
+      {
+        "id": "capital_efficiency",
+        "de": "Kapitaleffizienz: Produkt bis v2.1 ohne externes Kapital gebaut; die 250.000 € tragen laut Modell 18 Monate bis Gate 2.",
+        "tr": "Sermaye verimliliği: ürün v2.1'e kadar dış sermaye olmadan geliştirildi; modele göre 250.000 € Gate 2'ye kadar 18 ay yetiyor.",
+        "en": "Capital efficiency: product built to v2.1 without external capital; per the model, the €250,000 lasts 18 months to Gate 2."
+      },
+      {
+        "id": "trailer",
+        "de": "Vision-Trailer und Prototypen (Erzählfilm, WortBild als lauffähige HTML-Prototypen; 30-s-Produkttrailer) machen die Linien sichtbar – Investor:innen sehen mehr als eine Folie.",
+        "tr": "Vizyon fragmanı ve prototipler (Anlatı filmi, WortBild çalışan HTML prototipleri; 30 sn ürün fragmanı) hatları görünür kılıyor – yatırımcılar bir slayttan fazlasını görüyor.",
+        "en": "Vision trailer and prototypes (narrative film and WortBild as runnable HTML prototypes; 30-s product trailer) make the lines tangible – investors see more than a slide."
+      }
+    ],
+    "arguments_caveat_de": "Ehrlich dagegen: Solo-Gründer, noch kein Umsatz und keine Partner; konservative Methoden ergeben 0,2–1,4 Mio. € Pre-Money.",
     "convertible": {
-      "valuation_cap_eur": 1150000,
+      "valuation_cap_eur": 2250000,
+      "cap_basis": "Pre-Money des Gründer-Angebots",
+      "cap_check": "= Angebot Pre-Money",
       "discount": 0.2,
-      "interest_pa": 0.05,
+      "interest_pa": 0,
       "months_to_conversion": 18,
-      "conversion_amount_eur": 268750,
+      "conversion_amount_eur": 250000,
       "example_seed_pre_money_eur": 3000000,
-      "conversion_valuation_eur": 1150000,
-      "stake_at_conversion": 0.1894,
-      "max_stake_at_cap_no_interest": 0.1786,
+      "conversion_valuation_eur": 2250000,
+      "stake_at_conversion": 0.1,
+      "max_stake_at_cap_no_interest": 0.1,
+      "max_stake_at_cap_with_interest": 0.1,
       "discount_range_note": "15–20 % verhandelbar"
+    },
+    "checks": {
+      "offer": "OK",
+      "weights": "OK"
     },
     "note": "Vorschlag – mit Steuer-/Rechtsberater prüfen"
   },
