@@ -112,6 +112,28 @@ const HEART = `<svg viewBox="0 0 100 90" width="100%" height="100%"><path d="M50
 function keepBrands(text) {
   return esc(text).replace(/(Happy Overthinking Coffee|HappyTuncay|Cat Me If You Can|KediDex)/g, '<span style="white-space:nowrap">$1</span>');
 }
+/** Zeile „A · B · C“ in Abschnitte teilen: umbrochen wird nur an „ · “ (siehe breakAtSeparators). */
+function segLine(text) {
+  return text.split(' · ').map((s) => `<span class="seg">${keepBrands(s)}</span>`).join('<span class="sep"> · </span>');
+}
+/** Wo ein Abschnitt in einer neuen Zeile beginnt, wird der Trenner „ · “ zum Zeilenumbruch. */
+function breakAtSeparators(box) {
+  for (const sep of qa(box, '.sep')) {
+    const prev = sep.previousElementSibling;
+    const next = sep.nextElementSibling;
+    if (next.offsetTop >= prev.offsetTop + prev.offsetHeight - 2) sep.replaceWith(document.createElement('br'));
+  }
+}
+/** Zustands-Chips: Schrift verkleinern, falls ein Text trotz breiterer Karte nicht in seinen Chip passt. */
+function fitChips(pop) {
+  const chips = qa(pop, '.chip');
+  let fs = parseFloat(getComputedStyle(chips[0]).fontSize);
+  while (fs > 24 && chips.some((c) => c.scrollWidth > c.clientWidth + 1)) {
+    fs -= 1;
+    for (const c of chips) c.style.fontSize = `${fs}px`;
+  }
+  pop.dataset.chipSize = String(fs);
+}
 
 // ---------- Textblock ----------
 function copyBlock(lines, { sub, acc = [], cls = '' } = {}) {
@@ -122,7 +144,7 @@ function copyBlock(lines, { sub, acc = [], cls = '' } = {}) {
 function fitCopy(c) {
   const h = q(c, '.h');
   const base = F16 ? (RTL ? 118 : 100) : RTL ? 124 : 104;
-  const maxW = F16 ? 780 : 936;
+  const maxW = F16 ? 780 : 840; // 9:16: je 120 px Rand links/rechts (Knöpfe der Apps)
   const zone = F16 ? (c.classList.contains('top') ? 420 : 820) : 474;
   const sub = q(c, '.sub');
   const subH = sub ? sub.getBoundingClientRect().height + parseFloat(getComputedStyle(sub).marginTop) : 0;
@@ -688,7 +710,7 @@ function buildS5() {
     <div class="abs" style="inset:0;background-image:radial-gradient(rgba(251,243,228,.07) 3px, transparent 3.6px);background-size:46px 46px"></div>
     <div class="vis" style="left:${VIS.x}px;top:${VIS.y}px">
       <div class="map-wrap" style="left:40px;top:30px;width:820px;height:820px"><div class="map">${map}</div></div>
-      <div class="pop" style="left:${popX}px;top:${popY}px"><div class="row"><div class="av">${avatar('tekir', 'Zeytin', { eye: 'green' }).replace('<svg ', '<svg width="96" height="96" ')}</div><div class="who"><b>Zeytin</b><span>📍 Moda</span></div></div><div class="chips">${chips}</div><div class="ripple" style="left:0;top:0;width:10px;height:10px;opacity:0"></div></div>
+      <div class="pop" style="right:${900 - popX - 470}px;top:${popY}px"><div class="row"><div class="av">${avatar('tekir', 'Zeytin', { eye: 'green' }).replace('<svg ', '<svg width="96" height="96" ')}</div><div class="who"><b>Zeytin</b><span>📍 Moda</span></div></div><div class="chips">${chips}</div><div class="ripple" style="left:0;top:0;width:10px;height:10px;opacity:0"></div></div>
       <div class="abs heart" style="left:${popX + 372}px;top:${popY - 96}px;width:130px;height:117px">${HEART}</div>
     </div>
     ${copyBlock(T.s5, { sub: T.s5sub, acc: ['', 'acc-o'] })}
@@ -781,8 +803,8 @@ function buildS6() {
     <div class="bubble" style="left:${L.bubble.x}px;top:${L.bubble.y}px">${slogan}<svg class="abs" width="44" height="40" style="left:12px;bottom:-26px"><path d="M4 0 L40 0 L6 36 Z" fill="#fbf3e4"/></svg></div>
     <div class="word" style="top:${L.word.y}px;font-size:${L.word.fs}px">${L.word.lines.map((l) => `<div class="wl"><span>${l}</span></div>`).join('')}</div>
     <div class="pill play" style="top:${L.play}px">${PAW('#14213d')}<span>${esc(T.play)}</span></div>
-    <div class="rules" style="top:${L.rules}px">${esc(T.rules)}</div>
-    <div class="maker" style="top:${L.maker}px">${keepBrands(T.maker)}</div>
+    <div class="rules" style="top:${L.rules}px">${segLine(T.rules)}</div>
+    <div class="maker" style="top:${L.maker}px">${segLine(T.maker)}</div>
   </section>`;
   const root = el(html);
   const R = { glow: q(root, '.lglow'), logo: q(root, '.logo'), bubble: q(root, '.bubble'), wl: qa(root, '.wl'), play: q(root, '.play'), rules: q(root, '.rules'), maker: q(root, '.maker'), stars: qa(root, '.stars circle'), peek: qa(root, '.peek') };
@@ -866,6 +888,8 @@ async function init() {
   // Texte einpassen (dafür alle Szenen kurz sichtbar)
   for (const id of ORDER) scenes[id].root.style.display = 'block';
   for (const c of qa(stage, '.copy')) fitCopy(c);
+  for (const p of qa(stage, '.pop')) fitChips(p);
+  for (const b of qa(stage, '.rules, .maker')) breakAtSeparators(b);
   window.renderAt(params.has('t') ? Number(params.get('t')) : 0);
   window.__meta = { lang: LANG, format: FORMAT, W, H, sizes: qa(stage, '.copy').map((c) => c.dataset.size) };
   window.__ready = true;

@@ -1,5 +1,5 @@
 // Cat Me If You Can – Trailer-Texte in 6 Sprachen (tr · en · de · ru · ar · fa).
-// Regeln: docs/BRAND.md. Höchstens 6 Wörter pro Zeile, Satzanfang groß, keine GROSSBUCHSTABEN,
+// Regeln: docs/BRAND.md. Höchstens 6 Wörter pro Zeile (außer Verhaltensregeln/Macher-Zeile), Satzanfang groß, keine GROSSBUCHSTABEN,
 // Du-Form. Markennamen (Cat Me If You Can, KediDex, HappyTuncay, Happy Overthinking Coffee) nie
 // übersetzen. Der Slogan „Cat me if you can.“ bleibt überall Englisch.
 // Arabisch: westliche Ziffern (20%) · Persisch: persische Ziffern (۲۰٪) – wie auf der Startseite.
@@ -26,7 +26,7 @@ export const TEXTS = {
     s5sub: 'Volunteers see it and help.',
     chips: { healthy: 'Healthy', hungry: 'Hungry', sick: 'Sick', injured: 'Injured' },
     play: 'Kadıköy · Play in your browser',
-    rules: 'Photos only · No touching · No flash',
+    rules: 'Photos only · No touching, no chasing · No flash',
     maker: 'A HappyTuncay product · Made at Happy Overthinking Coffee, Kadıköy',
   },
   tr: {
@@ -45,7 +45,7 @@ export const TEXTS = {
     s5sub: 'Gönüllüler görür ve yardım eder.',
     chips: { healthy: 'Sağlıklı', hungry: 'Aç', sick: 'Hasta', injured: 'Yaralı' },
     play: 'Kadıköy · Tarayıcında oyna',
-    rules: 'Sadece fotoğraf · Dokunma · Flaş yok',
+    rules: 'Sadece fotoğraf · Dokunma, kovalama · Flaş yok',
     maker: 'Bir HappyTuncay ürünü · Kadıköy\'deki Happy Overthinking Coffee\'de doğdu',
   },
   de: {
@@ -64,7 +64,7 @@ export const TEXTS = {
     s5sub: 'Freiwillige sehen es und helfen.',
     chips: { healthy: 'Gesund', hungry: 'Hungrig', sick: 'Krank', injured: 'Verletzt' },
     play: 'Kadıköy · Spiel im Browser',
-    rules: 'Nur Fotos · Nicht anfassen · Kein Blitz',
+    rules: 'Nur Fotos · Nicht anfassen, nicht jagen · Kein Blitz',
     maker: 'Ein Produkt von HappyTuncay · Entstanden im Happy Overthinking Coffee, Kadıköy',
   },
   ru: {
@@ -83,7 +83,7 @@ export const TEXTS = {
     s5sub: 'Волонтёры видят это и помогают.',
     chips: { healthy: 'Здорова', hungry: 'Голодная', sick: 'Болеет', injured: 'Ранена' },
     play: 'Кадыкёй · Играй в браузере',
-    rules: 'Только фото · Не трогай · Без вспышки',
+    rules: 'Только фото · Не трогай, не гоняйся · Без вспышки',
     maker: 'Продукт HappyTuncay · Создано в Happy Overthinking Coffee, Кадыкёй',
   },
   ar: {
@@ -102,7 +102,7 @@ export const TEXTS = {
     s5sub: 'المتطوعون يرون ذلك ويساعدون.',
     chips: { healthy: 'بصحة جيدة', hungry: 'جائعة', sick: 'مريضة', injured: 'مصابة' },
     play: 'قاضي كوي · العب في المتصفح',
-    rules: 'صوّر فقط · لا تلمس · بلا فلاش',
+    rules: 'صوّر فقط · لا تلمس، لا تطارد · بلا فلاش',
     maker: 'منتج من HappyTuncay · وُلد في Happy Overthinking Coffee، قاضي كوي',
   },
   fa: {
@@ -121,7 +121,7 @@ export const TEXTS = {
     s5sub: 'داوطلب‌ها می‌بینند و کمک می‌کنند.',
     chips: { healthy: 'سالم', hungry: 'گرسنه', sick: 'بیمار', injured: 'زخمی' },
     play: 'کادیکوی · در مرورگر بازی کن',
-    rules: 'فقط عکس · دست نزن · بدون فلاش',
+    rules: 'فقط عکس · دست نزن، دنبالشان نکن · بدون فلاش',
     maker: 'محصولی از HappyTuncay · ساخته‌شده در Happy Overthinking Coffee، کادیکوی',
     digits: 'fa',
   },

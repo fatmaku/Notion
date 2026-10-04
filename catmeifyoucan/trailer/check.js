@@ -1,6 +1,8 @@
 // Prüft das Layout aller Sprachen/Formate, ohne Video zu rendern:
 //  · kein Text außerhalb des Bildes (Rand 24 px)
-//  · 9:16: kein Text in den oberen 220 px und unteren 380 px (Bedienelemente von Reels/TikTok/Shorts)
+//  · 9:16: kein Text in den oberen 220 px und unteren 380 px und nicht näher als 100 px am Seitenrand
+//    (Bedienelemente von Reels/TikTok/Shorts)
+//  · Zustands-Chips liegen ganz in ihrer Karte
 //  · Überschriften nicht kleiner als 60 px, keine Überlappung von Textblock und Bild-Elementen
 // Aufruf: node trailer/check.js   (Exit-Code 1 bei Fehlern)
 import { startServer } from './serve.js';
@@ -35,6 +37,13 @@ try {
               const pad = 24;
               if (r.left < pad || r.right > w - pad || r.top < pad || r.bottom > h - pad) out.push(`${name} „${txt}“ außerhalb des Bildes (${r.left | 0},${r.top | 0} – ${r.right | 0},${r.bottom | 0})`);
               if (f9 && (r.top < 220 || r.bottom > h - 380)) out.push(`${name} „${txt}“ außerhalb der 9:16-Schutzzone (${r.top | 0}–${r.bottom | 0})`);
+              if (f9 && (r.left < 100 || r.right > w - 100)) out.push(`${name} „${txt}“ zu nah am Seitenrand (${r.left | 0}–${r.right | 0})`);
+              const pop = el.classList.contains('chip') && el.closest('.pop');
+              if (pop) {
+                const pr = pop.getBoundingClientRect();
+                if (r.left < pr.left - 1 || r.right > pr.right + 1) out.push(`Chip „${txt}“ ragt aus der Karte (${r.left | 0}–${r.right | 0} statt ${pr.left | 0}–${pr.right | 0})`);
+                if (el.scrollWidth > el.clientWidth + 1) out.push(`Chip „${txt}“: Text breiter als der Chip`);
+              }
               if (el.scrollWidth > el.clientWidth + 2 && getComputedStyle(el).overflow !== 'visible') out.push(`${name} „${txt}“ abgeschnitten`);
             }
             const hEl = root.querySelector('.copy .h');

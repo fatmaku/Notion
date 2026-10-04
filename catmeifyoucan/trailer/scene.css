@@ -32,7 +32,7 @@ svg { display: block; overflow: visible; }
 .copy { position: absolute; display: flex; flex-direction: column; z-index: 20; }
 .f16 .copy { inset-inline-start: 120px; width: 780px; top: 0; height: 1080px; justify-content: center; }
 .f16 .copy.top { justify-content: flex-start; padding-top: 128px; }
-.f9 .copy { left: 72px; right: 72px; top: 1066px; height: 474px; justify-content: center; align-items: center; text-align: center; }
+.f9 .copy { left: 120px; right: 120px; top: 1066px; height: 474px; justify-content: center; align-items: center; text-align: center; }
 .h {
   font-family: Unbounded, sans-serif;
   font-weight: 800;
@@ -44,7 +44,7 @@ svg { display: block; overflow: visible; }
 .ln > span { display: inline-block; }
 .h.wrap .ln { white-space: normal; }
 .f16 .h.wrap .ln > span { max-width: 780px; text-wrap: balance; }
-.f9 .h.wrap .ln > span { max-width: 936px; text-wrap: balance; }
+.f9 .h.wrap .ln > span { max-width: 840px; text-wrap: balance; }
 .ln.acc-o { color: var(--orange); }
 .ln.acc-oi { color: var(--orange-ink); }
 .ln.acc-s { color: var(--sun); }
@@ -56,7 +56,7 @@ svg { display: block; overflow: visible; }
   text-wrap: balance;
   max-width: 760px;
 }
-.f9 .sub { font-size: 48px; max-width: 936px; margin-top: 26px; }
+.f9 .sub { font-size: 48px; max-width: 840px; margin-top: 26px; }
 .rtl .sub { font-weight: 600; font-size: 50px; line-height: 1.55; }
 .rtl.f9 .sub { font-size: 52px; }
 
@@ -106,9 +106,9 @@ svg { display: block; overflow: visible; }
   font-size: 40px; font-weight: 800; box-shadow: 0 18px 36px rgba(20, 33, 61, 0.22);
 }
 .counter .frac { direction: ltr; unicode-bidi: isolate; display: inline-flex; align-items: baseline; gap: 4px; }
-.counter b { font-family: Unbounded, sans-serif; font-size: 62px; color: var(--orange); font-weight: 800; direction: ltr; unicode-bidi: isolate; }
+.counter b { font-family: Unbounded, sans-serif; font-size: 62px; color: var(--orange); font-weight: 800; direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
 .rtl .counter .frac { direction: ltr; unicode-bidi: isolate; display: inline-flex; align-items: baseline; gap: 4px; }
-.counter b { font-family: Vazirmatn, sans-serif; font-size: 72px; }
+.rtl .counter b { font-family: Vazirmatn, sans-serif; font-size: 72px; }
 .counter i { font-style: normal; font-family: Unbounded, sans-serif; font-size: 40px; opacity: 0.6; direction: ltr; unicode-bidi: isolate; }
 .rtl .counter i { font-family: Vazirmatn, sans-serif; font-size: 48px; }
 .tile { position: absolute; width: 136px; height: 136px; border-radius: 30px; }
@@ -121,7 +121,7 @@ svg { display: block; overflow: visible; }
 .map-wrap { position: absolute; perspective: 2000px; }
 .map { position: absolute; inset: 0; border-radius: 48px; overflow: hidden; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.4); transform-origin: 50% 60%; }
 .pop {
-  position: absolute; width: 470px; border-radius: 36px; background: var(--cream); color: var(--navy);
+  position: absolute; width: max-content; min-width: 470px; max-width: 580px; /* wächst mit langen Chip-Texten (z. B. ru, ar) */ border-radius: 36px; background: var(--cream); color: var(--navy);
   padding: 26px 26px 28px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4); z-index: 6;
 }
 .pop .row { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
@@ -131,6 +131,7 @@ svg { display: block; overflow: visible; }
 .pop .who span { font-size: 28px; font-weight: 700; opacity: 0.65; }
 .pop .who span::first-letter { font-family: var(--emoji); }
 .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.chips .chip { min-width: 0; }
 .chip {
   position: relative; display: flex; align-items: center; gap: 10px; height: 76px; padding: 0 18px; border-radius: 22px;
   background: #fff; border: 3px solid rgba(20, 33, 61, 0.12); font-weight: 800; font-size: 32px; white-space: nowrap; overflow: visible;
@@ -154,11 +155,14 @@ svg { display: block; overflow: visible; }
   font-size: 42px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 .rtl .play { font-size: 44px; }
-.rules, .maker { position: absolute; left: 60px; right: 60px; text-align: center; }
-.f16 .maker { left: 440px; right: 440px; }
-.rules { font-size: 34px; font-weight: 700; color: rgba(251, 243, 228, 0.82); }
-.maker { font-size: 32px; font-weight: 600; color: rgba(251, 243, 228, 0.7); line-height: 1.4; text-wrap: balance; }
-.rtl .rules { font-size: 36px; }
+.rules, .maker { position: absolute; left: 60px; right: 60px; text-align: center; text-wrap: balance; }
+.f16 .maker { left: 410px; right: 410px; }
+.f9 .rules, .f9 .maker { left: 120px; right: 120px; } /* 9:16: Seitenränder frei für die Knöpfe der Apps */
+/* Zeilen brechen nur an „ · “ um (scene.js macht daraus einen Zeilenumbruch) */
+.rules .seg, .maker .seg { display: inline-block; max-width: 100%; }
+.rules { font-size: 36px; font-weight: 700; color: rgba(251, 243, 228, 0.82); line-height: 1.35; }
+.maker { font-size: 34px; font-weight: 600; color: rgba(251, 243, 228, 0.72); line-height: 1.4; }
+.rtl .rules { font-size: 38px; line-height: 1.5; }
 .rtl .maker { font-size: 34px; line-height: 1.6; }
 .f9 .maker { font-size: 34px; }
-.rtl.f9 .maker { font-size: 36px; }
+.rtl.f9 .maker { font-size: 38px; }
