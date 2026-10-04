@@ -37,38 +37,44 @@ export function scoreCandidate(obs, cat, { radiusM = 450 } = {}) {
   if (a.long_hair != null && p.long_hair != null && a.long_hair !== p.long_hair) extra = Math.min(extra, 0.2);
 
   let score = (hasColors ? 0.45 * colorSim : 0.45 * pat) + 0.25 * pat + 0.2 * distScore + 0.1 * extra;
+  let conflict = false;
   reasons.push(`dist=${Math.round(dist)}m`, `color=${hasColors ? colorSim.toFixed(2) : 'n/a'}`, `pattern=${pat}`);
 
   // Harte Widersprüche
   if (p.ear_tip === 'tipped' && a.ear_tip === 'none') {
     score -= 0.4; // eine gekerbte Ohrspitze wächst nicht nach
     reasons.push('ear_tip_conflict');
+    conflict = true;
   }
   if (a.eye_color && p.eye_color && a.eye_color !== 'unknown' && p.eye_color !== 'unknown' && a.eye_color !== p.eye_color) {
     const soft = new Set(['yellow', 'green', 'copper']); // Licht kann gelb/grün/kupfer verwechseln
     if (!(soft.has(a.eye_color) && soft.has(p.eye_color))) {
       score -= 0.3;
       reasons.push('eye_conflict');
+      conflict = true;
     }
   }
   const monthsSince = Math.max(0, (obs.at - (cat.lastSeenAt || obs.at)) / (30 * 86400000));
   if (p.age_group === 'senior' && a.age_group === 'kitten') {
     score -= 0.5;
     reasons.push('age_conflict');
+    conflict = true;
   } else if (p.age_group === 'adult' && a.age_group === 'kitten' && monthsSince < 6) {
     score -= 0.35;
     reasons.push('age_conflict');
+    conflict = true;
   }
   if (p.sex_guess && a.sex_guess && p.sex_guess !== 'unknown' && a.sex_guess !== 'unknown' && p.sex_guess !== a.sex_guess && (p.pattern === 'uc_renk' || a.pattern === 'uc_renk')) {
     score -= 0.2;
     reasons.push('sex_conflict');
+    conflict = true;
   }
   if (dist > radiusM) score = 0;
-  return { score: Math.max(0, Math.min(1, Math.round(score * 1000) / 1000)), dist: Math.round(dist), colorSim, reasons };
+  return { score: Math.max(0, Math.min(1, Math.round(score * 1000) / 1000)), dist: Math.round(dist), colorSim, pattern: pat, conflict, reasons };
 }
 
 /** Kandidaten (aktive Katzen in der Nähe), bestbewertet zuerst. */
-export function findCandidates(cats, obs, { radiusM = 450, maxCandidates = 3, minScore = 0.3 } = {}) {
+export function findCandidates(cats, obs, { radiusM = 450, maxCandidates = 3, minScore = 0.3, verifyLow = 0.55, nearM = 80 } = {}) {
   const latPad = radiusM / 110574;
   const lonPad = radiusM / (111320 * Math.cos((obs.lat * Math.PI) / 180));
   const out = [];
@@ -76,6 +82,13 @@ export function findCandidates(cats, obs, { radiusM = 450, maxCandidates = 3, mi
     if (cat.mergedInto || cat.status === 'deceased') continue;
     if (!Number.isFinite(cat.lastLat) || Math.abs(cat.lastLat - obs.lat) > latPad || Math.abs(cat.lastLon - obs.lon) > lonPad) continue;
     const s = scoreCandidate(obs, cat, { radiusM });
+    // Die Fellfarben berechnet das Handy – ein manipulierter Fingerabdruck darf eine Katze mit
+    // passendem (vom Server analysiertem) Muster ganz in der Nähe nicht „unsichtbar“ machen:
+    // solche Kandidaten landen mindestens im Prüfbereich (KI-Vergleich bzw. Moderation).
+    if (s.dist <= nearM && s.pattern >= 0.6 && !s.conflict && s.score < verifyLow) {
+      s.score = verifyLow;
+      s.reasons.push('near_same_pattern');
+    }
     if (s.score >= minScore) out.push({ cat, ...s });
   }
   out.sort((x, y) => y.score - x.score);

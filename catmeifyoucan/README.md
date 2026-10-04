@@ -118,7 +118,7 @@ Postgres/PostGIS nach, die Engine bleibt dabei unverändert.
 | `CATME_MODEL` | `claude-opus-5-5` | Modell für Analyse, Vergleich, Namensprüfung |
 | `CATME_DEMO` | – | `1` = Demo-Daten anlegen (nur bei leerem Speicher) |
 | `ADMIN_TOKEN` | erzeugt | sonst `data/admin-token.txt` |
-| `TRUST_PROXY` | – | `1` hinter nginx/Caddy/Cloudflare |
+| `TRUST_PROXY` | – | Anzahl Proxys vor dem Server, z. B. `1` hinter nginx/Caddy (X-Forwarded-For wird von rechts gelesen) |
 | `CATME_TLS_CERT` / `CATME_TLS_KEY` | – | HTTPS direkt |
 | `CATME_TILES` / `CATME_TILES_ATTRIB` | OSM | eigener Kartenkachel-Dienst (für echten Betrieb nötig) |
 

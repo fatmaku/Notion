@@ -6,14 +6,14 @@
 import { esc, fmtNum } from './ui.js';
 
 let tip = null;
-function showTip(html, x, y) {
+function showTip(text, x, y) {
   if (!tip) {
     tip = document.createElement('div');
     tip.className = 'viz-tip';
     tip.setAttribute('role', 'tooltip');
     document.body.append(tip);
   }
-  tip.innerHTML = html;
+  tip.textContent = text; // Tooltip-Texte sind reiner Text – nie als HTML einsetzen
   tip.style.display = 'block';
   const r = tip.getBoundingClientRect();
   const left = Math.min(window.innerWidth - r.width - 8, Math.max(8, x - r.width / 2));

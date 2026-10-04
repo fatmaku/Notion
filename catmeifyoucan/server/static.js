@@ -43,7 +43,7 @@ function sendFile(req, res, file, { cache = 'no-cache', headers = {} } = {}) {
     res.end();
     return true;
   }
-  fs.createReadStream(file).pipe(res);
+  fs.createReadStream(file).on('error', () => res.destroy()).pipe(res);
   return true;
 }
 
@@ -57,9 +57,11 @@ export function serveStatic(req, res, root, pathname, { headers = {} } = {}) {
   }
   if (rel.includes('\0')) return false;
   if (rel.endsWith('/')) rel += 'index.html';
-  const file = path.resolve(root, '.' + path.posix.normalize('/' + rel));
+  const relNorm = path.posix.normalize('/' + rel);
+  const file = path.resolve(root, '.' + relNorm);
   if (!file.startsWith(path.resolve(root) + path.sep)) return false;
-  if (file.split(path.sep).some((part) => part.startsWith('.') && part.length > 1)) return false;
+  // versteckte Dateien/Ordner nur INNERHALB von public/ ablehnen (der Installationspfad darf welche haben)
+  if (relNorm.split('/').some((part) => part.startsWith('.') && part.length > 1)) return false;
   const long = /\/(vendor|icons)\//.test(rel);
   const isHtml = file.endsWith('.html');
   return sendFile(req, res, file, { cache: long ? 'public, max-age=604800' : 'no-cache', headers: isHtml ? headers : {} });

@@ -64,5 +64,9 @@ export function createPartnerSessions({ ttlMs = 12 * 3600000, now = () => Date.n
     revoke(token) {
       if (token) sessions.delete(sha256(token));
     },
+    /** Alle Sitzungen eines Cafés beenden (PIN geändert, Café gesperrt/abgelehnt). */
+    revokePartner(partnerId) {
+      for (const [k, s] of sessions) if (s.partnerId === partnerId) sessions.delete(k);
+    },
   };
 }

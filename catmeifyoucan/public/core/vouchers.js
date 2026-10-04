@@ -96,7 +96,7 @@ export function voucherApi(ctx) {
 
   /** Prüft einen Gutschein aus Sicht eines Partners (ohne einzulösen). */
   function checkVoucher(partner, rawCode) {
-    if (!partner || partner.type !== 'partner') fail(403, 'not_partner');
+    if (!partner || partner.type !== 'partner' || partner.status !== 'approved' || partner.active === false) fail(403, 'not_partner');
     const code = normalizeCode(rawCode);
     if (!code) return { valid: false, reason: 'bad_code' };
     const v = store.vouchers.where('code', code)[0];

@@ -12,7 +12,7 @@ export function adminApi(ctx, api) {
   const { store } = ctx;
 
   function requireAdmin(actor) {
-    if (!actor || actor.role !== 'admin') fail(403, 'forbidden', 'Nur für Moderation');
+    if (!actor || actor.banned || actor.role !== 'admin') fail(403, 'forbidden', 'Nur für Moderation');
   }
 
   function event(catId, type, by, extra = {}) {

@@ -204,13 +204,22 @@ export async function createLocalApi() {
     return p;
   };
 
+  // AR-Bibliotheken: lokal (falls mit `npm run vendor:ar` installiert), sonst CDN
+  let ar = { tf: 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js', cocoSsd: 'https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js' };
+  try {
+    const r = await fetch('vendor/ar/coco-ssd.min.js', { method: 'HEAD' });
+    if (r.ok && /javascript/.test(r.headers.get('content-type') || '')) ar = { tf: 'vendor/ar/tf.min.js', cocoSsd: 'vendor/ar/coco-ssd.min.js', local: true };
+  } catch {
+    /* kein lokaler Ordner */
+  }
+
   return {
     isDemo: true,
     engine,
     hasToken: () => !!(store.get('catme.demo.player') && mem.players.get(store.get('catme.demo.player'))),
     logout: () => store.set('catme.demo.player', null),
     health: async () => ({ ok: true, demo: true, ai: 'heuristic' }),
-    config: async () => ({ ...engine.config(), ar: { tf: 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js', cocoSsd: 'https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js' }, tiles: { url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', attribution: '© OpenStreetMap' }, demo: true, localDemo: true }),
+    config: async () => ({ ...engine.config(), ar, tiles: { url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', attribution: '© OpenStreetMap' }, demo: true, localDemo: true }),
     register: (nickname, lang) => wrap(async () => {
       const p = await engine.createPlayer({ nickname, lang, tokenHash: `local-${Math.random().toString(36).slice(2)}-${Date.now()}` });
       mem.players.update(p.id, { role: 'volunteer' }); // im Demo darf man alles ausprobieren

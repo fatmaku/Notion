@@ -148,10 +148,16 @@ export function sendError(res, err, log) {
   sendJson(res, 500, { error: 'internal', message: 'Interner Fehler' });
 }
 
+/**
+ * Client-IP. trustProxy = Anzahl vertrauenswürdiger Proxys vor dem Server (0 = keiner). Der linke
+ * Teil von X-Forwarded-For stammt vom Client und ist fälschbar – gezählt wird deshalb von rechts:
+ * bei einem Proxy (nginx) ist der letzte Eintrag die Adresse, die dieser Proxy gesehen hat.
+ */
 export function clientIp(req, trustProxy) {
-  if (trustProxy) {
-    const xf = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
-    if (xf) return xf;
+  const hops = trustProxy === true ? 1 : Number(trustProxy) || 0;
+  if (hops > 0) {
+    const parts = String(req.headers['x-forwarded-for'] || '').split(',').map((s) => s.trim()).filter(Boolean);
+    if (parts.length) return parts[Math.max(0, parts.length - hops)];
   }
   return req.socket.remoteAddress || 'unknown';
 }

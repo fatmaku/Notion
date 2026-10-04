@@ -63,7 +63,7 @@ export async function createApp(options = {}) {
     model = process.env.CATME_MODEL || undefined,
     demo = process.env.CATME_DEMO === '1',
     adminToken: envAdmin = process.env.ADMIN_TOKEN || '',
-    trustProxy = process.env.TRUST_PROXY === '1',
+    trustProxy = Number(process.env.TRUST_PROXY) || 0, // Anzahl Proxys vor dem Server
     tiles = process.env.CATME_TILES ? { url: process.env.CATME_TILES, attribution: process.env.CATME_TILES_ATTRIB || '', host: new URL(process.env.CATME_TILES.replace(/\{s\}/, 'a').replace(/\{[xyz]\}/g, '0')).origin } : DEFAULT_TILES,
     tls = null,
     now = () => Date.now(),
@@ -110,10 +110,11 @@ export async function createApp(options = {}) {
 
   // ------------------------------------------------------------ Anmeldung
 
-  function player(req, { required = true } = {}) {
+  function player(req, { required = true, allowBanned = false } = {}) {
     const token = bearer(req);
     const p = token ? engine.playerByTokenHash(sha256(token)) : null;
     if (!p && required) throw new HttpError(401, 'login_required', 'Bitte zuerst einen Spitznamen wählen');
+    if (p && p.banned && !allowBanned) throw new HttpError(403, 'banned', 'Konto gesperrt');
     return p;
   }
 
@@ -129,7 +130,7 @@ export async function createApp(options = {}) {
   function partner(req) {
     const id = partnerSessions.get(bearer(req));
     const p = id ? engine.ctx.store.places.get(id) : null;
-    if (!p || p.type !== 'partner' || p.active === false) throw new HttpError(401, 'partner_login_required', 'Bitte als Café anmelden');
+    if (!p || p.type !== 'partner' || p.active === false || p.status !== 'approved') throw new HttpError(401, 'partner_login_required', 'Bitte als Café anmelden');
     return p;
   }
 
@@ -167,7 +168,7 @@ export async function createApp(options = {}) {
     return { status: 201, body: { token, player: engine.publicPlayer(p) } };
   });
   r.get('/api/me', ({ req }) => {
-    const p = player(req);
+    const p = player(req, { allowBanned: true });
     return { player: engine.publicPlayer(p), today: engine.today(p), profile: engine.profile(p) };
   });
   r.patch('/api/me', async ({ req }) => {
@@ -183,7 +184,7 @@ export async function createApp(options = {}) {
     lim.catch.take(ip);
     const body = await readJson(req, 3.6 * 1024 * 1024);
     const images = { full: decodeJpegDataUrl(body.photo, 1.8 * 1024 * 1024, 'photo') };
-    images.crop = body.crop ? decodeJpegDataUrl(body.crop, 600 * 1024, 'crop') : images.full;
+    images.crop = body.crop ? decodeJpegDataUrl(body.crop, 600 * 1024, 'crop') : null;
     const result = await engine.catchCat(p, {
       lat: body.lat, lon: body.lon, accuracy: body.accuracy, capturedAt: body.capturedAt, source: body.source,
       fingerprint: body.fingerprint, detector: body.detector, lang: body.lang, images,
@@ -229,7 +230,7 @@ export async function createApp(options = {}) {
     const body = await readJson(req);
     const p = typeof body.partnerId === 'string' ? engine.ctx.store.places.get(body.partnerId) : null;
     if (p) lim.loginPartner.take(p.id);
-    if (!p || p.type !== 'partner' || p.active === false || !verifyPin(String(body.pin || ''), p.pinHash)) {
+    if (!p || p.type !== 'partner' || p.active === false || p.status !== 'approved' || !verifyPin(String(body.pin || ''), p.pinHash)) {
       throw new HttpError(401, 'bad_login', 'Café oder PIN falsch');
     }
     return { token: partnerSessions.create(p.id), partner: engine.publicPlace(p) };
@@ -315,11 +316,14 @@ export async function createApp(options = {}) {
     const data = { ...body };
     delete data.pinHash;
     if (body.pin) data.pinHash = hashPin(String(body.pin));
-    return engine.upsertPlace(a, data);
+    const place = engine.upsertPlace(a, data);
+    if (body.pin || body.active === false || body.status) partnerSessions.revokePartner(place.id); // neue PIN / gesperrt → alte Sitzungen ungültig
+    return place;
   });
   r.post('/api/admin/places/:id/review', async ({ req, params }) => {
     const a = admin(req);
     const body = await readJson(req);
+    if (body.approve !== true) partnerSessions.revokePartner(params.id);
     return engine.reviewPlace(a, params.id, body.approve === true);
   });
   r.get('/api/admin/photos/:id', ({ req, res, params }) => {

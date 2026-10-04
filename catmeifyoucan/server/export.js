@@ -11,7 +11,7 @@ function csvCell(v) {
 }
 
 export function catsCsv(engine, { regionId, lang = 'tr' } = {}) {
-  const { items } = engine.listCats({ regionId, limit: 200000 });
+  const items = engine.exportCats({ regionId });
   const cols = [
     'id', 'name', 'district', 'lat', 'lon', 'status', 'pattern', 'age_group', 'age_months_min', 'age_months_max',
     'weight_kg_min', 'weight_kg_max', 'body_condition', 'bcs', 'ear_tip', 'health_severity', 'health_flags',
@@ -33,7 +33,7 @@ export function catsCsv(engine, { regionId, lang = 'tr' } = {}) {
 }
 
 export function catsGeoJson(engine, { regionId } = {}) {
-  const { items } = engine.listCats({ regionId, limit: 200000 });
+  const items = engine.exportCats({ regionId });
   return {
     type: 'FeatureCollection',
     features: items.map((c) => ({

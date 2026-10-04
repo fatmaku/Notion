@@ -95,7 +95,7 @@ export function censusApi(ctx) {
   }
 
   function requireRole(actor, roles) {
-    if (!actor || !roles.includes(actor.role)) fail(403, 'forbidden', 'Keine Berechtigung');
+    if (!actor || actor.banned || !roles.includes(actor.role)) fail(403, 'forbidden', 'Keine Berechtigung');
   }
 
   /** Freiwillige/Moderation setzen den Status (z. B. „in Behandlung“, „adoptiert“). */
@@ -242,7 +242,12 @@ export function censusApi(ctx) {
     };
   }
 
-  return { listCats, getCat, setCatStatus, reportHelp, helpList, listPlaces, publicPlace, suggestPlace, mapData, visibleCats };
+  /** Alle sichtbaren Katzen (öffentlich, gerundet) – für den Datenexport, ohne Seitenbegrenzung. */
+  function exportCats({ regionId } = {}) {
+    return visibleCats(regionId).sort((a, b) => (b.lastSeenAt || 0) - (a.lastSeenAt || 0)).map((c) => publicCat(ctx, c));
+  }
+
+  return { listCats, exportCats, getCat, setCatStatus, reportHelp, helpList, listPlaces, publicPlace, suggestPlace, mapData, visibleCats };
 }
 
 export const VALID = { SETTABLE_STATUS, SUGGESTABLE_PLACES, CAT_STATUS, PATTERNS, SEVERITY };

@@ -63,6 +63,8 @@ export function createEngine(opts) {
     day: (t, region) => dayKey(t, (region || regions[0]).timezone),
   };
   const inflight = new Set();
+  // Jeder analysierte Versuch (auch „keine Katze“) startet die Abklingzeit – jede Analyse kostet.
+  const attempts = new Map(); // playerId → {day, count, last}
 
   /** Namensprüfung: lokale Wortliste immer, KI zusätzlich (wenn vorhanden). */
   async function assertCleanName(name, kind) {
@@ -131,6 +133,7 @@ export function createEngine(opts) {
   }
 
   async function updatePlayer(player, { nickname, lang }) {
+    if (player.banned) fail(403, 'banned', 'Konto gesperrt');
     const patch = {};
     if (nickname !== undefined) {
       const nick = cleanName(nickname, { min: 2, max: 20 });
@@ -138,6 +141,7 @@ export function createEngine(opts) {
       const lower = nick.toLocaleLowerCase('tr');
       if (store.players.all().some((p) => p.id !== player.id && p.nickname.toLocaleLowerCase('tr') === lower)) fail(409, 'nickname_taken');
       await assertCleanName(nick, 'player');
+      if (store.players.all().some((p) => p.id !== player.id && p.nickname.toLocaleLowerCase('tr') === lower)) fail(409, 'nickname_taken');
       patch.nickname = nick;
     }
     if (lang !== undefined) {
@@ -188,11 +192,14 @@ export function createEngine(opts) {
     const lang = LANGS.includes(input.lang) ? input.lang : player.lang || 'tr';
 
     const mine = store.observations.where('playerId', player.id).filter((o) => o.status !== 'rejected');
-    if (mine.filter((o) => o.dayKey === day).length >= game.maxCatchesPerDay) fail(429, 'daily_limit', 'Tageslimit erreicht');
+    let att = attempts.get(player.id);
+    if (!att || att.day !== day) att = { day, count: 0, last: 0 };
+    if (mine.filter((o) => o.dayKey === day).length >= game.maxCatchesPerDay || att.count >= game.maxCatchesPerDay * 2) fail(429, 'daily_limit', 'Tageslimit erreicht');
     let last = null;
     for (const o of mine) if (!last || o.createdAt > last.createdAt) last = o;
-    if (last && t - last.createdAt < game.catchCooldownSec * 1000) {
-      const retryAfter = Math.ceil((game.catchCooldownSec * 1000 - (t - last.createdAt)) / 1000);
+    const lastTry = Math.max(last ? last.createdAt : 0, att.last);
+    if (lastTry && t - lastTry < game.catchCooldownSec * 1000) {
+      const retryAfter = Math.ceil((game.catchCooldownSec * 1000 - (t - lastTry)) / 1000);
       fail(429, 'cooldown', 'Kurz warten', { retryAfter });
     }
 
@@ -217,7 +224,6 @@ export function createEngine(opts) {
       const hours = Math.max((t - last.createdAt) / 3600000, 1 / 3600);
       if (distM > 300 && distM / 1000 / hours > game.maxSpeedKmh) flags.push('impossible_travel');
     }
-    const counted = source === 'camera' && !flags.length;
     if (source === 'gallery') flags.push('gallery');
 
     const detector = input.detector && typeof input.detector === 'object' ? {
@@ -227,6 +233,7 @@ export function createEngine(opts) {
 
     const district = findDistrict(region, lat, lon);
     const saved = await photos.save(input.images || {});
+    attempts.set(player.id, { day, count: att.count + 1, last: t });
     let analysis;
     try {
       analysis = await analyzer.analyze({ images: input.images || {}, fingerprint, detector, lang, region, district });
@@ -248,6 +255,10 @@ export function createEngine(opts) {
       fail(422, 'pet_cat', 'Das sieht nach einer Hauskatze aus – hier zählen nur Straßenkatzen', { reason: analysis.ownership_reason });
     }
     for (const l of LANGS) if (!analysis.summary[l]) analysis.summary[l] = fallbackSummary(analysis, district && district.name, l);
+    // KI ausgefallen → einfache Analyse hat übernommen: erfassen ja, fürs Spiel zählen nein
+    // (sonst ließe sich mit kaputten Bildern, die die KI ablehnt, das Tagesziel erschummeln).
+    if (analysis.aiError) flags.push('ai_unavailable');
+    const counted = source === 'camera' && !flags.length;
 
     // ---- Wiedererkennung
     const regionCats = store.cats.all().filter((c) => c.regionId === region.id && !c.removed);
@@ -383,7 +394,8 @@ export function createEngine(opts) {
     const after = todaysCats(store, player.id, day);
     const goal = game.dailyGoal;
     let goalReached = false;
-    if (before.length < goal && after.length >= goal) {
+    const goalPaid = store.xp.where('playerId', player.id).some((x) => x.reason === 'daily_goal' && x.dayKey === day);
+    if (before.length < goal && after.length >= goal && !goalPaid) {
       goalReached = true;
       const e = addXp(player, game.xp.dailyGoal, 'daily_goal', { regionId: region.id });
       gained += e.amount;
@@ -461,6 +473,7 @@ export function createEngine(opts) {
   // ---------------------------------------------------------------- Katze benennen / Einspruch
 
   async function nameCat(player, catId, name) {
+    if (!player || player.banned) fail(403, 'banned', 'Konto gesperrt');
     const cat = store.cats.get(resolveCatId(store, catId));
     if (!cat || cat.removed) fail(404, 'cat_not_found');
     const clean = cleanName(name, { min: 2, max: 20 });
@@ -479,6 +492,7 @@ export function createEngine(opts) {
   }
 
   function dispute(player, observationId, reason) {
+    if (!player || player.banned) fail(403, 'banned', 'Konto gesperrt');
     const o = store.observations.get(observationId);
     if (!o || o.playerId !== player.id) fail(404, 'observation_not_found');
     if (store.disputes.where('observationId', o.id).some((d) => !d.resolved)) fail(409, 'already_disputed');

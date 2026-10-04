@@ -8,7 +8,7 @@
 //   CATME_MODEL=claude-opus-5-5  Modell für Analyse, Wiedererkennung, Namensprüfung
 //   CATME_DEMO=1                 Demo-Katzen, -Cafés und -Spieler:innen anlegen (nur wenn leer)
 //   ADMIN_TOKEN=…                Token für /admin.html (sonst erzeugt: data/admin-token.txt)
-//   TRUST_PROXY=1                X-Forwarded-For auswerten (hinter nginx/Caddy/Cloudflare)
+//   TRUST_PROXY=1                Anzahl Proxys vor dem Server (X-Forwarded-For von rechts gelesen)
 //   CATME_TLS_CERT / CATME_TLS_KEY  HTTPS direkt (Kamera im Handy braucht HTTPS)
 //   CATME_TILES=https://…/{z}/{x}/{y}.png  CATME_TILES_ATTRIB=…  eigener Kartenkachel-Dienst
 
