@@ -68,8 +68,10 @@ ITEM_COLS = {
     "hour", "weekday", "width", "height", "duration", "size", "has_audio", "aspect", "orientation", "favorite",
     "edited", "hidden", "shared", "albums", "keywords", "persons", "labels", "title", "description", "place",
     "lat", "lon", "dhash", "qhash", "apple_score", "social_score", "score_reasons", "available", "mtime",
-    "indexed_at", "posted_at", "post_id", "notes",
+    "indexed_at", "posted_at", "post_id", "notes", "quality", "viral", "viral_score", "analyzed_at",
 }
+JSON_COLS = {"quality", "viral"}
+NEW_COLS = {"quality": "TEXT", "viral": "TEXT", "viral_score": "REAL", "analyzed_at": "TEXT"}
 LIST_COLS = {"albums", "keywords", "persons", "labels", "score_reasons"}
 HAS_FTS = None
 
@@ -98,6 +100,11 @@ def connect(path=None):
     con.execute("PRAGMA synchronous=NORMAL")
     for stmt in SCHEMA:
         con.execute(stmt)
+    have = {r[1] for r in con.execute("PRAGMA table_info(items)")}
+    for col, typ in NEW_COLS.items():  # neviral analizi için yeni sütunlar (eski veritabanlarına eklenir)
+        if col not in have:
+            con.execute(f"ALTER TABLE items ADD COLUMN {col} {typ}")
+    con.execute("CREATE INDEX IF NOT EXISTS ix_items_viral ON items(viral_score)")
     try:
         cols = [r[1] for r in con.execute("PRAGMA table_info(items_fts)")]
         if "uuid" in cols:  # eski şema: dizinsiz uuid sütunu her güncellemede tüm tabloyu tarıyordu
@@ -139,6 +146,8 @@ def _ser(d):
             continue
         if k in LIST_COLS and not isinstance(v, str):
             v = json.dumps(list(v or []), ensure_ascii=False)
+        elif k in JSON_COLS and v is not None and not isinstance(v, str):
+            v = json.dumps(v, ensure_ascii=False)
         out[k] = v
     return out
 
@@ -153,6 +162,12 @@ def row_to_item(r):
                 d[k] = json.loads(d[k] or "[]")
             except (TypeError, ValueError):
                 d[k] = []
+    for k in JSON_COLS:
+        if k in d and isinstance(d[k], str):
+            try:
+                d[k] = json.loads(d[k] or "{}")
+            except ValueError:
+                d[k] = {}
     return d
 
 

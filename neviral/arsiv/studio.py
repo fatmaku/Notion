@@ -6,7 +6,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from . import config, db, ffilters, fix, highlights, i18n, media, music, photos_mac, text_overlay
+from . import config, db, ffilters, fix, highlights, i18n, kalite, media, music, photos_mac, text_overlay
 
 DEFAULT_BRIEF = {
     "sablon": "montaj",          # montaj | tekli | eskiden-simdi | alinti | carousel | yeniden
@@ -108,6 +108,7 @@ def normalize_brief(brief):
         b["sigdirma"] = "otomatik"
     if b["kalite"] not in ("yuksek", "orta"):
         b["kalite"] = "yuksek"
+    b["iyilestir"] = bool(b.get("iyilestir"))
     for k in ("baslik", "altbaslik", "cta", "etiket"):
         b[k] = str(b.get(k) or "")[:300]
     if b["sablon"] in ("tekli", "alinti", "yeniden"):
@@ -215,13 +216,15 @@ def _emit_clip(ctx, c, i, dst, W, H, offset, T, want_audio):
     """Klibi WxH boyutunda [dst] video etiketine çevirir; sesi zaman çizelgesine yerleştirir."""
     b, fps = ctx.b, ctx.fps
     frames = max(2, int(round(c["dur"] * fps)))
+    # neviral: ölçülen kaliteye göre otomatik pozlama/renk/netlik düzeltmesi
+    eq = ("," + kalite.eq_for(c["item"].get("quality") if isinstance(c["item"].get("quality"), dict) else None)) if b.get("iyilestir") else ""
     if c["kind"] == "foto":
         mode = b["sigdirma"] if b["sigdirma"] in ("kirp", "bulanik", "sigdir", "otomatik") else "otomatik"
         key = (c["item"].get("qhash") or c["item"]["uuid"]).replace(":", "_")
         pre = text_overlay.prep_photo(c["path"], W, H, mode, config.CACHE / f"kb-{key}-{W}x{H}-{mode}-{b['renk'].lstrip('#')}.jpg", bg=b["renk"])
         idx = ctx.add_input(["-i", pre])
         ctx.lines += ffilters.kenburns(f"{idx}:v", f"kb{dst}", W, H, frames, fps, variant=i)
-        ctx.lines.append(f"[kb{dst}]settb=AVTB,fps={fps},format=yuv420p[{dst}]")
+        ctx.lines.append(f"[kb{dst}]settb=AVTB,fps={fps},format=yuv420p{eq}[{dst}]")
     else:
         idx = ctx.add_input(["-ss", f"{c['start']:.3f}", "-t", f"{c['dur']:.3f}", "-i", c["path"]])
         mode = b["sigdirma"] if b["sigdirma"] in ("kirp", "bulanik", "sigdir") else ffilters.auto_fit(c["w"], c["h"], W, H)
@@ -231,7 +234,7 @@ def _emit_clip(ctx, c, i, dst, W, H, offset, T, want_audio):
             src = f"hdr{dst}"
         ctx.lines += ffilters.fit_chain(src, f"fit{dst}", W, H, mode, b["renk"], uid=f"f{dst}")
         # klibi tam olarak nominal uzunluğa sabitle (eksik kare → son kare tutulur): geçiş zinciri kaymaz
-        ctx.lines.append(f"[fit{dst}]setpts=PTS-STARTPTS,settb=AVTB,fps={fps},format=yuv420p,"
+        ctx.lines.append(f"[fit{dst}]setpts=PTS-STARTPTS,settb=AVTB,fps={fps},format=yuv420p{eq},"
                          f"tpad=stop_mode=clone:stop_duration={c['dur']:.3f},trim=duration={frames / fps:.4f},setpts=PTS-STARTPTS,settb=AVTB,fps={fps}[{dst}]")
         if want_audio and c["has_audio"] and b["orijinal_ses"] > 0:
             fd = max(0.3, T)

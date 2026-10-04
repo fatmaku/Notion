@@ -282,6 +282,32 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/templates":
                 from . import studio
                 return self._json({"sablonlar": studio.TEMPLATES, "varsayilan": studio.DEFAULT_BRIEF, "formatlar": list(config.FORMATS)})
+            if path == "/api/viral":
+                from . import viral
+                def num(k):
+                    return float(q[k]) if q.get(k) else None
+                pv = q.get("posted")
+                return self._json(viral.rank(self._con(), lang=self._lang(), platform=q.get("platform") or None, kind=q.get("kind") or None,
+                                             market=q.get("market") or None, topic=q.get("topic") or None,
+                                             posted=None if pv in (None, "") else pv == "1", min_score=num("min_score"), q=q.get("q") or None,
+                                             limit=min(200, int(q.get("limit", 50))), offset=int(q.get("offset", 0))))
+            if path.startswith("/api/viral/item/"):
+                from . import viral
+                con = self._con()
+                it = db.get_item(con, int(path.rsplit("/", 1)[1]))
+                if not it:
+                    return self._json({"hata": "yok"}, 404)
+                if not it.get("viral"):
+                    viral.rescore(con, lambda *_: None)
+                    it = db.get_item(con, it["id"])
+                total = con.execute("SELECT COUNT(*) FROM items WHERE hidden=0 AND viral_score IS NOT NULL").fetchone()[0]
+                it["neviral"] = viral.present(con, it, self._lang(), total=total, detail=True)
+                return self._json(it)
+            if path == "/api/viral/settings":
+                from . import viral, yazi
+                st = viral.settings(self._con())
+                st["claude"] = yazi.claude_available()
+                return self._json(st)
             if path == "/api/calendar":
                 from . import takvim
                 return self._json(takvim.upcoming(self._lang(), days=min(366, int(q.get("days", 60)))))
@@ -401,6 +427,34 @@ class Handler(BaseHTTPRequestHandler):
                         _render_slot.release()
                 jid = _job("uretim", run)
                 return self._json({"job": jid, "render_id": rid})
+            if path == "/api/viral/analyze":
+                argv = ["viral", "analiz"] + (["--zorla"] if body.get("force") else []) + ["--derin", str(min(5000, int(body.get("deep", 300))))]
+                return self._json({"job": _proc_job("neviral-analiz", argv, self.db_path)})
+            if path == "/api/viral/settings":
+                from . import viral
+                st = viral.save_settings(con, kitle=body.get("kitle"), saat_dilimi=body.get("saat_dilimi"), hesap=body.get("hesap"))
+                return self._json({"ayarlar": st, "job": _proc_job("neviral-puan", ["viral", "puanla"], self.db_path)})
+            if path in ("/api/viral/package", "/api/viral/top"):
+                from . import viral
+                plats = [x for x in (body.get("platforms") or []) if isinstance(x, str)][:6] or None
+                langs = [x for x in (body.get("langs") or []) if x in ("tr", "de", "en")] or None
+                use_ai = not body.get("claude_yok")
+                if path == "/api/viral/package":
+                    iid = int(body["id"])
+                    fn = lambda log, iid=iid: viral.package(db.connect(self.db_path), iid, plats, langs, log, use_ai)  # noqa: E731
+                else:
+                    n = max(1, min(50, int(body.get("n", 10))))
+                    fn = lambda log, n=n: viral.top_packages(db.connect(self.db_path), n, plats, langs, log, use_ai)  # noqa: E731
+
+                def run(log, fn=fn):
+                    if not _render_slot.acquire(blocking=False):
+                        log("sırada: önceki üretim bitince başlayacak…")
+                        _render_slot.acquire()
+                    try:
+                        return fn(log)
+                    finally:
+                        _render_slot.release()
+                return self._json({"job": _job("neviral-paket", run)})
             if path.startswith("/api/render/") and path.endswith("/photos"):
                 from . import paylas
                 r = db.get_render(con, int(path.split("/")[3]))
@@ -511,11 +565,11 @@ def serve(db_path=None, host="127.0.0.1", port=8765, open_browser=True):
         httpd = ThreadingHTTPServer((host, port), Handler)
     except OSError as e:
         if e.errno in (48, 98):  # EADDRINUSE (macOS / Linux)
-            raise SystemExit(f"{port} portu kullanımda: Arşiv Stüdyo zaten açık olabilir. Tarayıcıda http://{host}:{port}/ adresini açın "
+            raise SystemExit(f"{port} portu kullanımda: neviral zaten açık olabilir. Tarayıcıda http://{host}:{port}/ adresini açın "
                              "ya da Durdur.command ile durdurup yeniden başlatın.")
         raise
     url = f"http://{host}:{port}/"
-    print(f"Arşiv Stüdyo çalışıyor: {url}  (durdurmak için Ctrl+C)", flush=True)
+    print(f"neviral çalışıyor: {url}  (durdurmak için Ctrl+C)", flush=True)
     if open_browser:
         threading.Timer(0.8, lambda: webbrowser.open(url)).start()
     try:

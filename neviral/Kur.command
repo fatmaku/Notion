@@ -1,5 +1,5 @@
 #!/bin/bash
-# Arşiv Stüdyo — tek seferlik kurulum (macOS).
+# neviral — tek seferlik kurulum (macOS).
 # Çift tıklayın. Açılmazsa: Terminal'i açın, "bash " yazın (boşlukla), bu dosyayı pencereye sürükleyin, Enter'a basın.
 DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd)"
 if [ -z "$DIR" ] || ! cd "$DIR"; then
@@ -12,7 +12,7 @@ mkdir -p "$HOMEDIR"
 # Aynı klasördeki diğer .command dosyaları da çift tıklamayla açılabilsin (karantina işaretini kaldır)
 xattr -d com.apple.quarantine ./*.command >/dev/null 2>&1
 chmod +x ./*.command >/dev/null 2>&1
-echo "=== Arşiv Stüdyo kurulumu ==="
+echo "=== neviral kurulumu ==="
 echo "Klasör: $DIR"
 echo "Kayıt dosyası: $LOG"
 echo "--- $(date) ---" >> "$LOG"

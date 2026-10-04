@@ -1,5 +1,5 @@
 """Uçtan uca duman testi: örnek arşiv → tarama → Instagram eşleme → arama → üretim → hatırlatıcı.
-Çalıştırma (arsiv-studyo klasöründe): python3 -m unittest tests.test_akis -v   (ffmpeg gerekir; yoksa ARSIV_FFMPEG=... verin)"""
+Çalıştırma (neviral klasöründe): python3 -m unittest tests.test_akis -v   (ffmpeg gerekir; yoksa ARSIV_FFMPEG=... verin)"""
 import datetime as dt
 import os
 import shutil

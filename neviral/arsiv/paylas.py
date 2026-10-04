@@ -3,7 +3,7 @@ import platform
 import subprocess
 from pathlib import Path
 
-ALBUM = "Arşiv Stüdyo"
+ALBUM = "neviral"
 SCRIPT = [
     "on run argv",
     "set albumName to item 1 of argv",

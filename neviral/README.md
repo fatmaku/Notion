@@ -1,4 +1,4 @@
-# Arşiv Stüdyo
+# neviral
 
 iCloud'daki 2 TB fotoğraf-video arşivinden **hazır paylaşım videoları** (hikâye, reel, carousel) üreten, eski paylaşımlarınızı bulan ve yeniden paylaşmanızı hatırlatan **yerel** bir uygulama. Mac'inizde çalışır; hiçbir dosya buluta gönderilmez.
 
@@ -12,6 +12,24 @@ Neden bu yaklaşım "en kolayı":
 - **Hatırlatır.** Yeniden paylaşım kuyruğunu haftalara dağıtır, "bugün geçen yıl" önerir, macOS bildirimi ve Takvim (.ics) desteği vardır.
 - **Pazarlama.** Açıklama + hashtag + kanca cümlesi üretir (isteğe bağlı Claude ile), performans CSV'nizden en iyi paylaşım saatlerini çıkarır, içerik fikirleri önerir.
 
+## 🔥 neviral — viral potansiyel (sürüm 0.3)
+
+**Viral** sekmesi tüm arşivi en yüksek viral potansiyelden en düşüğe sıralar. Her öğe için:
+
+- **Viral puanı (0-100) ve yüzdelik dilim** ("ilk %2"), ayrıca platform başına puan: Instagram Reels, Instagram gönderi/carousel, TikTok, YouTube Shorts, Facebook Reels.
+- **Neden yüksek?** Güçlü açılış (ilk 3 sn hareket + netlik), görüntü kalitesi (netlik, pozlama, kontrast, renk, odak), ideal format/süre, platformda sevilen konu, insan/yüz, hiç paylaşılmamış olması, geçmiş performansınız, nostalji ("eskiden/şimdi") potansiyeli.
+- **Pazar ve dil:** 🇹🇷 Türkiye / 🇩🇪 Almanya-DACH / 🌍 uluslararası payları (kitle ayarınız + yer adları, dil ipuçları, konunun evrenselliği) ve önerilen dil.
+- **Konu:** Kitap, çocuk & aile, okul, seyahat, kutlama, hayvan, yemek, etkinlik, günlük.
+- **Otomatik iyileştirmeler:** 9:16'ya dönüştürme, en iyi anın kesilmesi, karanlık/bulanık/soluk görüntünün düzeltilmesi, ses yoksa müzik, ilk saniyeye yazılı kanca.
+- **En iyi paylaşım zamanı:** Pazarın yerel saatine göre seçilip sizin saat diliminize çevrilir.
+- **Metinler:** Her platform için ayrı (Reels: gönderim/kaydetme çağrısı + 3-5 hashtag; TikTok: kısa, aranabilir anahtar kelimeler, BookTok/KitapTok; Shorts: 70 karakterlik başlık + #Shorts; Facebook: yorum açan soru) — Türkçe, Almanca, İngilizce.
+
+**⚡ Paket hazırla** (tek tık): platforma uygun 9:16 video (otomatik renk/netlik düzeltmesi, en iyi an, ekranda kanca), fotoğraflar için iyileştirilmiş 4:5 akış görseli, 3 dilde tüm metinler (`aciklamalar.txt`, `paket.json`), en iyi saatler ve o saate hatırlatıcı. **⚡ En iyi 10** aynı işi en yüksek puanlı 10 paylaşılmamış öğe için yapar.
+
+Algoritma kural kitabı platformların 2025-2026 açıklamalarına dayanır (Instagram: DM ile gönderim ve izlenme süresi, orijinallik; TikTok: tamamlanma oranı, tekrar izleme, arama anahtar kelimeleri; Shorts: izlendi/kaydırıldı oranı; Facebook: paylaşım/yorum, aile/nostalji). Puan bir **tahmindir**; Instagram Profesyonel Panel CSV'sini içe aktardıkça uygulama sizin kitlenizde neyin çalıştığını öğrenir ve puanları buna göre ayarlar. `ANTHROPIC_API_KEY` tanımlıysa paket hazırlanırken Claude fotoğrafa bakarak metinleri gerçek içeriğe göre yazar.
+
+Komut satırı: `python3 -m arsiv viral analiz` · `viral liste --platform tiktok` · `viral paket 123 --dil tr de en` · `viral eniyi 10`.
+
 ## Yenilikler (sürüm 0.2)
 
 - **Hız:** 200 000 öğelik arşivde arama ~0,1 sn, panel ~1 sn; Instagram eşleme (1000 paylaşım) ~2 sn. Küçük resimler Fotoğraflar'ın kendi önizlemelerinden paralel üretilir; yeniden içe aktarmada değişmeyenler atlanır. İçe aktarma ayrı süreçte çalışır, arayüz donmaz.
@@ -19,7 +37,7 @@ Neden bu yaklaşım "en kolayı":
 - **Güvenli alanlar:** Yazılar Reels/TikTok/Shorts'un düğme ve açıklama alanlarının altında kalmaz; uzun kelimeler bölünür, sığmayan yazı küçültülür.
 - **Özel günler takvimi:** Dünya Kitap Günü, 23 Nisan, Anneler Günü/Muttertag, Öğretmenler Günü, Welttag des Buches… Panelde 60 gün ileriye; hatırlatıcı planı 3 gün önceden haber verir.
 - **Yıl özeti:** "2025 yılının en iyileri" fikri tek tıkla 10 anlık montaj.
-- **iPhone'a gönder:** Üretimler sekmesinde "Fotoğraflar'a ekle (iPhone)" videoyu macOS Fotoğraflar'daki *Arşiv Stüdyo* albümüne koyar; iCloud Fotoğraflar ile telefona gelir, Instagram'dan doğrudan paylaşılır. (İlk seferde Sistem Ayarları › Gizlilik ve Güvenlik › Otomasyon › Terminal › Fotoğraflar izni.)
+- **iPhone'a gönder:** Üretimler sekmesinde "Fotoğraflar'a ekle (iPhone)" videoyu macOS Fotoğraflar'daki *neviral* albümüne koyar; iCloud Fotoğraflar ile telefona gelir, Instagram'dan doğrudan paylaşılır. (İlk seferde Sistem Ayarları › Gizlilik ve Güvenlik › Otomasyon › Terminal › Fotoğraflar izni.)
 - **Instagram tahminleri:** Görsel eşleşmeyen paylaşımlar için tarih tahmini artık yalnızca öneridir; *Paylaşılanlar* sekmesinde ✓ Onayla / ✕ Yanlış.
 - **iCloud Drive taraması:** Yalnızca iCloud'da duran (indirilmemiş) dosyalar okunmaz, böylece 2 TB'lık indirme tetiklenmez.
 - **Güvenlik:** Sunucu yalnızca bu Mac'ten gelen isteklere yanıt verir; başka web sitelerinin uygulamaya istek göndermesi engellenir.
@@ -45,7 +63,7 @@ Sanal ortam ve paketler `~/ArsivStudyo/venv` altına kurulur; klasörü taşısa
 
 ```bash
 brew install ffmpeg                      # önerilir; yoksa imageio-ffmpeg'in taşınabilir ffmpeg'i kullanılır
-cd arsiv-studyo
+cd neviral
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt pillow-heif imageio-ffmpeg "osxphotos>=0.77"
 # pip install anthropic                  # isteğe bağlı: açıklama metnini Claude yazsın (ANTHROPIC_API_KEY)
@@ -154,7 +172,7 @@ Her sabah otomatik bildirim için `~/Library/LaunchAgents/com.arsiv.bildir.plist
   <key>Label</key><string>com.arsiv.bildir</string>
   <key>ProgramArguments</key><array>
     <string>/usr/bin/env</string><string>bash</string><string>-lc</string>
-    <string>cd /PATH/arsiv-studyo && .venv/bin/python -m arsiv hatirlat bildir</string>
+    <string>cd /PATH/neviral && .venv/bin/python -m arsiv hatirlat bildir</string>
   </array>
   <key>StartCalendarInterval</key><dict><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
 </dict></plist>

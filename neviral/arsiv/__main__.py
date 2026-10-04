@@ -174,13 +174,40 @@ def cmd_durum(args):
     _print("Açık hatırlatıcı:", s["hatirlatici_acik"], "  Üretim:", s["uretim"])
 
 
+def cmd_viral(args):
+    from . import viral
+    con = db.connect(args.db)
+    if args.alt == "analiz":
+        viral.analyze(con, progress=_print, force=args.zorla, deep_videos=args.derin)
+    elif args.alt == "puanla":
+        _print(viral.rescore(con, progress=_print), "öğe puanlandı")
+    elif args.alt == "paket":
+        r = viral.package(con, args.id, platforms=args.platform, langs=args.dil, progress=_print, use_claude=not args.claude_yok)
+        _print(json.dumps(r, ensure_ascii=False))
+    elif args.alt == "eniyi":
+        viral.top_packages(con, args.n, platforms=args.platform, langs=args.dil, progress=_print, use_claude=not args.claude_yok)
+    else:
+        lang = i18n_lang(con)
+        res = viral.rank(con, lang=lang, platform=args.platform, kind=args.tur, limit=args.limit)
+        _print(f"{res['total']} öğe (analiz bekleyen: {res['analiz_bekleyen']})")
+        for it in res["items"]:
+            n = it["neviral"]
+            mk = " ".join(f"{m['bayrak']}{int(m['pay'] * 100)}%" for m in n["pazarlar"])
+            _print(f"#{it['id']:<6} {it['viral_score']:>5.1f}  {n['en_iyi']['ad']:<18} {mk}  {it.get('filename')}  — {', '.join(n['nedenler'][:2])}")
+
+
+def i18n_lang(con):
+    from . import i18n
+    return i18n.lang_of(con)
+
+
 def cmd_sunucu(args):
     from . import server
     server.serve(args.db, host=args.host, port=args.port, open_browser=not args.tarayici_yok)
 
 
 def main(argv=None):
-    p = argparse.ArgumentParser(prog="arsiv", description="Arşiv Stüdyo — iCloud/klasör arşivinden sosyal medya içeriği")
+    p = argparse.ArgumentParser(prog="arsiv", description="neviral — iCloud/klasör arşivinden sosyal medya içeriği")
     p.add_argument("--db", help=f"veritabanı yolu (varsayılan {config.DB_PATH})")
     sp = p.add_subparsers(dest="cmd", required=True)
 
@@ -243,6 +270,15 @@ def main(argv=None):
     s.set_defaults(f=cmd_pazarlama)
 
     sp.add_parser("puanla", help="tüm öğeleri yeniden puanla").set_defaults(f=cmd_puanla)
+
+    s = sp.add_parser("viral", help="neviral: viral potansiyel analizi, sıralama, paket")
+    ss = s.add_subparsers(dest="alt")
+    a = ss.add_parser("analiz"); a.add_argument("--zorla", action="store_true"); a.add_argument("--derin", type=int, default=300)
+    ss.add_parser("puanla")
+    a = ss.add_parser("liste"); a.add_argument("--platform"); a.add_argument("--tur", choices=["foto", "video"]); a.add_argument("--limit", type=int, default=30)
+    a = ss.add_parser("paket"); a.add_argument("id", type=int); a.add_argument("--platform", nargs="*"); a.add_argument("--dil", nargs="*"); a.add_argument("--claude-yok", action="store_true")
+    a = ss.add_parser("eniyi"); a.add_argument("n", type=int, nargs="?", default=10); a.add_argument("--platform", nargs="*"); a.add_argument("--dil", nargs="*"); a.add_argument("--claude-yok", action="store_true")
+    s.set_defaults(f=cmd_viral, platform=None, tur=None, limit=30)
     sp.add_parser("durum", help="özet").set_defaults(f=cmd_durum)
 
     s = sp.add_parser("sunucu", help="web arayüzünü başlat")
