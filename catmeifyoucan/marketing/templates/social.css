@@ -1,0 +1,271 @@
+/* Cat Me If You Can – Social-Media-Vorlage. Farben/Schriften: docs/BRAND.md, Abschnitt 7.
+   Nie text-transform: uppercase (Türkisch i/İ). Feste Pixelmaße: Jedes Bild hat genau eine Größe. */
+:root {
+  --navy: #14213d;
+  --orange: #f28c28;
+  --cream: #fbf3e4;
+  --teal: #1f8a8a;
+  --sun: #f6d55c;
+  --orange-d: #c4610f;
+  --teal-d: #156a6a;
+  --paper: #fffaf1;
+  --head: 'Unbounded', 'Manrope', system-ui, sans-serif;
+  --body: 'Manrope', system-ui, sans-serif;
+  --brandfont: 'Unbounded', 'Manrope', system-ui, sans-serif;
+  color-scheme: light;
+}
+[dir="rtl"] {
+  --head: 'Vazirmatn', system-ui, sans-serif;
+  --body: 'Vazirmatn', system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--navy); }
+body { overflow: hidden; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--bg);
+  --ink: var(--cream);
+  --ink2: rgba(251, 243, 228, .86);
+  --accent: var(--orange);
+  --pill-bg: var(--orange);
+  --pill-ink: var(--navy);
+  --line: rgba(251, 243, 228, .35);
+}
+.f-post { width: 1080px; height: 1350px; --pad-top: 64px; --pad-x: 72px; --pad-bottom: 60px; --gap: 34px; }
+.f-story { width: 1080px; height: 1920px; --pad-top: 240px; --pad-x: 72px; --pad-bottom: 404px; --gap: 40px; }
+.f-og { width: 1200px; height: 630px; }
+.m-cat-me.f-post { --pad-bottom: 196px; }
+
+.bg, .bg > * { position: absolute; pointer-events: none; }
+.bg { inset: 0; }
+.bg .layer { display: block; }
+.abs { position: absolute; }
+
+.content {
+  position: absolute;
+  inset: var(--pad-top) var(--pad-x) var(--pad-bottom);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* ───── Kopfzeile ───── */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex: none; }
+.brand { display: flex; align-items: center; gap: 18px; flex: none; }
+.brand img { width: 68px; height: 68px; border-radius: 17px; box-shadow: 0 0 0 3px rgba(251, 243, 228, .22); }
+.wordmark { font-family: var(--brandfont); font-weight: 700; font-size: 29px; letter-spacing: -.01em; white-space: nowrap; color: var(--ink); }
+.place {
+  display: inline-flex; align-items: center; gap: 10px; flex: none;
+  font-weight: 700; font-size: 25px; line-height: 1; white-space: nowrap;
+  padding: 13px 22px 13px 18px; border-radius: 999px; border: 2.5px solid var(--line); color: var(--ink);
+}
+[dir="rtl"] .place { padding: 11px 18px 11px 22px; font-size: 26px; }
+.place .ic { width: 28px; height: 28px; color: var(--accent); }
+
+/* ───── Bild-Bühne (wird per JS in den freien Platz eingepasst) ───── */
+.visual { position: relative; flex: 1 1 auto; min-height: 200px; }
+.stage { position: absolute; left: 50%; top: 50%; transform-origin: 50% 50%; direction: ltr; }
+
+/* ───── Texte ───── */
+.copy { display: flex; flex-direction: column; gap: 22px; flex: none; text-align: start; }
+.align-center .copy { align-items: center; text-align: center; }
+.head {
+  font-family: var(--head); font-weight: 800; line-height: 1.04; letter-spacing: -.025em;
+  color: var(--ink); text-wrap: balance; width: 100%;
+}
+.head .ln { display: block; }
+.head .hl { color: var(--accent); }
+[dir="rtl"] .head { font-weight: 900; line-height: 1.32; letter-spacing: 0; }
+.head.slogan { font-family: var(--brandfont); font-weight: 800; line-height: 1.04; letter-spacing: -.025em; }
+.sub { font-weight: 650; line-height: 1.32; color: var(--ink2); text-wrap: balance; width: 100%; }
+[dir="rtl"] .sub { font-weight: 600; line-height: 1.6; }
+.sub b, .sub .nb, .maker .nb { font-weight: 800; color: var(--ink); }
+.nb { white-space: nowrap; unicode-bidi: isolate; }
+.kicker {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 10px;
+  background: var(--teal); color: var(--cream); font-weight: 800; font-size: 26px; line-height: 1;
+  padding: 14px 24px; border-radius: 999px; white-space: nowrap;
+}
+[dir="rtl"] .kicker { line-height: 1.2; padding: 10px 24px; }
+.kicker .ic { width: 28px; height: 28px; }
+.note {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 12px;
+  font-weight: 750; font-size: 28px; line-height: 1.2; white-space: nowrap;
+  padding: 14px 24px; border-radius: 999px; background: rgba(20, 33, 61, .1); color: var(--ink);
+}
+.note .ic { width: 30px; height: 30px; }
+.align-center .note, .align-center .kicker { align-self: center; }
+
+/* ───── Fußzeile ───── */
+.foot { display: flex; flex-direction: column; gap: 18px; flex: none; }
+.foot-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.cta {
+  display: inline-flex; align-items: center; gap: 16px; flex: none;
+  background: var(--pill-bg); color: var(--pill-ink);
+  font-weight: 800; font-size: 31px; line-height: 1; white-space: nowrap;
+  padding: 16px 34px 16px 16px; border-radius: 999px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, .16);
+}
+[dir="rtl"] .cta { padding: 12px 16px 12px 34px; line-height: 1.3; font-size: 32px; }
+.cta .ic-wrap { width: 52px; height: 52px; border-radius: 50%; background: var(--pill-ink); color: var(--pill-bg); display: grid; place-items: center; flex: none; }
+.cta .ic { width: 28px; height: 28px; }
+.tag { font-family: var(--brandfont); font-weight: 700; font-size: 25px; color: var(--accent); white-space: nowrap; }
+.maker { font-weight: 600; font-size: 21px; line-height: 1.4; color: var(--ink2); opacity: .9; }
+[dir="rtl"] .maker { font-size: 22px; line-height: 1.6; }
+.align-center .foot { align-items: center; text-align: center; }
+.align-center .foot-row { justify-content: center; }
+
+/* ───── Sammelkarte (KediDex) ───── */
+.kcard {
+  position: absolute; width: var(--cw); font-size: calc(var(--cw) / 10);
+  background: var(--paper); border-radius: 1.1em; padding: .62em .62em .55em;
+  box-shadow: 0 .45em 1.3em rgba(10, 18, 40, .32), 0 0 0 .05em rgba(20, 33, 61, .06);
+  display: flex; flex-direction: column; align-items: center; gap: .42em;
+  transform: rotate(var(--rot, 0deg)); color: var(--navy);
+}
+.kcard-pic { width: 100%; }
+.kcard-pic svg { display: block; width: 100%; height: auto; }
+.kcard-stars { display: flex; gap: .12em; }
+.kcard-stars svg { width: .95em; height: .95em; display: block; }
+.kcard-name {
+  width: 100%; background: #fff; border: .12em solid var(--orange); border-radius: .55em;
+  font-family: var(--brandfont); font-weight: 800; font-size: 1.05em; line-height: 1.75; text-align: center; white-space: nowrap; color: var(--navy);
+}
+.caret { display: inline-block; width: .09em; height: 1.05em; background: var(--orange); margin-left: .18em; vertical-align: -.16em; border-radius: .05em; }
+.kcard-dex { display: flex; align-items: center; gap: .28em; font-family: var(--brandfont); font-weight: 700; font-size: .62em; color: var(--teal); white-space: nowrap; }
+.kcard-dex .ic { width: 1.25em; height: 1.25em; }
+.kcard-tag {
+  position: absolute; top: -.8em; left: 50%; transform: translateX(-50%) rotate(-3deg);
+  background: var(--orange); color: var(--navy); font-family: var(--head); font-weight: 800; font-size: .82em; line-height: 1.25;
+  padding: .32em .9em; border-radius: 999px; white-space: nowrap; box-shadow: 0 .18em .4em rgba(10, 18, 40, .25);
+}
+[dir="rtl"] .kcard-tag, .kcard-tag[dir="rtl"] { font-family: 'Vazirmatn', sans-serif; font-weight: 900; line-height: 1.4; padding: .2em .9em; }
+
+/* ═════════ Motiv 1: cat-me (Nacht über Kadıköy) ═════════ */
+.m-cat-me, .m-og { --bg: radial-gradient(120% 70% at 50% 34%, #24386a 0%, #172748 46%, #14213d 70%); }
+.glow { position: absolute; border-radius: 50%; background: radial-gradient(closest-side, rgba(242, 140, 40, .45), rgba(242, 140, 40, 0)); }
+.logo-big { position: absolute; filter: drop-shadow(0 22px 40px rgba(0, 0, 0, .45)); }
+.m-cat-me .head .hl, .m-og .head .hl { color: var(--orange); }
+
+/* ═════════ Motiv 2: twenty (20 Katzen = 20 %) ═════════ */
+.m-twenty {
+  --bg: radial-gradient(90% 60% at 50% 32%, #f9a443 0%, #f28c28 58%, #e57d1c 100%);
+  --ink: var(--navy); --ink2: rgba(20, 33, 61, .86); --accent: var(--cream);
+  --pill-bg: var(--navy); --pill-ink: var(--cream); --line: rgba(20, 33, 61, .3);
+}
+.m-twenty .brand img { box-shadow: none; }
+.m-twenty .place .ic { color: var(--navy); }
+.m-twenty .tag { color: var(--navy); }
+.badge20 {
+  position: absolute; width: 250px; height: 250px; border-radius: 50%; background: var(--navy); color: var(--sun);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  box-shadow: 0 16px 34px rgba(20, 33, 61, .35); border: 8px solid var(--cream);
+}
+.badge20 .big { font-family: var(--brandfont); font-weight: 900; font-size: 52px; line-height: 1; letter-spacing: -.03em; }
+.badge20 .small { font-family: var(--body); font-weight: 800; font-size: 26px; color: var(--cream); line-height: 1.3; }
+.badge20 .ic { width: 34px; height: 34px; color: var(--sun); }
+.ticket {
+  position: absolute; display: flex; align-items: center; gap: 22px; height: 148px; padding: 0 34px 0 26px;
+  background: var(--cream); color: var(--navy); border-radius: 26px; box-shadow: 0 16px 34px rgba(20, 33, 61, .3);
+  -webkit-mask: radial-gradient(circle 20px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 20px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+}
+.ticket .tk-ic { width: 92px; height: 92px; border-radius: 50%; background: var(--orange); color: var(--navy); display: grid; place-items: center; flex: none; }
+.ticket .tk-ic .ic { width: 54px; height: 54px; }
+.ticket .tk-txt { font-family: var(--head); font-weight: 800; font-size: 46px; line-height: 1.1; white-space: nowrap; border-inline-start: 4px dashed rgba(20, 33, 61, .25); padding-inline-start: 22px; }
+.ticket[dir="rtl"] .tk-txt { font-family: 'Vazirmatn', sans-serif; font-weight: 900; line-height: 1.4; }
+.m-twenty .note { background: rgba(20, 33, 61, .12); }
+
+/* ═════════ Motiv 3: name-it (Wer zuerst findet, benennt) ═════════ */
+.m-name-it {
+  --bg: repeating-conic-gradient(from 0deg at 50% 36%, rgba(255, 255, 255, .055) 0 7.5deg, rgba(255, 255, 255, 0) 7.5deg 15deg),
+        radial-gradient(110% 70% at 50% 36%, #23959a 0%, #1b7d7e 50%, #135f62 100%);
+  --accent: var(--sun); --line: rgba(251, 243, 228, .4);
+}
+.m-name-it .place .ic { color: var(--sun); }
+.m-name-it .tag { color: var(--sun); }
+
+/* ═════════ Motiv 4: every-cat-counts (die ernste Seite) ═════════ */
+.m-every-cat-counts {
+  --bg: linear-gradient(180deg, #fbf3e4 0%, #f6ead3 100%);
+  --ink: var(--navy); --ink2: rgba(20, 33, 61, .82); --accent: var(--teal);
+  --pill-bg: var(--teal); --pill-ink: var(--cream); --line: rgba(20, 33, 61, .22);
+}
+.m-every-cat-counts .brand img { box-shadow: none; }
+.m-every-cat-counts .place .ic { color: var(--teal); }
+.m-every-cat-counts .head .hl { color: var(--teal); }
+.m-every-cat-counts .tag { color: var(--teal); }
+.chipcard {
+  position: absolute; background: var(--paper); border-radius: 40px; padding: 28px; color: var(--navy);
+  box-shadow: 0 22px 48px rgba(20, 33, 61, .22), 0 0 0 2px rgba(20, 33, 61, .05); transform: rotate(var(--rot, 0deg));
+  display: flex; flex-direction: column; gap: 22px;
+}
+.chipcard-head { display: flex; align-items: center; gap: 20px; }
+.chipcard-head .pic { width: 128px; flex: none; }
+.chipcard-head .pic svg { display: block; width: 100%; height: auto; }
+.chipcard-head .ask { font-family: var(--head); font-weight: 800; font-size: 30px; line-height: 1.2; }
+.chipcard[dir="rtl"] .ask { line-height: 1.5; font-weight: 900; }
+.chips { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.chip {
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 22px; overflow: hidden;
+  background: #fff; border: 3px solid rgba(20, 33, 61, .12); font-weight: 800; font-size: 26px; line-height: 1.2; white-space: nowrap; position: relative;
+}
+.chip[dir="rtl"], .chipcard[dir="rtl"] .chip { line-height: 1.5; padding: 10px 16px; }
+.chip .ic { width: 38px; height: 38px; flex: none; }
+.chip.c-healthy .ic { color: var(--teal); }
+.chip.c-hungry .ic { color: var(--orange-d); }
+.chip.c-sick .ic { color: #b5476b; }
+.chip.c-injured .ic { color: #c0392b; }
+.chip.on { background: var(--orange); border-color: var(--orange); color: var(--navy); box-shadow: 0 8px 18px rgba(242, 140, 40, .45); }
+.chip.on .ic { color: var(--navy); }
+.chipw { position: relative; min-width: 0; }
+.chipw .chip { height: 100%; }
+.chipw .tick { position: absolute; top: -14px; inset-inline-end: -12px; width: 40px; height: 40px; border-radius: 50%; background: var(--navy); color: var(--cream); display: grid; place-items: center; }
+.chipw .tick .ic { width: 24px; height: 24px; color: var(--cream); stroke-width: 3; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; flex: none; }
+.step { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; position: relative; }
+.step .sic { width: 92px; height: 92px; border-radius: 50%; background: var(--teal); color: var(--cream); display: grid; place-items: center; position: relative; }
+.step .sic .ic { width: 48px; height: 48px; }
+.step:nth-child(3) .sic { background: var(--orange); color: var(--navy); }
+.step .num { position: absolute; top: -6px; inset-inline-start: -6px; width: 36px; height: 36px; border-radius: 50%; background: var(--navy); color: var(--cream); font: 800 20px/36px var(--brandfont); text-align: center; }
+.step .lbl { font-weight: 800; font-size: 27px; line-height: 1.25; color: var(--navy); text-wrap: balance; }
+[dir="rtl"] .step .lbl { line-height: 1.55; font-size: 28px; }
+.step:not(:last-child)::after {
+  content: ''; position: absolute; top: 46px; inset-inline-start: calc(50% + 62px); width: calc(100% - 124px + 18px); height: 4px;
+  background: repeating-linear-gradient(90deg, rgba(20, 33, 61, .35) 0 10px, transparent 10px 18px); border-radius: 2px;
+}
+.privacy { display: flex; align-items: center; gap: 14px; font-weight: 700; font-size: 25px; line-height: 1.35; color: var(--ink2); }
+[dir="rtl"] .privacy { line-height: 1.6; }
+.privacy .ic { width: 32px; height: 32px; color: var(--teal); flex: none; }
+
+/* ═════════ Motiv 5: made-in-kadikoy (die Macher-Geschichte) ═════════ */
+.m-made-in-kadikoy {
+  --bg: radial-gradient(90% 55% at 80% 8%, rgba(246, 213, 92, .55), rgba(246, 213, 92, 0) 70%), linear-gradient(180deg, #fdf0d6 0%, #fbe3bd 100%);
+  --ink: var(--navy); --ink2: rgba(20, 33, 61, .84); --accent: var(--orange-d);
+  --pill-bg: var(--navy); --pill-ink: var(--cream); --line: rgba(20, 33, 61, .25);
+}
+.m-made-in-kadikoy .brand img { box-shadow: none; }
+.m-made-in-kadikoy .place .ic { color: var(--orange-d); }
+.m-made-in-kadikoy .tag { color: var(--orange-d); }
+.pun { font-family: var(--head); font-weight: 700; font-size: 32px; line-height: 1.3; color: var(--teal-d); font-style: normal; }
+[dir="rtl"] .pun { line-height: 1.6; font-weight: 800; }
+
+/* ═════════ Link-Vorschau 1200 × 630 ═════════ */
+.og-wrap { position: absolute; inset: 52px 56px 52px; display: flex; gap: 24px; }
+.og-text { flex: 0 0 600px; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 22px; }
+.og-text .brand img { width: 60px; height: 60px; border-radius: 15px; }
+.og-text .wordmark { font-size: 26px; }
+.og-row { display: flex; align-items: center; gap: 18px; flex-wrap: nowrap; }
+.f-og .cta { font-size: 26px; padding: 12px 28px 12px 12px; gap: 14px; box-shadow: 0 6px 0 rgba(0, 0, 0, .18); }
+[dir="rtl"].f-og .cta, [dir="rtl"] .f-og .cta { padding: 9px 12px 9px 28px; font-size: 27px; }
+.f-og .cta .ic-wrap { width: 44px; height: 44px; }
+.f-og .cta .ic { width: 24px; height: 24px; }
+.f-og .place { font-size: 22px; padding: 10px 18px 10px 14px; }
+.f-og .place .ic { width: 24px; height: 24px; }
+.f-og .sub { font-size: 30px; }
+.f-og .visual { flex: 1 1 auto; }
+[dir="rtl"] .f-og .slogan { text-align: right; }

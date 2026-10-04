@@ -1,17 +1,458 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Cat Me If You Can</title>
+  <meta name="description" content="A free photo game with the street cats of Kadıköy. Find cats, fill your KediDex and help them." data-i18n-attr="content:meta.desc">
+  <meta name="theme-color" content="#14213d">
+  <meta name="color-scheme" content="dark">
+  <meta name="author" content="HappyTuncay">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/logo.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/favicon-64.png" sizes="64x64" type="image/png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cat Me If You Can">
+  <meta property="og:title" content="Cat Me If You Can">
+  <meta property="og:description" content="Cat me if you can. A free photo game with the street cats of Kadıköy. Every photo helps the cats.">
+  <meta property="og:image" content="media/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cat Me If You Can: a winking ginger cat in a camera frame, Kadıköy">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:locale:alternate" content="tr_TR">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="ar_AR">
+  <meta property="og:locale:alternate" content="fa_IR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cat Me If You Can">
+  <meta name="twitter:description" content="Cat me if you can. A free photo game with the street cats of Kadıköy.">
+  <meta name="twitter:image" content="media/og.png">
+  <meta name="twitter:image:alt" content="Cat Me If You Can: a winking ginger cat in a camera frame, Kadıköy">
+
+  <link rel="preload" href="vendor/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css">
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="site/site.css">
+  <link rel="modulepreload" href="site/i18n.js">
+  <script type="module" src="site/site.js"></script>
 </head>
 <body>
-  <main class="empty">
-    <img src="icons/logo.svg" alt="" width="120" height="120">
-    <h1>Cat Me If You Can</h1>
-    <p><a class="btn primary" href="app.html">Play now</a></p>
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5.6v12.8c0 .8.9 1.3 1.6.8l10-6.4a1 1 0 0 0 0-1.6l-10-6.4C8.9 4.3 8 4.8 8 5.6z"/></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9.5 4.5 2.5-4.5 2.5z" fill="currentColor"/></g></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></g></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7.5 7.5 12 3l4.5 4.5"/><path d="M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></g></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></g></symbol>
+    <symbol id="i-hash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 3 7 21M17 3l-2 18M4 8.5h17M3 15.5h17"/></g></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.6-2.4A1.5 1.5 0 0 1 9.8 5h4.4a1.5 1.5 0 0 1 1.2.6L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></g></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11V4.5a1.5 1.5 0 0 1 3 0V12M14 11V5.5a1.5 1.5 0 0 1 3 0V14"/><path d="M17 9.5a1.5 1.5 0 0 1 3 0V15a7 7 0 0 1-7 7h-.6a6 6 0 0 1-4.6-2.2L4.3 16a1.6 1.6 0 0 1 2.4-2.1L8 15"/></g></symbol>
+    <symbol id="i-noflash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 5 13h6l-1 9 8-11h-6z"/><path d="M3 3l18 18"/></g></symbol>
+    <symbol id="i-street" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V8M12 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 21h12"/><path d="M9.5 5h5"/></g></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 6.9 4.5c2 0 3.6 1.1 4.6 2.6.5.8.5.8 1 0 1-1.5 2.6-2.6 4.6-2.6 3.5 0 5.5 3.5 4.2 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"/></symbol>
+    <symbol id="i-cup" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 2.5c-.8 1 .8 2 0 3M12 2.5c-.8 1 .8 2 0 3"/></g></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></g></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2.8 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.6l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/></symbol>
+    <symbol id="i-paw" viewBox="0 0 24 24"><g fill="currentColor"><ellipse cx="6" cy="10" rx="2.2" ry="2.8"/><ellipse cx="10" cy="6" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="6" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="10" rx="2.2" ry="2.8"/><path d="M12.2 11c-3 0-6 3.5-6 6.2 0 1.8 1.4 2.6 3 2.3 1.2-.2 2-.6 3-.6s1.8.4 3 .6c1.6.3 3-.5 3-2.3 0-2.7-3-6.2-6-6.2z"/></g></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8 7.5 9.5 4.3-1.5 7.5-4.9 7.5-9.5V6z"/><path d="m8.8 12 2.2 2.2 4.4-4.4"/></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-volunteer" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8.6c.9-1.4 2-2.1 3.3-2.1 2.2 0 3.6 2.2 2.7 4.3-1 2.4-6 5.2-6 5.2s-5-2.8-6-5.2c-.9-2.1.5-4.3 2.7-4.3 1.3 0 2.4.7 3.3 2.1z"/><path d="M3 21c1.8-2 4.6-3 9-3s7.2 1 9 3"/></g></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.6" fill="currentColor"/></g></symbol>
+  </svg>
+
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+  <header class="topbar" data-topbar>
+    <div class="topbar-in">
+      <a class="brand" href="./" aria-label="Cat Me If You Can, home" data-i18n-attr="aria-label:nav.home">
+        <img src="icons/logo.svg" alt="" width="40" height="40">
+        <span class="brand-name" lang="en"><span class="bn-long">Cat Me If You Can</span><span class="bn-short">Cat Me</span></span>
+      </a>
+      <div class="topbar-actions">
+        <label class="lang-pick">
+          <svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg>
+          <span class="sr" data-i18n="nav.lang">Language</span>
+          <select data-lang-select>
+            <option value="tr" lang="tr">Türkçe</option>
+            <option value="en" lang="en" selected>English</option>
+            <option value="de" lang="de">Deutsch</option>
+            <option value="ru" lang="ru">Русский</option>
+            <option value="ar" lang="ar">العربية</option>
+            <option value="fa" lang="fa">فارسی</option>
+          </select>
+        </label>
+        <a class="btn btn-primary btn-sm" href="app.html" data-i18n="nav.play">Play now</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 1 · Hero -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="hero-sky" aria-hidden="true"></div>
+      <img class="hero-fallback" src="site/img/hero-fallback.svg" width="900" height="760" alt="A ball of yarn and cat cards in a camera frame" data-i18n-attr="alt:hero.alt">
+      <canvas class="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-skyline" aria-hidden="true"></div>
+      <div class="wrap hero-inner">
+        <p class="badge"><span class="badge-dot" aria-hidden="true"></span><span data-i18n="hero.badge">Kadıköy · Istanbul</span></p>
+        <h1 class="hero-title" id="hero-title"><span lang="en" dir="ltr">Cat me if you&nbsp;can.</span></h1>
+        <p class="hero-line" data-i18n="hero.line">Take photos of the street cats in Kadıköy. Collect them. Help them.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-lg" href="app.html"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span data-i18n="hero.play">Play now</span></a>
+          <a class="btn btn-ghost btn-lg" href="#trailer"><svg class="ic" aria-hidden="true"><use href="#i-film"/></svg><span data-i18n="hero.trailer">Watch the trailer</span></a>
+        </div>
+        <p class="hero-free" data-i18n="hero.free">Free · Works in your browser</p>
+      </div>
+      <a class="scroll-hint" href="#how" aria-label="Scroll down" data-i18n-attr="aria-label:hero.scroll"><span aria-hidden="true"></span></a>
+    </section>
+
+    <!-- 2 · So funktioniert's -->
+    <section class="sec how" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker rv" data-i18n="how.kicker">How it works</p>
+          <h2 class="rv" id="how-title" data-i18n="how.title">Three steps. That’s all.</h2>
+          <p class="lead rv" data-i18n="how.lead">Kadıköy has thousands of street cats. Each one has a face and a story.</p>
+        </div>
+        <ol class="steps">
+          <li class="step rv">
+            <div class="step-art art-see" aria-hidden="true">
+              <svg viewBox="0 0 320 220" class="see-svg">
+                <defs>
+                  <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f6d55c" stop-opacity=".55"/><stop offset="1" stop-color="#f6d55c" stop-opacity="0"/></radialGradient>
+                </defs>
+                <rect width="320" height="220" rx="28" fill="#1b2b4f"/>
+                <circle cx="168" cy="34" r="15" fill="#f6d55c" opacity=".9"/>
+                <circle cx="175" cy="29" r="13" fill="#1b2b4f"/>
+                <g fill="#fbf3e4" opacity=".7"><circle cx="40" cy="30" r="1.6"/><circle cx="120" cy="22" r="1.2"/><circle cx="200" cy="40" r="1.4"/><circle cx="300" cy="96" r="1.2"/><circle cx="150" cy="64" r="1"/></g>
+                <ellipse class="lamp-glow" cx="62" cy="62" rx="58" ry="58" fill="url(#lampGlow)"/>
+                <path d="M62 66v120" stroke="#0e1830" stroke-width="6" stroke-linecap="round"/>
+                <path d="M48 66h28l-6-12H54z" fill="#0e1830"/>
+                <ellipse cx="62" cy="68" rx="9" ry="4" fill="#f6d55c"/>
+                <g class="peek">
+                  <image href="site/img/cat-tekir-peek.svg" x="112" y="58" width="120" height="120"/>
+                </g>
+                <rect x="0" y="146" width="320" height="74" fill="#2a3a63"/>
+                <g stroke="#1b2b4f" stroke-width="3"><path d="M0 170h320M0 196h320M40 146v24M110 146v24M180 146v24M250 146v24M75 170v26M145 170v26M215 170v26M285 170v26"/></g>
+                <rect x="0" y="146" width="320" height="74" fill="none"/>
+                <path d="M0 192 Q0 220 28 220 H292 Q320 220 320 192" fill="none"/>
+              </svg>
+              <span class="see-ping"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg></span>
+            </div>
+            <div class="step-text">
+              <span class="step-num" aria-hidden="true">1</span>
+              <h3 data-i18n="how.s1.t">See a street cat</h3>
+              <p data-i18n="how.s1.d">On the street, in a park or by the sea.</p>
+            </div>
+          </li>
+          <li class="step rv">
+            <div class="step-art art-photo" aria-hidden="true">
+              <div class="phone">
+                <img class="phone-cat" src="site/img/cat-sarman.svg" alt="" width="120" height="120">
+                <span class="vf vf-tl"></span><span class="vf vf-tr"></span><span class="vf vf-bl"></span><span class="vf vf-br"></span>
+                <span class="shutter"></span>
+                <span class="flash"></span>
+              </div>
+              <ul class="ai-chips">
+                <li class="ai-chip c1"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg><span data-i18n="how.chip.type">Ginger</span></li>
+                <li class="ai-chip c2"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><span data-i18n="how.chip.age">About 2 years</span></li>
+                <li class="ai-chip c3"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg><span data-i18n="how.chip.cond">Looks healthy</span></li>
+              </ul>
+            </div>
+            <div class="step-text">
+              <span class="step-num" aria-hidden="true">2</span>
+              <h3 data-i18n="how.s2.t">Take a photo</h3>
+              <p data-i18n="how.s2.d">The app shows type, age and condition.</p>
+            </div>
+          </li>
+          <li class="step rv">
+            <div class="step-art art-dex" aria-hidden="true">
+              <div class="dex-grid">
+                <span class="dex-slot"><img src="site/img/cat-smokin.svg" alt="" width="64" height="64"></span>
+                <span class="dex-slot"><img src="site/img/cat-tekir.svg" alt="" width="64" height="64"></span>
+                <span class="dex-slot"><img src="site/img/cat-uc_renk.svg" alt="" width="64" height="64"></span>
+                <span class="dex-slot"><img src="site/img/cat-siyah.svg" alt="" width="64" height="64"></span>
+                <span class="dex-slot"><img src="site/img/cat-gri_beyaz.svg" alt="" width="64" height="64"></span>
+                <span class="dex-slot dex-new"><span class="dex-q">?</span><img src="site/img/cat-sarman.svg" alt="" width="64" height="64"><span class="dex-badge" data-i18n="how.new">New cat!</span></span>
+              </div>
+              <div class="name-pill">
+                <span class="name-label" data-i18n="how.name">Your name for it</span>
+                <span class="name-field" dir="ltr" lang="tr"><span class="name-typed">Tarçın</span><span class="caret"></span></span>
+              </div>
+            </div>
+            <div class="step-text">
+              <span class="step-num" aria-hidden="true">3</span>
+              <h3><span data-i18n="how.s3.t">It joins your KediDex</span></h3>
+              <p data-i18n="how.s3.d">New cat? You give it a name.</p>
+            </div>
+          </li>
+        </ol>
+        <p class="crown-note rv"><span class="crown" aria-hidden="true">👑</span><span data-i18n="how.first">Whoever finds a cat first gives it a name.</span></p>
+      </div>
+    </section>
+
+    <!-- 3 · Der Deal -->
+    <section class="sec deal" id="deal" aria-labelledby="deal-title">
+      <div class="wrap deal-grid">
+        <div class="deal-text">
+          <p class="kicker rv" data-i18n="deal.kicker">The deal</p>
+          <h2 class="rv" id="deal-title" data-i18n="deal.title">20 different cats in one day</h2>
+          <p class="deal-eq rv" data-i18n="deal.eq">= 20% off at a partner café</p>
+          <p class="deal-note rv" data-i18n="deal.note">Only on that day. Show your code at the café.</p>
+          <p class="rv"><a class="btn btn-navy btn-lg" href="app.html"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span data-i18n="nav.play">Play now</span></a></p>
+        </div>
+        <div class="deal-visual rv" data-deal aria-hidden="true">
+          <div class="deal-counter">
+            <svg class="ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle cx="60" cy="60" r="52" class="ring-fg" pathLength="100"/></svg>
+            <div class="counter-in">
+              <span class="counter-num" data-deal-num>20</span>
+              <span class="counter-label" data-i18n="deal.count">different cats today</span>
+            </div>
+          </div>
+          <ul class="deal-slots" data-deal-slots>
+            <li><img src="site/img/cat-sarman.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-tekir.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-smokin.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-uc_renk.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-siyah.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-beyaz.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-gri_beyaz.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-van.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-kaplumbaga.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-krem.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-tekir_beyaz.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-sarman_beyaz.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-gri.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-renk_uclu.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-smokin.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-sarman.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-tekir.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-siyah.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-uc_renk.svg" alt="" width="48" height="48" loading="lazy"></li>
+            <li><img src="site/img/cat-gri_beyaz.svg" alt="" width="48" height="48" loading="lazy"></li>
+          </ul>
+          <div class="deal-cup">
+            <svg viewBox="0 0 160 150" class="cup-svg">
+              <g class="steam" fill="none" stroke="#fbf3e4" stroke-width="5" stroke-linecap="round" opacity=".7"><path class="s1" d="M58 30c-8 10 8 14 0 26"/><path class="s2" d="M80 22c-8 10 8 14 0 26"/><path class="s3" d="M102 30c-8 10 8 14 0 26"/></g>
+              <path d="M30 64h100v30a42 42 0 0 1-42 42h-16a42 42 0 0 1-42-42z" fill="#fbf3e4"/>
+              <path d="M130 72h6a16 16 0 0 1 0 32h-8" fill="none" stroke="#fbf3e4" stroke-width="9"/>
+              <path d="M30 64h100v8H30z" fill="#e7d9bf"/>
+              <g fill="#f28c28" transform="translate(60 84) scale(1.7)"><ellipse cx="6" cy="10" rx="2.2" ry="2.8"/><ellipse cx="10" cy="6" rx="2.2" ry="2.8"/><ellipse cx="14.5" cy="6" rx="2.2" ry="2.8"/><ellipse cx="18.5" cy="10" rx="2.2" ry="2.8"/><path d="M12.2 11c-3 0-6 3.5-6 6.2 0 1.8 1.4 2.6 3 2.3 1.2-.2 2-.6 3-.6s1.8.4 3 .6c1.6.3 3-.5 3-2.3 0-2.7-3-6.2-6-6.2z"/></g>
+              <ellipse cx="80" cy="142" rx="62" ry="6" fill="#0e1830" opacity=".25"/>
+            </svg>
+            <div class="ticket"><strong data-i18n="deal.ticket">20% off</strong><span data-i18n="deal.today">Today only</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · Die ernste Seite -->
+    <section class="sec help" id="help" aria-labelledby="help-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker rv" data-i18n="help.kicker">The serious side</p>
+          <h2 class="rv" id="help-title" data-i18n="help.title">Every photo helps</h2>
+          <p class="lead rv" data-i18n="help.lead">We count the cats. You tell us how they are. Volunteers see it and help.</p>
+        </div>
+
+        <div class="stats rv" data-stats>
+          <p class="stats-head">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span data-i18n="help.live">Live from Kadıköy</span>
+            <span class="demo-badge" data-demo-badge hidden data-i18n="help.demo">Demo</span>
+          </p>
+          <dl class="stat-grid">
+            <div class="stat"><dt data-i18n="help.s.cats">cats counted</dt><dd data-stat="cats">–</dd></div>
+            <div class="stat"><dt data-i18n="help.s.obs">photos so far</dt><dd data-stat="observations">–</dd></div>
+            <div class="stat stat-alert"><dt data-i18n="help.s.help">need help now</dt><dd data-stat="needsHelp">–</dd></div>
+            <div class="stat"><dt data-i18n="help.s.tnr">neutered (ear tip)</dt><dd data-stat="tnrPct" data-suffix="%">–</dd></div>
+            <div class="stat stat-sm"><dt data-i18n="help.s.fed">times fed (30 days)</dt><dd data-stat="fed30d">–</dd></div>
+            <div class="stat stat-sm"><dt data-i18n="help.s.hungry">hungry or thirsty (7 days)</dt><dd data-stat="hungry7d">–</dd></div>
+          </dl>
+          <p class="demo-note" data-demo-note hidden data-i18n="help.demoNote">These are demo numbers. Real ones come from the game.</p>
+        </div>
+
+        <div class="report-grid">
+          <div class="report-card rv">
+            <div class="report-top">
+              <img src="site/img/cat-tekir_beyaz.svg" alt="" width="72" height="72">
+              <p data-i18n="help.tap">With each photo, you can tap how the cat is:</p>
+            </div>
+            <p class="try-label"><span data-i18n="help.try">Try it</span></p>
+            <div class="chips" data-chips role="group" aria-label="Try it" data-i18n-attr="aria-label:help.try">
+              <button type="button" class="chip" data-tag="healthy" aria-pressed="false"><span class="chip-ic" aria-hidden="true">😺</span><span class="chip-l">Healthy</span></button>
+              <button type="button" class="chip" data-tag="fed" aria-pressed="false"><span class="chip-ic" aria-hidden="true">🥣</span><span class="chip-l">I fed it</span></button>
+              <button type="button" class="chip" data-tag="hungry" aria-pressed="false"><span class="chip-ic" aria-hidden="true">🍽️</span><span class="chip-l">Hungry</span></button>
+              <button type="button" class="chip" data-tag="thirsty" aria-pressed="false"><span class="chip-ic" aria-hidden="true">💧</span><span class="chip-l">Thirsty</span></button>
+              <button type="button" class="chip" data-tag="sick" aria-pressed="false"><span class="chip-ic" aria-hidden="true">🤒</span><span class="chip-l">Sick (eyes, nose, sneezing)</span></button>
+              <button type="button" class="chip" data-tag="injured" aria-pressed="false"><span class="chip-ic" aria-hidden="true">🩹</span><span class="chip-l">Injured</span></button>
+              <button type="button" class="chip" data-tag="kittens" aria-pressed="false"><span class="chip-ic" aria-hidden="true">🍼</span><span class="chip-l">Has kittens</span></button>
+              <button type="button" class="chip" data-tag="danger" aria-pressed="false"><span class="chip-ic" aria-hidden="true">⚠️</span><span class="chip-l">In danger (traffic, stuck)</span></button>
+            </div>
+            <p class="thanks" data-thanks role="status" aria-live="polite"></p>
+          </div>
+          <ol class="flow rv">
+            <li><span class="flow-ic"><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg></span><span data-i18n="help.flow1">You take a photo</span></li>
+            <li><span class="flow-ic"><svg class="ic" aria-hidden="true"><use href="#i-tag"/></svg></span><span data-i18n="help.flow2">You tap how the cat is</span></li>
+            <li><span class="flow-ic"><svg class="ic" aria-hidden="true"><use href="#i-volunteer"/></svg></span><span data-i18n="help.flow3">Volunteers see it and help</span></li>
+          </ol>
+        </div>
+        <p class="privacy rv"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span data-i18n="help.privacy">We never show the exact spot. This keeps the cats safe.</span></p>
+      </div>
+    </section>
+
+    <!-- 5 · Vorteile -->
+    <section class="sec benefits" id="benefits" aria-labelledby="ben-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker rv" data-i18n="ben.kicker">Why it matters</p>
+          <h2 class="rv" id="ben-title" data-i18n="ben.title">Good for everyone</h2>
+        </div>
+        <ul class="ben-grid">
+          <li class="ben rv"><span class="ben-ic ic-you"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg></span><h3 data-i18n="ben.you.t">For you</h3><p data-i18n="ben.you.d">Fun outside. See Kadıköy in a new way. Get a café discount. Give a cat its name.</p></li>
+          <li class="ben rv"><span class="ben-ic ic-cats"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span><h3 data-i18n="ben.cats.t">For the cats</h3><p data-i18n="ben.cats.d">They get counted. Sick and hungry cats get reported. Volunteers help faster.</p></li>
+          <li class="ben rv"><span class="ben-ic ic-cafes"><svg class="ic" aria-hidden="true"><use href="#i-cup"/></svg></span><h3 data-i18n="ben.cafes.t">For cafés</h3><p data-i18n="ben.cafes.d">New guests from the neighbourhood and from far away.</p></li>
+          <li class="ben rv"><span class="ben-ic ic-kadikoy"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg></span><h3 data-i18n="ben.kadikoy.t">For Kadıköy</h3><p data-i18n="ben.kadikoy.d">A map of all street cats. Where is food missing? Where is neutering needed?</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6 · Trailer -->
+    <section class="sec trailer" id="trailer" aria-labelledby="tr-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker rv" data-i18n="tr.kicker">Trailer</p>
+          <h2 class="rv" id="tr-title" data-i18n="tr.title">See it in action</h2>
+          <p class="lead rv" data-i18n="tr.lead">Short, fun and full of cats.</p>
+        </div>
+        <div class="player rv" data-player data-ratio="16x9">
+          <video data-video controls playsinline preload="none" hidden aria-label="Trailer of Cat Me If You Can" data-i18n-attr="aria-label:tr.label"></video>
+          <div class="player-ph" data-player-ph>
+            <div class="ph-cards" aria-hidden="true">
+              <img src="site/img/cat-smokin.svg" alt="" width="96" height="96">
+              <img src="site/img/cat-sarman.svg" alt="" width="96" height="96">
+              <img src="site/img/cat-uc_renk.svg" alt="" width="96" height="96">
+            </div>
+            <p class="ph-title" lang="en" dir="ltr">Cat me if you can.</p>
+            <p class="ph-soon" data-i18n="tr.soon">The trailer is coming soon.</p>
+            <a class="btn btn-primary" href="app.html"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span data-i18n="nav.play">Play now</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · Teilen -->
+    <section class="sec share" id="share" aria-labelledby="share-title">
+      <div class="wrap share-grid">
+        <div class="share-card rv">
+          <p class="kicker" data-i18n="share.kicker">Tell your friends</p>
+          <h2 id="share-title" data-i18n="share.title">Share the fun</h2>
+          <p class="share-lead" data-i18n="share.lead">Do you know someone who loves cats? Send them the game.</p>
+          <div class="share-actions needs-js">
+            <button type="button" class="btn btn-navy btn-lg" data-share hidden><svg class="ic" aria-hidden="true"><use href="#i-share"/></svg><span data-i18n="share.btn">Share</span></button>
+            <button type="button" class="btn btn-cream btn-lg" data-copy><svg class="ic" aria-hidden="true"><use href="#i-link"/></svg><span data-i18n="share.copy">Copy link</span></button>
+          </div>
+          <label class="share-url-wrap needs-js"><span class="sr" data-i18n="share.copy">Copy link</span><input class="share-url" data-share-url type="text" readonly dir="ltr" value=""></label>
+          <p class="toast" data-toast role="status" aria-live="polite"></p>
+        </div>
+        <div class="show-card rv">
+          <div class="polaroids" aria-hidden="true">
+            <figure class="pol p1"><img src="site/img/cat-van.svg" alt="" width="120" height="120"><figcaption lang="tr">Lokum</figcaption></figure>
+            <figure class="pol p2"><img src="site/img/cat-kaplumbaga.svg" alt="" width="120" height="120"><figcaption lang="tr">Kahve</figcaption></figure>
+            <figure class="pol p3"><img src="site/img/cat-beyaz.svg" alt="" width="120" height="120"><figcaption lang="tr">Pamuk</figcaption></figure>
+          </div>
+          <h3 data-i18n="share.show.t">Show us your cat</h3>
+          <p data-i18n="share.show.d">Post your best cat photo with this hashtag:</p>
+          <p class="big-tag"><bdi dir="ltr">#CatMeKadikoy</bdi></p>
+          <ul class="tags" data-tags>
+            <li><bdi dir="ltr">#CatMeIfYouCan</bdi></li>
+            <li><bdi dir="ltr">#CatMeKadikoy</bdi></li>
+            <li><bdi dir="ltr">#Kadıköy</bdi></li>
+            <li><bdi dir="ltr">#KadikoyCats</bdi></li>
+            <li><bdi dir="ltr">#StreetCatsOfIstanbul</bdi></li>
+          </ul>
+          <button type="button" class="btn btn-ghost needs-js" data-copy-tags><svg class="ic" aria-hidden="true"><use href="#i-hash"/></svg><span data-i18n="share.tags">Copy hashtags</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · Für Cafés -->
+    <section class="sec cafes" id="cafes" aria-labelledby="cafe-title">
+      <div class="wrap">
+      <div class="cafe-card rv">
+        <div class="cafe-art" aria-hidden="true">
+          <svg viewBox="0 0 200 180">
+            <circle cx="100" cy="92" r="84" fill="#1b2b4f"/>
+            <g fill="none" stroke="#fbf3e4" stroke-width="6" stroke-linecap="round" opacity=".75" class="steam"><path class="s1" d="M78 40c-8 10 8 14 0 26"/><path class="s2" d="M100 32c-8 10 8 14 0 26"/><path class="s3" d="M122 40c-8 10 8 14 0 26"/></g>
+            <path d="M50 76h100v28a44 44 0 0 1-44 44h-12a44 44 0 0 1-44-44z" fill="#f28c28"/>
+            <path d="M150 84h6a16 16 0 0 1 0 32h-8" fill="none" stroke="#f28c28" stroke-width="9"/>
+            <path d="M62 76 70 56l14 14h32l14-14 8 20" fill="#f28c28"/>
+            <path d="M76 100c6-6 16-6 20 0M104 100c6-6 16-6 20 0" stroke="#14213d" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M94 112h12l-6 6z" fill="#14213d"/>
+          </svg>
+        </div>
+        <div class="cafe-text">
+          <p class="kicker" data-i18n="cafe.kicker">For cafés</p>
+          <h2 id="cafe-title" data-i18n="cafe.title">Become a partner café</h2>
+          <p data-i18n="cafe.l1">After their cat walk, players come to your café.</p>
+          <p data-i18n="cafe.l2">You give 20% off. You get new, happy guests.</p>
+          <p class="cafe-actions"><a class="btn btn-primary" href="partner.html"><svg class="ic" aria-hidden="true"><use href="#i-cup"/></svg><span data-i18n="cafe.link">Café area</span></a></p>
+          <p class="cafe-ask"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><span data-i18n="cafe.ask">Ask at Happy Overthinking Coffee, Kadıköy.</span></p>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 9 · Regeln -->
+    <section class="sec rules" id="rules" aria-labelledby="rules-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker rv" data-i18n="rules.kicker">Kindness rules</p>
+          <h2 class="rv" id="rules-title" data-i18n="rules.title">Be kind to cats</h2>
+        </div>
+        <ul class="rule-grid">
+          <li class="rule rv"><span class="rule-ic"><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg></span><span data-i18n="rules.r1">Only take photos.</span></li>
+          <li class="rule rv"><span class="rule-ic"><svg class="ic" aria-hidden="true"><use href="#i-hand"/></svg></span><span data-i18n="rules.r2">Don’t touch. Don’t chase.</span></li>
+          <li class="rule rv"><span class="rule-ic"><svg class="ic" aria-hidden="true"><use href="#i-noflash"/></svg></span><span data-i18n="rules.r3">No flash.</span></li>
+          <li class="rule rv"><span class="rule-ic"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg></span><span data-i18n="rules.r4">Only street cats.</span></li>
+        </ul>
+        <p class="final-cta rv"><a class="btn btn-primary btn-xl" href="app.html"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg><span data-i18n="nav.play">Play now</span></a></p>
+      </div>
+    </section>
   </main>
+
+  <footer class="foot">
+    <div class="wrap foot-in">
+      <div class="foot-brand">
+        <img src="icons/logo.svg" alt="" width="56" height="56">
+        <div>
+          <p class="foot-name" lang="en">Cat Me If You Can</p>
+          <p class="foot-slogan" lang="en" dir="ltr">Cat me if you can.</p>
+        </div>
+      </div>
+      <nav class="foot-nav" aria-label="Cat Me If You Can">
+        <a href="app.html" data-i18n="foot.play">Play</a>
+        <a href="partner.html" data-i18n="foot.cafes">Cafés</a>
+        <a href="#hero"><svg class="ic" aria-hidden="true"><use href="#i-up"/></svg><span data-i18n="foot.top">Back to top</span></a>
+      </nav>
+      <label class="lang-pick lang-foot">
+        <svg class="ic" aria-hidden="true"><use href="#i-globe"/></svg>
+        <span class="lang-foot-l" data-i18n="foot.lang">Language</span>
+        <select data-lang-select>
+          <option value="tr" lang="tr">Türkçe</option>
+          <option value="en" lang="en" selected>English</option>
+          <option value="de" lang="de">Deutsch</option>
+          <option value="ru" lang="ru">Русский</option>
+          <option value="ar" lang="ar">العربية</option>
+          <option value="fa" lang="fa">فارسی</option>
+        </select>
+      </label>
+      <p class="maker" data-i18n="foot.maker">A HappyTuncay product · Made at Happy Overthinking Coffee, Kadıköy</p>
+      <p class="tags-foot"><bdi dir="ltr">#CatMeIfYouCan</bdi> <bdi dir="ltr">#CatMeKadikoy</bdi></p>
+    </div>
+  </footer>
 </body>
 </html>

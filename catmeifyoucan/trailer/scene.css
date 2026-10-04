@@ -1,0 +1,164 @@
+/* Cat Me If You Can – Trailer. Farben und Schriften nach docs/BRAND.md (Abschnitt 7).
+   Keine CSS-Animationen: Jede Bewegung setzt scene.js pro Bild (deterministisch). */
+:root {
+  --navy: #14213d;
+  --orange: #f28c28;
+  --orange-ink: #c4610f; /* Orange als Schrift auf hellem Grund (besserer Kontrast) */
+  --cream: #fbf3e4;
+  --teal: #1f8a8a;
+  --sun: #f6d55c;
+  --ink: #0b1430;
+  --emoji: 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: var(--navy); overflow: hidden; }
+#stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--cream);
+  font-family: Manrope, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+#stage.rtl { font-family: Vazirmatn, Manrope, sans-serif; }
+.scene { position: absolute; inset: 0; overflow: hidden; display: none; transform-origin: 50% 50%; }
+.abs { position: absolute; }
+.vis { position: absolute; width: 900px; height: 900px; }
+.f9 .vis { transform: scale(0.95); transform-origin: 50% 0; }
+svg { display: block; overflow: visible; }
+
+/* ---------- Texte ---------- */
+.copy { position: absolute; display: flex; flex-direction: column; z-index: 20; }
+.f16 .copy { inset-inline-start: 120px; width: 780px; top: 0; height: 1080px; justify-content: center; }
+.f16 .copy.top { justify-content: flex-start; padding-top: 128px; }
+.f9 .copy { left: 72px; right: 72px; top: 1066px; height: 474px; justify-content: center; align-items: center; text-align: center; }
+.h {
+  font-family: Unbounded, sans-serif;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+.rtl .h { font-family: Vazirmatn, sans-serif; font-weight: 800; line-height: 1.4; letter-spacing: 0; }
+.ln { display: block; white-space: nowrap; }
+.ln > span { display: inline-block; }
+.h.wrap .ln { white-space: normal; }
+.f16 .h.wrap .ln > span { max-width: 780px; text-wrap: balance; }
+.f9 .h.wrap .ln > span { max-width: 936px; text-wrap: balance; }
+.ln.acc-o { color: var(--orange); }
+.ln.acc-oi { color: var(--orange-ink); }
+.ln.acc-s { color: var(--sun); }
+.sub {
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 1.32;
+  margin-top: 30px;
+  text-wrap: balance;
+  max-width: 760px;
+}
+.f9 .sub { font-size: 48px; max-width: 936px; margin-top: 26px; }
+.rtl .sub { font-weight: 600; font-size: 50px; line-height: 1.55; }
+.rtl.f9 .sub { font-size: 52px; }
+
+/* ---------- Szene 2: Handy ---------- */
+.phone-wrap { position: absolute; perspective: 2200px; }
+.phone {
+  position: absolute; inset: 0;
+  border-radius: 72px;
+  background: linear-gradient(145deg, #22325a, #0d1734 60%);
+  box-shadow: 0 50px 90px rgba(20, 33, 61, 0.35), inset 0 0 0 3px rgba(251, 243, 228, 0.12);
+  transform-style: preserve-3d;
+}
+.screen { position: absolute; left: 16px; top: 16px; right: 16px; bottom: 16px; border-radius: 58px; overflow: hidden; background: #0b1430; }
+.shot { position: absolute; inset: 0; border-radius: 10px; overflow: hidden; transform-origin: 50% 46%; }
+.notch { position: absolute; left: 50%; top: 30px; width: 120px; height: 30px; margin-left: -60px; border-radius: 20px; background: #0b1430; z-index: 5; }
+.gloss { position: absolute; inset: 0; border-radius: 72px; pointer-events: none; mix-blend-mode: screen; }
+.pill {
+  position: absolute; display: inline-flex; align-items: center; gap: 12px; white-space: nowrap;
+  border-radius: 999px; font-weight: 800;
+}
+.plus1 { direction: ltr; left: 50%; top: 712px; padding: 14px 28px; background: var(--orange); color: var(--navy); font-size: 34px; font-family: Unbounded, sans-serif; font-weight: 700; z-index: 6; }
+
+/* ---------- Szene 3: Sammelkarte ---------- */
+.card-wrap { position: absolute; perspective: 1800px; }
+.card { position: absolute; inset: 0; transform-style: preserve-3d; }
+.face { position: absolute; inset: 0; border-radius: 40px; backface-visibility: hidden; -webkit-backface-visibility: hidden; overflow: hidden; }
+.front { background: var(--cream); box-shadow: 0 40px 80px rgba(11, 20, 48, 0.35); }
+.back { background: var(--navy); transform: rotateY(180deg); display: grid; place-items: center; box-shadow: 0 40px 80px rgba(11, 20, 48, 0.35); }
+.newcat {
+  position: absolute; left: 50%; top: -34px; padding: 16px 34px; background: var(--orange); color: var(--navy);
+  font-family: Unbounded, sans-serif; font-weight: 800; font-size: 40px; z-index: 4;
+  box-shadow: 0 12px 24px rgba(11, 20, 48, 0.25);
+}
+.rtl .newcat { font-family: Vazirmatn, sans-serif; font-size: 44px; padding: 10px 36px; }
+.namefield {
+  position: absolute; left: 40px; right: 40px; height: 104px; border-radius: 26px; background: #fff;
+  border: 5px solid var(--orange); display: flex; align-items: center; justify-content: center; gap: 14px;
+  font-family: Unbounded, sans-serif; font-weight: 700; font-size: 54px; color: var(--navy); direction: ltr;
+}
+.caret { width: 6px; height: 58px; border-radius: 3px; background: var(--orange); }
+.kdx { position: absolute; left: 0; right: 0; bottom: 30px; display: flex; justify-content: center; align-items: center; gap: 10px; color: var(--teal); font-family: Unbounded, sans-serif; font-weight: 700; font-size: 30px; direction: ltr; }
+.sheen { position: absolute; inset: 0; pointer-events: none; border-radius: 40px; z-index: 5; }
+
+/* ---------- Szene 4: Tagesziel ---------- */
+.counter {
+  position: absolute; left: 50%; top: 40px; height: 120px; padding: 0 40px 0 34px; background: var(--navy); color: var(--cream);
+  font-size: 40px; font-weight: 800; box-shadow: 0 18px 36px rgba(20, 33, 61, 0.22);
+}
+.counter .frac { direction: ltr; unicode-bidi: isolate; display: inline-flex; align-items: baseline; gap: 4px; }
+.counter b { font-family: Unbounded, sans-serif; font-size: 62px; color: var(--orange); font-weight: 800; direction: ltr; unicode-bidi: isolate; }
+.rtl .counter .frac { direction: ltr; unicode-bidi: isolate; display: inline-flex; align-items: baseline; gap: 4px; }
+.counter b { font-family: Vazirmatn, sans-serif; font-size: 72px; }
+.counter i { font-style: normal; font-family: Unbounded, sans-serif; font-size: 40px; opacity: 0.6; direction: ltr; unicode-bidi: isolate; }
+.rtl .counter i { font-family: Vazirmatn, sans-serif; font-size: 48px; }
+.tile { position: absolute; width: 136px; height: 136px; border-radius: 30px; }
+.tile.empty { border: 4px dashed rgba(20, 33, 61, 0.18); }
+.tile svg { width: 100%; height: 100%; }
+.tile.fill { box-shadow: 0 10px 20px rgba(20, 33, 61, 0.18); border-radius: 30px; overflow: hidden; }
+.cupwrap { position: absolute; perspective: 1600px; }
+
+/* ---------- Szene 5: Karte und Hilfe ---------- */
+.map-wrap { position: absolute; perspective: 2000px; }
+.map { position: absolute; inset: 0; border-radius: 48px; overflow: hidden; box-shadow: 0 50px 100px rgba(0, 0, 0, 0.4); transform-origin: 50% 60%; }
+.pop {
+  position: absolute; width: 470px; border-radius: 36px; background: var(--cream); color: var(--navy);
+  padding: 26px 26px 28px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4); z-index: 6;
+}
+.pop .row { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+.pop .av { width: 96px; height: 96px; border-radius: 22px; overflow: hidden; flex: none; }
+.pop .who { display: flex; flex-direction: column; gap: 4px; direction: ltr; text-align: start; }
+.pop .who b { font-family: Unbounded, sans-serif; font-weight: 800; font-size: 40px; }
+.pop .who span { font-size: 28px; font-weight: 700; opacity: 0.65; }
+.pop .who span::first-letter { font-family: var(--emoji); }
+.chips { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.chip {
+  position: relative; display: flex; align-items: center; gap: 10px; height: 76px; padding: 0 18px; border-radius: 22px;
+  background: #fff; border: 3px solid rgba(20, 33, 61, 0.12); font-weight: 800; font-size: 32px; white-space: nowrap; overflow: visible;
+}
+.rtl .chip { font-size: 34px; font-weight: 700; }
+.chip .e { font-family: var(--emoji); font-size: 34px; line-height: 1; }
+.chip.on { background: var(--orange); border-color: var(--orange); color: var(--navy); }
+.ripple { position: absolute; border-radius: 50%; border: 6px solid var(--orange); pointer-events: none; }
+
+/* ---------- Szene 6: Abspann ---------- */
+.logo { position: absolute; border-radius: 26%; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45); }
+.bubble {
+  position: absolute; background: var(--cream); color: var(--navy); border-radius: 36px; padding: 20px 30px;
+  font-family: Unbounded, sans-serif; font-weight: 700; font-size: 36px; line-height: 1.2; white-space: nowrap; direction: ltr;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+.word { position: absolute; left: 0; right: 0; text-align: center; font-family: Unbounded, sans-serif; font-weight: 800; color: var(--cream); line-height: 1.06; letter-spacing: -0.02em; direction: ltr; white-space: nowrap; }
+.word .o { color: var(--orange); }
+.play {
+  position: absolute; left: 50%; padding: 0 44px; height: 96px; background: var(--orange); color: var(--navy);
+  font-size: 42px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+.rtl .play { font-size: 44px; }
+.rules, .maker { position: absolute; left: 60px; right: 60px; text-align: center; }
+.f16 .maker { left: 440px; right: 440px; }
+.rules { font-size: 34px; font-weight: 700; color: rgba(251, 243, 228, 0.82); }
+.maker { font-size: 32px; font-weight: 600; color: rgba(251, 243, 228, 0.7); line-height: 1.4; text-wrap: balance; }
+.rtl .rules { font-size: 36px; }
+.rtl .maker { font-size: 34px; line-height: 1.6; }
+.f9 .maker { font-size: 34px; }
+.rtl.f9 .maker { font-size: 36px; }
