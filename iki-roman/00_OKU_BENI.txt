@@ -7,12 +7,15 @@ Her biri tek başına bir roman. Birlikte okununca üçüncü bir kitap belirir.
 Önerilen okuma sırası: önce YOLCU, sonra ŞAHİT (zorunlu değil).
 
 
-BU SÜRÜM (04.10.2026)
---------------------
+SÜRÜM: ENDFASSUNG v6 (04.10.2026)
+---------------------------------
 - ŞAHİT, Sefa Abi'nin son dosyası („Edisyon Tuncay'a“) esas alınarak hazırlandı; ad ŞAHİT, ithaf kendi sayfasında.
 - İki kitap olay örgüsü değişmeden sıkılaştırıldı (YOLCU −%9, ŞAHİT −%9); HODRİ iki bölüme ayrıldı (yeni: SOLUCAN).
 - Bağımsız kontrol, beş okumalık jüri, kelime kelime son okuma (ŞAHİT 208+, YOLCU 24+ düzeltme).
 - Jüri puanları: YOLCU 8,5 · ŞAHİT 7,5–8 · çift 8,5 (önceki jüri 7 · 6,8 · 7,8). Ayrıntı: 6_Raporlar.
+- Makine kontrolü: tüm kontroller geçti (6_Raporlar/Kontrol_Tutanagi_Endfassung_TR_DE.pdf).
+- Yayından önce: iki yazar Değişiklik Listesi v6'yı okuyup onaylamalı; özellikle editörün eklediği
+  birkaç cümle ve ŞAHİT'teki kısaltmalar (her biri gerekçesiyle listede).
 
 
 KLASÖRLER
@@ -26,7 +29,7 @@ KLASÖRLER
 5_Pazarlama        Pazarlama hikâyesi, KDP açıklama metinleri, anahtar kelimeler, kategoriler,
                    storyboard, yayın planı (TR/EN/DE PDF) + iki kitabın yan yana görselleri
 6_Raporlar         Değişiklik listesi v6 (her değişiklik gerekçesiyle), jüri değerlendirmesi v6,
-                   son kontrol raporu, eski analiz raporu ve eski değişiklik listesi
+                   son kontrol raporu, makine kontrol tutanağı, eski analiz raporu ve eski değişiklik listesi
 
 
 HER KİTAP KLASÖRÜNDE

@@ -1,0 +1,24 @@
+IKI ROMAN – ENDFASSUNG v6 (YOLCU + ŞAHİT) – tek ZIP, 24 parça
+===============================================================
+
+TÜRKÇE
+1. 24 parçanın hepsini (…zip.001 – …zip.024) aynı klasöre indirin.
+2. 7-Zip (Windows), Keka (Mac) veya ZArchiver (Android) ile yalnızca
+   IKI_ROMAN_ENDFASSUNG_v6.zip.001 dosyasını açın; diğer parçalar otomatik okunur.
+   Alternatif – birleştirip normal ZIP olarak açmak:
+     Windows (cmd):   copy /b IKI_ROMAN_ENDFASSUNG_v6.zip.0* IKI_ROMAN_ENDFASSUNG_v6.zip
+     Mac / Linux:     cat IKI_ROMAN_ENDFASSUNG_v6.zip.0* > IKI_ROMAN_ENDFASSUNG_v6.zip
+3. İsteğe bağlı kontrol: birleşik ZIP'in SHA-256 değeri SHA256.txt ile aynı olmalı.
+   Windows: certutil -hashfile IKI_ROMAN_ENDFASSUNG_v6.zip SHA256
+   Mac:     shasum -a 256 IKI_ROMAN_ENDFASSUNG_v6.zip
+4. ZIP içinde önce 00_OKU_BENI.txt dosyasını okuyun.
+
+DEUTSCH
+1. Alle 24 Teile (…zip.001 – …zip.024) in denselben Ordner laden.
+2. Mit 7-Zip (Windows), Keka (Mac) oder ZArchiver (Android) nur
+   IKI_ROMAN_ENDFASSUNG_v6.zip.001 öffnen; die übrigen Teile werden automatisch gelesen.
+   Alternativ zusammenfügen und als normale ZIP öffnen:
+     Windows (cmd):   copy /b IKI_ROMAN_ENDFASSUNG_v6.zip.0* IKI_ROMAN_ENDFASSUNG_v6.zip
+     Mac / Linux:     cat IKI_ROMAN_ENDFASSUNG_v6.zip.0* > IKI_ROMAN_ENDFASSUNG_v6.zip
+3. Optional prüfen: SHA-256 der zusammengefügten ZIP = Wert in SHA256.txt.
+4. In der ZIP zuerst 00_OKU_BENI.txt lesen.

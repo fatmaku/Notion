@@ -52,9 +52,10 @@ cp analyse/Degisiklik_Listesi_v6.pdf               "$P/6_Raporlar/Degisiklik_Lis
 cp analyse/Degisiklik_Listesi_v2.pdf               "$P/6_Raporlar/Eski_Degisiklikler_v2-v5_TR_DE.pdf"
 cp analyse/Juri_v6.pdf                             "$P/6_Raporlar/Juri_Degerlendirmesi_v6.pdf"
 cp analyse/Son_Kontrol_Raporu.pdf                  "$P/6_Raporlar/Son_Kontrol_Raporu_TR.pdf"
+[ -f analyse/Pruefprotokoll_Endfassung.pdf ] && cp analyse/Pruefprotokoll_Endfassung.pdf "$P/6_Raporlar/Kontrol_Tutanagi_Endfassung_TR_DE.pdf"
 
 cp 00_OKU_BENI.txt "$P/"
-(cd out && zip -q -r Iki_Roman_KDP_Paket.zip Iki_Roman_KDP_Paket)
+(cd out && zip -q -r -X Iki_Roman_KDP_Paket.zip Iki_Roman_KDP_Paket && unzip -tq Iki_Roman_KDP_Paket.zip)
 # Zusätzlich in zwei Teilen (< 500 MiB je Datei, z. B. für Upload/Mail):
 #   Teil 1: Bücher, Cover, Marketing, Berichte · Teil 2: Trailer
 rm -f out/Iki_Roman_1_Kitaplar_Kapaklar_Pazarlama.zip out/Iki_Roman_2_Fragmanlar.zip
@@ -73,5 +74,15 @@ rm -rf out/parcalar && mkdir -p out/parcalar && (
   zip -q -j parcalar/07_Fragman_Altyazilar_SRT.zip $Q/4_Fragmanlar/*/*.srt $Q/4_Fragmanlar/render_report.txt
   for l in TR EN DE; do cp $Q/4_Fragmanlar/$l/Iki_Roman_Fragman_16x9_60s_${l}_web.mp4 $Q/4_Fragmanlar/$l/Iki_Roman_Fragman_9x16_30s_${l}.mp4 $Q/4_Fragmanlar/$l/Iki_Roman_Fragman_1x1_30s_${l}.mp4 parcalar/; done
 )
+# Endfassung als EIN ZIP-Archiv, für den Chat-Upload in Stücke zu 25 MiB zerlegt (Byte-Split, 7-Zip-kompatibel):
+#   out/endfassung/IKI_ROMAN_ENDFASSUNG_v6.zip.001, .002 … – alle Teile in einen Ordner legen und .001 mit 7-Zip /
+#   WinRAR / Keka / ZArchiver öffnen, oder zusammenfügen: Windows „copy /b IKI_ROMAN_ENDFASSUNG_v6.zip.0* IKI_ROMAN_ENDFASSUNG_v6.zip“,
+#   macOS/Linux „cat IKI_ROMAN_ENDFASSUNG_v6.zip.0* > IKI_ROMAN_ENDFASSUNG_v6.zip“. SHA-256 der ganzen Datei in SHA256.txt.
+rm -rf out/endfassung && mkdir -p out/endfassung
+cp out/Iki_Roman_KDP_Paket.zip out/endfassung/IKI_ROMAN_ENDFASSUNG_v6.zip
+(cd out/endfassung && sha256sum IKI_ROMAN_ENDFASSUNG_v6.zip > SHA256.txt \
+  && split -b 25m -d -a 3 --numeric-suffixes=1 IKI_ROMAN_ENDFASSUNG_v6.zip IKI_ROMAN_ENDFASSUNG_v6.zip. \
+  && rm IKI_ROMAN_ENDFASSUNG_v6.zip)
+cp ACMA_TALIMATI_So_oeffnen.txt out/endfassung/
 ls -la out/*.zip
 (cd out && for z in *.zip; do printf '%-48s ' "$z"; unzip -l "$z" | tail -1; done)
