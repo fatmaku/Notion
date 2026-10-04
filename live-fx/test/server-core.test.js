@@ -125,3 +125,92 @@ test('SSE: one broadcast reaches every subscriber once; Last-Event-ID replays re
   assert.strictEqual(state.volume, 0.42, 'state carries the last volume');
   c.close();
 });
+
+// ---- 2.1: ETag / 304 and gzip for static files ----
+function rawGet(base, p, headers = {}, method = 'GET') {
+  const http = require('http');
+  return new Promise((resolve, reject) => {
+    const req = http.request(`${base}${p}`, { method, headers }, (res) => {
+      const chunks = [];
+      res.on('data', (d) => chunks.push(d));
+      res.on('end', () => resolve({ status: res.statusCode, headers: res.headers, body: Buffer.concat(chunks) }));
+    });
+    req.on('error', reject);
+    req.end();
+  });
+}
+
+test('static: strong ETag, If-None-Match -> 304 without body, changed tag -> 200', async () => {
+  const fs = require('fs');
+  const path = require('path');
+  const st = fs.statSync(path.join(__dirname, '..', 'js', 'fx.js'));
+  const a = await rawGet(server.base, '/js/fx.js');
+  assert.strictEqual(a.status, 200);
+  assert.match(a.headers.etag, /^"[0-9a-f]+-[0-9a-f]+"$/, 'strong (no W/) size-mtime tag');
+  assert.strictEqual(a.headers.etag, `"${st.size.toString(16)}-${Math.floor(st.mtimeMs).toString(16)}"`);
+  assert.strictEqual(a.headers['content-encoding'], undefined, 'no gzip without Accept-Encoding');
+  assert.strictEqual(Number(a.headers['content-length']), st.size);
+  assert.strictEqual(a.headers.vary, 'Accept-Encoding');
+  const b = await rawGet(server.base, '/js/fx.js', { 'if-none-match': a.headers.etag });
+  assert.strictEqual(b.status, 304);
+  assert.strictEqual(b.body.length, 0);
+  assert.strictEqual(b.headers.etag, a.headers.etag);
+  assert.strictEqual(b.headers['cache-control'], 'no-cache');
+  const list = await rawGet(server.base, '/js/fx.js', { 'if-none-match': `"nope", W/${a.headers.etag}` });
+  assert.strictEqual(list.status, 304, 'tag lists + weak comparison');
+  assert.strictEqual((await rawGet(server.base, '/js/fx.js', { 'if-none-match': '*' })).status, 304);
+  const c = await rawGet(server.base, '/js/fx.js', { 'if-none-match': '"0-0"' });
+  assert.strictEqual(c.status, 200);
+  assert.strictEqual(c.body.length, st.size);
+  // Binary files get an ETag too, but never Vary / gzip.
+  const png = await rawGet(server.base, '/icons/icon-192.png', { 'accept-encoding': 'gzip' });
+  assert.strictEqual(png.status, 200);
+  assert.ok(png.headers.etag);
+  assert.strictEqual(png.headers['content-encoding'], undefined);
+  assert.strictEqual(png.headers.vary, undefined);
+  assert.strictEqual((await rawGet(server.base, '/icons/icon-192.png', { 'if-none-match': png.headers.etag })).status, 304);
+});
+
+test('static: gzip for text > 1 KB when accepted, cached, own ETag; HEAD matches; small / q=0 stay plain', async () => {
+  const zlib = require('zlib');
+  const fs = require('fs');
+  const path = require('path');
+  const plain = fs.readFileSync(path.join(__dirname, '..', 'js', 'fx.js'));
+  const g = await rawGet(server.base, '/js/fx.js', { 'accept-encoding': 'br, gzip, deflate' });
+  assert.strictEqual(g.status, 200);
+  assert.strictEqual(g.headers['content-encoding'], 'gzip');
+  assert.strictEqual(g.headers.vary, 'Accept-Encoding');
+  assert.match(g.headers['content-type'], /javascript/);
+  assert.strictEqual(Number(g.headers['content-length']), g.body.length);
+  assert.ok(g.body.length < plain.length / 2, `compressed ${g.body.length} < ${plain.length} / 2`);
+  assert.ok(zlib.gunzipSync(g.body).equals(plain), 'decompresses to the file');
+  assert.match(g.headers.etag, /-gz"$/, 'compressed representation has its own strong tag');
+  const again = await rawGet(server.base, '/js/fx.js', { 'accept-encoding': 'gzip' });
+  assert.ok(again.body.equals(g.body), 'cached gzip body is identical');
+  assert.strictEqual((await rawGet(server.base, '/js/fx.js', { 'accept-encoding': 'gzip', 'if-none-match': g.headers.etag })).status, 304);
+  const head = await rawGet(server.base, '/js/fx.js', { 'accept-encoding': 'gzip' }, 'HEAD');
+  assert.strictEqual(head.status, 200);
+  assert.strictEqual(head.body.length, 0);
+  assert.strictEqual(head.headers['content-length'], g.headers['content-length']);
+  assert.strictEqual(head.headers['content-encoding'], 'gzip');
+  const q0 = await rawGet(server.base, '/js/fx.js', { 'accept-encoding': 'gzip;q=0' });
+  assert.strictEqual(q0.headers['content-encoding'], undefined, 'gzip;q=0 = not acceptable');
+  assert.strictEqual(q0.body.length, plain.length);
+  // HTML / CSS compress too; the cookie still comes with index.html.
+  for (const p of ['/overlay.html', '/css/overlay.css', '/']) {
+    const r = await rawGet(server.base, p, { 'accept-encoding': 'gzip' });
+    assert.strictEqual(r.headers['content-encoding'], 'gzip', p);
+  }
+  assert.ok((await rawGet(server.base, '/', { 'accept-encoding': 'gzip' })).headers['set-cookie'], 'panel cookie kept');
+  // fetch() (undici) negotiates and decompresses transparently.
+  const f = await fetch(`${server.base}/js/fx.js`);
+  assert.strictEqual(await f.text(), plain.toString('utf8'));
+  // Unit helpers.
+  const S = require('../server/static');
+  assert.strictEqual(S.acceptsGzip({ headers: { 'accept-encoding': 'deflate' } }), false);
+  assert.strictEqual(S.acceptsGzip({ headers: { 'accept-encoding': 'GZIP;q=0.5' } }), true);
+  assert.strictEqual(S.acceptsGzip({ headers: {} }), false);
+  assert.strictEqual(S.compressible('image/png'), false);
+  assert.strictEqual(S.compressible('image/svg+xml'), true);
+  assert.strictEqual(S.compressible('application/manifest+json'), true);
+});

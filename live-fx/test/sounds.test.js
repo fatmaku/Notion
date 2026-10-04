@@ -593,3 +593,47 @@ test('mixer.startLoop with the same name twice keeps the running loop (no restar
   assert.strictEqual(h.gain.gain.events.filter((e) => e[0] === 'exp').length, 0, 'no fade-out on the running loop');
   mixer.stopLoop(0.01);
 });
+
+test('noise buffers are cached per AudioContext: replaying every sound allocates no new noise buffer', () => {
+  const { ctx } = makeFakeContext();
+  let buffers = 0;
+  const create = ctx.createBuffer;
+  ctx.createBuffer = (...a) => {
+    buffers++;
+    return create(...a);
+  };
+  for (const n of LiveFXSounds.names) LiveFXSounds.play(n, ctx, ctx.destination);
+  const first = buffers;
+  assert.ok(first >= 1 && first <= 2, `one shared 2-s noise buffer for the one-shots (got ${first})`);
+  for (const n of LiveFXSounds.names) LiveFXSounds.play(n, ctx, ctx.destination);
+  assert.strictEqual(buffers, first, 'second pass reuses the cached buffer');
+  // A fresh context gets its own buffer (the sample rate may differ).
+  const other = makeFakeContext().ctx;
+  let otherBuffers = 0;
+  const create2 = other.createBuffer;
+  other.createBuffer = (...a) => {
+    otherBuffers++;
+    return create2(...a);
+  };
+  LiveFXSounds.play('ooh', other, other.destination);
+  assert.strictEqual(otherBuffers, 1);
+});
+
+test('mixer voices share the noise cache of the real context (voiceContext.rawContext)', () => {
+  const { ctx } = makeFakeContext();
+  let buffers = 0;
+  const create = ctx.createBuffer;
+  ctx.createBuffer = (...a) => {
+    buffers++;
+    return create(...a);
+  };
+  const mixer = LiveFXSounds.mixer;
+  mixer.init(ctx);
+  const base = buffers; // reverb impulse response etc.
+  mixer.play('ooh', { gain: 1 });
+  const once = buffers - base;
+  mixer.play('ooh', { gain: 1 });
+  mixer.play('scream', { gain: 1 });
+  assert.ok(once <= 1, `first noise voice allocates at most one buffer (${once})`);
+  assert.strictEqual(buffers - base, once, 'later voices reuse it');
+});

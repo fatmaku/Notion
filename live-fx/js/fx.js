@@ -12,6 +12,15 @@
 //     light rays / explosion ring behind cards at >= 2), per-trigger `gain` (effective = volume × gain)
 //   - themes (`renderer.setTheme(name)` -> `body[data-theme]`, CSS variables in css/overlay.css)
 //   - audio engine v2 hook: `LiveFXSounds.mixer.play(name, {gain, pan, intensity})` when present
+// LiveFX 2.1 (performance, see docs/PERFORMANCE.md):
+//   - single render path: rain and scene particles draw on the canvas only (DOM `.fx-drop` / `.fx-particle`
+//     only as fallback without canvas); a rain leaves one cheap `.fx-rain[data-count]` marker in the DOM
+//   - light rays + explosion ring (intensity >= 2) draw on the canvas: the rays are one pre-rendered 512 px
+//     sprite per theme colour, the ring a stroked circle – no 1400 px DOM layers (DOM `.fx-rays` / `.fx-ring`
+//     only as fallback without canvas)
+//   - performance mode `renderer.setPerf('auto' | 'eco' | 'high')` -> `renderer.perf` (requested mode),
+//     `renderer.perfActive` (look in use), `body[data-perf]` (= perfActive) and `body[data-perf-mode]`;
+//     auto starts high and switches to eco for good after 30 consecutive slow frames (stats.perfSwitches)
 (function (global) {
   'use strict';
 
@@ -41,6 +50,14 @@
   const SLOW_FRAMES = 30;
   const AMBIENT_CAP = { 1: 40, 2: 70, 3: 110 };
   const CONFETTI_COLORS = ['#ff595e', '#ffca3a', '#8ac926', '#1982c4', '#6a4c93', '#ffffff'];
+  // Performance mode (2.1): eco halves particle caps, drops glow / rays / entry motion / impact zoom,
+  // confetti = 45 pieces, glitch text renders as neon, stickers do not bounce.
+  const PERF_MODES = ['auto', 'eco', 'high'];
+  const ECO_CONFETTI = 45;
+  const RAIN_MARK_MS = 4500;
+  const RAYS_SPRITE_PX = 512;
+  const PERF_CALIBRATE_FRAMES = 20;
+  const FLARE_MAX = { rays: 2, ring: 3 };
 
   /**
    * Per-scene decoration. `decor` sits top-right (sun, moon, planet), `ground` is a bottom row of silhouettes,
@@ -200,6 +217,7 @@
       this.ambient = null; // { list, every, intensity, override, last }
       this.cap = PARTICLE_CAP[1];
       this.reducedTo = 0;
+      this.eco = false; // performance mode eco: half caps
       this.ctx = null;
       this.canvas = null;
       this.sprites = new Map();
@@ -268,7 +286,8 @@
 
     /** Base cap per intensity (400 / 800 / 1200); an auto-reduced cap stays as the ceiling until the page reloads. */
     setCap(intensity) {
-      const want = PARTICLE_CAP[clamp(intensity, 1, 3)] || PARTICLE_CAP[1];
+      const base = PARTICLE_CAP[clamp(intensity, 1, 3)] || PARTICLE_CAP[1];
+      const want = this.eco ? Math.floor(base / 2) : base;
       this.cap = this.reducedTo ? Math.min(want, this.reducedTo) : want;
     }
 
@@ -357,6 +376,31 @@
       }
     }
 
+    /**
+     * Light rays + explosion ring behind a card (intensity >= 2), drawn first (behind all particles).
+     * Rays: the cached sprite, rotating 0 -> 40° and growing 0.3 -> 1.15 × `size` over 2.6 s (opacity 0 -> .55 ->
+     * .4 -> 0). Ring: a shock wave growing to 200 px × intensity in 0.9 s, thick and fading. Outside the
+     * particle cap, but at most FLARE_MAX rays / rings are alive (the oldest one gives way): cards share the
+     * centre, so stacked rays look the same while each costs a large drawImage per frame.
+     */
+    flare(cx, cy, intensity, sprite, size) {
+      if (!this.ok) return;
+      const i = clamp(intensity, 1, 3);
+      for (const kind of ['rays', 'ring']) {
+        const alive = this.items.filter((p) => p.flare && p.kind === kind);
+        const drop = alive.length - (FLARE_MAX[kind] - 1);
+        if (drop > 0) {
+          const gone = new Set(alive.slice(0, drop));
+          this.items = this.items.filter((p) => !gone.has(p));
+        }
+      }
+      const base = { x: cx, y: cy, vx: 0, vy: 0, g: 0, wind: 0, drift: 0, phase: 0, rot: 0, vr: 0, age: 0, alpha: 1, layer: -1, flare: true };
+      if (sprite) this.items.push({ ...base, kind: 'rays', sprite, size, life: 2.6 });
+      this.items.push({ ...base, kind: 'ring', color: sprite ? sprite.color : '#fff', size: 200 * i, life: 0.9 });
+      this.stats.particles = this.items.length;
+      this.start();
+    }
+
     /** Scene parallax: emoji from the scene definition on three layers (far: small/slow, near: big/fast). */
     setAmbient(def, intensity, override) {
       const list = def && Array.isArray(def.particles) ? def.particles : [];
@@ -364,7 +408,8 @@
         this.ambient = null;
         return;
       }
-      this.ambient = { list, every: Math.max(60, Math.round((def.every || 400) * (2 / intensity) * 0.9)), intensity, override, last: 0, cap: AMBIENT_CAP[intensity] || AMBIENT_CAP[2] };
+      const cap = AMBIENT_CAP[intensity] || AMBIENT_CAP[2];
+      this.ambient = { list, every: Math.max(60, Math.round((def.every || 400) * (2 / intensity) * 0.9)), intensity, override, last: 0, cap: this.eco ? Math.floor(cap / 2) : cap };
       this.start();
     }
 
@@ -373,12 +418,17 @@
       this.items = this.items.filter((p) => !p.ambient);
     }
 
+    /** Spawns the ambient particles due since the last frame (up to 4 per frame, so density does not depend on fps). */
     _spawnAmbient(now) {
       const a = this.ambient;
       if (!a || now - a.last < a.every) return;
+      const due = a.last ? Math.min(4, Math.floor((now - a.last) / a.every)) : 1;
       a.last = now;
-      const alive = this.items.reduce((n, p) => n + (p.ambient ? 1 : 0), 0);
-      if (alive >= a.cap) return;
+      let alive = this.items.reduce((n, p) => n + (p.ambient ? 1 : 0), 0);
+      for (let i = 0; i < due && alive < a.cap; i++, alive++) this._spawnAmbientOne(a);
+    }
+
+    _spawnAmbientOne(a) {
       const p = pickWeighted(a.list);
       const layer = Math.floor(Math.random() * 3); // 0 far, 1 mid, 2 near
       const k = [0.55, 1, 1.45][layer];
@@ -489,6 +539,10 @@
         const p = items[i];
         p.age += ageStep;
         if (p.age >= p.life) continue;
+        if (p.flare) {
+          items[n++] = p;
+          continue;
+        }
         p.vy += p.g * dt;
         p.vx += (p.wind - p.vx) * 0.4 * dt;
         p.x += (p.vx + Math.sin(p.age * p.drift * 2 + p.phase) * 18 * p.drift) * dt;
@@ -507,7 +561,8 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, this.w, this.h);
       const fall = this.fallPx();
-      // Far layers first so near particles draw on top.
+      // Flares (rays / ring) first, then far layers so near particles draw on top.
+      for (const p of this.items) if (p.flare) this._drawFlare(ctx, p, dpr);
       for (let layer = 0; layer < 3; layer++) {
         for (const p of this.items) {
           if (p.layer !== layer) continue;
@@ -540,6 +595,38 @@
       ctx.globalAlpha = 1;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
+
+    _drawFlare(ctx, p, dpr) {
+      const t = clamp(p.age / p.life, 0, 1);
+      if (p.kind === 'rays') {
+        // keyframes: 0 % -> 0, 12 % -> .55, 60 % -> .4, 100 % -> 0 (ease-out growth + spin)
+        const alpha = t < 0.12 ? (t / 0.12) * 0.55 : t < 0.6 ? 0.55 - ((t - 0.12) / 0.48) * 0.15 : 0.4 * (1 - (t - 0.6) / 0.4);
+        if (alpha <= 0.01) return;
+        const e = 1 - Math.pow(1 - t, 2);
+        const d = p.size * (0.3 + 0.85 * e) * p.sprite.crop;
+        ctx.globalAlpha = alpha;
+        ctx.setTransform(dpr, 0, 0, dpr, p.x * dpr, p.y * dpr);
+        ctx.rotate((40 * e * Math.PI) / 180);
+        ctx.drawImage(p.sprite.canvas, -d / 2, -d / 2, d, d);
+        return;
+      }
+      // ring: ease-out-quart growth, border thins relative to the radius, fades out
+      const e = 1 - Math.pow(1 - t, 4);
+      const r = 6 + (p.size - 6) * e;
+      const lw = Math.max(1.5, r * 0.16 * (1 - 0.6 * e));
+      const alpha = 0.95 * (1 - t);
+      if (alpha <= 0.01) return;
+      ctx.setTransform(dpr, 0, 0, dpr, p.x * dpr, p.y * dpr);
+      ctx.strokeStyle = p.color;
+      ctx.globalAlpha = alpha * 0.35; // soft halo
+      ctx.lineWidth = lw * 2.2;
+      ctx.beginPath();
+      ctx.arc(0, 0, r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = alpha;
+      ctx.lineWidth = lw;
+      ctx.stroke();
+    }
   }
 
   // ------------------------------------------------------------------ renderer
@@ -548,7 +635,13 @@
       this.root = root;
       this.audioCtx = null;
       this._volume = 0.8;
-      this.stats = { fires: 0, sounds: 0, fileSounds: 0, scenes: 0, combos: 0, particles: 0, fps: 60, frameMs: 0, reduced: 0, canvas: false };
+      this.stats = { fires: 0, sounds: 0, fileSounds: 0, scenes: 0, combos: 0, particles: 0, fps: 60, frameMs: 0, reduced: 0, canvas: false, perfSwitches: 0 };
+      /** Requested performance mode (auto | eco | high) and the look actually in use (high | eco). */
+      this.perf = 'auto';
+      this.perfActive = 'high';
+      this._mon = { raf: 0, last: 0, slow: 0, minFrame: Infinity, calibrate: PERF_CALIBRATE_FRAMES };
+      this._monTick = this._monTick.bind(this);
+      this._rays = { key: '', sprite: null };
       /** Id of the scene currently on stage (null = none). */
       this.currentScene = null;
       /** Name of the running ambient loop (null = none). */
@@ -563,6 +656,142 @@
       this.particles = new ParticleLayer(root, this.stats);
       this.stats.canvas = this.particles.ok;
       if (typeof document !== 'undefined' && document.body && document.body.dataset && themes().includes(document.body.dataset.theme)) this.theme = document.body.dataset.theme;
+      this._applyPerf('high');
+      if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+        // Infinite scene animations pause while the page is hidden (OBS source not visible, tab in background).
+        const onVis = () => {
+          if (document.body) document.body.classList.toggle('fx-hidden', !!document.hidden);
+          this._mon.last = 0;
+        };
+        document.addEventListener('visibilitychange', onVis);
+        onVis();
+      }
+      this._monStart(); // calibrates the display frame interval (auto mode)
+    }
+
+    // ---------------------------------------------------------------- performance mode
+    /**
+     * `auto` (default): starts with the full look and switches to `eco` for good once 30 frames in a row took
+     * longer than the frame budget (20 ms, or 1.25 × the display interval on a capped source such as OBS at
+     * 30 fps). `eco`: half particle caps, no glow / rays / entry motion / impact zoom, confetti 45, glitch text
+     * as neon, stickers without bounce. `high`: everything on. Unknown values fall back to auto. Calling it
+     * with the mode already set keeps the current state (an auto switch to eco survives a repeated message).
+     */
+    setPerf(mode) {
+      const m = PERF_MODES.includes(mode) ? mode : 'auto';
+      if (m === this.perf && this._perfSet) return m;
+      this._perfSet = true;
+      this.perf = m;
+      this._mon.slow = 0;
+      this._applyPerf(m === 'eco' ? 'eco' : 'high');
+      if (m === 'auto') this._monStart();
+      return m;
+    }
+
+    _applyPerf(level) {
+      const was = this.perfActive;
+      this.perfActive = level;
+      this.particles.eco = level === 'eco';
+      const amb = this.particles.ambient;
+      if (amb && was !== level) amb.cap = level === 'eco' ? Math.floor(amb.cap / 2) : AMBIENT_CAP[amb.intensity] || AMBIENT_CAP[2];
+      if (typeof document !== 'undefined' && document.body && document.body.dataset) {
+        document.body.dataset.perf = level;
+        document.body.dataset.perfMode = this.perf;
+      }
+    }
+
+    get eco() {
+      return this.perfActive === 'eco';
+    }
+
+    _monStart() {
+      if (this._mon.raf || typeof requestAnimationFrame !== 'function') return;
+      if (this.perf !== 'auto' || this.perfActive !== 'high') return;
+      this._mon.last = 0;
+      this._mon.raf = requestAnimationFrame(this._monTick);
+    }
+
+    /** rAF monitor (auto mode only): runs while effects are on stage, counts consecutive slow frames. */
+    _monTick(now) {
+      const m = this._mon;
+      m.raf = 0;
+      if (this.perf !== 'auto' || this.perfActive !== 'high') return;
+      const dt = m.last ? now - m.last : 0;
+      m.last = now;
+      if (dt > 0 && dt < 1000) {
+        if (dt < m.minFrame) m.minFrame = Math.max(4, dt);
+        if (m.calibrate > 0) m.calibrate--;
+        else {
+          const budget = Math.max(SLOW_FRAME_MS, (m.minFrame >= 25 ? m.minFrame : 0) * 1.25);
+          if (dt > budget) {
+            if (++m.slow >= SLOW_FRAMES) {
+              m.slow = 0;
+              this.stats.perfSwitches++;
+              this._applyPerf('eco');
+              return;
+            }
+          } else m.slow = 0;
+        }
+      } else if (dt >= 1000) m.slow = 0; // paused page: start over
+      if (m.calibrate > 0 || this._hasTransient() || this._scene || this.particles.raf) m.raf = requestAnimationFrame(this._monTick);
+    }
+
+    /** True while a transient effect node (card, text, banner …) is on stage – they are appended last. */
+    _hasTransient() {
+      const el = this.root && this.root.lastElementChild;
+      return !!el && !el.classList.contains('fx-canvas') && !el.classList.contains('fx-scene') && el.tagName !== 'AUDIO';
+    }
+
+    /**
+     * Light-ray sprite for the current theme colour: 20 rays of 6° every 18° (the old repeating-conic-gradient)
+     * with the old radial falloff (fades out at the disc edge). Rendered once per
+     * theme into a 512 px offscreen canvas and reused by every card (ParticleLayer.flare draws it scaled).
+     */
+    _raysSprite() {
+      if (typeof document === 'undefined' || !document.body) return null;
+      const key = this.theme;
+      if (this._rays.key === key) return this._rays.sprite;
+      let color = '';
+      try {
+        color = getComputedStyle(document.body).getPropertyValue('--fx-glow').trim();
+      } catch (_) {
+        color = '';
+      }
+      color = color || 'rgba(255, 77, 109, 0.85)';
+      let sprite = null;
+      try {
+        const n = RAYS_SPRITE_PX;
+        const c = document.createElement('canvas');
+        c.width = n;
+        c.height = n;
+        const g = c.getContext('2d');
+        if (g) {
+          const r = n / 2;
+          g.fillStyle = color;
+          for (let i = 0; i < 20; i++) {
+            const a0 = ((i * 18 - 90) * Math.PI) / 180;
+            g.beginPath();
+            g.moveTo(r, r);
+            g.arc(r, r, r, a0, a0 + (6 * Math.PI) / 180);
+            g.closePath();
+            g.fill();
+          }
+          g.globalCompositeOperation = 'destination-in';
+          const fall = g.createRadialGradient(r, r, 0, r, r, r);
+          // = the old mask radial-gradient(circle …) whose stops were relative to the farthest corner (√2 × r)
+          fall.addColorStop(0, 'rgba(0,0,0,0.9)');
+          fall.addColorStop(0.42, 'rgba(0,0,0,0.5)');
+          fall.addColorStop(0.96, 'rgba(0,0,0,0)');
+          fall.addColorStop(1, 'rgba(0,0,0,0)');
+          g.fillStyle = fall;
+          g.fillRect(0, 0, n, n);
+          sprite = { canvas: c, color, crop: 1 };
+        }
+      } catch (_) {
+        sprite = null;
+      }
+      this._rays = { key, sprite };
+      return sprite;
     }
 
     /** 0..1; also applied live to the running ambient loop through its GainNode and the v2 mixer master. */
@@ -808,6 +1037,7 @@
         el.remove();
       };
       const timer = setTimeout(remove, ms);
+      this._monStart();
       if (animName) {
         el.addEventListener('animationend', (e) => {
           if (e.target === el && e.animationName === animName) remove();
@@ -817,28 +1047,40 @@
     }
 
     /**
-     * v2 decoration shared by card-like elements: `.fx-glow` (glow layers), `.fx-tilt` (3D card),
-     * `.fx-blur-in` (entry motion blur) and, at intensity >= 2, light rays + explosion ring behind the
-     * content plus a spark burst on the canvas (intensity 3).
+     * v2 decoration shared by card-like elements: `.fx-glow` (one glow shadow), `.fx-tilt` (3D card),
+     * `.fx-blur-in` (entry motion: opacity + scale/translate – the name is historic, no filter is animated) and,
+     * at intensity >= 2, light rays (pre-rendered sprite) + explosion ring behind the content plus a spark burst
+     * on the canvas (intensity 3). Performance mode eco keeps only tilt and the intensity variable.
      */
     _decorate(el, v, opts = {}) {
       const intensity = intensityOf(v, 1);
-      el.classList.add('fx-blur-in');
-      if (v && v.glow) el.classList.add('fx-glow');
+      const eco = this.eco;
+      if (!eco) el.classList.add('fx-blur-in');
+      if (v && v.glow && !eco) el.classList.add('fx-glow');
       if (v && v.tilt && opts.tilt !== false) el.classList.add('fx-tilt');
       el.style.setProperty('--fx-i', String(intensity));
-      if (intensity >= 2 && opts.rays !== false) {
-        const rays = document.createElement('div');
-        rays.className = 'fx-rays';
-        const ring = document.createElement('div');
-        ring.className = 'fx-ring';
-        el.prepend(ring);
-        el.prepend(rays);
+      if (intensity >= 2 && opts.rays !== false && !eco) {
         el.classList.add('fx-has-rays');
+        const w = this.root.clientWidth || global.innerWidth || 1;
+        const h = this.root.clientHeight || global.innerHeight || 1;
+        const portrait = document.body.classList.contains('layout-portrait');
+        const top = v && v.position === 'top' ? 0.28 : v && v.position === 'safe' && portrait ? 0.32 : 0.5;
+        const sprite = this.particles.ok ? this._raysSprite() : null;
+        if (sprite) {
+          // Canvas path: rays sprite + explosion ring drawn behind the DOM effects (no big DOM layers).
+          el.dataset.rays = 'canvas';
+          this.particles.ensureOrder();
+          this.particles.flare(w / 2, h * top, intensity, sprite, portrait ? Math.min(1.2 * w, 700) : Math.min(1.6 * h, 1400));
+        } else {
+          // Fallback without canvas: CSS rays (radial gradient) + ring behind the content.
+          const rays = document.createElement('div');
+          rays.className = 'fx-rays';
+          const ring = document.createElement('div');
+          ring.className = 'fx-ring';
+          el.prepend(ring);
+          el.prepend(rays);
+        }
         if (intensity >= 3 && this.particles.ok) {
-          const w = this.root.clientWidth || global.innerWidth || 1;
-          const h = this.root.clientHeight || global.innerHeight || 1;
-          const top = v && v.position === 'top' ? 0.28 : v && v.position === 'safe' && document.body.classList.contains('layout-portrait') ? 0.32 : 0.5;
           this.particles.setCap(intensity);
           this.particles.sparks(w / 2, h * top, 40, safeColor(v && v.color) || '#ffd166');
         }
@@ -885,7 +1127,7 @@
       const el = document.createElement('div');
       el.className = `fx-banner ${posClass(v)}`;
       const emoji = escapeHtml(v.emoji || '');
-      el.innerHTML = `<span>${emoji}</span> ${escapeHtml(v.text || '')} <span>${emoji}</span>`;
+      el.innerHTML = `${emoji} ${escapeHtml(v.text || '')} ${emoji}`; // text only: no extra nodes
       const color = safeColor(v.color);
       if (color) el.style.setProperty('--fx-accent', color);
       this._decorate(el, v, { tilt: false, rays: false });
@@ -893,8 +1135,9 @@
     }
 
     /**
-     * Emoji rain: `count` DOM drops (`.fx-drop`, --x positioned, CSS fall) plus – when the canvas is
-     * available – a burst of `count × intensity × 2` canvas emoji with gravity, wind, drift and rotation.
+     * Emoji rain. Canvas (single render path): a burst of `count × intensity × 2` emoji with gravity, wind,
+     * drift and rotation (eco: half) plus ONE invisible marker `.fx-rain[data-count][data-emoji]` for tools /
+     * tests, removed after 4.5 s. Without canvas: `count` DOM drops (`.fx-drop`, --x positioned, CSS fall).
      */
     rain(v) {
       let count = Math.round(Number(v.count));
@@ -902,6 +1145,19 @@
       count = Math.min(rainMax(), count);
       const emoji = typeof v.emoji === 'string' && v.emoji ? v.emoji : '✨';
       const intensity = intensityOf(v, 1);
+      if (this.particles.ok) {
+        const mark = document.createElement('div');
+        mark.className = 'fx-rain';
+        mark.setAttribute('aria-hidden', 'true');
+        mark.dataset.count = String(count);
+        mark.dataset.emoji = emoji;
+        this._spawn(mark, RAIN_MARK_MS);
+        this.particles.ensureOrder();
+        this.particles.setCap(intensity);
+        const burst = count * intensity * (this.eco ? 1 : 2);
+        this.particles.rain(graphemes(emoji)[0] || emoji, Math.min(this.particles.cap, burst));
+        return;
+      }
       const frag = document.createDocumentFragment();
       const drops = [];
       for (let i = 0; i < count; i++) {
@@ -912,30 +1168,25 @@
         el.style.fontSize = `${rand(28, 72)}px`;
         el.style.animationDuration = `${rand(1.8, 3.2)}s`;
         el.style.animationDelay = `${rand(0, 0.9)}s`;
-        if (v.glow) el.classList.add('fx-glow');
         frag.appendChild(el);
         drops.push(el);
       }
       this.root.appendChild(frag); // one DOM write for the whole batch
-      setTimeout(() => drops.forEach((el) => el.remove()), 4500);
-      if (this.particles.ok) {
-        this.particles.ensureOrder();
-        this.particles.setCap(intensity);
-        this.particles.rain(graphemes(emoji)[0] || emoji, Math.min(this.particles.cap, count * intensity * 2));
-      }
+      setTimeout(() => drops.forEach((el) => el.remove()), RAIN_MARK_MS);
     }
 
-    /** Confetti on the canvas (90 × intensity rotating rects, gravity/wind/wobble); DOM `.fx-confetti` fallback. */
+    /** Confetti on the canvas (90 × intensity rotating rects, eco: 45; gravity/wind/wobble); DOM `.fx-confetti` fallback. */
     confetti(v) {
       const intensity = intensityOf(v, 1);
       if (this.particles.ok) {
         this.particles.ensureOrder();
         this.particles.setCap(intensity);
-        this.particles.confetti(Math.min(this.particles.cap, CONFETTI_COUNT * intensity), CONFETTI_COLORS);
+        this.particles.confetti(Math.min(this.particles.cap, this.eco ? ECO_CONFETTI : CONFETTI_COUNT * intensity), CONFETTI_COLORS);
       } else {
         const frag = document.createDocumentFragment();
         const list = [];
-        for (let i = 0; i < CONFETTI_COUNT; i++) {
+        const n = this.eco ? ECO_CONFETTI : CONFETTI_COUNT;
+        for (let i = 0; i < n; i++) {
           const el = document.createElement('div');
           el.className = 'fx-confetti';
           placeX(el);
@@ -962,7 +1213,8 @@
         this.card({ emoji: v.emoji || '💬', position: v.position, glow: v.glow, intensity: v.intensity });
         return;
       }
-      const style = TEXT_STYLES.includes(v.style) ? v.style : 'neon';
+      let style = TEXT_STYLES.includes(v.style) ? v.style : 'neon';
+      if (style === 'glitch' && this.eco) style = 'neon'; // eco: no clip-path jitter layers
       const letters = graphemes(raw, true).slice(0, TEXT_MAX_LETTERS);
       const el = document.createElement('div');
       el.className = `fx-bigtext fx-text-${style} ${posClass(v)}`;
@@ -995,13 +1247,22 @@
         group.appendChild(span);
       });
       if (style === 'glitch') {
-        // Two offset copies of the same letter structure (identical wrapping) that the CSS clips + jitters.
+        // Two offset copies of the same word structure (identical wrapping: one nowrap `.fx-w` per word, the
+        // same space spans) that the CSS clips + jitters. Words are plain text here – no per-letter spans.
         const originals = Array.from(word.children);
         for (const cls of ['fx-glitch-a', 'fx-glitch-b']) {
           const layer = document.createElement('span');
           layer.className = `fx-glitch-layer ${cls}`;
           layer.setAttribute('aria-hidden', 'true');
-          for (const child of originals) layer.appendChild(child.cloneNode(true));
+          for (const child of originals) {
+            if (child.classList.contains('fx-space')) layer.appendChild(child.cloneNode(true));
+            else {
+              const w = document.createElement('span');
+              w.className = 'fx-w';
+              w.textContent = child.textContent;
+              layer.appendChild(w);
+            }
+          }
           word.appendChild(layer);
         }
       }
@@ -1156,8 +1417,8 @@
      * Persistent scene layer `#stage .fx-scene[data-scene=id]` (first child, so effects draw above it).
      * Switching scenes crossfades over 800 ms (old layer gets `.fx-scene-out`, then is removed); the same
      * scene again only updates the caption. `scene: 'clear'` fades out and stops the ambient loop.
-     * `duration` > 0 seconds auto-clears. Particles are spawned by an interval that dies with the layer;
-     * v2 adds three parallax emoji layers on the canvas (far / mid / near) for the same scene.
+     * `duration` > 0 seconds auto-clears. Particles are three parallax emoji layers on the canvas (far / mid /
+     * near; `data-particles="canvas"`); without canvas a DOM spawner fills `.fx-scene-particles` instead.
      */
     scene(v) {
       const id = v && typeof v.scene === 'string' ? v.scene : '';
@@ -1205,9 +1466,13 @@
         g.textContent = def.ground;
         el.appendChild(g);
       }
-      const particles = document.createElement('div');
-      particles.className = 'fx-scene-particles';
-      el.appendChild(particles);
+      // DOM particle container only for the no-canvas fallback (the canvas draws the parallax particles).
+      let particles = null;
+      if (!this.particles.ok) {
+        particles = document.createElement('div');
+        particles.className = 'fx-scene-particles';
+        el.appendChild(particles);
+      }
 
       this.root.insertBefore(el, this.root.firstChild);
       void el.offsetWidth; // commit opacity 0 before the transition to 1
@@ -1271,6 +1536,17 @@
       }
       const intensity = intensityOf(v, 2);
       const override = v && typeof v.emoji === 'string' && v.emoji.trim() ? graphemes(v.emoji).slice(0, 4) : null;
+      entry.el.dataset.particles = this.particles.ok ? 'canvas' : 'dom';
+      if (this.particles.ok) {
+        // Single render path: the canvas parallax layers (far / mid / near) are the scene particles.
+        this.particles.ensureOrder();
+        this.particles.setCap(intensity);
+        this.particles.clearAmbient();
+        this.particles.setAmbient(def, intensity, override);
+        this._monStart();
+        return;
+      }
+      // Fallback without canvas: DOM emoji spawned by an interval that dies with the layer.
       const every = Math.max(40, Math.round((def.every || 400) * (2 / intensity)));
       const spawn = () => {
         if (!entry.el.isConnected) {
@@ -1293,11 +1569,6 @@
       };
       spawn();
       entry.spawnTimer = setInterval(spawn, every);
-      // Canvas parallax layers for the same scene (no-op without canvas).
-      this.particles.ensureOrder();
-      this.particles.setCap(intensity);
-      this.particles.clearAmbient();
-      this.particles.setAmbient(def, intensity, override);
     }
 
     /** 2-4 emojis in a row with a staggered bounce, optional text below. 2.8 s. */
@@ -1338,11 +1609,14 @@
     /** Stage zoom bump: #stage scale 1 -> 1.04 -> 1 in 250 ms (`.fx-impact`). */
     impact() {
       const root = this.root;
-      root.classList.remove('fx-impact');
-      void root.offsetWidth;
-      root.classList.add('fx-impact');
-      clearTimeout(this._impactTimer);
-      this._impactTimer = setTimeout(() => root.classList.remove('fx-impact'), 300);
+      if (!this.eco) {
+        // Zoom bump (eco: skipped – a full-stage transform re-composites every layer).
+        root.classList.remove('fx-impact');
+        void root.offsetWidth;
+        root.classList.add('fx-impact');
+        clearTimeout(this._impactTimer);
+        this._impactTimer = setTimeout(() => root.classList.remove('fx-impact'), 300);
+      }
       const mixer = this._mixer();
       if (mixer && typeof mixer.duck === 'function') {
         try {

@@ -61,16 +61,23 @@ async function run({ browser, startServer, shotDir, log }) {
       return {
         present: !!el,
         opacity: el ? getComputedStyle(el).opacity : null,
-        particles: el ? el.querySelectorAll('.fx-particle').length : -1,
-        allX: el ? Array.from(el.querySelectorAll('.fx-particle')).every((p) => p.style.getPropertyValue('--x') !== '') : false,
+        // single render path: scene particles are canvas parallax items (no DOM spawner with a canvas)
+        particles: window.livefx.renderer.particles.items.filter((p) => p.ambient).length,
+        allX: window.livefx.renderer.particles.items.filter((p) => p.ambient).every((p) => Number.isFinite(p.x) && p.x >= -200 && p.x <= window.innerWidth + 200 && [0, 1, 2].includes(p.layer)),
+        dom: el ? el.querySelectorAll('.fx-particle, .fx-scene-particles').length : -1,
+        mode: el ? el.dataset.particles : null,
+        cap: window.livefx.renderer.particles.ambient && window.livefx.renderer.particles.ambient.cap,
         layers: document.querySelectorAll('.fx-scene').length,
       };
     });
     log('rain after 4 s', JSON.stringify(rain4));
     assert.equal(rain4.present, true, 'rain scene still present after 4 s');
     assert.ok(parseFloat(rain4.opacity) > 0.95, 'rain scene fully visible after 4 s');
-    assert.ok(rain4.particles > 0 && rain4.particles <= 40, `particles ${rain4.particles}`);
-    assert.equal(rain4.allX, true, 'every particle has --x');
+    assert.ok(rain4.particles > 0 && rain4.particles <= rain4.cap, `particles ${rain4.particles} (cap ${rain4.cap})`);
+    assert.equal(rain4.cap, 110, 'ambient cap at intensity 3');
+    assert.equal(rain4.allX, true, 'every particle is placed on a parallax layer inside the frame');
+    assert.equal(rain4.dom, 0, 'no DOM particles next to the canvas');
+    assert.equal(rain4.mode, 'canvas');
     assert.equal(rain4.layers, 1);
 
     // Same scene again = no-op (caption update only), layer element stays.
@@ -136,7 +143,7 @@ async function run({ browser, startServer, shotDir, log }) {
     // Emoji override + intensity 1 -> particles use the custom emoji.
     await page.evaluate(() => window.livefx.renderer.fire({ id: 'x', visual: { kind: 'scene', scene: 'snow', emoji: '🦄', intensity: 1 } }));
     await sleep(600);
-    const uni = await page.evaluate(() => Array.from(document.querySelectorAll('.fx-scene[data-scene="snow"] .fx-particle')).map((p) => p.textContent));
+    const uni = await page.evaluate(() => window.livefx.renderer.particles.items.filter((p) => p.ambient).map((p) => p.text));
     assert.ok(uni.length > 0 && uni.every((t) => t === '🦄'), `override particles: ${uni.join('')}`);
 
     // 5. sticker: three emojis in .fx-sticker, staggered --i, text escaped.
@@ -210,23 +217,25 @@ async function run({ browser, startServer, shotDir, log }) {
       const el = document.querySelector('.fx-scene[data-scene="storm"]');
       const r = el.getBoundingClientRect();
       const cap = el.querySelector('.fx-scene-caption').getBoundingClientRect();
-      const drop = el.querySelector('.fx-particle-fall');
+      const P = window.livefx.renderer.particles;
       return {
         w: r.width,
         h: r.height,
         capTop: cap.top,
         capBottom: cap.bottom,
         innerHeight: window.innerHeight,
-        fall: drop ? getComputedStyle(drop).getPropertyValue('--fx-fall').trim() : null,
-        particles: el.querySelectorAll('.fx-particle').length,
+        fall: getComputedStyle(el).getPropertyValue('--fx-fall').trim(),
+        fallPx: P.fallPx(),
+        particles: P.items.filter((x) => x.ambient).length,
       };
     });
     log('portrait storm', JSON.stringify(p));
     assert.equal(p.w, 540);
     assert.equal(p.h, 960);
     assert.ok(p.capTop >= 0.25 * p.innerHeight && p.capBottom <= 0.45 * p.innerHeight, 'caption sits in the top third in portrait');
-    assert.equal(p.fall, '62vh', 'particles inherit --fx-fall');
-    assert.ok(p.particles > 0 && p.particles <= 40);
+    assert.equal(p.fall, '62vh', 'scene inherits --fx-fall');
+    assert.ok(Math.abs(p.fallPx - 0.62 * p.innerHeight) <= 1, `canvas particles fall 62vh (${p.fallPx})`);
+    assert.ok(p.particles > 0 && p.particles <= 110, `storm particles ${p.particles}`);
     await portrait.screenshot({ path: path.join(shotDir, 'story-portrait.png') });
     await pctx.close();
 

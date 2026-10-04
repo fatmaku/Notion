@@ -2,6 +2,9 @@
 // stats.fps / stats.particles), text / lower-third / combo kinds, glow / tilt / impact / intensity, per-trigger
 // gain through the v2 mixer hook (stubbed) and the old LiveFXSounds.play fallback, renderer.clear(), portrait
 // lower-third -> banner fallback, plus two screenshots (16:9 neon text, 9:16 confetti).
+// 2.1: rays + ring and rain drops live on the canvas (single render path); performance mode (setPerf, ?perf=,
+// `perf` bus message, auto switch after 30 slow frames, eco look). The main page pins ?perf=high so a slow CI
+// machine cannot auto-switch to eco in the middle of the visual assertions.
 'use strict';
 
 const path = require('path');
@@ -17,7 +20,7 @@ async function run({ browser, startServer, shotDir, log }) {
     const page = await ctx.newPage();
     const errors = [];
     page.on('pageerror', (e) => errors.push(String(e)));
-    await page.goto(`${server.base}/overlay.html?theme=pastel`);
+    await page.goto(`${server.base}/overlay.html?theme=pastel&perf=high`);
     await page.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
 
     // 1. theme from the URL, setTheme(), THEMES export, pinned theme ignores bus messages.
@@ -67,6 +70,8 @@ async function run({ browser, startServer, shotDir, log }) {
         joined: letters.map((l) => l.textContent).join('').replace(/ /g, ' '),
         b: el.querySelectorAll('b').length,
         rays: el.querySelectorAll('.fx-rays, .fx-ring').length,
+        raysMode: el.dataset.rays,
+        flares: window.livefx.renderer.particles.items.filter((p) => p.flare).map((p) => p.kind).sort().join(','),
         impact: document.getElementById('stage').classList.contains('fx-impact'),
         particles: window.livefx.renderer.stats.particles,
       };
@@ -76,7 +81,9 @@ async function run({ browser, startServer, shotDir, log }) {
     assert.deepEqual(text.i, ['0', '1', '2', '3', '4', '5']);
     assert.equal(text.joined, 'Hi <b>');
     assert.equal(text.b, 0, 'no injected markup');
-    assert.equal(text.rays, 2, 'light rays + ring at intensity >= 2');
+    assert.equal(text.rays, 0, 'no DOM rays / ring next to the canvas');
+    assert.equal(text.raysMode, 'canvas');
+    assert.equal(text.flares, 'rays,ring', 'light rays sprite + ring drawn on the canvas at intensity >= 2');
     assert.equal(text.impact, true, 'impact adds .fx-impact to #stage');
     assert.ok(text.particles > 0, `spark burst at intensity 3 (${text.particles})`);
     await page.waitForFunction(() => !document.getElementById('stage').classList.contains('fx-impact'), null, { timeout: 1500 });
@@ -95,11 +102,22 @@ async function run({ browser, startServer, shotDir, log }) {
       window.livefx.renderer.fire({ id: 'c', visual: { kind: 'card', emoji: '🔥', text: 'BOOM', intensity: 3, tilt: true, glow: true, position: 'top' } });
       const els = document.querySelectorAll('.fx-card');
       const el = els[els.length - 1];
-      return { cls: el.className, anim: getComputedStyle(el).animationName, rays: !!el.querySelector('.fx-rays'), text: el.querySelector('.fx-text').textContent, i: el.style.getPropertyValue('--fx-i') };
+      return {
+        cls: el.className,
+        anim: getComputedStyle(el).animationName,
+        rays: el.classList.contains('fx-has-rays') && el.dataset.rays === 'canvas',
+        domRays: el.querySelectorAll('.fx-rays, .fx-ring').length,
+        flares: window.livefx.renderer.particles.items.filter((p) => p.flare && p.kind === 'rays').length,
+        text: el.querySelector('.fx-text').textContent,
+        i: el.style.getPropertyValue('--fx-i'),
+      };
     });
     assert.ok(/fx-tilt/.test(card.cls) && /fx-glow/.test(card.cls) && /fx-pos-top/.test(card.cls), card.cls);
     assert.ok(/fx-pop-tilt/.test(card.anim), `tilt animation: ${card.anim}`);
     assert.equal(card.rays, true);
+    assert.equal(card.domRays, 0);
+    assert.ok(card.flares >= 1 && card.flares <= 2, `ray sprites alive (max 2): ${card.flares}`);
+    assert.ok(/fx-blur-in/.test(card.anim), `entry motion animation: ${card.anim}`);
     assert.equal(card.text, 'BOOM');
     assert.equal(card.i, '3');
     // A plain v2 card keeps the classic animation and gets no rays.
@@ -107,22 +125,37 @@ async function run({ browser, startServer, shotDir, log }) {
       window.livefx.renderer.fire({ id: 'c', visual: { kind: 'card', emoji: '🙂', text: 'OK' } });
       const els = document.querySelectorAll('.fx-card');
       const el = els[els.length - 1];
-      return { anim: getComputedStyle(el).animationName, rays: !!el.querySelector('.fx-rays'), tilt: el.classList.contains('fx-tilt') };
+      return { anim: getComputedStyle(el).animationName, rays: el.classList.contains('fx-has-rays') || !!el.querySelector('.fx-rays'), tilt: el.classList.contains('fx-tilt') };
     });
     assert.ok(/fx-pop\b/.test(plain.anim) && !/fx-pop-tilt/.test(plain.anim), plain.anim);
     assert.equal(plain.rays, false);
     assert.equal(plain.tilt, false);
 
-    // 4. rain: DOM drops (count) + canvas burst; confetti on the canvas; stats numeric.
+    // 4. rain: canvas burst + one `.fx-rain` marker (count); confetti on the canvas; stats numeric.
     await page.evaluate(() => window.livefx.renderer.clear());
     const rain = await page.evaluate(async () => {
       window.livefx.renderer.fire({ id: 'r', visual: { kind: 'rain', emoji: '🍕', count: 12, intensity: 2 } });
       await new Promise((r) => setTimeout(r, 250));
       const s = window.livefx.renderer.stats;
-      return { drops: document.querySelectorAll('.fx-drop').length, particles: s.particles, fps: s.fps, frameMs: s.frameMs, cap: window.livefx.renderer.particles.cap };
+      const mark = document.querySelectorAll('.fx-rain');
+      return {
+        drops: document.querySelectorAll('.fx-drop').length,
+        marks: mark.length,
+        count: mark.length ? Number(mark[0].dataset.count) : -1,
+        emoji: mark.length ? mark[0].dataset.emoji : '',
+        canvasDrops: window.livefx.renderer.particles.items.filter((p) => p.text === '🍕').length,
+        particles: s.particles,
+        fps: s.fps,
+        frameMs: s.frameMs,
+        cap: window.livefx.renderer.particles.cap,
+      };
     });
     log('rain', JSON.stringify(rain));
-    assert.equal(rain.drops, 12, 'DOM drops keep the count');
+    assert.equal(rain.drops, 0, 'no DOM drops when the canvas is available (single render path)');
+    assert.equal(rain.marks, 1, 'one marker per rain');
+    assert.equal(rain.count, 12, 'marker keeps the count');
+    assert.equal(rain.emoji, '🍕');
+    assert.equal(rain.canvasDrops, 48, 'count × intensity × 2 canvas drops');
     assert.ok(rain.particles > 0, `canvas particles after rain: ${rain.particles}`);
     assert.equal(typeof rain.fps, 'number');
     assert.ok(Number.isFinite(rain.fps) && rain.fps >= 0);
@@ -290,6 +323,129 @@ async function run({ browser, startServer, shotDir, log }) {
     await portrait.screenshot({ path: path.join(shotDir, 'fx-confetti-portrait.png') });
     assert.deepEqual(perrors, [], `portrait errors: ${perrors.join('; ')}`);
     await pctx.close();
+
+    // ---------- performance mode (2.1): ?perf=, bus message, setPerf, auto switch, eco look ----------
+    const fctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+    const fp = await fctx.newPage();
+    const ferrors = [];
+    fp.on('pageerror', (e) => ferrors.push(String(e)));
+    await fp.goto(`${server.base}/overlay.html?perf=eco`);
+    await fp.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
+    const eco = await fp.evaluate(async () => {
+      const r = window.livefx.renderer;
+      const out = { perf: r.perf, active: r.perfActive, body: document.body.dataset.perf, mode: document.body.dataset.perfMode };
+      window.livefx.bus._emit({ id: 'pf-1', type: 'perf', perf: 'high' });
+      out.pinned = r.perf; // ?perf= pins against bus messages
+      r.fire({ id: 'e1', visual: { kind: 'card', emoji: '🔥', text: 'ECO', intensity: 3, glow: true, tilt: true, impact: true } });
+      const card = document.querySelector('.fx-card');
+      out.cardCls = card.className;
+      out.flares = r.particles.items.filter((p) => p.flare).length;
+      out.impact = document.getElementById('stage').classList.contains('fx-impact');
+      r.clear();
+      r.fire({ id: 'e2', visual: { kind: 'confetti', intensity: 3 } });
+      out.confetti = r.particles.items.filter((p) => p.kind === 'rect').length;
+      r.fire({ id: 'e3', visual: { kind: 'text', text: 'Go', style: 'glitch' } });
+      const t = document.querySelector('.fx-bigtext');
+      out.textCls = t.className;
+      out.glitchLayers = t.querySelectorAll('.fx-glitch-layer').length;
+      r.fire({ id: 'e4', visual: { kind: 'sticker', emoji: '🐉👸' } });
+      out.stickerAnim = getComputedStyle(document.querySelector('.fx-sticker-emoji')).animationName;
+      r.particles.setCap(2);
+      out.cap2 = r.particles.cap;
+      r.clear();
+      r.fire({ id: 'e5', visual: { kind: 'rain', emoji: '🍕', count: 40, intensity: 3 } });
+      out.rain = r.particles.items.filter((p) => p.text === '🍕').length;
+      r.fire({ id: 'e6', visual: { kind: 'scene', scene: 'rain', intensity: 3 } });
+      out.ambientCap = r.particles.ambient.cap;
+      r.clear();
+      r.clearScene();
+      return out;
+    });
+    log('eco', JSON.stringify(eco));
+    assert.deepEqual([eco.perf, eco.active, eco.body, eco.mode, eco.pinned], ['eco', 'eco', 'eco', 'eco', 'eco'], '?perf=eco');
+    assert.ok(/fx-tilt/.test(eco.cardCls) && !/fx-glow|fx-blur-in|fx-has-rays/.test(eco.cardCls), `eco card: ${eco.cardCls}`);
+    assert.equal(eco.flares, 0, 'eco: no rays / ring');
+    assert.equal(eco.impact, false, 'eco: no impact zoom');
+    assert.equal(eco.confetti, 45, 'eco: 45 confetti pieces');
+    assert.ok(/fx-text-neon/.test(eco.textCls) && eco.glitchLayers === 0, `eco: glitch -> neon (${eco.textCls})`);
+    assert.equal(eco.stickerAnim, 'none', 'eco: stickers do not bounce');
+    assert.equal(eco.cap2, 400, 'eco: half particle cap');
+    assert.equal(eco.rain, 120, 'eco: rain burst count × intensity (half of high)');
+    assert.equal(eco.ambientCap, 55, 'eco: half ambient cap');
+
+    // No ?perf=: default auto, bus message switches live, setPerf validates, auto -> eco after 30 slow frames.
+    await fp.goto(`${server.base}/overlay.html`);
+    await fp.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
+    const auto = await fp.evaluate(() => {
+      const r = window.livefx.renderer;
+      const out = { start: [r.perf, r.perfActive, document.body.dataset.perf, document.body.dataset.perfMode] };
+      window.livefx.bus._emit({ id: 'pf-2', type: 'perf', perf: 'eco' });
+      out.viaBus = [r.perf, r.perfActive, document.body.dataset.perf];
+      window.livefx.bus._emit({ id: 'pf-3', type: 'state', perf: 'high' });
+      out.viaState = r.perf;
+      out.bogus = r.setPerf('turbo');
+      // Simulated frames (fake timestamps, real rAF paused): 60 Hz display, then 30 consecutive 40-ms frames.
+      const m = r._mon;
+      const feed = (n, dt) => {
+        cancelAnimationFrame(m.raf);
+        m.raf = 0;
+        let t = 1e6;
+        m.last = 0;
+        r._monTick(t);
+        for (let i = 0; i < n; i++) r._monTick((t += dt));
+        cancelAnimationFrame(m.raf);
+        m.raf = 0;
+      };
+      m.calibrate = 0;
+      m.minFrame = 1000 / 60;
+      feed(29, 40);
+      out.after29 = [r.perfActive, r.stats.perfSwitches];
+      feed(1, 10); // a fast frame resets the streak
+      feed(29, 40);
+      out.afterReset = r.perfActive;
+      // OBS at 30 fps: 33-ms display frames, 40-ms frames are within the budget (1.25 × 33.3 ms).
+      m.minFrame = 1000 / 30;
+      feed(40, 40);
+      out.obs30 = [r.perfActive, r.stats.perfSwitches];
+      m.minFrame = 1000 / 60;
+      feed(30, 40);
+      out.switched = [r.perf, r.perfActive, document.body.dataset.perf, document.body.dataset.perfMode, r.stats.perfSwitches];
+      out.again = r.setPerf('auto'); // same mode again keeps the switch
+      out.stillEco = r.perfActive;
+      r.setPerf('high');
+      out.high = [r.perf, r.perfActive, document.body.dataset.perf];
+      r.setPerf('auto');
+      out.reAuto = [r.perf, r.perfActive];
+      return out;
+    });
+    log('auto', JSON.stringify(auto));
+    assert.deepEqual(auto.start, ['auto', 'high', 'high', 'auto'], 'default: auto, starts with the full look');
+    assert.deepEqual(auto.viaBus, ['eco', 'eco', 'eco'], '`perf` bus message');
+    assert.equal(auto.viaState, 'high', '`state` message may carry perf');
+    assert.equal(auto.bogus, 'auto', 'unknown mode -> auto');
+    assert.deepEqual(auto.after29, ['high', 0], '29 slow frames are not enough');
+    assert.equal(auto.afterReset, 'high', 'a fast frame resets the streak');
+    assert.deepEqual(auto.obs30, ['high', 0], 'frame budget follows a capped 30-fps source');
+    assert.deepEqual(auto.switched, ['auto', 'eco', 'eco', 'auto', 1], '30 slow frames -> eco, counted in stats.perfSwitches');
+    assert.equal(auto.again, 'auto');
+    assert.equal(auto.stillEco, 'eco', 'the auto switch is permanent');
+    assert.deepEqual(auto.high, ['high', 'high', 'high']);
+    assert.deepEqual(auto.reAuto, ['auto', 'high'], 'choosing auto again starts with the full look');
+    // Hidden page pauses scene animations (body.fx-hidden), visible again resumes.
+    const hidden = await fp.evaluate(() => {
+      window.livefx.renderer.fire({ id: 'sc', visual: { kind: 'scene', scene: 'storm' } });
+      Object.defineProperty(document, 'hidden', { configurable: true, get: () => true });
+      document.dispatchEvent(new Event('visibilitychange'));
+      const l2 = document.querySelector('.fx-scene-storm .fx-scene-l2');
+      const out = { cls: document.body.classList.contains('fx-hidden'), state: getComputedStyle(l2).animationPlayState };
+      Object.defineProperty(document, 'hidden', { configurable: true, get: () => false });
+      document.dispatchEvent(new Event('visibilitychange'));
+      out.back = getComputedStyle(l2).animationPlayState;
+      return out;
+    });
+    assert.deepEqual(hidden, { cls: true, state: 'paused', back: 'running' }, 'scene animations pause while hidden');
+    assert.deepEqual(ferrors, [], `perf errors: ${ferrors.join('; ')}`);
+    await fctx.close();
 
     // ---------- demo page: CanvasFX mirrors text / lower-third / combo during a recording ----------
     const dctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });

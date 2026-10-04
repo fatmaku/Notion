@@ -168,7 +168,7 @@ async function run(h) {
         { timeoutMs: 3000, what: 'keepo in lol.keywords on the server' }
       );
       await panel.evaluate(() => window.livefx.handleText('keepo', true, { source: 'Test' }));
-      await overlay.waitForSelector('.fx-drop', { timeout: 3000 });
+      await overlay.waitForSelector('.fx-rain', { state: 'attached', timeout: 3000 });
       assert.ok((await panel.textContent('#transcript mark')).includes('keepo'), 'learned keyword highlighted');
 
       // whole phrase (no chip selected) becomes the keyword

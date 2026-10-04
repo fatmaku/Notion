@@ -11,6 +11,34 @@
     return buf;
   }
 
+  // Noise buffers are cached per AudioContext (2.1): one 2-s buffer per kind is generated once and every
+  // noise one-shot plays it looped from a random offset – no Math.random() fill of a fresh buffer per play.
+  // A voice view (voiceContext) exposes its real context as `rawContext`, so all voices share one cache entry.
+  const NOISE_SECONDS = 2;
+  const noiseCache = typeof WeakMap === 'function' ? new WeakMap() : null;
+  function sharedNoise(ctx, kind = 'white', seconds = NOISE_SECONDS) {
+    const key = (ctx && ctx.rawContext) || ctx;
+    const make = () => (kind === 'pink' ? pinkNoiseBuffer(ctx, seconds) : noiseBuffer(ctx, seconds));
+    if (!noiseCache || !key || typeof key !== 'object') return make();
+    let entry = noiseCache.get(key);
+    if (!entry) {
+      entry = {};
+      noiseCache.set(key, entry);
+    }
+    const id = `${kind}:${seconds}`;
+    const hit = entry[id];
+    if (hit && hit.sampleRate === ctx.sampleRate) return hit;
+    return (entry[id] = make());
+  }
+  // Looping source on the shared white noise; start it with `noiseOffset()` for a fresh-sounding slice.
+  function noiseSource(ctx) {
+    const src = ctx.createBufferSource();
+    src.buffer = sharedNoise(ctx);
+    src.loop = true;
+    return src;
+  }
+  const noiseOffset = () => Math.random() * NOISE_SECONDS;
+
   function env(gain, t0, attack, hold, release, peak) {
     const g = gain.gain;
     g.setValueAtTime(0.0001, t0);
@@ -41,8 +69,7 @@
   }
 
   function noise(ctx, out, { t0, dur, peak = 0.3, attack = 0.005, release = 0.1, filter = null }) {
-    const src = ctx.createBufferSource();
-    src.buffer = noiseBuffer(ctx, dur + 0.1);
+    const src = noiseSource(ctx);
     const g = ctx.createGain();
     env(g, t0, attack, Math.max(0, dur - attack - release), release, peak);
     let node = src;
@@ -56,7 +83,7 @@
       node = f;
     }
     node.connect(g).connect(out);
-    src.start(t0);
+    src.start(t0, noiseOffset());
     src.stop(t0 + dur + 0.1);
   }
 
@@ -286,8 +313,7 @@
       // Crowd "ooooh": filtered noise through formant-ish bandpasses, swelling then fading.
       const t0 = ctx.currentTime;
       const dur = 1.5;
-      const src = ctx.createBufferSource();
-      src.buffer = noiseBuffer(ctx, dur + 0.1);
+      const src = noiseSource(ctx);
       const master = ctx.createGain();
       env(master, t0, 0.45, 0.35, dur - 0.8, 0.9);
       master.connect(out);
@@ -302,7 +328,7 @@
         g.gain.value = fm.g;
         src.connect(bp).connect(g).connect(master);
       });
-      src.start(t0);
+      src.start(t0, noiseOffset());
       src.stop(t0 + dur + 0.1);
       // A few detuned low voices give it a "many people" feel.
       [150, 165, 178].forEach((f) => {
@@ -442,8 +468,7 @@
       const depth = ctx.createGain();
       depth.gain.value = 18; // vibrato depth in Hz (modulation only)
       lfo.connect(depth).connect(osc.frequency);
-      const src = ctx.createBufferSource();
-      src.buffer = noiseBuffer(ctx, dur + 0.1);
+      const src = noiseSource(ctx);
       const breath = ctx.createGain();
       breath.gain.value = 0.35;
       src.connect(breath);
@@ -461,7 +486,7 @@
       });
       osc.start(t0);
       lfo.start(t0);
-      src.start(t0);
+      src.start(t0, noiseOffset());
       osc.stop(t0 + dur + 0.05);
       lfo.stop(t0 + dur + 0.05);
       src.stop(t0 + dur + 0.05);
@@ -627,8 +652,8 @@
       // Looping noise bed (white or pink) feeding `dest`.
       noise(kind, dest, seconds = 4) {
         const src = ctx.createBufferSource();
-        if (kind === 'pink') src.buffer = pink || (pink = pinkNoiseBuffer(ctx, seconds));
-        else src.buffer = white || (white = noiseBuffer(ctx, seconds));
+        if (kind === 'pink') src.buffer = pink || (pink = sharedNoise(ctx, 'pink', seconds));
+        else src.buffer = white || (white = sharedNoise(ctx, 'white', seconds));
         src.loop = true;
         src.connect(dest);
         src.start(t0);
@@ -659,7 +684,7 @@
       // One-shot noise burst at time t, sliced from a shared white-noise buffer (no per-event allocation).
       burst(dest, { t0: t, dur, peak = 0.3, attack = 0.003, release = 0.02, filter = null }) {
         const src = ctx.createBufferSource();
-        src.buffer = white || (white = noiseBuffer(ctx, 4));
+        src.buffer = white || (white = sharedNoise(ctx, 'white', 4));
         const g = ctx.createGain();
         env(g, t, attack, Math.max(0, dur - attack - release), release, peak);
         let node = src;
@@ -990,6 +1015,7 @@
       get currentTime() { return ctx.currentTime + when; },
       get sampleRate() { return ctx.sampleRate; },
       get end() { return end; },
+      rawContext: ctx.rawContext || ctx,
       sources,
       createGain: () => ctx.createGain(),
       createBiquadFilter: () => ctx.createBiquadFilter(),

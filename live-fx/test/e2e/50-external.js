@@ -14,12 +14,14 @@ async function run({ browser, startServer, api, sseClient, waitFor, shotDir, log
     await overlay.goto(`${server.base}/overlay.html`);
     await overlay.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
 
-    // 1. /api/fire {id:'lol'} (rain of 😂) -> .fx-drop in the overlay
+    // 1. /api/fire {id:'lol'} (rain of 😂) -> canvas rain + its `.fx-rain` marker in the overlay
     const fire = await api(server.base, 'POST', '/api/fire', { json: { id: 'lol', source: 'e2e' }, token });
     if (fire.status !== 200 || fire.json.fired !== true) throw new Error(`/api/fire failed: ${fire.status} ${fire.text}`);
-    await overlay.waitForSelector('.fx-drop', { timeout: 3000 });
+    await overlay.waitForSelector('.fx-rain[data-emoji="😂"]', { state: 'attached', timeout: 3000 });
+    const rainParticles = await overlay.evaluate(() => window.livefx.renderer.particles.items.filter((p) => p.text === '😂').length);
+    if (!(rainParticles > 0)) throw new Error(`no 😂 rain on the canvas (${rainParticles})`);
     await overlay.screenshot({ path: path.join(shotDir, 'external.png') });
-    log('/api/fire rendered .fx-drop');
+    log(`/api/fire rendered .fx-rain + ${rainParticles} canvas drops`);
 
     // 2. /fire volume 0.3 -> a fresh overlay without ?volume= adopts state.volume
     const vol = await api(server.base, 'POST', '/fire', { json: { type: 'volume', volume: 0.3 }, token });

@@ -391,8 +391,26 @@ test('review: server routes', async (t) => {
 // ---------------------------------------------------------------------------------------------
 test('review: sw.js shell lists every browser file on disk, caches nothing live', () => {
   const src = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
-  const shell = [...src.matchAll(/^\s+'(\/[^']+)',$/gm)].map((m) => m[1]);
+  // Two lists (2.1): FULL_SHELL for the panel worker, OVERLAY_SHELL for `/sw.js?shell=overlay`.
+  const listOf = (name) => {
+    const m = new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`).exec(src);
+    assert.ok(m, `${name} list in sw.js`);
+    return [...m[1].matchAll(/'(\/[^']*)'/g)].map((x) => x[1]);
+  };
+  const shell = listOf('FULL_SHELL');
   assert.ok(shell.length > 20);
+  const overlayShell = listOf('OVERLAY_SHELL');
+  // The overlay shell is exactly what overlay.html loads (+ the page itself and the icons), nothing of the panel.
+  const overlayHtml = fs.readFileSync(path.join(ROOT, 'overlay.html'), 'utf8');
+  const loaded = [...overlayHtml.matchAll(/(?:src|href)="((?:js|css)\/[^"]+)"/g)].map((m) => `/${m[1]}`);
+  assert.deepEqual(loaded.sort(), ['/css/overlay.css', '/js/bus.js', '/js/fx.js', '/js/schema.js', '/js/sounds.js']);
+  const icons = fs.readdirSync(path.join(ROOT, 'icons')).map((f) => `/icons/${f}`);
+  assert.deepEqual(overlayShell.slice().sort(), ['/overlay.html', ...loaded, ...icons].sort(), 'OVERLAY_SHELL = overlay page + its css/js + icons');
+  for (const p of overlayShell) assert.ok(shell.includes(p), `${p} is in the full shell too`);
+  for (const p of ['/js/panel.js', '/js/asr.js', '/js/demo.js', '/js/whisper-worker.js', '/index.html']) assert.ok(!overlayShell.includes(p), `${p} not in the overlay shell`);
+  assert.match(src, /new URLSearchParams\(self\.location\.search\)\.get\('shell'\) === 'overlay'/, 'worker picks the list from its own URL');
+  assert.match(src, /livefx-overlay-v/, 'overlay worker uses its own cache');
+  assert.match(overlayHtml, /register\('\/sw\.js\?shell=overlay', \{ scope: '\/overlay\.html' \}\)/, 'overlay registers the overlay shell with its own scope');
   const onDisk = [];
   for (const f of fs.readdirSync(path.join(ROOT, 'js'))) if (f.endsWith('.js')) onDisk.push(`/js/${f}`);
   for (const f of fs.readdirSync(path.join(ROOT, 'css'))) if (f.endsWith('.css')) onDisk.push(`/css/${f}`);
