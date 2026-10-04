@@ -76,5 +76,69 @@
   "new": "Elimdeki poşetleri yere bıraktım.",
   "kap": "2. Siyah Paket",
   "neden": "Birkaç satır önce poşetler yalnız sol elde; „ellerimdeki“ çelişkiydi (jüri). Paragrafın ilk harfi (şifre) değişmedi."
+ },
+ {
+  "op": "replace",
+  "old": "Leyla'nın neden öldüğünü öğrenemezsin”",
+  "new": "Leyla'nın neden öldüğünü hiçbir zaman öğrenemezsin”",
+  "kap": "24. Yusuf'un Dili",
+  "neden": "22. bölümdeki kayıt cümlesiyle harfi harfine aynı (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Arapça, İspanyolca ve Svahiliydi.",
+  "new": "Arapça, İspanyolca, Portekizce ve Svahiliydi.",
+  "kap": "17. Ormanda Beceri, Şehirde Belirti",
+  "neden": "Alıcılardan biri João (São Paulo); Portekizce nüsha eksikti (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "dört kutuyu, renklerini ve şehir adlarını biliyordu",
+  "new": "dört kutuyu ve üzerlerindeki şehir adlarını biliyordu",
+  "kap": "45. Beni Öldürmeyen Adam",
+  "neden": "42. bölümde kutuların rengi geçmiyor, yalnız şehir adları (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Kapı içeriden kilitliydi. Zorla giriş izi yoktu.",
+  "new": "Kapı içeriden kilitliydi; elektronik sürgünün kaydı da bunu gösteriyordu. Zorla giriş izi yoktu.",
+  "kap": "7. Silinen Satır",
+  "neden": "45. bölümdeki çözüm („sürgü motorluydu … kontrol paneli içeriden kilitlenmiş gibi göründü“) adil biçimde önceden ekiliyor (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "sağ elimle beşinci kata çıkarken",
+  "new": "sağ elimle tırabzana tutunup beşinci kata çıkarken",
+  "kap": "2. Siyah Paket",
+  "neden": "„sağ elimle“ boşta kalıyordu (jüri). Paragrafın ilk harfi (şifre) değişmedi."
+ },
+ {
+  "op": "replace",
+  "old": " yazmıştım.",
+  "new": " yazacaktım.",
+  "kap": "1. Sonmuş Gibi Sıradan Bir Sabah",
+  "neden": "Zarflar 2. bölümde o sabah hazırlanıyor (45. bölüm: 10.18); bir hafta önce yazılmış olamaz (jüri).",
+  "match": "zarfın üstüne GEREKİRSE yazmıştım."
+ },
+ {
+  "op": "replace",
+  "old": "Duru için kırmızı bir defter,",
+  "new": "Duru için boş bir defter,",
+  "kap": "1. Sonmuş Gibi Sıradan Bir Sabah",
+  "neden": "„Kırmızı defter“ anlatıcının üç aydır kayıp defteri (30.–31. bölüm); Duru'ya ayrılan defterle karışıyordu (iki jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Nehir'in iki yıl önce çocuk verilerini satan bir eğitim merkezini araştırırken tanıştığı güvenlik uzmanı Tarık'a ulaştık.",
+  "new": "Nehir'in iki yıl önce çocuk verilerini satan eğitim merkezini araştırırken kaynak olarak tanıştığı, benim yüzünü hiç görmediğim güvenlik uzmanı Tarık'a ulaştık.",
+  "kap": "17. Ormanda Beceri, Şehirde Belirti",
+  "neden": "20. bölümde o araştırmayı birlikte yürütüyorlar; anlatıcının Tarık'ı neden ilk kez gördüğü açıklandı (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Bana ulaşmaya çalışırken siyah paketin fotoğrafını almış;",
+  "new": "Beni aramaya hazırlanırken, ona gönderdiğim siyah paket fotoğrafını görmüş;",
+  "kap": "3. Kamera Boşluğu",
+  "neden": "Fotoğrafı ona kimin gönderdiği belli değildi (jüri)."
  }
 ]
