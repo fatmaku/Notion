@@ -320,7 +320,7 @@ test('theme packs: signature phrases present', () => {
 test('theme packs: 2.0 additions to tr / de / en are present', () => {
   const kws = (id) => new Set(P.get(id).flatMap((t) => t.keywords.map(lower)));
   const tr = kws('tr');
-  for (const must of ['hadi bakalım', 'aman tanrım', 'olm', 'ya sabır', 'eyvallah', 'çüş', 'oha', 'bayıldım', 'ağla', 'kral', 'efsane']) assert.ok(tr.has(must), `tr keyword "${must}"`);
+  for (const must of ['hadi bakalım', 'olm', 'ya sabır', 'eyvallah', 'çüş', 'oha', 'bayıldım', 'ağla', 'kral', 'efsane']) assert.ok(tr.has(must), `tr keyword "${must}"`);
   const de = kws('de');
   for (const must of ['alter schwede', 'geil', 'läuft bei dir', 'kein plan', 'diggi', 'ehrenmann', 'cringy', 'safe', 'lost', 'jackpot']) assert.ok(de.has(must), `de keyword "${must}"`);
   const en = kws('en');
@@ -448,5 +448,17 @@ test('2.1 matcher fires text stickers and reactions next to the defaults', () =>
     const hits = m.process(text, 0);
     assert.ok(hits.some((h) => h.trigger.id === id), `"${text}" -> ${id} (got ${hits.map((h) => h.trigger.id).join(',') || 'nothing'})`);
     m.endUtterance();
+  }
+});
+
+test('content rules: meme packs contain no religious phrases, flags or nazar', () => {
+  const banned = /allah|maşallah|masallah|inşallah|insallah|\bdua\b|tanrı|tanri|\bgott\b|\bgod\b|\bholy\b|\bbless|🙏|🧿|[\u{1F1E6}-\u{1F1FF}]{2}/iu;
+  for (const pack of P.list()) {
+    if (!['tr', 'de', 'en', 'family', 'gaming', 'text-tr', 'text-de', 'text-en', 'reactions'].includes(pack.id)) continue;
+    for (const t of P.get(pack.id)) {
+      const text = [t.label, ...(t.keywords || []), JSON.stringify(t.visual || {})].join(' ').replace(/eyvallah/gi, '');
+      assert.ok(!banned.test(text), `${t.id}: ${text.match(banned)}`);
+    }
+    assert.ok(!/[\u{1F1E6}-\u{1F1FF}]/u.test(String(pack.flag || '')), `${pack.id} flag emoji`);
   }
 });
