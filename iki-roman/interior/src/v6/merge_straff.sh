@@ -22,3 +22,13 @@ python3 tools/docx_ops.py $T/sa.docx $V/ops_editor_SA.json src/SAHIT_TR_v6.docx
 python3 tools/check_text.py --by src/YOLCU_TR_v5.docx --sa src/SAHIT_TR_v6.docx --json $V/check_text_v6.json | tail -1
 python3 tools/wordcount.py src/YOLCU_TR_v4.docx src/YOLCU_TR_v5.docx | tail -1
 python3 tools/wordcount.py $V/SAHIT_v6a_entegre.docx src/SAHIT_TR_v6.docx | tail -1
+# Gegenprüfung (vier unabhängige Prüfer): Nahtkorrekturen auf die neuen Fassungen
+python3 - <<'PY'
+import json
+for key in ("BY", "SA"):
+    ops = json.load(open(f"src/v6/review/fix_{key}_1.json")) + json.load(open(f"src/v6/review/fix_{key}_2.json"))
+    json.dump(ops, open(f"src/v6/review/fix_{key}_alle.json", "w"), ensure_ascii=False, indent=0)
+PY
+python3 tools/docx_ops.py src/YOLCU_TR_v5.docx src/v6/review/fix_BY_alle.json $T/by2.docx && cp $T/by2.docx src/YOLCU_TR_v5.docx
+python3 tools/docx_ops.py src/SAHIT_TR_v6.docx src/v6/review/fix_SA_alle.json $T/sa2.docx && cp $T/sa2.docx src/SAHIT_TR_v6.docx
+python3 tools/check_text.py --by src/YOLCU_TR_v5.docx --sa src/SAHIT_TR_v6.docx --json $V/check_text_v6.json | tail -1

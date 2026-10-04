@@ -1,0 +1,17 @@
+[
+{
+"op": "insert_after",
+"pid": 537,
+"text": "Geçmişi hatırlamak artık yalnız kendimi anlamak değildi. Birinin beni hangi kapıdan izlediğini bulmaktı.",
+"sorun": "Nehir'in sorusundan geri dönüşe geçiş köprüsüz kalıyordu; eski cümle aynen geri getirildi (kurgu açısından da gerekli: izlenme izleği).",
+"tip": "seam"
+},
+{
+"op": "replace",
+"pid": 2690,
+"old": "Ben o geleneklerden birinin",
+"new": "Ben Leyla'nın saydığı geleneklerden birinin",
+"sorun": "„o gelenekler“ silinen Tunguz cümlesine bağlıydı; Leyla'nın 5. bölümdeki listesine açıkça bağlandı.",
+"tip": "seam"
+}
+]

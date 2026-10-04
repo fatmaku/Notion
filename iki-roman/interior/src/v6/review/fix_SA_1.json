@@ -1,0 +1,3 @@
+[
+ {"op": "replace", "pid": 262, "old": "Bu riski almaya değerdi.", "new": "Bu işin riskini almaya değerdi.", "sorun": "„Bu risk“ silinen şüpheye işaret ediyordu; şüphe (öncülü erkenden boşaltan cümle, jüri) geri getirilmedi, risk işin kendisine bağlandı.", "tip": "seam"}
+]
