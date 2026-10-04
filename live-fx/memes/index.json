@@ -1,0 +1,3317 @@
+{
+ "version": 1,
+ "generated": "2026-10-04",
+ "sets": [
+  {
+   "id": "fluent",
+   "name": "Microsoft Fluent Emoji",
+   "license": "MIT",
+   "copyright": "Copyright (c) Microsoft Corporation",
+   "source": [
+    "https://github.com/microsoft/fluentui-emoji-animated",
+    "https://github.com/microsoft/fluentui-emoji"
+   ],
+   "animated": true,
+   "size": 160
+  }
+ ],
+ "excluded": [
+  "flags",
+  "religious",
+  "violence",
+  "drugs",
+  "obscene",
+  "brands"
+ ],
+ "items": [
+  {
+   "id": "joy",
+   "set": "fluent",
+   "file": "memes/fluent/joy.webp",
+   "animated": true,
+   "category": "laugh",
+   "keywords": {
+    "de": [
+     "lachtränen",
+     "zum totlachen"
+    ],
+    "tr": [
+     "gülmekten ağlamak",
+     "kahkaha"
+    ],
+    "en": [
+     "tears of joy",
+     "lol"
+    ]
+   },
+   "emoji": "😂",
+   "name": "Face with tears of joy"
+  },
+  {
+   "id": "rofl",
+   "set": "fluent",
+   "file": "memes/fluent/rofl.webp",
+   "animated": true,
+   "category": "laugh",
+   "keywords": {
+    "de": [
+     "am boden vor lachen",
+     "rofl"
+    ],
+    "tr": [
+     "yerlere yattım",
+     "gülmekten yerlerde"
+    ],
+    "en": [
+     "rofl",
+     "rolling on the floor"
+    ]
+   },
+   "emoji": "🤣",
+   "name": "Rolling on the floor laughing"
+  },
+  {
+   "id": "squint-laugh",
+   "set": "fluent",
+   "file": "memes/fluent/squint-laugh.webp",
+   "animated": false,
+   "category": "laugh",
+   "keywords": {
+    "de": [
+     "haha",
+     "lachen"
+    ],
+    "tr": [
+     "hahaha",
+     "gülmek"
+    ],
+    "en": [
+     "haha",
+     "xd"
+    ]
+   },
+   "emoji": "😆",
+   "name": "Grinning squinting face"
+  },
+  {
+   "id": "grin-smile",
+   "set": "fluent",
+   "file": "memes/fluent/grin-smile.webp",
+   "animated": false,
+   "category": "laugh",
+   "keywords": {
+    "de": [
+     "grinsen",
+     "fröhlich"
+    ],
+    "tr": [
+     "sırıtmak",
+     "neşeli"
+    ],
+    "en": [
+     "grin",
+     "happy"
+    ]
+   },
+   "emoji": "😄",
+   "name": "Grinning face with smiling eyes"
+  },
+  {
+   "id": "beam",
+   "set": "fluent",
+   "file": "memes/fluent/beam.webp",
+   "animated": false,
+   "category": "laugh",
+   "keywords": {
+    "de": [
+     "breites grinsen",
+     "strahlen"
+    ],
+    "tr": [
+     "ışıl ışıl",
+     "kocaman gülümseme"
+    ],
+    "en": [
+     "beaming",
+     "big grin"
+    ]
+   },
+   "emoji": "😁",
+   "name": "Beaming face with smiling eyes"
+  },
+  {
+   "id": "sweat-smile",
+   "set": "fluent",
+   "file": "memes/fluent/sweat-smile.webp",
+   "animated": false,
+   "category": "laugh",
+   "keywords": {
+    "de": [
+     "puh",
+     "glück gehabt"
+    ],
+    "tr": [
+     "oh be",
+     "kıl payı"
+    ],
+    "en": [
+     "phew",
+     "close one"
+    ]
+   },
+   "emoji": "😅",
+   "name": "Grinning face with sweat"
+  },
+  {
+   "id": "cat-joy",
+   "set": "fluent",
+   "file": "memes/fluent/cat-joy.webp",
+   "animated": true,
+   "category": "laugh",
+   "keywords": {
+    "de": [
+     "lachende katze",
+     "katzenlachen"
+    ],
+    "tr": [
+     "gülen kedi",
+     "kedi kahkaha"
+    ],
+    "en": [
+     "laughing cat",
+     "cat lol"
+    ]
+   },
+   "emoji": "😹",
+   "name": "Cat with tears of joy"
+  },
+  {
+   "id": "giggle",
+   "set": "fluent",
+   "file": "memes/fluent/giggle.webp",
+   "animated": true,
+   "category": "laugh",
+   "keywords": {
+    "de": [
+     "kichern",
+     "hihi"
+    ],
+    "tr": [
+     "kıkırdamak",
+     "hihi"
+    ],
+    "en": [
+     "giggle",
+     "tee hee"
+    ]
+   },
+   "emoji": "🤭",
+   "name": "Face with hand over mouth"
+  },
+  {
+   "id": "scream",
+   "set": "fluent",
+   "file": "memes/fluent/scream.webp",
+   "animated": true,
+   "category": "shock",
+   "keywords": {
+    "de": [
+     "schrei",
+     "oh nein"
+    ],
+    "tr": [
+     "çığlık",
+     "eyvah"
+    ],
+    "en": [
+     "scream",
+     "omg"
+    ]
+   },
+   "emoji": "😱",
+   "name": "Face screaming in fear"
+  },
+  {
+   "id": "astonished",
+   "set": "fluent",
+   "file": "memes/fluent/astonished.webp",
+   "animated": false,
+   "category": "shock",
+   "keywords": {
+    "de": [
+     "erstaunt",
+     "wow"
+    ],
+    "tr": [
+     "şaşkın",
+     "vay"
+    ],
+    "en": [
+     "astonished",
+     "whoa"
+    ]
+   },
+   "emoji": "😲",
+   "name": "Astonished face"
+  },
+  {
+   "id": "open-mouth",
+   "set": "fluent",
+   "file": "memes/fluent/open-mouth.webp",
+   "animated": false,
+   "category": "shock",
+   "keywords": {
+    "de": [
+     "staunen",
+     "oh"
+    ],
+    "tr": [
+     "ağzı açık",
+     "oha"
+    ],
+    "en": [
+     "open mouth",
+     "oh"
+    ]
+   },
+   "emoji": "😮",
+   "name": "Face with open mouth"
+  },
+  {
+   "id": "flushed",
+   "set": "fluent",
+   "file": "memes/fluent/flushed.webp",
+   "animated": false,
+   "category": "shock",
+   "keywords": {
+    "de": [
+     "peinlich",
+     "rot werden"
+    ],
+    "tr": [
+     "utandım",
+     "kızardım"
+    ],
+    "en": [
+     "flushed",
+     "embarrassed"
+    ]
+   },
+   "emoji": "😳",
+   "name": "Flushed face"
+  },
+  {
+   "id": "mind-blown",
+   "set": "fluent",
+   "file": "memes/fluent/mind-blown.webp",
+   "animated": false,
+   "category": "shock",
+   "keywords": {
+    "de": [
+     "kopf explodiert",
+     "krass"
+    ],
+    "tr": [
+     "beynim yandı",
+     "kafam patladı"
+    ],
+    "en": [
+     "mind blown",
+     "exploding head"
+    ]
+   },
+   "emoji": "🤯",
+   "name": "Exploding head"
+  },
+  {
+   "id": "gasp",
+   "set": "fluent",
+   "file": "memes/fluent/gasp.webp",
+   "animated": true,
+   "category": "shock",
+   "keywords": {
+    "de": [
+     "nach luft schnappen",
+     "ups"
+    ],
+    "tr": [
+     "hayret",
+     "aman"
+    ],
+    "en": [
+     "gasp",
+     "oops"
+    ]
+   },
+   "emoji": "🫢",
+   "name": "Face with open eyes and hand over mouth"
+  },
+  {
+   "id": "fearful",
+   "set": "fluent",
+   "file": "memes/fluent/fearful.webp",
+   "animated": false,
+   "category": "shock",
+   "keywords": {
+    "de": [
+     "angst",
+     "gruselig"
+    ],
+    "tr": [
+     "korku",
+     "korkunç"
+    ],
+    "en": [
+     "fearful",
+     "scared"
+    ]
+   },
+   "emoji": "😨",
+   "name": "Fearful face"
+  },
+  {
+   "id": "grimace",
+   "set": "fluent",
+   "file": "memes/fluent/grimace.webp",
+   "animated": false,
+   "category": "shock",
+   "keywords": {
+    "de": [
+     "autsch",
+     "unangenehm"
+    ],
+    "tr": [
+     "eyvah",
+     "tüh"
+    ],
+    "en": [
+     "yikes",
+     "awkward"
+    ]
+   },
+   "emoji": "😬",
+   "name": "Grimacing face"
+  },
+  {
+   "id": "heart-eyes",
+   "set": "fluent",
+   "file": "memes/fluent/heart-eyes.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "verliebt",
+     "herzaugen"
+    ],
+    "tr": [
+     "bayıldım",
+     "aşık oldum"
+    ],
+    "en": [
+     "heart eyes",
+     "in love"
+    ]
+   },
+   "emoji": "😍",
+   "name": "Smiling face with heart-eyes"
+  },
+  {
+   "id": "hearts-face",
+   "set": "fluent",
+   "file": "memes/fluent/hearts-face.webp",
+   "animated": false,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "süß",
+     "verknallt"
+    ],
+    "tr": [
+     "tatlı",
+     "sevimli"
+    ],
+    "en": [
+     "adore",
+     "cute"
+    ]
+   },
+   "emoji": "🥰",
+   "name": "Smiling face with hearts"
+  },
+  {
+   "id": "kiss",
+   "set": "fluent",
+   "file": "memes/fluent/kiss.webp",
+   "animated": false,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "küsschen",
+     "bussi"
+    ],
+    "tr": [
+     "öpücük",
+     "muck"
+    ],
+    "en": [
+     "kiss",
+     "mwah"
+    ]
+   },
+   "emoji": "😘",
+   "name": "Face blowing a kiss"
+  },
+  {
+   "id": "heart",
+   "set": "fluent",
+   "file": "memes/fluent/heart.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "herz",
+     "liebe"
+    ],
+    "tr": [
+     "kalp",
+     "sevgi"
+    ],
+    "en": [
+     "heart",
+     "love"
+    ]
+   },
+   "emoji": "❤️",
+   "name": "Red heart"
+  },
+  {
+   "id": "heart-sparkle",
+   "set": "fluent",
+   "file": "memes/fluent/heart-sparkle.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "glitzerherz",
+     "herzlich"
+    ],
+    "tr": [
+     "parlayan kalp",
+     "pırıltılı kalp"
+    ],
+    "en": [
+     "sparkling heart",
+     "sparkle love"
+    ]
+   },
+   "emoji": "💖",
+   "name": "Sparkling heart"
+  },
+  {
+   "id": "hearts-two",
+   "set": "fluent",
+   "file": "memes/fluent/hearts-two.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "zwei herzen",
+     "verliebt sein"
+    ],
+    "tr": [
+     "iki kalp",
+     "aşk"
+    ],
+    "en": [
+     "two hearts",
+     "lovey"
+    ]
+   },
+   "emoji": "💕",
+   "name": "Two hearts"
+  },
+  {
+   "id": "heart-fire",
+   "set": "fluent",
+   "file": "memes/fluent/heart-fire.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "brennendes herz",
+     "leidenschaft"
+    ],
+    "tr": [
+     "yanan kalp",
+     "tutku"
+    ],
+    "en": [
+     "heart on fire",
+     "passion"
+    ]
+   },
+   "emoji": "❤️‍🔥",
+   "name": "Heart on fire"
+  },
+  {
+   "id": "heart-broken",
+   "set": "fluent",
+   "file": "memes/fluent/heart-broken.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "gebrochenes herz",
+     "herzschmerz"
+    ],
+    "tr": [
+     "kırık kalp",
+     "kalbim kırıldı"
+    ],
+    "en": [
+     "broken heart",
+     "heartbreak"
+    ]
+   },
+   "emoji": "💔",
+   "name": "Broken heart"
+  },
+  {
+   "id": "heart-mend",
+   "set": "fluent",
+   "file": "memes/fluent/heart-mend.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "heilendes herz",
+     "wird wieder"
+    ],
+    "tr": [
+     "iyileşen kalp",
+     "geçecek"
+    ],
+    "en": [
+     "mending heart",
+     "healing"
+    ]
+   },
+   "emoji": "❤️‍🩹",
+   "name": "Mending heart"
+  },
+  {
+   "id": "heart-purple",
+   "set": "fluent",
+   "file": "memes/fluent/heart-purple.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "lila herz",
+     "violettes herz"
+    ],
+    "tr": [
+     "mor kalp",
+     "mor"
+    ],
+    "en": [
+     "purple heart",
+     "purple"
+    ]
+   },
+   "emoji": "💜",
+   "name": "Purple heart"
+  },
+  {
+   "id": "heart-blue",
+   "set": "fluent",
+   "file": "memes/fluent/heart-blue.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "blaues herz",
+     "blau"
+    ],
+    "tr": [
+     "mavi kalp",
+     "mavi"
+    ],
+    "en": [
+     "blue heart",
+     "blue"
+    ]
+   },
+   "emoji": "💙",
+   "name": "Blue heart"
+  },
+  {
+   "id": "heart-pink",
+   "set": "fluent",
+   "file": "memes/fluent/heart-pink.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "rosa herz",
+     "pink"
+    ],
+    "tr": [
+     "pembe kalp",
+     "pembe"
+    ],
+    "en": [
+     "pink heart",
+     "pink"
+    ]
+   },
+   "emoji": "🩷",
+   "name": "Pink heart"
+  },
+  {
+   "id": "heart-hands",
+   "set": "fluent",
+   "file": "memes/fluent/heart-hands.webp",
+   "animated": true,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "herzhände",
+     "herz mit händen"
+    ],
+    "tr": [
+     "kalp eller",
+     "elle kalp"
+    ],
+    "en": [
+     "heart hands",
+     "love you all"
+    ]
+   },
+   "emoji": "🫶",
+   "name": "Heart hands"
+  },
+  {
+   "id": "cat-love",
+   "set": "fluent",
+   "file": "memes/fluent/cat-love.webp",
+   "animated": false,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "verliebte katze",
+     "katzenliebe"
+    ],
+    "tr": [
+     "aşık kedi",
+     "kedi aşkı"
+    ],
+    "en": [
+     "cat heart eyes",
+     "cat love"
+    ]
+   },
+   "emoji": "😻",
+   "name": "Smiling cat with heart-eyes"
+  },
+  {
+   "id": "fire",
+   "set": "fluent",
+   "file": "memes/fluent/fire.webp",
+   "animated": true,
+   "category": "fire",
+   "keywords": {
+    "de": [
+     "feuer",
+     "heiß"
+    ],
+    "tr": [
+     "ateş",
+     "yanıyor"
+    ],
+    "en": [
+     "fire",
+     "lit"
+    ]
+   },
+   "emoji": "🔥",
+   "name": "Fire"
+  },
+  {
+   "id": "hot",
+   "set": "fluent",
+   "file": "memes/fluent/hot.webp",
+   "animated": false,
+   "category": "fire",
+   "keywords": {
+    "de": [
+     "heiß",
+     "schwitzen"
+    ],
+    "tr": [
+     "sıcak",
+     "terledim"
+    ],
+    "en": [
+     "hot",
+     "sweating"
+    ]
+   },
+   "emoji": "🥵",
+   "name": "Hot face"
+  },
+  {
+   "id": "lightning",
+   "set": "fluent",
+   "file": "memes/fluent/lightning.webp",
+   "animated": true,
+   "category": "weather",
+   "keywords": {
+    "de": [
+     "blitz",
+     "energie"
+    ],
+    "tr": [
+     "şimşek",
+     "enerji"
+    ],
+    "en": [
+     "lightning",
+     "zap"
+    ]
+   },
+   "emoji": "⚡",
+   "name": "High voltage"
+  },
+  {
+   "id": "collision",
+   "set": "fluent",
+   "file": "memes/fluent/collision.webp",
+   "animated": false,
+   "category": "fire",
+   "keywords": {
+    "de": [
+     "bumm",
+     "knall"
+    ],
+    "tr": [
+     "bum",
+     "patlama"
+    ],
+    "en": [
+     "boom",
+     "pow"
+    ]
+   },
+   "emoji": "💥",
+   "name": "Collision"
+  },
+  {
+   "id": "party",
+   "set": "fluent",
+   "file": "memes/fluent/party.webp",
+   "animated": true,
+   "category": "party",
+   "keywords": {
+    "de": [
+     "party",
+     "feiern"
+    ],
+    "tr": [
+     "parti",
+     "kutlama"
+    ],
+    "en": [
+     "party",
+     "celebrate"
+    ]
+   },
+   "emoji": "🎉",
+   "name": "Party popper"
+  },
+  {
+   "id": "party-face",
+   "set": "fluent",
+   "file": "memes/fluent/party-face.webp",
+   "animated": true,
+   "category": "party",
+   "keywords": {
+    "de": [
+     "partygesicht",
+     "feierlaune"
+    ],
+    "tr": [
+     "parti yüzü",
+     "eğlence"
+    ],
+    "en": [
+     "partying",
+     "woohoo"
+    ]
+   },
+   "emoji": "🥳",
+   "name": "Partying face"
+  },
+  {
+   "id": "confetti",
+   "set": "fluent",
+   "file": "memes/fluent/confetti.webp",
+   "animated": false,
+   "category": "party",
+   "keywords": {
+    "de": [
+     "konfetti",
+     "glückwunsch"
+    ],
+    "tr": [
+     "konfeti",
+     "tebrikler"
+    ],
+    "en": [
+     "confetti",
+     "congrats"
+    ]
+   },
+   "emoji": "🎊",
+   "name": "Confetti ball"
+  },
+  {
+   "id": "cake",
+   "set": "fluent",
+   "file": "memes/fluent/cake.webp",
+   "animated": false,
+   "category": "party",
+   "keywords": {
+    "de": [
+     "geburtstagstorte",
+     "torte"
+    ],
+    "tr": [
+     "doğum günü pastası",
+     "pasta"
+    ],
+    "en": [
+     "birthday cake",
+     "cake"
+    ]
+   },
+   "emoji": "🎂",
+   "name": "Birthday cake"
+  },
+  {
+   "id": "balloon",
+   "set": "fluent",
+   "file": "memes/fluent/balloon.webp",
+   "animated": false,
+   "category": "party",
+   "keywords": {
+    "de": [
+     "luftballon",
+     "ballon"
+    ],
+    "tr": [
+     "balon",
+     "uçan balon"
+    ],
+    "en": [
+     "balloon",
+     "float"
+    ]
+   },
+   "emoji": "🎈",
+   "name": "Balloon"
+  },
+  {
+   "id": "gift",
+   "set": "fluent",
+   "file": "memes/fluent/gift.webp",
+   "animated": false,
+   "category": "party",
+   "keywords": {
+    "de": [
+     "geschenk",
+     "überraschung"
+    ],
+    "tr": [
+     "hediye",
+     "sürpriz"
+    ],
+    "en": [
+     "gift",
+     "present"
+    ]
+   },
+   "emoji": "🎁",
+   "name": "Wrapped gift"
+  },
+  {
+   "id": "music",
+   "set": "fluent",
+   "file": "memes/fluent/music.webp",
+   "animated": false,
+   "category": "party",
+   "keywords": {
+    "de": [
+     "musik",
+     "noten"
+    ],
+    "tr": [
+     "müzik",
+     "notalar"
+    ],
+    "en": [
+     "music",
+     "tune"
+    ]
+   },
+   "emoji": "🎶",
+   "name": "Musical notes"
+  },
+  {
+   "id": "clap",
+   "set": "fluent",
+   "file": "memes/fluent/clap.webp",
+   "animated": true,
+   "category": "applause",
+   "keywords": {
+    "de": [
+     "klatschen",
+     "applaus"
+    ],
+    "tr": [
+     "alkış",
+     "bravo"
+    ],
+    "en": [
+     "clap",
+     "applause"
+    ]
+   },
+   "emoji": "👏",
+   "name": "Clapping hands"
+  },
+  {
+   "id": "raise-hands",
+   "set": "fluent",
+   "file": "memes/fluent/raise-hands.webp",
+   "animated": true,
+   "category": "applause",
+   "keywords": {
+    "de": [
+     "hände hoch",
+     "hurra"
+    ],
+    "tr": [
+     "eller havaya",
+     "yaşasın"
+    ],
+    "en": [
+     "raise hands",
+     "hooray"
+    ]
+   },
+   "emoji": "🙌",
+   "name": "Raising hands"
+  },
+  {
+   "id": "thumbs-up",
+   "set": "fluent",
+   "file": "memes/fluent/thumbs-up.webp",
+   "animated": true,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "daumen hoch",
+     "gut"
+    ],
+    "tr": [
+     "beğendim",
+     "süper"
+    ],
+    "en": [
+     "thumbs up",
+     "like"
+    ]
+   },
+   "emoji": "👍",
+   "name": "Thumbs up"
+  },
+  {
+   "id": "thumbs-down",
+   "set": "fluent",
+   "file": "memes/fluent/thumbs-down.webp",
+   "animated": true,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "daumen runter",
+     "schlecht"
+    ],
+    "tr": [
+     "beğenmedim",
+     "kötü"
+    ],
+    "en": [
+     "thumbs down",
+     "dislike"
+    ]
+   },
+   "emoji": "👎",
+   "name": "Thumbs down"
+  },
+  {
+   "id": "ok-hand",
+   "set": "fluent",
+   "file": "memes/fluent/ok-hand.webp",
+   "animated": false,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "okay",
+     "perfekt"
+    ],
+    "tr": [
+     "tamam",
+     "mükemmel"
+    ],
+    "en": [
+     "ok",
+     "perfect"
+    ]
+   },
+   "emoji": "👌",
+   "name": "Ok hand"
+  },
+  {
+   "id": "victory",
+   "set": "fluent",
+   "file": "memes/fluent/victory.webp",
+   "animated": true,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "peace",
+     "sieg"
+    ],
+    "tr": [
+     "zafer",
+     "barış"
+    ],
+    "en": [
+     "victory",
+     "peace"
+    ]
+   },
+   "emoji": "✌️",
+   "name": "Victory hand"
+  },
+  {
+   "id": "love-you",
+   "set": "fluent",
+   "file": "memes/fluent/love-you.webp",
+   "animated": true,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "hab dich lieb",
+     "love you"
+    ],
+    "tr": [
+     "seni seviyorum",
+     "sevgiler"
+    ],
+    "en": [
+     "love you",
+     "ily"
+    ]
+   },
+   "emoji": "🤟",
+   "name": "Love-you gesture"
+  },
+  {
+   "id": "wave",
+   "set": "fluent",
+   "file": "memes/fluent/wave.webp",
+   "animated": true,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "winken",
+     "hallo"
+    ],
+    "tr": [
+     "el sallamak",
+     "merhaba"
+    ],
+    "en": [
+     "wave",
+     "hello"
+    ]
+   },
+   "emoji": "👋",
+   "name": "Waving hand"
+  },
+  {
+   "id": "muscle",
+   "set": "fluent",
+   "file": "memes/fluent/muscle.webp",
+   "animated": false,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "stark",
+     "muskeln"
+    ],
+    "tr": [
+     "güçlü",
+     "kas"
+    ],
+    "en": [
+     "strong",
+     "flex"
+    ]
+   },
+   "emoji": "💪",
+   "name": "Flexed biceps"
+  },
+  {
+   "id": "fingers-crossed",
+   "set": "fluent",
+   "file": "memes/fluent/fingers-crossed.webp",
+   "animated": true,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "daumen drücken",
+     "viel glück"
+    ],
+    "tr": [
+     "şans dile",
+     "umarım"
+    ],
+    "en": [
+     "fingers crossed",
+     "good luck"
+    ]
+   },
+   "emoji": "🤞",
+   "name": "Crossed fingers"
+  },
+  {
+   "id": "handshake",
+   "set": "fluent",
+   "file": "memes/fluent/handshake.webp",
+   "animated": true,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "handschlag",
+     "deal"
+    ],
+    "tr": [
+     "tokalaşma",
+     "anlaştık"
+    ],
+    "en": [
+     "handshake",
+     "deal"
+    ]
+   },
+   "emoji": "🤝",
+   "name": "Handshake"
+  },
+  {
+   "id": "point-you",
+   "set": "fluent",
+   "file": "memes/fluent/point-you.webp",
+   "animated": true,
+   "category": "thumbs",
+   "keywords": {
+    "de": [
+     "du",
+     "genau du"
+    ],
+    "tr": [
+     "sen",
+     "evet sen"
+    ],
+    "en": [
+     "you",
+     "i choose you"
+    ]
+   },
+   "emoji": "🫵",
+   "name": "Index pointing at the viewer"
+  },
+  {
+   "id": "sob",
+   "set": "fluent",
+   "file": "memes/fluent/sob.webp",
+   "animated": true,
+   "category": "sad",
+   "keywords": {
+    "de": [
+     "heulen",
+     "weinen"
+    ],
+    "tr": [
+     "hüngür hüngür",
+     "ağlıyorum"
+    ],
+    "en": [
+     "sob",
+     "crying"
+    ]
+   },
+   "emoji": "😭",
+   "name": "Loudly crying face"
+  },
+  {
+   "id": "cry",
+   "set": "fluent",
+   "file": "memes/fluent/cry.webp",
+   "animated": false,
+   "category": "sad",
+   "keywords": {
+    "de": [
+     "traurig",
+     "träne"
+    ],
+    "tr": [
+     "üzgün",
+     "gözyaşı"
+    ],
+    "en": [
+     "sad",
+     "tear"
+    ]
+   },
+   "emoji": "😢",
+   "name": "Crying face"
+  },
+  {
+   "id": "holding-tears",
+   "set": "fluent",
+   "file": "memes/fluent/holding-tears.webp",
+   "animated": false,
+   "category": "sad",
+   "keywords": {
+    "de": [
+     "gerührt",
+     "tränen zurückhalten"
+    ],
+    "tr": [
+     "duygulandım",
+     "gözlerim doldu"
+    ],
+    "en": [
+     "touched",
+     "holding back tears"
+    ]
+   },
+   "emoji": "🥹",
+   "name": "Face holding back tears"
+  },
+  {
+   "id": "weary",
+   "set": "fluent",
+   "file": "memes/fluent/weary.webp",
+   "animated": false,
+   "category": "sad",
+   "keywords": {
+    "de": [
+     "erschöpft",
+     "nicht schon wieder"
+    ],
+    "tr": [
+     "bıktım",
+     "yoruldum"
+    ],
+    "en": [
+     "weary",
+     "ugh"
+    ]
+   },
+   "emoji": "😩",
+   "name": "Weary face"
+  },
+  {
+   "id": "pleading",
+   "set": "fluent",
+   "file": "memes/fluent/pleading.webp",
+   "animated": true,
+   "category": "pleading",
+   "keywords": {
+    "de": [
+     "bitte bitte",
+     "hundeblick"
+    ],
+    "tr": [
+     "lütfen",
+     "kıyamam"
+    ],
+    "en": [
+     "pleading",
+     "puppy eyes"
+    ]
+   },
+   "emoji": "🥺",
+   "name": "Pleading face"
+  },
+  {
+   "id": "smile-tear",
+   "set": "fluent",
+   "file": "memes/fluent/smile-tear.webp",
+   "animated": false,
+   "category": "sad",
+   "keywords": {
+    "de": [
+     "lachen und weinen",
+     "tapfer"
+    ],
+    "tr": [
+     "buruk gülümseme",
+     "gülerken ağlamak"
+    ],
+    "en": [
+     "smiling through tears",
+     "bittersweet"
+    ]
+   },
+   "emoji": "🥲",
+   "name": "Smiling face with tear"
+  },
+  {
+   "id": "melting",
+   "set": "fluent",
+   "file": "memes/fluent/melting.webp",
+   "animated": false,
+   "category": "sad",
+   "keywords": {
+    "de": [
+     "dahinschmelzen",
+     "zerfließen"
+    ],
+    "tr": [
+     "eriyorum",
+     "erimek"
+    ],
+    "en": [
+     "melting",
+     "melt"
+    ]
+   },
+   "emoji": "🫠",
+   "name": "Melting face"
+  },
+  {
+   "id": "facepalm",
+   "set": "fluent",
+   "file": "memes/fluent/facepalm.webp",
+   "animated": true,
+   "category": "facepalm",
+   "keywords": {
+    "de": [
+     "facepalm",
+     "kopf schütteln"
+    ],
+    "tr": [
+     "yüzüne vurmak",
+     "pes"
+    ],
+    "en": [
+     "facepalm",
+     "smh"
+    ]
+   },
+   "emoji": "🤦",
+   "name": "Person facepalming"
+  },
+  {
+   "id": "shrug",
+   "set": "fluent",
+   "file": "memes/fluent/shrug.webp",
+   "animated": false,
+   "category": "facepalm",
+   "keywords": {
+    "de": [
+     "schulterzucken",
+     "keine ahnung"
+    ],
+    "tr": [
+     "omuz silkmek",
+     "bilmiyorum"
+    ],
+    "en": [
+     "shrug",
+     "idk"
+    ]
+   },
+   "emoji": "🤷",
+   "name": "Person shrugging"
+  },
+  {
+   "id": "eye-roll",
+   "set": "fluent",
+   "file": "memes/fluent/eye-roll.webp",
+   "animated": true,
+   "category": "facepalm",
+   "keywords": {
+    "de": [
+     "augenrollen",
+     "ach komm"
+    ],
+    "tr": [
+     "göz devirmek",
+     "hadi ya"
+    ],
+    "en": [
+     "eye roll",
+     "whatever"
+    ]
+   },
+   "emoji": "🙄",
+   "name": "Face with rolling eyes"
+  },
+  {
+   "id": "unamused",
+   "set": "fluent",
+   "file": "memes/fluent/unamused.webp",
+   "animated": false,
+   "category": "facepalm",
+   "keywords": {
+    "de": [
+     "genervt",
+     "nicht lustig"
+    ],
+    "tr": [
+     "sıkıldım",
+     "komik değil"
+    ],
+    "en": [
+     "unamused",
+     "meh"
+    ]
+   },
+   "emoji": "😒",
+   "name": "Unamused face"
+  },
+  {
+   "id": "dizzy-face",
+   "set": "fluent",
+   "file": "memes/fluent/dizzy-face.webp",
+   "animated": false,
+   "category": "facepalm",
+   "keywords": {
+    "de": [
+     "schwindelig",
+     "verwirrt"
+    ],
+    "tr": [
+     "başım döndü",
+     "kafam karıştı"
+    ],
+    "en": [
+     "dizzy",
+     "confused"
+    ]
+   },
+   "emoji": "😵‍💫",
+   "name": "Face with spiral eyes"
+  },
+  {
+   "id": "exhale",
+   "set": "fluent",
+   "file": "memes/fluent/exhale.webp",
+   "animated": false,
+   "category": "facepalm",
+   "keywords": {
+    "de": [
+     "ausatmen",
+     "puuh"
+    ],
+    "tr": [
+     "oh be",
+     "nefes vermek"
+    ],
+    "en": [
+     "exhale",
+     "sigh"
+    ]
+   },
+   "emoji": "😮‍💨",
+   "name": "Face exhaling"
+  },
+  {
+   "id": "thinking",
+   "set": "fluent",
+   "file": "memes/fluent/thinking.webp",
+   "animated": true,
+   "category": "thinking",
+   "keywords": {
+    "de": [
+     "nachdenken",
+     "hmm"
+    ],
+    "tr": [
+     "düşünmek",
+     "hmm"
+    ],
+    "en": [
+     "thinking",
+     "hmm"
+    ]
+   },
+   "emoji": "🤔",
+   "name": "Thinking face"
+  },
+  {
+   "id": "monocle",
+   "set": "fluent",
+   "file": "memes/fluent/monocle.webp",
+   "animated": false,
+   "category": "thinking",
+   "keywords": {
+    "de": [
+     "genau hinsehen",
+     "prüfen"
+    ],
+    "tr": [
+     "inceleme",
+     "dikkatle bakmak"
+    ],
+    "en": [
+     "monocle",
+     "inspect"
+    ]
+   },
+   "emoji": "🧐",
+   "name": "Face with monocle"
+  },
+  {
+   "id": "raised-eyebrow",
+   "set": "fluent",
+   "file": "memes/fluent/raised-eyebrow.webp",
+   "animated": false,
+   "category": "thinking",
+   "keywords": {
+    "de": [
+     "skeptisch",
+     "echt jetzt"
+    ],
+    "tr": [
+     "şüpheli",
+     "cidden mi"
+    ],
+    "en": [
+     "skeptical",
+     "really"
+    ]
+   },
+   "emoji": "🤨",
+   "name": "Face with raised eyebrow"
+  },
+  {
+   "id": "shush",
+   "set": "fluent",
+   "file": "memes/fluent/shush.webp",
+   "animated": false,
+   "category": "thinking",
+   "keywords": {
+    "de": [
+     "psst",
+     "leise"
+    ],
+    "tr": [
+     "şşş",
+     "sessiz ol"
+    ],
+    "en": [
+     "shh",
+     "quiet"
+    ]
+   },
+   "emoji": "🤫",
+   "name": "Shushing face"
+  },
+  {
+   "id": "nerd",
+   "set": "fluent",
+   "file": "memes/fluent/nerd.webp",
+   "animated": false,
+   "category": "thinking",
+   "keywords": {
+    "de": [
+     "streber",
+     "nerd"
+    ],
+    "tr": [
+     "inek",
+     "bilgiç"
+    ],
+    "en": [
+     "nerd",
+     "actually"
+    ]
+   },
+   "emoji": "🤓",
+   "name": "Nerd face"
+  },
+  {
+   "id": "brain",
+   "set": "fluent",
+   "file": "memes/fluent/brain.webp",
+   "animated": true,
+   "category": "thinking",
+   "keywords": {
+    "de": [
+     "gehirn",
+     "schlau"
+    ],
+    "tr": [
+     "beyin",
+     "akıllı"
+    ],
+    "en": [
+     "brain",
+     "smart"
+    ]
+   },
+   "emoji": "🧠",
+   "name": "Brain"
+  },
+  {
+   "id": "idea",
+   "set": "fluent",
+   "file": "memes/fluent/idea.webp",
+   "animated": false,
+   "category": "thinking",
+   "keywords": {
+    "de": [
+     "idee",
+     "geistesblitz"
+    ],
+    "tr": [
+     "fikir",
+     "aklıma geldi"
+    ],
+    "en": [
+     "idea",
+     "light bulb"
+    ]
+   },
+   "emoji": "💡",
+   "name": "Light bulb"
+  },
+  {
+   "id": "cool",
+   "set": "fluent",
+   "file": "memes/fluent/cool.webp",
+   "animated": true,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "cool",
+     "lässig"
+    ],
+    "tr": [
+     "havalı",
+     "cool"
+    ],
+    "en": [
+     "cool",
+     "sunglasses"
+    ]
+   },
+   "emoji": "😎",
+   "name": "Smiling face with sunglasses"
+  },
+  {
+   "id": "cold",
+   "set": "fluent",
+   "file": "memes/fluent/cold.webp",
+   "animated": false,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "eiskalt",
+     "frieren"
+    ],
+    "tr": [
+     "buz gibi",
+     "üşüdüm"
+    ],
+    "en": [
+     "cold",
+     "freezing"
+    ]
+   },
+   "emoji": "🥶",
+   "name": "Cold face"
+  },
+  {
+   "id": "star-struck",
+   "set": "fluent",
+   "file": "memes/fluent/star-struck.webp",
+   "animated": true,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "begeistert",
+     "sternenaugen"
+    ],
+    "tr": [
+     "hayran",
+     "büyülendim"
+    ],
+    "en": [
+     "star struck",
+     "amazing"
+    ]
+   },
+   "emoji": "🤩",
+   "name": "Star-struck"
+  },
+  {
+   "id": "cowboy",
+   "set": "fluent",
+   "file": "memes/fluent/cowboy.webp",
+   "animated": true,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "cowboy",
+     "yeehaw"
+    ],
+    "tr": [
+     "kovboy",
+     "yihaa"
+    ],
+    "en": [
+     "cowboy",
+     "yeehaw"
+    ]
+   },
+   "emoji": "🤠",
+   "name": "Cowboy hat face"
+  },
+  {
+   "id": "wink",
+   "set": "fluent",
+   "file": "memes/fluent/wink.webp",
+   "animated": true,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "zwinkern",
+     "zwinker"
+    ],
+    "tr": [
+     "göz kırpmak",
+     "göz kırp"
+    ],
+    "en": [
+     "wink",
+     "winky"
+    ]
+   },
+   "emoji": "😉",
+   "name": "Winking face"
+  },
+  {
+   "id": "upside-down",
+   "set": "fluent",
+   "file": "memes/fluent/upside-down.webp",
+   "animated": false,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "kopfüber",
+     "ironisch"
+    ],
+    "tr": [
+     "ters yüz",
+     "ironik"
+    ],
+    "en": [
+     "upside down",
+     "ironic"
+    ]
+   },
+   "emoji": "🙃",
+   "name": "Upside-down face"
+  },
+  {
+   "id": "zany",
+   "set": "fluent",
+   "file": "memes/fluent/zany.webp",
+   "animated": false,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "verrückt",
+     "durchgeknallt"
+    ],
+    "tr": [
+     "çılgın",
+     "deli dolu"
+    ],
+    "en": [
+     "zany",
+     "crazy"
+    ]
+   },
+   "emoji": "🤪",
+   "name": "Zany face"
+  },
+  {
+   "id": "wink-tongue",
+   "set": "fluent",
+   "file": "memes/fluent/wink-tongue.webp",
+   "animated": true,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "frech",
+     "albern"
+    ],
+    "tr": [
+     "şakacı",
+     "muzip"
+    ],
+    "en": [
+     "cheeky",
+     "silly"
+    ]
+   },
+   "emoji": "😜",
+   "name": "Winking face with tongue"
+  },
+  {
+   "id": "money-mouth",
+   "set": "fluent",
+   "file": "memes/fluent/money-mouth.webp",
+   "animated": false,
+   "category": "money",
+   "keywords": {
+    "de": [
+     "geldgesicht",
+     "reich"
+    ],
+    "tr": [
+     "para yüzü",
+     "zengin"
+    ],
+    "en": [
+     "money mouth",
+     "rich"
+    ]
+   },
+   "emoji": "🤑",
+   "name": "Money-mouth face"
+  },
+  {
+   "id": "clown",
+   "set": "fluent",
+   "file": "memes/fluent/clown.webp",
+   "animated": false,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "clown",
+     "zirkus"
+    ],
+    "tr": [
+     "palyaço",
+     "sirk"
+    ],
+    "en": [
+     "clown",
+     "circus"
+    ]
+   },
+   "emoji": "🤡",
+   "name": "Clown face"
+  },
+  {
+   "id": "robot",
+   "set": "fluent",
+   "file": "memes/fluent/robot.webp",
+   "animated": true,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "roboter",
+     "beep boop"
+    ],
+    "tr": [
+     "robot",
+     "bip bop"
+    ],
+    "en": [
+     "robot",
+     "beep boop"
+    ]
+   },
+   "emoji": "🤖",
+   "name": "Robot"
+  },
+  {
+   "id": "alien",
+   "set": "fluent",
+   "file": "memes/fluent/alien.webp",
+   "animated": false,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "außerirdischer",
+     "alien"
+    ],
+    "tr": [
+     "uzaylı",
+     "yaratık"
+    ],
+    "en": [
+     "alien",
+     "ufo"
+    ]
+   },
+   "emoji": "👽",
+   "name": "Alien"
+  },
+  {
+   "id": "ghost",
+   "set": "fluent",
+   "file": "memes/fluent/ghost.webp",
+   "animated": true,
+   "category": "ghost",
+   "keywords": {
+    "de": [
+     "gespenst",
+     "buh"
+    ],
+    "tr": [
+     "hayalet",
+     "öcü"
+    ],
+    "en": [
+     "ghost",
+     "boo"
+    ]
+   },
+   "emoji": "👻",
+   "name": "Ghost"
+  },
+  {
+   "id": "relieved",
+   "set": "fluent",
+   "file": "memes/fluent/relieved.webp",
+   "animated": false,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "erleichtert",
+     "entspannt"
+    ],
+    "tr": [
+     "rahatladım",
+     "huzurlu"
+    ],
+    "en": [
+     "relieved",
+     "calm"
+    ]
+   },
+   "emoji": "😌",
+   "name": "Relieved face"
+  },
+  {
+   "id": "hug",
+   "set": "fluent",
+   "file": "memes/fluent/hug.webp",
+   "animated": false,
+   "category": "love",
+   "keywords": {
+    "de": [
+     "umarmung",
+     "drücker"
+    ],
+    "tr": [
+     "sarılmak",
+     "kucaklama"
+    ],
+    "en": [
+     "hug",
+     "hugs"
+    ]
+   },
+   "emoji": "🤗",
+   "name": "Hugging face"
+  },
+  {
+   "id": "yum",
+   "set": "fluent",
+   "file": "memes/fluent/yum.webp",
+   "animated": false,
+   "category": "food",
+   "keywords": {
+    "de": [
+     "lecker",
+     "mjam"
+    ],
+    "tr": [
+     "nefis",
+     "lezzetli"
+    ],
+    "en": [
+     "yummy",
+     "delicious"
+    ]
+   },
+   "emoji": "😋",
+   "name": "Face savoring food"
+  },
+  {
+   "id": "yawn",
+   "set": "fluent",
+   "file": "memes/fluent/yawn.webp",
+   "animated": false,
+   "category": "sleeping",
+   "keywords": {
+    "de": [
+     "gähnen",
+     "langweilig"
+    ],
+    "tr": [
+     "esnemek",
+     "sıkıcı"
+    ],
+    "en": [
+     "yawn",
+     "boring"
+    ]
+   },
+   "emoji": "🥱",
+   "name": "Yawning face"
+  },
+  {
+   "id": "sleeping",
+   "set": "fluent",
+   "file": "memes/fluent/sleeping.webp",
+   "animated": true,
+   "category": "sleeping",
+   "keywords": {
+    "de": [
+     "schlafen",
+     "müde"
+    ],
+    "tr": [
+     "uyumak",
+     "uykulu"
+    ],
+    "en": [
+     "sleeping",
+     "tired"
+    ]
+   },
+   "emoji": "😴",
+   "name": "Sleeping face"
+  },
+  {
+   "id": "zzz",
+   "set": "fluent",
+   "file": "memes/fluent/zzz.webp",
+   "animated": false,
+   "category": "sleeping",
+   "keywords": {
+    "de": [
+     "zzz",
+     "schnarchen"
+    ],
+    "tr": [
+     "horul horul",
+     "zzz"
+    ],
+    "en": [
+     "zzz",
+     "snore"
+    ]
+   },
+   "emoji": "💤",
+   "name": "Zzz"
+  },
+  {
+   "id": "angry",
+   "set": "fluent",
+   "file": "memes/fluent/angry.webp",
+   "animated": false,
+   "category": "angry",
+   "keywords": {
+    "de": [
+     "sauer",
+     "grummel"
+    ],
+    "tr": [
+     "kızgın",
+     "sinirli"
+    ],
+    "en": [
+     "angry",
+     "grumpy"
+    ]
+   },
+   "emoji": "😠",
+   "name": "Angry face"
+  },
+  {
+   "id": "pouting",
+   "set": "fluent",
+   "file": "memes/fluent/pouting.webp",
+   "animated": false,
+   "category": "angry",
+   "keywords": {
+    "de": [
+     "wütend",
+     "rot vor wut"
+    ],
+    "tr": [
+     "öfkeli",
+     "çok kızgın"
+    ],
+    "en": [
+     "mad",
+     "furious"
+    ]
+   },
+   "emoji": "😡",
+   "name": "Pouting face"
+  },
+  {
+   "id": "hundred",
+   "set": "fluent",
+   "file": "memes/fluent/hundred.webp",
+   "animated": false,
+   "category": "100",
+   "keywords": {
+    "de": [
+     "hundert",
+     "volle punktzahl"
+    ],
+    "tr": [
+     "yüz puan",
+     "tam puan"
+    ],
+    "en": [
+     "hundred",
+     "one hundred"
+    ]
+   },
+   "emoji": "💯",
+   "name": "Hundred points"
+  },
+  {
+   "id": "check",
+   "set": "fluent",
+   "file": "memes/fluent/check.webp",
+   "animated": false,
+   "category": "symbol",
+   "keywords": {
+    "de": [
+     "erledigt",
+     "häkchen"
+    ],
+    "tr": [
+     "tamamlandı",
+     "onay"
+    ],
+    "en": [
+     "done",
+     "check"
+    ]
+   },
+   "emoji": "✅",
+   "name": "Check mark button"
+  },
+  {
+   "id": "cross",
+   "set": "fluent",
+   "file": "memes/fluent/cross.webp",
+   "animated": false,
+   "category": "symbol",
+   "keywords": {
+    "de": [
+     "falsch",
+     "nein"
+    ],
+    "tr": [
+     "yanlış",
+     "hayır"
+    ],
+    "en": [
+     "wrong",
+     "no"
+    ]
+   },
+   "emoji": "❌",
+   "name": "Cross mark"
+  },
+  {
+   "id": "question",
+   "set": "fluent",
+   "file": "memes/fluent/question.webp",
+   "animated": false,
+   "category": "symbol",
+   "keywords": {
+    "de": [
+     "frage",
+     "was"
+    ],
+    "tr": [
+     "soru",
+     "ne"
+    ],
+    "en": [
+     "question",
+     "what"
+    ]
+   },
+   "emoji": "❓",
+   "name": "Red question mark"
+  },
+  {
+   "id": "megaphone",
+   "set": "fluent",
+   "file": "memes/fluent/megaphone.webp",
+   "animated": false,
+   "category": "symbol",
+   "keywords": {
+    "de": [
+     "ansage",
+     "durchsage"
+    ],
+    "tr": [
+     "duyuru",
+     "megafon"
+    ],
+    "en": [
+     "announcement",
+     "megaphone"
+    ]
+   },
+   "emoji": "📣",
+   "name": "Megaphone"
+  },
+  {
+   "id": "alarm",
+   "set": "fluent",
+   "file": "memes/fluent/alarm.webp",
+   "animated": true,
+   "category": "symbol",
+   "keywords": {
+    "de": [
+     "wecker",
+     "zeit"
+    ],
+    "tr": [
+     "çalar saat",
+     "zaman"
+    ],
+    "en": [
+     "alarm",
+     "time"
+    ]
+   },
+   "emoji": "⏰",
+   "name": "Alarm clock"
+  },
+  {
+   "id": "stopwatch",
+   "set": "fluent",
+   "file": "memes/fluent/stopwatch.webp",
+   "animated": true,
+   "category": "symbol",
+   "keywords": {
+    "de": [
+     "stoppuhr",
+     "schnell"
+    ],
+    "tr": [
+     "kronometre",
+     "hızlı"
+    ],
+    "en": [
+     "stopwatch",
+     "speedrun"
+    ]
+   },
+   "emoji": "⏱️",
+   "name": "Stopwatch"
+  },
+  {
+   "id": "rocket",
+   "set": "fluent",
+   "file": "memes/fluent/rocket.webp",
+   "animated": true,
+   "category": "rocket",
+   "keywords": {
+    "de": [
+     "rakete",
+     "abheben"
+    ],
+    "tr": [
+     "roket",
+     "havalan"
+    ],
+    "en": [
+     "rocket",
+     "to the moon"
+    ]
+   },
+   "emoji": "🚀",
+   "name": "Rocket"
+  },
+  {
+   "id": "crown",
+   "set": "fluent",
+   "file": "memes/fluent/crown.webp",
+   "animated": false,
+   "category": "crown",
+   "keywords": {
+    "de": [
+     "krone",
+     "könig"
+    ],
+    "tr": [
+     "taç",
+     "kral"
+    ],
+    "en": [
+     "crown",
+     "king"
+    ]
+   },
+   "emoji": "👑",
+   "name": "Crown"
+  },
+  {
+   "id": "trophy",
+   "set": "fluent",
+   "file": "memes/fluent/trophy.webp",
+   "animated": false,
+   "category": "trophy",
+   "keywords": {
+    "de": [
+     "pokal",
+     "sieger"
+    ],
+    "tr": [
+     "kupa",
+     "şampiyon"
+    ],
+    "en": [
+     "trophy",
+     "champion"
+    ]
+   },
+   "emoji": "🏆",
+   "name": "Trophy"
+  },
+  {
+   "id": "medal",
+   "set": "fluent",
+   "file": "memes/fluent/medal.webp",
+   "animated": false,
+   "category": "trophy",
+   "keywords": {
+    "de": [
+     "goldmedaille",
+     "erster platz"
+    ],
+    "tr": [
+     "altın madalya",
+     "birinci"
+    ],
+    "en": [
+     "gold medal",
+     "first place"
+    ]
+   },
+   "emoji": "🥇",
+   "name": "1st place medal"
+  },
+  {
+   "id": "target",
+   "set": "fluent",
+   "file": "memes/fluent/target.webp",
+   "animated": false,
+   "category": "trophy",
+   "keywords": {
+    "de": [
+     "volltreffer",
+     "ins schwarze"
+    ],
+    "tr": [
+     "tam isabet",
+     "on ikiden"
+    ],
+    "en": [
+     "bullseye",
+     "on target"
+    ]
+   },
+   "emoji": "🎯",
+   "name": "Bullseye"
+  },
+  {
+   "id": "money-bag",
+   "set": "fluent",
+   "file": "memes/fluent/money-bag.webp",
+   "animated": false,
+   "category": "money",
+   "keywords": {
+    "de": [
+     "geldsack",
+     "kohle"
+    ],
+    "tr": [
+     "para çantası",
+     "para"
+    ],
+    "en": [
+     "money bag",
+     "cash"
+    ]
+   },
+   "emoji": "💰",
+   "name": "Money bag"
+  },
+  {
+   "id": "gem",
+   "set": "fluent",
+   "file": "memes/fluent/gem.webp",
+   "animated": false,
+   "category": "money",
+   "keywords": {
+    "de": [
+     "diamant",
+     "juwel"
+    ],
+    "tr": [
+     "elmas",
+     "mücevher"
+    ],
+    "en": [
+     "diamond",
+     "gem"
+    ]
+   },
+   "emoji": "💎",
+   "name": "Gem stone"
+  },
+  {
+   "id": "glowing-star",
+   "set": "fluent",
+   "file": "memes/fluent/glowing-star.webp",
+   "animated": false,
+   "category": "star",
+   "keywords": {
+    "de": [
+     "leuchtender stern",
+     "superstar"
+    ],
+    "tr": [
+     "parlayan yıldız",
+     "süperstar"
+    ],
+    "en": [
+     "glowing star",
+     "superstar"
+    ]
+   },
+   "emoji": "🌟",
+   "name": "Glowing star"
+  },
+  {
+   "id": "star",
+   "set": "fluent",
+   "file": "memes/fluent/star.webp",
+   "animated": true,
+   "category": "star",
+   "keywords": {
+    "de": [
+     "stern",
+     "top"
+    ],
+    "tr": [
+     "yıldız",
+     "harika"
+    ],
+    "en": [
+     "star",
+     "gold star"
+    ]
+   },
+   "emoji": "⭐",
+   "name": "Star"
+  },
+  {
+   "id": "sparkles",
+   "set": "fluent",
+   "file": "memes/fluent/sparkles.webp",
+   "animated": false,
+   "category": "sparkles",
+   "keywords": {
+    "de": [
+     "glitzer",
+     "funkeln"
+    ],
+    "tr": [
+     "pırıltı",
+     "parıltı"
+    ],
+    "en": [
+     "sparkles",
+     "shiny"
+    ]
+   },
+   "emoji": "✨",
+   "name": "Sparkles"
+  },
+  {
+   "id": "shooting-star",
+   "set": "fluent",
+   "file": "memes/fluent/shooting-star.webp",
+   "animated": true,
+   "category": "star",
+   "keywords": {
+    "de": [
+     "sternschnuppe",
+     "wünsch dir was"
+    ],
+    "tr": [
+     "kayan yıldız",
+     "dilek tut"
+    ],
+    "en": [
+     "shooting star",
+     "make a wish"
+    ]
+   },
+   "emoji": "🌠",
+   "name": "Shooting star"
+  },
+  {
+   "id": "eyes",
+   "set": "fluent",
+   "file": "memes/fluent/eyes.webp",
+   "animated": true,
+   "category": "eyes",
+   "keywords": {
+    "de": [
+     "augen",
+     "ich schau"
+    ],
+    "tr": [
+     "gözler",
+     "bakıyorum"
+    ],
+    "en": [
+     "eyes",
+     "watching"
+    ]
+   },
+   "emoji": "👀",
+   "name": "Eyes"
+  },
+  {
+   "id": "popcorn",
+   "set": "fluent",
+   "file": "memes/fluent/popcorn.webp",
+   "animated": false,
+   "category": "popcorn",
+   "keywords": {
+    "de": [
+     "popcorn",
+     "drama"
+    ],
+    "tr": [
+     "patlamış mısır",
+     "dram"
+    ],
+    "en": [
+     "popcorn",
+     "grab popcorn"
+    ]
+   },
+   "emoji": "🍿",
+   "name": "Popcorn"
+  },
+  {
+   "id": "game",
+   "set": "fluent",
+   "file": "memes/fluent/game.webp",
+   "animated": false,
+   "category": "cool",
+   "keywords": {
+    "de": [
+     "zocken",
+     "controller"
+    ],
+    "tr": [
+     "oyun",
+     "kumanda"
+    ],
+    "en": [
+     "gaming",
+     "controller"
+    ]
+   },
+   "emoji": "🎮",
+   "name": "Video game"
+  },
+  {
+   "id": "teddy",
+   "set": "fluent",
+   "file": "memes/fluent/teddy.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "teddy",
+     "kuscheltier"
+    ],
+    "tr": [
+     "oyuncak ayı",
+     "peluş"
+    ],
+    "en": [
+     "teddy bear",
+     "plush"
+    ]
+   },
+   "emoji": "🧸",
+   "name": "Teddy bear"
+  },
+  {
+   "id": "cat",
+   "set": "fluent",
+   "file": "memes/fluent/cat.webp",
+   "animated": true,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "katze",
+     "miau"
+    ],
+    "tr": [
+     "kedi",
+     "miyav"
+    ],
+    "en": [
+     "cat",
+     "meow"
+    ]
+   },
+   "emoji": "🐱",
+   "name": "Cat face"
+  },
+  {
+   "id": "dog",
+   "set": "fluent",
+   "file": "memes/fluent/dog.webp",
+   "animated": true,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "hund",
+     "wuff"
+    ],
+    "tr": [
+     "köpek",
+     "hav hav"
+    ],
+    "en": [
+     "dog",
+     "woof"
+    ]
+   },
+   "emoji": "🐶",
+   "name": "Dog face"
+  },
+  {
+   "id": "unicorn",
+   "set": "fluent",
+   "file": "memes/fluent/unicorn.webp",
+   "animated": true,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "einhorn",
+     "magisch"
+    ],
+    "tr": [
+     "tek boynuzlu at",
+     "sihirli"
+    ],
+    "en": [
+     "unicorn",
+     "magic"
+    ]
+   },
+   "emoji": "🦄",
+   "name": "Unicorn"
+  },
+  {
+   "id": "see-no-evil",
+   "set": "fluent",
+   "file": "memes/fluent/see-no-evil.webp",
+   "animated": true,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "nicht hinsehen",
+     "äffchen"
+    ],
+    "tr": [
+     "görmedim",
+     "maymun"
+    ],
+    "en": [
+     "see no evil",
+     "cant look"
+    ]
+   },
+   "emoji": "🙈",
+   "name": "See-no-evil monkey"
+  },
+  {
+   "id": "hear-no-evil",
+   "set": "fluent",
+   "file": "memes/fluent/hear-no-evil.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "nichts hören",
+     "lalala"
+    ],
+    "tr": [
+     "duymadım",
+     "lalala"
+    ],
+    "en": [
+     "hear no evil",
+     "not listening"
+    ]
+   },
+   "emoji": "🙉",
+   "name": "Hear-no-evil monkey"
+  },
+  {
+   "id": "speak-no-evil",
+   "set": "fluent",
+   "file": "memes/fluent/speak-no-evil.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "nichts sagen",
+     "hoppla"
+    ],
+    "tr": [
+     "bir şey demedim",
+     "hoppala"
+    ],
+    "en": [
+     "speak no evil",
+     "oops said it"
+    ]
+   },
+   "emoji": "🙊",
+   "name": "Speak-no-evil monkey"
+  },
+  {
+   "id": "panda",
+   "set": "fluent",
+   "file": "memes/fluent/panda.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "panda",
+     "pandabär"
+    ],
+    "tr": [
+     "panda",
+     "panda ayı"
+    ],
+    "en": [
+     "panda",
+     "panda bear"
+    ]
+   },
+   "emoji": "🐼",
+   "name": "Panda"
+  },
+  {
+   "id": "fox",
+   "set": "fluent",
+   "file": "memes/fluent/fox.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "fuchs",
+     "schlau wie ein fuchs"
+    ],
+    "tr": [
+     "tilki",
+     "kurnaz"
+    ],
+    "en": [
+     "fox",
+     "sly"
+    ]
+   },
+   "emoji": "🦊",
+   "name": "Fox"
+  },
+  {
+   "id": "penguin",
+   "set": "fluent",
+   "file": "memes/fluent/penguin.webp",
+   "animated": true,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "pinguin",
+     "watscheln"
+    ],
+    "tr": [
+     "penguen",
+     "paytak"
+    ],
+    "en": [
+     "penguin",
+     "waddle"
+    ]
+   },
+   "emoji": "🐧",
+   "name": "Penguin"
+  },
+  {
+   "id": "frog",
+   "set": "fluent",
+   "file": "memes/fluent/frog.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "frosch",
+     "quak"
+    ],
+    "tr": [
+     "kurbağa",
+     "vrak"
+    ],
+    "en": [
+     "frog",
+     "ribbit"
+    ]
+   },
+   "emoji": "🐸",
+   "name": "Frog"
+  },
+  {
+   "id": "turtle",
+   "set": "fluent",
+   "file": "memes/fluent/turtle.webp",
+   "animated": true,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "schildkröte",
+     "langsam"
+    ],
+    "tr": [
+     "kaplumbağa",
+     "yavaş"
+    ],
+    "en": [
+     "turtle",
+     "slow"
+    ]
+   },
+   "emoji": "🐢",
+   "name": "Turtle"
+  },
+  {
+   "id": "snail",
+   "set": "fluent",
+   "file": "memes/fluent/snail.webp",
+   "animated": true,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "schnecke",
+     "schneckentempo"
+    ],
+    "tr": [
+     "salyangoz",
+     "ağır"
+    ],
+    "en": [
+     "snail",
+     "snail pace"
+    ]
+   },
+   "emoji": "🐌",
+   "name": "Snail"
+  },
+  {
+   "id": "sloth",
+   "set": "fluent",
+   "file": "memes/fluent/sloth.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "faultier",
+     "chillen"
+    ],
+    "tr": [
+     "tembel hayvan",
+     "tembellik"
+    ],
+    "en": [
+     "sloth",
+     "lazy"
+    ]
+   },
+   "emoji": "🦥",
+   "name": "Sloth"
+  },
+  {
+   "id": "butterfly",
+   "set": "fluent",
+   "file": "memes/fluent/butterfly.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "schmetterling",
+     "flattern"
+    ],
+    "tr": [
+     "kelebek",
+     "uçuşmak"
+    ],
+    "en": [
+     "butterfly",
+     "flutter"
+    ]
+   },
+   "emoji": "🦋",
+   "name": "Butterfly"
+  },
+  {
+   "id": "trex",
+   "set": "fluent",
+   "file": "memes/fluent/trex.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "dino",
+     "t-rex"
+    ],
+    "tr": [
+     "dinozor",
+     "t-rex"
+    ],
+    "en": [
+     "dino",
+     "rawr"
+    ]
+   },
+   "emoji": "🦖",
+   "name": "T-rex"
+  },
+  {
+   "id": "lion",
+   "set": "fluent",
+   "file": "memes/fluent/lion.webp",
+   "animated": false,
+   "category": "animals",
+   "keywords": {
+    "de": [
+     "löwe",
+     "brüllen"
+    ],
+    "tr": [
+     "aslan",
+     "kükreme"
+    ],
+    "en": [
+     "lion",
+     "roar"
+    ]
+   },
+   "emoji": "🦁",
+   "name": "Lion"
+  },
+  {
+   "id": "sun",
+   "set": "fluent",
+   "file": "memes/fluent/sun.webp",
+   "animated": false,
+   "category": "weather",
+   "keywords": {
+    "de": [
+     "sonne",
+     "sonnig"
+    ],
+    "tr": [
+     "güneş",
+     "güneşli"
+    ],
+    "en": [
+     "sun",
+     "sunny"
+    ]
+   },
+   "emoji": "🌞",
+   "name": "Sun with face"
+  },
+  {
+   "id": "rain",
+   "set": "fluent",
+   "file": "memes/fluent/rain.webp",
+   "animated": false,
+   "category": "weather",
+   "keywords": {
+    "de": [
+     "regen",
+     "regnerisch"
+    ],
+    "tr": [
+     "yağmur",
+     "yağmurlu"
+    ],
+    "en": [
+     "rain",
+     "rainy"
+    ]
+   },
+   "emoji": "🌧️",
+   "name": "Cloud with rain"
+  },
+  {
+   "id": "snowflake",
+   "set": "fluent",
+   "file": "memes/fluent/snowflake.webp",
+   "animated": false,
+   "category": "weather",
+   "keywords": {
+    "de": [
+     "schneeflocke",
+     "schnee"
+    ],
+    "tr": [
+     "kar tanesi",
+     "kar"
+    ],
+    "en": [
+     "snowflake",
+     "snow"
+    ]
+   },
+   "emoji": "❄️",
+   "name": "Snowflake"
+  },
+  {
+   "id": "storm",
+   "set": "fluent",
+   "file": "memes/fluent/storm.webp",
+   "animated": true,
+   "category": "weather",
+   "keywords": {
+    "de": [
+     "gewitter",
+     "donner"
+    ],
+    "tr": [
+     "fırtına",
+     "gök gürültüsü"
+    ],
+    "en": [
+     "thunder",
+     "storm"
+    ]
+   },
+   "emoji": "🌩️",
+   "name": "Cloud with lightning"
+  },
+  {
+   "id": "rainbow",
+   "set": "fluent",
+   "file": "memes/fluent/rainbow.webp",
+   "animated": true,
+   "category": "weather",
+   "keywords": {
+    "de": [
+     "regenbogen",
+     "bunt"
+    ],
+    "tr": [
+     "gökkuşağı",
+     "renkli"
+    ],
+    "en": [
+     "rainbow",
+     "colorful"
+    ]
+   },
+   "emoji": "🌈",
+   "name": "Rainbow"
+  },
+  {
+   "id": "snowman",
+   "set": "fluent",
+   "file": "memes/fluent/snowman.webp",
+   "animated": false,
+   "category": "weather",
+   "keywords": {
+    "de": [
+     "schneemann",
+     "winter"
+    ],
+    "tr": [
+     "kardan adam",
+     "kış"
+    ],
+    "en": [
+     "snowman",
+     "winter"
+    ]
+   },
+   "emoji": "⛄",
+   "name": "Snowman without snow"
+  },
+  {
+   "id": "pizza",
+   "set": "fluent",
+   "file": "memes/fluent/pizza.webp",
+   "animated": false,
+   "category": "food",
+   "keywords": {
+    "de": [
+     "pizza",
+     "pizzazeit"
+    ],
+    "tr": [
+     "pizza",
+     "pizza zamanı"
+    ],
+    "en": [
+     "pizza",
+     "pizza time"
+    ]
+   },
+   "emoji": "🍕",
+   "name": "Pizza"
+  },
+  {
+   "id": "coffee",
+   "set": "fluent",
+   "file": "memes/fluent/coffee.webp",
+   "animated": true,
+   "category": "food",
+   "keywords": {
+    "de": [
+     "kaffee",
+     "kaffeepause"
+    ],
+    "tr": [
+     "kahve",
+     "kahve molası"
+    ],
+    "en": [
+     "coffee",
+     "coffee break"
+    ]
+   },
+   "emoji": "☕",
+   "name": "Hot beverage"
+  },
+  {
+   "id": "tea",
+   "set": "fluent",
+   "file": "memes/fluent/tea.webp",
+   "animated": true,
+   "category": "food",
+   "keywords": {
+    "de": [
+     "tee",
+     "teepause"
+    ],
+    "tr": [
+     "çay",
+     "çay molası"
+    ],
+    "en": [
+     "tea",
+     "tea time"
+    ]
+   },
+   "emoji": "🍵",
+   "name": "Teacup without handle"
+  },
+  {
+   "id": "burger",
+   "set": "fluent",
+   "file": "memes/fluent/burger.webp",
+   "animated": false,
+   "category": "food",
+   "keywords": {
+    "de": [
+     "burger",
+     "hunger"
+    ],
+    "tr": [
+     "hamburger",
+     "açım"
+    ],
+    "en": [
+     "burger",
+     "hungry"
+    ]
+   },
+   "emoji": "🍔",
+   "name": "Hamburger"
+  },
+  {
+   "id": "ice-cream",
+   "set": "fluent",
+   "file": "memes/fluent/ice-cream.webp",
+   "animated": false,
+   "category": "food",
+   "keywords": {
+    "de": [
+     "eis",
+     "eiscreme"
+    ],
+    "tr": [
+     "dondurma",
+     "külah"
+    ],
+    "en": [
+     "ice cream",
+     "soft serve"
+    ]
+   },
+   "emoji": "🍦",
+   "name": "Soft ice cream"
+  }
+ ]
+}

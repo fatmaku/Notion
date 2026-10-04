@@ -452,6 +452,171 @@
     ].map(stickerRow),
   ];
 
+  // ---------------------------------------------------------------------------------------------
+  // 2.1 – own text stickers (our copyright, no files): big comic words, schema text style `sticker`
+  // (bold outline + burst background in two colours). Keywords are the spoken phrase variants. They may
+  // overlap with the same-language meme pack (tr / de / en) – load one style or the other – but never with
+  // the defaults, the reactions pack or another text pack (test/packs.test.js).
+  // ---------------------------------------------------------------------------------------------
+  const PAL = [
+    ['#ffd166', '#ef476f'],
+    ['#06d6a0', '#118ab2'],
+    ['#ff9f1c', '#2ec4b6'],
+    ['#fee440', '#7209b7'],
+    ['#ffffff', '#ff006e'],
+    ['#caffbf', '#3a86ff'],
+    ['#ffbe0b', '#fb5607'],
+    ['#9bf6ff', '#f72585'],
+  ];
+  const TEXT_CD = 5;
+  const sticky = (text, i) => ({ kind: 'text', position: 'center', style: 'sticker', text, color: PAL[i % PAL.length][0], color2: PAL[i % PAL.length][1] });
+  /** Text sticker row: [id, TEXT, keywords, hint, sound] → row() input. */
+  const textRows = (rows) => rows.map((r, i) => [r[0], r[1], r[2], r[3], r[4], sticky(r[1], i), TEXT_CD]);
+
+  const TEXT_TR = textRows([
+    ['oha', 'OHA', ['oha be ya', 'ohaa be', 'oha oha'], 'shocked or amazed, whoa', 'boom'],
+    ['yokartik', 'YOK ARTIK', ['yok artık ya', 'yok artık be', 'yok artik ya'], 'cannot believe it, no way', 'airhorn'],
+    ['aynen', 'AYNEN', ['aynen ya', 'aynen be', 'aynen öyle ya'], 'exactly, strong agreement', 'ding'],
+    ['eyvah', 'EYVAH', ['eyvah be', 'eyvahlar olsun', 'eyvah ki ne eyvah'], 'uh-oh, something went wrong', 'slideWhistle'],
+    ['helal', 'HELAL', ['helal be sana', 'helal olsun be', 'helal ya'], 'well done, respect', 'applause'],
+    ['efsane', 'EFSANE', ['efsane be', 'efsane bir an', 'efsanevi'], 'legendary moment', 'fanfare'],
+    ['bravo', 'BRAVO', ['bravo sana', 'bravo be', 'bravooo'], 'bravo, applause', 'applause'],
+    ['cokiyi', 'ÇOK İYİ', ['çok iyi ya', 'çok iyi be', 'cok iyi ya'], 'very good', 'tada'],
+    ['sakami', 'ŞAKA MI', ['şaka mı bu', 'şaka mısın', 'saka mi bu'], 'is this a joke? disbelief', 'ooh'],
+    ['hadibe', 'HADİ BE', ['hadi be oradan', 'hadi be sen de', 'hadi be ya'], 'come on, get out of here (playful disbelief)', 'scratch'],
+    ['olurmu', 'OLUR MU ÖYLE', ['olur mu öyle', 'olur mu oyle', 'öyle olur mu'], 'that is not fair, how can that be', 'buzzer'],
+    ['super', 'SÜPER', ['süper ya', 'süper be', 'super ya'], 'super, great', 'tada'],
+    ['harika', 'HARİKA', ['harika ya', 'harika be', 'harikulade'], 'wonderful', 'sparkle'],
+    ['vay', 'VAY BE', ['vay be ya', 'vay vay vay', 'vay be abi'], 'wow, impressed', 'ooh'],
+    ['kral', 'KRAL', ['kral be', 'kral misin', 'kralsın be'], 'you are the king', 'fanfare'],
+    ['oley', 'OLEY', ['oley', 'oleyy', 'oley be'], 'yay, hooray', 'tada'],
+    ['yasasin', 'YAŞASIN', ['yaşasın be', 'yaşasın ya', 'yasasin be'], 'hooray, long live', 'levelUp'],
+    ['tamamdir', 'TAMAMDIR', ['tamamdır be', 'tamamdır abi', 'tamamdir abi'], 'done, all good', 'ding'],
+    ['devam', 'DEVAM', ['devam devam', 'devam et', 'devam ediyoruz'], 'keep going', 'whoosh'],
+    ['aferin', 'AFERİN', ['aferin be', 'aferin size', 'aferin ya'], 'well done (praise)', 'ding'],
+    ['mukemmel', 'MÜKEMMEL', ['mükemmel ya', 'mükemmel be', 'mukemmel ya'], 'perfect', 'fanfare'],
+    ['haydi', 'HAYDİ', ['haydi be', 'haydi haydi', 'haydin'], 'let us go, come on', 'drumroll'],
+    ['cokguzel', 'ÇOK GÜZEL', ['çok güzel ya', 'çok güzel be', 'cok guzel ya'], 'very beautiful, very nice', 'bell'],
+    ['nediyorsun', 'NE DİYORSUN', ['ne diyorsun ya', 'ne diyorsun sen', 'ne diyon'], 'what are you saying? surprise', 'scratch'],
+    ['bombagibi', 'BOMBA GİBİ', ['bomba gibi ya', 'bomba gibi be', 'bomba gibiydi'], 'awesome, explosive', 'boom'],
+    ['ahbe', 'AH BE', ['ah be ya', 'ah be abi', 'ah ah ah'], 'sigh, so close', 'sadTrombone'],
+    ['uff', 'UFF', ['uff be', 'uff ya', 'uffff'], 'ugh, phew', 'whoosh'],
+    ['guldum', 'GÜLDÜM', ['güldüm ya', 'çok güldüm ya', 'guldum ya'], 'that was funny', 'laugh'],
+  ]);
+
+  const TEXT_DE = textRows([
+    ['krass', 'KRASS', ['voll krass', 'krass alter', 'richtig krass'], 'wow, intense', 'boom'],
+    ['laeuft', 'LÄUFT', ['läuft', 'läuft bei mir', 'läuft bei uns', 'laeuft'], 'it is going great', 'levelUp'],
+    ['ehrenmann', 'EHRENMANN', ['echter ehrenmann', 'ehrenmann digga', 'ehrenmann alter'], 'man of honour, respect', 'fanfare'],
+    ['ehrenfrau', 'EHRENFRAU', ['echte ehrenfrau', 'ehrenfrau digga', 'ehrenfrau alter'], 'woman of honour, respect', 'fanfare'],
+    ['digga', 'DIGGA', ['ey digga', 'digga digga', 'digga was'], 'dude! surprised exclamation', 'pop'],
+    ['nice', 'NICE', ['nice', 'sehr nice', 'richtig nice'], 'nice, cool', 'ding'],
+    ['omg', 'OMG', ['o m g', 'ach du meine güte', 'omg digga'], 'oh my gosh', 'ooh'],
+    ['safe', 'SAFE', ['safe safe', 'ganz safe', 'safe alter'], 'definitely, for sure', 'ding'],
+    ['mega', 'MEGA', ['einfach mega', 'mega mega', 'voll mega'], 'great, amazing', 'tada'],
+    ['keinplan', 'KEIN PLAN', ['null plan', 'keine ahnung digga', 'hab keinen plan'], 'no idea', 'crickets'],
+    ['stark', 'STARK', ['stark', 'richtig stark', 'starke leistung'], 'strong, impressive', 'applause'],
+    ['jawoll', 'JAWOLL', ['jawoll', 'aber jawoll', 'jawollo'], 'yes! hell yeah', 'airhorn'],
+    ['hammer', 'HAMMER', ['absoluter hammer', 'hammer hart', 'echt hammer'], 'awesome, amazing', 'boom'],
+    ['spitze', 'SPITZE', ['spitze', 'spitzenklasse', 'absolute spitze'], 'top, excellent', 'tada'],
+    ['ernst', 'NICHT DEIN ERNST', ['nicht dein ernst', 'ist das dein ernst', 'im ernst jetzt'], 'you cannot be serious', 'scratch'],
+    ['wild', 'WILD', ['voll wild', 'wie wild', 'ganz schön wild'], 'crazy, wild', 'whoosh'],
+    ['legende', 'LEGENDE', ['legende', 'du legende', 'legendär'], 'legend', 'fanfare'],
+    ['goenndir', 'GÖNN DIR', ['gönn dir', 'goenn dir', 'gönn dir digga'], 'treat yourself, go for it', 'cash'],
+    ['zugut', 'ZU GUT', ['zu gut', 'viel zu gut', 'einfach zu gut'], 'too good', 'sparkle'],
+    ['keinstress', 'KEIN STRESS', ['kein stress', 'alles chillig', 'ganz entspannt'], 'no stress, relax', 'bell'],
+    ['heftig', 'HEFTIG', ['heftig', 'voll heftig', 'richtig heftig'], 'intense, heavy', 'boom'],
+    ['endlich', 'ENDLICH', ['endlich', 'na endlich', 'endlich geschafft'], 'finally', 'levelUp'],
+    ['weiterso', 'WEITER SO', ['weiter so', 'mach weiter', 'immer weiter'], 'keep it up', 'applause'],
+    ['sogut', 'SO GUT', ['so gut', 'sooo gut', 'mega gut gemacht'], 'so good', 'tada'],
+    ['hallo', 'HALLO?!', ['hallo hallo', 'hallooo', 'hallo geht es noch'], 'hello?! are you serious', 'scratch'],
+    ['oha', 'OHA', ['oha alter', 'oha digga', 'na oha'], 'whoa (German oha)', 'ooh'],
+    ['bestesleben', 'BESTES LEBEN', ['bestes leben', 'bester tag', 'lebe dein bestes leben'], 'best life, great vibe', 'sparkle'],
+  ]);
+
+  const TEXT_EN = textRows([
+    ['gg', 'GG', ['gg everyone', 'gg guys', 'good game all'], 'good game', 'fanfare'],
+    ['w', 'W', ['w', 'huge w', 'w moment'], 'a win', 'tada'],
+    ['l', 'L', ['l', 'huge l', 'take the l'], 'a loss', 'sadTrombone'],
+    ['letsgo', "LET'S GO", ["let's gooo", 'lets gooo', 'lesgooo'], 'hype, let us go', 'airhorn'],
+    ['noway', 'NO WAY', ['no way bro', 'no freaking way', 'nah no way'], 'disbelief', 'scratch'],
+    ['sheesh', 'SHEESH', ['sheesh bro', 'sheeesh bro', 'sheesh man'], 'impressed', 'ooh'],
+    ['clutch', 'CLUTCH', ['clutch', 'clutched', 'clutch play'], 'clutch play, saved it', 'airhorn'],
+    ['slay', 'SLAY', ['slayyy', 'slay queen', 'slayed it'], 'killed it (in a good way), looking great', 'sparkle'],
+    ['bruh', 'BRUH', ['bruhhh', 'bro what', 'bruh bruh'], 'bruh, really?', 'boing'],
+    ['omg', 'OMG', ['oh my gosh', 'omg omg', 'omggg'], 'oh my gosh', 'ooh'],
+    ['hype', 'HYPE', ['hype train', 'so hyped', 'hyped'], 'hype', 'drumroll'],
+    ['pog', 'POG', ['pog', 'pogchamp', 'pog moment'], 'amazing play, pog', 'tada'],
+    ['epic', 'EPIC', ['epic', 'so epic', 'epic moment'], 'epic', 'fanfare'],
+    ['goat', 'GOAT', ['the goat', 'goated', 'goat status'], 'greatest of all time', 'fanfare'],
+    ['facts', 'FACTS', ['facts', 'straight facts', 'facts bro'], 'agreement, true', 'ding'],
+    ['vibes', 'VIBES', ['vibes', 'good vibes', 'vibing'], 'good vibes', 'bell'],
+    ['yikes', 'YIKES', ['yikes', 'big yikes', 'yikes bro'], 'awkward, uh-oh', 'crickets'],
+    ['oof', 'OOF', ['oof', 'big oof', 'ooof'], 'ouch, that hurt (mild)', 'boing'],
+    ['niceone', 'NICE ONE', ['nice one bro', 'nicely done', 'nice one mate'], 'well done', 'applause'],
+    ['legend', 'LEGEND', ['legend', 'absolute legend', 'legendary'], 'legend', 'fanfare'],
+    ['what', 'WHAT?!', ['what', 'whaaat', 'what the heck'], 'surprise, what?!', 'scratch'],
+    ['loveit', 'LOVE IT', ['love it', 'loving it', 'i love this'], 'love it', 'bell'],
+    ['toogood', 'TOO GOOD', ['too good', 'way too good', 'so good bro'], 'too good', 'sparkle'],
+    ['bigbrain', 'BIG BRAIN', ['big brain', 'galaxy brain', 'big brain play'], 'clever play', 'levelUp'],
+    ['maincharacter', 'MAIN CHARACTER', ['main character', 'main character energy', 'mc energy'], 'main character energy', 'fanfare'],
+    ['bet', 'BET', ['bet', 'bet bet', 'say less'], 'okay, deal', 'pop'],
+    ['vibecheck', 'VIBE CHECK', ['vibe check', 'vibe check passed', 'passed the vibe check'], 'vibe check', 'drumroll'],
+  ]);
+
+  // ---------------------------------------------------------------------------------------------
+  // 2.1 – 🎞️ Reaktionen: bundled animated stickers (Microsoft Fluent Emoji, MIT – memes/fluent/, built by
+  // scripts/build-memes.js). `emoji` is the fallback the renderer shows when the image source is rejected.
+  // Keywords (DE / TR / EN) never collide with any other pack or the defaults, so it combines with all.
+  // ---------------------------------------------------------------------------------------------
+  const img = (file, emoji, extra) => Object.assign({ kind: 'image', position: 'center', src: `memes/fluent/${file}.webp`, emoji }, extra || {});
+  /** Reaction row: [id, label, keywords, hint, sound, file, emoji] → row() input. */
+  const reactionRows = (rows) => rows.map((r, i) => [r[0], r[1], r[2], r[3], r[4], img(r[5], r[6], i % 3 === 0 ? { tilt: true } : null), 4]);
+  const REACTIONS = reactionRows([
+    ['joy', 'Tränen gelacht', ['tränen gelacht', 'katıla katıla', 'crying laughing', 'cry laughing'], 'laughing to tears', 'laugh', 'joy', '😂'],
+    ['rofl', 'Am Boden vor Lachen', ['am boden vor lachen', 'yerlere yattım', 'rolling on the floor'], 'rolling on the floor laughing', 'rimshot', 'rofl', '🤣'],
+    ['giggle', 'Kichern', ['kicher kicher', 'kıkır kıkır', 'tee hee'], 'giggling', 'kidlaugh', 'giggle', '🤭'],
+    ['scream', 'Schrei', ['ahhh', 'aaaaah', 'çığlık attım'], 'screaming in shock', 'scream', 'scream', '😱'],
+    ['mindblown', 'Kopf explodiert', ['kopf explodiert', 'beynim yandı', 'my mind is blown'], 'mind blown', 'boom', 'mind-blown', '🤯'],
+    ['gasp', 'Schnapp', ['gasp', 'nach luft schnappen', 'nefesim kesildi'], 'gasp, shocked', 'ooh', 'gasp', '🫢'],
+    ['heartyes', 'Herzaugen', ['herzaugen', 'heart eyes', 'kalp gözler'], 'heart eyes, in love', 'bell', 'heart-eyes', '😍'],
+    ['heartfire', 'Brennendes Herz', ['brennendes herz', 'yanan kalp', 'heart on fire'], 'burning love, passion', 'sparkle', 'heart-fire', '❤️‍🔥'],
+    ['hearthands', 'Herzhände', ['herzhände', 'kalp eller', 'heart hands'], 'heart hands, love to chat', 'bell', 'heart-hands', '🫶'],
+    ['brokenheart', 'Gebrochenes Herz', ['gebrochenes herz', 'kalbim kırıldı', 'heartbroken'], 'heartbroken', 'sadTrombone', 'heart-broken', '💔'],
+    ['partyface', 'Partygesicht', ['partygesicht', 'parti zamanı', 'party time'], 'party time', 'fanfare', 'party-face', '🥳'],
+    ['popper', 'Konfettikanone', ['konfettikanone', 'konfeti patlat', 'pop the confetti'], 'celebration', 'tada', 'party', '🎉'],
+    ['clap', 'Klatschen', ['alle klatschen', 'alkışlar', 'round of applause'], 'applause', 'applause', 'clap', '👏'],
+    ['raisehands', 'Hände hoch', ['hände hoch', 'eller havaya', 'hands up'], 'hands up, hooray', 'airhorn', 'raise-hands', '🙌'],
+    ['thumbsup', 'Daumen hoch', ['daumen hoch', 'beğendim', 'thumbs up'], 'thumbs up, approval', 'ding', 'thumbs-up', '👍'],
+    ['thumbsdown', 'Daumen runter', ['daumen runter', 'beğenmedim', 'thumbs down'], 'thumbs down, disapproval', 'buzzer', 'thumbs-down', '👎'],
+    ['sob', 'Heulen', ['ich heule', 'hüngür hüngür', 'sob sob'], 'sobbing', 'sadTrombone', 'sob', '😭'],
+    ['pleading', 'Hundeblick', ['hundeblick', 'puppy eyes', 'kıyamam'], 'pleading puppy eyes', 'pop', 'pleading', '🥺'],
+    ['facepalm', 'Facepalm', ['facepalm', 'face palm', 'elimi alnıma vurdum'], 'facepalm', 'gong', 'facepalm', '🤦'],
+    ['shrug', 'Schulterzucken', ['schulterzucken', 'omuz silktim', 'shrug'], 'shrug, no idea', 'boing', 'shrug', '🤷'],
+    ['eyeroll', 'Augenrollen', ['augenrollen', 'göz devirdim', 'eye roll'], 'eye roll', 'boing', 'eye-roll', '🙄'],
+    ['thinking', 'Grübeln', ['grübel grübel', 'düşünüyorum', 'thinking face'], 'thinking', 'tick', 'thinking', '🤔'],
+    ['cool', 'Sonnenbrille', ['sonnenbrille auf', 'havalıyım', 'deal with it'], 'cool, sunglasses', 'whoosh', 'cool', '😎'],
+    ['starstruck', 'Sternenaugen', ['sternenaugen', 'büyülendim', 'star struck'], 'star-struck, amazed', 'sparkle', 'star-struck', '🤩'],
+    ['hundred', 'Hundert Punkte', ['hundert punkte', 'yüz üzerinden yüz', 'one hundred percent'], '100 points, perfect', 'ding', 'hundred', '💯'],
+    ['rocket', 'Rakete', ['ab zum mond', 'aya gidiyoruz', 'to the moon'], 'to the moon', 'whoosh', 'rocket', '🚀'],
+    ['crown', 'Krone', ['krone auf', 'taç tak', 'crown him'], 'crown, king / queen', 'fanfare', 'crown', '👑'],
+    ['trophy', 'Pokal', ['der pokal', 'kupa bizim', 'trophy time'], 'trophy, winner', 'fanfare', 'trophy', '🏆'],
+    ['ghost', 'Gespenst', ['gespenst', 'hayalet geldi', 'spooky'], 'ghost, spooky', 'ooh', 'ghost', '👻'],
+    ['moneybag', 'Geldsack', ['geldsack', 'para çantası', 'money bag'], 'money bag, rich', 'cash', 'money-bag', '💰'],
+    ['gift', 'Geschenk', ['ein geschenk', 'hediye geldi', 'a gift'], 'gift, present', 'tada', 'gift', '🎁'],
+    ['sparkles', 'Glitzer', ['glitzer', 'pırıl pırıl', 'sparkly'], 'sparkles, shiny', 'sparkle', 'sparkles', '✨'],
+    ['eyes', 'Augen', ['ich seh dich', 'gözüm üstünde', 'i see you'], 'eyes, watching', 'tick', 'eyes', '👀'],
+    ['popcorn', 'Popcorn', ['popcorn holen', 'mısırları hazırlayın', 'grab the popcorn'], 'popcorn, drama incoming', 'pop', 'popcorn', '🍿'],
+    ['sleeping', 'Eingeschlafen', ['eingeschlafen', 'uyuyakaldım', 'fell asleep'], 'sleeping, boring', 'crickets', 'sleeping', '😴'],
+    ['cat', 'Katze', ['miau miau', 'miyav miyav', 'meow meow'], 'cat, meow', 'pop', 'cat', '🐱'],
+    ['dog', 'Hund', ['wuff wuff', 'hav hav hav', 'woof woof'], 'dog, woof', 'pop', 'dog', '🐶'],
+    ['unicorn', 'Einhorn', ['einhorn', 'tek boynuzlu at', 'unicorn'], 'unicorn, magical', 'sparkle', 'unicorn', '🦄'],
+    ['seenoevil', 'Nicht hinsehen', ['ich schau nicht hin', 'bakamıyorum', 'cant watch'], 'cannot look, embarrassed', 'boing', 'see-no-evil', '🙈'],
+    ['snowflake', 'Schneeflocke', ['schneeflocke', 'kar tanesi', 'snowflake'], 'snowflake, cold', 'bell', 'snowflake', '❄️'],
+    ['coffee', 'Kaffee', ['kaffeepause', 'kahve molası', 'coffee break'], 'coffee break', 'pop', 'coffee', '☕'],
+    ['pizza', 'Pizza', ['pizzazeit', 'pizza zamanı', 'pizza time'], 'pizza time', 'pop', 'pizza', '🍕'],
+  ]);
+
   const packs = {
     tr: {
       id: 'tr',
@@ -511,6 +676,34 @@
       story: true,
       description: 'Reading aloud: "once upon a time", "it was raining", "in the forest", "the dragon" … become scenes.',
       triggers: STORY_EN.map((r) => row('story-en', r)),
+    },
+    'text-tr': {
+      id: 'text-tr',
+      label: '💬 Yazı Stickerları (TR)',
+      flag: '💬',
+      description: 'Kendi yazı stickerlarımız: OHA, YOK ARTIK, AYNEN, EYVAH, HELAL, EFSANE, ŞAKA MI, OLUR MU ÖYLE …',
+      triggers: TEXT_TR.map((r) => row('text-tr', r)),
+    },
+    'text-de': {
+      id: 'text-de',
+      label: '💬 Text-Sticker (DE)',
+      flag: '💬',
+      description: 'Eigene Text-Sticker: KRASS, LÄUFT, EHRENMANN, EHRENFRAU, DIGGA, NICE, SAFE, MEGA, KEIN PLAN …',
+      triggers: TEXT_DE.map((r) => row('text-de', r)),
+    },
+    'text-en': {
+      id: 'text-en',
+      label: '💬 Text Stickers (EN)',
+      flag: '💬',
+      description: "Own text stickers: GG, W, L, LET'S GO, NO WAY, SHEESH, CLUTCH, SLAY, BRUH, GOAT …",
+      triggers: TEXT_EN.map((r) => row('text-en', r)),
+    },
+    reactions: {
+      id: 'reactions',
+      label: '🎞️ Reaktionen (animiert)',
+      flag: '🎞️',
+      description: 'Animierte Sticker (Fluent Emoji, MIT): Tränen gelacht, Kopf explodiert, Herzaugen, Daumen hoch, Popcorn … DE/TR/EN.',
+      triggers: REACTIONS.map((r) => row('reactions', r)),
     },
   };
 

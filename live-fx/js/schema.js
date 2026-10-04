@@ -16,7 +16,9 @@
   // sounds.js loaded. Validation of "loop:<name>" only checks the name syntax (see BUILTIN_SOUND_RE).
   const LOOPS = ['rain', 'wind', 'fireplace', 'birds', 'sea', 'thunder', 'nightCrickets', 'heartbeatSlow', 'churchBells', 'cityHum', 'spaceDrone', 'storm'];
   // v3: big animated word styles, overlay themes (css/overlay.css `body[data-theme]`).
-  const TEXT_STYLES = ['neon', 'gradient', 'bounce', 'glitch'];
+  // 2.1: `sticker` = own text stickers (bold outline, comic burst background, two colours `color` / `color2`),
+  // rendered as `.fx-bigtext.fx-text-sticker`; renderers that do not know it yet fall back to neon.
+  const TEXT_STYLES = ['neon', 'gradient', 'bounce', 'glitch', 'sticker'];
   const THEMES = ['neon', 'pastel', 'minimal', 'kinderbuch'];
   const LIMITS = {
     triggers: 200,
@@ -44,7 +46,12 @@
   const SAFE_NAME = /^[a-z0-9][a-z0-9._-]{0,99}$/i;
   const IMAGE_EXT = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
   const SOUND_EXT = ['mp3', 'wav', 'ogg'];
-  const ASSET_IMAGE_RE = /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp)$/i;
+  // 2.1: bundled sticker sets are served from `memes/<set>/<file>.(webp|png)` (lower-case, no dots besides
+  // the extension, so no traversal). ASSET_IMAGE_RE ("same-origin image the overlay may show") accepts both
+  // uploaded assets and bundled stickers; MEMES_IMAGE_RE / UPLOAD_IMAGE_RE match each kind alone.
+  const UPLOAD_IMAGE_RE = /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp)$/i;
+  const MEMES_IMAGE_RE = /^memes\/[a-z0-9_-]{1,40}\/[a-z0-9_-]{1,80}\.(webp|png)$/;
+  const ASSET_IMAGE_RE = /^(?:assets\/[a-z0-9][a-z0-9._-]{0,99}\.(?:png|jpe?g|gif|webp)|memes\/[a-z0-9_-]{1,40}\/[a-z0-9_-]{1,80}\.(?:webp|png))$/i;
   const ASSET_SOUND_RE = /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(mp3|wav|ogg)$/i;
   const HTTP_SRC_RE = /^https?:\/\/[^\s"'<>]{1,500}$/i;
   const COLOR_RE = /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%]+\))$/i;
@@ -53,6 +60,12 @@
 
   function isSafeName(name) {
     return typeof name === 'string' && SAFE_NAME.test(name) && !name.includes('..');
+  }
+
+  /** Image source allowed in `visual.src`: uploaded asset, bundled sticker (`memes/…`) or http(s) URL. */
+  function isImageSrc(src) {
+    if (typeof src !== 'string') return false;
+    return ((UPLOAD_IMAGE_RE.test(src) || MEMES_IMAGE_RE.test(src)) && !src.includes('..')) || HTTP_SRC_RE.test(src);
   }
 
   function newId(prefix = 'm') {
@@ -151,7 +164,7 @@
     }
     if (isSet(v.src)) {
       const src = typeof v.src === 'string' ? v.src.trim() : '';
-      if ((ASSET_IMAGE_RE.test(src) && !src.includes('..')) || HTTP_SRC_RE.test(src)) out.src = src;
+      if (isImageSrc(src)) out.src = src;
       else warnings.push('invalid visual.src');
     }
     if (out.kind === 'image' && !out.src) {
@@ -377,10 +390,13 @@
     IMAGE_EXT,
     SOUND_EXT,
     ASSET_IMAGE_RE,
+    UPLOAD_IMAGE_RE,
+    MEMES_IMAGE_RE,
     ASSET_SOUND_RE,
     HTTP_SRC_RE,
     COLOR_RE,
     isSafeName,
+    isImageSrc,
     newId,
     parseSound,
     normalizeTrigger,

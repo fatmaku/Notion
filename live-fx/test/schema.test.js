@@ -296,7 +296,7 @@ test('exported constants', () => {
   assert.equal(S.VERSION, 3);
   assert.equal(S.SCHEMA_VERSION, 3);
   assert.deepEqual(S.KINDS, ['card', 'image', 'banner', 'rain', 'confetti', 'scene', 'sticker', 'text', 'lower-third', 'combo']);
-  assert.deepEqual(S.TEXT_STYLES, ['neon', 'gradient', 'bounce', 'glitch']);
+  assert.deepEqual(S.TEXT_STYLES, ['neon', 'gradient', 'bounce', 'glitch', 'sticker']);
   assert.deepEqual(S.THEMES, ['neon', 'pastel', 'minimal', 'kinderbuch']);
   assert.equal(S.LIMITS.comboSteps, 6);
   assert.deepEqual(S.POSITIONS, ['center', 'top', 'safe']);
@@ -496,4 +496,70 @@ test('v3 review: colours and image sources that would break out of a style/src a
   const lt = S.normalizeTrigger({ id: 'lt', visual: { kind: 'lower-third', title: '<b>x</b>'.repeat(20), subtitle: 7 } });
   assert.equal(lt.trigger.visual.title.length, S.LIMITS.title, 'title cut to the limit');
   assert.equal(lt.trigger.visual.subtitle, undefined, 'non-string subtitle dropped');
+});
+
+// ---- 2.1: bundled sticker sets (memes/) + text style `sticker` ----
+
+test('2.1 memes: image.src accepts memes/<set>/<file>.(webp|png)', () => {
+  for (const good of ['memes/fluent/joy.webp', 'memes/fluent/heart-fire.webp', 'memes/my_set/sticker_1.png', `memes/${'a'.repeat(40)}/${'b'.repeat(80)}.webp`]) {
+    const r = S.normalizeTrigger({ id: 'm', visual: { kind: 'image', src: good, emoji: '😂' } });
+    assert.deepEqual(r.warnings, [], `${good}: ${r.warnings.join('; ')}`);
+    assert.equal(r.trigger.visual.kind, 'image');
+    assert.equal(r.trigger.visual.src, good);
+    assert.equal(r.trigger.visual.emoji, '😂');
+    assert.ok(S.isImageSrc(good));
+    assert.ok(S.MEMES_IMAGE_RE.test(good));
+    assert.ok(S.ASSET_IMAGE_RE.test(good), 'renderers that check ASSET_IMAGE_RE accept bundled stickers too');
+  }
+});
+
+test('2.1 memes: traversal, other extensions, nesting and odd names are rejected', () => {
+  const bad = [
+    'memes/../data/token.txt',
+    'memes/../../etc/passwd.webp',
+    'memes/fluent/../x.webp',
+    'memes/..\\x.webp',
+    'memes/fluent/a..b.webp',
+    'memes/fluent/x.gif',
+    'memes/fluent/x.svg',
+    'memes/fluent/x.json',
+    'memes/fluent/sub/x.webp',
+    'memes/x.webp',
+    'memes//x.webp',
+    'memes/fluent/.webp',
+    'memes/Fluent/x.webp',
+    'memes/fluent/X.WEBP',
+    '/memes/fluent/x.webp',
+    'memes/fluent/x.webp?x=1',
+    'memes/fluent/x y.webp',
+    `memes/${'a'.repeat(41)}/x.webp`,
+    `memes/fluent/${'b'.repeat(81)}.webp`,
+  ];
+  for (const src of bad) {
+    const r = S.normalizeTrigger({ id: 'm', visual: { kind: 'image', src, emoji: '😂' } });
+    assert.equal(r.trigger.visual.src, undefined, `src ${src}`);
+    assert.equal(r.trigger.visual.kind, 'card', `${src} falls back to card`);
+    assert.ok(r.warnings.some((w) => /invalid visual.src/.test(w)), src);
+    assert.equal(S.isImageSrc(src), false, `isImageSrc(${src})`);
+  }
+  // the existing rules are unchanged
+  assert.ok(S.isImageSrc('assets/pic.PNG'));
+  assert.ok(S.isImageSrc('https://example.com/a.gif?x=1'));
+  assert.ok(!S.isImageSrc('assets/../x.png'));
+  assert.ok(S.UPLOAD_IMAGE_RE.test('assets/pic.png') && !S.UPLOAD_IMAGE_RE.test('memes/fluent/joy.webp'));
+  assert.equal(S.isImageSrc(null), false);
+});
+
+test('2.1 text style sticker: accepted with two colours, unknown styles still fall back to neon', () => {
+  const r = S.normalizeTrigger({ id: 't', visual: { kind: 'text', text: 'OHA', style: 'sticker', color: '#ffd166', color2: '#ef476f' } });
+  assert.deepEqual(r.warnings, []);
+  assert.equal(r.trigger.visual.style, 'sticker');
+  assert.equal(r.trigger.visual.color, '#ffd166');
+  assert.equal(r.trigger.visual.color2, '#ef476f');
+  const u = S.normalizeTrigger({ id: 't', visual: { kind: 'text', text: 'X', style: 'comic' } });
+  assert.equal(u.trigger.visual.style, 'neon');
+  assert.ok(u.warnings.some((w) => /unknown visual.style/.test(w)));
+  const c = S.normalizeTrigger({ id: 't', visual: { kind: 'combo', steps: [{ visual: { kind: 'text', text: 'GG', style: 'sticker' } }] } });
+  assert.deepEqual(c.warnings, []);
+  assert.equal(c.trigger.visual.steps[0].visual.style, 'sticker');
 });
