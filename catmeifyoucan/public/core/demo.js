@@ -173,6 +173,14 @@ export function seedDemo(engine, { seed = 7, cats: nCats = 64, hashPin = (p) => 
       store.players.update(player.id, { xp: (store.players.get(player.id).xp || 0) + xp });
     }
     recomputeCat(ctx, catId);
+    // Beispiel-Meldungen von Spieler:innen (gefüttert, hungrig, durstig, gesund …)
+    if (rng() < 0.35 || severity === 'attention' || severity === 'urgent') {
+      const tags = severity === 'urgent' ? ['injured'] : severity === 'attention' ? ['sick', 'thin'].slice(0, 1 + Math.floor(rng() * 2))
+        : [weighted([['fed', 4], ['hungry', 3], ['healthy', 3], ['thirsty', 1], ['kittens', 0.6], ['cold', 0.4]], rng)];
+      const reporter = players[Math.floor(rng() * players.length)];
+      store.events.insert({ id: ctx.newId('e'), catId, type: severity === 'urgent' || severity === 'attention' ? 'help_report' : 'condition', by: reporter.id, at, from: 'active', to: 'active', note: '', tags, severity: severity === 'urgent' ? 'urgent' : severity === 'attention' ? 'attention' : 'none', demo: true });
+      store.cats.update(catId, { lastReport: { tags, severity: severity === 'none' ? 'none' : severity, at } });
+    }
     if (severity === 'attention' || severity === 'urgent') {
       store.cats.update(catId, { status: rng() < 0.3 ? 'in_care' : 'needs_help', statusAt: at });
       store.events.insert({ id: ctx.newId('e'), catId, type: 'auto_flag', by: discoverer.id, at, from: 'active', to: 'needs_help', note: proto.health_notes });

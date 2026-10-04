@@ -74,7 +74,7 @@ const shot = async (name, opts = {}) => {
 
 try {
   // ---- Onboarding
-  await page.goto(base);
+  await page.goto(`${base}/app.html`);
   await page.waitForSelector('.onboarding');
   await page.fill('#nick', 'Orospu');
   await page.click('.onb-form button');
@@ -86,7 +86,7 @@ try {
   check(await page.locator('.ring-text b').innerText() === '0', 'Startseite zeigt 0 Katzen');
 
   // ---- Fangen
-  await page.goto(`${base}/#/catch`);
+  await page.goto(`${base}/app.html#/catch`);
   await page.waitForFunction(() => document.querySelector('.cam-video') && document.querySelector('.cam-video').readyState >= 2, null, { timeout: 15000 });
   check(true, 'Kamera läuft');
   let arLocked = false;
@@ -128,14 +128,14 @@ try {
     const r = await fetch('/api/me/dex', { headers: { Authorization: `Bearer ${localStorage.getItem('catme.token')}` } });
     return (await r.json()).entries[0].catId;
   });
-  await page.goto(`${base}/#/cat/${catId}`);
+  await page.goto(`${base}/app.html#/cat/${catId}`);
   await page.waitForSelector('.cat-hero');
   check((await page.locator('.cat-hero h1').innerText()).includes('Duman'), 'Katzenprofil zeigt den Namen');
   check((await page.locator('.rank li').first().innerText()).includes('Deniz Moda'), 'Fänger-Rangliste: Entdecker:in ganz oben');
   await shot('e2e-3-cat', { fullPage: true });
 
   // ---- Gutschein
-  await page.goto(`${base}/#/voucher`);
+  await page.goto(`${base}/app.html#/voucher`);
   await page.waitForSelector('.voucher');
   await page.waitForSelector('.v-qr svg', { timeout: 5000 });
   const code = (await page.locator('.v-code b').innerText()).trim();
@@ -183,21 +183,21 @@ try {
   if (shots) await mod.screenshot({ path: path.join(shots, 'e2e-6-admin.png'), fullPage: true });
 
   // ---- Statistik & Karte
-  await page.goto(`${base}/#/stats`);
+  await page.goto(`${base}/app.html#/stats`);
   await page.waitForSelector('.viz');
   check(await page.locator('.viz').count() >= 6, 'Statistik zeigt Diagramme');
-  await page.goto(`${base}/#/map`);
+  await page.goto(`${base}/app.html#/map`);
   await page.waitForSelector('.leaflet-marker-icon', { timeout: 10000 });
   check(await page.locator('.pin-cat').count() > 10, 'Karte zeigt Katzen');
 
   // ---- Demo-Modus ohne Server (Engine im Browser)
   const demo = await ctx.newPage();
-  await demo.goto(`${base}/?demo=1`);
+  await demo.goto(`${base}/app.html?demo=1`);
   await demo.waitForSelector('.onboarding');
   await demo.fill('#nick', 'DemoKedi');
   await demo.click('.onb-form button');
   await demo.waitForSelector('.hero-card');
-  await demo.goto(`${base}/?demo=1#/dex?tab=all`);
+  await demo.goto(`${base}/app.html?demo=1#/dex?tab=all`);
   await demo.waitForSelector('.tile');
   check(await demo.locator('.tile').count() > 20, 'Demo-Modus im Browser mit Demo-Katzen');
   await demo.close();

@@ -272,3 +272,38 @@ test('Statistik, Ranglisten und Datenschutz (gerundete Koordinaten)', async () =
   for (const c of cats.items) assert.ok(String(c.lat).split('.')[1].length <= 3, 'öffentliche Koordinaten gerundet');
   assert.equal(s.engine.mapData().cats.length, 3);
 });
+
+test('Zustand melden: beim Fang (einmal, +XP) und vom Profil; ernst → Hilfe-Radar; Statistik', async () => {
+  const s = setup();
+  const p = await s.engine.createPlayer({ nickname: 'Melder', tokenHash: 'r'.repeat(64) });
+  const r = await catchAt(s, p, 0);
+  const xp0 = s.store.players.get(p.id).xp;
+  const rep = s.engine.reportCondition(p, r.observation.id, { tags: ['hungry', 'healthy', 'nope'], note: 'sehr hungrig' });
+  assert.deepEqual(s.store.observations.get(r.observation.id).report.tags, ['hungry'], '„gesund“ fliegt raus, Unbekanntes auch');
+  assert.equal(rep.severity, 'mild');
+  assert.equal(rep.status, 'active', 'hungrig allein ist kein Notfall');
+  assert.equal(s.store.players.get(p.id).xp, xp0 + s.engine.ctx.game.xp.conditionReport);
+  assert.throws(() => s.engine.reportCondition(p, r.observation.id, { tags: ['sick'] }), { code: 'already_reported' });
+  assert.throws(() => s.engine.reportCondition(p, r.observation.id.replace(/.$/, 'x'), { tags: ['sick'] }), { code: 'observation_not_found' });
+
+  s.tick(60000);
+  const q = await s.engine.createPlayer({ nickname: 'Zweite', tokenHash: 'w'.repeat(64) });
+  const r2 = await catchAt(s, q, 7);
+  assert.throws(() => s.engine.reportCondition(p, r2.observation.id, { tags: ['sick'] }), { code: 'observation_not_found' }, 'nur eigene Fänge');
+  const rep2 = s.engine.reportCondition(q, r2.observation.id, { tags: ['injured'] });
+  assert.equal(rep2.severity, 'urgent');
+  assert.equal(rep2.status, 'needs_help');
+  assert.equal(s.engine.helpList().items[0].lastReport.tags[0], 'injured');
+
+  s.engine.reportHelp(p, r2.cat.id, { tags: ['fed'], note: '' });
+  const st = s.engine.stats();
+  assert.equal(st.reports.hungry, 1);
+  assert.equal(st.reports.injured, 1);
+  assert.equal(st.totals.fed30d, 1);
+  assert.equal(st.totals.hungry7d, 1);
+  assert.equal(s.engine.getCat(r2.cat.id).cat.lastReport.tags[0], 'fed');
+  s.tick(7 * 3600000);
+  const r3 = await catchAt(s, p, 9);
+  s.tick(7 * 3600000);
+  assert.throws(() => s.engine.reportCondition(p, r3.observation.id, { tags: ['sick'] }), { code: 'report_too_late' });
+});

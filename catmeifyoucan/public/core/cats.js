@@ -140,6 +140,7 @@ export function publicCat(ctx, cat, { precise = false } = {}) {
     catcherCount: (cat.catcherIds || []).length,
     discoveredBy: discoverer ? discoverer.nickname : null,
     needsReview: !!cat.needsReview,
+    lastReport: cat.lastReport || null,
     demo: !!cat.demo,
   };
 }

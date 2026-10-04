@@ -5,6 +5,8 @@ import { t, L, tx } from '../i18n.js';
 import { esc, catImg, stars, severityChip, fmtAge, fmtWeight, fmtTime, modal, toast, errorText, confetti, patternLabel } from '../ui.js';
 import { SEX, EAR_TIP, BEHAVIOR, EYE_COLORS, BCS_CLASSES, HEALTH_FLAGS, RARITY, AGE_GROUPS } from '../../core/taxonomy.js';
 import { questText } from './home.js';
+import { conditionFormHtml, bindConditionForm, readConditionForm } from './condition.js';
+import { shareCat } from '../share.js';
 
 function bcsBar(score) {
   if (!Number.isFinite(score)) return `<span class="muted">${esc(t('common.unknown'))}</span>`;
@@ -63,8 +65,15 @@ export function showCatchCard(result, app, { onClose } = {}) {
         <span class="muted small">${fmtTime(result.observation.at)} · ${esc(cat.districtName || '')}</span>
       </div>
       ${notCounted ? `<p class="note warn">${esc(t('card.notCounted', { why: notCounted }))}</p>` : ''}
+      <form class="report-box" data-form="report">
+        <h3>${esc(t('report.title'))}</h3>
+        <p class="small muted">${esc(t('report.lead'))}</p>
+        ${conditionFormHtml()}
+        <button class="btn" data-report-send disabled>${esc(t('report.send'))}</button>
+      </form>
       <div class="actions">
         <button class="btn primary" data-close>${esc(t('card.continue'))}</button>
+        <button class="btn" type="button" data-act="share">📤 ${esc(t('share.button'))}</button>
         <a class="btn" href="#/cat/${esc(cat.id)}" data-close>${esc(t('card.profile'))}</a>
         ${!isNew ? `<button class="btn ghost small" data-act="dispute">${esc(t('card.notThis'))}</button>` : ''}
       </div>
@@ -96,6 +105,37 @@ export function showCatchCard(result, app, { onClose } = {}) {
       }
     });
   }
+  const report = m.el.querySelector('[data-form="report"]');
+  bindConditionForm(report);
+  report.addEventListener('change', () => {
+    report.querySelector('[data-report-send]').disabled = !readConditionForm(report).tags.length;
+  });
+  report.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = report.querySelector('[data-report-send]');
+    btn.disabled = true;
+    const { tags, note } = readConditionForm(report);
+    try {
+      const res = await app.api.reportCondition(result.observation.id, tags, note);
+      report.innerHTML = `<p class="report-done">💚 ${esc(t('report.thanks'))}${res.xp ? ` <b>+${res.xp} XP</b>` : ''}${res.status === 'needs_help' ? `<br><small>🆘 ${esc(t('report.urgent'))}</small>` : ''}</p>`;
+      app.refreshPlayer();
+    } catch (err) {
+      toast(errorText(err), { type: 'error' });
+      btn.disabled = false;
+    }
+  });
+  m.el.querySelector('[data-act="share"]').addEventListener('click', async (e) => {
+    e.target.disabled = true;
+    try {
+      const named = m.el.querySelector('[data-name]').textContent;
+      const how = await shareCat({ ...cat, name: cat.name || (named !== t('card.unnamed') ? named : null) }, a);
+      if (how === 'saved') toast(t('share.saved'), { type: 'success' });
+    } catch {
+      toast(t('err.generic'), { type: 'error' });
+    } finally {
+      e.target.disabled = false;
+    }
+  });
   m.el.querySelector('[data-act="dispute"]')?.addEventListener('click', async (e) => {
     e.target.disabled = true;
     try {

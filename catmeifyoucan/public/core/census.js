@@ -2,7 +2,7 @@
 
 import { publicCat, publicObservation, effectiveStatus, severityRank } from './cats.js';
 import { resolveCatId } from './progress.js';
-import { CAT_STATUS, PLACE_TYPES, PATTERNS, SEVERITY } from './taxonomy.js';
+import { CAT_STATUS, PLACE_TYPES, PATTERNS, SEVERITY, CONDITION_TAGS } from './taxonomy.js';
 import { findRegion, fuzz, isValidLatLon } from './geo.js';
 import { fail, cleanText, cleanName } from './util.js';
 import { checkName } from './moderation.js';
@@ -15,7 +15,23 @@ function assertCleanText(text) {
 const SETTABLE_STATUS = ['active', 'needs_help', 'in_care', 'adopted', 'deceased'];
 const SUGGESTABLE_PLACES = ['feeding', 'water', 'shelter'];
 
-export function censusApi(ctx) {
+/** Gemeldete Zustände bereinigen: nur bekannte Schlüssel, „gesund“ nicht zusammen mit Problemen. */
+export function cleanConditionTags(tags) {
+  const list = Array.isArray(tags) ? [...new Set(tags.filter((x) => typeof x === 'string' && CONDITION_TAGS[x]))].slice(0, 8) : [];
+  const problem = list.some((x) => CONDITION_TAGS[x].severity !== 'none');
+  return problem ? list.filter((x) => x !== 'healthy') : list;
+}
+
+export function conditionSeverity(tags) {
+  let best = 'none';
+  for (const x of tags) {
+    const sev = CONDITION_TAGS[x] ? CONDITION_TAGS[x].severity : 'none';
+    if (SEVERITY[sev].rank > SEVERITY[best].rank) best = sev;
+  }
+  return best;
+}
+
+export function censusApi(ctx, api) {
   const { store, game } = ctx;
 
   function visibleCats(regionId) {
@@ -58,7 +74,7 @@ export function censusApi(ctx) {
     const obs = store.observations.where('catId', id).filter((o) => o.status !== 'rejected').sort((a, b) => b.createdAt - a.createdAt);
     const events = store.events.where('catId', id).sort((a, b) => b.at - a.at).slice(0, 50).map((e) => {
       const p = e.by ? store.players.get(e.by) : null;
-      return { type: e.type, at: e.at, from: e.from || null, to: e.to || null, note: e.note || '', by: p ? p.nickname : null };
+      return { type: e.type, at: e.at, from: e.from || null, to: e.to || null, note: e.note || '', tags: e.tags || [], by: p ? p.nickname : null };
     });
     const history = obs
       .slice()
@@ -112,25 +128,73 @@ export function censusApi(ctx) {
     return publicCat(ctx, store.cats.get(id));
   }
 
-  /** Jede:r Spieler:in kann melden, dass eine Katze Hilfe braucht. */
-  function reportHelp(player, catId, note) {
+  /**
+   * Zustand einer Katze festhalten (aus einem Fang oder vom Katzenprofil). Ab „Beobachten“
+   * kommt die Katze in den Hilfe-Radar. Rückgabe: {severity, status}
+   */
+  function applyReport(player, cat, { tags, note, observationId = null }) {
+    const t = ctx.now();
+    const severity = conditionSeverity(tags);
+    const serious = SEVERITY[severity].rank >= SEVERITY.attention.rank;
+    const from = effectiveStatus(cat, t, game);
+    const to = serious && ['active', 'missing'].includes(from) ? 'needs_help' : from;
+    store.events.insert({
+      id: ctx.newId('e'), catId: cat.id, type: serious ? 'help_report' : 'condition', by: player.id, at: t,
+      from, to, note, tags, severity, observationId,
+    });
+    const patch = { lastReport: { tags, severity, at: t } };
+    if (to !== from && to === 'needs_help') Object.assign(patch, { status: 'needs_help', statusAt: t, statusBy: player.id });
+    store.cats.update(cat.id, patch);
+    return { severity, status: to };
+  }
+
+  /** Jede:r Spieler:in kann melden, wie es einer Katze geht / dass sie Hilfe braucht. */
+  function reportHelp(player, catId, input) {
     if (!player || player.banned) fail(403, 'banned');
+    const { note, tags } = typeof input === 'string' || input == null ? { note: input, tags: [] } : input;
     const id = resolveCatId(store, catId);
     const cat = store.cats.get(id);
     if (!cat || cat.removed) fail(404, 'cat_not_found');
     const t = ctx.now();
     const region = ctx.regionOf(cat.regionId);
     const day = ctx.day(t, region);
-    const mine = store.events.where('by', player.id).filter((e) => e.type === 'help_report');
+    const mine = store.events.where('by', player.id).filter((e) => (e.type === 'help_report' || e.type === 'condition') && !e.observationId);
     if (mine.filter((e) => ctx.day(e.at, region) === day).length >= game.maxHelpReportsPerDay) fail(429, 'help_limit', 'Tageslimit für Meldungen erreicht');
     if (mine.some((e) => e.catId === id && ctx.day(e.at, region) === day)) fail(409, 'already_reported', 'Heute schon gemeldet');
+    const list = cleanConditionTags(tags);
     const text = cleanText(note, 500);
-    if (text.length < 3) fail(400, 'note_required', 'Bitte kurz beschreiben, was los ist');
+    if (!list.length && text.length < 3) fail(400, 'note_required', 'Bitte kurz beschreiben, was los ist');
     assertCleanText(text);
-    const from = effectiveStatus(cat, t, game);
-    store.events.insert({ id: ctx.newId('e'), catId: id, type: 'help_report', by: player.id, at: t, from, to: from === 'in_care' ? 'in_care' : 'needs_help', note: text });
-    if (['active', 'missing'].includes(from)) store.cats.update(id, { status: 'needs_help', statusAt: t, statusBy: player.id });
+    if (list.length) {
+      applyReport(player, cat, { tags: list, note: text });
+    } else {
+      // Nur Text, keine Auswahl: wie bisher eine Hilfe-Meldung („braucht Hilfe“)
+      const from = effectiveStatus(cat, t, game);
+      store.events.insert({ id: ctx.newId('e'), catId: id, type: 'help_report', by: player.id, at: t, from, to: from === 'in_care' ? 'in_care' : 'needs_help', note: text, tags: [], severity: 'attention' });
+      const patch = { lastReport: { tags: [], severity: 'attention', at: t } };
+      if (['active', 'missing'].includes(from)) Object.assign(patch, { status: 'needs_help', statusAt: t, statusBy: player.id });
+      store.cats.update(id, patch);
+    }
     return publicCat(ctx, store.cats.get(id));
+  }
+
+  /** Zustand direkt nach dem Fang melden (eigene Sichtung, bis 6 h danach, einmal). +XP */
+  function reportCondition(player, observationId, { tags, note } = {}) {
+    if (!player || player.banned) fail(403, 'banned', 'Konto gesperrt');
+    const o = store.observations.get(observationId);
+    if (!o || o.playerId !== player.id || o.status === 'rejected') fail(404, 'observation_not_found');
+    const t = ctx.now();
+    if (t - o.createdAt > 6 * 3600000) fail(409, 'report_too_late', 'Nur bis 6 Stunden nach dem Fang');
+    if (o.report) fail(409, 'already_reported', 'Schon gemeldet');
+    const list = cleanConditionTags(tags);
+    const text = cleanText(note, 300);
+    if (!list.length && text.length < 3) fail(400, 'report_empty', 'Bitte einen Zustand wählen');
+    assertCleanText(text);
+    store.observations.update(o.id, { report: { tags: list, note: text, at: t } });
+    const cat = store.cats.get(resolveCatId(store, o.catId));
+    const res = applyReport(player, cat, { tags: list, note: text, observationId: o.id });
+    const xp = api && game.xp.conditionReport ? api.addXp(player, game.xp.conditionReport, 'condition_report', { observationId: o.id, catId: cat.id, regionId: cat.regionId }) : null;
+    return { cat: publicCat(ctx, store.cats.get(cat.id)), severity: res.severity, status: res.status, xp: xp ? xp.amount : 0 };
   }
 
   /** Hilfe-Radar: Katzen, die Hilfe brauchen oder in Behandlung sind. */
@@ -140,7 +204,8 @@ export function censusApi(ctx) {
       .filter((c) => ['needs_help', 'in_care'].includes(c.status))
       .map((c) => {
         const lastReport = store.events.where('catId', c.id).filter((e) => e.type === 'help_report' || e.type === 'auto_flag').sort((a, b) => b.at - a.at)[0];
-        return { cat: publicCat(ctx, c), severity: (c.latest && c.latest.health_severity) || 'none', lastReport: lastReport ? { at: lastReport.at, note: lastReport.note, type: lastReport.type } : null };
+        const sev = lastReport && lastReport.severity && SEVERITY[lastReport.severity] && SEVERITY[lastReport.severity].rank > SEVERITY[(c.latest && c.latest.health_severity) || 'none'].rank ? lastReport.severity : (c.latest && c.latest.health_severity) || 'none';
+        return { cat: publicCat(ctx, c), severity: sev, lastReport: lastReport ? { at: lastReport.at, note: lastReport.note, type: lastReport.type, tags: lastReport.tags || [] } : null };
       });
     list.sort((a, b) => (a.cat.status === 'needs_help' ? 0 : 1) - (b.cat.status === 'needs_help' ? 0 : 1) || severityRank(b.severity) - severityRank(a.severity) || (b.cat.lastSeenAt || 0) - (a.cat.lastSeenAt || 0));
     return { total: list.length, items: list, now: t };
@@ -247,7 +312,7 @@ export function censusApi(ctx) {
     return visibleCats(regionId).sort((a, b) => (b.lastSeenAt || 0) - (a.lastSeenAt || 0)).map((c) => publicCat(ctx, c));
   }
 
-  return { listCats, exportCats, getCat, setCatStatus, reportHelp, helpList, listPlaces, publicPlace, suggestPlace, mapData, visibleCats };
+  return { reportCondition, listCats, exportCats, getCat, setCatStatus, reportHelp, helpList, listPlaces, publicPlace, suggestPlace, mapData, visibleCats };
 }
 
 export const VALID = { SETTABLE_STATUS, SUGGESTABLE_PLACES, CAT_STATUS, PATTERNS, SEVERITY };

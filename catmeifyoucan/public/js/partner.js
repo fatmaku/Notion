@@ -7,7 +7,7 @@ import { setLang } from './i18n.js';
 const T = {
   tr: {
     title: 'Kupon doğrulama', cafe: 'Kafe', pin: 'PIN', login: 'Giriş', logout: 'Çıkış', scan: 'QR tara', stop: 'Durdur',
-    code: 'Kupon kodu', check: 'Kontrol et', redeem: '✓ Kullan ({n})', valid: 'GEÇERLİ', invalid: 'GEÇERSİZ', today: 'Bugün kullanılanlar',
+    code: 'Kupon kodu', check: 'Kontrol et', redeem: '✓ Kullan ({n})', valid: 'Geçerli', invalid: 'Geçersiz', today: 'Bugün kullanılanlar',
     none: 'Henüz yok.', cats: '{n} kedi bugün', needs: 'Gerekli: {n} kedi', total: 'Toplam: {n}', redeemed: 'Kullanıldı ✓',
     noScan: 'Bu tarayıcı QR okuyamıyor – kodu elle gir.', bad_login: 'Kafe veya PIN yanlış.', next: 'Sonraki kupon',
     r_bad_code: 'Kod biçimi yanlış.', r_not_found: 'Böyle bir kupon yok.', r_already_redeemed: 'Bu kupon zaten kullanılmış ({who}, {t}).',
@@ -16,7 +16,7 @@ const T = {
   },
   de: {
     title: 'Gutschein prüfen', cafe: 'Café', pin: 'PIN', login: 'Anmelden', logout: 'Abmelden', scan: 'QR scannen', stop: 'Stopp',
-    code: 'Gutschein-Code', check: 'Prüfen', redeem: '✓ Einlösen ({n})', valid: 'GÜLTIG', invalid: 'UNGÜLTIG', today: 'Heute eingelöst',
+    code: 'Gutschein-Code', check: 'Prüfen', redeem: '✓ Einlösen ({n})', valid: 'Gültig', invalid: 'Ungültig', today: 'Heute eingelöst',
     none: 'Noch keine.', cats: '{n} Katze heute|{n} Katzen heute', needs: 'Nötig: {n} Katze|Nötig: {n} Katzen', total: 'Gesamt: {n}', redeemed: 'Eingelöst ✓',
     noScan: 'Dieser Browser kann keine QR-Codes lesen – Code bitte eintippen.', bad_login: 'Café oder PIN falsch.', next: 'Nächster Gutschein',
     r_bad_code: 'Code-Format falsch.', r_not_found: 'Diesen Gutschein gibt es nicht.', r_already_redeemed: 'Schon eingelöst ({who}, {t}).',
@@ -25,7 +25,7 @@ const T = {
   },
   en: {
     title: 'Check voucher', cafe: 'Café', pin: 'PIN', login: 'Log in', logout: 'Log out', scan: 'Scan QR', stop: 'Stop',
-    code: 'Voucher code', check: 'Check', redeem: '✓ Redeem ({n})', valid: 'VALID', invalid: 'INVALID', today: 'Redeemed today',
+    code: 'Voucher code', check: 'Check', redeem: '✓ Redeem ({n})', valid: 'Valid', invalid: 'Not valid', today: 'Redeemed today',
     none: 'None yet.', cats: '{n} cat today|{n} cats today', needs: 'Needs {n} cat|Needs {n} cats', total: 'Total: {n}', redeemed: 'Redeemed ✓',
     noScan: 'This browser can’t read QR codes – please type the code.', bad_login: 'Wrong café or PIN.', next: 'Next voucher',
     r_bad_code: 'Wrong code format.', r_not_found: 'No such voucher.', r_already_redeemed: 'Already redeemed ({who}, {t}).',

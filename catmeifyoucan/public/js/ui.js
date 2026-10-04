@@ -1,6 +1,6 @@
 // Cat Me If You Can – kleine UI-Helfer: Escaping, Formatierung, Toasts, Dialoge, Chips.
 
-import { t, L, getLang } from './i18n.js';
+import { t, L, getLang, locale as langLocale } from './i18n.js';
 import { CAT_STATUS, SEVERITY, RARITY, PATTERNS } from '../core/taxonomy.js';
 import { catAvatarDataUrl } from './avatar.js';
 
@@ -19,8 +19,7 @@ export function on(root, type, selector, fn) {
   });
 }
 
-const LOCALE = { tr: 'tr-TR', de: 'de-DE', en: 'en-GB' };
-export const locale = () => LOCALE[getLang()] || 'tr-TR';
+export const locale = () => langLocale();
 const TZ = 'Europe/Istanbul';
 
 export function fmtNum(n) {
@@ -172,5 +171,8 @@ export function confetti(root = document.body, n = 40) {
 /** Prozentangabe in Landesschreibweise: TR „%20“, DE „20 %“, EN „20%“. */
 export function pct(n) {
   const l = getLang();
-  return l === 'tr' ? `%${n}` : l === 'de' ? `${n} %` : `${n}%`;
+  if (l === 'tr') return `%${n}`;
+  if (l === 'de') return `${n} %`;
+  if (l === 'ar' || l === 'fa') return `${new Intl.NumberFormat(locale()).format(n)}٪`;
+  return `${n}%`;
 }

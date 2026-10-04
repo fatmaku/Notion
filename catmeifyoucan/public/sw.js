@@ -1,7 +1,7 @@
 // Cat Me If You Can – Service Worker: App-Hülle offline verfügbar, API immer frisch vom Netz.
 const VERSION = 'catme-v1';
 const SHELL = [
-  './', 'index.html', 'css/app.css', 'manifest.webmanifest', 'icons/logo.svg', 'icons/icon-192.png',
+  'app.html', 'css/app.css', 'css/fonts.css', 'manifest.webmanifest', 'icons/logo.svg', 'icons/icon-192.png',
   'js/app.js', 'js/api.js', 'js/i18n.js', 'js/ui.js', 'js/avatar.js', 'js/camera.js', 'js/charts.js', 'js/map.js',
   'js/views/home.js', 'js/views/catch.js', 'js/views/card.js', 'js/views/dex.js', 'js/views/cat.js', 'js/views/stats.js',
   'js/views/voucher.js', 'js/views/profile.js',
@@ -31,6 +31,6 @@ self.addEventListener('fetch', (e) => {
         }
         return res;
       })
-      .catch(() => caches.match(e.request).then((r) => r || caches.match('index.html'))),
+      .catch(() => caches.match(e.request).then((r) => r || caches.match('app.html'))),
   );
 });

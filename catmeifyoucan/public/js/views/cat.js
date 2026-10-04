@@ -7,6 +7,8 @@ import { CAT_STATUS, BEHAVIOR, RARITY } from '../../core/taxonomy.js';
 import { factsHtml } from './card.js';
 import { lineChart } from '../charts.js';
 import { miniMap } from '../map.js';
+import { conditionFormHtml, bindConditionForm, readConditionForm, conditionText } from './condition.js';
+import { shareCat } from '../share.js';
 
 export async function renderCat(view, app, id) {
   const data = await app.api.cat(id);
@@ -25,6 +27,7 @@ export async function renderCat(view, app, id) {
         <div class="chips">${statusChip(cat.status)} ${cat.needsReview ? `<span class="chip">${esc(t('cat.review'))}</span>` : ''}</div>
         <p class="small muted">${esc(cat.districtName || '')} · ${esc(t('cat.seenTimes', { n: cat.observationCount }))} · ${esc(t('cat.byPlayers', { n: cat.catcherCount }))}</p>
         ${cat.discoveredBy ? `<p class="small">🔭 ${esc(t('card.discoveredBy', { name: cat.discoveredBy }))}</p>` : ''}
+        ${cat.lastReport && cat.lastReport.tags && cat.lastReport.tags.length ? `<p class="small last-report"><b>${esc(t('cat.lastReport'))}:</b> ${esc(conditionText(cat.lastReport.tags))} <span class="muted">· ${esc(fmtAgo(cat.lastReport.at))}</span></p>` : ''}
       </div>
     </section>
 
@@ -34,7 +37,8 @@ export async function renderCat(view, app, id) {
       <p class="small muted">${esc(t('cat.firstSeen'))}: ${esc(fmtDate(cat.firstSeenAt))} · ${esc(t('cat.lastSeen'))}: ${esc(fmtAgo(cat.lastSeenAt))}</p>
       <p class="disclaimer">${esc(t('card.disclaimer'))}</p>
       <div class="actions">
-        <button class="btn danger-soft" data-act="help">🆘 ${esc(t('cat.reportHelp'))}</button>
+        <button class="btn primary" data-act="help">📝 ${esc(t('report.profileTitle'))}</button>
+        <button class="btn" data-act="share">📤 ${esc(t('share.button'))}</button>
         ${canStatus ? `<button class="btn" data-act="status">🩺 ${esc(t('cat.setStatus'))}</button>` : ''}
       </div>
     </section>
@@ -63,7 +67,7 @@ export async function renderCat(view, app, id) {
     </section>
 
     ${events.length ? `<section class="card"><h2>${esc(t('cat.log'))}</h2><ul class="log">${events.map((e) => `
-      <li><small class="muted">${esc(fmtDateTime(e.at))}</small> ${esc(t(`ev.${e.type}`))}${e.to ? ` → ${esc(L(CAT_STATUS, e.to))}` : ''}${e.note ? `: ${esc(e.note)}` : ''}${e.by ? ` <small class="muted">(${esc(e.by)})</small>` : ''}</li>`).join('')}</ul></section>` : ''}`;
+      <li><small class="muted">${esc(fmtDateTime(e.at))}</small> ${esc(t(`ev.${e.type}`))}${e.tags && e.tags.length ? ` ${esc(conditionText(e.tags))}` : ''}${e.to && e.to !== e.from ? ` → ${esc(L(CAT_STATUS, e.to))}` : ''}${e.note ? `: ${esc(e.note)}` : ''}${e.by ? ` <small class="muted">(${esc(e.by)})</small>` : ''}</li>`).join('')}</ul></section>` : ''}`;
 
   const chartEl = view.querySelector('[data-chart="bcs"]');
   if (chartEl) {
@@ -73,13 +77,17 @@ export async function renderCat(view, app, id) {
 
   view.querySelector('[data-act="help"]').addEventListener('click', () => {
     if (!app.api.hasToken()) return toast(t('err.login_required'), { type: 'error' });
-    const m = modal(`<form class="pad" data-f><h2>🆘 ${esc(t('cat.reportHelp'))}</h2>
-      <textarea name="note" rows="4" maxlength="500" required minlength="3" placeholder="${esc(t('cat.helpPh'))}"></textarea>
+    const m = modal(`<form class="pad" data-f><h2>📝 ${esc(t('report.profileTitle'))}</h2>
+      <p class="small muted">${esc(t('report.lead'))}</p>
+      ${conditionFormHtml({ withNote: false })}
+      <textarea name="note" rows="3" maxlength="500" placeholder="${esc(t('cat.helpPh'))}"></textarea>
       <div class="actions"><button class="btn primary">${esc(t('cat.send'))}</button><button type="button" class="btn" data-close>${esc(t('common.cancel'))}</button></div></form>`);
+    bindConditionForm(m.el.querySelector('[data-f]'));
     m.el.querySelector('[data-f]').addEventListener('submit', async (e) => {
       e.preventDefault();
+      const { tags, note } = readConditionForm(e.target);
       try {
-        await app.api.reportHelp(cat.id, e.target.note.value);
+        await app.api.reportHelp(cat.id, note, tags);
         m.close();
         toast(t('cat.helpSent'), { type: 'success' });
         renderCat(view, app, cat.id);
@@ -87,6 +95,17 @@ export async function renderCat(view, app, id) {
         toast(errorText(err), { type: 'error' });
       }
     });
+  });
+  view.querySelector('[data-act="share"]').addEventListener('click', async (e) => {
+    e.target.disabled = true;
+    try {
+      const last = obs[0] && obs[0].analysis ? obs[0].analysis : {};
+      if ((await shareCat(cat, last)) === 'saved') toast(t('share.saved'), { type: 'success' });
+    } catch {
+      toast(t('err.generic'), { type: 'error' });
+    } finally {
+      e.target.disabled = false;
+    }
   });
   view.querySelector('[data-act="status"]')?.addEventListener('click', () => {
     const m = modal(`<form class="pad" data-f><h2>🩺 ${esc(t('cat.setStatus'))}</h2>

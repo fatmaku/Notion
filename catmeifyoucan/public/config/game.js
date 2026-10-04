@@ -1,6 +1,10 @@
 // Cat Me If You Can – Spielregeln. Alles Einstellbare an einem Ort; der Server kann Werte per
 // data/game.override.json überschreiben (siehe server/app.js), ohne Code zu ändern.
 
+import ru from '../core/labels/ru.js';
+import ar from '../core/labels/ar.js';
+import fa from '../core/labels/fa.js';
+
 const L = (tr, de, en) => ({ tr, de, en });
 
 export const GAME = {
@@ -34,6 +38,7 @@ export const GAME = {
     resighting: 5, // dieselbe Katze heute nochmal
     healthReport: 30, // Fang mit Gesundheitshinweis (Hilfe-Radar)
     dailyGoal: 200, // Tagesziel erreicht
+    conditionReport: 10, // Zustand der Katze beim Fang gemeldet (gesund/hungrig/krank …)
   },
 
   /** XP-Schwellen je Level (Index = Level-1). */
@@ -92,3 +97,15 @@ export const GAME = {
     ],
   },
 };
+
+// Abzeichen und Level-Titel in weiteren Sprachen (core/labels/<code>.js) einmischen.
+for (const [lang, data] of Object.entries({ ru, ar, fa })) {
+  for (const b of GAME.badges) {
+    const tr = data && data.BADGES && data.BADGES[b.id];
+    if (tr && tr.name) b.name[lang] = tr.name;
+    if (tr && tr.desc) b.desc[lang] = tr.desc;
+  }
+  (data && Array.isArray(data.LEVEL_TITLES) ? data.LEVEL_TITLES : []).forEach((title, i) => {
+    if (GAME.levelTitles[i] && title) GAME.levelTitles[i][lang] = title;
+  });
+}

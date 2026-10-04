@@ -70,8 +70,10 @@ ${PATTERN_GUIDE}
   "white chest blaze, notched right ear, kinked tail, black spot on nose".
 - nickname_ideas: 3 short, kind names that suit the cat (Turkish street-cat style: Paşa, Duman,
   Pamuk, Karamel, Zeytin, Fıstık, Tarçın, Boncuk …).
-- summary_tr / summary_de / summary_en: one warm, playful sentence (max 140 characters) like the
-  flavour text on a collectible card; mention the neighbourhood if given. No health speculation.
+- summary_tr / summary_de / summary_en / summary_ru / summary_ar / summary_fa: the same warm, playful
+  sentence (max 140 characters) in Turkish, German, English, Russian, Arabic and Persian, like the
+  flavour text on a collectible card; very simple words (many readers are tourists); mention the
+  neighbourhood if given. No health speculation.
 - confidence: your overall confidence 0–1.
 If is_cat is false: neutral values (pattern "diger", unknown, null) and say in the summaries what
 the photo shows instead.`;

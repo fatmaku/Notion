@@ -1,7 +1,7 @@
 // Cat Me If You Can – App-Start, Kopfzeile, Navigation, Router, Onboarding.
 
 import { RemoteApi, createLocalApi } from './api.js';
-import { t, getLang, setLang, LANGS, tx } from './i18n.js';
+import { t, getLang, setLang, LANGS, LANG_INFO, tx } from './i18n.js';
 import { esc, toast, errorText } from './ui.js';
 import { renderHome } from './views/home.js';
 import { renderCatch } from './views/catch.js';
@@ -51,7 +51,7 @@ function shell(app) {
     <a class="skip" href="#view">${esc(t('common.more'))}</a>
     <header class="top">
       <a href="#/" class="brand" aria-label="Cat Me If You Can"><img src="icons/logo.svg" alt="" width="36" height="36">
-        <span class="wordmark"><b>Cat Me</b><i>if you can</i></span></a>
+        <span class="wordmark"><b>Cat Me</b><i>If You Can</i></span></a>
       ${app.api.isDemo ? `<span class="chip demo" title="${esc(t('onb.demo'))}">${esc(t('common.demo'))}</span>` : ''}
       <a href="#/profile" class="me-pill" data-me aria-label="${esc(t('p.settings'))}"></a>
     </header>
@@ -73,9 +73,9 @@ function onboarding(app) {
     wrap.innerHTML = `
       <div class="onb-inner">
         <img class="onb-logo" src="icons/logo.svg" alt="" width="132" height="132">
-        <h1 class="onb-title"><span>Cat Me</span><em>if you can</em></h1>
+        <h1 class="onb-title"><span>Cat Me</span><em>If You Can</em></h1>
         <p class="onb-slogan">${esc(t('app.slogan'))}</p>
-        <div class="langs" role="group" aria-label="${esc(t('onb.lang'))}">${LANGS.map((l) => `<button data-lang="${l}" class="${l === getLang() ? 'on' : ''}">${l.toUpperCase()}</button>`).join('')}</div>
+        <div class="langs" role="group" aria-label="${esc(t('onb.lang'))}">${LANGS.map((l) => `<button data-lang="${l}" lang="${l}" class="${l === getLang() ? 'on' : ''}" aria-label="${esc(LANG_INFO[l].name)}">${esc(LANG_INFO[l].name)}</button>`).join('')}</div>
         <h2>${esc(t('onb.title'))}</h2>
         <p>${esc(t('onb.lead'))}</p>
         <ul class="onb-rules">${['onb.rule1', 'onb.rule2', 'onb.rule3', 'onb.rule4'].map((k) => `<li>${esc(t(k))}</li>`).join('')}</ul>

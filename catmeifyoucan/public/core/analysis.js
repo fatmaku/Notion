@@ -53,6 +53,9 @@ export const ANALYSIS_SCHEMA = obj({
   summary_tr: str,
   summary_de: str,
   summary_en: str,
+  summary_ru: str,
+  summary_ar: str,
+  summary_fa: str,
   confidence: num,
 });
 
@@ -140,7 +143,10 @@ export function normalizeAnalysis(raw, { analyzer = 'unknown', model = null } = 
     people_visible: r.people_visible === true,
     distinctive_marks: text(r.distinctive_marks, 200),
     nickname_ideas: Array.isArray(r.nickname_ideas) ? r.nickname_ideas.map((s) => text(s, 24)).filter(Boolean).slice(0, 4) : [],
-    summary: { tr: text(r.summary_tr, 220), de: text(r.summary_de, 220), en: text(r.summary_en, 220) },
+    summary: {
+      tr: text(r.summary_tr, 220), de: text(r.summary_de, 220), en: text(r.summary_en, 220),
+      ru: text(r.summary_ru, 220), ar: text(r.summary_ar, 220), fa: text(r.summary_fa, 220),
+    },
     confidence: clampNum(r.confidence, 0, 1) ?? 0.5,
     analyzer,
     model,
@@ -236,10 +242,13 @@ export function trAblative(name) {
 /** Kurztext ohne KI, damit jede Karte etwas zu sagen hat. */
 export function fallbackSummary(analysis, districtName, lang) {
   const p = PATTERNS[analysis.pattern] || PATTERNS.diger;
-  const name = (p.label && p.label[lang]) || p.label.tr;
+  const name = (p.label && (p.label[lang] || p.label.en)) || p.label.tr;
   const where = districtName || 'Kadıköy';
   if (lang === 'de') return `${name} aus ${where}.`;
   if (lang === 'en') return `A ${name.toLowerCase()} from ${where}.`;
+  if (lang === 'ru') return `${name} из района ${where}.`;
+  if (lang === 'ar') return `${name} من ${where}.`;
+  if (lang === 'fa') return `${name} از ${where}.`;
   return `${trAblative(where)} bir ${name.toLocaleLowerCase('tr')}.`;
 }
 

@@ -3,7 +3,7 @@
   "short_name": "Cat Me",
   "description": "Kadıköy'ün sokak kedilerini fotoğrafla, yakala, KediDex'ini doldur.",
   "lang": "tr",
-  "start_url": "./#/",
+  "start_url": "./app.html#/",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -17,7 +17,7 @@
     { "src": "icons/logo.svg", "sizes": "any", "type": "image/svg+xml" }
   ],
   "shortcuts": [
-    { "name": "Yakala!", "url": "./#/catch", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Kupon", "url": "./#/voucher", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+    { "name": "Yakala!", "url": "./app.html#/catch", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Kupon", "url": "./app.html#/voucher", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
   ]
 }

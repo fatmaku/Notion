@@ -1,8 +1,13 @@
-// Cat Me If You Can – feste Wertelisten (Enums) für die Katzenanalyse, mit Beschriftungen in TR/DE/EN.
+// Cat Me If You Can – feste Wertelisten (Enums) für die Katzenanalyse, mit Beschriftungen.
 //
 // Dieselben Listen benutzen: das JSON-Schema für Claude (server/analyzer-claude.js), die
 // Normalisierung (core/analysis.js), die Oberfläche und der CSV-Export. Neue Werte hier
-// ergänzen – alles andere zieht nach.
+// ergänzen – alles andere zieht nach. TR/DE/EN stehen hier, RU/AR/FA in core/labels/<code>.js
+// (werden beim Laden eingemischt).
+
+import ru from './labels/ru.js';
+import ar from './labels/ar.js';
+import fa from './labels/fa.js';
 
 const L = (tr, de, en) => ({ tr, de, en });
 
@@ -159,6 +164,26 @@ export const RARITY = {
   legendary: { label: L('Efsane', 'Legende', 'Legendary'), stars: 5, mult: 3 },
 };
 
+/**
+ * Zustand, den Spieler:innen beim Fangen selbst melden (zusätzlich zur KI). severity bestimmt,
+ * ob die Katze in den Hilfe-Radar kommt; need markiert Versorgungsbedarf (Futter/Wasser).
+ */
+export const CONDITION_TAGS = {
+  healthy: { label: L('Sağlıklı', 'Gesund', 'Healthy'), icon: '😺', severity: 'none' },
+  fed: { label: L('Besledim', 'Ich habe gefüttert', 'I fed it'), icon: '🥣', severity: 'none' },
+  hungry: { label: L('Aç', 'Hungrig', 'Hungry'), icon: '🍽️', severity: 'mild', need: 'food' },
+  thirsty: { label: L('Susamış', 'Durstig', 'Thirsty'), icon: '💧', severity: 'mild', need: 'water' },
+  thin: { label: L('Çok zayıf', 'Sehr dünn', 'Very thin'), icon: '🦴', severity: 'attention' },
+  sick: { label: L('Hasta (göz, burun, hapşırık)', 'Krank (Augen, Nase, Niesen)', 'Sick (eyes, nose, sneezing)'), icon: '🤒', severity: 'attention' },
+  injured: { label: L('Yaralı', 'Verletzt', 'Injured'), icon: '🩹', severity: 'urgent' },
+  limping: { label: L('Topallıyor', 'Humpelt', 'Limping'), icon: '🦵', severity: 'attention' },
+  cold: { label: L('Üşüyor / ıslak', 'Friert / nass', 'Cold / wet'), icon: '🥶', severity: 'attention' },
+  pregnant: { label: L('Hamile', 'Trächtig', 'Pregnant'), icon: '🤰', severity: 'mild' },
+  kittens: { label: L('Yavruları var', 'Hat Kitten', 'Has kittens'), icon: '🍼', severity: 'mild' },
+  danger: { label: L('Tehlikede (trafik, sıkışmış)', 'In Gefahr (Verkehr, eingeklemmt)', 'In danger (traffic, stuck)'), icon: '⚠️', severity: 'urgent' },
+  lost_pet: { label: L('Kayıp ev kedisi olabilir', 'Vielleicht entlaufen', 'Maybe a lost pet'), icon: '🏠', severity: 'mild' },
+};
+
 export const PLACE_TYPES = {
   partner: { label: L('Partner kafe', 'Partner-Café', 'Partner café'), icon: '☕' },
   feeding: { label: L('Mama noktası', 'Futterstelle', 'Feeding point'), icon: '🥣' },
@@ -169,15 +194,38 @@ export const PLACE_TYPES = {
 
 export const ROLES = ['player', 'volunteer', 'admin'];
 
-export const LANGS = ['tr', 'de', 'en'];
+export const LANGS = ['tr', 'en', 'de', 'ru', 'ar', 'fa'];
 
-/** Beschriftung eines Enum-Werts in der gewünschten Sprache (Fallback: tr → Schlüssel). */
+/** Beschriftung eines Enum-Werts in der gewünschten Sprache (Rückfall: en → tr → Schlüssel). */
 export function label(table, key, lang = 'tr') {
   const entry = table && table[key];
   if (!entry) return key == null ? '' : String(key);
   const l = entry.label || entry;
-  return l[lang] || l.tr || String(key);
+  return l[lang] || l.en || l.tr || String(key);
 }
+
+/** Tabellen nach Namen – für die Sprachdateien in core/labels/. */
+export const TABLES = {
+  PATTERNS, COAT_COLORS, EYE_COLORS, AGE_GROUPS, BCS_CLASSES, SEX, EAR_TIP, HEALTH_FLAGS, SEVERITY, BEHAVIOR,
+  SETTINGS, OWNERSHIP, CAT_STATUS, RARITY, CONDITION_TAGS, PLACE_TYPES,
+};
+
+/** Mischt eine Sprachdatei {TABELLE: {schlüssel: 'Text'}} in die Tabellen ein. */
+export function mergeLabels(lang, data) {
+  for (const [tableName, map] of Object.entries(data || {})) {
+    const table = TABLES[tableName];
+    if (!table || !map || typeof map !== 'object') continue;
+    for (const [key, text] of Object.entries(map)) {
+      const entry = table[key];
+      if (!entry || typeof text !== 'string' || !text) continue;
+      (entry.label || entry)[lang] = text;
+    }
+  }
+}
+
+mergeLabels('ru', ru);
+mergeLabels('ar', ar);
+mergeLabels('fa', fa);
 
 export function patternsRelated(a, b) {
   if (!a || !b) return false;

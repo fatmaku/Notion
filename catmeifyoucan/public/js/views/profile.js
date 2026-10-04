@@ -1,7 +1,7 @@
 // Cat Me If You Can – Profil: Level, Abzeichen, Kennzahlen, letzte Fänge, Einstellungen.
 // Außerdem: Regeln & Datenschutz.
 
-import { t, tx, LANGS, setLang, getLang } from '../i18n.js';
+import { t, tx, LANGS, LANG_INFO, setLang, getLang } from '../i18n.js';
 import { esc, fmtNum, fmtAgo, toast, errorText, catImg, patternLabel } from '../ui.js';
 import { arEnabled, setArEnabled } from './catch.js';
 
@@ -36,7 +36,7 @@ export async function renderProfile(view, app) {
     <section class="card"><h2>${esc(t('p.settings'))}</h2>
       <form class="settings" data-f>
         <label>${esc(t('p.nick'))}<input name="nickname" value="${esc(player.nickname)}" maxlength="20" minlength="2"></label>
-        <label>${esc(t('p.lang'))}<select name="lang">${LANGS.map((l) => `<option value="${l}" ${l === getLang() ? 'selected' : ''}>${{ tr: 'Türkçe', de: 'Deutsch', en: 'English' }[l]}</option>`).join('')}</select></label>
+        <label>${esc(t('p.lang'))}<select name="lang">${LANGS.map((l) => `<option value="${l}" ${l === getLang() ? 'selected' : ''}>${esc(LANG_INFO[l].name)}</option>`).join('')}</select></label>
         <label class="check"><input type="checkbox" name="ar" ${arEnabled() ? 'checked' : ''}> ${esc(t('p.ar'))}</label>
         <button class="btn primary">${esc(t('p.save'))}</button>
       </form>

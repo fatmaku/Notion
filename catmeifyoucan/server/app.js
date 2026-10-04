@@ -201,7 +201,13 @@ export async function createApp(options = {}) {
     const p = player(req);
     lim.write.take(ip);
     const body = await readJson(req);
-    return engine.reportHelp(p, params.id, body.note);
+    return engine.reportHelp(p, params.id, { note: body.note, tags: body.tags });
+  });
+  r.post('/api/observations/:id/report', async ({ req, params, ip }) => {
+    const p = player(req);
+    lim.write.take(ip);
+    const body = await readJson(req);
+    return engine.reportCondition(p, params.id, { tags: body.tags, note: body.note });
   });
   r.post('/api/cats/:id/status', async ({ req, params }) => {
     const p = player(req);

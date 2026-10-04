@@ -4,7 +4,8 @@
 import { t, L } from '../i18n.js';
 import { esc, fmtNum, catImg, statusChip, severityChip, fmtAgo, catName } from '../ui.js';
 import { columnChart, hbarChart, tableHtml } from '../charts.js';
-import { PATTERNS, AGE_GROUPS, SEVERITY, BCS_CLASSES, HEALTH_FLAGS } from '../../core/taxonomy.js';
+import { PATTERNS, AGE_GROUPS, SEVERITY, BCS_CLASSES, HEALTH_FLAGS, CONDITION_TAGS } from '../../core/taxonomy.js';
+import { conditionText } from './condition.js';
 
 const SEV_COLOR = { none: 'var(--good)', mild: 'var(--warning)', attention: 'var(--serious)', urgent: 'var(--critical)' };
 const SEV_ICON = { none: '✓', mild: '!', attention: '⚠', urgent: '🆘' };
@@ -33,10 +34,13 @@ export async function renderStats(view, app, params) {
       ${tile(t('stats.bcs'), tt.avgBcs == null ? '–' : String(tt.avgBcs))}
       ${tile(t('stats.obs'), fmtNum(tt.observations))}
       ${tile(t('stats.active'), fmtNum(tt.activePlayersToday))}
+      ${tile(t('stats.fed'), fmtNum(tt.fed30d || 0))}
+      ${tile(t('stats.hungry'), fmtNum(tt.hungry7d || 0))}
       ${tile(t('stats.vouchers'), fmtNum(tt.vouchersRedeemed))}
     </div>
     ${vizCard('perDay', t('stats.perDay'))}
     ${vizCard('health', t('stats.health'))}
+    ${vizCard('reports', t('stats.reports'))}
     ${vizCard('patterns', t('stats.patterns'))}
     ${vizCard('bcs', t('stats.bcsDist'))}
     ${vizCard('ages', t('stats.ages'))}
@@ -61,6 +65,14 @@ export async function renderStats(view, app, params) {
     health: {
       draw: (el) => hbarChart(el, Object.keys(SEVERITY).map((k) => ({ label: L(SEVERITY, k), icon: SEV_ICON[k], value: s.severity[k] || 0, color: SEV_COLOR[k] })), { total: tt.cats }),
       table: () => tableHtml([t('stats.health'), t('stats.col.cats')], Object.keys(SEVERITY).map((k) => [`${SEV_ICON[k]} ${L(SEVERITY, k)}`, s.severity[k] || 0])),
+    },
+    reports: {
+      draw: (el) => {
+        const rows = Object.keys(CONDITION_TAGS).filter((k) => (s.reports || {})[k]).sort((a, b) => s.reports[b] - s.reports[a]).map((k) => ({ label: L(CONDITION_TAGS, k), icon: CONDITION_TAGS[k].icon, value: s.reports[k] }));
+        if (rows.length) hbarChart(el, rows);
+        else el.innerHTML = `<p class="muted">${esc(t('lb.empty'))}</p>`;
+      },
+      table: () => tableHtml([t('stats.reports'), t('stats.col.cats')], Object.keys(CONDITION_TAGS).map((k) => [`${CONDITION_TAGS[k].icon} ${L(CONDITION_TAGS, k)}`, (s.reports || {})[k] || 0])),
     },
     patterns: {
       draw: (el) => hbarChart(el, Object.keys(PATTERNS).filter((k) => s.patterns[k]).sort((a, b) => s.patterns[b] - s.patterns[a]).map((k) => ({ label: L(PATTERNS, k), value: s.patterns[k] })), { total: tt.cats }),
@@ -153,7 +165,7 @@ export async function renderHelpList(el, app) {
   el.innerHTML = `<p class="small muted">${esc(t('help.lead'))}</p>${h.items.length ? `<ul class="helplist">${h.items.map((x) => `
     <li><a href="#/cat/${esc(x.cat.id)}">${catImg(x.cat, { size: 'sm' })}
       <span><b>${catName(x.cat)}</b> · ${esc(x.cat.districtName || '')}<br>${statusChip(x.cat.status)} ${severityChip(x.severity)}
-      ${x.lastReport ? `<br><small>${esc(x.lastReport.note || '')} <span class="muted">· ${esc(fmtAgo(x.lastReport.at))}</span></small>` : ''}</span></a></li>`).join('')}</ul>`
+      ${x.lastReport ? `<br><small>${x.lastReport.tags && x.lastReport.tags.length ? `${esc(conditionText(x.lastReport.tags))} ` : ''}${esc(x.lastReport.note || '')} <span class="muted">· ${esc(fmtAgo(x.lastReport.at))}</span></small>` : ''}</span></a></li>`).join('')}</ul>`
     : `<p>${esc(t('help.empty'))}</p>`}`;
 }
 

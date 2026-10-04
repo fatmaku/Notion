@@ -606,6 +606,6 @@ export function createEngine(opts) {
       ai: { analyzer: analyzer.name || 'unknown', verifier: !!verifier },
     }),
   };
-  Object.assign(api, censusApi(ctx), voucherApi(ctx, api), adminApi(ctx, api));
+  Object.assign(api, censusApi(ctx, api), voucherApi(ctx, api), adminApi(ctx, api));
   return api;
 }

@@ -97,7 +97,8 @@ export class RemoteApi {
   myObservations() { return this.req('GET', '/api/me/observations'); }
   catchCat(payload) { return this.req('POST', '/api/catch', payload, { timeout: 170000 }); }
   nameCat(id, name) { return this.req('POST', `/api/cats/${encodeURIComponent(id)}/name`, { name }); }
-  reportHelp(id, note) { return this.req('POST', `/api/cats/${encodeURIComponent(id)}/help`, { note }); }
+  reportHelp(id, note, tags) { return this.req('POST', `/api/cats/${encodeURIComponent(id)}/help`, { note, tags }); }
+  reportCondition(obsId, tags, note) { return this.req('POST', `/api/observations/${encodeURIComponent(obsId)}/report`, { tags, note }); }
   setStatus(id, status, note) { return this.req('POST', `/api/cats/${encodeURIComponent(id)}/status`, { status, note }); }
   dispute(obsId, reason) { return this.req('POST', `/api/observations/${encodeURIComponent(obsId)}/dispute`, { reason }); }
   cats(params = {}) {
@@ -238,7 +239,8 @@ export async function createLocalApi() {
       return engine.catchCat(me(), { ...payload, images: { crop: { small } } });
     }),
     nameCat: (id, name) => wrap(() => engine.nameCat(me(), id, name)),
-    reportHelp: (id, note) => wrap(async () => engine.reportHelp(me(), id, note)),
+    reportHelp: (id, note, tags) => wrap(async () => engine.reportHelp(me(), id, { note, tags })),
+    reportCondition: (obsId, tags, note) => wrap(async () => engine.reportCondition(me(), obsId, { tags, note })),
     setStatus: (id, status, note) => wrap(async () => engine.setCatStatus(me(), id, status, note)),
     dispute: (obsId, reason) => wrap(async () => engine.dispute(me(), obsId, reason)),
     cats: (params = {}) => wrap(async () => engine.listCats(params)),

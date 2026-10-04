@@ -2,7 +2,7 @@
 
 import { effectiveStatus } from './cats.js';
 import { addDays, localHour } from './time.js';
-import { PATTERNS, AGE_GROUPS, SEVERITY, HEALTH_FLAGS, BCS_CLASSES, CAT_STATUS } from './taxonomy.js';
+import { PATTERNS, AGE_GROUPS, SEVERITY, HEALTH_FLAGS, BCS_CLASSES, CAT_STATUS, CONDITION_TAGS } from './taxonomy.js';
 
 const zeroMap = (table) => Object.fromEntries(Object.keys(table).map((k) => [k, 0]));
 
@@ -80,6 +80,18 @@ export function computeStats(ctx, { regionId, days = 30 } = {}) {
     if (t - o.createdAt <= days * 86400000) hours[localHour(o.createdAt, tz)]++;
   }
 
+  // Von Spieler:innen gemeldete Zustände (Fang-Meldungen + Meldungen vom Katzenprofil)
+  const reports = zeroMap(CONDITION_TAGS);
+  const catIds = new Set(cats.map((c) => c.id));
+  let reports30 = 0, fed30 = 0, hungry7 = 0;
+  for (const e of store.events.all()) {
+    if (!Array.isArray(e.tags) || !e.tags.length || !catIds.has(e.catId) || t - e.at > days * 86400000) continue;
+    reports30++;
+    for (const tag of e.tags) if (tag in reports) reports[tag]++;
+    if (e.tags.includes('fed')) fed30++;
+    if ((e.tags.includes('hungry') || e.tags.includes('thirsty')) && t - e.at <= 7 * 86400000) hungry7++;
+  }
+
   const vouchers = store.vouchers.all().filter((v) => v.regionId === region.id);
   return {
     region: { id: region.id, name: region.name },
@@ -99,6 +111,9 @@ export function computeStats(ctx, { regionId, days = 30 } = {}) {
       tnrPct: earKnown ? Math.round((tipped / earKnown) * 100) : null,
       tnrKnown: earKnown,
       avgBcs: bcsN ? Math.round((bcsSum / bcsN) * 10) / 10 : null,
+      reports30d: reports30,
+      fed30d: fed30,
+      hungry7d: hungry7,
       vouchersRedeemed: vouchers.filter((v) => v.redeemedAt).length,
       vouchersIssued: vouchers.length,
     },
@@ -108,6 +123,7 @@ export function computeStats(ctx, { regionId, days = 30 } = {}) {
     severity,
     bcs,
     healthFlags: flags,
+    reports,
     perDay: [...perDay.values()].map((d) => ({ day: d.day, observations: d.observations, newCats: d.newCats, players: d.players.size })),
     hours,
     districts: [...byDistrict.values()].map((d) => ({
