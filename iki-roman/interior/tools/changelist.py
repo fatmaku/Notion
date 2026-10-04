@@ -76,7 +76,8 @@ def main():
                 "ops_editor_BY.json": "Editör müdahaleleri (jüri önerileri, lektör notları)",
                 "fix_SA_alle.json": "Bağımsız kontrol sonrası dikiş düzeltmeleri", "fix_BY_alle.json": "Bağımsız kontrol sonrası dikiş düzeltmeleri",
                 "kor_SA_alle.json": "Son okuma (düzelti): yazım, dilbilgisi, noktalama, tutarlılık", "kor_BY_alle.json": "Son okuma (düzelti): yazım, dilbilgisi, noktalama, tutarlılık",
-                "ops_editor2_SA.json": "Jüri v6 sonrası editör müdahaleleri (içerik tutarlılığı, köprüler)", "ops_editor2_BY.json": "Jüri v6 sonrası editör müdahaleleri (içerik tutarlılığı)"}
+                "ops_editor2_SA.json": "Jüri v6 sonrası editör müdahaleleri (içerik tutarlılığı, köprüler)", "ops_editor2_BY.json": "Jüri v6 sonrası editör müdahaleleri (içerik tutarlılığı)",
+                "ops_editor3_SA.json": "Kontrol turu (2. jüri) sonrası düzeltmeler"}
         L += [f"## {HEAD.get(name, name)}", ""]
         cur = None
         for op in ops:

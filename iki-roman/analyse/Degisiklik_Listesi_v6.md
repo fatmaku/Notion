@@ -6,11 +6,11 @@
 
 1. **ŞAHİT – Sefa Abi'nin son dosyası esas alındı.** Kitabın adı ŞAHİT olarak kaldı (Tuncay'ın kararı); Sefa Abi'nin ithafı („Bu Kitap: … Galip Kaşkaya'ya …“) kendi sayfasında. Sefa Abi'nin kendine yazdığı not („Romanlarım nerede?“) metinden çıkarıldı ve içeriği işlendi: DAKTİLO'da Hakan'ın çekmeceden çıkardığı üç roman AYNI EL'de delil olarak geri geliyor, SU'da imzalanıyor („Bu işin sonunda romanlarınızı imzalamanızı da isteyeceğim“ sözü kapanıyor). YOLCU ile köprü olan „sağ başparmağı bantlı adam“ üç yerde geri getirildi. Sefa Abi'nin yeni pasajlarındaki yazım ve noktalama hataları düzeltildi; yeni sahneler ve tercihleri (ilk bölümün adı „Başlangıç“, „FİT NE?“, „Doğum …“) korundu.
 2. **Diyalog noktalaması:** 282 diyalog satırının sonunda eksik olan nokta / soru işareti / üç nokta eklendi (TDK: tırnak içindeki sözün noktalaması kapanış tırnağından önce gelir). Hattat–oduncu menkıbesindeki kısa çizgili diyaloglar „– “ ile dizildi. Liste: `interior/src/v6/punct_log.json`.
-3. **Sıkılaştırma (iki kitap, olay örgüsü değişmeden):** jürinin işaret ettiği yerler (YOLCU: 5. bölüm, deneme blokları 17/20/26/38, 40 ve 45'teki soru–cevap çözümü, 44–47; ŞAHİT: açılış masalı, FİT NE?, HODRİ, MIZRAĞIN İKİ UCU, SUSAYANIN YOLU, vaaz pasajları, „Yahu / hocam / Bu defa“ tekrarları) on bir lektör bloğunda kısaltıldı. **YOLCU 44.749 → 40.669 kelime (−%9,1), ŞAHİT 39.918 → 36.452 kelime (−%8,7)** (son okuma ve düzeltmeler dâhil). HODRİ iki bölüme ayrıldı; yeni bölüm **SOLUCAN** („Mektup, hiç bitmesin istesem de bitmişti.“ ile başlıyor). ŞAHİT artık 35 bölüm.
+3. **Sıkılaştırma (iki kitap, olay örgüsü değişmeden):** jürinin işaret ettiği yerler (YOLCU: 5. bölüm, deneme blokları 17/20/26/38, 40 ve 45'teki soru–cevap çözümü, 44–47; ŞAHİT: açılış masalı, FİT NE?, HODRİ, MIZRAĞIN İKİ UCU, SUSAYANIN YOLU, vaaz pasajları, „Yahu / hocam / Bu defa“ tekrarları) on bir lektör bloğunda kısaltıldı. **YOLCU 44.749 → 40.687 kelime (−%9,1), ŞAHİT 39.918 → 36.464 kelime (−%8,7)** (son okuma ve düzeltmeler dâhil). HODRİ iki bölüme ayrıldı; yeni bölüm **SOLUCAN** („Mektup, hiç bitmesin istesem de bitmişti.“ ile başlıyor). ŞAHİT artık 35 bölüm.
 4. **Editör müdahaleleri (jüri önerileri):** YOLCU'da „Sessiz Ses“in adı ilk geçtiği yerde tek cümleyle açıklandı; 49. bölümde ölüm saatinin (14.53) kesinliği 35. bölümdeki babanın saati gibi açık bırakıldı; 13. bölümde „Cevap yerine bir soru geldi“ → „Kısa bir cevap geldi“. ŞAHİT'te „Rava kalbi an Rabbi“ sözü Şems'e değil „erenler“e bağlandı; ÜÇ VURUŞ'ta telefona yazılan not „kâğıt“ değil „ekran“ olarak gösteriliyor.
 5. **Bağımsız kontrol:** dört ayrı kontrolcü her kesintiyi bağlamında okudu ve iki kitabın tamamında, silinen her somut ayrıntının başka yerde geçip geçmediğini aradı. Beş dikiş düzeltmesi yapıldı. İki kesinti editör tarafından geri alındı (aşağıda).
 6. **Bağımsız jüri (beş okuma) ve sonrası:** iki kitap birer yayınevi editörü ve birer dikkatli okur gözüyle, çift ise ayrıca bir okumayla değerlendirildi (`analyse/Juri_v6.pdf`). Jürinin bulduğu gerçek hatalar giderildi: YOLCU'da Edirne treninin saati (dönüş treni 14.53), 35./40. bölüm zaman çizgisi, 39. bölümdeki „Berlin“, 44. bölümdeki kalp cihazı, konuşanı belirsiz satırlar, 50. bölümdeki kapı (BAŞA DÖN'e bağlandı); ŞAHİT'te klinik tutarlılık („ön tanı“, sağ ayak), Selman kıssasının kaynağa uygunluğu (Kelbli tüccarlar, Vâdi'l-Kurâ, Amuriye/Emirdağ), „Belam“ (Baura babasının adı), „dumansız ateş“, besmele ifadesinin yazan elin hatası olarak işaretlenmesi, iki kitap arasındaki köprüler (yeşil acil odası ve plastik bardak, boş sandalye, „bir çocuk sesi“, harfi harfine aynı SES cümlesi).
-7. **Son okuma (düzelti):** dört düzeltmen iki kitabı kelime kelime okudu: ŞAHİT'te 208, YOLCU'da 24 düzeltme (TDK yazımı, ek hataları, anlamı ters dönmüş cümleler, eksik sözcükler, „hâlâ / hikâye / kâğıt / âşık / Âdem / Hz.“ birliği). Üslup ve söz seçimi değiştirilmedi.
+7. **Son okuma (düzelti):** dört düzeltmen iki kitabı kelime kelime okudu: ŞAHİT'te 208, YOLCU'da 24 düzeltme (TDK yazımı, ek hataları, anlamı ters dönmüş cümleler, eksik sözcükler, „hâlâ / hikâye / kâğıt / âşık / Âdem / Hz.“ birliği). Üslup ve söz seçimi değiştirilmedi. Ardından iki editör son metni yeniden okudu (kontrol turu); bulguları da giderildi (ŞAHİT 34, YOLCU 9 düzeltme) ve ŞAHİT'te doğrudan anlatım öncesindeki noktalı virgüller iki noktaya, „…” dedi“ kalıbındaki eksik virgüller TDK'ye göre tamamlandı (93 paragraf; liste `interior/src/v6/punct2_log.json`).
 8. **Kilitli içerik makineyle doğrulandı:** YOLCU'nun üç şifresi (SENİ BUL, BAŞA DÖN, BENİ ARAMA), ŞAHİT'in kalın harf şifresi („bismillah, alemlere rahmet olan Allahın adıyla“), iki kitap arasındaki köprü cümleleri, slogan, son sorular. Sonuç: `interior/src/v6/check_text_v6.json` (OK).
 
 ### Geri alınan kesintiler
@@ -18,7 +18,7 @@
 - BY delete (paragraf 2792): „ŞAMAN, bu yüzden bir kimlik değil, hatırlatma olmalıydı“ bölümün kısaltma (Ş-A-M-A-N) listesinin anahtar cümlesi; Leyla'nın „eşiği geçen ve geri dönen“ tanımını kapatıyor.
 
 ### Kurz auf Deutsch
-ŞAHİT basiert jetzt auf Sefas „Edisyon“ (Titel ŞAHİT, Widmung, Faden „drei Romane“ geschlossen, Brücke „sağ başparmağı bantlı“ wiederhergestellt, Satzfehler und 282 fehlende Satzzeichen in Dialogen korrigiert). Beide Bücher wurden ohne Plotänderung gestrafft: YOLCU −9,1 %, ŞAHİT −8,7 %; HODRİ ist in zwei Kapitel geteilt (neu: SOLUCAN). Jede Änderung steht unten mit Begründung; zwei Kürzungen wurden zurückgenommen, fünf Nahtstellen nach unabhängiger Gegenprüfung korrigiert. Danach eine unabhängige Jury (fünf Lesungen), deren Fehlerbefunde behoben wurden, und ein vollständiges Korrektorat (ŞAHİT 208, YOLCU 24 Korrekturen). Akrosticha, Brückensätze, Motto und Schlussfragen sind maschinell geprüft.
+ŞAHİT basiert jetzt auf Sefas „Edisyon“ (Titel ŞAHİT, Widmung, Faden „drei Romane“ geschlossen, Brücke „sağ başparmağı bantlı“ wiederhergestellt, Satzfehler und 282 fehlende Satzzeichen in Dialogen korrigiert). Beide Bücher wurden ohne Plotänderung gestrafft: YOLCU −9,1 %, ŞAHİT −8,7 %; HODRİ ist in zwei Kapitel geteilt (neu: SOLUCAN). Jede Änderung steht unten mit Begründung; zwei Kürzungen wurden zurückgenommen, fünf Nahtstellen nach unabhängiger Gegenprüfung korrigiert. Danach eine unabhängige Jury (fünf Lesungen), deren Fehlerbefunde behoben wurden, ein vollständiges Korrektorat (ŞAHİT 208, YOLCU 24 Korrekturen) und eine Kontroll-Jury auf den Endfassungen (weitere 34 / 9 Korrekturen, Redezeichen nach TDK). Akrosticha, Brückensätze, Motto und Schlussfragen sind maschinell geprüft.
 
 ---
 
@@ -210,38 +210,38 @@ Toplam 73 işlem.
 
 Toplam 337 işlem.
 
-**Toplam:** 39.918 → 36.452 kelime (-3.466; -8.7 %)
+**Toplam:** 39.918 → 36.464 kelime (-3.454; -8.7 %)
 
 | Bölüm | Önce | Sonra | Fark |
 |---|---:|---:|---:|
 | (Ön kısım) | 130 | 130 | +0 |
-| Başlangıç | 1038 | 884 | -154 |
-| AZ ÇOK | 1466 | 1383 | -83 |
-| DAKTİLO | 2827 | 2565 | -262 |
+| Başlangıç | 1038 | 886 | -152 |
+| AZ ÇOK | 1466 | 1384 | -82 |
+| DAKTİLO | 2827 | 2566 | -261 |
 | TECRİT ODASI | 1986 | 1793 | -193 |
 | UNUTMA | 1940 | 1714 | -226 |
 | AN | 562 | 553 | -9 |
-| FİT NE? | 1869 | 1707 | -162 |
-| MUHİBBİ | 958 | 890 | -68 |
+| FİT NE? | 1869 | 1711 | -158 |
+| MUHİBBİ | 958 | 888 | -70 |
 | OKU | 1851 | 1670 | -181 |
 | AŞK İLE | 1680 | 1609 | -71 |
 | GÜL KOKUSU | 995 | 947 | -48 |
-| HODRİ | 4275 | 1914 | -2361 |
-| SOLUCAN | 0 | 1905 | +1905 |
+| HODRİ | 4275 | 1915 | -2360 |
+| SOLUCAN | 0 | 1908 | +1908 |
 | ON BİR | 2423 | 2230 | -193 |
 | KAYIT | 1473 | 1425 | -48 |
 | NAZIM'IN ANAHTARI | 365 | 365 | +0 |
 | HAKAN'IN DOSYASI | 367 | 354 | -13 |
-| MIZRAĞIN İKİ UCU | 3142 | 2428 | -714 |
-| ŞEHRİN ÜÇ ŞAHİDİ | 423 | 412 | -11 |
+| MIZRAĞIN İKİ UCU | 3142 | 2426 | -716 |
+| ŞEHRİN ÜÇ ŞAHİDİ | 423 | 411 | -12 |
 | SUSAYANIN YOLU | 1292 | 1140 | -152 |
 | MUHİBBİ'NİN SOFRASI | 839 | 737 | -102 |
 | MEKTUBU KİM YAZDI? | 474 | 469 | -5 |
 | KÂĞIDIN ÖTE YANI | 435 | 432 | -3 |
-| ANNEMİN SESİ | 567 | 541 | -26 |
+| ANNEMİN SESİ | 567 | 539 | -28 |
 | SUSUZLUK | 422 | 364 | -58 |
 | MUHİBBİ YOK | 318 | 304 | -14 |
-| HAKİKAT MEDENİ | 1100 | 1057 | -43 |
+| HAKİKAT MEDENİ | 1100 | 1064 | -36 |
 | BOŞ SIRA | 344 | 324 | -20 |
 | AYNI EL | 1242 | 1214 | -28 |
 | HAKAN'IN CEVABI | 566 | 539 | -27 |
@@ -737,7 +737,7 @@ Toplam 337 işlem.
 
 Toplam 326 işlem.
 
-**Toplam:** 44.749 → 40.669 kelime (-4.080; -9.1 %)
+**Toplam:** 44.749 → 40.687 kelime (-4.062; -9.1 %)
 
 | Bölüm | Önce | Sonra | Fark |
 |---|---:|---:|---:|
@@ -745,11 +745,11 @@ Toplam 326 işlem.
 | 1453 — UYANIŞIN BEDELİ | 17 | 17 | +0 |
 | DİKKAT | 341 | 341 | +0 |
 | 1. Sonmuş Gibi Sıradan Bir Sabah | 1586 | 1512 | -74 |
-| 2. Siyah Paket | 1400 | 1339 | -61 |
-| 3. Kamera Boşluğu | 501 | 497 | -4 |
+| 2. Siyah Paket | 1400 | 1341 | -59 |
+| 3. Kamera Boşluğu | 501 | 499 | -2 |
 | 4. Sahte Görüntü, Gerçek Yas | 701 | 667 | -34 |
 | 5. Bir Tanının Geldiği Yer | 2973 | 2222 | -751 |
-| 7. Silinen Satır | 843 | 790 | -53 |
+| 7. Silinen Satır | 843 | 796 | -47 |
 | 8. İki Kötü Seçenek | 486 | 464 | -22 |
 | 9. Bölgesel Bir İmparatorluk | 985 | 938 | -47 |
 | 11. Emanetin Peşindeki Karga | 1028 | 992 | -36 |
@@ -757,13 +757,13 @@ Toplam 326 işlem.
 | 13. Bedenin İtirazı | 1074 | 1023 | -51 |
 | 15. Nüshaların Söylemediği | 723 | 705 | -18 |
 | 16. Görmek ile Yetişmek Arasındaki Mesafe | 588 | 572 | -16 |
-| 17. Ormanda Beceri, Şehirde Belirti | 1802 | 1501 | -301 |
+| 17. Ormanda Beceri, Şehirde Belirti | 1802 | 1507 | -295 |
 | 18. Birincil Ayna | 293 | 256 | -37 |
 | 20. İnanmayan İlk Kişi | 1818 | 1561 | -257 |
 | 21. Bir Hata, İki Kız Kardeş | 837 | 804 | -33 |
 | 22. On Bir Saniyenin İçindeki Ses | 332 | 333 | +1 |
 | 23. Silah Olmayan Ses | 710 | 694 | -16 |
-| 24. Yusuf'un Dili | 495 | 495 | +0 |
+| 24. Yusuf'un Dili | 495 | 497 | +2 |
 | 25. Unuttuğumu Ateş Seçti | 827 | 795 | -32 |
 | 26. Aynı Yöntemin Farklı Logoları | 1436 | 1181 | -255 |
 | 28. Bir Gün Daha Yaşamak | 352 | 333 | -19 |
@@ -1252,40 +1252,40 @@ Toplam 326 işlem.
 
 ## D. ŞAHİT – Son okuma ve jüri sonrası düzeltmeler
 
-Toplam 235 işlem.
+Toplam 269 işlem.
 
-**Toplam:** 36.400 → 36.452 kelime (+52; +0.1 %)
+**Toplam:** 36.400 → 36.464 kelime (+64; +0.2 %)
 
 | Bölüm | Önce | Sonra | Fark |
 |---|---:|---:|---:|
 | (Ön kısım) | 130 | 130 | +0 |
-| Başlangıç | 884 | 884 | +0 |
-| AZ ÇOK | 1382 | 1383 | +1 |
-| DAKTİLO | 2565 | 2565 | +0 |
+| Başlangıç | 884 | 886 | +2 |
+| AZ ÇOK | 1382 | 1384 | +2 |
+| DAKTİLO | 2565 | 2566 | +1 |
 | TECRİT ODASI | 1791 | 1793 | +2 |
 | UNUTMA | 1714 | 1714 | +0 |
 | AN | 552 | 553 | +1 |
-| FİT NE? | 1708 | 1707 | -1 |
-| MUHİBBİ | 889 | 890 | +1 |
+| FİT NE? | 1708 | 1711 | +3 |
+| MUHİBBİ | 889 | 888 | -1 |
 | OKU | 1668 | 1670 | +2 |
 | AŞK İLE | 1608 | 1609 | +1 |
 | GÜL KOKUSU | 945 | 947 | +2 |
-| HODRİ | 1916 | 1914 | -2 |
-| SOLUCAN | 1907 | 1905 | -2 |
+| HODRİ | 1916 | 1915 | -1 |
+| SOLUCAN | 1907 | 1908 | +1 |
 | ON BİR | 2230 | 2230 | +0 |
 | KAYIT | 1414 | 1425 | +11 |
 | NAZIM'IN ANAHTARI | 365 | 365 | +0 |
 | HAKAN'IN DOSYASI | 354 | 354 | +0 |
-| MIZRAĞIN İKİ UCU | 2428 | 2428 | +0 |
-| ŞEHRİN ÜÇ ŞAHİDİ | 412 | 412 | +0 |
+| MIZRAĞIN İKİ UCU | 2428 | 2426 | -2 |
+| ŞEHRİN ÜÇ ŞAHİDİ | 412 | 411 | -1 |
 | SUSAYANIN YOLU | 1127 | 1140 | +13 |
 | MUHİBBİ'NİN SOFRASI | 737 | 737 | +0 |
 | MEKTUBU KİM YAZDI? | 455 | 469 | +14 |
 | KÂĞIDIN ÖTE YANI | 427 | 432 | +5 |
-| ANNEMİN SESİ | 541 | 541 | +0 |
+| ANNEMİN SESİ | 541 | 539 | -2 |
 | SUSUZLUK | 364 | 364 | +0 |
 | MUHİBBİ YOK | 304 | 304 | +0 |
-| HAKİKAT MEDENİ | 1055 | 1057 | +2 |
+| HAKİKAT MEDENİ | 1055 | 1064 | +9 |
 | BOŞ SIRA | 324 | 324 | +0 |
 | AYNI EL | 1214 | 1214 | +0 |
 | HAKAN'IN CEVABI | 539 | 539 | +0 |
@@ -1585,7 +1585,7 @@ Toplam 235 işlem.
 
 #### ÜÇ VURUŞ
 
-- **değiştirildi:** „Ertesi gün Psikiyatr Dr. Hakikat Bey’e“ → „Ertesi gün Prof. Dr. Hakikat Bey’e“ — KAYIT'taki unvanla aynı („Prof. Dr. Hakikat Medeni“).
+- **değiştirildi:** „Ertesi gün Psikiyatr Dr. Hakikat Bey’e“ → „Ertesi gün Prof. Dr. Hakikat Medeni’ye“ — KAYIT'taki unvan ve adla aynı („Prof. Dr. Hakikat Medeni“); unvan ile „Bey“ birlikte kullanılmaz.
 
 #### TECRİT ODASI
 
@@ -1648,12 +1648,109 @@ Toplam 235 işlem.
 
 - **değiştirildi:** „mürekkep yalamış ademler.“ → „mürekkep yalamış âdemler.“ — Aynı.
 
+### Kontrol turu (2. jüri) sonrası düzeltmeler
+
+
+#### AZ ÇOK
+
+- **değiştirildi:** „bu kadar konuşken bir adamken“ → „bu kadar konuşkan bir adamken“ — Yazım (jüri).
+- **değiştirildi:** „Sahne adamı olmama tamam“ → „Sahne adamı olmam tamam“ — Ek hatası (jüri).
+- **değiştirildi:** „çünkü sahneye yakın yerlere oturanların“ → „çünkü yalnızca sahneye yakın yerlere oturanların“ — Cümle mantığı: kalabalığı bilememe nedeni (jüri).
+
+#### DAKTİLO
+
+- **değiştirildi:** „bir demet maydanozun yiyip içen, yürüyen hâli gibiydi“ → „bir demet maydanozun nefes alan, kıpırdayan hâli gibiydi“ — Aynı cümlede „yemeğini yiyip içmeyi kendi başına beceremeyen“ deniyordu (jüri).
+
+#### FİT NE?
+
+- **değiştirildi:** „“Cennetin kapısında ismi yazanın ardında“ → „“Cennetin kapısında ismi yazılı olanın ardında“ — Anlam: ismi yazan değil, ismi yazılı olan (jüri).
+- **değiştirildi:** „ve ismini duyduğunda sebepsiz yere içi ürperdi;“ → „ve ondan söz edildiğini duyduğunda sebepsiz yere içi ürperdi;“ — İsim söylenmiyor (Şeytan yasaklıyor); ceylan yalnızca ondan söz edildiğini duyuyor (jüri).
+- **değiştirildi:** „“Onu size vermem, üstünde yazanı okumam için“ → „“Onu size vermem ve üstünde yazanı okumam için“ — Bozuk cümle (jüri).
+
+#### MUHİBBİ
+
+- **değiştirildi:** „söyleyecek çok fazla şeyler vardı“ → „söyleyecek çok fazla şey vardı“ — Dilbilgisi (jüri).
+- **değiştirildi:** „gibi bir sürü şeyler konuştuk yığınla…“ → „gibi yığınla şey konuştuk…“ — Çift anlatım (jüri).
+
+#### AŞK İLE
+
+- **değiştirildi:** „bazı harfler nefesi tutmak“ → „bazı harflerde nefesi tutmak“ — Ek hatası (jüri).
+
+#### HODRİ
+
+- **değiştirildi:** „Anlayacağın Mustafa Sefa, Beni banktan“ → „Anlayacağın Mustafa Sefa, beni banktan“ — Büyük harf (jüri).
+- **değiştirildi:** „Mevla’mızı bulduruluyoruz“ → „Mevla’mızı bulmaya uğraşıyoruz“ — Dilbilgisi (jüri).
+- **değiştirildi:** „metastaz bir habis“ → „metastatik bir habis“ — Tıbbi terim (jüri).
+- **değiştirildi:** „Mahallesi Onikiler camisinde“ → „Mahallesi Onikiler Camisi’nde“ — Özel ad.
+- **değiştirildi:** „soluğu bir cuma günü Onikiler camisinde“ → „soluğu bir cuma günü Onikiler Camisi’nde“ — Özel ad.
+
+#### SOLUCAN
+
+- **değiştirildi:** „üç roman yazdıklarını söylediler“ → „üç roman yazdığımı söylediler“ — Kişi eki (jüri).
+
+#### MIZRAĞIN İKİ UCU
+
+- **değiştirildi:** „İsm-i Âzam denilen ret olunmayan“ → „İsm-i Âzam denilen reddolunmayan“ — Yazım (jüri).
+
+#### ŞEHRİN ÜÇ ŞAHİDİ
+
+- **değiştirildi:** „kendi uydurduğum bir kadının ağzından tarihe şahit tutanak düzenleyemezdim.“ → „uydurduğum bir kadıyı konuşturup tarihe şahitlik tutanağı düzenleyemezdim.“ — „kadının“ kadın gibi okunuyordu; kıssadaki kadı kastediliyor (jüri).
+
+#### ANNEMİN SESİ
+
+- **değiştirildi:** „Evde düştüğüm geceyi anlattım. Gül kokusunu, kilitlenen bedenimi,“ → „Evde düştüğüm geceyi anlattım. Kilitlenen bedenimi,“ — Gül kokusu o gece değil, iki gün sonra (GÜL KOKUSU) beliriyor (jüri).
+
+#### MIZRAĞIN İKİ UCU
+
+- **değiştirildi:** „Kral Cebbarun ile savaşmak için“ → „Cebbar kavimle savaşmak için“ — „Cebbârîn“ bir kral değil, bir kavim (Mâide 22) (jüri).
+- **değiştirildi:** „Bu kırk gün böyle devam etti.“ → „Bu kırk yıl böyle devam etti.“ — Tîh çölündeki dolaşma kırk yıl (Mâide 26) (jüri).
+- **değiştirildi:** „Allah iman eden kullarına benden çok kimseden korkmayın, benimle aranıza korkularınızı sokmayın, benim her şeye Kadir olduğumu bilin ve teslim olun demiştir.“ → „Allah iman eden kullarına ‘Benden çok kimseden korkmayın, benimle aranıza korkularınızı sokmayın, benim her şeye Kadir olduğumu bilin ve teslim olun’ demiştir.“ — İç tırnak: „her şeye Kadir“ olan Allah; tırnaksız Şeytan'ın kendi sözü gibi okunuyordu (jüri).
+
+#### SUSAYANIN YOLU
+
+- **değiştirildi:** „“Ey Allah’ın resulü olduğunu söyleyen kişi, gömleğini aç, sırtını görmek isterim” der.“ → „“Ey Allah’ın resulü olduğunu söyleyen kişi, sırtını bir görebilsem” diye içinden geçirir.“ — Rivayette Selman bunu söylemez; Peygamber niyetini anlar (bir sonraki paragraf: „Onun niyetini bilen Peygamberimiz“) (jüri).
+- **değiştirildi:** „Kimisi Hindu kimisi Habeşli“ → „Kimisi Hintli kimisi Habeşli“ — Halk adı (jüri).
+
+#### SOLUCAN
+
+- **değiştirildi:** „o Allah’ın biriciği olarak dünyaya gönderildi“ → „o Allah’ın yarattığı biricik bir kul olarak dünyaya gönderildi“ — „Allah'ın biriciği“ Hristiyan „biricik oğul“ ifadesini çağrıştırıyordu (jüri).
+
+#### Başlangıç
+
+- **değiştirildi:** „çünkü Es Selam olan Allah CC cenneti“ → „çünkü es-Selâm olan Allah (c.c.) cenneti“ — Esmâ ve kısaltma yazımı (jüri).
+
+#### OKU
+
+- **değiştirildi:** „küçülen haşa Allah CC değil“ → „küçülen haşa Allah (c.c.) değil“ — Kısaltma yazımı.
+
+#### Başlangıç
+
+- **değiştirildi:** „karaca için. Olanlar“ → „yavru ceylan için. Olanlar“ — Karaca başka bir hayvan (jüri); masalın ceylanı kastediliyor.
+- **değiştirildi:** „keskinleşen karaca, artık“ → „keskinleşen yavru, artık“ — Aynı.
+- **değiştirildi:** „ancak ceylanın gözünün şeklinden değil, sırrın bakıştan gelen sürmenin nakışlandığını hiç bilemediler.“ → „ancak o güzelliğin gözün şeklinden değil, bakışa sürme gibi nakşolunan sırdan geldiğini hiç bilemediler.“ — Bozuk cümle (jüri); anlam korunarak kuruldu.
+
+#### DAKTİLO
+
+- **değiştirildi:** „Resmî bir kurum olan hastanemize bilgisayar sokulamazdı;“ → „Resmî bir kurum olan hastanemize dışarıdan bilgisayar sokulamazdı;“ — TECRİT ODASI'nda Sefa'ya hastanenin hazırladığı bilgisayar veriliyor; çelişki giderildi (jüri).
+
+#### HAKİKAT MEDENİ
+
+- **değiştirildi:** „Bu tanıya, sizinle yaptığımız değerlendirmeler ve Vildan Hanım'ın zaman içindeki gözlemleriyle ulaştık.“ → „Bu ön tanıya, sizinle yaptığımız değerlendirmeler ve Vildan Hanım'ın zaman içindeki gözlemleriyle ulaştık. Beyindeki oluşum netleştikçe onu yeniden değerlendir…“ — Ön tanının açıkça gözden geçirileceği söyleniyor (iki jüri: nöbet ve oluşum varken kesin tanı olmaz).
+
+#### HODRİ
+
+- **değiştirildi:** „Pastanesi’ne gel“ → „Pastanesi’ne gel,“ — Tırnak içindeki sözün virgülü (TDK).
+
+#### KAYIT
+
+- **değiştirildi:** „“Sizin gibi konuşan doktoru” diye“ → „“Sizin gibi konuşan doktoru,” diye“ — Tırnak içindeki sözün virgülü (TDK).
+
 
 ## E. YOLCU – Son okuma ve jüri sonrası düzeltmeler
 
-Toplam 35 işlem.
+Toplam 44 işlem.
 
-**Toplam:** 40.621 → 40.669 kelime (+48; +0.1 %)
+**Toplam:** 40.621 → 40.687 kelime (+66; +0.2 %)
 
 | Bölüm | Önce | Sonra | Fark |
 |---|---:|---:|---:|
@@ -1661,11 +1758,11 @@ Toplam 35 işlem.
 | 1453 — UYANIŞIN BEDELİ | 17 | 17 | +0 |
 | DİKKAT | 341 | 341 | +0 |
 | 1. Sonmuş Gibi Sıradan Bir Sabah | 1513 | 1512 | -1 |
-| 2. Siyah Paket | 1339 | 1339 | +0 |
-| 3. Kamera Boşluğu | 497 | 497 | +0 |
+| 2. Siyah Paket | 1339 | 1341 | +2 |
+| 3. Kamera Boşluğu | 497 | 499 | +2 |
 | 4. Sahte Görüntü, Gerçek Yas | 667 | 667 | +0 |
 | 5. Bir Tanının Geldiği Yer | 2222 | 2222 | +0 |
-| 7. Silinen Satır | 789 | 790 | +1 |
+| 7. Silinen Satır | 789 | 796 | +7 |
 | 8. İki Kötü Seçenek | 464 | 464 | +0 |
 | 9. Bölgesel Bir İmparatorluk | 937 | 938 | +1 |
 | 11. Emanetin Peşindeki Karga | 990 | 992 | +2 |
@@ -1673,13 +1770,13 @@ Toplam 35 işlem.
 | 13. Bedenin İtirazı | 1023 | 1023 | +0 |
 | 15. Nüshaların Söylemediği | 704 | 705 | +1 |
 | 16. Görmek ile Yetişmek Arasındaki Mesafe | 571 | 572 | +1 |
-| 17. Ormanda Beceri, Şehirde Belirti | 1501 | 1501 | +0 |
+| 17. Ormanda Beceri, Şehirde Belirti | 1501 | 1507 | +6 |
 | 18. Birincil Ayna | 256 | 256 | +0 |
 | 20. İnanmayan İlk Kişi | 1561 | 1561 | +0 |
 | 21. Bir Hata, İki Kız Kardeş | 800 | 804 | +4 |
 | 22. On Bir Saniyenin İçindeki Ses | 332 | 333 | +1 |
 | 23. Silah Olmayan Ses | 694 | 694 | +0 |
-| 24. Yusuf'un Dili | 495 | 495 | +0 |
+| 24. Yusuf'un Dili | 495 | 497 | +2 |
 | 25. Unuttuğumu Ateş Seçti | 795 | 795 | +0 |
 | 26. Aynı Yöntemin Farklı Logoları | 1181 | 1181 | +0 |
 | 28. Bir Gün Daha Yaşamak | 333 | 333 | +0 |
@@ -1828,3 +1925,36 @@ Toplam 35 işlem.
 #### 2. Siyah Paket
 
 - **değiştirildi:** „Ellerimdeki poşetleri yere bıraktım.“ → „Elimdeki poşetleri yere bıraktım.“ — Birkaç satır önce poşetler yalnız sol elde; „ellerimdeki“ çelişkiydi (jüri). Paragrafın ilk harfi (şifre) değişmedi.
+
+#### 24. Yusuf'un Dili
+
+- **değiştirildi:** „Leyla'nın neden öldüğünü öğrenemezsin”“ → „Leyla'nın neden öldüğünü hiçbir zaman öğrenemezsin”“ — 22. bölümdeki kayıt cümlesiyle harfi harfine aynı (jüri).
+
+#### 17. Ormanda Beceri, Şehirde Belirti
+
+- **değiştirildi:** „Arapça, İspanyolca ve Svahiliydi.“ → „Arapça, İspanyolca, Portekizce ve Svahiliydi.“ — Alıcılardan biri João (São Paulo); Portekizce nüsha eksikti (jüri).
+
+#### 45. Beni Öldürmeyen Adam
+
+- **değiştirildi:** „dört kutuyu, renklerini ve şehir adlarını biliyordu“ → „dört kutuyu ve üzerlerindeki şehir adlarını biliyordu“ — 42. bölümde kutuların rengi geçmiyor, yalnız şehir adları (jüri).
+
+#### 7. Silinen Satır
+
+- **değiştirildi:** „Kapı içeriden kilitliydi. Zorla giriş izi yoktu.“ → „Kapı içeriden kilitliydi; elektronik sürgünün kaydı da bunu gösteriyordu. Zorla giriş izi yoktu.“ — 45. bölümdeki çözüm („sürgü motorluydu … kontrol paneli içeriden kilitlenmiş gibi göründü“) adil biçimde önceden ekiliyor (jüri).
+
+#### 2. Siyah Paket
+
+- **değiştirildi:** „sağ elimle beşinci kata çıkarken“ → „sağ elimle tırabzana tutunup beşinci kata çıkarken“ — „sağ elimle“ boşta kalıyordu (jüri). Paragrafın ilk harfi (şifre) değişmedi.
+
+#### 1. Sonmuş Gibi Sıradan Bir Sabah
+
+- **değiştirildi:** „yazmıştım.“ → „yazacaktım.“ — Zarflar 2. bölümde o sabah hazırlanıyor (45. bölüm: 10.18); bir hafta önce yazılmış olamaz (jüri).
+- **değiştirildi:** „Duru için kırmızı bir defter,“ → „Duru için boş bir defter,“ — „Kırmızı defter“ anlatıcının üç aydır kayıp defteri (30.–31. bölüm); Duru'ya ayrılan defterle karışıyordu (iki jüri).
+
+#### 17. Ormanda Beceri, Şehirde Belirti
+
+- **değiştirildi:** „Nehir'in iki yıl önce çocuk verilerini satan bir eğitim merkezini araştırırken tanıştığı güvenlik uzmanı Tarık'a ulaştık.“ → „Nehir'in iki yıl önce çocuk verilerini satan eğitim merkezini araştırırken kaynak olarak tanıştığı, benim yüzünü hiç görmediğim güvenlik uzmanı Tarık'a ulaştık.“ — 20. bölümde o araştırmayı birlikte yürütüyorlar; anlatıcının Tarık'ı neden ilk kez gördüğü açıklandı (jüri).
+
+#### 3. Kamera Boşluğu
+
+- **değiştirildi:** „Bana ulaşmaya çalışırken siyah paketin fotoğrafını almış;“ → „Beni aramaya hazırlanırken, ona gönderdiğim siyah paket fotoğrafını görmüş;“ — Fotoğrafı ona kimin gönderdiği belli değildi (jüri).

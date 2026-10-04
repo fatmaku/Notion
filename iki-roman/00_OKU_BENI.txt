@@ -7,6 +7,14 @@ Her biri tek başına bir roman. Birlikte okununca üçüncü bir kitap belirir.
 Önerilen okuma sırası: önce YOLCU, sonra ŞAHİT (zorunlu değil).
 
 
+BU SÜRÜM (04.10.2026)
+--------------------
+- ŞAHİT, Sefa Abi'nin son dosyası („Edisyon Tuncay'a“) esas alınarak hazırlandı; ad ŞAHİT, ithaf kendi sayfasında.
+- İki kitap olay örgüsü değişmeden sıkılaştırıldı (YOLCU −%9, ŞAHİT −%9); HODRİ iki bölüme ayrıldı (yeni: SOLUCAN).
+- Bağımsız kontrol, beş okumalık jüri, kelime kelime son okuma (ŞAHİT 208+, YOLCU 24+ düzeltme).
+- Jüri puanları: YOLCU 8,5 · ŞAHİT 7,5–8 · çift 8,5 (önceki jüri 7 · 6,8 · 7,8). Ayrıntı: 6_Raporlar.
+
+
 KLASÖRLER
 ---------
 1_KDP_YOLCU_TR     YOLCU – Amazon KDP'ye hemen yüklenebilir (Türkçe)
@@ -17,7 +25,8 @@ KLASÖRLER
                    web sürümü (_web.mp4, ~23 MB) var; tam kaliteli sürüm ~62 MB.
 5_Pazarlama        Pazarlama hikâyesi, KDP açıklama metinleri, anahtar kelimeler, kategoriler,
                    storyboard, yayın planı (TR/EN/DE PDF) + iki kitabın yan yana görselleri
-6_Raporlar         Analiz raporu, değişiklik listesi, Sefa Abi'nin son dosyasının denetimi
+6_Raporlar         Değişiklik listesi v6 (her değişiklik gerekçesiyle), jüri değerlendirmesi v6,
+                   son kontrol raporu, eski analiz raporu ve eski değişiklik listesi
 
 
 HER KİTAP KLASÖRÜNDE
@@ -92,3 +101,5 @@ s/w Creme), Fullcover-PDF, EPUB, eBook-Cover-JPG, Word-Datei. YOLCU 260 Seiten /
 ŞAHİT 194 Seiten / Rücken 12,32 mm. EN/DE-Cover (Ordner 3_) sind für spätere Übersetzungen und
 Werbung; die Fullcover müssen dann mit der neuen Seitenzahl neu gebaut werden. Trailer und Marketing
 liegen in TR/EN/DE bei. Vor Veröffentlichung eine Druckprobe bestellen.
+Neu in dieser Fassung: ŞAHİT auf Basis von Sefas „Edisyon“, beide Bücher ohne Plotänderung um rund 9 % gestrafft,
+unabhängig gegengeprüft, von einer Jury bewertet und vollständig korrigiert (Berichte in 6_Raporlar).

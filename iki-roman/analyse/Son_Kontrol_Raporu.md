@@ -2,6 +2,7 @@
 
 **Tarih:** 04.10.2026
 **Kapsam:**
+
 - iki kitabın son metinleri (YOLCU v5, ŞAHİT v6 = Sefa Abi'nin „Edisyon Tuncay'a“ dosyası üzerine);
 - baskı PDF'leri, EPUB'lar;
 - bütün kapaklar (TR/EN/DE);
@@ -20,7 +21,7 @@
 - **Kontrol:** bağımsız kontrolden ve beş okumalık bir jüriden geçti.
 - **Son okuma:** iki kitap kelime kelime düzeltildi (ŞAHİT 208, YOLCU 24 düzeltme).
 - **Değişiklik listesi:** her değişiklik gerekçesiyle `Degisiklik_Listesi_v6.pdf` içinde.
-- **Jüri:** puanlar ve yorumlar `Juri_v6.pdf` içinde.
+- **Jüri:** puanlar ve yorumlar `Juri_v6.pdf` içinde. Bağımsız jüri son metinlere YOLCU 8,5, ŞAHİT 7,5–8, çift 8,5 veriyor (önceki jüri: 7 / 6,8 / 7,8).
 
 Romanların metni şimdilik yalnızca Türkçedir. Kapaklar, fragmanlar ve pazarlama üç dilde hazırdır; İngilizce ve Almanca kitaplar çeviriden sonra eklenecek.
 
@@ -47,6 +48,7 @@ Romanların metni şimdilik yalnızca Türkçedir. Kapaklar, fragmanlar ve pazar
 | Eski adlar (BEN YOKSAM, ŞAHİDİ ARARKEN) metinde | yok | yok | ✅ |
 
 **Şifreler (makineyle):**
+
 - YOLCU'da eksik bölüm numaraları SENİ BUL, „14.53 ↺“ işaretleri BAŞA DÖN, eşit uçlu düğümler BENİ ARAMA veriyor.
 - ŞAHİT'in kalın harfleri „bismillah, alemlere rahmet olan Allahın adıyla“ veriyor. Anlatıcı artık MEKTUBU KİM YAZDI?'da bu ifadenin Peygamber'in sıfatı olduğunu ve yazanın hatası olduğunu belirtiyor.
 - Hepsi ✅.
@@ -77,11 +79,11 @@ TR/EN/DE kapaklar yeni sırt genişlikleriyle yeniden üretildi.
 | Adım | Ne yapıldı | Sonuç |
 |---|---|---|
 | Sefa Abi'nin son dosyası | ŞAHİT'e esas alındı; ad ŞAHİT; ithaf kendi sayfasında. „Romanlarım nerede?“ notunun konusu metinde çözüldü: üç roman AYNI EL'de delil, SU'da imzalanıyor. | ✅ |
-| Sıkılaştırma | 11 lektör bloğu, jürinin işaret ettiği yerler, olay örgüsü değişmeden | YOLCU −4.080, ŞAHİT −3.466 kelime |
+| Sıkılaştırma | 11 lektör bloğu, jürinin işaret ettiği yerler, olay örgüsü değişmeden | YOLCU −4.062, ŞAHİT −3.454 kelime (son hâl) |
 | Bağımsız dikiş kontrolü | 4 kontrolcü, her kesinti bağlamında; silinen her ayrıntı iki kitapta aranıp kontrol edildi | 5 düzeltme; 2 kesinti geri alındı |
 | Jüri (5 okuma) | iki kitap için yayınevi editörü + okur, çift için ayrı okuma | puanlar ve bulgular `Juri_v6.pdf` |
-| Jüri bulgularının düzeltilmesi | YOLCU 11, ŞAHİT 27 içerik düzeltmesi (zaman çizgisi, Edirne treni, klinik tutarlılık, kaynaklar, köprüler) | ✅ |
-| Son okuma | 4 düzeltmen, kelime kelime | ŞAHİT 208, YOLCU 24 düzeltme |
+| Jüri bulgularının düzeltilmesi | 1. tur: YOLCU 11, ŞAHİT 27; kontrol turu: YOLCU 9, ŞAHİT 34 içerik düzeltmesi (zaman çizgisi, Edirne treni, klinik tutarlılık, kaynaklar, köprüler) | ✅ |
+| Son okuma | 4 düzeltmen, kelime kelime; ŞAHİT'te doğrudan anlatım noktalaması TDK'ye göre (93 paragraf) | ŞAHİT 208, YOLCU 24 düzeltme |
 | Pazarlama, arka kapak, fragman metinleri | kitaplardan alıntılanan her cümle yeni metinlerde arandı | hepsi duruyor ✅ |
 
 ---
@@ -98,8 +100,8 @@ Fragmanlar değişmedi: kitap adları, kapaklar ve kullanılan cümleler aynı. 
 - **Fragman sesi:** müzik yer tutucu, seslendirme yok.
 - **KDP kontrolü:** KDP sitesine bu ortamdan erişilemedi. Yüklemede KDP'nin „Cover Calculator“ değeri tam kapak ölçüsüyle bir kez karşılaştırılmalı. Yayından önce deneme baskısı önerilir.
 - **Yazarlara bırakılan yapısal öneriler** (jüri; olay örgüsüne dokunduğu için uygulanmadı):
-  - YOLCU 40/45'teki soru–cevap çözümünün bir kısmını daha önceki keşif sahnelerine taşımak.
-  - YOLCU'daki hukuki usul cümlelerini biraz daha seyreltmek.
-  - ŞAHİT'in ilk yarısındaki vaaz ve monologları biraz daha kısaltmak.
-  - ŞAHİT'te ceylan anlatısını finale bir cümleyle bağlamak.
-  - Ayrıntılar `Juri_v6.pdf` içinde.
+    - YOLCU 40/45'teki soru–cevap çözümünün bir kısmını daha önceki keşif sahnelerine taşımak.
+    - YOLCU'daki hukuki usul cümlelerini biraz daha seyreltmek.
+    - ŞAHİT'in ilk yarısındaki vaaz ve monologları biraz daha kısaltmak.
+    - ŞAHİT'te ceylan anlatısını finale bir cümleyle bağlamak.
+    - Ayrıntılar `Juri_v6.pdf` içinde.
