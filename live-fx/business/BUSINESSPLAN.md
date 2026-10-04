@@ -2,7 +2,7 @@
 
 **Live-Streams, die zuhören.** Memes, Sounds und animierte Szenen in Echtzeit – ausgelöst durch die Stimme des Creators.
 
-Stand: Oktober 2026 · Produktstand: Version 2.0 · Vertraulich
+Stand: Oktober 2026 · Produktstand: Version 2.1 · Vertraulich
 Gründer & Erfinder, Geschäftsführer: Tuncay Sancak · Investor Relations: Gönül Demet · Kontakt: [E-Mail] · [Ort]
 
 > Auch auf Türkisch: BUSINESSPLAN.tr.md · In English: BUSINESSPLAN.en.md
@@ -21,13 +21,15 @@ Gründer & Erfinder, Geschäftsführer: Tuncay Sancak · Investor Relations: Gö
 |---|---|
 | **Problem** | Alles, was Kurzvideos viral macht, entsteht *nach* der Aufnahme im Schnitt. Live ist roh. Bestehende Tools reagieren auf Zuschauer-Events oder Tastendruck – keines auf das gesprochene Wort. |
 | **Lösung** | Sprache → Effekt. Stichwort-Matching mit Dialekt-Toleranz und Lernfunktion, optional KI-Verstehen ohne Stichwort, Story-Modus für Vorlesen, Zuschauer-Trigger per Chat und Geschenk, Handy-Fernbedienung. |
-| **Status** | Version 2.0, funktionsfähig, 238 fertige Trigger in fünf Paketen, 13 Szenen, 38 Sounds, automatisierte Tests, im Einsatz in den eigenen Live-Streams des Gründers. |
+| **Status** | Version 2.1, funktionsfähig: 238 fertige Trigger in fünf Paketen plus Text-Sticker-Pakete, 143 kostenlose Sticker (MIT-Lizenz), 13 Szenen, 38 Sounds, Leistungsmodus (Bildzeit −63 bis −69 %), sichere GIF-Suche (KLIPY/GIPHY mit Inhaltsfilter), automatisierte Tests, im Einsatz in den eigenen Live-Streams des Gründers. |
 | **Markt** | Live-Streaming weltweit 2026: 97–157 Mrd. USD [Quelle 1, 2]; Creator Economy ~216–260 Mrd. USD [Quelle 3, 4]; Geschenke ≈ 50 % des Einkommens von TikTok-LIVE-Streamern [Quelle 5, 6]. |
 | **Geschäftsmodell** | Free + Pro-Abo (9,99 €/Monat), Creator-Packs (2,99–4,99 €), Agentur-Lizenz, B2B-Plattformlizenz; strategischer Exit an TikTok/Meta/YouTube. |
 | **Go-to-Market** | Türkischsprachige Creator-Community zuerst, dann DE/EN; eigene Streams als Showcase; Creator-Partnerprogramm; LinkedIn und Presse. |
-| **Bedarf** | **500.000 € Pre-Seed** für LiveFX und alle Projekte (Produkt 2.0 und Vision-Linien A–D), Mittelverwendung über 24 Monate (Vorschlag – bitte bestätigen, Kapitel 11.6); dazu Mobile-Entwickler:in, Plattform-Partnerschaften, Pilot-Partner. |
+| **Bedarf** | **250.000 € Pre-Seed** für 18 Monate (Closing Januar 2027): schlankes Team mit Mobile-/Web-Entwickler:in ab Monat 3, Markteintritt, erste Vision-Linie WortBild, Recht und Marke. Runway: 18 Monate auch ganz ohne Umsatz. Erzählfilm, Studio und Räume folgen mit einer Seed-Runde von etwa 350.000 € nach Gate 2 (Monat 18). Dazu Plattform-Partnerschaften und Pilot-Partner (Kapitel 11.6). |
+| **Finanzen** | Basis-Szenario: Umsatz 51 T€ (2027) → 336 T€ (2028) → 3,15 Mio. € (2031); EBITDA positiv ab 2028 (41 T€), 1,66 Mio. € in 2031; die Kasse fällt in den ersten 24 Monaten nie unter 125 T€ (Kapitel 11, `LiveFX_Finanzmodell.xlsx`). |
+| **Bewertung** | Angebot der Gründer: 250.000 € für 10,0 % – Pre-Money 2,25 Mio. €, Post-Money 2,5 Mio. €; unter allen vier Referenzmethoden (Berkus 2,35 Mio. €, Scorecard 2,95 Mio. €, VC-Methode 2,43 Mio. €, Risk Factor Summation 3,0 Mio. €; gewichtet 2,71 Mio. €). Alternativ Wandeldarlehen/SAFE mit Cap 2,25 Mio. € und 20 % Discount. Verhandlungsbasis; mit Steuer-/Rechtsberater prüfen (Kapitel 11.6). |
 
-Ask: 500.000 € Pre-Seed (Kapitel 11.6) und eine Pilot-Partnerschaft mit einer Plattform (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) oder einem Creator-Tool-Anbieter – alternativ Übernahme von Technologie und Team.
+Ask: 250.000 € Pre-Seed für 10,0 % (Pre-Money 2,25 Mio. €, Kapitel 11.6) und eine Pilot-Partnerschaft mit einer Plattform (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) oder einem Creator-Tool-Anbieter – alternativ Übernahme von Technologie und Team.
 
 ---
 
@@ -48,7 +50,7 @@ Für mehrsprachige Creator – etwa die große türkischsprachige Community in d
 
 ---
 
-## 3. Das Produkt (Stand 2.0)
+## 3. Das Produkt (Stand 2.1)
 
 ### 3.1 In einem Satz
 
@@ -63,12 +65,14 @@ Panel: Meme-Pakete, GIF-Suche, Uploads, Trigger-Editor, Themes ─────�
 
 ### 3.2 Funktionsumfang
 
-| Bereich | Stand 2.0 |
+| Bereich | Stand 2.1 |
 |---|---|
 | **Spracherkennung** | Drei Sprachen (Deutsch, Türkisch, Englisch) mit **automatischer Sprachwahl** beim Sprechen; Varianten DE/AT/CH, US/GB/IN. Browser-Engine (Chrome/Edge), externe Engines (Whisper, Deepgram) per API oder **Offline-Whisper** direkt im Browser. Reaktion „schnell“ (Zwischenergebnisse) oder „sicher“ (ganze Sätze), 3 Lesarten, Selbsttest, Pegel- und Latenzanzeige. |
 | **Dialekt und Lernen** | Unscharfes Matching in drei Stufen („grass“ → krass, „helal olsn“ → helal olsun) mit Schutz vor Fehltreffern. Nicht erkannte Sätze werden per Klick einem Trigger zugeordnet – beim nächsten Mal sitzt es. |
 | **Meme-Pakete** | Türkçe (85), Deutsch (49), English (50), Familie & Kinder (27), Gaming (27) = **238 Trigger**, per Klick ladbar und wieder entfernbar. |
-| **GIF-Suche und Medien** | Tenor/Giphy-Suche direkt im Panel, Import mit Prüfung, „Als Trigger“ in einem Schritt; eigene PNG/JPG/GIF/WebP und MP3/WAV/OGG bis 8 MB. |
+| **GIF-Suche und Medien** | Sichere GIF-Suche mit KLIPY und GIPHY direkt im Panel (immer Altersstufe G, Jugendschutz-Filter für Suchbegriffe und Ergebnisse, GIFs werden beim Anbieter verlinkt, nicht gespeichert), „Als Trigger“ in einem Schritt; eigene PNG/JPG/GIF/WebP und MP3/WAV/OGG bis 8 MB; Bildquellen nur eigene Uploads, mitgelieferte Sticker und KLIPY/GIPHY. |
+| **Sticker** | 143 kostenlose Sticker (Microsoft Fluent Emoji, MIT-Lizenz; 119 animiert) mit Stichwörtern DE/TR/EN in eigenem Bibliotheks-Tab; Text-Sticker-Pakete TR/DE/EN (je 27–28) mit großen Comic-Wörtern (OHA, KRASS, SHEESH …). |
+| **Leistung** | Leistungsmodus auto/eco/high und ein einziger Renderpfad: Bildzeit im Mittel −63 bis −69 %, p99 −74 bis −80 %, DOM-Knoten −56 % (gemessen mit 31 Effekten in 3 s auf 1920×1080); Eco-Modus für schwache PCs. |
 | **Story-Modus** | 13 animierte Vollbild-Szenen (Regen, Nacht, Wald, Meer, Feuer, Schloss, Schnee, Wüste, Stadt, Weltraum, Sonnenaufgang, Gewitter, Szene beenden) mit 12 Atmosphäre-Loops (Regen, Wind, Kamin, Vögel, Meer, Donner, Grillen, Herzschlag, Glocken, Stadt, Weltraum, Sturm); Figuren als Sticker; Geschichten-Pakete DE/TR/EN; Szenen-Pad zur Handsteuerung. |
 | **Effekte v2 und Themes** | Partikel mit Physik (60 fps mit automatischem Limit), Glow, 3D-Kippkarten, Impact-Zoom, Lichtstrahlen; Effekt-Typen Karte, Bild/GIF, Emoji-Regen, Banner, Konfetti, Szene, Sticker, Text (Neon/Verlauf/Bounce/Glitch), Bauchbinde, Kombi (Sequenz). Themes Neon, Pastell, Minimal, Kinderbuch. Kombis („krass“ 3× in 10 s → Konfetti) und Intensität aus der Stimme. |
 | **Sound** | 38 synthetische, lizenzfreie Sounds in Gruppen (Impact, Lustig, Magie, Atmosphäre); Mixer mit Limiter, Ducking der Atmosphäre, Stereo nach Position, Hall für Szenen; Lautstärke pro Trigger; Ton-Check-Karte gegen Echo. |
@@ -90,6 +94,7 @@ Panel: Meme-Pakete, GIF-Suche, Uploads, Trigger-Editor, Themes ─────�
 | 1.5 | Ton-Check gegen Echo, automatische Spracherkennung DE/TR/EN |
 | 1.6 | Effekt-Engine v2, Themes, Audio-Mixer, 38 Sounds, Zuschauer-Trigger (Chat + Geschenke), Pakete Familie und Gaming |
 | 2.0 | Review- und Härtungsdurchlauf, Regressionstests, Business-Unterlagen (Trailer, Pitch-Deck, Businessplan, Landingpage DE/TR/EN) |
+| 2.1 | Leistungsmodus (Bildzeit −63 bis −69 %), 143 kostenlose Sticker (MIT), Text-Sticker-Pakete, Pakete bereinigt (ohne religiöse Ausdrücke und Flaggen), sichere GIF-Suche KLIPY/GIPHY mit Inhaltsfilter (Tenor-API abgeschaltet) |
 
 ---
 
@@ -127,8 +132,8 @@ Markenanmeldung „LiveFX“ (DE/EU/TR) ist zu prüfen; Patentfähigkeit einzeln
 | **Agenturen und Netzwerke** (Creator-Management, MCNs) | Ein Set-up für viele Creator, markenkonforme Packs | Export/Import der Trigger, Themes, API | Agentur-Lizenz geplant |
 | **Plattformen (B2B)** | Längere Watchtime, Sticker-Gifting 2.0, Short-taugliche Live-Clips | Technologie und Pakete als native Funktion oder SDK | Pitch-Phase |
 | **EdTech und Sprachenlernen** (Familien, Grundschulen, DaZ- und Integrationskurse, Herkunftssprache Türkisch) | Wörter sichtbar und hörbar machen, Lesehilfe, datenschutzfreundlich ohne Konten | WortBild: gesprochenes Wort → Bild + Zielsprache + Aussprache, Lesehilfe, Nachsprechen, offline | Vision, Prototyp vorhanden (ab 2027) |
-| **Vorlese-, Hörbuch- und Podcast-Formate, Verlage** | Bild zu reinem Audio, Vorlese-Streams mit „Film“ | Erzählfilm (Generative Scene Engine), Companion-Modus „Hörbuch mit Bildern“, Verlagslizenz | Vision, Prototyp vorhanden (ab 2027) |
-| **Video-Editing** (Creator, Podcaster, Agenturen) | Clips und Shorts ohne stundenlangen Schnitt, ohne Upload | Studio: Highlights aus dem Stream, Auto-Edit fertiger Videos, lokaler MP4-Export | Vision (ab 2027) |
+| **Vorlese-, Hörbuch- und Podcast-Formate, Verlage** | Bild zu reinem Audio, Vorlese-Streams mit „Film“ | Erzählfilm (Generative Scene Engine), Companion-Modus „Hörbuch mit Bildern“, Verlagslizenz | Vision, Prototyp vorhanden (aus der Folgerunde, H2 2028) |
+| **Video-Editing** (Creator, Podcaster, Agenturen) | Clips und Shorts ohne stundenlangen Schnitt, ohne Upload | Studio: Highlights aus dem Stream, Auto-Edit fertiger Videos, lokaler MP4-Export | Vision (aus der Folgerunde, H2 2028) |
 | **VR/AR, Bühne und Events** (Veranstalter, Bibliotheken, Hardware-Partner) | Effekte auf Zuruf, immersive Erzählungen | Bühnenmodus (heute), AR am Handy, WebXR und Display-Brillen als Schaufenster | Bühne heute; AR/XR Vision (2027–2029) |
 
 Startsegment ist die **türkischsprachige Creator-Community** (Türkei und Diaspora in Deutschland/Europa): größtes Paket, kaum Wettbewerb, ausgeprägte Meme-Kultur, und der Gründer ist selbst Teil dieser Community.
@@ -249,9 +254,9 @@ Weitere Anbieter im Umfeld: StreamYard (~35 USD/Monat) und Restream (~16 USD/Mon
 
 ---
 
-## 11. Finanzplan (3 Jahre) – Schätzung
+## 11. Finanzplan (5 Jahre) – Schätzung
 
-Alle Zahlen sind **Schätzungen** des Gründers auf Basis der Annahmen unten; es gibt noch keine Umsätze. Jahr 1 beginnt mit dem Launch des Pro-Abos.
+Alle Zahlen sind **Schätzungen** des Gründers auf Basis der Annahmen unten; es gibt noch keine Umsätze. Grundlage ist das Finanzmodell **`LiveFX_Finanzmodell.xlsx`** (Blätter: Annahmen, GuV 5 Jahre, Mittelverwendung, Liquidität monatlich über 24 Monate, Gates, Bewertung, Sensitivität; erzeugt mit `tools/build-finance.py`, Kennzahlen in `tools/finance-250k.json`). Zeitachse: Closing der Pre-Seed-Runde im Januar 2027 = Monat 1; J1 = 2027 (Start Pro-Abo) … J5 = 2031.
 
 ### 11.1 Annahmen
 
@@ -263,43 +268,68 @@ Alle Zahlen sind **Schätzungen** des Gründers auf Basis der Annahmen unten; es
 | Pack-Käufe pro Jahr (Anteil der Nutzer × 1 Pack à Ø 3,99 €) | 7 % | 10 % | 12 % |
 | Agentur-Lizenzen (Jahresende) J1 / J2 / J3 à 49 €/Monat | 2 / 8 / 25 | 3 / 15 / 40 | 5 / 30 / 80 |
 | B2B-Pilot/Lizenz | 0 / 0 / 50 T€ | 0 / 50 / 150 T€ | 0 / 100 / 400 T€ |
-| Zahlende Pro-Nutzer werden als Jahresdurchschnitt gerechnet (≈ 50 % des Jahresendwerts in J1, 75 % in J2/J3) | | | |
+| Zahlende Pro-Nutzer werden als Jahresdurchschnitt gerechnet (≈ 50 % des Jahresendwerts in J1, 75 % ab J2) | | | |
 
-### 11.2 Umsatz (T€)
+Die Jahre 4–5 schreibt das Modell fort: Das Nutzerwachstum verlangsamt sich, Agentur- und B2B-Lizenzen laufen weiter, die Kosten wachsen mit Team und Marketing (Arbeitsmappe, Blatt „Annahmen“, Abschnitt B). Die Kosten J1–J2 stammen aus dem Monatsplan der 250-T€-Runde (11.3, 11.6), J3 aus dem bisherigen Plan.
 
-| | Konservativ | | | Basis | | | Optimistisch | | |
-|---|---|---|---|---|---|---|---|---|---|
-| | J1 | J2 | J3 | J1 | J2 | J3 | J1 | J2 | J3 |
-| Pro-Abo | 12 | 69 | 184 | 41 | 245 | 765 | 102 | 689 | 1.913 |
-| Creator-Packs | 2 | 8 | 22 | 8 | 32 | 100 | 19 | 86 | 240 |
-| Agentur-Lizenz | 1 | 4 | 12 | 2 | 9 | 24 | 3 | 18 | 48 |
-| B2B / Pilot | 0 | 0 | 50 | 0 | 50 | 150 | 0 | 100 | 400 |
-| **Gesamt** | **15** | **81** | **268** | **51** | **336** | **1.039** | **124** | **893** | **2.601** |
+### 11.2 Umsatz (T€) – 5 Jahre
 
-### 11.3 Kosten (T€) – Basis-Szenario
+| Szenario | J1 2027 | J2 2028 | J3 2029 | J4 2030 | J5 2031 |
+|---|---|---|---|---|---|
+| Konservativ | 16 | 82 | 271 | 432 | 602 |
+| **Basis** | **51** | **336** | **1.038** | **1.984** | **3.152** |
+| Optimistisch | 124 | 892 | 2.599 | 4.828 | 7.444 |
 
-| Position | J1 | J2 | J3 |
-|---|---|---|---|
-| Personal: Mobile-/Web-Entwicklung | 75 | 160 | 240 |
-| Personal: Backend/ML (ab J2), Community/Support (ab J2) | 0 | 60 | 160 |
-| Gründer (Gehalt) | 30 | 48 | 60 |
-| Freelance Design, Sound, Illustration (Packs) | 15 | 25 | 40 |
-| Marketing, Creator-Partnerprogramm, Events | 25 | 60 | 120 |
-| Infrastruktur, KI-API (nur Pro), Store-Gebühren | 8 | 25 | 60 |
-| Recht, Marke, Steuer, Verwaltung | 12 | 20 | 30 |
-| **Gesamt** | **165** | **398** | **710** |
+Basis-Szenario nach Erlösquelle:
 
-Konservativ wird mit einem kleineren Team geplant (Kosten ≈ 120 / 230 / 330 T€), optimistisch mit schnellerem Aufbau (≈ 190 / 520 / 1.100 T€).
+| Basis (T€) | J1 2027 | J2 2028 | J3 2029 | J4 2030 | J5 2031 |
+|---|---|---|---|---|---|
+| Pro-Abo | 41 | 245 | 765 | 1.463 | 2.324 |
+| Creator-Packs | 8 | 32 | 100 | 180 | 269 |
+| Agentur-Lizenz | 2 | 9 | 24 | 41 | 59 |
+| B2B / Pilot | 0 | 50 | 150 | 300 | 500 |
+| **Summe** | **51** | **336** | **1.038** | **1.984** | **3.152** |
 
-### 11.4 Ergebnis (T€)
+J1–J3 folgen unverändert den Annahmen aus 11.1; die konservative Agentur-Zeile ist formelgerecht gerechnet (J2 4,7 statt 4 T€, J3 14,7 statt 12 T€); übrige Abweichungen zu früheren Fassungen sind Rundung.
 
-| Szenario | J1 | J2 | J3 | Kumuliert nach 3 Jahren |
+### 11.3 Kosten (T€) – Basis-Szenario, schlanker Plan
+
+Bis Monat 18 finanziert die 250-T€-Runde ein schlankes Team: eine Mobile-/Web-Entwickler:in ab Monat 3, ein anteiliges Gründergehalt von 2.000 € pro Monat, Markteintritt, WortBild sowie Recht. Das Ausbau-Team (zweite Entwickler:in, Backend/ML, Community/Support) startet erst in Monat 19, nach Gate 2 und der Folgerunde.
+
+| Position | J1 2027 | J2 2028 | J3 2029 | Bisheriger Plan J1 / J2 |
 |---|---|---|---|---|
-| Konservativ | −105 | −149 | −62 | −316 |
-| **Basis** | **−114** | **−62** | **+329** | **+153** |
-| Optimistisch | −66 | +373 | +1.501 | +1.808 |
+| Personal: Mobile-/Web-Entwicklung (1 Person ab Monat 3; 2 Personen ab Monat 19) | 56 | 113 | 240 | 75 / 160 |
+| Personal: Backend/ML, Community/Support (ab Monat 19) | 0 | 30 | 160 | 0 / 60 |
+| Gründer (Gehalt; 2.000 €/Monat bis Monat 18) | 24 | 36 | 60 | 30 / 48 |
+| Freelance Design/Sound → Linie WortBild (37,5 T€, Monat 4–15) | 28 | 22 | 40 | 15 / 25 |
+| Marketing, Creator-Programm, Events, Piloten | 32 | 48 | 120 | 25 / 60 |
+| Infrastruktur, KI-API (nur Pro), Store-Gebühren (fix + Anteil am Umsatz) | 7 | 30 | 60 | 8 / 25 |
+| Recht, Marke, Steuer, Verwaltung | 19 | 16 | 30 | 12 / 20 |
+| **Gesamt** | **166** | **295** | **710** | **165 / 398** |
 
-**Finanzierungsbedarf:** 500.000 € Pre-Seed für LiveFX und alle Projekte; Mittelverwendung, Liquidität und Reichweite in Abschnitt 11.6.
+J4 und J5 (fortgeschrieben): 1.065 T€ und 1.491 T€. Gesamtkosten der anderen Szenarien (J1–J5, T€): konservativ 163 / 196 / 330 / 396 / 455, optimistisch 172 / 396 / 1.100 / 1.650 / 2.310.
+
+### 11.4 Ergebnis und Kasse (T€) – 5 Jahre
+
+**EBITDA (Ergebnis)**
+
+| Szenario | J1 2027 | J2 2028 | J3 2029 | J4 2030 | J5 2031 | Kumuliert nach 5 Jahren |
+|---|---|---|---|---|---|---|
+| Konservativ | −148 | −114 | −59 | +36 | +147 | −138 |
+| **Basis** | **−116** | **+41** | **+328** | **+919** | **+1.661** | **+2.833** |
+| Optimistisch | −48 | +496 | +1.499 | +3.178 | +5.134 | +10.259 |
+
+**Kasse zum Jahresende** (Start 250 T€, ohne Folgerunde)
+
+| Szenario | J1 2027 | J2 2028 | J3 2029 | J4 2030 | J5 2031 |
+|---|---|---|---|---|---|
+| Konservativ | 102 | −11 | −71 | −34 | 112 |
+| **Basis** | **134** | **175** | **503** | **1.422** | **3.083** |
+| Optimistisch | 202 | 698 | 2.197 | 5.375 | 10.509 |
+
+J1/J2 stammen aus dem Monatsplan (Monat 12 und 24); ab J3 gilt Kasse = Vorjahr + EBITDA (vereinfacht, ohne Steuern und Working Capital). Ab Monat 19 enthalten alle Szenarien bereits das Ausbau-Team, obwohl es erst mit der Folgerunde eingestellt wird – der konservative Fall zeigt deshalb die Lücke, die die Seed-Runde schließen muss. Basis: operativer Break-even dauerhaft ab Monat 22 (J2); konservativ: EBITDA positiv ab J4.
+
+**Finanzierungsbedarf:** 250.000 € Pre-Seed für 18 Monate (Abschnitt 11.6); Folgerunde (Seed) von etwa 350.000 € nach Gate 2.
 
 ### 11.5 Zusätzliche Erlösquellen ab Jahr 2/3 (Schätzung)
 
@@ -319,45 +349,118 @@ Die Vision (Kapitel 15) ist in den Tabellen 11.2–11.4 **nicht** enthalten. Die
 | Zusatzkosten (Illustration, Sprecher-Audios, Didaktik, Bildungsvertrieb, XR-Prototyp) | | 30 | 115 | 210 |
 | **Deckungsbeitrag Vision** | | **≈ −3** | **≈ +77** | **≈ +407** |
 
-**Wirkung auf das Basis-Ergebnis (Schätzung):** −114 → ≈ −117 T€ (J1), −62 → ≈ +15 T€ (J2), +329 → ≈ +736 T€ (J3). Der Break-even rückt damit im Basis-Szenario von Jahr 3 in Jahr 2. Konservativ ist mit etwa der Hälfte des Zusatzumsatzes zu rechnen, optimistisch mit dem 1,5- bis 2-Fachen. SDK- und Plattform-Erlöse werden **nicht** zusätzlich gezählt; sie stecken schon in der B2B-Zeile (0 / 50 / 150 T€). Die Vision erhöht deren Wahrscheinlichkeit, ohne sie zu verdoppeln. XR und Brille sind mit 0 € angesetzt. Der Finanzierungsbedarf von 500.000 € schließt die Vision-Linien bereits ein: ~20 % der Mittel (100 T€) bringen sie vom Prototyp zum Produkt, zuerst WortBild/Sprachenlernen und die Story-Engine (Abschnitt 11.6).
+**Wie die Vision finanziert wird:** Die 250-T€-Runde finanziert nur die erste Vision-Linie, **WortBild** (37.500 €, Monat 4–15, Abschnitt 11.6); ihre Erlöse (Familien-Abo, Schul- und Kurslizenzen: 2,5 / 55,8 / 216,2 T€ in J1–J3, Basis) führt das Modell nur als Memo-Position, also als Upside. **Erzählfilm, Studio/Auto-Edit und Räume/VR-AR wandern in die Folgerunde**; das Modell plant dafür 160,5 T€ von Monat 19 bis Ende J3. SDK- und Plattform-Erlöse werden **nicht** zusätzlich gezählt; sie stecken schon in der B2B-Zeile. XR und Brille sind mit 0 € angesetzt.
 
-### 11.6 Finanzierung: 500.000 € Pre-Seed
+### 11.6 Finanzierung: 250.000 € Pre-Seed
 
-**Bedarf:** **500.000 € Pre-Seed** für LiveFX und alle Projekte – das Produkt 2.0 und die Vision-Linien A–D (Erzählfilm, WortBild, Räume, Studio). Die Mittel sind für 24 Monate geplant (J1–J2, 2027–2028). Die Umsatz- und Kostenszenarien aus 11.2–11.5 bleiben unverändert.
+**Bedarf:** eine **Pre-Seed-Runde über 250.000 €**, geplant für **18 Monate** (Closing Januar 2027 = Monat 1, bis Juni 2028). Sie finanziert ein schlankes Team, den Markteintritt, die erste Vision-Linie WortBild und die rechtlichen Grundlagen – bis Gate 2, zu dem die Folgerunde (Seed) eingeworben wird. Alle Zahlen in diesem Abschnitt: **Vorschlag – mit Steuer-/Rechtsberater prüfen.**
 
-**Mittelverwendung über 24 Monate – Vorschlag – bitte bestätigen**
+**Mittelverwendung über 18 Monate – Vorschlag – mit Steuer-/Rechtsberater prüfen**
 
-| Bereich | Anteil | Betrag | Bezug im Finanzplan (J1 + J2, T€) |
-|---|---|---|---|
-| Produkt- und Engineering-Team | ~50 % | 250.000 € | Personal inkl. Gründergehalt 373 (11.3) |
-| Vision-Linien vom Prototyp zum Produkt – zuerst WortBild/Sprachenlernen und Story-Engine (Erzählfilm) | ~20 % | 100.000 € | Zusatzkosten Vision 145 (11.5) |
-| Go-to-Market, Creator-Partnerprogramm, Piloten | ~15 % | 75.000 € | Marketing, Creator-Programm, Events 85 (11.3) |
-| Recht, Marke, Datenschutz | ~10 % | 50.000 € | Recht, Marke, Steuer, Verwaltung 32 (11.3) |
-| Reserve | ~5 % | 25.000 € | – |
-| **Summe** | **100 %** | **500.000 €** | |
-
-Die Runde finanziert die Bruttokosten der ersten 24 Monate vor: Basis 563 T€ (165 + 398, Tabelle 11.3) plus Vision 145 T€ (30 + 115, Tabelle 11.5) = 708 T€. Davon trägt die Runde 475 T€ (ohne Reserve), die übrigen 233 T€ tragen die Umsätze von 606 T€ (Basis 51 + 336 = 387 T€, Vision 27 + 192 = 219 T€). Der Umsatzüberschuss von 373 T€ plus die Reserve von 25 T€ ergeben den Kassenbestand von 398 T€ Ende J2 (Tabelle unten): 500 − 708 + 606 = 398. Freelance-Kosten (40 T€) und Infrastruktur (33 T€) werden vollständig aus Umsätzen bezahlt. Der Posten Recht/Marke/Datenschutz liegt mit 50 T€ um 18 T€ über dem Ansatz in 11.3; bei Bestätigung des Vorschlags wird diese Zeile in 11.3 angepasst, bis dahin deckt die Reserve die Differenz.
-
-**Liquidität mit 500 T€ (T€, Jahresendwerte)** – Kassenbestand Ende Jahr = Vorjahr + Jahresergebnis aus 11.4 bzw. 11.5:
-
-| Szenario (Ergebnis J1 / J2 / J3) | Start | Ende J1 | Ende J2 | Ende J3 |
+| Bereich | Anteil | Betrag | Verplant Monat 1–18 | Inhalt |
 |---|---|---|---|---|
-| Konservativ (−105 / −149 / −62) | 500 | 395 | 246 | 184 |
-| **Basis (−114 / −62 / +329)** | **500** | **386** | **324** | **653** |
-| Basis inkl. Vision (−117 / +15 / +736) | 500 | 383 | 398 | 1.134 |
-| Optimistisch (−66 / +373 / +1.501) | 500 | 434 | 807 | 2.308 |
+| Team/Produkt: Mobile-/Web-Entwickler:in, Gründergehalt anteilig, Testgeräte | 50 % | 125.000 € | 125.000 € | Entwickler:in ab Monat 3 (16 × 5.500 € = 88 T€), Gründer 18 × 2.000 € = 36 T€, Testgeräte 1 T€; Ziel: Pro-Abo, Mobile-App/PWA, Stabilität v2.1 |
+| Markteintritt: Creator-Programm, Community, Plattform- und Bildungspiloten | 20 % | 50.000 € | 50.000 € | TR-Launch, 10–20 Botschafter:innen, Pack-Drops, Marktplatz-Einträge, DE/EN-Launch, 1 Plattform- oder Bildungspilot |
+| Erste Vision-Linie WortBild (Sprachenlernen) | 15 % | 37.500 € | 37.500 € | 300 Wörter, Lesehilfe, Sprecher-Audios DE/TR/EN, Didaktik-Prüfung, Kurs-/Klassen-Pilot (Monat 4–15) |
+| Recht, Marke, Datenschutz | 10 % | 25.000 € | 25.000 € | Marke LiveFX DE/EU/TR, Beteiligungsvertrag, DSGVO/DSFA Schul-/Familienprofil, Jugendschutz, Steuerberatung |
+| Reserve | 5 % | 12.500 € | – | Nicht verplant: Verzögerungen bei Einstellung, Store-/Plattform-Freigaben; deckt Infrastruktur-Fixkosten im Fall ohne Umsatz |
+| **Summe** | **100 %** | **250.000 €** | **237.500 €** | |
 
-Rechenbeispiel Basis: 500 − 114 = 386; 386 − 62 = 324; 324 + 329 = 653. Kontrolle: 500 + kumuliertes Ergebnis +153 (11.4) = 653.
+**Kostenlinien Monat 1–18** (in allen Szenarien gleich)
 
-**Reichweite (Runway):**
+| Kostenlinie | €/Monat | Monate | Einmalig | Summe Monat 1–18 |
+|---|---|---|---|---|
+| Mobile-/Web-Entwickler:in (Vollzeit) | 5.500 € | 3–18 | – | 88.000 € |
+| Gründergehalt (anteilig) | 2.000 € | 1–18 | – | 36.000 € |
+| Entwicklungs-Tools, Testgeräte (iOS/Android) | – | – | 1.000 € (Monat 1) | 1.000 € |
+| Creator-Programm, Community, Marketing – Phase 1 (TR-Launch) | 2.000 € | 1–6 | – | 12.000 € |
+| Creator-Programm, Marketing, Marktplätze – Phase 2 (DE/EN, Partner) | 3.000 € | 7–18 | – | 36.000 € |
+| Plattform- oder Bildungspilot (8 Wochen, Material, Reisen) | – | – | 2.000 € (Monat 9) | 2.000 € |
+| WortBild: Illustration, Sprecher-Audios DE/TR/EN, Didaktik, Kurs-Pilot | 3.125 € | 4–15 | – | 37.500 € |
+| Recht, Marke (DE/EU/TR), Datenschutz/DSFA, Jugendschutz, Steuerberatung | 1.000 € | 1–18 | 7.000 € (Monat 1) | 25.000 € |
+| **Summe verplant** | | | | **237.500 €** |
 
-- **Ohne jeden Umsatz** trägt die Runde die Basis-Kosten aus 11.3 rund **22 Monate**: J1 kostet 165 T€ (Rest 335 T€), J2 kostet 398 T€, also ≈ 33 T€ pro Monat; 335 ÷ 33 ≈ 10 Monate; 12 + 10 = 22 Monate. Mit den Vision-Kosten aus 11.5 (J1 30 T€, J2 115 T€) sind es rund 19 Monate (500 − 195 = 305; 305 ÷ 43 ≈ 7 Monate).
-- **Konservativ** reicht die Runde über alle drei Jahre (kumuliert −316 T€) und lässt 184 T€ Puffer.
-- **Basis:** Der niedrigste Jahresendstand ist 324 T€ (Ende J2), der Break-even liegt in J3 (mit Vision in J2). Der Puffer sichert Verzögerungen bei Plattform-Pilot und Bildungsvertrieb ab und dient als Brücke zur Seed-Runde.
+**In die Folgerunde verschoben** (nicht aus den 250 T€ finanziert): Erzählfilm / Story-Engine (Linie A), Studio / Auto-Edit (Linie D), Räume / VR-AR (Linie C) sowie Backend/ML, Community/Support und eine zweite Entwickler:in ab Monat 19.
 
-Alternative, falls die Runde nicht zustande kommt: Bootstrapping – Pro-Abo und Packs finanzieren eine:n Entwickler:in in Teilzeit, das Wachstum verlangsamt sich entsprechend (ungefähr konservatives Szenario). Förderprogramme (EXIST, Gründungsstipendien, Medien-/Edtech-Förderung) werden parallel geprüft.
+**Runway – monatlicher Liquiditätsplan** (Arbeitsmappe, Blatt „Liquidität 24M“):
 
-*Hinweis zur Versionsgeschichte: Frühere Fassungen nannten einen Seed-Bedarf von 250–350 T€ für 18–24 Monate, nur für das Kernprodukt. Die 500 T€ ersetzen diese Angabe und schließen die Vision-Linien ein.*
+- **Ganz ohne Umsatz** reichen die 250 T€ **18 Monate**: Ø Kosten 13.444 € pro Monat (Monat 1–18, inkl. fixer Infrastruktur), Kasse Ende Monat 18 8.000 €, erster negativer Monat 19.
+- Mit Umsatz sehen die Szenarien so aus (T€; ab Monat 19 inkl. Ausbau-Team):
+
+| Szenario | Kasse Monat 6 | Monat 12 | Monat 18 | Monat 24 | Niedrigste Kasse (Monat) | Runway | Dauerhafter Break-even |
+|---|---|---|---|---|---|---|---|
+| Konservativ | 183 | 102 | 49 | −11 | −11 (24) | 22 Monate (Cash-out Monat 23) | nach Monat 24 |
+| **Basis** | **191** | **134** | **146** | **175** | **125 (15)** | **> 24 Monate** | **Monat 22** |
+| Optimistisch | 208 | 202 | 369 | 698 | 197 (9) | > 24 Monate | Monat 10 |
+| Ohne Umsatz | 179 | 88 | 8 | −62,5 | – | 18 Monate | – |
+
+Im konservativen Fall fällt die Kasse in Monat 19 unter den Sicherheitsbestand von drei Monatskosten – genau dort muss die Folgerunde stehen.
+
+**Folgerunde (Seed):** Richtwert für die Planung **etwa 350.000 €** (deckt den konservativen Fall, auf 50 T€ gerundet). Gespräche ab Monat 12, Abschluss nach Gate 2 (Monat 15–18, spätestens Monat 18). Mindestbedarf bis Ende J3:
+
+| T€ | Konservativ | Basis | Optimistisch |
+|---|---|---|---|
+| Sicherheitsbestand (3 Monatskosten J3) | 82,5 | 177,5 | 275 |
+| Kasse Ende J3 ohne Folgerunde | −71 | 503 | 2.197 |
+| Liquiditätslücke (Sicherheitsbestand minus niedrigster Kassenstand bis Ende J3) | 153 | 52 | 78 |
+| Nachgelagerte Vision-Linien (Erzählfilm, Studio, Räume), Monat 19 bis Ende J3 | 160,5 | 160,5 | 160,5 |
+| **Mindestbedarf Folgerunde** | **314** | **213** | **239** |
+
+**Bewertung: Angebot der Gründer 2,25 Mio. € Pre-Money – Verhandlungsbasis; mit Steuer-/Rechtsberater prüfen**
+
+**Angebot:** 250.000 € für **10,0 %** – Pre-Money **2,25 Mio. €**, Post-Money **2,5 Mio. €**, der Gründer behält 90 %. Das Angebot liegt **unter allen vier üblichen Referenzmethoden** für Unternehmen ohne Umsatz (2,35–3,0 Mio. €, gewichtet 2,71 Mio. €): ein fairer, investorenfreundlicher Einstiegspreis unter jeder Referenzmethode.
+
+Referenzmethoden (Arbeitsmappe, Blatt „Bewertung“; jede Annahme ist dort belegt und gekennzeichnet):
+
+| Methode | Ansatz | Pre-Money | Gewicht |
+|---|---|---|---|
+| Berkus | Moderne Variante „moderate 2×“: fünf Faktoren mit je bis zu 1 Mio. $ (valu.vc, icanpitch 2026; $ → € 1:1). Idee 0,7 · Prototyp/Produkt 0,8 · Team 0,5 · strategische Beziehungen 0,25 · Markteinführung/Umsatz 0,1 | 2,35 Mio. € | 25 % |
+| Scorecard (Payne) | Referenz-Pre-Money 2,5 Mio. € – unterer Teil der DACH-Pre-Seed-Spanne (1,5–5 Mio. €, upxcale; Deutschland 1–5 Mio. €, Capvisory), unter dem Europa-Median (≈ 4,2 Mio. €, Equidam) – × Faktor 1,18 (Team 1,0 · Markt 1,4 · Produkt 1,4 · Wettbewerb 1,3 · Vertrieb 0,8 · weitere Finanzierung 1,0 · Sonstiges 1,2) | 2,95 Mio. € | 30 % |
+| VC-Methode | Optimistisches Szenario (Upside): Umsatz J5 7,44 Mio. € × Exit-Multiple 6 = Exit-Wert 44,7 Mio. €; ÷ Ziel-Rendite 10× × (1 − 40 % spätere Verwässerung) = Post-Money 2,68 Mio. €; abzüglich 250 T€ | 2,43 Mio. € | 20 % |
+| Risk Factor Summation | Basiswert 2,5 Mio. €; zwölf Risikofaktoren mit je ±250 T€; Summe +2 (Entwicklungsstadium, Herstellung, Wettbewerb, Technologie, International positiv; Management, Vertrieb, Kapitalbeschaffung negativ) | 3,0 Mio. € | 25 % |
+| **Gewichteter Mittelwert** | | **2,71 Mio. €** | |
+
+**Warum 2,25 Mio. € begründet sind:**
+
+- **Funktionsfähiges Produkt v2.1 statt Konzept:** Stimme → Effekt in Echtzeit, Leistungsmodus, sichere GIF-Suche; 575+ automatisierte Tests und eine e2e-Testsuite (Playwright) – das Technologierisiko ist weitgehend abgebaut.
+- **Eigenes IP und eigene Inhalte:** 238 Sprach-Trigger, 143 freie Sticker, Text- und Sticker-Inhalte sowie die Matcher-Logik sind selbst entwickelt; die Markenanmeldung LiveFX (DE/EU/TR) ist budgetiert.
+- **Drei Sprachen (DE/TR/EN) inkl. türkischer Nische:** kaum spezialisierte Streaming-Tools auf Türkisch, eigene TR-Community als Startmarkt.
+- **Vision-Optionen A–D auf derselben Engine:** Erzählfilm (A), WortBild Sprachenlernen (B), Räume/VR-AR (C), Studio/Auto-Edit (D) – Optionswert über das Creator-Tool hinaus.
+- **Marktgröße:** Live-Streaming-Markt 97–157 Mrd. USD, SAM 1–3 Mio. Creator (Kapitel 6); Bildung/Sprachenlernen als zweiter Markt.
+- **Kapitaleffizienz:** Produkt bis v2.1 ohne externes Kapital gebaut; die 250.000 € tragen laut Modell 18 Monate bis Gate 2.
+
+Ehrlich dagegen: Solo-Gründer, noch kein Umsatz und keine unterzeichneten Partner – deshalb liegt das Angebot unter jeder Referenzmethode.
+
+**Instrumente – Vorschlag – mit Steuer-/Rechtsberater prüfen**
+
+- **A. Eigenkapital (Priced Round):** 250.000 € bei 2,25 Mio. € Pre-Money = 10,0 % (Post-Money 2,5 Mio. €).
+- **B. Wandeldarlehen / SAFE:** Valuation Cap 2,25 Mio. € (Pre-Money, gleich dem Angebot), 20 % Discount auf den Preis der Seed-Runde (15–20 % verhandelbar), ohne Zins, Wandlung in der Seed-Runde nach etwa 18 Monaten. Beispiel: Seed-Pre-Money 3 Mio. € → Wandlungsbewertung = niedrigerer Wert aus Cap und 3 Mio. € × (1 − 20 %) = 2,25 Mio. € → Anteil 10,0 %; am Cap liegt der Anteil nie über 10 %.
+
+**Sensitivität (Basis-Szenario)** – Umsatz in J3 und Kasse; die Runway bleibt in jedem Fall über 24 Monaten:
+
+| Fall | Umsatz J3 (T€) | Abweichung zur Basis | Kasse Monat 18 (T€) | Niedrigste Kasse (T€) |
+|---|---|---|---|---|
+| Basis | 1.038 | – | 146 | 125 |
+| Conversion −1 Punkt | 847 | −18,4 % | 117 | 83 |
+| Conversion +1 Punkt | 1.230 | +18,4 % | 174 | 140 |
+| ARPU −20 % | 885 | −14,7 % | 123 | 91 |
+| ARPU +20 % | 1.191 | +14,7 % | 169 | 137 |
+| Nutzer −30 % | 779 | −25,0 % | 106 | 65 |
+| Nutzer +30 % | 1.298 | +25,0 % | 186 | 145 |
+
+Marktreferenzen zur Bewertung (Web-Recherche vom 4. 10. 2026, Werte vor Verwendung gegenprüfen; die Berkus-Variante folgt valu.vc und icanpitch 2026):
+
+- upxcale (DACH-Pre-Seed-Spanne 1,5–5 Mio. €; Deutschland typ. 0,5–1,5 Mio. €): https://upxcale.de/blog/pre-seed-funding/
+- Capvisory (Deutschland 1–5 Mio. €): https://capvisory.de/the-startup-funding-stages-from-pre-seed-to-series-c/
+- Equidam (Europa-Median Pre-Seed 4,57 Mio. USD): https://www.equidam.com/startup-valuation-delta-q1-2025/
+- SaaS Capital (Umsatz-Multiples 4,8x / 5,3x): https://www.saas-capital.com/blog-posts/private-saas-company-valuations-multiples/
+- Carta (Verwässerung je Runde): https://carta.com/data/state-of-private-markets-q1-2025/
+- Lexr (Cap, Discount, Zins): https://www.lexr.com/en-de/blog/convertible-loan-in-practice-conversion-interest-rate-discount-cap-valuation/
+- Vektora (15–25 % Discount üblich): https://vektora.eu/de/fachbeitraege/pre-seed-finanzierung-in-deutschland-instrumente-und-prozess
+
+Alternative, falls die Runde nicht zustande kommt: Bootstrapping – Pro-Abo und Packs finanzieren eine Teilzeit-Entwickler:in, das Wachstum verlangsamt sich entsprechend (etwa konservatives Szenario). Förderprogramme (EXIST, Gründungszuschüsse, Medien-/Edtech-Förderung) werden parallel geprüft.
+
+*Stand Oktober 2026: Ask 250.000 €.*
 
 ---
 
@@ -373,13 +476,13 @@ Alternative, falls die Runde nicht zustande kommt: Bootstrapping – Pro-Abo und
 
 | Rolle | Warum | Zeitpunkt |
 |---|---|---|
-| **Mobile-Entwickler:in** (iOS/Android, WebView/PWA, später SDK) | Handy-first-Creator ohne OBS erreichen; Vorstufe zur Plattform-Integration | sofort / Jahr 1 |
-| Backend/ML-Entwickler:in | Streaming-ASR < 300 ms, Offline-Modelle, KI-Verstehen als Standard | Jahr 2 |
-| Community- und Partnermanagement (TR/DE) | Creator-Partnerprogramm, Packs, Support | Jahr 1–2 (Teilzeit → Vollzeit) |
+| **Mobile-/Web-Entwickler:in** (iOS/Android, WebView/PWA, später SDK) | Handy-first-Creator ohne OBS erreichen; Vorstufe zur Plattform-Integration | ab Monat 3 (Pre-Seed) |
+| Backend/ML-Entwickler:in | Streaming-ASR < 300 ms, Offline-Modelle, KI-Verstehen als Standard | ab Monat 19 (Folgerunde) |
+| Community- und Partnermanagement (TR/DE) | Creator-Partnerprogramm, Packs, Support | Botschafter:innen ab Jahr 1; Stelle ab Monat 19 (Folgerunde) |
 | **Partnerschaften** | Plattform-Pilot (TikTok LIVE Studio, Instagram Live Producer, YouTube), Streaming-Software, Bildungsträger, Verlage | laufend |
 | Beirat | Creator-Manager:in TR, ehemalige Produktverantwortliche „Live“ einer Plattform, Edtech | Jahr 1 |
-| Grafik-/Web-Entwickler:in (Canvas, WebCodecs) | Erzählfilm-Renderer, Studio-Export (Vision) | Jahr 1–2 |
-| Illustration (Kinderbuch-Stil), Sprecher:innen DE/TR/EN, Didaktik | Welten-Packs, Aussprache-Audios, fachliche Prüfung WortBild (Vision) | Jahr 2, freiberuflich |
+| Grafik-/Web-Entwickler:in (Canvas, WebCodecs) | Erzählfilm-Renderer, Studio-Export (Vision) | Folgerunde (ab Monat 19) |
+| Illustration (Kinderbuch-Stil), Sprecher:innen DE/TR/EN, Didaktik | Aussprache-Audios und fachliche Prüfung WortBild (Pre-Seed, Monat 4–15); Welten-Packs (Folgerunde) | freiberuflich |
 
 ---
 
@@ -390,13 +493,13 @@ Alternative, falls die Runde nicht zustande kommt: Bootstrapping – Pro-Abo und
 | Plattform baut die Funktion nativ nach | mittel | hoch | Früher Pitch als Pilot-/Übernahmepartner; Community-Packs und Mehrsprachigkeit als Burggraben; Geschwindigkeit; offene API als Standard für Dritt-Tools |
 | Spracherkennung versagt bei Dialekt, Lärm, Musik | mittel | mittel | Toleranz-Stufen, Lernfunktion, 3 Lesarten, externe Engines, Offline-Whisper, Handy als zweites Mikro, Szenen-Pad als Handsteuerung |
 | Handy-only-Creator ohne OBS bleiben außen vor | hoch | hoch | Demo-Aufnahme ohne OBS, PWA-Fernbedienung, Mobile-Entwickler:in als erste Einstellung, Plattform-Integration als Ziel |
-| Urheberrecht an Memes/GIFs/Sounds | niedrig–mittel | mittel | Eigene synthetische Sounds, GIF-Provider mit API-Lizenz (Tenor/Giphy), Attribution, Community-Upload mit Nutzungsbedingungen |
+| Urheberrecht an Memes/GIFs/Sounds | niedrig–mittel | mittel | Eigene synthetische Sounds, kostenlose Sticker unter MIT-Lizenz, GIF-Provider mit API-Lizenz (KLIPY/GIPHY, verlinkt statt gespeichert), Attribution, Community-Upload mit Nutzungsbedingungen |
 | Abhängigkeit von Browser-Spracherkennung (Google-Dienst) | mittel | mittel | Offline-Whisper, externe API, pluggbare Engine-Schnittstelle |
 | Geringe Zahlungsbereitschaft bei Kleinst-Creatorn | mittel | mittel | Free-Stufe als Reichweite, Packs als niedrigschwelliger Kauf, Agentur- und B2B-Umsatz als zweites Standbein |
 | Ein-Personen-Risiko | hoch | hoch | Dokumentation und Tests, frühe Einstellung, Beirat, Partnerprogramm |
 | Plattform-Richtlinien (Stream-Key-Zugang, Chat-APIs, Quotas) | mittel | mittel | Mehrere Wege pro Plattform (LIVE Studio, Stream-Key, Webhook über Dritt-Tools), YouTube-Quota-Management, Fallback Handy |
 | Datenschutz / Jugendschutz (Familien- und Bildungs-Segment) | niedrig | hoch | Lokale Verarbeitung ohne Cloud-Pflicht, keine Konten nötig, Kinderbuch-Theme ohne Tracking |
-| Vision verzettelt das kleine Team | mittel | hoch | Reihenfolge nach Nähe zum Umsatz (Highlights und WortBild zuerst), Gates je Quartal, XR nur als Schaufenster |
+| Vision verzettelt das kleine Team | mittel | hoch | Pre-Seed finanziert nur WortBild; Erzählfilm, Studio und Räume erst nach Gate 2 mit der Folgerunde; Gates in Monat 3, 6, 12 und 18; XR nur als Schaufenster |
 | Starker Wettbewerb bei Sprachlern-Apps und Video-Editoren | hoch | mittel | Nicht als Universal-App antreten, sondern über Sprache → Bild, TR/DE/EN, Vorlesen und lokale Verarbeitung |
 | Lange Beschaffung im Bildungssektor | hoch | mittel | Familien-Abo und Verlage tragen das erste Jahr; Schullizenz über DigitalPakt-Budgets und Medienzentren |
 
@@ -404,32 +507,54 @@ Alternative, falls die Runde nicht zustande kommt: Bootstrapping – Pro-Abo und
 
 ## 14. Meilensteine
 
-### 14.1 Die nächsten 12 Monate
+### 14.1 Die nächsten 18 Monate
 
-| Quartal | Produkt | Markt | Organisation |
+Monat 1 = Closing der Pre-Seed-Runde im Januar 2027; Monat 18 = Juni 2028.
+
+| Zeitraum | Produkt | Markt | Organisation und Finanzierung |
 |---|---|---|---|
-| **Q4 2026** | Landingpage und Download-Paket (Windows/Mac), Onboarding-Assistent, Live-Commerce-Trigger im Standardpaket | Launch TR-Community, 10–20 Creator-Botschafter:innen, LinkedIn-Artikel DE/TR, Marketingvideo | Marke anmelden, Pre-Seed-Gespräche (500 T€), Beirat ansprechen |
-| **Q1 2027** | Pro-Abo live (Zahlung), erste Creator-Packs, Community-Pack-Upload (Beta), Streaming-ASR-Test < 300 ms | DE/EN-Launch, Marktplatz-Einträge (OBS, Streamlabs, Stream Deck), Vorlese-Pilot mit [Zahl] Lehrkräften/Autor:innen | Mobile-Entwickler:in eingestellt |
-| **Q2 2027** | Mobile-App (Fernbedienung + Mikro, Stores), Bildungs-Paket, Agentur-Lizenz (Mehrplatz) | Creator-Partnerprogramm offiziell, erste Agenturen, Presse Edtech/Creator Economy | Pre-Seed (500 T€) abgeschlossen oder Bootstrapping-Pfad bestätigt |
-| **Q3 2027** | Marktplatz offen, KI-Verstehen als Pro-Standard, SDK-Prototyp | Plattform-Pilot gestartet (Ziel: ein Partner), [Zahl] registrierte Nutzer, [Zahl] Pro-Abos | Community/Support-Rolle besetzt |
+| **Q4 2026** | Version 2.1 (Leistungsmodus, 143 freie Sticker, Text-Sticker-Pakete, sichere GIF-Suche), Landingpage und Download-Paket (Windows/Mac), Onboarding-Assistent | Launch TR-Community, 10–20 Creator-Botschafter:innen, LinkedIn-Artikel DE/TR, Marketingvideo | Pre-Seed-Gespräche (250 T€), Marke anmelden, Beirat ansprechen |
+| **Q1 2027** (Monat 1–3) | Pro-Abo live (Zahlung), erste Creator-Packs | TR-Launch (Markteintritt Phase 1) | Pre-Seed abgeschlossen (Monat 1); Mobile-/Web-Entwickler:in an Bord (Monat 3) – **Gate G0** |
+| **Q2 2027** (Monat 4–6) | Mobile-App/PWA, WortBild mit 300 Wörtern und Lesehilfe | 20 Beta-Creator TR/DE, Community-Pack-Upload | **Gate G1** (Monat 6) |
+| **Q3–Q4 2027** (Monat 7–12) | Marktplatz-Einträge (OBS, Streamlabs, Stream Deck), Agentur-Lizenz, Bildungs-Paket | DE/EN-Launch (Phase 2), Plattform- oder Bildungspilot (Monat 9), WortBild-Pilot in Kursen/Klassen | **Gate G2a** (Monat 12); Seed-Gespräche beginnen |
+| **H1 2028** (Monat 13–18) | Stabilität und KI-Verstehen für Pro, Auswertung WortBild-Pilot | Partner, erste zahlende Schulen oder Kurse | **Gate G2** (Monat 18): Seed-Runde abgeschlossen, Ausbau-Team ab Monat 19 |
 
-Messgrößen: registrierte Nutzer, aktive Streamer pro Woche, Conversion Free → Pro, Pack-Umsatz, Anzahl Partner-Creator, Plattform-Gespräche mit Folgetermin.
+Messgrößen: registrierte Nutzer, aktive Streamer pro Woche, Conversion Free → Pro, monatlich wiederkehrender Umsatz, Pack-Umsatz, Anzahl Partner-Creator, Plattform-Gespräche mit Folgetermin.
 
-### 14.2 Vision 2027–2029
+### 14.2 Gates für 18 Monate
 
-Die Reihenfolge folgt der Nähe zum Umsatz: Highlights (Studio) und WortBild zuerst, der Erzählfilm als Kern, Räume über die Bühne, XR später. Die Quartale 2027 sind mit 14.1 abgestimmt.
+Alle Werte sind **Ziele (nicht erreicht)**. Ein Gate gilt als erfüllt, wenn mindestens die Schwelle (konservatives Szenario) erreicht ist; das Ziel ist das Basis-Szenario. Vorschlag – mit Investor:innen abstimmen.
+
+| Gate | KPI | Ziel (Basis) | Schwelle (konservativ) | Optimistisch | Gibt frei |
+|---|---|---|---|---|---|
+| **G0** Start (Monat 3) | Pro-Abo live (Zahlung), Mobile-/Web-Entwickler:in an Bord | – | – | – | Budget Markteintritt Phase 2 |
+| **G1** Aktivierung (Monat 6) | Registrierte Nutzer | 10.000 | 4.000 | 20.000 | Mobile-App/PWA-Release |
+| G1 (Monat 6) | Zahlende Pro-Nutzer | 400 | 120 | 1.000 | |
+| G1 (Monat 6) | 20 Beta-Creator TR/DE aktiv, 10–20 Botschafter:innen; WortBild mit 300 Wörtern | – | – | – | |
+| G1 (Monat 6) | Woche-4-Retention aktiver Streamer ≥ 30 % (Ziel, erste Kohorten) | – | – | – | |
+| **G2a** Traktion (Monat 12) | Registrierte Nutzer | 20.000 | 8.000 | 40.000 | DE/EN-Ausbau, Plattform-Gespräche |
+| G2a (Monat 12) | Zahlende Pro-Nutzer (Jahresende J1) | 800 | 240 | 2.000 | |
+| G2a (Monat 12) | Wiederkehrender Umsatz im Monat 12 (MRR) | 8.073 € | 2.500 € | 19.820 € | |
+| G2a (Monat 12) | 1 Plattform- oder Bildungspilot gestartet; WortBild-Pilot in ≥ 3 Kursen/Klassen | – | – | – | |
+| **G2** Folgerunde (Monat 18) | Registrierte Nutzer | 50.000 | 19.000 | 110.000 | Seed-Runde, Ausbau-Team ab Monat 19, Erzählfilm/Studio |
+| G2 (Monat 18) | Zahlende Pro-Nutzer | 2.000 | 570 | 5.500 | |
+| G2 (Monat 18) | Wiederkehrender Umsatz im Monat 18 (MRR) | 22.586 € | 6.495 € | 62.473 € | |
+| G2 (Monat 18) | Monat-3-Retention Pro ≥ 75 %; Conversion Free → Pro ≥ 3 % (Schwelle) / 4 % (Ziel) | – | – | – | |
+| G2 (Monat 18) | WortBild-Pilot ausgewertet; ≥ 5 zahlende Schulen oder Kurse | – | – | – | |
+
+### 14.3 Vision 2027–2029
+
+Die Reihenfolge folgt der Nähe zu Umsatz und Finanzierung: Die Pre-Seed-Runde finanziert nur **WortBild**; Erzählfilm, Studio und Räume starten nach Gate 2 mit der **Folgerunde** (ab Monat 19 = Juli 2028). Bühne und Klassenzimmer funktionieren schon heute.
 
 | Zeitraum | Produkt | Markt / Vertrieb | Gate (Messgröße) |
 |---|---|---|---|
 | Q4 2026 | Prototypen Sprachenlernen und Live-Story, Zeitleistenformat LTF v1, Vision-Trailer DE/TR/EN | Pitch-Folien „Vision“, LinkedIn-Post | Prototypen offline mit 60 fps |
-| Q1 2027 | Zeitleisten-Log und „Highlights finden“ · WortBild mit 300 Wörtern und Lesehilfe | Pro-Abo live, 20 Beta-Creator TR/DE | Anteil der Streams mit geteiltem Highlight |
-| Q2 2027 | Erzählfilm DE (Scene-Director, Figuren, Kamera, Band/Split) · Bühnen- und Klassenzimmer-Preset | Event-Lizenz, WortBild-Pilot in [Zahl] Kursen/Klassen | Watchtime mit und ohne Erzählfilm |
-| Q3 2027 | Erzählfilm TR/EN, KI-Szenen, 3 Welten-Packs · Datei-Import und Auto-Effekte | **Pro+ live**, Verlags-Pilot (eigene Reihe) | Upgrade-Quote Pro → Pro+ |
-| Q4 2027 | Timeline-Editor und MP4-Export · Companion „Hörbuch mit Bildern“ und AR am Handy · Nachsprechen | Schullizenz, Listung bei Medienzentren | [Zahl] zahlende Schulen |
-| 2028 | WebXR- und Brillen-Prototyp · Batch/Agentur · Pack-Marktplatz und Welten-Editor für Verlage · **Scene-SDK v1** (Q4) | Familien-Abo WortBild, Plattform-Pitch „Live → Clip“, Auswertung WortBild-Pilot | ein SDK-Pilotpartner, Packs von Dritten |
-| 2029 | Erzählfilm 2.0 (Figuren interagieren, optional WebGPU-Tiefe) · weitere Sprachen über die Community · Bildungs-Edition | Verlagsprogramm mit 10+ Titeln, Entscheidung XR/Brille (Q2), Plattform-Pilot oder Exit-Gespräch (Q4) | unterzeichneter Plattform-Pilot |
+| 2027 (Pre-Seed, Monat 4–15) | WortBild mit 300 Wörtern, Lesehilfe, Sprecher-Audios DE/TR/EN, Didaktik-Prüfung, Nachsprechen | WortBild-Pilot in Kursen/Klassen, Bühnen- und Klassenzimmer-Preset | WortBild-Pilot in ≥ 3 Kursen/Klassen (G2a) |
+| H1 2028 (Monat 13–18) | Auswertung WortBild-Pilot, Schullizenz | Listung bei Medienzentren, Seed-Runde | ≥ 5 zahlende Schulen oder Kurse (G2) |
+| H2 2028 (Folgerunde, ab Monat 19) | Erzählfilm DE (Scene-Director, Figuren, Kamera) · Zeitleisten-Log und „Highlights finden“ · Datei-Import und Auto-Effekte | **Pro+ live**, Verlags-Pilot (eigene Reihe), Familien-Abo WortBild | Upgrade-Quote Pro → Pro+ |
+| 2029 | Erzählfilm TR/EN und Welten-Packs · Timeline-Editor und MP4-Export · Companion „Hörbuch mit Bildern“ und AR am Handy · WebXR-/Brillen-Prototyp · Scene-SDK | Verlagsprogramm, Plattform-Pitch „Live → Clip“, Entscheidung XR/Brille, Plattform-Pilot oder Exit-Gespräch | unterzeichneter Plattform-Pilot |
 
-Die Quartalsplanung im Detail steht in `VISION.md`, Abschnitt 10.
+Die Quartalsplanung in `VISION.md`, Abschnitt 10, beschreibt die volle Vision; wo ihre Termine abweichen, gilt dieser Abschnitt (Linien A, C und D kommen aus der Folgerunde).
 
 ---
 
@@ -576,6 +701,7 @@ Quellen 1–18 abgerufen am 30.09.2026, Quellen 19–60 am 03.10.2026. Produktan
 
 ### 16.2 Begleitdokumente
 
+- `LiveFX_Finanzmodell.xlsx` – Finanzmodell zur 250-T€-Pre-Seed-Runde (GuV 5 Jahre, Mittelverwendung, Liquidität monatlich, Gates, Bewertung, Sensitivität; Quelle der Zahlen in Kapitel 11)
 - `VISION.md` – Vision 2027–2029 (Erzählfilm, WortBild, Räume, Studio)
 - `prototypes/sprachlernen.html`, `prototypes/live-story.html` – Prototypen der Vision
 - `video/LiveFX_Vision_*.mp4` – Vision-Trailer (DE/TR/EN, 16:9 und 9:16)

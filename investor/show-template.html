@@ -210,8 +210,6 @@ h2{font-size:42px;line-height:1.08;margin-top:14px}
 .chart .vl{opacity:0}
 .active .chart .vl{animation:fade .6s both;animation-delay:calc(var(--d)*1ms)}
 .chart text{font-family:var(--sans)}
-.res{position:absolute;left:72px;top:620px;width:760px}
-.res div{display:grid;grid-template-columns:220px 1fr;font-size:15px;margin-bottom:6px}
 .res b{color:var(--muted)}
 .run{position:absolute;right:72px;top:180px;width:470px;height:500px;padding:28px}
 .run h3{font-size:21px;color:var(--gold);line-height:1.25}
@@ -225,8 +223,8 @@ h2{font-size:42px;line-height:1.08;margin-top:14px}
 .active .donut circle{animation:dash 1.1s var(--ease) both;animation-delay:calc(var(--d)*1ms)}
 @keyframes dash{from{stroke-dasharray:0 var(--C)}to{stroke-dasharray:var(--len) var(--C)}}
 .donut .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.donut .ctr strong{font-size:52px}
-.donut .ctr small{font:700 12px/1 var(--sans);letter-spacing:.24em;color:var(--muted);margin-top:8px}
+.donut .ctr strong{font-size:40px;white-space:nowrap}
+.donut .ctr small{font:700 11px/1 var(--sans);letter-spacing:.2em;color:var(--muted);margin-top:8px}
 .uof{position:absolute;left:660px;right:72px;top:180px}
 .uof .pill{color:var(--pink);background:var(--wine);margin-bottom:18px}
 .uof .row{display:grid;grid-template-columns:22px 100px 1fr 150px;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
@@ -238,7 +236,7 @@ h2{font-size:42px;line-height:1.08;margin-top:14px}
 .uof .amt{font-size:22px;font-weight:700;text-align:right}
 .uof .note{font:italic 12px/1.4 var(--sans);color:var(--dim);margin-top:14px}
 /* ---------- 13 gates ---------- */
-.gates{position:absolute;left:72px;right:72px;bottom:100px;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:end}
+.gates{position:absolute;left:72px;right:72px;bottom:100px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:end}
 .gate{padding:22px 20px;border-radius:18px;background:var(--card);border:1px solid var(--line);transform-origin:bottom;opacity:0}
 .active .gate{animation:gateup 1s var(--ease) both;animation-delay:calc(var(--d)*1ms)}
 @keyframes gateup{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
@@ -268,6 +266,50 @@ h2{font-size:42px;line-height:1.08;margin-top:14px}
 .askbar strong{font-size:24px}
 .askbar span{font-size:16px;white-space:nowrap;margin-left:24px}
 .disc{position:absolute;left:72px;right:72px;top:660px;font:italic 13px/1.4 var(--sans);color:var(--dim)}
+
+/* ---------- financials (5 years) ---------- */
+.res{position:absolute;left:72px;top:628px;width:760px}
+.res div{display:grid;grid-template-columns:170px 1fr;font-size:14px;margin-bottom:5px}
+.cash{position:absolute;right:72px;top:170px;width:500px;padding:24px 26px}
+.cash h3{font-size:20px;color:var(--gold)}
+.cash table{width:100%;border-collapse:collapse;margin-top:10px;font-size:15px}
+.cash th{font:700 11px/1 var(--sans);letter-spacing:.12em;color:var(--muted);text-align:right;padding:8px 0}
+.cash th:first-child{text-align:left}
+.cash td{padding:8px 0;border-top:1px solid var(--line);text-align:right}
+.cash td:first-child{text-align:left}
+.cash tr.b td{color:var(--mint);font-weight:700}
+.cash td.neg{color:var(--pink)}
+.cash .cn{font:italic 12px/1.4 var(--sans);color:var(--dim);margin-top:8px}
+.cash .it{margin-top:16px}
+.cash .it b{display:block;font-size:30px;line-height:1.1}
+.cash .it span{font-size:13px;color:var(--muted)}
+/* ---------- valuation ---------- */
+.vbars{position:absolute;left:72px;top:190px;width:760px}
+.vrows{position:relative}
+.vrow{display:grid;grid-template-columns:210px 1fr 160px;align-items:center;gap:14px;margin-bottom:6px}
+.vrow b{font-size:19px}
+.vrow .tr{height:30px;border-radius:8px;background:var(--card);position:relative;overflow:hidden}
+.vrow .fl{position:absolute;left:0;top:0;bottom:0;border-radius:8px;transform-origin:left;transform:scaleX(0)}
+.active .vrow .fl{animation:fillx 1.3s var(--ease) both;animation-delay:calc(var(--d)*1ms)}
+.vrow .fl{--s:1}
+.vrow strong{font-size:20px;white-space:nowrap}
+.vhow{font-size:12.5px;color:var(--muted);margin:0 0 20px 224px;line-height:1.35}
+.vmark{position:absolute;top:-14px;bottom:4px;border-left:2px dashed var(--pink)}
+.vmark span{position:absolute;bottom:-22px;left:-200px;width:400px;text-align:center;white-space:nowrap;font:700 13px/1 var(--sans);color:var(--pink)}
+.why{position:relative;margin-top:44px}
+.why h3{font-size:16px;color:var(--gold);margin-bottom:8px}
+.why ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+.why li{font-size:15px;line-height:1.35;padding-left:14px;position:relative;color:#D9DCE3}
+.why li:before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--mint)}
+.offer{position:absolute;right:72px;top:170px;width:470px;padding:24px 28px}
+.offer h3{font:700 12px/1 var(--sans);letter-spacing:.2em;color:var(--pink)}
+.offer .o{display:grid;grid-template-columns:260px 1fr;align-items:center;margin-top:16px}
+.offer .o b{font-size:44px;line-height:1;white-space:nowrap}
+.offer .o span{font-size:14px;color:var(--muted)}
+.safe{position:absolute;right:72px;top:480px;width:470px;padding:20px 28px}
+.safe h3{font-size:17px;color:var(--gold)}
+.safe p{font-size:14px;line-height:1.45;margin-top:8px;color:#D9DCE3}
+.vprop{position:absolute;right:72px;top:54px;color:var(--pink);background:var(--wine)}
 /* ---------- chrome ---------- */
 #progress{position:fixed;left:0;top:0;height:3px;background:linear-gradient(90deg,var(--pink),var(--mint));width:0;transition:width .6s var(--ease);z-index:5}
 #autobar{position:fixed;left:0;bottom:0;height:2px;background:var(--pink);opacity:.6;width:0;z-index:5}
@@ -303,7 +345,9 @@ if(params.has('clean')||CAPTURE)document.documentElement.classList.add('clean');
 const LOC={de:'de-DE',tr:'tr-TR',en:'en-US'};
 const UI={de:{play:'▶ Show',pause:'❚❚ Pause'},tr:{play:'▶ Gösteri',pause:'❚❚ Duraklat'},en:{play:'▶ Show',pause:'❚❚ Pause'}};
 const SAY={de:'„das ist ja krass …“',tr:'„bu efsane …“',en:'"that\'s wild …"'};
-const DUR=[9,10,10,11,11,11,10,10,10,11,11,10,11,11];
+// Show order (keys of the deck slides) and seconds per slide – tight cut, ≈ 110 s.
+const ORDER=[1,3,4,5,7,8,10,12,11,15,13,14];
+const DUR=[8,9,10,9,8,8,9,9,10,11,10,9];
 const ACC=['var(--pink)','var(--mint)','var(--gold)','var(--blue)'];
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const br=s=>esc(s).replace(/\n/g,'<br>');
@@ -315,52 +359,60 @@ const wave=(n,cols)=>'<div class="wave">'+Array.from({length:n},(_,i)=>'<i style
 const head=(d)=>'<div class="kicker r" style="--d:0">'+esc(d.kicker)+'</div><h2 class="r" style="--d:120">'+esc(d.title)+'</h2>';
 
 function build(){
-  const D=DATA[lang], F=D.footer, N=14;
+  const D=DATA[lang], F=D.footer, N=ORDER.length;
   document.documentElement.lang=lang;
-  const foot=i=>'<div class="foot"><span>'+esc(F)+'</span><span>'+String(i).padStart(2,'0')+' / '+N+'</span></div>';
-  const S=[];
+  const foot=()=>'<div class="foot"><span>'+esc(F)+'</span><span>@@NUM@@ / '+String(N).padStart(2,'0')+'</span></div>';
+  const S=[null];
   // 1 cover
   {const d=D.s1;let k=0;
    const title=d.title.split('\n').map(line=>line.split(' ').map(w=>'<span class="w"><span style="--d:'+(300+(k++)*110)+'"'+(w.indexOf('LiveFX')===0?' class="brand"':'')+'>'+esc(w)+'</span></span>').join(' ')).join('<br>');
-   S.push('<div class="left"><div class="kicker r" style="--d:100">'+esc(d.kicker)+'</div><h1>'+title+'</h1><p class="sub r" style="--d:1200">'+esc(d.sub)+'</p><div class="r fade" style="--d:1500;margin-top:26px">'+wave(56,['var(--pink)','var(--mint)'])+'</div><div class="askrow"><div class="ask card hl r zoom" style="--d:1900"><b>'+esc(d.askLabel)+'</b><strong>'+esc(d.ask)+'</strong><small>'+esc(d.askSub)+'</small></div><div class="byline r" style="--d:2200">'+d.people.map(p=>'<div><b>'+esc(p[0])+'</b><strong>'+esc(p[1])+'</strong></div>').join('')+'</div></div></div><div class="imgs"><div class="ph kenburns r zoom" style="--d:200"><img src="'+(lang==='de'?IMG.neon:IMG.card[lang])+'" alt=""><span class="pill tag c-pink">'+esc(d.imgLabels[0])+'</span></div><div class="ph kenburns r zoom" style="--d:600"><img src="'+IMG.vision[lang][0]+'" alt=""></div></div>'+foot(1));}
+   S[1]='<div class="left"><div class="kicker r" style="--d:100">'+esc(d.kicker)+'</div><h1>'+title+'</h1><p class="sub r" style="--d:1200">'+esc(d.sub)+'</p><div class="r fade" style="--d:1500;margin-top:26px">'+wave(56,['var(--pink)','var(--mint)'])+'</div><div class="askrow"><div class="ask card hl r zoom" style="--d:1900"><b>'+esc(d.askLabel)+'</b><strong>'+esc(d.ask)+'</strong><small>'+esc(d.askSub)+'</small></div><div class="byline r" style="--d:2200">'+d.people.map(p=>'<div><b>'+esc(p[0])+'</b><strong>'+esc(p[1])+'</strong></div>').join('')+'</div></div></div><div class="imgs"><div class="ph kenburns r zoom" style="--d:200"><img src="'+(lang==='de'?IMG.neon:IMG.card[lang])+'" alt=""><span class="pill tag c-pink">'+esc(d.imgLabels[0])+'</span></div><div class="ph kenburns r zoom" style="--d:600"><img src="'+IMG.vision[lang][0]+'" alt=""></div></div>'+foot();}
   // 2 thesis
-  {const d=D.s2;S.push('<div class="pad">'+head(d)+'<div class="cards5">'+d.cards.map((c,i)=>'<div class="card r" style="--d:'+(500+i*260)+'"><div class="n" style="color:'+ACC[i%4]+'">'+String(i+1).padStart(2,'0')+'</div><h3>'+esc(c[0])+'</h3><p>'+esc(c[1])+'</p></div>').join('')+'</div><div class="thesis"><p class="r" style="--d:2200">'+esc(d.bottom)+'</p><div class="r fade" style="--d:2400">'+wave(30,['var(--pink)','var(--mint)'])+'</div></div></div>'+foot(2));}
+  {const d=D.s2;S[2]='<div class="pad">'+head(d)+'<div class="cards5">'+d.cards.map((c,i)=>'<div class="card r" style="--d:'+(500+i*260)+'"><div class="n" style="color:'+ACC[i%4]+'">'+String(i+1).padStart(2,'0')+'</div><h3>'+esc(c[0])+'</h3><p>'+esc(c[1])+'</p></div>').join('')+'</div><div class="thesis"><p class="r" style="--d:2200">'+esc(d.bottom)+'</p><div class="r fade" style="--d:2400">'+wave(30,['var(--pink)','var(--mint)'])+'</div></div></div>'+foot();}
   // 3 gap
   {const d=D.s3;let q='<div></div>'+d.axisX.map(a=>'<div class="ax top r fade" style="--d:300">'+esc(a)+'</div>').join('');
    [0,1].forEach(r=>{q+='<div class="ax r fade" style="--d:300">'+br(d.axisY[r])+'</div>';[0,1].forEach(c=>{const i=r*2+c,us=i===3;q+='<div class="card cell'+(us?' hl us':'')+(us?'':' r')+'" style="--d:'+(500+i*250)+'"><h3>'+esc(d.cells[i][0])+'</h3><p>'+esc(d.cells[i][1])+'</p></div>'})});
-   S.push('<div class="pad">'+head(d)+'</div><div class="quad">'+q+'</div><div class="stats3">'+d.stats.map((s,i)=>'<div class="r left" style="--d:'+(2600+i*450)+'"><b style="color:'+ACC[i]+'">'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>').join('')+'</div><div class="src">'+esc(d.src)+'</div>'+foot(3));}
+   S[3]='<div class="pad">'+head(d)+'</div><div class="quad">'+q+'</div><div class="stats3">'+d.stats.map((s,i)=>'<div class="r left" style="--d:'+(2600+i*450)+'"><b style="color:'+ACC[i]+'">'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>').join('')+'</div><div class="src">'+esc(d.src)+'</div>'+foot();}
   // 4 build
-  {const d=D.s4;S.push('<div class="pad">'+head(d)+'<div class="build"><div><div class="shot r zoom" style="--d:300"><img src="'+IMG.panel+'" alt=""><div class="say"><span class="mic"></span><span class="typed">'+esc(SAY[lang])+'</span></div><div class="ov"><img src="'+IMG.card[lang]+'" alt=""></div></div><div class="status r" style="--d:3800"><span class="pill c-mint">'+esc(d.status)+'</span></div></div><div><p class="body r" style="--d:500">'+esc(d.body)+'</p><div class="grid6">'+d.stats.map((s,i)=>'<div class="r" style="--d:'+(900+i*200)+'"><b style="color:'+ACC[i%4]+'"'+cnt(s[0])+'>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>').join('')+'</div><p class="feat r" style="--d:2400">'+esc(d.features)+'</p></div></div></div><div class="src">'+esc(d.src)+'</div>'+foot(4));}
+  {const d=D.s4;S[4]='<div class="pad">'+head(d)+'<div class="build"><div><div class="shot r zoom" style="--d:300"><img src="'+IMG.panel+'" alt=""><div class="say"><span class="mic"></span><span class="typed">'+esc(SAY[lang])+'</span></div><div class="ov"><img src="'+IMG.card[lang]+'" alt=""></div></div><div class="status r" style="--d:3800"><span class="pill c-mint">'+esc(d.status)+'</span></div></div><div><p class="body r" style="--d:500">'+esc(d.body)+'</p><div class="grid6">'+d.stats.map((s,i)=>'<div class="r" style="--d:'+(900+i*200)+'"><b style="color:'+ACC[i%4]+'"'+cnt(s[0])+'>'+esc(s[0])+'</b><span>'+esc(s[1])+'</span></div>').join('')+'</div><p class="feat r" style="--d:2400">'+esc(d.features)+'</p></div></div></div><div class="src">'+esc(d.src)+'</div>'+foot();}
   // 5 vision
   {const d=D.s5,cols=['var(--mint)','var(--gold)','var(--blue)','var(--pink)'],cc=['c-mint','c-gold','c-blue','c-pink'];
-   S.push('<div class="pad">'+head(d)+'<div class="cards4">'+d.lines.map((l,i)=>'<div class="card r" style="--d:'+(400+i*350)+'"><div class="ph kenburns"><img src="'+IMG.vision[lang][i]+'" alt=""></div><div class="in"><div class="lt"><span class="L" style="background:'+cols[i]+'">'+l[0]+'</span><h3>'+esc(l[1])+'</h3></div><p>'+esc(l[2])+'</p></div><span class="pill '+cc[i]+'">'+esc(l[3])+'</span></div>').join('')+'</div><p class="bottomline r" style="--d:2200">'+esc(d.bottom)+'</p></div><div class="src">'+esc(d.src)+'</div>'+foot(5));}
+   S[5]='<div class="pad">'+head(d)+'<div class="cards4">'+d.lines.map((l,i)=>'<div class="card r" style="--d:'+(400+i*350)+'"><div class="ph kenburns"><img src="'+IMG.vision[lang][i]+'" alt=""></div><div class="in"><div class="lt"><span class="L" style="background:'+cols[i]+'">'+l[0]+'</span><h3>'+esc(l[1])+'</h3></div><p>'+esc(l[2])+'</p></div><span class="pill '+cc[i]+'">'+esc(l[3])+'</span></div>').join('')+'</div><p class="bottomline r" style="--d:2200">'+esc(d.bottom)+'</p></div><div class="src">'+esc(d.src)+'</div>'+foot();}
   // 6 prototypes
-  {const d=D.s6;S.push('<div class="pad">'+head(d)+'</div><div class="protos"><div class="p r left" style="--d:400"><div class="ph"><img src="'+IMG.story[lang]+'" alt=""></div><h3 class="c-mint">'+esc(d.caps[0][0])+'</h3><p>'+esc(d.caps[0][1])+'</p></div><div class="p b r left" style="--d:900"><div class="ph"><img src="'+IMG.word[lang]+'" alt=""></div><h3 class="c-gold">'+esc(d.caps[1][0])+'</h3><p>'+esc(d.caps[1][1])+'</p></div></div><div class="cost card r" style="--d:1500"><h3>'+esc(d.costHead)+'</h3>'+d.cost.map((c,i)=>'<div class="row"><div class="lab">'+esc(c[0])+'</div><div class="val" style="color:'+(i?'var(--mint)':'var(--pink)')+'">'+esc(c[1])+'</div><div class="track"><div class="fill" style="--s:'+(i?0.012:1)+';--d:'+(2200+i*900)+';background:'+(i?'var(--mint)':'var(--pink)')+'"></div></div><div class="sub">'+esc(c[2])+'</div></div>').join('')+'<p class="note r" style="--d:3800">'+esc(d.costNote)+'</p></div><div class="src">'+esc(d.src)+'</div>'+foot(6));}
+  {const d=D.s6;S[6]='<div class="pad">'+head(d)+'</div><div class="protos"><div class="p r left" style="--d:400"><div class="ph"><img src="'+IMG.story[lang]+'" alt=""></div><h3 class="c-mint">'+esc(d.caps[0][0])+'</h3><p>'+esc(d.caps[0][1])+'</p></div><div class="p b r left" style="--d:900"><div class="ph"><img src="'+IMG.word[lang]+'" alt=""></div><h3 class="c-gold">'+esc(d.caps[1][0])+'</h3><p>'+esc(d.caps[1][1])+'</p></div></div><div class="cost card r" style="--d:1500"><h3>'+esc(d.costHead)+'</h3>'+d.cost.map((c,i)=>'<div class="row"><div class="lab">'+esc(c[0])+'</div><div class="val" style="color:'+(i?'var(--mint)':'var(--pink)')+'">'+esc(c[1])+'</div><div class="track"><div class="fill" style="--s:'+(i?0.012:1)+';--d:'+(2200+i*900)+';background:'+(i?'var(--mint)':'var(--pink)')+'"></div></div><div class="sub">'+esc(c[2])+'</div></div>').join('')+'<p class="note r" style="--d:3800">'+esc(d.costNote)+'</p></div><div class="src">'+esc(d.src)+'</div>'+foot();}
   // 7 market
   {const d=D.s7,sz=[500,330,170],bgc=['var(--card)','#2A1622','var(--wine)'],bc=['var(--line)','var(--gold)','var(--pink)'],tc=['var(--muted)','var(--gold)','var(--pink)'];
-   S.push('<div class="pad">'+head(d)+'</div><div class="rings">'+d.rings.map((r,i)=>'<div class="ring" style="--d:'+(400+i*600)+';width:'+sz[i]+'px;height:'+sz[i]+'px;background:'+bgc[i]+';border:1.5px solid '+bc[i]+'"><b style="color:'+tc[i]+';'+(i==2?'margin-top:34px;font-size:10px':'')+'">'+esc(r[0])+' · '+esc(r[2])+'</b><strong'+(i==2?' style="font-size:24px"':'')+'>'+esc(r[1])+'</strong></div>').join('')+'</div><div class="ringnote">'+esc(d.ringNote)+'</div><div class="mcols"><div><h3 class="c-pink r" style="--d:1800">'+esc(d.coreHead)+'</h3>'+d.core.map((c,i)=>'<div class="it r" style="--d:'+(2000+i*250)+'"><b>'+esc(c[0])+'</b><span>'+esc(c[1])+'</span></div>').join('')+'</div><div class="adj"><h3 class="c-mint r" style="--d:2800">'+esc(d.adjHead)+'</h3>'+d.adj.map((c,i)=>'<div class="it r" style="--d:'+(3000+i*220)+'"><b>'+esc(c[0])+'</b><span>'+esc(c[1])+'</span></div>').join('')+'</div></div><div class="src">'+esc(d.src)+'</div>'+foot(7));}
+   S[7]='<div class="pad">'+head(d)+'</div><div class="rings">'+d.rings.map((r,i)=>'<div class="ring" style="--d:'+(400+i*600)+';width:'+sz[i]+'px;height:'+sz[i]+'px;background:'+bgc[i]+';border:1.5px solid '+bc[i]+'"><b style="color:'+tc[i]+';'+(i==2?'margin-top:34px;font-size:10px':'')+'">'+esc(r[0])+' · '+esc(r[2])+'</b><strong'+(i==2?' style="font-size:24px"':'')+'>'+esc(r[1])+'</strong></div>').join('')+'</div><div class="ringnote">'+esc(d.ringNote)+'</div><div class="mcols"><div><h3 class="c-pink r" style="--d:1800">'+esc(d.coreHead)+'</h3>'+d.core.map((c,i)=>'<div class="it r" style="--d:'+(2000+i*250)+'"><b>'+esc(c[0])+'</b><span>'+esc(c[1])+'</span></div>').join('')+'</div><div class="adj"><h3 class="c-mint r" style="--d:2800">'+esc(d.adjHead)+'</h3>'+d.adj.map((c,i)=>'<div class="it r" style="--d:'+(3000+i*220)+'"><b>'+esc(c[0])+'</b><span>'+esc(c[1])+'</span></div>').join('')+'</div></div><div class="src">'+esc(d.src)+'</div>'+foot();}
   // 8 model
-  {const d=D.s8;S.push('<div class="pad">'+head(d)+'</div><div class="tiers">'+d.tiers.map((t,i)=>'<div class="card r'+(i===1?' hl':'')+'" style="--d:'+(400+i*230)+'"><div class="nm"'+(i===1?' style="color:var(--pink)"':'')+'>'+esc(t[0])+'</div><div class="pr" style="color:'+ACC[i%4]+'">'+esc(t[1])+'</div><p>'+esc(t[2])+'</p></div>').join('')+'</div><div class="anchors card r" style="--d:1900"><h3>'+esc(d.anchorHead)+'</h3><ul>'+d.anchors.map(a=>'<li>'+esc(a)+'</li>').join('')+'</ul><p class="unit">'+esc(d.unit)+'</p></div><div class="src">'+esc(d.src)+'</div>'+foot(8));}
+  {const d=D.s8;S[8]='<div class="pad">'+head(d)+'</div><div class="tiers">'+d.tiers.map((t,i)=>'<div class="card r'+(i===1?' hl':'')+'" style="--d:'+(400+i*230)+'"><div class="nm"'+(i===1?' style="color:var(--pink)"':'')+'>'+esc(t[0])+'</div><div class="pr" style="color:'+ACC[i%4]+'">'+esc(t[1])+'</div><p>'+esc(t[2])+'</p></div>').join('')+'</div><div class="anchors card r" style="--d:1900"><h3>'+esc(d.anchorHead)+'</h3><ul>'+d.anchors.map(a=>'<li>'+esc(a)+'</li>').join('')+'</ul><p class="unit">'+esc(d.unit)+'</p></div><div class="src">'+esc(d.src)+'</div>'+foot();}
   // 9 differentiation
   {const d=D.s9;let m='<div class="col1 r fade" style="--d:300"></div><div class="hdr"><span></span>'+d.cols.slice(1).map((c,i)=>'<span style="'+(i?'':'color:var(--pink);position:relative')+'">'+esc(c)+'</span>').join('')+'</div>';
    d.rows.forEach((r,ri)=>{m+='<div class="row r fade" style="--d:'+(400+ri*120)+'"><span>'+esc(r[0])+'</span>'+[...r[1]].map((c,ci)=>'<span><i class="mk '+c+(ci?'':' us')+'" style="display:block;--d:'+(900+ri*260+ci*90)+'"></i></span>').join('')+'</div>'});
-   S.push('<div class="pad">'+head(d)+'</div><div class="matrix" style="position:absolute">'+m+'<div class="legend r fade" style="--d:2800">'+d.legend.map((t,i)=>'<span><i class="mk '+'fpn'[i]+'"></i>'+esc(t)+'</span>').join('')+'</div></div><div class="risks"><h3 class="r" style="--d:3000">'+esc(d.riskHead)+'</h3>'+d.risks.map((r,i)=>'<div class="risk r left" style="--d:'+(3200+i*280)+'"><i>!</i><div><b>'+esc(r[0])+'</b><p>'+esc(r[1])+'</p></div></div>').join('')+'</div><div class="src">'+esc(d.src)+'</div>'+foot(9));}
+   S[9]='<div class="pad">'+head(d)+'</div><div class="matrix" style="position:absolute">'+m+'<div class="legend r fade" style="--d:2800">'+d.legend.map((t,i)=>'<span><i class="mk '+'fpn'[i]+'"></i>'+esc(t)+'</span>').join('')+'</div></div><div class="risks"><h3 class="r" style="--d:3000">'+esc(d.riskHead)+'</h3>'+d.risks.map((r,i)=>'<div class="risk r left" style="--d:'+(3200+i*280)+'"><i>!</i><div><b>'+esc(r[0])+'</b><p>'+esc(r[1])+'</p></div></div>').join('')+'</div><div class="src">'+esc(d.src)+'</div>'+foot();}
   // 10 roadmap
-  {const d=D.s10,n=d.steps.length;S.push('<div class="pad">'+head(d)+'</div><div class="tl"><div class="base"></div><div class="prog"></div>'+d.steps.map((s,i)=>'<div class="st" style="left:'+(6+88*i/(n-1))+'%"><div class="q r fade" style="--d:'+(500+i*700)+'">'+esc(s[0])+'</div><div class="dot" style="--d:'+(600+i*700)+';background:'+ACC[i%4]+';box-shadow:0 0 16px '+ACC[i%4]+'"></div><h3 class="r" style="--d:'+(700+i*700)+'">'+esc(s[1])+'</h3><p class="r" style="--d:'+(800+i*700)+'">'+esc(s[2])+'</p></div>').join('')+'</div><div class="gtm">'+d.gtm.map((g,i)=>'<div class="card r" style="--d:'+(5800+i*250)+'"><h3 style="color:'+ACC[i]+'">'+esc(g[0])+'</h3><p>'+esc(g[1])+'</p></div>').join('')+'</div><div class="src">'+esc(d.src)+'</div>'+foot(10));}
-  // 11 scenario
-  {const d=D.s11,max=1100,H0=300,top=40,gw=760/3,bw=56,cols=['#FF2D75','#2DFFB5','#5A6070'];let svg='<svg viewBox="0 0 760 420"><text x="380" y="18" text-anchor="middle" fill="#A9B0BD" font-size="14">'+esc(d.chartTitle)+'</text>';
-   d.years.forEach((y,yi)=>{d.series.forEach((s,si)=>{const v=s[1][yi],h=H0*v/max,x=yi*gw+gw/2-1.5*bw-6+si*(bw+6),yy=top+H0-h,dl=500+yi*700+si*200;svg+='<rect class="bar" style="--d:'+dl+'" x="'+x+'" y="'+yy+'" width="'+bw+'" height="'+h+'" rx="6" fill="'+cols[si]+'"/><text class="vl" style="--d:'+(dl+900)+'" x="'+(x+bw/2)+'" y="'+(yy-8)+'" text-anchor="middle" fill="#fff" font-size="14">'+new Intl.NumberFormat(LOC[lang]).format(v)+'</text>'});svg+='<text x="'+(yi*gw+gw/2)+'" y="'+(top+H0+28)+'" text-anchor="middle" fill="#fff" font-size="15">'+esc(y)+'</text>'});
-   svg+=d.series.map((s,si)=>'<rect x="'+(150+si*170)+'" y="'+(top+H0+48)+'" width="14" height="14" rx="3" fill="'+cols[si]+'"/><text x="'+(172+si*170)+'" y="'+(top+H0+60)+'" fill="#A9B0BD" font-size="13">'+esc(s[0])+'</text>').join('')+'</svg>';
-   S.push('<div class="pad">'+head(d)+'</div><div class="chart">'+svg+'</div><div class="res">'+d.results.map((r,i)=>'<div class="r" style="--d:'+(3000+i*250)+'"><b>'+esc(r[0])+'</b><span style="color:'+(i==2?'var(--gold)':'#fff')+'">'+esc(r[1])+'</span></div>').join('')+'</div><div class="run card r" style="--d:3800"><h3>'+esc(d.runHead)+'</h3>'+d.run.map((r,i)=>'<div class="it r" style="--d:'+(4300+i*500)+'"><b style="color:'+ACC[i]+'">'+esc(r[0])+'</b><span>'+esc(r[1])+'</span></div>').join('')+'</div><div class="src">'+esc(d.src)+'</div>'+foot(11));}
+  {const d=D.s10,n=d.steps.length;S[10]='<div class="pad">'+head(d)+'</div><div class="tl"><div class="base"></div><div class="prog"></div>'+d.steps.map((s,i)=>'<div class="st" style="left:'+(6+88*i/(n-1))+'%"><div class="q r fade" style="--d:'+(500+i*700)+'">'+esc(s[0])+'</div><div class="dot" style="--d:'+(600+i*700)+';background:'+ACC[i%4]+';box-shadow:0 0 16px '+ACC[i%4]+'"></div><h3 class="r" style="--d:'+(700+i*700)+'">'+esc(s[1])+'</h3><p class="r" style="--d:'+(800+i*700)+'">'+esc(s[2])+'</p></div>').join('')+'</div><div class="gtm">'+d.gtm.map((g,i)=>'<div class="card r" style="--d:'+(5800+i*250)+'"><h3 style="color:'+ACC[i]+'">'+esc(g[0])+'</h3><p>'+esc(g[1])+'</p></div>').join('')+'</div><div class="src">'+esc(d.src)+'</div>'+foot();}
+  // 11 financials: 5-year base P&L + cash by scenario
+  {const d=D.s11,W=760,H0=330,top=40,zero=top+H0*0.93,max=3300,n=d.years.length,gw=W/n,bw=34,cols=['#2DFFB5','#5A6070','#FF2D75'];
+   const sc=v=>v*(H0*0.93)/max;let svg='<svg viewBox="0 0 760 420"><text x="380" y="16" text-anchor="middle" fill="#A9B0BD" font-size="14">'+esc(d.chartTitle)+'</text><line x1="0" x2="760" y1="'+zero+'" y2="'+zero+'" stroke="#2A2E38"/>';
+   d.years.forEach((y,yi)=>{d.series.forEach((s,si)=>{const v=s[1][yi],h=Math.max(2,Math.abs(sc(v))),x=yi*gw+gw/2-1.5*bw-4+si*(bw+4),yy=v>=0?zero-h:zero,dl=400+yi*450+si*120;
+     svg+='<rect class="bar" style="--d:'+dl+';transform-origin:'+(v>=0?'bottom':'top')+'" x="'+x+'" y="'+yy+'" width="'+bw+'" height="'+h+'" rx="4" fill="'+cols[si]+'"/><text class="vl" style="--d:'+(dl+800)+'" x="'+(x+bw/2)+'" y="'+(v>=0?yy-6:yy+h+14)+'" text-anchor="middle" fill="#fff" font-size="11.5">'+(v<0?'−':'')+new Intl.NumberFormat(LOC[lang]).format(Math.abs(v))+'</text>'});
+     svg+='<text x="'+(yi*gw+gw/2)+'" y="'+(zero+36)+'" text-anchor="middle" fill="#fff" font-size="14">'+esc(y)+'</text>'});
+   svg+=d.series.map((s,si)=>'<rect x="'+(200+si*130)+'" y="'+(zero+50)+'" width="14" height="14" rx="3" fill="'+cols[si]+'"/><text x="'+(222+si*130)+'" y="'+(zero+62)+'" fill="#A9B0BD" font-size="13">'+esc(s[0])+'</text>').join('')+'</svg>';
+   const tbl='<table><tr><th></th>'+d.cashCols.map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr>'+d.cashRows.map((r,ri)=>'<tr class="r fade'+(ri===2?' b':'')+'" style="--d:'+(2600+ri*250)+'"><td>'+esc(r[0])+'</td>'+r[1].map(v=>'<td'+(String(v).startsWith('−')?' class="neg"':'')+'>'+esc(v)+'</td>').join('')+'</tr>').join('')+'</table>';
+   S[11]='<div class="pad">'+head(d)+'</div><div class="chart">'+svg+'</div><div class="res">'+d.results.map((r,i)=>'<div class="r" style="--d:'+(3200+i*250)+'"><b>'+esc(r[0])+'</b><span style="color:'+(i==0?'var(--mint)':'#fff')+'">'+esc(r[1])+'</span></div>').join('')+'</div><div class="cash card r" style="--d:2200"><h3>'+esc(d.runHead)+'</h3>'+tbl+'<p class="cn">'+esc(d.cashNote)+'</p>'+d.run.map((r,i)=>'<div class="it r" style="--d:'+(4200+i*500)+'"><b style="color:'+(i?'var(--gold)':'var(--pink)')+'">'+esc(r[0])+'</b><span>'+esc(r[1])+'</span></div>').join('')+'</div><div class="src">'+esc(d.src)+'</div>'+foot();}
+  // 15 valuation (founder offer)
+  {const d=D.s15,cols=['var(--mint)','var(--gold)','var(--blue)','var(--pink)'],mx=d.scaleMax;
+   const bars=d.methods.map((m,i)=>'<div class="vrow r left" style="--d:'+(400+i*350)+'"><b>'+esc(m[0])+'</b><div class="tr"><div class="fl" style="width:'+(100*m[1]/mx).toFixed(1)+'%;background:'+cols[i%4]+';--d:'+(700+i*350)+'"></div></div><strong style="color:'+cols[i%4]+'">'+esc(m[2])+'</strong></div><div class="vhow r fade" style="--d:'+(800+i*350)+'">'+esc(m[3])+'</div>').join('');
+   S[15]='<div class="pad">'+head(d)+'</div><span class="pill vprop r" style="--d:300">'+esc(d.proposal)+'</span><div class="vbars"><div class="vrows">'+bars+'<div class="vmark r fade" style="--d:2000;left:calc(224px + (100% - 398px) * '+(d.markerV/mx).toFixed(3)+')"><span>'+esc(d.markerLabel)+'</span></div></div><div class="why r" style="--d:2600"><h3>'+esc(d.whyHead)+'</h3><ul>'+d.why.map(w=>'<li>'+esc(w)+'</li>').join('')+'</ul></div></div><div class="offer card hl r zoom" style="--d:1600"><h3>'+esc(d.offerHead)+'</h3>'+d.offer.map((o,i)=>'<div class="o"><b style="color:'+(i==2?'var(--mint)':'#fff')+(o[0].length>7?';font-size:34px':'')+'">'+esc(o[0])+'</b><span>'+esc(o[1])+'</span></div>').join('')+'</div><div class="safe card r" style="--d:3200"><h3>'+esc(d.safeHead)+'</h3><p>'+d.safe.map(esc).join(' · ')+'</p></div><div class="src">'+esc(d.src)+'</div>'+foot();}
   // 12 use of funds
   {const d=D.s12,R=165,C=2*Math.PI*R,cols=['#FF2D75','#2DFFB5','#FFD166','#6CC4FF','#5A6070'];let acc=0,circ='';
    d.split.forEach((s,i)=>{const len=C*s[0]/100;circ+='<circle cx="235" cy="235" r="'+R+'" stroke="'+cols[i]+'" style="--C:'+C.toFixed(1)+';--len:'+(len-3).toFixed(1)+';--d:'+(500+i*450)+'" stroke-dashoffset="'+(-acc).toFixed(1)+'"/>';acc+=len});
-   S.push('<div class="pad">'+head(d)+'</div><div class="donut"><svg viewBox="0 0 470 470">'+circ+'</svg><div class="ctr r zoom" style="--d:600"><strong>'+esc(d.total)+'</strong><small>'+esc(d.totalSub)+'</small></div></div><div class="uof"><span class="pill r" style="--d:300">'+esc(D.proposal)+'</span>'+d.split.map((s,i)=>'<div class="row r" style="--d:'+(700+i*450)+'"><span class="key" style="background:'+cols[i]+'"></span><span class="pc" style="color:'+(i<4?cols[i]:'#A9B0BD')+'">'+pct(s[0])+'</span><span class="nm">'+esc(s[1])+'<small>'+esc(s[3])+'</small></span><span class="amt">'+esc(s[2])+'</span></div>').join('')+'<p class="note r" style="--d:3200">'+esc(d.note)+'</p></div>'+foot(12));}
+   S[12]='<div class="pad">'+head(d)+'</div><div class="donut"><svg viewBox="0 0 470 470">'+circ+'</svg><div class="ctr r zoom" style="--d:600"><strong>'+esc(d.total)+'</strong><small>'+esc(d.totalSub)+'</small></div></div><div class="uof"><span class="pill r" style="--d:300">'+esc(D.proposal)+'</span>'+d.split.map((s,i)=>'<div class="row r" style="--d:'+(700+i*450)+'"><span class="key" style="background:'+cols[i]+'"></span><span class="pc" style="color:'+(i<4?cols[i]:'#A9B0BD')+'">'+pct(s[0])+'</span><span class="nm">'+esc(s[1])+'<small>'+esc(s[3])+'</small></span><span class="amt">'+esc(s[2])+'</span></div>').join('')+'<p class="note r" style="--d:3200">'+esc(d.note)+'</p></div>'+foot();}
   // 13 gates
-  {const d=D.s13,n=d.gates.length;S.push('<div class="pad">'+head(d)+'</div><span class="pill propTop r" style="--d:300">'+esc(D.proposal)+'</span><div class="gates">'+d.gates.map((g,i)=>'<div class="gate'+(i==n-1?' last':'')+'" style="--d:'+(600+i*700)+';min-height:'+(330+i*55)+'px"><div class="no" style="color:'+ACC[i%4]+'">'+g[0]+'</div><div class="wh">'+esc(g[1])+'</div><h3>'+esc(g[2])+'</h3><ul>'+g[3].map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul></div>').join('')+'</div><div class="gnote">'+esc(d.note)+'</div>'+foot(13));}
+  {const d=D.s13,n=d.gates.length;S[13]='<div class="pad">'+head(d)+'</div><span class="pill propTop r" style="--d:300">'+esc(d.proposal||D.proposal)+'</span><div class="gates">'+d.gates.map((g,i)=>'<div class="gate'+(i==n-1?' last':'')+'" style="--d:'+(600+i*700)+';min-height:'+(330+i*55)+'px"><div class="no" style="color:'+ACC[i%4]+'">'+g[0]+'</div><div class="wh">'+esc(g[1])+'</div><h3>'+esc(g[2])+'</h3><ul>'+g[3].map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul></div>').join('')+'</div><div class="gnote">'+esc(d.note)+'</div>'+foot();}
   // 14 team
-  {const d=D.s14;S.push('<div class="pad">'+head(d)+'</div><div class="team">'+d.team.map((t,i)=>'<div class="card r" style="--d:'+(400+i*400)+'"><div class="hd"><div class="av" style="background:'+(i?'var(--mint)':'var(--pink)')+'">'+t[0]+'</div><div><h3>'+esc(t[1])+'</h3><div class="role" style="color:'+(i?'var(--mint)':'var(--pink)')+'">'+esc(t[2])+'</div></div></div><p>'+esc(t[3])+'</p></div>').join('')+'<div class="card hire r" style="--d:1200"><h3>'+esc(d.hireHead)+'</h3>'+d.hires.map(h=>'<div><b>'+esc(h[0])+'</b><span>'+esc(h[1])+'</span></div>').join('')+'</div></div><div class="askbar"><div class="r fade" style="--d:1500">'+wave(34,['var(--pink)','var(--mint)'])+'</div><div class="box"><strong>'+esc(d.askLine)+'</strong><span>'+esc(d.contact)+'</span></div></div><p class="disc r fade" style="--d:2400">'+esc(d.disclaimer)+'</p>'+foot(14));}
-  $('#stage').innerHTML=S.map((h,i)=>'<section class="slide" id="s'+(i+1)+'" data-dur="'+DUR[i]+'">'+h+'</section>').join('');
+  {const d=D.s14;S[14]='<div class="pad">'+head(d)+'</div><div class="team">'+d.team.map((t,i)=>'<div class="card r" style="--d:'+(400+i*400)+'"><div class="hd"><div class="av" style="background:'+(i?'var(--mint)':'var(--pink)')+'">'+t[0]+'</div><div><h3>'+esc(t[1])+'</h3><div class="role" style="color:'+(i?'var(--mint)':'var(--pink)')+'">'+esc(t[2])+'</div></div></div><p>'+esc(t[3])+'</p></div>').join('')+'<div class="card hire r" style="--d:1200"><h3>'+esc(d.hireHead)+'</h3>'+d.hires.map(h=>'<div><b>'+esc(h[0])+'</b><span>'+esc(h[1])+'</span></div>').join('')+'</div></div><div class="askbar"><div class="r fade" style="--d:1500">'+wave(34,['var(--pink)','var(--mint)'])+'</div><div class="box"><strong>'+esc(d.askLine)+'</strong><span>'+esc(d.contact)+'</span></div></div><p class="disc r fade" style="--d:2400">'+esc(d.disclaimer)+'</p>'+foot();}
+  $('#stage').innerHTML=ORDER.map((k,i)=>'<section class="slide" id="s'+k+'" data-dur="'+DUR[i]+'">'+S[k].replace('@@NUM@@',String(i+1).padStart(2,'0'))+'</section>').join('');
   $$('#ctrl .lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
   $('#bPlay').textContent=playing?UI[lang].pause:UI[lang].play;
 }
@@ -422,7 +474,7 @@ addEventListener('touchend',e=>{if(tx==null)return;const dx=e.changedTouches[0].
 let idle;const wake=()=>{$('#ctrl').classList.remove('hide');clearTimeout(idle);idle=setTimeout(()=>$('#ctrl').classList.add('hide'),2600)};
 addEventListener('mousemove',wake);wake();
 build();
-activate(Math.max(0,Math.min(13,(parseInt(location.hash.slice(1))||1)-1)));
+activate(Math.max(0,Math.min(ORDER.length-1,(parseInt(location.hash.slice(1))||1)-1)));
 if(params.has('play'))setPlay(true);
 window.READY=document.fonts.ready;
 requestAnimationFrame(loop);

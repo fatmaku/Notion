@@ -1,0 +1,1131 @@
+{
+  "meta": {
+    "title": "LiveFX – Finanzmodell und Bewertung Pre-Seed 250.000 €",
+    "generated": "2026-10-04",
+    "workbook": "live-fx/business/LiveFX_Finanzmodell.xlsx",
+    "generator": "live-fx/business/tools/build-finance.py",
+    "currency": "EUR",
+    "status": "Schätzung / Vorschlag – mit Steuer-/Rechtsberater prüfen; es gibt noch keine Umsätze",
+    "timeline": "Closing Jan 2027 = Monat 1; J1 = 2027 (Start Pro-Abo) … J5 = 2031",
+    "product": "LiveFX v2.1 (Leistungsmodus, 143 freie Sticker, sichere GIF-Suche KLIPY/GIPHY)"
+  },
+  "round": {
+    "amount_eur": 250000,
+    "months_planned": 18,
+    "instrument_options": [
+      "Eigenkapital (Priced Round)",
+      "Wandeldarlehen / SAFE mit Cap + Discount"
+    ]
+  },
+  "use_of_funds": [
+    {
+      "key": "uof_team",
+      "label": "Team/Produkt: Mobile-/Web-Entwickler:in, Gründergehalt anteilig, Testgeräte",
+      "share": 0.5,
+      "amount_eur": 125000,
+      "scheduled_m1_18_eur": 125000,
+      "contents": "Entwickler:in ab Monat 3 (16 × 5.500 € = 88 T€), Gründer 18 × 2.000 € = 36 T€, Testgeräte 1 T€; Ziel: Pro-Abo, Mobile-App/PWA, Stabilität v2.1"
+    },
+    {
+      "key": "uof_gtm",
+      "label": "Markteintritt: Creator-Programm, Community, Plattform- und Bildungspiloten",
+      "share": 0.2,
+      "amount_eur": 50000,
+      "scheduled_m1_18_eur": 50000,
+      "contents": "TR-Launch, 10–20 Botschafter:innen, Pack-Drops, Marktplatz-Einträge, DE/EN-Launch, 1 Plattform- oder Bildungspilot"
+    },
+    {
+      "key": "uof_wb",
+      "label": "Erste Vision-Linie WortBild (Sprachenlernen)",
+      "share": 0.15,
+      "amount_eur": 37500,
+      "scheduled_m1_18_eur": 37500,
+      "contents": "300 Wörter, Lesehilfe, Sprecher-Audios DE/TR/EN, Didaktik-Prüfung, Kurs-/Klassen-Pilot (M4–M15)"
+    },
+    {
+      "key": "uof_legal",
+      "label": "Recht, Marke, Datenschutz",
+      "share": 0.1,
+      "amount_eur": 25000,
+      "scheduled_m1_18_eur": 25000,
+      "contents": "Marke LiveFX DE/EU/TR, Beteiligungsvertrag, DSGVO/DSFA Schul-/Familienprofil, Jugendschutz, Steuerberatung"
+    },
+    {
+      "key": "uof_res",
+      "label": "Reserve",
+      "share": 0.05,
+      "amount_eur": 12500,
+      "scheduled_m1_18_eur": 0,
+      "contents": "Nicht verplant: Verzögerungen bei Einstellung, Store-/Plattform-Freigaben; deckt Infrastruktur-Fixkosten im Fall ohne Umsatz"
+    }
+  ],
+  "use_of_funds_total_eur": 250000,
+  "use_of_funds_check": "OK",
+  "moved_to_follow_on": [
+    "Story-Engine / Erzählfilm (A)",
+    "Studio / Auto-Edit (D)",
+    "Räume / VR-AR (C)",
+    "Backend/ML, Community/Support, 2. Entwickler:in ab Monat 19"
+  ],
+  "cost_lines_preseed": [
+    {
+      "key": "cl_dev",
+      "label": "Mobile-/Web-Entwickler:in (Vollzeit, ab Monat 3)",
+      "eur_per_month": 5500,
+      "from_month": 3,
+      "to_month": 18,
+      "one_off_eur": 0,
+      "one_off_month": 1,
+      "sum_m1_18_eur": 88000
+    },
+    {
+      "key": "cl_founder",
+      "label": "Gründergehalt (anteilig)",
+      "eur_per_month": 2000,
+      "from_month": 1,
+      "to_month": 18,
+      "one_off_eur": 0,
+      "one_off_month": 1,
+      "sum_m1_18_eur": 36000
+    },
+    {
+      "key": "cl_tools",
+      "label": "Entwicklungs-Tools, Testgeräte (iOS/Android)",
+      "eur_per_month": 0,
+      "from_month": 1,
+      "to_month": 18,
+      "one_off_eur": 1000,
+      "one_off_month": 1,
+      "sum_m1_18_eur": 1000
+    },
+    {
+      "key": "cl_mkt1",
+      "label": "Creator-Programm, Community, Marketing – Phase 1 (TR-Launch)",
+      "eur_per_month": 2000,
+      "from_month": 1,
+      "to_month": 6,
+      "one_off_eur": 0,
+      "one_off_month": 1,
+      "sum_m1_18_eur": 12000
+    },
+    {
+      "key": "cl_mkt2",
+      "label": "Creator-Programm, Marketing, Marktplätze – Phase 2 (DE/EN, Partner)",
+      "eur_per_month": 3000,
+      "from_month": 7,
+      "to_month": 18,
+      "one_off_eur": 0,
+      "one_off_month": 1,
+      "sum_m1_18_eur": 36000
+    },
+    {
+      "key": "cl_pilot",
+      "label": "Plattform- oder Bildungspilot (8 Wochen, Material, Reisen)",
+      "eur_per_month": 0,
+      "from_month": 1,
+      "to_month": 18,
+      "one_off_eur": 2000,
+      "one_off_month": 9,
+      "sum_m1_18_eur": 2000
+    },
+    {
+      "key": "cl_wortbild",
+      "label": "Vision-Linie WortBild (Sprachenlernen): Illustration, Sprecher-Audios DE/TR/EN, Didaktik, Kurs-Pilot",
+      "eur_per_month": 3125,
+      "from_month": 4,
+      "to_month": 15,
+      "one_off_eur": 0,
+      "one_off_month": 1,
+      "sum_m1_18_eur": 37500
+    },
+    {
+      "key": "cl_legal",
+      "label": "Recht, Marke (DE/EU/TR), Datenschutz/DSFA, Jugendschutz, Steuerberatung",
+      "eur_per_month": 1000,
+      "from_month": 1,
+      "to_month": 18,
+      "one_off_eur": 7000,
+      "one_off_month": 1,
+      "sum_m1_18_eur": 25000
+    }
+  ],
+  "runway": {
+    "no_revenue_months": 18,
+    "no_revenue_cash_out_month": 19,
+    "no_revenue_avg_burn_m1_18_eur": 13444.44,
+    "by_scenario": {
+      "kons": {
+        "runway_months": 22,
+        "cash_out_month": 23,
+        "sustained_break_even_month": "nach M24",
+        "min_cash_eur": -11499.65,
+        "min_cash_month": 24,
+        "below_buffer_month": 19
+      },
+      "basis": {
+        "runway_months": "> 24",
+        "cash_out_month": "keiner bis M24",
+        "sustained_break_even_month": 22,
+        "min_cash_eur": 125383.57,
+        "min_cash_month": 15,
+        "below_buffer_month": "nie bis M24"
+      },
+      "opt": {
+        "runway_months": "> 24",
+        "cash_out_month": "keiner bis M24",
+        "sustained_break_even_month": 10,
+        "min_cash_eur": 196717.61,
+        "min_cash_month": 9,
+        "below_buffer_month": "nie bis M24"
+      }
+    }
+  },
+  "cash": {
+    "kons": {
+      "m6": 182724.59,
+      "m12": 102273.37,
+      "m18": 49061.05,
+      "m24": -11499.65
+    },
+    "basis": {
+      "m6": 190750.12,
+      "m12": 134375.48,
+      "m18": 145794.06,
+      "m24": 175197.28
+    },
+    "opt": {
+      "m6": 207666.16,
+      "m12": 202039.64,
+      "m18": 368913.1,
+      "m24": 697934.38
+    },
+    "nr": {
+      "m6": 179125,
+      "m12": 87875,
+      "m18": 8000,
+      "m24": -62500
+    }
+  },
+  "follow_on": {
+    "by_scenario": {
+      "kons": {
+        "buffer_eur": 82500,
+        "cash_end_j3_without_round_eur": -70855.65,
+        "liquidity_gap_eur": 153355.65,
+        "deferred_lines_eur": 160500,
+        "minimum_need_eur": 313855.65,
+        "close_by_month": 18
+      },
+      "basis": {
+        "buffer_eur": 177500,
+        "cash_end_j3_without_round_eur": 503467.28,
+        "liquidity_gap_eur": 52116.43,
+        "deferred_lines_eur": 160500,
+        "minimum_need_eur": 212616.43,
+        "close_by_month": 18
+      },
+      "opt": {
+        "buffer_eur": 275000,
+        "cash_end_j3_without_round_eur": 2196874.38,
+        "liquidity_gap_eur": 78282.39,
+        "deferred_lines_eur": 160500,
+        "minimum_need_eur": 238782.39,
+        "close_by_month": 18
+      }
+    },
+    "seed_planning_guide_eur": 350000,
+    "timing": "Seed nach Gate 2 (Monat 15–18), Gespräche ab Monat 12"
+  },
+  "pnl_5y": {
+    "kons": [
+      {
+        "year": "J1 2027",
+        "revenue_eur": 15650.4,
+        "costs_eur": 163377.03,
+        "ebitda_eur": -147726.63,
+        "cumulative_eur": -147726.63,
+        "cash_year_end_eur": 102273.37
+      },
+      {
+        "year": "J2 2028",
+        "revenue_eur": 81933,
+        "costs_eur": 195706.02,
+        "ebitda_eur": -113773.02,
+        "cumulative_eur": -261499.65,
+        "cash_year_end_eur": -11499.65
+      },
+      {
+        "year": "J3 2029",
+        "revenue_eur": 270644,
+        "costs_eur": 330000,
+        "ebitda_eur": -59356,
+        "cumulative_eur": -320855.65,
+        "cash_year_end_eur": -70855.65
+      },
+      {
+        "year": "J4 2030",
+        "revenue_eur": 432436,
+        "costs_eur": 396000,
+        "ebitda_eur": 36436,
+        "cumulative_eur": -284419.65,
+        "cash_year_end_eur": -34419.65
+      },
+      {
+        "year": "J5 2031",
+        "revenue_eur": 602316.6,
+        "costs_eur": 455400,
+        "ebitda_eur": 146916.6,
+        "cumulative_eur": -137503.05,
+        "cash_year_end_eur": 112496.95
+      }
+    ],
+    "basis": [
+      {
+        "year": "J1 2027",
+        "revenue_eur": 50544,
+        "costs_eur": 166168.52,
+        "ebitda_eur": -115624.52,
+        "cumulative_eur": -115624.52,
+        "cash_year_end_eur": 134375.48
+      },
+      {
+        "year": "J2 2028",
+        "revenue_eur": 335540,
+        "costs_eur": 294718.2,
+        "ebitda_eur": 40821.8,
+        "cumulative_eur": -74802.72,
+        "cash_year_end_eur": 175197.28
+      },
+      {
+        "year": "J3 2029",
+        "revenue_eur": 1038270,
+        "costs_eur": 710000,
+        "ebitda_eur": 328270,
+        "cumulative_eur": 253467.28,
+        "cash_year_end_eur": 503467.28
+      },
+      {
+        "year": "J4 2030",
+        "revenue_eur": 1983772.5,
+        "costs_eur": 1065000,
+        "ebitda_eur": 918772.5,
+        "cumulative_eur": 1172239.78,
+        "cash_year_end_eur": 1422239.78
+      },
+      {
+        "year": "J5 2031",
+        "revenue_eur": 3151812.5,
+        "costs_eur": 1491000,
+        "ebitda_eur": 1660812.5,
+        "cumulative_eur": 2833052.28,
+        "cash_year_end_eur": 3083052.28
+      }
+    ],
+    "opt": [
+      {
+        "year": "J1 2027",
+        "revenue_eur": 124092,
+        "costs_eur": 172052.36,
+        "ebitda_eur": -47960.36,
+        "cumulative_eur": -47960.36,
+        "cash_year_end_eur": 202039.64
+      },
+      {
+        "year": "J2 2028",
+        "revenue_eur": 892324,
+        "costs_eur": 396429.26,
+        "ebitda_eur": 495894.74,
+        "cumulative_eur": 447934.38,
+        "cash_year_end_eur": 697934.38
+      },
+      {
+        "year": "J3 2029",
+        "revenue_eur": 2598940,
+        "costs_eur": 1100000,
+        "ebitda_eur": 1498940,
+        "cumulative_eur": 1946874.38,
+        "cash_year_end_eur": 2196874.38
+      },
+      {
+        "year": "J4 2030",
+        "revenue_eur": 4827865,
+        "costs_eur": 1650000,
+        "ebitda_eur": 3177865,
+        "cumulative_eur": 5124739.38,
+        "cash_year_end_eur": 5374739.38
+      },
+      {
+        "year": "J5 2031",
+        "revenue_eur": 7444105,
+        "costs_eur": 2310000,
+        "ebitda_eur": 5134105,
+        "cumulative_eur": 10258844.38,
+        "cash_year_end_eur": 10508844.38
+      }
+    ]
+  },
+  "wortbild_revenue_memo_eur": [
+    2500,
+    55800,
+    216200
+  ],
+  "valuation": {
+    "primary_view": "founder_view",
+    "label": "Referenzmethoden (Investorensicht) + Angebot der Gründer",
+    "berkus_eur": 2350000,
+    "berkus_scores": [
+      {
+        "factor": "Idee / Grundwert (Problem, Markt)",
+        "score": 0.7,
+        "value_eur": 700000
+      },
+      {
+        "factor": "Prototyp / Produkt (Technologierisiko)",
+        "score": 0.8,
+        "value_eur": 800000
+      },
+      {
+        "factor": "Team (Umsetzungsqualität)",
+        "score": 0.5,
+        "value_eur": 500000
+      },
+      {
+        "factor": "Strategische Beziehungen",
+        "score": 0.25,
+        "value_eur": 250000
+      },
+      {
+        "factor": "Produkteinführung / Umsatz",
+        "score": 0.1,
+        "value_eur": 100000
+      }
+    ],
+    "scorecard_eur": 2950000,
+    "scorecard_reference_eur": 2500000,
+    "scorecard_factor": 1.18,
+    "vc_method": {
+      "scenario": "Optimistisch (Upside)",
+      "revenue_y5_eur": 7444105,
+      "exit_multiple": 6,
+      "exit_value_eur": 44664630,
+      "target_return": 10,
+      "later_dilution": 0.4,
+      "post_money_today_eur": 2679877.8,
+      "pre_money_eur": 2429877.8,
+      "revenue_y5_basis_eur": 3151812.5
+    },
+    "range_min_eur": 2350000,
+    "range_max_eur": 3000000,
+    "weighted_avg_eur": 2708475.56,
+    "weights": {
+      "berkus": 0.25,
+      "scorecard": 0.3,
+      "vc": 0.2,
+      "rfs": 0.25
+    },
+    "founder_view": {
+      "label": "Gründer-Sicht (großzügig, jede Annahme belegt und gekennzeichnet)",
+      "berkus_eur": 2350000,
+      "berkus_max_per_factor_eur": 1000000,
+      "berkus_variant": "moderne „moderate 2×“-Variante (0–1 Mio. $ je Faktor; valu.vc / icanpitch 2026), $→€ 1:1",
+      "berkus_scores": [
+        {
+          "factor": "Idee / Grundwert (Problem, Markt)",
+          "score": 0.7,
+          "value_eur": 700000
+        },
+        {
+          "factor": "Prototyp / Produkt (Technologierisiko)",
+          "score": 0.8,
+          "value_eur": 800000
+        },
+        {
+          "factor": "Team (Umsetzungsqualität)",
+          "score": 0.5,
+          "value_eur": 500000
+        },
+        {
+          "factor": "Strategische Beziehungen",
+          "score": 0.25,
+          "value_eur": 250000
+        },
+        {
+          "factor": "Produkteinführung / Umsatz",
+          "score": 0.1,
+          "value_eur": 100000
+        }
+      ],
+      "scorecard_eur": 2950000,
+      "scorecard_reference_eur": 2500000,
+      "scorecard_factor": 1.18,
+      "scorecard_reference_note": "unterer Teil der DACH-Spanne 1,5–5 Mio. € (upxcale) / DE 1–5 Mio. € (capvisory), unter Europa-Median ≈ 4,2 Mio. € (Equidam)",
+      "scorecard_scores": [
+        {
+          "factor": "Team",
+          "weight": 0.3,
+          "comparison": 1.0
+        },
+        {
+          "factor": "Marktgröße / Chance",
+          "weight": 0.25,
+          "comparison": 1.4
+        },
+        {
+          "factor": "Produkt / Technologie",
+          "weight": 0.15,
+          "comparison": 1.4
+        },
+        {
+          "factor": "Wettbewerbsumfeld",
+          "weight": 0.1,
+          "comparison": 1.3
+        },
+        {
+          "factor": "Marketing / Vertrieb / Partner",
+          "weight": 0.1,
+          "comparison": 0.8
+        },
+        {
+          "factor": "Bedarf weiterer Finanzierung",
+          "weight": 0.05,
+          "comparison": 1.0
+        },
+        {
+          "factor": "Sonstiges (IP, Bildung, Datenschutz lokal)",
+          "weight": 0.05,
+          "comparison": 1.2
+        }
+      ],
+      "vc_method": {
+        "scenario": "Optimistisch (Upside)",
+        "revenue_y5_eur": 7444105,
+        "exit_multiple": 6,
+        "exit_value_eur": 44664630,
+        "target_return": 10,
+        "later_dilution": 0.4,
+        "post_money_today_eur": 2679877.8,
+        "pre_money_eur": 2429877.8
+      },
+      "vc_method_basis_line": {
+        "scenario": "Basis (2. Linie)",
+        "revenue_y5_eur": 3151812.5,
+        "exit_multiple": 6,
+        "exit_value_eur": 18910875,
+        "target_return": 10,
+        "later_dilution": 0.4,
+        "post_money_today_eur": 1134652.5,
+        "pre_money_eur": 884652.5
+      },
+      "rfs_eur": 3000000,
+      "rfs_base_eur": 2500000,
+      "rfs_step_eur": 250000,
+      "rfs_score_sum": 2,
+      "rfs_scores": [
+        {
+          "risk": "Management",
+          "score": -1
+        },
+        {
+          "risk": "Entwicklungsstadium",
+          "score": 1
+        },
+        {
+          "risk": "Gesetzgebung / Politik",
+          "score": 0
+        },
+        {
+          "risk": "Herstellung / Lieferkette",
+          "score": 1
+        },
+        {
+          "risk": "Vertrieb / Marketing",
+          "score": -1
+        },
+        {
+          "risk": "Kapitalbeschaffung",
+          "score": -1
+        },
+        {
+          "risk": "Wettbewerb",
+          "score": 1
+        },
+        {
+          "risk": "Technologie",
+          "score": 1
+        },
+        {
+          "risk": "Rechtsstreit",
+          "score": 0
+        },
+        {
+          "risk": "International",
+          "score": 1
+        },
+        {
+          "risk": "Reputation",
+          "score": 0
+        },
+        {
+          "risk": "Exit-Potenzial",
+          "score": 0
+        }
+      ],
+      "range_min_eur": 2350000,
+      "range_max_eur": 3000000,
+      "weighted_avg_eur": 2708475.56,
+      "weighted_avg_with_vc_basis_eur": 2399430.5,
+      "weights": {
+        "berkus": 0.25,
+        "scorecard": 0.3,
+        "vc": 0.2,
+        "rfs": 0.25
+      }
+    },
+    "conservative_view": {
+      "label": "Konservative Investorensicht (frühere Rechnung, nur Vergleich)",
+      "berkus_eur": 900000,
+      "berkus_max_per_factor_eur": 500000,
+      "berkus_scores": [
+        {
+          "factor": "Idee / Grundwert (Problem, Markt)",
+          "score": 0.6,
+          "value_eur": 300000
+        },
+        {
+          "factor": "Prototyp / Produkt (Technologierisiko)",
+          "score": 0.7,
+          "value_eur": 350000
+        },
+        {
+          "factor": "Team (Umsetzungsqualität)",
+          "score": 0.3,
+          "value_eur": 150000
+        },
+        {
+          "factor": "Strategische Beziehungen",
+          "score": 0.1,
+          "value_eur": 50000
+        },
+        {
+          "factor": "Produkteinführung / Umsatz",
+          "score": 0.1,
+          "value_eur": 50000
+        }
+      ],
+      "scorecard_eur": 1406250,
+      "scorecard_reference_eur": 1500000,
+      "scorecard_factor": 0.9375,
+      "vc_method": {
+        "scenario": "Basis",
+        "revenue_y5_eur": 3151812.5,
+        "exit_multiple": 4,
+        "exit_value_eur": 12607250,
+        "target_return": 15,
+        "later_dilution": 0.45,
+        "post_money_today_eur": 462265.83,
+        "pre_money_eur": 212265.83,
+        "revenue_y5_basis_eur": 3151812.5
+      },
+      "range_min_eur": 212265.83,
+      "range_max_eur": 1406250,
+      "weighted_avg_eur": 964953.17,
+      "weighted_avg_rounded_eur": 950000,
+      "weights": {
+        "berkus": 0.4,
+        "scorecard": 0.4,
+        "vc": 0.2
+      }
+    },
+    "reference": {
+      "label": "Referenzmethoden (Investorensicht)",
+      "primary": "founder_view",
+      "founder_view_weighted_avg_eur": 2708475.56,
+      "founder_view_range_eur": [
+        2350000,
+        3000000
+      ],
+      "conservative_view_weighted_avg_eur": 964953.17,
+      "conservative_view_rounded_pre_money_eur": 950000,
+      "conservative_view_range_eur": [
+        212265.83,
+        1406250
+      ]
+    },
+    "offer_label": "Angebot der Gründer",
+    "offer_stake": 0.1,
+    "offer_post_money_eur": 2500000,
+    "offer_pre_money_eur": 2250000,
+    "founder_stake_after": 0.9,
+    "post_money_eur": 2500000,
+    "investor_stake": 0.1,
+    "gap_vs_reference_avg": 0.8307,
+    "gap_vs_reference_avg_eur": -458475.56,
+    "gap_vs_reference_avg_with_vc_basis": 0.9377,
+    "gap_vs_founder_range_min": 0.9574,
+    "gap_vs_conservative_avg": 2.3317,
+    "offer_position_vs_founder_view": "unterhalb der Gründer-Spanne – unter allen vier Methoden",
+    "offer_position_vs_conservative_view": "oberhalb aller konservativen Methoden",
+    "required_exit_value_eur": {
+      "5x": 22727272.73,
+      "10x": 45454545.45
+    },
+    "required_exit_assumptions": {
+      "post_money_eur": 2500000,
+      "later_dilution": 0.45,
+      "exit_multiples": [
+        4,
+        6
+      ]
+    },
+    "implied_revenue_y5_eur": {
+      "mult4": 11363636.36,
+      "mult6": 7575757.58,
+      "for_target_return": "10x"
+    },
+    "implied_revenue_y5_by_return_eur": {
+      "5x": {
+        "mult4": 5681818.18,
+        "mult6": 3787878.79
+      },
+      "10x": {
+        "mult4": 11363636.36,
+        "mult6": 7575757.58
+      }
+    },
+    "implied_return_by_scenario": {
+      "kons": {
+        "revenue_y5_eur": 602316.6,
+        "implied_return_mult4_dil45": 0.53,
+        "implied_return_mult6_dil45": 0.7951,
+        "implied_return_mult6_dil40": 0.8673,
+        "coverage_of_10x_mult6_revenue_need": 0.0795
+      },
+      "basis": {
+        "revenue_y5_eur": 3151812.5,
+        "implied_return_mult4_dil45": 2.7736,
+        "implied_return_mult6_dil45": 4.1604,
+        "implied_return_mult6_dil40": 4.5386,
+        "coverage_of_10x_mult6_revenue_need": 0.416
+      },
+      "opt": {
+        "revenue_y5_eur": 7444105,
+        "implied_return_mult4_dil45": 6.5508,
+        "implied_return_mult6_dil45": 9.8262,
+        "implied_return_mult6_dil40": 10.72,
+        "coverage_of_10x_mult6_revenue_need": 0.9826
+      }
+    },
+    "supported_by_scenario": {
+      "5x": {
+        "mult4": "Optimistisch",
+        "mult6": "Optimistisch"
+      },
+      "10x": {
+        "mult4": "keines",
+        "mult6": "keines"
+      },
+      "summary_de": "10x bei 4x-Multiple: keines; 10x bei 6x: keines – das optimistische Szenario erreicht 9,8x (45 % Verwässerung) bzw. 10,7x (40 %). Basis trägt 4,2x (6x) bzw. 2,8x (4x). 5x: ab Szenario Optimistisch (6x) bzw. Optimistisch (4x)."
+    },
+    "negotiation_table": [
+      {
+        "investor_stake": 0.08,
+        "post_money_eur": 3125000,
+        "pre_money_eur": 2875000,
+        "founder_stake_after": 0.92,
+        "pre_vs_founder_avg": 1.0615,
+        "pre_vs_conservative_avg": 2.9794,
+        "note": "höhere Bewertung als das Angebot (Gründer-freundlich)"
+      },
+      {
+        "investor_stake": 0.1,
+        "post_money_eur": 2500000,
+        "pre_money_eur": 2250000,
+        "founder_stake_after": 0.9,
+        "pre_vs_founder_avg": 0.8307,
+        "pre_vs_conservative_avg": 2.3317,
+        "note": "Angebot der Gründer (Obergrenze laut Gründer)"
+      },
+      {
+        "investor_stake": 0.125,
+        "post_money_eur": 2000000,
+        "pre_money_eur": 1750000,
+        "founder_stake_after": 0.875,
+        "pre_vs_founder_avg": 0.6461,
+        "pre_vs_conservative_avg": 1.8136,
+        "note": "Verhandlungskorridor bis hier: 10–12,5 % → Pre-Money 1,75–2,25 Mio. €"
+      },
+      {
+        "investor_stake": 0.15,
+        "post_money_eur": 1666666.67,
+        "pre_money_eur": 1416666.67,
+        "founder_stake_after": 0.85,
+        "pre_vs_founder_avg": 0.523,
+        "pre_vs_conservative_avg": 1.4681,
+        "note": "außerhalb der Gründer-Vorgabe (nur Vergleich)"
+      }
+    ],
+    "negotiation_range": {
+      "investor_stake": [
+        0.1,
+        0.125
+      ],
+      "pre_money_eur": [
+        1750000,
+        2250000
+      ]
+    },
+    "arguments": [
+      {
+        "id": "product",
+        "de": "Funktionsfähiges Produkt v2.1 statt Konzept: Stimme → Effekt in Echtzeit, Leistungsmodus, sichere GIF-Suche; 575+ automatisierte Tests und eine e2e-Testsuite (Playwright) – das Technologierisiko ist weitgehend abgebaut.",
+        "tr": "Konsept değil, çalışan ürün v2.1: gerçek zamanlı ses → efekt, performans modu, güvenli GIF araması; 575+ otomatik test ve uçtan uca (e2e) test paketi (Playwright) – teknoloji riski büyük ölçüde azaltıldı.",
+        "en": "A working product (v2.1), not a concept: real-time voice → effect, performance mode, safe GIF search; 575+ automated tests and an end-to-end (Playwright) suite – technology risk is largely retired."
+      },
+      {
+        "id": "ip",
+        "de": "Eigenes IP und eigene Inhalte: 238 Sprach-Trigger, 143 freie Sticker, Text- und Sticker-Inhalte sowie die Matcher-Logik sind selbst entwickelt; Markenanmeldung LiveFX (DE/EU/TR) ist budgetiert.",
+        "tr": "Kendi fikri mülkiyeti ve içeriği: 238 ses tetikleyicisi, 143 ücretsiz çıkartma, metin/çıkartma içerikleri ve eşleştirme mantığı kendi geliştirmemiz; LiveFX marka tescili (DE/AB/TR) bütçede.",
+        "en": "Own IP and content: 238 voice triggers, 143 free stickers, text/sticker content and the matcher logic are built in-house; LiveFX trademark filing (DE/EU/TR) is budgeted."
+      },
+      {
+        "id": "languages",
+        "de": "Drei Sprachen (DE/TR/EN) inkl. türkischer Nische: kaum spezialisierte Streaming-Tools auf Türkisch, eigene TR-Community als Startmarkt.",
+        "tr": "Türkçe nişi dahil üç dil (DE/TR/EN): Türkçe için uzmanlaşmış yayın aracı neredeyse yok; başlangıç pazarı olarak kendi TR topluluğumuz.",
+        "en": "Three languages (DE/TR/EN) incl. a Turkish niche: hardly any specialised streaming tools in Turkish; own Turkish community as launch market."
+      },
+      {
+        "id": "vision",
+        "de": "Vision-Optionen A–D auf derselben Engine: Erzählfilm/Story-Engine (A), WortBild Sprachenlernen (B), Räume/VR-AR (C), Studio/Auto-Edit (D) – Optionswert über das Creator-Tool hinaus.",
+        "tr": "Aynı motor üzerinde A–D vizyon seçenekleri: Anlatı filmi/Story-Engine (A), WortBild dil öğrenimi (B), Odalar/VR-AR (C), Stüdyo/Otomatik kurgu (D) – içerik üretici aracının ötesinde opsiyon değeri.",
+        "en": "Vision options A–D on the same engine: narrative film/story engine (A), WortBild language learning (B), rooms/VR-AR (C), studio/auto-edit (D) – option value beyond the creator tool."
+      },
+      {
+        "id": "market",
+        "de": "Marktgröße: Live-Streaming-Markt 97–157 Mrd. USD, SAM 1–3 Mio. Creator (BP §6); Bildung/Sprachenlernen als zweiter Markt.",
+        "tr": "Pazar büyüklüğü: canlı yayın pazarı 97–157 milyar USD, SAM 1–3 milyon içerik üretici (BP §6); ikinci pazar olarak eğitim/dil öğrenimi.",
+        "en": "Market size: live-streaming market USD 97–157 bn, SAM 1–3 m creators (BP §6); education/language learning as a second market."
+      },
+      {
+        "id": "capital_efficiency",
+        "de": "Kapitaleffizienz: Produkt bis v2.1 ohne externes Kapital gebaut; die 250.000 € tragen laut Modell 18 Monate bis Gate 2.",
+        "tr": "Sermaye verimliliği: ürün v2.1'e kadar dış sermaye olmadan geliştirildi; modele göre 250.000 € Gate 2'ye kadar 18 ay yetiyor.",
+        "en": "Capital efficiency: product built to v2.1 without external capital; per the model, the €250,000 lasts 18 months to Gate 2."
+      },
+      {
+        "id": "trailer",
+        "de": "Vision-Trailer und Prototypen (Erzählfilm, WortBild als lauffähige HTML-Prototypen; 30-s-Produkttrailer) machen die Linien sichtbar – Investor:innen sehen mehr als eine Folie.",
+        "tr": "Vizyon fragmanı ve prototipler (Anlatı filmi, WortBild çalışan HTML prototipleri; 30 sn ürün fragmanı) hatları görünür kılıyor – yatırımcılar bir slayttan fazlasını görüyor.",
+        "en": "Vision trailer and prototypes (narrative film and WortBild as runnable HTML prototypes; 30-s product trailer) make the lines tangible – investors see more than a slide."
+      }
+    ],
+    "arguments_caveat_de": "Ehrlich dagegen: Solo-Gründer, noch kein Umsatz und keine Partner; konservative Methoden ergeben 0,2–1,4 Mio. € Pre-Money.",
+    "convertible": {
+      "valuation_cap_eur": 2250000,
+      "cap_basis": "Pre-Money des Gründer-Angebots",
+      "cap_check": "= Angebot Pre-Money",
+      "discount": 0.2,
+      "interest_pa": 0,
+      "months_to_conversion": 18,
+      "conversion_amount_eur": 250000,
+      "example_seed_pre_money_eur": 3000000,
+      "conversion_valuation_eur": 2250000,
+      "stake_at_conversion": 0.1,
+      "max_stake_at_cap_no_interest": 0.1,
+      "max_stake_at_cap_with_interest": 0.1,
+      "discount_range_note": "15–20 % verhandelbar"
+    },
+    "checks": {
+      "offer": "OK",
+      "weights": "OK"
+    },
+    "note": "Vorschlag – mit Steuer-/Rechtsberater prüfen"
+  },
+  "gates": [
+    {
+      "gate": "G0",
+      "month": 3,
+      "theme": "Start",
+      "kpi": "Pro-Abo live (Zahlung), Mobile-/Web-Entwickler:in an Bord",
+      "status": "Ziel (nicht erreicht)",
+      "releases": "Budget Markteintritt Phase 2"
+    },
+    {
+      "gate": "G1",
+      "month": 6,
+      "theme": "Aktivierung",
+      "kpi": "Registrierte Nutzer",
+      "status": "Ziel (nicht erreicht)",
+      "releases": "Mobile-App/PWA-Release",
+      "target_basis": 10000,
+      "threshold_kons": 4000,
+      "optimistic": 20000
+    },
+    {
+      "gate": "G1",
+      "month": 6,
+      "theme": "Aktivierung",
+      "kpi": "Zahlende Pro-Nutzer",
+      "status": "Ziel (nicht erreicht)",
+      "releases": "",
+      "target_basis": 400,
+      "threshold_kons": 120,
+      "optimistic": 1000
+    },
+    {
+      "gate": "G1",
+      "month": 6,
+      "theme": "Aktivierung",
+      "kpi": "20 Beta-Creator TR/DE aktiv, 10–20 Botschafter:innen; WortBild mit 300 Wörtern",
+      "status": "Ziel (nicht erreicht)",
+      "releases": ""
+    },
+    {
+      "gate": "G1",
+      "month": 6,
+      "theme": "Aktivierung",
+      "kpi": "Woche-4-Retention aktiver Streamer ≥ 30 % (Ziel, erste Kohorten)",
+      "status": "Ziel (nicht erreicht)",
+      "releases": ""
+    },
+    {
+      "gate": "G2a",
+      "month": 12,
+      "theme": "Traktion",
+      "kpi": "Registrierte Nutzer",
+      "status": "Ziel (nicht erreicht)",
+      "releases": "DE/EN-Ausbau, Plattform-Gespräche",
+      "target_basis": 20000,
+      "threshold_kons": 8000,
+      "optimistic": 40000
+    },
+    {
+      "gate": "G2a",
+      "month": 12,
+      "theme": "Traktion",
+      "kpi": "Zahlende Pro-Nutzer (Jahresende J1, BP §11.1)",
+      "status": "Ziel (nicht erreicht)",
+      "releases": "",
+      "target_basis": 800,
+      "threshold_kons": 240,
+      "optimistic": 2000
+    },
+    {
+      "gate": "G2a",
+      "month": 12,
+      "theme": "Traktion",
+      "kpi": "Wiederkehrender Umsatz im Monat 12 (MRR, €)",
+      "status": "Ziel (nicht erreicht)",
+      "releases": "",
+      "target_basis": 8073,
+      "threshold_kons": 2499.72,
+      "optimistic": 19820.25
+    },
+    {
+      "gate": "G2a",
+      "month": 12,
+      "theme": "Traktion",
+      "kpi": "1 Plattform- oder Bildungspilot gestartet; WortBild-Pilot in ≥ 3 Kursen/Klassen",
+      "status": "Ziel (nicht erreicht)",
+      "releases": ""
+    },
+    {
+      "gate": "G2",
+      "month": 18,
+      "theme": "Folgerunde",
+      "kpi": "Registrierte Nutzer",
+      "status": "Ziel (nicht erreicht)",
+      "releases": "Seed-Runde, Ausbau-Team ab M19, Story-Engine/Studio",
+      "target_basis": 50000,
+      "threshold_kons": 19000,
+      "optimistic": 110000
+    },
+    {
+      "gate": "G2",
+      "month": 18,
+      "theme": "Folgerunde",
+      "kpi": "Zahlende Pro-Nutzer",
+      "status": "Ziel (nicht erreicht)",
+      "releases": "",
+      "target_basis": 2000,
+      "threshold_kons": 570,
+      "optimistic": 5500
+    },
+    {
+      "gate": "G2",
+      "month": 18,
+      "theme": "Folgerunde",
+      "kpi": "Wiederkehrender Umsatz im Monat 18 (MRR, €)",
+      "status": "Ziel (nicht erreicht)",
+      "releases": "",
+      "target_basis": 22585.62,
+      "threshold_kons": 6494.82,
+      "optimistic": 62472.63
+    },
+    {
+      "gate": "G2",
+      "month": 18,
+      "theme": "Folgerunde",
+      "kpi": "Monat-3-Retention Pro ≥ 75 %; Conversion Free → Pro ≥ 3 % (Schwelle) / 4 % (Ziel)",
+      "status": "Ziel (nicht erreicht)",
+      "releases": ""
+    },
+    {
+      "gate": "G2",
+      "month": 18,
+      "theme": "Folgerunde",
+      "kpi": "WortBild-Pilot ausgewertet; ≥ 5 zahlende Schulen oder Kurse (BP §11.5)",
+      "status": "Ziel (nicht erreicht)",
+      "releases": ""
+    }
+  ],
+  "sensitivity_basis": [
+    {
+      "case": "Basis",
+      "revenue_j3_eur": 1038270,
+      "delta_vs_base": 0,
+      "runway_months": "> 24",
+      "cash_m12_eur": 134375.48,
+      "cash_m18_eur": 145794.06,
+      "cash_m24_eur": 175197.28,
+      "min_cash_eur": 125383.57
+    },
+    {
+      "case": "Conversion −1 Pkt.",
+      "revenue_j3_eur": 847020,
+      "delta_vs_base": -0.1842,
+      "runway_months": "> 24",
+      "cash_m12_eur": 124991.48,
+      "cash_m18_eur": 117100.68,
+      "cash_m24_eur": 109509.28,
+      "min_cash_eur": 82501.93
+    },
+    {
+      "case": "Conversion +1 Pkt.",
+      "revenue_j3_eur": 1229520,
+      "delta_vs_base": 0.1842,
+      "runway_months": "> 24",
+      "cash_m12_eur": 143759.48,
+      "cash_m18_eur": 174487.45,
+      "cash_m24_eur": 240885.28,
+      "min_cash_eur": 140011.04
+    },
+    {
+      "case": "ARPU −20 %",
+      "revenue_j3_eur": 885270,
+      "delta_vs_base": -0.1474,
+      "runway_months": "> 24",
+      "cash_m12_eur": 126868.28,
+      "cash_m18_eur": 122839.35,
+      "cash_m24_eur": 122646.88,
+      "min_cash_eur": 91497.94
+    },
+    {
+      "case": "ARPU +20 %",
+      "revenue_j3_eur": 1191270,
+      "delta_vs_base": 0.1474,
+      "runway_months": "> 24",
+      "cash_m12_eur": 141882.68,
+      "cash_m18_eur": 168748.77,
+      "cash_m24_eur": 227747.68,
+      "min_cash_eur": 137239.95
+    },
+    {
+      "case": "Nutzer −30 %",
+      "revenue_j3_eur": 778845,
+      "delta_vs_base": -0.2499,
+      "runway_months": "> 24",
+      "cash_m12_eur": 120912.2,
+      "cash_m18_eur": 105813.44,
+      "cash_m24_eur": 85359.28,
+      "min_cash_eur": 65490.16
+    },
+    {
+      "case": "Nutzer +30 %",
+      "revenue_j3_eur": 1297695,
+      "delta_vs_base": 0.2499,
+      "runway_months": "> 24",
+      "cash_m12_eur": 147838.76,
+      "cash_m18_eur": 185774.68,
+      "cash_m24_eur": 265035.28,
+      "min_cash_eur": 145414.91
+    }
+  ],
+  "checks": {
+    "use_of_funds": "OK",
+    "cost_reconciliation": [
+      "OK",
+      "OK"
+    ],
+    "sensitivity_base_equals_model": [
+      "OK",
+      "OK"
+    ]
+  },
+  "assumption_changes": [
+    "1. Rundengröße 250.000 € statt 500.000 €; Mittelverwendung über 18 statt 24 Monate (Blatt Mittelverwendung).",
+    "2. Kosten J1–J2 aus dem Monatsplan statt BP §11.3: Pre-Seed-Team (1 Entwickler:in ab M3, Gründergehalt 2 T€/Monat) bis M18; Ausbau-Team gemäß Plan J2 erst ab Monat 19 nach Gate 2 (Backend/ML, Community, 2. Entwickler:in).",
+    "3. Freelance Design/Sound (BP §11.3) geht in der Linie WortBild auf (37,5 T€, M4–M15); Story-Engine, Auto-Edit/Studio und VR/AR wandern in die Folgerunde (60 % der Vision-Kosten BP §11.5 als Bedarf der Folgerunde).",
+    "4. Recht/Marke/Datenschutz 25 T€ in 18 Monaten (Plan: 12 T€ J1 + 20 T€ J2).",
+    "5. Infrastruktur als 250 €/Monat fix + 8 % vom Umsatz statt fester Jahreswerte (J1 ≈ 7 T€ statt 8 T€).",
+    "6. Umsatz J1–J3 unverändert aus BP §11.1 berechnet; Korrektur Agentur-Zeile konservativ (J2 4,7 statt 4 T€, J3 14,7 statt 12 T€); übrige Abweichungen ≤ 1 T€ sind Rundung. Vision-Erlöse (BP §11.5) bleiben – wie im Plan – außerhalb des Ergebnisses.",
+    "7. J4–J5 neu fortgeschrieben (Nutzerwachstum, Conversion, Agenturen, B2B, Kostenwachstum – Abschnitt B).",
+    "8. Monatlicher Umsatzverlauf: J1 linear ab null (Summe = Jahreswert), J2 linear ab dem Dezember-Niveau J1 (Summe = Jahreswert); B2B als Einmalzahlung im Monat laut Abschnitt A."
+  ],
+  "sources": [
+    {
+      "id": "BP",
+      "text": "BUSINESSPLAN.md §6, §9, §11.1–11.6, §12–14 (LiveFX, Okt. 2026) – Nutzer, Conversion, ARPU, Packs, Agentur, B2B, Kosten"
+    },
+    {
+      "id": "MEMO",
+      "text": "investor/INVESTOR-MEMO.de.md §10–11 (500-T€-Fassung) – Aufteilung Vision-Budget, Gates"
+    },
+    {
+      "id": "CHANGELOG",
+      "text": "live-fx/CHANGELOG.md 2.1.0 – Produktstand v2.1"
+    },
+    {
+      "id": "QUELLEN",
+      "text": "QUELLEN.md [Quelle 1–60] – Marktzahlen (indirekt über BP)"
+    },
+    {
+      "id": "Equidam",
+      "text": "Equidam – Pre-Seed Valuations Q1 2025: US & Europe (Europa-Median Pre-Seed 4,57 Mio. USD)",
+      "url": "https://www.equidam.com/startup-valuation-delta-q1-2025/"
+    },
+    {
+      "id": "upxcale",
+      "text": "upxcale – Pre-Seed Funding 2026: Bewertung, Quellen, Zeitplan (Pre-Seed DE typ. 0,5–1,5 Mio. € Pre-Money; DACH 1,5–5 Mio. €)",
+      "url": "https://upxcale.de/blog/pre-seed-funding/"
+    },
+    {
+      "id": "capvisory",
+      "text": "Capvisory – Startup Funding Stages with Benchmarks 2025 (Pre-Seed DE 1–5 Mio. €)",
+      "url": "https://capvisory.de/the-startup-funding-stages-from-pre-seed-to-series-c/"
+    },
+    {
+      "id": "SaaSCapital",
+      "text": "SaaS Capital – 2025 Private SaaS Company Valuations (4,8x bootstrapped / 5,3x equity-backed)",
+      "url": "https://www.saas-capital.com/blog-posts/private-saas-company-valuations-multiples/"
+    },
+    {
+      "id": "Carta",
+      "text": "Carta – State of Private Markets Q1 2025 (Median-Verwässerung Series A 17,9 %; Seed ≈ 20 %)",
+      "url": "https://carta.com/data/state-of-private-markets-q1-2025/"
+    },
+    {
+      "id": "lexr",
+      "text": "Lexr – Das Wandeldarlehen in der Praxis (Discount, Cap, Zins)",
+      "url": "https://www.lexr.com/en-de/blog/convertible-loan-in-practice-conversion-interest-rate-discount-cap-valuation/"
+    },
+    {
+      "id": "vektora",
+      "text": "Vektora – Pre-Seed-Finanzierung in Deutschland (Wandeldarlehen mit 15–25 % Discount üblich)",
+      "url": "https://vektora.eu/de/fachbeitraege/pre-seed-finanzierung-in-deutschland-instrumente-und-prozess"
+    },
+    {
+      "id": "note",
+      "text": "Web-Recherche 04.10.2026 über Suchergebnisse; die Seiten selbst waren aus der Arbeitsumgebung nicht abrufbar – Werte vor Verwendung gegenprüfen."
+    }
+  ]
+}

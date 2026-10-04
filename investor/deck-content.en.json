@@ -3,7 +3,7 @@
   "file": "LiveFX_Investor_Deck_EN.pptx",
   "deckTitle": "LiveFX – Investor Deck (Pre-Seed, October 2026)",
   "footer": "CONFIDENTIAL  ·  PRE-SEED  ·  OCTOBER 2026",
-  "proposal": "Proposal – please confirm",
+  "proposal": "Proposal – review with tax/legal advisor",
   "sections": [
     "Opportunity",
     "Product & vision",
@@ -16,8 +16,8 @@
     "title": "LiveFX:\nLive streams\nthat listen",
     "sub": "The creator's voice becomes a meme, a sound and a scene in under a second – and tomorrow, a picture for everything spoken.",
     "askLabel": "THE ROUND",
-    "ask": "€500,000",
-    "askSub": "for LiveFX and every LiveFX line · 24 months",
+    "ask": "€250,000",
+    "askSub": "18 months · runway 18 months even without revenue",
     "people": [
       [
         "FOUNDER & INVENTOR",
@@ -29,7 +29,7 @@
       ]
     ],
     "imgLabels": [
-      "LiveFX 2.0",
+      "LiveFX 2.1",
       "Vision"
     ]
   },
@@ -39,7 +39,7 @@
     "cards": [
       [
         "Built & tested",
-        "Version 2.0 runs: 238 triggers, 13 scenes, 240+ automated tests."
+        "Version 2.1 runs: 238 triggers, 143 free stickers, 575+ automated tests."
       ],
       [
         "An empty gap",
@@ -55,10 +55,10 @@
       ],
       [
         "One engine, four lines",
-        "Story Film, WordPicture, Spaces, Studio – no second tech stack."
+        "WordPicture first; Story Film, Studio and Spaces in the follow-on round."
       ]
     ],
-    "bottom": "€500,000 takes the product to market and two vision lines from prototype to product."
+    "bottom": "€250,000 takes LiveFX to market in 18 months and WordPicture from prototype to product."
   },
   "s3": {
     "kicker": "LIVEFX / THE MARKET GAP",
@@ -107,7 +107,7 @@
   },
   "s4": {
     "kicker": "LIVEFX / VALIDATED BUILD",
-    "title": "From voice to effect in under a second",
+    "title": "Version 2.1: from voice to effect in under a second",
     "body": "The creator says \"no way\", \"yok artık\" or \"applause\" – the meme appears, the sound plays. When he reads aloud, the overlay turns into an animated scene.",
     "stats": [
       [
@@ -115,12 +115,12 @@
         "triggers in 5 packs"
       ],
       [
-        "13 · 12",
-        "scenes · ambience loops"
+        "143",
+        "free stickers (MIT)"
       ],
       [
-        "38",
-        "licence-free sounds"
+        "−63–69%",
+        "frame time (performance mode)"
       ],
       [
         "3",
@@ -131,13 +131,13 @@
         "voice → effect"
       ],
       [
-        "240+",
+        "575+",
         "automated tests"
       ]
     ],
-    "features": "Story mode · viewer triggers (chat, gifts) · phone remote · offline · open API · OBS/Streamlabs → TikTok LIVE, Instagram, YouTube, Twitch",
-    "status": "v2.0  →  TR launch Q4 2026  →  Pro Q1 2027",
-    "src": "Source: BUSINESSPLAN.en.md §3; tests: PITCH-DECK.en.md, slide 9 · no revenue yet"
+    "features": "New in 2.1: text-sticker packs TR/DE/EN · safe GIF search (KLIPY/GIPHY, rating g, child-safety filter) · story mode · viewer triggers · phone remote · offline · OBS/Streamlabs → TikTok LIVE, Instagram, YouTube, Twitch",
+    "status": "v2.1  →  TR launch Q4 2026  →  Pro live month 3",
+    "src": "Source: BUSINESSPLAN.en.md §3; live-fx/CHANGELOG.md 2.1.0 (measured with 31 effects, 1920×1080) · no revenue yet"
   },
   "s5": {
     "kicker": "LIVEFX / VISION 2027–2029",
@@ -147,28 +147,28 @@
         "A",
         "Story Film",
         "Generative Scene Engine: narrated sentences become a continuous animated film, live.",
-        "Prototype"
+        "Follow-on round"
       ],
       [
         "B",
         "WordPicture",
         "Language learning: word → picture + target language + pronunciation; reading aid, repeat.",
-        "Prototype"
+        "Pre-seed → product"
       ],
       [
         "C",
         "Spaces",
         "The same timeline on stage, projector, phone AR, VR and display glasses.",
-        "Stage today"
+        "Follow-on round"
       ],
       [
         "D",
         "Studio",
         "Highlights from the stream, auto-edit of finished videos, local export.",
-        "Vision"
+        "Follow-on round"
       ]
     ],
-    "bottom": "Ordered by closeness to revenue: WordPicture and the story engine first – XR stays a showcase.",
+    "bottom": "The pre-seed funds WordPicture (€37,500); story engine, auto-edit and VR move to the follow-on round.",
     "src": "Source: VISION.en.md §1, BUSINESSPLAN.en.md §15 · images: vision trailer"
   },
   "s6": {
@@ -368,7 +368,7 @@
       ],
       [
         "Vision spreads the team",
-        "20% budget cap, XR only a showcase"
+        "Pre-seed funds WordPicture only; rest in the seed"
       ]
     ],
     "src": "Source: BUSINESSPLAN.en.md §7, §13"
@@ -379,220 +379,265 @@
     "steps": [
       [
         "Q4 2026",
-        "TR launch",
-        "Download, 10–20 ambassadors"
+        "v2.1 + TR launch",
+        "Performance mode, 143 stickers, safe GIFs"
       ],
       [
-        "Q1 2027",
-        "Pro live",
-        "DE/EN, WordPicture 300 words"
+        "M1 · Jan 2027",
+        "Closing €250k",
+        "Marketing phase 1, trademark"
       ],
       [
-        "Q2 2027",
-        "Mobile app",
-        "Story Film DE, agency licence"
+        "Month 3",
+        "Gate 0",
+        "Pro live, developer on board"
       ],
       [
-        "Q3 2027",
-        "Platform pilot",
-        "Pro+, Story Film TR/EN"
+        "Month 6",
+        "Gate 1",
+        "Mobile app/PWA; WordPicture 300 words"
       ],
       [
-        "Q4 2027",
-        "School licence",
-        "Timeline editor, MP4 export"
+        "Month 7–9",
+        "DE/EN + pilot",
+        "Platform or education pilot"
       ],
       [
-        "2028",
-        "Scene SDK v1",
-        "SDK pilot, family plan"
+        "Month 12",
+        "Gate 2a",
+        "Traction; seed talks start"
       ],
       [
-        "2029",
-        "Pilot or exit",
-        "Story Film 2.0, publishers"
+        "Month 18",
+        "Gate 2 → seed",
+        "≈ €350k; story engine, Studio, VR"
       ]
     ],
     "gtm": [
       [
         "1 · TR community",
-        "Own streams, pack drops"
+        "Months 1–6: own streams, pack and sticker drops"
       ],
       [
         "2 · DE/EN",
-        "Read-aloud and education streams"
+        "Months 7–18: read-aloud and education streams"
       ],
       [
-        "3 · Partners",
-        "Creator programme, agencies"
+        "3 · Pilot",
+        "From month 9: platform (8 weeks, 20 creators) or courses"
       ],
       [
-        "4 · Platform & education",
-        "8 weeks, 20 creators; courses"
+        "4 · Follow-on round",
+        "From month 19: team, story engine, Studio, VR"
       ]
     ],
-    "src": "Source: BUSINESSPLAN.en.md §10, §14.1, §14.2"
+    "src": "Source: BUSINESSPLAN.en.md §10, §14.1 · LiveFX_Finanzmodell.xlsx (timeline: closing Jan 2027 = month 1)"
   },
   "s11": {
-    "kicker": "LIVEFX / FINANCIAL SCENARIO",
-    "title": "Base case: break-even in Y3, with the vision in Y2",
-    "chartTitle": "Base case, €k (estimate)",
+    "kicker": "LIVEFX / FINANCIALS",
+    "title": "Base case: EBITDA-positive in Y2, €3.2M revenue in Y5",
+    "chartTitle": "5-year P&L, base case, €k (estimate)",
     "years": [
       "Y1 2027",
       "Y2 2028",
-      "Y3 2029"
+      "Y3 2029",
+      "Y4 2030",
+      "Y5 2031"
     ],
     "series": [
       [
-        "Core revenue",
+        "Revenue",
         [
           51,
           336,
-          1039
+          1038,
+          1984,
+          3152
         ]
       ],
       [
-        "Vision revenue",
+        "Costs",
         [
-          27,
-          192,
-          617
+          166,
+          295,
+          710,
+          1065,
+          1491
         ]
       ],
       [
-        "Total costs",
+        "EBITDA",
         [
-          195,
-          513,
-          920
+          -116,
+          41,
+          328,
+          919,
+          1661
         ]
       ]
     ],
     "results": [
       [
-        "Core result",
-        "−114 / −62 / +329 €k"
+        "Base EBITDA",
+        "−116 / +41 / +328 / +919 / +1,661 €k"
       ],
       [
-        "Incl. vision",
-        "≈ −117 / +15 / +736 €k"
+        "Conservative",
+        "−148 / −114 / −59 / +36 / +147 €k"
       ],
       [
-        "Conservative, 3 yrs",
-        "−316 €k cumulative"
+        "Optimistic",
+        "−48 / +496 / +1,499 / +3,178 / +5,134 €k"
       ]
     ],
-    "runHead": "Why €500,000 instead of €250–350k",
+    "runHead": "Cash by scenario (€k)",
+    "cashCols": [
+      "M6",
+      "M12",
+      "M18",
+      "M24"
+    ],
+    "cashRows": [
+      [
+        "No revenue",
+        [
+          "179",
+          "88",
+          "8",
+          "−63"
+        ]
+      ],
+      [
+        "Conservative",
+        [
+          "183",
+          "102",
+          "49",
+          "−11"
+        ]
+      ],
+      [
+        "Base",
+        [
+          "191",
+          "134",
+          "146",
+          "175"
+        ]
+      ],
+      [
+        "Optimistic",
+        [
+          "208",
+          "202",
+          "369",
+          "698"
+        ]
+      ]
+    ],
+    "cashNote": "Without the follow-on round. Break-even: base M22, optimistic M10.",
     "run": [
       [
-        "≈ 22 months",
-        "runway at zero revenue (€250–350k: ≈ 15–18)"
+        "18 months",
+        "runway even without any revenue (conservative: 22)"
       ],
       [
-        "≈ €184k",
-        "left after the conservative case (€250k is not enough)"
-      ],
-      [
-        "€100k",
-        "for vision lines A and B in 2027"
+        "≈ €350k seed",
+        "planning guide, closed by month 18 after gate 2"
       ]
     ],
-    "src": "Source: BUSINESSPLAN.en.md §11.2–11.5 · total costs = core + vision · scenarios, not forecasts"
+    "src": "Source: LiveFX_Finanzmodell.xlsx (5-year P&L, monthly cash flow, follow-on) · Y1–Y3 revenue from BUSINESSPLAN.en.md §11.1 · scenarios, not forecasts"
   },
   "s12": {
     "kicker": "LIVEFX / USE OF FUNDS",
-    "title": "Capital goes first to execution capacity",
-    "total": "€500k",
-    "totalSub": "24 MONTHS",
+    "title": "€250,000 over 18 months: execution first",
+    "total": "€250k",
+    "totalSub": "18 MONTHS",
     "split": [
       [
         50,
-        "Product & engineering team",
-        "€250,000",
-        "Mobile/web, backend/ML from M13, founder in part"
+        "Team/product",
+        "€125,000",
+        "Developer from M3, founder in part, devices"
       ],
       [
         20,
-        "Vision lines → product",
-        "€100,000",
-        "WordPicture and story engine first"
+        "Go-to-market",
+        "€50,000",
+        "TR then DE/EN launch, ambassadors, 1 pilot"
       ],
       [
         15,
-        "Go-to-market & pilots",
-        "€75,000",
-        "Creator programme, platform, education"
+        "WordPicture (vision B)",
+        "€37,500",
+        "300 words, voices DE/TR/EN, course pilot"
       ],
       [
         10,
         "Legal, trademark, privacy",
-        "€50,000",
-        "Trademark, GDPR, platform approvals"
+        "€25,000",
+        "Trademark DE/EU/TR, GDPR, agreements"
       ],
       [
         5,
         "Reserve",
-        "€25,000",
-        "Buffer"
+        "€12,500",
+        "Not scheduled"
       ]
     ],
-    "note": "Derived from the cost tables in BUSINESSPLAN.en.md §11.3 and §11.5; infrastructure and AI API are paid from Pro revenue."
+    "note": "Source: LiveFX_Finanzmodell.xlsx, sheet Use of funds. Story engine, auto-edit and VR move to the follow-on round."
   },
   "s13": {
-    "kicker": "LIVEFX / MILESTONE GATES",
+    "kicker": "LIVEFX / MILESTONE GATES – 18 MONTHS",
     "title": "Scale only after evidence clears the gate",
+    "proposal": "Proposal – agree with investors",
     "gates": [
       [
-        "01",
-        "H1 2027",
+        "G0",
+        "Month 3",
+        "Start",
+        [
+          "Pro subscription live (payments)",
+          "Mobile/web developer on board",
+          "Unlocks GTM phase 2"
+        ]
+      ],
+      [
+        "G1",
+        "Month 6",
         "Activation",
         [
-          "Pro live, mobile dev on board",
-          "20 beta creators + 10–20 ambassadors",
-          "Week-4 retention ≥ [number]%"
+          "10,000 registered (threshold 4,000)",
+          "400 paying Pro (120)",
+          "20 beta creators, WordPicture 300 words",
+          "Week-4 retention ≥ 30%"
         ]
       ],
       [
-        "02",
-        "H2 2027",
+        "G2a",
+        "Month 12",
         "Traction",
         [
-          "20,000 registered users",
-          "≈ 800 paying Pro",
-          "1 platform pilot, 5 schools"
+          "20,000 registered (8,000)",
+          "800 paying Pro (240)",
+          "MRR €8,073 (€2,500)",
+          "1 platform or education pilot"
         ]
       ],
       [
-        "03",
-        "H1 2028",
-        "Retention",
+        "G2",
+        "Month 18",
+        "Follow-on",
         [
-          "Free → Pro ≥ 4%",
-          "Month-3 retention ≥ [number]%",
-          "WordPicture pilot evaluated"
-        ]
-      ],
-      [
-        "04",
-        "H2 2028",
-        "Scale",
-        [
-          "80,000 registered users",
-          "≈ 3,200 Pro, B2B €50k",
-          "40 schools, 1 SDK partner"
-        ]
-      ],
-      [
-        "05",
-        "2029",
-        "Outcome",
-        [
-          "Break-even path in Y3",
-          "Follow-on round or platform talks"
+          "50,000 registered (19,000)",
+          "2,000 paying Pro (570)",
+          "MRR €22,586 (€6,495)",
+          "M3 retention ≥ 75%, ≥ 5 paying schools",
+          "→ seed round ≈ €350k"
         ]
       ]
     ],
-    "note": "Targets from the base case (BUSINESSPLAN.en.md §11.1, §11.5, §14) – not achieved, estimate. [number] is set after the first cohorts."
+    "note": "Targets = base case, (threshold) = conservative case; status of every gate: target (not yet achieved). Source: LiveFX_Finanzmodell.xlsx, sheet Gates 18M."
   },
   "s14": {
     "kicker": "LIVEFX / TEAM & ROUND",
@@ -602,7 +647,7 @@
         "TS",
         "Tuncay Sancak",
         "FOUNDER & INVENTOR · MANAGING DIRECTOR",
-        "Invented LiveFX and built it to 2.0 before any funding. Former project lead, AI expert and data scientist at Mercedes-Benz; native German and Turkish speaker. Author of children's books, including \"Good That You Exist\"."
+        "Invented LiveFX and built it to 2.1 before any funding. Former project lead, AI expert and data scientist at Mercedes-Benz; native German and Turkish speaker. Author of children's books, including \"Good That You Exist\"."
       ],
       [
         "GD",
@@ -614,24 +659,91 @@
     "hireHead": "Team build after financing",
     "hires": [
       [
-        "Mobile developer",
-        "from the round"
+        "Mobile/web developer",
+        "from month 3"
       ],
       [
-        "Community & partners TR/DE",
-        "years 1–2"
+        "WordPicture: illustration, voices",
+        "months 4–15 (freelance)"
       ],
       [
-        "Graphics/web dev (Canvas)",
-        "years 1–2"
+        "Backend/ML, community",
+        "from month 19 (seed)"
       ],
       [
-        "Backend/ML",
-        "from month 13"
+        "Second developer",
+        "from month 19 (seed)"
       ]
     ],
-    "askLine": "€500,000 pre-seed · terms [open]",
+    "askLine": "€250,000 pre-seed · offer €2.25M pre-money, 10%",
     "contact": "Investor contact: Gönül Demet · [email]",
     "disclaimer": "Confidential pre-seed materials. Forward-looking statements are subject to material risks and uncertainty; an investment may result in total loss."
+  },
+  "s15": {
+    "kicker": "LIVEFX / VALUATION",
+    "title": "Founder offer: €2.25M pre-money, 10% for €250k",
+    "proposal": "Negotiation range – review with tax/legal advisor",
+    "refHead": "REFERENCE METHODS (INVESTOR VIEW) · PRE-MONEY",
+    "methods": [
+      [
+        "Berkus (2× variant)",
+        2350,
+        "€2.35M",
+        "5 factors up to €1M each: product 0.8, idea 0.7, team 0.5, relationships 0.25, revenue 0.1"
+      ],
+      [
+        "Scorecard",
+        2950,
+        "€2.95M",
+        "€2.5M reference (lower part of DACH range €1.5–5M, below EU median ~€4.2M) × 1.18"
+      ],
+      [
+        "VC method (upside)",
+        2430,
+        "€2.43M",
+        "Y5 revenue €7.44M (optimistic) × 6 = €44.7M exit; 10× return, 40% dilution"
+      ],
+      [
+        "Risk factor sum.",
+        3000,
+        "€3.0M",
+        "€2.5M base + 2 × €250k from twelve scored risks"
+      ]
+    ],
+    "markerLabel": "Offer €2.25M – below every method",
+    "whyHead": "Why €2.25M",
+    "why": [
+      "Working product v2.1, 575+ automated tests",
+      "Own IP: 238 triggers, 143 stickers, matcher",
+      "DE/TR/EN incl. the Turkish niche",
+      "Vision options A–D on one engine",
+      "Market USD 97–157bn; SAM 1–3m creators",
+      "Built to v2.1 without external capital"
+    ],
+    "offerHead": "FOUNDER OFFER (PRICED ROUND)",
+    "offer": [
+      [
+        "€2.25M",
+        "pre-money"
+      ],
+      [
+        "€2.5M",
+        "post-money"
+      ],
+      [
+        "10%",
+        "for investors · founder 90%"
+      ]
+    ],
+    "safeHead": "Alternative: SAFE / convertible",
+    "safe": [
+      "Valuation cap €2.25M (= offer)",
+      "Discount 20% (negotiable 15–20%)",
+      "No interest; converts at the seed round",
+      "Max. stake at the cap: 10%"
+    ],
+    "src": "Source: LiveFX_Finanzmodell.xlsx, sheet Valuation (founder view; valu.vc, upxcale, Capvisory, Equidam, SaaS Capital, Carta, Lexr, Vektora) · not investment advice",
+    "scaleMax": 3000,
+    "markerV": 2250
   }
 }

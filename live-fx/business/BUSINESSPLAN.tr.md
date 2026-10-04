@@ -2,7 +2,7 @@
 
 **Dinleyen canlı yayınlar.** Gerçek zamanlı meme'ler, sesler ve animasyonlu sahneler – içerik üreticisinin sesiyle tetiklenir.
 
-Tarih: Ekim 2026 · Ürün sürümü: 2.0 · Gizli
+Tarih: Ekim 2026 · Ürün sürümü: 2.1 · Gizli
 Kurucu & Mucit, Genel Müdür: Tuncay Sancak · Investor Relations: Gönül Demet · İletişim: [E-posta] · [Şehir]
 
 > Almanca: BUSINESSPLAN.md · English: BUSINESSPLAN.en.md
@@ -21,13 +21,15 @@ Kurucu & Mucit, Genel Müdür: Tuncay Sancak · Investor Relations: Gönül Deme
 |---|---|
 | **Problem** | Kısa videoları viral yapan her şey çekimden *sonra* kurguda oluşuyor. Canlı yayın ham. Mevcut araçlar izleyici olaylarına ya da tuşa basmaya tepki veriyor – hiçbiri söylenen kelimeye değil. |
 | **Çözüm** | Ses → efekt. Şive toleranslı ve öğrenen anahtar kelime eşleştirme, isteğe bağlı olarak anahtar kelime olmadan yapay zekâ ile anlama, sesli okuma için hikâye modu, sohbet ve hediyeyle izleyici tetikleyicileri, telefondan uzaktan kumanda. |
-| **Durum** | Sürüm 2.0, çalışır durumda, beş pakette 238 hazır tetikleyici, 13 sahne, 38 ses, otomatik testler; kurucunun kendi canlı yayınlarında kullanılıyor. |
+| **Durum** | Sürüm 2.1, çalışır durumda: beş pakette 238 hazır tetikleyici ve metin çıkartma paketleri, 143 ücretsiz çıkartma (MIT lisansı), 13 sahne, 38 ses, performans modu (kare süresi −%63 ile −%69 arası), güvenli GIF arama (içerik filtreli KLIPY/GIPHY), otomatik testler; kurucunun kendi canlı yayınlarında kullanılıyor. |
 | **Pazar** | Dünya genelinde canlı yayın 2026: 97–157 milyar USD [Kaynak 1, 2]; içerik üreticisi ekonomisi ~216–260 milyar USD [Kaynak 3, 4]; hediyeler TikTok LIVE yayıncılarının gelirinin ≈ %50'si [Kaynak 5, 6]. |
 | **İş modeli** | Free + Pro aboneliği (aylık 9,99 €), içerik üreticisi paketleri (2,99–4,99 €), ajans lisansı, B2B platform lisansı; TikTok/Meta/YouTube'a stratejik çıkış (exit). |
 | **Pazara giriş** | Önce Türkçe konuşan içerik üreticisi topluluğu, sonra DE/EN; vitrin olarak kendi yayınlarımız; içerik üreticisi ortaklık programı; LinkedIn ve basın. |
-| **İhtiyaç** | LiveFX ve tüm projeleri (2.0 ürünü ve A–D vizyon hatları) için **500.000 € ön tohum (pre-seed) yatırım**, 24 aylık fon kullanımı (Öneri – lütfen onaylayın, bölüm 11.6); ayrıca mobil geliştirici, platform ortaklıkları, pilot ortaklar. |
+| **İhtiyaç** | 18 ay için **250.000 € ön tohum (pre-seed) yatırım** (kapanış Ocak 2027): 3. aydan itibaren mobil/web geliştiricili yalın ekip, pazara giriş, ilk vizyon hattı Kelime-Resim, hukuk ve marka. Nakit ömrü: hiç gelir olmasa bile 18 ay. Anlatı Filmi, Studio ve Mekânlar 2. kapıdan (18. ay) sonra yaklaşık 350.000 €'luk bir tohum turuyla geliyor. Ayrıca platform ortaklıkları ve pilot ortaklar (bölüm 11.6). |
+| **Finansal tablo** | Temel senaryo: gelir 51 bin € (2027) → 336 bin € (2028) → 3,15 milyon € (2031); FAVÖK 2028'den itibaren pozitif (41 bin €), 2031'de 1,66 milyon €; ilk 24 ayda nakit hiçbir zaman 125 bin €'nun altına düşmüyor (bölüm 11, `LiveFX_Finanzmodell.xlsx`). |
+| **Değerleme** | Kurucunun teklifi: %10,0 karşılığında 250.000 € – yatırım öncesi değer 2,25 milyon €, yatırım sonrası değer 2,5 milyon €; dört referans yönteminin hepsinin altında (Berkus 2,35 milyon €, Scorecard 2,95 milyon €, VC yöntemi 2,43 milyon €, Risk Faktörü Toplamı 3,0 milyon €; ağırlıklı 2,71 milyon €). Alternatif olarak 2,25 milyon € tavanlı ve %20 iskontolu SAFE/dönüştürülebilir kredi. Müzakere temeli; vergi/hukuk danışmanıyla kontrol edin (bölüm 11.6). |
 
-Talebimiz: 500.000 € ön tohum yatırım (bölüm 11.6) ve bir platformla (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) ya da bir içerik üreticisi aracı sağlayıcısıyla pilot ortaklık – alternatif olarak teknoloji ve ekibin devralınması.
+Talebimiz: %10,0 karşılığında 250.000 € ön tohum yatırım (yatırım öncesi değer 2,25 milyon €, bölüm 11.6) ve bir platformla (TikTok LIVE Studio, Instagram Live Producer, YouTube Live) ya da bir içerik üreticisi aracı sağlayıcısıyla pilot ortaklık – alternatif olarak teknoloji ve ekibin devralınması.
 
 ---
 
@@ -48,7 +50,7 @@ Mevcut araçlar bunu çözmüyor:
 
 ---
 
-## 3. Ürün (Sürüm 2.0)
+## 3. Ürün (Sürüm 2.1)
 
 ### 3.1 Tek cümleyle
 
@@ -63,12 +65,14 @@ Panel: meme paketleri, GIF arama, yüklemeler, tetikleyici editörü, temalar �
 
 ### 3.2 İşlevler
 
-| Alan | Sürüm 2.0 durumu |
+| Alan | Sürüm 2.1 durumu |
 |---|---|
 | **Konuşma tanıma** | Konuşurken **otomatik dil seçimiyle** üç dil (Almanca, Türkçe, İngilizce); DE/AT/CH ve US/GB/IN varyantları. Tarayıcı motoru (Chrome/Edge), API üzerinden harici motorlar (Whisper, Deepgram) ya da doğrudan tarayıcıda **çevrimdışı Whisper**. „Hızlı“ (ara sonuçlar) ya da „kesin“ (tam cümleler) tepki, 3 okuma alternatifi, kendi kendine test, ses seviyesi ve gecikme göstergesi. |
 | **Şive ve öğrenme** | Hatalı eşleşmelere karşı korumalı, üç kademeli bulanık eşleştirme („grass“ → krass, „helal olsn“ → helal olsun). Tanınmayan cümleler tek tıkla bir tetikleyiciye atanıyor – bir sonraki sefer oturuyor. |
 | **Meme paketleri** | Türkçe (85), Deutsch (49), English (50), Aile ve Çocuk (27), Oyun (27) = **238 tetikleyici**, tek tıkla yüklenip kaldırılabiliyor. |
-| **GIF arama ve medya** | Doğrudan panelde Tenor/Giphy araması, kontrollü içe aktarma, tek adımda „Tetikleyici yap“; 8 MB'a kadar kendi PNG/JPG/GIF/WebP ve MP3/WAV/OGG dosyaları. |
+| **GIF arama ve medya** | Doğrudan panelde KLIPY ve GIPHY ile güvenli GIF arama (her zaman G yaş sınıfı, arama terimleri ve sonuçlar için gençleri koruma filtresi, GIF'ler sağlayıcıda bağlantı olarak kalıyor, kaydedilmiyor), tek adımda „Tetikleyici yap“; 8 MB'a kadar kendi PNG/JPG/GIF/WebP ve MP3/WAV/OGG dosyaları; görsel kaynakları yalnızca kendi yüklemeler, birlikte gelen çıkartmalar ve KLIPY/GIPHY. |
+| **Çıkartmalar** | 143 ücretsiz çıkartma (Microsoft Fluent Emoji, MIT lisansı; 119'u animasyonlu), DE/TR/EN anahtar kelimelerle kendi kütüphane sekmesinde; büyük çizgi roman kelimeleriyle (OHA, KRASS, SHEESH …) TR/DE/EN metin çıkartma paketleri (her biri 27–28). |
+| **Performans** | Performans modu auto/eco/high ve tek bir render yolu: ortalama kare süresi −%63 ile −%69 arası, p99 −%74 ile −%80 arası, DOM düğümleri −%56 (1920×1080'de 3 saniyede 31 efektle ölçüldü); zayıf bilgisayarlar için eco modu. |
 | **Hikâye modu** | 12 atmosfer döngüsüyle (yağmur, rüzgâr, şömine, kuşlar, deniz, gök gürültüsü, cırcır böcekleri, kalp atışı, çanlar, şehir, uzay, fırtına) 13 animasyonlu tam ekran sahne (yağmur, gece, orman, deniz, ateş, kale, kar, çöl, şehir, uzay, gün doğumu, şimşekli fırtına, sahneyi bitir); çıkartma olarak karakterler; DE/TR/EN hikâye paketleri; elle kontrol için sahne pedi. |
 | **Efektler v2 ve temalar** | Fizikli parçacıklar (otomatik sınırla 60 fps), parlama, 3B dönen kartlar, impact zoom, ışık huzmeleri; efekt türleri kart, resim/GIF, emoji yağmuru, banner, konfeti, sahne, çıkartma, metin (neon/geçiş/zıplama/glitch), alt bant, kombo (sekans). Neon, Pastel, Minimal, Çocuk Kitabı temaları. Kombolar (10 sn'de 3× „krass“ → konfeti) ve sesten yoğunluk. |
 | **Ses** | Gruplar hâlinde (impact, komik, sihir, atmosfer) 38 sentetik, lisans gerektirmeyen ses; limiter'lı mikser, atmosferde ducking, konuma göre stereo, sahneler için yankı; tetikleyici başına ses seviyesi; yankıya karşı ses kontrol kartı. |
@@ -90,6 +94,7 @@ Panel: meme paketleri, GIF arama, yüklemeler, tetikleyici editörü, temalar �
 | 1.5 | Yankıya karşı ses kontrolü, DE/TR/EN otomatik dil algılama |
 | 1.6 | Efekt motoru v2, temalar, ses mikseri, 38 ses, izleyici tetikleyicileri (sohbet + hediyeler), Aile ve Oyun paketleri |
 | 2.0 | İnceleme ve sıkılaştırma turu, regresyon testleri, iş dokümanları (fragman, sunum, iş planı, açılış sayfası DE/TR/EN) |
+| 2.1 | Performans modu (kare süresi −%63 ile −%69 arası), 143 ücretsiz çıkartma (MIT), metin çıkartma paketleri, paketler sadeleştirildi (dinî ifadeler ve bayraklar yok), içerik filtreli güvenli GIF arama KLIPY/GIPHY (Tenor API'si kapatıldı) |
 
 ---
 
@@ -127,8 +132,8 @@ Panel: meme paketleri, GIF arama, yüklemeler, tetikleyici editörü, temalar �
 | **Ajanslar ve ağlar** (içerik üreticisi yönetimi, MCN'ler) | Birçok içerik üreticisi için tek kurulum, markaya uygun paketler | Tetikleyicilerin dışa/içe aktarımı, temalar, API | ajans lisansı planlanıyor |
 | **Platformlar (B2B)** | Daha uzun izlenme süresi, çıkartma hediyeleşmesi 2.0, kısa videoya uygun canlı klipler | Yerel işlev ya da SDK olarak teknoloji ve paketler | sunum aşaması |
 | **Eğitim teknolojisi ve dil öğrenme** (aileler, ilkokullar, DaZ ve uyum kursları, miras dili olarak Türkçe) | Kelimeleri görünür ve duyulur kılmak, okuma desteği, hesapsız ve veri korumaya uygun | Kelime-Resim: söylenen kelime → resim + hedef dil + telaffuz, okuma desteği, tekrar et, çevrimdışı | Vizyon, prototip mevcut (2027'den itibaren) |
-| **Kitap okuma, sesli kitap ve podcast formatları, yayınevleri** | Yalnızca sesten oluşan içeriğe görüntü, „filmli“ kitap okuma yayınları | Anlatı Filmi (Generative Scene Engine), Companion modu „resimli sesli kitap“, yayınevi lisansı | Vizyon, prototip mevcut (2027'den itibaren) |
-| **Video kurgu** (içerik üreticileri, podcast yapımcıları, ajanslar) | Saatlerce kurgu yapmadan, yükleme yapmadan klipler ve Shorts | Studio: yayından öne çıkanlar, hazır videoların otomatik kurgusu, yerel MP4 dışa aktarımı | Vizyon (2027'den itibaren) |
+| **Kitap okuma, sesli kitap ve podcast formatları, yayınevleri** | Yalnızca sesten oluşan içeriğe görüntü, „filmli“ kitap okuma yayınları | Anlatı Filmi (Generative Scene Engine), Companion modu „resimli sesli kitap“, yayınevi lisansı | Vizyon, prototip mevcut (sonraki turdan, 2028 2. yarı) |
+| **Video kurgu** (içerik üreticileri, podcast yapımcıları, ajanslar) | Saatlerce kurgu yapmadan, yükleme yapmadan klipler ve Shorts | Studio: yayından öne çıkanlar, hazır videoların otomatik kurgusu, yerel MP4 dışa aktarımı | Vizyon (sonraki turdan, 2028 2. yarı) |
 | **VR/AR, sahne ve etkinlikler** (organizatörler, kütüphaneler, donanım ortakları) | Komutla efektler, sürükleyici anlatılar | Sahne modu (bugün), telefonda AR, vitrin olarak WebXR ve ekranlı gözlükler | Sahne bugün; AR/XR vizyon (2027–2029) |
 
 Başlangıç segmenti **Türkçe konuşan içerik üreticisi topluluğu** (Türkiye ve Almanya/Avrupa'daki diaspora): en büyük paket, neredeyse hiç rekabet yok, güçlü bir meme kültürü var ve kurucu bu topluluğun bir parçası.
@@ -249,9 +254,9 @@ Bu pazarlar TAM/SAM/SOM'a dahil edilmedi. Gelirleri 11.5 bölümünde ayrı olar
 
 ---
 
-## 11. Finansal plan (3 yıl) – Tahmin
+## 11. Finansal plan (5 yıl) – Tahmin
 
-Tüm rakamlar, aşağıdaki varsayımlara dayanan kurucu **tahminleridir**; henüz gelir yok. 1. yıl Pro aboneliğinin lansmanıyla başlıyor.
+Tüm rakamlar, aşağıdaki varsayımlara dayanan kurucu **tahminleridir**; henüz gelir yok. Temel, **`LiveFX_Finanzmodell.xlsx`** finansal modelidir (sayfalar: varsayımlar, 5 yıllık gelir tablosu, fonların kullanımı, 24 aylık aylık nakit akışı, kapılar, değerleme, duyarlılık analizi; `tools/build-finance.py` ile üretiliyor, temel rakamlar `tools/finance-250k.json` dosyasında). Zaman çizelgesi: ön tohum turunun Ocak 2027'deki kapanışı = 1. ay; Y1 = 2027 (Pro aboneliğinin başlangıcı) … Y5 = 2031.
 
 ### 11.1 Varsayımlar
 
@@ -263,43 +268,68 @@ Tüm rakamlar, aşağıdaki varsayımlara dayanan kurucu **tahminleridir**; hen�
 | Yıllık paket satın alma (kullanıcı payı × ortalama 3,99 €'dan 1 paket) | %7 | %10 | %12 |
 | Ajans lisansları (yıl sonu) Y1 / Y2 / Y3, aylık 49 €'dan | 2 / 8 / 25 | 3 / 15 / 40 | 5 / 30 / 80 |
 | B2B pilot/lisans | 0 / 0 / 50 bin € | 0 / 50 / 150 bin € | 0 / 100 / 400 bin € |
-| Ücretli Pro kullanıcılar yıllık ortalama olarak hesaplanır (Y1'de yıl sonu değerinin ≈ %50'si, Y2/Y3'te %75'i) | | | |
+| Ücretli Pro kullanıcılar yıllık ortalama olarak hesaplanır (Y1'de yıl sonu değerinin ≈ %50'si, Y2'den itibaren %75'i) | | | |
 
-### 11.2 Gelir (bin €)
+Model 4. ve 5. yılları ileriye taşıyor: kullanıcı büyümesi yavaşlıyor, ajans ve B2B lisansları sürüyor, giderler ekip ve pazarlamayla birlikte artıyor (çalışma kitabı, „Annahmen“ sayfası, B bölümü). Y1–Y2 giderleri 250 bin €'luk turun aylık planından (11.3, 11.6), Y3 giderleri önceki plandan geliyor.
 
-| | Temkinli | | | Temel | | | İyimser | | |
-|---|---|---|---|---|---|---|---|---|---|
-| | Y1 | Y2 | Y3 | Y1 | Y2 | Y3 | Y1 | Y2 | Y3 |
-| Pro aboneliği | 12 | 69 | 184 | 41 | 245 | 765 | 102 | 689 | 1.913 |
-| İçerik üreticisi paketleri | 2 | 8 | 22 | 8 | 32 | 100 | 19 | 86 | 240 |
-| Ajans lisansı | 1 | 4 | 12 | 2 | 9 | 24 | 3 | 18 | 48 |
-| B2B / pilot | 0 | 0 | 50 | 0 | 50 | 150 | 0 | 100 | 400 |
-| **Toplam** | **15** | **81** | **268** | **51** | **336** | **1.039** | **124** | **893** | **2.601** |
+### 11.2 Gelir (bin €) – 5 yıl
 
-### 11.3 Giderler (bin €) – temel senaryo
+| Senaryo | Y1 2027 | Y2 2028 | Y3 2029 | Y4 2030 | Y5 2031 |
+|---|---|---|---|---|---|
+| Temkinli | 16 | 82 | 271 | 432 | 602 |
+| **Temel** | **51** | **336** | **1.038** | **1.984** | **3.152** |
+| İyimser | 124 | 892 | 2.599 | 4.828 | 7.444 |
 
-| Kalem | Y1 | Y2 | Y3 |
-|---|---|---|---|
-| Personel: mobil/web geliştirme | 75 | 160 | 240 |
-| Personel: backend/ML (Y2'den itibaren), topluluk/destek (Y2'den itibaren) | 0 | 60 | 160 |
-| Kurucu (maaş) | 30 | 48 | 60 |
-| Serbest tasarım, ses, illüstrasyon (paketler) | 15 | 25 | 40 |
-| Pazarlama, içerik üreticisi ortaklık programı, etkinlikler | 25 | 60 | 120 |
-| Altyapı, yapay zekâ API'si (yalnızca Pro), mağaza ücretleri | 8 | 25 | 60 |
-| Hukuk, marka, vergi, idari işler | 12 | 20 | 30 |
-| **Toplam** | **165** | **398** | **710** |
+Gelir kaynağına göre temel senaryo:
 
-Temkinli senaryoda daha küçük bir ekiple (giderler ≈ 120 / 230 / 330 bin €), iyimser senaryoda daha hızlı büyümeyle (≈ 190 / 520 / 1.100 bin €) planlanıyor.
+| Temel (bin €) | Y1 2027 | Y2 2028 | Y3 2029 | Y4 2030 | Y5 2031 |
+|---|---|---|---|---|---|
+| Pro aboneliği | 41 | 245 | 765 | 1.463 | 2.324 |
+| İçerik üreticisi paketleri | 8 | 32 | 100 | 180 | 269 |
+| Ajans lisansı | 2 | 9 | 24 | 41 | 59 |
+| B2B / pilot | 0 | 50 | 150 | 300 | 500 |
+| **Toplam** | **51** | **336** | **1.038** | **1.984** | **3.152** |
 
-### 11.4 Sonuç (bin €)
+Y1–Y3, 11.1'deki varsayımları değiştirmeden izliyor; temkinli senaryodaki ajans satırı formüle uygun hesaplandı (Y2'de 4 yerine 4,7 bin €, Y3'te 12 yerine 14,7 bin €); önceki sürümlere göre diğer farklar yuvarlamadan kaynaklanıyor.
 
-| Senaryo | Y1 | Y2 | Y3 | 3 yıl sonunda kümülatif |
+### 11.3 Giderler (bin €) – temel senaryo, yalın plan
+
+250 bin €'luk tur 18. aya kadar yalın bir ekibi finanse ediyor: 3. aydan itibaren bir mobil/web geliştirici, ayda 2.000 €'luk kısmi kurucu maaşı, pazara giriş, Kelime-Resim ve hukuk. Büyüme ekibi (ikinci geliştirici, backend/ML, topluluk/destek) ancak 19. ayda, 2. kapı ve sonraki turdan sonra başlıyor.
+
+| Kalem | Y1 2027 | Y2 2028 | Y3 2029 | Önceki plan Y1 / Y2 |
 |---|---|---|---|---|
-| Temkinli | −105 | −149 | −62 | −316 |
-| **Temel** | **−114** | **−62** | **+329** | **+153** |
-| İyimser | −66 | +373 | +1.501 | +1.808 |
+| Personel: mobil/web geliştirme (3. aydan itibaren 1 kişi; 19. aydan itibaren 2 kişi) | 56 | 113 | 240 | 75 / 160 |
+| Personel: backend/ML, topluluk/destek (19. aydan itibaren) | 0 | 30 | 160 | 0 / 60 |
+| Kurucu (maaş; 18. aya kadar ayda 2.000 €) | 24 | 36 | 60 | 30 / 48 |
+| Serbest tasarım/ses → Kelime-Resim hattı (37,5 bin €, 4.–15. ay) | 28 | 22 | 40 | 15 / 25 |
+| Pazarlama, içerik üreticisi programı, etkinlikler, pilotlar | 32 | 48 | 120 | 25 / 60 |
+| Altyapı, yapay zekâ API'si (yalnızca Pro), mağaza ücretleri (sabit + gelir payı) | 7 | 30 | 60 | 8 / 25 |
+| Hukuk, marka, vergi, idari işler | 19 | 16 | 30 | 12 / 20 |
+| **Toplam** | **166** | **295** | **710** | **165 / 398** |
 
-**Finansman ihtiyacı:** LiveFX ve tüm projeleri için 500.000 € ön tohum yatırım; fon kullanımı, likidite ve nakit ömrü 11.6 bölümünde.
+Y4 ve Y5 (ileriye taşınmış): 1.065 bin € ve 1.491 bin €. Diğer senaryoların toplam giderleri (Y1–Y5, bin €): temkinli 163 / 196 / 330 / 396 / 455, iyimser 172 / 396 / 1.100 / 1.650 / 2.310.
+
+### 11.4 Sonuç ve nakit (bin €) – 5 yıl
+
+**FAVÖK (sonuç)**
+
+| Senaryo | Y1 2027 | Y2 2028 | Y3 2029 | Y4 2030 | Y5 2031 | 5 yıl sonunda kümülatif |
+|---|---|---|---|---|---|---|
+| Temkinli | −148 | −114 | −59 | +36 | +147 | −138 |
+| **Temel** | **−116** | **+41** | **+328** | **+919** | **+1.661** | **+2.833** |
+| İyimser | −48 | +496 | +1.499 | +3.178 | +5.134 | +10.259 |
+
+**Yıl sonu nakit** (başlangıç 250 bin €, sonraki tur olmadan)
+
+| Senaryo | Y1 2027 | Y2 2028 | Y3 2029 | Y4 2030 | Y5 2031 |
+|---|---|---|---|---|---|
+| Temkinli | 102 | −11 | −71 | −34 | 112 |
+| **Temel** | **134** | **175** | **503** | **1.422** | **3.083** |
+| İyimser | 202 | 698 | 2.197 | 5.375 | 10.509 |
+
+Y1/Y2 aylık plandan (12. ve 24. ay) geliyor; Y3'ten itibaren nakit = önceki yıl + FAVÖK (basitleştirilmiş, vergi ve işletme sermayesi hariç). 19. aydan itibaren tüm senaryolar büyüme ekibini zaten içeriyor, oysa bu ekip ancak sonraki turla işe alınıyor – bu yüzden temkinli senaryo, tohum turunun kapatması gereken açığı gösteriyor. Temel: kalıcı operasyonel başabaş 22. aydan itibaren (Y2); temkinli: FAVÖK Y4'ten itibaren pozitif.
+
+**Finansman ihtiyacı:** 18 ay için 250.000 € ön tohum yatırım (bölüm 11.6); 2. kapıdan sonra yaklaşık 350.000 €'luk sonraki tur (tohum).
 
 ### 11.5 2./3. yıldan itibaren ek gelir kaynakları (tahmin)
 
@@ -319,45 +349,118 @@ Vizyon (15. bölüm) 11.2–11.4 tablolarında **yer almıyor**. Bu tablo onu te
 | Ek giderler (illüstrasyon, seslendirme kayıtları, didaktik, eğitim satışı, XR prototipi) | | 30 | 115 | 210 |
 | **Vizyonun katkı payı** | | **≈ −3** | **≈ +77** | **≈ +407** |
 
-**Temel senaryo sonucuna etkisi (tahmin):** −114 → ≈ −117 bin € (Y1), −62 → ≈ +15 bin € (Y2), +329 → ≈ +736 bin € (Y3). Böylece temel senaryoda başa baş noktası 3. yıldan 2. yıla çekiliyor. Temkinli senaryoda ek gelirin yaklaşık yarısı, iyimser senaryoda 1,5 ila 2 katı beklenmeli. SDK ve platform gelirleri ayrıca **sayılmıyor**; bunlar zaten B2B satırında (0 / 50 / 150 bin €) yer alıyor. Vizyon bunların olasılığını artırıyor ama ikiye katlamıyor. XR ve gözlük 0 € olarak hesaplandı. 500.000 €'luk finansman ihtiyacı vizyon hatlarını zaten kapsıyor: fonların ~%20'si (100 bin €) onları prototipten ürüne taşıyor, önce Kelime-Resim/dil öğrenme ve hikâye motoru (bölüm 11.6).
+**Vizyon nasıl finanse ediliyor:** 250 bin €'luk tur yalnızca ilk vizyon hattını, **Kelime-Resim**'i finanse ediyor (37.500 €, 4.–15. ay, bölüm 11.6); bu hattın gelirleri (aile aboneliği, okul ve kurs lisansları: Y1–Y3'te 2,5 / 55,8 / 216,2 bin €, temel) modelde yalnızca not kalemi, yani ek potansiyel olarak yer alıyor. **Anlatı Filmi, Studio/otomatik kurgu ve Mekânlar/VR-AR sonraki tura kayıyor**; model bunlar için 19. aydan Y3 sonuna kadar 160,5 bin € planlıyor. SDK ve platform gelirleri ayrıca **sayılmıyor**; bunlar zaten B2B satırında. XR ve gözlük 0 € olarak hesaplandı.
 
-### 11.6 Finansman: 500.000 € ön tohum (pre-seed)
+### 11.6 Finansman: 250.000 € ön tohum (pre-seed)
 
-**İhtiyaç:** LiveFX ve tüm projeleri için **500.000 € ön tohum (pre-seed) yatırım** – 2.0 ürünü ve A–D vizyon hatları (Anlatı Filmi, Kelime-Resim, Mekânlar, Studio). Fonların kullanımı 24 ay için planlanıyor (Y1–Y2, 2027–2028). 11.2–11.5'teki gelir ve gider senaryoları değişmiyor.
+**İhtiyaç:** **18 ay** için planlanan **250.000 €'luk bir ön tohum (pre-seed) turu** (Ocak 2027'de kapanış = 1. ay, Haziran 2028'e kadar). Yalın bir ekibi, pazara girişi, ilk vizyon hattı Kelime-Resim'i ve hukuki temelleri finanse ediyor – sonraki turun (tohum) toplanacağı 2. kapıya kadar. Bu bölümdeki tüm rakamlar: **Öneri – vergi/hukuk danışmanıyla kontrol edin.**
 
-**24 ay boyunca fon kullanımı – Öneri – lütfen onaylayın**
+**18 aylık fon kullanımı – Öneri – vergi/hukuk danışmanıyla kontrol edin**
 
-| Alan | Pay | Tutar | Finansal plandaki karşılığı (Y1 + Y2, bin €) |
-|---|---|---|---|
-| Ürün ve mühendislik ekibi | ~%50 | 250.000 € | Kurucu maaşı dahil personel 373 (11.3) |
-| Vizyon hatlarının prototipten ürüne taşınması – önce Kelime-Resim/dil öğrenme ve hikâye motoru (Anlatı Filmi) | ~%20 | 100.000 € | Vizyon ek giderleri 145 (11.5) |
-| Pazara giriş, içerik üreticisi ortaklık programı, pilotlar | ~%15 | 75.000 € | Pazarlama, içerik üreticisi programı, etkinlikler 85 (11.3) |
-| Hukuk, marka, veri koruma | ~%10 | 50.000 € | Hukuk, marka, vergi, yönetim 32 (11.3) |
-| Rezerv | ~%5 | 25.000 € | – |
-| **Toplam** | **%100** | **500.000 €** | |
-
-Yatırım, ilk 24 ayın brüt giderlerini önceden finanse ediyor: temel senaryo 563 bin € (165 + 398, tablo 11.3) artı vizyon 145 bin € (30 + 115, tablo 11.5) = 708 bin €. Bunun 475 bin €'sunu (rezerv hariç) yatırım, kalan 233 bin €'yu 606 bin €'luk gelirler karşılıyor (temel 51 + 336 = 387 bin €, vizyon 27 + 192 = 219 bin €). 373 bin €'luk gelir fazlası ile 25 bin €'luk rezerv, Y2 sonundaki 398 bin €'luk nakdi oluşturuyor (aşağıdaki tablo): 500 − 708 + 606 = 398. Serbest çalışan giderleri (40 bin €) ve altyapı (33 bin €) tamamen gelirlerden ödeniyor. Hukuk/marka/veri koruma kalemi 50 bin € ile 11.3'teki tutarın 18 bin € üzerinde; öneri onaylanırsa 11.3'teki bu satır güncellenecek, o zamana kadar fark rezervden karşılanıyor.
-
-**500 bin € ile likidite (bin €, yıl sonu değerleri)** – yıl sonu nakit = önceki yıl + 11.4 ya da 11.5'teki yıllık sonuç:
-
-| Senaryo (sonuç Y1 / Y2 / Y3) | Başlangıç | Y1 sonu | Y2 sonu | Y3 sonu |
+| Alan | Pay | Tutar | 1.–18. ayda planlanan | İçerik |
 |---|---|---|---|---|
-| Temkinli (−105 / −149 / −62) | 500 | 395 | 246 | 184 |
-| **Temel (−114 / −62 / +329)** | **500** | **386** | **324** | **653** |
-| Vizyon dahil temel (−117 / +15 / +736) | 500 | 383 | 398 | 1.134 |
-| İyimser (−66 / +373 / +1.501) | 500 | 434 | 807 | 2.308 |
+| Ekip/ürün: mobil/web geliştirici, kısmi kurucu maaşı, test cihazları | %50 | 125.000 € | 125.000 € | 3. aydan itibaren geliştirici (16 × 5.500 € = 88 bin €), kurucu 18 × 2.000 € = 36 bin €, test cihazları 1 bin €; hedef: Pro aboneliği, mobil uygulama/PWA, v2.1'in kararlılığı |
+| Pazara giriş: içerik üreticisi programı, topluluk, platform ve eğitim pilotları | %20 | 50.000 € | 50.000 € | TR lansmanı, 10–20 elçi, paket yayınları, pazar yeri kayıtları, DE/EN lansmanı, 1 platform ya da eğitim pilotu |
+| İlk vizyon hattı Kelime-Resim (dil öğrenme) | %15 | 37.500 € | 37.500 € | 300 kelime, okuma desteği, DE/TR/EN seslendirme kayıtları, didaktik denetim, kurs/sınıf pilotu (4.–15. ay) |
+| Hukuk, marka, veri koruma | %10 | 25.000 € | 25.000 € | LiveFX markası DE/AB/TR, yatırım sözleşmesi, okul/aile profili için GDPR/veri koruma etki değerlendirmesi, gençlerin korunması, vergi danışmanlığı |
+| Yedek | %5 | 12.500 € | – | Planlanmamış: işe alımda gecikmeler, mağaza/platform onayları; gelirsiz durumda sabit altyapı giderlerini karşılar |
+| **Toplam** | **%100** | **250.000 €** | **237.500 €** | |
 
-Temel senaryo hesap örneği: 500 − 114 = 386; 386 − 62 = 324; 324 + 329 = 653. Kontrol: 500 + kümülatif sonuç +153 (11.4) = 653.
+**Gider kalemleri, 1.–18. ay** (tüm senaryolarda aynı)
 
-**Nakit ömrü (runway):**
+| Gider kalemi | €/ay | Aylar | Tek seferlik | 1.–18. ay toplamı |
+|---|---|---|---|---|
+| Mobil/web geliştirici (tam zamanlı) | 5.500 € | 3–18 | – | 88.000 € |
+| Kurucu maaşı (kısmi) | 2.000 € | 1–18 | – | 36.000 € |
+| Geliştirme araçları, test cihazları (iOS/Android) | – | – | 1.000 € (1. ay) | 1.000 € |
+| İçerik üreticisi programı, topluluk, pazarlama – 1. aşama (TR lansmanı) | 2.000 € | 1–6 | – | 12.000 € |
+| İçerik üreticisi programı, pazarlama, pazar yerleri – 2. aşama (DE/EN, ortaklar) | 3.000 € | 7–18 | – | 36.000 € |
+| Platform ya da eğitim pilotu (8 hafta, materyal, seyahat) | – | – | 2.000 € (9. ay) | 2.000 € |
+| Kelime-Resim: illüstrasyon, DE/TR/EN seslendirme kayıtları, didaktik, kurs pilotu | 3.125 € | 4–15 | – | 37.500 € |
+| Hukuk, marka (DE/AB/TR), veri koruma etki değerlendirmesi, gençlerin korunması, vergi danışmanlığı | 1.000 € | 1–18 | 7.000 € (1. ay) | 25.000 € |
+| **Planlanan toplam** | | | | **237.500 €** |
 
-- **Hiç gelir olmasa bile** yatırım, 11.3'teki temel giderleri yaklaşık **22 ay** karşılıyor: Y1 165 bin € (kalan 335 bin €), Y2 398 bin €, yani ayda ≈ 33 bin €; 335 ÷ 33 ≈ 10 ay; 12 + 10 = 22 ay. 11.5'teki vizyon giderleriyle (Y1 30 bin €, Y2 115 bin €) yaklaşık 19 ay (500 − 195 = 305; 305 ÷ 43 ≈ 7 ay).
-- **Temkinli** senaryoda yatırım üç yılın tamamına yetiyor (kümülatif −316 bin €) ve 184 bin € tampon bırakıyor.
-- **Temel:** En düşük yıl sonu bakiyesi 324 bin € (Y2 sonu); başa baş noktası Y3'te (vizyonla Y2'de). Tampon, platform pilotu ve eğitim satışındaki gecikmelere karşı güvence ve tohum (seed) turuna köprü işlevi görüyor.
+**Sonraki tura kaydırılanlar** (250 bin €'dan finanse edilmiyor): Anlatı Filmi / hikâye motoru (A hattı), Studio / otomatik kurgu (D hattı), Mekânlar / VR-AR (C hattı) ile 19. aydan itibaren backend/ML, topluluk/destek ve ikinci bir geliştirici.
 
-Yatırım gerçekleşmezse alternatif: bootstrapping – Pro aboneliği ve paketler yarı zamanlı bir geliştiriciyi finanse ediyor, büyüme buna göre yavaşlıyor (yaklaşık temkinli senaryo). Destek programları (EXIST, girişim bursları, medya/eğitim teknolojisi destekleri) paralel olarak inceleniyor.
+**Nakit ömrü – aylık nakit planı** (çalışma kitabı, „Liquidität 24M“ sayfası):
 
-*Sürüm notu: Önceki sürümlerde yalnızca çekirdek ürün için 18–24 aylık 250–350 bin € tohum yatırım ihtiyacı yer alıyordu. 500 bin € bu rakamın yerini alıyor ve vizyon hatlarını da kapsıyor.*
+- **Hiç gelir olmasa bile** 250 bin € **18 ay** yetiyor: ortalama gider ayda 13.444 € (1.–18. ay, sabit altyapı dahil), 18. ay sonunda nakit 8.000 €, ilk eksi ay 19. ay.
+- Gelirle birlikte senaryolar şöyle (bin €; 19. aydan itibaren büyüme ekibi dahil):
+
+| Senaryo | 6. ay nakit | 12. ay | 18. ay | 24. ay | En düşük nakit (ay) | Nakit ömrü | Kalıcı başabaş |
+|---|---|---|---|---|---|---|---|
+| Temkinli | 183 | 102 | 49 | −11 | −11 (24) | 22 ay (nakdin bittiği ay 23) | 24. aydan sonra |
+| **Temel** | **191** | **134** | **146** | **175** | **125 (15)** | **> 24 ay** | **22. ay** |
+| İyimser | 208 | 202 | 369 | 698 | 197 (9) | > 24 ay | 10. ay |
+| Gelirsiz | 179 | 88 | 8 | −62,5 | – | 18 ay | – |
+
+Temkinli senaryoda nakit 19. ayda üç aylık gider tutarındaki güvenlik tamponunun altına düşüyor – sonraki tur tam da burada hazır olmalı.
+
+**Sonraki tur (tohum):** planlama için kılavuz değer **yaklaşık 350.000 €** (temkinli senaryoyu karşılıyor, 50 bin €'ya yuvarlandı). Görüşmeler 12. aydan itibaren, kapanış 2. kapıdan sonra (15.–18. ay, en geç 18. ay). Y3 sonuna kadar asgari ihtiyaç:
+
+| bin € | Temkinli | Temel | İyimser |
+|---|---|---|---|
+| Güvenlik tamponu (Y3'ün 3 aylık gideri) | 82,5 | 177,5 | 275 |
+| Sonraki tur olmadan Y3 sonu nakit | −71 | 503 | 2.197 |
+| Likidite açığı (tampon eksi Y3 sonuna kadarki en düşük nakit) | 153 | 52 | 78 |
+| Ertelenen vizyon hatları (Anlatı Filmi, Studio, Mekânlar), 19. aydan Y3 sonuna | 160,5 | 160,5 | 160,5 |
+| **Sonraki tur için asgari ihtiyaç** | **314** | **213** | **239** |
+
+**Değerleme: kurucunun teklifi 2,25 milyon € yatırım öncesi değer – müzakere temeli; vergi/hukuk danışmanıyla kontrol edin**
+
+**Teklif:** **%10,0** karşılığında 250.000 € – yatırım öncesi değer (pre-money) **2,25 milyon €**, yatırım sonrası değer (post-money) **2,5 milyon €**; kurucu %90'ı elinde tutuyor. Teklif, gelir öncesi şirketler için yaygın **dört referans yönteminin hepsinin altında** (2,35–3,0 milyon €, ağırlıklı 2,71 milyon €): her referans yönteminin altında, adil ve yatırımcı dostu bir giriş fiyatı.
+
+Referans yöntemleri (çalışma kitabı, „Bewertung“ sayfası; her varsayım orada kaynaklı ve işaretli):
+
+| Yöntem | Yaklaşım | Yatırım öncesi değer | Ağırlık |
+|---|---|---|---|
+| Berkus | Modern „moderate 2×“ varyantı: her biri en fazla 1 milyon $ olan beş faktör (valu.vc, icanpitch 2026; $ → € 1:1). Fikir 0,7 · prototip/ürün 0,8 · ekip 0,5 · stratejik ilişkiler 0,25 · lansman/gelir 0,1 | 2,35 milyon € | %25 |
+| Scorecard (Payne) | Referans yatırım öncesi değer 2,5 milyon € – DACH ön tohum aralığının alt kısmı (1,5–5 milyon €, upxcale; Almanya 1–5 milyon €, Capvisory), Avrupa medyanının altında (≈ 4,2 milyon €, Equidam) – × 1,18 katsayısı (ekip 1,0 · pazar 1,4 · ürün 1,4 · rekabet 1,3 · satış 0,8 · ek finansman 1,0 · diğer 1,2) | 2,95 milyon € | %30 |
+| Risk sermayesi (VC) yöntemi | İyimser senaryo (yukarı potansiyel): Y5 geliri 7,44 milyon € × çıkış çarpanı 6 = çıkış değeri 44,7 milyon €; ÷ hedef getiri 10× × (1 − sonraki turlarda %40 sulanma) = yatırım sonrası değer 2,68 milyon €; eksi 250 bin € | 2,43 milyon € | %20 |
+| Risk Faktörü Toplamı (RFS) | Taban değer 2,5 milyon €; her biri ±250 bin € olan on iki risk faktörü; toplam +2 (gelişim aşaması, üretim, rekabet, teknoloji, uluslararası olumlu; yönetim, satış, sermaye bulma olumsuz) | 3,0 milyon € | %25 |
+| **Ağırlıklı ortalama** | | **2,71 milyon €** | |
+
+**2,25 milyon € neden gerekçeli:**
+
+- **Konsept değil, çalışan ürün v2.1:** gerçek zamanlı ses → efekt, performans modu, güvenli GIF arama; 575+ otomatik test ve uçtan uca (Playwright) test paketi – teknoloji riski büyük ölçüde azaltıldı.
+- **Kendi fikrî mülkiyeti ve içeriği:** 238 ses tetikleyicisi, 143 ücretsiz çıkartma, metin/çıkartma içerikleri ve eşleştirme mantığı kendi geliştirmemiz; LiveFX marka tescili (DE/AB/TR) bütçede.
+- **Türkçe niş dahil üç dil (DE/TR/EN):** Türkçe için uzmanlaşmış yayın aracı neredeyse yok; başlangıç pazarı olarak kendi TR topluluğumuz.
+- **Aynı motor üzerinde A–D vizyon seçenekleri:** Anlatı Filmi (A), Kelime-Resim dil öğrenimi (B), Mekânlar/VR-AR (C), Studio/otomatik kurgu (D) – içerik üreticisi aracının ötesinde opsiyon değeri.
+- **Pazar büyüklüğü:** canlı yayın pazarı 97–157 milyar USD, SAM 1–3 milyon içerik üreticisi (6. bölüm); ikinci pazar olarak eğitim/dil öğrenimi.
+- **Sermaye verimliliği:** ürün v2.1'e kadar dış sermaye olmadan geliştirildi; modele göre 250.000 € 2. kapıya kadar 18 ay yetiyor.
+
+Dürüst olmak gerekirse aleyhte olanlar: tek kurucu, henüz gelir ve imzalı ortak yok – bu yüzden teklif her referans yönteminin altında.
+
+**Finansman araçları – Öneri – vergi/hukuk danışmanıyla kontrol edin**
+
+- **A. Öz sermaye (fiyatlı tur):** 2,25 milyon € yatırım öncesi değerle 250.000 € = %10,0 (yatırım sonrası değer 2,5 milyon €).
+- **B. Dönüştürülebilir kredi / SAFE:** değerleme tavanı 2,25 milyon € (yatırım öncesi, teklife eşit), tohum turu fiyatına %20 iskonto (%15–20 arası müzakere edilebilir), faizsiz, yaklaşık 18 ay sonra tohum turunda dönüşüm. Örnek: tohum turunda yatırım öncesi değer 3 milyon € → dönüşüm değerlemesi = tavan ile 3 milyon € × (1 − %20) değerinden düşük olanı = 2,25 milyon € → pay %10,0; tavanda pay hiçbir zaman %10'u aşmıyor.
+
+**Duyarlılık analizi (temel senaryo)** – Y3 geliri ve nakit; nakit ömrü her durumda 24 ayın üzerinde kalıyor:
+
+| Durum | Y3 geliri (bin €) | Temele göre fark | 18. ay nakit (bin €) | En düşük nakit (bin €) |
+|---|---|---|---|---|
+| Temel | 1.038 | – | 146 | 125 |
+| Dönüşüm −1 puan | 847 | −%18,4 | 117 | 83 |
+| Dönüşüm +1 puan | 1.230 | +%18,4 | 174 | 140 |
+| ARPU −%20 | 885 | −%14,7 | 123 | 91 |
+| ARPU +%20 | 1.191 | +%14,7 | 169 | 137 |
+| Kullanıcı −%30 | 779 | −%25,0 | 106 | 65 |
+| Kullanıcı +%30 | 1.298 | +%25,0 | 186 | 145 |
+
+Değerleme için pazar referansları (4 Ekim 2026 tarihli web araştırması, değerler kullanılmadan önce kontrol edilmeli; Berkus varyantı valu.vc ve icanpitch 2026'yı izliyor):
+
+- upxcale (DACH ön tohum aralığı 1,5–5 milyon €; Almanya tipik olarak 0,5–1,5 milyon €): https://upxcale.de/blog/pre-seed-funding/
+- Capvisory (Almanya 1–5 milyon €): https://capvisory.de/the-startup-funding-stages-from-pre-seed-to-series-c/
+- Equidam (Avrupa ön tohum medyanı 4,57 milyon USD): https://www.equidam.com/startup-valuation-delta-q1-2025/
+- SaaS Capital (gelir çarpanları 4,8x / 5,3x): https://www.saas-capital.com/blog-posts/private-saas-company-valuations-multiples/
+- Carta (tur başına sulanma): https://carta.com/data/state-of-private-markets-q1-2025/
+- Lexr (tavan, iskonto, faiz): https://www.lexr.com/en-de/blog/convertible-loan-in-practice-conversion-interest-rate-discount-cap-valuation/
+- Vektora (%15–25 iskonto yaygın): https://vektora.eu/de/fachbeitraege/pre-seed-finanzierung-in-deutschland-instrumente-und-prozess
+
+Tur gerçekleşmezse alternatif: bootstrapping – Pro aboneliği ve paketler yarı zamanlı bir geliştiriciyi finanse eder, büyüme buna göre yavaşlar (yaklaşık temkinli senaryo). Destek programları (EXIST, girişim hibeleri, medya/eğitim teknolojisi destekleri) paralel olarak inceleniyor.
+
+*Ekim 2026 sürümü: talep 250.000 €.*
 
 ---
 
@@ -373,13 +476,13 @@ Yatırım gerçekleşmezse alternatif: bootstrapping – Pro aboneliği ve paket
 
 | Rol | Neden | Zaman |
 |---|---|---|
-| **Mobil geliştirici** (iOS/Android, WebView/PWA, sonra SDK) | OBS kullanmayan, telefon odaklı içerik üreticilerine ulaşmak; platform entegrasyonunun ön aşaması | hemen / 1. yıl |
-| Backend/ML geliştirici | < 300 ms akışlı ASR, çevrimdışı modeller, standart olarak yapay zekâ ile anlama | 2. yıl |
-| Topluluk ve ortaklık yönetimi (TR/DE) | İçerik üreticisi ortaklık programı, paketler, destek | 1.–2. yıl (yarı zamanlı → tam zamanlı) |
+| **Mobil/web geliştirici** (iOS/Android, WebView/PWA, sonra SDK) | OBS kullanmayan, telefon odaklı içerik üreticilerine ulaşmak; platform entegrasyonunun ön aşaması | 3. aydan itibaren (ön tohum) |
+| Backend/ML geliştirici | < 300 ms akışlı ASR, çevrimdışı modeller, standart olarak yapay zekâ ile anlama | 19. aydan itibaren (sonraki tur) |
+| Topluluk ve ortaklık yönetimi (TR/DE) | İçerik üreticisi ortaklık programı, paketler, destek | elçiler 1. yıldan itibaren; pozisyon 19. aydan itibaren (sonraki tur) |
 | **Ortaklıklar** | Platform pilotu (TikTok LIVE Studio, Instagram Live Producer, YouTube), yayın yazılımları, eğitim kurumları, yayınevleri | sürekli |
 | Danışma kurulu | TR içerik üreticisi yöneticisi, bir platformun eski „Canlı“ ürün sorumlusu, eğitim teknolojisi | 1. yıl |
-| Grafik/web geliştirici (Canvas, WebCodecs) | Anlatı Filmi render motoru, Studio dışa aktarımı (vizyon) | 1.–2. yıl |
-| İllüstrasyon (çocuk kitabı tarzı), DE/TR/EN seslendirme sanatçıları, didaktik | Dünya paketleri, telaffuz kayıtları, Kelime-Resim'in alan denetimi (vizyon) | 2. yıl, serbest |
+| Grafik/web geliştirici (Canvas, WebCodecs) | Anlatı Filmi render motoru, Studio dışa aktarımı (vizyon) | sonraki tur (19. aydan itibaren) |
+| İllüstrasyon (çocuk kitabı tarzı), DE/TR/EN seslendirme sanatçıları, didaktik | Kelime-Resim'in telaffuz kayıtları ve alan denetimi (ön tohum, 4.–15. ay); dünya paketleri (sonraki tur) | serbest |
 
 ---
 
@@ -390,13 +493,13 @@ Yatırım gerçekleşmezse alternatif: bootstrapping – Pro aboneliği ve paket
 | Platform işlevi kendisi geliştiriyor | orta | yüksek | Pilot/devralma ortağı olarak erken sunum; savunma hendeği olarak topluluk paketleri ve çok dillilik; hız; üçüncü taraf araçlar için standart olarak açık API |
 | Konuşma tanıma şive, gürültü ve müzikte başarısız oluyor | orta | orta | Tolerans kademeleri, öğrenme işlevi, 3 okuma alternatifi, harici motorlar, çevrimdışı Whisper, ikinci mikrofon olarak telefon, elle kontrol için sahne pedi |
 | OBS kullanmayan, yalnızca telefonla yayın yapanlar dışarıda kalıyor | yüksek | yüksek | OBS'siz demo kaydı, PWA uzaktan kumanda, ilk işe alım olarak mobil geliştirici, hedef olarak platform entegrasyonu |
-| Meme/GIF/ses telif hakları | düşük–orta | orta | Kendi sentetik seslerimiz, API lisanslı GIF sağlayıcıları (Tenor/Giphy), atıf, kullanım koşullarıyla topluluk yüklemesi |
+| Meme/GIF/ses telif hakları | düşük–orta | orta | Kendi sentetik seslerimiz, MIT lisanslı ücretsiz çıkartmalar, API lisanslı GIF sağlayıcıları (KLIPY/GIPHY, kaydedilmeden bağlantıyla), atıf, kullanım koşullarıyla topluluk yüklemesi |
 | Tarayıcı konuşma tanımaya (Google hizmeti) bağımlılık | orta | orta | Çevrimdışı Whisper, harici API, takılabilir motor arayüzü |
 | Çok küçük içerik üreticilerinde düşük ödeme isteği | orta | orta | Erişim için Free paketi, düşük eşikli satın alma olarak paketler, ikinci ayak olarak ajans ve B2B gelirleri |
 | Tek kişi riski | yüksek | yüksek | Dokümantasyon ve testler, erken işe alım, danışma kurulu, ortaklık programı |
 | Platform politikaları (yayın anahtarı erişimi, sohbet API'leri, kotalar) | orta | orta | Platform başına birden fazla yol (LIVE Studio, yayın anahtarı, üçüncü taraf araçlar üzerinden webhook), YouTube kota yönetimi, yedek olarak telefon |
 | Veri koruma / çocukların korunması (aile ve eğitim segmenti) | düşük | yüksek | Bulut zorunluluğu olmadan yerel işleme, hesap gerekmez, izleme yapmayan Çocuk Kitabı teması |
-| Vizyon küçük ekibi dağıtıyor | orta | yüksek | Gelire yakınlığa göre sıralama (önce öne çıkanlar ve Kelime-Resim), çeyrek başına kapılar, XR yalnızca vitrin |
+| Vizyon küçük ekibi dağıtıyor | orta | yüksek | Ön tohum yalnızca Kelime-Resim'i finanse ediyor; Anlatı Filmi, Studio ve Mekânlar ancak 2. kapıdan sonra sonraki turla; 3., 6., 12. ve 18. ayda kapılar; XR yalnızca vitrin |
 | Dil öğrenme uygulamalarında ve video editörlerinde güçlü rekabet | yüksek | orta | Evrensel bir uygulama olarak değil; ses → resim, TR/DE/EN, sesli okuma ve yerel işleme üzerinden öne çıkmak |
 | Eğitim sektöründe uzun satın alma süreçleri | yüksek | orta | İlk yılı aile aboneliği ve yayınevleri taşıyor; DigitalPakt bütçeleri ve medya merkezleri üzerinden okul lisansı |
 
@@ -404,32 +507,54 @@ Yatırım gerçekleşmezse alternatif: bootstrapping – Pro aboneliği ve paket
 
 ## 14. Kilometre taşları
 
-### 14.1 Önümüzdeki 12 ay
+### 14.1 Önümüzdeki 18 ay
 
-| Çeyrek | Ürün | Pazar | Organizasyon |
+1. ay = ön tohum turunun Ocak 2027'deki kapanışı; 18. ay = Haziran 2028.
+
+| Dönem | Ürün | Pazar | Organizasyon ve finansman |
 |---|---|---|---|
-| **2026 4. çeyrek** | Açılış sayfası ve indirme paketi (Windows/Mac), kurulum asistanı, standart pakette canlı ticaret tetikleyicileri | TR topluluğunda lansman, 10–20 içerik üreticisi elçi, LinkedIn makalesi DE/TR, tanıtım videosu | Marka tescili, ön tohum yatırım görüşmeleri (500 bin €), danışma kuruluna davet |
-| **2027 1. çeyrek** | Pro aboneliği yayında (ödeme), ilk içerik üreticisi paketleri, topluluk paket yüklemesi (beta), < 300 ms akışlı ASR testi | DE/EN lansmanı, pazar yeri kayıtları (OBS, Streamlabs, Stream Deck), [Sayı] öğretmen/yazarla kitap okuma pilotu | Mobil geliştirici işe alındı |
-| **2027 2. çeyrek** | Mobil uygulama (uzaktan kumanda + mikrofon, mağazalar), eğitim paketi, ajans lisansı (çok kullanıcılı) | İçerik üreticisi ortaklık programı resmî olarak başladı, ilk ajanslar, eğitim teknolojisi/içerik üreticisi ekonomisi basını | Ön tohum yatırım (500 bin €) tamamlandı ya da bootstrapping yolu teyit edildi |
-| **2027 3. çeyrek** | Pazar yeri açık, Pro'da standart olarak yapay zekâ ile anlama, SDK prototipi | Platform pilotu başladı (hedef: bir ortak), [Sayı] kayıtlı kullanıcı, [Sayı] Pro aboneliği | Topluluk/destek rolü dolduruldu |
+| **2026 4. çeyrek** | Sürüm 2.1 (performans modu, 143 ücretsiz çıkartma, metin çıkartma paketleri, güvenli GIF arama), açılış sayfası ve indirme paketi (Windows/Mac), kurulum asistanı | TR topluluğunda lansman, 10–20 içerik üreticisi elçi, LinkedIn makalesi DE/TR, tanıtım videosu | Ön tohum yatırım görüşmeleri (250 bin €), marka tescili, danışma kuruluna davet |
+| **2027 1. çeyrek** (1.–3. ay) | Pro aboneliği yayında (ödeme), ilk içerik üreticisi paketleri | TR lansmanı (pazara giriş 1. aşama) | Ön tohum tamamlandı (1. ay); mobil/web geliştirici ekipte (3. ay) – **G0 kapısı** |
+| **2027 2. çeyrek** (4.–6. ay) | Mobil uygulama/PWA, 300 kelimeli ve okuma destekli Kelime-Resim | 20 beta içerik üreticisi TR/DE, topluluk paket yüklemesi | **G1 kapısı** (6. ay) |
+| **2027 3.–4. çeyrek** (7.–12. ay) | Pazar yeri kayıtları (OBS, Streamlabs, Stream Deck), ajans lisansı, eğitim paketi | DE/EN lansmanı (2. aşama), platform ya da eğitim pilotu (9. ay), kurs/sınıflarda Kelime-Resim pilotu | **G2a kapısı** (12. ay); tohum görüşmeleri başlıyor |
+| **2028 1. yarı** (13.–18. ay) | Kararlılık ve Pro için yapay zekâ ile anlama, Kelime-Resim pilotunun değerlendirmesi | Ortaklar, ilk ödeme yapan okullar ya da kurslar | **G2 kapısı** (18. ay): tohum turu tamamlandı, 19. aydan itibaren büyüme ekibi |
 
-Ölçütler: kayıtlı kullanıcılar, haftalık aktif yayıncılar, Free → Pro dönüşümü, paket geliri, ortak içerik üreticisi sayısı, devam toplantısı getiren platform görüşmeleri.
+Ölçütler: kayıtlı kullanıcılar, haftalık aktif yayıncılar, Free → Pro dönüşümü, aylık tekrarlayan gelir, paket geliri, ortak içerik üreticisi sayısı, devam toplantısı getiren platform görüşmeleri.
 
-### 14.2 Vizyon 2027–2029
+### 14.2 18 aylık kapılar
 
-Sıralama gelire yakınlığa göre: önce öne çıkanlar (Studio) ve Kelime-Resim, çekirdek olarak Anlatı Filmi, sahne üzerinden Mekânlar, XR daha sonra. 2027 çeyrekleri 14.1 ile uyumlu.
+Tüm değerler **hedeftir (henüz ulaşılmadı)**. En az eşik (temkinli senaryo) yakalanırsa kapı geçilmiş sayılır; hedef temel senaryodur. Öneri – yatırımcılarla netleştirilecek.
+
+| Kapı | KPI | Hedef (temel) | Eşik (temkinli) | İyimser | Açtığı adım |
+|---|---|---|---|---|---|
+| **G0** Başlangıç (3. ay) | Pro aboneliği yayında (ödeme), mobil/web geliştirici ekipte | – | – | – | Pazara giriş 2. aşama bütçesi |
+| **G1** Aktivasyon (6. ay) | Kayıtlı kullanıcı | 10.000 | 4.000 | 20.000 | Mobil uygulama/PWA yayını |
+| G1 (6. ay) | Ödeme yapan Pro kullanıcı | 400 | 120 | 1.000 | |
+| G1 (6. ay) | 20 beta içerik üreticisi TR/DE aktif, 10–20 elçi; 300 kelimeli Kelime-Resim | – | – | – | |
+| G1 (6. ay) | Aktif yayıncılarda 4. hafta elde tutma ≥ %30 (hedef, ilk kohortlar) | – | – | – | |
+| **G2a** Çekiş (12. ay) | Kayıtlı kullanıcı | 20.000 | 8.000 | 40.000 | DE/EN genişlemesi, platform görüşmeleri |
+| G2a (12. ay) | Ödeme yapan Pro kullanıcı (Y1 sonu) | 800 | 240 | 2.000 | |
+| G2a (12. ay) | 12. ayda aylık tekrarlayan gelir (MRR) | 8.073 € | 2.500 € | 19.820 € | |
+| G2a (12. ay) | 1 platform ya da eğitim pilotu başladı; ≥ 3 kurs/sınıfta Kelime-Resim pilotu | – | – | – | |
+| **G2** Sonraki tur (18. ay) | Kayıtlı kullanıcı | 50.000 | 19.000 | 110.000 | Tohum turu, 19. aydan itibaren büyüme ekibi, Anlatı Filmi/Studio |
+| G2 (18. ay) | Ödeme yapan Pro kullanıcı | 2.000 | 570 | 5.500 | |
+| G2 (18. ay) | 18. ayda aylık tekrarlayan gelir (MRR) | 22.586 € | 6.495 € | 62.473 € | |
+| G2 (18. ay) | Pro'da 3. ay elde tutma ≥ %75; Free → Pro dönüşümü ≥ %3 (eşik) / %4 (hedef) | – | – | – | |
+| G2 (18. ay) | Kelime-Resim pilotu değerlendirildi; ≥ 5 ödeme yapan okul ya da kurs | – | – | – | |
+
+### 14.3 Vizyon 2027–2029
+
+Sıralama gelire ve finansmana yakınlığa göre: ön tohum turu yalnızca **Kelime-Resim**'i finanse ediyor; Anlatı Filmi, Studio ve Mekânlar 2. kapıdan sonra **sonraki turla** başlıyor (19. aydan itibaren = Temmuz 2028). Sahne ve sınıf kullanımı bugün zaten çalışıyor.
 
 | Dönem | Ürün | Pazar / satış | Kapı (ölçüt) |
 |---|---|---|---|
 | 2026 4. çeyrek | Dil öğrenme ve canlı hikâye prototipleri, zaman çizelgesi formatı LTF v1, Vizyon fragmanı DE/TR/EN | „Vizyon“ sunum slaytları, LinkedIn gönderisi | Prototipler çevrimdışı 60 fps |
-| 2027 1. çeyrek | Zaman çizelgesi kaydı ve „Öne çıkanları bul“ · 300 kelimeli ve okuma destekli Kelime-Resim | Pro aboneliği yayında, 20 beta içerik üreticisi TR/DE | Öne çıkan klibi paylaşılan yayınların oranı |
-| 2027 2. çeyrek | Anlatı Filmi DE (sahne yönetmeni, karakterler, kamera, bant/bölünmüş ekran) · sahne ve sınıf ön ayarları | Etkinlik lisansı, [Sayı] kurs/sınıfta Kelime-Resim pilotu | Anlatı Filmi'yle ve onsuz izlenme süresi |
-| 2027 3. çeyrek | Anlatı Filmi TR/EN, yapay zekâ sahneleri, 3 dünya paketi · dosya içe aktarma ve otomatik efektler | **Pro+ yayında**, yayınevi pilotu (kendi seri) | Pro → Pro+ yükseltme oranı |
-| 2027 4. çeyrek | Zaman çizelgesi editörü ve MP4 dışa aktarımı · Companion „resimli sesli kitap“ ve telefonda AR · Tekrar et | Okul lisansı, medya merkezlerinde listelenme | [Sayı] ödeme yapan okul |
-| 2028 | WebXR ve gözlük prototipi · toplu işleme/ajans · paket pazar yeri ve yayınevleri için dünya editörü · **Scene-SDK v1** (4. çeyrek) | Kelime-Resim aile aboneliği, platform sunumu „Canlı → Klip“, Kelime-Resim pilotunun değerlendirmesi | bir SDK pilot ortağı, üçüncü taraf paketleri |
-| 2029 | Anlatı Filmi 2.0 (karakterler etkileşime giriyor, isteğe bağlı WebGPU derinliği) · topluluk üzerinden yeni diller · eğitim sürümü | 10+ başlıklı yayınevi programı, XR/gözlük kararı (2. çeyrek), platform pilotu ya da çıkış görüşmesi (4. çeyrek) | imzalanmış platform pilotu |
+| 2027 (ön tohum, 4.–15. ay) | 300 kelimeli Kelime-Resim, okuma desteği, DE/TR/EN seslendirme kayıtları, didaktik denetim, tekrar et | Kurs/sınıflarda Kelime-Resim pilotu, sahne ve sınıf ön ayarları | ≥ 3 kurs/sınıfta Kelime-Resim pilotu (G2a) |
+| 2028 1. yarı (13.–18. ay) | Kelime-Resim pilotunun değerlendirmesi, okul lisansı | Medya merkezlerinde listelenme, tohum turu | ≥ 5 ödeme yapan okul ya da kurs (G2) |
+| 2028 2. yarı (sonraki tur, 19. aydan itibaren) | Anlatı Filmi DE (sahne yönetmeni, karakterler, kamera) · zaman çizelgesi kaydı ve „Öne çıkanları bul“ · dosya içe aktarma ve otomatik efektler | **Pro+ yayında**, yayınevi pilotu (kendi seri), Kelime-Resim aile aboneliği | Pro → Pro+ yükseltme oranı |
+| 2029 | Anlatı Filmi TR/EN ve dünya paketleri · zaman çizelgesi editörü ve MP4 dışa aktarımı · Companion „resimli sesli kitap“ ve telefonda AR · WebXR/gözlük prototipi · Scene-SDK | Yayınevi programı, platform sunumu „Canlı → Klip“, XR/gözlük kararı, platform pilotu ya da çıkış görüşmesi | imzalanmış platform pilotu |
 
-Ayrıntılı çeyrek planı `VISION.tr.md` dosyasının 10. bölümünde.
+`VISION.tr.md` dosyasının 10. bölümündeki çeyrek planı vizyonun tamamını anlatıyor; tarihleri farklı olduğunda bu bölüm geçerlidir (A, C ve D hatları sonraki turdan finanse ediliyor).
 
 ---
 
@@ -576,6 +701,7 @@ Platformlar bugün konuşmayı gerçek zamanlı ve ücretsiz olarak altyazıya �
 
 ### 16.2 Ek dokümanlar
 
+- `LiveFX_Finanzmodell.xlsx` – 250 bin €'luk ön tohum turunun finansal modeli (5 yıllık gelir tablosu, fonların kullanımı, aylık nakit akışı, kapılar, değerleme, duyarlılık; 11. bölümdeki rakamların kaynağı)
 - `VISION.tr.md` – Vizyon 2027–2029 (Anlatı Filmi, Kelime-Resim, Mekânlar, Studio)
 - `prototypes/sprachlernen.html`, `prototypes/live-story.html` – vizyon prototipleri
 - `video/LiveFX_Vision_tr_16x9.mp4`, `video/LiveFX_Vision_tr_9x16.mp4` – Vizyon fragmanı (Türkçe; DE/EN sürümleri `video/LiveFX_Vision_*.mp4`)

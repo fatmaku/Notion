@@ -336,7 +336,7 @@ No platform logos, no real names or faces; future features carry the "Vision" ba
 - **Education pilot partners:** [Number] German-as-a-second-language and integration courses, [Number] primary-school classes, media centres, education providers.
 - **Publisher and audiobook pilot partners:** children's book and audiobook publishers for "audiobook with pictures" and bilingual editions; the first case is the founder's own children's book series.
 - **Team:** web/graphics development (Canvas, WebCodecs), children's-book-style illustration, voice talent DE/TR/EN, didactics (advisory board).
-- **Financing:** €500,000 pre-seed for LiveFX and all its projects (2.0 product and lines A–D); ~20% (€100,000) takes the vision lines from prototype to product, WordPicture/language learning and the story engine (Story Film) first. Proposed use of funds over 24 months in `BUSINESSPLAN.en.md` section 11.6.
+- **Financing:** €250,000 pre-seed for at most 10% (founder offer: €2.25M pre-money, €2.5M post-money; alternatively a SAFE with a €2.25M cap and 20% discount) for 18 months. 15% (€37,500) takes the first vision line, WordPicture/language learning, from prototype to pilot; the story engine (Story Film), studio and rooms follow with the seed round (≈ €350,000 by month 18). Proposed use of funds in `BUSINESSPLAN.en.md` section 11.6.
 - **Grants:** EXIST, education and integration foundations (no revenue assumed in the plan).
 
 Contact: Tuncay Sancak (Founder & Inventor, Managing Director) · Investor Relations: Gönül Demet · [Email] · [Website]

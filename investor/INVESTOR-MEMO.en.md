@@ -1,14 +1,14 @@
 # LiveFX – Investment Memo (Pre-Seed)
 
 **Live streams that listen. And tomorrow: You talk. It becomes a scene.**
-A **€500,000** pre-seed round for LiveFX and every LiveFX line.
+A **€250,000** pre-seed round for 18 months: LiveFX to market, Pro subscription, mobile app and the first vision line, WordPicture.
 
 Confidential · Pre-Seed · October 2026
 Founder & Inventor, Managing Director: **Tuncay Sancak** · Investor Relations: **Gönül Demet**
 
 > German: `INVESTOR-MEMO.de.md` · Turkish: `INVESTOR-MEMO.tr.md`
 >
-> **Basis:** every figure comes from the LiveFX documents in `../live-fx/business/` – `BUSINESSPLAN.en.md` (BP), `PITCH-DECK.en.md`, `MARKTANALYSE.en.md`, `VISION.en.md`, `QUELLEN.en.md`. Market figures carry the number used there, **[Source n]**; our own assumptions are marked **estimate**. There is **no revenue yet**. User, revenue and retention values that can only be measured later are left as **[number]**. The split of the €500,000 and all gate values are a **proposal – please confirm**.
+> **Basis:** every financial figure (use of funds, runway, cash, 5-year P&L, gates, valuation, sensitivity) comes from the finance model [`../live-fx/business/LiveFX_Finanzmodell.xlsx`](../live-fx/business/LiveFX_Finanzmodell.xlsx) (export `../live-fx/business/tools/finance-250k.json`, generated 4 Oct 2026). Market and product figures come from the LiveFX documents in `../live-fx/business/` – `BUSINESSPLAN.en.md` (BP), `PITCH-DECK.en.md`, `MARKTANALYSE.en.md`, `VISION.en.md`, `QUELLEN.en.md` – and from `../live-fx/CHANGELOG.md` (version 2.1). Market figures carry the number used there, **[Source n]**; our own assumptions are marked **estimate**. There is **no revenue yet**. Values that can only be measured later are left as **[number]**. Use of funds, gates and valuation are a **proposal – review with tax/legal advisor**.
 
 ---
 
@@ -17,12 +17,14 @@ Founder & Inventor, Managing Director: **Tuncay Sancak** · Investor Relations: 
 | | |
 |---|---|
 | **Thesis** | Live streaming is the fastest-growing revenue channel of the creator economy – but live is raw. LiveFX turns the creator's voice into memes, sounds and animated scenes in under a second. The same engine becomes a visual language for everything spoken: story film, language learning, new spaces, auto-editing. |
-| **Product** | Version 2.0 works: German, Turkish and English with automatic detection, 238 triggers in five packs, 13 scenes, 12 ambience loops, 38 sounds, story mode, viewer triggers, phone remote, offline-capable (BP §3). |
-| **Vision** | Four lines: A Story Film (Generative Scene Engine), B WordPicture (language learning), C Spaces (stage, classroom, AR/VR, glasses), D Studio (live editing, auto-edit). Two clickable prototypes (A and B) exist (`VISION.en.md`). |
+| **Product** | Version 2.1 works: German, Turkish and English with automatic detection, 238 triggers in five packs plus **143 free stickers** (MIT) and text-sticker packs, 13 scenes, 38 sounds, story mode, viewer triggers, phone remote, offline-capable; **performance mode** cuts frame time by 63–69%; **safe GIF search** (KLIPY/GIPHY) with a child-safety filter (BP §3, CHANGELOG 2.1.0). |
+| **Vision** | Four lines: A Story Film (Generative Scene Engine), B WordPicture (language learning), C Spaces (stage, classroom, AR/VR, glasses), D Studio (live editing, auto-edit). Two clickable prototypes (A and B) exist (`VISION.en.md`). The pre-seed funds **WordPicture**; story engine, auto-edit and VR move to the follow-on round. |
 | **Market** | Global live streaming 2026: USD 97–157bn [Source 1, 2]; creator economy ~USD 216–260bn [Source 3, 4]; gifts ≈ 50% of streamer income [Source 5, 6]. Adjacent: language-learning apps USD 1.54bn [Source 33], AI video USD 3.67bn [Source 23], video editing USD 2.68bn [Source 51]. |
 | **Model** | Free + Pro at €9.99/month, creator packs €2.99–4.99, agency and B2B licences; with the vision, Pro+ at €14.99, WordPicture Family at €4.99/month, school, course, event and publisher licences (BP §9, §15.6, estimate). |
-| **Ask** | **€500,000** pre-seed for 24 months: team, vision lines from prototype to product, go-to-market and pilots, legal and platform approvals, reserve. Terms **[open]**. |
-| **Status** | Product built, no revenue yet; launch in the Turkish-speaking community from Q4 2026 (BP §14.1). |
+| **Ask** | **€250,000** pre-seed for **18 months**: team/product 50%, go-to-market 20%, WordPicture 15%, legal 10%, reserve 5%. Runway **18 months even without any revenue**. |
+| **Valuation** | **Founder offer: €2.25M pre-money**, €2.5M post-money, **10%** for investors (founder 90%) – below all four reference methods (€2.35M–€3.0M, weighted €2.71M). Alternative: SAFE/convertible with a €2.25M cap, 20% discount, no interest. Negotiation range; review with tax/legal advisor. |
+| **Follow-on** | Seed round of about **€350,000** by month 18 (after gate 2), talks from month 12. |
+| **Status** | Product built, no revenue yet; launch in the Turkish-speaking community from Q4 2026 (BP §14.1); closing planned for January 2027 (= month 1). |
 
 ---
 
@@ -30,7 +32,7 @@ Founder & Inventor, Managing Director: **Tuncay Sancak** · Investor Relations: 
 
 1. **The gap is empty.** Alerts react to viewers, soundboards to keys, native effects to manual selection. No widely used tool reacts to what the creator *says* (BP §2, §7). On a 2×2 of trigger (viewer ↔ voice) and operation (manual ↔ automatic), LiveFX stands alone in "voice-driven, automatic" (`PITCH-DECK.en.md`, slide 10).
 2. **The money is made inside the stream.** Gifts make up about half of live streamers' income [Source 5, 6]; creators with 20–100k followers earn USD 500–3,000 a month from gifts [Source 5]. Every minute of watch time counts – LiveFX makes streams more entertaining and makes gifts visible and audible.
-3. **Built before funding.** Version 2.0 runs, with 240+ automated tests (`PITCH-DECK.en.md`, slide 9), a documented architecture and use in real streams. The capital goes into execution, not into a prototype.
+3. **Built before funding.** Version 2.1 runs, with 575+ automated tests, a documented architecture and use in real streams; 2.1 added a performance mode (frame time −63 to −69%), 143 free stickers and a safe GIF search. The capital goes into execution, not into a prototype.
 4. **Draw, don't generate.** Generative video AI costs USD 0.05–0.75 per second at list price [Source 24, 25] – USD 180–2,700 per hour – and cannot run live. LiveFX turns a sentence into a 200–500-byte state delta and draws the scene in the browser: €0 without AI, USD 0.25–0.75 per hour with optional text AI (project measurement) – 240 to more than 10,000 times cheaper (BP §15.1, `VISION.en.md` §2).
 5. **One engine, several markets.** The same pipeline (speech recognition → understanding → timeline → screen) serves the stream, the classroom, the stage, the audiobook and the editing suite. The vision widens the market without a second technology stack.
 6. **Multilingual from day one.** The largest pack is Turkish (85 triggers), not English. Starting in the Turkish-speaking community (Türkiye and the diaspora) meets a strong meme culture and almost no localised tools (`MARKTANALYSE.en.md` §4).
@@ -54,15 +56,18 @@ Multilingual creators face a further gap: there are practically no creator tools
 
 ---
 
-## 4. The product: LiveFX 2.0
+## 4. The product: LiveFX 2.1
 
 **In one sentence:** the creator talks – LiveFX listens. When he says "krass", "oh no", "applause", "yok artık" or "bruh", the right meme appears in the stream in under a second and the right sound plays. When he reads aloud – "it was raining", "at night", "the dragon" – the overlay turns into an animated scene with ambient sound (BP §3.1).
 
-| Area | Status 2.0 (BP §3.2) |
+| Area | Status 2.1 (BP §3.2, CHANGELOG 2.1.0) |
 |---|---|
 | Speech recognition | DE, TR, EN with **automatic language selection**; browser engine, external engines (Whisper, Deepgram) or offline Whisper in the browser |
 | Dialect and learning | three-level fuzzy matching ("grass" → krass), learning from the stream with one click |
 | Content | **238 triggers** in five packs: Turkish 85, German 49, English 50, Family & Kids 27, Gaming 27 |
+| **New in 2.1: free stickers** | **143 free stickers** (Microsoft Fluent Emoji, MIT licence; 119 animated) with DE/TR/EN search; **text-sticker packs** TR/DE/EN (27–28 big comic words each, e.g. OHA, KRASS, SHEESH); packs cleaned of religious terms and flags |
+| **New in 2.1: performance mode** | one render path on canvas; measured with 31 effects on 1920×1080: **frame time −63 to −69%** on average, p99 −74 to −80%, DOM nodes −56%; modes auto / eco (weak PCs) / high |
+| **New in 2.1: safe GIF search** | **KLIPY and GIPHY** (Tenor API was shut down on 30 June 2026), always `rating=g`; **child-safety filter** for search terms and results in DE/TR/EN; provider GIFs are linked, never stored; image sources limited to own uploads, bundled stickers and KLIPY/GIPHY |
 | Story mode | **13** animated scenes, **12** ambience loops, story packs DE/TR/EN, scene pad |
 | Effects and sound | effects engine v2 (particles, glow, 3D cards, impact zoom), themes; **38** licence-free synthetic sounds; mixer with ducking and reverb |
 | Viewer triggers | Twitch chat, YouTube live chat, chat commands; gift webhook (TikTok coins via TikFinity/Streamer.bot, Super Chat, Bits) |
@@ -70,7 +75,7 @@ Multilingual creators face a further gap: there are practically no creator tools
 | Integration | OBS/Streamlabs browser source → TikTok LIVE, Instagram Live, YouTube Live, Twitch; open, token-protected HTTP API |
 | AI (optional) | understanding without keywords ("that was so embarrassing" → Awkward), 1.5 s timeout; ≈ USD 0.004 per classification, USD 0.25–0.75 per stream hour (project measurement, BP §9) |
 
-**Technology and protection.** Plain HTML/JS/CSS and a Node.js server with zero external dependencies; local instead of cloud, so marginal cost is close to zero and GDPR-friendly (BP §4). Protectable building blocks: multilingual matcher, curated trigger and story packs, synthetic sound library, scene engine and mixer, learning loop. Registering the "LiveFX" trademark (DE/EU/TR) is to be checked; a patent assessment costs €5–10k according to the BP (estimate).
+**Technology and protection.** Plain HTML/JS/CSS and a Node.js server with zero external dependencies; local instead of cloud, so marginal cost is close to zero and GDPR-friendly (BP §4). Protectable building blocks: multilingual matcher, curated trigger, sticker and story packs, synthetic sound library, scene engine and mixer, learning loop. Registering the "LiveFX" trademark (DE/EU/TR) is budgeted in the round (legal line, §10.1).
 
 **Traction.** In use in the company's own live streams since [month/year], [number] streams, [number] hours; [number] creators on the waiting list; [number] downloads (`PITCH-DECK.en.md`, slide 9 – enter real figures only).
 
@@ -89,7 +94,7 @@ Core idea: LiveFX grows from a meme overlay into a **visual language for everyth
 
 **Prototypes.** Each is a single HTML file, offline, no account, trilingual. The Story Film prototype knows 22 characters, 16 objects, 10 places, time, weather and mood, runs at 60 fps with under 1 ms of script time per frame (test measurement) and shows "cloud cost: €0.00". WordPicture strips Turkish suffixes (`kitabı` → `kitap`), shows coloured articles and syllables and speaks through the system voice (`prototypes/README.md`). Vision trailers exist in DE/TR/EN (`video/LiveFX_Vision_*.mp4`).
 
-**Order by closeness to revenue** (BP §14.2): highlights (D) and WordPicture (B) first, the Story Film (A) as the core, Spaces (C) via the stage, XR later and only as a showcase. This round takes **WordPicture and the story engine (Story Film)** from prototype to product.
+**Order by closeness to revenue** (BP §14.2): highlights (D) and WordPicture (B) first, the Story Film (A) as the core, Spaces (C) via the stage, XR later and only as a showcase. The pre-seed round takes **WordPicture** from prototype to product (€37,500, months 4–15); the **story engine (Story Film), Studio/auto-edit and Spaces/VR move to the follow-on round** (finance model, sheet *Use of funds*).
 
 ---
 
@@ -170,101 +175,193 @@ Source: BP §7. **Positioning:** LiveFX replaces neither OBS nor Streamlabs; it 
 
 ## 9. Go-to-market
 
-| Phase | Period | Measures (BP §10) |
-|---|---|---|
-| 1 · Turkish community | months 1–4 | own streams as a showcase, 10–20 creator ambassadors, Discord/Telegram, weekly pack drops; clips from real streams are the marketing |
-| 2 · DE/EN | months 4–9 | German- and English-speaking creators; read-aloud and education streams; OBS, Streamlabs and Stream Deck directories |
-| 3 · Partners and platforms | months 6–12 | creator partner programme with revenue share, agencies, pitch to the live teams at TikTok, Meta, YouTube |
-| 4 · Education and publishers (vision) | from 2027 | WordPicture pilot in [number] courses/classes, family subscription, school licences via media centres and DigitalPakt budgets, publisher pilot |
+Month 1 = closing, planned for January 2027 (finance model, timeline).
 
-**Pilot offer to platforms** (`PITCH-DECK.en.md`, slide 17): 8 weeks, 20 creators, measured watch time, gifts and clips. **Education & languages pilot:** WordPicture and Story Film in [number] courses/classes or with [number] titles.
+| Phase | Period | Measures (BP §10, finance model) |
+|---|---|---|
+| 1 · Turkish community | months 1–6 | own streams as a showcase, 10–20 creator ambassadors, Discord/Telegram, weekly pack and sticker drops; clips from real streams are the marketing (marketing phase 1: €2,000/month) |
+| 2 · DE/EN | months 7–18 | German- and English-speaking creators; read-aloud and education streams; OBS, Streamlabs and Stream Deck directories (marketing phase 2: €3,000/month) |
+| 3 · Platform or education pilot | from month 9 | one pilot: 8 weeks, 20 creators, measured watch time, gifts and clips – or a WordPicture pilot in ≥ 3 courses/classes |
+| 4 · Partners, platforms, story engine | from month 19 (follow-on round) | creator partner programme with revenue share, agencies, pitch to the live teams at TikTok, Meta, YouTube; story engine, Studio and Spaces |
+
+**Pilot offer to platforms** (`PITCH-DECK.en.md`, slide 17): 8 weeks, 20 creators, measured watch time, gifts and clips. **Education & languages pilot:** WordPicture in [number] courses/classes.
 
 ---
 
-## 10. The offer: €500,000 pre-seed
+## 10. The offer: €250,000 pre-seed
 
-### 10.1 Use of funds over 24 months – Proposal – please confirm
+Source of all figures: finance model [`../live-fx/business/LiveFX_Finanzmodell.xlsx`](../live-fx/business/LiveFX_Finanzmodell.xlsx), sheets *Use of funds*, *Monthly cash flow 24 months*, *5-year P&L*. **Proposal – review with tax/legal advisor.**
 
-| # | Area | Share | Amount | What for | Derived from the business plan |
-|---|---|---|---|---|---|
-| 1 | **Product & engineering team** | 50% | **€250,000** | mobile/web developer, 24 months (€150,000); backend/ML developer from month 13 (€60,000); part of the founder's salary (€40,000) | Staff Y1 + Y2 per BP §11.3: mobile/web €75k + €160k, backend/ML/community €0 + €60k, founder €30k + €48k = €373k; the rest from revenue |
-| 2 | **Vision lines from prototype to product** | 20% | **€100,000** | WordPicture (B): 300 words, reading aid, voice recordings DE/TR/EN, didactic review, course pilot (€40,000); story engine/Story Film (A): canvas development, illustration, world packs, TR/EN (€40,000); highlights (D) and stage/classroom preset (C) (€20,000) | Vision extra costs BP §11.5: €30k + €115k; freelance design/sound BP §11.3: €15k + €25k |
-| 3 | **Go-to-market, creator programme, pilots** | 15% | **€75,000** | 10–20 TR/DE ambassadors, community and pack drops, platform pilot (8 weeks, 20 creators), education and publisher pilots, marketplace listings | Marketing BP §11.3: €25k + €60k |
-| 4 | **Legal, trademark, data protection, platform certification** | 10% | **€50,000** | "LiveFX" trademark DE/EU/TR, patent assessment, GDPR impact assessment for the school and family profile, child protection, app-store and platform approvals, tax and administration | Legal/admin BP §11.3: €12k + €20k; patent assessment €5–10k (BP §4) |
-| 5 | **Reserve** | 5% | **€25,000** | buffer for delays in platform approvals or hiring | – |
-| | **Total** | **100%** | **€500,000** | | |
+### 10.1 Use of funds over 18 months
 
-Infrastructure, AI API and store fees (BP §11.3: €8k + €25k) grow with usage and are paid from Pro revenue.
-
-### 10.2 Why €500,000 instead of €250–350k
-
-The business plan names a €250–350k seed for 18–24 months for the core product only and deliberately leaves the vision out (BP §11.4, §11.5). The €500,000 covers **every LiveFX line** and makes the plan more robust:
-
-| Calculation (from BP §11.2–11.5) | €250–350k | €500,000 |
-|---|---|---|
-| Runway at **zero revenue** on the base cost plan (Y1 €165k, Y2 €398k ≈ €33k/month) | ≈ 15–18 months | ≈ 22 months |
-| Cumulative loss, **conservative** case, after 3 years: −€316k | not covered with €250k, just covered with €350k (€34k left) | covered, ≈ €184k left |
-| Cumulative loss, **base** case, after 2 years: −€176k (with vision ≈ −€102k) | covered | covered, remainder for vision lines and pilots |
-| Vision lines A and B on the 2027 schedule | not funded | €100,000 earmarked |
-
-**Reading:** the core spending of the 24 months is covered by capital, not by hoped-for revenue. If base-case revenue materialises, runway extends beyond month 24; if only the conservative case materialises, the company stays funded into year 3.
-
-### 10.3 Terms
-
-Instrument (equity or convertible loan), valuation or cap, stake, closing date, possible tranches tied to the gates (§11), information and consent rights, founder commitment: **[open]**. Planning assumption for the timeline: closing in early 2027; if closing moves, the gates move with it.
-
----
-
-## 11. Milestones and KPI gates (half-yearly)
-
-Scale only after the evidence clears the gate. Values are **targets** from the business plan's base case (estimate) or **[number]** where the value can only be set after the first cohorts. **Proposal – please confirm.**
-
-| Gate | Period | Theme | KPI targets (targets, not achieved) | Unlocks |
+| # | Area | Share | Amount | What for (monthly plan) |
 |---|---|---|---|---|
-| **01** | H1 2027 | **Activation** | Pro subscription live (Q1 2027) · mobile developer on board · 20 TR/DE beta creators and 10–20 ambassadors active · WordPicture with 300 words · week-4 retention of active streamers ≥ [number]% | mobile app release, Story Film budget |
-| **02** | H2 2027 | **Traction** | 20,000 registered users and ≈ 800 paying Pro users at year end (BP §11.1: 4% conversion) · 1 platform pilot started (BP §14.1, Q3 2027) · Pro+ live · 5 paying schools (BP §11.5) | backend/ML hire |
-| **03** | H1 2028 | **Retention** | free → Pro conversion stable at ≥ 4% · month-3 Pro retention ≥ [number]% · Pro → Pro+ upgrades on track to 20% (BP §11.5) · WordPicture pilot in [number] courses evaluated · [number] active streamers per week | expansion of education sales and packs |
-| **04** | H2 2028 | **Scale** | 80,000 registered users and ≈ 3,200 Pro at year end (BP §11.1) · B2B pilot/licence €50k (BP §11.1) · 40 schools, 200 course licences (BP §11.5) · one SDK pilot partner (BP §14.2) | follow-on round or platform talks; break-even path in year 3 |
+| 1 | **Team/product** | 50% | **€125,000** | mobile/web developer from month 3 (16 × €5,500 = €88k), founder salary in part (18 × €2,000 = €36k), test devices €1k; goal: Pro subscription, mobile app/PWA, stability of v2.1 |
+| 2 | **Go-to-market** | 20% | **€50,000** | TR launch, 10–20 ambassadors, pack drops, marketplace listings, DE/EN launch, one platform or education pilot |
+| 3 | **First vision line: WordPicture** (language learning) | 15% | **€37,500** | 300 words, reading aid, voice recordings DE/TR/EN, didactic review, course/class pilot (months 4–15) |
+| 4 | **Legal, trademark, data protection** | 10% | **€25,000** | "LiveFX" trademark DE/EU/TR, investment agreement, GDPR impact assessment for the school/family profile, child protection, tax advice |
+| 5 | **Reserve** | 5% | **€12,500** | not scheduled: delays in hiring, store/platform approvals; covers fixed infrastructure costs in the no-revenue case |
+| | **Total** | **100%** | **€250,000** | scheduled in months 1–18: €237,500 + reserve €12,500 |
 
-Tracked continuously: registered users, active streamers per week, free → Pro conversion, retention by cohort, pack revenue, partner creators, pilots with platforms and education providers (BP §14.1).
+**Moved to the follow-on round** (not funded from the €250,000): story engine / Story Film (line A), Studio / auto-edit (line D), Spaces / VR-AR (line C), and backend/ML, community/support and a second developer from month 19.
+
+### 10.2 Runway and cash
+
+Without **any** revenue, the €250,000 lasts **18 months** (average burn €13,444/month; cash runs out in month 19). With revenue, the runway extends:
+
+| Scenario | Runway | Cash month 6 | Month 12 | Month 18 | Month 24 | Sustained break-even |
+|---|---|---|---|---|---|---|
+| No revenue | 18 months | €179.1k | €87.9k | €8.0k | −€62.5k | – |
+| Conservative | 22 months (cash-out month 23) | €182.7k | €102.3k | €49.1k | −€11.5k | after month 24 |
+| **Base** | **> 24 months** | **€190.8k** | **€134.4k** | **€145.8k** | **€175.2k** | **month 22** |
+| Optimistic | > 24 months | €207.7k | €202.0k | €368.9k | €697.9k | month 10 |
+
+Lowest cash: base €125.4k (month 15), optimistic €196.7k (month 9); in the conservative case cash falls below the safety buffer in month 19.
+
+### 10.3 Follow-on round
+
+The pre-seed is the first of two steps. **Seed round planning guide: about €350,000**, closed **by month 18** – after gate 2 (months 15–18), with talks from month 12. Minimum need per scenario (liquidity gap to the safety buffer plus €160.5k for the deferred lines): conservative €313.9k, base €212.6k, optimistic €238.8k. The follow-on round finances the expansion team from month 19 and the story engine, Studio and VR.
+
+### 10.4 Instrument
+
+Two options (finance model, sheet *Valuation*): **priced equity round** at the founder offer of €2.25M pre-money (§12) or **SAFE / convertible loan** with cap and discount (§12.3). Closing date, information and consent rights, founder commitment: **[open]**. Planning assumption: closing January 2027; if closing moves, the gates move with it.
 
 ---
 
-## 12. Financial scenario
+## 11. Financials: 5-year P&L
 
-All values in €k, **estimates** from BP §11; there is no revenue yet. Y1–Y3 = 2027–2029.
+All values in €k, **estimates** from the finance model (sheet *5-year P&L*); there is no revenue yet. Y1 = 2027 (start of the Pro subscription) … Y5 = 2031. Y1–Y3 revenue as in BP §11.1; Y4–Y5 projected (user growth, conversion, agencies, B2B). Vision revenue (BP §11.5) stays outside the result, as in the business plan.
 
-| Base case | Y1 | Y2 | Y3 |
+| **Base case** | Y1 2027 | Y2 2028 | Y3 2029 | Y4 2030 | Y5 2031 |
+|---|---|---|---|---|---|
+| Revenue | 51 | 336 | 1,038 | 1,984 | 3,152 |
+| Costs | 166 | 295 | 710 | 1,065 | 1,491 |
+| **EBITDA** | **−116** | **+41** | **+328** | **+919** | **+1,661** |
+| Cumulative result | −116 | −75 | +253 | +1,172 | +2,833 |
+| Cash at year end | 134 | 175 | 503 | 1,422 | 3,083 |
+
+| Scenario | Revenue Y1 / Y2 / Y3 / Y4 / Y5 | EBITDA Y1 / Y2 / Y3 / Y4 / Y5 | Cash end of Y5 |
 |---|---|---|---|
-| Core product revenue (Pro, packs, agency, B2B) | 51 | 336 | 1,039 |
-| Costs | 165 | 398 | 710 |
-| **Core product result** | **−114** | **−62** | **+329** |
-| Vision extra revenue (BP §11.5) | ≈ 27 | ≈ 192 | ≈ 617 |
-| Vision extra costs | 30 | 115 | 210 |
-| **Result incl. vision** | **≈ −117** | **≈ +15** | **≈ +736** |
+| Conservative | 16 / 82 / 271 / 432 / 602 | −148 / −114 / −59 / +36 / +147 | 112 |
+| **Base** | **51 / 336 / 1,038 / 1,984 / 3,152** | **−116 / +41 / +328 / +919 / +1,661** | **3,083** |
+| Optimistic | 124 / 892 / 2,599 / 4,828 / 7,444 | −48 / +496 / +1,499 / +3,178 / +5,134 | 10,509 |
 
-| Scenario | Result Y1 / Y2 / Y3 | Cumulative 3 years |
-|---|---|---|
-| Conservative | −105 / −149 / −62 | −316 |
-| **Base** | **−114 / −62 / +329** | **+153** |
-| Optimistic | −66 / +373 / +1,501 | +1,808 |
+Cash figures **without** the follow-on round. In the conservative case cash would be negative in Y2–Y4 (low point −€70.9k at the end of Y3) – that is why the seed round is planned by month 18. Key assumptions (base): 20,000 / 80,000 / 250,000 registered users at year end Y1–Y3, 4% conversion, Pro ARPU €8.50 net (BP §11.1); costs Y1–Y2 from the monthly plan (pre-seed team until month 18, expansion team from month 19); infrastructure €250/month + 8% of revenue. Scenarios are not forecasts.
 
-Key assumptions (base): 20,000 / 80,000 / 250,000 registered users at year end, 4% conversion, Pro ARPU €8.50 net, B2B €0 / 50k / 150k (BP §11.1). With the vision, base-case break-even moves from year 3 to year 2 (BP §11.5). XR and glasses are budgeted at €0. Scenarios are not forecasts.
+### 11.1 Sensitivity (base case)
+
+| Case | Revenue Y3 | vs. base | Cash month 18 | Cash month 24 | Lowest cash | Runway |
+|---|---|---|---|---|---|---|
+| Base | €1,038k | – | €145.8k | €175.2k | €125.4k | > 24 months |
+| Conversion −1 pt | €847k | −18.4% | €117.1k | €109.5k | €82.5k | > 24 months |
+| ARPU −20% | €885k | −14.7% | €122.8k | €122.6k | €91.5k | > 24 months |
+| Users −30% | €779k | −25.0% | €105.8k | €85.4k | €65.5k | > 24 months |
+| Users +30% | €1,298k | +25.0% | €185.8k | €265.0k | €145.4k | > 24 months |
+
+Even the weakest single sensitivity keeps the base case funded beyond month 24.
 
 ---
 
-## 13. Risks and mitigations
+## 12. Valuation – founder offer (negotiation range; review with tax/legal advisor)
+
+Source: finance model, sheet *Valuation* (founder view; every assumption is sourced and labelled).
+
+### 12.1 The offer
+
+| | |
+|---|---|
+| **Pre-money valuation** | **€2,250,000** |
+| Investment | €250,000 |
+| **Post-money valuation** | **€2,500,000** |
+| **Investor stake** | **10.0%** (€250,000 ÷ €2.5M) |
+| Founder after the round (before ESOP) | 90.0% |
+
+### 12.2 Why €2.25M
+
+1. **A working product, not a concept.** v2.1 delivers voice → effect in real time, a performance mode and a safe GIF search; 575+ automated tests and an end-to-end (Playwright) suite – technology risk is largely retired.
+2. **Own IP and content.** 238 voice triggers, 143 free stickers, text-sticker content and the matcher logic are built in-house; the LiveFX trademark filing (DE/EU/TR) is budgeted.
+3. **Three languages incl. a Turkish niche.** Hardly any specialised streaming tools exist in Turkish; our own Turkish community is the launch market.
+4. **Vision options A–D on the same engine** – story engine, WordPicture, Spaces/VR-AR, Studio/auto-edit: option value beyond the creator tool.
+5. **Market size.** Live streaming USD 97–157bn, SAM 1–3m creators (BP §6); education/language learning as a second market.
+6. **Capital efficiency.** Built to v2.1 without external money; per the model the €250,000 lasts 18 months to gate 2.
+7. **Tangible.** Runnable prototypes (Story Film, WordPicture) and trailers – investors see more than a slide.
+
+Honestly against it: solo founder, no revenue and no partners yet. That is why the offer is a **fair, investor-friendly entry price below every reference method** (about 17% below their weighted average).
+
+### 12.3 Reference methods (investor's view)
+
+| Method | Pre-money | Weight | How |
+|---|---|---|---|
+| **Berkus** (moderate 2× variant) | **€2.35M** | 25% | five factors, up to €1M each (valu.vc / icanpitch 2026, $→€ 1:1): idea 0.7 (€700k), product 0.8 (€800k), team 0.5 (€0.5M), strategic relationships 0.25 (€250k), launch/revenue 0.1 (€100k) |
+| **Scorecard** (Payne) | **€2.95M** | 30% | reference €2.5M (lower part of the DACH pre-seed range €1.5–5M, upxcale/Capvisory; below the European median ~€4.2M, Equidam) × factor 1.18 (team 1.0, market 1.4, product 1.4, competition 1.3, marketing 0.8, funding need 1.0, other 1.2) |
+| **VC method** (upside scenario) | **€2.43M** | 20% | Y5 revenue optimistic €7.44M × exit multiple 6 = €44.7M exit; target return 10×, later dilution 40% → post-money €2.68M − €250k investment |
+| **Risk factor summation** | **€3.0M** | 25% | base €2.5M + 2 × €250k: twelve risks scored (development stage, supply chain, competition, technology, international +1; management, sales/marketing, fundraising −1; the rest 0) |
+
+Range €2.35M–€3.0M; weighted average **€2.71M**. The offer of €2.25M is below every method – a fair, investor-friendly entry price.
+
+### 12.4 Alternative: SAFE / convertible loan
+
+| | |
+|---|---|
+| Valuation cap (pre-money) | **€2,250,000** (= the offer's pre-money) |
+| Discount on the seed price | **20%** (negotiable 15–20%) |
+| Interest | none (0%); conversion at the seed round (planned by month 18) → conversion amount €250,000 |
+| Example | seed pre-money €3M → conversion price = min(cap; €3M × 0.8) = €2.25M → stake 10.0% (before the seed money) |
+| Maximum stake at the cap | 10.0% |
+
+All valuation figures: **negotiation range; review with tax/legal advisor.** Not investment advice.
+
+---
+
+## 13. Milestones and KPI gates (18 months)
+
+Scale only after the evidence clears the gate. Values are **targets** from the base case of the finance model (sheet *Gates 18M*); a gate is met when at least the **threshold** (conservative case) is reached. Status of every gate: **target (not yet achieved)**. Proposal – to be agreed with investors.
+
+| Gate | Month | Theme | KPI | Target (base) | Threshold (cons.) | Optimistic | Unlocks |
+|---|---|---|---|---|---|---|---|
+| **G0** | 3 | Start | Pro subscription live (payments), mobile/web developer on board | – | – | – | go-to-market budget phase 2 |
+| **G1** | 6 | Activation | registered users | 10,000 | 4,000 | 20,000 | mobile app/PWA release |
+| | | | paying Pro users | 400 | 120 | 1,000 | |
+| | | | 20 beta creators TR/DE active, 10–20 ambassadors; WordPicture with 300 words; week-4 retention of active streamers ≥ 30% | | | | |
+| **G2a** | 12 | Traction | registered users | 20,000 | 8,000 | 40,000 | DE/EN expansion, platform talks |
+| | | | paying Pro users (year end Y1, BP §11.1) | 800 | 240 | 2,000 | |
+| | | | recurring revenue in month 12 (MRR) | €8,073 | €2,500 | €19,820 | |
+| | | | 1 platform or education pilot started; WordPicture pilot in ≥ 3 courses/classes | | | | |
+| **G2** | 18 | Follow-on | registered users | 50,000 | 19,000 | 110,000 | seed round, expansion team from month 19, story engine/Studio |
+| | | | paying Pro users | 2,000 | 570 | 5,500 | |
+| | | | recurring revenue in month 18 (MRR) | €22,586 | €6,495 | €62,473 | |
+| | | | month-3 Pro retention ≥ 75%; free → Pro conversion ≥ 3% (threshold) / 4% (target); WordPicture pilot evaluated, ≥ 5 paying schools or courses (BP §11.5) | | | | |
+
+### 13.1 Roadmap
+
+| When | Milestone |
+|---|---|
+| Q4 2026 | v2.1 released (performance mode, 143 free stickers, safe GIF search); TR launch |
+| Month 1 (Jan 2027) | closing €250,000; marketing phase 1 (TR), legal and trademark |
+| Month 3 | **G0**: Pro subscription live, mobile/web developer on board |
+| Months 4–15 | WordPicture: 300 words, voice recordings DE/TR/EN, course/class pilot |
+| Month 6 | **G1**: activation; mobile app/PWA release |
+| Month 7 | DE/EN launch, marketing phase 2 |
+| Month 9 | platform or education pilot (8 weeks) |
+| Month 12 | **G2a**: traction; seed talks start |
+| Months 15–18 | **G2**: seed round (≈ €350,000) |
+| From month 19 | expansion team (backend/ML, community, second developer); story engine, Studio/auto-edit, Spaces/VR from the follow-on round |
+
+---
+
+## 14. Risks and mitigations
 
 | Risk | Mitigation (BP §13, §15.8) |
 |---|---|
 | Demand and willingness to pay unproven | gates with cohort measurement; free tier for reach, packs as a low-threshold purchase; budget released only after the gate |
 | A platform builds the feature natively | early pilot/partner pitch; multilingual content and community packs as a moat; open API |
-| Phone-only creators without OBS | mobile developer as the first hire, PWA, demo recording without OBS |
+| Phone-only creators without OBS | mobile/web developer as the first hire (month 3), PWA, demo recording without OBS |
 | Speech recognition with dialect, noise, music | tolerance levels, learning function, external engines, offline Whisper, scene pad |
 | Dependence on browser speech recognition and platform policies | pluggable engine, several routes per platform, phone fallback |
-| Copyright in memes, GIFs, sounds | own synthetic sounds, licensed GIF providers, terms of use |
+| Copyright and child safety in memes, GIFs, sounds | own synthetic sounds; 143 MIT-licensed stickers; GIFs only from KLIPY/GIPHY with `rating=g`, linked not stored, child-safety filter (v2.1) |
 | Data protection and child protection (family, school) | local processing without cloud obligation, no accounts required, on-device recognition in the school profile |
-| The vision spreads the small team too thin | order by closeness to revenue, 20% budget cap, XR only as a showcase |
+| The vision spreads the small team too thin | only WordPicture in the pre-seed (15% of the budget); story engine, Studio and XR move to the follow-on round |
+| Follow-on round not raised by month 18 | gates at months 3/6/12/18, seed talks from month 12, reserve €12,500; 18 months of runway even without revenue, 22 months in the conservative case |
 | Long procurement in education | family subscription and publishers carry the first year; school licences via media centres |
 | Key person | documentation and tests, early hires, advisory board |
 
@@ -272,37 +369,41 @@ An investment in a company at this stage may result in total loss.
 
 ---
 
-## 14. Team
+## 15. Team
 
 | Person | Role | Background |
 |---|---|---|
-| **Tuncay Sancak** | Founder & Inventor, Managing Director | Invented LiveFX and built it to version 2.0 before any funding; leads product, technology and content. Product architect and Germany–Türkiye bridge; former project lead, AI expert and data scientist at Mercedes-Benz; native German and Turkish speaker, trilingual in business. Author of children's books, including the gift book "Good That You Exist" (DE/TR/EN) – experience with content and read-aloud formats. |
+| **Tuncay Sancak** | Founder & Inventor, Managing Director | Invented LiveFX and built it to version 2.1 before any funding; leads product, technology and content. Product architect and Germany–Türkiye bridge; former project lead, AI expert and data scientist at Mercedes-Benz; native German and Turkish speaker, trilingual in business. Author of children's books, including the gift book "Good That You Exist" (DE/TR/EN) – experience with content and read-aloud formats. |
 | **Gönül Demet** | Investor Relations & Fundraising | Leads investor outreach for the pre-seed round and prepared these materials. |
 
-**Team build after financing** (BP §12):
+**Team build after financing** (BP §12, finance model):
 
 | Role | Timing |
 |---|---|
-| Mobile developer (iOS/Android, PWA, later SDK) | from the round |
-| Community and partner management TR/DE | years 1–2, part-time → full-time |
-| Graphics/web developer (Canvas, WebCodecs) for Story Film and Studio | years 1–2 |
-| Backend/ML developer (streaming ASR < 300 ms, offline models) | from month 13 |
-| Illustration, voice talent DE/TR/EN, didactics (freelance) | year 2 |
+| Mobile/web developer (iOS/Android, PWA, later SDK) | from month 3 (pre-seed) |
+| Illustration, voice talent DE/TR/EN, didactics for WordPicture (freelance) | months 4–15 (pre-seed) |
+| Backend/ML developer (streaming ASR < 300 ms, offline models) | from month 19 (follow-on round) |
+| Community and partner management TR/DE, second developer | from month 19 (follow-on round) |
+| Graphics/web developer (Canvas, WebCodecs) for Story Film and Studio | follow-on round |
 | Advisory board: creator management TR, former live product lead at a platform, edtech | year 1 |
 
 Investor contact: **Gönül Demet** · [email] · [phone]
 
 ---
 
-## 15. Materials
+## 16. Materials
 
+- **Finance model:** [`../live-fx/business/LiveFX_Finanzmodell.xlsx`](../live-fx/business/LiveFX_Finanzmodell.xlsx) – assumptions, 5-year P&L, use of funds, monthly cash flow 24 months, gates 18 months, valuation, sensitivity (sheet labels in German; translation sheet DE/TR/EN included)
 - Investor deck: `LiveFX_Investor_Deck_EN.pptx` (DE, TR) · one-pager: `OnePager_EN.pdf` (DE, TR)
 - Investor show: `LiveFX_Investor_Show.html`, video `LiveFX_Investor_Show_EN.mp4` (DE, TR)
 - Business plan `../live-fx/business/BUSINESSPLAN.en.md` (DE, TR), market analysis, vision, pitch deck, sources
+- Product changelog `../live-fx/CHANGELOG.md` (2.1.0)
 - Prototypes `../live-fx/business/prototypes/live-story.html`, `sprachlernen.html`; trailers and vision trailers in `../live-fx/business/video/`
 
 ### Sources cited (numbers as in `QUELLEN.en.md`, with URLs there)
 
 1 market.us – Live Streaming Market · 2 Gyre – Live Streaming Statistics · 3 datarefs – Creator Economy · 4 New Market Pitch – Creator Economy · 5 InfluencerFee – TikTok LIVE Gifting · 6 Muvi – TikTok LIVE · 8 Shopify TR – TikTok coins · 9 Juntire – TikTok live 2026 · 10 Milliyet – coin prices · 11 Capterra – Streamlabs · 12 CreatorStackClub – Streamlabs, StreamYard, Restream · 13 ToolChase – Voicemod · 19 Börsenverein – Buchmarkt kompakt · 20 ARD/ZDF media study 2025 · 23 Meticulous Research – AI video · 24 Google – Gemini API pricing · 25 Veo 3 API pricing 2026 · 27 web.dev – WebGPU · 28 Chrome 139 · 32 Duolingo Q2 2026 · 33 Business of Apps – language-learning apps · 34 Mordor Intelligence – language learning · 36 BAMF – integration courses · 37 bpb – home language · 40 Deutsches Schulportal – DigitalPakt 2.0 · 41 ANTON – school licence · 42 Microsoft Reading Coach · 43 Google Read Along · 45 IDC – smart glasses · 50 Musikwoche – tonies · 51 The Business Research Company – video editing · 52 Expanded Ramblings – CapCut · 56 CNBC – Canva/Cavalry
 
-*Confidential. Scenarios and estimates, not forecasts. This memo is not an offer to sell securities.*
+**Valuation references** (finance model, sheet *Valuation*; web research 4 Oct 2026 – check values before use): Equidam – Pre-Seed Valuations Q1 2025 (https://www.equidam.com/startup-valuation-delta-q1-2025/) · upxcale – Pre-Seed Funding 2026 (https://upxcale.de/blog/pre-seed-funding/) · Capvisory – Startup Funding Stages 2025 (https://capvisory.de/the-startup-funding-stages-from-pre-seed-to-series-c/) · SaaS Capital – 2025 Private SaaS Company Valuations (https://www.saas-capital.com/blog-posts/private-saas-company-valuations-multiples/) · Carta – State of Private Markets Q1 2025 (https://carta.com/data/state-of-private-markets-q1-2025/) · Lexr – convertible loan in practice (https://www.lexr.com/en-de/blog/convertible-loan-in-practice-conversion-interest-rate-discount-cap-valuation/) · Vektora – pre-seed financing in Germany (https://vektora.eu/de/fachbeitraege/pre-seed-finanzierung-in-deutschland-instrumente-und-prozess)
+
+*Confidential. Scenarios and estimates, not forecasts. Valuation and terms are a proposal – review with tax/legal advisor. This memo is not an offer to sell securities.*

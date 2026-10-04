@@ -336,7 +336,7 @@ Keine Plattform-Logos, keine echten Namen oder Gesichter; Zukunftsfunktionen tra
 - **Pilot-Partner Bildung:** [Zahl] DaZ- und Integrationskurse, [Zahl] Grundschulklassen, Medienzentren, Bildungsträger.
 - **Pilot-Partner Verlage und Hörbuch:** Kinderbuch- und Hörbuchverlage für „Hörbuch mit Bildern“ und zweisprachige Editionen; erster Fall ist die eigene Kinderbuchreihe des Gründers.
 - **Team:** Web-/Grafik-Entwicklung (Canvas, WebCodecs), Illustration im Kinderbuch-Stil, Sprecher:innen DE/TR/EN, Didaktik (Beirat).
-- **Finanzierung:** 500.000 € Pre-Seed für LiveFX und alle Projekte (Produkt 2.0 und Linien A–D); ~20 % (100.000 €) bringen die Vision-Linien vom Prototyp zum Produkt, zuerst WortBild/Sprachenlernen und die Story-Engine (Erzählfilm). Mittelverwendung über 24 Monate als Vorschlag in `BUSINESSPLAN.md` Abschnitt 11.6.
+- **Finanzierung:** 250.000 € Pre-Seed für höchstens 10 % (Angebot der Gründer: 2,25 Mio. € Pre-Money, 2,5 Mio. € Post-Money; alternativ SAFE mit Cap 2,25 Mio. € und 20 % Discount) für 18 Monate. 15 % (37.500 €) bringen die erste Vision-Linie WortBild/Sprachenlernen vom Prototyp zum Pilot; Story-Engine (Erzählfilm), Studio und Räume folgen mit der Seed-Runde (≈ 350.000 € bis Monat 18). Mittelverwendung als Vorschlag in `BUSINESSPLAN.md` Abschnitt 11.6.
 - **Förderung:** EXIST, Bildungs- und Integrationsstiftungen (ohne Umsatzannahme in der Planung).
 
 Kontakt: Tuncay Sancak (Gründer & Erfinder, Geschäftsführer) · Investor Relations: Gönül Demet · [E-Mail] · [Website]

@@ -19,6 +19,11 @@
  * tools/node_modules, business/node_modules.
  * Einmalig installieren:  npm i pptxgenjs --prefix tools   (siehe tools/README.md)
  *
+ * Layouts (Feld "layout" je Folie): title, problem, solution, demo, features, whyNow, market, model,
+ * traction, competition, roadmap, vision, sceneEngine, wordImage, studio, team, financials (5-Jahres-
+ * Tabelle, Runway, Bewertung), gates (vier Gate-Spalten mit KPIs), ask. Folien ohne ein Layout fehlen
+ * einfach; DE/TR/EN können also unabhängig um financials/gates ergänzt werden.
+ *
  * Schriftgrößen: Für jedes Textfeld schätzt das Skript aus Textlänge und Feldgröße, ob der Text
  * passt, und setzt die Schriftgröße selbst kleiner, falls nicht (Funktion fitSize). PowerPoint
  * verkleinert Text mit "Autofit" erst, wenn jemand ihn bearbeitet – darauf verlassen wir uns
@@ -621,6 +626,71 @@ L.team = (sd) => {
     label(s, o[0], 7.7, y + 0.28, 4.85, 0.45, { fontSize: 15, bold: true });
     label(s, o[1], 7.7, y + 0.76, 4.85, 0.6, { fontSize: 12, color: MUTED });
   });
+};
+
+// --- Finanzen & Bewertung: 5-Jahres-Tabelle, Runway-Kacheln, drei Bewertungsmethoden, Empfehlung ---
+// Felder: pnlTitle, pnl {header[], rows[[Label, Werte…]], strong (Index fett/pink, optional)}, pnlNote,
+//         runway [[Zahl, Text] × 3], valTitle, methods [[Methode, Betragstext, Wert]], rec [Titel, Zahl, Text],
+//         alt [Titel, Text], note
+L.financials = (sd) => {
+  const s = newSlide(sd); header(s, sd, { kickerColor: GOLD });
+  const lx = M, lw = 7.2;
+  label(s, sd.pnlTitle, lx, 1.42, lw, 0.32, { fontSize: 13, bold: true, color: GOLD });
+  const P = sd.pnl, nc = P.header.length, c0 = 1.75, cw = (lw - c0) / (nc - 1);
+  const strong = P.strong == null ? 2 : P.strong;
+  const rows = [P.header.map((h, j) => ({ text: h, options: { bold: true, color: GOLD, fill: { color: CARD2 }, align: j ? 'right' : 'left' } }))];
+  P.rows.forEach((r, i) => rows.push(r.map((v, j) => ({ text: v, options: {
+    bold: j === 0 || i === strong, color: i === strong && j ? PINK : (j ? WHITE : MUTED),
+    fill: { color: i === strong ? '2A1530' : CARD }, align: j ? 'right' : 'left' } }))));
+  s.addTable(rows, { x: lx, y: 1.8, w: lw, colW: [c0].concat(Array(nc - 1).fill(cw)), fontFace: FONT, fontSize: 12, color: WHITE, border: { type: 'solid', pt: 1, color: BG }, rowH: 0.4, valign: 'middle', margin: [0, 0.1, 0, 0.1] });
+  const ty = 1.8 + 0.4 * (P.rows.length + 1);
+  if (sd.pnlNote) label(s, sd.pnlNote, lx, ty + 0.06, lw, 0.42, { fontSize: 10, color: MUTED, italic: true });
+  const rg = 0.15, rw = (lw - rg * 2) / 3, ry = 4.55;
+  sd.runway.forEach((r, i) => {
+    const x = lx + i * (rw + rg), col = [MINT, SKY, PINK][i];
+    card(s, x, ry, rw, 1.55);
+    label(s, r[0], x + 0.18, ry + 0.12, rw - 0.36, 0.55, { fontSize: 22, bold: true, color: col, min: 13 });
+    label(s, r[1], x + 0.18, ry + 0.72, rw - 0.36, 0.76, { fontSize: 11, color: MUTED });
+  });
+  // rechte Spalte: Bewertung
+  const vx = 8.1, vw = W - M - vx;
+  label(s, sd.valTitle, vx, 1.42, vw, 0.32, { fontSize: 13, bold: true, color: GOLD });
+  const max = Math.max(...sd.methods.map((m) => m[2])), bl = 1.35, bmax = vw - bl - 0.95;
+  sd.methods.forEach((m, i) => {
+    const y = 1.85 + i * 0.42, col = [MINT, SKY, MUTED][i % 3], w = Math.max(0.06, bmax * m[2] / max);
+    label(s, m[0], vx, y, bl - 0.1, 0.32, { fontSize: 11, color: WHITE, valign: 'middle' });
+    s.addShape(pres.shapes.RECTANGLE, { x: vx + bl, y: y + 0.05, w, h: 0.22, fill: { color: col }, line: { type: 'none' } });
+    label(s, m[1], vx + bl + w + 0.08, y, 0.9, 0.32, { fontSize: 11, bold: true, color: col, valign: 'middle' });
+  });
+  const cy = 1.85 + sd.methods.length * 0.42 + 0.12;
+  card(s, vx, cy, vw, 1.45, CARD2, PINK);
+  label(s, sd.rec[0], vx + 0.22, cy + 0.1, vw - 0.44, 0.3, { fontSize: 11, bold: true, color: MUTED });
+  label(s, sd.rec[1], vx + 0.22, cy + 0.38, vw - 0.44, 0.6, { fontSize: 32, bold: true, color: PINK });
+  label(s, sd.rec[2], vx + 0.22, cy + 0.98, vw - 0.44, 0.4, { fontSize: 12, bold: true, color: WHITE });
+  const ay = cy + 1.6;
+  card(s, vx, ay, vw, 6.1 - ay);
+  label(s, sd.alt[0], vx + 0.22, ay + 0.1, vw - 0.44, 0.3, { fontSize: 12, bold: true, color: SKY });
+  label(s, sd.alt[1], vx + 0.22, ay + 0.42, vw - 0.44, 6.1 - ay - 0.5, { fontSize: 11, color: WHITE });
+  if (sd.note) label(s, sd.note, M, 6.3, CW - 1.2, 0.5, { fontSize: 10, color: GOLD, italic: true });
+};
+
+// --- Gates: vier Spalten (G0, G1, G2a, G2) mit KPIs und Freigabe ---
+// Felder: gates [{id, when, theme, kpis[], releases}], releasesLabel, footer
+L.gates = (sd) => {
+  const s = newSlide(sd); header(s, sd, { kickerColor: MINT });
+  const n = sd.gates.length, g = 0.15, cw = (CW - g * (n - 1)) / n, y0 = 1.5, ch = 4.05;
+  s.addShape(pres.shapes.LINE, { x: M + 0.3, y: y0 + 0.27, w: CW - 0.6, h: 0, line: { color: LINE, width: 2 } });
+  sd.gates.forEach((gt, i) => {
+    const x = M + i * (cw + g), col = [PINK, MINT, GOLD, SKY][i % 4];
+    pill(s, gt.id + '  ·  ' + gt.when, x + 0.1, y0 + 0.08, cw - 0.2, 0.38, col, { fontSize: 12 });
+    card(s, x, y0 + 0.62, cw, ch);
+    label(s, gt.theme, x + 0.22, y0 + 0.74, cw - 0.44, 0.4, { fontSize: 15, bold: true, color: col });
+    bullets(s, gt.kpis, x + 0.22, y0 + 1.2, cw - 0.44, 2.5, { fontSize: 11.5, gap: 5, color: WHITE });
+    s.addShape(pres.shapes.LINE, { x: x + 0.22, y: y0 + 3.8, w: cw - 0.44, h: 0, line: { color: LINE, width: 1 } });
+    label(s, sd.releasesLabel, x + 0.22, y0 + 3.87, cw - 0.44, 0.24, { fontSize: 9.5, bold: true, color: MUTED, charSpacing: 1 });
+    label(s, gt.releases, x + 0.22, y0 + 4.13, cw - 0.44, 0.5, { fontSize: 11, bold: true, color: col });
+  });
+  label(s, sd.footer, M, 6.35, CW - 1.2, 0.5, { fontSize: 11, color: MUTED, italic: true });
 };
 
 L.ask = (sd) => {
