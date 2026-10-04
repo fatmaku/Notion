@@ -346,35 +346,6 @@ async function build(lang) {
     src(s, d.src);
   }
 
-  // 11 · Scenario -----------------------------------------------------------
-  {
-    const s = content(SEC[3], 's11');
-    const d = D.s11;
-    s.addChart(pres.charts.BAR, d.series.map(([name, v]) => ({ name, labels: d.years, values: v })), {
-      x: M, y: 1.65, w: 6.9, h: 3.9, barDir: 'col', barGrouping: 'clustered', barGapWidthPct: 60,
-      chartColors: [HEX.pink, HEX.mint, '5A6070'],
-      catAxisLabelColor: HEX.white, catAxisLabelFontSize: 12, catAxisLabelFontFace: '+mn-lt', catAxisLineShow: false,
-      valAxisHidden: true, valGridLine: { style: 'none' }, catGridLine: { style: 'none' },
-      showValue: true, dataLabelPosition: 'outEnd', dataLabelColor: HEX.white, dataLabelFontSize: 10, dataLabelFontFace: '+mn-lt',
-      showLegend: true, legendPos: 'b', legendColor: HEX.muted, legendFontSize: 11, legendFontFace: '+mn-lt',
-      showTitle: true, title: d.chartTitle, titleColor: HEX.muted, titleFontSize: 12, titleFontFace: '+mn-lt', objectName: 'Scenario-chart',
-    });
-    d.results.forEach(([l, v], i) => {
-      const y = 5.68 + i * 0.3;
-      T(s, l, { x: M, y, w: 2.2, h: 0.28, fontSize: 12, bold: true, color: COL.muted });
-      T(s, v, { x: M + 2.25, y, w: 4.6, h: 0.28, fontSize: 12, color: i === 2 ? COL.gold : COL.white });
-    });
-    const x = 7.9, w = W - M - x;
-    card(s, x, 1.7, w, 4.7);
-    H(s, d.runHead, { x: x + 0.3, y: 1.88, w: w - 0.6, h: 0.75, fontSize: 17, color: COL.gold });
-    d.run.forEach(([n, l], i) => {
-      const y = 2.75 + i * 1.18;
-      H(s, n, { x: x + 0.3, y, w: w - 0.6, h: 0.5, fontSize: 28, color: accents[i] });
-      T(s, l, { x: x + 0.3, y: y + 0.52, w: w - 0.6, h: 0.55, fontSize: 12, color: COL.muted });
-    });
-    src(s, d.src);
-  }
-
   // 12 · Use of funds -------------------------------------------------------
   {
     const s = content(SEC[3], 's12');
@@ -387,7 +358,7 @@ async function build(lang) {
     H(s, d.total, { x: M + 1.2, y: 3.6, w: 2.5, h: 0.6, fontSize: 32, align: 'center' });
     T(s, d.totalSub, { x: M + 1.2, y: 4.2, w: 2.5, h: 0.3, fontSize: 10, bold: true, color: COL.muted, align: 'center', charSpacing: 3 });
     const x = 6.0, w = W - M - x;
-    pill(s, D.proposal.toUpperCase(), x, 1.65, 3.9, COL.pink, { fill: { color: COL.wine } });
+    pill(s, D.proposal.toUpperCase(), x, 1.65, 5.0, COL.pink, { fill: { color: COL.wine } });
     d.split.forEach(([p, n, amt, sub], i) => {
       const y = 2.15 + i * 0.84;
       s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: y + 0.17, w: 0.22, h: 0.22, rectRadius: 0.05, fill: { color: cc[i] }, line: { type: 'none' }, objectName: on('Key') });
@@ -398,6 +369,79 @@ async function build(lang) {
       if (i < d.split.length - 1) s.addShape(pres.shapes.LINE, { x, y: y + 0.74, w, h: 0, line: { color: HEX.line, width: 0.75 }, objectName: on('Rule') });
     });
     T(s, d.note, { x, y: 6.4, w, h: 0.45, fontSize: 10, italic: true, color: COL.muted });
+  }
+
+  // 11 · Financials: 5-year base P&L + runway/cash ---------------------------
+  {
+    const s = content(SEC[3], 's11');
+    const d = D.s11;
+    s.addChart(pres.charts.BAR, d.series.map(([name, v]) => ({ name, labels: d.years, values: v })), {
+      x: M, y: 1.6, w: 7.0, h: 4.0, barDir: 'col', barGrouping: 'clustered', barGapWidthPct: 45,
+      chartColors: [HEX.mint, '5A6070', HEX.pink],
+      catAxisLabelColor: HEX.white, catAxisLabelFontSize: 11, catAxisLabelFontFace: '+mn-lt', catAxisLineShow: false, catAxisLabelPos: 'low',
+      valAxisHidden: true, valGridLine: { style: 'none' }, catGridLine: { style: 'none' },
+      showValue: true, dataLabelPosition: 'outEnd', dataLabelColor: HEX.white, dataLabelFontSize: 8, dataLabelFontFace: '+mn-lt', dataLabelFormatCode: '#,##0',
+      showLegend: true, legendPos: 'b', legendColor: HEX.muted, legendFontSize: 11, legendFontFace: '+mn-lt',
+      showTitle: true, title: d.chartTitle, titleColor: HEX.muted, titleFontSize: 12, titleFontFace: '+mn-lt', objectName: 'PnL-chart',
+    });
+    d.results.forEach(([l, v], i) => {
+      const y = 5.72 + i * 0.29;
+      T(s, l, { x: M, y, w: 2.0, h: 0.27, fontSize: 11, bold: true, color: COL.muted });
+      T(s, v, { x: M + 2.05, y, w: 5.0, h: 0.27, fontSize: 11, color: i === 0 ? COL.mint : COL.white });
+    });
+    const x = 7.9, w = W - M - x;
+    card(s, x, 1.6, w, 4.95);
+    H(s, d.runHead, { x: x + 0.25, y: 1.75, w: w - 0.5, h: 0.35, fontSize: 15, color: COL.gold });
+    const lw = 1.45, cw = (w - 0.5 - lw) / d.cashCols.length, ty = 2.2, rh = 0.36;
+    d.cashCols.forEach((c, j) => T(s, c, { x: x + 0.25 + lw + j * cw, y: ty, w: cw, h: rh, fontSize: 10, bold: true, color: COL.muted, align: 'right', valign: 'middle' }));
+    d.cashRows.forEach(([lab, vals], r) => {
+      const y = ty + (r + 1) * rh, base = r === 2;
+      s.addShape(pres.shapes.LINE, { x: x + 0.25, y, w: w - 0.5, h: 0, line: { color: HEX.line, width: 0.75 }, objectName: on('Rule') });
+      T(s, lab, { x: x + 0.25, y, w: lw, h: rh, fontSize: 11, bold: base, color: base ? COL.mint : COL.white, valign: 'middle' });
+      vals.forEach((v, j) => T(s, v, { x: x + 0.25 + lw + j * cw, y, w: cw, h: rh, fontSize: 11, bold: base, color: String(v).startsWith('−') ? COL.pink : (base ? COL.mint : COL.white), align: 'right', valign: 'middle' }));
+    });
+    T(s, d.cashNote, { x: x + 0.25, y: ty + 5 * rh + 0.05, w: w - 0.5, h: 0.25, fontSize: 9, italic: true, color: COL.muted });
+    d.run.forEach(([n, l], i) => {
+      const y = 4.45 + i * 1.0;
+      H(s, n, { x: x + 0.25, y, w: w - 0.5, h: 0.45, fontSize: 24, color: [COL.pink, COL.gold][i] });
+      T(s, l, { x: x + 0.25, y: y + 0.46, w: w - 0.5, h: 0.45, fontSize: 11, color: COL.muted });
+    });
+    src(s, d.src);
+  }
+
+  // 15 · Valuation: founder offer + reference methods ------------------------
+  {
+    const s = content(SEC[3], 's15');
+    const d = D.s15;
+    pill(s, d.proposal.toUpperCase(), W - M - 5.6, 0.38, 5.6, COL.pink, { fill: { color: COL.wine }, fontSize: 8.5, charSpacing: 0.5 });
+    const bx = M + 2.15, bw = 3.45, max = d.scaleMax, cols = [HEX.mint, HEX.gold, HEX.blue, HEX.pink];
+    T(s, d.refHead, { x: M, y: 1.6, w: 7.2, h: 0.3, fontSize: 11, bold: true, color: COL.muted, charSpacing: 2 });
+    d.methods.forEach(([name, v, lab, how], i) => {
+      const y = 1.98 + i * 0.78;
+      T(s, name, { x: M, y, w: 2.1, h: 0.36, fontSize: 13, bold: true, valign: 'middle' });
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: bx, y: y + 0.04, w: bw, h: 0.28, rectRadius: 0.05, fill: { color: COL.card }, line: { type: 'none' }, objectName: on('Track') });
+      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: bx, y: y + 0.04, w: bw * v / max, h: 0.28, rectRadius: 0.05, fill: { color: cols[i] }, line: { type: 'none' }, objectName: on('Bar') });
+      H(s, lab, { x: bx + bw + 0.1, y, w: 1.55, h: 0.36, fontSize: lab.length > 8 ? 13 : 15, color: [COL.mint, COL.gold, COL.blue, COL.pink][i], valign: 'middle' });
+      T(s, how, { x: M, y: y + 0.37, w: 7.2, h: 0.3, fontSize: 9, color: COL.muted });
+    });
+    const ax = bx + bw * d.markerV / max;
+    s.addShape(pres.shapes.LINE, { x: ax, y: 1.9, w: 0, h: 3.1, line: { color: HEX.white, width: 1.5, dashType: 'dash' }, objectName: 'Offer-line' });
+    T(s, d.markerLabel, { x: ax - 1.6, y: 4.98, w: 3.2, h: 0.25, fontSize: 10, bold: true, color: COL.white, align: 'center' });
+    H(s, d.whyHead, { x: M, y: 5.3, w: 7.2, h: 0.3, fontSize: 12, color: COL.gold });
+    const half = Math.ceil(d.why.length / 2);
+    [d.why.slice(0, half), d.why.slice(half)].forEach((list, c) => T(s, list.map((t, k) => ({ text: t, options: { bullet: { indent: 10 }, breakLine: k < list.length - 1 } })), { x: M + c * 3.65, y: 5.62, w: 3.55, h: 0.95, fontSize: 10, paraSpaceAfter: 2 }));
+    const x = 8.15, w = W - M - x;
+    card(s, x, 1.6, w, 3.0, { fill: { color: COL.wine }, line: { color: HEX.pink, width: 1.25 } });
+    H(s, d.offerHead, { x: x + 0.25, y: 1.75, w: w - 0.5, h: 0.3, fontSize: 12, color: COL.pink, charSpacing: 1 });
+    d.offer.forEach(([n, l], i) => {
+      const y = 2.12 + i * 0.78;
+      H(s, n, { x: x + 0.25, y, w: 2.55, h: 0.55, fontSize: n.length > 7 ? 22 : 30, color: [COL.white, COL.white, COL.mint][i], valign: 'middle' });
+      T(s, l, { x: x + 2.85, y, w: w - 3.1, h: 0.55, fontSize: 12, color: COL.muted, valign: 'middle' });
+    });
+    card(s, x, 4.75, w, 1.8);
+    H(s, d.safeHead, { x: x + 0.25, y: 4.88, w: w - 0.5, h: 0.32, fontSize: 13, color: COL.gold });
+    T(s, d.safe.map((t, k) => ({ text: t, options: { bullet: { indent: 10 }, breakLine: k < d.safe.length - 1 } })), { x: x + 0.25, y: 5.24, w: w - 0.5, h: 1.2, fontSize: 11, paraSpaceAfter: 3 });
+    src(s, d.src);
   }
 
   // 13 · Gates --------------------------------------------------------------
@@ -412,7 +456,7 @@ async function build(lang) {
       H(s, h, { x: x + 0.2, y: y + 0.95, w: cw - 0.4, h: 0.45, fontSize: 19 });
       T(s, items.map((t, k) => ({ text: t, options: { breakLine: k < items.length - 1 } })), { x: x + 0.2, y: y + 1.45, w: cw - 0.4, h: ch - 1.55, fontSize: 12, color: COL.white, paraSpaceAfter: 5 });
     });
-    pill(s, D.proposal.toUpperCase(), W - M - 3.9, 0.38, 3.9, COL.pink, { fill: { color: COL.wine } });
+    pill(s, (d.proposal || D.proposal).toUpperCase(), W - M - 4.8, 0.38, 4.8, COL.pink, { fill: { color: COL.wine }, fontSize: 8.5, charSpacing: 0.5 });
     T(s, d.note, { x: M, y: 6.3, w: W - 2 * M, h: 0.45, fontSize: 10, italic: true, color: COL.muted });
   }
 

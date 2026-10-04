@@ -3,7 +3,7 @@
   "file": "LiveFX_Investor_Deck_TR.pptx",
   "deckTitle": "LiveFX – Yatırımcı Sunumu (Pre-Seed, Ekim 2026)",
   "footer": "GİZLİ  ·  PRE-SEED  ·  EKİM 2026",
-  "proposal": "Öneri – lütfen onaylayın",
+  "proposal": "Öneri – vergi/hukuk danışmanıyla kontrol edin",
   "sections": [
     "Fırsat",
     "Ürün ve vizyon",
@@ -16,8 +16,8 @@
     "title": "LiveFX:\nDinleyen\ncanlı yayınlar",
     "sub": "Yayıncının sesi bir saniyeden kısa sürede meme’e, sese ve sahneye dönüşür – yarın da konuşulan her şeyin görüntüsüne.",
     "askLabel": "TUR",
-    "ask": "500.000 €",
-    "askSub": "LiveFX ve tüm LiveFX hatları için · 24 ay",
+    "ask": "250.000 €",
+    "askSub": "18 ay · gelir olmasa bile 18 ay nakit ömrü",
     "people": [
       [
         "KURUCU & MUCİT",
@@ -29,7 +29,7 @@
       ]
     ],
     "imgLabels": [
-      "LiveFX 2.0",
+      "LiveFX 2.1",
       "Vizyon"
     ]
   },
@@ -39,7 +39,7 @@
     "cards": [
       [
         "Hazır ve test edildi",
-        "Sürüm 2.0 çalışıyor: 238 tetikleyici, 13 sahne, 240’tan fazla otomatik test."
+        "Sürüm 2.1 çalışıyor: 238 tetikleyici, 143 ücretsiz çıkartma, 575’ten fazla otomatik test."
       ],
       [
         "Boş bir alan",
@@ -55,10 +55,10 @@
       ],
       [
         "Tek motor, dört hat",
-        "Anlatı Filmi, Kelime-Resim, Mekânlar, Studio – ikinci teknoloji yığını yok."
+        "Önce Kelime-Resim; Anlatı Filmi, Studio ve Mekânlar sonraki turda."
       ]
     ],
-    "bottom": "500.000 € ürünü pazara taşır, iki vizyon hattını prototipten ürüne çevirir."
+    "bottom": "250.000 €, LiveFX’i 18 ayda pazara çıkarır ve Kelime-Resim’i prototipten ürüne taşır."
   },
   "s3": {
     "kicker": "LIVEFX / PAZARDAKİ BOŞLUK",
@@ -107,7 +107,7 @@
   },
   "s4": {
     "kicker": "LIVEFX / KANITLANMIŞ ÜRÜN",
-    "title": "Sesten efekte bir saniyeden kısa sürede",
+    "title": "Sürüm 2.1: sesten efekte bir saniyeden kısa sürede",
     "body": "Yayıncı „yok artık“, „helal olsun“ ya da „alkış“ der – meme belirir, ses çalar. Sesli okuduğunda katman animasyonlu bir sahneye dönüşür.",
     "stats": [
       [
@@ -115,12 +115,12 @@
         "tetikleyici, 5 paket"
       ],
       [
-        "13 · 12",
-        "sahne · atmosfer döngüsü"
+        "143",
+        "ücretsiz çıkartma (MIT)"
       ],
       [
-        "38",
-        "lisanssız ses"
+        "%63–69",
+        "daha kısa kare süresi"
       ],
       [
         "3",
@@ -131,13 +131,13 @@
         "ses → efekt"
       ],
       [
-        "240+",
+        "575+",
         "otomatik test"
       ]
     ],
-    "features": "Hikâye modu · izleyici tetikleyicileri (sohbet, hediye) · telefondan kumanda · çevrimdışı · açık API · OBS/Streamlabs → TikTok LIVE, Instagram, YouTube, Twitch",
-    "status": "Sürüm 2.0  →  TR lansmanı 4Ç 2026  →  Pro abonelik 1Ç 2027",
-    "src": "Kaynak: BUSINESSPLAN.tr.md §3; testler: PITCH-DECK.tr.md slayt 9 · henüz gelir yok"
+    "features": "2.1’de yeni: TR/DE/EN metin çıkartmaları · güvenli GIF araması (KLIPY/GIPHY, rating g, çocuk koruma filtresi) · hikâye modu · izleyici tetikleyicileri · telefondan kumanda · çevrimdışı · OBS/Streamlabs → TikTok LIVE, Instagram, YouTube, Twitch",
+    "status": "v2.1  →  TR lansmanı 4Ç 2026  →  Pro 3. ayda canlı",
+    "src": "Kaynak: BUSINESSPLAN.tr.md §3; live-fx/CHANGELOG.md 2.1.0 (31 efektle, 1920×1080 ölçüm) · henüz gelir yok"
   },
   "s5": {
     "kicker": "LIVEFX / VİZYON 2027–2029",
@@ -147,28 +147,28 @@
         "A",
         "Anlatı Filmi",
         "Generative Scene Engine: Anlatılan cümlelerden canlı ve kesintisiz bir animasyon filmi oluşur.",
-        "Prototip"
+        "Sonraki tur"
       ],
       [
         "B",
         "Kelime-Resim",
         "Dil öğrenme: kelime → resim + hedef dil + telaffuz; okuma desteği, tekrar etme.",
-        "Prototip"
+        "Pre-seed → ürün"
       ],
       [
         "C",
         "Mekânlar",
         "Aynı zaman çizelgesi sahnede, projeksiyonda, telefonda AR’da, VR’da ve gözlükte.",
-        "Sahne bugün"
+        "Sonraki tur"
       ],
       [
         "D",
         "Studio",
         "Yayından öne çıkan anlar, hazır videoların otomatik kurgusu, yerel dışa aktarım.",
-        "Vizyon"
+        "Sonraki tur"
       ]
     ],
-    "bottom": "Gelire yakınlığa göre sıra: önce Kelime-Resim ve hikâye motoru – XR vitrin olarak kalır.",
+    "bottom": "Pre-seed Kelime-Resim’i finanse eder (37.500 €); hikâye motoru, otomatik kurgu ve VR sonraki tura kalır.",
     "src": "Kaynak: VISION.tr.md §1, BUSINESSPLAN.tr.md §15 · Görseller: vizyon fragmanı"
   },
   "s6": {
@@ -368,7 +368,7 @@
       ],
       [
         "Vizyon dağıtır",
-        "%20 bütçe tavanı, XR yalnızca vitrin"
+        "Pre-seed’de yalnızca Kelime-Resim; gerisi seed’de"
       ]
     ],
     "src": "Kaynak: BUSINESSPLAN.tr.md §7, §13"
@@ -379,221 +379,265 @@
     "steps": [
       [
         "4Ç 2026",
-        "TR lansmanı",
-        "İndirme, 10–20 elçi"
+        "v2.1 + TR lansmanı",
+        "Performans modu, 143 çıkartma, güvenli GIF"
       ],
       [
-        "1Ç 2027",
-        "Pro canlı",
-        "DE/EN, Kelime-Resim 300 kelime"
+        "1. ay · Ocak 2027",
+        "Kapanış 250 bin €",
+        "Pazarlama 1. aşama, marka"
       ],
       [
-        "2Ç 2027",
-        "Mobil uygulama",
-        "Anlatı Filmi DE, ajans lisansı"
+        "3. ay",
+        "Kapı 0",
+        "Pro canlı, geliştirici ekipte"
       ],
       [
-        "3Ç 2027",
-        "Platform pilotu",
-        "Pro+, Anlatı Filmi TR/EN"
+        "6. ay",
+        "Kapı 1",
+        "Mobil uygulama/PWA; Kelime-Resim 300 kelime"
       ],
       [
-        "4Ç 2027",
-        "Okul lisansı",
-        "Zaman çizelgesi editörü, MP4"
+        "7–9. ay",
+        "DE/EN + pilot",
+        "Platform veya eğitim pilotu"
       ],
       [
-        "2028",
-        "Scene-SDK v1",
-        "SDK pilotu, aile aboneliği"
+        "12. ay",
+        "Kapı 2a",
+        "Çekiş; seed görüşmeleri"
       ],
       [
-        "2029",
-        "Pilot ya da exit",
-        "Anlatı Filmi 2.0, yayınevleri"
+        "18. ay",
+        "Kapı 2 → seed",
+        "≈ 350 bin €; hikâye motoru, Studio, VR"
       ]
     ],
     "gtm": [
       [
         "1 · TR topluluğu",
-        "Kendi yayınlar, paket yayınları"
+        "1–6. ay: kendi yayınlar, paket ve çıkartma yayınları"
       ],
       [
         "2 · DE/EN",
-        "Okuma ve eğitim yayınları"
+        "7–18. ay: okuma ve eğitim yayınları"
       ],
       [
-        "3 · Ortaklar",
-        "Yayıncı programı, ajanslar"
+        "3 · Pilot",
+        "9. aydan: platform (8 hafta, 20 yayıncı) veya kurslar"
       ],
       [
-        "4 · Platform ve eğitim",
-        "8 hafta, 20 yayıncı; kurslar"
+        "4 · Sonraki tur",
+        "19. aydan: ekip, hikâye motoru, Studio, VR"
       ]
     ],
-    "src": "Kaynak: BUSINESSPLAN.tr.md §10, §14.1, §14.2"
+    "src": "Kaynak: BUSINESSPLAN.tr.md §10, §14.1 · LiveFX_Finanzmodell.xlsx (zaman çizelgesi: Ocak 2027 kapanış = 1. ay)"
   },
   "s11": {
-    "kicker": "LIVEFX / FİNANSAL SENARYO",
-    "title": "Baz senaryo: 3. yılda başabaş, vizyonla 2. yılda",
-    "chartTitle": "Baz senaryo, bin € (tahmin)",
+    "kicker": "LIVEFX / FİNANSALLAR",
+    "title": "Baz: 2. yılda FAVÖK pozitif, 5. yılda 3,2 milyon € gelir",
+    "chartTitle": "5 yıllık gelir tablosu, baz, bin € (tahmin)",
     "years": [
       "1. yıl 2027",
       "2. yıl 2028",
-      "3. yıl 2029"
+      "3. yıl 2029",
+      "4. yıl 2030",
+      "5. yıl 2031"
     ],
     "series": [
       [
-        "Çekirdek gelir",
+        "Gelir",
         [
           51,
           336,
-          1039
+          1038,
+          1984,
+          3152
         ]
       ],
       [
-        "Vizyon geliri",
+        "Maliyet",
         [
-          27,
-          192,
-          617
+          166,
+          295,
+          710,
+          1065,
+          1491
         ]
       ],
       [
-        "Toplam maliyet",
+        "FAVÖK",
         [
-          195,
-          513,
-          920
+          -116,
+          41,
+          328,
+          919,
+          1661
         ]
       ]
     ],
     "results": [
       [
-        "Çekirdek sonuç",
-        "−114 / −62 / +329 bin €"
+        "Baz FAVÖK",
+        "−116 / +41 / +328 / +919 / +1.661 bin €"
       ],
       [
-        "Vizyon dahil",
-        "≈ −117 / +15 / +736 bin €"
+        "Temkinli",
+        "−148 / −114 / −59 / +36 / +147 bin €"
       ],
       [
-        "Temkinli, 3 yıl",
-        "toplam −316 bin €"
+        "İyimser",
+        "−48 / +496 / +1.499 / +3.178 / +5.134 bin €"
       ]
     ],
-    "runHead": "Neden 500.000 €?",
+    "runHead": "Senaryoya göre nakit (bin €)",
+    "cashCols": [
+      "6. ay",
+      "12. ay",
+      "18. ay",
+      "24. ay"
+    ],
+    "cashRows": [
+      [
+        "Gelirsiz",
+        [
+          "179",
+          "88",
+          "8",
+          "−63"
+        ]
+      ],
+      [
+        "Temkinli",
+        [
+          "183",
+          "102",
+          "49",
+          "−11"
+        ]
+      ],
+      [
+        "Baz",
+        [
+          "191",
+          "134",
+          "146",
+          "175"
+        ]
+      ],
+      [
+        "İyimser",
+        [
+          "208",
+          "202",
+          "369",
+          "698"
+        ]
+      ]
+    ],
+    "cashNote": "Sonraki tur hariç. Başabaş: baz 22. ay, iyimser 10. ay.",
     "run": [
       [
-        "≈ 22 ay",
-        "Sıfır gelirle pist (250–350 bin €: ≈ 15–18 ay)"
+        "18 ay",
+        "hiç gelir olmasa bile nakit ömrü (temkinli: 22)"
       ],
       [
-        "≈ 184 bin €",
-        "Temkinli senaryodan sonra kalan (250 bin € yetmez)"
-      ],
-      [
-        "100 bin €",
-        "2027’de A ve B vizyon hatları için"
+        "≈ 350 bin € seed",
+        "planlama büyüklüğü, 2. kapıdan sonra 18. aya kadar"
       ]
     ],
-    "src": "Kaynak: BUSINESSPLAN.tr.md §11.2–11.5 · toplam maliyet = çekirdek + vizyon · senaryodur, öngörü değildir"
+    "src": "Kaynak: LiveFX_Finanzmodell.xlsx (5 yıllık gelir tablosu, nakit akışı, sonraki tur) · 1.–3. yıl gelir BUSINESSPLAN.tr.md §11.1 · senaryolar öngörü değildir"
   },
   "s12": {
     "kicker": "LIVEFX / FON KULLANIMI",
-    "title": "Sermaye önce uygulama kapasitesine",
-    "total": "500 bin €",
-    "totalSub": "24 AY",
+    "title": "18 ayda 250.000 €: önce uygulama",
+    "total": "250 bin €",
+    "totalSub": "18 AY",
     "split": [
       [
         50,
-        "Ürün ve mühendislik ekibi",
-        "250.000 €",
-        "Mobil/web, 13. aydan backend/ML, kurucu kısmen"
+        "Ekip/ürün",
+        "125.000 €",
+        "3. aydan geliştirici, kurucu payı, cihazlar"
       ],
       [
         20,
-        "Vizyon hatları → ürün",
-        "100.000 €",
-        "Önce Kelime-Resim ve hikâye motoru"
+        "Pazara giriş",
+        "50.000 €",
+        "TR, sonra DE/EN lansmanı, elçiler, 1 pilot"
       ],
       [
         15,
-        "Pazara giriş ve pilotlar",
-        "75.000 €",
-        "Yayıncı programı, platform, eğitim"
+        "Kelime-Resim (vizyon B)",
+        "37.500 €",
+        "300 kelime, DE/TR/EN ses, kurs pilotu"
       ],
       [
         10,
         "Hukuk, marka, veri koruma",
-        "50.000 €",
-        "Marka, GDPR/KVKK, platform onayları"
+        "25.000 €",
+        "Marka DE/AB/TR, KVKK/GDPR, sözleşmeler"
       ],
       [
         5,
         "Yedek",
-        "25.000 €",
-        "Tampon"
+        "12.500 €",
+        "planlanmamış"
       ]
     ],
-    "note": "BUSINESSPLAN.tr.md §11.3 ve §11.5 maliyet tablolarından türetilmiştir; altyapı ve yapay zekâ API’si Pro gelirlerinden karşılanır."
+    "note": "Kaynak: LiveFX_Finanzmodell.xlsx, Mittelverwendung sayfası. Hikâye motoru, otomatik kurgu ve VR sonraki tura kalır."
   },
   "s13": {
-    "kicker": "LIVEFX / KİLOMETRE TAŞI KAPILARI",
+    "kicker": "LIVEFX / KİLOMETRE TAŞI KAPILARI – 18 AY",
     "title": "Kanıt kapıdan geçmeden ölçeklendirme yok",
+    "proposal": "Öneri – yatırımcılarla netleştirilecek",
     "gates": [
       [
-        "01",
-        "1Y 2027",
+        "G0",
+        "3. ay",
+        "Başlangıç",
+        [
+          "Pro abonelik canlı (ödeme)",
+          "Mobil/web geliştirici ekipte",
+          "Pazara giriş 2. aşamayı açar"
+        ]
+      ],
+      [
+        "G1",
+        "6. ay",
         "Aktivasyon",
         [
-          "Pro canlı, mobil geliştirici ekipte",
-          "20 beta yayıncı + 10–20 elçi",
-          "4. hafta elde tutma ≥ %[Sayı]"
+          "10.000 kayıtlı (eşik 4.000)",
+          "400 ödeme yapan Pro (120)",
+          "20 beta yayıncı, Kelime-Resim 300 kelime",
+          "4. hafta elde tutma ≥ %30"
         ]
       ],
       [
-        "02",
-        "2Y 2027",
+        "G2a",
+        "12. ay",
         "Çekiş",
         [
-          "20.000 kayıtlı kullanıcı",
-          "≈ 800 ücretli Pro",
-          "1 platform pilotu, 5 okul"
+          "20.000 kayıtlı (8.000)",
+          "800 ödeme yapan Pro (240)",
+          "MRR 8.073 € (2.500 €)",
+          "1 platform veya eğitim pilotu"
         ]
       ],
       [
-        "03",
-        "1Y 2028",
-        "Elde tutma",
+        "G2",
+        "18. ay",
+        "Sonraki tur",
         [
-          "Free → Pro ≥ %4",
-          "3. ay elde tutma ≥ %[Sayı]",
-          "Kelime-Resim pilotu değerlendirildi"
-        ]
-      ],
-      [
-        "04",
-        "2Y 2028",
-        "Ölçek",
-        [
-          "80.000 kayıtlı kullanıcı",
-          "≈ 3.200 Pro",
-          "B2B 50 bin €, 40 okul",
-          "1 SDK ortağı"
-        ]
-      ],
-      [
-        "05",
-        "2029",
-        "Sonuç",
-        [
-          "3. yılda başabaş yolu",
-          "Sonraki tur ya da platform görüşmesi"
+          "50.000 kayıtlı (19.000)",
+          "2.000 ödeme yapan Pro (570)",
+          "MRR 22.586 € (6.495 €)",
+          "3. ay elde tutma ≥ %75, ≥ 5 okul",
+          "→ seed turu ≈ 350 bin €"
         ]
       ]
     ],
-    "note": "Hedef değerler baz senaryodan (BUSINESSPLAN.tr.md §11.1, §11.5, §14) – henüz ulaşılmadı, tahmin. [Sayı] ilk kohortlardan sonra belirlenir."
+    "note": "Hedef = baz senaryo, (eşik) = temkinli; tüm kapıların durumu: hedef (henüz ulaşılmadı). Kaynak: LiveFX_Finanzmodell.xlsx, Gates 18M sayfası."
   },
   "s14": {
     "kicker": "LIVEFX / EKİP VE TUR",
@@ -603,7 +647,7 @@
         "TS",
         "Tuncay Sancak",
         "KURUCU & MUCİT · GENEL MÜDÜR",
-        "LiveFX’i icat etti ve finansmandan önce 2.0’a kadar geliştirdi. Mercedes-Benz’de eski proje lideri, yapay zekâ uzmanı ve veri bilimci; ana dili Almanca ve Türkçe. „İyi ki Varsın“ dahil çocuk kitaplarının yazarı."
+        "LiveFX’i icat etti ve finansmandan önce 2.1’e kadar geliştirdi. Mercedes-Benz’de eski proje lideri, yapay zekâ uzmanı ve veri bilimci; ana dili Almanca ve Türkçe. „İyi ki Varsın“ dahil çocuk kitaplarının yazarı."
       ],
       [
         "GD",
@@ -615,24 +659,91 @@
     "hireHead": "Finansmandan sonra ekip",
     "hires": [
       [
-        "Mobil geliştirici",
-        "turla birlikte"
+        "Mobil/web geliştirici",
+        "3. aydan itibaren"
       ],
       [
-        "Topluluk ve ortaklar TR/DE",
-        "1–2. yıl"
+        "Kelime-Resim: illüstrasyon, ses",
+        "4–15. ay (serbest)"
       ],
       [
-        "Grafik/web geliştirici (Canvas)",
-        "1–2. yıl"
+        "Backend/ML, topluluk",
+        "19. aydan (seed)"
       ],
       [
-        "Backend/ML",
-        "13. aydan itibaren"
+        "İkinci geliştirici",
+        "19. aydan (seed)"
       ]
     ],
-    "askLine": "500.000 € pre-seed · Koşullar [açık]",
+    "askLine": "250.000 € pre-seed · teklif 2,25 milyon €, %10",
     "contact": "Yatırımcı iletişimi: Gönül Demet · [E-posta]",
     "disclaimer": "Gizli pre-seed belgeleri. Geleceğe yönelik ifadeler önemli risklere tabidir; yatırım, sermayenin tamamen kaybına yol açabilir."
+  },
+  "s15": {
+    "kicker": "LIVEFX / DEĞERLEME",
+    "title": "Kurucu teklifi: 2,25 milyon € değerleme, 250 bin €’ya %10",
+    "proposal": "Pazarlık aralığı – vergi/hukuk danışmanıyla kontrol edin",
+    "refHead": "REFERANS YÖNTEMLER (YATIRIMCI GÖRÜŞÜ) · YATIRIM ÖNCESİ",
+    "methods": [
+      [
+        "Berkus (2× varyantı)",
+        2350,
+        "2,35 milyon €",
+        "her biri en fazla 1 milyon € 5 faktör: ürün 0,8, fikir 0,7, ekip 0,5, ilişkiler 0,25, gelir 0,1"
+      ],
+      [
+        "Scorecard",
+        2950,
+        "2,95 milyon €",
+        "referans 2,5 milyon € (DACH aralığı 1,5–5 milyon €’nun alt kısmı, AB medyanı ~4,2 milyon €’nun altında) × 1,18"
+      ],
+      [
+        "VC yöntemi (iyimser)",
+        2430,
+        "2,43 milyon €",
+        "5. yıl gelir 7,44 milyon € (iyimser) × 6 = 44,7 milyon € çıkış; 10× getiri, %40 sulandırma"
+      ],
+      [
+        "Risk faktörü toplamı",
+        3000,
+        "3,0 milyon €",
+        "baz 2,5 milyon € + puanlanan 12 riskten 2 × 250 bin €"
+      ]
+    ],
+    "markerLabel": "Teklif 2,25 milyon € – her yöntemin altında",
+    "whyHead": "Neden 2,25 milyon €",
+    "why": [
+      "Çalışan ürün v2.1, 575+ otomatik test",
+      "Kendi IP: 238 tetikleyici, 143 çıkartma, eşleştirici",
+      "Türkçe niş dahil DE/TR/EN",
+      "Tek motorda A–D vizyon seçenekleri",
+      "Pazar 97–157 milyar USD; SAM 1–3 milyon yayıncı",
+      "v2.1’e kadar dış sermayesiz geliştirildi"
+    ],
+    "offerHead": "KURUCU TEKLİFİ (ÖZSERMAYE TURU)",
+    "offer": [
+      [
+        "2,25 milyon €",
+        "yatırım öncesi"
+      ],
+      [
+        "2,5 milyon €",
+        "yatırım sonrası"
+      ],
+      [
+        "%10",
+        "yatırımcılara · kurucu %90"
+      ]
+    ],
+    "safeHead": "Alternatif: SAFE / dönüştürülebilir kredi",
+    "safe": [
+      "Değerleme tavanı 2,25 milyon € (= teklif)",
+      "İskonto %20 (pazarlığa açık %15–20)",
+      "Faizsiz; seed turunda dönüşür",
+      "Tavanda azami pay: %10"
+    ],
+    "src": "Kaynak: LiveFX_Finanzmodell.xlsx, Bewertung sayfası (kurucu görüşü; valu.vc, upxcale, Capvisory, Equidam, SaaS Capital, Carta, Lexr, Vektora) · yatırım tavsiyesi değildir",
+    "scaleMax": 3000,
+    "markerV": 2250
   }
 }

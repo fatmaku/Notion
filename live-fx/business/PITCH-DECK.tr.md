@@ -1,4 +1,4 @@
-# LiveFX – Sunum (17 slayt, sürüm 2.0 + Vizyon 2027–2029)
+# LiveFX – Sunum (19 slayt, sürüm 2.1 + Vizyon 2027–2029)
 
 > Metin, yapı ve konuşmacı notu şablonu. PowerPoint sürümü `LiveFX_Pitch_TR.pptx` (16:9, koyu tema,
 > Türkçe fragman kareleri `video/stills/tr-…` ve `landing-assets/` ekran görüntüleri) tam olarak bu yapıyı izler;
@@ -13,6 +13,8 @@
 > Köşeli parantez içindeki yer tutucular (`[Sayı]`, `[E-posta]`) bilerek doldurulmadı – uydurma rakam yok.
 > Pazar verileri: kaynaklar `QUELLEN.tr.md` içinde [Kaynak n]; tahminler tahmin olarak işaretlenmiştir.
 
+> Finansal rakamlar (17–19. slaytlar) `LiveFX_Finanzmodell.xlsx` finansal modelinden geliyor (temel rakamlar `tools/finance-250k.json` dosyasında).
+> Ekim 2026 sürümü: talep 250.000 €.
 ---
 
 ## Slayt 1 – Başlık
@@ -65,22 +67,26 @@ Görseller (ya da 30 sn'lik fragman `video/LiveFX_Trailer_tr_16x9.mp4`):
 > Yedek plan fragman. Akılda kalacak cümle: Meme'lerin konuşmama tepki verdiği ilk video beni her slayttan daha
 > çok ikna etti.
 
-## Slayt 5 – Bugünkü ürün (sürüm 2.0)
+## Slayt 5 – Bugünkü ürün (sürüm 2.1)
 
-- **Tanıma**: tarayıcı ASR (Chrome/Edge), otomatik dil DE/TR/EN, şive toleransı, öğrenme işlevi, kendi kendine test
-  ve tanı; API üzerinden harici Whisper/Deepgram; çevrimdışı Whisper (deneysel)
-- **Efekt motoru v2**: fizikli Canvas parçacıkları (60 fps), neon/glitch yazı, alt yazı bantları, kombolar, 4 tema
+- **Tanıma**: tarayıcı ASR (Chrome/Edge), otomatik dil DE/TR/EN, lehçe toleransı, öğrenme işlevi, öz test ve tanılama;
+  API üzerinden Whisper/Deepgram ile harici; çevrimdışı Whisper (deneysel)
+- **Efektler ve performans**: fizikli Canvas parçacıkları (60 fps), neon/glitch/çıkartma metni, alt bantlar, kombolar,
+  4 tema; **performans modu** (auto/eco/high): ortalama kare süresi −%63 ile −%69 arası
 - **Hikâye modu**: 13 tam ekran sahne + 12 atmosfer döngüsü, DE/TR/EN hikâye paketleri
-- **Paketler**: Türkçe 85 · Deutsch 49 · English 50 · Aile ve Çocuk 27 · Oyun 27 tetikleyici, artı GIF arama
-- **Ses**: 38 sentetik ses (lisans ücreti yok), limiter, ducking, stereo ve yankılı mikser
-- **İzleyici tetikleyicileri**: Twitch sohbeti, YouTube sohbeti, hediye webhook'u (TikTok için TikFinity/Streamer.bot)
-- **Telefondan kumanda** (PWA), OBS/Streamlabs, TikTok LIVE Studio, Instagram Live Producer, OBS'siz demo kaydı
-- **Açık HTTP API** (Stream Deck, sohbet botları, harici ASR), token ile kimlik doğrulama, 240+ otomatik test
+- **Paketler**: Türkçe 85 · Deutsch 49 · English 50 · Aile ve Çocuk 27 · Gaming 27 tetikleyici, ayrıca TR/DE/EN **metin çıkartma paketleri**
+- **Çıkartmalar ve GIF'ler**: **143 ücretsiz çıkartma** (Microsoft Fluent Emoji, MIT lisansı, 119'u animasyonlu);
+  gençleri koruma filtreli KLIPY/GIPHY ile **güvenli GIF arama** – GIF'ler kaydedilmiyor, bağlantıyla kullanılıyor
+- **Ses**: 38 sentetik ses (lisans ücreti yok), limiter'lı mikser, ducking, stereo, yankı
+- **Telefon uzaktan kumandası** (PWA), OBS/Streamlabs, TikTok LIVE Studio, Instagram Live Producer, OBS'siz demo kaydı
+- **İzleyiciler ve açık API**: Twitch sohbeti, YouTube sohbeti, hediye webhook'u (TikFinity/Streamer.bot üzerinden TikTok),
+  token korumalı HTTP API (Stream Deck, sohbet botları, harici ASR), 575+ otomatik test
 
-> **Notlar:** Bu artık bir prototip değil: 0.1'den 2.0'a sürümler (2.0 = sahne ve satış için sağlamlaştırma),
-> birim ve uçtan uca testler, DE/TR kılavuzlar.
-> İki şeyin altını çizin: (1) kendi seslerimiz ve paketlerimiz = telif ihlali yok, (2) izleyici tetikleyicileri gelir
-> modeline köprü – bir hediye bugün bile bir efekti tetikleyebiliyor.
+> **Notlar:** Bu artık bir prototip değil: 0.1'den 2.1'e sürümler, birim ve uçtan uca testler, Almanca ve Türkçe
+> kılavuzlar. Sürüm 2.1 ürünü daha hafif ve daha güvenli yaptı: ortalama %63–69 daha az kare süresiyle performans modu,
+> MIT lisanslı 143 ücretsiz çıkartma, üç dilde metin çıkartma paketleri ve gençleri koruma filtreli KLIPY ve GIPHY ile
+> güvenli GIF arama (Google, Tenor API'sini Haziran 2026'da kapattı). İki noktayı vurgulayın: (1) kendi seslerimiz,
+> ücretsiz çıkartmalar ve bağlantılı GIF'ler telif ihlali uyarısı yok demek, (2) izleyici tetikleyicileri gelire giden köprü.
 
 ## Slayt 6 – Neden şimdi
 
@@ -141,7 +147,7 @@ okul, kurs, etkinlik ve yayınevi lisansları – ayrıntılar 13–15. slaytlar
 ## Slayt 9 – Traction
 
 - **Kurucunun kendi canlı yayınlarında kullanılıyor**, [Ay/Yıl]'dan beri – [Sayı] yayın, [Sayı] saat
-- **Ürün**: güncel sürüm 2.0 (0.1 → 2.0), 240+ otomatik test, DE/TR kılavuzlar, demo klipler
+- **Ürün**: güncel sürüm 2.1 (0.1 → 2.1), 575+ otomatik test, DE/TR kılavuzlar, demo klipler
 - **İçerik**: 5 tetikleyici paketi (238 tetikleyici), 3 hikâye paketi, 38 ses, 13 sahne – 3 dilde
 - **Topluluk**: [Sayı] takipçi · bekleme listesinde [Sayı] üretici · [Sayı] indirme
 - **Sonraki 60 gün**: 10 üretici testi TR/DE, açılış sayfası + fragman, topluluk lansmanı, ilk Pro abonelikleri
@@ -164,20 +170,22 @@ Ek olarak: Türkçe paketler ✓, hikâye sahneleri ✓, açık API ✓, yerel �
 > **Notlar:** Sağ alt çeyrek boş – şimdilik. Onu doldurabilecek olanlar platformların kendisi; bu yüzden onlarla
 > konuşuyoruz. Streamlabs ve benzerleri rakip değil, ev sahibi: LiveFX her birinde tarayıcı kaynağı olarak çalışıyor.
 
-## Slayt 11 – Yol haritası
+## Slayt 11 – Yol haritası: 2. kapıya kadar yalın, sonra tohum turu
 
-- **2026 4. çeyrek** – Yerel mobil SDK (efektler yalnızca OBS'te değil, doğrudan kamera uygulamasında), kararlı
-  çevrimdışı tanıma, üretici testleri
-- **2027 1. çeyrek** – Platform entegrasyonu (TikTok LIVE Studio eklentisi / Instagram Live Producer), kurulum
-  programı, pazaryeri beta, “öne çıkanları bul”
-- **2027 2. çeyrek** – Yapay zekâ ile anlama v2 (duygu, bağlam, ironi; cümle başına çoklu tetikleme), Pro aboneliği,
-  canlı ticaret tetikleyicileri
-- **2027 3.–4. çeyrek** – Hikâye motoru (bütün hikâyeler sahne dizisi olarak, prosedürel çizilen sahneler
-  (Anlatı Filmi)), tüm platformlarda izleyici hediyeli efektler, ilk platform pilotu
+- **2027 1. çeyrek (1.–3. ay)** – Pro aboneliği yayında; ön tohum tamamlandı; mobil/web geliştirici ekipte (3. ay); TR lansmanı – G0 kapısı
+- **2027 2. çeyrek (4.–6. ay)** – mobil uygulama/PWA; 300 kelimeli ve okuma destekli Kelime-Resim; 20 beta içerik üreticisi TR/DE – G1 kapısı
+- **2027 3.–4. çeyrek (7.–12. ay)** – DE/EN lansmanı, pazar yerleri, ajans lisansı, platform ya da eğitim pilotu – G2a kapısı
+- **2028 1. yarı (13.–18. ay)** – Kelime-Resim pilotu değerlendirildi; 2. kapıdan sonra yaklaşık 350 bin €'luk tohum turu;
+  19. aydan itibaren hikâye motoru (Anlatı Filmi), Studio (otomatik kurgu), Mekânlar (VR/AR) ve büyüme ekibi
 
-> **Notlar:** Kaldıraca göre sıralama: Mobil SDK en büyük sorunu çözüyor (OBS kullanmayan telefon yayıncıları).
-> Platform entegrasyonu bu sunumun talebi. Yapay zekâ ile anlama ve hikâye motoru teknik farkımız. Önemli: Sahneler
-> bir video yapay zekâsı tarafından üretilmiyor, prosedürel olarak çiziliyor – 12–15. slaytlara köprü bu.
+*18. aya kadar yalın: bir geliştirici, Pro aboneliği, mobil uygulama/PWA, Kelime-Resim. Hikâye motoru, otomatik kurgu ve
+VR/AR sonraki turdan finanse ediliyor.*
+
+> **Notlar:** Para ve kanıta göre sıralı: 250 bin € bizi bir geliştiriciyle 18 ay taşıyor. Önce Pro aboneliği ve mobil
+> uygulama/PWA, paralelde ilk vizyon hattı olarak Kelime-Resim, ardından DE/EN ve bir platform ya da eğitim pilotu. Her
+> adımın bir kapısı var (18. slayt). 18. ayda yaklaşık 350 bin €'luk tohum turunu topluyoruz – hikâye motoru, otomatik
+> kurgu ve VR/AR ancak o zaman başlıyor. Sahneler bir video yapay zekâsıyla üretilmiyor, prosedürel olarak çiziliyor –
+> 12–15. slaytlara köprü bu.
 
 ## Slayt 12 – Vizyon: Kelimelerden canlı video *(“Vizyon” rozeti)*
 
@@ -260,7 +268,7 @@ durumu. Yanında maliyet çubukları (logaritmik).
   donanım kodlayıcıyla MP4 [Kaynak 57, 59]. Şema: çipli zaman çizelgesi (meme pembe, sahne yeşil, zoom altın, kesme gri).
 
 **LiveFX Mekânlar: tek durum, birçok ekran** – 🎤 Sahne ve etkinlik (bugün var) · 🏫 Sınıf (bugün var) ·
-🎧 Resimli sesli kitap (2027) · 📱 Telefonda AR (2027) · 🥽 WebXR/VR (Vizyon 2028) · 👓 Ekranlı gözlük (Vizyon 2028)
+🎧 Resimli sesli kitap (sonraki tur) · 📱 Telefonda AR (sonraki tur) · 🥽 WebXR/VR (Vizyon 2029) · 👓 Ekranlı gözlük (Vizyon 2029)
 
 *Genişleyen pazar:*
 
@@ -287,47 +295,97 @@ bulut maliyeti yok, dakika sınırı yok. XR ve gözlük: vitrin, gelir kalemi d
 
 ## Slayt 16 – Ekip
 
-- **Tuncay Sancak** – Kurucu & Mucit, Genel Müdür · Alman-Türk yazar ve canlı yayıncı · ürün, içerik, topluluk, test laboratuvarı olarak kendi
-  yayınları · TR/DE/EN paketler birinci elden · nöroçeşitlilik üzerine çocuk kitabı serisi (Kelime-Resim ve Anlatı
-  Filmi'ne köprü)
-- **[Açık pozisyon]** – Teknik lider (ses/gerçek zamanlı, mobil SDK, Canvas/WebGPU)
-- **[Açık pozisyon]** – Üretici ortaklıkları / büyüme (TR + DACH), eğitim satışı
-- **Gönül Demet** – Investor Relations (yatırımcı ilişkileri) · yatırımcılar ve ön tohum turu için iletişim kişisi
+- **Tuncay Sancak** – Kurucu ve Mucit, Genel Müdür · Alman-Türk yazar ve canlı yayıncı · ürün, içerik, topluluk, test
+  laboratuvarı olarak kendi yayınları · TR/DE/EN paketleri ilk elden · nöroçeşitlilik üzerine çocuk kitabı serisi
+  (Kelime-Resim ve Anlatı Filmi'ne köprü)
+- **[Açık pozisyon]** – mobil/web geliştirici: ön tohumdan ilk işe alım (3. ay) – iOS/Android, PWA, sonra SDK
+- **[Açık pozisyon]** – içerik üreticisi ortaklıkları / büyüme (TR + DACH), eğitim satışı – tohum turuyla
+- **Gönül Demet** – Yatırımcı İlişkileri (Investor Relations) · yatırımcılar ve ön tohum turu için iletişim kişisi
 - Danışma kurulu / ortaklar (aranıyor): TR içerik üreticisi yönetimi · bir platformun eski „Live“ ürün sorumlusu · eğitim teknolojisi/didaktik
 
-> **Notlar:** Kurucu tek kişide kullanıcı, içerik sağlayıcı ve ürün sorumlusu – ürünün şivelerde, dikey formatta ve
+> **Notlar:** Kurucu, kullanıcı, içerik sağlayıcı ve ürün sahibi tek kişide – ürünün lehçelerle, dikey formatta ve
 > Türkçede çalışmasının nedeni bu. Çocuk kitabı yazarı olarak ilk yayınevi ve eğitim örneğini de kendisi getiriyor.
-> Gönül Demet yatırımcı ilişkilerinden sorumlu. Ön tohum yatırımla (500.000 €) iki işe alım geliyor; Kelime-Resim'i bir eğitim teknolojisi danışma kurulu içerik açısından denetliyor.
+> Gönül Demet yatırımcı ilişkilerinden sorumlu. Ön tohum yatırım (250.000 €) bir işe alımı finanse ediyor – 3. aydan
+> itibaren bir mobil/web geliştirici; diğer işe alımlar 2. kapıdan sonra tohum turuyla geliyor. Kelime-Resim'in içerik
+> kontrolünü bir eğitim teknolojisi danışma kurulu üstleniyor.
 
-## Slayt 17 – Talep
+## Slayt 17 – Finansal tablo ve değerleme *(yeni)*
 
-**“Canlı yayınlara kulak verelim.”**
+**„18 ay için 250 bin € – ardından tohum turu“** (tahminler; kaynak `LiveFX_Finanzmodell.xlsx`)
 
-- **Platform pilotu**: LiveFX, *TikTok LIVE Studio*, *Instagram Live Producer* ya da *YouTube Live*'da bir özellik
-  olarak – tarayıcı kaynağı bugün çalışıyor; 8 hafta, 20 üretici; izlenme süresi, hediyeler ve klipler ölçülür
-- **Eğitim ve dil pilotu** *(yeni)*: eğitim kurumları, uyum kursları, okullar, dil öğrenme platformları ve yayınevleri –
+5 yıllık gelir tablosu, temel senaryo (bin €):
+
+| bin € | 2027 | 2028 | 2029 | 2030 | 2031 |
+|---|---|---|---|---|---|
+| Gelir | 51 | 336 | 1.038 | 1.984 | 3.152 |
+| Gider | 166 | 295 | 710 | 1.065 | 1.491 |
+| **FAVÖK** | **−116** | **+41** | **+328** | **+919** | **+1.661** |
+| Yıl sonu nakit | 134 | 175 | 503 | 1.422 | 3.083 |
+
+2031 geliri: temkinli 602 bin € · iyimser 7,44 milyon €; 4.–5. yıllar ileriye taşındı; henüz gelir yok.
+
+- **Hiç gelir olmadan 18 ay nakit ömrü** (ortalama gider ayda 13.444 €)
+- **18. ayda nakit:** 49 bin € (temkinli) · 146 bin € (temel) · 369 bin € (iyimser)
+- **~350 bin € tohum turu** 2. kapıdan sonra (15.–18. ay)
+
+**Değerleme – kurucunun teklifi: 2,25 milyon € yatırım öncesi değer** (%10,0 karşılığında 250 bin €, yatırım sonrası
+2,5 milyon €) – dört referans yönteminin hepsinin altında: Berkus 2,35 milyon € · Scorecard 2,95 milyon € · VC yöntemi
+2,43 milyon € · Risk Faktörü Toplamı 3,0 milyon € (ağırlıklı 2,71 milyon €). Alternatif: 2,25 milyon € tavanlı, %20
+iskontolu, faizsiz SAFE/dönüştürülebilir kredi – en fazla %10. *Müzakere temeli – vergi/hukuk danışmanıyla kontrol edin.*
+
+> **Notlar:** Temel senaryo: gelir 2027'deki 51 bin €'dan 2031'de 3,15 milyon €'ya çıkıyor; FAVÖK 2028'de pozitife
+> dönüyor ve 22. aydan itibaren kalıcı. Hiç gelir olmasa bile 250 bin € 18 ay yetiyor; 18. ayda 49–369 bin € nakit
+> bekliyoruz, ardından 2. kapıdan sonra yaklaşık 350 bin €'luk bir tohum turu. Değerleme: %10 için 2,25 milyon €
+> yatırım öncesi değer teklifimiz, her referans yönteminin altında adil ve yatırımcı dostu bir giriş fiyatı. Neden:
+> 575+ otomatik testli çalışan ürün (v2.1), kendi fikrî mülkiyeti ve içeriği, Türkçe niş dahil üç dil, tek motor
+> üzerinde A–D vizyon seçenekleri ve sermaye verimliliği – v2.1'e kadar dış sermaye olmadan geliştirildi. Dürüst olmak
+> gerekirse aleyhte: tek kurucu, henüz gelir ve imzalı ortak yok.
+
+## Slayt 18 – Kapılar: 250 bin €'nun kanıtlaması gerekenler *(yeni)*
+
+Tüm değerler hedeftir (henüz ulaşılmadı): hedef = temel senaryo, eşik = temkinli senaryo.
+
+| Kapı | KPI'lar (hedef, parantez içinde eşik) | Açtığı adım |
+|---|---|---|
+| **G0 · 3. ay** – başlangıç | Pro aboneliği yayında (ödeme); mobil/web geliştirici ekipte | Pazara giriş 2. aşama bütçesi |
+| **G1 · 6. ay** – aktivasyon | 10.000 kayıtlı kullanıcı (4.000); 400 ödeme yapan Pro (120); 20 beta içerik üreticisi TR/DE, 10–20 elçi; 300 kelimeli Kelime-Resim; 4. hafta elde tutma ≥ %30 | Mobil uygulama/PWA yayını |
+| **G2a · 12. ay** – çekiş | 20.000 kullanıcı (8.000); 800 ödeme yapan Pro (240); MRR 8.073 € (2.500 €); 1 platform ya da eğitim pilotu; ≥ 3 kurs/sınıfta Kelime-Resim | DE/EN genişlemesi, platform görüşmeleri |
+| **G2 · 18. ay** – sonraki tur | 50.000 kullanıcı (19.000); 2.000 ödeme yapan Pro (570); MRR 22.586 € (6.495 €); Pro 3. ay elde tutma ≥ %75; dönüşüm ≥ %3 / %4; ≥ 5 ödeme yapan okul ya da kurs | Tohum turu, 19. aydan itibaren büyüme ekibi, hikâye motoru/Studio |
+
+> **Notlar:** 18 ayda dört kapı – her biri bir sonraki bütçeyi açıyor. 18. aydaki 2. kapı tohum turunun temeli.
+> Bunların hepsi hedef – henüz hiçbirine ulaşılmadı.
+
+## Slayt 19 – Talep
+
+**„Canlı yayınlara kulak verelim.“**
+
+- **Platform pilotu**: *TikTok LIVE Studio*, *Instagram Live Producer* ya da *YouTube Live*'da bir özellik olarak LiveFX –
+  tarayıcı kaynağı bugün çalışıyor; 8 hafta, 20 içerik üreticisi, ölçülen izlenme süresi, hediyeler ve klipler
+- **Eğitim ve dil pilotu**: eğitim kurumları, uyum kursları, okullar, dil öğrenme platformları ve yayınevleri –
   Kelime-Resim ve Anlatı Filmi'ni [Sayı] kurs/sınıfta ya da [Sayı] kitapla test edin
-- **Ortaklar**: yayın yazılımları (OBS eklentisi, Streamlabs), TR/DACH üretici ajansları, ses/ASR sağlayıcıları,
+- **Ortaklar**: yayın yazılımları (OBS eklentisi, Streamlabs), TR/DACH içerik üreticisi ajansları, ses/ASR sağlayıcıları,
   editör sağlayıcıları (Studio SDK)
-- **Ön tohum: 500.000 €** LiveFX 2.0 ve A–D vizyon hatları için (önce Kelime-Resim ve hikâye motoru), 24 ay;
-  paralelinde satın alma görüşmelerine açığız (teknoloji + ekip)
+- **Ön tohum: %10 karşılığında 250.000 €** (yatırım öncesi değer 2,25 milyon €, yatırım sonrası 2,5 milyon €) ya da
+  2,25 milyon € tavanlı SAFE; 18 ay, yalın: Pro aboneliği, mobil uygulama/PWA, TR → DE/EN lansmanı, Kelime-Resim;
+  paralelinde satın alma görüşmelerine açığız
 
-**24 ay boyunca fon kullanımı – Öneri – lütfen onaylayın** (slayttaki çubuk; ayrıntılar iş planı 11.6):
+**18 aylık fon kullanımı – Öneri – vergi/hukuk danışmanıyla kontrol edin** (slayttaki çubuk; ayrıntılar iş planı 11.6'da):
 
 | Alan | Pay | Tutar |
 |---|---|---|
-| Ürün ve mühendislik ekibi | ~%50 | 250.000 € |
-| Vizyon hatlarının prototipten ürüne taşınması (önce Kelime-Resim/dil öğrenme ve hikâye motoru) | ~%20 | 100.000 € |
-| Pazara giriş, içerik üreticisi programı, pilotlar | ~%15 | 75.000 € |
-| Hukuk, marka, veri koruma | ~%10 | 50.000 € |
-| Rezerv | ~%5 | 25.000 € |
-| **Toplam** | **%100** | **500.000 €** |
+| Ekip/ürün: mobil/web geliştirici, kısmi kurucu maaşı, test cihazları | %50 | 125.000 € |
+| Pazara giriş: içerik üreticisi programı, topluluk, platform ve eğitim pilotları | %20 | 50.000 € |
+| İlk vizyon hattı Kelime-Resim (dil öğrenme) | %15 | 37.500 € |
+| Hukuk, marka, veri koruma | %10 | 25.000 € |
+| Yedek | %5 | 12.500 € |
+| **Toplam** | **%100** | **250.000 €** |
 
-İletişim: Tuncay Sancak, Kurucu & Genel Müdür · Investor Relations: Gönül Demet · [E-posta] · Demo: [Bağlantı] · Kod ve doküman: live-fx/
-*Bu sunum Almanca ve İngilizce de mevcut: `LiveFX_Pitch.pptx` · `LiveFX_Pitch_EN.pptx`*
+İletişim: Tuncay Sancak, Kurucu ve Genel Müdür · Yatırımcı İlişkileri: Gönül Demet · [E-posta] · Demo: [Bağlantı] · Kod ve dokümantasyon: live-fx/
+*Bu sunum Almanca ve İngilizce olarak da mevcut: `LiveFX_Pitch.pptx` · `LiveFX_Pitch_EN.pptx`*
 
-> **Notlar:** Somut bitirin: İhtiyacımız olan, canlı yayın ekibinde bir muhatap ve 20 üreticiyle 8 haftalık bir pilot.
-> Biz katmanı, paketleri, desteği ve ölçümü (izlenme süresi, hediyeler, canlı yayınlardan klipler) sağlıyoruz. Yeni:
-> Kelime-Resim ve Anlatı Filmi için eğitim kurumları, dil öğrenme platformları ya da yayınevleriyle ikinci bir pilot
-> arıyoruz – ilk yayınevi örneği kurucunun kendi çocuk kitabı serisi. Tur hakkında: Hiç gelir olmasa bile 500.000 €
-> yaklaşık 22 ay yetiyor; temkinli senaryo üç yıl boyunca karşılanıyor (iş planı 11.6). Yatırımcı iletişimi: Gönül Demet.
+> **Notlar:** Somut bitirin: canlı yayın ekibinde bir muhatap ve 20 içerik üreticisiyle 8 haftalık bir pilot
+> istiyoruz. Overlay'i, paketleri, desteği ve ölçümü (izlenme süresi, hediyeler, canlı yayınlardan klipler) biz
+> sağlıyoruz. Kelime-Resim ve Anlatı Filmi için eğitim kurumları, dil öğrenme platformları ya da yayınevleriyle ikinci
+> bir pilot arıyoruz – ilk yayınevi örneği kurucunun kendi çocuk kitabı serisi. Tura gelince: 2,25 milyon € yatırım
+> öncesi değerle %10 karşılığında 250.000 € – hiç gelir olmasa bile 18 ay yetiyor; hikâye motoru, otomatik kurgu ve
+> VR/AR, 2. kapıdan sonra yaklaşık 350 bin €'luk tohum turuyla geliyor (iş planı 11.6). Yatırımcı iletişimi: Gönül Demet.
