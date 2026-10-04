@@ -94,7 +94,7 @@ function createSse({ state, log = () => {}, version = '0.0.0' }) {
 
     // Initial state so a fresh overlay picks up the current volume.
     const c = counts();
-    const stateMsg = stamp({ type: 'state', volume: state.volume ?? null, theme: state.theme ?? null, overlays: c.overlays, panels: c.panels, version });
+    const stateMsg = stamp({ type: 'state', volume: state.volume ?? null, theme: state.theme ?? null, perf: state.perf ?? null, overlays: c.overlays, panels: c.panels, version });
     write(client, frame(state.nextSeq(), stateMsg));
 
     client.ping = setInterval(() => write(client, ': ping\n\n'), HEARTBEAT_MS);

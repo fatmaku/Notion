@@ -41,7 +41,8 @@
   const LOWER_THIRD_MS = 4000;
   const TEXT_MAX_LETTERS = 40;
   const THEMES = ['neon', 'pastel', 'minimal', 'kinderbuch'];
-  const TEXT_STYLES = ['neon', 'gradient', 'bounce', 'glitch'];
+  // Fallback when schema.js is missing; the live list is LiveFXSchema.TEXT_STYLES (see textStyles()).
+  const TEXT_STYLES = ['neon', 'gradient', 'bounce', 'glitch', 'sticker'];
   const FALLBACK_SCENES = ['rain', 'night', 'forest', 'sea', 'fire', 'castle', 'snow', 'desert', 'city', 'space', 'sunrise', 'storm', 'clear'];
   // Particle layer: cap per intensity, auto-reduce when a frame takes longer than 20 ms for 30 frames in a row.
   const PARTICLE_CAP = { 1: 400, 2: 800, 3: 1200 };
@@ -82,8 +83,9 @@
   const FALLBACK = {
     rainCount: 60,
     positions: ['center', 'top', 'safe'],
-    assetImageRe: /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp)$/i,
-    httpSrcRe: /^https?:\/\/[^\s"'<>]{1,500}$/i,
+    assetImageRe: /^(?:assets\/[a-z0-9][a-z0-9._-]{0,99}\.(?:png|jpe?g|gif|webp)|memes\/[a-z0-9_-]{1,40}\/[a-z0-9_-]{1,80}\.(?:webp|png))$/i,
+    // same as LiveFXSchema.HOTLINK_SRC_RE: KLIPY / GIPHY media hosts only, https, no userinfo / port
+    hotlinkSrcRe: /^https:\/\/(?:(?:[a-z0-9-]{1,63}\.)?klipy\.com|(?:media[0-9]?|i)\.giphy\.com)\/[^\s"'<>\\]{1,480}$/i,
     colorRe: /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%]+\))$/i,
   };
   const rainMax = () => {
@@ -94,7 +96,11 @@
   const scenes = () => (schema() && schema().SCENES) || FALLBACK_SCENES;
   const themes = () => (schema() && schema().THEMES) || THEMES;
   const assetImageRe = () => (schema() && schema().ASSET_IMAGE_RE) || FALLBACK.assetImageRe;
-  const httpSrcRe = () => (schema() && schema().HTTP_SRC_RE) || FALLBACK.httpSrcRe;
+  const hotlinkSrcRe = () => (schema() && (schema().HOTLINK_SRC_RE || schema().HTTP_SRC_RE)) || FALLBACK.hotlinkSrcRe;
+  const textStyles = () => {
+    const list = schema() && schema().TEXT_STYLES;
+    return Array.isArray(list) && list.length ? list : TEXT_STYLES;
+  };
   const colorRe = () => (schema() && schema().COLOR_RE) || FALLBACK.colorRe;
 
   function escapeHtml(s) {
@@ -147,7 +153,7 @@
   function safeSrc(src) {
     if (typeof src !== 'string') return '';
     const s = src.trim();
-    if ((assetImageRe().test(s) && !s.includes('..')) || httpSrcRe().test(s)) return s;
+    if ((assetImageRe().test(s) && !s.includes('..')) || hotlinkSrcRe().test(s)) return s;
     return '';
   }
 
@@ -1108,9 +1114,18 @@
         return;
       }
       const el = document.createElement('div');
-      el.className = `fx-card fx-card-image ${posClass(v)}`;
+      // Bundled stickers (memes/…) are transparent cut-outs: they float free, without the dark card box.
+      const sticker = src.startsWith('memes/');
+      el.className = `fx-card fx-card-image${sticker ? ' fx-sticker-img' : ''} ${posClass(v)}`;
       const img = document.createElement('img');
       img.alt = '';
+      // A source that does not load (deleted upload, expired hotlink, offline provider) becomes the emoji card.
+      img.onerror = () => {
+        img.onerror = null;
+        if (!el.isConnected) return;
+        el.remove();
+        this.card({ emoji: v.emoji || '🖼️', text: v.text, position: v.position, glow: v.glow, tilt: v.tilt, intensity: v.intensity });
+      };
       img.setAttribute('src', src);
       el.appendChild(img);
       if (v.text) {
@@ -1213,7 +1228,7 @@
         this.card({ emoji: v.emoji || '💬', position: v.position, glow: v.glow, intensity: v.intensity });
         return;
       }
-      let style = TEXT_STYLES.includes(v.style) ? v.style : 'neon';
+      let style = textStyles().includes(v.style) ? v.style : 'neon';
       if (style === 'glitch' && this.eco) style = 'neon'; // eco: no clip-path jitter layers
       const letters = graphemes(raw, true).slice(0, TEXT_MAX_LETTERS);
       const el = document.createElement('div');

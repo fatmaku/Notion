@@ -55,10 +55,30 @@ bleiben; Figuren erscheinen als Sticker oben. 13 Szenen, Geschichten-Pakete für
 bir yokmuş“) und English, Szenen-Pad zur Handsteuerung, eigene Szenen-Trigger im Editor.
 Anleitung: [docs/STORY.md](docs/STORY.md).
 
-## GIF-Suche (Tenor / Giphy)
+## Leistung (2.1)
 
-Im Panel unter **Medien → GIF-Suche** Memes direkt suchen, speichern oder per „Als Trigger“ sofort einem
-Stichwort zuordnen. Braucht einen kostenlosen API-Key von Tenor oder Giphy: [docs/GIFS.md](docs/GIFS.md).
+Im Panel unter **Einstellungen → Leistung**: **Automatisch (empfohlen)** startet mit voller Grafik und schaltet
+bei Dauer-Ruckeln selbst auf Eco, **Eco (schwacher PC)** halbiert Partikel und lässt Glow und Lichtstrahlen weg,
+**Hoch (beste Grafik)** lässt alles an. Das OBS-Overlay folgt sofort, auch wenn es später verbunden wird; fest
+einstellen geht mit `overlay.html?perf=eco`. Der Renderer ist in 2.1 deutlich leichter geworden (Bildzeit im
+Mittel −63 bis −69 %, DOM-Knoten −56 %). Messung und Details: [docs/PERFORMANCE.md](docs/PERFORMANCE.md).
+
+## Kostenlose Sticker (2.1)
+
+Medien-Bibliothek → Tab **„Sticker (kostenlos)“**: 143 Reaktions-Sticker (Microsoft Fluent Emoji, MIT, 62 davon
+animiert), Suche auf Deutsch, Türkçe und English („lachen“, „gül“, „wow“) und Kategorien. **„Als Trigger“** legt
+einen Bild-Trigger an; die Sticker schweben frei über dem Bild, ohne dunkle Karte. Dazu kommen das Paket
+„🎞️ Reaktionen (animiert)“ und die Text-Sticker-Pakete (OHA, KRASS, SHEESH …) im Comic-Stil. Liste, Lizenz und
+eigene Sets: [docs/STICKER.md](docs/STICKER.md).
+
+## GIF-Suche & Jugendschutz (KLIPY / GIPHY)
+
+Im Panel unter **Medien → GIF-Suche** Memes bei **KLIPY** (kostenlos, empfohlen) oder **GIPHY** suchen und per
+„Als Trigger“ sofort einem Stichwort zuordnen. Tenor gibt es nicht mehr (API seit 30. 6. 2026 abgeschaltet).
+Die GIFs werden direkt beim Anbieter verlinkt und **nicht gespeichert** (Nutzungsbedingungen). Gesucht wird
+immer jugendfrei (`rating=g`); ein Filter sperrt unpassende Suchbegriffe und Ergebnisse, einzelne GIFs lassen
+sich ausblenden. Im Overlay erscheinen nur Bilder aus deinen Uploads, den mitgelieferten Stickern oder von
+KLIPY/GIPHY. Key holen und einrichten: [docs/GIFS.md](docs/GIFS.md).
 
 ## Wie kommt das Overlay in Instagram / TikTok / YouTube?
 
@@ -117,7 +137,7 @@ spielt die Vorschau Ton, hören Zuschauer jeden Effekt **doppelt**. Deshalb:
 | Typ | Beschreibung |
 |---|---|
 | `card` | Großes Emoji + Text als Karte, poppt rein (`Screen-Shake` optional) |
-| `image` | Eigenes Bild/GIF (aus der Medien-Bibliothek oder `https://…`) |
+| `image` | Eigenes Bild/GIF aus der Medien-Bibliothek (`assets/…`), mitgelieferter Sticker (`memes/…`, frei schwebend) oder KLIPY/GIPHY-Link (`https://…`); `emoji` wird gezeigt, wenn das Bild nicht lädt |
 | `rain` | Emoji regnet von oben (Anzahl 1–60) |
 | `banner` | Breites Textbanner fährt durch |
 | `confetti` | Konfetti + optionale Karte |
@@ -282,9 +302,10 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
   (`Sec-Fetch-Site`/`Origin`-Prüfung + HttpOnly-Sitzungs-Cookie, das nur die Panel-Seite setzt;
   Host-Allowlist gegen DNS-Rebinding auf allen Routen). Fremde Webseiten und fremde Rechner im LAN
   können ohne Token keine Effekte auslösen.
-- Ausgeliefert werden nur Panel, Overlay, `css/`, `js/` und hochgeladene Medien – nie Server-Code,
+- Ausgeliefert werden nur Panel, Overlay, `css/`, `js/`, die Sticker in `memes/` und hochgeladene Medien – nie Server-Code,
   Tests, `triggers.json` oder `token.txt`. Dateinamen werden bereinigt, Uploads per Magic-Bytes geprüft.
-- Alle Texte aus Triggern werden im Overlay escaped; Bildquellen sind auf `assets/…` und `https://…` beschränkt.
+- Alle Texte aus Triggern werden im Overlay escaped; Bildquellen sind auf `assets/…`, `memes/…` und
+  HTTPS-Links von KLIPY/GIPHY beschränkt (keine fremden Hosts, kein `http://`, keine Ports oder Benutzerangaben).
 
 ## Technik
 
@@ -321,6 +342,6 @@ statische Landingpage (DE/TR/EN).
 ## Roadmap Richtung Produkt
 
 1. **Native Mobile-SDK** für In-App-Live (die eigentliche Lücke bei Instagram/TikTok).
-2. **Meme-Bibliothek** mit lizenzierten GIFs/Sounds (Giphy/Tenor-API), Community-Packs.
+2. **Meme-Bibliothek** mit lizenzierten GIFs/Sounds (KLIPY/GIPHY-API, freie Sticker-Sets), Community-Packs.
 3. **Plattform-Integration**: Pilot mit TikTok/Meta/YouTube, Zuschauer-Trigger nativ (Geschenke → Effekte).
 4. Kontext-Timing (Effekt erst am Satzende) und Streaming-ASR mit < 300 ms Latenz.

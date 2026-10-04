@@ -947,6 +947,74 @@ body.layout-portrait .fx-word { font-size: min(110px, 16vw); }
   100% { transform: translate(-4px, 1px); clip-path: inset(50% 0 10% 0); }
 }
 
+/* sticker (2.1): own text stickers – fill --c1 (color, default #ffd166) with a thick dark outline
+ * (text-stroke painted under the fill + ONE hard drop shadow), a comic burst in --c2 (color2, default #ff2d75)
+ * behind the word (clip-path polygon on .fx-word::before, dark rim on ::after), pop-in + gentle wobble.
+ * Only transform / opacity animate; eco: no wobble. */
+.fx-bigtext.fx-text-sticker { --c1: #ffd166; --c2: #ff2d75; --fx-sticker-ink: #1b1530; }
+.fx-text-sticker > .fx-word {
+  font-size: min(124px, 10.5vw);
+  letter-spacing: 0.02em;
+  padding: 0.5em 0.8em;
+  isolation: isolate;
+}
+body.layout-portrait .fx-text-sticker > .fx-word { font-size: min(96px, 13vw); }
+.fx-text-sticker > .fx-word::before,
+.fx-text-sticker > .fx-word::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 0%, 58% 12%, 68% 2%, 76% 13%, 88% 4%, 86% 18%, 99% 22%, 90% 34%, 100% 50%, 90% 66%, 99% 78%, 86% 82%, 88% 96%, 76% 87%, 68% 98%, 58% 88%, 50% 100%, 42% 88%, 32% 98%, 24% 87%, 12% 96%, 14% 82%, 1% 78%, 10% 66%, 0% 50%, 10% 34%, 1% 22%, 14% 18%, 12% 4%, 24% 13%, 32% 2%, 42% 12%);
+  will-change: transform;
+  animation: fx-sticker-burst-in 0.45s cubic-bezier(0.2, 1.5, 0.4, 1) both, fx-sticker-wobble 1.6s ease-in-out 0.45s infinite alternate;
+}
+.fx-text-sticker > .fx-word::before { background: var(--c2); z-index: -1; }
+.fx-text-sticker > .fx-word::after { background: var(--fx-sticker-ink); z-index: -2; scale: 1.07; }
+.fx-text-sticker > .fx-word > .fx-w > .fx-letter {
+  color: var(--c1);
+  -webkit-text-stroke: 0.14em var(--fx-sticker-ink);
+  paint-order: stroke fill;
+  text-shadow: 0.04em 0.08em 0 var(--fx-sticker-ink);
+  animation: fx-sticker-letter-in 0.42s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+  animation-delay: calc(0.12s + var(--i, 0) * 35ms);
+}
+@keyframes fx-sticker-burst-in {
+  0%   { transform: scale(0.1) rotate(-30deg); opacity: 0; }
+  100% { transform: scale(1) rotate(-4deg); opacity: 1; }
+}
+@keyframes fx-sticker-wobble {
+  0%   { transform: scale(1) rotate(-4deg); }
+  100% { transform: scale(1.04) rotate(3deg); }
+}
+@keyframes fx-sticker-letter-in {
+  0%   { transform: scale(0.2) rotate(-12deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* Free-floating stickers (2.1): image triggers with a bundled memes/… source have no dark card box. */
+.fx-card.fx-card-image.fx-sticker-img {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.fx-sticker-img img {
+  width: min(300px, 26vw);
+  height: auto;
+  max-height: 40vh;
+  object-fit: contain;
+  border-radius: 0;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.4));
+}
+body.layout-portrait .fx-sticker-img img { width: min(300px, 46vw); max-width: 80vw; }
+.fx-sticker-img .fx-text {
+  color: #fff;
+  -webkit-text-stroke: 0.1em #1b1530;
+  paint-order: stroke fill;
+  text-shadow: 0 4px 0 #1b1530;
+}
+.fx-glow.fx-card.fx-card-image.fx-sticker-img { box-shadow: none; }
+
 /* ---- lower third (landscape only; portrait falls back to a banner) ---- */
 .fx-lower-third {
   position: absolute;
@@ -1029,6 +1097,15 @@ body[data-perf="eco"] .fx-impact { animation: none; }
 body[data-perf="eco"] .fx-sticker-emoji { animation: none; }
 body[data-perf="eco"] .fx-text-neon .fx-word { animation: none; text-shadow: 0 0 8px #fff, 0 0 26px var(--c1); }
 body[data-perf="eco"] .fx-text-bounce .fx-letter { animation: fx-letter-in 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both; animation-delay: calc(var(--i, 0) * 45ms); }
+
+body[data-perf="eco"] .fx-text-sticker > .fx-word::before,
+body[data-perf="eco"] .fx-text-sticker > .fx-word::after { animation: fx-sticker-burst-eco 0.3s ease-out both; }
+@keyframes fx-sticker-burst-eco {
+  0%   { transform: scale(0.6) rotate(-4deg); opacity: 0; }
+  100% { transform: scale(1) rotate(-4deg); opacity: 1; }
+}
+body[data-perf="eco"] .fx-sticker-img img { filter: none; }
+body[data-perf="eco"] .fx-glow.fx-card.fx-sticker-img { box-shadow: none; }
 
 /* hidden page (OBS source not visible / background tab): infinite scene animations pause */
 body.fx-hidden .fx-scene,

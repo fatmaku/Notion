@@ -159,3 +159,32 @@ test('memes: the server serves stickers and index.json over HTTP', async () => {
     await server.stop();
   }
 });
+
+// ---- 2.1 integration: sticker library helpers of the panel (js/assets.js → LiveFXAssets.stickers) ----
+
+test('sticker library: index cleans to 143 schema-valid items, search folds de/tr/en + diacritics', () => {
+  require('../js/assets.js');
+  const St = globalThis.LiveFXAssets.stickers;
+  const items = St.clean(index);
+  assert.equal(items.length, 143);
+  for (const it of items) assert.ok(S.isImageSrc(it.file) && S.MEMES_IMAGE_RE.test(it.file), it.file);
+  const ids = (q, c) => St.search(items, q, c).map((x) => x.id);
+  assert.ok(ids('lach').includes('joy'), 'de');
+  assert.ok(ids('gül').includes('joy'), 'tr');
+  assert.deepEqual(ids('gul'), ids('gül'), 'ü folded');
+  assert.ok(ids('LOL').includes('joy'), 'en, case-insensitive');
+  assert.equal(ids('').length, 143);
+  assert.ok(ids('', 'animals').length > 5 && St.search(items, '', 'animals').every((x) => x.category === 'animals'));
+  assert.deepEqual(ids('zzzz-nothing'), []);
+  assert.equal(St.fold('İYİ Işık'), 'iyi isik');
+  // hostile index entries are dropped
+  const bad = St.clean({ items: [{ id: 'x', file: 'memes/../data/token.txt' }, { id: 'y', file: 'https://evil.net/a.webp' }, { id: 'z' }, null, { id: 'ok', file: 'memes/fluent/joy.webp' }] });
+  assert.deepEqual(bad.map((x) => x.id), ['ok']);
+  // hand-over to the panel: image asset with emoji fallback + keywords of the requested language
+  const asset = St.toAsset(items.find((x) => x.id === 'joy'), 'tr');
+  assert.deepEqual({ url: asset.url, type: asset.type, emoji: asset.emoji, sticker: asset.sticker }, { url: 'memes/fluent/joy.webp', type: 'image', emoji: '😂', sticker: true });
+  assert.ok(asset.keywords.length >= 1 && asset.keywords.length <= 3 && asset.keywords.every((k) => index.items.find((x) => x.id === 'joy').keywords.tr.includes(k)));
+  const n = S.normalizeTrigger({ id: 't', label: asset.name, keywords: asset.keywords, visual: { kind: 'image', src: asset.url, emoji: asset.emoji } });
+  assert.deepEqual(n.warnings, []);
+  assert.equal(n.trigger.visual.src, 'memes/fluent/joy.webp');
+});

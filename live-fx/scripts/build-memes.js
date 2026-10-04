@@ -11,6 +11,7 @@
 // How the files are found: a blob-less, no-checkout `git clone --depth 1` of each repository gives the exact
 // file paths (`git ls-tree`), LFS files are then fetched from media.githubusercontent.com, plain files from
 // raw.githubusercontent.com, and every item's `metadata.json` glyph is compared with the curated emoji.
+// Alpha: pixels with alpha < 24 are cleared (removes the faint box from lanczos/yuva420p edges).
 // Conversion: ffmpeg (libwebp_anim) → animated WebP 160 px, looped; a quality ladder keeps each file
 // ≤ 40 KB (fewer fps / lower quality first; alpha is kept). Animations that stay above 46 KB (58 KB for
 // stickers of the reactions pack) at the lowest rung use the static 3D image instead (`animated:false`;
@@ -353,7 +354,7 @@ const LADDER = [
 async function encodeAnimated(src, dest, max = ANIM_MAX_BYTES) {
   let last = null;
   for (const [size, fps, q] of LADDER) {
-    await sh('ffmpeg', ['-v', 'error', '-y', '-f', 'apng', '-i', src, '-vf', `fps=${fps},scale=${size}:${size}:flags=lanczos,format=yuva420p`, '-c:v', 'libwebp_anim', '-lossless', '0', '-quality', String(q), '-compression_level', '6', '-preset', 'picture', '-loop', '0', '-an', dest]);
+    await sh('ffmpeg', ['-v', 'error', '-y', '-f', 'apng', '-i', src, '-vf', `fps=${fps},scale=${size}:${size}:flags=lanczos,format=rgba,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='if(lt(alpha(X,Y),24),0,alpha(X,Y))',format=yuva420p`, '-c:v', 'libwebp_anim', '-lossless', '0', '-quality', String(q), '-compression_level', '6', '-preset', 'picture', '-loop', '0', '-an', dest]);
     last = { size, fps, q, bytes: fs.statSync(dest).size };
     if (last.bytes <= TARGET_BYTES) return last;
   }
@@ -365,7 +366,7 @@ async function encodeAnimated(src, dest, max = ANIM_MAX_BYTES) {
 const isAnimatedWebp = (file) => fs.readFileSync(file).includes(Buffer.from('ANIM'));
 
 async function encodeStatic(src, dest) {
-  await sh('ffmpeg', ['-v', 'error', '-y', '-i', src, '-vf', `scale=${SIZE}:${SIZE}:flags=lanczos`, '-c:v', 'libwebp', '-lossless', '0', '-quality', '80', '-compression_level', '6', '-preset', 'icon', dest]);
+  await sh('ffmpeg', ['-v', 'error', '-y', '-i', src, '-vf', `scale=${SIZE}:${SIZE}:flags=lanczos,format=rgba,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='if(lt(alpha(X,Y),24),0,alpha(X,Y))'`, '-c:v', 'libwebp', '-lossless', '0', '-quality', '80', '-compression_level', '6', '-preset', 'icon', dest]);
   return { size: SIZE, bytes: fs.statSync(dest).size };
 }
 

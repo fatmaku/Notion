@@ -74,7 +74,7 @@
    "id": "squint-laugh",
    "set": "fluent",
    "file": "memes/fluent/squint-laugh.webp",
-   "animated": false,
+   "animated": true,
    "category": "laugh",
    "keywords": {
     "de": [
@@ -97,7 +97,7 @@
    "id": "grin-smile",
    "set": "fluent",
    "file": "memes/fluent/grin-smile.webp",
-   "animated": false,
+   "animated": true,
    "category": "laugh",
    "keywords": {
     "de": [
@@ -120,7 +120,7 @@
    "id": "beam",
    "set": "fluent",
    "file": "memes/fluent/beam.webp",
-   "animated": false,
+   "animated": true,
    "category": "laugh",
    "keywords": {
     "de": [
@@ -143,7 +143,7 @@
    "id": "sweat-smile",
    "set": "fluent",
    "file": "memes/fluent/sweat-smile.webp",
-   "animated": false,
+   "animated": true,
    "category": "laugh",
    "keywords": {
     "de": [
@@ -235,7 +235,7 @@
    "id": "astonished",
    "set": "fluent",
    "file": "memes/fluent/astonished.webp",
-   "animated": false,
+   "animated": true,
    "category": "shock",
    "keywords": {
     "de": [
@@ -258,7 +258,7 @@
    "id": "open-mouth",
    "set": "fluent",
    "file": "memes/fluent/open-mouth.webp",
-   "animated": false,
+   "animated": true,
    "category": "shock",
    "keywords": {
     "de": [
@@ -281,7 +281,7 @@
    "id": "flushed",
    "set": "fluent",
    "file": "memes/fluent/flushed.webp",
-   "animated": false,
+   "animated": true,
    "category": "shock",
    "keywords": {
     "de": [
@@ -304,7 +304,7 @@
    "id": "mind-blown",
    "set": "fluent",
    "file": "memes/fluent/mind-blown.webp",
-   "animated": false,
+   "animated": true,
    "category": "shock",
    "keywords": {
     "de": [
@@ -350,7 +350,7 @@
    "id": "fearful",
    "set": "fluent",
    "file": "memes/fluent/fearful.webp",
-   "animated": false,
+   "animated": true,
    "category": "shock",
    "keywords": {
     "de": [
@@ -373,7 +373,7 @@
    "id": "grimace",
    "set": "fluent",
    "file": "memes/fluent/grimace.webp",
-   "animated": false,
+   "animated": true,
    "category": "shock",
    "keywords": {
     "de": [
@@ -419,7 +419,7 @@
    "id": "hearts-face",
    "set": "fluent",
    "file": "memes/fluent/hearts-face.webp",
-   "animated": false,
+   "animated": true,
    "category": "love",
    "keywords": {
     "de": [
@@ -442,7 +442,7 @@
    "id": "kiss",
    "set": "fluent",
    "file": "memes/fluent/kiss.webp",
-   "animated": false,
+   "animated": true,
    "category": "love",
    "keywords": {
     "de": [
@@ -695,7 +695,7 @@
    "id": "cat-love",
    "set": "fluent",
    "file": "memes/fluent/cat-love.webp",
-   "animated": false,
+   "animated": true,
    "category": "love",
    "keywords": {
     "de": [
@@ -741,7 +741,7 @@
    "id": "hot",
    "set": "fluent",
    "file": "memes/fluent/hot.webp",
-   "animated": false,
+   "animated": true,
    "category": "fire",
    "keywords": {
     "de": [
@@ -879,7 +879,7 @@
    "id": "cake",
    "set": "fluent",
    "file": "memes/fluent/cake.webp",
-   "animated": false,
+   "animated": true,
    "category": "party",
    "keywords": {
     "de": [
@@ -948,7 +948,7 @@
    "id": "music",
    "set": "fluent",
    "file": "memes/fluent/music.webp",
-   "animated": false,
+   "animated": true,
    "category": "party",
    "keywords": {
     "de": [
@@ -1063,7 +1063,7 @@
    "id": "ok-hand",
    "set": "fluent",
    "file": "memes/fluent/ok-hand.webp",
-   "animated": false,
+   "animated": true,
    "category": "thumbs",
    "keywords": {
     "de": [
@@ -1155,7 +1155,7 @@
    "id": "muscle",
    "set": "fluent",
    "file": "memes/fluent/muscle.webp",
-   "animated": false,
+   "animated": true,
    "category": "thumbs",
    "keywords": {
     "de": [
@@ -1293,7 +1293,7 @@
    "id": "holding-tears",
    "set": "fluent",
    "file": "memes/fluent/holding-tears.webp",
-   "animated": false,
+   "animated": true,
    "category": "sad",
    "keywords": {
     "de": [
@@ -1316,7 +1316,7 @@
    "id": "weary",
    "set": "fluent",
    "file": "memes/fluent/weary.webp",
-   "animated": false,
+   "animated": true,
    "category": "sad",
    "keywords": {
     "de": [
@@ -1362,7 +1362,7 @@
    "id": "smile-tear",
    "set": "fluent",
    "file": "memes/fluent/smile-tear.webp",
-   "animated": false,
+   "animated": true,
    "category": "sad",
    "keywords": {
     "de": [
@@ -1385,7 +1385,7 @@
    "id": "melting",
    "set": "fluent",
    "file": "memes/fluent/melting.webp",
-   "animated": false,
+   "animated": true,
    "category": "sad",
    "keywords": {
     "de": [
@@ -1431,7 +1431,7 @@
    "id": "shrug",
    "set": "fluent",
    "file": "memes/fluent/shrug.webp",
-   "animated": false,
+   "animated": true,
    "category": "facepalm",
    "keywords": {
     "de": [
@@ -1477,7 +1477,7 @@
    "id": "unamused",
    "set": "fluent",
    "file": "memes/fluent/unamused.webp",
-   "animated": false,
+   "animated": true,
    "category": "facepalm",
    "keywords": {
     "de": [
@@ -1500,7 +1500,7 @@
    "id": "dizzy-face",
    "set": "fluent",
    "file": "memes/fluent/dizzy-face.webp",
-   "animated": false,
+   "animated": true,
    "category": "facepalm",
    "keywords": {
     "de": [
@@ -1523,7 +1523,7 @@
    "id": "exhale",
    "set": "fluent",
    "file": "memes/fluent/exhale.webp",
-   "animated": false,
+   "animated": true,
    "category": "facepalm",
    "keywords": {
     "de": [
@@ -1569,7 +1569,7 @@
    "id": "monocle",
    "set": "fluent",
    "file": "memes/fluent/monocle.webp",
-   "animated": false,
+   "animated": true,
    "category": "thinking",
    "keywords": {
     "de": [
@@ -1592,7 +1592,7 @@
    "id": "raised-eyebrow",
    "set": "fluent",
    "file": "memes/fluent/raised-eyebrow.webp",
-   "animated": false,
+   "animated": true,
    "category": "thinking",
    "keywords": {
     "de": [
@@ -1615,7 +1615,7 @@
    "id": "shush",
    "set": "fluent",
    "file": "memes/fluent/shush.webp",
-   "animated": false,
+   "animated": true,
    "category": "thinking",
    "keywords": {
     "de": [
@@ -1638,7 +1638,7 @@
    "id": "nerd",
    "set": "fluent",
    "file": "memes/fluent/nerd.webp",
-   "animated": false,
+   "animated": true,
    "category": "thinking",
    "keywords": {
     "de": [
@@ -1730,7 +1730,7 @@
    "id": "cold",
    "set": "fluent",
    "file": "memes/fluent/cold.webp",
-   "animated": false,
+   "animated": true,
    "category": "cool",
    "keywords": {
     "de": [
@@ -1822,7 +1822,7 @@
    "id": "upside-down",
    "set": "fluent",
    "file": "memes/fluent/upside-down.webp",
-   "animated": false,
+   "animated": true,
    "category": "cool",
    "keywords": {
     "de": [
@@ -1845,7 +1845,7 @@
    "id": "zany",
    "set": "fluent",
    "file": "memes/fluent/zany.webp",
-   "animated": false,
+   "animated": true,
    "category": "cool",
    "keywords": {
     "de": [
@@ -1891,7 +1891,7 @@
    "id": "money-mouth",
    "set": "fluent",
    "file": "memes/fluent/money-mouth.webp",
-   "animated": false,
+   "animated": true,
    "category": "money",
    "keywords": {
     "de": [
@@ -1914,7 +1914,7 @@
    "id": "clown",
    "set": "fluent",
    "file": "memes/fluent/clown.webp",
-   "animated": false,
+   "animated": true,
    "category": "cool",
    "keywords": {
     "de": [
@@ -1960,7 +1960,7 @@
    "id": "alien",
    "set": "fluent",
    "file": "memes/fluent/alien.webp",
-   "animated": false,
+   "animated": true,
    "category": "cool",
    "keywords": {
     "de": [
@@ -2006,7 +2006,7 @@
    "id": "relieved",
    "set": "fluent",
    "file": "memes/fluent/relieved.webp",
-   "animated": false,
+   "animated": true,
    "category": "cool",
    "keywords": {
     "de": [
@@ -2029,7 +2029,7 @@
    "id": "hug",
    "set": "fluent",
    "file": "memes/fluent/hug.webp",
-   "animated": false,
+   "animated": true,
    "category": "love",
    "keywords": {
     "de": [
@@ -2052,7 +2052,7 @@
    "id": "yum",
    "set": "fluent",
    "file": "memes/fluent/yum.webp",
-   "animated": false,
+   "animated": true,
    "category": "food",
    "keywords": {
     "de": [
@@ -2075,7 +2075,7 @@
    "id": "yawn",
    "set": "fluent",
    "file": "memes/fluent/yawn.webp",
-   "animated": false,
+   "animated": true,
    "category": "sleeping",
    "keywords": {
     "de": [
@@ -2121,7 +2121,7 @@
    "id": "zzz",
    "set": "fluent",
    "file": "memes/fluent/zzz.webp",
-   "animated": false,
+   "animated": true,
    "category": "sleeping",
    "keywords": {
     "de": [
@@ -2144,7 +2144,7 @@
    "id": "angry",
    "set": "fluent",
    "file": "memes/fluent/angry.webp",
-   "animated": false,
+   "animated": true,
    "category": "angry",
    "keywords": {
     "de": [
@@ -2167,7 +2167,7 @@
    "id": "pouting",
    "set": "fluent",
    "file": "memes/fluent/pouting.webp",
-   "animated": false,
+   "animated": true,
    "category": "angry",
    "keywords": {
     "de": [
@@ -2190,7 +2190,7 @@
    "id": "hundred",
    "set": "fluent",
    "file": "memes/fluent/hundred.webp",
-   "animated": false,
+   "animated": true,
    "category": "100",
    "keywords": {
     "de": [
@@ -2512,7 +2512,7 @@
    "id": "glowing-star",
    "set": "fluent",
    "file": "memes/fluent/glowing-star.webp",
-   "animated": false,
+   "animated": true,
    "category": "star",
    "keywords": {
     "de": [
@@ -2673,7 +2673,7 @@
    "id": "teddy",
    "set": "fluent",
    "file": "memes/fluent/teddy.webp",
-   "animated": false,
+   "animated": true,
    "category": "animals",
    "keywords": {
     "de": [
@@ -2788,7 +2788,7 @@
    "id": "hear-no-evil",
    "set": "fluent",
    "file": "memes/fluent/hear-no-evil.webp",
-   "animated": false,
+   "animated": true,
    "category": "animals",
    "keywords": {
     "de": [
@@ -2811,7 +2811,7 @@
    "id": "speak-no-evil",
    "set": "fluent",
    "file": "memes/fluent/speak-no-evil.webp",
-   "animated": false,
+   "animated": true,
    "category": "animals",
    "keywords": {
     "de": [
@@ -2834,7 +2834,7 @@
    "id": "panda",
    "set": "fluent",
    "file": "memes/fluent/panda.webp",
-   "animated": false,
+   "animated": true,
    "category": "animals",
    "keywords": {
     "de": [
@@ -2857,7 +2857,7 @@
    "id": "fox",
    "set": "fluent",
    "file": "memes/fluent/fox.webp",
-   "animated": false,
+   "animated": true,
    "category": "animals",
    "keywords": {
     "de": [
@@ -2903,7 +2903,7 @@
    "id": "frog",
    "set": "fluent",
    "file": "memes/fluent/frog.webp",
-   "animated": false,
+   "animated": true,
    "category": "animals",
    "keywords": {
     "de": [
@@ -2995,7 +2995,7 @@
    "id": "butterfly",
    "set": "fluent",
    "file": "memes/fluent/butterfly.webp",
-   "animated": false,
+   "animated": true,
    "category": "animals",
    "keywords": {
     "de": [
@@ -3018,7 +3018,7 @@
    "id": "trex",
    "set": "fluent",
    "file": "memes/fluent/trex.webp",
-   "animated": false,
+   "animated": true,
    "category": "animals",
    "keywords": {
     "de": [
@@ -3041,7 +3041,7 @@
    "id": "lion",
    "set": "fluent",
    "file": "memes/fluent/lion.webp",
-   "animated": false,
+   "animated": true,
    "category": "animals",
    "keywords": {
     "de": [
@@ -3064,7 +3064,7 @@
    "id": "sun",
    "set": "fluent",
    "file": "memes/fluent/sun.webp",
-   "animated": false,
+   "animated": true,
    "category": "weather",
    "keywords": {
     "de": [
@@ -3087,7 +3087,7 @@
    "id": "rain",
    "set": "fluent",
    "file": "memes/fluent/rain.webp",
-   "animated": false,
+   "animated": true,
    "category": "weather",
    "keywords": {
     "de": [
@@ -3179,7 +3179,7 @@
    "id": "snowman",
    "set": "fluent",
    "file": "memes/fluent/snowman.webp",
-   "animated": false,
+   "animated": true,
    "category": "weather",
    "keywords": {
     "de": [

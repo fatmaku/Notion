@@ -53,7 +53,14 @@
   const MEMES_IMAGE_RE = /^memes\/[a-z0-9_-]{1,40}\/[a-z0-9_-]{1,80}\.(webp|png)$/;
   const ASSET_IMAGE_RE = /^(?:assets\/[a-z0-9][a-z0-9._-]{0,99}\.(?:png|jpe?g|gif|webp)|memes\/[a-z0-9_-]{1,40}\/[a-z0-9_-]{1,80}\.(?:webp|png))$/i;
   const ASSET_SOUND_RE = /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(mp3|wav|ogg)$/i;
-  const HTTP_SRC_RE = /^https?:\/\/[^\s"'<>]{1,500}$/i;
+  // 2.1: remote images are only hotlinks from the GIF providers' media hosts (KLIPY: klipy.com and one
+  // sub-domain level, GIPHY: media/media0-9/i.giphy.com), https only, no userinfo, no port. Arbitrary http(s)
+  // URLs are rejected (privacy: the overlay would call any host; safety: no unfiltered images on stream).
+  const HOTLINK_SRC_RE = /^https:\/\/(?:(?:[a-z0-9-]{1,63}\.)?klipy\.com|(?:media[0-9]?|i)\.giphy\.com)\/[^\s"'<>\\]{1,480}$/i;
+  /** @deprecated 2.1: alias of HOTLINK_SRC_RE (was any http(s) URL). */
+  const HTTP_SRC_RE = HOTLINK_SRC_RE;
+  // Performance modes of the overlay renderer (docs/PERFORMANCE.md), bus envelope `{type:'perf', perf}`.
+  const PERF_MODES = ['auto', 'eco', 'high'];
   const COLOR_RE = /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%]+\))$/i;
   const BUILTIN_SOUND_RE = /^[a-z][a-zA-Z0-9]{0,30}$/;
   const MSG_ID_RE = /^[\w.-]{1,64}$/;
@@ -62,10 +69,10 @@
     return typeof name === 'string' && SAFE_NAME.test(name) && !name.includes('..');
   }
 
-  /** Image source allowed in `visual.src`: uploaded asset, bundled sticker (`memes/…`) or http(s) URL. */
+  /** Image source allowed in `visual.src`: uploaded asset, bundled sticker (`memes/…`) or KLIPY/GIPHY hotlink. */
   function isImageSrc(src) {
     if (typeof src !== 'string') return false;
-    return ((UPLOAD_IMAGE_RE.test(src) || MEMES_IMAGE_RE.test(src)) && !src.includes('..')) || HTTP_SRC_RE.test(src);
+    return ((UPLOAD_IMAGE_RE.test(src) || MEMES_IMAGE_RE.test(src)) && !src.includes('..')) || HOTLINK_SRC_RE.test(src);
   }
 
   function newId(prefix = 'm') {
@@ -346,10 +353,10 @@
     return (defaults || []).map((d) => d.id).filter((id) => !ids.has(id));
   }
 
-  /** Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`. */
+  /** Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`, 2.1 `perf`. */
   function validateEnvelope(msg) {
     if (!msg || typeof msg !== 'object' || Array.isArray(msg)) return { ok: false, error: 'envelope is not an object' };
-    if (msg.type !== 'fire' && msg.type !== 'volume' && msg.type !== 'theme') return { ok: false, error: 'type must be "fire", "volume" or "theme"' };
+    if (!['fire', 'volume', 'theme', 'perf'].includes(msg.type)) return { ok: false, error: 'type must be "fire", "volume", "theme" or "perf"' };
     const out = {
       id: typeof msg.id === 'string' && MSG_ID_RE.test(msg.id) ? msg.id : newId('m'),
       type: msg.type,
@@ -363,6 +370,9 @@
     } else if (msg.type === 'theme') {
       if (!THEMES.includes(msg.theme)) return { ok: false, error: `theme must be one of ${THEMES.join(', ')}` };
       out.theme = msg.theme;
+    } else if (msg.type === 'perf') {
+      if (!PERF_MODES.includes(msg.perf)) return { ok: false, error: `perf must be one of ${PERF_MODES.join(', ')}` };
+      out.perf = msg.perf;
     } else {
       const v = Number(msg.volume);
       if (!Number.isFinite(v)) return { ok: false, error: 'volume must be a number' };
@@ -394,6 +404,8 @@
     MEMES_IMAGE_RE,
     ASSET_SOUND_RE,
     HTTP_SRC_RE,
+    HOTLINK_SRC_RE,
+    PERF_MODES,
     COLOR_RE,
     isSafeName,
     isImageSrc,

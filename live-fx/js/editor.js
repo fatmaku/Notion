@@ -23,14 +23,14 @@
     'lower-third': 'Bauchbinde (Titel + Untertitel)',
     combo: 'Combo (mehrere Schritte)',
   };
-  const STYLE_LABELS = { neon: 'Neon (pulsierend)', gradient: 'Farbverlauf', bounce: 'Hüpfend', glitch: 'Glitch' };
+  const STYLE_LABELS = { neon: 'Neon (pulsierend)', gradient: 'Farbverlauf', bounce: 'Hüpfend', glitch: 'Glitch', sticker: 'Sticker (Comic)' };
   // German scene names for the scene select; unknown ids fall back to the id itself.
   const SCENE_LABELS = { rain: 'Regen', night: 'Nacht', forest: 'Wald', sea: 'Meer', fire: 'Feuer', castle: 'Schloss', snow: 'Schnee', desert: 'Wüste', city: 'Stadt', space: 'Weltraum', sunrise: 'Sonnenaufgang', storm: 'Gewitter', clear: 'Szene beenden' };
   const POS_LABELS = { center: 'Mitte', top: 'Oben', safe: 'Sicher (Hochkant: über dem Chat)' };
   // Which fields each visual kind uses. Others are hidden (values are kept in the draft anyway).
   const FIELDS_BY_KIND = {
     card: ['emoji', 'text', 'colors', 'position', 'intensity', 'fx'],
-    image: ['image', 'text', 'position', 'intensity', 'fx'],
+    image: ['image', 'emoji', 'text', 'position', 'intensity', 'fx'], // emoji = fallback when the image fails to load
     banner: ['emoji', 'text', 'position', 'intensity', 'fx'],
     rain: ['emoji', 'count', 'intensity', 'fx'],
     confetti: ['emoji', 'text', 'intensity', 'fx'],
@@ -303,7 +303,7 @@
     const img = dialog.querySelector('.fx-image-preview');
     const src = field('src').value;
     const sc = S();
-    if (src && (sc.ASSET_IMAGE_RE.test(src) || sc.HTTP_SRC_RE.test(src))) {
+    if (src && (sc.ASSET_IMAGE_RE.test(src) || (sc.HOTLINK_SRC_RE || sc.HTTP_SRC_RE).test(src))) {
       img.setAttribute('src', src);
       img.hidden = false;
     } else {

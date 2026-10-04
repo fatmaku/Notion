@@ -52,6 +52,7 @@ function register(router, ctx) {
       const msg = v.msg;
       if (msg.type === 'volume') ctx.state.volume = msg.volume;
       if (msg.type === 'theme') ctx.state.theme = msg.theme;
+      if (msg.type === 'perf') ctx.state.perf = msg.perf;
       ctx.bus.broadcast(msg, { audience: 'all' });
       json(res, 200, { ok: true, id: msg.id, overlays: ctx.bus.counts().overlays });
     })

@@ -78,9 +78,12 @@
   function safeSrc(src) {
     if (typeof src !== 'string') return '';
     const s = src.trim();
-    if ((S.ASSET_IMAGE_RE.test(s) && !s.includes('..')) || S.HTTP_SRC_RE.test(s)) return s;
+    if ((S.ASSET_IMAGE_RE.test(s) && !s.includes('..')) || (S.HOTLINK_SRC_RE || S.HTTP_SRC_RE).test(s)) return s;
     return '';
   }
+
+  // Same polygon as the clip-path of .fx-text-sticker .fx-word::before (css/overlay.css), in % of the box.
+  const BURST_POINTS = [[50, 0], [58, 12], [68, 2], [76, 13], [88, 4], [86, 18], [99, 22], [90, 34], [100, 50], [90, 66], [99, 78], [86, 82], [88, 96], [76, 87], [68, 98], [58, 88], [50, 100], [42, 88], [32, 98], [24, 87], [12, 96], [14, 82], [1, 78], [10, 66], [0, 50], [10, 34], [1, 22], [14, 18], [12, 4], [24, 13], [32, 2], [42, 12]];
 
   /** Piecewise-linear keyframe lookup: frames = [[t(0..1), value], ...] sorted by t. */
   function kf(frames, t) {
@@ -140,22 +143,25 @@
       this.active = [];
     }
 
-    /** Big animated word (v2 `text` kind): neon glow | gradient | bounce | glitch, 3 s, letters staggered. */
+    /** Big animated word (v2 `text` kind): neon glow | gradient | bounce | glitch | sticker (2.1), 3 s, letters staggered. */
     bigText(v, now) {
       const text = typeof v.text === 'string' ? v.text.trim() : '';
       if (!text) {
         this.card({ emoji: v.emoji || '💬', position: v.position }, now);
         return;
       }
-      const styles = ['neon', 'gradient', 'bounce', 'glitch'];
+      const styles = Array.isArray(S.TEXT_STYLES) ? S.TEXT_STYLES : ['neon', 'gradient', 'bounce', 'glitch', 'sticker'];
+      const style = styles.includes(v.style) ? v.style : 'neon';
+      const sticker = style === 'sticker';
       this._add({
         kind: 'text',
         t0: now,
         dur: 3000,
-        letters: graphemes(text).slice(0, 40),
-        style: styles.includes(v.style) ? v.style : 'neon',
-        c1: safeColor(v.color) || '#ff512f',
-        c2: safeColor(v.color2) || '#dd2476',
+        // spaces are kept (like the overlay's .fx-space) so „YOK ARTIK“ does not become „YOKARTIK“
+        letters: text.split(/\s+/).flatMap((w, i) => (i ? [' ', ...graphemes(w)] : graphemes(w))).slice(0, 40),
+        style,
+        c1: safeColor(v.color) || (sticker ? '#ffd166' : '#ff512f'),
+        c2: safeColor(v.color2) || (sticker ? '#ff2d75' : '#dd2476'),
         emoji: typeof v.emoji === 'string' ? v.emoji : '',
         glow: v.glow === true || !styles.includes(v.style) || v.style === 'neon',
         position: v.position,
@@ -326,7 +332,16 @@
         this.card({ emoji: v.emoji || '🖼️', text: v.text, position: v.position }, now);
         return;
       }
-      this._add({ kind: 'image', t0: now, dur: 2800, img: this._loadImage(src), text: typeof v.text === 'string' ? v.text : '', position: v.position });
+      this._add({
+        kind: 'image',
+        t0: now,
+        dur: 2800,
+        img: this._loadImage(src),
+        sticker: src.startsWith('memes/'), // bundled sticker: free-floating, no dark card box
+        emoji: typeof v.emoji === 'string' && v.emoji ? v.emoji : '🖼️', // shown when the image fails to load
+        text: typeof v.text === 'string' ? v.text : '',
+        position: v.position,
+      });
     }
 
     _loadImage(src) {
@@ -456,11 +471,13 @@
       let bodyH = 0;
       let imgW = 0;
       let imgH = 0;
-      const isImage = fx.kind === 'image';
+      const broken = fx.kind === 'image' && fx.img && fx.img.complete && !(fx.img.naturalWidth > 0);
+      const isImage = fx.kind === 'image' && !broken;
+      const noBox = isImage && fx.sticker;
       if (isImage) {
         const img = fx.img;
         const ok = img && img.complete && img.naturalWidth > 0;
-        const maxImgW = this.portrait ? W * 0.8 : W * 0.4;
+        const maxImgW = fx.sticker ? Math.min(300, W * (this.portrait ? 0.46 : 0.26)) : this.portrait ? W * 0.8 : W * 0.4;
         const maxImgH = this.portrait ? H * 0.4 : H * 0.45;
         if (ok) {
           const k = Math.min(maxImgW / img.naturalWidth, maxImgH / img.naturalHeight, 1);
@@ -494,12 +511,14 @@
       ctx.translate(cx, cy);
       ctx.rotate((rot * Math.PI) / 180);
       ctx.scale(scale, scale);
-      ctx.shadowColor = 'rgba(0,0,0,0.45)';
-      ctx.shadowBlur = 60;
-      ctx.shadowOffsetY = 20;
-      ctx.fillStyle = isImage ? '#111' : fx.bg;
-      roundRect(ctx, -cardW / 2, -cardH / 2, cardW, cardH, 32);
-      ctx.fill();
+      if (!noBox) {
+        ctx.shadowColor = 'rgba(0,0,0,0.45)';
+        ctx.shadowBlur = 60;
+        ctx.shadowOffsetY = 20;
+        ctx.fillStyle = isImage || broken ? '#111' : fx.bg;
+        roundRect(ctx, -cardW / 2, -cardH / 2, cardW, cardH, 32);
+        ctx.fill();
+      }
       ctx.shadowColor = 'transparent';
       ctx.shadowBlur = 0;
       ctx.shadowOffsetY = 0;
@@ -522,15 +541,21 @@
         }
         y += imgH;
       } else if (fx.emoji) {
-        ctx.fillStyle = fx.color;
+        ctx.fillStyle = fx.color || '#fff';
         ctx.font = `${emojiSize}px ${FONT}`;
         ctx.fillText(fx.emoji, 0, y, cardW - padX * 2);
         y += emojiSize;
       }
       if (text) {
         y += bodyW || imgW ? 8 : 0;
-        ctx.fillStyle = isImage ? '#fff' : fx.color;
+        ctx.fillStyle = fx.kind === 'image' ? '#fff' : fx.color;
         ctx.font = `900 ${textSize}px ${FONT}`;
+        if (noBox) {
+          ctx.lineJoin = 'round';
+          ctx.lineWidth = textSize * 0.2;
+          ctx.strokeStyle = '#1b1530';
+          ctx.strokeText(text, 0, y + textSize * 0.08, cardW - padX * 2);
+        }
         ctx.shadowColor = 'rgba(0,0,0,0.25)';
         ctx.shadowOffsetY = 4;
         ctx.fillText(text, 0, y + textSize * 0.08, cardW - padX * 2);
@@ -841,7 +866,8 @@
       const ctx = this.ctx;
       const W = this.W;
       const H = this.H;
-      const size = Math.min(150, W * (this.portrait ? 0.16 : 0.13));
+      const sticker = fx.style === 'sticker';
+      const size = sticker ? Math.min(this.portrait ? 96 : 124, W * (this.portrait ? 0.13 : 0.105)) : Math.min(150, W * (this.portrait ? 0.16 : 0.13));
       const emojiSize = fx.emoji ? Math.min(120, W * 0.14) : 0;
       const life = kf([[0, 0], [0.1, 1], [0.88, 1], [1, 0]], t);
       const scale = kf([[0, 0.8], [0.1, 1], [0.88, 1], [1, 1.15]], t);
@@ -871,6 +897,7 @@
       }
       const baseline = y + size * 0.9;
       const elapsed = now - fx.t0;
+      if (sticker) this._drawBurst(fx, rowW, size, y + size * 0.52, elapsed);
       let fill = fx.style === 'bounce' ? fx.c1 : '#fff';
       if (fx.style === 'gradient') {
         const g = ctx.createLinearGradient(-rowW / 2, 0, rowW / 2, 0);
@@ -897,6 +924,19 @@
         ctx.scale(inS, inS);
         ctx.font = `900 ${size}px ${FONT}`;
         ctx.textAlign = 'center';
+        if (sticker) {
+          // .fx-text-sticker letters: dark outline under a --c1 fill + one hard drop
+          ctx.lineJoin = 'round';
+          ctx.lineWidth = size * 0.28;
+          ctx.strokeStyle = '#1b1530';
+          ctx.strokeText(g, size * 0.04, size * 0.08);
+          ctx.strokeText(g, 0, 0);
+          ctx.fillStyle = fx.c1;
+          ctx.fillText(g, 0, 0);
+          ctx.restore();
+          x += widths[i];
+          return;
+        }
         if (fx.glow || fx.style === 'neon') {
           const pulse = 0.7 + 0.3 * Math.abs(Math.sin(elapsed / 350));
           ctx.shadowColor = fx.c1;
@@ -917,6 +957,33 @@
         ctx.restore();
         x += widths[i];
       });
+    }
+
+    /** Comic burst behind a sticker word (twin of .fx-text-sticker .fx-word::before/::after): --c2 star, dark rim. */
+    _drawBurst(fx, rowW, size, cy, elapsed) {
+      const ctx = this.ctx;
+      const w = rowW + size * 1.6; // padding 0.5em 0.8em like the CSS
+      const h = size * 1.05 + size * 1.0;
+      const pop = Math.min(1, elapsed / 450);
+      const s = pop < 1 ? 0.1 + 0.9 * (1 - Math.pow(1 - pop, 3)) * 1.05 : 1 + 0.02 * Math.sin((elapsed - 450) / 500);
+      const rot = ((pop < 1 ? -30 + 26 * pop : -4 + 3.5 * Math.sin((elapsed - 450) / 800)) * Math.PI) / 180;
+      const pts = BURST_POINTS;
+      ctx.save();
+      ctx.translate(0, cy);
+      ctx.rotate(rot);
+      for (const [scale, color] of [[1.07, '#1b1530'], [1, fx.c2]]) {
+        ctx.beginPath();
+        pts.forEach(([px, py], i) => {
+          const X = (px / 100 - 0.5) * w * s * scale;
+          const Y = (py / 100 - 0.5) * h * s * scale;
+          if (i) ctx.lineTo(X, Y);
+          else ctx.moveTo(X, Y);
+        });
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+      ctx.restore();
     }
 
     /** Canvas twin of .fx-lower-third: bar bottom-left, slides in / out, accent stripe, title + subtitle. */

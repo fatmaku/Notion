@@ -61,7 +61,12 @@ curl -X PUT http://127.0.0.1:8787/api/gifs/keys \
   gilt die Browsersprache.
 - **⚡ Als Trigger** öffnet den Trigger-Editor mit einem Bild-Trigger. Als Bildquelle dient der **direkte Link
   (Hotlink)** auf den Medienserver des Anbieters, in einer kleinen Version (webp/gif, ca. 200 px). Das ist
-  schnell und schont das Overlay.
+  schnell und schont das Overlay. Das Trigger-Schema lässt als Link **nur** `https://` auf `klipy.com` (plus eine
+  Subdomain, z. B. `static.klipy.com`) und `media.giphy.com` / `media0–9.giphy.com` / `i.giphy.com` zu, ohne Port
+  und ohne Benutzerangabe (`HOTLINK_SRC_RE` in `js/schema.js`). Andere Adressen werden zur Emoji-Karte. Lädt ein
+  GIF später nicht mehr (gelöscht beim Anbieter, offline), zeigt das Overlay ebenfalls das Emoji des Triggers.
+- Kostenlose Alternative ohne Key: Tab **„Sticker (kostenlos)“** in derselben Mediathek (143 Fluent-Emoji-Sticker,
+  siehe [STICKER.md](STICKER.md)).
 - **🙈 ausblenden** entfernt ein einzelnes GIF aus allen künftigen Suchen in diesem Browser (gespeichert unter
   `localStorage` → `livefx.gifs.hidden`). „Ausgeblendete wieder zeigen“ holt die GIFs der aktuellen Suche
   zurück.

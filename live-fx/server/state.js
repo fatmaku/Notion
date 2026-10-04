@@ -124,6 +124,7 @@ function createState({ dataDir, defaults = [], log = () => {} }) {
     version: VERSION,
     volume: null,
     theme: null,
+    perf: null, // 2.1: last performance mode from the panel (auto | eco | high), repeated in the SSE `state` message
     seq: 0,
     updatedAt: null,
     matcher: null,

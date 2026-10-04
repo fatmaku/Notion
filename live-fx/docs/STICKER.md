@@ -4,7 +4,7 @@
 
 **Was ist dabei?**
 
-- **143 Reaktions-Sticker** in `memes/fluent/` (62 animiert, 81 statisch, WebP 160 px, zusammen ca. 3,0 MB),
+- **143 Reaktions-Sticker** in `memes/fluent/` (119 animiert, 24 statisch, WebP 160 px, zusammen ca. 4,3 MB),
   Liste mit DE/TR/EN-Stichwörtern und Kategorie in `memes/index.json`. Quelle: Microsoft Fluent Emoji (MIT).
   Statische Sticker bewegen sich im Overlay trotzdem: Pop/Tilt/Bounce kommen aus dem CSS.
 - **Paket „🎞️ Reaktionen (animiert)“** (`reactions`, 42 Trigger, davon 31 animiert): z. B. „tränen gelacht“, „kopf explodiert“,
@@ -14,6 +14,11 @@
   LÄUFT, EHRENFRAU, GG, SHEESH. Das sind keine Dateien: Sie werden live gerendert, im Textstil `sticker`.
   Die Stichwörter dürfen sich mit dem Meme-Paket derselben Sprache überschneiden. Am besten lädst du nur
   einen der beiden Stile.
+
+**Im Panel:** Medien-Bibliothek → Tab **„Sticker (kostenlos)“**: Suche über die DE/TR/EN-Stichwörter („lachen“,
+„gül“, „wow“), Kategorien, Abzeichen „animiert“. **„⚡ Als Trigger“** öffnet den Editor mit einem Bild-Trigger
+(`src: "memes/fluent/<id>.webp"`, das Emoji als Ersatz, falls das Bild nicht lädt, Stichwörter vorbelegt). Im
+Overlay schweben Sticker aus `memes/` frei, ohne dunkle Karte (Klasse `fx-sticker-img`).
 
 **Lizenzen:** Fluent Emoji: MIT, © Microsoft Corporation (Volltext in `THIRD-PARTY-NOTICES.md`).
 Text-Sticker: eigene Inhalte. Klassische Meme-Bilder (Filmszenen, Fotos von Personen) sind
@@ -42,8 +47,8 @@ die Liste (ohne Netz). Animationen, die auch mit 5 fps und niedriger Qualität g
 
 ## Türkçe
 
-**Neler var?** `memes/fluent/` klasöründe **143 tepki stickerı** var: 62 animasyonlu, 81 sabit, WebP
-160 px, toplam yaklaşık 3,0 MB. Kaynak: Microsoft Fluent Emoji (MIT). Liste ve DE/TR/EN anahtar kelimeler
+**Neler var?** `memes/fluent/` klasöründe **143 tepki stickerı** var: 119 animasyonlu, 24 sabit, WebP
+160 px, toplam yaklaşık 4,3 MB. Kaynak: Microsoft Fluent Emoji (MIT). Liste ve DE/TR/EN anahtar kelimeler
 `memes/index.json` dosyasında. **„🎞️ Reaktionen (animiert)“** paketi 42 tetikleyici içeriyor (31'i animasyonlu); anahtar
 kelimeleri başka hiçbir paketle çakışmıyor. **Kendi yazı stickerlarımız** (`text-tr`, `text-de`, `text-en`):
 OHA, YOK ARTIK, AYNEN, EYVAH, HELAL, EFSANE … Bunlar dosya değil, `sticker` yazı stiliyle canlı çiziliyor.
@@ -60,8 +65,8 @@ müstehcen emojiler, marka logoları. Bu kurallar kodda ve testlerde kontrol edi
 
 ## English
 
-**What's bundled:** **143 reaction stickers** in `memes/fluent/`: 62 animated and 81 static, WebP 160 px,
-about 3.0 MB in total. Source: Microsoft Fluent Emoji (MIT). They are indexed with DE/TR/EN keywords in
+**What's bundled:** **143 reaction stickers** in `memes/fluent/`: 119 animated and 24 static, WebP 160 px,
+about 4.3 MB in total. Source: Microsoft Fluent Emoji (MIT). They are indexed with DE/TR/EN keywords in
 `memes/index.json`. The pack **"🎞️ Reaktionen (animiert)"** (`reactions`, 42 triggers, 31 of them animated) has keywords that
 collide with no other pack. The **own text stickers** (`text-tr`, `text-de`, `text-en`: GG, W, L, LET'S GO,
 NO WAY, SHEESH, CLUTCH, SLAY, BRUH …) are not files. They are rendered live with the text style `sticker`.

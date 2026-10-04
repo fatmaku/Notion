@@ -155,3 +155,32 @@ dialog.fx-editor::backdrop { background: rgba(0, 0, 0, 0.6); backdrop-filter: bl
 .fx-editor .fx-f-steps code { font-size: 11px; background: var(--fx-bg-2); padding: 1px 4px; border-radius: 4px; }
 .fx-steps-error { margin-top: 6px; font-size: 12px; color: var(--fx-accent); }
 .fx-editor .fx-f-intensity select option { color: var(--fx-text); }
+
+/* ---- library tabs + free sticker library (2.1, LiveFXAssets.mountLibrary -> .lib-tabs / .sticker-lib) ---- */
+.lib-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; border-bottom: 1px solid var(--fx-border, var(--border, #2b303c)); padding-bottom: 8px; }
+.lib-tab { width: auto; opacity: 0.75; }
+.lib-tab.active { opacity: 1; outline: 2px solid var(--accent-2, #7c5cff); outline-offset: 1px; }
+.lib-pane[hidden] { display: none; }
+.sticker-form .sticker-q {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg, #0f1115);
+  color: var(--text, #e8eaf0);
+  border: 1px solid var(--fx-border, var(--border, #2b303c));
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+}
+.sticker-chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+.sticker-chip { width: auto; padding: 3px 9px !important; font-size: 11px !important; border-radius: 999px !important; opacity: 0.8; }
+.sticker-chip.active { opacity: 1; background: var(--accent-2, #7c5cff) !important; color: #fff !important; }
+.sticker-status { font-size: 12px; color: var(--fx-muted, var(--muted, #8d93a3)); min-height: 16px; margin: 4px 0 8px; }
+.sticker-status.error { color: var(--accent, #ff4d6d); }
+.sticker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; max-height: 420px; overflow-y: auto; padding-right: 2px; }
+.sticker-empty { grid-column: 1 / -1; font-size: 13px; color: var(--fx-muted, var(--muted, #8d93a3)); }
+.sticker-item { position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; padding: 6px; background: var(--bg, #0f1115); border: 1px solid var(--fx-border, var(--border, #2b303c)); border-radius: 10px; }
+.sticker-thumb { width: 64px; height: 64px; object-fit: contain; }
+.sticker-badge { position: absolute; top: 4px; right: 4px; font-size: 9px; font-weight: 700; letter-spacing: .02em; padding: 1px 5px; border-radius: 999px; background: var(--accent-2, #7c5cff); color: #fff; }
+.sticker-name { max-width: 100%; font-size: 11px; color: var(--text, #e8eaf0); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sticker-trigger { width: 100%; padding: 4px 6px !important; font-size: 11px !important; white-space: nowrap; }
+.sticker-credit { margin: 8px 0 0; font-size: 11px; color: var(--fx-muted, var(--muted, #8d93a3)); text-align: right; }

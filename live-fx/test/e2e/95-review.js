@@ -600,7 +600,7 @@ async function run({ browser, startServer, api, shotDir, log }) {
             { id: 'rv-text', label: 'Text', keywords: ['textwort'], visual: { kind: 'text', text: 'WOW', style: 'glitch' } },
             { id: 'rv-lt', label: 'Bauchbinde', keywords: [], visual: { kind: 'lower-third', title: 'Max', emoji: '🎤' } },
             { id: 'rv-combo', label: 'Combo', keywords: [], visual: { kind: 'combo', steps: [{ delay: 0, visual: { kind: 'text', text: 'GO' } }, { delay: 300, visual: { kind: 'confetti' } }] } },
-            { id: 'rv-img', label: 'Bild', keywords: [], visual: { kind: 'image', src: 'https://example.com/a.png' } },
+            { id: 'rv-img', label: 'Bild', keywords: [], visual: { kind: 'image', src: 'https://media.giphy.com/media/review/200.gif' } },
           ],
           removed: [],
         },
@@ -628,7 +628,7 @@ async function run({ browser, startServer, api, shotDir, log }) {
       assert.equal(tiles.text, '✨', 'text tile falls back to the default emoji');
       assert.equal(tiles.lt, '🎤');
       assert.equal(tiles.combo, 'Combo');
-      assert.equal(tiles.img, 'https://example.com/a.png');
+      assert.equal(tiles.img, 'https://media.giphy.com/media/review/200.gif');
       assert.ok(tiles.all >= 4);
       await phone.tap('#pad button[data-id="rv-combo"]');
       await phone.waitForFunction(() => /Combo/.test(document.querySelector('#transcript').textContent), null, { timeout: 3000 });

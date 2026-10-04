@@ -15,7 +15,7 @@
 // also compares it with the server's /health version and re-precaches when they differ).
 'use strict';
 
-const SHELL_VERSION = '2.0.0';
+const SHELL_VERSION = '2.1.0';
 const OVERLAY_MODE = new URLSearchParams(self.location.search).get('shell') === 'overlay';
 const CACHE_PREFIX = OVERLAY_MODE ? 'livefx-overlay-' : 'livefx-shell-';
 const CACHE = OVERLAY_MODE ? `livefx-overlay-v${SHELL_VERSION}` : `livefx-shell-v${SHELL_VERSION}`;
@@ -55,6 +55,8 @@ const FULL_SHELL = [
   '/js/mobile.js',
   '/js/mobile-link.js',
   '/js/safety.js',
+  // 2.1: sticker index for the sticker library in the panel (the 143 stickers themselves are fetched on use)
+  '/memes/index.json',
 ];
 // What overlay.html loads (plus the icons) – keep in sync with its <script>/<link> tags.
 const OVERLAY_SHELL = [

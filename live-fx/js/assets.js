@@ -1,5 +1,6 @@
 // LiveFX – media library client: list / upload / delete uploaded images and sounds, thumbnails for
 // the soundboard, and a small library widget for the panel. See docs/CONTRACTS.md §11.
+// 2.1: library tabs „Dateien & GIFs“ (uploads + GIF search) and „Sticker (kostenlos)“ (memes/index.json).
 (function (global) {
   'use strict';
 
@@ -476,6 +477,189 @@
     return { search, destroy() {} };
   }
 
+
+  // ---- Free sticker library (2.1): bundled Fluent Emoji from memes/index.json (docs/STICKER.md) ----
+  // Same-origin files, MIT licensed: „Als Trigger“ hands {name, url:'memes/fluent/x.webp', type:'image', emoji}
+  // to onCreateTrigger exactly like a GIF result, so the panel creates an image trigger with emoji fallback.
+  const STICKER_INDEX = 'memes/index.json';
+  const STICKER_CREDIT = 'Fluent Emoji © Microsoft, MIT – siehe THIRD-PARTY-NOTICES.md';
+  const STICKER_CATS = {
+    laugh: '😂 Lachen', shock: '😱 Schock', love: '❤️ Liebe', fire: '🔥 Feuer', party: '🎉 Party', applause: '👏 Applaus',
+    thumbs: '👍 Gesten', sad: '😢 Traurig', pleading: '🥺 Bitte', facepalm: '🤦 Facepalm', thinking: '🤔 Denken', cool: '😎 Cool',
+    money: '💰 Geld', ghost: '👻 Geist', food: '🍕 Essen', sleeping: '😴 Müde', angry: '😠 Wütend', symbol: '💯 Symbole',
+    rocket: '🚀 Rakete', crown: '👑 Krone', trophy: '🏆 Pokal', star: '⭐ Stern', sparkles: '✨ Glitzer', eyes: '👀 Augen',
+    popcorn: '🍿 Popcorn', animals: '🐶 Tiere', weather: '🌈 Wetter', 100: '💯 100',
+  };
+  let stickerCache = null;
+
+  /** Lower-case + diacritics folded (ä→a, ğ→g, ı→i …) so „gul“ finds „gülmek“ and „lach“ finds „Lachtränen“. */
+  function fold(str) {
+    return String(str || '')
+      .toLocaleLowerCase('tr')
+      .replace(/ı/g, 'i')
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/ß/g, 'ss');
+  }
+
+  /** Keeps only well-formed index items whose file is a bundled sticker path the schema accepts. */
+  function cleanStickers(index) {
+    const items = index && Array.isArray(index.items) ? index.items : [];
+    const sc = S();
+    const re = (sc && sc.MEMES_IMAGE_RE) || /^memes\/[a-z0-9_-]{1,40}\/[a-z0-9_-]{1,80}\.(webp|png)$/;
+    return items
+      .filter((it) => it && typeof it.id === 'string' && typeof it.file === 'string' && re.test(it.file) && !it.file.includes('..'))
+      .map((it) => {
+        const kw = it.keywords && typeof it.keywords === 'object' ? it.keywords : {};
+        const keywords = {};
+        for (const l of ['de', 'tr', 'en']) keywords[l] = Array.isArray(kw[l]) ? kw[l].filter((k) => typeof k === 'string').slice(0, 12) : [];
+        const item = {
+          id: it.id,
+          file: it.file,
+          animated: it.animated === true,
+          category: typeof it.category === 'string' ? it.category : '',
+          emoji: typeof it.emoji === 'string' ? it.emoji : '',
+          name: typeof it.name === 'string' ? it.name : it.id,
+          keywords,
+        };
+        item.hay = fold([item.id, item.name, item.emoji, ...keywords.de, ...keywords.tr, ...keywords.en].join(' '));
+        return item;
+      });
+  }
+
+  /** Filters stickers by free text (every word must occur in keywords de/tr/en, name or id) and category. */
+  function searchStickers(items, q, category) {
+    const words = fold(q).split(/\s+/).filter(Boolean);
+    return (items || []).filter((it) => (!category || it.category === category) && words.every((w) => it.hay.includes(w)));
+  }
+
+  const stickers = {
+    CREDIT: STICKER_CREDIT,
+    CATEGORIES: STICKER_CATS,
+    fold,
+    clean: cleanStickers,
+    search: searchStickers,
+    /** Loads + caches memes/index.json. Resolves with the cleaned item list. */
+    async load() {
+      if (stickerCache) return stickerCache;
+      const res = await fetch(STICKER_INDEX, { cache: 'default' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      stickerCache = cleanStickers(await res.json());
+      return stickerCache;
+    },
+    /** The asset handed to onCreateTrigger for a sticker (keywords of `lang` prefill the editor). */
+    toAsset(it, lang = 'de') {
+      const kws = (it.keywords[lang] && it.keywords[lang].length ? it.keywords[lang] : it.keywords.en) || [];
+      const first = String(kws[0] || it.name);
+      const name = `${it.emoji ? `${it.emoji} ` : ''}${first.charAt(0).toUpperCase()}${first.slice(1)}`.slice(0, 100);
+      return { name, url: it.file, type: 'image', emoji: it.emoji || '🖼️', sticker: true, keywords: kws.slice(0, 3), animated: it.animated };
+    },
+  };
+
+  /** Renders the sticker browser: search, category chips, 64 px lazy grid, „Als Trigger“, credit line. */
+  function mountStickerLibrary(root, { onCreateTrigger } = {}) {
+    root.classList.add('sticker-lib');
+    root.innerHTML =
+      '<div class="sticker-form">' +
+      '<input type="search" class="sticker-q" placeholder="Suchen: lachen, gül, wow, herz …" maxlength="60" autocomplete="off" aria-label="Sticker suchen">' +
+      '</div>' +
+      '<div class="sticker-chips" role="group" aria-label="Kategorien"></div>' +
+      '<div class="sticker-status" aria-live="polite"></div>' +
+      '<div class="sticker-grid"></div>' +
+      `<p class="sticker-credit">${esc(STICKER_CREDIT)}</p>`;
+    const qInput = root.querySelector('.sticker-q');
+    const chips = root.querySelector('.sticker-chips');
+    const status = root.querySelector('.sticker-status');
+    const grid = root.querySelector('.sticker-grid');
+    let items = [];
+    let cat = '';
+    let shown = [];
+
+    function setStatus(text, kind) {
+      status.textContent = text || '';
+      status.className = `sticker-status${kind ? ` ${kind}` : ''}`;
+    }
+
+    function renderChips() {
+      const cats = [];
+      for (const it of items) if (it.category && !cats.includes(it.category)) cats.push(it.category);
+      const chip = (id, label) => `<button type="button" class="sticker-chip small${id === cat ? ' active' : ''}" data-cat="${esc(id)}" aria-pressed="${id === cat}">${esc(label)}</button>`;
+      chips.innerHTML = chip('', 'Alle') + cats.map((c) => chip(c, STICKER_CATS[c] || c)).join('');
+    }
+
+    function render() {
+      shown = searchStickers(items, qInput.value, cat);
+      if (!shown.length) {
+        grid.innerHTML = '<div class="sticker-empty">Kein Sticker gefunden.</div>';
+        setStatus(items.length ? `0 von ${items.length} Stickern` : '');
+        return;
+      }
+      grid.innerHTML = shown
+        .map((it, i) => {
+          const label = it.keywords.de[0] || it.name;
+          const title = esc([`${it.emoji} ${label}`, it.keywords.tr[0], it.keywords.en[0]].filter(Boolean).join(' · '));
+          return (
+            `<div class="sticker-item" data-id="${esc(it.id)}" data-category="${esc(it.category)}">` +
+            `<img class="sticker-thumb" src="${esc(it.file)}" alt="${esc(it.name)}" title="${title}" width="64" height="64" loading="lazy" decoding="async">` +
+            (it.animated ? '<span class="sticker-badge" title="animiert">▶ animiert</span>' : '') +
+            `<span class="sticker-name" title="${title}">${esc(label)}</span>` +
+            `<button type="button" class="sticker-trigger small" data-index="${i}" title="Als Bild-Trigger anlegen">⚡ Als Trigger</button>` +
+            '</div>'
+          );
+        })
+        .join('');
+      setStatus(`${shown.length} von ${items.length} Stickern`);
+    }
+
+    async function load() {
+      setStatus('Lade Sticker …', 'busy');
+      try {
+        items = await stickers.load();
+        renderChips();
+        render();
+      } catch (e) {
+        setStatus(`Sticker konnten nicht geladen werden: ${e.message}`, 'error');
+      }
+    }
+
+    qInput.addEventListener('input', render);
+    chips.addEventListener('click', (ev) => {
+      const b = ev.target.closest('.sticker-chip');
+      if (!b) return;
+      cat = b.dataset.cat || '';
+      renderChips();
+      render();
+    });
+    grid.addEventListener('click', (ev) => {
+      const b = ev.target.closest('.sticker-trigger');
+      if (!b) return;
+      const it = shown[Number(b.dataset.index)];
+      if (!it) return;
+      if (typeof onCreateTrigger !== 'function') {
+        setStatus('„Als Trigger“ ist hier nicht verfügbar.', 'error');
+        return;
+      }
+      const asset = stickers.toAsset(it, defaultLang());
+      onCreateTrigger(asset, { title: asset.name, sticker: it });
+      setStatus('Trigger-Editor geöffnet.', 'ok');
+    });
+    let loaded = null;
+    return {
+      /** Loads the index on first call (the tab is lazy). */
+      open() {
+        if (!loaded) loaded = load();
+        return loaded;
+      },
+      search(q) {
+        qInput.value = String(q || '');
+        render();
+      },
+      get items() {
+        return items;
+      },
+    };
+  }
+
   /**
    * Renders the media library into `el`. Calls `onChange(assets)` after every successful change
    * (and after the initial load). `onCreateTrigger(asset, result)` (optional) is called by the GIF
@@ -485,6 +669,11 @@
     if (!el) throw new Error('mountLibrary: element missing');
     el.classList.add('asset-library');
     el.innerHTML =
+      '<div class="lib-tabs" role="tablist">' +
+      '<button type="button" class="lib-tab active small" role="tab" aria-selected="true" data-tab="files">📁 Dateien &amp; GIFs</button>' +
+      '<button type="button" class="lib-tab small" role="tab" aria-selected="false" data-tab="stickers">😀 Sticker (kostenlos)</button>' +
+      '</div>' +
+      '<div class="lib-pane" data-pane="files">' +
       '<div class="asset-toolbar">' +
       '<input type="file" accept="image/*,audio/*" multiple hidden class="asset-input">' +
       '<button type="button" class="asset-upload small">📤 Datei hochladen</button>' +
@@ -492,7 +681,9 @@
       '</div>' +
       '<div class="asset-status" aria-live="polite"></div>' +
       '<div class="asset-grid"></div>' +
-      '<div class="gif-search"></div>';
+      '<div class="gif-search"></div>' +
+      '</div>' +
+      '<div class="lib-pane" data-pane="stickers" hidden><div class="sticker-lib"></div></div>';
     const input = el.querySelector('.asset-input');
     const button = el.querySelector('.asset-upload');
     const status = el.querySelector('.asset-status');
@@ -603,9 +794,27 @@
     render();
     refresh();
     const gifUi = mountGifSearch(el.querySelector('.gif-search'), { onCreateTrigger });
+    const stickerUi = mountStickerLibrary(el.querySelector('.sticker-lib'), { onCreateTrigger });
+    function showTab(name) {
+      const tab = name === 'stickers' ? 'stickers' : 'files';
+      for (const b of el.querySelectorAll('.lib-tab')) {
+        const on = b.dataset.tab === tab;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', String(on));
+      }
+      for (const pane of el.querySelectorAll('.lib-pane')) pane.hidden = pane.dataset.pane !== tab;
+      if (tab === 'stickers') stickerUi.open();
+      return tab;
+    }
+    el.querySelector('.lib-tabs').addEventListener('click', (ev) => {
+      const b = ev.target.closest('.lib-tab');
+      if (b) showTab(b.dataset.tab);
+    });
     return {
       refresh,
       gifs: gifUi,
+      stickers: stickerUi,
+      showTab,
       get assets() {
         return assets;
       },
@@ -616,5 +825,5 @@
     };
   }
 
-  global.LiveFXAssets = { list, upload, remove, thumbnailFor, groupAssets, mountLibrary, formatSize, hasServer, gifs };
+  global.LiveFXAssets = { list, upload, remove, thumbnailFor, groupAssets, mountLibrary, formatSize, hasServer, gifs, stickers };
 })(typeof window !== 'undefined' ? window : globalThis);

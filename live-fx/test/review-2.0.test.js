@@ -332,7 +332,29 @@ test('review: server routes', async (t) => {
     t.after(() => again.close());
     const st = await again.next('state');
     assert.equal(st.theme, 'pastel');
-    assert.deepEqual(Object.keys(st).sort(), ['id', 'overlays', 'panels', 'theme', 'ts', 'type', 'version', 'volume'], 'state carries no panel-only fields');
+    assert.deepEqual(Object.keys(st).sort(), ['id', 'overlays', 'panels', 'perf', 'theme', 'ts', 'type', 'version', 'volume'], 'state carries no panel-only fields');
+  });
+
+  await t.test('2.1 /fire type perf is validated, relayed and remembered in the state message', async () => {
+    const overlay = await sseClient(base, { role: 'overlay' });
+    t.after(() => overlay.close());
+    const first = await overlay.next('state');
+    assert.equal(first.perf, null, 'no perf before the panel sent one');
+    for (const perf of ['ultra', '', ['eco'], '<b>eco</b>']) {
+      const bad = await api(base, 'POST', '/fire', { ...auth, json: { type: 'perf', perf } });
+      assert.equal(bad.status, 400, JSON.stringify(perf));
+      assert.equal(bad.json.error, 'invalid_envelope');
+    }
+    const ok = await api(base, 'POST', '/fire', { ...auth, json: { type: 'perf', perf: 'eco', extra: 'dropped' } });
+    assert.equal(ok.status, 200, ok.text);
+    const relayed = await overlay.next('perf');
+    assert.equal(relayed.perf, 'eco');
+    assert.equal(relayed.extra, undefined);
+    const late = await sseClient(base, { role: 'overlay' });
+    t.after(() => late.close());
+    const st = await late.next('state');
+    assert.equal(st.perf, 'eco', 'a late overlay gets the remembered perf mode');
+    assert.equal(st.theme, 'pastel', 'theme is still remembered next to perf');
   });
 
   await t.test('panel-only chat/gift events are not replayed to an overlay via Last-Event-ID', async () => {
@@ -425,5 +447,7 @@ test('review: sw.js shell lists every browser file on disk, caches nothing live'
   const re = new RegExp(netOnly.slice(1, -1));
   for (const p of ['/api/chat', '/api/gift', '/fire', '/events', '/assets/x.mp3', '/health', '/m', '/models/x', '/docs/VIEWER.md']) assert.ok(re.test(p), `${p} must be network-only`);
   assert.ok(!shell.some((p) => p.startsWith('/api/')));
-  assert.match(src, /SHELL_VERSION = '2\.0\.0'/);
+  assert.match(src, /SHELL_VERSION = '2\.1\.0'/);
+  assert.equal(require(path.join(ROOT, 'package.json')).version, '2.1.0', 'package.json and SHELL_VERSION move together');
+  assert.ok(shell.includes('/memes/index.json'), 'sticker index is in the full shell');
 });

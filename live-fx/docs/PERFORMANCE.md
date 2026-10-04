@@ -15,9 +15,11 @@ Partikelart nur noch einmal, animiert nur noch `transform` / `opacity` und kennt
 
 - **URL-Parameter:** `overlay.html?perf=auto|eco|high` – legt den Modus fest; Bus-Nachrichten ändern ihn dann
   nicht mehr (wie `?theme=`). Unbekannte Werte → `auto`.
-- **Bus-Nachricht:** `{ "type": "perf", "perf": "eco" }` schaltet live um (nur ohne `?perf=`). Eine
-  `state`-Nachricht mit dem Feld `perf` wird ebenso übernommen, falls der Server es künftig mitschickt (der
-  Server speichert den Modus derzeit **nicht**).
+- **Panel:** Karte **Einstellungen → Leistung** (`#perf`: Automatisch (empfohlen) / Eco (schwacher PC) /
+  Hoch (beste Grafik)), gemerkt in `localStorage` → `livefx.perf`; `window.livefx.perf.set('eco')` für Skripte.
+- **Bus-Nachricht:** `{ "type": "perf", "perf": "eco" }` schaltet live um (nur ohne `?perf=`). `POST /fire`
+  prüft den Wert (`auto|eco|high`, sonst 400); der Server merkt sich den letzten Modus und schickt ihn in der
+  `state`-Nachricht an jedes neu verbundene Overlay (Feld `perf`).
 - **JavaScript:** `renderer.setPerf(mode)` → gibt den angewendeten Modus zurück. Ein erneuter Aufruf mit
   demselben Modus ändert nichts (ein automatischer Wechsel auf eco bleibt also erhalten); `setPerf('high')`
   und danach `setPerf('auto')` startet wieder mit vollem Look.
@@ -25,7 +27,6 @@ Partikelart nur noch einmal, animiert nur noch `transform` / `opacity` und kennt
   Benutzung (`high|eco`), `body[data-perf]` = `perfActive` (daran hängen die Eco-CSS-Regeln),
   `body[data-perf-mode]` = `perf`, `renderer.stats.perfSwitches` = Anzahl Auto-Wechsel.
 
-Für ein Panel-Auswahlfeld reicht: Bus-Nachricht `{type:'perf', perf}` senden (und ggf. lokal merken).
 
 ## Was sich am Rendering geändert hat
 
