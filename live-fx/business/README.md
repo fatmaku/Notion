@@ -4,7 +4,7 @@
 >
 > Produktstand **2.0** (siehe `../CHANGELOG.md`) · Vision 2027–2029 · Stand Oktober 2026 · Vertraulich
 >
-> Gründer & Erfinder, Geschäftsführer: **Tuncay Sancak** · Investor Relations: **Gönül Demet** · Pre-Seed-Bedarf: **500.000 €** (LiveFX 2.0 + Vision-Linien A–D, Mittelverwendung über 24 Monate in `BUSINESSPLAN.md` 11.6)
+> Gründer & Erfinder, Geschäftsführer: **Tuncay Sancak** · Investor Relations: **Gönül Demet** · Pre-Seed-Bedarf: **250.000 € für höchstens 10 %** (2,25 Mio. € Pre-Money / 2,5 Mio. € Post-Money; LiveFX 2.1 + erste Vision-Linie WortBild, Mittelverwendung über 18 Monate in `BUSINESSPLAN.md` 11.6)
 
 Alle Unterlagen gibt es in drei Sprachen. Deutsch ist die Master-Fassung. Dateinamen: Deutsch ohne Suffix, Türkisch `.tr`, Englisch `.en`; Präsentationen `_TR`/`_EN`; Videos mit Sprachkürzel `_tr_`/`_en_` (beim Haupt-Trailer ist Deutsch ohne Kürzel).
 
@@ -15,10 +15,11 @@ Alle Unterlagen gibt es in drei Sprachen. Deutsch ist die Master-Fassung. Datein
 | Vision 2027–2029 (Linien A–D) | `VISION.md` | `VISION.tr.md` | `VISION.en.md` |
 | Businessplan (Markdown) | `BUSINESSPLAN.md` | `BUSINESSPLAN.tr.md` | `BUSINESSPLAN.en.md` |
 | Businessplan (Word) | `BUSINESSPLAN.docx` | `BUSINESSPLAN.tr.docx` | `BUSINESSPLAN.en.docx` |
+| Finanzmodell (Quelle aller Finanzzahlen) | `LiveFX_Finanzmodell.xlsx` + Export `tools/finance-250k.json` | dieselbe Datei | dieselbe Datei |
 | Marktanalyse | `MARKTANALYSE.md` | `MARKTANALYSE.tr.md` | `MARKTANALYSE.en.md` |
 | Quellen (60, gleiche Nummern) | `QUELLEN.md` | `QUELLEN.tr.md` | `QUELLEN.en.md` |
 | Pitch-Deck (Text + Sprechtext) | `PITCH-DECK.md` | `PITCH-DECK.tr.md` | `PITCH-DECK.en.md` |
-| Pitch-Deck (PowerPoint, 17 Folien) | `LiveFX_Pitch.pptx` | `LiveFX_Pitch_TR.pptx` | `LiveFX_Pitch_EN.pptx` |
+| Pitch-Deck (PowerPoint, 19 Folien) | `LiveFX_Pitch.pptx` | `LiveFX_Pitch_TR.pptx` | `LiveFX_Pitch_EN.pptx` |
 | Folientext (Quelle des Decks) | `tools/deck-content.de.json` | `tools/deck-content.tr.json` | `tools/deck-content.en.json` |
 | LinkedIn-Texte | `LINKEDIN.md` (🇩🇪-Teil) | `LINKEDIN.md` (🇹🇷-Teil) | `LINKEDIN.md` (🇬🇧-Teil) |
 | Haupt-Trailer 9:16 (50 s) | `video/LiveFX_Trailer_9x16.mp4` | `video/LiveFX_Trailer_tr_9x16.mp4` | `video/LiveFX_Trailer_en_9x16.mp4` |
@@ -83,7 +84,7 @@ Türkçe dosyalar yukarıdaki tablonun **TR** sütununda: `VISION.tr.md`, `BUSIN
 
 ### Sık kullanılan akışlar
 
-- **Yatırımcı veya destek kurumu:** `BUSINESSPLAN.tr.docx` + `LiveFX_Pitch_TR.pptx` (PDF olarak) + iki fragmanın bağlantısı. Göndermeden önce yer tutucuları doldur: `[Sayı]`, `[E-posta]`. Kurucu & Mucit, Genel Müdür: Tuncay Sancak · Investor Relations: Gönül Demet · ön tohum ihtiyacı: 500.000 € (`BUSINESSPLAN.tr.md` 11.6).
+- **Yatırımcı veya destek kurumu:** `BUSINESSPLAN.tr.docx` + `LiveFX_Pitch_TR.pptx` (PDF olarak) + iki fragmanın bağlantısı. Göndermeden önce yer tutucuları doldur: `[Sayı]`, `[E-posta]`. Kurucu & Mucit, Genel Müdür: Tuncay Sancak · Investor Relations: Gönül Demet · ön tohum ihtiyacı: en fazla %10 karşılığında 250.000 € (yatırım öncesi 2,25 milyon €, 18 ay; `BUSINESSPLAN.tr.md` 11.6).
 - **Eğitim, yayınevleri, uyum projeleri:** `VISION.tr.md` 5. bölüm (Kelime-Resim) + `prototypes/sprachlernen.html` canlı gösterim.
 - **Rakamları güncellemek:** yeni kaynağı `QUELLEN.md`’ye (sıradaki numara) ve üç dil sürümüne ekle; atıf: [Kaynak n].
 
@@ -110,7 +111,7 @@ The English files are in the **EN** column of the table above: `VISION.en.md`, `
 
 ### Typical workflows
 
-- **Investor or funding body:** `BUSINESSPLAN.en.docx` + `LiveFX_Pitch_EN.pptx` (exported as PDF) + links to both trailers. Fill in the placeholders `[Number]`, `[Email]` first. Founder & Inventor, Managing Director: Tuncay Sancak · Investor Relations: Gönül Demet · pre-seed ask: €500,000 (`BUSINESSPLAN.en.md` 11.6).
+- **Investor or funding body:** `BUSINESSPLAN.en.docx` + `LiveFX_Pitch_EN.pptx` (exported as PDF) + links to both trailers. Fill in the placeholders `[Number]`, `[Email]` first. Founder & Inventor, Managing Director: Tuncay Sancak · Investor Relations: Gönül Demet · pre-seed ask: €250,000 for at most 10% (€2.25M pre-money, 18 months; `BUSINESSPLAN.en.md` 11.6).
 - **Platform pitch (TikTok, Meta, YouTube):** pitch deck plus the 16:9 vision trailer.
 - **Education, publishers, integration programmes:** `VISION.en.md` chapter 5 (WordPicture) plus a live demo of `prototypes/sprachlernen.html`.
 - **Updating figures:** add the new source to `QUELLEN.md` (next number) and to all three language versions; cite as [Source n].

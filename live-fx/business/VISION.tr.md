@@ -336,7 +336,7 @@ Platform logosu yok, gerçek isim ya da yüz yok; gelecekteki işlevler „Vizyo
 - **Eğitim pilot ortağı:** [Sayı] DaZ ve uyum kursu, [Sayı] ilkokul sınıfı, medya merkezleri, eğitim kurumları.
 - **Yayınevi ve sesli kitap pilot ortağı:** „Resimli sesli kitap“ ve iki dilli baskılar için çocuk kitabı ve sesli kitap yayınevleri; ilk örnek kurucunun kendi çocuk kitabı serisi.
 - **Ekip:** Web/grafik geliştirme (Canvas, WebCodecs), çocuk kitabı tarzında illüstrasyon, DE/TR/EN seslendirme sanatçıları, didaktik (danışma kurulu).
-- **Finansman:** LiveFX ve tüm projeleri (2.0 ürünü ve A–D hatları) için 500.000 € ön tohum (pre-seed) yatırım; bunun ~%20'si (100.000 €) vizyon hatlarını prototipten ürüne taşıyor, önce Kelime-Resim/dil öğrenme ve hikâye motoru (Anlatı Filmi). 24 aylık fon kullanımı önerisi `BUSINESSPLAN.tr.md` bölüm 11.6'da.
+- **Finansman:** En fazla %10 karşılığında 250.000 € ön tohum (pre-seed) yatırım (kurucu teklifi: yatırım öncesi 2,25 milyon €, yatırım sonrası 2,5 milyon €; alternatif olarak 2,25 milyon € tavan ve %20 indirimli SAFE), 18 ay için. Bunun %15'i (37.500 €) ilk vizyon hattı Kelime-Resim/dil öğrenmeyi prototipten pilota taşıyor; hikâye motoru (Anlatı Filmi), Studio ve Mekânlar tohum (seed) turuyla geliyor (18. aya kadar ≈ 350.000 €). Fon kullanımı önerisi `BUSINESSPLAN.tr.md` bölüm 11.6'da.
 - **Hibe ve destek:** EXIST, eğitim ve uyum vakıfları (planlamada gelir varsayımı olmadan).
 
 İletişim: Tuncay Sancak (Kurucu & Mucit, Genel Müdür) · Investor Relations: Gönül Demet · [E-posta] · [Web sitesi]
