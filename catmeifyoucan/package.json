@@ -1,0 +1,32 @@
+{
+  "name": "catmeifyoucan",
+  "version": "1.0.0",
+  "description": "Cat Me If You Can · Kadıköy – Straßenkatzen fotografieren, sammeln und erfassen. 20 Katzen an einem Tag = Café-Rabatt.",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "demo": "CATME_DEMO=1 node server.js",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node --test \"test/*.test.js\"",
+    "test:e2e": "node test/e2e.js",
+    "vendor": "node scripts/vendor.js",
+    "vendor:ar": "node scripts/vendor.js --ar"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "optionalDependencies": {
+    "@anthropic-ai/sdk": "^0.129.0"
+  },
+  "devDependencies": {
+    "@tensorflow-models/coco-ssd": "2.2.3",
+    "@tensorflow/tfjs": "4.22.0",
+    "jsqr": "1.4.0",
+    "leaflet": "1.9.4",
+    "playwright": "1.56.1",
+    "qrcode-generator": "1.4.4"
+  },
+  "license": "UNLICENSED"
+}

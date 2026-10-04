@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="t">
+  <title id="t">Cat Me If You Can</title>
+  <rect width="512" height="512" rx="116" fill="#14213d"/>
+  <!-- Sucher-Ecken: Die Katze ist im Visier … -->
+  <g fill="none" stroke="#fbf3e4" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M84 176v-62a30 30 0 0 1 30-30h62"/>
+    <path d="M336 84h62a30 30 0 0 1 30 30v62"/>
+    <path d="M428 336v62a30 30 0 0 1-30 30h-62"/>
+    <path d="M176 428h-62a30 30 0 0 1-30-30v-62"/>
+  </g>
+  <!-- … aber sie ist schneller: schlaue Sarman mit Zwinker-Auge -->
+  <g transform="translate(0 -24)">
+  <path fill="#f28c28" d="M150 268 162 148l70 66h48l70-66 12 120c14 20 22 42 22 64 0 62-58 96-128 96s-128-34-128-96c0-22 8-44 22-64z"/>
+  <path fill="#c4610f" d="M174 236 181 180l36 34zM338 236l-7-56-36 34z"/>
+  <g fill="#c4610f">
+    <path d="M244 214h24l-5 34h-14z"/>
+    <path d="M206 222l18-2 4 26-14 4z"/>
+    <path d="M306 222l-18-2-4 26 14 4z"/>
+  </g>
+  <path fill="#fbf3e4" d="M256 312c-34 0-58 18-58 40 0 26 26 40 58 40s58-14 58-40c0-22-24-40-58-40z"/>
+  <!-- Augen: links schlau halb geschlossen, rechts zwinkernd -->
+  <path fill="#14213d" d="M186 288c10-16 44-20 60-4-12 14-46 18-60 4z"/>
+  <circle cx="222" cy="287" r="7" fill="#f6d55c"/>
+  <path fill="none" stroke="#14213d" stroke-width="10" stroke-linecap="round" d="M272 290c14-12 38-12 52 0"/>
+  <path fill="#14213d" d="M244 324h24l-12 13z"/>
+  <path fill="none" stroke="#14213d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" d="M256 337c-2 12-18 16-26 6M256 337c4 10 22 14 32 0"/>
+  <g stroke="#fbf3e4" stroke-width="6" stroke-linecap="round">
+    <path d="M190 332l-64-10M190 346l-60 8"/>
+    <path d="M322 332l64-10M322 346l60 8"/>
+  </g>
+  </g>
+</svg>

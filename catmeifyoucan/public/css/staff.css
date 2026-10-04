@@ -1,0 +1,42 @@
+/* Cat Me If You Can – Café- und Moderationsansicht (ergänzt app.css). */
+
+body.staff main { padding-bottom: 2rem; }
+.top .langs { display: inline-flex; gap: 2px; background: rgba(255, 255, 255, .1); padding: 3px; border-radius: 999px; margin: 0; }
+.top .langs button { border: 0; background: transparent; color: var(--cream); padding: .25rem .6rem; border-radius: 999px; font-weight: 800; cursor: pointer; font-size: .78rem; }
+.top .langs button.on { background: var(--orange); color: var(--navy); }
+.staff-card h1 { font-size: 1.3rem; }
+.btn.wide { width: 100%; margin: .6rem 0; }
+.codeform input { font-size: 1.2rem; letter-spacing: .06em; text-transform: uppercase; }
+.err { color: #b52a2a; font-weight: 700; }
+.right { text-align: right; margin: -.4rem 0 .4rem; }
+.scan { position: relative; margin: .6rem 0; }
+.scan[hidden] { display: none; }
+.scan video { width: 100%; border-radius: 16px; background: #000; aspect-ratio: 1; object-fit: cover; }
+.scan .btn { position: absolute; right: .6rem; bottom: .6rem; }
+.result { margin-top: 1rem; padding: 1.1rem; border-radius: 20px; text-align: center; display: grid; gap: .5rem; justify-items: center; }
+.result.ok { background: rgba(12, 163, 12, .14); border: 3px solid var(--good); }
+.result.bad { background: rgba(208, 59, 59, .12); border: 3px solid var(--critical); }
+.result.done { background: rgba(42, 120, 214, .12); border: 3px solid #2a78d6; }
+.result-big { font-family: var(--font-display); font-size: 2rem; }
+.result.ok .result-big { color: #0b6b0b; }
+.result.bad .result-big { color: #a72424; }
+.result-code { font-size: 1.3rem; letter-spacing: .08em; font-weight: 800; }
+.result-pct { font-family: var(--font-display); font-size: 3rem; color: var(--orange-d); }
+.result-why { font-weight: 700; }
+.result .strip { justify-content: center; flex-wrap: wrap; }
+.catdot { font-size: 1.3rem; }
+.review { padding: .7rem 0; border-top: 1px solid var(--line); display: grid; gap: .5rem; }
+.review:first-of-type { border-top: 0; }
+details.review > summary { cursor: pointer; list-style: none; }
+details.card.review { padding: .8rem; }
+.mini { display: flex; gap: .6rem; align-items: flex-start; color: var(--ink); text-decoration: none; }
+.dupes { display: grid; gap: .5rem; padding-left: 1rem; border-left: 3px solid var(--orange); }
+.place-form .row label { flex: 1; }
+pre { white-space: pre-wrap; background: var(--surface-2); padding: .6rem; border-radius: 10px; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .result.ok .result-big { color: #7ee07e; }
+  :root:not([data-theme="light"]) .result.bad .result-big, :root:not([data-theme="light"]) .err { color: #ff9a9a; }
+}
+
+.admin .seg { overflow-x: auto; }
+.admin .seg > * { flex: none; white-space: nowrap; padding: .55rem .9rem; }

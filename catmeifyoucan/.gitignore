@@ -1,0 +1,4 @@
+node_modules/
+data/
+# optional lokal: TensorFlow.js + COCO-SSD (npm run vendor:ar), sonst CDN
+public/vendor/ar/
