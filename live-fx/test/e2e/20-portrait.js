@@ -68,22 +68,32 @@ async function run({ browser, startServer, shotDir, log }) {
       throw new Error(`portrait image limits ${JSON.stringify(img)}, expected 432px x 384px`);
     }
 
-    // Rain: drops exist, start above the viewport, inherit --fx-fall and use --x positioning.
-    await page.evaluate(() => window.livefx.renderer.fire({ visual: { kind: 'rain', emoji: '🍕', count: 12 } }));
-    const drops = await page.evaluate(() => {
-      const list = Array.from(document.querySelectorAll('.fx-drop'));
-      return list.map((el) => {
-        const cs = getComputedStyle(el);
-        return { top: cs.top, fall: cs.getPropertyValue('--fx-fall').trim(), name: cs.animationName, left: parseFloat(cs.left) };
-      });
+    // Rain (canvas path): one marker with the count, 2 × count canvas drops that start above the viewport inside
+    // the portrait band, and the canvas falls the same 62vh (--fx-fall) the DOM fallback uses.
+    const rain = await page.evaluate(() => {
+      window.livefx.renderer.fire({ visual: { kind: 'rain', emoji: '🍕', count: 12 } });
+      const P = window.livefx.renderer.particles;
+      const drops = P.items.filter((p) => p.text === '🍕');
+      const mark = document.querySelector('.fx-rain');
+      return {
+        mark: mark ? Number(mark.dataset.count) : -1,
+        dom: document.querySelectorAll('.fx-drop').length,
+        n: drops.length,
+        xs: drops.map((p) => p.x),
+        ys: drops.map((p) => p.y),
+        fallPx: P.fallPx(),
+        fallVar: getComputedStyle(document.body).getPropertyValue('--fx-fall').trim(),
+        innerHeight: window.innerHeight,
+      };
     });
-    if (drops.length !== 12) throw new Error(`expected 12 drops, got ${drops.length}`);
-    for (const d of drops) {
-      if (d.top !== '-100px') throw new Error(`drop top is ${d.top} at spawn`);
-      if (d.fall !== '62vh') throw new Error(`drop --fx-fall is "${d.fall}"`);
-      if (d.name !== 'fx-fall') throw new Error(`drop animation is ${d.name}`);
-      if (!(d.left >= 0 && d.left <= 540)) throw new Error(`drop left ${d.left} outside the viewport`);
-    }
+    if (rain.mark !== 12) throw new Error(`rain marker count ${rain.mark}`);
+    if (rain.dom !== 0) throw new Error(`${rain.dom} DOM drops although the canvas is available`);
+    if (rain.n !== 24) throw new Error(`expected 24 canvas drops, got ${rain.n}`);
+    if (!rain.xs.every((x) => x >= 0 && x <= 540)) throw new Error(`canvas drop outside the viewport: ${rain.xs.join(',')}`);
+    if (!rain.ys.every((y) => y < 0)) throw new Error(`canvas drop not above the viewport at spawn: ${rain.ys.join(',')}`);
+    if (rain.fallVar !== '62vh') throw new Error(`--fx-fall is "${rain.fallVar}"`);
+    if (Math.abs(rain.fallPx - 0.62 * rain.innerHeight) > 1) throw new Error(`canvas fall ${rain.fallPx}px, expected 62vh`);
+    await page.waitForTimeout(400); // let the burst fall into frame for the screenshot
     await page.screenshot({ path: path.join(shotDir, 'portrait.png') });
 
     // Deterministic fall distance: a drop with a near-instant animation ends 62vh (595.2px) lower,

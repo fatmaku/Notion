@@ -8,15 +8,19 @@
 //   - other shell files (css/js/icons/manifest): cache first, refreshed in the background.
 //   - everything live is network-only and never cached: /api/*, /fire, /events, /assets/*, /docs/*,
 //     /m, /models/*, /health.
+// Two shells: the panel registers `/sw.js` (scope /, full SHELL); the OBS overlay registers
+// `/sw.js?shell=overlay` with scope /overlay.html and precaches only OVERLAY_SHELL (overlay page, its css/js,
+// icons) in its own cache – no panel / ASR / demo code inside the browser source (docs/PERFORMANCE.md).
 // The cache name carries SHELL_VERSION – bump it when shipping a new version (an activated worker
 // also compares it with the server's /health version and re-precaches when they differ).
 'use strict';
 
-const SHELL_VERSION = '2.0.0';
-const CACHE = `livefx-shell-v${SHELL_VERSION}`;
-const CACHE_PREFIX = 'livefx-shell-';
+const SHELL_VERSION = '2.1.0';
+const OVERLAY_MODE = new URLSearchParams(self.location.search).get('shell') === 'overlay';
+const CACHE_PREFIX = OVERLAY_MODE ? 'livefx-overlay-' : 'livefx-shell-';
+const CACHE = OVERLAY_MODE ? `livefx-overlay-v${SHELL_VERSION}` : `livefx-shell-v${SHELL_VERSION}`;
 
-const SHELL = [
+const FULL_SHELL = [
   '/',
   '/index.html',
   '/overlay.html',
@@ -50,7 +54,23 @@ const SHELL = [
   '/js/panel.js',
   '/js/mobile.js',
   '/js/mobile-link.js',
+  '/js/safety.js',
+  // 2.1: sticker index for the sticker library in the panel (the 143 stickers themselves are fetched on use)
+  '/memes/index.json',
 ];
+// What overlay.html loads (plus the icons) – keep in sync with its <script>/<link> tags.
+const OVERLAY_SHELL = [
+  '/overlay.html',
+  '/css/overlay.css',
+  '/js/sounds.js',
+  '/js/schema.js',
+  '/js/fx.js',
+  '/js/bus.js',
+  '/icons/icon.svg',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+];
+const SHELL = OVERLAY_MODE ? OVERLAY_SHELL : FULL_SHELL;
 const SHELL_SET = new Set(SHELL);
 const NETWORK_ONLY = /^\/(api\/|fire$|events$|assets\/|docs\/|m$|models\/|health$)/;
 

@@ -1,5 +1,35 @@
 # Changelog
 
+## 2.1.0 – Leichter, schneller, freie Sticker, sichere GIF-Suche
+
+- **Leistung** (`docs/PERFORMANCE.md`): ein Renderpfad (Regen, Szenen-Partikel, Lichtstrahlen und Ring auf dem
+  Canvas statt großer DOM-Ebenen), nur noch `transform`/`opacity`-Animationen. Gemessen mit 31 Effekten in 3 s
+  auf 1920×1080: **Bildzeit im Mittel −63 bis −69 %, p99 −74 bis −80 %, DOM-Knoten −56 %**.
+  **Leistungsmodus** `auto` (Standard, schaltet bei Dauer-Ruckeln selbst auf Eco) / `eco` (schwacher PC: halbe
+  Partikel, kein Glow, keine Strahlen) / `high`: im Panel unter **Einstellungen → Leistung**, per
+  `overlay.html?perf=eco` fest, als Bus-Nachricht `{type:'perf', perf}`; der Server merkt sich den Modus für
+  später verbundene Overlays (`state.perf`).
+- **143 kostenlose Sticker** (Microsoft Fluent Emoji, MIT; 119 animiert) in `memes/fluent/`, Liste mit DE/TR/EN-
+  Stichwörtern in `memes/index.json`. Neuer Tab **„Sticker (kostenlos)“** in der Medien-Bibliothek: Suche in drei
+  Sprachen, Kategorien, „Als Trigger“ legt einen Bild-Trigger mit Emoji-Ersatz an. Sticker schweben frei im
+  Overlay (ohne dunkle Karte); Paket „🎞️ Reaktionen (animiert)“. `npm run build-memes` baut die Sticker neu.
+- **Text-Sticker** `text-tr` / `text-de` / `text-en` (je 27–28): große Comic-Wörter (OHA, KRASS, SHEESH …) im
+  neuen Textstil **`sticker`** – dicke Kontur, Comic-Stern in der zweiten Farbe, Pop-in (Eco: ohne Wackeln).
+- **Pakete aufgeräumt**: religiöse Ausdrücke und Flaggen aus den Paketen Türkçe, Deutsch und English entfernt und
+  durch neutrale Reaktionen ersetzt; Sticker ohne Flaggen, Religion, Gewalt, Drogen/Alkohol und Anzügliches.
+- **GIF-Suche neu: KLIPY und GIPHY.** Google hat die Tenor-API am 30. 6. 2026 abgeschaltet; Tenor ist entfernt
+  (alte Keys werden ignoriert, Hinweis im Panel). KLIPY (kostenlos, empfohlen) und GIPHY laufen über den Server,
+  immer mit `rating=g`. **Kein Speichern von Anbieter-GIFs**: „Als Trigger“ verlinkt das GIF direkt beim Anbieter
+  (Nutzungsbedingungen), nichts landet im Medienordner.
+- **Jugendschutz-Filter** (`js/safety.js`, auf dem Server und im Panel): gesperrte Suchbegriffe (DE/TR/EN, auch
+  in Schreibvarianten) und Ergebnisse mit unpassenden Titeln/Tags werden entfernt; einzelne GIFs lassen sich
+  ausblenden (wird gemerkt).
+- **Sichere Bildquellen**: `visual.src` akzeptiert nur noch eigene Uploads (`assets/…`), mitgelieferte Sticker
+  (`memes/…`) und HTTPS-Links von KLIPY/GIPHY. Beliebige `http(s)://`-Adressen, Ports, Benutzerangaben und
+  nachgemachte Hostnamen werden abgelehnt. Lädt ein Bild nicht, zeigt das Overlay das Emoji als Karte.
+- Versionen (Paket, Service-Worker-Shell) auf 2.1.0; Doku: `docs/PERFORMANCE.md`, `docs/STICKER.md`,
+  `docs/GIFS.md`, `docs/CONTRACTS.md` §15.
+
 ## 2.0.0 – Release „Reif für Bühne und Verkauf“
 
 - **Review-Durchlauf** über alle Teile aus 1.5/1.6 (Zuschauer-Trigger, Geschenke-Webhook, Effekt-Engine v2,

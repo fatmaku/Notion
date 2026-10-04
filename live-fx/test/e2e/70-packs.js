@@ -1,5 +1,7 @@
 // Meme packs: the panel loads the Turkish pack (table grows, server gets the tr- ids), a Turkish
 // sentence fires a pack card in the overlay, and "Entfernen" removes the pack again.
+// 2.1: the "🎞️ Reaktionen (animiert)" pack loads through the same pack UI, a fired reaction shows the
+// bundled animated WebP (memes/fluent/…) in the overlay, and six stickers are screenshotted together.
 'use strict';
 
 const path = require('path');
@@ -26,7 +28,7 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     const rows = () => panel.locator('#trigger-rows tr').count();
     const packSize = await panel.evaluate(() => window.LiveFXPacks.get('tr').length);
     const packRow = panel.locator('.pack[data-pack="tr"]');
-    assert.equal(await panel.locator('.pack:not(.story)').count(), 5, 'five meme/theme pack rows (story packs are listed separately)');
+    assert.equal(await panel.locator('.pack:not(.story)').count(), 9, 'nine meme/theme/text/reaction pack rows (story packs are listed separately)');
     assert.ok((await packRow.textContent()).includes('Türkçe'), 'Turkish pack row present');
     const before = await rows();
 
@@ -72,6 +74,64 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
       { timeoutMs: 3000, what: 'tr- triggers removed on the server' }
     );
     log('tr pack removed');
+
+    // (d) 2.1 reactions pack: load via the pack UI, fire one, the overlay shows the bundled WebP sticker
+    const rxRow = panel.locator('.pack[data-pack="reactions"]');
+    assert.ok((await rxRow.textContent()).includes('Reaktionen (animiert)'), 'reactions pack row present');
+    const rxSize = await panel.evaluate(() => window.LiveFXPacks.get('reactions').length);
+    await rxRow.locator('[data-act="load"]').click();
+    assert.equal(await rows(), before + rxSize, 'table grew by the reactions pack size');
+    assert.match(await rxRow.textContent(), /geladen/);
+    await waitFor(
+      async () => {
+        const r = await api(base, 'GET', '/api/triggers');
+        return r.json && r.json.triggers.filter((t) => t.id.startsWith('reactions-')).length === rxSize;
+      },
+      { timeoutMs: 3000, what: 'reactions- triggers on the server' }
+    );
+    await panel.evaluate(() => {
+      const t = window.livefx.triggers.find((x) => x.id === 'reactions-heartyes');
+      window.livefx.fire(t, 'Test');
+    });
+    const loaded = await overlay.waitForFunction(
+      () => {
+        const img = Array.from(document.querySelectorAll('.fx-card-image img')).find((i) => /memes\/fluent\/heart-eyes\.webp$/.test(i.getAttribute('src') || ''));
+        return img && img.complete && img.naturalWidth > 0 ? { src: img.src, w: img.naturalWidth, h: img.naturalHeight } : null;
+      },
+      null,
+      { timeout: 4000 }
+    );
+    const info = await loaded.jsonValue();
+    assert.match(info.src, /\.webp$/);
+    assert.ok(info.w >= 120 && info.w <= 160, `sticker natural width ${info.w}`);
+    log(`reaction sticker loaded: ${info.src.replace(base, '')} (${info.w}x${info.h})`);
+
+    // six stickers at once (spread over the overlay) for a visual check
+    const six = ['joy', 'heart-eyes', 'fire', 'party-face', 'thumbs-up', 'popcorn'];
+    await overlay.waitForTimeout(3000); // let the first sticker finish
+    await overlay.evaluate((ids) => {
+      const r = window.livefx.renderer || null;
+      ids.forEach((id, i) => {
+        const pos = ['top', 'center', 'safe'][i % 3];
+        if (r && typeof r.image === 'function') r.image({ kind: 'image', src: `memes/fluent/${id}.webp`, position: pos, emoji: '🙂' });
+      });
+      document.querySelectorAll('.fx-card-image').forEach((el, i) => {
+        el.style.animation = 'none';
+        el.style.opacity = '1';
+        el.style.left = `${10 + (i % 3) * 32}%`;
+        el.style.top = `${18 + Math.floor(i / 3) * 42}%`;
+        el.style.transform = 'none';
+      });
+    }, six);
+    await overlay.waitForFunction((n) => {
+      const imgs = Array.from(document.querySelectorAll('.fx-card-image img'));
+      return imgs.length >= n && imgs.every((i) => i.complete && i.naturalWidth > 0);
+    }, six.length, { timeout: 4000 });
+    await overlay.screenshot({ path: path.join(shotDir, 'reactions-overlay.png') });
+    log('six reaction stickers rendered (shots/reactions-overlay.png)');
+
+    await rxRow.locator('[data-act="unload"]').click();
+    assert.equal(await rows(), before, 'reactions pack removed again');
 
     assert.deepEqual(errors, [], `page errors: ${errors.join('; ')}`);
   } finally {

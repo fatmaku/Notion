@@ -144,8 +144,8 @@ test('visual: src validation, image without src falls back to card, count clamp,
   const ok = S.normalizeTrigger({ id: 'v', visual: { kind: 'image', src: 'assets/pic.PNG' } });
   assert.equal(ok.trigger.visual.kind, 'image');
   assert.equal(ok.trigger.visual.src, 'assets/pic.PNG');
-  const http = S.normalizeTrigger({ id: 'v', visual: { kind: 'image', src: 'https://example.com/a.gif?x=1' } });
-  assert.equal(http.trigger.visual.src, 'https://example.com/a.gif?x=1');
+  const http = S.normalizeTrigger({ id: 'v', visual: { kind: 'image', src: 'https://media.giphy.com/media/abc123/200.gif?x=1' } });
+  assert.equal(http.trigger.visual.src, 'https://media.giphy.com/media/abc123/200.gif?x=1');
 
   for (const bad of ['assets/../x.png', 'javascript:alert(1)', 'assets/x.svg', 'data:image/png;base64,AAAA', '/etc/passwd']) {
     const r = S.normalizeTrigger({ id: 'v', visual: { kind: 'image', src: bad } });
@@ -296,7 +296,7 @@ test('exported constants', () => {
   assert.equal(S.VERSION, 3);
   assert.equal(S.SCHEMA_VERSION, 3);
   assert.deepEqual(S.KINDS, ['card', 'image', 'banner', 'rain', 'confetti', 'scene', 'sticker', 'text', 'lower-third', 'combo']);
-  assert.deepEqual(S.TEXT_STYLES, ['neon', 'gradient', 'bounce', 'glitch']);
+  assert.deepEqual(S.TEXT_STYLES, ['neon', 'gradient', 'bounce', 'glitch', 'sticker']);
   assert.deepEqual(S.THEMES, ['neon', 'pastel', 'minimal', 'kinderbuch']);
   assert.equal(S.LIMITS.comboSteps, 6);
   assert.deepEqual(S.POSITIONS, ['center', 'top', 'safe']);
@@ -496,4 +496,156 @@ test('v3 review: colours and image sources that would break out of a style/src a
   const lt = S.normalizeTrigger({ id: 'lt', visual: { kind: 'lower-third', title: '<b>x</b>'.repeat(20), subtitle: 7 } });
   assert.equal(lt.trigger.visual.title.length, S.LIMITS.title, 'title cut to the limit');
   assert.equal(lt.trigger.visual.subtitle, undefined, 'non-string subtitle dropped');
+});
+
+// ---- 2.1: bundled sticker sets (memes/) + text style `sticker` ----
+
+test('2.1 memes: image.src accepts memes/<set>/<file>.(webp|png)', () => {
+  for (const good of ['memes/fluent/joy.webp', 'memes/fluent/heart-fire.webp', 'memes/my_set/sticker_1.png', `memes/${'a'.repeat(40)}/${'b'.repeat(80)}.webp`]) {
+    const r = S.normalizeTrigger({ id: 'm', visual: { kind: 'image', src: good, emoji: '😂' } });
+    assert.deepEqual(r.warnings, [], `${good}: ${r.warnings.join('; ')}`);
+    assert.equal(r.trigger.visual.kind, 'image');
+    assert.equal(r.trigger.visual.src, good);
+    assert.equal(r.trigger.visual.emoji, '😂');
+    assert.ok(S.isImageSrc(good));
+    assert.ok(S.MEMES_IMAGE_RE.test(good));
+    assert.ok(S.ASSET_IMAGE_RE.test(good), 'renderers that check ASSET_IMAGE_RE accept bundled stickers too');
+  }
+});
+
+test('2.1 memes: traversal, other extensions, nesting and odd names are rejected', () => {
+  const bad = [
+    'memes/../data/token.txt',
+    'memes/../../etc/passwd.webp',
+    'memes/fluent/../x.webp',
+    'memes/..\\x.webp',
+    'memes/fluent/a..b.webp',
+    'memes/fluent/x.gif',
+    'memes/fluent/x.svg',
+    'memes/fluent/x.json',
+    'memes/fluent/sub/x.webp',
+    'memes/x.webp',
+    'memes//x.webp',
+    'memes/fluent/.webp',
+    'memes/Fluent/x.webp',
+    'memes/fluent/X.WEBP',
+    '/memes/fluent/x.webp',
+    'memes/fluent/x.webp?x=1',
+    'memes/fluent/x y.webp',
+    `memes/${'a'.repeat(41)}/x.webp`,
+    `memes/fluent/${'b'.repeat(81)}.webp`,
+  ];
+  for (const src of bad) {
+    const r = S.normalizeTrigger({ id: 'm', visual: { kind: 'image', src, emoji: '😂' } });
+    assert.equal(r.trigger.visual.src, undefined, `src ${src}`);
+    assert.equal(r.trigger.visual.kind, 'card', `${src} falls back to card`);
+    assert.ok(r.warnings.some((w) => /invalid visual.src/.test(w)), src);
+    assert.equal(S.isImageSrc(src), false, `isImageSrc(${src})`);
+  }
+  // the existing rules are unchanged
+  assert.ok(S.isImageSrc('assets/pic.PNG'));
+  assert.ok(S.isImageSrc('https://static.klipy.com/ii/abc/1.gif?x=1'));
+  assert.ok(!S.isImageSrc('assets/../x.png'));
+  assert.ok(S.UPLOAD_IMAGE_RE.test('assets/pic.png') && !S.UPLOAD_IMAGE_RE.test('memes/fluent/joy.webp'));
+  assert.equal(S.isImageSrc(null), false);
+});
+
+test('2.1 text style sticker: accepted with two colours, unknown styles still fall back to neon', () => {
+  const r = S.normalizeTrigger({ id: 't', visual: { kind: 'text', text: 'OHA', style: 'sticker', color: '#ffd166', color2: '#ef476f' } });
+  assert.deepEqual(r.warnings, []);
+  assert.equal(r.trigger.visual.style, 'sticker');
+  assert.equal(r.trigger.visual.color, '#ffd166');
+  assert.equal(r.trigger.visual.color2, '#ef476f');
+  const u = S.normalizeTrigger({ id: 't', visual: { kind: 'text', text: 'X', style: 'comic' } });
+  assert.equal(u.trigger.visual.style, 'neon');
+  assert.ok(u.warnings.some((w) => /unknown visual.style/.test(w)));
+  const c = S.normalizeTrigger({ id: 't', visual: { kind: 'combo', steps: [{ visual: { kind: 'text', text: 'GG', style: 'sticker' } }] } });
+  assert.deepEqual(c.warnings, []);
+  assert.equal(c.trigger.visual.steps[0].visual.style, 'sticker');
+});
+
+// ---- 2.1: safe image sources (only KLIPY / GIPHY hotlinks besides assets/ and memes/) ----
+
+test('2.1 hotlinks: KLIPY and GIPHY media hosts are accepted, https only', () => {
+  const good = [
+    'https://static.klipy.com/ii/4e7bea9f7a3371424e6c16ebc93252fe/a1/b2/abc.gif',
+    'https://klipy.com/gifs/abc.webp',
+    'https://media.giphy.com/media/abc123/200.gif',
+    'https://media0.giphy.com/media/v1.Y2lk/abc/200w.webp?cid=1&rid=200w.webp',
+    'https://media4.giphy.com/media/abc/giphy.gif',
+    'https://i.giphy.com/abc.webp',
+    'HTTPS://MEDIA.GIPHY.COM/media/x/200.gif',
+  ];
+  for (const src of good) {
+    assert.ok(S.HOTLINK_SRC_RE.test(src), src);
+    assert.ok(S.isImageSrc(src), src);
+    const r = S.normalizeTrigger({ id: 'h', visual: { kind: 'image', src } });
+    assert.equal(r.trigger.visual.src, src);
+    assert.deepEqual(r.warnings, []);
+  }
+  assert.equal(S.HTTP_SRC_RE, S.HOTLINK_SRC_RE, 'HTTP_SRC_RE is a deprecated alias');
+});
+
+test('2.1 hotlinks: arbitrary hosts, http, look-alikes, userinfo and ports are rejected', () => {
+  const bad = [
+    'https://example.com/a.gif',
+    'https://evil.net/media.giphy.com/a.gif',
+    'http://media.giphy.com/media/abc/200.gif',
+    'http://static.klipy.com/a.gif',
+    '//media.giphy.com/media/abc/200.gif',
+    'https://klipy.com.evil.net/a.gif',
+    'https://static.klipy.com.evil.net/a.gif',
+    'https://evilklipy.com/a.gif',
+    'https://a.b.klipy.com/a.gif',
+    'https://media.giphy.com.evil/a.gif',
+    'https://media.giphy.com.evil.net/a.gif',
+    'https://evilgiphy.com/a.gif',
+    'https://media10.giphy.com/a.gif',
+    'https://giphy.com/gifs/abc',
+    'https://user@media.giphy.com/media/abc/200.gif',
+    'https://user:pw@static.klipy.com/a.gif',
+    'https://media.giphy.com@evil.net/a.gif',
+    'https://static.klipy.com:8443/a.gif',
+    'https://media.giphy.com:443/media/abc/200.gif',
+    'https://media.giphy.com\\@evil.net/a.gif',
+    'https://media.giphy.com/a b.gif',
+    'https://media.giphy.com/"onerror=alert(1).gif',
+    'https://media.giphy.com',
+    `https://media.giphy.com/${'a'.repeat(481)}`,
+    'javascript:alert(1)//media.giphy.com/',
+  ];
+  for (const src of bad) {
+    assert.equal(S.HOTLINK_SRC_RE.test(src), false, `regex ${src}`);
+    assert.equal(S.isImageSrc(src), false, `isImageSrc ${src}`);
+    const r = S.normalizeTrigger({ id: 'h', visual: { kind: 'image', src, emoji: '😂' } });
+    assert.equal(r.trigger.visual.src, undefined, src);
+    assert.equal(r.trigger.visual.kind, 'card', `${src} falls back to card`);
+  }
+  // local uploads and bundled stickers stay allowed
+  assert.ok(S.isImageSrc('assets/pic.webp'));
+  assert.ok(S.isImageSrc('memes/fluent/joy.webp'));
+});
+
+test('2.1 hotlinks: the renderer fallback regex (js/fx.js) matches the schema regex', () => {
+  const fs = require('fs');
+  const path = require('path');
+  const src = fs.readFileSync(path.join(__dirname, '..', 'js', 'fx.js'), 'utf8');
+  const m = /hotlinkSrcRe: (\/.+\/i),/.exec(src);
+  assert.ok(m, 'fallback regex present');
+  assert.equal(m[1], S.HOTLINK_SRC_RE.toString());
+  assert.ok(!/httpSrcRe: \/\^https\?/.test(src), 'no permissive http(s) fallback left');
+});
+
+test('2.1 perf envelope: auto | eco | high accepted, everything else rejected', () => {
+  for (const perf of ['auto', 'eco', 'high']) {
+    const r = S.validateEnvelope({ type: 'perf', perf, id: 'pf-1', extra: 'dropped' });
+    assert.equal(r.ok, true, perf);
+    assert.deepEqual(Object.keys(r.msg).sort(), ['id', 'perf', 'ts', 'type']);
+    assert.equal(r.msg.perf, perf);
+  }
+  for (const perf of [undefined, '', 'ECO', 'ultra', 'low', 1, ['eco'], { perf: 'eco' }, '<img onerror=alert(1)>']) {
+    assert.equal(S.validateEnvelope({ type: 'perf', perf }).ok, false, String(perf));
+  }
+  assert.deepEqual(S.PERF_MODES, ['auto', 'eco', 'high']);
+  assert.match(S.validateEnvelope({ type: 'nope' }).error, /perf/);
 });

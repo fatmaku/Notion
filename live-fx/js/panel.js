@@ -1292,6 +1292,25 @@
   if ($('#theme')) $('#theme').addEventListener('change', (e) => { applyTheme(e.target.value); log(`🎨 Theme: ${e.target.value}`); });
   if (savedTheme !== 'neon') setTimeout(() => bus.send({ type: 'theme', theme: savedTheme }), 1500);
 
+  // ---------- performance mode (2.1, docs/PERFORMANCE.md) ----------
+  // Same pattern as the theme: persisted in localStorage `livefx.perf`, sent as {type:'perf', perf}; the overlay
+  // follows unless `?perf=` pins it, and the server repeats it in the `state` message for late overlays.
+  const PERF_KEY = 'livefx.perf';
+  const PERF_LABELS = { auto: 'Automatisch', eco: 'Eco', high: 'Hoch' };
+  function applyPerf(name, { send = true } = {}) {
+    const modes = (window.LiveFXSchema && window.LiveFXSchema.PERF_MODES) || ['auto', 'eco', 'high'];
+    const perf = modes.includes(name) ? name : 'auto';
+    if ($('#perf')) $('#perf').value = perf;
+    try { localStorage.setItem(PERF_KEY, perf); } catch (e) { /* private mode */ }
+    if (send) bus.send({ type: 'perf', perf });
+    return perf;
+  }
+  let savedPerf = 'auto';
+  try { savedPerf = localStorage.getItem(PERF_KEY) || 'auto'; } catch (e) { /* ignore */ }
+  savedPerf = applyPerf(savedPerf, { send: false });
+  if ($('#perf')) $('#perf').addEventListener('change', (e) => { const p = applyPerf(e.target.value); log(`⚡ Leistung: ${PERF_LABELS[p] || p}`); });
+  if (savedPerf !== 'auto') setTimeout(() => bus.send({ type: 'perf', perf: savedPerf }), 1500);
+
   $('#volume').addEventListener('input', (e) => {
     bus.send({ type: 'volume', volume: Math.min(1, Math.max(0, Number(e.target.value) || 0)) });
     enforcePreviewMute(true);
@@ -1960,14 +1979,15 @@
     if (online) {
       library = LiveFXAssets.mountLibrary($('#asset-library'), {
         onChange: () => {},
-        // GIF search „Als Trigger“: open the editor prefilled with the imported image.
+        // GIF search / sticker library „Als Trigger“: open the editor prefilled with the image (GIF: provider
+        // hotlink; sticker: memes/… with its emoji as fallback and the sticker's keywords in the panel language).
         onCreateTrigger: (asset, result) => {
           if (triggers.length >= S.LIMITS.triggers) return log(`⚠️ Maximal ${S.LIMITS.triggers} Trigger`);
           const label = String((result && result.title) || asset.name).replace(/\s*#\d+.*$/, '').slice(0, S.LIMITS.label) || 'Meme';
-          openEditor(
-            { id: S.newId('t'), label, keywords: [], enabled: true, cooldown: 5, sound: 'pop', visual: { kind: 'image', src: asset.url, position: 'safe' } },
-            { isNew: true }
-          );
+          const visual = { kind: 'image', src: asset.url, position: 'safe' };
+          if (typeof asset.emoji === 'string' && asset.emoji) visual.emoji = asset.emoji;
+          const keywords = Array.isArray(asset.keywords) ? asset.keywords.filter((k) => typeof k === 'string' && k.trim()).slice(0, 3) : [];
+          openEditor({ id: S.newId('t'), label, keywords, enabled: true, cooldown: 5, sound: 'pop', visual }, { isNew: true });
         },
       });
       smart.refreshStatus().then((st) => log(`🤖 ${smartReasonText(st)}`));
@@ -1982,6 +2002,7 @@
 
   window.livefx = {
     theme: { get: () => ($('#theme') ? $('#theme').value : 'neon'), set: (name) => applyTheme(name) },
+    perf: { get: () => ($('#perf') ? $('#perf').value : 'auto'), set: (name) => applyPerf(name) },
     bus,
     matcher,
     fire,

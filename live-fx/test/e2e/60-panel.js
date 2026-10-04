@@ -30,8 +30,9 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     // (a) hotkey 4 -> exactly one rain (trigger #4 = lol); disabled trigger + modifier keys fire nothing
     await panel.keyboard.press('4');
     await sleep(700);
-    const drops = await overlay.locator('.fx-drop').count();
-    assert.ok(drops > 0, 'hotkey 4 rendered rain drops');
+    const drops = await overlay.evaluate(() => window.livefx.renderer.particles.items.filter((p) => p.kind === 'emoji' && !p.ambient).length);
+    assert.equal(await overlay.locator('.fx-rain').count(), 1, 'hotkey 4 rendered one rain (marker)');
+    assert.ok(drops > 0, 'hotkey 4 rendered canvas rain drops');
     assert.equal(await fires(), 1, 'exactly one fire after hotkey 4');
     log(`hotkey 4 -> ${drops} drops`);
     await panel.evaluate(() => {

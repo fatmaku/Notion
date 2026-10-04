@@ -84,6 +84,8 @@ async function run({ browser, startServer, api, shotDir, log }) {
           drops: document.querySelectorAll('.fx-drop').length,
           text: document.querySelectorAll('.fx-bigtext').length,
           scene: document.querySelectorAll('.fx-scene').length,
+          fallbackRays: document.querySelectorAll('.fx-bigtext .fx-rays, .fx-bigtext .fx-ring').length,
+          sceneDom: document.querySelectorAll('.fx-scene[data-particles="dom"] .fx-scene-particles .fx-particle').length,
           particles: R.stats.particles,
           fps: R.stats.fps,
           raf: R.particles.raf,
@@ -97,6 +99,8 @@ async function run({ browser, startServer, api, shotDir, log }) {
       assert.equal(r.drops, 7);
       assert.equal(r.text, 1);
       assert.equal(r.scene, 1);
+      assert.equal(r.fallbackRays, 2, 'DOM rays + ring fallback without canvas');
+      assert.ok(r.sceneDom >= 1, `DOM scene particle fallback without canvas (${r.sceneDom})`);
       assert.equal(r.particles, 0);
       assert.equal(typeof r.fps, 'number');
       assert.equal(r.raf, 0, 'no rAF loop without a canvas');
@@ -193,7 +197,8 @@ async function run({ browser, startServer, api, shotDir, log }) {
     await page.evaluate(() => window.livefx.renderer.clear());
 
     // text styles: gradient must clip on the (composited) letters themselves – on .fx-word Chromium paints
-    // nothing; glitch copies are DOM clones of the letters so they wrap exactly like the word.
+    // nothing; glitch copies mirror the word structure (one nowrap .fx-w per word, same spaces – 2.1: words as
+    // plain text, no per-letter spans) so they wrap exactly like the word.
     const styles = await page.evaluate(() => {
       const R = window.livefx.renderer;
       R.fire({ id: 'g', visual: { kind: 'text', text: 'Gradient Wort', style: 'gradient', color: '#ff4d6d', color2: '#4dd2ff' } });
@@ -211,8 +216,10 @@ async function run({ browser, startServer, api, shotDir, log }) {
         letterAnims: lcs.animationName,
         wordFill: wcs.webkitTextFillColor,
         layers: layers.length,
-        layerLetters: Array.from(layers).map(count),
+        layerLetters: Array.from(layers).map((l) => l.querySelectorAll('.fx-letter:not(.fx-space)').length),
         wordLetters: realLetters.reduce((n, c) => n + (c.classList.contains('fx-letter') ? 1 : count(c)), 0),
+        layerWords: Array.from(layers).map((l) => Array.from(l.children).map((c) => `${c.className.replace(/^fx-letter /, '')}:${c.textContent}`).join('|')),
+        wordWords: realLetters.map((c) => `${c.className.replace(/^fx-letter /, '')}:${c.textContent}`).join('|'),
         layerText: layers[0] && layers[0].textContent.replace(/\u00a0/g, ' '),
         aligned: layers.length === 2 && Math.abs(layers[0].getBoundingClientRect().height - glitch.querySelector('.fx-word').getBoundingClientRect().height) < 2,
         bold: glitch.querySelectorAll('b').length,
@@ -225,7 +232,9 @@ async function run({ browser, startServer, api, shotDir, log }) {
     assert.match(styles.letterAnims, /fx-gradient-move/);
     assert.equal(styles.wordFill, 'rgba(0, 0, 0, 0)', 'word text fill transparent (gradient shows through the letters)');
     assert.equal(styles.layers, 2, 'two glitch layers');
-    assert.deepEqual(styles.layerLetters, [styles.wordLetters, styles.wordLetters], 'glitch layers mirror every letter');
+    assert.ok(styles.wordLetters >= 12, `word keeps one span per letter (${styles.wordLetters})`);
+    assert.deepEqual(styles.layerLetters, [0, 0], 'glitch layers carry no per-letter spans');
+    assert.deepEqual(styles.layerWords, [styles.wordWords, styles.wordWords], 'glitch layers mirror every word group and space');
     assert.equal(styles.layerText, 'Glitch Wort <b>');
     assert.equal(styles.aligned, true, 'glitch layers wrap like the word');
     assert.equal(styles.bold, 0);
@@ -288,7 +297,8 @@ async function run({ browser, startServer, api, shotDir, log }) {
       };
     });
     log('leak', JSON.stringify(leak));
-    assert.ok(leak.peak > 200, `nodes were created (${leak.peak})`);
+    // 200 fires = ~1 node each (2.1: a rain is one `.fx-rain` marker instead of DOM drops, confetti is canvas-only)
+    assert.ok(leak.peak > 180, `nodes were created (${leak.peak})`);
     assert.ok(leak.impactOnce <= 1, 'impact class never duplicated');
     assert.equal(leak.left, 0, 'all transient nodes removed after their lifetime');
     assert.equal(leak.timers, 0);
@@ -590,7 +600,7 @@ async function run({ browser, startServer, api, shotDir, log }) {
             { id: 'rv-text', label: 'Text', keywords: ['textwort'], visual: { kind: 'text', text: 'WOW', style: 'glitch' } },
             { id: 'rv-lt', label: 'Bauchbinde', keywords: [], visual: { kind: 'lower-third', title: 'Max', emoji: '🎤' } },
             { id: 'rv-combo', label: 'Combo', keywords: [], visual: { kind: 'combo', steps: [{ delay: 0, visual: { kind: 'text', text: 'GO' } }, { delay: 300, visual: { kind: 'confetti' } }] } },
-            { id: 'rv-img', label: 'Bild', keywords: [], visual: { kind: 'image', src: 'https://example.com/a.png' } },
+            { id: 'rv-img', label: 'Bild', keywords: [], visual: { kind: 'image', src: 'https://media.giphy.com/media/review/200.gif' } },
           ],
           removed: [],
         },
@@ -618,7 +628,7 @@ async function run({ browser, startServer, api, shotDir, log }) {
       assert.equal(tiles.text, '✨', 'text tile falls back to the default emoji');
       assert.equal(tiles.lt, '🎤');
       assert.equal(tiles.combo, 'Combo');
-      assert.equal(tiles.img, 'https://example.com/a.png');
+      assert.equal(tiles.img, 'https://media.giphy.com/media/review/200.gif');
       assert.ok(tiles.all >= 4);
       await phone.tap('#pad button[data-id="rv-combo"]');
       await phone.waitForFunction(() => /Combo/.test(document.querySelector('#transcript').textContent), null, { timeout: 3000 });

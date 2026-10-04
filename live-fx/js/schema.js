@@ -16,7 +16,9 @@
   // sounds.js loaded. Validation of "loop:<name>" only checks the name syntax (see BUILTIN_SOUND_RE).
   const LOOPS = ['rain', 'wind', 'fireplace', 'birds', 'sea', 'thunder', 'nightCrickets', 'heartbeatSlow', 'churchBells', 'cityHum', 'spaceDrone', 'storm'];
   // v3: big animated word styles, overlay themes (css/overlay.css `body[data-theme]`).
-  const TEXT_STYLES = ['neon', 'gradient', 'bounce', 'glitch'];
+  // 2.1: `sticker` = own text stickers (bold outline, comic burst background, two colours `color` / `color2`),
+  // rendered as `.fx-bigtext.fx-text-sticker`; renderers that do not know it yet fall back to neon.
+  const TEXT_STYLES = ['neon', 'gradient', 'bounce', 'glitch', 'sticker'];
   const THEMES = ['neon', 'pastel', 'minimal', 'kinderbuch'];
   const LIMITS = {
     triggers: 200,
@@ -44,15 +46,33 @@
   const SAFE_NAME = /^[a-z0-9][a-z0-9._-]{0,99}$/i;
   const IMAGE_EXT = ['png', 'jpg', 'jpeg', 'gif', 'webp'];
   const SOUND_EXT = ['mp3', 'wav', 'ogg'];
-  const ASSET_IMAGE_RE = /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp)$/i;
+  // 2.1: bundled sticker sets are served from `memes/<set>/<file>.(webp|png)` (lower-case, no dots besides
+  // the extension, so no traversal). ASSET_IMAGE_RE ("same-origin image the overlay may show") accepts both
+  // uploaded assets and bundled stickers; MEMES_IMAGE_RE / UPLOAD_IMAGE_RE match each kind alone.
+  const UPLOAD_IMAGE_RE = /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp)$/i;
+  const MEMES_IMAGE_RE = /^memes\/[a-z0-9_-]{1,40}\/[a-z0-9_-]{1,80}\.(webp|png)$/;
+  const ASSET_IMAGE_RE = /^(?:assets\/[a-z0-9][a-z0-9._-]{0,99}\.(?:png|jpe?g|gif|webp)|memes\/[a-z0-9_-]{1,40}\/[a-z0-9_-]{1,80}\.(?:webp|png))$/i;
   const ASSET_SOUND_RE = /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(mp3|wav|ogg)$/i;
-  const HTTP_SRC_RE = /^https?:\/\/[^\s"'<>]{1,500}$/i;
+  // 2.1: remote images are only hotlinks from the GIF providers' media hosts (KLIPY: klipy.com and one
+  // sub-domain level, GIPHY: media/media0-9/i.giphy.com), https only, no userinfo, no port. Arbitrary http(s)
+  // URLs are rejected (privacy: the overlay would call any host; safety: no unfiltered images on stream).
+  const HOTLINK_SRC_RE = /^https:\/\/(?:(?:[a-z0-9-]{1,63}\.)?klipy\.com|(?:media[0-9]?|i)\.giphy\.com)\/[^\s"'<>\\]{1,480}$/i;
+  /** @deprecated 2.1: alias of HOTLINK_SRC_RE (was any http(s) URL). */
+  const HTTP_SRC_RE = HOTLINK_SRC_RE;
+  // Performance modes of the overlay renderer (docs/PERFORMANCE.md), bus envelope `{type:'perf', perf}`.
+  const PERF_MODES = ['auto', 'eco', 'high'];
   const COLOR_RE = /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%]+\))$/i;
   const BUILTIN_SOUND_RE = /^[a-z][a-zA-Z0-9]{0,30}$/;
   const MSG_ID_RE = /^[\w.-]{1,64}$/;
 
   function isSafeName(name) {
     return typeof name === 'string' && SAFE_NAME.test(name) && !name.includes('..');
+  }
+
+  /** Image source allowed in `visual.src`: uploaded asset, bundled sticker (`memes/…`) or KLIPY/GIPHY hotlink. */
+  function isImageSrc(src) {
+    if (typeof src !== 'string') return false;
+    return ((UPLOAD_IMAGE_RE.test(src) || MEMES_IMAGE_RE.test(src)) && !src.includes('..')) || HOTLINK_SRC_RE.test(src);
   }
 
   function newId(prefix = 'm') {
@@ -151,7 +171,7 @@
     }
     if (isSet(v.src)) {
       const src = typeof v.src === 'string' ? v.src.trim() : '';
-      if ((ASSET_IMAGE_RE.test(src) && !src.includes('..')) || HTTP_SRC_RE.test(src)) out.src = src;
+      if (isImageSrc(src)) out.src = src;
       else warnings.push('invalid visual.src');
     }
     if (out.kind === 'image' && !out.src) {
@@ -333,10 +353,10 @@
     return (defaults || []).map((d) => d.id).filter((id) => !ids.has(id));
   }
 
-  /** Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`. */
+  /** Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`, 2.1 `perf`. */
   function validateEnvelope(msg) {
     if (!msg || typeof msg !== 'object' || Array.isArray(msg)) return { ok: false, error: 'envelope is not an object' };
-    if (msg.type !== 'fire' && msg.type !== 'volume' && msg.type !== 'theme') return { ok: false, error: 'type must be "fire", "volume" or "theme"' };
+    if (!['fire', 'volume', 'theme', 'perf'].includes(msg.type)) return { ok: false, error: 'type must be "fire", "volume", "theme" or "perf"' };
     const out = {
       id: typeof msg.id === 'string' && MSG_ID_RE.test(msg.id) ? msg.id : newId('m'),
       type: msg.type,
@@ -350,6 +370,9 @@
     } else if (msg.type === 'theme') {
       if (!THEMES.includes(msg.theme)) return { ok: false, error: `theme must be one of ${THEMES.join(', ')}` };
       out.theme = msg.theme;
+    } else if (msg.type === 'perf') {
+      if (!PERF_MODES.includes(msg.perf)) return { ok: false, error: `perf must be one of ${PERF_MODES.join(', ')}` };
+      out.perf = msg.perf;
     } else {
       const v = Number(msg.volume);
       if (!Number.isFinite(v)) return { ok: false, error: 'volume must be a number' };
@@ -377,10 +400,15 @@
     IMAGE_EXT,
     SOUND_EXT,
     ASSET_IMAGE_RE,
+    UPLOAD_IMAGE_RE,
+    MEMES_IMAGE_RE,
     ASSET_SOUND_RE,
     HTTP_SRC_RE,
+    HOTLINK_SRC_RE,
+    PERF_MODES,
     COLOR_RE,
     isSafeName,
+    isImageSrc,
     newId,
     parseSound,
     normalizeTrigger,

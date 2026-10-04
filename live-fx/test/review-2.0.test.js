@@ -332,7 +332,29 @@ test('review: server routes', async (t) => {
     t.after(() => again.close());
     const st = await again.next('state');
     assert.equal(st.theme, 'pastel');
-    assert.deepEqual(Object.keys(st).sort(), ['id', 'overlays', 'panels', 'theme', 'ts', 'type', 'version', 'volume'], 'state carries no panel-only fields');
+    assert.deepEqual(Object.keys(st).sort(), ['id', 'overlays', 'panels', 'perf', 'theme', 'ts', 'type', 'version', 'volume'], 'state carries no panel-only fields');
+  });
+
+  await t.test('2.1 /fire type perf is validated, relayed and remembered in the state message', async () => {
+    const overlay = await sseClient(base, { role: 'overlay' });
+    t.after(() => overlay.close());
+    const first = await overlay.next('state');
+    assert.equal(first.perf, null, 'no perf before the panel sent one');
+    for (const perf of ['ultra', '', ['eco'], '<b>eco</b>']) {
+      const bad = await api(base, 'POST', '/fire', { ...auth, json: { type: 'perf', perf } });
+      assert.equal(bad.status, 400, JSON.stringify(perf));
+      assert.equal(bad.json.error, 'invalid_envelope');
+    }
+    const ok = await api(base, 'POST', '/fire', { ...auth, json: { type: 'perf', perf: 'eco', extra: 'dropped' } });
+    assert.equal(ok.status, 200, ok.text);
+    const relayed = await overlay.next('perf');
+    assert.equal(relayed.perf, 'eco');
+    assert.equal(relayed.extra, undefined);
+    const late = await sseClient(base, { role: 'overlay' });
+    t.after(() => late.close());
+    const st = await late.next('state');
+    assert.equal(st.perf, 'eco', 'a late overlay gets the remembered perf mode');
+    assert.equal(st.theme, 'pastel', 'theme is still remembered next to perf');
   });
 
   await t.test('panel-only chat/gift events are not replayed to an overlay via Last-Event-ID', async () => {
@@ -391,8 +413,26 @@ test('review: server routes', async (t) => {
 // ---------------------------------------------------------------------------------------------
 test('review: sw.js shell lists every browser file on disk, caches nothing live', () => {
   const src = fs.readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
-  const shell = [...src.matchAll(/^\s+'(\/[^']+)',$/gm)].map((m) => m[1]);
+  // Two lists (2.1): FULL_SHELL for the panel worker, OVERLAY_SHELL for `/sw.js?shell=overlay`.
+  const listOf = (name) => {
+    const m = new RegExp(`const ${name} = \\[([\\s\\S]*?)\\];`).exec(src);
+    assert.ok(m, `${name} list in sw.js`);
+    return [...m[1].matchAll(/'(\/[^']*)'/g)].map((x) => x[1]);
+  };
+  const shell = listOf('FULL_SHELL');
   assert.ok(shell.length > 20);
+  const overlayShell = listOf('OVERLAY_SHELL');
+  // The overlay shell is exactly what overlay.html loads (+ the page itself and the icons), nothing of the panel.
+  const overlayHtml = fs.readFileSync(path.join(ROOT, 'overlay.html'), 'utf8');
+  const loaded = [...overlayHtml.matchAll(/(?:src|href)="((?:js|css)\/[^"]+)"/g)].map((m) => `/${m[1]}`);
+  assert.deepEqual(loaded.sort(), ['/css/overlay.css', '/js/bus.js', '/js/fx.js', '/js/schema.js', '/js/sounds.js']);
+  const icons = fs.readdirSync(path.join(ROOT, 'icons')).map((f) => `/icons/${f}`);
+  assert.deepEqual(overlayShell.slice().sort(), ['/overlay.html', ...loaded, ...icons].sort(), 'OVERLAY_SHELL = overlay page + its css/js + icons');
+  for (const p of overlayShell) assert.ok(shell.includes(p), `${p} is in the full shell too`);
+  for (const p of ['/js/panel.js', '/js/asr.js', '/js/demo.js', '/js/whisper-worker.js', '/index.html']) assert.ok(!overlayShell.includes(p), `${p} not in the overlay shell`);
+  assert.match(src, /new URLSearchParams\(self\.location\.search\)\.get\('shell'\) === 'overlay'/, 'worker picks the list from its own URL');
+  assert.match(src, /livefx-overlay-v/, 'overlay worker uses its own cache');
+  assert.match(overlayHtml, /register\('\/sw\.js\?shell=overlay', \{ scope: '\/overlay\.html' \}\)/, 'overlay registers the overlay shell with its own scope');
   const onDisk = [];
   for (const f of fs.readdirSync(path.join(ROOT, 'js'))) if (f.endsWith('.js')) onDisk.push(`/js/${f}`);
   for (const f of fs.readdirSync(path.join(ROOT, 'css'))) if (f.endsWith('.css')) onDisk.push(`/css/${f}`);
@@ -407,5 +447,7 @@ test('review: sw.js shell lists every browser file on disk, caches nothing live'
   const re = new RegExp(netOnly.slice(1, -1));
   for (const p of ['/api/chat', '/api/gift', '/fire', '/events', '/assets/x.mp3', '/health', '/m', '/models/x', '/docs/VIEWER.md']) assert.ok(re.test(p), `${p} must be network-only`);
   assert.ok(!shell.some((p) => p.startsWith('/api/')));
-  assert.match(src, /SHELL_VERSION = '2\.0\.0'/);
+  assert.match(src, /SHELL_VERSION = '2\.1\.0'/);
+  assert.equal(require(path.join(ROOT, 'package.json')).version, '2.1.0', 'package.json and SHELL_VERSION move together');
+  assert.ok(shell.includes('/memes/index.json'), 'sticker index is in the full shell');
 });

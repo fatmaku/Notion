@@ -100,16 +100,24 @@ async function run({ browser, startServer, api, shotDir, log }) {
     assert.equal(xss.imgs, 0);
     assert.equal(xss.b, 0);
 
-    // 3. rain capped + --x
-    await overlay.evaluate(() => {
-      window.livefx.renderer.fire({ id: 'r', visual: { kind: 'rain', emoji: '🔥', count: 9999 } });
-    });
+    // 3. rain capped (canvas path: one marker with the capped count, 2 × count canvas drops inside the band)
     const rain = await overlay.evaluate(() => {
-      const drops = Array.from(document.querySelectorAll('.fx-drop'));
-      return { count: drops.length, allX: drops.every((el) => el.style.getPropertyValue('--x') !== '') };
+      window.livefx.renderer.fire({ id: 'r', visual: { kind: 'rain', emoji: '🔥', count: 9999 } });
+      const marks = Array.from(document.querySelectorAll('.fx-rain'));
+      const drops = window.livefx.renderer.particles.items.filter((p) => p.text === '🔥');
+      return {
+        marks: marks.length,
+        count: marks.length ? Number(marks[0].dataset.count) : -1,
+        domDrops: document.querySelectorAll('.fx-drop').length,
+        canvas: drops.length,
+        inBand: drops.every((p) => p.x >= 0 && p.x <= window.innerWidth && p.y < 0),
+      };
     });
-    assert.ok(rain.count > 0 && rain.count <= 60, `drop count ${rain.count}`);
-    assert.equal(rain.allX, true, 'every drop has --x');
+    assert.equal(rain.marks, 1, 'one rain marker');
+    assert.equal(rain.count, 60, 'count capped at LIMITS.rainCount');
+    assert.equal(rain.domDrops, 0, 'no DOM drops when the canvas is available');
+    assert.ok(rain.canvas > 0 && rain.canvas <= 120, `canvas drop count ${rain.canvas}`);
+    assert.equal(rain.inBand, true, 'every canvas drop starts above the frame inside the band');
 
     // 4. javascript: src rejected, no error thrown
     const before = await overlay.evaluate(() => document.querySelectorAll('img').length);

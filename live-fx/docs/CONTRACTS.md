@@ -35,8 +35,13 @@ Rules for every package:
     text?: string,       // <= 80 chars
     bg?: string,         // /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%]+\))$/i
     color?: string,      // same as bg
-    color2?: string,     // v3, same as bg (second colour of `text` gradients / glitch layers)
-    src?: string,        // /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp)$/i  or  /^https?:\/\/[^\s"'<>]{1,500}$/i
+    color2?: string,     // v3, same as bg (second colour of `text` gradients / glitch layers / 2.1 sticker burst)
+    src?: string,        // kind 'image' (2.1): one of
+                         //   upload   /^assets\/[a-z0-9][a-z0-9._-]{0,99}\.(png|jpe?g|gif|webp)$/i          (UPLOAD_IMAGE_RE)
+                         //   sticker  /^memes\/[a-z0-9_-]{1,40}\/[a-z0-9_-]{1,80}\.(webp|png)$/            (MEMES_IMAGE_RE)
+                         //   hotlink  /^https:\/\/(?:(?:[a-z0-9-]{1,63}\.)?klipy\.com|(?:media[0-9]?|i)\.giphy\.com)\/[^\s"'<>\\]{1,480}$/i   (HOTLINK_SRC_RE)
+                         //   never `..`; any other http(s) URL (incl. http://, userinfo, ports, look-alike hosts) -> card + warning
+                         //   `emoji` on an image visual is the fallback the overlay shows when the image fails to load
     count?: integer,     // 1..60 (rain)
     shake?: boolean,
     // v3 – on every kind (only `true` / explicit values are stored, so v2 records never gain keys):
@@ -46,7 +51,7 @@ Rules for every package:
     intensity?: 1|2|3,   // default 1: particle cap 400/800/1200, light rays + ring behind cards at >= 2, spark burst at 3
     // kind 'scene' (1.3): scene (SCENES), intensity (default 2), duration (s, 0..3600), caption (bool)
     // kind 'text' (v3):
-    style?: 'neon'|'gradient'|'bounce'|'glitch',   // default 'neon'; `text` is required (else -> card)
+    style?: 'neon'|'gradient'|'bounce'|'glitch'|'sticker',   // default 'neon'; `text` is required (else -> card); 'sticker' = 2.1 comic sticker (color = fill, default #ffd166; color2 = burst, default #ff2d75)
     // kind 'lower-third' (v3): landscape only – the overlay renders a banner in portrait
     title?: string,      // <= 60 chars, falls back to `text`; missing -> kind 'banner'
     subtitle?: string,   // <= 80 chars
@@ -67,8 +72,11 @@ Exports of `LiveFXSchema`:
 
 | Export | Meaning |
 |---|---|
-| `VERSION` (=3), `SCHEMA_VERSION` (=3), `KINDS`, `POSITIONS`, `SCENES`, `LOOPS`, `TEXT_STYLES`, `THEMES`, `LIMITS` | `LIMITS = {triggers:200, keywords:50, keywordLen:60, label:40, text:80, emoji:16, hint:120, rainCount:60, stickerEmoji:32, sceneDuration:3600, cooldown:3600, transcriptChars:2000, assetBytes:8*1024*1024, sourceLen:80, idLen:64, comboSteps:6, comboDelay:10000, title:60, subtitle:80}`; `TEXT_STYLES = ['neon','gradient','bounce','glitch']`; `THEMES = ['neon','pastel','minimal','kinderbuch']` |
+| `VERSION` (=3), `SCHEMA_VERSION` (=3), `KINDS`, `POSITIONS`, `SCENES`, `LOOPS`, `TEXT_STYLES`, `THEMES`, `LIMITS` | `LIMITS = {triggers:200, keywords:50, keywordLen:60, label:40, text:80, emoji:16, hint:120, rainCount:60, stickerEmoji:32, sceneDuration:3600, cooldown:3600, transcriptChars:2000, assetBytes:8*1024*1024, sourceLen:80, idLen:64, comboSteps:6, comboDelay:10000, title:60, subtitle:80}`; `TEXT_STYLES = ['neon','gradient','bounce','glitch','sticker']` (2.1); `THEMES = ['neon','pastel','minimal','kinderbuch']` |
 | `ID_RE`, `SAFE_NAME`, `IMAGE_EXT`, `SOUND_EXT`, `ASSET_IMAGE_RE`, `ASSET_SOUND_RE`, `COLOR_RE` | regexes / lists above; `SAFE_NAME = /^[a-z0-9][a-z0-9._-]{0,99}$/i` |
+| `UPLOAD_IMAGE_RE`, `MEMES_IMAGE_RE`, `HOTLINK_SRC_RE` (2.1) | the three allowed `visual.src` forms above; `ASSET_IMAGE_RE` = upload or sticker (same-origin); `HTTP_SRC_RE` is a deprecated alias of `HOTLINK_SRC_RE` (it used to accept any http(s) URL) |
+| `PERF_MODES` (2.1) | `['auto','eco','high']` – overlay performance modes (docs/PERFORMANCE.md) |
+| `isImageSrc(src)` | upload or sticker (no `..`) or KLIPY/GIPHY hotlink |
 | `isSafeName(name)` | `SAFE_NAME` **and** no `..` |
 | `newId(prefix='m')` | `"<prefix>-<12 hex>"` via `crypto.randomUUID` (fallback time+random) |
 | `parseSound(s)` | `{kind:'builtin', name}` \| `{kind:'file', url:'assets/x.mp3'}` \| `null` |
@@ -76,7 +84,7 @@ Exports of `LiveFXSchema`:
 | `normalizeTriggers(any)` | `{triggers, warnings}`; non-array -> `{triggers: [], warnings: [...]}`; caps at `LIMITS.triggers` |
 | `mergeWithDefaults({triggers, removed}, defaults)` | appends deep copies of defaults whose id is neither present nor listed in `removed` |
 | `deriveRemoved(triggers, defaults)` | ids of defaults missing from `triggers` |
-| `validateEnvelope(msg)` | for `/fire`: `{ok:true, msg}` with `type` in `fire\|volume\|theme`, `id` (kept if `/^[\w.-]{1,64}$/`, else new), `ts`, normalized `trigger` + `source` (<= 80, default "API"), clamped `volume`, or `theme` (one of `THEMES`); unknown keys (e.g. `_keywords`) stripped. `{ok:false, error}` otherwise. |
+| `validateEnvelope(msg)` | for `/fire`: `{ok:true, msg}` with `type` in `fire\|volume\|theme\|perf`, `id` (kept if `/^[\w.-]{1,64}$/`, else new), `ts`, normalized `trigger` + `source` (<= 80, default "API"), clamped `volume`, `theme` (one of `THEMES`) or `perf` (one of `PERF_MODES`, 2.1); unknown keys (e.g. `_keywords`) stripped. `{ok:false, error}` otherwise. |
 | `escapeHtml(s)` | `& < > " '` |
 
 ## 2. Bus message envelope (BroadcastChannel and SSE carry identical JSON)
@@ -86,8 +94,9 @@ Exports of `LiveFXSchema`:
 fire:              { trigger, source }                    panel/API -> overlays (panel logs foreign ones)
 volume:            { volume: 0..1 }                       panel -> overlays; server remembers in state.volume
 theme:             { theme: 'neon'|'pastel'|'minimal'|'kinderbuch' }   panel -> overlays (v3); overlay ignores it when the URL has ?theme=
+perf:              { perf: 'auto'|'eco'|'high' }          panel -> overlays (2.1); server remembers in state.perf; overlay ignores it when the URL has ?perf=
 transcript:        { text, final: boolean, lang?, source } server -> panels (external ASR push)
-state:             { volume: number|null, theme?: string|null, overlays, panels, version }   server -> each new SSE subscriber (theme = last `theme` message, 1.6)
+state:             { volume: number|null, theme: string|null, perf: string|null, overlays, panels, version }   server -> each new SSE subscriber (theme = last `theme` message, 1.6; perf = last `perf` message, 2.1)
 triggers-updated:  { updatedAt }                          server -> all after PUT /api/triggers
 ```
 - `id` is created by the **sender** (`LiveFXSchema.newId()`); the server assigns one only if missing.
@@ -108,7 +117,7 @@ bus.close()
 ```
 - HTTP send queue: <= 20 entries, sequential, retries after 300/1000/3000 ms; `fire` messages older than 5 s are dropped; consecutive `volume` messages are coalesced to the latest; HTTP 401 sets `authError=true` and is not retried.
 - SSE reconnect: when `EventSource.readyState === CLOSED`, recreate with backoff 1, 2, 4, 8, 15 s (reset on open).
-- Panel and overlay both create the bus; the overlay's `window.livefx = {renderer, bus}`, the panel's `window.livefx = {bus, matcher, fire, handleText, triggers, asr, smart, store}`.
+- Panel and overlay both create the bus (2.1: the panel also exposes `window.livefx.perf {get(), set(mode)}`); the overlay's `window.livefx = {renderer, bus}`, the panel's `window.livefx = {bus, matcher, fire, handleText, triggers, asr, smart, store}`.
 
 ## 4. HTTP API (JSON everywhere; errors are `{ok:false, error:'<code>', message}`; **no CORS headers**)
 
@@ -118,7 +127,7 @@ bus.close()
 | `GET /events?role=panel\|overlay` | none | | SSE (section 2) |
 | `GET /api/config` | same-origin | | `{ok, version, token, smart:{available, reason, model, mock}, limits:{assetBytes}, lanIps:string[] (IPv4, non-internal, from os.networkInterfaces()), secure:boolean (TLS on), port:number (actually bound port)}` |
 | `GET /m?token=<token>` | none (the token IS the credential) | query `token` | constant-time compare with the server token: 302 `location: /mobile.html` + `set-cookie: livefx=<token>; HttpOnly; SameSite=Strict; Path=/` (+ `; Secure` over TLS); wrong → 401 `unauthorized` (German message); > 10 wrong attempts per minute per `req.socket.remoteAddress` → 429 `rate_limited`; no `token` param → 302 to `/mobile.html` without a cookie (`server/api-mobile.js`, registered before static) |
-| `POST /fire` | auth | envelope (`fire` or `volume`) | `{ok, id, overlays}`; 400 `invalid_envelope` |
+| `POST /fire` | auth | envelope (`fire`, `volume`, `theme` or `perf`; `theme`/`perf`/`volume` are remembered in `ctx.state`) | `{ok, id, overlays}`; 400 `invalid_envelope` |
 | `POST /api/fire` | auth | `{id}` or `{trigger}`, `source?`, `force?` | `{ok, fired, reason?: 'cooldown'\|'gap'\|'disabled'\|'unknown', id}`; 404 `unknown_trigger` |
 | `GET /api/triggers` | none | | `{ok, version:2, triggers, removed, updatedAt}` (already merged with defaults) |
 | `PUT /api/triggers` | auth | `{triggers, removed?}` | `{ok, count, warnings}`; 400 `invalid_triggers` |
@@ -319,8 +328,11 @@ tokens with a shorter fold in a `rest` list). Performance (test/matcher-fuzzy.te
 ## 9. Renderer (`js/fx.js`, global `LiveFXRenderer`) – owned by P3 / fx-engine (v2 in LiveFX 2.0)
 
 - `renderer.fire(trigger)`: `sound` via `LiveFXSchema.parseSound`: builtin -> `LiveFXSounds.play`; file -> `<audio src=url>` appended to `#stage` (removed on `ended`/`error`), routed through `ctx.createMediaElementSource(audio) -> GainNode(volume × gain) -> destination`, fallback `audio.volume` without AudioContext; `loop:<name>` -> `renderer.playLoop`.
-- `emoji`/`text` through `escapeHtml` (or text nodes); `img.setAttribute('src', v.src)` only after `ASSET_IMAGE_RE`/http regex check; `count` clamped to `LIMITS.rainCount`; DOM drops set `--x` (0..1) instead of inline `left`; cards/images/banners/text get class `fx-pos-<position>`.
-- Exports: `LiveFXRenderer = { Renderer, ParticleLayer, escapeHtml, THEMES, TEXT_STYLES }`.
+- `emoji`/`text` through `escapeHtml` (or text nodes); `img.setAttribute('src', v.src)` only after `ASSET_IMAGE_RE`/`HOTLINK_SRC_RE` check; `count` clamped to `LIMITS.rainCount`; DOM drops set `--x` (0..1) instead of inline `left`; cards/images/banners/text get class `fx-pos-<position>`.
+- Exports: `LiveFXRenderer = { Renderer, ParticleLayer, escapeHtml, THEMES, TEXT_STYLES }` (`TEXT_STYLES` = fallback list incl. `sticker`; the renderer reads `LiveFXSchema.TEXT_STYLES` when loaded).
+- **2.1 image rules**: `safeSrc` accepts `ASSET_IMAGE_RE` (upload or `memes/…`, no `..`) or `HOTLINK_SRC_RE` (fallback copies of both regexes live in `FALLBACK` and must equal the schema's – `test/schema.test.js` checks it). `img.onerror` replaces the image card with the emoji card (`v.emoji || '🖼️'` + text). Sources under `memes/` render as `.fx-card.fx-card-image.fx-sticker-img` (free-floating: transparent, no box-shadow/padding, `drop-shadow` filter – off in eco).
+- **2.1 text style `sticker`**: `.fx-bigtext.fx-text-sticker` (`--c1` = `color`, default #ffd166; `--c2` = `color2`, default #ff2d75) – letters with dark `-webkit-text-stroke` (paint-order stroke fill) + one hard shadow, comic burst `clip-path: polygon(…)` on `.fx-word::before` (`--c2`) and `::after` (dark rim), pop-in + wobble (eco: pop-in only, no rotation animation). `js/demo.js` CanvasFX draws the same polygon + outlined letters.
+- **2.1 performance mode**: `renderer.setPerf('auto'|'eco'|'high')` (unknown -> auto) → `renderer.perf` (requested), `renderer.perfActive` (`'high'|'eco'`, auto starts high and switches to eco for good after 30 slow frames), `renderer.eco` (getter), `stats.perfSwitches`; `body[data-perf]` = perfActive, `body[data-perf-mode]` = perf. Details: docs/PERFORMANCE.md.
 - `renderer.stats = { fires, sounds, fileSounds, scenes, combos, particles, fps, frameMs, reduced, canvas }` – `fps`/`particles` are refreshed by the particle loop (`fps` starts at 60 and is always numeric), `reduced` counts auto-reductions of the particle cap, `canvas` says whether the canvas layer is available.
 - **Canvas particle layer** (`renderer.particles`, class `ParticleLayer`): one `<canvas class="fx-canvas">` right above the scene layers in `#stage`, one `requestAnimationFrame` loop that only runs while particles or a scene parallax are alive. Cap 400 / 800 / 1200 at intensity 1 / 2 / 3 (`particles.setCap(i)`, `particles.cap`); when a frame takes > 20 ms for 30 consecutive frames the cap drops to 60 % (min 120) and stays there (`particles.reducedTo`). `confetti` renders on the canvas (90 × intensity rotating rects, gravity / wind / drift / 3D wobble) with the old `.fx-confetti` DOM path as fallback when `getContext('2d')` is unavailable; `rain` keeps its `count` DOM `.fx-drop` nodes **and** adds `count × intensity × 2` canvas emoji (sprite-cached `fillText`). Scenes add three parallax emoji layers (far / mid / near) on the canvas while keeping the DOM particles (<= 40), crossfade, caption and loop behaviour intact.
 - **v3 kinds**: `text` -> `.fx-bigtext.fx-text-<style>` with `.fx-word[data-text] > .fx-w > span.fx-letter[--i]` (3 s; style `gradient` clips the gradient per `.fx-letter`, style `glitch` adds two `aria-hidden` clones `span.fx-glitch-layer.fx-glitch-a|b` of the letter structure inside `.fx-word`); `lower-third` -> `.fx-lower-third > .fx-lt-bar > .fx-lt-emoji? + .fx-lt-text > .fx-lt-title + .fx-lt-subtitle?` (4 s, landscape only – `body.layout-portrait` renders a banner "title · subtitle" instead); `combo` -> each step is scheduled with `setTimeout` and fired through `renderer.fire({visual, sound, gain})`, so it counts in `stats.fires`; `stats.combos++` per combo; nested combos are skipped.
@@ -333,7 +345,7 @@ tokens with a shorter fold in a `rest` list). Performance (test/matcher-fuzzy.te
 
 - `?layout=portrait` adds `body.layout-portrait`. Rain/confetti use `left: calc(var(--fx-x0, 0vw) + var(--x) * var(--fx-xspan, 100vw))` and fall `translateY(var(--fx-fall, 115vh))`; portrait sets `--fx-fall: 62vh` (drops fade before the bottom 35 %, where TikTok/IG chat sits). The canvas layer reads the same variables (vw/vh/px/%) for its band and fall distance.
 - `.fx-pos-top { top: 18% }`; `.fx-pos-safe` = center in landscape, `top: 32%` in portrait; portrait image cards `max-width: 80vw; max-height: 40vh`.
-- Overlay handles `state` (volume when no `?volume=`, theme when no `?theme=`), `volume` and `theme` messages; includes `js/schema.js`. `?theme=neon|pastel|minimal|kinderbuch` pins the theme (bus `theme` messages are then ignored).
+- Overlay handles `state` (volume when no `?volume=`, theme when no `?theme=`, perf when no `?perf=`), `volume`, `theme` and `perf` messages; includes `js/schema.js`. `?theme=neon|pastel|minimal|kinderbuch` pins the theme (bus `theme` messages are then ignored).
 - **Theme variables** on `:root`, overridden by `body[data-theme="…"]`: `--fx-font`, `--fx-card-bg`, `--fx-card-border`, `--fx-accent`, `--fx-accent-2`, `--fx-text`, `--fx-radius`, `--fx-glow`, `--fx-shadow`. `neon` (no attribute) is the classic look; `pastel` (light pink card, soft border), `minimal` (dark translucent, 10 px radius, no uppercase glow), `kinderbuch` (warm cream card, dashed orange border, 48 px radius, playful font fallback).
 - Layers in `#stage` (bottom to top): `.fx-scene` (0..n, incl. fading ones) -> `canvas.fx-canvas` -> transient effects. Animated layers carry `will-change`; nodes are removed on their main `animationend` (timeout fallback).
 
@@ -565,3 +577,32 @@ record(trigger, source)}`, `intensityFromVoice` (get/set), `voiceIntensity()`. T
 `tr` 85 / `de` 49 / `en` 50 triggers (defaults + all three = 199 ≤ `LIMITS.triggers`), plus theme packs `family`
 („👨‍👩‍👧 Familie & Kinder“, 27, soft sounds only) and `gaming` („🎮 Gaming“, 27). Theme packs are listed like meme packs
 (`story: false`); keyword rules as before (unique within a pack, never a default keyword, no fuzzy stop-word tokens).
+
+## 15. Release 2.1 – performance select, sticker library, safe image sources
+
+**Panel settings card** (`index.html`, `js/panel.js`): select `#perf` („Leistung“, options `auto` „Automatisch (empfohlen)“,
+`eco` „Eco (schwacher PC)“, `high` „Hoch (beste Grafik)“) next to `#theme`; persisted in localStorage `livefx.perf` (try/catch,
+default `auto`); a change sends `{type:'perf', perf}`; a stored non-auto mode is re-sent 1.5 s after boot (like the theme).
+`window.livefx.perf {get(), set(mode)}` (set returns the applied mode, unknown → 'auto'). Server: `ctx.state.perf`
+(`server/state.js`, set in `server/api-fire.js`), repeated in the SSE `state` message (`server/sse.js`).
+
+**Media library tabs** (`js/assets.js` → `LiveFXAssets.mountLibrary(el, {onChange, onCreateTrigger})`): `.lib-tabs` with
+`.lib-tab[data-tab="files"]` („📁 Dateien & GIFs“, default: uploads + GIF search as before) and
+`.lib-tab[data-tab="stickers"]` („😀 Sticker (kostenlos)“); panes `.lib-pane[data-pane="files"|"stickers"]`. The returned
+object adds `stickers` (`{open(), search(q), items}`) and `showTab(name)`.
+Sticker pane (`.sticker-lib`, loads `memes/index.json` on first open): `.sticker-q` (search over keywords de/tr/en, name, id –
+lower-case, Turkish ı/İ and diacritics folded, every word must match), `.sticker-chips > .sticker-chip[data-cat]` (`''` = Alle,
+`.active`), `.sticker-status`, `.sticker-grid > .sticker-item[data-id][data-category]` with `img.sticker-thumb` (64 px,
+`loading="lazy"`), `.sticker-badge` (animated only), `.sticker-name`, `button.sticker-trigger[data-index]` („⚡ Als Trigger“),
+and `.sticker-credit` („Fluent Emoji © Microsoft, MIT – siehe THIRD-PARTY-NOTICES.md“).
+„Als Trigger“ calls `onCreateTrigger(asset, {title, sticker})` with
+`asset = {name: '<emoji> <Keyword>', url: 'memes/fluent/<id>.webp', type: 'image', emoji, sticker: true, keywords: [≤ 3 of the panel language], animated}`;
+the panel opens the editor with `{label, keywords, sound: 'pop', cooldown: 5, visual: {kind: 'image', src: url, emoji, position: 'safe'}}`
+(GIF results arrive the same way without `emoji` / `keywords`). Pure helpers: `LiveFXAssets.stickers = {load(), clean(index),
+search(items, q, category), toAsset(item, lang), fold(s), CREDIT, CATEGORIES}`. The editor shows the `emoji` field for image
+triggers (fallback emoji). `index.html` and `mobile.html` load `js/safety.js` before `js/assets.js`.
+
+**Safe image sources**: see §1 `src`. `js/fx.js`, `js/demo.js` and `js/editor.js` use `HOTLINK_SRC_RE` (fx.js has an identical
+fallback copy). Tests: `test/schema.test.js` (accepted hosts; http, look-alike hosts, userinfo, ports rejected; perf envelope),
+`test/review-2.0.test.js` (perf relayed + remembered), `test/e2e/82-sticker.js` (perf select → overlay, late overlay, URL pin;
+sticker tab → trigger → free-floating sticker; broken image → emoji card; screenshots `sticker-overlay.png`, `sticker-panel.png`).

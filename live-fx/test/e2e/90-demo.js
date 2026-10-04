@@ -53,7 +53,7 @@ async function run({ browser, startServer, shotDir, log }) {
       const t = window.livefxDemo.state.triggers.find((x) => x.id === 'lol');
       window.livefxDemo.fire(t);
     });
-    await page.waitForSelector('#stage .fx-drop', { timeout: 2000 });
+    await page.waitForSelector('#stage .fx-rain', { state: 'attached', timeout: 2000 });
     await page.waitForTimeout(1200);
     const blobInfo = await page.evaluate(async () => {
       const blob = await window.livefxDemo.stopRecording();
