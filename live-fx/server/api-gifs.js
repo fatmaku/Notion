@@ -1,48 +1,74 @@
-// LiveFX – GIF search (Tenor v2 / Giphy v1) and server-side import of a GIF URL into <dataDir>/assets.
+// LiveFX – GIF search (KLIPY / GIPHY) with our own safety filter. Results are HOTLINKS on the provider's
+// media host: nothing is downloaded, cached or proxied (GIPHY terms forbid it; KLIPY is treated the same).
 //
 // Routes (see docs/GIFS.md for the key setup):
-//   GET  /api/gifs/status                      -> {ok, providers:{tenor, giphy}, mock}      (keys never leave the server)
-//   PUT  /api/gifs/keys {tenorKey?, giphyKey?} -> stores keys in <dataDir>/config.json (0600); '' removes a key   [auth]
-//   GET  /api/gifs/search?q=&provider=&limit=&lang= -> {ok, provider, results:[{id,title,preview,url,width,height}]} [auth]
-//   POST /api/gifs/import {url, name?}         -> downloads an allow-listed GIF/PNG/JPEG/WEBP into the asset store [auth]
-//   GET  /api/gifs/mock/<n>.gif                -> tiny GIF, only with LIVEFX_GIF_MOCK=1 (tests/demo without internet)
+//   GET  /api/gifs/status                       -> {ok, providers:{klipy, giphy}, mock, default, attribution, tenorRemoved?}
+//   PUT  /api/gifs/keys {klipyKey?, giphyKey?}  -> stores keys in <dataDir>/config.json (0600); '' removes a key   [auth]
+//   GET  /api/gifs/search?q=&provider=&limit=&lang=
+//        -> {ok, provider, attribution, results:[{id,title,preview,url,width,height,provider}], filtered}       [auth]
+//        -> blocked query: {ok:true, provider, attribution, results:[], blocked:true, reason, message}  (provider NOT called)
+//   POST /api/gifs/import                       -> 403 provider_terms for KLIPY/GIPHY (and old Tenor) media;
+//                                                  every other host 400 (uploads go through /api/assets)       [auth]
+//   GET  /api/gifs/mock/<n>.gif, /api/gifs/mock-stats -> only with LIVEFX_GIF_MOCK=1 (tests/demo without internet)
 //
-// Keys come from LIVEFX_TENOR_KEY / LIVEFX_GIPHY_KEY or from config.json. LIVEFX_GIF_MOCK=1 turns both
-// providers into a deterministic in-process mock whose result URLs point at this server's mock route, so
-// the whole search -> import -> library path is testable end-to-end without calling the real providers.
+// Every provider request carries rating=g (KLIPY additionally contentfilter=high) and the panel language
+// (lang de|tr|en, KLIPY locale de_DE|tr_TR|en_US). Queries are checked with LiveFXSafety.check() first; the
+// provider's results are filtered again by title/tags/slug because ratings are known to leak.
+//
+// Tenor shut its API down on 30 June 2026 – provider=tenor answers 410 provider_removed.
+//
+// Keys: LIVEFX_KLIPY_KEY / LIVEFX_GIPHY_KEY or config.json (klipyKey / giphyKey). LIVEFX_GIF_MOCK=1 turns
+// both providers into a deterministic in-process mock that builds the real request URL (so rating/lang are
+// observable via /api/gifs/mock-stats) and answers with provider-shaped JSON, including results that the
+// safety filter must remove. LIVEFX_GIF_UPSTREAM=http://127.0.0.1:<port> (loopback only, tests) points both
+// providers at a local stub instead of api.klipy.com / api.giphy.com.
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 const { HttpError, json, readJson } = require('./router');
 const { requireAuth } = require('./auth');
+const crypto = require('crypto');
 const { sanitizeName, sniff } = require('./api-assets');
+const Safety = require('../js/safety.js');
 require('../js/schema.js');
 
 const { LIMITS } = globalThis.LiveFXSchema;
 
 const CONFIG_FILE = 'config.json';
-const PROVIDERS = ['tenor', 'giphy'];
+const PROVIDERS = ['klipy', 'giphy'];
+const REMOVED_PROVIDERS = ['tenor'];
+const ATTRIBUTION = { klipy: 'Powered by KLIPY', giphy: 'Powered By GIPHY' };
+const KEY_FIELDS = { klipy: 'klipyKey', giphy: 'giphyKey' };
+const KEY_ENV = { klipy: 'LIVEFX_KLIPY_KEY', giphy: 'LIVEFX_GIPHY_KEY' };
 const LANGS = ['de', 'en', 'tr'];
+const KLIPY_LOCALE = { de: 'de_DE', tr: 'tr_TR', en: 'en_US' };
+const KLIPY_COUNTRY = { de: 'DE', tr: 'TR', en: 'US' };
 const MAX_Q = 200;
 const MAX_KEY = 200;
 const KEY_RE = /^[A-Za-z0-9._~+/=-]{8,200}$/;
 const DEFAULT_LIMIT = 24;
 const SEARCH_TIMEOUT_MS = 6000;
-const IMPORT_TIMEOUT_MS = 10000;
-const MAX_REDIRECTS = 3;
-const CACHE_TTL_MS = 5 * 60 * 1000;
-const CACHE_MAX = 200;
 const MOCK_COUNT = 6;
 const MAX_NAME = 100;
+const TENOR_GONE =
+  'Tenor hat seine API am 30.06.2026 abgeschaltet – bitte KLIPY (kostenlos) oder GIPHY verwenden, siehe docs/GIFS.md';
 
 // 1x1 transparent GIF89a (43 bytes) – served by the mock route.
 const MOCK_GIF = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==', 'base64');
 
-/** Exact hosts and wildcard suffixes the importer may download from. */
-const ALLOWED_HOSTS = ['media.tenor.com', 'c.tenor.com', 'media.giphy.com', 'i.giphy.com'];
-const ALLOWED_SUFFIXES = ['.tenor.com', '.giphy.com'];
+/** Media hosts per provider. Result URLs elsewhere are dropped; import refuses these hosts (provider terms). */
+const MEDIA_SUFFIXES = { klipy: ['.klipy.com'], giphy: ['.giphy.com'], tenor: ['.tenor.com', '.tenor.co'] };
+const MEDIA_EXACT = { klipy: ['klipy.com'], giphy: ['giphy.com'], tenor: ['tenor.com'] };
+/** Hosts a search result's hotlink may point to (kept in sync with the visual.src allow-list in js/schema.js). */
+const HOTLINK_HOST_RE = { klipy: /^(?:[a-z0-9-]{1,63}\.)?klipy\.com$/, giphy: /^(?:media[0-9]?|i)\.giphy\.com$/ };
+
+/**
+ * Hosts the importer may still download from. Deliberately EMPTY: GIF provider media must be hotlinked,
+ * never stored, and own files are uploaded via POST /api/assets. The SSRF-guarded download path below stays
+ * (used by the loopback mock route in tests) so a future, storage-friendly source can be enabled here.
+ */
+const IMPORT_HOSTS = [];
 
 const IPV4_RE = /^\d{1,3}(\.\d{1,3}){3}$/;
 
@@ -99,40 +125,38 @@ function envKey(name) {
 
 /** Resolves the key for a provider: env first, then config.json. '' when none. */
 function keyFor(ctx, provider) {
-  const fromEnv = envKey(provider === 'tenor' ? 'LIVEFX_TENOR_KEY' : 'LIVEFX_GIPHY_KEY');
+  if (!PROVIDERS.includes(provider)) return '';
+  const fromEnv = envKey(KEY_ENV[provider]);
   if (fromEnv) return fromEnv;
-  const cfg = readConfig(ctx);
-  const v = cfg[provider === 'tenor' ? 'tenorKey' : 'giphyKey'];
+  const v = readConfig(ctx)[KEY_FIELDS[provider]];
   return typeof v === 'string' && v.trim() ? v.trim() : '';
 }
 
 function providersStatus(ctx) {
-  if (isMock()) return { tenor: true, giphy: true };
-  return { tenor: !!keyFor(ctx, 'tenor'), giphy: !!keyFor(ctx, 'giphy') };
+  if (isMock()) return { klipy: true, giphy: true };
+  return { klipy: !!keyFor(ctx, 'klipy'), giphy: !!keyFor(ctx, 'giphy') };
 }
 
-// ---------------------------------------------------------------- search
+function defaultProvider(status) {
+  return status.klipy ? 'klipy' : status.giphy ? 'giphy' : null;
+}
 
-const cache = new Map(); // key -> {at, value}
+/** True when an old Tenor key is still configured (shown as a hint in the panel). */
+function tenorLeftover(ctx) {
+  return !!(envKey('LIVEFX_TENOR_KEY') || readConfig(ctx).tenorKey || readConfig(ctx).gifProvider === 'tenor');
+}
 
-function cacheGet(key) {
-  const hit = cache.get(key);
-  if (!hit) return null;
-  if (Date.now() - hit.at > CACHE_TTL_MS) {
-    cache.delete(key);
-    return null;
+function statusBody(ctx) {
+  const providers = providersStatus(ctx);
+  const body = { ok: true, providers, mock: isMock(), default: defaultProvider(providers), attribution: ATTRIBUTION };
+  if (tenorLeftover(ctx)) {
+    body.tenorRemoved = true;
+    body.notice = TENOR_GONE;
   }
-  return hit.value;
+  return body;
 }
 
-function cacheSet(key, value) {
-  if (cache.size >= CACHE_MAX) {
-    const now = Date.now();
-    for (const [k, v] of cache) if (now - v.at > CACHE_TTL_MS) cache.delete(k);
-    if (cache.size >= CACHE_MAX) cache.delete(cache.keys().next().value);
-  }
-  cache.set(key, { at: Date.now(), value });
-}
+// ---------------------------------------------------------------- helpers
 
 function clampLimit(raw) {
   const n = Number.parseInt(String(raw ?? ''), 10);
@@ -149,48 +173,184 @@ function num(v) {
   return Number.isFinite(n) && n > 0 ? Math.round(n) : 0;
 }
 
-function httpsUrl(v) {
-  return typeof v === 'string' && /^https:\/\/[^\s"'<>]{1,500}$/i.test(v) ? v : '';
+function hostIs(host, provider) {
+  const h = String(host || '').toLowerCase();
+  return MEDIA_EXACT[provider].includes(h) || MEDIA_SUFFIXES[provider].some((s) => h.endsWith(s) && h.length > s.length);
 }
 
-/** Base URL other clients (and this server itself) reach us under in mock mode. */
-function ownBase(req, ctx) {
-  let host = (ctx.config && ctx.config.host) || '127.0.0.1';
-  if (host === '0.0.0.0' || host === '::' || host === '') host = '127.0.0.1';
-  if (host.includes(':') && !host.startsWith('[')) host = `[${host}]`;
-  const port = (req.socket && req.socket.localPort) || (ctx.config && ctx.config.port) || 8787;
-  return `http://${host}:${port}`;
+/** Which provider (klipy|giphy|tenor) owns this media URL's host, or null. */
+function providerOfUrl(raw) {
+  let u;
+  try {
+    u = new URL(String(raw));
+  } catch (_) {
+    return null;
+  }
+  for (const p of Object.keys(MEDIA_SUFFIXES)) if (hostIs(u.hostname, p)) return p;
+  return null;
 }
 
-function mockSearch(req, ctx, q, provider, limit) {
-  const base = ownBase(req, ctx);
-  const sizes = [
-    [480, 270],
-    [320, 320],
-    [400, 225],
-    [500, 281],
-    [360, 360],
-    [498, 280],
-  ];
-  const results = [];
-  for (let n = 1; n <= Math.min(MOCK_COUNT, limit); n++) {
-    const [width, height] = sizes[(n - 1) % sizes.length];
-    results.push({
-      id: `mock-${n}`,
-      title: `${q} #${n} (Mock ${provider === 'tenor' ? 'Tenor' : 'Giphy'})`,
-      preview: `${base}/api/gifs/mock/${n}.gif`,
-      url: `${base}/api/gifs/mock/${n}.gif`,
-      width,
-      height,
+/** https URL on the provider's media host, else ''. */
+function mediaUrl(v, provider) {
+  if (typeof v !== 'string' || !/^https:\/\/[^\s"'<>]{1,500}$/i.test(v)) return '';
+  try {
+    const u = new URL(v);
+    if (u.username || u.password || u.port) return '';
+    return HOTLINK_HOST_RE[provider].test(u.hostname) ? u.href : '';
+  } catch (_) {
+    return '';
+  }
+}
+
+function tagList(v) {
+  if (!Array.isArray(v)) return [];
+  return v.filter((t) => typeof t === 'string').slice(0, 30).map((t) => t.slice(0, 60));
+}
+
+// ---------------------------------------------------------------- provider response mapping (pure, mock-tested)
+
+/**
+ * KLIPY. Primary shape: the Tenor-v2-compatible layer (https://api.klipy.com/v2/search, `results[]` with
+ * `media_formats.{gif,mediumgif,tinygif,nanogif,webp,tinywebp,…}.{url,dims}`). Also tolerates KLIPY's
+ * native shape (`data.data[]` with `file.{hd,md,sm,xs}.{webp,gif}.{url,width,height}`).
+ * Picks a small webp/gif for `url` (performance) and the tiniest rendition for `preview`.
+ */
+function normalizeKlipy(body) {
+  const out = [];
+  const list = Array.isArray(body && body.results) ? body.results : Array.isArray(body && body.data && body.data.data) ? body.data.data : Array.isArray(body && body.data) ? body.data : [];
+  for (const r of list) {
+    if (!r || typeof r !== 'object') continue;
+    let main = null;
+    let small = null;
+    if (r.media_formats && typeof r.media_formats === 'object') {
+      const mf = r.media_formats;
+      const pick = (names) => {
+        for (const n of names) {
+          const f = mf[n];
+          const url = f && mediaUrl(f.url, 'klipy');
+          if (url) return { url, width: num(Array.isArray(f.dims) ? f.dims[0] : f.width), height: num(Array.isArray(f.dims) ? f.dims[1] : f.height) };
+        }
+        return null;
+      };
+      main = pick(['webp', 'mediumgif', 'tinygif', 'gif']);
+      small = pick(['tinywebp', 'nanowebp', 'tinygif', 'nanogif']);
+    } else if (r.file && typeof r.file === 'object') {
+      const pick = (pairs) => {
+        for (const [size, fmt] of pairs) {
+          const f = r.file[size] && r.file[size][fmt];
+          const url = f && mediaUrl(f.url, 'klipy');
+          if (url) return { url, width: num(f.width), height: num(f.height) };
+        }
+        return null;
+      };
+      main = pick([['md', 'webp'], ['md', 'gif'], ['sm', 'webp'], ['sm', 'gif'], ['hd', 'webp'], ['hd', 'gif']]);
+      small = pick([['xs', 'webp'], ['xs', 'gif'], ['sm', 'webp'], ['sm', 'gif']]);
+    }
+    if (!main) continue;
+    out.push({
+      id: str(String(r.id ?? r.slug ?? ''), 64),
+      title: str(r.title || r.content_description || r.h1_title || '', 200),
+      preview: (small && small.url) || main.url,
+      url: main.url,
+      width: main.width,
+      height: main.height,
+      provider: 'klipy',
+      tags: tagList(r.tags),
+      slug: str(r.slug || '', 200),
+      content_description: str(r.content_description || '', 300),
     });
   }
-  return results;
+  return out;
+}
+
+/**
+ * GIPHY v1 search (`data[]` with `images.{fixed_height,fixed_width_small,preview_gif,downsized,original}`).
+ * `url` = fixed_height (200 px) webp → gif, `preview` = fixed_width_small (100 px) webp → gif.
+ */
+function normalizeGiphy(body) {
+  const out = [];
+  for (const r of Array.isArray(body && body.data) ? body.data : []) {
+    if (!r || typeof r !== 'object') continue;
+    const im = r.images || {};
+    const pick = (cands) => {
+      for (const [name, field] of cands) {
+        const f = im[name];
+        const url = f && mediaUrl(f[field], 'giphy');
+        if (url) return { url, width: num(f.width), height: num(f.height) };
+      }
+      return null;
+    };
+    const main = pick([['fixed_height', 'webp'], ['fixed_height', 'url'], ['downsized', 'url'], ['original', 'webp'], ['original', 'url']]);
+    if (!main) continue;
+    const small = pick([['fixed_width_small', 'webp'], ['fixed_width_small', 'url'], ['preview_gif', 'url'], ['fixed_height_small', 'url']]);
+    out.push({
+      id: str(r.id, 64),
+      title: str(r.title || '', 200),
+      preview: (small && small.url) || main.url,
+      url: main.url,
+      width: main.width,
+      height: main.height,
+      provider: 'giphy',
+      tags: tagList(r.tags),
+      slug: str(r.slug || '', 200),
+      alt_text: str(r.alt_text || '', 300),
+      username: str(r.username || '', 60),
+    });
+  }
+  return out;
+}
+
+/** Safety filter on title/tags/slug/description, then strip the internal fields. */
+function publicResults(items) {
+  const { kept, removed } = Safety.partition(items);
+  const results = kept.map((r) => ({ id: r.id, title: r.title, preview: r.preview, url: r.url, width: r.width, height: r.height, provider: r.provider }));
+  return { results, filtered: removed.length };
+}
+
+// ---------------------------------------------------------------- request building
+
+/** Builds the provider request URL. Every request: rating=g + language. */
+function buildRequest(provider, key, q, lang, limit) {
+  const up = upstreamBase();
+  if (provider === 'klipy') {
+    const u = new URL(up ? `${up}/klipy/v2/search` : 'https://api.klipy.com/v2/search');
+    u.searchParams.set('q', q);
+    u.searchParams.set('key', key);
+    u.searchParams.set('client_key', 'livefx');
+    u.searchParams.set('limit', String(limit));
+    u.searchParams.set('locale', KLIPY_LOCALE[lang]);
+    u.searchParams.set('country', KLIPY_COUNTRY[lang]);
+    u.searchParams.set('rating', 'g');
+    u.searchParams.set('contentfilter', 'high');
+    u.searchParams.set('media_filter', 'webp,tinywebp,mediumgif,tinygif,nanogif,gif');
+    return u;
+  }
+  const u = new URL(up ? `${up}/giphy/v1/gifs/search` : 'https://api.giphy.com/v1/gifs/search');
+  u.searchParams.set('api_key', key);
+  u.searchParams.set('q', q);
+  u.searchParams.set('limit', String(limit));
+  u.searchParams.set('rating', 'g');
+  u.searchParams.set('lang', lang);
+  return u;
+}
+
+/** LIVEFX_GIF_UPSTREAM – loopback http(s) base only (test stub); anything else is ignored. */
+function upstreamBase() {
+  const v = envKey('LIVEFX_GIF_UPSTREAM');
+  if (!v) return '';
+  try {
+    const u = new URL(v);
+    if (!/^https?:$/.test(u.protocol) || !['127.0.0.1', 'localhost', '[::1]'].includes(u.hostname)) return '';
+    return u.origin;
+  } catch (_) {
+    return '';
+  }
 }
 
 async function fetchJson(url) {
   let res;
   try {
-    res = await fetch(url, { signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS), headers: { accept: 'application/json' } });
+    res = await fetch(url, { signal: AbortSignal.timeout(SEARCH_TIMEOUT_MS), headers: { accept: 'application/json' }, redirect: 'error' });
   } catch (e) {
     throw new HttpError(502, 'upstream', `GIF-Anbieter nicht erreichbar (${e && e.name === 'TimeoutError' ? 'Timeout' : e.message})`);
   }
@@ -202,70 +362,116 @@ async function fetchJson(url) {
   }
 }
 
-function normalizeTenor(body) {
-  const out = [];
-  for (const r of Array.isArray(body && body.results) ? body.results : []) {
-    const mf = (r && r.media_formats) || {};
-    const gif = mf.gif || mf.mediumgif || {};
-    const tiny = mf.tinygif || mf.nanogif || gif;
-    const url = httpsUrl(gif.url);
-    if (!url) continue;
-    const dims = Array.isArray(gif.dims) ? gif.dims : [];
-    out.push({
-      id: str(r.id, 64),
-      title: str(r.content_description || r.title || r.h1_title || '', 200),
-      preview: httpsUrl(tiny.url) || url,
-      url,
-      width: num(dims[0]),
-      height: num(dims[1]),
-    });
+// ---------------------------------------------------------------- mock provider
+
+const mockStats = { calls: 0, last: null };
+
+/** Provider-shaped mock body. Contains 2–3 items the safety filter must remove (by title, tag and slug). */
+function mockBody(provider, u) {
+  const q = provider === 'klipy' ? u.searchParams.get('q') : u.searchParams.get('q');
+  const limit = Number(u.searchParams.get('limit')) || DEFAULT_LIMIT;
+  const sizes = [
+    [356, 200],
+    [200, 200],
+    [356, 200],
+    [300, 169],
+    [200, 200],
+    [355, 200],
+  ];
+  const unsafe = [
+    { title: `${q} beer party`, tags: ['fun'], slug: 'fun-drinks' },
+    { title: `${q} funny`, tags: ['gun', 'action'], slug: 'action' },
+    { title: `${q} crowd`, tags: [], slug: 'crowd-in-church-xyz' },
+  ];
+  const items = [];
+  const name = provider === 'klipy' ? 'KLIPY' : 'GIPHY';
+  for (let n = 1; n <= MOCK_COUNT; n++) {
+    const [w, h] = sizes[n - 1];
+    items.push({ n, title: `${q} #${n} (Mock ${name})`, tags: ['mock', 'reaction'], slug: `mock-${n}`, w, h });
+    if (n === 2 || n === 4 || n === 5) {
+      const bad = unsafe[[2, 4, 5].indexOf(n)];
+      items.push({ n: 100 + n, ...bad, w, h });
+    }
   }
-  return out;
+  const take = items.slice(0, limit + 3); // the filter removes up to 3
+  if (provider === 'klipy') {
+    return {
+      results: take.map((it) => ({
+        id: `mock-${it.n}`,
+        title: it.title,
+        content_description: it.title,
+        tags: it.tags,
+        slug: it.slug,
+        media_formats: {
+          webp: { url: `https://static.klipy.com/mock/${it.n}/md.webp`, dims: [it.w, it.h] },
+          tinygif: { url: `https://static.klipy.com/mock/${it.n}/tiny.gif`, dims: [Math.round(it.w / 2), Math.round(it.h / 2)] },
+        },
+      })),
+      next: '',
+    };
+  }
+  return {
+    data: take.map((it) => ({
+      id: `mock-${it.n}`,
+      title: it.title,
+      slug: it.slug,
+      tags: it.tags,
+      images: {
+        fixed_height: { url: `https://media.giphy.com/media/mock${it.n}/200.gif`, webp: `https://media.giphy.com/media/mock${it.n}/200.webp`, width: String(it.w), height: '200' },
+        fixed_width_small: { url: `https://media.giphy.com/media/mock${it.n}/100w.gif`, width: '100', height: String(Math.round((100 * it.h) / it.w)) },
+      },
+    })),
+    meta: { status: 200 },
+  };
 }
 
-function normalizeGiphy(body) {
-  const out = [];
-  for (const r of Array.isArray(body && body.data) ? body.data : []) {
-    const im = (r && r.images) || {};
-    const orig = im.original || im.downsized || {};
-    const small = im.fixed_width_small || im.preview_gif || im.fixed_width || orig;
-    const url = httpsUrl(orig.url);
-    if (!url) continue;
-    out.push({
-      id: str(r.id, 64),
-      title: str(r.title || '', 200),
-      preview: httpsUrl(small.url) || url,
-      url,
-      width: num(orig.width),
-      height: num(orig.height),
-    });
-  }
-  return out;
+/** Base URL this server is reachable under (mock previews point here so they render offline). */
+function ownBase(req, ctx) {
+  let host = (ctx.config && ctx.config.host) || '127.0.0.1';
+  if (host === '0.0.0.0' || host === '::' || host === '') host = '127.0.0.1';
+  if (host.includes(':') && !host.startsWith('[')) host = `[${host}]`;
+  const port = (req.socket && req.socket.localPort) || (ctx.config && ctx.config.port) || 8787;
+  return `http://${host}:${port}`;
 }
 
-async function providerSearch(ctx, provider, q, lang, limit) {
-  const key = keyFor(ctx, provider);
+// ---------------------------------------------------------------- search
+
+async function providerSearch(req, ctx, provider, q, lang, limit) {
+  const key = isMock() ? 'mock-key' : keyFor(ctx, provider);
   if (!key) throw new HttpError(503, 'no_provider', 'Kein GIF-API-Key konfiguriert – siehe docs/GIFS.md');
-  if (provider === 'tenor') {
-    const u = new URL('https://tenor.googleapis.com/v2/search');
-    u.searchParams.set('q', q);
-    u.searchParams.set('key', key);
-    u.searchParams.set('limit', String(limit));
-    u.searchParams.set('media_filter', 'gif,tinygif');
-    u.searchParams.set('locale', lang);
-    u.searchParams.set('contentfilter', 'medium');
-    return normalizeTenor(await fetchJson(u.href));
+  const u = buildRequest(provider, key, q, lang, limit);
+  let body;
+  if (isMock()) {
+    mockStats.calls++;
+    const params = Object.fromEntries(u.searchParams);
+    delete params.key;
+    delete params.api_key;
+    mockStats.last = { provider, host: u.host, path: u.pathname, params };
+    body = mockBody(provider, u);
+  } else {
+    body = await fetchJson(u.href);
   }
-  const u = new URL('https://api.giphy.com/v1/gifs/search');
-  u.searchParams.set('api_key', key);
-  u.searchParams.set('q', q);
-  u.searchParams.set('limit', String(limit));
-  u.searchParams.set('rating', 'pg-13');
-  u.searchParams.set('lang', lang);
-  return normalizeGiphy(await fetchJson(u.href));
+  const items = (provider === 'klipy' ? normalizeKlipy(body) : normalizeGiphy(body)).slice(0, limit + 10);
+  const out = publicResults(items);
+  out.results = out.results.slice(0, limit);
+  if (isMock()) {
+    // previews are served by this server so the demo renders offline; `url` stays the provider hotlink
+    const base = ownBase(req, ctx);
+    out.results.forEach((r, i) => (r.preview = `${base}/api/gifs/mock/${(i % MOCK_COUNT) + 1}.gif`));
+  }
+  return out;
 }
 
-// ---------------------------------------------------------------- import (SSRF-guarded download)
+// ---------------------------------------------------------------- import (SSRF-guarded, provider media refused)
+
+function providerTerms(provider) {
+  const name = provider === 'giphy' ? 'GIPHY' : provider === 'klipy' ? 'KLIPY' : 'Tenor';
+  return new HttpError(
+    403,
+    'provider_terms',
+    `${name}-GIFs dürfen laut Nutzungsbedingungen nicht gespeichert werden – „Als Trigger“ verlinkt sie direkt. Eigene Dateien über „Datei hochladen“.`
+  );
+}
 
 /** Loopback hosts of this very server (only honoured in mock mode). */
 function isOwnMockHost(u, req) {
@@ -277,8 +483,8 @@ function isOwnMockHost(u, req) {
 }
 
 /**
- * Validates a download URL against the allow-list. Throws 400 host_not_allowed. Applied to the
- * initial URL and to every redirect target, so a trusted host can never bounce us elsewhere.
+ * Validates a download URL. 400 bad_url / host_not_allowed, 403 provider_terms for KLIPY/GIPHY/Tenor media.
+ * Applied to the initial URL and to every redirect target, so a trusted host can never bounce us elsewhere.
  */
 function checkAllowed(raw, req) {
   let u;
@@ -289,12 +495,13 @@ function checkAllowed(raw, req) {
   }
   if (u.username || u.password) throw new HttpError(400, 'host_not_allowed', 'URL mit Zugangsdaten nicht erlaubt');
   const host = u.hostname.toLowerCase();
-  if (isMock() && isOwnMockHost(u, req) && u.protocol === 'http:') return u;
-  if (u.protocol !== 'https:') throw new HttpError(400, 'host_not_allowed', 'Nur https-URLs von Tenor/Giphy erlaubt');
+  if (isMock() && isOwnMockHost(u, req) && u.protocol === 'http:' && /^\/api\/gifs\/mock\//.test(u.pathname)) return u;
+  if (u.protocol !== 'https:') throw new HttpError(400, 'host_not_allowed', 'Nur https-URLs erlaubt');
   // Every IP literal (public, private, loopback, IPv6) is rejected outside the mock case above.
-  if (IPV4_RE.test(host) || host.includes(':')) throw new HttpError(400, 'host_not_allowed', 'IP-Adressen sind nicht erlaubt');
-  const ok = ALLOWED_HOSTS.includes(host) || ALLOWED_SUFFIXES.some((s) => host.endsWith(s) && host.length > s.length);
-  if (!ok) throw new HttpError(400, 'host_not_allowed', `Host „${host}“ ist nicht erlaubt (nur Tenor/Giphy)`);
+  if (IPV4_RE.test(host) || host.includes(':') || host.startsWith('[')) throw new HttpError(400, 'host_not_allowed', 'IP-Adressen sind nicht erlaubt');
+  const owner = providerOfUrl(u.href);
+  if (owner) throw providerTerms(owner);
+  if (!IMPORT_HOSTS.includes(host)) throw new HttpError(400, 'host_not_allowed', `Import von „${host}“ ist nicht erlaubt – eigene Dateien bitte hochladen`);
   return u;
 }
 
@@ -327,10 +534,10 @@ async function readCapped(res, limit, signal) {
 async function download(rawUrl, req) {
   const limit = assetLimit();
   const ac = new AbortController();
-  const timer = setTimeout(() => ac.abort(), IMPORT_TIMEOUT_MS);
+  const timer = setTimeout(() => ac.abort(), 10000);
   try {
     let u = checkAllowed(rawUrl, req);
-    for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+    for (let hop = 0; hop <= 3; hop++) {
       let res;
       try {
         res = await fetch(u.href, { redirect: 'manual', signal: ac.signal, headers: { accept: 'image/gif,image/*' } });
@@ -345,8 +552,7 @@ async function download(rawUrl, req) {
         } catch (_) {
           /* ignore */
         }
-        if (!loc) throw new HttpError(502, 'upstream', 'Redirect ohne Ziel');
-        if (hop === MAX_REDIRECTS) throw new HttpError(502, 'upstream', 'Zu viele Weiterleitungen');
+        if (!loc || hop === 3) throw new HttpError(502, 'upstream', 'Weiterleitung ungültig');
         u = checkAllowed(new URL(loc, u).href, req);
         continue;
       }
@@ -391,19 +597,10 @@ function importName(rawName, url, ext) {
   if (typeof rawName === 'string' && rawName.trim()) {
     base = rawName.trim().split(/[\\/]/).pop().replace(/\.[a-z0-9]{1,5}$/i, '');
   }
-  if (!base) {
-    const m = /\/([a-z0-9_-]{4,64})\.(gif|png|jpe?g|webp)(?:[?#]|$)/i.exec(url.pathname + url.search);
-    const id = m ? m[1].toLowerCase() : crypto.createHash('sha1').update(url.href).digest('hex').slice(0, 10);
-    base = `gif-${id}`;
-  }
+  if (!base) base = `gif-${crypto.createHash('sha1').update(url.href).digest('hex').slice(0, 10)}`;
   const name = sanitizeName(`${base}.${ext}`);
   if (!name) throw new HttpError(400, 'bad_filename', 'Dateiname ungültig');
   return name;
-}
-
-function describe(dir, name) {
-  const st = fs.statSync(path.join(dir, name));
-  return { name, url: `assets/${name}`, size: st.size, type: 'image', mtime: Math.round(st.mtimeMs) };
 }
 
 function writeAsset(dir, name, buf) {
@@ -420,7 +617,8 @@ function writeAsset(dir, name, buf) {
     }
     throw e;
   }
-  return finalName;
+  const st = fs.statSync(path.join(dir, finalName));
+  return { name: finalName, url: `assets/${finalName}`, size: st.size, type: 'image', mtime: Math.round(st.mtimeMs) };
 }
 
 // ---------------------------------------------------------------- routes
@@ -443,9 +641,14 @@ function withUpstreamErrors(handler) {
   };
 }
 
+function langOf(raw) {
+  const l = String(raw || 'en').toLowerCase().slice(0, 2);
+  return LANGS.includes(l) ? l : 'en';
+}
+
 function register(router, appCtx) {
   router.route('GET', '/api/gifs/status', (req, res, ctx) => {
-    json(res, 200, { ok: true, providers: providersStatus(ctx), mock: isMock() });
+    json(res, 200, statusBody(ctx));
   });
 
   router.route(
@@ -454,24 +657,25 @@ function register(router, appCtx) {
     requireAuth(async (req, res, ctx) => {
       const body = await readJson(req, 16 * 1024);
       const cfg = readConfig(ctx);
-      for (const [field, prop] of [
-        ['tenorKey', 'tenorKey'],
-        ['giphyKey', 'giphyKey'],
-      ]) {
+      if ('tenorKey' in body) {
+        if (body.tenorKey === null || body.tenorKey === '') delete cfg.tenorKey; // allow cleaning up the old key
+        else throw new HttpError(410, 'provider_removed', TENOR_GONE);
+      }
+      for (const field of Object.values(KEY_FIELDS)) {
         if (!(field in body)) continue;
         const v = body[field];
         if (v === null || v === '') {
-          delete cfg[prop];
+          delete cfg[field];
           continue;
         }
         if (typeof v !== 'string' || v.length > MAX_KEY || !KEY_RE.test(v.trim())) {
           throw new HttpError(400, 'bad_key', `${field} ungültig (8–${MAX_KEY} Zeichen, keine Leerzeichen)`);
         }
-        cfg[prop] = v.trim();
+        cfg[field] = v.trim();
       }
+      if (cfg.gifProvider === 'tenor') delete cfg.gifProvider;
       writeConfig(ctx, cfg);
-      cache.clear();
-      json(res, 200, { ok: true, providers: providersStatus(ctx), mock: isMock() });
+      json(res, 200, statusBody(ctx));
     })
   );
 
@@ -484,28 +688,29 @@ function register(router, appCtx) {
       if (!q) throw new HttpError(400, 'bad_query', 'Suchbegriff (q) fehlt');
       if (q.length > MAX_Q) throw new HttpError(400, 'bad_query', `Suchbegriff zu lang (max. ${MAX_Q} Zeichen)`);
       const wanted = String(sp.get('provider') || 'auto').toLowerCase();
-      if (wanted !== 'auto' && !PROVIDERS.includes(wanted)) throw new HttpError(400, 'bad_provider', 'provider muss auto, tenor oder giphy sein');
+      if (REMOVED_PROVIDERS.includes(wanted)) throw new HttpError(410, 'provider_removed', TENOR_GONE);
+      if (wanted !== 'auto' && !PROVIDERS.includes(wanted)) throw new HttpError(400, 'bad_provider', 'provider muss auto, klipy oder giphy sein');
       const limit = clampLimit(sp.get('limit'));
-      const langRaw = String(sp.get('lang') || 'en').toLowerCase().slice(0, 2);
-      const lang = LANGS.includes(langRaw) ? langRaw : 'en';
+      const lang = langOf(sp.get('lang'));
       const status = providersStatus(ctx);
-      const provider = wanted === 'auto' ? (status.tenor ? 'tenor' : status.giphy ? 'giphy' : null) : wanted;
-      if (!provider || !status[provider]) {
-        throw new HttpError(503, 'no_provider', 'Kein GIF-API-Key konfiguriert (Tenor oder Giphy) – Anleitung in docs/GIFS.md');
-      }
-      if (isMock()) {
-        json(res, 200, { ok: true, provider, mock: true, results: mockSearch(req, ctx, q, provider, limit) });
+      const provider = wanted === 'auto' ? defaultProvider(status) : wanted;
+      const attribution = provider ? ATTRIBUTION[provider] : null;
+
+      // 1. our own safety check – a blocked query never reaches the provider
+      const verdict = Safety.check(q);
+      if (!verdict.ok) {
+        json(res, 200, { ok: true, provider, attribution, results: [], blocked: true, reason: verdict.reason, message: Safety.message(verdict.reason, lang) });
         return;
       }
-      const cacheKey = JSON.stringify([provider, q.toLowerCase(), lang, limit]);
-      let results = cacheGet(cacheKey);
-      let cached = true;
-      if (!results) {
-        results = await providerSearch(ctx, provider, q, lang, limit);
-        cacheSet(cacheKey, results);
-        cached = false;
+      if (!provider || !status[provider]) {
+        const hint = tenorLeftover(ctx) ? `${TENOR_GONE}.` : 'Kein GIF-API-Key konfiguriert (KLIPY oder GIPHY) – Anleitung in docs/GIFS.md';
+        throw new HttpError(503, 'no_provider', hint);
       }
-      json(res, 200, { ok: true, provider, cached, results });
+      // 2. provider call (rating=g, lang) + 3. result filter
+      const out = await providerSearch(req, ctx, provider, q, lang, limit);
+      const body = { ok: true, provider, attribution, lang, results: out.results, filtered: out.filtered };
+      if (isMock()) body.mock = true;
+      json(res, 200, body);
     }))
   );
 
@@ -514,19 +719,23 @@ function register(router, appCtx) {
     '/api/gifs/import',
     requireAuth(withUpstreamErrors(async (req, res, ctx) => {
       const body = await readJson(req, 16 * 1024);
+      const prov = typeof body.provider === 'string' ? body.provider.toLowerCase() : '';
+      if (PROVIDERS.includes(prov) || REMOVED_PROVIDERS.includes(prov)) throw providerTerms(prov);
       if (typeof body.url !== 'string' || !body.url.trim() || body.url.length > 2000) throw new HttpError(400, 'bad_url', 'url fehlt');
       const { buf, finalUrl } = await download(body.url.trim(), req);
       const sniffed = sniff(buf);
       if (!sniffed || sniffed.type !== 'image') throw new HttpError(415, 'unsupported_type', 'Datei ist kein GIF/PNG/JPEG/WEBP');
-      const dir = assetsDir(ctx);
-      const name = importName(body.name, finalUrl, sniffed.ext);
-      const finalName = writeAsset(dir, name, buf);
-      ctx.log && ctx.log(`gifs: importiert ${finalName} (${buf.length} B) von ${finalUrl.host}`);
-      json(res, 200, { ok: true, asset: describe(dir, finalName) });
+      // Only reachable for IMPORT_HOSTS (none today) or the loopback mock route in tests.
+      const asset = writeAsset(assetsDir(ctx), importName(body.name, finalUrl, sniffed.ext), buf);
+      ctx.log && ctx.log(`gifs: importiert ${asset.name} (${buf.length} B) von ${finalUrl.host}`);
+      json(res, 200, { ok: true, asset });
     }))
   );
 
   if (isMock()) {
+    router.route('GET', '/api/gifs/mock-stats', (req, res) => {
+      json(res, 200, { ok: true, calls: mockStats.calls, last: mockStats.last });
+    });
     router.route('GET', '/api/gifs/mock/:file', (req, res, ctx) => {
       if (!/^[1-9]\d{0,2}\.gif$/.test(ctx.params.file)) throw new HttpError(404, 'not_found', 'not found');
       res.writeHead(200, { 'content-type': 'image/gif', 'content-length': MOCK_GIF.length, 'cache-control': 'no-store' });
@@ -536,4 +745,14 @@ function register(router, appCtx) {
   void appCtx;
 }
 
-module.exports = { register, checkAllowed, normalizeTenor, normalizeGiphy, MOCK_GIF };
+module.exports = {
+  register,
+  checkAllowed,
+  normalizeKlipy,
+  normalizeGiphy,
+  publicResults,
+  buildRequest,
+  providerOfUrl,
+  ATTRIBUTION,
+  MOCK_GIF,
+};

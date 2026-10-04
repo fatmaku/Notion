@@ -137,19 +137,46 @@
   }
 
 
-  // ---- GIF search (Tenor / Giphy via the server, see server/api-gifs.js and docs/GIFS.md) ----
+  // ---- GIF search (KLIPY / GIPHY via the server, see server/api-gifs.js and docs/GIFS.md) ----
+  // Results are hotlinks on the provider's media host: „Als Trigger“ uses that URL directly, nothing is
+  // downloaded (provider terms). Queries and results pass LiveFXSafety (js/safety.js) when it is loaded;
+  // the server applies the same filter in any case.
+  const HIDDEN_KEY = 'livefx.gifs.hidden';
+  const HIDDEN_MAX = 500;
+  const ATTRIBUTION = { klipy: 'Powered by KLIPY', giphy: 'Powered By GIPHY' };
+
+  function readHidden() {
+    try {
+      const raw = global.localStorage && global.localStorage.getItem(HIDDEN_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr.filter((x) => typeof x === 'string').slice(-HIDDEN_MAX) : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function writeHidden(list) {
+    try {
+      if (global.localStorage) global.localStorage.setItem(HIDDEN_KEY, JSON.stringify(list.slice(-HIDDEN_MAX)));
+    } catch (_) {
+      /* private mode / quota: hiding then lasts only for this page */
+    }
+  }
+
+  const hiddenKey = (r) => `${r.provider || 'gif'}:${r.id}`;
+
   const gifs = {
     async status() {
-      if (!hasServer()) return { ok: false, providers: { tenor: false, giphy: false }, mock: false };
+      if (!hasServer()) return { ok: false, providers: { klipy: false, giphy: false }, mock: false };
       return parseResponse(await fetch('api/gifs/status', { cache: 'no-store' }));
     },
-    /** Returns {provider, results:[{id, title, preview, url, width, height}]}. */
+    /** Resolves {provider, attribution, results:[{id,title,preview,url,width,height,provider}]} or {blocked:true, reason, message}. */
     async search(q, { provider = 'auto', lang = 'en', limit = 24 } = {}) {
       if (!hasServer()) throw new Error('GIF-Suche braucht den Server (node server.js)');
       const params = new URLSearchParams({ q: String(q || ''), provider: String(provider), lang: String(lang), limit: String(limit) });
       return parseResponse(await fetch(`api/gifs/search?${params}`, { cache: 'no-store' }));
     },
-    /** Downloads an allow-listed GIF URL into the asset store; resolves with the new asset. */
+    /** Server-side import. Refused (403 provider_terms) for KLIPY/GIPHY media – kept for API compatibility. */
     async importUrl(url, name) {
       if (!hasServer()) throw new Error('GIF-Import braucht den Server (node server.js)');
       const payload = { url: String(url || '') };
@@ -158,41 +185,74 @@
       const body = await parseResponse(res);
       return body.asset;
     },
-    /** Stores API keys on the server ('' removes a key). Resolves with {providers, mock}. */
-    async setKeys({ tenorKey, giphyKey } = {}) {
+    /** Stores API keys on the server ('' removes a key). Resolves with the status. */
+    async setKeys({ klipyKey, giphyKey } = {}) {
       if (!hasServer()) throw new Error('Keys speichern braucht den Server (node server.js)');
       const payload = {};
-      if (tenorKey !== undefined) payload.tenorKey = tenorKey === null ? '' : String(tenorKey);
+      if (klipyKey !== undefined) payload.klipyKey = klipyKey === null ? '' : String(klipyKey);
       if (giphyKey !== undefined) payload.giphyKey = giphyKey === null ? '' : String(giphyKey);
       const res = await fetch('api/gifs/keys', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
       return parseResponse(res);
     },
+    hidden: {
+      list: readHidden,
+      clear() {
+        writeHidden([]);
+      },
+    },
   };
 
+  /** Search language: the panel's speech language (de-DE/tr-TR/en-US) when fixed, else the browser language. */
   function defaultLang() {
-    const l = String((typeof navigator !== 'undefined' && navigator.language) || 'en').slice(0, 2).toLowerCase();
-    return ['de', 'en', 'tr'].includes(l) ? l : 'en';
+    const pick = (v) => {
+      const l = String(v || '').slice(0, 2).toLowerCase();
+      return ['de', 'en', 'tr'].includes(l) ? l : '';
+    };
+    let fromPanel = '';
+    try {
+      const el = typeof document !== 'undefined' && document.getElementById('lang');
+      fromPanel = el ? pick(el.value) : '';
+    } catch (_) {
+      fromPanel = '';
+    }
+    return fromPanel || pick(typeof navigator !== 'undefined' && navigator.language) || 'en';
+  }
+
+  const TXT = {
+    de: { none: 'Keine GIFs gefunden.', hidden: (n) => `${n} ausgeblendet`, reset: 'Ausgeblendete wieder zeigen' },
+    tr: { none: 'GIF bulunamadı.', hidden: (n) => `${n} gizlendi`, reset: 'Gizlenenleri göster' },
+    en: { none: 'No GIFs found.', hidden: (n) => `${n} hidden`, reset: 'Show hidden again' },
+  };
+
+  function blockedText(reason, lang, serverMsg) {
+    const Sf = global.LiveFXSafety;
+    if (Sf && Sf.message) return Sf.message(reason, lang);
+    return serverMsg || 'Dieser Suchbegriff ist gesperrt.';
   }
 
   /**
-   * Renders the GIF search below the library grid. `refresh()` reloads the library after an import,
-   * `onCreateTrigger(asset)` (optional) is called by „Als Trigger“ once the GIF is stored.
+   * Renders the GIF search below the library grid. `onCreateTrigger(asset, result)` (optional) is called by
+   * „Als Trigger“ with asset = {name, url, type:'image', hotlink:true, provider, width, height}; `url` is the
+   * provider hotlink (small rendition), so the panel can use it as visual.src exactly like an uploaded asset.
    */
-  function mountGifSearch(root, { refresh, onCreateTrigger }) {
+  function mountGifSearch(root, { onCreateTrigger } = {}) {
     const sel = (opts, cur) => opts.map(([v, t]) => `<option value="${esc(v)}"${v === cur ? ' selected' : ''}>${esc(t)}</option>`).join('');
     root.className = 'gif-search';
     root.innerHTML =
       '<h3 class="gif-title">GIF-Suche</h3>' +
+      '<div class="gif-notice" hidden></div>' +
       '<div class="gif-setup" hidden></div>' +
       '<form class="gif-form" hidden>' +
       '<input type="search" class="gif-q" placeholder="z. B. katze, applaus, facepalm" maxlength="200" autocomplete="off" aria-label="GIF suchen">' +
-      `<select class="gif-provider" aria-label="Anbieter">${sel([['auto', 'Auto'], ['tenor', 'Tenor'], ['giphy', 'Giphy']], 'auto')}</select>` +
+      `<select class="gif-provider" aria-label="Anbieter">${sel([['klipy', 'KLIPY'], ['giphy', 'GIPHY']], 'klipy')}</select>` +
       `<select class="gif-lang" aria-label="Sprache">${sel([['de', 'Deutsch'], ['en', 'English'], ['tr', 'Türkçe']], defaultLang())}</select>` +
       '<button type="submit" class="gif-go small">🔎 Suchen</button>' +
       '</form>' +
       '<div class="gif-status" aria-live="polite"></div>' +
       '<div class="gif-results"></div>' +
-      '<div class="gif-attribution" hidden></div>';
+      '<div class="gif-hidden-info" hidden style="margin-top:8px;font-size:12px;color:var(--fx-muted, var(--muted, #8d93a3))"><span class="gif-hidden-count"></span> · <button type="button" class="gif-unhide link small">Ausgeblendete wieder zeigen</button></div>' +
+      '<div class="gif-attribution" hidden style="font-size:12px;font-weight:700;letter-spacing:.02em"></div>';
+    const notice = root.querySelector('.gif-notice');
     const setup = root.querySelector('.gif-setup');
     const form = root.querySelector('.gif-form');
     const qInput = root.querySelector('.gif-q');
@@ -201,43 +261,67 @@
     const goBtn = root.querySelector('.gif-go');
     const status = root.querySelector('.gif-status');
     const results = root.querySelector('.gif-results');
+    const hiddenInfo = root.querySelector('.gif-hidden-info');
     const attribution = root.querySelector('.gif-attribution');
     let current = [];
+    let shownProvider = 'klipy';
     let busy = false;
+
+    const t = () => TXT[langSel.value] || TXT.de;
 
     function setStatus(text, kind) {
       status.textContent = text || '';
       status.className = `gif-status${kind ? ` ${kind}` : ''}`;
     }
 
+    /** Attribution is always visible while the search is usable (provider requirement). */
+    function showAttribution(provider) {
+      shownProvider = provider === 'giphy' ? 'giphy' : 'klipy';
+      attribution.textContent = ATTRIBUTION[shownProvider];
+      attribution.dataset.provider = shownProvider;
+      attribution.hidden = form.hidden;
+    }
+
     function renderSetup(st) {
       const providers = (st && st.providers) || {};
-      const ready = !!(providers.tenor || providers.giphy);
+      const ready = !!(providers.klipy || providers.giphy);
+      if (st && st.tenorRemoved && st.notice) {
+        notice.hidden = false;
+        notice.className = 'gif-notice gif-missing';
+        notice.textContent = st.notice;
+      } else {
+        notice.hidden = true;
+      }
       form.hidden = !ready;
       setup.hidden = ready;
       if (ready) {
         setup.innerHTML = '';
+        for (const opt of provSel.options) opt.disabled = !st.mock && !providers[opt.value];
+        const def = st.default && providers[st.default] ? st.default : providers.klipy ? 'klipy' : 'giphy';
+        provSel.value = def;
+        showAttribution(def);
         if (st.mock) setStatus('Demo-Modus (LIVEFX_GIF_MOCK=1): Ergebnisse sind Platzhalter.', '');
         return;
       }
+      attribution.hidden = true;
       setup.innerHTML =
-        '<p class="gif-missing">GIF-Suche: API-Key fehlt. Kostenlose Keys gibt es bei Tenor und Giphy – ' +
+        '<p class="gif-missing">GIF-Suche: API-Key fehlt. Kostenlose Keys gibt es bei KLIPY (empfohlen) und GIPHY – ' +
         '<a href="docs/GIFS.md" target="_blank" rel="noopener">Anleitung (docs/GIFS.md)</a>.</p>' +
         '<form class="gif-keys">' +
-        '<input type="password" class="gif-key-tenor" placeholder="Tenor-Key" maxlength="200" autocomplete="off" aria-label="Tenor-Key">' +
-        '<input type="password" class="gif-key-giphy" placeholder="Giphy-Key" maxlength="200" autocomplete="off" aria-label="Giphy-Key">' +
+        '<input type="password" class="gif-key-klipy" placeholder="KLIPY-Key" maxlength="200" autocomplete="off" aria-label="KLIPY-Key">' +
+        '<input type="password" class="gif-key-giphy" placeholder="GIPHY-Key" maxlength="200" autocomplete="off" aria-label="GIPHY-Key">' +
         '<button type="submit" class="gif-keys-save small">Speichern</button>' +
         '</form>';
       setup.querySelector('.gif-keys').addEventListener('submit', async (ev) => {
         ev.preventDefault();
-        const tenorKey = setup.querySelector('.gif-key-tenor').value.trim();
+        const klipyKey = setup.querySelector('.gif-key-klipy').value.trim();
         const giphyKey = setup.querySelector('.gif-key-giphy').value.trim();
-        if (!tenorKey && !giphyKey) {
+        if (!klipyKey && !giphyKey) {
           setStatus('Bitte mindestens einen Key eintragen.', 'error');
           return;
         }
         const payload = {};
-        if (tenorKey) payload.tenorKey = tenorKey;
+        if (klipyKey) payload.klipyKey = klipyKey;
         if (giphyKey) payload.giphyKey = giphyKey;
         try {
           const r = await gifs.setKeys(payload);
@@ -249,27 +333,35 @@
       });
     }
 
-    function renderResults(provider) {
-      if (!current.length) {
-        results.innerHTML = '<div class="gif-empty">Keine GIFs gefunden.</div>';
-        attribution.hidden = true;
+    function visibleResults() {
+      const hidden = new Set(readHidden());
+      return current.filter((r) => !hidden.has(hiddenKey(r)));
+    }
+
+    function renderResults() {
+      const list = visibleResults();
+      const hiddenCount = current.length - list.length;
+      hiddenInfo.hidden = hiddenCount === 0;
+      root.querySelector('.gif-hidden-count').textContent = t().hidden(hiddenCount);
+      root.querySelector('.gif-unhide').textContent = t().reset;
+      if (!list.length) {
+        results.innerHTML = `<div class="gif-empty">${esc(t().none)}</div>`;
         return;
       }
-      results.innerHTML = current
-        .map((r, i) => {
+      results.innerHTML = list
+        .map((r) => {
+          const i = current.indexOf(r);
           const title = esc(r.title || r.id || 'GIF');
           return (
-            `<div class="gif-item" data-index="${i}" data-id="${esc(r.id)}">` +
-            `<img class="gif-preview" src="${esc(r.preview || r.url)}" alt="${title}" title="${title}" loading="lazy">` +
+            `<div class="gif-item" data-index="${i}" data-id="${esc(r.id)}" data-provider="${esc(r.provider || '')}">` +
+            `<img class="gif-preview" src="${esc(r.preview || r.url)}" alt="${title}" title="${title}" loading="lazy" referrerpolicy="no-referrer">` +
             `<div class="gif-actions">` +
-            `<button type="button" class="gif-save small" data-index="${i}" title="In die Mediathek speichern">💾 Speichern</button>` +
-            `<button type="button" class="gif-trigger small" data-index="${i}" title="Speichern und als Trigger anlegen">⚡ Als Trigger</button>` +
+            `<button type="button" class="gif-trigger small" data-index="${i}" title="Als Bild-Trigger anlegen (direkt verlinkt, nichts wird gespeichert)">⚡ Als Trigger</button>` +
+            `<button type="button" class="gif-hide small" data-index="${i}" title="Dieses GIF ausblenden (wird gemerkt)">🙈 ausblenden</button>` +
             `</div></div>`
           );
         })
         .join('');
-      attribution.hidden = false;
-      attribution.textContent = provider === 'giphy' ? 'Powered by GIPHY' : 'Powered by Tenor';
     }
 
     async function search() {
@@ -279,18 +371,41 @@
         return;
       }
       if (busy) return;
+      const lang = langSel.value;
+      const provider = provSel.value;
+      showAttribution(provider);
+      const Sf = global.LiveFXSafety;
+      const local = Sf && Sf.check ? Sf.check(q) : { ok: true };
+      if (!local.ok) {
+        current = [];
+        results.innerHTML = '';
+        hiddenInfo.hidden = true;
+        setStatus(blockedText(local.reason, lang), 'error blocked');
+        return;
+      }
       busy = true;
       goBtn.disabled = true;
       setStatus(`Suche „${q}“ …`, 'busy');
       try {
-        const r = await gifs.search(q, { provider: provSel.value, lang: langSel.value, limit: 24 });
-        current = Array.isArray(r.results) ? r.results : [];
-        renderResults(r.provider);
-        setStatus(current.length ? `${current.length} GIFs für „${q}“.` : `Nichts gefunden für „${q}“.`, 'ok');
+        const r = await gifs.search(q, { provider, lang, limit: 24 });
+        if (r.provider) showAttribution(r.provider);
+        if (r.blocked) {
+          current = [];
+          results.innerHTML = '';
+          hiddenInfo.hidden = true;
+          setStatus(blockedText(r.reason, lang, r.message), 'error blocked');
+          return;
+        }
+        let list = Array.isArray(r.results) ? r.results : [];
+        if (Sf && Sf.filterResults) list = Sf.filterResults(list);
+        current = list;
+        renderResults();
+        const n = visibleResults().length;
+        setStatus(n ? `${n} GIFs für „${q}“.` : `Nichts gefunden für „${q}“.`, 'ok');
       } catch (e) {
         current = [];
         results.innerHTML = '';
-        attribution.hidden = true;
+        hiddenInfo.hidden = true;
         setStatus(`Suche fehlgeschlagen: ${e.message}`, 'error');
         if (e.code === 'no_provider') renderSetup({ providers: {} });
       } finally {
@@ -299,36 +414,54 @@
       }
     }
 
-    async function importResult(index, asTrigger) {
+    function createTrigger(index) {
       const r = current[index];
       if (!r) return;
-      const item = results.querySelector(`.gif-item[data-index="${index}"]`);
-      if (item) item.classList.add('busy');
-      setStatus('Speichere GIF …', 'busy');
-      try {
-        const asset = await gifs.importUrl(r.url, r.title ? `${r.title}.gif` : '');
-        setStatus(`„${asset.name}“ gespeichert.`, 'ok');
-        if (refresh) await refresh();
-        if (asTrigger && typeof onCreateTrigger === 'function') onCreateTrigger(asset, r);
-      } catch (e) {
-        setStatus(`Speichern fehlgeschlagen: ${e.message}`, 'error');
-      } finally {
-        if (item) item.classList.remove('busy');
+      const asset = {
+        name: String(r.title || r.id || 'GIF').slice(0, 100),
+        url: r.url,
+        type: 'image',
+        hotlink: true,
+        provider: r.provider || shownProvider,
+        width: r.width || 0,
+        height: r.height || 0,
+      };
+      if (typeof onCreateTrigger === 'function') {
+        onCreateTrigger(asset, r);
+        setStatus('Trigger-Editor geöffnet – das GIF wird direkt vom Anbieter geladen.', 'ok');
+      } else {
+        setStatus('„Als Trigger“ ist hier nicht verfügbar.', 'error');
       }
+    }
+
+    function hide(index) {
+      const r = current[index];
+      if (!r) return;
+      const list = readHidden();
+      const key = hiddenKey(r);
+      if (!list.includes(key)) list.push(key);
+      writeHidden(list);
+      renderResults();
     }
 
     form.addEventListener('submit', (ev) => {
       ev.preventDefault();
       search();
     });
+    provSel.addEventListener('change', () => showAttribution(provSel.value));
     results.addEventListener('click', (ev) => {
-      const save = ev.target.closest('.gif-save');
-      if (save) {
-        importResult(Number(save.dataset.index), false);
+      const trig = ev.target.closest('.gif-trigger');
+      if (trig) {
+        createTrigger(Number(trig.dataset.index));
         return;
       }
-      const trig = ev.target.closest('.gif-trigger');
-      if (trig) importResult(Number(trig.dataset.index), true);
+      const h = ev.target.closest('.gif-hide');
+      if (h) hide(Number(h.dataset.index));
+    });
+    root.querySelector('.gif-unhide').addEventListener('click', () => {
+      const shownKeys = new Set(current.map(hiddenKey));
+      writeHidden(readHidden().filter((k) => !shownKeys.has(k)));
+      renderResults();
     });
 
     if (!hasServer()) {
@@ -346,7 +479,7 @@
   /**
    * Renders the media library into `el`. Calls `onChange(assets)` after every successful change
    * (and after the initial load). `onCreateTrigger(asset, result)` (optional) is called by the GIF
-   * search's „Als Trigger“ button after the GIF has been imported. Returns {refresh, assets, gifs, destroy}.
+   * search's „Als Trigger“ button with a hotlink asset ({name, url, type:'image', hotlink:true, …}). Returns {refresh, assets, gifs, destroy}.
    */
   function mountLibrary(el, { onChange, onCreateTrigger } = {}) {
     if (!el) throw new Error('mountLibrary: element missing');
@@ -469,7 +602,7 @@
 
     render();
     refresh();
-    const gifUi = mountGifSearch(el.querySelector('.gif-search'), { refresh, onCreateTrigger });
+    const gifUi = mountGifSearch(el.querySelector('.gif-search'), { onCreateTrigger });
     return {
       refresh,
       gifs: gifUi,
