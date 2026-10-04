@@ -212,6 +212,7 @@ export default {
   'stats.seen7': 'Seen in 7 days',
   'stats.help': 'Need help',
   'stats.tnr': 'Neutered (ear tip)',
+  'stats.new7d': '+{n} this week', 'stats.tnrKnown': '{n} cat checked|{n} cats checked',
   'stats.bcs': 'Body on average (1–9)',
   'stats.obs': 'Photos',
   'stats.active': 'Players today',
@@ -336,5 +337,6 @@ export default {
   // Share
   'share.button': 'Share',
   'share.text': 'Meet {name}! I found this cat in Kadıköy. #CatMeIfYouCan #CatMeKadikoy',
+  'share.textUnnamed': 'I found this street cat in Kadıköy! #CatMeIfYouCan #CatMeKadikoy',
   'share.saved': 'Picture saved.',
 };

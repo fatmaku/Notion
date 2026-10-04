@@ -31,7 +31,7 @@ const AR_CDN = {
 };
 const DEFAULT_TILES = {
   url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  attribution: '© OpenStreetMap-Mitwirkende',
+  attribution: '© OpenStreetMap contributors', // Pflichtangabe der OSM-Lizenz (ODbL), bewusst nicht übersetzt
   host: 'https://*.tile.openstreetmap.org',
 };
 

@@ -105,4 +105,4 @@ nur Straßenkatzen.
 | Spiel | `public/app.html` (nicht umbenennen; Startseite verlinkt „Jetzt spielen“ → `app.html`) |
 | Trailer | `public/media/trailer-16x9-<lang>.mp4`, `public/media/trailer-9x16-<lang>.mp4`, Standbild `public/media/trailer-16x9-<lang>.jpg` |
 | Vorschaubild für Links | `public/media/og-<lang>.png` (1200 × 630), `public/media/og.png` = Englisch |
-| Social-Media-Bilder | `marketing/social/<name>-<format>-<lang>.png` + Texte `marketing/CAPTIONS.md` |
+| Social-Media-Bilder | `marketing/social/<motiv>-<post\|story>-<lang>.jpg` (JPEG, ≤ 350 KB) + Texte `marketing/CAPTIONS.md` |

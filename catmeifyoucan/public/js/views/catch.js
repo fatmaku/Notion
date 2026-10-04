@@ -1,7 +1,7 @@
 // Cat Me If You Can – Fangen: Kamera-Sucher mit AR-Rahmen, Standort, Wollknäuel-Wurf, Analyse.
 
 import { t } from '../i18n.js';
-import { esc, toast, errorText, modal } from '../ui.js';
+import { esc, fmtNum, toast, errorText, modal, fmtUnit } from '../ui.js';
 import { createCamera, captureFromFile, watchLocation, loadDetector } from '../camera.js';
 import { findRegion, findDistrict, jitter } from '../../core/geo.js';
 import { showCatchCard } from './card.js';
@@ -61,7 +61,7 @@ export async function renderCatch(view, app) {
   let alive = true;
 
   app.api.me().then(({ today }) => {
-    todayPill.textContent = `${today.count}/${today.goal}`;
+    todayPill.textContent = `${fmtNum(today.count)}/${fmtNum(today.goal)}`;
   }).catch(() => {});
 
   // ---- Standort
@@ -88,7 +88,7 @@ export async function renderCatch(view, app) {
     const d = findDistrict(region, pos.lat, pos.lon);
     const name = d ? `${d.name}${d.aka ? ` (${d.aka.split(' · ')[0]})` : ''}` : region.name;
     const weak = pos.accuracy > cfg.game.maxGpsAccuracyM;
-    locChip.textContent = simulated ? `🎭 ${t('catch.simulated')} · ${name}` : weak ? `📍 ${name} · ${t('catch.gpsWeak', { m: Math.round(pos.accuracy) })}` : `📍 ${name} · ±${Math.round(pos.accuracy)} m`;
+    locChip.textContent = simulated ? `🎭 ${t('catch.simulated')} · ${name}` : weak ? `📍 ${name} · ${t('catch.gpsWeak', { m: Math.round(pos.accuracy) })}` : `📍 ${name} · ±${fmtUnit('meter', Math.round(pos.accuracy))}`;
     locChip.classList.toggle('bad', weak);
   }
 
@@ -163,7 +163,7 @@ export async function renderCatch(view, app) {
         lat, lon, accuracy: pos.accuracy, capturedAt: cap.capturedAt || Date.now(), source, lang: app.lang(),
       });
       if (pos.simulated) pos = { ...pos, lat, lon };
-      todayPill.textContent = `${res.today.count}/${res.today.goal}`;
+      todayPill.textContent = `${fmtNum(res.today.count)}/${fmtNum(res.today.goal)}`;
       cooldownUntil = Date.now() + (app.config.game.catchCooldownSec || 20) * 1000;
       tickCooldown();
       app.refreshPlayer();
@@ -188,7 +188,7 @@ export async function renderCatch(view, app) {
     if (!alive) return;
     if (left > 0) {
       shoot.disabled = true;
-      shoot.querySelector('b').textContent = `${left}s`;
+      shoot.querySelector('b').textContent = fmtUnit('second', left);
       setTimeout(tickCooldown, 500);
     } else {
       shoot.disabled = false;

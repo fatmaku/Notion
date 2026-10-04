@@ -49,6 +49,10 @@ geprüft werden. Dazu Domains (`catmeifyoucan.app`, `.com.tr`) und die Social-Ha
 ## 3. Spielmechanik
 
 ### Fangen
+
+> Sprachregel: „Fangen“ ist hier nur das Wortspiel. In der App und auf der Startseite heißt es
+> **fotografieren, finden, sammeln** – nie „jagen“ oder „Beute“ (siehe [BRAND.md](BRAND.md)).
+
 * **AR-Sucher:** Die Rückkamera läuft im Vollbild. Eine Katzenerkennung direkt auf dem Handy
   (COCO-SSD) legt einen Rahmen um die Katze, dann pulsiert der Auslöser.
 * **Wurf:** Statt eines Pokéballs fliegt ein **Wollknäuel 🧶** auf die Katze, wackelt dreimal,

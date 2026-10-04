@@ -220,7 +220,7 @@ export async function createLocalApi() {
     hasToken: () => !!(store.get('catme.demo.player') && mem.players.get(store.get('catme.demo.player'))),
     logout: () => store.set('catme.demo.player', null),
     health: async () => ({ ok: true, demo: true, ai: 'heuristic' }),
-    config: async () => ({ ...engine.config(), ar, tiles: { url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', attribution: '© OpenStreetMap' }, demo: true, localDemo: true }),
+    config: async () => ({ ...engine.config(), ar, tiles: { url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', attribution: '© OpenStreetMap contributors' }, demo: true, localDemo: true }),
     register: (nickname, lang) => wrap(async () => {
       const p = await engine.createPlayer({ nickname, lang, tokenHash: `local-${Math.random().toString(36).slice(2)}-${Date.now()}` });
       mem.players.update(p.id, { role: 'volunteer' }); // im Demo darf man alles ausprobieren

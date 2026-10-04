@@ -2,7 +2,7 @@
 // Ranglisten (XP · Entdeckungen · Katzen) und Hilfe-Radar.
 
 import { t, L } from '../i18n.js';
-import { esc, fmtNum, catImg, statusChip, severityChip, fmtAgo, catName } from '../ui.js';
+import { esc, bdi, fmtNum, pct, catImg, statusChip, severityChip, fmtAgo, catName } from '../ui.js';
 import { columnChart, hbarChart, tableHtml } from '../charts.js';
 import { PATTERNS, AGE_GROUPS, SEVERITY, BCS_CLASSES, HEALTH_FLAGS, CONDITION_TAGS } from '../../core/taxonomy.js';
 import { conditionText } from './condition.js';
@@ -27,11 +27,11 @@ export async function renderStats(view, app, params) {
   view.innerHTML = `
     <h1 class="pad-x">${esc(t('stats.title'))}</h1>
     <div class="stats-grid">
-      ${tile(t('stats.cats'), fmtNum(tt.cats), `+${fmtNum(tt.newCats7d)} / 7d`)}
+      ${tile(t('stats.cats'), fmtNum(tt.cats), t('stats.new7d', { n: tt.newCats7d || 0 }))}
       ${tile(t('stats.seen7'), fmtNum(tt.seen7d))}
-      ${tile(t('stats.help'), fmtNum(tt.needsHelp), tt.inCare ? `🩺 ${tt.inCare}` : '')}
-      ${tile(t('stats.tnr'), tt.tnrPct == null ? '–' : `${tt.tnrPct} %`, `n = ${tt.tnrKnown}`)}
-      ${tile(t('stats.bcs'), tt.avgBcs == null ? '–' : String(tt.avgBcs))}
+      ${tile(t('stats.help'), fmtNum(tt.needsHelp), tt.inCare ? `🩺 ${fmtNum(tt.inCare)}` : '')}
+      ${tile(t('stats.tnr'), tt.tnrPct == null ? '–' : pct(tt.tnrPct), tt.tnrKnown ? t('stats.tnrKnown', { n: tt.tnrKnown }) : '')}
+      ${tile(t('stats.bcs'), tt.avgBcs == null ? '–' : fmtNum(tt.avgBcs))}
       ${tile(t('stats.obs'), fmtNum(tt.observations))}
       ${tile(t('stats.active'), fmtNum(tt.activePlayersToday))}
       ${tile(t('stats.fed'), fmtNum(tt.fed30d || 0))}
@@ -59,7 +59,7 @@ export async function renderStats(view, app, params) {
 
   const charts = {
     perDay: {
-      draw: (el) => columnChart(el, s.perDay.map((d) => ({ label: d.day, short: d.day.slice(8), value: d.observations, tip: `${d.day}: ${d.observations} · +${d.newCats} 🔭 · ${d.players} 👤` })), { every: 5 }),
+      draw: (el) => columnChart(el, s.perDay.map((d) => ({ label: d.day, short: d.day.slice(8), value: d.observations, tip: `${d.day}: ${fmtNum(d.observations)} · +${fmtNum(d.newCats)} 🔭 · ${fmtNum(d.players)} 👤` })), { every: 5 }),
       table: () => tableHtml([t('stats.perDay'), t('stats.obs'), '🔭', '👤'], s.perDay.map((d) => [d.day, d.observations, d.newCats, d.players])),
     },
     health: {
@@ -120,7 +120,7 @@ export async function renderStats(view, app, params) {
     const rows = [...s.districts].sort((a, b) => (b[sortKey] ?? -1) - (a[sortKey] ?? -1));
     const cols = [['name', t('stats.col.district')], ['cats', t('stats.col.cats')], ['observations', t('stats.col.obs')], ['needsHelp', t('stats.col.help')], ['tnrPct', t('stats.col.tnr')], ['avgBcs', t('stats.col.bcs')]];
     dEl.innerHTML = `<div class="tbl-wrap"><table class="tbl"><thead><tr>${cols.map(([k, h]) => `<th><button class="link" data-sort="${k}">${esc(h)}${k === sortKey ? ' ↓' : ''}</button></th>`).join('')}</tr></thead>
-      <tbody>${rows.map((d) => `<tr><td><a href="#/dex?tab=all&district=${esc(d.id)}">${esc(d.name)}</a></td><td class="num">${d.cats}</td><td class="num">${d.observations}</td><td class="num">${d.needsHelp || ''}</td><td class="num">${d.tnrPct ?? '–'}</td><td class="num">${d.avgBcs ?? '–'}</td></tr>`).join('')}</tbody></table></div>`;
+      <tbody>${rows.map((d) => `<tr><td><a href="#/dex?tab=all&district=${esc(d.id)}">${bdi(d.name)}</a></td><td class="num">${fmtNum(d.cats)}</td><td class="num">${fmtNum(d.observations)}</td><td class="num">${d.needsHelp ? fmtNum(d.needsHelp) : ''}</td><td class="num">${d.tnrPct == null ? '–' : esc(pct(d.tnrPct))}</td><td class="num">${fmtNum(d.avgBcs)}</td></tr>`).join('')}</tbody></table></div>`;
   };
   dEl.addEventListener('click', (e) => {
     const b = e.target.closest('[data-sort]');
@@ -164,7 +164,7 @@ export async function renderHelpList(el, app) {
   const h = await app.api.help();
   el.innerHTML = `<p class="small muted">${esc(t('help.lead'))}</p>${h.items.length ? `<ul class="helplist">${h.items.map((x) => `
     <li><a href="#/cat/${esc(x.cat.id)}">${catImg(x.cat, { size: 'sm' })}
-      <span><b>${catName(x.cat)}</b> · ${esc(x.cat.districtName || '')}<br>${statusChip(x.cat.status)} ${severityChip(x.severity)}
+      <span><b>${catName(x.cat)}</b> · ${bdi(x.cat.districtName)}<br>${statusChip(x.cat.status)} ${severityChip(x.severity)}
       ${x.lastReport ? `<br><small>${x.lastReport.tags && x.lastReport.tags.length ? `${esc(conditionText(x.lastReport.tags))} ` : ''}${esc(x.lastReport.note || '')} <span class="muted">· ${esc(fmtAgo(x.lastReport.at))}</span></small>` : ''}</span></a></li>`).join('')}</ul>`
     : `<p>${esc(t('help.empty'))}</p>`}`;
 }

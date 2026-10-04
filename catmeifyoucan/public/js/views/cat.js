@@ -2,7 +2,7 @@
 // Fänger-Rangliste (Entdecker:in ganz oben), Protokoll, Hilfe melden, Status (Freiwillige).
 
 import { t, L, tx } from '../i18n.js';
-import { esc, catImg, stars, statusChip, fmtAgo, fmtDate, fmtDateTime, toast, errorText, modal, catName } from '../ui.js';
+import { esc, bdi, fmtNum, catImg, stars, statusChip, fmtAgo, fmtDate, fmtDateTime, toast, errorText, modal, catName } from '../ui.js';
 import { CAT_STATUS, BEHAVIOR, RARITY } from '../../core/taxonomy.js';
 import { factsHtml } from './card.js';
 import { lineChart } from '../charts.js';
@@ -25,7 +25,7 @@ export async function renderCat(view, app, id) {
         ${cat.title ? `<div class="legend">🌟 ${esc(t('cat.legend'))}: ${esc(cat.title)}</div>` : ''}
         <div>${stars(cat.rarity)} <small>${esc(L(RARITY, cat.rarity || 'common'))}</small></div>
         <div class="chips">${statusChip(cat.status)} ${cat.needsReview ? `<span class="chip">${esc(t('cat.review'))}</span>` : ''}</div>
-        <p class="small muted">${esc(cat.districtName || '')} · ${esc(t('cat.seenTimes', { n: cat.observationCount }))} · ${esc(t('cat.byPlayers', { n: cat.catcherCount }))}</p>
+        <p class="small muted">${bdi(cat.districtName)} · ${esc(t('cat.seenTimes', { n: cat.observationCount }))} · ${esc(t('cat.byPlayers', { n: cat.catcherCount }))}</p>
         ${cat.discoveredBy ? `<p class="small">🔭 ${esc(t('card.discoveredBy', { name: cat.discoveredBy }))}</p>` : ''}
         ${cat.lastReport && cat.lastReport.tags && cat.lastReport.tags.length ? `<p class="small last-report"><b>${esc(t('cat.lastReport'))}:</b> ${esc(conditionText(cat.lastReport.tags))} <span class="muted">· ${esc(fmtAgo(cat.lastReport.at))}</span></p>` : ''}
       </div>
@@ -50,7 +50,7 @@ export async function renderCat(view, app, id) {
       <ol class="rank">${catchers.map((c, i) => `
         <li><span class="rank-n">${i + 1}</span><span class="rank-name">${c.discoverer ? '👑 ' : ''}${esc(c.nickname)}
           ${c.discoverer ? `<small class="chip">${esc(t('cat.discoverer'))}</small>` : ''}${c.namer ? `<small class="chip">${esc(t('cat.namer'))}</small>` : ''}</span>
-          <span class="rank-v">${c.times}×</span></li>`).join('')}
+          <span class="rank-v">${fmtNum(c.times)}×</span></li>`).join('')}
       </ol>
     </section>
 

@@ -192,6 +192,29 @@ export const PLACE_TYPES = {
   vet: { label: L('Veteriner', 'Tierarzt', 'Vet'), icon: '🩺' },
 };
 
+/**
+ * Rassen-Schätzungen: Die KI antwortet frei auf Englisch („Domestic shorthair (mixed)“). Häufige Antworten
+ * werden hier erkannt und in allen 6 Sprachen gezeigt; Unbekanntes bleibt wie geliefert. Reihenfolge = Vorrang.
+ * Bewusst nicht in TABLES (die Sprachdateien in core/labels/ brauchen sie nicht).
+ */
+export const BREEDS = {
+  turkish_van: { match: /\bvan\b/i, label: { tr: 'Van kedisi', en: 'Turkish Van', de: 'Türkische Van', ru: 'Турецкий ван', ar: 'قط فان التركي', fa: 'گربهٔ وان ترکی' } },
+  turkish_angora: { match: /angora/i, label: { tr: 'Ankara kedisi', en: 'Turkish Angora', de: 'Türkisch Angora', ru: 'Турецкая ангора', ar: 'أنغورا التركية', fa: 'آنقورای ترکی' } },
+  british_mix: { match: /british/i, label: { tr: 'British Shorthair melezi', en: 'British Shorthair mix', de: 'Britisch-Kurzhaar-Mix', ru: 'Метис британской', ar: 'هجين بريطاني قصير الشعر', fa: 'دورگهٔ بریتیش' } },
+  siamese_mix: { match: /siam/i, label: { tr: 'Siyam melezi', en: 'Siamese mix', de: 'Siam-Mix', ru: 'Метис сиамской', ar: 'هجين سيامي', fa: 'دورگهٔ سیامی' } },
+  persian_mix: { match: /persian/i, label: { tr: 'İran kedisi melezi', en: 'Persian mix', de: 'Perser-Mix', ru: 'Метис персидской', ar: 'هجين فارسي', fa: 'دورگهٔ پرشین' } },
+  scottish_mix: { match: /scottish|\bfold\b/i, label: { tr: 'Scottish Fold melezi', en: 'Scottish Fold mix', de: 'Scottish-Fold-Mix', ru: 'Метис шотландской', ar: 'هجين سكوتش فولد', fa: 'دورگهٔ اسکاتیش فولد' } },
+  mixed_long: { match: /long ?-?hair|semi-?long/i, label: { tr: 'Melez, uzun tüylü', en: 'Mixed, long hair', de: 'Mischling, langhaarig', ru: 'Беспородная, длинная шерсть', ar: 'هجينة، شعر طويل', fa: 'دورگه، موبلند' } },
+  mixed_short: { match: /short ?-?hair|domestic|mixed|\bmix\b/i, label: { tr: 'Melez, kısa tüylü', en: 'Mixed, short hair', de: 'Mischling, kurzhaarig', ru: 'Беспородная, короткая шерсть', ar: 'هجينة، شعر قصير', fa: 'دورگه، موکوتاه' } },
+};
+
+/** Rassen-Schätzung (freier englischer Text) → Anzeige in der gewünschten Sprache. */
+export function breedLabel(text, lang = 'tr') {
+  if (!text) return '';
+  for (const b of Object.values(BREEDS)) if (b.match.test(text)) return b.label[lang] || b.label.en;
+  return String(text);
+}
+
 export const ROLES = ['player', 'volunteer', 'admin'];
 
 export const LANGS = ['tr', 'en', 'de', 'ru', 'ar', 'fa'];

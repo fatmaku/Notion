@@ -1,9 +1,9 @@
 // Cat Me If You Can – Sammelkarte nach einem Fang (und Kurzansicht einer Katze).
 // Neue Katze → großes „NEUE KATZE!“ und Namensfeld für die Erstfinderin / den Erstfinder.
 
-import { t, L, tx } from '../i18n.js';
-import { esc, catImg, stars, severityChip, fmtAge, fmtWeight, fmtTime, modal, toast, errorText, confetti, patternLabel } from '../ui.js';
-import { SEX, EAR_TIP, BEHAVIOR, EYE_COLORS, BCS_CLASSES, HEALTH_FLAGS, RARITY, AGE_GROUPS } from '../../core/taxonomy.js';
+import { t, L, tx, getLang } from '../i18n.js';
+import { esc, bdi, fmtNum, catImg, stars, severityChip, fmtAge, fmtWeight, fmtTime, modal, toast, errorText, confetti, patternLabel } from '../ui.js';
+import { SEX, EAR_TIP, BEHAVIOR, EYE_COLORS, BCS_CLASSES, HEALTH_FLAGS, RARITY, AGE_GROUPS, breedLabel } from '../../core/taxonomy.js';
 import { questText } from './home.js';
 import { conditionFormHtml, bindConditionForm, readConditionForm } from './condition.js';
 import { shareCat } from '../share.js';
@@ -26,9 +26,9 @@ export function factsHtml(a, { district } = {}) {
     [t('card.behavior'), esc(L(BEHAVIOR, a.behavior || 'unknown'))],
   ];
   if (a.eye_color && a.eye_color !== 'unknown') rows.push([t('card.eyes'), esc(L(EYE_COLORS, a.eye_color))]);
-  if (a.breed_guess) rows.push([t('card.breed'), esc(a.breed_guess)]);
+  if (a.breed_guess) rows.push([t('card.breed'), esc(breedLabel(a.breed_guess, getLang()))]);
   if (a.distinctive_marks) rows.push([t('card.marks'), esc(a.distinctive_marks)]);
-  if (district) rows.push([t('card.place'), esc(district)]);
+  if (district) rows.push([t('card.place'), bdi(district)]);
   return `<dl class="facts">${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join('')}</dl>`;
 }
 
@@ -62,7 +62,7 @@ export function showCatchCard(result, app, { onClose } = {}) {
       <div class="xpbox">
         ${xp.gained ? `<b class="xp">${esc(t('card.xp', { n: xp.gained }))}</b>` : ''}
         <span class="prog">${esc(t('card.progress', { n: today.count, goal: today.goal }))}</span>
-        <span class="muted small">${fmtTime(result.observation.at)} · ${esc(cat.districtName || '')}</span>
+        <span class="muted small">${fmtTime(result.observation.at)} · ${bdi(cat.districtName)}</span>
       </div>
       ${notCounted ? `<p class="note warn">${esc(t('card.notCounted', { why: notCounted }))}</p>` : ''}
       <form class="report-box" data-form="report">
@@ -117,7 +117,7 @@ export function showCatchCard(result, app, { onClose } = {}) {
     const { tags, note } = readConditionForm(report);
     try {
       const res = await app.api.reportCondition(result.observation.id, tags, note);
-      report.innerHTML = `<p class="report-done">💚 ${esc(t('report.thanks'))}${res.xp ? ` <b>+${res.xp} XP</b>` : ''}${res.status === 'needs_help' ? `<br><small>🆘 ${esc(t('report.urgent'))}</small>` : ''}</p>`;
+      report.innerHTML = `<p class="report-done">💚 ${esc(t('report.thanks'))}${res.xp ? ` <b>+${fmtNum(res.xp)} XP</b>` : ''}${res.status === 'needs_help' ? `<br><small>🆘 ${esc(t('report.urgent'))}</small>` : ''}</p>`;
       app.refreshPlayer();
     } catch (err) {
       toast(errorText(err), { type: 'error' });

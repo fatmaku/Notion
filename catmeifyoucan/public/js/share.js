@@ -112,7 +112,7 @@ export async function shareCat(cat, analysis) {
   const blob = await renderShareImage(cat, analysis);
   const fileName = `catmeifyoucan-${(cat.name || 'kedi').replace(/[^\p{L}\p{N}]+/gu, '-').toLowerCase()}.png`;
   const file = new File([blob], fileName, { type: 'image/png' });
-  const text = t('share.text', { name: cat.name || t('card.unnamed') });
+  const text = cat.name ? t('share.text', { name: cat.name }) : t('share.textUnnamed');
   if (navigator.canShare && navigator.canShare({ files: [file] })) {
     try {
       await navigator.share({ files: [file], text, title: 'Cat Me If You Can' });

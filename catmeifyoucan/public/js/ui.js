@@ -8,6 +8,11 @@ export function esc(v) {
   return String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+/** Ortsnamen u. ä. in eigener Schreibrichtung (sonst wird „19 Mayıs“ auf Arabisch zu „Mayıs 19“). */
+export const bdi = (v) => (v ? `<bdi>${esc(v)}</bdi>` : '');
+/** Dasselbe für reinen Text (textContent, Platzhalter in t()): Unicode-Isolate FSI … PDI. */
+export const isolate = (v) => (v ? `\u2068${v}\u2069` : '');
+
 export const $ = (sel, root = document) => root.querySelector(sel);
 export const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
@@ -48,19 +53,36 @@ export function fmtAgo(ts, now = Date.now()) {
   return fmtDate(ts);
 }
 
+/** Zahl mit Einheit in Landesschreibweise (Intl): „9 m“, „20 Sek.“, „۲۰ ثانیه“. */
+export function fmtUnit(unit, n, display = 'short') {
+  return new Intl.NumberFormat(locale(), { style: 'unit', unit, unitDisplay: display, maximumFractionDigits: 1 }).format(n);
+}
+
+/** Spanne mit Einheit: „1–2 Jahre“, „3–4,5 кг“; gleiche Werte → „~1,5 years“. Plural macht Intl. */
+export function fmtUnitRange(unit, a, b, display = 'long') {
+  const f = new Intl.NumberFormat(locale(), { style: 'unit', unit, unitDisplay: display, maximumFractionDigits: 1 });
+  if (typeof f.formatRange === 'function') {
+    try {
+      return f.formatRange(a, b);
+    } catch {
+      /* ältere Browser: unten */
+    }
+  }
+  return a === b ? `~${f.format(a)}` : `${f.format(a)}–${f.format(b)}`;
+}
+
 export function fmtAge(min, max) {
   if (min == null && max == null) return t('common.unknown');
   const a = min ?? max;
   const b = max ?? min;
-  if (b < 24) return `${a}–${b} ${t('card.months')}`;
+  if (b < 24) return fmtUnitRange('month', a, b);
   const y = (m) => Math.round((m / 12) * 2) / 2;
-  return y(a) === y(b) ? `~${y(a)} ${t('card.years')}` : `${y(a)}–${y(b)} ${t('card.years')}`;
+  return fmtUnitRange('year', y(a), y(b));
 }
 
 export function fmtWeight(min, max) {
   if (min == null && max == null) return t('common.unknown');
-  const f = (v) => new Intl.NumberFormat(locale(), { maximumFractionDigits: 1 }).format(v);
-  return min === max || max == null ? `~${f(min ?? max)} kg` : `${f(min)}–${f(max)} kg`;
+  return fmtUnitRange('kilogram', min ?? max, max ?? min, 'short');
 }
 
 export function stars(rarity) {
@@ -91,7 +113,7 @@ export function catImg(cat, { size = 'md', cls = '' } = {}) {
 }
 
 export function catName(cat) {
-  return cat && cat.name ? esc(cat.name) : `<span class="muted">${esc(t('card.unnamed'))}</span>`;
+  return cat && cat.name ? bdi(cat.name) : `<span class="muted">${esc(t('card.unnamed'))}</span>`;
 }
 
 // ---------------------------------------------------------------- Toasts & Dialoge
@@ -173,6 +195,6 @@ export function pct(n) {
   const l = getLang();
   if (l === 'tr') return `%${n}`;
   if (l === 'de') return `${n} %`;
-  if (l === 'ar' || l === 'fa') return `${new Intl.NumberFormat(locale()).format(n)}٪`;
+  if (l === 'ar' || l === 'fa') return new Intl.NumberFormat(locale(), { style: 'percent', maximumFractionDigits: 1 }).format(n / 100);
   return `${n}%`;
 }

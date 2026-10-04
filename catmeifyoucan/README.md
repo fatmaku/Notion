@@ -10,7 +10,14 @@ Gesundheit. Danach landet sie mit Ort und Zeit im **KediDex**, der Sammlung (*ke
 genau diesem Tag. Nebenbei entsteht ein laufender **Zensus der Straßenkatzen** mit Karte,
 Zustand, Statistik und einem Hilfe-Radar für Freiwillige.
 
-Alles läuft auf Türkisch, Deutsch und Englisch. Das ausführliche Konzept (Spielmechanik,
+Alles läuft in sechs Sprachen – Türkisch, Englisch, Deutsch, Russisch, Arabisch und Persisch
+(Arabisch und Persisch von rechts nach links), in sehr einfacher Sprache für die vielen Gäste
+Istanbuls. Beim Foto kann man den Zustand der Katze melden (gesund, hungrig, krank, verletzt …);
+Freiwillige sehen das im Hilfe-Radar.
+
+Ein Produkt von **HappyTuncay**, entstanden im **Happy Overthinking Coffee** in Kadıköy.
+
+Das ausführliche Konzept (Spielmechanik,
 Partnermodell, Geschäftsmodell, Ausbau auf weitere Stadtteile, Namensideen) steht in
 [docs/KONZEPT.md](docs/KONZEPT.md). Wie ein Café mitmacht:
 [docs/PARTNER.md](docs/PARTNER.md).
@@ -35,10 +42,11 @@ Ausschnitts, schätzt aber kein Alter, Gewicht oder Gesundheit. Die Karte sagt d
 
 | Seite | Für wen |
 |---|---|
-| `/` | Spieler:innen – Heute, KediDex, **Fangen**, Karte, Kadıköy-Statistik, Profil |
+| `/` | Startseite für alle – 3D-Szene, so geht's, 20 = 20 %, die ernste Seite mit echten Zahlen, Trailer, Teilen |
+| `/app.html` | Das Spiel – Heute, KediDex, **Foto**, Karte, Kadıköy-Zahlen, Profil |
 | `/partner.html` | Café-Personal – Gutschein scannen/eintippen, prüfen, einlösen (Demo-PIN `246810`) |
 | `/admin.html` | Moderation – Dubletten, Einsprüche, auffällige Fänge, Cafés, Rollen, Legenden (Token in `data/admin-token.txt`) |
-| `/?demo=1` | Reiner Browser-Demo-Modus ohne Server (Daten nur im Browser) |
+| `/app.html?demo=1` | Reiner Browser-Demo-Modus ohne Server (Daten nur im Browser) |
 
 ### Mit dem Handy testen
 
@@ -51,7 +59,19 @@ cloudflared tunnel --url http://localhost:8790      # oder: ngrok http 8790
 
 Oder mit eigenem Zertifikat (`mkcert`): `CATME_TLS_CERT=cert.pem CATME_TLS_KEY=key.pem HOST=0.0.0.0 node server.js`.
 Außerhalb von Kadıköy wird ein Fang mit „außerhalb des Spielgebiets“ abgelehnt. Im Demo-Modus
-(`/?demo=1`) wird der Standort automatisch nach Moda simuliert.
+(`/app.html?demo=1`) wird der Standort automatisch nach Moda simuliert.
+
+## Startseite, Trailer, Social-Kit
+
+* **Startseite** (`/`): eine Seite für Instagram-, TikTok- und QR-Besucher. Die Sprache kommt aus
+  dem Browser (oder `?lang=ar`), gemerkt wird sie zusammen mit dem Spiel. Ohne Server zeigt sie
+  Demo-Zahlen mit Hinweis „Demo“, ohne WebGL oder mit „weniger Bewegung“ ein ruhiges Bild.
+* **Trailer** neu rendern: `node trailer/render.js --all` (Details in [trailer/README.md](trailer/README.md)).
+  26 s, Musik selbst erzeugt, keine Sprache, Texte in `trailer/texts.js`.
+* **Social-Bilder** neu rendern: `node marketing/render.js`. Texte für Posts (Bildtext, Alt-Text,
+  Hashtags), Reels-Ideen, 7-Tage-Plan und Vorlagen für Cafés und Katzen-Accounts stehen in
+  [marketing/CAPTIONS.md](marketing/CAPTIONS.md). Den Link `{LINK}` erst einsetzen, wenn die Adresse feststeht.
+* Marke, Schreibweisen, Farben, Ton: [docs/BRAND.md](docs/BRAND.md).
 
 ## So funktioniert ein Fang
 
@@ -95,7 +115,13 @@ public/                 alles, was der Browser lädt (auch statisch hostbar → 
     census.js           Katzenliste, Profil, Status, Hilfe, Orte, Karte
     vouchers.js         Gutscheine        admin.js   Moderation     stats.js  Statistik/Ranglisten
     store.js            Datenspeicher (Schnittstelle: get/insert/update/where/all)
-  js/                   Oberfläche (ES-Module, keine Build-Schritte)
+  core/labels/          Enum-Beschriftungen ru/ar/fa (tr/en/de stehen direkt in taxonomy.js)
+  js/                   Oberfläche des Spiels (ES-Module, keine Build-Schritte)
+  js/lang/              Oberflächentexte in 6 Sprachen (en ist die Vorlage)
+  index.html, site/     Startseite: three.js-Szene (vendor/three), Abschnitte, eigene Texte in 6 Sprachen
+  media/                Trailer (16:9 + 9:16 je Sprache, MP4 + Standbild), Link-Vorschaubilder og-*.png
+trailer/                Trailer als Code: jedes Bild = Funktion der Zeit, gerendert mit Playwright + ffmpeg
+marketing/              Social-Kit: Vorlagen, 60 Bilder (5 Motive × Post/Story × 6 Sprachen), CAPTIONS.md
 server/                 Node-HTTP-Server ohne Framework
   app.js                Routen, Rechte, Ratenbegrenzung, CSP
   analyzer-claude.js    Claude: Analyse + Foto-Vergleich (Structured Outputs, Fallbacks)

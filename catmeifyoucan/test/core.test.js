@@ -152,3 +152,19 @@ test('Tagesaufgaben sind pro Tag für alle gleich', () => {
   assert.equal(a.length, GAME.quests.perDay);
   assert.equal(new Set(a.map((q) => q.kind)).size, a.length, 'verschiedene Aufgabentypen');
 });
+
+test('Namen: persischer Halbabstand und arabische Vokalzeichen erlaubt, Zeichen-Türme nicht', () => {
+  assert.equal(cleanName('گربه‌دوست'), 'گربه‌دوست');
+  assert.equal(cleanName('‌گربه‌‌ها‌'), 'گربه‌ها');
+  assert.equal(cleanName('گربه ‌ دوست'), 'گربه دوست');
+  assert.equal(cleanName('مُحَمَّد'), 'مُحَمَّد');
+  assert.equal(cleanName('Ayşe'), 'Ayşe');
+  assert.equal(cleanName('Zé́́́ynep'), null, 'Akzent-Turm');
+  assert.equal(cleanName('́Ayla'), null, 'beginnt mit Akzent');
+  assert.equal(cleanName('Ay​la'), null, 'Nullbreiten-Leerzeichen bleibt verboten');
+  assert.equal(cleanName('Ay‍la'), null, 'ZWJ bleibt verboten');
+  // Schimpfwort mit Halbabstand dazwischen wird trotzdem erkannt
+  const sneaky = cleanName('sik‌tir');
+  assert.ok(sneaky);
+  assert.equal(checkName(sneaky).ok, false);
+});

@@ -77,6 +77,15 @@ function pluralCategory(n) {
   return pr.select(Number(n));
 }
 
+const numberFormats = new Map();
+/** Zahlen in Platzhaltern in Landesschreibweise (fa: ۲۰, Tausender erst ab 10 000). */
+function fmtVar(v) {
+  if (typeof v !== 'number' || !Number.isFinite(v)) return String(v);
+  let f = numberFormats.get(lang);
+  if (!f) numberFormats.set(lang, (f = new Intl.NumberFormat(LANG_INFO[lang].locale, { maximumFractionDigits: 1, useGrouping: 'min2' })));
+  return f.format(v);
+}
+
 export function t(key, vars) {
   let s = (STRINGS[lang] && STRINGS[lang][key]) ?? STRINGS.en[key] ?? STRINGS.tr[key] ?? key;
   if (s && typeof s === 'object') {
@@ -88,7 +97,7 @@ export function t(key, vars) {
     const [one, other] = s.split('|');
     s = Number(vars.n) === 1 ? one : other;
   }
-  if (vars) s = s.replace(/\{(\w+)\}/g, (_, k) => (vars[k] != null ? String(vars[k]) : ''));
+  if (vars) s = s.replace(/\{(\w+)\}/g, (_, k) => (vars[k] != null ? fmtVar(vars[k]) : ''));
   return s;
 }
 

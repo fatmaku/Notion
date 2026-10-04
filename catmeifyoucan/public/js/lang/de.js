@@ -212,6 +212,7 @@ export default {
   'stats.seen7': 'In 7 Tagen gesehen',
   'stats.help': 'Brauchen Hilfe',
   'stats.tnr': 'Kastriert (Ohrmarke)',
+  'stats.new7d': '+{n} diese Woche', 'stats.tnrKnown': '{n} Katze geprüft|{n} Katzen geprüft',
   'stats.bcs': 'Körper im Schnitt (1–9)',
   'stats.obs': 'Fotos',
   'stats.active': 'Heute dabei',
@@ -250,7 +251,7 @@ export default {
 
   // Hilfe
   'help.empty': 'Gerade braucht keine Katze Hilfe 💚',
-  'help.lead': 'Für Freiwillige und Tierärzt:innen: Diese Katzen brauchen vielleicht Hilfe.',
+  'help.lead': 'Für Freiwillige und Tierarztpraxen: Diese Katzen brauchen vielleicht Hilfe.',
 
   // Gutschein
   'v.title': 'Katzen-Gutschein',
@@ -280,7 +281,7 @@ export default {
   'p.rules': 'Regeln & Datenschutz',
   'p.partner': 'Für Cafés',
   'p.admin': 'Moderation',
-  'p.role.volunteer': 'Freiwillige:r',
+  'p.role.volunteer': 'Ehrenamt',
   'p.role.admin': 'Moderation',
   'm.catches': 'Fotos',
   'm.uniqueCats': 'Verschiedene Katzen',
@@ -336,5 +337,6 @@ export default {
   // Teilen
   'share.button': 'Teilen',
   'share.text': 'Das ist {name}! Ich habe die Katze in Kadıköy gefunden. #CatMeIfYouCan #CatMeKadikoy',
+  'share.textUnnamed': 'Diese Straßenkatze habe ich in Kadıköy gefunden! #CatMeIfYouCan #CatMeKadikoy',
   'share.saved': 'Bild gespeichert.',
 };

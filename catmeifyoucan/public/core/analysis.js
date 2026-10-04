@@ -243,12 +243,13 @@ export function trAblative(name) {
 export function fallbackSummary(analysis, districtName, lang) {
   const p = PATTERNS[analysis.pattern] || PATTERNS.diger;
   const name = (p.label && (p.label[lang] || p.label.en)) || p.label.tr;
-  const where = districtName || 'Kadıköy';
+  // Ohne Viertel: Kadıköy in der Schrift der Sprache (wie in BRAND.md)
+  const where = districtName || { ru: 'Кадыкёй', ar: 'قاضي كوي', fa: 'کادیکوی' }[lang] || 'Kadıköy';
   if (lang === 'de') return `${name} aus ${where}.`;
   if (lang === 'en') return `A ${name.toLowerCase()} from ${where}.`;
-  if (lang === 'ru') return `${name} из района ${where}.`;
-  if (lang === 'ar') return `${name} من ${where}.`;
-  if (lang === 'fa') return `${name} از ${where}.`;
+  if (lang === 'ru') return districtName ? `${name} из района ${where}.` : `${name} из Кадыкёя.`;
+  if (lang === 'ar') return `قطة من ${where}: ${name}.`;
+  if (lang === 'fa') return `گربهٔ ${name} از ${where}.`;
   return `${trAblative(where)} bir ${name.toLocaleLowerCase('tr')}.`;
 }
 

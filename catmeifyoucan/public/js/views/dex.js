@@ -1,7 +1,7 @@
 // Cat Me If You Can – KediDex: eigene Sammlung (mit Typen-Raster wie ein Pokédex) und alle Katzen.
 
 import { t, L } from '../i18n.js';
-import { esc, catImg, stars, statusChip, fmtAgo, patternLabel, catName } from '../ui.js';
+import { esc, bdi, fmtNum, catImg, stars, statusChip, fmtAgo, patternLabel, catName } from '../ui.js';
 import { PATTERNS, CAT_STATUS } from '../../core/taxonomy.js';
 import { catAvatarDataUrl } from '../avatar.js';
 
@@ -14,7 +14,7 @@ function catTile(c, extra = '') {
     ${c.status && c.status !== 'active' ? `<span class="tile-status">${t(`status.icon.${c.status}`)}</span>` : ''}
     <span class="tile-name">${catName(c)}</span>
     <span class="tile-meta">${stars(c.rarity)}</span>
-    <span class="tile-sub">${esc(c.districtName || '')}${extra ? ` · ${extra}` : ''}</span>
+    <span class="tile-sub">${bdi(c.districtName)}${extra ? ` · ${extra}` : ''}</span>
   </a>`;
 }
 
@@ -36,7 +36,7 @@ async function renderMine(body, app) {
   const got = new Set(dex.patterns);
   body.innerHTML = `
     <section class="card">
-      <h2>${esc(t('dex.types'))} <small class="muted">${got.size}/${TYPES.length}</small></h2>
+      <h2>${esc(t('dex.types'))} <small class="muted">${fmtNum(got.size)}/${fmtNum(TYPES.length)}</small></h2>
       <div class="types">${TYPES.map((p) => `
         <div class="type ${got.has(p) ? 'got' : ''}" title="${esc(L(PATTERNS, p))}">
           <img src="${catAvatarDataUrl({ id: p, pattern: p })}" alt="">

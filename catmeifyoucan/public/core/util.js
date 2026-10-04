@@ -54,9 +54,18 @@ export function normalizeCode(input) {
 /** Spitznamen/Katzennamen: 2–24 Zeichen, Buchstaben (inkl. ç ğ ı ö ş ü), Ziffern, Leerzeichen, . _ - ' */
 export function cleanName(input, { min = 2, max = 24 } = {}) {
   if (typeof input !== 'string') return null;
-  const s = input.normalize('NFC').replace(/\s+/g, ' ').trim();
+  // Halbabstand (ZWNJ, U+200C) gehört zu vielen persischen Namen („گربه‌دوست“); neben Leerzeichen
+  // und am Rand ist er sinnlos. Andere unsichtbare Zeichen bleiben verboten.
+  const s = input
+    .normalize('NFC')
+    .replace(/\s+/g, ' ')
+    .replace(/\u200c+/g, '\u200c')
+    .replace(/\u200c*( )\u200c*/g, ' ')
+    .replace(/ {2,}/g, ' ')
+    .replace(/^[ \u200c]+|[ \u200c]+$/g, '');
   if (s.length < min || s.length > max) return null;
-  if (!/^[\p{L}\p{N} ._'-]+$/u.test(s)) return null;
+  if (!/^[\p{L}\p{M}\p{N} ._'\u200c-]+$/u.test(s)) return null;
+  if (/^\p{M}|\p{M}{3,}/u.test(s)) return null; // kein Zeichen-Turm aus Akzenten („Zalgo“)
   return s;
 }
 

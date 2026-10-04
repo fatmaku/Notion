@@ -20,7 +20,29 @@ const TYPES = {
   '.md': 'text/markdown; charset=utf-8',
   '.bin': 'application/octet-stream',
   '.woff2': 'font/woff2',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.wav': 'audio/wav',
 };
+
+/** Byte-Bereich aus „Range: bytes=a-b“ (nur ein Bereich). null = ganze Datei, false = ungültig. */
+function parseRange(header, size) {
+  if (!header) return null;
+  const m = /^bytes=(\d*)-(\d*)$/.exec(String(header).trim());
+  if (!m || (m[1] === '' && m[2] === '')) return false;
+  let start;
+  let end;
+  if (m[1] === '') {
+    // „bytes=-500“ = die letzten 500 Bytes
+    start = Math.max(0, size - Number(m[2]));
+    end = size - 1;
+  } else {
+    start = Number(m[1]);
+    end = m[2] === '' ? size - 1 : Math.min(Number(m[2]), size - 1);
+  }
+  if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start > end || start >= size) return false;
+  return { start, end };
+}
 
 function sendFile(req, res, file, { cache = 'no-cache', headers = {} } = {}) {
   let st;
@@ -32,18 +54,30 @@ function sendFile(req, res, file, { cache = 'no-cache', headers = {} } = {}) {
   if (!st.isFile()) return false;
   const etag = `"${st.size.toString(36)}-${Math.floor(st.mtimeMs).toString(36)}"`;
   const type = TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream';
-  const h = { 'Content-Type': type, 'Cache-Control': cache, ETag: etag, ...headers };
+  const h = { 'Content-Type': type, 'Cache-Control': cache, ETag: etag, 'Accept-Ranges': 'bytes', ...headers };
   if (req.headers['if-none-match'] === etag) {
     res.writeHead(304, h);
     res.end();
     return true;
   }
-  res.writeHead(200, { ...h, 'Content-Length': st.size });
+  // Teilanfragen (Videos: iOS Safari lädt nur in Bereichen). If-Range mit fremdem ETag → ganze Datei.
+  const ifRange = req.headers['if-range'];
+  const range = ifRange && ifRange !== etag ? null : parseRange(req.headers.range, st.size);
+  if (range === false) {
+    res.writeHead(416, { ...h, 'Content-Range': `bytes */${st.size}` });
+    res.end();
+    return true;
+  }
+  if (range) {
+    res.writeHead(206, { ...h, 'Content-Range': `bytes ${range.start}-${range.end}/${st.size}`, 'Content-Length': range.end - range.start + 1 });
+  } else {
+    res.writeHead(200, { ...h, 'Content-Length': st.size });
+  }
   if (req.method === 'HEAD') {
     res.end();
     return true;
   }
-  fs.createReadStream(file).on('error', () => res.destroy()).pipe(res);
+  fs.createReadStream(file, range || {}).on('error', () => res.destroy()).pipe(res);
   return true;
 }
 

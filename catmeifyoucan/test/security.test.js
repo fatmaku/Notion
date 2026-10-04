@@ -152,3 +152,44 @@ test('Server: Cafés, gesperrte Spieler, Fotos ohne Ausschnitt, Export > 200 Kat
     fs.rmSync(tmp, { recursive: true, force: true });
   }
 });
+
+test('Statische Dateien: Videos mit Typ und Byte-Bereichen (iOS Safari)', async () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'catme-range-'));
+  const app = await createApp({ dataDir: tmp, aiMode: 'mock', demo: true, log: () => {} });
+  await new Promise((r) => app.server.listen(0, '127.0.0.1', r));
+  const base = `http://127.0.0.1:${app.server.address().port}`;
+  const file = path.join(here, '..', 'public', 'css', 'app.css');
+  const size = fs.statSync(file).size;
+  const bytes = fs.readFileSync(file);
+  try {
+    const full = await fetch(`${base}/css/app.css`);
+    assert.equal(full.status, 200);
+    assert.equal(full.headers.get('accept-ranges'), 'bytes');
+    await full.arrayBuffer();
+    const part = await fetch(`${base}/css/app.css`, { headers: { Range: 'bytes=10-19' } });
+    assert.equal(part.status, 206);
+    assert.equal(part.headers.get('content-range'), `bytes 10-19/${size}`);
+    assert.deepEqual(Buffer.from(await part.arrayBuffer()), bytes.subarray(10, 20));
+    const tail = await fetch(`${base}/css/app.css`, { headers: { Range: 'bytes=-5' } });
+    assert.equal(tail.status, 206);
+    assert.deepEqual(Buffer.from(await tail.arrayBuffer()), bytes.subarray(size - 5));
+    const open = await fetch(`${base}/css/app.css`, { headers: { Range: `bytes=${size - 3}-` } });
+    assert.equal(open.status, 206);
+    assert.equal((await open.arrayBuffer()).byteLength, 3);
+    const bad = await fetch(`${base}/css/app.css`, { headers: { Range: `bytes=${size + 10}-` } });
+    assert.equal(bad.status, 416);
+    assert.equal(bad.headers.get('content-range'), `bytes */${size}`);
+    await bad.arrayBuffer();
+    const stale = await fetch(`${base}/css/app.css`, { headers: { Range: 'bytes=0-9', 'If-Range': '"veraltet"' } });
+    assert.equal(stale.status, 200, 'If-Range mit altem ETag → ganze Datei');
+    await stale.arrayBuffer();
+    const mp4 = path.join(here, '..', 'public', 'media', 'trailer-16x9-en.mp4');
+    if (fs.existsSync(mp4)) {
+      const v = await fetch(`${base}/media/trailer-16x9-en.mp4`, { method: 'HEAD' });
+      assert.equal(v.headers.get('content-type'), 'video/mp4');
+    }
+  } finally {
+    await app.close();
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});

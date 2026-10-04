@@ -212,6 +212,7 @@ export default {
   'stats.seen7': 'Son 7 günde görülen',
   'stats.help': 'Yardım bekliyor',
   'stats.tnr': 'Kısırlaştırılmış (kulak işareti)',
+  'stats.new7d': 'Bu hafta +{n}', 'stats.tnrKnown': '{n} kediye bakıldı',
   'stats.bcs': 'Ortalama vücut (1–9)',
   'stats.obs': 'Fotoğraf',
   'stats.active': 'Bugün oynayan',
@@ -336,5 +337,6 @@ export default {
   // Paylaş
   'share.button': 'Paylaş',
   'share.text': '{name} ile tanış! Onu Kadıköy’de buldum. #CatMeIfYouCan #CatMeKadikoy',
+  'share.textUnnamed': 'Bu sokak kedisini Kadıköy’de buldum! #CatMeIfYouCan #CatMeKadikoy',
   'share.saved': 'Görsel kaydedildi.',
 };

@@ -1,7 +1,7 @@
 // Cat Me If You Can – „Heute“: Tagesziel-Ring, Gutschein, Tagesaufgaben, heutige Fänge, Cafés.
 
 import { t, L, tx } from '../i18n.js';
-import { esc, catImg, fmtTime, toast, errorText, stars, pct } from '../ui.js';
+import { esc, isolate, fmtNum, catImg, fmtTime, toast, errorText, stars, pct } from '../ui.js';
 import { PATTERNS } from '../../core/taxonomy.js';
 
 function ring(count, goal) {
@@ -18,7 +18,7 @@ export function questText(q) {
   switch (q.kind) {
     case 'count': return t('quest.count', { n: q.n });
     case 'pattern': return t('quest.pattern', { n: q.n, pattern: L(PATTERNS, q.pattern) });
-    case 'district': return t('quest.district', { district: q.districtName || q.district });
+    case 'district': return t('quest.district', { district: isolate(q.districtName || q.district) });
     case 'districts': return t('quest.districts', { n: q.n });
     case 'new': return t('quest.new');
     case 'early': return t('quest.early');
@@ -30,19 +30,21 @@ export function questText(q) {
 export async function renderHome(view, app) {
   const [{ player, today }, places, help] = await Promise.all([app.api.me(), app.api.places('partner').catch(() => []), app.api.help().catch(() => ({ total: 0 }))]);
   app.setPlayer(player);
-  const left = Math.max(0, today.minCatsForVoucher - today.count);
-  const reached = today.count >= today.minCatsForVoucher;
+  // Text und Ring zeigen das Tagesziel (20); „Gutschein holen“ gibt es schon ab der kleinsten Café-Schwelle.
+  const left = Math.max(0, today.goal - today.count);
+  const reached = today.count >= today.goal;
+  const canClaim = today.count >= today.minCatsForVoucher;
   view.innerHTML = `
     <section class="hero-card">
       <div class="ring-wrap">${ring(today.count, today.goal)}
-        <div class="ring-text"><b>${today.count}</b><span>/ ${today.goal}</span></div>
+        <div class="ring-text"><b>${fmtNum(today.count)}</b><span>/ ${fmtNum(today.goal)}</span></div>
       </div>
       <div class="hero-side">
         <h1>${esc(t('home.goal', { n: today.count, goal: today.goal }))}</h1>
         <p>${reached ? esc(t('home.reached')) : esc(t('home.left', { n: left }))}</p>
         ${today.voucher
           ? `<a class="btn primary" href="#/voucher">☕ ${esc(t('home.showVoucher'))}</a>`
-          : reached ? `<button class="btn primary" data-act="claim">☕ ${esc(t('home.claimVoucher'))}</button>` : `<a class="btn primary" href="#/catch">📸 ${esc(t('nav.catch'))}</a>`}
+          : canClaim ? `<button class="btn primary" data-act="claim">☕ ${esc(t('home.claimVoucher'))}</button>` : `<a class="btn primary" href="#/catch">📸 ${esc(t('nav.catch'))}</a>`}
       </div>
     </section>
 
@@ -52,8 +54,8 @@ export async function renderHome(view, app) {
         <li class="${q.done ? 'done' : ''}">
           <span class="q-check" aria-hidden="true">${q.done ? '✓' : ''}</span>
           <span class="q-text">${esc(questText(q))}</span>
-          <span class="q-prog">${q.value}/${q.n}</span>
-          <span class="q-xp">+${q.xp} XP</span>
+          <span class="q-prog">${fmtNum(q.value)}/${fmtNum(q.n)}</span>
+          <span class="q-xp">+${fmtNum(q.xp)} XP</span>
         </li>`).join('')}
       </ul>
     </section>
