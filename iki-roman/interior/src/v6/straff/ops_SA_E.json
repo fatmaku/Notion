@@ -1,0 +1,315 @@
+[
+{
+"op": "replace",
+"pid": 1350,
+"old": "bu defa mektuba",
+"new": "mektuba",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1353,
+"old": "Hele değiştirince cümle daha tanıdık geliyorsa! ",
+"new": "",
+"neden": "Üst üste aforizma, düşünce zaten 1351'de"
+},
+{
+"op": "replace",
+"pid": 1355,
+"old": "Birini cevaplamayınca ötekinden vazgeçmem gerekmiyordu. Fakat ikisini birbirinin yerine de koyamazdım. ",
+"new": "",
+"neden": "Antitez zinciri kısaltıldı"
+},
+{
+"op": "replace",
+"pid": 1388,
+"old": " Bu defa konuyu kapatmak için söylememiştim.",
+"new": "",
+"neden": "“Bu defa” kalıbı, gereksiz açıklama"
+},
+{
+"op": "replace",
+"pid": 1399,
+"old": "Bu defa ona dönüp",
+"new": "Ona dönüp",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1411,
+"old": " Benim korktuğum şeyler de vardı onun içinde, yalnız tek işi onlar değildi.",
+"new": "",
+"neden": "1406'daki tespitin tekrarı"
+},
+{
+"op": "replace",
+"pid": 1420,
+"old": "Demek ki bir insanın görmediği şeyi anlatmak başka, fark etmediğini sanmak başkaydı. ",
+"new": "",
+"neden": "Formül antitez; sonraki cümleler yeterli"
+},
+{
+"op": "replace",
+"pid": 1446,
+"old": "Bu defa bilmediğimi",
+"new": "Bilmediğimi",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1452,
+"old": "Bu defa beni",
+"new": "Beni",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1453,
+"old": " İnsan her kelimeyi bilse de ihtiyacı olduğu anda çağırabilecek miydi?",
+"new": "",
+"neden": "Önceki cümleyi tekrarlayan aforizma"
+},
+{
+"op": "delete",
+"pid": 1458,
+"neden": "Dolgu sahne; gülüş 1457'de zaten var"
+},
+{
+"op": "replace",
+"pid": 1459,
+"old": " İlk defa bir kâğıttaki saati şifreye çevirmedim.",
+"new": "",
+"neden": "1706'daki “ilk defa… şifre” ile mükerrer"
+},
+{
+"op": "replace",
+"pid": 1460,
+"old": "Vildan Hanım bu kez saatini",
+"new": "Vildan Hanım saatini",
+"neden": "“Bu kez” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1461,
+"old": "; bu defa hemen deftere değil",
+"new": ", hemen deftere değil",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1481,
+"old": " Anneme haber vermek için telefonu çıkaracak oldum; vazgeçtim. Önce ne diyeceğimi kendim duymak istiyordum.",
+"new": "",
+"neden": "1460'taki “önce kendim konuşmak” tekrarı"
+},
+{
+"op": "replace",
+"pid": 1483,
+"old": "adı bu defa sahibinin",
+"new": "adı sahibinin",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1486,
+"old": " İnsan yardım istemeye gelince bile karşısındakine hemen yüz vermemeyi bir meziyet sanıyor.",
+"new": "",
+"neden": "“İnsan … sanıyor” aforizma tiki"
+},
+{
+"op": "replace",
+"pid": 1531,
+"old": " Hakan'la konuşmaktan vazgeçmemiştim. Yalnız önce annemi bekleyecektim.",
+"new": "",
+"neden": "Sahnenin gösterdiğini tekrar ediyor"
+},
+{
+"op": "replace",
+"pid": 1535,
+"old": " Bu defa annem yanımdaydı çünkü onu ben aramıştım; burada ne konuşulduğunu henüz bilmiyordu.",
+"new": "",
+"neden": "Bilinen durumun özeti; 1536 yeterli"
+},
+{
+"op": "replace",
+"pid": 1556,
+"old": " İnsan kendi adını söyleyemeyecek kadar korkarken annesinin elini de yanlış anlayabiliyordu.",
+"new": "",
+"neden": "Jesti açıklayan aforizma"
+},
+{
+"op": "replace",
+"pid": 1560,
+"old": " Bir şeyi taşımayı birbirimize bırakabiliyorduk; neye bakacağımızı değil.",
+"new": "",
+"neden": "Formül antitez"
+},
+{
+"op": "replace",
+"pid": 1569,
+"old": "Bu defa ekrandaki",
+"new": "Ekrandaki",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1571,
+"old": " Öğrenciler bir örnek verdiğimi mi sanmışlardı da kimsenin sesi çıkmamıştı?",
+"new": "",
+"neden": "Önceki cümle ve 1576 ile mükerrer soru"
+},
+{
+"op": "replace",
+"pid": 1578,
+"old": "İşte az önce aklımdan geçen de buydu: Boğuluyordum ve öğrencilerden kimse bunun farkında değildi. ",
+"new": "",
+"neden": "1571'deki sihirbaz imgesinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 1592,
+"old": "Bu defa anneme",
+"new": "Anneme",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1594,
+"old": " İlk günkü kadar kolay olmadı bu; kolay olmadığı halde yapılabildi.",
+"new": "",
+"neden": "Dolgu aforizma"
+},
+{
+"op": "replace",
+"pid": 1597,
+"old": "Bu defa bakışımı",
+"new": "Bakışımı",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1621,
+"old": " Fakat bilmekle kendi sabahına kabul etmek arasında bir gece değil, koca bir ömür duruyordu.",
+"new": "",
+"neden": "Formül antitez; 1619 bunu gösteriyor"
+},
+{
+"op": "replace",
+"pid": 1640,
+"old": "Bu defa Muhibbi'nin",
+"new": "Muhibbi'nin",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1642,
+"old": "Ben de bu defa ona",
+"new": "Ben de ona",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1644,
+"old": "yere bu kez gelebilmiştim",
+"new": "yere gelebilmiştim",
+"neden": "“Bu kez” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1649,
+"old": " Ömrümün geri kalanı bir cümleyle düzene girmedi.",
+"new": "",
+"neden": "Olumsuzlama üçlemesi ikiye indirildi"
+},
+{
+"op": "replace",
+"pid": 1668,
+"old": " Bu kez gülmeyişini yanlış anladığımı düşünmedim.",
+"new": "",
+"neden": "“Bu kez” kalıbı, gereksiz yorum"
+},
+{
+"op": "replace",
+"pid": 1689,
+"old": "açtığında annem yanımdaydı. Bu defa cümlelerin",
+"new": "açtığında cümlelerin",
+"neden": "Annenin varlığı 1688'de var; “Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1696,
+"old": " Kimse benden bu iki şeyi aynı dosyaya koymamı istemedi.",
+"new": "",
+"neden": "1695'teki kararın tekrarı"
+},
+{
+"op": "replace",
+"pid": 1698,
+"old": "Bu defa kayıttaki",
+"new": "Kayıttaki",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1713,
+"old": " Birini bulmuş olmak, ötekini de bulmuşum gibi davranmama izin vermiyordu.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı; not 1714'te"
+},
+{
+"op": "replace",
+"pid": 1720,
+"old": " Dünya da o sırada yerinden oynamadı. Belki değişen dünya değildi; ben, bir sesin nerede bittiğini ve ona verdiğim anlamın nerede başladığını ilk kez ayırmaya çalışıyordum.",
+"new": "",
+"neden": "1698/1713/1714'teki tespitin tekrarı"
+},
+{
+"op": "replace",
+"pid": 1733,
+"old": " O ikisini de yapmadı.",
+"new": "",
+"neden": "Dolgu"
+},
+{
+"op": "replace",
+"pid": 1734,
+"old": " Herkes kendi hayatının merkezindeydi. Onların sırları, korkuları ve alışkanlıkları vardı.",
+"new": "",
+"neden": "1737'de aynı düşünce"
+},
+{
+"op": "replace",
+"pid": 1737,
+"old": " Bir romanın kapısını ben açtım diye içindeki herkesin üzerine hüküm veremezdim.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı"
+},
+{
+"op": "replace",
+"pid": 1739,
+"old": "Bu defa kendimi",
+"new": "Kendimi",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1739,
+"old": " Görmekle doğrulamak arasındaki çizgiyi unutmadım.",
+"new": "",
+"neden": "Sonraki cümleler aynı ayrımı somutluyor"
+},
+{
+"op": "replace",
+"pid": 1744,
+"old": "Bu kez bir mektubun",
+"new": "Bir mektubun",
+"neden": "“Bu kez” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1781,
+"old": " Bir insanın toparlanması alkış isteyen bir sahne değildi.",
+"new": "",
+"neden": "Önceki cümleyi tekrarlayan aforizma"
+}
+]

@@ -1,0 +1,1959 @@
+[
+{
+"op": "replace",
+"pid": 42,
+"old": "Bir yeri aratamaz, bir dosyayı açtıramaz, kimseyi sorgulayamazdım. ",
+"new": "",
+"neden": "Yetkisizlik bir önceki cümlede zaten söylendi"
+},
+{
+"op": "replace",
+"pid": 57,
+"old": " Çocuklar, yetişkinlerin sakladığı gerçeği çoğu zaman bilmez; ama saklama biçimlerini ezberler.",
+"new": "",
+"neden": "Sahne sonrası aforizma"
+},
+{
+"op": "delete",
+"pid": 103,
+"neden": "Duru doğumundaki korku-görev esprisinin tekrarı"
+},
+{
+"op": "delete",
+"pid": 132,
+"neden": "Sahneyi açıklayan aforizma"
+},
+{
+"op": "replace",
+"pid": 172,
+"old": " Bunu eski bir inançtan mı, kendi annesinden mi, kapının tahtasını korumak için mi söylediğini hiçbir zaman öğrenemedim.",
+"new": "",
+"neden": "Eşik fikrine bir şey katmayan ek"
+},
+{
+"op": "delete",
+"pid": 205,
+"neden": "Yoğurt esprisini açıklayan genelleme"
+},
+{
+"op": "replace",
+"pid": 224,
+"old": " Bir soruyu yarım dinleyip cevabın sonuna atladıysan saygısızsındır.",
+"new": "",
+"neden": "Yığılmış antitezlerden biri azaltıldı"
+},
+{
+"op": "delete",
+"pid": 243,
+"neden": "Bir sonraki paragrafta tekrar edilen aforizma"
+},
+{
+"op": "replace",
+"pid": 270,
+"old": "İnsanın tehlikeli bir fikre inanması için o fikrin bütünüyle yalan olması gerekmez. Hatta bütünüyle yalanlar çabuk yorulur. ",
+"new": "",
+"neden": "Aynı düşünce; en güçlü cümle kaldı"
+},
+{
+"op": "replace",
+"pid": 309,
+"old": " Hayata dair planım vardı.",
+"new": "",
+"neden": "Önceki cümlelerin özeti"
+},
+{
+"op": "replace",
+"pid": 357,
+"old": "Leyla'nın bedeninin üç gündür sessiz kaldığını yalnız o sabah öğrenmişti ve Nehir, ilk şokunu",
+"new": "Nehir ilk şokunu",
+"neden": "Önceki bölümde verilen bilginin tekrarı"
+},
+{
+"op": "replace",
+"pid": 382,
+"old": "Bir insan beni kurtarmaya çalıştığında, önce yöntemini eleştirme huyum vardı. ",
+"new": "",
+"neden": "Benzetmenin zaten gösterdiği açıklama"
+},
+{
+"op": "replace",
+"pid": 422,
+"old": "Bunu başka biri fark etmeyebilirdi. Ben fark ettim. ",
+"new": "",
+"neden": "Sonraki cümlede söylenen gözlem tekrarı"
+},
+{
+"op": "replace",
+"pid": 422,
+"old": "Empatiyi kalpten önce kaslarda okuyordum. ",
+"new": "",
+"neden": "Aynı fikrin üçüncü söylenişi"
+},
+{
+"op": "replace",
+"pid": 434,
+"old": "O satır o anda aklıma takılmış; kitaba yeniden erişmem ancak daha sonra adli görüntü üzerinden mümkün olmuştu. ",
+"new": "",
+"neden": "Kırk ikinci sayfa bilgisi 550'de yineleniyor"
+},
+{
+"op": "replace",
+"pid": 437,
+"old": "Birincisi sabit, ikincisi kesik, üçüncüsü arada bir incelen bir ses çıkarıyordu. ",
+"new": "",
+"neden": "Duyusal ayrıntı fazlası"
+},
+{
+"op": "replace",
+"pid": 453,
+"old": "Bir doktor onu on beş dakikada tanımlamadı. ",
+"new": "",
+"neden": "'Aylar aldı' cümlesinin tekrarı"
+},
+{
+"op": "delete",
+"pid": 466,
+"neden": "Soru listesi 1. bölümde (137) zaten verildi"
+},
+{
+"op": "delete",
+"pid": 467,
+"neden": "Soru listesi 1. bölümde (137) zaten verildi"
+},
+{
+"op": "delete",
+"pid": 465,
+"neden": "Soru listesi 1. bölümde (137) zaten verildi"
+},
+{
+"op": "delete",
+"pid": 476,
+"neden": "Evlilik yükleri 1. bölümde (104) anlatıldı"
+},
+{
+"op": "delete",
+"pid": 481,
+"neden": "Diyaloğu açıklayan antitez"
+},
+{
+"op": "replace",
+"pid": 482,
+"old": " Okul, önerilen düzenlemelerin hepsini hemen kabul etmedi. Sınav için daha sessiz oda istendiğinde bir öğretmen bunun “ayrıcalık” olacağını söyledi. Zeynep, gözlük takan öğrenciye tahtayı önden göstermenin ayrıcalık sayılıp sayılmadığını sordu. Toplantı ondan sonra daha kısa sürdü.",
+"new": "",
+"neden": "Okul düzenlemesi ara sahnesi; olay örgüsüne bağlanmıyor"
+},
+{
+"op": "delete",
+"pid": 485,
+"neden": "Kulaklık sahnesinde ikinci 'susma' anı; 493-495 yeterli"
+},
+{
+"op": "delete",
+"pid": 486,
+"neden": "Kulaklık sahnesinde ikinci 'susma' anı; 493-495 yeterli"
+},
+{
+"op": "delete",
+"pid": 487,
+"neden": "Kulaklık sahnesinde ikinci 'susma' anı; 493-495 yeterli"
+},
+{
+"op": "delete",
+"pid": 488,
+"neden": "Kulaklık sahnesinde ikinci 'susma' anı; 493-495 yeterli"
+},
+{
+"op": "delete",
+"pid": 497,
+"neden": "Sahnenin gösterdiğini açıklayan aforizma"
+},
+{
+"op": "delete",
+"pid": 501,
+"neden": "Erteleme 502'de gösteriliyor; açıklama 1. bölümde (105) var"
+},
+{
+"op": "replace",
+"pid": 502,
+"old": "İlk üç ay randevu aradım. Sonraki iki ay bulduğum randevunun saatini değiştirdim. ",
+"new": "",
+"neden": "Erteleme esprisi kısaltıldı"
+},
+{
+"op": "delete",
+"pid": 505,
+"neden": "Klik sahnesiyle aynı dikkat örneğinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 506,
+"old": "Başka bir testte",
+"new": "Bir testte",
+"neden": "505 silindiği için dikiş"
+},
+{
+"op": "replace",
+"pid": 512,
+"old": "Uzman, bunların birbirini bazen sakladığını, bazen büyüttüğünü anlattı. ",
+"new": "",
+"neden": "Sonraki iki cümlenin özeti"
+},
+{
+"op": "replace",
+"pid": 520,
+"old": " İlaç dikkatimi toplamış, fakat hangi dikkati toplamam gerektiğini hâlâ bana bırakmıştı.",
+"new": "",
+"neden": "Espriyi açıklayan cümle"
+},
+{
+"op": "replace",
+"pid": 521,
+"old": "Faturayı son gün değil, geldiği gün ödedim. Bir toplantının sonuna kadar sandalyede kaldım. ",
+"new": "",
+"neden": "Faydaların örnekleri; 517'de zaten gösterildi"
+},
+{
+"op": "replace",
+"pid": 525,
+"old": "Uyku, kafein, yemek ve stres kaydı tuttum. ",
+"new": "",
+"neden": "Tıbbi ayrıntı fazlası"
+},
+{
+"op": "delete",
+"pid": 526,
+"neden": "Tıbbi tartışma fazlası; hekimin ana cümleleri 531'de"
+},
+{
+"op": "delete",
+"pid": 527,
+"neden": "Çalışma ayrıntısı; sonra kullanılmıyor"
+},
+{
+"op": "delete",
+"pid": 528,
+"neden": "Amerika-Avrupa tartışması; sonra kullanılmıyor"
+},
+{
+"op": "delete",
+"pid": 529,
+"neden": "Amerika-Avrupa tartışması; sonra kullanılmıyor"
+},
+{
+"op": "replace",
+"pid": 530,
+"old": "“Ya ilaç beni sıradanlaştırıyorsa?”",
+"new": "“Ya ilaç beni sıradanlaştırıyorsa?” diye sordum son kontrolde.",
+"neden": "526 silindiği için dikiş"
+},
+{
+"op": "replace",
+"pid": 531,
+"old": "Bir tedavi dikkatinizi artırırken hayatınızda değer verdiğiniz bir şeyi dayanılmaz ölçüde azaltıyorsa bunu söylersiniz; doz, tür veya yöntem yeniden değerlendirilir. ",
+"new": "",
+"neden": "Tıbbi prosedür; 525'te gösterildi"
+},
+{
+"op": "delete",
+"pid": 532,
+"neden": "İlacı bırakma 525'te anlatıldı; tekrar"
+},
+{
+"op": "replace",
+"pid": 534,
+"old": " Bir tiyatronun oyuncuları gitmiş, ben ışıkları söndürmek için içeride seyirci kalıp kalmadığına bakıyordum. Bakmaya çalışan da içerideydi.",
+"new": "",
+"neden": "'Dinleyen vardı' imgesini yineleyen benzetme"
+},
+{
+"op": "replace",
+"pid": 542,
+"old": " İnsan birine iki günde okuyacağını söyleyince takvim bazen doğrudan arkeolojiye dönüşüyordu.",
+"new": "",
+"neden": "Ara espri; tempo"
+},
+{
+"op": "replace",
+"pid": 552,
+"old": " Yalanın en dayanıklı türü, gerçeğin size ait parçasını çalıp geri kalanını kendi yazdığı hikâyeyle doldurandı.",
+"new": "",
+"neden": "Aynı fikir 2. bölümde (270) var"
+},
+{
+"op": "delete",
+"pid": 559,
+"neden": "Sahneyi özetleyen antitez"
+},
+{
+"op": "replace",
+"pid": 562,
+"old": " Sonra internetten bulduğum her bilgiyi kendime uyguladım. Bir hafta içinde çocukluğumdaki bütün anıları yeni tanının deliline çevirdim.",
+"new": "",
+"neden": "Leyla'yla konuşmada (580) tekrar ediliyor"
+},
+{
+"op": "replace",
+"pid": 563,
+"old": " Mikrofon kesilince sesimi yükselterek devam etmem, bugün bile arkadaş ortamında anlatılan kısmıdır. Ben o gün komik bulmamıştım.",
+"new": "",
+"neden": "Anekdot kısaltıldı"
+},
+{
+"op": "replace",
+"pid": 570,
+"old": " İnsan bana hayran olduğunda ne söyleyeceğini tahmin edebiliyordum. Karşı çıktığında merak ediyordum.",
+"new": "",
+"neden": "Önceki iki cümleyi açıklıyor"
+},
+{
+"op": "replace",
+"pid": 589,
+"old": " Tanının destek ve dil sağlayabileceğini, fakat insanın bütün öfkesini, sevgisini, hatasını ve ahlakını açıklayamayacağını söyledi.",
+"new": "",
+"neden": "Az önceki diyaloğun özeti"
+},
+{
+"op": "replace",
+"pid": 595,
+"old": "O vaka bilgilerini korur, isim vermeden insanların zihinlerini hangi koşullarda daha iyi kullandığını anlatırdı. ",
+"new": "",
+"neden": "Dinamik son cümlede zaten veriliyor"
+},
+{
+"op": "delete",
+"pid": 600,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 601,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 602,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 603,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 604,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 605,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 608,
+"neden": "Onayı açıklayan ek"
+},
+{
+"op": "replace",
+"pid": 609,
+"old": " Havaalanlarında kaybolduk, bir otelde aynı numaranın iki ayrı kişiye verildiğini keşfettik, Berlin treninde bütün yol boyunca “empati hissetmek midir, doğru davranmak mı?” diye tartıştık.",
+"new": "",
+"neden": "Yolculuk anekdotları kısaltıldı"
+},
+{
+"op": "replace",
+"pid": 610,
+"old": "İnsanlar benim doğaçlama konuşabileceğimi sanıyordu. Konuşabilirdim; ama hoparlörden",
+"new": "Hoparlörden",
+"neden": "Gereksiz ara açıklama"
+},
+{
+"op": "delete",
+"pid": 614,
+"neden": "'Ortamı değiştirdim'i açıklayan aforizma"
+},
+{
+"op": "delete",
+"pid": 641,
+"neden": "Diyaloğun özeti; 640 ve 645 yeterli"
+},
+{
+"op": "replace",
+"pid": 651,
+"old": " Nehir klasöre o adı vermişti; ad, içindekilerden daha eksiksiz görünüyordu.",
+"new": "",
+"neden": "Klasör adına dair, önceki cümleyi tekrarlayan yorum."
+},
+{
+"op": "delete",
+"pid": 666,
+"neden": "Selin'in yanıtının zaten gösterdiği dersi tekrarlayan özdeyiş."
+},
+{
+"op": "replace",
+"pid": 667,
+"old": " Ekrandaki harfler birden insana dönüşmedi.",
+"new": "",
+"neden": "Sonraki cümleyle aynı düşünce; güçlüsü kalıyor."
+},
+{
+"op": "replace",
+"pid": 680,
+"old": " O an yasın kanıt toplamaya benzemediğini ikimiz de biliyorduk; yine de başka bir dilimiz yoktu.",
+"new": "",
+"neden": "Sonraki paragraf aynı düşünceyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 703,
+"old": " İnsanların size kötü haber vermeden önce kullandığı türden bir ses değildi. Daha tehlikelisiydi.",
+"new": "",
+"neden": "Üst üste antitez; en güçlü cümle kalıyor."
+},
+{
+"op": "replace",
+"pid": 744,
+"old": "polisi arayacak; yalnızca merak edip beklemeyecekti.",
+"new": "polisi arayacaktı.",
+"neden": "Gereksiz ek açıklama."
+},
+{
+"op": "replace",
+"pid": 778,
+"old": " İnsan sevdiği iki kadından aynı cümleyi duyunca bunun evrensel mesaj olduğunu kabul etmek yerine ikisinin önceden konuştuğundan şüphelenebiliyor.",
+"new": "",
+"neden": "Diyaloğu yavaşlatan ara yorum."
+},
+{
+"op": "replace",
+"pid": 795,
+"old": " Bazı insanlar paralarını göstermek için giyinir. Cem, göstermeye ihtiyacı olmadığını göstermek için.",
+"new": "",
+"neden": "Önceki betimlemeyi açıklayan tekrar."
+},
+{
+"op": "replace",
+"pid": 796,
+"old": " O, aradaki güvenli sayıyı biliyordu.",
+"new": "",
+"neden": "Önceki cümlenin zaten söylediği sonuç."
+},
+{
+"op": "replace",
+"pid": 857,
+"old": " Bir insanın duygusunu doğru okuyup onu herkesin önünde açmıştı. Kadın kendisini görülmüş hissetmişti. Aynı anda mahremiyeti alınmıştı.",
+"new": "",
+"neden": "Okurun az önce gördüğü sahnenin özeti."
+},
+{
+"op": "replace",
+"pid": 858,
+"old": " Ben bazen bunu söylemeyip beklemeyi öğrenmeye çalışıyordum. Cem ise görmenin, kullanma izni olduğuna inanıyordu.",
+"new": "",
+"neden": "Ardından gelen kapı özdeyişiyle aynı fikir."
+},
+{
+"op": "replace",
+"pid": 896,
+"old": " Bunlar şirket sicilinden çıkmıyordu.",
+"new": "",
+"neden": "Gereksiz açıklama."
+},
+{
+"op": "replace",
+"pid": 949,
+"old": " Hayvan, insandan daha aşağı sayıldığı bir dünyada ona medeniyetin ilk derslerinden birini veriyordu.",
+"new": "",
+"neden": "Önceki iki cümleyi tekrarlayan sonuç cümlesi."
+},
+{
+"op": "replace",
+"pid": 955,
+"old": " Aynı siyah kuş bir hikâyede gömmenin bilgisini, başka bir hikâyede düşünceyle hatırlamayı taşıyordu. Hiçbirinde “kötü” olmak zorunda değildi.",
+"new": "",
+"neden": "Sentezi ardından diyalog yapıyor; kötü olmama fikri önceki paragrafta."
+},
+{
+"op": "delete",
+"pid": 959,
+"neden": "Bağlamsız kalmış dolgu cümlesi; soru yok."
+},
+{
+"op": "replace",
+"pid": 978,
+"old": "Oysa hayatımızın önemli bir bölümü market listeleri, aceleyle kabul ettiğimiz koşullar, uyumadan önce yazdığımız notlar ve “bunu sonra düşünürüm” diyerek verdiğimiz kararlarla kurulur. Sonra da bugünkü",
+"new": "Bugünkü",
+"neden": "Deneme bloğu kısaltıldı; kiracı imgesi kalıyor."
+},
+{
+"op": "replace",
+"pid": 981,
+"old": " Fakat hangi eski metne dayandıklarını aradığımda kaynakların çoğu birbirini gösteriyor, en sonunda yakın zamanda yazılmış bir numeroloji kitabına veya kaynaksız bir cümleye çıkıyordu.",
+"new": "",
+"neden": "11.11 şüphesi üç kez anlatılıyor; özlü cümle kalıyor."
+},
+{
+"op": "replace",
+"pid": 987,
+"old": "Bir sayısı birçok düşünce sisteminde başlangıç ve birlikle ilişkilendirilebilirdi. Dört kez yan yana gelince simetrisi göze çarpıyordu. Ama sayı",
+"new": "Sayı",
+"neden": "Sayı yorumunun tekrarı; asıl düşünce kalıyor."
+},
+{
+"op": "replace",
+"pid": 996,
+"old": " Bunun güvenlik açısından hiçbir faydası yoktu. Yalnızca beynim klasörleri böyle hatırlıyordu.",
+"new": "",
+"neden": "Esprinin kendisi aynı şeyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 997,
+"old": " Mesaj tek başına bu e-postayı gönderdiğimi göstermiyordu; fotoğraf da bilgisayarın başında kimin olduğunu söylemiyordu.",
+"new": "",
+"neden": "Nehir'in sonraki cümlesi aynı şeyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 1027,
+"old": " Fakat bunu sınamadan, “okumuşsun” sözü de “yaşamışsın” kadar aceleydi.",
+"new": "",
+"neden": "Nehir'in düzeltmesi aynı düşünceyi taşıyor."
+},
+{
+"op": "replace",
+"pid": 1030,
+"old": " İnsan bazen kendi başına gelecekleri önceden biliyor, yine de terbiyesinden kaçamıyordu.",
+"new": "",
+"neden": "Sahneyi uzatan özdeyiş."
+},
+{
+"op": "replace",
+"pid": 1046,
+"old": " O, sahnenin hangi cümleden doğduğunu; ben, gerçekten nerede çalıştığımı arıyordum. İkisi aynı araştırma değildi.",
+"new": "",
+"neden": "Önceki iki cümlenin açıklaması."
+},
+{
+"op": "replace",
+"pid": 1064,
+"old": " Ekranda bir isim bulunmamasından, insanın bulunmadığı sonucunu çıkaramazdım.",
+"new": "",
+"neden": "Nehir'in az önceki sözünü tekrarlıyor."
+},
+{
+"op": "replace",
+"pid": 1066,
+"old": " Kendimi açıklayacak bir dil arıyor; okuduğum her tarifte başka bir parçamı buluyordum.",
+"new": "",
+"neden": "Genel cümle; ardından gelen somut örnekler aynı şeyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 1110,
+"old": " İnsan geçmişini hatırlamayınca dedektiflik, kendi hayatının muhasebesine dönüşüyordu.",
+"new": "",
+"neden": "Özdeyiş; somut kayıtlar zaten gösteriyor."
+},
+{
+"op": "replace",
+"pid": 1117,
+"old": " Aralarda kelimeleri yutuyor, sonra aynı cümleyi daha düzgün söylemeye çalışıyordum.",
+"new": "",
+"neden": "Önceki cümleyi uzatan ayrıntı."
+},
+{
+"op": "replace",
+"pid": 1123,
+"old": " Bazen duygu, hangi resme ait olduğunu bilmeden yıllarca içinde durur.",
+"new": "",
+"neden": "Bedenin hafızası özdeyişi bölümde zaten var."
+},
+{
+"op": "replace",
+"pid": 1145,
+"old": "Özür, karşı tarafın sizin kadar uzun bir tören düzenlemek zorunda olduğu anlamına gelmiyordu. ",
+"new": "",
+"neden": "Sahnenin gösterdiğini özetleyen özdeyiş."
+},
+{
+"op": "replace",
+"pid": 1161,
+"old": " İnsanı rahatlatmaz; ama yalan bir kesinlikle yanlış yere götürmez.",
+"new": "",
+"neden": "Özdeyiş zinciri kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 1185,
+"old": " Sandalye sayısından da şifre çıkaracaktım. Sonra rakamın insanları oturtmak dışında bir görevi olmayabileceğini düşündüm.",
+"new": "",
+"neden": "Örüntü takıntısı motifinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 1189,
+"old": " Bir zamanlar bunu öğrenmek bana güven verirdi. Şimdi güvenebileceğim şeylerin sayısını azaltıyordu.",
+"new": "",
+"neden": "Üst üste yorum; mantık cümlesi yeterli."
+},
+{
+"op": "replace",
+"pid": 1194,
+"old": " Bedenimin bana ait olduğundan şüphe etmiyordum. Fakat bedenimden",
+"new": " Bedenimden",
+"neden": "Üst üste antitez kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 1225,
+"old": "Vedaya hazırlanmak, insana her anı ağırlaştırma hakkı vermiyordu. ",
+"new": "",
+"neden": "İki özdeyişten somut olanı kalıyor."
+},
+{
+"op": "replace",
+"pid": 1235,
+"old": " Dışarıdan bakmak, aramak değildi. O gece bunu ikisi aynı şeymiş gibi duymuştum.",
+"new": "",
+"neden": "Önceki cümleler aynı ayrımı zaten yapıyor."
+},
+{
+"op": "replace",
+"pid": 1243,
+"old": "Kapıyı ben açtırmadım. Böyle bir yetkim yoktu. ",
+"new": "",
+"neden": "Sonraki cümle anahtarı kimin çevirdiğini söylüyor."
+},
+{
+"op": "replace",
+"pid": 1320,
+"old": " Gri paltolu adam, güçlü olduğum şeyi kullanarak beni durdurmuştu. Bütün sesleri duymam, doğru sesi seçebildiğim anlamına gelmiyordu.",
+"new": "",
+"neden": "Nehir'in sözünü ve radyo imgesini tekrarlıyor."
+},
+{
+"op": "replace",
+"pid": 1329,
+"old": " Hafıza günleri yan yana dizer. Hukuk ise her dakikanın arasına bir imza koyar.",
+"new": "",
+"neden": "Usul paragrafı sonunda yığılmış aforizma çifti."
+},
+{
+"op": "replace",
+"pid": 1333,
+"old": " Kişisel bir yan etkiyi bütün tıbbın niyeti, kötü bir deneyimi devletin planı yapmıştı.",
+"new": "",
+"neden": "Aynı karşıtlık 1334'te daha keskin kuruluyor."
+},
+{
+"op": "replace",
+"pid": 1335,
+"old": " Her cümle gerçek bir acıya dokunuyor, sonra acıya uygun bir düşman seçiyordu.",
+"new": "",
+"neden": "Hemen ardından gelen gizli talimatı önceden söylüyor."
+},
+{
+"op": "delete",
+"pid": 1381,
+"neden": "Ek örnekler; 1368'deki tez zaten söylenmişti."
+},
+{
+"op": "delete",
+"pid": 1382,
+"neden": "1381'e bağlı tekrar; aynı tez 1368'de."
+},
+{
+"op": "delete",
+"pid": 1384,
+"neden": "Üst üste üçüncü özdeyiş; 1383 ve 1385 yetiyor."
+},
+{
+"op": "replace",
+"pid": 1386,
+"old": " Sanki yaratılış her kaybın yanına görünmez bir hediye çeki bırakıyordu.",
+"new": "",
+"neden": "Leyla'nın piyango notuyla aynı imge, tekrar."
+},
+{
+"op": "delete",
+"pid": 1389,
+"neden": "Deneme bloğu; Duru'nun ayak/el cümlesi aynı şeyi sahnede söylüyor."
+},
+{
+"op": "replace",
+"pid": 1394,
+"old": " Oysa eşit değerde yaratılmak, eşit yükle sınanmak değildi. İnsanların imkânı, sağlığı, parası, güvenliği ve karşılaştığı şans aynı değildi. Eşit olan, acılarının bir yarışa sokulamayacak değeri ve seçimlerinin başkasının hayatı üzerinde taşıdığı sorumluluktu.",
+"new": "",
+"neden": "Vaaz; terazi cümlesi (1399) aynı fikri diyalogda veriyor."
+},
+{
+"op": "delete",
+"pid": 1395,
+"neden": "1385'teki bedel fikrinin tekrarı."
+},
+{
+"op": "delete",
+"pid": 1402,
+"neden": "Duru'nun cümlesinden sonra açıklayıcı aforizma."
+},
+{
+"op": "replace",
+"pid": 1410,
+"old": " Yazmamakla cevap vermemek de aynı şey değilmiş; insan bazen karşı tarafa göndermediği tartışmayı kendi içinde saatlerce sürdürebiliyordu.",
+"new": "",
+"neden": "Esprinin açıklaması; taslak cümlesi yetiyor."
+},
+{
+"op": "replace",
+"pid": 1419,
+"old": " Nehir'e ilk başta güvenmemiş; ona üç sahte belge verip hangisini yayımlayacağını izlemişti. Nehir hiçbirini yayımlamayınca gerçek kayıtları getirmişti.",
+"new": "",
+"neden": "Tarık'ın geçmişinde ikincil ayrıntı, başka yerde geçmiyor."
+},
+{
+"op": "delete",
+"pid": 1447,
+"neden": "Zeynep'in sözlerini yeniden yorumlayan özet."
+},
+{
+"op": "replace",
+"pid": 1448,
+"old": "Başka bir deyişle destek özgür değildi. Sessizlik teminatıyla verilmişti.",
+"new": "Destek, sessizlik teminatıyla verilmişti.",
+"neden": "“Başka bir deyişle” tekrarı sıkıştırıldı."
+},
+{
+"op": "delete",
+"pid": 1461,
+"neden": "Almanca formül 24. bölümde sahnesiyle veriliyor; önceden söyleme tekrarı."
+},
+{
+"op": "delete",
+"pid": 1462,
+"neden": "Aynı iç metin 24. bölümde (1926) birebir tekrar ediliyor."
+},
+{
+"op": "delete",
+"pid": 1463,
+"neden": "Aynı geçiş 24. bölümde (1927) tekrar ediliyor."
+},
+{
+"op": "delete",
+"pid": 1464,
+"neden": "Aynı iç metin 24. bölümde (1928) birebir tekrar ediliyor."
+},
+{
+"op": "replace",
+"pid": 1529,
+"old": "Nehir, sorumluluğu ölü ablasının üstüne bırakmıyordu. ",
+"new": "",
+"neden": "Nehir'in az önceki cümlesini tekrar ediyor."
+},
+{
+"op": "replace",
+"pid": 1564,
+"old": " Genel bir cümleyi kendine özel sanıyor.",
+"new": "",
+"neden": "1562'deki gösterimin tekrarı."
+},
+{
+"op": "delete",
+"pid": 1566,
+"neden": "Burç örneği fal mekanizmasının tekrarı."
+},
+{
+"op": "delete",
+"pid": 1567,
+"neden": "Burç örneği fal mekanizmasının tekrarı."
+},
+{
+"op": "replace",
+"pid": 1568,
+"old": "“Büyü?”",
+"new": "“Peki büyü?” diye sordu Nehir.",
+"neden": "Burç kesilince konuşanı belirten dikiş."
+},
+{
+"op": "replace",
+"pid": 1570,
+"old": " Enfeksiyona olumlu cümle söylemek antibiyotiğin yaptığı işi yapmaz.",
+"new": "",
+"neden": "Örnek yığını; mermi cümlesi yetiyor."
+},
+{
+"op": "delete",
+"pid": 1573,
+"neden": "Üçüncü beden-beklenti örneği; Leyla'nın uyarısını ikinci kez tekrarlatıyor."
+},
+{
+"op": "delete",
+"pid": 1574,
+"neden": "1570'teki “sınırlı” uyarısının tekrarı."
+},
+{
+"op": "delete",
+"pid": 1575,
+"neden": "Kesilen vaka konuşmasına bağlı."
+},
+{
+"op": "delete",
+"pid": 1576,
+"neden": "Kesilen vaka konuşmasına bağlı."
+},
+{
+"op": "replace",
+"pid": 1577,
+"old": " Aynı bedende bulunmak, bütün odaların anahtarını taşımak mıydı?",
+"new": "",
+"neden": "Kesilen vaka örneğine bağlı soru."
+},
+{
+"op": "delete",
+"pid": 1584,
+"neden": "Kristal bahsi uzatması; ana fikir 1583 ve 1588'de."
+},
+{
+"op": "delete",
+"pid": 1585,
+"neden": "Kristal bahsi uzatması."
+},
+{
+"op": "delete",
+"pid": 1586,
+"neden": "Çakıl örneği 1583'ün tekrarı; para fikri 1593'te."
+},
+{
+"op": "delete",
+"pid": 1587,
+"neden": "Kesilen itiraza yanıt; para/itaat fikri 1593'te."
+},
+{
+"op": "replace",
+"pid": 1592,
+"old": " Özgürlük, etkilenmemek değil; etkiyi gördükten sonra mümkün olan yerde seçim alanını geri kurmaktı.",
+"new": "",
+"neden": "Nehir'in düzeltmesinin ardından ek özdeyiş."
+},
+{
+"op": "delete",
+"pid": 1607,
+"neden": "Ayna benzetmesinin üstüne yığılmış özdeyiş."
+},
+{
+"op": "replace",
+"pid": 1620,
+"old": " Dikkatin nereye bakacağını, bedenin hangi sinyalini büyüteceğini ve insanın yaşadığı şeyi hangi kelimeyle anlatacağını etkiliyordu.",
+"new": "",
+"neden": "Hemen önceki ALGI ÖN TOHUMU maddelerinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 1701,
+"old": " Duru hatta kalıp gördüğünü bize aktarırken, biz dört sokak boyunca aynı doğrultuda ilerledik.",
+"new": "",
+"neden": "Sonraki cümle (dört sokak ötede bulduk) aynı bilgiyi veriyor."
+},
+{
+"op": "replace",
+"pid": 1744,
+"old": " Çocuğumun güçlü olduğu yerden ona ulaşmıştı.",
+"new": "",
+"neden": "Merak cümlesinin tekrarı."
+},
+{
+"op": "delete",
+"pid": 1771,
+"neden": "Sahne sonrası açıklayıcı aforizma; Emir'in cümlesi bölümü kapatıyor."
+},
+{
+"op": "delete",
+"pid": 1858,
+"neden": "“Yoktu/vardı” kalıbı; aynı bölümde 1834-1835'te daha güçlüsü var."
+},
+{
+"op": "replace",
+"pid": 1879,
+"old": " İlacı kesmiş, yeniden almadan kendi hekimine danışmaya karar vermişti.",
+"new": "",
+"neden": "Hemen önce alıntılanan notun özeti."
+},
+{
+"op": "replace",
+"pid": 1968,
+"old": " Mühürlenmiş kitapların ön tarafta olduğunu biliyordum. Yine de bir sayfanın yanışını izlerken insan kopyayla aslı hemen ayıramıyordu.",
+"new": "",
+"neden": "1958'deki “asılları korunuyordu, biliyordum” tekrarı."
+},
+{
+"op": "replace",
+"pid": 1983,
+"old": " İnsan tehlikede yanlış bir şeyi düşündüğünde, kendisini iyi ilan eden yalana değil, seçtiği davranışa tutunmalıydı.",
+"new": "",
+"neden": "“Düşünmek yapmak değildir”in vaaz tekrarı."
+},
+{
+"op": "replace",
+"pid": 2024,
+"old": " Göz, bütün satırı benim el yazım sanıyordu; büyütme, iki ayrı zamanı gösteriyordu.",
+"new": "",
+"neden": "Bulguyu ikinci kez açıklıyor; gereksiz tekrar."
+},
+{
+"op": "delete",
+"pid": 2032,
+"neden": "Karşı anlatının hızını ikinci kez anlatan açıklama."
+},
+{
+"op": "delete",
+"pid": 2047,
+"neden": "Malik vakası: Entegrasyon fikri 2093–94'te ve Cem bağlantısında zaten var."
+},
+{
+"op": "delete",
+"pid": 2048,
+"neden": "Malik vakasıyla birlikte; ENTEGRASYON kodu Yusuf sahnesinde açıklanıyor."
+},
+{
+"op": "delete",
+"pid": 2049,
+"neden": "Malik vakasıyla birlikte; 'kötü uyanmış' sorusu 2093'te geliyor."
+},
+{
+"op": "delete",
+"pid": 2050,
+"neden": "Ahlaki seçim/biyoloji ayrımı 2100–2101'de daha güçlü veriliyor."
+},
+{
+"op": "delete",
+"pid": 2051,
+"neden": "Aynı ahlaki ayrımı tekrarlayan deneme cümlesi."
+},
+{
+"op": "replace",
+"pid": 2052,
+"old": "Üçüncü dosya",
+"new": "İkinci dosya",
+"neden": "Malik dosyası çıkınca sayım düzeltmesi."
+},
+{
+"op": "replace",
+"pid": 2053,
+"old": "inanmıştı. Otobüste benzin kokusu alınca iniyor, iş arkadaşının cevabı gecikince kendisine komplo kurulduğunu düşünüyor, uyumak için içiyor",
+"new": "inanmıştı. Uyumak için içiyor",
+"neden": "Örnek dizisi kısaltıldı; aşırı tetikte olma 2052'de zaten var."
+},
+{
+"op": "delete",
+"pid": 2056,
+"neden": "Siyah kitap eleştirisi 2062'de daha net tekrar ediliyor."
+},
+{
+"op": "replace",
+"pid": 2057,
+"old": "Oysa bazen",
+"new": "Bazen",
+"neden": "Önceki paragraf çıkınca bağlaç düzeltmesi."
+},
+{
+"op": "delete",
+"pid": 2063,
+"neden": "Defter aforizması 2062'nin ardından üst üste vecize."
+},
+{
+"op": "delete",
+"pid": 2064,
+"neden": "Üst üste vecize; düşünce 2058–2062'de sahnede gösterildi."
+},
+{
+"op": "replace",
+"pid": 2065,
+"old": " İnsanların gizli buluşma için mezarlığı güvenli sanması bana hep tuhaf gelmiştir. Ölüler konuşmaz diye düşünürler. Oysa yaşayanlar en rahat orada telefonla konuşur.",
+"new": "",
+"neden": "Mekândan sonra gelen vecize zinciri; yer bilgisi korunuyor."
+},
+{
+"op": "replace",
+"pid": 2066,
+"old": " Dünyanın en tehlikeli insanları bazen tehlikeli görünmez; ama en suçlu görünenlerin çoğu da yalnız kötü giyinmiştir. Görüntü, ahlak için zayıf delildir.",
+"new": "",
+"neden": "Betimlemeyi izleyen üst üste aforizmalar."
+},
+{
+"op": "delete",
+"pid": 2073,
+"neden": "Bıçak benzetmesi atışması; 2071'deki liste yöntemi zaten gösteriyor."
+},
+{
+"op": "delete",
+"pid": 2074,
+"neden": "Atışma; tempoyu kesiyor."
+},
+{
+"op": "delete",
+"pid": 2075,
+"neden": "Atışma; tempoyu kesiyor."
+},
+{
+"op": "delete",
+"pid": 2076,
+"neden": "Atışma; tempoyu kesiyor."
+},
+{
+"op": "replace",
+"pid": 2134,
+"old": " Neden ile sonuç birbirini kovalayan iki köpek olmuştu; hangisinin önde olduğunu göremiyordum.",
+"new": "",
+"neden": "Önceki iki cümleyi imgeyle yeniden söylüyor."
+},
+{
+"op": "delete",
+"pid": 2140,
+"neden": "Sahnenin gösterdiğini açıklayan vecize."
+},
+{
+"op": "replace",
+"pid": 2191,
+"old": " Bir doktorun duraksaması, bir arabanın şeridinden çıkması, sevdiğiniz birinin “Konuşmamız lazım,” demesi bazen daha az sürer.",
+"new": "",
+"neden": "Örnek yığını; on dokuz saniye fikri korunuyor."
+},
+{
+"op": "replace",
+"pid": 2212,
+"old": "Bu karar küçük görünüyordu. Benim için değildi. ",
+"new": "",
+"neden": "Gereksiz girizgâh; paragrafın kendisi önemi gösteriyor."
+},
+{
+"op": "delete",
+"pid": 2216,
+"neden": "Uçak modu esprisi; 2217 aynı geçişi yapıyor."
+},
+{
+"op": "replace",
+"pid": 2218,
+"old": " Beni, “çok hızlı çalışan ve bazen hata günlüğü tutmayan bir analiz programı” diye tarif etmişti.",
+"new": "",
+"neden": "Sahne ortasındaki geri dönüşü kısaltma."
+},
+{
+"op": "replace",
+"pid": 2229,
+"old": " Verinin garip tarafı buydu: Alındığı gün önemsiz görünen şey, onu elinde tutan kişi sabırlıysa gelecekte silah olabilirdi.",
+"new": "",
+"neden": "Önceki cümleyi genelleyen açıklama."
+},
+{
+"op": "replace",
+"pid": 2283,
+"old": " Bu yol daha az sinematikti; fakat gerçek hayattaki büyük kötülüklerin çoğu, maskeli adamların lazerlerin arasından geçmesiyle değil, doğru yetkiye sahip sıkılmış bir çalışanın yanlış bağlantıya tıklamasıyla işler.",
+"new": "",
+"neden": "Hukuki planı izleyen deneme cümlesi."
+},
+{
+"op": "replace",
+"pid": 2284,
+"old": "Plan basit görünüyordu ve bu yüzden basit değildi. ",
+"new": "",
+"neden": "Formül cümle; paragraf sonu aynı uyarıyı veriyor."
+},
+{
+"op": "replace",
+"pid": 2402,
+"old": " İkisi dışarıdan birbirine çok benzer; farkı, karşıdakini korumak mı yoksa acıtmak mı istediğiniz belirler.",
+"new": "",
+"neden": "Sınır/ceza ayrımını açıklayan genelleme."
+},
+{
+"op": "replace",
+"pid": 2413,
+"old": " Haklı insanlara hemen haklı olduklarını söylemek, insanlığın ulaşamadığı bir olgunluk seviyesi olabilir.",
+"new": "",
+"neden": "Üstüne eklenen vecize."
+},
+{
+"op": "replace",
+"pid": 2417,
+"old": " Sonra içeriden ses geldi.",
+"new": "",
+"neden": "2418 aynı anı daha somut veriyor."
+},
+{
+"op": "replace",
+"pid": 2428,
+"old": " Güvenlik, çoğu zaman sahibini dışarıda bırakmayacak kadar kusurlu tasarlanır.",
+"new": "",
+"neden": "İkinci aforizma; açıklama önceki cümlede var."
+},
+{
+"op": "replace",
+"pid": 2445,
+"old": "İtirafı, yöntemin zekâsını küçültmüyor; zekâsı da aldığı riski temizlemiyordu. ",
+"new": "",
+"neden": "Karşıtlık formülü; Meralis paralelliği korunuyor."
+},
+{
+"op": "replace",
+"pid": 2457,
+"old": " Kızım benden öğrenmiş, sonra onu bana karşı kullanmıştı. Eğitim bazen silahın el değiştirmesidir.",
+"new": "",
+"neden": "Açık olanı açıklıyor ve vecizeyle kapatıyor."
+},
+{
+"op": "replace",
+"pid": 2478,
+"old": " Özgür irade, sonucu hoşumuza gitmeyen seçimlerde de özgür iradeydi. Onu yalnız mağdur saymak yaptığı riski görmezden gelmek, yalnız suçlamak ise tuzağı kuranları saklamak olurdu.",
+"new": "",
+"neden": "Zeynep'in sözünü deneme diliyle tekrarlıyor."
+},
+{
+"op": "replace",
+"pid": 2492,
+"old": " Ölüm büyük anlamları değil, küçük işleri yarım bırakıyordu.",
+"new": "",
+"neden": "Ekmek imgesinden sonra üçüncü özet cümle."
+},
+{
+"op": "replace",
+"pid": 2498,
+"old": "İç içe iki daire birçok yerde birlik diye okunabilirdi. Babam içinse kusursuz birleşme değildi; iki çarkın hareket edebilmesi için arada kalan paydı. Sembol bize kendi sözlüğünü dayatmıyor, yaşadığımız ilişkiyle yeniden konuşuyordu. ",
+"new": "",
+"neden": "Mührün anlamı 2482 ve 2497'de zaten anlatıldı."
+},
+{
+"op": "delete",
+"pid": 2516,
+"neden": "Espri vecize; duygusal vuruşu 'Haklısın' cevabından önce dağıtıyor."
+},
+{
+"op": "replace",
+"pid": 2519,
+"old": " Demek ki anonimlik, ismin silinip insanın geriye kalan her şeyinin bırakılmasıymış.",
+"new": "",
+"neden": "Önceki cümlenin ironisini açıklıyor."
+},
+{
+"op": "replace",
+"pid": 2523,
+"old": " Bir ailede suçluluk dağıtılırken sandalyeler bile taraf seçiyor gibi görünür.",
+"new": "",
+"neden": "Jesti açıklayan vecize."
+},
+{
+"op": "replace",
+"pid": 2534,
+"old": " İnsanları zincirle taşımaya gerek yoktu; doğru yarayı gösterirseniz kendi ayaklarıyla giderlerdi.",
+"new": "",
+"neden": "Önceki cümlenin söylediğini vecizeyle tekrarlıyor."
+},
+{
+"op": "replace",
+"pid": 2578,
+"old": " Kahraman mı, çocuklarını koruyamayan bir baba mı, öfkesini doğru kişiye yönelttiği için kendini adil sanan biri mi?",
+"new": "",
+"neden": "Soru listesi; iç ses kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 2593,
+"old": " Eski kitabın içinden çıkmamıştı; biri bizi şimdi, ayrı bir kanaldan izlediğini gösteriyordu.",
+"new": "",
+"neden": "2594 aynı bilgiyi daha çarpıcı veriyor."
+},
+{
+"op": "replace",
+"pid": 2639,
+"old": " Yasa, onu uygulayan kişinin sezgisinden daha dar bir koridorda yürürdü.",
+"new": "",
+"neden": "Sahne sonrası açıklayıcı vecize."
+},
+{
+"op": "replace",
+"pid": 2647,
+"old": "Banka riskten kaçınıyordu. Yayınevi itibarını koruyordu. Okul tedbir alıyordu. Ev sahibi huzur istiyordu. ",
+"new": "",
+"neden": "2644'teki listeyi tekrar eden cümle zinciri."
+},
+{
+"op": "delete",
+"pid": 2665,
+"neden": "Gereksiz sahne dolgusu."
+},
+{
+"op": "delete",
+"pid": 2673,
+"neden": "2669'daki tespiti tekrar eden yorum."
+},
+{
+"op": "replace",
+"pid": 2685,
+"old": " Her iki grupta da aynı yeni açılmış hesaplar vardı.",
+"new": "",
+"neden": "Duru'nun hemen sonraki repliği aynı bilgiyi gösteriyor."
+},
+{
+"op": "delete",
+"pid": 2692,
+"neden": "Sahnenin gösterdiğini açıklayan yorum paragrafı."
+},
+{
+"op": "replace",
+"pid": 2700,
+"old": " İlk bakışta birbirine benzemeyen bu şeyleri birleştiren, doğru veya yanlış olmalarından önce insana ne yaptırdıklarıydı.",
+"new": "",
+"neden": "Ardından gelen iki italik satır aynı fikri söylüyor."
+},
+{
+"op": "delete",
+"pid": 2707,
+"neden": "Açıklama; 20. bölümdeki büyü konuşmasının tekrarı."
+},
+{
+"op": "delete",
+"pid": 2708,
+"neden": "Leyla ve Nehir'in 20. bölümdeki açıklamalarını yineliyor."
+},
+{
+"op": "delete",
+"pid": 2709,
+"neden": "Deneme bloğu kısaltıldı; dört soru yöntemi başka yerde geçmiyor."
+},
+{
+"op": "delete",
+"pid": 2710,
+"neden": "Deneme bloğu kısaltıldı; dört soru yöntemi başka yerde geçmiyor."
+},
+{
+"op": "delete",
+"pid": 2711,
+"neden": "Deneme bloğu kısaltıldı; dört soru yöntemi başka yerde geçmiyor."
+},
+{
+"op": "delete",
+"pid": 2712,
+"neden": "Deneme bloğu kısaltıldı; dört soru yöntemi başka yerde geçmiyor."
+},
+{
+"op": "delete",
+"pid": 2713,
+"neden": "Deneme bloğu kısaltıldı; dört soru yöntemi başka yerde geçmiyor."
+},
+{
+"op": "delete",
+"pid": 2714,
+"neden": "Dört soru üzerine yorum; blokla birlikte çıkarıldı."
+},
+{
+"op": "delete",
+"pid": 2715,
+"neden": "Dört soru üzerine yorum; blokla birlikte çıkarıldı."
+},
+{
+"op": "delete",
+"pid": 2716,
+"neden": "Dört soru üzerine yorum; blokla birlikte çıkarıldı."
+},
+{
+"op": "delete",
+"pid": 2717,
+"neden": "Dört soru üzerine yorum; blokla birlikte çıkarıldı."
+},
+{
+"op": "delete",
+"pid": 2718,
+"neden": "Üst üste dizilmiş özdeyiş."
+},
+{
+"op": "delete",
+"pid": 2721,
+"neden": "Gerekçe açıklaması; cevap kendini taşıyor."
+},
+{
+"op": "delete",
+"pid": 2723,
+"neden": "Vaaz bloğu kısaltıldı."
+},
+{
+"op": "delete",
+"pid": 2724,
+"neden": "Vaaz bloğu kısaltıldı."
+},
+{
+"op": "delete",
+"pid": 2725,
+"neden": "Araya giren özdeyiş; Duru'nun sorusu inanç cevabına bağlanıyor."
+},
+{
+"op": "delete",
+"pid": 2726,
+"neden": "20. bölümdeki fincan sahnesinin özeti."
+},
+{
+"op": "replace",
+"pid": 2728,
+"old": " Şüphe de tek başına uyanıklık değil; bazen şüpheci insan yalnız kendi korkusuna inanır.",
+"new": "",
+"neden": "Cevaba eklenen ikinci özdeyiş."
+},
+{
+"op": "delete",
+"pid": 2737,
+"neden": "İç ses dizisi kısaltıldı; ŞÜPHECİ ve SESSİZ SES kalıyor."
+},
+{
+"op": "delete",
+"pid": 2739,
+"neden": "2587'deki 'melek' tanımını tekrar ediyor."
+},
+{
+"op": "replace",
+"pid": 2740,
+"old": "Beyaz kitapta, o sorunun altında alkolle, maddeyle, aşırı çalışmayla ya da sonsuz ekranlarla susmaya çalışan insanlardan söz ediliyordu. Kitap onları küçümsemiyordu. Ben de o geceyi",
+"new": "O geceyi",
+"neden": "26. bölümdeki bağımlılık açıklamasının tekrarı."
+},
+{
+"op": "replace",
+"pid": 2755,
+"old": "Özgür irade ile çoktan var olan zaman fikrini aynı cümlede uzlaştırmaya çalıştım. ",
+"new": "",
+"neden": "Soru zaten sahnede; açıklama fazlası."
+},
+{
+"op": "delete",
+"pid": 2764,
+"neden": "Yusuf'un notunu yeniden açıklayan diyalog."
+},
+{
+"op": "delete",
+"pid": 2765,
+"neden": "Yusuf'un notunu yeniden açıklayan diyalog."
+},
+{
+"op": "delete",
+"pid": 2766,
+"neden": "Yusuf'un notunu yeniden açıklayan diyalog."
+},
+{
+"op": "delete",
+"pid": 2767,
+"neden": "Yusuf'un notunu yeniden açıklayan diyalog."
+},
+{
+"op": "delete",
+"pid": 2769,
+"neden": "Sahneyi açıklayan yorum; 2770 aynı şeyi söylüyor."
+},
+{
+"op": "delete",
+"pid": 2773,
+"neden": "Sahne sonrası özet; ardından gelen iki satır yeterli."
+},
+{
+"op": "replace",
+"pid": 2791,
+"old": "Kelimenin modern dünyadaki yolculuğu Sibirya'nın Tunguz dillerinden geçmiş, sonra birbirinden çok farklı halkların şifacıları, ruhani aracıları ve tören yöneticileri aynı başlık altında toplanmıştı. ",
+"new": "",
+"neden": "Leyla'nın 9. bölümdeki itirazını tekrar ediyor."
+},
+{
+"op": "delete",
+"pid": 2833,
+"neden": "'Oğlumdu' zaten söylüyor; özdeyiş tekrarı."
+},
+{
+"op": "delete",
+"pid": 2834,
+"neden": "'Oğlumdu' zaten söylüyor; özdeyiş tekrarı."
+},
+{
+"op": "replace",
+"pid": 2835,
+"old": " Yusuf o kazanın tesadüf olduğuna inanamıyordu.",
+"new": "",
+"neden": "Sonraki soru-cevap aynı şüpheyi veriyor."
+},
+{
+"op": "delete",
+"pid": 2845,
+"neden": "Yusuf'un cevabını yineleyen soru."
+},
+{
+"op": "delete",
+"pid": 2846,
+"neden": "Yusuf'un cevabını yineleyen soru."
+},
+{
+"op": "replace",
+"pid": 2849,
+"old": " Sevgi bazen kontrol eder. Bazen de özgürlük kelimesinin arkasına geçip korkar.",
+"new": "",
+"neden": "Üst üste özdeyiş."
+},
+{
+"op": "replace",
+"pid": 2854,
+"old": ". Bunu kabul etmesi, tehlikenin azaldığı anlamına gelmiyordu; yalnız hepimizin",
+"new": "; hepimizin",
+"neden": "Açıklayıcı ara cümle kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 2859,
+"old": " Aylin o an bir davanın kayıp tanığı olmaktan çıktı. Bu adam, bir insanın elinin değdiği plastiği saklıyordu.",
+"new": "",
+"neden": "Jest kendini anlatıyor; yorum fazlası."
+},
+{
+"op": "delete",
+"pid": 2860,
+"neden": "Soru-cevap kısaltıldı; geçiş repliği."
+},
+{
+"op": "delete",
+"pid": 2861,
+"neden": "Soru-cevap kısaltıldı; geçiş repliği."
+},
+{
+"op": "delete",
+"pid": 2862,
+"neden": "Soru-cevap kısaltıldı; geçiş repliği."
+},
+{
+"op": "delete",
+"pid": 2872,
+"neden": "Az önceki replikleri özetleyen yorum."
+},
+{
+"op": "replace",
+"pid": 2873,
+"old": "Yusuf'la ilk kez on yedi yaşımda, kendisini yalnız “Saatçi” diye tanıttığı gün karşılaşmıştım. Ona verdiğim ilk paket",
+"new": "On yedi yaşımda Saatçi'ye verdiğim ilk paket",
+"neden": "24. bölümde anlatılan tanışmanın tekrarı kısaltıldı."
+},
+{
+"op": "delete",
+"pid": 2881,
+"neden": "2880'deki iç şehir fikrini yeniden anlatıyor."
+},
+{
+"op": "delete",
+"pid": 2883,
+"neden": "2880 ve 2904–2905'te aynı fikir; soru-cevap tekrarı."
+},
+{
+"op": "delete",
+"pid": 2884,
+"neden": "2880 ve 2904–2905'te aynı fikir; soru-cevap tekrarı."
+},
+{
+"op": "replace",
+"pid": 2892,
+"old": " Senin kurduğun tanığı gözcüye çevirdiler.",
+"new": "",
+"neden": "Aynı 'çevirdiler' kalıbının tekrarı."
+},
+{
+"op": "delete",
+"pid": 2897,
+"neden": "Az önce anlatılanın özeti."
+},
+{
+"op": "delete",
+"pid": 2898,
+"neden": "Özdeyiş; 2888'deki kaçınma fikrini tekrar ediyor."
+},
+{
+"op": "replace",
+"pid": 2908,
+"old": "Maddi zincirin ilk parçası böylece ayrıldı: Ben koşulu hazırlamıştım; Leyla doğru kitabı teslim etmeye çalışmıştı; Meralis yolu ele geçirip yanlış kitabı aynı kapıya bağlamıştı. ",
+"new": "",
+"neden": "Yusuf'un az önceki cevaplarının özeti."
+},
+{
+"op": "replace",
+"pid": 2934,
+"old": " Ama rastlantı, sonucu değersizleştirmiyordu. Duman kendi sebebiyle yürümüş; ben kendi sorumla peşine düşmüştüm.",
+"new": "",
+"neden": "Yorum fazlası; bölüm sonu kedi cümlesi yeterli."
+},
+{
+"op": "replace",
+"pid": 2940,
+"old": " “Koşullu bir alarm kurdun.”",
+"new": "",
+"neden": "2904–2905'teki alarm fikrinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 2939,
+"old": " Yusuf bana kanıt göstermek istemiş, Meralis kanıtı bulduğuma inanmamı istemişti.",
+"new": "",
+"neden": "2936–2938'deki cevapları tekrar ediyor."
+},
+{
+"op": "replace",
+"pid": 2947,
+"old": "Fiziksel yol açıklanabiliyordu: Ben planlamış, Yusuf saklamış, tetikleyiciler paketleri harekete geçirmişti.",
+"new": "Fiziksel yol açıklanabiliyordu.",
+"neden": "Bilinen zincirin yeniden sayılması."
+},
+{
+"op": "delete",
+"pid": 2948,
+"neden": "Üst üste özdeyiş."
+},
+{
+"op": "replace",
+"pid": 2952,
+"old": " Tek bir simya öğretisi yoktu; renklerin sırası ve anlamı metinden metne değişiyordu. Yine de üçlü, yüzyıllar boyunca güçlü bir dönüşüm hikâyesi taşımıştı.",
+"new": "",
+"neden": "Nehir'in 2955'teki itirazı aynı çekinceyi taşıyor."
+},
+{
+"op": "delete",
+"pid": 2957,
+"neden": "Renk bölümünün özeti."
+},
+{
+"op": "delete",
+"pid": 2965,
+"neden": "Duman sorusu 2932–2934'te zaten cevaplandı."
+},
+{
+"op": "delete",
+"pid": 2966,
+"neden": "Duman sorusu 2932–2934'te zaten cevaplandı."
+},
+{
+"op": "delete",
+"pid": 2967,
+"neden": "Kedi üzerine deneme; 2934 ve 2969 yeterli."
+},
+{
+"op": "delete",
+"pid": 2968,
+"neden": "Kedi üzerine deneme; 2934 ve 2969 yeterli."
+},
+{
+"op": "replace",
+"pid": 2997,
+"old": " Hukuk bazen kapıyı tamamen tutamaz; ama karşı tarafın hangi eşikten geçtiğini kayda alır.",
+"new": "",
+"neden": "Sahne sonu özdeyiş."
+},
+{
+"op": "replace",
+"pid": 3038,
+"old": "; buna yetkileri yoktu",
+"new": "",
+"neden": "2982 ve 2997'de söylendi."
+},
+{
+"op": "replace",
+"pid": 3065,
+"old": "Herhangi bir telefon bizi sihirli biçimde dinlemiyordu. ",
+"new": "",
+"neden": "Değil-idi kalıbı; son cümle yeterli."
+},
+{
+"op": "delete",
+"pid": 3078,
+"neden": "Üst üste özdeyiş; 3079 yeterli."
+},
+{
+"op": "delete",
+"pid": 3081,
+"neden": "3083 aynı fikri daha güçlü söylüyor."
+},
+{
+"op": "replace",
+"pid": 3116,
+"old": " Yaşamın sonunu anlamlı bulmak, sonu hızlandırma hakkı vermiyordu.",
+"new": "",
+"neden": "Önceki cümleyi tekrar eden ikinci antitez"
+},
+{
+"op": "replace",
+"pid": 3127,
+"old": " Geçmiş çoktan anlatıya, gelecek tahmine dönüşmüştür.",
+"new": "",
+"neden": "Üst üste aforizma; sahne zaten gösteriyor"
+},
+{
+"op": "replace",
+"pid": 3132,
+"old": " İnsan aynı hatayı tekrar etmeyince kendini çok bilge sanıyor. Aslında yalnız o hata konusunda biraz daha az acemidir.",
+"new": "",
+"neden": "Sahneyi durduran aforizma"
+},
+{
+"op": "replace",
+"pid": 3134,
+"old": "“Hastane güvenliği koridoru kapattı. Sivil",
+"new": "“Sivil",
+"neden": "Önceki paragrafta söylenen bilginin tekrarı"
+},
+{
+"op": "delete",
+"pid": 3135,
+"neden": "Tanık düzenini tekrar açıklayan atışma; tempo"
+},
+{
+"op": "delete",
+"pid": 3136,
+"neden": "Tanık düzenini tekrar açıklayan atışma; tempo"
+},
+{
+"op": "delete",
+"pid": 3137,
+"neden": "Tanık düzenini tekrar açıklayan atışma; tempo"
+},
+{
+"op": "delete",
+"pid": 3138,
+"neden": "Tanık düzenini tekrar açıklayan atışma; tempo"
+},
+{
+"op": "replace",
+"pid": 3147,
+"old": " Yine de susturabileceği bir tanığın karşısında değildi artık. Kendi bütçe onayı çoktan dosyadaydı; şimdi üstündeki imzaların da görünmesini istiyordu. Kendini temizlemeden önce yalnız kalmamaya çalışıyordu.",
+"new": "",
+"neden": "Cem'in az önce söylediğini yeniden açıklıyor"
+},
+{
+"op": "replace",
+"pid": 3154,
+"old": " Mucize sandığım bazı şeylerin iyi finanse edilmiş bir bakım sözleşmesi çıkması, gizem duygumu incitiyor; öfkemi ise büyütüyordu.",
+"new": "",
+"neden": "‘Mucize değil operasyon’ fikri 3191'de toplu olarak var"
+},
+{
+"op": "delete",
+"pid": 3160,
+"neden": "Soru-cevap arasında bilgi taşımayan sahne işi"
+},
+{
+"op": "replace",
+"pid": 3162,
+"old": " Onu tavandan indirince her şeyi öğrenmemiştik. Şimdi görüntünün hangi masaya gittiği, notun hangi elden çıktığı da ortaya çıkıyordu.",
+"new": "",
+"neden": "Okurun az önce öğrendiğinin özeti"
+},
+{
+"op": "delete",
+"pid": 3169,
+"neden": "Aynı yorum 3154 ve 3191'de; üçlü tekrar"
+},
+{
+"op": "replace",
+"pid": 3171,
+"old": " Yeni bir karar çıkarmadılar. Elindekinin kapsamını olabildiğince geniş göstermeye çalıştılar.",
+"new": "",
+"neden": "3170'teki bilgiyi tekrar ediyor"
+},
+{
+"op": "delete",
+"pid": 3176,
+"neden": "Bilinen görüntünün (2374) tekrarı; soru-cevabı uzatıyor"
+},
+{
+"op": "replace",
+"pid": 3181,
+"old": "Cem bununla beni suçlu yapabileceğini düşündü. Oysa bir anahtarı geri istemeyi unutmak, eve girene izin vermek değildi. ",
+"new": "",
+"neden": "Aynı savunma 3151'de yapıldı"
+},
+{
+"op": "replace",
+"pid": 3184,
+"old": " Cem'in her şeyi bilirmiş gibi konuşması, bilmediğimiz her şeyi ona hediye etmemizi gerektirmiyordu.",
+"new": "",
+"neden": "Aynı düşünce 3193'te; orada daha güçlü"
+},
+{
+"op": "delete",
+"pid": 3227,
+"neden": "Üst üste antitez; 3225 aynı ahlaki noktayı koyuyor"
+},
+{
+"op": "delete",
+"pid": 3228,
+"neden": "Üst üste antitez; 3225 aynı ahlaki noktayı koyuyor"
+},
+{
+"op": "replace",
+"pid": 3229,
+"old": " İfadeyi kendi seçtiği yerden başlatabileceğini sanıyordu.",
+"new": "",
+"neden": "3236'da gösterilen tutumu önceden açıklıyor"
+},
+{
+"op": "replace",
+"pid": 3236,
+"old": "O gün Cem gözaltına alındı. ",
+"new": "",
+"neden": "Gözaltı 3229'da zaten anlatıldı"
+},
+{
+"op": "replace",
+"pid": 3250,
+"old": " Yanımızdaki balıkçı oltasını üç kez atıp her seferinde plastik poşet çekti. Dördüncü kez yine denedi. İnsanın umudu bazen aptallıkla aynı montu giyer; hangisinin içinde olduğunu sonuç gelene kadar anlayamazsın.",
+"new": "",
+"neden": "Aforizmaya bağlı dekor; sonrası sahneyi yavaşlatıyor"
+},
+{
+"op": "delete",
+"pid": 3263,
+"neden": "Diyalogda gösterilen suçluluğu deneme diliyle tekrar ediyor"
+},
+{
+"op": "replace",
+"pid": 3274,
+"old": " Nehir, yıllardır aramızdaki tamamlanmamış şeyi ilk kez doğrudan göstermişti.",
+"new": "",
+"neden": "Sahnenin açıkça gösterdiğini açıklıyor"
+},
+{
+"op": "replace",
+"pid": 3287,
+"old": " Mükemmel olmadı. Gerçek oldu.",
+"new": "",
+"neden": "Üst üste aforizma; 3286'daki yeterli"
+},
+{
+"op": "replace",
+"pid": 3289,
+"old": " Hayatıma devam etmek, bedenime hiç sorun yokmuş gibi davranmak değildi. İlaç saatini, nabız uyarısını, yorgunluğu ve yardım istemeyi günün sıradan işleri arasına koymaktı.",
+"new": "",
+"neden": "Doktorun cümlesinden sonra açıklayıcı deneme"
+},
+{
+"op": "replace",
+"pid": 3223,
+"old": " Seni susturmak, söylediklerini büyütürdü.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı"
+},
+{
+"op": "delete",
+"pid": 3248,
+"neden": "Kısa yürüyüş esprisi uzuyor; 3247 motifi taşıyor"
+},
+{
+"op": "delete",
+"pid": 3249,
+"neden": "Kısa yürüyüş esprisi uzuyor; 3247 motifi taşıyor"
+},
+{
+"op": "replace",
+"pid": 3242,
+"old": " Cem'in yaptıklarını açıklayabilecek bir çocukluk vardı; onları onun yerine üstlenecek bir çocukluk yoktu.",
+"new": "",
+"neden": "Aynı yargı finalde (3634) daha güçlü"
+},
+{
+"op": "replace",
+"pid": 3292,
+"old": " Çocukların intikam duygusu bazen pedagojik bir ceket giyer.",
+"new": "",
+"neden": "Esprinin kendisinden sonra gelen yorum-aforizma"
+},
+{
+"op": "replace",
+"pid": 3294,
+"old": " Bazen sevgi vardır, fakat iki insanın yaraları aynı evde birbirine sürekli yanlış görev verir.",
+"new": "",
+"neden": "Üst üste genelleme; önceki cümleler yeterli"
+},
+{
+"op": "replace",
+"pid": 3311,
+"old": " Güçlü sezginin doğruya daha hızlı ulaştırdığına inanmıştım; oysa yanlış bir varsayıma da aynı hızla gidebiliyordu.",
+"new": "",
+"neden": "Dört örnekten biri; liste kısaltıldı"
+},
+{
+"op": "replace",
+"pid": 3322,
+"old": " İnsanların her sakladığı duyguyu açmak gerekmiyordu.",
+"new": "",
+"neden": "Jesti açıklayan aforizma"
+},
+{
+"op": "replace",
+"pid": 3330,
+"old": " Bir teknoloji şirketi veri paylaşımını kabul etti. Aynı hafta başka bir Meralis fonu yeni adla kuruldu.",
+"new": "",
+"neden": "Yeni adla devam fikri 3243'te zaten var"
+},
+{
+"op": "replace",
+"pid": 3348,
+"old": " Biri kozasından çıkarak değişimi, diğeri sevdiği ateşte kendini kaybetmeyi çağrıştırıyordu.",
+"new": "",
+"neden": "Önceki iki cümlenin özeti"
+},
+{
+"op": "delete",
+"pid": 3351,
+"neden": "3350 ile üst üste; aynı fikir 3370'te de var"
+},
+{
+"op": "replace",
+"pid": 3365,
+"old": " Duru'ya bıraktığım defterden farklıydı: Ona tamamlayacağı bir görev değil, dilerse hiç açmayacağı bir boşluk kalacaktı.",
+"new": "",
+"neden": "Boş sayfa fikrini ikinci kez açıklıyor"
+},
+{
+"op": "replace",
+"pid": 3391,
+"old": " Çocuklara bir kehanet daha bırakmak istemiyordum. Benden kalacak sesin nerede durduğunu bilmelerini istiyordum.",
+"new": "",
+"neden": "Gerekçe 3536 ve 3551'de yeniden söyleniyor"
+},
+{
+"op": "replace",
+"pid": 3392,
+"old": " Büyük bir şey yaptığımda bedenim ya saatlerce aynı yerde oturmak ya da amaçsızca yürümek isterdi. Bu kez yürüdüm.",
+"new": "",
+"neden": "Açıklayıcı ara cümle; tempo"
+},
+{
+"op": "replace",
+"pid": 3404,
+"old": " Düzeni bulmak için bütün dağınıklığın görünür kalması gerekiyordu.",
+"new": "",
+"neden": "Önceki cümlenin açıklaması"
+},
+{
+"op": "delete",
+"pid": 3405,
+"neden": "Çekmece sahnesi jestle zaten anlatılıyor; tempo"
+},
+{
+"op": "delete",
+"pid": 3406,
+"neden": "Çekmece sahnesi jestle zaten anlatılıyor; tempo"
+},
+{
+"op": "delete",
+"pid": 3407,
+"neden": "Çekmece sahnesi jestle zaten anlatılıyor; tempo"
+},
+{
+"op": "delete",
+"pid": 3408,
+"neden": "Çekmece sahnesi jestle zaten anlatılıyor; tempo"
+},
+{
+"op": "replace",
+"pid": 3413,
+"old": " Süresinin kısa olması sevgisinin küçük olduğu anlamına gelmiyordu.",
+"new": "",
+"neden": "Jesti açıklayan cümle"
+},
+{
+"op": "delete",
+"pid": 3417,
+"neden": "Esprili ek atışma; tempo"
+},
+{
+"op": "delete",
+"pid": 3418,
+"neden": "Esprili ek atışma; tempo"
+},
+{
+"op": "replace",
+"pid": 3434,
+"old": " Radyoda eski bir türkü çalıyordu.",
+"new": "",
+"neden": "Dekor; finalde dönmeyen ayrıntı"
+},
+{
+"op": "delete",
+"pid": 3437,
+"neden": "3436'nın gösterdiğini aforizmayla bağlıyor"
+},
+{
+"op": "delete",
+"pid": 3443,
+"neden": "Sahnenin gösterdiğini aforizmayla tekrar ediyor"
+},
+{
+"op": "replace",
+"pid": 3444,
+"old": " Emir, eski duvar saatine dijital bir kalp sensörü takmış; saatin benim nabzımla hızlanmasını sağlamıştı. Bunun rahatlatıcı olmadığını söyleyince “En azından geç kalınca bahanen ölçülebilir,” dedi.",
+"new": "",
+"neden": "Nabızlı saat aynı gün 3399'da anlatıldı"
+},
+{
+"op": "delete",
+"pid": 3446,
+"neden": "‘Büyük final’ fikri 3436-3437'de var"
+},
+{
+"op": "delete",
+"pid": 3453,
+"neden": "Sahnenin gösterdiğini öğüt olarak tekrar ediyor"
+},
+{
+"op": "replace",
+"pid": 3474,
+"old": " Temasın ne zaman başlayacağını kendisi seçmek isterdi.",
+"new": "",
+"neden": "Jesti açıklayan cümle; okur çıkarabiliyor"
+},
+{
+"op": "replace",
+"pid": 3465,
+"old": " Hiçbir plan buna cevap hazırlamamıştı.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı"
+},
+{
+"op": "replace",
+"pid": 3589,
+"old": " Başladıkları yer, yaşadıklarını geri almıyordu.",
+"new": "",
+"neden": "Üst üste antitez; sonraki cümle daha güçlü"
+},
+{
+"op": "replace",
+"pid": 3596,
+"old": " Geçmişi anlamak, orada söylenmiş sözü geri almak değildi.",
+"new": "",
+"neden": "Aynı antitez 3609'da; üst üste"
+},
+{
+"op": "replace",
+"pid": 3615,
+"old": " Ben onların sahibi olmamıştım.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı"
+},
+{
+"op": "replace",
+"pid": 3621,
+"old": " Yıllardır bildiğim cümleyi, ilk defa taşıdığım hayatların içinden duyuyordum.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı"
+},
+{
+"op": "replace",
+"pid": 3621,
+"old": " Hatırlamak da başkasının hayatını kendi rüyam ilan etme hakkı vermiyordu.",
+"new": "",
+"neden": "Üç antitez üst üste; ikisi kaldı"
+},
+{
+"op": "replace",
+"pid": 3628,
+"old": "Bir hayatın hafızasına ötekini ekledikçe yer daralmıyordu. ",
+"new": "",
+"neden": "İki cümle aynı fikir; güçlüsü kaldı"
+}
+]

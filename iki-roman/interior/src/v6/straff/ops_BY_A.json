@@ -1,0 +1,381 @@
+[
+{
+"op": "replace",
+"pid": 42,
+"old": "Bir yeri aratamaz, bir dosyayı açtıramaz, kimseyi sorgulayamazdım. ",
+"new": "",
+"neden": "Yetkisizlik bir önceki cümlede zaten söylendi"
+},
+{
+"op": "replace",
+"pid": 57,
+"old": " Çocuklar, yetişkinlerin sakladığı gerçeği çoğu zaman bilmez; ama saklama biçimlerini ezberler.",
+"new": "",
+"neden": "Sahne sonrası aforizma"
+},
+{
+"op": "delete",
+"pid": 103,
+"neden": "Duru doğumundaki korku-görev esprisinin tekrarı"
+},
+{
+"op": "delete",
+"pid": 132,
+"neden": "Sahneyi açıklayan aforizma"
+},
+{
+"op": "replace",
+"pid": 172,
+"old": " Bunu eski bir inançtan mı, kendi annesinden mi, kapının tahtasını korumak için mi söylediğini hiçbir zaman öğrenemedim.",
+"new": "",
+"neden": "Eşik fikrine bir şey katmayan ek"
+},
+{
+"op": "delete",
+"pid": 205,
+"neden": "Yoğurt esprisini açıklayan genelleme"
+},
+{
+"op": "replace",
+"pid": 224,
+"old": " Bir soruyu yarım dinleyip cevabın sonuna atladıysan saygısızsındır.",
+"new": "",
+"neden": "Yığılmış antitezlerden biri azaltıldı"
+},
+{
+"op": "delete",
+"pid": 243,
+"neden": "Bir sonraki paragrafta tekrar edilen aforizma"
+},
+{
+"op": "replace",
+"pid": 270,
+"old": "İnsanın tehlikeli bir fikre inanması için o fikrin bütünüyle yalan olması gerekmez. Hatta bütünüyle yalanlar çabuk yorulur. ",
+"new": "",
+"neden": "Aynı düşünce; en güçlü cümle kaldı"
+},
+{
+"op": "replace",
+"pid": 309,
+"old": " Hayata dair planım vardı.",
+"new": "",
+"neden": "Önceki cümlelerin özeti"
+},
+{
+"op": "replace",
+"pid": 357,
+"old": "Leyla'nın bedeninin üç gündür sessiz kaldığını yalnız o sabah öğrenmişti ve Nehir, ilk şokunu",
+"new": "Nehir ilk şokunu",
+"neden": "Önceki bölümde verilen bilginin tekrarı"
+},
+{
+"op": "replace",
+"pid": 382,
+"old": "Bir insan beni kurtarmaya çalıştığında, önce yöntemini eleştirme huyum vardı. ",
+"new": "",
+"neden": "Benzetmenin zaten gösterdiği açıklama"
+},
+{
+"op": "replace",
+"pid": 422,
+"old": "Bunu başka biri fark etmeyebilirdi. Ben fark ettim. ",
+"new": "",
+"neden": "Sonraki cümlede söylenen gözlem tekrarı"
+},
+{
+"op": "replace",
+"pid": 422,
+"old": "Empatiyi kalpten önce kaslarda okuyordum. ",
+"new": "",
+"neden": "Aynı fikrin üçüncü söylenişi"
+},
+{
+"op": "replace",
+"pid": 434,
+"old": "O satır o anda aklıma takılmış; kitaba yeniden erişmem ancak daha sonra adli görüntü üzerinden mümkün olmuştu. ",
+"new": "",
+"neden": "Kırk ikinci sayfa bilgisi 550'de yineleniyor"
+},
+{
+"op": "replace",
+"pid": 437,
+"old": "Birincisi sabit, ikincisi kesik, üçüncüsü arada bir incelen bir ses çıkarıyordu. ",
+"new": "",
+"neden": "Duyusal ayrıntı fazlası"
+},
+{
+"op": "replace",
+"pid": 453,
+"old": "Bir doktor onu on beş dakikada tanımlamadı. ",
+"new": "",
+"neden": "'Aylar aldı' cümlesinin tekrarı"
+},
+{
+"op": "delete",
+"pid": 466,
+"neden": "Soru listesi 1. bölümde (137) zaten verildi"
+},
+{
+"op": "delete",
+"pid": 467,
+"neden": "Soru listesi 1. bölümde (137) zaten verildi"
+},
+{
+"op": "delete",
+"pid": 465,
+"neden": "Soru listesi 1. bölümde (137) zaten verildi"
+},
+{
+"op": "delete",
+"pid": 476,
+"neden": "Evlilik yükleri 1. bölümde (104) anlatıldı"
+},
+{
+"op": "delete",
+"pid": 481,
+"neden": "Diyaloğu açıklayan antitez"
+},
+{
+"op": "replace",
+"pid": 482,
+"old": " Okul, önerilen düzenlemelerin hepsini hemen kabul etmedi. Sınav için daha sessiz oda istendiğinde bir öğretmen bunun “ayrıcalık” olacağını söyledi. Zeynep, gözlük takan öğrenciye tahtayı önden göstermenin ayrıcalık sayılıp sayılmadığını sordu. Toplantı ondan sonra daha kısa sürdü.",
+"new": "",
+"neden": "Okul düzenlemesi ara sahnesi; olay örgüsüne bağlanmıyor"
+},
+{
+"op": "delete",
+"pid": 485,
+"neden": "Kulaklık sahnesinde ikinci 'susma' anı; 493-495 yeterli"
+},
+{
+"op": "delete",
+"pid": 486,
+"neden": "Kulaklık sahnesinde ikinci 'susma' anı; 493-495 yeterli"
+},
+{
+"op": "delete",
+"pid": 487,
+"neden": "Kulaklık sahnesinde ikinci 'susma' anı; 493-495 yeterli"
+},
+{
+"op": "delete",
+"pid": 488,
+"neden": "Kulaklık sahnesinde ikinci 'susma' anı; 493-495 yeterli"
+},
+{
+"op": "delete",
+"pid": 497,
+"neden": "Sahnenin gösterdiğini açıklayan aforizma"
+},
+{
+"op": "delete",
+"pid": 501,
+"neden": "Erteleme 502'de gösteriliyor; açıklama 1. bölümde (105) var"
+},
+{
+"op": "replace",
+"pid": 502,
+"old": "İlk üç ay randevu aradım. Sonraki iki ay bulduğum randevunun saatini değiştirdim. ",
+"new": "",
+"neden": "Erteleme esprisi kısaltıldı"
+},
+{
+"op": "delete",
+"pid": 505,
+"neden": "Klik sahnesiyle aynı dikkat örneğinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 506,
+"old": "Başka bir testte",
+"new": "Bir testte",
+"neden": "505 silindiği için dikiş"
+},
+{
+"op": "replace",
+"pid": 512,
+"old": "Uzman, bunların birbirini bazen sakladığını, bazen büyüttüğünü anlattı. ",
+"new": "",
+"neden": "Sonraki iki cümlenin özeti"
+},
+{
+"op": "replace",
+"pid": 520,
+"old": " İlaç dikkatimi toplamış, fakat hangi dikkati toplamam gerektiğini hâlâ bana bırakmıştı.",
+"new": "",
+"neden": "Espriyi açıklayan cümle"
+},
+{
+"op": "replace",
+"pid": 521,
+"old": "Faturayı son gün değil, geldiği gün ödedim. Bir toplantının sonuna kadar sandalyede kaldım. ",
+"new": "",
+"neden": "Faydaların örnekleri; 517'de zaten gösterildi"
+},
+{
+"op": "replace",
+"pid": 525,
+"old": "Uyku, kafein, yemek ve stres kaydı tuttum. ",
+"new": "",
+"neden": "Tıbbi ayrıntı fazlası"
+},
+{
+"op": "delete",
+"pid": 526,
+"neden": "Tıbbi tartışma fazlası; hekimin ana cümleleri 531'de"
+},
+{
+"op": "delete",
+"pid": 527,
+"neden": "Çalışma ayrıntısı; sonra kullanılmıyor"
+},
+{
+"op": "delete",
+"pid": 528,
+"neden": "Amerika-Avrupa tartışması; sonra kullanılmıyor"
+},
+{
+"op": "delete",
+"pid": 529,
+"neden": "Amerika-Avrupa tartışması; sonra kullanılmıyor"
+},
+{
+"op": "replace",
+"pid": 530,
+"old": "“Ya ilaç beni sıradanlaştırıyorsa?”",
+"new": "“Ya ilaç beni sıradanlaştırıyorsa?” diye sordum son kontrolde.",
+"neden": "526 silindiği için dikiş"
+},
+{
+"op": "replace",
+"pid": 531,
+"old": "Bir tedavi dikkatinizi artırırken hayatınızda değer verdiğiniz bir şeyi dayanılmaz ölçüde azaltıyorsa bunu söylersiniz; doz, tür veya yöntem yeniden değerlendirilir. ",
+"new": "",
+"neden": "Tıbbi prosedür; 525'te gösterildi"
+},
+{
+"op": "delete",
+"pid": 532,
+"neden": "İlacı bırakma 525'te anlatıldı; tekrar"
+},
+{
+"op": "replace",
+"pid": 534,
+"old": " Bir tiyatronun oyuncuları gitmiş, ben ışıkları söndürmek için içeride seyirci kalıp kalmadığına bakıyordum. Bakmaya çalışan da içerideydi.",
+"new": "",
+"neden": "'Dinleyen vardı' imgesini yineleyen benzetme"
+},
+{
+"op": "replace",
+"pid": 542,
+"old": " İnsan birine iki günde okuyacağını söyleyince takvim bazen doğrudan arkeolojiye dönüşüyordu.",
+"new": "",
+"neden": "Ara espri; tempo"
+},
+{
+"op": "replace",
+"pid": 552,
+"old": " Yalanın en dayanıklı türü, gerçeğin size ait parçasını çalıp geri kalanını kendi yazdığı hikâyeyle doldurandı.",
+"new": "",
+"neden": "Aynı fikir 2. bölümde (270) var"
+},
+{
+"op": "delete",
+"pid": 559,
+"neden": "Sahneyi özetleyen antitez"
+},
+{
+"op": "replace",
+"pid": 562,
+"old": " Sonra internetten bulduğum her bilgiyi kendime uyguladım. Bir hafta içinde çocukluğumdaki bütün anıları yeni tanının deliline çevirdim.",
+"new": "",
+"neden": "Leyla'yla konuşmada (580) tekrar ediliyor"
+},
+{
+"op": "replace",
+"pid": 563,
+"old": " Mikrofon kesilince sesimi yükselterek devam etmem, bugün bile arkadaş ortamında anlatılan kısmıdır. Ben o gün komik bulmamıştım.",
+"new": "",
+"neden": "Anekdot kısaltıldı"
+},
+{
+"op": "replace",
+"pid": 570,
+"old": " İnsan bana hayran olduğunda ne söyleyeceğini tahmin edebiliyordum. Karşı çıktığında merak ediyordum.",
+"new": "",
+"neden": "Önceki iki cümleyi açıklıyor"
+},
+{
+"op": "replace",
+"pid": 589,
+"old": " Tanının destek ve dil sağlayabileceğini, fakat insanın bütün öfkesini, sevgisini, hatasını ve ahlakını açıklayamayacağını söyledi.",
+"new": "",
+"neden": "Az önceki diyaloğun özeti"
+},
+{
+"op": "replace",
+"pid": 595,
+"old": "O vaka bilgilerini korur, isim vermeden insanların zihinlerini hangi koşullarda daha iyi kullandığını anlatırdı. ",
+"new": "",
+"neden": "Dinamik son cümlede zaten veriliyor"
+},
+{
+"op": "delete",
+"pid": 600,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 601,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 602,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 603,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 604,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 605,
+"neden": "Atölye tartışması kısaltıldı; yeni açılış cümlesi kaldı"
+},
+{
+"op": "delete",
+"pid": 608,
+"neden": "Onayı açıklayan ek"
+},
+{
+"op": "replace",
+"pid": 609,
+"old": " Havaalanlarında kaybolduk, bir otelde aynı numaranın iki ayrı kişiye verildiğini keşfettik, Berlin treninde bütün yol boyunca “empati hissetmek midir, doğru davranmak mı?” diye tartıştık.",
+"new": "",
+"neden": "Yolculuk anekdotları kısaltıldı"
+},
+{
+"op": "replace",
+"pid": 610,
+"old": "İnsanlar benim doğaçlama konuşabileceğimi sanıyordu. Konuşabilirdim; ama hoparlörden",
+"new": "Hoparlörden",
+"neden": "Gereksiz ara açıklama"
+},
+{
+"op": "delete",
+"pid": 614,
+"neden": "'Ortamı değiştirdim'i açıklayan aforizma"
+},
+{
+"op": "delete",
+"pid": 641,
+"neden": "Diyaloğun özeti; 640 ve 645 yeterli"
+}
+]

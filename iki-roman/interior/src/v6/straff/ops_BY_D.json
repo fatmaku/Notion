@@ -1,0 +1,278 @@
+[
+{
+"op": "replace",
+"pid": 2024,
+"old": " Göz, bütün satırı benim el yazım sanıyordu; büyütme, iki ayrı zamanı gösteriyordu.",
+"new": "",
+"neden": "Bulguyu ikinci kez açıklıyor; gereksiz tekrar."
+},
+{
+"op": "delete",
+"pid": 2032,
+"neden": "Karşı anlatının hızını ikinci kez anlatan açıklama."
+},
+{
+"op": "delete",
+"pid": 2047,
+"neden": "Malik vakası: Entegrasyon fikri 2093–94'te ve Cem bağlantısında zaten var."
+},
+{
+"op": "delete",
+"pid": 2048,
+"neden": "Malik vakasıyla birlikte; ENTEGRASYON kodu Yusuf sahnesinde açıklanıyor."
+},
+{
+"op": "delete",
+"pid": 2049,
+"neden": "Malik vakasıyla birlikte; 'kötü uyanmış' sorusu 2093'te geliyor."
+},
+{
+"op": "delete",
+"pid": 2050,
+"neden": "Ahlaki seçim/biyoloji ayrımı 2100–2101'de daha güçlü veriliyor."
+},
+{
+"op": "delete",
+"pid": 2051,
+"neden": "Aynı ahlaki ayrımı tekrarlayan deneme cümlesi."
+},
+{
+"op": "replace",
+"pid": 2052,
+"old": "Üçüncü dosya",
+"new": "İkinci dosya",
+"neden": "Malik dosyası çıkınca sayım düzeltmesi."
+},
+{
+"op": "replace",
+"pid": 2053,
+"old": "inanmıştı. Otobüste benzin kokusu alınca iniyor, iş arkadaşının cevabı gecikince kendisine komplo kurulduğunu düşünüyor, uyumak için içiyor",
+"new": "inanmıştı. Uyumak için içiyor",
+"neden": "Örnek dizisi kısaltıldı; aşırı tetikte olma 2052'de zaten var."
+},
+{
+"op": "delete",
+"pid": 2056,
+"neden": "Siyah kitap eleştirisi 2062'de daha net tekrar ediliyor."
+},
+{
+"op": "replace",
+"pid": 2057,
+"old": "Oysa bazen",
+"new": "Bazen",
+"neden": "Önceki paragraf çıkınca bağlaç düzeltmesi."
+},
+{
+"op": "delete",
+"pid": 2063,
+"neden": "Defter aforizması 2062'nin ardından üst üste vecize."
+},
+{
+"op": "delete",
+"pid": 2064,
+"neden": "Üst üste vecize; düşünce 2058–2062'de sahnede gösterildi."
+},
+{
+"op": "replace",
+"pid": 2065,
+"old": " İnsanların gizli buluşma için mezarlığı güvenli sanması bana hep tuhaf gelmiştir. Ölüler konuşmaz diye düşünürler. Oysa yaşayanlar en rahat orada telefonla konuşur.",
+"new": "",
+"neden": "Mekândan sonra gelen vecize zinciri; yer bilgisi korunuyor."
+},
+{
+"op": "replace",
+"pid": 2066,
+"old": " Dünyanın en tehlikeli insanları bazen tehlikeli görünmez; ama en suçlu görünenlerin çoğu da yalnız kötü giyinmiştir. Görüntü, ahlak için zayıf delildir.",
+"new": "",
+"neden": "Betimlemeyi izleyen üst üste aforizmalar."
+},
+{
+"op": "delete",
+"pid": 2073,
+"neden": "Bıçak benzetmesi atışması; 2071'deki liste yöntemi zaten gösteriyor."
+},
+{
+"op": "delete",
+"pid": 2074,
+"neden": "Atışma; tempoyu kesiyor."
+},
+{
+"op": "delete",
+"pid": 2075,
+"neden": "Atışma; tempoyu kesiyor."
+},
+{
+"op": "delete",
+"pid": 2076,
+"neden": "Atışma; tempoyu kesiyor."
+},
+{
+"op": "replace",
+"pid": 2134,
+"old": " Neden ile sonuç birbirini kovalayan iki köpek olmuştu; hangisinin önde olduğunu göremiyordum.",
+"new": "",
+"neden": "Önceki iki cümleyi imgeyle yeniden söylüyor."
+},
+{
+"op": "delete",
+"pid": 2140,
+"neden": "Sahnenin gösterdiğini açıklayan vecize."
+},
+{
+"op": "replace",
+"pid": 2191,
+"old": " Bir doktorun duraksaması, bir arabanın şeridinden çıkması, sevdiğiniz birinin “Konuşmamız lazım,” demesi bazen daha az sürer.",
+"new": "",
+"neden": "Örnek yığını; on dokuz saniye fikri korunuyor."
+},
+{
+"op": "replace",
+"pid": 2212,
+"old": "Bu karar küçük görünüyordu. Benim için değildi. ",
+"new": "",
+"neden": "Gereksiz girizgâh; paragrafın kendisi önemi gösteriyor."
+},
+{
+"op": "delete",
+"pid": 2216,
+"neden": "Uçak modu esprisi; 2217 aynı geçişi yapıyor."
+},
+{
+"op": "replace",
+"pid": 2218,
+"old": " Beni, “çok hızlı çalışan ve bazen hata günlüğü tutmayan bir analiz programı” diye tarif etmişti.",
+"new": "",
+"neden": "Sahne ortasındaki geri dönüşü kısaltma."
+},
+{
+"op": "replace",
+"pid": 2229,
+"old": " Verinin garip tarafı buydu: Alındığı gün önemsiz görünen şey, onu elinde tutan kişi sabırlıysa gelecekte silah olabilirdi.",
+"new": "",
+"neden": "Önceki cümleyi genelleyen açıklama."
+},
+{
+"op": "replace",
+"pid": 2283,
+"old": " Bu yol daha az sinematikti; fakat gerçek hayattaki büyük kötülüklerin çoğu, maskeli adamların lazerlerin arasından geçmesiyle değil, doğru yetkiye sahip sıkılmış bir çalışanın yanlış bağlantıya tıklamasıyla işler.",
+"new": "",
+"neden": "Hukuki planı izleyen deneme cümlesi."
+},
+{
+"op": "replace",
+"pid": 2284,
+"old": "Plan basit görünüyordu ve bu yüzden basit değildi. ",
+"new": "",
+"neden": "Formül cümle; paragraf sonu aynı uyarıyı veriyor."
+},
+{
+"op": "replace",
+"pid": 2402,
+"old": " İkisi dışarıdan birbirine çok benzer; farkı, karşıdakini korumak mı yoksa acıtmak mı istediğiniz belirler.",
+"new": "",
+"neden": "Sınır/ceza ayrımını açıklayan genelleme."
+},
+{
+"op": "replace",
+"pid": 2413,
+"old": " Haklı insanlara hemen haklı olduklarını söylemek, insanlığın ulaşamadığı bir olgunluk seviyesi olabilir.",
+"new": "",
+"neden": "Üstüne eklenen vecize."
+},
+{
+"op": "replace",
+"pid": 2417,
+"old": " Sonra içeriden ses geldi.",
+"new": "",
+"neden": "2418 aynı anı daha somut veriyor."
+},
+{
+"op": "replace",
+"pid": 2428,
+"old": " Güvenlik, çoğu zaman sahibini dışarıda bırakmayacak kadar kusurlu tasarlanır.",
+"new": "",
+"neden": "İkinci aforizma; açıklama önceki cümlede var."
+},
+{
+"op": "replace",
+"pid": 2445,
+"old": "İtirafı, yöntemin zekâsını küçültmüyor; zekâsı da aldığı riski temizlemiyordu. ",
+"new": "",
+"neden": "Karşıtlık formülü; Meralis paralelliği korunuyor."
+},
+{
+"op": "replace",
+"pid": 2457,
+"old": " Kızım benden öğrenmiş, sonra onu bana karşı kullanmıştı. Eğitim bazen silahın el değiştirmesidir.",
+"new": "",
+"neden": "Açık olanı açıklıyor ve vecizeyle kapatıyor."
+},
+{
+"op": "replace",
+"pid": 2478,
+"old": " Özgür irade, sonucu hoşumuza gitmeyen seçimlerde de özgür iradeydi. Onu yalnız mağdur saymak yaptığı riski görmezden gelmek, yalnız suçlamak ise tuzağı kuranları saklamak olurdu.",
+"new": "",
+"neden": "Zeynep'in sözünü deneme diliyle tekrarlıyor."
+},
+{
+"op": "replace",
+"pid": 2492,
+"old": " Ölüm büyük anlamları değil, küçük işleri yarım bırakıyordu.",
+"new": "",
+"neden": "Ekmek imgesinden sonra üçüncü özet cümle."
+},
+{
+"op": "replace",
+"pid": 2498,
+"old": "İç içe iki daire birçok yerde birlik diye okunabilirdi. Babam içinse kusursuz birleşme değildi; iki çarkın hareket edebilmesi için arada kalan paydı. Sembol bize kendi sözlüğünü dayatmıyor, yaşadığımız ilişkiyle yeniden konuşuyordu. ",
+"new": "",
+"neden": "Mührün anlamı 2482 ve 2497'de zaten anlatıldı."
+},
+{
+"op": "delete",
+"pid": 2516,
+"neden": "Espri vecize; duygusal vuruşu 'Haklısın' cevabından önce dağıtıyor."
+},
+{
+"op": "replace",
+"pid": 2519,
+"old": " Demek ki anonimlik, ismin silinip insanın geriye kalan her şeyinin bırakılmasıymış.",
+"new": "",
+"neden": "Önceki cümlenin ironisini açıklıyor."
+},
+{
+"op": "replace",
+"pid": 2523,
+"old": " Bir ailede suçluluk dağıtılırken sandalyeler bile taraf seçiyor gibi görünür.",
+"new": "",
+"neden": "Jesti açıklayan vecize."
+},
+{
+"op": "replace",
+"pid": 2534,
+"old": " İnsanları zincirle taşımaya gerek yoktu; doğru yarayı gösterirseniz kendi ayaklarıyla giderlerdi.",
+"new": "",
+"neden": "Önceki cümlenin söylediğini vecizeyle tekrarlıyor."
+},
+{
+"op": "replace",
+"pid": 2578,
+"old": " Kahraman mı, çocuklarını koruyamayan bir baba mı, öfkesini doğru kişiye yönelttiği için kendini adil sanan biri mi?",
+"new": "",
+"neden": "Soru listesi; iç ses kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 2593,
+"old": " Eski kitabın içinden çıkmamıştı; biri bizi şimdi, ayrı bir kanaldan izlediğini gösteriyordu.",
+"new": "",
+"neden": "2594 aynı bilgiyi daha çarpıcı veriyor."
+},
+{
+"op": "replace",
+"pid": 2639,
+"old": " Yasa, onu uygulayan kişinin sezgisinden daha dar bir koridorda yürürdü.",
+"new": "",
+"neden": "Sahne sonrası açıklayıcı vecize."
+}
+]

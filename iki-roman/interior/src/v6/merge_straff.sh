@@ -9,7 +9,7 @@ python3 - <<'PY'
 import json, glob
 for key in ("BY", "SA"):
     ops = []
-    for f in sorted(glob.glob(f"src/v6/straff/ops_{key}_[A-F].json")):
+    for f in sorted(glob.glob(f"src/v6/straff/ops_{key}_[A-FZ].json")):
         ops += json.load(open(f))
     json.dump(ops, open(f"src/v6/straff/ops_{key}_alle.json", "w"), ensure_ascii=False, indent=0)
     print(key, len(ops), "Straffungs-Operationen")

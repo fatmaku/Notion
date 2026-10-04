@@ -1,0 +1,257 @@
+[
+{
+"op": "replace",
+"pid": 651,
+"old": " Nehir klasöre o adı vermişti; ad, içindekilerden daha eksiksiz görünüyordu.",
+"new": "",
+"neden": "Klasör adına dair, önceki cümleyi tekrarlayan yorum."
+},
+{
+"op": "delete",
+"pid": 666,
+"neden": "Selin'in yanıtının zaten gösterdiği dersi tekrarlayan özdeyiş."
+},
+{
+"op": "replace",
+"pid": 667,
+"old": " Ekrandaki harfler birden insana dönüşmedi.",
+"new": "",
+"neden": "Sonraki cümleyle aynı düşünce; güçlüsü kalıyor."
+},
+{
+"op": "replace",
+"pid": 680,
+"old": " O an yasın kanıt toplamaya benzemediğini ikimiz de biliyorduk; yine de başka bir dilimiz yoktu.",
+"new": "",
+"neden": "Sonraki paragraf aynı düşünceyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 703,
+"old": " İnsanların size kötü haber vermeden önce kullandığı türden bir ses değildi. Daha tehlikelisiydi.",
+"new": "",
+"neden": "Üst üste antitez; en güçlü cümle kalıyor."
+},
+{
+"op": "replace",
+"pid": 744,
+"old": "polisi arayacak; yalnızca merak edip beklemeyecekti.",
+"new": "polisi arayacaktı.",
+"neden": "Gereksiz ek açıklama."
+},
+{
+"op": "replace",
+"pid": 778,
+"old": " İnsan sevdiği iki kadından aynı cümleyi duyunca bunun evrensel mesaj olduğunu kabul etmek yerine ikisinin önceden konuştuğundan şüphelenebiliyor.",
+"new": "",
+"neden": "Diyaloğu yavaşlatan ara yorum."
+},
+{
+"op": "replace",
+"pid": 795,
+"old": " Bazı insanlar paralarını göstermek için giyinir. Cem, göstermeye ihtiyacı olmadığını göstermek için.",
+"new": "",
+"neden": "Önceki betimlemeyi açıklayan tekrar."
+},
+{
+"op": "replace",
+"pid": 796,
+"old": " O, aradaki güvenli sayıyı biliyordu.",
+"new": "",
+"neden": "Önceki cümlenin zaten söylediği sonuç."
+},
+{
+"op": "replace",
+"pid": 857,
+"old": " Bir insanın duygusunu doğru okuyup onu herkesin önünde açmıştı. Kadın kendisini görülmüş hissetmişti. Aynı anda mahremiyeti alınmıştı.",
+"new": "",
+"neden": "Okurun az önce gördüğü sahnenin özeti."
+},
+{
+"op": "replace",
+"pid": 858,
+"old": " Ben bazen bunu söylemeyip beklemeyi öğrenmeye çalışıyordum. Cem ise görmenin, kullanma izni olduğuna inanıyordu.",
+"new": "",
+"neden": "Ardından gelen kapı özdeyişiyle aynı fikir."
+},
+{
+"op": "replace",
+"pid": 896,
+"old": " Bunlar şirket sicilinden çıkmıyordu.",
+"new": "",
+"neden": "Gereksiz açıklama."
+},
+{
+"op": "replace",
+"pid": 949,
+"old": " Hayvan, insandan daha aşağı sayıldığı bir dünyada ona medeniyetin ilk derslerinden birini veriyordu.",
+"new": "",
+"neden": "Önceki iki cümleyi tekrarlayan sonuç cümlesi."
+},
+{
+"op": "replace",
+"pid": 955,
+"old": " Aynı siyah kuş bir hikâyede gömmenin bilgisini, başka bir hikâyede düşünceyle hatırlamayı taşıyordu. Hiçbirinde “kötü” olmak zorunda değildi.",
+"new": "",
+"neden": "Sentezi ardından diyalog yapıyor; kötü olmama fikri önceki paragrafta."
+},
+{
+"op": "delete",
+"pid": 959,
+"neden": "Bağlamsız kalmış dolgu cümlesi; soru yok."
+},
+{
+"op": "replace",
+"pid": 978,
+"old": "Oysa hayatımızın önemli bir bölümü market listeleri, aceleyle kabul ettiğimiz koşullar, uyumadan önce yazdığımız notlar ve “bunu sonra düşünürüm” diyerek verdiğimiz kararlarla kurulur. Sonra da bugünkü",
+"new": "Bugünkü",
+"neden": "Deneme bloğu kısaltıldı; kiracı imgesi kalıyor."
+},
+{
+"op": "replace",
+"pid": 981,
+"old": " Fakat hangi eski metne dayandıklarını aradığımda kaynakların çoğu birbirini gösteriyor, en sonunda yakın zamanda yazılmış bir numeroloji kitabına veya kaynaksız bir cümleye çıkıyordu.",
+"new": "",
+"neden": "11.11 şüphesi üç kez anlatılıyor; özlü cümle kalıyor."
+},
+{
+"op": "replace",
+"pid": 987,
+"old": "Bir sayısı birçok düşünce sisteminde başlangıç ve birlikle ilişkilendirilebilirdi. Dört kez yan yana gelince simetrisi göze çarpıyordu. Ama sayı",
+"new": "Sayı",
+"neden": "Sayı yorumunun tekrarı; asıl düşünce kalıyor."
+},
+{
+"op": "replace",
+"pid": 996,
+"old": " Bunun güvenlik açısından hiçbir faydası yoktu. Yalnızca beynim klasörleri böyle hatırlıyordu.",
+"new": "",
+"neden": "Esprinin kendisi aynı şeyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 997,
+"old": " Mesaj tek başına bu e-postayı gönderdiğimi göstermiyordu; fotoğraf da bilgisayarın başında kimin olduğunu söylemiyordu.",
+"new": "",
+"neden": "Nehir'in sonraki cümlesi aynı şeyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 1027,
+"old": " Fakat bunu sınamadan, “okumuşsun” sözü de “yaşamışsın” kadar aceleydi.",
+"new": "",
+"neden": "Nehir'in düzeltmesi aynı düşünceyi taşıyor."
+},
+{
+"op": "replace",
+"pid": 1030,
+"old": " İnsan bazen kendi başına gelecekleri önceden biliyor, yine de terbiyesinden kaçamıyordu.",
+"new": "",
+"neden": "Sahneyi uzatan özdeyiş."
+},
+{
+"op": "replace",
+"pid": 1046,
+"old": " O, sahnenin hangi cümleden doğduğunu; ben, gerçekten nerede çalıştığımı arıyordum. İkisi aynı araştırma değildi.",
+"new": "",
+"neden": "Önceki iki cümlenin açıklaması."
+},
+{
+"op": "replace",
+"pid": 1064,
+"old": " Ekranda bir isim bulunmamasından, insanın bulunmadığı sonucunu çıkaramazdım.",
+"new": "",
+"neden": "Nehir'in az önceki sözünü tekrarlıyor."
+},
+{
+"op": "replace",
+"pid": 1066,
+"old": " Kendimi açıklayacak bir dil arıyor; okuduğum her tarifte başka bir parçamı buluyordum.",
+"new": "",
+"neden": "Genel cümle; ardından gelen somut örnekler aynı şeyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 1110,
+"old": " İnsan geçmişini hatırlamayınca dedektiflik, kendi hayatının muhasebesine dönüşüyordu.",
+"new": "",
+"neden": "Özdeyiş; somut kayıtlar zaten gösteriyor."
+},
+{
+"op": "replace",
+"pid": 1117,
+"old": " Aralarda kelimeleri yutuyor, sonra aynı cümleyi daha düzgün söylemeye çalışıyordum.",
+"new": "",
+"neden": "Önceki cümleyi uzatan ayrıntı."
+},
+{
+"op": "replace",
+"pid": 1123,
+"old": " Bazen duygu, hangi resme ait olduğunu bilmeden yıllarca içinde durur.",
+"new": "",
+"neden": "Bedenin hafızası özdeyişi bölümde zaten var."
+},
+{
+"op": "replace",
+"pid": 1145,
+"old": "Özür, karşı tarafın sizin kadar uzun bir tören düzenlemek zorunda olduğu anlamına gelmiyordu. ",
+"new": "",
+"neden": "Sahnenin gösterdiğini özetleyen özdeyiş."
+},
+{
+"op": "replace",
+"pid": 1161,
+"old": " İnsanı rahatlatmaz; ama yalan bir kesinlikle yanlış yere götürmez.",
+"new": "",
+"neden": "Özdeyiş zinciri kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 1185,
+"old": " Sandalye sayısından da şifre çıkaracaktım. Sonra rakamın insanları oturtmak dışında bir görevi olmayabileceğini düşündüm.",
+"new": "",
+"neden": "Örüntü takıntısı motifinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 1189,
+"old": " Bir zamanlar bunu öğrenmek bana güven verirdi. Şimdi güvenebileceğim şeylerin sayısını azaltıyordu.",
+"new": "",
+"neden": "Üst üste yorum; mantık cümlesi yeterli."
+},
+{
+"op": "replace",
+"pid": 1194,
+"old": " Bedenimin bana ait olduğundan şüphe etmiyordum. Fakat bedenimden",
+"new": " Bedenimden",
+"neden": "Üst üste antitez kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 1225,
+"old": "Vedaya hazırlanmak, insana her anı ağırlaştırma hakkı vermiyordu. ",
+"new": "",
+"neden": "İki özdeyişten somut olanı kalıyor."
+},
+{
+"op": "replace",
+"pid": 1235,
+"old": " Dışarıdan bakmak, aramak değildi. O gece bunu ikisi aynı şeymiş gibi duymuştum.",
+"new": "",
+"neden": "Önceki cümleler aynı ayrımı zaten yapıyor."
+},
+{
+"op": "replace",
+"pid": 1243,
+"old": "Kapıyı ben açtırmadım. Böyle bir yetkim yoktu. ",
+"new": "",
+"neden": "Sonraki cümle anahtarı kimin çevirdiğini söylüyor."
+},
+{
+"op": "replace",
+"pid": 1320,
+"old": " Gri paltolu adam, güçlü olduğum şeyi kullanarak beni durdurmuştu. Bütün sesleri duymam, doğru sesi seçebildiğim anlamına gelmiyordu.",
+"new": "",
+"neden": "Nehir'in sözünü ve radyo imgesini tekrarlıyor."
+}
+]

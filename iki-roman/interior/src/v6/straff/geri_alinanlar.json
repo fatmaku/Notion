@@ -1,0 +1,14 @@
+[
+ {
+  "key": "BY",
+  "pid": 624,
+  "op": "replace",
+  "neden": "Leyla'nın şaman gelenekleri listesi kalıyor: 39. bölümdeki tekrarı (2791) zaten kısaltıldı; ikisi birden gidince „o geleneklerden“ dayanaksız kalıyordu."
+ },
+ {
+  "key": "BY",
+  "pid": 2792,
+  "op": "delete",
+  "neden": "„ŞAMAN, bu yüzden bir kimlik değil, hatırlatma olmalıydı“ bölümün kısaltma (Ş-A-M-A-N) listesinin anahtar cümlesi; Leyla'nın „eşiği geçen ve geri dönen“ tanımını kapatıyor."
+ }
+]

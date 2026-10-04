@@ -1,0 +1,2254 @@
+[
+{
+"op": "delete",
+"pid": 17,
+"neden": "Gereksiz anlatım etiketi; cevabın kime ait olduğu belli."
+},
+{
+"op": "replace",
+"pid": 19,
+"old": "bir yolculuk, üstelik bu sana özel, sadece senin için, şahit seni bekliyor.",
+"new": "bir yolculuk, şahit seni bekliyor.",
+"neden": "Tekrar: 'sana özel' vurgusu fazlalık."
+},
+{
+"op": "replace",
+"pid": 20,
+"old": ", Şahit dediğin mi yapacak bunu? O bahsettiğin kim ki bunu yapabilsin?",
+"new": "?",
+"neden": "Şahit sorusu 18'de zaten soruldu."
+},
+{
+"op": "delete",
+"pid": 22,
+"neden": "Konuşma etiketi; 23'teki tehdit öfkeyi zaten gösteriyor."
+},
+{
+"op": "replace",
+"pid": 27,
+"old": "diledim, senden çok şey mi istedim, anla artık ben şahidi tanımak isterim, bin ömrün bereketini görmeliyim.",
+"new": "diledim.",
+"neden": "Aynı dilek üçüncü kez tekrarlanıyor."
+},
+{
+"op": "replace",
+"pid": 27,
+"old": "şu işi, beni yiyerek kat bedenine, ruhum",
+"new": "şu işi, ruhum",
+"neden": "'Beni yiyerek' tekrarı."
+},
+{
+"op": "replace",
+"pid": 28,
+"old": " Kulaklarının duyduğunu susturmuştu ama içinden, korkuyla atan kalbinden gelen sesi susturamıyordu.",
+"new": "",
+"neden": "Kalpten gelen fısıltı paragrafın sonunda zaten söyleniyor."
+},
+{
+"op": "replace",
+"pid": 28,
+"old": "sürünün içindeki diğer ceylanlar ürktü, bir aslan gören ceylan ancak bu kadar hızlı kaçardı ama ortada onları avlayacak",
+"new": "bir aslan gören ceylan ancak bu kadar hızlı kaçardı ama ortada onu avlayacak",
+"neden": "Yan imge kısaltıldı; zamir uyarlandı."
+},
+{
+"op": "replace",
+"pid": 30,
+"old": " Bu arada gülleri yemeye hiç niyeti yoktu, onların dikenleri ölümcül ve de çoktu.",
+"new": "",
+"neden": "Diken korkusu 23'te kurulmuştu; ara açıklama."
+},
+{
+"op": "replace",
+"pid": 30,
+"old": " Ceylanın şaşkınlığı değil ama korkusu arttı.",
+"new": "",
+"neden": "Korku 32'de zaten veriliyor."
+},
+{
+"op": "replace",
+"pid": 32,
+"old": " Şimdi ceylan onun gibi kalkmayı, koşmayı, kaçmayı ne çok istiyordu.",
+"new": "",
+"neden": "Ölüm anını yavaşlatan ek cümle."
+},
+{
+"op": "delete",
+"pid": 34,
+"neden": "Ara soru; güllerin cevabı doğrudan 'Yalancılar'a bağlanıyor."
+},
+{
+"op": "replace",
+"pid": 35,
+"old": "Ey! Ceylan, ismi derine yazılacak olan gül kokulu, ismi cennet",
+"new": "Ey! Ceylan, ismi cennet",
+"neden": "Derine yazılma aynı cümlede tekrar ediliyor."
+},
+{
+"op": "replace",
+"pid": 35,
+"old": " bundan dolayı da tüm çiçeklerin içinde en güzel kokan bizleriz,",
+"new": "",
+"neden": "'Güller Ahmed kokar' sözünün açıklaması; fazlalık."
+},
+{
+"op": "replace",
+"pid": 40,
+"old": "İşte o günden sonra nice edebiyatçıya",
+"new": "İşte nice edebiyatçıya",
+"neden": "'o günden sonra … o gün' tekrarı."
+},
+{
+"op": "replace",
+"pid": 40,
+"old": " nice sözler bir ceylan gözüne yazıldı",
+"new": "",
+"neden": "Aşıklar cümlesiyle aynı fikir."
+},
+{
+"op": "replace",
+"pid": 40,
+"old": " Çünkü o bakışta Hak vardı, Hakk’ı görmek ve Hakk’a vuslat vardı.",
+"new": "",
+"neden": "Sır, 'Hakk'a sürme çekilen gözler'de zaten verildi."
+},
+{
+"op": "replace",
+"pid": 48,
+"old": " Beni oraya götüren merakım mıydı, egom muydu, bunu bile sorgulamadım. Sadece gittim. Konuşma hevesim, gençlere bir şeyler aktarma isteğim yoktu.",
+"new": "",
+"neden": "Sorgulamama hali üçüncü kez söyleniyor."
+},
+{
+"op": "replace",
+"pid": 51,
+"old": " Görünüşe bakılırsa, hitabetini değerlendirmem için beni seçmişti.",
+"new": "",
+"neden": "Sonraki cümleyle aynı tahmin."
+},
+{
+"op": "replace",
+"pid": 51,
+"old": " Şimdi kestiremiyorum; belli bir sebebi de yoktu.",
+"new": "",
+"neden": "'Nedenini bilmiyorum' tekrarı."
+},
+{
+"op": "replace",
+"pid": 51,
+"old": " Belki sesi net duymak istiyordum.",
+"new": "",
+"neden": "Ses netleşmesi hemen ardından anlatılıyor."
+},
+{
+"op": "replace",
+"pid": 71,
+"old": "Yahu sahne adamı olmama tamam",
+"new": "Sahne adamı olmama tamam",
+"neden": "Dolgu ünlem 'Yahu'."
+},
+{
+"op": "replace",
+"pid": 71,
+"old": " Hani derler ya; “Adama bakarım adam mı diye, sözüne bakarım söz mü diye” misali.",
+"new": "",
+"neden": "Esprinin akışını kesen atasözü."
+},
+{
+"op": "replace",
+"pid": 72,
+"old": " Neden hiçbir şey yapmak istemediğimi, neden tükenmiş gibi hissettiğimi, yatmaktan, kalkmaktan, yürümekten, yemekten, içmekten neden bu kadar vazgeçtiğimi…",
+"new": "",
+"neden": "İçe kapanma listesi; suskunluk zaten anlatıldı."
+},
+{
+"op": "replace",
+"pid": 83,
+"old": ", sonra sizinle cep telefonu ile temasa geçmeye çalışmış, sonra da mesajla ulaşabilmiş.",
+"new": ".",
+"neden": "Okurun gördüğü arama/mesaj sahnesinin özeti."
+},
+{
+"op": "replace",
+"pid": 104,
+"old": " Hakan Hoca’yı soluksuz dinliyordum.",
+"new": "",
+"neden": "Dinleme hali tekrarı."
+},
+{
+"op": "replace",
+"pid": 106,
+"old": " Hem samimiyetini gösteriyor hem de onu dikkatle dinleyip dinlemediğimi ölçüyordu: “Nerede kalmıştık, Sefa?”",
+"new": " Hem samimiyetini gösteriyor hem de onu dikkatle dinleyip dinlemediğimi ölçüyordu.",
+"neden": "Az önceki repliğin aynen tekrarı."
+},
+{
+"op": "replace",
+"pid": 107,
+"old": "“Hocam, hastanızın",
+"new": "“Hastanızın",
+"neden": "Ardışık 'Hocam' hitaplarından biri."
+},
+{
+"op": "replace",
+"pid": 108,
+"old": " Sonra bakışı değişti; bana döndüğünü hissettim.",
+"new": "",
+"neden": "113'teki göz teması sahnesinin önden özeti."
+},
+{
+"op": "replace",
+"pid": 108,
+"old": " Belki de ortada devlete ait bir sır falan yoktur; devlet baba, evladının iyileşmesini istiyordur. Bilemem.",
+"new": "",
+"neden": "Devlet sırrı öncülünü erken söndürüyor; sonra hiç alıntılanmıyor."
+},
+{
+"op": "replace",
+"pid": 110,
+"old": "Hoca konuştukça iş ilginçleşiyordu. Ama bütün",
+"new": "Bütün",
+"neden": "Boş geçiş cümlesi."
+},
+{
+"op": "replace",
+"pid": 113,
+"old": " Bu çok büyük bir şey sayılmazdı belki ama önemli bir adımdı.",
+"new": "",
+"neden": "Vaka raporunda gereksiz değerlendirme."
+},
+{
+"op": "delete",
+"pid": 120,
+"neden": "Konuşma etiketi; 'Daktilo mu?' kendini anlatıyor."
+},
+{
+"op": "replace",
+"pid": 128,
+"old": "Sonunda bu adamın tedavi sürecini yönetenler, İl Sağlık Müdürlüğü aracılığıyla Sağlık Bakanlığı'ndan",
+"new": "Sonunda Sağlık Bakanlığı'ndan",
+"neden": "Vaka raporunda bürokrasi zinciri kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 131,
+"old": "; teklifini ne kadar merak ettiğimi biliyordu",
+"new": "",
+"neden": "Önceki cümleyle aynı bilgi."
+},
+{
+"op": "replace",
+"pid": 132,
+"old": " Kâğıda bir şeyler yazmış mıydı, yoksa bütün bu heyecanım boşuna mıydı?",
+"new": "",
+"neden": "Umutsuzluk 130'da zaten söylendi."
+},
+{
+"op": "replace",
+"pid": 138,
+"old": " Aradığım kişiyi görünce sebebini anlatırım.",
+"new": "",
+"neden": "Sebep hemen ardından söyleniyor; çelişkili dolgu."
+},
+{
+"op": "replace",
+"pid": 142,
+"old": " Ama araca biner binmez bu gürültünün yorgunluğunu gerçekten hissettim.",
+"new": "",
+"neden": "Yorgunluk önceki cümlede var."
+},
+{
+"op": "replace",
+"pid": 142,
+"old": " Nizamiyeden içeri girdiğimizde karşılaştığımız herkes Hakan Hoca'ya selam veriyordu.",
+"new": "",
+"neden": "Selam verme sahnesi iki kez; ikincisi kaldı."
+},
+{
+"op": "replace",
+"pid": 142,
+"old": " Makam insana yalnızca bir oda değil, çevresindekilerin ses tonunu da veriyordu sanki.",
+"new": "",
+"neden": "Sahneyi yorumlayan aforizma."
+},
+{
+"op": "replace",
+"pid": 151,
+"old": " En önemlisi de buydu; hâlâ anlamakta güçlük çekiyordum.",
+"new": "",
+"neden": "Soru zaten soruldu."
+},
+{
+"op": "replace",
+"pid": 157,
+"old": " Bu kadar isabetli yargılara nasıl varıyordu, bilemiyordum.",
+"new": "",
+"neden": "Aynı şaşkınlık tekrarı."
+},
+{
+"op": "replace",
+"pid": 162,
+"old": " Belli ki hocamızın alışıldık davranışları değildi ve Vildan Hanım'ı da bunlar şaşırtıyordu.",
+"new": "",
+"neden": "Önceki cümlenin açıklamasını tekrarlıyor."
+},
+{
+"op": "delete",
+"pid": 163,
+"neden": "Bekleme süresi yorumu; sahneyi uzatıyor."
+},
+{
+"op": "replace",
+"pid": 169,
+"old": " Merak, şaşkınlık ve gurur birbirine karışmıştı.",
+"new": "",
+"neden": "173'ün ilk cümlesinde aynı duygular."
+},
+{
+"op": "replace",
+"pid": 173,
+"old": " Küçük fincanın kulpunu tutarken kahveyi dökmemek için elimi zor zapt ediyordum.",
+"new": "",
+"neden": "'Dökmeden içebilme' cümlesiyle aynı."
+},
+{
+"op": "replace",
+"pid": 176,
+"old": " Geriye iki tür kalıyordu: Yazar olduğunu sananlar ve zaten yazar olduğunun farkında olanlar.",
+"new": "",
+"neden": "Aforizma yığını; asıl cümle kaldı."
+},
+{
+"op": "replace",
+"pid": 179,
+"old": " Ama önce kâğıtların sıraya konmasını istiyorum.",
+"new": "",
+"neden": "İlk cümledeki ricanın tekrarı."
+},
+{
+"op": "replace",
+"pid": 182,
+"old": " Hatta eminim, bu işi onlar da yapar.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı."
+},
+{
+"op": "replace",
+"pid": 184,
+"old": " Sizin gibi ifade edersem, bu sözüm açıklığın ve netliğin bir tık ötesinde, keskin bir ifade olur.",
+"new": "",
+"neden": "Espriyi açıklayan fazla cümle."
+},
+{
+"op": "replace",
+"pid": 187,
+"old": " Ülkemizde aydınlarımızın bile yalnızca yüzde ikisi okuyor; bu yüzden sadece yazarların yazdıklarına odaklanılıyor. ‘Peki, bu yazara bunları yazdıran olaylar neler?’ diye kendilerine hiç sormuyorlar.",
+"new": "",
+"neden": "Konudan sapan vaaz; 194'teki okur sorusuyla da çelişiyor."
+},
+{
+"op": "replace",
+"pid": 200,
+"old": "“Yahu hocam, yalnızca",
+"new": "“Hocam, yalnızca",
+"neden": "Dolgu 'Yahu'."
+},
+{
+"op": "replace",
+"pid": 209,
+"old": "“Hocam, mektupları",
+"new": "“Mektupları",
+"neden": "Ardışık 'Hocam' hitaplarından biri."
+},
+{
+"op": "replace",
+"pid": 250,
+"old": " Sonucu tek başına yorumlamayız; gerekirse başka değerlendirmeler de yaparız.",
+"new": "",
+"neden": "Aynı uyarı 248 ve 259'da var (döngü korunuyor)."
+},
+{
+"op": "replace",
+"pid": 251,
+"old": "“Hocam, vallahi süper olur.",
+"new": "“Vallahi süper olur.",
+"neden": "Dolgu 'Hocam'."
+},
+{
+"op": "replace",
+"pid": 260,
+"old": "“Vallahi hocam, çok makbule geçer.”",
+"new": "“Vallahi, çok makbule geçer.”",
+"neden": "Dolgu 'hocam'."
+},
+{
+"op": "replace",
+"pid": 262,
+"old": " Gerçek yaşadıklarımı kaleme almak benim için değişik bir deneyim olacak.",
+"new": "",
+"neden": "Önceki bölümde konuşulan niyetin tekrarı."
+},
+{
+"op": "replace",
+"pid": 266,
+"old": "“Evet hocam, haklısınız.”",
+"new": "“Evet, haklısınız.”",
+"neden": "Dolgu 'hocam'."
+},
+{
+"op": "replace",
+"pid": 267,
+"old": " Yahu, ne garip hayatlar vardı.",
+"new": " Ne garip hayatlar vardı.",
+"neden": "Dolgu 'Yahu'."
+},
+{
+"op": "replace",
+"pid": 267,
+"old": " Yine de içime bir şüphe düşmedi değil: Genç ve idealist bir profesörün anlattıkları uydurma olabilir miydi? Bunu okuduğum hikâyelerden anlayacağımı düşündüm. Belki kalemim biraz daha keskinleşirdi.",
+"new": "",
+"neden": "Öncülü erken söndüren şüphe; 'keskinleşirdi' tekrarı."
+},
+{
+"op": "replace",
+"pid": 267,
+"old": " Gevezeliklerinden sıkılan annem, ablalarım, kız kardeşim, halam ve çocukları bile eski Mustafa Sefa'yı özlemişlerdi: geveze, her haltı bilen, her konuda bilgisi olmasa da mutlaka bir fikri olan adamı. Ben de özlüyordum o adamı.",
+"new": "",
+"neden": "Geveze Sefa özlemi 72'de ve önceki cümlede var."
+},
+{
+"op": "replace",
+"pid": 268,
+"old": " Önce bulunduğum yeri anlamaya çalıştım.",
+"new": "",
+"neden": "Sonraki cümle bunu gösteriyor."
+},
+{
+"op": "replace",
+"pid": 268,
+"old": " Yardım çağırmayı düşündüm ama seslenebilir miydim, emin değildim. Annem birkaç adım ötedeydi; onun yanına gitmekle kendi başıma kalkmaya çalışmak arasında, o an bana tek bir koridor kadar mesafe vardı.",
+"new": "",
+"neden": "Yardım çağırma ve koridor mesafesi birkaç cümle sonra tekrar."
+},
+{
+"op": "replace",
+"pid": 268,
+"old": "; gittiğimiz doktor bunun yaşa bağlı işitme kaybı olduğunu söylemişti",
+"new": "",
+"neden": "Fazla açıklama."
+},
+{
+"op": "replace",
+"pid": 270,
+"old": " Üstelik devletim bir profesör aracılığıyla bana ulaşmış, beni muhatap almıştı. Benim gibi vatansever biri için bunun ne anlama geldiğini anlatamam.",
+"new": "",
+"neden": "Devlete hizmet duygusu 272'de tekrar ediliyor."
+},
+{
+"op": "replace",
+"pid": 272,
+"old": " Ben ona göre gençtim, çabuk toparlanırdım. Oysa böyle bir şeye tanık olsa bunu kolay atlatamazdı.",
+"new": "",
+"neden": "Annenin bayılacağı cümlesinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 299,
+"old": " Ona cevap da veremedim.",
+"new": "",
+"neden": "Hemen ardından cevap veriyor; çelişki."
+},
+{
+"op": "replace",
+"pid": 299,
+"old": " Kendimi tuhaf bulmam bir şeydi; başkalarının da eski hâlimi aradığını duymak başka.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı."
+},
+{
+"op": "replace",
+"pid": 301,
+"old": "ceylana döndüm: Onun yolculuğu beni nereye götürecek, nasıl bir hikâye çıkacaktı?",
+"new": "ceylana döndüm.",
+"neden": "Aynı soru paragrafın sonunda tekrar soruluyor."
+},
+{
+"op": "replace",
+"pid": 154,
+"old": " Üstelik çayla ıslananları masanın başka bir yerine, kalorifer peteğinin üzerine sermiş.",
+"new": "",
+"neden": "Dağınıklığı süsleyen ek ayrıntı; başka yerde geçmiyor."
+},
+{
+"op": "replace",
+"pid": 173,
+"old": " Fincandaki acılık, elimdeki titremeden daha az dikkat çekiyordu.",
+"new": "",
+"neden": "Titreme ve saklama sonraki cümlede zaten var."
+},
+{
+"op": "replace",
+"pid": 291,
+"old": " Nasıl olsa acıkacaktım; açlığım zirveye ulaşmadan bir şeyler atıştırıp günü geçirirdim.",
+"new": "",
+"neden": "Kahvaltı sahnesinden hemen sonra gereksiz ara not."
+},
+{
+"op": "replace",
+"pid": 303,
+"old": " Ama bazı şeyler tecrübeyle sabitti; devletin tecrübesi, iyi ya da kötü, tek tek insanların niyetinden daha genişti.",
+"new": "",
+"neden": "Aforizma; sahneye bir şey katmıyor"
+},
+{
+"op": "replace",
+"pid": 303,
+"old": " Bu kadar selamı peş peşe duyunca hepsinin bana verildiğine inanmak istemedim; ama başımı kaldırdığımda selam verenlerin gözleri bir an üstümde kalıyordu. Ben de o küçük dikkatleri görevimin kanıtı saymaya başlamıştım.",
+"new": "",
+"neden": "Selam motifinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 307,
+"old": " Onu içimden bir kez daha tebrik ettim.",
+"new": "",
+"neden": "Sonraki övgüyle aynı düşünce"
+},
+{
+"op": "replace",
+"pid": 308,
+"old": "Yahu, anlamlı",
+"new": "Anlamlı",
+"neden": "Tik: Yahu"
+},
+{
+"op": "replace",
+"pid": 310,
+"old": " O an bunu yalnızca şifrenin şaşırtıcılığı sandım; en azından öyle düşündüm.",
+"new": "",
+"neden": "Kendi içinde tekrar eden ihtiyat cümlesi"
+},
+{
+"op": "replace",
+"pid": 312,
+"old": " En iyisi diğer mektupları beklemek… Ama bunu fark ettiğimi anlarsa?",
+"new": "",
+"neden": "Soru zincirini kısaltma"
+},
+{
+"op": "replace",
+"pid": 319,
+"old": "Yahu, biliyorum.",
+"new": "Biliyorum.",
+"neden": "Tik: Yahu"
+},
+{
+"op": "replace",
+"pid": 319,
+"old": " Her seferinde benimle paylaşmanız gerekmiyor.",
+"new": "",
+"neden": "Aynı uyarı 325 ve 327'de tekrar ediliyor"
+},
+{
+"op": "replace",
+"pid": 325,
+"old": " Ama her bulguyu benimle paylaşman gerekmiyor.",
+"new": "",
+"neden": "Uyarının tekrarı; 327 en güçlü hâli"
+},
+{
+"op": "replace",
+"pid": 325,
+"old": " Sen de yazar ve editör olarak bu izole ortamda oku ve yaz.",
+"new": "",
+"neden": "327'deki 'Sadece oku ve yaz' ile aynı"
+},
+{
+"op": "replace",
+"pid": 330,
+"old": " Bu duyguyu çabucak üzerimden atıp yazma isteğimi kaybetmemeliydim.",
+"new": "",
+"neden": "İç açıklama fazlası"
+},
+{
+"op": "replace",
+"pid": 343,
+"old": " Nazım Efendi kâğıtları uzatırken de mahcup görünmüştü.",
+"new": "",
+"neden": "338'deki mahcubiyetin tekrarı"
+},
+{
+"op": "set",
+"pid": 355,
+"text": "Hakan Hoca odayı benim için değiştirmişti; ama Nazım Efendi'nin hatırasını silememişti.",
+"neden": "343'ün özeti ve aynı düşüncenin ikinci kez söylenişi çıkarıldı"
+},
+{
+"op": "replace",
+"pid": 363,
+"old": "Biraz önce bu adamı cahil diye küçümsemiştim. Oysa o, odanın bende henüz oluşmamış hafızasını benden iyi biliyordu. ",
+"new": "",
+"neden": "Sahneden hemen sonra açıklama; tek aforizma kalıyor"
+},
+{
+"op": "replace",
+"pid": 365,
+"old": " Tost çaydan önce bitti.",
+"new": "",
+"neden": "Sahne dolgusu"
+},
+{
+"op": "replace",
+"pid": 365,
+"old": " Bazı kâğıtlar tel zımbayla birbirine tutturulmuştu; önce onları ayırdım.",
+"new": "",
+"neden": "370'teki zımbalı sayfa kararıyla çelişen tekrar"
+},
+{
+"op": "replace",
+"pid": 365,
+"old": " En çok merak ettiğim, başka şifreli sayfalar olup olmadığıydı.",
+"new": "",
+"neden": "Aynı paragrafta 'başka bir şifre arıyordum' ile tekrar"
+},
+{
+"op": "replace",
+"pid": 365,
+"old": "; zihnimde açık bıraktığım dosyalar gibi, bakmadıkça orada olduklarını biliyordum.",
+"new": ".",
+"neden": "Fazladan benzetme"
+},
+{
+"op": "replace",
+"pid": 368,
+"old": " Evet, evren dedim: Güneş sistemi güneşe; atmosferdeki gazlar, iklim, toprak, hava, kök, gövde, yaprak ve çiçek meyveye…",
+"new": "",
+"neden": "Ağaç listesinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 369,
+"old": " Beşer, ten; beşeriyet de tenle ilgili değil miydi?",
+"new": "",
+"neden": "Tekrarlayan soru"
+},
+{
+"op": "replace",
+"pid": 369,
+"old": " Zekâ bir yazılımsa, yazılım da bir işletim sistemi değil miydi?",
+"new": "",
+"neden": "Tekrarlayan soru"
+},
+{
+"op": "replace",
+"pid": 375,
+"old": " Üstelik ne kadar süreyle?",
+"new": "",
+"neden": "Soru yığılması"
+},
+{
+"op": "replace",
+"pid": 406,
+"old": "Evet, hepsi geçmişte olmuş ve yaşanmış, bitmiş, mürekkep kurumuş",
+"new": "Evet, mürekkep kurumuş",
+"neden": "404'teki 'hepsi yaşanmış ve bitmiştir' tekrarı"
+},
+{
+"op": "replace",
+"pid": 423,
+"old": " ama Saygınlığım ve itibarım sonsuz değilmiş ama öyle sanıyordum.",
+"new": ".",
+"neden": "Bozuk ve tekrarlı yan cümle"
+},
+{
+"op": "replace",
+"pid": 423,
+"old": " Verdiğim bilgiler hem doğru hem şaşırtıcı hem de her biri, bir sonraki için iştah açıcıydı.",
+"new": "",
+"neden": "'İlmim üstüne ilim' ile aynı övünç"
+},
+{
+"op": "replace",
+"pid": 423,
+"old": " Birkaç saf öne geçtim, çünkü en arkada kalanlar da benim gibi sadece meraktan ilerliyorlardı kalabalığa doğru.",
+"new": "",
+"neden": "425'teki 'safları yararak' ile tekrar"
+},
+{
+"op": "replace",
+"pid": 434,
+"old": "anlat bir daha, anlat, muhkem anlat kahkahalarım",
+"new": "anlat bir daha, kahkahalarım",
+"neden": "437'deki 'muhkem anlat' ile tekrar"
+},
+{
+"op": "replace",
+"pid": 440,
+"old": " Ruhu öyle rahatsız oldu ki yeni bineğinden, yetmezmiş gibi dört zıtlık ile kuşandırıldı.",
+"new": "",
+"neden": "Paragraf sonundaki ruh/dört zıt cümlesiyle aynı"
+},
+{
+"op": "replace",
+"pid": 444,
+"old": "beni öldüreceksiniz, bilmediğim lisanlarla konuşup, pis planlarınızı mı uygulayacaksınız?",
+"new": "beni öldüreceksiniz?",
+"neden": "Soru yığılması"
+},
+{
+"op": "replace",
+"pid": 444,
+"old": " Sizin gücünüz bana yeter mi gafil?",
+"new": "",
+"neden": "Soru yığılması"
+},
+{
+"op": "replace",
+"pid": 454,
+"old": "Bunu cennetin kapısında ismi yazılanın yolundan gidenlere karşı kullanacaksınız, iki ucu da",
+"new": "Bu mızrağın iki ucu da",
+"neden": "Mızrak kuralı tek yerde (463) anlatılsın"
+},
+{
+"op": "replace",
+"pid": 458,
+"old": "O soy çok kalabalık, kimi sizi dinleyecek kimi dinlemeyecek, cennet kapısında",
+"new": "Cennet kapısında",
+"neden": "456'daki çoğalma bilgisinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 461,
+"old": "Yoldan çıkardıklarınız ya da zaten yola hiç girmeyecek Âdem oğullarını bu silahla kuşandıracaksınız ama bu silahı onlar da kullanmayacaklar. Yani sizin ardınızda saf tutanlar için de değil bu silah.",
+"new": "Sizin ardınızda saf tutanlar için değil bu silah.",
+"neden": "Mızrak kuralının ikinci anlatımı kısaltıldı"
+},
+{
+"op": "delete",
+"pid": 469,
+"neden": "Mızrak kuralının üçüncü tekrarı ('Bunu tekrar etmek zorundayım')"
+},
+{
+"op": "delete",
+"pid": 468,
+"neden": "469 silinince Şeytan iki kez arka arkaya konuşuyordu; söz 470'e taşındı"
+},
+{
+"op": "replace",
+"pid": 470,
+"old": "Söyle adını işte",
+"new": "Söz veriyorum! Söyle adını işte",
+"neden": "468'deki söz bu repliğe birleştirildi"
+},
+{
+"op": "replace",
+"pid": 476,
+"old": " ve en önemlisi aşklarını hatırlayacaklar",
+"new": "",
+"neden": "Hemen ardından gelen 'Aşkı…' cevabını önceden söylüyor"
+},
+{
+"op": "replace",
+"pid": 487,
+"old": " Bir ara Kabil’e verecek gibi oldum mızrağı, babası ve kardeşi için kullanmasını istedim ama ne Âdem ne de Habil yanaşmadılar, hatta",
+"new": " Hatta",
+"neden": "Habil'in mızrağı tutmaması zaten söylendi"
+},
+{
+"op": "delete",
+"pid": 494,
+"neden": "492'deki 'aklımdan geçen tonlarca şey'in özeti"
+},
+{
+"op": "replace",
+"pid": 500,
+"old": "Yahu, ne oluyor",
+"new": "Ne oluyor",
+"neden": "Tik: Yahu"
+},
+{
+"op": "replace",
+"pid": 501,
+"old": "mektuplardan birinden, o da benim gördüğüm birinden benim adım çıktı, yazan adam",
+"new": "yazan adam",
+"neden": "496'da söylenenin tekrarı"
+},
+{
+"op": "replace",
+"pid": 510,
+"old": "Yahu niye kaçayım",
+"new": "Niye kaçayım",
+"neden": "Tik: Yahu"
+},
+{
+"op": "replace",
+"pid": 515,
+"old": " Öyle her markanın kahvesi de içilmezdi ki…",
+"new": "",
+"neden": "Dolgu"
+},
+{
+"op": "replace",
+"pid": 518,
+"old": " ve hepsinin önünde de haliyle kâğıt bardakları vardı buna karşın",
+"new": ", buna karşın",
+"neden": "Aynı bilginin tekrarı"
+},
+{
+"op": "replace",
+"pid": 521,
+"old": "Yahu, kahve bahanedir",
+"new": "Kahve bahanedir",
+"neden": "Tik: 516'da hemen önce 'Yahu mübarek'"
+},
+{
+"op": "replace",
+"pid": 522,
+"old": ", zira kemale eren diğerleri arasında yalın bir şekilde sırıtırdı",
+"new": "",
+"neden": "Aynı imgenin tekrarı"
+},
+{
+"op": "replace",
+"pid": 526,
+"old": " Şehrin stresinde aklı korumak için bence de biçilmiş kaftandı.",
+"new": "",
+"neden": "'Mükemmeldi' cümlesinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 534,
+"old": " ya da hayatta kalabilmek için madde dünyasında geçimini sağlamak…",
+"new": "…",
+"neden": "Aynı fikrin tekrarı"
+},
+{
+"op": "replace",
+"pid": 546,
+"old": ", hele daha yazarken düşünüyorum bu cümle üzerinde",
+"new": "",
+"neden": "Dolgu"
+},
+{
+"op": "replace",
+"pid": 548,
+"old": ", dediğim gibi antrenman için biçilmiş kaftan lakin yeterli değil",
+"new": "",
+"neden": "545'teki antrenman fikrinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 551,
+"old": " Aktarmak, aktarıcı olmak ötesinde bir yol ya da ufkum yok.",
+"new": "",
+"neden": "Daktilo imgesinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 552,
+"old": " Bu ciddi bir motivasyon istemez mi?",
+"new": "",
+"neden": "Soru yığılması"
+},
+{
+"op": "replace",
+"pid": 553,
+"old": ", çünkü bazen yazan, yazan değildir yazdırılmıştır, bazen söyleyen, söyleyen değildir, söyletilmiştir, bilemem!",
+"new": ".",
+"neden": "551'deki 'yazan ben değilim' fikrinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 562,
+"old": " O konuşsun, ben sabahlara kadar dinleyeyim.",
+"new": "",
+"neden": "568 ve 576'da aynı istek"
+},
+{
+"op": "replace",
+"pid": 563,
+"old": " Bence kelimesi ile aynı manaya geliyor nasılsa hepsi.",
+"new": "",
+"neden": "Açıklama fazlası"
+},
+{
+"op": "replace",
+"pid": 563,
+"old": " Sende başlayan senden ötürü değil, sence de öyle olmamalı.",
+"new": "",
+"neden": "Kapalı, tekrar eden cümle"
+},
+{
+"op": "replace",
+"pid": 563,
+"old": " Yani biz kendimizi tanımaya, anlamaya bir ömür boyu çaba göstersek, ilimle de bilimle de bir yere kadar ilerleriz, ilerledikçe geride kaldığımızı, öğrendikçe bilmediğimizi idrak ederiz, çünkü hiçbir ilim sonsuz ilimden büyük değildir.",
+"new": "",
+"neden": "550'deki acizlik/bilmediğini bilme argümanının tekrarı"
+},
+{
+"op": "replace",
+"pid": 569,
+"old": " Kişisel olarak gelişmez, keşfeder insan ve bunu muhafaza eder.",
+"new": "",
+"neden": "Keşif argümanının tekrarı"
+},
+{
+"op": "replace",
+"pid": 574,
+"old": ", hatta çok bilmiş hallerim vardır benim, bilgim olmayan konularda bile illa bir fikrim vardır",
+"new": "",
+"neden": "Fazladan öz-nitelendirme"
+},
+{
+"op": "replace",
+"pid": 590,
+"old": " Ya da sınavdasın bir talebe olarak, bir sorunun cevabını hatırlamamak ne kadar üzücüyse, hatırlamak da o kadar keyiflidir.",
+"new": "",
+"neden": "Hatırlama örneğinin ikincisi"
+},
+{
+"op": "replace",
+"pid": 590,
+"old": " İşte alim kişi hatırladıkça havsalası tatmin olur, keyif alır.",
+"new": "",
+"neden": "Sonraki cümleyle aynı"
+},
+{
+"op": "replace",
+"pid": 590,
+"old": " Bunun sebepleri kadar sonuçları da vardır elbet.",
+"new": "",
+"neden": "Dolgu"
+},
+{
+"op": "replace",
+"pid": 590,
+"old": " Alim olan Allah, yarattığı kullarının soracakları soruları zaten cevaplamıştır, kimi alim kulları bu soru ve cevaplardan keyif alan tebliğ edicilerdir, onların da emaresi Allah’ın ilminden keyif alanlardır.",
+"new": "",
+"neden": "Önceki iki cümlenin tekrarı"
+},
+{
+"op": "replace",
+"pid": 593,
+"old": "sebep olurdu maazallah, bu eller",
+"new": "sebep olurdu, bu eller",
+"neden": "Aynı cümlede ikinci 'maazallah'"
+},
+{
+"op": "replace",
+"pid": 640,
+"old": ", her ana gibi o da isterdi ki oğullarım az nefes tüketsin çok yaşasın",
+"new": "",
+"neden": "Az nefes/çok ömür fikrinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 644,
+"old": " her şey bu kadar tamamken sadece eksik olmaktan kork, eksik olmamak için tamam olmak gerek madem,",
+"new": "",
+"neden": "Eksik/tamam fikrinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 650,
+"old": "ayrıca neden sanat demiştim, sanat niçin",
+"new": "ayrıca sanat niçin",
+"neden": "İç tekrar"
+},
+{
+"op": "replace",
+"pid": 654,
+"old": " Hayretler, gayretler, gayeler, mesleğe duyulan aşkın önemi ve daha birçok şey. Yaşananların bir açıklaması var, anlatılanların da… Yaşayan ve aktaran benim, açıklamasını okuyan, okuyacak olanlar bulsun ama benden bu kadar.",
+"new": "",
+"neden": "Özet; 553'teki 'nasibi olan buyursun' fikrinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 654,
+"old": " aslında kulaklarım değil de beynimde demek daha doğru olurdu,",
+"new": "",
+"neden": "Sonraki 'beyin uğultusu' imgesiyle aynı"
+},
+{
+"op": "replace",
+"pid": 661,
+"old": ", normalde odada sevdiğim doğal ışık tonları anında bu renk ile boğuldular ama gül kokusunun nereden geldiğini bulmak için ortamın daha da aydınlanması gerekiyordu.",
+"new": ".",
+"neden": "Işığı açma gerekçesi iki kez; kokunun kaynağını arama sonraki cümlede var."
+},
+{
+"op": "replace",
+"pid": 661,
+"old": " Bu arayışın bir adı vardı ama benim ilgimi çeken bu değildi.",
+"new": "",
+"neden": "Muğlak ara cümle; sonraki „Kim yolcuymuş…“ aynı şeyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 666,
+"old": " Bunu yazan deli, beni iyi tanıyordu da ben onu bir iki satırla nasıl geçiştirmiş olabilirdim ki?",
+"new": "",
+"neden": "Bir önceki cümlenin tekrarı."
+},
+{
+"op": "replace",
+"pid": 680,
+"old": " Sanırım çay ocağını işleten hacı abinin söyleminden almıştım bu cesareti.",
+"new": "",
+"neden": "„niyeyse“den sonra gereksiz açıklama."
+},
+{
+"op": "replace",
+"pid": 704,
+"old": ", duymazdan gelenin kulakları, en sağlam ses geçirmez surlardan daha kalın duvarlara sahiptir, sözler gülle olsalar nafiledir iyi bilirim.",
+"new": ".",
+"neden": "Üst üste aforizma; ana fikir cümlede zaten var."
+},
+{
+"op": "replace",
+"pid": 707,
+"old": ", duymuştum ama kendime gelemiyordum.",
+"new": ".",
+"neden": "„Sesini duymuş, uyanamamıştım“ tekrarı."
+},
+{
+"op": "replace",
+"pid": 707,
+"old": "Ama bu defa durum farklıydı, diğer halüsinasyonlar gibi değildi bu seferinde.",
+"new": "Ama bu defa durum farklıydı.",
+"neden": "Aynı cümle içinde çift söyleyiş."
+},
+{
+"op": "replace",
+"pid": 707,
+"old": " Bu olanlara anlam veremedim ama bunu asla umursamadım çünkü anlattıkları öyle bir uyuşturucuydu ki acımı silip atmakla kalmıyor, beni hafifletiyordu.",
+"new": "",
+"neden": "„Yüküm hafifledi“ tekrarı."
+},
+{
+"op": "replace",
+"pid": 709,
+"old": " Neyse çok sonları aklımca bir cevap bulmuştum; bütün o miskin, müptezel günlerimde, cami avlusunu çepeçevre saran rahmet belki beni de sarmıştı. Uyuyan bedenimdi ve asla uyumayan ruhum hocanın her vakit okuduğu duaları dinledi, belki âmin dedi, belki nasihat edindi, sonunda da zahirde böyle ceylan olarak tezahür etti.",
+"new": "",
+"neden": "Açıklama kilitli 713'te (dualar, aminler) zaten veriliyor; erken tekrar."
+},
+{
+"op": "replace",
+"pid": 709,
+"old": " İşte bundan dolayı yarım kalır bütün mecazi aşklar, aslında yarım kalmaz, yarımdır ve biz bunu birbirimize âşık olarak tamam etmeye çalışırız beyhude bir şekilde.",
+"new": "",
+"neden": "703'teki yarım/mecazi aşk fikrinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 709,
+"old": " Allah bu sahte aşk acısı ile mecazen aşıkları ayırmaz, aslında kendine yaklaştırır ve maalesef pek azımız ona ulaşır eski dostum.",
+"new": "",
+"neden": "Vaaz tekrarı; meczup/veli cümlesi kalıyor."
+},
+{
+"op": "split_chapter",
+"pid": 716,
+"title": "SOLUCAN",
+"neden": "Hodri'nin mektubu imzayla biter; anlatıcının öfke-nöbet-solucan krizi kendi bölümü olur."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Kan şekerim düşmüş, halim mecalim kalmamıştı.",
+"new": "",
+"neden": "Hemen sonra „Düşen kan şekerim“ diye tekrar ediliyor."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Etrafımda bir şeyler dönüyordu ama niye dönsün ki?",
+"new": "",
+"neden": "Kumpas sorusunun tekrarı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " ama olaylar sanki direkt benimle alakalı gibime geliyordu.",
+"new": ".",
+"neden": "Mahkeme imgesinden sonra gereksiz açıklama."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Suç olmayınca suçlu da olmuyor haliyle, suçun ve suçlunun olmadığı bir mahkeme ne anlam taşırdı ki?",
+"new": "",
+"neden": "„Ortada tek bir eksik vardı; suç!“ yeterli; tekrar."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": "Tanımadığım bir delinin mektupları içinde ne ara benden bahsetmesine sıra gelmişti, anlam veremediğim bu anafordan çıkmakta niye bu kadar zorlanıyordum, sahi ben niye",
+"new": "Sahi ben niye",
+"neden": "Öfke monoloğunda tekrar eden sorular kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Ne halt etmeye katlanıyorum bunca zahmete.",
+"new": "",
+"neden": "„Niye bunların mücadelesi içindeyim“ ile aynı soru."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": "son birkaç aydır zaten kabuğuma çekilmiş ki bu kabuğuma çekilmiş halimin sebebini çözmek varken, hatta belki de benim bir tedaviye",
+"new": "belki de bir tedaviye",
+"neden": "Bilinen içe kapanmanın özeti; tekrar."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " hasılı var oğlu varken,",
+"new": "",
+"neden": "Dolgu."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Daha işim gücüm yok, bunlarla mı uğraşacağım.",
+"new": "",
+"neden": "Aynı itirazın tekrarı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Başta ailem, doktorlar, hademeler, öğrenciler, herkes ama herkes en başından beri sebebini bilmediğim şekilde gereksiz bir tuzağa çekiyorlar beni.",
+"new": "",
+"neden": "Bir önceki „herkes kumpasta“ cümlesinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Bu kadar mı önemli unvanlar, bu kadar mı aşağılık oldu insanlar.",
+"new": "",
+"neden": "Unvan şikâyeti „Hocalar, üstatlar…“ ile kalıyor; tekrar."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Herkes birilerini bir yerlere konumlandırmak pahasına burada beni de vaktimi de saygımı da harcıyor, niye harcıyor bu insanlar beni, ne istiyorlar benden?",
+"new": "",
+"neden": "Saygı/teveccüh şikâyetinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Nasılsa onun ardına düşecek, başhekimlik odasından içeri girince aslında başhekim olduğunu Sefa anlayacak, “Aaa! Müthiş tevazulu, benimle yaşıt ama koca bir profesör” diye düşündürecek bana.",
+"new": "",
+"neden": "Gizli kibir fikri önceki cümlede söylendi; açıklama tekrarı."
+},
+{
+"op": "replace",
+"pid": 717,
+"old": " Hatta bir ara o mektupları yazan herifi bulup, ağzını burnunu kırmak da geçmişti içimden, peki ben ne yapmıştım?",
+"new": " Peki ben ne yapmıştım?",
+"neden": "Öfke hayallerinin üçüncü tekrarı."
+},
+{
+"op": "replace",
+"pid": 717,
+"old": " İyi ki oturmuşum, tek şeyi doğru tahmin etmiştim, o da birazdan kendimden geçeceğimdi.",
+"new": "",
+"neden": "Bir önceki cümlenin tekrarı."
+},
+{
+"op": "replace",
+"pid": 717,
+"old": "Süresini bilmiyordum, çünkü bayılmanın",
+"new": "Bayılmanın",
+"neden": "„Süresini bilmediğim“ hemen önce söylendi."
+},
+{
+"op": "delete",
+"pid": 721,
+"neden": "Dolgu replik."
+},
+{
+"op": "delete",
+"pid": 722,
+"neden": "Dolgu replik."
+},
+{
+"op": "delete",
+"pid": 731,
+"neden": "Reddediş 730'da söylendi; tekrar."
+},
+{
+"op": "delete",
+"pid": 732,
+"neden": "Reddediş 730'da söylendi; tekrar."
+},
+{
+"op": "replace",
+"pid": 734,
+"old": " Herkes, her şeyin farkında mıydı bilmiyordum ama gerçekten de umurumda değildi.",
+"new": "",
+"neden": "„Umurumda değildi“ kalıbının tekrarı."
+},
+{
+"op": "replace",
+"pid": 734,
+"old": ", bir şeyler ters gidiyordu, ruh halim karmaşık, zihnim bulanık, yetmezmiş gibi hiçbir şey yapmak istemiyordum.",
+"new": ", ruh halim karmaşık, zihnim bulanıktı.",
+"neden": "„İçimden gelmiyordu“ tekrarı; dikiş."
+},
+{
+"op": "replace",
+"pid": 735,
+"old": "İnsanlar için emek verdim, en çok da yakınımda yöremde olanlar, kıymet verdiklerim, karşılığı neydi bunların, emek vermek yormuyor da insanı, alamadığı karşılık yoruyormuş, o da sadece saygı; işte sadece bunu biliyordum. ",
+"new": "",
+"neden": "Saygı şikâyeti öfke monoloğunda var; öz-hesap sözlerle başlıyor."
+},
+{
+"op": "replace",
+"pid": 753,
+"old": "Mevcut ilminden keyif alan bir kişiye Alim denirdi ve henüz dünyada",
+"new": "Henüz dünyada",
+"neden": "Araya giren tanım; soru tek başına daha güçlü."
+},
+{
+"op": "replace",
+"pid": 753,
+"old": " Allah’ım affet, senin sevgin, merhametinden mahrum olmak, dahası rızanı kazanmadan ölmek dehşet.",
+"new": "",
+"neden": "Rıza korkusu 735'te ve sonraki cümlede var; „ömür sermayesi“ (bkz. 35) kalıyor."
+},
+{
+"op": "replace",
+"pid": 759,
+"old": "Yahu, kâğıt",
+"new": "Kâğıt",
+"neden": "„Yahu“ tiki."
+},
+{
+"op": "replace",
+"pid": 762,
+"old": ", düşünmekte bereket, tefekkürde rahmet vardır, üstelik düşünmek kapıyı açar",
+"new": ", düşünmek kapıyı açar",
+"neden": "Üst üste antitez; en güçlüsü (kapı) kalıyor."
+},
+{
+"op": "replace",
+"pid": 762,
+"old": " Gerçeklik senin yorumundur ancak… Ve ancak hakikat algılarının üstünde olandır, sen gerçeği değil,",
+"new": " Sen gerçeği değil,",
+"neden": "Gerçek/hakikat ayrımı önceki cümlede söylendi; tekrar."
+},
+{
+"op": "replace",
+"pid": 767,
+"old": "İşte insanı insana getiren şey bazen hikmetli bir söz, bazen de ağzındaki kekremsi tattır. Ölümü",
+"new": "Ölümü",
+"neden": "765'teki „beden felsefeyi susturur“ fikrinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 767,
+"old": " Belki de iyi ki böyleydi. Yoksa iki güzel cümle kuran herkes, ayağının yerden kesildiğini sanıp kendini göklere yazardı. Ben de yazmıştım elbette; hem de yerden bir karış yükselmeden, göğün tapusunu cebime koymuş gibi sözler söylemiştim.",
+"new": "",
+"neden": "Büyük sözler öz-eleştirisi önceki bölümde yapıldı; tekrar."
+},
+{
+"op": "replace",
+"pid": 768,
+"old": " Musluktan akan suyun bir kısmı yüzümden lavaboya, bir kısmı dirseklerimden yere indi.",
+"new": "",
+"neden": "İşlevsiz sahne ayrıntısı."
+},
+{
+"op": "replace",
+"pid": 777,
+"old": " ve kahvaltıya indim.",
+"new": ".",
+"neden": "„Bahçeye indim“ 779'da; çift iniş."
+},
+{
+"op": "delete",
+"pid": 778,
+"neden": "Aforizma; 779 aynı düşünceyi işliyor."
+},
+{
+"op": "replace",
+"pid": 779,
+"old": "Yahu düşünsenize, adam hastanenin içinde, başhekim bir üst katta, acil servis birkaç bina ötede ama o, “Beni bir ihtiyar kahvaltıda bekliyor” diye bayılma nöbetini saklıyor. Bunun",
+"new": "Bunun",
+"neden": "777'deki „Normal bir insan doktora giderdi“nin tekrarı; „Yahu“."
+},
+{
+"op": "replace",
+"pid": 779,
+"old": " Cimriliğe tedbir, korkaklığa temkin, kibre özgüven diyen de aynı insan değil mi?",
+"new": "",
+"neden": "Üst üste antitez; kendi örnekleri yetiyor."
+},
+{
+"op": "replace",
+"pid": 834,
+"old": " Ya da sevdiğin biri yalan söylese, sevgin yalanı doğru mu yapar?",
+"new": "",
+"neden": "İkinci örnek; birincisi yetiyor."
+},
+{
+"op": "replace",
+"pid": 834,
+"old": " Terazinin iki kefesine de kendi nefsimizi koyup adalet bekliyoruz.",
+"new": "",
+"neden": "Bir önceki cümlenin imgeyle tekrarı."
+},
+{
+"op": "replace",
+"pid": 875,
+"old": " Hakikat bunlardan birini seçip beni rahatlatmalıydı aklımca.",
+"new": "",
+"neden": "Önceki cümlelerde söylendi."
+},
+{
+"op": "replace",
+"pid": 905,
+"old": " Bulutken su, denizdeyken su, gözünden akarken yaş, alnından akarken ter, ağzından çıkarken sözün buharı… Adı değişiyor, hâli değişiyor, su nereye gitti sanıyorsun? İnsan adını değiştirdiği şeyi başka bir şey zannediyor.",
+"new": "",
+"neden": "906'da aynı liste ve fikir (ad/kap) işleniyor."
+},
+{
+"op": "replace",
+"pid": 906,
+"old": " Dar sorunun cevabı kolay olur, insanı da daraltır.",
+"new": "",
+"neden": "Üst üste aforizma."
+},
+{
+"op": "replace",
+"pid": 937,
+"old": " İnsan bazen kendisine anlatılmayan şeyi ne güzel işitiyordu.",
+"new": "",
+"neden": "Önceki cümlenin aforizma tekrarı."
+},
+{
+"op": "replace",
+"pid": 949,
+"old": "Yahu sen benim sesimsin",
+"new": "Sen benim sesimsin",
+"neden": "„Yahu“ tiki."
+},
+{
+"op": "replace",
+"pid": 955,
+"old": "İnsan, düşmemek için demire sarılınca bedenin ne kadar ikna edici bir gerçeklik olduğunu anlıyordu. ",
+"new": "",
+"neden": "Yerçekimi cümlesiyle aynı düşünce; güçlü olan kalsın."
+},
+{
+"op": "replace",
+"pid": 1016,
+"old": "; insan kendini en çaresiz hissettiği anda küçük bir şart koşunca hayatının iplerini hâlâ elinde tuttuğunu sanıyordu.",
+"new": ".",
+"neden": "Pazarlık cümlesinin ardından gelen açıklayıcı vecize."
+},
+{
+"op": "replace",
+"pid": 1018,
+"old": "Elimi kaldır dediğimde kalkacak, nefes al dediğimde alacak, geceleri uyuyacak, sabahları kaldıracak; biz onu",
+"new": "Biz onu",
+"neden": "Aynı düşüncenin uzatılmış sayımı kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 1061,
+"old": " Hastanenin bütün pencereleri aynı karanlıkta değildi ama insan aradığı yüzü birinde bulamayınca hepsinin ışığı sönmüş gibi oluyordu.",
+"new": "",
+"neden": "'Cam karanlıktı' imgesini açıklayan fazla cümle."
+},
+{
+"op": "replace",
+"pid": 1126,
+"old": "Yahu bir profesöre",
+"new": "Bir profesöre",
+"neden": "'Yahu' tiki."
+},
+{
+"op": "replace",
+"pid": 1137,
+"old": " Bu beni rahatlatmadı. Beni kandırdığını düşündüğüm insanın da kandığı ihtimali vardı artık.",
+"new": "",
+"neden": "Aynı fikir sonraki bölüm açılışında işleniyor."
+},
+{
+"op": "replace",
+"pid": 1152,
+"old": " Engin ufuklar boyu ilerlerken çepeçevre kızıl ışıkla sarılmıştı dört bir yanı.",
+"new": "",
+"neden": "Kızıllık tasviri tekrarı."
+},
+{
+"op": "replace",
+"pid": 1152,
+"old": " Önce adımlarını hızlandırdı, ardından da olağanca gücüyle koşmaya başladı.",
+"new": "",
+"neden": "Sahneyi yavaşlatan ara cümle."
+},
+{
+"op": "replace",
+"pid": 1153,
+"old": "Şeytan kalabalığı süzdü, elindeki kadehi kaldırdı ve ters çevirdi, sanılanın aksine içinden bir şey dökülmedi. ",
+"new": "",
+"neden": "İşlevsiz sahne ayrıntısı."
+},
+{
+"op": "replace",
+"pid": 1158,
+"old": "safları yararak, hani tabiri yerindeyse, yol açmak için önüne",
+"new": "safları yararak, önüne",
+"neden": "'Yol açmak' tekrarı."
+},
+{
+"op": "delete",
+"pid": 1162,
+"neden": "Velhan atışması uzatması; olay örgüsüne katkısı yok."
+},
+{
+"op": "delete",
+"pid": 1163,
+"neden": "Velhan atışması uzatması."
+},
+{
+"op": "replace",
+"pid": 1169,
+"old": " Ne yaptın da onu yolundan saptırdın anlat evladım, anlat ki kardeşlerinin de keyfi yerine gelsin.",
+"new": "",
+"neden": "Şeytan'ın 'anlat' çağrısı az önce yapıldı."
+},
+{
+"op": "replace",
+"pid": 1170,
+"old": " Onun yanında durmak, cehennemdeki buzdağlarının zirvesinde ayakta kalabilmek kadar zor ve kaygandı.",
+"new": "",
+"neden": "Övünme tekrarı."
+},
+{
+"op": "replace",
+"pid": 1172,
+"old": " Rüyasının ne olduğunu öğrenmek için cinler gece gündüz çalıştılar, onlar da Musa generallerine orduları toplaması emrini verene kadar bilememişler.",
+"new": "",
+"neden": "Yan ayrıntı; olay akışı değişmiyor."
+},
+{
+"op": "delete",
+"pid": 1174,
+"neden": "Şeytan'ın övgü tekrarı."
+},
+{
+"op": "replace",
+"pid": 1176,
+"old": " Ne kadar ince çalışırsa, o kadar iş bitirici, kalıcı olur, nefesi ve salyası ile kemirdiğini uyuşturan bir kemirgen gibi.",
+"new": "",
+"neden": "İğne imgesini tekrar eden ikinci benzetme."
+},
+{
+"op": "replace",
+"pid": 1177,
+"old": "Bu kardeşiniz Hanzeb’in hırslı çalışması ile gerçekleşmiştir, şimdi devam et evladım.",
+"new": "Şimdi devam et evladım.",
+"neden": "Övgü tekrarı."
+},
+{
+"op": "replace",
+"pid": 1179,
+"old": " İşte bu şekilde Baura’ya ilk mızrak hamlesini yapma kararını vezir Balakt sayesinde becerdim.”",
+"new": "",
+"neden": "Az önce anlatılanın özeti, övünme."
+},
+{
+"op": "replace",
+"pid": 1183,
+"old": ", diyarımızın kurdunu, kuşunu, kuzusunu bile seven kralımızın sevgi ve selamını katarak hediyelerimize geldik, bizi boş çevirmeyiniz. Yurdumuz",
+"new": ". Yurdumuz",
+"neden": "Dalkavukluk konuşması kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 1188,
+"old": "efendim. Kralımız elbet düşünmüştür bunları, ancak kurdundan, kuzusuna, her kişiden mesuldür, kaldı ki koskoca Belam Baura bizim için de çok önemli bir şahsiyettir’",
+"new": "efendim’",
+"neden": "Vezir konuşmasında tekrar eden iltifat."
+},
+{
+"op": "delete",
+"pid": 1189,
+"neden": "Sabırsızlık sahnesini önceden açıklayan anlatıcı yorumu."
+},
+{
+"op": "replace",
+"pid": 1199,
+"old": "diğer ucu bekliyordu.”",
+"new": "diğer ucu bekliyordu.",
+"neden": "Kesilen ara sahne sonrası konuşma sürüyor."
+},
+{
+"op": "delete",
+"pid": 1200,
+"neden": "Mızrağın yeniden açıklandığı şaka sahnesi."
+},
+{
+"op": "delete",
+"pid": 1201,
+"neden": "Mızrağın yeniden açıklandığı şaka sahnesi."
+},
+{
+"op": "delete",
+"pid": 1202,
+"neden": "Mızrak/fitne açıklamasının tekrarı."
+},
+{
+"op": "delete",
+"pid": 1203,
+"neden": "Mızrak şakası."
+},
+{
+"op": "delete",
+"pid": 1204,
+"neden": "Mızrak şakası."
+},
+{
+"op": "replace",
+"pid": 1205,
+"old": "“Kadın elindeki, daha doğrusu aklındaki mızrağı öyle bir şevk ve azimle tuttu ki, babamız kızmasın bana ama onun yaptığı planları babam bile ancak yapardı. Derken",
+"new": "Derken",
+"neden": "Mızrak imgesi ve övünme tekrarı; konuşma kesintisiz sürüyor."
+},
+{
+"op": "replace",
+"pid": 1208,
+"old": " Asil, seçkin, mümtaz insanlardır.",
+"new": "",
+"neden": "Sıfat yığını."
+},
+{
+"op": "replace",
+"pid": 1213,
+"old": " Halbuki sen de bilirsin, şu kavmin üç yüz beş senedir sana bakmıyorlar mı? Seni sevip, saymıyorlar mı?’",
+"new": "’",
+"neden": "Kadının az önce söylediği 'üç yüz beş yıl' tekrarı."
+},
+{
+"op": "replace",
+"pid": 1213,
+"old": "o kadar ağır giydirdim ki babacığım o andan beni görseydiniz, sabrıma, hırsıma…”",
+"new": "o kadar ağır giydirdim ki…",
+"neden": "Övünme tekrarı; anlatı sürüyor."
+},
+{
+"op": "delete",
+"pid": 1214,
+"neden": "Övünmeye verilen ara cevap."
+},
+{
+"op": "replace",
+"pid": 1215,
+"old": "“Sonra, Baura",
+"new": "Sonra, Baura",
+"neden": "Konuşma kesintisiz sürüyor (tırnak düzeni)."
+},
+{
+"op": "replace",
+"pid": 1223,
+"old": "Acaba gök yere mi çalınacak diye aklından geçirdi, sesin şiddetini duymamak için kulaklarını indirdi, gözlerini sımsıkı yumdu. Gözlerini aralama cesareti gösterdiğinde gördüklerine inanamadı, şeytan ve",
+"new": "Şeytan ve",
+"neden": "Dehşet tasvirinde tekrar."
+},
+{
+"op": "replace",
+"pid": 1242,
+"old": " Şimdi bakınca göreceksiniz ki, içinizden bazılarınız eksiliyorlar.",
+"new": "",
+"neden": "Mikail'in az önceki sözünün tekrarı."
+},
+{
+"op": "replace",
+"pid": 1242,
+"old": " Kadir Gecesi insana öğretildi, Hz. Muhammed (SAV) ve ümmeti onu kıyamete kadar kullanacaklar,",
+"new": "",
+"neden": "'İnsana Kadir ismi öğretildi' cümlesinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 1243,
+"old": " Oğulların ile görüştürülen Hz. Muhammed onlara getirilen dini söyledi, onlara yedikleri helal hayvanların kemiklerini ikram edeceklerini, hatta oğullarının kullandıkları bineklerin de insanların kullandıkları hayvanların pisliklerinden beslenebilecekleri tebliğ edildi.",
+"new": "",
+"neden": "Cinlerin Müslüman oluşu ikinci kez anlatılıyor; vaaz uzantısı."
+},
+{
+"op": "replace",
+"pid": 1246,
+"old": " Bu mukayese bile edilemezdi, değil ölümle bu başka hiçbir şerefle mukayese edilemezdi…",
+"new": "",
+"neden": "Terazi imgesinin açıklamalı tekrarı."
+},
+{
+"op": "replace",
+"pid": 1248,
+"old": " Belli ki Belam Baura bir alimdi, sayılan, sevilen, diyarında itibar sahibi ve yine diyarın en güzel kadınına aşıktı.",
+"new": "",
+"neden": "Okurun bildiği kıssanın özeti."
+},
+{
+"op": "replace",
+"pid": 1249,
+"old": "Her şey Allah için; savaşmak, yemek, içmek, bedenine bakmak dahi Allah için ya da Allah’a varmak için değilse beyhude. Şeytan ister ki onda olmayan kimsede olmasın, tüm ilmine, bilgisine rağmen, aşk olmayan ilim dahi kibri doğuruyordu. ",
+"new": "",
+"neden": "Vecize yığını; 'aşksız kalp kibirlenir' aynı fikri taşıyor."
+},
+{
+"op": "replace",
+"pid": 1249,
+"old": " Buraya kendimizi tanık etmeye geldik.",
+"new": "",
+"neden": "'Kendini şahit ettiğin köprü' cümlesinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 1249,
+"old": " Dünyaya geliş amacımızı, içimizde olan potansiyel Allah aşkımızı, hangi aşkla hangi mabutla takas etmişiz ancak bu durum belirler.",
+"new": "",
+"neden": "Denemenin özet cümlesi; vaaz tekrarı."
+},
+{
+"op": "delete",
+"pid": 1254,
+"neden": "Şiirin ikinci, öğüt veren kıtası; ilk kıtayı tekrarlıyor."
+},
+{
+"op": "delete",
+"pid": 1255,
+"neden": "Şiirin ikinci, öğüt veren kıtası; ilk kıtayı tekrarlıyor."
+},
+{
+"op": "delete",
+"pid": 1256,
+"neden": "Şiirin ikinci, öğüt veren kıtası; ilk kıtayı tekrarlıyor."
+},
+{
+"op": "delete",
+"pid": 1257,
+"neden": "Şiirin ikinci, öğüt veren kıtası; ilk kıtayı tekrarlıyor."
+},
+{
+"op": "delete",
+"pid": 1258,
+"neden": "Şiirin ikinci, öğüt veren kıtası; ilk kıtayı tekrarlıyor."
+},
+{
+"op": "delete",
+"pid": 1259,
+"neden": "Şiirin ikinci, öğüt veren kıtası; ilk kıtayı tekrarlıyor."
+},
+{
+"op": "replace",
+"pid": 1286,
+"old": " Hastanenin içinde tanımadığım birinin yazdığına inanınca irkiliyor, kendi elimden çıkınca geçiştiriyordum.",
+"new": "",
+"neden": "Önceki ve sonraki soruyla aynı fikir."
+},
+{
+"op": "replace",
+"pid": 1290,
+"old": " Evinden bu kadar uzağa gitmiş olması, başlarda onu ürkütmüş olsa da özgürleşmiş olması onda başka ufuklara henüz yelken açtırıyordu.",
+"new": "",
+"neden": "Anlatıyı geciktiren açıklama."
+},
+{
+"op": "replace",
+"pid": 1290,
+"old": " Her dinde olduğu gibi Mecusilerde de temiz ahlak, yozlaşmış olmamak çok ama çok kıymetliydi.",
+"new": "",
+"neden": "Genel açıklama."
+},
+{
+"op": "replace",
+"pid": 1290,
+"old": "ancak ateş, arama susuzluğuna yetmiyor, bilakis arttırıyordu, körük",
+"new": "ancak körük",
+"neden": "Aynı imge iki kez."
+},
+{
+"op": "replace",
+"pid": 1290,
+"old": "Nöbetlerini, çiftliklerindeki işleri aksatmayan genç Mabeh,",
+"new": "Genç Mabeh,",
+"neden": "Nöbet sadakati az önce söylendi."
+},
+{
+"op": "replace",
+"pid": 1291,
+"old": "Körük bu sefer babasının öfkesini körüklemişti, Hakk",
+"new": "Hakk",
+"neden": "Babanın öfkesi önceki cümlede verildi."
+},
+{
+"op": "replace",
+"pid": 1292,
+"old": " ve yeni piskoposa hayran olmuştur",
+"new": "",
+"neden": "Sonraki tasvirle aynı."
+},
+{
+"op": "replace",
+"pid": 1292,
+"old": "Piskopostan izin isteyip yanında bir süre yaşadıktan sonra, piskopos",
+"new": "Piskopos",
+"neden": "Gereksiz ara adım."
+},
+{
+"op": "replace",
+"pid": 1293,
+"old": " İnsan susamaya görsün, içinde Hakk’ı arama ateşi yanmaya görsün…",
+"new": "",
+"neden": "Anlatıyı bölen ünlem; susuzluk imgesi başka yerde var."
+},
+{
+"op": "replace",
+"pid": 1293,
+"old": "manastırdaki ibadet dolu günlerinde, ",
+"new": "",
+"neden": "Dolgu."
+},
+{
+"op": "replace",
+"pid": 1293,
+"old": "ancak bulmuş olsa da artık",
+"new": "ancak artık",
+"neden": "Tekrar."
+},
+{
+"op": "replace",
+"pid": 1296,
+"old": " Sonunda susadığı suya çok yaklaştığından emindir, sadece ona suyu getirecek olan ahir zaman peygamberini beklemektedir.",
+"new": "",
+"neden": "Önceki 'emin olmuştur' cümlesinin tekrarı."
+},
+{
+"op": "delete",
+"pid": 1298,
+"neden": "Sahiplerin rahatsızlığı bedduayla zaten gösteriliyor."
+},
+{
+"op": "replace",
+"pid": 1299,
+"old": " Sahibi olan adam da diğeri gibi bu durumdan rahatsız olmuştu.",
+"new": "",
+"neden": "Beddua cümlesi bunu gösteriyor."
+},
+{
+"op": "replace",
+"pid": 1301,
+"old": "Mabeh indiği ağaçtan hemen sonra sormuştu,",
+"new": "Mabeh sormuştu,",
+"neden": "Ağaçtan iniş önceki cümlede."
+},
+{
+"op": "delete",
+"pid": 1303,
+"neden": "Sahnenin zaten gösterdiği açıklama."
+},
+{
+"op": "replace",
+"pid": 1315,
+"old": "Bu övgü dolu sözlerle yolculuğunu anlatmaya çalışan Mabeh’in sözlerini yanlış aktaran Yahudi, bir süre sonra",
+"new": "Tercüman, bir süre sonra",
+"neden": "Önceki cümlenin tekrarı."
+},
+{
+"op": "replace",
+"pid": 1322,
+"old": " Bunları Muhibbi Amcaya olduğu gibi aktarmak, onunla bu konuda fikir alışverişinde bulunmak istiyordum. Hastane bahçesindeki büfeye çıktım, onu aradı gözlerim bir süre. Kendime bir çay söyledim,",
+"new": " Büfede kendime bir çay söyledim,",
+"neden": "Arama ve istişare niyeti açılışta ve sonraki paragrafta var."
+},
+{
+"op": "replace",
+"pid": 1327,
+"old": "aklı selim bir adamla durumu istişare edecektim, sonuçta benim medeniyeti",
+"new": "medeniyeti",
+"neden": "'İstişare edecektim' tekrarı."
+},
+{
+"op": "replace",
+"pid": 1333,
+"old": "Yahu, ilk",
+"new": "İlk",
+"neden": "'Yahu' tiki."
+},
+{
+"op": "replace",
+"pid": 1340,
+"old": " Mekke’de köle olarak doğan ve ömrünün bir kısmında ilk cümlesini bir duruşla Allah tektir diyen Bilal, gür ve güzel sesiyle ezanı ilk okuyan önemli bir sahabedir.",
+"new": "",
+"neden": "Aynı paragrafta söylenenlerin özeti."
+},
+{
+"op": "replace",
+"pid": 1342,
+"old": " Sadece kendi mutluluğuna odaklı, et yığınları arasında dolaşan, kendinden ve kendi ırkından başkasını alçak gören bir nesil var, hem de bütün dünyada.",
+"new": "",
+"neden": "Medeniyet yakınmasının ikinci kez söylenişi."
+},
+{
+"op": "replace",
+"pid": 1342,
+"old": " Ancak kimin hakikati, senin mi benim mi, onların mı? Hakikat senin kimsenin ulaşamadığı yerde başlıyor.",
+"new": "",
+"neden": "Sondaki 'herkesin hakikati kendine' ile aynı."
+},
+{
+"op": "replace",
+"pid": 1168,
+"old": " Şeytan elini kaldırdı ve kalabalık susup dinlemeye başladı.",
+"new": "",
+"neden": "Aynı jest birazdan tekrarlanıyor."
+},
+{
+"op": "replace",
+"pid": 1179,
+"old": "Vezir hızlıca düşünmeye, çözüm bulmaya çalıştı, oysa ben bunu çoktan planlamıştım, ben fısıldamaya",
+"new": "Ben fısıldamaya",
+"neden": "Övünme."
+},
+{
+"op": "replace",
+"pid": 1181,
+"old": "üç insan asrı boyunca çalışmalarımın ilk meyvesini almak için, ",
+"new": "",
+"neden": "'Üç asır' övünmesinin tekrarı."
+},
+{
+"op": "delete",
+"pid": 1194,
+"neden": "Duraklama zaten '…Sonra' ile gösteriliyor."
+},
+{
+"op": "replace",
+"pid": 1199,
+"old": "aslında doğru duymuş, kendince biraz zaman kazanmış, aklında düşüncelerini ölçüp tartmıştı",
+"new": "ölçüp tartmıştı",
+"neden": "Dolgu."
+},
+{
+"op": "replace",
+"pid": 1210,
+"old": " ‘Nefesimi tuttum o anda babacığım, acaba kadın ne diyecek’ diye.",
+"new": "",
+"neden": "Hanzeb'in araya giren üçüncü övünme/tepkisi."
+},
+{
+"op": "replace",
+"pid": 1227,
+"old": ", çünkü olayları yaşayan oydu ve Allah buna şahitti",
+"new": "",
+"neden": "Fazla açıklama."
+},
+{
+"op": "replace",
+"pid": 1229,
+"old": " ‘Sen kim oluyorsun da beni dinlemiyorsun efsunlu merkep’ dedi yine dinletemeyince merkebini dövmeye başladı.”",
+"new": "”",
+"neden": "Dayak sahnesi Mikail'in sorusundan sonra anlatılıyor; tekrar."
+},
+{
+"op": "replace",
+"pid": 1290,
+"old": "bunca sarıp sarmaladıkları çocuğun sağlığı açısından ",
+"new": "",
+"neden": "Dolgu."
+},
+{
+"op": "replace",
+"pid": 1290,
+"old": "Mevcut kast sisteminin hemen ilgi odağı olmuş, dönemin",
+"new": "Dönemin",
+"neden": "'İlgi' tekrarı."
+},
+{
+"op": "replace",
+"pid": 1335,
+"old": " O dönemde kölenin iyisi sahibinin yakınında duranlardı.",
+"new": "",
+"neden": "Sonraki cümle aynı şeyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 1152,
+"old": " Bu sefer ışığı değil, sesleri takip etti.",
+"new": "",
+"neden": "'Bu sefer' formülü; uğultu zaten söylendi."
+},
+{
+"op": "delete",
+"pid": 1175,
+"neden": "Sahne hareketi; konuşan Şeytan, bağlam açık."
+},
+{
+"op": "delete",
+"pid": 1180,
+"neden": "Sahne hareketi (kulak pası vb.); Hanzeb'in konuşması kesintisiz sürüyor."
+},
+{
+"op": "replace",
+"pid": 1181,
+"old": "“İşte kudretli",
+"new": "İşte kudretli",
+"neden": "Konuşma kesintisiz sürüyor (tırnak düzeni)."
+},
+{
+"op": "replace",
+"pid": 1242,
+"old": ", bunu babanız şeytan çok iyi biliyor ama bilmediği bir şey var ki hepinizi birazdan hayretler içerisinde bırakacak.",
+"new": ".",
+"neden": "Mikail'in 'birazdan şahit olun' sözünün tekrarı."
+},
+{
+"op": "replace",
+"pid": 1249,
+"old": " Biri birine ya da bir şeye aşık ise ve o âşık olduğu onu Allah’a taşımıyorsa, sırtında amaçsızca taş taşıyan hamaldan ne farkı vardır.",
+"new": "",
+"neden": "Vecize yığını; önceki paragraf aynı soruyu cevaplıyor."
+},
+{
+"op": "replace",
+"pid": 1293,
+"old": "defnettikten hemen sonra vakit kaybetmeden,",
+"new": "defnettikten sonra,",
+"neden": "Dolgu."
+},
+{
+"op": "replace",
+"pid": 1296,
+"old": "Yesrib’e bir köle olarak götürülüp satılan Mabeh",
+"new": "Yesrib’e götürülen Mabeh",
+"neden": "'Köle/satılmak' tekrarı."
+},
+{
+"op": "replace",
+"pid": 1316,
+"old": ", ondan hiçbir ücret istemeden, onunla sırf Müslüman kardeşi oldukları için destek görmüştü.",
+"new": ".",
+"neden": "Sahabenin yardımı önceki cümlede anlatıldı."
+},
+{
+"op": "replace",
+"pid": 1350,
+"old": "bu defa mektuba",
+"new": "mektuba",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1353,
+"old": "Hele değiştirince cümle daha tanıdık geliyorsa! ",
+"new": "",
+"neden": "Üst üste aforizma, düşünce zaten 1351'de"
+},
+{
+"op": "replace",
+"pid": 1355,
+"old": "Birini cevaplamayınca ötekinden vazgeçmem gerekmiyordu. Fakat ikisini birbirinin yerine de koyamazdım. ",
+"new": "",
+"neden": "Antitez zinciri kısaltıldı"
+},
+{
+"op": "replace",
+"pid": 1388,
+"old": " Bu defa konuyu kapatmak için söylememiştim.",
+"new": "",
+"neden": "“Bu defa” kalıbı, gereksiz açıklama"
+},
+{
+"op": "replace",
+"pid": 1399,
+"old": "Bu defa ona dönüp",
+"new": "Ona dönüp",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1411,
+"old": " Benim korktuğum şeyler de vardı onun içinde, yalnız tek işi onlar değildi.",
+"new": "",
+"neden": "1406'daki tespitin tekrarı"
+},
+{
+"op": "replace",
+"pid": 1420,
+"old": "Demek ki bir insanın görmediği şeyi anlatmak başka, fark etmediğini sanmak başkaydı. ",
+"new": "",
+"neden": "Formül antitez; sonraki cümleler yeterli"
+},
+{
+"op": "replace",
+"pid": 1446,
+"old": "Bu defa bilmediğimi",
+"new": "Bilmediğimi",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1452,
+"old": "Bu defa beni",
+"new": "Beni",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1453,
+"old": " İnsan her kelimeyi bilse de ihtiyacı olduğu anda çağırabilecek miydi?",
+"new": "",
+"neden": "Önceki cümleyi tekrarlayan aforizma"
+},
+{
+"op": "delete",
+"pid": 1458,
+"neden": "Dolgu sahne; gülüş 1457'de zaten var"
+},
+{
+"op": "replace",
+"pid": 1459,
+"old": " İlk defa bir kâğıttaki saati şifreye çevirmedim.",
+"new": "",
+"neden": "1706'daki “ilk defa… şifre” ile mükerrer"
+},
+{
+"op": "replace",
+"pid": 1460,
+"old": "Vildan Hanım bu kez saatini",
+"new": "Vildan Hanım saatini",
+"neden": "“Bu kez” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1461,
+"old": "; bu defa hemen deftere değil",
+"new": ", hemen deftere değil",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1481,
+"old": " Anneme haber vermek için telefonu çıkaracak oldum; vazgeçtim. Önce ne diyeceğimi kendim duymak istiyordum.",
+"new": "",
+"neden": "1460'taki “önce kendim konuşmak” tekrarı"
+},
+{
+"op": "replace",
+"pid": 1483,
+"old": "adı bu defa sahibinin",
+"new": "adı sahibinin",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1486,
+"old": " İnsan yardım istemeye gelince bile karşısındakine hemen yüz vermemeyi bir meziyet sanıyor.",
+"new": "",
+"neden": "“İnsan … sanıyor” aforizma tiki"
+},
+{
+"op": "replace",
+"pid": 1531,
+"old": " Hakan'la konuşmaktan vazgeçmemiştim. Yalnız önce annemi bekleyecektim.",
+"new": "",
+"neden": "Sahnenin gösterdiğini tekrar ediyor"
+},
+{
+"op": "replace",
+"pid": 1535,
+"old": " Bu defa annem yanımdaydı çünkü onu ben aramıştım; burada ne konuşulduğunu henüz bilmiyordu.",
+"new": "",
+"neden": "Bilinen durumun özeti; 1536 yeterli"
+},
+{
+"op": "replace",
+"pid": 1556,
+"old": " İnsan kendi adını söyleyemeyecek kadar korkarken annesinin elini de yanlış anlayabiliyordu.",
+"new": "",
+"neden": "Jesti açıklayan aforizma"
+},
+{
+"op": "replace",
+"pid": 1560,
+"old": " Bir şeyi taşımayı birbirimize bırakabiliyorduk; neye bakacağımızı değil.",
+"new": "",
+"neden": "Formül antitez"
+},
+{
+"op": "replace",
+"pid": 1569,
+"old": "Bu defa ekrandaki",
+"new": "Ekrandaki",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1571,
+"old": " Öğrenciler bir örnek verdiğimi mi sanmışlardı da kimsenin sesi çıkmamıştı?",
+"new": "",
+"neden": "Önceki cümle ve 1576 ile mükerrer soru"
+},
+{
+"op": "replace",
+"pid": 1578,
+"old": "İşte az önce aklımdan geçen de buydu: Boğuluyordum ve öğrencilerden kimse bunun farkında değildi. ",
+"new": "",
+"neden": "1571'deki sihirbaz imgesinin tekrarı"
+},
+{
+"op": "replace",
+"pid": 1592,
+"old": "Bu defa anneme",
+"new": "Anneme",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1594,
+"old": " İlk günkü kadar kolay olmadı bu; kolay olmadığı halde yapılabildi.",
+"new": "",
+"neden": "Dolgu aforizma"
+},
+{
+"op": "replace",
+"pid": 1597,
+"old": "Bu defa bakışımı",
+"new": "Bakışımı",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1621,
+"old": " Fakat bilmekle kendi sabahına kabul etmek arasında bir gece değil, koca bir ömür duruyordu.",
+"new": "",
+"neden": "Formül antitez; 1619 bunu gösteriyor"
+},
+{
+"op": "replace",
+"pid": 1640,
+"old": "Bu defa Muhibbi'nin",
+"new": "Muhibbi'nin",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1642,
+"old": "Ben de bu defa ona",
+"new": "Ben de ona",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1644,
+"old": "yere bu kez gelebilmiştim",
+"new": "yere gelebilmiştim",
+"neden": "“Bu kez” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1649,
+"old": " Ömrümün geri kalanı bir cümleyle düzene girmedi.",
+"new": "",
+"neden": "Olumsuzlama üçlemesi ikiye indirildi"
+},
+{
+"op": "replace",
+"pid": 1668,
+"old": " Bu kez gülmeyişini yanlış anladığımı düşünmedim.",
+"new": "",
+"neden": "“Bu kez” kalıbı, gereksiz yorum"
+},
+{
+"op": "replace",
+"pid": 1689,
+"old": "açtığında annem yanımdaydı. Bu defa cümlelerin",
+"new": "açtığında cümlelerin",
+"neden": "Annenin varlığı 1688'de var; “Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1696,
+"old": " Kimse benden bu iki şeyi aynı dosyaya koymamı istemedi.",
+"new": "",
+"neden": "1695'teki kararın tekrarı"
+},
+{
+"op": "replace",
+"pid": 1698,
+"old": "Bu defa kayıttaki",
+"new": "Kayıttaki",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1713,
+"old": " Birini bulmuş olmak, ötekini de bulmuşum gibi davranmama izin vermiyordu.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı; not 1714'te"
+},
+{
+"op": "replace",
+"pid": 1720,
+"old": " Dünya da o sırada yerinden oynamadı. Belki değişen dünya değildi; ben, bir sesin nerede bittiğini ve ona verdiğim anlamın nerede başladığını ilk kez ayırmaya çalışıyordum.",
+"new": "",
+"neden": "1698/1713/1714'teki tespitin tekrarı"
+},
+{
+"op": "replace",
+"pid": 1733,
+"old": " O ikisini de yapmadı.",
+"new": "",
+"neden": "Dolgu"
+},
+{
+"op": "replace",
+"pid": 1734,
+"old": " Herkes kendi hayatının merkezindeydi. Onların sırları, korkuları ve alışkanlıkları vardı.",
+"new": "",
+"neden": "1737'de aynı düşünce"
+},
+{
+"op": "replace",
+"pid": 1737,
+"old": " Bir romanın kapısını ben açtım diye içindeki herkesin üzerine hüküm veremezdim.",
+"new": "",
+"neden": "Önceki cümlenin tekrarı"
+},
+{
+"op": "replace",
+"pid": 1739,
+"old": "Bu defa kendimi",
+"new": "Kendimi",
+"neden": "“Bu defa” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1739,
+"old": " Görmekle doğrulamak arasındaki çizgiyi unutmadım.",
+"new": "",
+"neden": "Sonraki cümleler aynı ayrımı somutluyor"
+},
+{
+"op": "replace",
+"pid": 1744,
+"old": "Bu kez bir mektubun",
+"new": "Bir mektubun",
+"neden": "“Bu kez” kalıbı"
+},
+{
+"op": "replace",
+"pid": 1781,
+"old": " Bir insanın toparlanması alkış isteyen bir sahne değildi.",
+"new": "",
+"neden": "Önceki cümleyi tekrarlayan aforizma"
+}
+]

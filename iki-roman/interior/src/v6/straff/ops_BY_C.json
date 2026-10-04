@@ -1,0 +1,262 @@
+[
+{
+"op": "replace",
+"pid": 1329,
+"old": " Hafıza günleri yan yana dizer. Hukuk ise her dakikanın arasına bir imza koyar.",
+"new": "",
+"neden": "Usul paragrafı sonunda yığılmış aforizma çifti."
+},
+{
+"op": "replace",
+"pid": 1333,
+"old": " Kişisel bir yan etkiyi bütün tıbbın niyeti, kötü bir deneyimi devletin planı yapmıştı.",
+"new": "",
+"neden": "Aynı karşıtlık 1334'te daha keskin kuruluyor."
+},
+{
+"op": "replace",
+"pid": 1335,
+"old": " Her cümle gerçek bir acıya dokunuyor, sonra acıya uygun bir düşman seçiyordu.",
+"new": "",
+"neden": "Hemen ardından gelen gizli talimatı önceden söylüyor."
+},
+{
+"op": "delete",
+"pid": 1381,
+"neden": "Ek örnekler; 1368'deki tez zaten söylenmişti."
+},
+{
+"op": "delete",
+"pid": 1382,
+"neden": "1381'e bağlı tekrar; aynı tez 1368'de."
+},
+{
+"op": "delete",
+"pid": 1384,
+"neden": "Üst üste üçüncü özdeyiş; 1383 ve 1385 yetiyor."
+},
+{
+"op": "replace",
+"pid": 1386,
+"old": " Sanki yaratılış her kaybın yanına görünmez bir hediye çeki bırakıyordu.",
+"new": "",
+"neden": "Leyla'nın piyango notuyla aynı imge, tekrar."
+},
+{
+"op": "delete",
+"pid": 1389,
+"neden": "Deneme bloğu; Duru'nun ayak/el cümlesi aynı şeyi sahnede söylüyor."
+},
+{
+"op": "replace",
+"pid": 1394,
+"old": " Oysa eşit değerde yaratılmak, eşit yükle sınanmak değildi. İnsanların imkânı, sağlığı, parası, güvenliği ve karşılaştığı şans aynı değildi. Eşit olan, acılarının bir yarışa sokulamayacak değeri ve seçimlerinin başkasının hayatı üzerinde taşıdığı sorumluluktu.",
+"new": "",
+"neden": "Vaaz; terazi cümlesi (1399) aynı fikri diyalogda veriyor."
+},
+{
+"op": "delete",
+"pid": 1395,
+"neden": "1385'teki bedel fikrinin tekrarı."
+},
+{
+"op": "delete",
+"pid": 1402,
+"neden": "Duru'nun cümlesinden sonra açıklayıcı aforizma."
+},
+{
+"op": "replace",
+"pid": 1410,
+"old": " Yazmamakla cevap vermemek de aynı şey değilmiş; insan bazen karşı tarafa göndermediği tartışmayı kendi içinde saatlerce sürdürebiliyordu.",
+"new": "",
+"neden": "Esprinin açıklaması; taslak cümlesi yetiyor."
+},
+{
+"op": "replace",
+"pid": 1419,
+"old": " Nehir'e ilk başta güvenmemiş; ona üç sahte belge verip hangisini yayımlayacağını izlemişti. Nehir hiçbirini yayımlamayınca gerçek kayıtları getirmişti.",
+"new": "",
+"neden": "Tarık'ın geçmişinde ikincil ayrıntı, başka yerde geçmiyor."
+},
+{
+"op": "delete",
+"pid": 1447,
+"neden": "Zeynep'in sözlerini yeniden yorumlayan özet."
+},
+{
+"op": "replace",
+"pid": 1448,
+"old": "Başka bir deyişle destek özgür değildi. Sessizlik teminatıyla verilmişti.",
+"new": "Destek, sessizlik teminatıyla verilmişti.",
+"neden": "“Başka bir deyişle” tekrarı sıkıştırıldı."
+},
+{
+"op": "delete",
+"pid": 1461,
+"neden": "Almanca formül 24. bölümde sahnesiyle veriliyor; önceden söyleme tekrarı."
+},
+{
+"op": "delete",
+"pid": 1462,
+"neden": "Aynı iç metin 24. bölümde (1926) birebir tekrar ediliyor."
+},
+{
+"op": "delete",
+"pid": 1463,
+"neden": "Aynı geçiş 24. bölümde (1927) tekrar ediliyor."
+},
+{
+"op": "delete",
+"pid": 1464,
+"neden": "Aynı iç metin 24. bölümde (1928) birebir tekrar ediliyor."
+},
+{
+"op": "replace",
+"pid": 1529,
+"old": "Nehir, sorumluluğu ölü ablasının üstüne bırakmıyordu. ",
+"new": "",
+"neden": "Nehir'in az önceki cümlesini tekrar ediyor."
+},
+{
+"op": "replace",
+"pid": 1564,
+"old": " Genel bir cümleyi kendine özel sanıyor.",
+"new": "",
+"neden": "1562'deki gösterimin tekrarı."
+},
+{
+"op": "delete",
+"pid": 1566,
+"neden": "Burç örneği fal mekanizmasının tekrarı."
+},
+{
+"op": "delete",
+"pid": 1567,
+"neden": "Burç örneği fal mekanizmasının tekrarı."
+},
+{
+"op": "replace",
+"pid": 1568,
+"old": "“Büyü?”",
+"new": "“Peki büyü?” diye sordu Nehir.",
+"neden": "Burç kesilince konuşanı belirten dikiş."
+},
+{
+"op": "replace",
+"pid": 1570,
+"old": " Enfeksiyona olumlu cümle söylemek antibiyotiğin yaptığı işi yapmaz.",
+"new": "",
+"neden": "Örnek yığını; mermi cümlesi yetiyor."
+},
+{
+"op": "delete",
+"pid": 1573,
+"neden": "Üçüncü beden-beklenti örneği; Leyla'nın uyarısını ikinci kez tekrarlatıyor."
+},
+{
+"op": "delete",
+"pid": 1574,
+"neden": "1570'teki “sınırlı” uyarısının tekrarı."
+},
+{
+"op": "delete",
+"pid": 1575,
+"neden": "Kesilen vaka konuşmasına bağlı."
+},
+{
+"op": "delete",
+"pid": 1576,
+"neden": "Kesilen vaka konuşmasına bağlı."
+},
+{
+"op": "replace",
+"pid": 1577,
+"old": " Aynı bedende bulunmak, bütün odaların anahtarını taşımak mıydı?",
+"new": "",
+"neden": "Kesilen vaka örneğine bağlı soru."
+},
+{
+"op": "delete",
+"pid": 1584,
+"neden": "Kristal bahsi uzatması; ana fikir 1583 ve 1588'de."
+},
+{
+"op": "delete",
+"pid": 1585,
+"neden": "Kristal bahsi uzatması."
+},
+{
+"op": "delete",
+"pid": 1586,
+"neden": "Çakıl örneği 1583'ün tekrarı; para fikri 1593'te."
+},
+{
+"op": "delete",
+"pid": 1587,
+"neden": "Kesilen itiraza yanıt; para/itaat fikri 1593'te."
+},
+{
+"op": "replace",
+"pid": 1592,
+"old": " Özgürlük, etkilenmemek değil; etkiyi gördükten sonra mümkün olan yerde seçim alanını geri kurmaktı.",
+"new": "",
+"neden": "Nehir'in düzeltmesinin ardından ek özdeyiş."
+},
+{
+"op": "delete",
+"pid": 1607,
+"neden": "Ayna benzetmesinin üstüne yığılmış özdeyiş."
+},
+{
+"op": "replace",
+"pid": 1620,
+"old": " Dikkatin nereye bakacağını, bedenin hangi sinyalini büyüteceğini ve insanın yaşadığı şeyi hangi kelimeyle anlatacağını etkiliyordu.",
+"new": "",
+"neden": "Hemen önceki ALGI ÖN TOHUMU maddelerinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 1701,
+"old": " Duru hatta kalıp gördüğünü bize aktarırken, biz dört sokak boyunca aynı doğrultuda ilerledik.",
+"new": "",
+"neden": "Sonraki cümle (dört sokak ötede bulduk) aynı bilgiyi veriyor."
+},
+{
+"op": "replace",
+"pid": 1744,
+"old": " Çocuğumun güçlü olduğu yerden ona ulaşmıştı.",
+"new": "",
+"neden": "Merak cümlesinin tekrarı."
+},
+{
+"op": "delete",
+"pid": 1771,
+"neden": "Sahne sonrası açıklayıcı aforizma; Emir'in cümlesi bölümü kapatıyor."
+},
+{
+"op": "delete",
+"pid": 1858,
+"neden": "“Yoktu/vardı” kalıbı; aynı bölümde 1834-1835'te daha güçlüsü var."
+},
+{
+"op": "replace",
+"pid": 1879,
+"old": " İlacı kesmiş, yeniden almadan kendi hekimine danışmaya karar vermişti.",
+"new": "",
+"neden": "Hemen önce alıntılanan notun özeti."
+},
+{
+"op": "replace",
+"pid": 1968,
+"old": " Mühürlenmiş kitapların ön tarafta olduğunu biliyordum. Yine de bir sayfanın yanışını izlerken insan kopyayla aslı hemen ayıramıyordu.",
+"new": "",
+"neden": "1958'deki “asılları korunuyordu, biliyordum” tekrarı."
+},
+{
+"op": "replace",
+"pid": 1983,
+"old": " İnsan tehlikede yanlış bir şeyi düşündüğünde, kendisini iyi ilan eden yalana değil, seçtiği davranışa tutunmalıydı.",
+"new": "",
+"neden": "“Düşünmek yapmak değildir”in vaaz tekrarı."
+}
+]

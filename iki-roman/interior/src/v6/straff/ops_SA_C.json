@@ -1,0 +1,369 @@
+[
+{
+"op": "replace",
+"pid": 661,
+"old": ", normalde odada sevdiğim doğal ışık tonları anında bu renk ile boğuldular ama gül kokusunun nereden geldiğini bulmak için ortamın daha da aydınlanması gerekiyordu.",
+"new": ".",
+"neden": "Işığı açma gerekçesi iki kez; kokunun kaynağını arama sonraki cümlede var."
+},
+{
+"op": "replace",
+"pid": 661,
+"old": " Bu arayışın bir adı vardı ama benim ilgimi çeken bu değildi.",
+"new": "",
+"neden": "Muğlak ara cümle; sonraki „Kim yolcuymuş…“ aynı şeyi söylüyor."
+},
+{
+"op": "replace",
+"pid": 666,
+"old": " Bunu yazan deli, beni iyi tanıyordu da ben onu bir iki satırla nasıl geçiştirmiş olabilirdim ki?",
+"new": "",
+"neden": "Bir önceki cümlenin tekrarı."
+},
+{
+"op": "replace",
+"pid": 680,
+"old": " Sanırım çay ocağını işleten hacı abinin söyleminden almıştım bu cesareti.",
+"new": "",
+"neden": "„niyeyse“den sonra gereksiz açıklama."
+},
+{
+"op": "replace",
+"pid": 704,
+"old": ", duymazdan gelenin kulakları, en sağlam ses geçirmez surlardan daha kalın duvarlara sahiptir, sözler gülle olsalar nafiledir iyi bilirim.",
+"new": ".",
+"neden": "Üst üste aforizma; ana fikir cümlede zaten var."
+},
+{
+"op": "replace",
+"pid": 707,
+"old": ", duymuştum ama kendime gelemiyordum.",
+"new": ".",
+"neden": "„Sesini duymuş, uyanamamıştım“ tekrarı."
+},
+{
+"op": "replace",
+"pid": 707,
+"old": "Ama bu defa durum farklıydı, diğer halüsinasyonlar gibi değildi bu seferinde.",
+"new": "Ama bu defa durum farklıydı.",
+"neden": "Aynı cümle içinde çift söyleyiş."
+},
+{
+"op": "replace",
+"pid": 707,
+"old": " Bu olanlara anlam veremedim ama bunu asla umursamadım çünkü anlattıkları öyle bir uyuşturucuydu ki acımı silip atmakla kalmıyor, beni hafifletiyordu.",
+"new": "",
+"neden": "„Yüküm hafifledi“ tekrarı."
+},
+{
+"op": "replace",
+"pid": 709,
+"old": " Neyse çok sonları aklımca bir cevap bulmuştum; bütün o miskin, müptezel günlerimde, cami avlusunu çepeçevre saran rahmet belki beni de sarmıştı. Uyuyan bedenimdi ve asla uyumayan ruhum hocanın her vakit okuduğu duaları dinledi, belki âmin dedi, belki nasihat edindi, sonunda da zahirde böyle ceylan olarak tezahür etti.",
+"new": "",
+"neden": "Açıklama kilitli 713'te (dualar, aminler) zaten veriliyor; erken tekrar."
+},
+{
+"op": "replace",
+"pid": 709,
+"old": " İşte bundan dolayı yarım kalır bütün mecazi aşklar, aslında yarım kalmaz, yarımdır ve biz bunu birbirimize âşık olarak tamam etmeye çalışırız beyhude bir şekilde.",
+"new": "",
+"neden": "703'teki yarım/mecazi aşk fikrinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 709,
+"old": " Allah bu sahte aşk acısı ile mecazen aşıkları ayırmaz, aslında kendine yaklaştırır ve maalesef pek azımız ona ulaşır eski dostum.",
+"new": "",
+"neden": "Vaaz tekrarı; meczup/veli cümlesi kalıyor."
+},
+{
+"op": "split_chapter",
+"pid": 716,
+"title": "SOLUCAN",
+"neden": "Hodri'nin mektubu imzayla biter; anlatıcının öfke-nöbet-solucan krizi kendi bölümü olur."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Kan şekerim düşmüş, halim mecalim kalmamıştı.",
+"new": "",
+"neden": "Hemen sonra „Düşen kan şekerim“ diye tekrar ediliyor."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Etrafımda bir şeyler dönüyordu ama niye dönsün ki?",
+"new": "",
+"neden": "Kumpas sorusunun tekrarı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " ama olaylar sanki direkt benimle alakalı gibime geliyordu.",
+"new": ".",
+"neden": "Mahkeme imgesinden sonra gereksiz açıklama."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Suç olmayınca suçlu da olmuyor haliyle, suçun ve suçlunun olmadığı bir mahkeme ne anlam taşırdı ki?",
+"new": "",
+"neden": "„Ortada tek bir eksik vardı; suç!“ yeterli; tekrar."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": "Tanımadığım bir delinin mektupları içinde ne ara benden bahsetmesine sıra gelmişti, anlam veremediğim bu anafordan çıkmakta niye bu kadar zorlanıyordum, sahi ben niye",
+"new": "Sahi ben niye",
+"neden": "Öfke monoloğunda tekrar eden sorular kısaltıldı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Ne halt etmeye katlanıyorum bunca zahmete.",
+"new": "",
+"neden": "„Niye bunların mücadelesi içindeyim“ ile aynı soru."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": "son birkaç aydır zaten kabuğuma çekilmiş ki bu kabuğuma çekilmiş halimin sebebini çözmek varken, hatta belki de benim bir tedaviye",
+"new": "belki de bir tedaviye",
+"neden": "Bilinen içe kapanmanın özeti; tekrar."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " hasılı var oğlu varken,",
+"new": "",
+"neden": "Dolgu."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Daha işim gücüm yok, bunlarla mı uğraşacağım.",
+"new": "",
+"neden": "Aynı itirazın tekrarı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Başta ailem, doktorlar, hademeler, öğrenciler, herkes ama herkes en başından beri sebebini bilmediğim şekilde gereksiz bir tuzağa çekiyorlar beni.",
+"new": "",
+"neden": "Bir önceki „herkes kumpasta“ cümlesinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Bu kadar mı önemli unvanlar, bu kadar mı aşağılık oldu insanlar.",
+"new": "",
+"neden": "Unvan şikâyeti „Hocalar, üstatlar…“ ile kalıyor; tekrar."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Herkes birilerini bir yerlere konumlandırmak pahasına burada beni de vaktimi de saygımı da harcıyor, niye harcıyor bu insanlar beni, ne istiyorlar benden?",
+"new": "",
+"neden": "Saygı/teveccüh şikâyetinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 716,
+"old": " Nasılsa onun ardına düşecek, başhekimlik odasından içeri girince aslında başhekim olduğunu Sefa anlayacak, “Aaa! Müthiş tevazulu, benimle yaşıt ama koca bir profesör” diye düşündürecek bana.",
+"new": "",
+"neden": "Gizli kibir fikri önceki cümlede söylendi; açıklama tekrarı."
+},
+{
+"op": "replace",
+"pid": 717,
+"old": " Hatta bir ara o mektupları yazan herifi bulup, ağzını burnunu kırmak da geçmişti içimden, peki ben ne yapmıştım?",
+"new": " Peki ben ne yapmıştım?",
+"neden": "Öfke hayallerinin üçüncü tekrarı."
+},
+{
+"op": "replace",
+"pid": 717,
+"old": " İyi ki oturmuşum, tek şeyi doğru tahmin etmiştim, o da birazdan kendimden geçeceğimdi.",
+"new": "",
+"neden": "Bir önceki cümlenin tekrarı."
+},
+{
+"op": "replace",
+"pid": 717,
+"old": "Süresini bilmiyordum, çünkü bayılmanın",
+"new": "Bayılmanın",
+"neden": "„Süresini bilmediğim“ hemen önce söylendi."
+},
+{
+"op": "delete",
+"pid": 721,
+"neden": "Dolgu replik."
+},
+{
+"op": "delete",
+"pid": 722,
+"neden": "Dolgu replik."
+},
+{
+"op": "delete",
+"pid": 731,
+"neden": "Reddediş 730'da söylendi; tekrar."
+},
+{
+"op": "delete",
+"pid": 732,
+"neden": "Reddediş 730'da söylendi; tekrar."
+},
+{
+"op": "replace",
+"pid": 734,
+"old": " Herkes, her şeyin farkında mıydı bilmiyordum ama gerçekten de umurumda değildi.",
+"new": "",
+"neden": "„Umurumda değildi“ kalıbının tekrarı."
+},
+{
+"op": "replace",
+"pid": 734,
+"old": ", bir şeyler ters gidiyordu, ruh halim karmaşık, zihnim bulanık, yetmezmiş gibi hiçbir şey yapmak istemiyordum.",
+"new": ", ruh halim karmaşık, zihnim bulanıktı.",
+"neden": "„İçimden gelmiyordu“ tekrarı; dikiş."
+},
+{
+"op": "replace",
+"pid": 735,
+"old": "İnsanlar için emek verdim, en çok da yakınımda yöremde olanlar, kıymet verdiklerim, karşılığı neydi bunların, emek vermek yormuyor da insanı, alamadığı karşılık yoruyormuş, o da sadece saygı; işte sadece bunu biliyordum. ",
+"new": "",
+"neden": "Saygı şikâyeti öfke monoloğunda var; öz-hesap sözlerle başlıyor."
+},
+{
+"op": "replace",
+"pid": 753,
+"old": "Mevcut ilminden keyif alan bir kişiye Alim denirdi ve henüz dünyada",
+"new": "Henüz dünyada",
+"neden": "Araya giren tanım; soru tek başına daha güçlü."
+},
+{
+"op": "replace",
+"pid": 753,
+"old": " Allah’ım affet, senin sevgin, merhametinden mahrum olmak, dahası rızanı kazanmadan ölmek dehşet.",
+"new": "",
+"neden": "Rıza korkusu 735'te ve sonraki cümlede var; „ömür sermayesi“ (bkz. 35) kalıyor."
+},
+{
+"op": "replace",
+"pid": 759,
+"old": "Yahu, kâğıt",
+"new": "Kâğıt",
+"neden": "„Yahu“ tiki."
+},
+{
+"op": "replace",
+"pid": 762,
+"old": ", düşünmekte bereket, tefekkürde rahmet vardır, üstelik düşünmek kapıyı açar",
+"new": ", düşünmek kapıyı açar",
+"neden": "Üst üste antitez; en güçlüsü (kapı) kalıyor."
+},
+{
+"op": "replace",
+"pid": 762,
+"old": " Gerçeklik senin yorumundur ancak… Ve ancak hakikat algılarının üstünde olandır, sen gerçeği değil,",
+"new": " Sen gerçeği değil,",
+"neden": "Gerçek/hakikat ayrımı önceki cümlede söylendi; tekrar."
+},
+{
+"op": "replace",
+"pid": 767,
+"old": "İşte insanı insana getiren şey bazen hikmetli bir söz, bazen de ağzındaki kekremsi tattır. Ölümü",
+"new": "Ölümü",
+"neden": "765'teki „beden felsefeyi susturur“ fikrinin tekrarı."
+},
+{
+"op": "replace",
+"pid": 767,
+"old": " Belki de iyi ki böyleydi. Yoksa iki güzel cümle kuran herkes, ayağının yerden kesildiğini sanıp kendini göklere yazardı. Ben de yazmıştım elbette; hem de yerden bir karış yükselmeden, göğün tapusunu cebime koymuş gibi sözler söylemiştim.",
+"new": "",
+"neden": "Büyük sözler öz-eleştirisi önceki bölümde yapıldı; tekrar."
+},
+{
+"op": "replace",
+"pid": 768,
+"old": " Musluktan akan suyun bir kısmı yüzümden lavaboya, bir kısmı dirseklerimden yere indi.",
+"new": "",
+"neden": "İşlevsiz sahne ayrıntısı."
+},
+{
+"op": "replace",
+"pid": 777,
+"old": " ve kahvaltıya indim.",
+"new": ".",
+"neden": "„Bahçeye indim“ 779'da; çift iniş."
+},
+{
+"op": "delete",
+"pid": 778,
+"neden": "Aforizma; 779 aynı düşünceyi işliyor."
+},
+{
+"op": "replace",
+"pid": 779,
+"old": "Yahu düşünsenize, adam hastanenin içinde, başhekim bir üst katta, acil servis birkaç bina ötede ama o, “Beni bir ihtiyar kahvaltıda bekliyor” diye bayılma nöbetini saklıyor. Bunun",
+"new": "Bunun",
+"neden": "777'deki „Normal bir insan doktora giderdi“nin tekrarı; „Yahu“."
+},
+{
+"op": "replace",
+"pid": 779,
+"old": " Cimriliğe tedbir, korkaklığa temkin, kibre özgüven diyen de aynı insan değil mi?",
+"new": "",
+"neden": "Üst üste antitez; kendi örnekleri yetiyor."
+},
+{
+"op": "replace",
+"pid": 834,
+"old": " Ya da sevdiğin biri yalan söylese, sevgin yalanı doğru mu yapar?",
+"new": "",
+"neden": "İkinci örnek; birincisi yetiyor."
+},
+{
+"op": "replace",
+"pid": 834,
+"old": " Terazinin iki kefesine de kendi nefsimizi koyup adalet bekliyoruz.",
+"new": "",
+"neden": "Bir önceki cümlenin imgeyle tekrarı."
+},
+{
+"op": "replace",
+"pid": 875,
+"old": " Hakikat bunlardan birini seçip beni rahatlatmalıydı aklımca.",
+"new": "",
+"neden": "Önceki cümlelerde söylendi."
+},
+{
+"op": "replace",
+"pid": 905,
+"old": " Bulutken su, denizdeyken su, gözünden akarken yaş, alnından akarken ter, ağzından çıkarken sözün buharı… Adı değişiyor, hâli değişiyor, su nereye gitti sanıyorsun? İnsan adını değiştirdiği şeyi başka bir şey zannediyor.",
+"new": "",
+"neden": "906'da aynı liste ve fikir (ad/kap) işleniyor."
+},
+{
+"op": "replace",
+"pid": 906,
+"old": " Dar sorunun cevabı kolay olur, insanı da daraltır.",
+"new": "",
+"neden": "Üst üste aforizma."
+},
+{
+"op": "replace",
+"pid": 937,
+"old": " İnsan bazen kendisine anlatılmayan şeyi ne güzel işitiyordu.",
+"new": "",
+"neden": "Önceki cümlenin aforizma tekrarı."
+},
+{
+"op": "replace",
+"pid": 949,
+"old": "Yahu sen benim sesimsin",
+"new": "Sen benim sesimsin",
+"neden": "„Yahu“ tiki."
+}
+]
