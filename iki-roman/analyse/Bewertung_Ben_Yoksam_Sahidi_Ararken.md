@@ -1,5 +1,7 @@
 # BEN YOKSAM und ŞAHİDİ ARARKEN – Logik, Mystik, Spannung: einzeln und als Doppelwerk
 
+**Hinweis zu Fassung v6 (04.10.2026):** Dieser Bericht bewertet die Manuskriptstände v1–v3 (YOLCU v4 / ŞAHİT v5 unterscheiden sich davon nur durch die neuen Titel und Sefas 17 kleine Änderungen). Danach wurden beide Bücher ohne Plotänderung um rund 9 % gestrafft, ŞAHİT auf Sefas „Edisyon“ umgestellt, alle Nahtstellen unabhängig gegengeprüft, die Befunde einer neuen fünfköpfigen Jury eingearbeitet und beide Texte vollständig korrigiert (Änderungsliste `Degisiklik_Listesi_v6.pdf`). Die aktuelle Bewertung der Endfassungen steht in **`Juri_v6.pdf`**; Kapitel- und Zeilenangaben dieses Berichts beziehen sich auf die alten Fassungen. Viele der hier unter „Empfehlungen“ geführten Punkte (Kap. 5, Essayblöcke, HODRİ-Teilung, Lanzenregel, „Rava kalbi“, Besmele-Markierung, drei Romane, Sessiz Ses, Zahlenambivalenz im Finale) sind in v6 umgesetzt.
+
 **Fassung 2.2 (01.10.2026).** Ersetzt Fassung 1. Neu: die adversariale Gegenprüfung der wichtigsten Befunde ist gelaufen (Abschnitt 8), die Punktwerte sind entsprechend korrigiert, die minimalen Manuskriptkorrekturen der Fassungen v2 und v3 (Abschnitt 6) sind berücksichtigt, und die unabhängige Jury-Bewertung liegt vor (Abschnitt 2).
 
 **Titeländerung (01.10.2026):** Die Bücher heißen jetzt **YOLCU** (vormals BEN YOKSAM; Untertitel „1453 — Uyanışın Bedeli“ bleibt) und **ŞAHİT** (vormals ŞAHİDİ ARARKEN). Dieser Bericht behält die Arbeitstitel und die Kürzel BY/SA, weil alle Zitate, Kapitelangaben und Prüfprotokolle darauf verweisen.
