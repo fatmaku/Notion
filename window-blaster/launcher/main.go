@@ -96,6 +96,7 @@ func run(cfg config) error {
 			return fmt.Errorf("die alte Version läuft noch. Bitte das andere Terminal-Fenster schließen (im Terminal: ⌘ + Q) und diese Startdatei erneut starten")
 		}
 	}
+	freeOldServers(cfg.httpPort, cfg.httpsPort)
 	httpLn, httpPort, err := listenFirst(cfg.httpPort)
 	if err != nil {
 		return err
@@ -103,6 +104,9 @@ func run(cfg config) error {
 	httpsLn, httpsPort, err := listenFirst(cfg.httpsPort)
 	if err != nil {
 		return err
+	}
+	if httpPort != cfg.httpPort {
+		fmt.Printf("⚠️  Port %d ist belegt – die Mac-Adressen lauten diesmal http://localhost:%d/…\n", cfg.httpPort, httpPort)
 	}
 	if httpsPort != cfg.httpsPort {
 		fmt.Printf("⚠️  Port %d ist von einem anderen Programm belegt – nutze %d. Ein Handy, das schon eingerichtet war, braucht dann die neue Adresse.\n", cfg.httpsPort, httpsPort)

@@ -76,8 +76,31 @@ func (s *server) handler(isTLS bool) http.Handler {
 	mux.Handle("/", s.appHandler())
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		s.track(r, isTLS)
+		if isTLS && s.macBrowserNavigation(r) {
+			// The Mac's own browser opened https://localhost:8443/… (the address of the old
+			// version, often from the browser history): its certificate is meant for phones –
+			// send it to the plain address that works on the Mac without any warning.
+			http.Redirect(w, r, fmt.Sprintf("http://localhost:%d%s", s.httpPort, r.URL.RequestURI()), http.StatusFound)
+			return
+		}
 		mux.ServeHTTP(w, r)
 	})
+}
+
+// macBrowserNavigation: a page load (not a fetch) from a browser on this Mac via localhost.
+func (s *server) macBrowserNavigation(r *http.Request) bool {
+	ip := remoteIP(r)
+	if ip == nil || !ip.IsLoopback() {
+		return false
+	}
+	host := r.Host
+	if h, _, err := net.SplitHostPort(host); err == nil {
+		host = h
+	}
+	if host != "localhost" && host != "127.0.0.1" {
+		return false
+	}
+	return r.Header.Get("Sec-Fetch-Mode") == "navigate" || (r.Header.Get("Sec-Fetch-Mode") == "" && strings.Contains(r.Header.Get("Accept"), "text/html"))
 }
 
 // ---------------------------------------------------------------- app files

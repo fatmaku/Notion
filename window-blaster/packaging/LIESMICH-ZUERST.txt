@@ -12,6 +12,9 @@ WINDOW BLASTER – SO STARTEST DU ES
 
 2) Es öffnet sich im Browser die Seite "Handy verbinden" mit einem QR-Code.
    Das Terminal-Fenster offen lassen.
+   Adresse am Mac:  http://localhost:8080/verbinden
+   (NICHT die alte Adresse https://localhost:8443 – die gehört zur alten
+   Version; ihr Server wird beim Start automatisch beendet.)
 
 3) Handy ins gleiche WLAN wie den Mac (mobile Daten am besten kurz aus),
    mit der Handy-Kamera den QR-Code scannen und der Handy-Seite folgen.

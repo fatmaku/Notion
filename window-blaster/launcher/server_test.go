@@ -10,8 +10,10 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"testing"
 	"time"
@@ -420,4 +422,67 @@ func TestNewerStartTakesOverFromOldVersion(t *testing.T) {
 		}
 	}
 	_ = doneB
+}
+
+func TestOldCaddyServerIsStoppedOthersLeftAlone(t *testing.T) {
+	if _, err := exec.LookPath("lsof"); err != nil {
+		t.Skip("no lsof")
+	}
+	py, err := exec.LookPath("python3")
+	if err != nil {
+		t.Skip("no python3")
+	}
+	dir := t.TempDir()
+	start := func(name string) (int, *exec.Cmd) {
+		bin := filepath.Join(dir, name)
+		b, _ := os.ReadFile(py)
+		if err := os.WriteFile(bin, b, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		ln, _ := net.Listen("tcp", "127.0.0.1:0")
+		port := ln.Addr().(*net.TCPAddr).Port
+		ln.Close()
+		cmd := exec.Command(bin, "-m", "http.server", strconv.Itoa(port))
+		cmd.Dir = dir
+		if err := cmd.Start(); err != nil {
+			t.Fatal(err)
+		}
+		t.Cleanup(func() { _ = cmd.Process.Kill(); _, _ = cmd.Process.Wait() })
+		for i := 0; i < 50 && portFree(port); i++ {
+			time.Sleep(100 * time.Millisecond)
+		}
+		return port, cmd
+	}
+	oldPort, old := start("caddy-linux-amd64")
+	otherPort, _ := start("someserver")
+	go func() { _, _ = old.Process.Wait() }()
+	freeOldServers(oldPort, otherPort)
+	if !portFree(oldPort) {
+		t.Fatal("old Window Blaster server still holds its port")
+	}
+	if portFree(otherPort) {
+		t.Fatal("an unrelated program was stopped")
+	}
+}
+
+func TestMacBrowserOnOldHTTPSAddressIsRedirected(t *testing.T) {
+	ca, _, _ := loadOrCreateCA(t.TempDir())
+	h := newServer(testApp(t), ca, 8080, 8443).handler(true)
+	r := httptest.NewRequest("GET", "https://localhost:8443/?demo=1", nil)
+	r.RemoteAddr = "127.0.0.1:5000"
+	r.Header.Set("Sec-Fetch-Mode", "navigate")
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, r)
+	if rec.Code != http.StatusFound || rec.Header().Get("Location") != "http://localhost:8080/?demo=1" {
+		t.Fatalf("got %d %q", rec.Code, rec.Header().Get("Location"))
+	}
+	// phones (not loopback) and fetches keep HTTPS
+	r2 := httptest.NewRequest("GET", "https://192.168.1.5:8443/", nil)
+	r2.RemoteAddr = "192.168.1.9:5000"
+	r2.Header.Set("Sec-Fetch-Mode", "navigate")
+	rec2 := httptest.NewRecorder()
+	h.ServeHTTP(rec2, r2)
+	if rec2.Code != http.StatusOK {
+		t.Fatalf("phone got %d", rec2.Code)
+	}
 }
