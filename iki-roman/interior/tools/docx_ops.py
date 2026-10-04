@@ -191,6 +191,21 @@ def apply(doc, ops, log, locked=frozenset()):
                         r.text = t
                         if t:
                             break
+            elif kind == "regex_all":
+                # Muster innerhalb einzelner Runs ersetzen, in Absätzen zwischen zwei Ankern (einschließlich)
+                import re as _re
+                ps = doc.paragraphs
+                els = [q._element for q in ps]
+                a = els.index(find_par(doc, op["from"])._element)
+                b = els.index(find_par(doc, op["to"])._element)
+                n = 0
+                for q in ps[a:b + 1]:
+                    for r in q.runs:
+                        t2, k = _re.subn(op["pattern"], op["repl"], r.text)
+                        if k:
+                            r.text = t2; n += k
+                if n != op.get("count", n):
+                    raise OpError(f"{n} Ersetzungen statt {op['count']}")
             elif kind == "style":
                 p = find_par(doc, op["match"], op.get("nth"))
                 p.style = doc.styles[ensure_style(doc, op["style"])]

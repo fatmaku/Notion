@@ -1,0 +1,73 @@
+[
+ {
+  "op": "replace",
+  "old": "Emir ulaştıktan sonra gri paltolunun",
+  "new": "Arama emri ulaştıktan sonra gri paltolunun",
+  "kap": "16. Görmek ile Yetişmek Arasındaki Mesafe",
+  "neden": "Cümle başındaki „Emir“ oğul Emir gibi okunuyordu (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "ikincisinde Yusuf'la beyaz kitabın sayfalarını tasnif ediyor,",
+  "new": "ikincisinde kütüphanede sınava çalışıyor,",
+  "kap": "35. Kızımın Dosyası",
+  "neden": "40. bölüme göre anlatıcı 19 yaşında belgeleri Yusuf'a bırakıp hayatına dönmüştü; babası öldüğünde (20) Yusuf'la çalışıyor olması çelişkiydi ve 40'taki açıklamayı önceden veriyordu (iki jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Leyla'nın Berlin'de sorduğu soru geri döndü:",
+  "new": "Leyla'nın son görüşmemizde sorduğu soru geri döndü:",
+  "kap": "39. ŞAMAN",
+  "neden": "5. bölümde soru „son yüz yüze görüşmemizde“ soruluyor, Berlin'de değil (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "üstüne yalnızca ",
+  "new": "üstüne ",
+  "kap": "1. Sonmuş Gibi Sıradan Bir Sabah",
+  "neden": "4. bölümde zarflarda isimler, 28'de „Ben açamazsam ölüm belgesiyle açın“ notu var; „yalnızca“ çelişki yaratıyordu (jüri).",
+  "match": "zarfın üstüne yalnızca"
+ },
+ {
+  "op": "replace",
+  "old": "İstanbul'dan Edirne'ye, 14.53.",
+  "new": "Edirne'den İstanbul'a, 14.53.",
+  "kap": "12. Yedi Yıl Önce Çaldığım Kapı",
+  "neden": "14.53'te İstanbul'dan kalkan trenle aynı akşam dönüp okul gösterisinin son beş dakikasına yetişmek mümkün değildi; dönüş treni 14.53 (yön de 1453'ün yönü) (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "İlk rapor normal görünmüştü.",
+  "new": "İlk rapor normal görünmüştü. Nehir'e “Doktor, yaşım için fena olmadığımı söyledi,” derken bu cihazdan hiç söz etmemiştim.",
+  "kap": "44. Bedenin Bildiği Tarih",
+  "neden": "4. bölümdeki „yaşım için fena değilim“ sözü ile iki ay önce takılan cihaz arasındaki çelişki, anlatıcının saklaması olarak açıklanıyor (iki jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Tünelin çıkışında Nehir bekliyordu.",
+  "new": "Nehir önden koşmuş, tünelin çıkışında arabanın kapısını açık tutuyordu.",
+  "kap": "42. Labirentin Emanetleri",
+  "neden": "Nehir grupla birlikte batı kapısından çıkıyordu; çıkışta „bekliyor“ olması çelişkiydi (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "“Çocuğun kayıp. Kavganızı sonra yaparsınız.”",
+  "new": "“Çocuğun kayıp,” dedi Duru telefondan. “Kavganızı sonra yaparsınız.”",
+  "kap": "21. Bir Hata, İki Kız Kardeş",
+  "neden": "Konuşan belli değildi (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "“Bu kez oturan bendim. İmzayı atınca geçmişi kapattığımı sandım.”",
+  "new": "“Hareketi de hatırlamak istemedim. İmzayı atınca geçmişi kapattığımı sandım.”",
+  "kap": "37. Görünmeyen Kameranın Gördüğü",
+  "neden": "„Bu kez oturan bendim“ anlaşılmıyordu (iki jüri); bir önceki cümleye (hareket) ve devamındaki „kaçınma“ya bağlandı."
+ },
+ {
+  "op": "replace",
+  "old": "Sonra yeniden bir kapı sezdim. Kolu yoktu.",
+  "new": "Sonra yeniden bir kapı sezdim. Kolu yoktu. Başka bir bedenin kapısı değildi bu; kitabın başına dönen, okunduğu her yerde yeniden açılan kapıydı.",
+  "kap": "50. Boş Bırakılan Son Cümle",
+  "neden": "Pasaj tenasüh (ruh göçü) gibi okunabiliyordu (iki jüri); kapı, kitabın BAŞA DÖN şifresine bağlandı."
+ }
+]

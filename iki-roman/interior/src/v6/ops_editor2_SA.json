@@ -1,0 +1,169 @@
+[
+ {
+  "op": "replace",
+  "old": "Dosyanın bir sayfasında şizofreni tanısını gördüm.",
+  "new": "Dosyanın bir sayfasında şizofreni ön tanısını gördüm.",
+  "kap": "HAKİKAT MEDENİ",
+  "neden": "Beyindeki oluşum ve nöbetler henüz netleşmemişken kesin tanı klinik olarak tutarsız; „ön tanı“ (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Bu tanı Hakan’a mı aitti yoksa bana mı?",
+  "new": "Bu ön tanı Hakan’a mı aitti yoksa bana mı?",
+  "kap": "HAKİKAT MEDENİ",
+  "neden": "Aynı."
+ },
+ {
+  "op": "replace",
+  "old": "Hakan Hoca'nın sol ayağı eşiğe hafifçe takıldı.",
+  "new": "Hakan Hoca'nın sağ ayağı eşiğe hafifçe takıldı.",
+  "kap": "DAKTİLO",
+  "neden": "Oluşum konuşma bölgesine yakın (sol yarıküre); motor belirti sağ tarafta olur (jüri, nöroloji)."
+ },
+ {
+  "op": "replace",
+  "old": "Birkaç defa da sol ayağınız eşiğe sürttü.",
+  "new": "Birkaç defa da sağ ayağınız eşiğe sürttü.",
+  "kap": "VİLDAN'IN GÖRDÜĞÜ",
+  "neden": "Aynı (DAKTİLO ile uyumlu)."
+ },
+ {
+  "op": "replace",
+  "old": "Saat öğlene geliyor gibiydi, bıyıklarıma",
+  "new": "Saatin kaç olduğunu bilmiyordum; bıyıklarıma",
+  "kap": "SOLUCAN",
+  "neden": "ON BİR'de saat 10.44 okunuyor; nöbet sonrası „öğlene geliyor gibiydi“ izlenimi okurda çelişki gibi duruyordu (iki jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Ertesi gün Psikiyatr Dr. Hakikat Bey’e",
+  "new": "Ertesi gün Prof. Dr. Hakikat Bey’e",
+  "kap": "ÜÇ VURUŞ",
+  "neden": "KAYIT'taki unvanla aynı („Prof. Dr. Hakikat Medeni“)."
+ },
+ {
+  "op": "replace",
+  "old": "“Hani konuşmakta zorlandığını ve çalışmak istemediğini söylemiştin ya…",
+  "new": "“Hani konuşmakta zorlandığını, kabuğuna çekildiğini ve çalışmak istemediğini söylemiştin ya…",
+  "kap": "TECRİT ODASI",
+  "neden": "Hemen ardından gelen „Kabuk derken hocam?“ sorusunun dayanağı (AZ ÇOK'taki „kabuğuma çekilmiştim“ sözünü Hakan geri veriyor); iki jüri „kimse kabuk demedi“ diye işaretledi."
+ },
+ {
+  "op": "replace",
+  "old": "Hicaz bölgesine gidecek olan Yahudi bir kervancı başı ile tanışır.",
+  "new": "Hicaz bölgesine gidecek olan Kelb kabilesinden bir kervancı başı ile tanışır.",
+  "kap": "SUSAYANIN YOLU",
+  "neden": "Kaynaklarda (İbn İshak) Selman'ı köle olarak satan Kelbli tüccarlardır; Yahudi'ye satılır (jüri: olgu düzeltmesi)."
+ },
+ {
+  "op": "replace",
+  "old": "Yahudi kervancı başı, sözünde durmayarak Mabeh’i köle olarak satmıştır. Yesrib’e götürülen Mabeh, bir hurma bahçesinde çalıştırılmak üzere, yine bir Yahudi’ye satılmıştır.",
+  "new": "kervancı başı, sözünde durmayarak Mabeh’i Vâdi’l-Kurâ’da bir Yahudi’ye köle olarak satmıştır. Yesrib’e götürülen Mabeh, bir hurma bahçesinde çalıştırılmak üzere, o adamın amcasının oğluna satılmıştır.",
+  "kap": "SUSAYANIN YOLU",
+  "neden": "Aynı (kaynaktaki sıra)."
+ },
+ {
+  "op": "replace",
+  "old": "Amuriye (Sivrihisar) taraflarında",
+  "new": "Amuriye (bugünkü Emirdağ yakınları) taraflarında",
+  "kap": "SUSAYANIN YOLU",
+  "neden": "Amorium Sivrihisar değil, Emirdağ'a bağlı Hisarköy'dedir (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Arap lisanını bilmeyen Mabeh bir tercüman ister",
+  "new": "derdini Arap lisanıyla anlatamayan Mabeh bir tercüman ister",
+  "kap": "SUSAYANIN YOLU",
+  "neden": "Mabeh daha önce Araplarla konuşuyor; „hiç bilmeyen“ çelişkiydi."
+ },
+ {
+  "op": "replace",
+  "old": "isli ateşlerden libaslar",
+  "new": "dumansız ateşlerden libaslar",
+  "kap": "FİT NE?",
+  "neden": "Cinler/şeytan „dumansız ateşten“ (mâric min nâr) yaratılmıştır (jüri)."
+ },
+ {
+  "op": "regex_all",
+  "from": "MIZRAĞIN İKİ UCU",
+  "to": "SUSAYANIN YOLU",
+  "pattern": "(?<!Bin )Baura’nın",
+  "repl": "Belam’ın",
+  "count": 8,
+  "kap": "MIZRAĞIN İKİ UCU",
+  "neden": "„Baura“ Belam'ın babasının adı (Belam Bin Baura); kişiye „Baura“ denmesi yanlış (jüri)."
+ },
+ {
+  "op": "regex_all",
+  "from": "MIZRAĞIN İKİ UCU",
+  "to": "SUSAYANIN YOLU",
+  "pattern": "(?<!Bin )Baura(?![’'])",
+  "repl": "Belam",
+  "count": 8,
+  "kap": "MIZRAĞIN İKİ UCU",
+  "neden": "Aynı."
+ },
+ {
+  "op": "replace",
+  "old": "Belam’ın güzel karısı kapıyı açtı",
+  "new": "Güzel karısı kapıyı açtı",
+  "kap": "MIZRAĞIN İKİ UCU",
+  "neden": "Ad düzeltmesinden sonra arka arkaya iki „Belam’ın“ kalmasın."
+ },
+ {
+  "op": "replace",
+  "old": "çünkü inançlarına göre dünyaya yani bu aleme geliş bir günahtır.",
+  "new": "çünkü inançlarına göre insan, Âdem’den miras kalan bir günahla dünyaya gelir.",
+  "kap": "OKU",
+  "neden": "Hristiyan „asli günah“ inancı doğru aktarıldı (jüri); Muhibbi'nin karşılaştırması aynen duruyor."
+ },
+ {
+  "op": "replace",
+  "old": "Ben alıştığım tamlamayı araya sokmuş, okuduğumu düzeltirken kendimi doğru sanmıştım.",
+  "new": "Ben alıştığım tamlamayı araya sokmuş, okuduğumu düzeltirken kendimi doğru sanmıştım. Oysa âlemlere rahmet olmak Peygamber’in sıfatıydı; mektubu yazan el, o sıfatı besmelenin içine taşımıştı.",
+  "kap": "MEKTUBU KİM YAZDI?",
+  "neden": "Kalın harf şifresindeki ifade Peygamber'in sıfatı; anlatıcı bunu yazanın hatası olarak işaretliyor (jüri önerisi; şifre değişmedi)."
+ },
+ {
+  "op": "replace",
+  "old": "Acil serviste tansiyonum, şekerim, ateşim ölçüldü.",
+  "new": "Acil servisin duvarları soluk yeşildi. Hakan Hoca plastik bir bardakla su uzattı; içtim. Tansiyonum, şekerim, ateşim ölçüldü.",
+  "kap": "KAYIT",
+  "neden": "İki kitap köprüsü: YOLCU 12'deki „Yeşil oda … Su uzatan bir doktor … ‘Hakan’ … plastik bardak“ sahnesi ŞAHİT'te bu acil odasına bağlanıyor (çift jürisi)."
+ },
+ {
+  "op": "replace",
+  "old": "Sahnedeki kayıtta metale üç kez vuruluyor, ardından biri su istiyordu.",
+  "new": "Sahnedeki kayıtta metale üç kez vuruluyor, sonra biri su istiyordu.",
+  "kap": "MEKTUBU KİM YAZDI?",
+  "neden": "YOLCU 12'de alıntılanan cümleyle harfi harfine aynı."
+ },
+ {
+  "op": "insert_after",
+  "match": "Bir kenar notu yazdım: Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.",
+  "text": "Altına boş bir sandalye çizdim.",
+  "kap": "KÂĞIDIN ÖTE YANI",
+  "neden": "YOLCU 5'te aynı notun altında „boş bir sandalye“ çizili; köprü tamamlandı (çift jürisi)."
+ },
+ {
+  "op": "replace",
+  "old": "Adam başını çevirdi; içeriden çocuğunun sesini duydu. Paketle ilgili sorumu orada bırakıp çocuğa gitti.",
+  "new": "Adam başını çevirdi; içeriden bir çocuk sesi duydu. Paketle ilgili sorumu orada bırakıp sese gitti.",
+  "kap": "SU",
+  "neden": "YOLCU 2'de paket geldiğinde çocuklar evde değil; „bir çocuk sesi“ iki kitapla da uyumlu."
+ },
+ {
+  "op": "replace",
+  "old": "O dünyaya bir profesör girmişti.",
+  "new": "O dünyaya bir doktor girmişti.",
+  "kap": "İÇERİDEKİ YAZAR",
+  "neden": "YOLCU'da Hakan „su uzatan bir doktor“ olarak geçiyor; „profesör“ YOLCU'da yok."
+ },
+ {
+  "op": "replace",
+  "old": "Muhibbi'nin sorduğu soru bir odanın duvarına dönüşüyor;",
+  "new": "Muhibbi'nin adı bir sayfanın kenarında çay lekesine dönüşüyor;",
+  "kap": "İÇERİDEKİ YAZAR",
+  "neden": "YOLCU 12'deki gerçek yankı: Muhibbi'nin geçtiği sayfanın kenarında çay lekesi."
+ }
+]
