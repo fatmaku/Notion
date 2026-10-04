@@ -68,7 +68,14 @@ def main():
     n_total = 0
     for path in a.ops:
         ops = json.load(open(path))
-        L += [f"## {ops[0].get('_baslik', '') or path.split('/')[-1]}" if ops and isinstance(ops[0], dict) else "", ""]
+        name = path.split("/")[-1]
+        HEAD = {"ops_sa_entegrasyon.json": "Edisyon'un işlenmesi (başlık, ithaf, köprüler, üç roman, yazım)",
+                "ops_sa_noktalama_ek.json": "Ek noktalama ve boşluk temizliği",
+                "ops_SA_alle.json": "Sıkılaştırma (beş lektör bloğu)", "ops_BY_alle.json": "Sıkılaştırma (altı lektör bloğu)",
+                "ops_editor_SA.json": "Editör müdahaleleri (jüri önerileri, lektör notları)",
+                "ops_editor_BY.json": "Editör müdahaleleri (jüri önerileri, lektör notları)",
+                "fix_SA_alle.json": "Bağımsız kontrol sonrası dikiş düzeltmeleri", "fix_BY_alle.json": "Bağımsız kontrol sonrası dikiş düzeltmeleri"}
+        L += [f"## {HEAD.get(name, name)}", ""]
         cur = None
         for op in ops:
             if op.get("op") in ("delete_empty", "clean_whitespace", "strip_ws_runs") or op.get("_skip"):
@@ -76,7 +83,7 @@ def main():
             kind = op["op"]
             pid = op.get("pid")
             kap = op.get("kap") or (chap[pid] if pid is not None and pid < len(chap) else "")
-            why = op.get("neden") or op.get("why") or ""
+            why = op.get("neden") or op.get("why") or op.get("sorun") or ""
             if kap != cur:
                 L += ["", f"### {kap}", ""]
                 cur = kap

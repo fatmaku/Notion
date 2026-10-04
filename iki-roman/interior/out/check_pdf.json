@@ -1,7 +1,7 @@
 [
   {
     "pdf": "out/YOLCU_Innenteil_A5.pdf",
-    "pages": 282,
+    "pages": 260,
     "page_size_check": "pass",
     "fonts_embedded_check": "pass",
     "fonts": {
@@ -25,7 +25,7 @@
   },
   {
     "pdf": "out/SAHIT_Innenteil_A5.pdf",
-    "pages": 202,
+    "pages": 194,
     "page_size_check": "pass",
     "fonts_embedded_check": "pass",
     "fonts": {
@@ -34,8 +34,8 @@
       "/IKUMJV+Literata-Italic": true,
       "/JVDBRE+Literata": true,
       "/STCGVO+Cinzel-Bold": true,
-      "/ZTAASF+Literata-Bold": true,
-      "/IADIDP+Literata-Semi-Bold-Italic": true
+      "/IADIDP+Literata-Semi-Bold-Italic": true,
+      "/ZTAASF+Literata-Bold": true
     },
     "margin_check": "pass",
     "margin_problems": [],

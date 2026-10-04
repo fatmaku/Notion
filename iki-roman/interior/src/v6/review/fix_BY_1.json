@@ -1,3 +1,10 @@
 [
- {"op": "insert_after", "pid": 537, "text": "Geçmişi hatırlamak artık yalnız kendimi anlamak değildi. Birinin beni hangi kapıdan izlediğini bulmaktı.", "sorun": "Nehir'in sorusundan geri dönüşe geçiş köprüsüz kalıyordu; eski cümle aynen geri getirildi (kurgu açısından da gerekli: izlenme izleği).", "tip": "seam"}
+ {
+  "op": "insert_after",
+  "pid": 537,
+  "text": "Geçmişi hatırlamak artık yalnız kendimi anlamak değildi. Birinin beni hangi kapıdan izlediğini bulmaktı.",
+  "sorun": "Nehir'in sorusundan geri dönüşe geçiş köprüsüz kalıyordu; eski cümle aynen geri getirildi (kurgu açısından da gerekli: izlenme izleği).",
+  "tip": "seam",
+  "kap": "5. Bir Tanının Geldiği Yer"
+ }
 ]

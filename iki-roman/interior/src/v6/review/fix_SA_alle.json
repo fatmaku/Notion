@@ -1,26 +1,29 @@
 [
-{
-"op": "replace",
-"pid": 262,
-"old": "Bu riski almaya değerdi.",
-"new": "Bu işin riskini almaya değerdi.",
-"sorun": "„Bu risk“ silinen şüpheye işaret ediyordu; şüphe (öncülü erkenden boşaltan cümle, jüri) geri getirilmedi, risk işin kendisine bağlandı.",
-"tip": "seam"
-},
-{
-"op": "replace",
-"pid": 1155,
-"old": "ona ve eşine büyük hürmet gösterirler.”",
-"new": "ona ve eşine büyük hürmet gösterirler. Ne yaptın da onu yolundan saptırdın anlat evladım.”",
-"sorun": "Şeytan'ın sorusu silinince [1155]'i kimin söylediği belirsizleşti ve Hanzeb'in [1156]'daki cevabı silinmiş soruya cevap veriyor; eski cümlenin ilk yarısı geri kondu",
-"tip": "seam"
-},
-{
-"op": "replace",
-"pid": 1267,
-"old": "neredeyse düşecekti.",
-"new": "neredeyse düşecekti. Sahibi olan adam bu durumdan rahatsız olmuştu.",
-"sorun": "Rahatsızlık cümleleri silinince sonraki “Allah Kayleoğulları’nın belasını versin.” satırı Mabeh'e ait okunuyor; sahibin tepkisi (eski cümle, 'da diğeri gibi' olmadan) geri kondu",
-"tip": "seam"
-}
+ {
+  "op": "replace",
+  "pid": 262,
+  "old": "Bu riski almaya değerdi.",
+  "new": "Bu işin riskini almaya değerdi.",
+  "sorun": "„Bu risk“ silinen şüpheye işaret ediyordu; şüphe (öncülü erkenden boşaltan cümle, jüri) geri getirilmedi, risk işin kendisine bağlandı.",
+  "tip": "seam",
+  "kap": "TECRİT ODASI"
+ },
+ {
+  "op": "replace",
+  "pid": 1155,
+  "old": "ona ve eşine büyük hürmet gösterirler.”",
+  "new": "ona ve eşine büyük hürmet gösterirler. Ne yaptın da onu yolundan saptırdın anlat evladım.”",
+  "sorun": "Şeytan'ın sorusu silinince [1155]'i kimin söylediği belirsizleşti ve Hanzeb'in [1156]'daki cevabı silinmiş soruya cevap veriyor; eski cümlenin ilk yarısı geri kondu",
+  "tip": "seam",
+  "kap": "MIZRAĞIN İKİ UCU"
+ },
+ {
+  "op": "replace",
+  "pid": 1267,
+  "old": "neredeyse düşecekti.",
+  "new": "neredeyse düşecekti. Sahibi olan adam bu durumdan rahatsız olmuştu.",
+  "sorun": "Rahatsızlık cümleleri silinince sonraki “Allah Kayleoğulları’nın belasını versin.” satırı Mabeh'e ait okunuyor; sahibin tepkisi (eski cümle, 'da diğeri gibi' olmadan) geri kondu",
+  "tip": "seam",
+  "kap": "SUSAYANIN YOLU"
+ }
 ]

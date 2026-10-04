@@ -23,8 +23,8 @@ book() {   # $1 = BY|SA  $2 = YOLCU|SAHIT  $3 = Ordner  $4 = docx
   cp "cover/out/$1/TR/eBook-Cover.jpg"    "$d/$2_eKitap_Kapagi.jpg"
   cp "interior/src/$4"                    "$d/$2_Word.docx"
 }
-book BY YOLCU 1_KDP_YOLCU_TR YOLCU_TR_v4.docx
-book SA SAHIT 2_KDP_SAHIT_TR SAHIT_TR_v5.docx
+book BY YOLCU 1_KDP_YOLCU_TR YOLCU_TR_v5.docx
+book SA SAHIT 2_KDP_SAHIT_TR SAHIT_TR_v6.docx
 
 mkdir -p "$P/3_Kapaklar_EN_DE"
 for b in BY:YOLCU SA:SAHIT; do k=${b%%:*}; n=${b##*:}
@@ -48,8 +48,9 @@ cp trailer/out/storyboard/*.jpg "$P/5_Pazarlama/Storyboard/"
 
 mkdir -p "$P/6_Raporlar"
 cp analyse/Bewertung_Ben_Yoksam_Sahidi_Ararken.pdf "$P/6_Raporlar/Analiz_Raporu_YOLCU_SAHIT_DE.pdf"
-cp analyse/Degisiklik_Listesi_v2.pdf               "$P/6_Raporlar/Degisiklik_Listesi_TR_DE.pdf"
-cp analyse/Sefa_Degisiklikleri_v5.pdf              "$P/6_Raporlar/SAHIT_v5_Sefa_Degisiklikleri_TR.pdf"
+cp analyse/Degisiklik_Listesi_v6.pdf               "$P/6_Raporlar/Degisiklik_Listesi_v6_TR.pdf"
+cp analyse/Degisiklik_Listesi_v2.pdf               "$P/6_Raporlar/Eski_Degisiklikler_v2-v5_TR_DE.pdf"
+cp analyse/Juri_v6.pdf                             "$P/6_Raporlar/Juri_Degerlendirmesi_v6.pdf"
 cp analyse/Son_Kontrol_Raporu.pdf                  "$P/6_Raporlar/Son_Kontrol_Raporu_TR.pdf"
 
 cp 00_OKU_BENI.txt "$P/"
