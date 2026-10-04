@@ -54,6 +54,7 @@ html,body{background:#000;overflow:hidden}
 <script src="books.js"></script>
 <script>
 const Q = new URLSearchParams(location.search), LANG = Q.get('lang') || 'tr', BK = BOOKS[Q.get('book') || 'wave'], B = BK[LANG];
+document.documentElement.lang = LANG; // uppercase labels: dotted İ only in Turkish
 const UIS = { tr: { ch: 'BÖLÜM', key: 'Deniz’in cümlesi', age: '12–16 yaş', av: 'E-kitap: happytuncay.com' },
   en: { ch: 'CHAPTER', key: 'Deniz’s sentence', age: 'Ages 12–16', av: 'On Amazon: search “Tuncay Sancak”' },
   de: { ch: 'KAPITEL', key: 'Deniz’ Satz', age: '12–16 Jahre', av: 'Auf Amazon: „Tuncay Sancak“ suchen' } }[LANG];

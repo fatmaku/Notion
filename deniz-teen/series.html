@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deniz Teen Series</title>
+<style>
+@font-face{font-family:'Lexend';src:url('../deniz-trailer/src/OEBPS/fonts/lexend-5.woff2') format('woff2');font-weight:100 900;unicode-range:U+0100-02BA,U+02BD-02C5,U+1E00-1E9F,U+1EF2-1EFF}
+@font-face{font-family:'Lexend';src:url('../deniz-trailer/src/OEBPS/fonts/lexend-3.woff2') format('woff2');font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+2000-206F,U+20AC}
+/* Teen series explainer: all 5 books, two everyday challenges per book, each answered with Deniz's own sentence from the book. ?lang=tr|en|de */
+:root{--teal:#3FB8C4;--coral:#F29B6B;--navy:#16213E;--mist:#DDE8F0;--sky:#8FE3EC}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;overflow:hidden}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--navy);font-family:'Lexend',sans-serif;transform-origin:0 0}
+#gl,#fx{position:absolute;inset:0;width:1080px;height:1920px}
+#ui{position:absolute;inset:0;pointer-events:none}
+#ui>*{position:absolute;display:none}
+.shade{inset:0;background:linear-gradient(180deg,rgba(22,33,62,.6) 0%,rgba(22,33,62,0) 28%,rgba(22,33,62,0) 50%,rgba(22,33,62,.8) 100%)}
+.tag{left:70px;right:60px;top:110px;font:600 26px/1.3 'Lexend';letter-spacing:.14em;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.chip{display:inline-block;padding:12px 24px;border-radius:999px;font:700 26px 'Lexend';letter-spacing:.2em;color:#08262B;text-transform:uppercase}
+.prob{left:60px;right:60px;top:180px;padding:30px 36px;border-radius:34px;background:rgba(16,24,48,.72);backdrop-filter:blur(6px)}
+.prob .chip{background:var(--coral)}
+.prob p{margin-top:18px;font:700 58px/1.16 'Lexend';color:#fff}
+.sol{left:50px;right:50px;bottom:100px;padding:32px 36px 36px;border-radius:40px;background:rgba(16,24,48,.92);box-shadow:0 30px 70px rgba(0,0,0,.45);border:2px solid rgba(63,184,196,.5)}
+.sol .chip{background:var(--teal)}
+.sol p{margin-top:18px;font:500 44px/1.28 'Lexend';color:#fff}
+.steps{display:flex;align-items:center;justify-content:center;margin-top:28px}
+.st{width:112px;height:112px;border-radius:50%;background:#22345A;border:4px solid var(--sky);display:flex;align-items:center;justify-content:center;font-size:56px;font-family:'Noto Color Emoji',sans-serif;flex:none}
+.ln{height:6px;width:70px;background:var(--sky);border-radius:3px;transform-origin:left;flex:none}
+.w{display:inline-block}
+.center{position:absolute;left:70px;right:70px;text-align:center;color:#fff;text-shadow:0 3px 8px rgba(0,0,0,.6),0 6px 40px rgba(0,0,0,.6)}
+.big{font:700 84px/1.1 'Lexend'}
+.mid{font:600 54px/1.22 'Lexend'}
+.small{font:400 38px/1.4 'Lexend';color:var(--mist)}
+.hl{color:var(--coral)}.sky{color:var(--sky)}
+.bookcard{inset:0}
+.bookcard .cov{position:absolute;left:50%;top:260px;width:600px;height:848px;margin-left:-300px;border-radius:22px;overflow:hidden;box-shadow:0 50px 100px rgba(0,0,0,.6)}
+.bookcard .cov img{width:100%;height:100%;object-fit:cover}
+.bookcard .no{position:absolute;left:0;right:0;top:1200px;text-align:center;font:600 30px 'Lexend';letter-spacing:.26em;color:var(--teal)}
+.bookcard .ti{position:absolute;left:60px;right:60px;top:1260px;text-align:center;font:700 70px/1.1 'Lexend';color:#fff}
+.bookcard .su{position:absolute;left:80px;right:80px;top:1530px;text-align:center;font:400 36px/1.4 'Lexend';color:#B9C8DE}
+.fan{inset:0}
+.fan img{position:absolute;left:50%;top:400px;width:330px;height:466px;margin-left:-165px;object-fit:cover;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.55);transform-origin:50% 120%}
+.pill{display:inline-block;padding:16px 34px;border-radius:999px;border:3px solid rgba(242,155,107,.9);font:600 38px 'Lexend';color:var(--coral)}
+#bfly{position:absolute;left:0;top:0;width:220px;height:200px;margin:-100px 0 0 -110px;pointer-events:none;filter:drop-shadow(0 0 18px rgba(120,210,255,.85));display:none}
+#bfly .wl,#bfly .wr{transform-box:fill-box}#bfly .wl{transform-origin:100% 50%}#bfly .wr{transform-origin:0% 50%}
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="gl" width="1080" height="1920"></canvas>
+  <canvas id="fx" width="1080" height="1920"></canvas>
+  <div id="ui"></div>
+  <svg id="bfly" viewBox="-110 -100 220 200">
+    <defs><radialGradient id="wg" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#BDF0FF"/><stop offset=".45" stop-color="#4FB8EE"/><stop offset="1" stop-color="#1B5FB0"/></radialGradient></defs>
+    <g class="wl"><path d="M-6 -4 C-40 -80 -108 -70 -96 -18 C-90 8 -50 10 -6 4Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><path d="M-6 6 C-50 14 -84 40 -64 70 C-44 92 -14 50 -6 12Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><circle cx="-58" cy="-34" r="7" fill="#fff" opacity=".85"/><circle cx="-40" cy="46" r="5" fill="#fff" opacity=".8"/></g>
+    <g class="wr"><path d="M6 -4 C40 -80 108 -70 96 -18 C90 8 50 10 6 4Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><path d="M6 6 C50 14 84 40 64 70 C44 92 14 50 6 12Z" fill="url(#wg)" stroke="#0E3F7A" stroke-width="3"/><circle cx="58" cy="-34" r="7" fill="#fff" opacity=".85"/><circle cx="40" cy="46" r="5" fill="#fff" opacity=".8"/></g>
+    <ellipse cx="0" cy="4" rx="7" ry="34" fill="#12447F"/><circle cx="0" cy="-32" r="10" fill="#12447F"/>
+    <circle cx="-4" cy="-34" r="2.6" fill="#fff"/><circle cx="4" cy="-34" r="2.6" fill="#fff"/>
+    <path d="M-3 -40 C-10 -60 -20 -66 -24 -66 M3 -40 C10 -60 20 -66 24 -66" stroke="#12447F" stroke-width="3" fill="none"/>
+    <circle cx="-24" cy="-66" r="4" fill="#FFD27A"/><circle cx="24" cy="-66" r="4" fill="#FFD27A"/>
+  </svg>
+</div>
+<script src="books.js"></script>
+<script>
+/* ================= content ================= */
+const LANG = new URLSearchParams(location.search).get('lang') || 'tr';
+document.documentElement.lang = LANG; // uppercase labels: dotted İ only in Turkish
+const I = (b, n) => ({ src: `img/${b}_${n}.jpg`, dep: `depth/${b}_${n}.png` });
+// two chapters per book: [chapter index, pictogram steps, challenge tr/en/de]; the answer is Deniz's own sentence from that chapter (books.js)
+const PICK = {
+ rhythm: [[0, ['👕', '🔍', '✅'], ['Beden değişiyor; dikişler, etiketler [bağırıyor.]', 'Her body is changing; seams and labels start [shouting.]', 'Der Körper verändert sich; Nähte und Etiketten [schreien.]']],
+          [1, ['🗓️', '🎒', '🙋'], ['İlk adet geldi ve [plan] [yok.]', 'Her first period arrives, and [there’s] [no] [plan.]', 'Die erste Periode kommt, und [es] [gibt] [keinen] [Plan.]']]],
+ wave:   [[1, ['🥛', '🤫', '🌿'], ['Bardak bir anda [taştı.]', 'The glass suddenly [overflowed.]', 'Das Glas ist plötzlich [übergelaufen.]']],
+          [2, ['🔇', '🃏', '🤝'], ['Ses kilitlendi; konuşmak [imkânsız.]', 'Her voice locks up; speaking is [impossible.]', 'Die Stimme ist blockiert; Sprechen ist [unmöglich.]']]],
+ friend: [[0, ['👭', '🔁', '💬'], ['Üç kişilik masada [dışarıda] [kalmak.]', 'Left out at the [table] [for] [three.]', 'Am Tisch für drei [außen] [vor] [bleiben.]']],
+          [3, ['🎭', '🔋', '🛋️'], ['Okulda “iyi” görünmek, evde [boş] [pil.]', 'Fine at school, an [empty] [battery] at home.', 'In der Schule „gut“, zu Hause ein [leerer] [Akku.]']]],
+ bound:  [[0, ['🤗', '✋', '👋'], ['“Hadi, sarıl!” Ama bugün [istemiyorum.]', '“Come on, give a hug!” But today [I] [don’t] [want] [to.]', '„Komm, umarm mal!“ Aber heute [will] [ich] [nicht.]']],
+          [1, ['💬', '🛑', '💙'], ['Kilom, yemeğim, kıyafetim: [herkes] [yorum] [yapıyor.]', 'My weight, my food, my clothes: [everyone] [comments.]', 'Gewicht, Essen, Kleidung: [alle] [kommentieren.]']]],
+ voice:  [[0, ['🎤', '✍️', '🎧'], ['Sunum sırası geldi ve [ses] [çıkmıyor.]', 'Her turn to present, and [no] [words] [come.]', 'Sie ist mit dem Vortrag dran, und [kein] [Wort] [kommt.]']],
+          [1, ['🙋', '⏸️', '✅'], ['Yardım için önce [çökmek] [mi] [gerekiyor?]', 'Do you have to [break] [down] first to get help?', 'Muss man erst [zusammenbrechen,] um Hilfe zu bekommen?']]],
+};
+const LI = { tr: 0, en: 1, de: 2 }[LANG];
+const L = {
+ tr: { book: n => `${n}. KİTAP`, prob: 'Zorluk', sol: 'Deniz’in cümlesi',
+   hook: ['Otizmli ve DEHB’li kızlar çoğu zaman [görünmez.]', 'Çünkü uyum sağlamak için {çok} {çalışıyorlar.}'],
+   intro: ['Benim Nörofarklı Pusulam · [Deniz]', '12–16 yaş için {5} {kitap:} ergenlik, duygular, arkadaşlık, sınırlar ve {kendi} {sesi.}'],
+   author: ['Yazar Tuncay Sancak’a 32 yaşında [DEHB,] 33 yaşında [otizm] tanısı kondu.', 'Bu kitapları nörofarklı gençlerin {kendi} {dilinde} yazdı.'],
+   quote: 'Sesim [benim.]', qby: '— Deniz',
+   fan: ['Benim Nörofarklı Pusulam', '5 kitaplık genç kız serisi · Yazar: <b style="color:#fff">Tuncay Sancak</b>', 'E-kitap: happytuncay.com', '@happytuncay', 'Bu kitaplar tanı koymaz ve uzman değerlendirmesinin yerine geçmez.'] },
+ en: { book: n => `BOOK ${n}`, prob: 'Challenge', sol: 'Deniz’s sentence',
+   hook: ['Autistic and ADHD girls are often [invisible.]', 'Because they work so hard to {fit} {in.}'],
+   intro: ['My Neurodivergent Compass · [Deniz]', '{5} {books} for ages 12–16: puberty, feelings, friendship, boundaries and {her} {own} {voice.}'],
+   author: ['Author Tuncay Sancak was diagnosed with [ADHD] at 32 and [autism] at 33.', 'He wrote these books in the {language} {of} neurodivergent teens.'],
+   quote: 'My voice is [mine.]', qby: '— Deniz',
+   fan: ['My Neurodivergent Compass', '5 books for teen girls · by <b style="color:#fff">Tuncay Sancak</b>', 'On Amazon: search “Tuncay Sancak”', '@happytuncay', 'These books do not diagnose and do not replace a professional assessment.'] },
+ de: { book: n => `BAND ${n}`, prob: 'Herausforderung', sol: 'Deniz’ Satz',
+   hook: ['Autistische Mädchen und Mädchen mit ADHS bleiben oft [unsichtbar.]', 'Weil sie so hart daran arbeiten, {dazuzugehören.}'],
+   intro: ['Mein Neurodivergenter Kompass · [Deniz]', '{5} {Bücher} für 12- bis 16-Jährige: Pubertät, Gefühle, Freundschaft, Grenzen und die {eigene} {Stimme.}'],
+   author: ['Autor Tuncay Sancak bekam mit 32 die Diagnose [ADHS] und mit 33 [Autismus.]', 'Er schrieb diese Bücher in der {Sprache} neurodivergenter Jugendlicher.'],
+   quote: 'Meine Stimme gehört [mir.]', qby: '— Deniz',
+   fan: ['Mein Neurodivergenter Kompass', '5 Bücher für Mädchen im Teenageralter · von <b style="color:#fff">Tuncay Sancak</b>', 'Auf Amazon: „Tuncay Sancak“ suchen', '@happytuncay', 'Diese Bücher stellen keine Diagnose und ersetzen keine fachliche Abklärung.'] },
+}[LANG];
+const ORDER = ['rhythm', 'wave', 'friend', 'bound', 'voice'];
+const BOOKS = ORDER.map(k => { const B = window.BOOKS[k], T = B[LANG];
+  return { n: B.no, title: T.title, sub: T.sub, cover: B.cover ? `img/cover_${B.cover}_${LANG}.jpg` : `img/${B.img}_0.jpg`,
+    pairs: PICK[k].map(([c, steps, p]) => ({ imgs: [I(B.img, 2 * c), I(B.img, 2 * c + 1)], p: p[LI], s: T.key[c], ch: T.ch[c], steps })) }; });
+
+/* ================= timeline ================= */
+const T0 = 12.5, CARD = 3.0, PAIR = 9.0, BOOK_LEN = CARD + 2 * PAIR, OUT = T0 + 5 * BOOK_LEN, DUR = OUT + 15;
+const IMGS = [], UI = [];
+const ui = document.getElementById('ui');
+const el = (cls, html) => { const d = document.createElement('div'); d.className = cls; d.innerHTML = html; ui.appendChild(d); return d; };
+const words = s => s.split(' ').map(w => { const c = w.includes('[') ? 'hl' : w.includes('{') ? 'sky' : ''; w = w.replace(/[\[\]{}]/g, ''); return `<span class="w ${c}">${w}</span>`; }).join(' ');
+
+// hook: readable from the very first frame
+UI.push({ a: 0, b: T0 + .3, el: el('shade', ''), kind: 'fade' });
+IMGS.push({ a: 0, b: 4.6, img: I('friend', 7), face: [.5, .35], z0: 1.4, z1: 1.15, instant: true });
+UI.push({ a: -1.8, b: 4.2, el: el('center', `<div class="big">${words(L.hook[0])}</div><div class="mid" style="margin-top:34px;color:#DDE8F0">${words(L.hook[1])}</div>`), top: 1120, kind: 'words' });
+IMGS.push({ a: 3.8, b: 8.9, img: I('wave', 8), face: [.5, .4], z0: 1.1, z1: 1.32 });
+UI.push({ a: 4.3, b: 8.5, el: el('center', `<div class="mid">${words(L.intro[0])}</div><div class="small" style="margin-top:28px">${words(L.intro[1])}</div>`), top: 1240, kind: 'words' });
+IMGS.push({ a: 8.1, b: T0 + .6, img: I('wave', 9), face: [.5, .35], z0: 1.3, z1: 1.1 });
+UI.push({ a: 8.6, b: T0 - .2, el: el('center', `<div class="mid">${words(L.author[0])}</div><div class="small" style="margin-top:28px">${words(L.author[1])}</div>`), top: 1240, kind: 'words' });
+
+BOOKS.forEach((bk, i) => {
+  const a = T0 + i * BOOK_LEN;
+  UI.push({ a, b: a + CARD + .4, el: el('bookcard', `<div class="cov"><img src="${bk.cover}"></div><div class="no">${L.book(bk.n)} / 5</div><div class="ti"${bk.title.length > 36 ? ' style="font-size:58px"' : ''}>${bk.title}</div><div class="su">${bk.sub}</div>`), kind: 'book' });
+  bk.pairs.forEach((pr, j) => {
+    const s = a + CARD + j * PAIR;
+    IMGS.push({ a: s - .4, b: s + 4.9, img: pr.imgs[0], face: [.5, .3], z0: 1.28, z1: 1.08 });
+    IMGS.push({ a: s + 4.1, b: s + PAIR + .4, img: pr.imgs[1], face: [.5, .4], z0: 1.06, z1: 1.26 });
+    UI.push({ a: s - .2, b: s + PAIR + .2, el: el('shade', ''), kind: 'fade' });
+    UI.push({ a: s + .1, b: s + PAIR - .1, el: el('tag', `${L.book(bk.n)} · ${pr.ch}`), kind: 'fade' });
+    UI.push({ a: s + .3, b: s + PAIR - .2, el: el('prob', `<span class="chip">${L.prob}</span><p>${words(pr.p)}</p>`), kind: 'prob' });
+    const steps = pr.steps.map((e, k) => (k ? '<i class="ln"></i>' : '') + `<span class="st">${e}</span>`).join('');
+    UI.push({ a: s + 2.6, b: s + PAIR - .2, el: el('sol', `<span class="chip">${L.sol}</span><p>“${pr.s}”</p><div class="steps">${steps}</div>`), kind: 'sol' });
+  });
+});
+// outro
+IMGS.push({ a: OUT - .4, b: OUT + 6.3, img: I('voice', 8), face: [.5, .35], z0: 1.35, z1: 1.08 });
+UI.push({ a: OUT - .2, b: OUT + 6.2, el: el('shade', ''), kind: 'fade' });
+UI.push({ a: OUT + .4, b: OUT + 6.0, el: el('center', `<div class="big">${words(L.quote)}</div><div class="small" style="margin-top:30px">${L.qby}</div>`), top: 1300, kind: 'words' });
+const fanText = `<div class="mid">${L.fan[0]}</div><div class="small" style="margin-top:20px">${L.fan[1]}</div><div style="margin-top:40px"><span class="pill">${L.fan[2]}</span></div><div class="small" style="margin-top:26px;color:#8FE3EC">${L.fan[3]}</div><div class="small" style="margin-top:50px;font-size:26px;color:#8C9BB8">${L.fan[4]}</div>`;
+UI.push({ a: OUT + 5.8, b: DUR, el: el('fan', BOOKS.map(b => `<img src="${b.cover}">`).join('') + `<div class="center" style="top:1080px">${fanText}</div>`), kind: 'fan' });
+
+/* ================= WebGL depth-parallax renderer ================= */
+const gl = document.getElementById('gl').getContext('webgl', { preserveDrawingBuffer: true, premultipliedAlpha: false });
+const VS = `attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;v.y=1.-v.y;gl_Position=vec4(p,0,1);}`;
+const FS = `precision highp float;varying vec2 v;uniform sampler2D img,dep;uniform vec2 scale,center,off;uniform float dolly,alpha;
+void main(){vec2 uv=center+(v-.5)*scale;vec2 q=uv;
+ for(int i=0;i<4;i++){float d=texture2D(dep,q).r;q=uv+off*(d-.45)+(uv-center)*dolly*(d-.45);}
+ vec4 c=texture2D(img,clamp(q,0.,1.));float vig=smoothstep(1.15,.35,length((v-.5)*vec2(1.,.8)));
+ gl_FragColor=vec4(c.rgb*mix(.72,1.,vig),alpha);}`;
+function sh(t, s) { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); return o; }
+const prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog); gl.useProgram(prog);
+gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+const loc = n => gl.getUniformLocation(prog, n); const pl = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(pl); gl.vertexAttribPointer(pl, 2, gl.FLOAT, false, 0, 0);
+gl.uniform1i(loc('img'), 0); gl.uniform1i(loc('dep'), 1); gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+const texCache = {};
+function loadTex(url) { if (texCache[url]) return texCache[url]; const t = { tex: gl.createTexture(), w: 1, h: 1, ready: false };
+  const im = new Image(); t.p = new Promise(r => { im.onload = () => { gl.bindTexture(gl.TEXTURE_2D, t.tex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, im);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    t.w = im.naturalWidth; t.h = im.naturalHeight; t.ready = true; r(); }; }); im.src = url; return texCache[url] = t; }
+IMGS.forEach(s => { s.t = loadTex(s.img.src); s.d = loadTex(s.img.dep); });
+window.READY = Promise.all(Object.values(texCache).map(t => t.p));
+
+/* ================= helpers ================= */
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v)), lerp = (a, b, p) => a + (b - a) * p, prog01 = (t, a, b) => clamp((t - a) / (b - a));
+const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2, easeOut = p => 1 - Math.pow(1 - p, 3);
+const easeBack = p => { const c = 1.7; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); };
+function hash(n) { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+function drawImg(s, t) {
+  const p = ease(prog01(t, s.a, s.b)), z = lerp(s.z0, s.z1, p), A = 1080 / 1920, ia = s.t.w / s.t.h;
+  // visible fraction of the image (cover fit), then zoom
+  let sx = 1, sy = 1; if (ia > A) sx = A / ia; else sy = ia / A; sx /= z; sy /= z;
+  let cx = lerp(s.face[0], .5, p), cy = lerp(s.face[1], .5, p);
+  cx = clamp(cx, sx / 2 + .03, 1 - sx / 2 - .03); cy = clamp(cy, sy / 2 + .03, 1 - sy / 2 - .03);
+  const ph = s.a * 1.7;
+  const alpha = Math.min(prog01(t, s.a, s.a + .8), 1 - prog01(t, s.b - .8, s.b));
+  gl.uniform2f(loc('scale'), sx, sy); gl.uniform2f(loc('center'), cx, cy);
+  gl.uniform2f(loc('off'), .035 * Math.sin(t * .55 + ph), .02 * Math.cos(t * .43 + ph));
+  gl.uniform1f(loc('dolly'), .16 * (p - .5)); gl.uniform1f(loc('alpha'), s.instant ? Math.min(1, 1 - prog01(t, s.b - .8, s.b)) : s.a === 0 ? Math.min(1, prog01(t, 0, 1.2)) : alpha);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, s.t.tex); gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, s.d.tex);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+
+const fx = document.getElementById('fx').getContext('2d');
+const DUST = Array.from({ length: 80 }, (_, i) => ({ x: hash(i) * 1080, y: hash(i + 99) * 1920, r: 1.5 + hash(i + 7) * 3.5, sp: 10 + hash(i + 3) * 30, ph: hash(i + 5) * 6.28, dr: hash(i + 11) * 2 - 1 }));
+const bf = document.getElementById('bfly'), wl = bf.querySelector('.wl'), wr = bf.querySelector('.wr');
+// the butterfly crosses the screen at the start of every book card and in the intro/outro
+const FLIGHTS = [[1.2, 6.5], ...BOOKS.map((b, i) => [T0 + i * BOOK_LEN - .2, T0 + i * BOOK_LEN + CARD + .6]), [OUT + 6.2, DUR]];
+function fly(t) {
+  for (let k = 0; k < FLIGHTS.length; k++) { const [a, b] = FLIGHTS[k]; if (t < a || t > b) continue;
+    const p = (t - a) / (b - a), dir = k % 2 ? -1 : 1, last = k === FLIGHTS.length - 1;
+    const x = last ? lerp(-150, 820, easeOut(Math.min(1, p * 1.6))) : 540 + dir * lerp(-700, 700, p), y = last ? 330 + Math.sin(t * 2) * 30 : 900 - Math.sin(p * Math.PI) * 520 + Math.sin(t * 3) * 25;
+    return { x, y, s: last ? 1.1 : .95, dx: last ? 1 : dir }; }
+  return null;
+}
+
+function renderUI(t) {
+  for (const u of UI) {
+    const on = t >= u.a && t <= u.b; u.el.style.display = on ? 'block' : 'none'; if (!on) continue;
+    const pin = prog01(t, u.a, u.a + .5), out = 1 - prog01(t, u.b - .45, u.b);
+    if (u.top !== undefined) u.el.style.top = u.top + 'px';
+    if (u.kind === 'fade') u.el.style.opacity = Math.min(pin, out);
+    if (u.kind === 'words' || u.kind === 'prob') {
+      u.el.style.opacity = u.kind === 'prob' ? Math.min(pin, out) : out;
+      if (u.kind === 'prob') u.el.style.transform = `translateY(${(1 - easeOut(pin)) * -60}px)`;
+      u.el.querySelectorAll('.w').forEach((w, i) => { const q = easeBack(prog01(t, u.a + .25 + i * .09, u.a + .75 + i * .09)); w.style.opacity = clamp(prog01(t, u.a + .25 + i * .09, u.a + .55 + i * .09)); w.style.transform = `translateY(${(1 - q) * 40}px)`; });
+    }
+    if (u.kind === 'sol') {
+      const q = easeOut(prog01(t, u.a, u.a + .7)); u.el.style.opacity = Math.min(q, out); u.el.style.transform = `translateY(${(1 - q) * 260}px)`;
+      const kids = [...u.el.querySelectorAll('.st,.ln')];
+      kids.forEach((k, i) => { const st = u.a + .9 + i * .28;
+        if (k.classList.contains('ln')) { k.style.transform = `scaleX(${easeOut(prog01(t, st, st + .35))})`; }
+        else { const e = easeBack(prog01(t, st, st + .45)); k.style.transform = `scale(${e}) rotate(${Math.sin(t * 2.2 + i) * 4}deg)`; k.style.opacity = clamp(prog01(t, st, st + .2));
+          k.style.boxShadow = `0 0 ${20 + 18 * Math.sin(t * 4 - i)}px rgba(143,219,255,.55)`; } });
+    }
+    if (u.kind === 'book') {
+      u.el.style.background = `radial-gradient(ellipse 90% 60% at 50% 38%,#2A3F6B 0%,#1E2D4A 45%,#0d1426 100%)`;
+      u.el.style.opacity = Math.min(prog01(t, u.a, u.a + .35), out);
+      const c = u.el.querySelector('.cov'), q = easeOut(prog01(t, u.a, u.a + 1.2));
+      c.style.transform = `perspective(1400px) rotateY(${lerp(70, -10, q) + Math.sin(t * 1.3) * 3}deg) rotateX(${Math.sin(t) * 3}deg) translateY(${(1 - q) * 200}px) scale(${lerp(.7, 1, q)})`;
+      ['.no', '.ti', '.su'].forEach((s, i) => { const e = easeOut(prog01(t, u.a + .5 + i * .25, u.a + 1.2 + i * .25)); const x = u.el.querySelector(s); x.style.opacity = e; x.style.transform = `translateY(${(1 - e) * 40}px)`; });
+    }
+    if (u.kind === 'fan') {
+      u.el.style.background = `radial-gradient(ellipse 90% 60% at 50% 30%,#2A3F6B 0%,#1E2D4A 45%,#0d1426 100%)`;
+      u.el.style.opacity = prog01(t, u.a, u.a + .6);
+      u.el.querySelectorAll('img').forEach((im, i) => { const e = easeBack(prog01(t, u.a + .3 + i * .15, u.a + 1.2 + i * .15)), ang = (i - 2) * 13 * e;
+        im.style.transform = `translateX(${(i - 2) * 95 * e}px) translateY(${(1 - e) * 500 + Math.abs(i - 2) * 30 * e}px) rotate(${ang + Math.sin(t + i) * 1.5}deg)`; });
+      const c = u.el.querySelector('.center'), e = easeOut(prog01(t, u.a + 1.4, u.a + 2.4)); c.style.opacity = e; c.style.transform = `translateY(${(1 - e) * 40}px)`;
+    }
+  }
+}
+
+function render(t) {
+  gl.viewport(0, 0, 1080, 1920); gl.clearColor(.05, .08, .15, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+  for (const s of IMGS) if (t >= s.a && t <= s.b && s.t.ready && s.d.ready) drawImg(s, t);
+  renderUI(t);
+  // particles + butterfly trail
+  fx.clearRect(0, 0, 1080, 1920); fx.globalCompositeOperation = 'lighter';
+  const fin = prog01(t, DUR - 1.2, DUR);
+  for (const d of DUST) { const y = ((d.y - t * d.sp) % 1920 + 1920) % 1920, x = d.x + Math.sin(t * .6 + d.ph) * 30 * d.dr, a = (.2 + .5 * Math.pow(Math.sin(t * 1.7 + d.ph) * .5 + .5, 3)) * (1 - fin);
+    const g = fx.createRadialGradient(x, y, 0, x, y, d.r * 4); g.addColorStop(0, `rgba(255,225,160,${a})`); g.addColorStop(1, 'rgba(255,200,120,0)'); fx.fillStyle = g; fx.beginPath(); fx.arc(x, y, d.r * 4, 0, 6.283); fx.fill(); }
+  const B = fly(t);
+  if (B) { for (let k = 1; k < 40; k++) { const P = fly(t - k * .035); if (!P) continue; const j = hash(k + Math.floor((t - k * .035) * 28.57)), a = (1 - k / 40) * .85, x = P.x + (j - .5) * 60, y = P.y + (hash(k * 3 + Math.floor((t - k * .035) * 28.57)) - .5) * 60 + k * 1.5, r = (2 + j * 5) * (1 - k / 55);
+      const g = fx.createRadialGradient(x, y, 0, x, y, r * 3); g.addColorStop(0, `rgba(${j > .5 ? '255,230,160' : '170,230,255'},${a})`); g.addColorStop(1, 'rgba(255,255,255,0)'); fx.fillStyle = g; fx.beginPath(); fx.arc(x, y, r * 3, 0, 6.283); fx.fill(); }
+    const flap = .25 + .75 * Math.abs(Math.sin(t * 13)); wl.style.transform = `scaleX(${flap})`; wr.style.transform = `scaleX(${flap})`;
+    bf.style.display = 'block'; bf.style.transform = `translate(${B.x}px,${B.y}px) scale(${B.s * 1.3}) rotate(${B.dx * 12}deg)`; }
+  else bf.style.display = 'none';
+  fx.globalCompositeOperation = 'source-over'; if (fin > 0) { fx.fillStyle = `rgba(0,0,0,${fin})`; fx.fillRect(0, 0, 1080, 1920); }
+}
+window.render = render; window.DUR = DUR;
+if (!location.search.includes('capture')) {
+  const st = document.getElementById('stage'); const fit = () => { const s = Math.min(innerWidth / 1080, innerHeight / 1920); st.style.transform = `scale(${s})`; st.style.marginLeft = ((innerWidth - 1080 * s) / 2) + 'px'; }; addEventListener('resize', fit); fit();
+  READY.then(() => { const t0 = performance.now(); const loop = () => { render(((performance.now() - t0) / 1000) % DUR); requestAnimationFrame(loop); }; requestAnimationFrame(loop); });
+}
+</script>
+</body>
+</html>
