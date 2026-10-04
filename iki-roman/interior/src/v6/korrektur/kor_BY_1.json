@@ -1,0 +1,194 @@
+[
+ {
+  "op": "replace",
+  "pid": 31,
+  "old": "yanım... Hepsinin",
+  "new": "yanım… Hepsinin",
+  "tur": "tutarlılık",
+  "not": "Üç nokta: kitapta tek karakterli … da kullanılıyor (…bana geri…, Nehir…); tek biçime getirildi"
+ },
+ {
+  "op": "replace",
+  "pid": 158,
+  "old": "Paket halinde",
+  "new": "Paket hâlinde",
+  "tur": "tutarlılık",
+  "not": "Kitapta her yerde hâl/hâlde/hâline; TDK: hâlinde"
+ },
+ {
+  "op": "replace",
+  "pid": 517,
+  "old": "gün...”",
+  "new": "gün…”",
+  "tur": "tutarlılık",
+  "not": "Üç nokta tek karaktere (…) getirildi"
+ },
+ {
+  "op": "replace",
+  "pid": 628,
+  "old": "kişiler...”",
+  "new": "kişiler…”",
+  "tur": "tutarlılık",
+  "not": "Üç nokta tek karaktere (…) getirildi"
+ },
+ {
+  "op": "replace",
+  "pid": 629,
+  "old": "önizleme kopyasını",
+  "new": "ön izleme kopyasını",
+  "tur": "tutarlılık",
+  "not": "Kitapta hem önizleme hem ön izleme (1373) var; TDK’ye uygun ayrı yazımda birleştirildi (krş. ön inceleme)"
+ },
+ {
+  "op": "replace",
+  "pid": 655,
+  "old": "acil talep aldı",
+  "new": "acil onay aldı",
+  "tur": "anlam",
+  "not": "Talepte bulunan Selin; savcıdan alınan şey onaydır (krş. 382: savcılık onayından sonra)"
+ },
+ {
+  "op": "replace",
+  "pid": 784,
+  "old": "çevrimiçi",
+  "new": "çevrim içi",
+  "tur": "yazım",
+  "not": "TDK: çevrim içi (ayrı)"
+ },
+ {
+  "op": "replace",
+  "pid": 865,
+  "old": "hakedişe",
+  "new": "hak edişe",
+  "tur": "yazım",
+  "not": "TDK: hak ediş (ayrı)"
+ },
+ {
+  "op": "replace",
+  "pid": 928,
+  "old": "çevrimdışı",
+  "new": "çevrim dışı",
+  "tur": "yazım",
+  "not": "TDK: çevrim dışı (ayrı)"
+ },
+ {
+  "op": "replace",
+  "pid": 1211,
+  "old": "işyerinin",
+  "new": "iş yerinin",
+  "tur": "yazım",
+  "not": "TDK: iş yeri; kitapta başka yerde de iş yeri (1203, 2572)"
+ },
+ {
+  "op": "replace",
+  "pid": 1606,
+  "old": "ilk şansı bile",
+  "new": "ilk şans için bile",
+  "tur": "dilbilgisi",
+  "not": "Belirtme durumundaki şansı’yı yönetecek fiil yok; belge istemek ‘için’ gerektirir"
+ },
+ {
+  "op": "replace",
+  "pid": 1732,
+  "old": "çevrimdışı",
+  "new": "çevrim dışı",
+  "tur": "yazım",
+  "not": "TDK: çevrim dışı (ayrı)"
+ },
+ {
+  "op": "replace",
+  "pid": 1928,
+  "old": "aynı ânı",
+  "new": "aynı anı",
+  "tur": "tutarlılık",
+  "not": "Kitapta ‘an’ her yerde düzeltme işaretsiz (güldükleri anı, öldüğü anı, tuttuğu anı)"
+ },
+ {
+  "op": "replace",
+  "pid": 2205,
+  "old": "özgüvenli",
+  "new": "öz güvenli",
+  "tur": "yazım",
+  "not": "TDK: öz güven (ayrı)"
+ },
+ {
+  "op": "replace",
+  "pid": 2212,
+  "old": "sigorta dosyasında sonradan",
+  "new": "sigorta dosyasının sonradan",
+  "tur": "dilbilgisi",
+  "not": "Değiştirilen şey dosyanın kendisi (sonraki cümle: poliçenin sürüm geçmişi); -ında eki öznesiz bırakıyor"
+ },
+ {
+  "op": "replace",
+  "pid": 2387,
+  "old": "Taksiye dükkânın",
+  "new": "Taksiden dükkânın",
+  "tur": "dilbilgisi",
+  "not": "inmek ayrılma durumu ister: taksiden inmiş (taksiye 2381’de binmişti)"
+ },
+ {
+  "op": "replace",
+  "pid": 2461,
+  "old": "belediye çalışması görünen",
+  "new": "belediye çalışması gibi görünen",
+  "tur": "dilbilgisi",
+  "not": "Eksik kelime: ad + görünmek için ‘gibi’ gerekli"
+ },
+ {
+  "op": "replace",
+  "pid": 2483,
+  "old": "önizlemede",
+  "new": "ön izlemede",
+  "tur": "tutarlılık",
+  "not": "ön izleme yazımında birleştirildi (bkz. 629, 1373)"
+ },
+ {
+  "op": "replace",
+  "pid": 2520,
+  "old": "çevrimdışı",
+  "new": "çevrim dışı",
+  "tur": "yazım",
+  "not": "TDK: çevrim dışı (ayrı)"
+ },
+ {
+  "op": "replace",
+  "pid": 2839,
+  "old": "itaattan",
+  "new": "itaatten",
+  "tur": "yazım",
+  "not": "TDK: itaat, -ti → itaatten (krş. 1877 itaatle)"
+ },
+ {
+  "op": "replace",
+  "pid": 2850,
+  "old": "alçakgönüllüydü",
+  "new": "alçak gönüllüydü",
+  "tur": "yazım",
+  "not": "TDK: alçak gönüllü (ayrı)"
+ },
+ {
+  "op": "replace",
+  "pid": 2929,
+  "old": "çevrimdışı",
+  "new": "çevrim dışı",
+  "tur": "yazım",
+  "not": "TDK: çevrim dışı (ayrı)"
+ },
+ {
+  "op": "replace",
+  "pid": 3079,
+  "old": "çevrimdışıydı",
+  "new": "çevrim dışıydı",
+  "tur": "yazım",
+  "not": "TDK: çevrim dışı (ayrı)"
+ },
+ {
+  "op": "replace",
+  "pid": 3240,
+  "old": "Siyah Kitap da",
+  "new": "Siyah kitap da",
+  "tur": "tutarlılık",
+  "not": "Kitapta her yerde ‘siyah kitap’ küçük harfle (özel ad değil); cümle başı olduğu için yalnız Siyah büyük"
+ }
+]

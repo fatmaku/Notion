@@ -1,0 +1,658 @@
+[
+ {
+  "op": "replace",
+  "pid": 535,
+  "old": "iyi hikayeler",
+  "new": "iyi hikâyeler",
+  "tur": "tutarlılık",
+  "not": "hikâye (kitaptaki baskın yazım)"
+ },
+ {
+  "op": "replace",
+  "pid": 543,
+  "old": "Hala karışık!",
+  "new": "Hâlâ karışık!",
+  "tur": "yazım",
+  "not": "hâlâ (henüz anlamında)"
+ },
+ {
+  "op": "replace",
+  "pid": 544,
+  "old": "Hz Adem’i",
+  "new": "Hz. Âdem’i",
+  "tur": "tutarlılık",
+  "not": "Hz. noktalı; Âdem (kitaptaki baskın yazım)"
+ },
+ {
+  "op": "replace",
+  "pid": 544,
+  "old": "kan dökücü Can Tayfasına",
+  "new": "kan dökücü can tayfasına",
+  "tur": "tutarlılık",
+  "not": "aynı paragrafta 'can tayfası' küçük harfle"
+ },
+ {
+  "op": "replace",
+  "pid": 550,
+  "old": "söylenen hikâyelerine.",
+  "new": "söylenen hikâyelerine ulaşacaktım.",
+  "tur": "dilbilgisi",
+  "not": "eksik yüklem: 'tanışacaktım' -la ister, 'hikâyelerine' yüklemsiz kalıyordu"
+ },
+ {
+  "op": "replace",
+  "pid": 553,
+  "old": "Tabi en doğrusunu",
+  "new": "Tabii en doğrusunu",
+  "tur": "yazım",
+  "not": "tabii (elbette), tabi (bağlı) değil"
+ },
+ {
+  "op": "replace",
+  "pid": 553,
+  "old": "akıl baliğ",
+  "new": "âkil bâliğ",
+  "tur": "yazım",
+  "not": "âkil bâliğ"
+ },
+ {
+  "op": "replace",
+  "pid": 553,
+  "old": "ilk minik adımı",
+  "new": "ilk minik adımını",
+  "tur": "dilbilgisi",
+  "not": "belirtme hâli: adımını atmak"
+ },
+ {
+  "op": "replace",
+  "pid": 554,
+  "old": "ciddi miydi acaba”",
+  "new": "ciddi miydi acaba?”",
+  "tur": "noktalama",
+  "not": "iç sesteki soru cümlesi soru işaretiyle bitmeli"
+ },
+ {
+  "op": "replace",
+  "pid": 561,
+  "old": "köpek necisi hayvandır",
+  "new": "köpek necis hayvandır",
+  "tur": "yazım",
+  "not": "necis (murdar); 'necisi' yanlış"
+ },
+ {
+  "op": "replace",
+  "pid": 565,
+  "old": "sanatın neden icra etmesi",
+  "new": "sanatın neden icra edilmesi",
+  "tur": "dilbilgisi",
+  "not": "edilgen: sanat icra edilir"
+ },
+ {
+  "op": "replace",
+  "pid": 568,
+  "old": "Pek tabi,",
+  "new": "Pek tabii,",
+  "tur": "yazım",
+  "not": "tabii (elbette)"
+ },
+ {
+  "op": "replace",
+  "pid": 574,
+  "old": "yazar bir ademle",
+  "new": "yazar bir âdemle",
+  "tur": "tutarlılık",
+  "not": "âdem (insan); kitapta 'arif âdem'"
+ },
+ {
+  "op": "replace",
+  "pid": 582,
+  "old": "anlatacağım hikayeyi",
+  "new": "anlatacağım hikâyeyi",
+  "tur": "tutarlılık",
+  "not": "hikâye"
+ },
+ {
+  "op": "replace",
+  "pid": 585,
+  "old": "Kasım Ay’ının",
+  "new": "Kasım ayının",
+  "tur": "yazım",
+  "not": "ay adıyla 'ay' sözcüğü: Kasım ayının"
+ },
+ {
+  "op": "replace",
+  "pid": 585,
+  "old": "Pazar yerinde",
+  "new": "pazar yerinde",
+  "tur": "yazım",
+  "not": "pazar yeri özel ad değil"
+ },
+ {
+  "op": "replace",
+  "pid": 588,
+  "old": "Sağ omuzunun",
+  "new": "Sağ omzunun",
+  "tur": "yazım",
+  "not": "omuz → omzu (ünlü düşmesi)"
+ },
+ {
+  "op": "replace",
+  "pid": 615,
+  "old": "60 senendir",
+  "new": "60 senedir",
+  "tur": "yazım",
+  "not": "yazım hatası: senedir"
+ },
+ {
+  "op": "replace",
+  "pid": 622,
+  "old": "oğlum B’de mi görmedin",
+  "new": "oğlum B de mi görmedin",
+  "tur": "yazım",
+  "not": "bağlaç 'de' ayrı yazılır (B de mi)"
+ },
+ {
+  "op": "replace",
+  "pid": 632,
+  "old": "terbiye eden ademin",
+  "new": "terbiye eden âdemin",
+  "tur": "tutarlılık",
+  "not": "âdem (insan)"
+ },
+ {
+  "op": "replace",
+  "pid": 632,
+  "old": "sesi kulaklarımda yattığım",
+  "new": "sesi kulaklarımda, yattığım",
+  "tur": "noktalama",
+  "not": "iki yargı arasında virgül eksik; cümle yanlış okunuyordu"
+ },
+ {
+  "op": "replace",
+  "pid": 636,
+  "old": "odun kırmaya aşık",
+  "new": "odun kırmaya âşık",
+  "tur": "tutarlılık",
+  "not": "âşık (aynı paragrafta 'âşık olmadığın')"
+ },
+ {
+  "op": "replace",
+  "pid": 636,
+  "old": "yazmaya aşık senden",
+  "new": "yazmaya âşık senden",
+  "tur": "tutarlılık",
+  "not": "âşık"
+ },
+ {
+  "op": "replace",
+  "pid": 642,
+  "old": "yazmaya aşık değilsen",
+  "new": "yazmaya âşık değilsen",
+  "tur": "tutarlılık",
+  "not": "âşık"
+ },
+ {
+  "op": "replace",
+  "pid": 646,
+  "old": "Allah, Allah; Ne",
+  "new": "Allah, Allah; ne",
+  "tur": "noktalama",
+  "not": "noktalı virgülden sonra küçük harf"
+ },
+ {
+  "op": "replace",
+  "pid": 650,
+  "old": "namazımı niyaz ettim",
+  "new": "namazımı eda ettim",
+  "tur": "anlam",
+  "not": "namaz niyaz edilmez; eda edilir"
+ },
+ {
+  "op": "replace",
+  "pid": 653,
+  "old": "mesaini bitirenlerle",
+  "new": "mesaisini bitirenlerle",
+  "tur": "dilbilgisi",
+  "not": "3. tekil iyelik: mesaisini"
+ },
+ {
+  "op": "replace",
+  "pid": 653,
+  "old": "yoktu, kağıtlar masanın",
+  "new": "yoktu, kâğıtlar masanın",
+  "tur": "tutarlılık",
+  "not": "kâğıt"
+ },
+ {
+  "op": "replace",
+  "pid": 653,
+  "old": "bu kağıtları gül kokusunda bulayıp",
+  "new": "bu kâğıtları gül kokusuna bulayıp",
+  "tur": "dilbilgisi",
+  "not": "bulamak yönelme ister: kokusuna bulamak; kâğıt"
+ },
+ {
+  "op": "replace",
+  "pid": 654,
+  "old": "Kağıtları çıkarttım",
+  "new": "Kâğıtları çıkarttım",
+  "tur": "tutarlılık",
+  "not": "kâğıt"
+ },
+ {
+  "op": "replace",
+  "pid": 657,
+  "old": "hayat hikayemi",
+  "new": "hayat hikâyemi",
+  "tur": "tutarlılık",
+  "not": "hikâye"
+ },
+ {
+  "op": "replace",
+  "pid": 658,
+  "old": "roman karakterlerin çoğu",
+  "new": "roman karakterlerinin çoğu",
+  "tur": "dilbilgisi",
+  "not": "tamlayan eki eksik: karakterlerinin çoğu"
+ },
+ {
+  "op": "replace",
+  "pid": 658,
+  "old": "hızımı arttırarak",
+  "new": "hızımı artırarak",
+  "tur": "yazım",
+  "not": "artırmak (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 659,
+  "old": "sebebini ikimizde biliyoruz",
+  "new": "sebebini ikimiz de biliyoruz",
+  "tur": "yazım",
+  "not": "bağlaç 'de' ayrı: ikimiz de"
+ },
+ {
+  "op": "replace",
+  "pid": 660,
+  "old": "İşte konumuzda tam",
+  "new": "İşte konumuz da tam",
+  "tur": "yazım",
+  "not": "bağlaç 'da' ayrı: konumuz da"
+ },
+ {
+  "op": "replace",
+  "pid": 662,
+  "old": "direnen ve diremeyenler",
+  "new": "direnen ve direnemeyenler",
+  "tur": "yazım",
+  "not": "direnmek → direnemeyenler"
+ },
+ {
+  "op": "replace",
+  "pid": 662,
+  "old": "Kim neyin sahip ki",
+  "new": "Kim neyin sahibi ki",
+  "tur": "dilbilgisi",
+  "not": "neyin sahibi (tamlanan eki eksik)"
+ },
+ {
+  "op": "replace",
+  "pid": 666,
+  "old": "Onikiler caminde",
+  "new": "Onikiler camisinde",
+  "tur": "yazım",
+  "not": "cami → camisi (kitapta da 'camisinde')"
+ },
+ {
+  "op": "replace",
+  "pid": 666,
+  "old": "vakit veya Cuma namazlarını",
+  "new": "vakit veya cuma namazlarını",
+  "tur": "yazım",
+  "not": "cuma namazı küçük harfle (bkz. 'bir cuma günü')"
+ },
+ {
+  "op": "replace",
+  "pid": 668,
+  "old": "“Aç mısın” dedim?",
+  "new": "“Aç mısın?” dedim.",
+  "tur": "noktalama",
+  "not": "soru işareti alıntının içinde olmalı"
+ },
+ {
+  "op": "replace",
+  "pid": 672,
+  "old": "kafamı Hodri ’ye",
+  "new": "kafamı Hodri’ye",
+  "tur": "noktalama",
+  "not": "kesme işaretinden önce boşluk olmaz"
+ },
+ {
+  "op": "replace",
+  "pid": 672,
+  "old": "hiç tanımadığı bir müptezelin",
+  "new": "hiç tanımadığım bir müptezelin",
+  "tur": "dilbilgisi",
+  "not": "özne anlatıcı: tanımadığım"
+ },
+ {
+  "op": "replace",
+  "pid": 679,
+  "old": "Gayri ihtiyari ardıma",
+  "new": "Gayriihtiyari ardıma",
+  "tur": "yazım",
+  "not": "gayriihtiyari bitişik (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 681,
+  "old": "yüzü traşlı",
+  "new": "yüzü tıraşlı",
+  "tur": "yazım",
+  "not": "tıraşlı (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 693,
+  "old": "caddesindeki Gül Pastanesine",
+  "new": "Caddesi’ndeki Gül Pastanesi’ne",
+  "tur": "yazım",
+  "not": "özel ad: Mandıra Caddesi’ndeki, Gül Pastanesi’ne (bkz. Gül Pastanesi’nin)"
+ },
+ {
+  "op": "replace",
+  "pid": 694,
+  "old": "o yarım hikayesi",
+  "new": "o yarım hikâyesi",
+  "tur": "tutarlılık",
+  "not": "hikâye"
+ },
+ {
+  "op": "replace",
+  "pid": 695,
+  "old": "zaten aşıklardır",
+  "new": "zaten âşıklardır",
+  "tur": "tutarlılık",
+  "not": "âşık"
+ },
+ {
+  "op": "replace",
+  "pid": 697,
+  "old": "yarım hikayelerini",
+  "new": "yarım hikâyelerini",
+  "tur": "tutarlılık",
+  "not": "hikâye"
+ },
+ {
+  "op": "replace",
+  "pid": 699,
+  "old": "tam da Cuma namazı",
+  "new": "tam da cuma namazı",
+  "tur": "yazım",
+  "not": "cuma namazı küçük harfle"
+ },
+ {
+  "op": "replace",
+  "pid": 699,
+  "old": "çimenle olan hikayesini",
+  "new": "çimenle olan hikâyesini",
+  "tur": "tutarlılık",
+  "not": "hikâye"
+ },
+ {
+  "op": "replace",
+  "pid": 700,
+  "old": "Fikirtepe’ de",
+  "new": "Fikirtepe’de",
+  "tur": "noktalama",
+  "not": "kesme işaretinden sonra boşluk olmaz"
+ },
+ {
+  "op": "replace",
+  "pid": 700,
+  "old": "rüyam hala bitmedi",
+  "new": "rüyam hâlâ bitmedi",
+  "tur": "yazım",
+  "not": "hâlâ (henüz)"
+ },
+ {
+  "op": "replace",
+  "pid": 700,
+  "old": "o sıkıntılı halde kalmamıştı",
+  "new": "o sıkıntılı hal de kalmamıştı",
+  "tur": "yazım",
+  "not": "bağlaç 'de' ayrı: hal de kalmamıştı"
+ },
+ {
+  "op": "replace",
+  "pid": 701,
+  "old": "birkaç aşık dervişin hikayelerini",
+  "new": "birkaç âşık dervişin hikâyelerini",
+  "tur": "tutarlılık",
+  "not": "âşık, hikâye"
+ },
+ {
+  "op": "replace",
+  "pid": 701,
+  "old": "dünyada gelmeden",
+  "new": "dünyaya gelmeden",
+  "tur": "dilbilgisi",
+  "not": "yönelme hâli: dünyaya gelmek"
+ },
+ {
+  "op": "replace",
+  "pid": 702,
+  "old": "Mustafa Sefa, Umre ziyaretimi",
+  "new": "Mustafa Sefa, umre ziyaretimi",
+  "tur": "yazım",
+  "not": "umre küçük harfle (bkz. 'umreye gittim')"
+ },
+ {
+  "op": "replace",
+  "pid": 702,
+  "old": "Fikirtepe ’de",
+  "new": "Fikirtepe’de",
+  "tur": "noktalama",
+  "not": "kesme işaretinden önce boşluk olmaz"
+ },
+ {
+  "op": "replace",
+  "pid": 702,
+  "old": "aylarını hiçte hastane",
+  "new": "aylarını hiç de hastane",
+  "tur": "yazım",
+  "not": "bağlaç 'de' ayrı: hiç de"
+ },
+ {
+  "op": "replace",
+  "pid": 702,
+  "old": "“abdestin var mı",
+  "new": "“Abdestin var mı",
+  "tur": "yazım",
+  "not": "alıntı cümlesi büyük harfle başlar"
+ },
+ {
+  "op": "replace",
+  "pid": 709,
+  "old": "Saygı adı başlığı altında",
+  "new": "Saygı adı altında",
+  "tur": "dilbilgisi",
+  "not": "iki sözcük üst üste kalmış (adı/başlığı); 'adı altında'"
+ },
+ {
+  "op": "replace",
+  "pid": 709,
+  "old": "tabi saklar",
+  "new": "tabii saklar",
+  "tur": "yazım",
+  "not": "tabii (elbette)"
+ },
+ {
+  "op": "replace",
+  "pid": 709,
+  "old": "mütevaziliğinin",
+  "new": "mütevazılığının",
+  "tur": "yazım",
+  "not": "mütevazı → mütevazılık (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 709,
+  "old": "haşmetli hünkarımız",
+  "new": "haşmetli hünkârımız",
+  "tur": "yazım",
+  "not": "hünkâr (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 709,
+  "old": "jargonlu hikayeler",
+  "new": "jargonlu hikâyeler",
+  "tur": "tutarlılık",
+  "not": "hikâye"
+ },
+ {
+  "op": "replace",
+  "pid": 716,
+  "old": "baş danışması ile",
+  "new": "başdanışmanı ile",
+  "tur": "yazım",
+  "not": "başdanışman bitişik; 'danışması' yanlış"
+ },
+ {
+  "op": "replace",
+  "pid": 720,
+  "old": "Tüyap Kongre Merkezinde",
+  "new": "Tüyap Kongre Merkezi’nde",
+  "tur": "yazım",
+  "not": "özel ada gelen ek kesmeyle ayrılır"
+ },
+ {
+  "op": "replace",
+  "pid": 720,
+  "old": "fark ettik abi bizde",
+  "new": "fark ettik abi biz de",
+  "tur": "yazım",
+  "not": "bağlaç 'de' ayrı: biz de"
+ },
+ {
+  "op": "replace",
+  "pid": 724,
+  "old": "Allah’ın benden razı olmadan",
+  "new": "Allah benden razı olmadan",
+  "tur": "dilbilgisi",
+  "not": "özne yalın olmalı: Allah benden razı olmadan"
+ },
+ {
+  "op": "replace",
+  "pid": 728,
+  "old": "katipleriniz",
+  "new": "kâtipleriniz",
+  "tur": "tutarlılık",
+  "not": "kâtip (kitapta 'kâtip')"
+ },
+ {
+  "op": "replace",
+  "pid": 729,
+  "old": "150 milyon metre kare",
+  "new": "150 milyon kilometre kare",
+  "tur": "olgu",
+  "not": "Dünya'nın kara yüzölçümü ~150 milyon km²"
+ },
+ {
+  "op": "replace",
+  "pid": 729,
+  "old": "bu kadarının yapmışsın",
+  "new": "bu kadarını yapmışsın",
+  "tur": "dilbilgisi",
+  "not": "belirtme hâli: bu kadarını"
+ },
+ {
+  "op": "replace",
+  "pid": 733,
+  "old": "Katiplerim",
+  "new": "Kâtiplerim",
+  "tur": "tutarlılık",
+  "not": "kâtip"
+ },
+ {
+  "op": "replace",
+  "pid": 735,
+  "old": "her elçimin ordularımı vardı peşinden takip eden.",
+  "new": "her elçimin orduları mı vardı peşinden takip eden?",
+  "tur": "yazım",
+  "not": "soru eki ayrı yazılır; cümle soru"
+ },
+ {
+  "op": "replace",
+  "pid": 739,
+  "old": "Hakk’ı Hakikati",
+  "new": "Hakk’ı hakikati",
+  "tur": "tutarlılık",
+  "not": "bkz. [734] 'Hakk’ı hakikati'"
+ },
+ {
+  "op": "replace",
+  "pid": 742,
+  "old": "üç kağıtçı",
+  "new": "üçkâğıtçı",
+  "tur": "yazım",
+  "not": "üçkâğıtçı bitişik (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 743,
+  "old": "anti sosyal",
+  "new": "antisosyal",
+  "tur": "yazım",
+  "not": "antisosyal bitişik (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 751,
+  "old": "kendi hikayesinin",
+  "new": "kendi hikâyesinin",
+  "tur": "tutarlılık",
+  "not": "hikâye"
+ },
+ {
+  "op": "replace",
+  "pid": 751,
+  "old": "oranda taktim ve tahsis",
+  "new": "oranda takdir ve tahsis",
+  "tur": "yazım",
+  "not": "takdir (taktim değil)"
+ },
+ {
+  "op": "replace",
+  "pid": 752,
+  "old": "Bulduğunu zannediyor mu evet, içiyor mu? Evet.",
+  "new": "Bulduğunu zannediyor mu? Evet. İçiyor mu? Evet.",
+  "tur": "noktalama",
+  "not": "soru-cevap dizisinde eksik soru işareti ve büyük harf"
+ },
+ {
+  "op": "replace",
+  "pid": 894,
+  "old": "deniz Ben artık deniz değilim mi der?",
+  "new": "deniz ‘Ben artık deniz değilim’ mi der?",
+  "tur": "noktalama",
+  "not": "iç alıntı tırnak içine"
+ },
+ {
+  "op": "replace",
+  "pid": 894,
+  "old": "Sen Şahit kim? diye",
+  "new": "Sen ‘Şahit kim?’ diye",
+  "tur": "noktalama",
+  "not": "iç alıntı tırnak içine"
+ },
+ {
+  "op": "replace",
+  "pid": 894,
+  "old": "Bir gün Kim şahitlik ediyor?, sonra Şahitlik kime ait?, belki en sonunda Bu soruyu duyan ne? diyeceksin",
+  "new": "Bir gün ‘Kim şahitlik ediyor?’ sonra ‘Şahitlik kime ait?’ belki en sonunda ‘Bu soruyu duyan ne?’ diyeceksin",
+  "tur": "noktalama",
+  "not": "iç alıntılar tırnak içine; '?,' birleşimi kaldırıldı"
+ }
+]

@@ -69,5 +69,12 @@
   "new": "Sonra yeniden bir kapı sezdim. Kolu yoktu. Başka bir bedenin kapısı değildi bu; kitabın başına dönen, okunduğu her yerde yeniden açılan kapıydı.",
   "kap": "50. Boş Bırakılan Son Cümle",
   "neden": "Pasaj tenasüh (ruh göçü) gibi okunabiliyordu (iki jüri); kapı, kitabın BAŞA DÖN şifresine bağlandı."
+ },
+ {
+  "op": "replace",
+  "old": "Ellerimdeki poşetleri yere bıraktım.",
+  "new": "Elimdeki poşetleri yere bıraktım.",
+  "kap": "2. Siyah Paket",
+  "neden": "Birkaç satır önce poşetler yalnız sol elde; „ellerimdeki“ çelişkiydi (jüri). Paragrafın ilk harfi (şifre) değişmedi."
  }
 ]

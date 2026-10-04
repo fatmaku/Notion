@@ -1,0 +1,530 @@
+[
+ {
+  "op": "replace",
+  "pid": 1150,
+  "old": "vermişti, İşte bunu",
+  "new": "vermişti, işte bunu",
+  "tur": "noktalama",
+  "not": "Virgülden sonra büyük harf: ', İşte' → ', işte'"
+ },
+ {
+  "op": "replace",
+  "pid": 1154,
+  "old": "aynını yaptılar",
+  "new": "aynısını yaptılar",
+  "tur": "yazım",
+  "not": "'aynını' → 'aynısını'"
+ },
+ {
+  "op": "replace",
+  "pid": 1158,
+  "old": "Kızıl denizi",
+  "new": "Kızıldeniz’i",
+  "tur": "yazım",
+  "not": "Özel ad bitişik ve kesme işaretiyle: Kızıldeniz’i (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 1158,
+  "old": "Allahtan emir",
+  "new": "Allah’tan emir",
+  "tur": "yazım",
+  "not": "Özel ada gelen ek kesmeyle ayrılır"
+ },
+ {
+  "op": "replace",
+  "pid": 1158,
+  "old": "endişelerini arttırmak",
+  "new": "endişelerini artırmak",
+  "tur": "yazım",
+  "not": "'arttır-' → 'artır-' (TDK, çoğaltmak anlamında)"
+ },
+ {
+  "op": "replace",
+  "pid": 1158,
+  "old": "vehmini arttırdı",
+  "new": "vehmini artırdı",
+  "tur": "yazım",
+  "not": "'arttır-' → 'artır-' (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 1161,
+  "old": "Allahtan yüz",
+  "new": "Allah’tan yüz",
+  "tur": "yazım",
+  "not": "Özel ada gelen ek kesmeyle ayrılır"
+ },
+ {
+  "op": "replace",
+  "pid": 1162,
+  "old": "adı Balakt’ı.",
+  "new": "adı Balakt’tı.",
+  "tur": "dilbilgisi",
+  "not": "Ek-fiil: 'Balakt’tı' (adı Balakt idi); 'Balakt’ı' belirtme hâli"
+ },
+ {
+  "op": "replace",
+  "pid": 1162,
+  "old": "kuklam bu olmadı",
+  "new": "kuklam bu olmalı",
+  "tur": "anlam",
+  "not": "Anlam ters: şeytan kuklasını seçiyor → 'bu olmalı'"
+ },
+ {
+  "op": "replace",
+  "pid": 1162,
+  "old": "zevki sefaya",
+  "new": "zevk ü sefaya",
+  "tur": "yazım",
+  "not": "TDK: zevk ü sefa"
+ },
+ {
+  "op": "replace",
+  "pid": 1162,
+  "old": "âlimdir’ Vezir",
+  "new": "âlimdir.’ Vezir",
+  "tur": "noktalama",
+  "not": "Alıntı cümlesi bitiyor, yeni cümle başlıyor: nokta eksik"
+ },
+ {
+  "op": "replace",
+  "pid": 1163,
+  "old": "karısına çok aşıktı",
+  "new": "karısına çok âşıktı",
+  "tur": "tutarlılık",
+  "not": "âşık (TDK; kitapta birleştirme)"
+ },
+ {
+  "op": "replace",
+  "pid": 1166,
+  "old": "ondan ricalimiz vardır",
+  "new": "ondan ricamız vardır",
+  "tur": "yazım",
+  "not": "'rical' (devlet adamları) değil, 'rica': ricamız"
+ },
+ {
+  "op": "replace",
+  "pid": 1175,
+  "old": "Diye geçirdi",
+  "new": "diye içinden geçirdi",
+  "tur": "noktalama",
+  "not": "’ Diye → ’ diye; 'içinden' eksik (kitaptaki kullanım: diye geçirdim içimden)"
+ },
+ {
+  "op": "replace",
+  "pid": 1180,
+  "old": "‘tamam bu işi bitmiş bilin’ Artık",
+  "new": "‘Tamam bu işi bitmiş bilin.’ Artık",
+  "tur": "noktalama",
+  "not": "Alıntı büyük harfle başlar, cümle sonu noktası eksik"
+ },
+ {
+  "op": "replace",
+  "pid": 1184,
+  "old": "bize sahiplenir",
+  "new": "bizi sahiplenir",
+  "tur": "dilbilgisi",
+  "not": "'sahiplenmek' belirtme hâli ister: bizi sahiplenir"
+ },
+ {
+  "op": "replace",
+  "pid": 1193,
+  "old": "ilk söz sahibi senin olacağına",
+  "new": "ilk söz sahibinin sen olacağına",
+  "tur": "dilbilgisi",
+  "not": "Yanlış hâl eki: 'ilk söz sahibinin sen olacağına dair'"
+ },
+ {
+  "op": "replace",
+  "pid": 1196,
+  "old": "‘Musaa peygamberdir",
+  "new": "‘Musa peygamberdir",
+  "tur": "yazım",
+  "not": "Yazım hatası: Musaa → Musa"
+ },
+ {
+  "op": "replace",
+  "pid": 1202,
+  "old": "Ceylanın burada",
+  "new": "Ceylan’ın burada",
+  "tur": "yazım",
+  "not": "Bölümde özel ad olarak kullanılıyor (Ceylan’ın, 1198): kesme işareti"
+ },
+ {
+  "op": "replace",
+  "pid": 1202,
+  "old": "Mikail Ceylanı",
+  "new": "Mikail Ceylan’ı",
+  "tur": "yazım",
+  "not": "Özel ada gelen ek kesmeyle ayrılır"
+ },
+ {
+  "op": "replace",
+  "pid": 1204,
+  "old": "şeytandır’ Belam",
+  "new": "şeytandır.’ Belam",
+  "tur": "noktalama",
+  "not": "Alıntı cümlesi bitiyor: nokta eksik"
+ },
+ {
+  "op": "replace",
+  "pid": 1204,
+  "old": "Sonra ağaçları,",
+  "new": "Sonra ağaçların,",
+  "tur": "dilbilgisi",
+  "not": "Sıralama 'ağaçların, ... taşların ettiği' olmalı (ilgi hâli)"
+ },
+ {
+  "op": "replace",
+  "pid": 1209,
+  "old": "Konkoça Sahrasına",
+  "new": "Konkoça Sahrası’na",
+  "tur": "yazım",
+  "not": "Özel ada gelen ek kesmeyle ayrılır"
+ },
+ {
+  "op": "replace",
+  "pid": 1212,
+  "old": "kalabalığı neredeyse her birini",
+  "new": "kalabalığın neredeyse her birini",
+  "tur": "dilbilgisi",
+  "not": "Çift nesne: 'kalabalığın neredeyse her birini'"
+ },
+ {
+  "op": "replace",
+  "pid": 1217,
+  "old": "alemlerin onun yüzü",
+  "new": "alemleri onun yüzü",
+  "tur": "dilbilgisi",
+  "not": "'alemleri ... yaratan Allah' (belirtme hâli)"
+ },
+ {
+  "op": "replace",
+  "pid": 1217,
+  "old": "ümmeti Muhammed’in",
+  "new": "ümmet-i Muhammed’in",
+  "tur": "yazım",
+  "not": "Farsça tamlama: ümmet-i Muhammed"
+ },
+ {
+  "op": "replace",
+  "pid": 1218,
+  "old": "diye yad edilen",
+  "new": "diye yâd edilen",
+  "tur": "yazım",
+  "not": "'yâd etmek' (anmak); 'yad' = yabancı"
+ },
+ {
+  "op": "replace",
+  "pid": 1221,
+  "old": "en başta gelen, hatta",
+  "new": "en başta geleni, hatta",
+  "tur": "dilbilgisi",
+  "not": "'öğrenmişti' fiilinin nesnesi: en başta geleni"
+ },
+ {
+  "op": "replace",
+  "pid": 1223,
+  "old": "aşıklar düşer",
+  "new": "âşıklar düşer",
+  "tur": "tutarlılık",
+  "not": "âşık (TDK; kitapta birleştirme)"
+ },
+ {
+  "op": "replace",
+  "pid": 1226,
+  "old": "Ademler gelir",
+  "new": "Âdemler gelir",
+  "tur": "tutarlılık",
+  "not": "Âdem (kitapta baskın biçim)"
+ },
+ {
+  "op": "replace",
+  "pid": 1236,
+  "old": "evrakların arasında başını",
+  "new": "evrakların arasından başını",
+  "tur": "dilbilgisi",
+  "not": "Başını ... arasından kaldırdı (ayrılma hâli)"
+ },
+ {
+  "op": "replace",
+  "pid": 1255,
+  "old": "ağırlığını arttırmak",
+  "new": "ağırlığını artırmak",
+  "tur": "yazım",
+  "not": "'arttır-' → 'artır-' (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 1259,
+  "old": "onun diğer çocuklar gibi",
+  "new": "onu diğer çocuklar gibi",
+  "tur": "dilbilgisi",
+  "not": "'sokağa salmak' belirtme hâli ister: onu"
+ },
+ {
+  "op": "replace",
+  "pid": 1259,
+  "old": "Abülmülk ailenin",
+  "new": "Abülmülk ailesinin",
+  "tur": "dilbilgisi",
+  "not": "İyelik eki eksik: Abülmülk ailesinin"
+ },
+ {
+  "op": "replace",
+  "pid": 1259,
+  "old": "Dİhkan",
+  "new": "Dihkan",
+  "tur": "yazım",
+  "not": "Büyük harf hatası: Dİhkan → Dihkan"
+ },
+ {
+  "op": "replace",
+  "pid": 1260,
+  "old": "Hakk bir dinin",
+  "new": "Hak bir dinin",
+  "tur": "yazım",
+  "not": "'Hakk' yalnız ünlüyle başlayan ekten önce; burada 'Hak'"
+ },
+ {
+  "op": "replace",
+  "pid": 1260,
+  "old": "olup, biteni",
+  "new": "olup biteni",
+  "tur": "noktalama",
+  "not": "'olup bitmek' kalıbına virgül girmez"
+ },
+ {
+  "op": "replace",
+  "pid": 1260,
+  "old": "içindeki Hak ateşi, taptığı hiçbir ateş kadar yakıcı değildi",
+  "new": "taptığı hiçbir ateş, içindeki Hak ateşi kadar yakıcı değildi",
+  "tur": "anlam",
+  "not": "Anlam ters: Hak ateşinin taptığı ateşlerden zayıf olduğunu söylüyordu; bağlam tersini istiyor"
+ },
+ {
+  "op": "replace",
+  "pid": 1260,
+  "old": "Orada bulunan piskopos, bu işi",
+  "new": "Orada bulunan piskopostan, bu işi",
+  "tur": "anlam",
+  "not": "Özne hatası: Şam’a giden Mabeh, piskopos değil (bkz. 1261)"
+ },
+ {
+  "op": "replace",
+  "pid": 1260,
+  "old": "bir başka piskopostan öğrendiği",
+  "new": "bir başka piskoposun bildiğini öğrendiği",
+  "tur": "anlam",
+  "not": "Özne hatası düzeltmesinin devamı"
+ },
+ {
+  "op": "replace",
+  "pid": 1262,
+  "old": "buradaki kimsede bir süre",
+  "new": "buradaki kimse de bir süre",
+  "tur": "yazım",
+  "not": "Bağlaç 'de' ayrı yazılır: kimse de"
+ },
+ {
+  "op": "replace",
+  "pid": 1262,
+  "old": "aradığı kısmen",
+  "new": "aradığını kısmen",
+  "tur": "dilbilgisi",
+  "not": "Belirtme hâli eksik: aradığını"
+ },
+ {
+  "op": "replace",
+  "pid": 1262,
+  "old": "ateş hala serinlememiştir",
+  "new": "ateş hâlâ serinlememiştir",
+  "tur": "yazım",
+  "not": "hâlâ (henüz anlamında); 'hala' = babanın kız kardeşi"
+ },
+ {
+  "op": "replace",
+  "pid": 1263,
+  "old": "Barnabas İncilinde",
+  "new": "Barnabas İncili’nde",
+  "tur": "yazım",
+  "not": "Özel ada gelen ek kesmeyle ayrılır"
+ },
+ {
+  "op": "replace",
+  "pid": 1264,
+  "old": "Kendisinin Arap topraklarından",
+  "new": "Kendisi Arap topraklarından",
+  "tur": "dilbilgisi",
+  "not": "Özne ilgi hâlinde olamaz: Kendisi ... çıkacak"
+ },
+ {
+  "op": "replace",
+  "pid": 1264,
+  "old": "1.Hediyenden",
+  "new": "1. Hediyenden",
+  "tur": "noktalama",
+  "not": "Sıra sayısı noktasından sonra boşluk"
+ },
+ {
+  "op": "replace",
+  "pid": 1264,
+  "old": "2.Ama",
+  "new": "2. Ama",
+  "tur": "noktalama",
+  "not": "Sıra sayısı noktasından sonra boşluk"
+ },
+ {
+  "op": "replace",
+  "pid": 1264,
+  "old": "evladım” bir süre",
+  "new": "evladım.” Bir süre",
+  "tur": "noktalama",
+  "not": "Alıntı bitiyor, yeni cümle başlıyor: nokta ve büyük harf"
+ },
+ {
+  "op": "replace",
+  "pid": 1265,
+  "old": "Arap Haydutlarına saldırılarına",
+  "new": "Arap haydutlarının saldırılarına",
+  "tur": "dilbilgisi",
+  "not": "Tamlama bozuk: Arap haydutlarının saldırılarına (küçük harf)"
+ },
+ {
+  "op": "replace",
+  "pid": 1265,
+  "old": "henüz emin olmuştur",
+  "new": "henüz emin olamamıştır",
+  "tur": "anlam",
+  "not": "Anlam ters: 'henüz' ve sonraki haber, emin olmadığını gösteriyor"
+ },
+ {
+  "op": "replace",
+  "pid": 1265,
+  "old": "bir başka yanına",
+  "new": "bir başkası yanına",
+  "tur": "dilbilgisi",
+  "not": "Kelime eksik/özne: 'bir başkası yanına koşarak gelmişti'"
+ },
+ {
+  "op": "replace",
+  "pid": 1266,
+  "old": "Yesrib’e Kuba köyüne hicret",
+  "new": "Yesrib’e, Kuba köyüne biri hicret",
+  "tur": "dilbilgisi",
+  "not": "Özne eksik ('biri'); açıklayıcı iki yönelme arasına virgül"
+ },
+ {
+  "op": "replace",
+  "pid": 1276,
+  "old": "verildiğini görünce",
+  "new": "verdiğini görünce",
+  "tur": "dilbilgisi",
+  "not": "'hurmaları ... verdiğini' (etken; nesne belirtme hâlinde)"
+ },
+ {
+  "op": "replace",
+  "pid": 1279,
+  "old": "peygamberlik alametinin ikincisidir",
+  "new": "peygamberlik alametlerinin ikincisidir",
+  "tur": "dilbilgisi",
+  "not": "'ikincisi' çoğul tamlayan ister: alametlerinin"
+ },
+ {
+  "op": "replace",
+  "pid": 1282,
+  "old": "Cebrail (AS) peygamberimize",
+  "new": "Cebrail’in (AS) peygamberimize",
+  "tur": "dilbilgisi",
+  "not": "'aktarması' tamlayanı ilgi hâli ister: Cebrail’in"
+ },
+ {
+  "op": "replace",
+  "pid": 1283,
+  "old": "40 altın ve üç yüz",
+  "new": "40 altın vermesini ve üç yüz",
+  "tur": "dilbilgisi",
+  "not": "Eksik yüklem: altın 'ekilmez'; 'vermesini' eklendi"
+ },
+ {
+  "op": "replace",
+  "pid": 1284,
+  "old": "Hicaz’lı",
+  "new": "Hicazlı",
+  "tur": "yazım",
+  "not": "Yapım eki -lı kesmeyle ayrılmaz"
+ },
+ {
+  "op": "replace",
+  "pid": 1289,
+  "old": "yapıyordu, hala şahidi",
+  "new": "yapıyordu, hâlâ şahidi",
+  "tur": "yazım",
+  "not": "hâlâ (henüz anlamında)"
+ },
+ {
+  "op": "replace",
+  "pid": 1301,
+  "old": "Bilali Habeşi",
+  "new": "Bilal-i Habeşi",
+  "tur": "yazım",
+  "not": "Farsça tamlama: Bilal-i Habeşi (bkz. Selman-ı Farisi)"
+ },
+ {
+  "op": "replace",
+  "pid": 1302,
+  "old": "\"Habeşî\"",
+  "new": "‘Habeşî’",
+  "tur": "noktalama",
+  "not": "Konuşma içindeki alıntı tek tırnakla, düz tırnak yerine"
+ },
+ {
+  "op": "replace",
+  "pid": 1302,
+  "old": "Ümeyye Bilal’e,",
+  "new": "Ümeyye Bilal’i,",
+  "tur": "dilbilgisi",
+  "not": "'kamçılatmış ... ezmiştir' belirtme hâli ister: Bilal’i"
+ },
+ {
+  "op": "replace",
+  "pid": 1302,
+  "old": "Hz Ebu Bekir",
+  "new": "Hz. Ebu Bekir",
+  "tur": "yazım",
+  "not": "Kısaltma noktası: Hz."
+ },
+ {
+  "op": "replace",
+  "pid": 1303,
+  "old": "Muhibbi amca",
+  "new": "Muhibbi Amca",
+  "tur": "tutarlılık",
+  "not": "Kitapta her yerde 'Muhibbi Amca'"
+ },
+ {
+  "op": "replace",
+  "pid": 1307,
+  "old": "Selman’ı Farisi’yi",
+  "new": "Selman-ı Farisi’yi",
+  "tur": "yazım",
+  "not": "Farsça tamlama: Selman-ı Farisi (bkz. 1283)"
+ },
+ {
+  "op": "replace",
+  "pid": 1309,
+  "old": "batılı olmayı",
+  "new": "Batılı olmayı",
+  "tur": "yazım",
+  "not": "TDK: Batılı"
+ },
+ {
+  "op": "replace",
+  "pid": 1650,
+  "old": "diğeri mesaini paylaştığı",
+  "new": "diğeri mesaisini paylaştığı",
+  "tur": "dilbilgisi",
+  "not": "İyelik eki hatalı: mesaisini"
+ }
+]

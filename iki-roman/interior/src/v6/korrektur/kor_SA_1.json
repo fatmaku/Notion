@@ -1,0 +1,482 @@
+[
+ {
+  "op": "replace",
+  "pid": 16,
+  "old": "Şahitle",
+  "new": "şahitle",
+  "tur": "tutarlılık",
+  "not": "[14]’teki aynı soruyla uyum: cins isim küçük harfle (büyük harfle özel ad olsa kesme gerekirdi)"
+ },
+ {
+  "op": "replace",
+  "pid": 32,
+  "old": "aşığız",
+  "new": "âşığız",
+  "tur": "tutarlılık",
+  "not": "âşık (TDK) yazımıyla birlik"
+ },
+ {
+  "op": "replace",
+  "pid": 32,
+  "old": "Halk etmiştir",
+  "new": "halk etmiştir",
+  "tur": "yazım",
+  "not": "halk etmek = yaratmak; cümle içinde küçük harf"
+ },
+ {
+  "op": "replace",
+  "pid": 34,
+  "old": "Nâsıra’lı",
+  "new": "Nâsıralı",
+  "tur": "yazım",
+  "not": "-lı yapım eki kesmeyle ayrılmaz (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 36,
+  "old": "Ahmed’ten",
+  "new": "Ahmed’den",
+  "tur": "yazım",
+  "not": "ünsüz uyumu: d ile biten ada -den"
+ },
+ {
+  "op": "replace",
+  "pid": 37,
+  "old": "tüm aşıklar",
+  "new": "tüm âşıklar",
+  "tur": "tutarlılık",
+  "not": "âşık (TDK) yazımıyla birlik"
+ },
+ {
+  "op": "replace",
+  "pid": 46,
+  "old": "Bana tarif edilen bina, amfinin bulunduğu aynı bina,",
+  "new": "Bana tarif edilen binada, amfinin bulunduğu aynı binada,",
+  "tur": "dilbilgisi",
+  "not": "yüklemsiz kalan özne; bulunma durumu eki"
+ },
+ {
+  "op": "replace",
+  "pid": 50,
+  "old": "müdahale mi eder” dedi",
+  "new": "müdahale mi eder?” dedi",
+  "tur": "noktalama",
+  "not": "soru cümlesinde eksik soru işareti"
+ },
+ {
+  "op": "replace",
+  "pid": 52,
+  "old": "otursa mıydım.",
+  "new": "otursa mıydım?",
+  "tur": "noktalama",
+  "not": "soru cümlesi soru işaretiyle biter"
+ },
+ {
+  "op": "replace",
+  "pid": 52,
+  "old": "arttırdım",
+  "new": "artırdım",
+  "tur": "yazım",
+  "not": "artır- (TDK), çoğaltmak anlamında"
+ },
+ {
+  "op": "replace",
+  "pid": 64,
+  "old": "ateş basan halinden",
+  "new": "ateş basan hâlinden",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: hâl"
+ },
+ {
+  "op": "replace",
+  "pid": 69,
+  "old": "aile evradımdan",
+  "new": "aile efradımdan",
+  "tur": "yazım",
+  "not": "efrat (fertler) → efradımdan"
+ },
+ {
+  "op": "replace",
+  "pid": 75,
+  "old": "tabi siz de",
+  "new": "tabii siz de",
+  "tur": "yazım",
+  "not": "tabii (elbette); tabi = bağımlı"
+ },
+ {
+  "op": "replace",
+  "pid": 77,
+  "old": "Memnun oldum Hocam.",
+  "new": "Memnun oldum hocam.",
+  "tur": "yazım",
+  "not": "seslenmede tek başına hocam küçük harf (kitap genelinde)"
+ },
+ {
+  "op": "replace",
+  "pid": 78,
+  "old": "Kaptan Arif sokağa",
+  "new": "Kaptan Arif Sokağı’na",
+  "tur": "tutarlılık",
+  "not": "sokak adı; [127] Kaptan Arif Sokağı’nı ile uyum"
+ },
+ {
+  "op": "replace",
+  "pid": 81,
+  "old": "her sosyal medya yorumlarına",
+  "new": "her sosyal medya yorumuna",
+  "tur": "dilbilgisi",
+  "not": "her + tekil"
+ },
+ {
+  "op": "replace",
+  "pid": 86,
+  "old": "Bu vakanın kişilik",
+  "new": "Bu vaka kişilik",
+  "tur": "dilbilgisi",
+  "not": "bozuk cümle: özne yalın olmalı (Bu vaka … önem arz ediyor)"
+ },
+ {
+  "op": "replace",
+  "pid": 90,
+  "old": "karışmış durumdaki şu anda",
+  "new": "karışmış durumda ki şu anda",
+  "tur": "yazım",
+  "not": "o kadar … ki: bağlaç ki ayrı yazılır"
+ },
+ {
+  "op": "replace",
+  "pid": 109,
+  "old": "pür dikkat",
+  "new": "pürdikkat",
+  "tur": "yazım",
+  "not": "TDK: pürdikkat bitişik"
+ },
+ {
+  "op": "replace",
+  "pid": 124,
+  "old": "binbir dil",
+  "new": "bin bir dil",
+  "tur": "yazım",
+  "not": "TDK: bin bir ayrı yazılır"
+ },
+ {
+  "op": "replace",
+  "pid": 126,
+  "old": "kapanmış halde",
+  "new": "kapanmış hâlde",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: hâl"
+ },
+ {
+  "op": "replace",
+  "pid": 149,
+  "old": "yetenekli vakanızla",
+  "new": "yetenekli hastanızla",
+  "tur": "anlam",
+  "not": "Hakan’ın [150]’deki ‘hasta değil, vaka’ düzeltmesi ancak Sefa ‘hasta’ derse anlamlı (bkz. [104], [111])"
+ },
+ {
+  "op": "replace",
+  "pid": 161,
+  "old": "Yolcu ve Şahidin",
+  "new": "Yolcu ve Şahit'in",
+  "tur": "yazım",
+  "not": "özel ad olarak büyük harfli Şahit kesmeyle; [320] Yolcu ile Şahit'i ile uyum"
+ },
+ {
+  "op": "replace",
+  "pid": 209,
+  "old": "Kapıdan çıkınca",
+  "new": "Kapıdan çıkmadan",
+  "tur": "anlam",
+  "not": "Vildan odadan [218]’de çıkıyor, onlar [219]’da ardından çıkıyor; ‘çıkınca’ çelişiyordu"
+ },
+ {
+  "op": "replace",
+  "pid": 263,
+  "old": "sarkmış halde",
+  "new": "sarkmış hâlde",
+  "tur": "tutarlılık",
+  "not": "aynı paragrafta ‘bu hâlde’; baskın yazım hâl"
+ },
+ {
+  "op": "replace",
+  "pid": 286,
+  "old": "tavırlarındaki değişimi",
+  "new": "tavırlarımdaki değişimi",
+  "tur": "dilbilgisi",
+  "not": "iyelik: anlatıcının tavırları"
+ },
+ {
+  "op": "replace",
+  "pid": 296,
+  "old": "hikayesi?",
+  "new": "hikâyesi?",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: hikâye"
+ },
+ {
+  "op": "replace",
+  "pid": 335,
+  "old": "Beyim, Size",
+  "new": "beyim, size",
+  "tur": "yazım",
+  "not": "cümle içinde seslenme ve zamir küçük harf"
+ },
+ {
+  "op": "replace",
+  "pid": 384,
+  "old": "kimse bu şahit önemli",
+  "new": "her kimse bu şahit, önemli",
+  "tur": "dilbilgisi",
+  "not": "‘kimse’ (hiç kimse) ile karışmasın: her kimse (kim ise)"
+ },
+ {
+  "op": "replace",
+  "pid": 391,
+  "old": "Meryem Oğlu",
+  "new": "Meryem oğlu",
+  "tur": "tutarlılık",
+  "not": "[36] Meryem oğlu İsa ile uyum"
+ },
+ {
+  "op": "replace",
+  "pid": 391,
+  "old": "Hz İsa’ya",
+  "new": "Hz. İsa’ya",
+  "tur": "yazım",
+  "not": "Hz. kısaltması noktalı"
+ },
+ {
+  "op": "replace",
+  "pid": 395,
+  "old": "Hz İsa’nın",
+  "new": "Hz. İsa’nın",
+  "tur": "yazım",
+  "not": "Hz. kısaltması noktalı"
+ },
+ {
+  "op": "replace",
+  "pid": 403,
+  "old": "Hz Muhammed’i",
+  "new": "Hz. Muhammed’i",
+  "tur": "yazım",
+  "not": "Hz. kısaltması noktalı"
+ },
+ {
+  "op": "replace",
+  "pid": 405,
+  "old": "son sözlerini henüz",
+  "new": "son sözleri henüz",
+  "tur": "dilbilgisi",
+  "not": "özne yalın: sözleri … yankılandı"
+ },
+ {
+  "op": "replace",
+  "pid": 414,
+  "old": "şeddeliydi",
+  "new": "şiddetliydi",
+  "tur": "yazım",
+  "not": "şiddetli"
+ },
+ {
+  "op": "replace",
+  "pid": 418,
+  "old": "saflar halinde",
+  "new": "saflar hâlinde",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: hâl"
+ },
+ {
+  "op": "replace",
+  "pid": 418,
+  "old": "nereye gidiyorsunuz’ dedim",
+  "new": "nereye gidiyorsunuz?’ dedim",
+  "tur": "noktalama",
+  "not": "soru cümlesinde eksik soru işareti"
+ },
+ {
+  "op": "replace",
+  "pid": 420,
+  "old": "olağanca",
+  "new": "olanca",
+  "tur": "yazım",
+  "not": "olanca hızımla"
+ },
+ {
+  "op": "replace",
+  "pid": 422,
+  "old": "‘Adem’e",
+  "new": "‘Âdem’e",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: Âdem"
+ },
+ {
+  "op": "replace",
+  "pid": 424,
+  "old": "Müsaade istemem",
+  "new": "Müsaade istedim",
+  "tur": "anlam",
+  "not": "İblis izin istemiş ve almıştır ([450]); ‘istemem’ anlamı tersine çeviriyordu"
+ },
+ {
+  "op": "replace",
+  "pid": 425,
+  "old": "Havva ve Adem’i",
+  "new": "Havva ve Âdem’i",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: Âdem"
+ },
+ {
+  "op": "replace",
+  "pid": 427,
+  "old": "Şecere Adem’in",
+  "new": "Şecere Âdem’in",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: Âdem"
+ },
+ {
+  "op": "replace",
+  "pid": 434,
+  "old": "Adem’in ağlaması",
+  "new": "Âdem’in ağlaması",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: Âdem"
+ },
+ {
+  "op": "replace",
+  "pid": 435,
+  "old": "Toprak olan",
+  "new": "toprak olan",
+  "tur": "yazım",
+  "not": "cümle içinde cins isim küçük harf (su, hava, ateş gibi)"
+ },
+ {
+  "op": "replace",
+  "pid": 438,
+  "old": "arttırarak",
+  "new": "artırarak",
+  "tur": "yazım",
+  "not": "artır- (TDK)"
+ },
+ {
+  "op": "replace",
+  "pid": 439,
+  "old": "Bu nedir İblis",
+  "new": "Bu nedir iblis",
+  "tur": "tutarlılık",
+  "not": "seslenmede bölüm boyunca küçük harf (Söyle iblis, Aptal iblis)"
+ },
+ {
+  "op": "replace",
+  "pid": 447,
+  "old": "Adem’in",
+  "new": "Âdem’in",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: Âdem"
+ },
+ {
+  "op": "replace",
+  "pid": 453,
+  "old": "isimlerin hepsi",
+  "new": "isimlerinin hepsi",
+  "tur": "dilbilgisi",
+  "not": "Âdem soyunun isimlerinin hepsi (iyelik)"
+ },
+ {
+  "op": "replace",
+  "pid": 455,
+  "old": "sen hala",
+  "new": "sen hâlâ",
+  "tur": "yazım",
+  "not": "hâlâ (henüz); hala = babanın kız kardeşi"
+ },
+ {
+  "op": "replace",
+  "pid": 458,
+  "old": "yer yüzüne",
+  "new": "yeryüzüne",
+  "tur": "yazım",
+  "not": "yeryüzü bitişik"
+ },
+ {
+  "op": "replace",
+  "pid": 475,
+  "old": "bu tahtta oturttuğum",
+  "new": "bu tahta oturttuğum",
+  "tur": "dilbilgisi",
+  "not": "oturtmak yönelme durumu ister"
+ },
+ {
+  "op": "replace",
+  "pid": 486,
+  "old": "halim harap",
+  "new": "hâlim harap",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: hâl"
+ },
+ {
+  "op": "replace",
+  "pid": 502,
+  "old": "yavana atılır",
+  "new": "yabana atılır",
+  "tur": "yazım",
+  "not": "yabana atılmak"
+ },
+ {
+  "op": "replace",
+  "pid": 506,
+  "old": "iyi misiniz” dedi",
+  "new": "iyi misiniz?” dedi",
+  "tur": "noktalama",
+  "not": "soru cümlesinde eksik soru işareti"
+ },
+ {
+  "op": "replace",
+  "pid": 507,
+  "old": "ne hocası...”",
+  "new": "ne hocası…”",
+  "tur": "noktalama",
+  "not": "kitap genelinde üç nokta karakteri (…)"
+ },
+ {
+  "op": "replace",
+  "pid": 509,
+  "old": "Hemen Hocam.",
+  "new": "Hemen hocam.",
+  "tur": "yazım",
+  "not": "seslenmede tek başına hocam küçük harf (kitap genelinde)"
+ },
+ {
+  "op": "replace",
+  "pid": 515,
+  "old": "o hoşbeş",
+  "new": "o hoş beş",
+  "tur": "tutarlılık",
+  "not": "TDK: hoş beş ayrı; aynı paragrafta ‘İki hoş beşten’"
+ },
+ {
+  "op": "replace",
+  "pid": 518,
+  "old": "Kriton Curi parkı",
+  "new": "Kriton Curi Parkı",
+  "tur": "yazım",
+  "not": "özel adın parçası büyük harf"
+ },
+ {
+  "op": "replace",
+  "pid": 523,
+  "old": "neler yazıyorsunuz” gibi",
+  "new": "neler yazıyorsunuz?” gibi",
+  "tur": "noktalama",
+  "not": "soru cümlesinde eksik soru işareti"
+ },
+ {
+  "op": "replace",
+  "pid": 526,
+  "old": "yığınlar halinde",
+  "new": "yığınlar hâlinde",
+  "tur": "tutarlılık",
+  "not": "kitapta baskın yazım: hâl"
+ }
+]

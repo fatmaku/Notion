@@ -165,5 +165,33 @@
   "new": "Muhibbi'nin adı bir sayfanın kenarında çay lekesine dönüşüyor;",
   "kap": "İÇERİDEKİ YAZAR",
   "neden": "YOLCU 12'deki gerçek yankı: Muhibbi'nin geçtiği sayfanın kenarında çay lekesi."
+ },
+ {
+  "op": "replace",
+  "old": "yarım hikayemin",
+  "new": "yarım hikâyemin",
+  "kap": "HODRİ",
+  "neden": "Yazım birliği (hikâye)."
+ },
+ {
+  "op": "replace",
+  "old": "ne de Âşık olduğum hatundu",
+  "new": "ne de âşık olduğum hatundu",
+  "kap": "HODRİ",
+  "neden": "Cümle ortasında büyük harf."
+ },
+ {
+  "op": "replace",
+  "old": "sahne insanı olmuş bir ademin",
+  "new": "sahne insanı olmuş bir âdemin",
+  "kap": "AZ ÇOK",
+  "neden": "Yazım birliği („âdem“ = insan; kitabın geri kalanıyla aynı)."
+ },
+ {
+  "op": "replace",
+  "old": "mürekkep yalamış ademler.",
+  "new": "mürekkep yalamış âdemler.",
+  "kap": "UNUTMA",
+  "neden": "Aynı."
  }
 ]
