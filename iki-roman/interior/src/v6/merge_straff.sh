@@ -37,7 +37,7 @@ python3 - <<'PY'
 import json, glob
 for key in ("BY", "SA"):
     ops = []
-    for f in sorted(glob.glob(f"src/v6/korrektur/kor_{key}_*.json")):
+    for f in sorted(glob.glob(f"src/v6/korrektur/kor_{key}_[0-9].json")):
         ops += json.load(open(f))
     json.dump(ops, open(f"src/v6/korrektur/kor_{key}_alle.json", "w"), ensure_ascii=False, indent=0)
 PY
@@ -48,3 +48,7 @@ python3 tools/docx_ops.py $T/sa3.docx $V/ops_editor2_SA.json src/SAHIT_TR_v6.doc
 python3 tools/check_text.py --by src/YOLCU_TR_v5.docx --sa src/SAHIT_TR_v6.docx --json $V/check_text_v6.json | tail -1
 python3 tools/wordcount.py src/YOLCU_TR_v4.docx src/YOLCU_TR_v5.docx | tail -1
 python3 tools/wordcount.py $V/SAHIT_v6a_entegre.docx src/SAHIT_TR_v6.docx | tail -1
+# Herausgeber-Runde 3 (Kontroll-Jury) und Vereinheitlichung der Redezeichen in ŞAHİT
+python3 tools/docx_ops.py src/SAHIT_TR_v6.docx $V/ops_editor3_SA.json $T/sa4.docx
+python3 $V/punct2_apply.py $T/sa4.docx src/SAHIT_TR_v6.docx $V/punct2_log.json
+python3 tools/check_text.py --by src/YOLCU_TR_v5.docx --sa src/SAHIT_TR_v6.docx --json $V/check_text_v6.json | tail -1

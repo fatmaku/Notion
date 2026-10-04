@@ -37,9 +37,9 @@
  {
   "op": "replace",
   "old": "Ertesi gün Psikiyatr Dr. Hakikat Bey’e",
-  "new": "Ertesi gün Prof. Dr. Hakikat Bey’e",
+  "new": "Ertesi gün Prof. Dr. Hakikat Medeni’ye",
   "kap": "ÜÇ VURUŞ",
-  "neden": "KAYIT'taki unvanla aynı („Prof. Dr. Hakikat Medeni“)."
+  "neden": "KAYIT'taki unvan ve adla aynı („Prof. Dr. Hakikat Medeni“); unvan ile „Bey“ birlikte kullanılmaz."
  },
  {
   "op": "replace",

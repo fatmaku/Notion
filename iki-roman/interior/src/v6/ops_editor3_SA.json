@@ -1,0 +1,241 @@
+[
+ {
+  "op": "replace",
+  "old": "bu kadar konuşken bir adamken",
+  "new": "bu kadar konuşkan bir adamken",
+  "kap": "AZ ÇOK",
+  "neden": "Yazım (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Sahne adamı olmama tamam",
+  "new": "Sahne adamı olmam tamam",
+  "kap": "AZ ÇOK",
+  "neden": "Ek hatası (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "çünkü sahneye yakın yerlere oturanların",
+  "new": "çünkü yalnızca sahneye yakın yerlere oturanların",
+  "kap": "AZ ÇOK",
+  "neden": "Cümle mantığı: kalabalığı bilememe nedeni (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "bir demet maydanozun yiyip içen, yürüyen hâli gibiydi",
+  "new": "bir demet maydanozun nefes alan, kıpırdayan hâli gibiydi",
+  "kap": "DAKTİLO",
+  "neden": "Aynı cümlede „yemeğini yiyip içmeyi kendi başına beceremeyen“ deniyordu (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "“Cennetin kapısında ismi yazanın ardında",
+  "new": "“Cennetin kapısında ismi yazılı olanın ardında",
+  "kap": "FİT NE?",
+  "neden": "Anlam: ismi yazan değil, ismi yazılı olan (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "ve ismini duyduğunda sebepsiz yere içi ürperdi;",
+  "new": "ve ondan söz edildiğini duyduğunda sebepsiz yere içi ürperdi;",
+  "kap": "FİT NE?",
+  "neden": "İsim söylenmiyor (Şeytan yasaklıyor); ceylan yalnızca ondan söz edildiğini duyuyor (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "“Onu size vermem, üstünde yazanı okumam için",
+  "new": "“Onu size vermem ve üstünde yazanı okumam için",
+  "kap": "FİT NE?",
+  "neden": "Bozuk cümle (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "söyleyecek çok fazla şeyler vardı",
+  "new": "söyleyecek çok fazla şey vardı",
+  "kap": "MUHİBBİ",
+  "neden": "Dilbilgisi (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "gibi bir sürü şeyler konuştuk yığınla…",
+  "new": "gibi yığınla şey konuştuk…",
+  "kap": "MUHİBBİ",
+  "neden": "Çift anlatım (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "bazı harfler nefesi tutmak",
+  "new": "bazı harflerde nefesi tutmak",
+  "kap": "AŞK İLE",
+  "neden": "Ek hatası (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Anlayacağın Mustafa Sefa, Beni banktan",
+  "new": "Anlayacağın Mustafa Sefa, beni banktan",
+  "kap": "HODRİ",
+  "neden": "Büyük harf (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Mevla’mızı bulduruluyoruz",
+  "new": "Mevla’mızı bulmaya uğraşıyoruz",
+  "kap": "HODRİ",
+  "neden": "Dilbilgisi (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "metastaz bir habis",
+  "new": "metastatik bir habis",
+  "kap": "HODRİ",
+  "neden": "Tıbbi terim (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Mahallesi Onikiler camisinde",
+  "new": "Mahallesi Onikiler Camisi’nde",
+  "kap": "HODRİ",
+  "neden": "Özel ad."
+ },
+ {
+  "op": "replace",
+  "old": "soluğu bir cuma günü Onikiler camisinde",
+  "new": "soluğu bir cuma günü Onikiler Camisi’nde",
+  "kap": "HODRİ",
+  "neden": "Özel ad."
+ },
+ {
+  "op": "replace",
+  "old": "üç roman yazdıklarını söylediler",
+  "new": "üç roman yazdığımı söylediler",
+  "kap": "SOLUCAN",
+  "neden": "Kişi eki (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "İsm-i Âzam denilen ret olunmayan",
+  "new": "İsm-i Âzam denilen reddolunmayan",
+  "kap": "MIZRAĞIN İKİ UCU",
+  "neden": "Yazım (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "kendi uydurduğum bir kadının ağzından tarihe şahit tutanak düzenleyemezdim.",
+  "new": "uydurduğum bir kadıyı konuşturup tarihe şahitlik tutanağı düzenleyemezdim.",
+  "kap": "ŞEHRİN ÜÇ ŞAHİDİ",
+  "neden": "„kadının“ kadın gibi okunuyordu; kıssadaki kadı kastediliyor (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Evde düştüğüm geceyi anlattım. Gül kokusunu, kilitlenen bedenimi,",
+  "new": "Evde düştüğüm geceyi anlattım. Kilitlenen bedenimi,",
+  "kap": "ANNEMİN SESİ",
+  "neden": "Gül kokusu o gece değil, iki gün sonra (GÜL KOKUSU) beliriyor (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Kral Cebbarun ile savaşmak için",
+  "new": "Cebbar kavimle savaşmak için",
+  "kap": "MIZRAĞIN İKİ UCU",
+  "neden": "„Cebbârîn“ bir kral değil, bir kavim (Mâide 22) (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Bu kırk gün böyle devam etti.",
+  "new": "Bu kırk yıl böyle devam etti.",
+  "kap": "MIZRAĞIN İKİ UCU",
+  "neden": "Tîh çölündeki dolaşma kırk yıl (Mâide 26) (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Allah iman eden kullarına benden çok kimseden korkmayın, benimle aranıza korkularınızı sokmayın, benim her şeye Kadir olduğumu bilin ve teslim olun demiştir.",
+  "new": "Allah iman eden kullarına ‘Benden çok kimseden korkmayın, benimle aranıza korkularınızı sokmayın, benim her şeye Kadir olduğumu bilin ve teslim olun’ demiştir.",
+  "kap": "MIZRAĞIN İKİ UCU",
+  "neden": "İç tırnak: „her şeye Kadir“ olan Allah; tırnaksız Şeytan'ın kendi sözü gibi okunuyordu (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "“Ey Allah’ın resulü olduğunu söyleyen kişi, gömleğini aç, sırtını görmek isterim” der.",
+  "new": "“Ey Allah’ın resulü olduğunu söyleyen kişi, sırtını bir görebilsem” diye içinden geçirir.",
+  "kap": "SUSAYANIN YOLU",
+  "neden": "Rivayette Selman bunu söylemez; Peygamber niyetini anlar (bir sonraki paragraf: „Onun niyetini bilen Peygamberimiz“) (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Kimisi Hindu kimisi Habeşli",
+  "new": "Kimisi Hintli kimisi Habeşli",
+  "kap": "SUSAYANIN YOLU",
+  "neden": "Halk adı (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "o Allah’ın biriciği olarak dünyaya gönderildi",
+  "new": "o Allah’ın yarattığı biricik bir kul olarak dünyaya gönderildi",
+  "kap": "SOLUCAN",
+  "neden": "„Allah'ın biriciği“ Hristiyan „biricik oğul“ ifadesini çağrıştırıyordu (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "çünkü Es Selam olan Allah CC cenneti",
+  "new": "çünkü es-Selâm olan Allah (c.c.) cenneti",
+  "kap": "Başlangıç",
+  "neden": "Esmâ ve kısaltma yazımı (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "küçülen haşa Allah CC değil",
+  "new": "küçülen haşa Allah (c.c.) değil",
+  "kap": "OKU",
+  "neden": "Kısaltma yazımı."
+ },
+ {
+  "op": "replace",
+  "old": "karaca için. Olanlar",
+  "new": "yavru ceylan için. Olanlar",
+  "kap": "Başlangıç",
+  "neden": "Karaca başka bir hayvan (jüri); masalın ceylanı kastediliyor."
+ },
+ {
+  "op": "replace",
+  "old": "keskinleşen karaca, artık",
+  "new": "keskinleşen yavru, artık",
+  "kap": "Başlangıç",
+  "neden": "Aynı."
+ },
+ {
+  "op": "replace",
+  "old": "ancak ceylanın gözünün şeklinden değil, sırrın bakıştan gelen sürmenin nakışlandığını hiç bilemediler.",
+  "new": "ancak o güzelliğin gözün şeklinden değil, bakışa sürme gibi nakşolunan sırdan geldiğini hiç bilemediler.",
+  "kap": "Başlangıç",
+  "neden": "Bozuk cümle (jüri); anlam korunarak kuruldu."
+ },
+ {
+  "op": "replace",
+  "old": "Resmî bir kurum olan hastanemize bilgisayar sokulamazdı;",
+  "new": "Resmî bir kurum olan hastanemize dışarıdan bilgisayar sokulamazdı;",
+  "kap": "DAKTİLO",
+  "neden": "TECRİT ODASI'nda Sefa'ya hastanenin hazırladığı bilgisayar veriliyor; çelişki giderildi (jüri)."
+ },
+ {
+  "op": "replace",
+  "old": "Bu tanıya, sizinle yaptığımız değerlendirmeler ve Vildan Hanım'ın zaman içindeki gözlemleriyle ulaştık.",
+  "new": "Bu ön tanıya, sizinle yaptığımız değerlendirmeler ve Vildan Hanım'ın zaman içindeki gözlemleriyle ulaştık. Beyindeki oluşum netleştikçe onu yeniden değerlendireceğiz.",
+  "kap": "HAKİKAT MEDENİ",
+  "neden": "Ön tanının açıkça gözden geçirileceği söyleniyor (iki jüri: nöbet ve oluşum varken kesin tanı olmaz)."
+ },
+ {
+  "op": "replace",
+  "old": "Pastanesi’ne gel",
+  "new": "Pastanesi’ne gel,",
+  "kap": "HODRİ",
+  "neden": "Tırnak içindeki sözün virgülü (TDK).",
+  "match": "Pastanesi’ne gel” diye"
+ },
+ {
+  "op": "replace",
+  "old": "“Sizin gibi konuşan doktoru” diye",
+  "new": "“Sizin gibi konuşan doktoru,” diye",
+  "kap": "KAYIT",
+  "neden": "Tırnak içindeki sözün virgülü (TDK)."
+ }
+]
