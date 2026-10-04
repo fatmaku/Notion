@@ -1,3 +1,16 @@
 [
- {"op": "replace", "old": "ne demiş Şems Tebrizi; ‘Rava kalbi an Rabbi’", "new": "ne demiş erenler; ‘Rava kalbi an Rabbi’", "kap": "MUHİBBİ'NİN SOFRASI", "neden": "Söz geleneksel olarak Şems'e değil, Bâyezîd/İbn Arabî çizgisine („haddesenî kalbî an Rabbî“) bağlanır; Muhibbi'nin ağzında „erenler“ doğru ve doğal (jüri önerisi)."}
+ {
+  "op": "replace",
+  "old": "ne demiş Şems Tebrizi; ‘Rava kalbi an Rabbi’",
+  "new": "ne demiş erenler; ‘Rava kalbi an Rabbi’",
+  "kap": "MUHİBBİ'NİN SOFRASI",
+  "neden": "Söz geleneksel olarak Şems'e değil, Bâyezîd/İbn Arabî çizgisine („haddesenî kalbî an Rabbî“) bağlanır; Muhibbi'nin ağzında „erenler“ doğru ve doğal (jüri önerisi)."
+ },
+ {
+  "op": "replace",
+  "old": "Sonuna bir soru işareti koydum. Kâğıdı anneme gösterdim.",
+  "new": "Sonuna bir soru işareti koydum. Ekranı anneme gösterdim.",
+  "kap": "ÜÇ VURUŞ",
+  "neden": "Not telefona yazılıyor; anneye gösterilen „kâğıt“ değil, ekran (jüri ve lektör notu)."
+ }
 ]
