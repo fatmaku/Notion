@@ -46,11 +46,12 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     // (a) toggle on -> medium / safe / gap 2, story-de pack loaded (locally + on the server), scene pad visible
     await panel.check('#story-mode');
     assert.equal(await panel.inputValue('#asr-tolerance'), 'medium', 'tolerance medium');
-    assert.equal(await panel.inputValue('#asr-reaction'), 'safe', 'reaction safe');
+    assert.equal(await panel.inputValue('#asr-reaction'), 'fast', '2.2: story mode no longer forces the safe reaction');
     assert.equal(await panel.inputValue('#gap'), '2', 'gap 2 s');
     assert.equal(await panel.evaluate(() => window.livefx.matcher.globalMinGap), 2, 'matcher gap 2');
     assert.equal(await panel.evaluate(() => window.livefx.asrSettings.tolerance), 'medium');
-    assert.equal(await panel.evaluate(() => window.livefx.asrSettings.reaction), 'safe');
+    assert.equal(await panel.evaluate(() => window.livefx.asrSettings.reaction), 'fast');
+    assert.ok(await panel.isChecked('#live-story'), '2.2: story mode switches the live story on');
     assert.equal(await rows(), before + packSize, 'table grew by the story pack');
     assert.ok(await panel.locator('#scene-pad').isVisible(), 'scene pad visible');
     assert.equal(await panel.locator('#scene-pad button').count(), scenes.length, 'one pad button per scene');

@@ -32,6 +32,7 @@ const apiSmart = require('./server/api-smart');
 const apiMobile = require('./server/api-mobile');
 const apiChat = require('./server/api-chat');
 const apiGift = require('./server/api-gift');
+const apiTunnel = require('./server/api-tunnel');
 const staticFiles = require('./server/static');
 
 const ROOT = __dirname;
@@ -82,7 +83,7 @@ const appCtx = { bus, state, token, dataDir: DATA_DIR, rootDir: ROOT, config, sm
 appCtx.chat = apiChat.createChat(appCtx);
 
 const router = new Router();
-for (const mod of [auth, apiFire, apiTriggers, apiGifs, apiAssets, apiTranscript, apiSmart, apiMobile, apiChat, apiGift, sse]) mod.register(router, appCtx);
+for (const mod of [auth, apiFire, apiTriggers, apiGifs, apiAssets, apiTranscript, apiSmart, apiMobile, apiChat, apiGift, apiTunnel, sse]) mod.register(router, appCtx);
 router.route('GET', '/health', (req, res) => {
   const c = bus.counts();
   json(res, 200, { ok: true, version: pkg.version, overlays: c.overlays, panels: c.panels, uptime: Math.round(process.uptime()) });
@@ -110,6 +111,12 @@ function handler(req, res) {
   }
   if (!auth.hostAllowed(req) && !req.headers.authorization) {
     error(res, 403, 'bad_host', 'Host-Header nicht erlaubt (LIVEFX_ALLOWED_HOSTS setzen)');
+    return;
+  }
+  // 2.2: requests through the internet tunnel need the panel cookie or a Bearer (see server/api-tunnel.js).
+  const tunnelBlock = apiTunnel.guard(req, appCtx);
+  if (tunnelBlock) {
+    error(res, tunnelBlock.status, tunnelBlock.code, tunnelBlock.message);
     return;
   }
   router
@@ -155,6 +162,7 @@ function shutdown() {
   } catch (e) {
     log('chat stop failed:', e.message);
   }
+  if (appCtx.tunnel) appCtx.tunnel.stop().catch(() => {});
   bus.close();
   server.close(() => process.exit(0));
   setTimeout(() => process.exit(0), 500).unref();
@@ -173,7 +181,7 @@ server.on('listening', () => {
   console.log(`  Control Panel:  ${base}/`);
   console.log(`  OBS-Overlay:    ${base}/overlay.html   (hochkant: ${base}/overlay.html?layout=portrait)`);
   console.log(`  Daten:          ${DATA_DIR}`);
-  console.log(`  Handy:          ${base}/m?token=…   (Link steht in der Karte „Handy“ im Panel)`);
+  console.log(`  Handy:          ${base}/m?token=…   (Link + QR-Code in der Karte „Handy“ im Panel; Internet: Knopf „Internet-Link“)`);
   if (tls) console.log('  HTTPS aktiv (LIVEFX_TLS_CERT/KEY) – Zertifikat auf dem Handy vertrauen, siehe docs/HANDY-HTTPS.md');
   if (HOST === '127.0.0.1') console.log('  Nur lokal erreichbar. Für OBS/Handy auf einem anderen Gerät: HOST=0.0.0.0 node server.js');
   if (port !== PORT) console.log(`  Hinweis: Port ${PORT} war belegt, LiveFX nutzt jetzt ${port} – diese Adresse in Browser und OBS verwenden.`);

@@ -14,9 +14,15 @@
 //              runs one recognizer per language in parallel where the browser allows it (LiveFX 1.5).
 //
 //   const asr = LiveFXASR.create('webspeech', { lang, bus, onText, onState, onError,
-//                                               alternatives, restartEveryMs, stallMs, voiceActivity, onEvent });
+//                                               alternatives, restartEveryMs, stallMs, voiceActivity, onEvent, onDevice });
 //   asr.start(); asr.setLang('en-US'); asr.setOptions({ alternatives: true }); asr.stats; asr.stop();
-//   LiveFXASR.create('auto', { langs: ['de-DE', 'tr-TR', 'en-US'], window: 3, switchAfter: 2, parallel: 'try', ... });
+//   LiveFXASR.create('auto', { langs: ['de-DE', 'tr-TR', 'en-US'], primaryLang: 'tr-TR', parallel: 'try', ... });
+//
+//   2.2: Chrome on-device recognition (`rec.processLocally = true`, feature-detected) with `onDevice: 'auto'`
+//   (default) | 'off'; events `{type:'ondevice', state}`; any engine error while on-device falls back to the
+//   cloud recognizer for the rest of the session. Backend `auto` starts in `primaryLang`, switches after one
+//   confident final (>= 0.6) or two finals (>= 0.45), waits at most 2 s for a speech gap and returns to the
+//   primary language after two primary finals or 8 s of silence.
 (function (global) {
   'use strict';
 
@@ -32,6 +38,8 @@
   const RESTART_DEFER_MAX_MS = 10000; // after this much deferring the planned restart happens anyway
   const PLANNED_STOP_GRACE_MS = 3000; // rec.stop() without onend within this -> abort + respawn
   const STALL_TICK_MS = 1000; // sampling interval for `voiceActivity` while the watchdog runs
+  const ON_DEVICE_MODES = Object.freeze(['auto', 'off']);
+  const MIC_ERRORS = ['not-allowed', 'audio-capture']; // never an on-device problem: no cloud fallback
 
   function speechCtor() {
     if (typeof global === 'undefined') return null;
@@ -55,6 +63,22 @@
 
   function makeStats() {
     return { results: 0, finals: 0, restarts: 0, plannedRestarts: 0, stalls: 0, lastResultAt: null, lastFinalAt: null, startedAt: null };
+  }
+
+  function onDeviceMode(v) {
+    return ON_DEVICE_MODES.includes(v) ? v : v === false ? 'off' : 'auto';
+  }
+
+  /** Feature detection: Chrome 139+ exposes `processLocally` on instances and the static `available()`. */
+  function onDeviceSupported() {
+    const SR = speechCtor();
+    if (!SR) return false;
+    try {
+      if (typeof SR.available === 'function') return true;
+      return 'processLocally' in SR.prototype || 'processLocally' in new SR();
+    } catch (_) {
+      return false;
+    }
   }
 
   class Base {
@@ -128,6 +152,10 @@
       this._alternatives = false;
       this._restartEveryMs = 0;
       this._stallMs = DEFAULT_STALL_MS;
+      this._onDevice = 'auto'; // 'auto' | 'off' (option); see `onDevice` getter for the live state
+      this._local = false; // the current generation runs on-device
+      this._localFailed = false; // an on-device generation errored: cloud for the rest of the session
+      this._localState = null; // last emitted `ondevice` state
       this._voiceActivity = typeof opts.voiceActivity === 'function' ? opts.voiceActivity : null;
       // Internal (backend `auto`): every engine error code before the ignore/fatal filtering.
       this._onRawError = typeof opts.onRawError === 'function' ? opts.onRawError : null;
@@ -153,18 +181,29 @@
         if (v !== this._stallMs) changed.stallMs = true;
         this._stallMs = v;
       }
+      if ('onDevice' in o) {
+        const v = onDeviceMode(o.onDevice);
+        if (v !== this._onDevice) changed.onDevice = true;
+        this._onDevice = v;
+      }
       return changed;
     }
 
     get options() {
-      return { alternatives: this._alternatives, restartEveryMs: this._restartEveryMs, stallMs: this._stallMs };
+      return { alternatives: this._alternatives, restartEveryMs: this._restartEveryMs, stallMs: this._stallMs, onDevice: this._onDevice };
     }
 
-    /** Live option change. `alternatives` needs a fresh recognizer (maxAlternatives is read at start()). */
+    /** 'on' (current generation runs on-device) | 'fallback' (errored, cloud now) | 'unsupported' | 'off' | null before start(). */
+    get onDevice() {
+      return this._localState;
+    }
+
+    /** Live option change. `alternatives` / `onDevice` need a fresh recognizer (read at start()). */
     setOptions(o) {
       const changed = this._applyOptions(o);
       if (!this._active || !this._rec) return;
-      if (changed.alternatives) {
+      if (changed.onDevice && this._onDevice === 'auto') this._localFailed = false; // try again on request
+      if (changed.alternatives || changed.onDevice) {
         this._clearTimer();
         this._kill();
         this._spawn();
@@ -186,6 +225,7 @@
       this._active = true;
       this._restarts = 0;
       this._netErrors = 0;
+      this._localFailed = false;
       this._stats = makeStats();
       this._spawn();
     }
@@ -193,6 +233,59 @@
     stop() {
       this._shutdown();
       this._setState('idle');
+    }
+
+    /** Tracks the on-device state (getter `onDevice`); emits `ondevice` on a change to on | fallback. */
+    _setLocalState(state, extra) {
+      if (state === this._localState) return;
+      this._localState = state;
+      if (state === 'on' || state === 'fallback') this._event('ondevice', Object.assign({ state }, extra || {}));
+    }
+
+    /** Decides on-device vs cloud for a fresh recognizer `rec`; sets `rec.processLocally` when wanted. */
+    _applyOnDevice(rec) {
+      this._local = false;
+      if (this._onDevice === 'off') {
+        this._setLocalState('off');
+        return;
+      }
+      if (this._localFailed) return; // state 'fallback' already emitted
+      let supported = false;
+      try {
+        supported = 'processLocally' in rec;
+      } catch (_) {
+        supported = false;
+      }
+      if (!supported) {
+        this._setLocalState('unsupported');
+        return;
+      }
+      try {
+        rec.processLocally = true;
+        this._local = true;
+        this._setLocalState('on', { lang: this._lang });
+      } catch (_) {
+        this._localFailed = true;
+        this._setLocalState('fallback', { error: 'processLocally', lang: this._lang });
+      }
+    }
+
+    /** An on-device generation failed: cloud from now on (this session), respawn at once. */
+    _onDeviceFallback(rec, code) {
+      this._localFailed = true;
+      this._local = false;
+      this._setLocalState('fallback', { error: code, lang: this._lang });
+      this._error(code, 'On-Device-Erkennung fehlgeschlagen – weiter über die Cloud.', false);
+      if (rec !== this._rec || !this._active) return;
+      this._clearTimer();
+      this._kill();
+      this._stats.restarts++;
+      this._event('restart', { delay: 0, restarts: this._stats.restarts, reason: 'ondevice' });
+      this._setState('restarting');
+      this._timer = setTimeout(() => {
+        this._timer = null;
+        if (this._active && !this._rec) this._spawn(true);
+      }, 0);
     }
 
     _shutdown() {
@@ -345,6 +438,7 @@
       rec.continuous = true;
       rec.interimResults = true;
       rec.maxAlternatives = this._alternatives ? ALTERNATIVES_N : 1;
+      this._applyOnDevice(rec);
       this._rec = rec;
       this._stats.startedAt = now();
       this._setState(restart || this._restarts > 0 ? 'restarting' : 'starting');
@@ -410,6 +504,11 @@
         const code = (e && e.error) || 'unknown';
         if (this._onRawError) safe(this._onRawError, code);
         if (IGNORED_ERRORS.includes(code)) return;
+        if (this._local && !MIC_ERRORS.includes(code)) {
+          // language-not-supported (pack missing), service-not-allowed, network …: cloud instead.
+          this._onDeviceFallback(rec, code);
+          return;
+        }
         if (FATAL_ERRORS.includes(code)) {
           this._error(code, code === 'audio-capture' ? 'Kein Mikrofon gefunden.' : 'Mikrofon-Zugriff verweigert.', true);
           this._shutdown();
@@ -955,14 +1054,17 @@
     }
   }
 
-  // ---------------------------------------------------------------- auto (DE/TR/EN, LiveFX 1.5)
-  // Composes WebSpeech recognizers. Switching mode: one recognizer; every final result is scored by
-  // js/langdetect.js, and when the last `switchAfter` finals agree on another family the recognizer
-  // is restarted in that language in the next speech gap. Parallel mode (`parallel: 'try'|'on'`):
-  // one recognizer per family runs at the same time; interims come from the leading language only,
-  // finals are deduped per utterance and the best-scoring one is forwarded. Chrome aborts the first
-  // recognizer when a second one starts – that `aborted` within AUTO_PARALLEL_PROBE_MS of start()
-  // makes 'try' fall back to switching mode.
+  // ---------------------------------------------------------------- auto (DE/TR/EN, LiveFX 1.5 / 2.2)
+  // Composes WebSpeech recognizers. Switching mode: one recognizer, started in `primaryLang`; every
+  // final result is scored by js/langdetect.js. One final of another family with score >= 0.6, or
+  // `switchAfter` (2) finals in a row with >= 0.45 each, restart the recognizer in that language in the
+  // next speech gap (at most 2 s of waiting). Two finals in the primary language (or one >= 0.6), or 8 s
+  // without a final, bring the primary language back. Parallel mode (`parallel: 'try'|'on'`): one
+  // recognizer per family runs at the same time; interims come from the leading language only – the
+  // first confident interim of another recognizer (>= 0.75, >= 3 tokens) makes it the leader; finals
+  // are deduped per utterance and the best-scoring one is forwarded. Chrome aborts the first recognizer
+  // when a second one starts – that `aborted` within AUTO_PARALLEL_PROBE_MS of start() makes 'try'
+  // fall back to switching mode.
   const AUTO_LANGS = Object.freeze(['de-DE', 'tr-TR', 'en-US']);
   const AUTO_WINDOW = 3;
   const AUTO_SWITCH_AFTER = 2;
@@ -971,6 +1073,13 @@
   const AUTO_DEDUPE_MS = 800; // finals from different recognizers closer than this are one utterance
   const AUTO_DEDUPE_TEXT_MS = 3000; // near-identical text within this is a duplicate too
   const AUTO_CONFIDENT = 0.75; // a final whose own language scores this high is forwarded without waiting
+  const AUTO_QUICK_SCORE = 0.6; // 2.2: one final with this langdetect score switches at once
+  const AUTO_SWITCH_SCORE = 0.45; // 2.2: ... or `switchAfter` agreeing finals with at least this score each
+  const AUTO_GAP_STEP_MS = 500; // 2.2: with a meter the switch waits for a speech gap in these steps
+  const AUTO_GAP_MAX_MS = 2000; // 2.2: ... for at most this long
+  const AUTO_RETURN_FINALS = 2; // 2.2: finals in the primary language that bring it back
+  const AUTO_RETURN_MS = 8000; // 2.2: no final for this long while away from the primary -> back to primary
+  const AUTO_INTERIM_TOKENS = 3; // 2.2: parallel leader switch needs an interim of at least this many tokens
 
   function langDetect() {
     if (global.LiveFXLangDetect) return global.LiveFXLangDetect;
@@ -1018,7 +1127,7 @@
       this._ld = langDetect();
       this._inners = []; // live WebSpeech instances (1 in switching mode, one per family in parallel mode)
       this._innerOpts = {};
-      for (const k of ['alternatives', 'restartEveryMs', 'stallMs']) if (k in opts) this._innerOpts[k] = opts[k];
+      for (const k of ['alternatives', 'restartEveryMs', 'stallMs', 'onDevice']) if (k in opts) this._innerOpts[k] = opts[k];
       this._voiceActivity = typeof opts.voiceActivity === 'function' ? opts.voiceActivity : null;
       this._window = Math.max(1, Math.floor(Number(opts.window)) || AUTO_WINDOW);
       this._switchAfter = Math.min(this._window, Math.max(1, Math.floor(Number(opts.switchAfter)) || AUTO_SWITCH_AFTER));
@@ -1030,14 +1139,20 @@
       if (!this._families.length) for (const t of AUTO_LANGS) this._addLang(t);
       const f0 = autoFamily(opts.lang);
       if (f0 && this._tags[f0]) this._tags[f0] = opts.lang;
-      this._family = f0 && this._tags[f0] ? f0 : this._families[0];
+      // 2.2: the primary (= start) language: `primaryLang`, else opts.lang, else langs[0].
+      const fp = autoFamily(opts.primaryLang);
+      if (fp) this._addLang(opts.primaryLang); // a variant of a listed family replaces its tag; a new family is appended
+      this._primary = fp && this._tags[fp] ? fp : f0 && this._tags[f0] ? f0 : this._families[0];
+      this._family = this._primary;
       this._lang = this._tags[this._family];
       this._active = false;
       this._pinned = false;
       this._history = []; // last `window` detections of finals (switching mode)
-      this._switchTo = null; // pending { family, score } waiting for a speech gap
+      this._primaryStreak = 0; // finals in a row detected as the primary language while away from it
+      this._switchTo = null; // pending { family, score, reason } waiting for a speech gap
       this._switchTimer = null;
       this._switchDeferred = 0;
+      this._returnTimer = null; // 2.2: silence timer back to the primary language
       this._parallel = false; // parallel mode currently running
       this._probeUntil = 0; // parallel 'try': fall back to switching on aborted/not-allowed before this
       this._hold = null; // parallel: best final of the current utterance, waiting for competitors
@@ -1075,6 +1190,11 @@
       return this._parallel;
     }
 
+    /** 2.2: tag of the primary (start / fallback) language. */
+    get primary() {
+      return this._tags[this._primary];
+    }
+
     get options() {
       const p = this._inners[0];
       const base = p
@@ -1083,19 +1203,46 @@
             alternatives: !!this._innerOpts.alternatives,
             restartEveryMs: Math.max(0, Number(this._innerOpts.restartEveryMs) || 0),
             stallMs: 'stallMs' in this._innerOpts ? Math.max(0, Number(this._innerOpts.stallMs) || 0) : DEFAULT_STALL_MS,
+            onDevice: onDeviceMode(this._innerOpts.onDevice),
           };
-      return Object.assign(base, { langs: this.langs, window: this._window, switchAfter: this._switchAfter, parallel: this._parallelMode });
+      return Object.assign(base, { langs: this.langs, primaryLang: this.primary, window: this._window, switchAfter: this._switchAfter, parallel: this._parallelMode });
     }
 
-    /** Live: alternatives/restartEveryMs/stallMs go to every recognizer; window/switchAfter apply at once; parallel at the next start(). */
+    /** 2.2: on-device state of the leading recognizer (see WebSpeech#onDevice). */
+    get onDevice() {
+      const p = this._primaryRec();
+      return p ? p.onDevice : null;
+    }
+
+    /**
+     * Live: alternatives/restartEveryMs/stallMs/onDevice go to every recognizer; window/switchAfter/primaryLang
+     * apply at once (a new primary is switched to when idle or unpinned); parallel at the next start().
+     */
     setOptions(o) {
       if (!o || typeof o !== 'object') return;
       if ('window' in o) this._window = Math.max(1, Math.floor(Number(o.window)) || AUTO_WINDOW);
       if ('switchAfter' in o) this._switchAfter = Math.max(1, Math.floor(Number(o.switchAfter)) || AUTO_SWITCH_AFTER);
       this._switchAfter = Math.min(this._window, this._switchAfter);
       if ('parallel' in o) this._parallelMode = Auto.parallelMode(o.parallel);
-      for (const k of ['alternatives', 'restartEveryMs', 'stallMs']) if (k in o) this._innerOpts[k] = o[k];
+      if ('primaryLang' in o) this._setPrimary(o.primaryLang);
+      for (const k of ['alternatives', 'restartEveryMs', 'stallMs', 'onDevice']) if (k in o) this._innerOpts[k] = o[k];
       for (const r of this._inners) r.setOptions(o);
+    }
+
+    _setPrimary(tag) {
+      const f = autoFamily(tag);
+      if (!f) return;
+      this._addLang(tag);
+      if (f === this._primary && this._tags[f] === tag) return;
+      this._primary = f;
+      this._primaryStreak = 0;
+      if (this._pinned) return;
+      if (!this._active) {
+        this._family = f;
+        this._lang = this._tags[f];
+        return;
+      }
+      this._applyLang(f, null, 'primary');
     }
 
     start() {
@@ -1109,9 +1256,14 @@
       this._stats = autoStats();
       this._stats.startedAt = now();
       this._history = [];
+      this._primaryStreak = 0;
       this._hold = null;
       this._lastForwarded = null;
       this._switchTo = null;
+      if (!this._pinned) {
+        this._family = this._primary; // 2.2: every session starts in the primary language
+        this._lang = this._tags[this._family];
+      }
       this._parallel = this._parallelMode !== 'off' && this._families.length > 1;
       this._stats.parallel = this._parallel;
       this._probeUntil = this._parallel && this._parallelMode === 'try' ? now() + AUTO_PARALLEL_PROBE_MS : 0;
@@ -1129,6 +1281,7 @@
     _shutdown() {
       this._active = false;
       this._cancelSwitch();
+      this._clearReturn();
       if (this._hold && this._hold.timer) clearTimeout(this._hold.timer);
       this._hold = null;
       const inners = this._inners;
@@ -1156,7 +1309,8 @@
       return this._parallel ? 'parallel' : 'switch';
     }
 
-    _primary() {
+    /** The recognizer of the current (leading) family. */
+    _primaryRec() {
       for (const r of this._inners) if (autoFamily(r.lang) === this._family) return r;
       return this._inners[0] || null;
     }
@@ -1192,6 +1346,8 @@
       this._family = f;
       this._lang = tag;
       this._history = [];
+      this._primaryStreak = 0;
+      this._armReturn();
       if (!changed) return;
       if (this._active) {
         if (this._parallel) {
@@ -1202,7 +1358,7 @@
         }
       }
       this._stats.switches++;
-      this._event('lang', { lang: tag, family: f, score: score == null ? null : score, mode: this._mode(), reason });
+      this._event('lang', { lang: tag, family: f, score: score == null ? null : score, mode: this._mode(), reason, primary: this.primary });
       this._emitState();
     }
 
@@ -1213,29 +1369,64 @@
       this._switchDeferred = 0;
     }
 
-    /** Switching mode: remember the detection and switch when the last `switchAfter` finals agree. */
+    // ---- 2.2: back to the primary language after silence -------------------------------------
+    _clearReturn() {
+      if (this._returnTimer) clearTimeout(this._returnTimer);
+      this._returnTimer = null;
+    }
+
+    /** (Re-)arms the silence timer while away from the primary language (called on every final / switch). */
+    _armReturn() {
+      this._clearReturn();
+      if (!this._active || this._pinned || this._family === this._primary) return;
+      this._returnTimer = setTimeout(() => {
+        this._returnTimer = null;
+        if (!this._active || this._pinned || this._family === this._primary) return;
+        this._requestSwitch(this._primary, null, 'silence');
+      }, AUTO_RETURN_MS);
+    }
+
+    /**
+     * Switching mode (2.2): one final with score >= AUTO_QUICK_SCORE switches at once; otherwise the last
+     * `switchAfter` finals must agree with >= AUTO_SWITCH_SCORE each. Back to the primary language after
+     * AUTO_RETURN_FINALS finals in it (any score) or one quick one.
+     */
     _observe(det) {
       if (!det || !det.lang) return;
       this._history.push(det);
       if (this._history.length > this._window) this._history.splice(0, this._history.length - this._window);
       if (this._pinned) return;
+      const f = det.lang;
+      if (f === this._family) {
+        this._primaryStreak = 0;
+        return;
+      }
+      if (!this._tags[f]) return;
+      if (f === this._primary) {
+        this._primaryStreak++;
+        if (det.score >= AUTO_QUICK_SCORE || this._primaryStreak >= AUTO_RETURN_FINALS) this._requestSwitch(f, det.score, 'primary');
+        return;
+      }
+      this._primaryStreak = 0;
+      if (det.score >= AUTO_QUICK_SCORE) {
+        this._requestSwitch(f, det.score, 'detected');
+        return;
+      }
       const n = this._switchAfter;
       if (this._history.length < n) return;
       const lastN = this._history.slice(-n);
-      const f = lastN[0].lang;
-      if (f === this._family || !this._tags[f]) return;
-      if (!lastN.every((d) => d.lang === f)) return;
+      if (!lastN.every((d) => d.lang === f && d.score >= AUTO_SWITCH_SCORE)) return;
       const score = Math.round((lastN.reduce((s, d) => s + d.score, 0) / n) * 1000) / 1000;
-      this._requestSwitch(f, score);
+      this._requestSwitch(f, score, 'detected');
     }
 
-    /** Without a meter the switch happens right after the final; with one it waits for a gap (max 10 s). */
-    _requestSwitch(f, score) {
+    /** Without a meter the switch happens right after the final; with one it waits for a gap (max 2 s). */
+    _requestSwitch(f, score, reason) {
       if (this._switchTo && this._switchTo.family === f) return;
       this._cancelSwitch();
-      this._switchTo = { family: f, score };
+      this._switchTo = { family: f, score, reason: reason || 'detected' };
       if (!this._voiceActivity) {
-        this._applyLang(f, score, 'detected');
+        this._applyLang(f, score, this._switchTo.reason);
         return;
       }
       this._switchTick();
@@ -1251,12 +1442,12 @@
       } catch (_) {
         voice = false;
       }
-      if (!voice || this._switchDeferred >= RESTART_DEFER_MAX_MS) {
-        this._applyLang(req.family, req.score, 'detected');
+      if (!voice || this._switchDeferred >= AUTO_GAP_MAX_MS) {
+        this._applyLang(req.family, req.score, req.reason);
         return;
       }
-      this._switchDeferred += RESTART_DEFER_STEP_MS;
-      this._switchTimer = setTimeout(() => this._switchTick(), RESTART_DEFER_STEP_MS);
+      this._switchDeferred += AUTO_GAP_STEP_MS;
+      this._switchTimer = setTimeout(() => this._switchTick(), AUTO_GAP_STEP_MS);
     }
 
     // ---- results -----------------------------------------------------------------------------
@@ -1266,7 +1457,14 @@
       const fam = autoFamily(tag);
       const m = Object.assign({}, meta, { source: 'auto', lang: tag, recognizer: tag });
       if (!isFinal) {
-        if (this._parallel && fam !== this._family) return; // interims only from the leading language
+        if (this._parallel && fam !== this._family) {
+          // 2.2: interims only from the leading language – unless another recognizer is clearly
+          // hearing its own language (>= AUTO_CONFIDENT, >= 3 tokens): it becomes the leader at once.
+          if (this._pinned || !this._ld) return;
+          const d = this._ld.detect(text);
+          if (d.lang !== fam || d.score < AUTO_CONFIDENT || this._ld.tokenize(text).length < AUTO_INTERIM_TOKENS) return;
+          this._applyLang(fam, d.score, 'interim');
+        }
         this._forward(text, false, m);
         return;
       }
@@ -1275,6 +1473,7 @@
       if (!this._parallel) {
         this._forward(text, true, m);
         this._observe(det);
+        this._armReturn();
         return;
       }
       this._offer({ text, meta: m, at: m.at, fam, det, score: this._finalScore(det, fam, m), timer: null });
@@ -1337,7 +1536,8 @@
       this._lastForwarded = { text: h.text, at: h.at };
       this._forward(h.text, true, h.meta);
       const f = h.det.lang && this._tags[h.det.lang] ? h.det.lang : null;
-      if (f && !this._pinned && f !== this._family) this._applyLang(f, h.det.score, 'detected');
+      if (f && !this._pinned && f !== this._family) this._applyLang(f, h.det.score, f === this._primary ? 'primary' : 'detected');
+      else this._armReturn();
     }
 
     // ---- inner recognizer plumbing -------------------------------------------------------------
@@ -1347,7 +1547,7 @@
         this._probeUntil = 0;
         return;
       }
-      if (code === 'aborted' || (code === 'not-allowed' && rec !== this._primary())) this._fallbackToSwitch();
+      if (code === 'aborted' || (code === 'not-allowed' && rec !== this._primaryRec())) this._fallbackToSwitch();
     }
 
     /** Parallel recognizers are not supported here: keep the primary, stop the rest, switch mode from now on. */
@@ -1356,7 +1556,7 @@
       this._stats.parallel = false;
       this._probeUntil = 0;
       this._flushHold();
-      const keep = this._primary();
+      const keep = this._primaryRec();
       const rest = this._inners.filter((r) => r !== keep);
       this._inners = keep ? [keep] : [];
       for (const r of rest) r.stop();
@@ -1429,6 +1629,8 @@
     BACKOFF_MS,
     ALTERNATIVES_N,
     DEFAULT_STALL_MS,
+    ON_DEVICE_MODES,
+    onDeviceSupported, // () => boolean – Chrome exposes SpeechRecognition.available / processLocally
     // `supported` for 'external' assumes a bus exists when running over http(s); pass a bus to
     // `create` for the authoritative check (state becomes 'unsupported' under file://).
     get backends() {
@@ -1447,5 +1649,12 @@
     AUTO_LANGS,
     AUTO_PARALLEL_PROBE_MS,
     AUTO_DEDUPE_MS,
+    AUTO_CONFIDENT,
+    AUTO_QUICK_SCORE,
+    AUTO_SWITCH_SCORE,
+    AUTO_GAP_MAX_MS,
+    AUTO_RETURN_FINALS,
+    AUTO_RETURN_MS,
+    AUTO_INTERIM_TOKENS,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

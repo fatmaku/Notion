@@ -21,6 +21,18 @@
 //   - performance mode `renderer.setPerf('auto' | 'eco' | 'high')` -> `renderer.perf` (requested mode),
 //     `renderer.perfActive` (look in use), `body[data-perf]` (= perfActive) and `body[data-perf-mode]`;
 //     auto starts high and switches to eco for good after 30 consecutive slow frames (stats.perfSwitches)
+// LiveFX 2.2 (story band, docs/STORY.md):
+//   - `renderer.setLayout({storyLayout, band, zone})`: scenes live in `#stage > .fx-band[data-layout]` (band = bottom
+//     strip of `--fx-band` height, frame = 30 % box bottom-right, full = whole frame); the camera above stays untouched
+//     (canvas parallax / actors are clipped to the band rect). `zone` (full | edges | bottom | top) moves transient
+//     effects: rain / confetti spawn in the edge columns (`--fx-edge`), cards / text / stickers / banners alternate
+//     between the left and right column (`.fx-col-left|right`), `bottom` puts them into the band (`.fx-in-band`),
+//     `top` pins them to the top strip; flash + impact zoom only in zone `full`.
+//   - live story: `renderer.story(state)` (state from js/story-director.js or a `story-state` message) switches the
+//     scene, plays the suggested ambient loop, draws emoji actors that walk in / out on the canvas inside the band
+//     and tints the band by mood; the band fades after `renderer.storyIdleMs` (60 s) without `storyTouch()`.
+//   - three volume levels `renderer.setVolume('master'|'sfx'|'ambient', v)` -> mixer master / busses; loops run on
+//     the mixer's ambient bus (ducking + limiter) – the old GainNode-to-destination path stays only as fallback.
 (function (global) {
   'use strict';
 
@@ -59,6 +71,17 @@
   const RAYS_SPRITE_PX = 512;
   const PERF_CALIBRATE_FRAMES = 20;
   const FLARE_MAX = { rays: 2, ring: 3 };
+  // 2.2 story band / zones / volumes (fallbacks when schema.js is missing; the live lists are in LiveFXSchema).
+  const STORY_LAYOUTS = ['band', 'full', 'frame'];
+  const ZONES = ['full', 'edges', 'bottom', 'top'];
+  const VOLUME_BUSES = ['master', 'sfx', 'ambient'];
+  const VOLUME_DEFAULTS = { master: 0.5, sfx: 0.8, ambient: 0.5 };
+  const STORY_IDLE_MS = 60000;
+  const ACTOR_SLOTS = [0.3, 0.7, 0.5, 0.15, 0.85, 0.42];
+  const PROP_SLOTS = [0.78, 0.22, 0.6, 0.08, 0.92];
+  const ACTOR_FADE = 0.6;
+  // Scene -> ambient loop suggestion when a `story-state` carries no `loop` (js/story-director.js has the same table).
+  const LOOP_BY_SCENE = { rain: 'rain', storm: 'storm', night: 'nightCrickets', forest: 'birds', sea: 'sea', fire: 'fireplace', castle: 'wind', snow: 'wind', desert: 'wind', city: 'cityHum', space: 'spaceDrone', sunrise: 'birds' };
 
   /**
    * Per-scene decoration. `decor` sits top-right (sun, moon, planet), `ground` is a bottom row of silhouettes,
@@ -102,6 +125,28 @@
     return Array.isArray(list) && list.length ? list : TEXT_STYLES;
   };
   const colorRe = () => (schema() && schema().COLOR_RE) || FALLBACK.colorRe;
+  const storyLayouts = () => (schema() && schema().STORY_LAYOUTS) || STORY_LAYOUTS;
+  const zones = () => (schema() && schema().ZONES) || ZONES;
+  const volumeDefaults = () => (schema() && schema().VOLUME_DEFAULTS) || VOLUME_DEFAULTS;
+  const bandLimits = () => {
+    const L = schema() && schema().LIMITS;
+    return [(L && L.bandMin) || 15, (L && L.bandMax) || 35];
+  };
+  const LAYOUT_DEFAULTS = { storyLayout: 'band', band: 22, zone: 'edges' };
+  /** `LiveFXSchema.normalizeLayout` when present, else the same merge locally (partial onto base). */
+  function normalizeLayoutLocal(raw, base) {
+    const S = schema();
+    if (S && typeof S.normalizeLayout === 'function') return S.normalizeLayout(raw, base || S.LAYOUT_DEFAULTS);
+    const r = raw && typeof raw === 'object' ? raw : {};
+    const b = base && typeof base === 'object' ? base : LAYOUT_DEFAULTS;
+    const [min, max] = bandLimits();
+    const n = Number(r.band);
+    return {
+      storyLayout: storyLayouts().includes(r.storyLayout) ? r.storyLayout : storyLayouts().includes(b.storyLayout) ? b.storyLayout : 'band',
+      band: Number.isFinite(n) ? Math.round(clamp(n, min, max)) : Number.isFinite(Number(b.band)) ? Number(b.band) : LAYOUT_DEFAULTS.band,
+      zone: zones().includes(r.zone) ? r.zone : zones().includes(b.zone) ? b.zone : 'edges',
+    };
+  }
 
   function escapeHtml(s) {
     const S = schema();
@@ -177,8 +222,8 @@
    * variable is not defined on :root. Cached once per page.
    */
   let needsInlineLeft = null;
-  function placeX(el) {
-    const x = Math.random();
+  function placeX(el, zone) {
+    const x = zoneX(zone);
     el.style.setProperty('--x', String(x));
     if (needsInlineLeft === null) {
       try {
@@ -188,6 +233,28 @@
       }
     }
     if (needsInlineLeft) el.style.left = `${x * 100}vw`;
+  }
+
+  /** Current effect zone from body[data-zone] (set by Renderer.setLayout). */
+  function bodyZone() {
+    const z = typeof document !== 'undefined' && document.body && document.body.dataset ? document.body.dataset.zone : '';
+    return zones().includes(z) ? z : 'full';
+  }
+
+  /** Edge column width as a fraction of the stage width (--fx-edge, default 22 %, portrait 30 %). */
+  function edgeFraction(w) {
+    const px = cssLengthPx('--fx-edge', 0.22 * w, w);
+    return clamp(px / Math.max(1, w), 0.08, 0.45);
+  }
+
+  /** Horizontal spawn fraction 0..1 for a falling thing: zone `edges` keeps it in the left / right column. */
+  function zoneX(zone) {
+    const z = zone || bodyZone();
+    if (z !== 'edges') return Math.random();
+    const w = (typeof global.innerWidth === 'number' && global.innerWidth) || 1;
+    const e = edgeFraction(w);
+    const r = Math.random() * e;
+    return Math.random() < 0.5 ? r : 1 - e + r;
   }
 
   /** Reads a CSS length variable from body (vw/vh/px/%) into px of the stage. */
@@ -237,6 +304,14 @@
       this.h = 0;
       this.dpr = 1;
       this.ok = false;
+      /** Story band rect in canvas px `{x0, y0, w, h}` (null = whole canvas / --fx-fall semantics). */
+      this.rect = null;
+      this.bandEl = null; // `.fx-band` element the rect is read from
+      this.zone = 'full';
+      /** Story actors (emoji sprites walking in / out inside the band) and static props. */
+      this.actors = [];
+      this.props = [];
+      this._rectAt = 0;
       this._tick = this._tick.bind(this);
       this._onResize = () => this.resize();
       this._init();
@@ -272,7 +347,7 @@
       if (!this.ok) return;
       const kids = Array.from(this.root.children);
       let idx = 0;
-      while (idx < kids.length && kids[idx].classList.contains('fx-scene')) idx++;
+      while (idx < kids.length && (kids[idx].classList.contains('fx-scene') || kids[idx].classList.contains('fx-band'))) idx++;
       if (kids[idx] !== this.canvas) this.root.insertBefore(this.canvas, kids[idx] || null);
       const w = this.root.clientWidth || global.innerWidth || 1;
       const h = this.root.clientHeight || global.innerHeight || 1;
@@ -288,6 +363,67 @@
       this.canvas.width = Math.round(this.w * this.dpr);
       this.canvas.height = Math.round(this.h * this.dpr);
       this.sprites.clear();
+      this.updateRect();
+    }
+
+    /**
+     * Story band geometry: with a `.fx-band` element that is not `full`, the scene rect is its box (canvas px);
+     * otherwise the old whole-frame semantics apply (`--fx-x0` / `--fx-xspan` wide, `--fx-fall` high).
+     */
+    setBand(el, layout, zone) {
+      this.bandEl = el || null;
+      this.layoutMode = storyLayouts().includes(layout) ? layout : 'band';
+      this.zone = zones().includes(zone) ? zone : 'full';
+      this.updateRect();
+      this._rectAt = 0;
+    }
+
+    updateRect() {
+      this._rectAt = typeof performance !== 'undefined' ? performance.now() : Date.now();
+      const el = this.bandEl;
+      if (!el || this.layoutMode === 'full' || typeof el.getBoundingClientRect !== 'function') {
+        this.rect = null;
+        return null;
+      }
+      const r = el.getBoundingClientRect();
+      const c = this.canvas && this.canvas.getBoundingClientRect ? this.canvas.getBoundingClientRect() : { left: 0, top: 0 };
+      if (!r.width || !r.height) {
+        this.rect = null;
+        return null;
+      }
+      this.rect = { x0: r.left - c.left, y0: r.top - c.top, w: r.width, h: r.height };
+      return this.rect;
+    }
+
+    /** Scene rect (band) or the whole-frame fallback `{x0, y0: 0, w, h: fall}`. */
+    sceneRect() {
+      if (this.rect) return this.rect;
+      const [x0, span] = this.band();
+      return { x0, y0: 0, w: span, h: this.fallPx(), full: true };
+    }
+
+    /**
+     * Where transient bursts (rain / confetti) may spawn and how far they fall, by zone:
+     * full = whole frame, edges = left / right columns (`--fx-edge`), bottom = inside the band, top = top 30 %.
+     */
+    effectBox() {
+      const [bx0, span] = this.band();
+      const z = this.zone;
+      if (z === 'edges') {
+        const e = edgeFraction(this.w) * this.w;
+        return { cols: [[0, e], [this.w - e, e]], y0: 0, fall: this.fallPx() };
+      }
+      if (z === 'bottom') {
+        const r = this.sceneRect();
+        return { cols: [[r.x0, r.w]], y0: r.y0, fall: r.h };
+      }
+      if (z === 'top') return { cols: [[bx0, span]], y0: 0, fall: Math.min(this.fallPx(), this.h * 0.3) };
+      return { cols: [[bx0, span]], y0: 0, fall: this.fallPx() };
+    }
+
+    _boxX(box) {
+      const col = box.cols[Math.floor(Math.random() * box.cols.length)];
+      return col[0] + Math.random() * col[1];
     }
 
     /** Base cap per intensity (400 / 800 / 1200); an auto-reduced cap stays as the ceiling until the page reloads. */
@@ -322,15 +458,16 @@
 
     /** Rain burst: `count` emoji with gravity, wind, drift and rotation. */
     rain(emoji, count) {
-      const [x0, span] = this.band();
+      const box = this.effectBox();
       const wind = rand(-30, 30);
       for (let i = 0; i < count; i++) {
         const size = rand(22, 60);
         this.add({
           kind: 'emoji',
           text: emoji,
-          x: x0 + Math.random() * span,
-          y: -rand(20, 220),
+          x: this._boxX(box),
+          y: box.y0 - rand(20, 220),
+          floor: box.y0 + box.fall,
           vx: rand(-20, 20),
           vy: rand(120, 260),
           g: rand(140, 260),
@@ -348,14 +485,15 @@
 
     /** Confetti: rotating rects with a 3D-ish scale wobble; `count` pieces. */
     confetti(count, colors) {
-      const [x0, span] = this.band();
+      const box = this.effectBox();
       const wind = rand(-40, 40);
       for (let i = 0; i < count; i++) {
         this.add({
           kind: 'rect',
           color: colors[i % colors.length],
-          x: x0 + Math.random() * span,
-          y: -rand(10, 160),
+          x: this._boxX(box),
+          y: box.y0 - rand(10, 160),
+          floor: box.y0 + box.fall,
           vx: rand(-60, 60),
           vy: rand(60, 200),
           g: rand(200, 420),
@@ -427,8 +565,11 @@
     /** Spawns the ambient particles due since the last frame (up to 4 per frame, so density does not depend on fps). */
     _spawnAmbient(now) {
       const a = this.ambient;
-      if (!a || now - a.last < a.every) return;
-      const due = a.last ? Math.min(4, Math.floor((now - a.last) / a.every)) : 1;
+      if (!a) return;
+      // A band shorter than half the frame spawns up to twice as often (the strip would look empty otherwise).
+      const every = this.rect ? a.every * clamp(this.rect.h / (this.h * 0.5), 0.5, 1) : a.every;
+      if (now - a.last < every) return;
+      const due = a.last ? Math.min(4, Math.floor((now - a.last) / every)) : 1;
       a.last = now;
       let alive = this.items.reduce((n, p) => n + (p.ambient ? 1 : 0), 0);
       for (let i = 0; i < due && alive < a.cap; i++, alive++) this._spawnAmbientOne(a);
@@ -440,17 +581,160 @@
       const k = [0.55, 1, 1.45][layer];
       const size = rand(p.size[0], p.size[1]) * k;
       const text = a.override ? a.override[Math.floor(Math.random() * a.override.length)] : p.emoji;
-      const [x0, span] = this.band();
-      const fall = this.fallPx();
+      const r = this.sceneRect();
+      const x0 = r.x0;
+      const span = r.w;
+      const y0 = r.y0;
+      const fall = r.h;
+      // Inside a band the sprites scale with the band height (a 237 px strip gets ~60 % sized emoji).
+      const scale = r.full ? 1 : clamp(fall / 400, 0.55, 1);
+      const sz = size * scale;
       const dur = rand(p.dur[0], p.dur[1]) / k;
-      const base = { kind: 'emoji', text, size, layer, ambient: true, life: dur, alpha: [0.45, 0.75, 1][layer], g: 0, wind: 0, drift: rand(0.5, 1.5), phase: rand(0, 6.28), rot: 0, vr: 0, fade: true };
-      if (p.mode === 'fall') Object.assign(base, { x: x0 + Math.random() * span, y: -size, vx: rand(-10, 10), vy: (fall + size) / dur, vr: rand(-0.6, 0.6) });
-      else if (p.mode === 'rise') Object.assign(base, { x: x0 + Math.random() * span, y: fall, vx: rand(-15, 15), vy: -(fall * 0.8) / dur });
-      else if (p.mode === 'drift') Object.assign(base, { x: x0 - size, y: rand(0.05, 0.7) * this.h, vx: (span + size * 2) / dur, vy: rand(-6, 6) });
-      else if (p.mode === 'drive') Object.assign(base, { x: x0 - size, y: Math.min(this.h, fall) - size * 1.2, vx: (span + size * 2) / dur, vy: 0 });
-      else if (p.mode === 'comet') Object.assign(base, { x: x0 + span * rand(0.4, 1), y: rand(0, 0.25) * this.h, vx: -(span * 0.6) / dur, vy: (fall * 0.45) / dur });
-      else Object.assign(base, { x: x0 + Math.random() * span, y: rand(0.04, 0.7) * this.h, vx: 0, vy: 0, twinkle: true, vr: rand(-0.4, 0.4) });
+      const base = { kind: 'emoji', text, size: sz, layer, ambient: true, life: dur, alpha: [0.45, 0.75, 1][layer], g: 0, wind: 0, drift: rand(0.5, 1.5) * scale, phase: rand(0, 6.28), rot: 0, vr: 0, fade: true };
+      if (p.mode === 'fall') Object.assign(base, { x: x0 + Math.random() * span, y: y0 - sz, vx: rand(-10, 10), vy: (fall + sz) / dur, vr: rand(-0.6, 0.6) });
+      else if (p.mode === 'rise') Object.assign(base, { x: x0 + Math.random() * span, y: y0 + fall, vx: rand(-15, 15), vy: -(fall * 0.8) / dur });
+      else if (p.mode === 'drift') Object.assign(base, { x: x0 - sz, y: y0 + rand(0.05, 0.7) * fall, vx: (span + sz * 2) / dur, vy: rand(-6, 6) * scale });
+      else if (p.mode === 'drive') Object.assign(base, { x: x0 - sz, y: y0 + fall - sz * 1.2, vx: (span + sz * 2) / dur, vy: 0 });
+      else if (p.mode === 'comet') Object.assign(base, { x: x0 + span * rand(0.4, 1), y: y0 + rand(0, 0.25) * fall, vx: -(span * 0.6) / dur, vy: (fall * 0.45) / dur });
+      else Object.assign(base, { x: x0 + Math.random() * span, y: y0 + rand(0.04, 0.7) * fall, vx: 0, vy: 0, twinkle: true, vr: rand(-0.4, 0.4) });
       this.add(base);
+    }
+
+    // ---------------------------------------------------------------- story actors (2.2)
+    /**
+     * Diffs `actors` (`[{emoji, role, action?}]`) and `props` (`[{emoji, role}]`) against the sprites on stage:
+     * new actors walk in from a random side to their slot, removed ones walk out and vanish, props fade in / out
+     * in place. Everything lives in the band rect and is drawn by the particle loop.
+     */
+    setActors(actors, props) {
+      if (!this.ok) return;
+      const want = Array.isArray(actors) ? actors.filter((a) => a && a.emoji) : [];
+      const keep = new Set();
+      want.forEach((a, i) => {
+        const role = String(a.role || a.emoji);
+        keep.add(role);
+        let cur = this.actors.find((x) => x.role === role && x.state !== 'out');
+        if (!cur) {
+          const fromLeft = Math.random() < 0.5;
+          cur = { kind: 'actor', role, emoji: String(a.emoji), slot: i, state: 'in', age: 0, phase: rand(0, 6.28), fromLeft, dir: fromLeft ? 1 : -1, x: null, y: null, alpha: 1 };
+          this.actors.push(cur);
+        }
+        cur.slot = i;
+        cur.emoji = String(a.emoji);
+        cur.action = typeof a.action === 'string' ? a.action : null;
+      });
+      for (const a of this.actors) {
+        if (!keep.has(a.role) && a.state !== 'out') {
+          a.state = 'out';
+          a.age = 0;
+          a.dir = a.x !== null && a.x < this.w / 2 ? -1 : 1;
+        }
+      }
+      const wantProps = Array.isArray(props) ? props.filter((p) => p && p.emoji) : [];
+      const keepProps = new Set();
+      wantProps.forEach((p, i) => {
+        const role = String(p.role || p.emoji);
+        keepProps.add(role);
+        let cur = this.props.find((x) => x.role === role && x.state !== 'out');
+        if (!cur) {
+          cur = { kind: 'prop', role, emoji: String(p.emoji), slot: i, state: 'in', age: 0, alpha: 0 };
+          this.props.push(cur);
+        }
+        cur.slot = i;
+        cur.emoji = String(p.emoji);
+      });
+      for (const p of this.props) {
+        if (!keepProps.has(p.role) && p.state !== 'out') {
+          p.state = 'out';
+          p.age = 0;
+        }
+      }
+      this.start();
+    }
+
+    clearActors() {
+      this.actors.length = 0;
+      this.props.length = 0;
+    }
+
+    _actorSize(r) {
+      return clamp(r.h * 0.4, 28, 130);
+    }
+
+    _updateActors(dt, real) {
+      if (!this.actors.length && !this.props.length) return;
+      const r = this.sceneRect();
+      const size = this._actorSize(r);
+      const ground = r.y0 + r.h - size * 0.62;
+      const speed = Math.max(60, r.w * 0.22);
+      let n = 0;
+      for (const a of this.actors) {
+        a.age += real;
+        const tx = r.x0 + r.w * (ACTOR_SLOTS[a.slot % ACTOR_SLOTS.length] || 0.5);
+        if (a.x === null) {
+          a.x = a.fromLeft ? r.x0 - size : r.x0 + r.w + size;
+          a.y = ground;
+        }
+        let target = tx;
+        if (a.state === 'out') target = a.dir < 0 ? r.x0 - size * 1.5 : r.x0 + r.w + size * 1.5;
+        else if (a.action === 'run') target = tx + Math.sin(a.age * 1.6 + a.phase) * r.w * 0.12;
+        const d = target - a.x;
+        const step = (a.action === 'run' || a.state === 'out' ? speed * 1.6 : speed) * dt;
+        a.moving = Math.abs(d) > 2;
+        if (a.moving) {
+          a.x += clamp(d, -step, step);
+          a.dir = d < 0 ? -1 : 1;
+        }
+        // vertical pose per action (fly / swim hover, jump bounces, dance sways, sleep lies down)
+        let y = ground;
+        let rot = 0;
+        if (a.action === 'fly') y = r.y0 + r.h * 0.32 + Math.sin(a.age * 2 + a.phase) * size * 0.18;
+        else if (a.action === 'swim') y = r.y0 + r.h * 0.7 + Math.sin(a.age * 2.5 + a.phase) * size * 0.08;
+        else if (a.action === 'jump') y = ground - Math.abs(Math.sin(a.age * 4)) * size * 0.6;
+        else if (a.action === 'dance') rot = Math.sin(a.age * 5) * 0.25;
+        else if (a.action === 'sleep') rot = -1.2;
+        else if (a.action === 'cry' || a.action === 'laugh') rot = Math.sin(a.age * 9) * 0.08;
+        if (a.moving && a.action !== 'fly' && a.action !== 'swim') y -= Math.abs(Math.sin(a.age * 9)) * size * 0.06;
+        a.y = y;
+        a.rot = rot;
+        a.size = size;
+        if (a.state === 'in' && !a.moving) a.state = 'stay';
+        if (a.state === 'out' && !a.moving) continue; // walked out
+        this.actors[n++] = a;
+      }
+      this.actors.length = n;
+      let m = 0;
+      for (const p of this.props) {
+        p.age += real;
+        p.alpha = p.state === 'out' ? Math.max(0, 1 - p.age / ACTOR_FADE) : Math.min(1, p.age / ACTOR_FADE);
+        p.size = clamp(r.h * 0.5, 30, 160);
+        p.x = r.x0 + r.w * (PROP_SLOTS[p.slot % PROP_SLOTS.length] || 0.5);
+        p.y = r.y0 + r.h - p.size * 0.58;
+        if (p.state === 'out' && p.alpha <= 0) continue;
+        this.props[m++] = p;
+      }
+      this.props.length = m;
+    }
+
+    _drawActors(ctx, dpr) {
+      if (!this.actors.length && !this.props.length) return;
+      for (const p of this.props) {
+        const s = this._sprite(p.emoji, p.size);
+        if (!s || p.alpha <= 0.01) continue;
+        ctx.globalAlpha = p.alpha * 0.95;
+        ctx.setTransform(dpr, 0, 0, dpr, p.x * dpr, p.y * dpr);
+        ctx.drawImage(s.canvas, -s.size / 2, -s.size / 2, s.size, s.size);
+      }
+      for (const a of this.actors) {
+        if (a.x === null) continue;
+        const s = this._sprite(a.emoji, a.size);
+        if (!s) continue;
+        ctx.globalAlpha = 1;
+        ctx.setTransform(dpr, 0, 0, dpr, a.x * dpr, a.y * dpr);
+        if (a.dir < 0) ctx.scale(-1, 1);
+        if (a.rot) ctx.rotate(a.rot);
+        ctx.drawImage(s.canvas, -s.size / 2, -s.size / 2, s.size, s.size);
+      }
     }
 
     start() {
@@ -469,7 +753,7 @@
       this.items.length = 0;
       this.ambient = null;
       this.stats.particles = 0;
-      this.stop();
+      if (!this.actors.length && !this.props.length) this.stop();
     }
 
     _sprite(text, size) {
@@ -508,8 +792,10 @@
       const real = this.last ? Math.max(0, (now - this.last) / 1000) : 1 / 60;
       const dt = clamp(real, 0.001, 0.05);
       this.last = now;
+      if (this.bandEl && now - this._rectAt > 1000) this.updateRect(); // layout messages / band resizes
       this._spawnAmbient(now);
       this._update(dt, Math.min(real, 1));
+      this._updateActors(dt, Math.min(real, 1));
       this._draw();
       const ms = (typeof performance !== 'undefined' ? performance.now() : now) - t0;
       this.stats.frameMs = Math.round(ms * 100) / 100;
@@ -533,12 +819,13 @@
         }
       } else this.slow = 0;
       this.stats.particles = this.items.length;
-      if (this.items.length || this.ambient) this.raf = requestAnimationFrame(this._tick);
+      if (this.items.length || this.ambient || this.actors.length || this.props.length) this.raf = requestAnimationFrame(this._tick);
       else this.stop();
     }
 
     _update(dt, ageStep = dt) {
       const fall = this.fallPx();
+      const r = this.rect;
       const items = this.items;
       let n = 0;
       for (let i = 0; i < items.length; i++) {
@@ -554,7 +841,8 @@
         p.x += (p.vx + Math.sin(p.age * p.drift * 2 + p.phase) * 18 * p.drift) * dt;
         p.y += p.vy * dt;
         p.rot += p.vr * dt;
-        if (!p.ambient && p.y > fall + 40) continue;
+        if (!p.ambient && p.y > (p.floor !== undefined ? p.floor : fall) + 40) continue;
+        if (p.ambient && r && (p.y > r.y0 + r.h + p.size || p.x < r.x0 - p.size * 2 - 60 || p.x > r.x0 + r.w + p.size * 2 + 60)) continue;
         if (p.x < -200 || p.x > this.w + 200 || p.y > this.h + 200) continue;
         items[n++] = p;
       }
@@ -567,34 +855,58 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, this.w, this.h);
       const fall = this.fallPx();
+      const r = this.rect;
       // Flares (rays / ring) first, then far layers so near particles draw on top.
       for (const p of this.items) if (p.flare) this._drawFlare(ctx, p, dpr);
-      for (let layer = 0; layer < 3; layer++) {
-        for (const p of this.items) {
-          if (p.layer !== layer) continue;
-          const t = p.age / p.life;
-          let alpha = p.alpha;
-          if (p.twinkle) alpha *= Math.sin(Math.PI * t);
-          else if (p.fade) alpha *= t < 0.1 ? t / 0.1 : t > 0.85 ? (1 - t) / 0.15 : 1;
-          else alpha *= t > 0.8 ? (1 - t) / 0.2 : 1;
-          if (!p.ambient && p.y > fall * 0.9) alpha *= clamp((fall + 40 - p.y) / (fall * 0.1 + 40), 0, 1);
-          if (alpha <= 0.01) continue;
-          ctx.globalAlpha = clamp(alpha, 0, 1);
-          ctx.setTransform(dpr, 0, 0, dpr, p.x * dpr, p.y * dpr);
-          ctx.rotate(p.rot);
-          if (p.kind === 'rect') {
-            const sx = Math.cos(p.age * p.wobble + p.phase); // 3D-ish flip around the vertical axis
-            ctx.scale(Math.max(0.15, Math.abs(sx)), 1);
-            ctx.fillStyle = p.color;
-            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-          } else if (p.kind === 'spark') {
-            ctx.fillStyle = p.color;
-            ctx.beginPath();
-            ctx.arc(0, 0, p.size, 0, Math.PI * 2);
-            ctx.fill();
-          } else {
-            const s = this._sprite(p.text, p.size);
-            if (s) ctx.drawImage(s.canvas, -s.size / 2, -s.size / 2, s.size, s.size);
+      // Band mode: scene parallax + actors are clipped to the band rect (nothing is ever painted over the camera)
+      // with a soft fade along the band's top edge, like the CSS mask on `.fx-band`.
+      const clipped = !!r;
+      if (clipped) {
+        ctx.save();
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.beginPath();
+        ctx.rect(r.x0, r.y0, r.w, r.h);
+        ctx.clip();
+      }
+      const fadeTop = r ? Math.max(1, r.h * 0.18) : 0;
+      for (let pass = 0; pass < 2; pass++) {
+        // pass 0: ambient (inside the clip), pass 1: transient bursts (whole frame)
+        if (pass === 1) {
+          this._drawActors(ctx, dpr);
+          if (clipped) ctx.restore();
+        }
+        for (let layer = 0; layer < 3; layer++) {
+          for (const p of this.items) {
+            if (p.layer !== layer || p.flare) continue;
+            if ((pass === 0) !== !!p.ambient) continue;
+            const t = p.age / p.life;
+            let alpha = p.alpha;
+            if (p.twinkle) alpha *= Math.sin(Math.PI * t);
+            else if (p.fade) alpha *= t < 0.1 ? t / 0.1 : t > 0.85 ? (1 - t) / 0.15 : 1;
+            else alpha *= t > 0.8 ? (1 - t) / 0.2 : 1;
+            if (!p.ambient) {
+              const floor = p.floor !== undefined ? p.floor : fall;
+              const top = p.floor !== undefined ? floor - (floor - (p.y0 || 0)) * 0.1 : fall * 0.9;
+              if (p.y > top) alpha *= clamp((floor + 40 - p.y) / (floor - top + 40), 0, 1);
+            } else if (r && p.y < r.y0 + fadeTop) alpha *= clamp((p.y - r.y0) / fadeTop, 0, 1);
+            if (alpha <= 0.01) continue;
+            ctx.globalAlpha = clamp(alpha, 0, 1);
+            ctx.setTransform(dpr, 0, 0, dpr, p.x * dpr, p.y * dpr);
+            ctx.rotate(p.rot);
+            if (p.kind === 'rect') {
+              const sx = Math.cos(p.age * p.wobble + p.phase); // 3D-ish flip around the vertical axis
+              ctx.scale(Math.max(0.15, Math.abs(sx)), 1);
+              ctx.fillStyle = p.color;
+              ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            } else if (p.kind === 'spark') {
+              ctx.fillStyle = p.color;
+              ctx.beginPath();
+              ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+              ctx.fill();
+            } else {
+              const s = this._sprite(p.text, p.size);
+              if (s) ctx.drawImage(s.canvas, -s.size / 2, -s.size / 2, s.size, s.size);
+            }
           }
         }
       }
@@ -640,8 +952,10 @@
     constructor(root) {
       this.root = root;
       this.audioCtx = null;
-      this._volume = 0.8;
-      this.stats = { fires: 0, sounds: 0, fileSounds: 0, scenes: 0, combos: 0, particles: 0, fps: 60, frameMs: 0, reduced: 0, canvas: false, perfSwitches: 0 };
+      /** 2.2: three levels (0..1) – master (= the old `volume`), sfx one-shots, ambient loops. */
+      this.volumes = { ...volumeDefaults() };
+      this._volume = this.volumes.master;
+      this.stats = { fires: 0, sounds: 0, fileSounds: 0, scenes: 0, combos: 0, particles: 0, fps: 60, frameMs: 0, reduced: 0, canvas: false, perfSwitches: 0, stories: 0 };
       /** Requested performance mode (auto | eco | high) and the look actually in use (high | eco). */
       this.perf = 'auto';
       this.perfActive = 'high';
@@ -657,12 +971,22 @@
       /** Active theme name (see THEMES); `setTheme` mirrors it to `body[data-theme]`. */
       this.theme = 'neon';
       this._scene = null; // { id, el, spawnTimer, clearTimer }
-      this._loop = null; // { name, handle, gain }
+      this._loop = null; // { name, handle, gain?, mixer? }
       this._timers = new Set(); // combo step timers
+      /** 2.2 layout `{storyLayout, band, zone}` (see setLayout) and the `.fx-band` element scenes live in. */
+      this.layout = normalizeLayoutLocal({});
+      this._bandSet = false; // true once a layout carried an explicit band height (portrait otherwise uses 20 %)
+      this._bandEl = null;
+      this._colSide = 0; // zone `edges`: cards alternate left / right
+      /** 2.2 live story: last state given to story(), idle timeout (ms) after which the band fades. */
+      this.storyState = null;
+      this.storyIdleMs = STORY_IDLE_MS;
+      this._storyIdle = null;
       this.particles = new ParticleLayer(root, this.stats);
       this.stats.canvas = this.particles.ok;
       if (typeof document !== 'undefined' && document.body && document.body.dataset && themes().includes(document.body.dataset.theme)) this.theme = document.body.dataset.theme;
       this._applyPerf('high');
+      this.setLayout({});
       if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
         // Infinite scene animations pause while the page is hidden (OBS source not visible, tab in background).
         const onVis = () => {
@@ -745,7 +1069,7 @@
     /** True while a transient effect node (card, text, banner …) is on stage – they are appended last. */
     _hasTransient() {
       const el = this.root && this.root.lastElementChild;
-      return !!el && !el.classList.contains('fx-canvas') && !el.classList.contains('fx-scene') && el.tagName !== 'AUDIO';
+      return !!el && !el.classList.contains('fx-canvas') && !el.classList.contains('fx-scene') && !el.classList.contains('fx-band') && el.tagName !== 'AUDIO';
     }
 
     /**
@@ -800,37 +1124,84 @@
       return sprite;
     }
 
-    /** 0..1; also applied live to the running ambient loop through its GainNode and the v2 mixer master. */
+    /** Master level 0..1 (= `volumes.master`); applied live to the mixer master and the fallback loop gain. */
     get volume() {
       return this._volume;
     }
     set volume(v) {
+      this.setVolume('master', v);
+    }
+
+    /**
+     * 2.2: `setVolume('master' | 'sfx' | 'ambient', v)` (unknown bus = master, non-numeric keeps the level).
+     * master -> `mixer.setMaster`, sfx / ambient -> `mixer.setBus`; the fallback loop (no mixer) gets
+     * master × ambient on its GainNode. Returns the level now stored for that bus.
+     */
+    setVolume(bus, v) {
+      const b = VOLUME_BUSES.includes(bus) ? bus : 'master';
       const n = Number(v);
-      this._volume = Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : this._volume;
-      if (this._loop && this._loop.gain && this.audioCtx) {
+      if (!Number.isFinite(n) || v === null || v === '') return this.volumes[b];
+      const level = clamp(n, 0, 1);
+      this.volumes[b] = level;
+      if (b === 'master') this._volume = level;
+      if ((b === 'master' || b === 'ambient') && this._loop && this._loop.gain && this.audioCtx) {
         try {
           const g = this._loop.gain.gain;
           g.cancelScheduledValues(this.audioCtx.currentTime);
-          g.setTargetAtTime(this._volume, this.audioCtx.currentTime, 0.05);
+          g.setTargetAtTime(this._volume * this.volumes.ambient, this.audioCtx.currentTime, 0.05);
         } catch (_) {
           /* ignore */
         }
       }
       const mixer = this._mixer();
-      if (mixer && typeof mixer.setMaster === 'function') {
+      if (mixer) {
         this._mixerSynced = mixer;
         try {
-          mixer.setMaster(this._volume);
+          if (b === 'master' && typeof mixer.setMaster === 'function') mixer.setMaster(level);
+          else if (b !== 'master' && typeof mixer.setBus === 'function') mixer.setBus(b, level);
         } catch (_) {
           /* ignore */
         }
       }
+      return level;
     }
 
     /** Audio engine v2 (`LiveFXSounds.mixer`) when present, else null. */
     _mixer() {
       const s = global.LiveFXSounds;
       return s && s.mixer && typeof s.mixer.play === 'function' ? s.mixer : null;
+    }
+
+    /**
+     * The mixer, initialised on the renderer's own AudioContext (one context for everything) and with the
+     * three levels pushed once per mixer instance. Null without a mixer.
+     */
+    _mixerReady() {
+      const mixer = this._mixer();
+      if (!mixer) return null;
+      if (!mixer.ctx && typeof mixer.init === 'function') {
+        const ctx = this.ensureAudio();
+        if (ctx) {
+          try {
+            mixer.init(ctx);
+          } catch (_) {
+            /* mixer keeps creating its own context */
+          }
+        }
+      }
+      if (this._mixerSynced !== mixer) {
+        this._mixerSynced = mixer;
+        try {
+          if (typeof mixer.setMaster === 'function') mixer.setMaster(this.volumes.master);
+          if (typeof mixer.setBus === 'function') {
+            mixer.setBus('sfx', this.volumes.sfx);
+            mixer.setBus('ambient', this.volumes.ambient);
+          }
+        } catch (_) {
+          /* ignore */
+        }
+      }
+      return mixer;
     }
 
     /** Overlay theme: one of THEMES -> `body[data-theme]` (neon = default look). Returns the active name. */
@@ -876,28 +1247,10 @@
         return;
       }
       if (parsed.kind === 'builtin') {
-        const mixer = this._mixer();
+        // One AudioContext for everything: hand the renderer's context to the mixer before its first
+        // play() would create a second one (file sounds / loops already use `this.audioCtx`).
+        const mixer = this._mixerReady();
         if (mixer) {
-          // One AudioContext for everything: hand the renderer's context to the mixer before its first
-          // play() would create a second one (file sounds / loops already use `this.audioCtx`).
-          if (!mixer.ctx && typeof mixer.init === 'function') {
-            const ctx = this.ensureAudio();
-            if (ctx) {
-              try {
-                mixer.init(ctx);
-              } catch (_) {
-                /* mixer keeps creating its own context */
-              }
-            }
-          }
-          if (this._mixerSynced !== mixer && typeof mixer.setMaster === 'function') {
-            this._mixerSynced = mixer;
-            try {
-              mixer.setMaster(this.volume);
-            } catch (_) {
-              /* ignore */
-            }
-          }
           try {
             const voice = mixer.play(parsed.name, { gain, pan: clamp(Number(opts.pan) || 0, -1, 1), intensity: clamp(Number(opts.intensity) || 1, 1, 3) });
             if (voice !== null) this.stats.sounds++; // null = unknown name / no WebAudio
@@ -909,7 +1262,7 @@
         const ctx = this.ensureAudio();
         if (!ctx || !global.LiveFXSounds || typeof global.LiveFXSounds.play !== 'function') return;
         try {
-          global.LiveFXSounds.play(parsed.name, ctx, ctx.destination, level);
+          global.LiveFXSounds.play(parsed.name, ctx, ctx.destination, level * this.volumes.sfx);
           this.stats.sounds++;
         } catch (_) {
           /* unknown builtin name */
@@ -921,7 +1274,7 @@
 
     playFile(url, gain = 1) {
       if (typeof document === 'undefined' || typeof Audio === 'undefined') return;
-      const level = clamp(this.volume * (Number.isFinite(Number(gain)) ? clamp(Number(gain), 0, 1) : 1), 0, 1);
+      const level = clamp(this.volume * this.volumes.sfx * (Number.isFinite(Number(gain)) ? clamp(Number(gain), 0, 1) : 1), 0, 1);
       const audio = document.createElement('audio');
       audio.preload = 'auto';
       audio.setAttribute('src', url); // relative: works for http(s) and inside OBS
@@ -966,6 +1319,8 @@
     _pan(v) {
       if (!v) return 0;
       if (v.kind === 'lower-third') return -0.6;
+      // zone `edges`: card-like visuals land in the left / right column – lean the sound the same way.
+      if (this.layout.zone === 'edges' && ['card', 'image', 'text', 'sticker', 'banner', undefined].includes(v.kind)) return this._colSide ? 0.5 : -0.5;
       if (v.kind === 'rain' || v.kind === 'confetti' || v.kind === 'sticker') {
         const w = (this.root && this.root.clientWidth) || global.innerWidth || 1;
         const x0 = cssLengthPx('--fx-x0', 0, w);
@@ -1028,10 +1383,145 @@
       this._timers.clear();
       this.particles.clear();
       for (const el of Array.from(this.root.children)) {
-        if (el.classList.contains('fx-scene') || el.classList.contains('fx-canvas') || el.tagName === 'AUDIO') continue;
+        if (el.classList.contains('fx-scene') || el.classList.contains('fx-band') || el.classList.contains('fx-canvas') || el.tagName === 'AUDIO') continue;
         el.remove();
       }
       this.root.classList.remove('fx-impact', 'fx-shake');
+    }
+
+    // ---------------------------------------------------------------- story band / zones (2.2)
+    /** The `.fx-band` element (first child of #stage) that holds the scene layer; created on demand. */
+    _band() {
+      if (this._bandEl && this._bandEl.parentNode === this.root) return this._bandEl;
+      if (typeof document === 'undefined' || !this.root) return null;
+      let el = this.root.querySelector(':scope > .fx-band');
+      if (!el) {
+        el = document.createElement('div');
+        el.className = 'fx-band';
+        el.setAttribute('aria-hidden', 'true');
+      }
+      el.dataset.layout = this.layout.storyLayout;
+      if (this.root.firstChild !== el) this.root.insertBefore(el, this.root.firstChild);
+      this._bandEl = el;
+      return el;
+    }
+
+    /**
+     * Overlay layout `{storyLayout: band|full|frame, band: 15..35 (% of the height), zone: full|edges|bottom|top}`.
+     * Partial objects merge onto the current layout (unknown values keep the old key). Mirrors to
+     * `.fx-band[data-layout]`, `body[data-story-layout]`, `body[data-zone]` and `--fx-band` (unitless percent; in
+     * portrait without an explicit band 20, the strip sits above the chat zone – see css/overlay.css).
+     * Returns the layout in use.
+     */
+    setLayout(raw) {
+      const r = raw && typeof raw === 'object' ? raw : {};
+      const next = normalizeLayoutLocal(r, this.layout);
+      if (r.band !== undefined && r.band !== null && r.band !== '' && Number.isFinite(Number(r.band))) this._bandSet = true;
+      this.layout = next;
+      const body = typeof document !== 'undefined' ? document.body : null;
+      const portrait = !!(body && body.classList && body.classList.contains('layout-portrait'));
+      this.bandPct = portrait && !this._bandSet ? Math.min(next.band, 20) : next.band;
+      if (body && body.dataset) {
+        body.dataset.storyLayout = next.storyLayout;
+        body.dataset.zone = next.zone;
+        try {
+          body.style.setProperty('--fx-band', String(this.bandPct));
+        } catch (_) {
+          /* ignore */
+        }
+      }
+      const band = this._band();
+      if (band) band.dataset.layout = next.storyLayout;
+      this.particles.setBand(band, next.storyLayout, next.zone);
+      return { ...next };
+    }
+
+    /** Re-applies the layout (e.g. after `body.layout-portrait` toggled); same as `setLayout({})`. */
+    refreshLayout() {
+      return this.setLayout({});
+    }
+
+    /**
+     * Places a card-like element by zone: `edges` -> `.fx-col-left` / `.fx-col-right` (alternating),
+     * `bottom` -> `.fx-in-band`, `top` -> `.fx-zone-top`, `full` -> untouched. Returns the column (-1 | 0 | 1).
+     */
+    _place(el) {
+      const z = this.layout.zone;
+      if (z === 'edges') {
+        const side = this._colSide ? 1 : -1;
+        this._colSide = this._colSide ? 0 : 1;
+        el.classList.add(side < 0 ? 'fx-col-left' : 'fx-col-right');
+        return side;
+      }
+      if (z === 'bottom') el.classList.add('fx-in-band');
+      else if (z === 'top') el.classList.add('fx-zone-top');
+      return 0;
+    }
+
+    /** Centre (px) + size for the rays / ring flare of a card: the column, the band or the frame centre. */
+    _flareAnchor(side, top) {
+      const w = this.root.clientWidth || global.innerWidth || 1;
+      const h = this.root.clientHeight || global.innerHeight || 1;
+      const portrait = typeof document !== 'undefined' && document.body && document.body.classList.contains('layout-portrait');
+      const z = this.layout.zone;
+      if (z === 'edges' && side) {
+        const e = edgeFraction(w) * w;
+        return { x: side < 0 ? e / 2 : w - e / 2, y: h * top, size: Math.min(e * 1.8, 900) };
+      }
+      if (z === 'bottom') {
+        const r = this.particles.sceneRect();
+        return { x: r.x0 + r.w / 2, y: r.y0 + r.h / 2, size: Math.min(r.h * 2.2, 900) };
+      }
+      if (z === 'top') return { x: w / 2, y: h * 0.15, size: Math.min(h * 0.6, 700) };
+      return { x: w / 2, y: h * top, size: portrait ? Math.min(1.2 * w, 700) : Math.min(1.6 * h, 1400) };
+    }
+
+    // ---------------------------------------------------------------- live story (2.2)
+    /**
+     * Renders a story state (`js/story-director.js` or a `story-state` message): scene + ambient loop by scene,
+     * emoji actors / props on the canvas inside the band, mood tint (`.fx-band[data-mood]`), `shake`.
+     * `end` or no scene clears the band (actors walk out, loop fades). Returns the normalized state or null.
+     */
+    story(raw) {
+      const S = schema();
+      let st = null;
+      if (S && typeof S.normalizeStoryState === 'function') st = S.normalizeStoryState(raw);
+      else if (raw && typeof raw === 'object' && !Array.isArray(raw)) st = { ...raw, actors: Array.isArray(raw.actors) ? raw.actors : [], props: Array.isArray(raw.props) ? raw.props : [] };
+      if (!st) return null;
+      this.stats.stories++;
+      this.storyState = st;
+      const band = this._band();
+      if (!st.scene || st.end) {
+        this.particles.setActors([], []);
+        this.clearScene();
+        this.stopLoop();
+        if (band) delete band.dataset.mood;
+        this.storyTouch();
+        return st;
+      }
+      if (band) {
+        band.classList.remove('fx-band-idle');
+        band.dataset.mood = st.mood || 'calm';
+      }
+      this.scene({ scene: st.scene, text: st.caption || '', intensity: 2, caption: !!st.caption });
+      const loop = st.loop || LOOP_BY_SCENE[st.scene] || null;
+      if (loop) this.playLoop(loop);
+      this.particles.setActors(st.actors, st.props);
+      if (st.shake) this.shake();
+      this.storyTouch();
+      return st;
+    }
+
+    /** Keeps the band awake: without a call for `storyIdleMs` the band fades (`.fx-band-idle`). */
+    storyTouch() {
+      clearTimeout(this._storyIdle);
+      const band = this._band();
+      if (band) band.classList.remove('fx-band-idle');
+      if (!(this.storyIdleMs > 0)) return;
+      this._storyIdle = setTimeout(() => {
+        const b = this._band();
+        if (b && this.storyState && this.storyState.scene) b.classList.add('fx-band-idle');
+      }, this.storyIdleMs);
     }
 
     _spawn(el, ms, animName) {
@@ -1067,16 +1557,15 @@
       el.style.setProperty('--fx-i', String(intensity));
       if (intensity >= 2 && opts.rays !== false && !eco) {
         el.classList.add('fx-has-rays');
-        const w = this.root.clientWidth || global.innerWidth || 1;
-        const h = this.root.clientHeight || global.innerHeight || 1;
         const portrait = document.body.classList.contains('layout-portrait');
         const top = v && v.position === 'top' ? 0.28 : v && v.position === 'safe' && portrait ? 0.32 : 0.5;
+        const a = this._flareAnchor(opts.side || 0, top);
         const sprite = this.particles.ok ? this._raysSprite() : null;
         if (sprite) {
           // Canvas path: rays sprite + explosion ring drawn behind the DOM effects (no big DOM layers).
           el.dataset.rays = 'canvas';
           this.particles.ensureOrder();
-          this.particles.flare(w / 2, h * top, intensity, sprite, portrait ? Math.min(1.2 * w, 700) : Math.min(1.6 * h, 1400));
+          this.particles.flare(a.x, a.y, intensity, sprite, a.size);
         } else {
           // Fallback without canvas: CSS rays (radial gradient) + ring behind the content.
           const rays = document.createElement('div');
@@ -1088,7 +1577,7 @@
         }
         if (intensity >= 3 && this.particles.ok) {
           this.particles.setCap(intensity);
-          this.particles.sparks(w / 2, h * top, 40, safeColor(v && v.color) || '#ffd166');
+          this.particles.sparks(a.x, a.y, 40, safeColor(v && v.color) || '#ffd166');
         }
       }
       return el;
@@ -1102,7 +1591,7 @@
       if (bg) el.style.background = bg;
       if (color) el.style.color = color;
       el.innerHTML = `<div class="fx-emoji">${escapeHtml(v.emoji || '')}</div>${v.text ? `<div class="fx-text">${escapeHtml(v.text)}</div>` : ''}`;
-      this._decorate(el, v);
+      this._decorate(el, v, { side: this._place(el) });
       this._spawn(el, CARD_MS, v.tilt ? 'fx-pop-tilt' : 'fx-pop');
     }
 
@@ -1134,7 +1623,7 @@
         t.textContent = String(v.text);
         el.appendChild(t);
       }
-      this._decorate(el, v);
+      this._decorate(el, v, { side: this._place(el) });
       this._spawn(el, 2800, v.tilt ? 'fx-pop-tilt' : 'fx-pop');
     }
 
@@ -1145,6 +1634,7 @@
       el.innerHTML = `${emoji} ${escapeHtml(v.text || '')} ${emoji}`; // text only: no extra nodes
       const color = safeColor(v.color);
       if (color) el.style.setProperty('--fx-accent', color);
+      this._place(el);
       this._decorate(el, v, { tilt: false, rays: false });
       this._spawn(el, 3200, 'fx-slide');
     }
@@ -1288,7 +1778,7 @@
         e.textContent = String(v.emoji);
         el.prepend(e);
       }
-      this._decorate(el, { ...v, glow: v.glow || style === 'neon' }, { tilt: false });
+      this._decorate(el, { ...v, glow: v.glow || style === 'neon' }, { tilt: false, side: this._place(el) });
       this._spawn(el, TEXT_MS, 'fx-bigtext-life');
     }
 
@@ -1371,13 +1861,29 @@
       const ctx = this.ensureAudio();
       if (!ctx) return false;
       this.stopLoop(LOOP_FADE_SEC);
+      // 2.2: with the audio engine v2 the loop runs on the mixer's ambient bus (level `volumes.ambient`,
+      // ducked by one-shots, through the limiter). The GainNode-to-destination path stays as fallback.
+      const mixer = this._mixerReady();
+      if (mixer && typeof mixer.startLoop === 'function' && mixer.ctx === ctx) {
+        let h = null;
+        try {
+          h = mixer.startLoop(name, { gain: 1 });
+        } catch (_) {
+          h = null;
+        }
+        if (h && typeof h.stop === 'function') {
+          this._loop = { name, handle: h, mixer: true };
+          this.loopName = name;
+          return true;
+        }
+      }
       let gain;
       let handle;
       try {
         gain = ctx.createGain();
         const now = ctx.currentTime;
         gain.gain.setValueAtTime(0, now);
-        gain.gain.linearRampToValueAtTime(this._volume, now + LOOP_FADE_SEC);
+        gain.gain.linearRampToValueAtTime(this._volume * this.volumes.ambient, now + LOOP_FADE_SEC);
         gain.connect(ctx.destination);
         handle = sounds.loop(name, ctx, gain, 1);
       } catch (_) {
@@ -1403,6 +1909,16 @@
       this.loopName = null;
       if (!loop) return;
       const fade = Number.isFinite(fadeSec) && fadeSec >= 0 ? fadeSec : LOOP_FADE_SEC;
+      if (loop.mixer) {
+        const mixer = this._mixer();
+        try {
+          if (mixer && typeof mixer.stopLoop === 'function') mixer.stopLoop(fade);
+          else loop.handle.stop(fade);
+        } catch (_) {
+          /* ignore */
+        }
+        return;
+      }
       const ctx = this.audioCtx;
       try {
         if (ctx && loop.gain) {
@@ -1489,7 +2005,10 @@
         el.appendChild(particles);
       }
 
-      this.root.insertBefore(el, this.root.firstChild);
+      // 2.2: the scene lives inside the band (first child of #stage) – band / frame layouts keep the camera free.
+      const band = this._band() || this.root;
+      band.insertBefore(el, band.firstChild);
+      this.particles.updateRect();
       void el.offsetWidth; // commit opacity 0 before the transition to 1
       el.classList.add('fx-scene-on');
 
@@ -1608,23 +2127,25 @@
         t.textContent = String(v.text);
         el.appendChild(t);
       }
-      this._decorate(el, v, { tilt: false });
+      this._decorate(el, v, { tilt: false, side: this._place(el) });
       this._spawn(el, STICKER_MS, 'fx-sticker-life');
     }
 
+    /** Stage shake; the white flash only in zone `full` (it would cover the camera otherwise). */
     shake() {
       this.root.classList.remove('fx-shake');
       void this.root.offsetWidth; // restart animation
       this.root.classList.add('fx-shake');
+      if (this.layout.zone !== 'full') return;
       const flash = document.createElement('div');
       flash.className = 'fx-flash';
       this._spawn(flash, 400, 'fx-flash');
     }
 
-    /** Stage zoom bump: #stage scale 1 -> 1.04 -> 1 in 250 ms (`.fx-impact`). */
+    /** Stage zoom bump: #stage scale 1 -> 1.04 -> 1 in 250 ms (`.fx-impact`); zone `full` only (2.2). */
     impact() {
       const root = this.root;
-      if (!this.eco) {
+      if (!this.eco && this.layout.zone === 'full') {
         // Zoom bump (eco: skipped – a full-stage transform re-composites every layer).
         root.classList.remove('fx-impact');
         void root.offsetWidth;

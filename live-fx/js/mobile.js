@@ -3,6 +3,10 @@
 // pauses effects and sets the overlay volume, the scenes row mirrors the panel's scene pad, and the
 // microphone button runs the browser ASR + matcher on the phone when the page is a secure context
 // (https or localhost). See docs/HANDY.md and docs/CONTRACTS.md §11 "Mobile".
+// 2.2: favourites (long-press / ⭐, localStorage `livefx.mobile.favs`), „Leiser/Lauter“ (±6 dB master,
+// `{type:'volume', volume}`), story band + effect zone buttons (`{type:'layout', storyLayout}` /
+// `{type:'layout', zone}`), pack tiles (load/unload through LiveFXPacksStore + LiveFXStore – the phone is a
+// full remote, not only a soundboard).
 (function () {
   'use strict';
 
@@ -14,7 +18,18 @@
   const FLASH_MS = 350;
   const TRANSCRIPT_MAX = 160;
   const LANG_KEY = 'livefx.asr.lang';
-  const MIC_HINT = 'Mikro am Handy braucht HTTPS – siehe Anleitung (docs/HANDY.md).';
+  const FAVS_KEY = 'livefx.mobile.favs';
+  const LAYOUT_KEY = 'livefx.mobile.layout';
+  const MIC_HINT = 'Mikro am Handy braucht HTTPS – im Panel „Internet-Link“ starten oder docs/HANDY.md lesen.';
+  const LONG_PRESS_MS = 550;
+  const DB6 = 2; // +6 dB ≈ ×2, −6 dB ≈ ×0.5
+  const VOL_MIN_STEP = 0.1;
+  const ZONES = [
+    { id: 'full', label: 'überall' },
+    { id: 'edges', label: 'Ränder' },
+    { id: 'bottom', label: 'unten' },
+    { id: 'top', label: 'oben' },
+  ];
 
   // Scene pad mapping – copied from js/packs.js SCENE_INFO / js/panel.js sceneTrigger so the phone
   // fires exactly what the panel's scene pad fires (`loop` = LiveFXSounds.loops name or null).
@@ -47,6 +62,40 @@
   let micWanted = false;
   let micLang = '';
   let transcriptTimer = null;
+  let favs = readFavs();
+  let volume = 0.8;
+  let layout = readLayout();
+
+  function lsGet(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch (_) {
+      return null;
+    }
+  }
+  function lsSet(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch (_) {
+      /* private mode / quota */
+    }
+  }
+  function readFavs() {
+    try {
+      const parsed = JSON.parse(lsGet(FAVS_KEY) || '[]');
+      return Array.isArray(parsed) ? parsed.filter((x) => typeof x === 'string').slice(0, 60) : [];
+    } catch (_) {
+      return [];
+    }
+  }
+  function readLayout() {
+    try {
+      const p = JSON.parse(lsGet(LAYOUT_KEY) || '{}');
+      return { band: p && p.band === true, zone: p && ZONES.some((z) => z.id === p.zone) ? p.zone : 'full' };
+    } catch (_) {
+      return { band: false, zone: 'full' };
+    }
+  }
 
   function labelOf(t) {
     return (t && (t.label || t.id)) || '?';
@@ -112,26 +161,218 @@
     return hay.includes(q);
   }
 
+  // ---------- favourites (2.2) ----------
+  function isFav(id) {
+    return favs.includes(id);
+  }
+
+  function setFav(id, on) {
+    const next = favs.filter((x) => x !== id);
+    if (on) next.unshift(id);
+    favs = next.slice(0, 60);
+    lsSet(FAVS_KEY, JSON.stringify(favs));
+    renderFavs();
+    for (const b of $('#pad').querySelectorAll(`button[data-id="${CSS.escape(id)}"]`)) b.classList.toggle('fav', on);
+    const t = triggers.find((x) => x.id === id);
+    showLine(on ? `⭐ ${esc(labelOf(t))} als Favorit gespeichert` : `☆ ${esc(labelOf(t))} aus den Favoriten entfernt`);
+  }
+
+  function toggleFav(id) {
+    setFav(id, !isFav(id));
+  }
+
+  /** Long press (touch or mouse) on a tile toggles the favourite; a normal tap fires. */
+  function attachLongPress(b, t) {
+    let timer = null;
+    let fired = false;
+    const cancel = () => {
+      clearTimeout(timer);
+      timer = null;
+    };
+    b.addEventListener('pointerdown', (e) => {
+      if (e.button != null && e.button !== 0) return;
+      fired = false;
+      cancel();
+      timer = setTimeout(() => {
+        fired = true;
+        toggleFav(t.id);
+        if (navigator.vibrate) navigator.vibrate(20);
+      }, LONG_PRESS_MS);
+    });
+    for (const ev of ['pointerup', 'pointercancel', 'pointerleave', 'pointermove']) {
+      b.addEventListener(ev, (e) => {
+        if (ev === 'pointermove' && e.pressure !== 0 && timer) return; // small jitter is fine
+        if (ev !== 'pointermove') cancel();
+      });
+    }
+    b.addEventListener('contextmenu', (e) => e.preventDefault());
+    b.addEventListener('click', (e) => {
+      if (fired) {
+        fired = false;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }
+    }, true);
+  }
+
+  function tile(t, { star = true } = {}) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.dataset.id = t.id;
+    b.className = `${t.enabled === false ? 'off' : ''}${isFav(t.id) ? ' fav' : ''}`.trim();
+    b.title = t.enabled === false ? `${labelOf(t)} (deaktiviert)` : labelOf(t);
+    const thumb = LiveFXAssets.thumbnailFor(t);
+    const visual = thumb.img ? `<img class="thumb" alt="" src="${esc(thumb.img)}">` : `<span class="emoji">${esc(thumb.emoji || '✨')}</span>`;
+    b.innerHTML = `${visual}<span class="lbl">${esc(labelOf(t))}</span>${star ? '<span class="star" data-act="fav" title="Favorit" aria-label="Favorit">★</span>' : ''}`;
+    b.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target && target.closest && target.closest('[data-act="fav"]')) {
+        toggleFav(t.id);
+        return;
+      }
+      manualFire(t, b);
+    });
+    attachLongPress(b, t);
+    return b;
+  }
+
+  function renderFavs() {
+    const card = $('#favs-card');
+    const root = $('#favs');
+    if (!card || !root) return;
+    const byId = new Map(triggers.map((t) => [t.id, t]));
+    const list = favs.map((id) => byId.get(id)).filter(Boolean);
+    root.innerHTML = '';
+    for (const t of list) root.appendChild(tile(t, { star: true }));
+    $('#favs-count').textContent = String(list.length);
+    card.hidden = !list.length;
+  }
+
   function renderPad() {
     const pad = $('#pad');
     pad.innerHTML = '';
     let shown = 0;
     triggers.forEach((t) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.dataset.id = t.id;
-      b.className = t.enabled === false ? 'off' : '';
-      b.title = t.enabled === false ? `${labelOf(t)} (deaktiviert)` : labelOf(t);
-      const thumb = LiveFXAssets.thumbnailFor(t);
-      const visual = thumb.img ? `<img class="thumb" alt="" src="${esc(thumb.img)}">` : `<span class="emoji">${esc(thumb.emoji || '✨')}</span>`;
-      b.innerHTML = `${visual}<span class="lbl">${esc(labelOf(t))}</span>`;
+      const b = tile(t);
       b.hidden = !matches(t, query);
       if (!b.hidden) shown++;
-      b.addEventListener('click', () => manualFire(t, b));
       pad.appendChild(b);
     });
     $('#count').textContent = query ? `${shown}/${triggers.length}` : String(triggers.length);
     $('#empty').hidden = shown > 0;
+    renderFavs();
+    renderPacks();
+  }
+
+  // ---------- packs (2.2) ----------
+  const PS = window.LiveFXPacksStore;
+  let packBusy = false;
+
+  async function togglePack(id) {
+    if (!PS || packBusy) return;
+    packBusy = true;
+    try {
+      const loaded = PS.isLoaded(triggers, id);
+      const r = loaded ? PS.remove(triggers, id) : PS.add(triggers, id);
+      triggers = r.triggers;
+      if (matcher) matcher.setTriggers(triggers);
+      renderPad();
+      for (const w of r.warnings || []) showLine(`⚠️ ${esc(w)}`);
+      if (loaded) showLine(`🗑️ ${esc(r.label)}: ${r.removed} Trigger entfernt`);
+      else showLine(r.added ? `📦 ${esc(r.label)}: ${r.added} Trigger geladen` : `📦 ${esc(r.label)}: bereits geladen`);
+      await LiveFXStore.save(triggers);
+    } finally {
+      packBusy = false;
+    }
+  }
+
+  function renderPacks() {
+    const root = $('#packs');
+    const card = $('#packs-card');
+    if (!root || !card) return;
+    if (!PS || !window.LiveFXPacks) {
+      card.hidden = true;
+      return;
+    }
+    const list = PS.summary(triggers);
+    root.innerHTML = '';
+    let loadedCount = 0;
+    for (const p of list) {
+      if (p.loaded) loadedCount++;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = `pack-tile${p.loaded ? ' loaded' : p.present ? ' partial' : ''}`;
+      b.dataset.pack = p.id;
+      b.title = p.description || p.label;
+      b.innerHTML = `<span class="flag">${esc(p.flag)}</span><span class="lbl">${esc(p.label)}</span><span class="meta">${p.loaded ? '✓ geladen' : p.present ? `${p.present}/${p.count}` : `${p.count} Trigger`}</span>`;
+      b.addEventListener('click', () => togglePack(p.id));
+      root.appendChild(b);
+    }
+    $('#packs-count').textContent = `${loadedCount}/${list.length} · ${triggers.length}/${PS.limit()} Trigger`;
+    card.hidden = false;
+  }
+
+  // ---------- volume / layout (2.2) ----------
+  function clamp01(v) {
+    const n = Number(v);
+    return Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0;
+  }
+
+  function reflectVolume() {
+    const label = $('#vol-label');
+    if (label) label.textContent = `${Math.round(volume * 100)} %`;
+    const slider = $('#volume');
+    if (slider && Math.abs(Number(slider.value) - volume) > 0.001) slider.value = String(Math.round(volume * 20) / 20);
+  }
+
+  function setVolume(v, { send = true } = {}) {
+    volume = clamp01(v);
+    reflectVolume();
+    if (send) bus.send({ type: 'volume', volume });
+  }
+
+  function stepVolume(dir) {
+    let next = dir > 0 ? volume * DB6 : volume / DB6;
+    if (dir > 0 && next < volume + VOL_MIN_STEP) next = volume + VOL_MIN_STEP;
+    if (dir < 0 && next < 0.05) next = 0;
+    setVolume(Math.round(next * 100) / 100);
+    showLine(`${dir > 0 ? '🔊 Lauter' : '🔉 Leiser'}: ${Math.round(volume * 100)} %`);
+  }
+
+  function saveLayout() {
+    lsSet(LAYOUT_KEY, JSON.stringify(layout));
+  }
+
+  function reflectLayout() {
+    const band = $('#btn-band');
+    const zone = $('#btn-zone');
+    if (band) {
+      band.dataset.on = layout.band ? '1' : '0';
+      band.classList.toggle('active', layout.band);
+      band.textContent = layout.band ? '📖 Band aus' : '📖 Band an';
+    }
+    if (zone) {
+      const z = ZONES.find((x) => x.id === layout.zone) || ZONES[0];
+      zone.dataset.zone = z.id;
+      zone.textContent = `🎯 Zone: ${z.label}`;
+    }
+  }
+
+  function toggleBand() {
+    layout.band = !layout.band;
+    saveLayout();
+    reflectLayout();
+    bus.send({ type: 'layout', storyLayout: layout.band ? 'band' : 'full' });
+    showLine(layout.band ? '📖 Story-Band eingeblendet' : '📖 Story-Band ausgeblendet (Vollbild)');
+  }
+
+  function cycleZone() {
+    const i = ZONES.findIndex((z) => z.id === layout.zone);
+    layout.zone = ZONES[(i + 1) % ZONES.length].id;
+    saveLayout();
+    reflectLayout();
+    bus.send({ type: 'layout', zone: layout.zone });
+    showLine(`🎯 Effekt-Zone: ${esc((ZONES.find((z) => z.id === layout.zone) || ZONES[0]).label)}`);
   }
 
   function applyFilter() {
@@ -314,6 +555,10 @@
       showLine(`🔥 ${esc(labelOf(msg.trigger))} <span class="muted">← ${esc(String(msg.source || 'extern').slice(0, 40))}</span>`);
     } else if (msg.type === 'transcript' && typeof msg.text === 'string') {
       showText(msg.text, msg.final !== false, []);
+    } else if (msg.type === 'state' && Number.isFinite(Number(msg.volume))) {
+      setVolume(Number(msg.volume), { send: false });
+    } else if (msg.type === 'volume' && Number.isFinite(Number(msg.volume)) && (!msg.bus || msg.bus === 'master')) {
+      setVolume(Number(msg.volume), { send: false }); // the phone's ±6 dB buttons work on the master bus only
     }
   });
 
@@ -325,7 +570,11 @@
     b.classList.toggle('paused', paused);
     showLine(paused ? '⏸ Effekte pausiert' : '▶ Effekte wieder aktiv');
   });
-  $('#volume').addEventListener('input', (e) => bus.send({ type: 'volume', volume: Math.min(1, Math.max(0, Number(e.target.value) || 0)) }));
+  $('#volume').addEventListener('input', (e) => setVolume(e.target.value));
+  $('#btn-vol-down').addEventListener('click', () => stepVolume(-1));
+  $('#btn-vol-up').addEventListener('click', () => stepVolume(1));
+  $('#btn-band').addEventListener('click', toggleBand);
+  $('#btn-zone').addEventListener('click', cycleZone);
   $('#search').addEventListener('input', applyFilter);
 
   // ---------- store ----------
@@ -341,6 +590,8 @@
   async function boot() {
     renderScenes();
     initMic();
+    reflectVolume();
+    reflectLayout();
     await reload();
     applyFilter();
   }
@@ -363,6 +614,20 @@
       return matcher;
     },
     store: LiveFXStore,
+    // 2.2
+    get favourites() {
+      return favs.slice();
+    },
+    setFavourite: setFav,
+    get volume() {
+      return volume;
+    },
+    setVolume,
+    stepVolume,
+    get layout() {
+      return { ...layout };
+    },
+    togglePack,
     ready: boot(),
   };
 })();

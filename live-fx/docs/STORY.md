@@ -8,6 +8,10 @@ Prinzessin“, „der Schatz“) erscheinen als **Sticker** oben über der Szene
 
 Funktioniert in OBS (Browser-Quelle), auf der Demo-Seite (Aufnahme ohne OBS), quer und hochkant.
 
+**Neu in 2.2:** Szenen laufen in einem **Story-Band** am unteren Rand (Standard 22 % der Höhe) statt über der
+ganzen Kamera, Effekte bleiben an den **Rändern**, und die **Live-Story** verwandelt jeden vorgelesenen Satz
+sofort in Szene, Wetter, Tageszeit und Emoji-Figuren – ohne Trigger-Liste. Siehe die beiden Abschnitte unten.
+
 ## In 30 Sekunden
 
 1. Panel öffnen (`http://127.0.0.1:8787/`), unter **Erkennung** die Sprache wählen (Deutsch, Türkçe, English).
@@ -82,7 +86,58 @@ die Szene sichtbar bleibt. Als JSON:
   Wer es schneller will, stellt unter **Erkennung** wieder „schnell“ ein (bleibt bis zum nächsten Umschalten).
 - **Cooldowns**: Szenen 8 s, Sticker 6 s – „der Drache“ dreimal im Satz erscheint einmal.
 - **Lautstärke**: der Regler im Panel gilt auch für die Atmosphäre.
-- **Hochkant** (`overlay.html?layout=portrait`): die Szene füllt den ganzen Rahmen, Sticker bleiben oben,
-  der untere Bereich bleibt für den Chat frei.
+- **Hochkant** (`overlay.html?layout=portrait`): das Story-Band ist 20 % hoch und sitzt **über** der Chat-Zone
+  (unteres Drittel bleibt frei), Rand-Spalten sind 30 % breit, Sticker bleiben oben.
 - **Demo-Seite** (`demo.html`): Szenen und Loops werden mit aufgenommen – ideal für einen Vorlese-Clip.
 - Stream Deck / API: `POST /api/fire` mit `{"trigger":{"id":"scene-rain","label":"Regen","visual":{"kind":"scene","scene":"rain"},"sound":"loop:rain"}}`.
+
+## Story-Band: die Kamera bleibt frei (2.2)
+
+Regen, Nacht, Wald … werden nicht mehr über das ganze Bild gelegt. Das Overlay hat ein **Layout** mit drei Teilen:
+
+| Schlüssel | Werte | Standard | Bedeutung |
+|---|---|---|---|
+| `storyLayout` | `band` · `full` · `frame` | `band` | **band** = Streifen am unteren Rand, **frame** = kleines 16:9-Fenster unten rechts (30 % Breite), **full** = ganzer Rahmen wie in 1.3 |
+| `band` | 15 … 35 | 22 | Höhe des Streifens in Prozent der Bildhöhe (hochkant ohne Angabe: 20 %, über der Chat-Zone) |
+| `zone` | `full` · `edges` · `bottom` · `top` | `edges` | wo **flüchtige Effekte** landen: **edges** = Regen/Konfetti nur in den beiden Rand-Spalten (22 % Breite, hochkant 30 %), Karten/Text/Sticker/Banner abwechselnd links und rechts, **kein** Weiß-Blitz und **kein** Zoom-Stoß; **bottom** = alles im Band; **top** = oberer Streifen; **full** = überall (1.3-Verhalten) |
+
+- Setzen per URL (pinnt den jeweiligen Schlüssel): `overlay.html?story=band&band=22&zone=edges` – oder live per
+  Bus-Nachricht `{type:'layout', storyLayout?, band?, zone?}` (nur die geschickten Schlüssel ändern sich; `POST /fire`).
+  Der Server merkt sich das Layout (`state.layout`) und gibt es jedem neu verbundenen Overlay im `state`-Event mit.
+- Technik: `#stage > .fx-band[data-layout]` hält die `.fx-scene`-Ebene, Partikel und Figuren sind auf dem Canvas auf
+  das Band begrenzt, die Oberkante ist weich maskiert. Der Streifen skaliert Boden-Silhouetten, Deko und
+  Bildunterschrift mit (`--fx-band-h`). Alte Szenen-Trigger brauchen keine Änderung.
+- Demo-Seite: Auswahl „Story“ (Band unten / Vollbild / Fenster) und „Effekt-Zone“ in der Leiste, dieselben URL-Parameter.
+
+## Live-Story: jeder Satz wird zur Szene (2.2)
+
+Neben den Trigger-Paketen gibt es den **Story-Director** (`js/story-director.js`, global `LiveFXStoryDirector`):
+ein Wortschatz in **Deutsch, Türkisch und Englisch** (Orte, Tageszeiten, Wetter, 22 Figuren, 16 Dinge, Tätigkeiten,
+Stimmungen) macht aus jedem Satz einen **Welt-Zustand**, den das Band fortlaufend rendert – ohne Modell, ohne Cloud.
+
+```
+„Es regnete in der Nacht im Wald, der Drache flog über das Schloss“
+„gece ormanda yağmur yağıyordu, ejderha kalenin üzerinden uçtu“
+„It was raining at night in the forest, the dragon flew over the castle“
+   → Szene rain · Wetter rain · Zeit night · Ort forest · Wahrzeichen castle (🏰 als Requisite)
+     Figuren: 🐉 dragon (fliegt)   Loop: rain
+```
+
+- **Nachrichten**: das Panel (oder `POST /fire`) schickt `{type:'story', text, final, lang?}` pro Transkript-Satz;
+  jedes Overlay füttert seinen eigenen Director (`window.livefx.director`) und zeichnet den Zustand
+  (`renderer.story(state)`). Alternativ schickt man einen fertigen Zustand: `{type:'story-state', state}`.
+  Zwischenergebnisse (`final:false`) bewegen nur Ort/Zeit/Wetter/Stimmung – Figuren warten auf den fertigen Satz.
+- **Figuren** laufen als Emoji-Sprites ins Band hinein und wieder hinaus; Tätigkeiten: fliegen, schwimmen, rennen,
+  springen, tanzen, schlafen, weinen, lachen, verschwinden. Maximal 6 Figuren und 4 Dinge (+ Wahrzeichen).
+- **Szenen-Zuordnung**: Wetter gewinnt (Regen/Gewitter/Schnee), dann Orte mit eigener Szene (Wald, Meer, Stadt,
+  Schloss, Wüste, Weltraum; Höhle → Nacht, Berge → Schnee), Lagerfeuer → Feuer, dann Tageszeit (Nacht → Nacht,
+  Morgen/Abend → Sonnenaufgang). Die 13 Szenen und 12 Loops von 1.3 werden wiederverwendet.
+- **Stimmung** (fröhlich, spannend, traurig, gruselig, ruhig) tönt das Band; „plötzlich“ rüttelt einmal.
+  „**Ende**“ / „masal bitti“ / „the end“ räumt die Bühne, „es war einmal“ beginnt eine neue.
+- Ohne neuen Satz blendet das Band nach **60 s** aus (`renderer.storyIdleMs`), der nächste Satz holt es zurück.
+- Demo-Seite: Haken **Live-Story** → jeder Mikrofon-Satz geht durch den Director (und als `story` auf den Bus).
+
+## Lautstärke (2.2)
+
+Drei Regler: **master** (0.5), **sfx** (0.8, Effekt-Sounds) und **ambient** (0.5, Szenen-Atmosphäre). Nachricht
+`{type:'volume', volume, bus?}` – ohne `bus` = master wie bisher. Details in `docs/SOUNDS.md`.

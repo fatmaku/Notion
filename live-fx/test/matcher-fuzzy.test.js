@@ -27,6 +27,8 @@ function rng(seed) {
 const pick = (r, arr) => arr[Math.floor(r() * arr.length)];
 
 // ---- reference implementation: the pre-1.2 matcher (substring counting on the padded string) ----
+// 2.2 semantics folded in: a blocked occurrence is not consumed (only fired ones are), and on equal
+// keyword length the most recently loaded trigger (array order) goes first.
 function oldCountOccurrences(haystack, keyword) {
   const padded = ` ${haystack} `;
   const needle = ` ${keyword} `;
@@ -53,7 +55,7 @@ class OldMatcher {
     const fired = [];
     if (!text) return fired;
     const candidates = [];
-    for (const trig of this.triggers) {
+    this.triggers.forEach((trig, ti) => {
       let occurrences = 0;
       let matchedKeyword = null;
       for (const kw of trig._keywords) {
@@ -64,17 +66,17 @@ class OldMatcher {
         }
       }
       const already = this.firedInUtterance.get(trig._key) || 0;
-      if (occurrences <= already) continue;
-      this.firedInUtterance.set(trig._key, occurrences);
-      candidates.push({ trig, matchedKeyword });
-    }
-    candidates.sort((a, b) => b.matchedKeyword.length - a.matchedKeyword.length);
-    for (const { trig, matchedKeyword } of candidates) {
+      if (occurrences <= already) return;
+      candidates.push({ trig, ti, matchedKeyword, occurrences });
+    });
+    candidates.sort((a, b) => b.matchedKeyword.length - a.matchedKeyword.length || b.ti - a.ti);
+    for (const { trig, matchedKeyword, occurrences } of candidates) {
       const last = this.lastFireAt.get(trig._key) ?? -Infinity;
       if (now - last < (trig.cooldown ?? 3)) continue;
       if (now - this.lastGlobalFire < this.globalMinGap) continue;
       this.lastFireAt.set(trig._key, now);
       this.lastGlobalFire = now;
+      this.firedInUtterance.set(trig._key, occurrences);
       fired.push({ trigger: trig, keyword: matchedKeyword });
     }
     return fired;
@@ -361,7 +363,10 @@ test('fireById / cooldown semantics unchanged with fuzzy on', () => {
   const m = new Matcher(defaults, { tolerance: 'high' });
   assert.equal(m.fireById('wow', 0).blocked, null);
   assert.equal(m.process('das war grass', 1).length, 0, 'cooldown shared with fireById');
-  assert.equal(m.firedInUtterance.get('wow'), 1, 'consumed even though blocked');
+  assert.equal(m.firedInUtterance.get('wow'), undefined, '2.2: a blocked occurrence is not consumed');
+  assert.equal(m.process('das war grass', 4.9).length, 0, 'still in cooldown');
+  assert.equal(m.process('das war grass', 5).length, 1, 'fires once the cooldown passed (same utterance)');
+  assert.equal(m.process('das war grass', 5.1).length, 0, 'consumed now');
   m.endUtterance();
   assert.equal(m.process('das war grass', 10).length, 1);
   assert.equal(m.fireById('wow', 11).blocked, 'cooldown');

@@ -50,9 +50,21 @@ function register(router, ctx) {
       const v = Schema.validateEnvelope(body);
       if (!v.ok) throw new HttpError(400, 'invalid_envelope', v.error);
       const msg = v.msg;
-      if (msg.type === 'volume') ctx.state.volume = msg.volume;
+      if (msg.type === 'volume') {
+        // 2.2: per-bus levels; a message without `bus` is the master level (1.x senders) and keeps `state.volume`.
+        const bus = msg.bus || 'master';
+        ctx.state.volumes = { ...(ctx.state.volumes || {}), [bus]: msg.volume };
+        if (bus === 'master') ctx.state.volume = msg.volume;
+      }
       if (msg.type === 'theme') ctx.state.theme = msg.theme;
       if (msg.type === 'perf') ctx.state.perf = msg.perf;
+      if (msg.type === 'layout') {
+        // Partial merge: only the keys this message carries change (a band set in portrait by the overlay stays).
+        const cur = ctx.state.layout || {};
+        const next = { ...cur };
+        for (const k of ['storyLayout', 'band', 'zone']) if (msg[k] !== undefined) next[k] = msg[k];
+        ctx.state.layout = next;
+      }
       ctx.bus.broadcast(msg, { audience: 'all' });
       json(res, 200, { ok: true, id: msg.id, overlays: ctx.bus.counts().overlays });
     })

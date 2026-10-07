@@ -224,14 +224,29 @@ function audioPathGainPeaks(log) {
   return peaks;
 }
 
+test('2.2 loudness normalisation: PEAK_BUDGET 0.6 for every builtin, limiter at -9 dB', () => {
+  assert.strictEqual(LiveFXSounds.PEAK_BUDGET, 0.6);
+  assert.strictEqual(LiveFXSounds.LIMITER_DB, -9);
+  assert.ok(SOUNDS_20.every((n) => LiveFXSounds.names.includes(n)));
+});
+
 for (const name of LiveFXSounds.names) {
-  const budget = SOUNDS_20.includes(name) ? 0.6 : 1; // 2.0 sounds: 0.6 per voice; legacy recipes never exceed unity
+  const budget = LiveFXSounds.PEAK_BUDGET; // 2.2: every one-shot (legacy recipes included) stays <= 0.6 per voice
   test(`play('${name}') keeps every audio-path gain <= ${budget}`, () => {
     const { ctx, log } = makeFakeContext();
     LiveFXSounds.play(name, ctx, ctx.destination, 0.5);
     const peaks = audioPathGainPeaks(log);
     assert.ok(peaks.length >= 1);
     for (const p of peaks) assert.ok(p <= budget + 1e-9, `gain ${p} exceeds ${budget}`);
+  });
+}
+
+for (const name of LOOPS) {
+  test(`loop('${name}') keeps every static / scheduled gain <= 1 (no layer louder than the loop master)`, () => {
+    const { ctx, log } = makeFakeContext();
+    const h = LiveFXSounds.loop(name, ctx, ctx.destination, 0.5);
+    assert.ok(h);
+    for (const p of audioPathGainPeaks(log)) assert.ok(p <= 1 + 1e-9, `gain ${p} exceeds 1`);
   });
 }
 
@@ -255,7 +270,7 @@ test('mixer.init builds sfx + ambient busses -> master -> limiter -> destination
   assert.strictEqual(mixer.ctx, ctx);
   assert.strictEqual(log.compressors.length, 1, 'exactly one limiter');
   const lim = log.compressors[0];
-  assert.strictEqual(lim.threshold.value, -6);
+  assert.strictEqual(lim.threshold.value, -9, '2.2: limiter threshold -9 dB');
   assert.strictEqual(lim.ratio.value, 12);
   assert.ok(lim.attack.value <= 0.005, 'fast attack');
   const has = (a, b) => log.edges.some(([s, t]) => s === a && t === b);

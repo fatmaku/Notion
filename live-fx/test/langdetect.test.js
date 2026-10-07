@@ -174,3 +174,40 @@ test('langdetect review: numbers-only, emoji-only and giant input never detect o
   assert.equal(L.tag('de', null), 'de-DE');
   assert.equal(L.tag('tr', ['xx', 'tr_TR']), 'tr_TR');
 });
+
+test('langdetect 2.2: Turkish signals', async (t) => {
+  await t.test('ı ş ğ İ Ş Ğ decide for tr at once, even in a German-dominant sentence', () => {
+    const r = L.detect('yok artık abi das ist krass alter');
+    assert.equal(r.lang, 'tr');
+    assert.equal(r.signal, 'letters');
+    assert.ok(r.score >= L.TR_LETTER_SCORE, `score ${r.score} >= ${L.TR_LETTER_SCORE}`);
+    assert.equal(L.TR_LETTER_SCORE, 0.75);
+    for (const s of ['ışık', 'Ş', 'ağ bu', 'İstanbul da', 'GELDİN']) assert.equal(L.detect(s).lang, 'tr', s);
+    assert.equal(L.detect('das ist schön').signal, undefined, 'ö alone is no Turkish signal');
+    assert.equal(L.detect('das ist schön').lang, 'de');
+  });
+
+  await t.test('short Turkish stream words score 0.5 (TR_SHORT), never a full point', () => {
+    assert.equal(L.TR_SHORT_WEIGHT, 0.5);
+    assert.ok(L.TR_SHORT.includes('len') && L.TR_SHORT.includes('yav') && L.TR_SHORT.includes('hocam'));
+    for (const w of L.TR_SHORT) {
+      assert.ok(!L.STOPWORDS.tr.includes(w) && !L.STOPWORDS.de.includes(w) && !L.STOPWORDS.en.includes(w), `${w} not in STOPWORDS`);
+      assert.equal(w, w.toLocaleLowerCase('tr'));
+    }
+    assert.equal(new Set(L.TR_SHORT).size, L.TR_SHORT.length, 'no duplicates');
+    const r = L.detect('hocam len');
+    assert.equal(r.scores.tr, 1, 'two short words = 1 point');
+    assert.equal(r.lang, 'tr');
+    assert.equal(r.signal, 'words');
+    assert.equal(L.detect('len').lang, null, 'a single short word is not enough');
+    assert.equal(L.detect('abe naber').lang, 'tr');
+  });
+
+  await t.test('any Turkish signal switches to toLocaleLowerCase("tr"): I -> ı, İ -> i', () => {
+    assert.deepEqual(L.tokenize('ABI BAK'), ['abı', 'bak'], 'abi (word signal) -> Turkish lowering');
+    assert.deepEqual(L.tokenize('I THINK'), ['i', 'think'], 'no signal -> plain lowering');
+    assert.deepEqual(L.tokenize('İYİ'), ['iyi']);
+    assert.equal(L.detect('ABI BAK').lang, 'tr');
+    assert.equal(L.detect('I THINK THIS IS IT').lang, 'en');
+  });
+});

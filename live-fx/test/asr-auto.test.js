@@ -127,11 +127,43 @@ test('auto: registry and construction', async (t) => {
     assert.equal(asr.family, 'de');
     assert.deepEqual(asr.langs, ['de-DE', 'tr-TR', 'en-US']);
     assert.equal(asr.pinned, false);
-    assert.deepEqual(asr.options, { alternatives: false, restartEveryMs: 0, stallMs: 20000, langs: ['de-DE', 'tr-TR', 'en-US'], window: 3, switchAfter: 2, parallel: 'try' });
+    assert.deepEqual(asr.options, { alternatives: false, restartEveryMs: 0, stallMs: 20000, onDevice: 'auto', langs: ['de-DE', 'tr-TR', 'en-US'], primaryLang: 'de-DE', window: 3, switchAfter: 2, parallel: 'try' });
+    assert.equal(asr.primary, 'de-DE');
+    assert.equal(asr.onDevice, null, 'no recognizer yet');
     assert.deepEqual(asr.stats, { results: 0, finals: 0, restarts: 0, plannedRestarts: 0, stalls: 0, lastResultAt: null, lastFinalAt: null, startedAt: null, switches: 0, parallel: false, detected: { de: 0, tr: 0, en: 0 } });
     assert.deepEqual(LiveFXASR.AUTO_LANGS, ['de-DE', 'tr-TR', 'en-US']);
     assert.equal(LiveFXASR.AUTO_PARALLEL_PROBE_MS, 1500);
     assert.equal(LiveFXASR.AUTO_DEDUPE_MS, 800);
+    assert.equal(LiveFXASR.AUTO_QUICK_SCORE, 0.6);
+    assert.equal(LiveFXASR.AUTO_SWITCH_SCORE, 0.45);
+    assert.equal(LiveFXASR.AUTO_GAP_MAX_MS, 2000);
+    assert.equal(LiveFXASR.AUTO_RETURN_FINALS, 2);
+    assert.equal(LiveFXASR.AUTO_RETURN_MS, 8000);
+    assert.equal(LiveFXASR.AUTO_CONFIDENT, 0.75);
+    assert.equal(LiveFXASR.AUTO_INTERIM_TOKENS, 3);
+  });
+
+  await t.test('2.2 primaryLang: start language = primaryLang, else opts.lang, else langs[0]; variants are added', (t) => {
+    const a = setup(t, { lang: 'de-DE', primaryLang: 'tr-TR' }).asr;
+    assert.equal(a.lang, 'tr-TR');
+    assert.equal(a.family, 'tr');
+    assert.equal(a.primary, 'tr-TR');
+    assert.equal(a.options.primaryLang, 'tr-TR');
+    const b = LiveFXASR.create('auto', { lang: 'de-DE', primaryLang: 'en-GB' });
+    assert.equal(b.lang, 'en-GB', 'a variant of a listed family replaces the tag');
+    assert.deepEqual(b.langs, ['de-DE', 'tr-TR', 'en-GB']);
+    const c = LiveFXASR.create('auto', { primaryLang: 'fr-FR', langs: ['tr-TR', 'de-DE'] });
+    assert.equal(c.lang, 'tr-TR', 'unknown primary family -> langs[0]');
+    assert.equal(c.primary, 'tr-TR');
+    const d = LiveFXASR.create('auto', { primaryLang: 'en-US', langs: ['tr-TR', 'de-DE'] });
+    assert.deepEqual(d.langs, ['tr-TR', 'de-DE', 'en-US'], 'a primary outside langs is appended');
+    assert.equal(d.lang, 'en-US');
+    a.setOptions({ primaryLang: 'de-AT' });
+    assert.equal(a.primary, 'de-AT');
+    assert.equal(a.lang, 'de-AT', 'idle: the start language follows the primary');
+    a.start();
+    assert.equal(FakeSR.instances[0].lang, 'de-AT', 'the first (leading) recognizer starts in the primary language');
+    assert.equal(a.lang, 'de-AT');
   });
 
   await t.test('langs with variants; start language = opts.lang when its family is listed, else langs[0]', (t) => {
@@ -196,104 +228,162 @@ test('auto: switching mode', async (t) => {
     );
   });
 
-  await t.test('two Turkish finals in a row -> recognizer swapped to tr-TR right after the second final', (t) => {
+  await t.test('2.2: one confident Turkish final (score >= 0.6) -> recognizer swapped to tr-TR at once', (t) => {
     const { asr, calls, langEvents, events } = startSwitching(t);
     const rec1 = last();
     rec1.say('yok artik abi');
-    assert.equal(FakeSR.instances.length, 1, 'one Turkish final is not enough');
-    assert.equal(asr.lang, 'de-DE');
-    advance(2000);
-    rec1.say('bu oyun çok zor değil mi');
-    assert.equal(FakeSR.instances.length, 2, 'switched');
+    assert.equal(FakeSR.instances.length, 2, 'switched after one final');
     assert.equal(rec1.count('abort'), 1);
     const rec2 = last();
     assert.equal(rec2.lang, 'tr-TR');
     assert.equal(rec2.count('start'), 1);
     assert.equal(asr.lang, 'tr-TR');
     assert.equal(asr.family, 'tr');
+    assert.equal(asr.primary, 'de-DE', 'the primary language stays');
     assert.equal(asr.stats.switches, 1);
-    assert.deepEqual(asr.stats.detected, { de: 0, tr: 2, en: 0 });
-    assert.equal(calls.length, 2, 'both finals were forwarded (in the language they were heard in)');
-    assert.equal(calls[1].meta.lang, 'de-DE');
+    assert.deepEqual(asr.stats.detected, { de: 0, tr: 1, en: 0 });
+    assert.equal(calls.length, 1, 'the final was forwarded (in the language it was heard in)');
+    assert.equal(calls[0].meta.lang, 'de-DE');
     const ev = events.filter((e) => e.type === 'lang').pop();
     assert.equal(ev.lang, 'tr-TR');
     assert.equal(ev.family, 'tr');
     assert.equal(ev.mode, 'switch');
     assert.equal(ev.reason, 'detected');
-    assert.ok(ev.score > 0.5 && ev.score <= 1, `score ${ev.score}`);
+    assert.equal(ev.primary, 'de-DE');
+    assert.ok(ev.score >= 0.6 && ev.score <= 1, `score ${ev.score}`);
     assert.deepEqual(langEvents().map((e) => e.reason), ['start', 'detected']);
     // stale generation is ignored
     rec1.say('alte generation');
     rec1.emit('end');
-    assert.equal(calls.length, 2);
+    assert.equal(calls.length, 1, 'text and onend of the aborted recognizer are ignored');
     assert.equal(FakeSR.instances.length, 2);
     rec2.emit('start');
     assert.equal(asr.state, 'listening');
     rec2.say('harika oldu abi');
-    assert.equal(calls[2].meta.lang, 'tr-TR');
-    assert.equal(calls[2].meta.recognizer, 'tr-TR');
+    assert.equal(calls[1].meta.lang, 'tr-TR');
+    assert.equal(calls[1].meta.recognizer, 'tr-TR');
   });
 
-  await t.test('window reset: after a switch the agreement starts from zero; a final in the current language breaks a streak', (t) => {
-    const { asr } = startSwitching(t, { window: 3, switchAfter: 2 });
+  await t.test('2.2: two weaker finals (>= 0.45 each) switch too; one weak final or a broken streak does not', (t) => {
+    const { asr, events } = startSwitching(t, { window: 3, switchAfter: 2 });
+    last().say('yok artik abi das ist the'); // tr 0.5
+    assert.equal(asr.lang, 'de-DE', 'one final below 0.6 is not enough');
+    last().say('xyz qwq'); // undetectable: ignored, streak intact
+    last().say('okay guys the das ist gut bro'); // en 0.57: breaks the Turkish streak
+    assert.equal(asr.lang, 'de-DE');
+    last().say('yok artik abi das ist the');
+    assert.equal(asr.lang, 'de-DE');
+    last().say('yok artik abi das ist the');
+    assert.equal(asr.lang, 'tr-TR', 'two agreeing finals >= 0.45');
+    const ev = events.filter((e) => e.type === 'lang').pop();
+    assert.equal(ev.reason, 'detected');
+    assert.equal(ev.score, 0.5, 'average of the agreeing finals');
+    assert.equal(asr.stats.switches, 1);
+    assert.deepEqual(asr.stats.detected, { de: 0, tr: 3, en: 1 });
+  });
+
+  await t.test('2.2: back to the primary language after two primary finals (any score) or one confident one', (t) => {
+    const { asr, langEvents } = startSwitching(t, { window: 3, switchAfter: 2 });
     last().say('yok artik abi');
-    last().say('tamam tamam anladım');
     assert.equal(asr.lang, 'tr-TR');
     last().emit('start');
-    last().say('krass alter'); // de #1 after the switch – the earlier Turkish finals do not count against it
+    last().say('bro das ist the game'); // de 0.5 (primary) #1
     assert.equal(asr.lang, 'tr-TR');
-    last().say('hadi lan gidiyoruz'); // tr: breaks the German streak
-    last().say('das ist nicht gut'); // de #1 again
+    last().say('hadi lan gidiyoruz'); // tr: breaks the primary streak
+    last().say('bro das ist the game'); // de #1 again
     assert.equal(asr.lang, 'tr-TR');
     assert.equal(asr.stats.switches, 1);
-    last().say('wir spielen jetzt'); // de #2 -> switch
+    last().say('let us go das ist krass'); // de #2 -> back to the primary
     assert.equal(asr.lang, 'de-DE');
     assert.equal(asr.stats.switches, 2);
     assert.equal(FakeSR.instances.length, 3);
-  });
-
-  await t.test('switchAfter 3 needs three agreeing finals; unknown text does not count', (t) => {
-    const { asr } = startSwitching(t, { window: 4, switchAfter: 3 });
-    last().say("that's wild bro");
-    last().say('xyz qwq'); // undetectable: ignored, streak intact
-    last().say('what the hell is going on');
+    assert.deepEqual(langEvents().map((e) => e.reason), ['start', 'detected', 'primary']);
+    // one confident primary final is enough
+    last().emit('start');
+    last().say('hadi lan gidiyoruz');
+    assert.equal(asr.lang, 'tr-TR');
+    last().emit('start');
+    last().say('krass alter');
     assert.equal(asr.lang, 'de-DE');
-    last().say('okay okay chill guys');
+    assert.equal(langEvents().pop().reason, 'primary');
+    // a non-primary foreign language is still a normal detected switch (tr -> en), then primary again
+    last().emit('start');
+    last().say('hadi lan gidiyoruz');
+    last().emit('start');
+    last().say("that's wild bro");
     assert.equal(asr.lang, 'en-US');
-    assert.deepEqual(asr.stats.detected, { de: 0, tr: 0, en: 3 });
+    assert.equal(langEvents().pop().reason, 'detected');
   });
 
-  await t.test('with voiceActivity the switch waits for a speech gap (1 s steps, forced after 10 s)', (t) => {
+  await t.test('2.2: 8 s without a final while away from the primary -> back to the primary (reason silence)', (t) => {
+    const { asr, langEvents } = startSwitching(t);
+    last().say('yok artik abi');
+    assert.equal(asr.lang, 'tr-TR');
+    last().emit('start');
+    advance(7000);
+    assert.equal(asr.lang, 'tr-TR');
+    last().say('tamam tamam anladım'); // a final re-arms the timer
+    advance(7000);
+    assert.equal(asr.lang, 'tr-TR');
+    advance(1000);
+    assert.equal(asr.lang, 'de-DE', 'silence timer fired');
+    assert.deepEqual(langEvents().pop(), { lang: 'de-DE', family: 'de', mode: 'switch', reason: 'silence' });
+    assert.equal(asr._returnTimer, null, 'no timer while in the primary language');
+    // pinned: no silence return
+    last().emit('start');
+    asr.setLang('tr-TR');
+    advance(9000);
+    assert.equal(asr.lang, 'tr-TR');
+    asr.setLang('auto');
+    advance(9000);
+    assert.equal(asr.lang, 'tr-TR', 'unpinning alone arms nothing; the next final does');
+    last().say('hadi lan gidiyoruz');
+    advance(8000);
+    assert.equal(asr.lang, 'de-DE');
+    asr.stop();
+    assert.equal(asr._returnTimer, null, 'cleared by stop()');
+  });
+
+  await t.test('switchAfter 3 needs three agreeing weaker finals; unknown text does not count', (t) => {
+    const { asr } = startSwitching(t, { window: 4, switchAfter: 3 });
+    last().say('yok artik abi das ist the');
+    last().say('xyz qwq'); // undetectable: ignored, streak intact
+    last().say('yok artik abi das ist the');
+    assert.equal(asr.lang, 'de-DE');
+    last().say('yok artik abi das ist the');
+    assert.equal(asr.lang, 'tr-TR');
+    assert.deepEqual(asr.stats.detected, { de: 0, tr: 3, en: 0 });
+  });
+
+  await t.test('2.2: with voiceActivity the switch waits for a speech gap (500 ms steps, forced after 2 s)', (t) => {
     let voice = true;
     const { asr, langEvents } = startSwitching(t, { voiceActivity: () => voice, stallMs: 0 });
     const rec1 = last();
     rec1.say('yok artik abi');
-    rec1.say('tamam tamam anladım');
     assert.equal(FakeSR.instances.length, 1, 'deferred: voice active');
     assert.equal(asr.lang, 'de-DE');
-    advance(3000);
+    advance(1000);
     assert.equal(FakeSR.instances.length, 1);
     voice = false;
-    advance(1000);
-    assert.equal(FakeSR.instances.length, 2, 'switched at the next 1 s check');
+    advance(500);
+    assert.equal(FakeSR.instances.length, 2, 'switched at the next 500 ms check');
     assert.equal(last().lang, 'tr-TR');
     assert.equal(rec1.count('abort'), 1);
     assert.deepEqual(langEvents().map((e) => e.reason), ['start', 'detected']);
-    // forced after 10 s of continuous voice
+    // forced after 2 s of continuous voice
     const rec2 = last();
     rec2.emit('start');
     voice = true;
     rec2.say('krass alter');
-    rec2.say('das ist nicht gut');
-    advance(9000);
+    advance(1500);
     assert.equal(FakeSR.instances.length, 2);
-    advance(1000);
-    assert.equal(FakeSR.instances.length, 3, 'forced after 10 s');
+    advance(500);
+    assert.equal(FakeSR.instances.length, 3, 'forced after 2 s');
     assert.equal(last().lang, 'de-DE');
+    assert.equal(langEvents().pop().reason, 'primary');
     // a pending switch is dropped by stop()
     last().emit('start');
     last().say('yok artik abi');
-    last().say('tamam tamam anladım');
     asr.stop();
     assert.equal(asr._switchTimer, null);
     voice = false;
@@ -307,6 +397,34 @@ test('auto: switching mode', async (t) => {
     last().say('what the hell is going on');
     assert.equal(asr.lang, 'en-GB');
     assert.equal(last().lang, 'en-GB');
+  });
+
+  await t.test('2.2: onDevice is passed to the inner recognizers and reported through options / onDevice / events', (t) => {
+    class LocalSR extends FakeSR {
+      constructor() {
+        super();
+        this.processLocally = false;
+      }
+    }
+    const ctx = setup(t, { parallel: 'off' });
+    globalThis.SpeechRecognition = LocalSR;
+    ctx.asr.start();
+    assert.equal(last().processLocally, true);
+    assert.equal(ctx.asr.onDevice, 'on');
+    assert.equal(ctx.asr.options.onDevice, 'auto');
+    assert.deepEqual(ctx.events.filter((e) => e.type === 'ondevice').map((e) => [e.state, e.recognizer]), [['on', 'de-DE']]);
+    last().emit('error', { error: 'language-not-supported' });
+    assert.equal(ctx.asr.onDevice, 'fallback');
+    advance(0);
+    assert.equal(last().processLocally, false, 'cloud respawn');
+    assert.equal(ctx.errors.length, 1);
+    assert.equal(ctx.errors[0].fatal, false);
+    ctx.asr.setOptions({ onDevice: 'off' });
+    assert.equal(ctx.asr.options.onDevice, 'off');
+    assert.equal(last().processLocally, false);
+    assert.equal(ctx.asr.onDevice, 'off');
+    const off = LiveFXASR.create('auto', { onDevice: 'off' });
+    assert.equal(off.options.onDevice, 'off');
   });
 
   await t.test('restart/stall events and stats are aggregated from the inner recognizer', (t) => {
@@ -351,7 +469,7 @@ test('auto: switching mode', async (t) => {
     assert.equal(FakeSR.instances.length, 2, 'alternatives needs a fresh recognizer');
     assert.equal(rec1.count('abort'), 1);
     assert.equal(last().maxAlternatives, 3);
-    assert.deepEqual(asr.options, { alternatives: true, restartEveryMs: 0, stallMs: 0, langs: ['de-DE', 'tr-TR', 'en-US'], window: 5, switchAfter: 4, parallel: 'off' });
+    assert.deepEqual(asr.options, { alternatives: true, restartEveryMs: 0, stallMs: 0, onDevice: 'auto', langs: ['de-DE', 'tr-TR', 'en-US'], primaryLang: 'de-DE', window: 5, switchAfter: 4, parallel: 'off' });
     asr.setOptions({ switchAfter: 9 });
     assert.equal(asr.options.switchAfter, 5);
   });
@@ -449,6 +567,45 @@ test('auto: parallel mode', async (t) => {
     assert.deepEqual(langEvents().map((e) => [e.family, e.reason]), [['de', 'start'], ['tr', 'detected'], ['en', 'detected']]);
   });
 
+  await t.test('2.2: the first confident interim (>= 0.75, >= 3 tokens) of another recognizer makes it the leader', (t) => {
+    const { asr, calls, langEvents } = startParallel(t);
+    byLang('tr-TR').say('yok', { final: false });
+    byLang('tr-TR').say('yok artik', { final: false });
+    assert.equal(calls.length, 0, 'fewer than 3 tokens: dropped');
+    assert.equal(asr.lang, 'de-DE');
+    byLang('en-US').say('das ist krass alter', { final: false });
+    assert.equal(calls.length, 0, 'German words from the English recognizer: not its own language');
+    byLang('tr-TR').say('yok artik abi', { final: false });
+    assert.equal(calls.length, 1, 'confident Turkish interim forwarded');
+    assert.equal(calls[0].isFinal, false);
+    assert.equal(calls[0].meta.recognizer, 'tr-TR');
+    assert.equal(asr.lang, 'tr-TR');
+    assert.equal(asr.family, 'tr');
+    assert.equal(asr.stats.switches, 1);
+    assert.deepEqual(langEvents().pop(), { lang: 'tr-TR', family: 'tr', mode: 'parallel', reason: 'interim' });
+    assert.ok(FakeSR.instances.every((r) => r.count('abort') === 0), 'nothing restarted');
+    byLang('de-DE').say('das ist', { final: false });
+    assert.equal(calls.length, 1, 'the old leader is no longer forwarded');
+    byLang('tr-TR').say('yok artik abi ya', { final: false });
+    assert.equal(calls.length, 2);
+    // pinned: interims never change the leader
+    asr.setLang('de-DE');
+    byLang('tr-TR').say('hadi lan gidiyoruz', { final: false });
+    assert.equal(asr.lang, 'de-DE');
+    assert.equal(calls.length, 2);
+  });
+
+  await t.test('2.2: parallel mode returns to the primary after 8 s of silence (leader only, no restart)', (t) => {
+    const { asr, langEvents } = startParallel(t);
+    byLang('tr-TR').say('yok artık abi');
+    assert.equal(asr.lang, 'tr-TR');
+    advance(8000);
+    assert.equal(asr.lang, 'de-DE');
+    assert.equal(langEvents().pop().reason, 'silence');
+    assert.ok(FakeSR.instances.every((r) => r.count('abort') === 0));
+    assert.equal(FakeSR.instances.length, 3);
+  });
+
   await t.test('a new utterance releases the held one', (t) => {
     const { calls } = startParallel(t);
     byLang('de-DE').say('bla bla');
@@ -484,8 +641,7 @@ test('auto: parallel mode', async (t) => {
     assert.equal(FakeSR.instances.length, 3, 'the stopped recognizers do not restart');
     // from here on: switching mode
     de.say('yok artik abi');
-    de.say('tamam tamam anladım');
-    assert.equal(calls.length, 2);
+    assert.equal(calls.length, 1);
     assert.equal(FakeSR.instances.length, 4);
     assert.equal(last().lang, 'tr-TR');
     assert.equal(de.count('abort'), 1);

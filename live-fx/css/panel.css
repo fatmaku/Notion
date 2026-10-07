@@ -212,3 +212,64 @@ button.pill-link:hover { border-color: var(--accent-2); }
 .chat-feed .chat-line .fx { font-size: 11px; color: var(--muted); flex: 0 0 auto; }
 #chat-save-status.ok { color: var(--ok); }
 #chat-save-status.err { color: var(--accent); }
+
+/* 2.2: start wizard (3 steps), „Erweitert“ toggle, pack tiles, volume busses, Handy card with QR + internet link */
+.wizard { margin-bottom: 20px; border-color: rgba(124, 92, 255, .45); background: linear-gradient(180deg, rgba(124, 92, 255, .08), transparent 60%), var(--panel); }
+.wizard-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.wizard-head h2 { margin: 0; color: var(--text); }
+.wizard-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 14px; }
+@media (max-width: 960px) { .wizard-steps { grid-template-columns: 1fr; } }
+.wizard-step { background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px; padding: 14px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.wizard-step.done { border-color: rgba(61, 220, 132, .5); }
+.wizard-step .help { margin: 0; }
+.wizard-title { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.wizard-title .num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent-2); color: #fff; font-size: 13px; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.wizard-step.done .wizard-title .num { background: var(--ok); color: #05130b; }
+.wizard-title .count { font-size: 11px; font-weight: 500; color: var(--muted); background: var(--bg); padding: 2px 8px; border-radius: 999px; }
+.wiz-dot-wrap { font-size: 12px; font-weight: 500; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.wiz-dot-wrap .dot { flex: 0 0 auto; }
+.wizard-step.done .wiz-dot-wrap { color: var(--ok); }
+.wizard-step .actions { margin-top: 4px; align-items: center; }
+.wiz-status { flex: 1 1 140px; }
+.wiz-status.ok { color: var(--ok); }
+.wiz-status.err { color: var(--accent); }
+.wiz-size { font-size: 18px; font-weight: 700; padding: 6px 0; font-variant-numeric: tabular-nums; }
+/* 2.2 (review): inside the narrow 3-column grid the URL / format rows wrap instead of clipping the input and select */
+.wizard-step .row { flex-wrap: wrap; align-items: flex-end; }
+.wizard-step .row > div { flex: 1 1 180px; min-width: 0; }
+.wizard-step .row > button { flex: 0 0 auto; }
+.wizard-step .row input, .wizard-step .row select { width: 100%; min-width: 0; box-sizing: border-box; }
+.wizard-step .row > div.wiz-url { flex-basis: 100%; } /* the URL gets its own full-width line, the copy button sits below it */
+#wiz-overlay-url { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+/* the internet link's <code> is empty until the tunnel is online – no stray box */
+.urls code:empty { display: none; }
+#wiz-overlay-url { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+ol.wiz-guide { margin: 4px 0 0; padding-left: 20px; line-height: 1.7; }
+ol.wiz-guide li::marker { color: var(--accent-2); font-weight: 700; }
+.wiz-packs { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 8px; }
+.wiz-packs button.pack-tile { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 10px; text-align: left; min-height: 74px; }
+.wiz-packs .pack-tile .flag { font-size: 22px; line-height: 1; }
+.wiz-packs .pack-tile .lbl { font-size: 12px; font-weight: 600; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wiz-packs .pack-tile .meta { font-size: 11px; color: var(--muted); }
+.wiz-packs .pack-tile.loaded { border-color: rgba(61, 220, 132, .55); background: rgba(61, 220, 132, .08); }
+.wiz-packs .pack-tile.loaded .meta { color: var(--ok); }
+.wiz-packs .pack-tile.partial { border-color: rgba(255, 176, 32, .45); }
+.help.warn { color: var(--warn); }
+.help.warn[hidden] { display: none; }
+body.panel-simple .card[data-advanced] { display: none; }
+#btn-advanced[aria-expanded="true"] { border-color: var(--accent-2); }
+
+.volumes label { display: flex; justify-content: space-between; }
+.volumes .val { font-variant-numeric: tabular-nums; }
+
+.mobile-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.mobile-link { background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px; padding: 12px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.mobile-link .actions { margin-top: 0; }
+.mobile-link .help { margin: 0; }
+.qr-wrap { display: flex; justify-content: center; background: #fff; border-radius: 10px; padding: 6px; }
+.qr-wrap[hidden] { display: none; }
+.qr-wrap canvas { width: 168px; height: 168px; image-rendering: pixelated; image-rendering: crisp-edges; }
+.qr-wrap canvas[data-qr-size] { display: block; }
+.tunnel-status { display: flex; align-items: center; gap: 6px; }
+.tunnel-status .dot { flex: 0 0 auto; }
+#tunnel-box.online { border-color: rgba(61, 220, 132, .5); }

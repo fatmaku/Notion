@@ -72,7 +72,7 @@ Exports of `LiveFXSchema`:
 
 | Export | Meaning |
 |---|---|
-| `VERSION` (=3), `SCHEMA_VERSION` (=3), `KINDS`, `POSITIONS`, `SCENES`, `LOOPS`, `TEXT_STYLES`, `THEMES`, `LIMITS` | `LIMITS = {triggers:200, keywords:50, keywordLen:60, label:40, text:80, emoji:16, hint:120, rainCount:60, stickerEmoji:32, sceneDuration:3600, cooldown:3600, transcriptChars:2000, assetBytes:8*1024*1024, sourceLen:80, idLen:64, comboSteps:6, comboDelay:10000, title:60, subtitle:80}`; `TEXT_STYLES = ['neon','gradient','bounce','glitch','sticker']` (2.1); `THEMES = ['neon','pastel','minimal','kinderbuch']` |
+| `VERSION` (=3), `SCHEMA_VERSION` (=3), `KINDS`, `POSITIONS`, `SCENES`, `LOOPS`, `TEXT_STYLES`, `THEMES`, `LIMITS` | `LIMITS = {triggers:1000 (2.2, was 200), keywords:50, keywordLen:60, label:40, text:80, emoji:16, hint:120, rainCount:60, stickerEmoji:32, sceneDuration:3600, cooldown:3600, transcriptChars:2000, assetBytes:8*1024*1024, sourceLen:80, idLen:64, comboSteps:6, comboDelay:10000, title:60, subtitle:80}`; `TEXT_STYLES = ['neon','gradient','bounce','glitch','sticker']` (2.1); `THEMES = ['neon','pastel','minimal','kinderbuch']` |
 | `ID_RE`, `SAFE_NAME`, `IMAGE_EXT`, `SOUND_EXT`, `ASSET_IMAGE_RE`, `ASSET_SOUND_RE`, `COLOR_RE` | regexes / lists above; `SAFE_NAME = /^[a-z0-9][a-z0-9._-]{0,99}$/i` |
 | `UPLOAD_IMAGE_RE`, `MEMES_IMAGE_RE`, `HOTLINK_SRC_RE` (2.1) | the three allowed `visual.src` forms above; `ASSET_IMAGE_RE` = upload or sticker (same-origin); `HTTP_SRC_RE` is a deprecated alias of `HOTLINK_SRC_RE` (it used to accept any http(s) URL) |
 | `PERF_MODES` (2.1) | `['auto','eco','high']` – overlay performance modes (docs/PERFORMANCE.md) |
@@ -84,25 +84,34 @@ Exports of `LiveFXSchema`:
 | `normalizeTriggers(any)` | `{triggers, warnings}`; non-array -> `{triggers: [], warnings: [...]}`; caps at `LIMITS.triggers` |
 | `mergeWithDefaults({triggers, removed}, defaults)` | appends deep copies of defaults whose id is neither present nor listed in `removed` |
 | `deriveRemoved(triggers, defaults)` | ids of defaults missing from `triggers` |
-| `validateEnvelope(msg)` | for `/fire`: `{ok:true, msg}` with `type` in `fire\|volume\|theme\|perf`, `id` (kept if `/^[\w.-]{1,64}$/`, else new), `ts`, normalized `trigger` + `source` (<= 80, default "API"), clamped `volume`, `theme` (one of `THEMES`) or `perf` (one of `PERF_MODES`, 2.1); unknown keys (e.g. `_keywords`) stripped. `{ok:false, error}` otherwise. |
+| `validateEnvelope(msg)` | for `/fire`: `{ok:true, msg}` with `type` in `fire\|volume\|theme\|perf\|layout\|story\|story-state` (2.2), `id` (kept if `/^[\w.-]{1,64}$/`, else new), `ts`, normalized `trigger` + `source` (<= 80, default "API"), clamped `volume` + optional `bus` (`sfx`\|`ambient`; `master`/omitted = no `bus` key, 2.2), partial `layout` (`storyLayout`/`band` 15..35/`zone`, >= 1 key), `story` (`text` <= 500, `final` default true, `lang` de\|tr\|en?, `source`?), `story-state` (`state` via `normalizeStoryState`), `theme` (one of `THEMES`) or `perf` (one of `PERF_MODES`, 2.1); unknown keys (e.g. `_keywords`) stripped. `{ok:false, error}` otherwise. |
 | `escapeHtml(s)` | `& < > " '` |
+| `STORY_LAYOUTS` / `ZONES` / `LAYOUT_DEFAULTS` (2.2) | `['band','full','frame']` / `['full','edges','bottom','top']` / `{storyLayout:'band', band:22, zone:'edges'}` (frozen); `LIMITS.bandMin` 15, `LIMITS.bandMax` 35 |
+| `normalizeBand(v)` (2.2) | percent clamped 15..35 and rounded, `undefined` for non-numeric |
+| `normalizeLayout(raw, base = LAYOUT_DEFAULTS)` (2.2) | `{storyLayout, band, zone}` – keys missing / invalid in `raw` come from `base` (partial merge), never throws |
+| `VOLUME_BUSES` / `VOLUME_DEFAULTS` (2.2) | `['master','sfx','ambient']` / `{master:0.5, sfx:0.8, ambient:0.5}` (frozen) |
+| `STORY_MOODS` / `normalizeStoryState(raw)` (2.2) | `['calm','happy','tense','sad','scary']`; state `{scene: SCENES minus clear \| null, weather, time, place, landmark?, mood, actors[<=6]{emoji, role, action?}, props[<=5]{emoji, role}, loop?, caption?, end?, shake?}` – words trimmed to 24 letters/digits, unknown mood -> calm, `null` for a non-object |
+| `LIMITS.triggers` | **1000** since 2.2 (was 200); `LIMITS.storyText` 500, `LIMITS.storyWord` 24 |
 
 ## 2. Bus message envelope (BroadcastChannel and SSE carry identical JSON)
 
 ```
 { id: string, type: string, ts: number, ...payload }
 fire:              { trigger, source }                    panel/API -> overlays (panel logs foreign ones)
-volume:            { volume: 0..1 }                       panel -> overlays; server remembers in state.volume
+volume:            { volume: 0..1, bus?: 'sfx'|'ambient' }   panel -> overlays; no `bus` = master (1.x compatible). Server remembers state.volumes[bus] (+ state.volume for master)
 theme:             { theme: 'neon'|'pastel'|'minimal'|'kinderbuch' }   panel -> overlays (v3); overlay ignores it when the URL has ?theme=
 perf:              { perf: 'auto'|'eco'|'high' }          panel -> overlays (2.1); server remembers in state.perf; overlay ignores it when the URL has ?perf=
 transcript:        { text, final: boolean, lang?, source } server -> panels (external ASR push)
-state:             { volume: number|null, theme: string|null, perf: string|null, overlays, panels, version }   server -> each new SSE subscriber (theme = last `theme` message, 1.6; perf = last `perf` message, 2.1)
+layout:            { storyLayout?: 'band'|'full'|'frame', band?: 15..35, zone?: 'full'|'edges'|'bottom'|'top' }   panel -> overlays (2.2, partial: only the keys sent change); server merges into state.layout; overlay ignores keys pinned by ?story= ?band= ?zone=
+story:             { text, final: boolean, lang?: 'de'|'tr'|'en', source? }   panel/API -> overlays (2.2): one transcript sentence; every overlay feeds it into its own LiveFXStoryDirector -> renderer.story(state)
+story-state:       { state: {scene, weather, time, place, landmark?, mood, actors, props, loop?, caption?, end?, shake?} }   anyone -> overlays (2.2): a ready-made scene state (normalizeStoryState), renderer.story(state)
+state:             { volume: number|null, theme: string|null, perf: string|null, layout: {storyLayout?, band?, zone?}|null, volumes: {master?, sfx?, ambient?}|null, overlays, panels, version }   server -> each new SSE subscriber (theme = last `theme` message, 1.6; perf = last `perf` message, 2.1; layout = merged `layout` messages, volumes = last level per bus, 2.2)
 triggers-updated:  { updatedAt }                          server -> all after PUT /api/triggers
 ```
 - `id` is created by the **sender** (`LiveFXSchema.newId()`); the server assigns one only if missing.
 - Receivers keep an LRU of the last 300 ids in `Bus._emit` and drop repeats. A sender adds its own ids to that set, so it never processes its own echo (fixes double-fire through BroadcastChannel + SSE).
 - SSE wire format: `retry: 2000\n\n` once at connect; every event is `id: <seq>\ndata: <json>\n\n` (unnamed -> `onmessage`); `seq` = per-process counter (`state.nextSeq()`); ring of the last 64 events is replayed for `Last-Event-ID` when younger than 5 s; heartbeat `: ping\n\n` every 15 s. Both roles subscribe to `/events?role=panel|overlay`.
-- A `state` message is the first event every subscriber receives. `state.volume` applies in the overlay only when the URL has no `?volume=`; explicit `volume` messages always apply.
+- A `state` message is the first event every subscriber receives. `state.volume` / `state.volumes.master` apply in the overlay only when the URL has no `?volume=` (`sfx` / `ambient` always), `state.layout` keys only when not pinned by `?story=` / `?band=` / `?zone=`; explicit `volume` / `layout` messages always apply (minus pinned layout keys).
 
 ## 3. `js/bus.js` client contract (`LiveFXBus.Bus`) – owned by P1
 
@@ -127,10 +136,10 @@ bus.close()
 | `GET /events?role=panel\|overlay` | none | | SSE (section 2) |
 | `GET /api/config` | same-origin | | `{ok, version, token, smart:{available, reason, model, mock}, limits:{assetBytes}, lanIps:string[] (IPv4, non-internal, from os.networkInterfaces()), secure:boolean (TLS on), port:number (actually bound port)}` |
 | `GET /m?token=<token>` | none (the token IS the credential) | query `token` | constant-time compare with the server token: 302 `location: /mobile.html` + `set-cookie: livefx=<token>; HttpOnly; SameSite=Strict; Path=/` (+ `; Secure` over TLS); wrong → 401 `unauthorized` (German message); > 10 wrong attempts per minute per `req.socket.remoteAddress` → 429 `rate_limited`; no `token` param → 302 to `/mobile.html` without a cookie (`server/api-mobile.js`, registered before static) |
-| `POST /fire` | auth | envelope (`fire`, `volume`, `theme` or `perf`; `theme`/`perf`/`volume` are remembered in `ctx.state`) | `{ok, id, overlays}`; 400 `invalid_envelope` |
+| `POST /fire` | auth | envelope (`fire`, `volume`, `theme`, `perf`, 2.2: `layout`, `story`, `story-state`; `theme`/`perf`/`volume` (per bus) /`layout` are remembered in `ctx.state`) | `{ok, id, overlays}`; 400 `invalid_envelope` |
 | `POST /api/fire` | auth | `{id}` or `{trigger}`, `source?`, `force?` | `{ok, fired, reason?: 'cooldown'\|'gap'\|'disabled'\|'unknown', id}`; 404 `unknown_trigger` |
 | `GET /api/triggers` | none | | `{ok, version:2, triggers, removed, updatedAt}` (already merged with defaults) |
-| `PUT /api/triggers` | auth | `{triggers, removed?}` | `{ok, count, warnings}`; 400 `invalid_triggers` |
+| `PUT /api/triggers` | auth | `{triggers, removed?}` (body <= 6 MB since 2.2, was 2 MB) | `{ok, count, warnings}`; 400 `invalid_triggers` |
 | `GET /api/assets` | none | | `{ok, assets:[{name, url:'assets/x.png', size, type:'image'\|'sound', mtime}]}` |
 | `POST /api/assets` | auth | raw body; headers `x-filename`, `content-type`; <= `LIMITS.assetBytes` | `{ok, asset}`; 413 `payload_too_large`, 415 `unsupported_type`, 400 `bad_filename` |
 | `DELETE /api/assets/:name` | auth | | `{ok}`; 404 `not_found` |
@@ -138,6 +147,11 @@ bus.close()
 | `POST /api/transcript` | auth | `{text (<= 2000), final?=true, lang?, source?}` | `{ok, panels}` |
 | `POST /api/smart/classify` | auth | `{text, lang?}` | `{ok, triggerId\|null, confidence, model, ms, cached}`; 503 `smart_unavailable`, 429 `busy`\|`rate_limited`, 504 `timeout`, 502 `upstream` |
 | `GET /api/smart/status` | none | | `{ok, available, reason, model, mock, calls, errors, timeouts, lastError}` |
+| `GET /api/tunnel` (2.2) | auth | | `{ok, status:'idle'\|'starting'\|'online'\|'error', url, hostname, phoneUrl (https://<x>.trycloudflare.com/m?token=…), since, error, manualUrl, binary}` (`server/api-tunnel.js`, `server/tunnel.js`) |
+| `POST /api/tunnel/start` (2.2) | auth | | same shape; resolves when the tunnel is `online` or `error` (binary from `LIVEFX_CLOUDFLARED` / PATH / one-time SHA-256-verified download to `<dataDir>/bin/`) |
+| `POST /api/tunnel/stop` (2.2) | auth | | same shape, `status:'idle'`; the child also dies with the server |
+
+Tunnel guard (2.2, `server/api-tunnel.js guard(req)`, run by server.js before routing): requests arriving through the tunnel (Host `*.trycloudflare.com` or a `cf-connecting-ip` header) need the panel cookie or a Bearer – only `GET /m`, `/health`, `/favicon.ico` are open; the tunnel hostname is appended to `LIVEFX_ALLOWED_HOSTS` only while the tunnel is online.
 | other `/api/*` | | | 404 `not_found` (registered by server.js) |
 
 Upload contract: the browser sends `fetch('/api/assets', {method:'POST', body: file, headers: {'x-filename': file.name, 'content-type': file.type}})`; curl uses `--data-binary @file`. The server lower-cases and sanitizes the basename to `SAFE_NAME`, resolves collisions with `-2`, `-3`, …, verifies magic bytes (PNG `89 50 4E 47`, JPEG `FF D8 FF`, GIF `GIF8`, WEBP `RIFF….WEBP`, MP3 `ID3` or `FF Ex`/`FF Fx`, WAV `RIFF….WAVE`, OGG `OggS`) and writes to `data/assets/` via tmp file + rename.
@@ -188,7 +202,8 @@ createState({dataDir, defaults, log}) -> {
   getTriggers() -> trigger[] (merged with defaults),  getRemoved() -> string[],
   setTriggers({triggers, removed}) -> {count, warnings},   // normalizes, persists data/triggers.json atomically, refreshes matcher
   matcher,           // LiveFXMatcher.Matcher over the enabled triggers (shared by /api/fire and smart mode)
-  volume,            // number|null – last volume seen (set by api-fire)
+  volume,            // number|null – last master volume seen (set by api-fire)
+  layout, volumes,   // 2.2: {storyLayout?, band?, zone?}|null (merged `layout` messages), {master?, sfx?, ambient?}|null (last `volume` per bus)
   seq, nextSeq(),    // SSE sequence counter
   updatedAt, version: 2 }
 // server/sse.js  (P0, done)
@@ -228,6 +243,21 @@ LiveFXASR.BACKOFF_MS, LiveFXASR.ALTERNATIVES_N (3), LiveFXASR.DEFAULT_STALL_MS (
 - Stall watchdog: re-armed on every `onstart`/`onresult`; fires only in state `listening` when `stallMs` passed without a result and (`voiceActivity` unset, or voice was seen since the last result – sampled once per second) -> `onError({code:'stalled', message:'Erkennung hängt – Neustart', fatal:false})`, `stats.stalls++`, abort + respawn (state `restarting`).
 - `setOptions()` works live: `alternatives` respawns the recognizer (`maxAlternatives` is read at `start()`), `restartEveryMs`/`stallMs` re-arm their timers. All timers are cleared by `stop()`, on fatal errors and whenever a generation is killed.
 - external: `start()` subscribes to `transcript` messages on the bus and calls `onText(m.text, m.final !== false, {source: 'Extern', lang: m.lang, at})`; `unsupported` when `bus.serverBase === null`. `alternatives`/`restartEveryMs`/`stallMs`/`voiceActivity` are ignored and `setOptions()` is a no-op; `stats` counts results/finals, `onEvent` gets `result`/`final`.
+
+### Backend `auto` and on-device recognition (LiveFX 2.2)
+
+```js
+LiveFXASR.create('auto', { langs: ['de-DE','tr-TR','en-US'], primaryLang: 'tr-TR', parallel: 'try'|'on'|'off', window: 3, switchAfter: 2,
+                           onDevice: 'auto'|'off', alternatives, restartEveryMs, stallMs, voiceActivity, onText, onState, onError, onEvent })
+  -> + get family, get langs, get primary (tag), get pinned, get parallel, get onDevice ('on'|'fallback'|'unsupported'|'off'|null)
+options += { langs, primaryLang, window, switchAfter, parallel, onDevice }; stats += { switches, parallel, detected: {de, tr, en} }
+LiveFXASR.AUTO_QUICK_SCORE 0.6, AUTO_SWITCH_SCORE 0.45, AUTO_GAP_MAX_MS 2000, AUTO_RETURN_FINALS 2, AUTO_RETURN_MS 8000, AUTO_CONFIDENT 0.75, AUTO_INTERIM_TOKENS 3
+LiveFXASR.onDeviceSupported() -> boolean   // SpeechRecognition.available or `processLocally` exists (Chrome 139+)
+```
+- Start language = `primaryLang` (a variant of a listed family replaces its tag, a new family is appended), else `opts.lang`, else `langs[0]`; every `start()` begins in the primary language unless pinned by `setLang(tag)`. `setOptions({primaryLang})` applies at once (idle: start language; listening + unpinned: switch, reason `primary`).
+- Switching mode: every final is scored by `LiveFXLangDetect.detect`; one final of another family with `score >= 0.6` switches at once, else `switchAfter` (2) agreeing finals with `>= 0.45` each (event `score` = their mean). With `voiceActivity` the swap waits for a speech gap in 500 ms steps, at most 2 s. Back to the primary after `AUTO_RETURN_FINALS` (2) primary finals of any score, one primary final `>= 0.6`, or 8 s without a final (`reason:'silence'`, timer cleared by `stop()`, never while pinned). `onEvent({type:'lang', lang, family, score, mode, reason:'start'|'detected'|'primary'|'silence'|'pinned'|'unpinned'|'interim'|'parallel-unsupported', primary})`.
+- Parallel mode: interims come from the leader only; the first interim of another recognizer that scores `>= AUTO_CONFIDENT` in its own language with `>= AUTO_INTERIM_TOKENS` tokens makes it the leader (`reason:'interim'`, nothing restarted); the 8 s silence return changes the leader only.
+- On-device (`webspeech` + `auto`): with `onDevice:'auto'` (default) every fresh recognizer gets `rec.processLocally = true` when the instance exposes the property; `onEvent({type:'ondevice', state:'on'|'fallback', lang, error?, recognizer?})`. Any engine error other than `not-allowed`/`audio-capture` while on-device (e.g. `language-not-supported`) → `onError({code, fatal:false})`, `state:'fallback'`, immediate cloud respawn (`restart` event with `reason:'ondevice'`) for the rest of the session; `setOptions({onDevice:'auto'})` retries. Not supported → `onDevice === 'unsupported'` silently.
 
 ### Backend `whisper` (LiveFX 1.4, offline, experimental – `js/asr.js` + `js/whisper-worker.js`, owned by package C)
 
@@ -325,6 +355,21 @@ form (DL ≤ 1), and for high DL ≤ 2 a pigeonhole piece index (three 2-char pi
 tokens with a shorter fold in a `rest` list). Performance (test/matcher-fuzzy.test.js): 200 triggers × 8 keywords,
 20-word utterance, high – median ≈ 0.5 ms, max ≈ 1.3 ms (Node 22).
 
+**2.2 (latency, Turkish, phonetic aliases)** – `test/matcher-22.test.js`:
+```js
+new LiveFXMatcher.Matcher(triggers, { globalMinGap: 0.5 /* 2.2 default, was 1.2 */, prefixFire: false, phonetic: 'tr-TR'|'de'|'en'|null })
+matcher.prefixFire                // boolean, settable
+matcher.phonetic                  // getter: 'de'|'tr'|'en'|null
+matcher.setPhonetic(lang)         // -> normalized family or null ('auto'/'off'/null disable); rebuilds the index
+matcher.process(text, now, { final })   // `final` gates prefix firing (interims only)
+matcher.stats                     // { prefixFires, aliasHits }
+LiveFXMatcher.DEFAULT_GLOBAL_MIN_GAP (0.5), PREFIX_MIN (4), PREFIX_KEYWORD_MIN (6)
+```
+- A keyword occurrence that is blocked by a cooldown or the global gap is **not consumed**: it is re-evaluated on the next interim/final of the same utterance and fires once the block has passed (`endUtterance()` forgets it).
+- Prefix firing (off by default; the panel turns it on with reaction `fast`): a spoken token of ≥ 4 chars that is the unique prefix of exactly one single-word keyword of ≥ 6 chars (and no exact keyword token / stop-word itself) fires on an interim (`prefix: true` in `explain()`); the completed word does not fire again, a prefix that turns into another word is forgotten. Cooldown / gap apply; aliases never prefix-fire.
+- Turkish: `normalize` uses the Turkish case mapping when the text carries ı/İ/ş/ğ; at `medium` the fold treats ı≡i, ş≡s, ç≡c, ğ≡g.
+- Phonetic aliases: `setPhonetic(primaryLang)` expands every keyword of another language through `LiveFXPhonetic.expand` (js/phonetic.js) and indexes the respellings as **exact-only** aliases (`alias: true, fuzzy: true, spoken = heard text`, `stats.aliasHits`); an alias that equals a real keyword token of any trigger is dropped, alias + keyword at one position count once; keywords in the primary language get none. Without js/phonetic.js the matcher simply has no aliases. Performance: 1000 triggers × 8 keywords + aliases, medium – median < 3 ms.
+
 ## 9. Renderer (`js/fx.js`, global `LiveFXRenderer`) – owned by P3 / fx-engine (v2 in LiveFX 2.0)
 
 - `renderer.fire(trigger)`: `sound` via `LiveFXSchema.parseSound`: builtin -> `LiveFXSounds.play`; file -> `<audio src=url>` appended to `#stage` (removed on `ended`/`error`), routed through `ctx.createMediaElementSource(audio) -> GainNode(volume × gain) -> destination`, fallback `audio.volume` without AudioContext; `loop:<name>` -> `renderer.playLoop`.
@@ -333,21 +378,25 @@ tokens with a shorter fold in a `rest` list). Performance (test/matcher-fuzzy.te
 - **2.1 image rules**: `safeSrc` accepts `ASSET_IMAGE_RE` (upload or `memes/…`, no `..`) or `HOTLINK_SRC_RE` (fallback copies of both regexes live in `FALLBACK` and must equal the schema's – `test/schema.test.js` checks it). `img.onerror` replaces the image card with the emoji card (`v.emoji || '🖼️'` + text). Sources under `memes/` render as `.fx-card.fx-card-image.fx-sticker-img` (free-floating: transparent, no box-shadow/padding, `drop-shadow` filter – off in eco).
 - **2.1 text style `sticker`**: `.fx-bigtext.fx-text-sticker` (`--c1` = `color`, default #ffd166; `--c2` = `color2`, default #ff2d75) – letters with dark `-webkit-text-stroke` (paint-order stroke fill) + one hard shadow, comic burst `clip-path: polygon(…)` on `.fx-word::before` (`--c2`) and `::after` (dark rim), pop-in + wobble (eco: pop-in only, no rotation animation). `js/demo.js` CanvasFX draws the same polygon + outlined letters.
 - **2.1 performance mode**: `renderer.setPerf('auto'|'eco'|'high')` (unknown -> auto) → `renderer.perf` (requested), `renderer.perfActive` (`'high'|'eco'`, auto starts high and switches to eco for good after 30 slow frames), `renderer.eco` (getter), `stats.perfSwitches`; `body[data-perf]` = perfActive, `body[data-perf-mode]` = perf. Details: docs/PERFORMANCE.md.
-- `renderer.stats = { fires, sounds, fileSounds, scenes, combos, particles, fps, frameMs, reduced, canvas }` – `fps`/`particles` are refreshed by the particle loop (`fps` starts at 60 and is always numeric), `reduced` counts auto-reductions of the particle cap, `canvas` says whether the canvas layer is available.
+- `renderer.stats = { fires, sounds, fileSounds, scenes, combos, particles, fps, frameMs, reduced, canvas, perfSwitches, stories }` – `fps`/`particles` are refreshed by the particle loop (`fps` starts at 60 and is always numeric), `reduced` counts auto-reductions of the particle cap, `canvas` says whether the canvas layer is available.
 - **Canvas particle layer** (`renderer.particles`, class `ParticleLayer`): one `<canvas class="fx-canvas">` right above the scene layers in `#stage`, one `requestAnimationFrame` loop that only runs while particles or a scene parallax are alive. Cap 400 / 800 / 1200 at intensity 1 / 2 / 3 (`particles.setCap(i)`, `particles.cap`); when a frame takes > 20 ms for 30 consecutive frames the cap drops to 60 % (min 120) and stays there (`particles.reducedTo`). `confetti` renders on the canvas (90 × intensity rotating rects, gravity / wind / drift / 3D wobble) with the old `.fx-confetti` DOM path as fallback when `getContext('2d')` is unavailable; `rain` keeps its `count` DOM `.fx-drop` nodes **and** adds `count × intensity × 2` canvas emoji (sprite-cached `fillText`). Scenes add three parallax emoji layers (far / mid / near) on the canvas while keeping the DOM particles (<= 40), crossfade, caption and loop behaviour intact.
 - **v3 kinds**: `text` -> `.fx-bigtext.fx-text-<style>` with `.fx-word[data-text] > .fx-w > span.fx-letter[--i]` (3 s; style `gradient` clips the gradient per `.fx-letter`, style `glitch` adds two `aria-hidden` clones `span.fx-glitch-layer.fx-glitch-a|b` of the letter structure inside `.fx-word`); `lower-third` -> `.fx-lower-third > .fx-lt-bar > .fx-lt-emoji? + .fx-lt-text > .fx-lt-title + .fx-lt-subtitle?` (4 s, landscape only – `body.layout-portrait` renders a banner "title · subtitle" instead); `combo` -> each step is scheduled with `setTimeout` and fired through `renderer.fire({visual, sound, gain})`, so it counts in `stats.fires`; `stats.combos++` per combo; nested combos are skipped.
 - **Decoration** (every card-like kind): `.fx-blur-in` (entry motion blur), `.fx-glow` (`glow: true`), `.fx-tilt` (`tilt: true`, animation `fx-pop-tilt`), `--fx-i` = intensity; at intensity >= 2 `.fx-rays` + `.fx-ring` are prepended (`.fx-has-rays`), at 3 a spark burst is added on the canvas. `impact: true` -> `#stage.fx-impact` for 250 ms (CSS zoom 1 -> 1.04 -> 1). `shake` unchanged.
-- `renderer.clear()`: cancels pending combo steps, clears canvas particles and removes every transient effect node (scene layers, the canvas and `<audio>` elements stay). `renderer._timers` holds the pending combo timers.
+- `renderer.clear()`: cancels pending combo steps, clears canvas particles and removes every transient effect node (the band, scene layers, the canvas, story actors and `<audio>` elements stay). `renderer._timers` holds the pending combo timers.
 - **Themes**: `renderer.setTheme(name)` -> `body[data-theme=name]` (neon removes the attribute) and `renderer.theme`; unknown names fall back to `neon`. Returns the active name.
+- **2.2 story band** (`docs/STORY.md`): `renderer.setLayout({storyLayout?, band?, zone?})` (partial merge via `normalizeLayout`, returns the layout; `renderer.layout`, `renderer.refreshLayout()`). Scenes live in `#stage > .fx-band[data-layout=band|full|frame]` (always the first child; `data-mood` = story mood, `.fx-band-idle` after `renderer.storyIdleMs` = 60 s without `storyTouch()`); `body[data-story-layout]`, `body[data-zone]`, `--fx-band` (unitless percent; `renderer.bandPct` = 20 in `body.layout-portrait` unless a layout carried an explicit `band`). `ParticleLayer.setBand(el, layout, zone)` / `.rect` clip the scene parallax + actors to the band box (`sceneRect()`; `null` rect = whole-frame semantics in layout `full`); `effectBox()` places rain / confetti by zone (`edges` = the two `--fx-edge` columns, `bottom` = the band, `top` = top 30 %, `full` = `--fx-x0`/`--fx-xspan`). Card-like kinds get `.fx-col-left|right` (zone `edges`, alternating; `_pan` leans ±0.5), `.fx-in-band` (`bottom`) or `.fx-zone-top` (`top`); the rays / ring flare follows the column. `shake` keeps the stage shake but the white flash and `impact`'s zoom only run in zone `full` (`mixer.duck` still runs).
+- **2.2 live story**: `renderer.story(state)` (state from `LiveFXStoryDirector` or a `story-state` message, normalized by `normalizeStoryState` when schema.js is present) -> scene by `state.scene` (same scene = caption update), ambient loop `state.loop || LOOP_BY_SCENE[scene]`, `particles.setActors(actors, props)` (emoji sprites walking in / out inside the band: `fly` / `swim` hover, `jump`, `dance`, `sleep`, `run`; props fade in place), band `data-mood`, `shake`; `end` / no scene clears scene + loop + actors. `renderer.storyState`, `stats.stories`, `renderer.storyTouch()`.
+- **2.2 volumes**: `renderer.volumes = {master, sfx, ambient}` (defaults 0.5 / 0.8 / 0.5), `renderer.setVolume(bus, v)` (unknown bus = master, non-numeric keeps the level, returns it); `renderer.volume` getter/setter = master (unchanged API). master -> `mixer.setMaster`, sfx / ambient -> `mixer.setBus`; all three are pushed once per mixer instance (`_mixerReady()`), file sounds use master × sfx × gain. `playLoop` runs loops through `mixer.startLoop(name)` on the ambient bus (ducking + limiter) when the mixer shares the renderer context; the old GainNode(master × ambient) -> destination path stays as fallback.
 - **Audio**: on the first builtin sound the renderer hands its own AudioContext to `LiveFXSounds.mixer.init(ctx)` when the mixer has none (one shared context); `stats.sounds` counts only when `mixer.play` returned non-null. Canvas particles age by wall-clock time (physics step clamped to 50 ms), so bursts end on time even at low fps. `renderer.playSound(spec, {gain, pan, intensity})`; `gain` defaults to 1 (trigger-level `gain`), `pan` is derived from the visual (`-0.6` lower-third, rain / confetti / sticker from the `--fx-x0`/`--fx-xspan` band centre, else 0). When `LiveFXSounds.mixer` exists (audio engine v2) builtin sounds go through `mixer.play(name, {gain, pan, intensity})`, the volume setter calls `mixer.setMaster(volume)` and `impact` calls `mixer.duck(250)`; otherwise the old `LiveFXSounds.play(name, ctx, destination, volume × gain)` is used. Everything is guarded, the old sounds.js keeps working.
 
 ## 10. Overlay layout (`overlay.html`, `css/overlay.css`) – owned by P2 / fx-engine
 
 - `?layout=portrait` adds `body.layout-portrait`. Rain/confetti use `left: calc(var(--fx-x0, 0vw) + var(--x) * var(--fx-xspan, 100vw))` and fall `translateY(var(--fx-fall, 115vh))`; portrait sets `--fx-fall: 62vh` (drops fade before the bottom 35 %, where TikTok/IG chat sits). The canvas layer reads the same variables (vw/vh/px/%) for its band and fall distance.
 - `.fx-pos-top { top: 18% }`; `.fx-pos-safe` = center in landscape, `top: 32%` in portrait; portrait image cards `max-width: 80vw; max-height: 40vh`.
-- Overlay handles `state` (volume when no `?volume=`, theme when no `?theme=`, perf when no `?perf=`), `volume`, `theme` and `perf` messages; includes `js/schema.js`. `?theme=neon|pastel|minimal|kinderbuch` pins the theme (bus `theme` messages are then ignored).
+- Overlay handles `state` (volume when no `?volume=`, theme when no `?theme=`, perf when no `?perf=`, 2.2: `volumes` per bus, `layout` minus pinned keys), `volume` (2.2: `bus`), `theme`, `perf`, `layout`, `story` (-> its own `LiveFXStoryDirector`, `window.livefx.director`) and `story-state` messages; includes `js/schema.js` + `js/story-director.js`. `?theme=neon|pastel|minimal|kinderbuch` pins the theme (bus `theme` messages are then ignored).
+- **2.2 URL params**: `?story=band|full|frame`, `?band=15..35`, `?zone=full|edges|bottom|top` pin that layout key each (defaults band / 22 / edges; portrait 20 % above the chat zone), `?volume=` pins the master level only. CSS variables: `--fx-band` (percent, unitless), `--fx-band-h` (length; 100vh in `full`, the box height in `frame`), `--fx-band-bottom` (0 / 35vh portrait), `--fx-edge` (22vw / 30vw portrait). Zone classes `.fx-col-left|right`, `.fx-in-band`, `.fx-zone-top`; band `.fx-band[data-layout][data-mood].fx-band-idle`.
 - **Theme variables** on `:root`, overridden by `body[data-theme="…"]`: `--fx-font`, `--fx-card-bg`, `--fx-card-border`, `--fx-accent`, `--fx-accent-2`, `--fx-text`, `--fx-radius`, `--fx-glow`, `--fx-shadow`. `neon` (no attribute) is the classic look; `pastel` (light pink card, soft border), `minimal` (dark translucent, 10 px radius, no uppercase glow), `kinderbuch` (warm cream card, dashed orange border, 48 px radius, playful font fallback).
-- Layers in `#stage` (bottom to top): `.fx-scene` (0..n, incl. fading ones) -> `canvas.fx-canvas` -> transient effects. Animated layers carry `will-change`; nodes are removed on their main `animationend` (timeout fallback).
+- Layers in `#stage` (bottom to top): `.fx-band > .fx-scene` (0..n, incl. fading ones; 2.2 – the band is always the first child) -> `canvas.fx-canvas` (scene parallax clipped to the band, story actors, bursts) -> transient effects. Animated layers carry `will-change`; nodes are removed on their main `animationend` (timeout fallback).
 
 ## 11. Panel DOM ids (fixed for tests) – owned by P6
 
@@ -463,10 +512,10 @@ LiveFXSounds.mixer   // singleton, see below
 ```
 
 New 2.0 one-shots: `bleat, duck, fanfare, kidlaugh, scream, glass, camera, door, tick, sparkle, punch, whoosh2`.
-Level budget: 2.0 recipes never schedule an audio-path gain above 0.6 per voice; legacy recipes stay <= 1.
+Level budget (2.2 loudness normalisation): **every** builtin one-shot keeps its audio-path gains <= `LiveFXSounds.PEAK_BUDGET` = 0.6 per voice (legacy `heartbeat` / `ooh` were brought down), loops keep every layer gain <= 1; `LiveFXSounds.LIMITER_DB` = -9.
 
 Mixer graph: `voice -> [StereoPannerNode] -> sfxBus(Gain)`, `loop -> ambientBus(Gain) -> duckGain(Gain) -> {dry, ConvolverNode -> wetGain}`,
-both into `master(Gain) -> DynamicsCompressorNode(threshold -6 dB, ratio 12, attack 3 ms, release 250 ms) -> out`.
+both into `master(Gain) -> DynamicsCompressorNode(threshold -9 dB (2.2, was -6), ratio 12, attack 3 ms, release 250 ms) -> out`.
 All timing is AudioParam automation (no timers) so it also renders in an OfflineAudioContext.
 
 ```js
@@ -487,8 +536,8 @@ mixer.stats -> {voices, ducked, master, sfx, ambient, reverb, loop: name | null,
 mixer.autoDuck = true; mixer.duckMs = 300; mixer.duckDb = -8   // defaults used by play()
 ```
 
-Renderer integration (fx.js, other package): `LiveFXSounds.mixer.init(ctx)` once, then `mixer.play(name, {gain, pan, intensity})`
-instead of `LiveFXSounds.play(name, ctx, ctx.destination, volume)`; scenes via `mixer.startLoop(name)` / `mixer.stopLoop()`.
+Renderer integration (fx.js): `LiveFXSounds.mixer.init(ctx)` once, then `mixer.play(name, {gain, pan, intensity})`
+instead of `LiveFXSounds.play(name, ctx, ctx.destination, volume)`; scenes via `mixer.startLoop(name)` / `mixer.stopLoop()` (2.2: the renderer does exactly this; the three overlay levels map to `setMaster` / `setBus('sfx')` / `setBus('ambient')`).
 Guard with `typeof LiveFXSounds.mixer === 'object'` to stay compatible with older sounds.js.
 
 ## 14. Zuschauer-Trigger (`server/api-chat.js`, `server/api-gift.js`, `server/chat-twitch.js`, `server/chat-youtube.js`) – LiveFX 2.0 viewer-triggers
@@ -606,3 +655,53 @@ triggers (fallback emoji). `index.html` and `mobile.html` load `js/safety.js` be
 fallback copy). Tests: `test/schema.test.js` (accepted hosts; http, look-alike hosts, userinfo, ports rejected; perf envelope),
 `test/review-2.0.test.js` (perf relayed + remembered), `test/e2e/82-sticker.js` (perf select → overlay, late overlay, URL pin;
 sticker tab → trigger → free-floating sticker; broken image → emoji card; screenshots `sticker-overlay.png`, `sticker-panel.png`).
+
+## 16. Release 2.2 – start wizard, story band, live story, volumes, phone remote, internet link
+
+**Panel** (`index.html`, `js/panel.js`, `css/panel.css`; e2e `test/e2e/36-wizard.js`):
+- Start wizard card `#wizard-card` on top, three `.wizard-step`s: `#wiz-mic` (`#wiz-mic-test` runs the meter 5 s → `#wiz-mic-status.ok|.err`),
+  `#wiz-obs` (`#wiz-format` landscape|portrait → `#wiz-overlay-url` = `<base>/overlay.html[?layout=portrait]` + `#wiz-size` „1920 × 1080“ / „1080 × 1920“,
+  `#wiz-copy-url` writes the clipboard, `ol.wiz-guide` with 6 steps, `#wiz-obs-dot` + `#wiz-obs-state` „Overlay verbunden ✔“ once `/health` reports
+  `overlays >= 2` (preview iframe + OBS), `#wiz-test-fx` fires `{id:'wizard-test', label:'TEST', sound:'pop', visual:{kind:'card', emoji:'🎉', text:'LiveFX läuft!'}}`
+  with source „Start-Assistent“), `#wiz-packs` (`#wiz-pack-tiles button[data-pack]` toggle packs through `LiveFXPacksStore`, `#wiz-pack-count`
+  „x / LIMITS.triggers Trigger · y / n Pakete“, `#wiz-collisions` lists keywords shared by two loaded packs). localStorage `livefx.wizard.format`.
+- `#btn-advanced` („⚙️ Erweitert anzeigen“ ↔ „… ausblenden“) toggles every `.card[data-advanced]` (API, combos, demo clip, OBS text, log …);
+  localStorage `livefx.panel.advanced` ('1'/'0', default collapsed). **Tests that need one of those cards call `window.livefx.advanced.set(true)` first.**
+- Settings: `#volume` (master), `#volume-sfx`, `#volume-ambient` (ranges 0..1, defaults 0.5 / 0.8 / 0.5, localStorage `livefx.volumes` JSON) → `{type:'volume', volume, bus?}`
+  (master without `bus`); `#story-layout` band|full|frame, `#band-height` 15..35, `#effect-zone` full|edges|bottom|top → `{type:'layout', storyLayout, band, zone}`
+  (always the full triple; localStorage `livefx.layout`); `#primary-lang` tr-TR|de-DE|en-US (localStorage `livefx.asr.primary`, default de-DE) → `primaryLang` of the
+  `auto` backend + `matcher.setPhonetic(primaryLang)`; `#live-story` checkbox (localStorage `livefx.liveStory`) → every transcript line as
+  `{type:'story', text, final, lang}`; `#gap` default **0.5**. Story mode (`#story-mode`) sets tolerance medium + gap 2 and switches the live story on; it
+  **no longer** forces reaction `safe`. Non-default volumes / layout are re-sent 1.5 s after boot (like theme / perf).
+- `window.livefx` additionally: `wizard {format, setFormat(f), overlayUrl(), testTrigger(), fireTest(), render()}`, `advanced {get(), set(on)}`,
+  `volumes {get(), set(bus, v), defaults}`, `layout {get(), set(patch)}`, `primaryLang` (get/set), `liveStory {get(), set(on)}`,
+  `packs {load(id), unload(id), toggle(id), present(id)}`.
+- Phone card `#mobile-card` (`js/mobile-link.js`): `#mobile-qr` canvas (`LiveFXQR.toCanvas`, LAN link), `#tunnel-box` with `#btn-tunnel`
+  (start ↔ stop, `POST /api/tunnel/start|stop`, polls `GET /api/tunnel` while `starting`), `#tunnel-dot` + `#tunnel-state` (aus | startet … | online | Fehler),
+  `#tunnel-url`, `#tunnel-qr` (hidden until online), `#btn-copy-tunnel`, `#tunnel-hint` + `#tunnel-manual` (release link). Script order adds `js/qr.js`,
+  `js/packs-store.js`, `js/phonetic.js` (before `js/matcher.js` consumers) – see `index.html`.
+
+**Phone page** (`mobile.html`, `js/mobile.js`, `css/mobile.css`; e2e `test/e2e/35-mobile.js`): `#btn-vol-down` / `#btn-vol-up` (±6 dB on the master,
+`#vol-label` „x %“, `#volume` range kept in sync), `#btn-band` („📖 Band an/aus“ → `{type:'layout', storyLayout:'band'|'full'}`), `#btn-zone` (cycles
+`{type:'layout', zone}`), `#favs-card` > `#favs button[data-id]` + `#favs-count` (long-press or `.star[data-act="fav"]` on a `#pad` tile toggles,
+localStorage `livefx.mobile.favs`, max 60), `#packs-card` > `#packs button.pack-tile[data-pack]` (`.loaded` / `.partial`; tap loads / unloads through
+`LiveFXPacksStore` + `LiveFXStore.save`) + `#packs-count` „loaded/n · triggers/limit Trigger“. Script order adds `packs-store.js`.
+
+**Shared modules** (UMD, in `sw.js` FULL_SHELL; `story-director.js` also in OVERLAY_SHELL):
+- `LiveFXQR` (`js/qr.js`): `encode(text) -> {version, size, modules, mask}` (byte mode, level M, versions 1–10, ≤ 213 bytes, else throws a German error),
+  `toCanvas(canvas, text, {scale=4, margin=2, dark, light})`, `toSvg(text, opts) -> string`, `toText(text)`, `isDark(code, x, y)`, `dataCapacityBytes(version)`,
+  `MAX_VERSION`. Test `test/qr.test.js` decodes with an independent reader.
+- `LiveFXPacksStore` (`js/packs-store.js`): `present(triggers, packId)`, `isLoaded(triggers, packId)` (≥ 80 % present), `add(triggers, packId) -> {triggers, added, skipped, warnings, label}`
+  (normalized, capped at `LIMITS.triggers`), `remove(triggers, packId) -> {triggers, removed, label}`, `summary(triggers) -> [{id, label, emoji, total, present, loaded, partial}]`,
+  `collisions(triggers) -> [{keyword, packs:[…]}]`, `limit()`.
+- `LiveFXStoryDirector` (`js/story-director.js`, docs/STORY.md): `create({lang:'auto'|'de'|'tr'|'en', caption}) -> {feed(text, {final, lang}) -> state|null, onChange(fn) -> unsubscribe, state, reset(), lang}`;
+  `matchLang(text)`, `SPRITE`, `LEX`, `LANGS`, `SCENE_BY_PLACE`, `SCENE_BY_WEATHER`, `SCENE_BY_TIME`, `LOOP_BY_SCENE`. State shape = `normalizeStoryState` (§1).
+  Test `test/story-director.test.js` (DE/TR/EN sentence → rain + night + forest + dragon (fly) + castle).
+- `LiveFXPhonetic` (`js/phonetic.js`): `variants(keyword, {from, to}) -> string[]` (≤ `MAX_VARIANTS` 8, never the keyword), `expand(keywords, primaryLang) -> {keyword: variants}`
+  (only keywords whose guessed family differs from the primary), `guess(text) -> 'de'|'tr'|'en'|null`, `family(tag)`, `FAMILIES`, `DICT`, `RULES`. Test `test/phonetic.test.js` (≥ 40 cases).
+- `LiveFXLangDetect` 2.2: Turkish letters ı ş ğ İ decide for `tr` at once (`signal:'letters'`, score ≥ `TR_LETTER_SCORE` 0.75); `TR_SHORT` stream words score 0.5 (`signal:'words'`);
+  Turkish lower-casing (`I → ı`, `İ → i`) whenever a Turkish signal is present.
+
+**Overlay / server**: see §2 (`layout`, `story`, `story-state`, `volume.bus`, `state.layout` / `state.volumes`), §4 (`/api/tunnel`), §9 (band, zones, `renderer.story`, three busses),
+§10 (URL pins `?story= ?band= ?zone=`), §13 / docs/SOUNDS.md (`PEAK_BUDGET` 0.6 per voice, limiter −9 dB, loops on the ambient bus).
+Versions: `package.json` + `sw.js` `SHELL_VERSION` 2.2.0. e2e: `29-story-band` (screenshots `story-band.png`, `story-band-portrait.png`), `36-wizard` (`wizard.png`).

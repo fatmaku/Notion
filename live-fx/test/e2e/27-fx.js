@@ -4,7 +4,8 @@
 // lower-third -> banner fallback, plus two screenshots (16:9 neon text, 9:16 confetti).
 // 2.1: rays + ring and rain drops live on the canvas (single render path); performance mode (setPerf, ?perf=,
 // `perf` bus message, auto switch after 30 slow frames, eco look). The main page pins ?perf=high so a slow CI
-// machine cannot auto-switch to eco in the middle of the visual assertions.
+// machine cannot auto-switch to eco in the middle of the visual assertions. 2.2: the page also pins ?zone=full –
+// the default zone `edges` keeps the camera clear (no impact zoom / flash, cards in the columns, see 29-story-band).
 'use strict';
 
 const path = require('path');
@@ -20,7 +21,7 @@ async function run({ browser, startServer, shotDir, log }) {
     const page = await ctx.newPage();
     const errors = [];
     page.on('pageerror', (e) => errors.push(String(e)));
-    await page.goto(`${server.base}/overlay.html?theme=pastel&perf=high`);
+    await page.goto(`${server.base}/overlay.html?theme=pastel&perf=high&zone=full`);
     await page.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
 
     // 1. theme from the URL, setTheme(), THEMES export, pinned theme ignores bus messages.
@@ -241,7 +242,7 @@ async function run({ browser, startServer, shotDir, log }) {
       r.clear();
       const after = r._timers.size;
       await new Promise((res) => setTimeout(res, 700));
-      return { pending, after, banner: document.querySelectorAll('.fx-banner').length, particles: r.stats.particles, nodes: document.querySelectorAll('#stage > :not(.fx-canvas):not(.fx-scene)').length };
+      return { pending, after, banner: document.querySelectorAll('.fx-banner').length, particles: r.stats.particles, nodes: document.querySelectorAll('#stage > :not(.fx-canvas):not(.fx-scene):not(.fx-band)').length };
     });
     assert.equal(cancelled.pending, 1);
     assert.equal(cancelled.after, 0);

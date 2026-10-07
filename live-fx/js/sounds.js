@@ -315,10 +315,10 @@
       const dur = 1.5;
       const src = noiseSource(ctx);
       const master = ctx.createGain();
-      env(master, t0, 0.45, 0.35, dur - 0.8, 0.9);
+      env(master, t0, 0.45, 0.35, dur - 0.8, 0.6);
       master.connect(out);
       // Two formants around the "oo" vowel, sliding slightly downward like a disappointed crowd.
-      [{ f: 520, q: 8, g: 1 }, { f: 850, q: 10, g: 0.6 }].forEach((fm) => {
+      [{ f: 520, q: 8, g: 0.6 }, { f: 850, q: 10, g: 0.36 }].forEach((fm) => {
         const bp = ctx.createBiquadFilter();
         bp.type = 'bandpass';
         bp.Q.value = fm.q;
@@ -339,9 +339,9 @@
       // Lub-dub, lub-dub: two low thumps per beat, repeated twice.
       const t0 = ctx.currentTime;
       [0, 0.8].forEach((beat) => {
-        tone(ctx, out, { type: 'sine', freq: 75, glideTo: 40, t0: t0 + beat, dur: 0.22, peak: 0.8, attack: 0.008, release: 0.15 }); // lub
-        tone(ctx, out, { type: 'sine', freq: 65, glideTo: 38, t0: t0 + beat + 0.24, dur: 0.18, peak: 0.55, attack: 0.008, release: 0.12 }); // dub
-        noise(ctx, out, { t0: t0 + beat, dur: 0.05, peak: 0.12, release: 0.04, filter: { type: 'lowpass', freq: 250 } });
+        tone(ctx, out, { type: 'sine', freq: 75, glideTo: 40, t0: t0 + beat, dur: 0.22, peak: 0.6, attack: 0.008, release: 0.15 }); // lub
+        tone(ctx, out, { type: 'sine', freq: 65, glideTo: 38, t0: t0 + beat + 0.24, dur: 0.18, peak: 0.42, attack: 0.008, release: 0.12 }); // dub
+        noise(ctx, out, { t0: t0 + beat, dur: 0.05, peak: 0.1, release: 0.04, filter: { type: 'lowpass', freq: 250 } });
       });
     },
     siren(ctx, out) {
@@ -901,8 +901,8 @@
       }, rnd(0.5, 2.5));
     },
     storm(L) {
-      // Wind + rain + thunder, a notch louder than the single layers.
-      const mix = L.gain(1.05);
+      // Wind + rain + thunder (the sum of the three layers; the mixer's limiter catches the thunder peaks).
+      const mix = L.gain(1);
       windLayer(L, mix, 0.4);
       rainLayer(L, mix, 0.4);
       thunderRumbles(L, mix, 0.7, 4, 10, rnd(0.8, 3));
@@ -1049,9 +1049,14 @@
    *   voice -> [StereoPanner] -> sfxBus ----------------------------\
    *   loop  -> ambientBus -> duckGain -> (dry) ----------------------> master -> limiter -> out
    *                                   \-> convolver -> wetGain -----/
-   * `limiter` is a DynamicsCompressorNode (threshold -6 dB, ratio 12, attack 3 ms). Everything is
+   * `limiter` is a DynamicsCompressorNode (threshold -9 dB since 2.2, ratio 12, attack 3 ms). Everything is
    * scheduled with AudioParam automation only – no timers – so it also works in an OfflineAudioContext.
+   * 2.2 loudness: every builtin one-shot keeps its envelope peaks <= 0.6 (`PEAK_BUDGET`, checked by
+   * test/sounds.test.js), the three levels (master 0.5 / sfx 0.8 / ambient 0.5 in the overlay) sit on
+   * `master`, `sfxBus` and `ambientBus`; the renderer's ambient loops run on `ambientBus` (ducking + limiter).
    */
+  const PEAK_BUDGET = 0.6;
+  const LIMITER_DB = -9;
   const mixer = {
     ctx: null,
     out: null,
@@ -1101,7 +1106,7 @@
       this.wetGain = null;
       if (typeof ctx.createDynamicsCompressor === 'function') {
         const lim = ctx.createDynamicsCompressor();
-        lim.threshold.value = -6;
+        lim.threshold.value = LIMITER_DB;
         lim.knee.value = 6;
         lim.ratio.value = 12;
         lim.attack.value = 0.003;
@@ -1348,5 +1353,7 @@
     loop: startLoop,
     startLoop,
     mixer,
+    PEAK_BUDGET,
+    LIMITER_DB,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

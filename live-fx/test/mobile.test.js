@@ -120,6 +120,22 @@ test('the panel links the manifest, registers the service worker and shows the H
   assert.match(html, /id="mobile-url"/);
   assert.match(html, /id="btn-copy-mobile"/);
   assert.match(html, /js\/mobile-link\.js/);
+  // 2.2: QR canvases + internet link in the Handy card, wizard on top, shared pack helpers + phonetics loaded
+  for (const id of ['mobile-qr', 'tunnel-qr', 'btn-tunnel', 'btn-copy-tunnel', 'tunnel-status', 'wizard-card', 'wiz-copy-url', 'wiz-pack-tiles', 'btn-advanced', 'volume-sfx', 'volume-ambient', 'story-layout', 'band-height', 'effect-zone', 'primary-lang', 'live-story']) {
+    assert.match(html, new RegExp(`id="${id}"`), `#${id} in index.html`);
+  }
+  for (const f of ['js/qr.js', 'js/packs-store.js', 'js/phonetic.js']) assert.match(html, new RegExp(f.replace('.', '\\.')), `${f} loaded by the panel`);
+  assert.ok(html.indexOf('js/qr.js') < html.indexOf('js/mobile-link.js'), 'qr.js before mobile-link.js');
+  assert.ok(html.indexOf('js/packs-store.js') > html.indexOf('js/packs.js') && html.indexOf('js/packs-store.js') > html.indexOf('js/schema.js'), 'packs-store after packs + schema');
+  assert.match(html, /id="gap"[^>]*value="0\.5"/, 'gap default 0.5');
+  assert.equal((html.match(/data-advanced/g) || []).length, 5, 'five advanced cards');
+
+  const mobile = (await api(server.base, 'GET', '/mobile.html')).text;
+  for (const id of ['favs-card', 'favs', 'btn-vol-down', 'btn-vol-up', 'vol-label', 'btn-mic', 'btn-band', 'btn-zone', 'packs-card', 'packs']) {
+    assert.match(mobile, new RegExp(`id="${id}"`), `#${id} in mobile.html`);
+  }
+  assert.match(mobile, /js\/packs-store\.js/);
+  assert.ok(mobile.indexOf('js/packs-store.js') > mobile.indexOf('js/schema.js'), 'packs-store after schema on the phone');
   for (const p of ['/overlay.html', '/demo.html', '/mobile.html']) {
     assert.match((await api(server.base, 'GET', p)).text, /serviceWorker\.register\('\/sw\.js'\)/, p);
   }

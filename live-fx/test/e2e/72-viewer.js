@@ -29,8 +29,11 @@ async function run({ browser, startServer, api, sseClient, waitFor, shotDir, log
     await panel.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
     await panel.evaluate(() => window.livefx.ready);
 
-    // (a) card visible with status pills and the default gift tiers
+    // (a) card visible with status pills and the default gift tiers (2.2: the combos card is an advanced card,
+    // collapsed behind „Erweitert anzeigen“ by default)
     assert.ok(await panel.locator('#viewer-card').isVisible(), 'viewer card visible');
+    assert.equal(await panel.locator('#combos-card').isVisible(), false, 'combos card hidden until advanced is shown (2.2)');
+    await panel.evaluate(() => window.livefx.advanced.set(true));
     assert.ok(await panel.locator('#combos-card').isVisible(), 'combos card visible');
     assert.equal(await panel.locator('#chat-status-twitch').textContent(), 'aus');
     assert.equal(await panel.locator('#gift-tiers tr').count(), 3, 'three gift tier rows');

@@ -1,5 +1,68 @@
 # Changelog
 
+## 2.2.0 – Story-Band, Live-Story, schnellere Erkennung, Start-Assistent, Handy mit Internet-Link
+
+- **📖 Story-Band & Effekt-Zonen** (`docs/STORY.md`): Szenen laufen in einem **Band am unteren Rand** (Standard 22 % der
+  Höhe, hochkant 20 % über der Chat-Zone) statt über der Kamera; Layouts `band` / `full` / `frame` (Bild-im-Bild),
+  Band-Höhe 15–35 %. **Effekt-Zonen** `full` / `edges` (Regen, Konfetti nur in den Rand-Spalten, Karten in den
+  Spalten, kein Blitz / Impact-Zoom) / `bottom` (im Band) / `top`. Bus-Nachricht `{type:'layout', storyLayout?, band?, zone?}`
+  (teilweise, nur die geschickten Schlüssel ändern sich), URL-Pins `overlay.html?story=band&band=22&zone=edges`; der Server
+  merkt sich das Layout (`state.layout`) und gibt es neuen Overlays im `state`-Event mit. `renderer.setLayout()`,
+  `#stage > .fx-band[data-layout][data-mood]`, Partikel und Figuren auf das Band begrenzt, Ausblenden nach 60 s ohne Story.
+- **🎬 Live-Story** (`js/story-director.js`, `LiveFXStoryDirector`): Wortlisten DE / TR / EN (Orte, Tageszeiten, Wetter, 22
+  Figuren, 16 Dinge, Tätigkeiten, Stimmungen) machen aus jedem gesprochenen Satz sofort Szene, Loop, Wetter, Tageszeit und
+  Emoji-Figuren im Band – ohne Modell, ohne Cloud. Nachrichten `{type:'story', text, final, lang?}` (jedes Overlay führt
+  seinen eigenen Director) und `{type:'story-state', state}` (fertiger Zustand, `normalizeStoryState`). Zwischenergebnisse
+  bewegen nur Ort / Zeit / Wetter / Stimmung; „Ende“ räumt die Bühne, „es war einmal“ beginnt neu. Demo-Seite mit Haken.
+- **🔊 Drei Lautstärken & Pegel** (`docs/SOUNDS.md`): `master` 0,5 / `sfx` 0,8 / `ambient` 0,5 (`{type:'volume', volume, bus?}`,
+  ohne `bus` wie bisher master, `state.volumes`), Szenen-Loops über den Ambient-Bus des Mixers (Ducking + Limiter).
+  **Loudness-Normalisierung**: jeder eingebaute One-Shot ≤ 0,6 Peak pro Stimme (`PEAK_BUDGET`), Limiter −9 dB,
+  `test/sounds.test.js` prüft alle 38 One-Shots und 12 Loops.
+- **⚡ Schnellere Erkennung** (`js/matcher.js`): ein durch Cooldown / Mindestabstand **blockierter Treffer wird nicht mehr
+  verbraucht** – er feuert, sobald die Sperre vorbei ist; **Präfix-Feuern** (eindeutiger Wortanfang ≥ 4 Zeichen eines
+  Stichworts ≥ 6 Zeichen feuert schon im Zwischenergebnis, Reaktion „schnell“); Mindestabstand standardmäßig **0,5 s**
+  (war 1,2); 1000 Trigger × 8 Stichwörter in < 3 ms. `LIMITS.triggers` **1000** (war 200), `PUT /api/triggers` bis 6 MB.
+- **🇹🇷 Türkisch & Hauptsprache**: Türkische Groß-/Kleinschreibung (I → ı, İ → i) in Matcher und Spracherkennung, ı≡i ş≡s
+  ç≡c ğ≡g bei Toleranz „mittel“; `js/langdetect.js` erkennt Türkisch sofort an ı ş ğ İ und an kurzen Stream-Wörtern
+  („len“, „hocam“, „yav“). **Hauptsprache** im Panel → Erkennung startet darin (`primaryLang`), **Aussprache-Varianten**
+  (`js/phonetic.js`, `matcher.setPhonetic()`): Stichwörter der anderen Sprachen werden so indiziert, wie der Erkenner der
+  Hauptsprache sie schreibt („no way“ → „no vey“, „krass“ → „kras“). Backend `auto`: Start in der Hauptsprache, Wechsel
+  nach **einem** sicheren Satz (Score ≥ 0,6) oder zwei Sätzen ≥ 0,45, Umschalten in einer Sprechpause (max. 2 s
+  Wartezeit), zurück zur Hauptsprache nach zwei Sätzen oder 8 s Stille; parallel: erster sicherer Zwischensatz macht den
+  Erkenner zum Leader. **On-Device-Erkennung** (Chrome `processLocally`, Feature-Detection, `onDevice: 'auto'|'off'`,
+  Ereignis `{type:'ondevice', state}`, bei Fehlern Cloud-Fallback).
+- **🚀 Start-Assistent** oben im Panel, drei Schritte: **Mikro testen** (5-s-Pegeltest), **OBS verbinden**
+  (Overlay-URL mit Kopier-Knopf, Format 16:9 / 9:16 mit exakter Breite × Höhe, 6-Schritte-Kurzanleitung,
+  Live-Status „Overlay verbunden ✔“ sobald OBS das Overlay lädt – aus `/health`, `overlays ≥ 2` –, Test-Effekt),
+  **Pakete wählen** (Kacheln, Zähler `x / LIMITS.triggers`, Stichwort-Kollisionen zwischen Paketen). Karten für
+  Fortgeschrittene (Externe API, Kombis, Demo-Clip, OBS-Text, Log) sind hinter **„⚙️ Erweitert anzeigen“**
+  eingeklappt (`localStorage` `livefx.panel.advanced`).
+- **Einstellungen**: drei Regler **Master / Effekte / Atmosphäre** (`{type:'volume', volume, bus:'master'|'sfx'|'ambient'}`,
+  Standard 0,5 / 0,8 / 0,5), **Story-Layout** Band / Vollbild / Rahmen, **Band-Höhe** 15–35 %, **Effekt-Zone**
+  überall / Ränder / unten / oben (`{type:'layout', storyLayout, band, zone}`), **Hauptsprache** TR / DE / EN
+  (`primaryLang` an die Erkennung, `matcher.setPhonetic()` – Stichwörter der anderen Sprachen werden phonetisch
+  mitgehört, `js/phonetic.js`), **Live-Story** (jede Transkriptzeile als `{type:'story', text, final, lang}` ans
+  Overlay, `js/story-director.js`). Mindestabstand standardmäßig 0,5 s; der Story-Modus erzwingt nicht mehr
+  Reaktion „sicher“. Alles in `localStorage` (`livefx.volumes`, `livefx.layout`, `livefx.asr.primary`,
+  `livefx.liveStory`).
+- **📱 Handy**: Link als **QR-Code** (`js/qr.js`, eigener Encoder, Byte-Modus, Level M, Version 1–10, im
+  Test gegen einen unabhängigen Decoder geprüft), **⭐ Favoriten** (lange drücken), **Leiser / Lauter ±6 dB**,
+  **Story-Band an/aus**, **Effekt-Zone**, **Pakete** laden/entfernen (`js/packs-store.js`, gleiche Logik wie im
+  Panel), Mikro-Start. Größere Kacheln.
+- **🌐 Internet-Link** (`server/tunnel.js`, `server/api-tunnel.js`): Cloudflare-Schnelltunnel per Knopf –
+  `cloudflared` aus `PATH` / `LIVEFX_CLOUDFLARED` oder einmaliger Download nach `<dataDir>/bin/` mit
+  SHA-256-Prüfung gegen die veröffentlichte Prüfsumme; Status idle / starting / online / error; Routen
+  `GET /api/tunnel`, `POST /api/tunnel/start`, `POST /api/tunnel/stop` (Auth nötig); Handy-Link
+  `https://<zufall>.trycloudflare.com/m?token=…` als QR-Code (HTTPS → Handy-Mikro ohne Zertifikat). Der
+  Tunnel-Host wird nur solange akzeptiert, wie der Tunnel läuft; Anfragen durch den Tunnel brauchen Cookie oder
+  Bearer (nur `GET /m`, `/health` sind offen). Endet mit dem Server. Fehlerhilfe: Hotspot-Trick, Download von
+  Hand (`docs/HANDY.md` §4a).
+- **Doku**: `docs/OBS-ANLEITUNG.md` jetzt Schritt für Schritt auf **Deutsch, Türkçe und English** (exakte
+  OBS-Menünamen, Streamlabs, TikTok LIVE Studio), README-Schnellstart mit Assistent, `docs/HANDY.md` §4a.
+- Versionen (Paket, Service-Worker-Shell) auf 2.2.0; Shell um `qr.js`, `packs-store.js`, `story-director.js`,
+  `phonetic.js` erweitert. Tests: `test/tunnel.test.js`, `test/qr.test.js`, `test/e2e/36-wizard.js`, erweiterte
+  `35-mobile` / `mobile.test.js`.
+
 ## 2.1.0 – Leichter, schneller, freie Sticker, sichere GIF-Suche
 
 - **Leistung** (`docs/PERFORMANCE.md`): ein Renderpfad (Regen, Szenen-Partikel, Lichtstrahlen und Ring auf dem

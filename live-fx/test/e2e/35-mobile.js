@@ -8,7 +8,7 @@ const assert = require('node:assert/strict');
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function run({ browser, startServer, api, shotDir, log }) {
+async function run({ browser, startServer, api, waitFor, shotDir, log }) {
   const server = await startServer();
   const { base, token } = server;
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
@@ -126,13 +126,95 @@ async function run({ browser, startServer, api, shotDir, log }) {
     assert.ok(hits >= 1, 'matcher available on the phone');
     log(`mic ${micDisabled ? 'unavailable (' + hint + ')' : 'available'}`);
 
+    // (h2) 2.2: favourites (star tap + API), Leiser / Lauter ±6 dB, story band + zone buttons, pack tiles
+    await overlay.evaluate(() => {
+      window.__msgs = [];
+      window.livefx.bus.onMessage((m) => window.__msgs.push(m));
+    });
+    assert.equal(await phone.locator('#favs-card').isHidden(), true, 'no favourites yet');
+    await phone.tap('#pad button:nth-child(2) .star');
+    await phone.waitForSelector('#favs-card:not([hidden])', { timeout: 3000 });
+    const favId = await phone.evaluate(() => document.querySelector('#pad button:nth-child(2)').dataset.id);
+    assert.deepEqual(await phone.evaluate(() => window.livefx.favourites), [favId]);
+    assert.equal(await phone.locator('#favs button').count(), 1);
+    assert.ok(await phone.locator('#pad button:nth-child(2)').evaluate((b) => b.classList.contains('fav')), 'tile marked as favourite');
+    assert.deepEqual(JSON.parse(await phone.evaluate(() => localStorage.getItem('livefx.mobile.favs'))), [favId], 'persisted');
+    const firesBefore = await fires();
+    await phone.tap('#favs button:first-child');
+    await overlay.waitForFunction((n) => window.livefx.renderer.stats.fires > n, firesBefore, { timeout: 3000 });
+    await phone.evaluate((id) => window.livefx.setFavourite(id, false), favId);
+    assert.equal(await phone.locator('#favs-card').isHidden(), true, 'favourite removed');
+    log('favourites ok');
+
+    assert.equal(await phone.evaluate(() => window.livefx.volume), 0.3);
+    assert.equal((await phone.textContent('#vol-label')).trim(), '30 %');
+    await phone.tap('#btn-vol-up');
+    await overlay.waitForFunction(() => Math.abs(window.livefx.renderer.volume - 0.6) < 0.01, null, { timeout: 3000 });
+    assert.equal((await phone.textContent('#vol-label')).trim(), '60 %', '+6 dB doubles');
+    await phone.tap('#btn-vol-down');
+    await overlay.waitForFunction(() => Math.abs(window.livefx.renderer.volume - 0.3) < 0.01, null, { timeout: 3000 });
+    assert.equal((await phone.textContent('#vol-label')).trim(), '30 %', '−6 dB halves');
+    const volMsgs = await overlay.evaluate(() => window.__msgs.filter((m) => m.type === 'volume').map((m) => [m.volume, m.bus || null]));
+    assert.deepEqual(volMsgs.slice(-2), [[0.6, null], [0.3, null]], 'master volume messages (no bus)');
+    log('±6 dB buttons ok');
+
+    await overlay.evaluate(() => (window.__msgs.length = 0));
+    await phone.tap('#btn-band');
+    await overlay.waitForFunction(() => window.__msgs.some((m) => m.type === 'layout'), null, { timeout: 3000 });
+    assert.deepEqual(await overlay.evaluate(() => window.__msgs.filter((m) => m.type === 'layout').map((m) => m.storyLayout)), ['band']);
+    assert.match(await phone.textContent('#btn-band'), /Band aus/);
+    await phone.tap('#btn-zone');
+    await overlay.waitForFunction(() => window.__msgs.some((m) => m.type === 'layout' && m.zone), null, { timeout: 3000 });
+    assert.equal(await overlay.evaluate(() => window.__msgs.filter((m) => m.type === 'layout' && m.zone).pop().zone), 'edges');
+    assert.match(await phone.textContent('#btn-zone'), /Ränder/);
+    assert.deepEqual(await phone.evaluate(() => window.livefx.layout), { band: true, zone: 'edges' });
+    await phone.tap('#btn-band');
+    assert.equal(await overlay.evaluate(() => window.__msgs.filter((m) => m.type === 'layout').pop().storyLayout), 'full');
+    log('band / zone buttons ok');
+
+    const phoneTiles = await phone.locator('#packs button.pack-tile').count();
+    assert.ok(phoneTiles >= 5, `pack tiles on the phone: ${phoneTiles}`);
+    const countBefore = await phone.evaluate(() => window.livefx.triggers.length);
+    await phone.tap('#packs button[data-pack="de"]');
+    await phone.waitForFunction(() => document.querySelector('#packs button[data-pack="de"]').classList.contains('loaded'), null, { timeout: 3000 });
+    const deCount = await phone.evaluate(() => window.LiveFXPacks.packs.de.triggers.length);
+    assert.equal(await phone.evaluate(() => window.livefx.triggers.length), countBefore + deCount, 'pack loaded on the phone');
+    await waitFor(
+      async () => {
+        const r = await api(base, 'GET', '/api/triggers');
+        return r.json && r.json.triggers.some((t) => String(t.id).startsWith('de-'));
+      },
+      { timeoutMs: 3000, what: 'pack on the server' }
+    );
+    assert.match(await phone.textContent('#packs-count'), new RegExp(`${countBefore + deCount}/\\d+ Trigger`));
+    await phone.tap('#packs button[data-pack="de"]');
+    await phone.waitForFunction(() => !document.querySelector('#packs button[data-pack="de"]').classList.contains('loaded'), null, { timeout: 3000 });
+    assert.equal(await phone.evaluate(() => window.livefx.triggers.length), countBefore, 'pack removed on the phone');
+    log('pack tiles ok');
+
     await phone.screenshot({ path: path.join(shotDir, 'mobile.png'), fullPage: true });
 
-    // (i) service worker: the panel shell survives offline + a dead server
+    // (i) panel „Handy“ card: QR code of the WLAN link + internet link controls; then the service worker
     const panel = await ctx.newPage();
     panel.on('pageerror', (e) => errors.push(`panel: ${e.message}`));
     await panel.goto(`${base}/`);
     await panel.waitForSelector('#pad button');
+    await panel.evaluate(() => window.livefxMobileLink.ready);
+    const qr = await panel.evaluate(() => {
+      const c = document.querySelector('#mobile-qr');
+      return { size: Number(c.dataset.qrSize), width: c.width, version: Number(c.dataset.qrVersion), url: document.querySelector('#mobile-url').textContent };
+    });
+    assert.ok(qr.size >= 25 && qr.width > 0, `QR drawn: ${JSON.stringify(qr)}`);
+    assert.ok(qr.url.includes(`/m?token=${token}`), 'QR encodes the phone link');
+    const decoded = await panel.evaluate((text) => window.LiveFXQR.encode(text), qr.url);
+    assert.equal(decoded.size, qr.size, 'canvas matches the encoder for the shown link');
+    assert.match(await panel.textContent('#btn-tunnel'), /Internet-Link starten/);
+    assert.equal((await panel.textContent('#tunnel-state')).trim(), 'aus');
+    assert.ok(await panel.locator('#tunnel-qr-wrap').isHidden(), 'no internet QR before the tunnel runs');
+    assert.match(await panel.getAttribute('#tunnel-manual', 'href'), /^https:\/\/github\.com\/cloudflare\/cloudflared\/releases/);
+    log(`panel QR v${qr.version} (${qr.size}×${qr.size}) + internet-link controls ok`);
+
+    // (j) service worker: the panel shell survives offline + a dead server
     await panel.evaluate(() => navigator.serviceWorker.ready.then(() => true));
     await panel.waitForFunction(() => navigator.serviceWorker.controller !== null || true, null, { timeout: 5000 });
     // The precache runs inside install, which completes before `ready` resolves.

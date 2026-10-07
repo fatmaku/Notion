@@ -69,12 +69,24 @@ Limiter, Ducking, Panning, Intensitäts-Layern und synthetischem Hall. Die alte 
 `churchBells`, `cityHum`, `spaceDrone`, `storm`. Endlos, 1.5 s Ein-/Ausblendung, ohne Timer (laufen auch im
 OfflineAudioContext). Trigger-Encoding: `sound: "loop:<name>"`.
 
-## Pegel
+## Pegel (Loudness-Normalisierung, 2.2)
 
-- Neue 2.0-Sounds: **keine Einzelstimme über Peak 0.6** (Hüllkurven-Spitze). Legacy-Rezepte bleiben unter 1.0.
-  Modulations-Gains (LFO-Tiefe in Hz, z. B. Vibrato bei `bleat`/`scream`/`door`) sind keine Audio-Pegel.
-- Der Mixer-Limiter fängt Summen mehrerer Stimmen ab. `test/sounds.test.js` prüft die Budgets mit einem
-  Fake-AudioContext (Node hat kein WebAudio).
+- **Jeder** eingebaute One-Shot hält **Peak ≤ 0.6** pro Stimme (`LiveFXSounds.PEAK_BUDGET`, Hüllkurven-Spitze und
+  statische Gains auf dem Audio-Pfad). In 2.2 wurden die letzten Ausreißer (`heartbeat` 0.8, `ooh` 0.9) angepasst,
+  Loops halten jede Schicht ≤ 1.0 (`storm` war 1.05). Modulations-Gains (LFO-Tiefe in Hz, z. B. Vibrato bei
+  `bleat`/`scream`/`door`) sind keine Audio-Pegel.
+- Der Mixer-Limiter (jetzt **−9 dB**, `LiveFXSounds.LIMITER_DB`) fängt Summen mehrerer Stimmen und die Loops ab.
+  `test/sounds.test.js` prüft die Budgets für alle 38 One-Shots und 12 Loops mit einem Fake-AudioContext
+  (Node hat kein WebAudio).
+
+## Drei Lautstärken (2.2)
+
+Overlay und Renderer kennen drei Pegel: **master** 0.5, **sfx** 0.8 (One-Shots), **ambient** 0.5 (Szenen-Loops).
+Bus-Nachricht `{type:'volume', volume, bus?}` – ohne `bus` ist es wie bisher die Master-Lautstärke (alte Panels
+funktionieren unverändert), `bus:'sfx'|'ambient'` setzt den jeweiligen Bus (`mixer.setBus`). Der Server merkt
+sich die Pegel pro Bus (`state.volumes`) und schickt sie im `state`-Event; `overlay.html?volume=0.3` pinnt nur
+master. Im Renderer: `renderer.setVolume('master'|'sfx'|'ambient', v)`, `renderer.volumes`, `renderer.volume`
+(= master). Szenen-Loops laufen seit 2.2 über den Ambient-Bus des Mixers (Ducking durch One-Shots + Limiter).
 
 ## Mixer (`LiveFXSounds.mixer`)
 
@@ -84,7 +96,7 @@ Loop   ─▶ ambientBus ─▶ duckGain ─▶ (dry) ────────�
                                  └─▶ Convolver (Hall) ─▶ wetGain ──┘
 ```
 
-- **Limiter**: `DynamicsCompressorNode`, Threshold −6 dB, Ratio 12, Attack 3 ms, Release 250 ms, Knee 6.
+- **Limiter**: `DynamicsCompressorNode`, Threshold **−9 dB** (2.2; vorher −6), Ratio 12, Attack 3 ms, Release 250 ms, Knee 6.
   Fehlt der Node (sehr alte Engines), geht `master` direkt auf `destination`.
 - **init(ctx, out?)** baut den Graphen (idempotent für denselben Kontext; neuer Kontext = Neuaufbau, Pegel bleiben).
   Ohne `init` legt `play()` beim ersten Aufruf selbst einen `AudioContext` an (nur wenn `AudioContext`/
@@ -119,7 +131,9 @@ Loop   ─▶ ambientBus ─▶ duckGain ─▶ (dry) ────────�
 ```js
 const S = LiveFXSounds;
 S.mixer.init(ctx);                                  // einmal nach der ersten Nutzergeste
-S.mixer.setMaster(renderer.volume);
+S.mixer.setMaster(renderer.volumes.master);                // 0.5 / sfx 0.8 / ambient 0.5 (2.2)
+S.mixer.setBus('sfx', renderer.volumes.sfx);
+S.mixer.setBus('ambient', renderer.volumes.ambient);
 S.mixer.startLoop('rain', { gain: 0.8 });           // Szene
 S.mixer.reverb(true, { seconds: 2.5, mix: 0.3 });   // Kirche
 S.mixer.play('punch', { pan: -0.6, intensity: 3 }); // links, fett – duckt den Regen automatisch

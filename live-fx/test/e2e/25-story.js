@@ -44,14 +44,14 @@ async function run({ browser, startServer, shotDir, log }) {
     const rain0 = await page.evaluate(() => ({
       scene: window.livefx.renderer.currentScene,
       loop: window.livefx.renderer.loopName,
-      first: document.getElementById('stage').firstElementChild.classList.contains('fx-scene'),
+      first: document.getElementById('stage').firstElementChild.classList.contains('fx-band') && document.querySelector('.fx-scene').parentElement.classList.contains('fx-band'),
       on: document.querySelector('.fx-scene').classList.contains('fx-scene-on'),
       stats: window.livefx.renderer.stats.scenes,
       caption: document.querySelector('.fx-scene-caption').textContent,
     }));
     assert.equal(rain0.scene, 'rain');
     assert.equal(rain0.loop, 'rain', 'loopName after loop:rain');
-    assert.equal(rain0.first, true, 'scene is the first child of #stage (below effects)');
+    assert.equal(rain0.first, true, 'scene lives in .fx-band, the first child of #stage (below effects) – 2.2');
     assert.equal(rain0.on, true);
     assert.equal(rain0.stats, 1);
     assert.equal(rain0.caption, 'Es regnete in Strömen');
@@ -206,7 +206,7 @@ async function run({ browser, startServer, shotDir, log }) {
     assert.deepEqual(errors, [], `page errors: ${errors.join('; ')}`);
     await ctx.close();
 
-    // ---------- overlay, portrait: storm scene fills the frame, particles use --fx-fall ----------
+    // ---------- overlay, portrait: storm scene in the 20 % band above the chat zone (2.2), particles use --fx-fall ----------
     const pctx = await browser.newContext({ viewport: { width: 540, height: 960 } });
     const portrait = await pctx.newPage();
     await portrait.goto(`${server.base}/overlay.html?layout=portrait`);
@@ -221,6 +221,8 @@ async function run({ browser, startServer, shotDir, log }) {
       return {
         w: r.width,
         h: r.height,
+        top: r.top,
+        bottom: r.bottom,
         capTop: cap.top,
         capBottom: cap.bottom,
         innerHeight: window.innerHeight,
@@ -231,8 +233,9 @@ async function run({ browser, startServer, shotDir, log }) {
     });
     log('portrait storm', JSON.stringify(p));
     assert.equal(p.w, 540);
-    assert.equal(p.h, 960);
-    assert.ok(p.capTop >= 0.25 * p.innerHeight && p.capBottom <= 0.45 * p.innerHeight, 'caption sits in the top third in portrait');
+    assert.ok(Math.abs(p.h - 0.2 * p.innerHeight) <= 2, `portrait band is 20 % high (${p.h})`);
+    assert.ok(Math.abs(p.bottom - 0.65 * p.innerHeight) <= 2, `band sits above the chat zone (bottom ${p.bottom})`);
+    assert.ok(p.capTop >= p.top && p.capBottom <= p.bottom + 1, 'caption sits inside the band');
     assert.equal(p.fall, '62vh', 'scene inherits --fx-fall');
     assert.ok(Math.abs(p.fallPx - 0.62 * p.innerHeight) <= 1, `canvas particles fall 62vh (${p.fallPx})`);
     assert.ok(p.particles > 0 && p.particles <= 110, `storm particles ${p.particles}`);
