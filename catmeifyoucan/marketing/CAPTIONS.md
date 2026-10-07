@@ -101,7 +101,7 @@ Nur Fotos · Nicht anfassen, nicht jagen · Kein Blitz · Nur Straßenkatzen
 **Caption**
 ```
 Cat me if you can.
-Кадыкёй полон уличных кошек. Сделай фото и собери их в своём KediDex.
+В Кадыкёе полно уличных кошек. Фотографируй их и собирай в своём KediDex.
 Играй в браузере: {LINK}
 Только фото · Не трогай и не гоняйся · Без вспышки · Только уличные кошки
 ```
@@ -113,7 +113,7 @@ Cat me if you can.
 **Caption**
 ```
 Cat me if you can.
-قاضي كوي مليئة بقطط الشوارع. التقط صورة واجمعها في KediDex الخاص بك.
+قاضي كوي مليئة بقطط الشوارع. صوّرها واجمعها في KediDex الخاص بك.
 العب في المتصفح: {LINK}
 صوّر فقط · لا تلمس ولا تطارد · بلا فلاش · قطط الشوارع فقط
 ```
@@ -196,7 +196,7 @@ Nur Fotos · Nicht anfassen, nicht jagen · Kein Blitz · Nur Straßenkatzen
 العب في المتصفح: {LINK}
 صوّر فقط · لا تلمس ولا تطارد · بلا فلاش · قطط الشوارع فقط
 ```
-**النص البديل:** ملصق برتقالي: سبع بطاقات قطط على شكل مروحة، وشارة دائرية «20/20 اليوم»، وقسيمة «خصم 20%» مع فنجان قهوة. نص كبير: «20 قطة = خصم 20%». وتحته: «اعثر على 20 قطة مختلفة في يوم واحد. في مقهى شريك · في اليوم نفسه فقط.»
+**النص البديل:** ملصق برتقالي: سبع بطاقات قطط على شكل مروحة، وشارة دائرية «20/20 اليوم»، وكوبون «خصم 20%» مع فنجان قهوة. نص كبير: «20 قطة = خصم 20%». وتحته: «اعثر على 20 قطة مختلفة في يوم واحد. في مقهى شريك · في اليوم نفسه فقط.»
 
 **Hashtags:** `#CatMeIfYouCan #CatMeKadikoy #Kadıköy #KadikoyCats #StreetCatsOfIstanbul #إسطنبول #اسطنبول #قطط #قطط_الشوارع #تركيا #مقاهي_اسطنبول`
 
@@ -256,11 +256,11 @@ Nur Fotos · Nicht anfassen, nicht jagen · Kein Blitz · Nur Straßenkatzen
 ### ru
 **Caption**
 ```
-Нашёл кошку, которой ещё нет в KediDex? Тогда имя даёшь ты. Кто первым нашёл, тот и называет.
+Встретилась кошка, которой ещё нет в KediDex? Тогда имя даёшь ты. Кто первым найдёт, тот и даст имя.
 Играй в браузере: {LINK}
 Только фото · Не трогай и не гоняйся · Без вспышки · Только уличные кошки
 ```
-**Alt-текст:** Бирюзовый плакат с лучами: карточка «Новая кошка!» с рыжей кошкой, три звезды из пяти и имя «Tarçın», которое как раз печатают, в рамке камеры с конфетти. Крупный текст: «Нашёл первым? Дай ей имя.»
+**Alt-текст:** Бирюзовый плакат с лучами: карточка «Новая кошка!» с рыжей кошкой, три звезды из пяти и имя «Tarçın», которое как раз печатают, в рамке камеры с конфетти. Крупный текст: «Кто первым найдёт, тот и даст имя.»
 
 **Hashtags:** `#CatMeIfYouCan #CatMeKadikoy #Kadıköy #KadikoyCats #StreetCatsOfIstanbul #Стамбул #Кадыкёй #кошки #уличныекошки #кошкиСтамбула #придумайимя`
 
@@ -312,12 +312,12 @@ Sadece fotoğraf · Dokunma, kovalama · Flaş yok · Sadece sokak kedileri
 ### en
 **Caption**
 ```
-The serious side: we count the street cats of Kadıköy. With every photo you can tap how the cat is: hungry, sick or injured. Volunteers see it and help.
+The serious side: we count the street cats of Kadıköy. With every photo you can tap how the cat is doing: hungry, sick or injured. Volunteers see it and help.
 Play in your browser: {LINK}
 We never show the exact spot. Emergency? Please call a vet.
 Photos only · Don’t touch or chase · No flash · Street cats only
 ```
-**Alt text:** Cream poster: “The serious side” and the title “Every cat counts.” “We count the street cats of Kadıköy.” A card asks “How is the cat?” with four buttons: Healthy, Hungry (selected), Sick, Injured. Behind it, a map with dots for counted cats and a pin with a heart. Three steps: Take a photo, Tap how the cat is, Volunteers see it and help.
+**Alt text:** Cream poster: “The serious side” and the title “Every cat counts.” “We count the street cats of Kadıköy.” A card asks “How is the cat?” with four buttons: Healthy, Hungry (selected), Sick, Injured. Behind it, a map with dots for counted cats and a pin with a heart. Three steps: Take a photo, Tap how the cat is doing, Volunteers see it and help.
 
 **Hashtags:** `#CatMeIfYouCan #CatMeKadikoy #Kadıköy #KadikoyCats #StreetCatsOfIstanbul #Istanbul #IstanbulCats #StreetCats #CatsOfIstanbul #CatsOfInstagram #AnimalWelfare`
 
@@ -336,12 +336,12 @@ Nur Fotos · Nicht anfassen, nicht jagen · Kein Blitz · Nur Straßenkatzen
 ### ru
 **Caption**
 ```
-Серьёзная сторона: мы считаем уличных кошек Кадыкёя. С каждым фото ты можешь отметить, как кошка: голодная, болеет или ранена. Волонтёры видят это и помогают.
+Серьёзная сторона: мы считаем уличных кошек Кадыкёя. С каждым фото можно отметить, как дела у кошки: голодная, болеет или ранена. Волонтёры видят это и помогают.
 Играй в браузере: {LINK}
-Мы не показываем точное место. Срочный случай? Позвони ветеринару.
+Мы никогда не показываем точное место. Срочный случай? Позвони ветеринару.
 Только фото · Не трогай и не гоняйся · Без вспышки · Только уличные кошки
 ```
-**Alt-текст:** Кремовый плакат: «Серьёзная сторона» и заголовок «Каждая кошка на счету.» «Мы считаем уличных кошек Кадыкёя.» Карточка спрашивает «Как дела у кошки?», четыре кнопки: Здорова, Голодная (выбрано), Болеет, Ранена. За ней карта с точками посчитанных кошек и меткой с сердцем. Три шага: Сделай фото, Отметь её состояние, Волонтёры видят и помогают.
+**Alt-текст:** Кремовый плакат: «Серьёзная сторона» и заголовок «Каждая кошка на счету.» «Мы считаем уличных кошек Кадыкёя.» Карточка спрашивает «Как дела у кошки?», четыре кнопки: Здорова, Голодная (выбрано), Болеет, Ранена. За ней карта с точками посчитанных кошек и меткой с сердцем. Три шага: «Сделай фото», «Отметь, как дела у кошки», «Волонтёры видят и помогают».
 
 **Hashtags:** `#CatMeIfYouCan #CatMeKadikoy #Kadıköy #KadikoyCats #StreetCatsOfIstanbul #Стамбул #Кадыкёй #кошки #уличныекошки #кошкиСтамбула #помощьживотным`
 
@@ -414,11 +414,11 @@ Nur Fotos · Nicht anfassen, nicht jagen · Kein Blitz · Nur Straßenkatzen
 ### ru
 **Caption**
 ```
-Игра Cat Me If You Can родилась в Кадыкёе. HappyTuncay создал её в Happy Overthinking Coffee для уличных кошек нашего района. Кофе, кошки и слишком много мыслей.
+Игра Cat Me If You Can родилась в Кадыкёе, в Happy Overthinking Coffee. Это проект HappyTuncay для уличных кошек нашего района. Кофе, кошки и слишком много мыслей.
 Играй в браузере: {LINK}
 Только фото · Не трогай и не гоняйся · Без вспышки · Только уличные кошки
 ```
-**Alt-текст:** Тёплый кремовый плакат: «Сделано в Кадыкёе с любовью к кошкам.» «HappyTuncay создал эту игру в Happy Overthinking Coffee.» Ниже окно кафе на закате: силуэт Кадыкёя, море и паром. На столе дымящийся кофе с лапкой на пенке и подмигивающий рыжий кот.
+**Alt-текст:** Тёплый кремовый плакат: «Сделано в Кадыкёе с любовью к кошкам.» «Игра от HappyTuncay родилась в Happy Overthinking Coffee.» Ниже окно кафе на закате: силуэт Кадыкёя, море и паром. На столе дымящийся кофе с лапкой на пенке и подмигивающий рыжий кот.
 
 **Hashtags:** `#CatMeIfYouCan #CatMeKadikoy #Kadıköy #KadikoyCats #StreetCatsOfIstanbul #Стамбул #Кадыкёй #кошки #кошкиСтамбула #HappyTuncay #HappyOverthinkingCoffee`
 
