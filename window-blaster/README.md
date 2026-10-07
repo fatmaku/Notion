@@ -75,7 +75,10 @@ Ohne Kamera ausprobieren (Desktop reicht): Startbildschirm → **Demo ohne Kamer
    Laserpointer (halten – das Auto löst sich auf) und Boxhandschuh (POW!). Dazu Hand-Skins, Fadenkreuze und Farbpaletten.
 4. **Kamera & Sensoren freigeben** – ein Tipp erledigt Kamera- und Bewegungssensor-Zugriff (iOS braucht beides in derselben Geste).
 5. **Scheibe vermessen:** Die App findet die helle Scheibe im dunklen Innenraum automatisch, zeigt vier Ecken
-   und einen Status („Scheibe erkannt · 74 %“). Ecken bei Bedarf ziehen, im Runner zusätzlich die Bodenlinie.
+   und einen Status („Scheibe erkannt · 74 %“). Ecken (○) oder ganze Kanten (▬) bei Bedarf ziehen – eine Lupe zeigt
+   das Bild unter dem Finger, ein Finger in der Mitte verschiebt den Rahmen, zwei Finger ändern die Größe. Solange ein
+   Finger aufliegt, ist das Tracking eingefroren; danach wird der Rahmen nur noch um wenige Pixel nachjustiert.
+   Im Runner zusätzlich die Bodenlinie.
    **Ganzes Bild**, wenn du das Handy direkt an die Scheibe hältst oder es dunkel ist. **Passt so** startet.
 6. **Spielen:**
    - Tippen = schießen (MP und Farbpistole: halten = Dauerfeuer). Granate/Milkshake fliegen im Bogen zum Tippunkt,
@@ -110,8 +113,10 @@ Ohne Kamera ausprobieren (Desktop reicht): Startbildschirm → **Demo ohne Kamer
 - Ein Fehler im Spiel friert nichts mehr ein: Er wird abgefangen, das Spiel läuft weiter, und der Startbildschirm zeigt
   „Letzter Fehler“ mit Kopier-Knopf – schick mir den Text, wenn etwas hakt.
 - Einstellungen: Schwierigkeit (Vogeldichte, Zielhilfe) und Linkshänder-Layout.
-- Einstellungen: Sichtfeld der Kamera (Tracking-Stärke), Latenzausgleich, Tracking invertieren, Sound, Vibration,
-  Rundenlänge, realistisches Füllen verschwundener Autos, experimenteller Masten-/Baum-Detektor für den Runner.
+- Einstellungen: Sichtfeld der Kamera (Tracking-Stärke), Latenzausgleich, Tracking invertieren, Sound-Effekte, Musik,
+  Vibration, Rundenlänge, Füllen getroffener Autos, experimenteller Masten-/Baum-Detektor für den Runner.
+- Musik und alle Geräusche werden live mit WebAudio erzeugt (keine Audiodateien): Synthwave-Loop in den Schieß-Modi,
+  Chiptune im Runner; die Musik zieht mit Combo und Restzeit an und duckt sich kurz unter Explosionen.
 
 ## Weltweite Rangliste einrichten (optional, kostenlos)
 
@@ -159,6 +164,7 @@ Ordner:
 
 - Erkennung braucht Tageslicht und Sicht; sehr kleine oder weit entfernte Fahrzeuge werden nicht erkannt.
 - Bäume kennt das COCO-Modell nicht; dafür gibt es den experimentellen Masten-Detektor (Einstellungen).
-- Das „Verschwinden“ füllt die Lücke aus den Nachbarpixeln – vor der Frontscheibe glaubwürdig, im Seitenfenster
-  ist das Objekt ohnehin nach einer halben Sekunde vorbei.
+- Das „Verschwinden“ füllt die Lücke mit der Umgebung des Autos (Straße, Himmel, Häuser von links, rechts, oben und
+  unten darübergezogen) und löst das Auto in Pixelblöcken auf. Die Füllung folgt dem Auto, auch wenn die Erkennung
+  es kurz verliert und neu findet. Bei sehr unruhigem Hintergrund bleibt eine leichte Verschmierung sichtbar.
 - iOS: Vibration wird vom System nicht unterstützt; Sound erfordert, dass der Stummschalter aus ist.

@@ -7,7 +7,7 @@ import { HP, WEAPONS, type HitEffect, type WeaponConfig } from '../weapons/confi
 import { Weapon } from '../weapons/Weapon';
 import { ProjectileSystem, type Detonation } from '../Projectile';
 import { aimAssist, applySpread, blast, distToRect, segmentHitsRect, targetAt, type HitTarget } from '../HitResolver';
-import { EffectSystem, Fireball, Hitmarker, Popup, Shatter, ShrinkVanish, Skid, SplashRing, StretchFill, Wreck } from '../effects/EffectSystem';
+import { CoverPatch, Dissolve, EffectSystem, Fireball, Hitmarker, Popup, Shatter, Skid, SplashRing, Wreck } from '../effects/EffectSystem';
 import { HitStop, Shake } from '../effects/Shake';
 import { captureRegion } from '../effects/snapshot';
 import { PAINT_COLORS, bakeDecals, coverage, drawDecal, makeDecal, type Decal } from '../effects/Decals';
@@ -36,6 +36,7 @@ interface TargetState {
 }
 
 interface LostState {
+  id: number;
   st: TargetState;
   lostAt: number;
 }
@@ -66,6 +67,8 @@ export class ShooterMode implements GameMode {
   private readonly events: RoundEvent[] = [];
   private readonly targets = new Map<number, TargetState>();
   private readonly lost: LostState[] = [];
+  /** old track id → new track id after a re-identification, so wrecks and cover patches keep following */
+  private readonly alias = new Map<number, number>();
   private readonly feed: { text: string; born: number; color: string }[] = [];
   private fx!: FxRenderer;
   private hud!: HudRenderer;
@@ -99,6 +102,8 @@ export class ShooterMode implements GameMode {
   private aimShownUntil = 0;
   private lockId: number | null = null;
   private lockStart = 0;
+  private lastKillAt = -1e9;
+  private lastCountdownSec = -1;
 
   constructor(readonly id: GameModeId) {}
 
@@ -122,6 +127,7 @@ export class ShooterMode implements GameMode {
       this.endsAt = now + ctx.roundSeconds * 1000;
       this.capAt = now + ctx.roundSeconds * 2000;
     }
+    ctx.music.start('action');
   }
 
   pause(): void {
@@ -184,6 +190,11 @@ export class ShooterMode implements GameMode {
   }
 
   private readonly boxOf = (id: number): Rect | null => {
+    for (let i = 0; i < 8; i++) {
+      const next = this.alias.get(id);
+      if (next === undefined) break;
+      id = next;
+    }
     const tr = this.ctx.tracker.byId(id);
     return tr ? tr.predict(this.visualTime(this.lastNow)) : null;
   };
@@ -204,12 +215,18 @@ export class ShooterMode implements GameMode {
           const dt = this.lastNow - l.lostAt;
           const pb = { ...l.st.lastBox, x: l.st.lastBox.x + l.st.lastVel.x * dt, y: l.st.lastBox.y + l.st.lastVel.y * dt };
           const score = iou(pb, box);
-          if (score > bestScore) {
+          // a destroyed car must not be "inherited" by the next car in the lane: demand a closer match
+          if (score > bestScore && (l.st.state === 'alive' || score > 0.45)) {
             bestScore = score;
             bestI = i;
           }
         }
-        if (bestI >= 0) adopted = this.lost.splice(bestI, 1)[0].st;
+        if (bestI >= 0) {
+          const l = this.lost.splice(bestI, 1)[0];
+          adopted = l.st;
+          this.alias.set(l.id, id);
+          if (this.alias.size > 64) this.alias.delete(this.alias.keys().next().value as number);
+        }
       }
       const hp = HP[cls] ?? 3;
       s = adopted ?? { hp, maxHp: hp, state: 'alive', decals: [], coverage: 0, coverageStep: 0, lastHitAt: 0, lastBox: null, lastVel: { x: 0, y: 0 }, pendingSkid: false };
@@ -228,7 +245,8 @@ export class ShooterMode implements GameMode {
         st.lastVel = { ...tr.vel };
       } else {
         this.targets.delete(id);
-        if (st.state === 'alive' && (st.decals.length || st.hp < st.maxHp)) this.lost.push({ st, lostAt: now });
+        // keep damaged, painted and destroyed cars in mind: a re-detected wreck must not come back to life
+        if (st.state !== 'alive' || st.decals.length || st.hp < st.maxHp) this.lost.push({ id, st, lostAt: now });
       }
     }
     while (this.lost.length && now - this.lost[0].lostAt > 1500) this.lost.shift();
@@ -262,6 +280,12 @@ export class ShooterMode implements GameMode {
     }
     this.ctx.loop.timeScale = this.hitStop.scale(t);
     this.shake.update(dt);
+    // music follows the action: combo, kills in the last seconds, final countdown
+    this.ctx.music.setIntensity(0.25 + Math.min(0.5, this.combo.value * 0.09) + (tl !== null && tl < 12 ? 0.3 : 0) + (now - this.lastKillAt < 3000 ? 0.15 : 0));
+    if (tl !== null && tl <= 5 && Math.ceil(tl) !== this.lastCountdownSec) {
+      this.lastCountdownSec = Math.ceil(tl);
+      this.ctx.sfx.play('countdown', { pitch: tl <= 3 ? 1.5 : 1 });
+    }
     for (const w of this.weapons) w.update(t);
     this.cachedTargets = this.liveTargets(now);
     if (this.cachedTargets.length) this.lastTargetSeen = now;
@@ -385,12 +409,14 @@ export class ShooterMode implements GameMode {
       if (w.cfg.id === 'laser') {
         this.laserBeam = { from: this.launchPoint(), to: point, until: now + 80 };
         if (this.shots % 6 === 1) this.ctx.sfx.play('lock', { pitch: 0.5 + this.ctx.rng.next() * 0.1 });
-      } else if (w.cfg.id === 'glove') this.ctx.sfx.play('hit', { pitch: 0.5 });
+      } else if (w.cfg.id === 'glove') this.ctx.sfx.play('pow');
       else this.ctx.sfx.play(w.cfg.id === 'paint' ? 'paint' : 'shot', { pitch: 0.9 + this.ctx.rng.next() * 0.2 });
       if (target) this.applyHit(target, w.cfg, point, now, 1, 1);
       else {
         this.effects.add(new Hitmarker(point, now, 6 * this.unit, 'rgba(255,255,255,0.5)'));
         this.effects.particles.sparks(point, 2, 120 * this.unit, ['#ddd']);
+        // a near miss pings off the bodywork
+        if (w.cfg.id !== 'paint' && w.cfg.id !== 'laser' && targets.some((tg) => distToRect(point, tg.box) < tg.box.w * 0.6) && this.ctx.rng.chance(0.5)) this.ctx.sfx.play('ricochet', { pitch: 0.8 + this.ctx.rng.next() * 0.5 });
         this.events.push({ t: Math.round(t - this.startedAt), kind: 'miss', weapon: w.cfg.id, points: 0 });
       }
       return;
@@ -416,6 +442,7 @@ export class ShooterMode implements GameMode {
     } else {
       this.projectiles.spawnBallistic((w.cfg.sprite ?? 'grenade') as ProjectileKind, w.cfg.id, start, aimPoint, flightS, (w.cfg.gravityPx ?? 1400) * this.unit, now, assist.target?.id ?? null);
       this.ctx.sfx.play('throw');
+      this.ctx.sfx.play('whoosh');
     }
   }
 
@@ -517,7 +544,10 @@ export class ShooterMode implements GameMode {
       this.effects.particles.drops(point, 24, 420 * this.unit, [col, '#ffffff']);
       this.ctx.haptics.medium();
       this.hitStop.trigger(t, cfg.hitStopMs);
-      if (eff === 'freeze') this.pushFeed('EINGEFROREN!', '#dff6ff');
+      if (eff === 'freeze') {
+        this.pushFeed('EINGEFROREN!', '#dff6ff');
+        this.ctx.sfx.play('freeze');
+      }
       // 2) a moment later the car loses grip and slides away with its splat baked in
       const tid = target.id;
       const dir = point.x < box.x + box.w / 2 ? 1 : -1;
@@ -569,11 +599,13 @@ export class ShooterMode implements GameMode {
         st.state = 'destroyed';
         kill = true;
         this.kills++;
+        this.lastKillAt = now;
+        this.ctx.music.duck();
         const snap = captureRegion(this.ctx.frame.video, box);
         const c = center(box);
         const R = Math.max(box.w, box.h) * 0.7;
         if (snap) bakeDecals(snap.canvas, snap.box, box, st.decals, now);
-        if (snap) this.effects.add(new Shatter(snap.canvas, snap.box, point, 320 * this.unit + R * 2, this.ctx.rng, now));
+        if (snap && cfg.after !== 'vanish') this.effects.add(new Shatter(snap.canvas, snap.box, point, 320 * this.unit + R * 2, this.ctx.rng, now));
         if (cfg.blastR === 0) {
           this.effects.add(new Fireball(c, R, now));
           this.effects.particles.fire(c, 16, R * 0.25);
@@ -584,7 +616,7 @@ export class ShooterMode implements GameMode {
           this.shake.add(6);
           this.hitStop.trigger(t, 40);
         }
-        this.afterKill(target, cfg, now, snap?.canvas ?? null, snap?.box ?? null);
+        this.afterKill(target, cfg, now, snap?.canvas ?? null, snap?.box ?? null, point);
         this.combo.bump(1, t);
         const texts = KILL_TEXT[target.cls] ?? KILL_TEXT.car;
         this.pushFeed(multi > 1 ? `MEHRFACHTREFFER ×${multi}` : this.ctx.rng.pick(texts), multi > 1 ? '#ffb020' : '#fff');
@@ -601,21 +633,24 @@ export class ShooterMode implements GameMode {
     if (kill) this.extendTime(now);
     if (kill && centered) this.pushFeed('VOLLTREFFER ×1,5', '#ffb020');
     if (this.combo.value >= 3 && kill) this.ctx.sfx.play('combo', { pitch: 1 + this.combo.value * 0.05 });
+    if (kill && this.combo.value >= 5 && Math.floor(this.combo.value) % 5 === 0) this.ctx.sfx.play('streak', { pitch: 1 + this.combo.value * 0.02 });
   }
 
-  private afterKill(target: HitTarget, cfg: WeaponConfig, now: number, snap: HTMLCanvasElement | null = null, snapBox: Rect | null = null): void {
+  private afterKill(target: HitTarget, cfg: WeaponConfig, now: number, snap: HTMLCanvasElement | null = null, snapBox: Rect | null = null, impact: Vec2 | null = null): void {
     const after = cfg.after;
-    const front = this.id === 'front-shooter';
+    const cover = this.ctx.settings.data.stretchFill;
     if (after === 'wreck') {
       const s = snap && snapBox ? { canvas: snap, box: snapBox } : captureRegion(this.ctx.frame.video, target.box);
       if (s) this.effects.add(new Wreck(target.id, s.canvas, s.box, now, this.effects.particles));
-      else if (front && this.ctx.settings.data.stretchFill) this.effects.add(new StretchFill(target.id, target.box, now));
+      else if (cover) this.effects.add(new CoverPatch(target.id, target.box, now));
     } else if (after === 'vanish') {
-      if (!snap && cfg.effect !== 'skid') {
-        const s = captureRegion(this.ctx.frame.video, target.box);
-        if (s) this.effects.add(new ShrinkVanish(s.canvas, s.box, now));
+      // the real car must not stay visible: the patch covers it from the first frame,
+      // the dissolve animation plays on top (skid types already slid their snapshot away)
+      if (cover) this.effects.add(new CoverPatch(target.id, target.box, now));
+      if (cfg.effect !== 'skid' && cfg.effect !== 'freeze') {
+        const s = snap && snapBox ? { canvas: snap, box: snapBox } : captureRegion(this.ctx.frame.video, target.box);
+        if (s) this.effects.add(new Dissolve(s.canvas, s.box, impact ?? center(target.box), this.ctx.rng, now, this.effects.particles));
       }
-      if (front && this.ctx.settings.data.stretchFill) this.effects.add(new StretchFill(target.id, target.box, now));
       this.ctx.sfx.play('vanish');
     }
   }
@@ -778,6 +813,7 @@ export class ShooterMode implements GameMode {
     if (this.ended) return;
     this.ended = true;
     this.ctx.loop.timeScale = 1;
+    this.ctx.music.stop(1.2);
     this.ctx.sfx.play('roundEnd');
     this.ctx.end(this.buildResult(now));
   }
@@ -786,6 +822,7 @@ export class ShooterMode implements GameMode {
     this.ended = true;
     this.delayed.length = 0;
     this.ctx.loop.timeScale = 1;
+    this.ctx.music.stop(0.4);
     return this.buildResult(performance.now());
   }
 
@@ -802,6 +839,7 @@ export class ShooterMode implements GameMode {
       ended: this.ended,
       weapon: this.weapons[this.slot].cfg.id,
       ammo: this.weapons[this.slot].ammo,
+      effects: this.effects.count,
     };
   }
 }

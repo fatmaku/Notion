@@ -31,7 +31,7 @@ export const T = {
   cameraDenied: 'Kein Kamerazugriff. Erlaube die Kamera in den Browser-Einstellungen oder spiele die Demo.',
   loadingModel: 'Lade Erkennungsmodell …',
   calibTitle: 'Scheibe vermessen',
-  calibHint: 'Ziehe die Ecken auf den Fensterrahmen. Für den Runner auch die Bodenlinie.',
+  calibHint: 'Ecken ○ oder Kanten ▬ auf den Fensterrahmen ziehen · 1 Finger in der Mitte: verschieben · 2 Finger: Größe',
   calibAuto: 'Automatisch',
   calibFull: 'Ganzes Bild',
   calibDone: 'Passt so',

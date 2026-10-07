@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { snapshot, targetCss, waitForPlay } from './helpers';
+import { collectErrors, snapshot, targetCss, waitForPlay } from './helpers';
 
 // Visual checks: hand runner with birds, sticky paint splats on moving cars.
 test('runner shows the hand character and birds', async ({ page }) => {
@@ -68,4 +68,24 @@ test('new weapons: egg splat, toilet paper, POW and laser beam render', async ({
   }
   const s = await snapshot(page);
   expect(Number(s.hits)).toBeGreaterThan(0);
+});
+
+test('vanish: a grenade kill in the side window dissolves the car and a cover patch hides it', async ({ page }) => {
+  const errors = collectErrors(page);
+  await page.goto('/?demo=1&seed=21&skipTo=play&test=1&mode=side-shooter&weapons=grenade,smg&noshake=1&round=60');
+  await waitForPlay(page);
+  await page.waitForFunction(() => Number((window as unknown as { __wb: { snapshot(): { targets: number } } }).__wb.snapshot().targets) >= 1, null, { timeout: 20_000 });
+  let kills = 0;
+  for (let i = 0; i < 10 && !kills; i++) {
+    const p = await targetCss(page);
+    if (p) await page.mouse.click(p.x, p.y);
+    await page.waitForTimeout(1100);
+    kills = Number((await snapshot(page)).kills);
+  }
+  expect(kills).toBeGreaterThan(0);
+  await page.waitForTimeout(250);
+  await page.screenshot({ path: 'test-results/vanish-side.png' });
+  const s = await snapshot(page);
+  expect(Number(s.effects)).toBeGreaterThan(0);
+  expect(errors, errors.join('\n')).toEqual([]);
 });

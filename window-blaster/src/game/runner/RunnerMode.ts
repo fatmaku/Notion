@@ -105,6 +105,7 @@ export class RunnerMode implements GameMode {
     this.nextBirdAt = now + 6000;
     this.R = this.runnerHeight();
     this.phys = new RunnerPhysics(defaultParams(this.R));
+    ctx.music.start('runner');
   }
 
   private t(now: number): number {
@@ -262,6 +263,7 @@ export class RunnerMode implements GameMode {
         born: now,
         done: false,
       });
+      this.ctx.sfx.play(golden ? 'golden' : 'bird');
       // difficulty ramp: 7 s → 2.5 s between birds over two minutes
       const diff = this.ctx.settings.data.difficulty;
       const gap = Math.max(2500, 7000 - elapsed * 37) * (diff <= 0 ? 1.5 : diff >= 2 ? 0.7 : 1);
@@ -384,6 +386,7 @@ export class RunnerMode implements GameMode {
 
     this.updateCoins(dt, now, runner);
     this.updateBirds(dt, now, runner);
+    this.ctx.music.setIntensity(0.3 + Math.min(0.45, Math.max(0, this.flowSpeed - 400) / 1800) + (this.lives <= 1 ? 0.25 : 0));
 
     // survival points
     this.timeAcc += dt;
@@ -749,12 +752,14 @@ export class RunnerMode implements GameMode {
   private finish(now: number): void {
     if (this.ended) return;
     this.ended = true;
+    this.ctx.music.stop(1.2);
     this.ctx.sfx.play('roundEnd');
     this.ctx.end(this.buildResult(now));
   }
 
   abort(): RoundResult {
     this.ended = true;
+    this.ctx.music.stop(0.4);
     return this.buildResult(performance.now());
   }
 

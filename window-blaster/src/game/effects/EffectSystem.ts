@@ -16,8 +16,13 @@ const clamp01 = (t: number) => (t < 0 ? 0 : t > 1 ? 1 : Number.isFinite(t) ? t :
 /** Round canvas sizes up to buckets so jittering boxes don't reallocate backing stores every frame. */
 const bucket = (n: number) => Math.max(8, Math.ceil(n / 32) * 32);
 
-/** Real-pixel patch that hides a vehicle by stretching the road/scenery from its sides over it. */
-export class StretchFill implements Effect {
+/**
+ * Real-pixel patch that hides a vehicle: the scenery around it (left, right, top and bottom
+ * strips of the live video) is stretched over the box and blended, so the road, sky and
+ * buildings continue where the car was. Follows the track; also works at the frame edge,
+ * where only some strips exist.
+ */
+export class CoverPatch implements Effect {
   layer = 'under' as const;
   private last: Rect;
   private lostAt = 0;
@@ -39,29 +44,50 @@ export class StretchFill implements Effect {
       this.last = b;
       this.lostAt = 0;
     } else if (!this.lostAt) this.lostAt = now;
-    if (this.lostAt && now - this.lostAt > 450) return false;
+    if (this.lostAt && now - this.lostAt > 300) return false;
     return now - this.born < this.maxLifeMs;
   }
   expire(now: number): void {
     if (!this.lostAt) this.lostAt = now;
+  }
+  /** Draws one surrounding strip stretched over the patch through a directional gradient mask. */
+  private strip(c: CanvasRenderingContext2D, video: HTMLVideoElement, sx: number, sy: number, sw: number, sh: number, W: number, H: number, dir: 'l' | 'r' | 't' | 'b', weight: number, first: boolean): void {
+    const mc = this.mask.getContext('2d');
+    if (!mc) return;
+    if (first) {
+      c.drawImage(video, sx, sy, sw, sh, 0, 0, W, H);
+      return;
+    }
+    mc.globalCompositeOperation = 'source-over';
+    mc.clearRect(0, 0, this.mask.width, this.mask.height);
+    mc.drawImage(video, sx, sy, sw, sh, 0, 0, W, H);
+    const g = dir === 'l' || dir === 'r' ? mc.createLinearGradient(0, 0, W, 0) : mc.createLinearGradient(0, 0, 0, H);
+    const near = dir === 'l' || dir === 't' ? 0 : 1;
+    g.addColorStop(near, `rgba(0,0,0,${weight})`);
+    g.addColorStop(1 - near, 'rgba(0,0,0,0)');
+    mc.globalCompositeOperation = 'destination-in';
+    mc.fillStyle = g;
+    mc.fillRect(0, 0, W, H);
+    c.drawImage(this.mask, 0, 0, W, H, 0, 0, W, H);
   }
   draw(ctx: CanvasRenderingContext2D, now: number, video: HTMLVideoElement): void {
     const vw = video.videoWidth;
     const vh = video.videoHeight;
     if (!vw) return;
     const b = this.last;
-    const pad = 0.08;
+    const pad = 0.1;
     const x = Math.max(0, b.x - b.w * pad);
     const y = Math.max(0, b.y - b.h * pad);
     const w = Math.min(vw - x, b.w * (1 + 2 * pad));
     const h = Math.min(vh - y, b.h * (1 + 2 * pad));
     if (w < 4 || h < 4) return;
-    const strip = Math.max(6, Math.min(40, w * 0.18));
-    const lx = x - strip;
-    const rx = x + w;
-    const hasL = lx >= 0;
-    const hasR = rx + strip <= vw;
-    if (!hasL && !hasR) return;
+    const sw = Math.max(6, Math.min(48, w * 0.2));
+    const sh = Math.max(6, Math.min(48, h * 0.25));
+    const hasL = x - sw >= 0;
+    const hasR = x + w + sw <= vw;
+    const hasT = y - sh >= 0;
+    const hasB = y + h + sh <= vh;
+    if (!hasL && !hasR && !hasT && !hasB) return;
     const t = this.tmp;
     const W = Math.max(2, Math.round(w));
     const H = Math.max(2, Math.round(h));
@@ -74,35 +100,33 @@ export class StretchFill implements Effect {
       this.mask.height = t.height;
     }
     const c = t.getContext('2d');
-    const mc = this.mask.getContext('2d');
-    if (!c || !mc) return;
+    if (!c) return;
     c.globalCompositeOperation = 'source-over';
     c.globalAlpha = 1;
     c.clearRect(0, 0, t.width, t.height);
     try {
-      if (hasL) c.drawImage(video, lx, y, strip, h, 0, 0, W, H);
-      if (hasR) {
-        if (hasL) {
-          // draw the right strip through a horizontal gradient mask (reused canvas)
-          mc.globalCompositeOperation = 'source-over';
-          mc.clearRect(0, 0, this.mask.width, this.mask.height);
-          mc.drawImage(video, rx, y, strip, h, 0, 0, W, H);
-          const g = mc.createLinearGradient(0, 0, W, 0);
-          g.addColorStop(0, 'rgba(0,0,0,0)');
-          g.addColorStop(1, 'rgba(0,0,0,1)');
-          mc.globalCompositeOperation = 'destination-in';
-          mc.fillStyle = g;
-          mc.fillRect(0, 0, W, H);
-          c.drawImage(this.mask, 0, 0, W, H, 0, 0, W, H);
-        } else c.drawImage(video, rx, y, strip, h, 0, 0, W, H);
+      // horizontal continuation first (road markings, kerbs), then sky/road from above and below
+      let first = true;
+      if (hasL) {
+        this.strip(c, video, x - sw, y, sw, h, W, H, 'l', 1, first);
+        first = false;
       }
+      if (hasR) {
+        this.strip(c, video, x + w, y, sw, h, W, H, 'r', 1, first);
+        first = false;
+      }
+      if (hasT) {
+        this.strip(c, video, x, y - sh, w, sh, W, H, 't', first ? 1 : 0.75, first);
+        first = false;
+      }
+      if (hasB) this.strip(c, video, x, y + h, w, sh, W, H, 'b', first ? 1 : 0.75, first);
     } catch {
       return;
     }
     // feather edges
     c.globalCompositeOperation = 'destination-in';
-    const fx = Math.max(2, W * 0.12);
-    const fy = Math.max(2, H * 0.12);
+    const fx = Math.max(2, W * 0.14);
+    const fy = Math.max(2, H * 0.14);
     const gx = c.createLinearGradient(0, 0, W, 0);
     gx.addColorStop(0, 'rgba(0,0,0,0)');
     gx.addColorStop(fx / W, 'rgba(0,0,0,1)');
@@ -117,13 +141,16 @@ export class StretchFill implements Effect {
     gy.addColorStop(1, 'rgba(0,0,0,0)');
     c.fillStyle = gy;
     c.fillRect(0, 0, W, H);
-    const fade = this.lostAt ? Math.max(0, 1 - (now - this.lostAt) / 450) : 1;
-    const fadeIn = clamp01((now - this.born) / 250);
+    const fade = this.lostAt ? Math.max(0, 1 - (now - this.lostAt) / 300) : 1;
+    const fadeIn = clamp01((now - this.born) / 120);
     ctx.globalAlpha = fade * fadeIn;
     ctx.drawImage(t, 0, 0, W, H, x, y, w, h);
     ctx.globalAlpha = 1;
   }
 }
+
+/** Kept for older call sites. */
+export { CoverPatch as StretchFill };
 
 /** The vehicle's own pixels broken into tiles that fly apart. */
 export class Shatter implements Effect {
@@ -331,7 +358,97 @@ export class Skid implements Effect {
   }
 }
 
-/** Vehicle shrinks and spins away into nothing (vanish). */
+/**
+ * The vehicle "de-materialises": its pixels break into small blocks that dissolve in a
+ * wave from the impact point (shrink, drift up, fade), with a bright scan line sweeping
+ * down and sparkles at the wave front.
+ */
+export class Dissolve implements Effect {
+  layer = 'over' as const;
+  private readonly born: number;
+  private readonly blocks: { x: number; y: number; w: number; h: number; delay: number; vx: number; vy: number; spin: number }[] = [];
+  private readonly lifeMs: number;
+  private sparkAcc = 0;
+  constructor(
+    private readonly snap: HTMLCanvasElement,
+    private readonly box: Rect,
+    impact: Vec2,
+    rng: Rng,
+    now: number,
+    private readonly particles: Particles | null = null,
+    private readonly color = '#8be9ff',
+  ) {
+    this.born = now;
+    const cols = Math.max(5, Math.min(14, Math.round(box.w / 16)));
+    const rows = Math.max(3, Math.min(10, Math.round(box.h / 16)));
+    const bw = box.w / cols;
+    const bh = box.h / rows;
+    const maxD = Math.hypot(box.w, box.h) || 1;
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        const x = box.x + i * bw;
+        const y = box.y + j * bh;
+        const d = Math.hypot(x + bw / 2 - impact.x, y + bh / 2 - impact.y) / maxD;
+        this.blocks.push({ x, y, w: bw, h: bh, delay: d * 0.4 + rng.range(0, 0.08), vx: rng.gauss(0, 40), vy: -rng.range(30, 110), spin: rng.gauss(0, 2) });
+      }
+    }
+    this.lifeMs = 950;
+  }
+  update(dt: number, now: number): boolean {
+    const t = (now - this.born) / 1000;
+    this.sparkAcc += dt;
+    if (this.particles && t < 0.5) {
+      while (this.sparkAcc > 0.03) {
+        this.sparkAcc -= 0.03;
+        // sparkles ride the wave front
+        const b = this.blocks[Math.floor(Math.random() * this.blocks.length)];
+        if (b && Math.abs(b.delay - t) < 0.08) this.particles.sparks({ x: b.x + b.w / 2, y: b.y + b.h / 2 }, 2, 160, [this.color, '#ffffff']);
+      }
+    }
+    return now - this.born < this.lifeMs;
+  }
+  draw(ctx: CanvasRenderingContext2D, now: number): void {
+    const t = (now - this.born) / 1000;
+    const b = this.box;
+    const sx = this.snap.width / Math.max(1, b.w);
+    const sy = this.snap.height / Math.max(1, b.h);
+    for (const k of this.blocks) {
+      const u = clamp01((t - k.delay) / 0.32); // 0 = untouched, 1 = gone
+      if (u >= 1) continue;
+      const s = 1 - ease(u);
+      const dx = k.vx * u * 0.3;
+      const dy = k.vy * u * 0.3;
+      ctx.save();
+      ctx.globalAlpha = 1 - u * u;
+      ctx.translate(k.x + k.w / 2 + dx, k.y + k.h / 2 + dy);
+      ctx.rotate(k.spin * u * 0.3);
+      ctx.scale(s, s);
+      ctx.drawImage(this.snap, (k.x - b.x) * sx, (k.y - b.y) * sy, k.w * sx, k.h * sy, -k.w / 2, -k.h / 2, k.w, k.h);
+      if (u > 0.05) {
+        // glowing edge as the block dematerialises
+        ctx.globalAlpha = (1 - u) * 0.7;
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(-k.w / 2, -k.h / 2, k.w, k.h);
+      }
+      ctx.restore();
+    }
+    // scan line
+    const st = clamp01(t / 0.45);
+    if (st < 1) {
+      const y = b.y + b.h * st;
+      const g = ctx.createLinearGradient(0, y - b.h * 0.12, 0, y + 2);
+      g.addColorStop(0, 'rgba(139,233,255,0)');
+      g.addColorStop(1, 'rgba(255,255,255,0.75)');
+      ctx.globalAlpha = 1 - st * 0.5;
+      ctx.fillStyle = g;
+      ctx.fillRect(b.x - b.w * 0.05, y - b.h * 0.12, b.w * 1.1, b.h * 0.12 + 2);
+    }
+    ctx.globalAlpha = 1;
+  }
+}
+
+/** Kept for older call sites: the old shrink/spin vanish. */
 export class ShrinkVanish implements Effect {
   layer = 'over' as const;
   private readonly born: number;

@@ -2,6 +2,7 @@ import type { Storage } from './Storage';
 
 export interface SettingsData {
   sound: boolean;
+  music: boolean;
   haptics: boolean;
   /** Horizontal field of view of the camera in degrees (landscape). */
   hfovDeg: number;
@@ -23,6 +24,7 @@ export interface SettingsData {
 
 export const DEFAULT_SETTINGS: SettingsData = {
   sound: true,
+  music: true,
   haptics: true,
   hfovDeg: 69,
   invertPan: false,

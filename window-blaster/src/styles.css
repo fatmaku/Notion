@@ -92,10 +92,20 @@ label.field > span { display: block; margin-bottom: 4px; }
 .play .duck { left: calc(12px + var(--sal)); bottom: calc(24px + var(--sab)); width: 72px; height: 72px; font-size: 14px; font-weight: 800; }
 
 /* calibration handles */
-.handle { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; border: 3px solid var(--accent); background: rgba(255,176,32,0.25); touch-action: none; cursor: grab; }
+.handle { position: absolute; width: 36px; height: 36px; margin: -18px 0 0 -18px; border-radius: 50%; border: 3px solid var(--accent); background: rgba(255,176,32,0.3); box-shadow: 0 0 0 2px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.5); touch-action: none; cursor: grab; z-index: 3; }
+/* generous invisible hit area – fingers are not precise */
+.handle::before { content: ''; position: absolute; inset: -20px; border-radius: 50%; }
+.handle.edge { width: 58px; height: 22px; margin: -11px 0 0 -29px; border-radius: 11px; background: rgba(255,176,32,0.22); border-width: 2px; }
+.handle.edge.v { width: 22px; height: 58px; margin: -29px 0 0 -11px; }
+.handle.edge::before { inset: -16px; border-radius: 20px; }
 .handle.ground { border-color: var(--accent-2); background: rgba(56,189,248,0.25); border-radius: 8px; }
-.calib-bar { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px calc(12px + var(--sar)) calc(12px + var(--sab)) calc(12px + var(--sal)); background: linear-gradient(transparent, rgba(0,0,0,0.75)); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-.calib-top { position: absolute; left: 0; right: 0; top: 0; padding: calc(10px + var(--sat)) 14px 10px; background: linear-gradient(rgba(0,0,0,0.7), transparent); font-size: 14px; text-align: center; }
+.handle.active { background: rgba(255,176,32,0.6); transform: scale(1.15); }
+.calib-pane { position: absolute; inset: 0; touch-action: none; z-index: 1; }
+.loupe { position: absolute; width: 132px; height: 132px; margin: -66px 0 0 -66px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 6px 24px rgba(0,0,0,0.6); background: #000; pointer-events: none; z-index: 5; display: none; }
+.calib-top .hint { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+.calib-bar .btn { min-height: 48px; }
+.calib-bar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 4; padding: 12px calc(12px + var(--sar)) calc(12px + var(--sab)) calc(12px + var(--sal)); background: linear-gradient(transparent, rgba(0,0,0,0.75)); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.calib-top { position: absolute; left: 0; right: 0; top: 0; z-index: 4; pointer-events: none; padding: calc(10px + var(--sat)) 14px 10px; background: linear-gradient(rgba(0,0,0,0.7), transparent); font-size: 14px; text-align: center; }
 
 .rotate-hint { position: absolute; inset: 0; display: none; place-items: center; background: rgba(0,0,0,0.85); z-index: 60; font-size: 20px; text-align: center; padding: 20px; }
 @media (orientation: portrait) and (max-width: 700px) { body.wants-landscape .rotate-hint { display: grid; } }

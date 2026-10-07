@@ -23,13 +23,26 @@ export type SfxName =
   | 'ouch'
   | 'tick'
   | 'roundEnd'
-  | 'lock';
+  | 'lock'
+  | 'whoosh'
+  | 'ricochet'
+  | 'streak'
+  | 'bird'
+  | 'golden'
+  | 'countdown'
+  | 'freeze'
+  | 'pow';
 
 export class Sfx {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
   private noiseBuf: AudioBuffer | null = null;
   enabled = true;
+
+  /** Shared output for the music engine (null until unlocked). */
+  get audio(): { ctx: AudioContext; master: GainNode } | null {
+    return this.ctx && this.master ? { ctx: this.ctx, master: this.master } : null;
+  }
 
   /** Must be called from a user gesture once to unlock audio on iOS. */
   unlock(): void {
@@ -137,13 +150,18 @@ export class Sfx {
         this.noise(0.05, 0.2, 5000);
         break;
       case 'explosion':
-        this.noise(0.6, 0.9, 900);
-        this.tone(90, 0.5, 'sine', 0.5, 30);
+        // crack, sub boom, rumble tail and a few crackles
+        this.noise(0.08, 0.9, 6000, 0, 800);
+        this.tone(95, 0.55, 'sine', 0.6, 28);
+        this.noise(0.7, 0.8, 900, 0.03);
+        for (let i = 0; i < 4; i++) this.noise(0.03, 0.25, 3000, 0.18 + i * 0.09 + Math.random() * 0.05, 600);
         break;
       case 'bigExplosion':
-        this.noise(1.1, 1.0, 700);
-        this.tone(70, 0.9, 'sine', 0.7, 25);
-        this.tone(55, 1.2, 'triangle', 0.4, 20, 0.05);
+        this.noise(0.1, 1.0, 7000, 0, 600);
+        this.tone(70, 1.0, 'sine', 0.8, 22);
+        this.tone(52, 1.3, 'triangle', 0.45, 18, 0.05);
+        this.noise(1.3, 1.0, 700, 0.04);
+        for (let i = 0; i < 6; i++) this.noise(0.04, 0.3, 2500, 0.25 + i * 0.11 + Math.random() * 0.06, 500);
         break;
       case 'splat':
         this.noise(0.25, 0.5, 1500);
@@ -157,8 +175,40 @@ export class Sfx {
         this.noise(0.7, 0.35, 2600, 0, 900);
         break;
       case 'vanish':
-        this.tone(800, 0.35, 'sine', 0.2, 100);
-        this.noise(0.3, 0.2, 3000);
+        // digital zap: falling saw, rising shimmer, airy sweep
+        this.tone(900, 0.4, 'sawtooth', 0.14, 60);
+        [1200, 1600, 2100, 2700].forEach((f, i) => this.tone(f, 0.12, 'sine', 0.09, f * 1.3, 0.05 + i * 0.06));
+        this.noise(0.45, 0.25, 7000, 0.02, 1500);
+        break;
+      case 'whoosh':
+        this.noise(0.3, 0.3, 2500, 0, 300);
+        this.tone(220, 0.3, 'sine', 0.05, 520);
+        break;
+      case 'ricochet':
+        this.tone(2200 * p, 0.18, 'sine', 0.1, 700 * p);
+        this.noise(0.05, 0.25, 5000, 0, 1500);
+        break;
+      case 'streak':
+        [523, 659, 784, 1047, 1319].forEach((f, i) => this.tone(f * p, 0.14, 'square', 0.12, undefined, i * 0.07));
+        this.noise(0.3, 0.2, 5000, 0.3, 2000);
+        break;
+      case 'bird':
+        this.tone(1900, 0.12, 'sine', 0.09, 1300);
+        this.tone(2100, 0.14, 'sine', 0.09, 1400, 0.15);
+        break;
+      case 'golden':
+        [1319, 1568, 1976, 2637].forEach((f, i) => this.tone(f, 0.2, 'triangle', 0.12, undefined, i * 0.06));
+        break;
+      case 'countdown':
+        this.tone(p > 1 ? 1760 : 1175, 0.1, 'square', 0.12);
+        break;
+      case 'freeze':
+        this.noise(0.35, 0.3, 9000, 0, 3000);
+        [2093, 2637, 3136].forEach((f, i) => this.tone(f, 0.25, 'sine', 0.08, undefined, i * 0.05));
+        break;
+      case 'pow':
+        this.noise(0.06, 0.6, 2000, 0, 200);
+        this.tone(140, 0.25, 'square', 0.25, 50);
         break;
       case 'combo':
         this.tone(660 * p, 0.09, 'square', 0.1);

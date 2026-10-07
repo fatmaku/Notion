@@ -11,6 +11,7 @@ import type { Session } from '../app/Session';
 import type { Diagnostics } from '../debug/Diagnostics';
 import type { GameLoop } from '../app/GameLoop';
 import type { Sfx } from '../audio/Sfx';
+import type { Music } from '../audio/Music';
 import type { Haptics } from '../sensors/Haptics';
 
 export interface PointerEv {
@@ -74,6 +75,7 @@ export interface GameCtx {
   rng: Rng;
   loop: GameLoop;
   sfx: Sfx;
+  music: Music;
   haptics: Haptics;
   window: () => WindowState;
   /** Ground line endpoints (video px) when a window is tracked, else null. */

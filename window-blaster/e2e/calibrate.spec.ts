@@ -42,3 +42,47 @@ test('"Ganzes Bild" switches to fullframe and "Automatisch" re-detects', async (
   s = await snapshot(page);
   expect(String(s.win)).toMatch(/^tracking/);
 });
+
+test('dragging a corner follows the finger exactly and stays put after release', async ({ page }) => {
+  const errors = collectErrors(page);
+  await page.goto('/?demo=1&seed=11&skipTo=calibrate&test=1&mode=front-shooter&weapons=smg,paint');
+  await expect(page.locator('.badge.ok')).toBeVisible({ timeout: 20_000 });
+  const corner = page.locator('.handle.corner').nth(0);
+  const box = (await corner.boundingBox())!;
+  const scale = await page.evaluate(() => (window as unknown as { __wb: { app: { layers: { scale: number } } } }).__wb.app.layers.scale);
+  const sx = box.x + box.width / 2;
+  const sy = box.y + box.height / 2;
+  await page.mouse.move(sx, sy);
+  await page.mouse.down();
+  // the tracker refines live until the finger lands – reference the corner at touch-down
+  const before = await page.evaluate(() => (window as unknown as { __wb: { app: { windowTracker: { rawQuad: { x: number; y: number }[] } } } }).__wb.app.windowTracker.rawQuad[0]);
+  for (let i = 1; i <= 10; i++) await page.mouse.move(sx + i * 6, sy + i * 4);
+  // while the finger is down the tracker is frozen: the corner sits exactly where it was dragged
+  const during = await page.evaluate(() => {
+    const wt = (window as unknown as { __wb: { app: { windowTracker: { rawQuad: { x: number; y: number }[]; isEditing: boolean } } } }).__wb.app.windowTracker;
+    return { rawQuad: wt.rawQuad.map((p) => ({ ...p })), isEditing: wt.isEditing };
+  });
+  expect(during.isEditing).toBe(true);
+  expect(Math.abs(during.rawQuad[0].x - (before.x + 60 / scale))).toBeLessThan(2);
+  expect(Math.abs(during.rawQuad[0].y - (before.y + 40 / scale))).toBeLessThan(2);
+  await expect(page.locator('.loupe')).toBeVisible();
+  await page.mouse.up();
+  await expect(page.locator('.loupe')).toBeHidden();
+  await page.waitForTimeout(1500);
+  // afterwards only gentle refinement: no jump back to the auto-detected frame
+  const after = await page.evaluate(() => (window as unknown as { __wb: { app: { windowState: { quad: { x: number; y: number }[] } } } }).__wb.app.windowState.quad[0]);
+  expect(Math.hypot(after.x - during.rawQuad[0].x, after.y - during.rawQuad[0].y)).toBeLessThan(14);
+  // one finger inside the pane moves the whole quad
+  const vp = page.viewportSize()!;
+  await page.mouse.move(vp.width / 2, vp.height / 2);
+  await page.mouse.down();
+  const q0 = await page.evaluate(() => (window as unknown as { __wb: { app: { windowTracker: { rawQuad: { x: number; y: number }[] } } } }).__wb.app.windowTracker.rawQuad.map((p) => ({ ...p })));
+  for (let i = 1; i <= 8; i++) await page.mouse.move(vp.width / 2 - i * 5, vp.height / 2 + i * 3);
+  const q1 = await page.evaluate(() => (window as unknown as { __wb: { app: { windowTracker: { rawQuad: { x: number; y: number }[] } } } }).__wb.app.windowTracker.rawQuad);
+  await page.mouse.up();
+  for (let i = 0; i < 4; i++) {
+    expect(Math.abs(q1[i].x - q0[i].x + 40 / scale)).toBeLessThan(2);
+    expect(Math.abs(q1[i].y - q0[i].y - 24 / scale)).toBeLessThan(2);
+  }
+  expect(errors, errors.join('\n')).toEqual([]);
+});

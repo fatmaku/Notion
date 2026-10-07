@@ -20,6 +20,7 @@ import { FxRenderer } from '../render/FxRenderer';
 import { Diagnostics } from '../debug/Diagnostics';
 import { DebugOverlay } from '../debug/DebugOverlay';
 import { Sfx } from '../audio/Sfx';
+import { Music } from '../audio/Music';
 import { Haptics } from '../sensors/Haptics';
 import { WakeLock } from '../sensors/WakeLock';
 import { Rng, hashString } from '../core/rng';
@@ -53,6 +54,7 @@ export class App {
   readonly records = new Records(this.storage);
   readonly diag = new Diagnostics();
   readonly sfx = new Sfx();
+  readonly music = new Music(() => this.sfx.audio);
   readonly haptics = new Haptics();
   readonly wakeLock = new WakeLock();
   readonly motion = new Motion();
@@ -124,6 +126,8 @@ export class App {
     const s = this.settings.data;
     document.body.classList.toggle('left-handed', s.leftHanded);
     this.sfx.enabled = s.sound && !this.params.test;
+    this.music.enabled = s.music && !this.params.test;
+    if (!this.music.enabled) this.music.stop();
     this.haptics.enabled = s.haptics;
     this.motion.invertPan = s.invertPan;
     this.motion.invertTilt = s.invertTilt;
@@ -459,6 +463,7 @@ export class App {
       rng: new Rng(this.session.seed),
       loop: this.loop,
       sfx: this.sfx,
+      music: this.music,
       haptics: this.haptics,
       window: () => this.windowState,
       ground: () => {
@@ -482,6 +487,7 @@ export class App {
   endRound(r: RoundResult): void {
     if (!this.mode) return;
     this.mode = null;
+    this.music.stop(1.2);
     this.paused = false;
     this.loop.timeScale = 1;
     this.layers.video.style.transform = '';
@@ -503,8 +509,13 @@ export class App {
   togglePause(force?: boolean): void {
     if (!this.mode || !this.playEl) return;
     this.paused = force ?? !this.paused;
-    if (this.paused) this.mode.pause();
-    else this.mode.resume();
+    if (this.paused) {
+      this.mode.pause();
+      this.music.pause();
+    } else {
+      this.mode.resume();
+      this.music.resume();
+    }
     setPauseVisible(this.playEl, this.paused);
   }
 

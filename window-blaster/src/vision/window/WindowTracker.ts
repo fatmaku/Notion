@@ -23,6 +23,10 @@ export interface WindowTrackerOptions {
  * gyro prediction → edge-snap measurement → One-Euro smoothing, with a slow
  * brightness-based observer for (re-)initialisation and a confidence state.
  */
+/** How far edge snapping may reshape a hand-placed corner in total / per observation (video px at 720p). */
+const MANUAL_MAX_DRIFT_PX = 8;
+const MANUAL_SHAPE_STEP_PX = 1.5;
+
 export class WindowTracker {
   /** Unfiltered estimate (video px). */
   private quad: Quad;
@@ -32,6 +36,8 @@ export class WindowTracker {
   private confidence = 0;
   private manual = false;
   private manualQuad: Quad | null = null;
+  /** The user is dragging corners: no gyro, no snapping, no smoothing until released. */
+  private editing = false;
   private lastEstimateAt = -Infinity;
   private lastGoodSnapAt = -Infinity;
   private mismatchSince: number | null = null;
@@ -82,6 +88,24 @@ export class WindowTracker {
   }
 
   private lockedFull = false;
+
+  /** Start of a manual adjustment: the quad follows the finger exactly. */
+  beginEdit(): void {
+    this.editing = true;
+    this.motionQueue.length = 0;
+    this.lastMotionT = null;
+  }
+
+  /** Finger lifted: keep the manual quad, from now on only refine it gently. */
+  endEdit(): void {
+    this.editing = false;
+    this.lastMotionT = null;
+    this.resetFilters();
+  }
+
+  get isEditing(): boolean {
+    return this.editing;
+  }
 
   /** Whole frame is the play area – no tracking. `lock` = explicit user choice (observer won't re-init). */
   setFullFrame(lock = false): void {
@@ -153,10 +177,13 @@ export class WindowTracker {
         this.panSinceSnap += s.pan * dt;
         this.tiltSinceSnap += s.tilt * dt;
         const c = { x: this.o.frameW / 2, y: this.o.frameH / 2 };
-        this.quad = this.quad.map((p) => {
+        const move = (p: Vec2): Vec2 => {
           const r = Math.abs(roll) > 1e-5 ? rotateAround(p, c, roll) : p;
           return { x: r.x + dx, y: r.y + dy };
-        }) as Quad;
+        };
+        this.quad = this.quad.map(move) as Quad;
+        // the hand-placed anchor rotates with the phone too
+        if (this.manual && this.manualQuad) this.manualQuad = this.manualQuad.map(move) as Quad;
       }
       this.lastMotionT = s.t;
     }
@@ -166,6 +193,11 @@ export class WindowTracker {
   observe(frame: GrayFrame): void {
     this.lastGray = frame;
     const now = frame.t;
+    if (this.editing) {
+      this.motionQueue.length = 0;
+      this.filtered = this.quad;
+      return;
+    }
     this.applyMotion(now);
     const s = frame.scale;
 
@@ -206,12 +238,45 @@ export class WindowTracker {
 
     // measurement: edge snap on the (gyro-predicted) quad
     const qGray = this.quad.map((p) => ({ x: p.x / s, y: p.y / s })) as Quad;
-    const opts = { ...DEFAULT_SNAP, radius: this.motionAlive ? 8 : 14 };
+    // a hand-placed quad is only refined within a few pixels – the user's corners win
+    const opts = { ...DEFAULT_SNAP, radius: this.manual ? 5 : this.motionAlive ? 8 : 14 };
     const snap = snapQuad(frame.gray, frame.w, frame.h, qGray, opts);
     if (snap.confidence >= 0.35) {
       const snapped = snap.quad.map((p) => ({ x: p.x * s, y: p.y * s })) as Quad;
       const k = Math.min(0.85, 0.35 + snap.confidence * 0.6);
-      this.quad = this.quad.map((p, i) => ({ x: p.x + (snapped[i].x - p.x) * k, y: p.y + (snapped[i].y - p.y) * k })) as Quad;
+      if (this.manual && this.manualQuad) {
+        // Hand-placed quad: follow the COMMON motion of all corners (the window really moved, or the
+        // gyro was off), but keep the SHAPE the user set – a single corner may only creep a few
+        // pixels, never over to another edge. The median translation ignores one outlier corner.
+        const d = this.quad.map((p, i) => ({ x: (snapped[i].x - p.x) * k, y: (snapped[i].y - p.y) * k }));
+        const med = (vs: number[]) => {
+          const a = [...vs].sort((u, v) => u - v);
+          return (a[1] + a[2]) / 2;
+        };
+        const common = { x: med(d.map((v) => v.x)), y: med(d.map((v) => v.y)) };
+        const unit = this.o.frameH / 720;
+        const perStep = MANUAL_SHAPE_STEP_PX * unit;
+        const maxDrift = MANUAL_MAX_DRIFT_PX * unit;
+        const anchor = this.manualQuad.map((p) => ({ x: p.x + common.x, y: p.y + common.y })) as Quad;
+        this.manualQuad = anchor;
+        this.quad = this.quad.map((p, i) => {
+          let rx = d[i].x - common.x;
+          let ry = d[i].y - common.y;
+          const rl = Math.hypot(rx, ry);
+          if (rl > perStep) {
+            rx *= perStep / rl;
+            ry *= perStep / rl;
+          }
+          const nx = p.x + common.x + rx;
+          const ny = p.y + common.y + ry;
+          const ax = nx - anchor[i].x;
+          const ay = ny - anchor[i].y;
+          const al = Math.hypot(ax, ay);
+          return al > maxDrift ? { x: anchor[i].x + (ax * maxDrift) / al, y: anchor[i].y + (ay * maxDrift) / al } : { x: nx, y: ny };
+        }) as Quad;
+      } else {
+        this.quad = this.quad.map((p, i) => ({ x: p.x + (snapped[i].x - p.x) * k, y: p.y + (snapped[i].y - p.y) * k })) as Quad;
+      }
       this.lastGoodSnapAt = now;
       this.confidence = this.confidence * 0.7 + snap.confidence * 0.3;
       // focal / sign calibration: measured window shift vs. integrated gyro pan,
@@ -236,7 +301,7 @@ export class WindowTracker {
     // state machine
     const sinceGood = now - this.lastGoodSnapAt;
     if (this.confidence >= 0.5 && sinceGood < 400) this.mode = 'tracking';
-    else if (this.confidence >= 0.2 || (this.manual && this.motionAlive) || sinceGood < 2000) this.mode = 'degraded';
+    else if (this.confidence >= 0.2 || this.manual || sinceGood < 2000) this.mode = 'degraded';
     else this.mode = 'off';
 
     // smoothing
@@ -245,7 +310,8 @@ export class WindowTracker {
   }
 
   get(): WindowState {
-    return { quad: this.filtered, confidence: this.confidence, mode: this.mode };
+    // while a finger drags, everything drawn must follow the finger without filter lag
+    return { quad: this.editing ? this.quad : this.filtered, confidence: this.confidence, mode: this.mode };
   }
 
   /** Ground line endpoints (video px) for the runner. */
