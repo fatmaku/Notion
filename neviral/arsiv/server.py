@@ -484,7 +484,7 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/import/instagram":
                 root = Path(str(body.get("path") or "")).expanduser()
                 if not str(body.get("path") or "").strip() or not root.exists():
-                    return self._json({"hata": "klasör bulunamadı"}, 400)
+                    return self._json({"hata": "klasör/zip bulunamadı"}, 400)
                 argv = ["instagram", str(root)] + (["--csv"] if body.get("csv") else [])
                 return self._json({"job": _proc_job("instagram-csv" if body.get("csv") else "instagram", argv, self.db_path)})
             if path == "/api/render":

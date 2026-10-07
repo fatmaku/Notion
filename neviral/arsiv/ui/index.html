@@ -221,9 +221,9 @@ dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);bo
       <h2>2) Klasör tara</h2><div class="muted" style="font-size:13px">iCloud Drive, harici disk, indirilmiş orijinaller… Alt klasörler albüm sayılır. Yeniden çalıştırınca yalnızca değişenler işlenir.</div>
       <label>Klasör</label><input id="i-folder" placeholder="/Volumes/Arsiv/Videolar">
       <div class="row" style="margin-top:8px"><button class="primary" onclick="job('/api/scan',{path:val('i-folder')})">Tara</button></div>
-      <h2>3) Instagram dışa aktarımı</h2><div class="muted" style="font-size:13px">Instagram › Ayarlar › Hesap Merkezi › Bilgilerini indir › <b>JSON</b>. Zip'i açıp klasörü verin. Eski paylaşımlar bulunur ve arşivle eşlenir.</div>
+      <h2>3) Instagram dışa aktarımı</h2><div class="muted" style="font-size:13px">Instagram › Ayarlar › Hesap Merkezi › Bilgilerini indir › <b>JSON</b>. Zip'i (ya da parçalı zip'lerin olduğu klasörü) verin; açmak gerekmez. Eski paylaşımlar bulunur ve arşivle eşlenir.</div>
       <div class="muted" style="font-size:13px">Profesyonel (işletme/içerik üretici) hesapta dışa aktarım erişim, beğeni, kaydetme ve paylaşım sayılarını da içerir; bunlar otomatik okunur, CSV gerekmez. CSV yalnızca ek seçenektir.</div>
-      <label>Klasör</label><input id="i-ig" placeholder="~/Downloads/instagram-kullanici-2026">
+      <label>Klasör ya da .zip</label><input id="i-ig" placeholder="~/Downloads/instagram-kullanici-2026.zip">
       <div class="row" style="margin-top:8px"><button class="primary" onclick="job('/api/import/instagram',{path:val('i-ig')})">İçe aktar ve eşle</button>
         <button onclick="job('/api/import/instagram',{path:val('i-ig'),csv:true})">Performans CSV'si (Profesyonel Panel)</button></div>
     </div>

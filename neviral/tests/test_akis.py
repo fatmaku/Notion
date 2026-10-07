@@ -15,7 +15,7 @@ os.environ["ARSIV_HOME"] = str(TMP / "home")
 os.environ.pop("ARSIV_DB", None)
 os.environ["ARSIV_NO_CLAUDE"] = "1"
 
-from arsiv import db, instagram, marketing, media, reminders, scan, score, studio  # noqa: E402
+from arsiv import config, db, instagram, marketing, media, reminders, scan, score, studio  # noqa: E402
 from tests import ornek_veri  # noqa: E402
 
 quiet = lambda *_: None  # noqa: E731
@@ -45,6 +45,29 @@ class Akis(unittest.TestCase):
         foto = db.search(self.con, q="deniz1")["items"][0]
         self.assertEqual(foto["created_at"][:10], "2019-06-01", "EXIF tarihi okunmalı")
         self.assertIn("Yaz Tatili", foto["albums"])
+
+    def test_01b_instagram_zip(self):
+        """Instagram büyük dışa aktarımı parçalı zip'lerle gelir; açmadan içe aktarılabilmeli."""
+        import shutil
+        import zipfile
+        zdir = self.ig.parent / "zipler"
+        zdir.mkdir(exist_ok=True)
+        files = sorted(p for p in self.ig.rglob("*") if p.is_file())
+        half = len(files) // 2
+        for i, part in enumerate((files[:half], files[half:]), 1):
+            with zipfile.ZipFile(zdir / f"instagram-test-2026-part-{i}.zip", "w") as zf:
+                for f in part:
+                    zf.write(f, f.relative_to(self.ig))
+                if i == 1:
+                    zf.writestr("../../kacak.txt", "zip-slip")  # dışarı yazmaya çalışan üye atlanmalı
+        out = instagram.prepare_source(zdir, progress=quiet)
+        self.assertTrue(any(out.rglob("posts_1.json")))
+        self.assertFalse((config.HOME / "kacak.txt").exists())
+        self.assertFalse((out.parent / "kacak.txt").exists())
+        single = instagram.prepare_source(zdir / "instagram-test-2026-part-1.zip", progress=quiet)
+        self.assertTrue(single.is_dir())
+        self.assertEqual(instagram.prepare_source(self.ig, progress=quiet), self.ig, "açık klasör olduğu gibi kullanılmalı")
+        shutil.rmtree(out, ignore_errors=True); shutil.rmtree(single, ignore_errors=True)
 
     def test_02_instagram(self):
         r = instagram.import_export(self.con, self.ig, progress=quiet)

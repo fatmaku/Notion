@@ -71,9 +71,50 @@ def parse_export(root):
     return found
 
 
+def _safe_extract(zf, dest):
+    """Zip'i güvenle açar (yol kaçışı yok); zaten açılmış üyeleri atlar."""
+    import zipfile  # noqa: F401
+    dest = Path(dest).resolve()
+    for m in zf.infolist():
+        if m.is_dir():
+            continue
+        target = (dest / m.filename).resolve()
+        if dest not in target.parents:
+            continue  # ../ gibi tehlikeli yollar
+        if target.exists() and target.stat().st_size == m.file_size:
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with zf.open(m) as src, open(target, "wb") as out:
+            while True:
+                chunk = src.read(4 * 1024 * 1024)
+                if not chunk:
+                    break
+                out.write(chunk)
+
+
+def prepare_source(path, progress=print):
+    """Zip dosyası ya da zip'lerle dolu klasör verildiyse (Instagram büyük dışa aktarımı parçalara böler) açar; klasörü döndürür."""
+    import zipfile
+    p = Path(path).expanduser()
+    zips = [p] if p.is_file() and p.suffix.lower() == ".zip" else sorted(p.glob("*.zip")) if p.is_dir() else []
+    if not zips or (p.is_dir() and any(p.rglob("*.json"))):
+        return p  # zaten açılmış klasör
+    dest = config.HOME / "instagram-disa-aktarim" / (zips[0].stem.split("-part")[0] if len(zips) > 1 else zips[0].stem)
+    dest.mkdir(parents=True, exist_ok=True)
+    for z in zips:
+        progress(f"zip açılıyor: {z.name} ({z.stat().st_size / 1e9:.1f} GB) → {dest}")
+        try:
+            with zipfile.ZipFile(z) as zf:
+                _safe_extract(zf, dest)
+        except zipfile.BadZipFile as ex:
+            raise ValueError(f"{z.name}: bozuk/eksik zip (indirme tamamlanmamış olabilir): {ex}")
+    return dest
+
+
 def import_export(con, root, progress=print, match=True):
-    """Paylaşımları veritabanına yazar ve arşivle eşleştirir."""
+    """Paylaşımları veritabanına yazar ve arşivle eşleştirir. root: açılmış klasör, .zip ya da zip'lerin olduğu klasör."""
     config.ensure_dirs()
+    root = prepare_source(root, progress)
     entries = parse_export(root)
     progress(f"{len(entries)} paylaşım bulundu: {root}")
     new = 0

@@ -130,7 +130,7 @@ Instagram dışa aktarımı: Instagram › Ayarlar › Hesap Merkezi › Bilgile
 |---|---|
 | `arsiv fotograflar [--kutuphane yol]` | macOS Fotoğraflar / iCloud Fotoğraflar kütüphanesini içe aktarır |
 | `arsiv tara <klasör…>` | Klasörleri tarar (yalnızca değişenleri yeniden işler) |
-| `arsiv instagram <klasör> [--csv]` | Dışa aktarımı okur ve eşler; `--csv` ile Profesyonel Panel performans verisi |
+| `arsiv instagram <klasör veya .zip> [--csv]` | Dışa aktarımı (zip açmadan, parçalı zip'ler dahil) okur ve eşler; `--csv` ile Profesyonel Panel performans verisi |
 | `arsiv ara "deniz" --tur video --yon dikey --min-sure 5 --max-sure 60 --paylasilmamis` | Filtreli arama |
 | `arsiv adaylar` | Paylaşılmamış, en yüksek puanlı öğeler |
 | `arsiv yeniden` | Yeniden paylaşım kuyruğu (eski, güçlü paylaşımlar) |
