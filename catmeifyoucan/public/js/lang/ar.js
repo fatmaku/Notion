@@ -472,4 +472,17 @@ export default {
   'share.text': 'تعرّف على {name}! وجدت هذه القطة في قاضي كوي. #CatMeIfYouCan #CatMeKadikoy',
   'share.textUnnamed': 'وجدت قطة الشارع هذه في قاضي كوي! #CatMeIfYouCan #CatMeKadikoy',
   'share.saved': 'حُفظت الصورة.',
+
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
 };

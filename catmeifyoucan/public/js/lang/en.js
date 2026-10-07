@@ -339,4 +339,17 @@ export default {
   'share.text': 'Meet {name}! I found this cat in Kadıköy. #CatMeIfYouCan #CatMeKadikoy',
   'share.textUnnamed': 'I found this street cat in Kadıköy! #CatMeIfYouCan #CatMeKadikoy',
   'share.saved': 'Picture saved.',
+
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
 };

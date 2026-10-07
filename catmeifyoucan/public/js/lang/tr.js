@@ -339,4 +339,17 @@ export default {
   'share.text': '{name} ile tanış! Onu Kadıköy’de buldum. #CatMeIfYouCan #CatMeKadikoy',
   'share.textUnnamed': 'Bu sokak kedisini Kadıköy’de buldum! #CatMeIfYouCan #CatMeKadikoy',
   'share.saved': 'Görsel kaydedildi.',
+
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
 };

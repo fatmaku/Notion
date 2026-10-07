@@ -29,6 +29,17 @@ import { checkName } from './moderation.js';
 import { censusApi } from './census.js';
 import { voucherApi } from './vouchers.js';
 import { adminApi } from './admin.js';
+// ── Erweiterung: share ──
+
+// ── Erweiterung: cafe ──
+
+// ── Erweiterung: routes ──
+
+// ── Erweiterung: impact ──
+
+// ── Erweiterung: report ──
+
+// ── Erweiterung: perf ──
 import { computeStats, leaderboard } from './stats.js';
 
 export { GameError };
@@ -607,5 +618,18 @@ export function createEngine(opts) {
     }),
   };
   Object.assign(api, censusApi(ctx, api), voucherApi(ctx, api), adminApi(ctx, api));
+  // Erweiterungen: jede hängt ihr eigenes xyzApi(ctx, api) an
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
   return api;
 }

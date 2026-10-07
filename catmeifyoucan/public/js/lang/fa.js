@@ -409,4 +409,17 @@ export default {
   'share.text': 'با {name} آشنا شو! این گربه را در کادیکوی پیدا کردم. #CatMeIfYouCan #CatMeKadikoy',
   'share.textUnnamed': 'این گربهٔ خیابانی را در کادیکوی پیدا کردم! #CatMeIfYouCan #CatMeKadikoy',
   'share.saved': 'تصویر ذخیره شد.',
+
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
 };

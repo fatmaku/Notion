@@ -421,4 +421,17 @@ export default {
   'share.text': 'Знакомьтесь, это {name}! Моя находка в Кадыкёе. #CatMeIfYouCan #CatMeKadikoy',
   'share.textUnnamed': 'Моя находка — уличная кошка из Кадыкёя! #CatMeIfYouCan #CatMeKadikoy',
   'share.saved': 'Картинка сохранена.',
+
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
 };

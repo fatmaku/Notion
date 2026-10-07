@@ -9,6 +9,18 @@ const SHELL = [
   'core/labels/ru.js', 'core/labels/ar.js', 'core/labels/fa.js',
   'core/taxonomy.js', 'core/geo.js', 'core/fingerprint.js', 'core/time.js', 'core/analysis.js',
   'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css', 'vendor/qrcode.js',
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
 ];
 
 self.addEventListener('install', (e) => {

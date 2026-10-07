@@ -114,6 +114,19 @@ export class RemoteApi {
   suggestPlace(data) { return this.req('POST', '/api/places', data); }
   claimVoucher() { return this.req('POST', '/api/vouchers', {}); }
   async voucherToday() { return (await this.req('GET', '/api/vouchers/today')).voucher; }
+
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
 }
 
 // ------------------------------------------------------------------ Demo-Modus
@@ -253,6 +266,19 @@ export async function createLocalApi() {
     suggestPlace: (data) => wrap(async () => engine.suggestPlace(me(), data)),
     claimVoucher: () => wrap(async () => engine.claimVoucher(me())),
     voucherToday: () => wrap(async () => engine.voucherToday(me())),
+
+    // ── Erweiterung: share ──
+
+    // ── Erweiterung: cafe ──
+
+    // ── Erweiterung: routes ──
+
+    // ── Erweiterung: impact ──
+
+    // ── Erweiterung: report ──
+
+    // ── Erweiterung: perf ──
+
     /** Demo: Gutschein beim ersten passenden Partner-Café einlösen. */
     demoRedeem: (code) => wrap(async () => {
       const partners = engine.partnersOf(engine.ctx.regions[0].id);

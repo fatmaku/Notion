@@ -31,6 +31,18 @@ const ROUTES = [
   [/^\/voucher$/, 'home', (v, app) => renderVoucher(v, app)],
   [/^\/profile$/, 'profile', (v, app) => renderProfile(v, app)],
   [/^\/rules$/, 'profile', (v) => renderRules(v)],
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
 ];
 
 async function chooseApi() {

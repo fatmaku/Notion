@@ -343,6 +343,19 @@ export async function createApp(options = {}) {
     return { info: ai.info, stats: ai.claude ? ai.claude.stats : null };
   });
 
+  // ── Erweiterung: share ──
+
+  // ── Erweiterung: cafe ──
+
+  // ── Erweiterung: routes ──
+
+  // ── Erweiterung: impact ──
+
+  // ── Erweiterung: report ──
+
+  // ── Erweiterung: perf ──
+
+
   // ------------------------------------------------------------ HTTP
 
   async function handle(req, res) {

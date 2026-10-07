@@ -602,3 +602,16 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 .ring-text { direction: ltr; }
 .q-prog, .q-xp, .xp, .prog, .rank-v, .stat-v, .v-code b, .today-pill, .lvl, .chip, .stars { unicode-bidi: isolate; }
 :dir(rtl) .q-xp, :dir(rtl) .xp, :dir(rtl) .q-prog { direction: ltr; }
+
+/* ── Erweiterung: share ── */
+
+/* ── Erweiterung: cafe ── */
+
+/* ── Erweiterung: routes ── */
+
+/* ── Erweiterung: impact ── */
+
+/* ── Erweiterung: report ── */
+
+/* ── Erweiterung: perf ── */
+
