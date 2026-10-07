@@ -1,5 +1,39 @@
 # Changelog
 
+## 2.2.0 – Entwurf: Start-Assistent, Handy als volle Fernbedienung, Internet-Link, Story-Band
+
+- **🚀 Start-Assistent** oben im Panel, drei Schritte: **Mikro testen** (5-s-Pegeltest), **OBS verbinden**
+  (Overlay-URL mit Kopier-Knopf, Format 16:9 / 9:16 mit exakter Breite × Höhe, 6-Schritte-Kurzanleitung,
+  Live-Status „Overlay verbunden ✔“ sobald OBS das Overlay lädt – aus `/health`, `overlays ≥ 2` –, Test-Effekt),
+  **Pakete wählen** (Kacheln, Zähler `x / LIMITS.triggers`, Stichwort-Kollisionen zwischen Paketen). Karten für
+  Fortgeschrittene (Externe API, Kombis, Demo-Clip, OBS-Text, Log) sind hinter **„⚙️ Erweitert anzeigen“**
+  eingeklappt (`localStorage` `livefx.panel.advanced`).
+- **Einstellungen**: drei Regler **Master / Effekte / Atmosphäre** (`{type:'volume', volume, bus:'master'|'sfx'|'ambient'}`,
+  Standard 0,5 / 0,8 / 0,5), **Story-Layout** Band / Vollbild / Rahmen, **Band-Höhe** 15–35 %, **Effekt-Zone**
+  überall / Ränder / unten / oben (`{type:'layout', storyLayout, band, zone}`), **Hauptsprache** TR / DE / EN
+  (`primaryLang` an die Erkennung, `matcher.setPhonetic()` – Stichwörter der anderen Sprachen werden phonetisch
+  mitgehört, `js/phonetic.js`), **Live-Story** (jede Transkriptzeile als `{type:'story', text, final, lang}` ans
+  Overlay, `js/story-director.js`). Mindestabstand standardmäßig 0,5 s; der Story-Modus erzwingt nicht mehr
+  Reaktion „sicher“. Alles in `localStorage` (`livefx.volumes`, `livefx.layout`, `livefx.asr.primary`,
+  `livefx.liveStory`).
+- **📱 Handy**: Link als **QR-Code** (`js/qr.js`, eigener Encoder, Byte-Modus, Level M, Version 1–10, im
+  Test gegen einen unabhängigen Decoder geprüft), **⭐ Favoriten** (lange drücken), **Leiser / Lauter ±6 dB**,
+  **Story-Band an/aus**, **Effekt-Zone**, **Pakete** laden/entfernen (`js/packs-store.js`, gleiche Logik wie im
+  Panel), Mikro-Start. Größere Kacheln.
+- **🌐 Internet-Link** (`server/tunnel.js`, `server/api-tunnel.js`): Cloudflare-Schnelltunnel per Knopf –
+  `cloudflared` aus `PATH` / `LIVEFX_CLOUDFLARED` oder einmaliger Download nach `<dataDir>/bin/` mit
+  SHA-256-Prüfung gegen die veröffentlichte Prüfsumme; Status idle / starting / online / error; Routen
+  `GET /api/tunnel`, `POST /api/tunnel/start`, `POST /api/tunnel/stop` (Auth nötig); Handy-Link
+  `https://<zufall>.trycloudflare.com/m?token=…` als QR-Code (HTTPS → Handy-Mikro ohne Zertifikat). Der
+  Tunnel-Host wird nur solange akzeptiert, wie der Tunnel läuft; Anfragen durch den Tunnel brauchen Cookie oder
+  Bearer (nur `GET /m`, `/health` sind offen). Endet mit dem Server. Fehlerhilfe: Hotspot-Trick, Download von
+  Hand (`docs/HANDY.md` §4a).
+- **Doku**: `docs/OBS-ANLEITUNG.md` jetzt Schritt für Schritt auf **Deutsch, Türkçe und English** (exakte
+  OBS-Menünamen, Streamlabs, TikTok LIVE Studio), README-Schnellstart mit Assistent, `docs/HANDY.md` §4a.
+- Versionen (Paket, Service-Worker-Shell) auf 2.2.0; Shell um `qr.js`, `packs-store.js`, `story-director.js`,
+  `phonetic.js` erweitert. Tests: `test/tunnel.test.js`, `test/qr.test.js`, `test/e2e/36-wizard.js`, erweiterte
+  `35-mobile` / `mobile.test.js`.
+
 ## 2.1.0 – Leichter, schneller, freie Sticker, sichere GIF-Suche
 
 - **Leistung** (`docs/PERFORMANCE.md`): ein Renderpfad (Regen, Szenen-Partikel, Lichtstrahlen und Ring auf dem

@@ -7,6 +7,10 @@
 //   1. function words per language (STOPWORDS) – the strongest signal, 1 point per hit
 //   2. diacritics: ı ş ğ İ -> tr, ä ß -> de, ö/ü shared de+tr (lower weight), ç -> tr
 //   3. suffix / prefix hints (-yor -lar -mış … tr, -ung -keit -lich sch- … de, -ing -tion th- … en)
+//   4. (2.2) Turkish signals: the letters ı ş ğ İ Ş Ğ decide for `tr` at once (`signal: 'letters'`, score
+//      at least TR_LETTER_SCORE), and TR_SHORT – short Turkish stream words ("len", "yav", "hocam") –
+//      score 0.5 each (`signal: 'words'`). Any Turkish signal switches to `toLocaleLowerCase('tr')`
+//      (I -> ı, İ -> i) so "YAPIYORUM" / "İYİ" tokenize as Turkish.
 //
 //   LiveFXLangDetect.detect('yok artik abi')  -> { lang:'tr', score:0.9, scores:{de:0, tr:1.8, en:0.2} }
 //   LiveFXLangDetect.tag('de', ['de-AT'])     -> 'de-AT'   (default 'de-DE' | 'tr-TR' | 'en-US')
@@ -78,6 +82,17 @@
 
   const SETS = { de: new Set(STOPWORDS.de), tr: new Set(STOPWORDS.tr), en: new Set(STOPWORDS.en) };
 
+  // 2.2: short Turkish stream words that are not safe enough for a full point (address forms,
+  // fillers, phonetic ASR spellings). Half a point each; none of them is in STOPWORDS.
+  const TR_SHORT = Object.freeze([
+    'bi', 'abe', 'ha', 'hı', 'hıhı', 'len', 'ulan', 'olm', 'oğlum', 'oglum', 'yav', 'yaw', 'aga', 'ağa',
+    'reis', 'hocam', 'usta', 'moruk', 'birader', 'kardeş', 'kardes', 'kanki', 'knk', 'napıyon', 'napiyon', 'napıyorsun',
+    'noldu', 'nolur', 'naber', 'nabersin', 'ayy', 'ayyy', 'öf', 'uff', 'amanın', 'ayol',
+  ]);
+  const TR_SHORT_SET = new Set(TR_SHORT);
+  const TR_SHORT_WEIGHT = 0.5;
+  const TR_LETTER_SCORE = 0.75; // a Turkish letter decides at once: score at least this (ASR quick switch >= 0.6)
+
   // Character evidence: [regex (global), { family: weight }]. ö/ü exist in both German and Turkish.
   const CHARS = [
     [/[ışğ]/g, { tr: 1 }],
@@ -111,17 +126,28 @@
     return { de: 0, tr: 0, en: 0 };
   }
 
-  /** Lower-cases Turkish-aware when the text already shows Turkish diacritics (İ -> i, I -> ı). */
-  function lower(text) {
+  /** Lower-cases Turkish-aware (İ -> i, I -> ı) when the text shows a Turkish signal (letters or words). */
+  function lower(text, turkish) {
     try {
-      return TR_DIACRITICS.test(text) ? text.toLocaleLowerCase('tr') : text.toLocaleLowerCase('en');
+      return turkish || TR_DIACRITICS.test(text) ? text.toLocaleLowerCase('tr') : text.toLocaleLowerCase('en');
     } catch (_) {
       return text.toLowerCase();
     }
   }
 
-  function tokenize(text) {
-    return lower(text)
+  function hasTurkishWord(tokens) {
+    return tokens.some((t) => SETS.tr.has(t) || TR_SHORT_SET.has(t));
+  }
+
+  /** Tokens of `text`; Turkish lower-casing when the text carries a Turkish letter or word. */
+  function tokenize(text, turkish) {
+    const plain = split(lower(text, turkish));
+    if (turkish || TR_DIACRITICS.test(text) || !hasTurkishWord(plain)) return plain;
+    return split(lower(text, true));
+  }
+
+  function split(text) {
+    return text
       .replace(/[’´`]/g, "'")
       .replace(/[^\p{L}\p{N}']+/gu, ' ')
       .replace(/(^|\s)'+|'+(\s|$)/g, ' ')
@@ -136,11 +162,18 @@
     if (typeof text !== 'string') return empty;
     const raw = text.trim();
     if (!raw) return empty;
-    const tokens = tokenize(raw);
+    const letters = TR_DIACRITICS.test(raw);
+    const tokens = tokenize(raw, letters);
     if (!tokens.length) return empty;
+    const words = hasTurkishWord(tokens);
 
     let diacritics = 0;
-    const lo = lower(raw);
+    const lo = lower(raw, letters || words);
+    const dottedI = (raw.match(/İ/g) || []).length; // lower-cased to a plain i: count it here
+    if (dottedI) {
+      diacritics += dottedI;
+      scores.tr += dottedI;
+    }
     for (const [re, weights] of CHARS) {
       const n = (lo.match(re) || []).length;
       if (!n) continue;
@@ -156,6 +189,10 @@
           hit = true;
         }
       }
+      if (TR_SHORT_SET.has(tok)) {
+        scores.tr += TR_SHORT_WEIGHT;
+        hit = true;
+      }
       if (hit || tok.length < 4) continue;
       for (const [re, f, w] of HINTS) {
         if (!re.test(tok)) continue;
@@ -165,12 +202,19 @@
 
     const total = scores.de + scores.tr + scores.en;
     if (!(total > 0)) return empty;
+    if (letters) {
+      // ı ş ğ İ Ş Ğ exist in Turkish only (a German / English recognizer never writes them).
+      const share = Math.round((scores.tr / total) * 1000) / 1000;
+      return { lang: 'tr', score: Math.max(share, TR_LETTER_SCORE), scores, signal: 'letters' };
+    }
     let best = FAMILIES[0];
     for (const f of FAMILIES) if (scores[f] > scores[best]) best = f;
     const score = Math.round((scores[best] / total) * 1000) / 1000;
     if (score < MIN_SCORE) return { lang: null, score, scores };
     if (tokens.length < 2 && diacritics === 0) return { lang: null, score, scores };
-    return { lang: best, score, scores };
+    const out = { lang: best, score, scores };
+    if (best === 'tr' && words) out.signal = 'words';
+    return out;
   }
 
   /** 'de-DE' | 'de_AT' | 'de' -> 'de'; anything else -> null. */
@@ -191,5 +235,5 @@
     return DEFAULT_TAGS[fam];
   }
 
-  return { detect, tag, family, tokenize, STOPWORDS, FAMILIES, DEFAULT_TAGS, MIN_SCORE };
+  return { detect, tag, family, tokenize, STOPWORDS, TR_SHORT, TR_SHORT_WEIGHT, TR_LETTER_SCORE, FAMILIES, DEFAULT_TAGS, MIN_SCORE };
 });

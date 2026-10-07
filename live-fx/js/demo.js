@@ -1109,6 +1109,7 @@
     for (const b of document.querySelectorAll('#bar .fmt')) b.classList.toggle('active', b.id === `fmt-${f}`);
     if (persist) lsSet(FORMAT_KEY, f);
     layoutFrame();
+    if (typeof renderer.refreshLayout === 'function') renderer.refreshLayout(); // portrait band sits above the chat zone
   }
 
   /** Fits the frame (16:9 or 9:16) into the viewport, centred with black bars. */
@@ -1362,6 +1363,53 @@
     transcriptEl.innerHTML = `<span class="${isFinal ? 'final' : 'interim'}">${highlight(str, hits.map((h) => h.keyword))}</span>`;
     for (const h of hits) fire(h.trigger, `${String(m.source || 'Mikro')}: „${h.keyword}“`);
     if (isFinal) matcher.endUtterance();
+    feedStory(str, isFinal);
+  }
+
+  // ---------- 2.2 story band + live story ----------
+  // Layout (band | full | frame, zone) from ?story= / ?band= / ?zone= or the two selects; the live story
+  // (checkbox) feeds every transcript line into the director, whose state the DOM renderer draws in the band
+  // (the CanvasFX twin gets the scene for the recording) and is sent on the bus as `story` so OBS overlays follow.
+  const storyLayoutEl = $('#story-layout');
+  const zoneEl = $('#zone');
+  const liveStoryEl = $('#live-story');
+  const STORY_KEY = 'livefx.demo.story';
+  const director = global.LiveFXStoryDirector ? global.LiveFXStoryDirector.create({ lang: 'auto', caption: false }) : null;
+  let storyScene = null;
+  if (director) {
+    director.onChange((st) => {
+      renderer.story(st);
+      const scene = st.scene || null;
+      if (scene !== storyScene) {
+        storyScene = scene;
+        canvasFx.fire({ visual: { kind: 'scene', scene: scene || 'clear', intensity: 2 } });
+        if (scene) playLoop(st.loop || null);
+        else stopLoop();
+      }
+    });
+  }
+  function applyLayout(patch) {
+    const l = renderer.setLayout(patch || {});
+    if (storyLayoutEl) storyLayoutEl.value = l.storyLayout;
+    if (zoneEl) zoneEl.value = l.zone;
+    return l;
+  }
+  function feedStory(text, isFinal) {
+    if (!director || !liveStoryEl || !liveStoryEl.checked) return;
+    const line = String(text || '').trim();
+    if (!line) return;
+    const lang = String(langEl.value || '').slice(0, 2);
+    director.feed(line, { final: isFinal !== false, lang });
+    if (isFinal !== false) bus.send({ type: 'story', text: line.slice(0, S.LIMITS.storyText || 500), final: true, lang, source: 'Demo' });
+  }
+  if (storyLayoutEl) storyLayoutEl.addEventListener('change', () => applyLayout({ storyLayout: storyLayoutEl.value }));
+  if (zoneEl) zoneEl.addEventListener('change', () => applyLayout({ zone: zoneEl.value }));
+  if (liveStoryEl) {
+    liveStoryEl.checked = lsGet(STORY_KEY) === '1';
+    liveStoryEl.addEventListener('change', () => {
+      lsSet(STORY_KEY, liveStoryEl.checked ? '1' : '0');
+      if (!liveStoryEl.checked && director) director.reset();
+    });
   }
 
   // ---------- ASR ----------
@@ -1708,11 +1756,15 @@
   applyFormat(initialFormat, { persist: false });
   state.volume = clamp01(Number(volumeEl.value) || 0.8);
   renderer.volume = state.volume;
+  applyLayout({ storyLayout: params.get('story'), band: params.get('band'), zone: params.get('zone') });
 
   global.livefxDemo = {
     renderer,
     canvasFx,
     CanvasFX,
+    director,
+    setLayout: applyLayout,
+    feedStory,
     fire: (trigger) => fire(trigger, 'Demo'),
     render,
     handleText,

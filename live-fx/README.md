@@ -22,12 +22,18 @@ node server.js            # → http://127.0.0.1:8787
 ```
 
 1. **Control Panel** öffnen: <http://127.0.0.1:8787/> (Chrome oder Edge – die haben die Spracherkennung).
-2. **„Mikro starten“** klicken, Zugriff erlauben, etwas sagen: *„das ist ja krass“*.
-3. **OBS / Streamlabs**: Quelle hinzufügen → *Browser* → URL `http://127.0.0.1:8787/overlay.html`
-   – Größe = dein Canvas (1920×1080 quer). **Hochkant für TikTok/Instagram:**
-   `http://127.0.0.1:8787/overlay.html?layout=portrait` mit 1080×1920.
-   Häkchen bei *„Audio über OBS steuern“*, damit die Sounds im Stream landen.
-4. Streamen wie gewohnt. Zusätzlich: Hotkeys **1–9, 0, Q, W, E, R, T** als Soundboard.
+   Oben steht der **🚀 Start-Assistent** mit drei Schritten (2.2):
+2. **Mikro testen** – Knopf drücken, 5 s sprechen, Haken erscheint.
+3. **OBS verbinden** – Format wählen (16:9 oder 9:16), **„Kopieren“**, in OBS **Quellen → + → Browser** die URL
+   einfügen, Breite/Höhe wie angezeigt (1920 × 1080 bzw. 1080 × 1920), *„Audio über OBS steuern“* anhaken,
+   Quelle über die Kamera schieben. Sobald OBS das Overlay lädt, zeigt der Assistent **„Overlay verbunden ✔“**;
+   **„Test-Effekt“** schickt eine Karte mit Sound in den Stream.
+4. **Pakete wählen** – Türkçe / Deutsch / English / Reaktionen / Story … antippen; der Zähler zeigt
+   `x / 200 Trigger`, Stichwörter, die in zwei Paketen vorkommen, werden gemeldet.
+
+Dann **„Mikro starten“** und etwas sagen: *„das ist ja krass“*. Hotkeys **1–9, 0, Q, W, E, R, T** feuern
+die ersten 15 Trigger von Hand. Weitere Karten (API, Kombis, Demo-Clip, Log) erscheinen über
+**„⚙️ Erweitert anzeigen“**. Ausführlich, auch auf Türkisch und Englisch: [docs/OBS-ANLEITUNG.md](docs/OBS-ANLEITUNG.md).
 
 Ohne Mikro testen: im Panel Text eintippen → „Senden“. Ohne Server testen: `index.html` direkt im
 Browser öffnen (Vorschau läuft dann über BroadcastChannel; Uploads/Speichern brauchen den Server).
@@ -244,14 +250,22 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 
 ## Handy & HTTPS
 
-Das Handy wird zur **Fernbedienung und zum zweiten Mikro**: Panel-Karte **📱 Handy** öffnen, den Link
-`http://<LAN-IP>:<port>/m?token=…` am Handy eintippen (oder per Messenger schicken) – der Link setzt das
-Sitzungs-Cookie und leitet auf `/mobile.html` weiter: alle Trigger als große Kacheln, Szenen-Leiste,
-Pause, Lautstärke, Live-Transkript, als Web-App auf den Homescreen legbar. Dafür muss der Server im
-LAN erreichbar sein: `HOST=0.0.0.0 node server.js`. Anleitung: [docs/HANDY.md](docs/HANDY.md).
+Das Handy wird zur **Fernbedienung und zum zweiten Mikro**: Panel-Karte **📱 Handy** öffnen, **QR-Code
+scannen** (2.2) oder den Link `http://<LAN-IP>:<port>/m?token=…` schicken – der Link setzt das
+Sitzungs-Cookie und leitet auf `/mobile.html` weiter: alle Trigger als große Kacheln, ⭐ Favoriten
+(lange drücken), Szenen-Leiste, Pause, Leiser/Lauter (±6 dB), Story-Band an/aus, Effekt-Zone, Pakete
+laden, Live-Transkript, als Web-App auf den Homescreen legbar. Dafür muss der Server im LAN erreichbar
+sein: `HOST=0.0.0.0 node server.js`. Anleitung: [docs/HANDY.md](docs/HANDY.md).
 
-Soll das **Handy selbst zuhören**, braucht der Browser eine HTTPS-Verbindung (Mikro nur im „sicheren
-Kontext“). LiveFX spricht HTTPS mit einem selbst erstellten Zertifikat:
+**Internet-Link (2.2):** Knopf **🌐 Internet-Link starten** in derselben Karte startet einen kostenlosen
+Cloudflare-Schnelltunnel (`cloudflared`, wird beim ersten Mal mit Prüfsumme heruntergeladen oder von `PATH` /
+`LIVEFX_CLOUDFLARED` genommen) und zeigt `https://<zufall>.trycloudflare.com/m?token=…` als QR-Code – das
+Handy kommt aus jedem Netz rein, und weil es HTTPS ist, geht das **Handy-Mikro ohne Zertifikat**. Durch den
+Tunnel wird nichts ohne Token/Cookie ausgeliefert. Kein Internet am PC? Handy-Hotspot einschalten, PC damit
+verbinden, WLAN-Link nutzen. Details und Download von Hand: [docs/HANDY.md](docs/HANDY.md) §4a.
+
+Soll das **Handy selbst zuhören** ohne Tunnel, braucht der Browser eine HTTPS-Verbindung (Mikro nur im
+„sicheren Kontext“). LiveFX spricht HTTPS auch mit einem selbst erstellten Zertifikat:
 
 ```bash
 openssl req -x509 -newkey rsa:2048 -nodes -days 365 -subj "/CN=livefx" \
@@ -290,6 +304,7 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
 | `LIVEFX_ALLOWED_HOSTS` | – | Zusätzliche Hostnamen, unter denen das Panel geöffnet werden darf (z. B. `livefx.local`) |
 | `LIVEFX_TLS_CERT` | – | Pfad zum Zertifikat (PEM) → Server läuft per HTTPS; nur zusammen mit `LIVEFX_TLS_KEY` |
 | `LIVEFX_TLS_KEY` | – | Pfad zum privaten Schlüssel (PEM); siehe [docs/HANDY-HTTPS.md](docs/HANDY-HTTPS.md) |
+| `LIVEFX_CLOUDFLARED` | (PATH / `data/bin`) | Pfad zu `cloudflared` für den Internet-Link (sonst PATH, sonst einmaliger Download nach `<LIVEFX_DATA_DIR>/bin/`) |
 | `LIVEFX_MODEL` | `claude-opus-5-5` | Modell für den Smart-Modus |
 | `LIVEFX_SMART` | `1` | `0` = Smart-Modus aus |
 | `LIVEFX_SMART_MOCK` | `0` | `1` = Test-Klassifikator ohne API-Key |
@@ -325,7 +340,7 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
 ## Tests
 
 ```bash
-npm run test:unit    # node --test "test/*.test.js" – Schema, Matcher, Server, APIs, Smart (Mock)
+npm run test:unit    # node --test "test/*.test.js" – Schema, Matcher, Server, APIs, Tunnel (Fake-cloudflared), QR (eigener Decoder), Smart (Mock)
 npm run test:e2e     # Playwright/Chromium: Panel + Overlay end-to-end (test/e2e/*.js)
 npm test             # beides
 ```

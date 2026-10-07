@@ -223,7 +223,7 @@ test('webspeech: alternatives', async (t) => {
     assert.equal(rec1.count('abort'), 1);
     assert.equal(rec2.maxAlternatives, 3);
     assert.equal(rec2.count('start'), 1);
-    assert.deepEqual(asr.options, { alternatives: true, restartEveryMs: 0, stallMs: 20000 });
+    assert.deepEqual(asr.options, { alternatives: true, restartEveryMs: 0, stallMs: 20000, onDevice: 'auto' });
     // the old generation is dead: its events are ignored
     rec1.emit('result', resultEvent([{ final: true, text: 'alt' }]));
     rec1.emit('end');

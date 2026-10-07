@@ -332,7 +332,9 @@ test('review: server routes', async (t) => {
     t.after(() => again.close());
     const st = await again.next('state');
     assert.equal(st.theme, 'pastel');
-    assert.deepEqual(Object.keys(st).sort(), ['id', 'overlays', 'panels', 'perf', 'theme', 'ts', 'type', 'version', 'volume'], 'state carries no panel-only fields');
+    assert.deepEqual(Object.keys(st).sort(), ['id', 'layout', 'overlays', 'panels', 'perf', 'theme', 'ts', 'type', 'version', 'volume', 'volumes'], 'state carries no panel-only fields (2.2: layout + volumes)');
+    assert.equal(st.layout, null, 'no layout message yet');
+    assert.equal(st.volumes, null, 'no volume message yet');
   });
 
   await t.test('2.1 /fire type perf is validated, relayed and remembered in the state message', async () => {
@@ -425,7 +427,7 @@ test('review: sw.js shell lists every browser file on disk, caches nothing live'
   // The overlay shell is exactly what overlay.html loads (+ the page itself and the icons), nothing of the panel.
   const overlayHtml = fs.readFileSync(path.join(ROOT, 'overlay.html'), 'utf8');
   const loaded = [...overlayHtml.matchAll(/(?:src|href)="((?:js|css)\/[^"]+)"/g)].map((m) => `/${m[1]}`);
-  assert.deepEqual(loaded.sort(), ['/css/overlay.css', '/js/bus.js', '/js/fx.js', '/js/schema.js', '/js/sounds.js']);
+  for (const p of ['/css/overlay.css', '/js/bus.js', '/js/fx.js', '/js/schema.js', '/js/sounds.js']) assert.ok(loaded.includes(p), `${p} loaded by overlay.html`);
   const icons = fs.readdirSync(path.join(ROOT, 'icons')).map((f) => `/icons/${f}`);
   assert.deepEqual(overlayShell.slice().sort(), ['/overlay.html', ...loaded, ...icons].sort(), 'OVERLAY_SHELL = overlay page + its css/js + icons');
   for (const p of overlayShell) assert.ok(shell.includes(p), `${p} is in the full shell too`);
@@ -447,7 +449,8 @@ test('review: sw.js shell lists every browser file on disk, caches nothing live'
   const re = new RegExp(netOnly.slice(1, -1));
   for (const p of ['/api/chat', '/api/gift', '/fire', '/events', '/assets/x.mp3', '/health', '/m', '/models/x', '/docs/VIEWER.md']) assert.ok(re.test(p), `${p} must be network-only`);
   assert.ok(!shell.some((p) => p.startsWith('/api/')));
-  assert.match(src, /SHELL_VERSION = '2\.1\.0'/);
-  assert.equal(require(path.join(ROOT, 'package.json')).version, '2.1.0', 'package.json and SHELL_VERSION move together');
+  assert.match(src, /SHELL_VERSION = '2\.2\.0'/);
+  assert.equal(require(path.join(ROOT, 'package.json')).version, '2.2.0', 'package.json and SHELL_VERSION move together');
+  for (const p of ['/js/qr.js', '/js/packs-store.js', '/js/story-director.js', '/js/phonetic.js']) assert.ok(shell.includes(p), `${p} (2.2) is in the full shell`);
   assert.ok(shell.includes('/memes/index.json'), 'sticker index is in the full shell');
 });

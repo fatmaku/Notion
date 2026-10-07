@@ -3,6 +3,10 @@
 // v3 (LiveFX 2.0) adds the visual kinds `text`, `lower-third` and `combo`, the per-visual flags
 // `glow` / `tilt` / `impact` + `intensity`, the trigger-level `gain`, overlay `THEMES` and the
 // `theme` bus envelope. Every v2 trigger normalizes exactly as before (no new keys appear unless set).
+// 2.2 (story band): overlay layout `storyLayout` band | full | frame with a `band` height (15..35 %), effect
+// `zone` full | edges | bottom | top (`layout` envelope, `normalizeLayout`), the live-story envelopes `story`
+// (transcript line) / `story-state` (scene state, `normalizeStoryState`) and a `bus` on `volume` messages
+// (master | sfx | ambient, `VOLUME_BUSES`, defaults in `VOLUME_DEFAULTS`).
 (function (global) {
   'use strict';
 
@@ -21,7 +25,7 @@
   const TEXT_STYLES = ['neon', 'gradient', 'bounce', 'glitch', 'sticker'];
   const THEMES = ['neon', 'pastel', 'minimal', 'kinderbuch'];
   const LIMITS = {
-    triggers: 200,
+    triggers: 1000,
     keywords: 50,
     keywordLen: 60,
     label: 40,
@@ -41,6 +45,11 @@
     comboDelay: 10000,
     title: 60,
     subtitle: 80,
+    // 2.2
+    bandMin: 15,
+    bandMax: 35,
+    storyText: 500,
+    storyWord: 24,
   };
   const ID_RE = /^[a-z0-9][a-z0-9_-]{0,39}$/i;
   const SAFE_NAME = /^[a-z0-9][a-z0-9._-]{0,99}$/i;
@@ -61,6 +70,19 @@
   const HTTP_SRC_RE = HOTLINK_SRC_RE;
   // Performance modes of the overlay renderer (docs/PERFORMANCE.md), bus envelope `{type:'perf', perf}`.
   const PERF_MODES = ['auto', 'eco', 'high'];
+  // 2.2 story band: where scenes render (`band` = bottom strip, `frame` = picture-in-picture box bottom-right,
+  // `full` = whole frame) and where transient effects may go (`edges` = left/right columns, `bottom` = inside
+  // the band, `top` = top strip, `full` = anywhere). Bus envelope `{type:'layout', storyLayout?, band?, zone?}`.
+  const STORY_LAYOUTS = ['band', 'full', 'frame'];
+  const ZONES = ['full', 'edges', 'bottom', 'top'];
+  const LAYOUT_DEFAULTS = Object.freeze({ storyLayout: 'band', band: 22, zone: 'edges' });
+  // 2.2 volume busses: `{type:'volume', volume, bus?}` – bus omitted = master (backwards compatible).
+  const VOLUME_BUSES = ['master', 'sfx', 'ambient'];
+  const VOLUME_DEFAULTS = Object.freeze({ master: 0.5, sfx: 0.8, ambient: 0.5 });
+  // Live story (js/story-director.js): a scene state the overlay can render directly (`story-state` envelope).
+  const STORY_MOODS = ['calm', 'happy', 'tense', 'sad', 'scary'];
+  const STORY_ACTORS_MAX = 6;
+  const STORY_PROPS_MAX = 5;
   const COLOR_RE = /^(#[0-9a-f]{3,8}|rgba?\([\d\s.,%]+\))$/i;
   const BUILTIN_SOUND_RE = /^[a-z][a-zA-Z0-9]{0,30}$/;
   const MSG_ID_RE = /^[\w.-]{1,64}$/;
@@ -353,10 +375,76 @@
     return (defaults || []).map((d) => d.id).filter((id) => !ids.has(id));
   }
 
-  /** Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`, 2.1 `perf`. */
+  /** Band height in percent of the frame height, clamped to LIMITS.bandMin..bandMax; `undefined` when not numeric. */
+  function normalizeBand(v) {
+    if (!isSet(v)) return undefined;
+    const n = Number(v);
+    if (!Number.isFinite(n)) return undefined;
+    return Math.round(Math.min(LIMITS.bandMax, Math.max(LIMITS.bandMin, n)));
+  }
+
+  /**
+   * 2.2: overlay layout `{storyLayout, band, zone}`. Keys that are missing or invalid in `raw` come from
+   * `base` (default LAYOUT_DEFAULTS), so a partial message merges onto the current layout. Never throws.
+   */
+  function normalizeLayout(raw, base = LAYOUT_DEFAULTS) {
+    const r = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+    const b = base && typeof base === 'object' ? base : LAYOUT_DEFAULTS;
+    const band = normalizeBand(r.band);
+    return {
+      storyLayout: STORY_LAYOUTS.includes(r.storyLayout) ? r.storyLayout : STORY_LAYOUTS.includes(b.storyLayout) ? b.storyLayout : LAYOUT_DEFAULTS.storyLayout,
+      band: band !== undefined ? band : normalizeBand(b.band) !== undefined ? normalizeBand(b.band) : LAYOUT_DEFAULTS.band,
+      zone: ZONES.includes(r.zone) ? r.zone : ZONES.includes(b.zone) ? b.zone : LAYOUT_DEFAULTS.zone,
+    };
+  }
+
+  /**
+   * 2.2: live-story scene state `{scene, loop?, weather, time, place, landmark?, actors:[{emoji, role, action?}],
+   * props:[{emoji, role}], mood, caption?, end?, shake?}` as produced by js/story-director.js. `scene` must be one of
+   * SCENES (or null = no scene), actors are capped at 6 / props at 5, strings are trimmed and cut, unknown moods become
+   * `calm`. Returns null for a non-object.
+   */
+  function normalizeStoryState(raw) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+    const word = (v) => str(v, LIMITS.storyWord).replace(/[^\p{L}\p{N}_-]+/gu, '');
+    const out = {
+      scene: SCENES.includes(raw.scene) && raw.scene !== 'clear' ? raw.scene : null,
+      weather: word(raw.weather) || 'clear',
+      time: word(raw.time) || 'day',
+      place: word(raw.place) || null,
+      mood: STORY_MOODS.includes(raw.mood) ? raw.mood : 'calm',
+      actors: [],
+    };
+    const sprites = (list, max, withAction) => {
+      const res = [];
+      for (const a of Array.isArray(list) ? list : []) {
+        if (!a || typeof a !== 'object') continue;
+        const emoji = str(a.emoji, LIMITS.emoji);
+        if (!emoji) continue;
+        const item = { emoji, role: word(a.role) || 'actor' };
+        if (withAction && a.action && word(a.action)) item.action = word(a.action);
+        res.push(item);
+        if (res.length >= max) break;
+      }
+      return res;
+    };
+    out.actors = sprites(raw.actors, STORY_ACTORS_MAX, true);
+    out.props = sprites(raw.props, STORY_PROPS_MAX, false);
+    const landmark = word(raw.landmark);
+    if (landmark) out.landmark = landmark;
+    if (typeof raw.loop === 'string' && BUILTIN_SOUND_RE.test(raw.loop)) out.loop = raw.loop;
+    const caption = str(raw.caption, LIMITS.text);
+    if (caption) out.caption = caption;
+    if (raw.end === true) out.end = true;
+    if (raw.shake === true) out.shake = true;
+    return out;
+  }
+
+  /** Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`, 2.1 `perf`, 2.2 `layout`, `story`, `story-state`. */
   function validateEnvelope(msg) {
     if (!msg || typeof msg !== 'object' || Array.isArray(msg)) return { ok: false, error: 'envelope is not an object' };
-    if (!['fire', 'volume', 'theme', 'perf'].includes(msg.type)) return { ok: false, error: 'type must be "fire", "volume", "theme" or "perf"' };
+    const TYPES = ['fire', 'volume', 'theme', 'perf', 'layout', 'story', 'story-state'];
+    if (!TYPES.includes(msg.type)) return { ok: false, error: `type must be one of ${TYPES.map((t) => `"${t}"`).join(', ')}` };
     const out = {
       id: typeof msg.id === 'string' && MSG_ID_RE.test(msg.id) ? msg.id : newId('m'),
       type: msg.type,
@@ -373,10 +461,48 @@
     } else if (msg.type === 'perf') {
       if (!PERF_MODES.includes(msg.perf)) return { ok: false, error: `perf must be one of ${PERF_MODES.join(', ')}` };
       out.perf = msg.perf;
+    } else if (msg.type === 'layout') {
+      // Partial: only the keys given (and valid) travel; the receiver merges them onto its current layout.
+      let any = false;
+      if (isSet(msg.storyLayout)) {
+        if (!STORY_LAYOUTS.includes(msg.storyLayout)) return { ok: false, error: `storyLayout must be one of ${STORY_LAYOUTS.join(', ')}` };
+        out.storyLayout = msg.storyLayout;
+        any = true;
+      }
+      if (isSet(msg.band)) {
+        const band = normalizeBand(msg.band);
+        if (band === undefined) return { ok: false, error: 'band must be a number (percent)' };
+        out.band = band;
+        any = true;
+      }
+      if (isSet(msg.zone)) {
+        if (!ZONES.includes(msg.zone)) return { ok: false, error: `zone must be one of ${ZONES.join(', ')}` };
+        out.zone = msg.zone;
+        any = true;
+      }
+      if (!any) return { ok: false, error: 'layout needs storyLayout, band or zone' };
+    } else if (msg.type === 'story') {
+      const text = str(msg.text, LIMITS.storyText);
+      if (!text) return { ok: false, error: 'story needs text' };
+      out.text = text;
+      out.final = msg.final !== false;
+      const lang = typeof msg.lang === 'string' ? msg.lang.trim().toLowerCase().slice(0, 2) : '';
+      if (['de', 'tr', 'en'].includes(lang)) out.lang = lang;
+      const source = str(msg.source, LIMITS.sourceLen);
+      if (source) out.source = source;
+    } else if (msg.type === 'story-state') {
+      const state = normalizeStoryState(msg.state);
+      if (!state) return { ok: false, error: 'story-state needs a state object' };
+      out.state = state;
     } else {
       const v = Number(msg.volume);
       if (!Number.isFinite(v)) return { ok: false, error: 'volume must be a number' };
       out.volume = Math.min(1, Math.max(0, v));
+      // 2.2: optional bus; omitted = master (older senders / receivers keep working).
+      if (isSet(msg.bus)) {
+        if (!VOLUME_BUSES.includes(msg.bus)) return { ok: false, error: `bus must be one of ${VOLUME_BUSES.join(', ')}` };
+        if (msg.bus !== 'master') out.bus = msg.bus;
+      }
     }
     return { ok: true, msg: out };
   }
@@ -406,7 +532,16 @@
     HTTP_SRC_RE,
     HOTLINK_SRC_RE,
     PERF_MODES,
+    STORY_LAYOUTS,
+    ZONES,
+    LAYOUT_DEFAULTS,
+    VOLUME_BUSES,
+    VOLUME_DEFAULTS,
+    STORY_MOODS,
     COLOR_RE,
+    normalizeLayout,
+    normalizeBand,
+    normalizeStoryState,
     isSafeName,
     isImageSrc,
     newId,

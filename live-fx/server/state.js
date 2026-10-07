@@ -125,6 +125,11 @@ function createState({ dataDir, defaults = [], log = () => {} }) {
     volume: null,
     theme: null,
     perf: null, // 2.1: last performance mode from the panel (auto | eco | high), repeated in the SSE `state` message
+    // 2.2: last overlay layout `{storyLayout?, band?, zone?}` (only the keys that `layout` messages set) and the
+    // last levels per bus `{master?, sfx?, ambient?}` (`volume` messages; no bus = master, mirrored in `volume`).
+    // Both null until the first message; repeated in the SSE `state` message so a late overlay catches up.
+    layout: null,
+    volumes: null,
     seq: 0,
     updatedAt: null,
     matcher: null,

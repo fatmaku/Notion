@@ -300,7 +300,7 @@ test('exported constants', () => {
   assert.deepEqual(S.THEMES, ['neon', 'pastel', 'minimal', 'kinderbuch']);
   assert.equal(S.LIMITS.comboSteps, 6);
   assert.deepEqual(S.POSITIONS, ['center', 'top', 'safe']);
-  assert.equal(S.LIMITS.triggers, 200);
+  assert.equal(S.LIMITS.triggers, 1000); // 2.2 (was 200)
   assert.equal(S.LIMITS.assetBytes, 8 * 1024 * 1024);
   assert.ok(S.ID_RE.test('a-b_c'));
   assert.ok(!S.ID_RE.test('-abc'));
@@ -648,4 +648,134 @@ test('2.1 perf envelope: auto | eco | high accepted, everything else rejected', 
   }
   assert.deepEqual(S.PERF_MODES, ['auto', 'eco', 'high']);
   assert.match(S.validateEnvelope({ type: 'nope' }).error, /perf/);
+});
+
+// ---- LiveFX 2.2: story band layout, live story envelopes, volume busses ----
+
+test('2.2 constants: layouts, zones, defaults, volume busses, LIMITS.triggers = 1000', () => {
+  assert.deepEqual(S.STORY_LAYOUTS, ['band', 'full', 'frame']);
+  assert.deepEqual(S.ZONES, ['full', 'edges', 'bottom', 'top']);
+  assert.deepEqual(S.LAYOUT_DEFAULTS, { storyLayout: 'band', band: 22, zone: 'edges' });
+  assert.deepEqual(S.VOLUME_BUSES, ['master', 'sfx', 'ambient']);
+  assert.deepEqual(S.VOLUME_DEFAULTS, { master: 0.5, sfx: 0.8, ambient: 0.5 });
+  assert.deepEqual(S.STORY_MOODS, ['calm', 'happy', 'tense', 'sad', 'scary']);
+  assert.equal(S.LIMITS.bandMin, 15);
+  assert.equal(S.LIMITS.bandMax, 35);
+  assert.equal(S.LIMITS.triggers, 1000);
+  assert.ok(Object.isFrozen(S.LAYOUT_DEFAULTS) && Object.isFrozen(S.VOLUME_DEFAULTS));
+});
+
+test('normalizeTriggers: accepts up to 1000 triggers', () => {
+  const r = S.normalizeTriggers(Array.from({ length: 1000 }, (_, i) => ({ id: `t${i}` })));
+  assert.equal(r.triggers.length, 1000);
+  assert.deepEqual(r.warnings, []);
+});
+
+test('normalizeBand clamps 15..35, rounds, undefined for garbage', () => {
+  assert.equal(S.normalizeBand(22), 22);
+  assert.equal(S.normalizeBand('30.4'), 30);
+  assert.equal(S.normalizeBand(5), 15);
+  assert.equal(S.normalizeBand(99), 35);
+  assert.equal(S.normalizeBand('x'), undefined);
+  assert.equal(S.normalizeBand(null), undefined);
+  assert.equal(S.normalizeBand(undefined), undefined);
+});
+
+test('normalizeLayout: defaults, partial merge onto a base, garbage keeps the base', () => {
+  assert.deepEqual(S.normalizeLayout(), { storyLayout: 'band', band: 22, zone: 'edges' });
+  assert.deepEqual(S.normalizeLayout(null), { storyLayout: 'band', band: 22, zone: 'edges' });
+  assert.deepEqual(S.normalizeLayout({ storyLayout: 'frame' }), { storyLayout: 'frame', band: 22, zone: 'edges' });
+  const base = { storyLayout: 'full', band: 30, zone: 'top' };
+  assert.deepEqual(S.normalizeLayout({ band: 18 }, base), { storyLayout: 'full', band: 18, zone: 'top' });
+  assert.deepEqual(S.normalizeLayout({ storyLayout: 'wide', band: 'x', zone: 'left' }, base), base);
+  assert.deepEqual(S.normalizeLayout({ band: 99 }, base), { storyLayout: 'full', band: 35, zone: 'top' });
+  assert.deepEqual(S.normalizeLayout({}, { storyLayout: 'nope', band: 'x', zone: 7 }), { storyLayout: 'band', band: 22, zone: 'edges' });
+  assert.deepEqual(S.normalizeLayout([1, 2]), { storyLayout: 'band', band: 22, zone: 'edges' });
+});
+
+test('validateEnvelope: layout is partial, validated per key, needs at least one key', () => {
+  const r = S.validateEnvelope({ type: 'layout', zone: 'bottom', extra: 1 });
+  assert.equal(r.ok, true);
+  assert.deepEqual({ zone: r.msg.zone, band: r.msg.band, storyLayout: r.msg.storyLayout, extra: r.msg.extra }, { zone: 'bottom', band: undefined, storyLayout: undefined, extra: undefined });
+  const all = S.validateEnvelope({ type: 'layout', storyLayout: 'frame', band: '27.6', zone: 'full' }).msg;
+  assert.deepEqual({ storyLayout: all.storyLayout, band: all.band, zone: all.zone }, { storyLayout: 'frame', band: 28, zone: 'full' });
+  assert.equal(S.validateEnvelope({ type: 'layout', band: 99 }).msg.band, 35);
+  assert.equal(S.validateEnvelope({ type: 'layout', band: 1 }).msg.band, 15);
+  assert.equal(S.validateEnvelope({ type: 'layout' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'layout', storyLayout: 'wide' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'layout', zone: 'left' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'layout', band: 'x' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'layout', band: null, zone: 'top' }).ok, true, 'null = not set');
+});
+
+test('validateEnvelope: volume bus (omitted = master, master stripped, sfx / ambient kept, unknown rejected)', () => {
+  const plain = S.validateEnvelope({ type: 'volume', volume: 0.4 }).msg;
+  assert.equal(plain.volume, 0.4);
+  assert.equal(plain.bus, undefined);
+  assert.equal(S.validateEnvelope({ type: 'volume', volume: 0.4, bus: 'master' }).msg.bus, undefined, 'master travels without a bus key');
+  assert.equal(S.validateEnvelope({ type: 'volume', volume: 2, bus: 'ambient' }).msg.bus, 'ambient');
+  assert.equal(S.validateEnvelope({ type: 'volume', volume: 2, bus: 'ambient' }).msg.volume, 1);
+  assert.equal(S.validateEnvelope({ type: 'volume', volume: 0.3, bus: 'sfx' }).msg.bus, 'sfx');
+  assert.equal(S.validateEnvelope({ type: 'volume', volume: 0.3, bus: 'kitchen' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'volume', volume: 0.3, bus: ['sfx'] }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'volume', volume: 0.3, bus: null }).ok, true, 'null bus = master');
+});
+
+test('validateEnvelope: story (text, final default true, lang de|tr|en, source)', () => {
+  const r = S.validateEnvelope({ type: 'story', text: '  Es regnete  ', lang: 'DE', source: 'Panel', junk: 1 });
+  assert.equal(r.ok, true);
+  assert.deepEqual({ text: r.msg.text, final: r.msg.final, lang: r.msg.lang, source: r.msg.source, junk: r.msg.junk }, { text: 'Es regnete', final: true, lang: 'de', source: 'Panel', junk: undefined });
+  assert.equal(S.validateEnvelope({ type: 'story', text: 'x', final: false }).msg.final, false);
+  assert.equal(S.validateEnvelope({ type: 'story', text: 'x', final: 'no' }).msg.final, true, 'only false means interim');
+  assert.equal(S.validateEnvelope({ type: 'story', text: 'x', lang: 'fr' }).msg.lang, undefined);
+  assert.equal(S.validateEnvelope({ type: 'story', text: 'x'.repeat(600) }).msg.text.length, S.LIMITS.storyText);
+  assert.equal(S.validateEnvelope({ type: 'story' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'story', text: '   ' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'story', text: 42 }).ok, false);
+});
+
+test('normalizeStoryState: defaults, caps, scene whitelist, trimmed words', () => {
+  assert.equal(S.normalizeStoryState(null), null);
+  assert.equal(S.normalizeStoryState('rain'), null);
+  assert.equal(S.normalizeStoryState([]), null);
+  assert.deepEqual(S.normalizeStoryState({}), { scene: null, weather: 'clear', time: 'day', place: null, mood: 'calm', actors: [], props: [] });
+  const st = S.normalizeStoryState({
+    scene: 'rain',
+    loop: 'rain',
+    weather: 'rain',
+    time: 'night',
+    place: 'forest',
+    landmark: 'castle',
+    mood: 'tense',
+    caption: '<b>x</b>',
+    end: false,
+    shake: true,
+    actors: Array.from({ length: 9 }, (_, i) => ({ emoji: '🐉', role: `d${i}`, action: 'fly', junk: 1 })).concat([{ emoji: '' }, null, 'x']),
+    props: Array.from({ length: 7 }, (_, i) => ({ emoji: '🏰', role: `c${i}` })),
+    junk: true,
+  });
+  assert.equal(st.scene, 'rain');
+  assert.equal(st.loop, 'rain');
+  assert.deepEqual({ weather: st.weather, time: st.time, place: st.place, landmark: st.landmark, mood: st.mood, caption: st.caption, shake: st.shake, end: st.end, junk: st.junk }, { weather: 'rain', time: 'night', place: 'forest', landmark: 'castle', mood: 'tense', caption: '<b>x</b>', shake: true, end: undefined, junk: undefined });
+  assert.equal(st.actors.length, 6, 'actors capped at 6');
+  assert.deepEqual(st.actors[0], { emoji: '🐉', role: 'd0', action: 'fly' });
+  assert.equal(st.props.length, 5, 'props capped at 5');
+  assert.deepEqual(st.props[0], { emoji: '🏰', role: 'c0' });
+  assert.equal(S.normalizeStoryState({ scene: 'clear' }).scene, null);
+  assert.equal(S.normalizeStoryState({ scene: 'volcano' }).scene, null);
+  assert.equal(S.normalizeStoryState({ mood: 'angry' }).mood, 'calm');
+  assert.equal(S.normalizeStoryState({ loop: '../x' }).loop, undefined);
+  assert.equal(S.normalizeStoryState({ weather: 'rain <b>' }).weather, 'rainb');
+  assert.equal(S.normalizeStoryState({ end: true }).end, true);
+  assert.deepEqual(S.normalizeStoryState({ actors: [{ emoji: '🦊' }] }).actors, [{ emoji: '🦊', role: 'actor' }]);
+});
+
+test('validateEnvelope: story-state needs a state object and normalizes it', () => {
+  const r = S.validateEnvelope({ type: 'story-state', state: { scene: 'night', actors: [{ emoji: '👻', role: 'ghost' }] } });
+  assert.equal(r.ok, true);
+  assert.deepEqual(r.msg.state, { scene: 'night', weather: 'clear', time: 'day', place: null, mood: 'calm', actors: [{ emoji: '👻', role: 'ghost' }], props: [] });
+  assert.equal(S.validateEnvelope({ type: 'story-state' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'story-state', state: 'night' }).ok, false);
+  assert.equal(S.validateEnvelope({ type: 'story-state', state: [] }).ok, false);
+  assert.match(S.validateEnvelope({ type: 'nope' }).error, /layout.*story.*story-state/);
 });

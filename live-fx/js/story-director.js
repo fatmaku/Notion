@@ -1,0 +1,493 @@
+// LiveFX 2.2 – live story director (global `LiveFXStoryDirector`, UMD: browser + Node).
+//
+// Turns what the streamer says into a scene state, sentence by sentence, with plain word lists (DE / TR / EN,
+// taken from business/prototypes/live-story.html) – no model, no cloud, a few microseconds per line:
+//
+//   const d = LiveFXStoryDirector.create({ lang: 'auto' });
+//   d.onChange((state) => renderer.story(state));
+//   d.feed('Es regnete in der Nacht im Wald, der Drache flog über das Schloss', { final: true });
+//   d.state -> { scene: 'rain', weather: 'rain', time: 'night', place: 'forest', landmark: 'castle', mood: 'calm',
+//                actors: [{ emoji: '🐉', role: 'dragon', action: 'fly' }], props: [{ emoji: '🏰', role: 'castle' }], … }
+//
+// Word roles: place (forest, sea, city, castle, desert, mountains, village, meadow, space, cave), time (night,
+// morning, day, evening), weather (clear, rain, snow, storm, wind, fog), figure (22 sprites), object (16 props),
+// action (come, go, run, fly, jump, swim, sleep, dance, cry, laugh, vanish), mood (happy, tense, sad, scary, calm),
+// plus `stop` ("hörte auf" -> weather clear), `end` ("Ende" -> fade out) and `open` ("es war einmal" -> new scene).
+// Interim lines (`final: false`) only move the fast roles (place / time / weather / mood); figures, objects and
+// actions wait for the final line so half-recognised words do not spawn sprites.
+//
+// The state maps onto the 13 overlay scenes (`scene`): weather wins (rain / storm / snow), then a place with a
+// scene of its own (forest, sea, city, castle, desert, space; cave -> night, mountains -> snow), a campfire object
+// (-> fire), then the time of day (night -> night, morning / evening -> sunrise). A plain daytime meadow with
+// nobody on it has no scene (`null`) – the band stays empty until the story gives it something to draw.
+(function (global, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  global.LiveFXStoryDirector = api;
+})(typeof window !== 'undefined' ? window : globalThis, function () {
+  'use strict';
+
+  const LANGS = ['de', 'tr', 'en'];
+  const LI = { de: 0, tr: 1, en: 2 };
+  const ACTORS_MAX = 6;
+  const PROPS_MAX = 4;
+
+  const SPRITE = {
+    girl: '👧', boy: '👦', grandma: '👵', grandpa: '👴', king: '🤴', princess: '👸', knight: '🤺', witch: '🧙‍♀️', dragon: '🐉',
+    cat: '🐈', dog: '🐕', horse: '🐎', bird: '🐦', fish: '🐟', bear: '🐻', fox: '🦊', rabbit: '🐇', owl: '🦉', robot: '🤖',
+    unicorn: '🦄', ghost: '👻', astronaut: '🧑‍🚀',
+    tree: '🌳', house: '🏠', treasure: '💰', ship: '⛵', car: '🚗', flower: '🌸', fire: '🔥', star: '⭐', ball: '⚽', book: '📖',
+    bridge: '🌉', tent: '⛺', lantern: '🏮', cake: '🎂', key: '🔑', heart: '❤️',
+  };
+
+  // Lexicon: role -> id -> [de, tr, en] alternatives separated by "|" (multi-word phrases allowed).
+  const LEX = {
+    place: {
+      forest: ['wald|walde|waldes|wälder|urwald|dschungel', 'orman|ormanda|ormana|ormanın|ormandaki|ormanı|ağaçlık', 'forest|woods|wood|jungle'],
+      sea: ['meer|meeres|ozean|strand|küste', 'deniz|denize|denizde|denizin|okyanus|sahil|kıyı', 'sea|ocean|beach|shore|coast'],
+      city: ['stadt|städte|großstadt|grossstadt|hochhäuser', 'şehir|şehre|şehirde|şehrin|kent|kentte', 'city|town|skyscrapers'],
+      castle: ['schloss|schloß|schlosses|burg|palast', 'kale|kalenin|kaleye|kalede|saray|sarayın|şato', 'castle|palace'],
+      desert: ['wüste|wüsten|oase', 'çöl|çölde|çöle|vaha', 'desert|oasis'],
+      mountains: ['berg|berge|bergen|gebirge|gipfel', 'dağ|dağlar|dağda|dağa|dağın|dağların|zirve', 'mountain|mountains|hills|peak'],
+      village: ['dorf|dorfes|dörfchen|dörfer', 'köy|köyde|köye|köyün|köyü|kasaba', 'village|hamlet'],
+      meadow: ['wiese|wiesen|feld|felder|garten', 'çayır|çimen|çimenlik|bahçe|bahçede|tarla', 'meadow|field|fields|garden'],
+      space: ['weltraum|weltall|universum|planet|planeten', 'uzay|uzayda|uzaya|gezegen|evren', 'space|outer space|planet|galaxy|universe'],
+      cave: ['höhle|höhlen', 'mağara|mağarada|mağaraya', 'cave|cavern'],
+    },
+    time: {
+      night: ['nacht|nachts|mitternacht|dunkel|dunkelheit|mond', 'gece|geceleyin|gecenin|karanlık|karanlıkta|ay ışığı', 'night|midnight|dark|darkness|moonlight'],
+      morning: ['morgen|morgens|frühmorgens|sonnenaufgang|morgengrauen', 'sabah|sabahleyin|sabahın|şafak|gün doğumu', 'morning|dawn|sunrise'],
+      day: ['tag|tages|mittag|mittags|tagsüber', 'gündüz|öğlen|öğle|gün ortası', 'day|noon|daytime|midday'],
+      evening: ['abend|abends|sonnenuntergang|dämmerung', 'akşam|akşamüstü|akşamleyin|gün batımı', 'evening|sunset|dusk'],
+    },
+    weather: {
+      clear: ['sonnig|sonnenschein|heiter', 'güneşli|güneş açtı', 'sunny|sunshine'],
+      rain: ['regen|regnete|regnet|regnen|regnerisch|regentropfen|nieselregen', 'yağmur|yağmurda|yağmurlu|yağmuru|sağanak', 'rain|rained|raining|rainy|raindrops|drizzle'],
+      snow: ['schnee|schneite|schneit|schneien|schneeflocken', 'kar|karlı|karda|kar tanesi|kar taneleri', 'snow|snowed|snowing|snowy|snowflakes'],
+      storm: ['gewitter|blitz|blitze|blitzte|donner|donnerte', 'fırtına|fırtınada|şimşek|şimşekler|gök gürültüsü|yıldırım', 'thunderstorm|storm|lightning|thunder'],
+      wind: ['wind|windig|sturm|wehte|böen', 'rüzgar|rüzgâr|rüzgarlı|rüzgârlı|esiyordu|esti', 'wind|windy|breeze|gale'],
+      fog: ['nebel|neblig|dunst', 'sis|sisli|pus', 'fog|foggy|mist|misty'],
+    },
+    figure: {
+      girl: ['mädchen|mädchens|tochter', 'kız|kızı|kızın|kızcağız', 'girl|daughter'],
+      boy: ['junge|jungen|knabe|sohn', 'oğlan|oğlu|erkek çocuk|çocuk', 'boy|lad'],
+      grandma: ['oma|großmutter|grossmutter', 'nine|büyükanne|babaanne|anneanne', 'grandma|granny|grandmother'],
+      grandpa: ['opa|großvater|grossvater', 'dede|büyükbaba', 'grandpa|grandfather'],
+      king: ['könig|königs|prinz|prinzen', 'kral|kralı|prens', 'king|prince'],
+      princess: ['prinzessin|königin', 'prenses|prensesi|kraliçe', 'princess|queen'],
+      knight: ['ritter', 'şövalye|şövalyesi', 'knight'],
+      witch: ['hexe|zauberer|zauberin', 'cadı|büyücü', 'witch|wizard'],
+      dragon: ['drache|drachen|drachens', 'ejderha|ejderhanın|ejderhayı|ejder', 'dragon|dragons'],
+      cat: ['katze|kater|kätzchen', 'kedi|kedicik|kediyi', 'cat|kitten'],
+      dog: ['hund|hündchen|welpe', 'köpek|köpeği|köpekçik', 'dog|puppy'],
+      horse: ['pferd|pony', 'at|atı', 'horse|pony'],
+      bird: ['vogel|vögel|vögelchen', 'kuş|kuşu|kuşlar', 'bird|birds'],
+      fish: ['fisch|fische', 'balık|balığı', 'fish'],
+      bear: ['bär|bären', 'ayı|ayıyı', 'bear'],
+      fox: ['fuchs|füchsin', 'tilki|tilkiyi', 'fox'],
+      rabbit: ['hase|hasen|kaninchen', 'tavşan|tavşanı', 'rabbit|bunny|hare'],
+      owl: ['eule|uhu', 'baykuş', 'owl'],
+      robot: ['roboter', 'robot', 'robot'],
+      unicorn: ['einhorn', 'tek boynuzlu at|unicorn', 'unicorn'],
+      ghost: ['geist|gespenst', 'hayalet|hortlak', 'ghost'],
+      astronaut: ['astronautin|astronaut', 'astronot', 'astronaut'],
+    },
+    object: {
+      tree: ['baum|bäume|tanne', 'ağaç|ağacı|ağaçlar', 'tree|trees'],
+      house: ['haus|häuser|hütte|häuschen', 'ev|evi|kulübe|kulübesi', 'house|hut|cottage'],
+      treasure: ['schatz|schatztruhe|gold', 'hazine|hazineyi|altın', 'treasure|gold'],
+      ship: ['schiff|boot', 'gemi|gemiyi|tekne', 'ship|boat'],
+      car: ['auto|autos', 'araba|arabayı', 'car'],
+      flower: ['blume|blumen', 'çiçek|çiçekler|çiçeği', 'flower|flowers'],
+      fire: ['feuer|lagerfeuer|flammen|kamin', 'ateş|ateşi|kamp ateşi|alev|şömine', 'fire|campfire|flames|fireplace'],
+      star: ['stern|sterne', 'yıldız|yıldızlar', 'star|stars'],
+      ball: ['ball', 'top|topu', 'ball'],
+      book: ['buch|bücher', 'kitap|kitabı', 'book'],
+      bridge: ['brücke', 'köprü|köprüyü|köprünün', 'bridge'],
+      tent: ['zelt', 'çadır|çadırı', 'tent'],
+      lantern: ['laterne|lampe|kerze', 'fener|feneri|mum', 'lantern|lamp|candle'],
+      cake: ['kuchen|torte', 'pasta|kek', 'cake'],
+      key: ['schlüssel', 'anahtar|anahtarı', 'key'],
+      heart: ['herz|herzen', 'kalp|kalbi', 'heart'],
+    },
+    action: {
+      come: ['kam|kommt|kommen|kamen|erschien|erscheint|stand|tauchte auf', 'geldi|gelir|geliyor|gelmiş|çıktı|çıkmış|belirdi|vardı|varmış', 'came|comes|come|appeared|appears|arrived'],
+      go: ['ging|geht|gehen|lief|spazierte|wanderte', 'gitti|gidiyor|gitmiş|yürüdü|yürüyordu|yürümüş', 'went|goes|walked|walks|walking'],
+      run: ['rannte|rennt|rennen|rannten', 'koştu|koşuyor|koşmuş|koştular', 'ran|runs|running|run'],
+      fly: ['flog|fliegt|fliegen|flogen|hob ab', 'uçtu|uçuyor|uçmuş|uçtular|havalandı', 'flew|flies|fly|flying|took off'],
+      jump: ['sprang|springt|springen|hüpfte|hüpft', 'zıpladı|zıplıyor|zıplamış|atladı', 'jumped|jumps|jump|hopped'],
+      swim: ['schwamm|schwimmt|schwimmen', 'yüzdü|yüzüyor|yüzmüş', 'swam|swims|swimming|swim'],
+      sleep: ['schlief|schläft|schlafen|eingeschlafen', 'uyudu|uyuyor|uyuyordu|uyumuş|uyuya kaldı', 'slept|sleeps|sleeping|asleep|sleep'],
+      dance: ['tanzte|tanzt|tanzen', 'dans etti|dans ediyor|dans etmiş', 'danced|dances|dancing|dance'],
+      cry: ['weinte|weint|weinen', 'ağladı|ağlıyor|ağlamış', 'cried|cries|crying|wept'],
+      laugh: ['lachte|lacht|lachen', 'güldü|gülüyor|gülmüş', 'laughed|laughs|laughing'],
+      vanish: ['verschwand|verschwindet|verschwinden', 'kayboldu|kaybolmuş|yok oldu|gözden kayboldu', 'vanished|disappeared|vanishes|disappears'],
+    },
+    mood: {
+      happy: ['fröhlich|glücklich|lustig|freute|freude', 'mutlu|neşeli|sevinçli|sevindi', 'happy|cheerful|joyful|glad'],
+      tense: ['plötzlich|spannend|auf einmal|unerwartet', 'birden|aniden|birdenbire|heyecanlı', 'suddenly|all of a sudden|exciting'],
+      sad: ['traurig|unglücklich|einsam', 'üzgün|hüzünlü|mutsuz|yalnız', 'sad|unhappy|lonely'],
+      scary: ['gruselig|unheimlich|angst|schaurig|fürchtete', 'korkunç|ürkütücü|korku|korktu|korkmuş', 'scary|creepy|spooky|afraid|scared'],
+      calm: ['ruhig|still|friedlich|leise', 'sakin|sessiz|huzurlu', 'calm|quiet|peaceful'],
+    },
+    stop: { x: ['hörte auf|hört auf|aufgehört|vorbei|kein|keine|nicht mehr', 'durdu|durmuş|dindi|dinmiş|kesildi|bitti', 'stopped|stops|ended|no more'] },
+    end: { x: ['ende|das ende', 'son|masal bitti', 'the end'] },
+    open: { x: ['es war einmal|vor langer zeit', 'bir varmış bir yokmuş|evvel zaman içinde', 'once upon a time|long ago'] },
+    pron: { x: ['er|sie|es|ihn|ihm', 'o|onu|ona', 'he|she|it|they|him|her'] },
+  };
+  const STOPW = {
+    de: 'der die das und ist ein eine einen im in mit auf war über den dem zu da los am'.split(' '),
+    tr: 'bir ve bu çok da de ile için üzerinden küçük büyük olmuş'.split(' '),
+    en: 'the a an and is was in on of to over at into there'.split(' '),
+  };
+  // A built place named next to a nature place ("im Wald … über das Schloss") becomes a landmark prop in the band.
+  const LANDMARK_SPRITE = { castle: '🏰', city: '🏙️', village: '🏘️' };
+  const NATURE = { forest: 1, sea: 1, desert: 1, mountains: 1, meadow: 1, cave: 1, space: 1 };
+  const FAST = ['place', 'time', 'weather', 'mood'];
+
+  // Scene mapping (overlay scenes: rain night forest sea fire castle snow desert city space sunrise storm).
+  const SCENE_BY_WEATHER = { rain: 'rain', storm: 'storm', snow: 'snow' };
+  const SCENE_BY_PLACE = { forest: 'forest', sea: 'sea', city: 'city', castle: 'castle', desert: 'desert', space: 'space', cave: 'night', mountains: 'snow' };
+  const SCENE_BY_TIME = { night: 'night', morning: 'sunrise', evening: 'sunrise' };
+  // Ambient loop suggestion per scene (js/sounds.js `LiveFXSounds.loops`); the renderer plays it on the ambient bus.
+  const LOOP_BY_SCENE = { rain: 'rain', storm: 'storm', night: 'nightCrickets', forest: 'birds', sea: 'sea', fire: 'fireplace', castle: 'wind', snow: 'wind', desert: 'wind', city: 'cityHum', space: 'spaceDrone', sunrise: 'birds' };
+
+  // ---- normalisation + index --------------------------------------------------------------------
+  function lower(s, L) {
+    s = String(s).normalize('NFC');
+    if (L === 'tr') {
+      try {
+        return s.toLocaleLowerCase('tr');
+      } catch (_) {
+        /* fall through */
+      }
+    }
+    return s.replace(/İ/g, 'i').toLowerCase();
+  }
+  function norm(s, L) {
+    return lower(s, L).replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+  }
+  const FOLD = { ı: 'i', ş: 's', ğ: 'g', ç: 'c', ö: 'o', ü: 'u', ä: 'a', â: 'a', î: 'i', û: 'u', é: 'e', ß: 'ss' };
+  function fold(s) {
+    return s.replace(/[ışğçöüäâîûéß]/g, (c) => FOLD[c]);
+  }
+  const IDX = {};
+  const PHR = {};
+  const FZ = {};
+  for (const L of LANGS) {
+    const map = new Map();
+    const phr = [];
+    const fz = [];
+    for (const role of Object.keys(LEX)) {
+      for (const id of Object.keys(LEX[role])) {
+        for (const f of LEX[role][id][LI[L]].split('|')) {
+          const n = fold(norm(f, L));
+          if (!n) continue;
+          const e = { role, id };
+          if (n.includes(' ')) phr.push({ toks: n.split(' '), e });
+          else {
+            if (!map.has(n)) map.set(n, []);
+            map.get(n).push(e);
+            if (n.length >= 5 && role !== 'pron' && role !== 'stop') fz.push([n, e]);
+          }
+        }
+      }
+    }
+    phr.sort((a, b) => b.toks.length - a.toks.length);
+    IDX[L] = map;
+    PHR[L] = phr;
+    FZ[L] = fz;
+  }
+  /** Damerau-Levenshtein distance <= 1 (one typo / ASR slip). */
+  function dl1(a, b) {
+    if (a === b) return true;
+    const la = a.length;
+    const lb = b.length;
+    if (Math.abs(la - lb) > 1) return false;
+    let i = 0;
+    while (i < la && i < lb && a[i] === b[i]) i++;
+    if (la === lb) return a.slice(i + 1) === b.slice(i + 1) || (a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2));
+    return la > lb ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
+  }
+  const TR_SUF = ['ndan', 'nden', 'nın', 'nin', 'nun', 'nün', 'dan', 'den', 'tan', 'ten', 'lar', 'ler', 'yla', 'yle', 'daki', 'deki', 'la', 'le', 'ya', 'ye', 'yı', 'yi', 'yu', 'yü', 'da', 'de', 'ta', 'te', 'ım', 'im', 'um', 'üm', 'sı', 'si', 'su', 'sü', 'ın', 'in', 'un', 'ün', 'nı', 'ni', 'nu', 'nü', 'na', 'ne', 'ı', 'i', 'u', 'ü', 'a', 'e'];
+  const MUT = { b: 'p', c: 'ç', d: 't', ğ: 'k', g: 'k' };
+  function trStem(tok, depth) {
+    for (const s of TR_SUF) {
+      if (tok.length - s.length >= 3 && tok.slice(-s.length) === s) {
+        const st = tok.slice(0, -s.length);
+        const f = fold(st);
+        if (IDX.tr.has(f)) return IDX.tr.get(f);
+        const last = st.slice(-1);
+        if (MUT[last]) {
+          const f2 = fold(st.slice(0, -1) + MUT[last]);
+          if (IDX.tr.has(f2)) return IDX.tr.get(f2);
+        }
+        if (depth < 1) {
+          const r = trStem(st, depth + 1);
+          if (r) return r;
+        }
+      }
+    }
+    return null;
+  }
+  function lookup(tok, L) {
+    const f = fold(tok);
+    if (IDX[L].has(f)) return IDX[L].get(f);
+    if (L === 'tr') {
+      const r = trStem(tok, 0);
+      if (r) return r;
+    }
+    if (f.length >= 6) for (const [w, e] of FZ[L]) if (dl1(f, w)) return [e];
+    return null;
+  }
+  /** Matches one language: hits (role, id, pos, word) in sentence order plus a language score. */
+  function matchLang(text, L) {
+    const toks = norm(text, L).split(' ').filter(Boolean);
+    const ft = toks.map(fold);
+    const used = [];
+    const hits = [];
+    let stop = 0;
+    for (const p of PHR[L]) {
+      for (let s = 0; s + p.toks.length <= ft.length; s++) {
+        let ok = true;
+        for (let j = 0; j < p.toks.length; j++) {
+          if (used[s + j] || ft[s + j] !== p.toks[j]) {
+            ok = false;
+            break;
+          }
+        }
+        if (ok) {
+          for (let j = 0; j < p.toks.length; j++) used[s + j] = 1;
+          hits.push({ pos: s, role: p.e.role, id: p.e.id, word: toks.slice(s, s + p.toks.length).join(' ') });
+        }
+      }
+    }
+    toks.forEach((tk, k) => {
+      if (STOPW[L].includes(tk)) stop++;
+      if (used[k]) return;
+      const r = lookup(tk, L);
+      if (r) for (const e of r) hits.push({ pos: k, role: e.role, id: e.id, word: tk });
+    });
+    hits.sort((a, b) => a.pos - b.pos);
+    const content = hits.filter((h) => h.role !== 'pron').length;
+    return { lang: L, hits, score: content * 3 + stop + (hits.length - content) };
+  }
+
+  // ---- state ---------------------------------------------------------------------------------------
+  function emptyState() {
+    return { scene: null, loop: null, place: null, landmark: null, time: 'day', weather: 'clear', mood: 'calm', actors: [], props: [], caption: '', lang: null, end: false, shake: false };
+  }
+  function sceneFor(w) {
+    if (SCENE_BY_WEATHER[w.weather]) return SCENE_BY_WEATHER[w.weather];
+    if (w.landmark && SCENE_BY_PLACE[w.landmark] && !SCENE_BY_PLACE[w.place]) return SCENE_BY_PLACE[w.landmark];
+    if (w.place && SCENE_BY_PLACE[w.place]) return SCENE_BY_PLACE[w.place];
+    if (w.props.some((p) => p.role === 'fire')) return 'fire';
+    if (SCENE_BY_TIME[w.time]) return SCENE_BY_TIME[w.time];
+    if (w.place || w.actors.length || w.props.length) return 'sunrise'; // a daylight stage for whoever is on it
+    return null;
+  }
+  function snapshot(w) {
+    return {
+      scene: w.scene,
+      loop: w.scene ? LOOP_BY_SCENE[w.scene] || null : null,
+      place: w.place,
+      landmark: w.landmark,
+      time: w.time,
+      weather: w.weather,
+      mood: w.mood,
+      actors: w.actors.map((a) => ({ emoji: a.emoji, role: a.role, action: a.action })),
+      props: (w.landmark && LANDMARK_SPRITE[w.landmark] ? [{ emoji: LANDMARK_SPRITE[w.landmark], role: w.landmark }] : []).concat(w.props.map((p) => ({ emoji: p.emoji, role: p.role }))),
+      caption: w.caption,
+      lang: w.lang,
+      end: w.end,
+      shake: w.shake,
+    };
+  }
+
+  /**
+   * @param {{lang?: 'auto'|'de'|'tr'|'en', caption?: boolean}} [opts]  `caption: true` keeps the last final line as scene caption
+   */
+  function create(opts = {}) {
+    const o = opts && typeof opts === 'object' ? opts : {};
+    let langSel = LANGS.includes(o.lang) ? o.lang : 'auto';
+    let lastLang = null;
+    const listeners = new Set();
+    let w = emptyState();
+    let lastJson = JSON.stringify(snapshot(w));
+    let lastFig = null;
+
+    function analyse(text, forced) {
+      const L = LANGS.includes(forced) ? forced : langSel !== 'auto' ? langSel : null;
+      if (L) return matchLang(text, L);
+      let best = null;
+      for (const l of LANGS) {
+        const r = matchLang(text, l);
+        if (!best || r.score > best.score || (r.score === best.score && l === lastLang)) best = r;
+      }
+      if (best.score > 0) lastLang = best.lang;
+      return best;
+    }
+
+    function emit() {
+      const s = snapshot(w);
+      const json = JSON.stringify(s);
+      if (json === lastJson) return false;
+      lastJson = json;
+      for (const fn of listeners) {
+        try {
+          fn(s);
+        } catch (e) {
+          if (typeof console !== 'undefined' && console.error) console.error('LiveFX story listener failed', e);
+        }
+      }
+      return true;
+    }
+
+    const api = {
+      /** Current scene state (fresh copy). */
+      get state() {
+        return snapshot(w);
+      },
+      get lang() {
+        return langSel;
+      },
+      setLang(l) {
+        langSel = LANGS.includes(l) ? l : 'auto';
+        return langSel;
+      },
+      onChange(fn) {
+        if (typeof fn === 'function') listeners.add(fn);
+        return () => listeners.delete(fn);
+      },
+      reset() {
+        w = emptyState();
+        lastFig = null;
+        emit();
+        return api.state;
+      },
+      /**
+       * Feeds one transcript line. `final: false` = interim (only place / time / weather / mood move).
+       * Returns `{ lang, hits, decisions, changed, state }` – `decisions` lists every applied word.
+       */
+      feed(text, fopts = {}) {
+        const f = fopts && typeof fopts === 'object' ? fopts : {};
+        const final = f.final !== false;
+        const line = typeof text === 'string' ? text.trim() : '';
+        if (!line) return { lang: lastLang, hits: 0, decisions: [], changed: false, state: api.state };
+        const r = analyse(line, f.lang);
+        const hits = r.hits;
+        const by = (role) => hits.filter((h) => h.role === role);
+        const last = (a) => a[a.length - 1];
+        const dec = [];
+        w.shake = false;
+        if (hits.length) w.lang = r.lang;
+
+        if (by('open').length) {
+          // Story opening: a fresh stage (figures walk out, daytime, clear sky).
+          w = Object.assign(emptyState(), { lang: r.lang });
+          lastFig = null;
+          dec.push({ role: 'open', word: by('open')[0].word });
+        }
+        const pl = by('place');
+        if (pl.length) {
+          const nat = pl.filter((h) => NATURE[h.id]);
+          const str = pl.filter((h) => !NATURE[h.id]);
+          if (nat.length && str.length) {
+            w.place = last(nat).id;
+            w.landmark = last(str).id;
+            dec.push({ role: 'place', id: w.place, word: last(nat).word }, { role: 'landmark', id: w.landmark, word: last(str).word });
+          } else {
+            const p = last(pl).id;
+            if (p !== w.place) w.landmark = null;
+            w.place = p;
+            dec.push({ role: 'place', id: p, word: last(pl).word });
+          }
+        }
+        const tm = by('time');
+        if (tm.length) {
+          w.time = last(tm).id;
+          dec.push({ role: 'time', id: w.time, word: last(tm).word });
+        }
+        const we = by('weather');
+        const st = by('stop');
+        if (st.length && (we.length || w.weather !== 'clear')) {
+          w.weather = 'clear';
+          dec.push({ role: 'stop', word: st[0].word });
+        } else if (we.length) {
+          w.weather = last(we).id;
+          dec.push({ role: 'weather', id: w.weather, word: last(we).word });
+        }
+        const md = by('mood');
+        if (md.length) {
+          w.mood = last(md).id;
+          dec.push({ role: 'mood', id: w.mood, word: last(md).word });
+        }
+        if (final) {
+          const fg = by('figure');
+          const seen = {};
+          for (const h of fg) {
+            if (seen[h.id]) continue;
+            seen[h.id] = 1;
+            let a = w.actors.find((x) => x.role === h.id);
+            if (!a) {
+              a = { emoji: SPRITE[h.id] || '⭐', role: h.id, action: null };
+              w.actors.push(a);
+              while (w.actors.length > ACTORS_MAX) w.actors.shift();
+            }
+            dec.push({ role: 'figure', id: h.id, word: h.word });
+          }
+          if (fg.length) lastFig = last(fg).id;
+          const ob = by('object');
+          const so = {};
+          for (const h of ob) {
+            if (so[h.id]) continue;
+            so[h.id] = 1;
+            if (!w.props.some((x) => x.role === h.id)) {
+              w.props.push({ emoji: SPRITE[h.id] || '⭐', role: h.id });
+              while (w.props.length > PROPS_MAX) w.props.shift();
+            }
+            dec.push({ role: 'object', id: h.id, word: h.word });
+          }
+          for (const h of by('action')) {
+            // The nearest figure in the line owns the verb (ties go to the one before it – "der Drache flog" –
+            // but "dann schlief die Katze ein" binds to the cat after the verb); otherwise the last figure seen.
+            let near = null;
+            for (const x of fg) {
+              const dist = Math.abs(x.pos - h.pos);
+              if (!near || dist < near.dist || (dist === near.dist && x.pos < h.pos)) near = { id: x.id, dist };
+            }
+            const who = near ? near.id : lastFig && w.actors.some((a) => a.role === lastFig) ? lastFig : w.actors.length ? last(w.actors).role : null;
+            if (!who) continue;
+            const a = w.actors.find((x) => x.role === who);
+            if (!a) continue;
+            if (h.id === 'vanish') {
+              w.actors = w.actors.filter((x) => x !== a);
+              dec.push({ role: 'action', id: 'vanish', who, word: h.word });
+              continue;
+            }
+            if (h.id !== 'come') a.action = h.id;
+            dec.push({ role: 'action', id: h.id, who, word: h.word });
+          }
+          if (md.some((h) => h.id === 'tense')) w.shake = true;
+          if (by('end').length) {
+            w.end = true;
+            w.actors = [];
+            w.props = [];
+            w.place = null;
+            w.landmark = null;
+            w.weather = 'clear';
+            w.time = 'day';
+            dec.push({ role: 'end', word: by('end')[0].word });
+          } else if (dec.length) w.end = false;
+          if (o.caption && hits.length) w.caption = line.length > 80 ? `${line.slice(0, 79)}…` : line;
+        }
+        w.scene = w.end ? null : sceneFor(w);
+        const changed = emit();
+        return { lang: r.lang, hits: hits.length, decisions: dec, changed, state: api.state };
+      },
+    };
+    return api;
+  }
+
+  return { create, matchLang, SPRITE, LEX, LANGS, SCENE_BY_PLACE, SCENE_BY_WEATHER, SCENE_BY_TIME, LOOP_BY_SCENE };
+});

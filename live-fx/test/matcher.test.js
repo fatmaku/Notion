@@ -40,7 +40,9 @@ m = new Matcher(triggers);
 assert.strictEqual(m.process('geldautomat', 200).length, 0, 'no substring match');
 assert.strictEqual(m.process('ich brauch geld', 210).length, 1);
 
-// 6. global min gap
+// 6. global min gap (default 0.5 s since 2.2)
+assert.strictEqual(new Matcher(triggers).globalMinGap, 0.5);
+assert.strictEqual(globalThis.LiveFXMatcher.DEFAULT_GLOBAL_MIN_GAP, 0.5);
 m = new Matcher(triggers, { globalMinGap: 2 });
 hits = m.process('krass, applaus!', 300);
 assert.strictEqual(hits.length, 1, 'global gap keeps one');
@@ -70,7 +72,7 @@ assert.deepStrictEqual(m.fireById('nope', 800).blocked, 'unknown');
 assert.deepStrictEqual(m.fireById('off', 800).blocked, 'disabled');
 assert.strictEqual(m.fireById('lol', 800).blocked, null);
 assert.strictEqual(m.fireById('lol', 801).blocked, 'cooldown');
-assert.strictEqual(m.fireById('wow', 800.5).blocked, 'gap');
+assert.strictEqual(m.fireById('wow', 800.3).blocked, 'gap'); // default globalMinGap 0.5 s (2.2)
 assert.strictEqual(m.fireById('wow', 802).blocked, null);
 assert.strictEqual(m.process('lol', 900).length, 1, 'speech match shares cooldown state with fireById');
 m = new Matcher([{ keywords: ['eins'] }, { keywords: ['zwei'] }]);

@@ -15,7 +15,7 @@
 // also compares it with the server's /health version and re-precaches when they differ).
 'use strict';
 
-const SHELL_VERSION = '2.1.0';
+const SHELL_VERSION = '2.2.0';
 const OVERLAY_MODE = new URLSearchParams(self.location.search).get('shell') === 'overlay';
 const CACHE_PREFIX = OVERLAY_MODE ? 'livefx-overlay-' : 'livefx-shell-';
 const CACHE = OVERLAY_MODE ? `livefx-overlay-v${SHELL_VERSION}` : `livefx-shell-v${SHELL_VERSION}`;
@@ -55,6 +55,11 @@ const FULL_SHELL = [
   '/js/mobile.js',
   '/js/mobile-link.js',
   '/js/safety.js',
+  // 2.2: QR code for the phone link, pack helpers shared by panel + phone, live story director, phonetic aliases
+  '/js/qr.js',
+  '/js/packs-store.js',
+  '/js/story-director.js',
+  '/js/phonetic.js',
   // 2.1: sticker index for the sticker library in the panel (the 143 stickers themselves are fetched on use)
   '/memes/index.json',
 ];
@@ -65,6 +70,7 @@ const OVERLAY_SHELL = [
   '/js/sounds.js',
   '/js/schema.js',
   '/js/fx.js',
+  '/js/story-director.js',
   '/js/bus.js',
   '/icons/icon.svg',
   '/icons/icon-192.png',

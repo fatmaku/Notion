@@ -12,6 +12,11 @@ Browser geben Mikrofon und Spracherkennung (`getUserMedia`, Web Speech API) nur 
 LAN-Adresse (`http://192.168.1.20:8787/`) – die ist für den Browser „unsicher“, der Mikro-Button
 zeigt den Hinweis „Mikro am Handy braucht HTTPS“ und die Seite bleibt eine reine Fernbedienung.
 
+> **Seit 2.2 gibt es den einfacheren Weg:** in der Panel-Karte **📱 Handy** auf **🌐 Internet-Link starten**
+> klicken – der Link ist `https://…trycloudflare.com/m?token=…`, das Mikro am Handy geht sofort, ohne
+> Zertifikat, auch aus dem Mobilfunk. Siehe [HANDY.md](HANDY.md) Abschnitt 4a. Diese Seite bleibt für alle,
+> die **ohne Internet / ohne Cloudflare** im reinen Heimnetz bleiben wollen.
+
 Lösung: LiveFX mit einem **selbst erstellten Zertifikat** per HTTPS starten und dem Handy dieses
 Zertifikat einmal als vertrauenswürdig bekannt machen. Es geht nichts ins Internet; das Zertifikat
 gilt nur in deinem Heimnetz.

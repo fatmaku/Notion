@@ -203,11 +203,13 @@
     // Reaction "sicher": interim results only feed the transcript, matching waits for the final sentence.
     if (!isFinal && settings.reaction === 'safe') {
       renderTranscript(str, false, []);
+      sendLiveStory(str, false, m);
       return;
     }
     const hits = runMatcher(str);
     utteranceHits += hits.length;
     renderTranscript(str, !!isFinal, hits.map((h) => h.spoken || h.keyword));
+    sendLiveStory(str, !!isFinal, m);
     for (const h of hits) {
       fire(h.trigger, fireSource(source, h));
       if (h.fuzzy && h.spoken && h.spoken !== h.keyword) addSuggestion(h);
@@ -748,6 +750,7 @@
     const backend = pickBackend(name);
     const opts = {
       lang: asrLangFor(backend),
+      primaryLang, // 2.2: the language the streamer mostly speaks (phonetic aliases, auto-detect bias)
       bus,
       alternatives: settings.alternatives,
       restartEveryMs: settings.restart ? RESTART_MS : 0,
@@ -931,40 +934,64 @@
   }
 
   // ---------- meme packs ----------
+  // 2.2: the pack ↔ trigger-list arithmetic lives in js/packs-store.js (LiveFXPacksStore), shared with the
+  // phone page, so both ends load / unload exactly the same way. The fallbacks below keep an older
+  // packs-store-less install working.
   const packsApi = window.LiveFXPacks;
+  const packsStore = window.LiveFXPacksStore || null;
 
   /** How many triggers of a pack are currently in the list (by id). */
   function packPresent(packId) {
+    if (packsStore) return packsStore.present(triggers, packId);
     const ids = new Set(packsApi.get(packId).map((t) => t.id));
     return triggers.filter((t) => ids.has(t.id)).length;
+  }
+
+  function packLoaded(p) {
+    if (packsStore) return packsStore.isLoaded(triggers, p.id);
+    const present = packPresent(p.id);
+    return p.count > 0 && present >= Math.ceil(p.count * 0.8);
   }
 
   function loadPack(packId) {
     const pack = packsApi.packs[packId];
     if (!pack) return;
-    const have = new Set(triggers.map((t) => t.id));
-    const fresh = packsApi.get(packId).filter((t) => !have.has(t.id));
-    const room = Math.max(0, S.LIMITS.triggers - triggers.length);
-    const added = fresh.slice(0, room);
-    if (fresh.length > room) log(`⚠️ Maximal ${S.LIMITS.triggers} Trigger – ${fresh.length - room} aus „${pack.label}“ nicht geladen`);
-    if (!added.length) {
+    let added;
+    let warnings;
+    if (packsStore) {
+      const r = packsStore.add(triggers, packId);
+      added = r.triggers.length - triggers.length;
+      warnings = r.warnings;
+      if (added) triggers = r.triggers;
+    } else {
+      const have = new Set(triggers.map((t) => t.id));
+      const fresh = packsApi.get(packId).filter((t) => !have.has(t.id));
+      const room = Math.max(0, S.LIMITS.triggers - triggers.length);
+      const n = S.normalizeTriggers(fresh.slice(0, room));
+      warnings = n.warnings.map((w) => `Paket: ${w}`);
+      if (fresh.length > room) warnings.unshift(`Maximal ${S.LIMITS.triggers} Trigger – ${fresh.length - room} aus „${pack.label}“ nicht geladen`);
+      added = n.triggers.length;
+      if (added) triggers = triggers.concat(n.triggers);
+    }
+    for (const w of warnings) log(`⚠️ ${w}`);
+    if (!added) {
       log(`📦 ${pack.label}: bereits geladen`);
       renderPacks();
       return;
     }
-    const n = S.normalizeTriggers(added);
-    for (const w of n.warnings) log(`⚠️ Paket: ${w}`);
-    triggers = triggers.concat(n.triggers);
     commit();
-    log(`📦 ${pack.label}: ${n.triggers.length} Trigger geladen`);
+    log(`📦 ${pack.label}: ${added} Trigger geladen`);
   }
 
   function unloadPack(packId) {
     const pack = packsApi.packs[packId];
     if (!pack) return;
-    const prefix = `${packId}-`;
     const before = triggers.length;
-    triggers = triggers.filter((t) => !String(t.id).startsWith(prefix));
+    if (packsStore) triggers = packsStore.remove(triggers, packId).triggers;
+    else {
+      const prefix = `${packId}-`;
+      triggers = triggers.filter((t) => !String(t.id).startsWith(prefix));
+    }
     const gone = before - triggers.length;
     if (!gone) {
       renderPacks();
@@ -974,13 +1001,21 @@
     log(`🗑️ ${pack.label}: ${gone} Trigger entfernt`);
   }
 
+  function togglePack(packId) {
+    const p = packsApi && packsApi.packs[packId];
+    if (!p) return;
+    if (packLoaded({ id: packId, count: p.triggers.length })) unloadPack(packId);
+    else loadPack(packId);
+  }
+
   function renderPacks() {
+    renderWizardPacks();
     const root = $('#packs');
     if (!root || !packsApi) return;
     root.innerHTML = '';
     for (const p of packsApi.list()) {
       const present = packPresent(p.id);
-      const loaded = p.count > 0 && present >= Math.ceil(p.count * 0.8);
+      const loaded = packLoaded(p);
       const el = document.createElement('div');
       el.className = `pack${loaded ? ' loaded' : ''}`;
       el.dataset.pack = p.id;
@@ -1004,8 +1039,10 @@
 
   // ---------- story mode (1.3) ----------
   // Reading aloud: the story pack of the current language family is loaded, the recognition is switched
-  // to tolerance "mittel", reaction "sicher" and a 2 s gap; the previous values come back when it is
-  // turned off (the pack stays). Persisted: `livefx.story` ('1'/'0') and `livefx.story.prev` (JSON).
+  // to tolerance "mittel" and a 2 s gap; the previous values come back when it is turned off (the pack
+  // stays). 2.2: the reaction is no longer forced to "sicher" – the live story director handles interim
+  // lines itself (only the fast roles move), so keyword effects may stay fast while reading.
+  // Persisted: `livefx.story` ('1'/'0') and `livefx.story.prev` (JSON).
   const STORY_KEYS = { on: 'livefx.story', prev: 'livefx.story.prev' };
   const STORY_GAP = 2;
   let storyOn = false;
@@ -1068,7 +1105,6 @@
 
   function applyStorySettings() {
     $('#asr-tolerance').value = 'medium';
-    $('#asr-reaction').value = 'safe';
     applyAsrSettings();
     setGap(STORY_GAP);
   }
@@ -1095,12 +1131,12 @@
       renderScenePad();
       if (pad) pad.hidden = false;
       if (!restoring) log('📖 Story-Modus an – lies vor, Szenen kommen von selbst');
+      if (!restoring && !liveStory) setLiveStory(true, { persist: false });
     } else {
       if (pad) pad.hidden = true;
       const prev = storyPrev || readStoryPrev();
       if (prev) {
         $('#asr-tolerance').value = prev.tolerance;
-        $('#asr-reaction').value = prev.reaction;
         applyAsrSettings();
         setGap(prev.gap);
       }
@@ -1311,10 +1347,170 @@
   if ($('#perf')) $('#perf').addEventListener('change', (e) => { const p = applyPerf(e.target.value); log(`⚡ Leistung: ${PERF_LABELS[p] || p}`); });
   if (savedPerf !== 'auto') setTimeout(() => bus.send({ type: 'perf', perf: savedPerf }), 1500);
 
-  $('#volume').addEventListener('input', (e) => {
-    bus.send({ type: 'volume', volume: Math.min(1, Math.max(0, Number(e.target.value) || 0)) });
-    enforcePreviewMute(true);
-  });
+  // ---------- volumes (2.2): master / sfx / ambient, docs/STORY.md ----------
+  // `{type:'volume', volume, bus}` – `bus` omitted or 'master' is the old master message (older overlays keep
+  // working). Persisted in localStorage `livefx.volumes` (JSON); the sliders #volume (master), #volume-sfx and
+  // #volume-ambient send on input. The server only remembers the master level for late overlays, so the
+  // sfx / ambient levels are re-sent on boot.
+  const VOLUMES_KEY = 'livefx.volumes';
+  const VOLUME_BUSES = (window.LiveFXSchema && window.LiveFXSchema.VOLUME_BUSES) || ['master', 'sfx', 'ambient'];
+  const VOLUME_DEFAULTS = (window.LiveFXSchema && window.LiveFXSchema.VOLUME_DEFAULTS) || { master: 0.5, sfx: 0.8, ambient: 0.5 };
+  const VOLUME_INPUTS = { master: '#volume', sfx: '#volume-sfx', ambient: '#volume-ambient' };
+  const volumes = { ...VOLUME_DEFAULTS };
+
+  function clamp01(v) {
+    const n = Number(v);
+    return Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : NaN;
+  }
+
+  function readVolumes() {
+    try {
+      const p = JSON.parse(lsGet(VOLUMES_KEY) || '{}');
+      for (const b of VOLUME_BUSES) if (p && Number.isFinite(clamp01(p[b]))) volumes[b] = clamp01(p[b]);
+    } catch (_) {
+      /* corrupt entry */
+    }
+  }
+
+  function reflectVolumes() {
+    for (const b of VOLUME_BUSES) {
+      const el = $(VOLUME_INPUTS[b]);
+      if (el && Math.abs(Number(el.value) - volumes[b]) > 0.001) el.value = String(volumes[b]);
+    }
+  }
+
+  function volumeMessage(b) {
+    const msg = { type: 'volume', volume: volumes[b] };
+    if (b !== 'master') msg.bus = b;
+    return msg;
+  }
+
+  /** Sets one bus level, persists, sends `{type:'volume', volume, bus}` (bus omitted for master). */
+  function setVolume(b, v, { send = true, persist = true } = {}) {
+    const busName = VOLUME_BUSES.includes(b) ? b : 'master';
+    const n = clamp01(v);
+    if (!Number.isFinite(n)) return volumes[busName];
+    volumes[busName] = n;
+    reflectVolumes();
+    if (persist) lsSet(VOLUMES_KEY, JSON.stringify(volumes));
+    if (send) {
+      bus.send(volumeMessage(busName));
+      enforcePreviewMute(true);
+    }
+    return n;
+  }
+
+  for (const b of VOLUME_BUSES) {
+    const el = $(VOLUME_INPUTS[b]);
+    if (el) el.addEventListener('input', (e) => setVolume(b, e.target.value));
+  }
+
+  // ---------- overlay layout (2.2): story band / zone, docs/STORY.md ----------
+  // `{type:'layout', storyLayout, band, zone}` – always the full triple so a late overlay gets a consistent
+  // state. Persisted in localStorage `livefx.layout`.
+  const LAYOUT_KEY = 'livefx.layout';
+  const STORY_LAYOUTS = (window.LiveFXSchema && window.LiveFXSchema.STORY_LAYOUTS) || ['band', 'full', 'frame'];
+  const ZONES = (window.LiveFXSchema && window.LiveFXSchema.ZONES) || ['full', 'edges', 'bottom', 'top'];
+  const LAYOUT_DEFAULTS = (window.LiveFXSchema && window.LiveFXSchema.LAYOUT_DEFAULTS) || { storyLayout: 'band', band: 22, zone: 'edges' };
+  const BAND_MIN = (S.LIMITS && S.LIMITS.bandMin) || 15;
+  const BAND_MAX = (S.LIMITS && S.LIMITS.bandMax) || 35;
+  const layout = { ...LAYOUT_DEFAULTS };
+
+  function cleanLayout(raw) {
+    const r = raw && typeof raw === 'object' ? raw : {};
+    const band = Math.round(Number(r.band));
+    return {
+      storyLayout: STORY_LAYOUTS.includes(r.storyLayout) ? r.storyLayout : layout.storyLayout,
+      band: Number.isFinite(band) ? Math.min(BAND_MAX, Math.max(BAND_MIN, band)) : layout.band,
+      zone: ZONES.includes(r.zone) ? r.zone : layout.zone,
+    };
+  }
+
+  function readLayout() {
+    try {
+      Object.assign(layout, cleanLayout(JSON.parse(lsGet(LAYOUT_KEY) || '{}')));
+    } catch (_) {
+      /* corrupt entry */
+    }
+  }
+
+  function reflectLayout() {
+    if ($('#story-layout')) $('#story-layout').value = layout.storyLayout;
+    if ($('#band-height')) $('#band-height').value = String(layout.band);
+    if ($('#effect-zone')) $('#effect-zone').value = layout.zone;
+  }
+
+  function setLayout(patch, { send = true, persist = true } = {}) {
+    Object.assign(layout, cleanLayout({ ...layout, ...(patch || {}) }));
+    reflectLayout();
+    if (persist) lsSet(LAYOUT_KEY, JSON.stringify(layout));
+    if (send) bus.send({ type: 'layout', ...layout });
+    return { ...layout };
+  }
+
+  const LAYOUT_LABELS = { band: 'Band', full: 'Vollbild', frame: 'Rahmen' };
+  const ZONE_LABELS = { full: 'überall', edges: 'Ränder', bottom: 'unten', top: 'oben' };
+  if ($('#story-layout')) $('#story-layout').addEventListener('change', (e) => { setLayout({ storyLayout: e.target.value }); log(`🖼️ Story-Layout: ${LAYOUT_LABELS[layout.storyLayout] || layout.storyLayout}`); });
+  if ($('#band-height')) $('#band-height').addEventListener('change', (e) => { setLayout({ band: e.target.value }); log(`🖼️ Band-Höhe: ${layout.band} %`); });
+  if ($('#effect-zone')) $('#effect-zone').addEventListener('change', (e) => { setLayout({ zone: e.target.value }); log(`🎯 Effekt-Zone: ${ZONE_LABELS[layout.zone] || layout.zone}`); });
+
+  // ---------- primary language (2.2) ----------
+  // The language the streamer mostly speaks: handed to the ASR (`primaryLang`) and to the matcher
+  // (`setPhonetic` – keywords of the other languages are indexed as phonetic respellings, js/phonetic.js).
+  const PRIMARY_KEY = 'livefx.asr.primary';
+  const PRIMARY_LANGS = ['tr-TR', 'de-DE', 'en-US'];
+  let primaryLang = PRIMARY_LANGS.includes(lsGet(PRIMARY_KEY)) ? lsGet(PRIMARY_KEY) : 'de-DE';
+
+  function setPrimaryLang(tag, { persist = true, recreate = true } = {}) {
+    const next = PRIMARY_LANGS.includes(tag) ? tag : primaryLang;
+    const changed = next !== primaryLang;
+    primaryLang = next;
+    if ($('#primary-lang')) $('#primary-lang').value = primaryLang;
+    if (persist) lsSet(PRIMARY_KEY, primaryLang);
+    if (typeof matcher.setPhonetic === 'function') {
+      try {
+        matcher.setPhonetic(primaryLang);
+      } catch (e) {
+        log(`⚠️ Phonetik: ${e && e.message ? e.message : e}`);
+      }
+    }
+    if (changed && recreate && asr) recreateAsr();
+    if (changed && persist) log(`🗣️ Hauptsprache: ${LANG_NAMES[familyOf(primaryLang)] || primaryLang}`);
+    return primaryLang;
+  }
+
+  if ($('#primary-lang')) $('#primary-lang').addEventListener('change', (e) => setPrimaryLang(e.target.value));
+
+  // ---------- live story (2.2) ----------
+  // Every transcript line (interim + final) goes to the overlay as `{type:'story', text, final, lang}`; the
+  // story director there (js/story-director.js) turns it into the scene state. Persisted `livefx.liveStory`.
+  const LIVE_STORY_KEY = 'livefx.liveStory';
+  let liveStory = lsGet(LIVE_STORY_KEY) === '1';
+  let lastStoryLine = '';
+
+  function setLiveStory(on, { persist = true } = {}) {
+    liveStory = !!on;
+    if ($('#live-story')) $('#live-story').checked = liveStory;
+    if (persist) {
+      lsSet(LIVE_STORY_KEY, liveStory ? '1' : '0');
+      log(liveStory ? '📖 Live-Story an – jede erkannte Zeile baut die Szene im Band' : '📖 Live-Story aus');
+    }
+  }
+
+  function sendLiveStory(text, isFinal, meta) {
+    if (!liveStory) return;
+    const line = String(text || '').trim();
+    if (!line) return;
+    if (!isFinal && line === lastStoryLine) return; // the recognizer repeats unchanged interims
+    lastStoryLine = isFinal ? '' : line;
+    const fam = familyOf((meta && meta.lang) || effectiveLang());
+    const msg = { type: 'story', text: line.slice(0, (S.LIMITS && S.LIMITS.storyText) || 500), final: !!isFinal };
+    if (['de', 'tr', 'en'].includes(fam)) msg.lang = fam;
+    bus.send(msg);
+  }
+
+  if ($('#live-story')) $('#live-story').addEventListener('change', (e) => setLiveStory(e.target.checked));
+
   $('#gap').addEventListener('change', (e) => (matcher.globalMinGap = Math.max(0, Number(e.target.value) || 0)));
 
   $('#btn-copy-token').addEventListener('click', async () => {
@@ -1424,6 +1620,7 @@
       healthInFlight = false;
     }
     renderEchoWarning();
+    renderWizardObs();
   }
 
   // Ton-Check list: `livefx.audiocheck.<key>` = '1'/'0'; `preview-off` mirrors the preview switch.
@@ -1458,6 +1655,7 @@
     if (micTest) return;
     if (!meter) {
       setMicTestStatus('❌ kein Pegelmesser (Browser ohne WebAudio?)', 'err');
+      setWizMicStatus('❌ kein Pegelmesser (Browser ohne WebAudio?)', 'err');
       return;
     }
     const hadMeter = meterStarted;
@@ -1476,6 +1674,7 @@
     const level = meter && Number.isFinite(meter.peak) ? meter.peak : 0;
     const ok = seen || level >= 0.02;
     setMicTestStatus(ok ? '✔ Mikro liefert Pegel – in OBS muss sich der Balken deiner Mikro-Quelle genauso bewegen' : '❌ kein Pegel – Mikro prüfen (Berechtigung, richtiges Gerät, stumm?)', ok ? 'ok' : 'err');
+    setWizMicStatus(ok ? '✔ Mikro liefert Pegel' : '❌ kein Pegel – Berechtigung / Gerät prüfen', ok ? 'ok' : 'err');
     log(ok ? '🎙️ Mikro-Test: Pegel da' : '🎙️ Mikro-Test: kein Pegel');
     if (!mt.hadMeter && !asrActive()) stopMeter();
   }
@@ -1909,6 +2108,150 @@
 
   $('#intensity-voice').addEventListener('change', (e) => setIntensityFromVoice(e.target.checked));
 
+  // ---------- start wizard (2.2) ----------
+  // Three steps on top of the panel: 1 mic test (shares the Ton-Check meter), 2 OBS: overlay URL + copy,
+  // exact size per format, 6-step mini guide, live status from /health (overlays ≥ 2 = the preview iframe
+  // plus OBS) and a test effect, 3 packs as tiles with the x / LIMITS.triggers counter and keyword collisions.
+  const WIZ_SIZES = { landscape: '1920 × 1080', portrait: '1080 × 1920' };
+  const WIZ_FORMAT_KEY = 'livefx.wizard.format';
+  let wizFormat = lsGet(WIZ_FORMAT_KEY) === 'portrait' ? 'portrait' : 'landscape';
+
+  function wizardOverlayUrl() {
+    const origin = online ? location.origin : 'http://127.0.0.1:8787';
+    return `${origin}/overlay.html${wizFormat === 'portrait' ? '?layout=portrait' : ''}`;
+  }
+
+  function renderWizardObs() {
+    const url = $('#wiz-overlay-url');
+    if (!url) return;
+    url.value = wizardOverlayUrl();
+    if ($('#wiz-format')) $('#wiz-format').value = wizFormat;
+    if ($('#wiz-size')) $('#wiz-size').textContent = WIZ_SIZES[wizFormat];
+    const connected = Number.isFinite(overlaysConnected) && overlaysConnected >= 2;
+    const dot = $('#wiz-obs-dot');
+    if (dot) {
+      dot.classList.toggle('on', connected);
+      dot.classList.toggle('warn', !connected && online);
+    }
+    if ($('#wiz-obs-state')) $('#wiz-obs-state').textContent = connected ? 'Overlay verbunden ✔' : online ? 'Overlay noch nicht verbunden' : 'Server nötig (node server.js)';
+    const step = $('#wiz-obs');
+    if (step) step.classList.toggle('done', connected);
+  }
+
+  function setWizardFormat(f, { persist = true } = {}) {
+    wizFormat = f === 'portrait' ? 'portrait' : 'landscape';
+    if (persist) lsSet(WIZ_FORMAT_KEY, wizFormat);
+    renderWizardObs();
+    return wizFormat;
+  }
+
+  async function copyText(text, btn, idleLabel) {
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = '✅ Kopiert';
+      log('📋 Overlay-URL kopiert – in OBS als Browser-Quelle einfügen');
+    } catch (_) {
+      btn.textContent = 'Markiert – Strg+C';
+      const input = $('#wiz-overlay-url');
+      if (input) {
+        input.focus();
+        input.select();
+      }
+    }
+    setTimeout(() => (btn.textContent = idleLabel), 2000);
+  }
+
+  /** Test effect for step 2: confetti + card „TEST“ with the `pop` sound (through the bus → OBS, not the muted preview). */
+  function wizardTestTrigger() {
+    const raw = { id: 'wizard-test', label: 'TEST', keywords: [], enabled: true, cooldown: 0, sound: 'pop', visual: { kind: 'card', emoji: '🎉', text: 'LiveFX läuft!', position: 'center' } };
+    const n = typeof S.normalizeTrigger === 'function' ? S.normalizeTrigger(raw) : null;
+    return n && n.trigger ? n.trigger : raw;
+  }
+
+  function fireWizardTest() {
+    fire(wizardTestTrigger(), 'Start-Assistent');
+    pollHealth();
+  }
+
+  function setWizMicStatus(text, cls) {
+    const el = $('#wiz-mic-status');
+    if (!el) return;
+    el.textContent = text;
+    el.className = `help wiz-status${cls ? ` ${cls}` : ''}`;
+    const step = $('#wiz-mic');
+    if (step) step.classList.toggle('done', cls === 'ok');
+  }
+
+  function renderWizardPacks() {
+    const root = $('#wiz-pack-tiles');
+    if (!root || !packsApi) return;
+    const list = packsStore ? packsStore.summary(triggers) : packsApi.list().map((p) => ({ ...p, present: packPresent(p.id), loaded: packLoaded(p) }));
+    root.innerHTML = '';
+    let loadedCount = 0;
+    for (const p of list) {
+      if (p.loaded) loadedCount++;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = `pack-tile${p.loaded ? ' loaded' : p.present ? ' partial' : ''}`;
+      b.dataset.pack = p.id;
+      b.title = `${p.description || p.label}${p.loaded ? ' – klicken zum Entfernen' : ' – klicken zum Laden'}`;
+      b.innerHTML = `<span class="flag">${esc(p.flag)}</span><span class="lbl">${esc(p.label)}</span><span class="meta">${p.loaded ? '✓ geladen' : p.present ? `${p.present}/${p.count}` : `${p.count} Trigger`}</span>`;
+      b.addEventListener('click', () => togglePack(p.id));
+      root.appendChild(b);
+    }
+    const limit = packsStore ? packsStore.limit() : S.LIMITS.triggers;
+    if ($('#wiz-pack-count')) $('#wiz-pack-count').textContent = `${triggers.length} / ${limit} Trigger · ${loadedCount} / ${list.length} Pakete`;
+    const step = $('#wiz-packs');
+    if (step) step.classList.toggle('done', loadedCount > 0);
+    const coll = $('#wiz-collisions');
+    if (coll) {
+      let hits = [];
+      try {
+        hits = packsStore ? packsStore.collisions(triggers) : [];
+      } catch (_) {
+        hits = [];
+      }
+      if (hits.length) {
+        const shown = hits.slice(0, 5).map((c) => `„${c.keyword}“ (${(c.packs || []).join(' + ')})`).join(', ');
+        coll.textContent = `⚠️ ${hits.length} Stichwort${hits.length === 1 ? '' : 'e'} in mehreren Paketen: ${shown}${hits.length > 5 ? ' …' : ''} – beim Sprechen feuern beide.`;
+        coll.hidden = false;
+      } else coll.hidden = true;
+    }
+  }
+
+  // „Erweitert“: the cards marked `data-advanced` (API, combos, demo clip, OBS text, log) stay hidden until the
+  // streamer opens them; `livefx.panel.advanced` = '1' keeps them open. Default: collapsed.
+  const ADVANCED_KEY = 'livefx.panel.advanced';
+  let advancedOpen = lsGet(ADVANCED_KEY) === '1';
+
+  function setAdvanced(on, { persist = true } = {}) {
+    advancedOpen = !!on;
+    document.body.classList.toggle('panel-simple', !advancedOpen);
+    const btn = $('#btn-advanced');
+    if (btn) {
+      btn.setAttribute('aria-expanded', advancedOpen ? 'true' : 'false');
+      btn.textContent = advancedOpen ? '⚙️ Erweitert ausblenden' : '⚙️ Erweitert anzeigen';
+    }
+    if (persist) lsSet(ADVANCED_KEY, advancedOpen ? '1' : '0');
+    return advancedOpen;
+  }
+
+  function initWizard() {
+    setAdvanced(advancedOpen, { persist: false });
+    if ($('#btn-advanced')) $('#btn-advanced').addEventListener('click', () => setAdvanced(!advancedOpen));
+    if ($('#wiz-mic-test')) {
+      $('#wiz-mic-test').addEventListener('click', async () => {
+        setWizMicStatus('⏳ Sprich jetzt … (5 s)');
+        await startMicTest();
+      });
+    }
+    if ($('#wiz-copy-url')) $('#wiz-copy-url').addEventListener('click', () => copyText(wizardOverlayUrl(), $('#wiz-copy-url'), '📋 Kopieren'));
+    if ($('#wiz-format')) $('#wiz-format').addEventListener('change', (e) => setWizardFormat(e.target.value));
+    if ($('#wiz-test-fx')) $('#wiz-test-fx').addEventListener('click', fireWizardTest);
+    renderWizardObs();
+    renderWizardPacks();
+  }
+
   // ---------- external API card ----------
   function renderApiCard(token) {
     const origin = online ? location.origin : 'http://127.0.0.1:8787';
@@ -1947,6 +2290,14 @@
     renderDiagState();
     setInterval(renderDiagState, 1000);
     renderApiCard(null);
+    // 2.2: volumes / layout / primary language / live story from localStorage, before the preview loads.
+    readVolumes();
+    reflectVolumes();
+    readLayout();
+    reflectLayout();
+    setPrimaryLang(primaryLang, { persist: false, recreate: false });
+    setLiveStory(liveStory, { persist: false });
+    initWizard();
     setPreviewSound(previewSound, { persist: false });
     setInterval(() => enforcePreviewMute(false), 1000);
     if (online) {
@@ -1997,6 +2348,12 @@
 
     createAsr($('#asr').value);
     pushSettings();
+    // Late overlays (OBS) get the levels + layout the streamer last used; the server repeats only the master
+    // volume / theme / perf in its `state` message.
+    setTimeout(() => {
+      for (const b of VOLUME_BUSES) if (Math.abs(volumes[b] - VOLUME_DEFAULTS[b]) > 0.001) bus.send(volumeMessage(b));
+      if (layout.storyLayout !== LAYOUT_DEFAULTS.storyLayout || layout.band !== LAYOUT_DEFAULTS.band || layout.zone !== LAYOUT_DEFAULTS.zone) bus.send({ type: 'layout', ...layout });
+    }, 1500);
     log('Bereit. Tipp: Ohne Mikro einfach oben Text eintippen.');
   }
 
@@ -2090,6 +2447,49 @@
       setIntensityFromVoice(on);
     },
     voiceIntensity,
+    // 2.2: wizard, advanced toggle, volumes (busses), overlay layout, primary language, live story, packs
+    wizard: {
+      get format() {
+        return wizFormat;
+      },
+      setFormat: setWizardFormat,
+      overlayUrl: wizardOverlayUrl,
+      testTrigger: wizardTestTrigger,
+      fireTest: fireWizardTest,
+      render: () => {
+        renderWizardObs();
+        renderWizardPacks();
+      },
+    },
+    advanced: {
+      get: () => advancedOpen,
+      set: (on) => setAdvanced(on),
+    },
+    volumes: {
+      get: () => ({ ...volumes }),
+      set: (b, v) => setVolume(b, v),
+      defaults: { ...VOLUME_DEFAULTS },
+    },
+    layout: {
+      get: () => ({ ...layout }),
+      set: (patch) => setLayout(patch),
+    },
+    get primaryLang() {
+      return primaryLang;
+    },
+    set primaryLang(tag) {
+      setPrimaryLang(tag);
+    },
+    liveStory: {
+      get: () => liveStory,
+      set: (on) => setLiveStory(on),
+    },
+    packs: {
+      load: loadPack,
+      unload: unloadPack,
+      toggle: togglePack,
+      present: packPresent,
+    },
     ready: boot(),
   };
 })();

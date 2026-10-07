@@ -71,10 +71,19 @@ body {
   --fx-fall: 115vh;
   --fx-x0: 0vw;
   --fx-xspan: 100vw;
+  /* 2.2 story band: --fx-band = height in percent (unitless, set by renderer.setLayout; 15..35, default 22),
+   * --fx-band-h the resulting length (100vh in layout full, the box height in layout frame),
+   * --fx-band-bottom the gap below the band (portrait: the chat zone), --fx-edge the width of the edge columns. */
+  --fx-band: 22;
+  --fx-band-h: calc(var(--fx-band, 22) * 1vh);
+  --fx-band-bottom: 0px;
+  --fx-edge: 22vw;
 }
 /* Portrait (9:16): chat sits in the bottom ~35 %, so everything stays above it. */
 body.layout-portrait {
   --fx-fall: 62vh;
+  --fx-band-bottom: 35vh;
+  --fx-edge: 30vw;
 }
 #stage {
   position: fixed;
@@ -1112,3 +1121,153 @@ body.fx-hidden .fx-scene,
 body.fx-hidden .fx-scene *,
 body.fx-hidden .fx-scene *::before,
 body.fx-hidden .fx-scene *::after { animation-play-state: paused !important; }
+
+/* =====================================================================================
+ * Story band (LiveFX 2.2, docs/STORY.md). `#stage > .fx-band[data-layout]` is the first child of the stage and
+ * holds the `.fx-scene` layer, so a scene never covers the streamer's camera:
+ *   band  – bottom strip of --fx-band-h (default 22 % of the height, portrait 20 % above the chat zone)
+ *   frame – picture-in-picture box bottom-right (30 % of the width, 16:9)
+ *   full  – the whole frame (the 1.3 look)
+ * The band's top edge is soft-masked, `data-mood` tints it (live story), `.fx-band-idle` fades it after 60 s
+ * without story input. Effect zones (body[data-zone]) move transient effects: `edges` keeps rain / confetti in
+ * the --fx-edge columns and puts cards / text / stickers / banners into `.fx-col-left|right`, `bottom` into
+ * the band (`.fx-in-band`), `top` into the top strip (`.fx-zone-top`); flash + impact zoom only in `full`.
+ * ===================================================================================== */
+.fx-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--fx-band-bottom, 0px);
+  height: var(--fx-band-h);
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 18%, #000 100%);
+}
+.fx-band[data-layout="full"] {
+  inset: 0;
+  height: auto;
+  bottom: 0;
+  --fx-band-h: 100vh;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.fx-band[data-layout="frame"] {
+  --fx-band-h: calc(30vw * 9 / 16);
+  left: auto;
+  right: 2vw;
+  bottom: calc(var(--fx-band-bottom, 0px) + 2vh);
+  width: 30vw;
+  height: var(--fx-band-h);
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+body.layout-portrait .fx-band[data-layout="frame"] {
+  --fx-band-h: calc(60vw * 9 / 16);
+  width: 60vw;
+  right: 4vw;
+}
+.fx-band.fx-band-idle { opacity: 0; }
+/* mood tint (live story): a translucent wash above the scene, below the actors on the canvas */
+.fx-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.fx-band[data-mood="happy"]::after { background: linear-gradient(0deg, rgba(255, 210, 90, 0.22), rgba(255, 240, 180, 0.08)); opacity: 1; }
+.fx-band[data-mood="tense"]::after { background: linear-gradient(0deg, rgba(255, 70, 40, 0.28), rgba(255, 120, 60, 0.1)); opacity: 1; }
+.fx-band[data-mood="sad"]::after { background: linear-gradient(0deg, rgba(40, 70, 160, 0.3), rgba(90, 120, 200, 0.12)); opacity: 1; }
+.fx-band[data-mood="scary"]::after { background: linear-gradient(0deg, rgba(20, 0, 40, 0.45), rgba(80, 0, 120, 0.18)); opacity: 1; }
+
+/* Scenes inside the strip / box scale with the band height (the full layout keeps the 1.3 sizes above). */
+.fx-band:not([data-layout="full"]) .fx-scene-decor {
+  top: 6%;
+  right: 3%;
+  font-size: calc(var(--fx-band-h) * 0.38);
+  animation-name: fx-band-decor-float;
+}
+@keyframes fx-band-decor-float {
+  0%   { transform: translateY(0) rotate(-3deg); }
+  100% { transform: translateY(-6%) rotate(3deg); }
+}
+.fx-band:not([data-layout="full"]) .fx-scene-ground,
+body.layout-portrait .fx-band:not([data-layout="full"]) .fx-scene-ground {
+  bottom: -6%;
+  font-size: calc(var(--fx-band-h) * 0.55);
+}
+.fx-band:not([data-layout="full"]) .fx-scene-castle .fx-scene-ground,
+body.layout-portrait .fx-band:not([data-layout="full"]) .fx-scene-castle .fx-scene-ground {
+  font-size: calc(var(--fx-band-h) * 0.8);
+}
+.fx-band:not([data-layout="full"]) .fx-scene-caption,
+body.layout-portrait .fx-band:not([data-layout="full"]) .fx-scene-caption {
+  top: auto;
+  bottom: 7%;
+  max-width: 92%;
+  padding: 0.3em 0.9em;
+  font-size: min(32px, calc(var(--fx-band-h) * 0.12));
+}
+.fx-band:not([data-layout="full"]) .fx-scene-sunrise .fx-scene-l1,
+body.layout-portrait .fx-band:not([data-layout="full"]) .fx-scene-sunrise .fx-scene-l1 {
+  bottom: 4%;
+  width: calc(var(--fx-band-h) * 0.9);
+  height: calc(var(--fx-band-h) * 0.9);
+}
+.fx-band:not([data-layout="full"]) .fx-scene-sea .fx-scene-bg,
+body.layout-portrait .fx-band:not([data-layout="full"]) .fx-scene-sea .fx-scene-bg {
+  background: linear-gradient(180deg, #8fd8ff 0%, #47a6e8 25%, #1a6fbf 42%, #0b4a8a 43%, #063a6e 100%);
+}
+.fx-band:not([data-layout="full"]) .fx-scene-rain .fx-scene-l1::before,
+.fx-band:not([data-layout="full"]) .fx-scene-storm .fx-scene-l1::before { background-size: 14px 80px, 22px 160px; }
+.fx-band:not([data-layout="full"]) .fx-scene-storm .fx-scene-l2 { background: radial-gradient(ellipse at 30% 0%, #fff 0%, rgba(255, 255, 255, 0.7) 30%, rgba(180, 200, 255, 0.2) 70%, transparent 100%); }
+
+/* ---- effect zones: cards, images, text, stickers and banners ---- */
+.fx-col-left,
+.fx-col-right {
+  --fx-col-w: calc(var(--fx-edge, 22vw) - 24px);
+  max-width: var(--fx-col-w);
+}
+.fx-col-left { left: calc(var(--fx-edge, 22vw) / 2); }
+.fx-col-right { left: calc(100% - var(--fx-edge, 22vw) / 2); }
+.fx-card.fx-col-left, .fx-card.fx-col-right { padding: min(18px, 1.5vw) min(24px, 2vw); }
+.fx-col-left .fx-emoji, .fx-col-right .fx-emoji { font-size: min(110px, calc(var(--fx-col-w) * 0.45)); }
+.fx-col-left .fx-text, .fx-col-right .fx-text { font-size: min(40px, calc(var(--fx-col-w) * 0.14)); }
+.fx-card-image.fx-col-left img, .fx-card-image.fx-col-right img { max-width: calc(var(--fx-col-w) - 2 * min(24px, 2vw)); max-height: 36vh; }
+.fx-sticker-img.fx-col-left img, .fx-sticker-img.fx-col-right img { width: min(260px, calc(var(--fx-col-w) * 0.9)); }
+.fx-bigtext.fx-col-left .fx-word, .fx-bigtext.fx-col-right .fx-word { font-size: min(72px, calc(var(--fx-col-w) * 0.26)); }
+.fx-bigtext.fx-col-left .fx-emoji, .fx-bigtext.fx-col-right .fx-emoji { font-size: min(90px, calc(var(--fx-col-w) * 0.4)); }
+.fx-text-sticker.fx-col-left > .fx-word, .fx-text-sticker.fx-col-right > .fx-word { font-size: min(60px, calc(var(--fx-col-w) * 0.22)); }
+.fx-sticker.fx-col-left .fx-sticker-emoji, .fx-sticker.fx-col-right .fx-sticker-emoji { font-size: min(90px, calc(var(--fx-col-w) * 0.34)); }
+.fx-sticker.fx-col-left .fx-text, .fx-sticker.fx-col-right .fx-text { font-size: min(36px, calc(var(--fx-col-w) * 0.13)); }
+.fx-banner.fx-col-left,
+.fx-banner.fx-col-right {
+  width: var(--fx-edge, 22vw);
+  max-width: none;
+  box-sizing: border-box;
+  left: 0;
+  padding: 12px 8px;
+  font-size: min(34px, calc(var(--fx-edge, 22vw) * 0.13));
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+.fx-banner.fx-col-right { left: calc(100% - var(--fx-edge, 22vw)); }
+/* zone bottom: card-like effects sit in the band (vertical centre of the strip) */
+.fx-in-band {
+  --fx-top: calc(100% - var(--fx-band-bottom, 0px) - var(--fx-band-h) / 2);
+  --fx-ty: -50%;
+}
+.fx-banner.fx-in-band { top: auto; bottom: calc(var(--fx-band-bottom, 0px) + var(--fx-band-h) * 0.25); padding: 10px 0; font-size: min(48px, 5vw); }
+.fx-in-band .fx-emoji { font-size: min(110px, calc(var(--fx-band-h) * 0.5)); }
+.fx-in-band .fx-text, .fx-bigtext.fx-in-band .fx-word { font-size: min(48px, calc(var(--fx-band-h) * 0.22)); }
+.fx-sticker.fx-in-band .fx-sticker-emoji { font-size: min(100px, calc(var(--fx-band-h) * 0.45)); }
+/* zone top: everything pinned to the top strip */
+.fx-zone-top { --fx-top: 4%; --fx-ty: 0%; }
+.fx-banner.fx-zone-top { top: 3%; }
+.fx-zone-top .fx-emoji { font-size: min(110px, 14vh); }
+.fx-zone-top .fx-text, .fx-bigtext.fx-zone-top .fx-word { font-size: min(56px, 8vh); }

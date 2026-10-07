@@ -123,7 +123,7 @@ async function run({ browser, startServer, api, shotDir, log }) {
         R.fire({ id: 'c', visual: { kind: 'card', emoji: '🙂', text: 'X', intensity: 3 } });
         R.fire({ id: 'lt', visual: { kind: 'lower-third', title: 'T', subtitle: 'S' } });
         R.clear();
-        return { ok: R.particles.ok, confetti: document.querySelectorAll('.fx-confetti').length, left: document.querySelectorAll('#stage > *').length };
+        return { ok: R.particles.ok, confetti: document.querySelectorAll('.fx-confetti').length, left: document.querySelectorAll('#stage > :not(.fx-band)').length };
       });
       assert.equal(r.ok, false);
       assert.equal(r.confetti, 0, 'clear() removed the DOM confetti');
@@ -286,7 +286,7 @@ async function run({ browser, startServer, api, shotDir, log }) {
       return {
         peak,
         impactOnce,
-        left: document.querySelectorAll('#stage > :not(.fx-canvas):not(.fx-scene)').length,
+        left: document.querySelectorAll('#stage > :not(.fx-canvas):not(.fx-scene):not(.fx-band)').length,
         timers: R._timers.size,
         particles: R.stats.particles,
         raf: R.particles.raf,
@@ -386,7 +386,7 @@ async function run({ browser, startServer, api, shotDir, log }) {
       assert.ok(contrast(shot.card.color, shot.card.bg) >= 3, `pastel card text vs bg: ${shot.card.color} / ${shot.card.bg}`);
       assert.ok(contrast(shot.caption.color, shot.caption.bg) >= 3, `pastel caption: ${shot.caption.color} / ${shot.caption.bg}`);
       assert.ok(shot.card.bottom <= 0.65, `safe card stays above the chat zone (${shot.card.bottom})`);
-      assert.ok(shot.caption.top < 0.35, `portrait caption sits in the upper third (${shot.caption.top})`);
+      assert.ok(shot.caption.top >= 0.45 && shot.caption.top < 0.65, `portrait caption sits in the story band above the chat zone (${shot.caption.top}) – 2.2`);
       assert.match(shot.bannerBgImage, /gradient/, 'banner keeps its gradient');
       assert.deepEqual(perr, [], `portrait errors: ${perr.join('; ')}`);
       await pctx.close();

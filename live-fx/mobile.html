@@ -21,18 +21,32 @@
     </div>
     <div class="controls">
       <button type="button" id="btn-mute" title="Effekte anhalten">⏸ Pause</button>
-      <label class="vol" for="volume">🔊 <input id="volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Lautstärke Overlay"></label>
+      <div class="volbox" role="group" aria-label="Lautstärke Overlay">
+        <button type="button" id="btn-vol-down" title="Leiser (−6 dB)">🔉 Leiser</button>
+        <span class="vol-label" id="vol-label">80 %</span>
+        <button type="button" id="btn-vol-up" title="Lauter (+6 dB)">🔊 Lauter</button>
+        <input id="volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Lautstärke Overlay" hidden>
+      </div>
+    </div>
+    <div class="quick">
+      <button type="button" id="btn-mic" title="Spracherkennung am Handy">🎙️ Mikro</button>
+      <button type="button" id="btn-band" title="Story-Band im Overlay ein-/ausblenden" data-on="0">📖 Band an</button>
+      <button type="button" id="btn-zone" title="Effekt-Zone im Overlay wechseln" data-zone="full">🎯 Zone: überall</button>
     </div>
   </header>
 
   <main>
     <div class="row">
       <input id="search" type="search" placeholder="Suchen … (Name oder Stichwort)" autocomplete="off" autocapitalize="off" aria-label="Trigger suchen">
-      <button type="button" id="btn-mic" title="Spracherkennung am Handy">🎙️ Mikro</button>
     </div>
     <p class="hint" id="mic-hint" hidden></p>
 
-    <div id="transcript" aria-live="polite"><span class="muted">Tippe eine Kachel – der Effekt erscheint im Overlay.</span></div>
+    <div id="transcript" aria-live="polite"><span class="muted">Tippe eine Kachel – der Effekt erscheint im Overlay. Lange drücken = Favorit ⭐</span></div>
+
+    <section id="favs-card" hidden>
+      <h2>⭐ Favoriten <span class="count" id="favs-count"></span></h2>
+      <div class="pad" id="favs"></div>
+    </section>
 
     <section id="scenes-card" hidden>
       <h2>Szenen</h2>
@@ -44,11 +58,18 @@
       <div class="pad" id="pad"></div>
       <p class="hint" id="empty" hidden>Nichts gefunden.</p>
     </section>
+
+    <section id="packs-card">
+      <h2>📦 Pakete <span class="count" id="packs-count"></span></h2>
+      <div class="packs" id="packs"></div>
+      <p class="hint">Ein Paket fügt seine Trigger hinzu – am PC und hier. Antippen = laden / entfernen.</p>
+    </section>
   </main>
 
   <script src="js/triggers.js"></script>
   <script src="js/packs.js"></script>
   <script src="js/schema.js"></script>
+  <script src="js/packs-store.js"></script>
   <script src="js/matcher.js"></script>
   <script src="js/bus.js"></script>
   <script src="js/store.js"></script>
