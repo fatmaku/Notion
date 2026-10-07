@@ -91,6 +91,8 @@ export interface GameCtx {
   recenter: () => void;
   /** Snapshot of video + effects as a JPEG data URL (for the results photo). */
   capture: () => string | null;
+  /** e2e only: start the runner with this many lives */
+  testLives?: number;
   roundSeconds: number;
 }
 

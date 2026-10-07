@@ -2,6 +2,9 @@ import type { GameMode, RoundResult } from '../game/GameMode';
 import { ShooterMode } from '../game/shooter/ShooterMode';
 import { RunnerMode } from '../game/runner/RunnerMode';
 import { Records, todayKey } from '../game/scoring/Records';
+import { weeklyChallenge } from '../game/scoring/Challenges';
+import { ChallengesScreen } from '../ui/screens/ChallengesScreen';
+import { setLang } from '../ui/i18n';
 import { DemoSource } from '../camera/DemoSource';
 import { CameraSource, explainCameraError } from '../camera/CameraSource';
 import { Motion } from '../sensors/Motion';
@@ -96,6 +99,9 @@ export class App {
   private fxDebug: FxRenderer;
 
   constructor(readonly params: Params) {
+    // ?lang= picks the initial language; the settings switch still works afterwards
+    if (params.lang) this.settings.data.lang = params.lang;
+    setLang(this.settings.data.lang);
     const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
     this.layers = new Layers($('stage'), $<HTMLVideoElement>('cam'), $<HTMLCanvasElement>('fx'), $<HTMLCanvasElement>('hud'));
     this.router = new Router($('ui'));
@@ -212,6 +218,7 @@ export class App {
 
   applySettings(): void {
     const s = this.settings.data;
+    setLang(s.lang);
     document.body.classList.toggle('left-handed', s.leftHanded);
     this.sfx.enabled = s.sound && !this.params.test;
     this.sfx.volume = s.sfxVolume / 100;
@@ -345,15 +352,29 @@ export class App {
     return true;
   }
 
-  beginFlow(source: 'camera' | 'demo', daily = false): void {
+  showChallenges(): void {
+    this.router.show(ChallengesScreen(this));
+  }
+
+  beginFlow(source: 'camera' | 'demo', challenge: 'none' | 'daily' | 'weekly' = 'none'): void {
     this.session.source = source;
-    this.session.daily = daily;
+    this.session.daily = challenge === 'daily';
+    this.session.weekly = challenge === 'weekly';
+    if (this.session.weekly) {
+      // fixed setup for the whole week – chosen for everyone by the week key
+      const wk = weeklyChallenge();
+      this.session.mode = wk.mode;
+      this.session.weapons = wk.weapons;
+      this.session.side = wk.mode === 'front-shooter' ? 'front' : 'right';
+    }
     this.sfx.unlock();
     this.router.show(SafetyScreen(this));
   }
 
   afterSafety(): void {
-    this.showModeScreen();
+    // the weekly challenge fixes mode and weapons: straight on to the camera
+    if (this.session.weekly) this.afterWeapons();
+    else this.showModeScreen();
   }
 
   showModeScreen(): void {
@@ -546,7 +567,7 @@ export class App {
       void this.prepareAndPlay();
       return;
     }
-    this.session.seed = this.params.seed ?? (this.session.daily ? hashString(`${todayKey()}:${this.session.mode}`) : (Date.now() % 1000003) | 0);
+    this.session.seed = this.params.seed ?? (this.session.weekly ? weeklyChallenge().seed : this.session.daily ? hashString(`${todayKey()}:${this.session.mode}`) : (Date.now() % 1000003) | 0);
     // URL params may name locked weapons (tests / links); allow them only when unlocked or in test mode
     if (!this.params.test) this.session.weapons = this.session.weapons.map((w) => (this.unlocks.weaponUnlocked(w) ? w : 'smg')) as [WeaponId, WeaponId];
     const mode: GameMode = this.session.mode === 'side-runner' ? new RunnerMode() : new ShooterMode(this.session.mode);
@@ -575,6 +596,7 @@ export class App {
       end: (r) => this.endRound(r),
       recenter: () => this.recenter(),
       capture: () => this.capture(),
+      testLives: this.params.test && this.params.lives ? this.params.lives : undefined,
       roundSeconds,
     });
     if (mode instanceof ShooterMode || mode instanceof RunnerMode) mode.bestScore = this.records.best(mode.id);
@@ -594,7 +616,7 @@ export class App {
     this.layers.video.style.transform = '';
     this.lastResult = r;
     this.party?.record(r.score);
-    const flags = this.records.save(r);
+    const flags = this.records.save(r, { weekly: this.session.weekly });
     const before = this.unlocks.balance;
     this.unlocks.earn(r.score);
     const newlyAffordable = this.unlocks.newlyAffordable(before);

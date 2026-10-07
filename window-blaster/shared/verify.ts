@@ -50,6 +50,7 @@ export function verifyRound(r: VerifyRound): VerifyResult {
   let missions = 0;
   let lastT = -1;
   let lastFrenzyT = -Infinity;
+  let doubles = 0;
   for (const e of r.events) {
     if (typeof e.t !== 'number' || e.t < lastT - 5 || e.t > r.durationSec * 1000 + 3000) return { ok: false, verifiedScore: 0, reason: 'timeline' };
     lastT = Math.max(lastT, e.t);
@@ -72,6 +73,12 @@ export function verifyRound(r: VerifyRound): VerifyResult {
         }
         if (e.id === 'carwash') {
           if (e.points !== CARWASH_BONUS) return { ok: false, verifiedScore: 0, reason: 'bonus' };
+          break;
+        }
+        if (e.id === 'x2') {
+          // runner double-points power-up: mirrors the obstacle points at that combo
+          if (r.mode !== 'side-runner' || e.points !== runnerObstaclePoints(e.combo ?? 0)) return { ok: false, verifiedScore: 0, reason: 'x2' };
+          if (++doubles > r.durationSec / 2 + 6) return { ok: false, verifiedScore: 0, reason: 'x2-rate' };
           break;
         }
         if (e.id === 'frenzy') {

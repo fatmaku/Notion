@@ -1,6 +1,9 @@
 import type { Storage } from './Storage';
+import type { Lang } from '../ui/i18n';
 
 export interface SettingsData {
+  /** UI language */
+  lang: Lang;
   sound: boolean;
   music: boolean;
   /** 0..100 */
@@ -28,6 +31,7 @@ export interface SettingsData {
 }
 
 export const DEFAULT_SETTINGS: SettingsData = {
+  lang: 'de',
   sound: true,
   music: true,
   sfxVolume: 80,

@@ -78,6 +78,9 @@ export const RUNNER = {
   comboMax: 5,
 };
 
+/** Runner "double points" power-up: each cleared obstacle adds a second, equal bonus for 8 s. */
+export const DOUBLE_MS = 8000;
+
 export function runnerObstaclePoints(combo: number): number {
   return Math.round(RUNNER.perObstacle * Math.min(RUNNER.comboMax, 1 + RUNNER.comboStep * Math.max(0, combo - 1)));
 }

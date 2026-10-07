@@ -1,4 +1,5 @@
 import { ALL_WEAPONS, type GameModeId, type WeaponId } from '../core/types';
+import type { Lang } from '../ui/i18n';
 
 /** URL query parameters used for demos, debugging and end-to-end tests. */
 export interface Params {
@@ -16,6 +17,10 @@ export interface Params {
   test: boolean;
   /** disable service worker registration */
   nosw: boolean;
+  /** UI language override (?lang=en) */
+  lang: Lang | null;
+  /** e2e: runner lives (only honoured in test mode) */
+  lives: number | null;
 }
 
 export function readParams(search = typeof location !== 'undefined' ? location.search : ''): Params {
@@ -39,5 +44,7 @@ export function readParams(search = typeof location !== 'undefined' ? location.s
     round: q.has('round') ? Number(q.get('round')) : null,
     test: flag('test'),
     nosw: flag('nosw'),
+    lang: q.get('lang') === 'en' ? 'en' : q.get('lang') === 'de' ? 'de' : null,
+    lives: q.has('lives') ? Number(q.get('lives')) : null,
   };
 }

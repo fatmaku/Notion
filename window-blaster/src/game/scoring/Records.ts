@@ -1,6 +1,7 @@
 import type { GameModeId } from '../../core/types';
 import type { Storage } from '../../app/Storage';
 import type { RoundResult } from '../GameMode';
+import { weekKey } from './Challenges';
 
 export interface RecordSummary {
   score: number;
@@ -37,6 +38,11 @@ export class Records {
     return this.storage.get<Record<string, number>>('daily.v1', {})[`${day}:${mode}`] ?? 0;
   }
 
+  /** Best weekly-challenge score of this ISO week (per mode). */
+  weeklyBest(mode: GameModeId, week = weekKey()): number {
+    return this.storage.get<Record<string, number>>('weekly.v1', {})[`${week}:${mode}`] ?? 0;
+  }
+
   totals(): Totals {
     return this.storage.get<Totals>('totals.v1', { rounds: 0, kills: 0, hits: 0, shots: 0, seconds: 0, bestCombo: 0 });
   }
@@ -51,7 +57,7 @@ export class Records {
   }
 
   /** Stores a finished round. Returns whether it is a new all-time best for the mode. */
-  save(r: RoundResult): { newBest: boolean; newDaily: boolean } {
+  save(r: RoundResult, opts: { weekly?: boolean } = {}): { newBest: boolean; newDaily: boolean; newWeekly: boolean } {
     const best = this.storage.get<Record<string, number>>('best.v1', {});
     const daily = this.storage.get<Record<string, number>>('daily.v1', {});
     const newBest = r.score > (best[r.mode] ?? 0);
@@ -64,6 +70,16 @@ export class Records {
     while (keys.length > 60) delete daily[keys.shift()!];
     this.storage.set('best.v1', best);
     this.storage.set('daily.v1', daily);
+    let newWeekly = false;
+    if (opts.weekly) {
+      const weekly = this.storage.get<Record<string, number>>('weekly.v1', {});
+      const wk = `${weekKey()}:${r.mode}`;
+      newWeekly = r.score > (weekly[wk] ?? 0);
+      if (newWeekly) weekly[wk] = r.score;
+      const wkeys = Object.keys(weekly).sort();
+      while (wkeys.length > 30) delete weekly[wkeys.shift()!];
+      this.storage.set('weekly.v1', weekly);
+    }
     const t = this.totals();
     t.rounds++;
     t.kills += r.kills;
@@ -88,6 +104,6 @@ export class Records {
       source: r.source,
     });
     this.storage.set('recent.v1', recent.slice(0, 30));
-    return { newBest, newDaily };
+    return { newBest, newDaily, newWeekly };
   }
 }

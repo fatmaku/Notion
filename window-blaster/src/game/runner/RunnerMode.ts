@@ -13,6 +13,7 @@ import { HudRenderer, type HudState } from '../../render/HudRenderer';
 import { RunnerPhysics, defaultParams } from './RunnerPhysics';
 import { collides, mapObstacle, platformUnder, type Obstacle } from './ObstacleMapper';
 import { PoleDetector } from './PoleDetector';
+import { POWERUP, POWERUP_ICON, PowerUps } from './PowerUps';
 
 interface ObstacleMemo {
   cleared: boolean;
@@ -61,6 +62,8 @@ export class RunnerMode implements GameMode {
   private goldenCaught = 0;
   private birdsDodged = 0;
   private poles = new PoleDetector();
+  private power!: PowerUps;
+  private shieldsUsed = 0;
   private fx!: FxRenderer;
   private hud!: HudRenderer;
 
@@ -89,7 +92,7 @@ export class RunnerMode implements GameMode {
   private photo: string | null = null;
   private photoAt = -1e9;
   private photoDue = 0;
-  private timeAcc = 0;
+  private secondsAwarded = 0;
   bestScore = 0;
 
   enter(ctx: GameCtx): void {
@@ -108,6 +111,8 @@ export class RunnerMode implements GameMode {
     this.nextBirdAt = now + 6000;
     this.R = this.runnerHeight();
     this.phys = new RunnerPhysics(defaultParams(this.R));
+    this.power = new PowerUps(ctx.rng, now);
+    if (ctx.testLives) this.lives = ctx.testLives;
     ctx.music.start('runner');
     if (ctx.settings.data.battery) this.effects.maxOver = 24;
   }
@@ -333,6 +338,12 @@ export class RunnerMode implements GameMode {
         } else c.x += c.vx * dt;
       } else c.x += c.vx * dt;
       if (!c.taken) {
+        // magnet: coins in reach fly to the hand
+        const pull = this.power.magnetPull(this.t(now), { x: c.x, y: this.groundY(c.x) - c.h }, { x: runner.x + runner.w / 2, y: runner.y + runner.h / 2 }, this.R);
+        if (pull.x || pull.y) {
+          c.x += pull.x * dt;
+          c.h -= pull.y * dt;
+        }
         const cy = this.groundY(c.x) - c.h;
         const r = this.R * 0.22;
         if (intersect(runner, { x: c.x - r, y: cy - r, w: 2 * r, h: 2 * r })) {
@@ -388,6 +399,11 @@ export class RunnerMode implements GameMode {
         const pts = runnerObstaclePoints(c);
         this.addPoints(pts, { x: runner.x + runner.w / 2, y: runner.y - 10 }, c >= 3 ? '#ffb020' : '#fff', 22);
         this.record({ t: Math.round(t - this.startedAt), kind: 'obstacle', cls: String(o.cls), points: pts, combo: c }, now);
+        if (this.power.doubleActive) {
+          // double points: a second, equal bonus the server can mirror
+          this.addPoints(pts, { x: runner.x + runner.w / 2, y: runner.y - 40 }, '#f59e0b', 24);
+          this.record({ t: Math.round(t - this.startedAt), kind: 'bonus', id: 'x2', points: pts, combo: c }, now);
+        }
         if (c > 1 && c % 5 === 0) {
           this.takePhoto(now);
           this.pushFeed(`${c}er-Combo!`, '#ffb020');
@@ -398,13 +414,15 @@ export class RunnerMode implements GameMode {
     for (const id of [...this.memo.keys()]) if (!this.obstacles.some((o) => o.id === id)) this.memo.delete(id);
 
     this.updateCoins(dt, now, runner);
+    this.updatePowerUps(dt, now, runner);
     this.updateBirds(dt, now, runner);
     this.ctx.music.setIntensity(0.3 + Math.min(0.45, Math.max(0, this.flowSpeed - 400) / 1800) + (this.lives <= 1 ? 0.25 : 0));
 
-    // survival points
-    this.timeAcc += dt;
-    while (this.timeAcc >= 1) {
-      this.timeAcc -= 1;
+    // survival points follow the round clock, not summed frame dt: at low frame rates dt is
+    // clamped and would fall behind the duration the server recomputes the score from
+    const secs = Math.floor((t - this.startedAt) / 1000);
+    while (this.secondsAwarded < secs) {
+      this.secondsAwarded++;
       this.score += RUNNER.perSecond;
       const unhurt = Math.floor((t - this.lastHurtAt) / 1000);
       this.record({ t: Math.round(t - this.startedAt), kind: 'bonus', id: 'unhurt', size: unhurt, points: 0 }, now);
@@ -418,8 +436,43 @@ export class RunnerMode implements GameMode {
     d.set('runnerH', this.phys.h);
   }
 
+  private updatePowerUps(dt: number, now: number, runner: Rect): void {
+    const t = this.t(now);
+    const q = this.area().quad;
+    const left = Math.min(q[0].x, q[3].x);
+    const right = Math.max(q[1].x, q[2].x);
+    this.power.spawn(t, this.dir > 0 ? left - 30 : right + 30, this.dir, this.flowSpeed, this.R);
+    this.power.update(dt, t, left, right);
+    for (const p of this.power.pickups) {
+      if (p.taken) continue;
+      const cy = this.groundY(p.x) - p.h;
+      const r = this.R * 0.3;
+      if (!intersect(runner, { x: p.x - r, y: cy - r, w: 2 * r, h: 2 * r })) continue;
+      this.power.collect(p, t);
+      const text = p.kind === 'magnet' ? 'MAGNET!' : p.kind === 'shield' ? 'SCHILD!' : 'DOPPELTE PUNKTE!';
+      const color = p.kind === 'magnet' ? '#38bdf8' : p.kind === 'shield' ? '#a78bfa' : '#f59e0b';
+      this.effects.add(new Popup(`${POWERUP_ICON[p.kind]} ${text}`, { x: p.x, y: cy - r * 2 }, now, color, 30));
+      this.pushFeed(`${POWERUP_ICON[p.kind]} ${text}`, color);
+      this.effects.particles.sparks({ x: p.x, y: cy }, 16, 260, [color, '#fff']);
+      this.ctx.sfx.play('golden');
+      this.ctx.haptics.medium();
+    }
+  }
+
   private hurt(now: number, o: Obstacle): void {
     const t = this.t(now);
+    if (this.power.absorb()) {
+      // the shield takes this one
+      this.shieldsUsed++;
+      this.invulnUntil = t + 1200;
+      this.shake.add(4);
+      this.ctx.sfx.play('pow');
+      this.ctx.haptics.medium();
+      const sx = this.runnerX();
+      this.effects.add(new Popup('🛡️ SCHILD!', { x: sx, y: this.groundY(sx) - this.R * 1.4 }, now, '#a78bfa', 28));
+      this.effects.particles.sparks({ x: sx, y: this.groundY(sx) - this.R * 0.6 }, 20, 320, ['#a78bfa', '#fff']);
+      return;
+    }
     this.lives--;
     this.hitsTaken++;
     this.lastHurtAt = t;
@@ -547,6 +600,26 @@ export class RunnerMode implements GameMode {
       c.stroke();
     }
 
+    // power-up pickups: bobbing icon in a glowing bubble
+    for (const p of this.power.pickups) {
+      if (p.taken) continue;
+      const cy = this.groundY(p.x) - p.h + Math.sin(t / 160 + p.x * 0.02) * this.R * 0.08;
+      const r = this.R * 0.3;
+      const color = p.kind === 'magnet' ? 'rgba(56,189,248,' : p.kind === 'shield' ? 'rgba(167,139,250,' : 'rgba(245,158,11,';
+      c.fillStyle = `${color}0.25)`;
+      c.beginPath();
+      c.arc(p.x, cy, r * 1.25, 0, Math.PI * 2);
+      c.fill();
+      c.strokeStyle = `${color}0.9)`;
+      c.lineWidth = 2;
+      c.stroke();
+      c.font = `${Math.round(r * 1.5)}px system-ui, sans-serif`;
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+      c.fillStyle = '#fff';
+      c.fillText(POWERUP_ICON[p.kind], p.x, cy + 1);
+    }
+
     // birds (+ warning arrow shortly before they enter)
     for (const b of this.birds) {
       const cy = this.groundY(b.x) - b.h;
@@ -572,6 +645,26 @@ export class RunnerMode implements GameMode {
     const r = this.phys.rect(rx, gy);
     const blink = t < this.invulnUntil && Math.floor(t / 100) % 2 === 0;
     if (!blink) this.drawRunner(c, r);
+    if (this.power.shield) {
+      // shield bubble
+      c.strokeStyle = `rgba(167,139,250,${0.6 + 0.3 * Math.sin(t / 150)})`;
+      c.lineWidth = 3;
+      c.fillStyle = 'rgba(167,139,250,0.12)';
+      c.beginPath();
+      c.ellipse(r.x + r.w / 2, r.y + r.h / 2, r.w * 0.85, r.h * 0.7, 0, 0, Math.PI * 2);
+      c.fill();
+      c.stroke();
+    }
+    const activePower = this.power.active(t);
+    if (activePower === 'magnet') {
+      c.strokeStyle = `rgba(56,189,248,${0.25 + 0.15 * Math.sin(t / 120)})`;
+      c.lineWidth = 2;
+      c.setLineDash([8, 10]);
+      c.beginPath();
+      c.arc(r.x + r.w / 2, r.y + r.h / 2, POWERUP.magnetRange * this.R, 0, Math.PI * 2);
+      c.stroke();
+      c.setLineDash([]);
+    }
 
     this.effects.drawOver(c, now, this.ctx.frame.video);
 
@@ -588,7 +681,7 @@ export class RunnerMode implements GameMode {
       hint: a.free ? 'Frei-Modus (keine Scheibe erkannt)' : t - this.startedAt < 4000 ? 'Tippen = Sprung · Wischen nach unten = Ducken (Vögel!)' : this.obstacles.length === 0 && t - this.startedAt > 5000 ? 'Warte auf Hindernisse …' : null,
       windowMode: this.ctx.window().mode,
       lives: this.lives,
-      extra: `🪙 ${this.coinsTaken}`,
+      extra: `${activePower ? `${POWERUP_ICON[activePower]} ${Math.ceil(this.power.timeLeft(t) * POWERUP.durationMs / 1000)} s · ` : ''}${this.power.shield ? '🛡️ · ' : ''}🪙 ${this.coinsTaken}`,
     };
     this.hud.draw(hs, now);
     if (this.photoDue && now >= this.photoDue) {
@@ -762,7 +855,7 @@ export class RunnerMode implements GameMode {
       seed: this.ctx.session.seed,
       startedAt: this.startWall,
       source: this.ctx.session.source,
-      extra: { missionPoints: this.missionPoints, coins: this.coinsTaken, hitsTaken: this.hitsTaken, roundSeconds: 0 },
+      extra: { missionPoints: this.missionPoints, coins: this.coinsTaken, hitsTaken: this.hitsTaken, roundSeconds: 0, powerups: this.power.collected.magnet + this.power.collected.shield + this.power.collected.double, shields: this.shieldsUsed },
       photo: this.photo ?? undefined,
     };
   }
@@ -789,6 +882,10 @@ export class RunnerMode implements GameMode {
       if (d > -o.box.w && d < nearest) nearest = d;
     }
     return {
+      powerup: this.power.active(this.t(this.lastNow)) ?? 'none',
+      shield: this.power.shield,
+      powerups: this.power.collected.magnet + this.power.collected.shield + this.power.collected.double,
+      pickups: this.power.pickups.length,
       score: this.score,
       cleared: this.cleared,
       coins: this.coinsTaken,
@@ -796,6 +893,15 @@ export class RunnerMode implements GameMode {
       combo: this.combo.value,
       obstacles: this.obstacles.length,
       nextObstacle: Number.isFinite(nearest) ? Math.round(nearest) : -1,
+      nextBird: (() => {
+        let d = Infinity;
+        for (const b of this.birds) {
+          if (b.golden || b.done) continue;
+          const dd = this.dir > 0 ? rx - b.x : b.x - rx;
+          if (dd > -40 && dd < d) d = dd;
+        }
+        return Number.isFinite(d) ? Math.round(d) : -1;
+      })(),
       grounded: this.phys.grounded,
       dir: this.dir,
       ended: this.ended,

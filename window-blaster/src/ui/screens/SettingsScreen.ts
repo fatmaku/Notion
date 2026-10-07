@@ -1,7 +1,7 @@
 import type { App } from '../../app/App';
 import type { SettingsData } from '../../app/Settings';
 import { h } from '../dom';
-import { T } from '../i18n/de';
+import { LANGS, T, getLang } from '../i18n';
 import type { Screen } from '../Router';
 
 export function SettingsScreen(app: App, onBack: () => void): Screen {
@@ -55,6 +55,25 @@ export function SettingsScreen(app: App, onBack: () => void): Screen {
           value: s.data.nickname,
           oninput: (e) => s.patch({ nickname: (e.target as HTMLInputElement).value.trim() }),
         }),
+      ),
+      h(
+        'div',
+        { class: 'row', style: 'align-items:center;margin:6px 0' },
+        h('span', { class: 'muted small' }, '🌐 Sprache / Language:'),
+        ...LANGS.map((l) =>
+          h(
+            'button',
+            {
+              class: `btn ${getLang() === l.id ? '' : 'secondary'}`,
+              style: 'min-height:40px;padding:8px 14px;font-size:14px',
+              onclick: () => {
+                s.patch({ lang: l.id });
+                app.router.show(SettingsScreen(app, onBack));
+              },
+            },
+            l.label,
+          ),
+        ),
       ),
       toggle('sound', '🔊 Sound-Effekte'),
       range('sfxVolume', 'Lautstärke Effekte', 0, 100, 10, ' %'),

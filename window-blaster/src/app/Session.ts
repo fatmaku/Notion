@@ -10,6 +10,8 @@ export interface Session {
   seed: number;
   /** Daily challenge: missions seeded by the date, so everyone plays the same set. */
   daily: boolean;
+  /** Weekly challenge: mode, weapons and missions fixed for the ISO week. */
+  weekly: boolean;
 }
 
 export const defaultSession = (): Session => ({
@@ -20,4 +22,5 @@ export const defaultSession = (): Session => ({
   source: 'camera',
   seed: (Date.now() % 100000) | 0,
   daily: false,
+  weekly: false,
 });

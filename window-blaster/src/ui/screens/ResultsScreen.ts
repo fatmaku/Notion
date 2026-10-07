@@ -6,7 +6,7 @@ import { renderResultCard, shareImage } from '../share';
 import { MODES, T, WEAPON_TEXT } from '../i18n/de';
 import type { Screen } from '../Router';
 
-export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolean; newDaily: boolean; newlyAffordable?: { icon: string; name: string }[] }): Screen {
+export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolean; newDaily: boolean; newWeekly?: boolean; newlyAffordable?: { icon: string; name: string }[] }): Screen {
   const medal = medalFor(r.mode, r.score);
   const nm = nextMedal(r.mode, r.score);
   const acc = r.shots ? Math.round((r.hits / r.shots) * 100) : 0;
@@ -33,6 +33,7 @@ export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolea
         { class: 'row', style: 'align-items:center;margin-bottom:8px' },
         flags.newBest ? h('span', { class: 'badge ok' }, `★ ${T.newBest}`) : h('span', { class: 'muted small' }, `${T.best}: ${fmtScore(app.records.best(r.mode))}`),
         app.session.daily ? h('span', { class: `badge ${flags.newDaily ? 'ok' : 'warn'}` }, `📅 Tages-Challenge · heute ${fmtScore(app.records.dailyBest(r.mode))}`) : null,
+        app.session.weekly ? h('span', { class: `badge ${flags.newWeekly ? 'ok' : 'warn'}` }, `🗓️ Wochen-Challenge · diese Woche ${fmtScore(app.records.weeklyBest(r.mode))}`) : null,
       ),
       nm ? h('p', { class: 'small muted' }, `Noch ${fmtScore(nm.missing)} Punkte bis ${MEDAL_ICON[nm.medal]}`) : h('p', { class: 'small muted' }, 'Gold! Besser geht’s kaum.'),
       r.mode === 'side-runner'
