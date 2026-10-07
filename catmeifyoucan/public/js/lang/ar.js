@@ -2,7 +2,9 @@
 // Platzhalter in {geschweiften} Klammern nicht übersetzen. Plural als Objekt mit den Kategorien von
 // Intl.PluralRules('ar'): zero (0) · one (1) · two (2) · few (3–10) · many (11–99) · other (100+).
 // one/two stehen wie im Arabischen üblich ohne Ziffer („قطة واحدة“, „قطتان“); sonst immer {n}.
-// Prozent wie ui.js pct() und die Startseite: 20%. Wortwahl: قطة/قطط (allgemein, weiblich), البنية = Körper/Ernährungszustand, منطقة = Mahalle/Gebiet, كوبون = Gutschein,
+// Prozent wie ui.js pct(): 20% – im Fließtext in LRI…PDI (\u2066…\u2069), sonst zeigt der Browser „%20“.
+// Wortwahl: قطة/قطط (allgemein, weiblich), قطة شارع / قطط الشوارع, البنية = Körper/Ernährungszustand,
+// منطقة = Mahalle/Gebiet, كوبون = Gutschein, مقهى شريك, بلاغ/أبلغ = melden, بلا فلاش, \u00a0 = geschütztes Leerzeichen,
 // قاضي كوي = Kadıköy (BRAND.md Abschnitt 2), Viertelnamen bleiben in Lateinschrift (Moda, Caferağa …).
 // Markennamen (Cat Me If You Can, KediDex, HappyTuncay, Happy Overthinking Coffee, XP) nie übersetzen.
 export default {
@@ -20,10 +22,10 @@ export default {
   'nav.stats': 'قاضي كوي',
 
   // Start
-  'onb.title': 'ابحث عن قطط الشوارع في قاضي كوي واجمعها',
-  'onb.lead': 'صوّر قطة من قطط الشارع. ستدخل إلى KediDex الخاص بك. 20 قطة مختلفة في يوم واحد = خصم 20% في مقهى شريك. كل صورة تساعد: نحن نعدّ القطط.',
-  'onb.rule1': '📸 صوّر فقط، بدون فلاش. لا تلمس القطط ولا تطاردها.',
-  'onb.rule2': '🐾 تُحسب قطط الشارع فقط، لا القطط المنزلية.',
+  'onb.title': 'اعثر على قطط الشوارع في قاضي كوي واجمعها',
+  'onb.lead': 'صوّر قطة شارع، فتنضم إلى KediDex الخاص بك. 20\u00a0قطة مختلفة في يوم واحد = خصم\u00a0\u206620%\u2069 في مقهى شريك. كل صورة تساعد: نحن نعدّ القطط.',
+  'onb.rule1': '📸 صوّر فقط، بلا فلاش. لا تلمس القطط ولا تطاردها.',
+  'onb.rule2': '🐾 تُحسب قطط الشوارع فقط، لا القطط المنزلية.',
   'onb.rule3': '🙈 لا تصوّر الناس ولا داخل البيوت.',
   'onb.rule4': '🩹 رأيت قطة مريضة؟ أخبرنا. سيساعدها المتطوعون.',
   'onb.nick': 'اسمك المستعار',
@@ -47,7 +49,7 @@ export default {
   'home.claimVoucher': 'احصل على الكوبون',
   'home.quests': 'مهام اليوم',
   'home.todayCats': 'قطط وجدتها اليوم',
-  'home.none': 'لا قطط اليوم بعد. هيا ابحث! 🐾',
+  'home.none': 'لم تجد أي قطة اليوم بعد. هيا ابحث! 🐾',
   'home.cafes': 'مقاهٍ فيها خصم',
   'home.help': {
     zero: 'لا توجد قطة تحتاج مساعدة',
@@ -68,7 +70,14 @@ export default {
     many: 'اعثر على {n} قطة مختلفة',
     other: 'اعثر على {n} قطة مختلفة',
   },
-  'quest.pattern': 'اعثر على {n} × قطة {pattern}',
+  'quest.pattern': {
+    zero: 'اعثر على قطط {pattern}',
+    one: 'اعثر على قطة {pattern}',
+    two: 'اعثر على قطتين، كلتاهما {pattern}',
+    few: 'اعثر على {n} قطط {pattern}',
+    many: 'اعثر على {n} قطة {pattern}',
+    other: 'اعثر على {n} قطة {pattern}',
+  },
   'quest.district': 'اعثر على قطة في {district}',
   'quest.districts': {
     zero: 'اعثر على قطط في مناطق مختلفة',
@@ -79,19 +88,19 @@ export default {
     other: 'اعثر على قطط في {n} منطقة مختلفة',
   },
   'quest.new': 'اعثر على قطة جديدة',
-  'quest.early': 'اعثر على قطة قبل 9 صباحًا',
+  'quest.early': 'اعثر على قطة قبل الساعة 9 صباحًا',
   'quest.evening': {
-    zero: 'قطط بعد 7 مساءً',
-    one: 'قطة واحدة بعد 7 مساءً',
-    two: 'قطتان بعد 7 مساءً',
-    few: '{n} قطط بعد 7 مساءً',
-    many: '{n} قطة بعد 7 مساءً',
-    other: '{n} قطة بعد 7 مساءً',
+    zero: 'اعثر على قطط بعد الساعة 7 مساءً',
+    one: 'اعثر على قطة بعد الساعة 7 مساءً',
+    two: 'اعثر على قطتين بعد الساعة 7 مساءً',
+    few: 'اعثر على {n} قطط بعد الساعة 7 مساءً',
+    many: 'اعثر على {n} قطة بعد الساعة 7 مساءً',
+    other: 'اعثر على {n} قطة بعد الساعة 7 مساءً',
   },
 
   // Camera
   'catch.searching': 'نبحث عن قطة…',
-  'catch.found': 'قطة! {p}%',
+  'catch.found': 'قطة! \u2066{p}%\u2069',
   'catch.noAr': 'كاشف القطط متوقف',
   'catch.locating': 'نحدد موقعك…',
   'catch.gpsWeak': 'GPS ضعيف (±{m} م)',
@@ -136,14 +145,14 @@ export default {
   'card.notCounted': 'حُفظت، لكنها لا تُحسب: {why}',
   'card.xp': '+{n} XP',
   'card.progress': 'اليوم {n}/{goal}',
-  'card.ideas': 'أفكار لأسماء',
+  'card.ideas': 'أفكار للاسم',
   'card.levelUp': 'مستوى جديد: {n}!',
   'card.badge': 'شارة جديدة: {name}',
   'card.quest': 'أنجزت مهمة: {name}',
   'card.namedBy': 'سمّاها {name}',
   'card.discoveredBy': 'أول من وجدها: {name}',
-  'card.years': 'سنة',
-  'card.months': 'شهر',
+  'card.years': 'سنوات',
+  'card.months': 'أشهر',
 
   // Why it does not count
   'why.gallery': 'صورة من المعرض',
@@ -156,7 +165,7 @@ export default {
   // Errors
   'err.banned': 'حسابك محظور.',
   'err.no_cat': 'همم… لا أرى قطة هنا 🤔',
-  'err.pet_cat': 'تبدو قطة منزلية 🏠 تُحسب قطط الشارع فقط.',
+  'err.pet_cat': 'تبدو قطة منزلية 🏠 تُحسب قطط الشوارع فقط.',
   'err.not_live_photo': 'صوّر قطة حقيقية، لا شاشة 😉',
   'err.duplicate_photo': 'هذه الصورة استُخدمت من قبل.',
   'err.outside_region': 'أنت خارج منطقة اللعب. حاليًا قاضي كوي فقط.',
@@ -186,13 +195,13 @@ export default {
   'err.login_required': 'اختر اسمًا مستعارًا أولًا.',
   'err.report_too_late': 'يمكنك الإبلاغ حتى 6 ساعات فقط بعد الصورة.',
   'err.report_empty': 'اختر حالة القطة من فضلك.',
-  'err.observation_not_found': 'لا نجد هذه الصورة.',
+  'err.observation_not_found': 'لم نجد هذه الصورة.',
 
   // KediDex
   'dex.mine': 'قططي',
   'dex.all': 'كل قاضي كوي',
   'dex.types': 'الأنواع',
-  'dex.empty': 'لا شيء في KediDex بعد. اعثر على أول قطة!',
+  'dex.empty': 'لا قطط في KediDex بعد. اعثر على أول قطة!',
   'dex.filter.district': 'المنطقة',
   'dex.filter.status': 'الحالة',
   'dex.filter.pattern': 'النوع',
@@ -211,7 +220,7 @@ export default {
     many: 'وجدتها {n} مرة',
     other: 'وجدتها {n} مرة',
   },
-  'dex.lastSeen': 'آخر مرة: {t}',
+  'dex.lastSeen': 'آخر مشاهدة: {t}',
   'dex.count': {
     zero: 'لا قطط',
     one: 'قطة واحدة',
@@ -232,8 +241,8 @@ export default {
   'cat.send': 'إرسال',
   'cat.setStatus': 'غيّر الحالة',
   'cat.statusNote': 'ملاحظة (مثلًا: عند الطبيب البيطري)',
-  'cat.firstSeen': 'أول مرة شوهدت',
-  'cat.lastSeen': 'آخر مرة شوهدت',
+  'cat.firstSeen': 'أول مشاهدة',
+  'cat.lastSeen': 'آخر مشاهدة',
   'cat.seenTimes': {
     zero: 'لم تُشاهد بعد',
     one: 'شوهدت مرة واحدة',
@@ -278,7 +287,7 @@ export default {
   'map.tapToPlace': 'اضغط على المكان في الخريطة',
   'map.suggestSent': 'شكرًا! سنراجعه، ثم يظهر على الخريطة.',
   'map.offline': 'لم تُحمَّل الخريطة. هذه قائمة:',
-  'map.fuzzy': 'لحماية القطط، نعرض الأماكن بشكل تقريبي فقط (نحو 100 م).',
+  'map.fuzzy': 'لحماية القطط، نعرض الأماكن بشكل تقريبي فقط (نحو\u00a0100\u00a0م).',
 
   // Kadıköy numbers
   'stats.title': 'قطط قاضي كوي',
@@ -295,12 +304,12 @@ export default {
     other: '{n} قطة جديدة هذا الأسبوع',
   },
   'stats.tnrKnown': {
-    zero: 'لم نفحص أي قطة بعد',
-    one: 'فحصنا قطة واحدة',
-    two: 'فحصنا قطتين',
-    few: 'فحصنا {n} قطط',
-    many: 'فحصنا {n} قطة',
-    other: 'فحصنا {n} قطة',
+    zero: 'لا نعرف بعد',
+    one: 'من أصل قطة واحدة',
+    two: 'من أصل قطتين',
+    few: 'من أصل {n} قطط',
+    many: 'من أصل {n} قطة',
+    other: 'من أصل {n} قطة',
   },
   'stats.bcs': 'متوسط البنية (1–9)',
   'stats.obs': 'الصور',
@@ -334,7 +343,7 @@ export default {
   'lb.week': 'هذا الأسبوع',
   'lb.all': 'كل الأوقات',
   'lb.xp': 'XP',
-  'lb.discoveries': 'اكتشافات',
+  'lb.discoveries': 'قطط جديدة',
   'lb.cats': 'القطط',
   'lb.empty': 'لا أحد بعد.',
 
@@ -344,7 +353,7 @@ export default {
 
   // Voucher
   'v.title': 'كوبون القطط',
-  'v.discount': 'خصم {n}%',
+  'v.discount': 'خصم \u2066{n}%\u2069',
   'v.show': 'اعرضه عند الكاشير. الموظفون يمسحون الرمز.',
   'v.validUntil': 'صالح اليوم حتى {t}',
   'v.cats': {
@@ -355,10 +364,10 @@ export default {
     many: '{n} قطة اليوم',
     other: '{n} قطة اليوم',
   },
-  'v.redeemed': 'مُستخدم ✓',
+  'v.redeemed': 'تم استخدامه ✓',
   'v.expired': 'انتهت صلاحيته',
-  'v.partners': 'أين تستخدمه',
-  'v.notYet': 'لا كوبون بعد',
+  'v.partners': 'أين يمكنك استخدامه',
+  'v.notYet': 'لا يوجد كوبون بعد',
   'v.demoRedeem': 'تجريبي: استخدمه',
   'v.needs': {
     zero: 'بلا قطط',
@@ -388,7 +397,7 @@ export default {
   'p.role.admin': 'مشرف',
   'm.catches': 'الصور',
   'm.uniqueCats': 'قطط مختلفة',
-  'm.discoveries': 'اكتشافات',
+  'm.discoveries': 'وجدتها أولًا',
   'm.districts': 'المناطق',
   'm.goalDays': 'أيام تحقيق الهدف',
   'm.maxStreak': 'أكثر أيام متتالية',
@@ -396,9 +405,9 @@ export default {
 
   // Rules
   'rules.title': 'قواعد صديقة للقطط',
-  'rules.body': 'Cat Me If You Can لعبة تصوير. القطط جيراننا.\n• ابقَ على مسافة. لا تطارد القطط ولا تحاصرها ولا تحملها.\n• دع القطط ترتاح وهي نائمة أو تأكل. بدون فلاش.\n• تريد أن تطعمها؟ طعام القطط وماء نظيف فقط.\n• القطط المنزلية والقطط داخل البيوت لا تُحسب.\n• لا تصوّر الناس ولا لوحات السيارات ولا البيوت.',
+  'rules.body': 'Cat Me If You Can لعبة تصوير. القطط جيراننا.\n• ابقَ على مسافة. لا تطارد القطط ولا تحاصرها ولا تحملها.\n• دع القطط ترتاح وهي نائمة أو تأكل. بلا فلاش.\n• تريد أن تطعمها؟ طعام القطط وماء نظيف فقط.\n• القطط المنزلية والقطط داخل البيوت لا تُحسب.\n• لا تصوّر الناس ولا لوحات السيارات ولا البيوت.',
   'rules.privacy': 'الخصوصية',
-  'rules.privacyBody': 'نحفظ اسمك المستعار وصور القطط ومكان التقاطها. الآخرون يرون القطة فقط، مقصوصة من الصورة. نعرض الأماكن بشكل تقريبي فقط (نحو 100 م). فريقنا فقط يرى الصورة كاملة. تريد حذف بياناتك؟ راسلنا فقط.',
+  'rules.privacyBody': 'نحفظ اسمك المستعار وصور القطط ومكان التقاطها. الآخرون يرون القطة فقط، مقصوصة من الصورة. نعرض الأماكن بشكل تقريبي فقط (نحو\u00a0100\u00a0م). فريقنا فقط يرى الصورة كاملة. تريد أن نحذف بياناتك؟ راسلنا، وسنحذفها.',
   'rules.ai': 'ذكاء اصطناعي ينظر إلى الصورة. قد يخطئ. العمر والوزن والصحة مجرد تخمين.',
 
   // Common
@@ -451,10 +460,10 @@ export default {
 
   // Report condition
   'report.title': 'كيف حال القطة؟',
-  'report.lead': 'إن أردت، اضغط على ما تراه. المتطوعون يمكنهم المساعدة.',
+  'report.lead': 'إن أردت، اضغط على ما تراه. يستطيع المتطوعون المساعدة.',
   'report.send': 'إرسال',
   'report.thanks': 'شكرًا! هذا يساعد القطط.',
-  'report.urgent': 'المتطوعون يعرفون الآن.',
+  'report.urgent': 'المتطوعون على علم الآن.',
   'report.notePh': 'ملاحظة (اختياري)',
   'report.profileTitle': 'أبلغ عن الحالة',
 

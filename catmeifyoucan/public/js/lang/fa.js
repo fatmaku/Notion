@@ -3,7 +3,8 @@
 // Intl.PluralRules('fa'): one (0 und 1) · other. Achtung: 0 fällt auf „one“ – deshalb steht in „one“
 // immer {n} und kein „یک“. Im Persischen bleibt das Nomen nach einer Zahl im Singular („۳ گربه“).
 // Wortwahl: گربه (Katze), محله = Mahalle/Gebiet, کوپن = Gutschein, کافهٔ همکار = Partner-Café,
-// اندام = Körper (BCS), نوع = Typ/Fell, داوطلب = Freiwillige:r, عقیم‌شده = kastriert, مأموریت = Aufgabe.
+// اندام = Körper (BCS), نوع = Typ/Fell, داوطلب = Freiwillige:r, عقیم‌شده (علامت گوش) = kastriert (Ohrmarke),
+// مأموریت = Aufgabe, بیمار = krank, نمایشی = Demo, نشان = Abzeichen – auf allen Flächen gleich (Startseite, Trailer, Bilder).
 // کادیکوی = Kadıköy (BRAND.md Abschnitt 2), Viertelnamen bleiben in Lateinschrift (Moda, Caferağa …).
 // Ziffern: persisch (۰–۹), denn i18n.js setzt Zahlen in Platzhaltern mit Intl „fa-IR“ (۲۰). Prozent
 // „۲۰٪“ wie ui.js pct() (BRAND.md Abschnitt 4). Spannen mit „تا“ („۲ تا ۲۰“), nicht mit Strich.
@@ -32,12 +33,12 @@ export default {
   'onb.rule1': '📸 فقط عکس، بدون فلاش. به گربه‌ها دست نزن و دنبالشان نکن.',
   'onb.rule2': '🐾 فقط گربه‌های خیابانی حساب می‌شوند، نه گربه‌های خانگی.',
   'onb.rule3': '🙈 از آدم‌ها و داخل خانه‌ها عکس نگیر.',
-  'onb.rule4': '🩹 گربهٔ مریض دیدی؟ به ما بگو. داوطلب‌ها کمک می‌کنند.',
+  'onb.rule4': '🩹 گربهٔ بیمار دیدی؟ به ما بگو. داوطلب‌ها کمک می‌کنند.',
   'onb.nick': 'اسم مستعارت',
   'onb.nickPh': 'مثلاً ModaCatFan',
   'onb.start': 'بزن بریم',
   'onb.lang': 'زبان',
-  'onb.demo': 'نسخهٔ آزمایشی: اطلاعاتت فقط روی همین دستگاه می‌ماند.',
+  'onb.demo': 'نسخهٔ نمایشی: اطلاعاتت فقط روی همین دستگاه می‌ماند.',
 
   // Today
   'home.goal': {
@@ -175,7 +176,7 @@ export default {
   'err.login_required': 'اول یک اسم مستعار انتخاب کن.',
   'err.report_too_late': 'فقط تا ۶ ساعت بعد از عکس می‌توانی گزارش بدهی.',
   'err.report_empty': 'لطفاً انتخاب کن حال گربه چطور است.',
-  'err.observation_not_found': 'این عکس را پیدا نمی‌کنیم.',
+  'err.observation_not_found': 'این عکس پیدا نشد.',
 
   // KediDex
   'dex.mine': 'گربه‌های من',
@@ -227,7 +228,7 @@ export default {
   'cat.namer': 'اسم‌گذار',
   'cat.helpSent': 'ممنون! داوطلب‌ها حالا آن را می‌بینند.',
   'cat.legend': 'اسطورهٔ کادیکوی',
-  'cat.demo': 'دمو',
+  'cat.demo': 'نمایشی',
   'cat.review': 'در حال بررسی',
   'cat.lastReport': 'آخرین گزارش',
 
@@ -248,7 +249,7 @@ export default {
   'map.food': 'غذا و آب',
   'map.heat': 'جاهای پرگربه',
   'map.suggest': 'افزودن جای غذا',
-  'map.tapToPlace': 'جایش را روی نقشه لمس کن',
+  'map.tapToPlace': 'جایش را روی نقشه بزن',
   'map.suggestSent': 'ممنون! اول بررسی می‌کنیم، بعد روی نقشه می‌آید.',
   'map.offline': 'نقشه باز نشد. این هم فهرست:',
   'map.fuzzy': 'برای امنیت گربه‌ها، جاها را فقط تقریبی نشان می‌دهیم (حدود ۱۰۰ متر).',
@@ -260,18 +261,18 @@ export default {
   'stats.help': 'به کمک نیاز دارند',
   'stats.tnr': 'عقیم‌شده (علامت گوش)',
   'stats.new7d': {
-    one: '‏{n} گربهٔ جدید در این هفته',
-    other: '‏{n} گربهٔ جدید در این هفته',
+    one: '‏+{n} این هفته',
+    other: '‏+{n} این هفته',
   },
   'stats.tnrKnown': {
-    one: 'گوش {n} گربه بررسی شد',
-    other: 'گوش {n} گربه بررسی شد',
+    one: '‏{n} گربه بررسی شد',
+    other: '‏{n} گربه بررسی شد',
   },
   'stats.bcs': 'میانگین اندام (۱ تا ۹)',
   'stats.obs': 'عکس‌ها',
   'stats.active': 'بازیکن‌های امروز',
   'stats.vouchers': 'کوپن‌های استفاده‌شده',
-  'stats.perDay': 'عکس‌های هر روز (۳۰ روز اخیر)',
+  'stats.perDay': 'عکس‌های هر روز (۳۰ روز)',
   'stats.patterns': 'بر اساس نوع',
   'stats.ages': 'سن',
   'stats.health': 'سلامت',
@@ -283,16 +284,16 @@ export default {
   'stats.chart': 'نمودار',
   'stats.export': 'دانلود داده‌ها',
   'stats.leaderboard': 'بهترین بازیکن‌ها',
-  'stats.helpRadar': 'گربه‌هایی که کمک لازم دارند',
+  'stats.helpRadar': 'گربه‌هایی که به کمک نیاز دارند',
   'stats.col.district': 'محله',
   'stats.col.cats': 'گربه‌ها',
   'stats.col.obs': 'عکس‌ها',
   'stats.col.help': 'کمک',
   'stats.col.tnr': 'عقیم (٪)',
   'stats.col.bcs': 'اندام',
-  'stats.reports': 'گزارش بازیکن‌ها (۳۰ روز اخیر)',
-  'stats.fed': 'غذا گرفتند (۳۰ روز اخیر)',
-  'stats.hungry': 'گرسنه (۷ روز اخیر)',
+  'stats.reports': 'گزارش بازیکن‌ها (۳۰ روز)',
+  'stats.fed': 'غذا داده شد (۳۰ روز)',
+  'stats.hungry': 'گرسنه (۷ روز)',
 
   // Top players
   'lb.day': 'امروز',
@@ -318,9 +319,9 @@ export default {
   },
   'v.redeemed': 'استفاده شد ✓',
   'v.expired': 'منقضی شده',
-  'v.partners': 'کجا می‌توانی از آن استفاده کنی',
+  'v.partners': 'کجا می‌توانی از کوپن استفاده کنی',
   'v.notYet': 'هنوز کوپنی نداری',
-  'v.demoRedeem': 'دمو: استفاده از کوپن',
+  'v.demoRedeem': 'نمایشی: استفاده از کوپن',
   'v.needs': {
     one: '‏{n} گربه',
     other: '‏{n} گربه',
@@ -348,8 +349,8 @@ export default {
   'm.discoveries': 'کشف‌ها',
   'm.districts': 'محله‌ها',
   'm.goalDays': 'روزهایی که به هدف رسیدی',
-  'm.maxStreak': 'بیشترین روزهای پشت سر هم',
-  'm.currentStreak': 'روزهای پشت سر هم',
+  'm.maxStreak': 'رکورد روزهای پیاپی',
+  'm.currentStreak': 'روزهای پیاپی',
 
   // Rules
   'rules.title': 'قوانین گربه‌دوستانه',
@@ -380,7 +381,7 @@ export default {
     one: '‏{n} روز پیش',
     other: '‏{n} روز پیش',
   },
-  'common.demo': 'دمو',
+  'common.demo': 'نمایشی',
   'common.unknown': 'نامعلوم',
   'common.more': 'بیشتر',
   'common.yes': 'بله',

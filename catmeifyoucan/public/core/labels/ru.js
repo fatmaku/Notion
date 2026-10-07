@@ -2,6 +2,8 @@
 // Aufbau: { TABELLE: { schlüssel: 'Text' }, BADGES: { id: { name, desc } }, LEVEL_TITLES: [7 Texte] }
 // Tabellen und Schlüssel: siehe core/taxonomy.js (TABLES) und config/game.js (badges, levelTitles).
 // Eigenschaften der Katze stehen in der weiblichen Form (кошка). Nie „охота/добыча“ (BRAND.md).
+// Geschlechtsneutral für Spieler:innen: „Покормлена“ statt „Я покормил(а)“. \u00ad = weiches Trennzeichen
+// (lange Abzeichen-Namen dürfen in der schmalen Kachel umbrechen).
 export default {
   PATTERNS: {
     tekir: 'Полосатая',
@@ -53,7 +55,7 @@ export default {
     ideal: 'В норме',
     overweight: 'Полная',
     obese: 'Очень полная',
-    unknown: 'Не понять по фото',
+    unknown: 'По фото не понять',
   },
 
   SEX: {
@@ -85,7 +87,7 @@ export default {
   },
 
   SEVERITY: {
-    none: 'Здорова на вид',
+    none: 'Выглядит здоровой',
     mild: 'Не срочно',
     attention: 'Нужно внимание',
     urgent: 'Срочно',
@@ -143,7 +145,7 @@ export default {
 
   CONDITION_TAGS: {
     healthy: 'Здорова',
-    fed: 'Я покормил(а)',
+    fed: 'Покормлена',
     hungry: 'Голодная',
     thirsty: 'Хочет пить',
     thin: 'Очень худая',
@@ -154,7 +156,7 @@ export default {
     pregnant: 'Беременна',
     kittens: 'С котятами',
     danger: 'В опасности (дорога, застряла)',
-    lost_pet: 'Может, потерялась из дома',
+    lost_pet: 'Может, сбежала из дома',
   },
 
   PLACE_TYPES: {
@@ -172,11 +174,11 @@ export default {
     hundred_cats: { name: 'Заклинатель кошек', desc: '100 разных кошек' },
     daily_goal: { name: 'Двадцатка', desc: '20 кошек за один день' },
     goal_5: { name: 'Свой в кафе', desc: 'Выполни цель дня 5 раз' },
-    discoverer: { name: 'Открыватель', desc: 'Найди 5 новых кошек' },
-    pioneer: { name: 'Пионер', desc: 'Найди 25 новых кошек' },
+    discoverer: { name: 'Перво\u00adоткрыватель', desc: 'Найди 5 новых кошек' },
+    pioneer: { name: 'Перво\u00adпроходец', desc: 'Найди 25 новых кошек' },
     districts_5: { name: 'Странник', desc: 'Найди кошек в 5 кварталах' },
-    districts_all: { name: 'Весь Кадыкёй', desc: 'Все 21 квартал' },
-    night_owl: { name: 'Ночная сова', desc: '3 кошки с 22:00 до 5:00' },
+    districts_all: { name: 'Весь Кадыкёй', desc: 'Найди кошек во всех 21 квартале' },
+    night_owl: { name: 'Сова', desc: '3 кошки с 22:00 до 5:00' },
     early_bird: { name: 'Жаворонок', desc: '3 кошки с 5:00 до 8:00' },
     guardian: { name: 'Хранитель здоровья', desc: 'Сообщи о 3 кошках, которым нужна помощь' },
     patterns_8: { name: 'Палитра', desc: '8 разных окрасов' },

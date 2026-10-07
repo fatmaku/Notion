@@ -1,12 +1,16 @@
 // Cat Me If You Can – Oberflächentexte: Русский (ru).
 // Platzhalter in {geschweiften} Klammern nicht übersetzen. Plural als Objekt {one, few, many, other}
 // (Intl.PluralRules('ru')). Sehr einfache Sprache, Anrede „ты“ (docs/BRAND.md).
-// Wortwahl: кошка (allgemein, weiblich), квартал = Mahalle, окрас = Typ/Fell, купон = Gutschein,
-// Кадыкёй (BRAND.md Abschnitt 2), Viertelnamen bleiben in Lateinschrift (Moda, Caferağa …).
+// Wortwahl (überall gleich, auch Startseite/Trailer/Social): кошка (allgemein, weiblich), уличная кошка,
+// квартал = Mahalle, окрас = Typ/Fell, купон = Gutschein, кафе-партнёр, волонтёры, стерилизована (метка на ухе),
+// сообщить = melden, отметить = antippen. Кадыкёй (BRAND.md Abschnitt 2) wird dekliniert (в Кадыкёе, Кадыкёя);
+// Viertelnamen bleiben in Lateinschrift (Moda, Caferağa …), daher „в квартале {district}“.
+// Geschlechtsneutral: keine Vergangenheitsform in der Anrede an die Spielerin / den Spieler (nicht „Нашёл?“),
+// sondern Präsens/Futur, unpersönlich oder „кто … – тот …“.
 export default {
   // Brand
   'app.name': 'Cat Me If You Can',
-  'app.slogan': 'Снимай кошек. Собирай. Помогай.',
+  'app.slogan': 'Фотографируй. Собирай кошек. Помогай им.',
   'app.region': 'Кадыкёй',
   'brand.maker': 'Продукт HappyTuncay · Создано в Happy Overthinking Coffee, Кадыкёй',
 
@@ -38,12 +42,12 @@ export default {
     many: 'Ещё {n} кошек до скидки',
     other: 'Ещё {n} кошки до скидки',
   },
-  'home.reached': 'Получилось! Твоя скидка готова ☕',
+  'home.reached': 'Получилось! Твоя скидка готова\u00a0☕',
   'home.showVoucher': 'Показать купон',
   'home.claimVoucher': 'Получить купон',
   'home.quests': 'Задания на сегодня',
   'home.todayCats': 'Найдено сегодня',
-  'home.none': 'Сегодня кошек пока нет. Иди поищи! 🐾',
+  'home.none': 'Сегодня кошек пока нет. Пора на поиски!\u00a0🐾',
   'home.cafes': 'Кафе со скидкой',
   'home.help': {
     one: '{n} кошке нужна помощь',
@@ -66,7 +70,7 @@ export default {
     many: 'Найди {n} кошек: {pattern}',
     other: 'Найди {n} кошки: {pattern}',
   },
-  'quest.district': 'Найди кошку в {district}',
+  'quest.district': 'Найди кошку в квартале {district}',
   'quest.districts': {
     one: 'Найди кошек в {n} квартале',
     few: 'Найди кошек в {n} разных кварталах',
@@ -93,7 +97,7 @@ export default {
   'catch.gallery': 'Галерея',
   'catch.galleryHint': 'Фото из галереи сохраняются, но не засчитываются.',
   'catch.analyzing': 'Смотрю на твоё фото…',
-  'catch.fun1': 'Считаю усы…',
+  'catch.fun1': 'Пересчитываю усы…',
   'catch.fun2': 'Меряю лапки…',
   'catch.fun3': 'Слушаю мурчание…',
   'catch.fun4': 'Проверяю KediDex…',
@@ -105,7 +109,7 @@ export default {
   // Cat card
   'card.new': 'Новая кошка!',
   'card.firstFinder': 'До тебя её никто не находил. Дай ей имя!',
-  'card.again': 'Снова встретились',
+  'card.again': 'Её уже видели',
   'card.namePh': 'Имя…',
   'card.saveName': 'Сохранить',
   'card.unnamed': 'Пока без имени',
@@ -148,11 +152,11 @@ export default {
 
   // Errors
   'err.banned': 'Твой аккаунт заблокирован.',
-  'err.no_cat': 'Хм… Здесь не видно кошки 🤔',
-  'err.pet_cat': 'Похоже, это домашняя кошка 🏠 Считаются только уличные.',
-  'err.not_live_photo': 'Сфотографируй настоящую кошку, а не экран 😉',
-  'err.duplicate_photo': 'Это фото уже было.',
-  'err.outside_region': 'Ты вне зоны игры. Пока только Кадыкёй.',
+  'err.no_cat': 'Хм… Здесь не видно кошки\u00a0🤔',
+  'err.pet_cat': 'Похоже, это домашняя кошка\u00a0🏠 Считаются только уличные.',
+  'err.not_live_photo': 'Сфотографируй настоящую кошку, а не экран\u00a0😉',
+  'err.duplicate_photo': 'Это фото уже использовано.',
+  'err.outside_region': 'Ты вне зоны игры. Пока играем только в Кадыкёе.',
   'err.cooldown': 'Подожди немного: {s}\u00a0с',
   'err.daily_limit': 'На сегодня хватит. До завтра!',
   'err.name_not_allowed': 'Такое имя нельзя. Выбери доброе имя.',
@@ -161,7 +165,7 @@ export default {
   'err.invalid_nickname': 'Ник: от 2 до 20 символов.',
   'err.invalid_name': 'Имя: от 2 до 20 символов.',
   'err.already_named': 'У этой кошки уже есть имя.',
-  'err.not_allowed': 'Имя даёт только тот, кто нашёл её первым (первые 24\u00a0ч).',
+  'err.not_allowed': 'Имя даёт только тот, кто первым нашёл кошку (в первые 24\u00a0ч).',
   'err.goal_not_reached': {
     one: 'Ещё {n} кошка до купона.',
     few: 'Ещё {n} кошки до купона.',
@@ -169,7 +173,7 @@ export default {
     other: 'Ещё {n} кошки до купона.',
   },
   'err.network': 'Нет интернета. Попробуй ещё раз.',
-  'err.location': 'Нам нужно твоё местоположение. Пожалуйста, разреши доступ.',
+  'err.location': 'Нужна геолокация. Пожалуйста, разреши доступ.',
   'err.text_not_allowed': 'Пожалуйста, пиши по-доброму.',
   'err.generic': 'Что-то пошло не так.',
   'err.rate_limited': 'Слишком быстро. Подожди немного.',
@@ -190,7 +194,7 @@ export default {
   'dex.filter.any': 'Все',
   'dex.sort': 'Сортировка',
   'sort.recent': 'Недавно видели',
-  'sort.popular': 'Чаще всего видели',
+  'sort.popular': 'Популярные',
   'sort.newest': 'Новые',
   'sort.rarity': 'Сначала редкие',
   'sort.name': 'По имени',
@@ -271,7 +275,7 @@ export default {
     many: 'Проверено {n} кошек',
     other: 'Проверено {n} кошки',
   },
-  'stats.bcs': 'Упитанность в среднем (1–9)',
+  'stats.bcs': 'Средняя упитанность (1–9)',
   'stats.obs': 'Фото',
   'stats.active': 'Игроков сегодня',
   'stats.vouchers': 'Купонов использовано',
@@ -308,13 +312,13 @@ export default {
   'lb.empty': 'Пока никого.',
 
   // Help
-  'help.empty': 'Сейчас ни одной кошке не нужна помощь 💚',
+  'help.empty': 'Сейчас ни одной кошке не нужна помощь\u00a0💚',
   'help.lead': 'Для волонтёров и ветеринаров: этим кошкам, возможно, нужна помощь.',
 
   // Voucher
   'v.title': 'Кошачий купон',
   'v.discount': 'Скидка {n}%',
-  'v.show': 'Покажи это на кассе. Сотрудники отсканируют код.',
+  'v.show': 'Покажи купон на кассе. Там отсканируют код.',
   'v.validUntil': 'Действует сегодня до {t}',
   'v.cats': {
     one: 'Сегодня {n} кошка',
@@ -323,7 +327,7 @@ export default {
     other: 'Сегодня {n} кошки',
   },
   'v.redeemed': 'Использован ✓',
-  'v.expired': 'Истёк',
+  'v.expired': 'Срок истёк',
   'v.partners': 'Где можно использовать',
   'v.notYet': 'Купона пока нет',
   'v.demoRedeem': 'Демо: использовать',
@@ -355,13 +359,13 @@ export default {
   'm.uniqueCats': 'Разных кошек',
   'm.discoveries': 'Первые находки',
   'm.districts': 'Кварталы',
-  'm.goalDays': 'Цель дня выполнена (дней)',
-  'm.maxStreak': 'Рекорд: дней подряд',
+  'm.goalDays': 'Дней с выполненной целью',
+  'm.maxStreak': 'Рекорд дней подряд',
   'm.currentStreak': 'Дней подряд',
 
   // Rules
   'rules.title': 'Правила заботы о кошках',
-  'rules.body': 'Cat Me If You Can — это фотоигра. Кошки — наши соседи.\n• Держи дистанцию. Не гоняйся за кошками, не загоняй в угол, не бери на руки.\n• Не мешай кошкам, когда они спят или едят. Без вспышки.\n• Хочешь покормить? Только кошачий корм и свежая вода.\n• Домашние кошки и кошки в квартирах не считаются.\n• Не снимай людей, номера машин и дома.',
+  'rules.body': 'Cat Me If You Can — это фотоигра. Кошки — наши соседи.\n• Держи дистанцию. Не гоняйся за кошками, не загоняй в угол, не бери на руки.\n• Не мешай кошкам, когда они спят или едят. Без вспышки.\n• Хочешь покормить? Давай только кошачий корм и свежую воду.\n• Домашние кошки и кошки в квартирах не считаются.\n• Не снимай людей, номера машин и чужие дома.',
   'rules.privacy': 'Приватность',
   'rules.privacyBody': 'Мы сохраняем твой ник, фото кошек и место съёмки. Другие видят только кошку, вырезанную из фото. Места мы показываем только примерно (около 100\u00a0м). Полное фото видит только наша команда. Хочешь, чтобы мы удалили твои данные? Просто напиши нам.',
   'rules.ai': 'Фото смотрит ИИ. Он может ошибаться. Возраст, вес и здоровье — только догадки.',
@@ -370,7 +374,7 @@ export default {
   'common.back': 'Назад',
   'common.close': 'Закрыть',
   'common.cancel': 'Отмена',
-  'common.ok': 'Хорошо',
+  'common.ok': 'Понятно',
   'common.loading': 'Загрузка…',
   'common.retry': 'Ещё раз',
   'common.km': '{n}\u00a0км',

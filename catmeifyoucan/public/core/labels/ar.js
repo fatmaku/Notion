@@ -16,7 +16,7 @@ export default {
     sarman_beyaz: 'برتقالية وبيضاء',
     gri_beyaz: 'رمادية وبيضاء',
     uc_renk: 'ثلاثية الألوان',
-    kaplumbaga: 'صدفة السلحفاة',
+    kaplumbaga: 'صدف السلحفاة',
     renk_uclu: 'شبه سيامية',
     van: 'نقش فان',
     diger: 'أخرى',
@@ -37,7 +37,7 @@ export default {
     blue: 'أزرق',
     copper: 'نحاسي',
     odd: 'لونان مختلفان',
-    unknown: 'لا تظهر',
+    unknown: 'لا تظهران',
   },
 
   AGE_GROUPS: {
@@ -182,7 +182,7 @@ export default {
     guardian: { name: 'حارس الصحة', desc: 'أبلغ عن 3 قطط تحتاج مساعدة' },
     patterns_8: { name: 'لوحة الألوان', desc: '8 أنواع فرو مختلفة' },
     rare_find: { name: 'اكتشاف نادر', desc: 'اعثر على قطة نادرة' },
-    legend: { name: 'باحث الأساطير', desc: 'اعثر على أسطورة من قاضي كوي' },
+    legend: { name: 'مكتشف الأساطير', desc: 'اعثر على إحدى أساطير قاضي كوي' },
     streak_7: { name: 'أسبوع كامل', desc: '7 أيام متتالية' },
   },
 
