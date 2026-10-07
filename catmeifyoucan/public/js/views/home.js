@@ -67,7 +67,7 @@ export async function renderHome(view, app) {
         : `<p class="muted">${esc(t('home.none'))}</p>`}
     </section>
 
-    ${help.total ? `<a class="card help-teaser" href="#/help"><span class="big">🆘</span><span>${esc(t('home.help', { n: help.total }))}</span><span class="chev">›</span></a>` : ''}
+    ${help.total ? `<a class="card help-teaser" href="#/help"><span class="big">🆘</span><span>${esc(t('home.help', { n: help.total }))}</span><span class="chev dir-ic" aria-hidden="true">›</span></a>` : ''}
 
     <section class="card">
       <h2>${esc(t('home.cafes'))}</h2>

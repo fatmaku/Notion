@@ -11,6 +11,7 @@ import { normalizeAnalysis, heuristicAnalysis } from '../public/core/analysis.js
 import { GAME } from '../public/config/game.js';
 import { createApp } from '../server/app.js';
 import { clientIp } from '../server/http.js';
+import { pickSiteLang } from '../server/static.js';
 import { mockAnalyzer } from '../server/analyzers.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -188,6 +189,36 @@ test('Statische Dateien: Videos mit Typ und Byte-Bereichen (iOS Safari)', async 
       const v = await fetch(`${base}/media/trailer-16x9-en.mp4`, { method: 'HEAD' });
       assert.equal(v.headers.get('content-type'), 'video/mp4');
     }
+  } finally {
+    await app.close();
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+test('Startseite: Sprache und Schreibrichtung kommen schon vom Server, Vorschaubild je Sprache', async () => {
+  assert.equal(pickSiteLang(null, 'fa-IR,fa;q=0.9,en-US;q=0.8'), 'fa');
+  assert.equal(pickSiteLang(null, 'xx, de;q=0.5, ru;q=0.7'), 'ru');
+  assert.equal(pickSiteLang(null, 'ja-JP'), 'en');
+  assert.equal(pickSiteLang('tr', 'ar'), 'tr');
+  assert.equal(pickSiteLang('xx', 'ar;q=0'), 'en');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'catme-landing-'));
+  const app = await createApp({ dataDir: tmp, aiMode: 'mock', demo: true, publicUrl: 'https://catme.example/', log: () => {} });
+  await new Promise((r) => app.server.listen(0, '127.0.0.1', r));
+  const base = `http://127.0.0.1:${app.server.address().port}`;
+  try {
+    const ar = await fetch(`${base}/`, { headers: { 'Accept-Language': 'ar-EG,ar;q=0.9' } });
+    const html = await ar.text();
+    assert.equal(ar.status, 200);
+    assert.match(html, /<html lang="ar" dir="rtl"/);
+    assert.match(ar.headers.get('vary') || '', /Accept-Language/);
+    assert.ok(ar.headers.get('content-security-policy'), 'Sicherheits-Header bleiben');
+    const ogAr = fs.existsSync(path.join(here, '..', 'public', 'media', 'og-ar.png')) ? 'media/og-ar.png' : 'media/og.png';
+    assert.ok(html.includes(`<meta property="og:image" content="https://catme.example/${ogAr}"`), 'absolutes Vorschaubild');
+    const tr = await (await fetch(`${base}/index.html?lang=tr`)).text();
+    assert.match(tr, /<html lang="tr" dir="ltr"/);
+    const etag = ar.headers.get('etag');
+    const again = await fetch(`${base}/`, { headers: { 'Accept-Language': 'ar', 'If-None-Match': etag } });
+    assert.equal(again.status, 304);
   } finally {
     await app.close();
     fs.rmSync(tmp, { recursive: true, force: true });

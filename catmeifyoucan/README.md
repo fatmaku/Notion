@@ -64,7 +64,9 @@ Außerhalb von Kadıköy wird ein Fang mit „außerhalb des Spielgebiets“ abg
 ## Startseite, Trailer, Social-Kit
 
 * **Startseite** (`/`): eine Seite für Instagram-, TikTok- und QR-Besucher. Die Sprache kommt aus
-  dem Browser (oder `?lang=ar`), gemerkt wird sie zusammen mit dem Spiel. Ohne Server zeigt sie
+  dem Browser (oder `?lang=ar`), gemerkt wird sie zusammen mit dem Spiel. Der Server setzt Sprache
+  und Schreibrichtung schon im HTML und wählt das Vorschaubild der Sprache (`media/og-<lang>.png`);
+  mit `CATME_PUBLIC_URL=https://…` werden die Vorschaubilder absolut (nötig für WhatsApp, X, Facebook). Ohne Server zeigt sie
   Demo-Zahlen mit Hinweis „Demo“, ohne WebGL oder mit „weniger Bewegung“ ein ruhiges Bild.
 * **Trailer** neu rendern: `node trailer/render.js --all` (Details in [trailer/README.md](trailer/README.md)).
   26 s, Musik selbst erzeugt, keine Sprache, Texte in `trailer/texts.js`.

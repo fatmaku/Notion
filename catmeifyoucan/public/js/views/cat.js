@@ -17,7 +17,7 @@ export async function renderCat(view, app, id) {
   const canStatus = me && ['volunteer', 'admin'].includes(me.role);
   const latest = { ...(cat.profile || {}), ...(cat.latest || {}) };
   view.innerHTML = `
-    <button class="back" data-back>‹ ${esc(t('common.back'))}</button>
+    <button class="back" data-back><span class="dir-ic" aria-hidden="true">‹</span> ${esc(t('common.back'))}</button>
     <section class="cat-hero r-${esc(cat.rarity || 'common')}">
       ${catImg(cat, { size: 'xl' })}
       <div class="cat-hero-text">
@@ -67,7 +67,7 @@ export async function renderCat(view, app, id) {
     </section>
 
     ${events.length ? `<section class="card"><h2>${esc(t('cat.log'))}</h2><ul class="log">${events.map((e) => `
-      <li><small class="muted">${esc(fmtDateTime(e.at))}</small> ${esc(t(`ev.${e.type}`))}${e.tags && e.tags.length ? ` ${esc(conditionText(e.tags))}` : ''}${e.to && e.to !== e.from ? ` → ${esc(L(CAT_STATUS, e.to))}` : ''}${e.note ? `: ${esc(e.note)}` : ''}${e.by ? ` <small class="muted">(${esc(e.by)})</small>` : ''}</li>`).join('')}</ul></section>` : ''}`;
+      <li><small class="muted">${esc(fmtDateTime(e.at))}</small> ${esc(t(`ev.${e.type}`))}${e.tags && e.tags.length ? ` ${esc(conditionText(e.tags))}` : ''}${e.to && e.to !== e.from ? ` <span class="dir-ic" aria-hidden="true">→</span> ${esc(L(CAT_STATUS, e.to))}` : ''}${e.note ? `: ${esc(e.note)}` : ''}${e.by ? ` <small class="muted">(${esc(e.by)})</small>` : ''}</li>`).join('')}</ul></section>` : ''}`;
 
   const chartEl = view.querySelector('[data-chart="bcs"]');
   if (chartEl) {

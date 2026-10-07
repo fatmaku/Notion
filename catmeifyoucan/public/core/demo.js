@@ -12,7 +12,7 @@ const CAT_NAMES = [
   'Kestane', 'Mırnav', 'Pofuduk', 'Şeker', 'Badem', 'Hünkar', 'Bulut', 'Gece', 'Kömür', 'Tosun', 'Cimcime', 'Fındık',
   'Pişmaniye', 'Kahve', 'Bal', 'Limon', 'Maviş', 'Reis', 'Prenses', 'Haydut', 'Minnoş', 'Leblebi', 'Pirinç', 'Çakıl',
 ];
-const PLAYERS = ['ModaAyşe', 'TekirAvcısı', 'KalamışKedisi', 'Zeynep_K', 'MiyavMehmet', 'BahariyeBaran', 'YeldeğirmeniDeniz', 'SuadiyeSelin'];
+const PLAYERS = ['ModaAyşe', 'TekirSever', 'KalamışKedisi', 'Zeynep_K', 'MiyavMehmet', 'BahariyeBaran', 'YeldeğirmeniDeniz', 'SuadiyeSelin'];
 const PATTERN_WEIGHTS = [
   ['tekir', 28], ['tekir_beyaz', 12], ['sarman', 12], ['smokin', 10], ['siyah', 8], ['sarman_beyaz', 8], ['beyaz', 4],
   ['gri', 4], ['gri_beyaz', 3], ['uc_renk', 5], ['kaplumbaga', 3], ['krem', 1.5], ['renk_uclu', 1], ['van', 0.5],

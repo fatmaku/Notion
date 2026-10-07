@@ -170,6 +170,6 @@ export async function renderHelpList(el, app) {
 }
 
 export async function renderHelp(view, app) {
-  view.innerHTML = `<button class="back" data-back>‹ ${esc(t('common.back'))}</button><h1 class="pad-x">🆘 ${esc(t('stats.helpRadar'))}</h1><section class="card" data-help></section>`;
+  view.innerHTML = `<button class="back" data-back><span class="dir-ic" aria-hidden="true">‹</span> ${esc(t('common.back'))}</button><h1 class="pad-x">🆘 ${esc(t('stats.helpRadar'))}</h1><section class="card" data-help></section>`;
   await renderHelpList(view.querySelector('[data-help]'), app);
 }

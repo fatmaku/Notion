@@ -117,7 +117,7 @@ export function showCatchCard(result, app, { onClose } = {}) {
     const { tags, note } = readConditionForm(report);
     try {
       const res = await app.api.reportCondition(result.observation.id, tags, note);
-      report.innerHTML = `<p class="report-done">💚 ${esc(t('report.thanks'))}${res.xp ? ` <b>+${fmtNum(res.xp)} XP</b>` : ''}${res.status === 'needs_help' ? `<br><small>🆘 ${esc(t('report.urgent'))}</small>` : ''}</p>`;
+      report.innerHTML = `<p class="report-done">💚 ${esc(t('report.thanks'))}${res.xp ? ` <b dir="ltr">+${fmtNum(res.xp)} XP</b>` : ''}${res.status === 'needs_help' ? `<br><small>🆘 ${esc(t('report.urgent'))}</small>` : ''}</p>`;
       app.refreshPlayer();
     } catch (err) {
       toast(errorText(err), { type: 'error' });

@@ -81,7 +81,7 @@ function onboarding(app) {
         <ul class="onb-rules">${['onb.rule1', 'onb.rule2', 'onb.rule3', 'onb.rule4'].map((k) => `<li>${esc(t(k))}</li>`).join('')}</ul>
         <form data-f class="onb-form">
           <label for="nick">${esc(t('onb.nick'))}</label>
-          <div class="row"><input id="nick" name="nick" required minlength="2" maxlength="20" autocomplete="nickname" placeholder="${esc(t('onb.nickPh'))}"><button class="btn primary">${esc(t('onb.start'))} →</button></div>
+          <div class="row"><input id="nick" name="nick" required minlength="2" maxlength="20" autocomplete="nickname" placeholder="${esc(t('onb.nickPh'))}"><button class="btn primary">${esc(t('onb.start'))} <span class="dir-ic" aria-hidden="true">→</span></button></div>
         </form>
         ${app.api.isDemo ? `<p class="small muted">🧪 ${esc(t('onb.demo'))}</p>` : ''}
         <p class="small"><a href="#/rules" data-rules>${esc(t('p.rules'))}</a></p>

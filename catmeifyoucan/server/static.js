@@ -110,3 +110,63 @@ export function servePhoto(req, res, photoDir, name) {
 export function serveFullPhoto(req, res, file) {
   return sendFile(req, res, file, { cache: 'private, no-store' });
 }
+
+// ---------------------------------------------------------------- Startseite mit Sprache
+
+const SITE_LANGS = { tr: 'ltr', en: 'ltr', de: 'ltr', ru: 'ltr', ar: 'rtl', fa: 'rtl' };
+
+/** Sprache für die Startseite: ?lang= vor Accept-Language (mit q-Werten), sonst Englisch. */
+export function pickSiteLang(query, acceptLanguage) {
+  if (query && SITE_LANGS[query]) return query;
+  const wanted = String(acceptLanguage || '')
+    .split(',')
+    .map((part, i) => {
+      const [tag, ...params] = part.trim().split(';');
+      const q = params.map((x) => /^\s*q=([\d.]+)/.exec(x)).find(Boolean);
+      return { lang: tag.toLowerCase().split('-')[0], q: q ? Number(q[1]) : 1, i };
+    })
+    .filter((x) => SITE_LANGS[x.lang] && x.q > 0)
+    .sort((a, b) => b.q - a.q || a.i - b.i);
+  return wanted.length ? wanted[0].lang : 'en';
+}
+
+let landingCache = null;
+
+/**
+ * Liefert public/index.html mit Sprache und Schreibrichtung schon im <html>-Tag (kein kurzes
+ * Links-nach-rechts für Arabisch/Persisch, bevor das Skript läuft) und dem Vorschaubild der Sprache.
+ * publicUrl (z. B. https://catme.example) macht die Vorschaubilder absolut – WhatsApp & Co. brauchen das.
+ */
+export function serveLanding(req, res, root, { headers = {}, lang = 'en', publicUrl = '' } = {}) {
+  const file = path.join(root, 'index.html');
+  let st;
+  try {
+    st = fs.statSync(file);
+  } catch {
+    return false;
+  }
+  if (!landingCache || landingCache.mtimeMs !== st.mtimeMs || landingCache.size !== st.size) {
+    landingCache = { mtimeMs: st.mtimeMs, size: st.size, html: fs.readFileSync(file, 'utf8'), byKey: new Map() };
+  }
+  const key = `${lang}|${publicUrl}`;
+  let html = landingCache.byKey.get(key);
+  if (!html) {
+    const og = fs.existsSync(path.join(root, 'media', `og-${lang}.png`)) ? `media/og-${lang}.png` : 'media/og.png';
+    const base = publicUrl ? `${publicUrl.replace(/\/+$/, '')}/` : '';
+    html = landingCache.html
+      .replace(/<html lang="[a-z-]*" dir="(?:ltr|rtl)"/i, `<html lang="${lang}" dir="${SITE_LANGS[lang]}"`)
+      .replace(/(<meta (?:property="og:image"|name="twitter:image") content=")media\/og\.png"/g, `$1${base}${og}"`);
+    landingCache.byKey.set(key, html);
+  }
+  const body = Buffer.from(html);
+  const etag = `"l-${lang}-${body.length.toString(36)}-${Math.floor(st.mtimeMs).toString(36)}"`;
+  const h = { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-cache', Vary: 'Accept-Language', ETag: etag, ...headers };
+  if (req.headers['if-none-match'] === etag) {
+    res.writeHead(304, h);
+    res.end();
+    return true;
+  }
+  res.writeHead(200, { ...h, 'Content-Length': body.length });
+  res.end(req.method === 'HEAD' ? undefined : body);
+  return true;
+}

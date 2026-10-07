@@ -32,8 +32,9 @@ export async function renderVoucher(view, app) {
   const [{ today }, v0] = await Promise.all([app.api.me(), app.api.voucherToday()]);
   let v = v0;
   if (!v) {
-    const left = Math.max(0, today.minCatsForVoucher - today.count);
-    if (left > 0) {
+    // Noch kein Gutschein möglich: Text zählt wie die Startseite bis zum Tagesziel (20)
+    if (today.count < today.minCatsForVoucher) {
+      const left = Math.max(0, today.goal - today.count);
       view.innerHTML = `<div class="empty"><div class="big-emoji">☕</div><h2>${esc(t('v.notYet'))}</h2><p>${esc(t('home.left', { n: left }))}</p><a class="btn primary" href="#/catch">📸 ${esc(t('nav.catch'))}</a></div>`;
       return;
     }

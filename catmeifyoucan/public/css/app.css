@@ -189,6 +189,9 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 .btn:disabled { opacity: .55; cursor: default; }
 .link { background: none; border: 0; color: var(--link); cursor: pointer; padding: 0; font-weight: 600; }
 .back { background: none; border: 0; color: var(--link); font-weight: 700; padding: .3rem 0 .6rem; cursor: pointer; min-height: 40px; }
+/* Pfeile zeigen in Leserichtung: auf Arabisch/Persisch gespiegelt */
+.dir-ic { display: inline-block; }
+[dir="rtl"] .dir-ic { transform: scaleX(-1); }
 .actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
 .row { display: flex; gap: .5rem; }
 .row input { flex: 1; }
@@ -319,8 +322,9 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 .cat-hero h1 { font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; text-wrap: balance; }
 .cat-hero .chips { margin: .3rem 0; display: flex; gap: .3rem; flex-wrap: wrap; }
 .legend { color: var(--r-legendary); font-weight: 800; }
-.facts { display: grid; grid-template-columns: max-content 1fr; gap: .45rem .9rem; margin: .4rem 0; }
-.facts dt { color: var(--muted); font-size: .85rem; }
+.facts { display: grid; grid-template-columns: minmax(0, max-content) minmax(0, 1fr); gap: .45rem .9rem; margin: .4rem 0; }
+.facts dt { color: var(--muted); font-size: .85rem; max-width: 11em; overflow-wrap: break-word; hyphens: auto; }
+.facts dd { overflow-wrap: anywhere; }
 .facts dd { margin: 0; font-weight: 600; }
 .bcs { display: inline-flex; align-items: center; gap: .4rem; }
 .bcs-track { display: inline-flex; gap: 2px; }
@@ -530,7 +534,7 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 .badge { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; padding: .6rem .3rem; border-radius: 14px; background: var(--surface-2); opacity: .55; }
 .badge.on { opacity: 1; background: rgba(242, 140, 40, .15); outline: 2px solid var(--orange); }
 .b-ico { font-size: 1.8rem; }
-.badge b { font-size: .76rem; }
+.badge b { font-size: .76rem; max-width: 100%; overflow-wrap: break-word; hyphens: auto; } /* lange Wörter (ru „Первооткрыватель“) umbrechen statt abschneiden */
 .badge small { font-size: .7rem; color: var(--muted); }
 .settings { display: grid; gap: .7rem; }
 .settings label { display: grid; gap: .3rem; font-weight: 600; font-size: .9rem; }

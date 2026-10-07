@@ -17,7 +17,7 @@ import { chooseAnalyzer } from './analyzers.js';
 import { newToken, sha256, hashPin, verifyPin, safeEqual, bearer, createPartnerSessions } from './auth.js';
 import { createLimiter } from './ratelimit.js';
 import { createRouter, readJson, sendJson, sendText, sendError, securityHeaders, clientIp, HttpError } from './http.js';
-import { serveStatic, servePhoto, serveFullPhoto } from './static.js';
+import { serveStatic, serveLanding, pickSiteLang, servePhoto, serveFullPhoto } from './static.js';
 import { catsCsv, catsGeoJson } from './export.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -66,6 +66,7 @@ export async function createApp(options = {}) {
     trustProxy = Number(process.env.TRUST_PROXY) || 0, // Anzahl Proxys vor dem Server
     tiles = process.env.CATME_TILES ? { url: process.env.CATME_TILES, attribution: process.env.CATME_TILES_ATTRIB || '', host: new URL(process.env.CATME_TILES.replace(/\{s\}/, 'a').replace(/\{[xyz]\}/g, '0')).origin } : DEFAULT_TILES,
     tls = null,
+    publicUrl = process.env.CATME_PUBLIC_URL || '', // öffentliche Adresse, z. B. https://catme.example (für Link-Vorschauen)
     now = () => Date.now(),
     analyzerOverride = null,
     log = (...a) => console.log('[catme]', ...a),
@@ -363,6 +364,10 @@ export async function createApp(options = {}) {
       if (url.pathname.startsWith('/photos/')) {
         if (servePhoto(req, res, photos.dir, url.pathname.slice('/photos/'.length))) return;
         throw new HttpError(404, 'not_found');
+      }
+      if (url.pathname === '/' || url.pathname === '/index.html') {
+        const lang = pickSiteLang(url.searchParams.get('lang'), req.headers['accept-language']);
+        if (serveLanding(req, res, publicDir, { headers, lang, publicUrl })) return;
       }
       if (serveStatic(req, res, publicDir, url.pathname, { headers })) return;
       sendText(res, 404, 'Nicht gefunden');
