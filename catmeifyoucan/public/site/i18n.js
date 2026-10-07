@@ -60,7 +60,7 @@ export const TEXT = {
 
     'help.kicker': 'The serious side',
     'help.title': 'Every photo helps',
-    'help.lead': 'We count the cats. You tell us how they are. Volunteers see it and help.',
+    'help.lead': 'We count the cats. You tell us how they are doing. Volunteers see it and help.',
     'help.s.cats': 'cats counted',
     'help.s.obs': 'photos so far',
     'help.s.help': 'need help now',
@@ -387,7 +387,7 @@ export const TEXT = {
 
     'help.kicker': 'Серьёзная сторона',
     'help.title': 'Каждое фото помогает',
-    'help.lead': 'Мы считаем кошек. Ты отмечаешь, как они себя чувствуют. Волонтёры видят это и помогают.',
+    'help.lead': 'Мы считаем кошек. Ты отмечаешь, как у них дела. Волонтёры видят это и помогают.',
     'help.s.cats': 'кошек посчитано',
     'help.s.obs': 'фото уже сделано',
     'help.s.help': 'кошкам сейчас нужна помощь',
@@ -397,7 +397,7 @@ export const TEXT = {
     'help.live': 'Прямо из Кадыкёя',
     'help.demo': 'Демо',
     'help.demoNote': 'Это демо-цифры. Настоящие считает игра.',
-    'help.tap': 'С каждым фото можно отметить, как себя чувствует кошка:',
+    'help.tap': 'С каждым фото можно отметить, как дела у кошки:',
     'help.try': 'Попробуй',
     'help.thanks': 'Спасибо! Волонтёры уже это видят.',
     'help.flow1': 'Ты делаешь фото',

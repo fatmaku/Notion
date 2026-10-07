@@ -80,8 +80,9 @@ Farben in `social.css` (`.m-<motiv>`).
 
 * Social-Bilder sind JPEG (Qualität 88, wie in `docs/BRAND.md`), damit sie unter 350 KB bleiben und
   überall hochgeladen werden können. Die Link-Vorschauen bleiben PNG.
-* Arabisch nutzt westliche Ziffern wie die Startseite. Nach arabischen Buchstaben stellt der Browser
-  „20%“ als „%20“ dar; das ist die übliche Schreibweise und laut BRAND.md erlaubt.
+* Arabisch nutzt westliche Ziffern wie die Startseite. In den Bildern und auf der Startseite steht
+  „20%“ als eigene Einheit (LRI … PDI), damit es überall gleich aussieht. In kopierbarem Text
+  (CAPTIONS.md) darf „20%“ nach arabischen Buchstaben als „%20“ erscheinen – laut BRAND.md erlaubt.
 * Die Zustands-Symbole sind eigene SVG-Zeichnungen (keine Emoji-Schrift nötig), damit jedes Rendern
   auf jedem Rechner gleich aussieht.
 * `{LINK}` in den Captions ist ein Platzhalter. Erst ersetzen, wenn die echte Adresse feststeht.
