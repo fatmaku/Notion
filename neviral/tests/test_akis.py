@@ -48,11 +48,16 @@ class Akis(unittest.TestCase):
 
     def test_02_instagram(self):
         r = instagram.import_export(self.con, self.ig, progress=quiet)
-        self.assertEqual(r["bulunan"], 4)
+        self.assertEqual(r["bulunan"], 4, "insights dosyaları paylaşım sayılmamalı")
         self.assertGreaterEqual(r["eslesen"], 3)
+        self.assertEqual(r["istatistik"], 3, "past_instagram_insights'tan 3 kayıt okunmalı")
         posts = db.posts(self.con)["posts"]
         reel = next(p for p in posts if p["kind"] == "reel")
         self.assertEqual(reel["matched_by"], "gorsel")
+        self.assertEqual((reel["reach"], reel["likes"], reel["shares"], reel["saves"]), (40210, 3100, 410, 260))
+        lans = next(p for p in posts if "lansman" in (p["media_path"] or ""))
+        self.assertEqual((lans["reach"], lans["likes"], lans["comments"]), (12345, 980, 45), "Almanca başlıklar + binlik nokta okunmalı")
+        self.assertEqual(len(posts), 4, "istatistik satırları yeni paylaşım yaratmamalı (tarihle eşleşti)")
         captions = [p["caption"] or "" for p in posts]
         self.assertTrue(any("Kitap lansmanı bugün! 📚" in c for c in captions), f"mojibake düzeltilmeli: {captions}")
         confirmed = {p["item_id"] for p in posts if p["item_id"] and p["matched_by"] != "tarih?"}

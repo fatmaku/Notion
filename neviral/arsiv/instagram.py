@@ -51,7 +51,7 @@ def parse_export(root):
     found = []
     for jf in root.rglob("*.json"):
         kind = _kind_for(jf.name)
-        if not kind:
+        if not kind or "insights" in str(jf.parent).lower():  # istatistik dosyaları ayrı okunur (import_insights_export)
             continue
         try:
             data = json.loads(jf.read_text(encoding="utf-8"))
@@ -99,6 +99,10 @@ def import_export(con, root, progress=print, match=True):
         new += created
     con.commit()
     res = {"bulunan": len(entries), "yeni": new}
+    try:
+        res["istatistik"] = import_insights_export(con, root, progress)
+    except Exception as ex:  # istatistik okunamadı diye içe aktarma durmasın
+        progress(f"  ! istatistik: {ex}")
     if match:
         res["eslesen"] = match_posts(con, progress)
     try:
@@ -171,6 +175,97 @@ def match_posts(con, progress=print, only_unmatched=True):
     con.commit()
     progress(f"{matched}/{len(posts)} paylaşım görsel olarak eşleşti; {suggested} tahmini eşleşme onayınızı bekliyor")
     return matched
+
+
+# "Bilgilerini indir" içindeki past_instagram_insights/*.json (profesyonel hesaplar): paylaşım başına erişim/beğeni/…
+INSIGHT_KEYS = {
+    "reach": ("accounts reached", "reach", "erreichte konten", "reichweite", "erişilen hesap", "erişim", "ulaşılan hesap"),
+    "likes": ("likes", "gefällt mir", "beğeni"),
+    "comments": ("comments", "kommentare", "yorum"),
+    "shares": ("shares", "geteilt", "paylaşım"),
+    "saves": ("saves", "gespeichert", "kaydet"),
+}
+
+
+def _insight_rows(node, out):
+    """string_map_data taşıyan sözlükleri toplar (yapı: {"...": [{"media_map_data": {...}, "string_map_data": {...}}]})."""
+    if isinstance(node, dict):
+        if isinstance(node.get("string_map_data"), dict):
+            out.append(node)
+            return
+        for v in node.values():
+            _insight_rows(v, out)
+    elif isinstance(node, list):
+        for v in node:
+            _insight_rows(v, out)
+
+
+def _insight_num(v):
+    if isinstance(v, dict):
+        v = v.get("value", v.get("timestamp"))
+    digits = "".join(ch for ch in str(v if v is not None else "") if ch.isdigit())
+    return int(digits) if digits else None
+
+
+def parse_insights(root):
+    """[{posted_at, kind, reach, likes, comments, shares, saves}] — dosya adından tür (posts/reels/stories)."""
+    root = Path(root).expanduser()
+    rows = []
+    for jf in root.rglob("*.json"):
+        if "insights" not in str(jf.parent).lower() and "insights" not in jf.name.lower():
+            continue
+        try:
+            data = json.loads(jf.read_text(encoding="utf-8"))
+        except (ValueError, OSError):
+            continue
+        kind = "reel" if "reel" in jf.name.lower() else "story" if "stor" in jf.name.lower() else "post"
+        found = []
+        _insight_rows(data, found)
+        for n in found:
+            smd = n["string_map_data"]
+            ts = None
+            for k, v in smd.items():
+                if "timestamp" in k.lower() or "zeitstempel" in k.lower() or "zaman" in k.lower():
+                    ts = _insight_num(v) if isinstance(v, dict) and v.get("timestamp") else ts
+            if not ts:
+                for m in (n.get("media_map_data") or {}).values():
+                    if isinstance(m, dict) and m.get("creation_timestamp"):
+                        ts = int(m["creation_timestamp"]); break
+            if not ts:
+                continue
+            row = {"posted_at": dt.datetime.fromtimestamp(ts).replace(microsecond=0).isoformat(), "kind": kind}
+            for k, v in smd.items():
+                kl = _fix_mojibake(k).lower()
+                for col, names in INSIGHT_KEYS.items():
+                    if any(kl.startswith(nm) or kl == nm for nm in names) and col not in row:
+                        num = _insight_num(v)
+                        if num is not None:
+                            row[col] = num
+            if any(c in row for c in INSIGHT_KEYS):
+                rows.append(row)
+    return rows
+
+
+def import_insights_export(con, root, progress=print):
+    """Dışa aktarımdaki istatistikleri (varsa) paylaşımlara tarih yakınlığıyla bağlar; CSV gerekmez."""
+    rows = parse_insights(root)
+    if not rows:
+        return 0
+    n = 0
+    for r in rows:
+        pa = dt.datetime.fromisoformat(r["posted_at"])
+        lo, hi = (pa - dt.timedelta(hours=12)).isoformat(), (pa + dt.timedelta(hours=12)).isoformat()
+        nums = {k: r[k] for k in INSIGHT_KEYS if k in r}
+        post = con.execute("SELECT id FROM posts WHERE posted_at BETWEEN ? AND ? ORDER BY ABS(julianday(posted_at)-julianday(?)) LIMIT 1",
+                           (lo, hi, r["posted_at"])).fetchone()
+        if post:
+            con.execute(f"UPDATE posts SET {', '.join(k + '=?' for k in nums)} WHERE id=?", [*nums.values(), post["id"]])
+        else:
+            db.upsert_post(con, {"platform": "instagram", "kind": r["kind"], "posted_at": r["posted_at"], "media_path": None, **nums})
+        n += 1
+    con.commit()
+    progress(f"{n} paylaşımın istatistiği dışa aktarımdan okundu (erişim/beğeni/kaydetme/paylaşım)")
+    return n
 
 
 def _parse_when(s):

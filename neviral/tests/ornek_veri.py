@@ -72,6 +72,24 @@ def make_instagram(root, arsiv):
     (root / "content/reels.json").write_text(json.dumps(reels, ensure_ascii=False), encoding="utf-8")
     stories = {"ig_stories": [{"uri": "media/stories/yok.mp4", "creation_timestamp": 1710600000, "title": "Fuar hikÃ¢yesi"}]}
     (root / "content/stories.json").write_text(json.dumps(stories, ensure_ascii=False), encoding="utf-8")
+    # profesyonel hesap: past_instagram_insights (gerçek dışa aktarımdaki yapı; Almanca arayüzle indirilmiş gibi)
+    (root / "past_instagram_insights").mkdir(exist_ok=True)
+    ins_posts = {"organic_insights_posts": [
+        {"media_map_data": {"Media Thumbnail": {"uri": "https://scontent.cdninstagram.com/x.jpg", "creation_timestamp": 1573560000}},
+         "string_map_data": {"Erstellungszeitstempel": {"timestamp": 1573560000}, "Erreichte Konten": {"value": "12.345"},
+                             "GefÃ¤llt mir-Angaben": {"value": "980"}, "Kommentare": {"value": "45"}, "Geteilt": {"value": "60"},
+                             "Gespeichert": {"value": "120"}, "Profilaufrufe": {"value": "33"}}},
+        {"media_map_data": {"Media Thumbnail": {"uri": "https://scontent.cdninstagram.com/y.jpg", "creation_timestamp": 1559600000}},
+         "string_map_data": {"Erstellungszeitstempel": {"timestamp": 1559600000}, "Erreichte Konten": {"value": "2100"},
+                             "GefÃ¤llt mir-Angaben": {"value": "150"}, "Kommentare": {"value": "3"}, "Gespeichert": {"value": "10"}}},
+    ]}
+    (root / "past_instagram_insights/posts.json").write_text(json.dumps(ins_posts, ensure_ascii=False), encoding="utf-8")
+    ins_reels = {"organic_insights_reels": [
+        {"media_map_data": {"Media Thumbnail": {"uri": "https://scontent.cdninstagram.com/r.jpg", "creation_timestamp": 1588500000}},
+         "string_map_data": {"Upload Timestamp": {"timestamp": 1588500000}, "Accounts reached": {"value": "40.210"}, "Instagram Plays": {"value": "55000"},
+                             "Likes": {"value": "3100"}, "Comments": {"value": "120"}, "Shares": {"value": "410"}, "Saves": {"value": "260"}}},
+    ]}
+    (root / "past_instagram_insights/reels.json").write_text(json.dumps(ins_reels, ensure_ascii=False), encoding="utf-8")
 
 
 def build(target):

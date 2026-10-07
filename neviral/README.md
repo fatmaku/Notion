@@ -229,6 +229,6 @@ python3 tests/ornek_veri.py ~/Desktop/ornek   # denemek için sahte arşiv + Ins
 
 ## Sınırlar / yol haritası
 
-- Instagram "beğeni/erişim" sayıları dışa aktarımda gelmez; Profesyonel Panel'den CSV indirip `arsiv instagram dosya.csv --csv` ile ekleyin. Bu veri "en iyi saatler" ve yeniden paylaşım sırasını iyileştirir.
+- Instagram "beğeni/erişim" sayıları profesyonel hesaplarda dışa aktarımın `past_instagram_insights` klasöründe gelir ve otomatik okunur (TR/DE/EN başlıklar). Kişisel hesapta istatistik yoktur; Profesyonel Panel CSV'si ek seçenektir (`arsiv instagram dosya.csv --csv`). Her içe aktarmadan sonra viral puanlar yeniden hesaplanır.
 - Hikâye eşleşmelerinde medya dosyası yoksa tarih yakınlığı kullanılır (güven %15-60); Paylaşılanlar sekmesinden elle düzeltebilirsiniz.
 - Otomatik gönderi yayınlama yoktur (Instagram API'si kişisel hesaplar için kapalı); çıktı + açıklama panoya kopyalanır, Finder'da açılır.
