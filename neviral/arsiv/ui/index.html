@@ -49,6 +49,10 @@ dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);bo
 .pbar{display:flex;align-items:center;gap:6px;font-size:12px;margin:2px 0}.pbar span.n{width:150px;color:var(--muted)}.pbar .t{flex:1;height:7px;background:var(--panel2);border-radius:4px;overflow:hidden;max-width:180px}.pbar .t i{display:block;height:100%;background:var(--accent)}
 .chip{display:inline-block;font-size:12px;border-radius:999px;padding:2px 8px;margin:2px 4px 2px 0;background:var(--panel2);border:1px solid var(--line)}.chip.ok{border-color:var(--ok);color:var(--ok)}.chip.w{border-color:var(--accent);color:var(--accent)}
 .tabs{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}.tabs button{padding:4px 10px;font-size:13px}.tabs button.on{background:var(--accent);color:#111;border-color:var(--accent)}
+.karar{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 12px;margin:10px 0;background:var(--panel2)}
+.karar .kh{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;font-size:15px}.karar .kn{margin-left:auto;font-size:14px}.karar .kn b{font-size:20px}
+.karar .ko{margin:6px 0;font-size:13px;line-height:1.45}.karar .kl{margin:4px 0}.karar details{margin-top:6px;font-size:13px}.karar summary{cursor:pointer;color:var(--muted)}
+.karar .pbar span.n{width:170px}.chip.kk{font-weight:600}
 .hk{display:flex;flex-direction:column;gap:4px;margin:8px 0}.hrow{display:flex;align-items:center;gap:10px;text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:7px 10px;cursor:pointer;color:inherit}
 .hrow.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}.hrow .hs{font-size:20px;font-weight:800;min-width:30px}.hrow .ht{flex:1;display:flex;flex-direction:column;gap:2px}.hrow small{color:var(--muted);font-size:11px}
 .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin-top:8px;transition:opacity .2s}.sgrid.busy{opacity:.45;pointer-events:none}
@@ -299,7 +303,7 @@ function vRowHtml(it,label){const n=it.neviral;return `<div class="vrow"><div cl
   <div><div class="row" style="gap:14px;align-items:flex-start"><div class="vscore" style="color:${vColor(it.viral_score)}">${Math.round(it.viral_score)}<small>${n.yuzdelik?t('ilk %{p}',{p:n.yuzdelik}):''}</small></div>
    <div style="flex:1;min-width:220px"><b>${esc(it.filename)}</b> <span class="muted" style="font-size:12px">${esc((it.created_at||'').slice(0,10))} · ${it.kind==='video'?'▶ '+dur(it.duration):'📷'} · ${esc(it.aspect)}</span>
    <div>${n.platformlar.slice(0,3).map(p=>`<div class="pbar"><span class="n">${esc(p.ad)}</span><span class="t"><i style="width:${p.puan}%;background:${vColor(p.puan)}"></i></span><b>${Math.round(p.puan)}</b></div>`).join('')}</div>
-   <div>${n.pazarlar.map(m=>`<span class="chip">${m.bayrak} ${esc(m.ad)} ${Math.round(m.pay*100)}% · ${m.dil.toUpperCase()}</span>`).join('')}${n.konular.map(c=>`<span class="chip">${esc(c.ad)}</span>`).join('')}</div>
+   <div>${n.karar_kisa?`<span class="chip kk" style="border-color:${n.karar_kisa.renk};color:${n.karar_kisa.renk}">🎯 ${esc(n.karar_kisa.baslik)}${n.karar_kisa.kazanc>0?` · ${Math.round(it.viral_score)}→${n.karar_kisa.sonra}`:''}</span>`:''}${n.pazarlar.map(m=>`<span class="chip">${m.bayrak} ${esc(m.ad)} ${Math.round(m.pay*100)}% · ${m.dil.toUpperCase()}</span>`).join('')}${n.konular.map(c=>`<span class="chip">${esc(c.ad)}</span>`).join('')}</div>
    <div style="font-size:12px;margin-top:4px">${n.nedenler.map(x=>`<span class="chip ok">✓ ${esc(x)}</span>`).join('')}${n.iyilestirmeler.slice(0,2).map(x=>`<span class="chip w">↗ ${esc(x)}</span>`).join('')}</div>
    ${n.zaman?`<div class="muted" style="font-size:12px;margin-top:4px">⏰ ${t('En iyi zaman')}: ${esc(n.zaman.kullanici.replace('T',' '))} (${esc(n.zaman.pazar)} ${esc(n.zaman.yerel)})</div>`:''}</div></div></div>
   <div style="display:flex;flex-direction:column;gap:6px"><button class="primary" onclick="vPackage(${it.id},this)">⚡ ${t('Paket hazırla')}</button><button onclick="vOpen(${it.id})">${t('Metinler & detay')}</button></div></div>`}
@@ -348,6 +352,7 @@ function vDrop(ev){ev.preventDefault();$('#v-drop').classList.remove('over');vUp
 async function vOpen(id){const it=await api('/api/viral/item/'+id);state.cur=it;state.list=state.vitems||[];const n=it.neviral;const d=$('#detay');state.vlang=(n.pazarlar[0]||{}).dil||'tr';state.vplat=n.en_iyi.key;
  d.innerHTML=`<div class="dbody"><div class="media" id="media"><div class="wait"><div class="spin"></div></div></div><div class="info">
   <div class="row" style="gap:12px"><div class="vscore" style="color:${vColor(it.viral_score)}">${Math.round(it.viral_score)}<small>${n.yuzdelik?t('ilk %{p}',{p:n.yuzdelik}):''}</small></div><div><b style="word-break:break-all">${esc(it.filename)}</b><br><span class="muted">${t('En iyi')}: ${esc(n.en_iyi.ad)}</span></div></div>
+  ${vKararHtml(n.karar)}
   <h3>${t('Platformlar')}</h3>${n.platformlar.map(p=>`<div class="pbar"><span class="n">${esc(p.ad)}</span><span class="t"><i style="width:${p.puan}%;background:${vColor(p.puan)}"></i></span><b>${Math.round(p.puan)}</b></div>`).join('')}
   <h3>${t('Pazar & dil')}</h3>${n.pazarlar.map(m=>`<span class="chip">${m.bayrak} ${esc(m.ad)} ${Math.round(m.pay*100)}% · ${m.dil.toUpperCase()}</span>`).join('')}
   ${n.zaman?`<div class="muted" style="font-size:13px;margin-top:4px">⏰ ${esc(n.zaman.kullanici.replace('T',' '))} (${esc(n.zaman.pazar)} ${esc(n.zaman.yerel)})</div>`:''}
@@ -361,6 +366,17 @@ async function vOpen(id){const it=await api('/api/viral/item/'+id);state.cur=it;
   <div class="row" style="margin-top:10px"><button class="primary" onclick="vOptOpen({id:${it.id},hook:state.vhook||'',stil:state.vstil||''})">⚡ ${t('Seçimle paket hazırla')}</button><button onclick="vPackage(${it.id},this)">${t('Paket hazırla')}</button><button onclick="detay.close()">${t('Kapat')}</button></div>
   <p class="muted" style="font-size:12px">${state.vclaude?'✨ '+t('Paket hazırlanırken Claude görsele bakıp metinleri yeniden yazar.'):t('İpucu: ANTHROPIC_API_KEY tanımlarsanız Claude görsele bakıp metinleri yazar.')}</p></div></div>`;
  state.vhook='';state.vstil='';state.cmp=null;if(!d.open)d.showModal();vRenderCap();loadPreview(id,it.kind);vCompare(id)}
+function vKararHtml(k){if(!k)return'';const g=k.kazanclar||[],r=k.riskler||[];
+ return `<div class="karar" style="border-left-color:${k.renk}"><div class="kh"><b style="color:${k.renk}">🎯 ${esc(k.baslik)}</b><span class="muted">· ${esc(k.guven.ad)}</span>
+  <span class="kn">${Math.round(k.simdi)} → <b style="color:${vColor(k.sonra)}">${Math.round(k.sonra)}</b> <small class="muted">${t('optimizasyon sonrası')}</small></span></div>
+  <p class="ko">${esc(k.ozet)}</p>
+  ${g.length?`<div class="kl">${g.map(x=>`<span class="chip ok">+${x.kazanc} ${esc(x.ad)}</span>`).join('')}</div>`:''}
+  ${r.length?`<div class="kl">${r.map(x=>`<span class="chip w">⚠ ${esc(x.ad)}</span>`).join('')}</div>`:''}
+  ${k.gecmis?`<div class="muted" style="font-size:12px">📈 ${esc(k.gecmis)}</div>`:''}${k.mevsim?`<div class="muted" style="font-size:12px">📅 ${esc(k.mevsim)}</div>`:''}
+  <details><summary>${t('Puan katkıları')} · ${t('neden bu puan?')}</summary>
+   ${k.katkilar.map(p=>`<div class="pbar"><span class="n">${esc(p.ad)}</span><span class="t"><i style="width:${Math.round(100*p.puan/Math.max(1,p.max))}%;background:${vColor(100*p.puan/Math.max(1,p.max))}"></i></span><b>${p.puan}<small class="muted">/${p.max}</small></b></div>`).join('')}
+   ${k.alternatif?`<div class="muted" style="font-size:12px;margin-top:4px">↔ ${t('Alternatif')}: ${esc(k.alternatif.ad)} (−${k.alternatif.fark})</div>`:''}
+   <div class="muted" style="font-size:12px;margin-top:4px">${t('Güven')}: ${k.guven.neden.map(esc).join(' · ')}</div></details></div>`}
 function vTab(kind,v){if(kind==='l')state.vlang=v;else state.vplat=v;vRenderCap();if(kind==='l')vCmpRender()}
 // ---------- kanca & tasarım karşılaştırma
 async function vCompare(id,hook){const box=$('#v-cmp');if(!box)return;box.querySelectorAll('.sgrid').forEach(g=>g.classList.add('busy'));

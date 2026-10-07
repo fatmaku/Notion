@@ -117,6 +117,10 @@ def score_platform(key, s, item, tops):
         sig["topic"] = max(sig["topic"], s.get("nostalgia", 0) * 0.95)
     if key in ("ig_reels", "fb_reels", "tiktok") and s.get("nostalgia", 0) > 0.5:
         sig["topic"] = min(1.0, sig["topic"] + 0.08)  # 'eskiden/şimdi' trendi
+    if s.get("season"):
+        sig["topic"] = min(1.0, sig["topic"] + 0.12 * s["season"])  # yaklaşan özel gün: konu tam zamanında
+    if key == "ig_feed" and is_photo and s.get("series"):
+        sig["hook"] = max(sig["hook"], 0.5 + 0.25 * s["series"])  # carousel: ikinci slaytla yeniden gösterim
     total = sum(w * sig.get(k, 0.5) for k, w in p["agirlik"].items())
     return round(100 * total, 1), {k: round(sig.get(k, 0.5), 2) for k in p["agirlik"]}
 

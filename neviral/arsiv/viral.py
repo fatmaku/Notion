@@ -7,7 +7,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from . import algoritma, config, db, i18n, kalite, konu, media, yazi
+from . import algoritma, config, db, i18n, kalite, karar, konu, media, takvim, yazi
 
 DEFAULT_AUDIENCE = {"TR": 0.5, "DE": 0.35, "INT": 0.15}
 
@@ -86,7 +86,47 @@ def history_signal(item, tops, learned):
 
 
 # ---------------------------------------------------------------- puanlama
-def signals(item, q, tops, learned, year_now, dup_posted=False):
+# konu → ilgili özel günler (takvim.NAMES anahtarları); yaklaşınca konu puanı artar
+TOPIC_EVENTS = {
+    "kitap": ("cocuk_kitap", "kitap_gunu", "siir", "okuryazarlik"),
+    "cocuk": ("nisan23", "cocuk_gunu", "weltkindertag", "anneler", "babalar_tr", "vatertag", "cocuk_kitap"),
+    "okul": ("okul_tr", "ogretmenler", "ogretmen_dunya", "okuryazarlik"),
+    "kutlama": ("yilbasi", "ramazan", "kurban", "cumhuriyet", "yil_ozeti", "sevgililer", "genclik"),
+    "sahne": ("siir", "kitap_gunu"),
+}
+
+
+def context(con, today=None):
+    """Puanlama bağlamı: yaklaşan özel günler (konuya göre) ve aynı gün çekilmiş fotoğraf serileri (carousel)."""
+    today = today or dt.date.today()
+    ev = {}
+    for e in takvim.upcoming("tr", start=today, days=45):
+        for topic, keys in TOPIC_EVENTS.items():
+            if e["anahtar"] in keys and (topic not in ev or e["kalan_gun"] < ev[topic]["gun"]):
+                ev[topic] = {"key": e["anahtar"], "gun": e["kalan_gun"]}
+    series = {(r[0], r[1], r[2]): r[3] for r in con.execute(
+        "SELECT year, month, day, COUNT(*) FROM items WHERE kind='foto' AND hidden=0 AND year IS NOT NULL GROUP BY year, month, day HAVING COUNT(*)>=3")}
+    return {"events": ev, "series": series}
+
+
+def extras(item, tops, ctx):
+    """Öğeye özel bağlam sinyalleri: {'season': 0..1, 'ev': {...}, 'series': 0..1, 'seri': n}"""
+    out = {}
+    if ctx:
+        for k, _ in tops[:2]:
+            e = ctx["events"].get(k)
+            if e:
+                out["season"] = round(max(0.0, 1 - e["gun"] / 45), 2)
+                out["ev"] = e
+                break
+        n = ctx["series"].get((item.get("year"), item.get("month"), item.get("day")), 0)
+        if n >= 3 and item.get("kind") == "foto":
+            out["series"] = round(min(1.0, (n - 2) / 6), 2)
+            out["seri"] = n
+    return out
+
+
+def signals(item, q, tops, learned, year_now, dup_posted=False, ctx=None):
     q = q or {}
     apple = item.get("apple_score")
     base_q = q.get("quality")
@@ -114,13 +154,18 @@ def signals(item, q, tops, learned, year_now, dup_posted=False):
         novelty = 1.0
     if dup_posted:
         novelty *= 0.6
-    return {"quality": quality, "hook": hook, "people": people, "novelty": novelty,
-            "history": history_signal(item, tops, learned), "nostalgia": konu.nostalgia(item, year_now)}
+    out = {"quality": quality, "hook": hook, "people": people, "novelty": novelty,
+           "history": history_signal(item, tops, learned), "nostalgia": konu.nostalgia(item, year_now)}
+    ex = extras(item, tops, ctx)
+    for k in ("season", "series"):
+        if k in ex:
+            out[k] = ex[k]
+    return out
 
 
-def score_item(item, q, audience, learned, year_now, dup_posted=False):
+def score_item(item, q, audience, learned, year_now, dup_posted=False, ctx=None):
     tops = konu.topics(item)
-    s = signals(item, q, tops, learned, year_now, dup_posted)
+    s = signals(item, q, tops, learned, year_now, dup_posted, ctx)
     plats = {}
     for key in algoritma.PLATFORMS:
         if key == "ig_feed" and item.get("kind") == "video":
@@ -131,9 +176,16 @@ def score_item(item, q, audience, learned, year_now, dup_posted=False):
     if item.get("available") == 0 and not item.get("thumb"):
         score -= 5  # içeriği görülemiyor
     mk = konu.markets(item, audience, tops)
-    return round(max(0.0, min(100.0, score)), 1), {
-        "p": plats, "best": best, "m": mk, "mb": next(iter(mk)), "t": [k for k, _ in tops[:3]], "nost": round(s["nostalgia"], 2),
-        "s": {k: round(v, 3) for k, v in s.items()}}
+    info = {"p": plats, "best": best, "m": mk, "mb": next(iter(mk)), "t": [k for k, _ in tops[:3]], "tc": [round(c, 2) for _, c in tops[:3]], "nost": round(s["nostalgia"], 2),
+            "s": {k: round(v, 3) for k, v in s.items()}}
+    ex = extras(item, tops, ctx)
+    if ex.get("ev"):
+        info["ev"] = ex["ev"]
+    if ex.get("seri"):
+        info["seri"] = ex["seri"]
+    if dup_posted:
+        info["dup"] = 1
+    return round(max(0.0, min(100.0, score)), 1), info
 
 
 def _metrics_job(row):
@@ -190,6 +242,7 @@ def rescore(con, progress=print):
         progress(f"3/3 geçmiş {learned['n']} paylaşımın performansından öğrenildi")
     year_now = dt.date.today().year
     posted_hashes = {r[0] for r in con.execute("SELECT dhash FROM items WHERE posted_at IS NOT NULL AND dhash IS NOT NULL")}
+    ctx = context(con)
     progress("3/3 puanlama")
     batch, n = [], 0
     for r in con.execute("SELECT * FROM items").fetchall():
@@ -199,7 +252,7 @@ def rescore(con, progress=print):
         except (TypeError, ValueError):
             q = {}
         dup = bool(it.get("dhash") and not it.get("posted_at") and it["dhash"] in posted_hashes)
-        sc, info = score_item(it, q, st["kitle"], learned, year_now, dup)
+        sc, info = score_item(it, q, st["kitle"], learned, year_now, dup, ctx)
         batch.append((sc, json.dumps(info, separators=(",", ":")), db.now(), it["id"]))
         n += 1
         if len(batch) >= 1000:
@@ -224,14 +277,14 @@ REASON = {
 }
 
 
-def present(con, it, lang, st=None, total=None, detail=False):
+def present(con, it, lang, st=None, total=None, detail=False, learned=None):
     st = st or settings(con)
     li = algoritma.LANG_IDX.get(lang, 0)
     v = it.get("viral") or {}
     q = it.get("quality") or {}
     best = v.get("best") or "ig_reels"
     sig = dict(v.get("s") or {})
-    tops = [(k, 1.0) for k in v.get("t") or ["gunluk"]]
+    tops = karar.tops_of(v)
     _, contrib = algoritma.score_platform(best, sig, it, tops)
     if sig.get("nostalgia", 0) > 0.5:
         contrib["nostalgia"] = sig["nostalgia"]
@@ -248,6 +301,7 @@ def present(con, it, lang, st=None, total=None, detail=False):
         "konular": [{"key": k, "ad": konu.topic_name(k, lang)} for k in v.get("t") or []],
         "nedenler": reasons, "iyilestirmeler": algoritma.improvements(it, q, lang, best),
     }
+    better = None
     if total:
         better = con.execute("SELECT COUNT(*) FROM items WHERE hidden=0 AND viral_score > ?", (it.get("viral_score") or 0,)).fetchone()[0]
         out["yuzdelik"] = round(100 * (better + 1) / total, 1)
@@ -255,11 +309,24 @@ def present(con, it, lang, st=None, total=None, detail=False):
     times = algoritma.best_times(best, mb, st["saat_dilimi"], days=3)
     if times:
         out["zaman"] = {"kullanici": times[0][0].isoformat(timespec="minutes"), "yerel": times[0][1], "pazar": mb}
+    if v.get("ev"):
+        v["ev"]["ad"] = takvim.NAMES.get(v["ev"].get("key"), ("", "", ""))[li]
     if detail:
+        from . import metin, tasarim
         tops2 = konu.topics(it)
         out["metinler"] = yazi.rule_captions(it, tops2, sig.get("nostalgia", 0), st["hesap"])
         out["sinyaller"] = {k: algoritma.platform_signal(k, lang) for k in algoritma.PLATFORMS}
         out["kalite"] = q
+        keys = [k for k, _ in tops2]
+        var = metin.variants(it, keys, lang, sig.get("nostalgia", 0), n=1)
+        stil = tasarim.style_for(keys)
+        stil_ad = next((x["ad"] for x in tasarim.style_list(lang) if x["key"] == stil), stil)
+        out["karar"] = karar.decide(it, lang, st, learned if learned is not None else learn(con), total=total, better=better,
+                                    hook=var[0]["text"] if var else None, style=stil_ad,
+                                    time_text=out["zaman"]["kullanici"].replace("T", " ") if out.get("zaman") else None)
+        out["karar"]["oneri"]["stil_key"] = stil
+    else:
+        out["karar_kisa"] = karar.brief(it, lang)
     return out
 
 
@@ -395,8 +462,24 @@ def package(con, item_id, platforms=None, langs=None, progress=print, use_claude
            "stil": stil, "kanca": hook, "ab_test": res.get("ab"),
            "kanca_varyantlari": {l: (texts[l].get("_varyantlar") if isinstance(texts.get(l), dict) else None) for l in langs},
            "zamanlar": times, "metinler": {l: {p: texts[l][p] for p in platforms if p in texts[l]} for l in langs}, "dosyalar": files}
+    stil_ad = next((x["ad"] for x in tasarim.style_list(main_lang) if x["key"] == stil), stil)
+    kr = karar.decide(it, main_lang, st, learn(con), hook=hook, style=stil_ad,
+                      time_text=(times.get(v["best"]) or [{}])[0].get("kullanici", "").replace("T", " ") or None)
+    pkg["karar"] = kr
     (out_dir / "paket.json").write_text(json.dumps(pkg, ensure_ascii=False, indent=2), encoding="utf-8")
-    lines = [f"neviral · {it.get('filename')} · {it.get('viral_score')}/100 · {stil}", ""]
+    kl = [f"neviral · {it.get('filename')}", "", kr["ozet"], ""]
+    kl += [i18n.t(main_lang, "Puan katkıları") + ":"] + [f"  {x['ad']}: {x['puan']}/{x['max']}" for x in kr["katkilar"]]
+    if kr["kazanclar"]:
+        kl += ["", i18n.t(main_lang, "Paketin kazandırdıkları") + ":"] + [f"  +{g['kazanc']}  {g['ad']}" for g in kr["kazanclar"]]
+    if kr["riskler"]:
+        kl += ["", i18n.t(main_lang, "Riskler") + ":"] + [f"  ⚠ {r['ad']}" for r in kr["riskler"]]
+    kl += ["", f"{kr['guven']['ad']}: " + ", ".join(kr["guven"]["neden"])]
+    if kr.get("gecmis"):
+        kl.append(kr["gecmis"])
+    if kr.get("mevsim"):
+        kl.append(kr["mevsim"])
+    (out_dir / "karar.txt").write_text("\n".join(kl), encoding="utf-8")
+    lines = [f"neviral · {it.get('filename')} · {it.get('viral_score')}/100 → {kr['sonra']} · {stil}", kr["ozet"], ""]
     if res.get("ab"):
         lines += [f"A/B: A = {res['ab']['A']['hook']}  |  B = {res['ab']['B']['hook']}", ""]
     for p in platforms:
@@ -453,14 +536,30 @@ def ingest_external(con, path):
     con.execute("UPDATE items SET quality=? WHERE id=?", (json.dumps(q), iid))
     it = db.get_item(con, iid)
     stg = settings(con)
-    sc, info = score_item(it, q, stg["kitle"], learn(con), dt.date.today().year)
+    sc, info = score_item(it, q, stg["kitle"], learn(con), dt.date.today().year, ctx=context(con))
     con.execute("UPDATE items SET viral_score=?, viral=?, analyzed_at=? WHERE id=?", (sc, json.dumps(info, separators=(",", ":")), db.now(), iid))
     con.commit()
     return iid
 
 
+def preview_source(it):
+    """Önizleme için en iyi kaynak: yerel orijinal → küçük resim → yok. Dönüş: (yol, tür, kaynak_adi)."""
+    p = it.get("path")
+    if p and Path(p).is_file():
+        try:
+            if not media.is_dataless(Path(p).stat()):
+                return p, it.get("kind"), "orijinal"
+        except OSError:
+            pass
+    t = it.get("thumb")
+    if t and Path(t).is_file():
+        return t, "foto", "kucuk"
+    return None, "foto", "yok"
+
+
 def compare(con, item_id, lang="tr", hook=None, size=(360, 640)):
-    """Tasarım karşılaştırması: her stil için önizleme + okunurluk puanı + konuya uygunluk; kanca varyantları."""
+    """Tasarım karşılaştırması: her stil için önizleme + okunurluk puanı + konuya uygunluk; kanca varyantları.
+    Tek bir stil hata verirse diğerleri yine döner (o stilde 'hata' alanı olur)."""
     import hashlib
     from . import metin, tasarim
     it = db.get_item(con, int(item_id))
@@ -471,26 +570,40 @@ def compare(con, item_id, lang="tr", hook=None, size=(360, 640)):
     nost = konu.nostalgia(it, dt.date.today().year)
     var = {l: metin.variants(it, keys, l, nost, n=6) for l in yazi.LANGS}
     hook = (hook or (var[lang][0]["text"] if var[lang] else "neviral")).strip()[:60]
-    src = it.get("thumb") if it.get("kind") == "video" else (it.get("path") or it.get("thumb"))
-    if it.get("kind") == "video" and it.get("path") and Path(it["path"]).exists():
-        src, kind = it["path"], "video"
-    else:
-        kind = "foto"
+    src, kind, kaynak = preview_source(it)
+    at = min(1.0, 0.4 * float(it.get("duration") or 0)) if kind == "video" else 1.0
     rec = tasarim.style_for(keys)
     out_dir = config.CACHE / "stil"
     out_dir.mkdir(parents=True, exist_ok=True)
     h = hashlib.sha1(hook.encode()).hexdigest()[:10]
-    styles = []
-    accent = None
+    styles, accent, errors = [], None, []
     for s in tasarim.style_list(lang):
         name = f"{it['id']}-{s['key']}-{h}.jpg"
         f = out_dir / name
-        img, leg, accent = tasarim.preview(src, kind, hook, s["key"], accent, W=size[0], H=size[1], at=1.0)
-        img.save(f, quality=85)
+        try:
+            img, leg, accent = tasarim.preview(src, kind, hook, s["key"], accent, W=size[0], H=size[1], at=at)
+            img.save(f, "JPEG", quality=85)
+        except Exception as e:  # tek stil çökmesin; nedenini göster
+            errors.append(f"{s['key']}: {e}")
+            styles.append({**s, "url": None, "okunurluk": 0.0, "puan": 0.0, "onerilen": s["key"] == rec, "hata": str(e)[:200]})
+            continue
         fit = 12 if s["key"] == rec else 0
         styles.append({**s, "url": f"/api/viral/onizleme/{name}", "okunurluk": leg, "puan": round(min(100, leg * 0.85 + fit + 8), 1),
                        "onerilen": s["key"] == rec})
-    best = max(styles, key=lambda x: x["puan"])["key"]
+    ok = [x for x in styles if not x.get("hata")]
+    if not ok:
+        raise RuntimeError("; ".join(errors)[:400] or "önizleme üretilemedi")
+    best = max(ok, key=lambda x: x["puan"])["key"]
     for s in styles:
         s["en_iyi"] = s["key"] == best
-    return {"kanca": hook, "kancalar": var, "stiller": styles, "onerilen_stil": rec, "en_iyi_stil": best}
+    li = algoritma.LANG_IDX.get(lang, 0)
+    note = None
+    if kaynak == "kucuk":
+        note = ("Orijinal dosya bu Mac'te yok (iCloud'da): önizleme küçük resimden üretildi",
+                "Originaldatei nicht auf diesem Mac (iCloud): Vorschau aus dem Miniaturbild",
+                "Original not on this Mac (iCloud): preview made from the thumbnail")[li]
+    elif kaynak == "yok":
+        note = ("Görsel açılamadı: tasarım nötr bir arka planda gösteriliyor", "Bild nicht lesbar: Design auf neutralem Hintergrund",
+                "Image unreadable: design shown on a neutral background")[li]
+    return {"kanca": hook, "kancalar": var, "stiller": styles, "onerilen_stil": rec, "en_iyi_stil": best, "kaynak": kaynak, "not": note,
+            "hatalar": errors}

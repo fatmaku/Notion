@@ -12,6 +12,22 @@ Neden bu yaklaşım "en kolayı":
 - **Hatırlatır.** Yeniden paylaşım kuyruğunu haftalara dağıtır, "bugün geçen yıl" önerir, macOS bildirimi ve Takvim (.ics) desteği vardır.
 - **Pazarlama.** Açıklama + hashtag + kanca cümlesi üretir (isteğe bağlı Claude ile), performans CSV'nizden en iyi paylaşım saatlerini çıkarır, içerik fikirleri önerir.
 
+## 🎯 Karar motoru: neden viral, ne kazandırır (sürüm 0.6)
+
+Puan artık bir sayı değil, bir **karar**. Her öğe için:
+
+- **Seviye:** *Şimdi paylaş* / *Optimizasyonla paylaş* / *Güçlü kanca ve seriyle dene* / *Arşivde kalsın* — optimizasyon **sonrası** puana göre.
+- **Puan katkıları:** Açılış, görüntü kalitesi, format, süre, konu uyumu, insan/yüz, yenilik, kendi geçmişiniz — her biri kaç puan getirdi / en fazla kaç getirebilirdi (çubuklarla).
+- **Paketin kazandırdıkları:** Otomatik iyileştirmeler simüle edilir ve her adımın kazancı yazılır: "9:16 dönüşüm +4.1", "ilk saniyede yazılı kanca +3.2", "en iyi 30 sn kesimi +2.5", "carousel +1.8". Böylece "71 → 79" nereden geldiğini görürsünüz.
+- **Riskler:** Zayıf açılış, yatay format, insan yok, daha önce paylaşılmış, düşük çözünürlük, orijinal iCloud'da…
+- **Güven düzeyi:** Video derin analiz edildi mi, Apple estetik puanı var mı, Instagram istatistiğinden öğrenildi mi — karar ne kadar sağlam, açıkça söylenir.
+- **Kendi geçmişiniz:** "Kitap videolarınız ortalamanızın 1.6× etkileşimini aldı" gibi somut karşılaştırma (CSV içe aktarıldıysa).
+- **Zamanlama sinyali:** Yaklaşan özel gün (Dünya Kitap Günü, Weltkindertag, Öğretmenler Günü…) konuyla eşleşiyorsa puan artar ve "13 gün sonra: tam zamanı" denir.
+- **Seri/carousel sinyali:** Aynı gün çekilmiş 3+ fotoğraf varsa Instagram gönderisi için carousel potansiyeli hesaba katılır.
+- **Tek paragraflık karar** (TR/DE/EN): platform, pazar, dil, format, süre, stil, kanca, en iyi saat ve en güçlü neden — listede rozet olarak, detayda tam metin, pakette `karar.txt` ve `paket.json["karar"]`.
+
+Önizleme/görsel üretimi dayanıklı hale getirildi: 1 saniyeden kısa videolar, boşluksuz uzun yazılar, HEIC/PNG/CMYK/gri görseller, iCloud'da kalmış (indirilmemiş) orijinaller ve açılamayan dosyalar artık hata vermez; tek bir stil üretilemezse diğerleri yine gösterilir ve neden yazılır.
+
 ## ✦ Premium tasarım, güçlü kancalar, karşılaştırma (sürüm 0.5)
 
 Önceki sürümlerde ekrandaki yazılar sistem yazı tipi + düz sarı kutuydu, metinler birkaç kalıp cümleden oluşuyordu — "ucuz" görünüyordu. Şimdi:

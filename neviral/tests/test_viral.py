@@ -159,6 +159,47 @@ class Viral(unittest.TestCase):
         finally:
             httpd.shutdown()
 
+    def test_karar(self):
+        from arsiv import karar
+        r = viral.rank(self.con, lang="de", posted=None, limit=50)
+        for it in r["items"]:
+            kk = it["neviral"]["karar_kisa"]
+            self.assertIn(kk["seviye"], ("simdi", "optimize", "guclu_kanca", "arsiv"))
+            self.assertGreaterEqual(kk["sonra"], round(it["viral_score"]) - 1)
+        it = db.get_item(self.con, self.con.execute("SELECT id FROM items WHERE filename='uzun-vlog.mp4'").fetchone()[0])
+        for lang in ("tr", "de", "en"):
+            n = viral.present(self.con, it, lang, total=r["analiz_edilen"], detail=True)
+            k = n["karar"]
+            self.assertIn(k["baslik"], k["ozet"])
+            self.assertAlmostEqual(k["sonra"], min(100, k["simdi"] + sum(g["kazanc"] for g in k["kazanclar"])), delta=0.15)
+            plat = next(p["puan"] for p in n["platformlar"] if p["key"] == k["oneri"]["platform"])
+            self.assertAlmostEqual(sum(p["puan"] for p in k["katkilar"]), plat, delta=0.6, msg="katkılar platform puanını vermeli")
+            self.assertTrue(any(g["key"] == "duration" for g in k["kazanclar"]), "uzun video: kesme kazancı olmalı")
+            self.assertTrue(k["guven"]["neden"])
+            self.assertIn(k["oneri"]["dil"], ("tr", "de", "en"))
+        self.assertIn("Jetzt posten", [t[1] for _, _, t, _ in karar.LEVELS])
+
+    def test_mevsim_ve_seri(self):
+        import datetime as dt
+        ctx = viral.context(self.con, today=dt.date(2026, 4, 10))  # 23 Nisan Dünya Kitap Günü 13 gün sonra
+        self.assertIn("kitap", ctx["events"])
+        self.assertLessEqual(ctx["events"]["kitap"]["gun"], 13)
+        it = db.get_item(self.con, self.con.execute("SELECT id FROM items WHERE filename='imza.mp4'").fetchone()[0])
+        ex = viral.extras(it, [("kitap", 1.0)], ctx)
+        self.assertGreater(ex["season"], 0.5)
+        far = viral.context(self.con, today=dt.date(2026, 7, 1))
+        self.assertNotIn("kitap", far["events"])
+        base = dict(it, kind="foto", aspect="4:5", duration=0)
+        s0 = {"quality": 0.6, "hook": 0.4, "people": 0.5, "novelty": 1.0, "history": 0.5, "nostalgia": 0.0}
+        a, _ = algoritma.score_platform("ig_feed", s0, base, [("kitap", 1.0)])
+        b, _ = algoritma.score_platform("ig_feed", dict(s0, series=0.5), base, [("kitap", 1.0)])
+        c, _ = algoritma.score_platform("ig_reels", dict(s0, season=1.0), base, [("kitap", 1.0)])
+        a2, _ = algoritma.score_platform("ig_reels", s0, base, [("kitap", 1.0)])
+        self.assertGreater(b, a, "aynı gün serisi carousel puanını artırmalı")
+        self.assertGreater(c, a2, "yaklaşan özel gün konu puanını artırmalı")
+        fake = {"events": {}, "series": {(it["year"], it["month"], it["day"]): 5}}
+        self.assertEqual(viral.extras(dict(it, kind="foto"), [("kitap", 1.0)], fake)["seri"], 5)
+
     def test_ayarlar(self):
         st = viral.save_settings(self.con, kitle={"TR": 10, "DE": 80, "INT": 10}, saat_dilimi="Europe/Istanbul", hesap="@neviral")
         self.assertAlmostEqual(st["kitle"]["DE"], 0.8, delta=0.01)

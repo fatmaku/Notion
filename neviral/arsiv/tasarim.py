@@ -78,7 +78,7 @@ def _lum(rgb):
 def palette(path):
     """Görüntünün baskın renklerinden uyumlu bir vurgu rengi (#RRGGBB) ve koyu ton döndürür."""
     try:
-        img = media.open_image(path, draft=(200, 200)).convert("RGB")
+        img = (path if isinstance(path, Image.Image) else media.open_image(path, draft=(200, 200))).convert("RGB")
         img.thumbnail((120, 120))
         q = img.quantize(colors=6, method=Image.Quantize.MEDIANCUT)
         pal = q.getpalette()[:18]
@@ -137,8 +137,21 @@ def grade(style, W, H, grain=True):
 
 
 # ---------------------------------------------------------------- yerleşim
+def _split_long(draw, word, fnt, maxw, track=0.0):
+    """Tek başına satıra sığmayan kelimeyi (uzun hashtag, URL, boşluksuz yazı) harf harf böler."""
+    parts, cur = [], ""
+    for ch in word:
+        if cur and _tw(draw, cur + ch, fnt, track) > maxw:
+            parts.append(cur); cur = ch
+        else:
+            cur += ch
+    return parts + ([cur] if cur else [])
+
+
 def _wrap(draw, text, fnt, maxw, track=0.0):
-    words, lines, cur = str(text).split(), [], []
+    words, lines, cur = [], [], []
+    for w in str(text).split():
+        words += _split_long(draw, w, fnt, maxw, track) if _tw(draw, w, fnt, track) > maxw else [w]
     for w in words:
         cand = " ".join(cur + [w])
         if _tw(draw, cand, fnt, track) <= maxw or not cur:
@@ -425,19 +438,63 @@ def caption_panel(W, H, text, style, accent):
 
 
 # ---------------------------------------------------------------- önizleme + okunurluk puanı
+def placeholder(W, H, accent="#5B6CFF"):
+    """Kaynak açılamadığında tasarımın yine de görülebilmesi için yumuşak degrade arka plan."""
+    acc = _hex(accent)[:3]
+    top, bot = (22, 24, 34), tuple(int(c * 0.35 + d * 0.65) for c, d in zip(acc, (14, 12, 20)))
+    t = np.linspace(0.0, 1.0, H, dtype=np.float32)[:, None, None]
+    arr = np.asarray(top, dtype=np.float32) * (1 - t) + np.asarray(bot, dtype=np.float32) * t
+    img = Image.fromarray(np.repeat(arr, W, axis=1).astype(np.uint8), "RGB")
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(glow).ellipse([W * 0.15, H * 0.2, W * 0.85, H * 0.65], fill=acc + (70,))
+    glow = glow.filter(ImageFilter.GaussianBlur(min(W, H) * 0.18))
+    out = img.convert("RGBA")
+    out.alpha_composite(glow)
+    return out.convert("RGB")
+
+
+def video_frame(src_path, at=1.0):
+    """Videodan tek kare (JPEG yolu). Kısa videolarda başa döner; kare çıkmazsa MediaError."""
+    import shutil
+    import tempfile
+    d = Path(tempfile.mkdtemp(prefix="nv-"))
+    tmp = d / "f.jpg"
+    for t in sorted({max(0.0, at), 0.0}, reverse=True):
+        try:
+            media.run_ffmpeg(["-ss", f"{t:.2f}", "-i", src_path, "-frames:v", "1", "-q:v", "3", tmp])
+        except media.MediaError:
+            continue
+        if tmp.exists() and tmp.stat().st_size > 0:
+            try:
+                img = media.open_image(tmp).convert("RGB")
+                img.load()
+                return img
+            except Exception:
+                pass
+    shutil.rmtree(d, ignore_errors=True)
+    raise media.MediaError("videodan kare alınamadı")
+
+
 def preview(src_path, kind, text, style, accent=None, W=540, H=960, sub=None, at=1.0):
-    """Stilin hazır bir karesi (tasarımları karşılaştırmak için) ve okunurluk/dikkat puanı."""
+    """Stilin hazır bir karesi (tasarımları karşılaştırmak için) ve okunurluk/dikkat puanı.
+    Kaynak yoksa/açılamazsa degrade bir arka plan kullanır (kaynak_yok=True ile anlaşılır)."""
     from .text_overlay import fit_image
-    if kind == "video":
-        import tempfile
-        tmp = Path(tempfile.mkdtemp(prefix="nv-")) / "f.jpg"
-        media.run_ffmpeg(["-ss", f"{at:.2f}", "-i", src_path, "-frames:v", "1", "-q:v", "3", tmp])
-        base_src = tmp
+    base = None
+    if src_path:
+        try:
+            if kind == "video":
+                base = video_frame(src_path, at)
+            else:
+                base = media.open_image(src_path, draft=(W * 2, H * 2)).convert("RGB")
+                base.load()
+        except Exception:
+            base = None
+    if base is None:
+        accent = accent or "#5B6CFF"
+        img = placeholder(W, H, accent)
     else:
-        base_src = src_path
-    img = fit_image(media.open_image(base_src, draft=(W * 2, H * 2)).convert("RGB"), W, H, "kirp")
-    img = _grade_preview(img, style)
-    accent = accent or palette(base_src)["vurgu"]
+        img = _grade_preview(fit_image(base, W, H, "kirp"), style)
+        accent = accent or palette(base)["vurgu"]
     lay = layout_hook(text, style, W, H)
     over = hook_frame(lay, style, W, H, 5.0, accent, sub)
     out = img.convert("RGBA")

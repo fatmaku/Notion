@@ -75,6 +75,56 @@ class Tasarim(unittest.TestCase):
         self.assertIsNotNone(last, "son karede yazı görünmeli")
         self.assertNotEqual(first, last, "kanca animasyonlu olmalı")
 
+    def test_uzun_kelime_sarilir(self):
+        word = "Supercalifragilisticexpialigetischesunendlichlangeswort#kitap"
+        lay = tasarim.layout_hook(word, "pop", 180, 320)
+        self.assertTrue(all(w["wdt"] <= 180 for w in lay["words"]), "boşluksuz uzun yazı harf harf bölünmeli")
+        img, leg, _ = tasarim.preview(str(self.photo), "foto", word, "masal", None, W=180, H=320)
+        self.assertEqual(img.size, (180, 320))
+
+    def test_kisa_video_ve_bozuk_kaynak(self):
+        import subprocess
+        short = TMP / "kisa.mp4"
+        subprocess.run([media.ffmpeg_path(), "-y", "-loglevel", "error", "-f", "lavfi", "-i", "testsrc=size=320x240:rate=30", "-t", "0.4",
+                        "-pix_fmt", "yuv420p", str(short)], check=True)
+        img, _, _ = tasarim.preview(str(short), "video", "Kısa video", "pop", None, W=180, H=320, at=1.0)
+        self.assertEqual(img.size, (180, 320))
+        broken = TMP / "bozuk.jpg"
+        broken.write_bytes(b"\xff\xd8garbage")
+        img, _, _ = tasarim.preview(str(broken), "foto", "Bozuk", "sinema", None, W=180, H=320)
+        self.assertEqual(img.size, (180, 320), "açılamayan kaynakta nötr arka plan kullanılmalı")
+        img, _, _ = tasarim.preview(None, "foto", "Yok", "minimal", None, W=180, H=320)
+        self.assertEqual(img.size, (180, 320))
+
+    def test_kaynaksiz_oge_karsilastirma(self):
+        self.con.execute("INSERT OR IGNORE INTO items(uuid, filename, kind, source, width, height, aspect, available, hidden) "
+                         "VALUES('hayalet','hayalet.jpg','foto','klasor',1000,1500,'4:5',0,0)")
+        self.con.commit()
+        iid = self._id("hayalet.jpg")
+        viral.rescore(self.con, quiet)
+        c = viral.compare(self.con, iid, lang="de", size=(180, 320))
+        self.assertEqual(c["kaynak"], "yok")
+        self.assertTrue(c["not"])
+        self.assertEqual(len([s for s in c["stiller"] if s["url"]]), len(tasarim.STYLES))
+
+    def test_tek_stil_hatasi_digerlerini_bozmaz(self):
+        orig = tasarim.preview
+
+        def boom(src, kind, text, style, *a, **kw):
+            if style == "pop":
+                raise RuntimeError("font patladı")
+            return orig(src, kind, text, style, *a, **kw)
+        tasarim.preview = boom
+        try:
+            c = viral.compare(self.con, self._id("imza.mp4"), lang="en", hook="Error test", size=(180, 320))
+        finally:
+            tasarim.preview = orig
+        bad = [s for s in c["stiller"] if s.get("hata")]
+        self.assertEqual([s["key"] for s in bad], ["pop"])
+        self.assertIn("font patladı", bad[0]["hata"])
+        self.assertEqual(sum(s["en_iyi"] for s in c["stiller"]), 1)
+        self.assertNotEqual(c["en_iyi_stil"], "pop")
+
     # --- kanca & metin
     def test_kanca_puani_kurallari(self):
         good, why, _ = metin.score_hook("Wie entsteht eigentlich ein Kinderbuch?", "de", "kitap")

@@ -40,7 +40,7 @@ T = {
         # stüdyo
         "video üretiliyor ({f}, en çok {n} sn)": "Video wird erstellt ({f}, max. {n} s)",
         "metinler hazırlanıyor": "Texte werden vorbereitet",
-        "Paket hazır": "Paket fertig",
+        "Paket hazır": "Paket fertig", "Puan katkıları": "Punkte-Beiträge", "Paketin kazandırdıkları": "Was das Paket bringt", "Riskler": "Risiken",
         "ESKİDEN": "DAMALS", "ŞİMDİ": "HEUTE",
         "Hazırlan: {ad} ({tarih})": "Vorbereiten: {ad} ({tarih})",
         # pazarlama
@@ -81,7 +81,7 @@ T = {
         "Hikâye ya da 'Eskiden/Şimdi' için uygun": "Good for a story or 'Then/Now'",
         "video üretiliyor ({f}, en çok {n} sn)": "rendering video ({f}, max {n} s)",
         "metinler hazırlanıyor": "preparing captions",
-        "Paket hazır": "Package ready",
+        "Paket hazır": "Package ready", "Puan katkıları": "Score contributions", "Paketin kazandırdıkları": "What the package adds", "Riskler": "Risks",
         "ESKİDEN": "THEN", "ŞİMDİ": "NOW",
         "Hazırlan: {ad} ({tarih})": "Get ready: {ad} ({tarih})",
         "Yeterli performans verisi yok; Instagram Profesyonel Panel CSV'sini içe aktarın.": "Not enough performance data; import the CSV from the Instagram professional dashboard.",
