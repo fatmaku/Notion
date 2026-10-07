@@ -78,8 +78,8 @@ Farben in `social.css` (`.m-<motiv>`).
 
 ## Hinweise
 
-* `docs/BRAND.md` nennt für Social-Bilder noch die Endung `.png`. Das Paket nutzt JPEG
-  (Qualität 88), weil die Dateien so unter 350 KB bleiben und überall hochgeladen werden können.
+* Social-Bilder sind JPEG (Qualität 88, wie in `docs/BRAND.md`), damit sie unter 350 KB bleiben und
+  überall hochgeladen werden können. Die Link-Vorschauen bleiben PNG.
 * Arabisch nutzt westliche Ziffern wie die Startseite. Nach arabischen Buchstaben stellt der Browser
   „20%“ als „%20“ dar; das ist die übliche Schreibweise und laut BRAND.md erlaubt.
 * Die Zustands-Symbole sind eigene SVG-Zeichnungen (keine Emoji-Schrift nötig), damit jedes Rendern

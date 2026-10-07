@@ -65,7 +65,7 @@ function foot({ maker = true } = {}) {
       <div class="cta" data-tb><span class="ic-wrap">${icon('play')}</span><span>${esc(T.cta)}</span></div>
       <div class="tag" data-tb dir="ltr">${HASHTAG}</div>
     </div>
-    ${maker ? `<p class="maker" data-tb data-fit="${dir === 'rtl' ? 22 : 21},17,1">${rich(T.maker)}</p>` : ''}
+    ${maker ? `<p class="maker" data-tb data-fit="${dir === 'rtl' ? 24 : 23},18,1">${rich(T.maker)}</p>` : ''}
   </footer>`;
 }
 
@@ -127,10 +127,10 @@ function countsStage() {
   const c = M.chips;
   const chip = (k, on) => `<div class="chipw"><div class="chip c-${k}${on ? ' on' : ''}" data-shrink="19">${icon(k)}<span>${esc(c[k])}</span></div>${on ? `<span class="tick">${icon('check')}</span>` : ''}</div>`;
   return {
-    w: 980, h: 600,
+    w: 980, h: 560,
     html: `
-      <div class="abs" style="left:${dir === 'rtl' ? 10 : 420}px;top:20px;transform:rotate(${dir === 'rtl' ? -3 : 3}deg);filter:drop-shadow(0 18px 30px rgba(20,33,61,.18))">${mapPanel(540, 560)}</div>
-      <div class="chipcard" dir="${dir}" style="${dir === 'rtl' ? 'right' : 'left'}:10px;top:90px;width:540px;--rot:${dir === 'rtl' ? 3 : -3}deg;z-index:3">
+      <div class="abs" style="left:${dir === 'rtl' ? 10 : 420}px;top:20px;transform:rotate(${dir === 'rtl' ? -3 : 3}deg);filter:drop-shadow(0 18px 30px rgba(20,33,61,.18))">${mapPanel(540, 520)}</div>
+      <div class="chipcard" dir="${dir}" style="${dir === 'rtl' ? 'right' : 'left'}:10px;top:70px;width:580px;--rot:${dir === 'rtl' ? 3 : -3}deg;z-index:3">
         <div class="chipcard-head"><div class="pic">${catAvatarSvg(CATS.tekir)}</div><div class="ask" data-tb>${esc(M.ask)}</div></div>
         <div class="chips">${chip('healthy')}${chip('hungry', true)}${chip('sick')}${chip('injured')}</div>
       </div>`,

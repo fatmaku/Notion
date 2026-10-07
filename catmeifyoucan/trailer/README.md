@@ -48,18 +48,22 @@ Für die Zustands-Symbole (😺 🍽️ 🤒 🩹, wie im Spiel) braucht Chromiu
 | 7–11 s | Sammelkarte dreht sich (3D), „New cat!“, der Name „Duman“ wird getippt, Konfetti | Found it first? You name it. |
 | 11–16 s | Tagesziel füllt sich 1 → 20, dann Kaffeetasse mit „20%“ | 20 cats in one day = 20% off · Partner café. Same day only. |
 | 16–21 s | Die ernste Seite: Karte mit Punkten (wir zählen), Karte der Katze mit Chips Gesund/Hungrig/Krank/Verletzt, Herz, Freiwillige:r kommt | Every photo helps. We count. We help. · Volunteers see it and help. |
-| 21–26 s | Abspann: Logo, „Cat Me If You Can“, Slogan „Cat me if you can.“, „Kadıköy · Play in your browser“, Verhaltensregeln, Macher-Zeile | – |
+| 21–26 s | Abspann: Logo, „Cat Me If You Can“, Slogan „Cat me if you can.“, „Kadıköy · Play in your browser“, Verhaltensregeln, Macher-Zeile | Photos only · No touching, no chasing · No flash |
 
 Gestaltung: Farben/Schriften aus BRAND.md Abschnitt 7 (Unbounded, Manrope, Vazirmatn für ar/fa),
 Logo `public/icons/logo.svg`, Katzen aus `catAvatarSvg()`. Bewegung weich (ease-out), nichts blinkt.
-Die Verhaltensregeln („nur Fotos · nicht anfassen · kein Blitz“) stehen im Abspann; der Auslöser in
+Die Verhaltensregeln („nur Fotos · nicht anfassen, nicht jagen · kein Blitz“, Wortlaut wie auf der Startseite) stehen im Abspann; der Auslöser in
 Szene 2 ist deshalb ein Verschluss und **kein** Blitz.
 
 ## Formate
 
 * **16:9:** Text auf der Startseite der Leserichtung (links, bei ar/fa rechts), Bild daneben.
 * **9:16:** Bild oben, Text unten, neu gesetzt (nicht beschnitten). Kein Text in den oberen 220 px
-  und unteren 380 px (dort liegen die Bedienelemente der Apps). `check.js` prüft das.
+  und unteren 380 px und mindestens 100 px Abstand zum Seitenrand (Textspalte 840 px, je 120 px Rand):
+  Dort liegen die Bedienelemente von Reels/TikTok/Shorts. `check.js` prüft das.
+* Verhaltensregeln und Macher-Zeile brechen nur am „ · “ um (der Punkt wird dann zum Zeilenumbruch).
+* Die Karte mit den Zustands-Chips wächst mit langen Texten (ru, ar) nach links; `check.js` prüft,
+  dass jeder Chip ganz in der Karte liegt.
 * Überschriften werden automatisch so groß wie möglich gesetzt; zu lange Zeilen brechen höchstens
   einmal um (Markennamen nie).
 

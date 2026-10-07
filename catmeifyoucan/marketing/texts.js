@@ -111,7 +111,7 @@ export const TEXTS = {
       ticket: '20 % Rabatt',
     },
     'name-it': {
-      head: ['Zuerst gefunden?', 'Du gibst ihr den Namen.'],
+      head: ['Zuerst gefunden?', 'Du benennst sie.'],
       sub: 'Neue Katze für den KediDex? Du suchst den Namen aus.',
       newCat: 'Neue Katze!',
     },
@@ -120,7 +120,7 @@ export const TEXTS = {
       head: ['Jede Katze zählt.'],
       sub: 'Wir zählen die Straßenkatzen von Kadıköy.',
       steps: ['Mach ein Foto', 'Tipp an, wie es ihr geht', 'Freiwillige sehen es und helfen'],
-      ask: 'Wie geht es der Katze?',
+      ask: 'Wie geht es der Katze?',
       chips: { healthy: 'Gesund', hungry: 'Hungrig', sick: 'Krank', injured: 'Verletzt' },
       privacy: 'Den genauen Ort zeigen wir nie. So bleiben die Katzen sicher.',
     },
@@ -156,7 +156,7 @@ export const TEXTS = {
       head: ['Каждая кошка на счету.'],
       sub: 'Мы считаем уличных кошек Кадыкёя.',
       steps: ['Сделай фото', 'Отметь её состояние', 'Волонтёры видят и помогают'],
-      ask: 'Как дела у кошки?',
+      ask: 'Как дела у кошки?',
       chips: { healthy: 'Здорова', hungry: 'Голодная', sick: 'Болеет', injured: 'Ранена' },
       privacy: 'Мы не показываем точное место. Так кошки в безопасности.',
     },
@@ -199,7 +199,7 @@ export const TEXTS = {
     'made-in-kadikoy': {
       head: ['صُنع في قاضي كوي', 'بكلّ حبّ للقطط'],
       sub: 'صنع HappyTuncay هذه اللعبة في Happy Overthinking Coffee.',
-      pun: 'قهوة، وقطط، وكثير من التفكير.',
+      pun: 'قهوة، وقطط، وكثير من التفكير الزائد.',
     },
   },
 
@@ -221,7 +221,7 @@ export const TEXTS = {
     },
     'name-it': {
       head: ['اول پیدایش کردی؟', 'اسمش را تو بگذار.'],
-      sub: 'گربهٔ تازه برای KediDex؟ اسمش را تو انتخاب می‌کنی.',
+      sub: 'گربهٔ جدید برای KediDex؟ اسمش را تو انتخاب می‌کنی.',
       newCat: 'گربهٔ جدید!',
     },
     'every-cat-counts': {

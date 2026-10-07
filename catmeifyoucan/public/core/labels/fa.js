@@ -3,6 +3,7 @@
 // Tabellen und Schlüssel: siehe core/taxonomy.js (TABLES) und config/game.js (badges, levelTitles).
 // PATTERNS sind Adjektive, sie stehen auch in „{n} گربهٔ {pattern} پیدا کن“ (quest.pattern).
 // Fell-Wörter wie im Iran üblich: ببری = Tabby, نارنجی = Ginger, سه‌رنگ = Calico, لاک‌پشتی = Schildpatt.
+// Ziffern persisch (۰–۹) wie in js/lang/fa.js. Keine Emoji – die Symbole kommen aus dem Code.
 // Nie „شکار/شکارچی“ (jagen/Jäger) – BRAND.md. کادیکوی = Kadıköy, Viertelnamen in Lateinschrift (Moda …).
 export default {
   PATTERNS: {
@@ -28,7 +29,7 @@ export default {
     white: 'سفید',
     gray: 'خاکستری',
     orange: 'نارنجی',
-    cream: 'کرم‌رنگ',
+    cream: 'کرم',
     brown: 'قهوه‌ای',
   },
 
@@ -53,7 +54,7 @@ export default {
     very_thin: 'خیلی لاغر',
     thin: 'لاغر',
     ideal: 'متناسب',
-    overweight: 'اضافه‌وزن',
+    overweight: 'کمی چاق',
     obese: 'خیلی چاق',
     unknown: 'از روی عکس معلوم نیست',
   },
@@ -82,7 +83,7 @@ export default {
     ear_issue: 'مشکل گوش',
     mouth_issue: 'مشکل دهان یا دندان',
     matted_coat: 'موهای گره‌خورده',
-    pregnant_possible: 'شاید باردار',
+    pregnant_possible: 'شاید باردار است',
     nursing: 'به بچه‌هایش شیر می‌دهد',
   },
 
@@ -152,11 +153,11 @@ export default {
     sick: 'مریض (چشم، بینی، عطسه)',
     injured: 'زخمی',
     limping: 'می‌لنگد',
-    cold: 'سردش است / خیس است',
+    cold: 'سردش است / خیس شده',
     pregnant: 'باردار',
     kittens: 'بچه دارد',
     danger: 'در خطر (ماشین، گیر افتاده)',
-    lost_pet: 'شاید گربهٔ خانگی گم‌شده',
+    lost_pet: 'شاید گربهٔ خانگیِ گم‌شده',
   },
 
   PLACE_TYPES: {
@@ -169,29 +170,29 @@ export default {
 
   BADGES: {
     first_catch: { name: 'اولین پنجه', desc: 'از اولین گربه‌ات عکس بگیر' },
-    ten_cats: { name: 'ده‌تایی', desc: '10 گربهٔ مختلف' },
-    fifty_cats: { name: 'کلکسیونر', desc: '50 گربهٔ مختلف' },
-    hundred_cats: { name: 'هم‌زبان گربه‌ها', desc: '100 گربهٔ مختلف' },
-    daily_goal: { name: 'بیست‌تایی', desc: '20 گربه در یک روز' },
-    goal_5: { name: 'مشتری ثابت کافه', desc: 'هدف روزانه در 5 روز' },
-    discoverer: { name: 'کاشف', desc: '5 گربهٔ جدید کشف کن' },
-    pioneer: { name: 'پیشگام', desc: '25 گربهٔ جدید کشف کن' },
-    districts_5: { name: 'محله‌گرد', desc: 'گربه در 5 محله' },
-    districts_all: { name: 'همهٔ کادیکوی', desc: 'هر 21 محله' },
-    night_owl: { name: 'شب‌زنده‌دار', desc: '3 گربه بین ساعت 10 شب و 5 صبح' },
-    early_bird: { name: 'سحرخیز', desc: '3 گربه بین ساعت 5 و 8 صبح' },
-    guardian: { name: 'نگهبان سلامت', desc: '3 گربهٔ نیازمند کمک را گزارش کن' },
-    patterns_8: { name: 'جعبهٔ رنگ', desc: '8 نوع گربهٔ مختلف' },
-    rare_find: { name: 'یافتهٔ کمیاب', desc: 'یک گربهٔ کمیاب یا کمیاب‌تر' },
-    legend: { name: 'اسطوره‌یاب', desc: 'از یک اسطورهٔ کادیکوی عکس بگیر' },
-    streak_7: { name: 'هفت روز پیاپی', desc: '7 روز پشت سر هم' },
+    ten_cats: { name: 'ده‌تایی', desc: '۱۰ گربهٔ مختلف' },
+    fifty_cats: { name: 'کلکسیونر', desc: '۵۰ گربهٔ مختلف' },
+    hundred_cats: { name: 'هم‌زبان گربه‌ها', desc: '۱۰۰ گربهٔ مختلف' },
+    daily_goal: { name: 'بیست‌تایی', desc: '۲۰ گربه در یک روز' },
+    goal_5: { name: 'مشتری ثابت کافه', desc: 'در ۵ روز به هدف روزانه برس' },
+    discoverer: { name: 'کاشف', desc: '۵ گربهٔ جدید کشف کن' },
+    pioneer: { name: 'پیشگام', desc: '۲۵ گربهٔ جدید کشف کن' },
+    districts_5: { name: 'محله‌گرد', desc: 'در ۵ محله گربه پیدا کن' },
+    districts_all: { name: 'همهٔ کادیکوی', desc: 'همهٔ ۲۱ محله' },
+    night_owl: { name: 'شب‌زنده‌دار', desc: '۳ گربه بین ساعت ۱۰ شب و ۵ صبح' },
+    early_bird: { name: 'سحرخیز', desc: '۳ گربه بین ساعت ۵ و ۸ صبح' },
+    guardian: { name: 'نگهبان سلامت', desc: '۳ گربه را که کمک لازم دارند گزارش کن' },
+    patterns_8: { name: 'جعبهٔ رنگ', desc: '۸ نوع گربهٔ مختلف' },
+    rare_find: { name: 'یافتهٔ کمیاب', desc: 'یک گربهٔ کمیاب پیدا کن' },
+    legend: { name: 'اسطوره‌یاب', desc: 'یک اسطورهٔ کادیکوی پیدا کن' },
+    streak_7: { name: 'هفت روز پیاپی', desc: '۷ روز پشت سر هم' },
   },
 
   LEVEL_TITLES: [
     'تازه‌کار',
     'دیده‌بان خیابان',
     'رفیق محله',
-    'گربه‌شناس',
+    'کارآگاه گربه‌ها',
     'کاوشگر Moda',
     'هم‌زبان گربه‌ها',
     'اسطورهٔ کادیکوی',

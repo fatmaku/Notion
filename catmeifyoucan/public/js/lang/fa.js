@@ -1,14 +1,16 @@
 // Cat Me If You Can – Oberflächentexte: فارسی (fa), einfaches Persisch (Iran), Schreibrichtung rtl.
 // Platzhalter in {geschweiften} Klammern nicht übersetzen. Plural als Objekt mit den Kategorien von
 // Intl.PluralRules('fa'): one (0 und 1) · other. Achtung: 0 fällt auf „one“ – deshalb steht in „one“
-// immer {n} und kein „یک“. Im Persischen bleibt das Nomen nach einer Zahl im Singular („3 گربه“).
+// immer {n} und kein „یک“. Im Persischen bleibt das Nomen nach einer Zahl im Singular („۳ گربه“).
 // Wortwahl: گربه (Katze), محله = Mahalle/Gebiet, کوپن = Gutschein, کافهٔ همکار = Partner-Café,
-// اندام = Körper (BCS), نوع = Typ/Fell, داوطلب = Freiwillige:r, عقیم‌شده = kastriert.
+// اندام = Körper (BCS), نوع = Typ/Fell, داوطلب = Freiwillige:r, عقیم‌شده = kastriert, مأموریت = Aufgabe.
 // کادیکوی = Kadıköy (BRAND.md Abschnitt 2), Viertelnamen bleiben in Lateinschrift (Moda, Caferağa …).
-// Ziffern: lateinisch wie in den Platzhaltern ({n} kommt als 0–9), Prozent „20%“ (BRAND.md Abschnitt 4).
+// Ziffern: persisch (۰–۹), denn i18n.js setzt Zahlen in Platzhaltern mit Intl „fa-IR“ (۲۰). Prozent
+// „۲۰٪“ wie ui.js pct() (BRAND.md Abschnitt 4). Spannen mit „تا“ („۲ تا ۲۰“), nicht mit Strich.
 // Persische Buchstaben ی/ک (nicht arabisch ي/ك), Halbabstand (ZWNJ) in می‌/‌ها/‌ای.
 // Texte, die mit einer Zahl beginnen, starten mit ‏ (RLM): sonst klebt die Zahl hinter
-// lateinischem Text (z. B. „Caferağa · 3 ساعت پیش“) an der falschen Seite.
+// lateinischem Text (z. B. „Caferağa · ۳ ساعت پیش“) an der falschen Seite.
+// Nie „شکار/شکارچی“ (jagen/Jäger) – BRAND.md: عکس گرفتن، پیدا کردن، جمع کردن.
 // Markennamen (Cat Me If You Can, KediDex, HappyTuncay, Happy Overthinking Coffee, XP) nie übersetzen.
 export default {
   // Brand
@@ -26,22 +28,25 @@ export default {
 
   // Start
   'onb.title': 'گربه‌های خیابانی کادیکوی را پیدا کن و جمع کن',
-  'onb.lead': 'از یک گربهٔ خیابانی عکس بگیر. گربه به KediDex تو اضافه می‌شود. 20 گربهٔ مختلف در یک روز = 20% تخفیف در یک کافهٔ همکار. هر عکس کمک می‌کند: ما گربه‌ها را می‌شماریم.',
+  'onb.lead': 'از یک گربهٔ خیابانی عکس بگیر. گربه به KediDex تو اضافه می‌شود. ۲۰ گربهٔ مختلف در یک روز = ۲۰٪ تخفیف در یک کافهٔ همکار. هر عکس کمک می‌کند: ما گربه‌ها را می‌شماریم.',
   'onb.rule1': '📸 فقط عکس، بدون فلاش. به گربه‌ها دست نزن و دنبالشان نکن.',
   'onb.rule2': '🐾 فقط گربه‌های خیابانی حساب می‌شوند، نه گربه‌های خانگی.',
   'onb.rule3': '🙈 از آدم‌ها و داخل خانه‌ها عکس نگیر.',
   'onb.rule4': '🩹 گربهٔ مریض دیدی؟ به ما بگو. داوطلب‌ها کمک می‌کنند.',
-  'onb.nick': 'اسم مستعار تو',
+  'onb.nick': 'اسم مستعارت',
   'onb.nickPh': 'مثلاً ModaCatFan',
   'onb.start': 'بزن بریم',
   'onb.lang': 'زبان',
   'onb.demo': 'نسخهٔ آزمایشی: اطلاعاتت فقط روی همین دستگاه می‌ماند.',
 
   // Today
-  'home.goal': '\u200f{n} از {goal} گربه',
+  'home.goal': {
+    one: '‏{n} از {goal} گربه',
+    other: '‏{n} از {goal} گربه',
+  },
   'home.left': {
-    one: '\u200f{n} گربهٔ دیگر تا تخفیفت مانده',
-    other: '\u200f{n} گربهٔ دیگر تا تخفیفت مانده',
+    one: '‏{n} گربهٔ دیگر تا تخفیفت مانده',
+    other: '‏{n} گربهٔ دیگر تا تخفیفت مانده',
   },
   'home.reached': 'موفق شدی! تخفیفت آماده است ☕',
   'home.showVoucher': 'نشان دادن کوپن',
@@ -51,32 +56,35 @@ export default {
   'home.none': 'امروز هنوز گربه‌ای پیدا نکردی. برو بگرد! 🐾',
   'home.cafes': 'کافه‌های تخفیف‌دار',
   'home.help': {
-    one: '\u200f{n} گربه به کمک نیاز دارد',
-    other: '\u200f{n} گربه به کمک نیاز دارند',
+    one: '‏{n} گربه به کمک نیاز دارد',
+    other: '‏{n} گربه به کمک نیاز دارند',
   },
   'home.level': 'سطح {n}',
 
   // Tasks
   'quest.count': {
-    one: '\u200f{n} گربه پیدا کن',
-    other: '\u200f{n} گربهٔ مختلف پیدا کن',
+    one: '‏{n} گربه پیدا کن',
+    other: '‏{n} گربهٔ مختلف پیدا کن',
   },
-  'quest.pattern': '\u200f{n} گربهٔ {pattern} پیدا کن',
+  'quest.pattern': {
+    one: '‏{n} گربهٔ {pattern} پیدا کن',
+    other: '‏{n} گربهٔ {pattern} پیدا کن',
+  },
   'quest.district': 'یک گربه در {district} پیدا کن',
   'quest.districts': {
     one: 'در {n} محله گربه پیدا کن',
     other: 'در {n} محلهٔ مختلف گربه پیدا کن',
   },
   'quest.new': 'یک گربهٔ جدید پیدا کن',
-  'quest.early': 'قبل از ساعت 9 صبح یک گربه پیدا کن',
+  'quest.early': 'قبل از ساعت ۹ صبح یک گربه پیدا کن',
   'quest.evening': {
-    one: 'بعد از ساعت 7 شب {n} گربه پیدا کن',
-    other: 'بعد از ساعت 7 شب {n} گربه پیدا کن',
+    one: 'بعد از ساعت ۷ شب {n} گربه پیدا کن',
+    other: 'بعد از ساعت ۷ شب {n} گربه پیدا کن',
   },
 
   // Camera
   'catch.searching': 'دنبال گربه می‌گردیم…',
-  'catch.found': 'گربه! {p}%',
+  'catch.found': 'گربه! {p}٪',
   'catch.noAr': 'AR خاموش',
   'catch.locating': 'داریم جایت را پیدا می‌کنیم…',
   'catch.gpsWeak': 'GPS ضعیف است (±{m} متر)',
@@ -120,12 +128,12 @@ export default {
   'card.notThis': 'گربهٔ اشتباه',
   'card.notCounted': 'ذخیره شد، ولی حساب نمی‌شود: {why}',
   'card.xp': '+{n} XP',
-  'card.progress': 'امروز {n}/{goal}',
+  'card.progress': 'امروز {n} از {goal}',
   'card.ideas': 'پیشنهاد اسم',
   'card.levelUp': 'سطح جدید: {n}!',
   'card.badge': 'نشان جدید: {name}',
   'card.quest': 'مأموریت انجام شد: {name}',
-  'card.namedBy': '{name} اسمش را گذاشت',
+  'card.namedBy': 'اسمش را {name} گذاشت',
   'card.discoveredBy': 'اول {name} پیدایش کرد',
   'card.years': 'سال',
   'card.months': 'ماه',
@@ -142,7 +150,7 @@ export default {
   'err.banned': 'حسابت مسدود شده است.',
   'err.no_cat': 'هوم… اینجا گربه‌ای نمی‌بینم 🤔',
   'err.pet_cat': 'این شبیه گربهٔ خانگی است 🏠 فقط گربه‌های خیابانی حساب می‌شوند.',
-  'err.not_live_photo': 'از خود گربه عکس بگیر، نه از صفحهٔ گوشی 😉',
+  'err.not_live_photo': 'از خود گربه عکس بگیر، نه از صفحهٔ نمایش 😉',
   'err.duplicate_photo': 'این عکس قبلاً استفاده شده است.',
   'err.outside_region': 'بیرون از محدودهٔ بازی هستی. فعلاً فقط کادیکوی.',
   'err.cooldown': 'کمی صبر کن: {s} ثانیه',
@@ -150,13 +158,13 @@ export default {
   'err.name_not_allowed': 'این اسم مجاز نیست. لطفاً یک اسم قشنگ و مؤدبانه انتخاب کن.',
   'err.name_reserved': 'این اسم رزرو شده است.',
   'err.nickname_taken': 'این اسم مستعار را کس دیگری انتخاب کرده است.',
-  'err.invalid_nickname': 'اسم مستعار: 2 تا 20 حرف.',
-  'err.invalid_name': 'اسم: 2 تا 20 حرف.',
+  'err.invalid_nickname': 'اسم مستعار: ۲ تا ۲۰ حرف.',
+  'err.invalid_name': 'اسم: ۲ تا ۲۰ حرف.',
   'err.already_named': 'این گربه از قبل اسم دارد.',
-  'err.not_allowed': 'فقط کسی که اول پیدایش کرده می‌تواند اسم بگذارد (24 ساعت اول).',
+  'err.not_allowed': 'فقط کسی که اول پیدایش کرده می‌تواند اسم بگذارد (۲۴ ساعت اول).',
   'err.goal_not_reached': {
-    one: '\u200f{n} گربهٔ دیگر تا کوپن مانده.',
-    other: '\u200f{n} گربهٔ دیگر تا کوپن مانده.',
+    one: '‏{n} گربهٔ دیگر تا کوپن مانده.',
+    other: '‏{n} گربهٔ دیگر تا کوپن مانده.',
   },
   'err.network': 'اینترنت وصل نیست. دوباره امتحان کن.',
   'err.location': 'به موقعیت مکانی‌ات نیاز داریم. لطفاً اجازه بده.',
@@ -165,7 +173,7 @@ export default {
   'err.rate_limited': 'خیلی سریع! کمی صبر کن.',
   'err.already_reported': 'این را امروز قبلاً فرستادی.',
   'err.login_required': 'اول یک اسم مستعار انتخاب کن.',
-  'err.report_too_late': 'فقط تا 6 ساعت بعد از عکس می‌توانی گزارش بدهی.',
+  'err.report_too_late': 'فقط تا ۶ ساعت بعد از عکس می‌توانی گزارش بدهی.',
   'err.report_empty': 'لطفاً انتخاب کن حال گربه چطور است.',
   'err.observation_not_found': 'این عکس را پیدا نمی‌کنیم.',
 
@@ -184,11 +192,14 @@ export default {
   'sort.newest': 'جدیدترین',
   'sort.rarity': 'کمیاب‌ترین اول',
   'sort.name': 'اسم',
-  'dex.caught': '\u200f{n} بار پیدا کردی',
+  'dex.caught': {
+    one: '‏{n} بار پیدا کردی',
+    other: '‏{n} بار پیدا کردی',
+  },
   'dex.lastSeen': 'آخرین بار: {t}',
   'dex.count': {
-    one: '\u200f{n} گربه',
-    other: '\u200f{n} گربه',
+    one: '‏{n} گربه',
+    other: '‏{n} گربه',
   },
 
   // Cat profile
@@ -204,10 +215,13 @@ export default {
   'cat.statusNote': 'یادداشت (مثلاً پیش دامپزشک است)',
   'cat.firstSeen': 'اولین بار دیده شد',
   'cat.lastSeen': 'آخرین بار دیده شد',
-  'cat.seenTimes': '\u200f{n} بار دیده شده',
+  'cat.seenTimes': {
+    one: '‏{n} بار دیده شده',
+    other: '‏{n} بار دیده شده',
+  },
   'cat.byPlayers': {
-    one: '\u200f{n} نفر',
-    other: '\u200f{n} نفر',
+    one: '‏{n} نفر',
+    other: '‏{n} نفر',
   },
   'cat.discoverer': 'کاشف',
   'cat.namer': 'اسم‌گذار',
@@ -237,19 +251,27 @@ export default {
   'map.tapToPlace': 'جایش را روی نقشه لمس کن',
   'map.suggestSent': 'ممنون! اول بررسی می‌کنیم، بعد روی نقشه می‌آید.',
   'map.offline': 'نقشه باز نشد. این هم فهرست:',
-  'map.fuzzy': 'برای امنیت گربه‌ها، جاها را فقط تقریبی نشان می‌دهیم (حدود 100 متر).',
+  'map.fuzzy': 'برای امنیت گربه‌ها، جاها را فقط تقریبی نشان می‌دهیم (حدود ۱۰۰ متر).',
 
   // Kadıköy numbers
   'stats.title': 'گربه‌های کادیکوی',
   'stats.cats': 'گربه‌های شمرده‌شده',
-  'stats.seen7': 'دیده‌شده در 7 روز',
+  'stats.seen7': 'دیده‌شده در ۷ روز اخیر',
   'stats.help': 'به کمک نیاز دارند',
   'stats.tnr': 'عقیم‌شده (علامت گوش)',
-  'stats.bcs': 'میانگین اندام (1–9)',
+  'stats.new7d': {
+    one: '‏{n} گربهٔ جدید در این هفته',
+    other: '‏{n} گربهٔ جدید در این هفته',
+  },
+  'stats.tnrKnown': {
+    one: 'گوش {n} گربه بررسی شد',
+    other: 'گوش {n} گربه بررسی شد',
+  },
+  'stats.bcs': 'میانگین اندام (۱ تا ۹)',
   'stats.obs': 'عکس‌ها',
   'stats.active': 'بازیکن‌های امروز',
   'stats.vouchers': 'کوپن‌های استفاده‌شده',
-  'stats.perDay': 'عکس در هر روز (30 روز)',
+  'stats.perDay': 'عکس‌های هر روز (۳۰ روز اخیر)',
   'stats.patterns': 'بر اساس نوع',
   'stats.ages': 'سن',
   'stats.health': 'سلامت',
@@ -266,16 +288,16 @@ export default {
   'stats.col.cats': 'گربه‌ها',
   'stats.col.obs': 'عکس‌ها',
   'stats.col.help': 'کمک',
-  'stats.col.tnr': 'عقیم (%)',
+  'stats.col.tnr': 'عقیم (٪)',
   'stats.col.bcs': 'اندام',
-  'stats.reports': 'گزارش بازیکن‌ها (30 روز)',
-  'stats.fed': 'غذا گرفته (30 روز)',
-  'stats.hungry': 'گرسنه (7 روز)',
+  'stats.reports': 'گزارش بازیکن‌ها (۳۰ روز اخیر)',
+  'stats.fed': 'غذا گرفتند (۳۰ روز اخیر)',
+  'stats.hungry': 'گرسنه (۷ روز اخیر)',
 
   // Top players
   'lb.day': 'امروز',
   'lb.week': 'این هفته',
-  'lb.all': 'همهٔ زمان‌ها',
+  'lb.all': 'از اول تا حالا',
   'lb.xp': 'XP',
   'lb.discoveries': 'کشف‌ها',
   'lb.cats': 'گربه‌ها',
@@ -287,7 +309,7 @@ export default {
 
   // Voucher
   'v.title': 'کوپن گربه',
-  'v.discount': '\u200f{n}% تخفیف',
+  'v.discount': '‏{n}٪ تخفیف',
   'v.show': 'این را پای صندوق نشان بده. کارکنان کد را اسکن می‌کنند.',
   'v.validUntil': 'امروز تا ساعت {t} معتبر است',
   'v.cats': {
@@ -300,8 +322,8 @@ export default {
   'v.notYet': 'هنوز کوپنی نداری',
   'v.demoRedeem': 'دمو: استفاده از کوپن',
   'v.needs': {
-    one: '\u200f{n} گربه',
-    other: '\u200f{n} گربه',
+    one: '‏{n} گربه',
+    other: '‏{n} گربه',
   },
   'v.code': 'کد',
 
@@ -325,7 +347,7 @@ export default {
   'm.uniqueCats': 'گربه‌های مختلف',
   'm.discoveries': 'کشف‌ها',
   'm.districts': 'محله‌ها',
-  'm.goalDays': 'رسیدن به هدف (روز)',
+  'm.goalDays': 'روزهایی که به هدف رسیدی',
   'm.maxStreak': 'بیشترین روزهای پشت سر هم',
   'm.currentStreak': 'روزهای پشت سر هم',
 
@@ -333,7 +355,7 @@ export default {
   'rules.title': 'قوانین گربه‌دوستانه',
   'rules.body': 'بازی Cat Me If You Can یک بازی عکاسی است. گربه‌ها همسایه‌های ما هستند.\n• فاصله‌ات را نگه دار. گربه‌ها را دنبال نکن، گیر نینداز و بغل نکن.\n• بگذار گربه‌هایی که خواب‌اند یا غذا می‌خورند راحت باشند. فلاش نزن.\n• می‌خواهی غذا بدهی؟ فقط غذای گربه و آب تازه.\n• گربه‌های خانگی و گربه‌های داخل خانه حساب نمی‌شوند.\n• از آدم‌ها، پلاک ماشین‌ها یا خانه‌ها عکس نگیر.',
   'rules.privacy': 'حریم خصوصی',
-  'rules.privacyBody': 'ما اسم مستعارت، عکس‌هایی که از گربه‌ها گرفتی و جای عکس‌ها را ذخیره می‌کنیم. بقیه فقط خود گربه را می‌بینند که از عکس جدا شده است. جاها فقط تقریبی نشان داده می‌شوند (حدود 100 متر). عکس کامل را فقط تیم ما می‌بیند. می‌خواهی اطلاعاتت را پاک کنیم؟ کافی است به ما پیام بدهی.',
+  'rules.privacyBody': 'ما اسم مستعارت، عکس‌هایی که از گربه‌ها گرفتی و جای عکس‌ها را ذخیره می‌کنیم. بقیه فقط خود گربه را می‌بینند که از عکس جدا شده است. جاها فقط تقریبی نشان داده می‌شوند (حدود ۱۰۰ متر). عکس کامل را فقط تیم ما می‌بیند. می‌خواهی اطلاعاتت را پاک کنیم؟ کافی است به ما پیام بدهی.',
   'rules.ai': 'یک هوش مصنوعی عکس را نگاه می‌کند. ممکن است اشتباه کند. سن، وزن و سلامت فقط حدس هستند.',
 
   // Common
@@ -343,17 +365,20 @@ export default {
   'common.ok': 'باشه',
   'common.loading': 'در حال بارگذاری…',
   'common.retry': 'دوباره امتحان کن',
-  'common.km': '\u200f{n} کیلومتر',
-  'common.m': '\u200f{n} متر',
+  'common.km': '‏{n} کیلومتر',
+  'common.m': '‏{n} متر',
   'common.now': 'همین الان',
-  'common.minAgo': '\u200f{n} دقیقه پیش',
+  'common.minAgo': {
+    one: '‏{n} دقیقه پیش',
+    other: '‏{n} دقیقه پیش',
+  },
   'common.hAgo': {
-    one: '\u200f{n} ساعت پیش',
-    other: '\u200f{n} ساعت پیش',
+    one: '‏{n} ساعت پیش',
+    other: '‏{n} ساعت پیش',
   },
   'common.dAgo': {
-    one: '\u200f{n} روز پیش',
-    other: '\u200f{n} روز پیش',
+    one: '‏{n} روز پیش',
+    other: '‏{n} روز پیش',
   },
   'common.demo': 'دمو',
   'common.unknown': 'نامعلوم',
@@ -371,7 +396,7 @@ export default {
 
   // Report condition
   'report.title': 'حال گربه چطور است؟',
-  'report.lead': 'اگر دوست داری، چیزی را که می‌بینی انتخاب کن. داوطلب‌ها می‌توانند کمک کنند.',
+  'report.lead': 'اگر دوست داری، روی چیزی که می‌بینی بزن. داوطلب‌ها می‌توانند کمک کنند.',
   'report.send': 'ارسال',
   'report.thanks': 'ممنون! این به گربه‌ها کمک می‌کند.',
   'report.urgent': 'داوطلب‌ها حالا خبر دارند.',
@@ -381,5 +406,6 @@ export default {
   // Share
   'share.button': 'اشتراک‌گذاری',
   'share.text': 'با {name} آشنا شو! این گربه را در کادیکوی پیدا کردم. #CatMeIfYouCan #CatMeKadikoy',
-  'share.saved': 'عکس ذخیره شد.',
+  'share.textUnnamed': 'این گربهٔ خیابانی را در کادیکوی پیدا کردم! #CatMeIfYouCan #CatMeKadikoy',
+  'share.saved': 'تصویر ذخیره شد.',
 };

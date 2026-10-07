@@ -159,7 +159,7 @@ function fitCopy(c) {
   const hh = h.getBoundingClientRect().height;
   if (hh + subH > zone) size = Math.floor((size * (zone - subH)) / hh);
   // B: lange Zeilen dürfen umbrechen, wenn die Schrift sonst zu klein wird
-  const minGood = F16 ? 78 : 86;
+  const minGood = F16 ? 78 : 76; // 9:16: an die 840-px-Spalte angepasst (vorher 86 bei 936 px)
   let wrap = false;
   if (size < minGood) {
     h.classList.add('wrap');
@@ -889,6 +889,13 @@ async function init() {
   for (const id of ORDER) scenes[id].root.style.display = 'block';
   for (const c of qa(stage, '.copy')) fitCopy(c);
   for (const p of qa(stage, '.pop')) fitChips(p);
+  // Zähler: feste Breite für die Zahl (so breit wie „20“), damit die Pille beim Zählen nicht wackelt
+  for (const cn of qa(stage, '.counter .cnum')) {
+    const before = cn.textContent;
+    cn.textContent = num(LANG, 20);
+    cn.style.minWidth = `${Math.ceil(cn.getBoundingClientRect().width)}px`;
+    cn.textContent = before;
+  }
   for (const b of qa(stage, '.rules, .maker')) breakAtSeparators(b);
   window.renderAt(params.has('t') ? Number(params.get('t')) : 0);
   window.__meta = { lang: LANG, format: FORMAT, W, H, sizes: qa(stage, '.copy').map((c) => c.dataset.size) };

@@ -97,6 +97,8 @@ function applyLang() {
       if (attr && key) el.setAttribute(attr.trim(), T(key.trim()));
     }
   }
+  // Schritt-Nummern in der Ziffernschrift der Sprache (fa: ۱ ۲ ۳), wie alle anderen Zahlen
+  for (const el of $$('[data-num]')) el.textContent = numFmt(Number(el.dataset.num));
   for (const s of $$('[data-lang-select]')) s.value = lang;
   for (const fn of langListeners) fn();
 }
@@ -385,9 +387,12 @@ async function resolveTrailer() {
   if (token !== trailerToken) return;
   if (!found) {
     trailerPoster = null;
+    player.classList.remove('has-video');
     showPlaceholder();
     return;
   }
+  // Es gibt einen Trailer: der Platzhalter darf nie mehr „kommt bald“ sagen (auch wenn er hier nicht abspielbar ist)
+  player.classList.add('has-video');
   const src = `media/trailer-${found.f}-${found.l}.mp4`;
   // Standbild: passendes Format, sonst das 16:9-Bild derselben Sprache
   let poster = null;
@@ -451,11 +456,46 @@ function setupTrailer() {
       }
     }, { rootMargin: '600px 0px' });
     io.observe(player);
+    // Aufholen: bei schnellem Springen (Ende-Taste, Anker, langsames Handy) sieht der Observer den
+    // Player evtl. nie – dann reicht es, dass er schon über dem unteren Rand (+600 px) liegt.
+    const onScroll = () => {
+      if (!started && player.getBoundingClientRect().top < window.innerHeight + 600) {
+        io.disconnect();
+        go();
+      }
+      if (started) window.removeEventListener('scroll', onScroll);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
   } else {
     go();
   }
-  // Sprung über den Hero-Knopf „Trailer ansehen“
-  window.addEventListener('hashchange', () => window.location.hash === '#trailer' && go());
+  // Sprung über den Hero-Knopf „Trailer ansehen“: Player mittig zeigen (ganz sichtbar, samt Steuerleiste)
+  window.addEventListener('hashchange', () => /^#(trailer|watch)$/.test(window.location.hash) && go());
+  // Der Player ändert seine Größe, sobald klar ist, welches Video/Format es gibt → kurz nachzentrieren
+  let centerUntil = 0;
+  const center = () => player.scrollIntoView({ block: 'center', behavior: reduced ? 'auto' : 'smooth' });
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(() => performance.now() < centerUntil && center()).observe(player);
+  }
+  for (const ev of ['wheel', 'touchstart', 'keydown']) {
+    window.addEventListener(ev, () => {
+      centerUntil = 0;
+    }, { passive: true });
+  }
+  for (const a of $$('a[href="#watch"]')) {
+    a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+      e.preventDefault();
+      centerUntil = performance.now() + 3000;
+      go();
+      center();
+      try {
+        history.replaceState(null, '', '#watch');
+      } catch {
+        /* egal */
+      }
+    });
+  }
   langListeners.push(() => started && resolveTrailer());
 }
 
@@ -577,10 +617,10 @@ async function setupHero() {
       canvas,
       host: hero,
       reduced,
-      // freier Bereich für die Szene auf dem Handy: unter der Kopfzeile, über dem Text
+      // freier Bereich für die Szene auf dem Handy: unter der Kopfzeile, mit Luft über dem Ort-Abzeichen
       safeArea: () => ({
         top: (topbar ? topbar.offsetHeight : 64) + 4,
-        bottom: inner && inner.firstElementChild ? inner.offsetTop + inner.firstElementChild.offsetTop + 24 : hero.clientHeight * 0.42,
+        bottom: inner && inner.firstElementChild ? inner.offsetTop + inner.firstElementChild.offsetTop - 16 : hero.clientHeight * 0.42,
       }),
       onReady: () => hero.classList.add('is-3d'),
       onLost: () => {

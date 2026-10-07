@@ -326,7 +326,8 @@ a {
   transition: background-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 
-.topbar.is-solid {
+.topbar.is-solid,
+.no-js .topbar {
   background-color: rgba(14, 24, 48, 0.93);
   box-shadow: 0 1px 0 var(--line);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
@@ -590,6 +591,7 @@ html[dir='rtl'] .hero-title {
   font-weight: 600;
   line-height: 1.5;
   max-width: 32ch;
+  text-wrap: balance;
   margin: 0 0 28px;
   color: var(--cream);
 }
@@ -1240,6 +1242,16 @@ html[dir='rtl'] .name-field {
   margin-bottom: 20px;
 }
 
+/* Lange Wörter (de „verschiedene“, ru): Größe an der Spaltenbreite ausrichten, damit „20“ nicht allein steht */
+.deal-text {
+  container-type: inline-size;
+}
+
+html[lang='de'] .deal h2,
+html[lang='ru'] .deal h2 {
+  font-size: clamp(1.75rem, 8.6cqi, 3.2rem);
+}
+
 .deal-eq {
   display: inline;
   font-family: var(--font-display);
@@ -1385,7 +1397,8 @@ html[lang='fa'] .counter-num {
   transition: opacity 0.35s var(--ease), transform 0.45s var(--ease);
 }
 
-.armed .deal-slots li.on {
+.deal-slots li.on,
+.no-js .deal-slots li {
   border-color: transparent;
 }
 
@@ -1877,6 +1890,10 @@ html[dir='rtl'] .chip {
   box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.8);
 }
 
+.player {
+  scroll-margin-top: 88px;
+}
+
 .player[data-ratio='9x16'] {
   aspect-ratio: 9 / 16;
   width: min(100%, 440px, calc(82vh * 9 / 16));
@@ -1939,6 +1956,10 @@ html[dir='rtl'] .chip {
   display: none;
 }
 
+.player.has-video .ph-soon {
+  display: none;
+}
+
 .ph-cards {
   display: flex;
   justify-content: center;
@@ -1991,6 +2012,9 @@ html[dir='rtl'] .chip {
 }
 
 .share-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: clamp(28px, 4vw, 52px);
   border-radius: var(--radius-xl);
   background-color: var(--orange);
@@ -2008,6 +2032,7 @@ html[dir='rtl'] .chip {
 }
 
 .share-lead {
+  margin: 0;
   font-size: 1.15rem;
   font-weight: 700;
   max-width: 34ch;
@@ -2080,7 +2105,7 @@ html[dir='rtl'] .chip {
 
 .pol {
   width: clamp(92px, 24vw, 128px);
-  margin: 0 -10px;
+  margin: 0 -2px;
   padding: 8px 8px 0;
   border-radius: 6px;
   background-color: #ffffff;

@@ -60,7 +60,12 @@ export default {
     many: 'Найди {n} разных кошек',
     other: 'Найди {n} кошки',
   },
-  'quest.pattern': 'Найди {n}: {pattern}',
+  'quest.pattern': {
+    one: 'Найди {n} кошку: {pattern}',
+    few: 'Найди {n} кошки: {pattern}',
+    many: 'Найди {n} кошек: {pattern}',
+    other: 'Найди {n} кошки: {pattern}',
+  },
   'quest.district': 'Найди кошку в {district}',
   'quest.districts': {
     one: 'Найди кошек в {n} квартале',
@@ -71,10 +76,10 @@ export default {
   'quest.new': 'Найди новую кошку',
   'quest.early': 'Найди кошку до 9:00',
   'quest.evening': {
-    one: '{n} кошка после 19:00',
-    few: '{n} кошки после 19:00',
-    many: '{n} кошек после 19:00',
-    other: '{n} кошки после 19:00',
+    one: 'Найди {n} кошку после 19:00',
+    few: 'Найди {n} кошки после 19:00',
+    many: 'Найди {n} кошек после 19:00',
+    other: 'Найди {n} кошки после 19:00',
   },
 
   // Camera
@@ -99,7 +104,7 @@ export default {
 
   // Cat card
   'card.new': 'Новая кошка!',
-  'card.firstFinder': 'Её ещё никто не находил. Дай ей имя!',
+  'card.firstFinder': 'До тебя её никто не находил. Дай ей имя!',
   'card.again': 'Снова встретились',
   'card.namePh': 'Имя…',
   'card.saveName': 'Сохранить',
@@ -113,9 +118,9 @@ export default {
   'card.behavior': 'Настроение',
   'card.place': 'Место',
   'card.type': 'Окрас',
-  'card.breed': 'Порода (примерно)',
+  'card.breed': 'Порода?',
   'card.eyes': 'Глаза',
-  'card.marks': 'Особые приметы',
+  'card.marks': 'Приметы',
   'card.disclaimer': 'Это догадка по фото. Точно знает только ветеринар.',
   'card.simple': 'Простая проверка (ИИ выключен): без возраста, веса и здоровья.',
   'card.continue': 'Искать дальше',
@@ -128,8 +133,8 @@ export default {
   'card.levelUp': 'Новый уровень: {n}!',
   'card.badge': 'Новый значок: {name}',
   'card.quest': 'Задание выполнено: {name}',
-  'card.namedBy': 'Имя от {name}',
-  'card.discoveredBy': 'Первая находка: {name}',
+  'card.namedBy': 'Автор имени: {name}',
+  'card.discoveredBy': 'Первооткрыватель: {name}',
   'card.years': 'г.',
   'card.months': 'мес.',
 
@@ -205,7 +210,7 @@ export default {
   'cat.catchers': 'Кто её нашёл',
   'cat.log': 'История',
   'cat.reportHelp': 'Сообщить о проблеме',
-  'cat.helpPh': 'Что не так? (например, закрыт глаз, хромает)',
+  'cat.helpPh': 'Что ты видишь? (например, закрыт глаз, хромает)',
   'cat.send': 'Отправить',
   'cat.setStatus': 'Изменить статус',
   'cat.statusNote': 'Заметка (например, у ветеринара)',
@@ -223,7 +228,7 @@ export default {
     many: '{n} человек',
     other: '{n} человека',
   },
-  'cat.discoverer': 'Первая находка',
+  'cat.discoverer': 'Первооткрыватель',
   'cat.namer': 'Автор имени',
   'cat.helpSent': 'Спасибо! Теперь волонтёры это видят.',
   'cat.legend': 'Легенда Кадыкёя',
@@ -259,6 +264,13 @@ export default {
   'stats.seen7': 'Видели за 7 дней',
   'stats.help': 'Нужна помощь',
   'stats.tnr': 'Стерилизованы (метка на ухе)',
+  'stats.new7d': '+{n} за неделю',
+  'stats.tnrKnown': {
+    one: 'Проверена {n} кошка',
+    few: 'Проверены {n} кошки',
+    many: 'Проверено {n} кошек',
+    other: 'Проверено {n} кошки',
+  },
   'stats.bcs': 'Упитанность в среднем (1–9)',
   'stats.obs': 'Фото',
   'stats.active': 'Игроков сегодня',
@@ -280,7 +292,7 @@ export default {
   'stats.col.cats': 'Кошки',
   'stats.col.obs': 'Фото',
   'stats.col.help': 'Помощь',
-  'stats.col.tnr': 'Стерилизованы (%)',
+  'stats.col.tnr': 'Стерил. (%)',
   'stats.col.bcs': 'Упитанность',
   'stats.reports': 'Сообщения игроков (30 дней)',
   'stats.fed': 'Покормили (30 дней)',
@@ -403,5 +415,6 @@ export default {
   // Share
   'share.button': 'Поделиться',
   'share.text': 'Знакомьтесь, это {name}! Моя находка в Кадыкёе. #CatMeIfYouCan #CatMeKadikoy',
+  'share.textUnnamed': 'Моя находка — уличная кошка из Кадыкёя! #CatMeIfYouCan #CatMeKadikoy',
   'share.saved': 'Картинка сохранена.',
 };
