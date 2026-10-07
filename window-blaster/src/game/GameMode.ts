@@ -63,6 +63,8 @@ export interface RoundResult {
   startedAt: number;
   source: 'camera' | 'demo';
   extra: Record<string, number>;
+  /** "Beweisfoto": the best moment of the round as a small JPEG data URL (never uploaded). */
+  photo?: string;
 }
 
 export interface GameCtx {
@@ -87,6 +89,8 @@ export interface GameCtx {
   end: (r: RoundResult) => void;
   /** Ask the window tracker to re-center on the current frame. */
   recenter: () => void;
+  /** Snapshot of video + effects as a JPEG data URL (for the results photo). */
+  capture: () => string | null;
   roundSeconds: number;
 }
 

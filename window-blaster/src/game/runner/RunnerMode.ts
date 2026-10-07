@@ -86,6 +86,9 @@ export class RunnerMode implements GameMode {
   private obstacles: Obstacle[] = [];
   private runPhase = 0;
   private duckHeld = false;
+  private photo: string | null = null;
+  private photoAt = -1e9;
+  private photoDue = 0;
   private timeAcc = 0;
   bestScore = 0;
 
@@ -106,6 +109,14 @@ export class RunnerMode implements GameMode {
     this.R = this.runnerHeight();
     this.phys = new RunnerPhysics(defaultParams(this.R));
     ctx.music.start('runner');
+    if (ctx.settings.data.battery) this.effects.maxOver = 24;
+  }
+
+  /** A moment worth keeping: golden bird caught or a combo milestone (rate-limited). */
+  private takePhoto(now: number): void {
+    if (now - this.photoAt < 4000) return;
+    this.photoAt = now;
+    this.photoDue = now + 120;
   }
 
   private t(now: number): number {
@@ -285,6 +296,7 @@ export class RunnerMode implements GameMode {
           this.ctx.sfx.play('coin');
           this.pushFeed('GOLDENER VOGEL! +300', '#ffd233');
           this.record({ t: Math.round(this.t(now) - this.startedAt), kind: 'bonus', id: 'goldbird', points: 300 }, now);
+          this.takePhoto(now);
         }
       }
     }
@@ -377,6 +389,7 @@ export class RunnerMode implements GameMode {
         this.addPoints(pts, { x: runner.x + runner.w / 2, y: runner.y - 10 }, c >= 3 ? '#ffb020' : '#fff', 22);
         this.record({ t: Math.round(t - this.startedAt), kind: 'obstacle', cls: String(o.cls), points: pts, combo: c }, now);
         if (c > 1 && c % 5 === 0) {
+          this.takePhoto(now);
           this.pushFeed(`${c}er-Combo!`, '#ffb020');
           this.ctx.sfx.play('combo', { pitch: 1 + c * 0.04 });
         }
@@ -578,6 +591,10 @@ export class RunnerMode implements GameMode {
       extra: `🪙 ${this.coinsTaken}`,
     };
     this.hud.draw(hs, now);
+    if (this.photoDue && now >= this.photoDue) {
+      this.photoDue = 0;
+      this.photo = this.ctx.capture() ?? this.photo;
+    }
   }
 
   private drawBird(c: CanvasRenderingContext2D, b: Bird, cy: number): void {
@@ -746,6 +763,7 @@ export class RunnerMode implements GameMode {
       startedAt: this.startWall,
       source: this.ctx.session.source,
       extra: { missionPoints: this.missionPoints, coins: this.coinsTaken, hitsTaken: this.hitsTaken, roundSeconds: 0 },
+      photo: this.photo ?? undefined,
     };
   }
 

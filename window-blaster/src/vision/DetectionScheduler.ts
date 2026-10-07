@@ -45,6 +45,11 @@ export class DetectionScheduler {
     };
   }
 
+  /** Live update of the cadence (settings change). */
+  configure(o: { minIntervalMs?: number; maxDuty?: number; maxIntervalMs?: number }): void {
+    Object.assign(this.o, o);
+  }
+
   start(): void {
     if (this.running) return;
     this.running = true;

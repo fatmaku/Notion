@@ -1,7 +1,8 @@
 import type { App } from '../../app/App';
 import type { RoundResult } from '../../game/GameMode';
 import { MEDAL_ICON, medalFor, nextMedal } from '../../game/scoring/Medals';
-import { fmtScore, fmtTime, h } from '../dom';
+import { fmtScore, fmtTime, h, toast } from '../dom';
+import { renderResultCard, shareImage } from '../share';
 import { MODES, T, WEAPON_TEXT } from '../i18n/de';
 import type { Screen } from '../Router';
 
@@ -11,6 +12,12 @@ export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolea
   const acc = r.shots ? Math.round((r.hits / r.shots) * 100) : 0;
   const stat = (k: string, v: string) => [h('span', { class: 'muted' }, k), h('b', {}, v)];
   const submitBtn = h('button', { class: 'btn block secondary', onclick: () => app.submitScore(r) }, `🌍 ${T.submitScore}`);
+  const share = async () => {
+    const card = await renderResultCard(r, app.records.best(r.mode));
+    const res = await shareImage(card, `window-blaster-${r.score}.png`, `Window Blaster – ${fmtScore(r.score)} Punkte`);
+    toast(res === 'shared' ? 'Geteilt' : res === 'downloaded' ? 'Bild gespeichert' : res === 'cancelled' ? 'Abgebrochen' : 'Teilen nicht möglich');
+  };
+  const photo = r.photo ? h('div', { class: 'photo' }, h('img', { src: r.photo, alt: 'Bester Moment der Runde' }), h('span', { class: 'photo-label' }, '📸 Bester Moment')) : null;
   const el = h(
     'div',
     { class: 'screen' },
@@ -18,7 +25,9 @@ export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolea
       'div',
       { class: 'card' },
       h('div', { class: 'row', style: 'align-items:center;justify-content:space-between' }, h('h2', {}, `${MODES[r.mode].icon} ${T.results}`), h('span', { class: 'medal' }, MEDAL_ICON[medal])),
+      app.party?.lastPlayer ? h('p', { class: 'badge', style: 'margin:0 0 6px' }, `👥 Runde von ${app.party.lastPlayer}`) : null,
       h('div', { class: 'title', style: 'font-size:46px' }, fmtScore(r.score)),
+      photo,
       h(
         'div',
         { class: 'row', style: 'align-items:center;margin-bottom:8px' },
@@ -59,8 +68,9 @@ export function ResultsScreen(app: App, r: RoundResult, flags: { newBest: boolea
       h(
         'div',
         { class: 'col', style: 'margin-top:12px' },
-        h('button', { class: 'btn block', onclick: () => app.startRound() }, `🔁 ${T.again}`),
+        app.party ? h('button', { class: 'btn block', onclick: () => app.showPartyBoard() }, '👥 Zum Duell-Stand') : h('button', { class: 'btn block', onclick: () => app.startRound() }, `🔁 ${T.again}`),
         r.source === 'camera' ? submitBtn : null,
+        h('button', { class: 'btn block secondary', onclick: () => void share() }, '📤 Ergebnis teilen'),
         h('div', { class: 'row' }, h('button', { class: 'btn secondary grow', onclick: () => app.showLeaderboard() }, `🏆 ${T.leaderboard}`), h('button', { class: 'btn secondary grow', onclick: () => app.showShop() }, '🎁 Shop'), h('button', { class: 'btn secondary grow', onclick: () => app.showStart() }, T.menu)),
       ),
     ),

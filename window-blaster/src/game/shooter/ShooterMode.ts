@@ -1,10 +1,11 @@
 import type { GameModeId, Rect, TargetClass, Vec2, WeaponId } from '../../core/types';
 import { PAINTABLE_ONLY, SHOOTABLE } from '../../core/types';
-import { center, centerness, iou } from '../../core/math/rect';
+import { center, centerness } from '../../core/math/rect';
 import { rectInQuadFraction } from '../../core/math/polygon';
 import type { GameCtx, GameMode, ModeActions, PointerEv, RoundEvent, RoundResult } from '../GameMode';
-import { HP, WEAPONS, type HitEffect, type WeaponConfig } from '../weapons/configs';
+import { WEAPONS, type HitEffect, type WeaponConfig } from '../weapons/configs';
 import { Weapon } from '../weapons/Weapon';
+import { TargetMemory, type TargetState } from './TargetMemory';
 import { ProjectileSystem, type Detonation } from '../Projectile';
 import { aimAssist, applySpread, blast, distToRect, segmentHitsRect, targetAt, type HitTarget } from '../HitResolver';
 import { CoverPatch, Dissolve, EffectSystem, Fireball, Hitmarker, Popup, Shatter, Skid, SplashRing, Wreck } from '../effects/EffectSystem';
@@ -12,7 +13,7 @@ import { HitStop, Shake } from '../effects/Shake';
 import { captureRegion } from '../effects/snapshot';
 import { PAINT_COLORS, bakeDecals, coverage, drawDecal, makeDecal, type Decal } from '../effects/Decals';
 import type { Unlocks } from '../../app/Unlocks';
-import { CARWASH_BONUS } from '../../../shared/scoring';
+import { CARWASH_BONUS, FRENZY_BONUS, FRENZY_COMBO, FRENZY_COOLDOWN_MS, FRENZY_MS } from '../../../shared/scoring';
 import type { ProjectileKind } from '../Projectile';
 import { Combo } from '../scoring/Combo';
 import { Missions } from '../scoring/Missions';
@@ -20,27 +21,6 @@ import { COVERAGE_BONUS, hitPoints, type ScoreClass } from '../../../shared/scor
 import { FxRenderer } from '../../render/FxRenderer';
 import { HudRenderer, type HudState } from '../../render/HudRenderer';
 import { WEAPON_TEXT, T } from '../../ui/i18n/de';
-
-interface TargetState {
-  hp: number;
-  maxHp: number;
-  state: 'alive' | 'destroyed' | 'skidding' | 'gone';
-  decals: Decal[];
-  coverage: number;
-  coverageStep: number;
-  lastHitAt: number;
-  /** last known box / velocity so paint survives a tracker re-identification */
-  lastBox: Rect | null;
-  lastVel: Vec2;
-  pendingSkid: boolean;
-}
-
-interface LostState {
-  id: number;
-  st: TargetState;
-  lostAt: number;
-}
-
 
 const SKID_TEXT: Partial<Record<WeaponId, string>> = { milkshake: 'WEGGERUTSCHT!', banana: 'BANANE! AUSGERUTSCHT!', snowball: 'EINGEFROREN & WEGGERUTSCHT!' };
 
@@ -65,10 +45,7 @@ export class ShooterMode implements GameMode {
   private readonly combo = new Combo(2500);
   private missions!: Missions;
   private readonly events: RoundEvent[] = [];
-  private readonly targets = new Map<number, TargetState>();
-  private readonly lost: LostState[] = [];
-  /** old track id → new track id after a re-identification, so wrecks and cover patches keep following */
-  private readonly alias = new Map<number, number>();
+  private readonly memory = new TargetMemory();
   private readonly feed: { text: string; born: number; color: string }[] = [];
   private fx!: FxRenderer;
   private hud!: HudRenderer;
@@ -104,6 +81,14 @@ export class ShooterMode implements GameMode {
   private lockStart = 0;
   private lastKillAt = -1e9;
   private lastCountdownSec = -1;
+  /** frenzy window (round clock ms) */
+  private frenzyUntil = -1;
+  private photo: string | null = null;
+  private photoCombo = -1;
+  /** take the photo at the end of the first render after this time (effects are drawn by then) */
+  private photoDue = 0;
+  private frenzyLastAt = -1e9;
+  private frenzies = 0;
 
   constructor(readonly id: GameModeId) {}
 
@@ -128,6 +113,7 @@ export class ShooterMode implements GameMode {
       this.capAt = now + ctx.roundSeconds * 2000;
     }
     ctx.music.start('action');
+    if (ctx.settings.data.battery) this.effects.maxOver = 24;
   }
 
   pause(): void {
@@ -190,67 +176,22 @@ export class ShooterMode implements GameMode {
   }
 
   private readonly boxOf = (id: number): Rect | null => {
-    for (let i = 0; i < 8; i++) {
-      const next = this.alias.get(id);
-      if (next === undefined) break;
-      id = next;
-    }
-    const tr = this.ctx.tracker.byId(id);
+    const tr = this.ctx.tracker.byId(this.memory.resolve(id));
     return tr ? tr.predict(this.visualTime(this.lastNow)) : null;
   };
 
   private state(id: number, cls: TargetClass): TargetState {
-    let s = this.targets.get(id);
-    if (!s) {
-      // a vehicle the tracker lost for a moment and re-identified keeps its paint and damage
-      const tr = this.ctx.tracker.byId(id);
-      const box = tr?.predict(this.visualTime(this.lastNow));
-      let adopted: TargetState | null = null;
-      if (box) {
-        let bestI = -1;
-        let bestScore = 0.2;
-        for (let i = 0; i < this.lost.length; i++) {
-          const l = this.lost[i];
-          if (!l.st.lastBox) continue;
-          const dt = this.lastNow - l.lostAt;
-          const pb = { ...l.st.lastBox, x: l.st.lastBox.x + l.st.lastVel.x * dt, y: l.st.lastBox.y + l.st.lastVel.y * dt };
-          const score = iou(pb, box);
-          // a destroyed car must not be "inherited" by the next car in the lane: demand a closer match
-          if (score > bestScore && (l.st.state === 'alive' || score > 0.45)) {
-            bestScore = score;
-            bestI = i;
-          }
-        }
-        if (bestI >= 0) {
-          const l = this.lost.splice(bestI, 1)[0];
-          adopted = l.st;
-          this.alias.set(l.id, id);
-          if (this.alias.size > 64) this.alias.delete(this.alias.keys().next().value as number);
-        }
-      }
-      const hp = HP[cls] ?? 3;
-      s = adopted ?? { hp, maxHp: hp, state: 'alive', decals: [], coverage: 0, coverageStep: 0, lastHitAt: 0, lastBox: null, lastVel: { x: 0, y: 0 }, pendingSkid: false };
-      this.targets.set(id, s);
-    }
-    return s;
+    const tr = this.ctx.tracker.byId(id);
+    return this.memory.ensure(id, cls, tr ? tr.predict(this.visualTime(this.lastNow)) : null, this.lastNow);
   }
 
   /** Remember boxes of decorated targets; move vanished tracks to the lost list for 1.5 s. */
   private syncTargetMemory(now: number): void {
     const vt = this.visualTime(now);
-    for (const [id, st] of this.targets) {
+    this.memory.sync(now, (id) => {
       const tr = this.ctx.tracker.byId(id);
-      if (tr) {
-        st.lastBox = tr.predict(vt);
-        st.lastVel = { ...tr.vel };
-      } else {
-        this.targets.delete(id);
-        // keep damaged, painted and destroyed cars in mind: a re-detected wreck must not come back to life
-        if (st.state !== 'alive' || st.decals.length || st.hp < st.maxHp) this.lost.push({ id, st, lostAt: now });
-      }
-    }
-    while (this.lost.length && now - this.lost[0].lostAt > 1500) this.lost.shift();
-    if (this.lost.length > 12) this.lost.splice(0, this.lost.length - 12);
+      return tr ? { box: tr.predict(vt), vel: tr.vel } : null;
+    });
   }
 
   private liveTargets(now: number): HitTarget[] {
@@ -260,7 +201,7 @@ export class ShooterMode implements GameMode {
     const out: HitTarget[] = [];
     for (const tr of this.ctx.tracker.active) {
       if (!SHOOTABLE.has(tr.cls) && !PAINTABLE_ONLY.has(tr.cls)) continue;
-      const st = this.targets.get(tr.id);
+      const st = this.memory.get(tr.id);
       if (st && st.state !== 'alive') continue;
       const box = tr.predict(vt);
       if (filter && rectInQuadFraction(box, win.quad) < 0.5) continue;
@@ -281,12 +222,13 @@ export class ShooterMode implements GameMode {
     this.ctx.loop.timeScale = this.hitStop.scale(t);
     this.shake.update(dt);
     // music follows the action: combo, kills in the last seconds, final countdown
-    this.ctx.music.setIntensity(0.25 + Math.min(0.5, this.combo.value * 0.09) + (tl !== null && tl < 12 ? 0.3 : 0) + (now - this.lastKillAt < 3000 ? 0.15 : 0));
+    this.ctx.music.setIntensity(this.frenzyUntil > 0 ? 1 : 0.25 + Math.min(0.5, this.combo.value * 0.09) + (tl !== null && tl < 12 ? 0.3 : 0) + (now - this.lastKillAt < 3000 ? 0.15 : 0));
     if (tl !== null && tl <= 5 && Math.ceil(tl) !== this.lastCountdownSec) {
       this.lastCountdownSec = Math.ceil(tl);
       this.ctx.sfx.play('countdown', { pitch: tl <= 3 ? 1.5 : 1 });
     }
     for (const w of this.weapons) w.update(t);
+    if (this.frenzyUntil > 0 && t >= this.frenzyUntil) this.endFrenzy();
     this.cachedTargets = this.liveTargets(now);
     if (this.cachedTargets.length) this.lastTargetSeen = now;
 
@@ -554,7 +496,7 @@ export class ShooterMode implements GameMode {
       this.delayed.push({
         at: now + (cfg.skidDelayMs ?? 350),
         run: () => {
-          const s2 = this.targets.get(tid);
+          const s2 = this.memory.get(tid);
           const b2 = this.boxOf(tid) ?? box;
           if (s2) s2.state = 'skidding';
           const snap = captureRegion(this.ctx.frame.video, b2);
@@ -569,7 +511,7 @@ export class ShooterMode implements GameMode {
       });
       this.combo.bump(1, t);
       // chain: a neighbour slips on the same puddle
-      const neighbour = this.cachedTargets.find((o) => o.id !== target.id && SHOOTABLE.has(o.cls) && this.targets.get(o.id)?.state !== 'skidding' && distToRect(center(box), o.box) < box.w * 1.5);
+      const neighbour = this.cachedTargets.find((o) => o.id !== target.id && SHOOTABLE.has(o.cls) && this.memory.get(o.id)?.state !== 'skidding' && distToRect(center(box), o.box) < box.w * 1.5);
       if (neighbour && multi < 2) {
         const nid = neighbour.id;
         this.delayed.push({
@@ -601,6 +543,11 @@ export class ShooterMode implements GameMode {
         this.kills++;
         this.lastKillAt = now;
         this.ctx.music.duck();
+        // "Beweisfoto": the most impressive kill of the round, taken while the effect is at its peak
+        if (this.combo.value >= this.photoCombo) {
+          this.photoCombo = this.combo.value;
+          this.photoDue = now + 180;
+        }
         const snap = captureRegion(this.ctx.frame.video, box);
         const c = center(box);
         const R = Math.max(box.w, box.h) * 0.7;
@@ -634,6 +581,7 @@ export class ShooterMode implements GameMode {
     if (kill && centered) this.pushFeed('VOLLTREFFER ×1,5', '#ffb020');
     if (this.combo.value >= 3 && kill) this.ctx.sfx.play('combo', { pitch: 1 + this.combo.value * 0.05 });
     if (kill && this.combo.value >= 5 && Math.floor(this.combo.value) % 5 === 0) this.ctx.sfx.play('streak', { pitch: 1 + this.combo.value * 0.02 });
+    if (kill && this.combo.value >= FRENZY_COMBO && this.frenzyUntil < 0 && t - this.frenzyLastAt >= FRENZY_COOLDOWN_MS) this.startFrenzy(now);
   }
 
   private afterKill(target: HitTarget, cfg: WeaponConfig, now: number, snap: HTMLCanvasElement | null = null, snapBox: Rect | null = null, impact: Vec2 | null = null): void {
@@ -653,6 +601,37 @@ export class ShooterMode implements GameMode {
       }
       this.ctx.sfx.play('vanish');
     }
+  }
+
+  /** Combo reward: 8 s of unlimited, faster fire. Scored as a fixed, verifiable bonus. */
+  private startFrenzy(now: number): void {
+    const t = this.t(now);
+    this.frenzyUntil = t + FRENZY_MS;
+    this.frenzyLastAt = t;
+    this.frenzies++;
+    for (const w of this.weapons) {
+      w.boost = 1.6;
+      w.refill();
+    }
+    const v = this.ctx.layers.visibleRect();
+    this.addPoints(FRENZY_BONUS, { x: v.x + v.w / 2, y: v.y + v.h * 0.4 }, '#ff6a00', 34);
+    this.effects.add(new Popup('🔥 FRENZY! 🔥', { x: v.x + v.w / 2, y: v.y + v.h * 0.28 }, now, '#ff6a00', 40 * this.unit, 1600));
+    this.pushFeed('FRENZY – 8 s Dauerfeuer ohne Nachladen!', '#ff6a00');
+    this.record({ t: Math.round(t - this.startedAt), kind: 'bonus', id: 'frenzy', points: FRENZY_BONUS }, now);
+    this.ctx.sfx.play('streak', { pitch: 1.3 });
+    this.ctx.sfx.play('bigExplosion');
+    this.ctx.haptics.heavy();
+    this.shake.add(8);
+  }
+
+  private endFrenzy(): void {
+    this.frenzyUntil = -1;
+    for (const w of this.weapons) w.boost = 1;
+    this.pushFeed('Frenzy vorbei', '#ffb08a');
+  }
+
+  private frenzyLeft(now: number): number {
+    return this.frenzyUntil < 0 ? 0 : Math.max(0, (this.frenzyUntil - this.t(now)) / FRENZY_MS);
   }
 
   private checkCoverage(st: TargetState, target: HitTarget, now: number): void {
@@ -722,13 +701,13 @@ export class ShooterMode implements GameMode {
     const vt = this.visualTime(now);
     const tsec = now / 1000;
     const inTargets = new Set(this.cachedTargets.map((tg) => tg.id));
-    for (const [id, st] of this.targets) {
+    for (const [id, st] of this.memory.targets) {
       if (!st.decals.length || inTargets.has(id) || st.state !== 'alive') continue;
       const b = this.boxOf(id);
       if (b) for (const d of st.decals) drawDecal(c, b, d, now);
     }
     for (const tg of this.cachedTargets) {
-      const st = this.targets.get(tg.id);
+      const st = this.memory.get(tg.id);
       if (st) for (const d of st.decals) drawDecal(c, tg.box, d, now);
       const color = SHOOTABLE.has(tg.cls) ? (tg.cls === 'car' ? 'rgba(255,255,255,0.55)' : 'rgba(255,176,32,0.7)') : 'rgba(56,189,248,0.5)';
       this.fx.bracket(tg.box, color, 2 * this.unit, tsec);
@@ -748,6 +727,22 @@ export class ShooterMode implements GameMode {
       else this.fx.pow(pw.at, pw.size, age);
     }
     this.effects.drawOver(c, now, this.ctx.frame.video);
+    const fl = this.frenzyLeft(now);
+    if (fl > 0) {
+      // pulsing hot frame around the visible image
+      const vr = L.visibleRect();
+      const pulse = 0.55 + 0.45 * Math.sin(now / 90);
+      const g = c.createLinearGradient(vr.x, vr.y, vr.x, vr.y + vr.h);
+      g.addColorStop(0, `rgba(255,106,0,${0.35 * pulse})`);
+      g.addColorStop(0.2, 'rgba(255,106,0,0)');
+      g.addColorStop(0.8, 'rgba(255,106,0,0)');
+      g.addColorStop(1, `rgba(255,106,0,${0.35 * pulse})`);
+      c.fillStyle = g;
+      c.fillRect(vr.x, vr.y, vr.w, vr.h);
+      c.strokeStyle = `rgba(255,140,0,${0.5 + 0.5 * pulse})`;
+      c.lineWidth = 10 * this.unit;
+      c.strokeRect(vr.x + 5 * this.unit, vr.y + 5 * this.unit, vr.w - 10 * this.unit, vr.h - 10 * this.unit);
+    }
 
     if (this.ctx.settings.data.showBoxes) for (const tr of this.ctx.tracker.tracks) this.fx.debugTrack(tr, tr.predict(vt));
 
@@ -774,8 +769,13 @@ export class ShooterMode implements GameMode {
       feed: this.feed,
       hint: now - this.lastTargetSeen > 4000 ? T.noTargets : win.mode === 'off' ? T.windowLost : null,
       windowMode: win.mode,
+      extra: fl > 0 ? `🔥 FRENZY ${Math.ceil(fl * FRENZY_MS / 1000)} s` : undefined,
     };
     this.hud.draw(hs, now);
+    if (this.photoDue && now >= this.photoDue) {
+      this.photoDue = 0;
+      this.photo = this.ctx.capture() ?? this.photo;
+    }
   }
 
   bestScore = 0;
@@ -805,7 +805,8 @@ export class ShooterMode implements GameMode {
       seed: this.ctx.session.seed,
       startedAt: this.startWall,
       source: this.ctx.session.source,
-      extra: { missionPoints: this.missionPoints, extraSec: this.extraSec, roundSeconds: this.ctx.roundSeconds },
+      extra: { missionPoints: this.missionPoints, extraSec: this.extraSec, roundSeconds: this.ctx.roundSeconds, frenzies: this.frenzies },
+      photo: this.photo ?? undefined,
     };
   }
 
@@ -839,7 +840,10 @@ export class ShooterMode implements GameMode {
       ended: this.ended,
       weapon: this.weapons[this.slot].cfg.id,
       ammo: this.weapons[this.slot].ammo,
+      ammoText: this.weapons[this.slot].ammoText(),
       effects: this.effects.count,
+      frenzies: this.frenzies,
+      frenzy: this.frenzyUntil > 0,
     };
   }
 }

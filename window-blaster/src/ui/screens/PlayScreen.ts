@@ -79,6 +79,7 @@ export function PlayScreen(app: App, mode: GameMode): Screen {
       'div',
       { class: 'col' },
       h('button', { class: 'btn block', onclick: () => app.togglePause() }, T.resume),
+      h('button', { class: 'btn block secondary', onclick: () => void app.sharePhoto() }, '📸 Foto teilen'),
       h('button', { class: 'btn block secondary', onclick: () => app.showSettings() }, `⚙️ ${T.settings}`),
       h('button', { class: 'btn block danger', onclick: () => app.abortRound() }, T.quit),
     ),

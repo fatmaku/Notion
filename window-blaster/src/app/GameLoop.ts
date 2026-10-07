@@ -12,6 +12,8 @@ export class GameLoop {
 
   errors = 0;
   onError: ((e: unknown) => void) | null = null;
+  /** Battery mode: skip frames so at most one tick runs per this many ms (0 = every frame). */
+  minFrameMs = 0;
 
   constructor(private readonly tick: (dt: number, now: number, gameTime: number) => void) {}
 
@@ -22,6 +24,10 @@ export class GameLoop {
     this.fpsT = this.last;
     const frame = (now: number) => {
       if (!this.running) return;
+      if (this.minFrameMs > 0 && now - this.last < this.minFrameMs - 2) {
+        this.raf = requestAnimationFrame(frame);
+        return;
+      }
       let dt = (now - this.last) / 1000;
       this.last = now;
       if (dt > 0.05) dt = 0.05;

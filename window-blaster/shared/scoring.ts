@@ -62,6 +62,11 @@ export function hitPoints(i: HitPointsInput): number {
 export const COVERAGE_BONUS: Record<number, number> = { 25: 50, 50: 150, 100: 500 };
 export const CARWASH_BONUS = 100;
 export const GOLDBIRD_BONUS = 300;
+/** Awarded once when a combo of FRENZY_COMBO kills starts a frenzy (8 s of unlimited, faster fire). */
+export const FRENZY_BONUS = 250;
+export const FRENZY_COMBO = 5;
+export const FRENZY_MS = 8000;
+export const FRENZY_COOLDOWN_MS = 15000;
 export const MISSION_REWARD_DEFAULT = 500;
 
 /** Runner scoring. */

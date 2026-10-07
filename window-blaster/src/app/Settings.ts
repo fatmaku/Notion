@@ -3,6 +3,11 @@ import type { Storage } from './Storage';
 export interface SettingsData {
   sound: boolean;
   music: boolean;
+  /** 0..100 */
+  sfxVolume: number;
+  musicVolume: number;
+  /** fewer detections per second, fewer particles, 30 fps rendering */
+  battery: boolean;
   haptics: boolean;
   /** Horizontal field of view of the camera in degrees (landscape). */
   hfovDeg: number;
@@ -25,6 +30,9 @@ export interface SettingsData {
 export const DEFAULT_SETTINGS: SettingsData = {
   sound: true,
   music: true,
+  sfxVolume: 80,
+  musicVolume: 60,
+  battery: false,
   haptics: true,
   hfovDeg: 69,
   invertPan: false,
@@ -46,8 +54,11 @@ export class Settings {
   constructor(private readonly storage: Storage) {
     this.data = { ...DEFAULT_SETTINGS, ...storage.get<Partial<SettingsData>>('settings.v1', {}) };
   }
+  onChange: (() => void) | null = null;
+
   patch(p: Partial<SettingsData>): void {
     Object.assign(this.data, p);
     this.storage.set('settings.v1', this.data);
+    this.onChange?.();
   }
 }

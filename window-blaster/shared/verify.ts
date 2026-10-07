@@ -1,7 +1,7 @@
 // Replays a round's event log with the shared scoring formulas. Used by the
 // leaderboard worker to verify claimed scores and by the client's tests to
 // make sure the event log it produces is complete and consistent.
-import { CARWASH_BONUS, COVERAGE_BONUS, GOLDBIRD_BONUS, LIMITS, RUNNER, hitPoints, runnerObstaclePoints, type ScoreClass, type ScoreWeapon } from './scoring';
+import { CARWASH_BONUS, COVERAGE_BONUS, FRENZY_BONUS, FRENZY_COOLDOWN_MS, GOLDBIRD_BONUS, LIMITS, RUNNER, hitPoints, runnerObstaclePoints, type ScoreClass, type ScoreWeapon } from './scoring';
 
 export interface VerifyEvent {
   t: number;
@@ -49,6 +49,7 @@ export function verifyRound(r: VerifyRound): VerifyResult {
   let kills = 0;
   let missions = 0;
   let lastT = -1;
+  let lastFrenzyT = -Infinity;
   for (const e of r.events) {
     if (typeof e.t !== 'number' || e.t < lastT - 5 || e.t > r.durationSec * 1000 + 3000) return { ok: false, verifiedScore: 0, reason: 'timeline' };
     lastT = Math.max(lastT, e.t);
@@ -71,6 +72,11 @@ export function verifyRound(r: VerifyRound): VerifyResult {
         }
         if (e.id === 'carwash') {
           if (e.points !== CARWASH_BONUS) return { ok: false, verifiedScore: 0, reason: 'bonus' };
+          break;
+        }
+        if (e.id === 'frenzy') {
+          if (e.points !== FRENZY_BONUS || e.t - lastFrenzyT < FRENZY_COOLDOWN_MS) return { ok: false, verifiedScore: 0, reason: 'frenzy' };
+          lastFrenzyT = e.t;
           break;
         }
         const m = /^coverage(\d+)$/.exec(e.id ?? '');

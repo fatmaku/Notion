@@ -41,6 +41,11 @@ export class Records {
     return this.storage.get<Totals>('totals.v1', { rounds: 0, kills: 0, hits: 0, shots: 0, seconds: 0, bestCombo: 0 });
   }
 
+  /** Kills per weapon over all rounds. */
+  weaponKills(): Record<string, number> {
+    return this.storage.get<Record<string, number>>('weaponKills.v1', {});
+  }
+
   recent(): RecordSummary[] {
     return this.storage.get<RecordSummary[]>('recent.v1', []);
   }
@@ -67,6 +72,9 @@ export class Records {
     t.seconds += Math.round(r.durationSec);
     t.bestCombo = Math.max(t.bestCombo, r.maxCombo);
     this.storage.set('totals.v1', t);
+    const wk = this.weaponKills();
+    for (const e of r.events) if (e.kind === 'kill' && e.weapon) wk[e.weapon] = (wk[e.weapon] ?? 0) + 1;
+    this.storage.set('weaponKills.v1', wk);
     const recent = this.recent();
     recent.unshift({
       score: r.score,

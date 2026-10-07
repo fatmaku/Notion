@@ -41,6 +41,11 @@ import { OfflinePrep } from './OfflinePrep';
 import { ErrorLog } from '../debug/ErrorLog';
 import { Unlocks } from './Unlocks';
 import { ShopScreen } from '../ui/screens/ShopScreen';
+import { StatsScreen } from '../ui/screens/StatsScreen';
+import { PartyBoardScreen, PartySetupScreen } from '../ui/screens/PartyScreen';
+import type { Party } from './Party';
+import { composeFrame, shareImage } from '../ui/share';
+import type { Quad } from '../core/types';
 import { GameLoop } from './GameLoop';
 import { Settings } from './Settings';
 import { Storage } from './Storage';
@@ -72,6 +77,8 @@ export class App {
   /** A new app version took over (service worker): reload at the next safe moment. */
   private pendingReload = false;
   session: Session = defaultSession();
+  /** Hot-seat duel in progress (null = normal play). */
+  party: Party | null = null;
 
   frame: FrameSource | null = null;
   detector: Detector | null = null;
@@ -115,7 +122,88 @@ export class App {
     window.addEventListener('offline', () => {
       this.online = false;
     });
+    this.settings.onChange = () => this.applySettings();
     this.applySettings();
+  }
+
+  /** Video + effects of this moment as a small JPEG (null without a frame). */
+  capture(): string | null {
+    return this.layers.hasVideo ? composeFrame(this.layers) : null;
+  }
+
+  /** Pause menu: share the current view as a photo. */
+  async sharePhoto(): Promise<void> {
+    const url = this.capture();
+    if (!url) {
+      toast('Kein Bild verfügbar');
+      return;
+    }
+    const res = await shareImage(url, `window-blaster-${Date.now()}.jpg`, 'Window Blaster');
+    toast(res === 'shared' ? 'Geteilt' : res === 'downloaded' ? 'Foto gespeichert' : res === 'cancelled' ? 'Abgebrochen' : 'Teilen nicht möglich');
+  }
+
+  showStats(): void {
+    this.router.show(StatsScreen(this));
+  }
+
+  // ------------------------------------------------------------------ duel
+
+  showPartySetup(): void {
+    this.router.show(PartySetupScreen(this));
+  }
+
+  /** Starts a duel: the usual flow (safety → mode → weapons → camera) once, then turns alternate. */
+  beginParty(party: Party): void {
+    this.party = party;
+    this.session.daily = false;
+    this.beginFlow(this.params.demo ? 'demo' : 'camera');
+  }
+
+  showPartyBoard(): void {
+    if (!this.party) return this.showStart();
+    this.router.show(PartyBoardScreen(this, this.party));
+  }
+
+  /** Next player's turn: same mode, weapons and calibration. */
+  partyPlayNext(): void {
+    if (!this.party || this.party.done) return this.showPartyBoard();
+    toast(`${this.party.current} ist dran!`, 1800);
+    this.startRound();
+  }
+
+  endParty(): void {
+    this.party = null;
+    this.showStart();
+  }
+
+  // ------------------------------------------------------- calibration memory
+
+  private calibKey(): string {
+    return `${this.session.mode}:${this.session.side}:${this.layers.videoW}x${this.layers.videoH}`;
+  }
+
+  /** Remembers the confirmed window per mode/side, so the next ride starts with it. */
+  private rememberCalibration(): void {
+    const wt = this.windowTracker;
+    if (!wt || !this.layers.hasVideo || this.session.source !== 'camera') return;
+    const s = wt.get();
+    const all = this.storage.get<Record<string, { quad: Quad; groundV: number; full: boolean; at: number }>>('calib.v1', {});
+    all[this.calibKey()] = { quad: s.mode === 'fullframe' ? wt.rawQuad : s.quad, groundV: wt.groundV, full: s.mode === 'fullframe', at: Date.now() };
+    const keys = Object.keys(all).sort((a, b) => all[a].at - all[b].at);
+    while (keys.length > 12) delete all[keys.shift()!];
+    this.storage.set('calib.v1', all);
+  }
+
+  /** Restores the last confirmed window for this mode/side; returns whether one was applied. */
+  private restoreCalibration(): boolean {
+    const wt = this.windowTracker;
+    if (!wt || !this.layers.hasVideo || this.session.source !== 'camera') return false;
+    const saved = this.storage.get<Record<string, { quad: Quad; groundV: number; full: boolean; at: number }>>('calib.v1', {})[this.calibKey()];
+    if (!saved) return false;
+    if (saved.full) wt.setFullFrame(true);
+    else wt.setManual(saved.quad);
+    wt.groundV = saved.groundV;
+    return true;
   }
 
   get windowState(): WindowState {
@@ -126,8 +214,12 @@ export class App {
     const s = this.settings.data;
     document.body.classList.toggle('left-handed', s.leftHanded);
     this.sfx.enabled = s.sound && !this.params.test;
+    this.sfx.volume = s.sfxVolume / 100;
     this.music.enabled = s.music && !this.params.test;
+    this.music.volume = 0.5 * (s.musicVolume / 100);
     if (!this.music.enabled) this.music.stop();
+    this.loop.minFrameMs = s.battery ? 33 : 0;
+    this.scheduler?.configure(this.detectorOptions());
     this.haptics.enabled = s.haptics;
     this.motion.invertPan = s.invertPan;
     this.motion.invertTilt = s.invertTilt;
@@ -285,6 +377,7 @@ export class App {
 
   showCalibrate(): void {
     this.mode = null;
+    if (this.restoreCalibration()) toast('Letzte Scheibe übernommen – „✨ Automatisch“ sucht neu', 2500);
     const screen = CalibrateScreen(this);
     this.calibrating = screen;
     this.router.show({
@@ -297,6 +390,7 @@ export class App {
 
   afterCalibrate(): void {
     this.calibrating = null;
+    this.rememberCalibration();
     this.startRound();
   }
 
@@ -419,7 +513,7 @@ export class App {
         this.diag.set('detHz', this.scheduler?.stats.hz ?? 0);
         this.diag.set('dets', dets.length);
       },
-      this.params.test ? { minIntervalMs: 40, maxDuty: 0.6 } : {},
+      this.detectorOptions(),
     );
     this.scheduler.start();
     this.frame.onEnded(() => {
@@ -427,6 +521,12 @@ export class App {
       if (this.mode && !this.paused) this.togglePause(true);
     });
     this.loop.start();
+  }
+
+  /** Detection cadence: e2e wants it fast and deterministic, battery mode wants it lazy. */
+  private detectorOptions(): { minIntervalMs: number; maxDuty: number } {
+    if (this.params.test) return { minIntervalMs: 40, maxDuty: 0.6 };
+    return this.settings.data.battery ? { minIntervalMs: 130, maxDuty: 0.25 } : { minIntervalMs: 50, maxDuty: 0.4 };
   }
 
   stopSource(): void {
@@ -474,6 +574,7 @@ export class App {
       now: () => performance.now(),
       end: (r) => this.endRound(r),
       recenter: () => this.recenter(),
+      capture: () => this.capture(),
       roundSeconds,
     });
     if (mode instanceof ShooterMode || mode instanceof RunnerMode) mode.bestScore = this.records.best(mode.id);
@@ -492,6 +593,7 @@ export class App {
     this.loop.timeScale = 1;
     this.layers.video.style.transform = '';
     this.lastResult = r;
+    this.party?.record(r.score);
     const flags = this.records.save(r);
     const before = this.unlocks.balance;
     this.unlocks.earn(r.score);
@@ -532,19 +634,21 @@ export class App {
       return;
     }
     const name = this.settings.data.nickname || `Fahrgast${Math.floor(Math.random() * 1000)}`;
+    // the photo stays on the device
+    const payload: RoundResult = { ...r, photo: undefined };
     if (!this.leaderboard.configured) {
       toast('Weltweite Rangliste nicht eingerichtet.');
       return;
     }
     if (!this.online) {
-      this.leaderboard.enqueue(name, r);
+      this.leaderboard.enqueue(name, payload);
       toast(T.queuedScore, 3000);
       return;
     }
-    const res: SubmitResponse = await this.leaderboard.submit(name, r).catch(() => ({ ok: false, error: 'network' }) as SubmitResponse);
+    const res: SubmitResponse = await this.leaderboard.submit(name, payload).catch(() => ({ ok: false, error: 'network' }) as SubmitResponse);
     if (res.ok) toast(`Eingetragen als ${name}${res.rank ? ` – Platz ${res.rank}` : ''}${res.dailyRank ? `, heute Platz ${res.dailyRank}` : ''}`);
     else if (res.error === 'network') {
-      this.leaderboard.enqueue(name, r);
+      this.leaderboard.enqueue(name, payload);
       toast(T.queuedScore, 3000);
     } else toast(`Eintragen abgelehnt (${res.error ?? 'Fehler'}).`);
   }

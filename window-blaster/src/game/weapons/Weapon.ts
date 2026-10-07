@@ -7,6 +7,8 @@ export class Weapon {
   reloadEnd = 0;
   nextShotAt = 0;
   triggerHeld = false;
+  /** >1 during a frenzy: faster fire, magazine never runs dry */
+  boost = 1;
   constructor(readonly cfg: WeaponConfig) {
     this.ammo = cfg.mag;
     this.reserve = cfg.perRound === undefined ? Infinity : Math.max(0, cfg.perRound - cfg.mag);
@@ -52,13 +54,20 @@ export class Weapon {
       return 'reloading';
     }
     if (now < this.nextShotAt) return 'cooldown';
-    this.ammo--;
-    this.nextShotAt = now + 60000 / this.cfg.rpm;
+    if (this.boost <= 1) this.ammo--;
+    this.nextShotAt = now + 60000 / (this.cfg.rpm * this.boost);
     if (this.ammo <= 0) this.startReload(now + 120);
     return 'fired';
   }
 
+  /** Frenzy: full magazine, no reload in progress. */
+  refill(): void {
+    this.ammo = this.cfg.mag;
+    this.reloadEnd = 0;
+  }
+
   ammoText(): string {
+    if (this.boost > 1) return '∞';
     const res = this.reserve === Infinity ? '∞' : String(this.reserve);
     return `${this.ammo}/${res}`;
   }

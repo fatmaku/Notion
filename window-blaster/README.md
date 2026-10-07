@@ -86,7 +86,17 @@ Ohne Kamera ausprobieren (Desktop reicht): Startbildschirm → **Demo ohne Kamer
    - Runner: Du bist eine **Hand, die auf zwei Fingern läuft**. Tippen = Sprung (kurz tippen = kleiner Sprung),
      Ducken-Knopf oder nach unten wischen = ducken – nötig, weil **Vögel** auf Kopfhöhe angeflogen kommen (Warnpfeil am Rand).
      Der seltene goldene Vogel fliegt höher und bringt +300, wenn du ihn im Sprung fängst. Lange Fahrzeuge kann man als Plattform benutzen.
-   - ⌖ zentriert die Scheibe neu, ⏸ pausiert.
+   - ⌖ zentriert die Scheibe neu, ⏸ pausiert (im Pausemenü: **📸 Foto teilen**).
+   - **Frenzy:** Ab einer 5er-Kill-Combo brennt 8 Sekunden lang alles: unbegrenzte Munition, 1,6-fache Feuerrate,
+     +250 Bonus, orangener Rahmen, Musik auf Anschlag. Danach 15 s Abkühlung.
+   - **Beweisfoto:** Der beste Moment der Runde (höchste Combo beim Abschuss, goldener Vogel im Runner) landet als Bild
+     auf dem Ergebnis-Bildschirm. **📤 Ergebnis teilen** baut daraus eine Karte mit Punkten und schickt sie über das
+     System-Teilen-Menü (oder speichert sie). Nichts davon verlässt das Handy von selbst.
+7. **👥 Duell:** 2–4 Leute spielen abwechselnd am selben Handy – gleiche Art Runde, gleiche Waffen, gleiche Scheibe.
+   Zwischen den Runden zeigt die Tabelle den Stand, am Ende gibt es Krone oder Unentschieden und eine Revanche.
+8. **Merken:** Die bestätigte Scheibe wird je Modus und Fensterseite gespeichert und beim nächsten Mal direkt
+   vorgeschlagen („✨ Automatisch“ sucht neu). **📊 Statistik** zeigt Runden, Spielzeit, Trefferquote, Bestwerte,
+   Lieblingswaffen und die letzten Runden.
 
 ### Punkte und Anreiz
 
@@ -113,8 +123,9 @@ Ohne Kamera ausprobieren (Desktop reicht): Startbildschirm → **Demo ohne Kamer
 - Ein Fehler im Spiel friert nichts mehr ein: Er wird abgefangen, das Spiel läuft weiter, und der Startbildschirm zeigt
   „Letzter Fehler“ mit Kopier-Knopf – schick mir den Text, wenn etwas hakt.
 - Einstellungen: Schwierigkeit (Vogeldichte, Zielhilfe) und Linkshänder-Layout.
-- Einstellungen: Sichtfeld der Kamera (Tracking-Stärke), Latenzausgleich, Tracking invertieren, Sound-Effekte, Musik,
-  Vibration, Rundenlänge, Füllen getroffener Autos, experimenteller Masten-/Baum-Detektor für den Runner.
+- Einstellungen: Sichtfeld der Kamera (Tracking-Stärke), Latenzausgleich, Tracking invertieren, Sound-Effekte und Musik
+  mit Lautstärke, Vibration, Rundenlänge, Füllen getroffener Autos, experimenteller Masten-/Baum-Detektor für den Runner.
+- **🔋 Akku-Sparmodus** für lange Fahrten: weniger Erkennungen pro Sekunde, 30 fps, weniger Partikel.
 - Musik und alle Geräusche werden live mit WebAudio erzeugt (keine Audiodateien): Synthwave-Loop in den Schieß-Modi,
   Chiptune im Runner; die Musik zieht mit Combo und Restzeit an und duckt sich kurz unter Explosionen.
 

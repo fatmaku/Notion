@@ -50,3 +50,24 @@ describe('verifyRound', () => {
     expect(verifyRound(round(many, { durationSec: 10 })).ok).toBe(false);
   });
 });
+
+describe('frenzy bonus', () => {
+  const base = { mode: 'front-shooter', durationSec: 40, kills: 0, source: 'camera' as const, extra: { roundSeconds: 60 } };
+  it('accepts the fixed frenzy bonus', () => {
+    const r = { ...base, score: 250, events: [{ t: 5000, kind: 'bonus', id: 'frenzy', points: 250 }] };
+    expect(verifyRound(r).ok).toBe(true);
+  });
+  it('rejects a wrong amount and a second frenzy inside the cooldown', () => {
+    expect(verifyRound({ ...base, score: 300, events: [{ t: 5000, kind: 'bonus', id: 'frenzy', points: 300 }] }).reason).toBe('frenzy');
+    const twice = [
+      { t: 5000, kind: 'bonus', id: 'frenzy', points: 250 },
+      { t: 9000, kind: 'bonus', id: 'frenzy', points: 250 },
+    ];
+    expect(verifyRound({ ...base, score: 500, events: twice }).reason).toBe('frenzy');
+    const spaced = [
+      { t: 5000, kind: 'bonus', id: 'frenzy', points: 250 },
+      { t: 21000, kind: 'bonus', id: 'frenzy', points: 250 },
+    ];
+    expect(verifyRound({ ...base, score: 500, events: spaced }).ok).toBe(true);
+  });
+});

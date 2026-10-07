@@ -38,6 +38,13 @@ export class Sfx {
   private master: GainNode | null = null;
   private noiseBuf: AudioBuffer | null = null;
   enabled = true;
+  private vol = 1;
+
+  /** 0..1 master volume for effects. */
+  set volume(v: number) {
+    this.vol = Math.max(0, Math.min(1, v));
+    if (this.master) this.master.gain.value = 0.6 * this.vol;
+  }
 
   /** Shared output for the music engine (null until unlocked). */
   get audio(): { ctx: AudioContext; master: GainNode } | null {
@@ -52,7 +59,7 @@ export class Sfx {
         if (!AC) return;
         this.ctx = new AC();
         this.master = this.ctx.createGain();
-        this.master.gain.value = 0.6;
+        this.master.gain.value = 0.6 * this.vol;
         this.master.connect(this.ctx.destination);
         const len = this.ctx.sampleRate;
         this.noiseBuf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
