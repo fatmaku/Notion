@@ -1,10 +1,11 @@
 // Cat Me If You Can – Teilen: zeichnet die Katzenkarte als Bild (1080 × 1350, Instagram-Format) und
 // teilt sie über das Teilen-Menü des Handys (Web Share). Ohne Teilen-Menü wird das Bild gespeichert.
+// Mit Server gehört der Link zur öffentlichen Katzenseite (/c/<id>, mit Link-Vorschau) immer dazu.
 
 import { t, L, tx, isRtl } from './i18n.js';
 import { PATTERNS, RARITY } from '../core/taxonomy.js';
 import { catAvatarDataUrl } from './avatar.js';
-import { sep } from './ui.js';
+import { esc, modal, toast, sep } from './ui.js';
 
 const W = 1080;
 const H = 1350;
@@ -118,12 +119,17 @@ export async function renderShareImage(cat, analysis = {}) {
   return new Promise((resolve) => c.toBlob(resolve, 'image/png'));
 }
 
-/** Teilen (Handy) oder als Datei speichern. Rückgabe: 'shared' | 'saved' | 'cancelled' */
-export async function shareCat(cat, analysis) {
+/**
+ * Teilen (Handy) oder als Datei speichern. opts.url = öffentliche Katzenseite (null im Demo-Modus).
+ * Rückgabe: 'shared' | 'saved' | 'saved-link' (Bild gespeichert, Text mit Link kopiert) | 'cancelled'
+ */
+export async function shareCat(cat, analysis, { url = null } = {}) {
   const blob = await renderShareImage(cat, analysis);
   const fileName = `catmeifyoucan-${(cat.name || 'kedi').replace(/[^\p{L}\p{N}]+/gu, '-').toLowerCase()}.png`;
   const file = new File([blob], fileName, { type: 'image/png' });
-  const text = cat.name ? t('share.text', { name: cat.name }) : t('share.textUnnamed');
+  const base = cat.name ? t('share.text', { name: cat.name }) : t('share.textUnnamed');
+  // Beim Bild-Teilen lassen viele Apps das url-Feld weg – deshalb steht der Link im Text.
+  const text = url ? `${base}\n${url}` : base;
   if (navigator.canShare && navigator.canShare({ files: [file] })) {
     try {
       await navigator.share({ files: [file], text, title: 'Cat Me If You Can' });
@@ -131,14 +137,75 @@ export async function shareCat(cat, analysis) {
     } catch (e) {
       if (e && e.name === 'AbortError') return 'cancelled';
     }
+  } else if (url && navigator.share) {
+    // Kein Bild-Teilen möglich (z. B. Desktop): Link teilen – die Vorschau zeigt die Karte.
+    try {
+      await navigator.share({ title: 'Cat Me If You Can', text: base, url });
+      return 'shared';
+    } catch (e) {
+      if (e && e.name === 'AbortError') return 'cancelled';
+    }
   }
-  const url = URL.createObjectURL(blob);
+  const objectUrl = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
+  a.href = objectUrl;
   a.download = fileName;
   document.body.append(a);
   a.click();
   a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 5000);
+  setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
+  if (url && (await copyText(text))) return 'saved-link';
   return 'saved';
+}
+
+/** Meldung nach dem Teilen (oder null). */
+export function shareMessage(how) {
+  if (how === 'saved') return t('share.saved');
+  if (how === 'saved-link') return t('share.savedLink');
+  return null;
+}
+
+/** Text in die Zwischenablage: Clipboard-API, sonst der alte Weg über ein Textfeld. */
+export async function copyText(text) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+    /* weiter mit dem alten Weg */
+  }
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.append(ta);
+  ta.select();
+  let ok = false;
+  try {
+    ok = document.execCommand('copy');
+  } catch {
+    ok = false;
+  }
+  ta.remove();
+  return ok;
+}
+
+/** „Link kopieren“: kopiert und meldet es – klappt das nicht, zeigt ein Dialog den Link zum Markieren. */
+export async function copyLink(url) {
+  if (await copyText(url)) {
+    toast(t('share.copied'), { type: 'success' });
+    return true;
+  }
+  const m = modal(`<div class="pad"><h2>🔗 ${esc(t('share.copy'))}</h2>
+    <label class="small" for="share-link">${esc(t('share.copyHint'))}</label>
+    <input id="share-link" class="share-link" readonly dir="ltr" value="${esc(url)}">
+    <div class="actions"><button type="button" class="btn" data-close>${esc(t('common.close'))}</button></div></div>`);
+  const input = m.el.querySelector('#share-link');
+  setTimeout(() => {
+    input.focus();
+    input.select();
+  }, 50);
+  return false;
 }

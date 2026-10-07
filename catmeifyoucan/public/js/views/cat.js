@@ -8,7 +8,7 @@ import { factsHtml } from './card.js';
 import { lineChart } from '../charts.js';
 import { miniMap } from '../map.js';
 import { conditionFormHtml, bindConditionForm, readConditionForm, conditionText } from './condition.js';
-import { shareCat } from '../share.js';
+import { shareCat, shareMessage, copyLink } from '../share.js';
 
 export async function renderCat(view, app, id) {
   const data = await app.api.cat(id);
@@ -16,6 +16,7 @@ export async function renderCat(view, app, id) {
   const me = app.player;
   const canStatus = me && ['volunteer', 'admin'].includes(me.role);
   const latest = { ...(cat.profile || {}), ...(cat.latest || {}) };
+  const pageUrl = app.api.catPageUrl ? app.api.catPageUrl(cat.id, app.lang()) : null; // öffentliche Seite /c/<id>
   view.innerHTML = `
     <button class="back" data-back><span class="dir-ic" aria-hidden="true">‹</span> ${esc(t('common.back'))}</button>
     <section class="cat-hero r-${esc(cat.rarity || 'common')}">
@@ -39,6 +40,7 @@ export async function renderCat(view, app, id) {
       <div class="actions">
         <button class="btn primary" data-act="help">📝 ${esc(t('report.profileTitle'))}</button>
         <button class="btn" data-act="share">📤 ${esc(t('share.button'))}</button>
+        ${pageUrl ? `<button class="btn" data-act="copy">🔗 ${esc(t('share.copy'))}</button>` : ''}
         ${canStatus ? `<button class="btn" data-act="status">🩺 ${esc(t('cat.setStatus'))}</button>` : ''}
       </div>
     </section>
@@ -100,13 +102,15 @@ export async function renderCat(view, app, id) {
     e.target.disabled = true;
     try {
       const last = obs[0] && obs[0].analysis ? obs[0].analysis : {};
-      if ((await shareCat(cat, last)) === 'saved') toast(t('share.saved'), { type: 'success' });
+      const msg = shareMessage(await shareCat(cat, last, { url: pageUrl }));
+      if (msg) toast(msg, { type: 'success' });
     } catch {
       toast(t('err.generic'), { type: 'error' });
     } finally {
       e.target.disabled = false;
     }
   });
+  view.querySelector('[data-act="copy"]')?.addEventListener('click', () => copyLink(pageUrl));
   view.querySelector('[data-act="status"]')?.addEventListener('click', () => {
     const m = modal(`<form class="pad" data-f><h2>🩺 ${esc(t('cat.setStatus'))}</h2>
       <select name="status">${['active', 'needs_help', 'in_care', 'adopted', 'deceased'].map((s) => `<option value="${s}" ${s === cat.status ? 'selected' : ''}>${t(`status.icon.${s}`)} ${esc(L(CAT_STATUS, s))}</option>`).join('')}</select>

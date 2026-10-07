@@ -116,6 +116,12 @@ export class RemoteApi {
   async voucherToday() { return (await this.req('GET', '/api/vouchers/today')).voucher; }
 
   // ── Erweiterung: share ──
+  /** Öffentliche Katzenseite mit Link-Vorschau (server/share.js) – absolut, in der Sprache der App. */
+  catPageUrl(id, lang) {
+    const u = new URL(`${this.base}/c/${encodeURIComponent(id)}`, location.href);
+    if (lang) u.searchParams.set('lang', lang);
+    return u.href;
+  }
 
   // ── Erweiterung: cafe ──
 
@@ -268,6 +274,8 @@ export async function createLocalApi() {
     voucherToday: () => wrap(async () => engine.voucherToday(me())),
 
     // ── Erweiterung: share ──
+    // Demo im Browser: die Katzen gibt es nur auf diesem Gerät – kein Link zum Teilen.
+    catPageUrl: () => null,
 
     // ── Erweiterung: cafe ──
 

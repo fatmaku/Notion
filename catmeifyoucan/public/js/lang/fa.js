@@ -412,6 +412,47 @@ export default {
   'share.saved': 'تصویر ذخیره شد.',
 
   // ── Erweiterung: share ──
+  // Public cat page (/c/<id>) and links
+  'cp.meet': 'با {name} آشنا شو',
+  'cp.titleUnnamed': 'یک گربهٔ خیابانی در {place}',
+  'cp.kicker': 'گربه‌ای از کوچه‌های کادیکوی',
+  'cp.nameIt': 'پیدایش کن و برایش اسم بگذار!',
+  'cp.seen': 'دیده شده',
+  'cp.times': {
+    one: '‏{n} بار',
+    other: '‏{n} بار',
+  },
+  'cp.seenTimes': {
+    one: '‏{n} بار دیده شده',
+    other: '‏{n} بار دیده شده',
+  },
+  'cp.neutered': 'عقیم‌شده (علامت گوش)',
+  'cp.play': 'همین حالا بازی کن – {name} را پیدا کن',
+  'cp.playThis': 'همین حالا بازی کن – این گربه را پیدا کن',
+  'cp.playAny': 'همین حالا بازی کن – در کادیکوی گربه پیدا کن',
+  'cp.what': 'Cat Me If You Can چیست؟',
+  'cp.helpNote': 'شاید این گربه کمک لازم داشته باشد. داوطلب‌ها خبر دارند.',
+  'cp.helpGuide': 'چطور می‌توانی کمک کنی',
+  'cp.careNote': 'داوطلب‌ها همین حالا از این گربه مراقبت می‌کنند.',
+  'cp.adoptedNote': 'خبر خوب: این گربه حالا خانه دارد.',
+  'cp.missingNote': 'مدتی است دیده نشده – {name} را دیده‌ای؟',
+  'cp.missingThis': 'مدتی است دیده نشده – این گربه را دیده‌ای؟',
+  'cp.missingTitle': '{name} را دیده‌ای؟',
+  'cp.missingHow': 'اگر آن را دیدی، در بازی عکسش را بگیر.',
+  'cp.memory': 'به یادش',
+  'cp.memoryTitle': 'به یاد {name}',
+  'cp.memoryNote': 'این گربه دیگر میان ما نیست. از همهٔ کسانی که مراقبش بودند ممنونیم.',
+  'cp.photoOf': 'عکس {name}، گربه‌ای خیابانی در کادیکوی',
+  'cp.photoThis': 'عکس یک گربهٔ خیابانی در کادیکوی',
+  'cp.drawing': 'نقاشی گربه. هنوز عکسی از آن نداریم.',
+  'cp.notFound': 'این گربه را پیدا نکردیم',
+  'cp.notFoundText': 'شاید لینک اشتباه است، یا صفحه حذف شده.',
+  'cp.shareText': 'با {name} آشنا شو، گربه‌ای خیابانی در کادیکوی! #CatMeIfYouCan',
+  'cp.shareThis': 'با این گربهٔ خیابانی در کادیکوی آشنا شو! #CatMeIfYouCan',
+  'share.copy': 'کپی لینک',
+  'share.copied': 'لینک کپی شد!',
+  'share.copyHint': 'این لینک را کپی کن:',
+  'share.savedLink': 'تصویر ذخیره شد. لینک کپی شد.',
 
   // ── Erweiterung: cafe ──
 

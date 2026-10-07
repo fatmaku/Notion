@@ -6,7 +6,7 @@ import { esc, sep, bdi, fmtNum, catImg, stars, severityChip, fmtAge, fmtWeight, 
 import { SEX, EAR_TIP, BEHAVIOR, EYE_COLORS, BCS_CLASSES, HEALTH_FLAGS, RARITY, AGE_GROUPS, breedLabel } from '../../core/taxonomy.js';
 import { questText } from './home.js';
 import { conditionFormHtml, bindConditionForm, readConditionForm } from './condition.js';
-import { shareCat } from '../share.js';
+import { shareCat, shareMessage } from '../share.js';
 
 function bcsBar(score) {
   if (!Number.isFinite(score)) return `<span class="muted">${esc(t('common.unknown'))}</span>`;
@@ -129,8 +129,9 @@ export function showCatchCard(result, app, { onClose } = {}) {
     e.target.disabled = true;
     try {
       const named = m.el.querySelector('[data-name]').textContent;
-      const how = await shareCat({ ...cat, name: cat.name || (named !== t('card.unnamed') ? named : null) }, a);
-      if (how === 'saved') toast(t('share.saved'), { type: 'success' });
+      const url = app.api.catPageUrl ? app.api.catPageUrl(cat.id, getLang()) : null; // öffentliche Seite /c/<id>
+      const msg = shareMessage(await shareCat({ ...cat, name: cat.name || (named !== t('card.unnamed') ? named : null) }, a, { url }));
+      if (msg) toast(msg, { type: 'success' });
     } catch {
       toast(t('err.generic'), { type: 'error' });
     } finally {

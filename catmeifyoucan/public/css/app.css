@@ -610,6 +610,8 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 :dir(rtl) .q-xp, :dir(rtl) .xp, :dir(rtl) .q-prog { direction: ltr; }
 
 /* ── Erweiterung: share ── */
+/* „Link kopieren“: Rückfall-Dialog mit dem Link zum Markieren (öffentliche Seite: css/catpage.css) */
+.share-link { margin: .4rem 0 0; font-size: .9rem; text-align: start; }
 
 /* ── Erweiterung: cafe ── */
 

@@ -344,6 +344,12 @@ export async function createApp(options = {}) {
   });
 
   // ── Erweiterung: share ──
+  // Öffentliche Katzenseiten /c/<id> mit Link-Vorschau, robots.txt, sitemap.xml (server/share.js)
+  const { createSharePages } = await import('./share.js');
+  const sharePages = createSharePages({
+    engine, publicDir, photoDir: photos.dir, headers, publicUrl, trustProxy, limiter: lim.api, now,
+    helpGuideUrl: options.helpGuideUrl || process.env.CATME_HELP_GUIDE_URL || null,
+  });
 
   // ── Erweiterung: cafe ──
 
@@ -378,6 +384,7 @@ export async function createApp(options = {}) {
         if (servePhoto(req, res, photos.dir, url.pathname.slice('/photos/'.length))) return;
         throw new HttpError(404, 'not_found');
       }
+      if (await sharePages(req, res, url, ip)) return; // Erweiterung share: /c/<id>, /robots.txt, /sitemap.xml
       if (url.pathname === '/' || url.pathname === '/index.html') {
         const lang = pickSiteLang(url.searchParams.get('lang'), req.headers['accept-language']);
         if (serveLanding(req, res, publicDir, { headers, lang, publicUrl })) return;

@@ -284,7 +284,7 @@ test('Zustand melden: beim Fang (einmal, +XP) und vom Profil; ernst → Hilfe-Ra
   assert.equal(rep.status, 'active', 'hungrig allein ist kein Notfall');
   assert.equal(s.store.players.get(p.id).xp, xp0 + s.engine.ctx.game.xp.conditionReport);
   assert.throws(() => s.engine.reportCondition(p, r.observation.id, { tags: ['sick'] }), { code: 'already_reported' });
-  assert.throws(() => s.engine.reportCondition(p, r.observation.id.replace(/.$/, 'x'), { tags: ['sick'] }), { code: 'observation_not_found' });
+  assert.throws(() => s.engine.reportCondition(p, `${r.observation.id}_gibtsnicht`, { tags: ['sick'] }), { code: 'observation_not_found' });
 
   s.tick(60000);
   const q = await s.engine.createPlayer({ nickname: 'Zweite', tokenHash: 'w'.repeat(64) });
