@@ -2,7 +2,7 @@
 // Wird auf der Sammelkarte nach dem Fang und im Katzenprofil benutzt.
 
 import { t, L } from '../i18n.js';
-import { esc } from '../ui.js';
+import { esc, sep } from '../ui.js';
 import { CONDITION_TAGS } from '../../core/taxonomy.js';
 
 /** HTML der Auswahl. Die Werte liest readConditionForm() wieder aus. */
@@ -37,5 +37,5 @@ export function readConditionForm(root) {
 
 /** Kurztext der gemeldeten Zustände, z. B. „🍽️ Hungrig · 🤒 Krank“. */
 export function conditionText(tags) {
-  return (tags || []).filter((k) => CONDITION_TAGS[k]).map((k) => `${CONDITION_TAGS[k].icon} ${L(CONDITION_TAGS, k)}`).join(' · ');
+  return (tags || []).filter((k) => CONDITION_TAGS[k]).map((k) => `${CONDITION_TAGS[k].icon} ${L(CONDITION_TAGS, k)}`).join(sep());
 }

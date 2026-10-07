@@ -2,7 +2,7 @@
 // Ranglisten (XP · Entdeckungen · Katzen) und Hilfe-Radar.
 
 import { t, L } from '../i18n.js';
-import { esc, bdi, fmtNum, pct, catImg, statusChip, severityChip, fmtAgo, catName } from '../ui.js';
+import { esc, sep, bdi, fmtNum, pct, catImg, statusChip, severityChip, fmtAgo, catName } from '../ui.js';
 import { columnChart, hbarChart, tableHtml } from '../charts.js';
 import { PATTERNS, AGE_GROUPS, SEVERITY, BCS_CLASSES, HEALTH_FLAGS, CONDITION_TAGS } from '../../core/taxonomy.js';
 import { conditionText } from './condition.js';
@@ -54,12 +54,12 @@ export async function renderStats(view, app, params) {
     </section>
     <section class="card" id="help"><h2>🆘 ${esc(t('stats.helpRadar'))}</h2><div data-help></div></section>
     ${app.api.isDemo ? '' : `<section class="card"><h2>${esc(t('stats.export'))}</h2>
-      <p class="small"><a href="/api/export/cats.csv?lang=${esc(app.lang())}" download>⬇ CSV</a> · <a href="/api/export/cats.geojson" download>⬇ GeoJSON</a></p>
+      <p class="small"><a href="/api/export/cats.csv?lang=${esc(app.lang())}" download>⬇ CSV</a>${sep()}<a href="/api/export/cats.geojson" download>⬇ GeoJSON</a></p>
       <p class="small muted">${esc(t('map.fuzzy'))}</p></section>`}`;
 
   const charts = {
     perDay: {
-      draw: (el) => columnChart(el, s.perDay.map((d) => ({ label: d.day, short: d.day.slice(8), value: d.observations, tip: `${d.day}: ${fmtNum(d.observations)} · +${fmtNum(d.newCats)} 🔭 · ${fmtNum(d.players)} 👤` })), { every: 5 }),
+      draw: (el) => columnChart(el, s.perDay.map((d) => ({ label: d.day, short: fmtNum(Number(d.day.slice(8))), value: d.observations, tip: `${d.day}: ${fmtNum(d.observations)}${sep()}+${fmtNum(d.newCats)} 🔭${sep()}${fmtNum(d.players)} 👤` })), { every: 5 }),
       table: () => tableHtml([t('stats.perDay'), t('stats.obs'), '🔭', '👤'], s.perDay.map((d) => [d.day, d.observations, d.newCats, d.players])),
     },
     health: {
@@ -95,7 +95,7 @@ export async function renderStats(view, app, params) {
       table: () => tableHtml([t('stats.flags'), t('stats.col.cats')], Object.keys(HEALTH_FLAGS).map((k) => [L(HEALTH_FLAGS, k), s.healthFlags[k] || 0])),
     },
     hours: {
-      draw: (el) => columnChart(el, s.hours.map((v, h) => ({ label: `${String(h).padStart(2, '0')}:00`, short: String(h), value: v })), { every: 3, height: 150 }),
+      draw: (el) => columnChart(el, s.hours.map((v, h) => ({ label: `${String(h).padStart(2, '0')}:00`, short: fmtNum(h), value: v })), { every: 3, height: 150 }),
       table: () => tableHtml([t('stats.hours'), t('stats.obs')], s.hours.map((v, h) => [`${String(h).padStart(2, '0')}:00`, v])),
     },
   };
@@ -138,7 +138,7 @@ export async function renderStats(view, app, params) {
   const drawLb = async () => {
     const lb = await app.api.leaderboard(period, metric);
     const meNick = app.player && app.player.nickname;
-    lbEl.innerHTML = lb.items.length ? lb.items.map((r) => `<li class="${r.nickname === meNick ? 'me' : ''}"><span class="rank-n">${r.rank <= 3 ? ['🥇', '🥈', '🥉'][r.rank - 1] : r.rank}</span><span class="rank-name">${esc(r.nickname)}</span><span class="rank-v">${fmtNum(r.value)} ${metric === 'xp' ? 'XP' : metric === 'discoveries' ? '🔭' : '🐱'}</span></li>`).join('')
+    lbEl.innerHTML = lb.items.length ? lb.items.map((r) => `<li class="${r.nickname === meNick ? 'me' : ''}"><span class="rank-n">${r.rank <= 3 ? ['🥇', '🥈', '🥉'][r.rank - 1] : fmtNum(r.rank)}</span><span class="rank-name">${bdi(r.nickname)}</span><span class="rank-v">${fmtNum(r.value)} ${metric === 'xp' ? 'XP' : metric === 'discoveries' ? '🔭' : '🐱'}</span></li>`).join('')
       : `<li class="muted">${esc(t('lb.empty'))}</li>`;
   };
   view.querySelector('[data-period]').addEventListener('click', (e) => {
@@ -164,7 +164,7 @@ export async function renderHelpList(el, app) {
   const h = await app.api.help();
   el.innerHTML = `<p class="small muted">${esc(t('help.lead'))}</p>${h.items.length ? `<ul class="helplist">${h.items.map((x) => `
     <li><a href="#/cat/${esc(x.cat.id)}">${catImg(x.cat, { size: 'sm' })}
-      <span><b>${catName(x.cat)}</b> · ${bdi(x.cat.districtName)}<br>${statusChip(x.cat.status)} ${severityChip(x.severity)}
+      <span><b>${catName(x.cat)}</b>${sep()}${bdi(x.cat.districtName)}<br>${statusChip(x.cat.status)} ${severityChip(x.severity)}
       ${x.lastReport ? `<br><small>${x.lastReport.tags && x.lastReport.tags.length ? `${esc(conditionText(x.lastReport.tags))} ` : ''}${esc(x.lastReport.note || '')} <span class="muted">· ${esc(fmtAgo(x.lastReport.at))}</span></small>` : ''}</span></a></li>`).join('')}</ul>`
     : `<p>${esc(t('help.empty'))}</p>`}`;
 }

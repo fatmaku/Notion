@@ -1,6 +1,6 @@
 // Cat Me If You Can – „Heute“: Tagesziel-Ring, Gutschein, Tagesaufgaben, heutige Fänge, Cafés.
 
-import { t, L, tx } from '../i18n.js';
+import { t, L, tx, getLang } from '../i18n.js';
 import { esc, isolate, fmtNum, catImg, fmtTime, toast, errorText, stars, pct } from '../ui.js';
 import { PATTERNS } from '../../core/taxonomy.js';
 
@@ -17,7 +17,11 @@ function ring(count, goal) {
 export function questText(q) {
   switch (q.kind) {
     case 'count': return t('quest.count', { n: q.n });
-    case 'pattern': return t('quest.pattern', { n: q.n, pattern: L(PATTERNS, q.pattern) });
+    case 'pattern': {
+      // Russisch: Fellmuster sind Adjektive („Рыжая“) – mitten im Satz klein („Найди 2 кошки: рыжая“)
+      const label = L(PATTERNS, q.pattern);
+      return t('quest.pattern', { n: q.n, pattern: getLang() === 'ru' ? label.toLocaleLowerCase('ru') : label });
+    }
     case 'district': return t('quest.district', { district: isolate(q.districtName || q.district) });
     case 'districts': return t('quest.districts', { n: q.n });
     case 'new': return t('quest.new');

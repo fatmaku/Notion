@@ -314,6 +314,7 @@ export default {
   'common.demo': 'Demo',
   'common.unknown': 'Unknown',
   'common.more': 'More',
+  'common.skip': 'Skip to content',
   'common.yes': 'Yes',
   'common.no': 'No',
 

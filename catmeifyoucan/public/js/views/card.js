@@ -2,7 +2,7 @@
 // Neue Katze → großes „NEUE KATZE!“ und Namensfeld für die Erstfinderin / den Erstfinder.
 
 import { t, L, tx, getLang } from '../i18n.js';
-import { esc, bdi, fmtNum, catImg, stars, severityChip, fmtAge, fmtWeight, fmtTime, modal, toast, errorText, confetti, patternLabel } from '../ui.js';
+import { esc, sep, bdi, fmtNum, catImg, stars, severityChip, fmtAge, fmtWeight, fmtTime, modal, toast, errorText, confetti, patternLabel } from '../ui.js';
 import { SEX, EAR_TIP, BEHAVIOR, EYE_COLORS, BCS_CLASSES, HEALTH_FLAGS, RARITY, AGE_GROUPS, breedLabel } from '../../core/taxonomy.js';
 import { questText } from './home.js';
 import { conditionFormHtml, bindConditionForm, readConditionForm } from './condition.js';
@@ -11,23 +11,24 @@ import { shareCat } from '../share.js';
 function bcsBar(score) {
   if (!Number.isFinite(score)) return `<span class="muted">${esc(t('common.unknown'))}</span>`;
   const cls = score <= 3 ? 'low' : score <= 5 ? 'ok' : score <= 7 ? 'high' : 'vhigh';
-  return `<span class="bcs"><span class="bcs-track">${Array.from({ length: 9 }, (_, i) => `<i class="${i < score ? cls : ''}"></i>`).join('')}</span><b>${score}/9</b></span>`;
+  return `<span class="bcs"><span class="bcs-track">${Array.from({ length: 9 }, (_, i) => `<i class="${i < score ? cls : ''}"></i>`).join('')}</span><b dir="ltr">${fmtNum(score)}/${fmtNum(9)}</b></span>`;
 }
 
 export function factsHtml(a, { district } = {}) {
   const rows = [
-    [t('card.type'), `${esc(patternLabel(a.pattern))}${a.long_hair ? ' · 〰' : ''}`],
+    [t('card.type'), `${esc(patternLabel(a.pattern))}${a.long_hair ? `${sep()}〰` : ''}`],
     [t('card.age'), esc(fmtAge(a.age_months_min, a.age_months_max)) + (a.age_group && a.age_group !== 'unknown' ? ` <small class="muted">(${esc(L(AGE_GROUPS, a.age_group))})</small>` : '')],
     [t('card.weight'), esc(fmtWeight(a.weight_kg_min, a.weight_kg_max))],
     [t('card.condition'), `${bcsBar(a.body_condition_score)} ${a.body_condition && a.body_condition !== 'unknown' ? `<small>${esc(L(BCS_CLASSES, a.body_condition))}</small>` : ''}`],
     [t('card.sex'), esc(L(SEX, a.sex_guess || 'unknown'))],
     [t('card.ear'), `${a.ear_tip === 'tipped' ? '✂️ ' : ''}${esc(L(EAR_TIP, a.ear_tip || 'not_visible'))}`],
-    [t('card.health'), a.health_assessed === false ? `<span class="muted">${esc(t('common.unknown'))}</span>` : `${severityChip(a.health_severity)}${(a.health_flags || []).length ? `<br><small>${a.health_flags.map((f) => esc(L(HEALTH_FLAGS, f))).join(' · ')}</small>` : ''}${a.health_notes ? `<br><small class="muted">${esc(a.health_notes)}</small>` : ''}`],
+    [t('card.health'), a.health_assessed === false ? `<span class="muted">${esc(t('common.unknown'))}</span>` : `${severityChip(a.health_severity)}${(a.health_flags || []).length ? `<br><small>${a.health_flags.map((f) => esc(L(HEALTH_FLAGS, f))).join(sep())}</small>` : ''}${a.health_notes ? `<br><small class="muted" lang="tr" dir="auto">${esc(a.health_notes)}</small>` : ''}`],
     [t('card.behavior'), esc(L(BEHAVIOR, a.behavior || 'unknown'))],
   ];
   if (a.eye_color && a.eye_color !== 'unknown') rows.push([t('card.eyes'), esc(L(EYE_COLORS, a.eye_color))]);
   if (a.breed_guess) rows.push([t('card.breed'), esc(breedLabel(a.breed_guess, getLang()))]);
-  if (a.distinctive_marks) rows.push([t('card.marks'), esc(a.distinctive_marks)]);
+  // Merkmale schreibt die KI auf Englisch, Gesundheitsnotizen auf Türkisch (für Freiwillige vor Ort) – Sprache auszeichnen
+  if (a.distinctive_marks) rows.push([t('card.marks'), `<span lang="en" dir="auto">${esc(a.distinctive_marks)}</span>`]);
   if (district) rows.push([t('card.place'), bdi(district)]);
   return `<dl class="facts">${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join('')}</dl>`;
 }
@@ -62,7 +63,7 @@ export function showCatchCard(result, app, { onClose } = {}) {
       <div class="xpbox">
         ${xp.gained ? `<b class="xp">${esc(t('card.xp', { n: xp.gained }))}</b>` : ''}
         <span class="prog">${esc(t('card.progress', { n: today.count, goal: today.goal }))}</span>
-        <span class="muted small">${fmtTime(result.observation.at)} · ${bdi(cat.districtName)}</span>
+        <span class="muted small">${fmtTime(result.observation.at)}${sep()}${bdi(cat.districtName)}</span>
       </div>
       ${notCounted ? `<p class="note warn">${esc(t('card.notCounted', { why: notCounted }))}</p>` : ''}
       <form class="report-box" data-form="report">

@@ -2,7 +2,7 @@
 
 import { RemoteApi, createLocalApi } from './api.js';
 import { t, getLang, setLang, LANGS, LANG_INFO, tx } from './i18n.js';
-import { esc, toast, errorText } from './ui.js';
+import { esc, sep, toast, errorText, fmtNum } from './ui.js';
 import { renderHome } from './views/home.js';
 import { renderCatch } from './views/catch.js';
 import { renderDex } from './views/dex.js';
@@ -60,7 +60,7 @@ async function chooseApi() {
 
 function shell(app) {
   document.body.innerHTML = `
-    <a class="skip" href="#view">${esc(t('common.more'))}</a>
+    <a class="skip" href="#view">${esc(t('common.skip'))}</a>
     <header class="top">
       <a href="#/" class="brand" aria-label="Cat Me If You Can"><img src="icons/logo.svg" alt="" width="36" height="36">
         <span class="wordmark"><b>Cat Me</b><i>If You Can</i></span></a>
@@ -192,7 +192,7 @@ async function boot() {
       if (!el || !app.player) return;
       const p = app.player;
       el.innerHTML = `<span class="lvl">${esc(t('home.level', { n: p.level }))}</span><span class="avatar">${esc(p.nickname.slice(0, 1).toLocaleUpperCase('tr'))}</span>`;
-      el.title = `${p.nickname} · ${tx(p.title)} · ${p.xp} XP`;
+      el.title = `${p.nickname}${sep()}${tx(p.title)}${sep()}${fmtNum(p.xp)} XP`;
     },
     async refreshPlayer() {
       try {

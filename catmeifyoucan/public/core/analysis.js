@@ -243,14 +243,20 @@ export function trAblative(name) {
 export function fallbackSummary(analysis, districtName, lang) {
   const p = PATTERNS[analysis.pattern] || PATTERNS.diger;
   const name = (p.label && (p.label[lang] || p.label.en)) || p.label.tr;
-  // Ohne Viertel: Kadıköy in der Schrift der Sprache (wie in BRAND.md)
-  const where = districtName || { ru: 'Кадыкёй', ar: 'قاضي كوي', fa: 'کادیکوی' }[lang] || 'Kadıköy';
-  if (lang === 'de') return `${name} aus ${where}.`;
-  if (lang === 'en') return `A ${name.toLowerCase()} from ${where}.`;
-  if (lang === 'ru') return districtName ? `${name} из района ${where}.` : `${name} из Кадыкёя.`;
-  if (lang === 'ar') return `قطة من ${where}: ${name}.`;
-  if (lang === 'fa') return `گربهٔ ${name} از ${where}.`;
-  return `${trAblative(where)} bir ${name.toLocaleLowerCase('tr')}.`;
+  const generic = !PATTERNS[analysis.pattern] || analysis.pattern === 'diger'; // „Andere“ taugt nicht als Beschreibung
+  // Ohne Viertel: Kadıköy in der Schrift der Sprache (wie in BRAND.md). In ar/fa den lateinischen
+  // Ortsnamen isolieren (FSI … PDI), sonst wird „19 Mayıs“ zu „Mayıs 19“.
+  const place = districtName || { ru: 'Кадыкёй', ar: 'قاضي كوي', fa: 'کادیکوی' }[lang] || 'Kadıköy';
+  const where = lang === 'ar' || lang === 'fa' ? `\u2068${place}\u2069` : place;
+  if (lang === 'de') return generic ? `Eine Katze aus ${where}.` : `${name} aus ${where}.`;
+  if (lang === 'en') return generic ? `A cat from ${where}.` : `A ${name.toLowerCase()} from ${where}.`;
+  if (lang === 'ru') {
+    const from = districtName ? `из квартала ${where}` : 'из Кадыкёя';
+    return generic ? `Кошка ${from}.` : `Кошка ${from} (${name.toLocaleLowerCase('ru')}).`;
+  }
+  if (lang === 'ar') return generic ? `قطة من ${where}.` : `قطة ${name} من ${where}.`;
+  if (lang === 'fa') return generic ? `یک گربه از ${where}.` : `گربهٔ ${name} از ${where}.`;
+  return generic ? `${trAblative(where)} bir kedi.` : `${trAblative(where)} bir ${name.toLocaleLowerCase('tr')}.`;
 }
 
 export { BCS_CLASSES };

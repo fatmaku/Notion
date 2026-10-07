@@ -447,6 +447,7 @@ export default {
   'common.demo': 'تجريبي',
   'common.unknown': 'غير معروف',
   'common.more': 'المزيد',
+  'common.skip': 'انتقل إلى المحتوى',
   'common.yes': 'نعم',
   'common.no': 'لا',
 

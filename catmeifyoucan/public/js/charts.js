@@ -123,8 +123,11 @@ export function hbarChart(el, rows, { color = 'var(--series-1)', unit = '', tota
     const pct = total ? ` (${Math.round((r.value / total) * 100)} %)` : '';
     const tipHtml = esc(`${r.label}: ${fmtNum(r.value)}${unit}${pct}`);
     parts.push(`<rect x="0" y="${y}" width="${W}" height="${rowH - 2}" fill="transparent" data-tip="${tipHtml}"/>`);
-    const text = fitText(`${r.icon ? `${r.icon} ` : ''}${r.label}`, labelW - 10);
-    parts.push(`<text x="${labelW - 8}" y="${y + rowH / 2 + 3}" class="lbl" text-anchor="end">${esc(text)}</text>`);
+    // Lange Beschriftungen: Klammerzusatz weglassen („Krank (Augen, Nase …)“ → „Krank“), voller Text als Tooltip
+    const full = `${r.icon ? `${r.icon} ` : ''}${r.label}`;
+    const short = full.replace(/\s*[(（][^)）]*[)）]\s*$/, '');
+    const text = fitText(textWidth(full) <= labelW - 10 ? full : short, labelW - 10);
+    parts.push(`<text x="${labelW - 8}" y="${y + rowH / 2 + 3}" class="lbl" text-anchor="end"><title>${esc(full)}</title>${esc(text)}</text>`);
     if (bw > 0) parts.push(`<path d="${barPath(labelW, y + (rowH - 16) / 2 - 1, bw, 16, 'right')}" fill="${r.color || color}" data-tip="${tipHtml}"/>`);
     parts.push(`<text x="${labelW + bw + 6}" y="${y + rowH / 2 + 3}" class="val">${fmtNum(r.value)}</text>`);
   });
@@ -151,7 +154,7 @@ export function lineChart(el, points, { yMin = 1, yMax = 9, height = 160, color 
   if (band) parts.push(`<rect x="${m.l}" y="${sy(band[1])}" width="${iw}" height="${sy(band[0]) - sy(band[1])}" class="okband"/>`);
   for (const tv of [yMin, Math.round((yMin + yMax) / 2), yMax]) {
     parts.push(`<line x1="${m.l}" x2="${W - m.r}" y1="${sy(tv)}" y2="${sy(tv)}" class="grid"/>`);
-    parts.push(`<text x="${m.l - 6}" y="${sy(tv) + 4}" class="tick" text-anchor="end">${tv}</text>`);
+    parts.push(`<text x="${m.l - 6}" y="${sy(tv) + 4}" class="tick" text-anchor="end">${fmtNum(tv)}</text>`);
   }
   const pts = points.filter((p) => Number.isFinite(p.y));
   if (pts.length > 1) parts.push(`<polyline points="${pts.map((p) => `${sx(p.x)},${sy(p.y)}`).join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`);
@@ -160,7 +163,7 @@ export function lineChart(el, points, { yMin = 1, yMax = 9, height = 160, color 
     parts.push(`<circle cx="${sx(p.x)}" cy="${sy(p.y)}" r="4.5" fill="${color}" stroke="var(--surface)" stroke-width="2" data-tip="${esc(p.tip || String(p.y))}"/>`);
   }
   const lastP = pts[pts.length - 1];
-  if (lastP) parts.push(`<text x="${Math.min(W - m.r - 4, sx(lastP.x) + 8)}" y="${sy(lastP.y) - 8}" class="val" text-anchor="end">${lastP.y}</text>`);
+  if (lastP) parts.push(`<text x="${Math.min(W - m.r - 4, sx(lastP.x) + 8)}" y="${sy(lastP.y) - 8}" class="val" text-anchor="end">${fmtNum(lastP.y)}</text>`);
   el.innerHTML = `<svg class="viz" viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img">${parts.join('')}</svg>`;
   bindTips(el);
 }

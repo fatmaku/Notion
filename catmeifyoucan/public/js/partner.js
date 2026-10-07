@@ -40,7 +40,7 @@ let lang = (() => {
     return 'tr';
   }
 })();
-if (!T[lang]) lang = 'tr';
+if (!T[lang]) lang = 'en'; // Café-Seite gibt es auf tr/en/de – sonst Englisch (BRAND.md §3)
 const t = (k, v) => {
   let s = T[lang][k] || T.tr[k] || k;
   if (s.includes('|') && v && v.n != null) s = s.split('|')[Number(v.n) === 1 ? 0 : 1];

@@ -2,7 +2,7 @@
 // heutige Katzen als Nachweis, Liste der Cafés mit ihrem Rabatt.
 
 import { t } from '../i18n.js';
-import { esc, catImg, fmtTime, toast, errorText, pct, confetti } from '../ui.js';
+import { esc, sep, catImg, fmtTime, toast, errorText, pct, confetti } from '../ui.js';
 
 let qrLib = null;
 function loadQr() {
@@ -51,12 +51,12 @@ export async function renderVoucher(view, app) {
   const state = v.redeemedAt ? 'redeemed' : v.expired ? 'expired' : 'valid';
   view.innerHTML = `
     <section class="voucher ${state}">
-      <header><img src="icons/logo.svg" alt="" width="44" height="44"><div><b>Cat Me If You Can</b><small>${esc(t('v.title'))} · ${esc(v.day)}</small></div></header>
+      <header><img src="icons/logo.svg" alt="" width="44" height="44"><div><b>Cat Me If You Can</b><small>${esc(t('v.title'))}${sep()}${esc(v.day)}</small></div></header>
       <div class="v-discount">${esc(t('v.discount', { n: best }))}</div>
       <div class="v-qr" data-qr></div>
       <div class="v-code"><small>${esc(t('v.code'))}</small><b>${esc(v.code)}</b></div>
       <div class="v-live"><span class="paw" aria-hidden="true">🐾</span><b data-clock>--:--:--</b></div>
-      <p class="v-state">${state === 'redeemed' ? `✓ ${esc(t('v.redeemed'))} · ${esc(v.redeemedBy || '')} · ${esc(fmtTime(v.redeemedAt))}` : state === 'expired' ? esc(t('v.expired')) : esc(t('v.validUntil', { t: '23:59' }))}</p>
+      <p class="v-state">${state === 'redeemed' ? `✓ ${esc(t('v.redeemed'))}${sep()}${esc(v.redeemedBy || '')}${sep()}${esc(fmtTime(v.redeemedAt))}` : state === 'expired' ? esc(t('v.expired')) : esc(t('v.validUntil', { t: '23:59' }))}</p>
       <p class="small">${esc(t('v.show'))}</p>
       <div class="v-cats"><small>${esc(t('v.cats', { n: v.catCount }))}</small><div class="strip">${today.cats.slice(0, 30).map((c) => catImg({ ...c, id: c.catId }, { size: 'xs' })).join('')}</div></div>
     </section>

@@ -396,6 +396,7 @@ export default {
   'common.demo': 'Демо',
   'common.unknown': 'Неизвестно',
   'common.more': 'Ещё',
+  'common.skip': 'К содержанию',
   'common.yes': 'Да',
   'common.no': 'Нет',
 

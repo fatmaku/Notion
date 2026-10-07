@@ -384,6 +384,7 @@ export default {
   'common.demo': 'نمایشی',
   'common.unknown': 'نامعلوم',
   'common.more': 'بیشتر',
+  'common.skip': 'رفتن به محتوا',
   'common.yes': 'بله',
   'common.no': 'نه',
 

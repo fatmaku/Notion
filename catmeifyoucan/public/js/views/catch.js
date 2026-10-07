@@ -1,7 +1,7 @@
 // Cat Me If You Can – Fangen: Kamera-Sucher mit AR-Rahmen, Standort, Wollknäuel-Wurf, Analyse.
 
 import { t } from '../i18n.js';
-import { esc, fmtNum, toast, errorText, modal, fmtUnit } from '../ui.js';
+import { esc, sep, fmtNum, toast, errorText, modal, fmtUnit, isolate } from '../ui.js';
 import { createCamera, captureFromFile, watchLocation, loadDetector } from '../camera.js';
 import { findRegion, findDistrict, jitter } from '../../core/geo.js';
 import { showCatchCard } from './card.js';
@@ -88,7 +88,8 @@ export async function renderCatch(view, app) {
     const d = findDistrict(region, pos.lat, pos.lon);
     const name = d ? `${d.name}${d.aka ? ` (${d.aka.split(' · ')[0]})` : ''}` : region.name;
     const weak = pos.accuracy > cfg.game.maxGpsAccuracyM;
-    locChip.textContent = simulated ? `🎭 ${t('catch.simulated')} · ${name}` : weak ? `📍 ${name} · ${t('catch.gpsWeak', { m: Math.round(pos.accuracy) })}` : `📍 ${name} · ±${fmtUnit('meter', Math.round(pos.accuracy))}`;
+    // Ortsname und Zahl je für sich isolieren, sonst mischt Arabisch/Persisch die Reihenfolge („±9 · Caferağa متر“)
+    locChip.textContent = simulated ? `🎭 ${t('catch.simulated')}${sep()}${isolate(name)}` : weak ? `📍 ${isolate(name)}${sep()}${t('catch.gpsWeak', { m: Math.round(pos.accuracy) })}` : `📍 ${isolate(name)}${sep()}${isolate(`±${fmtUnit('meter', Math.round(pos.accuracy))}`)}`;
     locChip.classList.toggle('bad', weak);
   }
 

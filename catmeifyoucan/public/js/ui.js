@@ -8,6 +8,12 @@ export function esc(v) {
   return String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
+/**
+ * Trenner zwischen Angaben: „Moda · 2 Std.“. Auf Persisch sieht der Mittelpunkt wie die Ziffer ۰ aus
+ * („۲ · ۳“ liest sich als „۲۰۳“) – dort steht das persische Komma.
+ */
+export const sep = () => (getLang() === 'fa' ? '، ' : ' · ');
+
 /** Ortsnamen u. ä. in eigener Schreibrichtung (sonst wird „19 Mayıs“ auf Arabisch zu „Mayıs 19“). */
 export const bdi = (v) => (v ? `<bdi>${esc(v)}</bdi>` : '');
 /** Dasselbe für reinen Text (textContent, Platzhalter in t()): Unicode-Isolate FSI … PDI. */
@@ -28,7 +34,8 @@ export const locale = () => langLocale();
 const TZ = 'Europe/Istanbul';
 
 export function fmtNum(n) {
-  return n == null ? '–' : new Intl.NumberFormat(locale()).format(n);
+  // Tausendertrenner erst ab 10 000 – wie die Zahlen in den Texten (t())
+  return n == null ? '–' : new Intl.NumberFormat(locale(), { maximumFractionDigits: 1, useGrouping: 'min2' }).format(n);
 }
 
 export function fmtTime(ts) {
@@ -40,7 +47,7 @@ export function fmtDate(ts) {
 }
 
 export function fmtDateTime(ts) {
-  return ts ? `${fmtDate(ts)} · ${fmtTime(ts)}` : '';
+  return ts ? `${fmtDate(ts)}${sep()}${fmtTime(ts)}` : '';
 }
 
 export function fmtAgo(ts, now = Date.now()) {
@@ -195,6 +202,7 @@ export function pct(n) {
   const l = getLang();
   if (l === 'tr') return `%${n}`;
   if (l === 'de') return `${n} %`;
-  if (l === 'ar' || l === 'fa') return new Intl.NumberFormat(locale(), { style: 'percent', maximumFractionDigits: 1 }).format(n / 100);
+  // als LTR-Einheit isoliert (LRI … PDI), sonst zieht die Zahl daneben mit („قطة 20% · 20“)
+  if (l === 'ar' || l === 'fa') return `\u2066${new Intl.NumberFormat(locale(), { style: 'percent', maximumFractionDigits: 1 }).format(n / 100)}\u2069`;
   return `${n}%`;
 }

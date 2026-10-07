@@ -1,7 +1,7 @@
 // Cat Me If You Can – KediDex: eigene Sammlung (mit Typen-Raster wie ein Pokédex) und alle Katzen.
 
 import { t, L } from '../i18n.js';
-import { esc, bdi, fmtNum, catImg, stars, statusChip, fmtAgo, patternLabel, catName } from '../ui.js';
+import { esc, sep, bdi, fmtNum, catImg, stars, statusChip, fmtAgo, patternLabel, catName } from '../ui.js';
 import { PATTERNS, CAT_STATUS } from '../../core/taxonomy.js';
 import { catAvatarDataUrl } from '../avatar.js';
 
@@ -14,7 +14,7 @@ function catTile(c, extra = '') {
     ${c.status && c.status !== 'active' ? `<span class="tile-status">${t(`status.icon.${c.status}`)}</span>` : ''}
     <span class="tile-name">${catName(c)}</span>
     <span class="tile-meta">${stars(c.rarity)}</span>
-    <span class="tile-sub">${bdi(c.districtName)}${extra ? ` · ${extra}` : ''}</span>
+    <span class="tile-sub">${bdi(c.districtName)}${extra ? `${sep()}${extra}` : ''}</span>
   </a>`;
 }
 

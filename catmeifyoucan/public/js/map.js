@@ -1,7 +1,7 @@
 // Cat Me If You Can – Karte (Leaflet, lokal mitgeliefert) für Kartenansicht und Mini-Karten.
 
 import { t, L as lbl, tx } from './i18n.js';
-import { esc, catImg, stars, statusChip, fmtAgo, toast, errorText, modal, pct, patternLabel } from './ui.js';
+import { esc, sep, catImg, stars, statusChip, fmtAgo, toast, errorText, modal, pct, patternLabel } from './ui.js';
 import { PLACE_TYPES, PATTERNS } from '../core/taxonomy.js';
 
 let leafletP = null;
@@ -71,7 +71,7 @@ export async function renderMap(view, app) {
   const [data, L] = await Promise.all([app.api.map(), loadLeaflet()]);
   const el = view.querySelector('[data-map]');
   if (!L) {
-    el.outerHTML = `<div class="pad"><p>${esc(t('map.offline'))}</p><ul class="cafes">${data.cats.slice(0, 100).map((c) => `<li><a href="#/cat/${esc(c.id)}">${esc(c.name || patternLabel(c.pattern))}</a> · ${esc(fmtAgo(c.lastSeenAt))}</li>`).join('')}</ul></div>`;
+    el.outerHTML = `<div class="pad"><p>${esc(t('map.offline'))}</p><ul class="cafes">${data.cats.slice(0, 100).map((c) => `<li><a href="#/cat/${esc(c.id)}">${esc(c.name || patternLabel(c.pattern))}</a>${sep()}${esc(fmtAgo(c.lastSeenAt))}</li>`).join('')}</ul></div>`;
     return;
   }
   const map = baseMap(L, el, app);
@@ -87,15 +87,15 @@ export async function renderMap(view, app) {
     });
     const m = L.marker([c.lat, c.lon], { icon, title: c.name || patternLabel(c.pattern) });
     m.bindPopup(() => `<a class="pop" href="#/cat/${esc(c.id)}">${catImg({ ...c, profile: { pattern: c.pattern } }, { size: 'sm' })}
-      <span><b>${esc(c.name || t('card.unnamed'))}</b><br>${stars(c.rarity)}<br>${statusChip(c.status)}<br><small>${esc(L_(c.pattern))} · ${esc(fmtAgo(c.lastSeenAt))}</small></span></a>`);
+      <span><b>${esc(c.name || t('card.unnamed'))}</b><br>${stars(c.rarity)}<br>${statusChip(c.status)}<br><small>${esc(L_(c.pattern))}${sep()}${esc(fmtAgo(c.lastSeenAt))}</small></span></a>`);
     layers.cats.addLayer(m);
   }
   for (const p of data.places) {
     const isCafe = p.type === 'partner';
     const icon = L.divIcon({ className: `pin-place ${isCafe ? 'cafe' : ''}`, html: `<span>${PLACE_TYPES[p.type] ? PLACE_TYPES[p.type].icon : '📍'}</span>`, iconSize: [30, 30], iconAnchor: [15, 15] });
     const m = L.marker([p.lat, p.lon], { icon, title: p.name, zIndexOffset: isCafe ? 500 : 0 });
-    m.bindPopup(`<b>${esc(p.name)}</b>${p.demo && !/demo/i.test(p.name) ? ` <span class="chip demo">${esc(t('common.demo'))}</span>` : ''}<br><small>${esc(lbl(PLACE_TYPES, p.type))}${p.address ? ` · ${esc(p.address)}` : ''}</small>
-      ${isCafe && p.reward ? `<br>☕ <b>${esc(pct(p.reward.discountPct))}</b> · ${esc(t('v.needs', { n: p.reward.minCats }))}` : ''}${p.description ? `<br><small>${esc(tx(p.description))}</small>` : ''}`);
+    m.bindPopup(`<b>${esc(p.name)}</b>${p.demo && !/demo/i.test(p.name) ? ` <span class="chip demo">${esc(t('common.demo'))}</span>` : ''}<br><small>${esc(lbl(PLACE_TYPES, p.type))}${p.address ? `${sep()}${esc(p.address)}` : ''}</small>
+      ${isCafe && p.reward ? `<br>☕ <b>${esc(pct(p.reward.discountPct))}</b>${sep()}${esc(t('v.needs', { n: p.reward.minCats }))}` : ''}${p.description ? `<br><small>${esc(tx(p.description))}</small>` : ''}`);
     (isCafe ? layers.cafes : layers.food).addLayer(m);
   }
   const maxHeat = Math.max(1, ...data.heat.map((h) => h[2]));

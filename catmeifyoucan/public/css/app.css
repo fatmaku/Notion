@@ -263,6 +263,12 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 .hero-side { flex: 1; min-width: 0; }
 .ring-wrap { position: relative; width: 132px; flex: none; }
 .ring { width: 132px; height: 132px; display: block; }
+.hero-card .btn { white-space: nowrap; }
+/* sehr schmale Handys (320 px): Ring über den Text statt daneben */
+@media (max-width: 359px) {
+  .hero-card { flex-direction: column; text-align: center; }
+  .hero-side { width: 100%; }
+}
 .ring-track { fill: none; stroke: rgba(251, 243, 228, .18); stroke-width: 14; }
 .ring-fill { fill: none; stroke: var(--orange); stroke-width: 14; stroke-linecap: round; transition: stroke-dashoffset .8s ease; }
 .ring-text { position: absolute; inset: 0; display: flex; align-items: baseline; justify-content: center; padding-top: 44px; gap: 2px; }

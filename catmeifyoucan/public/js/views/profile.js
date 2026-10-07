@@ -2,7 +2,7 @@
 // Außerdem: Regeln & Datenschutz.
 
 import { t, tx, LANGS, LANG_INFO, setLang, getLang } from '../i18n.js';
-import { esc, fmtNum, fmtAgo, toast, errorText, catImg, patternLabel } from '../ui.js';
+import { esc, sep, fmtNum, fmtAgo, toast, errorText, catImg, patternLabel } from '../ui.js';
 import { arEnabled, setArEnabled } from './catch.js';
 
 export async function renderProfile(view, app) {
@@ -14,7 +14,7 @@ export async function renderProfile(view, app) {
     <section class="card profile-head">
       <div class="avatar big">${esc(player.nickname.slice(0, 1).toLocaleUpperCase('tr'))}</div>
       <div><h1>${esc(player.nickname)}</h1>
-        <p>${esc(t('home.level', { n: player.level }))} · ${esc(tx(player.title))}${player.role !== 'player' ? ` · <span class="chip">${esc(t(`p.role.${player.role}`))}</span>` : ''}</p>
+        <p>${esc(t('home.level', { n: player.level }))}${sep()}${esc(tx(player.title))}${player.role !== 'player' ? `${sep()}<span class="chip">${esc(t(`p.role.${player.role}`))}</span>` : ''}</p>
         <div class="xpbar" title="${fmtNum(player.xp)} XP"><i style="width:${Math.round(lv.progress * 100)}%"></i></div>
         <small class="muted"><bdi dir="ltr">${fmtNum(player.xp)}${lv.next ? ` / ${fmtNum(lv.next)}` : ''} XP</bdi></small></div>
     </section>
@@ -29,7 +29,7 @@ export async function renderProfile(view, app) {
     <section class="card"><h2>${esc(t('p.recent'))}</h2>
       <ul class="timeline">${obs.slice(0, 15).map((o) => `
         <li><a href="#/cat/${esc(o.catId)}">${o.photoUrl ? `<img class="catimg sm" src="${esc(o.photoUrl)}" alt="">` : catImg({ id: o.catId, pattern: o.analysis.pattern }, { size: 'sm' })}</a>
-          <div><b>${esc(patternLabel(o.analysis.pattern))}</b> · ${esc(fmtAgo(o.at))} ${o.xp ? `<span class="chip"><bdi dir="ltr">+${fmtNum(o.xp)} XP</bdi></span>` : ''}${o.isDiscovery ? ' 🔭' : ''}
+          <div><b>${esc(patternLabel(o.analysis.pattern))}</b>${sep()}${esc(fmtAgo(o.at))} ${o.xp ? `<span class="chip"><bdi dir="ltr">+${fmtNum(o.xp)} XP</bdi></span>` : ''}${o.isDiscovery ? ' 🔭' : ''}
           ${!o.counted ? `<br><small class="warn">${esc(t('card.notCounted', { why: (o.flags || []).map((f) => t(`why.${f}`)).join(', ') }))}</small>` : ''}</div></li>`).join('') || `<li class="muted">${esc(t('dex.empty'))}</li>`}
       </ul>
     </section>
@@ -40,7 +40,7 @@ export async function renderProfile(view, app) {
         <label class="check"><input type="checkbox" name="ar" ${arEnabled() ? 'checked' : ''}> ${esc(t('p.ar'))}</label>
         <button class="btn primary">${esc(t('p.save'))}</button>
       </form>
-      <p class="links"><a href="#/rules">📜 ${esc(t('p.rules'))}</a> · <a href="partner.html">☕ ${esc(t('p.partner'))}</a>${player.role === 'admin' ? ` · <a href="admin.html">🛡️ ${esc(t('p.admin'))}</a>` : ''}</p>
+      <p class="links"><a href="#/rules">📜 ${esc(t('p.rules'))}</a>${sep()}<a href="partner.html">☕ ${esc(t('p.partner'))}</a>${player.role === 'admin' ? `${sep()}<a href="admin.html">🛡️ ${esc(t('p.admin'))}</a>` : ''}</p>
       <button class="btn danger-soft small" data-reset>${esc(t('p.reset'))}</button>
     </section>`;
 
