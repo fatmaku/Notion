@@ -32,6 +32,10 @@ def cmd_instagram(args):
         instagram.import_insights_csv(con, args.klasor)
     else:
         instagram.import_export(con, args.klasor)
+    if con.execute("SELECT 1 FROM items WHERE viral_score IS NOT NULL LIMIT 1").fetchone():
+        from . import viral
+        _print("viral puanları yeniden hesaplanıyor (yeni performans verisi)…")
+        viral.rescore(con, progress=_print)  # geçmiş performans öğrenildi → puanlar güncel
 
 
 def _fmt_item(i):
