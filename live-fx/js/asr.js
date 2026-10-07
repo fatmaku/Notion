@@ -1141,7 +1141,7 @@
       if (f0 && this._tags[f0]) this._tags[f0] = opts.lang;
       // 2.2: the primary (= start) language: `primaryLang`, else opts.lang, else langs[0].
       const fp = autoFamily(opts.primaryLang);
-      if (fp && !this._tags[fp]) this._addLang(opts.primaryLang);
+      if (fp) this._addLang(opts.primaryLang); // a variant of a listed family replaces its tag; a new family is appended
       this._primary = fp && this._tags[fp] ? fp : f0 && this._tags[f0] ? f0 : this._families[0];
       this._family = this._primary;
       this._lang = this._tags[this._family];

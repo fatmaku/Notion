@@ -6,7 +6,7 @@
 const { HttpError, json, readJson } = require('./router');
 const auth = require('./auth');
 
-const BODY_LIMIT = 2 * 1024 * 1024; // 200 triggers with long keyword lists fit easily
+const BODY_LIMIT = 6 * 1024 * 1024; // 2.2: 1000 triggers with long keyword lists (+ phonetic aliases) fit easily
 
 function register(router, ctx) {
   router.route('GET', '/api/triggers', (req, res, c) => {

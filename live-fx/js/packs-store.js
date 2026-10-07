@@ -9,7 +9,7 @@
 
   function limit() {
     const s = S();
-    return s && s.LIMITS && Number.isFinite(s.LIMITS.triggers) ? s.LIMITS.triggers : 200;
+    return s && s.LIMITS && Number.isFinite(s.LIMITS.triggers) ? s.LIMITS.triggers : 1000;
   }
 
   /** How many triggers of `packId` are in `triggers` (by id). */

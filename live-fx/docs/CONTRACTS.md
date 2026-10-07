@@ -72,7 +72,7 @@ Exports of `LiveFXSchema`:
 
 | Export | Meaning |
 |---|---|
-| `VERSION` (=3), `SCHEMA_VERSION` (=3), `KINDS`, `POSITIONS`, `SCENES`, `LOOPS`, `TEXT_STYLES`, `THEMES`, `LIMITS` | `LIMITS = {triggers:200, keywords:50, keywordLen:60, label:40, text:80, emoji:16, hint:120, rainCount:60, stickerEmoji:32, sceneDuration:3600, cooldown:3600, transcriptChars:2000, assetBytes:8*1024*1024, sourceLen:80, idLen:64, comboSteps:6, comboDelay:10000, title:60, subtitle:80}`; `TEXT_STYLES = ['neon','gradient','bounce','glitch','sticker']` (2.1); `THEMES = ['neon','pastel','minimal','kinderbuch']` |
+| `VERSION` (=3), `SCHEMA_VERSION` (=3), `KINDS`, `POSITIONS`, `SCENES`, `LOOPS`, `TEXT_STYLES`, `THEMES`, `LIMITS` | `LIMITS = {triggers:1000 (2.2, was 200), keywords:50, keywordLen:60, label:40, text:80, emoji:16, hint:120, rainCount:60, stickerEmoji:32, sceneDuration:3600, cooldown:3600, transcriptChars:2000, assetBytes:8*1024*1024, sourceLen:80, idLen:64, comboSteps:6, comboDelay:10000, title:60, subtitle:80}`; `TEXT_STYLES = ['neon','gradient','bounce','glitch','sticker']` (2.1); `THEMES = ['neon','pastel','minimal','kinderbuch']` |
 | `ID_RE`, `SAFE_NAME`, `IMAGE_EXT`, `SOUND_EXT`, `ASSET_IMAGE_RE`, `ASSET_SOUND_RE`, `COLOR_RE` | regexes / lists above; `SAFE_NAME = /^[a-z0-9][a-z0-9._-]{0,99}$/i` |
 | `UPLOAD_IMAGE_RE`, `MEMES_IMAGE_RE`, `HOTLINK_SRC_RE` (2.1) | the three allowed `visual.src` forms above; `ASSET_IMAGE_RE` = upload or sticker (same-origin); `HTTP_SRC_RE` is a deprecated alias of `HOTLINK_SRC_RE` (it used to accept any http(s) URL) |
 | `PERF_MODES` (2.1) | `['auto','eco','high']` – overlay performance modes (docs/PERFORMANCE.md) |
@@ -139,7 +139,7 @@ bus.close()
 | `POST /fire` | auth | envelope (`fire`, `volume`, `theme`, `perf`, 2.2: `layout`, `story`, `story-state`; `theme`/`perf`/`volume` (per bus) /`layout` are remembered in `ctx.state`) | `{ok, id, overlays}`; 400 `invalid_envelope` |
 | `POST /api/fire` | auth | `{id}` or `{trigger}`, `source?`, `force?` | `{ok, fired, reason?: 'cooldown'\|'gap'\|'disabled'\|'unknown', id}`; 404 `unknown_trigger` |
 | `GET /api/triggers` | none | | `{ok, version:2, triggers, removed, updatedAt}` (already merged with defaults) |
-| `PUT /api/triggers` | auth | `{triggers, removed?}` | `{ok, count, warnings}`; 400 `invalid_triggers` |
+| `PUT /api/triggers` | auth | `{triggers, removed?}` (body <= 6 MB since 2.2, was 2 MB) | `{ok, count, warnings}`; 400 `invalid_triggers` |
 | `GET /api/assets` | none | | `{ok, assets:[{name, url:'assets/x.png', size, type:'image'\|'sound', mtime}]}` |
 | `POST /api/assets` | auth | raw body; headers `x-filename`, `content-type`; <= `LIMITS.assetBytes` | `{ok, asset}`; 413 `payload_too_large`, 415 `unsupported_type`, 400 `bad_filename` |
 | `DELETE /api/assets/:name` | auth | | `{ok}`; 404 `not_found` |
@@ -147,6 +147,11 @@ bus.close()
 | `POST /api/transcript` | auth | `{text (<= 2000), final?=true, lang?, source?}` | `{ok, panels}` |
 | `POST /api/smart/classify` | auth | `{text, lang?}` | `{ok, triggerId\|null, confidence, model, ms, cached}`; 503 `smart_unavailable`, 429 `busy`\|`rate_limited`, 504 `timeout`, 502 `upstream` |
 | `GET /api/smart/status` | none | | `{ok, available, reason, model, mock, calls, errors, timeouts, lastError}` |
+| `GET /api/tunnel` (2.2) | auth | | `{ok, status:'idle'\|'starting'\|'online'\|'error', url, hostname, phoneUrl (https://<x>.trycloudflare.com/m?token=…), since, error, manualUrl, binary}` (`server/api-tunnel.js`, `server/tunnel.js`) |
+| `POST /api/tunnel/start` (2.2) | auth | | same shape; resolves when the tunnel is `online` or `error` (binary from `LIVEFX_CLOUDFLARED` / PATH / one-time SHA-256-verified download to `<dataDir>/bin/`) |
+| `POST /api/tunnel/stop` (2.2) | auth | | same shape, `status:'idle'`; the child also dies with the server |
+
+Tunnel guard (2.2, `server/api-tunnel.js guard(req)`, run by server.js before routing): requests arriving through the tunnel (Host `*.trycloudflare.com` or a `cf-connecting-ip` header) need the panel cookie or a Bearer – only `GET /m`, `/health`, `/favicon.ico` are open; the tunnel hostname is appended to `LIVEFX_ALLOWED_HOSTS` only while the tunnel is online.
 | other `/api/*` | | | 404 `not_found` (registered by server.js) |
 
 Upload contract: the browser sends `fetch('/api/assets', {method:'POST', body: file, headers: {'x-filename': file.name, 'content-type': file.type}})`; curl uses `--data-binary @file`. The server lower-cases and sanitizes the basename to `SAFE_NAME`, resolves collisions with `-2`, `-3`, …, verifies magic bytes (PNG `89 50 4E 47`, JPEG `FF D8 FF`, GIF `GIF8`, WEBP `RIFF….WEBP`, MP3 `ID3` or `FF Ex`/`FF Fx`, WAV `RIFF….WAVE`, OGG `OggS`) and writes to `data/assets/` via tmp file + rename.
@@ -238,6 +243,21 @@ LiveFXASR.BACKOFF_MS, LiveFXASR.ALTERNATIVES_N (3), LiveFXASR.DEFAULT_STALL_MS (
 - Stall watchdog: re-armed on every `onstart`/`onresult`; fires only in state `listening` when `stallMs` passed without a result and (`voiceActivity` unset, or voice was seen since the last result – sampled once per second) -> `onError({code:'stalled', message:'Erkennung hängt – Neustart', fatal:false})`, `stats.stalls++`, abort + respawn (state `restarting`).
 - `setOptions()` works live: `alternatives` respawns the recognizer (`maxAlternatives` is read at `start()`), `restartEveryMs`/`stallMs` re-arm their timers. All timers are cleared by `stop()`, on fatal errors and whenever a generation is killed.
 - external: `start()` subscribes to `transcript` messages on the bus and calls `onText(m.text, m.final !== false, {source: 'Extern', lang: m.lang, at})`; `unsupported` when `bus.serverBase === null`. `alternatives`/`restartEveryMs`/`stallMs`/`voiceActivity` are ignored and `setOptions()` is a no-op; `stats` counts results/finals, `onEvent` gets `result`/`final`.
+
+### Backend `auto` and on-device recognition (LiveFX 2.2)
+
+```js
+LiveFXASR.create('auto', { langs: ['de-DE','tr-TR','en-US'], primaryLang: 'tr-TR', parallel: 'try'|'on'|'off', window: 3, switchAfter: 2,
+                           onDevice: 'auto'|'off', alternatives, restartEveryMs, stallMs, voiceActivity, onText, onState, onError, onEvent })
+  -> + get family, get langs, get primary (tag), get pinned, get parallel, get onDevice ('on'|'fallback'|'unsupported'|'off'|null)
+options += { langs, primaryLang, window, switchAfter, parallel, onDevice }; stats += { switches, parallel, detected: {de, tr, en} }
+LiveFXASR.AUTO_QUICK_SCORE 0.6, AUTO_SWITCH_SCORE 0.45, AUTO_GAP_MAX_MS 2000, AUTO_RETURN_FINALS 2, AUTO_RETURN_MS 8000, AUTO_CONFIDENT 0.75, AUTO_INTERIM_TOKENS 3
+LiveFXASR.onDeviceSupported() -> boolean   // SpeechRecognition.available or `processLocally` exists (Chrome 139+)
+```
+- Start language = `primaryLang` (a variant of a listed family replaces its tag, a new family is appended), else `opts.lang`, else `langs[0]`; every `start()` begins in the primary language unless pinned by `setLang(tag)`. `setOptions({primaryLang})` applies at once (idle: start language; listening + unpinned: switch, reason `primary`).
+- Switching mode: every final is scored by `LiveFXLangDetect.detect`; one final of another family with `score >= 0.6` switches at once, else `switchAfter` (2) agreeing finals with `>= 0.45` each (event `score` = their mean). With `voiceActivity` the swap waits for a speech gap in 500 ms steps, at most 2 s. Back to the primary after `AUTO_RETURN_FINALS` (2) primary finals of any score, one primary final `>= 0.6`, or 8 s without a final (`reason:'silence'`, timer cleared by `stop()`, never while pinned). `onEvent({type:'lang', lang, family, score, mode, reason:'start'|'detected'|'primary'|'silence'|'pinned'|'unpinned'|'interim'|'parallel-unsupported', primary})`.
+- Parallel mode: interims come from the leader only; the first interim of another recognizer that scores `>= AUTO_CONFIDENT` in its own language with `>= AUTO_INTERIM_TOKENS` tokens makes it the leader (`reason:'interim'`, nothing restarted); the 8 s silence return changes the leader only.
+- On-device (`webspeech` + `auto`): with `onDevice:'auto'` (default) every fresh recognizer gets `rec.processLocally = true` when the instance exposes the property; `onEvent({type:'ondevice', state:'on'|'fallback', lang, error?, recognizer?})`. Any engine error other than `not-allowed`/`audio-capture` while on-device (e.g. `language-not-supported`) → `onError({code, fatal:false})`, `state:'fallback'`, immediate cloud respawn (`restart` event with `reason:'ondevice'`) for the rest of the session; `setOptions({onDevice:'auto'})` retries. Not supported → `onDevice === 'unsupported'` silently.
 
 ### Backend `whisper` (LiveFX 1.4, offline, experimental – `js/asr.js` + `js/whisper-worker.js`, owned by package C)
 
@@ -334,6 +354,21 @@ Index (rebuilt in `setTriggers` / `setLang`): `exactIndex`, per level `foldIndex
 form (DL ≤ 1), and for high DL ≤ 2 a pigeonhole piece index (three 2-char pieces at offsets 0/3/6 of the folded form,
 tokens with a shorter fold in a `rest` list). Performance (test/matcher-fuzzy.test.js): 200 triggers × 8 keywords,
 20-word utterance, high – median ≈ 0.5 ms, max ≈ 1.3 ms (Node 22).
+
+**2.2 (latency, Turkish, phonetic aliases)** – `test/matcher-22.test.js`:
+```js
+new LiveFXMatcher.Matcher(triggers, { globalMinGap: 0.5 /* 2.2 default, was 1.2 */, prefixFire: false, phonetic: 'tr-TR'|'de'|'en'|null })
+matcher.prefixFire                // boolean, settable
+matcher.phonetic                  // getter: 'de'|'tr'|'en'|null
+matcher.setPhonetic(lang)         // -> normalized family or null ('auto'/'off'/null disable); rebuilds the index
+matcher.process(text, now, { final })   // `final` gates prefix firing (interims only)
+matcher.stats                     // { prefixFires, aliasHits }
+LiveFXMatcher.DEFAULT_GLOBAL_MIN_GAP (0.5), PREFIX_MIN (4), PREFIX_KEYWORD_MIN (6)
+```
+- A keyword occurrence that is blocked by a cooldown or the global gap is **not consumed**: it is re-evaluated on the next interim/final of the same utterance and fires once the block has passed (`endUtterance()` forgets it).
+- Prefix firing (off by default; the panel turns it on with reaction `fast`): a spoken token of ≥ 4 chars that is the unique prefix of exactly one single-word keyword of ≥ 6 chars (and no exact keyword token / stop-word itself) fires on an interim (`prefix: true` in `explain()`); the completed word does not fire again, a prefix that turns into another word is forgotten. Cooldown / gap apply; aliases never prefix-fire.
+- Turkish: `normalize` uses the Turkish case mapping when the text carries ı/İ/ş/ğ; at `medium` the fold treats ı≡i, ş≡s, ç≡c, ğ≡g.
+- Phonetic aliases: `setPhonetic(primaryLang)` expands every keyword of another language through `LiveFXPhonetic.expand` (js/phonetic.js) and indexes the respellings as **exact-only** aliases (`alias: true, fuzzy: true, spoken = heard text`, `stats.aliasHits`); an alias that equals a real keyword token of any trigger is dropped, alias + keyword at one position count once; keywords in the primary language get none. Without js/phonetic.js the matcher simply has no aliases. Performance: 1000 triggers × 8 keywords + aliases, medium – median < 3 ms.
 
 ## 9. Renderer (`js/fx.js`, global `LiveFXRenderer`) – owned by P3 / fx-engine (v2 in LiveFX 2.0)
 
@@ -620,3 +655,53 @@ triggers (fallback emoji). `index.html` and `mobile.html` load `js/safety.js` be
 fallback copy). Tests: `test/schema.test.js` (accepted hosts; http, look-alike hosts, userinfo, ports rejected; perf envelope),
 `test/review-2.0.test.js` (perf relayed + remembered), `test/e2e/82-sticker.js` (perf select → overlay, late overlay, URL pin;
 sticker tab → trigger → free-floating sticker; broken image → emoji card; screenshots `sticker-overlay.png`, `sticker-panel.png`).
+
+## 16. Release 2.2 – start wizard, story band, live story, volumes, phone remote, internet link
+
+**Panel** (`index.html`, `js/panel.js`, `css/panel.css`; e2e `test/e2e/36-wizard.js`):
+- Start wizard card `#wizard-card` on top, three `.wizard-step`s: `#wiz-mic` (`#wiz-mic-test` runs the meter 5 s → `#wiz-mic-status.ok|.err`),
+  `#wiz-obs` (`#wiz-format` landscape|portrait → `#wiz-overlay-url` = `<base>/overlay.html[?layout=portrait]` + `#wiz-size` „1920 × 1080“ / „1080 × 1920“,
+  `#wiz-copy-url` writes the clipboard, `ol.wiz-guide` with 6 steps, `#wiz-obs-dot` + `#wiz-obs-state` „Overlay verbunden ✔“ once `/health` reports
+  `overlays >= 2` (preview iframe + OBS), `#wiz-test-fx` fires `{id:'wizard-test', label:'TEST', sound:'pop', visual:{kind:'card', emoji:'🎉', text:'LiveFX läuft!'}}`
+  with source „Start-Assistent“), `#wiz-packs` (`#wiz-pack-tiles button[data-pack]` toggle packs through `LiveFXPacksStore`, `#wiz-pack-count`
+  „x / LIMITS.triggers Trigger · y / n Pakete“, `#wiz-collisions` lists keywords shared by two loaded packs). localStorage `livefx.wizard.format`.
+- `#btn-advanced` („⚙️ Erweitert anzeigen“ ↔ „… ausblenden“) toggles every `.card[data-advanced]` (API, combos, demo clip, OBS text, log …);
+  localStorage `livefx.panel.advanced` ('1'/'0', default collapsed). **Tests that need one of those cards call `window.livefx.advanced.set(true)` first.**
+- Settings: `#volume` (master), `#volume-sfx`, `#volume-ambient` (ranges 0..1, defaults 0.5 / 0.8 / 0.5, localStorage `livefx.volumes` JSON) → `{type:'volume', volume, bus?}`
+  (master without `bus`); `#story-layout` band|full|frame, `#band-height` 15..35, `#effect-zone` full|edges|bottom|top → `{type:'layout', storyLayout, band, zone}`
+  (always the full triple; localStorage `livefx.layout`); `#primary-lang` tr-TR|de-DE|en-US (localStorage `livefx.asr.primary`, default de-DE) → `primaryLang` of the
+  `auto` backend + `matcher.setPhonetic(primaryLang)`; `#live-story` checkbox (localStorage `livefx.liveStory`) → every transcript line as
+  `{type:'story', text, final, lang}`; `#gap` default **0.5**. Story mode (`#story-mode`) sets tolerance medium + gap 2 and switches the live story on; it
+  **no longer** forces reaction `safe`. Non-default volumes / layout are re-sent 1.5 s after boot (like theme / perf).
+- `window.livefx` additionally: `wizard {format, setFormat(f), overlayUrl(), testTrigger(), fireTest(), render()}`, `advanced {get(), set(on)}`,
+  `volumes {get(), set(bus, v), defaults}`, `layout {get(), set(patch)}`, `primaryLang` (get/set), `liveStory {get(), set(on)}`,
+  `packs {load(id), unload(id), toggle(id), present(id)}`.
+- Phone card `#mobile-card` (`js/mobile-link.js`): `#mobile-qr` canvas (`LiveFXQR.toCanvas`, LAN link), `#tunnel-box` with `#btn-tunnel`
+  (start ↔ stop, `POST /api/tunnel/start|stop`, polls `GET /api/tunnel` while `starting`), `#tunnel-dot` + `#tunnel-state` (aus | startet … | online | Fehler),
+  `#tunnel-url`, `#tunnel-qr` (hidden until online), `#btn-copy-tunnel`, `#tunnel-hint` + `#tunnel-manual` (release link). Script order adds `js/qr.js`,
+  `js/packs-store.js`, `js/phonetic.js` (before `js/matcher.js` consumers) – see `index.html`.
+
+**Phone page** (`mobile.html`, `js/mobile.js`, `css/mobile.css`; e2e `test/e2e/35-mobile.js`): `#btn-vol-down` / `#btn-vol-up` (±6 dB on the master,
+`#vol-label` „x %“, `#volume` range kept in sync), `#btn-band` („📖 Band an/aus“ → `{type:'layout', storyLayout:'band'|'full'}`), `#btn-zone` (cycles
+`{type:'layout', zone}`), `#favs-card` > `#favs button[data-id]` + `#favs-count` (long-press or `.star[data-act="fav"]` on a `#pad` tile toggles,
+localStorage `livefx.mobile.favs`, max 60), `#packs-card` > `#packs button.pack-tile[data-pack]` (`.loaded` / `.partial`; tap loads / unloads through
+`LiveFXPacksStore` + `LiveFXStore.save`) + `#packs-count` „loaded/n · triggers/limit Trigger“. Script order adds `packs-store.js`.
+
+**Shared modules** (UMD, in `sw.js` FULL_SHELL; `story-director.js` also in OVERLAY_SHELL):
+- `LiveFXQR` (`js/qr.js`): `encode(text) -> {version, size, modules, mask}` (byte mode, level M, versions 1–10, ≤ 213 bytes, else throws a German error),
+  `toCanvas(canvas, text, {scale=4, margin=2, dark, light})`, `toSvg(text, opts) -> string`, `toText(text)`, `isDark(code, x, y)`, `dataCapacityBytes(version)`,
+  `MAX_VERSION`. Test `test/qr.test.js` decodes with an independent reader.
+- `LiveFXPacksStore` (`js/packs-store.js`): `present(triggers, packId)`, `isLoaded(triggers, packId)` (≥ 80 % present), `add(triggers, packId) -> {triggers, added, skipped, warnings, label}`
+  (normalized, capped at `LIMITS.triggers`), `remove(triggers, packId) -> {triggers, removed, label}`, `summary(triggers) -> [{id, label, emoji, total, present, loaded, partial}]`,
+  `collisions(triggers) -> [{keyword, packs:[…]}]`, `limit()`.
+- `LiveFXStoryDirector` (`js/story-director.js`, docs/STORY.md): `create({lang:'auto'|'de'|'tr'|'en', caption}) -> {feed(text, {final, lang}) -> state|null, onChange(fn) -> unsubscribe, state, reset(), lang}`;
+  `matchLang(text)`, `SPRITE`, `LEX`, `LANGS`, `SCENE_BY_PLACE`, `SCENE_BY_WEATHER`, `SCENE_BY_TIME`, `LOOP_BY_SCENE`. State shape = `normalizeStoryState` (§1).
+  Test `test/story-director.test.js` (DE/TR/EN sentence → rain + night + forest + dragon (fly) + castle).
+- `LiveFXPhonetic` (`js/phonetic.js`): `variants(keyword, {from, to}) -> string[]` (≤ `MAX_VARIANTS` 8, never the keyword), `expand(keywords, primaryLang) -> {keyword: variants}`
+  (only keywords whose guessed family differs from the primary), `guess(text) -> 'de'|'tr'|'en'|null`, `family(tag)`, `FAMILIES`, `DICT`, `RULES`. Test `test/phonetic.test.js` (≥ 40 cases).
+- `LiveFXLangDetect` 2.2: Turkish letters ı ş ğ İ decide for `tr` at once (`signal:'letters'`, score ≥ `TR_LETTER_SCORE` 0.75); `TR_SHORT` stream words score 0.5 (`signal:'words'`);
+  Turkish lower-casing (`I → ı`, `İ → i`) whenever a Turkish signal is present.
+
+**Overlay / server**: see §2 (`layout`, `story`, `story-state`, `volume.bus`, `state.layout` / `state.volumes`), §4 (`/api/tunnel`), §9 (band, zones, `renderer.story`, three busses),
+§10 (URL pins `?story= ?band= ?zone=`), §13 / docs/SOUNDS.md (`PEAK_BUDGET` 0.6 per voice, limiter −9 dB, loops on the ambient bus).
+Versions: `package.json` + `sw.js` `SHELL_VERSION` 2.2.0. e2e: `29-story-band` (screenshots `story-band.png`, `story-band-portrait.png`), `36-wizard` (`wizard.png`).

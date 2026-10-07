@@ -29,7 +29,7 @@ node server.js            # → http://127.0.0.1:8787
    Quelle über die Kamera schieben. Sobald OBS das Overlay lädt, zeigt der Assistent **„Overlay verbunden ✔“**;
    **„Test-Effekt“** schickt eine Karte mit Sound in den Stream.
 4. **Pakete wählen** – Türkçe / Deutsch / English / Reaktionen / Story … antippen; der Zähler zeigt
-   `x / 200 Trigger`, Stichwörter, die in zwei Paketen vorkommen, werden gemeldet.
+   `x / 1000 Trigger`, Stichwörter, die in zwei Paketen vorkommen, werden gemeldet.
 
 Dann **„Mikro starten“** und etwas sagen: *„das ist ja krass“*. Hotkeys **1–9, 0, Q, W, E, R, T** feuern
 die ersten 15 Trigger von Hand. Weitere Karten (API, Kombis, Demo-Clip, Log) erscheinen über

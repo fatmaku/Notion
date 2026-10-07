@@ -234,6 +234,15 @@ button.pill-link:hover { border-color: var(--accent-2); }
 .wiz-status.ok { color: var(--ok); }
 .wiz-status.err { color: var(--accent); }
 .wiz-size { font-size: 18px; font-weight: 700; padding: 6px 0; font-variant-numeric: tabular-nums; }
+/* 2.2 (review): inside the narrow 3-column grid the URL / format rows wrap instead of clipping the input and select */
+.wizard-step .row { flex-wrap: wrap; align-items: flex-end; }
+.wizard-step .row > div { flex: 1 1 180px; min-width: 0; }
+.wizard-step .row > button { flex: 0 0 auto; }
+.wizard-step .row input, .wizard-step .row select { width: 100%; min-width: 0; box-sizing: border-box; }
+.wizard-step .row > div.wiz-url { flex-basis: 100%; } /* the URL gets its own full-width line, the copy button sits below it */
+#wiz-overlay-url { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+/* the internet link's <code> is empty until the tunnel is online – no stray box */
+.urls code:empty { display: none; }
 #wiz-overlay-url { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
 ol.wiz-guide { margin: 4px 0 0; padding-left: 20px; line-height: 1.7; }
 ol.wiz-guide li::marker { color: var(--accent-2); font-weight: 700; }

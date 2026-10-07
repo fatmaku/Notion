@@ -162,7 +162,8 @@ test('auto: registry and construction', async (t) => {
     assert.equal(a.primary, 'de-AT');
     assert.equal(a.lang, 'de-AT', 'idle: the start language follows the primary');
     a.start();
-    assert.equal(last().lang, 'de-AT');
+    assert.equal(FakeSR.instances[0].lang, 'de-AT', 'the first (leading) recognizer starts in the primary language');
+    assert.equal(a.lang, 'de-AT');
   });
 
   await t.test('langs with variants; start language = opts.lang when its family is listed, else langs[0]', (t) => {
@@ -254,7 +255,7 @@ test('auto: switching mode', async (t) => {
     // stale generation is ignored
     rec1.say('alte generation');
     rec1.emit('end');
-    assert.equal(calls.length, 2);
+    assert.equal(calls.length, 1, 'text and onend of the aborted recognizer are ignored');
     assert.equal(FakeSR.instances.length, 2);
     rec2.emit('start');
     assert.equal(asr.state, 'listening');

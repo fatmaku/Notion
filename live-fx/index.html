@@ -40,7 +40,7 @@
       <div class="wizard-step" id="wiz-obs" data-step="2">
         <div class="wizard-title"><span class="num">2</span> OBS verbinden <span class="wiz-dot-wrap"><span class="dot" id="wiz-obs-dot"></span> <span id="wiz-obs-state">Overlay noch nicht verbunden</span></span></div>
         <div class="row">
-          <div><label for="wiz-overlay-url">Browser-Quelle URL</label><input id="wiz-overlay-url" readonly spellcheck="false"></div>
+          <div class="wiz-url"><label for="wiz-overlay-url">Browser-Quelle URL</label><input id="wiz-overlay-url" readonly spellcheck="false"></div>
           <button type="button" id="wiz-copy-url" title="Overlay-URL in die Zwischenablage kopieren">📋 Kopieren</button>
         </div>
         <div class="row block">
@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="wizard-step" id="wiz-packs" data-step="3">
-        <div class="wizard-title"><span class="num">3</span> Pakete wählen <span class="count" id="wiz-pack-count">0 / 200 Trigger</span></div>
+        <div class="wizard-title"><span class="num">3</span> Pakete wählen <span class="count" id="wiz-pack-count">0 / 1000 Trigger</span></div>
         <p class="help">Antippen = laden, nochmal = entfernen. Alle Pakete passen zusammen rein.</p>
         <div class="wiz-packs" id="wiz-pack-tiles"></div>
         <p class="help warn" id="wiz-collisions" hidden></p>
