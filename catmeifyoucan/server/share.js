@@ -319,7 +319,9 @@ export function renderCatPage(d, { lang = 'en', base = '', now = Date.now(), gui
     note = `<section class="cp-note missing"><p><strong>${named ? th('cp.missingNote', { name: d.name }) : th('cp.missingThis')}</strong></p><p>${th('cp.missingHow')}</p></section>`;
   } else if (STATUS_NOTE[status]) {
     const n = STATUS_NOTE[status];
-    const guide = status === 'needs_help' ? safeHref(guideUrl) : null;
+    const guide0 = status === 'needs_help' ? safeHref(guideUrl) : null;
+    // Leitfaden in der Sprache dieser Seite öffnen (wie der Link „Was ist Cat Me If You Can?“)
+    const guide = guide0 ? `${guide0}${guide0.includes('?') ? '&' : '?'}lang=${T.lang}` : null;
     note = `<section class="cp-note ${n.cls}"><p><span aria-hidden="true">${n.icon}</span> ${th(n.key)}</p>${guide ? `<p><a href="${esc(guide)}"><span>${th('cp.helpGuide')}</span>${ARROW}</a></p>` : ''}</section>`;
   }
 
@@ -476,11 +478,14 @@ export function createSharePages({ engine, publicDir, photoDir = null, headers =
     }
   };
   const htmlHeaders = (extra = {}) => ({ 'Content-Type': 'text/html; charset=utf-8', ...headers, ...extra });
+  // Ohne feste Adresse (CATME_PUBLIC_URL) stehen Links aus dem Host-Header in der Antwort – dann nur im
+  // Browser zwischenspeichern, nie in geteilten Caches (sonst könnte ein gefälschter Host dort hängen bleiben).
+  const cacheFor = (sec) => `${publicUrl ? 'public' : 'private'}, max-age=${sec}`;
 
   return async function sharePages(req, res, url, ip) {
     const p = url.pathname;
     if (p === '/robots.txt') {
-      send(req, res, 200, robotsTxt(absoluteBase(req, { publicUrl, trustProxy })), { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=3600', 'X-Content-Type-Options': 'nosniff' });
+      send(req, res, 200, robotsTxt(absoluteBase(req, { publicUrl, trustProxy })), { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': cacheFor(3600), 'X-Content-Type-Options': 'nosniff' });
       return true;
     }
     if (p === '/sitemap.xml') {
@@ -491,7 +496,7 @@ export function createSharePages({ engine, publicDir, photoDir = null, headers =
         { file: 'report.html', extra: '<changefreq>monthly</changefreq><priority>0.7</priority>' },
       ].filter((p) => mtime(p.file) != null).map((p) => ({ loc: `/${p.file}`, at: mtime(p.file), extra: p.extra }));
       const xml = sitemapXml(base, engine.sitemapCats(), { landingAt: mtime('index.html'), appAt: mtime('app.html'), pages });
-      send(req, res, 200, xml, { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600', 'X-Content-Type-Options': 'nosniff' });
+      send(req, res, 200, xml, { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': cacheFor(600), 'X-Content-Type-Options': 'nosniff' });
       return true;
     }
     const m = /^\/c\/([^/]+)\/?$/.exec(p);
@@ -526,7 +531,7 @@ export function createSharePages({ engine, publicDir, photoDir = null, headers =
       return true;
     }
     const html = renderCatPage(data, { lang, base, now: now(), guideUrl: guideUrl(), langFromQuery, ogFallback: ogFallback(lang), photoSize: photoSize(data.photoUrl) });
-    send(req, res, 200, html, htmlHeaders({ 'Cache-Control': 'public, max-age=300', 'Content-Language': lang, Vary: 'Accept-Language' }));
+    send(req, res, 200, html, htmlHeaders({ 'Cache-Control': cacheFor(300), 'Content-Language': lang, Vary: 'Accept-Language' }));
     return true;
   };
 }

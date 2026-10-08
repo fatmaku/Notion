@@ -59,13 +59,19 @@ export function locale() {
   return LANG_INFO[lang].locale;
 }
 
-export function setLang(l) {
+/**
+ * Sprache wechseln. persist=false: nur für diese Seite (Café-Ansicht und Moderation gibt es nicht in allen
+ * 6 Sprachen – ihr Rückfall auf Englisch/Deutsch soll die gemerkte Spielsprache nicht überschreiben).
+ */
+export function setLang(l, { persist = true } = {}) {
   if (!STRINGS[l]) return;
   lang = l;
-  try {
-    localStorage.setItem('catme.lang', l);
-  } catch {
-    /* egal */
+  if (persist) {
+    try {
+      localStorage.setItem('catme.lang', l);
+    } catch {
+      /* egal */
+    }
   }
   applyDocLang();
 }

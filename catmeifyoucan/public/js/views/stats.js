@@ -166,7 +166,7 @@ export async function renderHelpList(el, app) {
   el.innerHTML = `<p class="small muted">${esc(t('help.lead'))}</p>${h.items.length ? `<ul class="helplist">${h.items.map((x) => `
     <li><a href="#/cat/${esc(x.cat.id)}">${catImg(x.cat, { size: 'sm' })}
       <span><b>${catName(x.cat)}</b>${sep()}${bdi(x.cat.districtName)}<br>${statusChip(x.cat.status)} ${severityChip(x.severity)}
-      ${x.lastReport ? `<br><small>${x.lastReport.tags && x.lastReport.tags.length ? `${esc(conditionText(x.lastReport.tags))} ` : ''}${esc(x.lastReport.note || '')} <span class="muted">· ${esc(fmtAgo(x.lastReport.at))}</span></small>` : ''}</span></a></li>`).join('')}</ul>`
+      ${x.lastReport ? `<br><small>${esc([x.lastReport.tags && x.lastReport.tags.length ? conditionText(x.lastReport.tags) : '', x.lastReport.note || ''].filter(Boolean).join(' '))}<span class="muted">${esc(sep())}${esc(fmtAgo(x.lastReport.at))}</span></small>` : ''}</span></a></li>`).join('')}</ul>`
     : `<p>${esc(t('help.empty'))}</p>`}`;
 }
 

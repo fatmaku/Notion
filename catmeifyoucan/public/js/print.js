@@ -161,7 +161,7 @@ function controls() {
   const k = state.kit;
   const who = k.cafe ? esc(t('print.for', { name: isolate(k.cafe.name) })) : esc(t(state.notFound ? 'print.notFound' : 'print.generic'));
   return `<section class="card pk-controls no-print">
-    <a class="back" href="partner.html" data-back><span class="dir-ic" aria-hidden="true">←</span> ${esc(t('common.back'))}</a>
+    <a class="back" href="partner.html" data-back><span class="dir-ic" aria-hidden="true">‹</span> ${esc(t('common.back'))}</a>
     <h1>${esc(t('print.title'))}</h1>
     <p class="${state.notFound ? 'warn' : 'muted'}" data-who>${who}</p>
     ${isLocalAddress(state.link) ? `<p class="warn small" data-local>⚠️ ${esc(t('print.local'))}</p>` : ''}

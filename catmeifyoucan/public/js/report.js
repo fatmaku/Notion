@@ -9,8 +9,9 @@
 
 import { RemoteApi, createLocalApi } from './api.js';
 import { t, L, getLang, setLang, LANGS, LANG_INFO, locale } from './i18n.js';
-import { esc, bdi, isolate, fmtNum, pct, sep, toast, modal, errorText } from './ui.js';
+import { esc, bdi, isolate, fmtNum, pct, sep, toast, errorText } from './ui.js';
 import { columnChart, hbarChart, tableHtml } from './charts.js';
+import { copyLink } from './share.js'; // wie in der App: Zwischenablage, sonst Dialog mit Link und „Schließen“
 import { AGE_GROUPS, BCS_CLASSES, SEVERITY, CONDITION_TAGS } from '../core/taxonomy.js';
 
 const MONTH_RE = /^\d{4}-(0[1-9]|1[0-2])$/;
@@ -396,20 +397,6 @@ async function share() {
     }
   }
   copyLink(url);
-}
-
-async function copyLink(url) {
-  try {
-    await navigator.clipboard.writeText(url);
-    toast(t('share.copied'));
-    return;
-  } catch {
-    /* kein Zugriff → Dialog zum Markieren */
-  }
-  const m = modal(`<h2>${esc(t('share.copy'))}</h2><p>${esc(t('share.copyHint'))}</p><input class="share-link" dir="ltr" readonly value="${esc(url)}">`);
-  const input = m.el.querySelector('input');
-  input.focus();
-  input.select();
 }
 
 function csvCell(v) {

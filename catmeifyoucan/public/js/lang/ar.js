@@ -520,7 +520,7 @@ export default {
   'cp.notFoundText': 'ربما الرابط خاطئ، أو حُذفت الصفحة.',
   'cp.shareText': 'تعرّف على {name}، قطة شارع في قاضي كوي! #CatMeIfYouCan',
   'cp.shareThis': 'تعرّف على قطة الشارع هذه في قاضي كوي! #CatMeIfYouCan',
-  'share.copy': 'نسخ الرابط',
+  'share.copy': 'انسخ الرابط',
   'share.copied': 'نُسخ الرابط!',
   'share.copyHint': 'انسخ هذا الرابط:',
   'share.savedLink': 'حُفظت الصورة. نُسخ الرابط.',

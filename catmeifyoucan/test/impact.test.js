@@ -436,7 +436,7 @@ test('HTTP: Leitfaden-Seite guide.html (CSP, kein Inline-Skript), App-Hülle, Ka
   const cat = activeCat(3);
   assert.equal((await j('POST', `/api/cats/${cat}/help`, { tags: ['injured'] }, r.token)).status, 200);
   const page = await (await fetch(`${base}/c/${cat}?lang=en`)).text();
-  assert.match(page, /href="\/guide\.html"/);
+  assert.match(page, /href="\/guide\.html\?lang=[a-z]{2}"/);
 });
 
 // ---------------------------------------------------------------- Texte

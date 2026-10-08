@@ -2442,6 +2442,20 @@ html[dir='rtl'] .chip {
   transform: translateY(-2px);
 }
 
+/* Pfeil wie bei den Karten im Spiel („›“): zeigt, dass jede Zeile ein Link ist; auf ar/fa gespiegelt */
+.walk-list a::after {
+  content: "›";
+  margin-inline-start: auto;
+  padding-inline-start: 8px;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--orange);
+}
+
+[dir="rtl"] .walk-list a::after {
+  content: "‹";
+}
+
 .walk-ic {
   flex: none;
   display: grid;

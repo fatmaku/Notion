@@ -285,7 +285,7 @@ test('GET /api/report: Monat, Standardmonat, Prüfung, Cache-Control, ETag/304, 
   assert.equal(res.status, 200);
   assert.match(res.headers.get('cache-control'), /^public, max-age=\d+$/);
   const etag = res.headers.get('etag');
-  assert.match(etag, /^"r-[\w-]{16}"$/);
+  assert.match(etag, /^"r-[\w-]{16}(-br|-gzip)?"$/, 'eigener ETag je Verfahren (fetch bietet br/gzip an)');
   const body = await res.json();
   assert.equal(body.totals.cats, 5);
   assert.equal(body.previous.totals.cats, 2);

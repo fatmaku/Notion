@@ -2,7 +2,7 @@
    Diagramme, Tabellen). Ruhiges Zeitungs-Layout, mobil zuerst (390 px, nutzbar ab 320 px), RTL mit
    logischen Eigenschaften, keine Großbuchstaben-Umwandlung. Druck: A4 hochkant (@media print). */
 
-body.mr { background: var(--bg); --mr-ctl: var(--navy); --mr-accent: var(--orange-d); }
+body.mr { background: var(--bg); --mr-ctl: var(--navy); --mr-accent: var(--orange-text, #a3500c); } /* Monat unter dem Titel: ≥ 4,5 : 1 */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) body.mr { --mr-ctl: #8d97b3; --mr-accent: var(--orange); }
 }
@@ -73,7 +73,7 @@ main.mr-main { max-width: 820px; padding: 1.25rem 1rem 0; }
 .mr-hnums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin: .8rem 0; }
 .mr-hnum { display: flex; flex-direction: column; gap: .15rem; padding: .7rem .6rem; border-radius: 14px; background: var(--surface-2); min-width: 0; }
 .mr-hnum b { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; unicode-bidi: isolate; }
-.mr-hnum span { font-size: .78rem; font-weight: 700; color: var(--ink-2); line-height: 1.3; overflow-wrap: anywhere; }
+.mr-hnum span { font-size: .78rem; font-weight: 700; color: var(--ink-2); line-height: 1.3; overflow-wrap: break-word; hyphens: auto; }
 .mr-hnum[data-help="open"] { background: rgba(208, 59, 59, .1); }
 .mr-outcomes { list-style: none; margin: 0; padding: 0; }
 .mr-outcomes li { display: flex; justify-content: space-between; gap: 1rem; padding: .5rem 0; border-top: 1px solid var(--line); font-size: .92rem; }
@@ -132,6 +132,11 @@ main.mr-main { max-width: 820px; padding: 1.25rem 1rem 0; }
   .mr-kpi { padding: .7rem .65rem; }
   .mr-kpi-v { font-size: 1.45rem; }
   .mr-hnum b { font-size: 1.3rem; }
+  /* drei schmale Kästen brechen Wörter mitten durch („Получил|и помощь“) – auf 320 px untereinander */
+  .mr-hnums { grid-template-columns: 1fr; gap: .4rem; }
+  .mr-hnum { flex-direction: row; align-items: baseline; gap: .6rem; padding: .5rem .75rem; }
+  .mr-hnum b { min-width: 2ch; }
+  .mr-month select { padding-inline: .7rem 1.6rem; font-size: .9rem; }
   .mr-lang select { max-width: 7rem; font-size: .84rem; }
   .mr-top .wordmark b { white-space: nowrap; font-size: .92rem; }
   .mr-top .wordmark i { display: none; }
@@ -152,7 +157,8 @@ main.mr-main { max-width: 820px; padding: 1.25rem 1rem 0; }
     --link: #0e6c6c; --series-1: #eb6834; --grid: #e1e0d9; --axis: #b9b8ad; --shadow: none;
   }
   html, body.mr { background: #fff; color: var(--ink); font-size: 10pt; }
-  body.mr { --mr-ctl: var(--navy); --mr-accent: var(--orange-d); }
+  :lang(ar) body.mr, :lang(fa) body.mr { line-height: 1.5; } /* Bildschirm 1,75 – auf Papier sonst eine halbe Seite leer */
+  body.mr { --mr-ctl: var(--navy); --mr-accent: #a3500c; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .no-print, .mr-lang, .chip.demo, .toasts, .viz-tip, .modal-wrap, [data-toggle] { display: none !important; }
   .print-only { display: block; }

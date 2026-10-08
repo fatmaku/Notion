@@ -56,7 +56,8 @@ Bericht glaubwürdig, auch wenn die Daten aus einem Spiel kommen.
 * **Hilfe-Fälle:** *neu* = Statuswechsel zu „braucht Hilfe“ (KI-Befund, Meldung, Freiwillige), nur
   wenn er wirklich gegriffen hat (eine Meldung bei einer adoptierten Katze ist kein Fall).
   *Geholfen* = Katzen, die Freiwillige von „braucht Hilfe“/„in Behandlung“ auf „in Behandlung“,
-  „draußen, gut“ oder „adoptiert“ gesetzt haben (aufgeschlüsselt; „gestorben“ separat und nur, wenn
+  „draußen, gut“ oder „adoptiert“ gesetzt haben – per Hand oder mit den Hilfe-Knöpfen „Zum Tierarzt
+  gebracht“ / „Wieder gut“ (aufgeschlüsselt; „gestorben“ separat und nur, wenn
   es vorkommt). *Offen* = Katzen, die am Monatsende „braucht Hilfe“ hatten – auch ohne neues Foto.
   Der Status zu einem Zeitpunkt kommt aus `statusAt` der Katze bzw. dem Ereignisverlauf.
 * **Verteilungen** (Körper, Alter, Gesundheit): je Katze der letzte Befund im Monat; ohne KI-Befund

@@ -18,6 +18,8 @@ const LANGS = ['tr', 'en', 'de', 'ru', 'ar', 'fa'];
 export const WALK_ID_RE = /^[a-z0-9][a-z0-9-]{1,39}$/;
 /** Öffentliche Fotos sind nur Ausschnitte (Server) oder kleine Bilder im Browser-Demo. */
 const PUBLIC_PHOTO_RE = /^(\/photos\/[0-9a-f]{20}_c\.jpg|data:image\/jpeg;base64,[A-Za-z0-9+/=]+)$/;
+/** Katzen mit diesem Status sind nicht mehr auf der Straße (wie cat_closed bei den Hilfe-Aktionen). */
+const CLOSED = new Set(['deceased', 'adopted']);
 
 // ---------------------------------------------------------------- Geometrie
 
@@ -148,19 +150,25 @@ export function routesApi(ctx, api, { walks = WALKS, rules = WALK_RULES } = {}) 
   /**
    * Sichtungen der letzten Tage – nur mit GERUNDETER Position (wie die öffentliche Karte).
    * Exakte Koordinaten werden hier verworfen und kommen in keiner Rechnung danach vor.
+   * Verstorbene und adoptierte Katzen leben nicht mehr auf der Straße: Sie zählen nicht als
+   * „Katzen am Weg“ und stehen nicht in der Liste (niemand soll sie auf dem Spaziergang suchen).
    */
   function recentSightings(t) {
     const since = t - rules.days * DAY;
     const dec = game.publicLocationDecimals;
     const out = [];
+    const onStreet = new Map(); // catId → zählt? (einmal je Katze rechnen)
     for (const o of store.observations.all()) {
       if (!(o.createdAt >= since) || o.createdAt > t + 60000 || o.status === 'rejected') continue;
       const lat = fuzz(o.lat, dec);
       const lon = fuzz(o.lon, dec);
       if (lat == null || lon == null) continue;
       const catId = resolveCatId(store, o.catId);
-      const cat = store.cats.get(catId);
-      if (!cat || cat.removed || cat.mergedInto) continue;
+      if (!onStreet.has(catId)) {
+        const cat = store.cats.get(catId);
+        onStreet.set(catId, !!cat && !cat.removed && !cat.mergedInto && !CLOSED.has(effectiveStatus(cat, t, game)));
+      }
+      if (!onStreet.get(catId)) continue;
       out.push({ catId, at: o.createdAt, lat, lon, regionId: o.regionId });
     }
     return out;

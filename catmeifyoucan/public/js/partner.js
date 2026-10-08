@@ -283,7 +283,7 @@ async function renderDesk() {
 
 function render() {
   if (scanStop) scanStop();
-  setLang(lang);
+  setLang(lang, { persist: false }); // Wahl per Knopf speichert langs() selbst
   return token ? renderDesk() : renderLogin();
 }
 

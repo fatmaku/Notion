@@ -46,7 +46,8 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     fetch(e.request)
       .then((res) => {
-        if (res.status === 200 && !url.pathname.startsWith('/photos/')) {
+        // Nur die App-Hülle cachen (keine Katzenseiten, Berichte mit ?month, ?ref-Links …) – sonst wächst der Cache endlos
+        if (res.status === 200 && !url.search && /^\/(?:app\.html|guide\.html|manifest\.webmanifest|(?:js|css|core|config|vendor|icons)\/.+)$/.test(url.pathname)) {
           const copy = res.clone();
           caches.open(VERSION).then((c) => c.put(e.request, copy));
         }

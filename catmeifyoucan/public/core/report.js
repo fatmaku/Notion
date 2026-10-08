@@ -12,6 +12,7 @@
 import { startOfDay, addDays } from './time.js';
 import { resolveCatId } from './progress.js';
 import { AGE_GROUPS, BCS_CLASSES, SEVERITY, CONDITION_TAGS } from './taxonomy.js';
+import { CARE_ACTIONS } from './impact.js';
 import { fail } from './util.js';
 
 /** Frühester Monat, den der Bericht annimmt (vorher gab es das Spiel nicht). */
@@ -24,6 +25,11 @@ export const MIN_SAMPLE = 3;
 const MONTH_RE = /^(\d{4})-(0[1-9]|1[0-2])$/;
 const HELPED_FROM = new Set(['needs_help', 'in_care']);
 const HELPED_TO = { in_care: 'toCare', active: 'resolved', adopted: 'adopted' };
+/**
+ * Schnelle Hilfe der Freiwilligen (Erweiterung impact), die den Status setzt: „beim Tierarzt“ → in
+ * Behandlung, „wieder gut“ → draußen, gut. Das ist dieselbe Hilfe wie ein Statuswechsel per Hand.
+ */
+const CARE_STATUS_TYPES = new Set(Object.values(CARE_ACTIONS).filter((a) => a.to).map((a) => a.type));
 
 export function isMonthKey(m) {
   return typeof m === 'string' && MONTH_RE.test(m);
@@ -227,12 +233,12 @@ export function reportApi(ctx) {
       }
       if (!applied(e)) continue;
       if (e.to === 'needs_help' && e.from !== 'needs_help') opened++;
-      if (e.type === 'status') {
+      if (e.type === 'status' || CARE_STATUS_TYPES.has(e.type)) {
         if (HELPED_FROM.has(e.from) && HELPED_TO[e.to] && e.from !== e.to) {
           helpedCats[HELPED_TO[e.to]].add(e.catId);
           helpedAny.add(e.catId);
         }
-        if (e.to === 'deceased' && e.from !== 'deceased') died.add(e.catId);
+        if (e.type === 'status' && e.to === 'deceased' && e.from !== 'deceased') died.add(e.catId);
       }
     }
     // Offen am Monatsende: alle Katzen, die es bis dahin gab und dann „braucht Hilfe“ hatten

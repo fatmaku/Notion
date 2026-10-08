@@ -43,8 +43,8 @@ Besuch am Ende des Wegs, und mehr Fotos entlang der Wege machen die Katzenzählu
 
 * Länge = Summe der Haversine-Abschnitte (`core/geo.js`) × **1,2** (Straßen sind nicht gerade).
 * Dauer = Länge bei **4 km/h** + **5 min** pro Zwischenstopp, aufgerundet auf 5 Minuten.
-* Katzen am Weg: Sichtungen der letzten **7 Tage** (ohne abgelehnte, entfernte, zusammengeführte
-  Katzen), deren **gerundete** Position (3 Nachkommastellen, wie die öffentliche Karte) höchstens
+* Katzen am Weg: Sichtungen der letzten **7 Tage** (ohne abgelehnte, entfernte, zusammengeführte,
+  verstorbene und adoptierte Katzen – sie leben nicht mehr auf der Straße), deren **gerundete** Position (3 Nachkommastellen, wie die öffentliche Karte) höchstens
   **200 m** von der Linie liegt. Jede Katze zählt einmal; „braucht Hilfe“ = aktueller Status.
 * Cafés: freigegebene, aktive Partner-Cafés ≤ **250 m** von der Linie oder ≤ 400 m vom Ziel.
 * Bester Weg: höchste Dichte (Katzen pro km), Sichtungen der letzten 2 Tage zählen doppelt.

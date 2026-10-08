@@ -8,7 +8,6 @@
 /* ---------------------------------------------------------------- Bildschirm: Bedienung */
 
 body.print-kit main.pk-main { max-width: 860px; padding-bottom: 3rem; }
-.pk-controls h1 { font-size: 1.35rem; margin-bottom: .4rem; }
 .pk-controls .back { display: inline-flex; align-items: center; gap: .35rem; min-height: 44px; text-decoration: none; }
 .pk-field { display: grid; gap: .35rem; margin: .9rem 0 0; }
 .pk-label { font-weight: 700; font-size: .9rem; }

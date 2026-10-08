@@ -13,6 +13,7 @@ import { resolveCatId } from './progress.js';
 import { SEVERITY } from './taxonomy.js';
 import { checkName } from './moderation.js';
 import { fail, cleanText } from './util.js';
+import { startOfDay, endOfDay } from './time.js';
 
 const HOUR = 3600000;
 const DAY = 24 * HOUR;
@@ -113,8 +114,12 @@ export function impactApi(ctx, api) {
 
     const region = ctx.regionOf(cat.regionId);
     const day = ctx.day(t, region);
+    // Tagesgrenzen einmal ausrechnen statt jedes frühere Ereignis per Intl zu formatieren
+    // (nach einem Jahr Freiwilligen-Arbeit wären das zehntausende Aufrufe pro Tipp).
+    const dayStart = startOfDay(day, region.timezone);
+    const dayEnd = endOfDay(day, region.timezone);
     const mine = store.events.where('by', actor.id).filter((e) => ACTION_BY_TYPE[e.type]);
-    if (mine.filter((e) => ctx.day(e.at, region) === day).length >= MAX_CARE_PER_DAY) fail(429, 'care_limit', 'Tageslimit für Hilfe-Aktionen erreicht');
+    if (mine.filter((e) => e.at >= dayStart && e.at <= dayEnd).length >= MAX_CARE_PER_DAY) fail(429, 'care_limit', 'Tageslimit für Hilfe-Aktionen erreicht');
     const last = mine.filter((e) => e.catId === id && e.type === def.type).reduce((m, e) => Math.max(m, e.at), 0);
     if (last && t - last < def.cooldownH * HOUR) {
       fail(409, 'care_too_soon', 'Schon gespeichert', { retryAfter: Math.ceil((def.cooldownH * HOUR - (t - last)) / 1000) });

@@ -288,11 +288,14 @@ test('Ohne publicUrl: absolute Adressen nur aus harmlosem Host; X-Forwarded-Prot
     const ok = await rawGet('/c/c_share_local?lang=en', { Host: 'cats.example.org' });
     assert.equal(ok.status, 200);
     assert.match(ok.body, /<meta property="og:image" content="http:\/\/cats\.example\.org\/media\/og(-en)?\.png">/);
+    // Basis aus dem Host-Header → nur im Browser zwischenspeichern, nie in geteilten Caches
+    assert.match(ok.headers['cache-control'], /^private, max-age=300$/);
     const bad = await rawGet('/c/c_share_local?lang=en', { Host: 'evil.example/"x' });
     assert.ok([200, 400].includes(bad.status));
     if (bad.status === 200) assert.match(bad.body, /<meta property="og:image" content="\/media\/og(-en)?\.png">/, 'relativ bei seltsamem Host');
     const robots = await rawGet('/robots.txt', { Host: 'cats.example.org' });
     assert.match(robots.body, /Sitemap: http:\/\/cats\.example\.org\/sitemap\.xml/);
+    assert.match(robots.headers['cache-control'], /^private,/);
   } finally {
     base = prevBase;
     await app2.close();

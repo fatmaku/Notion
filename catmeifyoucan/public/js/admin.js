@@ -279,7 +279,7 @@ async function renderAi(body) {
 }
 
 async function render() {
-  setLang(lang); // Beschriftungen aus ui.js (Fellmuster, „vor x Tagen“) in derselben Sprache
+  setLang(lang, { persist: false }); // Beschriftungen aus ui.js (Fellmuster, „vor x Tagen“) in derselben Sprache
   if (!token) return renderLogin();
   view.innerHTML = `${nav()}<div data-body><p class="center pad">…</p></div>`;
   view.querySelector('.seg').onclick = (e) => {

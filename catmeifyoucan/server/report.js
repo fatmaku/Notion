@@ -5,7 +5,8 @@
 
 import crypto from 'node:crypto';
 import { isMonthKey } from '../public/core/report.js';
-import { sendJson, HttpError } from './http.js';
+import { HttpError } from './http.js';
+import { sendBody } from './compress.js';
 
 export const CACHE_CURRENT_MS = 2 * 60 * 1000;
 export const CACHE_PAST_MS = 30 * 60 * 1000;
@@ -19,7 +20,7 @@ export function mountReport({ r, engine, now = () => Date.now() }) {
     const json = JSON.stringify(body);
     const etag = `"r-${crypto.createHash('sha1').update(json).digest('base64url').slice(0, 16)}"`;
     const ttl = body.partial ? CACHE_CURRENT_MS : CACHE_PAST_MS;
-    return { at: now(), ttl, etag, body };
+    return { at: now(), ttl, etag, body, json };
   }
 
   function get(month, regionId) {
@@ -42,13 +43,11 @@ export function mountReport({ r, engine, now = () => Date.now() }) {
     const regionId = regionParam && engine.ctx.regions.some((x) => x.id === regionParam) ? regionParam : undefined;
     const entry = get(raw || undefined, regionId);
     const left = Math.max(0, Math.round((entry.ttl - (now() - entry.at)) / 1000));
-    const headers = { 'Cache-Control': `public, max-age=${Math.min(left, entry.body.partial ? 120 : 600)}`, ETag: entry.etag };
-    if (req.headers['if-none-match'] === entry.etag) {
-      res.writeHead(304, headers);
-      res.end();
-      return;
-    }
-    sendJson(res, 200, entry.body, headers);
+    const headers = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': `public, max-age=${Math.min(left, entry.body.partial ? 120 : 600)}` };
+    // Eigener ETag je Verfahren ("r-…-br" / "r-…-gzip"), 304 auch bei W/… und Listen, Vary: Accept-Encoding.
+    // Ein gemeinsamer starker ETag für gepackt und ungepackt ließe einen Proxy die falsche Variante als
+    // „unverändert“ bestätigen (RFC 9110, 8.8.3) – ein Browser ohne brotli bekäme dann brotli.
+    sendBody(req, res, 200, entry.json, headers, { etag: entry.etag });
   });
 
   return { clear: () => cache.clear(), size: () => cache.size };

@@ -29,7 +29,7 @@ export async function renderCat(view, app, id) {
         <div class="chips">${statusChip(cat.status)} ${cat.needsReview ? `<span class="chip">${esc(t('cat.review'))}</span>` : ''}</div>
         <p class="small muted">${bdi(cat.districtName)}${sep()}${esc(t('cat.seenTimes', { n: cat.observationCount }))}${sep()}${esc(t('cat.byPlayers', { n: cat.catcherCount }))}</p>
         ${cat.discoveredBy ? `<p class="small">🔭 ${esc(t('card.discoveredBy', { name: cat.discoveredBy }))}</p>` : ''}
-        ${cat.lastReport && cat.lastReport.tags && cat.lastReport.tags.length ? `<p class="small last-report"><b>${esc(t('cat.lastReport'))}:</b> ${esc(conditionText(cat.lastReport.tags))} <span class="muted">· ${esc(fmtAgo(cat.lastReport.at))}</span></p>` : ''}
+        ${cat.lastReport && cat.lastReport.tags && cat.lastReport.tags.length ? `<p class="small last-report"><b>${esc(t('cat.lastReport'))}:</b> ${esc(conditionText(cat.lastReport.tags))}<span class="muted">${esc(sep())}${esc(fmtAgo(cat.lastReport.at))}</span></p>` : ''}
       </div>
     </section>
     <div data-impact-cat></div>
