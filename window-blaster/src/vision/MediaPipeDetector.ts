@@ -1,4 +1,5 @@
 import { FilesetResolver, ObjectDetector } from '@mediapipe/tasks-vision';
+import { T, tf } from '../ui/i18n';
 import type { Detection } from '../core/types';
 import { COCO_ALLOWLIST, COCO_TO_CLASS, type Detector, type DetectorInfo } from './Detector';
 
@@ -15,7 +16,7 @@ export interface MediaPipeOptions {
 
 async function fetchWithProgress(url: string, onProgress: (f: number) => void): Promise<Uint8Array> {
   const res = await fetch(url);
-  if (!res.ok || !res.body) throw new Error(`Modell nicht ladbar (${res.status})`);
+  if (!res.ok || !res.body) throw new Error(tf(T.mpModelLoadFailed, { status: res.status }));
   const total = Number(res.headers.get('content-length') ?? 0);
   const reader = res.body.getReader();
   const chunks: Uint8Array[] = [];
@@ -49,10 +50,10 @@ export class MediaPipeDetector implements Detector {
   constructor(private readonly o: MediaPipeOptions) {}
 
   async init(onProgress?: (f: number, label: string) => void): Promise<void> {
-    onProgress?.(0.02, 'Laufzeit');
+    onProgress?.(0.02, T.mpRuntime);
     const vision = await FilesetResolver.forVisionTasks(this.o.wasmBase);
-    onProgress?.(0.15, 'Modell');
-    const model = await fetchWithProgress(this.o.modelPath, (f) => onProgress?.(0.15 + 0.65 * f, 'Modell'));
+    onProgress?.(0.15, T.mpModel);
+    const model = await fetchWithProgress(this.o.modelPath, (f) => onProgress?.(0.15 + 0.65 * f, T.mpModel));
     const make = (delegate: 'GPU' | 'CPU') =>
       ObjectDetector.createFromOptions(vision, {
         baseOptions: { modelAssetBuffer: model, delegate },
@@ -61,7 +62,7 @@ export class MediaPipeDetector implements Detector {
         maxResults: this.o.maxResults ?? 12,
         categoryAllowlist: [...COCO_ALLOWLIST],
       });
-    onProgress?.(0.85, 'Start');
+    onProgress?.(0.85, T.mpStart);
     if (this.o.preferGpu !== false) {
       try {
         this.det = await make('GPU');
@@ -74,7 +75,7 @@ export class MediaPipeDetector implements Detector {
       this.det = await make('CPU');
       this.info.delegate = 'CPU';
     }
-    onProgress?.(1, 'Bereit');
+    onProgress?.(1, T.mpReady);
   }
 
   private prepare(src: TexImageSource): TexImageSource {

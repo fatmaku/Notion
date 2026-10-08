@@ -18,10 +18,10 @@ test('runner: power-up pickups appear and get collected; the x2 bonus verifies',
   while (Date.now() - started < 150_000 && Number(s.powerups) < 1 && Number(s.lives) > 0 && String(s.screen).includes('play')) {
     const o = Number(s.nextObstacle);
     const b = Number(s.nextBird);
-    if (b > -40 && b < 260 && !ducking) {
+    if (b >= 0 && b < 260 && !ducking) {
       await duck.dispatchEvent('pointerdown');
       ducking = true;
-    } else if (ducking && (b < -40 || b > 300)) {
+    } else if (ducking && (b < 0 || b > 300)) {
       await duck.dispatchEvent('pointerup');
       ducking = false;
     }

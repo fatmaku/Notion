@@ -63,7 +63,7 @@ export const T = {
   duck: 'Ducken',
   rotateHint: 'Bitte das Handy quer halten',
   noTargets: 'Keine Fahrzeuge im Bild – warte auf Verkehr …',
-  windowLost: 'Scheibe verloren – tippe „Zentrieren“',
+  windowLost: 'Scheibe verloren – tippe ⌖',
   offlineReady: 'Offline bereit – läuft ohne Internet',
   offlineMissing: 'Für offline vorbereiten',
   offlineDownloading: 'Lade für offline …',
@@ -339,6 +339,12 @@ export const T = {
   shareKills: '{n} ausgeschaltet',
   shareAccuracy: '{acc} % Treffer',
   shareFooter: 'Nur als Fahrgast gespielt',
+  // --- detector loading ---
+  mpRuntime: 'Laufzeit',
+  mpModel: 'Modell',
+  mpStart: 'Start',
+  mpReady: 'Bereit',
+  mpModelLoadFailed: 'Modell nicht ladbar ({status})',
 };
 
 export const VEHICLES: Record<VehicleType, { icon: string; name: string; desc: string }> = {

@@ -9,6 +9,8 @@ export default defineConfig({
   workers: 1, // software rendering: keep timing-sensitive assertions stable
   reporter: [['list']],
   use: {
+    // the German UI is the default under test; English runs set ?lang=en explicitly
+    locale: 'de-DE',
     baseURL: 'http://127.0.0.1:4173/',
     headless: true,
     viewport: { width: 960, height: 540 },

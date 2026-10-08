@@ -1,7 +1,7 @@
 {
-  "name": "Window Blaster – Beifahrer AR Arcade",
+  "name": "Window Blaster",
   "short_name": "Window Blaster",
-  "description": "Echte Autos vor dem Fenster in AR beschießen. Nur für Mitfahrende.",
+  "description": "Beifahrer-AR-Arcade: echte Autos vor dem Fenster beschießen. / Passenger AR arcade: blast real cars outside the window.",
   "lang": "de",
   "start_url": "./",
   "scope": "./",

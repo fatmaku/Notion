@@ -62,6 +62,6 @@ export class ErrorLog {
   }
 
   asText(): string {
-    return this.items.map((e) => `${new Date(e.at).toLocaleString('de-DE')} [${e.where}] ${e.message}${e.stack ? '\n' + e.stack : ''}`).join('\n\n');
+    return this.items.map((e) => `${new Date(e.at).toISOString()} [${e.where}] ${e.message}${e.stack ? '\n' + e.stack : ''}`).join('\n\n');
   }
 }

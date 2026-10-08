@@ -1,3 +1,4 @@
+import { locale } from './i18n';
 type Child = Node | string | number | null | undefined | false;
 type Attrs = Record<string, string | number | boolean | ((e: Event) => void) | undefined>;
 
@@ -39,7 +40,7 @@ export function toast(msg: string, ms = 2200): void {
 }
 
 export function fmtScore(n: number): string {
-  return Math.round(n).toLocaleString('de-DE');
+  return Math.round(n).toLocaleString(locale());
 }
 
 export function fmtTime(sec: number): string {

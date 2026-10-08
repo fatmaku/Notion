@@ -1,3 +1,4 @@
+import { T, tf } from '../ui/i18n';
 /**
  * Hot-seat "Duell": 2–4 players take turns on one phone, same mode and weapons.
  * Pure state – the App drives the flow and the screens render it.
@@ -26,7 +27,7 @@ export class Party {
   readonly state: PartyState;
 
   constructor(players: string[], roundsEach = 1) {
-    const names = players.map((p, i) => p.trim() || `Spieler ${i + 1}`).slice(0, 4);
+    const names = players.map((p, i) => p.trim() || tf(T.partyPlayerDefault, { n: i + 1 })).slice(0, 4);
     if (names.length < 2) throw new Error('Duell braucht mindestens 2 Spieler');
     this.state = { players: names, roundsEach: Math.max(1, Math.min(5, Math.round(roundsEach))), scores: names.map(() => []), turn: 0, last: -1 };
   }

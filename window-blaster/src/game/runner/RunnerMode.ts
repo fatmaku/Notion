@@ -400,7 +400,7 @@ export class RunnerMode implements GameMode {
         const pts = runnerObstaclePoints(c);
         this.addPoints(pts, { x: runner.x + runner.w / 2, y: runner.y - 10 }, c >= 3 ? '#ffb020' : '#fff', 22);
         this.record({ t: Math.round(t - this.startedAt), kind: 'obstacle', cls: String(o.cls), points: pts, combo: c }, now);
-        if (this.power.doubleActive) {
+        if (this.power.doubleActive(t)) {
           // double points: a second, equal bonus the server can mirror
           this.addPoints(pts, { x: runner.x + runner.w / 2, y: runner.y - 40 }, '#f59e0b', 24);
           this.record({ t: Math.round(t - this.startedAt), kind: 'bonus', id: 'x2', points: pts, combo: c }, now);
@@ -516,7 +516,8 @@ export class RunnerMode implements GameMode {
   }
 
   private record(ev: RoundEvent, now: number): void {
-    if (ev.kind !== 'bonus' || ev.id === 'goldbird') this.events.push(ev);
+    // 'unhurt' ticks only feed the survive mission; every other bonus (goldbird, x2) is scored and replayed
+    if (ev.kind !== 'bonus' || ev.id !== 'unhurt') this.events.push(ev);
     for (const m of this.missions.onEvent(ev)) {
       this.missionPoints += m.reward;
       this.score += m.reward;
@@ -870,6 +871,8 @@ export class RunnerMode implements GameMode {
   }
 
   abort(): RoundResult {
+    // quitting from the pause menu: the open pause must not count as played time
+    if (this.pausedAt !== null) this.resume();
     this.ended = true;
     this.ctx.music.stop(0.4);
     return this.buildResult(performance.now());

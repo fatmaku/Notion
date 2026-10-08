@@ -839,6 +839,8 @@ export class ShooterMode implements GameMode {
   }
 
   abort(): RoundResult {
+    // quitting from the pause menu: the open pause must not count as played time
+    if (this.pausedAt !== null) this.resume();
     this.ended = true;
     this.delayed.length = 0;
     this.ctx.loop.timeScale = 1;

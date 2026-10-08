@@ -71,3 +71,23 @@ describe('frenzy bonus', () => {
     expect(verifyRound({ ...base, score: 500, events: spaced }).ok).toBe(true);
   });
 });
+
+describe('runner double points (x2)', () => {
+  const base = { mode: 'side-runner', durationSec: 30, kills: 0, source: 'camera' as const, extra: { roundSeconds: 0 } };
+  it('accepts an x2 bonus that mirrors the obstacle points', () => {
+    const events = [
+      { t: 5000, kind: 'obstacle', cls: 'car', points: runnerObstaclePoints(1), combo: 1 },
+      { t: 5000, kind: 'bonus', id: 'x2', points: runnerObstaclePoints(1), combo: 1 },
+      { t: 6000, kind: 'obstacle', cls: 'car', points: runnerObstaclePoints(2), combo: 2 },
+      { t: 6000, kind: 'bonus', id: 'x2', points: runnerObstaclePoints(2), combo: 2 },
+    ];
+    const score = events.reduce((n, e) => n + e.points, 0) + 30 * 10;
+    expect(verifyRound({ ...base, score, events }).ok).toBe(true);
+  });
+  it('rejects inflated x2 points and x2 outside the runner', () => {
+    const bad = [{ t: 5000, kind: 'bonus', id: 'x2', points: 999, combo: 1 }];
+    expect(verifyRound({ ...base, score: 999 + 300, events: bad }).reason).toBe('x2');
+    const shooter = [{ t: 5000, kind: 'bonus', id: 'x2', points: runnerObstaclePoints(1), combo: 1 }];
+    expect(verifyRound({ ...base, mode: 'front-shooter', extra: { roundSeconds: 60 }, score: runnerObstaclePoints(1), events: shooter }).reason).toBe('x2');
+  });
+});

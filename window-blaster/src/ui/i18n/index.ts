@@ -65,7 +65,10 @@ export function tf(template: string, vars: Record<string, string | number>): str
 
 /** Locale for dates and numbers. */
 export function locale(): string {
-  return lang === 'de' ? 'de-DE' : 'en-GB';
+  if (lang === 'de') return 'de-DE';
+  // English: follow the device's English variant (en-US dates read month first)
+  const n = typeof navigator !== 'undefined' ? navigator.language : '';
+  return /^en-[A-Z]{2}$/i.test(n) ? n : 'en-GB';
 }
 
 /** Picks one of several variants (e.g. kill feed lines) by index. */

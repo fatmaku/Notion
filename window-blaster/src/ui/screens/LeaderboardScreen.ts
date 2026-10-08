@@ -1,7 +1,7 @@
 import type { App } from '../../app/App';
 import type { GameModeId } from '../../core/types';
 import { fmtScore, h } from '../dom';
-import { locale, MODES, T } from '../i18n';
+import { MODES, T, VEHICLES, locale } from '../i18n';
 import type { Screen } from '../Router';
 
 export function LeaderboardScreen(app: App): Screen {
@@ -58,7 +58,7 @@ export function LeaderboardScreen(app: App): Screen {
           h(
             'ul',
             { class: 'list' },
-            ...rows.map((e, i) => h('li', { class: e.me ? 'me' : '' }, h('span', { class: 'rank' }, `${i + 1}.`), h('span', { class: 'name' }, `${e.flag ? e.flag + ' ' : ''}${e.name} · ${e.vehicle}`), h('span', { class: 'score' }, fmtScore(e.score)))),
+            ...rows.map((e, i) => h('li', { class: e.me ? 'me' : '' }, h('span', { class: 'rank' }, `${i + 1}.`), h('span', { class: 'name' }, `${e.flag ? e.flag + ' ' : ''}${e.name} · ${VEHICLES[e.vehicle as keyof typeof VEHICLES] ? `${VEHICLES[e.vehicle as keyof typeof VEHICLES].icon} ${VEHICLES[e.vehicle as keyof typeof VEHICLES].name}` : e.vehicle}`), h('span', { class: 'score' }, fmtScore(e.score)))),
             rows.length ? null : h('li', {}, h('span', { class: 'muted' }, T.lbNoEntries)),
           ),
         );

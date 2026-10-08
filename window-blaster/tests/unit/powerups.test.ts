@@ -27,7 +27,8 @@ describe('runner power-ups', () => {
     expect(p.shield).toBe(false);
     expect(p.absorb()).toBe(false);
     p.collect({ id: 'c', kind: 'double', x: 0, h: 0, vx: 0, born: 0, taken: false }, 3000);
-    expect(p.doubleActive).toBe(true);
+    expect(p.doubleActive(3000)).toBe(true);
+    expect(p.doubleActive(3000 + POWERUP.durationMs + 1)).toBe(false);
     expect(p.collected).toEqual({ magnet: 1, shield: 1, double: 1 });
   });
 

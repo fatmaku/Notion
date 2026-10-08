@@ -4,7 +4,7 @@ import { RunnerMode } from '../game/runner/RunnerMode';
 import { Records, todayKey } from '../game/scoring/Records';
 import { weeklyChallenge } from '../game/scoring/Challenges';
 import { ChallengesScreen } from '../ui/screens/ChallengesScreen';
-import { setLang, T, tf } from '../ui/i18n';
+import { detectLang, setLang, T, tf, type Lang } from '../ui/i18n';
 import { DemoSource } from '../camera/DemoSource';
 import { CameraSource, explainCameraError } from '../camera/CameraSource';
 import { Motion } from '../sensors/Motion';
@@ -98,8 +98,9 @@ export class App {
   private fxDebug: FxRenderer;
 
   constructor(readonly params: Params) {
-    // ?lang= picks the initial language; the settings switch still works afterwards
-    if (params.lang) this.settings.data.lang = params.lang;
+    // language: ?lang= → the player's saved choice → the device language (English phones start in English)
+    const savedLang = this.storage.get<{ lang?: Lang }>('settings.v1', {}).lang;
+    this.settings.data.lang = params.lang ?? savedLang ?? detectLang();
     setLang(this.settings.data.lang);
     const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
     this.layers = new Layers($('stage'), $<HTMLVideoElement>('cam'), $<HTMLCanvasElement>('fx'), $<HTMLCanvasElement>('hud'));

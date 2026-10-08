@@ -7,7 +7,7 @@ test('English: start → safety → mode → weapons → calibrate → play → 
   await page.goto('/?test=1&noshake=1&lang=en');
   await page.getByRole('button', { name: /Demo without camera/ }).click();
   await expect(page.getByRole('heading', { name: /Passengers only/ })).toBeVisible();
-  await page.getByRole('button', { name: /Train \/ rail/ }).click();
+  await page.getByRole('button', { name: /Train \/ metro/ }).click();
   const hold = page.getByRole('button', { name: /I am not driving/ });
   await hold.scrollIntoViewIfNeeded();
   const box = (await hold.boundingBox())!;

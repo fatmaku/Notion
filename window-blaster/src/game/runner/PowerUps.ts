@@ -116,7 +116,8 @@ export class PowerUps {
     return { x: (dx / d) * v, y: (dy / d) * v };
   }
 
-  get doubleActive(): boolean {
-    return this.activeKind === 'double';
+  /** Double points running at round time t (expiry applied). */
+  doubleActive(t: number): boolean {
+    return this.active(t) === 'double';
   }
 }

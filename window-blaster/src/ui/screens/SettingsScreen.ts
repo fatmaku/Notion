@@ -59,7 +59,7 @@ export function SettingsScreen(app: App, onBack: () => void): Screen {
       h(
         'div',
         { class: 'row', style: 'align-items:center;margin:6px 0' },
-        h('span', { class: 'muted small' }, T.setLangLabel),
+        h('span', { class: 'muted small', style: 'flex:1 1 100%' }, T.setLangLabel),
         ...LANGS.map((l) =>
           h(
             'button',
