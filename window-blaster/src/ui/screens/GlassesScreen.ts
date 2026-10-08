@@ -25,12 +25,12 @@ export function GlassesScreen(app: App): Screen {
     { class: 'gl-section' },
     h('h3', {}, `🕶️ ${T.glPhoneTitle}`),
     h('p', {}, T.glPhoneText),
-    toggle(s.data.glasses, T.glSeeThrough, (v) => {
+    toggle(s.data.glasses || app.params.glasses, T.glSeeThrough, (v) => {
       s.patch({ glasses: v });
       if (v) landscapeFullscreen();
       rerender();
     }, 'glasses'),
-    s.data.glasses
+    s.data.glasses || app.params.glasses
       ? h(
           'button',
           {
@@ -110,7 +110,11 @@ export function GlassesScreen(app: App): Screen {
   // camera choice (headsets list several cameras; labels appear after the first permission)
   const camSelect = h('select', {
     'aria-label': T.glCameraLabel,
-    onchange: (e) => s.patch({ cameraId: (e.target as HTMLSelectElement).value }),
+    onchange: (e) => {
+      s.patch({ cameraId: (e.target as HTMLSelectElement).value });
+      // a running camera keeps its device – restart it with the new choice next time it is needed
+      if (app.frame?.kind === 'camera' && !app.mode) app.stopSource();
+    },
   }) as HTMLSelectElement;
   camSelect.append(h('option', { value: '' }, T.glCameraAuto));
   void navigator.mediaDevices

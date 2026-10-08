@@ -63,6 +63,7 @@ export class XrRenderer {
   private readonly lineVao: WebGLVertexArrayObject;
   private readonly lineBuf: WebGLBuffer;
   private readonly textures = new Map<string, WebGLTexture>();
+  private readonly sizes = new Map<string, { w: number; h: number }>();
   private readonly u: Record<string, WebGLUniformLocation | null>;
 
   constructor(readonly gl: WebGL2RenderingContext) {
@@ -115,7 +116,13 @@ export class XrRenderer {
     gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
     try {
-      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src);
+      // same size as last frame: update in place instead of reallocating the texture every frame
+      const size = this.sizes.get(name);
+      if (size && size.w === w && size.h === h) gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, gl.RGBA, gl.UNSIGNED_BYTE, src);
+      else {
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src);
+        this.sizes.set(name, { w, h });
+      }
     } catch {
       return false;
     }
@@ -169,6 +176,7 @@ export class XrRenderer {
     const gl = this.gl;
     for (const t of this.textures.values()) gl.deleteTexture(t);
     this.textures.clear();
+    this.sizes.clear();
     gl.deleteProgram(this.quadProg);
     gl.deleteProgram(this.lineProg);
   }

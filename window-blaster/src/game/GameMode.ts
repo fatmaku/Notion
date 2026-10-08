@@ -91,6 +91,8 @@ export interface GameCtx {
   recenter: () => void;
   /** Snapshot of video + effects as a JPEG data URL (for the results photo). */
   capture: () => string | null;
+  /** see-through display glasses: real cars cannot be painted over, effects must not shake */
+  seeThrough?: () => boolean;
   /** e2e only: start the runner with this many lives */
   testLives?: number;
   roundSeconds: number;

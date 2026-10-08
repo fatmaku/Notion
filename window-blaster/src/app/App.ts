@@ -113,7 +113,6 @@ export class App {
     // language: ?lang= → the player's saved choice → the device language (English phones start in English)
     const savedLang = this.storage.get<{ lang?: Lang }>('settings.v1', {}).lang;
     this.settings.data.lang = params.lang ?? savedLang ?? detectLang();
-    if (params.glasses) this.settings.data.glasses = true;
     setLang(this.settings.data.lang);
     const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
     this.layers = new Layers($('stage'), $<HTMLVideoElement>('cam'), $<HTMLCanvasElement>('fx'), $<HTMLCanvasElement>('hud'));
@@ -234,6 +233,30 @@ export class App {
     return this.settings.data.touchpad;
   }
 
+  /**
+   * See-through glasses are in effect: switched on (or forced with ?glasses=1 for this visit) and the
+   * real camera is the source – the demo street stays visible, and a headset session draws on its own.
+   */
+  get seeThrough(): boolean {
+    if (this.xr.active) return false;
+    return this.params.glasses || (this.settings.data.glasses && this.session.source === 'camera');
+  }
+
+  /** Black is transparent in see-through glasses: hide the camera image and align the effects with the real view. */
+  applyGlasses(): void {
+    const on = this.seeThrough;
+    document.body.classList.toggle('glasses', on);
+    this.layers.setCal(on ? this.settings.data.glassesCal : null);
+  }
+
+  /** The saved glasses alignment is missing, or was made in the other screen orientation. */
+  get glassesNeedAlign(): boolean {
+    const s = this.settings.data;
+    if (!s.glassesAligned) return true;
+    const aspect = this.layers.cssW / Math.max(1, this.layers.cssH);
+    return s.glassesAspect > 0 && (s.glassesAspect > 1) !== (aspect > 1);
+  }
+
   cursorOwnedElsewhere(): boolean {
     return this.xr.active;
   }
@@ -260,6 +283,12 @@ export class App {
   /** Enters the headset view – call from a click (WebXR needs a user gesture). */
   enterXr(): void {
     if (this.xr.active || !this.xrSupport.headset) return;
+    // browsers only open a headset session from a real tap/click (a gamepad button or auto-start is not one)
+    const ua = (navigator as Navigator & { userActivation?: { isActive: boolean } }).userActivation;
+    if (ua && !ua.isActive) {
+      toast(T.xrNeedsTap, 4000);
+      return;
+    }
     const kind = this.xrSupport.ar ? 'immersive-ar' : 'immersive-vr';
     this.xr.enter(kind, this.settings.data.xrView).catch((e: unknown) => {
       console.error(e);
@@ -268,7 +297,7 @@ export class App {
   }
 
   onXrEnd(reason: 'user' | 'pause' | 'camera' | 'error' | 'system'): void {
-    this.applySettings(); // restores the glasses calibration of the 2D view
+    this.applyGlasses(); // restores the glasses calibration of the 2D view
     if (reason === 'camera') toast(T.xrCameraStopped, 6000);
     else if (reason === 'error') toast(T.xrError, 4000);
     // left the headset in the middle of a round (B/Y button, system menu): show the pause menu
@@ -279,9 +308,7 @@ export class App {
     const s = this.settings.data;
     setLang(s.lang);
     document.body.classList.toggle('left-handed', s.leftHanded);
-    // see-through glasses: black is transparent, so hide the camera image and align the effects with the real view
-    document.body.classList.toggle('glasses', s.glasses);
-    this.layers.setCal(s.glasses ? s.glassesCal : null);
+    this.applyGlasses();
     this.sfx.enabled = s.sound && !this.params.test;
     this.sfx.volume = s.sfxVolume / 100;
     this.music.enabled = s.music && !this.params.test;
@@ -427,6 +454,7 @@ export class App {
     this.session.source = source;
     this.session.daily = challenge === 'daily';
     this.session.weekly = challenge === 'weekly';
+    this.applyGlasses();
     if (this.session.weekly) {
       // fixed setup for the whole week – chosen for everyone by the week key
       const wk = weeklyChallenge();
@@ -460,7 +488,9 @@ export class App {
 
   /** Camera + detector are running; continue to calibration. */
   afterCamera(): void {
-    this.showCalibrate();
+    // see-through glasses: line the view up first, so the window can be marked on the aligned (faint) camera image
+    if (this.seeThrough && this.glassesNeedAlign) this.showGlassesAlign(() => this.showCalibrate(), () => this.showModeScreen());
+    else this.showCalibrate();
   }
 
   showCalibrate(): void {
@@ -470,8 +500,11 @@ export class App {
     this.calibrating = screen;
     this.router.show({
       el: screen.el,
+      // with see-through glasses the window is marked on the faint camera image
+      enter: () => document.body.classList.toggle('glasses-ghost', this.seeThrough),
       exit: () => {
         if (this.calibrating === screen) this.calibrating = null;
+        document.body.classList.remove('glasses-ghost');
       },
     });
   }
@@ -479,9 +512,7 @@ export class App {
   afterCalibrate(): void {
     this.calibrating = null;
     this.rememberCalibration();
-    // first ride with see-through glasses: line the effects up with the real view once
-    if (this.settings.data.glasses && !this.settings.data.glassesAligned) this.showGlassesAlign(() => this.startRound(), () => this.showCalibrate());
-    else this.startRound();
+    this.startRound();
   }
 
   showGlasses(): void {
@@ -625,6 +656,7 @@ export class App {
       this.detectorOptions(),
     );
     this.scheduler.start();
+    this.applyGlasses();
     this.frame.onEnded(() => {
       this.diag.set('source', 'ended');
       if (this.mode && !this.paused) this.togglePause(true);
@@ -684,6 +716,7 @@ export class App {
       end: (r) => this.endRound(r),
       recenter: () => this.recenter(),
       capture: () => this.capture(),
+      seeThrough: () => this.seeThrough,
       testLives: this.params.test && this.params.lives ? this.params.lives : undefined,
       roundSeconds,
     });
@@ -723,7 +756,8 @@ export class App {
   }
 
   togglePause(force?: boolean): void {
-    if (!this.mode || !this.playEl) return;
+    // Settings opened from the pause menu: the round stays paused behind it
+    if (!this.mode || !this.playEl || this.router.active?.el !== this.playEl) return;
     this.paused = force ?? !this.paused;
     if (this.paused) {
       this.mode.pause();
@@ -808,7 +842,8 @@ export class App {
       if (!this.mode) return;
       this.mode.render();
       const off = (this.mode as { visualOffset?: () => { x: number; y: number } }).visualOffset?.();
-      if (off) L.setShake(off);
+      // see-through glasses: the real world does not shake, so neither may the effects
+      if (off) L.setShake(this.seeThrough ? null : off);
     } else if (this.settings.data.showBoxes || this.params.debug) {
       const vt = now - this.settings.data.cameraLatencyMs;
       for (const t of this.tracker.tracks) this.fxDebug.debugTrack(t, t.predict(vt));

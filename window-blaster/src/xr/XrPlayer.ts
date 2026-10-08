@@ -3,6 +3,7 @@ import type { GameLoop } from '../app/GameLoop';
 import type { Layers } from '../render/Layers';
 import type { FrameSource } from '../camera/FrameSource';
 import { XrRenderer } from './XrRenderer';
+import { CAL_LIMITS } from '../app/Settings';
 import { lazyFollow, localQuad, multiply, overlaySize, panelInFront, poseYaw, rayOf, rayQuadHit, type Mat4, type PanelPose, type V3 } from './xrMath';
 
 /**
@@ -82,6 +83,7 @@ export class XrPlayer {
   private gameCb: ((now: number) => void) | null = null;
   private readonly sources = new Map<XRInputSource, SourceState>();
   private nextId = 101;
+  private pending = false;
   private lastT = 0;
   private aligning = false;
   private cal: XrCal = { k: 1, dx: 0, dy: 0 };
@@ -101,25 +103,47 @@ export class XrPlayer {
 
   /** Must run inside a user gesture (a click), like every WebXR session request. */
   async enter(kind: XrKind, view: XrView): Promise<void> {
-    if (this.session) return;
+    if (this.session || this.pending) return;
     const xr = navigator.xr;
     if (!xr) throw new Error('WebXR unavailable');
-    const session = await xr.requestSession(kind, { requiredFeatures: ['local'], optionalFeatures: ['hand-tracking'] });
+    this.pending = true;
+    let session: XRSession;
+    try {
+      session = await xr.requestSession(kind, { requiredFeatures: ['local'], optionalFeatures: ['hand-tracking'] });
+    } finally {
+      this.pending = false;
+    }
+    // the headset (or the user) may end the session while it is still being set up
+    let endedEarly = false;
+    const early = () => {
+      endedEarly = true;
+    };
+    session.addEventListener('end', early);
     this.kind = kind;
     this.view = kind === 'immersive-ar' ? view : 'screen';
     this.cal = { ...this.host.xrCal() };
     try {
-      const canvas = document.createElement('canvas');
-      const gl = canvas.getContext('webgl2', { xrCompatible: true, alpha: true, antialias: false, premultipliedAlpha: true, depth: false }) as WebGL2RenderingContext | null;
-      if (!gl) throw new Error('WebGL2 unavailable');
-      this.gl = gl;
-      this.renderer = new XrRenderer(gl);
-      await session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl, { alpha: true, antialias: false }), depthNear: 0.05, depthFar: 100 });
+      // one WebGL context for all sessions: browsers cap the number of live contexts per page
+      if (!this.gl || this.gl.isContextLost()) {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl2', { xrCompatible: true, alpha: true, antialias: false, premultipliedAlpha: true, depth: false }) as WebGL2RenderingContext | null;
+        if (!gl) throw new Error('WebGL2 unavailable');
+        this.gl = gl;
+        this.renderer = new XrRenderer(gl);
+      }
+      await session.updateRenderState({ baseLayer: new XRWebGLLayer(session, this.gl, { alpha: true, antialias: false }), depthNear: 0.05, depthFar: 100 });
       this.ref = await session.requestReferenceSpace('local');
     } catch (e) {
-      await session.end().catch(() => undefined);
+      if (!endedEarly) await session.end().catch(() => undefined);
       this.cleanup();
       throw e;
+    }
+    session.removeEventListener('end', early);
+    // ended during setup, or the round is already over (a permission prompt can take a while)
+    if (endedEarly || !this.host.mode) {
+      if (!endedEarly) await session.end().catch(() => undefined);
+      this.cleanup();
+      return;
     }
     this.session = session;
     this.panel = null;
@@ -174,7 +198,7 @@ export class XrPlayer {
   }
 
   private onEnd(): void {
-    if (!this.gl && !this.session) return;
+    if (!this.session) return;
     const reason = this.endReason;
     for (const st of this.sources.values()) if (st.selecting) this.pointer('cancel', st);
     this.sources.clear();
@@ -185,9 +209,7 @@ export class XrPlayer {
   }
 
   private cleanup(): void {
-    this.renderer?.dispose();
-    this.renderer = null;
-    this.gl = null;
+    // the WebGL context and its textures are kept for the next session
     this.session = null;
     this.ref = null;
     this.gameCb = null;
@@ -275,7 +297,9 @@ export class XrPlayer {
   /** Thumbstick / button handling (polled – XR gamepads fire no DOM events). */
   private pollButtons(src: XRInputSource, st: SourceState, dt: number): void {
     const gp = src.gamepad;
-    if (!gp) return;
+    // tracked hands: the pinch arrives as select; their gamepad buttons 3+ are thumb micro-gestures
+    // on Quest (swipes, taps), not A/B buttons – never map them to reload / pause
+    if (!gp || src.hand || src.profiles.some((p) => p.includes('hand'))) return;
     const pressed = (i: number) => !!gp.buttons[i]?.pressed;
     const edge = (i: number) => pressed(i) && !st.buttons[i];
     const m = this.host.mode;
@@ -299,8 +323,8 @@ export class XrPlayer {
       const x = gp.axes[2] ?? 0;
       const y = gp.axes[3] ?? 0;
       const dead = (v: number) => (Math.abs(v) < 0.15 ? 0 : v);
-      if (src.handedness === 'right') this.cal = { ...this.cal, k: Math.max(0.3, Math.min(4, this.cal.k * Math.exp(-dead(y) * dt * 0.6))) };
-      else this.cal = { ...this.cal, dx: clamp(this.cal.dx + dead(x) * dt * 0.15, -0.6, 0.6), dy: clamp(this.cal.dy + dead(y) * dt * 0.15, -0.6, 0.6) };
+      if (src.handedness === 'right') this.cal = { ...this.cal, k: clamp(this.cal.k * Math.exp(-dead(y) * dt * 0.6), CAL_LIMITS.kMin, CAL_LIMITS.kMax) };
+      else this.cal = { ...this.cal, dx: clamp(this.cal.dx + dead(x) * dt * 0.15, -CAL_LIMITS.shift, CAL_LIMITS.shift), dy: clamp(this.cal.dy + dead(y) * dt * 0.15, -CAL_LIMITS.shift, CAL_LIMITS.shift) };
     }
     st.buttons = gp.buttons.map((b) => b.pressed);
   }
@@ -330,8 +354,9 @@ export class XrPlayer {
     // 2) place the screen (lazy follow)
     if (this.view === 'screen') {
       const target = panelInFront(head, SCREEN_DIST);
+      const level = Math.hypot(head[8], head[10]) > 0.3; // forward not (almost) vertical
       if (!this.panel) this.panel = target;
-      else {
+      else if (level) {
         const f = lazyFollow(this.panel, target, dt, this.follow);
         this.panel = f.pose;
         this.follow = { awayFor: f.awayFor, moving: f.moving };

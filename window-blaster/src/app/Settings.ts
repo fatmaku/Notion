@@ -36,6 +36,8 @@ export interface SettingsData {
   glassesCal: GlassesCal;
   /** the player has aligned the glasses at least once */
   glassesAligned: boolean;
+  /** stage aspect (w/h) when aligned – a portrait alignment does not fit landscape play */
+  glassesAspect: number;
   /** shooter aiming with relative drags – the phone works like a laptop touchpad */
   touchpad: boolean;
   /** play rounds inside the headset view (WebXR) when the browser offers it */
@@ -72,6 +74,7 @@ export const DEFAULT_SETTINGS: SettingsData = {
   glasses: false,
   glassesCal: { k: 1, dx: 0, dy: 0 },
   glassesAligned: false,
+  glassesAspect: 0,
   touchpad: false,
   headset: false,
   xrView: 'screen',

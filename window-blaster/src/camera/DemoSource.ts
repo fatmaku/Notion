@@ -140,7 +140,9 @@ export class DemoSource implements FrameSource {
     await this.video.play().catch(() => undefined);
     const minDt = 1000 / this.opts.fps - 2;
     let lastDraw = 0;
+    let lastRafAt = 0;
     const tick = (t: number) => {
+      lastRafAt = t;
       if (t - lastDraw >= minDt) {
         lastDraw = t;
         this.draw(t);
@@ -148,10 +150,10 @@ export class DemoSource implements FrameSource {
       this.raf = requestAnimationFrame(tick);
     };
     this.raf = requestAnimationFrame(tick);
-    // Background tabs (and headsets during a WebXR session) stop window rAF; keep the scene alive.
+    // Background tabs (and headsets during a WebXR session) stop window rAF; the timer then draws every tick.
     this.timer = setInterval(() => {
       const now = performance.now();
-      if (document.hidden || now - lastDraw > 3 * (1000 / this.opts.fps)) {
+      if (document.hidden || now - lastRafAt > 3 * (1000 / this.opts.fps)) {
         lastDraw = now;
         this.draw(now);
       }

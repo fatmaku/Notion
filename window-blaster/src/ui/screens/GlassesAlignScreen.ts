@@ -84,7 +84,7 @@ export function GlassesAlignScreen(app: App, onDone: () => void, onBack: () => v
     ghostBtn.classList.toggle('secondary', !on);
   };
   const done = () => {
-    app.settings.patch({ glassesCal: cal, glassesAligned: true });
+    app.settings.patch({ glassesCal: cal, glassesAligned: true, glassesAspect: L.cssW / Math.max(1, L.cssH) });
     onDone();
   };
   const smallBtn = 'min-width:52px';
@@ -132,31 +132,39 @@ export function GlassesAlignScreen(app: App, onDone: () => void, onBack: () => v
   let prevY = true;
   let lastNow = 0;
   let started = false;
+  /** false once the screen was left – a camera start finishing later must not touch anything */
+  let alive = true;
 
   return {
     el,
     enter() {
+      alive = true;
       app.input.menu.suspended = true;
       window.addEventListener('keydown', onKey);
       setGhost(true);
       apply();
-      if (!app.frame && !started) {
+      // alignment needs the real camera (a demo left running from an earlier round would line up a fake street)
+      const wantDemo = app.params.demo;
+      if ((!app.frame || (!wantDemo && app.frame.kind !== 'camera')) && !started) {
         started = true;
         status.textContent = T.glAlignStarting;
-        app.session.source = app.params.demo ? 'demo' : 'camera';
+        app.session.source = wantDemo ? 'demo' : 'camera';
         void app
           .startSource()
           .then(() => {
+            if (!alive) return;
             status.textContent = T.glAlignHint;
             apply();
           })
           .catch((err: unknown) => {
+            if (!alive) return;
             toast(String((err as Error)?.message ?? err), 4000);
             onBack();
           });
       }
     },
     exit() {
+      alive = false;
       app.input.menu.suspended = false;
       window.removeEventListener('keydown', onKey);
       document.body.classList.remove('glasses-ghost');

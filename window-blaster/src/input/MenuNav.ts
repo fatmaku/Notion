@@ -5,7 +5,7 @@ import { PAD, type PadLike } from './bindings';
  * Gamepad navigation for the HTML menus: d-pad / left stick move the focus between buttons,
  * A presses the focused one (hold buttons get a real press-and-hold), B goes back.
  */
-const FOCUSABLE = 'button:not([disabled]), input:not([disabled]), select:not([disabled]), a[href]';
+const FOCUSABLE = 'button:not([disabled]):not([tabindex="-1"]), input:not([disabled]), select:not([disabled]), a[href]';
 
 export class MenuNav {
   private prev = { a: false, b: false, up: false, down: false, left: false, right: false };
@@ -68,8 +68,9 @@ export class MenuNav {
     return true;
   }
 
-  update(gp: PadLike | null, now: number): void {
-    if (!gp || this.suspended) return;
+  /** `active` = a menu is on screen; otherwise the pad state is only tracked. */
+  update(gp: PadLike | null, now: number, active = true): void {
+    if (!gp) return;
     const b = (i: number) => !!gp.buttons[i]?.pressed;
     const ax = gp.axes[0] ?? 0;
     const ay = gp.axes[1] ?? 0;
@@ -82,6 +83,13 @@ export class MenuNav {
       right: b(PAD.RIGHT) || ax > 0.6,
     };
     const p = this.prev;
+    // record first: a throwing click handler must not repeat every frame while A is held
+    this.prev = s;
+    if (this.suspended || !active) {
+      // keep tracking the buttons, so a press consumed elsewhere (play, alignment) is not replayed later
+      if (this.holding) this.press(false);
+      return;
+    }
     const dirNow = s.up || s.down || s.left || s.right;
     const fresh = (s.up && !p.up) || (s.down && !p.down) || (s.left && !p.left) || (s.right && !p.right);
     if (dirNow && (fresh || now >= this.repeatAt)) {
@@ -92,11 +100,10 @@ export class MenuNav {
     }
     if (s.a !== p.a) this.press(s.a);
     if (s.b && !p.b) this.back();
-    this.prev = s;
   }
 
-  reset(): void {
+  /** Lets go of a hold button pressed with A (screen change). */
+  release(): void {
     if (this.holding) this.press(false);
-    this.prev = { a: false, b: false, up: false, down: false, left: false, right: false };
   }
 }

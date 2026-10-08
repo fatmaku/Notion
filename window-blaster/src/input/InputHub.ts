@@ -140,8 +140,12 @@ export class InputHub {
     this.touchpad.cancel();
     this.cursor = mode ? this.center() : null;
     this.cursorUntil = 0;
-    this.menu.reset();
+    this.menu.release();
+    this.justAttached = true;
   }
+
+  /** the first frame of a round: buttons still held from the menu are not new presses */
+  private justAttached = false;
 
   private center(): Vec2 {
     const v = this.host.layers.visibleRect();
@@ -206,7 +210,9 @@ export class InputHub {
     const mode = this.host.mode;
     if (mode !== this.attached) this.attach(mode);
     const gp = this.pad();
-    if (!mode || this.host.paused) this.menu.update(gp, now);
+    const pausedBefore = this.host.paused;
+    // the menu always sees the pad (so a held button is not a new press later), but only acts in menus
+    this.menu.update(gp, now, !mode || pausedBefore);
     const kind = this.kind(mode);
     const fromPad = gp ? padIntents(gp, kind) : noIntents();
     const fromKeys = keyIntents(this.tapped.size ? new Set([...this.keys, ...this.tapped]) : this.keys, kind);
@@ -215,6 +221,11 @@ export class InputHub {
     const ed = edges(this.prev, it);
     this.prev = it;
     if (!mode) return;
+    // A on "Resume" must not also fire; buttons held from the menu do not act on the first frame of a round
+    if (this.justAttached || this.host.paused !== pausedBefore) {
+      this.justAttached = false;
+      return;
+    }
     if (gp && (ed.pressed.length || fromPad.aim.x || fromPad.aim.y)) this.device = 'gamepad';
     // Start / Escape toggle the pause, also from inside the pause menu
     if (ed.pressed.includes('pause') && fromPad.pause) this.host.togglePause();

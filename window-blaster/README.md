@@ -142,8 +142,8 @@ Startbildschirm → **🕶️ Brillen & AR** (mit Headset: „Brillen & Headset�
 
 | Gerät | Wie | Status |
 |---|---|---|
-| **Display-Brillen am Handy**: XREAL Air/One/One Pro, VITURE, Rokid Max, RayNeo Air | USB-C an iPhone 15+ (nicht 16e/Air) oder Android mit DisplayPort (Galaxy S, Pixel 8+); das Handy spiegelt | ✅ **Leinwand** (ohne Einstellung) · ✅ **Durchsicht-Modus**: Kamerabild aus, nur Effekte – Schwarz ist in der Brille durchsichtig, also liegen Explosionen auf der echten Welt. Einmal **Brille ausrichten**. Ausrichtung nur ungefähr (die Webseite kennt die Kopfbewegung nicht). |
-| **Meta Quest 3 / 3S** | Im Quest-Browser öffnen, „Headset-Kameras“ erlauben | ✅ WebXR: **Leinwand** (schwebendes Bild, folgt träge dem Blick) oder **AR-Overlay** (Effekte kopf-fest über der Durchsicht, Ausrichtung per Stick). Kamera über `getUserMedia` (Quest-Browser 40+); liefert sie im Headset keine Bilder, beendet das Spiel den Headset-Modus mit Hinweis. Reisemodus im Zug; im Auto unterstützt Meta das Tracking nicht. |
+| **Display-Brillen am Handy**: XREAL Air/One/One Pro, VITURE, Rokid Max, RayNeo Air | USB-C an iPhone 15+ (nicht 16e, 17e, Air) oder Android mit DisplayPort (Galaxy S, Pixel 8+); das Handy spiegelt | ✅ **Leinwand** (ohne Einstellung) · ✅ **Durchsicht-Modus**: Kamerabild aus, nur Effekte – Schwarz ist in der Brille durchsichtig, also liegen Explosionen auf der echten Welt. Einmal **Brille ausrichten**. Ausrichtung nur ungefähr (die Webseite kennt die Kopfbewegung nicht). |
+| **Meta Quest 3 / 3S** | Im Quest-Browser öffnen, „Headset-Kameras“ erlauben | ✅ WebXR: **Leinwand** (schwebendes Bild, folgt träge dem Blick) oder **AR-Overlay** (Effekte kopf-fest über der Durchsicht, Ausrichtung per Stick). Kamera über `getUserMedia` (im Quest-Browser laut Meta noch experimentell); liefert sie im Headset keine Bilder, beendet das Spiel den Headset-Modus mit Hinweis. Reisemodus im Zug; im Auto unterstützt Meta das Tracking nicht. |
 | Quest 2 / Pro | Quest-Browser | ⚠️ WebXR ja, aber kein Kamerazugriff → Demo |
 | Samsung Galaxy XR / Android XR, Pico 4 Ultra | Chrome / Pico-Browser | ⚠️ WebXR mit Durchsicht ja; ob der Browser die Außenkamera hergibt, ist nicht dokumentiert – ausprobieren, sonst Demo |
 | Ray-Ban Meta / Oakley Meta | – | ❌ kein Display; Kamera nur über Metas native Toolkits, nicht im Browser |
@@ -162,6 +162,11 @@ Startbildschirm → **🕶️ Brillen & AR** (mit Headset: „Brillen & Headset�
 - **Headset-Controller / Hände:** Trigger oder Pinch = schießen (Runner: springen), Griff = Waffe wechseln (Runner: ducken),
   A/X = nachladen, B/Y = Pause (zurück ins Browserfenster, dort „🥽 Weiter im Headset“), Stick drücken = Leinwand
   zurückholen bzw. AR-Overlay ausrichten (links schieben, rechts zoomen, nochmal drücken speichert).
+
+Der Durchsicht-Modus wirkt nur mit der echten Kamera – in der Demo bleibt die Demo-Straße sichtbar. Zum Ausprobieren
+des Looks erzwingt `?glasses=1` ihn für einen Besuch (wird nicht gespeichert). Die Ausrichtung gilt für die
+Bildschirm-Ausrichtung, in der sie gemacht wurde; quer ↔ hoch fragt beim nächsten Start neu. Mit Hand-Tracking im
+Headset gilt nur der Pinch (= Trigger); Daumengesten werden bewusst ignoriert.
 
 Technik: `src/input/` (Gamepad-/Tastatur-Belegung, Touchpad-Zustandsautomat, Menü-Navigation), `src/xr/` (WebXR-Sitzung,
 WebGL2-Leinwand ohne three.js, Strahl-Treffer, träges Nachführen). Getestet mit Unit-Tests und mit Metas

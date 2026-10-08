@@ -39,7 +39,7 @@ export function PlayScreen(app: App, mode: GameMode): Screen {
   el.addEventListener('pointercancel', (e) => send(e, 'cancel'));
 
   const btn = (cls: string, label: string, onDown?: () => void, onUp?: () => void) => {
-    const b = h('button', { class: `hud-btn ${cls}`, 'aria-label': label }, label);
+    const b = h('button', { class: `hud-btn ${cls}`, 'aria-label': label, tabindex: -1 }, label);
     b.addEventListener('pointerdown', (e) => {
       e.stopPropagation();
       e.preventDefault();
@@ -65,7 +65,7 @@ export function PlayScreen(app: App, mode: GameMode): Screen {
   // hidden debug toggle: 5 quick taps in the top-left corner
   let taps = 0;
   let lastTap = 0;
-  const dbg = h('button', { style: 'position:absolute;left:0;top:0;width:60px;height:60px;opacity:0;border:0;background:transparent' });
+  const dbg = h('button', { tabindex: -1, 'aria-hidden': 'true', style: 'position:absolute;left:0;top:0;width:60px;height:60px;opacity:0;border:0;background:transparent' });
   dbg.addEventListener('pointerdown', (e) => {
     e.stopPropagation();
     const now = performance.now();

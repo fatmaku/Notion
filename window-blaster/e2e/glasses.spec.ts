@@ -59,8 +59,11 @@ test('glasses screen: see-through mode hides the camera image, alignment moves a
   const saved = await page.evaluate(() => (window as unknown as W).__wb.app.settings.data);
   expect(saved.glassesAligned).toBe(true);
   expect((saved.glassesCal as { dx: number }).dx).toBeCloseTo(cal!.dx, 5);
-  // camera image hidden again outside the alignment
-  expect(await page.locator('#cam').evaluate((v) => getComputedStyle(v).opacity)).toBe('0');
+  // the alignment ran on the demo street (?demo=1): see-through only applies to the real camera,
+  // so the demo picture is visible again afterwards
+  await expect(page.locator('body')).not.toHaveClass(/glasses-ghost/);
+  expect(await page.locator('#cam').evaluate((v) => getComputedStyle(v).opacity)).toBe('1');
+  expect(await page.evaluate(() => (window as unknown as W).__wb.app.settings.data.glasses)).toBe(true);
   expect(errors).toEqual([]);
 });
 
@@ -69,7 +72,8 @@ test('glasses round: calibrated mapping, taps still hit, no camera image', async
   await page.addInitScript(() => {
     localStorage.setItem('wb.settings.v1', JSON.stringify({ glasses: true, glassesAligned: true, glassesCal: { k: 1.2, dx: 0.03, dy: -0.02 }, safetyAcceptedAt: Date.now() }));
   });
-  await page.goto('/?demo=1&test=1&skipTo=play&mode=front-shooter&weapons=smg&noshake=1&seed=7');
+  // ?glasses=1 forces the see-through look for this visit, also on the demo street
+  await page.goto('/?demo=1&test=1&skipTo=play&mode=front-shooter&weapons=smg&noshake=1&seed=7&glasses=1');
   await waitForPlay(page);
   expect(await page.locator('#cam').evaluate((v) => getComputedStyle(v).opacity)).toBe('0');
   expect(await page.locator('#cam').evaluate((v) => (v as HTMLVideoElement).style.transform)).toContain('scale(1.2');
@@ -82,7 +86,21 @@ test('glasses round: calibrated mapping, taps still hit, no camera image', async
   }
   expect(hits).toBeGreaterThan(0);
   await page.screenshot({ path: 'test-results/glasses-play.png' });
+  // the URL override is not written into the saved settings
+  const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('wb.settings.v1') ?? '{}'));
+  expect(stored.glasses).toBe(true); // from the test setup
   expect(errors).toEqual([]);
+});
+
+test('?glasses=1 is a per-visit override and does not stick in the settings', async ({ page }) => {
+  await page.goto('/?demo=1&test=1&glasses=1');
+  await expect(page.locator('body')).toHaveClass(/glasses/);
+  await page.locator('button[data-glasses]').click();
+  await page.locator('input[data-setting="touchpad"]').check(); // any settings write
+  const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('wb.settings.v1') ?? '{}'));
+  expect(stored.glasses).toBeFalsy();
+  await page.goto('/?demo=1&test=1');
+  await expect(page.locator('body')).not.toHaveClass(/(^|\s)glasses(\s|$)/);
 });
 
 test('keyboard and gamepad drive the shooter: aim, fire, swap, pause', async ({ page }) => {
@@ -183,4 +201,50 @@ test('gamepad navigates the menus: d-pad moves the focus, A presses', async ({ p
   await page.waitForTimeout(250);
   await setPad(page);
   await expect(page.locator('[data-screen="start"]')).toBeVisible();
+});
+
+test('pause releases a held trigger; A on "Resume" does not shoot; Esc on Settings keeps the round paused', async ({ page }) => {
+  const errors = collectErrors(page);
+  await page.goto('/?demo=1&test=1&skipTo=play&mode=front-shooter&weapons=smg&noshake=1');
+  await waitForPlay(page);
+  await page.waitForTimeout(400);
+  // hold A (automatic fire), press Start while still holding, let go of everything during the pause
+  await setPad(page, [0]);
+  await page.waitForTimeout(450);
+  await setPad(page, [0, 9]);
+  await expect.poll(async () => (await snapshot(page)).paused).toBe(true);
+  await setPad(page);
+  await page.waitForTimeout(400);
+  await page.keyboard.press('Escape');
+  await expect.poll(async () => (await snapshot(page)).paused).toBe(false);
+  await page.waitForTimeout(300);
+  const s0 = Number((await snapshot(page)).shots);
+  await page.waitForTimeout(800);
+  expect(Number((await snapshot(page)).shots)).toBe(s0); // no trigger stuck down after the pause
+  // pause with Start, the d-pad focuses "Resume", A presses it – and must not fire as well
+  await setPad(page, [9]);
+  await expect.poll(async () => (await snapshot(page)).paused).toBe(true);
+  await setPad(page);
+  await page.waitForTimeout(300);
+  await setPad(page, [13]);
+  await page.waitForTimeout(300);
+  await setPad(page);
+  await page.waitForTimeout(300);
+  expect(await page.evaluate(() => document.activeElement?.textContent)).toMatch(/Weiter/);
+  const s1 = Number((await snapshot(page)).shots);
+  await setPad(page, [0]);
+  await expect.poll(async () => (await snapshot(page)).paused).toBe(false);
+  await page.waitForTimeout(400);
+  await setPad(page);
+  expect(Number((await snapshot(page)).shots)).toBe(s1);
+  // Settings from the pause menu: Escape must not resume the round hidden behind it
+  await page.keyboard.press('Escape');
+  await expect.poll(async () => (await snapshot(page)).paused).toBe(true);
+  await page.locator('.play .card').getByRole('button', { name: /Einstellungen/ }).click();
+  await expect(page.getByRole('heading', { name: /Einstellungen/ })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(300);
+  expect((await snapshot(page)).paused).toBe(true);
+  await expect(page.getByRole('heading', { name: /Einstellungen/ })).toBeVisible();
+  expect(errors).toEqual([]);
 });

@@ -131,6 +131,11 @@ export class RunnerMode implements GameMode {
 
   pause(): void {
     if (this.pausedAt === null) this.pausedAt = performance.now();
+    // releases are dropped while paused: never come back from a pause still ducked or holding a jump
+    this.phys.jumpRelease();
+    this.phys.duck(false);
+    this.duckHeld = false;
+    this.pointerStart = null;
   }
 
   resume(): void {
@@ -541,7 +546,7 @@ export class RunnerMode implements GameMode {
     const c = L.fx;
     const now = this.lastNow;
     const t = this.t(now);
-    const off = this.shake.offset();
+    const off = this.ctx.seeThrough?.() ? { x: 0, y: 0 } : this.shake.offset();
     c.translate(off.x, off.y);
     const a = this.area();
     if (!a.free) this.fx.outsideQuadDim(a.quad, L.frameRect(), 0.3);

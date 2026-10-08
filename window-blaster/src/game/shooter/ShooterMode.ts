@@ -139,6 +139,10 @@ export class ShooterMode implements GameMode {
 
   pause(): void {
     if (this.pausedAt === null) this.pausedAt = performance.now();
+    // input events are dropped while paused, so a trigger held into the pause must not stay held after it
+    this.aimDown = false;
+    this.lockId = null;
+    this.aimShownUntil = 0;
   }
 
   resume(): void {
@@ -612,7 +616,7 @@ export class ShooterMode implements GameMode {
   private afterKill(target: HitTarget, cfg: WeaponConfig, now: number, snap: HTMLCanvasElement | null = null, snapBox: Rect | null = null, impact: Vec2 | null = null): void {
     const after = cfg.after;
     // see-through glasses can't erase a real car with drawn pixels – the patch would only add a bright smear
-    const cover = this.ctx.settings.data.stretchFill && !this.ctx.settings.data.glasses;
+    const cover = this.ctx.settings.data.stretchFill && !this.ctx.seeThrough?.();
     if (after === 'wreck') {
       const s = snap && snapBox ? { canvas: snap, box: snapBox } : captureRegion(this.ctx.frame.video, target.box);
       if (s) this.effects.add(new Wreck(target.id, s.canvas, s.box, now, this.effects.particles));
@@ -717,7 +721,7 @@ export class ShooterMode implements GameMode {
     const L = this.ctx.layers;
     const c = L.fx;
     const now = this.lastNow;
-    const off = this.shake.offset();
+    const off = this.ctx.seeThrough?.() ? { x: 0, y: 0 } : this.shake.offset();
     c.translate(off.x, off.y);
     const win = this.ctx.window();
     if (win.mode === 'tracking' || win.mode === 'degraded') this.fx.outsideQuadDim(win.quad, L.frameRect(), win.mode === 'tracking' ? 0.3 : 0.15);
@@ -727,7 +731,7 @@ export class ShooterMode implements GameMode {
     const vt = this.visualTime(now);
     const tsec = now / 1000;
     const inTargets = new Set(this.cachedTargets.map((tg) => tg.id));
-    const glasses = this.ctx.settings.data.glasses;
+    const glasses = !!this.ctx.seeThrough?.();
     for (const [id, st] of this.memory.targets) {
       if (!st.decals.length || inTargets.has(id) || st.state !== 'alive') continue;
       const b = this.boxOf(id);
