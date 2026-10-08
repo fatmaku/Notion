@@ -5,6 +5,7 @@ Dışa aktarım klasörü içinde posts_1.json, reels.json, stories.json, igtv_v
 """
 import datetime as dt
 import json
+import re
 from pathlib import Path
 
 from . import config, db, media
@@ -144,6 +145,11 @@ def import_export(con, root, progress=print, match=True):
         res["istatistik"] = import_insights_export(con, root, progress)
     except Exception as ex:  # istatistik okunamadı diye içe aktarma durmasın
         progress(f"  ! istatistik: {ex}")
+    try:
+        if import_account_insights(con, root, progress):
+            res["hesap_ozeti"] = True
+    except Exception as ex:
+        progress(f"  ! kitle özeti: {ex}")
     if match:
         res["eslesen"] = match_posts(con, progress)
     try:
@@ -219,13 +225,17 @@ def match_posts(con, progress=print, only_unmatched=True):
 
 
 # "Bilgilerini indir" içindeki past_instagram_insights/*.json (profesyonel hesaplar): paylaşım başına erişim/beğeni/…
+# Anahtarlar dışa aktarım diline göre gelir; alt dize eşleşmesi ("„Gefällt mir“-Angaben" gibi tırnaklı başlıklar dahil).
 INSIGHT_KEYS = {
     "reach": ("accounts reached", "reach", "erreichte konten", "reichweite", "erişilen hesap", "erişim", "ulaşılan hesap"),
-    "likes": ("likes", "gefällt mir", "beğeni"),
-    "comments": ("comments", "kommentare", "yorum"),
-    "shares": ("shares", "geteilt", "paylaşım"),
-    "saves": ("saves", "gespeichert", "kaydet"),
+    "views": ("impressionen", "impressions", "plays", "wiedergaben", "gösterim", "izlenme", "views"),
+    "likes": ("likes", "gefällt mir", "beğeni", "reaktionen", "reactions", "tepki"),
+    "comments": ("comments", "kommentare", "yorum", "antworten", "replies", "yanıt"),
+    "shares": ("shares", "geteilt", "paylaşım", "paylaşıl"),
+    "saves": ("saves", "gespeichert", "kaydet", "saved"),
+    "follows": ("neue follower", "new follows", "follows", "yeni takipçi", "takip"),
 }
+NOT_PER_POST = ("delta", "insgesamt", "prozent", "zeitraum", "aktivität", "nach follower", "im vergleich")
 
 
 def _insight_rows(node, out):
@@ -248,65 +258,259 @@ def _insight_num(v):
     return int(digits) if digits else None
 
 
+def _insight_file(jf, want=None):
+    """Dosya bir istatistik dosyası mı? Klasör/ad 'insights' içerir ya da üst anahtar 'organic_insights_…' ile başlar.
+    want: 'audience' | 'interactions' | 'media' (gönderi/reel/hikâye/canlı) süzgeci."""
+    name = jf.name.lower()
+    try:
+        with jf.open("r", encoding="utf-8") as fh:
+            head = fh.read(160)
+    except (OSError, UnicodeDecodeError):
+        return False
+    m = re.search(r'"organic_insights_(\w+)"', head)
+    key = m.group(1) if m else None
+    if not key and "insights" not in str(jf.parent).lower() and "insights" not in name:
+        return False
+    kind = key or name
+    if want == "audience":
+        return "audience" in kind or "kitle" in kind
+    if want == "interactions":
+        return "interaction" in kind or "etkile" in kind
+    return not any(x in kind for x in ("audience", "interaction", "kitle", "etkile"))
+
+
+def _insight_kind(name):
+    n = name.lower()
+    return "reel" if "reel" in n else "story" if "stor" in n else "live" if "live" in n else "post"
+
+
 def parse_insights(root):
-    """[{posted_at, kind, reach, likes, comments, shares, saves}] — dosya adından tür (posts/reels/stories)."""
+    """[{posted_at, kind, uri, caption, reach, views, likes, comments, shares, saves, follows}] — dosya adından tür."""
     root = Path(root).expanduser()
     rows = []
-    for jf in root.rglob("*.json"):
-        if "insights" not in str(jf.parent).lower() and "insights" not in jf.name.lower():
+    for jf in sorted(root.rglob("*.json")):
+        if not _insight_file(jf, "media"):
             continue
         try:
             data = json.loads(jf.read_text(encoding="utf-8"))
         except (ValueError, OSError):
             continue
-        kind = "reel" if "reel" in jf.name.lower() else "story" if "stor" in jf.name.lower() else "post"
+        kind = _insight_kind(jf.name)
         found = []
         _insight_rows(data, found)
         for n in found:
-            smd = n["string_map_data"]
-            ts = None
-            for k, v in smd.items():
-                if "timestamp" in k.lower() or "zeitstempel" in k.lower() or "zaman" in k.lower():
-                    ts = _insight_num(v) if isinstance(v, dict) and v.get("timestamp") else ts
-            if not ts:
-                for m in (n.get("media_map_data") or {}).values():
-                    if isinstance(m, dict) and m.get("creation_timestamp"):
-                        ts = int(m["creation_timestamp"]); break
-            if not ts:
-                continue
-            row = {"posted_at": dt.datetime.fromtimestamp(ts).replace(microsecond=0).isoformat(), "kind": kind}
-            for k, v in smd.items():
-                kl = _fix_mojibake(k).lower()
-                for col, names in INSIGHT_KEYS.items():
-                    if any(kl.startswith(nm) or kl == nm for nm in names) and col not in row:
-                        num = _insight_num(v)
-                        if num is not None:
-                            row[col] = num
-            if any(c in row for c in INSIGHT_KEYS):
+            try:
+                row = _insight_row(n, kind)
+            except Exception:  # tek bozuk kayıt (ms zaman damgası, liste yerine sözlük…) tüm istatistiği düşürmesin
+                row = None
+            if row:
                 rows.append(row)
     return rows
 
 
+def _insight_row(n, kind):
+    smd = {_fix_mojibake(str(k)).lower(): v for k, v in n["string_map_data"].items()}
+    ts, uri, caption = None, None, None
+    for k, v in smd.items():
+        if isinstance(v, dict) and v.get("timestamp") and any(x in k for x in ("timestamp", "zeitstempel", "zaman", "startzeit", "start time")):
+            ts = int(v["timestamp"]); break
+    mmd = n.get("media_map_data")
+    for m in (mmd.values() if isinstance(mmd, dict) else []):
+        if isinstance(m, dict):
+            uri = m.get("uri") if isinstance(m.get("uri"), str) else uri
+            caption = _fix_mojibake(m.get("title")) if isinstance(m.get("title"), str) else caption
+            if not ts and m.get("creation_timestamp"):
+                ts = int(m["creation_timestamp"])
+    if not ts:
+        return None
+    if ts > 10 ** 11:  # milisaniye
+        ts //= 1000
+    row = {"posted_at": dt.datetime.fromtimestamp(ts).replace(microsecond=0).isoformat(), "kind": kind, "uri": uri, "caption": caption or None}
+    for k, v in smd.items():
+        if any(x in k for x in NOT_PER_POST):
+            continue
+        for col, names in INSIGHT_KEYS.items():
+            if col not in row and any(nm in k for nm in names):
+                num = _insight_num(v)
+                if num is not None:
+                    row[col] = num
+                break
+    return row if any(c in row for c in INSIGHT_KEYS) else None
+
+
+def _like_suffix(base):
+    """'%/<dosya adı>' için LIKE deseni; _ ve % joker sayılmasın."""
+    esc = base.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+    return "%/" + esc
+
+
+def _find_post(con, r):
+    """İstatistik satırını mevcut paylaşıma bağla. Dönüş: (satır, 'dosya'|'tarih') ya da (None, None).
+    - Medya adı varsa yalnızca dosya adıyla eşleşir (yol ayracına sabitlenmiş, joker kaçışlı); bulunamazsa YENİ satır açılır —
+      tarih tahmini aynı gün çekilmiş başka bir hikâyenin/gönderinin sayılarını ezerdi.
+    - Medya adı yoksa (CSV benzeri kayıt) aynı türde ±12 saat içindeki en yakın paylaşım; hikâye/canlı için tarih tahmini yok."""
+    uri = str(r.get("uri") or "")
+    if uri and not uri.startswith(("http://", "https://")):
+        base = Path(uri).name
+        if base:
+            p = con.execute("SELECT id FROM posts WHERE media_path LIKE ? ESCAPE '\\' OR media_path=? ORDER BY id LIMIT 1",
+                            (_like_suffix(base), base)).fetchone()
+            return (p, "dosya") if p else (None, None)
+        return None, None
+    if r["kind"] in ("story", "live"):  # uzak (http) küçük resim ya da ad yok: hikâye/canlı için tarih tahmini güvenilmez
+        return None, None
+    pa = dt.datetime.fromisoformat(r["posted_at"])
+    lo, hi = (pa - dt.timedelta(hours=12)).isoformat(), (pa + dt.timedelta(hours=12)).isoformat()
+    p = con.execute("SELECT id FROM posts WHERE posted_at BETWEEN ? AND ? AND COALESCE(kind,'post')=? "
+                    "ORDER BY ABS(julianday(posted_at)-julianday(?)) LIMIT 1", (lo, hi, r["kind"], r["posted_at"])).fetchone()
+    return (p, "tarih") if p else (None, None)
+
+
 def import_insights_export(con, root, progress=print):
-    """Dışa aktarımdaki istatistikleri (varsa) paylaşımlara tarih yakınlığıyla bağlar; CSV gerekmez."""
+    """Dışa aktarımdaki istatistikleri (varsa) paylaşımlara bağlar; CSV gerekmez. Dönüş: işlenen satır sayısı."""
     rows = parse_insights(root)
     if not rows:
         return 0
     n = 0
     for r in rows:
-        pa = dt.datetime.fromisoformat(r["posted_at"])
-        lo, hi = (pa - dt.timedelta(hours=12)).isoformat(), (pa + dt.timedelta(hours=12)).isoformat()
         nums = {k: r[k] for k in INSIGHT_KEYS if k in r}
-        post = con.execute("SELECT id FROM posts WHERE posted_at BETWEEN ? AND ? ORDER BY ABS(julianday(posted_at)-julianday(?)) LIMIT 1",
-                           (lo, hi, r["posted_at"])).fetchone()
+        post, how = _find_post(con, r)
         if post:
-            con.execute(f"UPDATE posts SET {', '.join(k + '=?' for k in nums)} WHERE id=?", [*nums.values(), post["id"]])
+            sets = dict(nums)
+            cur = con.execute("SELECT caption FROM posts WHERE id=?", (post["id"],)).fetchone()[0] or ""
+            if how == "dosya" and r.get("caption") and len(r["caption"]) > len(cur):
+                sets["caption"] = r["caption"]  # istatistik dosyasındaki açıklama daha eksiksizse (hashtag'ler dahil) onu kullan
+            if sets:
+                con.execute(f"UPDATE posts SET {', '.join(k + '=?' for k in sets)} WHERE id=?", [*sets.values(), post["id"]])
         else:
-            db.upsert_post(con, {"platform": "instagram", "kind": r["kind"], "posted_at": r["posted_at"], "media_path": None, **nums})
+            db.upsert_post(con, {"platform": "instagram", "kind": r["kind"], "posted_at": r["posted_at"], "caption": r.get("caption"),
+                                 "media_path": r.get("uri"), **nums})
         n += 1
     con.commit()
     progress(f"{n} paylaşımın istatistiği dışa aktarımdan okundu (erişim/beğeni/kaydetme/paylaşım)")
     return n
+
+
+# ---- hesap düzeyinde: kitle (ülke/yaş/cinsiyet) ve içerik etkileşim özeti
+def _pct_map(text):
+    """'Deutschland: 84,5%, Schweiz: 5,1%' → {'deutschland': 84.5, ...}"""
+    out = {}
+    for part in re.split(r",\s+(?=[^:,]+:)", str(text or "")):  # ondalık virgül ('84,5%') ayraç değildir
+        if ":" not in part:
+            continue
+        k, v = part.rsplit(":", 1)
+        v = v.strip().replace("%", "").replace(",", ".")
+        try:
+            out[k.strip().lower()] = float(v)
+        except ValueError:
+            pass
+    return out
+
+
+DACH = ("deutschland", "germany", "almanya", "österreich", "austria", "avusturya", "schweiz", "switzerland", "isviçre", "isvicre")
+TR_NAMES = ("türkei", "türkiye", "turkey", "turkiye")
+
+
+def _smd_find(smd, *needles):
+    for k, v in smd.items():
+        if all(nd in k for nd in needles):
+            return v.get("value") if isinstance(v, dict) else v
+    return None
+
+
+def parse_audience(root):
+    """audience_insights.json → {takipci, donem, delta, ulke: {...}, kitle: {TR, DE, INT}, kadin, erkek, yas: {...}, gun_aktivite: {...}}"""
+    root = Path(root).expanduser()
+    for jf in root.rglob("*.json"):
+        if not _insight_file(jf, "audience"):
+            continue
+        try:
+            data = json.loads(jf.read_text(encoding="utf-8"))
+        except (ValueError, OSError):
+            continue
+        found = []
+        _insight_rows(data, found)
+        for n in found:
+            smd = {_fix_mojibake(str(k)).lower(): v for k, v in n["string_map_data"].items()}
+            country = _pct_map(_fix_mojibake(_smd_find(smd, "land") or _smd_find(smd, "country") or _smd_find(smd, "ülke")))
+            if not country:
+                continue
+            de = sum(v for k, v in country.items() if k in DACH)
+            tr = sum(v for k, v in country.items() if k in TR_NAMES)
+            rest = max(0.0, 100 - de - tr)
+            ages = _pct_map(_smd_find(smd, "alter", "alle") or _smd_find(smd, "age", "all") or _smd_find(smd, "yaş", "tüm"))
+            days = {}
+            for k, v in smd.items():
+                if ("aktivität am" in k or "activity on" in k or "aktivite" in k) and isinstance(v, dict):
+                    days[k.split(" am ")[-1].split(" on ")[-1].strip()] = _insight_num(v)
+            out = {"takipci": _insight_num(_smd_find(smd, "follower") if "followers" not in smd else smd.get("followers")),
+                   "donem": _smd_find(smd, "zeitraum") or _smd_find(smd, "period") or _smd_find(smd, "dönem"),
+                   "delta": _smd_find(smd, "delta", "follower") or _smd_find(smd, "delta", "takip"),
+                   "yeni": _insight_num(_smd_find(smd, "neue follower") or _smd_find(smd, "new followers") or _smd_find(smd, "yeni takip")),
+                   "kayip": _insight_num(_smd_find(smd, "verlorene") or _smd_find(smd, "lost") or _smd_find(smd, "kaybedilen")),
+                   "ulke": country, "kitle": {"TR": round(tr, 1), "DE": round(de, 1), "INT": round(rest, 1)},
+                   "kadin": _pct_map("x: " + str(_smd_find(smd, "weiblich", "insgesamt") or _smd_find(smd, "women", "total") or _smd_find(smd, "kadın", "toplam") or "")).get("x"),
+                   "erkek": _pct_map("x: " + str(_smd_find(smd, "männlich", "insgesamt") or _smd_find(smd, "men", "total") or _smd_find(smd, "erkek", "toplam") or "")).get("x"),
+                   "yas": ages, "gun_aktivite": days}
+            # "Follower" anahtarı birçok satırla çakışır: tam eşleşen sayıyı tercih et
+            for k, v in smd.items():
+                if k in ("follower", "followers", "takipçi", "takipçiler"):
+                    out["takipci"] = _insight_num(v)
+            return out
+    return None
+
+
+def parse_interactions(root):
+    """content_interactions.json → {toplam, reels, gonderi, hikaye, takipci_disi_pct, delta_toplam, reel_paylasim, ...}"""
+    root = Path(root).expanduser()
+    for jf in root.rglob("*.json"):
+        if not _insight_file(jf, "interactions"):
+            continue
+        try:
+            data = json.loads(jf.read_text(encoding="utf-8"))
+        except (ValueError, OSError):
+            continue
+        found = []
+        _insight_rows(data, found)
+        for n in found:
+            smd = {_fix_mojibake(str(k)).lower(): v for k, v in n["string_map_data"].items()}
+            tot = _insight_num(_smd_find(smd, "content-interaktionen") or _smd_find(smd, "content interactions") or _smd_find(smd, "içerik etkileşim"))
+            if tot is None:
+                continue
+            def g(*alts):
+                for a in alts:
+                    v = _smd_find(smd, *a) if isinstance(a, tuple) else _smd_find(smd, a)
+                    if v not in (None, ""):
+                        return _insight_num(v)
+                return None
+            nf = _smd_find(smd, "follower-status") or _smd_find(smd, "follower status") or _smd_find(smd, "takipçi durumu")
+            nfp = _pct_map(nf)
+            out = {"toplam": tot, "donem": _smd_find(smd, "zeitraum") or _smd_find(smd, "period"),
+                   "delta_toplam": _smd_find(smd, "delta", "content") or _smd_find(smd, "delta", "içerik"),
+                   "reels": g("reels-interaktionen", "reel interactions", "reels etkileşim"),
+                   "gonderi": g("beitragsinteraktionen", "post interactions", "gönderi etkileşim"),
+                   "hikaye": g("story-interaktionen", "story interactions", "hikaye etkileşim"),
+                   "reel_begeni": g(("gefällt mir", "reels"), ("likes", "reel"), ("beğeni", "reel")), "reel_paylasim": g("geteilte reels", "reel shares", "paylaşılan reel"),
+                   "reel_kaydet": g("gespeicherte reels", "reel saves", "kaydedilen reel"),
+                   "gonderi_begeni": g(("gefällt mir", "beitrag"), ("likes", "post"), ("beğeni", "gönderi")), "gonderi_paylasim": g("geteilte beiträge", "post shares", "paylaşılan gönderi"),
+                   "gonderi_kaydet": g("gespeicherte beiträge", "post saves", "kaydedilen gönderi"),
+                   "takipci_disi_pct": next((v for k, v in nfp.items() if "nicht" in k or "non" in k or "olmayan" in k), None)}
+            return out
+    return None
+
+
+def import_account_insights(con, root, progress=print):
+    """Kitle ülke dağılımını kitle ayarına yazar (TR/DE/INT) ve hesap özetini kaydeder; UI 'Hesap özeti' olarak gösterir."""
+    aud = parse_audience(root)
+    inter = parse_interactions(root)
+    if not aud and not inter:
+        return None
+    summary = {"kitle": aud, "etkilesim": inter, "guncelleme": db.now()}
+    if aud and aud.get("kitle") and sum(aud["kitle"].values()) > 0:
+        db.set_setting(con, "kitle", json.dumps(aud["kitle"]))
+        progress(f"kitle ayarı Instagram'dan alındı: TR {aud['kitle']['TR']}% · DACH {aud['kitle']['DE']}% · diğer {aud['kitle']['INT']}%")
+    db.set_setting(con, "hesap_ozeti", json.dumps(summary, ensure_ascii=False))
+    return summary
 
 
 def _parse_when(s):

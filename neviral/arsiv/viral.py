@@ -20,8 +20,12 @@ def settings(con):
         aud = {}
     aud = {k: float(aud.get(k, v)) for k, v in DEFAULT_AUDIENCE.items()}
     tot = sum(aud.values()) or 1
+    try:
+        ozet = json.loads(db.get_setting(con, "hesap_ozeti", "") or "null")
+    except ValueError:
+        ozet = None
     return {"kitle": {k: round(v / tot, 3) for k, v in aud.items()}, "saat_dilimi": db.get_setting(con, "saat_dilimi", "Europe/Berlin"),
-            "hesap": db.get_setting(con, "hesap", "") or "", "dil": i18n.lang_of(con)}
+            "hesap": db.get_setting(con, "hesap", "") or "", "dil": i18n.lang_of(con), "ozet": ozet}
 
 
 def save_settings(con, kitle=None, saat_dilimi=None, hesap=None):
@@ -52,11 +56,12 @@ def _features(item, tops):
 
 def learn(con):
     """Geçmiş paylaşımların etkileşiminden özellik başına kaldıraç (lift). Yeterli veri yoksa boş."""
-    rows = con.execute("""SELECT p.likes, p.reach, p.comments, p.saves, p.shares, i.* FROM posts p JOIN items i ON i.id=p.item_id
-                          WHERE (p.likes IS NOT NULL OR p.reach IS NOT NULL) AND (p.matched_by IS NULL OR p.matched_by<>'tarih?')""").fetchall()
+    rows = con.execute("""SELECT p.likes, p.reach, p.comments, p.saves, p.shares, p.follows, i.* FROM posts p JOIN items i ON i.id=p.item_id
+                          WHERE (p.likes IS NOT NULL OR p.reach IS NOT NULL) AND (p.matched_by IS NULL OR p.matched_by<>'tarih?')
+                          AND COALESCE(p.kind,'post') NOT IN ('story','live')""").fetchall()  # hikâye/canlı: ayrı format, akış puanını bozar
     data = []
     for r in rows:
-        eng = (r["likes"] or 0) + 3 * (r["comments"] or 0) + 5 * (r["saves"] or 0) + 6 * (r["shares"] or 0)
+        eng = (r["likes"] or 0) + 3 * (r["comments"] or 0) + 5 * (r["saves"] or 0) + 6 * (r["shares"] or 0) + 10 * (r["follows"] or 0)
         rate = eng / r["reach"] if r["reach"] else eng
         it = db.row_to_item(r)
         data.append((rate, _features(it, konu.topics(it))))
@@ -93,6 +98,7 @@ TOPIC_EVENTS = {
     "okul": ("okul_tr", "ogretmenler", "ogretmen_dunya", "okuryazarlik"),
     "kutlama": ("yilbasi", "ramazan", "kurban", "cumhuriyet", "yil_ozeti", "sevgililer", "genclik"),
     "sahne": ("siir", "kitap_gunu"),
+    "noro": ("otizm", "dehb_ayi"),
 }
 
 

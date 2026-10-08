@@ -12,6 +12,16 @@ Neden bu yaklaşım "en kolayı":
 - **Hatırlatır.** Yeniden paylaşım kuyruğunu haftalara dağıtır, "bugün geçen yıl" önerir, macOS bildirimi ve Takvim (.ics) desteği vardır.
 - **Pazarlama.** Açıklama + hashtag + kanca cümlesi üretir (isteğe bağlı Claude ile), performans CSV'nizden en iyi paylaşım saatlerini çıkarır, içerik fikirleri önerir.
 
+## 📊 Instagram istatistikleri doğrudan dışa aktarımdan (sürüm 0.7)
+
+"Bilgilerini indir" (JSON) içindeki `past_instagram_insights/` klasörü artık tamamen okunur — CSV gerekmez:
+
+- **Paylaşım başına:** erişim, gösterim, beğeni, yorum, paylaşım, kaydetme ve o paylaşımdan gelen **yeni takipçi** (gönderi, reel, hikâye, canlı). Önce medya dosya adıyla, sonra tarih yakınlığıyla mevcut paylaşıma bağlanır; açıklama metni (hashtag'ler dahil) tamamlanır. Almanca/Türkçe/İngilizce başlıklar, "„Gefällt mir“-Angaben" gibi tırnaklı anahtarlar, "12.345" binlik ayracı ve "84,5%" ondalık virgülü doğru okunur.
+- **Kitle otomatik:** Takipçilerin ülke dağılımından TR / DACH (Almanya+Avusturya+İsviçre) / diğer payları **kendiliğinden ayarlanır**; pazar ve dil önerileri buna göre değişir. Yaş, cinsiyet, takipçi sayısı ve dönem değişimi Viral › *Kitle ve hesap ayarları* altında özet olarak görünür.
+- **İçerik etkileşim özeti:** Reels / gönderi / hikâye payları ve etkileşimlerin yüzde kaçının takipçi olmayanlardan geldiği (keşfet gücü).
+- **Hikâye saatleri:** Hikâye erişimi saate göre (en az 5 örnek) Pazarlama sekmesinde ayrı tabloda; hikâyeler akış puanlamasını ve "en iyi saatler"i bozmasın diye ayrı tutulur.
+- **Yeni konu: Nörofarklılık & psikoloji** (DEHB/ADHS, otizm, AuDHD, maskeleme, narsisizm…): platform ağırlıkları, kanca formülleri (kimlik kancası "Bunu sadece nörofarklı olanlar anlar", soru, mit kırma, liste, kişisel), hikâye cümleleri, hashtag'ler ve takvim bağlantısı (Dünya Otizm Günü, DEHB Farkındalık Ayı). Gerçek bir hesabın verisinde kimlik kancalı kısa gönderi, kaynaklı uzun gönderilerin 10 katı erişim aldı.
+
 ## 🎯 Karar motoru: neden viral, ne kazandırır (sürüm 0.6)
 
 Puan artık bir sayı değil, bir **karar**. Her öğe için:

@@ -221,10 +221,14 @@ def best_times(con, lang=None):
     lang = lang or i18n.lang_of(con)
     GUNLER = i18n.days(lang)
     rows = con.execute("SELECT posted_at, reach, likes, comments, saves, kind, duration FROM posts WHERE posted_at IS NOT NULL").fetchall()
+    stories = [r for r in rows if (r["kind"] or "") == "story" and r["reach"]]
+    rows = [r for r in rows if (r["kind"] or "") not in ("story", "live")]  # hikâyeler ayrı değerlendirilir (aşağıda)
     scored = [r for r in rows if (r["reach"] or r["likes"])]
+    story_hours = _story_hours(stories)
     if len(scored) < 5:
         return {"kaynak": "varsayilan", "not": i18n.t(lang, "Yeterli performans verisi yok; Instagram Profesyonel Panel CSV'sini içe aktarın."),
-                "saatler": [{"gun": d, "gun_adi": GUNLER[d], "saat": h, "puan": None} for d in (1, 3, 5) for h in (12, 19)]}
+                "saatler": [{"gun": d, "gun_adi": GUNLER[d], "saat": h, "puan": None} for d in (1, 3, 5) for h in (12, 19)],
+                "hikaye_saatleri": story_hours}
     buckets = {}
     for r in scored:
         t = dt.datetime.fromisoformat(r["posted_at"][:19])
@@ -239,7 +243,25 @@ def best_times(con, lang=None):
     if durs:
         best = max(durs, key=lambda r: (r["likes"] or 0) + (r["reach"] or 0) / 50)
         dur_note = i18n.t(lang, "En iyi performanslı video süresi ~{n} sn", n=int(best['duration']))
-    return {"kaynak": "analiz", "saatler": out, "sure_notu": dur_note, "ornek_sayisi": len(scored)}
+    return {"kaynak": "analiz", "saatler": out, "sure_notu": dur_note, "ornek_sayisi": len(scored), "hikaye_saatleri": story_hours}
+
+
+def _story_hours(stories, min_n=5):
+    """Hikâye erişimi saate göre (yerel saat): [{saat, erisim_medyan, ornek}] en iyi 5; az veri varsa []."""
+    by = {}
+    for r in stories:
+        try:
+            h = dt.datetime.fromisoformat(r["posted_at"][:19]).hour
+        except ValueError:
+            continue
+        by.setdefault(h, []).append(int(r["reach"]))
+    rows = []
+    for h, v in by.items():
+        if len(v) >= min_n:
+            v.sort()
+            rows.append({"saat": h, "erisim_medyan": v[len(v) // 2], "ornek": len(v)})
+    rows.sort(key=lambda x: -x["erisim_medyan"])
+    return rows[:5]
 
 
 def ideas(con, n=8, lang=None):

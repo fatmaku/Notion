@@ -72,6 +72,7 @@ ITEM_COLS = {
 }
 JSON_COLS = {"quality", "viral"}
 NEW_COLS = {"quality": "TEXT", "viral": "TEXT", "viral_score": "REAL", "analyzed_at": "TEXT"}
+POST_NEW_COLS = {"views": "INTEGER", "follows": "INTEGER"}
 LIST_COLS = {"albums", "keywords", "persons", "labels", "score_reasons"}
 HAS_FTS = None
 
@@ -105,6 +106,10 @@ def connect(path=None):
         if col not in have:
             con.execute(f"ALTER TABLE items ADD COLUMN {col} {typ}")
     con.execute("CREATE INDEX IF NOT EXISTS ix_items_viral ON items(viral_score)")
+    have_p = {r[1] for r in con.execute("PRAGMA table_info(posts)")}
+    for col, typ in POST_NEW_COLS.items():  # Instagram istatistikleri: gösterim ve paylaşımdan gelen yeni takipçi
+        if col not in have_p:
+            con.execute(f"ALTER TABLE posts ADD COLUMN {col} {typ}")
     try:
         cols = [r[1] for r in con.execute("PRAGMA table_info(items_fts)")]
         if "uuid" in cols:  # eski şema: dizinsiz uuid sütunu her güncellemede tüm tabloyu tarıyordu
@@ -360,7 +365,7 @@ def top_values(con, col, n=30):
 
 # ---------------------------------------------------------------- paylaşımlar
 POST_COLS = {"platform", "kind", "posted_at", "caption", "media_path", "media_dhash", "duration", "width", "height",
-             "item_id", "matched_by", "confidence", "reach", "likes", "comments", "saves", "shares", "url"}
+             "item_id", "matched_by", "confidence", "reach", "likes", "comments", "saves", "shares", "url", "views", "follows"}
 
 
 def upsert_post(con, d):

@@ -200,6 +200,22 @@ class Viral(unittest.TestCase):
         fake = {"events": {}, "series": {(it["year"], it["month"], it["day"]): 5}}
         self.assertEqual(viral.extras(dict(it, kind="foto"), [("kitap", 1.0)], fake)["seri"], 5)
 
+    def test_norofarklilik_konusu(self):
+        from arsiv import metin, tasarim
+        it = {"filename": "adhs-autismus-reel.mp4", "albums": ["Neurodivergenz"], "kind": "video", "year": 2024, "persons": []}
+        tops = konu.topics(it)
+        self.assertEqual(tops[0][0], "noro")
+        self.assertNotIn("kita", str(konu.topics({"filename": "tanı.jpg"})), "kısa kelime tam eşleşmeli")
+        for lang in ("tr", "de", "en"):
+            v = metin.variants(it, ["noro"], lang, 0.0, n=6)
+            self.assertGreaterEqual(len(v), 4, lang)
+            self.assertTrue(any(w in v[0]["text"].lower() for w in sum(metin.TOPIC_WORDS["noro"].values(), [])), v[0]["text"])
+            tags = yazi.hashtags([("noro", 1.0)], lang, "ig_reels")
+            self.assertTrue(any("adh" in t.lower() or "dehb" in t.lower() for t in tags), tags)
+        self.assertEqual(tasarim.style_for(["noro"]), "minimal")
+        self.assertIn("noro", viral.TOPIC_EVENTS)
+        self.assertTrue(all("noro" in p["konu"] for p in algoritma.PLATFORMS.values()))
+
     def test_ayarlar(self):
         st = viral.save_settings(self.con, kitle={"TR": 10, "DE": 80, "INT": 10}, saat_dilimi="Europe/Istanbul", hesap="@neviral")
         self.assertAlmostEqual(st["kitle"]["DE"], 0.8, delta=0.01)

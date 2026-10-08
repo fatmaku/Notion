@@ -97,6 +97,7 @@ dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);bo
       <div class="row"><button class="primary" onclick="vAnalyze()">🔥 Analiz et</button><button onclick="vTop()">⚡ En iyi 10 için paket hazırla</button></div>
     </div>
     <details style="margin-top:10px"><summary class="muted" style="cursor:pointer">⚙️ Kitle ve hesap ayarları</summary>
+      <div id="v-ozet" class="muted" style="font-size:13px;margin:8px 0;line-height:1.5"></div>
       <div class="row form" style="margin-top:8px;gap:14px">
         <label>🇹🇷 Türkiye % <input id="v-tr" type="number" min="0" max="100" style="width:80px"></label>
         <label>🇩🇪 Almanya/DACH % <input id="v-de" type="number" min="0" max="100" style="width:80px"></label>
@@ -290,7 +291,16 @@ async function useIdea(i){state.sel.clear();const res=await api('/api/items?ids=
 // ---------- neviral
 state.vpage=0;state.vlimit=30;state.vtotal=0;
 function vColor(x){return x>=80?'#4ade80':x>=65?'#ffd166':x>=50?'#fb923c':'#9aa5bd'}
-async function vSettings(){try{const s=await api('/api/viral/settings');$('#v-tr').value=Math.round(s.kitle.TR*100);$('#v-de').value=Math.round(s.kitle.DE*100);$('#v-int').value=Math.round(s.kitle.INT*100);$('#v-hesap').value=s.hesap||'';$('#v-tz').value=s.saat_dilimi;state.vclaude=s.claude;state.vstiller=s.stiller||[]}catch(e){}}
+async function vSettings(){try{const s=await api('/api/viral/settings');$('#v-tr').value=Math.round(s.kitle.TR*100);$('#v-de').value=Math.round(s.kitle.DE*100);$('#v-int').value=Math.round(s.kitle.INT*100);$('#v-hesap').value=s.hesap||'';$('#v-tz').value=s.saat_dilimi;state.vclaude=s.claude;state.vstiller=s.stiller||[];$('#v-ozet').innerHTML=vOzetHtml(s.ozet)}catch(e){}}
+function vOzetHtml(o){if(!o)return `<span>${t('Instagram dışa aktarımını içe aktarınca kitle ve etkileşim özeti burada görünür; kitle yüzdeleri otomatik ayarlanır.')}</span>`;
+ const k=o.kitle||{},e=o.etkilesim||{},parts=[];
+ if(k.takipci)parts.push(`👥 <b>${Number(k.takipci).toLocaleString()}</b> ${t('takipçi')}${k.delta?' ('+esc(String(k.delta).split(' ')[0])+')':''}`);
+ if(k.kitle)parts.push(`🇩🇪 ${Number(k.kitle.DE)}% · 🇹🇷 ${Number(k.kitle.TR)}% · 🌍 ${Number(k.kitle.INT)}%`);
+ if(k.kadin!=null)parts.push(`👩 ${Number(k.kadin)}% · 👨 ${Number(k.erkek)}%`);
+ if(k.yas){const top=Object.entries(k.yas).sort((a,b)=>b[1]-a[1]).slice(0,2);parts.push(`🎂 ${top.map(x=>esc(x[0])+' ('+Number(x[1])+'%)').join(', ')}`)}
+ if(e.toplam){const rp=e.reels?Math.round(100*e.reels/e.toplam):null;parts.push(`🎬 ${t('Reels')} ${rp!=null?rp+'% ':''}${t('etkileşimlerin')}${e.delta_toplam?' · '+esc(String(e.delta_toplam).split(' ')[0]):''}`);
+  if(e.takipci_disi_pct!=null)parts.push(`🚀 ${Number(e.takipci_disi_pct)}% ${t('takipçi olmayanlardan')}`)}
+ return `📊 ${t('Instagram özeti')}${k.donem?' ('+esc(String(k.donem))+')':''}: `+parts.join(' · ')}
 async function vSaveSettings(){await api('/api/viral/settings',{kitle:{TR:+val('v-tr')||0,DE:+val('v-de')||0,INT:+val('v-int')||0},hesap:val('v-hesap'),saat_dilimi:val('v-tz')});toast(t('Kaydedildi; yeniden puanlanıyor…'));setTimeout(()=>vLoad(0),4000)}
 async function vAnalyze(){try{const r=await api('/api/viral/analyze',{});toast(t('Analiz başladı (arka planda). Büyük arşivde birkaç dakika sürebilir.'),5000);pollJob(r.job).then(()=>{toast(t('Analiz bitti'));vLoad(0)}).catch(e=>toast(t('Hata: ')+e.message,6000))}catch(e){toast(t('Hata: ')+e.message,6000)}}
 function vTop(){vOptOpen({n:10})}
@@ -484,7 +494,7 @@ async function planReminders(){const r=await api('/api/reminders/plan',{weeks:4,
 async function addReminder(){if(!val('r-due')||!val('r-title'))return toast('Tarih ve başlık gerekli');await api('/api/reminders',{due:val('r-due'),title:val('r-title'),note:val('r-note'),item_ids:[...state.sel.keys()]});toast('Eklendi');loadReminders()}
 // ---------- pazarlama
 async function loadMarketing(){const b=await api('/api/besttimes');$('#besttimes').innerHTML=`<div class="muted" style="font-size:13px">${esc(b.not||(t('Kaynak: ')+t(b.kaynak)+(b.ornek_sayisi?' ('+b.ornek_sayisi+t(' paylaşım')+')':'')))} ${esc(b.sure_notu||'')}</div>
- <table><thead><tr><th>Gün</th><th>Saat</th><th>Etkileşim</th></tr></thead><tbody>${b.saatler.map(s=>`<tr><td>${esc(s.gun_adi)}</td><td>${String(s.saat).padStart(2,'0')}:00</td><td>${s.puan??'—'}</td></tr>`).join('')}</tbody></table>`;
+ <table><thead><tr><th>Gün</th><th>Saat</th><th>Etkileşim</th></tr></thead><tbody>${b.saatler.map(s=>`<tr><td>${esc(s.gun_adi)}</td><td>${String(s.saat).padStart(2,'0')}:00</td><td>${s.puan??'—'}</td></tr>`).join('')}</tbody></table>${(b.hikaye_saatleri||[]).length?`<h3>${t('Hikâye saatleri (erişim)')}</h3><table><thead><tr><th>${t('Saat')}</th><th>${t('Medyan erişim')}</th><th>n</th></tr></thead><tbody>${b.hikaye_saatleri.map(s=>`<tr><td>${String(s.saat).padStart(2,'0')}:00</td><td>${s.erisim_medyan}</td><td>${s.ornek}</td></tr>`).join('')}</tbody></table>`:''}<span style="display:none">`;
  if(!$('#ideas2').innerHTML)loadPanel()}
 async function mCaption(){const r=await api('/api/caption',{ids:[...state.sel.keys()],baslik:val('m-baslik'),altbaslik:val('m-alt'),cta:val('m-cta'),etiket:val('m-etiket')});$('#m-out').value=r.caption}
 // ---------- içe aktar / işler

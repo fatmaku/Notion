@@ -9,7 +9,7 @@ PLATFORMS = {
         "oran": {"9:16": 1.0, "4:5": 0.65, "3:4": 0.6, "1:1": 0.5, "2:3": 0.6, "16:9": 0.3, "4:3": 0.35, "3:2": 0.35},
         "sure": (7, 30, 90),  # ideal alt, ideal üst, kabul edilebilir üst (sn)
         "foto": 0.72,         # fotoğraftan hareketli Reel üretilebilir (Ken Burns + müzik)
-        "konu": {"kitap": 0.9, "cocuk": 0.85, "okul": 0.7, "seyahat": 1.0, "kutlama": 0.85, "hayvan": 0.95, "yemek": 0.9, "sahne": 0.7, "gunluk": 0.6},
+        "konu": {"kitap": 0.9, "cocuk": 0.85, "okul": 0.7, "seyahat": 1.0, "kutlama": 0.85, "hayvan": 0.95, "yemek": 0.9, "sahne": 0.7, "noro": 0.95, "gunluk": 0.6},
         "sinyal": ("DM ile gönderim (paylaşım) ve izlenme süresi en güçlü sinyaller; orijinal içerik öne çıkarılır, başka uygulamaların filigranı "
                    "ve yeniden yüklenen içerik geri itilir; ilk 3 saniye kanca belirler; 3-5 alakalı hashtag yeterli; takipçi olmayanlara "
                    "'Deneme Reels' ile test edilir.",
@@ -25,7 +25,7 @@ PLATFORMS = {
         "oran": {"4:5": 1.0, "3:4": 0.95, "1:1": 0.85, "2:3": 0.8, "9:16": 0.6, "16:9": 0.45, "4:3": 0.6, "3:2": 0.55},
         "sure": (3, 60, 90),
         "foto": 1.0,
-        "konu": {"kitap": 1.0, "cocuk": 0.85, "okul": 0.75, "seyahat": 0.95, "kutlama": 0.8, "hayvan": 0.85, "yemek": 0.85, "sahne": 0.7, "gunluk": 0.6},
+        "konu": {"kitap": 1.0, "cocuk": 0.85, "okul": 0.75, "seyahat": 0.95, "kutlama": 0.8, "hayvan": 0.85, "yemek": 0.85, "sahne": 0.7, "noro": 0.9, "gunluk": 0.6},
         "sinyal": ("Kaydetme ve paylaşım ağırlıklı; carousel'ler etkileşim almazsa ikinci slaytla yeniden gösterilir; 4:5 veya 3:4 dikey kare "
                    "akışta en çok alan kaplar; açıklamadaki anahtar kelimeler aramada bulunmayı sağlar.",
                    "Speichern und Teilen zählen am meisten; Carousels werden mit der zweiten Folie erneut ausgespielt; 4:5 oder 3:4 nimmt im "
@@ -39,7 +39,7 @@ PLATFORMS = {
         "oran": {"9:16": 1.0, "4:5": 0.55, "3:4": 0.5, "1:1": 0.45, "16:9": 0.25, "4:3": 0.3, "3:2": 0.3, "2:3": 0.5},
         "sure": (12, 35, 60),
         "foto": 0.62,
-        "konu": {"kitap": 1.0, "cocuk": 0.75, "okul": 0.7, "seyahat": 0.85, "kutlama": 0.8, "hayvan": 1.0, "yemek": 0.95, "sahne": 0.75, "gunluk": 0.75},
+        "konu": {"kitap": 1.0, "cocuk": 0.75, "okul": 0.7, "seyahat": 0.85, "kutlama": 0.8, "hayvan": 1.0, "yemek": 0.95, "sahne": 0.75, "noro": 0.95, "gunluk": 0.75},
         "sinyal": ("Tamamlanma oranı, tekrar izleme, paylaşım ve yorum belirleyici; takipçi sayısından bağımsız 'Sana Özel' akışında test "
                    "edilir; ekranda yazı ve altyazı izlenmeyi artırır; açıklamadaki anahtar kelimeler TikTok aramasında (TikTok SEO) önemli; "
                    "BookTok/KitapTok kitap içeriği için çok güçlü bir topluluk.",
@@ -55,7 +55,7 @@ PLATFORMS = {
         "oran": {"9:16": 1.0, "4:5": 0.45, "1:1": 0.45, "3:4": 0.45, "16:9": 0.2, "4:3": 0.25, "3:2": 0.25, "2:3": 0.45},
         "sure": (15, 45, 180),
         "foto": 0.55,
-        "konu": {"kitap": 0.75, "cocuk": 0.8, "okul": 0.8, "seyahat": 0.9, "kutlama": 0.7, "hayvan": 0.95, "yemek": 0.9, "sahne": 0.7, "gunluk": 0.6},
+        "konu": {"kitap": 0.75, "cocuk": 0.8, "okul": 0.8, "seyahat": 0.9, "kutlama": 0.7, "hayvan": 0.95, "yemek": 0.9, "sahne": 0.7, "noro": 0.85, "gunluk": 0.6},
         "sinyal": ("'İzlendi / kaydırıldı' oranı ve izlenme süresi ana sinyal; döngüye giren (loop) videolar tekrar izlenir; başlıktaki "
                    "anahtar kelimeler keşfi artırır; uzun videolara bağlantı kanal büyütür.",
                    "Das Verhältnis „angesehen / weggewischt“ und die Wiedergabezeit sind das Hauptsignal; Loops werden erneut angesehen; "
@@ -68,7 +68,7 @@ PLATFORMS = {
         "oran": {"9:16": 1.0, "4:5": 0.8, "1:1": 0.7, "3:4": 0.75, "16:9": 0.45, "4:3": 0.5, "3:2": 0.5, "2:3": 0.75},
         "sure": (10, 45, 90),
         "foto": 0.7,
-        "konu": {"kitap": 0.65, "cocuk": 0.95, "okul": 0.75, "seyahat": 0.8, "kutlama": 0.9, "hayvan": 0.9, "yemek": 0.8, "sahne": 0.65, "gunluk": 0.7},
+        "konu": {"kitap": 0.65, "cocuk": 0.95, "okul": 0.75, "seyahat": 0.8, "kutlama": 0.9, "hayvan": 0.9, "yemek": 0.8, "sahne": 0.65, "noro": 0.85, "gunluk": 0.7},
         "sinyal": ("Paylaşım ve yorum öne çıkar; izleyici kitlesi daha yetişkin, aile ve nostalji içerikleri iyi çalışır; orijinal içerik "
                    "öncelikli; Instagram'dan çapraz paylaşım kolay.",
                    "Teilen und Kommentare zählen; das Publikum ist älter, Familien- und Nostalgie-Inhalte funktionieren gut; Originalinhalte "

@@ -57,6 +57,8 @@ TAGS = {
     "kitap": {"tr": ["kitap", "kitapönerisi", "çocukkitabı", "kitaptok", "okumakeyfi", "yazar"],
               "de": ["buch", "kinderbuch", "buchtipp", "booktokgermany", "lesen", "autorin"],
               "en": ["books", "childrensbooks", "booktok", "bookstagram", "reading", "author"]},
+    "noro": {"tr": ["dehb", "otizm", "nörofarklılık", "audhd", "psikoloji"], "de": ["adhs", "autismus", "audhd", "neurodivergenz", "neurodiversität", "psychologie"],
+             "en": ["adhd", "autism", "audhd", "neurodivergent", "neurodiversity", "psychology"]},
     "cocuk": {"tr": ["çocuk", "annelik", "aile", "çocukgelişimi", "anılar"], "de": ["kinder", "familie", "mamaleben", "kindheit", "erinnerungen"],
               "en": ["kids", "family", "momlife", "childhood", "memories"]},
     "okul": {"tr": ["okul", "öğretmen", "eğitim", "okulöncesi"], "de": ["schule", "lehrer", "bildung", "einschulung"],

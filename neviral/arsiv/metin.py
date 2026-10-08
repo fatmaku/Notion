@@ -34,6 +34,26 @@ HOOKS = {
         ("yil", "yil", {"tr": ["{yil} → bugün: aynı gülüş", "{n} yıl önce bugün"], "de": ["{yil} → heute: dasselbe Lachen", "Heute vor {n} Jahren"],
                         "en": ["{yil} → today: the same smile", "{n} years ago today"]}),
     ],
+    "noro": [  # nörofarklılık: kimlik kancası ("bunu sadece … anlar") bu hesapta 10× erişim getirdi
+        ("kimlik", None, {"tr": ["Bunu sadece nörofarklı olanlar anlar", "DEHB'si olan herkes bu anı bilir", "Sadece AuDHD yaşayanlar bunu anlar"],
+                          "de": ["Das verstehen nur Neurodivergente", "Wer ADHS hat, kennt diesen Moment", "Nur wer AuDHD lebt, versteht das hier"],
+                          "en": ["Only neurodivergent people will get this", "If you have ADHD, you know this moment", "Only AuDHD people understand this"]}),
+        ("soru", None, {"tr": ["DEHB mi, otizm mi, yoksa sadece sen mi?", "Kendi sistemini gerçekten tanıyor musun?", "Maske mi takıyorsun, yoksa bu sen misin?"],
+                        "de": ["ADHS? Autismus? AuDHD? Oder einfach du?", "Kennst du dein eigenes System wirklich?", "Maskierst du – oder bist du das?"],
+                        "en": ["ADHD? Autism? AuDHD? Or just you?", "Do you really know your own system?", "Are you masking – or is this you?"]}),
+        ("mit", None, {"tr": ["Bu bir zayıflık değil: filtresiz açıklık", "Narsistler neden nörofarklılara çekilir?", "Beynin bozuk değil; sistemini kimse anlatmamış"],
+                       "de": ["Das ist keine Schwäche – das ist Offenheit ohne Filter", "Warum Narzissten Neurodivergente anziehen", "Dein Gehirn ist nicht kaputt – es wurde dir nur nie erklärt"],
+                       "en": ["It's not a weakness – it's openness without a filter", "Why narcissists are drawn to neurodivergent people", "Your brain isn't broken – nobody ever explained it to you"]}),
+        ("liste", None, {"tr": ["Sadece AuDHD'lilerin bildiği 3 şey", "Tanıdan önce gözden kaçırdığım 5 işaret"],
+                         "de": ["3 Dinge, die nur AuDHDler kennen", "5 Zeichen, die ich vor meiner Diagnose übersehen habe"],
+                         "en": ["3 things only AuDHD people know", "5 signs I missed before my diagnosis"]}),
+        ("kisisel", None, {"tr": ["Tanıyı almadan önce bunu bilmek isterdim", "Yıllarca yanlış teşhisle yaşadım", "Maske takmak bana neredeyse her şeye mal oldu"],
+                           "de": ["Das hätte ich vor meiner Diagnose gern gewusst", "Jahrelang lebte ich mit der falschen Diagnose", "Masking hat mich fast alles gekostet"],
+                           "en": ["I wish I'd known this before my diagnosis", "I lived with the wrong diagnosis for years", "Masking almost cost me everything"]}),
+        ("pov", "video", {"tr": ["POV: Beynin 300 sekmeyle çalışıyor"], "de": ["POV: Dein Gehirn läuft mit 300 Tabs"], "en": ["POV: your brain runs 300 tabs"]}),
+        ("yil", "yil", {"tr": ["{yil}: O zaman tanımı henüz bilmiyordum"], "de": ["{yil}: Damals wusste ich noch nichts von meiner Diagnose"],
+                        "en": ["{yil}: back then I didn't know about my diagnosis"]}),
+    ],
     "okul": [
         ("merak", None, {"tr": ["Okulda kendi yolunu bulmak neden bu kadar zor?", "Hiçbir öğretmenin unutmadığı an"],
                          "de": ["Warum ist es so schwer, in der Schule seinen Weg zu finden?", "Der Moment, den keine Lehrkraft vergisst"],
@@ -84,6 +104,13 @@ STORY = {
               "en": ["Every book starts with a question. This time: how does a child find their own way?",
                      "To me, writing means making the voice inside a child heard.",
                      "In this picture I see the invisible bond between me and my readers."]},
+    "noro": {"tr": ["Nörofarklılık bir hata değil: aynı sistem, sadece daha yüksek ayarda.", "Yıllarca maske taktım; bugün arkasında ne olduğunu anlatıyorum.",
+                    "Bu kare, kendi sistemimi anladığım ana ait."],
+             "de": ["Neurodivergenz ist kein Fehler im System – es ist dasselbe System, nur stärker eingestellt.",
+                    "Jahrelang habe ich maskiert. Heute erkläre ich, was dahinter steckt.",
+                    "Dieses Bild gehört zu dem Moment, in dem ich mein eigenes System verstanden habe."],
+             "en": ["Neurodivergence isn't a bug – it's the same system, turned up louder.", "For years I masked. Today I explain what was behind it.",
+                    "This picture belongs to the moment I understood my own system."]},
     "cocuk": {"tr": ["Bazı anlar yıllar geçse de aynı sıcaklıkta kalıyor.", "Çocuklar dünyaya bizim unuttuğumuz bir merakla bakıyor.",
                      "Bu küçük an, bana neden yazdığımı hatırlatıyor."],
               "de": ["Manche Momente bleiben auch nach Jahren genauso warm.", "Kinder schauen mit einer Neugier auf die Welt, die wir verlernt haben.",
@@ -111,7 +138,9 @@ YOU = {"tr": [r"\b(sen|siz|sizin|senin|çocuğunuz|hatırlıyor musunuz)\b"], "d
 CURIOUS = {"tr": ["nasıl", "neden", "kimse", "sır", "gerçek", "ilk kez", "tahmin"], "de": ["wie ", "warum", "kaum jemand", "geheimnis", "wahre", "zum ersten mal", "glaubt ihr"],
            "en": ["how ", "why", "nobody", "secret", "real reason", "first time", "guess"]}
 TOPIC_WORDS = {"kitap": {"tr": ["kitap"], "de": ["buch"], "en": ["book"]}, "cocuk": {"tr": ["çocuk"], "de": ["kind"], "en": ["child", "kid"]},
-               "okul": {"tr": ["okul"], "de": ["schul"], "en": ["school"]}}
+               "okul": {"tr": ["okul"], "de": ["schul"], "en": ["school"]},
+               "noro": {"tr": ["dehb", "otizm", "nörofark", "audhd", "narsis", "maske"], "de": ["adhs", "autis", "audhd", "neurodiver", "narziss", "maskier", "masking"],
+                        "en": ["adhd", "autis", "audhd", "neurodiver", "narciss", "masking"]}}
 
 R = {  # gerekçe metinleri
     "len": ("İdeal uzunluk (3-9 kelime)", "Ideale Länge (3–9 Wörter)", "Ideal length (3–9 words)"),

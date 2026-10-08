@@ -40,7 +40,7 @@ STYLES = {
 }
 LANG_IDX = {"tr": 0, "de": 1, "en": 2}
 TOPIC_STYLE = {"kitap": "editoryal", "cocuk": "masal", "okul": "masal", "hayvan": "pop", "kutlama": "pop", "yemek": "pop",
-               "seyahat": "sinema", "sahne": "sinema", "gunluk": "minimal"}
+               "seyahat": "sinema", "sahne": "sinema", "noro": "minimal", "gunluk": "minimal"}
 
 
 def style_for(topic_keys):
