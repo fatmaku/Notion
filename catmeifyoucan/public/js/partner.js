@@ -3,6 +3,7 @@
 
 import { esc } from './ui.js';
 import { setLang } from './i18n.js';
+import { renderCafeCard } from './views/cafe.js'; // Café-QR: Karte „Dein QR-Code“
 
 const T = {
   tr: {
@@ -231,7 +232,9 @@ async function renderDesk() {
     </section>
     <section class="card"><h2>${esc(t('today'))} <small class="muted">${esc(t('total', { n: me.redemptions.totalAllTime }))}</small></h2>
       <ul class="cafes">${me.redemptions.items.map((r) => `<li><span class="cafe-ico">✓</span><span><b>${esc(r.code)}</b><br><small class="muted">${esc(r.nickname)} · ${esc(t('cats', { n: r.catCount }))}</small></span><span class="cafe-deal"><b>${esc(pctTxt(r.discountPct))}</b><small>${esc(time(r.at))}</small></span></li>`).join('') || `<li class="muted">${esc(t('none'))}</li>`}</ul>
-    </section>`;
+    </section>
+    <section class="card cafe-kit" data-cafe-kit></section>`;
+  renderCafeCard(view.querySelector('[data-cafe-kit]'), { api });
   const out = view.querySelector('[data-result]');
   const check = async (code) => {
     try {

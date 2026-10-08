@@ -1,0 +1,153 @@
+/* Cat Me If You Can – Druckvorlagen (print.html): Vorschau am Bildschirm und echter Druck in
+   Millimetern auf A4. Papier bleibt immer weiß mit Nachtblau/Orange – auch im Dunkelmodus.
+   Tischkarte: 2 Streifen à 105 × 297 mm, je Rückseite (gedreht) + Vorderseite = 2 × A6.
+   Sticker: 6 Kreise à 80 mm. Poster: A4. QR-Codes ≥ 30 mm (Code ohne Ruhezone). */
+
+@page { size: A4 portrait; margin: 0; }
+
+/* ---------------------------------------------------------------- Bildschirm: Bedienung */
+
+body.print-kit main.pk-main { max-width: 860px; padding-bottom: 3rem; }
+.pk-controls h1 { font-size: 1.35rem; margin-bottom: .4rem; }
+.pk-controls .back { display: inline-flex; align-items: center; gap: .35rem; min-height: 44px; text-decoration: none; }
+.pk-field { display: grid; gap: .35rem; margin: .9rem 0 0; }
+.pk-label { font-weight: 700; font-size: .9rem; }
+.pk-field .seg { margin: 0; }
+.pk-field .seg > button { min-height: 44px; }
+.pk-controls [data-hint] { margin-top: .8rem; }
+.pk-controls .btn.wide { width: 100%; margin-top: .8rem; }
+
+.pk-stage { overflow: hidden; margin: 0 auto var(--space); }
+.pk-fit { transform-origin: top left; margin: 0 auto; }
+
+/* ---------------------------------------------------------------- Blatt */
+
+.sheet {
+  --ink-p: #14213d;
+  --ink-p2: #3a4560;
+  --muted-p: #6f6b62;
+  --guide: #b9b2a6;
+  position: relative;
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  background: #fff;
+  color: var(--ink-p);
+  font-family: var(--font);
+  line-height: 1.25;
+  box-shadow: 0 2px 4px rgba(20, 33, 61, .12), 0 12px 32px rgba(20, 33, 61, .18);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.sheet p { margin: 0; font-family: var(--font); }
+.sheet img { max-width: none; }
+.sheet .ml { display: grid; gap: .6mm; }
+.sheet .ml p { text-wrap: balance; }
+.sheet .ml .l1 { font-weight: 800; }
+.sheet .ml .l2, .sheet .ml .l3 { color: var(--ink-p2); font-weight: 600; }
+.sheet :lang(ar), .sheet :lang(fa) { line-height: 1.45; }
+
+.brandrow { display: flex; align-items: center; justify-content: center; gap: 2.5mm; }
+.b-logo { width: 13mm; height: 13mm; flex: none; }
+.b-logo.sm { width: 9mm; height: 9mm; }
+.b-word { display: flex; flex-direction: column; align-items: flex-start; line-height: 1; }
+.b-word b { font-family: "Unbounded", var(--font); font-size: 4mm; font-weight: 700; color: var(--navy); letter-spacing: -.01em; }
+.b-word i { font-style: normal; font-family: "Unbounded", var(--font); font-size: 2.8mm; font-weight: 500; color: var(--orange-d); margin-top: .8mm; }
+.sheet .pun { font-family: "Unbounded", var(--font); font-weight: 700; font-size: 5.6mm; line-height: 1.1; color: var(--navy); letter-spacing: -.01em; }
+.sheet .pun.sm { font-size: 3mm; }
+
+.qr { background: #fff; border: 1.2mm solid var(--orange); border-radius: 4mm; padding: .8mm; line-height: 0; flex: none; }
+.qr svg { display: block; width: 100%; height: auto; }
+.sheet .qr-link { font-size: 2.5mm; color: var(--muted-p); letter-spacing: .02em; unicode-bidi: isolate; word-break: break-all; }
+.maker p { font-size: 2.1mm; color: var(--muted-p); line-height: 1.35; }
+
+.kind { list-style: none; margin: 0; padding: 0; display: grid; gap: 3.2mm; width: 100%; text-align: start; }
+.kind li { display: grid; grid-template-columns: 7.5mm 1fr; gap: 1.8mm; align-items: start; }
+.kind-ic { font-size: 5mm; line-height: 1.1; text-align: center; }
+.kind .l1 { font-size: 3.4mm; font-weight: 700; }
+.kind .l2, .kind .l3 { font-size: 3mm; }
+
+/* ---------------------------------------------------------------- Tischkarte (2 × A6 je Streifen) */
+
+.sheet.tent { display: grid; grid-template-columns: 105mm 105mm; }
+.tent-strip { display: grid; grid-template-rows: 148.5mm 148.5mm; }
+.half { position: relative; overflow: hidden; }
+.half.upper .face { transform: rotate(180deg); }
+.face { height: 100%; padding: 9mm 8mm 8mm; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 2.8mm; }
+.face .offer .l1 { font-size: 4.3mm; }
+.face .offer .l2, .face .offer .l3 { font-size: 3.4mm; }
+.face .offer { padding: 1.6mm 3mm; border-radius: 3mm; background: #fdebd6; width: 100%; }
+.qr-tent { width: 52mm; margin: .8mm 0; }
+.face .scanline .l1 { font-size: 3.8mm; }
+.face .scanline .l2, .face .scanline .l3 { font-size: 3.1mm; }
+.face .pun { font-size: 6mm; }
+.face.f-back { justify-content: flex-start; gap: 5mm; }
+.face.f-back > .ktitle { margin-top: auto; }
+.face .ktitle .l1 { font-family: "Unbounded", var(--font); font-size: 5mm; font-weight: 700; color: var(--navy); }
+.face .ktitle :lang(ar), .face .ktitle :lang(fa) { font-family: var(--font); }
+.face .ktitle .l2, .face .ktitle .l3 { font-size: 3.6mm; }
+.face .kind { gap: 4.2mm; }
+.face .kind .l1 { font-size: 3.8mm; }
+.face .kind .l2, .face .kind .l3 { font-size: 3.3mm; }
+.face .kind-ic { font-size: 5.6mm; }
+.back-foot { margin-top: auto; display: flex; align-items: center; gap: 2.5mm; text-align: start; width: 100%; border-top: .3mm solid #efe6d6; padding-top: 2.5mm; }
+.back-foot .pun { margin-bottom: .6mm; }
+.cut-v { position: absolute; top: 0; left: 105mm; height: 297mm; width: 0; border-left: .3mm dashed var(--guide); }
+.cut-v::before { content: "✂"; position: absolute; top: 1.5mm; left: -2.3mm; font-size: 4mm; line-height: 1; color: var(--guide); background: #fff; font-style: normal; }
+.fold-h { position: absolute; left: 0; right: 0; top: 148.5mm; height: 0; border-top: .3mm dashed #ddd5c7; }
+
+/* ---------------------------------------------------------------- Sticker (6 × 80 mm) */
+
+.sheet.stickers { display: grid; grid-template-columns: repeat(2, 80mm); grid-template-rows: repeat(3, 80mm); justify-content: space-evenly; align-content: space-evenly; padding-bottom: 12mm; }
+.sticker { width: 80mm; height: 80mm; border-radius: 50%; border: .3mm dashed var(--guide); display: grid; place-items: center; }
+.st-in {
+  width: 75mm; height: 75mm; border-radius: 50%; border: 2.2mm solid var(--orange); overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; padding-top: 2.4mm;
+}
+.st-logo { width: 9mm; height: 9mm; }
+.sheet .st-pun { font-size: 3.2mm; margin: .7mm 0 1.2mm; }
+.qr-sticker { width: 35mm; border: 0; border-radius: 0; padding: 0; }
+.st-scan { margin-top: 1.2mm; gap: .2mm !important; }
+.st-scan .l1 { font-size: 3.4mm; }
+.st-scan .l2, .st-scan .l3 { font-size: 2.8mm; }
+.st-scan p[dir] { text-align: center; }
+.sheet-foot { position: absolute; left: 0; right: 0; bottom: 6mm; text-align: center; }
+
+/* ---------------------------------------------------------------- Poster (A4) */
+
+.sheet.poster { padding: 14mm 16mm 10mm; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4.5mm; }
+.po-brand .b-logo { width: 22mm; height: 22mm; }
+.po-brand .b-word b { font-size: 6.5mm; }
+.po-brand .b-word i { font-size: 4mm; margin-top: 1.2mm; }
+.sheet .po-pun { font-size: 12mm; }
+.po-what .l1 { font-size: 5mm; font-weight: 700; }
+.po-what .l2, .po-what .l3 { font-size: 4mm; }
+.po-offer { width: 100%; background: var(--orange); border-radius: 6mm; padding: 4.5mm 6mm; }
+.po-offer .ml .l1 { font-size: 7.4mm; color: var(--navy); }
+.po-offer .ml .l2, .po-offer .ml .l3 { font-size: 5mm; color: var(--navy); }
+.po-qr { display: flex; align-items: center; gap: 8mm; width: 100%; justify-content: center; }
+.qr-poster { width: 76mm; }
+.po-scan { display: grid; gap: 3.5mm; text-align: start; max-width: 86mm; }
+.po-scan .scanline .l1 { font-size: 6mm; }
+.po-scan .scanline .l2, .po-scan .scanline .l3 { font-size: 4.6mm; }
+.po-scan .free .l1 { font-size: 4mm; font-weight: 700; }
+.po-scan .free .l2, .po-scan .free .l3 { font-size: 3.4mm; }
+.po-scan .qr-link { font-size: 3mm; }
+.po-kind { width: 100%; border-top: .4mm solid #efe6d6; padding-top: 4mm; display: grid; gap: 3.5mm; }
+.po-kind .ktitle .l1 { font-family: "Unbounded", var(--font); font-size: 4.8mm; font-weight: 700; }
+.po-kind .ktitle :lang(ar), .po-kind .ktitle :lang(fa) { font-family: var(--font); }
+.po-kind .ktitle .l2, .po-kind .ktitle .l3 { font-size: 3.6mm; }
+.kind.two { grid-template-columns: 1fr 1fr; gap: 3.5mm 6mm; }
+.po-foot { margin-top: auto; display: grid; gap: 1.5mm; }
+.po-cafe { font-size: 3.6mm; color: var(--ink-p2); }
+
+/* ---------------------------------------------------------------- Druck */
+
+@media print {
+  html, body, body.print-kit { background: #fff !important; margin: 0; padding: 0; }
+  body.print-kit main.pk-main { max-width: none; margin: 0; padding: 0; }
+  .no-print { display: none !important; }
+  .pk-stage { overflow: visible; margin: 0; }
+  .pk-fit { transform: none !important; width: auto !important; height: auto !important; margin: 0; }
+  .sheet { box-shadow: none; break-after: page; }
+}

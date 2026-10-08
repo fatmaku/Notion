@@ -33,6 +33,7 @@ import { adminApi } from './admin.js';
 import { shareApi } from './share.js';
 
 // ── Erweiterung: cafe ──
+import { cafeApi } from './cafe.js';
 
 // ── Erweiterung: routes ──
 
@@ -624,6 +625,7 @@ export function createEngine(opts) {
   Object.assign(api, shareApi(ctx, api));
 
   // ── Erweiterung: cafe ──
+  Object.assign(api, cafeApi(ctx, api));
 
   // ── Erweiterung: routes ──
 

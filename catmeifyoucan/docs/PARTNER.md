@@ -16,6 +16,9 @@ medyada paylaşılacak bir hikâye.
 4. Müşteri kuponu gösterir. **QR tara** ya da kodu yazın (`CAT-XXXX-XXXX`), **Kontrol et**,
    sonra **Kullan**. Ekran yeşilse geçerli; kupon sadece **aynı gün** ve **bir kez** geçerlidir.
 5. Gün sonunda bugünkü kullanımları aynı ekranda görürsünüz.
+6. **Kendi QR kodunuz:** Aynı ekranın altında kafenize özel bir QR kod var. **Masa kartı yazdır**
+   ile masa kartı, sticker ya da afiş basabilirsiniz. Kaç misafirin QR kodunuzla geldiğini de orada
+   görürsünüz.
 
 **İsteğe bağlı:** Her kupon için yakındaki bir mama noktasına 100 g mama bağışı. Oyunda
 gösterilir.
@@ -34,6 +37,9 @@ sympathisches Katzen-Image und einen Anlass für Social Media.
    **Einlösen**. Grün heißt gültig. Ein Gutschein gilt nur **am selben Tag** und **einmal**.
    Bei „schon eingelöst“ zeigt die App, wo und wann.
 5. Die Liste „Heute eingelöst“ und die Gesamtzahl dienen zur Abrechnung, z. B. mit einem Sponsor.
+6. **Eigener QR-Code:** Unten in derselben Ansicht steht der QR-Code des Cafés. Mit
+   **Tischkarten drucken** gibt es Tischkarte, Sticker oder Poster (Details:
+   [features/cafe.md](features/cafe.md)). Dort steht auch, wie viele Gäste über den QR-Code kamen.
 
 **Technik:** Nichts zu installieren. Der Browser (Chrome/Safari) braucht die Kamera nur zum
 Scannen; ohne Kamera tippt man den Code ein.

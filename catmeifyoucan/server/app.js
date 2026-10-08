@@ -161,11 +161,12 @@ export async function createApp(options = {}) {
   });
 
   // Spieler:innen
-  r.post('/api/players', async ({ req, ip }) => {
+  r.post('/api/players', async ({ req, res, ip }) => {
     lim.register.take(ip);
     const body = await readJson(req);
     const token = newToken();
     const p = await engine.createPlayer({ nickname: body.nickname, lang: body.lang, tokenHash: sha256(token) });
+    cafe.onRegister(req, res, p); // Café-QR: Herkunft zuordnen (server/cafe.js)
     return { status: 201, body: { token, player: engine.publicPlayer(p) } };
   });
   r.get('/api/me', ({ req }) => {
@@ -352,6 +353,8 @@ export async function createApp(options = {}) {
   });
 
   // ── Erweiterung: cafe ──
+  const { mountCafe } = await import('./cafe.js');
+  const cafe = mountCafe({ r, engine, partner, admin, publicUrl, trustProxy, log });
 
   // ── Erweiterung: routes ──
 
@@ -385,6 +388,7 @@ export async function createApp(options = {}) {
         throw new HttpError(404, 'not_found');
       }
       if (await sharePages(req, res, url, ip)) return; // Erweiterung share: /c/<id>, /robots.txt, /sitemap.xml
+      cafe.onPage(req, res, url); // ?ref=<Café-Code> → Cookie (server/cafe.js)
       if (url.pathname === '/' || url.pathname === '/index.html') {
         const lang = pickSiteLang(url.searchParams.get('lang'), req.headers['accept-language']);
         if (serveLanding(req, res, publicDir, { headers, lang, publicUrl })) return;

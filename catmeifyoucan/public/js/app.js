@@ -98,6 +98,7 @@ function onboarding(app) {
         ${app.api.isDemo ? `<p class="small muted">🧪 ${esc(t('onb.demo'))}</p>` : ''}
         <p class="small"><a href="#/rules" data-rules>${esc(t('p.rules'))}</a></p>
       </div>`;
+    import('./views/cafe.js').then((m) => m.cafeWelcome(wrap, app.api)).catch(() => {}); // Erweiterung cafe: „Willkommen von Café X“
     wrap.querySelector('[data-f]').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = e.target.querySelector('button');

@@ -124,6 +124,10 @@ export class RemoteApi {
   }
 
   // ── Erweiterung: cafe ──
+  /** Café-QR: öffentliche Daten für die Druckvorlage (ohne placeId: allgemeine Version). */
+  cafeKit(placeId) { return this.req('GET', `/api/cafe/kit${placeId ? `?cafe=${encodeURIComponent(placeId)}` : ''}`); }
+  /** Café-QR: „Willkommen von Café X“ – der Server liest das eigene Cookie catme_ref (HttpOnly). */
+  cafeWelcome() { return this.req('GET', '/api/cafe/ref'); }
 
   // ── Erweiterung: routes ──
 
@@ -278,6 +282,9 @@ export async function createLocalApi() {
     catPageUrl: () => null,
 
     // ── Erweiterung: cafe ──
+    cafeKit: (placeId) => wrap(async () => ({ ...engine.cafeKit(placeId || null), publicUrl: null })),
+    // Demo im Browser: kein Cookie, kein Zählen – nur der Gruß aus ?ref=<Code> in der Adresse
+    cafeWelcome: () => wrap(async () => engine.refWelcome(new URLSearchParams(location.search).get('ref'))),
 
     // ── Erweiterung: routes ──
 

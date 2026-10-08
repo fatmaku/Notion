@@ -4,6 +4,7 @@
 
 import { esc, catImg, fmtDateTime, fmtAgo, patternLabel, statusChip, severityChip } from './ui.js';
 import { setLang } from './i18n.js';
+import { cafeAdminInfo } from './views/cafe.js'; // Café-QR: Code und Zahlen je Café
 
 const T = {
   de: {
@@ -203,10 +204,10 @@ function placeForm(p = {}) {
 }
 
 async function renderPlaces(body) {
-  const places = await api('GET', '/api/admin/places');
+  const [places, refs] = await Promise.all([api('GET', '/api/admin/places'), api('GET', '/api/admin/cafe/referrals').catch(() => ({}))]);
   body.innerHTML = `<section class="card"><h2>➕ ${esc(t('newPartner'))}</h2>${placeForm()}</section>
     <section class="card"><h2>${esc(t('places'))} (${places.length})</h2>${places.map((p) => `
-      <details class="review"><summary><b>${esc(p.name)}</b> · ${esc(p.type)} · ${esc(p.status)}${p.active === false ? ' · ⏸' : ''}${p.type === 'partner' ? ` · ${esc(p.reward ? `${p.reward.minCats}🐱 → ${p.reward.discountPct}%` : '')} · ${esc(t('redemptions'))}: ${p.redemptions || 0}` : ''}</summary>${placeForm(p)}</details>`).join('')}</section>`;
+      <details class="review"><summary><b>${esc(p.name)}</b> · ${esc(p.type)} · ${esc(p.status)}${p.active === false ? ' · ⏸' : ''}${p.type === 'partner' ? ` · ${esc(p.reward ? `${p.reward.minCats}🐱 → ${p.reward.discountPct}%` : '')} · ${esc(t('redemptions'))}: ${p.redemptions || 0}${cafeAdminInfo(refs[p.id])}` : ''}</summary>${placeForm(p)}</details>`).join('')}</section>`;
   body.onsubmit = (e) => {
     e.preventDefault();
     const f = e.target;

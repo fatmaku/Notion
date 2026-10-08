@@ -12,6 +12,7 @@ const SHELL = [
   // ── Erweiterung: share ──
 
   // ── Erweiterung: cafe ──
+  'js/views/cafe.js',
 
   // ── Erweiterung: routes ──
 
