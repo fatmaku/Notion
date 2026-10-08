@@ -1,0 +1,58 @@
+# Cat Me If You Can – Caddy: HTTPS-Zertifikat automatisch (Let's Encrypt, Ersatz ZeroSSL),
+# Weiterleitung http → https und www → ohne www, dann alles an die App (127.0.0.1:8790).
+#
+# Bu dosyayı değiştirmeniz GEREKMEZ. Değerler deploy/.env dosyasından gelir
+# (docker-compose.yml üzerinden): SITE_DOMAIN, SITE_WWW, ACME_EMAIL.
+#
+# Caddy läuft mit network_mode: host (siehe docker-compose.yml), damit die App die echte
+# IPv4- UND IPv6-Adresse der Besucher:innen sieht (Ratenbegrenzung pro IP). Deshalb geht der
+# Proxy an 127.0.0.1:8790 – dort ist die App nur lokal veröffentlicht, nicht aus dem Internet.
+
+{
+	# „email adresse@…“ für Let's Encrypt – oder leer, wenn ACME_EMAIL in .env leer ist
+	{$CADDY_EMAIL_OPTION}
+	# keine Admin-Schnittstelle auf localhost:2019 (Änderungen = Container neu starten)
+	admin off
+}
+
+{$SITE_DOMAIN} {$SITE_WWW} {
+	# www.<domain> → <domain> (aktiv, sobald kur.sh SITE_WWW gesetzt hat)
+	@www host www.{$SITE_DOMAIN}
+	redir @www https://{$SITE_DOMAIN}{uri} permanent
+
+	# Fotos: die App nimmt pro Fang höchstens ~3,6 MB JSON (Foto ≤ 1,8 MB + Ausschnitt) und
+	# antwortet selbst mit 413. Caddy schneidet erst deutlich darüber ab.
+	request_body {
+		max_size 8MB
+	}
+
+	# Die App setzt CSP, nosniff, Referrer-, Permissions- und Opener-Policy selbst – Caddy lässt
+	# sie unverändert. Dazu nur HSTS (ohne includeSubDomains/preload, also gefahrlos).
+	header ?Strict-Transport-Security "max-age=31536000"
+	header -Server
+
+	# Kein „encode“: Die App packt selbst (brotli/gzip, mit ETag je Verfahren). Caddy reicht
+	# Accept-Encoding durch und die gepackten Antworten unverändert zurück – nichts doppelt.
+	# X-Forwarded-For/-Proto setzt Caddy selbst (Werte vom Client werden ersetzt) → TRUST_PROXY=1.
+	reverse_proxy 127.0.0.1:8790
+
+	# App startet gerade neu (Update) → kurze Wartungsseite statt leerer 502
+	handle_errors {
+		@down expression `{err.status_code} in [502, 503, 504]`
+		handle @down {
+			header Content-Type "text/html; charset=utf-8"
+			header Retry-After "20"
+			header Cache-Control "no-store"
+			respond <<HTML
+				<!doctype html><html lang="tr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+				<title>Cat Me If You Can</title>
+				<body style="font-family:system-ui,sans-serif;text-align:center;padding:3rem 1rem;background:#fff8ef;color:#2b2118">
+				<p style="font-size:3rem;margin:0">🐾</p>
+				<h1>Kısa bir bakım</h1><p>Birkaç saniye sonra sayfayı yenileyin.</p>
+				<p lang="en">Short maintenance – please reload in a few seconds.</p>
+				<p lang="de">Kurze Wartung – bitte in ein paar Sekunden neu laden.</p>
+				</body></html>
+				HTML 503
+		}
+	}
+}

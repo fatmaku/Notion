@@ -1,0 +1,14 @@
+# Erlaubnisliste: in den Docker-Build kommt NUR, was der Server zum Laufen braucht.
+# Alles andere (data/, yedekler/, deploy/.env, node_modules/, test/, trailer/, marketing/, docs/,
+# .git/ …) bleibt draußen – keine Geheimnisse und keine Spieldaten im Image.
+*
+!package.json
+!package-lock.json
+!server.js
+!server/
+!public/
+
+# auch innerhalb der erlaubten Ordner nichts Überflüssiges
+**/.DS_Store
+**/*.log
+**/*.tmp

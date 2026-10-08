@@ -1,0 +1,66 @@
+# Cat Me If You Can – Betrieb mit Docker: App (Node) + Caddy (HTTPS automatisch).
+#
+# Normalerweise NICHT von Hand starten, sondern:   bash deploy/kur.sh kedi.ornek.com
+# (schreibt deploy/.env, baut, startet, wartet auf „gesund“, zeigt die Adressen).
+#
+# Von Hand (im Ordner deploy/):  docker compose up -d --build   ·   docker compose logs -f app
+# Daten liegen im Volume „catme_app-data“ – NIE „docker compose down -v“ (löscht alle Daten!).
+#
+# Alle Werte kommen aus deploy/.env (Vorlage: deploy/.env.example).
+
+name: catme
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m" # Protokolle wachsen nicht unbegrenzt (kleiner Server, kleine Platte)
+    max-file: "3"
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: catmeifyoucan:latest
+    restart: unless-stopped
+    init: true # sauberes Weiterreichen von SIGTERM (server.js beendet sich dann geordnet)
+    stop_grace_period: 30s
+    env_file:
+      - .env # ADMIN_TOKEN, ANTHROPIC_API_KEY, CATME_AI, CATME_MODEL, CATME_DEMO, CATME_TILES …
+    environment:
+      HOST: 0.0.0.0
+      PORT: "8790"
+      CATME_DATA: /data
+      CATME_PUBLIC_URL: https://${SITE_DOMAIN:?SITE_DOMAIN fehlt in deploy/.env – bash deploy/kur.sh <domain>}
+      TRUST_PROXY: "1" # genau ein Proxy davor: Caddy
+      CATME_DEMO: ${CATME_DEMO:-0}
+      CATME_AI: ${CATME_AI:-auto}
+    ports:
+      - "127.0.0.1:8790:8790" # nur lokal – von außen geht es ausschließlich über Caddy
+    volumes:
+      - app-data:/data
+    logging: *logging
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    # Host-Netz statt Port-Weiterleitung: Docker reicht IPv6-Besucher sonst über einen eigenen
+    # Proxy weiter, und die App sähe für alle dieselbe Adresse (gemeinsame Ratenbegrenzung).
+    # Caddy belegt dadurch direkt die Ports 80/tcp, 443/tcp und 443/udp (HTTP/3) des Servers.
+    network_mode: host
+    depends_on:
+      - app
+    environment:
+      SITE_DOMAIN: ${SITE_DOMAIN:?SITE_DOMAIN fehlt in deploy/.env}
+      SITE_WWW: ${SITE_WWW:-}
+      CADDY_EMAIL_OPTION: ${ACME_EMAIL:+email ${ACME_EMAIL}}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data # Zertifikate – bleiben bei Updates erhalten
+      - caddy-config:/config
+    logging: *logging
+
+volumes:
+  app-data: # Katzen, Spieler:innen, Fotos, Journal + Snapshot
+  caddy-data:
+  caddy-config:
