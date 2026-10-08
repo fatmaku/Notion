@@ -2,7 +2,7 @@ import type { App } from '../../app/App';
 import type { Quad, Vec2 } from '../../core/types';
 import { clamp } from '../../core/math/vec';
 import { capturePointer, h, toast } from '../dom';
-import { T } from '../i18n/de';
+import { T, tf } from '../i18n';
 import type { Screen } from '../Router';
 
 export interface CalibrateScreenApi extends Screen {
@@ -250,7 +250,7 @@ export function CalibrateScreen(app: App): CalibrateScreenApi {
       {
         class: 'btn secondary',
         onclick: () => {
-          if (!wt()?.recenter()) toast('Keine klare Scheibe erkannt – Ecken von Hand setzen oder „Ganzes Bild“.');
+          if (!wt()?.recenter()) toast(T.calibNoClearPane);
         },
       },
       `✨ ${T.calibAuto}`,
@@ -285,19 +285,19 @@ export function CalibrateScreen(app: App): CalibrateScreenApi {
       let text: string;
       let cls: string;
       if (tracker.isEditing) {
-        text = 'Loslassen, wenn der Rahmen passt';
+        text = T.calibStatusEditing;
         cls = 'badge';
       } else if (s.mode === 'tracking') {
-        text = `Scheibe erkannt · ${conf} %`;
+        text = tf(T.calibStatusTracking, { conf });
         cls = 'badge ok';
       } else if (s.mode === 'degraded') {
-        text = `Unsicher · ${conf} % – Ecken prüfen`;
+        text = tf(T.calibStatusDegraded, { conf });
         cls = 'badge warn';
       } else if (s.mode === 'fullframe') {
-        text = est && est.kind === 'fullframe' && est.contrast < 0.12 ? 'Wenig Kontrast (Nacht?) – ganzes Bild oder Ecken setzen' : 'Ganzes Bild = Spielfläche';
+        text = est && est.kind === 'fullframe' && est.contrast < 0.12 ? T.calibStatusLowContrast : T.calibStatusFullFrame;
         cls = 'badge';
       } else {
-        text = 'Keine Scheibe – Ecken setzen oder „Ganzes Bild“';
+        text = T.calibStatusNone;
         cls = 'badge bad';
       }
       if (status.textContent !== text) status.textContent = text;

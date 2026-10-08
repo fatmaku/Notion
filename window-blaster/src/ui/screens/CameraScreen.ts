@@ -1,6 +1,6 @@
 import type { App } from '../../app/App';
 import { h } from '../dom';
-import { T } from '../i18n/de';
+import { T } from '../i18n';
 import type { Screen } from '../Router';
 
 /**
@@ -16,7 +16,7 @@ export function CameraScreen(app: App): Screen {
   btn.addEventListener('click', () => {
     btn.disabled = true;
     progress.style.display = 'block';
-    status.textContent = 'Berechtigungen …';
+    status.textContent = T.camscrPermissions;
     // synchronous inside the gesture
     const motionP = app.motion.requestPermission();
     app.sfx.unlock();
@@ -31,7 +31,7 @@ export function CameraScreen(app: App): Screen {
       } catch (e) {
         status.textContent = String((e as Error).message ?? e);
         btn.disabled = false;
-        btn.textContent = 'Nochmal versuchen';
+        btn.textContent = T.camscrRetry;
         retry.style.display = 'block';
       }
     })();

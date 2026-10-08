@@ -1,5 +1,6 @@
 import type { Layers } from './Layers';
 import { fmtScore, fmtTime } from '../ui/dom';
+import { T, tf } from '../ui/i18n';
 
 export interface HudWeapon {
   icon: string;
@@ -66,10 +67,10 @@ export class HudRenderer {
     fillText(fmtScore(s.score), 14 * k + sal, 10 * k + sat);
     c.font = font(12, 600);
     c.fillStyle = 'rgba(255,255,255,0.75)';
-    fillText(`Bestwert ${fmtScore(s.best)}`, 14 * k + sal, 44 * k + sat);
+    fillText(`${T.best} ${fmtScore(s.best)}`, 14 * k + sal, 44 * k + sat);
     if (s.windowMode && s.windowMode !== 'fullframe') {
       c.fillStyle = s.windowMode === 'tracking' ? '#22c55e' : s.windowMode === 'degraded' ? '#f59e0b' : '#94a3b8';
-      fillText(`Scheibe: ${s.windowMode === 'tracking' ? 'ok' : s.windowMode === 'degraded' ? 'unsicher' : 'aus'}`, 14 * k + sal, 60 * k + sat);
+      fillText(s.windowMode === 'tracking' ? T.hudWindowOk : s.windowMode === 'degraded' ? T.hudWindowUnsure : T.hudWindowOff, 14 * k + sal, 60 * k + sat);
     }
 
     // timer (top-center)
@@ -87,7 +88,7 @@ export class HudRenderer {
     if (s.combo >= 2) {
       c.font = font(18, 900);
       c.fillStyle = '#ffb020';
-      fillText(`×${s.combo} COMBO`, W / 2, 40 * k + sat);
+      fillText(tf(T.hudCombo, { n: s.combo }), W / 2, 40 * k + sat);
       const bw = 90 * k;
       c.fillStyle = 'rgba(255,255,255,0.25)';
       c.fillRect(W / 2 - bw / 2, 62 * k + sat, bw, 4 * k);
@@ -121,7 +122,7 @@ export class HudRenderer {
     fillText(s.weapon.name, 52 * k + sal, wy - 18 * k);
     c.font = font(16, 900);
     c.fillStyle = s.weapon.empty ? '#ef4444' : s.weapon.reload < 1 ? '#f59e0b' : '#fff';
-    fillText(s.weapon.reload < 1 ? `Nachladen…` : s.weapon.ammo, 52 * k + sal, wy);
+    fillText(s.weapon.reload < 1 ? T.hudReloading : s.weapon.ammo, 52 * k + sal, wy);
     if (s.weapon.reload < 1) {
       c.fillStyle = 'rgba(255,255,255,0.25)';
       c.fillRect(52 * k + sal, wy + 2 * k, 120 * k, 4 * k);

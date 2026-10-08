@@ -1,6 +1,6 @@
 import type { App } from '../../app/App';
 import { fmtScore, h, toast } from '../dom';
-import { T } from '../i18n/de';
+import { T, tf, locale } from '../i18n';
 import type { Screen } from '../Router';
 
 function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
@@ -10,24 +10,24 @@ function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
   const row = h('div', { class: 'row', style: 'align-items:center;gap:8px;margin-top:12px' }, badge, btn, bar);
   const render = () => {
     const o = app.offline;
-    const net = app.online ? '' : ' · offline';
+    const net = app.online ? '' : ` · ${T.startNetOffline}`;
     bar.style.display = o.state === 'downloading' ? 'block' : 'none';
     btn.style.display = 'none';
     switch (o.state) {
       case 'ready':
         badge.className = 'badge ok';
-        badge.textContent = app.androidBrowserTab ? '✓ Offline-Daten geladen – jetzt als App installieren' : `✓ ${T.offlineReady}${net}`;
+        badge.textContent = app.androidBrowserTab ? `✓ ${T.startOfflineReadyInstall}` : `✓ ${T.offlineReady}${net}`;
         break;
       case 'missing':
       case 'error':
         if (app.iosBrowserTab) {
           // only the home-screen app keeps offline data on iPhone – see the install hint below
           badge.className = 'badge';
-          badge.textContent = 'Offline nur in der Home-Bildschirm-App';
+          badge.textContent = T.startOfflineHomeAppOnly;
           break;
         }
         badge.className = app.online ? 'badge warn' : 'badge bad';
-        badge.textContent = app.online ? (o.state === 'error' ? T.offlineError : `${o.missingLabel} für Offline-Betrieb fehlen`) : T.offlineNoNet;
+        badge.textContent = app.online ? (o.state === 'error' ? T.offlineError : tf(T.startOfflineMissingSize, { label: o.missingLabel })) : T.offlineNoNet;
         if (app.online) {
           btn.style.display = 'inline-block';
           btn.textContent = `⬇️ ${T.offlineMissing} (${o.missingLabel})`;
@@ -35,14 +35,12 @@ function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
         break;
       case 'downloading':
         badge.className = 'badge warn';
-        badge.textContent = `${T.offlineDownloading} ${Math.round(o.progress * 100)} %`;
+        badge.textContent = `${T.offlineDownloading} ${tf(T.startPercent, { pct: Math.round(o.progress * 100) })}`;
         (bar.firstElementChild as HTMLElement).style.width = `${Math.round(o.progress * 100)}%`;
         break;
       case 'unsupported':
         badge.className = 'badge';
-        badge.textContent = o.swBroken
-          ? 'Offline geht nur mit installiertem Zertifikat – siehe Handy-Einrichtung am Mac'
-          : 'Offline-Speicher hier nicht verfügbar (kein sicheres HTTPS)';
+        badge.textContent = o.swBroken ? T.startOfflineNeedsCert : T.startOfflineNoHttps;
         break;
       default:
         badge.className = 'badge';
@@ -73,12 +71,12 @@ function errorCard(app: App): HTMLElement | null {
   const el = h(
     'div',
     { class: 'small', style: 'margin-top:10px;padding:10px;border-radius:10px;background:rgba(239,68,68,0.12);color:#fca5a5' },
-    h('div', {}, `⚠️ Letzter Fehler (${new Date(last.at).toLocaleString('de-DE')}): ${last.message.slice(0, 140)}`),
+    h('div', {}, `⚠️ ${tf(T.startLastError, { date: new Date(last.at).toLocaleString(locale()), msg: last.message.slice(0, 140) })}`),
     h(
       'div',
       { class: 'row', style: 'margin-top:6px' },
-      h('button', { class: 'btn secondary', style: 'min-height:34px;padding:4px 10px;font-size:13px', onclick: () => void navigator.clipboard?.writeText(app.errors.asText()).then(() => toast('Fehlerbericht kopiert')) }, 'Kopieren'),
-      h('button', { class: 'btn ghost', style: 'min-height:34px;padding:4px 10px;font-size:13px', onclick: () => { app.errors.clear(); el.remove(); } }, 'Ausblenden'),
+      h('button', { class: 'btn secondary', style: 'min-height:34px;padding:4px 10px;font-size:13px', onclick: () => void navigator.clipboard?.writeText(app.errors.asText()).then(() => toast(T.startErrorCopied)) }, T.startCopy),
+      h('button', { class: 'btn ghost', style: 'min-height:34px;padding:4px 10px;font-size:13px', onclick: () => { app.errors.clear(); el.remove(); } }, T.startHide),
     ),
   );
   return el;
@@ -89,11 +87,11 @@ function installHint(app: App): HTMLElement | null {
     return h(
       'div',
       { class: 'small', style: 'margin-top:12px;padding:10px 12px;border-radius:12px;background:rgba(56,189,248,0.12);color:#bae6fd' },
-      '📲 Für offline: unten auf ',
-      h('b', {}, 'Teilen ⬆︎'),
+      `📲 ${T.startIosHintPre} `,
+      h('b', {}, T.startIosShare),
       ' → ',
-      h('b', {}, 'Zum Home-Bildschirm'),
-      ', dann das Spiel über das neue Symbol öffnen. Nur die App speichert alles für unterwegs.',
+      h('b', {}, T.startIosAddHome),
+      T.startIosHintPost,
     );
   }
   if (app.installPrompt) {
@@ -110,18 +108,18 @@ function installHint(app: App): HTMLElement | null {
           p.prompt().catch(() => undefined);
         },
       },
-      '📲 Als App installieren (für offline)',
+      `📲 ${T.startInstallApp}`,
     );
   }
   if (app.androidBrowserTab) {
     return h(
       'div',
       { class: 'small', style: 'margin-top:12px;padding:10px 12px;border-radius:12px;background:rgba(56,189,248,0.12);color:#bae6fd' },
-      '📲 Für offline: Chrome-Menü ',
+      `📲 ${T.startAndroidHintPre} `,
       h('b', {}, '⋮'),
       ' → ',
-      h('b', {}, 'App installieren'),
-      ' (oder „Zum Startbildschirm hinzufügen“ → „Installieren“), dann das Spiel über das neue Symbol öffnen.',
+      h('b', {}, T.startAndroidInstall),
+      ` ${T.startAndroidHintPost}`,
     );
   }
   return null;
@@ -141,8 +139,8 @@ export function StartScreen(app: App): Screen {
         'div',
         { class: 'col' },
         h('button', { class: 'btn block', onclick: () => app.beginFlow('camera') }, `🎥 ${T.play}`),
-        h('button', { class: 'btn block secondary', onclick: () => app.showChallenges() }, '📅 Challenges · Tag & Woche'),
-        h('button', { class: 'btn block secondary', onclick: () => app.showPartySetup() }, '👥 Duell · abwechselnd am selben Handy'),
+        h('button', { class: 'btn block secondary', onclick: () => app.showChallenges() }, `📅 ${T.startChallenges}`),
+        h('button', { class: 'btn block secondary', onclick: () => app.showPartySetup() }, `👥 ${T.startDuel}`),
         h('button', { class: 'btn block secondary', onclick: () => app.beginFlow('demo') }, `🕹️ ${T.demo}`),
         h(
           'div',

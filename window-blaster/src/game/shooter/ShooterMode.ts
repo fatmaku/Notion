@@ -20,15 +20,34 @@ import { Missions } from '../scoring/Missions';
 import { COVERAGE_BONUS, hitPoints, type ScoreClass } from '../../../shared/scoring';
 import { FxRenderer } from '../../render/FxRenderer';
 import { HudRenderer, type HudState } from '../../render/HudRenderer';
-import { WEAPON_TEXT, T } from '../../ui/i18n/de';
+import { T, WEAPON_TEXT, tf } from '../../ui/i18n';
 
-const SKID_TEXT: Partial<Record<WeaponId, string>> = { milkshake: 'WEGGERUTSCHT!', banana: 'BANANE! AUSGERUTSCHT!', snowball: 'EINGEFROREN & WEGGERUTSCHT!' };
+// getters: the texts are resolved on every access so a language switch applies to the next feed line
+const SKID_TEXT: Partial<Record<WeaponId, string>> = {
+  get milkshake() {
+    return T.shootSkid;
+  },
+  get banana() {
+    return T.shootSkidBanana;
+  },
+  get snowball() {
+    return T.shootSkidSnowball;
+  },
+};
 
-const KILL_TEXT: Record<string, string[]> = {
-  car: ['AUTO ZERLEGT!', 'VOLLTREFFER!', 'BOOM!'],
-  truck: ['LKW GESPRENGT!', 'DICKER FISCH!'],
-  bus: ['BUS ERLEDIGT!'],
-  train: ['ZUG GESTOPPT!'],
+const KILL_TEXT: Record<string, readonly string[]> = {
+  get car() {
+    return T.shootKillCar;
+  },
+  get truck() {
+    return T.shootKillTruck;
+  },
+  get bus() {
+    return T.shootKillBus;
+  },
+  get train() {
+    return T.shootKillTrain;
+  },
 };
 
 const TIME_PER_KILL_MS = 3000;
@@ -419,7 +438,7 @@ export class ShooterMode implements GameMode {
     if (cfg.id === 'egg') this.effects.particles.debris(d.at, 10, 260 * this.unit, '#fbf3e0');
     if (target) this.applyHit(target, cfg, d.at, now, 1, 1);
     else {
-      this.effects.add(new Popup('Daneben', d.at, now, '#ffc2d9', 22 * this.unit, 600));
+      this.effects.add(new Popup(T.shootMissPopup, d.at, now, '#ffc2d9', 22 * this.unit, 600));
       this.events.push({ t: Math.round(t - this.startedAt), kind: 'miss', weapon: cfg.id, points: 0 });
     }
   }
@@ -450,7 +469,7 @@ export class ShooterMode implements GameMode {
       this.effects.particles.drops(point, 40, 520 * this.unit, ['#7dd3fc', '#bae6fd', '#ffffff']);
       this.hits++;
       this.combo.bump(cfg.comboWeight, t);
-      this.pushFeed(removed >= 3 ? 'AUTOWÄSCHE!' : 'PLATSCH!', '#7dd3fc');
+      this.pushFeed(removed >= 3 ? T.shootCarwash : T.shootSplash, '#7dd3fc');
       if (removed >= 3) {
         this.addPoints(CARWASH_BONUS, center(box), '#7dd3fc', 24);
         this.record({ t: Math.round(t - this.startedAt), kind: 'bonus', id: 'carwash', points: CARWASH_BONUS, cls: target.cls, weapon: cfg.id }, now);
@@ -471,7 +490,7 @@ export class ShooterMode implements GameMode {
       this.hits++;
       this.combo.bump(cfg.comboWeight, t);
       if (sticky && shootable) this.checkCoverage(st, target, now);
-      if (eff === 'splat') this.pushFeed(cfg.id === 'egg' ? 'EI DRAUF!' : 'TOMATE!', decal.color);
+      if (eff === 'splat') this.pushFeed(cfg.id === 'egg' ? T.shootEggHit : T.shootTomatoHit, decal.color);
     } else if (eff === 'skid' || eff === 'freeze') {
       if (st.pendingSkid) return;
       st.pendingSkid = true;
@@ -487,7 +506,7 @@ export class ShooterMode implements GameMode {
       this.ctx.haptics.medium();
       this.hitStop.trigger(t, cfg.hitStopMs);
       if (eff === 'freeze') {
-        this.pushFeed('EINGEFROREN!', '#dff6ff');
+        this.pushFeed(T.shootFrozen, '#dff6ff');
         this.ctx.sfx.play('freeze');
       }
       // 2) a moment later the car loses grip and slides away with its splat baked in
@@ -506,7 +525,7 @@ export class ShooterMode implements GameMode {
           }
           this.afterKill({ id: tid, box: b2, cls: target.cls }, cfg, this.lastNow);
           this.ctx.sfx.play('skid');
-          this.pushFeed(SKID_TEXT[cfg.id] ?? 'WEGGERUTSCHT!', '#ffc2d9');
+          this.pushFeed(SKID_TEXT[cfg.id] ?? T.shootSkid, '#ffc2d9');
         },
       });
       this.combo.bump(1, t);
@@ -566,7 +585,7 @@ export class ShooterMode implements GameMode {
         this.afterKill(target, cfg, now, snap?.canvas ?? null, snap?.box ?? null, point);
         this.combo.bump(1, t);
         const texts = KILL_TEXT[target.cls] ?? KILL_TEXT.car;
-        this.pushFeed(multi > 1 ? `MEHRFACHTREFFER ×${multi}` : this.ctx.rng.pick(texts), multi > 1 ? '#ffb020' : '#fff');
+        this.pushFeed(multi > 1 ? tf(T.shootMultiKill, { n: multi }) : this.ctx.rng.pick(texts), multi > 1 ? '#ffb020' : '#fff');
       } else {
         this.combo.bump(cfg.comboWeight, t);
         if (cfg.id !== 'laser') this.ctx.sfx.play('hit', { pitch: 1 + Math.min(6, this.combo.value) * 0.08 });
@@ -578,7 +597,7 @@ export class ShooterMode implements GameMode {
     const ev: RoundEvent = { t: Math.round(t - this.startedAt), kind: kill ? 'kill' : 'hit', weapon: cfg.id, cls: target.cls, size, centered, multi, points: pts, combo: this.combo.value };
     this.record(ev, now);
     if (kill) this.extendTime(now);
-    if (kill && centered) this.pushFeed('VOLLTREFFER ×1,5', '#ffb020');
+    if (kill && centered) this.pushFeed(T.shootBullseye, '#ffb020');
     if (this.combo.value >= 3 && kill) this.ctx.sfx.play('combo', { pitch: 1 + this.combo.value * 0.05 });
     if (kill && this.combo.value >= 5 && Math.floor(this.combo.value) % 5 === 0) this.ctx.sfx.play('streak', { pitch: 1 + this.combo.value * 0.02 });
     if (kill && this.combo.value >= FRENZY_COMBO && this.frenzyUntil < 0 && t - this.frenzyLastAt >= FRENZY_COOLDOWN_MS) this.startFrenzy(now);
@@ -615,8 +634,8 @@ export class ShooterMode implements GameMode {
     }
     const v = this.ctx.layers.visibleRect();
     this.addPoints(FRENZY_BONUS, { x: v.x + v.w / 2, y: v.y + v.h * 0.4 }, '#ff6a00', 34);
-    this.effects.add(new Popup('🔥 FRENZY! 🔥', { x: v.x + v.w / 2, y: v.y + v.h * 0.28 }, now, '#ff6a00', 40 * this.unit, 1600));
-    this.pushFeed('FRENZY – 8 s Dauerfeuer ohne Nachladen!', '#ff6a00');
+    this.effects.add(new Popup(T.shootFrenzyPopup, { x: v.x + v.w / 2, y: v.y + v.h * 0.28 }, now, '#ff6a00', 40 * this.unit, 1600));
+    this.pushFeed(T.shootFrenzyStart, '#ff6a00');
     this.record({ t: Math.round(t - this.startedAt), kind: 'bonus', id: 'frenzy', points: FRENZY_BONUS }, now);
     this.ctx.sfx.play('streak', { pitch: 1.3 });
     this.ctx.sfx.play('bigExplosion');
@@ -627,7 +646,7 @@ export class ShooterMode implements GameMode {
   private endFrenzy(): void {
     this.frenzyUntil = -1;
     for (const w of this.weapons) w.boost = 1;
-    this.pushFeed('Frenzy vorbei', '#ffb08a');
+    this.pushFeed(T.shootFrenzyOver, '#ffb08a');
   }
 
   private frenzyLeft(now: number): number {
@@ -641,7 +660,7 @@ export class ShooterMode implements GameMode {
         st.coverageStep = thr;
         const bonus = COVERAGE_BONUS[thr];
         this.addPoints(bonus, center(target.box), '#ff2d95', 26);
-        this.pushFeed(`LACKIERT ${thr} %  +${bonus}`, '#ff2d95');
+        this.pushFeed(tf(T.shootCoverage, { pct: thr, bonus }), '#ff2d95');
         this.ctx.sfx.play('combo', { pitch: 1 + thr / 100 });
         this.record({ t: Math.round(this.t(now) - this.startedAt), kind: 'bonus', id: `coverage${thr}`, points: bonus, cls: target.cls, weapon: 'paint' }, now);
       }
@@ -672,8 +691,8 @@ export class ShooterMode implements GameMode {
       this.missionPoints += m.reward;
       this.score += m.reward;
       const v = this.ctx.layers.visibleRect();
-      this.effects.add(new Popup(`MISSION ✓ +${m.reward}`, { x: v.x + v.w / 2, y: v.y + v.h * 0.3 }, now, '#22c55e', 30 * this.unit, 1400));
-      this.pushFeed(`Mission: ${m.text}`, '#22c55e');
+      this.effects.add(new Popup(tf(T.shootMissionPopup, { n: m.reward }), { x: v.x + v.w / 2, y: v.y + v.h * 0.3 }, now, '#22c55e', 30 * this.unit, 1400));
+      this.pushFeed(tf(T.shootMissionFeed, { text: m.text }), '#22c55e');
       this.ctx.sfx.play('mission');
       this.ctx.haptics.medium();
       this.events.push({ t: ev.t, kind: 'mission', id: m.id, points: m.reward });
@@ -769,7 +788,7 @@ export class ShooterMode implements GameMode {
       feed: this.feed,
       hint: now - this.lastTargetSeen > 4000 ? T.noTargets : win.mode === 'off' ? T.windowLost : null,
       windowMode: win.mode,
-      extra: fl > 0 ? `🔥 FRENZY ${Math.ceil(fl * FRENZY_MS / 1000)} s` : undefined,
+      extra: fl > 0 ? tf(T.shootFrenzyHud, { n: Math.ceil(fl * FRENZY_MS / 1000) }) : undefined,
     };
     this.hud.draw(hs, now);
     if (this.photoDue && now >= this.photoDue) {

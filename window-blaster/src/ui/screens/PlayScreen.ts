@@ -1,7 +1,7 @@
 import type { App } from '../../app/App';
 import type { GameMode, PointerEv } from '../../game/GameMode';
 import { capturePointer, h } from '../dom';
-import { T } from '../i18n/de';
+import { T } from '../i18n';
 import type { Screen } from '../Router';
 
 /** Transparent overlay during play: forwards touches to the mode, hosts HUD buttons and the pause menu. */
@@ -79,7 +79,7 @@ export function PlayScreen(app: App, mode: GameMode): Screen {
       'div',
       { class: 'col' },
       h('button', { class: 'btn block', onclick: () => app.togglePause() }, T.resume),
-      h('button', { class: 'btn block secondary', onclick: () => void app.sharePhoto() }, '📸 Foto teilen'),
+      h('button', { class: 'btn block secondary', onclick: () => void app.sharePhoto() }, `📸 ${T.playSharePhoto}`),
       h('button', { class: 'btn block secondary', onclick: () => app.showSettings() }, `⚙️ ${T.settings}`),
       h('button', { class: 'btn block danger', onclick: () => app.abortRound() }, T.quit),
     ),
@@ -90,7 +90,7 @@ export function PlayScreen(app: App, mode: GameMode): Screen {
   const rotate = h(
     'div',
     { class: 'rotate-hint' },
-    h('div', {}, h('div', { style: 'font-size:48px' }, '📱↻'), h('p', {}, T.rotateHint), h('button', { class: 'btn secondary', onclick: () => (rotate.style.display = 'none') }, 'Trotzdem so spielen')),
+    h('div', {}, h('div', { style: 'font-size:48px' }, '📱↻'), h('p', {}, T.rotateHint), h('button', { class: 'btn secondary', onclick: () => (rotate.style.display = 'none') }, T.playRotateAnyway)),
   );
   rotate.addEventListener('pointerdown', (e) => e.stopPropagation());
   el.append(rotate);

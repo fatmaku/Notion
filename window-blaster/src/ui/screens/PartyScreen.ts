@@ -1,11 +1,12 @@
 import type { App } from '../../app/App';
 import { Party } from '../../app/Party';
 import { fmtScore, h } from '../dom';
+import { T, tf } from '../i18n';
 import type { Screen } from '../Router';
 
 /** Set up a hot-seat duel: names, number of rounds each. */
 export function PartySetupScreen(app: App): Screen {
-  const last = app.storage.get<{ names: string[]; rounds: number }>('party.v1', { names: ['Spieler 1', 'Spieler 2'], rounds: 1 });
+  const last = app.storage.get<{ names: string[]; rounds: number }>('party.v1', { names: [tf(T.partyPlayerDefault, { n: 1 }), tf(T.partyPlayerDefault, { n: 2 })], rounds: 1 });
   let names = [...last.names];
   let rounds = last.rounds;
   const list = h('div', { class: 'col' });
@@ -21,8 +22,8 @@ export function PartySetupScreen(app: App): Screen {
             type: 'text',
             maxlength: 14,
             value: n,
-            placeholder: `Spieler ${i + 1}`,
-            'aria-label': `Name Spieler ${i + 1}`,
+            placeholder: tf(T.partyPlayerDefault, { n: i + 1 }),
+            'aria-label': tf(T.partyNameLabel, { n: i + 1 }),
             class: 'grow',
             oninput: (e) => (names[i] = (e.target as HTMLInputElement).value),
           }),
@@ -32,7 +33,7 @@ export function PartySetupScreen(app: App): Screen {
                 {
                   class: 'btn ghost',
                   style: 'min-height:36px;padding:4px 10px',
-                  'aria-label': 'Spieler entfernen',
+                  'aria-label': T.partyRemovePlayer,
                   onclick: () => {
                     names.splice(i, 1);
                     render();
@@ -50,17 +51,17 @@ export function PartySetupScreen(app: App): Screen {
               {
                 class: 'btn secondary',
                 onclick: () => {
-                  names = [...names, `Spieler ${names.length + 1}`];
+                  names = [...names, tf(T.partyPlayerDefault, { n: names.length + 1 })];
                   render();
                 },
               },
-              '+ Spieler',
+              T.partyAddPlayer,
             ),
           ]
         : []),
     );
     roundsRow.replaceChildren(
-      h('span', { class: 'muted small' }, 'Runden pro Spieler:'),
+      h('span', { class: 'muted small' }, T.partyRoundsPerPlayer),
       ...[1, 2, 3].map((r) =>
         h(
           'button',
@@ -84,14 +85,14 @@ export function PartySetupScreen(app: App): Screen {
     h(
       'div',
       { class: 'card' },
-      h('h2', {}, '👥 Duell'),
-      h('p', { class: 'muted small' }, 'Abwechselnd am selben Handy: Jeder spielt dieselbe Art Runde, danach zeigt die Tabelle, wer vorn liegt. Modus und Waffen wählt ihr einmal gemeinsam.'),
+      h('h2', {}, T.partyTitle),
+      h('p', { class: 'muted small' }, T.partyIntro),
       list,
       roundsRow,
       h(
         'div',
         { class: 'row', style: 'margin-top:16px' },
-        h('button', { class: 'btn secondary', onclick: () => app.showStart() }, 'Zurück'),
+        h('button', { class: 'btn secondary', onclick: () => app.showStart() }, T.back),
         h(
           'button',
           {
@@ -101,7 +102,7 @@ export function PartySetupScreen(app: App): Screen {
               app.beginParty(new Party(names, rounds));
             },
           },
-          '▶ Los geht’s',
+          T.partyStart,
         ),
       ),
     ),
@@ -120,8 +121,8 @@ export function PartyBoardScreen(app: App, party: Party): Screen {
     h(
       'div',
       { class: 'card' },
-      h('h2', {}, party.done ? '🏁 Duell vorbei' : `👥 Duell · Runde ${party.playedRounds} / ${party.totalRounds}`),
-      party.done ? h('div', { class: 'title', style: 'font-size:30px' }, winners.length > 1 ? `🤝 Unentschieden: ${winners.join(' & ')}` : `👑 ${winners[0]} gewinnt!`) : null,
+      h('h2', {}, party.done ? T.partyOver : tf(T.partyRoundHeading, { played: party.playedRounds, total: party.totalRounds })),
+      party.done ? h('div', { class: 'title', style: 'font-size:30px' }, winners.length > 1 ? tf(T.partyDraw, { names: winners.join(' & ') }) : tf(T.partyWins, { name: winners[0] })) : null,
       h(
         'ul',
         { class: 'list' },
@@ -129,7 +130,7 @@ export function PartyBoardScreen(app: App, party: Party): Screen {
           h(
             'li',
             { class: r.rank === 1 && party.playedRounds > 0 ? 'me' : '' },
-            h('span', { class: 'name' }, `${r.rank}. ${colors[r.index]} ${r.player}`, h('span', { class: 'muted small' }, r.rounds.length ? `  (${r.rounds.map(fmtScore).join(' + ')})` : '  (noch nicht gespielt)')),
+            h('span', { class: 'name' }, `${r.rank}. ${colors[r.index]} ${r.player}`, h('span', { class: 'muted small' }, r.rounds.length ? `  (${r.rounds.map(fmtScore).join(' + ')})` : `  ${T.partyNotPlayed}`)),
             h('span', { class: 'score' }, fmtScore(r.total)),
           ),
         ),
@@ -138,9 +139,9 @@ export function PartyBoardScreen(app: App, party: Party): Screen {
         'div',
         { class: 'col', style: 'margin-top:14px' },
         party.done
-          ? h('button', { class: 'btn block', onclick: () => app.beginParty(party.rematch()) }, '🔁 Revanche')
-          : h('button', { class: 'btn block', onclick: () => app.partyPlayNext() }, `▶ ${party.current} spielt (Runde ${party.roundNumber})`),
-        h('button', { class: 'btn block secondary', onclick: () => app.endParty() }, party.done ? 'Zum Menü' : 'Duell abbrechen'),
+          ? h('button', { class: 'btn block', onclick: () => app.beginParty(party.rematch()) }, T.partyRematch)
+          : h('button', { class: 'btn block', onclick: () => app.partyPlayNext() }, tf(T.partyPlayNext, { name: String(party.current), round: party.roundNumber })),
+        h('button', { class: 'btn block secondary', onclick: () => app.endParty() }, party.done ? T.partyToMenu : T.partyAbort),
       ),
     ),
   );

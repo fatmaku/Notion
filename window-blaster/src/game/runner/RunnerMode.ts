@@ -14,6 +14,7 @@ import { RunnerPhysics, defaultParams } from './RunnerPhysics';
 import { collides, mapObstacle, platformUnder, type Obstacle } from './ObstacleMapper';
 import { PoleDetector } from './PoleDetector';
 import { POWERUP, POWERUP_ICON, PowerUps } from './PowerUps';
+import { T, tf } from '../../ui/i18n';
 
 interface ObstacleMemo {
   cleared: boolean;
@@ -216,7 +217,7 @@ export class RunnerMode implements GameMode {
       this.dirVotes = Math.max(-40, Math.min(40, this.dirVotes + s));
       if (s !== this.dir && Math.abs(this.dirVotes) >= 30 && Math.sign(this.dirVotes) === s) {
         this.dir = s;
-        this.pushFeed(this.dir > 0 ? 'Richtung: → ' : 'Richtung: ←', '#38bdf8');
+        this.pushFeed(this.dir > 0 ? T.runDirRight : T.runDirLeft, '#38bdf8');
       }
       const speeds = this.ctx.tracker.active.map((t) => Math.abs(t.vel.x) * 1000).filter((v) => v > 40);
       if (speeds.length) {
@@ -299,7 +300,7 @@ export class RunnerMode implements GameMode {
           this.addPoints(300, { x: b.x, y: cy - r }, '#ffd233', 26);
           this.effects.particles.sparks({ x: b.x, y: cy }, 18, 260, ['#ffd233', '#fff7c0']);
           this.ctx.sfx.play('coin');
-          this.pushFeed('GOLDENER VOGEL! +300', '#ffd233');
+          this.pushFeed(T.runGoldenBird, '#ffd233');
           this.record({ t: Math.round(this.t(now) - this.startedAt), kind: 'bonus', id: 'goldbird', points: 300 }, now);
           this.takePhoto(now);
         }
@@ -406,7 +407,7 @@ export class RunnerMode implements GameMode {
         }
         if (c > 1 && c % 5 === 0) {
           this.takePhoto(now);
-          this.pushFeed(`${c}er-Combo!`, '#ffb020');
+          this.pushFeed(tf(T.runComboFeed, { n: c }), '#ffb020');
           this.ctx.sfx.play('combo', { pitch: 1 + c * 0.04 });
         }
       }
@@ -449,7 +450,7 @@ export class RunnerMode implements GameMode {
       const r = this.R * 0.3;
       if (!intersect(runner, { x: p.x - r, y: cy - r, w: 2 * r, h: 2 * r })) continue;
       this.power.collect(p, t);
-      const text = p.kind === 'magnet' ? 'MAGNET!' : p.kind === 'shield' ? 'SCHILD!' : 'DOPPELTE PUNKTE!';
+      const text = p.kind === 'magnet' ? T.runPowerMagnet : p.kind === 'shield' ? T.runPowerShield : T.runPowerDouble;
       const color = p.kind === 'magnet' ? '#38bdf8' : p.kind === 'shield' ? '#a78bfa' : '#f59e0b';
       this.effects.add(new Popup(`${POWERUP_ICON[p.kind]} ${text}`, { x: p.x, y: cy - r * 2 }, now, color, 30));
       this.pushFeed(`${POWERUP_ICON[p.kind]} ${text}`, color);
@@ -469,7 +470,7 @@ export class RunnerMode implements GameMode {
       this.ctx.sfx.play('pow');
       this.ctx.haptics.medium();
       const sx = this.runnerX();
-      this.effects.add(new Popup('🛡️ SCHILD!', { x: sx, y: this.groundY(sx) - this.R * 1.4 }, now, '#a78bfa', 28));
+      this.effects.add(new Popup(`🛡️ ${T.runPowerShield}`, { x: sx, y: this.groundY(sx) - this.R * 1.4 }, now, '#a78bfa', 28));
       this.effects.particles.sparks({ x: sx, y: this.groundY(sx) - this.R * 0.6 }, 20, 320, ['#a78bfa', '#fff']);
       return;
     }
@@ -482,7 +483,7 @@ export class RunnerMode implements GameMode {
     this.ctx.sfx.play('ouch');
     this.ctx.haptics.heavy();
     const rx = this.runnerX();
-    this.effects.add(new Popup(o.cls === 'bird' ? 'VOGEL! DUCKEN!' : 'AUTSCH!', { x: rx, y: this.groundY(rx) - this.R * 1.4 }, now, '#ef4444', 30));
+    this.effects.add(new Popup(o.cls === 'bird' ? T.runHitBird : T.runHitOuch, { x: rx, y: this.groundY(rx) - this.R * 1.4 }, now, '#ef4444', 30));
     this.effects.particles.sparks({ x: rx, y: this.groundY(rx) - this.R * 0.5 }, 12, 300, ['#ef4444', '#fff']);
     this.record({ t: Math.round(t - this.startedAt), kind: 'life', cls: String(o.cls), points: 0 }, now);
     if (this.lives <= 0) this.finish(now);
@@ -520,8 +521,8 @@ export class RunnerMode implements GameMode {
       this.missionPoints += m.reward;
       this.score += m.reward;
       const v = this.ctx.layers.visibleRect();
-      this.effects.add(new Popup(`MISSION ✓ +${m.reward}`, { x: v.x + v.w / 2, y: v.y + v.h * 0.3 }, now, '#22c55e', 30, 1400));
-      this.pushFeed(`Mission: ${m.text}`, '#22c55e');
+      this.effects.add(new Popup(tf(T.runMissionPopup, { n: m.reward }), { x: v.x + v.w / 2, y: v.y + v.h * 0.3 }, now, '#22c55e', 30, 1400));
+      this.pushFeed(tf(T.runMissionFeed, { text: m.text }), '#22c55e');
       this.ctx.sfx.play('mission');
       this.events.push({ t: ev.t, kind: 'mission', id: m.id, points: m.reward });
     }
@@ -675,10 +676,10 @@ export class RunnerMode implements GameMode {
       elapsed: (t - this.startedAt) / 1000,
       combo: this.combo.value,
       comboLeft: this.combo.timeLeft(t),
-      weapon: { icon: '🏃', name: 'Runner', ammo: `${this.cleared} übersprungen`, reload: 1, empty: false },
+      weapon: { icon: '🏃', name: T.runHudName, ammo: tf(T.runHudCleared, { n: this.cleared }), reload: 1, empty: false },
       missions: this.missions.results().map((m) => ({ text: m.text, progress: m.progress, goal: m.goal, done: m.done })),
       feed: this.feed,
-      hint: a.free ? 'Frei-Modus (keine Scheibe erkannt)' : t - this.startedAt < 4000 ? 'Tippen = Sprung · Wischen nach unten = Ducken (Vögel!)' : this.obstacles.length === 0 && t - this.startedAt > 5000 ? 'Warte auf Hindernisse …' : null,
+      hint: a.free ? T.runHintFree : t - this.startedAt < 4000 ? T.runHintControls : this.obstacles.length === 0 && t - this.startedAt > 5000 ? T.runHintWaiting : null,
       windowMode: this.ctx.window().mode,
       lives: this.lives,
       extra: `${activePower ? `${POWERUP_ICON[activePower]} ${Math.ceil(this.power.timeLeft(t) * POWERUP.durationMs / 1000)} s · ` : ''}${this.power.shield ? '🛡️ · ' : ''}🪙 ${this.coinsTaken}`,

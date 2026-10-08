@@ -4,7 +4,7 @@ import { RunnerMode } from '../game/runner/RunnerMode';
 import { Records, todayKey } from '../game/scoring/Records';
 import { weeklyChallenge } from '../game/scoring/Challenges';
 import { ChallengesScreen } from '../ui/screens/ChallengesScreen';
-import { setLang } from '../ui/i18n';
+import { setLang, T, tf } from '../ui/i18n';
 import { DemoSource } from '../camera/DemoSource';
 import { CameraSource, explainCameraError } from '../camera/CameraSource';
 import { Motion } from '../sensors/Motion';
@@ -29,7 +29,6 @@ import { WakeLock } from '../sensors/WakeLock';
 import { Rng, hashString } from '../core/rng';
 import { Router } from '../ui/Router';
 import { toast } from '../ui/dom';
-import { T } from '../ui/i18n/de';
 import { StartScreen } from '../ui/screens/StartScreen';
 import { SafetyScreen } from '../ui/screens/SafetyScreen';
 import { ModeScreen } from '../ui/screens/ModeScreen';
@@ -111,7 +110,7 @@ export class App {
     this.loop.onError = (e) => {
       this.errors.push('tick', e);
       this.diag.set('tickErrors', this.loop.errors);
-      if (this.loop.errors === 1) toast('Fehler abgefangen – Spiel läuft weiter (Details im Menü)', 2500);
+      if (this.loop.errors === 1) toast(T.appErrorCaught, 2500);
     };
     this.fxDebug = new FxRenderer(this.layers.fx);
     const pid = ensurePlayerId(
@@ -122,7 +121,7 @@ export class App {
     this.motion.events.on('sample', (s) => this.windowTracker?.onMotion(s));
     window.addEventListener('online', () => {
       this.online = true;
-      void this.leaderboard.flush().then((n) => n && toast(`${n} Ranglisten-Eintrag/-Einträge nachgereicht`));
+      void this.leaderboard.flush().then((n) => n && toast(tf(T.appScoresFlushed, { n })));
       if (this.offline.state === 'missing' || this.offline.state === 'error') void this.offline.check();
     });
     window.addEventListener('offline', () => {
@@ -141,11 +140,11 @@ export class App {
   async sharePhoto(): Promise<void> {
     const url = this.capture();
     if (!url) {
-      toast('Kein Bild verfügbar');
+      toast(T.appNoImage);
       return;
     }
-    const res = await shareImage(url, `window-blaster-${Date.now()}.jpg`, 'Window Blaster');
-    toast(res === 'shared' ? 'Geteilt' : res === 'downloaded' ? 'Foto gespeichert' : res === 'cancelled' ? 'Abgebrochen' : 'Teilen nicht möglich');
+    const res = await shareImage(url, `window-blaster-${Date.now()}.jpg`, T.appName);
+    toast(res === 'shared' ? T.appShared : res === 'downloaded' ? T.appPhotoSaved : res === 'cancelled' ? T.appShareCancelled : T.appShareFailed);
   }
 
   showStats(): void {
@@ -173,7 +172,7 @@ export class App {
   /** Next player's turn: same mode, weapons and calibration. */
   partyPlayNext(): void {
     if (!this.party || this.party.done) return this.showPartyBoard();
-    toast(`${this.party.current} ist dran!`, 1800);
+    toast(tf(T.appPartyTurn, { name: this.party.current ?? '' }), 1800);
     this.startRound();
   }
 
@@ -347,7 +346,7 @@ export class App {
   private reloadIfSafe(goingToStart = false): boolean {
     const onStart = goingToStart || this.router.active?.el.dataset.screen === 'start';
     if (!this.pendingReload || !onStart || this.mode || this.offline.state === 'downloading' || this.calibrating) return false;
-    toast('Neue Version – lädt neu …', 1500);
+    toast(T.appNewVersionReload, 1500);
     setTimeout(() => location.reload(), 300);
     return true;
   }
@@ -398,7 +397,7 @@ export class App {
 
   showCalibrate(): void {
     this.mode = null;
-    if (this.restoreCalibration()) toast('Letzte Scheibe übernommen – „✨ Automatisch“ sucht neu', 2500);
+    if (this.restoreCalibration()) toast(T.appCalibRestored, 2500);
     const screen = CalibrateScreen(this);
     this.calibrating = screen;
     this.router.show({
@@ -488,7 +487,7 @@ export class App {
           sessionStorage.setItem('wb.chunkReload', '1');
           location.reload();
         }
-        throw new Error('Ein Programmteil fehlt (alte Version im Zwischenspeicher). Bitte die Seite neu laden.');
+        throw new Error(T.appChunkMissing);
       }
       sessionStorage.removeItem('wb.chunkReload');
       this.detector = new MediaPipeDetector({
@@ -503,10 +502,10 @@ export class App {
       this.frame = null;
       throw new Error(explainCameraError(e));
     }
-    onProgress?.(0.01, 'Kamera läuft');
+    onProgress?.(0.01, T.appCameraRunning);
     const t0 = performance.now();
     while (!videoReady(video) && performance.now() - t0 < 4000) await new Promise((r) => setTimeout(r, 30));
-    if (!videoReady(video)) throw new Error('Kein Videobild (Kamera blockiert?)');
+    if (!videoReady(video)) throw new Error(T.appNoVideo);
     this.layers.beginFrame();
     const w = video.videoWidth;
     const h = video.videoHeight;
@@ -645,21 +644,21 @@ export class App {
 
   recenter(): void {
     const ok = this.windowTracker?.recenter() ?? false;
-    toast(ok ? 'Scheibe neu zentriert' : 'Keine Scheibe erkannt – ganzes Bild aktiv', 1500);
+    toast(ok ? T.appRecentered : T.appNoWindowFullFrame, 1500);
     if (!ok) this.windowTracker?.setFullFrame();
   }
 
   async submitScore(r: RoundResult): Promise<void> {
     const pre = verifyRound(r);
     if (!pre.ok) {
-      toast(pre.reason === 'endless' ? 'Endlos-Runden zählen nicht für die Rangliste.' : pre.reason === 'demo' ? 'Demo-Runden zählen nicht für die Rangliste.' : `Runde nicht gültig (${pre.reason}).`, 3000);
+      toast(pre.reason === 'endless' ? T.appEndlessNotRanked : pre.reason === 'demo' ? T.appDemoNotRanked : tf(T.appRoundInvalid, { reason: pre.reason ?? '' }), 3000);
       return;
     }
-    const name = this.settings.data.nickname || `Fahrgast${Math.floor(Math.random() * 1000)}`;
+    const name = this.settings.data.nickname || tf(T.appDefaultNickname, { n: Math.floor(Math.random() * 1000) });
     // the photo stays on the device
     const payload: RoundResult = { ...r, photo: undefined };
     if (!this.leaderboard.configured) {
-      toast('Weltweite Rangliste nicht eingerichtet.');
+      toast(T.appLeaderboardNotConfigured);
       return;
     }
     if (!this.online) {
@@ -668,11 +667,11 @@ export class App {
       return;
     }
     const res: SubmitResponse = await this.leaderboard.submit(name, payload).catch(() => ({ ok: false, error: 'network' }) as SubmitResponse);
-    if (res.ok) toast(`Eingetragen als ${name}${res.rank ? ` – Platz ${res.rank}` : ''}${res.dailyRank ? `, heute Platz ${res.dailyRank}` : ''}`);
+    if (res.ok) toast(`${tf(T.appSubmittedAs, { name })}${res.rank ? ` – ${tf(T.appSubmittedRank, { rank: res.rank })}` : ''}${res.dailyRank ? `, ${tf(T.appSubmittedDailyRank, { rank: res.dailyRank })}` : ''}`);
     else if (res.error === 'network') {
       this.leaderboard.enqueue(name, payload);
       toast(T.queuedScore, 3000);
-    } else toast(`Eintragen abgelehnt (${res.error ?? 'Fehler'}).`);
+    } else toast(tf(T.appSubmitRejected, { error: res.error ?? T.appErrorFallback }));
   }
 
   // ------------------------------------------------------------------------ loop

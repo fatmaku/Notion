@@ -22,11 +22,50 @@
       <div id="ui"></div>
       <pre id="debug" hidden></pre>
     </div>
-    <noscript>Window Blaster braucht JavaScript.</noscript>
+    <noscript>Window Blaster braucht JavaScript. / Window Blaster needs JavaScript.</noscript>
     <!-- Boot watchdog: plain ES5, runs before the app. Shows a German help screen instead of a
          blank page if the app script fails to load/execute, and implements ?reset=1. -->
     <script>
       (function () {
+        // language of the watchdog texts: ?lang=, else the saved setting, else German (same as the app)
+        var lang = 'de';
+        try {
+          var lm = /[?&]lang=(en|de)\b/.exec(location.search);
+          if (lm) lang = lm[1];
+          else {
+            var st = JSON.parse(localStorage.getItem('wb.settings.v1') || 'null');
+            if (st && (st.lang === 'en' || st.lang === 'de')) lang = st.lang;
+          }
+          document.documentElement.lang = lang;
+        } catch (e) {}
+        var L = {
+          de: {
+            resetting: 'Setze Window Blaster zurück …',
+            resetOffline: 'Zurücksetzen geht nur, wenn der Mac-Server erreichbar ist (gleiches WLAN). Nichts wurde gelöscht.',
+            title: '🚗 Window Blaster startet nicht',
+            body: 'Meist liegt das an einer alten Version im Zwischenspeicher des Browsers.',
+            reset: 'App zurücksetzen &amp; neu laden',
+            reload: 'Nur neu laden',
+            keep: 'Punkte und Freischaltungen bleiben erhalten. Hilft beides nicht: Browser aktualisieren (iPhone: iOS-Update; Mac: Safari/Chrome aktuell).',
+            resetAlert: 'Zurücksetzen geht nur im WLAN des Macs, während Window Blaster dort läuft. Es wurde nichts gelöscht – probiere „Nur neu laden“.',
+            scriptFail: 'Programmdatei konnte nicht geladen werden: ',
+            unknown: 'Unbekannter Fehler',
+            timeout: 'Zeitüberschreitung beim Start (30 s) – langsames WLAN? Erst „Nur neu laden“ probieren.'
+          },
+          en: {
+            resetting: 'Resetting Window Blaster …',
+            resetOffline: 'Resetting only works while the Mac server is reachable (same Wi-Fi). Nothing was deleted.',
+            title: '🚗 Window Blaster is not starting',
+            body: 'Usually an old version in the browser cache is to blame.',
+            reset: 'Reset app &amp; reload',
+            reload: 'Just reload',
+            keep: 'Points and unlocks are kept. If neither helps: update your browser (iPhone: iOS update; Mac: current Safari/Chrome).',
+            resetAlert: 'Resetting only works on the Mac’s Wi-Fi while Window Blaster is running there. Nothing was deleted – try “Just reload”.',
+            scriptFail: 'Program file could not be loaded: ',
+            unknown: 'Unknown error',
+            timeout: 'Timeout while starting (30 s) – slow Wi-Fi? Try “Just reload” first.'
+          }
+        }[lang];
         // Reset = forget the cached app shell and the service worker, but KEEP the ~30 MB offline
         // data (MediaPipe + model). Only when the server is reachable – offline it would brick the app.
         // The ping bypasses the service worker (it never answers wb-status / wbping from its cache).
@@ -64,10 +103,10 @@
         window.__wbReset = resetApp;
         if (/[?&]reset=1/.test(location.search)) {
           window.__wbResetting = true;
-          document.write('<p style="font:18px system-ui;color:#eee;background:#0b0f14;padding:24px">Setze Window Blaster zurück …</p>');
+          document.write('<p style="font:18px system-ui;color:#eee;background:#0b0f14;padding:24px">' + L.resetting + '</p>');
           resetApp(function () { location.replace(location.pathname); }, function () {
             window.__wbResetting = false;
-            document.body.innerHTML = '<p style="font:18px system-ui;color:#eee;background:#0b0f14;padding:24px">Zurücksetzen geht nur, wenn der Mac-Server erreichbar ist (gleiches WLAN). Nichts wurde gelöscht.</p>';
+            document.body.innerHTML = '<p style="font:18px system-ui;color:#eee;background:#0b0f14;padding:24px">' + L.resetOffline + '</p>';
           });
           return;
         }
@@ -78,16 +117,16 @@
           var d = document.createElement('div');
           d.id = 'wbBootFail';
           d.setAttribute('style', 'position:fixed;inset:0;z-index:99;background:#0b0f14;color:#eef2f7;font:17px/1.5 -apple-system,system-ui,sans-serif;padding:28px;overflow:auto');
-          d.innerHTML = '<h2 style="margin:0 0 10px">🚗 Window Blaster startet nicht</h2>' +
-            '<p>Meist liegt das an einer alten Version im Zwischenspeicher des Browsers.</p>' +
-            '<p><button id="wbReset" style="font:700 17px system-ui;padding:14px 18px;border:0;border-radius:12px;background:#ffb020;color:#111">App zurücksetzen &amp; neu laden</button> ' +
-            '<button id="wbReload" style="font:700 17px system-ui;padding:14px 18px;border:0;border-radius:12px;background:#273244;color:#eef2f7;margin-top:8px">Nur neu laden</button></p>' +
-            '<p style="color:#9aa7b8;font-size:14px">Punkte und Freischaltungen bleiben erhalten. Hilft beides nicht: Browser aktualisieren (iPhone: iOS-Update; Mac: Safari/Chrome aktuell).</p>' +
+          d.innerHTML = '<h2 style="margin:0 0 10px">' + L.title + '</h2>' +
+            '<p>' + L.body + '</p>' +
+            '<p><button id="wbReset" style="font:700 17px system-ui;padding:14px 18px;border:0;border-radius:12px;background:#ffb020;color:#111">' + L.reset + '</button> ' +
+            '<button id="wbReload" style="font:700 17px system-ui;padding:14px 18px;border:0;border-radius:12px;background:#273244;color:#eef2f7;margin-top:8px">' + L.reload + '</button></p>' +
+            '<p style="color:#9aa7b8;font-size:14px">' + L.keep + '</p>' +
             '<pre style="white-space:pre-wrap;color:#fca5a5;font-size:12px">' + String(reason).replace(/[<>&]/g, '') + '\n' + navigator.userAgent + '</pre>';
           document.body.appendChild(d);
           document.getElementById('wbReset').onclick = function () {
             resetApp(function () { location.replace(location.pathname); }, function () {
-              alert('Zurücksetzen geht nur im WLAN des Macs, während Window Blaster dort läuft. Es wurde nichts gelöscht – probiere „Nur neu laden“.');
+              alert(L.resetAlert);
             });
           };
           document.getElementById('wbReload').onclick = function () { location.reload(); };
@@ -97,18 +136,18 @@
           var t = e && e.target;
           // resource errors (captured, non-bubbling): only a failed app script matters
           if (t && t.tagName) {
-            if (t.tagName === 'SCRIPT') failedHard = true, show('Programmdatei konnte nicht geladen werden: ' + (t.src || ''));
+            if (t.tagName === 'SCRIPT') failedHard = true, show(L.scriptFail + (t.src || ''));
             return;
           }
           failedHard = true;
-          show((e && (e.message || (e.error && e.error.message))) || 'Unbekannter Fehler');
+          show((e && (e.message || (e.error && e.error.message))) || L.unknown);
         }, true);
         // the app booted after all (slow Wi-Fi): withdraw a timeout screen
         window.__wbBootOk = function () { var o = document.getElementById('wbBootFail'); if (o && !failedHard) o.remove(); };
         var failedHard = false;
         // count only visible time – iOS keeps the clock running while the user is in Settings
         var budget = 30000, started = 0, timer = 0;
-        function arm() { if (window.__wbBooted || shown) return; started = Date.now(); timer = setTimeout(function () { show('Zeitüberschreitung beim Start (30 s) – langsames WLAN? Erst „Nur neu laden“ probieren.'); }, budget); }
+        function arm() { if (window.__wbBooted || shown) return; started = Date.now(); timer = setTimeout(function () { show(L.timeout); }, budget); }
         function pause() { if (!timer) return; clearTimeout(timer); timer = 0; budget = Math.max(1000, budget - (Date.now() - started)); }
         document.addEventListener('visibilitychange', function () { if (document.hidden) pause(); else if (!timer) arm(); });
         if (!document.hidden) arm();

@@ -1,7 +1,7 @@
 import type { App } from '../../app/App';
 import type { GameModeId } from '../../core/types';
 import { fmtScore, h } from '../dom';
-import { MODES, T } from '../i18n/de';
+import { locale, MODES, T } from '../i18n';
 import type { Screen } from '../Router';
 
 export function LeaderboardScreen(app: App): Screen {
@@ -26,7 +26,7 @@ export function LeaderboardScreen(app: App): Screen {
       h('button', { class: `btn ${scope === 'global' ? '' : 'secondary'} grow`, style: 'min-height:40px;font-size:14px', onclick: () => ((scope = 'global'), render()) }, `🌍 ${T.global}`),
       h('button', { class: `btn ${scope === 'local' ? '' : 'secondary'} grow`, style: 'min-height:40px;font-size:14px', onclick: () => ((scope = 'local'), render()) }, `📱 ${T.local}`),
     );
-    body.replaceChildren(scopeRow, h('p', { class: 'muted small' }, 'Lade …'));
+    body.replaceChildren(scopeRow, h('p', { class: 'muted small' }, T.lbLoading));
     if (scope === 'local') {
       const best = app.records.best(mode);
       const daily = app.records.dailyBest(mode);
@@ -34,12 +34,12 @@ export function LeaderboardScreen(app: App): Screen {
       const tot = app.records.totals();
       body.replaceChildren(
         scopeRow,
-        h('div', { class: 'stats' }, h('span', { class: 'muted' }, T.best), h('b', {}, fmtScore(best)), h('span', { class: 'muted' }, 'Heute'), h('b', {}, fmtScore(daily)), h('span', { class: 'muted' }, 'Runden gesamt'), h('b', {}, String(tot.rounds)), h('span', { class: 'muted' }, 'Fahrzeuge gesamt'), h('b', {}, String(tot.kills))),
+        h('div', { class: 'stats' }, h('span', { class: 'muted' }, T.best), h('b', {}, fmtScore(best)), h('span', { class: 'muted' }, T.lbToday), h('b', {}, fmtScore(daily)), h('span', { class: 'muted' }, T.lbTotalRounds), h('b', {}, String(tot.rounds)), h('span', { class: 'muted' }, T.lbTotalVehicles), h('b', {}, String(tot.kills))),
         h(
           'ul',
           { class: 'list' },
-          ...(recent.length ? recent.slice(0, 10) : []).map((r, i) => h('li', {}, h('span', { class: 'rank' }, `${i + 1}.`), h('span', { class: 'name' }, `${new Date(r.at).toLocaleDateString('de-DE')} · ${r.weapons.join('+')}${r.source === 'demo' ? ' · Demo' : ''}`), h('span', { class: 'score' }, fmtScore(r.score)))),
-          recent.length ? null : h('li', {}, h('span', { class: 'muted' }, 'Noch keine Runden in diesem Modus.')),
+          ...(recent.length ? recent.slice(0, 10) : []).map((r, i) => h('li', {}, h('span', { class: 'rank' }, `${i + 1}.`), h('span', { class: 'name' }, `${new Date(r.at).toLocaleDateString(locale())} · ${r.weapons.join('+')}${r.source === 'demo' ? ` · ${T.lbDemoTag}` : ''}`), h('span', { class: 'score' }, fmtScore(r.score)))),
+          recent.length ? null : h('li', {}, h('span', { class: 'muted' }, T.lbNoLocalRounds)),
         ),
       );
       return;
@@ -59,10 +59,10 @@ export function LeaderboardScreen(app: App): Screen {
             'ul',
             { class: 'list' },
             ...rows.map((e, i) => h('li', { class: e.me ? 'me' : '' }, h('span', { class: 'rank' }, `${i + 1}.`), h('span', { class: 'name' }, `${e.flag ? e.flag + ' ' : ''}${e.name} · ${e.vehicle}`), h('span', { class: 'score' }, fmtScore(e.score)))),
-            rows.length ? null : h('li', {}, h('span', { class: 'muted' }, 'Noch keine Einträge – sei der Erste!')),
+            rows.length ? null : h('li', {}, h('span', { class: 'muted' }, T.lbNoEntries)),
           ),
         );
-      body.replaceChildren(scopeRow, list('Heute (Tages-Challenge)', day), list(T.weekly, res), list(T.allTime, all));
+      body.replaceChildren(scopeRow, list(T.lbTodayDaily, day), list(T.weekly, res), list(T.allTime, all));
     } catch {
       body.replaceChildren(scopeRow, h('p', { class: 'muted' }, T.offline));
     }

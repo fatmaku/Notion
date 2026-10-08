@@ -1,5 +1,5 @@
 import type { RoundResult } from '../game/GameMode';
-import { MODES } from './i18n/de';
+import { MODES, T, tf } from './i18n';
 import { fmtScore } from './dom';
 
 /**
@@ -92,13 +92,13 @@ export async function renderResultCard(r: RoundResult, best: number): Promise<HT
   const mode = MODES[r.mode];
   text(`${mode.icon} ${mode.name}`, W - 60, 110, 40, '#9aa7b8', 700, 'right');
   text(fmtScore(r.score), W / 2, H * 0.74, 170, '#ffb020', 900, 'center');
-  text('PUNKTE', W / 2, H * 0.74 + 56, 40, '#fff', 800, 'center');
+  text(T.sharePoints, W / 2, H * 0.74 + 56, 40, '#fff', 800, 'center');
   const runner = r.mode === 'side-runner';
   const acc = r.shots ? Math.round((r.hits / r.shots) * 100) : 0;
-  const stats = runner ? [`${r.kills} übersprungen`, `${r.extra.coins ?? 0} Münzen`, `Combo ×${r.maxCombo}`] : [`${r.kills} ausgeschaltet`, `${acc} % Treffer`, `Combo ×${r.maxCombo}`];
+  const stats = runner ? [tf(T.shareJumped, { n: r.kills }), tf(T.shareCoins, { n: r.extra.coins ?? 0 }), tf(T.shareCombo, { n: r.maxCombo })] : [tf(T.shareKills, { n: r.kills }), tf(T.shareAccuracy, { acc }), tf(T.shareCombo, { n: r.maxCombo })];
   text(stats.join('   ·   '), W / 2, H * 0.74 + 130, 38, '#e2e8f0', 700, 'center');
-  if (r.score >= best && best > 0) text('★ NEUER BESTWERT', W / 2, H * 0.74 + 200, 40, '#22c55e', 900, 'center');
-  text(`${r.weapons.length ? r.weapons.join(' + ') : ''}  ·  Nur als Fahrgast gespielt`, W / 2, H - 50, 28, '#64748b', 600, 'center');
+  if (r.score >= best && best > 0) text(T.shareNewBest, W / 2, H * 0.74 + 200, 40, '#22c55e', 900, 'center');
+  text(`${r.weapons.length ? r.weapons.join(' + ') : ''}  ·  ${T.shareFooter}`, W / 2, H - 50, 28, '#64748b', 600, 'center');
   return c;
 }
 

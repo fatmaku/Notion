@@ -113,7 +113,7 @@ sw.addEventListener('fetch', (event) => {
           // offline: only the game itself falls back to the cached shell
           const inApp = url.pathname === scopeUrl.pathname || url.pathname === `${scopeUrl.pathname}index.html`;
           const cached = inApp ? ((await cache.match(abs('./'))) ?? (await caches.match(abs('./')))) : undefined;
-          return cached ?? new Response('<!doctype html><meta charset="utf-8"><h1>Offline</h1><p>Window Blaster wurde auf diesem Gerät noch nicht vollständig geladen. Bitte einmal im WLAN des Macs öffnen.</p>', { status: 503, headers: { 'content-type': 'text/html; charset=utf-8' } });
+          return cached ?? new Response('<!doctype html><meta charset="utf-8"><h1>Offline</h1><p>Window Blaster wurde auf diesem Gerät noch nicht vollständig geladen. Bitte einmal im WLAN des Macs öffnen.</p><p lang="en">Window Blaster has not been fully loaded on this device yet. Please open it once on the Mac’s Wi-Fi.</p>', { status: 503, headers: { 'content-type': 'text/html; charset=utf-8' } });
         }
       })(),
     );

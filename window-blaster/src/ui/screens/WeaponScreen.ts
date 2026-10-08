@@ -2,7 +2,7 @@ import type { App } from '../../app/App';
 import type { WeaponId } from '../../core/types';
 import { WEAPONS } from '../../game/weapons/configs';
 import { fmtScore, h, toast } from '../dom';
-import { T, WEAPON_TEXT } from '../i18n/de';
+import { T, tf, WEAPON_TEXT } from '../i18n';
 import type { Screen } from '../Router';
 
 export function WeaponScreen(app: App): Screen {
@@ -24,7 +24,7 @@ export function WeaponScreen(app: App): Screen {
             class: `choice${idx >= 0 ? ' selected' : ''}${locked ? ' locked' : ''}`,
             onclick: () => {
               if (locked) {
-                toast(`🔒 ${WEAPON_TEXT[k].name}: im Shop für ${fmtScore(w.price)} Punkte freischalten`, 2500);
+                toast(tf(T.weapLockedToast, { name: WEAPON_TEXT[k].name, price: fmtScore(w.price) }), 2500);
                 return;
               }
               if (idx >= 0) picked.splice(idx, 1);
@@ -35,12 +35,12 @@ export function WeaponScreen(app: App): Screen {
               render();
             },
           },
-          h('div', { class: 'icon' }, WEAPON_TEXT[k].icon, idx >= 0 ? h('span', { class: 'badge ok', style: 'margin-left:8px' }, `Slot ${idx + 1}`) : locked ? h('span', { class: 'badge', style: 'margin-left:8px' }, `🔒 ${fmtScore(w.price)}`) : null),
+          h('div', { class: 'icon' }, WEAPON_TEXT[k].icon, idx >= 0 ? h('span', { class: 'badge ok', style: 'margin-left:8px' }, tf(T.weapSlot, { n: idx + 1 })) : locked ? h('span', { class: 'badge', style: 'margin-left:8px' }, `🔒 ${fmtScore(w.price)}`) : null),
           h('div', { class: 'name' }, WEAPON_TEXT[k].name),
           h('div', { class: 'desc' }, WEAPON_TEXT[k].desc),
-          bar('Schaden', w.ui.damage),
-          bar('Feuerrate', w.ui.rate),
-          bar('Fläche', w.ui.area),
+          bar(T.weapStatDamage, w.ui.damage),
+          bar(T.weapStatRate, w.ui.rate),
+          bar(T.weapStatArea, w.ui.area),
         );
       }),
     );

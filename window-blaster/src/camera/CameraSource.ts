@@ -1,4 +1,5 @@
 import type { FrameSource } from './FrameSource';
+import { T, tf } from '../ui/i18n';
 
 export interface CameraOptions {
   idealWidth?: number;
@@ -6,23 +7,23 @@ export interface CameraOptions {
   deviceId?: string;
 }
 
-/** Maps getUserMedia errors to German user-facing messages. */
+/** Maps getUserMedia errors to user-facing messages (current UI language). */
 export function explainCameraError(e: unknown): string {
   const name = (e as { name?: string })?.name ?? '';
   switch (name) {
     case 'NotAllowedError':
     case 'SecurityError':
-      return 'Kamerazugriff wurde abgelehnt. Bitte in den Browser-/System-Einstellungen für diese Seite erlauben.';
+      return T.camDenied;
     case 'NotFoundError':
     case 'DevicesNotFoundError':
-      return 'Keine Kamera gefunden.';
+      return T.camNotFound;
     case 'NotReadableError':
     case 'TrackStartError':
-      return 'Die Kamera wird gerade von einer anderen App benutzt.';
+      return T.camBusy;
     case 'OverconstrainedError':
-      return 'Die Kamera unterstützt die gewünschte Auflösung nicht.';
+      return T.camOverconstrained;
     default:
-      return typeof location !== 'undefined' && location.protocol !== 'https:' && location.hostname !== 'localhost' ? 'Kamera braucht eine sichere Verbindung (https).' : `Kamera-Fehler: ${name || String(e)}`;
+      return typeof location !== 'undefined' && location.protocol !== 'https:' && location.hostname !== 'localhost' ? T.camInsecure : tf(T.camError, { err: name || String(e) });
   }
 }
 

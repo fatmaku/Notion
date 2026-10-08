@@ -1,7 +1,7 @@
 import type { App } from '../../app/App';
 import type { VehicleType } from '../../core/types';
 import { capturePointer, h } from '../dom';
-import { T, VEHICLES } from '../i18n/de';
+import { T, VEHICLES } from '../i18n';
 import type { Screen } from '../Router';
 
 /** Passenger-only gate: pick the vehicle, then hold the button for 2 seconds. */

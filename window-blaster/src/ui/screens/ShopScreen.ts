@@ -1,10 +1,16 @@
 import type { App } from '../../app/App';
 import { CATALOG, type UnlockItem, type UnlockKind } from '../../game/unlocks/catalog';
 import { fmtScore, h, toast } from '../dom';
-import { SHOP, T } from '../i18n/de';
+import { SHOP, T, tf } from '../i18n';
 import type { Screen } from '../Router';
 
-const KIND_TITLE: Record<UnlockKind, string> = { weapon: '🔫 Waffen & Wurfsachen', skin: '✋ Hand-Skins (Runner)', crosshair: '🎯 Fadenkreuze', palette: '🎨 Farbpaletten' };
+// Getters: resolved at render time so a language switch is picked up without a reload.
+const KIND_TITLE: Record<UnlockKind, string> = {
+  get weapon() { return T.shopKindWeapon; },
+  get skin() { return T.shopKindSkin; },
+  get crosshair() { return T.shopKindCrosshair; },
+  get palette() { return T.shopKindPalette; },
+};
 
 /** Spend accumulated points on weapons, skins, crosshairs and paint palettes. */
 export function ShopScreen(app: App, onBack: () => void): Screen {
@@ -17,7 +23,7 @@ export function ShopScreen(app: App, onBack: () => void): Screen {
   const render = () => {
     wallet.textContent = `💰 ${fmtScore(u.balance)} ${SHOP.balance}`;
     const g = u.nextGoal();
-    goal.textContent = g ? `Noch ${fmtScore(g.missing)} Punkte bis ${g.item.icon} ${g.item.name}` : 'Alles freigeschaltet – Respekt!';
+    goal.textContent = g ? tf(T.shopGoalLine, { n: fmtScore(g.missing), icon: g.item.icon, name: g.item.name }) : T.shopAllUnlocked;
     grids.replaceChildren(
       ...(['weapon', 'skin', 'crosshair', 'palette'] as UnlockKind[]).map((kind) =>
         h(
@@ -44,11 +50,11 @@ export function ShopScreen(app: App, onBack: () => void): Screen {
         if (r === 'ok') {
           app.sfx.unlock();
           app.sfx.play('mission');
-          toast(`${i.icon} ${i.name} freigeschaltet!`);
+          toast(tf(T.shopUnlockedToast, { icon: i.icon, name: i.name }));
           app.applyUnlocks();
         } else toast(SHOP.notEnough);
         render();
-      } }, `Ja, für ${fmtScore(i.price)}`);
+      } }, tf(T.shopConfirmBuy, { price: fmtScore(i.price) }));
     } else {
       action = h('button', { class: `btn ${afford ? '' : 'secondary'}`, disabled: !afford, style: 'min-height:34px;padding:4px 10px;font-size:13px', onclick: () => { confirmId = i.id; render(); } }, `${afford ? '🔓' : '🔒'} ${fmtScore(i.price)}`);
     }

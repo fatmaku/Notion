@@ -1,7 +1,7 @@
 import type { App } from '../../app/App';
 import type { GameModeId, WindowSide } from '../../core/types';
 import { h } from '../dom';
-import { MODES, T } from '../i18n/de';
+import { MODES, T } from '../i18n';
 import type { Screen } from '../Router';
 
 export function ModeScreen(app: App): Screen {
@@ -42,7 +42,7 @@ export function ModeScreen(app: App): Screen {
               render();
             },
           },
-          s === 'left' ? '◀ Links' : 'Rechts ▶',
+          s === 'left' ? T.modeSideLeft : T.modeSideRight,
         ),
       ),
     );
