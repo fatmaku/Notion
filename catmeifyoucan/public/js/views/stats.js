@@ -38,6 +38,7 @@ export async function renderStats(view, app, params) {
       ${tile(t('stats.hungry'), fmtNum(tt.hungry7d || 0))}
       ${tile(t('stats.vouchers'), fmtNum(tt.vouchersRedeemed))}
     </div>
+    <a class="card help-teaser report-teaser" href="report.html?${esc(new URLSearchParams({ lang: app.lang(), ...(app.api.isDemo ? { demo: '1' } : {}) }))}" data-report-link><span class="big" aria-hidden="true">📰</span><span>${esc(t('mr.link'))}<small>${esc(t('mr.linkSub'))}</small></span><span class="chev dir-ic" aria-hidden="true">›</span></a>
     ${vizCard('perDay', t('stats.perDay'))}
     ${vizCard('health', t('stats.health'))}
     ${vizCard('reports', t('stats.reports'))}

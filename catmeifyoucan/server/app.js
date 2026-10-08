@@ -372,6 +372,9 @@ export async function createApp(options = {}) {
   mountImpact({ r, engine, player, writeLimiter: lim.write, now });
 
   // ── Erweiterung: report ──
+  // Öffentlicher Monatsbericht GET /api/report?month=YYYY-MM, je Monat zwischengespeichert (server/report.js)
+  const { mountReport } = await import('./report.js');
+  mountReport({ r, engine, now });
 
   // ── Erweiterung: perf ──
 

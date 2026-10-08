@@ -144,6 +144,8 @@ export class RemoteApi {
   careAction(id, action, note) { return this.req('POST', `/api/cats/${encodeURIComponent(id)}/care`, { action, note }); }
 
   // ── Erweiterung: report ──
+  /** Öffentlicher Monatsbericht (ohne Monat: letzter abgeschlossener Monat mit Daten). */
+  report(month) { return this.req('GET', `/api/report${month ? `?month=${encodeURIComponent(month)}` : ''}`); }
 
   // ── Erweiterung: perf ──
 
@@ -312,6 +314,7 @@ export async function createLocalApi() {
     careAction: (id, action, note) => wrap(async () => engine.careAction(me(), id, { action, note })),
 
     // ── Erweiterung: report ──
+    report: (month) => wrap(async () => engine.report({ month: month || undefined })),
 
     // ── Erweiterung: perf ──
 

@@ -772,6 +772,10 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 .maker { text-align: center; margin: 1.5rem 0 0; }
 
 /* ── Erweiterung: report ── */
+/* Link „Monatsbericht“ in der Statistik (die Seite selbst: css/report.css) */
+.report-teaser { border-color: rgba(31, 138, 138, .45); }
+.report-teaser > span:nth-child(2) { display: grid; gap: .1rem; }
+.report-teaser small { font-weight: 600; color: var(--muted); font-size: .8rem; }
 
 /* ── Erweiterung: perf ── */
 

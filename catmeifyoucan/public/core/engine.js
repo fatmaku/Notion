@@ -42,6 +42,7 @@ import { routesApi } from './routes.js';
 import { impactApi } from './impact.js';
 
 // ── Erweiterung: report ──
+import { reportApi } from './report.js';
 
 // ── Erweiterung: perf ──
 import { computeStats, leaderboard } from './stats.js';
@@ -636,6 +637,7 @@ export function createEngine(opts) {
   Object.assign(api, impactApi(ctx, api));
 
   // ── Erweiterung: report ──
+  Object.assign(api, reportApi(ctx, api));
 
   // ── Erweiterung: perf ──
 
