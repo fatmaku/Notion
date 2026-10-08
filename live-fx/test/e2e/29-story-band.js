@@ -1,8 +1,12 @@
-// Story band (LiveFX 2.2): scenes render in a bottom band (default 22 %, portrait 20 % above the chat zone)
-// instead of covering the camera; effect zones keep rain / confetti in the edge columns and cards in the
-// columns (no flash / impact zoom); `layout`, `story`, `story-state` and `volume {bus}` messages; URL pins
-// (?story= ?band= ?zone= ?volume=); the server remembers layout + volumes in the SSE `state` message.
-// Screenshots: story-band.png (16:9), story-band-portrait.png (9:16).
+// Story band (LiveFX 2.2): scenes render in a bottom band (default 22 %, portrait 20 %) instead of covering the
+// camera; effect zones keep rain / confetti in the edge columns and cards in the columns (no flash / impact zoom);
+// `layout`, `story`, `story-state` and `volume {bus}` messages; URL pins (?story= ?band= ?zone= ?volume=); the server
+// remembers layout + volumes in the SSE `state` message.
+// 2.2.1: portrait band position (`bandPosition` / ?bandpos= bottom = flush with the frame bottom (default) | chat =
+// above the chat zone), a burst fired together with a story line lives its full duration (one particle loop),
+// the live-story lifecycle (props / actors leave, idle band clears and comes back), `storyStyle` + sketch hook.
+// Screenshots: story-band.png (16:9), story-band-portrait.png / story-band-portrait-bottom.png (9:16, band at the
+// bottom), story-band-portrait-chat.png (9:16, band above the chat zone), story-applause-portrait.png.
 'use strict';
 
 const path = require('path');
@@ -54,7 +58,7 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
       };
     });
     log('init', JSON.stringify(init));
-    assert.deepEqual(init.layout, { storyLayout: 'band', band: 22, zone: 'edges' }, 'default layout');
+    assert.deepEqual(init.layout, { storyLayout: 'band', band: 22, zone: 'edges', bandPosition: 'bottom', storyStyle: 'mixed' }, 'default layout');
     assert.deepEqual(init.volumes, { master: 0.5, sfx: 0.8, ambient: 0.5 }, 'default levels');
     assert.equal(init.volume, 0.5, 'renderer.volume = master');
     assert.deepEqual(init.body, { story: 'band', zone: 'edges', band: '22' });
@@ -203,8 +207,8 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     assert.equal(layouts.full.rect.w, layouts.W, 'full layout = whole width');
     assert.equal(layouts.full.rect.h, layouts.H, 'full layout = whole height');
     assert.equal(layouts.full.prect, null, 'full layout: whole-frame particle semantics');
-    assert.deepEqual(layouts.garbage, { storyLayout: 'full', band: 35, zone: 'full' }, 'garbage keys are ignored');
-    assert.deepEqual(layouts.back.layout, { storyLayout: 'band', band: 22, zone: 'edges' });
+    assert.deepEqual(layouts.garbage, { storyLayout: 'full', band: 35, zone: 'full', bandPosition: 'bottom', storyStyle: 'mixed' }, 'garbage keys are ignored');
+    assert.deepEqual(layouts.back.layout, { storyLayout: 'band', band: 22, zone: 'edges', bandPosition: 'bottom', storyStyle: 'mixed' });
     near(layouts.back.rect.h, 0.22 * layouts.H, 2, 'band back to 22 %');
 
     // ---------------------------------------------------------------- 4. live story: story message -> band shows rain + night + dragon
@@ -317,14 +321,14 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
       return { ...a, after: { ...R.layout }, volumes: { ...R.volumes }, card: document.querySelector('.fx-card').className };
     });
     log('pins', JSON.stringify(pins));
-    assert.deepEqual(pins.layout, { storyLayout: 'frame', band: 25, zone: 'bottom' });
+    assert.deepEqual(pins.layout, { storyLayout: 'frame', band: 25, zone: 'bottom', bandPosition: 'bottom', storyStyle: 'mixed' });
     assert.equal(pins.master, 0.4);
-    assert.deepEqual(pins.after, { storyLayout: 'frame', band: 25, zone: 'bottom' }, 'URL pins win over layout / state messages');
+    assert.deepEqual(pins.after, { storyLayout: 'frame', band: 25, zone: 'bottom', bandPosition: 'bottom', storyStyle: 'mixed' }, 'URL pins win over layout / state messages');
     assert.deepEqual(pins.volumes, { master: 0.8, sfx: 0.8, ambient: 0.2 }, 'state master ignored with ?volume=, ambient applies, explicit volume message applies');
     assert.match(pins.card, /fx-in-band/, 'zone bottom puts cards into the band');
     await pctx.close();
 
-    // ---------------------------------------------------------------- 7. portrait 1080×1920: band 20 % above the chat zone
+    // ---------------------------------------------------------------- 7. portrait 1080×1920: band 20 %, flush with the bottom edge (2.2.1 default)
     const octx = await browser.newContext({ viewport: { width: 1080, height: 1920 } });
     const portrait = await octx.newPage();
     const perrors = [];
@@ -357,7 +361,7 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     assert.equal(por.pct, 20, 'portrait uses 20 % unless pinned');
     assert.equal(por.cssVar, '20');
     near(por.h, 0.2 * por.H, 2, 'portrait band 20 %');
-    near(por.bottom, 0.65 * por.H, 2, 'portrait band sits above the chat zone (bottom 35 %)');
+    near(por.bottom, por.H, 1, 'portrait band sits at the very bottom (bandPosition bottom, the 2.2.1 default)');
     assert.deepEqual(por.state, { scene: 'rain', time: 'night', place: 'forest', landmark: 'castle', lang: 'tr' }, 'Turkish sentence');
     assert.deepEqual(por.actors, ['dragon:fly']);
     near(por.edge, 0.3 * por.W, 1, 'portrait edge columns 30vw');
@@ -365,6 +369,35 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     const porCam = await portrait.evaluate(CANVAS_PROBE, [0.31, 0.02, 0.69, 0.43]);
     assert.equal(porCam, 0, `portrait camera area transparent (max alpha ${porCam})`);
     await portrait.screenshot({ path: path.join(shotDir, 'story-band-portrait.png') });
+    await portrait.screenshot({ path: path.join(shotDir, 'story-band-portrait-bottom.png') });
+    // live `layout {bandPosition}`: chat lifts the band above the chat zone, bottom brings it back; particles follow
+    const porPos = await portrait.evaluate(async () => {
+      const R = window.livefx.renderer;
+      const bus = window.livefx.bus;
+      const box = () => {
+        const b = document.querySelector('#stage > .fx-band').getBoundingClientRect();
+        return { top: b.top, bottom: b.bottom, h: b.height, w: b.width, rect: R.particles.updateRect(), pos: R.bandPosition, body: document.body.dataset.bandPos };
+      };
+      const out = { bottom: box() };
+      bus._emit({ id: 'bp1', type: 'layout', bandPosition: 'chat' });
+      out.chat = box();
+      out.layoutChat = R.layout.bandPosition;
+      bus._emit({ id: 'bp2', type: 'layout', bandPosition: 'nowhere' });
+      out.garbage = R.layout.bandPosition;
+      bus._emit({ id: 'bp3', type: 'layout', bandPosition: 'bottom' });
+      out.back = box();
+      return out;
+    });
+    log('portrait bandPosition', JSON.stringify(porPos));
+    near(porPos.bottom.bottom, por.H, 1, 'bottom: band bottom = frame bottom');
+    assert.equal(porPos.bottom.w, por.W, 'bottom: full width');
+    assert.deepEqual([porPos.bottom.pos, porPos.bottom.body], ['bottom', 'bottom']);
+    near(porPos.chat.bottom, 0.65 * por.H, 2, 'chat: band bottom at 65 % (above the chat zone)');
+    near(porPos.chat.h, 0.2 * por.H, 2, 'chat: same 20 % height');
+    near(porPos.chat.rect.y0 + porPos.chat.rect.h, 0.65 * por.H, 2, 'particle clip rect follows the band');
+    assert.deepEqual([porPos.layoutChat, porPos.chat.pos, porPos.chat.body], ['chat', 'chat', 'chat']);
+    assert.equal(porPos.garbage, 'chat', 'unknown bandPosition keeps the current one');
+    near(porPos.back.bottom, por.H, 1, 'back at the bottom');
     // explicit band in portrait wins over the 20 % rule
     const porPinned = await portrait.evaluate(() => {
       window.livefx.bus._emit({ id: 'pb', type: 'layout', band: 28 });
@@ -374,12 +407,284 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     assert.deepEqual(perrors, [], `portrait errors: ${perrors.join('; ')}`);
     await octx.close();
 
+    // ?bandpos=chat pins the 2.2 look (band above the chat zone) against layout / state messages; landscape ignores it
+    const cctx = await browser.newContext({ viewport: { width: 1080, height: 1920 } });
+    const chatPage = await cctx.newPage();
+    await chatPage.goto(`${base}/overlay.html?layout=portrait&bandpos=chat&perf=high`);
+    await chatPage.waitForFunction(() => window.livefx && window.livefx.bus.serverOk && window.livefx.director, null, { timeout: 5000 });
+    await chatPage.evaluate(() => window.livefx.bus._emit({ id: 'cs', type: 'story', text: 'gece ormanda yağmur yağıyordu, ejderha kalenin üzerinden uçtu', final: true }));
+    await chatPage.waitForSelector('.fx-band .fx-scene[data-scene="rain"].fx-scene-on', { timeout: 2000 });
+    await sleep(1200);
+    const chat = await chatPage.evaluate(() => {
+      const R = window.livefx.renderer;
+      const bus = window.livefx.bus;
+      const b0 = document.querySelector('#stage > .fx-band').getBoundingClientRect();
+      bus._emit({ id: 'cp1', type: 'layout', bandPosition: 'bottom' });
+      bus._emit({ id: 'cp2', type: 'state', layout: { bandPosition: 'bottom', zone: 'edges' } });
+      const b1 = document.querySelector('#stage > .fx-band').getBoundingClientRect();
+      return { bottom0: b0.bottom, bottom1: b1.bottom, pos: R.layout.bandPosition, H: innerHeight };
+    });
+    log('portrait ?bandpos=chat', JSON.stringify(chat));
+    near(chat.bottom0, 0.65 * chat.H, 2, '?bandpos=chat: band bottom at 65 %');
+    near(chat.bottom1, 0.65 * chat.H, 2, 'pinned against layout / state messages');
+    assert.equal(chat.pos, 'chat');
+    await chatPage.screenshot({ path: path.join(shotDir, 'story-band-portrait-chat.png') });
+    await cctx.close();
+    const lctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+    const land = await lctx.newPage();
+    await land.goto(`${base}/overlay.html?bandpos=chat`);
+    await land.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
+    const landPos = await land.evaluate(() => {
+      const b = document.querySelector('#stage > .fx-band').getBoundingClientRect();
+      return { bottom: b.bottom, H: innerHeight, layout: window.livefx.renderer.layout.bandPosition, pos: window.livefx.renderer.bandPosition };
+    });
+    near(landPos.bottom, landPos.H, 1, 'landscape ignores bandPosition: band at the bottom');
+    assert.deepEqual([landPos.layout, landPos.pos], ['chat', 'bottom'], 'requested chat, in use bottom (landscape)');
+    await lctx.close();
+
+    // ---------------------------------------------------------------- 7b. applause + story at once: the burst lives its full duration
+    // (2.2.1 root cause: every scene particle spawned inside a frame booked a second rAF loop, so after a few seconds
+    // of scene the physics ran N× per frame and a 👏 rain hit the floor within ~0.3 s.)
+    const actx = await browser.newContext({ viewport: { width: 1080, height: 1920 } });
+    const ap = await actx.newPage();
+    const aerrors = [];
+    ap.on('pageerror', (e) => aerrors.push(String(e)));
+    await ap.goto(`${base}/overlay.html?layout=portrait&zone=edges`); // perf auto (OBS default)
+    await ap.waitForFunction(() => window.livefx && window.livefx.bus.serverOk && window.livefx.director, null, { timeout: 5000 });
+    await ap.evaluate(() => {
+      const P = window.livefx.renderer.particles;
+      const orig = P._tick;
+      window.__ticks = [];
+      P._tick = (now) => {
+        window.__ticks.push(now);
+        return orig.call(P, now);
+      };
+      window.livefx.bus._emit({ id: 'af', type: 'story', text: 'ormanda yürüdük', final: true, lang: 'tr' });
+    });
+    await sleep(4000); // the scene spawns ambient particles for a while (the old bug grew one loop per spawn)
+    const loops = await ap.evaluate(async () => {
+      const P = window.livefx.renderer.particles;
+      window.__ticks = [];
+      await new Promise((r) => setTimeout(r, 1000));
+      const t = window.__ticks;
+      // a constant-speed probe (vy 100 px/s, no gravity) must move ~100 px per second with the scene running
+      P.add({ kind: 'emoji', text: '🧪', x: 100, y: 0, floor: 99999, vx: 0, vy: 100, g: 0, wind: 0, drift: 0, phase: 0, rot: 0, vr: 0, size: 30, life: 5, layer: 1 });
+      const probe = P.items.find((q) => q.text === '🧪');
+      const y0 = probe.y;
+      const t0 = performance.now();
+      await new Promise((r) => setTimeout(r, 1000));
+      const v = ((probe.y - y0) / (performance.now() - t0)) * 1000;
+      P.items = P.items.filter((q) => q !== probe);
+      return { calls: t.length, frames: new Set(t).size, v, scene: window.livefx.renderer.currentScene, amb: P.items.filter((q) => q.ambient).length };
+    });
+    log('particle loop', JSON.stringify(loops));
+    assert.equal(loops.scene, 'forest');
+    assert.ok(loops.amb > 0, 'ambient particles running');
+    assert.ok(loops.frames > 10, `frames counted (${loops.frames})`);
+    assert.ok(loops.calls / loops.frames <= 1.05, `one particle loop: ${loops.calls} ticks in ${loops.frames} frames`);
+    near(loops.v, 100, 15, 'probe speed px/s with a scene running');
+    const clap = await ap.evaluate(async () => {
+      const R = window.livefx.renderer;
+      const P = R.particles;
+      const bus = window.livefx.bus;
+      // the streamer says "alkış" (a story line) and the clap trigger fires in the same moment
+      bus._emit({ id: 'al1', type: 'story', text: 'alkış', final: true, lang: 'tr' });
+      bus._emit({ id: 'al2', type: 'fire', trigger: { id: 'clap', visual: { kind: 'rain', emoji: '👏', count: 24 } } });
+      bus._emit({ id: 'al3', type: 'fire', trigger: { id: 'party', visual: { kind: 'confetti' } } });
+      const n0 = P.items.filter((p) => p.text === '👏').length;
+      const c0 = P.items.filter((p) => p.kind === 'rect').length;
+      const start = performance.now();
+      let lastVis = 0;
+      const samples = {};
+      await new Promise((resolve) => {
+        (function tick() {
+          const t = performance.now() - start;
+          const vis = P.items.filter((p) => p.text === '👏' && p.y > 0 && p.y < innerHeight && p.age / p.life < 0.95).length;
+          if (vis >= 3) lastVis = t;
+          if (!samples.s15 && t >= 1500) samples.s15 = { clap: vis, confetti: P.items.filter((p) => p.kind === 'rect').length, marker: document.querySelectorAll('.fx-rain[data-emoji="👏"]').length };
+          if (t < 4000) requestAnimationFrame(tick);
+          else resolve();
+        })();
+      });
+      return { n0, c0, ...samples, visibleMs: Math.round(lastVis), scene: R.currentScene, fps: R.stats.fps };
+    });
+    log('applause + story', JSON.stringify(clap));
+    assert.ok(clap.n0 === 48 || clap.n0 === 24, `👏 burst spawned: 24 × 2 drops (eco: × 1) – got ${clap.n0}`);
+    assert.ok(clap.c0 >= 45, `confetti spawned (${clap.c0})`);
+    assert.ok(clap.s15.clap >= 3, `👏 rain still visible after 1.5 s (${clap.s15.clap})`);
+    assert.ok(clap.s15.confetti > 0, `confetti still alive after 1.5 s (${clap.s15.confetti})`);
+    assert.equal(clap.s15.marker, 1, 'rain marker node still there (story did not clear transient effects)');
+    assert.ok(clap.visibleMs >= 2000, `👏 rain visible for ${clap.visibleMs} ms (>= 2 s)`);
+    assert.equal(clap.scene, 'forest', 'the story scene keeps running');
+    assert.ok(clap.fps > 0 && clap.fps < 200, `stats.fps is a frame rate (${clap.fps})`);
+    await ap.evaluate(() => window.livefx.renderer.fire({ id: 'clap2', visual: { kind: 'rain', emoji: '👏', count: 24 } }));
+    await sleep(900);
+    await ap.screenshot({ path: path.join(shotDir, 'story-applause-portrait.png') });
+    assert.deepEqual(aerrors, [], `applause errors: ${aerrors.join('; ')}`);
+    await actx.close();
+
+    // ---------------------------------------------------------------- 7c. lifecycle: car leaves, idle band clears + comes back, director ticks
+    const yctx = await browser.newContext({ viewport: { width: 1080, height: 1920 } });
+    const lp = await yctx.newPage();
+    const lerrors = [];
+    lp.on('pageerror', (e) => lerrors.push(String(e)));
+    await lp.goto(`${base}/overlay.html?layout=portrait&perf=high`);
+    await lp.waitForFunction(() => window.livefx && window.livefx.bus.serverOk && window.livefx.director, null, { timeout: 5000 });
+    const life = await lp.evaluate(async () => {
+      const R = window.livefx.renderer;
+      const P = R.particles;
+      const bus = window.livefx.bus;
+      const D = window.livefx.director;
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      let ticks = 0;
+      const tick = D.tick;
+      D.tick = (now) => {
+        ticks++;
+        return tick(now);
+      };
+      const say = async (text) => {
+        bus._emit({ id: 'ly' + Math.random().toString(36).slice(2, 8), type: 'story', text, final: true });
+        await wait(150);
+        return { scene: R.currentScene, props: P.props.filter((p) => p.state !== 'out').map((p) => p.emoji), weather: D.state.weather };
+      };
+      const steps = [];
+      for (const line of ['yağmur yağıyordu', 'araba geldi', 'güneş açtı', 'ormanda yürüdük']) steps.push(await say(line));
+      await wait(1100);
+      const out = { steps, ticks };
+      // idle: the band fades AND its actors / ambient / loop stop
+      await say('kız geldi');
+      await wait(900); // the girl walks in
+      R.storyIdleMs = 300;
+      R.storyTouch();
+      await wait(1500); // idle after 300 ms, the band + its sprites fade over 0.8 s
+      out.idle = {
+        idle: R.storyIdle,
+        cls: document.querySelector('#stage > .fx-band').classList.contains('fx-band-idle'),
+        actors: P.actors.length,
+        props: P.props.length,
+        ambient: P.items.filter((p) => p.ambient).length,
+        ambientOn: !!P.ambient,
+        loop: R.loopName,
+        scene: R.currentScene,
+        scenes: document.querySelectorAll('.fx-scene').length,
+      };
+      // a line that changes nothing still wakes the band with the remembered state
+      R.storyIdleMs = 60000;
+      bus._emit({ id: 'lw', type: 'story', text: 've sonra', final: true });
+      await wait(300);
+      out.wake = { idle: R.storyIdle, cls: document.querySelector('#stage > .fx-band').classList.contains('fx-band-idle'), scene: R.currentScene, loop: R.loopName, actors: P.actors.map((a) => a.emoji), ambientOn: !!P.ambient };
+      // a lifetime expiry (tick) does not wake an idle band
+      R.storyIdleMs = 200;
+      R.storyTouch();
+      await wait(1300);
+      R.story({ ...D.state, actors: [{ emoji: '🐻', role: 'bear' }] }, { touch: false });
+      await wait(100);
+      out.expiryWhileIdle = { idle: R.storyIdle, scene: R.currentScene, actors: P.actors.length, remembered: R.storyState.actors.map((a) => a.role) };
+      return out;
+    });
+    log('lifecycle', JSON.stringify(life));
+    assert.deepEqual(life.steps.map((x) => x.scene), ['rain', 'rain', 'sunrise', 'forest']);
+    assert.deepEqual(life.steps.map((x) => x.props), [[], ['🚗'], ['🚗'], []], 'the car arrives and leaves with the new place');
+    assert.deepEqual(life.steps.map((x) => x.weather), ['rain', 'rain', 'clear', 'clear'], 'rain gone when the sun comes');
+    assert.ok(life.ticks >= 1, `director.tick runs every second (${life.ticks})`);
+    assert.deepEqual(life.idle, { idle: true, cls: true, actors: 0, props: 0, ambient: 0, ambientOn: false, loop: null, scene: null, scenes: 0 }, 'idle band: nothing keeps painting');
+    assert.deepEqual(life.wake, { idle: false, cls: false, scene: 'forest', loop: 'birds', actors: ['👧'], ambientOn: true }, 'the next sentence brings the band back');
+    assert.deepEqual(life.expiryWhileIdle, { idle: true, scene: null, actors: 0, remembered: ['bear'] }, 'an expiry keeps an idle band dark (state remembered)');
+    assert.deepEqual(lerrors, [], `lifecycle errors: ${lerrors.join('; ')}`);
+    await yctx.close();
+
+    // ---------------------------------------------------------------- 7d. storyStyle + sketch hook (stub LiveFXSketch)
+    const sctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+    const sp = await sctx.newPage();
+    await sp.addInitScript(() => {
+      window.__sketch = { attach: [], updates: [], styles: [] };
+      window.LiveFXSketch = {
+        attach(renderer, getSurface) {
+          window.__sketch.attach.push({ renderer: renderer === (window.livefx && window.livefx.renderer), fn: typeof getSurface });
+          window.__sketch.getSurface = getSurface;
+          return {
+            update(state) {
+              window.__sketch.updates.push({ scene: state.scene, style: state.style, idle: state.idle, actors: state.actors.map((a) => a.role) });
+              const s = getSurface();
+              s.ctx.setTransform(s.dpr, 0, 0, s.dpr, 0, 0);
+              s.ctx.fillStyle = '#ff00ff';
+              s.ctx.fillRect(10, 10, 40, 40);
+            },
+            setStyle(style) {
+              window.__sketch.styles.push(style);
+            },
+          };
+        },
+      };
+    });
+    await sp.goto(`${base}/overlay.html?perf=high`);
+    await sp.waitForFunction(() => window.livefx && window.livefx.bus.serverOk && window.livefx.director, null, { timeout: 5000 });
+    const sk = await sp.evaluate(async () => {
+      const R = window.livefx.renderer;
+      const P = R.particles;
+      const bus = window.livefx.bus;
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      const out = { before: { attach: window.__sketch.attach.length, style: R.storyStyle, data: document.querySelector('#stage > .fx-band').dataset.style } };
+      bus._emit({ id: 'k1', type: 'story', text: 'A fox walked into the forest', final: true });
+      await wait(200);
+      bus._emit({ id: 'k2', type: 'story', text: 'The fox danced', final: true });
+      await wait(200);
+      const surf = window.__sketch.getSurface();
+      const band = document.querySelector('#stage > .fx-band');
+      out.mixed = {
+        attach: window.__sketch.attach,
+        updates: window.__sketch.updates.slice(),
+        style: R.storyStyle,
+        data: band.dataset.style,
+        surface: { inBand: surf.canvas.parentElement === band, cls: surf.canvas.className, w: surf.width, h: surf.height, bw: band.clientWidth, bh: band.clientHeight, cw: surf.canvas.width, dpr: surf.dpr, layout: surf.layout.storyStyle },
+        display: getComputedStyle(surf.canvas).display,
+        actors: P.actors.filter((a) => a.state !== 'out').map((a) => a.emoji),
+        ambientOn: !!P.ambient,
+      };
+      bus._emit({ id: 'k3', type: 'layout', storyStyle: 'sketch' });
+      await wait(100);
+      out.sketch = { style: R.storyStyle, data: band.dataset.style, styles: window.__sketch.styles.slice(), actors: P.actors.filter((a) => a.state !== 'out').length, ambientOn: !!P.ambient, ambient: P.items.filter((p) => p.ambient).length, ground: getComputedStyle(document.querySelector('.fx-scene-ground')).visibility, last: window.__sketch.updates[window.__sketch.updates.length - 1] };
+      bus._emit({ id: 'k4', type: 'layout', storyStyle: 'emoji' });
+      await wait(100);
+      out.emoji = { data: band.dataset.style, display: getComputedStyle(surf.canvas).display, actors: P.actors.filter((a) => a.state !== 'out').map((a) => a.emoji), ambientOn: !!P.ambient };
+      bus._emit({ id: 'k5', type: 'layout', storyStyle: 'mixed' });
+      out.attachCount = window.__sketch.attach.length;
+      return out;
+    });
+    log('sketch hook', JSON.stringify(sk));
+    assert.deepEqual(sk.before, { attach: 0, style: 'emoji', data: 'emoji' }, 'not attached before the first story state');
+    assert.deepEqual(sk.mixed.attach, [{ renderer: true, fn: 'function' }], 'LiveFXSketch.attach(renderer, getSurface) once');
+    assert.deepEqual(sk.mixed.updates.map((u) => [u.scene, u.style, u.idle]), [['forest', 'mixed', false], ['forest', 'mixed', false]], 'sketch.update(state) per story state');
+    assert.deepEqual(sk.mixed.updates[1].actors, ['fox']);
+    assert.equal(sk.mixed.style, 'mixed');
+    assert.equal(sk.mixed.data, 'mixed');
+    assert.equal(sk.mixed.surface.inBand, true, 'surface canvas lives in .fx-band');
+    assert.equal(sk.mixed.surface.cls, 'fx-sketch');
+    assert.deepEqual([sk.mixed.surface.w, sk.mixed.surface.h], [sk.mixed.surface.bw, sk.mixed.surface.bh], 'surface = band size');
+    assert.equal(sk.mixed.surface.cw, Math.round(sk.mixed.surface.w * sk.mixed.surface.dpr), 'canvas pixels = band × dpr');
+    assert.equal(sk.mixed.display, 'block');
+    assert.deepEqual(sk.mixed.actors, ['🦊'], 'mixed: emoji actors too');
+    assert.equal(sk.mixed.ambientOn, true);
+    assert.equal(sk.sketch.style, 'sketch');
+    assert.equal(sk.sketch.data, 'sketch');
+    assert.deepEqual(sk.sketch.styles, ['mixed', 'sketch'], 'setStyle on attach and on change');
+    assert.deepEqual([sk.sketch.actors, sk.sketch.ambientOn, sk.sketch.ambient, sk.sketch.ground], [0, false, 0, 'hidden'], 'sketch: no emoji sprites / parallax / ground');
+    assert.equal(sk.sketch.last.style, 'sketch', 'the drawing is redrawn with the new style');
+    assert.deepEqual(sk.emoji, { data: 'emoji', display: 'none', actors: ['🦊'], ambientOn: true }, 'emoji: drawing hidden, sprites back');
+    assert.equal(sk.attachCount, 1, 'attach never runs twice');
+    const skPx = await sp.evaluate(() => {
+      const c = document.querySelector('.fx-sketch');
+      return c.getContext('2d').getImageData(Math.round(20 * (window.devicePixelRatio || 1)), Math.round(20 * (window.devicePixelRatio || 1)), 1, 1).data[3];
+    });
+    assert.ok(skPx > 0, 'the stub drew on the band surface');
+    await sctx.close();
+
     // ---------------------------------------------------------------- 8. server: /fire layout + volume {bus} + story are validated, relayed and remembered
     const overlay = await sseClient(base, { role: 'overlay' });
     const first = await overlay.next('state');
     assert.equal(first.layout, null, 'no layout before a message');
     assert.equal(first.volumes, null, 'no volumes before a message');
-    for (const bad of [{ type: 'layout' }, { type: 'layout', storyLayout: 'wide' }, { type: 'layout', zone: 'left' }, { type: 'layout', band: 'x' }, { type: 'volume', volume: 0.5, bus: 'kitchen' }, { type: 'story' }, { type: 'story', text: '' }, { type: 'story-state' }, { type: 'story-state', state: 'rain' }]) {
+    for (const bad of [{ type: 'layout' }, { type: 'layout', storyLayout: 'wide' }, { type: 'layout', zone: 'left' }, { type: 'layout', band: 'x' }, { type: 'layout', bandPosition: 'middle' }, { type: 'layout', storyStyle: 'video' }, { type: 'volume', volume: 0.5, bus: 'kitchen' }, { type: 'story' }, { type: 'story', text: '' }, { type: 'story-state' }, { type: 'story-state', state: 'rain' }]) {
       const r = await api(base, 'POST', '/fire', { ...auth, json: bad });
       assert.equal(r.status, 400, JSON.stringify(bad));
       assert.equal(r.json.error, 'invalid_envelope');
@@ -389,6 +694,9 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     assert.deepEqual({ zone: relayed.zone, band: relayed.band, storyLayout: relayed.storyLayout, extra: relayed.extra }, { zone: 'bottom', band: 35, storyLayout: undefined, extra: undefined }, 'partial layout relayed as sent (band clamped)');
     assert.equal((await api(base, 'POST', '/fire', { ...auth, json: { type: 'layout', storyLayout: 'frame' } })).status, 200);
     await overlay.next('layout');
+    assert.equal((await api(base, 'POST', '/fire', { ...auth, json: { type: 'layout', bandPosition: 'chat', storyStyle: 'sketch' } })).status, 200);
+    const rbp = await overlay.next('layout');
+    assert.deepEqual({ bandPosition: rbp.bandPosition, storyStyle: rbp.storyStyle, zone: rbp.zone }, { bandPosition: 'chat', storyStyle: 'sketch', zone: undefined }, '2.2.1 keys relayed');
     assert.equal((await api(base, 'POST', '/fire', { ...auth, json: { type: 'volume', volume: 0.25, bus: 'ambient' } })).status, 200);
     const rv = await overlay.next('volume');
     assert.deepEqual({ volume: rv.volume, bus: rv.bus }, { volume: 0.25, bus: 'ambient' });
@@ -405,7 +713,7 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     const late = await sseClient(base, { role: 'overlay' });
     const st = await late.next('state');
     late.close();
-    assert.deepEqual(st.layout, { zone: 'bottom', band: 35, storyLayout: 'frame' }, 'state remembers the merged layout');
+    assert.deepEqual(st.layout, { zone: 'bottom', band: 35, storyLayout: 'frame', bandPosition: 'chat', storyStyle: 'sketch' }, 'state remembers the merged layout');
     assert.deepEqual(st.volumes, { ambient: 0.25, master: 0.65 }, 'state remembers per-bus levels');
     assert.equal(st.volume, 0.65, 'state.volume mirrors the master level');
     log('server state', JSON.stringify({ layout: st.layout, volumes: st.volumes }));

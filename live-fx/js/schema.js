@@ -7,6 +7,9 @@
 // `zone` full | edges | bottom | top (`layout` envelope, `normalizeLayout`), the live-story envelopes `story`
 // (transcript line) / `story-state` (scene state, `normalizeStoryState`) and a `bus` on `volume` messages
 // (master | sfx | ambient, `VOLUME_BUSES`, defaults in `VOLUME_DEFAULTS`).
+// 2.2.1: two more layout keys – `bandPosition` bottom | chat (portrait: band flush with the frame bottom or above the
+// chat zone; landscape ignores it) and `storyStyle` emoji | sketch | mixed (how the live story is drawn; the sketch
+// renderer is js/sketch.js, `LiveFXSketch` – without it every style renders as emoji).
 (function (global) {
   'use strict';
 
@@ -75,7 +78,16 @@
   // the band, `top` = top strip, `full` = anywhere). Bus envelope `{type:'layout', storyLayout?, band?, zone?}`.
   const STORY_LAYOUTS = ['band', 'full', 'frame'];
   const ZONES = ['full', 'edges', 'bottom', 'top'];
+  // 2.2.1: portrait band position (`bottom` = flush with the frame bottom, full width – the default; `chat` = above
+  // the bottom 35 % chat zone, the 2.2 look) and the live-story drawing style (`mixed` = emoji sprites + sketch).
+  // LAYOUT_DEFAULTS stays the 2.2 triple (panels spread it into their own layout object); the defaults of the two
+  // 2.2.1 keys are separate constants – normalizeLayout() always returns all five keys.
+  const BAND_POSITIONS = ['bottom', 'chat'];
+  const STORY_STYLES = ['emoji', 'sketch', 'mixed'];
+  const BAND_POSITION_DEFAULT = 'bottom';
+  const STORY_STYLE_DEFAULT = 'mixed';
   const LAYOUT_DEFAULTS = Object.freeze({ storyLayout: 'band', band: 22, zone: 'edges' });
+  const LAYOUT_ALL_DEFAULTS = Object.freeze({ ...LAYOUT_DEFAULTS, bandPosition: BAND_POSITION_DEFAULT, storyStyle: STORY_STYLE_DEFAULT });
   // 2.2 volume busses: `{type:'volume', volume, bus?}` – bus omitted = master (backwards compatible).
   const VOLUME_BUSES = ['master', 'sfx', 'ambient'];
   const VOLUME_DEFAULTS = Object.freeze({ master: 0.5, sfx: 0.8, ambient: 0.5 });
@@ -384,17 +396,22 @@
   }
 
   /**
-   * 2.2: overlay layout `{storyLayout, band, zone}`. Keys that are missing or invalid in `raw` come from
-   * `base` (default LAYOUT_DEFAULTS), so a partial message merges onto the current layout. Never throws.
+   * 2.2: overlay layout `{storyLayout, band, zone, bandPosition, storyStyle}` (the last two since 2.2.1). Keys that
+   * are missing or invalid in `raw` come from `base` (default LAYOUT_DEFAULTS), then from the defaults (a 2.2 base
+   * without the new keys gets `bandPosition: 'bottom'`, `storyStyle: 'mixed'`), so a partial message merges onto the
+   * current layout. Never throws.
    */
   function normalizeLayout(raw, base = LAYOUT_DEFAULTS) {
     const r = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
     const b = base && typeof base === 'object' ? base : LAYOUT_DEFAULTS;
     const band = normalizeBand(r.band);
+    const pick = (list, key) => (list.includes(r[key]) ? r[key] : list.includes(b[key]) ? b[key] : LAYOUT_ALL_DEFAULTS[key]);
     return {
-      storyLayout: STORY_LAYOUTS.includes(r.storyLayout) ? r.storyLayout : STORY_LAYOUTS.includes(b.storyLayout) ? b.storyLayout : LAYOUT_DEFAULTS.storyLayout,
+      storyLayout: pick(STORY_LAYOUTS, 'storyLayout'),
       band: band !== undefined ? band : normalizeBand(b.band) !== undefined ? normalizeBand(b.band) : LAYOUT_DEFAULTS.band,
-      zone: ZONES.includes(r.zone) ? r.zone : ZONES.includes(b.zone) ? b.zone : LAYOUT_DEFAULTS.zone,
+      zone: pick(ZONES, 'zone'),
+      bandPosition: pick(BAND_POSITIONS, 'bandPosition'),
+      storyStyle: pick(STORY_STYLES, 'storyStyle'),
     };
   }
 
@@ -440,7 +457,10 @@
     return out;
   }
 
-  /** Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`, 2.1 `perf`, 2.2 `layout`, `story`, `story-state`. */
+  /**
+   * Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`, 2.1 `perf`, 2.2 `layout`,
+   * `story`, `story-state`; 2.2.1 the layout keys `bandPosition` / `storyStyle`.
+   */
   function validateEnvelope(msg) {
     if (!msg || typeof msg !== 'object' || Array.isArray(msg)) return { ok: false, error: 'envelope is not an object' };
     const TYPES = ['fire', 'volume', 'theme', 'perf', 'layout', 'story', 'story-state'];
@@ -480,7 +500,17 @@
         out.zone = msg.zone;
         any = true;
       }
-      if (!any) return { ok: false, error: 'layout needs storyLayout, band or zone' };
+      if (isSet(msg.bandPosition)) {
+        if (!BAND_POSITIONS.includes(msg.bandPosition)) return { ok: false, error: `bandPosition must be one of ${BAND_POSITIONS.join(', ')}` };
+        out.bandPosition = msg.bandPosition;
+        any = true;
+      }
+      if (isSet(msg.storyStyle)) {
+        if (!STORY_STYLES.includes(msg.storyStyle)) return { ok: false, error: `storyStyle must be one of ${STORY_STYLES.join(', ')}` };
+        out.storyStyle = msg.storyStyle;
+        any = true;
+      }
+      if (!any) return { ok: false, error: 'layout needs storyLayout, band, zone, bandPosition or storyStyle' };
     } else if (msg.type === 'story') {
       const text = str(msg.text, LIMITS.storyText);
       if (!text) return { ok: false, error: 'story needs text' };
@@ -534,6 +564,10 @@
     PERF_MODES,
     STORY_LAYOUTS,
     ZONES,
+    BAND_POSITIONS,
+    STORY_STYLES,
+    BAND_POSITION_DEFAULT,
+    STORY_STYLE_DEFAULT,
     LAYOUT_DEFAULTS,
     VOLUME_BUSES,
     VOLUME_DEFAULTS,

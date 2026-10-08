@@ -1,0 +1,24 @@
+/* LiveFX sketch layer (js/sketch.js, docs/SKETCH.md): what the drawing replaces, per live-story style.
+ * The `.fx-sketch` canvas itself (band-sized, inside `.fx-band`, hidden in style emoji) is set up in css/overlay.css;
+ * `.fx-band[data-style]` is the style in use (the renderer keeps it at emoji until a sketch renderer is attached).
+ *
+ *   sketch – the drawing is the scene: the emoji scene layers (gradient, CSS streaks / stars, decor, ground row) are
+ *            switched off – the canvas paints its own semi-transparent sky wash, so the camera stays visible behind
+ *            the band. Only the caption stays.
+ *   mixed  – emoji actors, props and weather particles stay (renderer), the coloured scene strip too; the drawn
+ *            scenery replaces the emoji ground row and the decor sun / moon / planet.
+ *   emoji  – untouched (the 2.2 look).
+ */
+.fx-band[data-style="sketch"] .fx-scene-bg,
+.fx-band[data-style="sketch"] .fx-scene-layer,
+.fx-band[data-style="sketch"] .fx-scene-fx,
+.fx-band[data-style="sketch"] .fx-scene-particles,
+.fx-band[data-style="sketch"] .fx-scene-decor,
+.fx-band[data-style="sketch"] .fx-scene-ground,
+.fx-band[data-style="mixed"] .fx-scene-decor,
+.fx-band[data-style="mixed"] .fx-scene-ground {
+  display: none;
+}
+.fx-band > .fx-sketch {
+  pointer-events: none;
+}

@@ -12,6 +12,11 @@ Funktioniert in OBS (Browser-Quelle), auf der Demo-Seite (Aufnahme ohne OBS), qu
 ganzen Kamera, Effekte bleiben an den **Rändern**, und die **Live-Story** verwandelt jeden vorgelesenen Satz
 sofort in Szene, Wetter, Tageszeit und Emoji-Figuren – ohne Trigger-Liste. Siehe die beiden Abschnitte unten.
 
+**Neu in 2.2.1:** hochkant sitzt das Band standardmäßig **ganz unten** (`bandPosition: bottom`, wahlweise `chat` =
+über der Chat-Zone), Dinge und Figuren der Live-Story haben eine **Lebensdauer** (das Auto bleibt nicht mehr ewig
+stehen), Applaus/Konfetti zusammen mit einem Story-Satz läuft wieder **voll durch** (statt kurz aufzublitzen), und
+`storyStyle` (emoji · sketch · mixed) bereitet die **gezeichnete Story** vor (`js/sketch.js`, siehe unten).
+
 ## In 30 Sekunden
 
 1. Panel öffnen (`http://127.0.0.1:8787/`), unter **Erkennung** die Sprache wählen (Deutsch, Türkçe, English).
@@ -86,8 +91,11 @@ die Szene sichtbar bleibt. Als JSON:
   Wer es schneller will, stellt unter **Erkennung** wieder „schnell“ ein (bleibt bis zum nächsten Umschalten).
 - **Cooldowns**: Szenen 8 s, Sticker 6 s – „der Drache“ dreimal im Satz erscheint einmal.
 - **Lautstärke**: der Regler im Panel gilt auch für die Atmosphäre.
-- **Hochkant** (`overlay.html?layout=portrait`): das Story-Band ist 20 % hoch und sitzt **über** der Chat-Zone
-  (unteres Drittel bleibt frei), Rand-Spalten sind 30 % breit, Sticker bleiben oben.
+- **Hochkant** (`overlay.html?layout=portrait`): das Story-Band ist 20 % hoch und sitzt **ganz unten**, bündig mit
+  dem Bildrand und in voller Breite (2.2.1, `bandPosition: bottom`). Mit `&bandpos=chat` (oder Layout-Nachricht
+  `{type:'layout', bandPosition:'chat'}`) sitzt es wie in 2.2 **über** der Chat-Zone (unteres Drittel bleibt frei).
+  Rand-Spalten sind 30 % breit; Karten, Text und Sticker darin verkleinern sich, bis jedes Wort hineinpasst (Wörter
+  werden nie mitten im Wort umbrochen). Flüchtige Effekte (Regen, Konfetti) bleiben über der Chat-Zone (62 % Fallhöhe).
 - **Demo-Seite** (`demo.html`): Szenen und Loops werden mit aufgenommen – ideal für einen Vorlese-Clip.
 - Stream Deck / API: `POST /api/fire` mit `{"trigger":{"id":"scene-rain","label":"Regen","visual":{"kind":"scene","scene":"rain"},"sound":"loop:rain"}}`.
 
@@ -98,12 +106,15 @@ Regen, Nacht, Wald … werden nicht mehr über das ganze Bild gelegt. Das Overla
 | Schlüssel | Werte | Standard | Bedeutung |
 |---|---|---|---|
 | `storyLayout` | `band` · `full` · `frame` | `band` | **band** = Streifen am unteren Rand, **frame** = kleines 16:9-Fenster unten rechts (30 % Breite), **full** = ganzer Rahmen wie in 1.3 |
-| `band` | 15 … 35 | 22 | Höhe des Streifens in Prozent der Bildhöhe (hochkant ohne Angabe: 20 %, über der Chat-Zone) |
+| `band` | 15 … 35 | 22 | Höhe des Streifens in Prozent der Bildhöhe (hochkant ohne Angabe: 20 %; Lage über `bandPosition`) |
 | `zone` | `full` · `edges` · `bottom` · `top` | `edges` | wo **flüchtige Effekte** landen: **edges** = Regen/Konfetti nur in den beiden Rand-Spalten (22 % Breite, hochkant 30 %), Karten/Text/Sticker/Banner abwechselnd links und rechts, **kein** Weiß-Blitz und **kein** Zoom-Stoß; **bottom** = alles im Band; **top** = oberer Streifen; **full** = überall (1.3-Verhalten) |
+| `bandPosition` (2.2.1) | `bottom` · `chat` | `bottom` | nur **hochkant**: **bottom** = Band bündig am unteren Bildrand, volle Breite; **chat** = über der Chat-Zone (unten 35 % frei, 2.2-Verhalten). Quer wird der Schlüssel ignoriert (Band immer unten) |
+| `storyStyle` (2.2.1) | `emoji` · `sketch` · `mixed` | `mixed` | wie die Live-Story gezeichnet wird: **emoji** = Emoji-Figuren + Parallaxe; **sketch** = nur die gezeichnete Story (`LiveFXSketch`), keine Emoji-Figuren/Partikel/Boden-Deko; **mixed** = beides. Ohne `js/sketch.js` sieht jeder Stil wie **emoji** aus |
 
-- Setzen per URL (pinnt den jeweiligen Schlüssel): `overlay.html?story=band&band=22&zone=edges` – oder live per
-  Bus-Nachricht `{type:'layout', storyLayout?, band?, zone?}` (nur die geschickten Schlüssel ändern sich; `POST /fire`).
-  Der Server merkt sich das Layout (`state.layout`) und gibt es jedem neu verbundenen Overlay im `state`-Event mit.
+- Setzen per URL (pinnt den jeweiligen Schlüssel): `overlay.html?story=band&band=22&zone=edges&bandpos=bottom&storystyle=mixed`
+  – oder live per Bus-Nachricht `{type:'layout', storyLayout?, band?, zone?, bandPosition?, storyStyle?}` (nur die
+  geschickten Schlüssel ändern sich; `POST /fire`). Der Server merkt sich das Layout (`state.layout`) und gibt es
+  jedem neu verbundenen Overlay im `state`-Event mit.
 - Technik: `#stage > .fx-band[data-layout]` hält die `.fx-scene`-Ebene, Partikel und Figuren sind auf dem Canvas auf
   das Band begrenzt, die Oberkante ist weich maskiert. Der Streifen skaliert Boden-Silhouetten, Deko und
   Bildunterschrift mit (`--fx-band-h`). Alte Szenen-Trigger brauchen keine Änderung.
@@ -133,9 +144,52 @@ Stimmungen) macht aus jedem Satz einen **Welt-Zustand**, den das Band fortlaufen
   Schloss, Wüste, Weltraum; Höhle → Nacht, Berge → Schnee), Lagerfeuer → Feuer, dann Tageszeit (Nacht → Nacht,
   Morgen/Abend → Sonnenaufgang). Die 13 Szenen und 12 Loops von 1.3 werden wiederverwendet.
 - **Stimmung** (fröhlich, spannend, traurig, gruselig, ruhig) tönt das Band; „plötzlich“ rüttelt einmal.
-  „**Ende**“ / „masal bitti“ / „the end“ räumt die Bühne, „es war einmal“ beginnt eine neue.
-- Ohne neuen Satz blendet das Band nach **60 s** aus (`renderer.storyIdleMs`), der nächste Satz holt es zurück.
+  „**Ende**“ / „masal bitti“ / „hikaye bitti“ / „the end“ räumt die Bühne, „es war einmal“ beginnt eine neue.
+  End-Wörter zählen nur **am Satzende** („… und das war das Ende“); das türkische „son“ nur als eigener kurzer Satz
+  („son“, „ve son“) – „en son“, „son dakika“, „son olarak“ oder „am Ende des Tages“ beenden nichts mehr.
+- Ohne neuen Satz blendet das Band nach **60 s** aus (`renderer.storyIdleMs`). Dabei verschwinden auch Figuren,
+  Dinge, Partikel und der Atmosphäre-Loop (nichts schwebt mehr über der Kamera). **Jeder** Story-Satz – auch einer,
+  der nichts ändert – hält das Band wach bzw. holt es mit dem gemerkten Zustand zurück.
 - Demo-Seite: Haken **Live-Story** → jeder Mikrofon-Satz geht durch den Director (und als `story` auf den Bus).
+
+### Lebensdauer: was nicht mehr erwähnt wird, geht (2.2.1)
+
+Jeder **fertige Satz** (`final`) zählt als ein Satz; eine Erwähnung (oder ein Verb / „er“, „sie“, „o“, „he“, „she“,
+das sich auf die Figur bezieht) frischt Ding oder Figur auf.
+
+| | verschwindet nach … (was zuerst kommt) | wie |
+|---|---|---|
+| **Ding** (Auto 🚗, Schatz, Zelt …, auch das Wahrzeichen 🏰) | **3** weiteren Sätzen ohne Erwähnung oder **45 s** | blendet aus |
+| **Figur** (Mädchen, Drache …) | **4** weiteren Sätzen oder **60 s** | läuft aus dem Band |
+
+- **Neues Bild**: ein neuer Ort oder neues Wetter räumt Dinge weg, die weder in diesem noch im vorigen Satz
+  vorkamen. Figuren bleiben (sie gehen mit der Geschichte mit): „Der Drache flog über den Wald“ → „Es fing an zu
+  regnen“ – der Drache fliegt im Regen weiter.
+- **Wegschicken**: „gitti“, „uzaklaştı“, „ayrıldı“, „kayboldu“ · „ging weg“, „lief weg“, „fuhr davon“,
+  „verschwand“ · „left“, „went away“, „drove off“, „disappeared“ entfernen die genannte Figur **oder** das genannte
+  Ding („araba gitti“, „das Auto verschwand“); ohne Namen die zuletzt genannte Figur („sonra gitti“). Mit einem Ziel
+  im Satz ist es ein Spaziergang: „kız ormana gitti“ → das Mädchen geht in den Wald (bleibt).
+- Beispiel (der Stream-Fall): „yağmur yağıyordu“ → Regen · „araba geldi“ → 🚗 im Regen · „güneş açtı“ → Regen weg,
+  Sonne, das Auto (eben genannt) steht noch · „ormanda yürüdük“ → Wald, das Auto ist weg. Genauso auf Deutsch
+  („Es regnete“ → „Ein Auto kam“ → „Dann kam die Sonne raus“ → „Wir gingen in den Wald“) und Englisch.
+- Zeitlimits laufen auch zwischen den Sätzen: das Overlay ruft `director.tick(Date.now())` jede Sekunde auf
+  (`renderer.attachDirector(director)`); ein Ablauf weckt ein ausgeblendetes Band nicht.
+
+### Gezeichnete Story (`storyStyle`, 2.2.1)
+
+Das Overlay hat einen Haken für einen Zeichen-Renderer: ist `window.LiveFXSketch` geladen (`js/sketch.js`), ruft der
+Renderer beim ersten Story-Zustand einmal `LiveFXSketch.attach(renderer, getSurface)` und danach bei jedem Zustand
+`sketch.update(state)` auf. Gezeichnet wird auf einer Leinwand im Band (`canvas.fx-sketch`), die mit dem Band
+maskiert, getönt und ausgeblendet wird. `storyStyle` wählt, was zu sehen ist (siehe Tabelle oben). Schnittstelle:
+`docs/CONTRACTS.md` → „Sketch-Hook“.
+
+### Applaus + Story gleichzeitig (2.2.1)
+
+Ein Trigger-Effekt (👏-Regen, Konfetti, Funken), der zusammen mit einem Story-Satz feuert, läuft seine volle Dauer
+(ca. 2,5–3,5 s). Ursache des früheren „Aufblitzens“: jedes Szenen-Partikel, das während eines Frames entstand, startete
+eine zweite Animationsschleife – nach ein paar Sekunden Szene lief die Physik N-fach pro Frame und der Applaus fiel in
+0,3 s durch. Jetzt gibt es genau eine Schleife; außerdem passt sich die Fallgeschwindigkeit der Fallhöhe an (Handy
+hochkant ≈ 2,5 s sichtbar). `story()` räumt nie flüchtige Effekte ab, der Szenenwechsel entfernt nur die alte Szene.
 
 ## Lautstärke (2.2)
 

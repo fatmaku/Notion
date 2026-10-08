@@ -655,7 +655,11 @@ test('2.1 perf envelope: auto | eco | high accepted, everything else rejected', 
 test('2.2 constants: layouts, zones, defaults, volume busses, LIMITS.triggers = 1000', () => {
   assert.deepEqual(S.STORY_LAYOUTS, ['band', 'full', 'frame']);
   assert.deepEqual(S.ZONES, ['full', 'edges', 'bottom', 'top']);
-  assert.deepEqual(S.LAYOUT_DEFAULTS, { storyLayout: 'band', band: 22, zone: 'edges' });
+  assert.deepEqual(S.LAYOUT_DEFAULTS, { storyLayout: 'band', band: 22, zone: 'edges' }, 'the 2.2 triple (panels spread it)');
+  assert.deepEqual(S.BAND_POSITIONS, ['bottom', 'chat']);
+  assert.deepEqual(S.STORY_STYLES, ['emoji', 'sketch', 'mixed']);
+  assert.equal(S.BAND_POSITION_DEFAULT, 'bottom', '2.2.1: portrait band at the very bottom by default');
+  assert.equal(S.STORY_STYLE_DEFAULT, 'mixed');
   assert.deepEqual(S.VOLUME_BUSES, ['master', 'sfx', 'ambient']);
   assert.deepEqual(S.VOLUME_DEFAULTS, { master: 0.5, sfx: 0.8, ambient: 0.5 });
   assert.deepEqual(S.STORY_MOODS, ['calm', 'happy', 'tense', 'sad', 'scary']);
@@ -682,15 +686,47 @@ test('normalizeBand clamps 15..35, rounds, undefined for garbage', () => {
 });
 
 test('normalizeLayout: defaults, partial merge onto a base, garbage keeps the base', () => {
-  assert.deepEqual(S.normalizeLayout(), { storyLayout: 'band', band: 22, zone: 'edges' });
-  assert.deepEqual(S.normalizeLayout(null), { storyLayout: 'band', band: 22, zone: 'edges' });
-  assert.deepEqual(S.normalizeLayout({ storyLayout: 'frame' }), { storyLayout: 'frame', band: 22, zone: 'edges' });
-  const base = { storyLayout: 'full', band: 30, zone: 'top' };
-  assert.deepEqual(S.normalizeLayout({ band: 18 }, base), { storyLayout: 'full', band: 18, zone: 'top' });
-  assert.deepEqual(S.normalizeLayout({ storyLayout: 'wide', band: 'x', zone: 'left' }, base), base);
-  assert.deepEqual(S.normalizeLayout({ band: 99 }, base), { storyLayout: 'full', band: 35, zone: 'top' });
-  assert.deepEqual(S.normalizeLayout({}, { storyLayout: 'nope', band: 'x', zone: 7 }), { storyLayout: 'band', band: 22, zone: 'edges' });
-  assert.deepEqual(S.normalizeLayout([1, 2]), { storyLayout: 'band', band: 22, zone: 'edges' });
+  const D = { storyLayout: 'band', band: 22, zone: 'edges', bandPosition: 'bottom', storyStyle: 'mixed' };
+  assert.deepEqual(S.normalizeLayout(), D);
+  assert.deepEqual(S.normalizeLayout(null), D);
+  assert.deepEqual(S.normalizeLayout({ storyLayout: 'frame' }), { ...D, storyLayout: 'frame' });
+  const base = { storyLayout: 'full', band: 30, zone: 'top', bandPosition: 'chat', storyStyle: 'emoji' };
+  assert.deepEqual(S.normalizeLayout({ band: 18 }, base), { ...base, band: 18 });
+  assert.deepEqual(S.normalizeLayout({ storyLayout: 'wide', band: 'x', zone: 'left', bandPosition: 'middle', storyStyle: 'oil' }, base), base);
+  assert.deepEqual(S.normalizeLayout({ band: 99 }, base), { ...base, band: 35 });
+  assert.deepEqual(S.normalizeLayout({}, { storyLayout: 'nope', band: 'x', zone: 7, bandPosition: 1, storyStyle: null }), D);
+  assert.deepEqual(S.normalizeLayout([1, 2]), D);
+  // a 2.2 base without the 2.2.1 keys gets the defaults for them
+  assert.deepEqual(S.normalizeLayout({ zone: 'full' }, { storyLayout: 'frame', band: 25, zone: 'edges' }), { storyLayout: 'frame', band: 25, zone: 'full', bandPosition: 'bottom', storyStyle: 'mixed' });
+});
+
+test('2.2.1 normalizeLayout: bandPosition bottom | chat, storyStyle emoji | sketch | mixed', () => {
+  assert.equal(S.normalizeLayout({ bandPosition: 'chat' }).bandPosition, 'chat');
+  assert.equal(S.normalizeLayout({ bandPosition: 'bottom' }, { bandPosition: 'chat' }).bandPosition, 'bottom');
+  for (const bad of ['', 'top', 'BOTTOM', 1, null, ['chat'], { chat: 1 }]) {
+    assert.equal(S.normalizeLayout({ bandPosition: bad }).bandPosition, 'bottom', `bandPosition ${JSON.stringify(bad)}`);
+    assert.equal(S.normalizeLayout({ bandPosition: bad }, { bandPosition: 'chat' }).bandPosition, 'chat', `base kept for ${JSON.stringify(bad)}`);
+  }
+  for (const style of ['emoji', 'sketch', 'mixed']) assert.equal(S.normalizeLayout({ storyStyle: style }).storyStyle, style);
+  for (const bad of ['', 'video', 'Sketch', 0, null]) assert.equal(S.normalizeLayout({ storyStyle: bad }, { storyStyle: 'sketch' }).storyStyle, 'sketch', `storyStyle ${JSON.stringify(bad)}`);
+});
+
+test('2.2.1 validateEnvelope: layout bandPosition / storyStyle validated, partial, alone enough', () => {
+  const a = S.validateEnvelope({ type: 'layout', bandPosition: 'chat' });
+  assert.equal(a.ok, true);
+  assert.deepEqual({ bandPosition: a.msg.bandPosition, storyStyle: a.msg.storyStyle, zone: a.msg.zone }, { bandPosition: 'chat', storyStyle: undefined, zone: undefined });
+  const b = S.validateEnvelope({ type: 'layout', storyStyle: 'sketch' });
+  assert.equal(b.ok, true);
+  assert.equal(b.msg.storyStyle, 'sketch');
+  assert.equal(b.msg.bandPosition, undefined);
+  const all = S.validateEnvelope({ type: 'layout', storyLayout: 'band', band: 20, zone: 'edges', bandPosition: 'bottom', storyStyle: 'mixed' }).msg;
+  assert.deepEqual({ ...all, id: undefined, ts: undefined }, { id: undefined, ts: undefined, type: 'layout', storyLayout: 'band', band: 20, zone: 'edges', bandPosition: 'bottom', storyStyle: 'mixed' });
+  assert.equal(S.validateEnvelope({ type: 'layout', bandPosition: 'middle' }).ok, false);
+  assert.match(S.validateEnvelope({ type: 'layout', bandPosition: 'middle' }).error, /bandPosition must be one of bottom, chat/);
+  assert.equal(S.validateEnvelope({ type: 'layout', storyStyle: 'video' }).ok, false);
+  assert.match(S.validateEnvelope({ type: 'layout', storyStyle: 'video' }).error, /storyStyle must be one of emoji, sketch, mixed/);
+  assert.equal(S.validateEnvelope({ type: 'layout', bandPosition: null, storyStyle: '' }).ok, false, 'null / empty = not set -> nothing to send');
+  assert.match(S.validateEnvelope({ type: 'layout' }).error, /bandPosition or storyStyle/);
 });
 
 test('validateEnvelope: layout is partial, validated per key, needs at least one key', () => {

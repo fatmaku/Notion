@@ -60,6 +60,9 @@ const FULL_SHELL = [
   '/js/packs-store.js',
   '/js/story-director.js',
   '/js/phonetic.js',
+  // sketch layer ("Zeichenfilm", docs/SKETCH.md)
+  '/js/sketch.js',
+  '/css/sketch.css',
   // 2.1: sticker index for the sticker library in the panel (the 143 stickers themselves are fetched on use)
   '/memes/index.json',
 ];
@@ -70,6 +73,8 @@ const OVERLAY_SHELL = [
   '/js/sounds.js',
   '/js/schema.js',
   '/js/fx.js',
+  '/css/sketch.css',
+  '/js/sketch.js',
   '/js/story-director.js',
   '/js/bus.js',
   '/icons/icon.svg',
