@@ -87,12 +87,19 @@ async function chooseApi() {
   const remote = new RemoteApi();
   earlyConfig = remote.config(); // Erweiterung perf: Einstellungen parallel zur Server-Prüfung holen (eine Wartezeit weniger)
   earlyConfig.catch(() => {});
-  try {
-    const h = await remote.health();
-    if (!h || h.ok !== true) throw new Error('no server'); // z. B. statischer Host liefert HTML statt JSON
-    return remote;
-  } catch {
-    return createLocalApi(); // kein Server erreichbar (z. B. statisch gehostet) → Demo im Browser
+  // Server kurz weg (Update/Neustart: 502/503/504 oder Netzfehler) → ein paar Mal neu versuchen, statt still
+  // ins Browser-Demo zu wechseln – dort gespeicherte Fänge kämen nie beim Server an. Statisch gehostet
+  // (404, HTML statt JSON) → sofort Demo im Browser.
+  const waits = [700, 1500, 2500];
+  for (let i = 0; ; i++) {
+    try {
+      const h = await remote.health();
+      return h && h.ok === true ? remote : createLocalApi();
+    } catch (e) {
+      const transient = e && (e.status === 0 || e.status >= 500);
+      if (!transient || i >= waits.length) return createLocalApi();
+      await new Promise((r) => setTimeout(r, waits[i]));
+    }
   }
 }
 

@@ -2,3 +2,10 @@ node_modules/
 data/
 # optional lokal: TensorFlow.js + COCO-SSD (npm run vendor:ar), sonst CDN
 public/vendor/ar/
+
+# Yayına alma (deploy/): Geheimnisse, lokale Zusätze und Sicherungen nie ins Repo
+deploy/.env
+deploy/.env.*
+!deploy/.env.example
+deploy/docker-compose.override.yml
+yedekler/

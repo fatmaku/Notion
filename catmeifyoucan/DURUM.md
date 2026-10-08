@@ -31,8 +31,8 @@ ve tek bir komut gerekiyor (bkz. `deploy/KURULUM.md` ve `YAPILACAKLAR.md`).
 | Yardım ve teşekkür: gönüllü düğmeleri, teşekkür akışı, yardım kılavuzu | ✅ hazır | `public/guide.html`, `docs/features/impact.md` |
 | Aylık rapor: “Kadıköy'ün sokak kedileri” | ✅ hazır | `public/report.html`, `docs/features/report.md` |
 | Hız: sıkıştırma, ekranlar gerektiğinde yüklenir | ✅ hazır | `server/compress.js`, `docs/features/perf.md` |
-| Kurulum paketi: Docker + otomatik HTTPS, Docker'sız alternatif | ✅ hazır | `deploy/`, `Dockerfile`, `deploy/KURULUM.md` |
-| Sunum (İngilizce, 13 slayt) | ✅ hazır | çevrimiçi, ayrıca `teslim/` paketinde bağlantı |
+| Kurulum paketi: Docker + otomatik HTTPS (Caddy), yedek, geri yükleme, güncelleme, Docker'sız alternatif | ✅ hazır (gerçek Docker'da test edildi; gerçek Let's Encrypt sertifikası ilk kurulumda izlenmeli) | `deploy/`, `Dockerfile`, `deploy/KURULUM.md` |
+| Sunum (İngilizce, 13 slayt) | ✅ hazır | çevrimiçi (PowerPoint/PDF olarak indirilebilir) ve tam pakette `sunum/` |
 
 ## Diller
 

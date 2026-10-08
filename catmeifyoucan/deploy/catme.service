@@ -1,0 +1,68 @@
+# Cat Me If You Can – systemd-Dienst für den Betrieb OHNE Docker (Docker'sız kurulum).
+# Anleitung: deploy/KURULUM.md → „Docker'sız kurulum“. Kurz:
+#   sudo useradd --system --home /var/lib/catme --shell /usr/sbin/nologin catme
+#   sudo cp -r <proje> /opt/catmeifyoucan && cd /opt/catmeifyoucan && sudo npm ci --omit=dev
+#   sudo install -m 600 /dev/null /etc/catme.env   (ADMIN_TOKEN=…, CATME_PUBLIC_URL=https://…)
+#   sudo cp deploy/catme.service /etc/systemd/system/ && sudo systemctl enable --now catme
+#
+# Daten: /var/lib/catme (legt systemd selbst an, gehört dem Benutzer catme).
+# Logs:  journalctl -u catme -f
+
+[Unit]
+Description=Cat Me If You Can (Kadıköy sokak kedileri oyunu)
+Documentation=file:///opt/catmeifyoucan/deploy/KURULUM.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=catme
+Group=catme
+WorkingDirectory=/opt/catmeifyoucan
+# Grundwerte – /etc/catme.env (EnvironmentFile) darf alles überschreiben
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=8790
+Environment=CATME_DATA=/var/lib/catme
+Environment=TRUST_PROXY=1
+Environment=CATME_DEMO=0
+EnvironmentFile=/etc/catme.env
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=3
+# server.js fängt SIGTERM ab und verdichtet das Journal vor dem Beenden
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+# Datenordner /var/lib/catme
+StateDirectory=catme
+StateDirectoryMode=0750
+UMask=0027
+
+# Härtung: nur der Datenordner ist beschreibbar, keine Capabilities, kein Rechte-Gewinn.
+# (Bewusst NICHT MemoryDenyWriteExecute=true – der JIT von Node/V8 braucht ausführbaren Speicher.)
+ReadWritePaths=/var/lib/catme
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectProc=invisible
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=true
+SystemCallArchitectures=native
+RemoveIPC=true
+
+[Install]
+WantedBy=multi-user.target

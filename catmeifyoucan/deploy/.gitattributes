@@ -1,0 +1,6 @@
+# Skripte und Konfiguration immer mit LF – mit Windows-Zeilenenden (CRLF) laufen sie auf dem Server nicht
+*.sh          text eol=lf
+Caddyfile*    text eol=lf
+*.service     text eol=lf
+*.yml         text eol=lf
+.env.example  text eol=lf

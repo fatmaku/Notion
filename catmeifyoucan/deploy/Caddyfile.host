@@ -1,0 +1,39 @@
+# Cat Me If You Can – Caddy für den Betrieb OHNE Docker (Caddy als Systemdienst, App über
+# deploy/catme.service auf 127.0.0.1:8790). Anleitung: deploy/KURULUM.md → „Docker'sız kurulum“.
+#
+# ALAN.ADI durch die eigene Domain ersetzen und als /etc/caddy/Caddyfile speichern:
+#   sed 's/ALAN\.ADI/kedi.ornek.com/g' deploy/Caddyfile.host | sudo tee /etc/caddy/Caddyfile >/dev/null
+#   sudo systemctl reload caddy
+#
+# Gleiche Regeln wie deploy/Caddyfile (Docker): kein encode (die App packt selbst), HSTS,
+# Body-Limit 8 MB, Wartungsseite bei 502. Für www.ALAN.ADI → ALAN.ADI unten das „#“ entfernen
+# (nur wenn auch für www ein DNS-Eintrag auf diesen Server zeigt).
+
+{
+	# isteğe bağlı / optional: E-Mail für Let's Encrypt
+	# email ben@ornek.com
+}
+
+ALAN.ADI {
+	request_body {
+		max_size 8MB
+	}
+	header ?Strict-Transport-Security "max-age=31536000"
+	header -Server
+
+	reverse_proxy 127.0.0.1:8790
+
+	handle_errors {
+		@down expression `{err.status_code} in [502, 503, 504]`
+		handle @down {
+			header Content-Type "text/html; charset=utf-8"
+			header Retry-After "20"
+			header Cache-Control "no-store"
+			respond "<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Cat Me If You Can</title><body style='font-family:system-ui,sans-serif;text-align:center;padding:3rem 1rem'><p style='font-size:3rem'>🐾</p><h1>Kısa bir bakım</h1><p>Birkaç saniye sonra sayfayı yenileyin.</p><p lang=en>Short maintenance – please reload in a few seconds.</p>" 503
+		}
+	}
+}
+
+# www.ALAN.ADI {
+# 	redir https://ALAN.ADI{uri} permanent
+# }

@@ -66,6 +66,19 @@ Oder mit eigenem Zertifikat (`mkcert`): `CATME_TLS_CERT=cert.pem CATME_TLS_KEY=k
 Außerhalb von Kadıköy wird ein Fang mit „außerhalb des Spielgebiets“ abgelehnt. Im Demo-Modus
 (`/app.html?demo=1`) wird der Standort automatisch nach Moda simuliert.
 
+## Online gehen / Yayına alma
+
+Nur die Domain wählen, den Rest erledigt ein Befehl auf einem frischen Ubuntu-Server (Docker,
+automatisches HTTPS mit Caddy, Daten im Volume, nächtliche Sicherung, Updates):
+
+```bash
+curl -fsSL https://get.docker.com | sh       # einmal: Docker
+bash deploy/kur.sh kedi.ornek.com            # DNS-A-Record der Domain zeigt auf den Server
+```
+
+Schritt für Schritt auf Türkisch (mit deutscher Kurzfassung), Moderation, Claude-Key, Sicherung,
+Update, Demo an/aus, Betrieb ohne Docker und typische Probleme: [deploy/KURULUM.md](deploy/KURULUM.md).
+
 ## Erweiterungen
 
 Jede Erweiterung ist in `docs/features/` beschrieben: Katzen-Seiten mit Link-Vorschau (`share`),
@@ -161,6 +174,7 @@ Postgres/PostGIS nach, die Engine bleibt dabei unverändert.
 | `TRUST_PROXY` | – | Anzahl Proxys vor dem Server, z. B. `1` hinter nginx/Caddy (X-Forwarded-For wird von rechts gelesen) |
 | `CATME_TLS_CERT` / `CATME_TLS_KEY` | – | HTTPS direkt |
 | `CATME_TILES` / `CATME_TILES_ATTRIB` | OSM | eigener Kartenkachel-Dienst (für echten Betrieb nötig) |
+| `CATME_PUBLIC_URL` | – | öffentliche Adresse, z. B. `https://kedi.ornek.com` – macht Link-Vorschauen, Sitemap und Katzenseiten absolut (setzt `deploy/kur.sh` automatisch) |
 
 Regeln lassen sich ohne Code anpassen: `data/game.override.json`, z. B.
 `{"dailyGoal": 15, "catchCooldownSec": 30}`.

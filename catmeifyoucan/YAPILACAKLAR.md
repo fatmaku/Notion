@@ -10,10 +10,11 @@
 - [ ] **3. Alan adını sunucuya yönlendir.** Alan adının DNS ayarlarında bir **A kaydı**:
       alan adı → sunucunun IP adresi (IPv6 varsa ayrıca AAAA kaydı). Yayılması birkaç dakika
       ile birkaç saat sürebilir.
-- [ ] **4. Projeyi sunucuya koy.** Ya `git clone` ile ya da teslim paketindeki ZIP'i açarak.
-- [ ] **5. Tek komutu çalıştır:**
+- [ ] **4. Projeyi sunucuya koy.** Ya `git clone` ile ya da teslim paketindeki ZIP parçalarını
+      aynı klasöre açarak (`for f in CatMeIfYouCan-TamPaket-*.zip; do unzip -o "$f"; done`).
+- [ ] **5. Tek komutu çalıştır** (`catmeifyoucan` klasöründe):
       ```
-      ./deploy/kur.sh kedi.ornek.com eposta@ornek.com
+      sudo bash deploy/kur.sh kedi.ornek.com eposta@ornek.com
       ```
       Komut Docker'ı kontrol eder, gizli anahtarları üretir, siteyi başlatır ve HTTPS sertifikasını
       kendisi alır. Sonunda site adresini, yönetim sayfasını ve yönetici anahtarının nerede
@@ -44,8 +45,8 @@
 - [ ] **17. Gönüllü grupları ve veterinerler:** onlara gönüllü rolü ver (yönetim sayfası) –
       böylece “mama verildi”, “veterinere götürüldü” düğmelerini kullanabilirler.
 - [ ] **18. Belediye ve basın:** aylık raporu (`/report.html`) paylaş.
-- [ ] **19. Yedek:** `deploy/yedek.sh` komutunu günlük çalıştır (ör. cron ile) ve yedekleri başka
-      bir yere kopyala.
+- [ ] **19. Yedek:** `kur.sh` her gece otomatik yedek alır (son 14 yedek `yedekler/` klasöründe).
+      Yedekleri ara sıra başka bir yere de kopyala.
 - [ ] **20. AR modelini sunucuya al:** `npm run vendor:ar` (o zaman kamera görüntüsündeki kedi
       işaretleme dışarıdan bir CDN'e bağlı olmaz).
 - [ ] **21. Erişilebilirlik takibi:** basit bir “site ayakta mı” izlemesi (ör. `/api/health`).
@@ -62,9 +63,11 @@
 
 | Ne | Komut |
 |---|---|
-| Yeni sürümü yükle (veriler kalır) | `./deploy/guncelle.sh` |
-| Yedek al | `./deploy/yedek.sh` |
-| Durumu gör | `docker compose -f deploy/docker-compose.yml ps` |
-| Kayıtları gör | `docker compose -f deploy/docker-compose.yml logs -f app` |
+| Yeni sürümü yükle (veriler kalır) | `sudo bash deploy/guncelle.sh` |
+| Yedek al (kur.sh her gece otomatik yedek de kurar) | `sudo bash deploy/yedek.sh` |
+| Yedekten geri yükle | `sudo bash deploy/geri-yukle.sh <yedek-dosyası>` |
+| Her şeyi sıfırla (ör. demodan sonra; önce yedek alır) | `sudo bash deploy/sifirla.sh` |
+| Durumu gör (`app` „healthy“ olmalı) | `cd deploy && docker compose ps` |
+| Kayıtları gör | `cd deploy && docker compose logs --tail 100 app` |
 | Fragmanları yeniden üret | `node trailer/render.js --all` |
 | Sosyal görselleri yeniden üret | `node marketing/render.js` |

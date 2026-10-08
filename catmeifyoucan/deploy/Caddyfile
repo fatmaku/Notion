@@ -43,16 +43,7 @@
 			header Content-Type "text/html; charset=utf-8"
 			header Retry-After "20"
 			header Cache-Control "no-store"
-			respond <<HTML
-				<!doctype html><html lang="tr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-				<title>Cat Me If You Can</title>
-				<body style="font-family:system-ui,sans-serif;text-align:center;padding:3rem 1rem;background:#fff8ef;color:#2b2118">
-				<p style="font-size:3rem;margin:0">🐾</p>
-				<h1>Kısa bir bakım</h1><p>Birkaç saniye sonra sayfayı yenileyin.</p>
-				<p lang="en">Short maintenance – please reload in a few seconds.</p>
-				<p lang="de">Kurze Wartung – bitte in ein paar Sekunden neu laden.</p>
-				</body></html>
-				HTML 503
+			respond "<!doctype html><html lang=tr><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Cat Me If You Can</title><body style='font-family:system-ui,sans-serif;text-align:center;padding:3rem 1rem'><p style='font-size:3rem;margin:0'>🐾</p><h1>Kısa bir bakım</h1><p>Birkaç saniye sonra sayfayı yenileyin.</p><p lang=en>Short maintenance – please reload in a few seconds.</p><p lang=de>Kurze Wartung – bitte in ein paar Sekunden neu laden.</p>" 503
 		}
 	}
 }

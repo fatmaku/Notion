@@ -39,6 +39,14 @@ services:
       - "127.0.0.1:8790:8790" # nur lokal – von außen geht es ausschließlich über Caddy
     volumes:
       - app-data:/data
+    # Härtung: Code im Container unveränderlich (geschrieben wird nur ins Volume /data und nach /tmp),
+    # keine Linux-Capabilities (Port 8790 braucht keine), kein Rechte-Gewinn über setuid.
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
     logging: *logging
 
   caddy:
@@ -54,10 +62,20 @@ services:
       SITE_DOMAIN: ${SITE_DOMAIN:?SITE_DOMAIN fehlt in deploy/.env}
       SITE_WWW: ${SITE_WWW:-}
       CADDY_EMAIL_OPTION: ${ACME_EMAIL:+email ${ACME_EMAIL}}
+      # Prüfsumme des Caddyfile (setzt kur.sh): geänderte Datei → Caddy wird neu gestartet
+      CADDYFILE_SHA: ${CADDYFILE_SHA:-}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-data:/data # Zertifikate – bleiben bei Updates erhalten
       - caddy-config:/config
+    # Härtung: nur das Recht, die Ports 80/443 zu öffnen; Dateisystem schreibgeschützt bis auf die Volumes
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt:
+      - no-new-privileges:true
     logging: *logging
 
 volumes:
