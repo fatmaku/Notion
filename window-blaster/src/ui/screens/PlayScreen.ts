@@ -14,22 +14,29 @@ export function PlayScreen(app: App, mode: GameMode): Screen {
     const p = app.layers.toVideo(e.clientX - r.left, e.clientY - r.top);
     return { type, x: p.x, y: p.y, t: performance.now(), id: e.pointerId };
   };
+  // glasses players look at the glasses, not the phone: optionally the screen works as a touchpad
+  const send = (e: PointerEvent, type: PointerEv['type']) => {
+    if (app.input.touchpadActive(mode)) {
+      const r = app.layers.stage.getBoundingClientRect();
+      app.input.touch(type, e.pointerId, e.clientX - r.left, e.clientY - r.top, performance.now());
+    } else mode.pointer(toEv(e, type));
+  };
   el.addEventListener('pointerdown', (e) => {
     if (e.target !== el) return;
     e.preventDefault();
     capturePointer(el, e.pointerId);
     app.sfx.unlock();
-    mode.pointer(toEv(e, 'down'));
+    send(e, 'down');
   });
   el.addEventListener('pointermove', (e) => {
     if (!el.hasPointerCapture(e.pointerId)) return;
-    mode.pointer(toEv(e, 'move'));
+    send(e, 'move');
   });
   el.addEventListener('pointerup', (e) => {
     if (!el.hasPointerCapture(e.pointerId)) return;
-    mode.pointer(toEv(e, 'up'));
+    send(e, 'up');
   });
-  el.addEventListener('pointercancel', (e) => mode.pointer(toEv(e, 'cancel')));
+  el.addEventListener('pointercancel', (e) => send(e, 'cancel'));
 
   const btn = (cls: string, label: string, onDown?: () => void, onUp?: () => void) => {
     const b = h('button', { class: `hud-btn ${cls}`, 'aria-label': label }, label);
@@ -79,6 +86,19 @@ export function PlayScreen(app: App, mode: GameMode): Screen {
       'div',
       { class: 'col' },
       h('button', { class: 'btn block', onclick: () => app.togglePause() }, T.resume),
+      app.wantsXr
+        ? h(
+            'button',
+            {
+              class: 'btn block secondary',
+              onclick: () => {
+                app.togglePause(false);
+                app.enterXr();
+              },
+            },
+            `🥽 ${T.xrResumeHeadset}`,
+          )
+        : null,
       h('button', { class: 'btn block secondary', onclick: () => void app.sharePhoto() }, `📸 ${T.playSharePhoto}`),
       h('button', { class: 'btn block secondary', onclick: () => app.showSettings() }, `⚙️ ${T.settings}`),
       h('button', { class: 'btn block danger', onclick: () => app.abortRound() }, T.quit),

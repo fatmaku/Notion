@@ -87,10 +87,34 @@ damit sie zu dem passen, was der Spieler tatsächlich sieht.
   echten MediaPipe-Detektors mit selbst gehostetem WASM und Modell.
 - **Worker:** lokal mit `wrangler dev` geprüft (gültig / manipuliert / Demo / Rate-Limit).
 
+## Brillen, Headsets und Eingabe (Runde 8)
+
+- **Display-Brillen** (XREAL, VITURE, Rokid, RayNeo) spiegeln nur den Handy-Bildschirm; die Optik addiert Licht, Schwarz
+  ist durchsichtig. Durchsicht-Modus = `body.glasses`: `#cam` unsichtbar, CoverPatch aus (echte Autos kann man mit
+  Pixeln nicht „wegmalen“), Zielrahmen hell und dick. Kopf-Pose ist für Webseiten nicht erreichbar (kein WebHID auf
+  Android/iOS), daher eine feste **Ausrichtung** `{k, dx, dy}`: `Layers.computeMapping` skaliert die Cover-Abbildung um
+  den Bühnenmittelpunkt und verschiebt sie; das Video-Element bekommt per `videoTransform` exakt dieselbe Abbildung,
+  damit Zeichnen, Touch (`toVideo`) und das blasse Ausricht-Kamerabild deckungsgleich bleiben.
+- **Eingabe-Hub** (`src/input/`): Gamepad (Standard-Belegung, gepollt), Tastatur (Tipps zwischen zwei Frames werden
+  zwischengespeichert), Touchpad-Zustandsautomat (wischen/tippen/halten/zweiter Finger) erzeugen synthetische
+  `PointerEv` (id −2) am virtuellen Fadenkreuz in Video-Pixeln; `GameMode.setCursor` zeigt es an. `MenuNav` macht die
+  DOM-Menüs per Steuerkreuz bedienbar (Halte-Knöpfe bekommen echte pointerdown/up).
+- **WebXR** (`src/xr/`): eigene WebGL2-Leinwand (keine three.js), die Canvas-2D-Ebenen (Video, FX, HUD) werden pro
+  Frame als Texturen hochgeladen. `GameLoop.setScheduler` hängt die Spielschleife an `session.requestAnimationFrame`
+  (Headsets stoppen `window.requestAnimationFrame` in immersiven Sitzungen). Leinwand mit trägem Nachführen
+  (`lazyFollow`) fängt Tracking-Drift im Fahrzeug ab; AR-Overlay ist kopf-fest und über das Kamera-Sichtfeld skaliert
+  (`overlaySize`). Controller-Strahl → `rayQuadHit` → UV → Bühnen-CSS → Video-Pixel → `PointerEv`. Menüs und Ergebnisse
+  bleiben 2D (B/Y = Pause verlässt die Sitzung). Kamera-Wächter beendet die Sitzung, wenn das Video im Headset steht.
+- Tests: Unit-Tests für Belegungen, Touchpad, Ausricht-Mathematik und XR-Mathematik; Playwright mit Gamepad-Attrappe,
+  Tastatur, Touchpad und Metas WebXR-Emulator **IWER** (emulierte Quest 3, `installRuntime({forceInstall:true})`, weil
+  headless Chromium ein eigenes `navigator.xr` mitbringt).
+
 ## Nicht am Handy prüfbar (bewusst abgesichert)
 
 Erkennungsrate bei Nacht/Regen, Gyro-Vorzeichen je Gerät (Selbstkorrektur + Schalter), Linsenwahl (Label-Heuristik),
 iOS-Berechtigungs-UX (eine Geste), Wärmedrosselung (adaptiver Scheduler). Diagnose-Overlay per 5-fach-Tipp.
+Brillen-Ausrichtung im echten Auto, Quest-Kamera (`getUserMedia`) während einer immersiven Sitzung, Galaxy-XR-/Pico-Kamera –
+nur im Emulator geprüft, mit Wächter und 2D-Rückfall.
 
 ## Roadmap-Ideen
 

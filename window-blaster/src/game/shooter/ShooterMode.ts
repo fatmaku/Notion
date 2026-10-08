@@ -96,6 +96,8 @@ export class ShooterMode implements GameMode {
   private aim: Vec2 | null = null;
   private aimDown = false;
   private aimShownUntil = 0;
+  /** gamepad / keyboard / touchpad crosshair */
+  private cursor: Vec2 | null = null;
   private lockId: number | null = null;
   private lockStart = 0;
   private lastKillAt = -1e9;
@@ -332,6 +334,10 @@ export class ShooterMode implements GameMode {
         this.aimShownUntil = e.t + 400;
         break;
     }
+  }
+
+  setCursor(p: Vec2 | null): void {
+    this.cursor = p;
   }
 
   private launchPoint(): Vec2 {
@@ -605,7 +611,8 @@ export class ShooterMode implements GameMode {
 
   private afterKill(target: HitTarget, cfg: WeaponConfig, now: number, snap: HTMLCanvasElement | null = null, snapBox: Rect | null = null, impact: Vec2 | null = null): void {
     const after = cfg.after;
-    const cover = this.ctx.settings.data.stretchFill;
+    // see-through glasses can't erase a real car with drawn pixels – the patch would only add a bright smear
+    const cover = this.ctx.settings.data.stretchFill && !this.ctx.settings.data.glasses;
     if (after === 'wreck') {
       const s = snap && snapBox ? { canvas: snap, box: snapBox } : captureRegion(this.ctx.frame.video, target.box);
       if (s) this.effects.add(new Wreck(target.id, s.canvas, s.box, now, this.effects.particles));
@@ -720,6 +727,7 @@ export class ShooterMode implements GameMode {
     const vt = this.visualTime(now);
     const tsec = now / 1000;
     const inTargets = new Set(this.cachedTargets.map((tg) => tg.id));
+    const glasses = this.ctx.settings.data.glasses;
     for (const [id, st] of this.memory.targets) {
       if (!st.decals.length || inTargets.has(id) || st.state !== 'alive') continue;
       const b = this.boxOf(id);
@@ -728,8 +736,11 @@ export class ShooterMode implements GameMode {
     for (const tg of this.cachedTargets) {
       const st = this.memory.get(tg.id);
       if (st) for (const d of st.decals) drawDecal(c, tg.box, d, now);
-      const color = SHOOTABLE.has(tg.cls) ? (tg.cls === 'car' ? 'rgba(255,255,255,0.55)' : 'rgba(255,176,32,0.7)') : 'rgba(56,189,248,0.5)';
-      this.fx.bracket(tg.box, color, 2 * this.unit, tsec);
+      // see-through glasses only add light: faint strokes vanish against daylight, so draw them bright and bold
+      const color = glasses
+        ? SHOOTABLE.has(tg.cls) ? (tg.cls === 'car' ? '#7df9ff' : '#ffd23f') : '#7dd3fc'
+        : SHOOTABLE.has(tg.cls) ? (tg.cls === 'car' ? 'rgba(255,255,255,0.55)' : 'rgba(255,176,32,0.7)') : 'rgba(56,189,248,0.5)';
+      this.fx.bracket(tg.box, color, (glasses ? 3.5 : 2) * this.unit, tsec);
       if (st && st.hp < st.maxHp) this.fx.hpBar(tg.box, st.hp, st.maxHp);
     }
     // decals on skidding/destroyed still tracked (e.g. painted then destroyed) are handled by their effects
@@ -766,9 +777,9 @@ export class ShooterMode implements GameMode {
     if (this.ctx.settings.data.showBoxes) for (const tr of this.ctx.tracker.tracks) this.fx.debugTrack(tr, tr.predict(vt));
 
     // crosshair
-    const aimVisible = this.aim && now < this.aimShownUntil;
+    const aimVisible = (this.aim && now < this.aimShownUntil) || !!this.cursor;
     const v = L.visibleRect();
-    const p = aimVisible && this.aim ? this.aim : { x: v.x + v.w / 2, y: v.y + v.h / 2 };
+    const p = this.aimDown && this.aim ? this.aim : this.cursor ?? (aimVisible && this.aim ? this.aim : { x: v.x + v.w / 2, y: v.y + v.h / 2 });
     this.fx.crosshair(p, (aimVisible ? 26 : 16) * this.unit, aimVisible ? 'rgba(255,176,32,0.95)' : 'rgba(255,255,255,0.5)', !!aimVisible);
 
     // HUD

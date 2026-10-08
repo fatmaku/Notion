@@ -47,3 +47,20 @@ export function fmtTime(sec: number): string {
   const s = Math.max(0, Math.ceil(sec));
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 }
+
+/**
+ * Display glasses fill best in landscape without browser bars: fullscreen + orientation lock
+ * where the browser allows it (Android Chrome; iPhones have no Fullscreen API – use the home-screen app).
+ * Must run inside a user gesture; failures are ignored.
+ */
+export function landscapeFullscreen(): void {
+  try {
+    const el = document.documentElement as HTMLElement & { webkitRequestFullscreen?: () => void };
+    const p = document.fullscreenElement ? Promise.resolve() : el.requestFullscreen?.({ navigationUI: 'hide' }) ?? Promise.resolve(el.webkitRequestFullscreen?.());
+    void Promise.resolve(p)
+      .then(() => (screen.orientation as ScreenOrientation & { lock?: (o: string) => Promise<void> })?.lock?.('landscape'))
+      .catch(() => undefined);
+  } catch {
+    /* not supported */
+  }
+}

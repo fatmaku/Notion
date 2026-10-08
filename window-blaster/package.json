@@ -1,7 +1,7 @@
 {
   "name": "window-blaster",
   "private": true,
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Beifahrer-AR-Arcade: echte Autos vor dem Autofenster in AR beschiessen (PWA)",
   "type": "module",
   "scripts": {
@@ -21,7 +21,9 @@
   "devDependencies": {
     "@playwright/test": "1.56.1",
     "@types/node": "^22.0.0",
+    "@types/webxr": "^0.5.24",
     "@vitejs/plugin-basic-ssl": "^2.1.0",
+    "iwer": "^2.5.0",
     "typescript": "^5.9.0",
     "vite": "^8.3.1",
     "vitest": "^5.0.2"

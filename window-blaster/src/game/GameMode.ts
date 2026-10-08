@@ -118,6 +118,8 @@ export interface GameMode {
   /** Force-end (quit from pause menu). */
   abort(): RoundResult;
   actions(): ModeActions;
+  /** Controller / touchpad crosshair (video px), null when hidden. Modes without aiming ignore it. */
+  setCursor?(p: Vec2 | null): void;
   /** Live numbers for HUD/diagnostics/e2e. */
   snapshot(): Record<string, number | string | boolean>;
 }

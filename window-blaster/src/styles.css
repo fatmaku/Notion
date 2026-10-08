@@ -123,3 +123,18 @@ body.left-handed .play .duck { left: auto; right: calc(12px + var(--sar)); }
 .choice .price { display: inline-block; margin-top: 6px; font-size: 12px; color: var(--accent); }
 .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
 .wallet { font-size: 22px; font-weight: 900; color: var(--accent); }
+
+/* see-through display glasses: black is transparent there, so the camera image is hidden and only effects are drawn */
+body.glasses #cam { opacity: 0; }
+body.glasses-ghost #cam { opacity: 0.45; }
+body.glasses .screen:not(.transparent) { background: rgba(0, 0, 0, 0.72); backdrop-filter: none; }
+body.glasses .card { background: rgba(10, 12, 16, 0.92); }
+.glasses-align .calib-bar .badge { font-size: 12px; }
+/* gamepad / keyboard focus in the menus */
+.btn:focus-visible, .choice:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 2px; }
+.gl-section { margin: 14px 0 6px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08); }
+.gl-section h3 { margin: 0 0 6px; font-size: 16px; }
+.gl-section p, .gl-section li { font-size: 13.5px; color: var(--muted); margin: 4px 0; }
+.gl-section ul { margin: 4px 0; padding-left: 18px; }
+.gl-keys { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; font-size: 13px; color: var(--muted); }
+.gl-keys b { color: var(--text); white-space: nowrap; }

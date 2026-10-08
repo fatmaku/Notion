@@ -136,6 +136,38 @@ Ohne Kamera ausprobieren (Desktop reicht): Startbildschirm → **Demo ohne Kamer
 - Musik und alle Geräusche werden live mit WebAudio erzeugt (keine Audiodateien): Synthwave-Loop in den Schieß-Modi,
   Chiptune im Runner; die Musik zieht mit Combo und Restzeit an und duckt sich kurz unter Explosionen.
 
+## Mit AR-Brille oder Headset spielen
+
+Startbildschirm → **🕶️ Brillen & AR** (mit Headset: „Brillen & Headset“). Kurz und ehrlich, was geht:
+
+| Gerät | Wie | Status |
+|---|---|---|
+| **Display-Brillen am Handy**: XREAL Air/One/One Pro, VITURE, Rokid Max, RayNeo Air | USB-C an iPhone 15+ (nicht 16e/Air) oder Android mit DisplayPort (Galaxy S, Pixel 8+); das Handy spiegelt | ✅ **Leinwand** (ohne Einstellung) · ✅ **Durchsicht-Modus**: Kamerabild aus, nur Effekte – Schwarz ist in der Brille durchsichtig, also liegen Explosionen auf der echten Welt. Einmal **Brille ausrichten**. Ausrichtung nur ungefähr (die Webseite kennt die Kopfbewegung nicht). |
+| **Meta Quest 3 / 3S** | Im Quest-Browser öffnen, „Headset-Kameras“ erlauben | ✅ WebXR: **Leinwand** (schwebendes Bild, folgt träge dem Blick) oder **AR-Overlay** (Effekte kopf-fest über der Durchsicht, Ausrichtung per Stick). Kamera über `getUserMedia` (Quest-Browser 40+); liefert sie im Headset keine Bilder, beendet das Spiel den Headset-Modus mit Hinweis. Reisemodus im Zug; im Auto unterstützt Meta das Tracking nicht. |
+| Quest 2 / Pro | Quest-Browser | ⚠️ WebXR ja, aber kein Kamerazugriff → Demo |
+| Samsung Galaxy XR / Android XR, Pico 4 Ultra | Chrome / Pico-Browser | ⚠️ WebXR mit Durchsicht ja; ob der Browser die Außenkamera hergibt, ist nicht dokumentiert – ausprobieren, sonst Demo |
+| Ray-Ban Meta / Oakley Meta | – | ❌ kein Display; Kamera nur über Metas native Toolkits, nicht im Browser |
+| Meta Ray-Ban Display | – | ❌ kann kein Handy spiegeln, Web-Apps dort haben keine Kamera |
+| Apple Vision Pro | Safari | ❌ nur WebXR-VR, kein AR, keine Kamera für Webseiten |
+
+**Steuerung ohne aufs Handy zu schauen** (alles gleichzeitig nutzbar):
+
+- **Handy als Touchpad** (Einstellung auf dem Brillen-Bildschirm): wischen = Fadenkreuz bewegen, tippen = Schuss,
+  still halten = Dauerfeuer, zweiter Finger = feuern.
+- **Bluetooth-Gamepad** (Gamepad-API, „Standard“-Belegung; einmal eine Taste drücken): A/RT schießen, X nachladen,
+  Y/LB/RB wechseln, Stick/Steuerkreuz zielen, Start Pause, Back neu zentrieren. Runner: A/↑ springen, B/↓ ducken.
+  In den Menüs: Steuerkreuz wählt, A drückt (auch Halte-Knöpfe), B = Zurück.
+- **Tastatur / Presenter:** Leertaste schießen, Pfeile zielen (Alt = fein), R nachladen, Q/E wechseln, Esc Pause,
+  C neu zentrieren; Presenter „Bild ↓“ schießt, „Bild ↑“ wechselt.
+- **Headset-Controller / Hände:** Trigger oder Pinch = schießen (Runner: springen), Griff = Waffe wechseln (Runner: ducken),
+  A/X = nachladen, B/Y = Pause (zurück ins Browserfenster, dort „🥽 Weiter im Headset“), Stick drücken = Leinwand
+  zurückholen bzw. AR-Overlay ausrichten (links schieben, rechts zoomen, nochmal drücken speichert).
+
+Technik: `src/input/` (Gamepad-/Tastatur-Belegung, Touchpad-Zustandsautomat, Menü-Navigation), `src/xr/` (WebXR-Sitzung,
+WebGL2-Leinwand ohne three.js, Strahl-Treffer, träges Nachführen). Getestet mit Unit-Tests und mit Metas
+WebXR-Emulator **IWER** (emulierte Quest 3 in Playwright: Sitzung, Frames, Controller-Strahl, Trigger, B-Pause, AR-Ausrichtung).
+Auf echter Hardware ist das noch **nicht** getestet.
+
 ## Weltweite Rangliste einrichten (optional, kostenlos)
 
 Der Server ist ein Cloudflare Worker in `server/leaderboard-worker/`. Er rechnet jede eingereichte Runde aus
@@ -186,3 +218,5 @@ Ordner:
   unten darübergezogen) und löst das Auto in Pixelblöcken auf. Die Füllung folgt dem Auto, auch wenn die Erkennung
   es kurz verliert und neu findet. Bei sehr unruhigem Hintergrund bleibt eine leichte Verschmierung sichtbar.
 - iOS: Vibration wird vom System nicht unterstützt; Sound erfordert, dass der Stummschalter aus ist.
+- Brillen/Headsets: Die Durchsicht-Ausrichtung ist ungefähr und verrutscht, wenn sich Kopf und Handy gegeneinander
+  bewegen; Headset-Tracking in fahrenden Autos ist von Meta nicht unterstützt. Getestet nur im Emulator.

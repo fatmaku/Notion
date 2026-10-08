@@ -21,6 +21,8 @@ export interface Params {
   lang: Lang | null;
   /** e2e: runner lives (only honoured in test mode) */
   lives: number | null;
+  /** see-through display glasses mode for this visit (?glasses=1) */
+  glasses: boolean;
 }
 
 export function readParams(search = typeof location !== 'undefined' ? location.search : ''): Params {
@@ -46,5 +48,6 @@ export function readParams(search = typeof location !== 'undefined' ? location.s
     nosw: flag('nosw'),
     lang: q.get('lang') === 'en' ? 'en' : q.get('lang') === 'de' ? 'de' : null,
     lives: q.has('lives') ? Number(q.get('lives')) : null,
+    glasses: flag('glasses'),
   };
 }

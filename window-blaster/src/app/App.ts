@@ -54,6 +54,11 @@ import { Storage } from './Storage';
 import { defaultSession, type Session } from './Session';
 import type { Params } from './params';
 import type { WeaponId } from '../core/types';
+import { InputHub } from '../input/InputHub';
+import { GlassesAlignScreen, type GlassesAlignApi } from '../ui/screens/GlassesAlignScreen';
+import { GlassesScreen } from '../ui/screens/GlassesScreen';
+import { XrPlayer, xrSupport, type XrCal, type XrSupport } from '../xr/XrPlayer';
+import { landscapeFullscreen } from '../ui/dom';
 
 export class App {
   readonly storage = new Storage();
@@ -96,15 +101,24 @@ export class App {
   lastResult: RoundResult | null = null;
   private playEl: HTMLElement | null = null;
   private fxDebug: FxRenderer;
+  /** gamepad, keyboard and touchpad input (glasses players can't tap on targets) */
+  readonly input: InputHub;
+  /** per-frame hook of the glasses alignment screen */
+  private aligning: GlassesAlignApi | null = null;
+  /** WebXR headset view (Quest, Android XR, Pico, …) */
+  readonly xr: XrPlayer = new XrPlayer(this);
+  xrSupport: XrSupport = { ar: false, vr: false, headset: false };
 
   constructor(readonly params: Params) {
     // language: ?lang= → the player's saved choice → the device language (English phones start in English)
     const savedLang = this.storage.get<{ lang?: Lang }>('settings.v1', {}).lang;
     this.settings.data.lang = params.lang ?? savedLang ?? detectLang();
+    if (params.glasses) this.settings.data.glasses = true;
     setLang(this.settings.data.lang);
     const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
     this.layers = new Layers($('stage'), $<HTMLVideoElement>('cam'), $<HTMLCanvasElement>('fx'), $<HTMLCanvasElement>('hud'));
     this.router = new Router($('ui'));
+    this.input = new InputHub(this, $('ui'));
     this.overlay = new DebugOverlay($('debug'), this.diag);
     this.loop = new GameLoop((dt, now) => this.tick(dt, now));
     this.errors.install();
@@ -216,10 +230,58 @@ export class App {
     return this.windowTracker?.get() ?? fullFrameState(this.layers.videoW || 1280, this.layers.videoH || 720);
   }
 
+  touchpadEnabled(): boolean {
+    return this.settings.data.touchpad;
+  }
+
+  cursorOwnedElsewhere(): boolean {
+    return this.xr.active;
+  }
+
+  // ------------------------------------------------------------- headset (WebXR)
+
+  hfovDeg(): number {
+    return this.settings.data.hfovDeg;
+  }
+
+  xrCal(): XrCal {
+    return this.settings.data.xrCal;
+  }
+
+  saveXrCal(c: XrCal): void {
+    this.settings.patch({ xrCal: { k: c.k, dx: c.dx, dy: c.dy } });
+  }
+
+  /** Is the next round played in the headset view? */
+  get wantsXr(): boolean {
+    return this.settings.data.headset && this.xrSupport.headset;
+  }
+
+  /** Enters the headset view – call from a click (WebXR needs a user gesture). */
+  enterXr(): void {
+    if (this.xr.active || !this.xrSupport.headset) return;
+    const kind = this.xrSupport.ar ? 'immersive-ar' : 'immersive-vr';
+    this.xr.enter(kind, this.settings.data.xrView).catch((e: unknown) => {
+      console.error(e);
+      toast(tf(T.xrFailed, { err: String((e as Error)?.message ?? e) }), 4000);
+    });
+  }
+
+  onXrEnd(reason: 'user' | 'pause' | 'camera' | 'error' | 'system'): void {
+    this.applySettings(); // restores the glasses calibration of the 2D view
+    if (reason === 'camera') toast(T.xrCameraStopped, 6000);
+    else if (reason === 'error') toast(T.xrError, 4000);
+    // left the headset in the middle of a round (B/Y button, system menu): show the pause menu
+    if (this.mode && reason !== 'user' && !this.paused) this.togglePause(true);
+  }
+
   applySettings(): void {
     const s = this.settings.data;
     setLang(s.lang);
     document.body.classList.toggle('left-handed', s.leftHanded);
+    // see-through glasses: black is transparent, so hide the camera image and align the effects with the real view
+    document.body.classList.toggle('glasses', s.glasses);
+    this.layers.setCal(s.glasses ? s.glassesCal : null);
     this.sfx.enabled = s.sound && !this.params.test;
     this.sfx.volume = s.sfxVolume / 100;
     this.music.enabled = s.music && !this.params.test;
@@ -287,11 +349,16 @@ export class App {
     if (p.mode && p.mode !== 'front-shooter') this.session.side = 'right';
     (window as unknown as { __wb: unknown }).__wb = {
       app: this,
-      snapshot: () => ({ ...this.diag.snapshot(), ...(this.mode?.snapshot() ?? {}), screen: this.router.active?.el.className ?? '', paused: this.paused }),
+      snapshot: () => ({ ...this.diag.snapshot(), ...(this.mode?.snapshot() ?? {}), ...this.xr.snapshot(), screen: this.router.active?.el.className ?? '', paused: this.paused }),
       /** e2e: the client's event log must replay to the same score the server would compute. */
       verifyLast: () => (this.lastResult ? verifyRound({ ...this.lastResult, source: 'camera' }) : { ok: false, verifiedScore: 0, reason: 'no-round' }),
     };
     this.diag.set('version', __APP_VERSION__);
+    void xrSupport().then((x) => {
+      this.xrSupport = x;
+      this.diag.set('xr', `${x.ar ? 'ar' : ''}${x.vr ? 'vr' : ''}${x.headset ? ' headset' : ''}` || 'none');
+      if (!this.mode && this.router.active?.el.dataset.screen === 'start') this.router.show(StartScreen(this));
+    });
     if (p.skipTo) {
       this.session.source = p.demo ? 'demo' : 'camera';
       try {
@@ -412,7 +479,28 @@ export class App {
   afterCalibrate(): void {
     this.calibrating = null;
     this.rememberCalibration();
-    this.startRound();
+    // first ride with see-through glasses: line the effects up with the real view once
+    if (this.settings.data.glasses && !this.settings.data.glassesAligned) this.showGlassesAlign(() => this.startRound(), () => this.showCalibrate());
+    else this.startRound();
+  }
+
+  showGlasses(): void {
+    this.router.show(GlassesScreen(this));
+  }
+
+  /** Glasses alignment; starts the camera (or demo) itself when nothing is running yet. */
+  showGlassesAlign(onDone: () => void, onBack: () => void): void {
+    this.mode = null;
+    const screen = GlassesAlignScreen(this, onDone, onBack);
+    this.aligning = screen;
+    this.router.show({
+      el: screen.el,
+      enter: () => screen.enter?.(),
+      exit: () => {
+        if (this.aligning === screen) this.aligning = null;
+        screen.exit?.();
+      },
+    });
   }
 
   showSettings(): void {
@@ -477,7 +565,7 @@ export class App {
       this.frame = demo;
       this.detector = new MockDetector(() => demo.truth(), { seed: this.session.seed, frame: { w: demo.width, h: demo.height } });
     } else {
-      this.frame = new CameraSource(video);
+      this.frame = new CameraSource(video, { deviceId: this.settings.data.cameraId || undefined });
       // lazy: keeps the MediaPipe loader out of the initial bundle (demo mode never needs it)
       let MediaPipeDetector: typeof import('../vision/MediaPipeDetector').MediaPipeDetector;
       try {
@@ -605,15 +693,19 @@ export class App {
     this.router.show(screen);
     this.playEl = screen.el;
     void this.wakeLock.request();
+    if (this.settings.data.glasses) landscapeFullscreen();
+    if (this.wantsXr) this.enterXr();
   }
 
   endRound(r: RoundResult): void {
     if (!this.mode) return;
     this.mode = null;
+    // results, sharing and the leaderboard are 2D pages
+    if (this.xr.active) void this.xr.exit('user');
     this.music.stop(1.2);
     this.paused = false;
     this.loop.timeScale = 1;
-    this.layers.video.style.transform = '';
+    this.layers.setShake(null);
     this.lastResult = r;
     this.party?.record(r.score);
     const flags = this.records.save(r, { weekly: this.session.weekly });
@@ -710,12 +802,13 @@ export class App {
       for (const t of this.tracker.active) this.fxDebug.bracket(t.predict(now - this.settings.data.cameraLatencyMs), 'rgba(255,255,255,0.4)', 2);
       this.calibrating.onFrame();
     }
+    this.aligning?.onFrame(now);
     if (this.mode) {
       if (!this.paused) this.mode.update(dt, now);
       if (!this.mode) return;
       this.mode.render();
       const off = (this.mode as { visualOffset?: () => { x: number; y: number } }).visualOffset?.();
-      if (off) L.video.style.transform = off.x || off.y ? `translate(${off.x.toFixed(1)}px, ${off.y.toFixed(1)}px)` : '';
+      if (off) L.setShake(off);
     } else if (this.settings.data.showBoxes || this.params.debug) {
       const vt = now - this.settings.data.cameraLatencyMs;
       for (const t of this.tracker.tracks) this.fxDebug.debugTrack(t, t.predict(vt));

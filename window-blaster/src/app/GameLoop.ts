@@ -1,6 +1,19 @@
+/** Where frames come from: the window (default) or a WebXR session while it is presenting. */
+export interface FrameScheduler {
+  request(cb: (now: number) => void): number;
+  cancel(handle: number): void;
+}
+
+const windowScheduler: FrameScheduler = {
+  request: (cb) => requestAnimationFrame(cb),
+  cancel: (h) => cancelAnimationFrame(h),
+};
+
 /** requestAnimationFrame loop with clamped dt, time scale (hit-stop) and fps stats. */
 export class GameLoop {
   private raf = 0;
+  private scheduler: FrameScheduler = windowScheduler;
+  private frameFn: ((now: number) => void) | null = null;
   private running = false;
   private last = 0;
   timeScale = 1;
@@ -25,7 +38,7 @@ export class GameLoop {
     const frame = (now: number) => {
       if (!this.running) return;
       if (this.minFrameMs > 0 && now - this.last < this.minFrameMs - 2) {
-        this.raf = requestAnimationFrame(frame);
+        this.raf = this.scheduler.request(frame);
         return;
       }
       let dt = (now - this.last) / 1000;
@@ -41,7 +54,7 @@ export class GameLoop {
         this.fpsT = now;
       }
       // schedule first so a throwing frame can never end the loop
-      this.raf = requestAnimationFrame(frame);
+      this.raf = this.scheduler.request(frame);
       try {
         this.tick(scaled, now, this.gameTime);
       } catch (e) {
@@ -49,12 +62,22 @@ export class GameLoop {
         this.onError?.(e);
       }
     };
-    this.raf = requestAnimationFrame(frame);
+    this.frameFn = frame;
+    this.raf = this.scheduler.request(frame);
   }
 
   stop(): void {
     this.running = false;
-    cancelAnimationFrame(this.raf);
+    this.scheduler.cancel(this.raf);
+  }
+
+  /** Switches the frame source (WebXR sessions do not run window.requestAnimationFrame on headsets). */
+  setScheduler(s: FrameScheduler | null): void {
+    const next = s ?? windowScheduler;
+    if (next === this.scheduler) return;
+    if (this.running) this.scheduler.cancel(this.raf);
+    this.scheduler = next;
+    if (this.running && this.frameFn) this.raf = this.scheduler.request(this.frameFn);
   }
 
   get isRunning(): boolean {

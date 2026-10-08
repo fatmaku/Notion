@@ -1,5 +1,32 @@
 import type { Rect, Vec2 } from '../core/types';
 
+export interface GlassesCal {
+  k: number;
+  dx: number;
+  dy: number;
+}
+
+/** Applies a glasses calibration to an object-fit: cover mapping (pure, unit-tested). */
+export function calibrateMapping(
+  m: { scale: number; offX: number; offY: number },
+  cssW: number,
+  cssH: number,
+  cal: GlassesCal | null,
+): { scale: number; offX: number; offY: number } {
+  if (!cal) return m;
+  const cx = cssW / 2;
+  const cy = cssH / 2;
+  return { scale: m.scale * cal.k, offX: cx + (m.offX - cx) * cal.k + cal.dx * cssW, offY: cy + (m.offY - cy) * cal.k + cal.dy * cssH };
+}
+
+/** CSS transform for the video element that matches `calibrateMapping` (plus an optional shake offset in CSS px). */
+export function videoTransform(cal: GlassesCal | null, cssW: number, cssH: number, shake?: Vec2 | null): string {
+  const sx = shake?.x ?? 0;
+  const sy = shake?.y ?? 0;
+  if (!cal) return sx || sy ? `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px)` : '';
+  return `translate(${(cal.dx * cssW + sx).toFixed(1)}px, ${(cal.dy * cssH + sy).toFixed(1)}px) scale(${cal.k.toFixed(4)})`;
+}
+
 /**
  * Owns the three stacked layers (video, FX canvas, HUD canvas) and the single
  * mapping between VIDEO pixels and CSS pixels. The video is displayed with
@@ -16,6 +43,12 @@ export class Layers {
   scale = 1;
   offX = 0;
   offY = 0;
+  /**
+   * Display-glasses alignment (see-through overlay): extra zoom `k` around the stage centre and a
+   * shift by (dx, dy) fractions of the stage size. Applied inside the mapping, so drawing, touch
+   * input and the (faint) video stay consistent. null = plain object-fit: cover.
+   */
+  cal: GlassesCal | null = null;
   readonly fx: CanvasRenderingContext2D;
   readonly hud: CanvasRenderingContext2D;
   private ro: ResizeObserver | null = null;
@@ -83,9 +116,32 @@ export class Layers {
       this.offY = 0;
       return;
     }
-    this.scale = Math.max(this.cssW / this.videoW, this.cssH / this.videoH);
-    this.offX = (this.cssW - this.videoW * this.scale) / 2;
-    this.offY = (this.cssH - this.videoH * this.scale) / 2;
+    const scale = Math.max(this.cssW / this.videoW, this.cssH / this.videoH);
+    const m = calibrateMapping({ scale, offX: (this.cssW - this.videoW * scale) / 2, offY: (this.cssH - this.videoH * scale) / 2 }, this.cssW, this.cssH, this.cal);
+    this.scale = m.scale;
+    this.offX = m.offX;
+    this.offY = m.offY;
+    this.applyVideoTransform();
+  }
+
+  private shakeCss: Vec2 | null = null;
+
+  /** Sets (or clears) the glasses calibration; the video element follows. */
+  setCal(cal: GlassesCal | null): void {
+    this.cal = cal ? { k: cal.k, dx: cal.dx, dy: cal.dy } : null;
+    this.computeMapping();
+  }
+
+  /** Camera shake in CSS px (the effect layer shakes through its own transform). */
+  setShake(off: Vec2 | null): void {
+    const same = (off?.x ?? 0) === (this.shakeCss?.x ?? 0) && (off?.y ?? 0) === (this.shakeCss?.y ?? 0);
+    this.shakeCss = off && (off.x || off.y) ? off : null;
+    if (!same) this.applyVideoTransform();
+  }
+
+  private applyVideoTransform(): void {
+    const tf = videoTransform(this.cal, this.cssW, this.cssH, this.shakeCss);
+    if (this.video.style.transform !== tf) this.video.style.transform = tf;
   }
 
   /** Transform so that subsequent drawing uses video px. */

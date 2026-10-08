@@ -148,9 +148,13 @@ export class DemoSource implements FrameSource {
       this.raf = requestAnimationFrame(tick);
     };
     this.raf = requestAnimationFrame(tick);
-    // Background tabs stop rAF; keep the scene alive so tests don't stall.
+    // Background tabs (and headsets during a WebXR session) stop window rAF; keep the scene alive.
     this.timer = setInterval(() => {
-      if (document.hidden) this.draw(performance.now());
+      const now = performance.now();
+      if (document.hidden || now - lastDraw > 3 * (1000 / this.opts.fps)) {
+        lastDraw = now;
+        this.draw(now);
+      }
     }, 1000 / this.opts.fps);
   }
 

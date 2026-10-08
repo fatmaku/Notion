@@ -142,6 +142,7 @@ export function StartScreen(app: App): Screen {
         h('button', { class: 'btn block secondary', onclick: () => app.showChallenges() }, `📅 ${T.startChallenges}`),
         h('button', { class: 'btn block secondary', onclick: () => app.showPartySetup() }, `👥 ${T.startDuel}`),
         h('button', { class: 'btn block secondary', onclick: () => app.beginFlow('demo') }, `🕹️ ${T.demo}`),
+        h('button', { class: 'btn block secondary', 'data-glasses': '1', onclick: () => app.showGlasses() }, `🕶️ ${app.xrSupport.headset ? T.startGlassesHeadset : T.startGlasses}${app.settings.data.glasses || (app.settings.data.headset && app.xrSupport.headset) ? ' ✓' : ''}`),
         h(
           'div',
           { class: 'row' },
