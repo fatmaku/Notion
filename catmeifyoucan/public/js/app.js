@@ -36,6 +36,9 @@ const ROUTES = [
   // ── Erweiterung: cafe ──
 
   // ── Erweiterung: routes ──
+  // Katzen-Spaziergänge (js/views/routes.js, erst bei Bedarf geladen)
+  [/^\/routes$/, 'map', (v, app) => import('./views/routes.js').then((x) => x.renderRoutes(v, app))],
+  [/^\/routes\/([^/]+)$/, 'map', (v, app, m) => import('./views/routes.js').then((x) => x.renderRoute(v, app, decodeURIComponent(m[1])))],
 
   // ── Erweiterung: impact ──
 

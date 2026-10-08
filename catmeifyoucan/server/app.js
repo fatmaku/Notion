@@ -357,6 +357,14 @@ export async function createApp(options = {}) {
   const cafe = mountCafe({ r, engine, partner, admin, publicUrl, trustProxy, log });
 
   // ── Erweiterung: routes ──
+  // Katzen-Spaziergänge (public/core/routes.js): Wege mit Live-Zahlen. Öffentlich lesbar; mit Token
+  // zusätzlich „deine Katzen heute auf diesem Weg“. Nur Lesen → allgemeine API-Ratenbegrenzung.
+  const walker = (req) => {
+    const p = player(req, { required: false, allowBanned: true });
+    return p && !p.banned ? p : null;
+  };
+  r.get('/api/routes', ({ req }) => engine.walkRoutes({ player: walker(req) }));
+  r.get('/api/routes/:id', ({ req, params }) => engine.walkRoute(params.id, { player: walker(req) }));
 
   // ── Erweiterung: impact ──
 

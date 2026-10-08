@@ -130,6 +130,9 @@ export class RemoteApi {
   cafeWelcome() { return this.req('GET', '/api/cafe/ref'); }
 
   // ── Erweiterung: routes ──
+  /** Katzen-Spaziergänge mit Live-Zahlen (server: /api/routes). */
+  routes() { return this.req('GET', '/api/routes'); }
+  route(id) { return this.req('GET', `/api/routes/${encodeURIComponent(id)}`); }
 
   // ── Erweiterung: impact ──
 
@@ -287,6 +290,9 @@ export async function createLocalApi() {
     cafeWelcome: () => wrap(async () => engine.refWelcome(new URLSearchParams(location.search).get('ref'))),
 
     // ── Erweiterung: routes ──
+    // Katzen-Spaziergänge: gleiche Engine; „deine Katzen heute“ nur mit Spitznamen
+    routes: () => wrap(async () => engine.walkRoutes({ player: store.get('catme.demo.player') ? mem.players.get(store.get('catme.demo.player')) : null })),
+    route: (id) => wrap(async () => engine.walkRoute(id, { player: store.get('catme.demo.player') ? mem.players.get(store.get('catme.demo.player')) : null })),
 
     // ── Erweiterung: impact ──
 

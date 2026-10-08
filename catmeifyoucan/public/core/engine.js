@@ -36,6 +36,7 @@ import { shareApi } from './share.js';
 import { cafeApi } from './cafe.js';
 
 // ── Erweiterung: routes ──
+import { routesApi } from './routes.js';
 
 // ── Erweiterung: impact ──
 
@@ -628,6 +629,7 @@ export function createEngine(opts) {
   Object.assign(api, cafeApi(ctx, api));
 
   // ── Erweiterung: routes ──
+  Object.assign(api, routesApi(ctx, api, { walks: opts.walks, rules: opts.walkRules }));
 
   // ── Erweiterung: impact ──
 

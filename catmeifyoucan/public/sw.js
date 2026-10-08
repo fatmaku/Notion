@@ -15,6 +15,7 @@ const SHELL = [
   'js/views/cafe.js',
 
   // ── Erweiterung: routes ──
+  'js/views/routes.js',
 
   // ── Erweiterung: impact ──
 

@@ -66,6 +66,7 @@ export async function renderMap(view, app) {
         <label><input type="checkbox" data-layer="heat"> 🔥 ${esc(t('map.heat'))}</label>
       </div>
       <button class="btn map-suggest" data-suggest>➕ ${esc(t('map.suggest'))}</button>
+      <a class="btn map-walks" href="#/routes"><span aria-hidden="true">🚶</span> ${esc(t('routes.title'))}</a>
       <p class="map-note">${esc(t('map.fuzzy'))}</p>
     </div>`;
   const [data, L] = await Promise.all([app.api.map(), loadLeaflet()]);

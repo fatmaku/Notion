@@ -634,6 +634,50 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 .onb-cafe-ic { font-size: 1.5rem; line-height: 1.1; flex: none; }
 
 /* ── Erweiterung: routes ── */
+/* Katzen-Spaziergänge (js/views/routes.js): Karte auf „Heute“, Knopf auf der Karte, Liste, Wegkarte */
+.walks-teaser { display: flex; align-items: center; gap: .8rem; text-decoration: none; color: var(--ink); border-color: rgba(31, 138, 138, .5); }
+.walks-teaser .big { font-size: 1.6rem; flex: none; }
+.walks-teaser > span:nth-child(2) { display: flex; flex-direction: column; min-width: 0; }
+.walks-teaser small { color: var(--muted); font-size: .85rem; }
+.walks-teaser .chev { margin-inline-start: auto; font-size: 1.6rem; color: var(--muted); flex: none; }
+.map-walks { position: absolute; inset-inline-start: .6rem; bottom: calc(2rem + 54px); z-index: 500; box-shadow: var(--shadow); }
+.walks-head, .walk-head { margin-bottom: var(--space); }
+.walks-head h1, .walk-head h1 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; margin-bottom: .4rem; }
+.walks-head p { color: var(--ink-2); margin: 0; }
+.walk-card.best { border: 2px solid var(--orange); }
+.walk-best { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .4rem; margin: 0 0 .7rem; padding: .35rem .7rem; border-radius: 12px; background: rgba(242, 140, 40, .15); font-size: .9rem; }
+.walk-best small { color: var(--ink-2); font-size: .82rem; }
+.walk-top { display: flex; gap: .75rem; align-items: flex-start; }
+.walk-top h2 { margin: 0 0 .3rem; font-size: 1.15rem; }
+.walk-ico { font-size: 1.9rem; line-height: 1.1; flex: none; }
+.walk-meta { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; }
+.walk-meta span { unicode-bidi: isolate; background: var(--surface-2); border-radius: 999px; padding: .1rem .65rem; font-size: .82rem; font-weight: 700; color: var(--ink-2); }
+.walk-story { margin: .75rem 0; color: var(--ink-2); }
+.walk-facts { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+.walk-facts li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: .3rem; align-items: start; }
+.walk-help a, .walk-mine { font-weight: 700; }
+.walk-deal { font-weight: 800; color: var(--orange-d); unicode-bidi: isolate; white-space: nowrap; }
+.walk-ends { margin: .8rem 0 0; }
+.walk-ends > span:not(.dir-ic) { unicode-bidi: isolate; }
+.walk-actions .btn { flex: 1 1 10rem; }
+.walk-map { position: relative; height: min(50vh, 420px); min-height: 240px; border-radius: var(--radius); overflow: hidden; margin: 0 0 .5rem; border: 1px solid var(--line); background: var(--surface-2); z-index: 0; }
+.walk-legend { display: flex; align-items: center; gap: .55rem; margin: .25rem 0; }
+.walk-dash { width: 28px; flex: none; border-top: 4px dashed var(--orange); }
+.walk-heat-dot { width: 16px; height: 16px; flex: none; border-radius: 50%; background: rgba(235, 104, 52, .45); }
+.walk-cta { text-align: center; margin: .9rem 0 0; }
+.walk-cta .btn { width: 100%; max-width: 420px; }
+.walk-cta p { margin: .35rem 0 0; }
+.walk-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: .6rem; margin: var(--space) 0; }
+.walk-stats .stat-l { overflow-wrap: anywhere; hyphens: auto; }
+.walk-tips ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .45rem; }
+.walk-note { text-align: center; margin-bottom: 1rem; }
+.walk-end-chip { background: rgba(242, 140, 40, .16); }
+.walk-pin span {
+  display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+  background: #fffdf8; border: 3px solid var(--navy); box-shadow: 0 1px 6px rgba(0, 0, 0, .35); font-size: 18px;
+}
+.walk-pin.start span { border-color: #0ca30c; }
+.walk-pin.finish span { border-color: var(--orange); }
 
 /* ── Erweiterung: impact ── */
 

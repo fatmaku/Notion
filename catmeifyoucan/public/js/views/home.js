@@ -72,6 +72,7 @@ export async function renderHome(view, app) {
     </section>
 
     ${help.total ? `<a class="card help-teaser" href="#/help"><span class="big">🆘</span><span>${esc(t('home.help', { n: help.total }))}</span><span class="chev dir-ic" aria-hidden="true">›</span></a>` : ''}
+    <a class="card walks-teaser" href="#/routes"><span class="big" aria-hidden="true">🚶</span><span><b>${esc(t('routes.title'))}</b><small>${esc(t('routes.homeLead'))}</small></span><span class="chev dir-ic" aria-hidden="true">›</span></a>
 
     <section class="card">
       <h2>${esc(t('home.cafes'))}</h2>
