@@ -135,6 +135,8 @@ EMOTION = {"tr": ["unutma", "ağla", "kalp", "sevgi", "hayal", "mutlu", "gülü�
            "en": ["never forget", "dream", "love", "heart", "smile", "tears", "happy", "warm", "time stood"]}
 YOU = {"tr": [r"\b(sen|siz|sizin|senin|çocuğunuz|hatırlıyor musunuz)\b"], "de": [r"\b(du|dein|deine|ihr|euer|eure|euch)\b"],
        "en": [r"\b(you|your)\b"]}
+IDENTITY = {"tr": [r"\bsadece\b", r"\byalnızca\b", r"\bherkes\b", r"\bolanlar\b"], "de": [r"\bnur\b", r"\bwer\b", r"\bkennt\b"],
+            "en": [r"\bonly\b", r"\bif you have\b", r"\bwill get this\b"]}
 CURIOUS = {"tr": ["nasıl", "neden", "kimse", "sır", "gerçek", "ilk kez", "tahmin"], "de": ["wie ", "warum", "kaum jemand", "geheimnis", "wahre", "zum ersten mal", "glaubt ihr"],
            "en": ["how ", "why", "nobody", "secret", "real reason", "first time", "guess"]}
 TOPIC_WORDS = {"kitap": {"tr": ["kitap"], "de": ["buch"], "en": ["book"]}, "cocuk": {"tr": ["çocuk"], "de": ["kind"], "en": ["child", "kid"]},
@@ -154,6 +156,8 @@ R = {  # gerekçe metinleri
     "me": ("Kişisel hikâye", "Persönliche Geschichte", "Personal story"),
     "keyword": ("Aranabilir anahtar kelime içeriyor", "Enthält ein Suchwort", "Contains a searchable keyword"),
     "fit": ("Bu içeriğin ana konusuna uyuyor", "Passt zum Hauptthema dieses Inhalts", "Fits this item's main topic"),
+    "identity": ("Kimlik kancası: 'bunu sadece … anlar' izleyiciyi seçer", "Identitäts-Hook: „das verstehen nur …“ spricht die Gruppe direkt an",
+                 "Identity hook: 'only … will get this' selects the audience"),
     "cliche": ("Klişe ifade: algoritma ve izleyici yoruldu", "Abgenutzte Floskel", "Overused cliché"),
     "emoji": ("Çok fazla emoji", "Zu viele Emojis", "Too many emojis"),
 }
@@ -185,6 +189,8 @@ def score_hook(text, lang, topic=None):
         s += 7; why.append(R["emotion"][li])
     if any(re.search(p, low) for p in YOU[lang]):
         s += 7; why.append(R["you"][li])
+    if any(re.search(p, low) for p in IDENTITY[lang]):
+        s += 10; why.append(R["identity"][li])  # 'bunu sadece … anlar': izleyici kendini seçer, paylaşır
     if re.search({"tr": r"\b(ben|benim|yazar|yazdım|paylaşıyorum|gösteriyorum)", "de": r"\b(ich|mein|meine|mir)\b",
                   "en": r"\b(i|my|me|i'm)\b"}[lang], low):
         s += 5; why.append(R["me"][li])
@@ -239,9 +245,19 @@ def variants(item, topics, lang, nostalgia=0.0, n=6, year_now=None):
                     sc = min(100, sc + relevance); why = [R["fit"][LI.get(lang, 0)]] + why
                 if formula == "yil" and nostalgia > 0.5:
                     sc = min(100, sc + 6)  # eskiden/şimdi trendi
+                if formula == "kimlik":
+                    sc = min(100, sc + 8)  # kimlik kancası: gerçek hesapta uzun uzman gönderilerinin 10 katı erişim
+                    if R["identity"][LI.get(lang, 0)] not in why:
+                        why = [R["identity"][LI.get(lang, 0)]] + why
                 cands.append({"text": txt, "score": sc, "why": why, "warn": warn, "formula": formula})
     cands.sort(key=lambda c: -c["score"])
-    return cands[:n]
+    out, per = [], {}  # çeşitlilik: aynı formülden en fazla 2 öneri (üçü de aynı kalıp olmasın)
+    for c in cands:
+        if per.get(c["formula"], 0) < 2:
+            out.append(c); per[c["formula"]] = per.get(c["formula"], 0) + 1
+        if len(out) >= n:
+            break
+    return out
 
 
 def story(item, topics, lang, seed=0):

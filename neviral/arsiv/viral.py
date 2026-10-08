@@ -102,6 +102,9 @@ TOPIC_EVENTS = {
 }
 
 
+MONTH_EVENTS = {"dehb_ayi": (10, "noro")}  # ay boyu süren farkındalık ayları: ay içinde sinyal tam
+
+
 def context(con, today=None):
     """Puanlama bağlamı: yaklaşan özel günler (konuya göre) ve aynı gün çekilmiş fotoğraf serileri (carousel)."""
     today = today or dt.date.today()
@@ -110,6 +113,9 @@ def context(con, today=None):
         for topic, keys in TOPIC_EVENTS.items():
             if e["anahtar"] in keys and (topic not in ev or e["kalan_gun"] < ev[topic]["gun"]):
                 ev[topic] = {"key": e["anahtar"], "gun": e["kalan_gun"]}
+    for key, (month, topic) in MONTH_EVENTS.items():
+        if today.month == month:
+            ev[topic] = {"key": key, "gun": 0}
     series = {(r[0], r[1], r[2]): r[3] for r in con.execute(
         "SELECT year, month, day, COUNT(*) FROM items WHERE kind='foto' AND hidden=0 AND year IS NOT NULL GROUP BY year, month, day HAVING COUNT(*)>=3")}
     return {"events": ev, "series": series}

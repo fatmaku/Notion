@@ -74,6 +74,8 @@ Algoritma kural kitabı platformların 2025-2026 açıklamalarına dayanır (Ins
 
 Komut satırı: `python3 -m arsiv viral analiz` · `viral liste --platform tiktok` · `viral paket 123 --dil tr de en` · `viral eniyi 10`.
 
+Not: Paylaşım ve hikâye saatleri, dışa aktarımı okuyan Mac'in saat dilimiyle kaydedilir; "en iyi saat" önerileri ise ayarlardaki saat dilimini kullanır. İkisi aynıysa (olağan durum) tablolar birbirini tutar. Bozuk kayıtlar (taşan sayılar, aşırı iç içe JSON, saçma zaman damgaları) tek tek atlanır; içe aktarma durmaz.
+
 ## Yenilikler (sürüm 0.2)
 
 - **Hız:** 200 000 öğelik arşivde arama ~0,1 sn, panel ~1 sn; Instagram eşleme (1000 paylaşım) ~2 sn. Küçük resimler Fotoğraflar'ın kendi önizlemelerinden paralel üretilir; yeniden içe aktarmada değişmeyenler atlanır. İçe aktarma ayrı süreçte çalışır, arayüz donmaz.

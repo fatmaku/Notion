@@ -212,6 +212,14 @@ class Viral(unittest.TestCase):
             self.assertTrue(any(w in v[0]["text"].lower() for w in sum(metin.TOPIC_WORDS["noro"].values(), [])), v[0]["text"])
             tags = yazi.hashtags([("noro", 1.0)], lang, "ig_reels")
             self.assertTrue(any("adh" in t.lower() or "dehb" in t.lower() for t in tags), tags)
+        for lang in ("tr", "de"):
+            v = metin.variants(it, ["noro"], lang, 0.0, n=6)
+            self.assertTrue(any(x["formula"] == "kimlik" for x in v[:4]), f"kimlik kancası ilk 4'te olmalı ({lang}): {[x['text'] for x in v]}")
+            self.assertTrue(all(c <= 2 for c in __import__("collections").Counter(x["formula"] for x in v).values()), "aynı formülden en fazla 2")
+        for name in ("Masking tape Bastelidee.jpg", "Therapie-Hund Bello.jpg", "Diagnose Auto Werkstatt.jpg", "Psychologie Vorlesung.jpg", "Tanı.jpg"):
+            self.assertNotEqual(konu.topics({"filename": name})[0][0], "noro", name)
+        import datetime as dt
+        self.assertEqual(viral.context(self.con, today=dt.date(2026, 10, 15))["events"]["noro"]["key"], "dehb_ayi", "DEHB ayı boyunca sinyal")
         self.assertEqual(tasarim.style_for(["noro"]), "minimal")
         self.assertIn("noro", viral.TOPIC_EVENTS)
         self.assertTrue(all("noro" in p["konu"] for p in algoritma.PLATFORMS.values()))

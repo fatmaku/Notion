@@ -27,9 +27,8 @@ TOPICS = {
                "concert", "talk", "festival"], 0.6),
     "noro": (("Nörofarklılık & psikoloji", "Neurodivergenz & Psychologie", "Neurodivergence & psychology"),
              ["adhs", "adhd", "dehb", "autismus", "autism", "otizm", "audhd", "neurodivergent", "neurodivergenz", "neurodiversität", "neurodiversity",
-              "nörodivers", "nörofarklılık", "nörofarklı", "narzissmus", "narsisizm", "narcissism", "masking", "maskierung", "psychologie", "psikoloji",
-              "psychology", "neurotypisch", "nörotipik", "neurotypical", "asperger", "beziehungskompass", "hochsensibel", "empathie", "empati",
-              "therapie", "terapi", "diagnose", "tanı", "neurodiverse"], 0.85),
+              "nörodivers", "nörofarklılık", "nörofarklı", "narzissmus", "narsisizm", "narcissism", "neurotypisch", "nörotipik", "neurotypical",
+              "asperger", "beziehungskompass", "neurodiverse", "neurodivers"], 0.85),  # 'therapie', 'diagnose', 'masking' gibi genel sözcükler yanlış eşler
     "gunluk": (("Günlük & perde arkası", "Alltag & Backstage", "Daily life & behind the scenes"), [], 0.5),
 }
 MARKETS = {"TR": ("Türkiye", "Türkei", "Türkiye", "tr", "🇹🇷"), "DE": ("Almanya/DACH", "Deutschland/DACH", "Germany/DACH", "de", "🇩🇪"),

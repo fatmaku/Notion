@@ -6,6 +6,9 @@ Dışa aktarım klasörü içinde posts_1.json, reels.json, stories.json, igtv_v
 import datetime as dt
 import json
 import re
+import sqlite3
+import stat
+import time
 from pathlib import Path
 
 from . import config, db, media
@@ -56,7 +59,7 @@ def parse_export(root):
             continue
         try:
             data = json.loads(jf.read_text(encoding="utf-8"))
-        except (ValueError, OSError):
+        except Exception:  # bozuk/aşırı iç içe/okunamayan dosya: yalnızca bu dosya atlanır
             continue
         entries = []
         _walk(data, entries)
@@ -77,20 +80,23 @@ def _safe_extract(zf, dest):
     import zipfile  # noqa: F401
     dest = Path(dest).resolve()
     for m in zf.infolist():
-        if m.is_dir():
-            continue
+        if m.is_dir() or stat.S_ISLNK(m.external_attr >> 16):
+            continue  # sembolik bağlar açılmaz
         target = (dest / m.filename).resolve()
         if dest not in target.parents:
             continue  # ../ gibi tehlikeli yollar
-        if target.exists() and target.stat().st_size == m.file_size:
-            continue
-        target.parent.mkdir(parents=True, exist_ok=True)
-        with zf.open(m) as src, open(target, "wb") as out:
-            while True:
-                chunk = src.read(4 * 1024 * 1024)
-                if not chunk:
-                    break
-                out.write(chunk)
+        try:
+            if target.exists() and target.stat().st_size == m.file_size:
+                continue
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with zf.open(m) as src, open(target, "wb") as out:
+                while True:
+                    chunk = src.read(4 * 1024 * 1024)
+                    if not chunk:
+                        break
+                    out.write(chunk)
+        except OSError:
+            continue  # tek üye (ad çakışması, izin) açılamadıysa diğerleri devam eder
 
 
 def prepare_source(path, progress=print):
@@ -137,7 +143,16 @@ def import_export(con, root, progress=print, match=True):
                     d["media_dhash"] = media.dhash_file(p)
             except Exception as ex:
                 progress(f"  ! {p.name}: {ex}")
-        _, created = db.upsert_post(con, d)
+        prev = _insights_only_row(con, d.get("media_path"), d.get("posted_at"), d.get("kind"))
+        if prev:  # istatistikten açılmış satır (göreli yol): aynı medya, tek satırda birleşir
+            cols = [k for k in d if k != "platform" and d[k] is not None]
+            if "caption" in cols and prev["caption"] and len(prev["caption"]) >= len(d["caption"] or ""):
+                cols.remove("caption")
+            if cols:
+                con.execute(f"UPDATE posts SET {', '.join(k + '=?' for k in cols)} WHERE id=?", [d[k] for k in cols] + [prev["id"]])
+            created = False
+        else:
+            _, created = db.upsert_post(con, d)
         new += created
     con.commit()
     res = {"bulunan": len(entries), "yeni": new}
@@ -158,6 +173,27 @@ def import_export(con, root, progress=print, match=True):
         pass
     progress(f"Bitti: {res}")
     return res
+
+
+def _insights_only_row(con, media_path, posted_at=None, kind=None):
+    """Yalnızca istatistik dosyasından açılmış (hash'siz) satır; içerik dışa aktarımı gelince onunla birleşir.
+    Önce göreli medya adıyla; medya adı yoksa (uzak küçük resim) aynı tür + aynı dakika."""
+    if media_path and not str(media_path).startswith(("http://", "https://")):
+        base = Path(str(media_path)).name
+        if base:
+            row = con.execute("SELECT id, caption FROM posts WHERE media_dhash IS NULL AND media_path NOT LIKE '/%' AND media_path NOT LIKE 'http%' "
+                              "AND (media_path LIKE ? ESCAPE '\\' OR media_path=?) ORDER BY id LIMIT 1", (_like_suffix(base), base)).fetchone()
+            if row:
+                return row
+    if posted_at:
+        try:
+            pa = dt.datetime.fromisoformat(str(posted_at)[:19])
+        except ValueError:
+            return None
+        lo, hi = (pa - dt.timedelta(minutes=2)).isoformat(), (pa + dt.timedelta(minutes=2)).isoformat()
+        return con.execute("SELECT id, caption FROM posts WHERE media_dhash IS NULL AND (media_path IS NULL OR media_path LIKE 'http%') "
+                           "AND posted_at BETWEEN ? AND ? AND COALESCE(kind,'post')=? ORDER BY id LIMIT 1", (lo, hi, kind or "post")).fetchone()
+    return None
 
 
 def match_posts(con, progress=print, only_unmatched=True):
@@ -252,10 +288,32 @@ def _insight_rows(node, out):
 
 
 def _insight_num(v):
+    """Sayı: sözlükte yalnızca 'value' (zaman damgası sayı sayılmaz); bool/liste geçersiz; '12.345' gibi binlik ayraçlar temizlenir;
+    makul üst sınır (SQLite INTEGER taşmasın)."""
     if isinstance(v, dict):
-        v = v.get("value", v.get("timestamp"))
-    digits = "".join(ch for ch in str(v if v is not None else "") if ch.isdigit())
-    return int(digits) if digits else None
+        v = v.get("value")
+    if v is None or isinstance(v, bool):
+        return None
+    if isinstance(v, (int, float)):
+        n = int(v)
+    elif isinstance(v, str):
+        digits = "".join(ch for ch in v if ch.isdigit())
+        if not digits:
+            return None
+        n = int(digits)
+    else:
+        return None
+    return n if 0 <= n < 10 ** 12 else None
+
+
+def _plausible_ts(v):
+    """Epoch saniye (ms ise saniyeye çevrilir); 2010 öncesi / 1 yıldan ilerisi / bool geçersiz → None."""
+    if isinstance(v, bool) or not isinstance(v, (int, float)):
+        return None
+    ts = int(v)
+    if ts > 10 ** 11:
+        ts //= 1000
+    return ts if 1_262_304_000 <= ts <= time.time() + 366 * 86400 else None
 
 
 def _insight_file(jf, want=None):
@@ -293,7 +351,7 @@ def parse_insights(root):
             continue
         try:
             data = json.loads(jf.read_text(encoding="utf-8"))
-        except (ValueError, OSError):
+        except Exception:  # bozuk/aşırı iç içe/okunamayan dosya: yalnızca bu dosya atlanır
             continue
         kind = _insight_kind(jf.name)
         found = []
@@ -312,19 +370,19 @@ def _insight_row(n, kind):
     smd = {_fix_mojibake(str(k)).lower(): v for k, v in n["string_map_data"].items()}
     ts, uri, caption = None, None, None
     for k, v in smd.items():
-        if isinstance(v, dict) and v.get("timestamp") and any(x in k for x in ("timestamp", "zeitstempel", "zaman", "startzeit", "start time")):
-            ts = int(v["timestamp"]); break
+        if isinstance(v, dict) and any(x in k for x in ("timestamp", "zeitstempel", "zaman", "startzeit", "start time")):
+            ts = _plausible_ts(v.get("timestamp"))
+            if ts:
+                break
     mmd = n.get("media_map_data")
     for m in (mmd.values() if isinstance(mmd, dict) else []):
         if isinstance(m, dict):
             uri = m.get("uri") if isinstance(m.get("uri"), str) else uri
             caption = _fix_mojibake(m.get("title")) if isinstance(m.get("title"), str) else caption
-            if not ts and m.get("creation_timestamp"):
-                ts = int(m["creation_timestamp"])
+            if not ts:
+                ts = _plausible_ts(m.get("creation_timestamp"))
     if not ts:
         return None
-    if ts > 10 ** 11:  # milisaniye
-        ts //= 1000
     row = {"posted_at": dt.datetime.fromtimestamp(ts).replace(microsecond=0).isoformat(), "kind": kind, "uri": uri, "caption": caption or None}
     for k, v in smd.items():
         if any(x in k for x in NOT_PER_POST):
@@ -371,23 +429,26 @@ def import_insights_export(con, root, progress=print):
     rows = parse_insights(root)
     if not rows:
         return 0
-    n = 0
+    n = skipped = 0
     for r in rows:
-        nums = {k: r[k] for k in INSIGHT_KEYS if k in r}
-        post, how = _find_post(con, r)
-        if post:
-            sets = dict(nums)
-            cur = con.execute("SELECT caption FROM posts WHERE id=?", (post["id"],)).fetchone()[0] or ""
-            if how == "dosya" and r.get("caption") and len(r["caption"]) > len(cur):
-                sets["caption"] = r["caption"]  # istatistik dosyasındaki açıklama daha eksiksizse (hashtag'ler dahil) onu kullan
-            if sets:
-                con.execute(f"UPDATE posts SET {', '.join(k + '=?' for k in sets)} WHERE id=?", [*sets.values(), post["id"]])
-        else:
-            db.upsert_post(con, {"platform": "instagram", "kind": r["kind"], "posted_at": r["posted_at"], "caption": r.get("caption"),
-                                 "media_path": r.get("uri"), **nums})
-        n += 1
+        try:
+            nums = {k: r[k] for k in INSIGHT_KEYS if k in r}
+            post, how = _find_post(con, r)
+            if post:
+                sets = dict(nums)
+                cur = con.execute("SELECT caption FROM posts WHERE id=?", (post["id"],)).fetchone()[0] or ""
+                if how == "dosya" and r.get("caption") and len(r["caption"]) > len(cur):
+                    sets["caption"] = r["caption"]  # istatistik dosyasındaki açıklama daha eksiksizse (hashtag'ler dahil) onu kullan
+                if sets:
+                    con.execute(f"UPDATE posts SET {', '.join(k + '=?' for k in sets)} WHERE id=?", [*sets.values(), post["id"]])
+            else:
+                db.upsert_post(con, {"platform": "instagram", "kind": r["kind"], "posted_at": r["posted_at"], "caption": r.get("caption"),
+                                     "media_path": r.get("uri"), **nums})
+            n += 1
+        except (OverflowError, ValueError, TypeError, sqlite3.Error):  # tek satır diğerlerini düşürmesin
+            skipped += 1
     con.commit()
-    progress(f"{n} paylaşımın istatistiği dışa aktarımdan okundu (erişim/beğeni/kaydetme/paylaşım)")
+    progress(f"{n} paylaşımın istatistiği dışa aktarımdan okundu (erişim/beğeni/kaydetme/paylaşım)" + (f", {skipped} satır atlandı" if skipped else ""))
     return n
 
 
@@ -401,7 +462,7 @@ def _pct_map(text):
         k, v = part.rsplit(":", 1)
         v = v.strip().replace("%", "").replace(",", ".")
         try:
-            out[k.strip().lower()] = float(v)
+            out[k.strip().replace("İ", "i").lower()] = float(v)  # 'İsviçre'.lower() birleşik nokta üretir; önce düzelt
         except ValueError:
             pass
     return out
@@ -426,7 +487,7 @@ def parse_audience(root):
             continue
         try:
             data = json.loads(jf.read_text(encoding="utf-8"))
-        except (ValueError, OSError):
+        except Exception:  # bozuk/aşırı iç içe/okunamayan dosya: yalnızca bu dosya atlanır
             continue
         found = []
         _insight_rows(data, found)
@@ -468,7 +529,7 @@ def parse_interactions(root):
             continue
         try:
             data = json.loads(jf.read_text(encoding="utf-8"))
-        except (ValueError, OSError):
+        except Exception:  # bozuk/aşırı iç içe/okunamayan dosya: yalnızca bu dosya atlanır
             continue
         found = []
         _insight_rows(data, found)
@@ -560,16 +621,19 @@ def import_insights_csv(con, path, progress=print):
                                (lo, hi, pa.isoformat())).fetchone()
             nums = {}
             for k in ("reach", "likes", "comments", "saves", "shares"):
-                digits = "".join(ch for ch in str(d.get(k) or "") if ch.isdigit())
-                if digits:
-                    nums[k] = int(digits)
-            if post:
-                if nums:
-                    con.execute(f"UPDATE posts SET {', '.join(k + '=?' for k in nums)} WHERE id=?", [*nums.values(), post["id"]])
-            else:
-                db.upsert_post(con, {"platform": "instagram", "kind": (d.get("kind") or "post").lower(), "posted_at": pa.isoformat(),
-                                     "caption": d.get("caption"), "media_path": None, **nums})
-            n += 1
+                val = _insight_num(d.get(k))
+                if val is not None:
+                    nums[k] = val
+            try:
+                if post:
+                    if nums:
+                        con.execute(f"UPDATE posts SET {', '.join(k + '=?' for k in nums)} WHERE id=?", [*nums.values(), post["id"]])
+                else:
+                    db.upsert_post(con, {"platform": "instagram", "kind": (d.get("kind") or "post").lower(), "posted_at": pa.isoformat(),
+                                         "caption": d.get("caption"), "media_path": None, **nums})
+                n += 1
+            except (OverflowError, ValueError, TypeError, sqlite3.Error):
+                skipped += 1
     con.commit()
     progress(f"{n} satır işlendi" + (f", {skipped} satırda tarih okunamadı" if skipped else ""))
     return n

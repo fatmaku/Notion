@@ -60,6 +60,8 @@ class Akis(unittest.TestCase):
                     zf.write(f, f.relative_to(self.ig))
                 if i == 1:
                     zf.writestr("../../kacak.txt", "zip-slip")  # dışarı yazmaya çalışan üye atlanmalı
+                    zf.writestr("catisma", "dosya")
+                    zf.writestr("catisma/alt.json", "{}")  # dosya adının altına klasör: üye atlanır, açma sürer
         out = instagram.prepare_source(zdir, progress=quiet)
         self.assertTrue(any(out.rglob("posts_1.json")))
         self.assertFalse((config.HOME / "kacak.txt").exists())
@@ -106,6 +108,63 @@ class Akis(unittest.TestCase):
         db.upsert_post(con, {"platform": "instagram", "kind": "post", "posted_at": "2026-06-02T10:00:00", "media_path": "/x/party.jpg", "reach": 7})
         self.assertIsNone(instagram._find_post(con, {"uri": "media/posts/y.jpg", "kind": "post", "posted_at": "2026-06-02T10:00:00"})[0])
         self.assertIsNotNone(instagram._find_post(con, {"uri": "media/posts/party.jpg", "kind": "post", "posted_at": "2026-06-02T10:00:00"})[0])
+        con.close()
+
+    def test_01d_istatistik_dayaniklilik(self):
+        """Bozuk değerler (taşan sayı, iç içe JSON, saçma zaman damgası, sayı tipi) diğer kayıtları düşürmemeli."""
+        import json
+        root = TMP / "dayanikli"
+        (root / "past_instagram_insights").mkdir(parents=True, exist_ok=True)
+
+        def node(uri, ts, **vals):
+            smd = {"Zeitstempel der Erstellung": {"value": "", "timestamp": ts}}
+            smd.update({k: ({"value": v, "timestamp": 0} if not isinstance(v, dict) else v) for k, v in vals.items()})
+            return {"media_map_data": {"Medien-Miniaturbild": {"uri": uri, "creation_timestamp": ts}}, "string_map_data": smd}
+        t0 = int(dt.datetime(2026, 5, 1, 12, 0).timestamp())
+        stories = [node("media/stories/202605/a.mp4", t0, **{"Erreichte Konten": "1.480"}),
+                   node("media/stories/202605/b.mp4", t0 + 60, **{"Erreichte Konten": "99.999.999.999.999.999.999"}),  # taşan sayı
+                   node("media/stories/202605/c.mp4", t0 + 120, **{"Erreichte Konten": 109.0, "Impressionen": {"timestamp": 12345}}),  # sayı tipi; value'suz
+                   node("media/stories/202605/d.mp4", -5000000000, **{"Erreichte Konten": "5"}),  # 1811
+                   node("media/stories/202605/e.mp4", True, **{"Erreichte Konten": "5"}),  # bool
+                   node("media/stories/202605/f.mp4", 10 ** 14 + 5, **{"Erreichte Konten": "5"}),  # 5138
+                   node("media/stories/202605/g.mp4", t0 + 180, **{"Erreichte Konten": "77"})]
+        (root / "past_instagram_insights/stories.json").write_text(json.dumps({"organic_insights_stories": stories}), encoding="utf-8")
+        (root / "past_instagram_insights/reels.json").write_text("[" * 5000 + "]" * 5000, encoding="utf-8")  # aşırı iç içe → RecursionError
+        (root / "past_instagram_insights/live_videos.json").write_bytes(b"\xff\xfe not json")
+        con = db.connect(TMP / "dayanikli.db")
+        n = instagram.import_insights_export(con, root, progress=quiet)
+        rows = {Path(r["media_path"]).name: dict(r) for r in con.execute("SELECT * FROM posts")}
+        self.assertEqual(set(rows), {"a.mp4", "c.mp4", "g.mp4"}, "taşan sayı atlanır, saçma zamanlar reddedilir, geçerli kayıtlar kalır")
+        self.assertEqual(n, 3)
+        self.assertEqual(rows["a.mp4"]["reach"], 1480)
+        self.assertEqual(rows["c.mp4"]["reach"], 109, "109.0 → 109, 1090 değil")
+        self.assertIsNone(rows["c.mp4"]["views"], "value'suz sözlükten zaman damgası sayı sayılmamalı")
+        self.assertEqual(rows["g.mp4"]["reach"], 77)
+        self.assertEqual(instagram._insight_num(1e20), None)
+        self.assertEqual(instagram._insight_num([1, 2, 3]), None)
+        con.close()
+
+    def test_01e_once_istatistik_sonra_disa_aktarim(self):
+        """Önce yalnızca istatistik klasörü, sonra tam dışa aktarım: aynı medya tek satırda birleşmeli, sayılar o satırda kalmalı."""
+        import shutil as sh
+        only = TMP / "sadece-insights"
+        if only.exists():
+            sh.rmtree(only)
+        sh.copytree(self.ig / "past_instagram_insights", only / "past_instagram_insights")
+        con = db.connect(TMP / "birlesme.db")
+        scan.scan_folder(con, self.arsiv, progress=quiet)
+        instagram.import_export(con, only, progress=quiet)
+        before = con.execute("SELECT COUNT(*) FROM posts").fetchone()[0]
+        self.assertGreaterEqual(before, 12)
+        r = instagram.import_export(con, self.ig, progress=quiet)
+        self.assertEqual(con.execute("SELECT COUNT(*) FROM posts").fetchone()[0], 4 + 9, "ikinci içe aktarma satır çoğaltmamalı")
+        lans = con.execute("SELECT * FROM posts WHERE media_path LIKE '%lansman.jpg'").fetchall()
+        self.assertEqual(len(lans), 1)
+        self.assertTrue(str(lans[0]["media_path"]).startswith("/"), "göreli yol mutlak yolla değiştirilmeli")
+        self.assertIsNotNone(lans[0]["media_dhash"])
+        self.assertEqual((lans[0]["reach"], lans[0]["likes"]), (12345, 980), "istatistik birleşen satırda kalmalı")
+        self.assertIn("#kitap", lans[0]["caption"] or "", "uzun açıklama korunmalı")
+        self.assertGreaterEqual(r["eslesen"], 3)
         con.close()
 
     def test_02_instagram(self):
