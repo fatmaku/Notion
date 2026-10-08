@@ -135,6 +135,13 @@ export class RemoteApi {
   route(id) { return this.req('GET', `/api/routes/${encodeURIComponent(id)}`); }
 
   // ── Erweiterung: impact ──
+  /** Dank-Feed (neueste zuerst, mit unread); countOnly → nur {unread} fürs Herz oben. */
+  feed({ countOnly = false } = {}) { return this.req('GET', `/api/me/feed${countOnly ? '?count=1' : ''}`); }
+  /** Gelesen bis upTo (der Zeitpunkt `now` aus feed()) – neuere Einträge bleiben neu. */
+  markFeedRead(upTo) { return this.req('POST', '/api/me/feed/read', { upTo }); }
+  impact() { return this.req('GET', '/api/me/impact'); }
+  /** Freiwillige: fed | water | vet | ok (+ kurze Notiz). */
+  careAction(id, action, note) { return this.req('POST', `/api/cats/${encodeURIComponent(id)}/care`, { action, note }); }
 
   // ── Erweiterung: report ──
 
@@ -295,6 +302,14 @@ export async function createLocalApi() {
     route: (id) => wrap(async () => engine.walkRoute(id, { player: store.get('catme.demo.player') ? mem.players.get(store.get('catme.demo.player')) : null })),
 
     // ── Erweiterung: impact ──
+    // Demo im Browser: eine Demo-Freiwillige reagiert nach ca. 1 Minute auf deine Meldung (core/impact.js)
+    feed: ({ countOnly = false } = {}) => wrap(async () => {
+      engine.demoRespond(me());
+      return countOnly ? engine.feedCount(me()) : engine.myFeed(me());
+    }),
+    markFeedRead: (upTo) => wrap(async () => engine.markFeedRead(me(), { upTo })),
+    impact: () => wrap(async () => engine.myImpact(me())),
+    careAction: (id, action, note) => wrap(async () => engine.careAction(me(), id, { action, note })),
 
     // ── Erweiterung: report ──
 

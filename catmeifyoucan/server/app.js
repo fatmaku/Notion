@@ -367,6 +367,9 @@ export async function createApp(options = {}) {
   r.get('/api/routes/:id', ({ req, params }) => engine.walkRoute(params.id, { player: walker(req) }));
 
   // ── Erweiterung: impact ──
+  // Dank-Feed, „Deine Wirkung“, schnelle Hilfe-Aktionen der Freiwilligen (server/impact.js)
+  const { mountImpact } = await import('./impact.js');
+  mountImpact({ r, engine, player, writeLimiter: lim.write, now });
 
   // ── Erweiterung: report ──
 

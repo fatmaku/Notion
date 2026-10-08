@@ -18,6 +18,7 @@ const SHELL = [
   'js/views/routes.js',
 
   // ── Erweiterung: impact ──
+  'js/views/impact.js', 'js/views/guide.js', 'guide.html', 'js/guide-page.js',
 
   // ── Erweiterung: report ──
 

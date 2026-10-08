@@ -9,6 +9,7 @@ import { lineChart } from '../charts.js';
 import { miniMap } from '../map.js';
 import { conditionFormHtml, bindConditionForm, readConditionForm, conditionText } from './condition.js';
 import { shareCat, shareMessage, copyLink } from '../share.js';
+import { mountCatImpact } from './impact.js'; // Erweiterung impact: „braucht Hilfe“-Hinweis + schnelle Hilfe
 
 export async function renderCat(view, app, id) {
   const data = await app.api.cat(id);
@@ -31,6 +32,7 @@ export async function renderCat(view, app, id) {
         ${cat.lastReport && cat.lastReport.tags && cat.lastReport.tags.length ? `<p class="small last-report"><b>${esc(t('cat.lastReport'))}:</b> ${esc(conditionText(cat.lastReport.tags))} <span class="muted">· ${esc(fmtAgo(cat.lastReport.at))}</span></p>` : ''}
       </div>
     </section>
+    <div data-impact-cat></div>
 
     <section class="card">
       <h2>${esc(t('cat.facts'))}</h2>
@@ -76,6 +78,7 @@ export async function renderCat(view, app, id) {
     lineChart(chartEl, history.filter((h) => Number.isFinite(h.bcs)).map((h) => ({ x: h.at, y: h.bcs, tip: `${fmtDate(h.at)}: BCS ${h.bcs}/9` })), { band: [4, 5] });
   }
   miniMap(view.querySelector('[data-map]'), app, obs.map((o) => [o.lat, o.lon]));
+  mountCatImpact(view.querySelector('[data-impact-cat]'), app, cat, () => renderCat(view, app, cat.id));
 
   view.querySelector('[data-act="help"]').addEventListener('click', () => {
     if (!app.api.hasToken()) return toast(t('err.login_required'), { type: 'error' });

@@ -4,6 +4,7 @@
 import { t, L } from '../i18n.js';
 import { esc, sep } from '../ui.js';
 import { CONDITION_TAGS } from '../../core/taxonomy.js';
+import { guideLinkHtml } from './guide.js'; // Erweiterung impact: „Wie kann ich helfen?“ (Fenster, Formular bleibt offen)
 
 /** HTML der Auswahl. Die Werte liest readConditionForm() wieder aus. */
 export function conditionFormHtml({ withNote = true, compact = false } = {}) {
@@ -11,7 +12,8 @@ export function conditionFormHtml({ withNote = true, compact = false } = {}) {
     ${Object.entries(CONDITION_TAGS).map(([key, c]) => `
       <label class="cond-chip sev-${esc(c.severity)}"><input type="checkbox" name="tag" value="${esc(key)}"><span aria-hidden="true">${c.icon}</span> ${esc(L(CONDITION_TAGS, key))}</label>`).join('')}
   </div>
-  ${withNote ? `<input class="cond-note" name="note" maxlength="300" placeholder="${esc(t('report.notePh'))}" autocomplete="off">` : ''}`;
+  ${withNote ? `<input class="cond-note" name="note" maxlength="300" placeholder="${esc(t('report.notePh'))}" autocomplete="off">` : ''}
+  <p class="cond-guide">${guideLinkHtml({ pop: true })}</p>`;
 }
 
 /** „Gesund“ und Probleme schließen sich aus – die Auswahl korrigiert sich selbst. */

@@ -41,6 +41,8 @@ const ROUTES = [
   [/^\/routes\/([^/]+)$/, 'map', (v, app, m) => import('./views/routes.js').then((x) => x.renderRoute(v, app, decodeURIComponent(m[1])))],
 
   // ── Erweiterung: impact ──
+  [/^\/feed$/, 'feed', (v, app) => import('./views/impact.js').then((m) => m.renderFeed(v, app))],
+  [/^\/guide$/, 'guide', (v) => import('./views/guide.js').then((m) => m.renderGuide(v))],
 
   // ── Erweiterung: report ──
 
@@ -79,6 +81,7 @@ function shell(app) {
       <a href="#/stats" data-tab="stats">${icon('stats')}<span>${esc(t('nav.stats'))}</span></a>
     </nav>`;
   app.updateMe();
+  import('./views/impact.js').then((m) => m.mountFeedBell(app)).catch(() => {}); // Erweiterung impact: Herz mit Dank-Zahl oben
 }
 
 function onboarding(app) {

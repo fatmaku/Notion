@@ -680,6 +680,96 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 .walk-pin.finish span { border-color: var(--orange); }
 
 /* ── Erweiterung: impact ── */
+/* Herz mit Dank-Zahl in der Kopfzeile (js/views/impact.js) */
+.feed-bell {
+  position: relative; display: grid; place-items: center; width: 44px; height: 44px; flex: none;
+  border-radius: 50%; color: var(--cream); text-decoration: none;
+}
+.feed-bell:hover, .feed-bell[aria-current="page"] { background: rgba(251, 243, 228, .12); }
+.feed-bell.has-new svg { fill: var(--orange); stroke: var(--orange); }
+.feed-n {
+  position: absolute; top: 2px; inset-inline-end: 0; min-width: 20px; height: 20px; padding: 0 5px;
+  display: grid; place-items: center; border-radius: 999px; border: 2px solid var(--navy);
+  background: var(--orange); color: var(--navy); font-size: .7rem; font-weight: 800; line-height: 1; unicode-bidi: isolate;
+}
+.feed-n[hidden] { display: none; }
+/* Sehr schmale Handys (320 px): Platz für das Herz – das Level steht im Profil und im Titel des Knopfs */
+@media (max-width: 359px) {
+  .top:has(.feed-bell) { gap: .4rem; }
+  .top:has(.feed-bell) .me-pill .lvl { display: none; }
+}
+/* Dank-Feed #/feed */
+.feed-card h1, .impact-card h2 { display: flex; align-items: center; gap: .45rem; }
+.feed-card h1 { font-family: var(--font-display); font-size: clamp(1.15rem, 5.6vw, 1.35rem); font-weight: 700; }
+.feed { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.feed-item { border-radius: 16px; background: var(--surface-2); }
+.feed-item.unread { background: rgba(242, 140, 40, .14); box-shadow: inset 4px 0 0 var(--orange); }
+[dir="rtl"] .feed-item.unread { box-shadow: inset -4px 0 0 var(--orange); }
+.feed-link { display: flex; gap: .75rem; align-items: flex-start; padding: .7rem .8rem; color: var(--ink); text-decoration: none; min-height: 44px; }
+.feed-body { display: grid; gap: .15rem; min-width: 0; }
+.feed-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .45rem; }
+.feed-name { font-weight: 800; overflow-wrap: anywhere; }
+.feed-when { margin-inline-start: auto; }
+.feed-msg { font-weight: 600; line-height: 1.4; }
+.chip.new { background: var(--orange); color: var(--navy); }
+.feed-empty { text-align: center; padding: .6rem 0 .2rem; }
+.feed-empty .big-emoji { font-size: 2.6rem; }
+/* Deine Wirkung (Profil, Feed) und die Zeile auf „Heute“ */
+.impact-list { list-style: none; margin: 0 0 .4rem; padding: 0; display: grid; gap: .45rem; }
+.impact-list li { display: flex; gap: .6rem; align-items: flex-start; font-weight: 600; line-height: 1.4; }
+.impact-ic { flex: none; width: 1.6rem; text-align: center; font-size: 1.15rem; }
+.impact-list li.im-helped { color: #0b6b3a; }
+.impact-thanks { color: var(--muted); font-size: .9rem; }
+.impact-links { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin: .6rem 0 0; font-weight: 700; }
+.impact-links a { display: inline-flex; align-items: center; gap: .3rem; min-height: 44px; }
+.impact-line { display: flex; align-items: center; gap: .8rem; text-decoration: none; color: var(--ink); font-weight: 700; border-color: rgba(12, 163, 12, .35); line-height: 1.35; }
+.impact-line .big { font-size: 1.6rem; flex: none; }
+.impact-line .chev { margin-inline-start: auto; font-size: 1.6rem; color: var(--muted); }
+.impact-kicker { display: block; color: var(--muted); font-size: .75rem; font-weight: 700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .impact-list li.im-helped { color: #7ee07e; } }
+:root[data-theme="dark"] .impact-list li.im-helped { color: #7ee07e; }
+/* Katzenprofil: „braucht Hilfe“ für alle, schnelle Hilfe für Freiwillige */
+.help-hint { margin: 0 0 var(--space); padding: .9rem 1rem; border-radius: var(--radius); background: rgba(208, 59, 59, .1); border: 2px solid rgba(208, 59, 59, .35); }
+.help-hint p { margin: 0 0 .35rem; }
+.help-hint .guide-link { margin-top: .3rem; }
+.care-card h2 { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.care-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; margin-top: .6rem; }
+.care-btn { min-height: 52px; padding: .45rem .6rem; border-radius: 16px; text-align: center; line-height: 1.2; white-space: normal; }
+.care-btn > span:first-child { font-size: 1.2rem; }
+/* Dunkelmodus: Navy-Rand der Knöpfe wäre auf dunklem Grund unsichtbar */
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) :is(.care-btn, .help-hint .guide-link.btn) { border-color: var(--ink-2); background: var(--surface-2); } }
+:root[data-theme="dark"] :is(.care-btn, .help-hint .guide-link.btn) { border-color: var(--ink-2); background: var(--surface-2); }
+/* Hilfe-Leitfaden (#/guide, Fenster, guide.html) */
+.guide-link { display: inline-flex; align-items: center; gap: .35rem; min-height: 44px; font-weight: 700; }
+.guide-link.btn { color: var(--ink); }
+.cond-guide { margin: 0; }
+.guide-head { text-align: center; margin-bottom: 1rem; }
+.guide-ic { display: block; font-size: 2.4rem; line-height: 1; margin-bottom: .4rem; }
+.guide-head h1, .guide-head h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.4rem; margin-bottom: .4rem; }
+.guide-lead { font-size: 1.08rem; font-weight: 700; color: var(--link); max-width: 34ch; margin: 0 auto; }
+.guide-grid { display: grid; gap: .7rem; }
+@media (min-width: 560px) { .guide-grid { grid-template-columns: 1fr 1fr; } }
+.guide-sec { background: var(--surface-2); border-radius: 16px; padding: .8rem .9rem; }
+.guide-sec.tone-care { background: rgba(208, 59, 59, .08); box-shadow: inset 0 0 0 2px rgba(208, 59, 59, .25); }
+.guide-sec h2, .guide-sec h3 { font-size: 1.02rem; font-weight: 800; margin: 0 0 .4rem; display: flex; align-items: center; gap: .4rem; }
+.guide-sec-ic { font-size: 1.3rem; }
+.guide-sec ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .3rem; }
+.guide-sec li { position: relative; padding-inline-start: 1.4rem; line-height: 1.45; }
+.guide-sec li::before { content: "•"; position: absolute; inset-inline-start: .3rem; color: var(--orange-d); font-weight: 900; }
+.guide-sec li.mk-yes::before { content: "✓"; inset-inline-start: .1rem; color: var(--good); }
+.guide-sec li.mk-no::before { content: "✕"; inset-inline-start: .1rem; color: var(--critical); }
+.guide-photo { margin: 1rem 0 0; padding: .7rem .9rem; border-radius: 14px; background: rgba(31, 138, 138, .12); font-weight: 600; }
+.guide-cta { display: flex; align-items: center; gap: .8rem; text-decoration: none; color: var(--ink); font-weight: 700; }
+.guide-cta .big { font-size: 1.6rem; }
+.guide-cta .chev { margin-inline-start: auto; font-size: 1.6rem; color: var(--muted); }
+.guide-pop:focus { outline: none; }
+.guide-pop .guide-head { padding-inline-end: 2.4rem; padding-inline-start: 2.4rem; }
+.guide-page main { padding-bottom: 2.5rem; }
+.guide-page .guide-langs { display: flex; margin: 0 auto 1rem; width: fit-content; background: var(--surface-2); }
+.guide-page .guide-langs button { color: var(--ink); }
+.guide-page .guide-langs button.on { color: var(--navy); }
+.guide-play p { margin: 0; }
+.maker { text-align: center; margin: 1.5rem 0 0; }
 
 /* ── Erweiterung: report ── */
 

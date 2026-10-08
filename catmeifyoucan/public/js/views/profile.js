@@ -4,6 +4,8 @@
 import { t, tx, LANGS, LANG_INFO, setLang, getLang } from '../i18n.js';
 import { esc, sep, fmtNum, fmtAgo, toast, errorText, catImg, patternLabel } from '../ui.js';
 import { arEnabled, setArEnabled } from './catch.js';
+import { mountProfileImpact } from './impact.js'; // Erweiterung impact: „Deine Wirkung“
+import { guideLinkHtml } from './guide.js';
 
 export async function renderProfile(view, app) {
   const [{ player, profile }, obs] = await Promise.all([app.api.me(), app.api.myObservations()]);
@@ -21,6 +23,7 @@ export async function renderProfile(view, app) {
     <section class="card"><h2>${esc(t('p.stats'))}</h2>
       <div class="stats-grid small">${['uniqueCats', 'catches', 'discoveries', 'districts', 'goalDays', 'currentStreak', 'maxStreak'].map((k) => `<div class="stat"><span class="stat-l">${esc(t(`m.${k}`))}</span><b class="stat-v">${fmtNum(m[k])}</b></div>`).join('')}</div>
     </section>
+    <div data-impact></div>
     <section class="card"><h2>${esc(t('p.badges'))} <small class="muted">${fmtNum(profile.badges.filter((b) => b.earned).length)}/${fmtNum(profile.badges.length)}</small></h2>
       <div class="badges">${profile.badges.map((b) => `
         <div class="badge ${b.earned ? 'on' : ''}" title="${esc(tx(b.desc))}"><span class="b-ico">${b.icon}</span><b>${esc(tx(b.name))}</b><small>${b.earned ? '✓' : `${fmtNum(Math.min(b.value, b.gte))}/${fmtNum(b.gte)}`}</small></div>`).join('')}
@@ -44,6 +47,7 @@ export async function renderProfile(view, app) {
       <button class="btn danger-soft small" data-reset>${esc(t('p.reset'))}</button>
     </section>`;
 
+  mountProfileImpact(view.querySelector('[data-impact]'), app);
   view.querySelector('[data-f]').addEventListener('submit', async (e) => {
     e.preventDefault();
     const f = e.target;
@@ -74,6 +78,7 @@ export function renderRules(view) {
     <section class="card prose">
       <h1>🐾 ${esc(t('rules.title'))}</h1>
       ${t('rules.body').split('\n').map((l) => `<p>${esc(l)}</p>`).join('')}
+      <p>${guideLinkHtml({ pop: true, label: t('guide.title') })}</p>
       <h2>🔒 ${esc(t('rules.privacy'))}</h2>
       <p>${esc(t('rules.privacyBody'))}</p>
       <p class="muted">🤖 ${esc(t('rules.ai'))}</p>
