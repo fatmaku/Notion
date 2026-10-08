@@ -63,7 +63,7 @@ export async function renderCat(view, app, id) {
       <div class="minimap" data-map></div>
       <p class="small muted">${esc(t('map.fuzzy'))}</p>
       <ul class="timeline">${obs.map((o) => `
-        <li>${o.photoUrl ? `<img class="catimg sm" src="${esc(o.photoUrl)}" alt="" loading="lazy">` : '<span class="dot"></span>'}
+        <li>${o.photoUrl ? `<img class="catimg sm" src="${esc(o.photoUrl)}" alt="" loading="lazy" decoding="async">` : '<span class="dot"></span>'}
           <div><b>${esc(fmtDateTime(o.at))}</b>${sep()}${esc(o.by || '')}${o.isDiscovery ? ' 🔭' : ''}<br>
           <small class="muted">${esc(L(BEHAVIOR, o.analysis.behavior || 'unknown'))}${o.analysis.health_severity && o.analysis.health_severity !== 'none' ? `${sep()}⚠ ${o.analysis.health_notes ? `<span lang="tr" dir="auto">${esc(o.analysis.health_notes)}</span>` : esc(L(SEVERITY, o.analysis.health_severity))}` : ''}</small>
           ${o.analysis.summary ? `<br><small>${esc(tx(o.analysis.summary))}</small>` : ''}</div></li>`).join('')}

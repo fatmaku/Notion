@@ -31,7 +31,7 @@ export async function renderProfile(view, app) {
     </section>
     <section class="card"><h2>${esc(t('p.recent'))}</h2>
       <ul class="timeline">${obs.slice(0, 15).map((o) => `
-        <li><a href="#/cat/${esc(o.catId)}">${o.photoUrl ? `<img class="catimg sm" src="${esc(o.photoUrl)}" alt="">` : catImg({ id: o.catId, pattern: o.analysis.pattern }, { size: 'sm' })}</a>
+        <li><a href="#/cat/${esc(o.catId)}">${o.photoUrl ? `<img class="catimg sm" src="${esc(o.photoUrl)}" alt="" loading="lazy" decoding="async">` : catImg({ id: o.catId, pattern: o.analysis.pattern }, { size: 'sm' })}</a>
           <div><b>${esc(patternLabel(o.analysis.pattern))}</b>${sep()}${esc(fmtAgo(o.at))} ${o.xp ? `<span class="chip"><bdi dir="ltr">+${fmtNum(o.xp)} XP</bdi></span>` : ''}${o.isDiscovery ? ' 🔭' : ''}
           ${!o.counted ? `<br><small class="warn">${esc(t('card.notCounted', { why: (o.flags || []).map((f) => t(`why.${f}`)).join(', ') }))}</small>` : ''}</div></li>`).join('') || `<li class="muted">${esc(t('dex.empty'))}</li>`}
       </ul>

@@ -377,6 +377,7 @@ export async function createApp(options = {}) {
   mountReport({ r, engine, now });
 
   // ── Erweiterung: perf ──
+  // Keine eigenen Routen: brotli/gzip steckt in server/compress.js (benutzt von static.js, http.js, share.js).
 
 
   // ------------------------------------------------------------ HTTP

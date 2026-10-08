@@ -3,7 +3,6 @@
 import { t, L, tx, getLang } from '../i18n.js';
 import { esc, isolate, fmtNum, catImg, fmtTime, toast, errorText, stars, pct } from '../ui.js';
 import { PATTERNS } from '../../core/taxonomy.js';
-import { mountHomeImpact } from './impact.js'; // Erweiterung impact: Zeile „Deine Wirkung“
 
 function ring(count, goal) {
   const r = 70;
@@ -87,7 +86,8 @@ export async function renderHome(view, app) {
     </section>
     <p class="center"><a href="#/rules" class="muted small">🐾 ${esc(t('rules.title'))}</a></p>`;
 
-  mountHomeImpact(view.querySelector('[data-impact-line]'), app);
+  // Erweiterung impact: Zeile „Deine Wirkung“ – nachgeladen, damit „Heute“ nicht darauf wartet (Erweiterung perf)
+  import('./impact.js').then((m) => m.mountHomeImpact(view.querySelector('[data-impact-line]'), app)).catch(() => {});
   view.querySelector('[data-act="claim"]')?.addEventListener('click', async () => {
     try {
       await app.api.claimVoucher();

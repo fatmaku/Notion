@@ -600,6 +600,12 @@ function webglAvailable() {
   }
 }
 
+// Erweiterung perf: three.js (~150 KB gepackt) erst nach dem ersten Bild laden – so kommen Text,
+// Schriften und Bilder auf schwachem Netz zuerst.
+function afterFirstPaint() {
+  return new Promise((resolve) => requestAnimationFrame(() => setTimeout(resolve, 0)));
+}
+
 async function setupHero() {
   const hero = $('#hero');
   const canvas = $('.hero-canvas', hero);
@@ -611,6 +617,7 @@ async function setupHero() {
   // WebGL ist da: kein Überblenden vom Standbild – der Sternenhimmel bleibt kurz leer, dann kommt 3D
   hero.classList.add('webgl-pending');
   try {
+    await afterFirstPaint();
     const { startHero } = await import('./hero3d.js');
     const inner = $('.hero-inner', hero);
     const ctl = await startHero({

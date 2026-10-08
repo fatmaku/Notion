@@ -2,6 +2,10 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { createCompressionCache, isCompressible, pickEncoding, etagMatches, etagFor, addVary, compressBest, MIN_BYTES, MAX_FILE_BYTES } from './compress.js';
+
+// Erweiterung perf: gepackte Dateien im Speicher (je Datei + Änderungszeit + Verfahren)
+const packed = createCompressionCache();
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -54,8 +58,35 @@ function sendFile(req, res, file, { cache = 'no-cache', headers = {} } = {}) {
   if (!st.isFile()) return false;
   const etag = `"${st.size.toString(36)}-${Math.floor(st.mtimeMs).toString(36)}"`;
   const type = TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream';
-  const h = { 'Content-Type': type, 'Cache-Control': cache, ETag: etag, 'Accept-Ranges': 'bytes', ...headers };
-  if (req.headers['if-none-match'] === etag) {
+  // Erweiterung perf: Text ab 1 KB gepackt (brotli/gzip), eigener ETag je Verfahren, nie bei Range
+  const compressible = isCompressible(type) && st.size >= MIN_BYTES && st.size <= MAX_FILE_BYTES;
+  const h = { 'Content-Type': type, 'Cache-Control': cache, ETag: etag, 'Accept-Ranges': 'bytes', ...(compressible ? { Vary: 'Accept-Encoding' } : {}), ...headers };
+  const enc = compressible && !req.headers.range ? pickEncoding(req.headers['accept-encoding']) : null;
+  if (enc) {
+    const hc = { ...h, ETag: etagFor(etag, enc) };
+    if (etagMatches(req.headers['if-none-match'], hc.ETag)) {
+      res.writeHead(304, hc);
+      res.end();
+      return true;
+    }
+    packed.get(file, st, enc).then(
+      (buf) => {
+        if (res.destroyed || res.headersSent) return;
+        res.writeHead(200, { ...hc, 'Content-Encoding': enc, 'Content-Length': buf.length });
+        res.end(req.method === 'HEAD' ? undefined : buf);
+      },
+      () => {
+        // Packen fehlgeschlagen (z. B. Datei gerade gelöscht) → unverpackt wie bisher
+        if (!res.destroyed && !res.headersSent) sendPlain(req, res, file, st, h, etag);
+      },
+    ).catch(() => res.destroy());
+    return true;
+  }
+  return sendPlain(req, res, file, st, h, etag);
+}
+
+function sendPlain(req, res, file, st, h, etag) {
+  if (etagMatches(req.headers['if-none-match'], etag)) {
     res.writeHead(304, h);
     res.end();
     return true;
@@ -146,7 +177,7 @@ export function serveLanding(req, res, root, { headers = {}, lang = 'en', public
     return false;
   }
   if (!landingCache || landingCache.mtimeMs !== st.mtimeMs || landingCache.size !== st.size) {
-    landingCache = { mtimeMs: st.mtimeMs, size: st.size, html: fs.readFileSync(file, 'utf8'), byKey: new Map() };
+    landingCache = { mtimeMs: st.mtimeMs, size: st.size, html: fs.readFileSync(file, 'utf8'), byKey: new Map(), packed: new Map() };
   }
   const key = `${lang}|${publicUrl}`;
   let html = landingCache.byKey.get(key);
@@ -160,13 +191,38 @@ export function serveLanding(req, res, root, { headers = {}, lang = 'en', public
   }
   const body = Buffer.from(html);
   const etag = `"l-${lang}-${body.length.toString(36)}-${Math.floor(st.mtimeMs).toString(36)}"`;
-  const h = { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-cache', Vary: 'Accept-Language', ETag: etag, ...headers };
-  if (req.headers['if-none-match'] === etag) {
+  // Erweiterung perf: gepackt je Sprache + Verfahren im Speicher, eigener ETag je Verfahren
+  const enc = body.length >= MIN_BYTES ? pickEncoding(req.headers['accept-encoding']) : null;
+  const h = { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-cache', Vary: addVary('Accept-Language', 'Accept-Encoding'), ETag: etagFor(etag, enc), ...headers };
+  if (etagMatches(req.headers['if-none-match'], h.ETag)) {
     res.writeHead(304, h);
     res.end();
     return true;
   }
-  res.writeHead(200, { ...h, 'Content-Length': body.length });
-  res.end(req.method === 'HEAD' ? undefined : body);
+  if (!enc) {
+    res.writeHead(200, { ...h, 'Content-Length': body.length });
+    res.end(req.method === 'HEAD' ? undefined : body);
+    return true;
+  }
+  const pk = `${key}|${enc}`;
+  const jobs = landingCache.packed;
+  let job = jobs.get(pk);
+  if (!job) {
+    job = compressBest(body, enc);
+    jobs.set(pk, job);
+    job.catch(() => jobs.get(pk) === job && jobs.delete(pk));
+  }
+  job.then(
+    (buf) => {
+      if (res.destroyed || res.headersSent) return;
+      res.writeHead(200, { ...h, 'Content-Encoding': enc, 'Content-Length': buf.length });
+      res.end(req.method === 'HEAD' ? undefined : buf);
+    },
+    () => {
+      if (res.destroyed || res.headersSent) return;
+      res.writeHead(200, { ...h, ETag: etag, 'Content-Length': body.length });
+      res.end(req.method === 'HEAD' ? undefined : body);
+    },
+  ).catch(() => res.destroy());
   return true;
 }

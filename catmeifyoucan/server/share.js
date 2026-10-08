@@ -11,6 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { pickSiteLang } from './static.js';
+import { sendBody } from './compress.js';
 import { catAvatarSvg } from '../public/js/avatar.js';
 import { PATTERNS, RARITY, CAT_STATUS, AGE_GROUPS, label } from '../public/core/taxonomy.js';
 import { CAT_ID_RE, PUBLIC_PHOTO_RE } from '../public/core/share.js';
@@ -424,15 +425,7 @@ function etagOf(body) {
 
 function send(req, res, status, body, headers) {
   const buf = Buffer.from(body);
-  const etag = etagOf(buf);
-  const h = { ETag: etag, ...headers };
-  if (status === 200 && req.headers['if-none-match'] === etag) {
-    res.writeHead(304, h);
-    res.end();
-    return;
-  }
-  res.writeHead(status, { ...h, 'Content-Length': buf.length });
-  res.end(req.method === 'HEAD' ? undefined : buf);
+  sendBody(req, res, status, buf, headers, { etag: etagOf(buf) }); // Erweiterung perf: gepackt, ETag je Verfahren, 304
 }
 
 /**

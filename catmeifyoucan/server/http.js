@@ -1,6 +1,7 @@
 // Cat Me If You Can – minimaler HTTP-Unterbau: Router, JSON-Body, Antworten, Fehler, Sicherheits-Header.
 
 import { GameError } from '../public/core/util.js';
+import { sendBody } from './compress.js';
 
 export class HttpError extends Error {
   constructor(status, code, message, details) {
@@ -125,15 +126,14 @@ export function securityHeaders({ tileHost, arCdn }) {
   };
 }
 
+// Erweiterung perf: ab 1 KB gepackt (brotli/gzip nach Accept-Encoding), res.req liefert die Anfrage
 export function sendJson(res, status, body, extraHeaders = {}) {
   const data = JSON.stringify(body);
-  res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...extraHeaders });
-  res.end(data);
+  sendBody(res.req, res, status, data, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...extraHeaders });
 }
 
 export function sendText(res, status, text, type = 'text/plain; charset=utf-8', extraHeaders = {}) {
-  res.writeHead(status, { 'Content-Type': type, 'Cache-Control': 'no-store', ...extraHeaders });
-  res.end(text);
+  sendBody(res.req, res, status, text, { 'Content-Type': type, 'Cache-Control': 'no-store', ...extraHeaders });
 }
 
 /** Fehler → JSON-Antwort. GameError (Engine) und HttpError (Server) haben dieselbe Form. */

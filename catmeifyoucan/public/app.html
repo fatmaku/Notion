@@ -19,9 +19,27 @@
   <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/app.css">
   <script type="module" src="js/app.js"></script>
+  <!-- Erweiterung perf: Module für „Heute“ gleich mitladen statt Ebene für Ebene (schwaches Netz) -->
+  <link rel="modulepreload" href="js/api.js">
+  <link rel="modulepreload" href="js/i18n.js">
+  <link rel="modulepreload" href="js/ui.js">
+  <link rel="modulepreload" href="core/taxonomy.js">
+  <link rel="modulepreload" href="js/views/home.js">
+  <link rel="modulepreload" href="js/avatar.js">
+  <link rel="modulepreload" href="js/lang/en.js">
+  <link rel="modulepreload" href="js/lang/tr.js">
+  <link rel="modulepreload" href="js/lang/de.js">
+  <link rel="modulepreload" href="js/lang/ru.js">
+  <link rel="modulepreload" href="js/lang/ar.js">
+  <link rel="modulepreload" href="js/lang/fa.js">
+  <link rel="modulepreload" href="core/labels/ru.js">
+  <link rel="modulepreload" href="core/labels/ar.js">
+  <link rel="modulepreload" href="core/labels/fa.js">
+  <link rel="preload" href="vendor/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
-  <div class="boot"><img src="icons/logo.svg" alt="" width="120" height="120"><p>Cat Me If You Can</p></div>
+  <!-- Erweiterung perf: Lade-Logo = icons/logo.svg als data:-URL (keine Anfrage, sofort sichtbar); test/perf.test.js hält beide gleich -->
+  <div class="boot"><img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E%3Crect width=%22512%22 height=%22512%22 rx=%22116%22 fill=%22%2314213d%22/%3E%3Cg fill=%22none%22 stroke=%22%23fbf3e4%22 stroke-width=%2222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M84 176v-62a30 30 0 0 1 30-30h62%22/%3E%3Cpath d=%22M336 84h62a30 30 0 0 1 30 30v62%22/%3E%3Cpath d=%22M428 336v62a30 30 0 0 1-30 30h-62%22/%3E%3Cpath d=%22M176 428h-62a30 30 0 0 1-30-30v-62%22/%3E%3C/g%3E%3Cg transform=%22translate(0 -24)%22%3E%3Cpath fill=%22%23f28c28%22 d=%22M150 268 162 148l70 66h48l70-66 12 120c14 20 22 42 22 64 0 62-58 96-128 96s-128-34-128-96c0-22 8-44 22-64z%22/%3E%3Cpath fill=%22%23c4610f%22 d=%22M174 236 181 180l36 34zM338 236l-7-56-36 34z%22/%3E%3Cg fill=%22%23c4610f%22%3E%3Cpath d=%22M244 214h24l-5 34h-14z%22/%3E%3Cpath d=%22M206 222l18-2 4 26-14 4z%22/%3E%3Cpath d=%22M306 222l-18-2-4 26 14 4z%22/%3E%3C/g%3E%3Cpath fill=%22%23fbf3e4%22 d=%22M256 312c-34 0-58 18-58 40 0 26 26 40 58 40s58-14 58-40c0-22-24-40-58-40z%22/%3E%3Cpath fill=%22%2314213d%22 d=%22M186 288c10-16 44-20 60-4-12 14-46 18-60 4z%22/%3E%3Ccircle cx=%22222%22 cy=%22287%22 r=%227%22 fill=%22%23f6d55c%22/%3E%3Cpath fill=%22none%22 stroke=%22%2314213d%22 stroke-width=%2210%22 stroke-linecap=%22round%22 d=%22M272 290c14-12 38-12 52 0%22/%3E%3Cpath fill=%22%2314213d%22 d=%22M244 324h24l-12 13z%22/%3E%3Cpath fill=%22none%22 stroke=%22%2314213d%22 stroke-width=%227%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22 d=%22M256 337c-2 12-18 16-26 6M256 337c4 10 22 14 32 0%22/%3E%3Cg stroke=%22%23fbf3e4%22 stroke-width=%226%22 stroke-linecap=%22round%22%3E%3Cpath d=%22M190 332l-64-10M190 346l-60 8%22/%3E%3Cpath d=%22M322 332l64-10M322 346l60 8%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E" alt="" width="120" height="120"><p>Cat Me If You Can</p></div>
   <noscript>Cat Me If You Can JavaScript gerektirir · braucht JavaScript · needs JavaScript.</noscript>
 </body>
 </html>

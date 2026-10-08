@@ -3,14 +3,44 @@
 import { RemoteApi, createLocalApi } from './api.js';
 import { t, getLang, setLang, LANGS, LANG_INFO, tx } from './i18n.js';
 import { esc, sep, toast, errorText, fmtNum } from './ui.js';
-import { renderHome } from './views/home.js';
-import { renderCatch } from './views/catch.js';
-import { renderDex } from './views/dex.js';
-import { renderCat } from './views/cat.js';
-import { renderMap } from './map.js';
-import { renderStats, renderHelp } from './views/stats.js';
-import { renderVoucher } from './views/voucher.js';
-import { renderProfile, renderRules } from './views/profile.js';
+
+// Erweiterung perf: Ansichten erst laden, wenn man sie öffnet (import() je Route, der Lade-Kreis läuft
+// solange). Startseite „Heute“ ist in app.html per modulepreload schon unterwegs.
+const VIEWS = {
+  home: () => import('./views/home.js'),
+  catch: () => import('./views/catch.js'),
+  dex: () => import('./views/dex.js'),
+  cat: () => import('./views/cat.js'),
+  map: () => import('./map.js'),
+  stats: () => import('./views/stats.js'),
+  voucher: () => import('./views/voucher.js'),
+  profile: () => import('./views/profile.js'),
+};
+const STALE = Symbol('stale');
+const failedViews = new Set();
+const offline = (msg) => Object.assign(new Error(msg), { code: 'network' });
+/** Modul einer Ansicht laden. Inzwischen andere Route gewählt → nichts zeichnen; kein Netz → „Keine Verbindung“. */
+async function loadView(name) {
+  const seq = routeSeq;
+  if (failedViews.has(name)) {
+    // Der Browser merkt sich ein fehlgeschlagenes Modul bis zum Neuladen. Netz wieder da → neu laden
+    // (der Hash und damit die Seite bleiben), sonst wieder „Keine Verbindung“.
+    const back = await fetch('js/app.js', { method: 'HEAD', cache: 'no-store' }).then((r) => r.ok, () => false);
+    if (!back) throw offline('offline');
+    location.reload();
+    return new Promise(() => {});
+  }
+  let mod;
+  try {
+    mod = await (typeof name === 'function' ? name() : VIEWS[name]()); // Name aus VIEWS oder eigene Ladefunktion
+  } catch (e) {
+    console.warn('[catme] Ansicht nicht geladen', e);
+    failedViews.add(name);
+    throw offline(String((e && e.message) || e));
+  }
+  if (seq !== routeSeq) throw STALE;
+  return mod;
+}
 
 const ICONS = {
   home: '<path d="M4 11.5 12 5l8 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z"/>',
@@ -21,28 +51,28 @@ const ICONS = {
 const icon = (k) => `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
 
 const ROUTES = [
-  [/^\/?$/, 'home', (v, app) => renderHome(v, app)],
-  [/^\/catch$/, 'catch', (v, app) => renderCatch(v, app)],
-  [/^\/dex$/, 'dex', (v, app, m, q) => renderDex(v, app, q)],
-  [/^\/cat\/([^/]+)$/, 'dex', (v, app, m) => renderCat(v, app, decodeURIComponent(m[1]))],
-  [/^\/map$/, 'map', (v, app) => renderMap(v, app)],
-  [/^\/stats$/, 'stats', (v, app, m, q) => renderStats(v, app, q)],
-  [/^\/help$/, 'stats', (v, app) => renderHelp(v, app)],
-  [/^\/voucher$/, 'home', (v, app) => renderVoucher(v, app)],
-  [/^\/profile$/, 'profile', (v, app) => renderProfile(v, app)],
-  [/^\/rules$/, 'profile', (v) => renderRules(v)],
+  [/^\/?$/, 'home', async (v, app) => (await loadView('home')).renderHome(v, app)],
+  [/^\/catch$/, 'catch', async (v, app) => (await loadView('catch')).renderCatch(v, app)],
+  [/^\/dex$/, 'dex', async (v, app, m, q) => (await loadView('dex')).renderDex(v, app, q)],
+  [/^\/cat\/([^/]+)$/, 'dex', async (v, app, m) => (await loadView('cat')).renderCat(v, app, decodeURIComponent(m[1]))],
+  [/^\/map$/, 'map', async (v, app) => (await loadView('map')).renderMap(v, app)],
+  [/^\/stats$/, 'stats', async (v, app, m, q) => (await loadView('stats')).renderStats(v, app, q)],
+  [/^\/help$/, 'stats', async (v, app) => (await loadView('stats')).renderHelp(v, app)],
+  [/^\/voucher$/, 'home', async (v, app) => (await loadView('voucher')).renderVoucher(v, app)],
+  [/^\/profile$/, 'profile', async (v, app) => (await loadView('profile')).renderProfile(v, app)],
+  [/^\/rules$/, 'profile', async (v) => (await loadView('profile')).renderRules(v)],
   // ── Erweiterung: share ──
 
   // ── Erweiterung: cafe ──
 
   // ── Erweiterung: routes ──
   // Katzen-Spaziergänge (js/views/routes.js, erst bei Bedarf geladen)
-  [/^\/routes$/, 'map', (v, app) => import('./views/routes.js').then((x) => x.renderRoutes(v, app))],
-  [/^\/routes\/([^/]+)$/, 'map', (v, app, m) => import('./views/routes.js').then((x) => x.renderRoute(v, app, decodeURIComponent(m[1])))],
+  [/^\/routes$/, 'map', async (v, app) => (await loadView(() => import('./views/routes.js'))).renderRoutes(v, app)],
+  [/^\/routes\/([^/]+)$/, 'map', async (v, app, m) => (await loadView(() => import('./views/routes.js'))).renderRoute(v, app, decodeURIComponent(m[1]))],
 
   // ── Erweiterung: impact ──
-  [/^\/feed$/, 'feed', (v, app) => import('./views/impact.js').then((m) => m.renderFeed(v, app))],
-  [/^\/guide$/, 'guide', (v) => import('./views/guide.js').then((m) => m.renderGuide(v))],
+  [/^\/feed$/, 'feed', async (v, app) => (await loadView(() => import('./views/impact.js'))).renderFeed(v, app)],
+  [/^\/guide$/, 'guide', async (v) => (await loadView(() => import('./views/guide.js'))).renderGuide(v)],
 
   // ── Erweiterung: report ──
 
@@ -50,10 +80,13 @@ const ROUTES = [
 
 ];
 
+let earlyConfig = null;
 async function chooseApi() {
   const params = new URLSearchParams(location.search);
   if (params.get('demo') === '1') return createLocalApi();
   const remote = new RemoteApi();
+  earlyConfig = remote.config(); // Erweiterung perf: Einstellungen parallel zur Server-Prüfung holen (eine Wartezeit weniger)
+  earlyConfig.catch(() => {});
   try {
     const h = await remote.health();
     if (!h || h.ok !== true) throw new Error('no server'); // z. B. statischer Host liefert HTML statt JSON
@@ -184,7 +217,7 @@ async function route(app) {
 async function boot() {
   setLang(getLang());
   const api = await chooseApi();
-  const config = await api.config();
+  const config = await (api instanceof RemoteApi && earlyConfig ? earlyConfig.catch(() => api.config()) : api.config());
   const app = {
     api,
     config,
