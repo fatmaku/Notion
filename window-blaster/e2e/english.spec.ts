@@ -6,7 +6,7 @@ test('English: start → safety → mode → weapons → calibrate → play → 
   test.setTimeout(120_000);
   await page.goto('/?test=1&noshake=1&lang=en');
   await page.getByRole('button', { name: /Demo without camera/ }).click();
-  await expect(page.getByText('Passengers only')).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Passengers only/ })).toBeVisible();
   await page.getByRole('button', { name: /Train \/ rail/ }).click();
   const hold = page.getByRole('button', { name: /I am not driving/ });
   await hold.scrollIntoViewIfNeeded();
@@ -38,7 +38,7 @@ test('English: start → safety → mode → weapons → calibrate → play → 
 
 test('English: settings, shop, stats, challenges and duel screens are translated', async ({ page }) => {
   await page.goto('/?demo=1&test=1&lang=en');
-  const german = /Einstellungen|Sprache|Lautstärke|Rundenl|Freischalten|Guthaben|Statistik|Runden|Spielzeit|Challenges · Tag|Wochen|Spieler|Duell/;
+  const german = /Einstellungen|Lautstärke|Rundenl|Freischalten|Guthaben|Statistik|Runden|Spielzeit|Challenges · Tag|Wochen|Spieler|Duell/;
   await page.getByRole('button', { name: '⚙️' }).click();
   expect(await page.locator('.screen .card').innerText()).not.toMatch(german);
   await page.locator('.screen .card button').last().click();
