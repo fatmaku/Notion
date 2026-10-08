@@ -2387,3 +2387,91 @@ html[dir='rtl'] .chip {
     transition: none !important;
   }
 }
+
+/* ------------------------------------------------------------ Hilfe-Links + Katzen-Spaziergänge */
+
+.help-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px 0 0;
+}
+
+.help-links .btn {
+  white-space: normal;
+  text-align: start;
+}
+
+.walks {
+  background-color: var(--navy-2);
+}
+
+.walk-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  .walk-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.walk-list a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 64px;
+  padding: 14px 20px;
+  border-radius: var(--radius-lg);
+  background-color: var(--navy);
+  border: 1px solid var(--line);
+  color: var(--cream);
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.walk-list a:hover,
+.walk-list a:focus-visible {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+
+.walk-ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background-color: rgba(242, 140, 40, 0.16);
+  font-size: 1.4rem;
+}
+
+.walk-cta {
+  margin: 28px 0 0;
+}
+
+.dir-ic {
+  display: inline-block;
+}
+
+[dir="rtl"] .dir-ic {
+  transform: scaleX(-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .walk-list a {
+    transition: none;
+  }
+  .walk-list a:hover,
+  .walk-list a:focus-visible {
+    transform: none;
+  }
+}
+

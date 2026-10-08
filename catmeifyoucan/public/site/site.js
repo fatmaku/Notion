@@ -100,6 +100,8 @@ function applyLang() {
   // Schritt-Nummern in der Ziffernschrift der Sprache (fa: ۱ ۲ ۳), wie alle anderen Zahlen
   for (const el of $$('[data-num]')) el.textContent = numFmt(Number(el.dataset.num));
   for (const s of $$('[data-lang-select]')) s.value = lang;
+  // Leitfaden und Monatsbericht in derselben Sprache öffnen (auch wenn die Sprache nur erkannt, nicht gespeichert ist)
+  for (const a of $$('[data-lang-href]')) a.setAttribute('href', `${a.getAttribute('href').split('?')[0]}?lang=${lang}`);
   for (const fn of langListeners) fn();
 }
 

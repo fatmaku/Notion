@@ -404,13 +404,15 @@ export function robotsTxt(base) {
 
 const isoDate = (ts) => new Date(ts).toISOString().replace(/\.\d{3}Z$/, '+00:00');
 
-export function sitemapXml(base, cats, { landingAt = null, appAt = null } = {}) {
+export function sitemapXml(base, cats, { landingAt = null, appAt = null, pages = [] } = {}) {
   const url = (loc, lastmod, extra = '') => `  <url><loc>${esc(`${base}${loc}`)}</loc>${lastmod ? `<lastmod>${isoDate(lastmod)}</lastmod>` : ''}${extra}</url>`;
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     url('/', landingAt, '<priority>1.0</priority>'),
     url('/app.html', appAt, '<priority>0.8</priority>'),
+    // weitere öffentliche Seiten (Hilfe-Leitfaden, Monatsbericht) – nur wenn es sie gibt
+    ...pages.map((p) => url(p.loc, p.at, p.extra || '')),
     ...cats.map((c) => url(`/c/${encodeURIComponent(c.id)}`, c.updatedAt || null)),
     '</urlset>',
     '',
@@ -484,7 +486,11 @@ export function createSharePages({ engine, publicDir, photoDir = null, headers =
     if (p === '/sitemap.xml') {
       if (limiter) limiter.take(ip);
       const base = absoluteBase(req, { publicUrl, trustProxy });
-      const xml = sitemapXml(base, engine.sitemapCats(), { landingAt: mtime('index.html'), appAt: mtime('app.html') });
+      const pages = [
+        { file: 'guide.html', extra: '<priority>0.7</priority>' },
+        { file: 'report.html', extra: '<changefreq>monthly</changefreq><priority>0.7</priority>' },
+      ].filter((p) => mtime(p.file) != null).map((p) => ({ loc: `/${p.file}`, at: mtime(p.file), extra: p.extra }));
+      const xml = sitemapXml(base, engine.sitemapCats(), { landingAt: mtime('index.html'), appAt: mtime('app.html'), pages });
       send(req, res, 200, xml, { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600', 'X-Content-Type-Options': 'nosniff' });
       return true;
     }

@@ -44,6 +44,11 @@ Ausschnitts, schätzt aber kein Alter, Gewicht oder Gesundheit. Die Karte sagt d
 |---|---|
 | `/` | Startseite für alle – 3D-Szene, so geht's, 20 = 20 %, die ernste Seite mit echten Zahlen, Trailer, Teilen |
 | `/app.html` | Das Spiel – Heute, KediDex, **Foto**, Karte, Kadıköy-Zahlen, Profil |
+| `/c/<id>` | Öffentliche Seite jeder Katze mit Link-Vorschau (WhatsApp, Instagram, X) – [docs/features/share.md](docs/features/share.md) |
+| `/app.html#/routes` | Katzen-Spaziergänge: 4 Wege durch Kadıköy mit Live-Katzenzahlen, Ende im Partner-Café – [docs/features/routes.md](docs/features/routes.md) |
+| `/guide.html` | Hilfe-Leitfaden für alle, ohne Konto: Futter, Wasser, Kälte, Kitten, krank/verletzt, Ohrspitze – [docs/features/impact.md](docs/features/impact.md) |
+| `/report.html` | Monatsbericht „Straßenkatzen von Kadıköy“ für Presse, Tierschutz und Stadt, A4-Druck – [docs/features/report.md](docs/features/report.md) |
+| `/print.html` | Café-Druckvorlagen: Tischaufsteller, Sticker, Poster mit eigenem QR-Code – [docs/features/cafe.md](docs/features/cafe.md) |
 | `/partner.html` | Café-Personal – Gutschein scannen/eintippen, prüfen, einlösen (Demo-PIN `246810`) |
 | `/admin.html` | Moderation – Dubletten, Einsprüche, auffällige Fänge, Cafés, Rollen, Legenden (Token in `data/admin-token.txt`) |
 | `/app.html?demo=1` | Reiner Browser-Demo-Modus ohne Server (Daten nur im Browser) |
@@ -60,6 +65,13 @@ cloudflared tunnel --url http://localhost:8790      # oder: ngrok http 8790
 Oder mit eigenem Zertifikat (`mkcert`): `CATME_TLS_CERT=cert.pem CATME_TLS_KEY=key.pem HOST=0.0.0.0 node server.js`.
 Außerhalb von Kadıköy wird ein Fang mit „außerhalb des Spielgebiets“ abgelehnt. Im Demo-Modus
 (`/app.html?demo=1`) wird der Standort automatisch nach Moda simuliert.
+
+## Erweiterungen
+
+Jede Erweiterung ist in `docs/features/` beschrieben: Katzen-Seiten mit Link-Vorschau (`share`),
+Café-QR-Code mit Werbe-Zuordnung und Druckvorlagen (`cafe`), Katzen-Spaziergänge (`routes`),
+Dank-Feed, Hilfe-Knöpfe für Freiwillige und Hilfe-Leitfaden (`impact`), Monatsbericht (`report`)
+und Ladezeit im Mobilnetz (`perf`, Messung: `node scripts/perf-measure.js`).
 
 ## Startseite, Trailer, Social-Kit
 

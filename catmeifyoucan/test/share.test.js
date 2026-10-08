@@ -241,6 +241,8 @@ test('sitemap.xml: Startseite, App und nur benannte, echte Katzen; robots.txt', 
   assert.match(xml, /^<\?xml version="1.0" encoding="UTF-8"\?>/);
   assert.ok(xml.includes('<loc>https://catme.example/</loc>'));
   assert.ok(xml.includes('<loc>https://catme.example/app.html</loc>'));
+  assert.ok(xml.includes('<loc>https://catme.example/guide.html</loc>'), 'Hilfe-Leitfaden');
+  assert.ok(xml.includes('<loc>https://catme.example/report.html</loc>'), 'Monatsbericht');
   assert.ok(xml.includes(`<loc>https://catme.example/c/${ids.named}</loc>`));
   assert.match(xml, new RegExp(`<loc>https://catme\\.example/c/${ids.named}</loc><lastmod>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+00:00</lastmod>`));
   assert.ok(!xml.includes(ids.unnamed), 'unbenannte Katzen nicht');
