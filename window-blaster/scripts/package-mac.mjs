@@ -51,10 +51,12 @@ cpSync(join(root, 'packaging', 'LIESMICH-ZUERST.txt'), join(pkg, 'LIESMICH-ZUERS
 let guide = readFileSync(join(launcher, 'web', 'anleitung.html'), 'utf8').replaceAll('{{.Version}}', version).replaceAll('{{.HTTPPort}}', '8080');
 if (guide.includes('{{')) throw new Error('anleitung.html contains template actions the package cannot render');
 // the printed guide carries the online QR code itself: scan it straight from the Mac screen or a printout
-const meta = JSON.parse(readFileSync(join(root, 'dist', 'wb-meta.json'), 'utf8'));
+const metaFile = join(root, 'dist', 'wb-meta.json');
+if (!existsSync(metaFile)) throw new Error('dist/wb-meta.json fehlt – erst `npm run build` ausführen');
+const meta = JSON.parse(readFileSync(metaFile, 'utf8'));
 if (meta.publicUrl && guide.includes('<!--WB_ONLINE_QR-->')) {
   const svg = renderSVG(meta.publicUrl, { ecc: 'M', border: 4, pixelSize: 6 });
-  guide = guide.replace('<!--WB_ONLINE_QR-->', `<div class="qr-print" style="width:200px;background:#fff;padding:6px;border-radius:10px">${svg.replace('<svg ', '<svg style="width:100%;height:auto;display:block" ')}</div>`);
+  guide = guide.replace('<!--WB_ONLINE_QR-->', `<div class="qr-print" style="width:200px;background:#fff;padding:6px;border-radius:10px">${svg.replace('<svg ', '<svg shape-rendering="crispEdges" style="width:100%;height:auto;display:block" ')}</div>`);
 }
 writeFileSync(join(pkg, 'ANLEITUNG.html'), guide);
 writeFileSync(join(pkg, 'bin', 'LIZENZEN.txt'), `Window Blaster Server ${version} – enthält rsc.io/qr (BSD-3-Clause) und die Go-Standardbibliothek (BSD-3-Clause).\nDas Spiel enthält uqr (MIT).\nMediaPipe Tasks Vision (Apache-2.0) und EfficientDet-Lite0 (Apache-2.0) im Ordner app.\n`);

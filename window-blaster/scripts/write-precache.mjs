@@ -12,6 +12,7 @@ const dist = join(root, 'dist');
 // setup pages fetch it from the public copy (GitHub Pages sends CORS *) to see whether that copy is live.
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 let publicUrl = (process.env.VITE_PUBLIC_URL ?? pkg.windowBlaster?.publicUrl ?? '').trim();
+if (publicUrl) publicUrl = new URL(publicUrl).href; // lower-case host, like the app and vite.config.ts
 if (publicUrl && !publicUrl.endsWith('/')) publicUrl += '/';
 writeFileSync(join(dist, 'wb-meta.json'), JSON.stringify({ version: pkg.version, publicUrl }));
 

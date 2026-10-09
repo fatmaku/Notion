@@ -9,7 +9,10 @@ const publicUrl = normalizeUrl(process.env.VITE_PUBLIC_URL ?? pkg.windowBlaster?
 
 function normalizeUrl(u: string): string {
   const t = u.trim();
-  return t && !t.endsWith('/') ? `${t}/` : t;
+  if (!t) return '';
+  // same form as new URL(...).href in the app (lower-case host), always with a trailing slash
+  const href = new URL(t).href;
+  return href.endsWith('/') ? href : `${href}/`;
 }
 // Unique per build: the service worker's cache name changes with every build, so a rebuilt app with
 // the same version number still updates on the phone. WB_BUILD_ID can pin it (tests).

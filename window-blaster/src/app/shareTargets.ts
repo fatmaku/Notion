@@ -24,6 +24,8 @@ export interface ShareInputs {
   publicLive: boolean;
   /** setup page of a Mac launcher that serves this page, if any */
   macSetupUrl: string | null;
+  /** this page's own server answers right now (an installed copy far away from its server does not) */
+  hereReachable: boolean;
 }
 
 /** Web Launch link that opens `url` in the Quest browser (https only). */
@@ -50,7 +52,7 @@ export function pickTargets(i: ShareInputs): ShareTarget[] {
   }
   if (!onPublic && i.macSetupUrl) out.push({ kind: 'mac', url: i.macSetupUrl });
   // a plain LAN/dev address is only useful when nothing better exists and another device can reach it
-  if (!out.some((t) => t.kind === 'online' || t.kind === 'mac') && !isLoopback(i.appRoot)) out.push({ kind: 'here', url: i.appRoot });
+  if (!out.some((t) => t.kind === 'online' || t.kind === 'mac') && i.hereReachable && !isLoopback(i.appRoot)) out.push({ kind: 'here', url: i.appRoot });
   return out;
 }
 
@@ -78,11 +80,35 @@ export async function launcherStatus(): Promise<{ setupUrl: string; publicUrl: s
   return { setupUrl: typeof s.setupUrl === 'string' ? s.setupUrl : '', publicUrl: typeof s.publicUrl === 'string' ? s.publicUrl : '' };
 }
 
+/**
+ * Loads an image without Origin/Referer headers (a CORS fetch would tell the public host this
+ * page's LAN address). Resolves true when it loads.
+ */
+function imageLoads(src: string, ms: number): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (typeof Image === 'undefined') return resolve(false);
+    const img = new Image();
+    img.referrerPolicy = 'no-referrer';
+    const t = setTimeout(() => {
+      img.src = '';
+      resolve(false);
+    }, ms);
+    img.onload = () => {
+      clearTimeout(t);
+      resolve(true);
+    };
+    img.onerror = () => {
+      clearTimeout(t);
+      resolve(false);
+    };
+    img.src = src;
+  });
+}
+
 /** Is the public copy online? Remembers the last answer for offline moments. */
 export async function publicIsLive(publicUrl: string): Promise<boolean> {
   if (!publicUrl) return false;
-  const meta = await fetchJson(`${publicUrl}wb-meta.json`, 5000);
-  const live = !!meta;
+  const live = await imageLoads(`${publicUrl}icons/icon-192.png?wbping=${Date.now()}`, 5000);
   try {
     if (live) localStorage.setItem(LIVE_KEY, '1');
     else if (navigator.onLine) localStorage.removeItem(LIVE_KEY);
@@ -97,10 +123,33 @@ export function appRoot(): string {
   return new URL(import.meta.env.BASE_URL, location.href).href;
 }
 
+/** Running from the public copy (GitHub Pages) rather than a Mac launcher or dev server. */
+export function onPublicCopy(): boolean {
+  return !!__PUBLIC_URL__ && appRoot().startsWith(__PUBLIC_URL__);
+}
+
+/** Does this page's own server answer? (`wbping` passes the service worker untouched) */
+async function hereAnswers(root: string): Promise<boolean> {
+  const ctl = typeof AbortController === 'function' ? new AbortController() : null;
+  const t = setTimeout(() => ctl?.abort(), 2500);
+  try {
+    const r = await fetch(`${root}?wbping=1`, { cache: 'no-store', signal: ctl?.signal });
+    return r.ok;
+  } catch {
+    return false;
+  } finally {
+    clearTimeout(t);
+  }
+}
+
 /** Collects everything and returns the targets (never throws). */
 export async function shareTargets(publicUrl: string = __PUBLIC_URL__): Promise<ShareTarget[]> {
   const root = appRoot();
   const onPublic = !!publicUrl && root.startsWith(publicUrl);
-  const [launcher, live] = await Promise.all([onPublic ? Promise.resolve(null) : launcherStatus(), onPublic ? Promise.resolve(true) : publicIsLive(publicUrl)]);
-  return pickTargets({ publicUrl, appRoot: root, publicLive: live, macSetupUrl: launcher?.setupUrl || null });
+  const [launcher, live, here] = await Promise.all([
+    onPublic ? Promise.resolve(null) : launcherStatus(),
+    onPublic ? Promise.resolve(true) : publicIsLive(publicUrl),
+    onPublic ? Promise.resolve(false) : hereAnswers(root),
+  ]);
+  return pickTargets({ publicUrl, appRoot: root, publicLive: live, macSetupUrl: launcher?.setupUrl || null, hereReachable: here });
 }

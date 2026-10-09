@@ -105,6 +105,7 @@ export const T = {
   startOfflineHomeAppOnly: 'Offline nur in der Home-Bildschirm-App',
   startOfflineMissingSize: '{label} für Offline-Betrieb fehlen',
   startPercent: '{pct} %',
+  startOfflineSwFailed: 'Offline-Speicher konnte nicht eingerichtet werden – mit Internet neu laden',
   startOfflineNeedsCert: 'Offline geht hier nur mit installiertem Zertifikat – oder nimm die Online-Version (📲 Auf anderes Gerät)',
   startOfflineNoHttps: 'Offline-Speicher hier nicht verfügbar (kein sicheres HTTPS)',
   startLastError: 'Letzter Fehler ({date}): {msg}',

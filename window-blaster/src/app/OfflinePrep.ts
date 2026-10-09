@@ -1,3 +1,4 @@
+import { onPublicCopy } from './shareTargets';
 import { Emitter } from '../core/events';
 
 export type OfflineState = 'unknown' | 'checking' | 'ready' | 'missing' | 'downloading' | 'error' | 'unsupported';
@@ -68,6 +69,7 @@ export class OfflinePrep {
       this.totalBytes = total;
       this.missingBytes = missing;
       this.set(missing === 0 ? 'ready' : 'missing');
+      this.tellLauncherReady();
     } catch {
       // dev server or no manifest: nothing to prepare
       this.set('unknown');
@@ -122,15 +124,26 @@ export class OfflinePrep {
         /* optional */
       }
       this.set('ready');
-      // served by the Mac launcher? Its connect page then shows "offline ready – Mac no longer needed".
-      // Elsewhere (GitHub Pages) this is a harmless 404; the service worker lets /wb-status through.
-      void fetch(new URL('/wb-status?offline=done', location.origin).href, { cache: 'no-store' }).catch(() => undefined);
+      this.tellLauncherReady();
       return true;
     } catch (e) {
       this.error = String((e as Error).message ?? e);
       this.set('error');
       return false;
     }
+  }
+
+  private toldLauncher = false;
+
+  /**
+   * Served by the Mac launcher? Its connect page then shows "offline ready – Mac no longer needed".
+   * Only when offline really works (a broken service worker turns 'ready' into 'unsupported'), once
+   * per start, and never from the public copy (no launcher there).
+   */
+  private tellLauncherReady(): void {
+    if (this.state !== 'ready' || this.toldLauncher || onPublicCopy()) return;
+    this.toldLauncher = true;
+    void fetch(new URL('/wb-status?offline=done', location.origin).href, { cache: 'no-store' }).catch(() => undefined);
   }
 
   /** Human readable size of the missing part. */

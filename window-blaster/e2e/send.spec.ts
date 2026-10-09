@@ -3,6 +3,7 @@ import jsQR from 'jsqr';
 import { collectErrors } from './helpers';
 
 const PUB = 'https://fatmaku.github.io/Notion/window-blaster/';
+const PNG_1PX = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
 
 /** Reads the QR SVG on the page back into modules and decodes it with jsQR. */
 async function decodeQr(page: Page, sel: string): Promise<string | null> {
@@ -31,7 +32,8 @@ async function decodeQr(page: Page, sel: string): Promise<string | null> {
 test('send screen: online, Meta Quest and Mac QR codes decode to the right addresses', async ({ page }) => {
   const errors = collectErrors(page);
   // the public copy is "live" and a Mac launcher serves this page (both simulated)
-  await page.route(`${PUB}wb-meta.json`, (r) => r.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: '{"version":"0.8.0"}' }));
+  // liveness is probed with the public copy's icon (an image request carries no Origin/Referer)
+  await page.route(`${PUB}icons/icon-192.png*`, (r) => r.fulfill({ status: 200, contentType: 'image/png', body: PNG_1PX }));
   await page.route('**/wb-status', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, setupUrl: 'http://192.168.1.5:8080/handy', publicUrl: PUB }) }));
   await page.goto('/?demo=1&test=1');
   await page.locator('button[data-send-open]').click();
@@ -50,7 +52,7 @@ test('send screen: online, Meta Quest and Mac QR codes decode to the right addre
 });
 
 test('send screen without a public copy or Mac explains what to do', async ({ page }) => {
-  await page.route(`${PUB}wb-meta.json`, (r) => r.fulfill({ status: 404, body: 'not found' }));
+  await page.route(`${PUB}icons/icon-192.png*`, (r) => r.fulfill({ status: 404, body: 'not found' }));
   await page.goto('/?demo=1&test=1');
   await page.locator('button[data-send-open]').click();
   await expect(page.locator('[data-send="none"]')).toBeVisible();
@@ -58,7 +60,7 @@ test('send screen without a public copy or Mac explains what to do', async ({ pa
 
 test('glasses screen without a headset browser links to the address QR', async ({ page }) => {
   await page.route('**/wb-status', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, setupUrl: 'http://192.168.1.5:8080/handy', publicUrl: '' }) }));
-  await page.route(`${PUB}wb-meta.json`, (r) => r.fulfill({ status: 404, body: '' }));
+  await page.route(`${PUB}icons/icon-192.png*`, (r) => r.fulfill({ status: 404, body: '' }));
   await page.goto('/?demo=1&test=1');
   await page.locator('button[data-glasses]').click();
   await page.locator('.gl-section button[data-send-open]').click();

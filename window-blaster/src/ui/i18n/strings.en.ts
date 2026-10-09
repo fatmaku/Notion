@@ -106,6 +106,7 @@ export const T: typeof DE.T = {
   startOfflineHomeAppOnly: 'Offline only in the Home Screen app',
   startOfflineMissingSize: '{label} missing for offline use',
   startPercent: '{pct}%',
+  startOfflineSwFailed: 'Offline storage could not be set up – reload with internet',
   startOfflineNeedsCert: 'Offline only works here with the certificate installed – or use the online version (📲 To another device)',
   startOfflineNoHttps: 'Offline storage not available here (no secure HTTPS)',
   startLastError: 'Last error ({date}): {msg}',

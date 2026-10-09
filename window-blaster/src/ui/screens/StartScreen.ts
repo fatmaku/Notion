@@ -2,7 +2,7 @@ import type { App } from '../../app/App';
 import { fmtScore, h, toast } from '../dom';
 import { T, tf, locale } from '../i18n';
 import type { Screen } from '../Router';
-import { launcherStatus } from '../../app/shareTargets';
+import { launcherStatus, onPublicCopy } from '../../app/shareTargets';
 
 function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
   const badge = h('span', { class: 'badge' }, '…');
@@ -43,7 +43,8 @@ function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
         break;
       case 'unsupported':
         badge.className = 'badge';
-        badge.textContent = o.swBroken ? T.startOfflineNeedsCert : T.startOfflineNoHttps;
+        // on the public copy a broken service worker is a failed install (flaky network), not a certificate issue
+        badge.textContent = o.swBroken ? (onPublicCopy() ? T.startOfflineSwFailed : T.startOfflineNeedsCert) : T.startOfflineNoHttps;
         // served by the Mac launcher (certificate clicked through or plain http): one tap to its setup page
         void (launcher ??= launcherStatus()).then((s) => {
           if (!s?.setupUrl || app.offline.state !== 'unsupported') return;

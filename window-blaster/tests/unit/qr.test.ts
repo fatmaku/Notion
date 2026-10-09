@@ -49,28 +49,32 @@ describe('QR encoder', () => {
 describe('share targets', () => {
   const PUB = 'https://fatmaku.github.io/Notion/window-blaster/';
   it('on the public copy: online + Quest, never the Mac', () => {
-    const t = pickTargets({ publicUrl: PUB, appRoot: PUB, publicLive: false, macSetupUrl: 'http://192.168.1.5:8080/handy' });
+    const t = pickTargets({ publicUrl: PUB, appRoot: PUB, publicLive: false, macSetupUrl: 'http://192.168.1.5:8080/handy', hereReachable: true });
     expect(t.map((x) => x.kind)).toEqual(['online', 'quest']);
     expect(t[1].url).toBe(`https://www.oculus.com/open_url/?url=${encodeURIComponent(PUB)}`);
   });
 
   it('on the Mac launcher: online first when live, then the Mac setup page', () => {
-    const t = pickTargets({ publicUrl: PUB, appRoot: 'https://192.168.1.5:8443/', publicLive: true, macSetupUrl: 'http://192.168.1.5:8080/handy' });
+    const t = pickTargets({ publicUrl: PUB, appRoot: 'https://192.168.1.5:8443/', publicLive: true, macSetupUrl: 'http://192.168.1.5:8080/handy', hereReachable: true });
     expect(t.map((x) => x.kind)).toEqual(['online', 'quest', 'mac']);
   });
 
   it('public copy not switched on yet: only the Mac', () => {
-    const t = pickTargets({ publicUrl: PUB, appRoot: 'https://192.168.1.5:8443/', publicLive: false, macSetupUrl: 'http://192.168.1.5:8080/handy' });
+    const t = pickTargets({ publicUrl: PUB, appRoot: 'https://192.168.1.5:8443/', publicLive: false, macSetupUrl: 'http://192.168.1.5:8080/handy', hereReachable: true });
     expect(t.map((x) => x.kind)).toEqual(['mac']);
   });
 
   it('dev server on the LAN: this address; localhost alone offers nothing', () => {
-    expect(pickTargets({ publicUrl: '', appRoot: 'https://192.168.1.9:5173/', publicLive: false, macSetupUrl: null })).toEqual([{ kind: 'here', url: 'https://192.168.1.9:5173/' }]);
-    expect(pickTargets({ publicUrl: '', appRoot: 'http://localhost:4173/', publicLive: false, macSetupUrl: null })).toEqual([]);
+    expect(pickTargets({ publicUrl: '', appRoot: 'https://192.168.1.9:5173/', publicLive: false, macSetupUrl: null, hereReachable: true })).toEqual([{ kind: 'here', url: 'https://192.168.1.9:5173/' }]);
+    expect(pickTargets({ publicUrl: '', appRoot: 'http://localhost:4173/', publicLive: false, macSetupUrl: null, hereReachable: true })).toEqual([]);
+  });
+
+  it('an installed Mac copy far away from the Mac offers no dead LAN address', () => {
+    expect(pickTargets({ publicUrl: 'https://fatmaku.github.io/Notion/window-blaster/', appRoot: 'https://192.168.1.5:8443/', publicLive: false, macSetupUrl: null, hereReachable: false })).toEqual([]);
   });
 
   it('no Quest link for a non-https public address', () => {
-    const t = pickTargets({ publicUrl: 'http://example.org/', appRoot: 'http://example.org/', publicLive: true, macSetupUrl: null });
+    const t = pickTargets({ publicUrl: 'http://example.org/', appRoot: 'http://example.org/', publicLive: true, macSetupUrl: null, hereReachable: true });
     expect(t.map((x) => x.kind)).toEqual(['online']);
   });
 });
