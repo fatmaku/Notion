@@ -3,7 +3,7 @@
 **Arbeitstitel:** Innenkompass | İçPusula | Inner Compass  
 **Produktart:** mehrsprachiger, hybrider Reflexionsbegleiter  
 **Sprachen zum Start:** Deutsch, Türkisch und Englisch  
-**Stand der Recherche:** 8. Oktober 2026
+**Stand der Recherche:** 8. Oktober 2026, nachgeprüft am 9. Oktober 2026
 
 ## 1. Produktbeschreibung
 
@@ -19,9 +19,9 @@ Der Produktname sollte nicht „Schamanastrologie“ heißen. Das klingt nach As
 
 ## 2. Markt und Produktposition
 
-Der Markt enthält bereits Apps mit Traumtagebuch, persönlichen Kontexten, wiederkehrenden Mustern, KI-Fragen und mehreren spirituellen Perspektiven. Ruya bietet laut eigener Produktseite elf Deutungsansätze, darunter Psychologie, Religion, Engel, Geistführer, Energie-/Chakra-Perspektiven und schamanische Traumarbeit. Oniri bietet Sprachaufnahme, Emotionen, Personen und Orte, Verlauf, Trends, Albtraum-Auswertung und Export. [Ruya](https://www.ruya.co/), [Oniri im App Store](https://apps.apple.com/us/app/oniri-lucid-dream-journal/id968737914?platform=watch)
+Der Markt enthält bereits Apps mit Traumtagebuch, persönlichen Kontexten, wiederkehrenden Mustern, KI-Fragen und mehreren spirituellen Perspektiven. Ruya beschreibt elf Deutungsmethoden in drei Familien (in der Amazon-Store-Beschreibung ist von zwölf die Rede): Psychologie (kognitiv, jungianisch, existenziell, narrative Therapie, Klartraum), Spiritualität (Zeichen und Synchronizitäten, Geistführer und Engel, Energie/Chakren, schamanische Traumarbeit) und Religion (christlich, islamisch nach Ibn Sirin). Vor jeder Deutung stellt die App geführte Kontextfragen und verfolgt wiederkehrende Personen, Orte und Symbole. Oniri bietet Sprachnotizen, Emotionen, Personen, Orte und Handlungen pro Traum, Statistiken sowie PDF-Export (Export und Statistik im Premium-Abo). Eine eigene Albtraum-Auswertung war in den geprüften Beschreibungen nicht belegbar. [Ruya – 11 Methoden](https://ruya.co/en-US/articles/how-dream-interpretation-works-methods-explained), [Ruya bei Google Play](https://play.google.com/store/apps/details?id=co.ruya), [Oniri im App Store](https://apps.apple.com/ca/app/oniri-your-dream-journal/id968737914)
 
-Felek verbindet ein Kaffeeritual, Fotoerkennung, Quellen, 85 traditionelle Symbole und Journal. BakFal umfasst mehrere Formen von Fal und Traumdeutung und beschreibt das Angebot als Unterhaltung/Selbstreflexion ohne Zukunftsvorhersage. [Felek](https://felek.app/en/), [BakFal](https://bakfal.com/en/)
+Felek führt laut Google-Play-Beschreibung Schritt für Schritt durch das Kaffeeritual (Aufbrühen, Wunsch, Schwenken, Umdrehen, Wartezeit) und deutet ein Tassenfoto per KI; die App-Store-Beschreibung nennt zusätzlich Horoskop und Geburtshoroskop. Die früher notierten Angaben „85 traditionelle Symbole“, „Quellen“ und „Journal“ konnten bei der Nachprüfung nicht bestätigt werden (siehe [RECHERCHE-PRUEFUNG.md](RECHERCHE-PRUEFUNG.md)). BakFal bündelt acht Deutungsformen (u. a. Kaffeesatz, Hand, Tarot, Traumdeutung, Horoskop, Geburtshoroskop), bezeichnet sich als Unterhaltung und Selbstreflexion statt Faktenvorhersage, löscht Fotos laut eigener Aussage direkt nach der Deutung und bietet eine kostenlose Deutung pro Tag. [Felek bei Google Play](https://play.google.com/store/apps/details?id=com.cvpkdigitalstudio.felek), [BakFal](https://bakfal.com/en/)
 
 Daraus folgt: „Keine Vorhersagen“ oder „persönliche Muster“ allein sind keine ausreichende Alleinstellung. Innenkompass soll konkret anders arbeiten: Jede Muster-Aussage nennt ihre Belege, Nutzer bestimmen ihre eigene Bedeutung, Korrekturen bleiben sichtbar und löschbar, und die App kann ohne Internet im geführten Modus benutzt werden.
 
@@ -140,9 +140,10 @@ Die App muss offenlegen, dass Abo-Verlängerung regelmäßig eine Store-Verbindu
 
 ## Quellen und Wettbewerbsbeispiele
 
-- [Ruya – Traumjournal und Deutungsansätze](https://www.ruya.co/)
-- [Oniri – Traumtagebuch und Funktionsumfang](https://apps.apple.com/us/app/oniri-lucid-dream-journal/id968737914?platform=watch)
-- [Felek – Kaffeeritual, Symbole und Journal](https://felek.app/en/)
-- [Felek – Datenschutz und KI-Verarbeitung](https://felek.app/en/privacy/)
+- [Ruya – 11 Deutungsmethoden erklärt](https://ruya.co/en-US/articles/how-dream-interpretation-works-methods-explained)
+- [Ruya – Google Play](https://play.google.com/store/apps/details?id=co.ruya)
+- [Oniri – App Store](https://apps.apple.com/ca/app/oniri-your-dream-journal/id968737914)
+- [Felek – Google Play](https://play.google.com/store/apps/details?id=com.cvpkdigitalstudio.felek)
+- [Felek – Datenschutz und KI-Verarbeitung](https://felek.app/en/privacy/) (nicht nachgeprüft, siehe Recherche-Prüfung)
 - [BakFal – mehrsprachige Selbstreflexionspositionierung](https://bakfal.com/en/)
 - [NHS – Halluzinationen und Stimmenhören](https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/hallucinations-hearing-voices/)
