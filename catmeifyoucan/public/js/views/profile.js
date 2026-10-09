@@ -6,6 +6,7 @@ import { esc, sep, fmtNum, fmtAgo, toast, errorText, catImg, patternLabel } from
 import { arEnabled, setArEnabled } from './catch.js';
 import { mountProfileImpact } from './impact.js'; // Erweiterung impact: „Deine Wirkung“
 import { guideLinkHtml } from './guide.js';
+import { mountPhoneCard } from './qr-setup.js'; // Erweiterung qr-setup: „Auf dem Handy spielen“ (breite Bildschirme)
 
 export async function renderProfile(view, app) {
   const [{ player, profile }, obs] = await Promise.all([app.api.me(), app.api.myObservations()]);
@@ -45,9 +46,11 @@ export async function renderProfile(view, app) {
       </form>
       <p class="links"><a href="#/rules">📜 ${esc(t('p.rules'))}</a>${sep()}<a href="partner.html">☕ ${esc(t('p.partner'))}</a>${player.role === 'admin' ? `${sep()}<a href="admin.html">🛡️ ${esc(t('p.admin'))}</a>` : ''}</p>
       <button class="btn danger-soft small" data-reset>${esc(t('p.reset'))}</button>
-    </section>`;
+    </section>
+    <section class="card phone-card" data-phone-card></section>`;
 
   mountProfileImpact(view.querySelector('[data-impact]'), app);
+  mountPhoneCard(view.querySelector('[data-phone-card]'));
   view.querySelector('[data-f]').addEventListener('submit', async (e) => {
     e.preventDefault();
     const f = e.target;

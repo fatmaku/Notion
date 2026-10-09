@@ -1,9 +1,24 @@
 // Cat Me If You Can – Café-Ansicht für das Personal: anmelden (Café + PIN), Gutschein scannen
 // (Kamera, QR) oder Code eintippen, prüfen, einlösen. Heute eingelöste Gutscheine.
+// Erweiterung qr-setup: partner.html#setup=<Code> richtet das Handy des Cafés ein – PIN selbst wählen,
+// angemeldet, danach Hinweis „Zum Startbildschirm“ und die Karte mit dem eigenen QR-Code.
 
 import { esc } from './ui.js';
 import { setLang } from './i18n.js';
 import { renderCafeCard } from './views/cafe.js'; // Café-QR: Karte „Dein QR-Code“
+import { takeFragmentCode, weakPin } from './qr-kit.js';
+
+// Code sofort aus der Adresszeile nehmen; für ein Neuladen in diesem Tab merken (sessionStorage)
+const SETUP_KEY = 'catme.partner.setup';
+let setupCode = takeFragmentCode('setup');
+try {
+  if (setupCode) sessionStorage.setItem(SETUP_KEY, setupCode);
+  else setupCode = sessionStorage.getItem(SETUP_KEY);
+} catch {
+  /* egal */
+}
+let justSetUp = false;
+const LAST_KEY = 'catme.partner.last'; // zuletzt benutztes Café – in der Anmeldung vorausgewählt
 
 const T = {
   tr: {
@@ -14,6 +29,13 @@ const T = {
     r_bad_code: 'Kod biçimi yanlış.', r_not_found: 'Böyle bir kupon yok.', r_already_redeemed: 'Bu kupon zaten kullanılmış ({who}, {t}).',
     r_expired: 'Süresi dolmuş (sadece aynı gün geçerli).', r_wrong_region: 'Başka bir bölgenin kuponu.', r_not_enough_cats: 'Yeterli kedi yok: {n}/{min}.',
     r_player_banned: 'Bu hesap engellendi.', r_partner_daily_limit: 'Bugünkü kupon limitine ulaşıldı.', err: 'Hata – tekrar dene.',
+    // ── Erweiterung: qr-setup ──
+    setupTitle: 'Bu telefonu kur', setupLead: '{name} için bir PIN seç (6–12 rakam). Ekibin başka cihazlarda bu PIN ile girer.',
+    newPin: 'Yeni PIN', pin2: 'PIN\'i tekrar yaz', setupGo: 'Kaydet ve başla', pinMismatch: 'İki PIN aynı değil.', pinRule: 'PIN 6–12 rakam olmalı.',
+    setupBad: 'Bu kurulum QR\'ı artık çalışmıyor. Cat Me ekibinden yenisini iste.', setupDone: 'Hazır! Bu telefon kuruldu.',
+    a2hsTitle: 'Ana ekrana ekle', a2hsLead: 'Böylece kafe ekranı tek dokunuşla açılır.', a2hsIos: 'iPhone: Paylaş ⬆️ → „Ana Ekrana Ekle“.',
+    a2hsAndroid: 'Android: menü ⋮ → „Ana ekrana ekle“.', ok: 'Tamam', checking: 'Kontrol ediliyor…',
+    pinWeak: 'Bu PIN çok kolay (ör. 123456). Başka bir PIN seç.', tooMany: 'Çok fazla deneme. Bir dakika bekle.',
   },
   de: {
     title: 'Gutschein prüfen', cafe: 'Café', pin: 'PIN', login: 'Anmelden', logout: 'Abmelden', scan: 'QR scannen', stop: 'Stopp',
@@ -23,6 +45,13 @@ const T = {
     r_bad_code: 'Code-Format falsch.', r_not_found: 'Diesen Gutschein gibt es nicht.', r_already_redeemed: 'Schon eingelöst ({who}, {t}).',
     r_expired: 'Abgelaufen (gilt nur am selben Tag).', r_wrong_region: 'Gutschein aus einer anderen Region.', r_not_enough_cats: 'Zu wenige Katzen: {n}/{min}.',
     r_player_banned: 'Dieses Konto ist gesperrt.', r_partner_daily_limit: 'Tageslimit dieses Cafés erreicht.', err: 'Fehler – nochmal versuchen.',
+    // ── Erweiterung: qr-setup ──
+    setupTitle: 'Dieses Handy einrichten', setupLead: 'Wähle eine PIN für {name} (6–12 Ziffern). Dein Team meldet sich damit auf anderen Geräten an.',
+    newPin: 'Neue PIN', pin2: 'PIN noch einmal', setupGo: 'Speichern und los', pinMismatch: 'Die beiden PINs sind nicht gleich.', pinRule: 'Die PIN hat 6–12 Ziffern.',
+    setupBad: 'Dieser Einrichtungs-QR geht nicht mehr. Bitte beim Cat-Me-Team einen neuen holen.', setupDone: 'Fertig! Dieses Handy ist eingerichtet.',
+    a2hsTitle: 'Zum Startbildschirm', a2hsLead: 'Dann öffnet sich die Café-Ansicht mit einem Tipp.', a2hsIos: 'iPhone: Teilen ⬆️ → „Zum Home-Bildschirm“.',
+    a2hsAndroid: 'Android: Menü ⋮ → „Zum Startbildschirm hinzufügen“.', ok: 'OK', checking: 'Wird geprüft …',
+    pinWeak: 'Diese PIN ist zu leicht (z. B. 123456). Wähle eine andere.', tooMany: 'Zu viele Versuche. Warte eine Minute.',
   },
   en: {
     title: 'Check voucher', cafe: 'Café', pin: 'PIN', login: 'Log in', logout: 'Log out', scan: 'Scan QR', stop: 'Stop',
@@ -32,6 +61,13 @@ const T = {
     r_bad_code: 'Wrong code format.', r_not_found: 'No such voucher.', r_already_redeemed: 'Already redeemed ({who}, {t}).',
     r_expired: 'Expired (valid on the same day only).', r_wrong_region: 'Voucher from another region.', r_not_enough_cats: 'Not enough cats: {n}/{min}.',
     r_player_banned: 'This account is banned.', r_partner_daily_limit: 'Daily voucher limit reached.', err: 'Error – try again.',
+    // ── Erweiterung: qr-setup ──
+    setupTitle: 'Set up this phone', setupLead: 'Pick a PIN for {name} (6–12 digits). Your team uses it to log in on other devices.',
+    newPin: 'New PIN', pin2: 'PIN again', setupGo: 'Save and start', pinMismatch: 'The two PINs are not the same.', pinRule: 'The PIN has 6–12 digits.',
+    setupBad: 'This setup QR does not work any more. Ask the Cat Me team for a new one.', setupDone: 'Done! This phone is set up.',
+    a2hsTitle: 'Add to home screen', a2hsLead: 'Then the café screen opens with one tap.', a2hsIos: 'iPhone: Share ⬆️ → "Add to Home Screen".',
+    a2hsAndroid: 'Android: menu ⋮ → "Add to Home screen".', ok: 'OK', checking: 'Checking …',
+    pinWeak: 'This PIN is too easy (like 123456). Pick another one.', tooMany: 'Too many tries. Wait one minute.',
   },
 };
 let lang = (() => {
@@ -88,7 +124,99 @@ function langs() {
   };
 }
 
-async function renderLogin() {
+function lastCafe() {
+  try {
+    return localStorage.getItem(LAST_KEY);
+  } catch {
+    return null;
+  }
+}
+function rememberCafe(id) {
+  try {
+    localStorage.setItem(LAST_KEY, id);
+  } catch {
+    /* egal */
+  }
+}
+function dropSetupCode() {
+  setupCode = null;
+  try {
+    sessionStorage.removeItem(SETUP_KEY);
+  } catch {
+    /* egal */
+  }
+}
+
+/** Einrichtung per QR: Café-Name zeigen, PIN zweimal, speichern → angemeldet. */
+async function renderSetup() {
+  view.innerHTML = `<section class="card staff-card"><p class="center pad" role="status">${esc(t('checking'))}</p></section>`;
+  let info;
+  try {
+    info = await api('POST', '/api/setup/info', { code: setupCode, purpose: 'partner' });
+  } catch (e) {
+    if (e.status !== 429 && e.status) dropSetupCode();
+    return renderLogin(e.status === 429 ? t('tooMany') : e.status ? t('setupBad') : t('err'));
+  }
+  view.innerHTML = `<section class="card staff-card setup-pin"><p class="kicker">📱 ${esc(t('setupTitle'))}</p><h1>☕ ${esc(info.cafe.name)}</h1>
+    ${info.cafe.address ? `<p class="muted">${esc(info.cafe.address)}</p>` : ''}
+    <p>${esc(t('setupLead', { name: info.cafe.name }))}</p>
+    <form data-setup class="settings">
+      <label>${esc(t('newPin'))}<input name="pin" type="password" inputmode="numeric" autocomplete="new-password" pattern="[0-9]{6,12}" minlength="6" maxlength="12" required></label>
+      <label>${esc(t('pin2'))}<input name="pin2" type="password" inputmode="numeric" autocomplete="new-password" pattern="[0-9]{6,12}" minlength="6" maxlength="12" required></label>
+      <button class="btn primary big">${esc(t('setupGo'))}</button>
+      <p class="err" data-err hidden role="alert"></p>
+    </form></section>`;
+  const f = view.querySelector('[data-setup]');
+  const err = f.querySelector('[data-err]');
+  const show = (m) => {
+    err.hidden = false;
+    err.textContent = m;
+  };
+  f.pin.focus();
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const pin = f.pin.value.trim();
+    if (!/^\d{6,12}$/.test(pin)) return show(t('pinRule'));
+    if (weakPin(pin)) return show(t('pinWeak'));
+    if (pin !== f.pin2.value.trim()) return show(t('pinMismatch'));
+    const btn = f.querySelector('button');
+    btn.disabled = true;
+    try {
+      const r = await api('POST', '/api/setup/partner', { code: setupCode, pin });
+      dropSetupCode();
+      token = r.token;
+      try {
+        sessionStorage.setItem(KEY, token);
+      } catch {
+        /* egal */
+      }
+      rememberCafe(r.partner.id);
+      justSetUp = true;
+      render();
+    } catch (e2) {
+      btn.disabled = false;
+      if (e2.code === 'invalid_pin') return show(t('pinRule'));
+      if (e2.code === 'weak_pin') return show(t('pinWeak'));
+      if (e2.status === 429) return show(t('tooMany'));
+      if (e2.code === 'network' || !e2.status) return show(t('err')); // Netz weg: Code behalten, nochmal versuchen
+      dropSetupCode();
+      renderLogin(t('setupBad'));
+    }
+  });
+}
+
+/** Nach der Einrichtung: „Fertig“ und wie man die Seite auf den Startbildschirm legt. */
+function homeScreenHint() {
+  const ua = navigator.userAgent || '';
+  const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  const android = /Android/.test(ua);
+  const tips = ios ? [t('a2hsIos')] : android ? [t('a2hsAndroid')] : [t('a2hsIos'), t('a2hsAndroid')];
+  return `<section class="card a2hs" data-a2hs role="status"><h2>✓ ${esc(t('setupDone'))}</h2>
+    <p><b>📲 ${esc(t('a2hsTitle'))}</b> – ${esc(t('a2hsLead'))}</p><ul>${tips.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+    <button type="button" class="btn small" data-a2hs-ok>${esc(t('ok'))}</button></section>`;
+}
+
+async function renderLogin(msg = '') {
   let partners = [];
   try {
     partners = await api('GET', '/api/partners');
@@ -97,10 +225,10 @@ async function renderLogin() {
   }
   view.innerHTML = `<section class="card staff-card"><h1>☕ ${esc(t('title'))}</h1>
     <form data-f class="settings">
-      <label>${esc(t('cafe'))}<select name="partnerId" required>${partners.map((p) => `<option value="${esc(p.id)}">${esc(p.name)}${p.address ? ` – ${esc(p.address)}` : ''}</option>`).join('')}</select></label>
+      <label>${esc(t('cafe'))}<select name="partnerId" required>${partners.map((p) => `<option value="${esc(p.id)}" ${p.id === lastCafe() ? 'selected' : ''}>${esc(p.name)}${p.address ? ` – ${esc(p.address)}` : ''}</option>`).join('')}</select></label>
       <label>${esc(t('pin'))}<input name="pin" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" required minlength="6" maxlength="12"></label>
       <button class="btn primary big">${esc(t('login'))}</button>
-      <p class="err" data-err hidden></p>
+      <p class="err" data-err ${msg ? '' : 'hidden'}>${esc(msg)}</p>
     </form></section>`;
   view.querySelector('[data-f]').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -108,6 +236,7 @@ async function renderLogin() {
     try {
       const r = await api('POST', '/api/partner/login', { partnerId: f.partnerId.value, pin: f.pin.value });
       token = r.token;
+      rememberCafe(f.partnerId.value);
       try {
         sessionStorage.setItem(KEY, token);
       } catch {
@@ -221,7 +350,9 @@ async function renderDesk() {
     }
     return renderLogin();
   }
-  view.innerHTML = `
+  const hint = justSetUp ? homeScreenHint() : '';
+  justSetUp = false;
+  view.innerHTML = `${hint}
     <section class="card staff-card">
       <header><h1>☕ ${esc(me.partner.name)}</h1><button class="link" data-logout>${esc(t('logout'))}</button></header>
       <p class="muted">${esc(t('needs', { n: me.partner.reward.minCats }))} → <b>${esc(pctTxt(me.partner.reward.discountPct))}</b></p>
@@ -235,6 +366,8 @@ async function renderDesk() {
     </section>
     <section class="card cafe-kit" data-cafe-kit></section>`;
   renderCafeCard(view.querySelector('[data-cafe-kit]'), { api });
+  const okBtn = view.querySelector('[data-a2hs-ok]');
+  if (okBtn) okBtn.addEventListener('click', () => view.querySelector('[data-a2hs]').remove());
   const out = view.querySelector('[data-result]');
   const check = async (code) => {
     try {
@@ -284,6 +417,7 @@ async function renderDesk() {
 function render() {
   if (scanStop) scanStop();
   setLang(lang, { persist: false }); // Wahl per Knopf speichert langs() selbst
+  if (setupCode) return renderSetup(); // Erweiterung qr-setup: Einrichtung hat Vorrang (neues Café-Handy)
   return token ? renderDesk() : renderLogin();
 }
 

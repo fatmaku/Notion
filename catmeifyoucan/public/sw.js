@@ -1,5 +1,5 @@
 // Cat Me If You Can – Service Worker: App-Hülle offline verfügbar, API immer frisch vom Netz.
-const VERSION = 'catme-v3';
+const VERSION = 'catme-v4';
 const SHELL = [
   'app.html', 'css/app.css', 'css/fonts.css', 'manifest.webmanifest', 'icons/logo.svg', 'icons/icon-192.png',
   'js/app.js', 'js/api.js', 'js/i18n.js', 'js/ui.js', 'js/avatar.js', 'js/camera.js', 'js/charts.js', 'js/map.js',
@@ -25,6 +25,9 @@ const SHELL = [
   // ── Erweiterung: perf ──
   // Ansichten laden jetzt erst beim Öffnen (import() je Route) – sie stehen oben trotzdem alle in der
   // Liste, damit die App auch ohne Netz jede Seite öffnen kann.
+
+  // ── Erweiterung: qr-setup ──
+  'js/views/qr-setup.js', 'js/qr-kit.js',
 
 ];
 

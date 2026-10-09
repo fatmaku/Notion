@@ -19,6 +19,7 @@ import { createLimiter } from './ratelimit.js';
 import { createRouter, readJson, sendJson, sendText, sendError, securityHeaders, clientIp, HttpError } from './http.js';
 import { serveStatic, serveLanding, pickSiteLang, servePhoto, serveFullPhoto } from './static.js';
 import { catsCsv, catsGeoJson } from './export.js';
+import { createSetupStore, mountSetup, adminEpoch } from './setup-codes.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.resolve(here, '..');
@@ -94,6 +95,9 @@ export async function createApp(options = {}) {
   }
   const adminToken = adminTokenFor(dataDir, envAdmin, log);
   const partnerSessions = createPartnerSessions({ now });
+  // Erweiterung qr-setup: Einmal-Codes + Admin-Sitzungen. epoch = Fingerabdruck des ADMIN_TOKEN: neuer Token →
+  // alle davon abgeleiteten Geräte und Codes sind abgemeldet.
+  const setup = createSetupStore({ store: journal.store, now, epoch: adminEpoch(adminToken) });
   const arLocal = fs.existsSync(path.join(publicDir, 'vendor', 'ar', 'tf.min.js')) && fs.existsSync(path.join(publicDir, 'vendor', 'ar', 'coco-ssd.min.js'));
   const ar = arLocal ? { tf: '/vendor/ar/tf.min.js', cocoSsd: '/vendor/ar/coco-ssd.min.js', local: true } : { ...AR_CDN, local: false };
   const headers = securityHeaders({ tileHost: tiles.host, arCdn: !arLocal });
@@ -107,6 +111,10 @@ export async function createApp(options = {}) {
     login: createLimiter({ perMinute: 5, burst: 5, now }),
     loginPartner: createLimiter({ perMinute: 10, burst: 10, now }),
     partner: createLimiter({ perMinute: 60, burst: 30, now }),
+    // Erweiterung qr-setup: Codes einlösen – knapp wie der Café-Login (Codes haben 144 Bit, raten ist aussichtslos)
+    setup: createLimiter({ perMinute: 5, burst: 10, now }),
+    setupInfo: createLimiter({ perMinute: 20, burst: 20, now }),
+    invite: createLimiter({ perMinute: 30, burst: 60, now }),
   };
 
   // ------------------------------------------------------------ Anmeldung
@@ -119,10 +127,12 @@ export async function createApp(options = {}) {
     return p;
   }
 
-  /** Admin: ADMIN_TOKEN oder Spielerkonto mit Rolle admin. */
+  /** Admin: ADMIN_TOKEN, eine Admin-Sitzung (gekoppeltes Gerät, server/setup-codes.js) oder Spielerkonto mit Rolle admin. */
   function admin(req) {
     const token = bearer(req);
-    if (token && safeEqual(token, adminToken)) return { id: 'admin', role: 'admin', nickname: 'Admin' };
+    if (token && safeEqual(token, adminToken)) return { id: 'admin', role: 'admin', nickname: 'Admin', owner: 'master' };
+    const s = token ? setup.sessionByToken(token) : null; // prüft Ablauf und Besitzer (Token geändert? noch admin?)
+    if (s) return { id: 'admin', role: 'admin', nickname: 'Admin', sessionId: s.id, owner: s.owner };
     const p = token ? engine.playerByTokenHash(sha256(token)) : null;
     if (p && p.role === 'admin' && !p.banned) return p;
     throw new HttpError(403, 'forbidden', 'Nur für Moderation');
@@ -232,7 +242,8 @@ export async function createApp(options = {}) {
   r.get('/api/vouchers/today', ({ req }) => ({ voucher: engine.voucherToday(player(req)) }));
 
   // Cafés
-  r.get('/api/partners', () => engine.listPlaces({ type: 'partner' }).map((p) => ({ id: p.id, name: p.name, address: p.address, demo: p.demo })));
+  // nur Cafés mit PIN – ohne PIN (noch nicht per QR eingerichtet) kann man sich nicht anmelden
+  r.get('/api/partners', () => engine.listPlaces({ type: 'partner' }).filter((p) => engine.ctx.store.places.get(p.id).pinHash).map((p) => ({ id: p.id, name: p.name, address: p.address, demo: p.demo })));
   r.post('/api/partner/login', async ({ req, ip }) => {
     lim.login.take(ip);
     const body = await readJson(req);
@@ -379,6 +390,11 @@ export async function createApp(options = {}) {
   // ── Erweiterung: perf ──
   // Keine eigenen Routen: brotli/gzip steckt in server/compress.js (benutzt von static.js, http.js, share.js).
 
+  // ── Erweiterung: qr-setup ──
+  // Einrichtung per QR-Code: Admin-Gerät koppeln, Café-Handy einrichten (PIN), Freiwillige einladen,
+  // Geräteliste (server/setup-codes.js). Codes nur im JSON-Body, nie in der Query.
+  mountSetup({ r, engine, setup, admin, player, partnerSessions, lim, publicUrl });
+
 
   // ------------------------------------------------------------ HTTP
 
@@ -430,6 +446,7 @@ export async function createApp(options = {}) {
     ai,
     journal,
     photos,
+    setup,
     close() {
       return new Promise((resolve) => {
         server.close(() => {

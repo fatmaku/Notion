@@ -49,8 +49,8 @@ Ausschnitts, schätzt aber kein Alter, Gewicht oder Gesundheit. Die Karte sagt d
 | `/guide.html` | Hilfe-Leitfaden für alle, ohne Konto: Futter, Wasser, Kälte, Kitten, krank/verletzt, Ohrspitze – [docs/features/impact.md](docs/features/impact.md) |
 | `/report.html` | Monatsbericht „Straßenkatzen von Kadıköy“ für Presse, Tierschutz und Stadt, A4-Druck – [docs/features/report.md](docs/features/report.md) |
 | `/print.html` | Café-Druckvorlagen: Tischaufsteller, Sticker, Poster mit eigenem QR-Code – [docs/features/cafe.md](docs/features/cafe.md) |
-| `/partner.html` | Café-Personal – Gutschein scannen/eintippen, prüfen, einlösen (Demo-PIN `246810`) |
-| `/admin.html` | Moderation – Dubletten, Einsprüche, auffällige Fänge, Cafés, Rollen, Legenden (Token in `data/admin-token.txt`) |
+| `/partner.html` | Café-Personal – Gutschein scannen/eintippen, prüfen, einlösen (Demo-PIN `246810`); `#setup=…` richtet das Café-Handy per QR ein |
+| `/admin.html` | Moderation am Handy – Einrichten per QR (Admin-Handys, Cafés, Freiwillige, Geräte), Dubletten, Einsprüche, auffällige Fänge, Cafés, Rollen, Legenden (Token in `data/admin-token.txt`) |
 | `/app.html?demo=1` | Reiner Browser-Demo-Modus ohne Server (Daten nur im Browser) |
 
 ### Mit dem Handy testen
@@ -79,12 +79,23 @@ bash deploy/kur.sh kedi.ornek.com            # DNS-A-Record der Domain zeigt auf
 Schritt für Schritt auf Türkisch (mit deutscher Kurzfassung), Moderation, Claude-Key, Sicherung,
 Update, Demo an/aus, Betrieb ohne Docker und typische Probleme: [deploy/KURULUM.md](deploy/KURULUM.md).
 
+### Einrichten mit dem Handy (QR-Code)
+
+Am Ende von `kur.sh` steht ein QR-Code im Terminal: mit dem Handy scannen → die Moderation öffnet sich,
+schon angemeldet (Einmal-Code, 10 Minuten – nie der Admin-Token). Danach geht alles am Handy, jeweils
+mit einem QR-Code: Cafés anlegen („Meinen Standort nehmen“) und das Café-Handy einrichten (das Café
+wählt seine PIN selbst), Freiwillige einladen, weitere Admin-Handys koppeln, angemeldete Geräte
+abmelden. Neuer QR-Code jederzeit: `bash deploy/qr.sh` · `bash deploy/qr.sh kafe <id>` ·
+`bash deploy/qr.sh gonullu 5`. Am Desktop zeigen Startseite, Spiel und Moderation „Auf dem Handy
+öffnen/spielen“. Details: [docs/features/qr-setup.md](docs/features/qr-setup.md).
+
 ## Erweiterungen
 
 Jede Erweiterung ist in `docs/features/` beschrieben: Katzen-Seiten mit Link-Vorschau (`share`),
 Café-QR-Code mit Werbe-Zuordnung und Druckvorlagen (`cafe`), Katzen-Spaziergänge (`routes`),
-Dank-Feed, Hilfe-Knöpfe für Freiwillige und Hilfe-Leitfaden (`impact`), Monatsbericht (`report`)
-und Ladezeit im Mobilnetz (`perf`, Messung: `node scripts/perf-measure.js`).
+Dank-Feed, Hilfe-Knöpfe für Freiwillige und Hilfe-Leitfaden (`impact`), Monatsbericht (`report`),
+Ladezeit im Mobilnetz (`perf`, Messung: `node scripts/perf-measure.js`) und Einrichtung per QR-Code
+am Handy (`qr-setup`).
 
 ## Startseite, Trailer, Social-Kit
 

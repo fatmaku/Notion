@@ -629,4 +629,15 @@ export default {
 
   // ── Erweiterung: perf ──
 
+  // ── Erweiterung: qr-setup ──
+  'qrs.invite.note': 'Du wurdest als Freiwillige:r eingeladen. Wähle einen Spitznamen, dann geht es los.',
+  'qrs.invite.ok': 'Du hilfst jetzt als Freiwillige:r mit. Danke! 🧡',
+  'qrs.invite.already': 'Du bist schon als Freiwillige:r dabei. 🧡',
+  'qrs.invite.admin': 'Du bist in der Moderation. Deine Rolle bleibt gleich.',
+  'qrs.invite.bad': 'Diese Einladung geht nicht mehr. Bitte um eine neue.',
+  'qrs.invite.demo': 'Einladungen gehen nur auf der echten Seite.',
+  'qrs.phone.title': 'Auf dem Handy spielen',
+  'qrs.phone.lead': 'Mit der Handykamera scannen. Das Spiel öffnet sich dort.',
+  'qrs.phone.alt': 'QR-Code für diese Seite',
+
 };

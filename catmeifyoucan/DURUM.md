@@ -1,6 +1,6 @@
 # Cat Me If You Can · Durum
 
-*Durum tarihi: 8 Ekim 2026 · Git dalı: `claude/zen-galileo-1fgw7m`*
+*Durum tarihi: 9 Ekim 2026 · Git dalı: `claude/zen-galileo-1fgw7m`*
 
 Kadıköy'ün sokak kedileri için ücretsiz bir fotoğraf oyunu. Oyuncular sokak kedilerini
 fotoğraflar, yapay zekâ kediyi tanır, kedi oyuncunun **KediDex**'ine girer. Bir kediyi ilk bulan
@@ -31,6 +31,7 @@ ve tek bir komut gerekiyor (bkz. `deploy/KURULUM.md` ve `YAPILACAKLAR.md`).
 | Yardım ve teşekkür: gönüllü düğmeleri, teşekkür akışı, yardım kılavuzu | ✅ hazır | `public/guide.html`, `docs/features/impact.md` |
 | Aylık rapor: “Kadıköy'ün sokak kedileri” | ✅ hazır | `public/report.html`, `docs/features/report.md` |
 | Hız: sıkıştırma, ekranlar gerektiğinde yüklenir | ✅ hazır | `server/compress.js`, `docs/features/perf.md` |
+| Telefonla kurulum: her adım için QR kod (yönetici telefonu, kafe telefonu + PIN, gönüllü daveti, cihaz listesi), terminalde QR (`deploy/qr.sh`) | ✅ hazır (gerçek Docker'da denendi: `kur.sh` sonunda QR, kafe QR'ı + PIN, uygulama kapalıyken gönüllü daveti) | `server/setup-codes.js`, `server/setup-qr.js`, `docs/features/qr-setup.md` |
 | Kurulum paketi: Docker + otomatik HTTPS (Caddy), yedek, geri yükleme, güncelleme, Docker'sız alternatif | ✅ hazır (gerçek Docker'da test edildi; gerçek Let's Encrypt sertifikası ilk kurulumda izlenmeli) | `deploy/`, `Dockerfile`, `deploy/KURULUM.md` |
 | Sunum (İngilizce, 13 slayt) | ✅ hazır | çevrimiçi (PowerPoint/PDF olarak indirilebilir) ve tam pakette `sunum/` |
 
@@ -48,6 +49,11 @@ düzeyinde gözden geçirildi; yayından önce bir insanın da okuması iyi olur
   kontrolü, her denemeden sonra bekleme süresi.
 * Kötü isimlere karşı 11 dilde sözcük filtresi, ayrıca (anahtar varsa) yapay zekâ kontrolü.
 * İndirim kodu gün sonuna kadar geçerli ve bir kez kullanılır; kafeler PIN ile girer.
+* Kurulum QR kodları kısa ömürlü ve tek kullanımlıktır (yönetici: 10 dakika, kafe ve gönüllü: 7 gün);
+  sunucuda sadece özetleri (hash) saklanır, kod adres çubuğundan hemen silinir. QR kodda yönetici
+  anahtarı yoktur. Her yönetici cihazı kendi oturumunu alır ve tek tek çıkarılabilir. Yönetici
+  anahtarı değişirse bütün cihazlar çıkar; yetkisi alınan ya da engellenen yöneticinin cihazları ve
+  QR kodları da hemen geçersiz olur. Kafeler çok kolay PIN seçemez (`123456` gibi).
 * Kafe yönlendirmesi (QR) için yalnızca birinci taraf çerez; IP adresi saklanmaz.
 * Bütün özellikler birlikte, saldırgan gözüyle ayrıca denetlendi (yetkiler, sızıntı, XSS,
   önbellek, kötüye kullanım); bulunanlar düzeltildi ve testlerle korunuyor.
@@ -66,7 +72,10 @@ düzeyinde gözden geçirildi; yayından önce bir insanın da okuması iyi olur
   yapmaz. Anahtarla (Claude) tam analiz çalışır.
 * **AR kedi tanıma:** kamera görüntüsünde kediyi işaretleyen model internetten (jsDelivr) yüklenir;
   istenirse `npm run vendor:ar` ile sunucuya alınabilir.
-* **Kafe sayfası** tr/en/de dillerinde; ru/ar/fa için İngilizce gösterilir.
+* **Kafe sayfası ve yönetim sayfası** tr/en/de dillerinde; ru/ar/fa için İngilizce gösterilir.
+* **Yönetici oturumları** 30 gün sonra biter (anahtarla girip „hatırla“ seçilmezse 12 saat); sonra QR
+  kodla yeniden bağlanılır (`bash deploy/qr.sh`).
+* **„Ana ekrana ekle“** kafe telefonunda sadece bir ipucudur (iPhone/Android adımları), otomatik değil.
 * **Bildirim yok:** teşekkür mesajları uygulama bir sonraki açılışında görünür (push bildirimi yok).
 * **Veri saklama:** günlük dosyası + anlık görüntü; Kadıköy büyüklüğü için yeterli. Çok büyürse
   Postgres/PostGIS'e geçilebilir (motor değişmez).
@@ -78,7 +87,8 @@ düzeyinde gözden geçirildi; yayından önce bir insanın da okuması iyi olur
 | Dosya | Ne için |
 |---|---|
 | `README.md` | Teknik genel bakış, ortam değişkenleri, sayfalar (Almanca) |
-| `deploy/KURULUM.md` | Yayına alma, adım adım (Türkçe, sonunda Almanca özet) |
+| `deploy/KURULUM.md` | Yayına alma, adım adım (Türkçe, sonunda Almanca özet) – telefonla kurulum: Adım 8 |
+| `deploy/qr.sh` | Telefon için yeni QR kod: yönetim, kafe, gönüllü |
 | `YAPILACAKLAR.md` | Yayından önce ve sonra yapılacaklar |
 | `docs/BRAND.md` | Marka: yazımlar, renkler, yazı tipleri, dil kuralları |
 | `docs/KONZEPT.md` | Fikir, oyun kuralları, iş modeli |

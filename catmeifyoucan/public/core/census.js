@@ -229,7 +229,10 @@ export function censusApi(ctx, api) {
       status: p.status,
       active: p.active !== false,
     };
-    if (withStats && p.type === 'partner') out.redemptions = store.vouchers.all().filter((v) => v.partnerId === p.id).length;
+    if (withStats && p.type === 'partner') {
+      out.redemptions = store.vouchers.all().filter((v) => v.partnerId === p.id).length;
+      out.hasPin = !!p.pinHash; // nur Moderation (withStats): PIN schon gesetzt? Sonst Einrichtungs-QR zeigen
+    }
     return out;
   }
 

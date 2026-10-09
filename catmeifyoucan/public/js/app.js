@@ -4,6 +4,19 @@ import { RemoteApi, createLocalApi } from './api.js';
 import { t, getLang, setLang, LANGS, LANG_INFO, tx } from './i18n.js';
 import { esc, sep, toast, errorText, fmtNum } from './ui.js';
 
+// Erweiterung qr-setup: Einladung als Freiwillige:r (#invite=<Code>). Sofort aus der Adresszeile nehmen
+// (nie in Verlauf, Lesezeichen oder Logs) und bis nach dem Onboarding in sessionStorage merken.
+const INVITE = /^#invite=([A-Za-z0-9_-]{22,64})$/.exec(location.hash || '');
+if (INVITE) {
+  try {
+    sessionStorage.setItem('catme.invite', INVITE[1]);
+  } catch {
+    globalThis.__catmeInvite = INVITE[1]; // kein sessionStorage (privater Modus): nur bis zum Neuladen gemerkt
+  }
+  history.replaceState(history.state, '', `${location.pathname}${location.search}#/`);
+}
+const qrSetup = () => import('./views/qr-setup.js');
+
 // Erweiterung perf: Ansichten erst laden, wenn man sie öffnet (import() je Route, der Lade-Kreis läuft
 // solange). Startseite „Heute“ ist in app.html per modulepreload schon unterwegs.
 const VIEWS = {
@@ -145,6 +158,7 @@ function onboarding(app) {
         <p class="small"><a href="#/rules" data-rules>${esc(t('p.rules'))}</a></p>
       </div>`;
     import('./views/cafe.js').then((m) => m.cafeWelcome(wrap, app.api)).catch(() => {}); // Erweiterung cafe: „Willkommen von Café X“
+    qrSetup().then((m) => m.inviteNote(wrap)).catch(() => {}); // Erweiterung qr-setup: „Du wurdest eingeladen“
     wrap.querySelector('[data-f]').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = e.target.querySelector('button');
@@ -155,6 +169,7 @@ function onboarding(app) {
         wrap.remove();
         shell(app);
         route(app);
+        qrSetup().then((m) => m.redeemPendingInvite(app)).catch(() => {}); // Erweiterung qr-setup: Einladung einlösen
       } catch (err) {
         toast(errorText(err), { type: 'error', ms: 4500 });
         btn.disabled = false;
@@ -264,6 +279,7 @@ async function boot() {
   window.addEventListener('hashchange', () => route(app));
   if (api.hasToken()) app.refreshPlayer();
   await route(app);
+  if (api.hasToken()) qrSetup().then((m) => m.redeemPendingInvite(app)).catch(() => {}); // Erweiterung qr-setup
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }

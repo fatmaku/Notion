@@ -881,4 +881,15 @@ export default {
 
   // ── Erweiterung: perf ──
 
+  // ── Erweiterung: qr-setup ──
+  'qrs.invite.note': 'تمت دعوتك كمتطوع. اختر اسمًا مستعارًا وابدأ.',
+  'qrs.invite.ok': 'أنت الآن متطوع. شكرًا لك! 🧡',
+  'qrs.invite.already': 'أنت متطوع بالفعل. 🧡',
+  'qrs.invite.admin': 'أنت مشرف. يبقى دورك كما هو.',
+  'qrs.invite.bad': 'هذه الدعوة لم تعد تعمل. اطلب دعوة جديدة.',
+  'qrs.invite.demo': 'الدعوات تعمل فقط على الموقع الحقيقي.',
+  'qrs.phone.title': 'العب على هاتفك',
+  'qrs.phone.lead': 'امسح الرمز بكاميرا هاتفك. تفتح اللعبة هناك.',
+  'qrs.phone.alt': 'رمز QR لهذه الصفحة',
+
 };

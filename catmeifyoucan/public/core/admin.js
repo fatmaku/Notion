@@ -228,8 +228,9 @@ export function adminApi(ctx, api) {
         maxPerDay: Number(r.maxPerDay) > 0 ? Math.round(Number(r.maxPerDay)) : null,
         text: r.text ? sanitizeI18n(r.text) : null,
       };
+      // Ohne PIN geht das Anlegen auch: dann setzt das Café seine PIN selbst über den Einrichtungs-QR
+      // (Erweiterung qr-setup). Bis dahin ist keine Anmeldung möglich.
       if (data.pinHash) doc.pinHash = data.pinHash;
-      else if (!existing || !existing.pinHash) fail(400, 'pin_required', 'Partner brauchen eine PIN');
     }
     if (existing) return api.publicPlace(store.places.update(existing.id, doc), { withStats: true });
     const p = { id: ctx.newId('pl'), ...doc, createdBy: actor.id, createdAt: ctx.now() };

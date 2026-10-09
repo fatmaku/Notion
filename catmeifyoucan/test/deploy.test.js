@@ -15,7 +15,7 @@ const ROOT = path.resolve(here, '..');
 const D = (...p) => path.join(ROOT, 'deploy', ...p);
 const read = (p) => fs.readFileSync(p, 'utf8');
 const hasBash = spawnSync('bash', ['-c', 'true']).status === 0;
-const SCRIPTS = ['kur.sh', 'guncelle.sh', 'yedek.sh', 'geri-yukle.sh', 'sifirla.sh', 'ortak.sh'];
+const SCRIPTS = ['kur.sh', 'guncelle.sh', 'yedek.sh', 'geri-yukle.sh', 'sifirla.sh', 'ortak.sh', 'qr.sh'];
 
 /** KEY=WERT-Zeilen einer .env-Datei (ohne Kommentare). */
 function envKeys(text) {
@@ -456,4 +456,217 @@ test('Rauchtest: node server.js wie hinter Caddy (CATME_PUBLIC_URL, TRUST_PROXY=
   const snap = JSON.parse(read(path.join(dataDir, 'snapshot.json')));
   assert.ok(snap.places.some((p) => p.name === 'Rauchtest Kafe'), 'Café nach dem Beenden im Snapshot');
   assert.equal(read(path.join(dataDir, 'journal.jsonl')), '', 'Journal verdichtet');
+});
+
+// ---------------------------------------------------------------- Telefon-QR: deploy/qr.sh + server/setup-qr.js (Erweiterung qr-setup)
+
+/** Terminal-Ausgabe → Bild: jedes Zeichen 1 Modul breit, 2 Module hoch (▀ ▄ █). ansi = schwarz auf weiß. */
+function terminalToImage(lines, { mode = 'ansi', scale = 6, lightTerminal = false } = {}) {
+  // eslint-disable-next-line no-control-regex
+  const rows = lines.map((l) => [...l.replace(/\x1b\[[0-9;]*m/g, '').replace(/^ {2}/, '')]);
+  const w = Math.max(...rows.map((r) => r.length)) * scale;
+  const h = rows.length * 2 * scale;
+  const data = new Uint8ClampedArray(w * h * 4);
+  // plain: so, wie es ein dunkles Terminal zeigt (helle Zeichen) – oder ein helles (dunkle Zeichen, --invert)
+  const ink = mode === 'ansi' ? 0 : lightTerminal ? 25 : 235;
+  const bg = mode === 'ansi' ? 255 : lightTerminal ? 250 : 18;
+  for (let y = 0; y < h; y++) {
+    const row = rows[Math.floor(y / (2 * scale))];
+    const top = Math.floor(y / scale) % 2 === 0;
+    for (let x = 0; x < w; x++) {
+      const ch = row[Math.floor(x / scale)] || ' ';
+      const on = ch === '█' || (top ? ch === '▀' : ch === '▄');
+      const i = (y * w + x) * 4;
+      data[i] = data[i + 1] = data[i + 2] = on ? ink : bg;
+      data[i + 3] = 255;
+    }
+  }
+  return { data, width: w, height: h };
+}
+
+function runCli(args, env) {
+  return new Promise((resolve) => {
+    const child = spawn(process.execPath, ['server/setup-qr.js', ...args], { cwd: ROOT, env: { PATH: process.env.PATH, HOME: os.tmpdir(), ...env } });
+    let out = '';
+    let err = '';
+    child.stdout.on('data', (c) => (out += c));
+    child.stderr.on('data', (c) => (err += c));
+    child.on('close', (code) => resolve({ code, out, err }));
+  });
+}
+
+const qrLines = (out) => out.split('\n').filter((l) => /[▀▄█]/.test(l) || /^ {2}\x1b\[30;107m/.test(l)); // eslint-disable-line no-control-regex
+
+test('qr.sh: Hilfe und falsche Eingaben – verständlich, ohne Docker zu brauchen', { skip: !hasBash && 'bash fehlt' }, () => {
+  const help = spawnSync('bash', [D('qr.sh'), 'yardim'], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, NO_COLOR: '1' } });
+  assert.equal(help.status, 0);
+  assert.match(help.stdout, /bash deploy\/qr\.sh kafe <kafe-id>/);
+  assert.match(help.stdout, /gonullu/);
+  for (const [args, msg] of [[['gonullu', '99'], /1 ile 50/], [['gonullu', '0'], /1 ile 50/], [['gonullu', 'x'], /1 ile 50/], [['kafe', '../etc'], /geçersiz/], [['bilinmez'], /Bilinmeyen/], [['admin', 'fazla'], /Fazla/]]) {
+    const r = spawnSync('bash', [D('qr.sh'), ...args], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, NO_COLOR: '1' } });
+    assert.equal(r.status, 1, args.join(' '));
+    assert.match(r.stderr, msg, args.join(' '));
+  }
+  const src = read(D('qr.sh'));
+  assert.match(src, /qr_goster "\$\{arg\[@\]\}"/);
+  assert.doesNotMatch(src, /ADMIN_TOKEN=|env_get ADMIN_TOKEN/, 'qr.sh liest den ADMIN_TOKEN nicht selbst – das macht die App im Container');
+  const ortak = read(D('ortak.sh'));
+  assert.match(ortak, /dc exec -T app node server\/setup-qr\.js "\$@" --online/, 'laufende App: nur fragen, nie selbst ins Journal');
+  assert.match(ortak, /dc run --rm --no-deps -T app node server\/setup-qr\.js "\$@"/, 'App aus: Wegwerf-Container mit demselben Volume');
+  const kur = read(D('kur.sh'));
+  assert.match(kur, /qr_goster admin/);
+  assert.match(kur, /Telefon için QR kod/);
+  assert.match(read(path.join(ROOT, 'server', 'setup-qr.js')), /Telefonun kamerasıyla okutun: yönetim sayfası açılır, giriş yapılmış olur/, 'der Hinweis steht einmal, über dem QR');
+  assert.match(kur, /bash deploy\/qr\.sh/);
+  const k = read(D('KURULUM.md'));
+  for (const x of ['bash deploy/qr.sh', 'bash deploy/qr.sh kafe', 'bash deploy/qr.sh gonullu', 'Cihazlar']) assert.ok(k.includes(x), `KURULUM.md erwähnt ${x}`);
+});
+
+test('qr.sh: läuft die App → fragt sie (--online); ist sie aus → Wegwerf-Container, der Code gilt nach dem Start', { skip: !hasBash && 'bash fehlt' }, () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'catme-qrsh-'));
+  fs.writeFileSync(path.join(tmp, '.env'), 'SITE_DOMAIN=kedi.example\n');
+  const run = (running, args) => spawnSync('bash', ['-c', `
+    set -euo pipefail
+    source "$1"; shift
+    docker_kontrol() { :; }
+    dc() { printf 'DC %s\\n' "$*"; }
+    app_calisiyor() { return ${running ? 0 : 1}; }
+    ENV_DOSYA="$TMPENV"
+    main "$@"`, 'qr', D('qr.sh'), ...args], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, NO_COLOR: '1', TMPENV: path.join(tmp, '.env') } });
+  try {
+    const on = run(true, ['admin']);
+    assert.equal(on.status, 0, on.stderr);
+    assert.match(on.stdout, /^DC exec -T app node server\/setup-qr\.js admin --online --plain$/m);
+    assert.doesNotMatch(on.stderr, /kapalı/);
+    const off = run(false, ['kafe', 'pl_abc']);
+    assert.equal(off.status, 0, off.stderr);
+    assert.match(off.stdout, /^DC run --rm --no-deps -T app node server\/setup-qr\.js partner pl_abc --plain$/m);
+    assert.match(off.stderr, /Uygulama şu an kapalı/);
+    const vol = run(true, ['gonullu', '5']);
+    assert.match(vol.stdout, /setup-qr\.js volunteer 5 --online --plain$/m);
+    fs.rmSync(path.join(tmp, '.env'));
+    const none = run(true, ['admin']);
+    assert.equal(none.status, 1);
+    assert.match(none.stderr, /Kurulum bulunamadı/);
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+test('shellcheck: deploy/*.sh ohne Befund (wenn shellcheck installiert ist)', { skip: spawnSync('bash', ['-c', 'command -v shellcheck']).status !== 0 && 'shellcheck fehlt' }, () => {
+  const r = spawnSync('shellcheck', ['-x', ...SCRIPTS.map((f) => `deploy/${f}`)], { cwd: ROOT, encoding: 'utf8' });
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+});
+
+test('setup-qr.js: Terminal-QR (farbig und ohne Farben) ist lesbar, führt zur angemeldeten Moderation, ohne ADMIN_TOKEN', { timeout: 60000 }, async () => {
+  const { createRequire } = await import('node:module');
+  const require = createRequire(import.meta.url);
+  const jsQRmod = require('jsqr');
+  const jsQR = jsQRmod.default || jsQRmod;
+  const { createApp } = await import('../server/app.js');
+  const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'catme-cli-'));
+  const adminToken = 'cli-test-admin-token-0123456789abcdef';
+  const app = await createApp({ dataDir, aiMode: 'mock', demo: false, adminToken, publicUrl: 'https://kedi.example', log: () => {} });
+  await new Promise((r) => app.server.listen(0, '127.0.0.1', r));
+  const port = app.server.address().port;
+  const env = { PORT: String(port), ADMIN_TOKEN: adminToken, CATME_DATA: dataDir };
+  const exchange = async (url) => {
+    const code = new URL(url).hash.replace(/^#setup=/, '');
+    const res = await fetch(`http://127.0.0.1:${port}/api/setup/admin`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) });
+    return res.status;
+  };
+  try {
+    for (const mode of ['ansi', 'plain']) {
+      const r = await runCli(['admin', ...(mode === 'plain' ? ['--plain'] : [])], env);
+      assert.equal(r.code, 0, r.err);
+      assert.ok(!r.out.includes(adminToken), 'kein ADMIN_TOKEN in der Ausgabe');
+      const link = /Bağlantı: +(\S+)/.exec(r.out)[1];
+      assert.match(link, /^https:\/\/kedi\.example\/admin\.html#setup=[A-Za-z0-9_-]{24}$/, 'CATME_PUBLIC_URL der App');
+      assert.match(r.out, /10 dakika geçerli/);
+      const lines = qrLines(r.out);
+      if (mode === 'ansi') assert.ok(lines.every((l) => l.includes('\x1b[30;107m') && l.endsWith('\x1b[0m')), 'feste Farben: schwarz auf weiß, Zeilenende zurückgesetzt');
+      else assert.ok(lines.every((l) => !l.includes('\x1b')), 'ohne Farben');
+      // Ruhezone: 4 Module rundherum = 2 helle Zeilen oben, 4 helle Spalten links
+      const plainLines = lines.map((l) => l.replace(/\x1b\[[0-9;]*m/g, '').slice(2)); // eslint-disable-line no-control-regex
+      const light = mode === 'ansi' ? ' ' : '█';
+      assert.equal(plainLines[0], light.repeat(plainLines[0].length), 'Ruhezone oben');
+      assert.ok(plainLines.every((l) => l.startsWith(light.repeat(4)) && l.endsWith(light.repeat(4))), 'Ruhezone links/rechts');
+      const img = terminalToImage(lines, { mode });
+      const qr = jsQR(img.data, img.width, img.height, { inversionAttempts: mode === 'ansi' ? 'dontInvert' : 'attemptBoth' });
+      assert.ok(qr, `${mode}: QR aus dem Terminal lesbar`);
+      assert.equal(qr.data, link);
+      assert.equal(await exchange(link), 201, `${mode}: Code öffnet die Moderation`);
+    }
+    // --plain --invert (helles Terminal ohne Farben): dunkle Zeichen auf hellem Grund, ebenfalls lesbar
+    const inv = await runCli(['admin', '--plain', '--invert'], env);
+    const invLink = /Bağlantı: +(\S+)/.exec(inv.out)[1];
+    const invImg = terminalToImage(qrLines(inv.out), { mode: 'plain', lightTerminal: true });
+    assert.equal(jsQR(invImg.data, invImg.width, invImg.height, { inversionAttempts: 'dontInvert' }).data, invLink, 'helles Terminal');
+    // passt in ein 80 Zeichen breites Terminal (auch mit langer Domain)
+    const wide = await runCli(['admin', '--base', 'https://kedi-kadikoy-sokak-kedileri.example.com.tr'], env);
+    assert.ok(qrLines(wide.out).every((l) => l.replace(/\x1b\[[0-9;]*m/g, '').length <= 80), 'höchstens 80 Spalten'); // eslint-disable-line no-control-regex
+    // --base, NO_COLOR, Café-Liste, Café-QR, Freiwillige, JSON
+    const nc = await runCli(['admin', '--base', 'https://andere.example/'], { ...env, NO_COLOR: '1' });
+    assert.match(nc.out, /https:\/\/andere\.example\/admin\.html#setup=/);
+    assert.ok(!nc.out.includes('\x1b['), 'NO_COLOR → ohne Farben');
+    const cafe = (await (await fetch(`http://127.0.0.1:${port}/api/admin/places`, { method: 'POST', headers: { Authorization: `Bearer ${adminToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'partner', name: 'Terminal Kafe', lat: 40.9853, lon: 29.0261, reward: { minCats: 20, discountPct: 20 } }) })).json());
+    const list = await runCli(['kafe'], env);
+    assert.match(list.out, new RegExp(`${cafe.id}\\s+Terminal Kafe.*PIN henüz yok`));
+    const cq = await runCli(['kafe', cafe.id, '--json'], env);
+    const cj = JSON.parse(cq.out);
+    assert.equal(cj.placeName, 'Terminal Kafe');
+    assert.match(cj.url, /^https:\/\/kedi\.example\/partner\.html#setup=/);
+    const vq = await runCli(['gonullu', '7', '--json'], env);
+    assert.equal(JSON.parse(vq.out).maxUses, 7);
+    assert.match(JSON.parse(vq.out).url, /\/app\.html#invite=/);
+    assert.equal((await runCli(['kafe', 'pl_gibtsnicht'], env)).code, 1);
+    assert.match((await runCli(['admin'], { ...env, ADMIN_TOKEN: 'falsch-falsch-falsch-falsch' })).err, /ADMIN_TOKEN kabul edilmedi/);
+    assert.equal((await runCli(['gonullu', '51'], env)).code, 2);
+    const codes = app.engine.ctx.store.setupCodes.all();
+    assert.ok(codes.every((d) => d.via === 'terminal'));
+  } finally {
+    await app.close();
+  }
+
+  // App aus: Code wird ans Journal angehängt (nichts überschrieben) und gilt nach dem Start
+  try {
+    const before = read(path.join(dataDir, 'snapshot.json'));
+    // --online (qr.sh bei laufendem Container): nie selbst ins Journal, sondern klar abbrechen
+    const jBefore = read(path.join(dataDir, 'journal.jsonl'));
+    const on = await runCli(['admin', '--online'], { ...env, PORT: String(port), CATME_QR_RETRIES: '2' });
+    assert.equal(on.code, 1);
+    assert.match(on.err, /yanıt vermiyor/);
+    assert.equal(read(path.join(dataDir, 'journal.jsonl')), jBefore, '--online schreibt nichts');
+    // ohne ADMIN_TOKEN (weder Umgebung noch admin-token.txt) kein Code
+    const noTok = await runCli(['admin'], { PORT: String(port), CATME_DATA: dataDir });
+    assert.equal(noTok.code, 1);
+    assert.match(noTok.err, /ADMIN_TOKEN bulunamadı/);
+    assert.equal(read(path.join(dataDir, 'journal.jsonl')), jBefore);
+    fs.appendFileSync(path.join(dataDir, 'journal.jsonl'), '{"op":"insert","col":"ca'); // halbe Zeile (Absturz)
+    const r = await runCli(['admin', '--base', 'https://kedi.example', '--plain'], { ...env, PORT: String(port) });
+    assert.equal(r.code, 0, r.err);
+    assert.match(r.out, /Uygulama kapalıydı/);
+    assert.equal(read(path.join(dataDir, 'snapshot.json')), before, 'Snapshot unverändert');
+    const link = /Bağlantı: +(\S+)/.exec(r.out)[1];
+    const img = terminalToImage(qrLines(r.out), { mode: 'plain' });
+    assert.equal(jsQR(img.data, img.width, img.height).data, link);
+    const foreign = await runCli(['admin', '--base', 'https://kedi.example', '--json'], { ...env, ADMIN_TOKEN: 'ganz-anderer-token-0123456789' });
+    assert.equal(foreign.code, 0, foreign.err);
+    const foreignCode = new URL(JSON.parse(foreign.out).url).hash.replace(/^#setup=/, '');
+    const { createApp } = await import('../server/app.js');
+    const again = await createApp({ dataDir, aiMode: 'mock', demo: false, adminToken, log: () => {} });
+    await new Promise((res) => again.server.listen(0, '127.0.0.1', res));
+    try {
+      const code = new URL(link).hash.replace(/^#setup=/, '');
+      const res = await fetch(`http://127.0.0.1:${again.server.address().port}/api/setup/admin`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) });
+      assert.equal(res.status, 201, 'Code aus dem Journal gilt nach dem Start');
+      // mit einem anderen ADMIN_TOKEN geschrieben → gilt nicht (gehört nicht zu diesem Token)
+      const res2 = await fetch(`http://127.0.0.1:${again.server.address().port}/api/setup/admin`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: foreignCode }) });
+      assert.equal(res2.status, 400);
+    } finally {
+      await again.close();
+    }
+  } finally {
+    fs.rmSync(dataDir, { recursive: true, force: true });
+  }
 });

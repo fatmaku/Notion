@@ -16,6 +16,9 @@ export const COLLECTIONS = {
   xp: ['playerId', 'dayKey'],
   disputes: ['observationId'],
   meta: [],
+  // ── Erweiterung: qr-setup ── (server/setup-codes.js: nur SHA-256 der Codes/Tokens, nie der Code selbst)
+  setupCodes: ['codeHash'],
+  adminSessions: ['tokenHash'],
 };
 
 class Collection {

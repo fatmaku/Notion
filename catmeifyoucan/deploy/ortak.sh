@@ -109,3 +109,17 @@ GERI_YUKLE_SH="$VERI_TEMIZLE_SH"'; tar xzf - -C "$d"'
 saglik_json() {
   dc exec -T app node -e "require('http').get('http://127.0.0.1:'+(process.env.PORT||8790)+'/api/health',r=>{let d='';r.on('data',c=>d+=c);r.on('end',()=>console.log(d))}).on('error',()=>process.exit(1))" 2>/dev/null || true
 }
+
+# Einrichtungs-QR im Terminal (server/setup-qr.js im Container): qr_goster admin | partner <id> | volunteer <n>
+# Farben (schwarz auf weiß, auf hellen und dunklen Terminals lesbar) nur bei echtem Terminal ohne NO_COLOR.
+# App läuft → fragt die App (--online: nie selbst ins Journal schreiben). App aus → eigener Wegwerf-Container
+# mit demselben Daten-Volume: der Code kommt ins Journal und gilt, sobald die App wieder läuft.
+qr_goster() {
+  local -a ek=()
+  if [ -n "${NO_COLOR:-}" ] || [ ! -t 1 ]; then ek+=(--plain); fi
+  if app_calisiyor; then
+    dc exec -T app node server/setup-qr.js "$@" --online ${ek[@]+"${ek[@]}"}
+  else
+    dc run --rm --no-deps -T app node server/setup-qr.js "$@" ${ek[@]+"${ek[@]}"}
+  fi
+}

@@ -659,6 +659,67 @@ async function setupHero() {
   }
 }
 
+// ------------------------------------------------------------------ Auf dem Handy spielen (Erweiterung qr-setup)
+// Nur auf breiten Bildschirmen (≥ 900 px): kleine Karte unten in der ersten Ansicht mit dem QR-Code dieser
+// Seite (ohne Fragment/Query außer ?lang und ?ref). Der QR-Erzeuger lädt erst danach; schließen = gemerkt.
+
+const PHONE_KEY = 'catme.phoneCard';
+function setupPhoneCard() {
+  const hero = $('#hero');
+  if (!hero || typeof window.matchMedia !== 'function') return;
+  const mq = window.matchMedia('(min-width: 900px)');
+  const off = () => {
+    try {
+      return localStorage.getItem(PHONE_KEY) === 'off';
+    } catch {
+      return false;
+    }
+  };
+  let card = null;
+  let busy = false;
+  const label = () => {
+    if (!card) return;
+    setText($('.phone-t', card), T('phone.title'));
+    setText($('.phone-d', card), T('phone.lead'));
+    $('.phone-qr', card).setAttribute('aria-label', T('phone.alt'));
+    $('.phone-x', card).setAttribute('aria-label', T('phone.close'));
+  };
+  async function show() {
+    if (!mq.matches || card || busy || off()) return;
+    busy = true;
+    try {
+      const { qrSvg, phoneUrl } = await import('../js/qr-kit.js');
+      const url = phoneUrl(window.location.href);
+      const svg = await qrSvg(url);
+      if (!svg || card) return;
+      card = document.createElement('aside');
+      card.className = 'phone-card';
+      card.dataset.phoneCard = url;
+      card.innerHTML = `<div class="phone-qr" role="img">${svg}</div><div class="phone-txt"><p class="phone-t"></p><p class="phone-d"></p></div><button type="button" class="phone-x"><span aria-hidden="true">×</span></button>`;
+      card.setAttribute('aria-label', T('phone.title'));
+      hero.append(card);
+      label();
+      $('.phone-x', card).addEventListener('click', () => {
+        card.remove();
+        card = null;
+        try {
+          localStorage.setItem(PHONE_KEY, 'off');
+        } catch {
+          /* egal */
+        }
+      });
+    } catch (err) {
+      console.warn('[catme] QR-Karte aus', err);
+    } finally {
+      busy = false;
+    }
+  }
+  langListeners.push(label);
+  if (mq.addEventListener) mq.addEventListener('change', show);
+  const later = window.requestIdleCallback || ((fn) => setTimeout(fn, 600));
+  later(() => show(), { timeout: 2500 });
+}
+
 // ------------------------------------------------------------------ Start
 
 window.__catme = { lang: () => lang, stats: statsState, hero: null };
@@ -670,3 +731,4 @@ setupShare();
 setupTrailer();
 setupStats();
 setupHero();
+setupPhoneCard();

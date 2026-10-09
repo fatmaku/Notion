@@ -629,4 +629,15 @@ export default {
 
   // ── Erweiterung: perf ──
 
+  // ── Erweiterung: qr-setup ──
+  'qrs.invite.note': 'Gönüllü olarak davet edildin. Bir takma ad seç, hemen başla.',
+  'qrs.invite.ok': 'Artık gönüllüsün. Teşekkürler! 🧡',
+  'qrs.invite.already': 'Zaten gönüllüsün. 🧡',
+  'qrs.invite.admin': 'Sen moderatörsün. Rolün aynı kalıyor.',
+  'qrs.invite.bad': 'Bu davet artık çalışmıyor. Yenisini iste.',
+  'qrs.invite.demo': 'Davetler sadece canlı sitede çalışır.',
+  'qrs.phone.title': 'Telefonunda oyna',
+  'qrs.phone.lead': 'Telefonunun kamerasıyla okut. Oyun orada açılır.',
+  'qrs.phone.alt': 'Bu sayfanın QR kodu',
+
 };

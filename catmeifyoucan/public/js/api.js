@@ -149,6 +149,10 @@ export class RemoteApi {
 
   // ── Erweiterung: perf ──
 
+  // ── Erweiterung: qr-setup ──
+  /** Einladung als Freiwillige:r einlösen (Code aus app.html#invite=…, nur im Body). */
+  redeemInvite(code) { return this.req('POST', '/api/invites/redeem', { code }); }
+
 }
 
 // ------------------------------------------------------------------ Demo-Modus

@@ -111,6 +111,9 @@ bash deploy/kur.sh kedi.ornek.com ben@ornek.com
   sertifikasını alır, her gece otomatik yedeği kurar.
 * Sonunda site adreslerini ve **yönetici anahtarını** yazar. **Anahtarı güvenli bir yere not
   edin** (ör. şifre yöneticisi). Unutursanız: `grep ADMIN_TOKEN deploy/.env`.
+* En sonda ekranda bir **QR kod** çıkar. **Telefonunuzun kamerasıyla okutun** – yönetim sayfası
+  telefonda açılır, giriş yapılmış olur. Anahtarı yazmanıza gerek kalmaz. QR kod 10 dakika geçerlidir
+  ve bir kez kullanılır. Yenisi her zaman: `bash deploy/qr.sh`.
 * DNS uyarısı çıkarsa: biraz bekleyin ve **aynı komutu tekrar çalıştırın**. Tekrar çalıştırmak
   her zaman güvenlidir – veriler ve anahtarlar korunur.
 
@@ -120,30 +123,78 @@ bash deploy/kur.sh kedi.ornek.com ben@ornek.com
 * `https://kedi.ornek.com/app.html` – oyun. Telefonda kamera ve konum çalışır (HTTPS sayesinde).
   Kadıköy dışında bir yakalama „Oyun alanının dışındasın“ diye reddedilir – bu doğru.
 
-## Adım 8 – Yönetim sayfası (admin.html)
+## Adım 8 – Yönetim sayfası (telefonla)
 
-1. `https://kedi.ornek.com/admin.html` açın. Sayfa Almanca açılırsa üstten **TR** seçin.
-2. **Yönetici anahtarı** alanına anahtarı yapıştırın → **Giriş**.
+Yönetim sayfası (`admin.html`) telefon için yapıldı. Her şeyin bir **QR kodu** var: okut, bitti.
 
-**Partner kafe eklemek** (sekme **Kafeler & yerler** → **Yeni partner kafe**):
+**Telefonda açmak**
 
-* **İsim**, **Adres**, **Çalışma saatleri**
-* **Enlem / Boylam**: Google Maps'te kafeye sağ tıklayın – ilk satırdaki iki sayı
-  (ör. `40.98712, 29.02634`): birincisi **Enlem**, ikincisi **Boylam**.
-* **Gerekli kedi** (ör. 20) ve **İndirim %** (ör. 20) – kafenin ödülü
-* **Günlük en fazla** – boş bırakılırsa sınırsız
-* **PIN** – 6–12 rakam. Kafeye bu PIN'i verin. → **Kaydet**
+1. Sunucuda `bash deploy/qr.sh` yazın. Ekranda bir QR kod çıkar.
+2. Telefonun kamerasıyla okutun → yönetim sayfası açılır, **giriş yapılmış** olur
+   („Telefon bağlandı“). Telefon 30 gün giriş yapılmış kalır.
+3. QR kod **10 dakika** geçerlidir ve **bir kez** kullanılır. İçinde yönetici anahtarı yoktur.
 
-Kafe personeli kasadaki telefon/tablette `https://kedi.ornek.com/partner.html` açar, kafeyi
-seçer, PIN'i girer ve kuponları kontrol eder (ayrıntılar: `docs/PARTNER.md`). Kafenin kendi QR
-kodu ve masa kartı da orada.
+Bilgisayarda açtıysanız: üstteki **Telefonda aç** düğmesi böyle bir QR kod gösterir. Anahtarla girmek
+de hâlâ mümkün: `https://kedi.ornek.com/admin.html` → **Yönetici anahtarı** → **Giriş** (dil seçimi
+sağ üstte: **TR · EN · DE**). „Bu cihazı hatırla“ işaretlenirse cihaz 30 gün giriş yapılmış kalır,
+işaretlenmezse 12 saat. Tarayıcı anahtarın kendisini hiç saklamaz.
 
-* **PIN değiştirmek:** listede kafeyi açın, yeni PIN yazın → **Kaydet** (eski oturumlar kapanır).
+`bash deploy/qr.sh` uygulama kapalıyken de çalışır: QR kod hazırlanır, uygulama açılınca geçerli olur
+(`cd deploy && docker compose up -d`).
+
+**Partner kafe eklemek – kafede, telefonla**
+
+1. Kafeye gidin. Yönetim sayfasında sekme **Kafeler & yerler** → **Yeni partner kafe**.
+2. **Konumumu kullan**'a dokunun → **Enlem** ve **Boylam** kendiliğinden dolar. Altında doğruluk
+   yazar (ör. „±12 m“). Çok kabaysa pencere yanında tekrar dokunun.
+   (Bilgisayarda: Google Maps'te kafeye sağ tıklayın – ilk sayı **Enlem**, ikincisi **Boylam**.)
+3. **İsim**, **Adres**, **Gerekli kedi** (ör. 20) ve **İndirim %** (ör. 20) yazın. **Günlük en fazla**
+   boş = sınırsız. **PIN boş kalabilir.** → **Kaydet**.
+4. Hemen bir **kurulum QR kodu** çıkar. **Kafenin telefonuyla** (ya da tabletiyle) okutun.
+5. Kafenin telefonunda kafenin adı görünür. Kafe kendi **PIN**'ini seçer (6–12 rakam, iki kez yazar)
+   → **Kaydet ve başla**. Kafe ekranı açılır, giriş yapılmış olur. Çok kolay PIN'ler (`123456`,
+   `000000`, `121212` gibi) kabul edilmez.
+6. Telefon „**Ana ekrana ekle**“ der: iPhone'da Paylaş ⬆️ → „Ana Ekrana Ekle“, Android'de menü ⋮ →
+   „Ana ekrana ekle“. Kafenin kendi QR kodu (masa kartı) da aynı ekranın altında.
+
+Kurulum QR'ı **7 gün** geçerli ve **bir kez** kullanılır. Sonradan yeni QR: sekme **Kurulum** →
+**Bir kafeyi kur** → kafeyi seç → **QR kod oluştur** (yeni QR, eskisini geçersiz yapar). Aynı
+yerde **Masa kartı yazdır** var. Kafenin telefonu başka yerdeyse: **Bağlantıyı kopyala** ya da
+**Paylaş** (ör. WhatsApp ile gönderin). Kafe ekranı: `https://kedi.ornek.com/partner.html`
+(ayrıntılar: `docs/PARTNER.md`).
+
+Sunucudan da olur: `bash deploy/qr.sh kafe` kafelerin listesini (ID'leriyle) gösterir,
+`bash deploy/qr.sh kafe <kafe-id>` o kafenin kurulum QR'ını terminale basar.
+
+**Gönüllü davet etmek**
+
+1. Sekme **Kurulum** → **Gönüllü davet et** → kaç kişi: **1**, **5** ya da **20** → **QR kod oluştur**.
+2. Gönüllüler QR kodu telefonla okutur, bir takma ad seçer → **gönüllü** olurlar (profilde „Gönüllü“
+   yazar). Zaten oynayan biri okutursa hemen gönüllü olur.
+3. Davet **7 gün** geçerli. Sunucudan: `bash deploy/qr.sh gonullu 5`.
+
+Bir davetle kimse yönetici olmaz; yöneticiler yönetici kalır, engellenen hesaplar gönüllü olamaz.
+
+**Cihazlar (kim giriş yapmış?)**
+
+Sekme **Kurulum** → en altta **Cihazlar**: giriş yapmış her telefon/bilgisayar (ör. „iPhone ·
+Safari“), son kullanım ve bitiş tarihi. **Çıkış yap** o cihazı çıkarır. **Diğer bütün cihazlardan
+çıkış yap** – telefon kaybolursa bunu kullanın. **Açık QR kodlar** listesinde henüz kullanılmamış
+QR kodlar durur; **Geçersiz yap** ile iptal edilir. Yönetici anahtarı bu listede yoktur. Anahtarı
+değiştirirseniz (`deploy/.env` içindeki `ADMIN_TOKEN` satırını silin → `bash deploy/kur.sh`) **bütün
+cihazlardan çıkılır** ve açık yönetici QR kodları geçersiz olur.
+
+> **QR kod bir anahtar gibidir.** Sadece doğru kişiye gösterin. Kısa ömürlüdür ve bir kez çalışır.
+
+**Diğer işler**
+
+* **PIN değiştirmek:** yeni bir kurulum QR'ı (kafe kendisi seçer) ya da listede kafeyi açın, yeni PIN
+  yazın → **Kaydet** (eski oturumlar kapanır).
 * **Oyuncuların önerdiği yerler:** sekme **İnceleme** → **Yer önerileri** → **Onayla** / **Reddet**.
 * **İnceleme** sekmesinde ayrıca olası tekrar kayıtlar (aynı kedi iki kez), itirazlar ve
   şüpheli yakalamalar durur.
-* **Başka birine yetki vermek:** sekme **Oyuncular** → kişinin **Rol**'ünü `admin` yapın
-  (gönüllüler için `volunteer`). O kişi kendi hesabıyla yönetim sayfasını kullanabilir.
+* **Başka birine yetki vermek:** en kolayı **Kurulum** → **Başka bir yönetici telefonu** → QR.
+  Ya da sekme **Oyuncular** → kişinin **Rol**'ünü `admin` yapın (gönüllüler için `volunteer`).
 
 ## Adım 9 – Yapay zekâ (Claude) – isteğe bağlı
 
@@ -229,6 +280,8 @@ oyuncular** eklenir; harita ve istatistikler dolu görünür. Hepsi „DEMO“ d
 | „toomanyrequests“ (Docker Hub) | Bir süre bekleyin ya da ücretsiz bir Docker Hub hesabıyla `docker login`, sonra tekrar. |
 | Uygulama başlamıyor | `cd deploy && docker compose logs --tail 100 app` |
 | Yönetici anahtarını unuttum | `grep ADMIN_TOKEN deploy/.env`. Değiştirmek: satırı silin → `bash deploy/kur.sh` yenisini üretir. |
+| QR kod açılmıyor / „artık çalışmıyor“ | Süresi dolmuş ya da kullanılmış. Yenisi: `bash deploy/qr.sh` (kafe için `bash deploy/qr.sh kafe <kafe-id>`). Telefon ile sunucu aynı alan adını kullanmalı (`https://…`). |
+| Telefon kayboldu | Başka bir cihazda yönetim sayfası → **Kurulum** → **Cihazlar** → **Diğer bütün cihazlardan çıkış yap**. Tam emin olmak için yönetici anahtarını değiştirin: `deploy/.env` içinde `ADMIN_TOKEN` satırını silin → `bash deploy/kur.sh` (bütün cihazlar çıkar, sonra `bash deploy/qr.sh` ile yeniden bağlanın). |
 | Kamera açılmıyor | Adres `https://` ile başlamalı (kilit işareti) ve tarayıcıda kamera izni verilmeli. |
 | Disk doldu | `df -h`. Eski imajları ve derleme artıklarını silmek: `docker image prune -f && docker builder prune -f`. **Asla** `docker compose down -v` ya da `docker volume prune` yazmayın – veriler silinir! |
 | Durum | `cd deploy && docker compose ps` – `app` „healthy“ olmalı. |
@@ -278,6 +331,8 @@ sudo ufw allow OpenSSH && sudo ufw allow 80/tcp && sudo ufw allow 443/tcp && sud
 ```
 
 * **Kayıtlar:** `journalctl -u catme -f` · **Yönetici anahtarı:** `sudo grep ADMIN_TOKEN /etc/catme.env`
+* **Telefon için QR:** `sudo bash -c 'set -a; . /etc/catme.env; CATME_DATA=/var/lib/catme; cd /opt/catmeifyoucan && node server/setup-qr.js admin'`
+  (kafe: `… setup-qr.js kafe <kafe-id>`, gönüllü: `… setup-qr.js gonullu 5`)
 * **Yedek:** `sudo tar czf /root/catme-yedek-$(date +%F).tar.gz -C /var/lib/catme .`
 * **Geri yükleme:** `sudo systemctl stop catme`, sonra
   `sudo find /var/lib/catme -mindepth 1 -delete` (içini boşaltır),
@@ -309,6 +364,7 @@ sunucu kurulumu gerekir.
 | Dosya | Ne işe yarar |
 |---|---|
 | `deploy/kur.sh` | Kurulum ve her türlü yeniden başlatma – tekrar çalıştırmak güvenli |
+| `deploy/qr.sh` | Telefon için QR kod: yönetim (`bash deploy/qr.sh`), kafe (`kafe <id>`), gönüllü (`gonullu 5`) |
 | `deploy/guncelle.sh` | Yeni sürüm + yedek + yeniden başlatma |
 | `deploy/yedek.sh` · `deploy/geri-yukle.sh` | Yedek almak · yedeği geri yüklemek |
 | `deploy/sifirla.sh` | Bütün oyun verilerini silip temiz başlamak (ör. demodan sonra) |
@@ -341,9 +397,17 @@ biriminde. Güncelleme ve yeniden kurulum bunlara dokunmaz.
    (Let's-Encrypt-Zertifikat automatisch, HTTP/3), wartet auf „healthy“, richtet die nächtliche
    Sicherung ein (`/etc/cron.d/catmeifyoucan`, 14 Stück in `yedekler/`) und zeigt Adressen und
    Admin-Token. Erneut ausführen = Update/Neustart, Daten bleiben.
-6. **Moderation:** `https://<domain>/admin.html` mit dem Admin-Token. Unter „Cafés & Orte“
-   Partner-Cafés anlegen (Koordinaten, Belohnung, PIN 6–12 Ziffern), Vorschläge freigeben. Das
-   Café nutzt `partner.html` mit seiner PIN.
+6. **Moderation am Handy:** Am Ende zeigt `kur.sh` einen QR-Code – mit dem Handy scannen, die
+   Moderation öffnet sich angemeldet (Einmal-Code, 10 Minuten, nie der Admin-Token). Neuer QR-Code
+   jederzeit: `bash deploy/qr.sh`. Am Desktop: „Am Handy öffnen“. Login mit Token geht weiter
+   („Gerät merken“ = eigene Sitzung für 30 Tage, der Token selbst wird nicht gespeichert).
+   Partner-Café im Café anlegen: „Meinen Standort nehmen“ füllt Breite/Länge, PIN darf leer bleiben →
+   sofort ein Einrichtungs-QR fürs Café-Handy (7 Tage, einmal): das Café wählt seine PIN selbst und ist
+   angemeldet. Freiwillige einladen: Reiter „Einrichten“ → 1/5/20 Personen → QR (`bash deploy/qr.sh
+   gonullu 5`). „Geräte“ zeigt alle angemeldeten Geräte mit Abmelden („alle anderen abmelden“).
+   Leichte Café-PINs (123456, 000000 …) werden abgelehnt. Notbremse: `ADMIN_TOKEN` in `deploy/.env`
+   ändern → `bash deploy/kur.sh` – alle Geräte sind abgemeldet, offene Admin-QR-Codes ungültig.
+   `bash deploy/qr.sh` geht auch bei gestoppter App (Code gilt nach dem Start).
 7. **Claude (optional):** `ANTHROPIC_API_KEY=` in `deploy/.env` eintragen → `bash deploy/kur.sh`.
    Kosten nach Verbrauch (hängt von der Zahl der Fänge ab, Preise laut Anthropic); Ausgabenlimit in der
    Anthropic-Konsole setzen. `CATME_AI=off` schaltet die KI ab, `CATME_MODEL=` wählt ein

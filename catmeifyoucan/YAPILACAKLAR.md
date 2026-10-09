@@ -1,6 +1,6 @@
 # Cat Me If You Can · Yapılacaklar
 
-*Durum tarihi: 8 Ekim 2026. Ayrıntılı kurulum: `deploy/KURULUM.md`. Projenin durumu: `DURUM.md`.*
+*Durum tarihi: 9 Ekim 2026. Ayrıntılı kurulum: `deploy/KURULUM.md`. Projenin durumu: `DURUM.md`.*
 
 ## A · Yayına almak için (zorunlu)
 
@@ -20,14 +20,20 @@
       kendisi alır. Sonunda site adresini, yönetim sayfasını ve yönetici anahtarının nerede
       olduğunu yazar.
 - [ ] **6. Yönetici anahtarını güvenli bir yere kaydet** (`deploy/.env` dosyasında, kimseyle paylaşma).
-- [ ] **7. Telefonla dene:** siteyi aç, “Oyna”ya bas, bir kedinin fotoğrafını çek. Kamera ve konum
+- [ ] **7. Telefonu bağla:** `kur.sh`'in sonunda çıkan QR kodu telefonun kamerasıyla okut – yönetim
+      sayfası telefonda giriş yapılmış açılır. Süresi geçtiyse: `sudo bash deploy/qr.sh`.
+- [ ] **7b. Telefonla dene:** siteyi aç, “Oyna”ya bas, bir kedinin fotoğrafını çek. Kamera ve konum
       sadece HTTPS ile çalışır – kurulum bunu otomatik sağlar.
 
 ## B · Kafeler ve içerik (yayından önce)
 
-- [ ] **8. Partner kafeleri ekle** (`/admin.html`): ad, konum, PIN, teklif (varsayılan 20 kedi =
-      %20). **Happy Overthinking Coffee**'nin adresi ve konumu da girilmeli.
-- [ ] **9. Kafelere kitlerini ver:** her kafe kendi sayfasında (`/partner.html`) QR kodunu görür;
+- [ ] **8. Partner kafeleri telefonla ekle:** kafeye git, yönetim sayfası → **Kafeler & yerler** →
+      **Konumumu kullan** → ad, teklif (varsayılan 20 kedi = %20) → **Kaydet**. PIN boş kalabilir.
+      **Happy Overthinking Coffee** de eklenmeli.
+- [ ] **9. Kafenin telefonunu kur:** kaydettikten hemen sonra çıkan QR kodu kafenin telefonuyla
+      okut; kafe kendi PIN'ini seçer ve „Ana ekrana ekle“ yapar. (Sonra: **Kurulum** → **Bir kafeyi
+      kur**, ya da `sudo bash deploy/qr.sh kafe <kafe-id>`.)
+- [ ] **9b. Kafelere kitlerini ver:** her kafe kendi sayfasında (`/partner.html`) QR kodunu görür;
       `/print.html` ile masa kartı, 80 mm çıkartma ve A4 afiş basılır.
 - [ ] **10. Dört kedi rotasını bir kez yürü** ve yol noktalarını gerekirse
       `public/config/routes.js` içinde düzelt (şu an ±100 m).
@@ -42,8 +48,13 @@
 - [ ] **16. Claude anahtarı ekle** (`deploy/.env` içinde `ANTHROPIC_API_KEY`): gerçek fotoğraf
       analizi (yaş, kilo, sağlık), aynı kediyi daha iyi tanıma ve isim kontrolü. Kullanım başına
       ücretlidir; anahtar yoksa oyun basit analizle çalışır.
-- [ ] **17. Gönüllü grupları ve veterinerler:** onlara gönüllü rolü ver (yönetim sayfası) –
-      böylece “mama verildi”, “veterinere götürüldü” düğmelerini kullanabilirler.
+- [ ] **17. Gönüllü grupları ve veterinerler:** **Kurulum** → **Gönüllü davet et** (1, 5 ya da 20
+      kişi) → QR kodu göster ya da paylaş; okutan gönüllü olur. Terminalden: `sudo bash deploy/qr.sh
+      gonullu 5`. Böylece “mama verildi”, “veterinere götürüldü” düğmelerini kullanabilirler.
+- [ ] **17b. Cihazları ara sıra kontrol et:** **Kurulum** → **Cihazlar**. Tanımadığın bir cihaz
+      varsa **Çıkış yap**; telefon kaybolursa **Diğer bütün cihazlardan çıkış yap**. Tam emin olmak
+      için yönetici anahtarını değiştir (`deploy/.env` içinde `ADMIN_TOKEN` satırını sil →
+      `sudo bash deploy/kur.sh`): bütün cihazlar çıkar, sonra `sudo bash deploy/qr.sh` ile yeniden bağlan.
 - [ ] **18. Belediye ve basın:** aylık raporu (`/report.html`) paylaş.
 - [ ] **19. Yedek:** `kur.sh` her gece otomatik yedek alır (son 14 yedek `yedekler/` klasöründe).
       Yedekleri ara sıra başka bir yere de kopyala.
@@ -54,7 +65,7 @@
 ## D · Sonraki adımlar için fikirler
 
 - Push bildirimleri (teşekkür mesajları ve acil yardım çağrıları anında gelsin).
-- Kafe sayfasını da 6 dile çevirmek (şu an tr/en/de).
+- Kafe sayfasını ve yönetim sayfasını da 6 dile çevirmek (şu an tr/en/de).
 - Başka semtler: Beşiktaş, Üsküdar … (`public/config/regions.js`'e yeni bölge eklemek yeterli).
 - Yönetim sayfasında gönüllü yardımlarının listesi.
 - Çok büyürse veritabanı olarak Postgres/PostGIS.
@@ -64,6 +75,7 @@
 | Ne | Komut |
 |---|---|
 | Yeni sürümü yükle (veriler kalır) | `sudo bash deploy/guncelle.sh` |
+| Telefon için yeni QR kod (yönetim · kafe · gönüllü) | `sudo bash deploy/qr.sh` · `sudo bash deploy/qr.sh kafe <kafe-id>` · `sudo bash deploy/qr.sh gonullu 5` |
 | Yedek al (kur.sh her gece otomatik yedek de kurar) | `sudo bash deploy/yedek.sh` |
 | Yedekten geri yükle | `sudo bash deploy/geri-yukle.sh <yedek-dosyası>` |
 | Her şeyi sıfırla (ör. demodan sonra; önce yedek alır) | `sudo bash deploy/sifirla.sh` |

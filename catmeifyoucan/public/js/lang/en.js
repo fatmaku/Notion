@@ -629,4 +629,15 @@ export default {
 
   // ── Erweiterung: perf ──
 
+  // ── Erweiterung: qr-setup ──
+  'qrs.invite.note': 'You were invited as a volunteer. Pick a nickname to start.',
+  'qrs.invite.ok': 'You are a volunteer now. Thank you! 🧡',
+  'qrs.invite.already': 'You are already a volunteer. 🧡',
+  'qrs.invite.admin': 'You are a moderator. Your role stays the same.',
+  'qrs.invite.bad': 'This invite does not work any more. Ask for a new one.',
+  'qrs.invite.demo': 'Invites only work on the live site.',
+  'qrs.phone.title': 'Play on your phone',
+  'qrs.phone.lead': 'Scan with your phone camera. The game opens there.',
+  'qrs.phone.alt': 'QR code for this page',
+
 };

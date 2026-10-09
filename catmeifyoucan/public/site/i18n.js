@@ -139,6 +139,12 @@ export const TEXT = {
     'foot.cafes': 'Cafés',
     'foot.lang': 'Language',
     'foot.top': 'Back to top',
+
+    // ── Erweiterung: qr-setup ── („Auf dem Handy spielen“, nur auf breiten Bildschirmen)
+    'phone.title': 'Play on your phone',
+    'phone.lead': 'Scan with your phone camera.',
+    'phone.close': 'Close',
+    'phone.alt': 'QR code for this page',
   },
 
   tr: {
@@ -260,6 +266,12 @@ export const TEXT = {
     'foot.cafes': 'Kafeler',
     'foot.lang': 'Dil',
     'foot.top': 'Başa dön',
+
+    // ── Erweiterung: qr-setup ── („Auf dem Handy spielen“, nur auf breiten Bildschirmen)
+    'phone.title': 'Telefonunda oyna',
+    'phone.lead': 'Telefonunun kamerasıyla okut.',
+    'phone.close': 'Kapat',
+    'phone.alt': 'Bu sayfanın QR kodu',
   },
 
   de: {
@@ -381,6 +393,12 @@ export const TEXT = {
     'foot.cafes': 'Cafés',
     'foot.lang': 'Sprache',
     'foot.top': 'Nach oben',
+
+    // ── Erweiterung: qr-setup ── („Auf dem Handy spielen“, nur auf breiten Bildschirmen)
+    'phone.title': 'Auf dem Handy spielen',
+    'phone.lead': 'Mit der Handykamera scannen.',
+    'phone.close': 'Schließen',
+    'phone.alt': 'QR-Code für diese Seite',
   },
 
   ru: {
@@ -502,6 +520,12 @@ export const TEXT = {
     'foot.cafes': 'Кафе',
     'foot.lang': 'Язык',
     'foot.top': 'Наверх',
+
+    // ── Erweiterung: qr-setup ── („Auf dem Handy spielen“, nur auf breiten Bildschirmen)
+    'phone.title': 'Играй на телефоне',
+    'phone.lead': 'Отсканируй камерой телефона.',
+    'phone.close': 'Закрыть',
+    'phone.alt': 'QR-код этой страницы',
   },
 
   ar: {
@@ -623,6 +647,12 @@ export const TEXT = {
     'foot.cafes': 'المقاهي',
     'foot.lang': 'اللغة',
     'foot.top': 'إلى الأعلى',
+
+    // ── Erweiterung: qr-setup ── („Auf dem Handy spielen“, nur auf breiten Bildschirmen)
+    'phone.title': 'العب على هاتفك',
+    'phone.lead': 'امسح الرمز بكاميرا هاتفك.',
+    'phone.close': 'إغلاق',
+    'phone.alt': 'رمز QR لهذه الصفحة',
   },
 
   fa: {
@@ -744,6 +774,12 @@ export const TEXT = {
     'foot.cafes': 'کافه‌ها',
     'foot.lang': 'زبان',
     'foot.top': 'برگشت به بالا',
+
+    // ── Erweiterung: qr-setup ── („Auf dem Handy spielen“, nur auf breiten Bildschirmen)
+    'phone.title': 'روی گوشی‌ات بازی کن',
+    'phone.lead': 'با دوربین گوشی اسکن کن.',
+    'phone.close': 'بستن',
+    'phone.alt': 'کد QR این صفحه',
   },
 };
 

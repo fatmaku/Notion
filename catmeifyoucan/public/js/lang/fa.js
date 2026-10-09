@@ -747,4 +747,15 @@ export default {
 
   // ── Erweiterung: perf ──
 
+  // ── Erweiterung: qr-setup ──
+  'qrs.invite.note': 'تو به‌عنوان داوطلب دعوت شدی. یک نام مستعار انتخاب کن و شروع کن.',
+  'qrs.invite.ok': 'حالا داوطلب هستی. ممنون! 🧡',
+  'qrs.invite.already': 'تو از قبل داوطلب هستی. 🧡',
+  'qrs.invite.admin': 'تو ناظر هستی. نقشت همان می‌ماند.',
+  'qrs.invite.bad': 'این دعوت دیگر کار نمی‌کند. یک دعوت تازه بخواه.',
+  'qrs.invite.demo': 'دعوت‌ها فقط روی سایت اصلی کار می‌کنند.',
+  'qrs.phone.title': 'روی گوشی‌ات بازی کن',
+  'qrs.phone.lead': 'با دوربین گوشی اسکن کن. بازی همان‌جا باز می‌شود.',
+  'qrs.phone.alt': 'کد QR این صفحه',
+
 };

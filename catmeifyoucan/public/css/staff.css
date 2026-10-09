@@ -40,3 +40,94 @@ pre { white-space: pre-wrap; background: var(--surface-2); padding: .6rem; borde
 
 .admin .seg { overflow-x: auto; }
 .admin .seg > * { flex: none; white-space: nowrap; padding: .55rem .9rem; }
+
+/* ── Erweiterung: qr-setup ── Moderation fürs Handy (390 × 844, auch 320 × 640): eine Spalte,
+   Tippflächen ≥ 44 px, Kopf und Reiter bleiben oben stehen; QR-Karten mit großem, kontrastreichem QR. */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.admin main { max-width: 640px; padding: 1rem 1rem calc(3rem + env(safe-area-inset-bottom)); }
+.admin .top { gap: .5rem; padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right)); }
+.staff .top .langs button { min-height: 44px; min-width: 44px; padding: 0 .55rem; font-size: .8rem; }
+.staff .modal-x { width: 44px; height: 44px; }
+.staff .staff-card header .link { min-height: 44px; padding-inline: .5rem; }
+.a2hs .btn { min-height: 44px; }
+.admin .btn.small { min-height: 44px; padding-inline: .9rem; }
+.admin .wordmark i { white-space: nowrap; }
+.head-actions:empty { display: none; }
+.head-phone { display: none; }
+.admin .head-phone { border-color: rgba(251, 243, 228, .45); background: transparent; color: var(--cream); }
+@media (min-width: 900px) { .admin.signed-in .head-phone { display: inline-flex; } }
+.admin-tabs {
+  position: sticky; top: var(--head-h, 62px); z-index: 15; overflow-x: auto; scrollbar-width: none;
+  margin: -.25rem -1rem .9rem; border-radius: 0; padding: 6px 1rem; background: var(--bg); box-shadow: 0 1px 0 var(--line);
+}
+.admin-tabs::-webkit-scrollbar { display: none; }
+.admin .admin-tabs > * { flex: none; white-space: nowrap; min-height: 44px; padding: .5rem .95rem; background: var(--surface-2); }
+.admin .admin-tabs > .on { background: var(--navy); color: var(--cream); box-shadow: none; }
+@media (min-width: 680px) { .admin-tabs { margin-inline: 0; border-radius: 999px; padding: 4px; background: var(--surface-2); box-shadow: none; } .admin .admin-tabs > * { background: none; } }
+.admin .right { margin: 1rem 0 0; }
+.admin .row.wrap { flex-wrap: wrap; }
+.admin .row.wrap > label { flex: 1 1 8.5rem; }
+.admin .settings label.check { min-height: 44px; }
+.admin details.review > summary { min-height: 44px; padding: .4rem 0; }
+.login-card { display: grid; gap: .6rem; }
+.login-lead { background: var(--surface-2); padding: .8rem .9rem; border-radius: 14px; font-weight: 600; }
+.pairing { font-weight: 800; font-size: 1.1rem; }
+
+.setup-intro h1 { font-size: 1.35rem; margin-bottom: .2rem; }
+.setup-intro { margin: .2rem 0 1rem; }
+.setup-ok { border: 2px solid var(--good); background: rgba(12, 163, 12, .1); }
+.setup-card h2 { font-size: 1.15rem; }
+.setup-card .field { display: grid; gap: .3rem; font-weight: 700; font-size: .9rem; margin: .6rem 0; }
+.qr-box {
+  width: min(280px, 100%); aspect-ratio: 1; margin: .8rem auto .4rem; background: #fff; border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(20, 33, 61, .12); overflow: hidden;
+}
+.qr-box svg { display: block; width: 100%; height: 100%; }
+.qr-timer { text-align: center; font-weight: 800; font-size: 1.05rem; margin: .2rem 0; font-variant-numeric: tabular-nums; }
+.qr-uses { text-align: center; margin: 0 0 .3rem; }
+.qr-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .5rem; margin: .6rem 0; }
+.qr-link { font-size: .8rem; color: var(--muted); }
+.qr-link-wrap { display: block; margin: 0 0 .4rem; }
+.qr-state { font-weight: 800; text-align: center; margin: .6rem 0; }
+.qr-state.ok { color: #0b6b3a; }
+.qr-state.bad { color: #a72424; }
+.qr-more { margin: .4rem 0 0; }
+.qr-modal h2 { padding-inline-end: 2.6rem; }
+.uses-pick { border: 0; padding: 0; margin: .6rem 0; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.uses-pick legend { font-weight: 700; font-size: .9rem; padding: 0; margin-bottom: .3rem; width: 100%; }
+.uses-pick label { position: relative; }
+.uses-pick input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.uses-pick span { display: grid; place-items: center; min-width: 56px; min-height: 44px; border-radius: 999px; border: 2px solid var(--line); font-weight: 800; }
+.uses-pick input:checked + span { background: var(--orange); color: var(--navy); border-color: var(--orange); }
+.uses-pick input:focus-visible + span { outline: 3px solid var(--orange); outline-offset: 2px; }
+.plain-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; }
+.plain-list > li { display: flex; align-items: center; gap: .6rem; padding: .6rem 0; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.plain-list > li:first-child { border-top: 0; }
+.plain-list > li > span:first-child { flex: 1 1 12rem; min-width: 0; overflow-wrap: anywhere; }
+.players .pl-role { flex: 1 1 8rem; }
+.more-list > summary { min-height: 44px; display: flex; align-items: center; font-weight: 700; color: var(--link); cursor: pointer; border-top: 1px solid var(--line); }
+.loc-row { display: grid; gap: .2rem; }
+.loc-out { margin: 0; min-height: 1.2em; }
+.loc-out.ok { color: #0b6b3a; font-weight: 700; }
+.loc-out.warn { color: #8f3b14; font-weight: 700; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .admin .admin-tabs > .on { background: var(--orange); color: var(--navy); }
+  :root:not([data-theme="light"]) .qr-state.ok, :root:not([data-theme="light"]) .loc-out.ok { color: #7ee07e; }
+  :root:not([data-theme="light"]) .qr-state.bad { color: #ff9a9a; }
+  :root:not([data-theme="light"]) .loc-out.warn { color: #f5a04a; }
+}
+@media (max-width: 360px) {
+  .admin .top .wordmark { display: none; }
+  .admin main { padding-inline: .75rem; }
+  .admin-tabs { margin-inline: -.75rem; padding-inline: .75rem; }
+  .admin .card { padding: 1rem; }
+}
+/* Café-Handy einrichten (partner.html#setup=…) */
+.setup-pin .kicker { margin: 0 0 .2rem; font-weight: 800; color: var(--orange-text); }
+.setup-pin h1 { font-size: 1.45rem; margin-bottom: .2rem; }
+.setup-pin input { font-size: 1.3rem; letter-spacing: .2em; }
+.a2hs { border: 2px solid var(--good); background: rgba(12, 163, 12, .08); }
+.a2hs h2 { color: #0b6b3a; }
+.a2hs ul { margin: .4rem 0 .8rem; padding-inline-start: 1.2rem; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .a2hs h2 { color: #7ee07e; } }
+.admin form[data-search] { margin-bottom: .9rem; }

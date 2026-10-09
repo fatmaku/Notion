@@ -793,3 +793,14 @@ body[data-route="catch"] main { padding: 0; max-width: none; }
 
 /* ── Erweiterung: perf ── */
 
+
+/* ── Erweiterung: qr-setup ── */
+/* „Auf dem Handy spielen“ im Profil: nur auf breiten Bildschirmen (am Handy ist man schon am Handy) */
+.phone-card { display: none; }
+@media (min-width: 900px) {
+  .phone-card:not(:empty) { display: flex; align-items: center; gap: 1.2rem; }
+  .phone-card h3 { margin: 0 0 .3rem; font-size: 1rem; }
+}
+.phone-qr { flex: none; width: 168px; aspect-ratio: 1; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px rgba(20, 33, 61, .12); }
+.phone-qr svg { display: block; width: 100%; height: 100%; }
+.onb-invite { border-color: var(--teal); background: rgba(31, 138, 138, .2); }

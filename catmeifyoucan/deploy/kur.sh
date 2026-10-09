@@ -390,6 +390,20 @@ EOF
   Yönetici anahtarı: $ENV_DOSYA içinde (göstermek için: grep ADMIN_TOKEN $ENV_DOSYA)
 EOF
   fi
+  # ---- Telefon: QR kod okut → yönetim sayfası giriş yapılmış açılır (Einmal-Code, nicht der ADMIN_TOKEN)
+  echo
+  if [ "$https_ok" = 1 ]; then
+    bilgi "Telefon için QR kod (10 dakika geçerli):"
+    qr_goster admin || uyari "QR kod gösterilemedi. Sonra tekrar deneyin: bash deploy/qr.sh"
+  else
+    bilgi "Site açılınca telefon için QR kod: bash deploy/qr.sh"
+  fi
+  cat <<EOF
+  Yeni QR kod (istediğiniz zaman):  bash deploy/qr.sh
+  Kafe telefonu için QR:            bash deploy/qr.sh kafe
+  Gönüllü daveti:                   bash deploy/qr.sh gonullu 5
+EOF
+
   local otomatik=""
   if [ -f /etc/cron.d/catmeifyoucan ]; then otomatik="   (her gece otomatik)"; fi
   cat <<EOF

@@ -19,6 +19,8 @@ lohnt – und die Moderation sieht, welche Partner wirklich Spieler:innen bringe
 
 ## So benutzt man es
 
+* **Neues Café:** richtet sein Kassen-Handy per Einrichtungs-QR ein und wählt die PIN selbst; danach
+  erscheint gleich die Karte unten (siehe [qr-setup.md](qr-setup.md)).
 * **Café:** `partner.html` → Café wählen, PIN eingeben → unten die Karte **„Dein QR-Code“**:
   QR-Code, Link (kopieren), QR als Bild speichern (PNG, z. B. für Instagram), **Tischkarten drucken**
   und die Zahlen, jeweils gesamt und letzte 30 Tage: über den QR-Code gekommen, davon Tagesziel
