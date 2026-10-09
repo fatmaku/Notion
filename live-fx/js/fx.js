@@ -33,6 +33,17 @@
 //     and tints the band by mood; the band fades after `renderer.storyIdleMs` (60 s) without `storyTouch()`.
 //   - three volume levels `renderer.setVolume('master'|'sfx'|'ambient', v)` -> mixer master / busses; loops run on
 //     the mixer's ambient bus (ducking + limiter) – the old GainNode-to-destination path stays only as fallback.
+// LiveFX 2.3:
+//   - layout keys `bandPosition` (portrait: `bottom` = band flush with the frame bottom – default –, `chat` = above
+//     the chat zone; `body[data-band-pos]`) and `storyStyle` (emoji | sketch | mixed; `.fx-band[data-style]`)
+//   - ParticleLayer runs exactly one rAF loop: a particle added inside a frame no longer books a second loop (the
+//     loops piled up while a scene spawned ambient particles, so bursts fell N× faster and vanished – "applause
+//     flickers"); rain / confetti speed scales with the fall height (portrait phones keep a ~2.5 s burst)
+//   - live story: an idle band also clears its actors, ambient particles and loop (nothing floats over the camera)
+//     and the next `storyTouch()` / story line redraws it; `story(state, {touch:false})` (lifetime expiry) never
+//     wakes an idle band; `attachDirector(director)` wires js/story-director.js incl. `director.tick()` every second
+//   - sketch hook: with `window.LiveFXSketch`, `LiveFXSketch.attach(renderer, () => renderer.sketchSurface())` runs
+//     once and `sketch.update(state)` on every story state (docs/CONTRACTS.md §9 "sketch hook")
 (function (global) {
   'use strict';
 
@@ -74,6 +85,11 @@
   // 2.2 story band / zones / volumes (fallbacks when schema.js is missing; the live lists are in LiveFXSchema).
   const STORY_LAYOUTS = ['band', 'full', 'frame'];
   const ZONES = ['full', 'edges', 'bottom', 'top'];
+  const BAND_POSITIONS = ['bottom', 'chat'];
+  const STORY_STYLES = ['emoji', 'sketch', 'mixed'];
+  const DIRECTOR_TICK_MS = 1000;
+  // Rain / confetti speeds are tuned for a ~1100 px fall (1080p); shorter falls scale them down (min 45 %).
+  const FALL_REF_PX = 1100;
   const VOLUME_BUSES = ['master', 'sfx', 'ambient'];
   const VOLUME_DEFAULTS = { master: 0.5, sfx: 0.8, ambient: 0.5 };
   const STORY_IDLE_MS = 60000;
@@ -127,12 +143,14 @@
   const colorRe = () => (schema() && schema().COLOR_RE) || FALLBACK.colorRe;
   const storyLayouts = () => (schema() && schema().STORY_LAYOUTS) || STORY_LAYOUTS;
   const zones = () => (schema() && schema().ZONES) || ZONES;
+  const bandPositions = () => (schema() && schema().BAND_POSITIONS) || BAND_POSITIONS;
+  const storyStyles = () => (schema() && schema().STORY_STYLES) || STORY_STYLES;
   const volumeDefaults = () => (schema() && schema().VOLUME_DEFAULTS) || VOLUME_DEFAULTS;
   const bandLimits = () => {
     const L = schema() && schema().LIMITS;
     return [(L && L.bandMin) || 15, (L && L.bandMax) || 35];
   };
-  const LAYOUT_DEFAULTS = { storyLayout: 'band', band: 22, zone: 'edges' };
+  const LAYOUT_DEFAULTS = { storyLayout: 'band', band: 22, zone: 'edges', bandPosition: 'bottom', storyStyle: 'mixed' };
   /** `LiveFXSchema.normalizeLayout` when present, else the same merge locally (partial onto base). */
   function normalizeLayoutLocal(raw, base) {
     const S = schema();
@@ -141,10 +159,13 @@
     const b = base && typeof base === 'object' ? base : LAYOUT_DEFAULTS;
     const [min, max] = bandLimits();
     const n = Number(r.band);
+    const pick = (list, key) => (list.includes(r[key]) ? r[key] : list.includes(b[key]) ? b[key] : LAYOUT_DEFAULTS[key]);
     return {
-      storyLayout: storyLayouts().includes(r.storyLayout) ? r.storyLayout : storyLayouts().includes(b.storyLayout) ? b.storyLayout : 'band',
-      band: Number.isFinite(n) ? Math.round(clamp(n, min, max)) : Number.isFinite(Number(b.band)) ? Number(b.band) : LAYOUT_DEFAULTS.band,
-      zone: zones().includes(r.zone) ? r.zone : zones().includes(b.zone) ? b.zone : 'edges',
+      storyLayout: pick(storyLayouts(), 'storyLayout'),
+      band: Number.isFinite(n) && r.band !== null && r.band !== '' ? Math.round(clamp(n, min, max)) : Number.isFinite(Number(b.band)) ? Number(b.band) : LAYOUT_DEFAULTS.band,
+      zone: pick(zones(), 'zone'),
+      bandPosition: pick(bandPositions(), 'bandPosition'),
+      storyStyle: pick(storyStyles(), 'storyStyle'),
     };
   }
 
@@ -295,6 +316,7 @@
       this.canvas = null;
       this.sprites = new Map();
       this.raf = 0;
+      this._ticking = false; // true while _tick runs: start() must not book a second loop from inside a frame
       this.last = 0;
       this.slow = 0;
       this.fpsAcc = 0;
@@ -456,21 +478,30 @@
       return true;
     }
 
+    /**
+     * Speed factor for a burst falling `fall` px: 1 for a 1080p-sized fall, down to 0.45 for a phone's short portrait
+     * fall – so a burst stays on screen about as long as its life (2.2 – 3.8 s) instead of hitting the floor in 2 s.
+     */
+    _fallScale(box) {
+      return clamp((box && box.fall) / FALL_REF_PX || 1, 0.45, 1);
+    }
+
     /** Rain burst: `count` emoji with gravity, wind, drift and rotation. */
     rain(emoji, count) {
       const box = this.effectBox();
-      const wind = rand(-30, 30);
+      const k = this._fallScale(box);
+      const wind = rand(-30, 30) * k;
       for (let i = 0; i < count; i++) {
         const size = rand(22, 60);
         this.add({
           kind: 'emoji',
           text: emoji,
           x: this._boxX(box),
-          y: box.y0 - rand(20, 220),
+          y: box.y0 - rand(20, 220) * k,
           floor: box.y0 + box.fall,
-          vx: rand(-20, 20),
-          vy: rand(120, 260),
-          g: rand(140, 260),
+          vx: rand(-20, 20) * k,
+          vy: rand(120, 260) * k,
+          g: rand(140, 260) * k,
           wind,
           drift: rand(0.5, 2.5),
           phase: rand(0, 6.28),
@@ -486,17 +517,18 @@
     /** Confetti: rotating rects with a 3D-ish scale wobble; `count` pieces. */
     confetti(count, colors) {
       const box = this.effectBox();
-      const wind = rand(-40, 40);
+      const k = this._fallScale(box);
+      const wind = rand(-40, 40) * k;
       for (let i = 0; i < count; i++) {
         this.add({
           kind: 'rect',
           color: colors[i % colors.length],
           x: this._boxX(box),
-          y: box.y0 - rand(10, 160),
+          y: box.y0 - rand(10, 160) * k,
           floor: box.y0 + box.fall,
-          vx: rand(-60, 60),
-          vy: rand(60, 200),
-          g: rand(200, 420),
+          vx: rand(-60, 60) * k,
+          vy: rand(60, 200) * k,
+          g: rand(200, 420) * k,
           wind,
           drift: rand(1, 3),
           phase: rand(0, 6.28),
@@ -622,6 +654,8 @@
         cur.slot = i;
         cur.emoji = String(a.emoji);
         cur.action = typeof a.action === 'string' ? a.action : null;
+        cur.fadeOut = 0; // back on stage before an idle fade finished
+        cur.alpha = 1;
       });
       for (const a of this.actors) {
         if (!keep.has(a.role) && a.state !== 'out') {
@@ -657,6 +691,27 @@
       this.props.length = 0;
     }
 
+    /**
+     * Fades every actor and prop out in place over `sec` seconds, then drops them – used when the story band goes
+     * idle (the band fades over the same time, so nothing walks across the camera on a transparent overlay).
+     */
+    dismissActors(sec) {
+      const d = Math.max(0.05, Number(sec) || ACTOR_FADE);
+      for (const a of this.actors) {
+        if (!a.fadeOut) {
+          a.fadeOut = d;
+          a.fadeAge = 0;
+        }
+      }
+      for (const p of this.props) {
+        if (p.state !== 'out') {
+          p.state = 'out';
+          p.age = 0;
+        }
+      }
+      if (this.actors.length || this.props.length) this.start();
+    }
+
     _actorSize(r) {
       return clamp(r.h * 0.4, 28, 130);
     }
@@ -670,6 +725,14 @@
       let n = 0;
       for (const a of this.actors) {
         a.age += real;
+        if (a.fadeOut) {
+          // idle band: fade in place (no walking), then gone
+          a.fadeAge += real;
+          a.alpha = Math.max(0, 1 - a.fadeAge / a.fadeOut);
+          if (a.alpha <= 0) continue;
+          this.actors[n++] = a;
+          continue;
+        }
         const tx = r.x0 + r.w * (ACTOR_SLOTS[a.slot % ACTOR_SLOTS.length] || 0.5);
         if (a.x === null) {
           a.x = a.fromLeft ? r.x0 - size : r.x0 + r.w + size;
@@ -728,8 +791,8 @@
       for (const a of this.actors) {
         if (a.x === null) continue;
         const s = this._sprite(a.emoji, a.size);
-        if (!s) continue;
-        ctx.globalAlpha = 1;
+        if (!s || a.alpha <= 0.01) continue;
+        ctx.globalAlpha = clamp(a.alpha === undefined ? 1 : a.alpha, 0, 1);
         ctx.setTransform(dpr, 0, 0, dpr, a.x * dpr, a.y * dpr);
         if (a.dir < 0) ctx.scale(-1, 1);
         if (a.rot) ctx.rotate(a.rot);
@@ -737,8 +800,13 @@
       }
     }
 
+    /**
+     * Books the (single) frame loop. No-op while a frame is pending or running: `_tick` reschedules itself at the end,
+     * so a particle added inside a frame (ambient spawn, actors) must not book a second loop – that used to pile up
+     * one extra loop per spawned scene particle (~5 / s), each stepping the physics again in the same frame.
+     */
     start() {
-      if (!this.ok || this.raf) return;
+      if (!this.ok || this.raf || this._ticking) return;
       this.last = 0;
       this.raf = requestAnimationFrame(this._tick);
     }
@@ -785,12 +853,26 @@
 
     _tick(now) {
       this.raf = 0;
+      this._ticking = true;
+      try {
+        this._frame(now);
+      } finally {
+        this._ticking = false;
+      }
+      if (this.raf) return; // (defensive) something re-booked the loop already
+      if (this.items.length || this.ambient || this.actors.length || this.props.length) this.raf = requestAnimationFrame(this._tick);
+      else this.stop();
+    }
+
+    /** One frame: spawn, physics, draw, stats. */
+    _frame(now) {
       const t0 = typeof performance !== 'undefined' ? performance.now() : now;
       // `real` = wall-clock seconds since the last frame; the physics step is clamped (stable integration),
       // but particles AGE by real time (capped at 1 s) – otherwise a slow-painting page (2 fps) would
-      // stretch a 3 s burst to a minute and keep this loop alive the whole time.
+      // stretch a 3 s burst to a minute and keep this loop alive the whole time. A callback with the same
+      // timestamp as the last one (never expected with a single loop) moves nothing.
       const real = this.last ? Math.max(0, (now - this.last) / 1000) : 1 / 60;
-      const dt = clamp(real, 0.001, 0.05);
+      const dt = real > 0 ? clamp(real, 0.001, 0.05) : 0;
       this.last = now;
       if (this.bandEl && now - this._rectAt > 1000) this.updateRect(); // layout messages / band resizes
       this._spawnAmbient(now);
@@ -819,8 +901,6 @@
         }
       } else this.slow = 0;
       this.stats.particles = this.items.length;
-      if (this.items.length || this.ambient || this.actors.length || this.props.length) this.raf = requestAnimationFrame(this._tick);
-      else this.stop();
     }
 
     _update(dt, ageStep = dt) {
@@ -982,6 +1062,14 @@
       this.storyState = null;
       this.storyIdleMs = STORY_IDLE_MS;
       this._storyIdle = null;
+      this._storyIdleOn = false; // band faded by the idle timer (actors / ambient / loop cleared until the next touch)
+      /** 2.3 sketch hook: the object LiveFXSketch.attach() returned (null = none / not attached yet). */
+      this.sketch = null;
+      this._sketchTried = false;
+      this._sketchCanvas = null;
+      this._sketchCtx = null;
+      this._sketchSize = null;
+      this._hookWarned = false;
       this.particles = new ParticleLayer(root, this.stats);
       this.stats.canvas = this.particles.ok;
       if (typeof document !== 'undefined' && document.body && document.body.dataset && themes().includes(document.body.dataset.theme)) this.theme = document.body.dataset.theme;
@@ -1407,14 +1495,16 @@
     }
 
     /**
-     * Overlay layout `{storyLayout: band|full|frame, band: 15..35 (% of the height), zone: full|edges|bottom|top}`.
-     * Partial objects merge onto the current layout (unknown values keep the old key). Mirrors to
-     * `.fx-band[data-layout]`, `body[data-story-layout]`, `body[data-zone]` and `--fx-band` (unitless percent; in
-     * portrait without an explicit band 20, the strip sits above the chat zone – see css/overlay.css).
-     * Returns the layout in use.
+     * Overlay layout `{storyLayout: band|full|frame, band: 15..35 (% of the height), zone: full|edges|bottom|top,
+     * bandPosition: bottom|chat, storyStyle: emoji|sketch|mixed}`. Partial objects merge onto the current layout
+     * (unknown values keep the old key). Mirrors to `.fx-band[data-layout][data-style]`, `body[data-story-layout]`,
+     * `body[data-zone]`, `body[data-band-pos]`, `body[data-story-style]` and `--fx-band` (unitless percent; portrait
+     * without an explicit band uses 20). `bandPosition` only matters in portrait: `bottom` (default) puts the band
+     * flush with the frame bottom, `chat` above the 35 % chat zone (css/overlay.css). Returns the layout in use.
      */
     setLayout(raw) {
       const r = raw && typeof raw === 'object' ? raw : {};
+      const prevStyle = this.layout ? this.layout.storyStyle : null;
       const next = normalizeLayoutLocal(r, this.layout);
       if (r.band !== undefined && r.band !== null && r.band !== '' && Number.isFinite(Number(r.band))) this._bandSet = true;
       this.layout = next;
@@ -1424,6 +1514,7 @@
       if (body && body.dataset) {
         body.dataset.storyLayout = next.storyLayout;
         body.dataset.zone = next.zone;
+        body.dataset.bandPos = next.bandPosition;
         try {
           body.style.setProperty('--fx-band', String(this.bandPct));
         } catch (_) {
@@ -1432,8 +1523,41 @@
       }
       const band = this._band();
       if (band) band.dataset.layout = next.storyLayout;
+      this._sketchSize = null; // the band box may have moved / resized
       this.particles.setBand(band, next.storyLayout, next.zone);
+      this._applyStoryStyle(prevStyle !== null && prevStyle !== next.storyStyle);
       return { ...next };
+    }
+
+    /**
+     * Where the band sits in use: `bottom` | `chat` in portrait (layout `band` / `frame`), `bottom` in landscape
+     * (bandPosition is a portrait option) and `full` in layout full.
+     */
+    get bandPosition() {
+      if (this.layout.storyLayout === 'full') return 'full';
+      const portrait = typeof document !== 'undefined' && document.body && document.body.classList.contains('layout-portrait');
+      return portrait ? this.layout.bandPosition : 'bottom';
+    }
+
+    /** Live-story style in use: the layout's `storyStyle` while a sketch renderer is attached, else `emoji`. */
+    get storyStyle() {
+      return this.sketch ? this.layout.storyStyle : 'emoji';
+    }
+
+    /** Mirrors the style in use (`.fx-band[data-style]`, `body[data-story-style]`); `redraw` re-renders the story. */
+    _applyStoryStyle(redraw) {
+      const style = this.storyStyle;
+      const band = this._band();
+      if (band) band.dataset.style = style;
+      if (typeof document !== 'undefined' && document.body && document.body.dataset) document.body.dataset.storyStyle = style;
+      if (this.sketch && typeof this.sketch.setStyle === 'function') {
+        try {
+          this.sketch.setStyle(this.layout.storyStyle);
+        } catch (e) {
+          this._hookWarn(e);
+        }
+      }
+      if (redraw && this.storyState && this.storyState.scene && !this.storyState.end && !this._storyIdleOn) this.story(this.storyState, { touch: false });
     }
 
     /** Re-applies the layout (e.g. after `body.layout-portrait` toggled); same as `setLayout({})`. */
@@ -1479,49 +1603,195 @@
     // ---------------------------------------------------------------- live story (2.2)
     /**
      * Renders a story state (`js/story-director.js` or a `story-state` message): scene + ambient loop by scene,
-     * emoji actors / props on the canvas inside the band, mood tint (`.fx-band[data-mood]`), `shake`.
-     * `end` or no scene clears the band (actors walk out, loop fades). Returns the normalized state or null.
+     * emoji actors / props on the canvas inside the band, mood tint (`.fx-band[data-mood]`), `shake`, and hands the
+     * state to the sketch hook (`sketch.update`). `end` or no scene clears the band (actors walk out, loop fades).
+     * Only the scene layer, ambient particles, actors and the loop change: transient effects (cards, rain / confetti
+     * bursts, sparks) are never cleared here. `opts.touch: false` (a lifetime expiry, not narration) does not keep the
+     * band awake and leaves an idle band dark (the state is remembered for the next touch). Returns the normalized
+     * state or null.
      */
-    story(raw) {
+    story(raw, opts = {}) {
       const S = schema();
       let st = null;
       if (S && typeof S.normalizeStoryState === 'function') st = S.normalizeStoryState(raw);
       else if (raw && typeof raw === 'object' && !Array.isArray(raw)) st = { ...raw, actors: Array.isArray(raw.actors) ? raw.actors : [], props: Array.isArray(raw.props) ? raw.props : [] };
       if (!st) return null;
-      this.stats.stories++;
+      const wake = !(opts && opts.touch === false);
       this.storyState = st;
+      if (this._storyIdleOn && !wake) return st;
+      this._storyIdleOn = false;
+      this.stats.stories++;
       const band = this._band();
+      this._sketchHook();
       if (!st.scene || st.end) {
         this.particles.setActors([], []);
         this.clearScene();
         this.stopLoop();
         if (band) delete band.dataset.mood;
-        this.storyTouch();
+        this._sketchUpdate(st, false);
+        if (wake) this.storyTouch();
         return st;
       }
       if (band) {
         band.classList.remove('fx-band-idle');
         band.dataset.mood = st.mood || 'calm';
       }
-      this.scene({ scene: st.scene, text: st.caption || '', intensity: 2, caption: !!st.caption });
+      // storyStyle `sketch` (with a sketch renderer attached): the drawing replaces the emoji sprites + parallax.
+      const emoji = this.storyStyle !== 'sketch';
+      this.scene({ scene: st.scene, text: st.caption || '', intensity: 2, caption: !!st.caption, ambient: emoji });
       const loop = st.loop || LOOP_BY_SCENE[st.scene] || null;
       if (loop) this.playLoop(loop);
-      this.particles.setActors(st.actors, st.props);
-      if (st.shake) this.shake();
-      this.storyTouch();
+      this.particles.setActors(emoji ? st.actors : [], emoji ? st.props : []);
+      if (st.shake && wake) this.shake();
+      this._sketchUpdate(st, false);
+      if (wake) this.storyTouch();
       return st;
     }
 
-    /** Keeps the band awake: without a call for `storyIdleMs` the band fades (`.fx-band-idle`). */
+    /**
+     * Keeps the band awake: without a call for `storyIdleMs` the band fades (`.fx-band-idle`) and its actors, ambient
+     * particles and loop stop (nothing keeps painting over the camera). The next touch – every story line calls it –
+     * redraws the remembered state.
+     */
     storyTouch() {
       clearTimeout(this._storyIdle);
+      this._storyIdle = null;
+      if (this._storyIdleOn) {
+        this._storyIdleOn = false;
+        const st = this.storyState;
+        if (st && st.scene && !st.end) {
+          this.story(st); // calls storyTouch() again (flag already cleared)
+          return;
+        }
+      }
       const band = this._band();
       if (band) band.classList.remove('fx-band-idle');
       if (!(this.storyIdleMs > 0)) return;
-      this._storyIdle = setTimeout(() => {
-        const b = this._band();
-        if (b && this.storyState && this.storyState.scene) b.classList.add('fx-band-idle');
-      }, this.storyIdleMs);
+      this._storyIdle = setTimeout(() => this._storyGoIdle(), this.storyIdleMs);
+    }
+
+    /** True while the band is faded by the idle timer. */
+    get storyIdle() {
+      return this._storyIdleOn;
+    }
+
+    _storyGoIdle() {
+      this._storyIdle = null;
+      const b = this._band();
+      if (!b || !this.storyState || !this.storyState.scene || this.storyState.end) return;
+      b.classList.add('fx-band-idle');
+      this._storyIdleOn = true;
+      this.particles.dismissActors(SCENE_FADE_MS / 1000); // fade with the band, in place
+      this.clearScene();
+      this.stopLoop();
+      this._sketchUpdate(this.storyState, true);
+    }
+
+    /**
+     * 2.3: wires a story director (js/story-director.js) to this renderer – every state change renders through
+     * `story()` (a lifetime expiry, reason `tick`, does not wake an idle band) and `director.tick(Date.now())` runs
+     * every second. Returns a detach function.
+     */
+    attachDirector(director) {
+      if (!director || typeof director.onChange !== 'function') return () => {};
+      const off = director.onChange((state, info) => this.story(state, { touch: !(info && info.reason === 'tick') }));
+      const timer =
+        typeof director.tick === 'function'
+          ? setInterval(() => {
+              try {
+                director.tick(Date.now());
+              } catch (e) {
+                this._hookWarn(e);
+              }
+            }, DIRECTOR_TICK_MS)
+          : null;
+      return () => {
+        if (typeof off === 'function') off();
+        clearInterval(timer);
+      };
+    }
+
+    // ---------------------------------------------------------------- sketch hook (2.3, docs/CONTRACTS.md)
+    /**
+     * Attaches `window.LiveFXSketch` once (the first story state after it exists; a script loaded later still
+     * attaches): `LiveFXSketch.attach(renderer, getSurface)` -> the sketch object (`update(state)` required,
+     * `setStyle(style)` optional). An attach that returns nothing uses LiveFXSketch itself when it has `update`.
+     */
+    _sketchHook() {
+      if (this._sketchTried) return this.sketch;
+      const lib = global.LiveFXSketch;
+      if (!lib || typeof lib.attach !== 'function') return null;
+      this._sketchTried = true;
+      try {
+        const s = lib.attach(this, () => this.sketchSurface());
+        this.sketch = s && typeof s.update === 'function' ? s : typeof lib.update === 'function' ? lib : null;
+      } catch (e) {
+        this.sketch = null;
+        this._hookWarn(e);
+      }
+      this._applyStoryStyle(false);
+      return this.sketch;
+    }
+
+    /** `sketch.update(state)` with the normalized story state plus `style` (layout storyStyle) and `idle`. */
+    _sketchUpdate(st, idle) {
+      const s = this.sketch;
+      if (!s || typeof s.update !== 'function') return;
+      try {
+        s.update({ ...st, style: this.layout.storyStyle, idle: !!idle });
+      } catch (e) {
+        this._hookWarn(e);
+      }
+    }
+
+    /** One console warning for a failing sketch / director hook (the overlay keeps running). */
+    _hookWarn(e) {
+      if (this._hookWarned) return;
+      this._hookWarned = true;
+      if (typeof console !== 'undefined' && console.warn) console.warn('LiveFX: sketch / story hook failed', e);
+    }
+
+    /**
+     * The band's drawing surface for the sketch renderer: a `<canvas class="fx-sketch">` inside `.fx-band` (above the
+     * scene layer, below the canvas actors; masked, mood-tinted and faded with the band), sized to the band in CSS px
+     * × devicePixelRatio (max 2; re-measured at most every 500 ms and after every setLayout – a resize clears it).
+     * Returns `{canvas, ctx, width, height, dpr, layout, style, portrait, idle}` or null (no DOM / no 2D context).
+     */
+    sketchSurface() {
+      const band = this._band();
+      if (!band || typeof document === 'undefined') return null;
+      let c = this._sketchCanvas;
+      if (!c || c.parentNode !== band) {
+        if (!c) {
+          try {
+            c = document.createElement('canvas');
+            this._sketchCtx = typeof c.getContext === 'function' ? c.getContext('2d') : null;
+          } catch (_) {
+            this._sketchCtx = null;
+          }
+          if (!this._sketchCtx) return null;
+          c.className = 'fx-sketch';
+          c.setAttribute('aria-hidden', 'true');
+          this._sketchCanvas = c;
+        }
+        band.appendChild(c);
+        this._sketchSize = null;
+      }
+      const now = typeof performance !== 'undefined' ? performance.now() : Date.now();
+      let size = this._sketchSize;
+      if (!size || now - size.at > 500) {
+        const w = Math.max(1, Math.round(band.clientWidth || 0));
+        const h = Math.max(1, Math.round(band.clientHeight || 0));
+        const dpr = clamp(global.devicePixelRatio || 1, 1, 2);
+        const cw = Math.round(w * dpr);
+        const ch = Math.round(h * dpr);
+        if (c.width !== cw) c.width = cw;
+        if (c.height !== ch) c.height = ch;
+        size = { w, h, dpr, at: now };
+        this._sketchSize = size;
+      }
+      const portrait = !!(document.body && document.body.classList.contains('layout-portrait'));
+      return { canvas: c, ctx: this._sketchCtx, width: size.w, height: size.h, dpr: size.dpr, layout: { ...this.layout }, style: this.layout.storyStyle, portrait, idle: this._storyIdleOn };
     }
 
     _spawn(el, ms, animName) {
@@ -1540,6 +1810,25 @@
         });
       }
       this.root.appendChild(el);
+      this._fitColumn(el);
+    }
+
+    /**
+     * Zone edges: a word wider than its column (e.g. "WILLKOMMEN" in a 30vw portrait column) scales the whole effect
+     * down through `--fx-fit` (css/overlay.css multiplies the column font sizes) – nothing is clipped at the frame
+     * edge and words never break in the middle. One layout read per column effect.
+     */
+    _fitColumn(el) {
+      if (!el.classList || !(el.classList.contains('fx-col-left') || el.classList.contains('fx-col-right')) || el.classList.contains('fx-banner')) return;
+      try {
+        const cs = getComputedStyle(el);
+        const avail = el.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+        let need = 0;
+        for (const t of el.querySelectorAll('.fx-word, .fx-text, .fx-sticker-row, .fx-emoji')) need = Math.max(need, t.scrollWidth);
+        if (avail > 0 && need > avail + 1) el.style.setProperty('--fx-fit', String(Math.max(0.25, Math.floor((avail / need) * 0.97 * 100) / 100)));
+      } catch (_) {
+        /* no layout (detached / test DOM) */
+      }
     }
 
     /**
@@ -1946,8 +2235,10 @@
 
     /**
      * Persistent scene layer `#stage .fx-scene[data-scene=id]` (first child, so effects draw above it).
-     * Switching scenes crossfades over 800 ms (old layer gets `.fx-scene-out`, then is removed); the same
-     * scene again only updates the caption. `scene: 'clear'` fades out and stops the ambient loop.
+     * Switching scenes crossfades over 800 ms (old layer gets `.fx-scene-out`, then is removed – only that layer;
+     * transient effects and canvas bursts stay); the same scene again only updates the caption.
+     * `scene: 'clear'` fades out and stops the ambient loop. `ambient: false` (live story, storyStyle sketch) runs
+     * the scene without its canvas parallax particles.
      * `duration` > 0 seconds auto-clears. Particles are three parallax emoji layers on the canvas (far / mid /
      * near; `data-particles="canvas"`); without canvas a DOM spawner fills `.fx-scene-particles` instead.
      */
@@ -1968,6 +2259,9 @@
       if (cur && cur.id === id) {
         this._sceneCaption(cur.el, v);
         this._sceneDuration(cur, v);
+        // story style switch on the same scene: parallax off (`ambient: false`) or back on
+        if (v.ambient === false) this.particles.clearAmbient();
+        else if (v.ambient === true && !this.particles.ambient) this._startParticles(cur, SCENE_DEFS[id] || { particles: [] }, v);
         return;
       }
       if (cur) this._fadeOutScene(cur);
@@ -2064,7 +2358,7 @@
 
     _startParticles(entry, def, v) {
       const list = Array.isArray(def.particles) ? def.particles : [];
-      if (!list.length) {
+      if (!list.length || (v && v.ambient === false)) {
         this.particles.clearAmbient();
         return;
       }

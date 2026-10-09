@@ -8,6 +8,8 @@ const { readJson, HttpError, json } = require('./router');
 const { requireAuth } = require('./auth');
 
 const Schema = globalThis.LiveFXSchema;
+// Layout keys the server remembers for late overlays (SSE `state.layout`); only the keys a message carries change.
+const LAYOUT_KEYS = ['storyLayout', 'band', 'zone', 'bandPosition', 'storyStyle'];
 
 function str(v, max) {
   if (typeof v !== 'string') return '';
@@ -60,9 +62,10 @@ function register(router, ctx) {
       if (msg.type === 'perf') ctx.state.perf = msg.perf;
       if (msg.type === 'layout') {
         // Partial merge: only the keys this message carries change (a band set in portrait by the overlay stays).
+        // 2.3: also `bandPosition` (bottom | chat) and `storyStyle` (emoji | sketch | mixed).
         const cur = ctx.state.layout || {};
         const next = { ...cur };
-        for (const k of ['storyLayout', 'band', 'zone']) if (msg[k] !== undefined) next[k] = msg[k];
+        for (const k of LAYOUT_KEYS) if (msg[k] !== undefined) next[k] = msg[k];
         ctx.state.layout = next;
       }
       ctx.bus.broadcast(msg, { audience: 'all' });

@@ -46,6 +46,9 @@ Twitch). Der **🚀 Start-Assistent** oben im Panel führt durch dieselben Schri
 3. Kamera so skalieren, dass sie die Leinwand füllt (Rechtsklick → **Transformieren** → **An Bildschirm anpassen**).
    LiveFX hält das untere Drittel automatisch frei – dort liegen Chat und Kommentare. Mit **Story-Layout „Band“**
    (Einstellungen) bleiben Szenen in einem Streifen am unteren Rand, die Kamera darüber bleibt frei.
+   **Band-Position (Hochkant)** (2.3): **ganz unten** (Standard, bündig am Bildrand) oder **über dem Chat** (das Band
+   sitzt dann über den Kommentaren) – im Panel unter Einstellungen, am Handy mit **📐 Band** oder fest per
+   `?layout=portrait&bandpos=chat`.
 
 ### 4. Streamen
 | Plattform | So bekommst du den Stream-Key |
@@ -67,6 +70,25 @@ Dann in OBS **„Stream starten“**. Im LiveFX-Panel **„Mikro starten“** �
 - **Pause** im Panel stoppt Effekte, ohne das Mikro abzuschalten.
 - Lautstärke: Regler **Master / Effekte / Atmosphäre** im Panel (wirken sofort im Overlay).
 - Zu viele Effekte? „Mindestabstand zwischen Effekten“ hochsetzen (z. B. 3 s) oder Cooldowns einzelner Trigger erhöhen.
+
+### 6. Virtuelle Kamera – LiveFX in WhatsApp, FaceTime, Zoom, Teams, Meet
+Dieselbe Szene (Kamera + Overlay) kann statt eines Streams auch eine **Kamera** für Videocalls sein:
+1. Unten rechts **Steuerung → „Virtuelle Kamera starten“**.
+2. In der Call-App als Kamera **„OBS Virtual Camera“** wählen (Zoom: Einstellungen → Video · Teams: Geräteeinstellungen ·
+   Meet in Chrome: Zahnrad → Video · WhatsApp Desktop: im Anruf ⋯ → Kamera · FaceTime: Menü **Video**).
+3. **Mac** (macOS 13+, OBS 30+, OBS im Ordner **Programme**): beim ersten Start die **Kamera-Erweiterung** erlauben –
+   macOS 15+: *Systemeinstellungen → Allgemein → Anmeldeobjekte & Erweiterungen → Kamera-Erweiterungen*; macOS 13 / 14:
+   *Systemeinstellungen → Datenschutz & Sicherheit* → **Erlauben** beim Hinweis auf Systemsoftware von „OBS“ –,
+   danach FaceTime neu starten.
+4. **Windows:** Zoom, Teams, Discord, Chrome/Edge sehen die OBS-Kamera; manche Store-Apps (einzelne WhatsApp-Desktop-
+   Versionen) nicht – dann im Anruf **Bildschirm teilen** und das Fenster der **📷 Kamera-Ansicht** wählen.
+- Die virtuelle Kamera überträgt **nur Bild** – deine Stimme geht wie immer übers Mikro der App; Effekt-Sounds hören
+  die anderen nur mit „Computerton teilen“ (Zoom) oder über ein virtuelles Audiokabel.
+- Ohne OBS-Szene geht es auch: Panel → **📷 Kamera-Ansicht** (`camera.html`) zeigt Webcam + Overlay in einem Fenster →
+  in OBS als **Fensteraufnahme** (Knopf **⧉ Ausgabe** = Fenster ohne Leiste) und dann „Virtuelle Kamera starten“. Die
+  Webcam dann nicht zusätzlich als OBS-Quelle benutzen (unter Windows kann sie nur ein Programm gleichzeitig nutzen).
+- Handy-Apps (WhatsApp/FaceTime am Handy) nehmen keine virtuelle Kamera – dort mit der Kamera-Ansicht ein Video
+  **aufnehmen** und schicken. Alles dazu: [`KAMERA.md`](KAMERA.md).
 
 ### Typische Probleme
 | Problem | Lösung |
@@ -115,6 +137,9 @@ Dann in OBS **„Stream starten“**. Im LiveFX-Panel **„Mikro starten“** �
 3. Kamerayı tuvali dolduracak şekilde ölçekle (sağ tık → **Dönüştür** → **Ekrana sığdır**).
    LiveFX alt üçte birlik alanı otomatik boş bırakır – sohbet ve yorumlar oraya gelir. **Story-Layout „Band“**
    (Ayarlar) ile sahneler alt kenarda bir şeritte kalır, üstteki kamera görüntüsü boş kalır.
+   **Band-Position (Hochkant)** (2.3): **ganz unten** (varsayılan, tam alt kenarda) veya **über dem Chat** (bant
+   yorumların üstünde durur) – panelde Ayarlar altında, telefonda **📐 Band** ile ya da sabit olarak
+   `?layout=portrait&bandpos=chat`.
 
 ### 4. Yayın
 | Platform | Yayın anahtarını (stream key) böyle alırsın |
@@ -136,6 +161,23 @@ Sonra OBS'de **„Yayını Başlat“**. LiveFX panelinde **„Mikro starten“*
 - Paneldeki **Pause** mikrofonu kapatmadan efektleri durdurur.
 - Ses: paneldeki **Master / Effekte / Atmosphäre** sürgüleri (overlay'de anında etkili).
 - Çok fazla efekt mi? „Mindestabstand“ (efektler arası en az süre) değerini yükselt (ör. 3 s) ya da tekil tetikleyicilerin bekleme süresini artır.
+
+### 6. Sanal kamera – WhatsApp, FaceTime, Zoom, Teams, Meet'te LiveFX
+Aynı sahne (kamera + overlay) yayın yerine görüntülü aramalar için **kamera** da olabilir:
+1. Sağ alt **Kontroller → „Sanal Kamerayı Başlat“**.
+2. Görüşme uygulamasında kamera olarak **„OBS Virtual Camera“** seç (Zoom: Ayarlar → Video · Teams: Cihaz ayarları ·
+   Chrome'da Meet: dişli → Video · WhatsApp Desktop: aramada ⋯ → Kamera · FaceTime: **Video** menüsü).
+3. **Mac** (macOS 13+, OBS 30+, OBS **Uygulamalar** klasöründe): ilk başlatmada **kamera uzantısına** izin ver –
+   macOS 15+: *Sistem Ayarları → Genel → Giriş Öğeleri ve Uzantılar → Kamera Uzantıları*; macOS 13 / 14: *Sistem
+   Ayarları → Gizlilik ve Güvenlik* → „OBS“ sistem yazılımı uyarısında **İzin Ver** –, sonra FaceTime'ı yeniden başlat.
+4. **Windows:** Zoom, Teams, Discord, Chrome/Edge OBS kamerasını görür; bazı Store uygulamaları (bazı WhatsApp Desktop
+   sürümleri) görmez – o zaman aramada **ekran paylaş** ve **📷 Kamera-Ansicht** penceresini seç.
+- Sanal kamera **sadece görüntü** taşır – sesin uygulamanın mikrofonundan gider; efekt seslerini karşı taraf ancak
+  „Bilgisayar sesini paylaş“ (Zoom) veya sanal ses kablosuyla duyar.
+- OBS sahnesi olmadan da olur: Panel → **📷 Kamera-Ansicht** (`camera.html`) web kamerası + overlay'i tek pencerede
+  gösterir → OBS'te **Pencere Yakalama** (**⧉ Ausgabe** = çubuksuz pencere), sonra „Sanal Kamerayı Başlat“.
+- Telefon uygulamaları sanal kamera kabul etmez – Kamera görünümüyle video **kaydet** ve gönder. Ayrıntılar:
+  [`KAMERA.md`](KAMERA.md#türkçe).
 
 ### Sık görülen sorunlar
 | Sorun | Çözüm |
@@ -184,6 +226,9 @@ Sonra OBS'de **„Yayını Başlat“**. LiveFX panelinde **„Mikro starten“*
 3. Scale the camera to fill the canvas (right-click → **Transform** → **Fit to Screen**).
    LiveFX keeps the bottom third free automatically – chat and comments live there. With **Story-Layout
    “Band”** (settings) scenes stay in a strip along the bottom edge and the camera above stays clear.
+   **Band-Position (Hochkant)** (2.3): **ganz unten** (default, flush with the bottom edge) or **über dem Chat** (the
+   band sits above the comments) – in the panel settings, on the phone with **📐 Band**, or pinned with
+   `?layout=portrait&bandpos=chat`.
 
 ### 4. Go live
 | Platform | How to get the stream key |
@@ -205,6 +250,24 @@ Then **“Start Streaming”** in OBS. In the LiveFX panel **“Mikro starten”
 - **Pause** in the panel stops effects without switching the mic off.
 - Volume: the **Master / Effekte / Atmosphäre** sliders in the panel (take effect in the overlay at once).
 - Too many effects? Raise “Mindestabstand” (minimum gap between effects, e.g. 3 s) or the cooldown of single triggers.
+
+### 6. Virtual camera – LiveFX in WhatsApp, FaceTime, Zoom, Teams, Meet
+The same scene (camera + overlay) can be a **camera** for video calls instead of a stream:
+1. Bottom right **Controls → “Start Virtual Camera”**.
+2. In the call app pick the camera **“OBS Virtual Camera”** (Zoom: Settings → Video · Teams: Device settings · Meet in
+   Chrome: gear → Video · WhatsApp Desktop: in the call ⋯ → Camera · FaceTime: **Video** menu).
+3. **Mac** (macOS 13+, OBS 30+, OBS in the **Applications** folder): on first start allow the **camera extension** –
+   macOS 15+: *System Settings → General → Login Items & Extensions → Camera Extensions*; macOS 13 / 14: *System
+   Settings → Privacy & Security* → **Allow** next to the note about system software from “OBS” –, then restart FaceTime.
+4. **Windows:** Zoom, Teams, Discord, Chrome/Edge see the OBS camera; some Store apps (some WhatsApp Desktop versions)
+   don't – then **share the screen** in the call and pick the **📷 Kamera-Ansicht** window.
+- The virtual camera carries **picture only** – your voice goes through the app's microphone; others hear the effect
+  sounds only with “Share computer sound” (Zoom) or a virtual audio cable.
+- Works without an OBS scene too: panel → **📷 Kamera-Ansicht** (`camera.html`) shows webcam + overlay in one window →
+  OBS **Window Capture** (**⧉ Ausgabe** = window without toolbar), then “Start Virtual Camera”. Don't also use the
+  webcam as an OBS source (on Windows only one program can use it at a time).
+- Phone apps don't accept a virtual camera – **record** a video with the camera view and send it. Details:
+  [`KAMERA.md`](KAMERA.md#english).
 
 ### Common problems
 | Problem | Fix |

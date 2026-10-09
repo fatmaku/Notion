@@ -61,6 +61,24 @@ bleiben; Figuren erscheinen als Sticker oben. 13 Szenen, Geschichten-Pakete für
 bir yokmuş“) und English, Szenen-Pad zur Handsteuerung, eigene Szenen-Trigger im Editor.
 Anleitung: [docs/STORY.md](docs/STORY.md).
 
+## Live-Story im Band & Zeichenfilm (2.2 / 2.3)
+
+Mit **Live-Story** (Panel → Einstellungen) wird jeder gesprochene Satz zur Szene – ohne KI, ohne Cloud, auf
+Deutsch, Türkçe und English: „yağmur yağıyordu“ → Regen, „araba geldi“ → 🚗, „ormanda yürüdük“ → Wald. Alles läuft
+in einem **Band am unteren Rand**, die Kamera darüber bleibt frei.
+
+- **Band-Position (Hochkant)** (2.3): **ganz unten** (Standard, bündig am Bildrand) oder **über dem Chat** (die unteren
+  35 % bleiben für TikTok-/IG-Kommentare frei) – Panel, Handy-Knopf **📐 Band** oder `overlay.html?bandpos=bottom|chat`.
+- **Was nicht mehr vorkommt, geht** (2.3): Dinge nach 3 Sätzen / 45 s ohne Erwähnung, Figuren nach 4 Sätzen / 60 s;
+  neues Wetter oder ein neuer Ort räumt alte Dinge weg („güneş açtı“ – das Auto geht mit dem Regen); „araba gitti“,
+  „das Auto verschwand“ schicken es sofort weg. Ohne Satz blendet das Band nach 60 s ganz aus.
+- **Effekte + Story gleichzeitig** (2.3): Applaus, Konfetti & Co. laufen neben einer Szene ihre volle Dauer.
+- **✏️ Zeichenfilm** (2.3, [docs/SKETCH.md](docs/SKETCH.md)): **Story-Stil** *Gemischt* (Standard: gezeichnete
+  Landschaft + Emoji-Figuren), *Zeichnung* (alles wird beim Erzählen Strich für Strich gezeichnet, Abgänge werden
+  wegradiert) oder *Emoji* – Panel, Handy-Knopf **✏️ Stil** oder `overlay.html?storystyle=sketch`. Als Video:
+  Kamera-Ansicht (unten) mit Live-Mikro und **⏺ Aufnahme** – oder Panel-Knopf **✏️ Zeichenfilm**: ohne Kamera, die
+  Geschichte füllt das ganze Bild und wird beim Erzählen gezeichnet.
+
 ## Leistung (2.1)
 
 Im Panel unter **Einstellungen → Leistung**: **Automatisch (empfohlen)** startet mit voller Grafik und schaltet
@@ -97,7 +115,25 @@ KLIPY/GIPHY. Key holen und einrichten: [docs/GIFS.md](docs/GIFS.md).
 | **Nur Handy (App)** | Kein Overlay-Zugriff durch Drittanbieter-Apps → genau die Lücke, die Meta/TikTok nativ schließen müssten (siehe [PITCH.md](PITCH.md)). Workaround: Streamlabs Mobile mit Browser-Quelle. |
 
 Im Hochkant-Layout bleiben alle Effekte oberhalb der unteren 35 % (dort liegen bei TikTok/IG die
-Kommentare) und der Emoji-Regen fällt entsprechend kürzer.
+Kommentare) und der Emoji-Regen fällt entsprechend kürzer. Das Story-Band sitzt seit 2.3 ganz unten am Bildrand;
+mit **Band-Position „über dem Chat“** bleibt auch das Band über den Kommentaren.
+
+## Kamera-Ansicht: WhatsApp, FaceTime, Zoom & Video-Aufnahme (2.3)
+
+**📷 Kamera-Ansicht** im Panel (`http://127.0.0.1:8787/camera.html`): Webcam **und** Overlay in **einem** Fenster –
+Kamera wählen (oder **🎨 Ohne Kamera**, `?cam=off`), spiegeln, 16:9 / 9:16, 720p / 1080p. Damit kommt LiveFX auch in
+Videocalls:
+
+| Weg | Wofür |
+|---|---|
+| **OBS → „Virtuelle Kamera starten“** → in der App „OBS Virtual Camera“ | Zoom, Teams, Meet, Discord, WhatsApp Desktop, FaceTime (Mac, macOS 13+, OBS 30+) – beste Qualität |
+| **Fenster teilen** (Knopf **⧉ Ausgabe** = Fenster ohne Leiste) | jeder Call mit Bildschirmteilen, ganz ohne OBS |
+| **⏺ Aufnahme** (`camera.html?record=1`) | Bild + Effekte + Live-Story + Mikro + Effekt-Sounds als **MP4/H.264** (Chrome/Edge unter Windows / macOS, Safari) oder sonst **WebM** – Download oder am Handy direkt **Teilen → WhatsApp**. „Pixelgenau“ (Chrome/Edge am PC) nimmt die echten Bildschirm-Pixel inkl. GIFs auf und prüft vorher, dass wirklich Bild ankommt |
+| **🎙️ Live-Mikro** (`?mic=1`) | Spracherkennung direkt in der Kamera-Ansicht: Stichwörter feuern Effekte, Sätze bauen die Live-Story – ein komplettes Studio in einem Fenster |
+
+Ehrlich: Handy-Apps (WhatsApp, FaceTime am Handy) nehmen **keine** fremde Kamera – live geht es nur vom PC/Mac; am
+Handy nimmst du mit der Kamera-Ansicht ein Video auf (braucht HTTPS → Internet-Link aus der Handy-Karte). Schritt für
+Schritt (DE/TR/EN): [docs/KAMERA.md](docs/KAMERA.md), OBS-Teil: [docs/OBS-ANLEITUNG.md](docs/OBS-ANLEITUNG.md).
 
 ## Ton & Echo (Mikro in OBS, keine Doppel-Effekte)
 
@@ -335,13 +371,14 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
 - Bridge: Server-Sent Events mit Event-IDs und Replay nach Reconnect; Nachrichten sind per ID
   dedupliziert, damit Vorschau (BroadcastChannel) und OBS (SSE) nie doppelt feuern.
 - Struktur: `server.js` (Composition Root) + `server/*.js` (Router, Static, SSE, Auth, State, APIs, Smart),
-  `js/*.js` (Schema, Matcher, Bus, Renderer, Store, Assets, Editor, Meter, ASR, Smart, Panel).
+  `js/*.js` (Schema, Matcher, Bus, Renderer, Store, Assets, Editor, Meter, ASR, Smart, Panel, Story-Director,
+  Zeichenfilm `sketch.js`, Kamera-Ansicht `camera.js`).
 
 ## Tests
 
 ```bash
 npm run test:unit    # node --test "test/*.test.js" – Schema, Matcher, Server, APIs, Tunnel (Fake-cloudflared), QR (eigener Decoder), Smart (Mock)
-npm run test:e2e     # Playwright/Chromium: Panel + Overlay end-to-end (test/e2e/*.js)
+npm run test:e2e     # Playwright/Chromium: Panel, Overlay, Handy, Zeichenfilm (31), Kamera-Ansicht (37) end-to-end (test/e2e/*.js)
 npm test             # beides
 ```
 

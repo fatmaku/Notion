@@ -20,6 +20,18 @@
 // scene of its own (forest, sea, city, castle, desert, space; cave -> night, mountains -> snow), a campfire object
 // (-> fire), then the time of day (night -> night, morning / evening -> sunrise). A plain daytime meadow with
 // nobody on it has no scene (`null`) – the band stays empty until the story gives it something to draw.
+//
+// Lifecycle (2.3): props (car, castle landmark …) and actors live only as long as the story talks about them.
+// Every final line is one sentence; a mention (or a verb / person pronoun bound to an actor) refreshes the item.
+// A prop that is not mentioned again leaves after 3 later sentences or 45 s, an actor walks out after 4 sentences or
+// 60 s (`TTL`, whichever comes first; `tick(now)` applies the time limit between lines, the overlay calls it every
+// second). A new place or new weather is a new picture: props not mentioned in that sentence leave – or in the
+// previous one, when a place or a figure carries the picture on (a prop alone leaves with the old weather); actors
+// stay – they follow the story. Removal verbs ("ging weg", "gitti", "left", "verschwand", "kayboldu", "disappeared" …)
+// remove their subject – the figure / object before the verb ("she left the house" -> her), a weather subject clears
+// ("sis kayboldu"), sky words remove nobody; "gitti" with a destination ("ormana gitti") is a walk, "on the left" no
+// exit. End words only count at the end of a line ("… das Ende", "masal bitti"; the bare Turkish "son" only as a
+// line of its own – inflected forms like "sonunda" never).
 (function (global, factory) {
   const api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
@@ -31,6 +43,23 @@
   const LI = { de: 0, tr: 1, en: 2 };
   const ACTORS_MAX = 6;
   const PROPS_MAX = 4;
+  // 2.3 lifetimes: sentences (final lines) after the last mention / ms without a mention, whichever comes first.
+  const TTL = Object.freeze({ propLines: 3, propMs: 45000, actorLines: 4, actorMs: 60000 });
+  // Person pronouns that keep the last figure alive ("es" / "it" are mostly dummy subjects: "es regnete").
+  const PERSON_PRON = { er: 1, sie: 1, ihn: 1, ihm: 1, o: 1, onu: 1, ona: 1, he: 1, she: 1, they: 1, him: 1, her: 1 };
+  // Single-word end markers that are ambiguous inside a sentence ("en son", "son dakika", "am Ende des Tages"):
+  // they end the story only as the word itself (never an inflected form: "sonunda", "yolun sonu") in a short line of
+  // at most this many words.
+  const END_SHORT = { son: 2, ende: 6 };
+  // Subject pronouns for removal verbs ("she left the house" -> her, not the house).
+  const SUBJ_PRON = { er: 1, sie: 1, o: 1, he: 1, she: 1, they: 1 };
+  // EN "left" after one of these is a direction / adjective / leftover, not an exit: "on the left", "turned left",
+  // "his left hand", "nothing left", "was left behind".
+  const LEFT_NOT_EXIT = new Set(
+    'the a to on at his her their its my your our turned turn turns turning went go goes going ran run runs walked walk walks flew fly flies drove drive drives moved move moves looked look looks stepped step steps headed head heads swam jumped hopped keep kept far was were is are be been nothing none one anything something everything'.split(' '),
+  );
+  // Sky words that are no figure: "bulutlar kayboldu" / "die Sonne verschwand" removes nobody.
+  const SKY = new Set('wolke wolken sonne mond himmel regenbogen bulut bulutlar gunes gokyuzu gok gokkusagi cloud clouds sun moon sky rainbow'.split(' '));
 
   const SPRITE = {
     girl: '👧', boy: '👦', grandma: '👵', grandpa: '👴', king: '🤴', princess: '👸', knight: '🤺', witch: '🧙‍♀️', dragon: '🐉',
@@ -61,7 +90,11 @@
       evening: ['abend|abends|sonnenuntergang|dämmerung', 'akşam|akşamüstü|akşamleyin|gün batımı', 'evening|sunset|dusk'],
     },
     weather: {
-      clear: ['sonnig|sonnenschein|heiter', 'güneşli|güneş açtı', 'sunny|sunshine'],
+      clear: [
+        'sonnig|sonnenschein|heiter|die sonne schien|die sonne scheint|kam die sonne raus|kam die sonne heraus|die sonne kam raus|die sonne kam heraus',
+        'güneşli|güneş açtı|güneş çıktı|güneş doğdu',
+        'sunny|sunshine|the sun came out|sun came out|the sun was shining|the sun shone',
+      ],
       rain: ['regen|regnete|regnet|regnen|regnerisch|regentropfen|nieselregen', 'yağmur|yağmurda|yağmurlu|yağmuru|sağanak', 'rain|rained|raining|rainy|raindrops|drizzle'],
       snow: ['schnee|schneite|schneit|schneien|schneeflocken', 'kar|karlı|karda|kar tanesi|kar taneleri', 'snow|snowed|snowing|snowy|snowflakes'],
       storm: ['gewitter|blitz|blitze|blitzte|donner|donnerte', 'fırtına|fırtınada|şimşek|şimşekler|gök gürültüsü|yıldırım', 'thunderstorm|storm|lightning|thunder'],
@@ -112,7 +145,13 @@
     },
     action: {
       come: ['kam|kommt|kommen|kamen|erschien|erscheint|stand|tauchte auf', 'geldi|gelir|geliyor|gelmiş|çıktı|çıkmış|belirdi|vardı|varmış', 'came|comes|come|appeared|appears|arrived'],
-      go: ['ging|geht|gehen|lief|spazierte|wanderte', 'gitti|gidiyor|gitmiş|yürüdü|yürüyordu|yürümüş', 'went|goes|walked|walks|walking'],
+      go: ['ging|geht|gehen|lief|spazierte|wanderte', 'gidiyor|gitmiş|yürüdü|yürüyordu|yürümüş', 'went|goes|walked|walks|walking'],
+      // 2.3: leaving the stage (removes the named actor / object); with a destination in the line it is a walk.
+      leave: [
+        'ging weg|gingen weg|lief weg|liefen weg|rannte weg|rannten weg|fuhr weg|fuhr davon|fuhren weg|flog weg|flog davon|flogen weg|ging fort|zog weiter|verließ|verließen|haute ab',
+        'gitti|gittiler|gidip gitti|çekip gitti|uzaklaştı|uzaklaştılar|ayrıldı|ayrıldılar|terk etti|kaçıp gitti',
+        'left|went away|walked away|ran away|drove away|drove off|flew away|flew off|went off|sailed away',
+      ],
       run: ['rannte|rennt|rennen|rannten', 'koştu|koşuyor|koşmuş|koştular', 'ran|runs|running|run'],
       fly: ['flog|fliegt|fliegen|flogen|hob ab', 'uçtu|uçuyor|uçmuş|uçtular|havalandı', 'flew|flies|fly|flying|took off'],
       jump: ['sprang|springt|springen|hüpfte|hüpft', 'zıpladı|zıplıyor|zıplamış|atladı', 'jumped|jumps|jump|hopped'],
@@ -131,7 +170,7 @@
       calm: ['ruhig|still|friedlich|leise', 'sakin|sessiz|huzurlu', 'calm|quiet|peaceful'],
     },
     stop: { x: ['hörte auf|hört auf|aufgehört|vorbei|kein|keine|nicht mehr', 'durdu|durmuş|dindi|dinmiş|kesildi|bitti', 'stopped|stops|ended|no more'] },
-    end: { x: ['ende|das ende', 'son|masal bitti', 'the end'] },
+    end: { x: ['ende|das ende', 'son|masal bitti|hikaye bitti|hikâye bitti|masalımız bitti|hikayemiz bitti|masalın sonu|hikayenin sonu|hikâyenin sonu', 'the end'] },
     open: { x: ['es war einmal|vor langer zeit', 'bir varmış bir yokmuş|evvel zaman içinde', 'once upon a time|long ago'] },
     pron: { x: ['er|sie|es|ihn|ihm', 'o|onu|ona', 'he|she|it|they|him|her'] },
   };
@@ -211,34 +250,55 @@
   }
   const TR_SUF = ['ndan', 'nden', 'nın', 'nin', 'nun', 'nün', 'dan', 'den', 'tan', 'ten', 'lar', 'ler', 'yla', 'yle', 'daki', 'deki', 'la', 'le', 'ya', 'ye', 'yı', 'yi', 'yu', 'yü', 'da', 'de', 'ta', 'te', 'ım', 'im', 'um', 'üm', 'sı', 'si', 'su', 'sü', 'ın', 'in', 'un', 'ün', 'nı', 'ni', 'nu', 'nü', 'na', 'ne', 'ı', 'i', 'u', 'ü', 'a', 'e'];
   const MUT = { b: 'p', c: 'ç', d: 't', ğ: 'k', g: 'k' };
-  function trStem(tok, depth) {
+  /** Turkish suffix stripping: `{ list, lex }` (entries + the lexicon word they came from) or null. */
+  function trStem(tok, depth, min = 3) {
     for (const s of TR_SUF) {
-      if (tok.length - s.length >= 3 && tok.slice(-s.length) === s) {
+      if (tok.length - s.length >= min && tok.slice(-s.length) === s) {
         const st = tok.slice(0, -s.length);
         const f = fold(st);
-        if (IDX.tr.has(f)) return IDX.tr.get(f);
+        if (IDX.tr.has(f)) return { list: IDX.tr.get(f), lex: f };
         const last = st.slice(-1);
         if (MUT[last]) {
           const f2 = fold(st.slice(0, -1) + MUT[last]);
-          if (IDX.tr.has(f2)) return IDX.tr.get(f2);
+          if (IDX.tr.has(f2)) return { list: IDX.tr.get(f2), lex: f2 };
         }
         if (depth < 1) {
-          const r = trStem(st, depth + 1);
+          const r = trStem(st, depth + 1, min);
           if (r) return r;
         }
       }
     }
     return null;
   }
+  /** `{ list, lex }`: the lexicon entries for a token and the lexicon word that matched (exact, stem or one typo). */
   function lookup(tok, L) {
     const f = fold(tok);
-    if (IDX[L].has(f)) return IDX[L].get(f);
+    if (IDX[L].has(f)) return { list: IDX[L].get(f), lex: f };
     if (L === 'tr') {
       const r = trStem(tok, 0);
       if (r) return r;
     }
-    if (f.length >= 6) for (const [w, e] of FZ[L]) if (dl1(f, w)) return [e];
+    if (f.length >= 6) for (const [w, e] of FZ[L]) if (dl1(f, w)) return { list: [e], lex: w };
     return null;
+  }
+  // Turkish case / possessive endings (the plural "-lar/-ler" alone is still a subject: "ağaçlar kayboldu").
+  const TR_CASE = TR_SUF.filter((s) => s !== 'lar' && s !== 'ler');
+  /**
+   * A Turkish hit in an inflected form of another lexicon word of the same id ("arabayı", "yağmurda", "kızın",
+   * "evi"): an object / place / owner, never the subject of "gitti" / "kayboldu".
+   */
+  function trInflected(h) {
+    const tok = h.word;
+    for (const s of TR_CASE) {
+      if (tok.length - s.length < 2 || tok.slice(-s.length) !== s) continue;
+      const st = tok.slice(0, -s.length);
+      const last = st.slice(-1);
+      const forms = [fold(st)];
+      if (MUT[last]) forms.push(fold(st.slice(0, -1) + MUT[last]));
+      const r = forms.map((f) => IDX.tr.get(f)).find(Boolean) || (trStem(st, 1, 2) || {}).list;
+      if (r && r.some((e) => e.role === h.role && e.id === h.id)) return true;
+    }
+    return false;
   }
   /** Matches one language: hits (role, id, pos, word) in sentence order plus a language score. */
   function matchLang(text, L) {
@@ -258,7 +318,7 @@
         }
         if (ok) {
           for (let j = 0; j < p.toks.length; j++) used[s + j] = 1;
-          hits.push({ pos: s, role: p.e.role, id: p.e.id, word: toks.slice(s, s + p.toks.length).join(' ') });
+          hits.push({ pos: s, role: p.e.role, id: p.e.id, word: toks.slice(s, s + p.toks.length).join(' '), lex: p.toks.join(' ') });
         }
       }
     }
@@ -266,16 +326,29 @@
       if (STOPW[L].includes(tk)) stop++;
       if (used[k]) return;
       const r = lookup(tk, L);
-      if (r) for (const e of r) hits.push({ pos: k, role: e.role, id: e.id, word: tk });
+      if (r) for (const e of r.list) hits.push({ pos: k, role: e.role, id: e.id, word: tk, lex: r.lex });
     });
     hits.sort((a, b) => a.pos - b.pos);
     const content = hits.filter((h) => h.role !== 'pron').length;
-    return { lang: L, hits, score: content * 3 + stop + (hits.length - content) };
+    return { lang: L, hits, tokens: toks, score: content * 3 + stop + (hits.length - content) };
+  }
+  /**
+   * An end marker counts at the end of the line only. An ambiguous single word (END_SHORT, judged by the lexicon word
+   * it matched) counts only as itself – "sonunda" (finally), "yolun sonu" (the end of the road) are no end – and only
+   * in a short line.
+   */
+  function isEndHit(h, toks) {
+    const len = h.word.split(' ').length;
+    if (h.pos + len !== toks.length) return false;
+    const w = h.lex || fold(h.word);
+    if (END_SHORT[w] && (fold(h.word) !== w || toks.length > END_SHORT[w])) return false;
+    return !(w === 'son' && h.pos > 0 && fold(toks[h.pos - 1]) === 'en'); // "en son" = "lastly"
   }
 
   // ---- state ---------------------------------------------------------------------------------------
   function emptyState() {
-    return { scene: null, loop: null, place: null, landmark: null, time: 'day', weather: 'clear', mood: 'calm', actors: [], props: [], caption: '', lang: null, end: false, shake: false };
+    // `landmarkSeen` / `landmarkAt` = last mention of the landmark (sentence number / ms) – internal, not in snapshot().
+    return { scene: null, loop: null, place: null, landmark: null, landmarkSeen: 0, landmarkAt: 0, time: 'day', weather: 'clear', mood: 'calm', actors: [], props: [], caption: '', lang: null, end: false, shake: false };
   }
   function sceneFor(w) {
     if (SCENE_BY_WEATHER[w.weather]) return SCENE_BY_WEATHER[w.weather];
@@ -305,7 +378,8 @@
   }
 
   /**
-   * @param {{lang?: 'auto'|'de'|'tr'|'en', caption?: boolean}} [opts]  `caption: true` keeps the last final line as scene caption
+   * @param {{lang?: 'auto'|'de'|'tr'|'en', caption?: boolean, ttl?: Partial<typeof TTL>, now?: () => number}} [opts]
+   *   `caption: true` keeps the last final line as scene caption; `ttl` overrides the lifetimes, `now` the clock (ms).
    */
   function create(opts = {}) {
     const o = opts && typeof opts === 'object' ? opts : {};
@@ -315,6 +389,28 @@
     let w = emptyState();
     let lastJson = JSON.stringify(snapshot(w));
     let lastFig = null;
+    const ttl = { ...TTL };
+    if (o.ttl && typeof o.ttl === 'object') for (const k of Object.keys(TTL)) if (Number.isFinite(o.ttl[k]) && o.ttl[k] >= 0) ttl[k] = o.ttl[k];
+    const clock = typeof o.now === 'function' ? o.now : () => Date.now();
+    let lineNo = 0; // final sentences so far
+    let ctx = { place: null, weather: 'clear' }; // the picture after the last final line (context-change detection)
+
+    const touch = (x, now) => {
+      x.seen = lineNo;
+      x.seenAt = now;
+    };
+    /** Removes props / actors / the landmark past their lifetime (`byLines`: also the sentence limit). */
+    function expire(now, byLines) {
+      const gone = [];
+      const old = (seen, seenAt, lines, ms) => (byLines && lineNo - seen >= lines) || now - seenAt >= ms;
+      w.props = w.props.filter((p) => !(old(p.seen, p.seenAt, ttl.propLines, ttl.propMs) && gone.push({ kind: 'prop', role: p.role })));
+      w.actors = w.actors.filter((a) => !(old(a.seen, a.seenAt, ttl.actorLines, ttl.actorMs) && gone.push({ kind: 'actor', role: a.role })));
+      if (w.landmark && old(w.landmarkSeen, w.landmarkAt, ttl.propLines, ttl.propMs)) {
+        gone.push({ kind: 'landmark', role: w.landmark });
+        w.landmark = null;
+      }
+      return gone;
+    }
 
     function analyse(text, forced) {
       const L = LANGS.includes(forced) ? forced : langSel !== 'auto' ? langSel : null;
@@ -328,14 +424,15 @@
       return best;
     }
 
-    function emit() {
+    /** Notifies the listeners `(state, {reason: 'feed'|'tick'|'reset'})` when the snapshot changed. */
+    function emit(reason = 'feed') {
       const s = snapshot(w);
       const json = JSON.stringify(s);
       if (json === lastJson) return false;
       lastJson = json;
       for (const fn of listeners) {
         try {
-          fn(s);
+          fn(s, { reason });
         } catch (e) {
           if (typeof console !== 'undefined' && console.error) console.error('LiveFX story listener failed', e);
         }
@@ -355,25 +452,46 @@
         langSel = LANGS.includes(l) ? l : 'auto';
         return langSel;
       },
+      /** `fn(state, {reason})` on every change; reason `feed` (a line), `tick` (lifetime expiry) or `reset`. */
       onChange(fn) {
         if (typeof fn === 'function') listeners.add(fn);
         return () => listeners.delete(fn);
       },
+      /** Final sentences fed so far (the lifetime clock of props / actors). */
+      get lines() {
+        return lineNo;
+      },
       reset() {
         w = emptyState();
         lastFig = null;
-        emit();
+        ctx = { place: null, weather: 'clear' };
+        emit('reset');
         return api.state;
       },
       /**
+       * Time-based lifetime between lines: removes props not mentioned for `TTL.propMs` (45 s) and actors not
+       * mentioned for `TTL.actorMs` (60 s). Call it about once a second (the overlay does). Returns
+       * `{ changed, expired: [{kind: 'prop'|'actor'|'landmark', role}], state }`.
+       */
+      tick(now) {
+        const t = Number.isFinite(now) ? now : clock();
+        const expired = w.end ? [] : expire(t, false);
+        if (!expired.length) return { changed: false, expired, state: api.state };
+        w.shake = false; // shake belongs to the line that said "suddenly", not to an expiry
+        w.scene = sceneFor(w);
+        return { changed: emit('tick'), expired, state: api.state };
+      },
+      /**
        * Feeds one transcript line. `final: false` = interim (only place / time / weather / mood move).
-       * Returns `{ lang, hits, decisions, changed, state }` – `decisions` lists every applied word.
+       * `now` (ms) overrides the clock for this line. Returns `{ lang, hits, decisions, changed, state }` –
+       * `decisions` lists every applied word (2.3: also `{role: 'expire', kind, id}` for items whose lifetime ended).
        */
       feed(text, fopts = {}) {
         const f = fopts && typeof fopts === 'object' ? fopts : {};
         const final = f.final !== false;
         const line = typeof text === 'string' ? text.trim() : '';
         if (!line) return { lang: lastLang, hits: 0, decisions: [], changed: false, state: api.state };
+        const now = Number.isFinite(f.now) ? f.now : clock();
         const r = analyse(line, f.lang);
         const hits = r.hits;
         const by = (role) => hits.filter((h) => h.role === role);
@@ -381,6 +499,9 @@
         const dec = [];
         w.shake = false;
         if (hits.length) w.lang = r.lang;
+        if (final) lineNo++;
+        // Time limit first (a host without tick() still gets it), the sentence limit after the line's mentions.
+        for (const g of expire(now, false)) dec.push({ role: 'expire', kind: g.kind, id: g.role });
 
         if (by('open').length) {
           // Story opening: a fresh stage (figures walk out, daytime, clear sky).
@@ -395,6 +516,8 @@
           if (nat.length && str.length) {
             w.place = last(nat).id;
             w.landmark = last(str).id;
+            w.landmarkSeen = lineNo;
+            w.landmarkAt = now;
             dec.push({ role: 'place', id: w.place, word: last(nat).word }, { role: 'landmark', id: w.landmark, word: last(str).word });
           } else {
             const p = last(pl).id;
@@ -434,6 +557,7 @@
               w.actors.push(a);
               while (w.actors.length > ACTORS_MAX) w.actors.shift();
             }
+            touch(a, now);
             dec.push({ role: 'figure', id: h.id, word: h.word });
           }
           if (fg.length) lastFig = last(fg).id;
@@ -442,34 +566,122 @@
           for (const h of ob) {
             if (so[h.id]) continue;
             so[h.id] = 1;
-            if (!w.props.some((x) => x.role === h.id)) {
-              w.props.push({ emoji: SPRITE[h.id] || '⭐', role: h.id });
+            let p = w.props.find((x) => x.role === h.id);
+            if (!p) {
+              p = { emoji: SPRITE[h.id] || '⭐', role: h.id };
+              w.props.push(p);
               while (w.props.length > PROPS_MAX) w.props.shift();
             }
+            touch(p, now);
             dec.push({ role: 'object', id: h.id, word: h.word });
           }
-          for (const h of by('action')) {
-            // The nearest figure in the line owns the verb (ties go to the one before it – "der Drache flog" –
-            // but "dann schlief die Katze ein" binds to the cat after the verb); otherwise the last figure seen.
+          if (w.landmark && pl.some((h) => h.id === w.landmark)) {
+            w.landmarkSeen = lineNo;
+            w.landmarkAt = now;
+          }
+          // A person pronoun ("sie", "o", "he") keeps talking about the last figure.
+          const lastActor = () => (lastFig && w.actors.find((a) => a.role === lastFig)) || last(w.actors) || null;
+          if (by('pron').some((h) => PERSON_PRON[fold(h.word)])) {
+            const a = lastActor();
+            if (a) touch(a, now);
+          }
+          const nearest = (list, pos) => {
             let near = null;
-            for (const x of fg) {
-              const dist = Math.abs(x.pos - h.pos);
-              if (!near || dist < near.dist || (dist === near.dist && x.pos < h.pos)) near = { id: x.id, dist };
+            for (const x of list) {
+              const dist = Math.abs(x.pos - pos);
+              if (!near || dist < near.dist || (dist === near.dist && x.pos < pos)) near = { h: x, dist };
             }
-            const who = near ? near.id : lastFig && w.actors.some((a) => a.role === lastFig) ? lastFig : w.actors.length ? last(w.actors).role : null;
-            if (!who) continue;
-            const a = w.actors.find((x) => x.role === who);
-            if (!a) continue;
-            if (h.id === 'vanish') {
+            return near ? near.h : null;
+          };
+          // Turkish nouns in a case form ("arabayı", "yağmurda", "kızın") are objects / places / owners, no subject.
+          const subjectForm = (x) => !(r.lang === 'tr' && trInflected(x));
+          // The subject of a removal verb: the nearest figure, object or subject pronoun before the verb ("das
+          // Mädchen sah, wie das Auto verschwand" -> the car; "she left the house" -> her), else the first one after
+          // it (German inversion: "dann verschwand das Auto"). After "leave" only a figure / pronoun: an object
+          // after it is what was left ("left the house").
+          const subjectOf = (h, leave) => {
+            const end = h.pos + h.word.split(' ').length;
+            const cand = hits.filter((x) => (x.role === 'pron' ? SUBJ_PRON[fold(x.word)] : (x.role === 'figure' || x.role === 'object') && subjectForm(x)));
+            const before = cand.filter((x) => x.pos < h.pos);
+            if (before.length) return last(before);
+            return cand.find((x) => x.pos >= end && !(leave && x.role === 'object')) || null;
+          };
+          for (const h of by('action')) {
+            // EN "left" as a direction / leftover ("on the left", "turned left", "nothing left") is no exit.
+            if (h.id === 'leave' && h.word === 'left' && h.pos > 0 && LEFT_NOT_EXIT.has(r.tokens[h.pos - 1])) continue;
+            // A removal verb with a destination in the line ("ormana gitti", "left for the castle") is a walk.
+            const id = h.id === 'leave' && pl.length ? 'go' : h.id;
+            if (id === 'vanish' || id === 'leave') {
+              // Removal: the subject leaves – an object ("das Auto verschwand", "araba gitti") or a figure.
+              const t = subjectOf(h, id === 'leave');
+              if (t && t.role === 'object') {
+                w.props = w.props.filter((p) => p.role !== t.id);
+                dec.push({ role: 'action', id, who: t.id, word: h.word });
+                continue;
+              }
+              if (!t) {
+                // No subject named. A landmark named alone leaves the band ("das Schloss verschwand"); any other
+                // place changes nothing ("der Wald verschwand im Nebel").
+                if (pl.length) {
+                  const lm = pl.find((x) => x.id === w.landmark);
+                  if (lm) {
+                    w.landmark = null;
+                    dec.push({ role: 'action', id, who: lm.id, word: h.word });
+                  }
+                  continue;
+                }
+                // Weather as the subject clears it ("sis kayboldu", "der Nebel verschwand", "yağmur gitti"); weather
+                // or a sky word anywhere else removes nobody ("bulutlar kayboldu", "die Sonne verschwand").
+                const wx = we.filter(subjectForm);
+                if (wx.length) {
+                  if (wx[0].pos < h.pos && w.weather !== 'clear') {
+                    w.weather = 'clear';
+                    dec.push({ role: 'stop', word: `${wx[0].word} ${h.word}` });
+                  }
+                  continue;
+                }
+                if (r.tokens.some((tk) => SKY.has(fold(tk)))) continue;
+              }
+              // A figure, a subject pronoun ("im Wald verschwand er") or nobody named (Turkish "sonra gitti"): the
+              // last figure.
+              const a = t && t.role === 'figure' ? w.actors.find((x) => x.role === t.id) : lastActor();
+              if (!a) continue;
               w.actors = w.actors.filter((x) => x !== a);
-              dec.push({ role: 'action', id: 'vanish', who, word: h.word });
+              if (lastFig === a.role) lastFig = null;
+              dec.push({ role: 'action', id, who: a.role, word: h.word });
               continue;
             }
-            if (h.id !== 'come') a.action = h.id;
-            dec.push({ role: 'action', id: h.id, who, word: h.word });
+            // The nearest figure in the line owns the verb (ties go to the one before it – "der Drache flog" –
+            // but "dann schlief die Katze ein" binds to the cat after the verb); otherwise the last figure seen.
+            const near = nearest(fg, h.pos);
+            const a = near ? w.actors.find((x) => x.role === near.id) : lastActor();
+            if (!a) continue;
+            if (id !== 'come') a.action = id;
+            touch(a, now);
+            dec.push({ role: 'action', id, who: a.role, word: h.word });
           }
           if (md.some((h) => h.id === 'tense')) w.shake = true;
-          if (by('end').length) {
+          // New place or new weather = a new picture: props from the old one leave unless this sentence named them
+          // (actors stay; they leave by lifetime, a removal verb or the end). Props named in the previous sentence
+          // come along when the picture has a place or a figure ("a girl … with a lantern" -> "it started to snow",
+          // "… -> they went into the forest"); a prop alone in the old weather leaves with it ("araba geldi" in the
+          // rain -> "güneş açtı": the car goes with the rain).
+          if (w.place !== ctx.place || w.weather !== ctx.weather) {
+            const grace = w.place || w.actors.length ? 1 : 0;
+            const keep = [];
+            for (const p of w.props) {
+              if (lineNo - p.seen <= grace) keep.push(p);
+              else dec.push({ role: 'expire', kind: 'prop', id: p.role });
+            }
+            w.props = keep;
+            if (w.landmark && lineNo - w.landmarkSeen > 1) {
+              dec.push({ role: 'expire', kind: 'landmark', id: w.landmark });
+              w.landmark = null;
+            }
+          }
+          for (const g of expire(now, true)) dec.push({ role: 'expire', kind: g.kind, id: g.role });
+          const ends = by('end').filter((h) => isEndHit(h, r.tokens));
+          if (ends.length) {
             w.end = true;
             w.actors = [];
             w.props = [];
@@ -477,17 +689,18 @@
             w.landmark = null;
             w.weather = 'clear';
             w.time = 'day';
-            dec.push({ role: 'end', word: by('end')[0].word });
+            dec.push({ role: 'end', word: ends[0].word });
           } else if (dec.length) w.end = false;
+          ctx = { place: w.place, weather: w.weather };
           if (o.caption && hits.length) w.caption = line.length > 80 ? `${line.slice(0, 79)}…` : line;
         }
         w.scene = w.end ? null : sceneFor(w);
-        const changed = emit();
+        const changed = emit('feed');
         return { lang: r.lang, hits: hits.length, decisions: dec, changed, state: api.state };
       },
     };
     return api;
   }
 
-  return { create, matchLang, SPRITE, LEX, LANGS, SCENE_BY_PLACE, SCENE_BY_WEATHER, SCENE_BY_TIME, LOOP_BY_SCENE };
+  return { create, matchLang, SPRITE, LEX, LANGS, TTL, SCENE_BY_PLACE, SCENE_BY_WEATHER, SCENE_BY_TIME, LOOP_BY_SCENE };
 });

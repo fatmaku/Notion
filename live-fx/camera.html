@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>LiveFX – Kamera</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/camera.css">
+  <!-- Camera view (docs/KAMERA.md): webcam + the LiveFX overlay in ONE window – for OBS window capture, the OBS
+       virtual camera, screen sharing (WhatsApp, FaceTime, Zoom, Teams, Meet) and the built-in recorder.
+       The speech-recognition studio (?mic=1) loads its scripts on demand (js/camera.js STUDIO_SCRIPTS). -->
+  <script defer src="js/camera.js"></script>
+</head>
+<body>
+  <main id="view">
+    <div id="frame" class="cam-frame" data-aspect="16:9">
+      <video id="cam" autoplay muted playsinline disablepictureinpicture></video>
+      <div id="cam-off" class="cam-off" hidden>
+        <div class="cam-off-box">
+          <div class="cam-off-icon" aria-hidden="true">📷</div>
+          <p id="cam-off-text">Kamera startet …</p>
+          <button type="button" id="btn-cam-retry">Erneut versuchen</button>
+        </div>
+      </div>
+      <!-- The overlay itself (overlay.html, same URL parameters): transparent, click-through, laid out at the output
+           resolution of the frame – the same picture an OBS browser source of that size shows. -->
+      <iframe id="fx" title="LiveFX Overlay" allow="autoplay" tabindex="-1" aria-hidden="true"></iframe>
+    </div>
+  </main>
+
+  <div id="bar" class="bar" role="toolbar" aria-label="Kamera-Steuerung">
+    <!-- one fixed-height message line (transcript of the Live-Mikro, hints) – the picture never jumps -->
+    <div class="bar-msg" id="bar-msg" aria-live="polite"><span id="transcript" hidden></span><span id="hint" class="hint" hidden></span><span id="idle" class="idle">Tasten: R Aufnahme · M spiegeln · F Vollbild · H Leiste aus/ein · Doppelklick aufs Bild = nur Bild</span></div>
+    <div class="bar-row">
+      <span class="dot" id="dot" title="Overlay-Verbindung"></span>
+      <label class="sr-only" for="cam-device">Kamera</label>
+      <select id="cam-device" title="Kamera wählen"><option value="">Kamera …</option></select>
+      <button type="button" id="btn-mirror" aria-pressed="true" title="Bild spiegeln (Taste M)">↔ Spiegeln</button>
+      <button type="button" id="btn-aspect" title="Format quer 16:9 / hochkant 9:16">16:9</button>
+      <button type="button" id="btn-sound" aria-pressed="true" title="Effekt-Sounds in diesem Fenster an / aus">🔊</button>
+      <button type="button" id="btn-rec" class="rec" title="Aufnahme starten / stoppen (Taste R)">⏺ Aufnahme</button>
+      <button type="button" id="btn-studio" title="Spracherkennung in diesem Fenster: Stichwörter feuern Effekte, Sätze bauen die Live-Story">🎙️ Live-Mikro</button>
+      <button type="button" id="btn-full" title="Vollbild (Taste F)">⛶</button>
+      <button type="button" id="btn-popup" title="Sauberes Ausgabefenster ohne Leiste öffnen – für OBS-Fensteraufnahme oder Bildschirm teilen">⧉ Ausgabe</button>
+      <button type="button" id="btn-more" aria-expanded="false" aria-controls="drawer" title="Mehr Einstellungen">⚙</button>
+      <span class="status" id="status">verbinde …</span>
+    </div>
+    <div class="drawer" id="drawer" hidden>
+      <div class="grid">
+        <label>🎤 Mikrofon (Aufnahme / Live-Mikro)<select id="mic-device"><option value="">Standard-Mikrofon</option></select></label>
+        <label>Auflösung<select id="res"><option value="720">720p (empfohlen)</option><option value="1080">1080p (Full HD)</option></select></label>
+        <label>Video-Format<select id="format"><option value="auto">Automatisch (MP4 wenn möglich)</option><option value="mp4">MP4 (WhatsApp, iPhone)</option><option value="webm">WebM</option></select></label>
+        <label>Aufnahme-Art<select id="rec-mode"><option value="canvas">Leinwand (überall, Standard)</option><option value="tab">Pixelgenau – Tab-Aufnahme (Chrome am PC)</option></select></label>
+        <label>Story-Stil (nur hier)<select id="story-style"><option value="">wie im Panel</option><option value="emoji">Emoji</option><option value="sketch">Zeichnung</option><option value="mixed">Gemischt</option></select></label>
+        <label>Sprache Live-Mikro<select id="studio-lang"><option value="tr-TR">Türkçe</option><option value="de-DE">Deutsch</option><option value="en-US">English</option></select></label>
+      </div>
+      <div class="checks">
+        <label><input type="checkbox" id="rec-mic" checked> Mikro mit aufnehmen</label>
+        <label><input type="checkbox" id="rec-fx" checked> Effekt-Sounds mit aufnehmen</label>
+        <label><input type="checkbox" id="studio-story" checked> Live-Story (Sätze → Szene im Band)</label>
+      </div>
+      <p class="help">Tasten: <kbd>R</kbd> Aufnahme · <kbd>M</kbd> spiegeln · <kbd>F</kbd> Vollbild · <kbd>H</kbd> Leiste aus/ein.
+        Anleitung (WhatsApp, FaceTime, Zoom, OBS-Kamera): <a href="docs/KAMERA.md" target="_blank">docs/KAMERA.md</a></p>
+    </div>
+  </div>
+
+  <section id="rec-result" class="result" hidden aria-label="Aufnahme fertig">
+    <div class="result-box">
+      <h2>🎬 Aufnahme fertig</h2>
+      <video id="rec-video" controls playsinline></video>
+      <p class="help" id="rec-info"></p>
+      <div class="actions">
+        <a class="btn primary" id="rec-download" href="#" download>⬇ Herunterladen</a>
+        <button type="button" id="rec-share" hidden>📤 Teilen (WhatsApp …)</button>
+        <button type="button" id="rec-close">Schließen</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js').catch(() => {});
+  </script>
+</body>
+</html>

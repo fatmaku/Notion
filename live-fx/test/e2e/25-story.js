@@ -206,7 +206,8 @@ async function run({ browser, startServer, shotDir, log }) {
     assert.deepEqual(errors, [], `page errors: ${errors.join('; ')}`);
     await ctx.close();
 
-    // ---------- overlay, portrait: storm scene in the 20 % band above the chat zone (2.2), particles use --fx-fall ----------
+    // ---------- overlay, portrait: storm scene in the 20 % band at the bottom edge (2.3 default; `chat` = above the
+    // chat zone), particles use --fx-fall ----------
     const pctx = await browser.newContext({ viewport: { width: 540, height: 960 } });
     const portrait = await pctx.newPage();
     await portrait.goto(`${server.base}/overlay.html?layout=portrait`);
@@ -234,8 +235,18 @@ async function run({ browser, startServer, shotDir, log }) {
     log('portrait storm', JSON.stringify(p));
     assert.equal(p.w, 540);
     assert.ok(Math.abs(p.h - 0.2 * p.innerHeight) <= 2, `portrait band is 20 % high (${p.h})`);
-    assert.ok(Math.abs(p.bottom - 0.65 * p.innerHeight) <= 2, `band sits above the chat zone (bottom ${p.bottom})`);
+    assert.ok(Math.abs(p.bottom - p.innerHeight) <= 1, `band sits at the very bottom (bottom ${p.bottom}) – 2.3 bandPosition bottom`);
     assert.ok(p.capTop >= p.top && p.capBottom <= p.bottom + 1, 'caption sits inside the band');
+    const chat = await portrait.evaluate(() => {
+      window.livefx.bus._emit({ id: 'bp', type: 'layout', bandPosition: 'chat' });
+      const el = document.querySelector('.fx-scene[data-scene="storm"]');
+      const r = el.getBoundingClientRect();
+      const cap = el.querySelector('.fx-scene-caption').getBoundingClientRect();
+      return { top: r.top, bottom: r.bottom, capTop: cap.top, capBottom: cap.bottom, innerHeight: window.innerHeight };
+    });
+    assert.ok(Math.abs(chat.bottom - 0.65 * chat.innerHeight) <= 2, `bandPosition chat: band above the chat zone (bottom ${chat.bottom})`);
+    assert.ok(chat.capTop >= chat.top && chat.capBottom <= chat.bottom + 1, 'caption moves with the band');
+    await portrait.evaluate(() => window.livefx.bus._emit({ id: 'bp2', type: 'layout', bandPosition: 'bottom' }));
     assert.equal(p.fall, '62vh', 'scene inherits --fx-fall');
     assert.ok(Math.abs(p.fallPx - 0.62 * p.innerHeight) <= 1, `canvas particles fall 62vh (${p.fallPx})`);
     assert.ok(p.particles > 0 && p.particles <= 110, `storm particles ${p.particles}`);

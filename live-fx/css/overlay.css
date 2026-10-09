@@ -73,17 +73,23 @@ body {
   --fx-xspan: 100vw;
   /* 2.2 story band: --fx-band = height in percent (unitless, set by renderer.setLayout; 15..35, default 22),
    * --fx-band-h the resulting length (100vh in layout full, the box height in layout frame),
-   * --fx-band-bottom the gap below the band (portrait: the chat zone), --fx-edge the width of the edge columns. */
+   * --fx-band-bottom the gap below the band (0; portrait with bandPosition chat: the 35vh chat zone), --fx-edge the
+   * width of the edge columns. */
   --fx-band: 22;
   --fx-band-h: calc(var(--fx-band, 22) * 1vh);
   --fx-band-bottom: 0px;
   --fx-edge: 22vw;
 }
-/* Portrait (9:16): chat sits in the bottom ~35 %, so everything stays above it. */
+/* Portrait (9:16): chat sits in the bottom ~35 %, so transient effects stay above it. The story band sits flush
+ * with the frame bottom by default (2.3 `bandPosition: bottom`, body[data-band-pos="bottom"]); `chat` lifts it
+ * above the chat zone (the 2.2 look). */
 body.layout-portrait {
   --fx-fall: 62vh;
   --fx-band-bottom: 35vh;
   --fx-edge: 30vw;
+}
+body.layout-portrait:not([data-band-pos="chat"]) {
+  --fx-band-bottom: 0px;
 }
 #stage {
   position: fixed;
@@ -1125,7 +1131,8 @@ body.fx-hidden .fx-scene *::after { animation-play-state: paused !important; }
 /* =====================================================================================
  * Story band (LiveFX 2.2, docs/STORY.md). `#stage > .fx-band[data-layout]` is the first child of the stage and
  * holds the `.fx-scene` layer, so a scene never covers the streamer's camera:
- *   band  – bottom strip of --fx-band-h (default 22 % of the height, portrait 20 % above the chat zone)
+ *   band  – bottom strip of --fx-band-h (default 22 % of the height; portrait 20 %, flush with the bottom edge or –
+ *           body[data-band-pos="chat"] – above the chat zone)
  *   frame – picture-in-picture box bottom-right (30 % of the width, 16:9)
  *   full  – the whole frame (the 1.3 look)
  * The band's top edge is soft-masked, `data-mood` tints it (live story), `.fx-band-idle` fades it after 60 s
@@ -1171,6 +1178,19 @@ body.layout-portrait .fx-band[data-layout="frame"] {
   right: 4vw;
 }
 .fx-band.fx-band-idle { opacity: 0; }
+/* 2.3 sketch hook: LiveFXSketch draws on this band-sized canvas (renderer.sketchSurface()), above the scene layer.
+ * storyStyle (`.fx-band[data-style]`, the style in use – emoji without a sketch renderer): emoji hides the drawing,
+ * sketch hides the emoji decoration of the scene (the canvas sprites / parallax are switched off by the renderer). */
+.fx-sketch {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.fx-band[data-style="emoji"] .fx-sketch { display: none; }
+.fx-band[data-style="sketch"] .fx-scene-decor,
+.fx-band[data-style="sketch"] .fx-scene-ground { visibility: hidden; }
 /* mood tint (live story): a translucent wash above the scene, below the actors on the canvas */
 .fx-band::after {
   content: "";
@@ -1227,24 +1247,31 @@ body.layout-portrait .fx-band:not([data-layout="full"]) .fx-scene-sea .fx-scene-
 .fx-band:not([data-layout="full"]) .fx-scene-storm .fx-scene-l1::before { background-size: 14px 80px, 22px 160px; }
 .fx-band:not([data-layout="full"]) .fx-scene-storm .fx-scene-l2 { background: radial-gradient(ellipse at 30% 0%, #fff 0%, rgba(255, 255, 255, 0.7) 30%, rgba(180, 200, 255, 0.2) 70%, transparent 100%); }
 
-/* ---- effect zones: cards, images, text, stickers and banners ---- */
+/* ---- effect zones: cards, images, text, stickers and banners ----
+ * Column effects are max-content wide up to the column (--fx-col-w) – the right column's anchor sits at the frame
+ * edge minus half a column, so a shrink-to-fit width would squeeze it to the emoji. Words wrap only between words;
+ * a word still wider than the column scales the whole effect down through --fx-fit (set by the renderer, 2.3). */
 .fx-col-left,
 .fx-col-right {
   --fx-col-w: calc(var(--fx-edge, 22vw) - 24px);
+  width: max-content;
   max-width: var(--fx-col-w);
+  box-sizing: border-box;
 }
 .fx-col-left { left: calc(var(--fx-edge, 22vw) / 2); }
 .fx-col-right { left: calc(100% - var(--fx-edge, 22vw) / 2); }
 .fx-card.fx-col-left, .fx-card.fx-col-right { padding: min(18px, 1.5vw) min(24px, 2vw); }
-.fx-col-left .fx-emoji, .fx-col-right .fx-emoji { font-size: min(110px, calc(var(--fx-col-w) * 0.45)); }
-.fx-col-left .fx-text, .fx-col-right .fx-text { font-size: min(40px, calc(var(--fx-col-w) * 0.14)); }
+.fx-col-left .fx-emoji, .fx-col-right .fx-emoji { font-size: calc(min(110px, calc(var(--fx-col-w) * 0.45)) * var(--fx-fit, 1)); }
+.fx-col-left .fx-text, .fx-col-right .fx-text { font-size: calc(min(40px, calc(var(--fx-col-w) * 0.14)) * var(--fx-fit, 1)); overflow-wrap: normal; }
 .fx-card-image.fx-col-left img, .fx-card-image.fx-col-right img { max-width: calc(var(--fx-col-w) - 2 * min(24px, 2vw)); max-height: 36vh; }
 .fx-sticker-img.fx-col-left img, .fx-sticker-img.fx-col-right img { width: min(260px, calc(var(--fx-col-w) * 0.9)); }
-.fx-bigtext.fx-col-left .fx-word, .fx-bigtext.fx-col-right .fx-word { font-size: min(72px, calc(var(--fx-col-w) * 0.26)); }
-.fx-bigtext.fx-col-left .fx-emoji, .fx-bigtext.fx-col-right .fx-emoji { font-size: min(90px, calc(var(--fx-col-w) * 0.4)); }
-.fx-text-sticker.fx-col-left > .fx-word, .fx-text-sticker.fx-col-right > .fx-word { font-size: min(60px, calc(var(--fx-col-w) * 0.22)); }
-.fx-sticker.fx-col-left .fx-sticker-emoji, .fx-sticker.fx-col-right .fx-sticker-emoji { font-size: min(90px, calc(var(--fx-col-w) * 0.34)); }
-.fx-sticker.fx-col-left .fx-text, .fx-sticker.fx-col-right .fx-text { font-size: min(36px, calc(var(--fx-col-w) * 0.13)); }
+.fx-bigtext.fx-col-left .fx-word, .fx-bigtext.fx-col-right .fx-word { font-size: calc(min(72px, calc(var(--fx-col-w) * 0.26)) * var(--fx-fit, 1)); }
+.fx-bigtext.fx-col-left .fx-emoji, .fx-bigtext.fx-col-right .fx-emoji { font-size: calc(min(90px, calc(var(--fx-col-w) * 0.4)) * var(--fx-fit, 1)); }
+.fx-text-sticker.fx-col-left > .fx-word, .fx-text-sticker.fx-col-right > .fx-word,
+body.layout-portrait .fx-text-sticker.fx-col-left > .fx-word, body.layout-portrait .fx-text-sticker.fx-col-right > .fx-word { font-size: calc(min(60px, calc(var(--fx-col-w) * 0.22)) * var(--fx-fit, 1)); }
+.fx-sticker.fx-col-left .fx-sticker-emoji, .fx-sticker.fx-col-right .fx-sticker-emoji { font-size: calc(min(90px, calc(var(--fx-col-w) * 0.34)) * var(--fx-fit, 1)); }
+.fx-sticker.fx-col-left .fx-text, .fx-sticker.fx-col-right .fx-text { font-size: calc(min(36px, calc(var(--fx-col-w) * 0.13)) * var(--fx-fit, 1)); }
+.fx-sticker.fx-col-left .fx-sticker-row, .fx-sticker.fx-col-right .fx-sticker-row { gap: calc(min(24px, 2vw) * var(--fx-fit, 1)); }
 .fx-banner.fx-col-left,
 .fx-banner.fx-col-right {
   width: var(--fx-edge, 22vw);

@@ -386,7 +386,7 @@ async function run({ browser, startServer, api, shotDir, log }) {
       assert.ok(contrast(shot.card.color, shot.card.bg) >= 3, `pastel card text vs bg: ${shot.card.color} / ${shot.card.bg}`);
       assert.ok(contrast(shot.caption.color, shot.caption.bg) >= 3, `pastel caption: ${shot.caption.color} / ${shot.caption.bg}`);
       assert.ok(shot.card.bottom <= 0.65, `safe card stays above the chat zone (${shot.card.bottom})`);
-      assert.ok(shot.caption.top >= 0.45 && shot.caption.top < 0.65, `portrait caption sits in the story band above the chat zone (${shot.caption.top}) – 2.2`);
+      assert.ok(shot.caption.top >= 0.8 && shot.caption.top < 1, `portrait caption sits in the story band at the bottom edge (${shot.caption.top}) – 2.3 bandPosition bottom`);
       assert.match(shot.bannerBgImage, /gradient/, 'banner keeps its gradient');
       assert.deepEqual(perr, [], `portrait errors: ${perr.join('; ')}`);
       await pctx.close();

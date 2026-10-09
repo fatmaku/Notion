@@ -1,0 +1,194 @@
+/* LiveFX – camera view (camera.html, docs/KAMERA.md). One black window: the frame (webcam + overlay iframe) is laid
+ * out at the output resolution (1280×720, 720×1280, 1920×1080 …) and scaled to fit by js/camera.js; the toolbar sits
+ * below the frame, never on top of it, so a window capture / screen share / recording shows only the picture.
+ * No `color-scheme` here on purpose: a dark parent scheme would make Chrome paint the transparent overlay iframe opaque. */
+:root {
+  --bg: #000;
+  --panel: rgba(18, 20, 26, 0.94);
+  --panel-2: #20242e;
+  --border: #2b303c;
+  --text: #e8eaf0;
+  --muted: #8d93a3;
+  --accent: #ff4d6d;
+  --accent-2: #7c5cff;
+  --ok: #3ddc84;
+  --warn: #ffb020;
+}
+* { box-sizing: border-box; min-width: 0; }
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+body { -webkit-text-size-adjust: 100%; touch-action: manipulation; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---- the picture ---- */
+#view {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: var(--bar-h, 0px);
+  overflow: hidden;
+}
+.cam-frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1280px;
+  height: 720px;
+  transform-origin: 0 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 40%, #2a2f3b 0%, #0d0f14 70%);
+  contain: layout paint;
+}
+/* „Pixelgenau“ via Element Capture (restrictTo, js/camera.js tabCapture): the element must be a backdrop root –
+ * isolation alone is not enough, an opacity below 1 is (visually identical). Only set while such a capture runs. */
+.cam-frame.capture-target { opacity: 0.999; }
+.cam-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: transparent;
+}
+.cam-frame video.mirror { transform: scaleX(-1); }
+/* 2.3 „🎨 Ohne Kamera“ (?cam=off): only the board background behind the overlay */
+.cam-frame.no-cam video { visibility: hidden; }
+.cam-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+.cam-off {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6%;
+  color: var(--text);
+}
+.cam-off[hidden] { display: none; }
+.cam-off-box { max-width: 70%; font-size: 28px; line-height: 1.35; }
+.cam-off-icon { font-size: 96px; opacity: 0.6; }
+.cam-off button { font-size: 24px; padding: 12px 22px; margin-top: 12px; pointer-events: auto; }
+
+/* ---- toolbar ---- */
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  padding: 8px 12px max(8px, env(safe-area-inset-bottom));
+  font-size: 14px;
+}
+.bar-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+/* fixed height (1 line, 2 on phones): transcript / hints never change the bar height, so the picture never jumps */
+.bar-msg {
+  height: 1.5em;
+  line-height: 1.5em;
+  margin: 0 2px 6px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bar-msg > span[hidden] { display: none; }
+.bar-msg .idle { color: var(--muted); font-size: 12px; }
+.bar-msg .hint { color: var(--warn); }
+.bar-msg #transcript:not([hidden]) + .hint:not([hidden])::before { content: " · "; color: var(--muted); }
+.bar-msg .interim { color: var(--muted); font-style: italic; }
+.bar-msg mark { background: var(--accent-2); color: #fff; border-radius: 4px; padding: 0 3px; }
+button, select, .btn {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  line-height: 1.2;
+}
+select { max-width: 220px; padding-right: 8px; }
+button:hover, .btn:hover { border-color: var(--accent-2); }
+button:focus-visible, select:focus-visible, .btn:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+button[aria-pressed="true"] { border-color: var(--accent-2); background: #2a2350; }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn.primary, button.primary { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
+.bar .rec { font-weight: 700; }
+.bar .rec.on { background: var(--accent); border-color: var(--accent); color: #fff; animation: cam-blink 1.2s steps(2) infinite; }
+body.record-mode .bar .rec:not(.on) { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.35); }
+#btn-studio.on { background: var(--ok); border-color: var(--ok); color: #06210f; font-weight: 700; }
+@keyframes cam-blink { 50% { opacity: 0.75; } }
+.status { color: var(--muted); font-size: 12px; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 40ch; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); flex: 0 0 auto; }
+.dot.on { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+.dot.warn { background: var(--warn); }
+.dot.err { background: var(--accent); }
+.help { color: var(--muted); font-size: 12px; line-height: 1.5; margin: 8px 0 0; }
+.help a { color: #b9a8ff; }
+kbd { background: var(--panel-2); border: 1px solid var(--border); border-radius: 4px; padding: 0 4px; font-size: 11px; }
+
+.drawer { border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px; max-height: 45vh; overflow: auto; overscroll-behavior: contain; }
+.drawer[hidden] { display: none; }
+.drawer .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px 12px; }
+.drawer label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.drawer select { max-width: none; width: 100%; }
+.drawer .checks { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 8px; }
+.drawer .checks label { flex-direction: row; align-items: center; gap: 6px; font-size: 13px; color: var(--text); }
+
+/* clean output (?clean=1, the „Ausgabe“ window, key H): picture only, no cursor */
+body.clean .bar { display: none; }
+body.clean #view { bottom: 0; }
+body.clean { cursor: none; }
+body.clean .cam-off button { cursor: pointer; }
+
+/* ---- recording result ---- */
+.result {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.72);
+  padding: 16px;
+}
+.result[hidden] { display: none; }
+.result-box {
+  width: min(720px, 100%);
+  max-height: 100%;
+  overflow: auto;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+}
+.result-box h2 { margin: 0 0 10px; font-size: 18px; }
+.result-box video { width: 100%; max-height: 55vh; background: #000; border-radius: 10px; display: block; }
+.result-box .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+@media (max-width: 560px) {
+  .bar { padding: 6px 8px max(6px, env(safe-area-inset-bottom)); }
+  .bar-msg { height: 3em; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .bar-row { gap: 5px; }
+  button, select, .btn { padding: 8px 9px; }
+  #cam-device { max-width: 130px; }
+  .status { display: none; }
+  #btn-popup { display: none; }
+}

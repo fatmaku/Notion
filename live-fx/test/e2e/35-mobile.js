@@ -172,6 +172,25 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     assert.equal(await overlay.evaluate(() => window.__msgs.filter((m) => m.type === 'layout').pop().storyLayout), 'full');
     log('band / zone buttons ok');
 
+    // 2.3 story look: „✏️ Stil“ cycles mixed → sketch → emoji, „📐 Band“ toggles bottom ↔ chat (only the changed key is sent)
+    assert.deepEqual(await phone.evaluate(() => window.livefx.look), { storyStyle: 'mixed', bandPosition: 'bottom' }, 'look defaults');
+    assert.match(await phone.textContent('#btn-style'), /Stil: Gemischt/);
+    assert.match(await phone.textContent('#btn-bandpos'), /Band: ganz unten/);
+    await overlay.evaluate(() => (window.__msgs.length = 0));
+    await phone.tap('#btn-style');
+    await overlay.waitForFunction(() => window.livefx.renderer.layout.storyStyle === 'sketch', null, { timeout: 3000 });
+    assert.deepEqual(await overlay.evaluate(() => window.__msgs.filter((m) => m.type === 'layout').map((m) => [m.storyStyle, m.bandPosition, m.storyLayout])), [['sketch', undefined, undefined]], 'style message carries only storyStyle');
+    assert.match(await phone.textContent('#btn-style'), /Stil: Zeichnung/);
+    await phone.tap('#btn-bandpos');
+    await overlay.waitForFunction(() => window.livefx.renderer.layout.bandPosition === 'chat', null, { timeout: 3000 });
+    assert.match(await phone.textContent('#btn-bandpos'), /Band: über dem Chat/);
+    assert.deepEqual(JSON.parse(await phone.evaluate(() => localStorage.getItem('livefx.mobile.look'))), { storyStyle: 'sketch', bandPosition: 'chat' }, 'look persisted');
+    await phone.tap('#btn-style');
+    await phone.tap('#btn-style');
+    await phone.tap('#btn-bandpos');
+    await overlay.waitForFunction(() => window.livefx.renderer.layout.storyStyle === 'mixed' && window.livefx.renderer.layout.bandPosition === 'bottom', null, { timeout: 3000 });
+    log('story style / band position buttons ok');
+
     const phoneTiles = await phone.locator('#packs button.pack-tile').count();
     assert.ok(phoneTiles >= 5, `pack tiles on the phone: ${phoneTiles}`);
     const countBefore = await phone.evaluate(() => window.livefx.triggers.length);

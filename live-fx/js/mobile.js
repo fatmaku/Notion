@@ -7,6 +7,9 @@
 // `{type:'volume', volume}`), story band + effect zone buttons (`{type:'layout', storyLayout}` /
 // `{type:'layout', zone}`), pack tiles (load/unload through LiveFXPacksStore + LiveFXStore – the phone is a
 // full remote, not only a soundboard).
+// 2.3: story look buttons – „✏️ Stil“ cycles `{type:'layout', storyStyle}` mixed → sketch → emoji, „📐 Band“ toggles
+// `{type:'layout', bandPosition}` bottom ↔ chat (portrait only); localStorage `livefx.mobile.look`, and both follow
+// the server's remembered layout (`state.layout`) and layout messages from the panel.
 (function () {
   'use strict';
 
@@ -30,6 +33,18 @@
     { id: 'bottom', label: 'unten' },
     { id: 'top', label: 'oben' },
   ];
+  // 2.3 story look (same values as LiveFXSchema.STORY_STYLES / BAND_POSITIONS, cycle order = button order)
+  const LOOK_KEY = 'livefx.mobile.look';
+  const STYLES = [
+    { id: 'mixed', label: 'Gemischt' },
+    { id: 'sketch', label: 'Zeichnung' },
+    { id: 'emoji', label: 'Emoji' },
+  ];
+  const BAND_POS = [
+    { id: 'bottom', label: 'ganz unten' },
+    { id: 'chat', label: 'über dem Chat' },
+  ];
+  const LOOK_DEFAULTS = { storyStyle: 'mixed', bandPosition: 'bottom' };
 
   // Scene pad mapping – copied from js/packs.js SCENE_INFO / js/panel.js sceneTrigger so the phone
   // fires exactly what the panel's scene pad fires (`loop` = LiveFXSounds.loops name or null).
@@ -65,6 +80,7 @@
   let favs = readFavs();
   let volume = 0.8;
   let layout = readLayout();
+  let look = readLook();
 
   function lsGet(key) {
     try {
@@ -94,6 +110,22 @@
       return { band: p && p.band === true, zone: p && ZONES.some((z) => z.id === p.zone) ? p.zone : 'full' };
     } catch (_) {
       return { band: false, zone: 'full' };
+    }
+  }
+
+  function cleanLook(raw, base) {
+    const r = raw && typeof raw === 'object' ? raw : {};
+    const b = base || LOOK_DEFAULTS;
+    return {
+      storyStyle: STYLES.some((x) => x.id === r.storyStyle) ? r.storyStyle : b.storyStyle,
+      bandPosition: BAND_POS.some((x) => x.id === r.bandPosition) ? r.bandPosition : b.bandPosition,
+    };
+  }
+  function readLook() {
+    try {
+      return cleanLook(JSON.parse(lsGet(LOOK_KEY) || '{}'));
+    } catch (_) {
+      return { ...LOOK_DEFAULTS };
     }
   }
 
@@ -375,6 +407,45 @@
     showLine(`🎯 Effekt-Zone: ${esc((ZONES.find((z) => z.id === layout.zone) || ZONES[0]).label)}`);
   }
 
+  // ---------- story look (2.3) ----------
+  function reflectLook() {
+    const style = $('#btn-style');
+    const pos = $('#btn-bandpos');
+    if (style) {
+      const st = STYLES.find((x) => x.id === look.storyStyle) || STYLES[0];
+      style.dataset.style = st.id;
+      style.textContent = `✏️ Stil: ${st.label}`;
+    }
+    if (pos) {
+      const p = BAND_POS.find((x) => x.id === look.bandPosition) || BAND_POS[0];
+      pos.dataset.pos = p.id;
+      pos.textContent = `📐 Band: ${p.label}`;
+    }
+  }
+
+  /** Applies a (partial) look; `send` puts only the changed keys on the bus. Returns the new look. */
+  function setLook(patch, { send = true } = {}) {
+    const next = cleanLook({ ...look, ...(patch || {}) }, look);
+    const changed = {};
+    for (const k of Object.keys(next)) if (next[k] !== look[k]) changed[k] = next[k];
+    look = next;
+    lsSet(LOOK_KEY, JSON.stringify(look));
+    reflectLook();
+    if (send && Object.keys(changed).length) bus.send({ type: 'layout', ...changed });
+    return { ...look };
+  }
+
+  function cycleStyle() {
+    const i = STYLES.findIndex((x) => x.id === look.storyStyle);
+    setLook({ storyStyle: STYLES[(i + 1) % STYLES.length].id });
+    showLine(`✏️ Story-Stil: ${esc((STYLES.find((x) => x.id === look.storyStyle) || STYLES[0]).label)}`);
+  }
+
+  function toggleBandPos() {
+    setLook({ bandPosition: look.bandPosition === 'bottom' ? 'chat' : 'bottom' });
+    showLine(`📐 Band (Hochkant): ${esc((BAND_POS.find((x) => x.id === look.bandPosition) || BAND_POS[0]).label)}`);
+  }
+
   function applyFilter() {
     query = String($('#search').value || '').trim().toLowerCase();
     let shown = 0;
@@ -555,8 +626,11 @@
       showLine(`🔥 ${esc(labelOf(msg.trigger))} <span class="muted">← ${esc(String(msg.source || 'extern').slice(0, 40))}</span>`);
     } else if (msg.type === 'transcript' && typeof msg.text === 'string') {
       showText(msg.text, msg.final !== false, []);
-    } else if (msg.type === 'state' && Number.isFinite(Number(msg.volume))) {
-      setVolume(Number(msg.volume), { send: false });
+    } else if (msg.type === 'state') {
+      if (Number.isFinite(Number(msg.volume))) setVolume(Number(msg.volume), { send: false });
+      if (msg.layout && typeof msg.layout === 'object') setLook(msg.layout, { send: false }); // what the overlays show
+    } else if (msg.type === 'layout') {
+      setLook(msg, { send: false }); // panel / API changed the look
     } else if (msg.type === 'volume' && Number.isFinite(Number(msg.volume)) && (!msg.bus || msg.bus === 'master')) {
       setVolume(Number(msg.volume), { send: false }); // the phone's ±6 dB buttons work on the master bus only
     }
@@ -575,6 +649,8 @@
   $('#btn-vol-up').addEventListener('click', () => stepVolume(1));
   $('#btn-band').addEventListener('click', toggleBand);
   $('#btn-zone').addEventListener('click', cycleZone);
+  if ($('#btn-style')) $('#btn-style').addEventListener('click', cycleStyle);
+  if ($('#btn-bandpos')) $('#btn-bandpos').addEventListener('click', toggleBandPos);
   $('#search').addEventListener('input', applyFilter);
 
   // ---------- store ----------
@@ -592,6 +668,7 @@
     initMic();
     reflectVolume();
     reflectLayout();
+    reflectLook();
     await reload();
     applyFilter();
   }
@@ -627,6 +704,11 @@
     get layout() {
       return { ...layout };
     },
+    // 2.3
+    get look() {
+      return { ...look };
+    },
+    setLook,
     togglePack,
     ready: boot(),
   };
