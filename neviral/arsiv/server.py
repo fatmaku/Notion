@@ -15,7 +15,7 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-from . import config, db, i18n, media
+from . import __version__, config, db, i18n, media, mobil
 
 UI_DIR = Path(__file__).parent / "ui"
 UI_FILES = {"i18n.js": "application/javascript; charset=utf-8", "yok.svg": "image/svg+xml"}
@@ -138,7 +138,7 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(data)
 
-    def _file(self, path, ctype=None, cache=True):
+    def _file(self, path, ctype=None, cache=True, download=None):
         p = Path(path)
         if not p.exists() or not p.is_file():
             return self._json({"hata": "dosya yok"}, 404)
@@ -159,6 +159,11 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(end - start + 1))
         if cache:
             self.send_header("Cache-Control", "max-age=86400")
+        if download:
+            import unicodedata
+            ascii_name = unicodedata.normalize("NFKD", str(download).replace("ı", "i").replace("İ", "I")).encode("ascii", "ignore").decode()
+            safe = "".join(ch for ch in ascii_name if ch.isascii() and (ch.isalnum() or ch in "._- ")).strip() or "neviral" + p.suffix
+            self.send_header("Content-Disposition", f"attachment; filename=\"{safe}\"; filename*=UTF-8''{urllib.parse.quote(str(download))}")
         self.end_headers()
         with open(p, "rb") as f:
             f.seek(start)
@@ -186,11 +191,61 @@ class Handler(BaseHTTPRequestHandler):
     def _con(self):
         return db.connect(self.db_path)
 
+    def _is_lan(self):
+        """İstek Wi-Fi dinleyicisinden mi geldi (telefon)? Orada yalnızca beyaz liste + oturum geçerlidir."""
+        return bool(getattr(self.server, "lan", False))
+
+    def _allowed_hosts(self):
+        return getattr(self.server, "lan_hosts", set()) if self._is_lan() else ALLOWED_HOSTS
+
     def _host_ok(self):
-        """DNS rebinding koruması: yalnızca localhost adlarıyla gelen isteklere yanıt ver."""
-        host = (self.headers.get("Host") or "").strip()
+        """DNS rebinding koruması: yalnızca bu dinleyicinin kendi adlarıyla gelen isteklere yanıt ver."""
+        host = (self.headers.get("Host") or "").strip().lower()
         name = host.rsplit(":", 1)[0] if not host.startswith("[") else host.split("]")[0] + "]"
-        return name in ALLOWED_HOSTS
+        return name in self._allowed_hosts()
+
+    def _mobile_session(self):
+        return mobil.check_session(self._con(), mobil.cookie_value(self.headers))
+
+    def _lan_gate(self, method, path):
+        """Wi-Fi tarafı: Host doğru, adres beyaz listede ve (sayfa hariç) geçerli telefon oturumu. Geçmezse yanıtı yazar, False döner."""
+        if not self._host_ok():
+            if method == "POST":
+                self._drain()
+            self._json({"hata": "forbidden"}, 403)
+            return False
+        if not mobil.is_active(self.server):  # telefon erişimi kapatıldıktan sonra açık kalmış bağlantı
+            self.close_connection = True
+            if method == "POST":
+                self._drain()
+            self._json({"hata": "kapali"}, 403)
+            return False
+        ok = (path in mobil.LAN_GET or bool(mobil.LAN_GET_RE.match(path))) if method == "GET" else path in mobil.LAN_POST
+        if ok and path.startswith("/api/job/"):
+            ok = path.rsplit("/", 1)[1] in mobil.lan_jobs  # telefon masaüstü işlerinin kayıtlarını göremez
+        if not ok:
+            if method == "POST":
+                self._drain()
+            self._json({"hata": "yok"}, 404)
+            return False
+        if path in mobil.LAN_PUBLIC or self._mobile_session():
+            return True
+        if method == "POST":
+            self._drain()
+        self._json({"hata": "eslesme_gerekli"}, 401)
+        return False
+
+    def _redirect(self, loc, cookie=None, clear_cookie=False):
+        self.send_response(303)
+        self.send_header("Location", loc)
+        if cookie:
+            self.send_header("Set-Cookie", f"{mobil.COOKIE}={cookie}; Max-Age={mobil.SESSION_MAX_AGE}; Path=/; HttpOnly; SameSite=Lax")
+        if clear_cookie:
+            self.send_header("Set-Cookie", f"{mobil.COOKIE}=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax")
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Referrer-Policy", "no-referrer")
+        self.send_header("Content-Length", "0")
+        self.end_headers()
 
     def _post_ok(self):
         """CSRF koruması: başka sitelerden gelen 'basit' POST'ları reddet."""
@@ -202,7 +257,7 @@ class Handler(BaseHTTPRequestHandler):
         origin = self.headers.get("Origin")
         if origin:
             o = urllib.parse.urlparse(origin)
-            if o.hostname not in ALLOWED_HOSTS or o.port != self.server.server_address[1]:
+            if (o.hostname or "").lower() not in self._allowed_hosts() or o.port != self.server.server_address[1]:
                 return False
         return True
 
@@ -211,11 +266,65 @@ class Handler(BaseHTTPRequestHandler):
         u = urllib.parse.urlparse(self.path)
         q = {k: v[0] for k, v in urllib.parse.parse_qs(u.query).items()}
         path = u.path
+        if path == "/m/":
+            path = "/m"
+        if self._is_lan() and not self._lan_gate("GET", path):
+            return
         if not self._host_ok():
             return self._json({"hata": "forbidden"}, 403)
         try:
             if path in ("/", "/index.html"):
                 return self._file(UI_DIR / "index.html", "text/html; charset=utf-8", cache=False)
+            if path == "/m":
+                tok = q.get("k")
+                if tok and self._is_lan():
+                    if self._mobile_session():
+                        mobil.consume_token(tok, self.client_address[0])
+                        return self._redirect("/m")
+                    if mobil.consume_token(tok, self.client_address[0]):
+                        return self._redirect("/m", cookie=mobil.new_session(self._con(), self.headers.get("User-Agent")))
+                elif tok:
+                    return self._redirect("/m")
+                return self._file(UI_DIR / "mobil.html", "text/html; charset=utf-8", cache=False)
+            if path == "/m/icon.png":
+                return self._file(UI_DIR / "mobil-icon.png", "image/png")
+            if path == "/m/manifest.webmanifest":
+                return self._file(UI_DIR / "mobil.webmanifest", "application/manifest+json", cache=False)
+            if path == "/api/mobil/ben":
+                con = self._con()
+                return self._json({"ok": True, "dil": i18n.lang_of(con), "surum": __version__, "hesap": db.get_setting(con, "hesap", "") or "",
+                                   "yerel": not self._is_lan()})
+            if path == "/api/mobil/paketler":
+                return self._json({"paketler": mobil.packages(self._con(), limit=_int(q.get("limit"), 30, 1, 100))})
+            if path == "/api/mobil/top":
+                return self._json({"items": mobil.top_items(self._con(), self._lang(), _int(q.get("limit"), 20, 1, 50))})
+            if path == "/api/mobil/durum":
+                return self._json(mobil.status(self._con()))
+            if path == "/api/mobil/terminal":
+                body = _terminal_qr(self._con()).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+                return
+            if path == "/api/qr.svg":
+                from . import qr
+                text = str(q.get("t") or "")[:1000]
+                if not text:
+                    return self._json({"hata": "metin yok"}, 400)
+                data = qr.svg(text, border=4).encode("utf-8")
+                self.send_response(200)
+                self.send_header("Content-Type", "image/svg+xml")
+                self.send_header("Content-Length", str(len(data)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            if path == "/api/kurulum":
+                from . import kurulum
+                return self._json(kurulum.status(self._con(), self._lang()))
             if path.startswith("/ui/"):
                 name = path[4:]
                 if name not in UI_FILES:  # yalnızca bilinen dosyalar (yol geçişi yok)
@@ -228,7 +337,12 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/items":
                 return self._json(self._items(q))
             if path.startswith("/api/thumb/"):
-                return self._thumb(int(path.rsplit("/", 1)[1]))
+                iid = int(path.rsplit("/", 1)[1])
+                if self._is_lan():
+                    row = self._con().execute("SELECT hidden FROM items WHERE id=?", (iid,)).fetchone()
+                    if not row or row[0]:
+                        return self._json({"hata": "yok"}, 404)  # gizlenmiş öğeler telefonda görünmez
+                return self._thumb(iid)
             if path.startswith("/api/file/"):
                 item = db.get_item(self._con(), int(path.rsplit("/", 1)[1]))
                 if not item or not item.get("path"):
@@ -275,7 +389,15 @@ class Handler(BaseHTTPRequestHandler):
                 r = db.get_render(self._con(), int(path.split("/")[3]))
                 if not r or not r.get("output") or not Path(r["output"]).is_file():
                     return self._json({"hata": "çıktı yok"}, 404)
-                return self._file(r["output"], cache=False)
+                return self._file(r["output"], cache=False, download=Path(r["output"]).name if q.get("indir") else None)
+            if path.startswith("/api/render/") and "/dosya/" in path:
+                parts = path.split("/")
+                r = db.get_render(self._con(), int(parts[3]))
+                files = mobil.render_images(r) if r else []
+                n = int(parts[5])
+                if n >= len(files):
+                    return self._json({"hata": "dosya yok"}, 404)
+                return self._file(files[n], cache=False, download=files[n].name if q.get("indir") else None)
             if path.startswith("/api/render/") and path.endswith("/cover"):
                 r = db.get_render(self._con(), int(path.split("/")[3]))
                 if not r or not r.get("cover") or not Path(r["cover"]).is_file():
@@ -447,12 +569,14 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         u = urllib.parse.urlparse(self.path)
         path = u.path
+        if self._is_lan() and not self._lan_gate("POST", path):
+            return
         if path == "/api/upload":
             # özel başlık zorunlu: başka sitelerden gelen istekler ön kontrole (preflight) takılır
             origin = self.headers.get("Origin")
             if not self._host_ok() or self.headers.get("X-Neviral") != "1" or \
                     (self.headers.get("Sec-Fetch-Site") or "").lower() == "cross-site" or \
-                    (origin and urllib.parse.urlparse(origin).hostname not in ALLOWED_HOSTS):
+                    (origin and (urllib.parse.urlparse(origin).hostname or "").lower() not in self._allowed_hosts()):
                 self._drain()
                 return self._json({"hata": "forbidden"}, 403)
             try:
@@ -520,6 +644,35 @@ class Handler(BaseHTTPRequestHandler):
                 from . import viral
                 st = viral.save_settings(con, kitle=body.get("kitle"), saat_dilimi=body.get("saat_dilimi"), hesap=body.get("hesap"))
                 return self._json({"ayarlar": st, "job": _proc_job("neviral-puan", ["viral", "puanla"], self.db_path)})
+            if path == "/api/mobil/cikis":
+                mobil.drop_session(con, sid=mobil.cookie_value(self.headers))
+                data = b'{"ok": true}'
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Set-Cookie", f"{mobil.COOKIE}=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax")
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+                return
+            if path == "/api/mobil/eslestir":
+                from . import qr
+                try:
+                    mobil.ensure_lan(Handler, self.server.server_address[1])
+                except mobil.LanError as e:
+                    li = {"tr": 0, "de": 1, "en": 2}[self._lang()]
+                    msg = LAN_ERRORS.get(e.kod, LAN_ERRORS["baglanamadi"])[li]
+                    return self._json({"hata": msg + (f" ({e.detay})" if e.detay else ""), "kod": e.kod}, 400)
+                db.set_setting(con, "mobil_acik", "1")
+                rid = body.get("render")
+                url = mobil.pair_url(mobil.new_token(), int(rid) if str(rid or "").isdigit() else None)
+                return self._json({"url": url, "svg": qr.svg(url, border=3), "sure_dk": mobil.TOKEN_TTL // 60, **mobil.status(con)})
+            if path == "/api/mobil/kapat":
+                mobil.stop_lan()
+                db.set_setting(con, "mobil_acik", "0")
+                return self._json(mobil.status(con))
+            if path == "/api/mobil/cihaz-sil":
+                mobil.drop_session(con, cihaz_id=str(body.get("id") or "")[:16] or None)
+                return self._json(mobil.status(con))
             if path == "/api/viral/hookpuan":
                 from . import metin
                 lang = body.get("lang") if body.get("lang") in ("tr", "de", "en") else self._lang()
@@ -554,7 +707,10 @@ class Handler(BaseHTTPRequestHandler):
                         return fn(log)
                     finally:
                         _render_slot.release()
-                return self._json({"job": _job("neviral-paket", run)})
+                jid = _job("neviral-paket", run)
+                if self._is_lan():
+                    mobil.lan_jobs.add(jid)
+                return self._json({"job": jid})
             if path.startswith("/api/render/") and path.endswith("/photos"):
                 from . import paylas
                 r = db.get_render(con, int(path.split("/")[3]))
@@ -657,8 +813,53 @@ class Handler(BaseHTTPRequestHandler):
             return self._json({"hata": str(e)}, 500)
 
 
+def _int(v, default, lo, hi):
+    try:
+        return max(lo, min(hi, int(v)))
+    except (TypeError, ValueError):
+        return default
+
+
+LAN_ERRORS = {
+    "wifi_yok": ("Wi-Fi bağlantısı bulunamadı: Mac ve telefon aynı Wi-Fi ağında olmalı.",
+                 "Keine WLAN-Verbindung gefunden: Mac und Handy müssen im selben WLAN sein.",
+                 "No Wi-Fi connection found: the Mac and the phone must be on the same Wi-Fi."),
+    "baglanamadi": ("Telefon bağlantısı açılamadı.", "Der Handy-Zugang konnte nicht geöffnet werden.", "Phone access could not be opened."),
+}
+
+
+def _raise_fd_limit():
+    """macOS'ta Terminal'den açılan süreçlerin dosya tanıtıcı sınırı 256: biraz yükselt (bağlantılar + SQLite)."""
+    try:
+        import resource
+        soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)
+        want = min(4096, hard if hard != resource.RLIM_INFINITY else 4096)
+        if soft < want:
+            resource.setrlimit(resource.RLIMIT_NOFILE, (want, hard))
+    except (ImportError, ValueError, OSError):
+        pass
+
+
+TERMINAL_TEXT = {
+    "tr": ("📱 Telefon: bu QR kodunu kamerayla tara (Mac ile aynı Wi-Fi'de)", "Kod 15 dakika geçerli; yenisi için arayüzde 📱'a tıkla."),
+    "de": ("📱 Handy: diesen QR-Code mit der Kamera scannen (gleiches WLAN wie der Mac)", "Der Code gilt 15 Minuten; einen neuen gibt es oben über 📱."),
+    "en": ("📱 Phone: scan this QR code with the camera (same Wi-Fi as the Mac)", "The code is valid for 15 minutes; get a new one via 📱 in the app."),
+}
+
+
+def _terminal_qr(con):
+    """Telefon açıksa Terminal için ANSI QR + adres; kapalıysa boş."""
+    if db.get_setting(con, "mobil_acik", "0") != "1" or not mobil.running():
+        return ""
+    from . import qr
+    url = mobil.pair_url(mobil.new_token())
+    head, foot = TERMINAL_TEXT[i18n.lang_of(con)]
+    return f"\n{head}\n\n{qr.terminal(url)}\n{url}\n{foot}\n"
+
+
 def serve(db_path=None, host="127.0.0.1", port=8765, open_browser=True):
     config.ensure_dirs()
+    _raise_fd_limit()
     db.connect(db_path).close()
     Handler.db_path = db_path
     try:
@@ -669,7 +870,21 @@ def serve(db_path=None, host="127.0.0.1", port=8765, open_browser=True):
                              "ya da Durdur.command ile durdurup yeniden başlatın.")
         raise
     url = f"http://{host}:{port}/"
-    print(f"neviral çalışıyor: {url}  (durdurmak için Ctrl+C)", flush=True)
+    con = db.connect(db_path)
+    con.execute("UPDATE renders SET status='hata', error=COALESCE(error, 'yarıda kaldı (uygulama yeniden başlatıldı)') "
+                "WHERE status IN ('bekliyor', 'calisiyor')")  # önceki oturumda yarıda kalan üretimler sonsuza dek 'hazırlanıyor' görünmesin
+    con.commit()
+    print({"tr": f"neviral çalışıyor: {url}  (durdurmak için Ctrl+C)", "de": f"neviral läuft: {url}  (beenden mit Ctrl+C)",
+           "en": f"neviral is running: {url}  (Ctrl+C to stop)"}[i18n.lang_of(con)], flush=True)
+    if db.get_setting(con, "mobil_acik", "0") == "1":
+        try:
+            mobil.ensure_lan(Handler, httpd.server_address[1])
+            print(_terminal_qr(con), flush=True)
+        except mobil.LanError as e:  # Wi-Fi yoksa masaüstü yine çalışır
+            print("📱 " + LAN_ERRORS.get(e.kod, LAN_ERRORS["baglanamadi"])[{"tr": 0, "de": 1, "en": 2}[i18n.lang_of(con)]], flush=True)
+        except Exception as e:
+            print(f"📱 {e}", flush=True)
+    con.close()
     if open_browser:
         threading.Timer(0.8, lambda: webbrowser.open(url)).start()
     try:
@@ -677,4 +892,5 @@ def serve(db_path=None, host="127.0.0.1", port=8765, open_browser=True):
     except KeyboardInterrupt:
         pass
     finally:
+        mobil.stop_lan()
         httpd.server_close()

@@ -49,6 +49,12 @@ dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);bo
 .pbar{display:flex;align-items:center;gap:6px;font-size:12px;margin:2px 0}.pbar span.n{width:150px;color:var(--muted)}.pbar .t{flex:1;height:7px;background:var(--panel2);border-radius:4px;overflow:hidden;max-width:180px}.pbar .t i{display:block;height:100%;background:var(--accent)}
 .chip{display:inline-block;font-size:12px;border-radius:999px;padding:2px 8px;margin:2px 4px 2px 0;background:var(--panel2);border:1px solid var(--line)}.chip.ok{border-color:var(--ok);color:var(--ok)}.chip.w{border-color:var(--accent);color:var(--accent)}
 .tabs{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0}.tabs button{padding:4px 10px;font-size:13px}.tabs button.on{background:var(--accent);color:#111;border-color:var(--accent)}
+.qrbox{background:#fff;border-radius:14px;padding:10px;width:250px;height:250px;margin:6px auto}.qrbox svg{width:100%;height:100%;display:block}
+.setup-step{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:10px 0;border-top:1px solid var(--line)}.setup-step:first-of-type{border-top:none}
+.setup-step .ic{font-size:18px;line-height:1.3}.setup-step .ic.ok{color:var(--ok)}.setup-step .d{font-size:13px;color:var(--muted)}
+.setup-bar{height:8px;background:var(--panel2);border-radius:4px;overflow:hidden;margin:6px 0 4px}.setup-bar i{display:block;height:100%;background:var(--ok)}
+.dev{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:13px}
+@media(max-width:1500px){#hdrstat{display:none}}@media(max-width:700px){#hdr-phone span{display:none}}
 .karar{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:10px 12px;margin:10px 0;background:var(--panel2)}
 .karar .kh{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;font-size:15px}.karar .kn{margin-left:auto;font-size:14px}.karar .kn b{font-size:20px}
 .karar .ko{margin:6px 0;font-size:13px;line-height:1.45}.karar .kl{margin:4px 0}.karar details{margin-top:6px;font-size:13px}.karar summary{cursor:pointer;color:var(--muted)}
@@ -75,6 +81,8 @@ dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);bo
   </nav>
   <span id="jobind" onclick="go('iceaktar')" style="display:none;cursor:pointer;background:var(--panel2);border:1px solid var(--accent);border-radius:999px;padding:4px 12px;font-size:13px;margin-left:auto"></span>
   <span id="hdrstat" class="muted" style="margin-left:auto;font-size:13px"></span>
+  <button id="hdr-setup" onclick="setupOpen()" title="Kurulum · Einrichtung · Setup" aria-label="Kurulum · Einrichtung · Setup">⚙️</button>
+  <button id="hdr-phone" class="primary" onclick="phoneOpen()" title="Telefonu bağla">📱 <span>Telefon</span></button>
   <select id="lang" title="Dil / Sprache / Language" onchange="setLang(this.value)"><option value="tr">Türkçe</option><option value="de">Deutsch</option><option value="en">English</option></select>
 </header>
 <main>
@@ -235,6 +243,8 @@ dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);bo
 <div id="tray"><b id="tray-n"></b><button class="primary" onclick="go('studyo')">🎬 Stüdyo'da aç</button><button onclick="collectSel()">📁 Klasörde topla</button><button onclick="markPostedSel(true)">✓ Paylaşıldı işaretle</button><button onclick="clearSel()">Temizle</button></div>
 <dialog id="detay"></dialog>
 <dialog id="vopt"></dialog>
+<dialog id="phone" style="max-width:560px"></dialog>
+<dialog id="qrdlg" style="max-width:460px"></dialog>
 <script src="/ui/i18n.js"></script>
 <script>
 // ---------- dil
@@ -276,10 +286,7 @@ function clearSel(){state.sel.clear();document.querySelectorAll('.card.sel').for
 function selectAllVisible(){($('#lib')._items||[]).forEach(i=>{if(!state.sel.has(i.id))toggleSel(null,i.id,i)})}
 // ---------- panel
 let panelBusy=false;
-async function loadPanel(){if(panelBusy)return;panelBusy=true;try{const s=await api('/api/stats');$('#hdrstat').textContent=t('{n} öğe · {v} video · {p} paylaşılmış',{n:s.toplam,v:s.video,p:s.paylasilan});
- $('#welcome').innerHTML=s.toplam?'':`<div class="box" style="margin-bottom:14px"><h2 style="margin-top:0">👋 ${t('Hoş geldiniz! 3 adımda başlayın')}</h2>
-  <ol style="line-height:1.9"><li>${t('İçe aktar sekmesinde Fotoğraflar kütüphanenizi tarayın (dosya kopyalanmaz).')}</li><li>${t('Instagram dışa aktarımınızı ekleyin: eski paylaşımlar bulunur.')}</li><li>${t('Adaylar sekmesinden en iyi içerikleri seçip Stüdyo\'da video üretin.')}</li></ol>
-  <button class="primary" onclick="go('iceaktar')">${t('İçe aktar')} →</button></div>`;
+async function loadPanel(){if(panelBusy)return;panelBusy=true;try{loadSetupCard();const s=await api('/api/stats');$('#hdrstat').textContent=t('{n} öğe · {v} video · {p} paylaşılmış',{n:s.toplam,v:s.video,p:s.paylasilan});
  $('#stats').innerHTML=[['Toplam öğe',s.toplam],['Video',`${s.video} <small class="muted">(${s.video_saat} ${t('sa')})</small>`],['Fotoğraf',s.foto],['Paylaşılmış',s.paylasilan],['Aday (≥55p)',s.aday],['Favori',s.favori],['Yerelde olmayan',s.yerel_degil],['Açık hatırlatıcı',s.hatirlatici_acik],['Üretim',s.uretim],['Boyut',`${s.boyut_gb} GB`]].map(([k,v])=>`<div class="stat"><b>${v}</b><span>${t(k)}</span></div>`).join('');
  const y=$('#f-year');if(y.options.length<=1)s.yillar.forEach(r=>y.insertAdjacentHTML('beforeend',`<option value="${r.year}">${r.year} (${r.n})</option>`));
  const cal=await api('/api/calendar?days=60');state.cal=cal;$('#cal').innerHTML=cal.map((c,k)=>`<div class="idea"><b>${esc(c.ad)}</b><span class="muted">${esc(c.tarih.slice(8,10)+'.'+c.tarih.slice(5,7))} · ${c.kalan_gun?t('{n} gün sonra',{n:c.kalan_gun}):t('bugün')}<br>${esc(c.fikir)}</span><div class="row" style="margin-top:8px"><button class="small primary" onclick="useCal(${k})">${t("Stüdyo'da aç")}</button></div></div>`).join('')||`<div class="empty">${t('Önümüzdeki 60 günde özel gün yok.')}</div>`;
@@ -288,6 +295,41 @@ async function loadPanel(){if(panelBusy)return;panelBusy=true;try{const s=await 
  const rem=await api('/api/reminders?status=acik');$('#panel-rem').innerHTML=rem.slice(0,6).map(remRow).join('')||'<div class="empty">'+t('Açık hatırlatıcı yok. Hatırlatıcılar sekmesinden plan oluşturun.')+'</div>'}finally{panelBusy=false}}
 function useCal(k){const c=state.cal[k];go('studyo');setTimeout(()=>{$('#b-sablon').value=c.sablon;$('#b-baslik').value=c.ad;sablonChanged();if(!state.sel.size)toast(t('Şimdi Kütüphane ya da Adaylar sekmesinden bu konuya uygun öğeler seçin.'),5000)},300)}
 async function useIdea(i){state.sel.clear();const res=await api('/api/items?ids='+i.ogeler.join(',')+'&limit=50');res.items.forEach(it=>state.sel.set(it.id,{id:it.id,filename:it.filename,kind:it.kind,duration:it.duration,year:it.year}));saveSel();go('studyo');$('#b-sablon').value=i.sablon;$('#b-baslik').value=i.baslik;sablonChanged()}
+// ---------- telefon (QR ile bağlanma) ve kurulum asistanı
+function qrHtml(svg){return `<div class="qrbox">${svg}</div>`}
+async function phoneOpen(renderId){const d=$('#phone');state.mobilRender=renderId||null;d.innerHTML=`<div style="padding:18px"><div class="wait"><div class="spin"></div></div></div>`;
+ if(!d.open){d.showModal();d.addEventListener('close',()=>{clearInterval(state.mobilPoll);state.mobilPoll=null},{once:true})}
+ try{const r=await api('/api/mobil/eslestir',renderId?{render:renderId}:{});state.mobil=r;phoneRender(r,renderId);phoneWatch(r)}catch(e){d.innerHTML=`<div style="padding:18px"><h2 style="margin-top:0">📱 ${t('Telefonu bağla')}</h2><p class="warn">${esc(e.message)}</p>
+  <p class="muted" style="font-size:13px">${t('Mac ve telefon aynı Wi-Fi ağında olmalı. Wi-Fi açık mı?')}</p><div class="row"><button onclick="phoneOpen(${renderId||''})">${t('Tekrar dene')}</button><button onclick="phone.close()">${t('Kapat')}</button></div></div>`}}
+function phoneRender(r,renderId){const d=$('#phone');const devs=(r.cihazlar||[]).map(c=>`<div class="dev"><span>📱 ${esc(c.ad)} <span class="muted">· ${esc((c.son||'').slice(0,16).replace('T',' '))}</span></span><button class="small" onclick="phoneDrop('${esc(c.id)}')">${t('Kaldır')}</button></div>`).join('');
+ d.innerHTML=`<div style="padding:18px"><h2 style="margin-top:0">📱 ${renderId?t('Paketi telefona al'):t('Telefonu bağla')}</h2>
+  ${qrHtml(r.svg)}
+  <ol style="line-height:1.7;font-size:14px;margin:8px 0 4px 18px;padding:0"><li>${t('Telefonda Kamera uygulamasını aç ve QR koduna tut.')}</li><li>${t('Çıkan bağlantıya dokun: neviral telefonda açılır.')}</li>
+  <li>${renderId?t('Videoyu kaydet, metni kopyala, Instagram\'ı aç.'):t('İstersen Paylaş › Ana Ekrana Ekle: uygulama gibi açılır.')}</li></ol>
+  <p class="muted" style="font-size:12px">${t('Mac ile telefon aynı Wi-Fi\'de olmalı. Kod {n} dakika geçerli ve tek kullanımlık.',{n:r.sure_dk})} ${t('macOS gelen bağlantılara izin isterse "İzin ver" deyin.')}<br><span style="word-break:break-all">${esc(r.url)}</span></p>
+  ${devs?`<h3 style="margin:12px 0 4px">${t('Bağlı cihazlar')}</h3>${devs}`:''}
+  <div class="row" style="margin-top:12px"><button onclick="phoneOpen(${renderId||''})">↻ ${t('Yeni kod')}</button><button onclick="phoneOff()">${t('Telefon erişimini kapat')}</button><button class="primary" onclick="phone.close();loadSetupCard()">${t('Tamam')}</button></div></div>`}
+async function phoneDrop(id){const r=await api('/api/mobil/cihaz-sil',{id});state.mobil=Object.assign({},state.mobil,{cihazlar:r.cihazlar});phoneRender(state.mobil,state.mobilRender);phoneWatch(state.mobil)}
+function phoneWatch(r){clearInterval(state.mobilPoll);const known=new Set((r.cihazlar||[]).map(c=>c.id));
+ state.mobilPoll=setInterval(async()=>{if(!$('#phone').open){clearInterval(state.mobilPoll);return}
+  const st=await api('/api/mobil/durum').catch(()=>null);if(!st)return;const yeni=(st.cihazlar||[]).find(c=>!known.has(c.id));
+  if(yeni){clearInterval(state.mobilPoll);toast('✓ '+t('{ad} bağlandı',{ad:yeni.ad}),5000);loadSetupCard();
+   const box=$('#phone .qrbox');if(box)box.insertAdjacentHTML('beforebegin',`<div class="chip ok" style="display:block;text-align:center;margin:6px auto;max-width:260px">✓ ${esc(t('{ad} bağlandı',{ad:yeni.ad}))}</div>`);
+   setTimeout(()=>{if($('#phone').open)phoneOpen(state.mobilRender)},2500)}},2000)}
+async function phoneOff(){await api('/api/mobil/kapat',{});phone.close();toast(t('Telefon erişimi kapatıldı'))}
+function qrOpen(url,title,text){const d=$('#qrdlg');d.innerHTML=`<div style="padding:18px"><h2 style="margin-top:0">📱 ${esc(title)}</h2><div class="qrbox"><img alt="QR" style="width:100%;height:100%" src="/api/qr.svg?t=${encodeURIComponent(url)}"></div>
+  <p style="font-size:14px">${esc(text||'')}</p><p class="muted" style="font-size:12px;word-break:break-all">${esc(url)}</p><div class="row"><button class="primary" onclick="qrdlg.close()">${t('Kapat')}</button></div></div>`;d.showModal()}
+function setupHidden(){try{return localStorage.getItem('kurulum_gizli')==='1'}catch(e){return false}}
+async function loadSetupCard(){const el=$('#welcome');try{const k=await api('/api/kurulum');state.setup=k;if((k.bitti||setupHidden())&&!state.setupForce){el.innerHTML='';return}el.innerHTML=setupHtml(k)}catch(e){}}
+function setupOpen(){state.setupForce=true;try{localStorage.removeItem('kurulum_gizli')}catch(e){}go('panel');loadSetupCard().then(()=>$('#welcome').scrollIntoView({behavior:'smooth'}))}
+function setupHide(){state.setupForce=false;try{localStorage.setItem('kurulum_gizli','1')}catch(e){}$('#welcome').innerHTML='';toast(t('Kurulum her zaman ⚙️ ile açılır'),4000)}
+function setupHtml(k){const pct=Math.round(100*k.tamam/Math.max(1,k.toplam));
+ return `<div class="box" style="margin-bottom:14px"><div class="row" style="justify-content:space-between"><h2 style="margin:0">⚙️ ${t('Kurulum')} · ${k.tamam}/${k.toplam}</h2><button class="small" onclick="setupHide()">${k.bitti?t('Gizle'):t('Sonra')}</button></div>
+  <div class="setup-bar"><i style="width:${pct}%"></i></div>
+  ${k.adimlar.map((a,i)=>`<div class="setup-step"><span class="ic ${a.ok?'ok':''}">${a.ok?'✓':(a.opsiyonel?'○':'●')}</span><div><b>${esc(a.baslik)}</b>${a.opsiyonel?` <span class="muted" style="font-size:12px">(${t('isteğe bağlı')})</span>`:''}<div class="d">${esc(a.detay||'')}</div></div>
+   <div class="row" style="justify-content:flex-end">${a.qr?`<button class="small" onclick="setupQr(${i})">📱 QR</button>`:''}${a.aksiyon&&!a.ok?`<button class="small primary" onclick="setupAct(${i})">${a.aksiyon.hedef==='phoneOpen'?'📱 '+t('Bağla'):t('Aç')} →</button>`:''}${a.aksiyon&&a.ok&&a.aksiyon.hedef==='phoneOpen'?`<button class="small" onclick="phoneOpen()">📱 ${t('Yeni cihaz')}</button>`:''}</div></div>`).join('')}</div>`}
+function setupAct(i){const a=state.setup.adimlar[i].aksiyon;if(a.tip==='sekme')go(a.hedef);else if(a.hedef==='phoneOpen')phoneOpen();else if(a.hedef==='vAnalyze'){go('viral');vAnalyze()}}
+function setupQr(i){const a=state.setup.adimlar[i];qrOpen(a.qr,a.baslik,a.ipucu)}
 // ---------- neviral
 state.vpage=0;state.vlimit=30;state.vtotal=0;
 function vColor(x){return x>=80?'#4ade80':x>=65?'#ffd166':x>=50?'#fb923c':'#9aa5bd'}
@@ -347,7 +389,9 @@ async function vOptSubmit(ev){const f=ev.target;if(ev.submitter&&ev.submitter.va
  try{localStorage.setItem('vopt',JSON.stringify(Object.assign({platforms:pl,langs:lg,claude},opts,{hook:''})))}catch(e){}
  const tg=state.vtarget;const body={platforms:pl,langs:lg,opts,claude_yok:!claude};
  try{const r=tg.n?await api('/api/viral/top',Object.assign({n:tg.n},body)):await api('/api/viral/package',Object.assign({id:tg.id},body));
-  toast(t('Paket hazırlanıyor…'));await pollJob(r.job);toast(t('Paket hazır: Stüdyo › Üretimler'),6000)}catch(e){toast(t('Hata: ')+e.message,8000)}}
+  toast(t('Paket hazırlanıyor…'));const j=await pollJob(r.job);toast(t('Paket hazır: Stüdyo › Üretimler'),6000);
+  const rid=j&&j.sonuc&&(j.sonuc.render_id||(Array.isArray(j.sonuc)&&j.sonuc[0]&&j.sonuc[0].render_id));
+  if(rid&&!tg.n){const st=await api('/api/mobil/durum').catch(()=>null);if(st&&st.acik&&st.calisiyor)phoneOpen(rid)}}catch(e){toast(t('Hata: ')+e.message,8000)}}
 // ---------- dışarıdan dosya yükle ve puanla
 function vUploadFiles(files){const list=[...files];if(!list.length)return;let i=0;const box=$('#v-upres');
  const next=()=>{if(i>=list.length){toast(t('{n} dosya puanlandı',{n:list.length}));return}const f=list[i++];const id='up'+Date.now()+i;
@@ -480,7 +524,7 @@ async function loadRenders(){const rs=await api('/api/renders');$('#renders').in
  <div>${r.status==='hazir'&&r.output&&r.output.endsWith('.mp4')?`<video controls preload="metadata" src="/api/render/${r.id}/file"></video>`:''}${r.status==='hata'?`<div class="warn">${esc(r.error)}</div>`:''}
  <div class="muted" style="font-size:12px;word-break:break-all;margin:6px 0">${esc(r.output||'')}</div>${r.caption?`<textarea id="cap-${r.id}">${esc(r.caption)}</textarea>`:''}
  <div class="row" style="margin-top:6px">${r.caption?`<button class="small" onclick="copyText('cap-${r.id}')">Açıklamayı kopyala</button>`:''}<button class="small" data-path="${esc(r.output||'')}" onclick="openFinder(this.dataset.path)">Finder'da göster</button>
- <button class="small" data-title="${esc(r.brief?.baslik||r.template)}" onclick="remindRender(${r.id},this.dataset.title)">Paylaşmayı hatırlat</button>${r.status==='hazir'?` <button class="small primary" onclick="toPhotos(${r.id},this)">📱 ${t("Fotoğraflar'a ekle (iPhone)")}</button>`:''}</div></div></div>`).join('')||'<div class="empty">Henüz üretim yok.</div>'}
+ <button class="small" data-title="${esc(r.brief?.baslik||r.template)}" onclick="remindRender(${r.id},this.dataset.title)">Paylaşmayı hatırlat</button>${r.status==='hazir'?` <button class="small primary" onclick="phoneOpen(${r.id})">📱 ${t('Telefona al (QR)')}</button> <button class="small" onclick="toPhotos(${r.id},this)">${t("Fotoğraflar'a ekle (iPhone)")}</button>`:''}</div></div></div>`).join('')||'<div class="empty">Henüz üretim yok.</div>'}
 async function toPhotos(id,btn){btn.disabled=true;try{const r=await api(`/api/render/${id}/photos`,{});toast(t("iPhone'a gönderildi: Fotoğraflar › 'neviral' albümü"),6000)}catch(e){toast(t('Hata: ')+e.message,8000)}btn.disabled=false}
 async function remindRender(id,title){const when=prompt(t('Ne zaman? (YYYY-AA-GG SS:DD)'),new Date(Date.now()+864e5).toISOString().slice(0,10)+' 19:00');if(!when)return;await api('/api/reminders',{due:when.replace(' ','T'),title:t('Paylaş: ')+title,render_id:id});toast('Hatırlatıcı eklendi')}
 function copyText(id){const el=document.getElementById(id);el.select();navigator.clipboard?.writeText(el.value);toast('Kopyalandı')}

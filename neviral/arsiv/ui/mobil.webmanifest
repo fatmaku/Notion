@@ -1,0 +1,15 @@
+{
+  "name": "neviral",
+  "short_name": "neviral",
+  "description": "neviral – Pakete, Bewertung und Upload vom Handy",
+  "id": "/m",
+  "start_url": "/m",
+  "scope": "/m",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1420",
+  "theme_color": "#0f1420",
+  "icons": [
+    {"src": "/m/icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any"}
+  ]
+}

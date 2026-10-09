@@ -12,6 +12,22 @@ Neden bu yaklaşım "en kolayı":
 - **Hatırlatır.** Yeniden paylaşım kuyruğunu haftalara dağıtır, "bugün geçen yıl" önerir, macOS bildirimi ve Takvim (.ics) desteği vardır.
 - **Pazarlama.** Açıklama + hashtag + kanca cümlesi üretir (isteğe bağlı Claude ile), performans CSV'nizden en iyi paylaşım saatlerini çıkarır, içerik fikirleri önerir.
 
+## 📱 Telefon ve tek tıkla kurulum (sürüm 0.8)
+
+**Tek çift tıklama:** `Baslat.command` artık her şeyi yapar: sanal ortam yoksa ya da `requirements.txt` değiştiyse kurulumu kendisi çalıştırır, sonra uygulamayı açar. `Kur.command` bitince uygulamayı doğrudan başlatır. Terminal mesajları macOS diline göre Türkçe, Almanca ya da İngilizce.
+
+**Kurulum asistanı:** Panel'in üstünde (ya da başlıktaki ⚙️) her adım durumuyla görünür: Python, ffmpeg, Fotoğraflar erişimi, arşiv, viral analizi, Instagram verisi, kitle, telefon, Claude. Eksik adımın yanında doğrudan ilgili düğme; telefonun işe yaradığı adımlarda **📱 QR**: örneğin Instagram'ın veri indirme sayfası telefonda tek taramayla açılır.
+
+**Telefonu QR ile bağla:** Başlıktaki **📱 Telefon** bir QR kodu gösterir. Telefonun Kamera uygulamasıyla tara → neviral telefonda açılır (Mac ile aynı Wi-Fi). Telefon sayfasında:
+- **Paketler:** hazır videoyu izle ve kaydet, açıklamayı dil/platform seçerek tek dokunuşla kopyala, en iyi saati gör, Instagram'ı aç.
+- **Yükle:** telefondaki foto/videoları seç → Mac'e gider, anında puanlanır, karar ve en iyi platform görünür; "⚡ Paket hazırla" ile video Mac'te üretilir ve telefona gelir.
+- **En iyiler:** arşivin en yüksek puanlı paylaşılmamış öğeleri, tek dokunuşla paket.
+- Ana ekrana eklenebilir (Paylaş › Ana Ekrana Ekle): uygulama gibi açılır.
+
+Her paketin yanında **📱 Telefona al (QR)**: kod o pakete doğrudan açılır. Paket hazırlanınca QR kendiliğinden gösterilir. Telefon erişimi açıkken her başlangıçta Terminal'de de bir QR kodu basılır.
+
+**Güvenlik:** Mac'teki arayüz yine yalnızca `127.0.0.1`'de dinler. Telefon erişimi açılınca ayrı bir dinleyici Mac'in Wi-Fi adresinde başlar; orada yalnızca telefon sayfası, paketler, yükleme ve paket hazırlama açıktır, her şey geçerli bir telefon oturumu ister. Oturum, QR kodundaki **tek kullanımlık, 15 dakikalık** anahtarla doğar (çok sayıda hatalı denemede adres geçici olarak engellenir); oturum 90 gün geçerlidir, cihazlar 📱 penceresinden tek tek kaldırılabilir, erişim tek tıkla kapatılır. Bağlantı ev ağı içinde düz HTTP'dir; halka açık Wi-Fi'de telefon erişimini kapatın.
+
 ## 📊 Instagram istatistikleri doğrudan dışa aktarımdan (sürüm 0.7)
 
 "Bilgilerini indir" (JSON) içindeki `past_instagram_insights/` klasörü artık tamamen okunur — CSV gerekmez:
