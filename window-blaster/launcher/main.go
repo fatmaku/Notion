@@ -39,31 +39,45 @@ type config struct {
 	httpsPort int
 	open      bool
 	quiet     bool
+	// publicURL overrides wb-meta.json's publicUrl when publicURLSet (an empty value disables it).
+	publicURL    string
+	publicURLSet bool
 }
 
 func main() {
-	cfg := parseFlags()
+	cfg, showVersion, err := parseFlags(os.Args[1:])
+	if err != nil {
+		os.Exit(2) // the flag package already printed the problem and the usage
+	}
+	if showVersion {
+		fmt.Println(version)
+		return
+	}
 	if err := run(cfg); err != nil {
 		fmt.Fprintf(os.Stderr, "\n❌ %v\n", err)
 		os.Exit(1)
 	}
 }
 
-func parseFlags() config {
-	var cfg config
-	flag.StringVar(&cfg.appDir, "app", "", "folder with the built app (index.html); default: ../app next to this program")
-	flag.StringVar(&cfg.dataDir, "data", "", "folder for the local certificate authority; default: user config dir/WindowBlaster")
-	flag.IntVar(&cfg.httpPort, "http", 8080, "HTTP port (Mac browser, phone setup page)")
-	flag.IntVar(&cfg.httpsPort, "https", 8443, "HTTPS port (game on the phone)")
-	flag.BoolVar(&cfg.open, "open", true, "open the connect page in the Mac's browser")
-	flag.BoolVar(&cfg.quiet, "quiet", false, "no QR code in the terminal")
-	showVersion := flag.Bool("version", false, "print version and exit")
-	flag.Parse()
-	if *showVersion {
-		fmt.Println(version)
-		os.Exit(0)
+func parseFlags(args []string) (cfg config, showVersion bool, err error) {
+	fs := flag.NewFlagSet("windowblaster", flag.ContinueOnError)
+	fs.StringVar(&cfg.appDir, "app", "", "folder with the built app (index.html); default: ../app next to this program")
+	fs.StringVar(&cfg.dataDir, "data", "", "folder for the local certificate authority; default: user config dir/WindowBlaster")
+	fs.IntVar(&cfg.httpPort, "http", 8080, "HTTP port (Mac browser, phone setup page)")
+	fs.IntVar(&cfg.httpsPort, "https", 8443, "HTTPS port (game on the phone)")
+	fs.BoolVar(&cfg.open, "open", true, "open the connect page in the Mac's browser")
+	fs.BoolVar(&cfg.quiet, "quiet", false, "no QR code in the terminal")
+	fs.StringVar(&cfg.publicURL, "public-url", "", "online address of the game (default: publicUrl from the app's wb-meta.json; empty disables)")
+	fs.BoolVar(&showVersion, "version", false, "print version and exit")
+	if err = fs.Parse(args); err != nil {
+		return cfg, false, err
 	}
-	return cfg
+	fs.Visit(func(f *flag.Flag) {
+		if f.Name == "public-url" {
+			cfg.publicURLSet = true
+		}
+	})
+	return cfg, showVersion, nil
 }
 
 func run(cfg config) error {
@@ -113,6 +127,12 @@ func run(cfg config) error {
 	}
 
 	s := newServer(appDir, ca, httpPort, httpsPort)
+	if cfg.publicURLSet {
+		s.publicURL = normalizePublicURL(cfg.publicURL)
+		if s.publicURL == "" && strings.TrimSpace(cfg.publicURL) != "" {
+			fmt.Printf("⚠️  --public-url %q ist keine gültige http(s)-Adresse – Online-Version ausgeblendet.\n", cfg.publicURL)
+		}
+	}
 	// No WriteTimeout: a phone on slow Wi-Fi needs minutes for the 30 MB of detection files.
 	httpSrv := &http.Server{Handler: s.handler(false), ReadHeaderTimeout: 15 * time.Second, ReadTimeout: time.Minute, IdleTimeout: 2 * time.Minute}
 	httpsSrv := &http.Server{Handler: s.handler(true), ReadHeaderTimeout: 15 * time.Second, ReadTimeout: time.Minute, IdleTimeout: 2 * time.Minute, TLSConfig: ca.tlsConfig(), ErrorLog: quietTLSLog()}
@@ -123,6 +143,11 @@ func run(cfg config) error {
 
 	keepAwake()
 	printBanner(s, created, dataDir, cfg.quiet)
+	// The Mac may switch networks while the user sets up the phone (Wi-Fi → Internet Sharing):
+	// print the new setup address and QR code instead of leaving a stale one in the terminal.
+	stopWatch := make(chan struct{})
+	defer close(stopWatch)
+	go newAddrWatcher(localIPv4s, os.Stdout, httpPort, cfg.quiet).run(stopWatch, 3*time.Second)
 	if cfg.open {
 		go func() {
 			time.Sleep(700 * time.Millisecond)

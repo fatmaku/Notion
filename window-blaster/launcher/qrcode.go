@@ -9,7 +9,10 @@ import (
 )
 
 // qrSVG renders text as an inline SVG QR code (black on white, quiet zone 4).
-func qrSVG(text string) template.HTML {
+func qrSVG(text string) template.HTML { return qrSVGLabel(text, "QR-Code: "+text) }
+
+// qrSVGLabel is qrSVG with an explicit accessible label (e.g. not echoing a Wi-Fi password).
+func qrSVGLabel(text, label string) template.HTML {
 	code, err := qr.Encode(text, qr.M)
 	if err != nil {
 		return template.HTML("")
@@ -17,7 +20,7 @@ func qrSVG(text string) template.HTML {
 	n := code.Size
 	const quiet = 4
 	var b strings.Builder
-	fmt.Fprintf(&b, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" shape-rendering="crispEdges" role="img" aria-label="QR-Code: %s"><rect width="100%%" height="100%%" fill="#fff"/><path fill="#000" d="`, n+2*quiet, n+2*quiet, template.HTMLEscapeString(text))
+	fmt.Fprintf(&b, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" shape-rendering="crispEdges" role="img" aria-label="%s"><rect width="100%%" height="100%%" fill="#fff"/><path fill="#000" d="`, n+2*quiet, n+2*quiet, template.HTMLEscapeString(label))
 	for y := 0; y < n; y++ {
 		for x := 0; x < n; x++ {
 			if code.Black(x, y) {

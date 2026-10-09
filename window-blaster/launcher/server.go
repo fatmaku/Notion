@@ -6,8 +6,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -29,6 +31,7 @@ type phone struct {
 	HTTPS     bool      `json:"https"`
 	Game      bool      `json:"game"`
 	Offline   bool      `json:"offline"`
+	Ready     bool      `json:"ready"` // the game reported its offline download as finished
 }
 
 type server struct {
@@ -38,6 +41,7 @@ type server struct {
 	httpsPort int
 	started   time.Time
 	build     string        // build id of the served app (precache.json "v")
+	publicURL string        // online copy of the game (wb-meta.json publicUrl or --public-url), "" if none
 	quit      chan struct{} // a newer start asked this instance to make room
 
 	mu     sync.Mutex
@@ -46,7 +50,51 @@ type server struct {
 }
 
 func newServer(appDir string, ca *localCA, httpPort, httpsPort int) *server {
-	return &server{appDir: appDir, ca: ca, httpPort: httpPort, httpsPort: httpsPort, started: time.Now(), build: readBuild(appDir), quit: make(chan struct{}, 1), phones: map[string]*phone{}}
+	return &server{appDir: appDir, ca: ca, httpPort: httpPort, httpsPort: httpsPort, started: time.Now(), build: readBuild(appDir), publicURL: readPublicURL(appDir), quit: make(chan struct{}, 1), phones: map[string]*phone{}}
+}
+
+// readPublicURL returns publicUrl from the app's wb-meta.json ("" if missing or invalid;
+// older builds have no such file).
+func readPublicURL(dir string) string {
+	b, err := os.ReadFile(filepath.Join(dir, "wb-meta.json"))
+	if err != nil {
+		return ""
+	}
+	var meta struct {
+		Version   string `json:"version"`
+		PublicURL string `json:"publicUrl"`
+	}
+	if json.Unmarshal(b, &meta) != nil {
+		return ""
+	}
+	return normalizePublicURL(meta.PublicURL)
+}
+
+// normalizePublicURL accepts an absolute http(s) URL and returns it with a trailing slash
+// (pages append "wb-meta.json" to it); anything else yields "".
+func normalizePublicURL(raw string) string {
+	raw = strings.TrimSpace(raw)
+	if raw == "" {
+		return ""
+	}
+	u, err := url.Parse(raw)
+	if err != nil || (u.Scheme != "http" && u.Scheme != "https") || u.Host == "" || u.User != nil {
+		return ""
+	}
+	u.RawQuery, u.Fragment = "", ""
+	if !strings.HasSuffix(u.Path, "/") {
+		u.Path += "/"
+		u.RawPath = ""
+	}
+	return u.String()
+}
+
+// setupURL is the phone setup page on the Mac's best LAN address ("" without a network).
+func (s *server) setupURL(addrs []localAddr) string {
+	if len(addrs) == 0 {
+		return ""
+	}
+	return fmt.Sprintf("http://%s:%d/handy", addrs[0].IP, s.httpPort)
 }
 
 // readBuild returns the build id of the app in dir ("" if unknown).
@@ -73,6 +121,7 @@ func (s *server) handler(isTLS bool) http.Handler {
 	mux.HandleFunc("/zertifikat.mobileconfig", s.mobileconfig)
 	mux.HandleFunc("/wb-status", s.status)
 	mux.HandleFunc("/wb-quit", s.quitHandler)
+	mux.HandleFunc("/wb-qr.svg", s.qrHandler)
 	mux.Handle("/", s.appHandler())
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		s.track(r, isTLS)
@@ -83,14 +132,25 @@ func (s *server) handler(isTLS bool) http.Handler {
 			http.Redirect(w, r, fmt.Sprintf("http://localhost:%d%s", s.httpPort, r.URL.RequestURI()), http.StatusFound)
 			return
 		}
+		if !isTLS && (r.URL.Path == "/" || r.URL.Path == "/index.html") && !isLoopback(r) {
+			// A phone opened the game over plain http (typed address, old bookmark): no camera,
+			// no offline there – the setup page is what it needs. The Mac itself keeps the demo.
+			w.Header().Set("Cache-Control", "no-store")
+			http.Redirect(w, r, "/handy", http.StatusFound)
+			return
+		}
 		mux.ServeHTTP(w, r)
 	})
 }
 
+func isLoopback(r *http.Request) bool {
+	ip := remoteIP(r)
+	return ip != nil && ip.IsLoopback()
+}
+
 // macBrowserNavigation: a page load (not a fetch) from a browser on this Mac via localhost.
 func (s *server) macBrowserNavigation(r *http.Request) bool {
-	ip := remoteIP(r)
-	if ip == nil || !ip.IsLoopback() {
+	if !isLoopback(r) {
 		return false
 	}
 	host := r.Host
@@ -160,6 +220,8 @@ func remoteIP(r *http.Request) net.IP {
 
 func deviceFrom(ua string) string {
 	switch {
+	case strings.Contains(ua, "OculusBrowser") || strings.Contains(ua, "Quest") || strings.Contains(ua, "Pico") || strings.Contains(ua, "Wolvic"):
+		return "Headset"
 	case strings.Contains(ua, "iPhone"):
 		return "iPhone"
 	case strings.Contains(ua, "iPad"):
@@ -214,11 +276,20 @@ func (s *server) track(r *http.Request, isTLS bool) {
 		ph.Offline = true
 		event("📦", fmt.Sprintf("%s lädt die Fahrzeug-Erkennung (für offline) …", ph.Device))
 	}
+	if p == "/wb-status" && r.Method == http.MethodGet && r.URL.Query().Get("offline") == "done" && !ph.Ready {
+		ph.Ready = true
+		event("✅", fmt.Sprintf("%s ist offline bereit – der Mac wird nicht mehr gebraucht", ph.Device))
+	}
 }
 
 const maxPhones = 16
 
+// outMu keeps terminal lines from different goroutines (requests, address watcher) whole.
+var outMu sync.Mutex
+
 func event(icon, msg string) {
+	outMu.Lock()
+	defer outMu.Unlock()
 	fmt.Printf("%s %s  %s\n", time.Now().Format("15:04:05"), icon, msg)
 }
 
@@ -232,6 +303,8 @@ type statusDoc struct {
 	HTTPSPort int         `json:"httpsPort"`
 	AppDir    string      `json:"appDir,omitempty"`
 	Build     string      `json:"build,omitempty"`
+	SetupURL  string      `json:"setupUrl"`  // http://<primary IPv4>:<http port>/handy, "" without a network
+	PublicURL string      `json:"publicUrl"` // online copy of the game, "" if none
 	Addrs     []localAddr `json:"addrs"`
 	Phones    []phone     `json:"phones"`
 }
@@ -239,11 +312,12 @@ type statusDoc struct {
 func (s *server) status(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Content-Type", "application/json")
-	doc := statusDoc{OK: true, Secure: r.TLS != nil, Version: version, HTTPPort: s.httpPort, HTTPSPort: s.httpsPort}
+	addrs := localIPv4s()
+	doc := statusDoc{OK: true, Secure: r.TLS != nil, Version: version, HTTPPort: s.httpPort, HTTPSPort: s.httpsPort, SetupURL: s.setupURL(addrs), PublicURL: s.publicURL}
 	if s.isLocalPage(r) {
 		// details only for the Mac itself
 		doc.AppDir, doc.Build = s.appDir, s.build
-		doc.Addrs = localIPv4s()
+		doc.Addrs = addrs
 		s.mu.Lock()
 		for _, k := range s.order {
 			doc.Phones = append(doc.Phones, *s.phones[k])
@@ -254,6 +328,37 @@ func (s *server) status(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 	}
 	_ = json.NewEncoder(w).Encode(doc)
+}
+
+// maxQRText bounds /wb-qr.svg input (a Wi-Fi join string is < 200 bytes).
+const maxQRText = 600
+
+// qrHandler renders ?t= as an SVG QR code for the Mac's connect page (the Wi-Fi QR is built
+// there from a form, so the password never leaves this Mac). Local page only.
+func (s *server) qrHandler(w http.ResponseWriter, r *http.Request) {
+	if !s.isLocalPage(r) {
+		http.Error(w, "nicht erlaubt", http.StatusForbidden)
+		return
+	}
+	if r.Method != http.MethodGet && r.Method != http.MethodHead {
+		http.Error(w, "nicht erlaubt", http.StatusMethodNotAllowed)
+		return
+	}
+	t := r.URL.Query().Get("t")
+	if t == "" || len(t) > maxQRText {
+		http.Error(w, "ungültiger Text", http.StatusBadRequest)
+		return
+	}
+	svg := qrSVGLabel(t, "QR-Code")
+	if svg == "" {
+		http.Error(w, "ungültiger Text", http.StatusBadRequest)
+		return
+	}
+	w.Header().Set("Content-Type", "image/svg+xml")
+	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	w.Header().Set("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'")
+	_, _ = io.WriteString(w, string(svg))
 }
 
 // quitHandler lets a newer start on the same Mac stop this instance (POST, local only).
@@ -392,6 +497,14 @@ type pageData struct {
 	DemoURL     string
 	Fingerprint string
 	CAName      string
+	// SetupURL is the primary phone setup address ("" without a network).
+	SetupURL string
+	// PublicURL is the online copy of the game ("" if none); PublicQR its QR code.
+	PublicURL string
+	PublicQR  template.HTML
+	// QuestURL sends PublicURL to a Meta Quest via Meta's "Web Launch" page (https only).
+	QuestURL string
+	QuestQR  template.HTML
 }
 
 func (s *server) data() pageData {
@@ -405,6 +518,15 @@ func (s *server) data() pageData {
 		DemoURL:     fmt.Sprintf("http://localhost:%d/?demo=1", s.httpPort),
 		Fingerprint: s.ca.Fingerprint(),
 		CAName:      s.ca.cert.Subject.CommonName,
+		PublicURL:   s.publicURL,
+	}
+	d.SetupURL = s.setupURL(d.Addrs)
+	if d.PublicURL != "" {
+		d.PublicQR = qrSVG(d.PublicURL)
+		if strings.HasPrefix(d.PublicURL, "https://") {
+			d.QuestURL = questLaunchURL(d.PublicURL)
+			d.QuestQR = qrSVG(d.QuestURL)
+		}
 	}
 	for i, a := range d.Addrs {
 		u := fmt.Sprintf("http://%s:%d/handy", a.IP, s.httpPort)
@@ -427,6 +549,12 @@ func (s *server) data() pageData {
 	return d
 }
 
+// questLaunchURL is Meta's "Web Launch" link: opened on the phone (signed in to the Meta
+// account), it sends target to the chosen Quest headset's browser.
+func questLaunchURL(target string) string {
+	return "https://www.oculus.com/open_url/?url=" + url.QueryEscape(target)
+}
+
 func (s *server) render(w http.ResponseWriter, name string) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Set("Cache-Control", "no-store")
@@ -443,31 +571,108 @@ func (s *server) guidePage(w http.ResponseWriter, r *http.Request)   { s.render(
 
 func printBanner(s *server, createdCA bool, dataDir string, quiet bool) {
 	addrs := localIPv4s()
-	fmt.Printf("\n🚗  Window Blaster läuft  (Version %s)\n\n", version)
-	fmt.Printf("   Am Mac spielen (Demo):  http://localhost:%d/?demo=1\n", s.httpPort)
-	fmt.Printf("   Verbindungsseite:       http://localhost:%d/verbinden   (öffnet sich gleich im Browser)\n\n", s.httpPort)
+	var b strings.Builder
+	fmt.Fprintf(&b, "\n🚗  Window Blaster läuft  (Version %s)\n\n", version)
+	fmt.Fprintf(&b, "   Am Mac spielen (Demo):  http://localhost:%d/?demo=1\n", s.httpPort)
+	fmt.Fprintf(&b, "   Verbindungsseite:       http://localhost:%d/verbinden   (öffnet sich gleich im Browser)\n\n", s.httpPort)
+	if s.publicURL != "" {
+		fmt.Fprintf(&b, "   🌐 Online-Version (ohne Mac, ohne Zertifikat – sobald eingeschaltet):\n      %s\n\n", s.publicURL)
+	}
 	if len(addrs) == 0 {
-		fmt.Println("   ⚠️  Der Mac ist in keinem Netzwerk. Für das Handy: Mac und Handy ins selbe WLAN,")
-		fmt.Println("      oder am Mac die Internetfreigabe einschalten (siehe ANLEITUNG.html).")
+		b.WriteString("   ⚠️  Der Mac ist in keinem Netzwerk. Für das Handy: Mac und Handy ins selbe WLAN,\n")
+		b.WriteString("      oder am Mac die Internetfreigabe einschalten (siehe ANLEITUNG.html).\n")
 	} else {
-		u := fmt.Sprintf("http://%s:%d/handy", addrs[0].IP, s.httpPort)
-		fmt.Println("   📱 Handy einrichten: mit der Handy-Kamera diesen Code scannen")
-		fmt.Println("      (Handy im selben WLAN wie der Mac):")
-		fmt.Println()
+		u := s.setupURL(addrs)
+		b.WriteString("   📱 Handy einrichten: mit der Handy-Kamera diesen Code scannen\n")
+		b.WriteString("      (Handy im selben WLAN wie der Mac):\n\n")
 		if !quiet {
-			fmt.Print(qrTerminal(u))
-			fmt.Println()
+			b.WriteString(qrTerminal(u))
+			b.WriteString("\n")
 		}
-		fmt.Printf("      oder im Handy-Browser eintippen:  %s\n", u)
+		fmt.Fprintf(&b, "      oder im Handy-Browser eintippen:  %s\n", u)
 		for _, a := range addrs[1:] {
-			fmt.Printf("      andere Adresse (%s):           http://%s:%d/handy\n", a.Iface, a.IP, s.httpPort)
+			fmt.Fprintf(&b, "      andere Adresse (%s):           http://%s:%d/handy\n", a.Iface, a.IP, s.httpPort)
 		}
 	}
 	if createdCA {
-		fmt.Printf("\n   🔐 Neues Mac-Zertifikat erstellt (gespeichert in %s).\n", dataDir)
+		fmt.Fprintf(&b, "\n   🔐 Neues Mac-Zertifikat erstellt (gespeichert in %s).\n", dataDir)
 	}
-	fmt.Println("\n   Dieses Fenster offen lassen, solange das Handy den Mac braucht.")
-	fmt.Println("   MacBook bitte aufgeklappt lassen (am besten am Strom), bis das Handy „Offline bereit ✓“ zeigt.")
-	fmt.Println("   Beenden: Fenster schließen oder control + C drücken.")
-	fmt.Println("────────────────────────────────────────────────────────────────────")
+	b.WriteString("\n   Dieses Fenster offen lassen, solange das Handy den Mac braucht.\n")
+	b.WriteString("   MacBook bitte aufgeklappt lassen (am besten am Strom), bis das Handy „Offline bereit ✓“ zeigt.\n")
+	b.WriteString("   Beenden: Fenster schließen oder control + C drücken.\n")
+	b.WriteString("────────────────────────────────────────────────────────────────────\n")
+	outMu.Lock()
+	defer outMu.Unlock()
+	fmt.Print(b.String())
+}
+
+// addrWatcher prints a fresh setup address (and QR code) when the Mac's LAN addresses change,
+// e.g. after switching Wi-Fi or turning on Internet Sharing while the terminal is open.
+type addrWatcher struct {
+	list     func() []localAddr
+	out      io.Writer
+	httpPort int
+	quiet    bool
+
+	mu  sync.Mutex
+	key string
+}
+
+func newAddrWatcher(list func() []localAddr, out io.Writer, httpPort int, quiet bool) *addrWatcher {
+	return &addrWatcher{list: list, out: out, httpPort: httpPort, quiet: quiet, key: addrKey(list())}
+}
+
+func addrKey(addrs []localAddr) string {
+	ips := make([]string, len(addrs))
+	for i, a := range addrs {
+		ips[i] = a.IP
+	}
+	return strings.Join(ips, ",")
+}
+
+// check compares the current addresses with the last ones and reports whether it printed.
+func (w *addrWatcher) check() bool {
+	addrs := w.list()
+	key := addrKey(addrs)
+	w.mu.Lock()
+	changed := key != w.key
+	w.key = key
+	w.mu.Unlock()
+	if !changed {
+		return false
+	}
+	var b strings.Builder
+	stamp := time.Now().Format("15:04:05")
+	if len(addrs) == 0 {
+		fmt.Fprintf(&b, "%s ⚠️  Der Mac ist in keinem Netzwerk mehr – Handy und Mac wieder ins selbe WLAN bringen.\n", stamp)
+	} else {
+		u := fmt.Sprintf("http://%s:%d/handy", addrs[0].IP, w.httpPort)
+		fmt.Fprintf(&b, "%s 🔄 Neue Adresse – Handy einrichten jetzt mit diesem Code:\n\n", stamp)
+		if !w.quiet {
+			b.WriteString(qrTerminal(u))
+			b.WriteString("\n")
+		}
+		fmt.Fprintf(&b, "      oder im Handy-Browser eintippen:  %s\n", u)
+		for _, a := range addrs[1:] {
+			fmt.Fprintf(&b, "      andere Adresse (%s):           http://%s:%d/handy\n", a.Iface, a.IP, w.httpPort)
+		}
+	}
+	outMu.Lock()
+	defer outMu.Unlock()
+	_, _ = io.WriteString(w.out, b.String())
+	return true
+}
+
+// run polls every interval until stop is closed.
+func (w *addrWatcher) run(stop <-chan struct{}, every time.Duration) {
+	t := time.NewTicker(every)
+	defer t.Stop()
+	for {
+		select {
+		case <-stop:
+			return
+		case <-t.C:
+			w.check()
+		}
+	}
 }
