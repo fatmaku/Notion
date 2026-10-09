@@ -1,0 +1,1684 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; form-action 'none'">
+<title>Innenkompass</title>
+<style>
+:root {
+  --bg: #f6f0e8;
+  --surface: #fffcf7;
+  --surface-2: #f3ebe0;
+  --text: #2a231e;
+  --muted: #5a4f45;
+  --border: #d6c7b5;
+  --accent: #8a4527;
+  --accent-text: #ffffff;
+  --accent-soft: #f2dfcf;
+  --accent-line: #b5694a;
+  --focus: #1d5a91;
+  --danger: #9a2a22;
+  --danger-soft: #f8e2de;
+  --safe: #2f5f4f;
+  --safe-soft: #e1efe9;
+  --shadow: 0 1px 2px rgba(60,40,20,.08), 0 6px 24px rgba(60,40,20,.08);
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171411;
+    --surface: #221d19;
+    --surface-2: #2c2520;
+    --text: #f4ede5;
+    --muted: #cbbdaf;
+    --border: #4b4037;
+    --accent: #eaa47c;
+    --accent-text: #1b1612;
+    --accent-soft: #3d2d23;
+    --accent-line: #c9825d;
+    --focus: #8cc4ff;
+    --danger: #ff9c90;
+    --danger-soft: #3d2420;
+    --safe: #9fd8c2;
+    --safe-soft: #1f3530;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 24px rgba(0,0,0,.35);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.55;
+}
+.app {
+  max-width: 440px;
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+@media (min-width: 480px) {
+  body { padding: 24px 0; }
+  .app { min-height: calc(100vh - 48px); border-radius: 22px; box-shadow: var(--shadow); overflow: clip; border: 1px solid var(--border); }
+}
+.skip { position: absolute; left: -999px; top: 8px; background: var(--accent); color: var(--accent-text); padding: 10px 14px; border-radius: 10px; z-index: 50; }
+.skip:focus { left: 8px; }
+.vh { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+[tabindex="-1"]:focus { outline: none; }
+h1, h2, h3 { line-height: 1.25; margin: 0 0 .5em; }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.1rem; }
+p { margin: 0 0 .8em; }
+a { color: var(--accent); }
+.muted { color: var(--muted); }
+.small { font-size: .9rem; }
+
+/* header */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px 8px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1.05rem; margin-right: auto; color: var(--text); background: none; border: 0; padding: 0; min-height: 44px; cursor: pointer; font-family: inherit; }
+.brand svg { width: 28px; height: 28px; flex: none; }
+.langs { display: flex; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.langs button { min-width: 44px; min-height: 44px; border: 0; background: transparent; color: var(--text); font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer; }
+.langs button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+.icon-btn { width: 44px; height: 44px; border-radius: 12px; border: 1px solid transparent; background: transparent; color: var(--text); display: inline-grid; place-items: center; cursor: pointer; }
+.icon-btn[aria-current="page"] { background: var(--accent-soft); border-color: var(--accent-line); }
+.icon-btn svg { width: 24px; height: 24px; }
+
+main { flex: 1; padding: 20px 16px 24px; }
+.banner { margin: 12px 16px 0; padding: 10px 14px; border-radius: 12px; background: var(--danger-soft); color: var(--text); border: 1px solid var(--danger); font-size: .95rem; }
+
+/* bottom nav */
+.tabbar {
+  position: sticky; bottom: 0; z-index: 10;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 4px 4px calc(4px + env(safe-area-inset-bottom));
+}
+.tabbar button {
+  min-height: 56px; border: 0; background: transparent; color: var(--muted);
+  font: inherit; font-size: .8rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 12px; cursor: pointer;
+}
+.tabbar button svg { width: 24px; height: 24px; }
+.tabbar button[aria-current="page"] { color: var(--accent); font-weight: 700; background: var(--accent-soft); }
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 10px 18px; border-radius: 12px;
+  border: 1.5px solid var(--border); background: var(--surface); color: var(--text);
+  font: inherit; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none;
+}
+.btn:hover { border-color: var(--accent-line); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.btn-primary:hover { filter: brightness(1.06); border-color: var(--accent); }
+.btn-danger { color: var(--danger); border-color: var(--danger); background: transparent; }
+.btn-safe { color: var(--safe); border-color: var(--safe); background: var(--safe-soft); }
+.btn-block { width: 100%; }
+.btn-big {
+  width: 100%; min-height: 120px; font-size: 1.3rem; border-radius: 20px; flex-direction: column; gap: 6px;
+  box-shadow: var(--shadow);
+}
+.btn-big svg { width: 36px; height: 36px; }
+.btn-sm { min-height: 44px; padding: 8px 12px; font-size: .9rem; font-weight: 500; }
+.btn-link { background: none; border: 0; color: var(--accent); text-decoration: underline; font: inherit; cursor: pointer; min-height: 44px; padding: 0 4px; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.stack > * + * { margin-top: 14px; }
+.spacer { height: 12px; }
+
+/* cards */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.card-soft { background: var(--surface-2); border-color: transparent; }
+.nav-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.nav-card { text-align: left; align-items: flex-start; flex-direction: column; min-height: 96px; font-weight: 600; }
+.nav-card .muted { font-weight: 400; font-size: .9rem; }
+.note { border-left: 4px solid var(--accent-line); padding: 10px 14px; background: var(--surface-2); border-radius: 0 12px 12px 0; font-size: .95rem; }
+.badge { display: inline-block; padding: 1px 10px; border-radius: 999px; font-size: .8rem; font-weight: 600; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); }
+.badge-demo { background: var(--accent-soft); color: var(--text); border-color: var(--accent-line); }
+
+/* forms */
+label.field, .field-label { display: block; font-weight: 600; margin-bottom: 6px; }
+textarea, input[type="text"], input[type="search"], select {
+  width: 100%; font: inherit; color: var(--text); background: var(--surface);
+  border: 1.5px solid var(--border); border-radius: 12px; padding: 12px 14px; min-height: 48px;
+}
+textarea { min-height: 110px; resize: vertical; }
+textarea:focus, input:focus, select:focus { border-color: var(--accent-line); }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  position: relative; display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px; padding: 8px 16px; border-radius: 999px;
+  border: 1.5px solid var(--border); background: var(--surface); cursor: pointer; font-size: 1rem;
+}
+.chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.chip.on { background: var(--accent-soft); border-color: var(--accent); font-weight: 600; }
+.chip.on::before { content: "✓"; font-weight: 700; color: var(--accent); }
+.chip:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+.chip-btn { font: inherit; color: var(--text); }
+.chip-sep { width: 100%; height: 0; }
+.tag { display: inline-flex; align-items: center; gap: 2px; padding: 2px 4px 2px 12px; border-radius: 999px; background: var(--accent-soft); border: 1px solid var(--accent-line); font-size: .95rem; }
+.tag.static { padding: 2px 10px; }
+.tag button { width: 44px; height: 44px; min-width: 44px; margin: -4px -8px -4px 0; border: 0; background: transparent; color: var(--text); border-radius: 50%; cursor: pointer; font-size: 1.1rem; }
+.tag-input { display: flex; gap: 8px; }
+.tag-input input { flex: 1; }
+.switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; }
+.switch { position: relative; width: 58px; height: 34px; flex: none; }
+.switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; z-index: 1; }
+.switch span { position: absolute; inset: 0; border-radius: 999px; background: var(--border); transition: background .2s; }
+.switch span::after { content: ""; position: absolute; top: 4px; left: 4px; width: 26px; height: 26px; border-radius: 50%; background: var(--surface); transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+.switch input:checked + span { background: var(--accent); }
+.switch input:checked + span::after { transform: translateX(24px); }
+.switch input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* session */
+.session-head { position: sticky; top: 61px; z-index: 5; background: var(--surface); margin: -20px -16px 16px; padding: 10px 16px 8px; border-bottom: 1px solid var(--border); }
+.session-head .row { justify-content: space-between; }
+.progress { height: 6px; border-radius: 99px; background: var(--surface-2); overflow: hidden; margin: 6px 0 6px; }
+.progress > div { height: 100%; background: var(--accent); border-radius: 99px; }
+.safety-link {
+  display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px;
+  background: var(--safe-soft); color: var(--safe); border: 1px solid var(--safe); border-radius: 10px;
+  font: inherit; font-size: .95rem; font-weight: 600; padding: 6px 12px; cursor: pointer; text-align: left;
+}
+.safety-link svg { width: 20px; height: 20px; flex: none; }
+.step-title { font-size: 1.45rem; }
+.hint { color: var(--muted); }
+.alt-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--border); }
+.alt-row .btn { min-height: 44px; padding: 6px 12px; font-size: .88rem; font-weight: 500; background: var(--surface-2); border-color: transparent; }
+.alt-row .btn:hover { border-color: var(--border); }
+.step-nav { display: flex; gap: 10px; margin-top: 20px; }
+.step-nav .btn-primary { flex: 1; }
+.status { margin-top: 12px; padding: 10px 14px; border-radius: 12px; background: var(--surface-2); font-size: .95rem; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.persp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.persp { display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1.5px solid var(--border); border-radius: var(--radius); background: var(--surface); cursor: pointer; font-size: .95rem; }
+.persp strong { font-size: 1rem; }
+.persp .q { color: var(--muted); font-style: italic; }
+.persp .pick { margin-top: auto; display: flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; }
+.persp .pick input { width: 22px; height: 22px; accent-color: var(--accent); }
+.persp.on { border-color: var(--accent); background: var(--accent-soft); }
+.persp:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 2px; }
+dl.summary { margin: 0; display: grid; gap: 10px; }
+dl.summary dt { font-weight: 700; font-size: .9rem; color: var(--muted); text-transform: none; }
+dl.summary dd { margin: 0; }
+.quote { font-style: italic; }
+.placeholder { border: 2px dashed var(--accent-line); background: var(--surface-2); }
+
+/* journal */
+.timeline { list-style: none; margin: 0; padding: 0 0 0 18px; border-left: 2px solid var(--border); }
+.timeline li { position: relative; margin-bottom: 14px; }
+.timeline li::before { content: ""; position: absolute; left: -26px; top: 18px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--surface); }
+.entry-card { display: block; width: 100%; text-align: left; font: inherit; color: var(--text); cursor: pointer; }
+.entry-card:hover { border-color: var(--accent-line); }
+.entry-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: .88rem; color: var(--muted); margin-bottom: 4px; }
+.excerpt { margin: 0 0 6px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.taglist { display: flex; flex-wrap: wrap; gap: 6px; }
+.filters { display: grid; gap: 10px; margin-bottom: 16px; }
+.pattern p { margin-bottom: 10px; }
+.pattern-kind { font-size: .85rem; color: var(--muted); font-weight: 600; margin-bottom: 6px !important; }
+.section { margin-top: 28px; }
+.section:first-child { margin-top: 0; }
+.danger-zone { border-color: var(--danger); }
+
+footer.foot { padding: 16px 16px 20px; border-top: 1px solid var(--border); font-size: .88rem; color: var(--muted); background: var(--surface); }
+footer.foot .slogan { color: var(--text); font-weight: 600; font-size: .95rem; margin-bottom: 4px; }
+footer.foot p { margin: 0 0 6px; }
+
+.toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%); max-width: 400px; width: calc(100% - 32px); background: var(--text); color: var(--surface); padding: 12px 16px; border-radius: 12px; box-shadow: var(--shadow); z-index: 40; font-size: .95rem; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.toast.show { opacity: 1; }
+dialog { border: 1px solid var(--border); border-radius: 18px; padding: 20px; max-width: 380px; width: calc(100% - 32px); background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+dialog::backdrop { background: rgba(20,14,10,.5); }
+.dlg-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.safety-screen h1 { font-size: 1.5rem; }
+.contact { display: flex; flex-direction: column; gap: 6px; }
+.contact a.btn { justify-content: flex-start; font-size: 1.05rem; }
+.hero-icon { width: 56px; height: 56px; color: var(--safe); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main" id="skip">Zum Inhalt springen</a>
+<div class="app" id="app"></div>
+<div class="toast" id="toast" aria-hidden="true"></div>
+<div class="vh" id="live" aria-live="polite" aria-atomic="true"></div>
+<dialog id="dlg" aria-labelledby="dlg-title" aria-describedby="dlg-text">
+  <h2 id="dlg-title"></h2>
+  <p id="dlg-text"></p>
+  <div class="dlg-actions" id="dlg-actions"></div>
+</dialog>
+<script>
+(function () {
+'use strict';
+
+/* ------------------------------------------------------------------ *
+ * Translation table
+ * ------------------------------------------------------------------ */
+const T = {
+de: {
+  skip: 'Zum Inhalt springen',
+  appName: 'Innenkompass',
+  langLabel: 'Sprache wählen',
+  'nav.home': 'Start', 'nav.journal': 'Journal', 'nav.patterns': 'Muster', 'nav.meanings': 'Bedeutungen', 'nav.settings': 'Einstellungen', navLabel: 'Hauptnavigation',
+  slogan: 'Keine Prophezeiung. Gute Fragen, die bei dir anfangen.',
+  footNo: 'Innenkompass sagt keine Zukunft voraus und stellt keine Diagnosen. Keine Streaks, keine Käufe.',
+  footHelp: 'Hilfe in Krisen',
+  storageOff: 'Lokaler Speicher ist nicht verfügbar. Einträge bleiben nur erhalten, bis du die Seite schließt.',
+  homeHello: 'Was beschäftigt dich?',
+  homeBig: 'Traum oder Gedanken festhalten',
+  homeBigSub: 'Geführt in 8 kurzen Schritten',
+  homeSpiritual: 'Spirituelle Erfahrung (Dschinn/cin, Geister, Engel, Verstorbene)',
+  homeSpiritualSub: 'Freiwilliger, eigener Themenweg',
+  homeOffline: 'Funktioniert offline. Deine Einträge bleiben auf diesem Gerät.',
+  homeJournalSub: '{n}',
+  homePatternsSub: '{n} Karten',
+  entriesCount1: '1 Eintrag', entriesCountN: '{n} Einträge',
+  cardsCount1: '1 Karte', cardsCountN: '{n} Karten',
+  stepOf: 'Schritt {n} von {total}',
+  spPre: 'Spiritueller Themenweg – vorab',
+  progressLabel: 'Fortschritt',
+  safetyLink: 'Ich fühle mich gerade nicht sicher',
+  next: 'Weiter', back: 'Zurück', backToSummary: 'Zurück zur Zusammenfassung', saveFinish: 'Speichern und beenden',
+  altGroup: 'Weitere Möglichkeiten',
+  'alt.none': 'Keine Antwort passt', 'alt.other': 'Etwas anderes', 'alt.unsure': 'Unsicher', 'alt.skip': 'Überspringen', 'alt.end': 'Beenden',
+  'status.none': 'Notiert: Keine Antwort passt. Du kannst es frei beschreiben – oder einfach weitergehen.',
+  'status.other': 'Beschreibe es gern mit eigenen Worten.',
+  'status.unsure': 'Notiert: unsicher. Das ist in Ordnung.',
+  'status.skipped': 'Übersprungen.',
+  statusUndo: 'Markierung entfernen',
+  'meta.none': 'keine Antwort passte', 'meta.other': 'etwas anderes', 'meta.unsure': 'unsicher', 'meta.skipped': 'übersprungen',
+  's1.title': 'Was ist passiert?', 's1.hint': 'Wähle, was am ehesten passt. Du kannst es auch offen lassen.', s1Legend: 'Art des Erlebnisses', s1Free: 'In eigenen Worten (optional)',
+  'type.dream': 'Traum', 'type.wake': 'Wach-Erlebnis', 'type.memory': 'Erinnerung', 'type.story': 'Erzählung', 'type.unsure': 'Unsicher',
+  's2.title': 'Was ist dir aufgefallen?', 's2.hint': 'Beschreibe es zuerst selbst – die App macht vorher keine Vorschläge.', s2Free: 'Was ist dir aufgefallen?',
+  tagsLabel: 'Eigene Tags (z. B. Rabe)', tagsAdd: 'Hinzufügen', tagRemove: 'Tag „{t}“ entfernen', tagsNone: 'Noch keine Tags.', tagAdded: 'Tag „{t}“ hinzugefügt.',
+  aiSuggest: 'KI-Rückfrage vorschlagen', aiStub: 'Im Prototyp nicht verbunden – es wurde nichts gesendet.',
+  's3.title': 'Welches Gefühl war da?', 's3.hint': 'Mehrfachauswahl möglich.', s3Legend: 'Gefühle', s3Free: 'Eigene Worte für das Gefühl (optional)',
+  'feel.curiosity': 'Neugier', 'feel.joy': 'Freude', 'feel.calm': 'Ruhe', 'feel.hope': 'Hoffnung', 'feel.relief': 'Erleichterung', 'feel.awe': 'Ehrfurcht',
+  'feel.longing': 'Sehnsucht', 'feel.sadness': 'Traurigkeit', 'feel.fear': 'Angst', 'feel.anger': 'Wut', 'feel.shame': 'Scham', 'feel.confusion': 'Verwirrung',
+  'feel.none': 'keines davon', 'feel.unknown': 'weiß ich nicht',
+  's4.title': 'Welche eigene Verbindung gibt es?', 's4.hint': 'Zum Beispiel eine Erinnerung, Familie, Kultur, Religion, ein Wunsch oder eine Sorge – oder nichts davon.', s4Legend: 'Verbindungen', s4Free: 'Magst du mehr dazu sagen? (optional)',
+  'conn.memory': 'Erinnerung', 'conn.family': 'Familie', 'conn.culture': 'Kultur', 'conn.religion': 'Religion', 'conn.wish': 'Wunsch', 'conn.worry': 'Sorge',
+  's5.title': 'Was war zu dieser Zeit los?', 's5.hint': 'Nur so viel, wie du teilen möchtest.', s5Free: 'Kontext (optional)',
+  's6.title': 'Welche weiteren Blickwinkel passen?', 's6.hint': 'Diese Blickwinkel stehen gleichberechtigt nebeneinander. Keiner ist als wahr markiert – du entscheidest, was für dich passt.', s6Free: 'Eigener Blickwinkel (optional)', s6Pick: 'Passt für mich', s6Legend: 'Blickwinkel',
+  'persp.chance': 'Zufall', 'persp.chance.d': 'Vielleicht ist es einfach zufällig zusammengekommen.', 'persp.chance.q': 'Wie fühlt es sich an, es als Zufall zu sehen?',
+  'persp.attention': 'Erhöhte Aufmerksamkeit', 'persp.attention.d': 'Wenn uns etwas beschäftigt, bemerken wir es öfter.', 'persp.attention.q': 'Achtest du gerade besonders auf so etwas?',
+  'persp.everyday': 'Alltagserinnerung', 'persp.everyday.d': 'Bilder können aus dem stammen, was du kürzlich gesehen oder erlebt hast.', 'persp.everyday.q': 'Ist dir das in letzter Zeit irgendwo begegnet?',
+  'persp.culture': 'Kulturelle Erzählung', 'persp.culture.d': 'In Familien und Kulturen gibt es Geschichten dazu – verschiedene, nicht die eine richtige.', 'persp.culture.q': 'Welche Geschichte kennst du dazu, und von wem?',
+  'persp.personal': 'Persönliche Bedeutung', 'persp.personal.d': 'Es kann etwas bedeuten, das nur du benennen kannst.', 'persp.personal.q': 'Was bedeutet es für dich?',
+  'persp.belief': 'Dein Glaube', 'persp.belief.d': 'Du kannst es im Licht deines eigenen Glaubens betrachten – so, wie du ihn verstehst.', 'persp.belief.q': 'Was sagt dir dein Glaube dazu – und woher kennst du das?',
+  's7.title': 'Was denkst du selbst?', s7SumTitle: 'Deine Antworten – zusammengefasst', s7SumNote: 'Diese Zusammenfassung enthält nur, was du selbst geschrieben oder gewählt hast.',
+  s7Question: 'Passt diese Zusammenfassung?', 'fb.fits': 'Passt', 'fb.partly': 'Teilweise', 'fb.no': 'Nein', fbEdit: 'Ändern',
+  s7Correction: 'Was würdest du anders sagen?', s7Own: 'Was denkst du selbst darüber? (optional)',
+  editTitle: 'Was möchtest du ändern?', editStep: 'Schritt {n}: {title}',
+  consentLabel: 'Ja, merke dir eine persönliche Bedeutung – nur auf diesem Gerät. Ich kann sie unter „Meine Bedeutungen“ jederzeit ändern oder löschen.',
+  consentTerm: 'Begriff', consentMeaning: 'Was bedeutet er für dich?',
+  'sum.type': 'Art', 'sum.noticed': 'Aufgefallen', 'sum.feelings': 'Gefühle', 'sum.connection': 'Verbindung', 'sum.context': 'Kontext', 'sum.persp': 'Blickwinkel, die du gewählt hast', 'sum.tags': 'Tags', 'sum.spiritual': 'Spiritueller Themenweg', 'sum.empty': '(keine Angabe)',
+  's8.title': 'Wie soll es weitergehen?', s8Legend: 'Nächster Schritt',
+  'next.write': 'Weiterschreiben', 'next.question': 'Eine nächste Frage wählen', 'next.step': 'Einen kleinen Schritt planen', 'next.end': 'Sitzung beenden',
+  s8Write: 'Schreib weiter', s8QLegend: 'Welche Frage möchtest du dir stellen?', s8Answer: 'Deine Antwort (optional)', s8Step: 'Mein kleiner Schritt', s8StepPh: 'z. B. morgen fünf Minuten spazieren gehen',
+  'nq.q1': 'Wann ist dir das zum ersten Mal begegnet?', 'nq.q2': 'Gibt es jemanden, mit dem du darüber sprechen möchtest?', 'nq.q3': 'Was wäre anders, wenn das Gefühl ein bisschen kleiner wäre?',
+  endTitle: 'Sitzung beenden?', endText: 'Du kannst deine bisherigen Antworten speichern oder sie verwerfen.', endSave: 'Bisherige Antworten speichern', endDiscard: 'Verwerfen', endContinue: 'Weitermachen',
+  savedTitle: 'Gespeichert.', savedText: 'Danke für deine Zeit. Dein Eintrag liegt nur auf diesem Gerät.', savedJournal: 'Im Journal ansehen', savedHome: 'Zur Startseite', savedAssoc: 'Deine persönliche Bedeutung wurde gespeichert.',
+  'sp.title': 'Spirituelle Erfahrung',
+  'sp.intro': 'Dieser Weg ist freiwillig. Du kannst jederzeit überspringen oder beenden. Die App kann nicht feststellen, ob ein Wesen da ist, und spricht nicht für ein Wesen. Was es für dich bedeutet, bestimmst du.',
+  'sp.kindQ': 'Worum geht es?', 'sp.kindFree': 'In eigenen Worten (optional)',
+  'spk.dream': 'Ein Traum', 'spk.personal': 'Eine persönliche Erfahrung', 'spk.belief': 'Eine religiöse Überzeugung', 'spk.story': 'Eine kulturelle Erzählung', 'spk.unsure': 'Unsicher',
+  'sp.safetyQ': 'Bevor wir weitergehen: Fühlst du dich gerade bedroht, oder fordert dich eine Stimme auf, dich oder andere zu verletzen?',
+  'sp.safetyHint': 'Diese Frage stellen wir allen. Deine Antwort wird nicht gespeichert.',
+  'sp.yes': 'Ja', 'sp.no': 'Nein', 'sp.preferNot': 'Möchte ich nicht sagen',
+  'sp.viewQ': 'Was möchtest du sehen?',
+  'spv.personal': 'Nur persönliche Reflexion', 'spv.culture': 'Kultur-/Religionsperspektive', 'spv.both': 'Beides',
+  'sp.cultureTitle': 'Kultur- und Religionsperspektive',
+  'sp.cultureText': 'Inhalte werden mit Fachleuten erstellt – mit Tradition, Quelle und Kontext gekennzeichnet.',
+  'sp.cultureMore': 'Im Prototyp gibt es hier noch keine Inhalte. Es gibt nicht die eine Deutung, die für alle Gläubigen gilt.',
+  'sp.toPersonal': 'Weiter zur persönlichen Reflexion', 'sp.toPersonalOpt': 'Trotzdem persönlich reflektieren',
+  safetyTitle: 'Lass uns hier anhalten.',
+  safetyText: 'Danke, dass du das sagst. Gerade ist es wichtiger, mit einem Menschen zu sprechen, als etwas zu deuten. Du musst das nicht allein tragen.',
+  safetyStopped: 'Der Deutungsweg ist beendet. Es wurde nichts gespeichert.',
+  safetyPaused: 'Die Sitzung ist angehalten.',
+  safetyDanger: 'Wenn du in unmittelbarer Gefahr bist, ruf den Notruf an.',
+  safetyDE: 'Deutschland – TelefonSeelsorge (kostenlos, rund um die Uhr)',
+  safetyEU: 'Notruf in der EU und in der Türkei:', safetyCall: 'Anrufen: {n}',
+  safetyElse: 'Anderswo: Wende dich an den örtlichen Notdienst.',
+  safetyPerson: 'Wenn es geht: Sprich mit einer Person, der du vertraust, oder bleib nicht allein.',
+  safetyHome: 'Zur Startseite', safetyBack: 'Zurück zur Sitzung',
+  'j.title': 'Journal', 'j.search': 'Einträge durchsuchen', 'j.tag': 'Nach Tag filtern', 'j.allTags': 'Alle Tags', 'j.order': 'Neueste zuerst',
+  'j.empty': 'Noch keine Einträge. Du kannst eine Sitzung beginnen oder Demo-Daten laden.', 'j.noMatch': 'Keine passenden Einträge.',
+  'j.filterIds': 'Zeigt {n} Einträge aus einer Musterkarte.', 'j.clearFilter': 'Filter aufheben', 'j.noText': '(ohne Text)', 'j.partial': 'unvollständig',
+  demoLoad: 'Demo-Daten laden', demoRemove: 'Demo-Daten entfernen', demoLoaded: '{n} Demo-Einträge geladen.', demoRemoved: 'Demo-Daten entfernt.', demoBadge: 'Demo',
+  exportAll: 'Alles als JSON exportieren', exported: 'Export erstellt.', deleteAll: 'Alles löschen',
+  deleteAllTitle: 'Alles löschen?', deleteAllText: 'Alle Einträge, Bedeutungen und Einstellungen auf diesem Gerät werden endgültig gelöscht. Das kann nicht rückgängig gemacht werden.', deletedAll: 'Alle Daten wurden gelöscht.',
+  del: 'Löschen', cancel: 'Abbrechen',
+  'e.title': 'Eintrag', 'e.back': 'Zurück zum Journal', 'e.delete': 'Eintrag löschen', 'e.delTitle': 'Eintrag löschen?', 'e.delText': 'Dieser Eintrag wird endgültig gelöscht.', 'e.deleted': 'Eintrag gelöscht.',
+  'e.feedback': 'Deine Einschätzung der Zusammenfassung', 'e.correction': 'Korrektur', 'e.own': 'Eigene Gedanken', 'e.next': 'Wie es weitergeht', 'e.notFound': 'Dieser Eintrag existiert nicht mehr.', 'e.marks': 'Markierungen',
+  'p.title': 'Muster',
+  'p.intro': 'Diese Karten zählen nur Tags und Gefühle, die du selbst gespeichert hast und die in mindestens zwei Einträgen vorkommen. Sie erklären keine Ursachen und sagen nichts voraus.',
+  'p.empty': 'Noch keine wiederkehrenden Tags oder Gefühle. Karten erscheinen, sobald etwas in mindestens zwei Einträgen vorkommt.',
+  'p.kindTag': 'Eigener Begriff', 'p.kindFeel': 'Gefühl',
+  'p.span': 'zwischen {from} und {to}', 'p.spanSame': 'am {from}',
+  'p.tag': 'Du hast in {n} Einträgen {span} den Begriff „{term}“ notiert.',
+  'p.feel': 'Du hast in {n} Einträgen {span} das Gefühl „{term}“ notiert.',
+  'p.co': 'In {k} davon hast du {feeling} notiert.',
+  'p.view': 'Einträge ansehen', 'p.hide': 'Karte ausblenden', 'p.unhide': 'Wieder einblenden', 'p.showHidden': 'Ausgeblendete Karten zeigen ({n})', 'p.hideHidden': 'Ausgeblendete Karten verbergen', 'p.hidden': 'Karte ausgeblendet.',
+  'm.title': 'Meine Bedeutungen',
+  'm.intro': 'Hier stehen nur persönliche Bedeutungen, denen du ausdrücklich zugestimmt hast. Sie bleiben auf diesem Gerät, und du kannst sie jederzeit ändern oder löschen.',
+  'm.empty': 'Noch keine gespeicherten Bedeutungen. Nach einer Zusammenfassung kannst du zustimmen, eine Bedeutung zu speichern.',
+  'm.from': 'Aus dem Eintrag vom {date}', 'm.edit': 'Bearbeiten', 'm.save': 'Speichern', 'm.delTitle': 'Diese Bedeutung löschen?', 'm.delAll': 'Alle Bedeutungen löschen', 'm.delAllTitle': 'Alle Bedeutungen löschen?', 'm.saved': 'Gespeichert.', 'm.deleted': 'Bedeutung gelöscht.', 'm.openEntry': 'Eintrag öffnen',
+  's.title': 'Einstellungen', 's.lang': 'Sprache',
+  's.ai': 'Online-KI-Dialog', 's.aiToggle': 'Online-KI verwenden',
+  's.aiText': 'Standardmäßig aus. Wenn du es einschaltest, würde die App nur den Text, den du in einem Schritt ausdrücklich sendest, zusammen mit der gewählten Sprache an einen KI-Dienst übertragen, um Rückfragen vorzuschlagen. Nicht gesendet würden: dein übriges Journal, deine Tags und deine gespeicherten Bedeutungen. Die KI gibt keine Vorhersagen, Diagnosen oder Autoritätsaussagen.',
+  's.aiStub': 'Im Prototyp nicht verbunden – es werden keine Daten gesendet.', 's.aiOn': 'Eingeschaltet (Platzhalter)', 's.aiOff': 'Ausgeschaltet',
+  's.data': 'Daten auf diesem Gerät', 's.dataText': 'Einträge werden lokal in diesem Browser gespeichert. Kein Konto, keine Synchronisation, keine Übertragung.',
+  's.about': 'Über Innenkompass',
+  's.aboutText': 'Innenkompass stellt Fragen, die bei dir anfangen. Die App sagt keine Zukunft voraus, stellt keine Diagnosen und behauptet weder allgemeingültige Symbolbedeutungen noch Kontakt zu übernatürlichen Wesen. Keine Streaks, keine Käufe.',
+  's.proto': 'Klickbarer Prototyp. Texte sind noch nicht von Fachleuten und Muttersprachler:innen geprüft.'
+},
+tr: {
+  skip: 'İçeriğe geç',
+  appName: 'İçPusula',
+  langLabel: 'Dil seç',
+  'nav.home': 'Başlangıç', 'nav.journal': 'Günlük', 'nav.patterns': 'Örüntüler', 'nav.meanings': 'Anlamlarım', 'nav.settings': 'Ayarlar', navLabel: 'Ana gezinme',
+  slogan: 'Kehanet değil; kendi anlamını bulmana yardımcı sorular.',
+  footNo: 'İçPusula geleceği tahmin etmez ve teşhis koymaz. Seri sayacı yok, satın alma yok.',
+  footHelp: 'Kriz anında yardım',
+  storageOff: 'Yerel depolama kullanılamıyor. Kayıtlar yalnızca sayfayı kapatana kadar kalır.',
+  homeHello: 'Aklında ne var?',
+  homeBig: 'Rüyanı ya da düşünceni kaydet',
+  homeBigSub: '8 kısa adımda rehberli',
+  homeSpiritual: 'Manevi deneyim (cin, hayaletler, melekler, vefat etmiş yakınlar)',
+  homeSpiritualSub: 'İsteğe bağlı, ayrı bir konu yolu',
+  homeOffline: 'İnternetsiz çalışır. Kayıtların bu cihazda kalır.',
+  homeJournalSub: '{n}',
+  homePatternsSub: '{n} kart',
+  entriesCount1: '1 kayıt', entriesCountN: '{n} kayıt',
+  cardsCount1: '1 kart', cardsCountN: '{n} kart',
+  stepOf: 'Adım {n} / {total}',
+  spPre: 'Manevi konu yolu – başlamadan önce',
+  progressLabel: 'İlerleme',
+  safetyLink: 'Şu anda kendimi güvende hissetmiyorum',
+  next: 'İleri', back: 'Geri', backToSummary: 'Özete dön', saveFinish: 'Kaydet ve bitir',
+  altGroup: 'Diğer seçenekler',
+  'alt.none': 'Hiçbir cevap uymuyor', 'alt.other': 'Başka bir şey', 'alt.unsure': 'Emin değilim', 'alt.skip': 'Atla', 'alt.end': 'Bitir',
+  'status.none': 'Not edildi: Hiçbir cevap uymuyor. İstersen kendi sözlerinle anlatabilir ya da devam edebilirsin.',
+  'status.other': 'İstersen kendi sözlerinle anlat.',
+  'status.unsure': 'Not edildi: emin değilim. Bu gayet normal.',
+  'status.skipped': 'Atlandı.',
+  statusUndo: 'İşareti kaldır',
+  'meta.none': 'hiçbir cevap uymadı', 'meta.other': 'başka bir şey', 'meta.unsure': 'emin değilim', 'meta.skipped': 'atlandı',
+  's1.title': 'Ne oldu?', 's1.hint': 'En çok uyanı seç. İstersen boş da bırakabilirsin.', s1Legend: 'Deneyimin türü', s1Free: 'Kendi sözlerinle (isteğe bağlı)',
+  'type.dream': 'Rüya', 'type.wake': 'Uyanıkken yaşanan', 'type.memory': 'Anı', 'type.story': 'Anlatı', 'type.unsure': 'Emin değilim',
+  's2.title': 'Neyi fark ettin?', 's2.hint': 'Önce sen anlat – uygulama bundan önce hiçbir öneride bulunmaz.', s2Free: 'Neyi fark ettin?',
+  tagsLabel: 'Kendi etiketlerin (ör. kuzgun)', tagsAdd: 'Ekle', tagRemove: '“{t}” etiketini kaldır', tagsNone: 'Henüz etiket yok.', tagAdded: '“{t}” etiketi eklendi.',
+  aiSuggest: 'Yapay zekâdan soru öner', aiStub: 'Prototipte bağlı değil – hiçbir şey gönderilmedi.',
+  's3.title': 'Hangi duygu vardı?', 's3.hint': 'Birden fazla seçebilirsin.', s3Legend: 'Duygular', s3Free: 'Duygu için kendi sözlerin (isteğe bağlı)',
+  'feel.curiosity': 'Merak', 'feel.joy': 'Sevinç', 'feel.calm': 'Huzur', 'feel.hope': 'Umut', 'feel.relief': 'Rahatlama', 'feel.awe': 'Hayranlık',
+  'feel.longing': 'Özlem', 'feel.sadness': 'Hüzün', 'feel.fear': 'Korku', 'feel.anger': 'Öfke', 'feel.shame': 'Utanç', 'feel.confusion': 'Şaşkınlık',
+  'feel.none': 'hiçbiri', 'feel.unknown': 'bilmiyorum',
+  's4.title': 'Senin için nasıl bir bağlantı var?', 's4.hint': 'Örneğin bir anı, aile, kültür, din, bir dilek ya da bir endişe – ya da hiçbiri.', s4Legend: 'Bağlantılar', s4Free: 'Biraz daha anlatmak ister misin? (isteğe bağlı)',
+  'conn.memory': 'Anı', 'conn.family': 'Aile', 'conn.culture': 'Kültür', 'conn.religion': 'Din', 'conn.wish': 'Dilek', 'conn.worry': 'Endişe',
+  's5.title': 'O sıralar neler oluyordu?', 's5.hint': 'Yalnızca paylaşmak istediğin kadarını yaz.', s5Free: 'Bağlam (isteğe bağlı)',
+  's6.title': 'Başka hangi bakış açıları uyuyor?', 's6.hint': 'Bu bakış açıları eşit şekilde yan yana durur. Hiçbiri doğru olarak işaretlenmez – sana neyin uyduğuna sen karar verirsin.', s6Free: 'Kendi bakış açın (isteğe bağlı)', s6Pick: 'Bana uyuyor', s6Legend: 'Bakış açıları',
+  'persp.chance': 'Tesadüf', 'persp.chance.d': 'Belki de sadece tesadüfen bir araya geldi.', 'persp.chance.q': 'Bunu bir tesadüf olarak görmek nasıl hissettiriyor?',
+  'persp.attention': 'Artan dikkat', 'persp.attention.d': 'Bir şey aklımızı meşgul ettiğinde onu daha sık fark ederiz.', 'persp.attention.q': 'Şu sıralar böyle şeylere özellikle dikkat ediyor musun?',
+  'persp.everyday': 'Gündelik bir anı', 'persp.everyday.d': 'Görüntüler son zamanlarda gördüğün ya da yaşadığın şeylerden gelebilir.', 'persp.everyday.q': 'Buna son zamanlarda bir yerde rastladın mı?',
+  'persp.culture': 'Kültürel anlatı', 'persp.culture.d': 'Ailelerde ve kültürlerde bununla ilgili hikâyeler vardır – farklı farklı, tek bir doğru değil.', 'persp.culture.q': 'Bununla ilgili hangi hikâyeyi biliyorsun, kimden duydun?',
+  'persp.personal': 'Kişisel anlam', 'persp.personal.d': 'Bunun yalnızca senin adlandırabileceğin bir anlamı olabilir.', 'persp.personal.q': 'Senin için ne anlama geliyor?',
+  'persp.belief': 'Kendi inancın', 'persp.belief.d': 'Buna kendi inancının ışığında, onu nasıl anlıyorsan öyle bakabilirsin.', 'persp.belief.q': 'İnancın sana bu konuda ne söylüyor – ve bunu nereden biliyorsun?',
+  's7.title': 'Sen kendin ne düşünüyorsun?', s7SumTitle: 'Cevapların – özet', s7SumNote: 'Bu özet yalnızca senin yazdıklarını ya da seçtiklerini içerir.',
+  s7Question: 'Bu özet uyuyor mu?', 'fb.fits': 'Uyuyor', 'fb.partly': 'Kısmen', 'fb.no': 'Hayır', fbEdit: 'Değiştir',
+  s7Correction: 'Neyi farklı söylerdin?', s7Own: 'Sen bu konuda ne düşünüyorsun? (isteğe bağlı)',
+  editTitle: 'Neyi değiştirmek istersin?', editStep: 'Adım {n}: {title}',
+  consentLabel: 'Evet, bir kişisel anlamı hatırla – yalnızca bu cihazda. Onu “Anlamlarım” bölümünden istediğim zaman değiştirebilir veya silebilirim.',
+  consentTerm: 'Kavram', consentMeaning: 'Senin için ne anlama geliyor?',
+  'sum.type': 'Tür', 'sum.noticed': 'Fark ettiğin', 'sum.feelings': 'Duygular', 'sum.connection': 'Bağlantı', 'sum.context': 'Bağlam', 'sum.persp': 'Seçtiğin bakış açıları', 'sum.tags': 'Etiketler', 'sum.spiritual': 'Manevi konu yolu', 'sum.empty': '(belirtilmedi)',
+  's8.title': 'Nasıl devam etmek istersin?', s8Legend: 'Sonraki adım',
+  'next.write': 'Yazmaya devam et', 'next.question': 'Sonraki bir soru seç', 'next.step': 'Küçük bir adım planla', 'next.end': 'Oturumu bitir',
+  s8Write: 'Yazmaya devam et', s8QLegend: 'Kendine hangi soruyu sormak istersin?', s8Answer: 'Cevabın (isteğe bağlı)', s8Step: 'Küçük adımım', s8StepPh: 'ör. yarın beş dakika yürüyüşe çıkmak',
+  'nq.q1': 'Bununla ilk ne zaman karşılaştın?', 'nq.q2': 'Bu konuda konuşmak istediğin biri var mı?', 'nq.q3': 'Bu duygu biraz daha küçük olsaydı ne farklı olurdu?',
+  endTitle: 'Oturum bitirilsin mi?', endText: 'Şimdiye kadarki cevaplarını kaydedebilir ya da silebilirsin.', endSave: 'Şimdiye kadarki cevapları kaydet', endDiscard: 'Kaydetmeden çık', endContinue: 'Devam et',
+  savedTitle: 'Kaydedildi.', savedText: 'Zaman ayırdığın için teşekkürler. Kaydın yalnızca bu cihazda.', savedJournal: 'Günlükte gör', savedHome: 'Ana sayfaya dön', savedAssoc: 'Kişisel anlamın kaydedildi.',
+  'sp.title': 'Manevi deneyim',
+  'sp.intro': 'Bu yol isteğe bağlıdır. İstediğin zaman atlayabilir ya da bitirebilirsin. Uygulama bir varlığın orada olup olmadığını tespit edemez ve hiçbir varlık adına konuşmaz. Bunun senin için ne anlama geldiğine sen karar verirsin.',
+  'sp.kindQ': 'Bu ne ile ilgili?', 'sp.kindFree': 'Kendi sözlerinle (isteğe bağlı)',
+  'spk.dream': 'Bir rüya', 'spk.personal': 'Kişisel bir deneyim', 'spk.belief': 'Dini bir inanç', 'spk.story': 'Kültürel bir anlatı', 'spk.unsure': 'Emin değilim',
+  'sp.safetyQ': 'Devam etmeden önce: Şu anda kendini tehdit altında hissediyor musun ya da bir ses sana kendine veya başkalarına zarar vermeni mi söylüyor?',
+  'sp.safetyHint': 'Bu soruyu herkese soruyoruz. Cevabın kaydedilmez.',
+  'sp.yes': 'Evet', 'sp.no': 'Hayır', 'sp.preferNot': 'Söylemek istemiyorum',
+  'sp.viewQ': 'Ne görmek istersin?',
+  'spv.personal': 'Yalnızca kişisel düşünme', 'spv.culture': 'Kültür/din bakış açısı', 'spv.both': 'İkisi de',
+  'sp.cultureTitle': 'Kültür ve din bakış açısı',
+  'sp.cultureText': 'İçerikler uzmanlarla birlikte hazırlanır – gelenek, kaynak ve bağlam belirtilerek.',
+  'sp.cultureMore': 'Bu prototipte burada henüz içerik yok. Tüm inananlar için geçerli tek bir yorum yoktur.',
+  'sp.toPersonal': 'Kişisel düşünmeye geç', 'sp.toPersonalOpt': 'Yine de kişisel olarak düşün',
+  safetyTitle: 'Burada duralım.',
+  safetyText: 'Bunu söylediğin için teşekkürler. Şu anda bir şeyi yorumlamaktan daha önemlisi bir insanla konuşmak. Bunu tek başına taşımak zorunda değilsin.',
+  safetyStopped: 'Yorumlama yolu sona erdi. Hiçbir şey kaydedilmedi.',
+  safetyPaused: 'Oturum durduruldu.',
+  safetyDanger: 'Hemen tehlikedeysen acil çağrı numarasını ara.',
+  safetyDE: 'Almanya – TelefonSeelsorge (ücretsiz, 7/24, Almanca)',
+  safetyEU: 'AB’de ve Türkiye’de acil çağrı numarası:', safetyCall: 'Ara: {n}',
+  safetyElse: 'Başka bir yerdeysen: Yerel acil servislere başvur.',
+  safetyPerson: 'Mümkünse güvendiğin biriyle konuş ya da yalnız kalma.',
+  safetyHome: 'Ana sayfaya dön', safetyBack: 'Oturuma geri dön',
+  'j.title': 'Günlük', 'j.search': 'Kayıtlarda ara', 'j.tag': 'Etikete göre filtrele', 'j.allTags': 'Tüm etiketler', 'j.order': 'En yeni önce',
+  'j.empty': 'Henüz kayıt yok. Bir oturum başlatabilir ya da örnek verileri yükleyebilirsin.', 'j.noMatch': 'Eşleşen kayıt yok.',
+  'j.filterIds': 'Bir örüntü kartından {n} kayıt gösteriliyor.', 'j.clearFilter': 'Filtreyi kaldır', 'j.noText': '(metin yok)', 'j.partial': 'yarım',
+  demoLoad: 'Örnek verileri yükle', demoRemove: 'Örnek verileri kaldır', demoLoaded: '{n} örnek kayıt yüklendi.', demoRemoved: 'Örnek veriler kaldırıldı.', demoBadge: 'Örnek',
+  exportAll: 'Tümünü JSON olarak dışa aktar', exported: 'Dışa aktarma oluşturuldu.', deleteAll: 'Her şeyi sil',
+  deleteAllTitle: 'Her şey silinsin mi?', deleteAllText: 'Bu cihazdaki tüm kayıtlar, anlamlar ve ayarlar kalıcı olarak silinecek. Bu işlem geri alınamaz.', deletedAll: 'Tüm veriler silindi.',
+  del: 'Sil', cancel: 'Vazgeç',
+  'e.title': 'Kayıt', 'e.back': 'Günlüğe dön', 'e.delete': 'Kaydı sil', 'e.delTitle': 'Kayıt silinsin mi?', 'e.delText': 'Bu kayıt kalıcı olarak silinecek.', 'e.deleted': 'Kayıt silindi.',
+  'e.feedback': 'Özet hakkındaki değerlendirmen', 'e.correction': 'Düzeltme', 'e.own': 'Kendi düşüncelerin', 'e.next': 'Nasıl devam edecek', 'e.notFound': 'Bu kayıt artık yok.', 'e.marks': 'İşaretler',
+  'p.title': 'Örüntüler',
+  'p.intro': 'Bu kartlar yalnızca senin kaydettiğin ve en az iki kayıtta geçen etiketleri ve duyguları sayar. Nedenleri açıklamaz ve hiçbir şeyi önceden söylemez.',
+  'p.empty': 'Henüz tekrar eden etiket ya da duygu yok. Bir şey en az iki kayıtta geçtiğinde kartlar görünür.',
+  'p.kindTag': 'Kendi kavramın', 'p.kindFeel': 'Duygu',
+  'p.span': '{from} ile {to} arasında', 'p.spanSame': '{from} tarihinde',
+  'p.tag': '{span} {n} kayıtta “{term}” kavramını not ettin.',
+  'p.feel': '{span} {n} kayıtta “{term}” duygusunu not ettin.',
+  'p.co': 'Bunların {k} tanesinde {feeling} duygusunu da not ettin.',
+  'p.view': 'Kayıtları gör', 'p.hide': 'Kartı gizle', 'p.unhide': 'Yeniden göster', 'p.showHidden': 'Gizlenen kartları göster ({n})', 'p.hideHidden': 'Gizlenen kartları kapat', 'p.hidden': 'Kart gizlendi.',
+  'm.title': 'Anlamlarım',
+  'm.intro': 'Burada yalnızca açıkça onay verdiğin kişisel anlamlar yer alır. Bu cihazda kalırlar; onları istediğin zaman değiştirebilir veya silebilirsin.',
+  'm.empty': 'Henüz kaydedilmiş anlam yok. Bir özetten sonra bir anlamın kaydedilmesine onay verebilirsin.',
+  'm.from': '{date} tarihli kayıttan', 'm.edit': 'Düzenle', 'm.save': 'Kaydet', 'm.delTitle': 'Bu anlam silinsin mi?', 'm.delAll': 'Tüm anlamları sil', 'm.delAllTitle': 'Tüm anlamlar silinsin mi?', 'm.saved': 'Kaydedildi.', 'm.deleted': 'Anlam silindi.', 'm.openEntry': 'Kaydı aç',
+  's.title': 'Ayarlar', 's.lang': 'Dil',
+  's.ai': 'Çevrim içi yapay zekâ diyaloğu', 's.aiToggle': 'Çevrim içi yapay zekâyı kullan',
+  's.aiText': 'Varsayılan olarak kapalıdır. Açarsan uygulama, yalnızca bir adımda açıkça göndermeyi seçtiğin metni ve seçili dili, sana sorular önermesi için bir yapay zekâ hizmetine iletir. Günlüğünün geri kalanı, etiketlerin ve kaydettiğin anlamlar gönderilmez. Yapay zekâ kehanet, teşhis ya da otorite iddiası içeren ifadeler vermez.',
+  's.aiStub': 'Prototipte bağlı değil – hiçbir veri gönderilmez.', 's.aiOn': 'Açık (yer tutucu)', 's.aiOff': 'Kapalı',
+  's.data': 'Bu cihazdaki veriler', 's.dataText': 'Kayıtlar bu tarayıcıda yerel olarak saklanır. Hesap yok, eşitleme yok, aktarım yok.',
+  's.about': 'İçPusula hakkında',
+  's.aboutText': 'İçPusula senden yola çıkan sorular sorar. Uygulama geleceği tahmin etmez, teşhis koymaz; evrensel sembol anlamları ya da doğaüstü varlıklarla temas iddia etmez. Seri sayacı yok, satın alma yok.',
+  's.proto': 'Tıklanabilir prototip. Metinler henüz uzmanlar ve anadili konuşanlar tarafından incelenmedi.'
+},
+en: {
+  skip: 'Skip to content',
+  appName: 'Inner Compass',
+  langLabel: 'Choose language',
+  'nav.home': 'Home', 'nav.journal': 'Journal', 'nav.patterns': 'Patterns', 'nav.meanings': 'Meanings', 'nav.settings': 'Settings', navLabel: 'Main navigation',
+  slogan: 'No predictions. Questions that help you find your own meaning.',
+  footNo: 'Inner Compass does not predict the future and does not diagnose. No streaks, no purchases.',
+  footHelp: 'Help in a crisis',
+  storageOff: 'Local storage is not available. Entries will only be kept until you close the page.',
+  homeHello: 'What’s on your mind?',
+  homeBig: 'Capture a dream or a thought',
+  homeBigSub: 'Guided in 8 short steps',
+  homeSpiritual: 'Spiritual experience (jinn/cin, spirits, angels, the deceased)',
+  homeSpiritualSub: 'Optional, separate topic path',
+  homeOffline: 'Works offline. Your entries stay on this device.',
+  homeJournalSub: '{n}',
+  homePatternsSub: '{n} cards',
+  entriesCount1: '1 entry', entriesCountN: '{n} entries',
+  cardsCount1: '1 card', cardsCountN: '{n} cards',
+  stepOf: 'Step {n} of {total}',
+  spPre: 'Spiritual topic path – before we start',
+  progressLabel: 'Progress',
+  safetyLink: 'I don’t feel safe right now',
+  next: 'Next', back: 'Back', backToSummary: 'Back to summary', saveFinish: 'Save and finish',
+  altGroup: 'Other options',
+  'alt.none': 'No answer fits', 'alt.other': 'Something else', 'alt.unsure': 'Not sure', 'alt.skip': 'Skip', 'alt.end': 'End',
+  'status.none': 'Noted: no answer fits. You can describe it freely – or simply move on.',
+  'status.other': 'Feel free to describe it in your own words.',
+  'status.unsure': 'Noted: not sure. That’s okay.',
+  'status.skipped': 'Skipped.',
+  statusUndo: 'Remove mark',
+  'meta.none': 'no answer fitted', 'meta.other': 'something else', 'meta.unsure': 'not sure', 'meta.skipped': 'skipped',
+  's1.title': 'What happened?', 's1.hint': 'Choose what fits best. You can also leave it open.', s1Legend: 'Kind of experience', s1Free: 'In your own words (optional)',
+  'type.dream': 'Dream', 'type.wake': 'Waking experience', 'type.memory': 'Memory', 'type.story': 'Story', 'type.unsure': 'Not sure',
+  's2.title': 'What did you notice?', 's2.hint': 'Describe it yourself first – the app makes no suggestions before that.', s2Free: 'What did you notice?',
+  tagsLabel: 'Your own tags (e.g. raven)', tagsAdd: 'Add', tagRemove: 'Remove tag “{t}”', tagsNone: 'No tags yet.', tagAdded: 'Tag “{t}” added.',
+  aiSuggest: 'Suggest a follow-up question (AI)', aiStub: 'Not connected in the prototype – nothing was sent.',
+  's3.title': 'What feeling was there?', 's3.hint': 'You can choose several.', s3Legend: 'Feelings', s3Free: 'Your own words for the feeling (optional)',
+  'feel.curiosity': 'Curiosity', 'feel.joy': 'Joy', 'feel.calm': 'Calm', 'feel.hope': 'Hope', 'feel.relief': 'Relief', 'feel.awe': 'Awe',
+  'feel.longing': 'Longing', 'feel.sadness': 'Sadness', 'feel.fear': 'Fear', 'feel.anger': 'Anger', 'feel.shame': 'Shame', 'feel.confusion': 'Confusion',
+  'feel.none': 'none of these', 'feel.unknown': 'I don’t know',
+  's4.title': 'What personal connection is there?', 's4.hint': 'For example a memory, family, culture, religion, a wish or a worry – or none of these.', s4Legend: 'Connections', s4Free: 'Would you like to say more? (optional)',
+  'conn.memory': 'Memory', 'conn.family': 'Family', 'conn.culture': 'Culture', 'conn.religion': 'Religion', 'conn.wish': 'Wish', 'conn.worry': 'Worry',
+  's5.title': 'What was going on at the time?', 's5.hint': 'Only as much as you want to share.', s5Free: 'Context (optional)',
+  's6.title': 'Which other perspectives fit?', 's6.hint': 'These perspectives stand side by side as equals. None is marked as true – you decide what fits for you.', s6Free: 'Your own perspective (optional)', s6Pick: 'Fits for me', s6Legend: 'Perspectives',
+  'persp.chance': 'Coincidence', 'persp.chance.d': 'Maybe it simply came together by chance.', 'persp.chance.q': 'How does it feel to see it as coincidence?',
+  'persp.attention': 'Heightened attention', 'persp.attention.d': 'When something is on our mind, we notice it more often.', 'persp.attention.q': 'Are you paying special attention to things like this right now?',
+  'persp.everyday': 'Everyday memory', 'persp.everyday.d': 'Images can come from things you have recently seen or experienced.', 'persp.everyday.q': 'Have you come across this somewhere lately?',
+  'persp.culture': 'Cultural story', 'persp.culture.d': 'Families and cultures have stories about this – many different ones, not one right one.', 'persp.culture.q': 'Which story do you know about it, and from whom?',
+  'persp.personal': 'Personal meaning', 'persp.personal.d': 'It may mean something only you can name.', 'persp.personal.q': 'What does it mean to you?',
+  'persp.belief': 'Your own faith', 'persp.belief.d': 'You can look at it in the light of your own faith – the way you understand it.', 'persp.belief.q': 'What does your faith say to you about it – and where do you know that from?',
+  's7.title': 'What do you think yourself?', s7SumTitle: 'Your answers – summarized', s7SumNote: 'This summary contains only what you wrote or chose yourself.',
+  s7Question: 'Does this summary fit?', 'fb.fits': 'Fits', 'fb.partly': 'Partly', 'fb.no': 'No', fbEdit: 'Change',
+  s7Correction: 'What would you put differently?', s7Own: 'What do you think about it yourself? (optional)',
+  editTitle: 'What would you like to change?', editStep: 'Step {n}: {title}',
+  consentLabel: 'Yes, remember a personal meaning – only on this device. I can change or delete it at any time under “My meanings”.',
+  consentTerm: 'Term', consentMeaning: 'What does it mean to you?',
+  'sum.type': 'Kind', 'sum.noticed': 'Noticed', 'sum.feelings': 'Feelings', 'sum.connection': 'Connection', 'sum.context': 'Context', 'sum.persp': 'Perspectives you chose', 'sum.tags': 'Tags', 'sum.spiritual': 'Spiritual topic path', 'sum.empty': '(not given)',
+  's8.title': 'How would you like to continue?', s8Legend: 'Next step',
+  'next.write': 'Keep writing', 'next.question': 'Choose a next question', 'next.step': 'Plan a small step', 'next.end': 'End the session',
+  s8Write: 'Keep writing', s8QLegend: 'Which question would you like to ask yourself?', s8Answer: 'Your answer (optional)', s8Step: 'My small step', s8StepPh: 'e.g. take a five-minute walk tomorrow',
+  'nq.q1': 'When did you first come across this?', 'nq.q2': 'Is there someone you would like to talk to about this?', 'nq.q3': 'What would be different if the feeling were a little smaller?',
+  endTitle: 'End the session?', endText: 'You can save your answers so far or discard them.', endSave: 'Save answers so far', endDiscard: 'Discard', endContinue: 'Keep going',
+  savedTitle: 'Saved.', savedText: 'Thank you for your time. Your entry is stored only on this device.', savedJournal: 'View in journal', savedHome: 'Back to home', savedAssoc: 'Your personal meaning has been saved.',
+  'sp.title': 'Spiritual experience',
+  'sp.intro': 'This path is optional. You can skip or end at any time. The app cannot tell whether a being is present and never speaks for one. You decide what it means to you.',
+  'sp.kindQ': 'What is this about?', 'sp.kindFree': 'In your own words (optional)',
+  'spk.dream': 'A dream', 'spk.personal': 'A personal experience', 'spk.belief': 'A religious belief', 'spk.story': 'A cultural story', 'spk.unsure': 'Not sure',
+  'sp.safetyQ': 'Before we go on: do you feel threatened right now, or is a voice telling you to hurt yourself or others?',
+  'sp.safetyHint': 'We ask everyone this question. Your answer is not saved.',
+  'sp.yes': 'Yes', 'sp.no': 'No', 'sp.preferNot': 'I’d rather not say',
+  'sp.viewQ': 'What would you like to see?',
+  'spv.personal': 'Personal reflection only', 'spv.culture': 'Cultural/religious perspective', 'spv.both': 'Both',
+  'sp.cultureTitle': 'Cultural and religious perspective',
+  'sp.cultureText': 'Content is created with experts – labelled with tradition, source and context.',
+  'sp.cultureMore': 'There is no content here in the prototype yet. There is no single interpretation that applies to all believers.',
+  'sp.toPersonal': 'Continue to personal reflection', 'sp.toPersonalOpt': 'Reflect personally anyway',
+  safetyTitle: 'Let’s pause here.',
+  safetyText: 'Thank you for telling us. Right now, talking to a person matters more than interpreting anything. You don’t have to carry this alone.',
+  safetyStopped: 'The interpretation path has ended. Nothing was saved.',
+  safetyPaused: 'The session is paused.',
+  safetyDanger: 'If you are in immediate danger, call emergency services.',
+  safetyDE: 'Germany – TelefonSeelsorge (free, 24/7, in German)',
+  safetyEU: 'Emergency number in the EU and Türkiye:', safetyCall: 'Call: {n}',
+  safetyElse: 'Elsewhere: contact your local emergency services.',
+  safetyPerson: 'If you can: talk to someone you trust, or don’t stay alone.',
+  safetyHome: 'Back to home', safetyBack: 'Back to the session',
+  'j.title': 'Journal', 'j.search': 'Search entries', 'j.tag': 'Filter by tag', 'j.allTags': 'All tags', 'j.order': 'Newest first',
+  'j.empty': 'No entries yet. You can start a session or load demo data.', 'j.noMatch': 'No matching entries.',
+  'j.filterIds': 'Showing {n} entries from a pattern card.', 'j.clearFilter': 'Clear filter', 'j.noText': '(no text)', 'j.partial': 'incomplete',
+  demoLoad: 'Load demo data', demoRemove: 'Remove demo data', demoLoaded: '{n} demo entries loaded.', demoRemoved: 'Demo data removed.', demoBadge: 'Demo',
+  exportAll: 'Export all as JSON', exported: 'Export created.', deleteAll: 'Delete everything',
+  deleteAllTitle: 'Delete everything?', deleteAllText: 'All entries, meanings and settings on this device will be permanently deleted. This cannot be undone.', deletedAll: 'All data has been deleted.',
+  del: 'Delete', cancel: 'Cancel',
+  'e.title': 'Entry', 'e.back': 'Back to journal', 'e.delete': 'Delete entry', 'e.delTitle': 'Delete entry?', 'e.delText': 'This entry will be permanently deleted.', 'e.deleted': 'Entry deleted.',
+  'e.feedback': 'Your view of the summary', 'e.correction': 'Correction', 'e.own': 'Your own thoughts', 'e.next': 'How it continues', 'e.notFound': 'This entry no longer exists.', 'e.marks': 'Marks',
+  'p.title': 'Patterns',
+  'p.intro': 'These cards only count tags and feelings you saved yourself that appear in at least two entries. They do not explain causes and predict nothing.',
+  'p.empty': 'No recurring tags or feelings yet. Cards appear as soon as something shows up in at least two entries.',
+  'p.kindTag': 'Your own term', 'p.kindFeel': 'Feeling',
+  'p.span': 'between {from} and {to}', 'p.spanSame': 'on {from}',
+  'p.tag': 'In {n} entries {span}, you noted the term “{term}”.',
+  'p.feel': 'In {n} entries {span}, you noted the feeling “{term}”.',
+  'p.co': 'In {k} of them, you also noted {feeling}.',
+  'p.view': 'View entries', 'p.hide': 'Hide card', 'p.unhide': 'Show again', 'p.showHidden': 'Show hidden cards ({n})', 'p.hideHidden': 'Collapse hidden cards', 'p.hidden': 'Card hidden.',
+  'm.title': 'My meanings',
+  'm.intro': 'Only personal meanings you explicitly agreed to save appear here. They stay on this device, and you can change or delete them at any time.',
+  'm.empty': 'No saved meanings yet. After a summary you can agree to save a meaning.',
+  'm.from': 'From the entry on {date}', 'm.edit': 'Edit', 'm.save': 'Save', 'm.delTitle': 'Delete this meaning?', 'm.delAll': 'Delete all meanings', 'm.delAllTitle': 'Delete all meanings?', 'm.saved': 'Saved.', 'm.deleted': 'Meaning deleted.', 'm.openEntry': 'Open entry',
+  's.title': 'Settings', 's.lang': 'Language',
+  's.ai': 'Online AI dialogue', 's.aiToggle': 'Use online AI',
+  's.aiText': 'Off by default. If you turn it on, the app would send only the text you explicitly choose to send in a step, together with the selected language, to an AI service to suggest follow-up questions. Not sent: the rest of your journal, your tags and your saved meanings. The AI gives no predictions, diagnoses or statements of authority.',
+  's.aiStub': 'Not connected in the prototype – no data is sent.', 's.aiOn': 'On (placeholder)', 's.aiOff': 'Off',
+  's.data': 'Data on this device', 's.dataText': 'Entries are stored locally in this browser. No account, no sync, no transfer.',
+  's.about': 'About Inner Compass',
+  's.aboutText': 'Inner Compass asks questions that start with you. The app does not predict the future, does not diagnose, and claims neither universal symbol meanings nor contact with supernatural beings. No streaks, no purchases.',
+  's.proto': 'Clickable prototype. Texts have not yet been reviewed by experts or native speakers.'
+}
+};
+const SLOGANS = { de: T.de.slogan, tr: T.tr.slogan, en: T.en.slogan };
+const LOCALE = { de: 'de-DE', tr: 'tr-TR', en: 'en-GB' };
+const TYPES = ['dream', 'wake', 'memory', 'story', 'unsure'];
+const FEELINGS = ['curiosity', 'joy', 'calm', 'hope', 'relief', 'awe', 'longing', 'sadness', 'fear', 'anger', 'shame', 'confusion'];
+const CONNECTIONS = ['memory', 'family', 'culture', 'religion', 'wish', 'worry'];
+const PERSPECTIVES = ['chance', 'attention', 'everyday', 'culture', 'personal'];
+const SP_KINDS = ['dream', 'personal', 'belief', 'story', 'unsure'];
+const SP_VIEWS = ['personal', 'culture', 'both'];
+const NEXTS = ['write', 'question', 'step', 'end'];
+const NEXT_QS = ['q1', 'q2', 'q3'];
+const TOTAL = 8;
+
+/* ------------------------------------------------------------------ *
+ * Storage (works without localStorage)
+ * ------------------------------------------------------------------ */
+const store = {
+  ok: true, mem: {},
+  init() {
+    try { const k = '__ik_test'; window.localStorage.setItem(k, '1'); window.localStorage.removeItem(k); }
+    catch (e) { this.ok = false; }
+  },
+  get(k, fallback) {
+    if (Object.prototype.hasOwnProperty.call(this.mem, k)) return this.mem[k];
+    let v = null;
+    try { const raw = window.localStorage.getItem(k); v = raw == null ? null : JSON.parse(raw); }
+    catch (e) { v = null; }
+    this.mem[k] = v == null ? fallback : v;
+    return this.mem[k];
+  },
+  set(k, v) {
+    this.mem[k] = v;
+    try { window.localStorage.setItem(k, JSON.stringify(v)); } catch (e) { this.ok = false; }
+  },
+  clear() {
+    ['ik.entries', 'ik.assoc', 'ik.hidden', 'ik.settings'].forEach(k => {
+      delete this.mem[k];
+      try { window.localStorage.removeItem(k); } catch (e) { /* ignore */ }
+    });
+  }
+};
+store.init();
+
+const data = {
+  get entries() { const v = store.get('ik.entries', []); return Array.isArray(v) ? v : []; },
+  set entries(v) { store.set('ik.entries', v); },
+  get assoc() { const v = store.get('ik.assoc', []); return Array.isArray(v) ? v : []; },
+  set assoc(v) { store.set('ik.assoc', v); },
+  get hidden() { const v = store.get('ik.hidden', []); return Array.isArray(v) ? v : []; },
+  set hidden(v) { store.set('ik.hidden', v); },
+  get settings() { const v = store.get('ik.settings', {}); return (v && typeof v === 'object') ? v : {}; },
+  set settings(v) { store.set('ik.settings', v); }
+};
+
+/* ------------------------------------------------------------------ *
+ * State & helpers
+ * ------------------------------------------------------------------ */
+const initialLang = ['de', 'tr', 'en'].includes(data.settings.lang) ? data.settings.lang : 'de';
+const state = {
+  lang: initialLang, view: 'home', entryId: null,
+  journalQuery: '', journalTag: '', journalIds: null,
+  showHidden: false, editingAssoc: null, safetyFrom: null
+};
+let session = null; // {mode, phase, step, returnToSummary, editList, status, aiNote}
+let draft = null;
+let assocDraft = null;
+let lastSaved = null;
+
+function t(key, vars) {
+  let s = T[state.lang][key];
+  if (s == null) s = T.de[key];
+  if (s == null) s = key;
+  if (vars) s = s.replace(/\{(\w+)\}/g, (m, k) => (vars[k] != null ? String(vars[k]) : m));
+  return s;
+}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+const e_ = (k, v) => esc(t(k, v));
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); }
+function fmtDate(iso, opts) {
+  try { return new Intl.DateTimeFormat(LOCALE[state.lang], opts || { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso)); }
+  catch (e) { return String(iso).slice(0, 10); }
+}
+function countLabel(n, one, many) { return n === 1 ? t(one) : t(many, { n }); }
+function feelingInline(key) {
+  const label = t('feel.' + key);
+  return state.lang === 'de' ? label : label.toLocaleLowerCase(LOCALE[state.lang]);
+}
+function normTag(s) { return String(s).trim().toLocaleLowerCase(LOCALE[state.lang]); }
+
+function newDraft(mode) {
+  return {
+    id: uid(), createdAt: new Date().toISOString(), demo: false, partial: false,
+    type: '', typeText: '', noticed: '', tags: [], feelings: [], feelingText: '',
+    connections: [], connectionText: '', context: '', perspectives: [], perspectiveText: '',
+    summaryFeedback: '', correction: '', ownThought: '', next: '', nextText: '', nextQuestion: '', nextStep: '',
+    meta: {}, spiritual: mode === 'spiritual' ? { kind: '', kindText: '', view: '' } : null
+  };
+}
+
+/* ------------------------------------------------------------------ *
+ * Icons
+ * ------------------------------------------------------------------ */
+const I = {
+  compass: '<svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20.5 11.5 18 18l-6.5 2.5L14 14z" fill="var(--accent)"/><circle cx="16" cy="16" r="1.6" fill="var(--surface)"/></svg>',
+  home: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>',
+  book: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/><path d="M9 7h6"/></svg>',
+  pattern: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6h7M6 8.5v7"/></svg>',
+  heart: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>',
+  gear: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+  moon: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/><path d="M15 3v3M13.5 4.5h3" stroke-linecap="round"/></svg>',
+  star: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3c.6 4.6 3.4 7.4 8 8-4.6.6-7.4 3.4-8 8-.6-4.6-3.4-7.4-8-8 4.6-.6 7.4-3.4 8-8z"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="M12 8v5M12 16h.01" stroke-linecap="round"/></svg>',
+  hands: '<svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="21"/><path d="M24 34s-9-5.4-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.6-9 12-9 12z"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>'
+};
+
+/* ------------------------------------------------------------------ *
+ * UI utilities: toast, live region, dialog
+ * ------------------------------------------------------------------ */
+let toastTimer = null;
+function announce(msg) {
+  const live = document.getElementById('live');
+  live.textContent = '';
+  setTimeout(() => { live.textContent = msg; }, 30);
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+function ask(title, text, buttons) {
+  const dlg = document.getElementById('dlg');
+  if (typeof dlg.showModal !== 'function') {
+    const primary = buttons.find(b => b.value !== null);
+    return Promise.resolve(window.confirm(title + '\n\n' + text) ? primary.value : null);
+  }
+  document.getElementById('dlg-title').textContent = title;
+  document.getElementById('dlg-text').textContent = text;
+  const box = document.getElementById('dlg-actions');
+  box.innerHTML = buttons.map((b, i) =>
+    `<button type="button" class="btn ${b.cls || ''}" data-i="${i}">${esc(b.label)}</button>`).join('');
+  const prevFocus = document.activeElement;
+  return new Promise(resolve => {
+    let done = false;
+    const finish = v => {
+      if (done) return; done = true;
+      if (dlg.open) dlg.close();
+      resolve(v);
+      if (prevFocus && document.body.contains(prevFocus)) prevFocus.focus();
+    };
+    box.onclick = ev => { const b = ev.target.closest('button[data-i]'); if (b) finish(buttons[+b.dataset.i].value); };
+    dlg.oncancel = ev => { ev.preventDefault(); finish(null); };
+    dlg.showModal();
+    const def = box.querySelector('button[data-i="' + Math.max(0, buttons.findIndex(b => b.focus)) + '"]');
+    if (def) def.focus();
+  });
+}
+
+/* ------------------------------------------------------------------ *
+ * Rendering
+ * ------------------------------------------------------------------ */
+function render(opts) {
+  opts = opts || {};
+  const app = document.getElementById('app');
+  const active = document.activeElement;
+  const keepId = opts.keep && active && active.id ? active.id : null;
+  document.documentElement.lang = state.lang;
+  document.getElementById('skip').textContent = t('skip');
+  const inFlow = state.view === 'session' || state.view === 'safety';
+  if (!opts.keep && !opts.focus) { clearTimeout(toastTimer); document.getElementById('toast').classList.remove('show'); }
+  app.innerHTML =
+    headerHTML() +
+    (store.ok ? '' : `<div class="banner" role="status">${e_('storageOff')}</div>`) +
+    `<main id="main" tabindex="-1">${viewHTML()}</main>` +
+    (inFlow ? '' : navHTML()) +
+    footerHTML();
+  if (keepId && document.getElementById(keepId)) {
+    document.getElementById(keepId).focus();
+  } else if (opts.focus) {
+    const el = document.querySelector(opts.focus);
+    if (el) el.focus();
+  } else if (!opts.noFocus) {
+    const h = document.querySelector('main h1, main h2');
+    if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+    window.scrollTo(0, 0);
+  }
+}
+
+function headerHTML() {
+  const langs = ['de', 'tr', 'en'].map(l =>
+    `<button type="button" data-action="lang" data-lang="${l}" aria-pressed="${state.lang === l}" lang="${l}" aria-label="${l === 'de' ? 'Deutsch' : l === 'tr' ? 'Türkçe' : 'English'}">${l.toUpperCase()}</button>`).join('');
+  return `<header class="topbar">
+    <button type="button" class="brand" data-action="go" data-view="home" aria-label="${e_('appName')} – ${e_('nav.home')}">${I.compass}<span>${e_('appName')}</span></button>
+    <div class="langs" role="group" aria-label="${e_('langLabel')}">${langs}</div>
+    <button type="button" class="icon-btn" data-action="go" data-view="settings" aria-label="${e_('nav.settings')}" ${state.view === 'settings' ? 'aria-current="page"' : ''}>${I.gear}</button>
+  </header>`;
+}
+function navHTML() {
+  const items = [['home', I.home], ['journal', I.book], ['patterns', I.pattern], ['meanings', I.heart]];
+  const cur = state.view === 'entry' ? 'journal' : state.view;
+  return `<nav class="tabbar" aria-label="${e_('navLabel')}">${items.map(([v, ic]) =>
+    `<button type="button" data-action="go" data-view="${v}" ${cur === v ? 'aria-current="page"' : ''}>${ic}<span>${e_('nav.' + v)}</span></button>`).join('')}</nav>`;
+}
+function footerHTML() {
+  const others = ['de', 'tr', 'en'].filter(l => l !== state.lang)
+    .map(l => `<span lang="${l}">${esc(SLOGANS[l])}</span>`).join('<br>');
+  return `<footer class="foot">
+    <p class="slogan">${e_('slogan')}</p>
+    <p>${others}</p>
+    <p>${e_('footNo')}</p>
+    ${state.view !== 'safety' ? `<p><button type="button" class="btn-link" data-action="safety" data-from="footer">${e_('footHelp')}</button></p>` : ''}
+  </footer>`;
+}
+
+function viewHTML() {
+  switch (state.view) {
+    case 'session': return sessionHTML();
+    case 'saved': return savedHTML();
+    case 'safety': return safetyHTML();
+    case 'journal': return journalHTML();
+    case 'entry': return entryHTML();
+    case 'patterns': return patternsHTML();
+    case 'meanings': return meaningsHTML();
+    case 'settings': return settingsHTML();
+    default: return homeHTML();
+  }
+}
+
+/* ---------- Home ---------- */
+function homeHTML() {
+  const n = data.entries.length;
+  const p = computePatterns().filter(c => !c.hidden).length;
+  return `<h1>${e_('homeHello')}</h1>
+  <p class="muted">${e_('slogan')}</p>
+  <div class="stack">
+    <button type="button" class="btn btn-primary btn-big" data-action="start" data-mode="normal" id="start-btn">${I.moon}<span>${e_('homeBig')}</span><span class="small" style="font-weight:400">${e_('homeBigSub')}</span></button>
+    <button type="button" class="btn btn-block" data-action="start" data-mode="spiritual" id="start-spiritual" style="flex-direction:column;align-items:flex-start;text-align:left">
+      <span class="row" style="gap:8px;flex-wrap:nowrap"><span style="width:24px;height:24px;flex:none;display:inline-block">${I.star}</span><span>${e_('homeSpiritual')}</span></span>
+      <span class="small muted" style="font-weight:400">${e_('homeSpiritualSub')}</span>
+    </button>
+    <div class="nav-cards">
+      <button type="button" class="btn nav-card" data-action="go" data-view="journal"><span style="width:26px;height:26px">${I.book}</span>${e_('nav.journal')}<span class="muted">${esc(countLabel(n, 'entriesCount1', 'entriesCountN'))}</span></button>
+      <button type="button" class="btn nav-card" data-action="go" data-view="patterns"><span style="width:26px;height:26px">${I.pattern}</span>${e_('nav.patterns')}<span class="muted">${esc(countLabel(p, 'cardsCount1', 'cardsCountN'))}</span></button>
+    </div>
+    <p class="note">${e_('homeOffline')}</p>
+    ${n === 0 ? `<button type="button" class="btn btn-block" data-action="demo-load">${e_('demoLoad')}</button>` : ''}
+  </div>`;
+}
+
+/* ---------- Session ---------- */
+function stepTitle(n) { return t('s' + n + '.title'); }
+function curMetaKey() { return session.phase === 'step' ? String(session.step) : session.phase; }
+
+function sessionHTML() {
+  const s = session;
+  let head;
+  if (s.phase === 'step') {
+    head = `<div class="row"><span>${e_('stepOf', { n: s.step, total: TOTAL })}</span></div>
+      <div class="progress" role="progressbar" aria-label="${e_('progressLabel')}" aria-valuemin="1" aria-valuemax="${TOTAL}" aria-valuenow="${s.step}"><div style="width:${(s.step / TOTAL) * 100}%"></div></div>`;
+  } else {
+    head = `<div class="row"><span>${e_('spPre')}</span></div>`;
+  }
+  head += `<button type="button" class="safety-link" data-action="safety" data-from="session" id="safety-link">${I.shield}<span>${e_('safetyLink')}</span></button>`;
+  let body = '';
+  if (s.phase === 'sp-kind') body = spKindHTML();
+  else if (s.phase === 'sp-safety') body = spSafetyHTML();
+  else if (s.phase === 'sp-view') body = spViewHTML();
+  else if (s.phase === 'sp-culture') body = spCultureHTML();
+  else body = stepHTML(s.step);
+  return `<div class="session-head">${head}</div><section aria-live="off">${body}</section>`;
+}
+
+function statusHTML() {
+  const m = draft.meta[curMetaKey()];
+  const msg = session.status || (m ? t('status.' + m) : '');
+  if (!msg) return '';
+  return `<div class="status" role="status"><span>${esc(msg)}</span>${m ? `<button type="button" class="btn-link" data-action="alt-undo">${e_('statusUndo')}</button>` : ''}</div>`;
+}
+function altRowHTML() {
+  return `<div class="alt-row" role="group" aria-label="${e_('altGroup')}">
+    ${['none', 'other', 'unsure', 'skip'].map(a => `<button type="button" class="btn" data-action="alt" data-alt="${a}">${e_('alt.' + a)}</button>`).join('')}
+    <button type="button" class="btn" data-action="end">${e_('alt.end')}</button>
+  </div>`;
+}
+function navRowHTML(opts) {
+  opts = opts || {};
+  const showBack = opts.back !== false;
+  let primary = opts.primary || (session.returnToSummary ? t('backToSummary') : t('next'));
+  return `<div class="step-nav">
+    ${showBack ? `<button type="button" class="btn" data-action="back">${e_('back')}</button>` : ''}
+    <button type="button" class="btn btn-primary" data-action="${opts.action || 'next'}" id="next-btn">${esc(primary)}</button>
+  </div>`;
+}
+function radioChips(name, opts, current, labelPrefix, bindField) {
+  return opts.map(o => {
+    const id = `opt-${name}-${o}`;
+    const on = current === o;
+    return `<label class="chip ${on ? 'on' : ''}" for="${id}"><input type="radio" id="${id}" name="${name}" value="${o}" data-radio="${bindField}" ${on ? 'checked' : ''}><span>${e_(labelPrefix + o)}</span></label>`;
+  }).join('');
+}
+function checkChips(name, opts, arr, labelPrefix, group) {
+  return opts.map(o => {
+    const id = `opt-${name}-${o}`;
+    const on = arr.includes(o);
+    return `<label class="chip ${on ? 'on' : ''}" for="${id}"><input type="checkbox" id="${id}" value="${o}" data-group="${group}" ${on ? 'checked' : ''}><span>${e_(labelPrefix + o)}</span></label>`;
+  }).join('');
+}
+function textArea(id, field, label, value, ph, rows) {
+  return `<div><label class="field" for="${id}">${esc(label)}</label><textarea id="${id}" data-bind="${field}" ${rows ? `rows="${rows}" style="min-height:auto"` : ''} ${ph ? `placeholder="${esc(ph)}"` : ''}>${esc(value)}</textarea></div>`;
+}
+function tagEditorHTML(tags, scope) {
+  const list = tags.length
+    ? `<div class="taglist" id="${scope}-tags">${tags.map((tg, i) => `<span class="tag">${esc(tg)}<button type="button" data-action="tag-remove" data-scope="${scope}" data-i="${i}" aria-label="${e_('tagRemove', { t: tg })}">×</button></span>`).join('')}</div>`
+    : `<p class="muted small" id="${scope}-tags">${e_('tagsNone')}</p>`;
+  return `<div><label class="field" for="${scope}-tag-input">${e_('tagsLabel')}</label>
+    <div class="tag-input"><input type="text" id="${scope}-tag-input" data-tag-input="${scope}" autocomplete="off" enterkeyhint="done"><button type="button" class="btn" data-action="tag-add" data-scope="${scope}" id="${scope}-tag-add">${e_('tagsAdd')}</button></div>
+    <div style="margin-top:10px">${list}</div></div>`;
+}
+
+function stepHTML(n) {
+  const d = draft;
+  const title = `<h2 class="step-title" id="step-title">${esc(stepTitle(n))}</h2>`;
+  let inner = '';
+  switch (n) {
+    case 1:
+      inner = `<p class="hint">${e_('s1.hint')}</p>
+        <fieldset><legend>${e_('s1Legend')}</legend><div class="chips" role="radiogroup">${radioChips('type', TYPES, d.type, 'type.', 'type')}</div></fieldset>
+        <div class="spacer"></div>${textArea('free-cur', 'typeText', t('s1Free'), d.typeText, '', 3)}`;
+      break;
+    case 2:
+      inner = `<p class="hint">${e_('s2.hint')}</p>
+        ${textArea('free-cur', 'noticed', t('s2Free'), d.noticed)}
+        <div class="spacer"></div>${tagEditorHTML(d.tags, 'draft')}
+        ${data.settings.ai ? `<div class="spacer"></div><div class="card card-soft"><button type="button" class="btn btn-sm" data-action="ai-stub">${e_('aiSuggest')}</button>${session.aiNote ? `<p class="small" role="status" style="margin:8px 0 0">${e_('aiStub')}</p>` : ''}</div>` : ''}`;
+      break;
+    case 3:
+      inner = `<p class="hint">${e_('s3.hint')}</p>
+        <fieldset><legend>${e_('s3Legend')}</legend><div class="chips">${checkChips('feel', FEELINGS, d.feelings, 'feel.', 'feelings')}<span class="chip-sep"></span>${checkChips('feel', ['none', 'unknown'], d.feelings, 'feel.', 'feelings')}</div></fieldset>
+        <div class="spacer"></div>${textArea('free-cur', 'feelingText', t('s3Free'), d.feelingText, '', 2)}`;
+      break;
+    case 4:
+      inner = `<p class="hint">${e_('s4.hint')}</p>
+        <fieldset><legend>${e_('s4Legend')}</legend><div class="chips">${checkChips('conn', CONNECTIONS, d.connections, 'conn.', 'connections')}</div></fieldset>
+        <div class="spacer"></div>${textArea('free-cur', 'connectionText', t('s4Free'), d.connectionText)}`;
+      break;
+    case 5:
+      inner = `<p class="hint">${e_('s5.hint')}</p>${textArea('free-cur', 'context', t('s5Free'), d.context)}`;
+      break;
+    case 6: {
+      const list = PERSPECTIVES.concat(d.spiritual ? ['belief'] : []);
+      const showCulture = d.spiritual && (d.spiritual.view === 'culture' || d.spiritual.view === 'both');
+      inner = `<p class="note">${e_('s6.hint')}</p>
+        <fieldset><legend class="vh">${e_('s6Legend')}</legend><div class="persp-grid">${list.map(p => {
+          const on = d.perspectives.includes(p); const id = 'opt-persp-' + p;
+          return `<label class="persp ${on ? 'on' : ''}" for="${id}"><strong>${e_('persp.' + p)}</strong><span>${e_('persp.' + p + '.d')}</span><span class="q">${e_('persp.' + p + '.q')}</span><span class="pick"><input type="checkbox" id="${id}" value="${p}" data-group="perspectives" ${on ? 'checked' : ''}>${e_('s6Pick')}</span></label>`;
+        }).join('')}</div></fieldset>
+        ${showCulture ? `<div class="spacer"></div>${cultureCardHTML()}` : ''}
+        <div class="spacer"></div>${textArea('free-cur', 'perspectiveText', t('s6Free'), d.perspectiveText, '', 3)}`;
+      break;
+    }
+    case 7: inner = step7HTML(); break;
+    case 8: inner = step8HTML(); break;
+  }
+  const isLast = n === TOTAL;
+  return `${title}${inner}${statusHTML()}${navRowHTML({ back: n > 1 || !!d.spiritual, primary: isLast ? t('saveFinish') : null })}${altRowHTML()}`;
+}
+
+function summaryHTML(d) {
+  const metaNote = k => d.meta && d.meta[k] ? ` <span class="badge">${e_('meta.' + d.meta[k])}</span>` : '';
+  const qo = state.lang === 'de' ? '„' : '“', qc = state.lang === 'de' ? '“' : '”';
+  const q = s => s ? `<span class="quote">${qo}${esc(s)}${qc}</span>` : '';
+  const empty = `<span class="muted">${e_('sum.empty')}</span>`;
+  const join = arr => arr.filter(Boolean).join(' – ');
+  const rows = [];
+  if (d.spiritual) {
+    const sp = [d.spiritual.kind ? esc(t('spk.' + d.spiritual.kind)) : '', d.spiritual.view ? esc(t('spv.' + d.spiritual.view)) : '', q(d.spiritual.kindText)];
+    rows.push(['sum.spiritual', join(sp) || empty, '']);
+  }
+  rows.push(['sum.type', join([d.type ? esc(t('type.' + d.type)) : '', q(d.typeText)]) || empty, metaNote('1')]);
+  rows.push(['sum.noticed', q(d.noticed) || empty, metaNote('2')]);
+  rows.push(['sum.feelings', join([d.feelings.map(f => esc(t('feel.' + f))).join(', '), q(d.feelingText)]) || empty, metaNote('3')]);
+  rows.push(['sum.connection', join([d.connections.map(c => esc(t('conn.' + c))).join(', '), q(d.connectionText)]) || empty, metaNote('4')]);
+  rows.push(['sum.context', q(d.context) || empty, metaNote('5')]);
+  rows.push(['sum.persp', join([d.perspectives.map(p => esc(t('persp.' + p))).join(', '), q(d.perspectiveText)]) || empty, metaNote('6')]);
+  rows.push(['sum.tags', d.tags.length ? `<span class="taglist">${d.tags.map(x => `<span class="tag static">${esc(x)}</span>`).join('')}</span>` : empty, '']);
+  return `<dl class="summary">${rows.map(([k, v, m]) => `<div><dt>${e_(k)}</dt><dd>${v}${m}</dd></div>`).join('')}</dl>`;
+}
+
+function step7HTML() {
+  const d = draft;
+  const fbOpts = ['fits', 'partly', 'no'];
+  let editList = '';
+  if (session.editList) {
+    editList = `<div class="card" style="margin-top:12px"><h3 id="edit-title" tabindex="-1">${e_('editTitle')}</h3><div class="stack">${[1, 2, 3, 4, 5, 6].map(n =>
+      `<button type="button" class="btn btn-block" style="justify-content:flex-start;text-align:left" data-action="edit-step" data-step="${n}">${e_('editStep', { n, title: stepTitle(n) })}</button>`).join('')}</div></div>`;
+  }
+  const corr = (d.summaryFeedback === 'partly' || d.summaryFeedback === 'no')
+    ? `<div class="spacer"></div>${textArea('correction', 'correction', t('s7Correction'), d.correction, '', 3)}` : '';
+  const tagOptions = d.tags;
+  if (assocDraft.consent && !assocDraft.term && tagOptions.length) assocDraft.term = tagOptions[0];
+  const consent = `<div class="card card-soft" style="margin-top:16px">
+      <label style="display:flex;gap:12px;align-items:flex-start;cursor:pointer" for="consent">
+        <input type="checkbox" id="consent" data-consent="1" ${assocDraft.consent ? 'checked' : ''} style="width:24px;height:24px;margin-top:3px;flex:none;accent-color:var(--accent)">
+        <span>${e_('consentLabel')}</span>
+      </label>
+      ${assocDraft.consent ? `<div class="stack" style="margin-top:12px">
+        <div><label class="field" for="assoc-term">${e_('consentTerm')}</label><input type="text" id="assoc-term" data-bind-assoc="term" value="${esc(assocDraft.term)}" list="assoc-terms"><datalist id="assoc-terms">${tagOptions.map(x => `<option value="${esc(x)}">`).join('')}</datalist></div>
+        <div><label class="field" for="assoc-meaning">${e_('consentMeaning')}</label><textarea id="assoc-meaning" data-bind-assoc="meaning" rows="3" style="min-height:auto">${esc(assocDraft.meaning)}</textarea></div>
+      </div>` : ''}
+    </div>`;
+  return `<div class="card">
+      <h3>${e_('s7SumTitle')}</h3>
+      <p class="small muted">${e_('s7SumNote')}</p>
+      ${summaryHTML(d)}
+    </div>
+    <div class="spacer"></div>
+    <fieldset><legend>${e_('s7Question')}</legend>
+      <div class="chips">${radioChips('fb', fbOpts, d.summaryFeedback, 'fb.', 'summaryFeedback')}
+      <button type="button" class="chip chip-btn ${session.editList ? 'on' : ''}" data-action="edit-toggle" aria-expanded="${session.editList}" id="edit-toggle">${e_('fbEdit')}</button></div>
+    </fieldset>
+    ${editList}${corr}
+    <div class="spacer"></div>${textArea('free-cur', 'ownThought', t('s7Own'), d.ownThought, '', 3)}
+    ${consent}`;
+}
+
+function step8HTML() {
+  const d = draft;
+  let extra = '';
+  if (d.next === 'write') extra = textArea('free-cur', 'nextText', t('s8Write'), d.nextText);
+  else if (d.next === 'question') {
+    extra = `<fieldset><legend>${e_('s8QLegend')}</legend><div class="stack">${NEXT_QS.map(qk => {
+      const id = 'opt-nq-' + qk; const on = d.nextQuestion === qk;
+      return `<label class="chip ${on ? 'on' : ''}" for="${id}" style="border-radius:14px;width:100%"><input type="radio" id="${id}" name="nq" value="${qk}" data-radio="nextQuestion" ${on ? 'checked' : ''}><span>${e_('nq.' + qk)}</span></label>`;
+    }).join('')}</div></fieldset><div class="spacer"></div>${textArea('free-cur', 'nextText', t('s8Answer'), d.nextText, '', 3)}`;
+  } else if (d.next === 'step') {
+    extra = `<div><label class="field" for="free-cur">${e_('s8Step')}</label><input type="text" id="free-cur" data-bind="nextStep" value="${esc(d.nextStep)}" placeholder="${e_('s8StepPh')}"></div>`;
+  }
+  return `<fieldset><legend>${e_('s8Legend')}</legend><div class="chips">${radioChips('next', NEXTS, d.next, 'next.', 'next')}</div></fieldset>
+    ${extra ? `<div class="spacer"></div>${extra}` : ''}`;
+}
+
+function spIntro() {
+  return `<p class="note">${e_('sp.intro')}</p>`;
+}
+function spKindHTML() {
+  const sp = draft.spiritual;
+  return `<h2 class="step-title" id="step-title">${e_('sp.title')}</h2>${spIntro()}
+    <fieldset><legend>${e_('sp.kindQ')}</legend><div class="chips">${radioChips('spkind', SP_KINDS, sp.kind, 'spk.', 'sp.kind')}</div></fieldset>
+    <div class="spacer"></div>${textArea('free-cur', 'sp.kindText', t('sp.kindFree'), sp.kindText, '', 2)}
+    ${statusHTML()}${navRowHTML({ back: false })}${altRowHTML()}`;
+}
+function spSafetyHTML() {
+  return `<h2 class="step-title" id="step-title">${e_('sp.safetyQ')}</h2>
+    <p class="hint">${e_('sp.safetyHint')}</p>
+    <div class="stack">
+      <button type="button" class="btn btn-block btn-safe" data-action="sp-threat" data-answer="yes" id="sp-yes">${e_('sp.yes')}</button>
+      <button type="button" class="btn btn-block" data-action="sp-threat" data-answer="no" id="sp-no">${e_('sp.no')}</button>
+      <button type="button" class="btn btn-block" data-action="sp-threat" data-answer="prefer" id="sp-prefer">${e_('sp.preferNot')}</button>
+    </div>
+    <div class="step-nav"><button type="button" class="btn" data-action="back">${e_('back')}</button></div>
+    <div class="alt-row"><button type="button" class="btn" data-action="end">${e_('alt.end')}</button></div>`;
+}
+function spViewHTML() {
+  const sp = draft.spiritual;
+  return `<h2 class="step-title" id="step-title">${e_('sp.viewQ')}</h2>
+    <fieldset><legend class="vh">${e_('sp.viewQ')}</legend><div class="chips">${radioChips('spview', SP_VIEWS, sp.view, 'spv.', 'sp.view')}</div></fieldset>
+    ${statusHTML()}${navRowHTML()}${altRowHTML()}`;
+}
+function cultureCardHTML(noTitle) {
+  return `<div class="card placeholder" role="note" ${noTitle ? 'aria-labelledby="step-title"' : 'aria-labelledby="culture-title"'}>
+    ${noTitle ? '' : `<h3 id="culture-title">${e_('sp.cultureTitle')}</h3>`}
+    <p><strong>${e_('sp.cultureText')}</strong></p>
+    <p class="muted small" style="margin:0">${e_('sp.cultureMore')}</p>
+  </div>`;
+}
+function spCultureHTML() {
+  const both = draft.spiritual.view === 'both';
+  return `<h2 class="step-title" id="step-title">${e_('sp.cultureTitle')}</h2>
+    ${cultureCardHTML(true)}
+    <div class="step-nav"><button type="button" class="btn" data-action="back">${e_('back')}</button>
+    <button type="button" class="btn ${both ? 'btn-primary' : ''}" data-action="next" id="next-btn">${e_(both ? 'sp.toPersonal' : 'sp.toPersonalOpt')}</button></div>
+    <div class="alt-row"><button type="button" class="btn" data-action="end">${e_('alt.end')}</button></div>`;
+}
+
+/* ---------- Saved ---------- */
+function savedHTML() {
+  return `<h1>${e_('savedTitle')}</h1>
+    <p>${e_('savedText')}</p>
+    ${lastSaved && lastSaved.assoc ? `<p class="note">${e_('savedAssoc')}</p>` : ''}
+    <div class="stack">
+      <button type="button" class="btn btn-primary btn-block" data-action="open-entry" data-id="${esc(lastSaved ? lastSaved.id : '')}">${e_('savedJournal')}</button>
+      <button type="button" class="btn btn-block" data-action="go" data-view="home">${e_('savedHome')}</button>
+    </div>`;
+}
+
+/* ---------- Safety ---------- */
+function safetyHTML() {
+  const fromSession = state.safetyFrom === 'session' && session;
+  const stopped = state.safetyFrom === 'spiritual';
+  const call = (num, tel) => `<a class="btn btn-block btn-safe" href="tel:${tel}" aria-label="${e_('safetyCall', { n: num })}">${I.phone}<span>${esc(num)}</span></a>`;
+  return `<div class="safety-screen">
+    <div class="hero-icon">${I.hands}</div>
+    <h1>${e_('safetyTitle')}</h1>
+    <p>${e_('safetyText')}</p>
+    ${stopped ? `<p class="note">${e_('safetyStopped')}</p>` : (fromSession ? `<p class="note">${e_('safetyPaused')}</p>` : '')}
+    <div class="stack">
+      <div class="card contact"><strong>${e_('safetyDanger')}</strong><span>${e_('safetyEU')}</span>${call('112', '112')}</div>
+      <div class="card contact"><span>${e_('safetyDE')}</span>${call('0800 111 0 111', '08001110111')}${call('0800 111 0 222', '08001110222')}</div>
+      <p>${e_('safetyElse')}</p>
+      <p>${e_('safetyPerson')}</p>
+      ${fromSession ? `<button type="button" class="btn btn-block" data-action="safety-back">${e_('safetyBack')}</button>` : ''}
+      <button type="button" class="btn btn-block" data-action="safety-home" id="safety-home">${e_('safetyHome')}</button>
+    </div>
+  </div>`;
+}
+
+/* ---------- Journal ---------- */
+function allTags() {
+  const map = new Map();
+  data.entries.forEach(en => (en.tags || []).forEach(tg => { const k = normTag(tg); if (!map.has(k)) map.set(k, tg); }));
+  return Array.from(map.entries()).sort((a, b) => a[1].localeCompare(b[1], LOCALE[state.lang]));
+}
+function entryText(en) {
+  const parts = [en.typeText, en.noticed, en.feelingText, en.connectionText, en.context, en.perspectiveText, en.correction, en.ownThought, en.nextText, en.nextStep,
+    en.spiritual && en.spiritual.kindText, en.type && t('type.' + en.type)];
+  (en.tags || []).forEach(x => parts.push(x));
+  (en.feelings || []).forEach(f => parts.push(t('feel.' + f)));
+  (en.connections || []).forEach(c => parts.push(t('conn.' + c)));
+  return parts.filter(Boolean).join(' ').toLocaleLowerCase(LOCALE[state.lang]);
+}
+function filteredEntries() {
+  let list = data.entries.slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  if (state.journalIds) list = list.filter(en => state.journalIds.includes(en.id));
+  if (state.journalTag) list = list.filter(en => (en.tags || []).some(tg => normTag(tg) === state.journalTag));
+  const q = state.journalQuery.trim().toLocaleLowerCase(LOCALE[state.lang]);
+  if (q) list = list.filter(en => entryText(en).includes(q));
+  return list;
+}
+function entryCardHTML(en) {
+  const excerpt = en.noticed || en.typeText || en.context || (en.spiritual && en.spiritual.kindText) || t('j.noText');
+  return `<li><button type="button" class="card entry-card" data-action="open-entry" data-id="${esc(en.id)}">
+    <span class="entry-meta"><time datetime="${esc(en.createdAt)}">${esc(fmtDate(en.createdAt))}</time>
+      ${en.type ? `<span class="badge">${e_('type.' + en.type)}</span>` : ''}
+      ${en.spiritual ? `<span class="badge">${e_('sp.title')}</span>` : ''}
+      ${en.demo ? `<span class="badge badge-demo">${e_('demoBadge')}</span>` : ''}
+      ${en.partial ? `<span class="badge">${e_('j.partial')}</span>` : ''}</span>
+    <span class="excerpt" style="display:-webkit-box">${esc(excerpt)}</span>
+    ${(en.feelings && en.feelings.length) ? `<span class="small muted" style="display:block;margin-bottom:6px">${en.feelings.map(f => e_('feel.' + f)).join(', ')}</span>` : ''}
+    ${(en.tags && en.tags.length) ? `<span class="taglist">${en.tags.map(x => `<span class="tag static">${esc(x)}</span>`).join('')}</span>` : ''}
+  </button></li>`;
+}
+function journalListHTML() {
+  const all = data.entries;
+  if (!all.length) return `<p class="muted">${e_('j.empty')}</p>`;
+  const list = filteredEntries();
+  if (!list.length) return `<p class="muted" role="status">${e_('j.noMatch')}</p>`;
+  return `<p class="small muted" role="status">${esc(countLabel(list.length, 'entriesCount1', 'entriesCountN'))} · ${e_('j.order')}</p><ol class="timeline">${list.map(entryCardHTML).join('')}</ol>`;
+}
+function journalHTML() {
+  const tags = allTags();
+  const hasDemo = data.entries.some(en => en.demo);
+  return `<h1>${e_('j.title')}</h1>
+    ${state.journalIds ? `<div class="status" role="status"><span>${e_('j.filterIds', { n: state.journalIds.length })}</span><button type="button" class="btn-link" data-action="clear-ids">${e_('j.clearFilter')}</button></div><div class="spacer"></div>` : ''}
+    <div class="filters">
+      <div><label class="field" for="journal-search">${e_('j.search')}</label><input type="search" id="journal-search" value="${esc(state.journalQuery)}" autocomplete="off"></div>
+      <div><label class="field" for="journal-tag">${e_('j.tag')}</label><select id="journal-tag"><option value="">${e_('j.allTags')}</option>${tags.map(([k, label]) => `<option value="${esc(k)}" ${state.journalTag === k ? 'selected' : ''}>${esc(label)}</option>`).join('')}</select></div>
+    </div>
+    <div id="journal-list">${journalListHTML()}</div>
+    <div class="section stack">
+      <button type="button" class="btn btn-block" data-action="demo-load">${e_('demoLoad')}</button>
+      ${hasDemo ? `<button type="button" class="btn btn-block" data-action="demo-remove">${e_('demoRemove')}</button>` : ''}
+      <button type="button" class="btn btn-block" data-action="export">${e_('exportAll')}</button>
+      <button type="button" class="btn btn-block btn-danger" data-action="delete-all">${e_('deleteAll')}</button>
+    </div>`;
+}
+
+/* ---------- Entry detail ---------- */
+function entryHTML() {
+  const en = data.entries.find(x => x.id === state.entryId);
+  if (!en) return `<h1>${e_('e.title')}</h1><p>${e_('e.notFound')}</p><button type="button" class="btn" data-action="go" data-view="journal">${e_('e.back')}</button>`;
+  const d = Object.assign(newDraft(), en, { tags: en.tags || [], feelings: en.feelings || [], connections: en.connections || [], perspectives: en.perspectives || [], meta: en.meta || {} });
+  const extra = [];
+  if (en.summaryFeedback) extra.push(['e.feedback', esc(t('fb.' + en.summaryFeedback))]);
+  if (en.correction) extra.push(['e.correction', esc(en.correction)]);
+  if (en.ownThought) extra.push(['e.own', esc(en.ownThought)]);
+  if (en.next) {
+    let v = esc(t('next.' + en.next));
+    if (en.nextQuestion) v += '<br><em>' + e_('nq.' + en.nextQuestion) + '</em>';
+    if (en.nextText) v += '<br>' + esc(en.nextText);
+    if (en.nextStep) v += '<br>' + esc(en.nextStep);
+    extra.push(['e.next', v]);
+  }
+  return `<button type="button" class="btn-link" data-action="go" data-view="journal">← ${e_('e.back')}</button>
+    <h1>${esc(fmtDate(en.createdAt))}</h1>
+    <p class="row" style="gap:6px">${en.type ? `<span class="badge">${e_('type.' + en.type)}</span>` : ''}${en.demo ? `<span class="badge badge-demo">${e_('demoBadge')}</span>` : ''}${en.partial ? `<span class="badge">${e_('j.partial')}</span>` : ''}</p>
+    <div class="card">${summaryHTML(d)}
+      ${extra.length ? `<dl class="summary" style="margin-top:10px">${extra.map(([k, v]) => `<div><dt>${e_(k)}</dt><dd>${v}</dd></div>`).join('')}</dl>` : ''}
+    </div>
+    <div class="spacer"></div>
+    <div class="card">${tagEditorHTML(en.tags || [], 'entry')}</div>
+    <div class="section"><button type="button" class="btn btn-block btn-danger" data-action="delete-entry" data-id="${esc(en.id)}" id="delete-entry">${e_('e.delete')}</button></div>`;
+}
+
+/* ---------- Patterns ---------- */
+function computePatterns() {
+  const entries = data.entries;
+  const hidden = data.hidden;
+  const tagMap = new Map();
+  const feelMap = new Map();
+  entries.forEach(en => {
+    const seen = new Set();
+    (en.tags || []).forEach(tg => {
+      const k = normTag(tg); if (!k || seen.has(k)) return; seen.add(k);
+      if (!tagMap.has(k)) tagMap.set(k, { label: tg, entries: [] });
+      tagMap.get(k).entries.push(en);
+    });
+    (en.feelings || []).forEach(f => {
+      if (f === 'none' || f === 'unknown') return;
+      if (!feelMap.has(f)) feelMap.set(f, { entries: [] });
+      feelMap.get(f).entries.push(en);
+    });
+  });
+  const cards = [];
+  const span = list => {
+    const dates = list.map(x => x.createdAt).sort();
+    return { from: dates[0], to: dates[dates.length - 1] };
+  };
+  tagMap.forEach((v, k) => {
+    if (v.entries.length < 2) return;
+    const fc = {};
+    v.entries.forEach(en => (en.feelings || []).forEach(f => { if (f !== 'none' && f !== 'unknown') fc[f] = (fc[f] || 0) + 1; }));
+    let co = null;
+    Object.keys(fc).forEach(f => { if (fc[f] >= 2 && (!co || fc[f] > co.k)) co = { f, k: fc[f] }; });
+    const latest = v.entries.slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0];
+    const label = (latest.tags || []).find(x => normTag(x) === k) || v.label;
+    cards.push({ key: 'tag:' + k, kind: 'tag', term: label, n: v.entries.length, ids: v.entries.map(x => x.id), co, ...span(v.entries) });
+  });
+  feelMap.forEach((v, f) => {
+    if (v.entries.length < 2) return;
+    cards.push({ key: 'feel:' + f, kind: 'feel', feel: f, n: v.entries.length, ids: v.entries.map(x => x.id), ...span(v.entries) });
+  });
+  cards.forEach(c => { c.hidden = hidden.includes(c.key); });
+  cards.sort((a, b) => (a.kind === b.kind ? b.n - a.n : (a.kind === 'tag' ? -1 : 1)));
+  return cards;
+}
+function spanText(from, to) {
+  const y1 = new Date(from).getFullYear(), y2 = new Date(to).getFullYear(), yNow = new Date().getFullYear();
+  const opts = (y1 !== y2 || y1 !== yNow) ? { day: 'numeric', month: 'short', year: 'numeric' } : { day: 'numeric', month: 'short' };
+  const f = fmtDate(from, opts), tt = fmtDate(to, opts);
+  return f === tt ? t('p.spanSame', { from: f }) : t('p.span', { from: f, to: tt });
+}
+function patternCardHTML(c) {
+  const span = spanText(c.from, c.to);
+  let text;
+  if (c.kind === 'tag') {
+    text = t('p.tag', { n: c.n, span, term: c.term });
+    if (c.co) text += ' ' + t('p.co', { k: c.co.k, feeling: feelingInline(c.co.f) });
+  } else {
+    text = t('p.feel', { n: c.n, span, term: feelingInline(c.feel) });
+  }
+  // capitalise first letter (TR sentences start with the date span)
+  text = text.charAt(0).toLocaleUpperCase(LOCALE[state.lang]) + text.slice(1);
+  return `<article class="card pattern" aria-label="${esc(c.kind === 'tag' ? c.term : t('feel.' + c.feel))}">
+    <p class="pattern-kind">${e_(c.kind === 'tag' ? 'p.kindTag' : 'p.kindFeel')} · ${esc(countLabel(c.n, 'entriesCount1', 'entriesCountN'))}</p>
+    <p>${esc(text)}</p>
+    <div class="row">
+      <button type="button" class="btn btn-sm btn-primary" data-action="pattern-view" data-key="${esc(c.key)}">${e_('p.view')}</button>
+      ${c.hidden
+        ? `<button type="button" class="btn btn-sm" data-action="pattern-unhide" data-key="${esc(c.key)}">${e_('p.unhide')}</button>`
+        : `<button type="button" class="btn btn-sm" data-action="pattern-hide" data-key="${esc(c.key)}">${e_('p.hide')}</button>`}
+    </div>
+  </article>`;
+}
+function patternsHTML() {
+  const cards = computePatterns();
+  const vis = cards.filter(c => !c.hidden);
+  const hid = cards.filter(c => c.hidden);
+  return `<h1>${e_('p.title')}</h1>
+    <p class="note">${e_('p.intro')}</p>
+    ${vis.length ? `<div class="stack">${vis.map(patternCardHTML).join('')}</div>` : `<p class="muted">${e_('p.empty')}</p>`}
+    ${hid.length ? `<div class="section"><button type="button" class="btn btn-block" data-action="toggle-hidden" aria-expanded="${state.showHidden}">${state.showHidden ? e_('p.hideHidden') : e_('p.showHidden', { n: hid.length })}</button>
+      ${state.showHidden ? `<div class="stack" style="margin-top:12px">${hid.map(patternCardHTML).join('')}</div>` : ''}</div>` : ''}
+    ${!data.entries.length ? `<div class="section"><button type="button" class="btn btn-block" data-action="demo-load">${e_('demoLoad')}</button></div>` : ''}`;
+}
+
+/* ---------- Meanings ---------- */
+function meaningsHTML() {
+  const list = data.assoc.slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  return `<h1>${e_('m.title')}</h1>
+    <p class="note">${e_('m.intro')}</p>
+    ${!list.length ? `<p class="muted">${e_('m.empty')}</p>` : `<div class="stack">${list.map(a => {
+      const editing = state.editingAssoc === a.id;
+      const entryExists = data.entries.some(x => x.id === a.entryId);
+      return `<article class="card">
+        ${editing ? `<div class="stack">
+            <div><label class="field" for="ae-term-${esc(a.id)}">${e_('consentTerm')}</label><input type="text" id="ae-term-${esc(a.id)}" value="${esc(a.term)}"></div>
+            <div><label class="field" for="ae-meaning-${esc(a.id)}">${e_('consentMeaning')}</label><textarea id="ae-meaning-${esc(a.id)}" rows="3" style="min-height:auto">${esc(a.meaning)}</textarea></div>
+            <div class="row"><button type="button" class="btn btn-primary btn-sm" data-action="assoc-save" data-id="${esc(a.id)}">${e_('m.save')}</button><button type="button" class="btn btn-sm" data-action="assoc-cancel">${e_('cancel')}</button></div>
+          </div>`
+          : `<h3>${esc(a.term)}</h3><p>${esc(a.meaning)}</p>
+          <p class="small muted">${e_('m.from', { date: fmtDate(a.createdAt) })}${entryExists ? ` · <button type="button" class="btn-link" data-action="open-entry" data-id="${esc(a.entryId)}">${e_('m.openEntry')}</button>` : ''}</p>
+          <div class="row"><button type="button" class="btn btn-sm" data-action="assoc-edit" data-id="${esc(a.id)}">${e_('m.edit')}</button><button type="button" class="btn btn-sm btn-danger" data-action="assoc-delete" data-id="${esc(a.id)}">${e_('del')}</button></div>`}
+      </article>`;
+    }).join('')}</div>
+    <div class="section"><button type="button" class="btn btn-block btn-danger" data-action="assoc-delete-all">${e_('m.delAll')}</button></div>`}`;
+}
+
+/* ---------- Settings ---------- */
+function settingsHTML() {
+  const ai = !!data.settings.ai;
+  const hasDemo = data.entries.some(en => en.demo);
+  return `<h1>${e_('s.title')}</h1>
+    <section class="section card" aria-labelledby="set-lang"><h2 id="set-lang" class="h3" style="font-size:1.1rem">${e_('s.lang')}</h2>
+      <div class="row">${['de', 'tr', 'en'].map(l => `<button type="button" class="btn btn-sm ${state.lang === l ? 'btn-primary' : ''}" data-action="lang" data-lang="${l}" aria-pressed="${state.lang === l}" lang="${l}">${l === 'de' ? 'Deutsch' : l === 'tr' ? 'Türkçe' : 'English'}</button>`).join('')}</div>
+    </section>
+    <section class="section card" aria-labelledby="set-ai"><h2 id="set-ai" style="font-size:1.1rem">${e_('s.ai')}</h2>
+      <div class="switch-row"><label for="ai-toggle" style="font-weight:600">${e_('s.aiToggle')}</label>
+        <span class="switch"><input type="checkbox" role="switch" id="ai-toggle" ${ai ? 'checked' : ''} aria-describedby="ai-text ai-stub"><span></span></span></div>
+      <p class="small muted" style="margin:4px 0 8px">${ai ? e_('s.aiOn') : e_('s.aiOff')}</p>
+      <p id="ai-text" class="small">${e_('s.aiText')}</p>
+      <p id="ai-stub" class="note" style="margin:0">${e_('s.aiStub')}</p>
+    </section>
+    <section class="section card" aria-labelledby="set-data"><h2 id="set-data" style="font-size:1.1rem">${e_('s.data')}</h2>
+      <p class="small">${store.ok ? e_('s.dataText') : e_('storageOff')}</p>
+      <div class="stack">
+        <button type="button" class="btn btn-block" data-action="demo-load">${e_('demoLoad')}</button>
+        ${hasDemo ? `<button type="button" class="btn btn-block" data-action="demo-remove">${e_('demoRemove')}</button>` : ''}
+        <button type="button" class="btn btn-block" data-action="export">${e_('exportAll')}</button>
+        <button type="button" class="btn btn-block btn-danger" data-action="delete-all">${e_('deleteAll')}</button>
+      </div>
+    </section>
+    <section class="section card" aria-labelledby="set-about"><h2 id="set-about" style="font-size:1.1rem">${e_('s.about')}</h2>
+      <p>${e_('s.aboutText')}</p>
+      <p class="small muted" style="margin:0">${e_('s.proto')}</p>
+    </section>`;
+}
+
+/* ------------------------------------------------------------------ *
+ * Demo data
+ * ------------------------------------------------------------------ */
+const DEMO = [
+  { days: 68, type: 'dream', feelings: ['curiosity', 'calm'], connections: ['memory', 'family'], perspectives: ['personal'], summaryFeedback: 'fits',
+    noticed: { de: 'Ein Rabe saß auf dem Balkon meiner Großmutter und sah mich ruhig an.', tr: 'Anneannemin balkonunda bir kuzgun oturuyor ve bana sakin sakin bakıyordu.', en: 'A raven sat on my grandmother’s balcony and looked at me calmly.' },
+    connectionText: { de: 'Ihr Balkon in Izmir, als ich klein war.', tr: 'Küçükken İzmir’deki balkonu.', en: 'Her balcony in Izmir when I was little.' },
+    tags: { de: ['Rabe', 'Großmutter'], tr: ['kuzgun', 'anneanne'], en: ['raven', 'grandmother'] } },
+  { days: 47, type: 'dream', feelings: ['curiosity', 'fear'], connections: ['worry'], perspectives: ['everyday', 'attention'], summaryFeedback: 'partly',
+    noticed: { de: 'Ich lief durch einen dunklen Wald, ein Rabe flog vor mir her.', tr: 'Karanlık bir ormanda yürüyordum, önümde bir kuzgun uçuyordu.', en: 'I was walking through a dark forest, a raven flew ahead of me.' },
+    context: { de: 'Viel Stress mit dem Umzug.', tr: 'Taşınma yüzünden çok stres vardı.', en: 'Lots of stress with the move.' },
+    tags: { de: ['Rabe', 'Wald'], tr: ['kuzgun', 'orman'], en: ['raven', 'forest'] } },
+  { days: 30, type: 'memory', feelings: ['longing', 'calm'], connections: ['family'], summaryFeedback: 'fits',
+    noticed: { de: 'Der Geruch von Kaffee im alten Haus, die knarrende Treppe.', tr: 'Eski evdeki kahve kokusu, gıcırdayan merdiven.', en: 'The smell of coffee in the old house, the creaking stairs.' },
+    tags: { de: ['Großmutter', 'Kaffee'], tr: ['anneanne', 'kahve'], en: ['grandmother', 'coffee'] } },
+  { days: 12, type: 'wake', feelings: ['confusion'], perspectives: ['attention', 'chance'],
+    noticed: { de: 'Auf dem Weg zur Arbeit saßen drei Raben auf dem Zaun.', tr: 'İşe giderken çitin üzerinde üç kuzgun oturuyordu.', en: 'On the way to work, three ravens sat on the fence.' },
+    tags: { de: ['Rabe'], tr: ['kuzgun'], en: ['raven'] } },
+  { days: 3, type: 'dream', feelings: ['fear'], meta: { 5: 'skipped' },
+    noticed: { de: 'Wasser im Keller. Ich suchte eine Tür und fand sie nicht.', tr: 'Bodrumda su vardı. Bir kapı arıyordum ama bulamadım.', en: 'Water in the basement. I was looking for a door and couldn’t find it.' },
+    tags: { de: ['Wasser', 'Tür'], tr: ['su', 'kapı'], en: ['water', 'door'] } }
+];
+function loadDemo() {
+  const L = state.lang;
+  const now = Date.now();
+  const demo = DEMO.map((d, i) => {
+    const en = newDraft('normal');
+    en.id = 'demo-' + i + '-' + uid();
+    en.demo = true;
+    en.createdAt = new Date(now - d.days * 864e5).toISOString();
+    en.type = d.type; en.feelings = d.feelings.slice(); en.connections = (d.connections || []).slice();
+    en.perspectives = (d.perspectives || []).slice(); en.summaryFeedback = d.summaryFeedback || '';
+    en.noticed = d.noticed[L]; en.tags = d.tags[L].slice();
+    en.connectionText = d.connectionText ? d.connectionText[L] : '';
+    en.context = d.context ? d.context[L] : '';
+    en.meta = Object.assign({}, d.meta || {});
+    return en;
+  });
+  data.entries = data.entries.filter(x => !x.demo).concat(demo);
+  announce(t('demoLoaded', { n: demo.length }));
+}
+
+/* ------------------------------------------------------------------ *
+ * Session logic
+ * ------------------------------------------------------------------ */
+function startSession(mode) {
+  draft = newDraft(mode);
+  assocDraft = { consent: false, term: '', meaning: '' };
+  session = { mode, phase: mode === 'spiritual' ? 'sp-kind' : 'step', step: 1, returnToSummary: false, editList: false, status: '', aiNote: false };
+  state.view = 'session';
+  render();
+}
+function setPhase(phase, step) {
+  session.phase = phase; if (step) session.step = step;
+  session.status = ''; session.aiNote = false;
+  render();
+}
+function advance() {
+  const s = session;
+  s.status = '';
+  if (s.phase === 'sp-kind') return setPhase('sp-safety');
+  if (s.phase === 'sp-view') {
+    const v = draft.spiritual.view;
+    if (v === 'culture' || v === 'both') return setPhase('sp-culture');
+    return toFirstStep();
+  }
+  if (s.phase === 'sp-culture') return toFirstStep();
+  if (s.returnToSummary) { s.returnToSummary = false; s.editList = false; return setPhase('step', 7); }
+  if (s.step >= TOTAL) return saveDraft(false);
+  setPhase('step', s.step + 1);
+}
+function toFirstStep() {
+  const map = { dream: 'dream', personal: 'wake', story: 'story', unsure: 'unsure' };
+  if (!draft.type && map[draft.spiritual.kind]) draft.type = map[draft.spiritual.kind];
+  setPhase('step', 1);
+}
+function goBack() {
+  const s = session;
+  if (s.phase === 'sp-safety') return setPhase('sp-kind');
+  if (s.phase === 'sp-view') return setPhase('sp-safety');
+  if (s.phase === 'sp-culture') return setPhase('sp-view');
+  if (s.phase === 'step') {
+    if (s.returnToSummary) { s.returnToSummary = false; return setPhase('step', 7); }
+    if (s.step > 1) return setPhase('step', s.step - 1);
+    if (draft.spiritual) {
+      const v = draft.spiritual.view;
+      return setPhase((v === 'culture' || v === 'both') ? 'sp-culture' : 'sp-view');
+    }
+  }
+}
+function cleanEntry(d, partial) {
+  const en = JSON.parse(JSON.stringify(d));
+  en.partial = !!partial;
+  ['typeText', 'noticed', 'feelingText', 'connectionText', 'context', 'perspectiveText', 'correction', 'ownThought', 'nextText', 'nextStep'].forEach(k => { en[k] = (en[k] || '').trim(); });
+  if (en.next !== 'question') en.nextQuestion = '';
+  if (en.summaryFeedback !== 'partly' && en.summaryFeedback !== 'no') en.correction = '';
+  return en;
+}
+function saveDraft(partial) {
+  const en = cleanEntry(draft, partial);
+  data.entries = data.entries.concat([en]);
+  let savedAssoc = false;
+  if (assocDraft.consent && assocDraft.term.trim() && assocDraft.meaning.trim()) {
+    data.assoc = data.assoc.concat([{ id: uid(), term: assocDraft.term.trim(), meaning: assocDraft.meaning.trim(), entryId: en.id, createdAt: new Date().toISOString() }]);
+    savedAssoc = true;
+  }
+  lastSaved = { id: en.id, assoc: savedAssoc };
+  session = null; draft = null; assocDraft = null;
+  state.view = 'saved';
+  render();
+}
+async function endSession() {
+  const v = await ask(t('endTitle'), t('endText'), [
+    { label: t('endSave'), value: 'save', cls: 'btn-primary' },
+    { label: t('endDiscard'), value: 'discard' },
+    { label: t('endContinue'), value: null, focus: true }
+  ]);
+  if (v === 'save') saveDraft(true);
+  else if (v === 'discard') { session = null; draft = null; assocDraft = null; state.view = 'home'; render(); }
+}
+function addTag(scope) {
+  const input = document.getElementById(scope + '-tag-input');
+  if (!input) return;
+  const parts = input.value.split(',').map(s => s.trim()).filter(Boolean);
+  if (!parts.length) { input.focus(); return; }
+  let target;
+  if (scope === 'draft') target = draft.tags;
+  else { const en = data.entries.find(x => x.id === state.entryId); if (!en) return; en.tags = en.tags || []; target = en.tags; }
+  parts.forEach(p => { if (!target.some(x => normTag(x) === normTag(p))) target.push(p.slice(0, 40)); });
+  if (scope === 'entry') saveEntries();
+  render({ focus: '#' + scope + '-tag-input' });
+  announce(t('tagAdded', { t: parts.join(', ') }));
+}
+function saveEntries() { data.entries = data.entries.slice(); }
+
+/* ------------------------------------------------------------------ *
+ * Export
+ * ------------------------------------------------------------------ */
+function exportAll() {
+  const payload = { app: 'Innenkompass', format: 'innenkompass-prototype-export', version: 1, exportedAt: new Date().toISOString(),
+    entries: data.entries, meanings: data.assoc, hiddenPatternCards: data.hidden, settings: data.settings };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'innenkompass-export-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  announce(t('exported'));
+}
+
+/* ------------------------------------------------------------------ *
+ * Event handling
+ * ------------------------------------------------------------------ */
+const actions = {
+  lang(el) {
+    state.lang = el.dataset.lang;
+    const s = data.settings; s.lang = state.lang; data.settings = s;
+    render({ focus: `[data-action="lang"][data-lang="${state.lang}"]` });
+  },
+  go(el) {
+    state.view = el.dataset.view;
+    if (state.view === 'journal') { /* keep filters */ }
+    render();
+  },
+  start(el) { startSession(el.dataset.mode); },
+  next() { advance(); },
+  back() { goBack(); },
+  end() { endSession(); },
+  alt(el) {
+    const a = el.dataset.alt;
+    const key = curMetaKey();
+    const metaVal = a === 'skip' ? 'skipped' : a;
+    draft.meta[key] = metaVal;
+    if (a === 'none' || a === 'other') {
+      session.status = '';
+      render({ focus: '#free-cur', noFocus: true });
+      if (!document.getElementById('free-cur')) { const st = document.querySelector('.status'); if (st) { st.setAttribute('tabindex', '-1'); st.focus(); } }
+      announce(t('status.' + a));
+    } else {
+      announce(t('status.' + metaVal));
+      advance();
+    }
+  },
+  'alt-undo'() { delete draft.meta[curMetaKey()]; session.status = ''; render({ focus: '#next-btn' }); },
+  'edit-toggle'() { session.editList = !session.editList; render({ focus: session.editList ? '#edit-title' : '#edit-toggle' }); },
+  'edit-step'(el) { session.returnToSummary = true; session.editList = false; setPhase('step', +el.dataset.step); },
+  'ai-stub'() { session.aiNote = true; render({ keep: true }); announce(t('aiStub')); },
+  'sp-threat'(el) {
+    const a = el.dataset.answer;
+    if (a === 'yes') {
+      session = null; draft = null; assocDraft = null;
+      state.safetyFrom = 'spiritual'; state.view = 'safety';
+      render();
+    } else setPhase('sp-view');
+  },
+  safety(el) {
+    state.safetyFrom = el.dataset.from || 'footer';
+    state.prevView = state.view;
+    state.view = 'safety';
+    render();
+  },
+  'safety-back'() { state.view = 'session'; render(); },
+  'safety-home'() { if (state.safetyFrom === 'session') { session = null; draft = null; assocDraft = null; } state.view = 'home'; render(); },
+  'tag-add'(el) { addTag(el.dataset.scope); },
+  'tag-remove'(el) {
+    const i = +el.dataset.i; const scope = el.dataset.scope;
+    if (scope === 'draft') draft.tags.splice(i, 1);
+    else { const en = data.entries.find(x => x.id === state.entryId); if (en) { en.tags.splice(i, 1); saveEntries(); } }
+    render({ focus: '#' + scope + '-tag-input' });
+  },
+  'open-entry'(el) { state.entryId = el.dataset.id; state.view = 'entry'; render(); },
+  async 'delete-entry'(el) {
+    const id = el.dataset.id;
+    const v = await ask(t('e.delTitle'), t('e.delText'), [{ label: t('del'), value: 'del', cls: 'btn-danger' }, { label: t('cancel'), value: null, focus: true }]);
+    if (v !== 'del') return;
+    data.entries = data.entries.filter(x => x.id !== id);
+    if (state.journalIds) state.journalIds = state.journalIds.filter(x => x !== id);
+    state.view = 'journal'; render(); announce(t('e.deleted'));
+  },
+  'demo-load'() { loadDemo(); render({ noFocus: true, focus: 'main h1' }); },
+  'demo-remove'() { data.entries = data.entries.filter(x => !x.demo); state.journalIds = null; render({ focus: 'main h1' }); announce(t('demoRemoved')); },
+  export() { exportAll(); },
+  async 'delete-all'() {
+    const v = await ask(t('deleteAllTitle'), t('deleteAllText'), [{ label: t('deleteAll'), value: 'del', cls: 'btn-danger' }, { label: t('cancel'), value: null, focus: true }]);
+    if (v !== 'del') return;
+    const lang = state.lang;
+    store.clear();
+    data.settings = { lang };
+    state.journalIds = null; state.journalTag = ''; state.journalQuery = ''; state.editingAssoc = null;
+    state.view = 'home'; render(); announce(t('deletedAll'));
+  },
+  'clear-ids'() { state.journalIds = null; render({ focus: '#journal-search' }); },
+  'pattern-view'(el) {
+    const c = computePatterns().find(x => x.key === el.dataset.key);
+    if (!c) return;
+    state.journalIds = c.ids; state.journalTag = ''; state.journalQuery = '';
+    state.view = 'journal'; render();
+  },
+  'pattern-hide'(el) { data.hidden = data.hidden.concat([el.dataset.key]); render({ focus: 'main h1' }); announce(t('p.hidden')); },
+  'pattern-unhide'(el) { data.hidden = data.hidden.filter(k => k !== el.dataset.key); render({ focus: 'main h1' }); },
+  'toggle-hidden'() { state.showHidden = !state.showHidden; render({ focus: '[data-action="toggle-hidden"]' }); },
+  'assoc-edit'(el) { state.editingAssoc = el.dataset.id; render({ focus: '#ae-term-' + el.dataset.id }); },
+  'assoc-cancel'() { state.editingAssoc = null; render({ focus: 'main h1' }); },
+  'assoc-save'(el) {
+    const id = el.dataset.id;
+    const term = document.getElementById('ae-term-' + id).value.trim();
+    const meaning = document.getElementById('ae-meaning-' + id).value.trim();
+    data.assoc = data.assoc.map(a => a.id === id ? Object.assign({}, a, { term: term || a.term, meaning }) : a);
+    state.editingAssoc = null; render({ focus: 'main h1' }); announce(t('m.saved'));
+  },
+  async 'assoc-delete'(el) {
+    const id = el.dataset.id;
+    const a = data.assoc.find(x => x.id === id);
+    const v = await ask(t('m.delTitle'), a ? a.term + ': ' + a.meaning : '', [{ label: t('del'), value: 'del', cls: 'btn-danger' }, { label: t('cancel'), value: null, focus: true }]);
+    if (v !== 'del') return;
+    data.assoc = data.assoc.filter(x => x.id !== id); render({ focus: 'main h1' }); announce(t('m.deleted'));
+  },
+  async 'assoc-delete-all'() {
+    const v = await ask(t('m.delAllTitle'), t('m.intro'), [{ label: t('m.delAll'), value: 'del', cls: 'btn-danger' }, { label: t('cancel'), value: null, focus: true }]);
+    if (v !== 'del') return;
+    data.assoc = []; render({ focus: 'main h1' }); announce(t('m.deleted'));
+  }
+};
+
+document.addEventListener('click', ev => {
+  const el = ev.target.closest('[data-action]');
+  if (!el || !document.getElementById('app').contains(el)) return;
+  const fn = actions[el.dataset.action];
+  if (fn) { ev.preventDefault(); fn(el, ev); }
+});
+
+function setDraftField(path, value) {
+  if (path.startsWith('sp.')) draft.spiritual[path.slice(3)] = value;
+  else draft[path] = value;
+}
+document.addEventListener('input', ev => {
+  const el = ev.target;
+  if (el.dataset.bind && draft) setDraftField(el.dataset.bind, el.value);
+  if (el.dataset.bindAssoc && assocDraft) assocDraft[el.dataset.bindAssoc] = el.value;
+  if (el.id === 'journal-search') {
+    state.journalQuery = el.value;
+    const box = document.getElementById('journal-list');
+    if (box) box.innerHTML = journalListHTML();
+  }
+});
+document.addEventListener('change', ev => {
+  const el = ev.target;
+  if (el.id === 'journal-tag') { state.journalTag = el.value; state.journalIds = null; render({ keep: true }); return; }
+  if (el.id === 'ai-toggle') { const s = data.settings; s.ai = el.checked; data.settings = s; render({ keep: true }); return; }
+  if (!draft) return;
+  if (el.dataset.consent) { assocDraft.consent = el.checked; render({ keep: true }); return; }
+  if (el.dataset.radio) {
+    setDraftField(el.dataset.radio, el.value);
+    render({ keep: true });
+    return;
+  }
+  if (el.dataset.group) {
+    const g = el.dataset.group;
+    let arr = draft[g].slice();
+    const v = el.value;
+    if (el.checked) {
+      if (g === 'feelings' && (v === 'none' || v === 'unknown')) arr = [v];
+      else { arr = arr.filter(x => !(g === 'feelings' && (x === 'none' || x === 'unknown'))); if (!arr.includes(v)) arr.push(v); }
+    } else arr = arr.filter(x => x !== v);
+    draft[g] = arr;
+    render({ keep: true });
+  }
+});
+document.addEventListener('keydown', ev => {
+  const el = ev.target;
+  if (ev.key === 'Enter' && el.dataset && el.dataset.tagInput) { ev.preventDefault(); addTag(el.dataset.tagInput); }
+});
+
+render({ noFocus: true });
+})();
+</script>
+</body>
+</html>
