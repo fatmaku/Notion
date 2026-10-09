@@ -11,15 +11,17 @@
 //   const sketch = LiveFXSketch.attach(renderer, () => renderer.sketchSurface()); // js/fx.js does this once
 //   sketch.setStyle('sketch');            // 'emoji' (drawing hidden) | 'sketch' (drawing only) | 'mixed'
 //   sketch.update(storyState);            // every story state: diff -> draw in / erase / glide
-//   sketch.stats                          // { style, elements, drawing, frameMs, avgMs, maxMs, fps, running, … }
+//   sketch.stats                          // { style, elements, drawing, frameMs, avgMs, p95Ms, maxMs, fps, running, … }
 //   LiveFXSketch.LIBRARY                  // drawable ids
 //   LiveFXSketch.pathFor('car')           // { id, aspect, length, strokes: [{ pts: [x0,y0,…] (0..1), w, closed, fill? }] }
 //   LiveFXSketch.record({ canvas, audio, ms }) // MediaRecorder WebM (download), resolves { blob, url, bytes, … }
 //
-// Performance (≤ 2 ms per frame at 1080p): paths are precomputed and cached, every element is rasterised once into
-// its own sprite (halo + ink layers; a pen only adds the new segments of the frame), settled elements are blitted,
-// only moving things are redrawn, slow animations (sun rays, clouds) run at ~20 fps, and the rAF loop stops when
-// nothing moves, the band is idle / hidden or the style is `emoji`.
+// Performance (JS ≤ 2 ms per drawn frame at 1080p; the browser's raster + canvas upload is the larger part and is
+// measured in test/e2e/31-sketch.js): paths are precomputed and cached, every element is rasterised once into its
+// own sprite (halo + ink layers; a pen only adds the new segments of the frame), settled elements are painted once
+// into band-sized caches (one blit per frame for all of them), only moving things are drawn per frame, weather and
+// walking run at ~30 fps, slow animations (sun rays, clouds) at ~10 fps, and the rAF loop stops when nothing moves,
+// the band is idle / hidden or the style is `emoji`.
 (function (global, factory) {
   const api = factory(global);
   if (typeof module === 'object' && module.exports) module.exports = api;
@@ -47,14 +49,26 @@
   const FADE_MS = 800;
   const FILL_FADE_MS = 350;
   const WASH_MS = 900;
-  const SLOW_MS = 50; // slow-only animations (sun rays, drifting clouds, bobbing) redraw at ~20 fps
-  const IDLE_CLEAR_MS = 900;
-  const PENS_MAX = 3; // the band fades in 0.8 s (css/overlay.css) – then the drawing is dropped
+  // Frame cadence by what moves (eco in brackets): pen / erase / glide every frame (≤ 30 fps), steady motion – weather
+  // strokes, walking / dancing figures – at ~30 fps (20), sea waves at ~15 fps (10), slow-only motion – sun rays,
+  // drifting clouds, bobbing boat, flickering fire – at ~7 fps (4); nothing moving = no frames. Every drawn frame
+  // costs the browser a full upload of the band canvas (≈ 2 ms at 1920×238 in software rendering, whatever was
+  // drawn), so fewer frames is the main saving.
+  const STEADY_MS = 33;
+  const WAVES_MS = 66;
+  const SLOW_MS = 150;
+  const STILL = Infinity;
+  const WAITING = -1;
+  const CACHE_SEGS = 3; // band-sized caches of settled elements (static runs between moving ones, in draw order)
+  const REBUILD_MS = 300; // a cache is repainted at most this often (a scene drawing in changes its runs often)
+  const IDLE_CLEAR_MS = 900; // the idle band fades in 0.8 s (css/overlay.css) – then the drawing is dropped
+  const PENS_MAX = 3; // pen tips on screen at once (the newest strokes)
   const POSE_FRAMES = { walk: 8, legs: 6, flap: 4, flicker: 4 };
   // Same slots as the renderer's emoji actors / props (js/fx.js), so mixed scenes line up.
   const ACTOR_SLOTS = [0.3, 0.7, 0.5, 0.15, 0.85, 0.42];
   const PROP_SLOTS = [0.78, 0.22, 0.6, 0.08, 0.92];
   const LAYER = { sky: 0, ground: 1, back: 2, mid: 3, front: 4, weather: 5 };
+  const WASH_ITEM = Object.freeze({ key: 'wash' }); // the sky wash as an item of the draw order
 
   const clamp = (n, a, b) => Math.min(b, Math.max(a, n));
   const lerp = (a, b, t) => a + (b - a) * t;
@@ -265,7 +279,7 @@
 
   // ------------------------------------------------------------------ fill palette (washed at the theme's under-layer alpha)
   const FILL = {
-    roof: '#e4572e', wood: '#a0673a', light: '#ffd166', leaf: '#43aa5b', pine: '#2d8a4e', car: '#e63946', glass: '#a8dadc',
+    roof: '#e4572e', wall: '#f3e3c3', wood: '#a0673a', light: '#ffd166', leaf: '#43aa5b', pine: '#2d8a4e', car: '#e63946', glass: '#a8dadc',
     tire: '#2b2d42', sun: '#ffcc33', moon: '#fff2b3', cloud: '#dfe7f0', cloudDark: '#5c677d', bolt: '#ffe14d', rock: '#7d8ca3',
     snow: '#ffffff', sail: '#f1f1f1', stone: '#9a8fa6', flag: '#e63946', dragon: '#4caf50', wing: '#2e7d32', fur: '#d9a066',
     ear: '#8d5a2b', bird: '#4fa3e0', beak: '#ffb703', petal: '#ff7eb6', dress: '#c77dff', dress2: '#9381ff', heart: '#ff4d6d',
@@ -523,7 +537,7 @@
   def('house', {
     aspect: 1, size: 0.56,
     build(b) {
-      b.poly([[0.16, 0.47], [0.16, 0.98], [0.84, 0.98], [0.84, 0.47]]);
+      b.poly([[0.16, 0.5], [0.16, 0.98], [0.84, 0.98], [0.84, 0.5]], { closed: true, fill: 'wall' });
       b.poly([[0.06, 0.5], [0.5, 0.1], [0.94, 0.5]], { closed: true, fill: 'roof' });
       b.poly([[0.66, 0.29], [0.66, 0.14], [0.77, 0.14], [0.77, 0.39]]);
       b.poly([[0.42, 0.98], [0.42, 0.71], [0.58, 0.71], [0.58, 0.98]], { closed: true, fill: 'wood' });
@@ -1136,6 +1150,27 @@
     Object.defineProperty(path, '_prep', { value: { aspect: A, strokes, lengths: path.strokes.map((s) => s.len) }, enumerable: false });
     return path._prep;
   }
+  /** Stroke extent of an element's drawing in height units ({minX, maxX, minY, maxY}; the whole box without one). */
+  function extentOf(el) {
+    const prep = el && el.prep;
+    if (!prep) return { minX: 0, maxX: (el && el.aspect) || 1, minY: 0, maxY: 1 };
+    if (prep.ext) return prep.ext;
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    for (const st of prep.strokes) {
+      for (let i = 0; i < st.xs.length; i++) {
+        const r = st.dot || 0;
+        minX = Math.min(minX, st.xs[i] - r);
+        maxX = Math.max(maxX, st.xs[i] + r);
+        minY = Math.min(minY, st.ys[i] - r);
+        maxY = Math.max(maxY, st.ys[i] + r);
+      }
+    }
+    prep.ext = Number.isFinite(minX) ? { minX, maxX, minY, maxY } : { minX: 0, maxX: prep.aspect, minY: 0, maxY: 1 };
+    return prep.ext;
+  }
 
   // ------------------------------------------------------------------ scheduler (pure, unit-tested)
   /** Draw-in time (s) for a path of `length` height units: 0.6 s + 0.09 s per unit, at most 1.2 s. */
@@ -1291,7 +1326,7 @@
    * `{ key, id, x (centre), y (baseline), h, layer, alpha, fixed, aspect?, proc?, action?, emoji? }`. Keys are stable
    * (same state -> same keys) so update() can diff. `opts.style` 'mixed' leaves actors + props to the renderer's
    * emoji sprites (unless opts.mixedProps), `opts.keep` (Set of keys on stage) keeps background elements where they
-   * are and `opts.pos` (Map key -> x) keeps props / actors on stage at their place.
+   * are and `opts.pos` (Map key -> x) keeps props / actors / sun, moon and clouds on stage at their place.
    */
   function compose(raw, size, opts = {}) {
     const st = normState(raw);
@@ -1307,7 +1342,8 @@
     const drawProps = style === 'sketch' || !!opts.mixedProps;
     const els = out.els;
     const rng = mulberry32(hashStr(`${W}x${H}`));
-    const skyTop = Math.max(0.06 * H, ground - 1.25 * u);
+    // the band fades in over its top 18 % (css/overlay.css mask): sky items start below most of that fade
+    const skyTop = Math.max(0.12 * H, ground - 1.25 * u);
     const add = (key, id, x, y, h, layer, extra) => {
       if (!LIB[id] && !(extra && (extra.proc || extra.emoji))) return null;
       const e = Object.assign({ key, id, x, y, h, layer, alpha: 1, fixed: false }, extra || {});
@@ -1387,16 +1423,32 @@
       const e = add(f.key, f.id, f.x, f.y, f.h, f.layer, Object.assign({}, f.extra, range ? { range } : {}));
       if (e && f.ground) front.push([f.x, f.hw]);
     }
+    const emojiSlots = []; // mixed: [x, hw] of the renderer's emoji sprites
     if (!drawProps || !drawActors) {
       // mixed: the renderer draws its emoji sprites at its own slots – keep the scenery clear of them as well
-      if (!drawProps) st.props.forEach((p, i) => front.push([W * PROP_SLOTS[i % PROP_SLOTS.length], u * 0.25]));
-      if (!drawActors) st.actors.forEach((a, i) => a.action !== 'fly' && front.push([W * ACTOR_SLOTS[i % ACTOR_SLOTS.length], u * 0.2]));
+      if (!drawProps) st.props.forEach((p, i) => emojiSlots.push([W * PROP_SLOTS[i % PROP_SLOTS.length], u * 0.25]));
+      if (!drawActors) st.actors.forEach((a, i) => a.action !== 'fly' && emojiSlots.push([W * ACTOR_SLOTS[i % ACTOR_SLOTS.length], u * 0.2]));
+      front.push(...emojiSlots);
     }
     const free = (x, hw) => front.every(([fx, fhw]) => Math.abs(x - fx) > fhw + hw * 0.55);
+    /** No prop / figure (on the ground or in the air, sketched or emoji) within hw of x. */
+    const clearX = (x, hw) => fronts.every((f) => Math.abs(x - f.x) > f.hw + hw) && front.every(([fx, fhw]) => Math.abs(x - fx) > fhw + hw);
+    /** First of the x fractions that is clear (else the first). */
+    const pickX = (fracs, hw) => {
+      const hit = fracs.find((fx) => clearX(W * fx, hw));
+      return W * (hit === undefined ? fracs[0] : hit);
+    };
+    const backs = []; // [x, hw] of the background elements placed so far (trees may overlap each other a little)
+    const backEls = []; // the background elements themselves (sky items keep clear of them / cap their height)
+    const bfree = (x, hw) => backs.every(([bx, bhw]) => Math.abs(x - bx) > (bhw + hw) * 0.72);
     /** Background element; behind a front element it is drawn fainter and a little smaller (never dropped). */
     const back = (key, id, x, y, h, extra) => {
       const clear = keep.has(key) || free(x, width(id, h) / 2);
-      return add(key, id, x, y, clear ? h : h * 0.88, LAYER.back, Object.assign({ fixed: true, alpha: clear ? 0.85 : 0.5 }, extra));
+      const hh = clear ? h : h * 0.88;
+      backs.push([x, width(id, hh) / 2]);
+      const e = add(key, id, x, y, hh, LAYER.back, Object.assign({ fixed: true, alpha: clear ? 0.85 : 0.5 }, extra));
+      if (e) backEls.push(e);
+      return e;
     };
 
     // -- ground line
@@ -1408,21 +1460,51 @@
     else add('ground:horizon', 'horizon', W / 2, ground + u * 0.05, u * 0.1, LAYER.ground, { aspect: W / (u * 0.1), fixed: true, penRef: u * 0.5 });
 
     // -- place scenery
+    /**
+     * Repeated scenery (forest, meadow, village, mountains): n slots across the band. A slot whose spot is taken by a
+     * prop / actor steps aside (up to 0.7 slot), then tries a smaller "distant" copy, and is left out when nothing
+     * fits – except that at least two (or n) items always stay (faint, behind the front element). Elements already
+     * on stage keep their place (`opts.pos`), so a new prop never shuffles the forest.
+     */
     const spread = (n, key, pick, hk, yk) => {
+      const slot = W / n;
+      const late = [];
+      let placedN = 0;
       for (let k = 0; k < n; k++) {
-        let x = ((k + 0.5) / n) * W + (rng() - 0.5) * (W / n) * 0.45;
+        const x0 = ((k + 0.5) / n) * W + (rng() - 0.5) * slot * 0.45;
         const id = pick(k);
         const h = u * LIB[id].size * hk(k);
         const hw = width(id, h) / 2;
-        if (!keep.has(`${key}:${k}`)) {
-          // step aside (up to half a slot) when a prop / actor stands there
-          for (const d of [0.3, -0.3, 0.5, -0.5]) {
-            if (free(x, hw)) break;
-            const nx = x + d * (W / n);
-            if (nx - hw > -hw * 0.5 && nx + hw < W + hw * 0.5 && free(nx, hw)) x = nx;
-          }
+        const ck = `${key}:${k}`;
+        const y = yk ? yk(k) : ground;
+        if (keep.has(ck)) {
+          back(ck, id, pos.has(ck) ? pos.get(ck) : x0, y, h);
+          placedN++;
+          continue;
         }
-        back(`${key}:${k}`, id, x, yk ? yk(k) : ground, h);
+        const inside = (x, w2) => x - w2 > -w2 * 0.5 && x + w2 < W + w2 * 0.5;
+        let spot = null;
+        for (const sc of [1, 0.68]) {
+          for (const d of [0, 0.3, -0.3, 0.5, -0.5, 0.7, -0.7]) {
+            const x = x0 + d * slot;
+            const w2 = hw * sc;
+            if (inside(x, w2) && free(x, w2) && bfree(x, w2)) {
+              spot = { x, sc };
+              break;
+            }
+          }
+          if (spot) break;
+        }
+        if (spot) {
+          back(ck, id, spot.x, y, h * spot.sc, spot.sc < 1 ? { alpha: 0.7 } : undefined);
+          placedN++;
+        } else late.push([ck, id, x0, y, h]);
+      }
+      // nothing fitted: keep a minimum of scenery, faint and smaller behind the front elements
+      for (const [ck, id, x0, y, h] of late) {
+        if (placedN >= Math.min(2, n)) break;
+        back(ck, id, x0, y, h * 0.78, { alpha: 0.5 });
+        placedN++;
       }
     };
     const ratio = W / u;
@@ -1440,7 +1522,7 @@
         spread(clamp(Math.round(ratio * 0.28), 1, 3), 'mountains', () => 'mountains', () => 1);
         break;
       case 'desert':
-        back('desert:cactus:0', 'cactus', W * 0.12, ground, u * 0.46);
+        back('desert:cactus:0', 'cactus', W * 0.22, ground, u * 0.46);
         back('desert:cactus:1', 'cactus', W * 0.9, ground, u * 0.36);
         break;
       case 'city':
@@ -1453,7 +1535,7 @@
         back('cave', 'cave', W * 0.5, ground, u * 0.8);
         break;
       case 'space':
-        add('space:planet', 'planet', W * 0.74, skyTop + u * 0.5, u * 0.42, LAYER.sky, { fixed: true, drift: true });
+        add('space:planet', 'planet', pickX([0.74, 0.26, 0.5, 0.9], u * 0.3), skyTop + u * 0.5, u * 0.42, LAYER.sky, { fixed: true, drift: Math.min(W * 0.025, u * 0.15) });
         break;
       default:
         break;
@@ -1469,29 +1551,118 @@
       }
     }
 
-    // -- sky: sun / moon / stars by time, clouds + weather strokes by weather
+    // -- sky: sun / moon / stars by time, clouds by weather. Sky items keep clear of props and figures (those do not
+    //    move) and prefer the gaps between tall scenery; new scenery that still reaches into a sun / moon / cloud is
+    //    drawn lower (a 16:9 band of 22 % has little sky above full-height trees); stars only go where the sky is free.
     const wet = st.weather === 'rain' || st.weather === 'storm' || st.weather === 'snow' || st.weather === 'fog';
-    if (st.place === 'space' || st.time === 'night') {
-      const n = clamp(Math.round(ratio * 1.2), 4, 9);
-      for (let k = 0; k < n; k++) {
-        const x = ((k + 0.5) / n) * W + (hash01(k * 11 + 2) - 0.5) * (W / n) * 0.6;
-        if (st.time === 'night' && st.place !== 'space' && x > W * 0.78) continue;
-        const h = u * (0.06 + hash01(k * 13 + 7) * 0.05);
-        add(`sky:star:${k}`, 'star', x, skyTop + h + hash01(k * 17 + 5) * u * 0.32, h, LAYER.sky, { fixed: true, alpha: 0.85 });
+    const sky = st.place !== 'space';
+    const room = ground - skyTop; // sky + land above the ground line
+    const DRIFT = Math.min(W * 0.025, u * 0.15);
+    const ew = (e) => e.h * (e.aspect || (LIB[e.id] && LIB[e.id].aspect) || 1);
+    // what a sky item should not sit behind: { l, r, t, w (weight) } – props / figures first, then scenery
+    const talls = [];
+    for (const f of fronts) talls.push({ l: f.x - f.hw, r: f.x + f.hw, t: f.y - f.h, w: 10 });
+    for (const [fx, fhw] of emojiSlots) talls.push({ l: fx - fhw, r: fx + fhw, t: ground - u * 0.5, w: 10 });
+    for (const e of els) if (e.layer === LAYER.back) talls.push({ l: e.x - ew(e) / 2, r: e.x + ew(e) / 2, t: e.y - e.h, w: keep.has(e.key) ? 4 : 1 });
+    const skyBoxes = [];
+    /** Sky item at the x (of `fracs`, in order of preference) with the least in its way; an item on stage stays. */
+    const skyAdd = (key, id, fracs, y, h, extra) => {
+      const hw = width(id, h) / 2 + (extra.drift ? DRIFT : 0);
+      const top = y - h - (extra.rays ? h * 0.21 : 0);
+      const bottom = y + (extra.rays ? h * 0.21 : 0);
+      let x = pos.get(key);
+      if (x === undefined) {
+        let best = null;
+        fracs.forEach((fx, i) => {
+          const cx = W * clamp(fx, 0.04, 0.96);
+          let c = i * 0.01;
+          for (const q of talls) if (q.t < bottom && q.l < cx + hw && cx - hw < q.r) c += q.w;
+          if (!best || c < best.c) best = { x: cx, c };
+        });
+        x = best.x;
       }
-      if (st.place !== 'space') add('sky:moon', 'moon', W * 0.87, skyTop + u * 0.32, u * 0.3, LAYER.sky, { fixed: true });
-    } else if (st.time === 'morning') add('sky:sun:low', 'sun', W * 0.12, ground + u * 0.04, u * 0.38, LAYER.sky, { fixed: true, rays: true });
-    else if (st.time === 'evening') add('sky:sun:low', 'sun', W * 0.88, ground + u * 0.04, u * 0.38, LAYER.sky, { fixed: true, rays: true });
-    else if (!wet) add('sky:sun', 'sun', W * 0.88, skyTop + u * 0.34, u * 0.34, LAYER.sky, { fixed: true, rays: true });
-    if (st.place !== 'space') {
+      const e = add(key, id, x, y, h, LAYER.sky, Object.assign({ fixed: true }, extra));
+      if (e) {
+        skyBoxes.push({ l: x - hw, r: x + hw, t: top, b: bottom, low: !!extra.low });
+        talls.push({ l: x - hw, r: x + hw, t: top, w: 3 }); // the next sky item keeps clear of this one too
+      }
+      return e;
+    };
+    const near = (c) => [c, c + 0.05, c - 0.05, c + 0.1, c - 0.1, c + 0.15, c - 0.15];
+    if (sky && st.time === 'night') {
+      const h = Math.min(u * 0.3, room * 0.34);
+      skyAdd('sky:moon', 'moon', [0.87, 0.13, 0.75, 0.25, 0.62, 0.38, 0.94, 0.06], skyTop + h * 1.07, h, {});
+    } else if (sky && (st.time === 'morning' || st.time === 'evening')) {
+      // a low sun on the horizon (on the waterline at sea): morning left, evening right – the other side when a
+      // prop / figure stands there
+      const sh = u * 0.38;
+      const pref = st.time === 'morning' ? 0.12 : 0.88;
+      skyAdd('sky:sun:low', 'sun', [pref, 1 - pref, pref < 0.5 ? pref + 0.1 : pref - 0.1, pref < 0.5 ? 0.9 - pref : 1.1 - pref], sea ? waterline + sh * 0.42 : ground + u * 0.04, sh, { rays: true, low: true });
+    } else if (sky && !wet) {
+      const h = Math.min(u * 0.34, room * 0.36);
+      skyAdd('sky:sun', 'sun', [0.88, 0.12, 0.75, 0.25, 0.62, 0.38], skyTop + h, h, { rays: true });
+    }
+    if (sky) {
       if (st.weather === 'rain' || st.weather === 'storm' || st.weather === 'snow') {
         const n = clamp(Math.round(ratio * 0.42), 2, 4);
         for (let k = 0; k < n; k++) {
-          const h = u * (0.26 + hash01(k * 3 + 9) * 0.08);
-          add(`sky:cloud:${k}`, 'cloud', ((k + 0.5) / n) * W, skyTop + h + hash01(k * 19 + 1) * u * 0.05, h, LAYER.sky, { fixed: true, drift: true, variant: st.weather === 'storm' ? 'dark' : '' });
+          const h = Math.min(u * (0.26 + hash01(k * 3 + 9) * 0.08), room * 0.32);
+          skyAdd(`sky:cloud:${k}`, 'cloud', near((k + 0.5) / n), skyTop + h + hash01(k * 19 + 1) * u * 0.05, h, { drift: DRIFT, variant: st.weather === 'storm' ? 'dark' : '' });
         }
-      } else if (st.weather === 'clear' && st.time === 'day') add('sky:cloud:fair', 'cloud', W * 0.42, skyTop + u * 0.24, u * 0.2, LAYER.sky, { fixed: true, drift: true, alpha: 0.85 });
-      else if (st.weather === 'wind') add('sky:cloud:wind', 'cloud', W * 0.3, skyTop + u * 0.26, u * 0.22, LAYER.sky, { fixed: true, drift: true });
+      } else if (st.weather === 'clear' && st.time === 'day') {
+        const h = Math.min(u * 0.2, room * 0.26);
+        skyAdd('sky:cloud:fair', 'cloud', near(0.42), skyTop + h * 1.2, h, { drift: DRIFT, alpha: 0.85 });
+      } else if (st.weather === 'wind') {
+        const h = Math.min(u * 0.22, room * 0.28);
+        skyAdd('sky:cloud:wind', 'cloud', near(0.3), skyTop + h * 1.18, h, { drift: DRIFT });
+      }
+    }
+    // new scenery under a sun / moon / cloud stays below it (not below a low sun: that one rises behind the trees)
+    for (const e of backEls) {
+      if (keep.has(e.key)) continue;
+      const hw = ew(e) / 2;
+      let lim = Infinity;
+      for (const b of skyBoxes) if (!b.low && b.l < e.x + hw && e.x - hw < b.r) lim = Math.min(lim, b.b);
+      const maxH = e.y - lim - u * 0.02 - 6;
+      if (maxH < e.h && maxH >= e.h * 0.55) e.h = maxH;
+    }
+    if (st.place === 'space' || st.time === 'night') {
+      // stars only in the free sky: not behind the moon, the planet, scenery, props or figures
+      const n = clamp(Math.round(ratio * 1.2), 4, 9);
+      const boxes = [];
+      for (const e of els) {
+        if (e.proc || e.layer === LAYER.ground || e.layer === LAYER.weather) continue;
+        const hw = ew(e) / 2 + (e.drift ? DRIFT : 0);
+        boxes.push({ l: e.x - hw, r: e.x + hw, t: e.y - e.h - (e.action === 'fly' ? e.h * 0.15 : 0), b: e.y });
+      }
+      const freeSky = (x, y, h) => boxes.every((q) => !(q.l < x + h * 0.7 && x - h * 0.7 < q.r && q.t < y + h * 0.2 && y - h * 1.2 < q.b));
+      const slot = W / n;
+      const depth = st.place === 'space' ? Math.max(u * 0.32, H * 0.75 - skyTop) : Math.min(u * 0.32, room * 0.3);
+      let placedN = 0;
+      const star = (key, x, y, h) => {
+        add(key, 'star', x, y, h, LAYER.sky, { fixed: true, alpha: 0.85 });
+        boxes.push({ l: x - h * 1.3, r: x + h * 1.3, t: y - h * 1.8, b: y + h * 0.8 }); // stars keep some distance
+        placedN++;
+      };
+      for (let k = 0; k < n; k++) {
+        const x0 = ((k + 0.5) / n) * W + (hash01(k * 11 + 2) - 0.5) * slot * 0.6;
+        const h = u * (0.06 + hash01(k * 13 + 7) * 0.05);
+        const y0 = skyTop + h + hash01(k * 17 + 5) * depth;
+        for (const [dx, y] of [[0, y0], [0, skyTop + h], [0.3, y0], [-0.3, y0], [0.3, skyTop + h], [-0.3, skyTop + h], [0.5, y0], [-0.5, y0]]) {
+          const x = x0 + dx * slot;
+          if (x > h && x < W - h && freeSky(x, y, h)) {
+            star(`sky:star:${k}`, x, y, h);
+            break;
+          }
+        }
+      }
+      // a crowded sky (tall trees, a castle, a dragon): a few more tries anywhere, so the night keeps some stars
+      for (let j = 0; placedN < Math.min(n, 4) && j < 32; j++) {
+        const h = u * (0.06 + hash01(j * 5 + 3) * 0.04);
+        const x = h + hash01(j * 7 + 41) * (W - 2 * h);
+        const y = skyTop + h + hash01(j * 3 + 17) * depth;
+        if (freeSky(x, y, h)) star(`sky:star:x${j}`, x, y, h);
+      }
     }
     // procedural weather strokes (in mixed the renderer's emoji parallax already shows the weather)
     if (style !== 'mixed') {
@@ -1502,6 +1673,7 @@
     } else if (st.weather === 'storm') add('wx:storm', 'lightning', W / 2, H, H, LAYER.weather, { proc: 'lightning', fixed: true });
     return out;
   }
+  const hits = (a, b) => a.l < b.r && b.l < a.r && a.t < b.b && b.t < a.b;
   const LAYER_ORDER = (e) => (e.layer === LAYER.ground ? 0 : e.layer === LAYER.back ? 1 : e.layer === LAYER.mid ? 2 : e.layer === LAYER.front ? 3 : e.layer === LAYER.sky ? 4 : 5);
 
   /** Diff of two key lists: `{ added, removed, kept }`. */
@@ -1599,14 +1771,24 @@
       this.renderer = renderer || null;
       this.getCtx = typeof getCtx === 'function' ? getCtx : null;
       this.opts = opts && typeof opts === 'object' ? opts : {};
-      /** mixed: also draw props (default false – the renderer keeps its emoji props in mixed). */
-      this.mixedProps = !!this.opts.mixedProps;
+      /**
+       * mixed: draw the props as well? `'auto'` (default) draws them whenever the renderer shows no emoji props of its
+       * own (no duplicate car: js/fx.js 2.3 still hands props to its emoji layer in mixed), true / false force it.
+       */
+      this.mixedProps = this.opts.mixedProps === true || this.opts.mixedProps === false ? this.opts.mixedProps : 'auto';
       this.style = 'emoji';
       this.els = [];
       this.state = null; // last normalised input state
       this.idle = false;
       this.detached = false;
-      this.stats = { style: 'emoji', elements: 0, drawing: 0, erasing: 0, animated: 0, sprites: 0, frames: 0, frameMs: 0, avgMs: 0, maxMs: 0, fps: 0, running: false, updates: 0, surface: null, ink: '#ffffff', version: VERSION };
+      // frameMs / meanMs / avgMs / p95Ms / maxMs: JavaScript time of a drawn frame – the last one, the mean since
+      // resetStats(), a running average of the recent frames, p95 of the last 120, the maximum. The browser
+      // rasterises the canvas commands and uploads the canvas afterwards (not included; ≈ 2 ms per drawn frame at
+      // 1920×238 in software rendering – test/e2e/31-sketch.js measures the whole main thread). fps: drawn frames
+      // per second; cached: settled-element caches blitted in the last frame, rebuilds: caches repainted since
+      // resetStats().
+      this.stats = { style: 'emoji', elements: 0, drawing: 0, erasing: 0, animated: 0, sprites: 0, frames: 0, frameMs: 0, meanMs: 0, avgMs: 0, p95Ms: 0, maxMs: 0, fps: 0, cached: 0, rebuilds: 0, running: false, updates: 0, surface: null, ink: '#ffffff', version: VERSION };
+      this._sumMs = 0;
       this._doc = typeof document !== 'undefined' ? document : null;
       this._raf = 0;
       this._frame = this._frame.bind(this);
@@ -1623,6 +1805,10 @@
       this._needDraw = false;
       this._idleTimer = null;
       this._own = null; // own canvas when the renderer hands out no surface
+      this._segs = []; // settled-element caches: [{ L: layer, M: occlusion mask layer | null, sig }]
+      this._epoch = 0; // bumped by everything that changes how a settled element looks (update, colours, resize)
+      this._uidN = 0;
+      this._rasterBudget = 1; // pose frames rasterised per frame (spreads a walk cycle over frames)
       this._t0 = now();
       this._lastInput = null;
       this._installHooks();
@@ -1649,8 +1835,23 @@
         return style;
       }
       if (prev === 'emoji') this._dropAll(); // fresh drawing (draws in again)
-      if (this.state) this._apply();
+      if (this.state) this._applySoon();
       return style;
+    }
+
+    /**
+     * Re-composes after a style change on a microtask: the renderer follows setStyle() with update() in the same
+     * task (and only then knows which emoji sprites it shows), so that update wins and nothing draws twice.
+     */
+    _applySoon() {
+      this._pending = true;
+      const run = () => {
+        if (!this._pending) return;
+        this._pending = false;
+        if (this.state && this.style !== 'emoji' && !this.idle && !this.detached) this._apply();
+      };
+      if (typeof queueMicrotask === 'function') queueMicrotask(run);
+      else setTimeout(run, 0);
     }
 
     /** Story state from the renderer hook (`{...state, style?, idle?}`): diff -> draw in / erase / glide. */
@@ -1661,6 +1862,7 @@
       if (raw && typeof raw === 'object' && STYLES.includes(raw.style) && raw.style !== this.style) this.setStyle(raw.style);
       const idle = !!(raw && raw.idle);
       this.state = normState(raw);
+      this._pending = false;
       if (idle) {
         this._goIdle();
         return this.stats;
@@ -1694,7 +1896,9 @@
     }
 
     resetStats() {
-      Object.assign(this.stats, { frames: 0, frameMs: 0, avgMs: 0, maxMs: 0 });
+      Object.assign(this.stats, { frames: 0, frameMs: 0, meanMs: 0, avgMs: 0, p95Ms: 0, maxMs: 0, rebuilds: 0 });
+      this._ring = null;
+      this._sumMs = 0;
     }
 
     detach() {
@@ -1710,6 +1914,16 @@
       if (this._own && this._own.parentNode) this._own.parentNode.removeChild(this._own);
       if (INSTANCES && this.renderer) INSTANCES.delete(this.renderer);
       if (this.renderer && this.renderer.sketch === this) this.renderer.sketch = null;
+    }
+
+    /** mixed: true when the sketch draws the props (the renderer's emoji layer shows none of the state's props). */
+    _mixedProps() {
+      if (this.mixedProps !== 'auto') return !!this.mixedProps;
+      const st = this.state;
+      if (!st || !st.props.length) return false;
+      const P = this.renderer && this.renderer.particles;
+      if (!P || !P.ok || !Array.isArray(P.props)) return true;
+      return !P.props.some((p) => p && p.state !== 'out');
     }
 
     // ---- hooks into the page / renderer
@@ -1742,7 +1956,7 @@
     }
 
     _onScene(id) {
-      if (this.style === 'emoji' || this.detached) return;
+      if (this.style === 'emoji' || this.detached || this.idle) return;
       const st = this.renderer && this.renderer.storyState;
       // story() switches the scene itself and calls update() right after – only foreign scenes are handled here.
       if (st && st.scene === id) return;
@@ -1750,7 +1964,8 @@
         queueMicrotask(() => {
           const cur = this.renderer && this.renderer.currentScene;
           const s2 = this.renderer && this.renderer.storyState;
-          if (this.style === 'emoji' || (s2 && s2.scene === cur && cur)) return;
+          // the idle band clears its scene and hands the sketch `idle` in the same task – not a foreign scene
+          if (this.style === 'emoji' || this.idle || this.detached || (this.renderer && this.renderer.storyIdle) || (s2 && s2.scene === cur && cur)) return;
           this.state = cur ? normState({ scene: cur }) : null;
           this._apply();
         });
@@ -1881,8 +2096,8 @@
       const t = now();
       const live = this.els.filter((e) => e.state !== 'erase');
       const keep = new Set(live.map((e) => e.key));
-      const pos = new Map(live.filter((e) => e.layer === LAYER.mid || e.layer === LAYER.front).map((e) => [e.key, e.x]));
-      const comp = compose(this.state, { w: s.w, h: s.h }, { style: this.style, keep, pos, mixedProps: this.mixedProps });
+      const pos = new Map(live.filter((e) => e.layer !== LAYER.ground && e.layer !== LAYER.weather).map((e) => [e.key, e.x]));
+      const comp = compose(this.state, { w: s.w, h: s.h }, { style: this.style, keep, pos, mixedProps: this._mixedProps() });
       this._u = comp.u;
       this._ground = comp.ground;
       this._setWash(comp.wash, instant ? t - WASH_MS : t);
@@ -1907,6 +2122,8 @@
       const offs = stagger(drawn.length);
       drawn.forEach((d, i) => this.els.push(this._makeEl(d, instant ? t : t + offs[i] * 1000, instant)));
       this.els.sort((a, b) => a.layer - b.layer);
+      this._epoch++; // alpha / order of settled elements may have changed -> caches repaint once
+      this._needDraw = true;
       this._kick();
     }
 
@@ -1916,6 +2133,8 @@
       if (sz && sz.W === s.W && sz.H === s.H && sz.w === s.w && sz.h === s.h) return false;
       const changed = !!sz;
       this._size = { w: s.w, h: s.h, dpr: s.dpr, W: s.W, H: s.H };
+      this._segs = [];
+      this._epoch++;
       if (changed) {
         for (const el of this.els) this._freeEl(el);
         this.els = [];
@@ -1925,7 +2144,7 @@
 
     _makeEl(d, startAt, instant) {
       const lib = LIB[d.id];
-      const el = Object.assign({}, d, { state: 'wait', t0: startAt, seed: hashStr(d.key), spr: null, frames: null, gx: null, walk: 0, instant: !!instant, complete: false });
+      const el = Object.assign({}, d, { state: 'wait', t0: startAt, seed: hashStr(d.key), spr: null, frames: null, gx: null, walk: 0, instant: !!instant, complete: false, _uid: ++this._uidN, _m: 0 });
       if (d.proc) {
         el.dur = FADE_MS;
         return el;
@@ -1975,6 +2194,8 @@
       this._theme = theme;
       this._colors = c;
       this.stats.ink = c.ink;
+      this._epoch++;
+      this._needDraw = true;
       for (const el of this.els) {
         if (!el.spr || el.spr.emoji) continue;
         if (haloChanged) {
@@ -2007,7 +2228,12 @@
     _dropAll() {
       for (const el of this.els) this._freeEl(el);
       this.els = [];
+      this._segs = []; // the caches, rain drop and wave strips are band-sized canvases: free them with the drawing
+      this._dropSpr = null;
+      this._waveSpr = null;
+      this._epoch++;
       this._wash = { cur: null, prev: null, t0: 0 };
+      this._count();
     }
 
     _freeEl(el) {
@@ -2119,6 +2345,15 @@
       if (!n || !el.spr) return null;
       if (!el.frames) el.frames = new Array(n).fill(null);
       if (el.frames[k]) return el.frames[k];
+      if (this._rasterBudget <= 0) {
+        // this frame already rasterised a pose: stand in with the nearest pose that is ready (or the rest pose)
+        for (let d = 1; d < n; d++) {
+          const f = el.frames[(k + d) % n] || el.frames[(k - d + n) % n];
+          if (f) return f;
+        }
+        return null;
+      }
+      this._rasterBudget--;
       const prep = prepare(pathFor(el.id, { seed: el.seed, phase: k / n, variant: el.variant }));
       const G = el.spr.g;
       const L = this._layers(G);
@@ -2199,18 +2434,21 @@
       const t = now();
       if (this._size && (this._size.W !== s.W || this._size.H !== s.H || this._size.w !== s.w || this._size.h !== s.h)) this._apply({ instant: true });
       this._syncColors();
-      // What moves decides the cadence: fast (pen, erase, rain, walking…) every frame, slow (sun rays, clouds) ~20 fps.
-      let fast = false;
-      let slow = t < this._watchUntil; // a resize may still be settling (the surface is re-measured every 500 ms)
+      // What moves decides the cadence: the shortest frame interval any element asks for (_motion); an element
+      // waiting for its staggered start (or a resize settling) keeps the loop alive without drawing.
+      let iv = STILL;
+      let alive = t < this._watchUntil; // a resize may still be settling (the surface is re-measured every 500 ms)
       for (const el of this.els) {
         const m = this._motion(el, t);
-        if (m === 2) fast = true;
-        else if (m === 1) slow = true;
+        el._m = m;
+        if (m === WAITING) alive = true;
+        else if (m < iv) iv = m;
       }
-      if (this._wash.t0 && t - this._wash.t0 < WASH_MS) fast = true;
-      const eco = !!(this.renderer && this.renderer.perfActive === 'eco');
-      const since = t - this._lastDraw;
-      const due = this._needDraw || (fast ? !eco || since >= 30 : slow ? since >= SLOW_MS : true);
+      if (this._wash.t0 && t - this._wash.t0 < WASH_MS) iv = 0;
+      if (iv < STILL && this.renderer && this.renderer.perfActive === 'eco') iv = Math.max(33, iv * 1.5);
+      const moving = iv < STILL;
+      // rAF ticks every ~16.7 ms: the 4 ms tolerance makes 33 ms every 2nd tick (not every 3rd)
+      const due = this._needDraw || (moving ? t - this._lastDraw >= iv - 4 : !alive);
       if (due) {
         this._needDraw = false;
         this._draw(s, t);
@@ -2220,7 +2458,18 @@
         st.frames++;
         st.frameMs = Math.round(ms * 1000) / 1000;
         st.avgMs = st.frames === 1 ? st.frameMs : Math.round((st.avgMs * 0.9 + ms * 0.1) * 1000) / 1000;
+        this._sumMs += ms;
+        st.meanMs = Math.round((this._sumMs / st.frames) * 1000) / 1000;
         if (ms > st.maxMs) st.maxMs = st.frameMs;
+        // p95 over the last 120 drawn frames (sprite rasterising on draw-in shows up here, not in avgMs)
+        const ring = this._ring || (this._ring = { a: new Float32Array(120), n: 0 });
+        ring.a[ring.n % 120] = ms;
+        ring.n++;
+        if (ring.n % 15 === 0 || ring.n < 15) {
+          const k = Math.min(ring.n, 120);
+          const arr = Array.prototype.slice.call(ring.a, 0, k).sort((x, y) => x - y);
+          st.p95Ms = Math.round(arr[Math.min(k - 1, Math.floor(k * 0.95))] * 1000) / 1000;
+        }
         this._fpsN++;
         if (!this._fpsAt) this._fpsAt = t;
         if (t - this._fpsAt >= 1000) {
@@ -2231,11 +2480,13 @@
       }
       if (this.els.some((e) => e.state === 'gone')) this.els = this.els.filter((e) => e.state !== 'gone');
       this._count();
-      if (fast || slow) {
+      if (moving || alive) {
         this._raf = requestAnimationFrame(this._frame);
         this.stats.running = true;
       } else {
         this._stop();
+        this._fpsAt = 0;
+        this._fpsN = 0;
         if (!this.els.length && !this._wash.cur) this._clearSurface();
       }
     }
@@ -2252,42 +2503,55 @@
       Object.assign(this.stats, { elements: this.els.length, drawing, erasing, animated });
     }
 
-    /** Advances an element's state; returns 0 (still), 1 (slow motion) or 2 (fast motion). */
+    /**
+     * Advances an element's state; returns how often it needs a new frame (ms): 0 = every frame (pen, erase, glide,
+     * colour fading in), STEADY_MS (weather strokes, walking, dancing …), WAVES_MS (sea), SLOW_MS (sun rays, drifting
+     * clouds, bobbing, flicker), STILL = never (painted into a cache), WAITING = before its start (nothing to draw).
+     */
     _motion(el, t) {
       el._moving = false;
       if (el.state === 'wait') {
-        if (t < el.t0) return 2;
+        if (t < el.t0) return WAITING;
         el.state = el.instant ? 'show' : 'draw';
+        this._needDraw = true;
       }
       if (el.state === 'draw') {
-        if (t - el.t0 < (el.dur || 0) || (!el.complete && !el.proc && el.id !== 'emoji' && el.spr)) return 2;
+        if (t - el.t0 < (el.dur || 0) || (!el.complete && !el.proc && el.id !== 'emoji' && el.spr)) return 0;
         el.state = 'show';
         this._needDraw = true;
       }
       if (el.state === 'erase') {
-        if (t < el.t0) return 2;
         if (t - el.t0 >= (el.proc ? FADE_MS : ERASE_MS)) {
           el.state = 'gone';
           this._freeEl(el);
           this._needDraw = true;
-          return 0;
+          return STILL;
         }
-        return 2;
+        return 0;
       }
-      if (el.spr && el.spr.fill) return 2; // colour wash still fading in
+      if (el.spr && el.spr.fill) return 0; // colour wash still fading in
       if (el.gx) {
-        if (t - el.gx.t0 < GLIDE_MS) return 2;
+        if (t - el.gx.t0 < GLIDE_MS) return 0;
         el.gx = null;
         this._needDraw = true;
       }
-      if (el.proc) return el.proc === 'fog' ? 1 : 2;
+      if (el.proc === 'lightning') {
+        // mixed storm: frames only while a bolt flashes (the loop stays awake for the next one)
+        if (el.bolt && t <= el.bolt.t0 + 700) return STEADY_MS;
+        if (el.bolt) {
+          el.bolt = null;
+          this._needDraw = true;
+        }
+        if (!el.nextBolt) el.nextBolt = t + 600;
+        return t >= el.nextBolt ? STEADY_MS : WAITING;
+      }
+      if (el.proc) return el.proc === 'fog' ? SLOW_MS : el.proc === 'waves' ? WAVES_MS : STEADY_MS;
       el._moving = true;
-      const a = el.action;
-      if (el.layer === LAYER.front && (a === 'go' || a === 'run' || a === 'fly' || a === 'jump' || a === 'dance' || a === 'cry' || a === 'laugh' || a === 'swim')) return 2;
-      if (el.anim === 'flicker') return 2;
-      if (el.rays || el.drift || el.float || el.id === 'ghost') return 1;
+      const a = el.layer === LAYER.front ? el.action : null;
+      if (a === 'go' || a === 'run' || a === 'fly' || a === 'jump' || a === 'dance' || a === 'cry' || a === 'laugh' || a === 'swim') return STEADY_MS;
+      if (el.anim === 'flicker' || el.rays || el.drift || el.float || el.id === 'ghost') return SLOW_MS;
       el._moving = false;
-      return 0;
+      return STILL;
     }
 
     _elX(el, t) {
@@ -2297,22 +2561,214 @@
 
     _draw(s, t) {
       const g = s.ctx;
+      this._rasterBudget = 1;
       g.setTransform(1, 0, 0, 1, 0, 0);
       g.globalAlpha = 1;
       g.globalCompositeOperation = 'source-over';
       g.clearRect(0, 0, s.canvas.width, s.canvas.height);
-      this._drawWash(g, s, t);
       const pens = [];
-      for (const el of this.els) {
-        if (el.state === 'gone' || el.state === 'wait') continue;
-        if (el.proc) this._drawProc(g, el, s, t);
-        else this._drawEl(g, el, s, t, pens);
+      let cached = 0;
+      for (const it of this._plan(s, t)) {
+        if (it.run) cached += this._blitSeg(g, it, s, t) ? 1 : 0;
+        else if (it === WASH_ITEM) this._drawWash(g, s, t);
+        else if (it.proc) this._drawProc(g, it, s, t);
+        else this._drawEl(g, it, s, t, pens, null);
       }
+      this.stats.cached = cached;
       // at most three pens on screen (the newest strokes) – more looks like a swarm
       pens.sort((a, b) => a[2] - b[2]);
       for (const p of pens.slice(-PENS_MAX)) this._drawPen(g, p[0], p[1], s.dpr);
       g.globalAlpha = 1;
+      g.globalCompositeOperation = 'source-over';
       g.setTransform(1, 0, 0, 1, 0, 0);
+      this._prefetchPose();
+    }
+
+    /**
+     * This frame's draw order: the sky wash, then the elements by layer. Runs of settled items (still + shown) become
+     * cached segments – a band-sized canvas painted once and blitted every frame (the largest CACHE_SEGS runs with
+     * ≥ 2 items or the wash); moving items are drawn live between them, so the stacking order stays exact.
+     */
+    _plan(s, t) {
+      const w = this._wash;
+      const washStill = !(w.t0 && t - w.t0 < WASH_MS);
+      const items = [];
+      if (w.cur || (w.prev && !washStill)) items.push(WASH_ITEM); // (mixed: no wash once the old one faded out)
+      for (const el of this.els) if (el.state !== 'gone' && el.state !== 'wait') items.push(el);
+      const isStill = (it) => (it === WASH_ITEM ? washStill : it._m === STILL && it.state === 'show' && !it.proc);
+      // A moving item (drifting cloud, sun, walker, pen) that never overlaps the whole run of settled items after it
+      // may be drawn after that run – same picture, but the settled items around it join one cached run (fewer
+      // blits, no occlusion mask). Only whole runs: a partial move would split a run.
+      for (let i = items.length - 1; i >= 0; i--) {
+        const it = items[i];
+        if (it === WASH_ITEM || it.proc || isStill(it)) continue;
+        const bx = this._box(it, s);
+        let j = i;
+        while (j + 1 < items.length && items[j + 1] !== WASH_ITEM && isStill(items[j + 1]) && !hits(bx, this._box(items[j + 1], s))) j++;
+        if (j > i && (j + 1 >= items.length || !isStill(items[j + 1]))) {
+          items.splice(i, 1);
+          items.splice(j, 0, it);
+        }
+      }
+      const runs = [];
+      let cur = null;
+      for (let i = 0; i < items.length; i++) {
+        const it = items[i];
+        const still = isStill(it);
+        if (!still) cur = null;
+        else if (cur) cur.items.push(it);
+        else runs.push((cur = { run: true, start: i, items: [it], slot: 0, under: i > 0 }));
+      }
+      const pick = runs
+        .filter((r) => r.items.length >= 2 || r.items[0] === WASH_ITEM)
+        .sort((a, b) => b.items.length - a.items.length)
+        .slice(0, CACHE_SEGS)
+        .sort((a, b) => a.start - b.start);
+      if (!pick.length) return items;
+      const out = [];
+      let k = 0;
+      for (let i = 0; i < items.length; ) {
+        const r = pick[k];
+        if (r && r.start === i) {
+          r.slot = k++;
+          out.push(r);
+          i += r.items.length;
+        } else out.push(items[i++]);
+      }
+      return out;
+    }
+
+    /**
+     * Conservative box (CSS px: l, r, t, b) of everything an element may paint while it keeps its current motion:
+     * its strokes + pen width and halo (not the padded sprite – neighbours may come close without "overlapping"),
+     * walk range, bob / jump / sway, drift, glide path; turning rays get the circle around their strokes, a lying
+     * figure its turned box.
+     */
+    _box(el, s) {
+      const dpr = s.dpr || 1;
+      const G = el.spr ? el.spr.g : this._geom(el);
+      let x0 = el.x;
+      let x1 = el.x;
+      let y0 = el.y;
+      let y1 = el.y;
+      if (el.gx) {
+        x0 = Math.min(el.gx.x0, el.gx.x1);
+        x1 = Math.max(el.gx.x0, el.gx.x1);
+        y0 = Math.min(el.gx.y0, el.gx.y1);
+        y1 = Math.max(el.gx.y0, el.gx.y1);
+      }
+      const a = el.layer === LAYER.front ? el.action : null;
+      let mx = 0;
+      let my = 0;
+      if (a === 'go' || a === 'run') mx += el.range || Math.min(s.w * 0.14, (this._u || el.h) * 0.6);
+      if (a) {
+        mx += el.h * 0.1;
+        my += el.h * (a === 'jump' ? 0.4 : 0.12);
+      }
+      if (el.drift) mx += (typeof el.drift === 'number' ? el.drift : s.w * 0.025) + 1;
+      if (el.float || el.id === 'ghost') my += el.h * 0.06;
+      if (a === 'dance' || (el.id === 'emoji' && el.state === 'draw')) {
+        mx += el.h * 0.2; // sways ±0.18 rad around the feet / pops in up to 1.12×
+        my += el.h * 0.15;
+      }
+      const ext = extentOf(el);
+      const m = (G.pen + G.halo) / dpr + 1;
+      const h = el.h;
+      const A = G.bw / dpr / h;
+      if (el.rays) {
+        // the rays turn around the box centre
+        const r = Math.hypot(Math.max(A / 2 - ext.minX, ext.maxX - A / 2), Math.max(0.5 - ext.minY, ext.maxY - 0.5)) * h + m;
+        return { l: x0 - r - mx, r: x1 + r + mx, t: y0 - h / 2 - r - my, b: y1 - h / 2 + r + my };
+      }
+      if (a === 'sleep') {
+        // lying: a quarter turn around the box centre, which sits `lift` above the ground (as in _drawEl)
+        const lift = (G.bw / 2 - ext.minX * G.S + G.pen * 0.5) / dpr;
+        return { l: x0 + (ext.minY - 0.5) * h - m - mx, r: x1 + (ext.maxY - 0.5) * h + m + mx, t: y0 - lift - (ext.maxX - A / 2) * h - m - my, b: y1 - lift - (ext.minX - A / 2) * h + m + my };
+      }
+      return { l: x0 + (ext.minX - A / 2) * h - m - mx, r: x1 + (ext.maxX - A / 2) * h + m + mx, t: y0 - h + ext.minY * h - m - my, b: y1 - h + ext.maxY * h + m + my };
+    }
+
+    /** Blits a cached segment (repainted when its items changed): its occlusion mask first, then its pixels. */
+    _blitSeg(g, run, s, t) {
+      const W = s.canvas.width;
+      const H = s.canvas.height;
+      // something is drawn below this run -> its scenery / props / figures must punch their silhouette out of it
+      const occl = run.under && run.items.some((it) => it !== WASH_ITEM && it.layer >= LAYER.back && it.layer <= LAYER.front);
+      let sig = `${this._epoch}|${W}x${H}|${occl ? 1 : 0}`;
+      for (const it of run.items) sig += it === WASH_ITEM ? `|w${this._wash.t0}` : `|${it._uid}:${it.alpha}:${it.x}:${it.y}`;
+      let seg = this._segs[run.slot];
+      // a repaint rasterises the whole run at once (in this frame): while a scene is still drawing in, its runs
+      // change every few frames – then the run is drawn live and repainted at most every REBUILD_MS
+      if (!seg || seg.sig !== sig) seg = seg && t - seg.at < REBUILD_MS ? null : this._buildSeg(run, sig, occl, s, t);
+      if (!seg) {
+        const pens = [];
+        for (const it of run.items) {
+          if (it === WASH_ITEM) this._drawWash(g, s, t);
+          else this._drawEl(g, it, s, t, pens, null);
+        }
+        return false;
+      }
+      g.setTransform(1, 0, 0, 1, 0, 0);
+      g.globalAlpha = 1;
+      if (seg.M) {
+        g.globalCompositeOperation = 'destination-out';
+        g.drawImage(seg.M.c, 0, 0);
+      }
+      g.globalCompositeOperation = 'source-over';
+      g.drawImage(seg.L.c, 0, 0);
+      return true;
+    }
+
+    _buildSeg(run, sig, occl, s, t) {
+      const W = s.canvas.width;
+      const H = s.canvas.height;
+      let seg = this._segs[run.slot];
+      if (!seg || seg.L.c.width !== W || seg.L.c.height !== H) {
+        const L = makeLayer(this._doc, W, H);
+        if (!L) return null;
+        seg = { L, M: null, sig: '', at: 0 };
+        this._segs[run.slot] = seg;
+      }
+      if (!occl) seg.M = null;
+      else if (!seg.M || seg.M.c.width !== W || seg.M.c.height !== H) seg.M = makeLayer(this._doc, W, H);
+      const prep = (c) => {
+        c.setTransform(1, 0, 0, 1, 0, 0);
+        c.globalAlpha = 1;
+        c.globalCompositeOperation = 'source-over';
+        c.clearRect(0, 0, W, H);
+      };
+      prep(seg.L.g);
+      const mg = seg.M ? seg.M.g : null;
+      if (mg) prep(mg);
+      const pens = [];
+      for (const it of run.items) {
+        if (it === WASH_ITEM) this._drawWash(seg.L.g, s, t);
+        else this._drawEl(seg.L.g, it, s, t, pens, mg);
+      }
+      seg.L.g.globalAlpha = 1;
+      seg.L.g.globalCompositeOperation = 'source-over';
+      seg.sig = sig;
+      seg.at = t;
+      this.stats.rebuilds++;
+      return seg;
+    }
+
+    /** A left-over raster budget rasterises one missing pose of a moving figure / fire ahead of need. */
+    _prefetchPose() {
+      if (this._rasterBudget <= 0) return;
+      for (const el of this.els) {
+        if (!el.spr || el.state !== 'show' || !el.anim || !el._moving) continue;
+        const a = el.layer === LAYER.front ? el.action : null;
+        const uses = el.anim === 'flicker' || (el.anim === 'flap' && a === 'fly') || ((el.anim === 'walk' || el.anim === 'legs') && (a === 'go' || a === 'run'));
+        if (!uses) continue;
+        const n = POSE_FRAMES[el.anim] || 0;
+        if (!el.frames) el.frames = new Array(n).fill(null);
+        const k = el.frames.indexOf(null);
+        if (k >= 0) {
+          this._poseFrame(el, k);
+          return;
+        }
+      }
     }
 
     _drawWash(g, s, t) {
@@ -2323,12 +2779,13 @@
       const gy = Math.round((this._ground || s.h * 0.9) * s.dpr);
       const one = (c, a) => {
         if (!c || a <= 0.001) return;
-        const grad = g.createLinearGradient(0, 0, 0, gy);
+        const sy = c.ground ? gy : H; // no ground (space): the sky reaches the band bottom
+        const grad = g.createLinearGradient(0, 0, 0, sy);
         grad.addColorStop(0, rgba(c.top, a));
         grad.addColorStop(1, rgba(c.bottom, a));
         g.globalAlpha = 1;
         g.fillStyle = grad;
-        g.fillRect(0, 0, W, gy);
+        g.fillRect(0, 0, W, sy);
         if (c.ground) {
           g.fillStyle = rgba(c.ground, a);
           g.fillRect(0, gy, W, H - gy);
@@ -2369,12 +2826,13 @@
         p.lying = true;
       }
       if (el.anim === 'flicker') p.frame = this._poseFrame(el, Math.floor(sec * 8) % POSE_FRAMES.flicker);
-      if (el.drift) p.x += Math.sin(sec * 0.15 + ph) * s.w * 0.025;
+      if (el.drift) p.x += Math.sin(sec * 0.15 + ph) * (typeof el.drift === 'number' ? el.drift : s.w * 0.025);
       if (el.float || el.id === 'ghost') p.y += Math.sin(sec * 1.5 + ph) * el.h * 0.05;
       return p;
     }
 
-    _drawEl(g, el, s, t, pens) {
+    /** Draws one element onto g (`mg`: occlusion mask of a cached segment – receives the silhouette as well). */
+    _drawEl(g, el, s, t, pens, mg) {
       const lt = (t - el.t0) / 1000;
       let spr = el.spr;
       if (!spr) {
@@ -2419,30 +2877,56 @@
       const left = x * dpr - G.bw / 2 - G.pad;
       const top = y * dpr - G.bh - G.pad;
       const transformed = rot !== 0 || flip < 0 || scale !== 1;
-      if (transformed) {
-        // pivot at the feet (bottom centre); a sleeping figure lies down around its box centre
-        g.setTransform(1, 0, 0, 1, 0, 0);
-        if (lying) {
-          g.translate(x * dpr, y * dpr - G.bw / 2);
-          g.rotate(rot);
-          g.scale(flip, 1);
-          g.translate(-G.sw / 2, -(G.pad + G.bh / 2));
-        } else {
-          g.translate(x * dpr, y * dpr);
-          g.rotate(rot);
-          g.scale(flip * scale, scale);
-          g.translate(-G.sw / 2, -(G.sh - G.pad));
-        }
-      } else g.setTransform(1, 0, 0, 1, left, top);
-      const blit = (L, a) => {
+      // a sleeping figure lies on its lowest stroke (after the quarter turn: the leftmost point of the drawing)
+      const lift = lying ? (G.bw / 2 - extentOf(el).minX * G.S) + G.pen * 0.5 : 0;
+      const place = (c) => {
+        if (transformed) {
+          // pivot at the feet (bottom centre); a lying figure turns around its box centre
+          c.setTransform(1, 0, 0, 1, 0, 0);
+          if (lying) {
+            c.translate(x * dpr, y * dpr - lift);
+            c.rotate(rot);
+            c.scale(flip, 1);
+            c.translate(-G.sw / 2, -(G.pad + G.bh / 2));
+          } else {
+            c.translate(x * dpr, y * dpr);
+            c.rotate(rot);
+            c.scale(flip * scale, scale);
+            c.translate(-G.sw / 2, -(G.sh - G.pad));
+          }
+        } else c.setTransform(1, 0, 0, 1, left, top);
+      };
+      place(g);
+      const blit = (L, a, c = g) => {
         if (!L || a <= 0.003) return;
-        g.globalAlpha = clamp(a, 0, 1);
+        c.globalAlpha = clamp(a, 0, 1);
         if (crop > 0) {
           const sx = Math.floor(crop * L.c.width);
-          if (sx < L.c.width) g.drawImage(L.c, sx, 0, L.c.width - sx, L.c.height, sx, 0, L.c.width - sx, L.c.height);
-        } else g.drawImage(L.c, 0, 0);
+          if (sx < L.c.width) c.drawImage(L.c, sx, 0, L.c.width - sx, L.c.height, sx, 0, L.c.width - sx, L.c.height);
+        } else c.drawImage(L.c, 0, 0);
       };
       const A = this._colors.under;
+      // occlusion: scenery, props and figures punch their silhouette (colour wash + halo) out of what lies behind,
+      // so a tree trunk never shows through the car – one extra blit per element (a cached segment keeps the
+      // silhouettes in its mask and punches them out of what is drawn below it)
+      if (el.layer >= LAYER.back && el.layer <= LAYER.front) {
+        const sil = (c) => {
+          if (frame) blit(frame.under, alpha, c);
+          else {
+            if (spr.fill) blit(spr.fill, alpha * clamp((now() - spr.fillAt) / FILL_FADE_MS, 0, 1), c);
+            blit(spr.under, alpha, c);
+          }
+        };
+        g.globalCompositeOperation = 'destination-out';
+        sil(g);
+        g.globalCompositeOperation = 'source-over';
+        if (mg) {
+          place(mg);
+          sil(mg);
+          mg.globalAlpha = 1;
+          mg.setTransform(1, 0, 0, 1, 0, 0);
+        }
+      }
       if (frame) {
         blit(frame.under, alpha * A);
         blit(frame.ink, alpha);
@@ -2537,7 +3021,9 @@
         const fall = gy - top;
         const n = Math.round(clamp((W / u) * (heavy ? 16 : 11), 14, heavy ? 110 : 80) * (eco ? 0.5 : 1));
         const len = u * (heavy ? 0.1 : 0.08);
-        g.beginPath();
+        // every drop is one blit of a pre-drawn stroke (halo + ink): far cheaper to rasterise than 2 × n strokes
+        const D = this._drop(len, Math.max(1.2, u * 0.012), dpr);
+        g.globalAlpha = a;
         for (let i = 0; i < n; i++) {
           const r1 = hash01(i * 7 + 1);
           const r2 = hash01(i * 13 + 5);
@@ -2546,10 +3032,22 @@
           const x = ((r2 * 1.37 + i / n + sec * 0.02) % 1) * W;
           const l = Math.min(len, gy - y);
           if (l <= 1) continue;
-          g.moveTo(x, y);
-          g.lineTo(x - l * 0.28, y + l);
+          if (!D) {
+            g.beginPath();
+            g.moveTo(x, y);
+            g.lineTo(x - l * 0.28, y + l);
+            twoPass(Math.max(1.2, u * 0.012), 0.85, 0.32);
+            continue;
+          }
+          const dx = Math.round(x - D.ox);
+          const dy = Math.round(y - D.oy);
+          if (l >= len) g.drawImage(D.c, dx, dy);
+          else {
+            const h = Math.min(D.c.height, Math.ceil(D.oy + l + 1)); // the drop reaches the ground: its upper part
+            g.drawImage(D.c, 0, 0, D.c.width, h, dx, dy, D.c.width, h);
+          }
         }
-        twoPass(Math.max(1.2, u * 0.012), 0.85, 0.32);
+        g.globalAlpha = 1;
         if (heavy && !eco) this._lightning(g, el, s, t, a);
       } else if (el.proc === 'lightning') this._lightning(g, el, s, t, a);
       else if (el.proc === 'snow') {
@@ -2610,10 +3108,24 @@
         const lam = u * 0.5;
         const reveal = el.state === 'draw' ? a : 1;
         const xmax = W * reveal;
+        // the waves only scroll sideways: each row (and the water below the first one) is drawn once into a strip
+        // one wave length wider than the band and blitted at its phase offset – 4 blits instead of paths
+        const WV = this._waves(W, Hc, wl, amp, lam, u, dpr);
+        if (WV) {
+          const xw = Math.max(1, Math.ceil(xmax));
+          for (const row of WV.rows) {
+            const off = (((((sec * row.k + row.ph) * lam) / TAU) % lam) + lam) % lam;
+            g.globalAlpha = row.fill ? 0.24 * (el.state === 'erase' ? a : 1) : a;
+            g.drawImage(row.c, off, 0, xw, row.c.height, 0, row.y, xw, row.c.height);
+          }
+          g.globalAlpha = 1;
+          return;
+        }
+        const dx = Math.max(6 * dpr, lam / 14); // ~14 points per wave length are smooth enough
         // water wash below the first wave
         g.beginPath();
         g.moveTo(0, Hc);
-        for (let x = 0; x <= xmax; x += 6 * dpr) g.lineTo(x, wl + amp * Math.sin((x / lam) * TAU + sec * 1.2));
+        for (let x = 0; x <= xmax; x += dx) g.lineTo(x, wl + amp * Math.sin((x / lam) * TAU + sec * 1.2));
         g.lineTo(xmax, Hc);
         g.closePath();
         g.globalAlpha = 0.24 * (el.state === 'erase' ? a : 1);
@@ -2622,7 +3134,7 @@
         for (let r = 0; r < 3; r++) {
           const y0 = wl + r * (Hc - wl) * 0.34;
           g.beginPath();
-          for (let x = 0; x <= xmax; x += 5 * dpr) {
+          for (let x = 0; x <= xmax + dx; x += dx) {
             const y = y0 + amp * (1 - r * 0.25) * Math.sin((x / lam) * TAU + sec * (1.2 + r * 0.35) + r * 1.7);
             if (x) g.lineTo(x, y);
             else g.moveTo(x, y);
@@ -2631,6 +3143,80 @@
         }
       }
       g.globalAlpha = 1;
+    }
+
+    /** Wave strips for the sea (water wash + 3 wave rows, each one wave length wider than the band), cached. */
+    _waves(W, Hc, wl, amp, lam, u, dpr) {
+      const ink = this._colors.ink;
+      const halo = this._colors.halo;
+      const key = `${W}|${Hc}|${Math.round(wl)}|${Math.round(u)}|${dpr}|${ink}|${halo}`;
+      if (this._waveSpr && this._waveSpr.key === key) return this._waveSpr;
+      if (!this._doc) return null;
+      const sw = Math.ceil(W + lam) + 2;
+      const dx = Math.max(4 * dpr, lam / 24);
+      const rows = [];
+      // water wash (follows the first row)
+      const fill = makeLayer(this._doc, sw, Math.max(1, Hc - wl + amp + 2));
+      if (!fill) return null;
+      fill.g.beginPath();
+      fill.g.moveTo(0, fill.c.height);
+      for (let x = 0; x <= sw + dx; x += dx) fill.g.lineTo(x, amp + amp * Math.sin((x / lam) * TAU));
+      fill.g.lineTo(sw, fill.c.height);
+      fill.g.closePath();
+      fill.g.fillStyle = FILL.water;
+      fill.g.fill();
+      rows.push({ c: fill.c, y: Math.round(wl - amp), k: 1.2, ph: 0, fill: true });
+      for (let r = 0; r < 3; r++) {
+        const ar = amp * (1 - r * 0.25);
+        const lw = Math.max(1.4, u * 0.016) * (1 - r * 0.2);
+        const pad = Math.ceil((lw + 2.6 * dpr) / 2 + 2);
+        const L = makeLayer(this._doc, sw, ar * 2 + pad * 2);
+        if (!L) return null;
+        L.g.beginPath();
+        for (let x = 0; x <= sw + dx; x += dx) {
+          const y = pad + ar + ar * Math.sin((x / lam) * TAU);
+          if (x) L.g.lineTo(x, y);
+          else L.g.moveTo(x, y);
+        }
+        L.g.globalAlpha = 0.35;
+        L.g.strokeStyle = halo;
+        L.g.lineWidth = lw + 2.6 * dpr;
+        L.g.stroke();
+        L.g.globalAlpha = 0.95;
+        L.g.strokeStyle = ink;
+        L.g.lineWidth = lw;
+        L.g.stroke();
+        rows.push({ c: L.c, y: Math.round(wl + r * (Hc - wl) * 0.34 - ar - pad), k: 1.2 + r * 0.35, ph: r * 1.7, fill: false });
+      }
+      this._waveSpr = { key, rows };
+      return this._waveSpr;
+    }
+
+    /** Rain drop sprite (a slanted stroke of length len with halo, drawn once per size / colour). */
+    _drop(len, lw, dpr) {
+      const ink = this._colors.ink;
+      const halo = this._colors.halo;
+      const key = `${Math.round(len * 2)}|${lw}|${dpr}|${ink}|${halo}`;
+      if (this._dropSpr && this._dropSpr.key === key) return this._dropSpr;
+      const hw = lw + 2.6 * dpr;
+      const pad = Math.ceil(hw / 2 + 1);
+      const L = this._doc && makeLayer(this._doc, len * 0.28 + pad * 2, len + pad * 2);
+      if (!L) return null;
+      const x0 = pad + len * 0.28;
+      const y0 = pad;
+      const line = (w, color, alpha) => {
+        L.g.globalAlpha = alpha;
+        L.g.strokeStyle = color;
+        L.g.lineWidth = w;
+        L.g.beginPath();
+        L.g.moveTo(x0, y0);
+        L.g.lineTo(x0 - len * 0.28, y0 + len);
+        L.g.stroke();
+      };
+      line(hw, halo, 0.32);
+      line(lw, ink, 0.85);
+      this._dropSpr = { key, c: L.c, ox: x0, oy: y0 };
+      return this._dropSpr;
     }
 
     _lightning(g, el, s, t, a) {
@@ -2704,6 +3290,8 @@
    * (CSS colour) composites the transparent drawing onto a solid colour first (players without alpha). `download`
    * (default true) saves `filename` (livefx-sketch-<date>.webm). Resolves { blob, url, mimeType, bytes, ms, filename };
    * the returned promise has `.stop()` to end early. Rejects without canvas.captureStream / MediaRecorder.
+   * No panel button / bus message drives it yet: call it from the browser console of overlay.html in a normal tab
+   * (not inside an OBS browser source – no console there, and the download goes nowhere). docs/SKETCH.md
    */
   function record(opts = {}) {
     const o = opts && typeof opts === 'object' ? opts : {};

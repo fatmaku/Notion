@@ -48,6 +48,9 @@ Ohne Server (Panel per `file://` geöffnet) gibt es keinen Handy-Link.
   die Prozentzahl dazwischen zeigt den aktuellen Wert – auch, wenn das Panel ihn ändert.
 - **📖 Band an/aus** (2.2): blendet das Story-Band im Overlay ein (`storyLayout: 'band'`) oder zeigt Szenen
   wieder im Vollbild (`'full'`). **🎯 Zone** wechselt die Effekt-Zone (überall → Ränder → unten → oben).
+- **✏️ Stil** (2.3): Story-Stil im Overlay – Gemischt → Zeichnung (der Zeichenfilm, `docs/SKETCH.md`) → Emoji.
+  **📐 Band** (2.3): Band-Position im Hochformat – ganz unten ↔ über dem Chat. Beide Knöpfe zeigen, was die
+  Overlays gerade nutzen (auch wenn das Panel es ändert).
 - **📦 Pakete** (2.2): die Meme-Pakete als Kacheln – antippen lädt, nochmal antippen entfernt. Gleiche Logik
   wie im Panel (`js/packs-store.js`), die Änderung landet auf dem Server und sofort im Panel.
 - **Szenen**: die Story-Szenen (Regen, Nacht, …) inklusive Atmosphäre-Loop – genau wie das Szenen-Pad

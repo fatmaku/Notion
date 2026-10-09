@@ -1,4 +1,4 @@
-// Mobile / PWA static files: allow-list additions, content types and service-worker headers.
+// Mobile / PWA static files: allow-list additions, content types and service-worker headers (2.3: camera view).
 'use strict';
 
 const test = require('node:test');
@@ -131,7 +131,7 @@ test('the panel links the manifest, registers the service worker and shows the H
   assert.equal((html.match(/data-advanced/g) || []).length, 5, 'five advanced cards');
 
   const mobile = (await api(server.base, 'GET', '/mobile.html')).text;
-  for (const id of ['favs-card', 'favs', 'btn-vol-down', 'btn-vol-up', 'vol-label', 'btn-mic', 'btn-band', 'btn-zone', 'packs-card', 'packs']) {
+  for (const id of ['favs-card', 'favs', 'btn-vol-down', 'btn-vol-up', 'vol-label', 'btn-mic', 'btn-band', 'btn-zone', 'btn-style', 'btn-bandpos', 'packs-card', 'packs']) {
     assert.match(mobile, new RegExp(`id="${id}"`), `#${id} in mobile.html`);
   }
   assert.match(mobile, /js\/packs-store\.js/);
@@ -139,4 +139,112 @@ test('the panel links the manifest, registers the service worker and shows the H
   for (const p of ['/overlay.html', '/demo.html', '/mobile.html']) {
     assert.match((await api(server.base, 'GET', p)).text, /serviceWorker\.register\('\/sw\.js'\)/, p);
   }
+});
+
+test('camera view: page, script, stylesheet and guide are served; the panel links it', async () => {
+  const page = await api(server.base, 'GET', '/camera.html');
+  assert.strictEqual(page.status, 200);
+  assert.match(page.headers.get('content-type'), /text\/html/);
+  assert.strictEqual(page.headers.get('set-cookie'), null, 'camera.html hands out no panel cookie');
+  for (const id of ['frame', 'cam', 'fx', 'cam-device', 'btn-mirror', 'btn-aspect', 'btn-rec', 'btn-studio', 'btn-popup', 'rec-result', 'rec-download']) {
+    assert.match(page.text, new RegExp(`id="${id}"`), `#${id} in camera.html`);
+  }
+  assert.match(page.text, /<iframe id="fx"[^>]*allow="autoplay"/, 'overlay iframe may play sound');
+  assert.match(page.text, /js\/camera\.js/);
+  assert.match(page.text, /css\/camera\.css/);
+  assert.match(page.text, /serviceWorker\.register\('\/sw\.js'\)/);
+  assert.strictEqual((await fetch(`${server.base}/camera.html`, { method: 'HEAD' })).status, 200);
+
+  const js = await api(server.base, 'GET', '/js/camera.js');
+  assert.strictEqual(js.status, 200);
+  assert.match(js.headers.get('content-type'), /javascript/);
+  const css = await api(server.base, 'GET', '/css/camera.css');
+  assert.strictEqual(css.status, 200);
+  assert.match(css.headers.get('content-type'), /text\/css/);
+  assert.doesNotMatch(css.text, /color-scheme:\s*dark/, 'no dark color-scheme (would paint the overlay iframe opaque)');
+  const doc = await api(server.base, 'GET', '/docs/KAMERA.md');
+  assert.strictEqual(doc.status, 200);
+  for (const h of ['## Deutsch', '## Türkçe', '## English', 'OBS Virtual Camera', 'FaceTime', 'WhatsApp']) assert.ok(doc.text.includes(h), `KAMERA.md mentions ${h}`);
+  for (const p of ['/camera.htm', '/camera.html/', '/Camera.html', '/camera.js', '/js/camera.html']) assert.strictEqual((await api(server.base, 'GET', p)).status, 404, p);
+
+  const html = (await api(server.base, 'GET', '/')).text;
+  for (const id of ['camera-card', 'camera-url', 'camera-open', 'btn-camera-record', 'btn-camera-sketch', 'btn-copy-camera', 'story-style', 'band-position']) {
+    assert.match(html, new RegExp(`id="${id}"`), `#${id} in index.html`);
+  }
+  assert.match(html, /<select id="story-style"[^>]*>[\s\S]*?value="mixed"[\s\S]*?value="sketch"[\s\S]*?value="emoji"/);
+  assert.match(html, /<select id="band-position"[^>]*>[\s\S]*?value="bottom"[\s\S]*?value="chat"/);
+});
+
+test('camera helpers: output size, overlay URL, fit, cover crop, MIME choice, gradients, shadows', () => {
+  const C = require('../js/camera.js');
+  assert.deepStrictEqual(C.outputSize('16:9', 720), { width: 1280, height: 720 });
+  assert.deepStrictEqual(C.outputSize('9:16', 720), { width: 720, height: 1280 });
+  assert.deepStrictEqual(C.outputSize('portrait', '1080'), { width: 1080, height: 1920 });
+  assert.deepStrictEqual(C.outputSize('nonsense', 999), { width: 1280, height: 720 });
+
+  assert.strictEqual(C.overlaySrc('', '16:9'), 'overlay.html');
+  assert.strictEqual(C.overlaySrc('?record=1&mic=1&cam=x', '9:16'), 'overlay.html?layout=portrait', 'camera-only params stay out');
+  assert.strictEqual(C.overlaySrc('?theme=pastel&band=30&zone=edges&bandpos=chat&storystyle=sketch&layout=x', '16:9'), 'overlay.html?theme=pastel&band=30&zone=edges&bandpos=chat&storystyle=sketch');
+  assert.strictEqual(C.overlaySrc('?storystyle=emoji', '16:9', { storystyle: 'sketch' }), 'overlay.html?storystyle=sketch');
+  assert.strictEqual(C.overlaySrc('?storystyle=emoji', '16:9', { storystyle: null }), 'overlay.html');
+
+  assert.deepStrictEqual(C.fitBox(1280, 720, 1280, 720), { scale: 1, x: 0, y: 0 });
+  const f = C.fitBox(390, 674, 720, 1280);
+  assert.ok(Math.abs(f.scale - 674 / 1280) < 1e-9 && f.y === 0 && f.x > 0, JSON.stringify(f));
+  assert.deepStrictEqual(C.coverRect(640, 480, 1280, 720), { sx: 0, sy: 60, sw: 640, sh: 360 });
+  assert.deepStrictEqual(C.coverRect(1280, 720, 720, 1280), { sx: 437.5, sy: 0, sw: 405, sh: 720 });
+
+  const only = (list) => (m) => list.includes(m);
+  assert.strictEqual(C.pickMime('auto', true, only(['video/webm;codecs=vp8,opus', 'video/mp4;codecs=avc1,mp4a.40.2'])), 'video/mp4;codecs=avc1,mp4a.40.2', 'auto prefers H.264 MP4');
+  assert.strictEqual(C.pickMime('auto', true, only(['video/mp4;codecs=avc1.640028,mp4a.40.2', 'video/mp4;codecs=avc1,mp4a.40.2'])), 'video/mp4;codecs=avc1.640028,mp4a.40.2', 'level 4.0 (1080p30) first');
+  // a bare video/mp4 (Chromium/Linux: VP9 + Opus inside an .mp4) loses against WebM – only Safari-like browsers get it
+  assert.strictEqual(C.pickMime('auto', true, only(['video/webm;codecs=vp8,opus', 'video/mp4'])), 'video/webm;codecs=vp8,opus', 'bare MP4 not preferred');
+  assert.strictEqual(C.pickMime('mp4', true, only(['video/webm', 'video/mp4'])), 'video/webm');
+  assert.strictEqual(C.pickMime('auto', true, only(['video/mp4'])), 'video/mp4', 'bare MP4 as the last resort');
+  for (const fmt of ['auto', 'mp4', 'webm']) {
+    for (const a of [true, false]) {
+      const list = C.mimeCandidates(fmt, a);
+      assert.strictEqual(list[list.length - 1], 'video/mp4', `${fmt}: bare MP4 last`);
+      assert.ok(list.slice(0, -1).filter((m) => /^video\/mp4/.test(m)).every((m) => /codecs=avc1/.test(m)), `${fmt}: every other MP4 names H.264`);
+      assert.ok(!list.some((m) => /42E01E/i.test(m)), 'no level-3.0 H.264 (too low for 720p30)');
+    }
+  }
+  assert.strictEqual(C.phoneSafe('video/mp4;codecs=avc1.640028,mp4a.40.2'), true);
+  assert.strictEqual(C.phoneSafe('video/mp4'), true, 'Safari: plain MP4 is H.264');
+  assert.strictEqual(C.phoneSafe('video/mp4;codecs=vp9,opus'), false);
+  assert.strictEqual(C.phoneSafe('video/mp4;codecs="vp09.00.10.08,opus"'), false);
+  assert.strictEqual(C.phoneSafe('video/webm;codecs=vp9,opus'), false);
+  assert.strictEqual(C.pickMime('webm', true, only(['video/webm;codecs=vp8,opus', 'video/mp4'])), 'video/webm;codecs=vp8,opus');
+  assert.strictEqual(C.pickMime('mp4', false, only(['video/webm'])), 'video/webm', 'falls back to what the browser has');
+  assert.strictEqual(C.pickMime('auto', false, only([])), '');
+  assert.strictEqual(C.extFor('video/mp4;codecs=avc1'), 'mp4');
+  assert.strictEqual(C.extFor('video/webm;codecs=vp9,opus'), 'webm');
+  assert.strictEqual(C.formatTime(65400), '01:05');
+  assert.strictEqual(C.familyOf('tr-TR'), 'tr');
+  assert.strictEqual(C.familyOf('fr-FR'), '');
+  assert.match(C.cameraErrorText({ name: 'NotReadableError' }), /belegt/);
+  assert.match(C.cameraErrorText({}, false), /HTTPS/);
+
+  const g = C.parseGradient('linear-gradient(rgba(0, 0, 0, 0) 0px, rgb(0, 0, 0) 18%, rgb(0, 0, 0) 100%)');
+  assert.strictEqual(g.type, 'linear');
+  assert.strictEqual(g.angle, 180);
+  assert.deepStrictEqual(g.stops.map((s) => s.color), ['rgba(0, 0, 0, 0)', 'rgb(0, 0, 0)', 'rgb(0, 0, 0)']);
+  assert.deepStrictEqual(C.resolveStops(g.stops, 100), [0, 0.18, 1]);
+  const t = C.parseGradient('linear-gradient(to right, red, blue 30%, lime)');
+  assert.deepStrictEqual(t.to, { x: 1, y: 0 });
+  assert.deepStrictEqual(C.resolveStops(t.stops, 200), [0, 0.3, 1]);
+  const two = C.parseGradient('linear-gradient(172deg, rgba(0, 0, 0, 0) 0px 44%, rgba(210, 228, 255, 0.45) 50%, rgba(0, 0, 0, 0) 56%)');
+  assert.strictEqual(two.stops.length, 4, 'a stop with two positions counts twice');
+  const r = C.parseGradient('radial-gradient(circle at 75% 12%, rgb(58, 63, 120) 0%, rgb(2, 3, 16) 100%)');
+  assert.strictEqual(r.type, 'radial');
+  assert.strictEqual(r.shape, 'circle');
+  assert.deepStrictEqual(r.at, [{ v: 75, u: '%' }, { v: 12, u: '%' }]);
+  assert.strictEqual(C.parseGradient('radial-gradient(rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0) 60%)').shape, 'ellipse');
+  assert.strictEqual(C.parseGradient('url("a.png")'), null);
+  assert.deepStrictEqual(C.splitTopLevel('linear-gradient(red, blue), url("x,y.png"), none'), ['linear-gradient(red, blue)', 'url("x,y.png")', 'none']);
+
+  assert.deepStrictEqual(C.parseShadows('rgba(0, 0, 0, 0.45) 0px 20px 60px 0px'), [{ color: 'rgba(0, 0, 0, 0.45)', x: 0, y: 20, blur: 60, spread: 0, inset: false }]);
+  assert.deepStrictEqual(C.parseShadows('0px 0px 12px red, rgb(1, 2, 3) 1px 2px 0px inset').map((s) => [s.color, s.blur, s.inset]), [['red', 12, false], ['rgb(1, 2, 3)', 0, true]]);
+  assert.deepStrictEqual(C.parseShadows('none'), []);
+  assert.ok(C.isTransparent('rgba(0, 0, 0, 0)') && C.isTransparent('transparent') && !C.isTransparent('rgb(0, 0, 0)'));
 });

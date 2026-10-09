@@ -1,4 +1,4 @@
-// LiveFX – allow-listed static file serving. Only the panel, the overlay, the mobile page, the PWA
+// LiveFX – allow-listed static file serving. Only the panel, the overlay, the mobile page, the camera view, the PWA
 // files (manifest, service worker, icons), css/, js/, docs/, vendored libraries (`vendor/`), offline
 // models (`<dataDir>/models`) and uploaded assets are reachable; server code, tests,
 // data/triggers.json and data/token.txt are never served.
@@ -44,6 +44,7 @@ const ROOT_FILES = new Map([
   ['/overlay.html', 'overlay.html'],
   ['/demo.html', 'demo.html'],
   ['/mobile.html', 'mobile.html'],
+  ['/camera.html', 'camera.html'], // 2.3 camera view (webcam + overlay in one window, docs/KAMERA.md)
   ['/manifest.webmanifest', 'manifest.webmanifest'],
   ['/sw.js', 'sw.js'],
 ]);

@@ -146,7 +146,7 @@ test('robustness: garbage input, typos (one edit), Turkish suffixes, empty lines
   assert.equal(D.LOOP_BY_SCENE.night, 'nightCrickets');
 });
 
-// ---- 2.2.1 lifecycle: props / actors live only while the story talks about them ----
+// ---- 2.3 lifecycle: props / actors live only while the story talks about them ----
 
 /** Feeds final lines one by one and returns a compact view of the state after each line. */
 function run(d, lines, opts = {}) {
@@ -163,21 +163,33 @@ const RAIN_CAR_SUN_FOREST = {
   en: ['It was raining', 'A car came', 'The sun came out', 'We walked into the forest'],
 };
 for (const [lang, lines] of Object.entries(RAIN_CAR_SUN_FOREST)) {
-  test(`2.2.1 ${lang}: rain -> car -> sun -> forest: rain gone when the sun comes, car gone after 3 sentences`, () => {
+  test(`2.3 ${lang}: rain -> car -> sun -> forest: the car goes with the rain`, () => {
     const d = D.create(); // auto language detection, as in the overlay
     const [rain, car, sun, forest] = run(d, lines);
     for (const step of [rain, car, sun, forest]) assert.equal(step.lang, lang, `${step.line}: language`);
     assert.deepEqual([rain.scene, rain.weather, rain.props], ['rain', 'rain', []]);
     assert.deepEqual([car.scene, car.props], ['rain', ['car']], 'the car drives into the rain');
     assert.equal(sun.weather, 'clear', 'rain gone when the sun comes');
-    assert.notEqual(sun.scene, 'rain');
-    assert.deepEqual(sun.props, ['car'], 'mentioned in the previous sentence: the car stays for the sunshine');
-    assert.deepEqual([forest.scene, forest.place, forest.props], ['forest', 'forest', []], 'new place: the car (2 sentences old) is gone');
+    assert.deepEqual([sun.scene, sun.props], [null, []], 'a prop alone leaves with the old weather: the band empties after the rain');
+    assert.deepEqual([forest.scene, forest.place, forest.props], ['forest', 'forest', []]);
     assert.equal(d.lines, 4);
   });
 }
 
-test('2.2.1 a prop leaves after 3 later sentences without a mention; a mention refreshes it; interim lines do not count', () => {
+test('2.3 new weather: props of the previous sentence stay only when a place or a figure carries the picture', () => {
+  const en = D.create({ lang: 'en' });
+  assert.deepEqual(run(en, ['A car came', 'It started to rain']).map((x) => x.props), [['car'], []], 'a lone car leaves when the rain starts');
+  const lantern = D.create({ lang: 'en' });
+  assert.deepEqual(run(lantern, ['A girl came with a lantern', 'It started to rain']).map((x) => x.props), [['lantern'], ['lantern']], 'the girl keeps her lantern');
+  const forest = D.create({ lang: 'de' });
+  assert.deepEqual(run(forest, ['Im Wald stand ein Auto', 'Es regnete']).map((x) => [x.scene, x.props]), [['forest', ['car']], ['rain', ['car']]], 'the car in the forest stays in the rain');
+  const same = D.create({ lang: 'tr' });
+  assert.deepEqual(run(same, ['yağmur yağıyordu', 'güneş açtı, araba geldi']).map((x) => x.props), [[], ['car']], 'named in the same sentence: stays');
+  const stop = D.create({ lang: 'de' });
+  assert.deepEqual(run(stop, ['Es regnete', 'Ein Auto kam', 'Es hörte auf zu regnen']).map((x) => [x.scene, x.props]), [['rain', []], ['rain', ['car']], [null, []]]);
+});
+
+test('2.3 a prop leaves after 3 later sentences without a mention; a mention refreshes it; interim lines do not count', () => {
   const d = D.create({ lang: 'tr' });
   const steps = run(d, ['araba geldi', 've sonra', 'şey işte', 'bir şey oldu']);
   assert.deepEqual(steps.map((x) => x.props.length), [1, 1, 1, 0], 'gone after the 3rd later sentence');
@@ -197,7 +209,7 @@ test('2.2.1 a prop leaves after 3 later sentences without a mention; a mention r
   assert.equal(lm[3].scene, 'forest', 'the place stays');
 });
 
-test('2.2.1 actors walk out after 4 later sentences; verbs and person pronouns keep them', () => {
+test('2.3 actors walk out after 4 later sentences; verbs and person pronouns keep them', () => {
   const d = D.create({ lang: 'de' });
   const steps = run(d, ['Ein Mädchen kam', 'und dann', 'na ja', 'also gut', 'jedenfalls']);
   assert.deepEqual(steps.map((x) => x.actors.length), [1, 1, 1, 1, 0]);
@@ -213,7 +225,7 @@ test('2.2.1 actors walk out after 4 later sentences; verbs and person pronouns k
   assert.deepEqual(f.state.actors, [], '"es" is no person pronoun');
 });
 
-test('2.2.1 time limits: tick(now) ends props after 45 s and actors after 60 s (whichever comes first)', () => {
+test('2.3 time limits: tick(now) ends props after 45 s and actors after 60 s (whichever comes first)', () => {
   let t = 1000;
   const d = D.create({ lang: 'en', now: () => t });
   const seen = [];
@@ -242,7 +254,7 @@ test('2.2.1 time limits: tick(now) ends props after 45 s and actors after 60 s (
   assert.deepEqual(D.TTL, { propLines: 3, propMs: 45000, actorLines: 4, actorMs: 60000 });
 });
 
-test('2.2.1 scene / weather changes keep actors mentioned in the same or previous sentence', () => {
+test('2.3 scene / weather changes keep actors mentioned in the same or previous sentence', () => {
   const de = D.create({ lang: 'de' });
   run(de, ['Der Drache flog über den Wald', 'Es fing an zu regnen']);
   assert.deepEqual([de.state.scene, de.state.actors.map((a) => a.role)], ['rain', ['dragon']]);
@@ -258,7 +270,7 @@ test('2.2.1 scene / weather changes keep actors mentioned in the same or previou
   assert.deepEqual([tr.state.scene, tr.state.actors.map((a) => a.role)], ['rain', ['girl']]);
 });
 
-test('2.2.1 removal words remove the named actor / object; a destination makes "gitti" a walk', () => {
+test('2.3 removal words remove the named actor / object; a destination makes "gitti" a walk', () => {
   const cases = [
     ['tr', ['kız geldi', 'kız gitti'], [], []],
     ['tr', ['kedi ve köpek geldi', 'köpek uzaklaştı'], ['cat'], []],
@@ -292,7 +304,36 @@ test('2.2.1 removal words remove the named actor / object; a destination makes "
   assert.deepEqual(pron.state.actors, [], '"verschwand er" = the last figure');
 });
 
-test('2.2.1 end words count at the end of a line only; the bare Turkish "son" only as a line of its own', () => {
+test('2.3 removal verbs bind to their subject; "on the left", sky and weather lines remove nobody', () => {
+  const cases = [
+    // [lang, lines, actors, props, weather]
+    ['en', ['The dog sat on the left'], ['dog'], [], 'clear'],
+    ['en', ['A cat came', 'The cat turned left'], ['cat'], [], 'clear'],
+    ['en', ['A cat came', 'There was nothing left'], ['cat'], [], 'clear'],
+    ['en', ['A girl came with a house', 'She left the house'], [], ['house'], 'clear'],
+    ['en', ['A girl came', 'She vanished into the house'], [], ['house'], 'clear'],
+    ['en', ['A girl and a ship came', 'The girl watched as the ship sailed away'], ['girl'], [], 'clear'],
+    ['de', ['Ein Auto kam', 'Plötzlich verschwand das Auto'], [], [], 'clear'],
+    ['de', ['Der Ritter kam', 'Dann verließ der Ritter das Haus'], [], ['house'], 'clear'],
+    ['de', ['Der Drache kam', 'Der Nebel verschwand'], ['dragon'], [], 'clear'],
+    ['de', ['Der Drache kam', 'Die Sonne verschwand'], ['dragon'], [], 'clear'],
+    ['tr', ['kız geldi', 'bulutlar kayboldu'], ['girl'], [], 'clear'],
+    ['tr', ['kız geldi', 'sis kayboldu'], ['girl'], [], 'clear'],
+    ['tr', ['yağmur yağıyordu', 'kız geldi', 'yağmur gitti'], ['girl'], [], 'clear'],
+    ['tr', ['kız geldi', 'yağmurda gitti'], [], [], 'rain'],
+    ['tr', ['kız ve ev geldi', 'kız evi terk etti'], [], ['house'], 'clear'],
+    ['tr', ['kız ve araba geldi', 'kız arabayı gördü ve gitti'], [], ['car'], 'clear'],
+    ['tr', ['kız ve araba geldi', 'kız baktı araba kayboldu'], ['girl'], [], 'clear'],
+    ['tr', ['kız ve köpek geldi', 'kızın köpeği kayboldu'], ['girl'], [], 'clear'],
+  ];
+  for (const [lang, lines, actors, props, weather] of cases) {
+    const d = D.create({ lang });
+    run(d, lines);
+    assert.deepEqual([d.state.actors.map((a) => a.role), d.state.props.map((p) => p.role), d.state.weather], [actors, props, weather], `${lang}: ${lines.join(' / ')}`);
+  }
+});
+
+test('2.3 end words count at the end of a line only; the bare Turkish "son" only as a line of its own', () => {
   const tr = D.create({ lang: 'tr' });
   run(tr, ['en son ejderha geldi', 'son dakika', 'son olarak kedi geldi']);
   assert.equal(tr.state.end, false, '"en son", "son dakika", "son olarak" are not the end');
@@ -305,6 +346,18 @@ test('2.2.1 end words count at the end of a line only; the bare Turkish "son" on
   const tr2 = D.create({ lang: 'tr' });
   run(tr2, ['kedi geldi', 've hikaye bitti']);
   assert.equal(tr2.state.end, true, '"hikaye bitti"');
+  // inflected "son" never ends, even last in a short line ("finally", "the end of the road")
+  for (const line of ['kız eve geldi sonunda', 'yolun sonu', 'sonunda', 'en sonunda']) {
+    const t = D.create({ lang: 'tr' });
+    run(t, ['kedi geldi', line]);
+    assert.equal(t.state.end, false, `"${line}" is no end`);
+    assert.ok(t.state.actors.some((a) => a.role === 'cat'), `"${line}": the cat stays`);
+  }
+  for (const line of ['ve son', 'masalın sonu', 'hikayenin sonu']) {
+    const t = D.create({ lang: 'tr' });
+    run(t, ['kedi geldi', line]);
+    assert.equal(t.state.end, true, `"${line}" ends the story`);
+  }
   const de = D.create({ lang: 'de' });
   run(de, ['Am Ende des Tages kam der Drache']);
   assert.equal(de.state.end, false, '"am Ende des Tages"');

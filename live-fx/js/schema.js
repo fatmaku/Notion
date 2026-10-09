@@ -7,7 +7,7 @@
 // `zone` full | edges | bottom | top (`layout` envelope, `normalizeLayout`), the live-story envelopes `story`
 // (transcript line) / `story-state` (scene state, `normalizeStoryState`) and a `bus` on `volume` messages
 // (master | sfx | ambient, `VOLUME_BUSES`, defaults in `VOLUME_DEFAULTS`).
-// 2.2.1: two more layout keys – `bandPosition` bottom | chat (portrait: band flush with the frame bottom or above the
+// 2.3: two more layout keys – `bandPosition` bottom | chat (portrait: band flush with the frame bottom or above the
 // chat zone; landscape ignores it) and `storyStyle` emoji | sketch | mixed (how the live story is drawn; the sketch
 // renderer is js/sketch.js, `LiveFXSketch` – without it every style renders as emoji).
 (function (global) {
@@ -78,10 +78,10 @@
   // the band, `top` = top strip, `full` = anywhere). Bus envelope `{type:'layout', storyLayout?, band?, zone?}`.
   const STORY_LAYOUTS = ['band', 'full', 'frame'];
   const ZONES = ['full', 'edges', 'bottom', 'top'];
-  // 2.2.1: portrait band position (`bottom` = flush with the frame bottom, full width – the default; `chat` = above
+  // 2.3: portrait band position (`bottom` = flush with the frame bottom, full width – the default; `chat` = above
   // the bottom 35 % chat zone, the 2.2 look) and the live-story drawing style (`mixed` = emoji sprites + sketch).
   // LAYOUT_DEFAULTS stays the 2.2 triple (panels spread it into their own layout object); the defaults of the two
-  // 2.2.1 keys are separate constants – normalizeLayout() always returns all five keys.
+  // 2.3 keys are separate constants – normalizeLayout() always returns all five keys.
   const BAND_POSITIONS = ['bottom', 'chat'];
   const STORY_STYLES = ['emoji', 'sketch', 'mixed'];
   const BAND_POSITION_DEFAULT = 'bottom';
@@ -396,7 +396,7 @@
   }
 
   /**
-   * 2.2: overlay layout `{storyLayout, band, zone, bandPosition, storyStyle}` (the last two since 2.2.1). Keys that
+   * 2.2: overlay layout `{storyLayout, band, zone, bandPosition, storyStyle}` (the last two since 2.3). Keys that
    * are missing or invalid in `raw` come from `base` (default LAYOUT_DEFAULTS), then from the defaults (a 2.2 base
    * without the new keys gets `bandPosition: 'bottom'`, `storyStyle: 'mixed'`), so a partial message merges onto the
    * current layout. Never throws.
@@ -459,7 +459,7 @@
 
   /**
    * Validates a bus envelope posted to /fire. Unknown keys are stripped. v3 adds `theme`, 2.1 `perf`, 2.2 `layout`,
-   * `story`, `story-state`; 2.2.1 the layout keys `bandPosition` / `storyStyle`.
+   * `story`, `story-state`; 2.3 the layout keys `bandPosition` / `storyStyle`.
    */
   function validateEnvelope(msg) {
     if (!msg || typeof msg !== 'object' || Array.isArray(msg)) return { ok: false, error: 'envelope is not an object' };

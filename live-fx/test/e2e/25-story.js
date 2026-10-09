@@ -206,7 +206,7 @@ async function run({ browser, startServer, shotDir, log }) {
     assert.deepEqual(errors, [], `page errors: ${errors.join('; ')}`);
     await ctx.close();
 
-    // ---------- overlay, portrait: storm scene in the 20 % band at the bottom edge (2.2.1 default; `chat` = above the
+    // ---------- overlay, portrait: storm scene in the 20 % band at the bottom edge (2.3 default; `chat` = above the
     // chat zone), particles use --fx-fall ----------
     const pctx = await browser.newContext({ viewport: { width: 540, height: 960 } });
     const portrait = await pctx.newPage();
@@ -235,7 +235,7 @@ async function run({ browser, startServer, shotDir, log }) {
     log('portrait storm', JSON.stringify(p));
     assert.equal(p.w, 540);
     assert.ok(Math.abs(p.h - 0.2 * p.innerHeight) <= 2, `portrait band is 20 % high (${p.h})`);
-    assert.ok(Math.abs(p.bottom - p.innerHeight) <= 1, `band sits at the very bottom (bottom ${p.bottom}) – 2.2.1 bandPosition bottom`);
+    assert.ok(Math.abs(p.bottom - p.innerHeight) <= 1, `band sits at the very bottom (bottom ${p.bottom}) – 2.3 bandPosition bottom`);
     assert.ok(p.capTop >= p.top && p.capBottom <= p.bottom + 1, 'caption sits inside the band');
     const chat = await portrait.evaluate(() => {
       window.livefx.bus._emit({ id: 'bp', type: 'layout', bandPosition: 'chat' });

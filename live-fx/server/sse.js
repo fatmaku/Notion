@@ -93,7 +93,7 @@ function createSse({ state, log = () => {}, version = '0.0.0' }) {
     }
 
     // Initial state so a fresh overlay picks up the current volume (2.2: per-bus `volumes` and the `layout`, which
-    // carries every key a `layout` message set – 2.2.1 incl. `bandPosition` / `storyStyle`).
+    // carries every key a `layout` message set – 2.3 incl. `bandPosition` / `storyStyle`).
     const c = counts();
     const stateMsg = stamp({
       type: 'state',

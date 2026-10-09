@@ -12,7 +12,7 @@ Funktioniert in OBS (Browser-Quelle), auf der Demo-Seite (Aufnahme ohne OBS), qu
 ganzen Kamera, Effekte bleiben an den **Rändern**, und die **Live-Story** verwandelt jeden vorgelesenen Satz
 sofort in Szene, Wetter, Tageszeit und Emoji-Figuren – ohne Trigger-Liste. Siehe die beiden Abschnitte unten.
 
-**Neu in 2.2.1:** hochkant sitzt das Band standardmäßig **ganz unten** (`bandPosition: bottom`, wahlweise `chat` =
+**Neu in 2.3:** hochkant sitzt das Band standardmäßig **ganz unten** (`bandPosition: bottom`, wahlweise `chat` =
 über der Chat-Zone), Dinge und Figuren der Live-Story haben eine **Lebensdauer** (das Auto bleibt nicht mehr ewig
 stehen), Applaus/Konfetti zusammen mit einem Story-Satz läuft wieder **voll durch** (statt kurz aufzublitzen), und
 `storyStyle` (emoji · sketch · mixed) bereitet die **gezeichnete Story** vor (`js/sketch.js`, siehe unten).
@@ -58,7 +58,10 @@ ASCII-Schreibweisen wie „yagmur“, „wueste“):
 | 🪐 Weltraum | sterne, weltall, rakete | yıldızlar, uzay | stars, outer space |
 | 🌅 Morgen | am morgen, sonnenaufgang | sabah, güneş doğdu | in the morning, sunrise |
 | ⛈️ Gewitter | gewitter, donner, blitz | fırtına, şimşek | storm, thunder |
-| 🎬 Ende | ende, das ende, und wenn sie nicht gestorben sind | son, masal bitti | the end, lived happily |
+| 🎬 Ende | das ende, ende der geschichte, und wenn sie nicht gestorben sind | masal bitti, masalın sonu, hikayenin sonu | the end, lived happily |
+
+Seit 2.3 hört der Ende-Trigger nicht mehr auf das nackte „Ende“ / „son“ („am Ende des Tages“, „en son“, „son dakika“
+würden sonst mitten in der Geschichte die Szene beenden) – ein vor 2.3 geladenes Paket einmal entfernen und neu laden.
 
 Sticker: Drache 🐉, Prinzessin 👸, Ritter 🛡️⚔️, Schatz 💎, Hexe 🧙, Zauber ✨, Verliebt 💖, Schiff ⛵, Pferd 🐎,
 Hund 🐕, Katze 🐱, Wolf 🐺, Fee 🧚, Riese 🧌 (TR zusätzlich Gökkuşağı 🌈, Kuş 🐦; EN Rainbow 🌈).
@@ -92,7 +95,7 @@ die Szene sichtbar bleibt. Als JSON:
 - **Cooldowns**: Szenen 8 s, Sticker 6 s – „der Drache“ dreimal im Satz erscheint einmal.
 - **Lautstärke**: der Regler im Panel gilt auch für die Atmosphäre.
 - **Hochkant** (`overlay.html?layout=portrait`): das Story-Band ist 20 % hoch und sitzt **ganz unten**, bündig mit
-  dem Bildrand und in voller Breite (2.2.1, `bandPosition: bottom`). Mit `&bandpos=chat` (oder Layout-Nachricht
+  dem Bildrand und in voller Breite (2.3, `bandPosition: bottom`). Mit `&bandpos=chat` (oder Layout-Nachricht
   `{type:'layout', bandPosition:'chat'}`) sitzt es wie in 2.2 **über** der Chat-Zone (unteres Drittel bleibt frei).
   Rand-Spalten sind 30 % breit; Karten, Text und Sticker darin verkleinern sich, bis jedes Wort hineinpasst (Wörter
   werden nie mitten im Wort umbrochen). Flüchtige Effekte (Regen, Konfetti) bleiben über der Chat-Zone (62 % Fallhöhe).
@@ -108,8 +111,8 @@ Regen, Nacht, Wald … werden nicht mehr über das ganze Bild gelegt. Das Overla
 | `storyLayout` | `band` · `full` · `frame` | `band` | **band** = Streifen am unteren Rand, **frame** = kleines 16:9-Fenster unten rechts (30 % Breite), **full** = ganzer Rahmen wie in 1.3 |
 | `band` | 15 … 35 | 22 | Höhe des Streifens in Prozent der Bildhöhe (hochkant ohne Angabe: 20 %; Lage über `bandPosition`) |
 | `zone` | `full` · `edges` · `bottom` · `top` | `edges` | wo **flüchtige Effekte** landen: **edges** = Regen/Konfetti nur in den beiden Rand-Spalten (22 % Breite, hochkant 30 %), Karten/Text/Sticker/Banner abwechselnd links und rechts, **kein** Weiß-Blitz und **kein** Zoom-Stoß; **bottom** = alles im Band; **top** = oberer Streifen; **full** = überall (1.3-Verhalten) |
-| `bandPosition` (2.2.1) | `bottom` · `chat` | `bottom` | nur **hochkant**: **bottom** = Band bündig am unteren Bildrand, volle Breite; **chat** = über der Chat-Zone (unten 35 % frei, 2.2-Verhalten). Quer wird der Schlüssel ignoriert (Band immer unten) |
-| `storyStyle` (2.2.1) | `emoji` · `sketch` · `mixed` | `mixed` | wie die Live-Story gezeichnet wird: **emoji** = Emoji-Figuren + Parallaxe; **sketch** = nur die gezeichnete Story (`LiveFXSketch`), keine Emoji-Figuren/Partikel/Boden-Deko; **mixed** = beides. Ohne `js/sketch.js` sieht jeder Stil wie **emoji** aus |
+| `bandPosition` (2.3) | `bottom` · `chat` | `bottom` | nur **hochkant**: **bottom** = Band bündig am unteren Bildrand, volle Breite; **chat** = über der Chat-Zone (unten 35 % frei, 2.2-Verhalten). Quer wird der Schlüssel ignoriert (Band immer unten) |
+| `storyStyle` (2.3) | `emoji` · `sketch` · `mixed` | `mixed` | wie die Live-Story gezeichnet wird: **emoji** = Emoji-Figuren + Parallaxe; **sketch** = nur die gezeichnete Story (`LiveFXSketch`), keine Emoji-Figuren/Partikel/Boden-Deko; **mixed** = beides. Ohne `js/sketch.js` sieht jeder Stil wie **emoji** aus |
 
 - Setzen per URL (pinnt den jeweiligen Schlüssel): `overlay.html?story=band&band=22&zone=edges&bandpos=bottom&storystyle=mixed`
   – oder live per Bus-Nachricht `{type:'layout', storyLayout?, band?, zone?, bandPosition?, storyStyle?}` (nur die
@@ -146,13 +149,14 @@ Stimmungen) macht aus jedem Satz einen **Welt-Zustand**, den das Band fortlaufen
 - **Stimmung** (fröhlich, spannend, traurig, gruselig, ruhig) tönt das Band; „plötzlich“ rüttelt einmal.
   „**Ende**“ / „masal bitti“ / „hikaye bitti“ / „the end“ räumt die Bühne, „es war einmal“ beginnt eine neue.
   End-Wörter zählen nur **am Satzende** („… und das war das Ende“); das türkische „son“ nur als eigener kurzer Satz
-  („son“, „ve son“) – „en son“, „son dakika“, „son olarak“ oder „am Ende des Tages“ beenden nichts mehr.
+  („son“, „ve son“, „masalın sonu“) – „en son“, „son dakika“, „son olarak“, gebeugte Formen wie „… sonunda“
+  (endlich) oder „yolun sonu“ (das Ende des Weges) und „am Ende des Tages“ beenden nichts.
 - Ohne neuen Satz blendet das Band nach **60 s** aus (`renderer.storyIdleMs`). Dabei verschwinden auch Figuren,
   Dinge, Partikel und der Atmosphäre-Loop (nichts schwebt mehr über der Kamera). **Jeder** Story-Satz – auch einer,
   der nichts ändert – hält das Band wach bzw. holt es mit dem gemerkten Zustand zurück.
 - Demo-Seite: Haken **Live-Story** → jeder Mikrofon-Satz geht durch den Director (und als `story` auf den Bus).
 
-### Lebensdauer: was nicht mehr erwähnt wird, geht (2.2.1)
+### Lebensdauer: was nicht mehr erwähnt wird, geht (2.3)
 
 Jeder **fertige Satz** (`final`) zählt als ein Satz; eine Erwähnung (oder ein Verb / „er“, „sie“, „o“, „he“, „she“,
 das sich auf die Figur bezieht) frischt Ding oder Figur auf.
@@ -162,20 +166,27 @@ das sich auf die Figur bezieht) frischt Ding oder Figur auf.
 | **Ding** (Auto 🚗, Schatz, Zelt …, auch das Wahrzeichen 🏰) | **3** weiteren Sätzen ohne Erwähnung oder **45 s** | blendet aus |
 | **Figur** (Mädchen, Drache …) | **4** weiteren Sätzen oder **60 s** | läuft aus dem Band |
 
-- **Neues Bild**: ein neuer Ort oder neues Wetter räumt Dinge weg, die weder in diesem noch im vorigen Satz
-  vorkamen. Figuren bleiben (sie gehen mit der Geschichte mit): „Der Drache flog über den Wald“ → „Es fing an zu
-  regnen“ – der Drache fliegt im Regen weiter.
+- **Neues Bild**: ein neuer Ort oder neues Wetter räumt Dinge weg, die in diesem Satz nicht vorkamen. Dinge aus dem
+  vorigen Satz gehen mit, wenn ein Ort oder eine Figur das Bild trägt („Ein Mädchen kam mit einer Laterne“ → „Es
+  fing an zu regnen“ – die Laterne bleibt); ein Ding **allein** geht mit dem alten Wetter („araba geldi“ im Regen →
+  „güneş açtı“ – das Auto geht mit dem Regen). Figuren bleiben (sie gehen mit der Geschichte mit): „Der Drache flog
+  über den Wald“ → „Es fing an zu regnen“ – der Drache fliegt im Regen weiter.
 - **Wegschicken**: „gitti“, „uzaklaştı“, „ayrıldı“, „kayboldu“ · „ging weg“, „lief weg“, „fuhr davon“,
-  „verschwand“ · „left“, „went away“, „drove off“, „disappeared“ entfernen die genannte Figur **oder** das genannte
-  Ding („araba gitti“, „das Auto verschwand“); ohne Namen die zuletzt genannte Figur („sonra gitti“). Mit einem Ziel
-  im Satz ist es ein Spaziergang: „kız ormana gitti“ → das Mädchen geht in den Wald (bleibt).
+  „verschwand“ · „left“, „went away“, „drove off“, „disappeared“ entfernen ihr **Subjekt** – die Figur oder das Ding
+  vor dem Verb („araba gitti“, „das Mädchen sah, wie das Auto verschwand“ → das Auto), sonst danach („dann verschwand
+  das Auto“). „She left the house“ / „kız evi terk etti“ → das Mädchen geht, das Haus bleibt (türkische Formen mit
+  Fall-Endung wie „arabayı“, „yağmurda“ sind nie Subjekt). Ohne Namen geht die zuletzt genannte Figur („sonra
+  gitti“). Wetter als Subjekt klart auf („sis kayboldu“, „der Nebel verschwand“, „yağmur gitti“); Himmelswörter
+  („bulutlar kayboldu“, „die Sonne verschwand“) und Orte („der Wald verschwand im Nebel“) schicken niemanden weg.
+  „on the left“, „turned left“, „nothing left“ sind kein Abgang. Mit einem Ziel im Satz ist es ein Spaziergang:
+  „kız ormana gitti“ → das Mädchen geht in den Wald (bleibt).
 - Beispiel (der Stream-Fall): „yağmur yağıyordu“ → Regen · „araba geldi“ → 🚗 im Regen · „güneş açtı“ → Regen weg,
-  Sonne, das Auto (eben genannt) steht noch · „ormanda yürüdük“ → Wald, das Auto ist weg. Genauso auf Deutsch
-  („Es regnete“ → „Ein Auto kam“ → „Dann kam die Sonne raus“ → „Wir gingen in den Wald“) und Englisch.
+  das Auto geht mit, das Band wird leer · „ormanda yürüdük“ → Wald. Genauso auf Deutsch („Es regnete“ → „Ein Auto
+  kam“ → „Dann kam die Sonne raus“ → „Wir gingen in den Wald“) und Englisch.
 - Zeitlimits laufen auch zwischen den Sätzen: das Overlay ruft `director.tick(Date.now())` jede Sekunde auf
   (`renderer.attachDirector(director)`); ein Ablauf weckt ein ausgeblendetes Band nicht.
 
-### Gezeichnete Story (`storyStyle`, 2.2.1)
+### Gezeichnete Story (`storyStyle`, 2.3)
 
 Das Overlay hat einen Haken für einen Zeichen-Renderer: ist `window.LiveFXSketch` geladen (`js/sketch.js`), ruft der
 Renderer beim ersten Story-Zustand einmal `LiveFXSketch.attach(renderer, getSurface)` und danach bei jedem Zustand
@@ -183,7 +194,7 @@ Renderer beim ersten Story-Zustand einmal `LiveFXSketch.attach(renderer, getSurf
 maskiert, getönt und ausgeblendet wird. `storyStyle` wählt, was zu sehen ist (siehe Tabelle oben). Schnittstelle:
 `docs/CONTRACTS.md` → „Sketch-Hook“.
 
-### Applaus + Story gleichzeitig (2.2.1)
+### Applaus + Story gleichzeitig (2.3)
 
 Ein Trigger-Effekt (👏-Regen, Konfetti, Funken), der zusammen mit einem Story-Satz feuert, läuft seine volle Dauer
 (ca. 2,5–3,5 s). Ursache des früheren „Aufblitzens“: jedes Szenen-Partikel, das während eines Frames entstand, startete

@@ -81,7 +81,7 @@ body {
   --fx-edge: 22vw;
 }
 /* Portrait (9:16): chat sits in the bottom ~35 %, so transient effects stay above it. The story band sits flush
- * with the frame bottom by default (2.2.1 `bandPosition: bottom`, body[data-band-pos="bottom"]); `chat` lifts it
+ * with the frame bottom by default (2.3 `bandPosition: bottom`, body[data-band-pos="bottom"]); `chat` lifts it
  * above the chat zone (the 2.2 look). */
 body.layout-portrait {
   --fx-fall: 62vh;
@@ -1178,7 +1178,7 @@ body.layout-portrait .fx-band[data-layout="frame"] {
   right: 4vw;
 }
 .fx-band.fx-band-idle { opacity: 0; }
-/* 2.2.1 sketch hook: LiveFXSketch draws on this band-sized canvas (renderer.sketchSurface()), above the scene layer.
+/* 2.3 sketch hook: LiveFXSketch draws on this band-sized canvas (renderer.sketchSurface()), above the scene layer.
  * storyStyle (`.fx-band[data-style]`, the style in use – emoji without a sketch renderer): emoji hides the drawing,
  * sketch hides the emoji decoration of the scene (the canvas sprites / parallax are switched off by the renderer). */
 .fx-sketch {
@@ -1250,7 +1250,7 @@ body.layout-portrait .fx-band:not([data-layout="full"]) .fx-scene-sea .fx-scene-
 /* ---- effect zones: cards, images, text, stickers and banners ----
  * Column effects are max-content wide up to the column (--fx-col-w) – the right column's anchor sits at the frame
  * edge minus half a column, so a shrink-to-fit width would squeeze it to the emoji. Words wrap only between words;
- * a word still wider than the column scales the whole effect down through --fx-fit (set by the renderer, 2.2.1). */
+ * a word still wider than the column scales the whole effect down through --fx-fit (set by the renderer, 2.3). */
 .fx-col-left,
 .fx-col-right {
   --fx-col-w: calc(var(--fx-edge, 22vw) - 24px);

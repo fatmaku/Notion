@@ -9,7 +9,9 @@
   <script defer src="js/sounds.js"></script>
   <script defer src="js/schema.js"></script>
   <script defer src="js/fx.js"></script>
-  <link rel="stylesheet" href="css/sketch.css"><script defer src="js/sketch.js"></script>
+  <!-- 2.3 Zeichenfilm (docs/SKETCH.md): attaches through the renderer's sketch hook, so it loads after fx.js -->
+  <link rel="stylesheet" href="css/sketch.css">
+  <script defer src="js/sketch.js"></script>
   <script defer src="js/story-director.js"></script>
   <script defer src="js/bus.js"></script>
 </head>
@@ -49,7 +51,7 @@
       renderer.setPerf(hasPerfParam ? params.get('perf') : 'auto');
 
       // 2.2 story band: ?story=band|full|frame, ?band=15..35 (percent), ?zone=full|edges|bottom|top pin that
-      // key each; 2.2.1 adds ?bandpos=bottom|chat (portrait: band at the very bottom / above the chat zone) and
+      // key each; 2.3 adds ?bandpos=bottom|chat (portrait: band at the very bottom / above the chat zone) and
       // ?storystyle=emoji|sketch|mixed. `layout` bus messages / the state message merge the other keys live.
       const PARAM = { storyLayout: 'story', band: 'band', zone: 'zone', bandPosition: 'bandpos', storyStyle: 'storystyle' };
       const pinned = {};
@@ -68,7 +70,7 @@
 
       // 2.2 live story: every `story` line (transcript sentence from the panel) runs through the director,
       // whose scene state the renderer draws in the band; `story-state` carries a ready-made state.
-      // 2.2.1: attachDirector also ticks the director every second (props / actors leave when nobody mentions
+      // 2.3: attachDirector also ticks the director every second (props / actors leave when nobody mentions
       // them), and every story line keeps the band awake – an idle band comes back with the next sentence.
       const director = window.LiveFXStoryDirector ? window.LiveFXStoryDirector.create({ lang: 'auto', caption: false }) : null;
       if (director) renderer.attachDirector(director);

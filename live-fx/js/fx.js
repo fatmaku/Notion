@@ -33,7 +33,7 @@
 //     and tints the band by mood; the band fades after `renderer.storyIdleMs` (60 s) without `storyTouch()`.
 //   - three volume levels `renderer.setVolume('master'|'sfx'|'ambient', v)` -> mixer master / busses; loops run on
 //     the mixer's ambient bus (ducking + limiter) – the old GainNode-to-destination path stays only as fallback.
-// LiveFX 2.2.1:
+// LiveFX 2.3:
 //   - layout keys `bandPosition` (portrait: `bottom` = band flush with the frame bottom – default –, `chat` = above
 //     the chat zone; `body[data-band-pos]`) and `storyStyle` (emoji | sketch | mixed; `.fx-band[data-style]`)
 //   - ParticleLayer runs exactly one rAF loop: a particle added inside a frame no longer books a second loop (the
@@ -1063,7 +1063,7 @@
       this.storyIdleMs = STORY_IDLE_MS;
       this._storyIdle = null;
       this._storyIdleOn = false; // band faded by the idle timer (actors / ambient / loop cleared until the next touch)
-      /** 2.2.1 sketch hook: the object LiveFXSketch.attach() returned (null = none / not attached yet). */
+      /** 2.3 sketch hook: the object LiveFXSketch.attach() returned (null = none / not attached yet). */
       this.sketch = null;
       this._sketchTried = false;
       this._sketchCanvas = null;
@@ -1688,7 +1688,7 @@
     }
 
     /**
-     * 2.2.1: wires a story director (js/story-director.js) to this renderer – every state change renders through
+     * 2.3: wires a story director (js/story-director.js) to this renderer – every state change renders through
      * `story()` (a lifetime expiry, reason `tick`, does not wake an idle band) and `director.tick(Date.now())` runs
      * every second. Returns a detach function.
      */
@@ -1711,7 +1711,7 @@
       };
     }
 
-    // ---------------------------------------------------------------- sketch hook (2.2.1, docs/CONTRACTS.md)
+    // ---------------------------------------------------------------- sketch hook (2.3, docs/CONTRACTS.md)
     /**
      * Attaches `window.LiveFXSketch` once (the first story state after it exists; a script loaded later still
      * attaches): `LiveFXSketch.attach(renderer, getSurface)` -> the sketch object (`update(state)` required,

@@ -1,5 +1,60 @@
 # Changelog
 
+## 2.3.0 – Band ganz unten, Story räumt auf, Applaus läuft durch, Zeichenfilm, Kamera-Ansicht für WhatsApp & FaceTime
+
+Antwort auf das Streamer-Feedback zu 2.2 (9:16-Band in der Mitte, „araba“ bleibt für immer, „alkış“ blitzt nur auf,
+WhatsApp/FaceTime, gezeichnete Story).
+
+- **📐 Band-Position im Hochformat** (`bandPosition`, `docs/STORY.md`): Standard ist jetzt **`bottom`** – das Band sitzt
+  bündig am unteren Bildrand, volle Breite. **`chat`** gibt die 2.2-Lage über der Chat-Zone (unten 35 % frei). Panel
+  **Einstellungen → Band-Position (Hochkant)**, Handy-Knopf **📐 Band**, URL `overlay.html?bandpos=bottom|chat`, Bus
+  `{type:'layout', bandPosition}`; der Server merkt es sich (`state.layout`). Quer wird der Schlüssel ignoriert.
+  Regen / Konfetti bleiben hochkant weiter oberhalb der Chat-Zone. Zone `edges`: zu breite Wörter in den Rand-Spalten
+  werden verkleinert (`--fx-fit`) statt abgeschnitten.
+- **🚗 Live-Story räumt auf** (`js/story-director.js`): Dinge gehen nach **3** Sätzen ohne Erwähnung oder **45 s**,
+  Figuren nach **4** Sätzen oder **60 s** (`director.tick()` läuft im Overlay jede Sekunde). Neuer Ort / neues Wetter
+  räumt Dinge weg, die nicht mehr vorkommen – „yağmur yağıyordu“ → „araba geldi“ → „güneş açtı“: das Auto geht mit dem
+  Regen. Abgangswörter („gitti“, „kayboldu“, „ging weg“, „verschwand“, „left“, „disappeared“ …) entfernen ihr
+  Subjekt; „kız ormana gitti“ bleibt ein Spaziergang. End-Wörter zählen nur am Satzende, das türkische „son“ nur als
+  eigener kurzer Satz („en son“, „son dakika“, „… sonunda“ beenden nichts mehr). Der Szenen-Trigger „Son“ im Paket
+  *📖 Masal (TR)* hört nicht mehr auf das nackte „son“, „Ende“ in *📖 Geschichten (DE)* nicht mehr auf das nackte
+  „Ende“ („am Ende des Tages“) – bereits geladene Pakete einmal entfernen und neu laden.
+- **💤 Ruhendes Band ist wirklich leer**: blendet das Band nach 60 s ohne Satz aus, verschwinden auch Figuren, Dinge,
+  Szenen-Partikel und der Atmosphäre-Loop (nichts schwebt mehr über der Kamera). **Jeder** Story-Satz – auch einer,
+  der nichts ändert – holt das Band zurück.
+- **👏 Applaus läuft wieder durch** (`js/fx.js`): jedes Szenen-Partikel, das während eines Frames entstand, startete
+  eine zweite Animationsschleife; nach ein paar Sekunden Szene lief die Physik N-fach (gemessen bis 300× pro Frame), der
+  👏-Regen fiel in 0,3 s durch und die CPU-Last stieg linear. Jetzt genau **eine** Schleife (`particles._ticking`),
+  `stats.fps` / `frameMs` pro Frame, Fallgeschwindigkeit passt sich der Fallhöhe an (Handy hochkant ≈ 2,5 s sichtbar).
+- **✏️ Zeichenfilm** (`js/sketch.js`, `css/sketch.css`, `docs/SKETCH.md`): die Live-Story wird beim Erzählen **gezeichnet**
+  – Strich für Strich mit Stift, Radierer für Abgänge, 59 Zeichnungen (Orte, Himmel, Wetter, Figuren mit Laufzyklus,
+  Tiere, Dinge), komplett aus Code, nur im Band. Neuer Layout-Schlüssel **`storyStyle`**: `mixed` (Standard: gezeichnete
+  Kulisse + Emoji-Figuren und -Dinge), `sketch` (alles gezeichnet), `emoji` (2.2-Look). Panel **Story-Stil**,
+  Handy-Knopf **✏️ Stil**, `?storystyle=`, `{type:'layout', storyStyle}`. Kulissen-Cache + Takt nach Bewegung: im Stand
+  ≈ 110 ms/s Main-Thread bei 1920 × 238 (billiger als der Emoji-Stil); still stehende Bilder zeichnen gar nicht.
+  Renderer-Haken `LiveFXSketch.attach / update / setStyle` (`docs/CONTRACTS.md` §9), `LiveFXSketch.record()` für
+  WebM aus der Konsole.
+- **📷 Kamera-Ansicht** (`camera.html`, `js/camera.js`, `css/camera.css`, `docs/KAMERA.md` DE/TR/EN): Webcam + echtes
+  Overlay in **einem** Fenster in OBS-Ausgabegröße (720p/1080p, 16:9/9:16, spiegeln, Kamera wählen). Wege in den
+  Videocall: **OBS „Virtuelle Kamera“** (Zoom, Teams, Meet, Discord, WhatsApp Desktop, FaceTime auf dem Mac ab macOS 13 +
+  OBS 30 – Freigabe der Kamera-Erweiterung für macOS 13/14 und 15 beschrieben), **Fenster teilen** (⧉ Ausgabe = Fenster
+  ohne Leiste) oder **⏺ Aufnahme**: Bild + Effekte + Live-Story + Mikro + Effekt-Sounds als MP4/H.264 (nur mit
+  echtem avc1-Codec) oder WebM, am Handy **📤 Teilen** → WhatsApp; **Pixelgenau** (Tab-Aufnahme, prüft vorher, dass
+  wirklich Bilder ankommen, Rückfall Ausschnitt → ganzer Tab → Leinwand). **🎙️ Live-Mikro** (`?mic=1`): Erkennung direkt
+  in der Kamera-Ansicht – mit Story-Stil *Zeichnung* entsteht beim Erzählen ein gezeichnetes Video; **🎨 Ohne Kamera**
+  (`?cam=off`) + **✏️ Zeichenfilm** im Panel (`?cam=off&storystyle=sketch&story=full&mic=1&record=1`) geben den reinen
+  Zeichenfilm im ganzen Bild auf dunklem Grund. Ehrlich dokumentiert:
+  Handy-Apps nehmen keine fremde Kamera. Panel-Karte **📷 Kamera-Ansicht** (Öffnen, ⏺ Aufnahme, **✏️ Zeichenfilm**, Link kopieren),
+  `docs/OBS-ANLEITUNG.md` §6.
+- **Panel / Handy**: Einstellungen **Story-Stil** + **Band-Position (Hochkant)** (`localStorage` `livefx.layout.look`,
+  mit dem Layout an die Overlays, nach dem Start erneut gesendet); Handy-Knöpfe **✏️ Stil** (Gemischt → Zeichnung →
+  Emoji) und **📐 Band** (ganz unten ↔ über dem Chat), `livefx.mobile.look`, folgen dem Server-Zustand.
+- Versionen (Paket, Service-Worker-Shell) auf **2.3.0**; volle Shell + `sketch.js`, `sketch.css`, `camera.html`,
+  `camera.js`, `camera.css`, Overlay-Shell + `sketch.js`, `sketch.css`. Tests: `test/sketch.test.js`,
+  `test/e2e/31-sketch.js` (inkl. Main-Thread-Messung über CDP), `test/e2e/37-camera.js` (inkl. Pixelgenau),
+  erweiterte `story-director.test.js`, `29-story-band` (Band unten, Lebensdauer, 👏-Regen neben laufender Szene nach
+  1,5 s noch sichtbar, eine rAF-Schleife), `35-mobile` (Stil- und Band-Knopf), `packs.test.js`.
+
 ## 2.2.0 – Story-Band, Live-Story, schnellere Erkennung, Start-Assistent, Handy mit Internet-Link
 
 - **📖 Story-Band & Effekt-Zonen** (`docs/STORY.md`): Szenen laufen in einem **Band am unteren Rand** (Standard 22 % der

@@ -235,11 +235,11 @@ test('story packs: keywords never equal keywords of the defaults or the meme pac
 test('story packs: signature phrases and the "clear" trigger are present', () => {
   const kws = (id) => new Set(P.get(id).flatMap((t) => t.keywords.map(lower)));
   const tr = kws('story-tr');
-  for (const must of ['bir varmış bir yokmuş', 'yağmur yağıyordu', 'yağmur', 'gece', 'ormanda', 'orman', 'deniz', 'sarayda', 'padişah', 'kar yağıyordu', 'kar', 'çöl', 'şehir', 'yıldızlar', 'sabah', 'fırtına', 'ejderha', 'prenses', 'şövalye', 'hazine', 'cadı', 'büyü', 'gökkuşağı', 'gokkusagi', 'yagmur', 'firtina', 'son', 'masal bitti']) {
+  for (const must of ['bir varmış bir yokmuş', 'yağmur yağıyordu', 'yağmur', 'gece', 'ormanda', 'orman', 'deniz', 'sarayda', 'padişah', 'kar yağıyordu', 'kar', 'çöl', 'şehir', 'yıldızlar', 'sabah', 'fırtına', 'ejderha', 'prenses', 'şövalye', 'hazine', 'cadı', 'büyü', 'gökkuşağı', 'gokkusagi', 'yagmur', 'firtina', 'masal bitti', 'masalın sonu', 'hikayenin sonu']) {
     assert.ok(tr.has(must), `story-tr keyword "${must}"`);
   }
   const de = kws('story-de');
-  for (const must of ['es regnete', 'regen', 'in der nacht', 'im wald', 'am meer', 'schloss', 'schnee', 'wüste', 'stadt', 'sterne', 'gewitter', 'drache', 'prinzessin', 'ritter', 'ende', 'das ende', 'und wenn sie nicht gestorben sind']) {
+  for (const must of ['es regnete', 'regen', 'in der nacht', 'im wald', 'am meer', 'schloss', 'schnee', 'wüste', 'stadt', 'sterne', 'gewitter', 'drache', 'prinzessin', 'ritter', 'das ende', 'ende der geschichte', 'und wenn sie nicht gestorben sind']) {
     assert.ok(de.has(must), `story-de keyword "${must}"`);
   }
   const en = kws('story-en');
@@ -277,6 +277,19 @@ test('story packs: matcher at medium tolerance fires the intended scene', () => 
   assert.equal(hits.length, 1);
   assert.equal(hits[0].trigger.visual.kind, 'sticker');
   assert.equal(hits[0].trigger.id, 'story-de-drache');
+});
+
+test('2.3 story packs: everyday "son" / "Ende" do not clear the scene, the real end phrases do', () => {
+  const fired = (pack, lang, text) => {
+    const m = new globalThis.LiveFXMatcher.Matcher(defaults.concat(P.get(pack)), { tolerance: 'medium', lang, globalMinGap: 0 });
+    return m.process(text, 0).map((h) => h.trigger.id);
+  };
+  for (const text of ['en son ejderha geldi', 'son dakika', 'son olarak kedi geldi', 'kız eve geldi sonunda', 'yolun sonu']) {
+    assert.ok(!fired('story-tr', 'tr', text).includes('story-tr-son'), `"${text}" does not end the story`);
+  }
+  for (const text of ['masal bitti', 've masalın sonu', 'hikayenin sonu']) assert.ok(fired('story-tr', 'tr', text).includes('story-tr-son'), `"${text}" ends the story`);
+  for (const text of ['am ende des tages', 'am ende kam der prinz']) assert.ok(!fired('story-de', 'de', text).includes('story-de-ende'), `"${text}" does not end the story`);
+  for (const text of ['und das war das ende', 'ende der geschichte']) assert.ok(fired('story-de', 'de', text).includes('story-de-ende'), `"${text}" ends the story`);
 });
 
 test('story packs: every story keyword fires its own trigger (defaults + meme pack + story pack)', () => {

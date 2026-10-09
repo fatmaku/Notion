@@ -210,6 +210,10 @@
           <div><label for="effect-zone">Effekt-Zone</label><select id="effect-zone" title="Wo Karten, Regen und Konfetti erscheinen"><option value="full">überall</option><option value="edges">Ränder (Kamera frei)</option><option value="bottom">unten (im Band)</option><option value="top">oben</option></select></div>
           <div><label for="primary-lang">Hauptsprache</label><select id="primary-lang" title="Sprache, in der du meistens sprichst – Stichwörter der anderen Sprachen werden phonetisch mitgehört"><option value="tr-TR">Türkçe</option><option value="de-DE">Deutsch</option><option value="en-US">English</option></select></div>
         </div>
+        <div class="row block">
+          <div><label for="story-style">Story-Stil</label><select id="story-style" title="Wie die Live-Story im Band aussieht: Emoji-Figuren, eine Strichzeichnung, die beim Erzählen entsteht, oder beides"><option value="mixed">Gemischt (Emoji + Zeichnung)</option><option value="sketch">Zeichnung (Zeichenfilm)</option><option value="emoji">Emoji</option></select></div>
+          <div><label for="band-position">Band-Position (Hochkant)</label><select id="band-position" title="Nur im Hochformat 9:16: Band ganz unten am Rand oder über dem Chat-Bereich (untere 35 %)"><option value="bottom">ganz unten</option><option value="chat">über dem Chat</option></select></div>
+        </div>
         <label class="check-line block" for="intensity-voice" title="Mikro-Pegel beim Treffer bestimmt die Stufe: leise = 1, normal = 2, laut = 3"><input type="checkbox" id="intensity-voice"> Intensität aus Stimme (lauter sprechen = stärkerer Effekt, Stufe 1–3)</label>
         <label class="check-line block" for="live-story" title="Jede erkannte Zeile geht als Story-Text ans Overlay – der Story-Regisseur baut daraus die Szene"><input type="checkbox" id="live-story"> Live-Story (Transkript → Szene im Band)</label>
       </section>
@@ -355,6 +359,19 @@
         </div>
         <p class="help" id="mobile-offline-hint" hidden>⚠️ Server nötig: <code>node server.js</code> starten und das Panel über <code>http://127.0.0.1:8787/</code> öffnen.</p>
         <p class="help">Handy im selben WLAN; Server mit <code>HOST=0.0.0.0 node server.js</code> starten, sonst ist er nur am PC erreichbar. Der Link enthält deinen Token – nicht im Stream zeigen.</p>
+      </section>
+
+      <section class="card" id="camera-card">
+        <h2>📷 Kamera-Ansicht</h2>
+        <div class="help">Webcam + LiveFX-Overlay in <b>einem</b> Fenster: für WhatsApp, FaceTime, Zoom, Teams und Meet über die <b>OBS-Kamera</b> (OBS → „Virtuelle Kamera starten“, im Call „OBS Virtual Camera“ wählen) oder einfach dieses Fenster im Call als Bildschirm teilen. Mit <b>⏺ Aufnahme</b> nimmst du Bild, Effekte, Live-Story und Mikro direkt als Video auf – ohne OBS, auch am Handy (dann den Internet-Link nutzen) und von dort gleich in WhatsApp teilen. <b>✏️ Zeichenfilm</b> nimmt ohne Kamera nur die Geschichte auf, die beim Erzählen gezeichnet wird.</div>
+        <div class="urls block"><code id="camera-url">camera.html</code></div>
+        <div class="actions">
+          <a class="btn" id="camera-open" href="camera.html" target="_blank">📷 Öffnen</a>
+          <button type="button" id="btn-camera-record" title="Kamera-Ansicht im Aufnahme-Modus öffnen (camera.html?record=1)">⏺ Aufnahme</button>
+          <button type="button" id="btn-camera-sketch" title="Zeichenfilm aufnehmen: ohne Kamera, Story-Stil Zeichnung, Live-Mikro – die Geschichte wird beim Erzählen gezeichnet (camera.html?cam=off&amp;storystyle=sketch&amp;story=full&amp;mic=1&amp;record=1)">✏️ Zeichenfilm</button>
+          <button type="button" id="btn-copy-camera" title="Link der Kamera-Ansicht kopieren">📋 Link kopieren</button>
+          <a class="btn" href="docs/KAMERA.md" target="_blank">Anleitung</a>
+        </div>
       </section>
 
       <section class="card" id="audio-card">

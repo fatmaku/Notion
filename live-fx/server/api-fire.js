@@ -62,7 +62,7 @@ function register(router, ctx) {
       if (msg.type === 'perf') ctx.state.perf = msg.perf;
       if (msg.type === 'layout') {
         // Partial merge: only the keys this message carries change (a band set in portrait by the overlay stays).
-        // 2.2.1: also `bandPosition` (bottom | chat) and `storyStyle` (emoji | sketch | mixed).
+        // 2.3: also `bandPosition` (bottom | chat) and `storyStyle` (emoji | sketch | mixed).
         const cur = ctx.state.layout || {};
         const next = { ...cur };
         for (const k of LAYOUT_KEYS) if (msg[k] !== undefined) next[k] = msg[k];

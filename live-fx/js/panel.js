@@ -1277,6 +1277,13 @@
     if (!msg || typeof msg !== 'object') return;
     if (msg.type === 'fire' && msg.trigger) log(`🔥 ${labelOf(msg.trigger)}  ←  ${String(msg.source || 'extern').slice(0, 80)}`);
     else if (msg.type === 'chat' || msg.type === 'gift') onChatEvent(msg);
+    else if (msg.type === 'layout') {
+      // 2.3: the phone (or the API) changed the story look – mirror it in the selects (no resend)
+      const patch = {};
+      if (typeof msg.storyStyle === 'string') patch.storyStyle = msg.storyStyle;
+      if (typeof msg.bandPosition === 'string') patch.bandPosition = msg.bandPosition;
+      if (Object.keys(patch).length) setStoryLook(patch, { send: false });
+    }
   });
 
   // ---------- smart mode ----------
@@ -1453,6 +1460,86 @@
   if ($('#story-layout')) $('#story-layout').addEventListener('change', (e) => { setLayout({ storyLayout: e.target.value }); log(`🖼️ Story-Layout: ${LAYOUT_LABELS[layout.storyLayout] || layout.storyLayout}`); });
   if ($('#band-height')) $('#band-height').addEventListener('change', (e) => { setLayout({ band: e.target.value }); log(`🖼️ Band-Höhe: ${layout.band} %`); });
   if ($('#effect-zone')) $('#effect-zone').addEventListener('change', (e) => { setLayout({ zone: e.target.value }); log(`🎯 Effekt-Zone: ${ZONE_LABELS[layout.zone] || layout.zone}`); });
+
+  // ---------- story look (2.3): „Story-Stil“ + „Band-Position (Hochkant)“, docs/STORY.md ----------
+  // The two keys ride along with the existing layout triple: `{type:'layout', storyLayout, band, zone, storyStyle,
+  // bandPosition}`. Persisted separately (`livefx.layout.look`) so `livefx.layout.get()` stays the 2.2 triple.
+  const LOOK_KEY = 'livefx.layout.look';
+  const STORY_STYLES = (window.LiveFXSchema && window.LiveFXSchema.STORY_STYLES) || ['emoji', 'sketch', 'mixed'];
+  const BAND_POSITIONS = (window.LiveFXSchema && window.LiveFXSchema.BAND_POSITIONS) || ['bottom', 'chat'];
+  const LOOK_DEFAULTS = { storyStyle: 'mixed', bandPosition: 'bottom' };
+  const look = { ...LOOK_DEFAULTS };
+
+  function cleanLook(raw) {
+    const r = raw && typeof raw === 'object' ? raw : {};
+    return {
+      storyStyle: STORY_STYLES.includes(r.storyStyle) ? r.storyStyle : look.storyStyle,
+      bandPosition: BAND_POSITIONS.includes(r.bandPosition) ? r.bandPosition : look.bandPosition,
+    };
+  }
+
+  function readLook() {
+    try {
+      Object.assign(look, cleanLook(JSON.parse(lsGet(LOOK_KEY) || '{}')));
+    } catch (_) {
+      /* corrupt entry */
+    }
+  }
+
+  function reflectLook() {
+    if ($('#story-style')) $('#story-style').value = look.storyStyle;
+    if ($('#band-position')) $('#band-position').value = look.bandPosition;
+  }
+
+  function setStoryLook(patch, { send = true, persist = true } = {}) {
+    Object.assign(look, cleanLook({ ...look, ...(patch || {}) }));
+    reflectLook();
+    if (persist) lsSet(LOOK_KEY, JSON.stringify(look));
+    if (send) bus.send({ type: 'layout', ...layout, ...look });
+    return { ...look };
+  }
+
+  const STYLE_LABELS = { mixed: 'Gemischt', sketch: 'Zeichnung', emoji: 'Emoji' };
+  const BAND_POS_LABELS = { bottom: 'ganz unten', chat: 'über dem Chat' };
+  if ($('#story-style')) $('#story-style').addEventListener('change', (e) => { setStoryLook({ storyStyle: e.target.value }); log(`✏️ Story-Stil: ${STYLE_LABELS[look.storyStyle] || look.storyStyle}`); });
+  if ($('#band-position')) $('#band-position').addEventListener('change', (e) => { setStoryLook({ bandPosition: e.target.value }); log(`📐 Band-Position (Hochkant): ${BAND_POS_LABELS[look.bandPosition] || look.bandPosition}`); });
+
+  // ---------- camera view (2.3): camera.html = webcam + overlay in one window, docs/KAMERA.md ----------
+  const SKETCH_FILM_QUERY = '?cam=off&storystyle=sketch&story=full&mic=1&record=1';
+  function cameraUrl(query = '') {
+    const origin = online ? location.origin : 'http://127.0.0.1:8787';
+    return `${origin}/camera.html${query}`;
+  }
+
+  function initCameraCard() {
+    if ($('#camera-url')) $('#camera-url').textContent = cameraUrl();
+    if ($('#btn-camera-record')) {
+      $('#btn-camera-record').addEventListener('click', () => {
+        const w = window.open('camera.html?record=1', '_blank');
+        log(w ? '⏺ Kamera-Ansicht im Aufnahme-Modus geöffnet' : '⚠️ Popup blockiert – camera.html?record=1 von Hand öffnen');
+      });
+    }
+    // 2.3 „Zeichenfilm“: no webcam, story style sketch, Live-Mikro on, record mode – the narrated story as a drawn video
+    if ($('#btn-camera-sketch')) {
+      $('#btn-camera-sketch').addEventListener('click', () => {
+        const w = window.open(`camera.html${SKETCH_FILM_QUERY}`, '_blank');
+        log(w ? '✏️ Zeichenfilm geöffnet: ⏺ drücken und erzählen' : `⚠️ Popup blockiert – camera.html${SKETCH_FILM_QUERY} von Hand öffnen`);
+      });
+    }
+    if ($('#btn-copy-camera')) {
+      $('#btn-copy-camera').addEventListener('click', async () => {
+        const b = $('#btn-copy-camera');
+        try {
+          await navigator.clipboard.writeText(cameraUrl());
+          b.textContent = '✅ Kopiert';
+          log('📋 Link der Kamera-Ansicht kopiert');
+        } catch (_) {
+          b.textContent = 'Link markieren – Strg+C';
+        }
+        setTimeout(() => (b.textContent = '📋 Link kopieren'), 2000);
+      });
+    }
+  }
 
   // ---------- primary language (2.2) ----------
   // The language the streamer mostly speaks: handed to the ASR (`primaryLang`) and to the matcher
@@ -2295,6 +2382,9 @@
     reflectVolumes();
     readLayout();
     reflectLayout();
+    readLook();
+    reflectLook();
+    initCameraCard();
     setPrimaryLang(primaryLang, { persist: false, recreate: false });
     setLiveStory(liveStory, { persist: false });
     initWizard();
@@ -2353,6 +2443,7 @@
     setTimeout(() => {
       for (const b of VOLUME_BUSES) if (Math.abs(volumes[b] - VOLUME_DEFAULTS[b]) > 0.001) bus.send(volumeMessage(b));
       if (layout.storyLayout !== LAYOUT_DEFAULTS.storyLayout || layout.band !== LAYOUT_DEFAULTS.band || layout.zone !== LAYOUT_DEFAULTS.zone) bus.send({ type: 'layout', ...layout });
+      if (look.storyStyle !== LOOK_DEFAULTS.storyStyle || look.bandPosition !== LOOK_DEFAULTS.bandPosition) bus.send({ type: 'layout', ...layout, ...look });
     }, 1500);
     log('Bereit. Tipp: Ohne Mikro einfach oben Text eintippen.');
   }
@@ -2474,6 +2565,12 @@
       get: () => ({ ...layout }),
       set: (patch) => setLayout(patch),
     },
+    // 2.3: Story-Stil + Band-Position (Hochkant) – sent with the layout triple
+    storyLook: {
+      get: () => ({ ...look }),
+      set: (patch) => setStoryLook(patch),
+    },
+    cameraUrl,
     get primaryLang() {
       return primaryLang;
     },

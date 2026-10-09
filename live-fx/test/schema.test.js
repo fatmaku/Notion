@@ -658,7 +658,7 @@ test('2.2 constants: layouts, zones, defaults, volume busses, LIMITS.triggers = 
   assert.deepEqual(S.LAYOUT_DEFAULTS, { storyLayout: 'band', band: 22, zone: 'edges' }, 'the 2.2 triple (panels spread it)');
   assert.deepEqual(S.BAND_POSITIONS, ['bottom', 'chat']);
   assert.deepEqual(S.STORY_STYLES, ['emoji', 'sketch', 'mixed']);
-  assert.equal(S.BAND_POSITION_DEFAULT, 'bottom', '2.2.1: portrait band at the very bottom by default');
+  assert.equal(S.BAND_POSITION_DEFAULT, 'bottom', '2.3: portrait band at the very bottom by default');
   assert.equal(S.STORY_STYLE_DEFAULT, 'mixed');
   assert.deepEqual(S.VOLUME_BUSES, ['master', 'sfx', 'ambient']);
   assert.deepEqual(S.VOLUME_DEFAULTS, { master: 0.5, sfx: 0.8, ambient: 0.5 });
@@ -696,11 +696,11 @@ test('normalizeLayout: defaults, partial merge onto a base, garbage keeps the ba
   assert.deepEqual(S.normalizeLayout({ band: 99 }, base), { ...base, band: 35 });
   assert.deepEqual(S.normalizeLayout({}, { storyLayout: 'nope', band: 'x', zone: 7, bandPosition: 1, storyStyle: null }), D);
   assert.deepEqual(S.normalizeLayout([1, 2]), D);
-  // a 2.2 base without the 2.2.1 keys gets the defaults for them
+  // a 2.2 base without the 2.3 keys gets the defaults for them
   assert.deepEqual(S.normalizeLayout({ zone: 'full' }, { storyLayout: 'frame', band: 25, zone: 'edges' }), { storyLayout: 'frame', band: 25, zone: 'full', bandPosition: 'bottom', storyStyle: 'mixed' });
 });
 
-test('2.2.1 normalizeLayout: bandPosition bottom | chat, storyStyle emoji | sketch | mixed', () => {
+test('2.3 normalizeLayout: bandPosition bottom | chat, storyStyle emoji | sketch | mixed', () => {
   assert.equal(S.normalizeLayout({ bandPosition: 'chat' }).bandPosition, 'chat');
   assert.equal(S.normalizeLayout({ bandPosition: 'bottom' }, { bandPosition: 'chat' }).bandPosition, 'bottom');
   for (const bad of ['', 'top', 'BOTTOM', 1, null, ['chat'], { chat: 1 }]) {
@@ -711,7 +711,7 @@ test('2.2.1 normalizeLayout: bandPosition bottom | chat, storyStyle emoji | sket
   for (const bad of ['', 'video', 'Sketch', 0, null]) assert.equal(S.normalizeLayout({ storyStyle: bad }, { storyStyle: 'sketch' }).storyStyle, 'sketch', `storyStyle ${JSON.stringify(bad)}`);
 });
 
-test('2.2.1 validateEnvelope: layout bandPosition / storyStyle validated, partial, alone enough', () => {
+test('2.3 validateEnvelope: layout bandPosition / storyStyle validated, partial, alone enough', () => {
   const a = S.validateEnvelope({ type: 'layout', bandPosition: 'chat' });
   assert.equal(a.ok, true);
   assert.deepEqual({ bandPosition: a.msg.bandPosition, storyStyle: a.msg.storyStyle, zone: a.msg.zone }, { bandPosition: 'chat', storyStyle: undefined, zone: undefined });

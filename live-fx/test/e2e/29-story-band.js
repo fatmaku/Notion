@@ -2,7 +2,7 @@
 // camera; effect zones keep rain / confetti in the edge columns and cards in the columns (no flash / impact zoom);
 // `layout`, `story`, `story-state` and `volume {bus}` messages; URL pins (?story= ?band= ?zone= ?volume=); the server
 // remembers layout + volumes in the SSE `state` message.
-// 2.2.1: portrait band position (`bandPosition` / ?bandpos= bottom = flush with the frame bottom (default) | chat =
+// 2.3: portrait band position (`bandPosition` / ?bandpos= bottom = flush with the frame bottom (default) | chat =
 // above the chat zone), a burst fired together with a story line lives its full duration (one particle loop),
 // the live-story lifecycle (props / actors leave, idle band clears and comes back), `storyStyle` + sketch hook.
 // Screenshots: story-band.png (16:9), story-band-portrait.png / story-band-portrait-bottom.png (9:16, band at the
@@ -328,7 +328,7 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     assert.match(pins.card, /fx-in-band/, 'zone bottom puts cards into the band');
     await pctx.close();
 
-    // ---------------------------------------------------------------- 7. portrait 1080×1920: band 20 %, flush with the bottom edge (2.2.1 default)
+    // ---------------------------------------------------------------- 7. portrait 1080×1920: band 20 %, flush with the bottom edge (2.3 default)
     const octx = await browser.newContext({ viewport: { width: 1080, height: 1920 } });
     const portrait = await octx.newPage();
     const perrors = [];
@@ -361,7 +361,7 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     assert.equal(por.pct, 20, 'portrait uses 20 % unless pinned');
     assert.equal(por.cssVar, '20');
     near(por.h, 0.2 * por.H, 2, 'portrait band 20 %');
-    near(por.bottom, por.H, 1, 'portrait band sits at the very bottom (bandPosition bottom, the 2.2.1 default)');
+    near(por.bottom, por.H, 1, 'portrait band sits at the very bottom (bandPosition bottom, the 2.3 default)');
     assert.deepEqual(por.state, { scene: 'rain', time: 'night', place: 'forest', landmark: 'castle', lang: 'tr' }, 'Turkish sentence');
     assert.deepEqual(por.actors, ['dragon:fly']);
     near(por.edge, 0.3 * por.W, 1, 'portrait edge columns 30vw');
@@ -443,7 +443,7 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     await lctx.close();
 
     // ---------------------------------------------------------------- 7b. applause + story at once: the burst lives its full duration
-    // (2.2.1 root cause: every scene particle spawned inside a frame booked a second rAF loop, so after a few seconds
+    // (2.3 root cause: every scene particle spawned inside a frame booked a second rAF loop, so after a few seconds
     // of scene the physics ran N× per frame and a 👏 rain hit the floor within ~0.3 s.)
     const actx = await browser.newContext({ viewport: { width: 1080, height: 1920 } });
     const ap = await actx.newPage();
@@ -583,8 +583,8 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
       return out;
     });
     log('lifecycle', JSON.stringify(life));
-    assert.deepEqual(life.steps.map((x) => x.scene), ['rain', 'rain', 'sunrise', 'forest']);
-    assert.deepEqual(life.steps.map((x) => x.props), [[], ['🚗'], ['🚗'], []], 'the car arrives and leaves with the new place');
+    assert.deepEqual(life.steps.map((x) => x.scene), ['rain', 'rain', null, 'forest'], 'the band empties after the rain (a lone car holds no stage)');
+    assert.deepEqual(life.steps.map((x) => x.props), [[], ['🚗'], [], []], 'the car arrives with the rain and leaves with it');
     assert.deepEqual(life.steps.map((x) => x.weather), ['rain', 'rain', 'clear', 'clear'], 'rain gone when the sun comes');
     assert.ok(life.ticks >= 1, `director.tick runs every second (${life.ticks})`);
     assert.deepEqual(life.idle, { idle: true, cls: true, actors: 0, props: 0, ambient: 0, ambientOn: false, loop: null, scene: null, scenes: 0 }, 'idle band: nothing keeps painting');
@@ -696,7 +696,7 @@ async function run({ browser, startServer, api, sseClient, shotDir, log }) {
     await overlay.next('layout');
     assert.equal((await api(base, 'POST', '/fire', { ...auth, json: { type: 'layout', bandPosition: 'chat', storyStyle: 'sketch' } })).status, 200);
     const rbp = await overlay.next('layout');
-    assert.deepEqual({ bandPosition: rbp.bandPosition, storyStyle: rbp.storyStyle, zone: rbp.zone }, { bandPosition: 'chat', storyStyle: 'sketch', zone: undefined }, '2.2.1 keys relayed');
+    assert.deepEqual({ bandPosition: rbp.bandPosition, storyStyle: rbp.storyStyle, zone: rbp.zone }, { bandPosition: 'chat', storyStyle: 'sketch', zone: undefined }, '2.3 keys relayed');
     assert.equal((await api(base, 'POST', '/fire', { ...auth, json: { type: 'volume', volume: 0.25, bus: 'ambient' } })).status, 200);
     const rv = await overlay.next('volume');
     assert.deepEqual({ volume: rv.volume, bus: rv.bus }, { volume: 0.25, bus: 'ambient' });

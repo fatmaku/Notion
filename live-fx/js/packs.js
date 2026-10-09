@@ -357,7 +357,8 @@
       ['sterne', 'Sterne', ['sterne', 'die sterne', 'weltraum', 'weltall', 'im weltall', 'rakete', 'planeten', 'galaxie'], 'stars, outer space', 'space', null, 2],
       ['morgen', 'Morgen', ['am morgen', 'sonnenaufgang', 'morgen', 'am nächsten morgen', 'die sonne ging auf', 'die sonne schien', 'morgens'], 'morning, sunrise, a new day', 'sunrise', null, 2],
       ['gewitter', 'Gewitter', ['gewitter', 'donner', 'blitz', 'es donnerte', 'sturm', 'blitz und donner', 'unwetter'], 'storm, thunder, lightning', 'storm', null, 3],
-      ['ende', 'Ende', ['ende', 'das ende', 'und wenn sie nicht gestorben sind', 'so leben sie noch'], 'the end of the story', 'clear', 'ENDE', 1, 'tada'],
+      // 2.3: no bare 'ende' – "am Ende des Tages", "am Ende kam …" must not clear the scene mid-story
+      ['ende', 'Ende', ['das ende', 'ende der geschichte', 'und wenn sie nicht gestorben sind', 'so leben sie noch'], 'the end of the story', 'clear', 'ENDE', 1, 'tada'],
     ].map(sceneRow),
     ...[
       ['drache', 'Drache', ['drache', 'der drache', 'ein drache', 'drachen', 'feuerspeiend'], 'a dragon appears', 'dramatic', '🐉🔥', 'Der Drache!'],
@@ -393,7 +394,8 @@
       ['yildizlar', 'Yıldızlar', ['yıldızlar', 'yildizlar', 'uzay', 'uzayda', 'gökyüzü', 'gokyuzu', 'gezegen', 'roket'], 'stars, outer space', 'space', null, 2],
       ['sabah', 'Sabah', ['sabah', 'sabah oldu', 'güneş doğdu', 'gunes dogdu', 'sabahleyin', 'gün doğdu', 'şafak'], 'morning, sunrise, a new day', 'sunrise', null, 2],
       ['firtina', 'Fırtına', ['fırtına', 'firtina', 'gök gürledi', 'gok gurledi', 'şimşek', 'simsek', 'yıldırım', 'fırtına çıktı'], 'storm, thunder, lightning', 'storm', null, 3],
-      ['son', 'Son', ['son', 'masal bitti', 'masal sona erdi', 'ermiş muradına', 'gökten üç elma düştü'], 'the end of the story', 'clear', 'SON', 1, 'tada'],
+      // 2.3: no bare 'son' – "en son", "son dakika", "son olarak" are everyday Turkish (the director has the same rule)
+      ['son', 'Son', ['masal bitti', 'masalın sonu', 'masalin sonu', 'hikayenin sonu', 'hikaye bitti', 'masal sona erdi', 'ermiş muradına', 'gökten üç elma düştü'], 'the end of the story', 'clear', 'SON', 1, 'tada'],
     ].map(sceneRow),
     ...[
       ['ejderha', 'Ejderha', ['ejderha', 'ejderhalar', 'ejder', 'dev ejderha'], 'a dragon appears', 'dramatic', '🐉🔥', 'Ejderha!'],
