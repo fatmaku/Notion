@@ -104,7 +104,10 @@ export function GlassesScreen(app: App): Screen {
       headsetBody.push(h('p', {}, s.data.xrView === 'overlay' ? T.glXrOverlayText : T.glXrScreenText));
     }
     headsetBody.push(h('p', {}, T.glXrControls));
-  } else headsetBody.push(h('p', {}, T.glXrUnavailable));
+  } else {
+    headsetBody.push(h('p', {}, T.glXrUnavailable));
+    headsetBody.push(h('button', { class: 'btn block secondary', 'data-send-open': '1', onclick: () => app.showSend(() => app.showGlasses()) }, `📲 ${T.glXrOpenQr}`));
+  }
   headsetBody.push(h('ul', {}, h('li', {}, T.glXrQuestCamera), h('li', {}, T.glXrTravel), h('li', {}, T.glXrOthers)));
 
   // camera choice (headsets list several cameras; labels appear after the first permission)

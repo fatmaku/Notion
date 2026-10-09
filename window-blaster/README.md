@@ -25,6 +25,27 @@ Laufzeit (ca. 30 MB) im Hintergrund und zeigt „Offline bereit ✓“ (auf Mobi
 komplett ohne Internet. Nur die weltweite Rangliste braucht Netz; offline gespielte Runden werden gespeichert
 und automatisch nachgereicht.
 
+## Einrichten per QR-Code – der kürzeste Weg
+
+| Weg | Was du tust | Wann |
+|---|---|---|
+| **🌐 Online (empfohlen)** | Handy-Kamera auf den Online-QR-Code halten (Mac-Seite „Handy verbinden“, `ANLEITUNG.html` oder im Spiel „📲 Auf anderes Gerät“) → Spiel öffnet sich → zum Home-Bildschirm hinzufügen. **Kein Zertifikat, kein gemeinsames WLAN, kein Mac.** Danach offline. | sobald GitHub Pages einmal eingeschaltet ist (siehe unten) |
+| **🥽 Meta Quest** | Den Quest-QR-Code mit dem **Handy** scannen → bei Meta anmelden → Headset wählen → „Öffnen“ (Metas „Web Launch“; die Quest selbst kann keine Link-QR-Codes lesen). | mit der Online-Version |
+| **💻 Über den Mac** | ① WLAN-QR scannen (die Mac-Seite erzeugt ihn aus Netzname + Passwort) ② Einrichtungs-QR scannen ③ Zertifikat installieren, wie die Handy-Seite zeigt. | ohne Internet, oder solange die Online-Version aus ist |
+
+Im Spiel zeigt **📲 Auf anderes Gerät** (Startbildschirm, auch im Brillen-Bildschirm) immer den besten Code für ein
+zweites Handy, ein Headset oder das Handy für die Brille: Online-Adresse, Quest-Link und – wenn ein Mac-Server das Spiel
+ausliefert – dessen Einrichtungsseite. Die QR-Codes entstehen im Spiel selbst (ohne Internet, Bibliothek `uqr`).
+
+**Online-Version einschalten (einmalig, ein Klick):** <https://github.com/fatmaku/Notion/settings/pages> →
+„Build and deployment“ → **Source: GitHub Actions**. Danach baut und veröffentlicht der Workflow bei jedem Push
+automatisch nach `https://fatmaku.github.io/Notion/window-blaster/` (oder in **Actions → window-blaster →
+letzter Lauf → Re-run all jobs**). Falls das Deployment „Branch … is not allowed to deploy to github-pages“ meldet:
+Settings → Environments → github-pages → Deployment branches → `claude/laughing-ride-afs0pe` erlauben.
+Die öffentliche Adresse steht in `package.json` (`windowBlaster.publicUrl`, überschreibbar mit `VITE_PUBLIC_URL`);
+der Build schreibt sie in `wb-meta.json`. Mac-Seite und Spiel zeigen den Online-Code nur, wenn diese Datei online
+erreichbar ist – solange Pages aus ist, erscheint er nicht.
+
 ## Ohne GitHub: Download-Paket für den Mac
 
 `npm run package` erzeugt **eine** Datei `WindowBlaster.zip` (unter 30 MB) mit dem Ordner `WindowBlaster/`:

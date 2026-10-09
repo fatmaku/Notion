@@ -2,7 +2,15 @@ import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vite';
 import basicSsl from '@vitejs/plugin-basic-ssl';
 
-const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string };
+const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8')) as { version: string; windowBlaster?: { publicUrl?: string } };
+// Public HTTPS copy of the game (GitHub Pages). Setup QR codes point there: nothing to trust, no Mac needed.
+// VITE_PUBLIC_URL overrides it ('' disables), e.g. for a fork or another host.
+const publicUrl = normalizeUrl(process.env.VITE_PUBLIC_URL ?? pkg.windowBlaster?.publicUrl ?? '');
+
+function normalizeUrl(u: string): string {
+  const t = u.trim();
+  return t && !t.endsWith('/') ? `${t}/` : t;
+}
 // Unique per build: the service worker's cache name changes with every build, so a rebuilt app with
 // the same version number still updates on the phone. WB_BUILD_ID can pin it (tests).
 const buildId = process.env.WB_BUILD_ID ?? Date.now().toString(36);
@@ -16,6 +24,7 @@ export default defineConfig(() => ({
     __APP_VERSION__: JSON.stringify(pkg.version),
     __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
     __BUILD_ID__: JSON.stringify(buildId),
+    __PUBLIC_URL__: JSON.stringify(publicUrl),
   },
   server: { host: true, port: 5173 },
   preview: { host: true, port: 4173 },

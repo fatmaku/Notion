@@ -6,6 +6,7 @@
 //   WindowBlaster/quelltext.zip                   source (git-tracked files, minus the model copy)
 // Usage: node scripts/package-mac.mjs [--out WindowBlaster.zip] [--with-linux] [--no-build]
 import { chmodSync, cpSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { renderSVG } from 'uqr';
 import { execSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -47,10 +48,16 @@ cpSync(join(root, 'packaging', 'Start-Window-Blaster.command'), join(pkg, 'Start
 chmodSync(join(pkg, 'Start-Window-Blaster.command'), 0o755);
 cpSync(join(root, 'packaging', 'LIESMICH-ZUERST.txt'), join(pkg, 'LIESMICH-ZUERST.txt'));
 // the guide is the same template the server shows at /anleitung
-const guide = readFileSync(join(launcher, 'web', 'anleitung.html'), 'utf8').replaceAll('{{.Version}}', version).replaceAll('{{.HTTPPort}}', '8080');
+let guide = readFileSync(join(launcher, 'web', 'anleitung.html'), 'utf8').replaceAll('{{.Version}}', version).replaceAll('{{.HTTPPort}}', '8080');
 if (guide.includes('{{')) throw new Error('anleitung.html contains template actions the package cannot render');
+// the printed guide carries the online QR code itself: scan it straight from the Mac screen or a printout
+const meta = JSON.parse(readFileSync(join(root, 'dist', 'wb-meta.json'), 'utf8'));
+if (meta.publicUrl && guide.includes('<!--WB_ONLINE_QR-->')) {
+  const svg = renderSVG(meta.publicUrl, { ecc: 'M', border: 4, pixelSize: 6 });
+  guide = guide.replace('<!--WB_ONLINE_QR-->', `<div class="qr-print" style="width:200px;background:#fff;padding:6px;border-radius:10px">${svg.replace('<svg ', '<svg style="width:100%;height:auto;display:block" ')}</div>`);
+}
 writeFileSync(join(pkg, 'ANLEITUNG.html'), guide);
-writeFileSync(join(pkg, 'bin', 'LIZENZEN.txt'), `Window Blaster Server ${version} – enthält rsc.io/qr (BSD-3-Clause) und die Go-Standardbibliothek (BSD-3-Clause).\nMediaPipe Tasks Vision (Apache-2.0) und EfficientDet-Lite0 (Apache-2.0) im Ordner app.\n`);
+writeFileSync(join(pkg, 'bin', 'LIZENZEN.txt'), `Window Blaster Server ${version} – enthält rsc.io/qr (BSD-3-Clause) und die Go-Standardbibliothek (BSD-3-Clause).\nDas Spiel enthält uqr (MIT).\nMediaPipe Tasks Vision (Apache-2.0) und EfficientDet-Lite0 (Apache-2.0) im Ordner app.\n`);
 writeFileSync(join(pkg, 'VERSION.txt'), `Window Blaster ${version}\nGebaut: ${new Date().toISOString()}\n`);
 
 // 3) source as ONE nested quelltext.zip (no second, confusing start script in the folder);

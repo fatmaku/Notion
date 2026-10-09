@@ -122,6 +122,9 @@ export class OfflinePrep {
         /* optional */
       }
       this.set('ready');
+      // served by the Mac launcher? Its connect page then shows "offline ready – Mac no longer needed".
+      // Elsewhere (GitHub Pages) this is a harmless 404; the service worker lets /wb-status through.
+      void fetch(new URL('/wb-status?offline=done', location.origin).href, { cache: 'no-store' }).catch(() => undefined);
       return true;
     } catch (e) {
       this.error = String((e as Error).message ?? e);

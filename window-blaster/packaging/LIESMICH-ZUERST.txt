@@ -1,6 +1,14 @@
 WINDOW BLASTER – SO STARTEST DU ES
 ==================================
-(Voraussetzung: macOS 11 Big Sur oder neuer)
+
+AM EINFACHSTEN – OHNE MAC, OHNE ZERTIFIKAT (sobald die Online-Version an ist):
+   Am Handy öffnen:  https://fatmaku.github.io/Notion/window-blaster/
+   (oder den Online-QR-Code in ANLEITUNG.html bzw. auf der Mac-Seite
+   "Handy verbinden" mit der Handy-Kamera scannen)
+   → Spiel zum Home-Bildschirm hinzufügen → fertig, danach läuft es offline.
+   Im Spiel zeigt "Auf anderes Gerät" den QR-Code für weitere Handys/Headsets.
+
+MIT DEM MAC (auch ohne Internet) – Voraussetzung: macOS 11 Big Sur oder neuer
 
 1) ERSTER START (nur einmal so):
    - Programm "Terminal" öffnen:  Cmd + Leertaste  →  "Terminal" tippen  →  Enter
@@ -16,8 +24,11 @@ WINDOW BLASTER – SO STARTEST DU ES
    (NICHT die alte Adresse https://localhost:8443 – die gehört zur alten
    Version; ihr Server wird beim Start automatisch beendet.)
 
-3) Handy ins gleiche WLAN wie den Mac (mobile Daten am besten kurz aus),
-   mit der Handy-Kamera den QR-Code scannen und der Handy-Seite folgen.
+3) Handy ins gleiche WLAN wie den Mac – am einfachsten mit dem WLAN-QR-Code,
+   den die Seite aus Netzname und Passwort erzeugt (mobile Daten am besten
+   kurz aus). Dann mit der Handy-Kamera den Einrichtungs-QR-Code scannen
+   und der Handy-Seite folgen. Ist oben die Karte "Online" zu sehen, ist
+   deren QR-Code noch einfacher (kein Zertifikat nötig).
 
 Ab dem zweiten Mal reicht ein Doppelklick auf "Start-Window-Blaster.command"
 in DIESEM Ordner. Nach jedem neuen Download (Update) den ersten Start

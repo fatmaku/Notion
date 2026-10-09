@@ -1,12 +1,19 @@
 // After `vite build`: writes dist/precache.json (small app-shell files the service
 // worker caches on install) and dist/offline-assets.json (large files – WASM runtime
 // and detector model – that the app downloads on demand for offline play).
-import { readdirSync, statSync, writeFileSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const dist = join(root, 'dist');
+
+// wb-meta.json: version + public address. The Mac launcher reads it to show the "online" QR code, and
+// setup pages fetch it from the public copy (GitHub Pages sends CORS *) to see whether that copy is live.
+const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
+let publicUrl = (process.env.VITE_PUBLIC_URL ?? pkg.windowBlaster?.publicUrl ?? '').trim();
+if (publicUrl && !publicUrl.endsWith('/')) publicUrl += '/';
+writeFileSync(join(dist, 'wb-meta.json'), JSON.stringify({ version: pkg.version, publicUrl }));
 
 function walk(dir, out = []) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
@@ -19,7 +26,7 @@ function walk(dir, out = []) {
 
 const files = walk(dist).map((p) => ({ path: relative(dist, p).split('\\').join('/'), size: statSync(p).size }));
 const isHeavy = (p) => p.startsWith('mediapipe/') || p.startsWith('models/');
-const skip = (p) => p === 'sw.js' || p === 'precache.json' || p === 'offline-assets.json' || p.endsWith('.map');
+const skip = (p) => p === 'sw.js' || p === 'precache.json' || p === 'offline-assets.json' || p === 'wb-meta.json' || p.endsWith('.map');
 // only the wasm variant pair the loader actually uses (simd + nosimd fallback); the "module" variant is unused
 const unusedWasm = (p) => p.includes('vision_wasm_module_internal');
 

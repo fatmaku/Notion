@@ -57,6 +57,7 @@ import type { WeaponId } from '../core/types';
 import { InputHub } from '../input/InputHub';
 import { GlassesAlignScreen, type GlassesAlignApi } from '../ui/screens/GlassesAlignScreen';
 import { GlassesScreen } from '../ui/screens/GlassesScreen';
+import { SendScreen } from '../ui/screens/SendScreen';
 import { XrPlayer, xrSupport, type XrCal, type XrSupport } from '../xr/XrPlayer';
 import { landscapeFullscreen } from '../ui/dom';
 
@@ -517,6 +518,11 @@ export class App {
 
   showGlasses(): void {
     this.router.show(GlassesScreen(this));
+  }
+
+  /** QR codes that bring the game onto another device. */
+  showSend(onBack?: () => void): void {
+    this.router.show(SendScreen(this, onBack));
   }
 
   /** Glasses alignment; starts the camera (or demo) itself when nothing is running yet. */

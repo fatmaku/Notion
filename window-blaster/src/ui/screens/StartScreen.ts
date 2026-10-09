@@ -2,12 +2,14 @@ import type { App } from '../../app/App';
 import { fmtScore, h, toast } from '../dom';
 import { T, tf, locale } from '../i18n';
 import type { Screen } from '../Router';
+import { launcherStatus } from '../../app/shareTargets';
 
 function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
   const badge = h('span', { class: 'badge' }, '…');
   const btn = h('button', { class: 'btn secondary', style: 'min-height:40px;padding:8px 12px;font-size:14px;display:none' }) as HTMLButtonElement;
   const bar = h('div', { class: 'bar', style: 'display:none;flex:1 1 100%' }, h('i', { style: 'width:0%' }));
   const row = h('div', { class: 'row', style: 'align-items:center;gap:8px;margin-top:12px' }, badge, btn, bar);
+  let launcher: ReturnType<typeof launcherStatus> | null = null;
   const render = () => {
     const o = app.offline;
     const net = app.online ? '' : ` · ${T.startNetOffline}`;
@@ -31,6 +33,7 @@ function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
         if (app.online) {
           btn.style.display = 'inline-block';
           btn.textContent = `⬇️ ${T.offlineMissing} (${o.missingLabel})`;
+          btn.onclick = prepare;
         }
         break;
       case 'downloading':
@@ -41,6 +44,13 @@ function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
       case 'unsupported':
         badge.className = 'badge';
         badge.textContent = o.swBroken ? T.startOfflineNeedsCert : T.startOfflineNoHttps;
+        // served by the Mac launcher (certificate clicked through or plain http): one tap to its setup page
+        void (launcher ??= launcherStatus()).then((s) => {
+          if (!s?.setupUrl || app.offline.state !== 'unsupported') return;
+          btn.style.display = 'inline-block';
+          btn.textContent = `🔐 ${T.startSetupMac}`;
+          btn.onclick = () => location.assign(s.setupUrl);
+        });
         break;
       default:
         badge.className = 'badge';
@@ -49,7 +59,8 @@ function offlineRow(app: App): { el: HTMLElement; dispose(): void } {
     const pending = app.leaderboard.pending().length;
     if (pending) badge.textContent += ` · ${pending} ${T.pendingScores}`;
   };
-  btn.onclick = () => void app.offline.prepare();
+  const prepare = () => void app.offline.prepare();
+  btn.onclick = prepare;
   const off1 = app.offline.events.on('change', render);
   const onNet = () => render();
   window.addEventListener('online', onNet);
@@ -142,6 +153,7 @@ export function StartScreen(app: App): Screen {
         h('button', { class: 'btn block secondary', onclick: () => app.showChallenges() }, `📅 ${T.startChallenges}`),
         h('button', { class: 'btn block secondary', onclick: () => app.showPartySetup() }, `👥 ${T.startDuel}`),
         h('button', { class: 'btn block secondary', onclick: () => app.beginFlow('demo') }, `🕹️ ${T.demo}`),
+        h('button', { class: 'btn block secondary', 'data-send-open': '1', onclick: () => app.showSend() }, `📲 ${T.startSend}`),
         h('button', { class: 'btn block secondary', 'data-glasses': '1', onclick: () => app.showGlasses() }, `🕶️ ${app.xrSupport.headset ? T.startGlassesHeadset : T.startGlasses}${app.settings.data.glasses || (app.settings.data.headset && app.xrSupport.headset) ? ' ✓' : ''}`),
         h(
           'div',

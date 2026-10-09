@@ -1,7 +1,7 @@
 {
   "name": "window-blaster",
   "private": true,
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Beifahrer-AR-Arcade: echte Autos vor dem Autofenster in AR beschiessen (PWA)",
   "type": "module",
   "scripts": {
@@ -16,7 +16,8 @@
     "e2e": "playwright test"
   },
   "dependencies": {
-    "@mediapipe/tasks-vision": "1.0.1"
+    "@mediapipe/tasks-vision": "1.0.1",
+    "uqr": "^0.1.3"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",
@@ -24,8 +25,12 @@
     "@types/webxr": "^0.5.24",
     "@vitejs/plugin-basic-ssl": "^2.1.0",
     "iwer": "^2.5.0",
+    "jsqr": "^1.4.0",
     "typescript": "^5.9.0",
     "vite": "^8.3.1",
     "vitest": "^5.0.2"
+  },
+  "windowBlaster": {
+    "publicUrl": "https://fatmaku.github.io/Notion/window-blaster/"
   }
 }
