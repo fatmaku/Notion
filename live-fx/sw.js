@@ -1,5 +1,5 @@
-// LiveFX – service worker: makes the app shell (panel, overlay, demo, mobile page, camera view, css/js, icons)
-// available offline. See docs/HANDY.md.
+// LiveFX – service worker: makes the app shell (panel, overlay, demo, mobile page, camera view, pairing page, css/js,
+// icons, manifests) available offline. See docs/HANDY.md.
 //
 // Strategy:
 //   - install: precache the whole app shell (every path in SHELL, listed explicitly – no build step).
@@ -7,7 +7,8 @@
 //     index.html is served, so a fresh copy is preferred whenever the server is reachable.
 //   - other shell files (css/js/icons/manifest): cache first, refreshed in the background.
 //   - everything live is network-only and never cached: /api/*, /fire, /events, /assets/*, /docs/*,
-//     /m, /models/*, /health.
+//     /m, /models/*, /health. The pairing page itself is served as /p (not in the shell, always from the network);
+//     its file /pair.html + js/pair.js are precached so a later version can show it from the cache.
 // Two shells: the panel registers `/sw.js` (scope /, full SHELL); the OBS overlay registers
 // `/sw.js?shell=overlay` with scope /overlay.html and precaches only OVERLAY_SHELL (overlay page, its css/js,
 // icons) in its own cache – no panel / ASR / demo code inside the browser source (docs/PERFORMANCE.md).
@@ -15,7 +16,7 @@
 // also compares it with the server's /health version and re-precaches when they differ).
 'use strict';
 
-const SHELL_VERSION = '2.3.0';
+const SHELL_VERSION = '2.4.0';
 const OVERLAY_MODE = new URLSearchParams(self.location.search).get('shell') === 'overlay';
 const CACHE_PREFIX = OVERLAY_MODE ? 'livefx-overlay-' : 'livefx-shell-';
 const CACHE = OVERLAY_MODE ? `livefx-overlay-v${SHELL_VERSION}` : `livefx-shell-v${SHELL_VERSION}`;
@@ -27,6 +28,7 @@ const FULL_SHELL = [
   '/demo.html',
   '/mobile.html',
   '/manifest.webmanifest',
+  '/mobile.webmanifest',
   '/icons/icon.svg',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
@@ -57,6 +59,8 @@ const FULL_SHELL = [
   '/js/safety.js',
   // 2.2: QR code for the phone link, pack helpers shared by panel + phone, live story director, phonetic aliases
   '/js/qr.js',
+  // easy setup: pairing QR views + printable setup card (panel, camera view)
+  '/js/setup-card.js',
   '/js/packs-store.js',
   '/js/story-director.js',
   '/js/phonetic.js',
@@ -69,6 +73,10 @@ const FULL_SHELL = [
   '/camera.html',
   '/js/camera.js',
   '/css/camera.css',
+  // 2.4: phone first – pairing page behind the QR code (/p), phone microphone (Web Speech → /api/transcript)
+  '/pair.html',
+  '/js/pair.js',
+  '/js/phone-mic.js',
 ];
 // What overlay.html loads (plus the icons) – keep in sync with its <script>/<link> tags.
 const OVERLAY_SHELL = [

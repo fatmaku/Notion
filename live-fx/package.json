@@ -6,6 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "start:open": "node server.js --open",
+    "start:local": "node server.js --local",
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "node --test \"test/*.test.js\"",
     "test:e2e": "node test/e2e.js",

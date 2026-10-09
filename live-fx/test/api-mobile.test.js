@@ -1,5 +1,5 @@
-// server/api-mobile.js: GET /m?token= cookie handshake, rate limit, and the /api/config fields the
-// "Handy" card needs (lanIps, secure, port).
+// server/api-mobile.js: GET /m?token= handshake (2.3: mints a paired device instead of copying the token into a
+// cookie), rate limit, and the /api/config fields the "Handy" card needs (lanIps, secure, port).
 'use strict';
 
 const test = require('node:test');
@@ -38,16 +38,24 @@ test('GET /m – token handshake', async (t) => {
   t.after(() => server.stop());
   const { base } = server;
 
-  await t.test('correct token -> 302 to /mobile.html with the HttpOnly panel cookie', async () => {
-    const r = await rawGet(base, '/m?token=test-token');
+  await t.test('correct token -> 302 to /mobile.html with a paired-device cookie (never the token itself)', async () => {
+    const r = await rawGet(base, '/m?token=test-token', { 'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) Version/17.0 Mobile/15E148 Safari/604.1' });
     assert.equal(r.status, 302);
     assert.equal(r.headers.location, '/mobile.html');
     const cookie = String(r.headers['set-cookie'] && r.headers['set-cookie'][0]);
-    assert.ok(cookie.startsWith('livefx=test-token; HttpOnly'), cookie);
-    assert.match(cookie, /SameSite=Strict/);
-    assert.match(cookie, /Path=\//);
+    assert.match(cookie, /^livefx_dev=[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+; HttpOnly; SameSite=Lax; Path=\/; Max-Age=15552000$/, cookie);
+    assert.ok(!cookie.includes('test-token'), 'the master token is not in the cookie');
     assert.ok(!/Secure/.test(cookie), 'no Secure flag over plain http');
     assert.equal(r.headers['cache-control'], 'no-store');
+    const devices = await api(base, 'GET', '/api/devices', { token: 'test-token' });
+    assert.equal(devices.status, 200);
+    assert.equal(devices.json.devices.length, 1);
+    assert.equal(devices.json.devices[0].name, 'iPhone · Safari');
+    // the same phone tapping the old link again keeps its device (no duplicate entry)
+    const again = await rawGet(base, '/m?token=test-token', { cookie: cookie.split(';')[0] });
+    assert.equal(again.status, 302);
+    assert.equal(again.headers['set-cookie'], undefined);
+    assert.equal((await api(base, 'GET', '/api/devices', { token: 'test-token' })).json.devices.length, 1);
   });
 
   await t.test('no token param -> 302 to /mobile.html without a cookie', async () => {

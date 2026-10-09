@@ -1,54 +1,37 @@
 // LiveFX – internet remote API (2.2): starts/stops the Cloudflare quick tunnel from server/tunnel.js.
 //
-//   GET  /api/tunnel         → { ok, status: idle|starting|online|error, url, hostname, since, error, phoneUrl, manualUrl, … }
+//   GET  /api/tunnel         → { ok, status: idle|starting|online|error, url, hostname, since, error, phoneUrl, pairing, manualUrl, … }
 //   POST /api/tunnel/start   → same shape, resolves when the tunnel is online or failed
 //   POST /api/tunnel/stop    → same shape (status idle)
 //
-// All three need requireAuth (panel cookie / same-origin, or Bearer). The phone link is
-// `https://<tunnel>/m?token=<token>` – HTTPS, so the phone microphone works.
+// All three need requireAuth (panel on this PC, a paired device, or Bearer). 2.3: the phone link is a pairing link
+// `https://<tunnel>/p#<secret>` (server/api-pairing.js, single use, 10 minutes) – HTTPS, so the phone microphone works,
+// and the master token is no longer part of any link or QR code. `pairing` carries { code, expiresAt, url, … }.
 //
 // Host guard: while the tunnel is online its hostname is appended to LIVEFX_ALLOWED_HOSTS (auth.js reads the
 // variable on every request), so `hostAllowed()` accepts `<words>.trycloudflare.com` without touching auth.js.
 //
-// Request guard (`guard(req)`, called by server.js before routing): cloudflared connects from 127.0.0.1, so
-// auth.js would treat every tunnel request as loopback and index.html would hand the panel cookie to anyone
-// who knows the URL. Requests that arrive through the tunnel (Host *.trycloudflare.com or a `cf-connecting-ip`
-// header) are therefore allowed only with the panel cookie or a Bearer token – except `GET /m` (the token
-// handshake that sets the cookie), `/health` and `/favicon.ico`.
+// Request guard: cloudflared connects from 127.0.0.1, so tunnel requests (Host *.trycloudflare.com or a
+// `cf-connecting-ip` header) are never treated as local – auth.guard() (server.js, before routing) handles them like
+// LAN requests: without a session only the pairing page, GET /m, /health and public static files are reachable.
+// `guard(req, ctx)` below is the 2.2 helper kept for callers/tests: an HttpError for a refused tunnel request.
 'use strict';
 
 const { json, HttpError } = require('./router');
 const auth = require('./auth');
 const { createTunnel } = require('./tunnel');
 
-const TUNNEL_HOST_RE = /\.trycloudflare\.com$/i;
-const OPEN_PATHS = new Set(['/m', '/health', '/favicon.ico']);
-
-function hostOf(req) {
-  const raw = String((req && req.headers && req.headers.host) || '').trim().toLowerCase();
-  const colon = raw.lastIndexOf(':');
-  return colon !== -1 && !raw.startsWith('[') && raw.indexOf(':') === colon ? raw.slice(0, colon) : raw.replace(/^\[|\].*$/g, '');
-}
-
-/** True when this request came in through the tunnel (not from the LAN or the PC itself). */
-function viaTunnel(req) {
-  const h = (req && req.headers) || {};
-  return TUNNEL_HOST_RE.test(hostOf(req)) || typeof h['cf-connecting-ip'] === 'string';
-}
+const { TUNNEL_HOST_RE, viaTunnel } = auth;
 
 /**
- * Returns an HttpError when a tunnel request must be refused, null otherwise. Public paths and
- * authenticated requests (cookie or Bearer) pass; everything else gets 401 with a German hint.
+ * Returns an HttpError when a tunnel request must be refused, null otherwise (LAN / local requests: null).
+ * Same rules as auth.guard(): public paths and requests with a session (device cookie, legacy cookie, Bearer) pass.
  */
 function guard(req, ctx) {
   if (!viaTunnel(req)) return null;
-  const pathname = String(req.url || '/').split('?')[0];
-  if (OPEN_PATHS.has(pathname) && (req.method === 'GET' || req.method === 'HEAD')) return null;
-  const token = ctx && ctx.token;
-  if (auth.cookieOk(req, token)) return null;
-  const header = String(req.headers.authorization || '');
-  if (/^Bearer\s+\S+/i.test(header) && auth.isAuthorized({ headers: { authorization: header }, socket: {} }, token)) return null;
-  return new HttpError(401, 'tunnel_login', 'Über das Internet bitte zuerst den Handy-Link mit Token öffnen (Panel → Karte „Handy“ → Internet-Link).');
+  const d = auth.decide(req, ctx || {});
+  if (d.action === 'pass') return null;
+  return new HttpError(401, 'tunnel_login', d.code === 'tunnel_login' ? d.message : 'Über das Internet bitte zuerst koppeln: im Panel „📱 Handy“ → Internet-Link → QR-Code scannen.');
 }
 
 function allowHost(hostname) {
@@ -68,10 +51,18 @@ function disallowHost(hostname) {
   process.env.LIVEFX_ALLOWED_HOSTS = list.join(',');
 }
 
+/** Status + (when online) a pairing link on the tunnel base; the open code is reused while it has time left. */
 function publicStatus(tunnel, ctx) {
   const s = tunnel.status();
-  const phoneUrl = s.status === 'online' && s.url ? `${s.url}/m?token=${encodeURIComponent(ctx.token || '')}` : null;
-  return { ok: true, ...s, phoneUrl };
+  let phoneUrl = null;
+  let pairing = null;
+  if (s.status === 'online' && s.url && ctx.pairing) {
+    const code = ctx.pairing.current();
+    const base = String(s.url).replace(/\/+$/, '');
+    phoneUrl = `${base}/p#${code.secret}`;
+    pairing = { code: code.code, expiresAt: new Date(code.expiresAt).toISOString(), ttlMs: code.ttlMs, url: phoneUrl, manualUrl: `${base}/p`, cameraUrl: `${base}/p?next=camera#${code.secret}` };
+  }
+  return { ok: true, ...s, phoneUrl, pairing };
 }
 
 function register(router, ctx) {

@@ -14,32 +14,50 @@ Panel: eigene GIFs/PNGs/MP3s hochladen, Trigger bearbeiten ───────
                                                                           Story-Szenen mit Atmosphäre)
 ```
 
-## Schnellstart (2 Minuten)
+## Schnellstart – 3 Schritte
 
-```bash
-cd live-fx
-node server.js            # → http://127.0.0.1:8787
-```
+1. **Doppelklick auf „Start-LiveFX“** im Ordner `start` – Windows: `Start-LiveFX.bat`, Mac: `Start-LiveFX.command`
+   (beim ersten Mal Rechtsklick → „Öffnen“). Das Panel öffnet sich im Browser (`http://127.0.0.1:8787/`, am besten
+   Chrome oder Edge – die haben die Spracherkennung). Fehlt Node.js, sagt das Startfenster, was zu tun ist:
+   [docs/START.md](docs/START.md). (Klassisch geht weiterhin `node server.js` im LiveFX-Ordner.)
+2. **Handy scannt den QR-Code.** Ganz oben im **🚀 Start-Assistenten** steht Schritt 0 **„📱 Handy verbinden“** mit
+   einem großen QR-Code: Handy-Kamera drauf → Link antippen → das Handy ist die Fernbedienung, der Assistent zeigt
+   **„✔ Handy verbunden: <Name>“**. Kein QR-Scanner? Am Handy die angezeigte Adresse `…/p` öffnen und den
+   **6-stelligen Code** eintippen. Handy in einem anderen Netz (mobile Daten)? Nach 25 s erscheint **ein** Knopf
+   **„🌐 Internet-Link starten“** – er tauscht den QR-Code gegen einen Internet-Link (HTTPS) aus.
+3. **OBS-URL kopieren.** Schritt 2 „OBS verbinden“: **„📋 Kopieren“** → in OBS **Quellen → + → Browser** einfügen,
+   Breite/Höhe wie angezeigt (1920 × 1080 bzw. 1080 × 1920), *„Audio über OBS steuern“* anhaken, Quelle über die
+   Kamera schieben. **„Overlay verbunden ✔“** – fertig. OBS auf einem **2. PC** oder eine **Streaming-App am Handy**?
+   Neben „Kopieren“ steht dieselbe Overlay-Adresse fürs WLAN als **QR-Code**.
 
-1. **Control Panel** öffnen: <http://127.0.0.1:8787/> (Chrome oder Edge – die haben die Spracherkennung).
-   Oben steht der **🚀 Start-Assistent** mit drei Schritten (2.2):
-2. **Mikro testen** – Knopf drücken, 5 s sprechen, Haken erscheint.
-3. **OBS verbinden** – Format wählen (16:9 oder 9:16), **„Kopieren“**, in OBS **Quellen → + → Browser** die URL
-   einfügen, Breite/Höhe wie angezeigt (1920 × 1080 bzw. 1080 × 1920), *„Audio über OBS steuern“* anhaken,
-   Quelle über die Kamera schieben. Sobald OBS das Overlay lädt, zeigt der Assistent **„Overlay verbunden ✔“**;
-   **„Test-Effekt“** schickt eine Karte mit Sound in den Stream.
-4. **Pakete wählen** – Türkçe / Deutsch / English / Reaktionen / Story … antippen; der Zähler zeigt
-   `x / 1000 Trigger`, Stichwörter, die in zwei Paketen vorkommen, werden gemeldet.
+Dann **„Mikro starten“** und etwas sagen: *„das ist ja krass“*. Schritt 1 (Mikro-Test) und Schritt 3 (Pakete:
+Türkçe / Deutsch / English / Reaktionen / Story … antippen, Zähler `x / 1000 Trigger`) sind gleich daneben.
 
-Dann **„Mikro starten“** und etwas sagen: *„das ist ja krass“*. Hotkeys **1–9, 0, Q, W, E, R, T** feuern
-die ersten 15 Trigger von Hand. Weitere Karten (API, Kombis, Demo-Clip, Log) erscheinen über
-**„⚙️ Erweitert anzeigen“**. Ausführlich, auch auf Türkisch und Englisch: [docs/OBS-ANLEITUNG.md](docs/OBS-ANLEITUNG.md).
+- **QR überall, wo eine Adresse auf ein anderes Gerät muss:** Start-Assistent, Karte **📱 Handy**, Knopf **📱 Handy**
+  oben rechts (von überall), Kamera-Ansicht (**📱 Fernbedienung**, nie in Aufnahme oder Ausgabe), das Startfenster –
+  und die **🖨 Einrichtungskarte** zum Ausdrucken (A6/A5) oder **als Bild speichern**: Handy-QR + Code und Overlay-QR
+  mit drei Zeilen Anleitung auf Deutsch, Türkçe und English. Nie im Overlay selbst.
+- **Erster Start:** Das Panel zeigt nur den Assistenten (Schritt 0 hervorgehoben); **„✔ Fertig – alle Funktionen
+  anzeigen“** blendet den Rest ein. Später lässt sich der Assistent mit **„▾ Einklappen“** klein machen.
+- Hotkeys **1–9, 0, Q, W, E, R, T** feuern die ersten 15 Trigger von Hand. Weitere Karten (API, Kombis, Demo-Clip,
+  Log) erscheinen über **„⚙️ Erweitert anzeigen“**. Ausführlich, auch auf Türkisch und Englisch:
+  [docs/OBS-ANLEITUNG.md](docs/OBS-ANLEITUNG.md), Handy: [docs/HANDY.md](docs/HANDY.md).
+
+**Türkçe:** 1. `start` klasöründeki **Start-LiveFX** dosyasına çift tıkla → panel tarayıcıda açılır. 2. Asistandaki
+büyük **QR kodu** telefon kamerasıyla tara → telefon uzaktan kumanda olur („✔ Handy verbunden“). Telefon başka bir
+ağdaysa (mobil veri) beliren **„🌐 Internet-Link starten“** düğmesine bas. 3. **„📋 Kopieren“** ile overlay adresini
+OBS'e tarayıcı kaynağı olarak ekle – ikinci PC veya telefon uygulaması için yanındaki QR kodu kullan.
+
+**English:** 1. Double-click **Start-LiveFX** in the `start` folder → the panel opens in the browser. 2. Scan the big
+**QR code** in the assistant with the phone camera → the phone becomes the remote (“✔ Handy verbunden”). Phone on
+another network (mobile data)? Press the **“🌐 Internet-Link starten”** button that appears. 3. **“📋 Kopieren”** the
+overlay URL into OBS as a browser source – for a second PC or a phone streaming app use the QR code next to it.
 
 Ohne Mikro testen: im Panel Text eintippen → „Senden“. Ohne Server testen: `index.html` direkt im
 Browser öffnen (Vorschau läuft dann über BroadcastChannel; Uploads/Speichern brauchen den Server).
 
-OBS läuft auf einem **anderen PC**? `HOST=0.0.0.0 node server.js` und im Overlay die IP des
-LiveFX-Rechners verwenden (`http://192.168.1.20:8787/overlay.html`).
+OBS läuft auf einem **anderen PC**? Die Overlay-Adresse mit Schlüssel (`http://<PC-Adresse>:8787/overlay.html?key=…`)
+aus dem QR-Code neben „Kopieren“ (oder aus dem Startfenster) nehmen – der Schlüssel öffnet nur das Overlay.
 
 ## Demo-Clip ohne OBS
 
@@ -112,7 +130,7 @@ KLIPY/GIPHY. Key holen und einrichten: [docs/GIFS.md](docs/GIFS.md).
 | **Twitch** | OBS → Stream-Key. Standard. |
 | **TikTok LIVE** | *TikTok LIVE Studio* (offizielle Desktop-App, Browser-Quelle möglich) oder OBS mit Stream-Key (Key wird ab bestimmter Follower-Zahl bzw. auf Anfrage freigeschaltet). Overlay mit `?layout=portrait`. |
 | **Instagram Live** | *Live Producer* (instagram.com → Live → „Stream-Key“) → OBS mit RTMPS-Key, Canvas 1080×1920, Overlay mit `?layout=portrait`. |
-| **Nur Handy (App)** | Kein Overlay-Zugriff durch Drittanbieter-Apps → genau die Lücke, die Meta/TikTok nativ schließen müssten (siehe [PITCH.md](PITCH.md)). Workaround: Streamlabs Mobile mit Browser-Quelle. |
+| **Nur Handy (App)** | Die TikTok-/Instagram-/YouTube-Apps selbst nehmen keine fremden Overlays → genau die Lücke, die Meta/TikTok nativ schließen müssten (siehe [PITCH.md](PITCH.md)). Workaround: eine Handy-Streaming-App mit Web-Ebene (z. B. PRISM Live Studio „Web-Widget“, Larix Broadcaster „Web widgets“, Moblin „Browser“-Widget) und die Overlay-Adresse per QR aus dem Start-Assistenten – gleiches WLAN, vorher testen. Ehrlicher Überblick: [docs/OBS-ANLEITUNG.md](docs/OBS-ANLEITUNG.md) §7. |
 
 Im Hochkant-Layout bleiben alle Effekte oberhalb der unteren 35 % (dort liegen bei TikTok/IG die
 Kommentare) und der Emoji-Regen fällt entsprechend kürzer. Das Story-Band sitzt seit 2.3 ganz unten am Bildrand;
@@ -269,7 +287,10 @@ statt vom Browser-Mikro (funktioniert damit auch in Firefox/Safari oder offline 
 | `GET/POST /api/assets`, `DELETE /api/assets/<name>` | Medien-Bibliothek (Upload: Body = Datei, Header `x-filename`) |
 | `POST /api/smart/classify` | `{text}` → `{triggerId, confidence}` |
 | `GET /api/smart/status`, `GET /health` | Status |
-| `GET /m?token=<token>` | Handy-Login: setzt das Sitzungs-Cookie, leitet auf `/mobile.html` (10 Fehlversuche/Minute) |
+| `GET /api/setup` | alles für den Einrichtungs-Assistenten: LAN-Adressen, Overlay-URLs, Kopplungs-Link + Code, Geräte, Tunnel |
+| `POST /api/pairing`, `GET/DELETE /api/devices` | neuer Kopplungs-Code · gekoppelte Geräte auflisten / entfernen (Details: [docs/START.md](docs/START.md)) |
+| `GET /p` | Kopplungsseite fürs Handy (QR-Link `…/p#<geheim>` oder 6-stelliger Code) |
+| `GET /m?token=<token>` | alter Handy-Link (2.2): legt ein widerrufbares Gerät an, leitet auf `/mobile.html` (10 Fehlversuche/Minute) |
 | `GET /events?role=overlay\|panel` | SSE-Stream (das benutzt das Overlay) |
 
 **Stream Deck**: Plugin „API Ninja“/„HTTP Request“ → POST mit obigem Body und Header.
@@ -286,19 +307,23 @@ await fetch('http://127.0.0.1:8787/api/fire', {
 
 ## Handy & HTTPS
 
-Das Handy wird zur **Fernbedienung und zum zweiten Mikro**: Panel-Karte **📱 Handy** öffnen, **QR-Code
-scannen** (2.2) oder den Link `http://<LAN-IP>:<port>/m?token=…` schicken – der Link setzt das
-Sitzungs-Cookie und leitet auf `/mobile.html` weiter: alle Trigger als große Kacheln, ⭐ Favoriten
-(lange drücken), Szenen-Leiste, Pause, Leiser/Lauter (±6 dB), Story-Band an/aus, Effekt-Zone, Pakete
-laden, Live-Transkript, als Web-App auf den Homescreen legbar. Dafür muss der Server im LAN erreichbar
-sein: `HOST=0.0.0.0 node server.js`. Anleitung: [docs/HANDY.md](docs/HANDY.md).
+Das Handy wird zur **Fernbedienung und zum zweiten Mikro** – per **QR-Code**: im Start-Assistenten (Schritt 0), in der
+Karte **📱 Handy**, über den Knopf **📱 Handy** oben rechts oder im Startfenster. Der QR-Code enthält nur einen kurzen
+**Einmal-Code** (`…/p#…`, 10 Minuten, einmal benutzbar), **nie deinen API-Token**; danach bleibt das Handy gekoppelt
+(180 Tage) und steht in der Geräteliste, wo du es jederzeit **„entfernen“** kannst. Ohne Scanner: `http://<PC>:8787/p`
+öffnen und den 6-stelligen Code eintippen. Die Handy-Seite (`/mobile.html`): alle Trigger als große Kacheln,
+⭐ Favoriten (lange drücken), Szenen-Leiste, Pause, Leiser/Lauter (±6 dB), Story-Band an/aus, Effekt-Zone, Pakete
+laden, Live-Transkript, als Web-App auf den Homescreen legbar. LiveFX ist ab 2.3 von selbst im WLAN erreichbar –
+nur gekoppelte Geräte dürfen etwas tun (`--local` = nur dieser PC). Anleitung: [docs/HANDY.md](docs/HANDY.md),
+Start und Sicherheit: [docs/START.md](docs/START.md).
 
-**Internet-Link (2.2):** Knopf **🌐 Internet-Link starten** in derselben Karte startet einen kostenlosen
-Cloudflare-Schnelltunnel (`cloudflared`, wird beim ersten Mal mit Prüfsumme heruntergeladen oder von `PATH` /
-`LIVEFX_CLOUDFLARED` genommen) und zeigt `https://<zufall>.trycloudflare.com/m?token=…` als QR-Code – das
-Handy kommt aus jedem Netz rein, und weil es HTTPS ist, geht das **Handy-Mikro ohne Zertifikat**. Durch den
-Tunnel wird nichts ohne Token/Cookie ausgeliefert. Kein Internet am PC? Handy-Hotspot einschalten, PC damit
-verbinden, WLAN-Link nutzen. Details und Download von Hand: [docs/HANDY.md](docs/HANDY.md) §4a.
+**Internet-Link (2.2):** Bleibt das Handy 25 s weg, bietet der Assistent **„🌐 Internet-Link starten“** an (auch in der
+Karte **📱 Handy**). LiveFX startet einen kostenlosen Cloudflare-Schnelltunnel (`cloudflared`, wird beim ersten Mal
+mit Prüfsumme heruntergeladen oder von `PATH` / `LIVEFX_CLOUDFLARED` genommen) und tauscht den QR-Code gegen
+`https://<zufall>.trycloudflare.com/p#…` – das Handy kommt aus jedem Netz rein, und weil es HTTPS ist, geht das
+**Handy-Mikro ohne Zertifikat**. Durch den Tunnel kommt ohne Kopplung nur die Kopplungsseite. Kein Internet am PC?
+Handy-Hotspot einschalten, PC damit verbinden, WLAN-QR nutzen. Details und Download von Hand:
+[docs/HANDY.md](docs/HANDY.md) §4a.
 
 Soll das **Handy selbst zuhören** ohne Tunnel, braucht der Browser eine HTTPS-Verbindung (Mikro nur im
 „sicheren Kontext“). LiveFX spricht HTTPS auch mit einem selbst erstellten Zertifikat:
@@ -306,7 +331,7 @@ Soll das **Handy selbst zuhören** ohne Tunnel, braucht der Browser eine HTTPS-V
 ```bash
 openssl req -x509 -newkey rsa:2048 -nodes -days 365 -subj "/CN=livefx" \
   -addext "subjectAltName=IP:192.168.x.x" -keyout livefx-key.pem -out livefx-cert.pem
-HOST=0.0.0.0 LIVEFX_TLS_CERT=livefx-cert.pem LIVEFX_TLS_KEY=livefx-key.pem node server.js
+LIVEFX_TLS_CERT=livefx-cert.pem LIVEFX_TLS_KEY=livefx-key.pem node server.js
 ```
 
 Dann das Zertifikat einmal auf dem Handy als vertrauenswürdig installieren (iPhone: Profil +
@@ -334,7 +359,7 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
 | Variable | Standard | Bedeutung |
 |---|---|---|
 | `PORT` | `8787` | HTTP-Port (`0` = zufällig, wird ausgegeben) |
-| `HOST` | `127.0.0.1` | `0.0.0.0` macht LiveFX im LAN erreichbar (für OBS auf anderem PC) |
+| `HOST` | `0.0.0.0` | ab 2.3 im WLAN erreichbar (Handys/2. PC nur nach Kopplung); `127.0.0.1` bzw. `node server.js --local` = nur dieser PC |
 | `LIVEFX_DATA_DIR` | `live-fx/data` | Ablage für `triggers.json`, `token.txt`, `assets/` |
 | `LIVEFX_TOKEN` | (aus Datei) | API-Token vorgeben |
 | `LIVEFX_ALLOWED_HOSTS` | – | Zusätzliche Hostnamen, unter denen das Panel geöffnet werden darf (z. B. `livefx.local`) |
@@ -348,13 +373,16 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
 
 ## Sicherheit
 
-- Der Server lauscht standardmäßig nur auf `127.0.0.1`.
-- Jede schreibende Route verlangt den Token **oder** einen Same-Origin-Aufruf aus dem Panel
-  (`Sec-Fetch-Site`/`Origin`-Prüfung + HttpOnly-Sitzungs-Cookie, das nur die Panel-Seite setzt;
-  Host-Allowlist gegen DNS-Rebinding auf allen Routen). Fremde Webseiten und fremde Rechner im LAN
-  können ohne Token keine Effekte auslösen.
+- LiveFX ist ab 2.3 im WLAN erreichbar, damit das Handy ohne Einstellungen klappt – aber nur **dieser PC**
+  (127.0.0.1), **gekoppelte Geräte** (Cookie nach QR/Code, jederzeit „entfernen“), das **Overlay mit Schlüssel**
+  (`overlay.html?key=…`, nur lesen) und Tools mit dem **API-Token** dürfen etwas. Alle anderen im WLAN oder über den
+  Tunnel sehen nur die Kopplungsseite. Wer gar keinen Zugriff von außen will: `node server.js --local`.
+- Der **API-Token** steht nie in einem QR-Code, Link oder Cookie für andere Geräte; QR-Codes tragen nur einen
+  Einmal-Code (10 Minuten). Tabelle „wer darf was“: [docs/START.md](docs/START.md#sicherheit--was-wer-erreicht).
+- Jede schreibende Route verlangt Token, Panel am PC oder gekoppeltes Gerät mit passendem `Origin` (CSRF-Schutz);
+  Host-Allowlist gegen DNS-Rebinding auf allen Routen.
 - Ausgeliefert werden nur Panel, Overlay, `css/`, `js/`, die Sticker in `memes/` und hochgeladene Medien – nie Server-Code,
-  Tests, `triggers.json` oder `token.txt`. Dateinamen werden bereinigt, Uploads per Magic-Bytes geprüft.
+  Tests, `triggers.json`, `devices.json` oder `token.txt`. Dateinamen werden bereinigt, Uploads per Magic-Bytes geprüft.
 - Alle Texte aus Triggern werden im Overlay escaped; Bildquellen sind auf `assets/…`, `memes/…` und
   HTTPS-Links von KLIPY/GIPHY beschränkt (keine fremden Hosts, kein `http://`, keine Ports oder Benutzerangaben).
 
@@ -378,7 +406,7 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
 
 ```bash
 npm run test:unit    # node --test "test/*.test.js" – Schema, Matcher, Server, APIs, Tunnel (Fake-cloudflared), QR (eigener Decoder), Smart (Mock)
-npm run test:e2e     # Playwright/Chromium: Panel, Overlay, Handy, Zeichenfilm (31), Kamera-Ansicht (37) end-to-end (test/e2e/*.js)
+npm run test:e2e     # Playwright/Chromium: Panel, Overlay, Handy, Zeichenfilm (31), Kamera-Ansicht (37), Einrichtung per QR (38) end-to-end (test/e2e/*.js)
 npm test             # beides
 ```
 

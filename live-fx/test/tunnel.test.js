@@ -301,7 +301,7 @@ test('extractFromTgz pulls the cloudflared file out of a gzipped tar (mac releas
   assert.throws(() => extractFromTgz(zlib.gzipSync(Buffer.alloc(1024))), /nicht im Archiv/);
 });
 
-test('guard: tunnel requests need the panel cookie or a Bearer; /m, /health are open; LAN requests untouched', () => {
+test('guard: tunnel requests need a session cookie or a Bearer; /m, /p, /health, static code are open; LAN requests untouched', () => {
   const ctx = { token: 'secret-token-1' };
   const req = (headers, url = '/', method = 'GET') => ({ headers, url, method });
   assert.strictEqual(apiTunnel.guard(req({ host: '192.168.1.5:8787' }), ctx), null, 'LAN request passes');
@@ -315,6 +315,15 @@ test('guard: tunnel requests need the panel cookie or a Bearer; /m, /health are 
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com', authorization: 'Bearer secret-token-1' }, '/api/fire', 'POST'), ctx), null, 'bearer passes');
   assert.strictEqual(apiTunnel.guard(req({ host: '127.0.0.1:8787', 'cf-connecting-ip': '203.0.113.9' }, '/'), ctx).status, 401, 'cf-connecting-ip marks a tunnel request');
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/m', 'POST'), ctx).status, 401, 'only GET /m is open');
+  // 2.3: the pairing page, its POST and public static code are reachable without a session
+  assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/p'), ctx), null, '/p is open');
+  assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/api/pair', 'POST'), ctx), null, 'POST /api/pair is open');
+  assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/js/bus.js'), ctx), null, 'static code is public');
+  assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/api/triggers'), ctx).status, 401, 'data needs a session');
+  assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/events?role=panel'), ctx).status, 401, 'panel events need a session');
+  const paired = { token: 'secret-token-1', pairing: { deviceFromRequest: (r) => (/livefx_dev=ok/.test(r.headers.cookie || '') ? { id: 'd1' } : null) } };
+  assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com', cookie: 'livefx_dev=ok' }, '/api/triggers'), paired), null, 'paired device passes');
+  assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com', cookie: 'livefx_dev=nope' }, '/api/triggers'), paired).status, 401);
 });
 
 test('allowHost / disallowHost edit LIVEFX_ALLOWED_HOSTS without losing the operator entries', () => {
@@ -330,7 +339,7 @@ test('allowHost / disallowHost edit LIVEFX_ALLOWED_HOSTS without losing the oper
   else process.env.LIVEFX_ALLOWED_HOSTS = prev;
 });
 
-test('API: GET/POST /api/tunnel with the fake binary; phone link is https; tunnel host accepted; stop; dies with the server', async () => {
+test('API: GET/POST /api/tunnel with the fake binary; phone link is an https pairing link; tunnel host accepted; stop; dies with the server', async () => {
   const bin = writeFake({ url: 'https://api-test-77.trycloudflare.com', delay: 30 });
   const server = await startServer({ env: { LIVEFX_CLOUDFLARED: bin } });
   const { base, token } = server;
@@ -350,20 +359,43 @@ test('API: GET/POST /api/tunnel with the fake binary; phone link is https; tunne
     assert.strictEqual(r.status, 200, r.text);
     assert.strictEqual(r.json.status, 'online');
     assert.strictEqual(r.json.url, 'https://api-test-77.trycloudflare.com');
-    assert.strictEqual(r.json.phoneUrl, `https://api-test-77.trycloudflare.com/m?token=${token}`);
+    assert.match(r.json.phoneUrl, /^https:\/\/api-test-77\.trycloudflare\.com\/p#[A-Za-z0-9_-]{20,}$/, 'pairing link on the tunnel base');
+    assert.ok(!r.json.phoneUrl.includes(token), 'the master token is not part of the phone link');
+    assert.match(r.json.pairing.code, /^\d{6}$/);
+    assert.ok(Date.parse(r.json.pairing.expiresAt) > Date.now());
     assert.ok(r.json.since);
+    const setup = await api(base, 'GET', '/api/setup', { token });
+    assert.strictEqual(setup.json.tunnel.state, 'online');
+    assert.strictEqual(setup.json.pairing.tunnelUrl, r.json.phoneUrl, 'setup and tunnel share the open pairing code');
+    assert.strictEqual(setup.json.pairing.url, r.json.phoneUrl, 'tunnel online → pairing URL uses the tunnel base');
+    assert.strictEqual(setup.json.tunnel.pairingUrl, r.json.phoneUrl);
 
     // the server's host guard now accepts the tunnel hostname (/health is open, / needs the cookie)
     const viaTunnel = await rawGet(base, '/health', { host: 'api-test-77.trycloudflare.com' });
     assert.strictEqual(viaTunnel.status, 200, 'tunnel host accepted while online');
     const panel = await rawGet(base, '/', { host: 'api-test-77.trycloudflare.com' });
-    assert.strictEqual(panel.status, 401, 'panel through the tunnel needs the cookie');
+    assert.strictEqual(panel.status, 302, 'panel through the tunnel needs a session → pairing page');
+    assert.strictEqual(panel.headers.location, '/p?next=panel');
     assert.strictEqual(panel.headers['set-cookie'], undefined, 'no cookie handed out');
+    const triggersNoAuth = await rawGet(base, '/api/triggers', { host: 'api-test-77.trycloudflare.com' });
+    assert.strictEqual(triggersNoAuth.status, 401);
+    assert.match(triggersNoAuth.text, /tunnel_login/);
     const bad = await rawGet(base, '/m?token=wrong', { host: 'api-test-77.trycloudflare.com' });
     assert.strictEqual(bad.status, 401);
     const m = await rawGet(base, `/m?token=${token}`, { host: 'api-test-77.trycloudflare.com' });
-    assert.strictEqual(m.status, 302, 'token handshake works through the tunnel');
+    assert.strictEqual(m.status, 302, 'legacy token handshake works through the tunnel');
+    assert.match(String(m.headers['set-cookie'][0]), /^livefx_dev=.*; Secure$/, 'device cookie, Secure (the phone sees https)');
     const cookie = String(m.headers['set-cookie'][0]).split(';')[0];
+    // pairing through the tunnel: the secret from phoneUrl redeems once
+    const secret = r.json.phoneUrl.split('#')[1];
+    const pairBody = JSON.stringify({ secret });
+    const pair = await rawGet(base, '/api/pair', { host: 'api-test-77.trycloudflare.com', origin: 'https://api-test-77.trycloudflare.com', 'cf-connecting-ip': '203.0.113.7' }, 'POST', pairBody);
+    assert.strictEqual(pair.status, 200, pair.text);
+    assert.match(String(pair.headers['set-cookie'][0]), /^livefx_dev=.*; HttpOnly; SameSite=Lax; Path=\/; Max-Age=15552000; Secure$/);
+    const pairedCookie = String(pair.headers['set-cookie'][0]).split(';')[0];
+    assert.strictEqual((await rawGet(base, '/mobile.html', { host: 'api-test-77.trycloudflare.com', cookie: pairedCookie })).status, 200, 'paired via the tunnel');
+    const reuse = await rawGet(base, '/api/pair', { host: 'api-test-77.trycloudflare.com', origin: 'https://api-test-77.trycloudflare.com', 'cf-connecting-ip': '203.0.113.8' }, 'POST', pairBody);
+    assert.strictEqual(reuse.status, 400, 'single use');
     const mobile = await rawGet(base, '/mobile.html', { host: 'api-test-77.trycloudflare.com', cookie });
     assert.strictEqual(mobile.status, 200, 'mobile page with the cookie');
     const triggers = await rawGet(base, '/api/triggers', { host: 'api-test-77.trycloudflare.com', cookie });

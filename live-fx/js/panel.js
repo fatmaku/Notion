@@ -16,6 +16,17 @@
   };
 
   // ---------- state ----------
+  // Snapshot before this page writes anything: does this browser already know LiveFX? (first-run mode, see initFirstRun)
+  const hadLocalState = (() => {
+    try {
+      for (let i = 0; i < localStorage.length; i++) if (String(localStorage.key(i)).startsWith('livefx.')) return true;
+    } catch (_) {
+      /* private mode */
+    }
+    return false;
+  })();
+  const SetupLib = window.LiveFXSetup || null; // js/setup-card.js (pairing QR, setup card) – optional
+  const pageParams = new URLSearchParams(location.search);
   const bus = new LiveFXBus.Bus({ role: 'panel' });
   LiveFXStore.attachBus(bus);
   const online = bus.serverBase !== null;
@@ -69,6 +80,13 @@
       localStorage.setItem(key, value);
     } catch (_) {
       /* private mode / quota */
+    }
+  }
+  function lsRemove(key) {
+    try {
+      localStorage.removeItem(key);
+    } catch (_) {
+      /* private mode */
     }
   }
 
@@ -2223,6 +2241,14 @@
     if ($('#wiz-obs-state')) $('#wiz-obs-state').textContent = connected ? 'Overlay verbunden ✔' : online ? 'Overlay noch nicht verbunden' : 'Server nötig (node server.js)';
     const step = $('#wiz-obs');
     if (step) step.classList.toggle('done', connected);
+    // small QR of the overlay URL as the LAN sees it (OBS on a 2nd PC, streaming apps on the phone) – never in overlay.html
+    const lanUrl = lanOverlayUrl();
+    const box = $('#wiz-obs-qr-box');
+    if (box && SetupLib) {
+      SetupLib.drawQr($('#wiz-obs-qr'), lanUrl, { css: 112, label: lanUrl ? `QR-Code: ${lanUrl}` : '' });
+      if ($('#wiz-obs-lan-url')) $('#wiz-obs-lan-url').textContent = lanUrl;
+      box.hidden = !lanUrl;
+    }
   }
 
   function setWizardFormat(f, { persist = true } = {}) {
@@ -2323,8 +2349,233 @@
     return advancedOpen;
   }
 
+  // ---------- easy setup: step 0 „📱 Handy verbinden“, header dialog, Handy card, OBS QR, setup card, first run ----------
+  // One pairing controller (js/setup-card.js createPairing) drives three views of the same QR: the start assistant's
+  // step 0, the „📱 Handy“ card and the header dialog. It polls GET /api/setup every 2 s while a view is on screen and
+  // falls back to the 2.2 token link on servers without the route. `?setupTimeout=<ms>` shortens the 25 s until the
+  // „anderes Netz?“ hint (tests).
+  const SETUP_DONE_KEY = 'livefx.setup.done';
+  const FIRST_RUN_KEY = 'livefx.setup.firstrun';
+  const WIZ_COLLAPSED_KEY = 'livefx.wizard.collapsed';
+  let pairing = null;
+  let firstRun = false;
+  let firstRunPendingAtLoad = false;
+  let wizardCollapsed = lsGet(WIZ_COLLAPSED_KEY) === '1';
+  let lastConnectedName = '';
+
+  /** Overlay URL for another device in the WLAN (from /api/setup, else built from the LAN address); '' = none. */
+  function lanOverlayUrl(format = wizFormat) {
+    const d = pairing && pairing.data;
+    const lan = d && d.overlay && d.overlay.lan;
+    return (lan && lan[format === 'portrait' ? 'portrait' : 'landscape']) || '';
+  }
+
+  function onPairingChange(s) {
+    const step = $('#wiz-phone');
+    if (step) step.classList.toggle('done', !!s.done);
+    const dot = $('#dot-phone');
+    if (dot) {
+      dot.classList.toggle('on', !!s.done);
+      dot.classList.toggle('warn', !s.done && (s.mode === 'setup' || s.mode === 'legacy'));
+      dot.classList.toggle('err', s.mode === 'offline' || s.mode === 'error');
+    }
+    const pill = $('#pill-phone');
+    if (pill) pill.title = s.connected ? `Handy verbunden: ${s.connected} – klicken für QR-Code und Geräte` : s.devices ? `${s.devices} Handy gekoppelt – klicken für QR-Code und Geräte` : 'Handy koppeln: QR-Code mit der Handy-Kamera scannen';
+    const card = $('#mobile-card');
+    if (card) {
+      card.classList.toggle('has-pairing', s.mode === 'setup');
+      card.classList.toggle('no-pairing', s.mode !== 'setup');
+    }
+    if (s.connected && s.connected !== lastConnectedName) {
+      lastConnectedName = s.connected;
+      const step0 = $('#wiz-phone');
+      if (step0) step0.classList.remove('focused');
+    }
+    renderWizardObs();
+  }
+
+  /** What the printable card shows: the pairing link the QR shows right now + the overlay URL for the LAN. */
+  function setupCardData() {
+    const st = pairing ? pairing.state : null;
+    const p = pairing && pairing.data ? pairing.data.pairing : null;
+    return {
+      pairingUrl: (st && st.url) || '',
+      code: (st && st.code) || '',
+      expiresAt: p ? p.expiresAt : null,
+      legacy: !!(p && p.legacy),
+      overlayUrl: lanOverlayUrl() || wizardOverlayUrl(),
+      version: (config && config.version) || (pairing && pairing.data && pairing.data.version) || '',
+      size: 'a6',
+    };
+  }
+
+  function openSetupCard() {
+    if (!SetupLib) return null;
+    const w = SetupLib.openCard(setupCardData());
+    log(w ? '🖨 Einrichtungskarte geöffnet – drucken oder als Bild speichern' : '⚠️ Popup blockiert – Popups für diese Seite erlauben');
+    return w;
+  }
+
+  function openPhoneDialog() {
+    const d = $('#phone-dialog');
+    if (!d) return;
+    try {
+      if (typeof d.showModal === 'function') {
+        if (!d.open) d.showModal();
+      } else d.setAttribute('open', '');
+    } catch (_) {
+      d.setAttribute('open', '');
+    }
+    if (pairing) pairing.refresh();
+  }
+
+  function closePhoneDialog() {
+    const d = $('#phone-dialog');
+    if (!d) return;
+    if (typeof d.close === 'function' && d.open) d.close();
+    else d.removeAttribute('open');
+  }
+
+  function initSetup() {
+    const views = Array.from(document.querySelectorAll('[data-pair-view]'));
+    if (!SetupLib) {
+      for (const v of views) v.innerHTML = '<p class="help warn">Einrichtungs-Modul fehlt (js/setup-card.js) – Seite neu laden (Strg+F5).</p>';
+      return null;
+    }
+    for (const v of views) v.innerHTML = SetupLib.pairViewHtml({ id: v.dataset.pairView, qr: Number(v.dataset.qr) || 280, compact: v.dataset.compact === '1' });
+    const timeoutMs = Number(pageParams.get('setupTimeout')) > 0 ? Number(pageParams.get('setupTimeout')) : SetupLib.DEFAULT_TIMEOUT_MS;
+    pairing = SetupLib.createPairing({
+      roots: views,
+      online,
+      timeoutMs,
+      log,
+      getConfig: () => config,
+      onChange: onPairingChange,
+      onAction: (act) => {
+        if (act === 'card') openSetupCard();
+      },
+    });
+    // the server announces pairings / removals on the bus (SSE `pairing`, panel audience): refresh at once, not in 2 s
+    bus.onMessage((m) => {
+      if (m && m.type === 'pairing' && pairing) pairing.refresh();
+    });
+    if ($('#pill-phone')) $('#pill-phone').addEventListener('click', openPhoneDialog);
+    if ($('#phone-dialog-close')) $('#phone-dialog-close').addEventListener('click', closePhoneDialog);
+    if ($('#phone-dialog')) {
+      $('#phone-dialog').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closePhoneDialog(); // click on the backdrop
+      });
+    }
+    pairing.start();
+    return pairing;
+  }
+
+  function setWizardCollapsed(on, { persist = true } = {}) {
+    wizardCollapsed = !!on && !firstRun;
+    document.body.classList.toggle('wizard-collapsed', wizardCollapsed);
+    const btn = $('#btn-wizard-toggle');
+    if (btn) {
+      btn.setAttribute('aria-expanded', wizardCollapsed ? 'false' : 'true');
+      btn.textContent = wizardCollapsed ? '▸ Aufklappen' : '▾ Einklappen';
+    }
+    if (persist) lsSet(WIZ_COLLAPSED_KEY, wizardCollapsed ? '1' : '0');
+    if (pairing) pairing.render();
+    return wizardCollapsed;
+  }
+
+  /**
+   * First-run mode (fresh install): the assistant is expanded, step 0 focused, all other cards collapsed behind one bar
+   * until „Fertig“ (`livefx.setup.done`). Survives reloads until then (`livefx.setup.firstrun`). `?firstrun=1|0` forces
+   * it; automation (navigator.webdriver) never gets it unless forced, so scripted tests see the full panel.
+   */
+  function setFirstRun(on, { persist = true, focus = false } = {}) {
+    firstRun = !!on;
+    document.body.classList.toggle('first-run', firstRun);
+    if (firstRun) {
+      if (persist) lsSet(FIRST_RUN_KEY, '1');
+      setWizardCollapsed(false, { persist: false });
+      const step = $('#wiz-phone');
+      if (step && focus) {
+        step.classList.add('focused');
+        try {
+          step.focus({ preventScroll: true });
+        } catch (_) {
+          /* ignore */
+        }
+        if (typeof step.scrollIntoView === 'function' && step.getBoundingClientRect().top > window.innerHeight * 0.6) step.scrollIntoView({ block: 'start' });
+      }
+    } else {
+      const step = $('#wiz-phone');
+      if (step) step.classList.remove('focused');
+      if (persist) {
+        lsSet(SETUP_DONE_KEY, '1');
+        lsRemove(FIRST_RUN_KEY);
+      }
+    }
+    if (pairing) pairing.render();
+    return firstRun;
+  }
+
+  function finishFirstRun() {
+    if (!firstRun) return;
+    setFirstRun(false);
+    log('✅ Einrichtung abgeschlossen – alle Karten sind sichtbar. Handy-QR: „📱 Handy“ oben rechts.');
+    const grid = $('#panel-grid');
+    if (grid && typeof grid.scrollIntoView === 'function') grid.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+
+  function initFirstRun() {
+    const force = pageParams.get('firstrun');
+    firstRunPendingAtLoad = lsGet(FIRST_RUN_KEY) === '1';
+    const on = SetupLib
+      ? SetupLib.isFirstRun({
+          force: force === '1' || force === '0' ? force : null,
+          automated: !!(navigator && navigator.webdriver),
+          setupDone: lsGet(SETUP_DONE_KEY) === '1',
+          hadLocalState: hadLocalState && !firstRunPendingAtLoad,
+          serverFresh: null,
+        })
+      : false;
+    if (on) setFirstRun(true, { focus: true });
+    if ($('#btn-setup-done')) $('#btn-setup-done').addEventListener('click', finishFirstRun);
+    if ($('#btn-show-panel')) $('#btn-show-panel').addEventListener('click', finishFirstRun);
+    return on;
+  }
+
+  /**
+   * Not a fresh install after all: the server already has a trigger list the streamer saved (e.g. set up in another
+   * browser). The server writes its defaults on the very first start, so „fresh“ = untouched defaults from this run.
+   */
+  async function confirmFirstRun() {
+    if (!firstRun || !online || firstRunPendingAtLoad || pageParams.get('firstrun') === '1' || !SetupLib) return firstRun;
+    try {
+      const [tr, hr] = await Promise.all([fetch('/api/triggers', { cache: 'no-store' }), fetch('/health', { cache: 'no-store' })]);
+      const d = await tr.json();
+      const h = await hr.json().catch(() => ({}));
+      if (!tr.ok || !d) return firstRun;
+      const fresh = SetupLib.serverLooksFresh({
+        updatedAt: d.updatedAt,
+        removed: d.removed,
+        triggers: d.triggers,
+        defaults: window.LiveFXDefaultTriggers || [],
+        uptimeS: h && Number.isFinite(Number(h.uptime)) ? Number(h.uptime) : null,
+      });
+      if (!fresh) {
+        setFirstRun(false, { persist: false });
+        lsRemove(FIRST_RUN_KEY);
+      }
+    } catch (_) {
+      /* keep it */
+    }
+    return firstRun;
+  }
+
   function initWizard() {
     setAdvanced(advancedOpen, { persist: false });
+    setWizardCollapsed(wizardCollapsed, { persist: false });
+    if ($('#btn-wizard-toggle')) $('#btn-wizard-toggle').addEventListener('click', () => setWizardCollapsed(!wizardCollapsed));
+    initSetup();
+    initFirstRun();
     if ($('#btn-advanced')) $('#btn-advanced').addEventListener('click', () => setAdvanced(!advancedOpen));
     if ($('#wiz-mic-test')) {
       $('#wiz-mic-test').addEventListener('click', async () => {
@@ -2411,6 +2662,10 @@
     triggers = loaded.triggers;
     commit({ save: false });
     log(`📂 Trigger geladen: ${sourceLabel(loaded.source)} (${triggers.length})`);
+    if (firstRun) {
+      await confirmFirstRun();
+      if (firstRun) log('👋 Willkommen! Erst das Handy koppeln (QR scannen), dann OBS verbinden – „Fertig“ zeigt alle Funktionen.');
+    }
     if (lsGet(STORY_KEYS.on) === '1') setStoryMode(true, { persist: false, restoring: true });
     setCombos(readCombos(), { persist: false });
     setIntensityFromVoice(intensityFromVoice, { persist: false });
@@ -2555,6 +2810,26 @@
     advanced: {
       get: () => advancedOpen,
       set: (on) => setAdvanced(on),
+    },
+    // easy setup: pairing controller (QR views), first-run mode, printable card, collapsible assistant
+    setup: {
+      get pairing() {
+        return pairing;
+      },
+      get firstRun() {
+        return firstRun;
+      },
+      setFirstRun: (on) => setFirstRun(on),
+      finish: finishFirstRun,
+      openCard: openSetupCard,
+      cardData: setupCardData,
+      lanOverlayUrl,
+      openDialog: openPhoneDialog,
+      closeDialog: closePhoneDialog,
+      get wizardCollapsed() {
+        return wizardCollapsed;
+      },
+      setWizardCollapsed: (on) => setWizardCollapsed(on),
     },
     volumes: {
       get: () => ({ ...volumes }),

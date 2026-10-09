@@ -1,5 +1,5 @@
-// LiveFX – allow-listed static file serving. Only the panel, the overlay, the mobile page, the camera view, the PWA
-// files (manifest, service worker, icons), css/, js/, docs/, vendored libraries (`vendor/`), offline
+// LiveFX – allow-listed static file serving. Only the panel, the overlay, the mobile page, the camera view, the pairing
+// page, the PWA files (manifests, service worker, icons), css/, js/, docs/, vendored libraries (`vendor/`), offline
 // models (`<dataDir>/models`) and uploaded assets are reachable; server code, tests,
 // data/triggers.json and data/token.txt are never served.
 // 2.1: strong ETag (size + mtime) with If-None-Match -> 304, gzip for text types > 1 KB when the client
@@ -45,7 +45,9 @@ const ROOT_FILES = new Map([
   ['/demo.html', 'demo.html'],
   ['/mobile.html', 'mobile.html'],
   ['/camera.html', 'camera.html'], // 2.3 camera view (webcam + overlay in one window, docs/KAMERA.md)
+  ['/pair.html', 'pair.html'], // 2.4 pairing page behind the QR code (also served as /p, server/api-pairing.js)
   ['/manifest.webmanifest', 'manifest.webmanifest'],
+  ['/mobile.webmanifest', 'mobile.webmanifest'], // 2.4 phone home-screen app: starts at /mobile.html, not the panel
   ['/sw.js', 'sw.js'],
 ]);
 const SUBDIR_RE = /^\/(css|js|docs)\/([a-z0-9][a-z0-9._-]{0,99}\.(css|js|md))$/i;

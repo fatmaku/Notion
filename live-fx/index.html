@@ -14,6 +14,7 @@
   <header>
     <h1>🎬 LiveFX <span class="badge">LIVE MEME ENGINE</span></h1>
     <div class="status">
+      <button type="button" class="pill pill-link pill-phone" id="pill-phone" aria-haspopup="dialog" title="Handy koppeln: QR-Code mit der Handy-Kamera scannen">📱 <span class="dot" id="dot-phone"></span> Handy</button>
       <div class="pill"><span class="dot" id="dot-mic"></span> Mikro</div>
       <div class="pill"><span class="dot" id="dot-server"></span> OBS-Bridge</div>
       <button type="button" class="pill pill-link" id="pill-lang" title="Sprache der Spracherkennung – klicken für die Erkennungs-Einstellungen">🌐 <span id="pill-lang-value">de-DE</span></button>
@@ -24,10 +25,22 @@
 
   <section class="card wizard" id="wizard-card">
     <div class="wizard-head">
-      <h2>🚀 Start-Assistent – in 3 Schritten live</h2>
-      <button type="button" class="small" id="btn-advanced" aria-expanded="false" title="Weitere Karten (API, Kombis, Demo-Clip, Log) ein-/ausblenden">⚙️ Erweitert anzeigen</button>
+      <h2>🚀 Start-Assistent – Handy koppeln, OBS verbinden, live</h2>
+      <div class="wizard-head-actions">
+        <button type="button" class="small" id="btn-wizard-toggle" aria-expanded="true" aria-controls="wizard-steps" title="Start-Assistent ein-/ausklappen">▾ Einklappen</button>
+        <button type="button" class="small" id="btn-advanced" aria-expanded="false" title="Weitere Karten (API, Kombis, Demo-Clip, Log) ein-/ausblenden">⚙️ Erweitert anzeigen</button>
+      </div>
     </div>
-    <div class="wizard-steps">
+    <div class="wizard-steps" id="wizard-steps">
+      <!-- Step 0 (easy setup): pairing QR with a short one-time code (js/setup-card.js, GET /api/setup), live status,
+           „anderes Netz?“ hint with the internet link, paired devices. -->
+      <div class="wizard-step wizard-phone" id="wiz-phone" data-step="0" tabindex="-1">
+        <div class="wizard-title"><span class="num">0</span> 📱 Handy verbinden <span class="tag">empfohlen</span></div>
+        <p class="help">Dein Handy wird zur Fernbedienung – Soundboard, Szenen, Lautstärke. Keine App, nichts abtippen: einfach scannen.</p>
+        <div class="pair-view" id="wiz-phone-view" data-pair-view="wiz-phone" data-qr="280">
+          <p class="help">QR-Code lädt … Erscheint nichts? LiveFX starten (Doppelklick auf „LiveFX starten“) und das Panel über <code>http://127.0.0.1:8787/</code> öffnen.</p>
+        </div>
+      </div>
       <div class="wizard-step" id="wiz-mic" data-step="1">
         <div class="wizard-title"><span class="num">1</span> Mikro testen</div>
         <p class="help">Klick, sprich 5 s – der Balken muss zucken. Spracherkennung läuft nur in Chrome/Edge.</p>
@@ -39,9 +52,13 @@
       </div>
       <div class="wizard-step" id="wiz-obs" data-step="2">
         <div class="wizard-title"><span class="num">2</span> OBS verbinden <span class="wiz-dot-wrap"><span class="dot" id="wiz-obs-dot"></span> <span id="wiz-obs-state">Overlay noch nicht verbunden</span></span></div>
-        <div class="row">
+        <div class="row wiz-url-row">
           <div class="wiz-url"><label for="wiz-overlay-url">Browser-Quelle URL</label><input id="wiz-overlay-url" readonly spellcheck="false"></div>
           <button type="button" id="wiz-copy-url" title="Overlay-URL in die Zwischenablage kopieren">📋 Kopieren</button>
+          <div class="wiz-obs-qr" id="wiz-obs-qr-box" hidden>
+            <div class="qr-wrap qr-mini"><canvas id="wiz-obs-qr" width="0" height="0" role="img" aria-label="QR-Code: Overlay-URL für einen 2. PC oder eine Streaming-App am Handy"></canvas></div>
+            <div class="help">OBS auf einem <b>2. PC</b> oder Streaming-App am Handy? QR scannen (gleiches WLAN):<code id="wiz-obs-lan-url"></code></div>
+          </div>
         </div>
         <div class="row block">
           <div><label for="wiz-format">Format</label><select id="wiz-format"><option value="landscape">Querformat 16:9 (YouTube/Twitch)</option><option value="portrait">Hochkant 9:16 (TikTok/Instagram)</option></select></div>
@@ -67,9 +84,16 @@
         <p class="help warn" id="wiz-collisions" hidden></p>
       </div>
     </div>
+    <!-- first run only (fresh install): one button back to the full panel -->
+    <div class="wizard-foot" id="wizard-foot">
+      <button type="button" class="primary" id="btn-setup-done">✔ Fertig – alle Funktionen anzeigen</button>
+      <span class="help">Der Assistent bleibt hier oben; den Handy-QR gibt es jederzeit über „📱 Handy“ oben rechts.</span>
+    </div>
   </section>
 
-  <div class="grid">
+  <button type="button" class="collapsed-bar" id="btn-show-panel" aria-controls="panel-grid">▸ Weitere Funktionen anzeigen: Soundboard, Trigger, Einstellungen, Zuschauer-Trigger, Kamera …</button>
+
+  <div class="grid" id="panel-grid">
     <div>
       <section class="card">
         <h2>Zuhören</h2>
@@ -332,7 +356,11 @@
         <h2>📱 Handy</h2>
         <div class="help">Soundboard, Szenen, Lautstärke und Pakete vom Handy aus – QR-Code scannen oder Link öffnen.</div>
         <div class="mobile-links block">
-          <div class="mobile-link">
+          <div class="mobile-link mobile-pair" id="mobile-pair">
+            <label>Handy koppeln – QR mit Einmal-Code (ohne Token)</label>
+            <div class="pair-view" id="mobile-pair-view" data-pair-view="mobile-pair" data-qr="200" data-compact="1"></div>
+          </div>
+          <div class="mobile-link legacy-link">
             <label>Im WLAN (gleiches Netz)</label>
             <div class="qr-wrap"><canvas id="mobile-qr" width="0" height="0" aria-label="QR-Code Handy-Link (WLAN)"></canvas></div>
             <div class="urls"><code id="mobile-url"></code></div>
@@ -358,7 +386,8 @@
           <a class="btn" href="docs/HANDY.md" target="_blank">Anleitung</a>
         </div>
         <p class="help" id="mobile-offline-hint" hidden>⚠️ Server nötig: <code>node server.js</code> starten und das Panel über <code>http://127.0.0.1:8787/</code> öffnen.</p>
-        <p class="help">Handy im selben WLAN; Server mit <code>HOST=0.0.0.0 node server.js</code> starten, sonst ist er nur am PC erreichbar. Der Link enthält deinen Token – nicht im Stream zeigen.</p>
+        <p class="help legacy-only">Handy im selben WLAN; Server mit <code>HOST=0.0.0.0 node server.js</code> starten (PowerShell: <code>$env:HOST="0.0.0.0"; node server.js</code>), sonst ist er nur am PC erreichbar. Der Link enthält deinen Token – nicht im Stream zeigen.</p>
+        <p class="help pairing-only">Der QR-Code enthält nur einen kurzen Einmal-Code – nicht deinen Token. Gekoppelte Handys stehen in der Liste und lassen sich jederzeit „entfernen“.</p>
       </section>
 
       <section class="card" id="camera-card">
@@ -397,7 +426,7 @@
       <section class="card" data-advanced>
         <h2>OBS / Streamlabs einrichten (für echte Streams)</h2>
         <div class="help">
-          1. Terminal: <code>node server.js</code> im Ordner <code>live-fx</code> – dann dieses Panel über <code>http://127.0.0.1:8787/</code> öffnen.<br>
+          1. LiveFX starten: Doppelklick auf <code>start/Start-LiveFX.bat</code> (Mac: <code>Start-LiveFX.command</code>, oder <code>node server.js</code>) – das Panel öffnet sich unter <code>http://127.0.0.1:8787/</code>. OBS auf einem 2. PC: die Overlay-Adresse per QR-Code aus dem Start-Assistenten (Schritt 2).<br>
           2. OBS → unten bei <b>Quellen</b> auf <b>+</b> → <b>Browser</b> → URL <code>http://127.0.0.1:8787/overlay.html</code> (Querformat) oder <code>http://127.0.0.1:8787/overlay.html?layout=portrait</code> (Hochkant, hält den Chat-Bereich unten frei). Breite/Höhe wie dein Canvas (1920×1080 oder 1080×1920).<br>
           3. Die Browser-Quelle in der Liste <b>über</b> die Kamera schieben (Pfeil ▲), sonst verdeckt die Kamera die Memes.<br>
           4. Doppelklick auf die Browser-Quelle → <b>„Audio über OBS steuern“</b> anhaken → im Audiomixer erscheint „LiveFX Overlay“.<br>
@@ -413,6 +442,15 @@
       </section>
     </div>
   </div>
+
+  <!-- header „📱 Handy“: the same pairing view from anywhere in the panel -->
+  <dialog id="phone-dialog" class="phone-dialog" aria-labelledby="phone-dialog-title">
+    <div class="dlg-head">
+      <h2 id="phone-dialog-title">📱 Handy verbinden</h2>
+      <button type="button" class="small" id="phone-dialog-close" aria-label="Schließen">✕</button>
+    </div>
+    <div class="pair-view" id="dlg-phone-view" data-pair-view="dlg-phone" data-qr="300"></div>
+  </dialog>
 
   <script src="js/sounds.js"></script>
   <script src="js/triggers.js"></script>
@@ -430,8 +468,9 @@
   <script src="js/langdetect.js"></script>
   <script src="js/asr.js"></script>
   <script src="js/smart.js"></script>
-  <script src="js/panel.js"></script>
   <script src="js/qr.js"></script>
+  <script src="js/setup-card.js"></script>
+  <script src="js/panel.js"></script>
   <script src="js/mobile-link.js"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js').catch(() => {});

@@ -2,7 +2,8 @@
 
 Ziel / Amaç / Goal: Kamera + LiveFX-Overlay + Sounds landen zusammen im Stream (TikTok, Instagram, YouTube,
 Twitch). Der **🚀 Start-Assistent** oben im Panel führt durch dieselben Schritte und zeigt
-**„Overlay verbunden ✔“**, sobald OBS das Overlay lädt.
+**„Overlay verbunden ✔“**, sobald OBS das Overlay lädt. Neben „Kopieren“ steht die Overlay-Adresse fürs WLAN als
+**QR-Code** – für OBS auf einem 2. PC oder eine Streaming-App am Handy (§7).
 
 - [🇩🇪 Deutsch](#deutsch)
 - [🇹🇷 Türkçe](#türkçe)
@@ -14,8 +15,11 @@ Twitch). Der **🚀 Start-Assistent** oben im Panel führt durch dieselben Schri
 
 ### 1. Vorbereitung
 1. **OBS Studio** installieren: <https://obsproject.com> (kostenlos, Windows/Mac/Linux).
-2. LiveFX starten: Terminal im Ordner `live-fx` → `node server.js` (Fenster offen lassen).
-3. Panel im Browser öffnen: `http://127.0.0.1:8787/` (Chrome oder Edge) – hier läuft das Mikro.
+2. LiveFX starten: **Doppelklick auf `start/Start-LiveFX.bat`** (Mac: `start/Start-LiveFX.command`) – das schwarze
+   Fenster offen lassen. Node.js fehlt? Das Fenster erklärt es, Details: [`START.md`](START.md). (Alternativ: Terminal
+   im LiveFX-Ordner → `node server.js`.)
+3. Das Panel öffnet sich im Browser: `http://127.0.0.1:8787/` (Chrome oder Edge) – hier läuft das Mikro. Erst das
+   Handy per QR koppeln (Schritt 0 im Assistenten, [`HANDY.md`](HANDY.md)), dann OBS.
 
 ### 2. Szene bauen (einmalig, 3 Minuten)
 1. OBS öffnen → unten links unter **Szenen** ist „Szene“ schon da – reicht.
@@ -90,6 +94,42 @@ Dieselbe Szene (Kamera + Overlay) kann statt eines Streams auch eine **Kamera** 
 - Handy-Apps (WhatsApp/FaceTime am Handy) nehmen keine virtuelle Kamera – dort mit der Kamera-Ansicht ein Video
   **aufnehmen** und schicken. Alles dazu: [`KAMERA.md`](KAMERA.md).
 
+### 7. OBS auf einem 2. PC oder Streaming-App am Handy – per QR-Code
+Im Start-Assistenten (Schritt 2 „OBS verbinden“) steht neben **„📋 Kopieren“** ein kleiner **QR-Code**: die
+Overlay-Adresse, wie sie **im WLAN** erreichbar ist, z. B. `http://192.168.178.23:8787/overlay.html?key=…`. Der
+Schlüssel (`key=…`) öffnet nur das Overlay (Seite + Effekte, nur lesen) – keine Steuerung. Format „Hochkant 9:16“
+wählen, dann trägt der QR-Code `layout=portrait`. Dieselbe Adresse steht auf der **🖨 Einrichtungskarte** und im
+Startfenster („OBS auf einem anderen PC“).
+
+**OBS auf einem zweiten PC (2-PC-Setup):** QR-Code mit dem Handy scannen und dir die Adresse schicken – oder sie vom
+Bildschirm abtippen. Im Streaming-PC in OBS **Quellen → + → Browser** → diese URL, Größe wie in Schritt 2. Beide PCs
+im selben Netz; fragt die Windows-Firewall am LiveFX-PC: „Zugriff zulassen“ (privat).
+
+**Streaming-Apps am Handy** – ehrlicher Überblick (Stand Oktober 2026, Menünamen können je nach Version abweichen,
+nicht jede App von uns selbst getestet):
+
+| App | Web-Overlay per URL? | Hinweis |
+|---|---|---|
+| **PRISM Live Studio** (iOS/Android, kostenlos) | ja – „Web-Widget“: URL eingeben → Webseite als Ebene im Stream | laut App-Store-Beschreibung gedacht für Spenden-/Alert-Widgets |
+| **Larix Broadcaster** (iOS/Android) | ja – Einstellungen → Overlays → „Web widgets“ → URL | HTML-Ebenen teils nur mit Larix Premium |
+| **Moblin** (iOS, kostenlos, Open Source, IRL-Streaming) | ja – Widget „Browser“ mit URL | transparenter Hintergrund laut Release-Notizen möglich |
+| **Streamlabs Mobile** (iOS/Android) | unklar – eigene Widgets/Themes; ob beliebige URLs als Ebene gehen, ist nicht offiziell beschrieben | vorher testen |
+| **TikTok LIVE Studio** (Windows-PC, keine Handy-App) | ja – Quelle „Link“ | manche Versionen laden Link-Quellen mit 0 × 0 Pixeln (bekanntes Problem) → dann OBS + „Virtuelle Kamera“ |
+| **TikTok-, Instagram-, YouTube-, Twitch-App** | nein – die Apps nehmen keine fremden Overlays | Weg über OBS/Streaming-Software (§4) |
+
+So geht es mit einer App, die Web-Ebenen kann:
+1. Handy und LiveFX-PC ins **gleiche WLAN** (die Overlay-Adresse läuft übers WLAN; über mobile Daten erreicht die App
+   den PC nicht).
+2. Im Start-Assistenten das Format wählen (meist **Hochkant 9:16**), den kleinen QR-Code mit der Handy-Kamera scannen,
+   Link lang drücken → **kopieren**.
+3. In der App die Web-/Browser-Ebene anlegen, die Adresse einfügen, Ebene auf **volle Bildgröße** ziehen.
+4. Im Panel **„✨ Test-Effekt“** – die Karte muss in der App-Vorschau erscheinen.
+- **Ton:** Viele Apps spielen den Ton einer Web-Ebene nicht in den Stream – Effekt-Sounds dann notfalls über den
+  Handy-Lautsprecher/Mikro oder ganz ohne.
+- **Leistung:** Das Overlay rechnet auf dem Handy mit – bei Rucklern `&perf=eco` an die Adresse hängen.
+- **Kamera-Ansicht statt App:** Für fertige Clips ohne Streaming-App: Panel → **📷 Kamera-Ansicht** → **⏺ Aufnahme**
+  ([`KAMERA.md`](KAMERA.md)).
+
 ### Typische Probleme
 | Problem | Lösung |
 |---|---|
@@ -98,7 +138,7 @@ Dieselbe Szene (Kamera + Overlay) kann statt eines Streams auch eine **Kamera** 
 | Zuschauer hören mich nicht | Mikro als OBS-Quelle „Audioeingabeaufnahme“ anlegen (Schritt 5) – siehe `docs/AUDIO.md`. |
 | Echo / Effekt kommt doppelt | Vorschau-Ton im Panel aus (Standard), Desktop-Audio stumm, Monitoring aus, nur **eine** Browser-Quelle mit dem Overlay. |
 | Mikro erkennt nichts | Panel nur in Chrome/Edge; Mikro-Berechtigung erlauben; Sprache auf „Automatisch (DE/TR/EN)“ lassen oder passend wählen; Hauptsprache einstellen. |
-| OBS auf anderem PC | LiveFX mit `HOST=0.0.0.0 node server.js` starten und im Overlay die IP des LiveFX-PCs verwenden. |
+| OBS auf anderem PC | Die Adresse mit Schlüssel aus dem QR-Code neben „Kopieren“ nehmen (`http://<PC>:8787/overlay.html?key=…`) – siehe §7. LiveFX ist ab 2.3 von selbst im WLAN erreichbar (nicht mit `--local` starten). |
 
 ---
 
@@ -106,8 +146,11 @@ Dieselbe Szene (Kamera + Overlay) kann statt eines Streams auch eine **Kamera** 
 
 ### 1. Hazırlık
 1. **OBS Studio** kur: <https://obsproject.com> (ücretsiz, Windows/Mac/Linux).
-2. LiveFX'i başlat: `live-fx` klasöründe terminal → `node server.js` (pencereyi açık bırak).
-3. Paneli tarayıcıda aç: `http://127.0.0.1:8787/` (Chrome veya Edge) – mikrofon burada çalışır.
+2. LiveFX'i başlat: **`start/Start-LiveFX.bat`** (Mac: `start/Start-LiveFX.command`) dosyasına **çift tıkla** – siyah
+   pencereyi açık bırak. Node.js yok mu? Pencere anlatır, ayrıntılar: [`START.md`](START.md#türkçe). (Alternatif: LiveFX
+   klasöründe terminal → `node server.js`.)
+3. Panel tarayıcıda açılır: `http://127.0.0.1:8787/` (Chrome veya Edge) – mikrofon burada çalışır. Önce telefonu QR ile
+   eşleştir (asistanda 0. adım, [`HANDY.md`](HANDY.md#türkçe)), sonra OBS.
 
 ### 2. Sahneyi kur (bir kez, 3 dakika)
 1. OBS'yi aç → sol altta **Sahneler** altında „Sahne“ zaten var – yeterli.
@@ -179,6 +222,37 @@ Aynı sahne (kamera + overlay) yayın yerine görüntülü aramalar için **kame
 - Telefon uygulamaları sanal kamera kabul etmez – Kamera görünümüyle video **kaydet** ve gönder. Ayrıntılar:
   [`KAMERA.md`](KAMERA.md#türkçe).
 
+### 7. İkinci PC'de OBS veya telefonda yayın uygulaması – QR kodla
+Asistanın 2. adımında („OBS verbinden“) **„📋 Kopieren“** düğmesinin yanında küçük bir **QR kod** var: overlay
+adresinin **Wi‑Fi'deki** hali, ör. `http://192.168.178.23:8787/overlay.html?key=…`. Anahtar (`key=…`) yalnızca overlay'i
+açar (sayfa + efektler, salt okunur) – kontrol yok. „Hochkant 9:16“ seçilirse QR `layout=portrait` içerir. Aynı adres
+**🖨 Einrichtungskarte** üzerinde ve başlangıç penceresinde de yazar.
+
+**İkinci PC'de OBS:** QR'ı telefonla tara ve adresi kendine gönder (ya da ekrandan yaz). Yayın PC'sinde OBS'te
+**Kaynaklar → + → Tarayıcı** → bu URL, boyut 2. adımdaki gibi. İki PC aynı ağda olmalı.
+
+**Telefonda yayın uygulamaları** – dürüst özet (Ekim 2026, menü adları sürüme göre değişebilir, hepsini biz test
+etmedik):
+
+| Uygulama | URL ile web overlay? | Not |
+|---|---|---|
+| **PRISM Live Studio** (iOS/Android, ücretsiz) | evet – „Web Widget“: URL gir → web sayfası yayında katman olur | mağaza açıklamasına göre bağış/uyarı widget'ları için |
+| **Larix Broadcaster** (iOS/Android) | evet – Ayarlar → Overlays → „Web widgets“ → URL | HTML katmanları kısmen yalnızca Larix Premium ile |
+| **Moblin** (iOS, ücretsiz, açık kaynak) | evet – „Browser“ widget'ı, URL ile | sürüm notlarına göre şeffaf arka plan mümkün |
+| **Streamlabs Mobile** (iOS/Android) | belirsiz – kendi widget'ları var; rastgele URL'nin çalışıp çalışmadığı resmi olarak açıklanmamış | önce dene |
+| **TikTok LIVE Studio** (Windows PC, telefon uygulaması değil) | evet – „Link“ kaynağı | bazı sürümler link kaynağını 0 × 0 piksel yükler (bilinen sorun) → o zaman OBS + „Sanal Kamera“ |
+| **TikTok, Instagram, YouTube, Twitch uygulaması** | hayır – yabancı overlay almaz | OBS/yayın yazılımı ile (§4) |
+
+Web katmanı destekleyen bir uygulamayla:
+1. Telefon ve LiveFX PC'si **aynı Wi‑Fi**'de (overlay adresi Wi‑Fi üzerinden çalışır; mobil veriyle uygulama PC'ye
+   ulaşamaz).
+2. Asistanda formatı seç (çoğunlukla **Hochkant 9:16**), küçük QR'ı telefon kamerasıyla tara, bağlantıya uzun bas →
+   **kopyala**.
+3. Uygulamada web/tarayıcı katmanı ekle, adresi yapıştır, katmanı **tam ekran** yap.
+4. Panelde **„✨ Test-Effekt“** – kart uygulamanın önizlemesinde görünmeli.
+- **Ses:** Birçok uygulama web katmanının sesini yayına vermez.
+- **Performans:** Takılma olursa adresin sonuna `&perf=eco` ekle.
+
 ### Sık görülen sorunlar
 | Sorun | Çözüm |
 |---|---|
@@ -187,7 +261,7 @@ Aynı sahne (kamera + overlay) yayın yerine görüntülü aramalar için **kame
 | İzleyiciler beni duymuyor | Mikrofonu OBS kaynağı „Ses Giriş Yakalama“ olarak ekle (adım 5) – bkz. `docs/AUDIO.md`. |
 | Yankı / efekt iki kez geliyor | Panelde önizleme sesi kapalı (varsayılan), masaüstü sesi sessiz, izleme kapalı, overlay'li **tek** tarayıcı kaynağı. |
 | Mikrofon hiçbir şey tanımıyor | Panel yalnız Chrome/Edge'de; mikrofon iznini ver; dili „Automatisch (DE/TR/EN)“ bırak ya da uygun seç; ana dili (Hauptsprache) Türkçe yap. |
-| OBS başka bilgisayarda | LiveFX'i `HOST=0.0.0.0 node server.js` ile başlat ve overlay'de LiveFX bilgisayarının IP'sini kullan. |
+| OBS başka bilgisayarda | „Kopieren“ yanındaki QR koddaki anahtarlı adresi kullan (`http://<PC>:8787/overlay.html?key=…`) – bkz. §7. LiveFX 2.3'ten itibaren Wi‑Fi'de kendiliğinden erişilebilir (`--local` ile başlatma). |
 
 ---
 
@@ -195,8 +269,11 @@ Aynı sahne (kamera + overlay) yayın yerine görüntülü aramalar için **kame
 
 ### 1. Preparation
 1. Install **OBS Studio**: <https://obsproject.com> (free, Windows/Mac/Linux).
-2. Start LiveFX: terminal in the `live-fx` folder → `node server.js` (keep the window open).
-3. Open the panel in the browser: `http://127.0.0.1:8787/` (Chrome or Edge) – this is where the mic runs.
+2. Start LiveFX: **double-click `start/Start-LiveFX.bat`** (Mac: `start/Start-LiveFX.command`) – keep the black window
+   open. Node.js missing? The window explains it, details: [`START.md`](START.md#english). (Alternative: terminal in the
+   LiveFX folder → `node server.js`.)
+3. The panel opens in the browser: `http://127.0.0.1:8787/` (Chrome or Edge) – this is where the mic runs. Pair the
+   phone by QR first (step 0 in the assistant, [`HANDY.md`](HANDY.md#english)), then OBS.
 
 ### 2. Build the scene (once, 3 minutes)
 1. Open OBS → bottom left under **Scenes** there is already „Scene“ – that is enough.
@@ -269,6 +346,37 @@ The same scene (camera + overlay) can be a **camera** for video calls instead of
 - Phone apps don't accept a virtual camera – **record** a video with the camera view and send it. Details:
   [`KAMERA.md`](KAMERA.md#english).
 
+### 7. OBS on a second PC or a streaming app on the phone – by QR code
+In step 2 of the assistant (“OBS verbinden”) there is a small **QR code** next to **“📋 Kopieren”**: the overlay
+address as it is reachable **in the Wi‑Fi**, e.g. `http://192.168.178.23:8787/overlay.html?key=…`. The key (`key=…`)
+opens the overlay only (page + effects, read-only) – no control. Pick “Hochkant 9:16” and the QR code carries
+`layout=portrait`. The same address is on the **🖨 Einrichtungskarte** and in the start window.
+
+**OBS on a second PC:** scan the QR code with your phone and send yourself the address (or type it from the screen).
+On the streaming PC in OBS: **Sources → + → Browser** → this URL, size as in step 2. Both PCs on the same network.
+
+**Streaming apps on the phone** – an honest overview (October 2026, menu names differ between versions, we have not
+tested every app ourselves):
+
+| App | Web overlay by URL? | Note |
+|---|---|---|
+| **PRISM Live Studio** (iOS/Android, free) | yes – “Web Widget”: enter a URL → the web page becomes a layer in the stream | the store listing pitches it for donation/alert widgets |
+| **Larix Broadcaster** (iOS/Android) | yes – Settings → Overlays → “Web widgets” → URL | HTML layers partly need Larix Premium |
+| **Moblin** (iOS, free, open source, IRL streaming) | yes – “Browser” widget with a URL | transparent background possible according to the release notes |
+| **Streamlabs Mobile** (iOS/Android) | unclear – own widgets/themes; whether any URL works as a layer is not officially documented | test first |
+| **TikTok LIVE Studio** (Windows PC, not a phone app) | yes – “Link” source | some versions load link sources at 0 × 0 pixels (known issue) → then OBS + “Virtual Camera” |
+| **TikTok, Instagram, YouTube, Twitch apps** | no – they don't take third-party overlays | go through OBS / streaming software (§4) |
+
+With an app that supports web layers:
+1. Phone and LiveFX PC on the **same Wi‑Fi** (the overlay address runs over the Wi‑Fi; on mobile data the app cannot
+   reach the PC).
+2. Pick the format in the assistant (mostly **Hochkant 9:16**), scan the small QR code with the phone camera,
+   long-press the link → **copy**.
+3. Add a web/browser layer in the app, paste the address, stretch the layer to **full frame**.
+4. Press **“✨ Test-Effekt”** in the panel – the card must show up in the app's preview.
+- **Sound:** many apps do not put a web layer's audio into the stream.
+- **Performance:** the overlay renders on the phone too – on stutter append `&perf=eco` to the address.
+
 ### Common problems
 | Problem | Fix |
 |---|---|
@@ -277,4 +385,4 @@ The same scene (camera + overlay) can be a **camera** for video calls instead of
 | Viewers cannot hear me | Add the mic as OBS source “Audio Input Capture” (step 5) – see `docs/AUDIO.md`. |
 | Echo / effect plays twice | Preview sound off in the panel (default), desktop audio muted, monitoring off, only **one** browser source with the overlay. |
 | Mic recognises nothing | Panel only in Chrome/Edge; allow the mic permission; keep language “Automatisch (DE/TR/EN)” or pick yours; set the main language (Hauptsprache). |
-| OBS on another PC | Start LiveFX with `HOST=0.0.0.0 node server.js` and use the LiveFX PC's IP in the overlay URL. |
+| OBS on another PC | Use the address with key from the QR code next to “Kopieren” (`http://<PC>:8787/overlay.html?key=…`) – see §7. Since 2.3 LiveFX is reachable in the Wi‑Fi by itself (don't start it with `--local`). |

@@ -23,9 +23,14 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     await panel.waitForFunction(() => window.livefx && window.livefx.bus.serverOk, null, { timeout: 5000 });
     await panel.evaluate(() => window.livefx.ready);
 
-    // (a) wizard visible on top, three steps, advanced cards collapsed by default
+    // (a) wizard visible on top: step 0 „📱 Handy verbinden“ first (test/e2e/38-setup-qr.js covers it), then the three
+    // steps; advanced cards collapsed by default; automation never lands in the first-run mode (full panel)
     assert.ok(await panel.locator('#wizard-card').isVisible(), 'wizard card visible');
-    assert.equal(await panel.locator('.wizard-step').count(), 3);
+    assert.equal(await panel.locator('.wizard-step').count(), 4);
+    assert.deepEqual(await panel.$$eval('.wizard-step', (els) => els.map((e) => e.dataset.step)), ['0', '1', '2', '3'], 'step 0 (phone) comes first');
+    assert.ok(await panel.locator('#wiz-phone').isVisible(), 'step 0 visible');
+    assert.equal(await panel.evaluate(() => document.body.classList.contains('first-run')), false, 'no first-run mode under automation');
+    assert.ok(await panel.locator('#panel-grid').isVisible(), 'all cards visible');
     assert.ok(await panel.locator('#wiz-mic-test').isVisible());
     const advanced = panel.locator('.card[data-advanced]');
     assert.ok((await advanced.count()) >= 4, 'advanced cards marked');

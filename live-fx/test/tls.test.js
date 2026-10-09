@@ -84,7 +84,7 @@ test('TLS via LIVEFX_TLS_CERT / LIVEFX_TLS_KEY', async (t) => {
   const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'livefx-tls-data-'));
   t.after(() => fs.rmSync(dataDir, { recursive: true, force: true }));
 
-  await t.test('server answers over https; /api/config says secure:true; /m cookie carries Secure', async () => {
+  await t.test('server answers over https; /api/config says secure:true; /m device cookie carries Secure', async () => {
     const server = await startServer({ env: { LIVEFX_TLS_CERT: pem.cert, LIVEFX_TLS_KEY: pem.key }, https: true });
     t.after(() => server.stop());
     assert.ok(server.base.startsWith('https://'), server.base);
@@ -98,7 +98,7 @@ test('TLS via LIVEFX_TLS_CERT / LIVEFX_TLS_KEY', async (t) => {
     assert.equal(c.json.port, Number(new URL(server.base).port));
     const m = await httpsGet(`${server.base}/m?token=test-token`);
     assert.equal(m.status, 302);
-    assert.match(String(m.headers['set-cookie']), /^livefx=test-token; HttpOnly; SameSite=Strict; Path=\/; Secure$/);
+    assert.match(String(m.headers['set-cookie']), /^livefx_dev=[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+; HttpOnly; SameSite=Lax; Path=\/; Max-Age=15552000; Secure$/);
   });
 
   await t.test('only LIVEFX_TLS_CERT set -> exit 1 within 5 s with a German hint', async () => {

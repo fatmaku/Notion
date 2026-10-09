@@ -32,7 +32,10 @@
 //
 //   window.livefxCamera = { ready, state, overlay, devices(), setDevice(id), setMirror(on), setAspect(a), setRes(r),
 //     setSound(on), setClean(on), setStoryStyle(s), compositor, startRecording(opts), stopRecording(), recording,
-//     lastRecording, studio: { prepare(), start(), stop(), handleText(text, final) } }
+//     lastRecording, studio: { prepare(), start(), stop(), handleText(text, final) }, openRemote(), closeRemote(),
+//     remoteOpen, remote }
+// „📱 Fernbedienung“ (#btn-remote): the phone pairing QR (js/setup-card.js, loaded on demand) in a box outside #frame –
+// never in a recording, the output window or clean mode. `setupTimeout=<ms>` shortens its „anderes Netz?“ hint (tests).
 (function (global, factory) {
   const api = factory(global);
   if (typeof module === 'object' && module.exports) module.exports = api;
@@ -1447,6 +1450,7 @@
     function setClean(on) {
       state.clean = !!on;
       doc.body.classList.toggle('clean', state.clean);
+      if (state.clean) closeRemote(); // picture only – no QR on a captured window
       fit();
       return state.clean;
     }
@@ -1963,7 +1967,7 @@
       b.classList.toggle('on', !!rec);
       b.textContent = rec ? `⏹ ${formatTime(Date.now() - rec.started)}` : '⏺ Aufnahme';
       b.title = rec ? 'Aufnahme stoppen (Taste R)' : 'Aufnahme starten (Taste R)';
-      for (const id of ['#res', '#format', '#rec-mode', '#story-style', '#btn-aspect']) {
+      for (const id of ['#res', '#format', '#rec-mode', '#story-style', '#btn-aspect', '#btn-remote']) {
         const el = $(id);
         if (el) el.disabled = !!rec;
       }
@@ -1978,9 +1982,13 @@
     function startRecording(opts = {}) {
       if (rec) return rec.done;
       if (starting) return starting.then((r) => (r ? r.done : null));
+      closeRemote(); // before any capture starts: the QR window must never be in a recording
+      const rb = $('#btn-remote');
+      if (rb) rb.disabled = true;
       stopWanted = false;
       starting = beginRecording(opts).catch((e) => {
         hint(`❌ Aufnahme startet nicht: ${(e && (e.message || e.name)) || e}`, { sticky: true });
+        reflectRec();
         return null;
       });
       const s = starting;
@@ -2342,6 +2350,58 @@
       }, 8000);
     }
 
+    // ---------- „📱 Fernbedienung“: pairing QR for the phone ----------
+    // The box lives outside #frame (the compositor and the „Pixelgenau“ crop / restriction only see #frame), is hidden in
+    // clean mode and the output window, closes when a recording starts and cannot open while one runs. js/qr.js +
+    // js/setup-card.js load on the first click; the pairing controller polls /api/setup only while the box is open.
+    const remote = { ctl: null, loading: null };
+    function remoteOpen() {
+      const box = $('#remote-qr');
+      return !!(box && !box.hidden);
+    }
+    async function openRemote() {
+      const box = $('#remote-qr');
+      if (!box) return null;
+      if (rec || starting) {
+        hint('📱 Während der Aufnahme nicht – erst ⏹ stoppen.');
+        return null;
+      }
+      if (state.clean) setClean(false);
+      box.hidden = false;
+      $('#btn-remote').setAttribute('aria-expanded', 'true');
+      try {
+        if (!remote.loading) remote.loading = loadScript('js/qr.js').then(() => loadScript('js/setup-card.js'));
+        await remote.loading;
+      } catch (e) {
+        remote.loading = null;
+        $('#remote-view').innerHTML = '<p class="help">QR-Code lädt nicht – im Panel oben rechts „📱 Handy“ nutzen.</p>';
+        return null;
+      }
+      const S = global.LiveFXSetup;
+      if (!remote.ctl && S) {
+        const view = $('#remote-view');
+        view.innerHTML = S.pairViewHtml({
+          id: 'cam-remote',
+          qr: Number(view.dataset.qr) || 220,
+          card: false,
+          compact: true,
+          steps: ['Handy-<b>Kamera</b> auf den QR-Code richten', 'Link antippen – keine App nötig', 'Effekte &amp; Szenen am Handy auslösen ✔'],
+        });
+        const t = Number(params.get('setupTimeout'));
+        remote.ctl = S.createPairing({ roots: [view], timeoutMs: t > 0 ? t : undefined });
+      }
+      if (remote.ctl && remoteOpen()) remote.ctl.start();
+      return remote.ctl;
+    }
+    function closeRemote() {
+      const box = $('#remote-qr');
+      if (!box || box.hidden) return;
+      box.hidden = true;
+      const b = $('#btn-remote');
+      if (b) b.setAttribute('aria-expanded', 'false');
+      if (remote.ctl) remote.ctl.stop();
+    }
+
     // ---------- controls ----------
     function toggleFullscreen() {
       const d = doc;
@@ -2381,6 +2441,8 @@
     $('#btn-sound').addEventListener('click', () => setSound(!state.sound));
     $('#btn-rec').addEventListener('click', () => (rec || starting ? stopRecording() : startRecording()));
     $('#btn-studio').addEventListener('click', () => (studio.wanted ? studio.stop() : studio.start()));
+    if ($('#btn-remote')) $('#btn-remote').addEventListener('click', () => (remoteOpen() ? closeRemote() : openRemote()));
+    if ($('#remote-close')) $('#remote-close').addEventListener('click', closeRemote);
     $('#btn-full').addEventListener('click', toggleFullscreen);
     $('#btn-popup').addEventListener('click', openOutput);
     $('#btn-cam-retry').addEventListener('click', () => startCamera());
@@ -2440,6 +2502,7 @@
       else if (k === 'f') toggleFullscreen();
       else if (k === 'h') setClean(!state.clean);
       else if (k === 'escape' && !$('#rec-result').hidden) $('#rec-close').click();
+      else if (k === 'escape' && remoteOpen()) closeRemote();
       else return;
       e.preventDefault();
     });
@@ -2526,6 +2589,15 @@
       studio,
       openOutput,
       hint,
+      // „📱 Fernbedienung“ (pairing QR, never in the picture)
+      openRemote,
+      closeRemote,
+      get remoteOpen() {
+        return remoteOpen();
+      },
+      get remote() {
+        return remote.ctl;
+      },
     };
     global.livefxCamera = pub;
     return pub;
