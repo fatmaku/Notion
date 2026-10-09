@@ -31,21 +31,36 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <main>
 <h1>🚗 Window <span>Blaster</span> – Anleitung</h1>
 <p class="lead">Für MacBook (macOS 11 Big Sur oder neuer) + iPhone oder Android-Handy · Version {{.Version}}</p>
-<nav class="small"><a href="#kurz">Kurzfassung</a><a href="#mac">MacBook</a><a href="#iphone">iPhone</a><a href="#android">Android</a><a href="#offline">Offline</a><a href="#hilfe">Wenn es nicht startet</a></nav>
+<nav class="small"><a href="#kurz">Kurzfassung</a><a href="#online">Online</a><a href="#mitmac">Mit dem Mac</a><a href="#mac">MacBook</a><a href="#iphone">iPhone</a><a href="#android">Android</a><a href="#offline">Offline</a><a href="#hilfe">Wenn es nicht startet</a></nav>
 
-<div class="note ok"><b>Braucht das Spiel Internet?</b> Nein. Der Mac schickt das Spiel <b>einmal</b> über dein WLAN aufs Handy. Danach läuft es auf dem Handy komplett ohne Mac und ohne Internet – im Auto, Zug oder Bus. Am besten richtest du es <b>zu Hause</b> ein.</div>
+<div class="note ok"><b>Braucht das Spiel Internet?</b> Nur einmal zum Laden – oder gar nicht, wenn der Mac es über dein WLAN schickt. Danach läuft es auf dem Handy komplett ohne Mac und ohne Internet – im Auto, Zug oder Bus. Am besten richtest du es <b>zu Hause</b> ein.</div>
 
-<h2 id="kurz">Kurzfassung – in 6 Schritten</h2>
+<h2 id="kurz">Kurzfassung – QR-Code scannen, fertig</h2>
+<p>Es gibt zwei Wege. Beide enden gleich: Das Spiel liegt als App auf dem Home-Bildschirm und läuft offline.</p>
+
+<h3 id="online">Weg A: Online (empfohlen, sobald eingeschaltet) – ohne Mac, ohne Zertifikat</h3>
 <div class="card big">
+<!--WB_ONLINE_QR-->
 <ol>
-  <li><b>Entpacken:</b> Doppelklick auf <code>WindowBlaster.zip</code> (Safari entpackt oft schon von selbst – dann liegt der Ordner bereits in „Downloads“). Es entsteht der Ordner <b>WindowBlaster</b> (oder „WindowBlaster 2“, wenn es schon einen gibt – das ist egal). Zieh ihn auf den Schreibtisch.<br><span class="small muted">Hast du noch eine ältere Version (Ordner „WindowBlaster-Mac…“)? Die darf in den Papierkorb. Das Handy richtest du einmal neu ein (Schritt 5); ein altes Profil „Caddy Local Authority“ kannst du am iPhone unter Einstellungen → Allgemein → VPN und Geräteverwaltung löschen.</span></li>
-  <li><b>Erster Start (nur einmal so):</b> Programm <b>Terminal</b> öffnen (<kbd>⌘</kbd>+<kbd>Leertaste</kbd>, „Terminal“ tippen, <kbd>↩</kbd>). Tippe <code>bash</code> und ein <b>Leerzeichen</b>. Zieh dann die Datei <b>Start-Window-Blaster.command</b> aus dem Ordner ins Terminal-Fenster und drück <kbd>↩</kbd>.<br><span class="small muted">Fragt der Mac nach Zugriff auf „Schreibtisch“ oder „Downloads“ → <b class="ui">Erlauben</b>. Ab dem zweiten Mal genügt ein Doppelklick auf die Startdatei – nach jedem <b>neuen Download</b> (Update) aber wieder einmal über das Terminal starten.</span></li>
-  <li><b>Verbindungsseite:</b> Im Browser öffnet sich „Window Blaster – Handy verbinden“ mit einem großen QR-Code. Das Terminal-Fenster <b>offen lassen</b> und das MacBook <b>aufgeklappt</b> (am besten am Strom), bis das Handy „Offline bereit ✓“ zeigt – zugeklappt schläft der Mac ein.</li>
-  <li><b>Handy verbinden:</b> Handy ins <b>gleiche WLAN</b> wie den Mac, mobile Daten am besten kurz aus. Kamera-App öffnen, QR-Code scannen, auf den Link tippen.</li>
-  <li><b>Zertifikat (einmalig):</b> Die Handy-Seite führt dich durch 2–3 kurze Schritte. Wenn sie grün „vertraut dem Mac“ zeigt → <b class="ui">Spiel öffnen</b>.</li>
-  <li><b>Als App speichern:</b> Spiel zum Home-Bildschirm hinzufügen, <b>von dort</b> öffnen und warten, bis <b>„Offline bereit ✓“</b> erscheint. Fertig!</li>
+  <li><b>QR-Code scannen:</b> hier oben (in der ANLEITUNG.html aus dem Download), auf der Verbindungsseite am Mac (Karte „🌐 Am einfachsten“) oder im Spiel unter „📲 Auf anderes Gerät“ – oder im Handy-Browser direkt <code>https://fatmaku.github.io/Notion/window-blaster/</code> öffnen. Das Handy braucht dafür einmal Internet.</li>
+  <li><b>Spielen:</b> <b class="ui">Spiel öffnen</b> – Kamera erlauben.</li>
+  <li><b>Als App speichern:</b> iPhone: in Safari <b class="ui">•••</b> → <b class="ui">Teilen</b> → <b class="ui">Zum Home-Bildschirm</b>. Android: <b class="ui">Installieren</b> (oder Menü <b class="ui">⋮</b> → App installieren). Die App <b>vom Home-Bildschirm</b> öffnen und warten, bis <b>„Offline bereit ✓“</b> erscheint. Fertig!</li>
 </ol>
 </div>
+<div class="note"><b>Einmalig für den Besitzer:</b> Die Online-Version muss auf GitHub einmal eingeschaltet werden. Auf <a href="https://github.com/fatmaku/Notion/settings/pages">github.com/fatmaku/Notion/settings/pages</a> bei <b>Source</b> „<b>GitHub Actions</b>“ wählen, dann unter <b>Actions</b> den letzten Lauf öffnen → <b class="ui">Re-run all jobs</b>. Nach ein paar Minuten zeigt die Verbindungsseite am Mac die Karte „🌐 Am einfachsten“ – bis dahin steht dort „Online-Version noch nicht aktiv“.</div>
+<p class="small muted">Gut zu wissen: Punkte und Freischaltungen werden pro Adresse gespeichert. Online-Version und Mac-Version sind zwei getrennte Apps – am besten nur eine davon benutzen.</p>
+
+<h3 id="mitmac">Weg B: Mit dem Mac – auch ganz ohne Internet</h3>
+<div class="card big">
+<ol>
+  <li><b>Mac starten:</b> <code>WindowBlaster.zip</code> entpacken, Ordner <b>WindowBlaster</b> auf den Schreibtisch ziehen. Beim <b>ersten Mal</b>: Programm <b>Terminal</b> öffnen (<kbd>⌘</kbd>+<kbd>Leertaste</kbd>, „Terminal“, <kbd>↩</kbd>), <code>bash</code> und ein <b>Leerzeichen</b> tippen, die Datei <b>Start-Window-Blaster.command</b> ins Fenster ziehen, <kbd>↩</kbd>. Danach genügt ein Doppelklick (nach jedem neuen Download wieder einmal über das Terminal, siehe <a href="#mac">MacBook</a>).<br><span class="small muted">Im Browser öffnet sich die <b>Verbindungsseite</b>. Terminal-Fenster offen und MacBook aufgeklappt lassen (am besten am Strom), bis das Handy „Offline bereit ✓“ zeigt.</span></li>
+  <li><b>WLAN-QR (optional):</b> Ist das Handy noch nicht im WLAN des Macs, auf der Verbindungsseite bei ① Netzwerkname und Passwort eintippen und den WLAN-Code mit der Handy-Kamera scannen → <b class="ui">Verbinden</b>. Das Passwort bleibt auf dem Mac. Mobile Daten am besten kurz aus.</li>
+  <li><b>Einrichtungs-Code scannen</b> (②): Kamera-App auf den großen QR-Code halten, auf den Link tippen.</li>
+  <li><b>Zertifikat (einmalig):</b> Die Handy-Seite führt dich durch 2–3 kurze Schritte (ausführlich: <a href="#iphone">iPhone</a>, <a href="#android">Android</a>). Wenn sie grün „vertraut dem Mac“ zeigt → <b class="ui">Spiel öffnen</b>.</li>
+  <li><b>Als App speichern:</b> Spiel zum Home-Bildschirm hinzufügen, <b>von dort</b> öffnen und warten, bis <b>„Offline bereit ✓“</b> erscheint. Auf der Verbindungsseite wird dann Punkt 6 grün – der Mac wird nicht mehr gebraucht.</li>
+</ol>
+</div>
+<p class="small muted">Hast du noch eine ältere Version (Ordner „WindowBlaster-Mac…“)? Die darf in den Papierkorb. Ein altes Profil „Caddy Local Authority“ kannst du am iPhone unter Einstellungen → Allgemein → VPN und Geräteverwaltung löschen.</p>
 
 <h2 id="mac">MacBook – ausführlich</h2>
 <h3>Erster Start</h3>
@@ -90,7 +105,7 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <h2 id="offline">Unterwegs & ohne WLAN</h2>
 <ul>
   <li>Ist das Spiel einmal als App installiert und zeigt „Offline bereit ✓“, braucht es <b>weder Mac noch Internet</b>.</li>
-  <li>Kein WLAN-Router in der Nähe (Auto, Ferienwohnung)? Der Mac kann selbst ein WLAN aufmachen: <b>Systemeinstellungen → Allgemein → Teilen</b> → bei <b>Internetfreigabe</b> auf <b>ⓘ</b> klicken → „Verbindung teilen von“: irgendein Anschluss, z. B. „Thunderbolt-Bridge“; „Für Geräte über“: <b>WLAN</b> einschalten → <b>WLAN-Optionen …</b>: Name und Passwort festlegen → <b>OK</b> → Internetfreigabe einschalten. Das Handy verbindet sich mit diesem WLAN des Macs – ganz ohne Internet (Android: mobile Daten dabei kurz ausschalten und „trotzdem verbunden bleiben“ bestätigen). Dann die Verbindungsseite am Mac neu laden (<kbd>⌘</kbd>+<kbd>R</kbd>) und den <b>neuen</b> QR-Code scannen.</li>
+  <li>Kein WLAN-Router in der Nähe (Auto, Ferienwohnung)? Der Mac kann selbst ein WLAN aufmachen: <b>Systemeinstellungen → Allgemein → Teilen</b> → bei <b>Internetfreigabe</b> auf <b>ⓘ</b> klicken → „Verbindung teilen von“: irgendein Anschluss, z. B. „Thunderbolt-Bridge“; „Für Geräte über“: <b>WLAN</b> einschalten → <b>WLAN-Optionen …</b>: Name und Passwort festlegen → <b>OK</b> → Internetfreigabe einschalten. Wichtig: „Verbindung teilen von“ darf <b>nicht WLAN</b> sein – der Mac kann ein WLAN-Internet nicht über WLAN weitergeben (Kabel, iPhone per USB oder Thunderbolt gehen). Die Adresse des Macs ist dann meist <code>192.168.2.1</code>. Das Handy verbindet sich mit diesem WLAN des Macs (am einfachsten per WLAN-QR auf der Verbindungsseite) – ganz ohne Internet (Android: mobile Daten dabei kurz ausschalten und „trotzdem verbunden bleiben“ bestätigen). Dann die Verbindungsseite am Mac neu laden (<kbd>⌘</kbd>+<kbd>R</kbd>) und den <b>neuen</b> QR-Code scannen.</li>
   <li>Zug-, Hotel- und Gäste-WLANs blockieren oft die Verbindung zwischen Geräten. Dort lieber die Internetfreigabe nutzen – oder zu Hause einrichten.</li>
   <li>Der Mac kann danach wochen- oder monatelang aus bleiben – das Spiel auf dem Handy läuft weiter.</li>
   <li><b>Updates:</b> Neue Zip entpacken und starten. Am Handy im selben WLAN die App im App-Umschalter nach oben wegwischen und neu öffnen – sie lädt die neue Version, startet sich einmal neu und behält Punkte, Freischaltungen und Offline-Daten. Die Versionsnummer steht unten auf dem Startbildschirm. Das Zertifikat muss <b>nicht</b> neu installiert werden.</li>
@@ -100,7 +115,9 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <div class="card">
 <p><b>Display-Brille am Handy</b> (XREAL, VITURE, Rokid, RayNeo): Brille per USB-C ans Handy (iPhone 15 oder neuer – nicht 16e, 17e, Air –, Android mit Bildausgabe über USB-C). Im Spiel <b class="ui">🕶️ Brillen &amp; AR</b> → <b>Durchsicht-Modus</b> einschalten → <b class="ui">🎯 Brille ausrichten</b>: das blasse Kamerabild verschieben und zoomen, bis es über der echten Welt liegt. Ohne Durchsicht-Modus erscheint das Spiel einfach groß wie auf einer Leinwand.</p>
 <p><b>Steuern ohne Hinschauen:</b> „Handy als Touchpad“ einschalten (wischen = zielen, tippen = schießen) oder einen Bluetooth-Controller / eine Tastatur koppeln.</p>
-<p><b>Headset</b> (Meta Quest 3/3S, Galaxy XR, Pico 4 Ultra): Im Browser des Headsets dieselbe Adresse öffnen wie am Handy (sie steht unter dem QR-Code). Eine Zertifikatswarnung mit <b>Erweitert → Weiter</b> bestätigen. Dann <b class="ui">🕶️ Brillen &amp; Headset (WebXR)</b> → <b>Runden im Headset spielen</b>. Quest 3/3S: „Headset-Kameras“ erlauben (noch experimentell, sonst Demo); im Zug den Reisemodus einschalten. Im Auto unterstützt Meta das Tracking nicht.</p>
+<p><b>Headset</b> (Meta Quest 3/3S, Galaxy XR, Pico 4 Ultra): Am einfachsten mit der <b>Online-Version</b> – ohne Warnung und danach auch offline. Die Quest kann keine QR-Codes lesen, deshalb: auf der Verbindungsseite am Mac den Code <b>„🥽 Meta Quest“</b> <b>mit dem Handy</b> scannen → bei Meta anmelden → dein Headset wählen → <b class="ui">Öffnen</b>. Das Spiel startet im Browser der Quest. (Oder dort <code>https://fatmaku.github.io/Notion/window-blaster/</code> eintippen.)</p>
+<p><b>Headset mit dem Mac</b> (ohne Online-Version): Im Browser des Headsets die Adresse aus ③ „Headset / Gerät ohne Kamera“ eintippen (die große Schrift auf der Verbindungsseite), dann <b class="ui">Spiel öffnen (Warnung bestätigen)</b> und die Zertifikatswarnung mit <b>Erweitert → Weiter</b> bestätigen. Im Headset lässt sich kein Zertifikat installieren: Kamera geht, offline nicht.</p>
+<p>Im Spiel <b class="ui">🕶️ Brillen &amp; Headset (WebXR)</b> → <b>Runden im Headset spielen</b>. Quest 3/3S: „Headset-Kameras“ erlauben (noch experimentell, sonst Demo); im Zug den Reisemodus einschalten. Im Auto unterstützt Meta das Tracking nicht.</p>
 <p class="small muted">Geht im Browser nicht: Ray-Ban Meta / Oakley Meta (kein Display, Kamera nur für native Apps) und Apple Vision Pro (kein AR mit Kamera in Safari).</p>
 </div>
 
@@ -122,6 +139,7 @@ nav a{color:var(--accent);margin-right:14px;white-space:nowrap}
 <tr><td>Mac fragt „Eingehende Netzwerkverbindungen akzeptieren?“</td><td><b>Erlauben</b> – sonst erreicht das Handy den Mac nicht.</td></tr>
 <tr><td>Browser: „Diese localhost-Seite wurde nicht gefunden“ / „HTTP ERROR 404“ unter <code>https://localhost:8443</code></td><td>Das ist die Adresse der <b>alten</b> Version, deren Server oft noch im Hintergrund läuft. Die neue Startdatei beendet ihn automatisch – also einfach <b>Start-Window-Blaster.command</b> starten. Klappt das nicht: Mac neu starten und dann starten. Am Mac immer <code>http://localhost:{{.HTTPPort}}/verbinden</code> benutzen (http, ohne „s“, Port {{.HTTPPort}}).</td></tr>
 <tr><td>Browser zeigt eine leere oder alte Seite</td><td>Neu laden (<kbd>⌘</kbd>+<kbd>R</kbd>). Hilft das nicht: <code>http://localhost:{{.HTTPPort}}/?reset=1</code> öffnen – setzt den Spiel-Zwischenspeicher zurück (Punkte bleiben).</td></tr>
+<tr><td>Verbindungsseite: „Online-Version noch nicht aktiv“</td><td>Die Online-Version ist auf GitHub noch nicht eingeschaltet – siehe <a href="#online">Weg A</a> (einmalig für den Besitzer). Bis dahin <a href="#mitmac">Weg B</a> mit dem Mac benutzen.</td></tr>
 <tr><td>Handy öffnet die Seite nicht</td><td>Gleiches WLAN? VPN aus? Adresse genau mit <code>http://</code> und <code>:{{.HTTPPort}}</code>? Auf der Verbindungsseite unter „Andere Adressen“ probieren. Gäste-/Zug-WLAN → Internetfreigabe. Android: WLAN des Macs gewählt, aber die Seite lädt nicht? <b>Mobile Daten kurz ausschalten</b> und bei „Keine Internetverbindung – trotzdem verbunden bleiben?“ auf <b>Ja</b> tippen. Samsung: Einstellungen → Verbindungen → WLAN → ⋮ → Intelligentes WLAN → „Zu mobilen Daten wechseln“ aus.</td></tr>
 <tr><td>Handy-Seite bleibt gelb „Prüfe …“</td><td>iPhone: Schalter in <b>Zertifikatsvertrauenseinstellungen</b> einschalten. Android: Zertifikat als <b>CA-Zertifikat</b> installieren. Dann Seite neu laden.</td></tr>
 <tr><td>Keine Kamera-Abfrage im Spiel</td><td>iPhone: Einstellungen → Apps → Safari → Kamera → „Fragen“ (ältere iOS: Einstellungen → Safari → Kamera). Bei der Home-Bildschirm-App: App schließen und neu öffnen, dann „Erlauben“. Android: Chrome → Website-Einstellungen → Kamera.</td></tr>

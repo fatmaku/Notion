@@ -19,7 +19,7 @@ const abs = (p: string) => new URL(p, scopeUrl).href;
 // holds the offline data (OfflinePrep writes there in parallel)
 const STAGING = `${CACHE}-staging`;
 // Mac launcher pages and live status must always come from the network, never from this cache
-const LAUNCHER = /^\/(wb-status|wb-quit|verbinden|handy|anleitung|zertifikat\.)/;
+const LAUNCHER = /^\/(wb-status|wb-quit|wb-qr|verbinden|handy|anleitung|zertifikat\.)/;
 
 sw.addEventListener('install', (event) => {
   event.waitUntil(

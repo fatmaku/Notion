@@ -480,6 +480,7 @@ func profileID() string {
 
 type qrLink struct {
 	URL   string
+	Base  string // http://<ip>:<port> (URL without /handy, for line breaks)
 	Label string
 	QR    template.HTML
 }
@@ -529,7 +530,8 @@ func (s *server) data() pageData {
 		}
 	}
 	for i, a := range d.Addrs {
-		u := fmt.Sprintf("http://%s:%d/handy", a.IP, s.httpPort)
+		base := fmt.Sprintf("http://%s:%d", a.IP, s.httpPort)
+		u := base + "/handy"
 		label := a.Iface
 		switch a.Kind {
 		case "wifi":
@@ -539,7 +541,7 @@ func (s *server) data() pageData {
 		case "ethernet":
 			label = "Netzwerk " + a.Iface
 		}
-		l := qrLink{URL: u, Label: label, QR: qrSVG(u)}
+		l := qrLink{URL: u, Base: base, Label: label, QR: qrSVG(u)}
 		if i == 0 {
 			d.Primary = &l
 		} else {

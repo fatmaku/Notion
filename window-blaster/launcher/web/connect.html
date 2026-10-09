@@ -15,7 +15,7 @@ h2{font-size:20px;margin:0 0 10px}
 .grid{display:grid;grid-template-columns:1.25fr 1fr;gap:18px}
 @media (max-width:820px){.grid{grid-template-columns:1fr}}
 .card{background:var(--card);border-radius:18px;padding:20px;border:1px solid var(--line)}
-.qrwrap{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.qrwrap{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}.qrwrap>div:not(.qr){flex:1;min-width:220px}
 .qr{width:240px;height:240px;background:#fff;border-radius:12px;padding:6px;flex:none}
 .qr svg{width:100%;height:100%;display:block}
 .url{font:600 15px ui-monospace,Menlo,monospace;background:#0e141c;padding:8px 10px;border-radius:10px;word-break:break-all;margin:8px 0}
@@ -31,6 +31,26 @@ details{border-top:1px solid var(--line);padding:10px 0}summary{cursor:pointer;f
 .others{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}.others .qr{width:120px;height:120px}
 .warn{background:rgba(255,176,32,.12);border:1px solid rgba(255,176,32,.35);color:#fde68a;padding:12px 14px;border-radius:12px}
 code{font:13px ui-monospace,Menlo,monospace;background:#0e141c;padding:1px 6px;border-radius:6px}
+[hidden]{display:none!important}
+h2.top{font-size:22px;margin:4px 0 12px}
+.card.hi{border-color:rgba(255,176,32,.45);box-shadow:0 0 0 1px rgba(255,176,32,.18) inset;margin-bottom:18px}
+.qr.big{width:260px;height:260px}.qr.sm{width:150px;height:150px}
+.qr img{width:100%;height:100%;display:block}
+.step{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line)}
+.step:first-of-type{border-top:0;padding-top:4px}
+.step .n{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#111;font-weight:900;display:grid;place-items:center;flex:none}
+.step .body{flex:1;min-width:0}
+.step h3{font-size:17px;margin:2px 0 6px}
+.wifi{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.wifi form{flex:1;min-width:210px;display:grid;gap:8px;margin:0}
+.wifi label{font-size:14px;color:var(--muted)}
+.wifi input[type=text],.wifi input[type=password]{width:100%;font:15px ui-monospace,Menlo,monospace;background:#0e141c;color:var(--text);border:1px solid #334155;border-radius:10px;padding:9px 10px}
+.wifi .row{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--text)}
+.wifi .qr.sm{display:grid;place-items:center;color:#475569;font-size:13px;text-align:center}
+.typebox{background:#0e141c;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.typebox .addr{font:800 clamp(20px,2.6vw,34px)/1.25 ui-monospace,Menlo,monospace;color:var(--accent);overflow-wrap:anywhere;letter-spacing:.01em}
+.quest{display:flex;gap:16px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
+.hint{color:#fde68a;font-size:13.5px;min-height:1em}
 </style>
 </head>
 <body>
@@ -39,40 +59,113 @@ code{font:13px ui-monospace,Menlo,monospace;background:#0e141c;padding:1px 6px;b
   <p class="lead">Version {{.Version}} · Der Spiel-Server läuft auf deinem Mac „{{.Host}}“.</p>
   <div class="ok-banner">✅ <div><b>Läuft.</b> Lass das Terminal-Fenster offen und das MacBook aufgeklappt (am besten am Strom), solange dein Handy den Mac braucht (nur beim Einrichten).</div></div>
 
+  <div class="warn" id="stale" hidden style="margin-bottom:18px"><b>Der Mac hat eine neue Netzwerk-Adresse.</b> Bitte diese Seite neu laden (<code>⌘ R</code>) – dann stimmen die Codes wieder.</div>
+  <h2 class="top">📱 Handy einrichten <span class="muted small">– einfach QR-Code mit der Handy-Kamera scannen</span></h2>
+
+  {{if .PublicURL}}
+  <section class="card hi" id="online" hidden>
+    <h2>🌐 Am einfachsten: ohne Mac, ohne Zertifikat</h2>
+    <div class="qrwrap">
+      <div class="qr big" id="onlineQr">{{.PublicQR}}</div>
+      <div>
+        <ol class="steps">
+          <li><b>Kamera-App</b> am Handy öffnen und auf diesen Code halten (Handy braucht dafür einmal Internet).</li>
+          <li>Auf den Link tippen → <b>„Spiel öffnen“</b>.</li>
+          <li>Zum Home-Bildschirm hinzufügen – <b>iPhone:</b> in Safari <b>•••</b> → <b>Teilen</b> → <b>Zum Home-Bildschirm</b>. <b>Android:</b> <b>Installieren</b> (oder Menü ⋮ → App installieren). Danach läuft es auch offline.</li>
+        </ol>
+        <div class="url small">{{.PublicURL}}</div>
+      </div>
+    </div>
+    {{if .QuestQR}}
+    <div class="quest">
+      <div class="qr sm" id="questQr">{{.QuestQR}}</div>
+      <div style="flex:1;min-width:200px">
+        <h3 style="margin:0 0 4px">🥽 Meta Quest</h3>
+        <p class="small muted" style="margin:0">Die Quest kann keine QR-Codes lesen: Diesen Code <b>mit dem Handy</b> scannen, bei Meta anmelden, dein Headset wählen und <b>Öffnen</b> tippen – das Spiel startet im Browser der Quest.</p>
+      </div>
+    </div>
+    {{end}}
+  </section>
+  {{end}}
+
   <div class="grid">
-    <section class="card">
-      <h2>📱 Handy einrichten <span class="muted small">(einmalig, ca. 3 Minuten)</span></h2>
-      {{if .Primary}}
-      <div class="qrwrap">
-        <div class="qr">{{.Primary.QR}}</div>
-        <div>
-          <ol class="steps">
-            <li>Handy ins <b>gleiche WLAN</b> wie den Mac (mobile Daten am besten kurz aus).</li>
-            <li><b>Kamera-App</b> am Handy öffnen und auf diesen Code halten.</li>
-            <li>Auf den gelben Link tippen – die Handy-Seite führt dich durch alles Weitere.</li>
-          </ol>
-          <p class="small muted" style="margin:10px 0 0">Oder im Handy-Browser eintippen:</p>
-          <div class="url">{{.Primary.URL}}</div>
+    <section class="card" id="mac">
+      <h2>📶 Mit dem Mac <span class="muted small">(auch ohne Internet, einmalig ca. 3 Minuten)</span></h2>
+      <p class="small muted" id="onlineNote" hidden>Online-Version noch nicht aktiv – einmalig auf GitHub einschalten (siehe <a href="/anleitung#kurz" style="color:var(--accent)">Anleitung</a>).</p>
+
+      <div class="step">
+        <span class="n">1</span>
+        <div class="body">
+          <h3>Handy ins WLAN bringen <span class="muted small">(optional, per WLAN-QR)</span></h3>
+          <p class="small muted" style="margin:0 0 10px">Für das WLAN, in dem der Mac ist – oder die Internetfreigabe des Macs. Ist das Handy schon drin, weiter mit Schritt 2. Das Passwort bleibt auf diesem Mac.</p>
+          <div class="wifi">
+            <form id="wifiForm" autocomplete="off" onsubmit="return false">
+              <label for="wifiSsid">Netzwerkname</label>
+              <input type="text" id="wifiSsid" maxlength="64" spellcheck="false" autocapitalize="off">
+              <label for="wifiPass">Passwort</label>
+              <input type="password" id="wifiPass" maxlength="128" spellcheck="false" autocapitalize="off">
+              <div class="row"><input type="checkbox" id="wifiShow"><label for="wifiShow" style="color:inherit">Passwort anzeigen</label></div>
+              <div class="row"><input type="checkbox" id="wifiOpen"><label for="wifiOpen" style="color:inherit">offenes WLAN (ohne Passwort)</label></div>
+              <div class="hint" id="wifiHint"></div>
+            </form>
+            <div class="qr sm" id="wifiBox"><span id="wifiEmpty">WLAN-QR erscheint hier</span><img id="wifiQr" alt="WLAN-QR-Code" hidden></div>
+          </div>
+          <p class="small muted" style="margin:8px 0 0">Am Handy: Kamera auf den Code → <b>„Netzwerk … beitreten“</b> / <b>„Verbinden“</b> tippen.</p>
         </div>
       </div>
-      <ul class="check" id="check">
-        <li id="c-seen"><span class="dot">1</span> Handy hat sich verbunden</li>
-        <li id="c-cert"><span class="dot">2</span> Zertifikat aufs Handy geladen</li>
-        <li id="c-https"><span class="dot">3</span> Handy vertraut dem Mac (sichere Verbindung)</li>
-        <li id="c-game"><span class="dot">4</span> Spiel auf dem Handy geöffnet</li>
-        <li id="c-off"><span class="dot">5</span> Handy lädt die Daten für den Offline-Betrieb</li>
-      </ul>
-      <p class="small muted" id="phoneinfo"></p>
-      <details><summary>iPhone erreicht den Mac nicht? Zertifikat per AirDrop</summary>
-        <p class="small">Lade das <a href="/zertifikat.mobileconfig" style="color:var(--accent)">iPhone-Profil</a> herunter und schick die Datei per AirDrop ans iPhone → dort „Profil geladen“ wie auf der Handy-Seite beschrieben. Für das Spiel selbst müssen Mac und Handy aber im selben Netz sein (z. B. Internetfreigabe des Macs).</p>
-      </details>
-      {{if .Others}}
-      <details><summary>Klappt nicht? Andere Adressen dieses Macs</summary>
-        <div class="others">{{range .Others}}<div><div class="qr">{{.QR}}</div><div class="small muted">{{.Label}}</div><div class="url small">{{.URL}}</div></div>{{end}}</div>
-      </details>
-      {{end}}
-      {{else}}
-      <div class="warn"><b>Der Mac ist in keinem Netzwerk.</b> Verbinde Mac und Handy mit demselben WLAN – oder schalte am Mac die Internetfreigabe ein (siehe Anleitung) – und lade diese Seite neu.</div>
+
+      <div class="step">
+        <span class="n">2</span>
+        <div class="body">
+          <h3>Einrichtungs-Code scannen</h3>
+          {{if .Primary}}
+          <div class="qrwrap">
+            <div class="qr" id="setupQr">{{.Primary.QR}}</div>
+            <div>
+              <ol class="steps">
+                <li>Handy im <b>gleichen WLAN</b> wie der Mac (mobile Daten am besten kurz aus).</li>
+                <li><b>Kamera-App</b> öffnen und auf diesen Code halten.</li>
+                <li>Auf den gelben Link tippen – die Handy-Seite führt dich durch alles Weitere.</li>
+              </ol>
+              <p class="small muted" style="margin:10px 0 0">Oder im Handy-Browser eintippen:</p>
+              <div class="url">{{.Primary.URL}}</div>
+            </div>
+          </div>
+          <ul class="check" id="check">
+            <li id="c-seen"><span class="dot">1</span> Handy hat sich verbunden</li>
+            <li id="c-cert"><span class="dot">2</span> Zertifikat aufs Handy geladen</li>
+            <li id="c-https"><span class="dot">3</span> Handy vertraut dem Mac (sichere Verbindung)</li>
+            <li id="c-game"><span class="dot">4</span> Spiel auf dem Handy geöffnet</li>
+            <li id="c-off"><span class="dot">5</span> Handy lädt die Daten für den Offline-Betrieb</li>
+            <li id="c-ready"><span class="dot">6</span> Offline fertig – Mac wird nicht mehr gebraucht</li>
+          </ul>
+          <p class="small muted" id="phoneinfo"></p>
+          <details><summary>iPhone erreicht den Mac nicht? Zertifikat per AirDrop</summary>
+            <p class="small">Lade das <a href="/zertifikat.mobileconfig" style="color:var(--accent)">iPhone-Profil</a> herunter und schick die Datei per AirDrop ans iPhone → dort „Profil geladen“ wie auf der Handy-Seite beschrieben. Für das Spiel selbst müssen Mac und Handy aber im selben Netz sein (z. B. Internetfreigabe des Macs).</p>
+          </details>
+          {{if .Others}}
+          <details><summary>Klappt nicht? Andere Adressen dieses Macs</summary>
+            <div class="others">{{range .Others}}<div><div class="qr">{{.QR}}</div><div class="small muted">{{.Label}}</div><div class="url small">{{.URL}}</div></div>{{end}}</div>
+          </details>
+          {{end}}
+          {{else}}
+          <div class="warn"><b>Der Mac ist in keinem Netzwerk.</b> Verbinde Mac und Handy mit demselben WLAN – oder schalte am Mac die Internetfreigabe ein (siehe Anleitung) – und lade diese Seite neu.</div>
+          {{end}}
+        </div>
+      </div>
+
+      {{if .Primary}}
+      <div class="step">
+        <span class="n">3</span>
+        <div class="body">
+          <h3>Headset / Gerät ohne Kamera</h3>
+          <div class="typebox">
+            <div class="small muted">Im Browser des Geräts genau so eintippen:</div>
+            <div class="addr" id="typeAddr">{{.Primary.Base}}<wbr>/handy</div>
+          </div>
+          <p class="small muted" style="margin:8px 0 0">Headsets können kein Zertifikat installieren: Die Warnung einmal bestätigen – Kamera geht, offline nicht. Besser: die Online-Version (falls oben angezeigt).</p>
+        </div>
+      </div>
       {{end}}
     </section>
 
@@ -86,6 +179,7 @@ code{font:13px ui-monospace,Menlo,monospace;background:#0e141c;padding:1px 6px;b
       <details><summary>Handy findet den Mac nicht?</summary>
         <ul class="small">
           <li>Gleiches WLAN? <b>Gäste-, Hotel- und Zug-WLANs</b> lassen Geräte oft nicht miteinander sprechen → zu Hause einrichten oder die Internetfreigabe des Macs nutzen.</li>
+          <li>Internetfreigabe: Der Mac kann ein eigenes WLAN nur aufmachen, wenn er sein Internet <b>nicht</b> selbst über WLAN bekommt (sondern per Kabel, iPhone-USB oder Thunderbolt). Seine Adresse ist dann meist <code>192.168.2.1</code>.</li>
           <li>Hat der Mac gefragt „Eingehende Netzwerkverbindungen akzeptieren?“ → <b>Erlauben</b>. Sonst: Systemeinstellungen → Netzwerk → Firewall → Optionen → „windowblaster…“ erlauben.</li>
           <li>VPN am Handy oder Mac ausschalten.</li>
           <li>Android: WLAN des Macs gewählt, aber die Seite lädt nicht? <b>Mobile Daten kurz ausschalten</b> und bei „Keine Internetverbindung – trotzdem verbunden bleiben?“ auf <b>Ja</b> tippen. Samsung: Einstellungen → Verbindungen → WLAN → ⋮ → Intelligentes WLAN → „Zu mobilen Daten wechseln“ aus.</li>
@@ -101,13 +195,76 @@ code{font:13px ui-monospace,Menlo,monospace;background:#0e141c;padding:1px 6px;b
 </main>
 <script>
 (function () {
-  var map = { seen: 'c-seen', cert: 'c-cert', https: 'c-https', game: 'c-game', offline: 'c-off' };
+  // ---- online version: only offered when it really answers (GitHub Pages may not be enabled yet)
+  var PUBLIC_URL = {{.PublicURL}};
+  if (PUBLIC_URL) {
+    var ctl = typeof AbortController === 'function' ? new AbortController() : null;
+    var settled = false;
+    var fail = function () { if (settled) return; settled = true; document.getElementById('onlineNote').hidden = false; };
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); fail(); }, 5000);
+    fetch(PUBLIC_URL + 'wb-meta.json', { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
+      .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+      .then(function (m) {
+        if (!m || typeof m !== 'object') throw new Error('meta');
+        clearTimeout(timer);
+        if (settled) return;
+        settled = true;
+        var card = document.getElementById('online');
+        if (card) card.hidden = false;
+      })
+      .catch(function () { clearTimeout(timer); fail(); });
+  }
+
+  // ---- Wi-Fi join QR, rendered by this Mac only (the password is not sent anywhere else)
+  // WIFI:T:WPA;S:<ssid>;P:<password>;;  –  \ ; , " : are backslash-escaped; no H field
+  // (iOS ignores hidden networks), no trailing newline; open networks: T:nopass with empty P.
+  function wifiEscape(v) { return String(v).replace(/([\\;,":])/g, '\\$1'); }
+  function wifiString(ssid, pass, open) {
+    return 'WIFI:T:' + (open ? 'nopass' : 'WPA') + ';S:' + wifiEscape(ssid) + ';P:' + (open ? '' : wifiEscape(pass)) + ';;';
+  }
+  window.wbWifiString = wifiString; // for tests
+  var ssidEl = document.getElementById('wifiSsid');
+  var passEl = document.getElementById('wifiPass');
+  var openEl = document.getElementById('wifiOpen');
+  var showEl = document.getElementById('wifiShow');
+  var img = document.getElementById('wifiQr');
+  var empty = document.getElementById('wifiEmpty');
+  var hint = document.getElementById('wifiHint');
+  var pending = 0;
+  function bytes(s) { try { return new TextEncoder().encode(s).length; } catch (e) { return unescape(encodeURIComponent(s)).length; } }
+  function clearQr(msg) { img.hidden = true; img.removeAttribute('src'); empty.hidden = false; hint.textContent = msg || ''; }
+  function updateWifi() {
+    var ssid = ssidEl.value, pass = passEl.value, open = openEl.checked;
+    passEl.disabled = open;
+    if (!ssid) return clearQr('');
+    if (!open && !pass) return clearQr('Passwort eingeben – oder „offenes WLAN“ ankreuzen.');
+    var text = wifiString(ssid, pass, open);
+    if (bytes(text) > 600) return clearQr('Name oder Passwort ist zu lang.');
+    hint.textContent = !open && pass.length < 8 ? 'Hinweis: WLAN-Passwörter haben meist mindestens 8 Zeichen.' : '';
+    // wbping: the game's service worker (if the demo ran in this browser) must not cache this
+    img.src = '/wb-qr.svg?wbping=1&t=' + encodeURIComponent(text);
+    img.hidden = false;
+    empty.hidden = true;
+  }
+  function schedule() { clearTimeout(pending); pending = setTimeout(updateWifi, 120); }
+  ssidEl.addEventListener('input', schedule);
+  passEl.addEventListener('input', schedule);
+  openEl.addEventListener('change', updateWifi);
+  showEl.addEventListener('change', function () { passEl.type = showEl.checked ? 'text' : 'password'; });
+  img.addEventListener('error', function () { clearQr('QR-Code konnte nicht erstellt werden.'); });
+
+  // ---- live checklist
+  var map = { seen: 'c-seen', cert: 'c-cert', https: 'c-https', game: 'c-game', offline: 'c-off', ready: 'c-ready' };
   function mark(id, on) { var el = document.getElementById(id); if (el) el.className = on ? 'done' : ''; if (el && on) el.querySelector('.dot').textContent = '✓'; }
   var addrKey = null;
   function poll() {
     fetch('/wb-status', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (s) {
       var key = (s.addrs || []).map(function (a) { return a.ip; }).join(',');
-      if (addrKey !== null && key !== addrKey) { location.reload(); return; }
+      if (addrKey !== null && key !== addrKey) {
+        // new network → new codes; keep a half-typed Wi-Fi form and ask instead of reloading
+        if (!ssidEl.value && !passEl.value) { location.reload(); return; }
+        document.getElementById('stale').hidden = false;
+      }
       addrKey = key;
       var ph = s.phones || [];
       var any = function (k) { return ph.some(function (p) { return p[k]; }); };
@@ -115,9 +272,10 @@ code{font:13px ui-monospace,Menlo,monospace;background:#0e141c;padding:1px 6px;b
       mark(map.cert, any('cert'));
       mark(map.https, any('https'));
       mark(map.game, any('game'));
-      mark(map.offline, any('offline'));
+      mark(map.offline, any('offline') || any('ready'));
+      mark(map.ready, any('ready'));
       var info = document.getElementById('phoneinfo');
-      if (info) info.textContent = ph.length ? 'Verbunden: ' + ph.map(function (p) { return p.device + ' (' + p.ip + ')'; }).join(', ') : '';
+      if (info) info.textContent = ph.length ? 'Verbunden: ' + ph.map(function (p) { return p.device + ' (' + p.ip + ')' + (p.ready ? ' ✓ offline bereit' : ''); }).join(', ') : '';
     }).catch(function () {
       var info = document.getElementById('phoneinfo');
       if (info) info.textContent = '⚠️ Server nicht erreichbar – läuft das Terminal-Fenster noch?';

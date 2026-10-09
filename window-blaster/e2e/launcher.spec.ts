@@ -18,7 +18,7 @@ let dataDir = '';
 test.beforeAll(async () => {
   test.skip(!existsSync(BIN), 'launcher not built (cd launcher && go build)');
   dataDir = mkdtempSync(join(tmpdir(), 'wb-launcher-'));
-  proc = spawn(BIN, ['--app', join(HERE, '..', 'dist'), '--data', dataDir, '--http', String(HTTP), '--https', String(HTTPS), '--open=false', '--quiet'], { stdio: ['ignore', 'pipe', 'pipe'] });
+  proc = spawn(BIN, ['--app', join(HERE, '..', 'dist'), '--data', dataDir, '--http', String(HTTP), '--https', String(HTTPS), '--open=false', '--quiet', '--public-url', 'http://127.0.0.1:9/'], { stdio: ['ignore', 'pipe', 'pipe'] });
   proc.stdout?.on('data', (d) => (out += String(d)));
   proc.stderr?.on('data', (d) => (out += String(d)));
   for (let i = 0; i < 50 && !out.includes('Window Blaster läuft'); i++) await new Promise((r) => setTimeout(r, 100));
@@ -33,14 +33,28 @@ test('Mac: connect page shows a QR code and the demo runs on http://localhost (s
   const errors = collectErrors(page);
   await page.goto(`http://localhost:${HTTP}/verbinden`);
   await expect(page.getByText('Handy einrichten')).toBeVisible();
-  await expect(page.locator('.qr svg').first()).toBeVisible();
+  await expect(page.locator('#setupQr svg')).toBeVisible();
+  // the online card only appears when the public copy answers; port 9 refuses connections
+  await expect(page.locator('#onlineNote')).toBeVisible({ timeout: 8_000 });
+  await expect(page.locator('#online')).toBeHidden();
+  // Wi-Fi QR is rendered by the Mac itself from the form
+  await page.locator('#wifiSsid').fill('Mein;Netz');
+  await page.locator('#wifiPass').fill('geheim:12345');
+  const img = page.locator('#wifiQr');
+  await expect(img).toBeVisible();
+  expect(await img.getAttribute('src')).toMatch(/^\/wb-qr\.svg\?/);
+  await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth)).toBeGreaterThan(0);
+  expect(await page.evaluate(() => (window as unknown as { wbWifiString(s: string, p: string, o: boolean): string }).wbWifiString('a;b\\c', 'p:w,"x"', false))).toBe('WIFI:T:WPA;S:a\\;b\\\\c;P:p\\:w\\,\\"x\\";;');
+  expect(await page.evaluate(() => (window as unknown as { wbWifiString(s: string, p: string, o: boolean): string }).wbWifiString('Cafe', 'ignored', true))).toBe('WIFI:T:nopass;S:Cafe;P:;;');
   await page.screenshot({ path: 'test-results/launcher-connect.png', fullPage: true });
   await page.goto(`http://localhost:${HTTP}/?demo=1&skipTo=play&test=1&mode=front-shooter&weapons=smg,paint&noshake=1`);
   await waitForPlay(page);
   expect(await page.evaluate(() => window.isSecureContext)).toBe(true);
   const s = await snapshot(page);
   expect(String(s.screen)).toContain('play');
-  expect(errors, errors.join('\n')).toEqual([]);
+  // the deliberately unreachable public URL (port 9) logs one failed fetch – that is the point
+  const real = errors.filter((e) => !/Failed to load resource: net::ERR_(UNSAFE_PORT|CONNECTION_REFUSED)/.test(e));
+  expect(real, real.join('\n')).toEqual([]);
 });
 
 test('phone: setup page over plain HTTP, certificate downloads, game over HTTPS with the local CA', async ({ browser }) => {
@@ -53,6 +67,12 @@ test('phone: setup page over plain HTTP, certificate downloads, game over HTTPS 
   await expect(p.getByRole('link', { name: /Profil laden/ })).toBeVisible();
   await expect(p.getByText('Prüfe, ob dein Handy dem Mac schon vertraut')).toBeVisible(); // untrusted yet
   await p.screenshot({ path: 'test-results/launcher-handy.png', fullPage: true });
+  if (lan !== '127.0.0.1') {
+    // the game over plain http has no camera/offline on a phone → setup page instead
+    const plain = await p.request.get(`http://${lan}:${HTTP}/`, { maxRedirects: 0 });
+    expect(plain.status()).toBe(302);
+    expect(plain.headers()['location']).toBe('/handy');
+  }
   const prof = await p.request.get(`http://${lan}:${HTTP}/zertifikat.mobileconfig`);
   expect(prof.headers()['content-type']).toBe('application/x-apple-aspen-config');
   expect(await prof.text()).toContain('com.apple.security.root');
