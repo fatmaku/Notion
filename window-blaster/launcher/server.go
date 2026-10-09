@@ -13,6 +13,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -81,6 +82,10 @@ func normalizePublicURL(raw string) string {
 	if err != nil || (u.Scheme != "http" && u.Scheme != "https") || u.Host == "" || u.User != nil {
 		return ""
 	}
+	// a phone gets neither camera nor offline over plain http – only loopback test servers may use it
+	if ip := net.ParseIP(u.Hostname()); u.Scheme == "http" && u.Hostname() != "localhost" && (ip == nil || !ip.IsLoopback()) {
+		return ""
+	}
 	u.RawQuery, u.Fragment = "", ""
 	if !strings.HasSuffix(u.Path, "/") {
 		u.Path += "/"
@@ -95,6 +100,41 @@ func (s *server) setupURL(addrs []localAddr) string {
 		return ""
 	}
 	return fmt.Sprintf("http://%s:%d/handy", addrs[0].IP, s.httpPort)
+}
+
+// setupURLFor prefers the Mac address a request arrived on: with Wi-Fi plus Ethernet or USB
+// tethering, that is the network the asking phone (and its neighbours) can reach.
+func (s *server) setupURLFor(r *http.Request, addrs []localAddr) string {
+	if ip := localIP(r); ip != nil {
+		for _, a := range addrs {
+			if a.IP == ip.String() {
+				return fmt.Sprintf("http://%s:%d/handy", a.IP, s.httpPort)
+			}
+		}
+	}
+	return s.setupURL(addrs)
+}
+
+// localIP is this server's own address on the connection of r (nil if unknown).
+func localIP(r *http.Request) net.IP {
+	a, ok := r.Context().Value(http.LocalAddrContextKey).(net.Addr)
+	if !ok || a == nil {
+		return nil
+	}
+	host, _, err := net.SplitHostPort(a.String())
+	if err != nil {
+		return nil
+	}
+	return net.ParseIP(host)
+}
+
+// fromThisMac: loopback, or the Mac talking to itself on one of its LAN addresses.
+func fromThisMac(r *http.Request) bool {
+	if isLoopback(r) {
+		return true
+	}
+	rip, lip := remoteIP(r), localIP(r)
+	return rip != nil && lip != nil && rip.Equal(lip)
 }
 
 // readBuild returns the build id of the app in dir ("" if unknown).
@@ -132,7 +172,7 @@ func (s *server) handler(isTLS bool) http.Handler {
 			http.Redirect(w, r, fmt.Sprintf("http://localhost:%d%s", s.httpPort, r.URL.RequestURI()), http.StatusFound)
 			return
 		}
-		if !isTLS && (r.URL.Path == "/" || r.URL.Path == "/index.html") && !isLoopback(r) {
+		if !isTLS && (r.URL.Path == "/" || r.URL.Path == "/index.html") && !fromThisMac(r) {
 			// A phone opened the game over plain http (typed address, old bookmark): no camera,
 			// no offline there – the setup page is what it needs. The Mac itself keeps the demo.
 			w.Header().Set("Cache-Control", "no-store")
@@ -218,9 +258,12 @@ func remoteIP(r *http.Request) net.IP {
 	return net.ParseIP(host)
 }
 
+// headsetUA matches the same browsers as the phone page's headset section (handy.html).
+var headsetUA = regexp.MustCompile(`(?i)OculusBrowser|Quest|Pico|Wolvic|\bVR\b|\bXR\b`)
+
 func deviceFrom(ua string) string {
 	switch {
-	case strings.Contains(ua, "OculusBrowser") || strings.Contains(ua, "Quest") || strings.Contains(ua, "Pico") || strings.Contains(ua, "Wolvic"):
+	case headsetUA.MatchString(ua):
 		return "Headset"
 	case strings.Contains(ua, "iPhone"):
 		return "iPhone"
@@ -313,7 +356,13 @@ func (s *server) status(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Cache-Control", "no-store")
 	w.Header().Set("Content-Type", "application/json")
 	addrs := localIPv4s()
-	doc := statusDoc{OK: true, Secure: r.TLS != nil, Version: version, HTTPPort: s.httpPort, HTTPSPort: s.httpsPort, SetupURL: s.setupURL(addrs), PublicURL: s.publicURL}
+	doc := statusDoc{OK: true, Secure: r.TLS != nil, Version: version, HTTPPort: s.httpPort, HTTPSPort: s.httpsPort, PublicURL: s.publicURL}
+	// The LAN address only goes to this Mac's own pages and to the game's same-origin requests
+	// (browsers send no Origin on a same-origin GET). A foreign website open in the Mac's browser
+	// may read the cross-origin probe document, but must not learn the network address from it.
+	if s.isLocalPage(r) || r.Header.Get("Origin") == "" {
+		doc.SetupURL = s.setupURLFor(r, addrs)
+	}
 	if s.isLocalPage(r) {
 		// details only for the Mac itself
 		doc.AppDir, doc.Build = s.appDir, s.build
@@ -506,6 +555,8 @@ type pageData struct {
 	// QuestURL sends PublicURL to a Meta Quest via Meta's "Web Launch" page (https only).
 	QuestURL string
 	QuestQR  template.HTML
+	// AddrKey lists the addresses the page's codes were made for (the page reloads when they change).
+	AddrKey string
 }
 
 func (s *server) data() pageData {
@@ -522,6 +573,11 @@ func (s *server) data() pageData {
 		PublicURL:   s.publicURL,
 	}
 	d.SetupURL = s.setupURL(d.Addrs)
+	ips := make([]string, len(d.Addrs))
+	for i, a := range d.Addrs {
+		ips[i] = a.IP
+	}
+	d.AddrKey = strings.Join(ips, ",")
 	if d.PublicURL != "" {
 		d.PublicQR = qrSVG(d.PublicURL)
 		if strings.HasPrefix(d.PublicURL, "https://") {

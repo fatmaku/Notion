@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/json"
@@ -518,6 +519,8 @@ func TestPublicURLFromMetaAndFlag(t *testing.T) {
 		"ftp://example.org/":                               "",
 		"/relative/":                                       "",
 		"https://user:pw@example.org/":                     "",
+		"http://example.org/":                              "",
+		"http://localhost:9":                               "http://localhost:9/",
 	} {
 		if got := normalizePublicURL(in); got != want {
 			t.Fatalf("normalizePublicURL(%q) = %q, want %q", in, got, want)
@@ -602,6 +605,40 @@ func TestStatusHasSetupAndPublicURLForEveryone(t *testing.T) {
 	}
 }
 
+func TestStatusHidesLANAddressFromForeignOrigins(t *testing.T) {
+	ca, _, _ := loadOrCreateCA(t.TempDir())
+	s := newServer(testApp(t), ca, 8080, 8443)
+	addrs := []localAddr{{IP: "10.0.0.2"}, {IP: "192.168.1.2"}}
+	// a foreign website in the Mac's browser (cross-origin fetch of http://localhost:8080/wb-status)
+	r := httptest.NewRequest("GET", "/wb-status", nil)
+	r.RemoteAddr, r.Host = "127.0.0.1:4444", "localhost:8080"
+	r.Header.Set("Origin", "https://evil.example")
+	rec := httptest.NewRecorder()
+	s.handler(false).ServeHTTP(rec, r)
+	if strings.Contains(rec.Body.String(), "/handy") {
+		t.Fatalf("LAN address leaked to a foreign origin: %s", rec.Body.String())
+	}
+	// the phone page's cross-origin probe gets no address either; the game's same-origin call does
+	r = httptest.NewRequest("GET", "/wb-status?probe=1", nil)
+	r.RemoteAddr = "192.168.1.50:1"
+	r.Header.Set("Origin", "http://192.168.1.2:8080")
+	rec = httptest.NewRecorder()
+	s.handler(true).ServeHTTP(rec, r)
+	if strings.Contains(rec.Body.String(), "/handy") {
+		t.Fatalf("cross-origin probe got the address: %s", rec.Body.String())
+	}
+	// the address the request arrived on wins when the Mac is on two networks
+	r = httptest.NewRequest("GET", "/wb-status", nil)
+	r = r.WithContext(context.WithValue(r.Context(), http.LocalAddrContextKey, &net.TCPAddr{IP: net.ParseIP("192.168.1.2"), Port: 8443}))
+	if got := s.setupURLFor(r, addrs); got != "http://192.168.1.2:8080/handy" {
+		t.Fatalf("setupURLFor = %q", got)
+	}
+	r = httptest.NewRequest("GET", "/wb-status", nil)
+	if got := s.setupURLFor(r, addrs); got != "http://10.0.0.2:8080/handy" {
+		t.Fatalf("setupURLFor without local address = %q", got)
+	}
+}
+
 func TestOfflineDoneMarksPhoneReady(t *testing.T) {
 	ca, _, _ := loadOrCreateCA(t.TempDir())
 	s := newServer(testApp(t), ca, 8080, 8443)
@@ -667,6 +704,15 @@ func TestPlainHTTPGameRedirectsPhonesToSetup(t *testing.T) {
 	}
 	if rec := get(true, "192.168.1.9:5000", "/"); rec.Code != 200 || !strings.Contains(rec.Body.String(), "<title>WB</title>") {
 		t.Fatalf("phone over https must get the game: %d", rec.Code)
+	}
+	// the Mac opening itself by its LAN address (e.g. "Startbildschirm" on a connect page opened by IP)
+	r := httptest.NewRequest("GET", "/?demo=1", nil)
+	r.RemoteAddr, r.Host = "192.168.1.2:5555", "192.168.1.2:8080"
+	r = r.WithContext(context.WithValue(r.Context(), http.LocalAddrContextKey, &net.TCPAddr{IP: net.ParseIP("192.168.1.2"), Port: 8080}))
+	rec := httptest.NewRecorder()
+	s.handler(false).ServeHTTP(rec, r)
+	if rec.Code != 200 {
+		t.Fatalf("Mac on its own LAN address must get the game: %d %q", rec.Code, rec.Header().Get("Location"))
 	}
 }
 
@@ -759,9 +805,11 @@ func TestDeviceNames(t *testing.T) {
 	for ua, want := range map[string]string{
 		"Mozilla/5.0 (X11; Linux x86_64; Quest 3) AppleWebKit/537.36 (KHTML, like Gecko) OculusBrowser/37.0 SamsungBrowser/4.0 Chrome/132.0 VR Safari/537.36": "Headset",
 		"Mozilla/5.0 (Linux; Android 12; A9210 Build/SKQ1) AppleWebKit/537.36 (KHTML, like Gecko) PicoBrowser/4.1 Chrome/120.0 VR Mobile Safari/537.36":       "Headset",
-		"Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1":                      "iPad",
-		"Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)":                                                                                              "iPhone",
-		"Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36":                                   "Android",
+		"Mozilla/5.0 (Linux; Android 14; Galaxy XR) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Mobile Safari/537.36":                                 "Headset",
+		"Mozilla/5.0 (Linux; quest 3s) oculusbrowser/40.0": "Headset",
+		"Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1": "iPad",
+		"Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)":                                                                         "iPhone",
+		"Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36":              "Android",
 	} {
 		if got := deviceFrom(ua); got != want {
 			t.Fatalf("%s → %s, want %s", ua, got, want)

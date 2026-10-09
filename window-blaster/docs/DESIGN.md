@@ -109,6 +109,23 @@ damit sie zu dem passen, was der Spieler tatsächlich sieht.
   Tastatur, Touchpad und Metas WebXR-Emulator **IWER** (emulierte Quest 3, `installRuntime({forceInstall:true})`, weil
   headless Chromium ein eigenes `navigator.xr` mitbringt).
 
+## Einrichtung per QR-Code (Runde 9)
+
+- **Online-Kopie** (GitHub Pages, `package.json → windowBlaster.publicUrl`, im Build als `__PUBLIC_URL__` und
+  `dist/wb-meta.json`): stabile, öffentlich vertrauenswürdige HTTPS-Adresse – kein Zertifikat, kein gemeinsames WLAN.
+  Mac-Seite, Handy-Seite und Spiel zeigen ihren QR-Code nur, wenn sie wirklich antwortet (Mac-/Handy-Seite: CORS-Abruf
+  von `wb-meta.json`; Spiel: Bild-Abruf des Icons ohne Origin/Referer, damit die LAN-Adresse nicht beim Host landet).
+- **QR im Spiel** (`src/ui/qr.ts`, `uqr`, offline): „📲 Auf anderes Gerät“ wählt per `pickTargets` Online-Adresse,
+  Meta-Quest-„Web Launch“ (`oculus.com/open_url/?url=…`, die Quest selbst liest keine Link-QR-Codes), die
+  Einrichtungsseite des Mac-Launchers (aus `/wb-status`, nur bei gleicher Herkunft) oder – nur wenn erreichbar – die
+  eigene LAN-Adresse.
+- **Mac-Launcher:** ① WLAN-QR (`WIFI:T:WPA;S:…;P:…;;`, Escaping `\ ; , " :`) entsteht nur am Mac selbst über den
+  lokalen Endpunkt `/wb-qr.svg` (403 für andere Geräte, `no-store`, vom Service Worker nie zwischengespeichert), das
+  Passwort wird nirgends gespeichert; ② Einrichtungs-QR mit Live-Checkliste bis „Offline fertig“ (`/wb-status?offline=done`
+  vom Spiel, nur wenn offline wirklich klappt); ③ große Tipp-Adresse für Headsets. Ein Handy, das das Spiel über
+  `http://IP:8080/` öffnet, landet auf `/handy` (dort gäbe es weder Kamera noch offline); der Mac selbst nicht.
+  `setupUrl` nutzt die Adresse, über die die Anfrage kam (Mac in zwei Netzen), und geht nie an fremde Origins.
+
 ## Nicht am Handy prüfbar (bewusst abgesichert)
 
 Erkennungsrate bei Nacht/Regen, Gyro-Vorzeichen je Gerät (Selbstkorrektur + Schalter), Linsenwahl (Label-Heuristik),

@@ -44,6 +44,7 @@ h2.top{font-size:22px;margin:4px 0 12px}
 .wifi{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
 .wifi form{flex:1;min-width:210px;display:grid;gap:8px;margin:0}
 .wifi label{font-size:14px;color:var(--muted)}
+.wifi input.masked{-webkit-text-security:disc;text-security:disc}
 .wifi input[type=text],.wifi input[type=password]{width:100%;font:15px ui-monospace,Menlo,monospace;background:#0e141c;color:var(--text);border:1px solid #334155;border-radius:10px;padding:9px 10px}
 .wifi .row{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--text)}
 .wifi .qr.sm{display:grid;place-items:center;color:#475569;font-size:13px;text-align:center}
@@ -91,9 +92,10 @@ h2.top{font-size:22px;margin:4px 0 12px}
   <div class="grid">
     <section class="card" id="mac">
       <h2>📶 Mit dem Mac <span class="muted small">(auch ohne Internet, einmalig ca. 3 Minuten)</span></h2>
-      <p class="small muted" id="onlineNote" hidden>Online-Version noch nicht aktiv – einmalig auf GitHub einschalten (siehe <a href="/anleitung#kurz" style="color:var(--accent)">Anleitung</a>).</p>
+      <p class="small muted" id="onlineNote" hidden>Online-Version gerade nicht erreichbar – noch nicht eingeschaltet (einmalig auf GitHub, siehe <a href="/anleitung#kurz" style="color:var(--accent)">Anleitung</a>) oder dieser Mac hat kein Internet.</p>
+      <p class="small muted" id="onlineOffline" hidden>Dieser Mac ist offline – ob die Online-Version läuft, lässt sich gerade nicht prüfen.</p>
 
-      <div class="step">
+      <div class="step" id="wifiStep">
         <span class="n">1</span>
         <div class="body">
           <h3>Handy ins WLAN bringen <span class="muted small">(optional, per WLAN-QR)</span></h3>
@@ -101,9 +103,10 @@ h2.top{font-size:22px;margin:4px 0 12px}
           <div class="wifi">
             <form id="wifiForm" autocomplete="off" onsubmit="return false">
               <label for="wifiSsid">Netzwerkname</label>
-              <input type="text" id="wifiSsid" maxlength="64" spellcheck="false" autocapitalize="off">
+              <input type="text" id="wifiSsid" maxlength="64" spellcheck="false" autocapitalize="off" autocomplete="off" data-lpignore="true" data-1p-ignore>
               <label for="wifiPass">Passwort</label>
-              <input type="password" id="wifiPass" maxlength="128" spellcheck="false" autocapitalize="off">
+              <!-- type=text with masked glyphs: a real password field makes browsers offer to save it for "localhost" -->
+              <input type="text" id="wifiPass" class="masked" maxlength="128" spellcheck="false" autocapitalize="off" autocomplete="off" data-lpignore="true" data-1p-ignore>
               <div class="row"><input type="checkbox" id="wifiShow"><label for="wifiShow" style="color:inherit">Passwort anzeigen</label></div>
               <div class="row"><input type="checkbox" id="wifiOpen"><label for="wifiOpen" style="color:inherit">offenes WLAN (ohne Passwort)</label></div>
               <div class="hint" id="wifiHint"></div>
@@ -200,7 +203,7 @@ h2.top{font-size:22px;margin:4px 0 12px}
   if (PUBLIC_URL) {
     var ctl = typeof AbortController === 'function' ? new AbortController() : null;
     var settled = false;
-    var fail = function () { if (settled) return; settled = true; document.getElementById('onlineNote').hidden = false; };
+    var fail = function () { if (settled) return; settled = true; document.getElementById(navigator.onLine === false ? 'onlineOffline' : 'onlineNote').hidden = false; };
     var timer = setTimeout(function () { if (ctl) ctl.abort(); fail(); }, 5000);
     fetch(PUBLIC_URL + 'wb-meta.json', { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
       .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
@@ -223,6 +226,10 @@ h2.top{font-size:22px;margin:4px 0 12px}
     return 'WIFI:T:' + (open ? 'nopass' : 'WPA') + ';S:' + wifiEscape(ssid) + ';P:' + (open ? '' : wifiEscape(pass)) + ';;';
   }
   window.wbWifiString = wifiString; // for tests
+  // the Wi-Fi QR is made on this Mac only: elsewhere the password would travel over the network (and get a 403)
+  var onMac = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  var wifiStep = document.getElementById('wifiStep');
+  if (wifiStep && !onMac) wifiStep.hidden = true;
   var ssidEl = document.getElementById('wifiSsid');
   var passEl = document.getElementById('wifiPass');
   var openEl = document.getElementById('wifiOpen');
@@ -250,22 +257,24 @@ h2.top{font-size:22px;margin:4px 0 12px}
   ssidEl.addEventListener('input', schedule);
   passEl.addEventListener('input', schedule);
   openEl.addEventListener('change', updateWifi);
-  showEl.addEventListener('change', function () { passEl.type = showEl.checked ? 'text' : 'password'; });
+  showEl.addEventListener('change', function () { passEl.classList.toggle('masked', !showEl.checked); });
   img.addEventListener('error', function () { clearQr('QR-Code konnte nicht erstellt werden.'); });
 
   // ---- live checklist
   var map = { seen: 'c-seen', cert: 'c-cert', https: 'c-https', game: 'c-game', offline: 'c-off', ready: 'c-ready' };
   function mark(id, on) { var el = document.getElementById(id); if (el) el.className = on ? 'done' : ''; if (el && on) el.querySelector('.dot').textContent = '✓'; }
-  var addrKey = null;
+  var RENDERED_ADDRS = {{.AddrKey}};
+  var addrKey = RENDERED_ADDRS;
   function poll() {
     fetch('/wb-status', { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (s) {
       var key = (s.addrs || []).map(function (a) { return a.ip; }).join(',');
-      if (addrKey !== null && key !== addrKey) {
+      if (key !== addrKey) {
         // new network → new codes; keep a half-typed Wi-Fi form and ask instead of reloading
         if (!ssidEl.value && !passEl.value) { location.reload(); return; }
-        document.getElementById('stale').hidden = false;
       }
       addrKey = key;
+      // back on the addresses the codes were made for (a short Wi-Fi drop) → no warning
+      document.getElementById('stale').hidden = key === RENDERED_ADDRS;
       var ph = s.phones || [];
       var any = function (k) { return ph.some(function (p) { return p[k]; }); };
       mark(map.seen, ph.length > 0);

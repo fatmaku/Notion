@@ -68,10 +68,11 @@ test('phone: setup page over plain HTTP, certificate downloads, game over HTTPS 
   await expect(p.getByText('Prüfe, ob dein Handy dem Mac schon vertraut')).toBeVisible(); // untrusted yet
   await p.screenshot({ path: 'test-results/launcher-handy.png', fullPage: true });
   if (lan !== '127.0.0.1') {
-    // the game over plain http has no camera/offline on a phone → setup page instead
+    // The game over plain http has no camera/offline on a phone, so real phones get a redirect to /handy
+    // (Go test TestPlainHTTPGameRedirectsPhonesToSetup). This "phone" is the Mac itself on its LAN
+    // address – that keeps the game (e.g. "Startbildschirm" on a connect page opened by IP).
     const plain = await p.request.get(`http://${lan}:${HTTP}/`, { maxRedirects: 0 });
-    expect(plain.status()).toBe(302);
-    expect(plain.headers()['location']).toBe('/handy');
+    expect(plain.status()).toBe(200);
   }
   const prof = await p.request.get(`http://${lan}:${HTTP}/zertifikat.mobileconfig`);
   expect(prof.headers()['content-type']).toBe('application/x-apple-aspen-config');

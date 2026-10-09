@@ -167,11 +167,27 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}
   var isHeadset = /OculusBrowser|Quest|Pico|Wolvic|\bVR\b|\bXR\b/i.test(ua);
   document.getElementById(isHeadset ? 'headset' : isIOS ? 'ios' : isAndroid ? 'android' : 'other').hidden = false;
   if (isHeadset) document.getElementById('trustCard').hidden = true; // no certificate possible there
+  // plain http has no clipboard API: copy from a selected, read-only field instead
+  function legacyCopy() {
+    var t = document.createElement('textarea');
+    t.value = location.href;
+    t.setAttribute('readonly', '');
+    t.style.position = 'fixed';
+    t.style.opacity = '0';
+    document.body.appendChild(t);
+    t.select();
+    t.setSelectionRange(0, t.value.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(t);
+    return ok;
+  }
   function copyAddress(btn, doneText) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
       var done = function () { btn.textContent = doneText; };
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(location.href).then(done, function () { prompt('Adresse kopieren:', location.href); });
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(location.href).then(done, function () { legacyCopy() ? done() : prompt('Adresse kopieren:', location.href); });
+      else if (legacyCopy()) done();
       else prompt('Adresse kopieren:', location.href);
     });
   }
