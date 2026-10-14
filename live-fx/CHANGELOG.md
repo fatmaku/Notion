@@ -1,5 +1,73 @@
 # Changelog
 
+## 2.4.0 – Handy zuerst: QR-Einrichtung überall, Doppelklick-Start, WLAN ab Werk (mit Kopplung), Handy als Mikro
+
+Antwort auf „Einrichtung erleichtern, am besten für Handy, auch immer QR-Einrichtung“. Ausführlich: `docs/START.md`
+(DE/TR/EN, Sicherheit + Schnittstellen), `docs/HANDY.md`, Verträge `docs/CONTRACTS.md` §18.
+
+- **📱 QR-Kopplung überall** (`server/pairing.js`, `server/api-pairing.js`, `pair.html` + `js/pair.js`): Der QR-Code trägt
+  nur einen **Einmal-Code** (`…/p#<128-Bit-Geheimnis>`, 10 Minuten, einmal benutzbar) – **nie den API-Token**. Einlösen
+  legt ein **gekoppeltes Gerät** an (Cookie `livefx_dev`, 180 Tage, HttpOnly, in `data/devices.json` nur als SHA-256),
+  das im Panel jederzeit **„entfernen“** lässt (trennt auch seine offene Live-Verbindung sofort). Ohne Kamera: `…/p`
+  öffnen und den **6-stelligen Code** tippen. Die Kopplungsseite zeigt große Zustände (Verbinde … / ✔ Verbunden! /
+  ✖ abgelaufen · schon benutzt · falsch → was jetzt zu tun ist), Startbildschirm-Hilfe, DE/TR/EN, strenge CSP.
+  QR-Codes stehen im **Startfenster**, im **Start-Assistenten**, in der Karte **📱 Handy**, hinter dem neuen Knopf
+  **📱 Handy** oben rechts, in der **Kamera-Ansicht** („📱 Fernbedienung“, nie in Aufnahme oder Ausgabe), im OBS-Schritt
+  (Overlay-Adresse für 2. PC / Streaming-App) und auf der Einrichtungskarte – nie im Overlay.
+- **🚀 Start-Assistent Schritt 0 „📱 Handy verbinden“** (`js/setup-card.js`, `GET /api/setup`): großer QR-Code + Code,
+  Live-Status „✔ Handy verbunden: <Name>“ (sofort über das Bus-Ereignis `pairing`), Code erneuert sich vor dem Ablauf
+  (nach Server-Uhr), „🔄 Neuer Code“, andere LAN-Adressen, Geräteliste. **Erster Start**: nur der Assistent ist offen,
+  „✔ Fertig – alle Funktionen anzeigen“ blendet den Rest ein.
+- **🌐 Automatischer Tunnel-Hinweis**: Kommt nach **25 s** kein Handy (oder ist der PC im WLAN gar nicht erreichbar),
+  erscheint **ein** Knopf „🌐 Internet-Link starten“ – er startet den Cloudflare-Schnelltunnel und tauscht den QR-Code
+  gegen `https://…trycloudflare.com/p#…`. Sobald ein Handy gekoppelt ist, wird der Internet-QR wieder ausgeblendet
+  (Bildschirmaufnahme / geteilter Call); „➕ Weiteres Handy (Internet)“ holt ihn zurück.
+- **📡 Live-Updates über den Internet-Link** (`GET /events/poll`, `js/bus.js`): Cloudflare-Schnelltunnel lassen keine
+  Server-Sent Events durch. Auf `*.trycloudflare.com` holen Handy, Kamera-Ansicht und Overlay ihre Live-Daten deshalb
+  von selbst per **Long-Polling** (gleiche Ereignisse, Ids, Zielgruppen und Wiederholung wie SSE; der Server hält eine
+  Anfrage bis 25 s). Auch anderswo: zwei SSE-Fehler in 10 s oder ein stummer Stream (8 s) → Long-Polling, SSE wird nach
+  2 / 5 / 10 min erneut probiert. `?transport=poll|sse` erzwingt eins. Wartende Abfragen zählen als verbundene
+  Overlays / Panels.
+- **🖱 Doppelklick-Start** (`start/Start-LiveFX.bat`, `start/Start-LiveFX.command`, `start/start.sh`,
+  `start/README-START.txt`): prüft Node ≥ 20 (sonst deutsche Hilfe + nodejs.org, Fenster bleibt offen; lädt selbst nie
+  etwas), nimmt ein portables `node/` im Ordner zuerst, kommt mit Leerzeichen / Umlauten / `&` im Pfad klar, warnt beim
+  Start aus der ZIP, öffnet das Panel im Browser. `server.js` prüft die Node-Version selbst (deutsche Meldung).
+- **🔲 QR-Code im Startfenster** (`server/terminal-qr.js`): Kopplungs-QR aus ▀▄█-Halbblöcken (`LIVEFX_QR_ASCII=1` für alte
+  Konsolen, `LIVEFX_QR_INVERT=1`, `--no-qr`), dazu Adresse + 6-stelliger Code, weitere Adressen des PCs, OBS-Adresse
+  für einen 2. PC, Firewall- und „WLAN-Profil Privat“-Hinweis unter Windows.
+- **📶 WLAN ab Werk – mit Kopplungsschutz**: LiveFX lauscht jetzt auf allen Netzwerken (`0.0.0.0`), kein `HOST=…`
+  mehr (`--local` = nur dieser PC, `--lan`, `--open`, `--port`, `--no-qr`). Alles, was nicht dieser PC ist (WLAN-Geräte,
+  der Tunnel), braucht ein gekoppeltes Gerät, den Overlay-Schlüssel oder den Bearer-Token; ohne das gibt es nur die
+  Kopplungsseite, öffentliche Programmdateien und ein knappes `/health` (`{ok, version}`). Lesen genügt das
+  Geräte-Cookie (plain-http-LAN schickt kein `Sec-Fetch-Site`), Schreiben verlangt zusätzlich passenden `Origin`.
+  **Sicherheitslücke behoben:** 2.3 gab mit `HOST=0.0.0.0` jedem Gerät im WLAN beim Laden von `/` den API-Token als
+  Cookie – jetzt nur noch diesem PC. Brute-Force: 10 Versuche/min pro Adresse (über den Tunnel die Besucher-Adresse
+  `cf-connecting-ip`), nach 20 Fehlversuchen insgesamt 5 Minuten keine getippten Codes (QR geht weiter, „Neuer Code“
+  hebt die Sperre auf). LAN-Adressen werden sortiert (Standard-Route zuerst, WSL/Hyper-V/Docker/VPN zuletzt).
+- **Port & zweiter Start**: Läuft LiveFX schon, sagt ein zweiter Start „LiveFX läuft schon“, öffnet das vorhandene
+  Panel und beendet sich (ohne Chat-Verbindung oder YouTube-Kontingent zu verbrauchen). War 8787 von einem anderen
+  Programm belegt, merkt sich LiveFX den Ausweich-Port (`data/server.json`), damit OBS- und Handy-Adressen gleich bleiben.
+- **📲 Handy-Assistent** (`mobile.html`, `js/mobile.js`): nach dem Koppeln 4 Wisch-Schritte (verbunden → Paket wählen
+  → Test-Effekt „HANDY ✔“ bis ins Overlay → so geht's), überspringbar, unter „Mehr“ wieder aufrufbar. Untere
+  Tab-Leiste (Effekte · Story · Ton · Mehr), Vibration beim Feuern, Hell/Dunkel nach dem Handy, „nicht gekoppelt“-Banner
+  statt grünem Punkt ohne Anmeldung, „➕ Weiteres Handy koppeln“, „abmelden“.
+- **🎙 Handy als Mikro** (`js/phone-mic.js`): Web Speech am Handy, jede Zeile per `POST /api/transcript` (Quelle
+  „Handy-Mikro“) an den PC; ein Panel mit Spracheingabe „Extern“ erkennt und feuert genau einmal, sonst feuert das Handy
+  selbst – kein Effekt doppelt, keiner verloren. Pegelanzeige, Auto/DE/TR/EN. Über plain-http-WLAN erklärt ein Knopf
+  den Internet-Link (HTTPS).
+- **🖨 Einrichtungskarte**: Druckseite A6/A5 mit Handy-QR + Code, Overlay-QR + Adresse und drei Zeilen Anleitung auf
+  DE/TR/EN, „Als Bild speichern“ (1480 × 1050 PNG).
+- **🔑 Overlay-Schlüssel**: OBS auf einem **anderen PC** braucht jetzt `overlay.html?key=<Schlüssel>` (steht im
+  Startfenster, im Panel und als QR) – ohne Schlüssel zeigt das Overlay einen Hinweis statt Effekten. Der Schlüssel
+  öffnet nur Overlay-Seite, Overlay-Ereignisse und hochgeladene Medien. OBS auf demselben PC: unverändert.
+- **Geändert**: `/m?token=…` (2.2-Links) funktioniert weiter, legt aber ein widerrufbares Gerät an statt den Token als
+  Cookie zu kopieren; `GET /api/tunnel` `phoneUrl` ist ein Kopplungslink; `/api/config` zeigt den Token nur diesem PC.
+- Versionen (Paket, Service-Worker-Shell, Kamera-Ansicht) auf **2.4.0**; volle Shell + `pair.html`, `js/pair.js`,
+  `js/phone-mic.js`, `js/setup-card.js`; `/events/poll` nie im Cache. Tests: `pairing`, `auth-lan`, `terminal-qr`,
+  `start-launchers`, `setup-card`, `pair`, `phone-mic`, `events-poll`, `bus-transport`; e2e `12-poll` (inkl. echter
+  https-Seite unter einem `*.trycloudflare.com`-Namen), `38-setup-qr`, `39-phone-setup`, erweitert `35-mobile`,
+  `36-wizard`, `37-camera`.
+
 ## 2.3.0 – Band ganz unten, Story räumt auf, Applaus läuft durch, Zeichenfilm, Kamera-Ansicht für WhatsApp & FaceTime
 
 Antwort auf das Streamer-Feedback zu 2.2 (9:16-Band in der Mitte, „araba“ bleibt für immer, „alkış“ blitzt nur auf,

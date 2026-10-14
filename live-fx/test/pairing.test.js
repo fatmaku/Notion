@@ -1,4 +1,4 @@
-// Phone pairing (2.3): server/pairing.js (codes, devices, persistence) and the routes in server/api-pairing.js
+// Phone pairing (2.4): server/pairing.js (codes, devices, persistence) and the routes in server/api-pairing.js
 // (pairing page, POST /api/pair, /api/pairing, /api/devices, /api/setup), LAN address ranking.
 'use strict';
 

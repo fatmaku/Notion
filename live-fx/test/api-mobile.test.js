@@ -1,4 +1,4 @@
-// server/api-mobile.js: GET /m?token= handshake (2.3: mints a paired device instead of copying the token into a
+// server/api-mobile.js: GET /m?token= handshake (2.4: mints a paired device instead of copying the token into a
 // cookie), rate limit, and the /api/config fields the "Handy" card needs (lanIps, secure, port).
 'use strict';
 

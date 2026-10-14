@@ -1,4 +1,4 @@
-# LiveFX – Module contracts (since v1.0, current 2.3)
+# LiveFX – Module contracts (since v1.0, current 2.4)
 
 This file is the single source of truth for every interface between LiveFX modules. Implementation
 packages (P1–P7) own disjoint files and MUST NOT edit files owned by another package. If a contract
@@ -94,7 +94,7 @@ Exports of `LiveFXSchema`:
 | `STORY_MOODS` / `normalizeStoryState(raw)` (2.2) | `['calm','happy','tense','sad','scary']`; state `{scene: SCENES minus clear \| null, weather, time, place, landmark?, mood, actors[<=6]{emoji, role, action?}, props[<=5]{emoji, role}, loop?, caption?, end?, shake?}` – words trimmed to 24 letters/digits, unknown mood -> calm, `null` for a non-object |
 | `LIMITS.triggers` | **1000** since 2.2 (was 200); `LIMITS.storyText` 500, `LIMITS.storyWord` 24 |
 
-## 2. Bus message envelope (BroadcastChannel and SSE carry identical JSON)
+## 2. Bus message envelope (BroadcastChannel, SSE and the long-poll fallback carry identical JSON)
 
 ```
 { id: string, type: string, ts: number, ...payload }
@@ -108,10 +108,12 @@ story:             { text, final: boolean, lang?: 'de'|'tr'|'en', source? }   pa
 story-state:       { state: {scene, weather, time, place, landmark?, mood, actors, props, loop?, caption?, end?, shake?} }   anyone -> overlays (2.2): a ready-made scene state (normalizeStoryState), renderer.story(state)
 state:             { volume: number|null, theme: string|null, perf: string|null, layout: {storyLayout?, band?, zone?, bandPosition?, storyStyle?}|null, volumes: {master?, sfx?, ambient?}|null, overlays, panels, version }   server -> each new SSE subscriber (theme = last `theme` message, 1.6; perf = last `perf` message, 2.1; layout = merged `layout` messages, volumes = last level per bus, 2.2)
 triggers-updated:  { updatedAt }                          server -> all after PUT /api/triggers
+pairing:           { event: 'paired'|'revoked'|'locked', device?: {id, name, via, createdAt, lastSeen}, id?, again?, until? }   server -> panels (2.4): a phone paired / was removed (`id` or '*') / typing was locked (§18)
 ```
 - `id` is created by the **sender** (`LiveFXSchema.newId()`); the server assigns one only if missing.
 - Receivers keep an LRU of the last 300 ids in `Bus._emit` and drop repeats. A sender adds its own ids to that set, so it never processes its own echo (fixes double-fire through BroadcastChannel + SSE).
-- SSE wire format: `retry: 2000\n\n` once at connect; every event is `id: <seq>\ndata: <json>\n\n` (unnamed -> `onmessage`); `seq` = per-process counter (`state.nextSeq()`); ring of the last 64 events is replayed for `Last-Event-ID` when younger than 5 s; heartbeat `: ping\n\n` every 15 s. Both roles subscribe to `/events?role=panel|overlay`.
+- SSE wire format: `retry: 2000\n\n` once at connect; every event is `id: <seq>\ndata: <json>\n\n` (unnamed -> `onmessage`); `seq` = per-process counter (`state.nextSeq()`); ring of the last 64 events is replayed for `Last-Event-ID` when younger than 5 s; heartbeat `: ping\n\n` every 15 s. Both roles subscribe to `/events?role=panel|overlay`. 2.4: `?since=<seq>` replays like `Last-Event-ID` (the header wins) – sent by js/bus.js when it switches back from long-poll.
+- Long-poll fallback (2.4) `GET /events/poll?role=panel|overlay&since=<seq>&wait=<ms ≤ 25000>&cid=<id>` → `{ok, events: [msg…], next, reset?}` with the same messages, audience rules, replay ring and 5 s age cutoff as SSE: without `since` (or with a `since` above the server's last sequence id = a restarted server, `reset: true`) it answers at once with `[state]`; otherwise it returns pending events at once or holds the request until one arrives (events broadcast in the same tick travel together) or `wait` passes (`events: []`, `next` unchanged). No heartbeats, `cache-control: no-store`. A `cid` (`[A-Za-z0-9_-]{4,64}`) counts as a connected overlay / panel for 35 s after its last poll (`/health`, `state.overlays/panels`, `POST /api/transcript` → `panels`). Why: Cloudflare Quick Tunnels (`*.trycloudflare.com`) do not support Server-Sent Events.
 - A `state` message is the first event every subscriber receives. `state.volume` / `state.volumes.master` apply in the overlay only when the URL has no `?volume=` (`sfx` / `ambient` always), `state.layout` keys only when not pinned by `?story=` / `?band=` / `?zone=` / `?bandpos=` / `?storystyle=` (2.3); explicit `volume` / `layout` messages always apply (minus pinned layout keys).
 
 ## 3. `js/bus.js` client contract (`LiveFXBus.Bus`) – owned by P1
@@ -120,39 +122,49 @@ triggers-updated:  { updatedAt }                          server -> all after PU
 const bus = new LiveFXBus.Bus({ role: 'panel' | 'overlay' })
 bus.send(msg) -> id            // adds id+ts, BroadcastChannel immediately, HTTP via queue (see below)
 bus.onMessage(fn) -> unsubscribe   // deduplicated; own messages are never delivered back
-bus.onStatus(fn)               // fn({ serverOk, sse: 'open'|'closed'|'connecting'|'off', authError })
+bus.onStatus(fn)               // fn({ serverOk, sse: 'open'|'closed'|'connecting'|'off', authError, queued, transport: 'sse'|'poll' })
+bus.transport                  // 'sse' | 'poll' (2.4); bus.transportReason: null | 'param' | 'tunnel' | 'errors' | 'stall'
+LiveFXBus.pickTransport(location) -> { transport, forced, reason }   // pure (2.4)
 bus.serverOk                   // boolean
 bus.serverBase                 // '' over http(s), null under file://
 bus.close()
 ```
 - HTTP send queue: <= 20 entries, sequential, retries after 300/1000/3000 ms; `fire` messages older than 5 s are dropped; consecutive `volume` messages are coalesced to the latest; HTTP 401 sets `authError=true` and is not retried.
 - SSE reconnect: when `EventSource.readyState === CLOSED`, recreate with backoff 1, 2, 4, 8, 15 s (reset on open).
+- Transport (2.4): `?transport=poll|sse` pins one; a `*.trycloudflare.com` host long-polls from the start (`reason:'tunnel'`);
+  otherwise SSE, switching to long-poll after **2 EventSource errors within 10 s** (`'errors'`) or when an opened stream
+  delivers not even the initial `state` frame within **8 s** (`'stall'`, a buffering proxy). The automatic fallback tries SSE
+  again after 2 / 5 / 10 minutes. Long-poll keeps the semantics: the cursor continues from the last SSE `lastEventId`, ids
+  are deduplicated by the same LRU, an HTTP refusal (401 not paired, 404 old server) reads as `sse:'closed'`, a network
+  error as `sse:'connecting'`, both retried with backoff 1, 2, 4, 8, 15 s; a successful poll = `sse:'open'`, `serverOk`.
+  No EventSource and `fetch` present → long-poll as well.
 - Panel and overlay both create the bus (2.1: the panel also exposes `window.livefx.perf {get(), set(mode)}`); the overlay's `window.livefx = {renderer, bus}`, the panel's `window.livefx = {bus, matcher, fire, handleText, triggers, asr, smart, store}`.
 
 ## 4. HTTP API (JSON everywhere; errors are `{ok:false, error:'<code>', message}`; **no CORS headers**)
 
 | Route | Auth | Request | Response |
 |---|---|---|---|
-| `GET /health` | none | | `{ok, version, overlays, panels, uptime}` |
-| `GET /events?role=panel\|overlay` | none | | SSE (section 2) |
+| `GET /health` | none | | `{ok, version, overlays, panels, devices, uptime}` from this PC / paired devices; everybody else only `{ok, version}` (2.4) |
+| `GET /events?role=panel\|overlay` | this PC: none; others: paired device (overlay role also: overlay key) | `since?` (2.4) | SSE (section 2) |
+| `GET /events/poll?role=&since=&wait=&cid=` (2.4) | same as `/events` | | `{ok, events, next, reset?}` – long-poll fallback (section 2) |
 | `GET /api/config` | same-origin | | `{ok, version, token, smart:{available, reason, model, mock}, limits:{assetBytes}, lanIps:string[] (IPv4, non-internal, from os.networkInterfaces()), secure:boolean (TLS on), port:number (actually bound port)}` |
-| `GET /m?token=<token>` | none (the token IS the credential) | query `token` | constant-time compare with the server token: 302 `location: /mobile.html` + `set-cookie: livefx=<token>; HttpOnly; SameSite=Strict; Path=/` (+ `; Secure` over TLS); wrong → 401 `unauthorized` (German message); > 10 wrong attempts per minute per `req.socket.remoteAddress` → 429 `rate_limited`; no `token` param → 302 to `/mobile.html` without a cookie (`server/api-mobile.js`, registered before static) |
+| `GET /m?token=<token>` | none (the token IS the credential) | query `token` | legacy 2.2 link. Constant-time compare with the server token: 302 `location: /mobile.html` + `set-cookie: livefx_dev=<device cookie>` (2.4: mints a paired, revocable device – the token is **never** copied into a cookie); wrong → 401 `unauthorized` (German message); > 10 wrong attempts per minute per client address (`auth.clientAddress`: through the tunnel the visitor's `cf-connecting-ip`) → 429 `rate_limited`; no `token` param → 302 to `/mobile.html` without a cookie (`server/api-mobile.js`) |
 | `POST /fire` | auth | envelope (`fire`, `volume`, `theme`, `perf`, 2.2: `layout`, `story`, `story-state`; `theme`/`perf`/`volume` (per bus) /`layout` are remembered in `ctx.state`) | `{ok, id, overlays}`; 400 `invalid_envelope` |
 | `POST /api/fire` | auth | `{id}` or `{trigger}`, `source?`, `force?` | `{ok, fired, reason?: 'cooldown'\|'gap'\|'disabled'\|'unknown', id}`; 404 `unknown_trigger` |
-| `GET /api/triggers` | none | | `{ok, version:2, triggers, removed, updatedAt}` (already merged with defaults) |
+| `GET /api/triggers` | this PC: none; others: paired device (2.4) | | `{ok, version:2, triggers, removed, updatedAt}` (already merged with defaults) |
 | `PUT /api/triggers` | auth | `{triggers, removed?}` (body <= 6 MB since 2.2, was 2 MB) | `{ok, count, warnings}`; 400 `invalid_triggers` |
-| `GET /api/assets` | none | | `{ok, assets:[{name, url:'assets/x.png', size, type:'image'\|'sound', mtime}]}` |
+| `GET /api/assets` | this PC: none; others: paired device (2.4) | | `{ok, assets:[{name, url:'assets/x.png', size, type:'image'\|'sound', mtime}]}` |
 | `POST /api/assets` | auth | raw body; headers `x-filename`, `content-type`; <= `LIMITS.assetBytes` | `{ok, asset}`; 413 `payload_too_large`, 415 `unsupported_type`, 400 `bad_filename` |
 | `DELETE /api/assets/:name` | auth | | `{ok}`; 404 `not_found` |
-| `GET /assets/:name` | none | | file, `cache-control: public, max-age=3600` (served by `server/static.js`) |
+| `GET /assets/:name` | this PC: none; others: paired device or overlay key (2.4) | | file, `cache-control: public, max-age=3600` (served by `server/static.js`) |
 | `POST /api/transcript` | auth | `{text (<= 2000), final?=true, lang?, source?}` | `{ok, panels}` |
 | `POST /api/smart/classify` | auth | `{text, lang?}` | `{ok, triggerId\|null, confidence, model, ms, cached}`; 503 `smart_unavailable`, 429 `busy`\|`rate_limited`, 504 `timeout`, 502 `upstream` |
 | `GET /api/smart/status` | none | | `{ok, available, reason, model, mock, calls, errors, timeouts, lastError}` |
-| `GET /api/tunnel` (2.2) | auth | | `{ok, status:'idle'\|'starting'\|'online'\|'error', url, hostname, phoneUrl (https://<x>.trycloudflare.com/m?token=…), since, error, manualUrl, binary}` (`server/api-tunnel.js`, `server/tunnel.js`) |
+| `GET /api/tunnel` (2.2) | auth | | `{ok, status:'idle'\|'starting'\|'online'\|'error', url, hostname, phoneUrl, pairing, since, error, manualUrl, binary}` – 2.4: `phoneUrl` = pairing link `https://<x>.trycloudflare.com/p#<secret>` (never the token), `pairing` = §18 links (`server/api-tunnel.js`, `server/tunnel.js`) |
 | `POST /api/tunnel/start` (2.2) | auth | | same shape; resolves when the tunnel is `online` or `error` (binary from `LIVEFX_CLOUDFLARED` / PATH / one-time SHA-256-verified download to `<dataDir>/bin/`) |
 | `POST /api/tunnel/stop` (2.2) | auth | | same shape, `status:'idle'`; the child also dies with the server |
 
-Tunnel guard (2.2, `server/api-tunnel.js guard(req)`, run by server.js before routing): requests arriving through the tunnel (Host `*.trycloudflare.com` or a `cf-connecting-ip` header) need the panel cookie or a Bearer – only `GET /m`, `/health`, `/favicon.ico` are open; the tunnel hostname is appended to `LIVEFX_ALLOWED_HOSTS` only while the tunnel is online.
+Request guard (2.4, `server/auth.js decide()` / `guard()`, run by server.js before routing for **every** request that is not from this PC – WLAN devices and anything through the tunnel (Host `*.trycloudflare.com` or a `cf-connecting-ip` header; cloudflared connects from 127.0.0.1, so it is never "local")): a paired-device cookie, the legacy panel cookie or a Bearer → full access; without one only the pairing page (`/p`, `/pair.html`, `POST /api/pair`), `GET /m`, `/health` (minimal), `/favicon.ico`, both manifests, `sw.js` and static code (`css|js|icons|memes|vendor|models|docs/…`) are open; the overlay key opens `overlay.html`, overlay-role events (`/events`, `/events/poll`) and `/assets/*`; pages (`/`, `/index.html`, `/mobile.html`, `/camera.html`, `/demo.html`) redirect to `/p[?next=…]`; everything else is 401 (`pairing_required` / `tunnel_login`). The tunnel hostname is appended to `LIVEFX_ALLOWED_HOSTS` only while the tunnel is online. Routes: §18.
 | other `/api/*` | | | 404 `not_found` (registered by server.js) |
 
 Upload contract: the browser sends `fetch('/api/assets', {method:'POST', body: file, headers: {'x-filename': file.name, 'content-type': file.type}})`; curl uses `--data-binary @file`. The server lower-cases and sanitizes the basename to `SAFE_NAME`, resolves collisions with `-2`, `-3`, …, verifies magic bytes (PNG `89 50 4E 47`, JPEG `FF D8 FF`, GIF `GIF8`, WEBP `RIFF….WEBP`, MP3 `ID3` or `FF Ex`/`FF Fx`, WAV `RIFF….WAVE`, OGG `OggS`) and writes to `data/assets/` via tmp file + rename.
@@ -162,16 +174,25 @@ Upload contract: the browser sends `fetch('/api/assets', {method:'POST', body: f
 ```js
 loadOrCreateToken({dataDir, log}) -> string   // LIVEFX_TOKEN env, else data/token.txt (32 hex, mode 0600), created on first start
 hostAllowed(req) -> boolean                    // Host is localhost / an IP literal / listed in LIVEFX_ALLOWED_HOSTS (comma separated)
-isAuthorized(req, token) -> boolean            // Bearer token (constant-time compare) OR (hostAllowed AND same-origin signal (sec-fetch-site / Origin) AND (loopback socket OR panel cookie `livefx=<token>`, HttpOnly, set when index.html is served))
+isAuthorized(req, tokenOrCtx) -> boolean       // Bearer token (constant-time compare) OR hostAllowed AND (this PC (loopback, not via tunnel) with a same-origin signal (sec-fetch-site / Origin)
+                                               //   OR a session cookie – paired device `livefx_dev` or legacy `livefx=<token>` (set by index.html for this PC only) – plus, for writes, a matching Origin)
 requireAuth(handler) -> handler                // wraps a route handler: 403 bad_host when !hostAllowed and no valid Bearer, 401 unauthorized otherwise
+isLocal(req) / viaTunnel(req) / clientAddress(req) // 2.4: the PC itself; came through cloudflared; rate-limit key (cf-connecting-ip only through the tunnel)
+decide(req, ctx) / guard(req, res, ctx)        // 2.4 request guard (see above); guard() answers redirects / denials itself
+overlayKeyFor(token) -> string                 // 2.4: read-only overlay key (HMAC of the token, 20 chars) – `overlay.html?key=` sets cookie `livefx_ov`
 register(router, ctx)                          // no routes of its own
 ```
 Browser modules never send the token (same-origin passes); external tools send `Authorization: Bearer <token>`.
-The panel reads the token from `GET /api/config` and shows it.
+The panel reads the token from `GET /api/config` and shows it – on this PC only (2.4: other devices get `tokenHidden: true` instead).
 
 ### Environment variables
 
-`PORT` (8787; `0` = random, printed), `HOST` (`127.0.0.1`; `0.0.0.0` opt-in), `LIVEFX_DATA_DIR` (`<root>/data`),
+Command line (2.4): `--open` (open the panel in the browser; ignored with `LIVEFX_NO_BROWSER=1` or `CI`), `--local` (= `HOST=127.0.0.1`),
+`--lan` (= `0.0.0.0`), `--port <n>`, `--no-qr`, `--help`. A port taken by a running LiveFX → „LiveFX läuft schon“, exit 0; by another program →
+next free port, remembered in `<dataDir>/server.json` (no fixed `--port`/`PORT`).
+
+`PORT` (8787; `0` = random, printed), `HOST` (2.4: `0.0.0.0` = WLAN by default, guarded by pairing; `127.0.0.1` / `--local` = this PC only), `LIVEFX_DATA_DIR` (`<root>/data`),
+`LIVEFX_NO_QR=1`, `LIVEFX_QR_ASCII=1`, `LIVEFX_QR_INVERT=1` (terminal QR), `LIVEFX_NO_BROWSER=1`,
 `LIVEFX_TOKEN`, `LIVEFX_ALLOWED_HOSTS`, `LIVEFX_MODEL` (`claude-opus-5-5`), `LIVEFX_SMART=0` (disable),
 `LIVEFX_SMART_MOCK=1`, `LIVEFX_SMART_TIMEOUT_MS` (1500), `LIVEFX_TLS_CERT` + `LIVEFX_TLS_KEY` (PEM paths; both or
 neither – `https.createServer`, printed URLs `https://`, `config.secure = true`; one missing/unreadable → German
@@ -208,7 +229,8 @@ createState({dataDir, defaults, log}) -> {
   seq, nextSeq(),    // SSE sequence counter
   updatedAt, version: 2 }
 // server/sse.js  (P0, done)
-createSse({state, log, version}) -> { attach(req, res, {role}), broadcast(msg, {audience:'all'|'overlay'|'panel'}) -> number, counts() -> {overlays, panels}, close() }
+createSse({state, log, version}) -> { attach(req, res, {role, since?}), broadcast(msg, {audience:'all'|'overlay'|'panel'}) -> number, counts() -> {overlays, panels},
+  poll(req, res, {role, since, waitMs, cid, tag}) /* 2.4 long-poll */, endTagged(deviceId|'*') /* 401 to that device's pending polls */, close() }
 // server/smart.js  (P4)
 createSmart({log, model, getTriggers, classifyFn?, parse?, timeoutMs?, maxPerMinute?, cacheTtlMs?}) -> {
   init() -> Promise<void>, available, reason, model, mock, stats: {calls, errors, timeouts, lastError},
@@ -450,7 +472,7 @@ LiveFXEditor.open(trigger, {assets, sounds, onSave, onDelete}) -> Promise<trigge
 ```
 
 Mobile (1.4, `mobile.html` + `js/mobile.js` + `css/mobile.css`, see `docs/DESIGN-MOBILE.md` §A): bus role `panel`, served like the panel
-(cookie via `GET /m?token=…`, never by the page). Ids: `#dot-server` (`.on|.warn|.err`), `#status` (connection / mic text), `#btn-mute`
+(1.4: cookie via `GET /m?token=…`; 2.4: paired-device cookie from `/p` – §18; never by the page). Ids: `#dot-server` (`.on|.warn|.err`), `#status` (connection / mic text), `#btn-mute`
 („⏸ Pause“ ↔ „▶ Weiter“, `.paused`; a paused page fires nothing), `#volume` (range → bus `volume`), `#search` (filters `#pad button`
 by label/id/keyword, hidden tiles get `[hidden]`; `#count`, `#empty`), `#btn-mic` (+ `#mic-hint`: disabled with the HTTPS hint when
 `!isSecureContext`, disabled with a browser hint when WebSpeech is missing; otherwise runs `LiveFXASR.create('webspeech')` + `LiveFXMatcher`
@@ -462,9 +484,10 @@ fires the same ad-hoc trigger as the panel's `sceneTrigger(id)` – the scene ta
 Script order: `triggers, packs, schema, matcher, bus, store, assets, asr, mobile` (no sounds.js/fx.js – the phone renders nothing).
 Panel card `#mobile-card` (`js/mobile-link.js`, loaded after panel.js): `#mobile-url` = `http(s)://<lanIps[0]|location.host>:<port>/m?token=<token>`
 from `/api/config` (`lanIps`/`port`/`secure` optional → `location.host`), `#mobile-url-alt` (further IPs), `#btn-copy-mobile`, `#mobile-offline-hint`.
+2.4: with `/api/setup` the card shows the pairing view (`#mobile-pair-view`, class `has-pairing`) and the token link above is neither filled nor shown – §18.
 PWA: `manifest.webmanifest` (linked from index.html and mobile.html), `sw.js` (`SHELL_VERSION` constant → cache `livefx-shell-v<version>`;
 precaches the shell listed in `SHELL`; navigations network-first with cache fallback, other shell files cache-first with background refresh;
-network-only for `/api/*`, `/fire`, `/events`, `/assets/*`, `/docs/*`, `/m`, `/models/*`, `/health`), registered from index/overlay/demo/mobile
+network-only for `/api/*`, `/fire`, `/events` (+ `/events/poll`, 2.4), `/assets/*`, `/docs/*`, `/m`, `/models/*`, `/health`), registered from index/overlay/demo/mobile
 with `if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js')`. Icons in `icons/`.
 Static allow-list additions (`server/static.js`): `/mobile.html`, `/manifest.webmanifest` (`application/manifest+json`), `/sw.js`
 (`service-worker-allowed: /`, `cache-control: no-cache`), `/icons/<safe>.(svg|png)` → `<root>/icons`, `/vendor/<safe>.(js|mjs|wasm)` →
@@ -792,3 +815,92 @@ Versions: `package.json` + `sw.js` `SHELL_VERSION` **2.3.0**; FULL_SHELL + `js/s
 `js/camera.js`, `css/camera.css`; OVERLAY_SHELL + `css/sketch.css`, `js/sketch.js`. e2e: `29-story-band` (band at the
 bottom / above the chat, lifecycle, 👏 rain alive after 1.5 s next to a running scene, ≤ 1.05 ticks per frame),
 `31-sketch`, `35-mobile` (look buttons), `37-camera`.
+
+## 18. Release 2.4 – phone first: QR pairing everywhere, double-click start, LAN by default, phone mic, long-poll
+
+Answer to „Einrichtung erleichtern, am besten für Handy, auch immer QR-Einrichtung“. Contracts already folded into the
+sections above: §2 `pairing` message + long-poll fallback, §3 bus transport, §4 request guard / changed routes /
+command line, §5 `createSse().poll`. User-facing rules (who reaches what): docs/START.md §Sicherheit.
+
+**Start** (`server.js`, `start/`): `start/Start-LiveFX.bat` (CRLF, ASCII), `start/Start-LiveFX.command`, `start/start.sh`
+`cd` to the LiveFX folder (spaces, umlauts, `&`), prefer a portable `node/` folder, check Node ≥ 20 (else German help,
+open https://nodejs.org/de/download, keep the window open – they never download anything), run
+`server.js --lan --open`, pause on a non-zero exit. `server.js` itself refuses Node < 20 with a German hint (parseable
+by old Node). Banner: panel / overlay URLs, then – when listening on the LAN – a **terminal QR** of a start pairing code
+(`server/terminal-qr.js`: `render(text, {mode:'unicode'|'ascii', color, invert, margin, indent})` with ▀▄█ half blocks,
+`parse(block, opts)` → module matrix (tests decode it), `options({env, stream, platform, release})`), the typed-code
+address `<lan>/p` + code, other LAN addresses, the OBS address for a second PC (`?key=`), Windows firewall / „Privat“
+network hints.
+
+**Pairing store** (`server/pairing.js`, `createPairing({dataDir, log, now, ttlMs, deviceMaxAgeMs, maxDevices, lockMs, onChange})`):
+`create({note, unlock}) -> {id, code (6 digits), secret (128 bit, url-safe – returned once, only its SHA-256 is kept), createdAt, expiresAt, ttlMs}`,
+`current()` (the newest open code, minted when none), `redeem({secret|code, name, userAgent, via, existing}) -> {ok, device, cookieValue, again} | {ok:false, reason:'invalid'|'expired'|'used'|'locked', retryAfterMs?}`,
+`mintDevice`, `deviceFromCookie`, `deviceFromRequest(req)`, `touch`, `listDevices(currentId)`, `revoke(id)`, `revokeAll()`, `flush()`,
+`onChange(fn({event:'paired'|'revoked'|'locked', …}))`, `openCount`, `locked`, `lockedUntil`, `deviceCount`.
+Codes: 10 minutes, single use. 20 wrong typed codes in total → every open code burnt, typing refused for `LOCK_MS`
+(5 min) – the QR secret keeps working, an explicit new code (`create({unlock:true})`) lifts the lock. Devices:
+`<dataDir>/devices.json` (hash only, mode 0600), cookie `livefx_dev` HttpOnly, SameSite=Lax, 180 days (`Secure`
+over TLS / the tunnel), unused 180 days → expired. server.js broadcasts every change as `{type:'pairing'}` to panels
+and, on `revoked`, closes that device's SSE streams and answers its pending long-polls with 401.
+
+**Routes** (`server/api-pairing.js`):
+
+| Route | Auth | Answer |
+|---|---|---|
+| `GET /p`, `/p/` (`?next=camera\|panel`) | open | `pair.html` (+ `js/pair.js`), `no-store`, CSP `default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; manifest-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`; built-in `pairPage()` (nonce) only when `pair.html` is missing |
+| `POST /api/pair` `{secret}` \| `{code, name?, next?}` | open, same-origin, 10/min per client address | `{ok, device, again, redirect}` + `Set-Cookie: livefx_dev=…`; `400 invalid_code\|expired\|used`, `429 rate_limited\|locked` (+ `Retry-After`), `403 cross_origin` |
+| `POST /api/pairing` `{next?}` | auth | `{ok, pairing}` – a fresh code (lifts a typing lock); the old one stays valid until used / expired |
+| `GET /api/setup` (`?new=1`) | auth | `{ok, version, panelUrl, lanUrls, bestLanUrl, overlayUrls{local, localPortrait, lan, lanPortrait, key}, cameraUrl, tunnel{state, url, error, pairingUrl}, pairing{url, lanUrl, tunnelUrl, cameraUrl, manualUrl, code, expiresAt, ttlMs, via:'lan'\|'tunnel'\|null, reason, locked}, devices, lan{listening, bind, ips[{address, iface}], port, reason}, secure}` |
+| `GET /api/devices` | auth | `{ok, devices:[{id, name, via, createdAt, lastSeen, current}]}` |
+| `DELETE /api/devices/:id` · `DELETE /api/devices?id=` · `DELETE /api/devices?all=1` | auth | `{ok, revoked, devices}` (the caller's own device also loses its cookie) |
+
+LAN addresses (`rankLanAddresses(ifaces, defaultIp)`): the default-route interface first (`detectDefaultRouteIp()` – a
+connected UDP socket, no packet), then 192.168.x / 10.x, virtual adapters (WSL, Hyper-V, Docker, VirtualBox, VMware,
+VPN, Tailscale, ZeroTier …) and 172.16–31.x last. `pairingLinks(ctx, code, {next})` builds `<best LAN>/p[?next=]#<secret>`
+and, while the tunnel is online, `https://<x>.trycloudflare.com/p…#<secret>`; `lanState(ctx)` = `{listening, bind, ips, best, reason:'local_only'|'no_network'|null}`.
+
+**Panel** (`js/setup-card.js`, global `LiveFXSetup`, UMD; `index.html`, `js/panel.js`; e2e `36-wizard`, `38-setup-qr`):
+start assistant step 0 `#wiz-phone` „📱 Handy verbinden“ (`#wiz-phone-view` = `pairViewHtml({id:'wiz-phone'})`: QR canvas
+`data-qr="280"`, code, `…/p` address, live state, countdown, „🔄 Neuer Code“, other LAN addresses, devices with
+„entfernen“, ONE tunnel button, „🖨 Einrichtungskarte“), the same view in the „📱 Handy“ card (`#mobile-pair-view`) and in
+the header dialog (`#pill-phone` → `#phone-dialog` / `#dlg-phone-view`). `createPairing(opts)` polls `/api/setup` every 2 s
+while a view is visible, shows „✔ Handy verbunden: <name>“ for a new device id (and on the `pairing` bus event), renews
+the code 20 s before expiry on the **server** clock (`Date` header), shows the „anderes Netz?“ hint after 25 s
+(`?setupTimeout=` for tests; at once when `lan.listening` is false) with one button: `POST /api/tunnel/start` → QR swaps
+to the tunnel pairing link; once a phone paired, the internet QR is held back (screen capture / shared call) until
+„➕ Weiteres Handy (Internet)“. OBS step: small overlay QR (`overlayUrls.lan[Portrait]`, follows 16:9 / 9:16).
+`openCard(data)` / `cardCanvas(data)` / `cardPng(data)`: printable setup card (A6/A5) with the pairing QR + code, the
+overlay QR + URL and three lines DE/TR/EN, „Als Bild speichern“ (1480 × 1050 PNG). First-run mode (`livefx.setup.firstrun`
+until „✔ Fertig – alle Funktionen anzeigen“ `#btn-setup-done` → `livefx.setup.done`; `?firstrun=1|0`; skipped under
+`navigator.webdriver` unless forced). The 2.2 token link (`js/mobile-link.js`, `.legacy-link`) is only used for servers
+without `/api/setup` and never filled with the token while pairing works. Camera view: `#btn-remote` „📱 Fernbedienung“ →
+`#remote-view` (outside `#frame`, hidden in clean mode / output window, locked while recording). No QR in `overlay.html`.
+
+**Phone** (`pair.html` + `js/pair.js`, global `LiveFXPair`; `mobile.html`, `js/mobile.js`; e2e `39-phone-setup`, `35-mobile`):
+pair.html states start → busy → ok („Verbunden!“, countdown to `redirect`) / error (`expired`, `used`, `invalid_code`,
+`locked`, `rate_limited`, `network`), typed code `#pair-code` (6 digits, auto-submit), add-to-home-screen help
+(`livefx.mobile.justPaired` → mobile.html opens its assistant). mobile.html assistant `#setup` (4 swipe steps
+`#setup-step-1..4`: connected · pack · test effect `#setup-test` (`TEST_TRIGGER` „HANDY ✔“) · how-to; skippable, re-open
+from „Mehr“), `window.livefx.session {state:'paired'|'local'|'unpaired'|'offline', device}`, „nicht gekoppelt“ banner
+`#auth-pair`, „Weiteres Handy koppeln“ `#btn-invite` → `#invite-qr`, „abmelden“ `#btn-unpair`.
+
+**Phone mic** (`js/phone-mic.js`, global `LiveFXPhoneMic`, UMD; unit `test/phone-mic.test.js`): `create({win, SpeechRecognition,
+fetch, lang, match, fire, onText, onState, onLevel, onError, onRoute}) -> {start(), stop(), setLang(choice), observe(busMessage),
+state, lang, route:'unknown'|'phone'|'pc', level, sender, router}`; pure `availability(win) -> {ok, reason:'insecure'|'unsupported'|null}`,
+`resolveLang`, `langLabel`, `levelFromSamples`, `LANGS` (Auto / Deutsch / Türkçe / English). Every line → `POST /api/transcript
+{text, final, lang, source:'Handy-Mikro'}` → `{type:'transcript'}` to panels → a panel with speech input „Extern“ matches it
+and fires with source `Handy-Mikro: „<word>“`; seeing such a fire puts the router on `pc` (the phone stays quiet, dropped
+hits are fired late when a verification window passes without a PC fire); no panel = the phone fires itself. Web Speech
+needs a secure context: on the plain-http WLAN link the phone offers the internet (https) link with one button.
+
+**Live updates through the Internet link**: Quick Tunnels do not pass Server-Sent Events, so every page on a
+`*.trycloudflare.com` host (phone remote, pairing status, camera view, an overlay loaded through the tunnel) uses
+`GET /events/poll` (§2, §3); e2e `12-poll` (forced `?transport=poll` on this PC: fire → overlay, transcript → panel
+„Extern“ → overlay; plus a real https server behind a `*.trycloudflare.com` host-resolver rule: overlay with key and a
+phone paired by code poll by themselves, its test effect reaches the overlay), unit `test/events-poll.test.js`,
+`test/bus-transport.test.js`.
+
+Versions: `package.json` + `sw.js` `SHELL_VERSION` + `js/camera.js` `VERSION` 2.4.0 (the review test keeps package.json
+and SHELL_VERSION equal); full shell + `pair.html`, `js/pair.js`, `js/phone-mic.js`, `js/setup-card.js`; `/events/poll`
+network-only. Tests: `pairing`, `auth-lan`, `terminal-qr`, `start-launchers`, `setup-card`, `pair`, `phone-mic`,
+`events-poll`, `bus-transport`; e2e `12-poll`, `38-setup-qr`, `39-phone-setup`, updated `35-mobile`, `36-wizard`, `37-camera`.

@@ -1,4 +1,4 @@
-// Double-click start (2.3): start/Start-LiveFX.bat (Windows), start/Start-LiveFX.command (macOS), start/start.sh
+// Double-click start (2.4): start/Start-LiveFX.bat (Windows), start/Start-LiveFX.command (macOS), start/start.sh
 // (Linux) and the server's command line (--help, --local, --open, already running, remembered port, Node check).
 'use strict';
 

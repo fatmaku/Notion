@@ -50,7 +50,7 @@
 })(typeof window !== 'undefined' ? window : globalThis, function (global) {
   'use strict';
 
-  const VERSION = '2.3.0';
+  const VERSION = '2.4.0';
   const ASPECTS = ['16:9', '9:16'];
   const RESOLUTIONS = { 720: [1280, 720], 1080: [1920, 1080] };
   const FORMATS = ['auto', 'mp4', 'webm'];

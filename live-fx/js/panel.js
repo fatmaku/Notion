@@ -2308,7 +2308,11 @@
       b.className = `pack-tile${p.loaded ? ' loaded' : p.present ? ' partial' : ''}`;
       b.dataset.pack = p.id;
       b.title = `${p.description || p.label}${p.loaded ? ' – klicken zum Entfernen' : ' – klicken zum Laden'}`;
-      b.innerHTML = `<span class="flag">${esc(p.flag)}</span><span class="lbl">${esc(p.label)}</span><span class="meta">${p.loaded ? '✓ geladen' : p.present ? `${p.present}/${p.count}` : `${p.count} Trigger`}</span>`;
+      // the label starts with the same emoji as the big flag („🎮 Gaming“) – show it once (same as the phone, js/mobile.js)
+      const flag = String(p.flag || '');
+      const label = String(p.label || p.id);
+      const name = flag && label.startsWith(flag) ? label.slice(flag.length).trim() || label : label;
+      b.innerHTML = `<span class="flag">${esc(p.flag)}</span><span class="lbl">${esc(name)}</span><span class="meta">${p.loaded ? '✓ geladen' : p.present ? `${p.present}/${p.count}` : `${p.count} Trigger`}</span>`;
       b.addEventListener('click', () => togglePack(p.id));
       root.appendChild(b);
     }
@@ -2370,7 +2374,34 @@
     return (lan && lan[format === 'portrait' ? 'portrait' : 'landscape']) || '';
   }
 
+  // The Handy card's 2.2 block (js/mobile-link.js) builds `/m?token=<token>` and its QR from /api/config. While pairing
+  // works that block is hidden by css/panel.css – and emptied here, so the master token is not even in the page (a stale
+  // stylesheet, a DOM-reading capture tool). Should the server turn out to have no pairing after all, it is rebuilt.
+  let legacyLinkScrubbed = false;
+  function syncLegacyLink(mode) {
+    const ml = window.livefxMobileLink;
+    if (!ml || typeof ml.drawQr !== 'function') return;
+    const scrub = mode === 'setup';
+    if (scrub ? legacyLinkScrubbed : !(legacyLinkScrubbed && mode === 'legacy')) return;
+    legacyLinkScrubbed = scrub;
+    Promise.resolve(ml.ready).then(() => {
+      if (legacyLinkScrubbed !== scrub) return; // the mode changed again meanwhile
+      const links = scrub || typeof ml.build !== 'function' || !config ? [] : ml.build(config);
+      const urlEl = $('#mobile-url');
+      const alt = $('#mobile-url-alt');
+      const copy = $('#btn-copy-mobile');
+      if (urlEl) urlEl.textContent = links[0] || '';
+      if (copy) copy.disabled = !links[0];
+      if (alt) {
+        alt.textContent = links.length > 1 ? `Weitere Adressen: ${links.slice(1).join('  ·  ')}` : '';
+        alt.hidden = links.length <= 1;
+      }
+      ml.drawQr('mobile-qr', links[0] || '');
+    });
+  }
+
   function onPairingChange(s) {
+    syncLegacyLink(s.mode);
     const step = $('#wiz-phone');
     if (step) step.classList.toggle('done', !!s.done);
     const dot = $('#dot-phone');

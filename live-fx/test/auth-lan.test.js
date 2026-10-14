@@ -1,4 +1,4 @@
-// 2.3 LAN by default: requests that are not from this PC (WLAN devices, the internet tunnel) need a paired-device
+// 2.4 LAN by default: requests that are not from this PC (WLAN devices, the internet tunnel) need a paired-device
 // cookie or a Bearer; the overlay on another PC uses the read-only overlay key; loopback behaviour is unchanged.
 // Unit tests run against fake requests; the integration part connects through this machine's LAN address so the
 // server really sees a non-loopback socket (skipped when the machine has no LAN address).

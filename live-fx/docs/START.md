@@ -24,6 +24,16 @@
 Die Startdatei prüft, ob **Node.js 20 oder neuer** da ist. Fehlt es, erklärt das Fenster die nächsten Schritte
 und öffnet <https://nodejs.org/de/download>. Sie lädt selbst nie etwas herunter.
 
+### QR-Codes überall
+
+Wo eine Adresse auf ein anderes Gerät muss, steht ein QR-Code: im **Startfenster**, im **Start-Assistenten**
+(Schritt 0 „📱 Handy verbinden“, beim ersten Start hervorgehoben), in der Karte **📱 Handy**, hinter dem Knopf
+**📱 Handy** oben rechts, in der **Kamera-Ansicht** („📱 Fernbedienung“), im OBS-Schritt (Overlay-Adresse für einen
+2. PC oder eine Streaming-App am Handy) und auf der **🖨 Einrichtungskarte** zum Ausdrucken oder als Bild. Nach dem
+Koppeln führt das Handy durch 4 kurze Schritte (verbunden → Paket → Test-Effekt → fertig); „➕ Weiteres Handy
+koppeln“ am Handy zeigt den QR-Code fürs nächste Handy. Kommt nach 25 s kein Handy, bietet der Assistent **einen**
+Knopf „🌐 Internet-Link starten“ an.
+
 ### Node.js installieren
 
 - **Windows:** auf <https://nodejs.org/de/download> die **LTS**-Version (.msi) laden, installieren (immer
@@ -55,7 +65,8 @@ LiveFX läuft auf http://127.0.0.1:8787/
 - Danach bleibt das Handy **180 Tage gekoppelt** (Cookie, auch nach einem Neustart von LiveFX). Im Panel lassen
   sich gekoppelte Geräte jederzeit **entfernen** – das Handy ist dann sofort abgemeldet.
 - **Unterwegs / anderes Netz / Mobilfunk:** im Panel „🌐 Internet-Link starten“ (Cloudflare-Tunnel). Der QR-Code
-  zeigt dann auf `https://…trycloudflare.com/p#…` – HTTPS, damit funktioniert auch das Handy-Mikrofon.
+  zeigt dann auf `https://…trycloudflare.com/p#…` – HTTPS, damit funktioniert auch das Handy-Mikrofon. Live-Updates
+  laufen dort von selbst per Long-Polling (Cloudflare-Schnelltunnel lassen kein SSE durch) – nichts einzustellen.
 - Steht im Fenster „**LiveFX läuft schon**“, ist ein anderes LiveFX-Fenster offen – der Browser zeigt dieses
   Panel, ein zweiter Start ist nicht nötig.
 - War Port 8787 von einem anderen Programm belegt, nimmt LiveFX den nächsten freien Port und **merkt ihn sich**
@@ -101,7 +112,7 @@ Terminal ohne Farben), `LIVEFX_NO_BROWSER=1` (`--open` ignorieren).
 
 ### Sicherheit – was wer erreicht
 
-LiveFX ist ab 2.3 standardmäßig im WLAN erreichbar (damit das Handy ohne Einstellungen klappt), aber nur
+LiveFX ist ab 2.4 standardmäßig im WLAN erreichbar (damit das Handy ohne Einstellungen klappt), aber nur
 **gekoppelte Geräte** dürfen etwas tun:
 
 | Wer | darf |
@@ -120,7 +131,7 @@ LiveFX ist ab 2.3 standardmäßig im WLAN erreichbar (damit das Handy ohne Einst
   abgelehnt** – auch neue, die das Panel in der Zeit anzeigt. Das 128-Bit-Geheimnis im QR-Code gilt weiter; „Neuer
   Code“ im Panel (`POST /api/pairing`, `/api/setup?new=1`) hebt die Sperre sofort auf. So bringen wechselnde
   Adressen (IPv6 über den Tunnel) höchstens 20 Versuche pro Sperre.
-- **Gerät entfernen** wirkt sofort: auch eine offene Live-Verbindung (`/events`) des Geräts wird getrennt.
+- **Gerät entfernen** wirkt sofort: auch eine offene Live-Verbindung (`/events`, `/events/poll`) des Geräts wird getrennt.
 - **Geräte** stehen in `data/devices.json` (nur SHA-256 des Geheimnisses, Dateirechte 0600), Cookie 180 Tage,
   HttpOnly, SameSite=Lax (über den Tunnel zusätzlich Secure). Unbenutzt 180 Tage → automatisch entfernt.
 - **Alles zurücksetzen:** LiveFX beenden, `data/token.txt` und `data/devices.json` löschen, neu starten. Dann sind
@@ -136,6 +147,7 @@ LiveFX ist ab 2.3 standardmäßig im WLAN erreichbar (damit das Handy ohne Einst
 | `GET /api/setup` (`?new=1`) | alles für den Einrichtungs-Assistenten: `lanUrls`, `bestLanUrl`, `panelUrl`, `overlayUrls`, `cameraUrl`, `tunnel{state,url,error,pairingUrl}`, `pairing{url,lanUrl,tunnelUrl,cameraUrl,manualUrl,code,expiresAt,ttlMs,via,reason,locked}`, `devices`, `lan{listening,bind,ips,port}`, `version` (Auth) |
 | `GET /api/devices` · `DELETE /api/devices/<id>` · `DELETE /api/devices?all=1` | Geräte auflisten / entfernen (Auth) |
 | `GET /api/tunnel` · `POST /api/tunnel/start` · `POST /api/tunnel/stop` | Internet-Link; `phoneUrl` = Kopplungslink auf der Tunnel-Adresse (Auth) |
+| `GET /events/poll?role=&since=&wait=&cid=` | Long-Polling-Ersatz für `/events` (gleiche Regeln, wartet bis 25 s) – über den Internet-Link automatisch, weil Cloudflare-Schnelltunnel kein SSE durchlassen; `?transport=poll` an einer Seite erzwingt es (2.4) |
 
 Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'|'revoked'|'locked', …}`.
 
@@ -150,6 +162,9 @@ Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'
 4. **Telefonu eşleştir:** başlangıç penceresindeki veya paneldeki („📱 Handy“) **QR kodu** telefon kamerasıyla
    tara – kumanda açılır.
 
+- **QR kod her yerde:** başlangıç penceresi, asistanın 0. adımı „📱 Handy verbinden“, „📱 Handy“ kartı ve sağ üstteki
+  düğme, kamera görünümü („📱 Fernbedienung“), OBS adımı (2. PC / telefon yayın uygulaması için overlay adresi) ve
+  yazdırılabilir **🖨 Einrichtungskarte**. Eşleştirmeden sonra telefon 4 kısa adımda yol gösterir.
 - Node.js yoksa pencere ne yapılacağını söyler ve <https://nodejs.org/de/download> açılır: **LTS** kur
   (Windows’ta hızlıca: `winget install OpenJS.NodeJS.LTS`, Mac: `brew install node`), sonra tekrar çift tıkla.
 - **Kurulumsuz Node:** Node arşivini aç, klasörün adını `node` yap ve LiveFX klasörüne koy
@@ -158,7 +173,7 @@ Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'
   telefon **180 gün** eşleşmiş kalır, panelden istediğin an silebilirsin.
 - QR tarayıcı yoksa: telefonda `http://<PC-adresi>:8787/p` aç ve **6 haneli kodu** yaz.
 - **Farklı ağ / mobil veri:** panelde „🌐 Internet-Link starten“ – QR kod `https://…trycloudflare.com/p#…`
-  adresine gider (HTTPS, telefon mikrofonu da çalışır).
+  adresine gider (HTTPS, telefon mikrofonu da çalışır). Canlı güncellemeler orada kendiliğinden long-polling ile gelir.
 - **Windows Güvenlik Duvarı** sorarsa „Erişime izin ver“ (özel ağlar). İzin verdin ama QR yine bir şey yapmıyor mu?
   Windows 11 yeni Wi‑Fi’yi çoğu zaman **„Ortak“** yapar: Ayarlar → Ağ ve İnternet → Wi‑Fi → ağın → Ağ profili
   **„Özel“** (ya da güvenlik duvarı sorusunda „Ortak ağlar“ı da işaretle).
@@ -185,6 +200,9 @@ Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'
 4. **Pair your phone:** scan the **QR code** in the start window or in the panel (“📱 Handy”) with the phone
    camera – the remote opens.
 
+- **QR codes everywhere:** the start window, assistant step 0 “📱 Handy verbinden”, the “📱 Handy” card and the
+  header button, the camera view (“📱 Fernbedienung”), the OBS step (overlay address for a 2nd PC / a phone streaming
+  app) and the printable **🖨 setup card**. After pairing, the phone walks you through 4 short steps.
 - Without Node.js the window explains the next steps and opens <https://nodejs.org/de/download>: install **LTS**
   (Windows: `winget install OpenJS.NodeJS.LTS`, Mac: `brew install node`) and double-click again.
 - **Portable Node:** unzip the official Node archive, rename the folder to `node` and put it into the LiveFX
@@ -193,7 +211,8 @@ Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'
   **once**; the phone then stays paired for **180 days** and can be removed in the panel at any time.
 - No QR scanner: open `http://<pc-address>:8787/p` on the phone and type the **6-digit code**.
 - **Other network / mobile data:** “🌐 Internet-Link starten” in the panel – the QR code then points to
-  `https://…trycloudflare.com/p#…` (HTTPS, so the phone microphone works too).
+  `https://…trycloudflare.com/p#…` (HTTPS, so the phone microphone works too). Live updates use long-polling there
+  by themselves (Cloudflare Quick Tunnels do not pass Server-Sent Events).
 - **Windows Firewall** asks: “Allow access” (private networks). Allowed, but the QR code still does nothing?
   Windows 11 often marks a new Wi‑Fi as **“Public”**: Settings → Network & internet → Wi‑Fi → your network →
   Network profile **“Private”** (or also tick “Public networks” in the firewall prompt).

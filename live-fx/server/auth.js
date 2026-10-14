@@ -12,7 +12,7 @@
 //      LAN origins browsers send neither Sec-Fetch-Site nor Origin on same-origin GETs; writes additionally need a
 //      matching Origin (CSRF guard).
 //
-// 2.3 – LAN by default: server.js listens on 0.0.0.0, so `guard()` runs before routing for every request that is
+// 2.4 – LAN by default: server.js listens on 0.0.0.0, so `guard()` runs before routing for every request that is
 // not local. Without a session such a request only reaches the pairing page (/p, POST /api/pair, GET /m), public
 // static code (css/js/icons/memes/vendor/models/docs, both manifests, sw.js) and a minimal /health. The OBS overlay on
 // another PC uses the overlay key (`overlay.html?key=<k>`, read-only: overlay page, overlay events, uploaded assets).
@@ -277,9 +277,14 @@ const PAGE_NEXT = new Map([
 
 const PHONE_UA_RE = /iPhone|iPod|Android.*Mobile|Windows Phone/i;
 
+/** True for the live event stream: SSE `/events` and its long-poll fallback `/events/poll` (2.4, Quick Tunnel). */
+function isEventsPath(pathname) {
+  return pathname === '/events' || pathname === '/events/poll';
+}
+
 function overlayPath(pathname, url) {
   if (pathname === '/overlay.html' || pathname.startsWith('/assets/')) return true;
-  return pathname === '/events' && !(url && url.searchParams && url.searchParams.get('role') === 'panel');
+  return isEventsPath(pathname) && !(url && url.searchParams && url.searchParams.get('role') === 'panel');
 }
 
 function parseUrl(req) {
@@ -399,6 +404,7 @@ module.exports = {
   decide,
   guard,
   readCookie,
+  isEventsPath,
   COOKIE_NAME,
   DEVICE_COOKIE,
   OVERLAY_COOKIE,

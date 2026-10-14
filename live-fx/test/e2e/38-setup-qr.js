@@ -69,7 +69,7 @@ function installMock(ctx, base) {
   m.pairing = newCode();
   const body = () => ({
     ok: true,
-    version: '2.3.0',
+    version: '2.4.0',
     panelUrl: `${base}/`,
     lanUrls: [`${lan}/`],
     bestLanUrl: `${lan}/`,
@@ -191,6 +191,12 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     assert.ok(await page.locator('#mobile-card').evaluate((c) => c.classList.contains('has-pairing')), 'Handy card in pairing mode');
     verifyQr(await readQr(page, '#mobile-pair-qr'), lanLink, 'Handy card');
     assert.equal(await page.locator('#mobile-card .legacy-link').isVisible(), false, 'token link hidden');
+    // … and emptied: the master token is not even in the (hidden) DOM while pairing works
+    await page.evaluate(() => window.livefxMobileLink && window.livefxMobileLink.ready);
+    await page.waitForFunction(() => !document.querySelector('#mobile-url').textContent && document.querySelector('#mobile-qr').width === 0, null, { timeout: 3000 });
+    const legacyDom = await page.evaluate(() => document.querySelector('#mobile-card .legacy-link').innerHTML);
+    assert.ok(!legacyDom.includes(token) && !legacyDom.includes(encodeURIComponent(token)), 'no token in the hidden 2.2 block');
+    assert.ok(await page.locator('#btn-copy-mobile').isDisabled(), 'its copy button is off');
 
     // (d) header pill → dialog with the same QR from anywhere
     await page.click('#pill-phone');

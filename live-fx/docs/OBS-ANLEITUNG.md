@@ -138,7 +138,7 @@ So geht es mit einer App, die Web-Ebenen kann:
 | Zuschauer hören mich nicht | Mikro als OBS-Quelle „Audioeingabeaufnahme“ anlegen (Schritt 5) – siehe `docs/AUDIO.md`. |
 | Echo / Effekt kommt doppelt | Vorschau-Ton im Panel aus (Standard), Desktop-Audio stumm, Monitoring aus, nur **eine** Browser-Quelle mit dem Overlay. |
 | Mikro erkennt nichts | Panel nur in Chrome/Edge; Mikro-Berechtigung erlauben; Sprache auf „Automatisch (DE/TR/EN)“ lassen oder passend wählen; Hauptsprache einstellen. |
-| OBS auf anderem PC | Die Adresse mit Schlüssel aus dem QR-Code neben „Kopieren“ nehmen (`http://<PC>:8787/overlay.html?key=…`) – siehe §7. LiveFX ist ab 2.3 von selbst im WLAN erreichbar (nicht mit `--local` starten). |
+| OBS auf anderem PC | Die Adresse mit Schlüssel aus dem QR-Code neben „Kopieren“ nehmen (`http://<PC>:8787/overlay.html?key=…`) – siehe §7. LiveFX ist ab 2.4 von selbst im WLAN erreichbar (nicht mit `--local` starten). |
 
 ---
 
@@ -261,7 +261,7 @@ Web katmanı destekleyen bir uygulamayla:
 | İzleyiciler beni duymuyor | Mikrofonu OBS kaynağı „Ses Giriş Yakalama“ olarak ekle (adım 5) – bkz. `docs/AUDIO.md`. |
 | Yankı / efekt iki kez geliyor | Panelde önizleme sesi kapalı (varsayılan), masaüstü sesi sessiz, izleme kapalı, overlay'li **tek** tarayıcı kaynağı. |
 | Mikrofon hiçbir şey tanımıyor | Panel yalnız Chrome/Edge'de; mikrofon iznini ver; dili „Automatisch (DE/TR/EN)“ bırak ya da uygun seç; ana dili (Hauptsprache) Türkçe yap. |
-| OBS başka bilgisayarda | „Kopieren“ yanındaki QR koddaki anahtarlı adresi kullan (`http://<PC>:8787/overlay.html?key=…`) – bkz. §7. LiveFX 2.3'ten itibaren Wi‑Fi'de kendiliğinden erişilebilir (`--local` ile başlatma). |
+| OBS başka bilgisayarda | „Kopieren“ yanındaki QR koddaki anahtarlı adresi kullan (`http://<PC>:8787/overlay.html?key=…`) – bkz. §7. LiveFX 2.4'ten itibaren Wi‑Fi'de kendiliğinden erişilebilir (`--local` ile başlatma). |
 
 ---
 
@@ -385,4 +385,4 @@ With an app that supports web layers:
 | Viewers cannot hear me | Add the mic as OBS source “Audio Input Capture” (step 5) – see `docs/AUDIO.md`. |
 | Echo / effect plays twice | Preview sound off in the panel (default), desktop audio muted, monitoring off, only **one** browser source with the overlay. |
 | Mic recognises nothing | Panel only in Chrome/Edge; allow the mic permission; keep language “Automatisch (DE/TR/EN)” or pick yours; set the main language (Hauptsprache). |
-| OBS on another PC | Use the address with key from the QR code next to “Kopieren” (`http://<PC>:8787/overlay.html?key=…`) – see §7. Since 2.3 LiveFX is reachable in the Wi‑Fi by itself (don't start it with `--local`). |
+| OBS on another PC | Use the address with key from the QR code next to “Kopieren” (`http://<PC>:8787/overlay.html?key=…`) – see §7. Since 2.4 LiveFX is reachable in the Wi‑Fi by itself (don't start it with `--local`). |

@@ -1,4 +1,4 @@
-// LiveFX – phone pairing (2.3): short-lived single-use pairing codes and long-lived, revocable device cookies.
+// LiveFX – phone pairing (2.4): short-lived single-use pairing codes and long-lived, revocable device cookies.
 //
 //   create()                     → { id, code: '123456', secret, createdAt, expiresAt }   (10 min, single use)
 //   current({ minRemainingMs })  → the newest open code with enough time left, else a fresh one

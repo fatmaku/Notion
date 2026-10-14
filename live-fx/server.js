@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // LiveFX server – composition root. Zero dependencies.
 //
-//   node server.js            -> http://127.0.0.1:8787  (2.3: also reachable in the WLAN – phones pair via QR code)
+//   node server.js            -> http://127.0.0.1:8787  (2.4: also reachable in the WLAN – phones pair via QR code)
 //   node server.js --open     -> same, and opens the panel in the default browser (the start/ launchers use it)
 //   node server.js --local    -> only this PC (127.0.0.1), no phone access
 //   node server.js --help     -> all options
@@ -81,7 +81,7 @@ const staticFiles = require('./server/static');
 const ROOT = __dirname;
 const DATA_DIR = path.resolve(process.env.LIVEFX_DATA_DIR || path.join(ROOT, 'data'));
 const DEFAULT_PORT = 8787;
-// Bind address: --local / --lan win over HOST; default 2.3 = every interface (LAN), guarded by pairing (server/auth.js).
+// Bind address: --local / --lan win over HOST; default 2.4 = every interface (LAN), guarded by pairing (server/auth.js).
 const HOST = has('--local') ? '127.0.0.1' : has('--lan') ? '0.0.0.0' : process.env.HOST || '0.0.0.0';
 const PORT_ARG = argValue('--port');
 const PORT_FIXED = PORT_ARG !== undefined || process.env.PORT !== undefined;
@@ -181,6 +181,7 @@ function trackDeviceStream(deviceId, res) {
   });
 }
 function closeDeviceStreams(id) {
+  bus.endTagged(id); // pending long-polls of that device (/events/poll, Quick Tunnel) answer 401 at once
   const ids = id === '*' ? Array.from(deviceStreams.keys()) : [id];
   for (const k of ids) {
     const set = deviceStreams.get(k);
@@ -271,7 +272,7 @@ function redactToken(res) {
 
 function handler(req, res) {
   // DNS-rebinding guard for every route (reads included): only allowed Hosts, unless a valid Bearer is sent
-  // (2.3: a rebound page can set any header on same-origin requests, so a mere Authorization header is not enough).
+  // (2.4: a rebound page can set any header on same-origin requests, so a mere Authorization header is not enough).
   const url = safeUrl(req);
   if (!url) {
     error(res, 400, 'bad_request', 'malformed URL or Host header');
@@ -281,11 +282,12 @@ function handler(req, res) {
     error(res, 403, 'bad_host', 'Host-Header nicht erlaubt (LIVEFX_ALLOWED_HOSTS setzen)');
     return;
   }
-  // 2.3: everything that is not this PC (WLAN devices, the internet tunnel) needs a paired-device cookie or a
+  // 2.4: everything that is not this PC (WLAN devices, the internet tunnel) needs a paired-device cookie or a
   // Bearer – except the pairing page, public static files and /health (server/auth.js decide()).
   const access = auth.guard(req, res, appCtx);
   if (!access) return;
   req.livefxAccess = access.level;
+  req.livefxDevice = access.device || null; // tags long-polls (/events/poll) so a revoke ends them, see closeDeviceStreams
   if (access.device && url.pathname === '/events') trackDeviceStream(access.device.id, res);
   if (access.level !== 'local' && req.method === 'GET' && url.pathname === '/api/config') redactToken(res);
   router

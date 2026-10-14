@@ -4,7 +4,7 @@
 //   POST /api/tunnel/start   → same shape, resolves when the tunnel is online or failed
 //   POST /api/tunnel/stop    → same shape (status idle)
 //
-// All three need requireAuth (panel on this PC, a paired device, or Bearer). 2.3: the phone link is a pairing link
+// All three need requireAuth (panel on this PC, a paired device, or Bearer). 2.4: the phone link is a pairing link
 // `https://<tunnel>/p#<secret>` (server/api-pairing.js, single use, 10 minutes) – HTTPS, so the phone microphone works,
 // and the master token is no longer part of any link or QR code. `pairing` carries { code, expiresAt, url, … }.
 //

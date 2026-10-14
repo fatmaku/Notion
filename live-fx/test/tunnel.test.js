@@ -315,7 +315,7 @@ test('guard: tunnel requests need a session cookie or a Bearer; /m, /p, /health,
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com', authorization: 'Bearer secret-token-1' }, '/api/fire', 'POST'), ctx), null, 'bearer passes');
   assert.strictEqual(apiTunnel.guard(req({ host: '127.0.0.1:8787', 'cf-connecting-ip': '203.0.113.9' }, '/'), ctx).status, 401, 'cf-connecting-ip marks a tunnel request');
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/m', 'POST'), ctx).status, 401, 'only GET /m is open');
-  // 2.3: the pairing page, its POST and public static code are reachable without a session
+  // 2.4: the pairing page, its POST and public static code are reachable without a session
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/p'), ctx), null, '/p is open');
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/api/pair', 'POST'), ctx), null, 'POST /api/pair is open');
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/js/bus.js'), ctx), null, 'static code is public');

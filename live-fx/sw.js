@@ -6,8 +6,8 @@
 //   - navigations (/, /index.html, …): network first, cache fallback. The panel cookie is set when
 //     index.html is served, so a fresh copy is preferred whenever the server is reachable.
 //   - other shell files (css/js/icons/manifest): cache first, refreshed in the background.
-//   - everything live is network-only and never cached: /api/*, /fire, /events, /assets/*, /docs/*,
-//     /m, /models/*, /health. The pairing page itself is served as /p (not in the shell, always from the network);
+//   - everything live is network-only and never cached: /api/*, /fire, /events (+ its 2.4 long-poll fallback
+//     /events/poll), /assets/*, /docs/*, /m, /models/*, /health. The pairing page itself is served as /p (not in the shell, always from the network);
 //     its file /pair.html + js/pair.js are precached so a later version can show it from the cache.
 // Two shells: the panel registers `/sw.js` (scope /, full SHELL); the OBS overlay registers
 // `/sw.js?shell=overlay` with scope /overlay.html and precaches only OVERLAY_SHELL (overlay page, its css/js,
@@ -16,7 +16,7 @@
 // also compares it with the server's /health version and re-precaches when they differ).
 'use strict';
 
-const SHELL_VERSION = '2.3.0';
+const SHELL_VERSION = '2.4.0';
 const OVERLAY_MODE = new URLSearchParams(self.location.search).get('shell') === 'overlay';
 const CACHE_PREFIX = OVERLAY_MODE ? 'livefx-overlay-' : 'livefx-shell-';
 const CACHE = OVERLAY_MODE ? `livefx-overlay-v${SHELL_VERSION}` : `livefx-shell-v${SHELL_VERSION}`;
@@ -95,7 +95,7 @@ const OVERLAY_SHELL = [
 ];
 const SHELL = OVERLAY_MODE ? OVERLAY_SHELL : FULL_SHELL;
 const SHELL_SET = new Set(SHELL);
-const NETWORK_ONLY = /^\/(api\/|fire$|events$|assets\/|docs\/|m$|models\/|health$)/;
+const NETWORK_ONLY = /^\/(api\/|fire$|events(?:\/poll)?$|assets\/|docs\/|m$|models\/|health$)/;
 
 async function precache() {
   const cache = await caches.open(CACHE);

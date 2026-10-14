@@ -13,7 +13,7 @@ const QR = require('../js/qr.js');
 // GET /api/setup as server/api-pairing.js setupInfo() answers it
 const REAL = {
   ok: true,
-  version: '2.3.0',
+  version: '2.4.0',
   panelUrl: 'http://127.0.0.1:8787/',
   lanUrls: ['http://192.168.178.23:8787/', 'http://172.20.0.1:8787/'],
   bestLanUrl: 'http://192.168.178.23:8787/',
@@ -160,7 +160,7 @@ test('pairViewHtml: ids per view, escaped prefix, optional card button', () => {
 });
 
 test('cardHtml: two QR codes (pairing + overlay) that decode to their payloads, DE/TR/EN lines, A6/A5, no script', () => {
-  const data = { pairingUrl: REAL.pairing.lanUrl, code: '482913', expiresAt: REAL.pairing.expiresAt, overlayUrl: REAL.overlayUrls.lan, version: '2.3.0', created: Date.parse('2026-10-09T06:54:00Z') };
+  const data = { pairingUrl: REAL.pairing.lanUrl, code: '482913', expiresAt: REAL.pairing.expiresAt, overlayUrl: REAL.overlayUrls.lan, version: '2.4.0', created: Date.parse('2026-10-09T06:54:00Z') };
   const html = S.cardHtml(data);
   const payloads = [...html.matchAll(/data-qr-payload="([^"]*)"/g)].map((m) => m[1].replace(/&amp;/g, '&'));
   assert.deepStrictEqual(payloads, [REAL.pairing.lanUrl, REAL.overlayUrls.lan]);

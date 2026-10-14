@@ -1,5 +1,5 @@
 // LiveFX – legacy phone handshake: `GET /m?token=<token>` (links from 2.2 and earlier, typed links, Stream Deck
-// buttons) still works, but since 2.3 it no longer copies the master token into a cookie: it mints a paired device
+// buttons) still works, but since 2.4 it no longer copies the master token into a cookie: it mints a paired device
 // (server/pairing.js, cookie `livefx_dev`, revocable in the panel) and redirects to /mobile.html. New links and QR
 // codes use the pairing page `/p#<secret>` (server/api-pairing.js), which never carries the token.
 //

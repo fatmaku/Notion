@@ -1,4 +1,4 @@
-// server/terminal-qr.js (2.3): the start window prints the phone pairing link as a QR code (▀▄█ half blocks or
+// server/terminal-qr.js (2.4): the start window prints the phone pairing link as a QR code (▀▄█ half blocks or
 // ASCII "##"). Every rendering is read back into a module matrix and decoded with the independent reference
 // decoder of test/qr.test.js (loaded from that file, not copied), so what the terminal shows really scans.
 'use strict';

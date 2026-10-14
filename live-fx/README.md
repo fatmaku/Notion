@@ -292,6 +292,7 @@ statt vom Browser-Mikro (funktioniert damit auch in Firefox/Safari oder offline 
 | `GET /p` | Kopplungsseite fürs Handy (QR-Link `…/p#<geheim>` oder 6-stelliger Code) |
 | `GET /m?token=<token>` | alter Handy-Link (2.2): legt ein widerrufbares Gerät an, leitet auf `/mobile.html` (10 Fehlversuche/Minute) |
 | `GET /events?role=overlay\|panel` | SSE-Stream (das benutzt das Overlay) |
+| `GET /events/poll?role=…&since=…` | Long-Polling mit denselben Ereignissen (2.4) – automatisch über den Internet-Link, weil Cloudflare-Schnelltunnel kein SSE durchlassen |
 
 **Stream Deck**: Plugin „API Ninja“/„HTTP Request“ → POST mit obigem Body und Header.
 **Streamer.bot**: Aktion „Fetch URL“ (Method POST, Header `Authorization`, Body wie oben).
@@ -313,7 +314,7 @@ Karte **📱 Handy**, über den Knopf **📱 Handy** oben rechts oder im Startfe
 (180 Tage) und steht in der Geräteliste, wo du es jederzeit **„entfernen“** kannst. Ohne Scanner: `http://<PC>:8787/p`
 öffnen und den 6-stelligen Code eintippen. Die Handy-Seite (`/mobile.html`): alle Trigger als große Kacheln,
 ⭐ Favoriten (lange drücken), Szenen-Leiste, Pause, Leiser/Lauter (±6 dB), Story-Band an/aus, Effekt-Zone, Pakete
-laden, Live-Transkript, als Web-App auf den Homescreen legbar. LiveFX ist ab 2.3 von selbst im WLAN erreichbar –
+laden, Live-Transkript, als Web-App auf den Homescreen legbar. LiveFX ist ab 2.4 von selbst im WLAN erreichbar –
 nur gekoppelte Geräte dürfen etwas tun (`--local` = nur dieser PC). Anleitung: [docs/HANDY.md](docs/HANDY.md),
 Start und Sicherheit: [docs/START.md](docs/START.md).
 
@@ -321,7 +322,10 @@ Start und Sicherheit: [docs/START.md](docs/START.md).
 Karte **📱 Handy**). LiveFX startet einen kostenlosen Cloudflare-Schnelltunnel (`cloudflared`, wird beim ersten Mal
 mit Prüfsumme heruntergeladen oder von `PATH` / `LIVEFX_CLOUDFLARED` genommen) und tauscht den QR-Code gegen
 `https://<zufall>.trycloudflare.com/p#…` – das Handy kommt aus jedem Netz rein, und weil es HTTPS ist, geht das
-**Handy-Mikro ohne Zertifikat**. Durch den Tunnel kommt ohne Kopplung nur die Kopplungsseite. Kein Internet am PC?
+**Handy-Mikro ohne Zertifikat**. Durch den Tunnel kommt ohne Kopplung nur die Kopplungsseite. Live-Updates (Effekte,
+Transkript, Handy-Status) laufen über den Internet-Link automatisch per **Long-Polling** (`/events/poll`, 2.4), weil
+Cloudflare-Schnelltunnel keine Server-Sent Events durchlassen – auch ein Overlay, das über den Internet-Link geladen
+wird (z. B. in einer Streaming-App am Handy), bekommt jeden Effekt. Kein Internet am PC?
 Handy-Hotspot einschalten, PC damit verbinden, WLAN-QR nutzen. Details und Download von Hand:
 [docs/HANDY.md](docs/HANDY.md) §4a.
 
@@ -359,7 +363,7 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
 | Variable | Standard | Bedeutung |
 |---|---|---|
 | `PORT` | `8787` | HTTP-Port (`0` = zufällig, wird ausgegeben) |
-| `HOST` | `0.0.0.0` | ab 2.3 im WLAN erreichbar (Handys/2. PC nur nach Kopplung); `127.0.0.1` bzw. `node server.js --local` = nur dieser PC |
+| `HOST` | `0.0.0.0` | ab 2.4 im WLAN erreichbar (Handys/2. PC nur nach Kopplung); `127.0.0.1` bzw. `node server.js --local` = nur dieser PC |
 | `LIVEFX_DATA_DIR` | `live-fx/data` | Ablage für `triggers.json`, `token.txt`, `assets/` |
 | `LIVEFX_TOKEN` | (aus Datei) | API-Token vorgeben |
 | `LIVEFX_ALLOWED_HOSTS` | – | Zusätzliche Hostnamen, unter denen das Panel geöffnet werden darf (z. B. `livefx.local`) |
@@ -373,7 +377,7 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
 
 ## Sicherheit
 
-- LiveFX ist ab 2.3 im WLAN erreichbar, damit das Handy ohne Einstellungen klappt – aber nur **dieser PC**
+- LiveFX ist ab 2.4 im WLAN erreichbar, damit das Handy ohne Einstellungen klappt – aber nur **dieser PC**
   (127.0.0.1), **gekoppelte Geräte** (Cookie nach QR/Code, jederzeit „entfernen“), das **Overlay mit Schlüssel**
   (`overlay.html?key=…`, nur lesen) und Tools mit dem **API-Token** dürfen etwas. Alle anderen im WLAN oder über den
   Tunnel sehen nur die Kopplungsseite. Wer gar keinen Zugriff von außen will: `node server.js --local`.

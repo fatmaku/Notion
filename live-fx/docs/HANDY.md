@@ -62,7 +62,7 @@ oder verkauft? Einfach entfernen. Alles zurücksetzen (alle Handys abmelden, neu
 
 ### 3a. Der alte Link (2.2)
 
-Der Link `http://<LAN-IP>:<port>/m?token=…` aus älteren Versionen funktioniert weiter, legt aber ab 2.3 ein
+Der Link `http://<LAN-IP>:<port>/m?token=…` aus älteren Versionen funktioniert weiter, legt aber ab 2.4 ein
 widerrufbares Gerät an (steht dann auch in der Geräteliste). Neue Handys bitte per QR-Code koppeln – der enthält
 den Token nicht.
 
@@ -120,6 +120,14 @@ Handy** ohne eigenes Zertifikat.
   Karte **📱 Handy** zeigt den Internet-QR oben im Kopplungs-Feld (nicht dauerhaft daneben).
 - **Sicherheit**: Durch den Tunnel kommt ohne Kopplung nur die Kopplungsseite – Panel, Fernbedienung und API
   brauchen ein gekoppeltes Gerät (oder den Bearer-Token). Den QR-Code trotzdem nicht im Stream zeigen.
+- **Live-Updates über den Tunnel (2.4)**: Cloudflare-Schnelltunnel lassen keine *Server-Sent Events* durch – darüber
+  kommen sonst Effekte, Transkripte, „verbunden“ und der Koppel-Status live an. Auf einer `…trycloudflare.com`-Adresse
+  holen Handy-Seite, Kamera-Ansicht und Overlay ihre Live-Daten deshalb **von selbst per Long-Polling**
+  (`GET /events/poll`: der Server hält die Anfrage bis zu 25 s, bis etwas passiert). Du musst nichts einstellen; ein
+  Overlay, das über den Internet-Link geladen wird (z. B. in einer Streaming-App am Handy:
+  `https://…trycloudflare.com/overlay.html?key=…`), bekommt jeden Effekt. Bricht der normale Live-Kanal anderswo ab
+  (zwei Fehler in 10 s, z. B. ein Firmen-Proxy), wechselt LiveFX ebenfalls auf Long-Polling und probiert den normalen
+  Kanal später wieder. Erzwingen zum Testen: `?transport=poll` (bzw. `?transport=sse`) an die Adresse hängen.
 - API: `GET /api/tunnel` (Status), `POST /api/tunnel/start`, `POST /api/tunnel/stop`.
 
 **Kein Internet am PC / Download klappt nicht?**
@@ -202,6 +210,12 @@ Bir telefon eşleşir eşleşmez LiveFX **internet QR'ını gizler** ve yeniden 
 panel ya da kamera penceresi o an kaydediliyor veya bir görüşmede paylaşılıyor olabilir. Başka bir telefon için
 **„➕ Weiteres Handy (Internet)“** düğmesine bas; internet QR'ını yalnızca kimse izlemiyorken göster.
 
+**Tünel üzerinden canlı güncellemeler (2.4):** Cloudflare hızlı tünelleri *Server-Sent Events* geçirmez. Bu yüzden
+`…trycloudflare.com` adresinde telefon sayfası, kamera görünümü ve overlay canlı verileri (efektler, transkript,
+„verbunden“) **kendiliğinden long-polling ile** alır (`GET /events/poll`, sunucu isteği 25 s'ye kadar bekletir). Ayar
+gerekmez; internet bağlantısıyla açılan bir overlay (ör. telefondaki bir yayın uygulamasında
+`https://…trycloudflare.com/overlay.html?key=…`) her efekti alır. Test için zorlamak: adrese `?transport=poll` ekle.
+
 ### 3. Eşleşmiş telefonları yönetmek ve kaldırmak
 
 QR kodun altında tüm eşleşmiş cihazlar „son görülme“ ile listelenir. **„entfernen“** cihazın oturumunu hemen kapatır –
@@ -259,6 +273,14 @@ phone's **personal hotspot**, connect the PC to it, and the Wi‑Fi QR works.
 As soon as a phone has paired, LiveFX **hides the internet QR** and shows the Wi‑Fi code again (none without Wi‑Fi) –
 the panel or camera window may be in a screen capture or shared in a call. For another phone press **“➕ Weiteres
 Handy (Internet)”**; only show the internet QR when nobody is watching.
+
+**Live updates through the tunnel (2.4):** Cloudflare Quick Tunnels do not pass *Server-Sent Events*, the channel that
+normally carries effects, transcripts, “verbunden” and the pairing status. On a `…trycloudflare.com` address the phone
+page, the camera view and the overlay therefore switch to **long-polling by themselves** (`GET /events/poll`: the
+server holds each request for up to 25 s until something happens). Nothing to configure; an overlay loaded through
+the internet link (e.g. in a phone streaming app: `https://…trycloudflare.com/overlay.html?key=…`) gets every effect.
+If the normal live channel fails elsewhere (two errors within 10 s, e.g. a company proxy), LiveFX switches to
+long-polling too and retries the normal channel later. Force it for tests with `?transport=poll` (or `?transport=sse`).
 
 ### 3. Manage and remove paired phones
 

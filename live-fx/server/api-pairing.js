@@ -1,4 +1,4 @@
-// LiveFX – pairing routes (2.3) on top of server/pairing.js, plus the one-call setup info for the panel.
+// LiveFX – pairing routes (2.4) on top of server/pairing.js, plus the one-call setup info for the panel.
 //
 //   GET    /p                  pairing page for the phone: pair.html + js/pair.js (strict CSP, no inline script; the
 //                              built-in pairPage() only when pair.html is missing). The QR link is `/p#<secret>`

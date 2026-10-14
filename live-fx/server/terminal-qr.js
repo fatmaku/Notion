@@ -1,4 +1,4 @@
-// LiveFX – QR code in the terminal (2.3): the start window shows the phone pairing link as a QR code, drawn with
+// LiveFX – QR code in the terminal (2.4): the start window shows the phone pairing link as a QR code, drawn with
 // the panel's own encoder (js/qr.js, UMD) – no dependency, nothing leaves the PC.
 //
 //   render(text, { mode: 'unicode' | 'ascii', color, invert, margin, indent }) → multi-line string
