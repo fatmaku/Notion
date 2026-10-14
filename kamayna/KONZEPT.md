@@ -59,6 +59,21 @@ Die App darf die Person nicht verspotten oder ihre Überzeugung pauschal patholo
 
 Wenn jemand sich akut bedroht fühlt, gefährdet ist oder eine Stimme zum Verletzen auffordert, stoppt die App den Deutungsweg und bietet eine klar erkennbare Möglichkeit, menschliche Unterstützung zu suchen. Sie stellt keine Diagnose. [NHS: Informationen zu Halluzinationen und Stimmenhören](https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/hallucinations-hearing-voices/)
 
+**Sicherheitsstopp und Hilfsangebote** (Entscheidung vom 9. Oktober 2026):
+
+- Löst jemand im spirituellen Themenweg den Sicherheitsstopp aus, speichert die App aus dieser Sitzung nichts.
+- Wird eine reguläre Sitzung über den Link „Ich fühle mich gerade nicht sicher“ unterbrochen, bleibt sie als Entwurf erhalten. Die Person kann ihn später fortsetzen oder verwerfen.
+- Die App zeigt Hilfsangebote nach Land an: Deutschland, Österreich, Schweiz, Türkei, Vereinigtes Königreich und Irland. Alle Nummern werden vor jeder Veröffentlichung einer App-Version erneut geprüft.
+
+Geprüfte Angebote (Stand: 9. Oktober 2026; Quellen und Einschränkungen in [RECHERCHE-PRUEFUNG.md](RECHERCHE-PRUEFUNG.md)):
+
+- **Deutschland:** Notruf 112; TelefonSeelsorge 0800 111 0 111, 0800 111 0 222 oder 116 123; Muslimisches SeelsorgeTelefon (MuTeS) 030 443 509 821; Nummer gegen Kummer – Kinder- und Jugendtelefon 116 111; Patientenservice/ärztlicher Bereitschaftsdienst 116 117 (kein Krisentelefon); nur in Bayern: Krisendienste Bayern 0800 655 3000.
+- **Österreich:** Euro-Notruf 112 (außerdem Rettung 144, Polizei 133, Feuerwehr 122); TelefonSeelsorge 142; Rat auf Draht 147; Telefonische Gesundheitsberatung 1450 (kein Krisentelefon).
+- **Schweiz:** Die Dargebotene Hand 143; Pro Juventute – Beratung + Hilfe 147.
+- **Irland:** Notruf 112.
+- **Türkei und Vereinigtes Königreich:** noch keine geprüften Angaben; vor einer Veröffentlichung in diesen Ländern ergänzen.
+- **Andere Länder:** Find A Helpline (findahelpline.com) als Verzeichnis.
+
 Eine Geister- oder Dschinn-Erkennung über Kamera, Mikrofon oder Magnetfeldsensor ist nicht Bestandteil des Produkts. Ein separates Horror-/Folklore-Spiel könnte später als Fiktion entwickelt werden, klar von persönlicher Beratung getrennt.
 
 ## 6. Lernen aus Wiederholungen und Fehlern
@@ -95,7 +110,7 @@ Journal standardmäßig lokal, Zugriffsschutz mit Gerätefunktionen, Export und 
 
 ### Spätere lokale KI
 
-On-Device-Modelle können später geprüft werden, wenn sie auf unterstützten Geräten schnell, klein und sprachlich ausreichend gut laufen. Apple Core ML und Android ML Kit bieten lokale ML-Verarbeitung an; die tatsächliche Sprachmodellleistung und Geräteabdeckung muss separat getestet werden. [Apple Machine Learning HIG](https://developer.apple.com/design/human-interface-guidelines/machine-learning), [Google ML Kit Datenschutz](https://developers.google.cn/ml-kit/terms)
+On-Device-Modelle können später geprüft werden, wenn sie auf unterstützten Geräten schnell, klein und sprachlich ausreichend gut laufen. Apple Core ML und Google ML Kit bieten lokale ML-Verarbeitung an; die tatsächliche Sprachmodellleistung und Geräteabdeckung muss separat getestet werden. [Apple Machine Learning HIG](https://developer.apple.com/design/human-interface-guidelines/machine-learning), [Google ML Kit Datenschutz](https://developers.google.cn/ml-kit/terms)
 
 ## 8. Vorbilder für UX und Funktionen
 
@@ -115,7 +130,13 @@ On-Device-Modelle können später geprüft werden, wenn sie auf unterstützten G
 4. Offline-Journal, lokale Musterkarten und optionale Online-KI ergänzen.
 5. Geist-/Dschinn-Inhalte nur mit Quellen und Review durch passende Fachleute veröffentlichen.
 6. Beta-Test auf suggestive Fragen, falsche Sicherheit, Datenschutzverständnis, Barrierefreiheit und Übersetzungsqualität prüfen.
-7. Rechts-, Datenschutz-, Store- und – für die Türkei – Werbeprüfung vor Veröffentlichung durchführen.
+7. Rechts-, Datenschutz-, Store- und – für die Türkei – Werbeprüfung vor Veröffentlichung durchführen. Für den Apple App Store sind nach den [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/) (zuletzt aktualisiert am 8. Juni 2026, geprüft am 9. Oktober 2026) vor allem diese Punkte wichtig:
+   - **4.3(b) Spam:** Apple zählt Wahrsage-Apps („fortune telling“) zu den Kategorien, die im App Store bereits gut vertreten sind. Neue Apps dieser Art nimmt Apple nur an, wenn sie ein deutlich anderes oder besseres Erlebnis bieten; Apps, die nicht aktualisiert werden oder keine Nutzer finden, kann Apple entfernen. Store-Text und Review-Hinweise müssen Innenkompass daher klar als Reflexions-App ohne Vorhersagen beschreiben.
+   - **1.4.1 und 5.1.3 Gesundheit:** Medizinische Apps, die ungenaue Daten liefern oder zur Diagnose oder Behandlung genutzt werden könnten, prüft Apple strenger; sie sollen daran erinnern, vor medizinischen Entscheidungen ärztlichen Rat einzuholen. Gesundheitsdaten gelten als besonders sensibel: Im Gesundheitskontext erhobene Daten dürfen nicht für Werbung, Marketing oder nutzungsbasiertes Data-Mining verwendet oder dafür an Dritte gegeben werden (Ausnahmen nur für Gesundheitsmanagement oder Gesundheitsforschung, dann nur mit Erlaubnis), und persönliche Gesundheitsinformationen dürfen nicht in iCloud gespeichert werden. Falls Journal-Einträge als Gesundheitsinformationen gelten, scheidet eine Synchronisation über iCloud damit aus.
+   - **5.1.2(i) und 4.7 KI:** Werden personenbezogene Daten an Dritte weitergegeben – ausdrücklich auch an KI-Dienste Dritter –, muss die App das klar offenlegen und vorher eine ausdrückliche Erlaubnis einholen (diese Formulierung gilt seit der Überarbeitung vom 13. November 2025). Für Chatbots in der App ist der Entwickler verantwortlich, auch dafür, dass sie die Richtlinien und das geltende Recht einhalten. Der standardmäßig ausgeschaltete Online-KI-Dialog mit Erklärung vor jeder Übertragung (Abschnitt 7) ist darauf ausgelegt.
+   - **5.1.1(ix) Anbieter:** Apps aus stark regulierten Bereichen wie dem Gesundheitswesen oder Apps, die sensible Nutzerdaten erfordern, sollen von einer juristischen Person eingereicht werden, nicht von Einzelentwickler:innen. Da das Journal Gefühle und religiöse Überzeugungen enthalten kann, sollte die Einreichung über eine Firma geplant werden.
+   - **1.1.1 und 1.1.5 Religion:** Diffamierende, diskriminierende oder herabwürdigende Inhalte mit Bezug auf Religion sind ebenso ausgeschlossen wie aufhetzende religiöse Kommentare und ungenaue oder irreführende Zitate religiöser Texte. Religiöse Inhalte erscheinen deshalb nur mit geprüften Quellen (Schritt 5).
+   - **Noch offen:** Google Play und die Werbeprüfung für die Türkei sind in dieser Fassung noch nicht recherchiert.
 8. Nach dem Start Feedback prüfen, Inhalte versionieren und problematische Abläufe zurückrollen können.
 
 Als grobe Planung sind mehrere Monate für einen seriösen dreisprachigen MVP angemessen. Der Umfang hängt von Teamgröße, Modellwahl und Umfang der menschlichen Prüfung ab.
@@ -136,6 +157,7 @@ Die App muss offenlegen, dass Abo-Verlängerung regelmäßig eine Store-Verbindu
 - Nutzer verstehen, wann Inhalt das Gerät verlässt und wann KI beteiligt ist.
 - Die App behauptet weder ein wahres Symbollexikon noch Kontakt zu übernatürlichen Wesen.
 - Alle Kernpfade funktionieren in Deutsch, Türkisch und Englisch und werden von Muttersprachlern redaktionell geprüft.
+- Jedes interaktive Element hat eine Tippfläche von mindestens 44 × 44 px.
 - Erfolg wird daran gemessen, ob sich Nutzer respektiert und nicht in eine Deutung gedrängt fühlen – nicht daran, ob sie eine KI-Deutung für „treffsicher“ halten.
 
 ## Quellen und Wettbewerbsbeispiele
@@ -147,3 +169,5 @@ Die App muss offenlegen, dass Abo-Verlängerung regelmäßig eine Store-Verbindu
 - [Felek – Datenschutz und KI-Verarbeitung](https://felek.app/en/privacy/) (nicht nachgeprüft, siehe Recherche-Prüfung)
 - [BakFal – mehrsprachige Selbstreflexionspositionierung](https://bakfal.com/en/)
 - [NHS – Halluzinationen und Stimmenhören](https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/hallucinations-hearing-voices/)
+- [Apple – App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/) (zuletzt aktualisiert am 8. Juni 2026)
+- Hilfetelefone: Quellen je Angebot in [RECHERCHE-PRUEFUNG.md](RECHERCHE-PRUEFUNG.md)
