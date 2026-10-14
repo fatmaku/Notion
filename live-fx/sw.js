@@ -16,7 +16,7 @@
 // also compares it with the server's /health version and re-precaches when they differ).
 'use strict';
 
-const SHELL_VERSION = '2.4.0';
+const SHELL_VERSION = '2.3.0';
 const OVERLAY_MODE = new URLSearchParams(self.location.search).get('shell') === 'overlay';
 const CACHE_PREFIX = OVERLAY_MODE ? 'livefx-overlay-' : 'livefx-shell-';
 const CACHE = OVERLAY_MODE ? `livefx-overlay-v${SHELL_VERSION}` : `livefx-shell-v${SHELL_VERSION}`;
@@ -73,7 +73,7 @@ const FULL_SHELL = [
   '/camera.html',
   '/js/camera.js',
   '/css/camera.css',
-  // 2.4: phone first – pairing page behind the QR code (/p), phone microphone (Web Speech → /api/transcript)
+  // phone first – pairing page behind the QR code (/p), phone microphone (Web Speech → /api/transcript)
   '/pair.html',
   '/js/pair.js',
   '/js/phone-mic.js',
@@ -104,7 +104,9 @@ async function precache() {
     SHELL.map(async (p) => {
       try {
         const r = await fetch(new Request(p, { cache: 'no-cache', credentials: 'same-origin' }));
-        if (r.ok) await cache.put(p, r);
+        // Never store a redirect target under a shell path: a revoked device is sent to /p by the server,
+        // and a cached redirected response is refused by Chrome for a later offline navigation.
+        if (r.ok && !r.redirected) await cache.put(p, r);
       } catch (_) {
         /* offline during install – the file is fetched on first use */
       }
@@ -143,7 +145,7 @@ self.addEventListener('activate', (event) => {
 async function refresh(request, cache) {
   try {
     const r = await fetch(request);
-    if (r && r.ok) await cache.put(request, r.clone());
+    if (r && r.ok && !r.redirected) await cache.put(request, r.clone());
     return r;
   } catch (_) {
     return null;

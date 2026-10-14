@@ -8,8 +8,8 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const http = require('http');
-const { createPairing, cookieHeader, clearCookieHeader, shortDeviceName, cleanName, MAX_GLOBAL_FAILURES } = require('../server/pairing');
-const { rankLanAddresses, lanState, pairingLinks, detectDefaultRouteIp } = require('../server/api-pairing');
+const { createPairing, cookieHeader, clearCookieHeader, shortDeviceName, cleanName, MAX_GLOBAL_FAILURES, LOCK_MS } = require('../server/pairing');
+const { rankLanAddresses, lanState, pairingLinks, detectDefaultRouteIp, pairPage, PAIR_CSP } = require('../server/api-pairing');
 const { startServer, api } = require('./helpers/server');
 
 const MIN = 60 * 1000;
@@ -107,7 +107,51 @@ test(`brute force: ${MAX_GLOBAL_FAILURES} wrong attempts burn every open code`, 
   for (let i = 0; i < MAX_GLOBAL_FAILURES; i++) last = p.redeem({ code: String(wrong).padStart(6, '0') });
   assert.equal(last.reason, 'locked');
   assert.equal(p.openCount, 0, 'open codes burnt');
-  assert.equal(p.redeem({ secret: c.secret }).reason, 'invalid', 'the real code is gone too – a new QR is one click');
+  assert.equal(p.redeem({ secret: c.secret }).reason, 'locked', 'the real code is burnt too – it says so (not „Code falsch“)');
+});
+
+test(`brute force: after the burn typed codes are refused for ${LOCK_MS / MIN} minutes – also new ones; the QR secret works; „Neuer Code“ unlocks`, () => {
+  const now = clock();
+  const events = [];
+  const p = createPairing({ now, onChange: (e) => events.push(e) });
+  const burnt = p.create();
+  const wrongCode = (n) => String((Number(burnt.code) + 1 + n) % 1000000).padStart(6, '0');
+  for (let i = 0; i < MAX_GLOBAL_FAILURES; i++) p.redeem({ code: wrongCode(i) });
+  assert.equal(p.locked, true);
+  assert.ok(p.lockedUntil > now() && p.lockedUntil <= now() + LOCK_MS);
+  assert.deepEqual(events.map((e) => e.event), ['locked']);
+  assert.equal(p.redeem({ code: burnt.code }).reason, 'locked', 'the burnt code (typed) answers locked');
+  // the panel keeps polling /api/setup → current() shows a fresh QR at once …
+  const fresh = p.current();
+  assert.notEqual(fresh.secret, burnt.secret);
+  assert.equal(p.openCount, 1);
+  // … but its digits cannot be guessed during the lock: refused without a lookup, nothing counted, code stays open
+  for (let i = 0; i < 3 * MAX_GLOBAL_FAILURES; i++) {
+    const r = p.redeem({ code: i === 7 ? fresh.code : wrongCode(i) });
+    assert.equal(r.ok, false);
+    assert.equal(r.reason, 'locked');
+    assert.ok(r.retryAfterMs > 0 && r.retryAfterMs <= LOCK_MS);
+  }
+  assert.equal(p.openCount, 1, 'the fresh code was not burnt by the refused attempts');
+  assert.equal(p.redeem({ code: fresh.code, userAgent: IPHONE }).reason, 'locked', 'even the right digits wait');
+  // the 128-bit QR secret is not guessable – scanning keeps working during the lock
+  const scanned = p.redeem({ secret: fresh.secret, userAgent: IPHONE });
+  assert.equal(scanned.ok, true, 'QR scan pairs during the lock');
+  // the lock ends by itself …
+  const later = p.current();
+  now.advance(LOCK_MS + 1);
+  assert.equal(p.locked, false);
+  assert.equal(p.redeem({ code: later.code }).ok, true, 'typing works again after the lock');
+  // … or at once when the streamer asks for a new code
+  for (let i = 0; i < MAX_GLOBAL_FAILURES; i++) p.redeem({ code: wrongCode(i) });
+  assert.equal(p.locked, true);
+  assert.equal(p.redeem({ code: p.current().code }).reason, 'locked', 'current() (panel poll) does not unlock');
+  const asked = p.create({ unlock: true });
+  assert.equal(p.locked, false);
+  assert.equal(p.redeem({ code: asked.code }).ok, true, '„Neuer Code“ lifts the lock');
+  // counting starts from zero again after an unlock
+  for (let i = 0; i < MAX_GLOBAL_FAILURES - 1; i++) assert.equal(p.redeem({ code: wrongCode(i) }).reason, 'invalid');
+  assert.equal(p.locked, false);
 });
 
 test('current(): reuses the open code while it has time left, else a new one; consumed codes are replaced', () => {
@@ -248,6 +292,17 @@ test('lanState / pairingLinks: bind address decides, tunnel base wins when onlin
   assert.ok(ip === null || /^\d+\.\d+\.\d+\.\d+$/.test(ip), String(ip));
 });
 
+test('pairPage(): built-in fallback (pair.html missing) – nonce script, reads the fragment, DE / TR / EN', () => {
+  const html = pairPage({ nonce: 'NONCE123', paired: false, next: 'camera' });
+  assert.ok(html.includes('<script nonce="NONCE123">'));
+  assert.match(html, /location\.hash/);
+  assert.match(html, /history\.replaceState/);
+  assert.match(html, /fetch\('\/api\/pair'/);
+  assert.match(html, /data-next="\/camera\.html"/);
+  for (const w of ['Handy koppeln', 'Telefonu eşleştir', 'Pair your phone']) assert.ok(html.includes(w), w);
+  assert.match(pairPage({ nonce: 'x', paired: true, next: 'evil' }), /data-paired="1" data-next="\/mobile\.html"/);
+});
+
 // ---------------------------------------------------------------- server routes (loopback)
 
 test('routes: pairing page, POST /api/pair (cookie, single use, same-origin, 10/min), /api/pairing, /api/devices, /api/setup', async (t) => {
@@ -255,27 +310,32 @@ test('routes: pairing page, POST /api/pair (cookie, single use, same-origin, 10/
   t.after(() => server.stop());
   const { base, token } = server;
 
-  await t.test('GET /p: inline page reads the fragment, nonce CSP, no-store, no referrer', async () => {
+  await t.test('GET /p: serves pair.html + /js/pair.js under a strict CSP (no inline script), no-store, no referrer', async () => {
     const r = await raw(base, '/p?next=camera');
     assert.equal(r.status, 200);
     assert.match(r.headers['content-type'], /text\/html/);
     assert.equal(r.headers['cache-control'], 'no-store');
     assert.equal(r.headers['referrer-policy'], 'no-referrer');
+    assert.equal(r.headers['x-frame-options'], 'DENY');
+    assert.equal(r.text, fs.readFileSync(path.join(__dirname, '..', 'pair.html'), 'utf8'), '/p is pair.html');
+    assert.match(r.text, /<meta name="livefx-page" content="pair">/);
+    assert.match(r.text, /<script src="\/js\/pair\.js"><\/script>/);
+    assert.ok(!/<script>(?!<)|<script nonce/.test(r.text), 'no inline script – script-src self is enough');
+    assert.match(r.text, /rel="manifest" href="\/mobile\.webmanifest"/);
     const csp = r.headers['content-security-policy'];
-    const nonce = /script-src 'nonce-([^']+)'/.exec(csp)[1];
-    assert.ok(r.text.includes(`<script nonce="${nonce}">`), 'inline script carries the nonce');
-    assert.match(csp, /default-src 'none'/);
-    assert.match(csp, /connect-src 'self'/);
-    assert.match(r.text, /location\.hash/);
-    assert.match(r.text, /history\.replaceState/, 'secret removed from the address bar');
-    assert.match(r.text, /addEventListener\('hashchange'/, 'a QR link opened on an already open /p page still pairs');
-    assert.match(r.text, /fetch\('\/api\/pair'/);
-    assert.match(r.text, /data-next="\/camera\.html"/);
-    assert.match(r.text, /inputmode="numeric"/);
-    for (const w of ['Handy koppeln', 'Telefonu eşleştir', 'Pair your phone']) assert.ok(r.text.includes(w), w);
+    assert.equal(csp, PAIR_CSP);
+    for (const d of ["default-src 'none'", "script-src 'self'", "connect-src 'self'", "manifest-src 'self'", "frame-ancestors 'none'"]) assert.ok(csp.includes(d), d);
+    assert.ok(!csp.includes('unsafe-eval') && !/script-src[^;]*unsafe-inline/.test(csp));
     assert.ok(!r.text.includes(token), 'no token in the page');
+    const js = await raw(base, '/js/pair.js');
+    assert.equal(js.status, 200);
+    assert.match(js.text, /location\.hash/, 'the secret comes from the fragment only');
+    assert.match(js.text, /history\.replaceState/, 'secret removed from the address bar');
+    assert.match(js.text, /addEventListener\('hashchange'/, 'a QR link opened on an already open /p page still pairs');
     assert.equal((await raw(base, '/p/')).status, 200);
-    assert.equal((await raw(base, '/p', { method: 'HEAD' })).status, 200);
+    const head = await raw(base, '/p', { method: 'HEAD' });
+    assert.equal(head.status, 200);
+    assert.equal(head.text, '');
   });
 
   await t.test('POST /api/pairing needs auth and returns a fresh pairing; /api/setup has the full shape', async () => {
@@ -345,6 +405,28 @@ test('routes: pairing page, POST /api/pair (cookie, single use, same-origin, 10/
     assert.equal(status, 429);
     const r = await pairPost(base, { code: '999999' });
     assert.equal(r.json.error, 'rate_limited');
+  });
+
+  await t.test('rotating tunnel visitor addresses: the global cap locks typing (429 locked + Retry-After); „Neuer Code“ unlocks', async () => {
+    let r;
+    for (let i = 0; i < MAX_GLOBAL_FAILURES + 2; i++) {
+      r = await pairPost(base, { code: '999999' }, { 'cf-connecting-ip': `2001:db8::${(i + 1).toString(16)}` });
+      if (r.json && r.json.error === 'locked') break;
+    }
+    assert.equal(r.status, 429, r.text);
+    assert.equal(r.json.error, 'locked');
+    assert.ok(Number(r.headers['retry-after']) > 0 && Number(r.headers['retry-after']) <= LOCK_MS / 1000, r.headers['retry-after']);
+    const s = await api(base, 'GET', '/api/setup', { token });
+    assert.equal(s.json.pairing.locked, true, 'the panel learns about the lock');
+    assert.match(s.json.pairing.code, /^\d{6}$/, 'the panel still shows a (scannable) code');
+    const typed = await pairPost(base, { code: s.json.pairing.code }, { 'cf-connecting-ip': '2001:db8::beef' });
+    assert.equal(typed.status, 429);
+    assert.equal(typed.json.error, 'locked', 'even the right digits wait during the lock');
+    const fresh = await api(base, 'POST', '/api/pairing', { token });
+    assert.equal(fresh.json.pairing.locked, false, 'an explicit new code lifts the lock');
+    const ok = await pairPost(base, { code: fresh.json.pairing.code }, { 'cf-connecting-ip': '2001:db8::cafe', 'user-agent': ANDROID });
+    assert.equal(ok.status, 200, ok.text);
+    assert.equal(ok.json.device.via, 'tunnel');
   });
 
   await t.test('/api/devices: list, revoke one (404 when unknown), ?id=, revoke all needs ?all=1', async () => {

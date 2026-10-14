@@ -157,10 +157,60 @@ const bus = sse.createSse({ state, log, version: pkg.version });
 const smart = smartMod.createSmart({ log, model: config.model, getTriggers: () => state.getTriggers() });
 const pairing = pairingMod.createPairing({ dataDir: DATA_DIR, log });
 const appCtx = { bus, state, token, dataDir: DATA_DIR, rootDir: ROOT, config, smart, log, pairing, overlayKey: auth.overlayKeyFor(token), net: { defaultRouteIp: null } };
-// Viewer triggers (2.0): chat connectors + gift tiers, settings in data/chat.json.
-appCtx.chat = apiChat.createChat(appCtx);
-// Panels learn about new / revoked phones live ("📱 Handy verbunden ✔").
-pairing.onChange((e) => bus.broadcast({ type: 'pairing', ...e }, { audience: 'panel' }));
+// Viewer triggers (2.0): chat connectors + gift tiers, settings in data/chat.json. Created – like smart.init() – only
+// once the port is ours (startServices, 'listening'): a second start that finds LiveFX already running exits before
+// it connects to Twitch / YouTube (no duplicate chat connection, no YouTube API quota). /api/chat answers 503 until then.
+let servicesStarted = false;
+function startServices() {
+  if (servicesStarted) return;
+  servicesStarted = true;
+  appCtx.chat = apiChat.createChat(appCtx);
+  smart.init().catch((e) => log('smart init failed:', e.message));
+}
+
+// SSE streams of paired devices (device id -> Set<res>): a revoked phone is cut off at once, not on its next reconnect
+// (it would otherwise keep receiving panel data – chat, transcripts, story – until then).
+const deviceStreams = new Map();
+function trackDeviceStream(deviceId, res) {
+  let set = deviceStreams.get(deviceId);
+  if (!set) deviceStreams.set(deviceId, (set = new Set()));
+  set.add(res);
+  res.on('close', () => {
+    set.delete(res);
+    if (!set.size && deviceStreams.get(deviceId) === set) deviceStreams.delete(deviceId);
+  });
+}
+function closeDeviceStreams(id) {
+  const ids = id === '*' ? Array.from(deviceStreams.keys()) : [id];
+  for (const k of ids) {
+    const set = deviceStreams.get(k);
+    if (!set) continue;
+    deviceStreams.delete(k);
+    for (const res of set) {
+      // end() flushes what was written (the „revoked“ event) and accepts nothing more; destroy() then frees the socket,
+      // sse.js evicts the client on 'close'. EventSource's reconnect gets the 401 of the guard.
+      try {
+        res.end();
+      } catch (_) {
+        /* already gone */
+      }
+      const t = setTimeout(() => {
+        try {
+          res.destroy();
+        } catch (_) {
+          /* already gone */
+        }
+      }, 500);
+      if (typeof t.unref === 'function') t.unref();
+    }
+  }
+}
+// Panels learn about new / revoked phones live ("📱 Handy verbunden ✔"); a revoked phone first gets the event itself
+// (js/mobile.js shows „nicht mehr gekoppelt“), then its streams are closed.
+pairing.onChange((e) => {
+  bus.broadcast({ type: 'pairing', ...e }, { audience: 'panel' });
+  if (e && e.event === 'revoked') setImmediate(() => closeDeviceStreams(e.id));
+});
 
 const router = new Router();
 for (const mod of [auth, apiFire, apiTriggers, apiGifs, apiAssets, apiTranscript, apiSmart, apiMobile, apiChat, apiGift, apiTunnel, apiPairing, sse]) mod.register(router, appCtx);
@@ -236,6 +286,7 @@ function handler(req, res) {
   const access = auth.guard(req, res, appCtx);
   if (!access) return;
   req.livefxAccess = access.level;
+  if (access.device && url.pathname === '/events') trackDeviceStream(access.device.id, res);
   if (access.level !== 'local' && req.method === 'GET' && url.pathname === '/api/config') redactToken(res);
   router
     .dispatch(req, res, appCtx)
@@ -342,7 +393,7 @@ function shutdown() {
   if (shuttingDown) return;
   shuttingDown = true;
   try {
-    appCtx.chat.stop();
+    if (appCtx.chat) appCtx.chat.stop();
   } catch (e) {
     log('chat stop failed:', e.message);
   }
@@ -358,8 +409,6 @@ function shutdown() {
 }
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
-
-smart.init().catch((e) => log('smart init failed:', e.message));
 
 // ---------- start banner ----------
 function printBanner(addr, base) {
@@ -397,13 +446,17 @@ function printBanner(addr, base) {
     const others = lan.ips.slice(1).map((i) => i.address);
     if (others.length) lines.push(`  Weitere Adressen dieses PCs: ${others.join(', ')} (falls das Handy die erste nicht erreicht)`);
     lines.push(`  OBS auf einem anderen PC: ${(appCtx.config.secure ? 'https' : 'http')}://${lan.best}:${addr.port}/overlay.html?key=${appCtx.overlayKey}`);
-    if (process.platform === 'win32') lines.push('  Windows-Firewall fragt? „Zugriff zulassen“ (private Netzwerke) klicken – sonst findet das Handy den PC nicht.');
+    if (process.platform === 'win32') {
+      lines.push('  Windows-Firewall fragt? „Zugriff zulassen“ klicken – sonst findet das Handy den PC nicht.');
+      lines.push('  QR tut nichts? WLAN steht oft auf „Öffentlich“: Einstellungen → Netzwerk und Internet → WLAN → dein Netz → Netzwerkprofil „Privat“.');
+    }
   }
   lines.push('  Beenden: Strg+C (oder dieses Fenster schließen).');
   console.log(lines.join('\n'));
 }
 
 server.on('listening', async () => {
+  startServices(); // synchronously, before the first request is handled
   const addr = server.address();
   config.port = addr.port; // the bound port (may differ from PORT after the fallback or with PORT=0)
   config.boundAddress = addr.address;

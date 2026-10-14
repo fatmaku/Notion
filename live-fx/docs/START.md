@@ -67,10 +67,12 @@ LiveFX läuft auf http://127.0.0.1:8787/
 |---------|--------|
 | Windows: „Der Computer wurde durch Windows geschützt“ | „Weitere Informationen“ → „Trotzdem ausführen“. Vermeiden: vor dem Entpacken Rechtsklick auf die ZIP → Eigenschaften → „Zulassen“. |
 | Windows-Firewall fragt | „Zugriff zulassen“ (private Netzwerke). Später: Windows-Sicherheit → Firewall → „App durch Firewall zulassen“ → „Node.js JavaScript Runtime“ → Haken bei „Privat“. |
+| Windows: Firewall erlaubt, QR tut trotzdem nichts | Windows 11 stellt ein neues WLAN oft auf **„Öffentlich“** – dann gilt „privat zulassen“ nicht. Einstellungen → Netzwerk und Internet → WLAN → dein Netz → Netzwerkprofil **„Privat“** (oder in der Firewall-Frage zusätzlich „Öffentliche Netzwerke“ ankreuzen). |
 | macOS: „nicht verifizierter Entwickler“ | Rechtsklick (ctrl-Klick) auf `Start-LiveFX.command` → „Öffnen“ → „Öffnen“. Ab macOS 15: Systemeinstellungen → Datenschutz & Sicherheit → „Dennoch öffnen“. |
 | macOS: „keine Berechtigung“ | Terminal öffnen, `bash ` tippen (mit Leerzeichen), die Datei hineinziehen, Enter. |
 | Handy findet den PC nicht | Gleiches WLAN? Kein Gäste-WLAN (trennt Geräte)? VPN aus? Im Fenster stehen „Weitere Adressen dieses PCs“ – im Panel die andere Adresse wählen. Sonst „Internet-Link“. |
 | QR-Code „abgelaufen“ / „schon benutzt“ | Im Panel unter „📱 Handy“ einen neuen anzeigen. |
+| „Zu viele Fehlversuche“ | Nach 20 falschen Codes ist das **Eintippen** 5 Minuten gesperrt. Den QR-Code scannen geht weiter – oder im Panel „Neuer Code“ klicken, dann klappt auch das Eintippen sofort wieder. |
 | Nur am PC benutzen, kein Handy | `Start-LiveFX.bat --local` bzw. `node server.js --local`. |
 
 ### OBS
@@ -108,13 +110,17 @@ LiveFX ist ab 2.3 standardmäßig im WLAN erreichbar (damit das Handy ohne Einst
 | **Gekoppeltes Gerät** (Handy, zweiter PC – Cookie `livefx_dev`) | Panel, Fernbedienung, Kamera-Ansicht, API. Lesen genügt das Cookie; Schreiben braucht zusätzlich passenden `Origin` (CSRF-Schutz). Den API-Token sieht es nicht (`/api/config` ohne `token`). |
 | **Overlay-Schlüssel** (`overlay.html?key=…`) | nur Overlay-Seite, Overlay-Ereignisse (`/events`, nicht `role=panel`), hochgeladene Medien – nur lesen |
 | **Externe Tools** mit `Authorization: Bearer <Token>` | alles (Token in `data/token.txt`) |
-| **Alle anderen im WLAN / über den Tunnel** | nur die Kopplungsseite `/p` (+ `POST /api/pair`), den alten Link `/m?token=…`, öffentliche Programmdateien (css/js/icons/memes/docs/vendor/models, Manifest, `sw.js`) und `/health` (nur `{ok, version}`). Seiten leiten auf `/p` um, alles andere: `401`. |
+| **Alle anderen im WLAN / über den Tunnel** | nur die Kopplungsseite `/p` (= `pair.html`, + `POST /api/pair`), den alten Link `/m?token=…`, öffentliche Programmdateien (css/js/icons/memes/docs/vendor/models, beide Manifeste, `sw.js`) und `/health` (nur `{ok, version}`). Seiten leiten auf `/p` um, alles andere: `401`. |
 
 - Der **API-Token** steht nie in einem QR-Code, Link oder Cookie für andere Geräte. Der alte Link
   `/m?token=…` funktioniert weiter, legt aber ein **widerrufbares Gerät** an statt den Token als Cookie zu setzen.
 - **Kopplungscodes:** 6 Ziffern + 128-Bit-Geheimnis, 10 Minuten, einmalig. Höchstens 10 Versuche pro Minute
-  und Adresse (über den Tunnel zählt die Adresse des Besuchers, `cf-connecting-ip`), nach 20 Fehlversuchen insgesamt
-  werden alle offenen Codes ungültig.
+  und Adresse (über den Tunnel zählt die Adresse des Besuchers, `cf-connecting-ip`). Nach 20 Fehlversuchen insgesamt
+  werden alle offenen Codes ungültig (Antwort `locked`, nicht „Code falsch“) und **getippte Codes 5 Minuten
+  abgelehnt** – auch neue, die das Panel in der Zeit anzeigt. Das 128-Bit-Geheimnis im QR-Code gilt weiter; „Neuer
+  Code“ im Panel (`POST /api/pairing`, `/api/setup?new=1`) hebt die Sperre sofort auf. So bringen wechselnde
+  Adressen (IPv6 über den Tunnel) höchstens 20 Versuche pro Sperre.
+- **Gerät entfernen** wirkt sofort: auch eine offene Live-Verbindung (`/events`) des Geräts wird getrennt.
 - **Geräte** stehen in `data/devices.json` (nur SHA-256 des Geheimnisses, Dateirechte 0600), Cookie 180 Tage,
   HttpOnly, SameSite=Lax (über den Tunnel zusätzlich Secure). Unbenutzt 180 Tage → automatisch entfernt.
 - **Alles zurücksetzen:** LiveFX beenden, `data/token.txt` und `data/devices.json` löschen, neu starten. Dann sind
@@ -124,14 +130,14 @@ LiveFX ist ab 2.3 standardmäßig im WLAN erreichbar (damit das Handy ohne Einst
 
 | Route | Zweck |
 |-------|-------|
-| `GET /p`, `GET /p?next=camera\|panel` | Kopplungsseite (liest `#<geheim>` aus der Adresse, sonst Code-Eingabe) |
-| `POST /api/pair` `{secret}` oder `{code, name?}` | Code einlösen → `Set-Cookie: livefx_dev=…`, `{ok, device, redirect}` (offen, same-origin, 10/min) |
-| `POST /api/pairing` `{next?}` | neuer Kopplungscode (Auth) |
-| `GET /api/setup` (`?new=1`) | alles für den Einrichtungs-Assistenten: `lanUrls`, `bestLanUrl`, `panelUrl`, `overlayUrls`, `cameraUrl`, `tunnel{state,url,error,pairingUrl}`, `pairing{url,lanUrl,tunnelUrl,cameraUrl,manualUrl,code,expiresAt,ttlMs,via,reason}`, `devices`, `lan{listening,bind,ips,port}`, `version` (Auth) |
+| `GET /p`, `GET /p?next=camera\|panel` | Kopplungsseite `pair.html` + `js/pair.js` (strenge CSP; liest `#<geheim>` aus der Adresse, sonst Code-Eingabe). Offen sind auch `/pair.html` und `/mobile.webmanifest` (Startbildschirm-App) |
+| `POST /api/pair` `{secret}` oder `{code, name?}` | Code einlösen → `Set-Cookie: livefx_dev=…`, `{ok, device, redirect}` (offen, same-origin, 10/min); Fehler `400 invalid_code\|expired\|used`, `429 rate_limited\|locked` (+ `Retry-After`) |
+| `POST /api/pairing` `{next?}` | neuer Kopplungscode, hebt eine Eingabe-Sperre auf (Auth) |
+| `GET /api/setup` (`?new=1`) | alles für den Einrichtungs-Assistenten: `lanUrls`, `bestLanUrl`, `panelUrl`, `overlayUrls`, `cameraUrl`, `tunnel{state,url,error,pairingUrl}`, `pairing{url,lanUrl,tunnelUrl,cameraUrl,manualUrl,code,expiresAt,ttlMs,via,reason,locked}`, `devices`, `lan{listening,bind,ips,port}`, `version` (Auth) |
 | `GET /api/devices` · `DELETE /api/devices/<id>` · `DELETE /api/devices?all=1` | Geräte auflisten / entfernen (Auth) |
 | `GET /api/tunnel` · `POST /api/tunnel/start` · `POST /api/tunnel/stop` | Internet-Link; `phoneUrl` = Kopplungslink auf der Tunnel-Adresse (Auth) |
 
-Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'|'revoked', …}`.
+Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'|'revoked'|'locked', …}`.
 
 ## Türkçe
 
@@ -153,7 +159,12 @@ Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'
 - QR tarayıcı yoksa: telefonda `http://<PC-adresi>:8787/p` aç ve **6 haneli kodu** yaz.
 - **Farklı ağ / mobil veri:** panelde „🌐 Internet-Link starten“ – QR kod `https://…trycloudflare.com/p#…`
   adresine gider (HTTPS, telefon mikrofonu da çalışır).
-- **Windows Güvenlik Duvarı** sorarsa „Erişime izin ver“ (özel ağlar). **Mac** „doğrulanmamış geliştirici“
+- **Windows Güvenlik Duvarı** sorarsa „Erişime izin ver“ (özel ağlar). İzin verdin ama QR yine bir şey yapmıyor mu?
+  Windows 11 yeni Wi‑Fi’yi çoğu zaman **„Ortak“** yapar: Ayarlar → Ağ ve İnternet → Wi‑Fi → ağın → Ağ profili
+  **„Özel“** (ya da güvenlik duvarı sorusunda „Ortak ağlar“ı da işaretle).
+- 20 yanlış kod yazılırsa **kod yazma** 5 dakika kilitlenir (QR kodu taramak çalışır; panelde „Neuer Code“ kilidi
+  hemen kaldırır). Panelden silinen cihazın bağlantısı anında kesilir.
+- **Mac** „doğrulanmamış geliştirici“
   derse: sağ tık → „Aç“ → „Aç“ (macOS 15+: Sistem Ayarları → Gizlilik ve Güvenlik → „Yine de Aç“).
 - **OBS aynı PC’de:** `http://127.0.0.1:8787/overlay.html`. **OBS başka PC’de:** pencerede/panelde gösterilen
   `…/overlay.html?key=…` adresini kullan (anahtar yalnızca overlay’i açar).
@@ -183,7 +194,12 @@ Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'
 - No QR scanner: open `http://<pc-address>:8787/p` on the phone and type the **6-digit code**.
 - **Other network / mobile data:** “🌐 Internet-Link starten” in the panel – the QR code then points to
   `https://…trycloudflare.com/p#…` (HTTPS, so the phone microphone works too).
-- **Windows Firewall** asks: “Allow access” (private networks). **macOS** “unidentified developer”: right-click →
+- **Windows Firewall** asks: “Allow access” (private networks). Allowed, but the QR code still does nothing?
+  Windows 11 often marks a new Wi‑Fi as **“Public”**: Settings → Network & internet → Wi‑Fi → your network →
+  Network profile **“Private”** (or also tick “Public networks” in the firewall prompt).
+- 20 wrong typed codes lock **typing** for 5 minutes (scanning the QR code still works; “Neuer Code” in the panel
+  lifts the lock). Removing a device in the panel disconnects it at once.
+- **macOS** “unidentified developer”: right-click →
   “Open” → “Open” (macOS 15+: System Settings → Privacy & Security → “Open Anyway”).
 - **OBS on the same PC:** `http://127.0.0.1:8787/overlay.html`. **OBS on another PC:** use the
   `…/overlay.html?key=…` address shown in the start window / panel (the key opens the overlay only, read-only).

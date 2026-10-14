@@ -319,6 +319,9 @@ test('guard: tunnel requests need a session cookie or a Bearer; /m, /p, /health,
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/p'), ctx), null, '/p is open');
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/api/pair', 'POST'), ctx), null, 'POST /api/pair is open');
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/js/bus.js'), ctx), null, 'static code is public');
+  // browsers fetch the web manifest without cookies: the phone's home-screen app must install through the tunnel too
+  assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/mobile.webmanifest'), ctx), null, 'phone manifest is public');
+  assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/pair.html'), ctx), null, 'pair.html (= /p) is public');
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/api/triggers'), ctx).status, 401, 'data needs a session');
   assert.strictEqual(apiTunnel.guard(req({ host: 'lazy-otter.trycloudflare.com' }, '/events?role=panel'), ctx).status, 401, 'panel events need a session');
   const paired = { token: 'secret-token-1', pairing: { deviceFromRequest: (r) => (/livefx_dev=ok/.test(r.headers.cookie || '') ? { id: 'd1' } : null) } };

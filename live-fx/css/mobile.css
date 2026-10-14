@@ -143,8 +143,9 @@ section > h2 { margin-bottom: 8px; }
 /* ---------- packs ---------- */
 .packs { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
 .pack-tile { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 12px; min-height: 84px; text-align: left; border-radius: 16px; }
-.pack-tile .flag { font-size: 24px; line-height: 1; }
-.pack-tile .lbl { font-size: 13px; font-weight: 600; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pack-tile .flag { font-size: 24px; line-height: 1; font-weight: 700; }
+/* up to two lines („Reaktionen (animiert)“, „Yazı Stickerları (TR)“) instead of an ellipsis after 12 letters */
+.pack-tile .lbl { font-size: 14px; font-weight: 600; line-height: 1.25; max-width: 100%; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow-wrap: anywhere; }
 .pack-tile .meta { font-size: 11px; color: var(--muted); }
 .pack-tile.loaded { border-color: color-mix(in srgb, var(--ok) 60%, transparent); background: color-mix(in srgb, var(--ok) 10%, var(--panel-2)); }
 .pack-tile.loaded .meta { color: var(--ok); }

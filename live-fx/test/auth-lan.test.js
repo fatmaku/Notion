@@ -28,7 +28,7 @@ function setup() {
 test('decide(): unpaired WLAN device reaches only the pairing page, public static code and /health', () => {
   const { ctx } = setup();
   const d = (url, opts) => auth.decide(fakeReq(url, opts), ctx);
-  for (const p of ['/p', '/p/', '/p?next=camera', '/m?token=x', '/health', '/favicon.ico', '/manifest.webmanifest', '/sw.js', '/js/bus.js', '/css/mobile.css', '/icons/icon.svg', '/memes/index.json', '/docs/START.md']) {
+  for (const p of ['/p', '/p/', '/p?next=camera', '/pair.html', '/m?token=x', '/health', '/favicon.ico', '/manifest.webmanifest', '/mobile.webmanifest', '/sw.js', '/js/bus.js', '/js/pair.js', '/css/mobile.css', '/icons/icon.svg', '/memes/index.json', '/docs/START.md']) {
     assert.equal(d(p).action, 'pass', p);
     assert.equal(d(p).level, 'open', p);
   }
@@ -129,6 +129,25 @@ const lanIp = (() => {
   return best ? best.address : null;
 })();
 
+/** Long-lived SSE request: `{ text(), ended }` – `ended` resolves when the server closes the stream. */
+function openStream(host, port, p, headers = {}) {
+  let text = '';
+  let status = 0;
+  let r;
+  const ended = new Promise((resolve, reject) => {
+    r = http.request({ host, port, path: p, headers: { host: `${host}:${port}`, ...headers } }, (res) => {
+      status = res.statusCode;
+      res.setEncoding('utf8');
+      res.on('data', (c) => (text += c));
+      res.on('end', () => resolve('end'));
+      res.on('close', () => resolve('close'));
+    });
+    r.on('error', (e) => (e.code === 'ECONNRESET' ? resolve('reset') : reject(e)));
+    r.end();
+  });
+  return { ended, text: () => text, status: () => status, destroy: () => r.destroy() };
+}
+
 /** Request to the server through `host` (the LAN IP → non-loopback socket on the server side). */
 function req(host, port, p, { method = 'GET', headers = {}, body = null } = {}) {
   return new Promise((resolve, reject) => {
@@ -181,7 +200,19 @@ test('LAN integration: pairing over the WLAN address, panel API with the device 
     const h = await L('/health');
     assert.deepEqual(Object.keys(h.json).sort(), ['ok', 'version']);
     assert.equal((await L('/js/bus.js')).status, 200);
-    assert.equal((await L('/p')).status, 200);
+    // the pairing page is pair.html (+ js/pair.js) and the phone's home-screen manifest loads without a cookie –
+    // browsers fetch a web manifest without credentials, so a paired phone does not help here either
+    const pPage = await L('/p');
+    assert.equal(pPage.status, 200);
+    assert.match(pPage.text, /<meta name="livefx-page" content="pair">/, '/p serves pair.html on the WLAN');
+    assert.match(pPage.headers['content-security-policy'], /script-src 'self'/);
+    assert.equal((await L('/js/pair.js')).status, 200);
+    assert.equal((await L('/pair.html')).status, 200);
+    const man = await L('/mobile.webmanifest');
+    assert.equal(man.status, 200, 'home-screen app manifest reachable before / without the cookie');
+    assert.match(man.headers['content-type'], /manifest\+json/);
+    assert.equal(man.json.start_url, '/mobile.html');
+    assert.equal((await L('/manifest.webmanifest')).status, 200);
     const ov = await L('/overlay.html');
     assert.equal(ov.status, 401);
     assert.match(ov.headers['content-type'], /text\/html/);
@@ -240,10 +271,24 @@ test('LAN integration: pairing over the WLAN address, panel API with the device 
     assert.equal((await L('/assets/missing.png', { headers: { cookie: ovCookie } })).status, 404, 'past the guard, then the static 404');
   });
 
-  await t.test('revoking the device kills the cookie at once', async () => {
+  await t.test('revoking the device kills the cookie AND its open live stream at once', async () => {
     const list = (await api(base, 'GET', '/api/devices', { token })).json.devices;
     const me = list.find((d) => d.via === 'lan');
+    const stream = openStream(lanIp, port, '/events?role=panel', { cookie });
+    t.after(() => stream.destroy());
+    const t0 = Date.now();
+    while (!stream.text().includes('"type":"state"') && Date.now() - t0 < 3000) await new Promise((r) => setTimeout(r, 20));
+    assert.equal(stream.status(), 200);
+    assert.ok(stream.text().includes('"type":"state"'), 'stream open');
     assert.equal((await api(base, 'DELETE', `/api/devices/${me.id}`, { token })).status, 200);
+    const how = await Promise.race([stream.ended, new Promise((r) => setTimeout(() => r('still open'), 3000))]);
+    assert.notEqual(how, 'still open', 'the revoked device is cut off without waiting for a reconnect');
+    assert.match(stream.text(), new RegExp(`"type":"pairing","event":"revoked","id":"${me.id}"`), 'it got the revoke event first (mobile.js shows „nicht gekoppelt“)');
+    const before = stream.text();
+    assert.equal((await api(base, 'POST', '/fire', { token, json: { type: 'volume', volume: 0.33 } })).status, 200);
+    await new Promise((r) => setTimeout(r, 150));
+    assert.equal(stream.text(), before, 'nothing reaches the revoked device afterwards');
+    assert.equal((await L('/events?role=panel', { headers: { cookie } })).status, 401, 'and it cannot reconnect');
     assert.equal((await L('/api/triggers', { headers: { cookie } })).status, 401);
     assert.equal((await L('/', { headers: { cookie } })).status, 302);
   });

@@ -28,7 +28,8 @@ Gut zu wissen:
 
 - Der QR-Code enthält nur einen **Einmal-Code** (`http://<PC>:8787/p#…`), **nie deinen API-Token**. Er gilt
   **10 Minuten** und **einmal**; danach zeigt das Panel automatisch einen neuen (Countdown unter dem Code).
-  „🔄 Neuer Code“ erzeugt sofort einen frischen.
+  „🔄 Neuer Code“ erzeugt sofort einen frischen – der **alte bleibt aber bis zum Ablauf gültig** (oder bis ein Handy
+  ihn benutzt). War ein QR-Code im Stream zu sehen, in der Geräteliste nachsehen und ein fremdes Gerät **„entfernen“**.
 - **Kein QR-Scanner?** Unter dem QR-Code steht z. B. „Am Handy `http://192.168.178.23:8787/p` öffnen und den Code
   **482 913** eintippen“ – das Handy zeigt dafür ein Eingabefeld.
 - **Mehrere Adressen** (WLAN, Docker, VPN …): LiveFX nimmt die wahrscheinlichste. Klappt es nicht, unter dem QR-Code
@@ -47,6 +48,10 @@ Daten)? → Internet-Link“** mit **einem** Knopf: **🌐 Internet-Link starten
 Cloudflare-Link (https, kostenlos, ohne Konto) und **tauscht den QR-Code automatisch aus** – jetzt einfach noch einmal
 scannen. „↩ WLAN-Code zeigen“ holt den WLAN-QR zurück. Erreicht das Handy den PC gar nicht über das WLAN (z. B.
 LiveFX mit `--local` gestartet oder kein Netzwerk), erscheint der Knopf sofort. Mehr zum Internet-Link: Abschnitt 4a.
+
+Sobald ein Handy gekoppelt ist, **blendet LiveFX den Internet-QR aus** und zeigt wieder den WLAN-Code (ohne WLAN gar
+keinen) – falls das Panel- oder Kamera-Fenster gerade aufgenommen oder in einem Call geteilt wird. Für ein weiteres
+Handy **„➕ Weiteres Handy (Internet)“** drücken; den Internet-QR nur zeigen, wenn niemand zuschaut.
 
 ### 3. Gekoppelte Handys verwalten und entfernen
 
@@ -111,7 +116,8 @@ Handy** ohne eigenes Zertifikat.
   das genommen.
 - Die zufällige Adresse gilt, **solange der Server läuft**; „Internet-Link stoppen“ (Karte **📱 Handy**) oder das
   Beenden von LiveFX beendet den Tunnel. Schon gekoppelte Handys müssen für den Tunnel einmal neu scannen (andere
-  Adresse = anderes Cookie).
+  Adresse = anderes Cookie) – den Internet-QR dafür mit **„➕ Weiteres Handy (Internet)“** holen. Der Knopf in der
+  Karte **📱 Handy** zeigt den Internet-QR oben im Kopplungs-Feld (nicht dauerhaft daneben).
 - **Sicherheit**: Durch den Tunnel kommt ohne Kopplung nur die Kopplungsseite – Panel, Fernbedienung und API
   brauchen ein gekoppeltes Gerät (oder den Bearer-Token). Den QR-Code trotzdem nicht im Stream zeigen.
 - API: `GET /api/tunnel` (Status), `POST /api/tunnel/start`, `POST /api/tunnel/stop`.
@@ -172,7 +178,9 @@ ses – istersen telefon mikrofonu da konuşma tanıma olarak. **Uygulama yok, y
 4. Panelde durum **„✔ Handy verbunden: iPhone · Safari“** olur, 0. adım yeşile döner.
 
 - QR kod yalnızca **tek kullanımlık bir kod** taşır (`…/p#…`), **API anahtarını (token) asla**. **10 dakika** ve
-  **bir kez** geçerlidir; süre dolunca panel kendiliğinden yenisini gösterir. „🔄 Neuer Code“ hemen yeni kod üretir.
+  **bir kez** geçerlidir; süre dolunca panel kendiliğinden yenisini gösterir. „🔄 Neuer Code“ hemen yeni kod üretir –
+  ama **eski kod süresi dolana kadar geçerli kalır** (ya da bir telefon onu kullanana kadar). QR kod yayında
+  göründüyse cihaz listesine bak, tanımadığın cihazı **„entfernen“** ile kaldır.
 - **QR okuyucu yok mu?** QR'ın altındaki adresi (ör. `http://192.168.178.23:8787/p`) telefonda aç ve **6 haneli kodu**
   yaz.
 - Birden fazla adres varsa ve bağlanmıyorsa QR'ın altında „Andere Adresse probieren“ ile diğerini seç.
@@ -189,6 +197,10 @@ Internet-Link“** ipucunu ve **tek** bir düğme gösterir: **🌐 Internet-Lin
 bağlantısı (https, ücretsiz, hesapsız) açar ve **QR kodu otomatik değiştirir** – yeniden tara. „↩ WLAN-Code zeigen“
 Wi‑Fi QR'ına geri döner. İlk seferde LiveFX `cloudflared` programını (~40 MB) bir kez indirir. İnternet yoksa: telefonda
 **kişisel erişim noktası** aç, PC'yi ona bağla, Wi‑Fi QR'ı çalışır.
+
+Bir telefon eşleşir eşleşmez LiveFX **internet QR'ını gizler** ve yeniden Wi‑Fi kodunu gösterir (Wi‑Fi yoksa hiçbirini) –
+panel ya da kamera penceresi o an kaydediliyor veya bir görüşmede paylaşılıyor olabilir. Başka bir telefon için
+**„➕ Weiteres Handy (Internet)“** düğmesine bas; internet QR'ını yalnızca kimse izlemiyorken göster.
 
 ### 3. Eşleşmiş telefonları yönetmek ve kaldırmak
 
@@ -224,7 +236,9 @@ optionally the phone microphone as speech recognition. **No app, no typing: scan
 4. The panel switches to **“✔ Handy verbunden: iPhone · Safari”** and step 0 turns green.
 
 - The QR code only carries a **one-time code** (`…/p#…`), **never your API token**. It is valid for **10 minutes**
-  and **once**; the panel shows a fresh one by itself. “🔄 Neuer Code” makes a new one right away.
+  and **once**; the panel shows a fresh one by itself. “🔄 Neuer Code” makes a new one right away – but the **old one
+  stays valid until it expires** (or a phone uses it). If a QR code was visible on stream, check the device list and
+  **“entfernen”** any device you do not know.
 - **No QR scanner?** Open the address shown under the QR code (e.g. `http://192.168.178.23:8787/p`) on the phone and
   type the **6-digit code**.
 - Several addresses and it does not connect? Pick another one under “Andere Adresse probieren”.
@@ -241,6 +255,10 @@ Daten)? → Internet-Link”** with **one** button: **🌐 Internet-Link starten
 (https, free, no account) and **swaps the QR code automatically** – just scan again. “↩ WLAN-Code zeigen” brings the
 Wi‑Fi QR back. The first time, LiveFX downloads `cloudflared` (~40 MB) once. No internet on the PC? Turn on the
 phone's **personal hotspot**, connect the PC to it, and the Wi‑Fi QR works.
+
+As soon as a phone has paired, LiveFX **hides the internet QR** and shows the Wi‑Fi code again (none without Wi‑Fi) –
+the panel or camera window may be in a screen capture or shared in a call. For another phone press **“➕ Weiteres
+Handy (Internet)”**; only show the internet QR when nobody is watching.
 
 ### 3. Manage and remove paired phones
 

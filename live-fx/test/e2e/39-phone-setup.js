@@ -1,5 +1,6 @@
 // Phone first setup (2.4): the pairing page pair.html (big states: verbinde … / ✔ verbunden / ✖ Code schon benutzt,
-// typed 6-digit fallback, DE/TR/EN, home-screen tip, redirect), then a real phone in the WLAN (390×844, iPhone, via the
+// typed 6-digit fallback, DE/TR/EN, home-screen tip, redirect; as the `/p` page for a fresh WLAN phone under a strict
+// CSP – start state → typed code → remote), then a real phone in the WLAN (390×844, iPhone, via the
 // LAN address – not loopback) opens a real pairing link from POST /api/pairing → /mobile.html → the setup assistant
 // opens by itself (fresh device): ① verbunden ② choose a pack (reaches the server) ③ test effect (warns without an
 // overlay, then reaches the overlay page and counts it) ④ how-to → done; re-open from „Mehr“. Plus: the phone mic on the
@@ -11,6 +12,10 @@
 const path = require('path');
 const assert = require('node:assert/strict');
 const QR = require('../../js/qr.js');
+
+// What pair.html needs when it is served as the `/p` page: its own inline <style>, ONE external script (/js/pair.js),
+// fetch to the same origin – no inline script, no nonce.
+const PAIR_CSP = "default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; manifest-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const IPHONE_UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1';
@@ -36,8 +41,25 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
   try {
     const first = await newCode();
     const lan = first.lanUrl ? first.lanUrl.replace(/\/p.*$/, '') : null;
-    const pServes = lan ? await (await fetch(`${lan}/p`)).text() : '';
-    log(`LAN ${lan || '– (no LAN address: local fallback)'}; /p serves ${/name="livefx-page" content="pair"/.test(pServes) ? 'pair.html' : 'the built-in pairing page'}`);
+    if (lan) {
+      // What an unpaired phone in the WLAN gets (Node's fetch from the LAN address = not loopback, no cookie):
+      // /p is pair.html under the strict CSP, and the files it needs are open.
+      const pRes = await fetch(`${lan}/p`);
+      assert.equal(pRes.status, 200);
+      assert.match(await pRes.text(), /name="livefx-page" content="pair"/, '/p serves pair.html (not the built-in page)');
+      assert.equal(pRes.headers.get('content-security-policy'), PAIR_CSP);
+      assert.equal(pRes.headers.get('cache-control'), 'no-store');
+      for (const p of ['/pair.html', '/js/pair.js', '/mobile.webmanifest', '/sw.js']) {
+        const r = await fetch(`${lan}${p}`);
+        assert.equal(r.status, 200, `${p} for an unpaired WLAN phone`);
+      }
+      for (const p of ['/mobile.html', '/']) {
+        const r = await fetch(`${lan}${p}`, { redirect: 'manual' });
+        assert.equal(r.status, 302, `${p} → pairing page for an unpaired WLAN phone`);
+        assert.match(r.headers.get('location') || '', /^\/p(\?|$)/);
+      }
+    }
+    log(`LAN ${lan || '– (no LAN address: local fallback)'}; /p serves pair.html`);
 
     // ------------------------------------------------------------ (a) pair.html states (on this PC, separate browser)
     const pp = await pairCtx.newPage();
@@ -118,6 +140,44 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     assert.match(await pp.textContent('#pair-ok-title'), /Wieder verbunden|Verbunden/);
     await pp.waitForURL(/\/mobile\.html/, { timeout: 8000 }); // automatic countdown
     log('pair.html: used / TR / EN / wrong code / typed code → redirect');
+
+    // ------------------------------------------------------------ (a2) a fresh phone in the WLAN opens /p (no QR secret)
+    // pair.html as the real /p page under its strict CSP: proven to work for a device that is NOT paired and NOT the PC.
+    if (lan) {
+      const freshCtx = await browser.newContext({ ...PHONE, userAgent: ANDROID_UA, colorScheme: 'light' });
+      try {
+        const fp = await freshCtx.newPage();
+        const cspErrors = [];
+        fp.on('pageerror', (e) => errors.push(`pair-lan: ${e.message}`));
+        fp.on('console', (m) => {
+          if (/Content Security Policy|Refused to/i.test(m.text())) cspErrors.push(m.text());
+        });
+        await fp.goto(`${lan}/p`);
+        await fp.waitForFunction(() => window.livefxPair && window.livefxPair.state !== 'busy', null, { timeout: 5000 });
+        assert.equal(await fp.evaluate(() => window.livefxPair.state), 'start', 'unpaired phone: scan or type the code');
+        assert.ok(await fp.locator('#pair-form').isVisible(), 'code form shown at once');
+        assert.ok(await fp.locator('#pair-help').isVisible(), 'help shown');
+        assert.equal(await fp.evaluate(() => document.activeElement && document.activeElement.id), 'pair-code', 'keyboard ready');
+        assert.equal(await fp.evaluate(() => getComputedStyle(document.body).backgroundColor), 'rgb(244, 245, 248)', 'light theme follows the phone');
+        await shot(fp, 'pair-start');
+        const c3 = await newCode();
+        await fp.type('#pair-code', c3.code);
+        await fp.waitForSelector('[data-state-view="ok"]:not([hidden])', { timeout: 5000 });
+        assert.match(await fp.textContent('#pair-ok-title'), /Verbunden!/);
+        await fp.tap('#pair-go');
+        await fp.waitForURL(`${lan}/mobile.html`, { timeout: 5000 });
+        await fp.evaluate(() => window.livefx.ready);
+        const freshSess = await fp.evaluate(() => window.livefx.session);
+        assert.equal(freshSess.state, 'paired', 'LAN phone paired through /p');
+        assert.deepEqual(cspErrors, [], `pair.html under a strict CSP: ${cspErrors.join('; ')}`);
+        // remove it again – (e) below looks for „the second Android phone in the WLAN“
+        const rm = await api(base, 'DELETE', `/api/devices/${freshSess.device.id}`, { token });
+        assert.equal(rm.status, 200, rm.text);
+        log('pair.html as /p for a fresh WLAN phone (strict CSP): start → typed code → remote');
+      } finally {
+        await freshCtx.close();
+      }
+    }
 
     // ------------------------------------------------------------ (b) the real phone in the WLAN
     const overlayPage = await pc.newPage();
@@ -200,6 +260,7 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     assert.match(await phone.textContent('#setup-next'), /Los geht/);
     assert.match(await phone.textContent('#setup-step-4'), /Lange drücken = ⭐ Favorit/);
     assert.match(await phone.textContent('#setup-a2hs'), /Teilen.*Zum Home-Bildschirm/, 'iPhone gets the Safari tip');
+    assert.match(await phone.textContent('#setup-a2hs'), /einmal den 6-stelligen Code/, 'iOS home-screen app needs the code once (own cookie jar)');
     await shot(phone, 'setup-4');
     await phone.tap('#setup-back');
     await phone.waitForFunction(() => window.livefx.setup.step === 2, null, { timeout: 3000 });

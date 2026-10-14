@@ -279,7 +279,7 @@ test('server.js --local: only 127.0.0.1, banner says phone access is off; --port
   }
 });
 
-test('second start on the same port: "LiveFX läuft schon", opens the existing panel, exit 0', async (t) => {
+test('second start on the same port: "LiveFX läuft schon", opens the existing panel, exit 0, no chat connection', async (t) => {
   const first = await startServer();
   t.after(() => first.stop());
   const port = new URL(first.base).port;
@@ -287,17 +287,29 @@ test('second start on the same port: "LiveFX läuft schon", opens the existing p
   const opened = path.join(bin, 'opened.txt');
   fs.writeFileSync(path.join(bin, 'xdg-open'), `#!/bin/sh\necho "$@" >> "${opened}"\n`, { mode: 0o755 });
   fs.writeFileSync(path.join(bin, 'open'), `#!/bin/sh\necho "$@" >> "${opened}"\n`, { mode: 0o755 });
-  const env = { PORT: port, HOST: '127.0.0.1', LIVEFX_DATA_DIR: first.dataDir, PATH: `${bin}${path.delimiter}${process.env.PATH}`, CI: '', LIVEFX_NO_BROWSER: '' };
+  // Twitch chat switched on in the shared data folder (written after the first instance loaded its settings): the
+  // duplicate start must exit before it connects – a plain TCP server stands in for Twitch and counts connections.
+  let chatConnections = 0;
+  const fakeTwitch = net.createServer((sock) => {
+    chatConnections++;
+    sock.destroy();
+  });
+  await new Promise((r) => fakeTwitch.listen(0, '127.0.0.1', r));
+  t.after(() => fakeTwitch.close());
+  fs.writeFileSync(path.join(first.dataDir, 'chat.json'), JSON.stringify({ version: 1, twitch: { channel: 'duplicate', enabled: true } }));
+  const env = { PORT: port, HOST: '127.0.0.1', LIVEFX_DATA_DIR: first.dataDir, PATH: `${bin}${path.delimiter}${process.env.PATH}`, CI: '', LIVEFX_NO_BROWSER: '', LIVEFX_TWITCH_WS_URL: `ws://127.0.0.1:${fakeTwitch.address().port}/` };
   delete env.CI;
   const r = await runServer(['--open'], { env: { ...env } });
   try {
     assert.equal(r.code, 0, r.out + r.err);
     assert.match(r.out, new RegExp(`LiveFX läuft schon \\(Version ${require('../package.json').version.replace(/\./g, '\\.')}\\) – Panel: http://127\\.0\\.0\\.1:${port}/`));
     assert.ok(!/anderes Programm|anderen Port/.test(r.out + r.err), 'no misleading "other program" message');
+    assert.ok(!/chat: twitch/.test(r.out + r.err), `the duplicate start does not start the chat connectors: ${r.out}`);
     if (process.platform === 'linux' || process.platform === 'darwin') {
       await new Promise((res) => setTimeout(res, 300));
       assert.equal(fs.readFileSync(opened, 'utf8').trim(), `http://127.0.0.1:${port}/`, 'browser opened on the running instance');
     }
+    assert.equal(chatConnections, 0, 'no Twitch connection from the duplicate start');
   } finally {
     fs.rmSync(bin, { recursive: true, force: true });
   }

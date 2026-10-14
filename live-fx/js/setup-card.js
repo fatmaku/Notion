@@ -17,6 +17,12 @@
 // shortly before it expires (POST /api/pairing), shows the „anderes Netz?“ hint after `timeoutMs` (25 s; the panel takes
 // `?setupTimeout=` for tests) with ONE button that starts the tunnel and swaps the QR to the tunnel pairing link, and lists
 // the paired devices with „entfernen“ (DELETE /api/devices/<id>).
+//   - Expiry runs on the SERVER clock: every answer's `Date` header (or, for a fresh code, `expiresAt - ttlMs`) gives the
+//     offset to this device's clock, so a phone or PC whose clock is minutes off neither shows a wrong countdown nor
+//     renews in a loop; an automatic renewal is followed by 30 s without another one.
+//   - Once a phone pairs, the internet (tunnel) QR is held back – the panel or camera window may be in a screen capture
+//     or a shared call, and the code keeps renewing. The QR falls back to the WLAN code (or shows none);
+//     „➕ Weiteres Handy (Internet)“ or the tunnel button bring the internet QR back.
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory(root);
   else root.LiveFXSetup = factory(root);
@@ -27,6 +33,8 @@
   const DEFAULT_TIMEOUT_MS = 25000;
   const POLL_MS = 2000;
   const RENEW_BEFORE_MS = 20000;
+  const RENEW_PAUSE_MS = 30000; // no automatic renewal right after one (a clock or server glitch must not loop)
+  const SKEW_NOISE_MS = 1500; // `Date` has whole seconds + network time: smaller offsets count as „same clock“
   const QR_MARGIN = 4; // quiet zone in modules (ISO 18004 asks for 4)
 
   // ---------- small helpers ----------
@@ -217,6 +225,7 @@
       manualUrl: cleanUrl(p.manualUrl),
       code,
       expiresAt: parseTime(p.expiresAt),
+      ttlMs: Number(p.ttlMs) > 0 ? Number(p.ttlMs) : null,
       legacy: false,
     };
   }
@@ -278,7 +287,7 @@
       panelUrl: origin ? `${origin}/` : '',
       overlay: overlayLinks(null, { bestLanUrl: best, origin }),
       tunnel: tunnelFrom(null),
-      pairing: url ? { url, lanUrl: url, hasLan: true, tunnelUrl: '', manualUrl: '', code: '', expiresAt: null, legacy: true } : null,
+      pairing: url ? { url, lanUrl: url, hasLan: true, tunnelUrl: '', manualUrl: '', code: '', expiresAt: null, ttlMs: null, legacy: true } : null,
       devices: [],
       devicesKnown: false,
       lan: { listening: true, reason: '' },
@@ -378,7 +387,8 @@
 
   /**
    * Markup of one pairing view (QR + code + status + hint + devices). `id` prefixes the element ids
-   * (`<id>-qr`, `-code`, `-state`, `-dot`, `-url-line`, `-hint`, `-tunnel`, `-devices`, `-expiry`, `-new`, `-copy`, `-lan`);
+   * (`<id>-qr`, `-code`, `-state`, `-dot`, `-url-line`, `-hint`, `-tunnel`, `-devices`, `-expiry`, `-new`, `-copy`, `-lan`,
+   * `-more`);
    * `qr` = QR width in CSS px; `card: false` drops the „Einrichtungskarte“ button; `steps` = three HTML lines.
    */
   function pairViewHtml({ id = 'pair', qr = 280, card = true, steps = PHONE_STEPS, compact = false } = {}) {
@@ -401,10 +411,11 @@
       `<div class="pair-addrs" id="${p}-addrs" data-pair="addrs" hidden></div>` +
       `<p class="help warn" id="${p}-warn" data-pair="warn" hidden></p>` +
       `<div class="actions pair-actions">` +
-      `<button type="button" class="small" id="${p}-new" data-pair-act="new" title="Neuen Einmal-Code erzeugen (der alte wird ungültig)">🔄 Neuer Code</button>` +
+      `<button type="button" class="small" id="${p}-new" data-pair-act="new" title="Neuen Einmal-Code erzeugen – der alte bleibt bis zum Ablauf gültig (oder bis ein Handy ihn benutzt). Fremdes Gerät gekoppelt? Unten „entfernen“.">🔄 Neuer Code</button>` +
       `<button type="button" class="small" id="${p}-copy" data-pair-act="copy" title="Kopplungs-Link kopieren, z. B. um ihn dir selbst zu schicken">📋 Link kopieren</button>` +
       (card ? `<button type="button" class="small" id="${p}-card" data-pair-act="card" title="Druckbare Karte mit Handy-QR und Overlay-QR (A6/A5, auch als Bild)">🖨 Einrichtungskarte</button>` : '') +
       `<button type="button" class="small" id="${p}-lan" data-pair-act="lan" hidden>↩ WLAN-Code zeigen</button>` +
+      `<button type="button" class="small" id="${p}-more" data-pair-act="more" hidden title="Internet-QR für ein weiteres Handy wieder anzeigen – nur zeigen, wenn niemand zuschaut (Stream, geteilter Bildschirm)">➕ Weiteres Handy (Internet)</button>` +
       `</div>` +
       `<div class="pair-hint" id="${p}-hint" data-pair="hint" hidden>` +
       `<div class="pair-hint-title">📶 Handy in einem anderen Netz (z. B. mobile Daten)? → Internet-Link</div>` +
@@ -442,11 +453,13 @@
       hintAt: 0,
       hintShown: false,
       tunnelWanted: false,
+      tunnelHeld: false, // a phone paired: no automatic internet QR until the streamer asks for it again
       tunnelBusy: false,
       tunnelMsg: '',
       altOrigin: '',
       renewing: false,
       renewBlockedUntil: 0,
+      skew: 0, // server clock minus this device's clock (ms)
       lastFetch: 0,
       fetching: false,
       healthBase: null,
@@ -464,13 +477,46 @@
         init.body = JSON.stringify(body);
       }
       const r = await fetchImpl(path, init);
+      const receivedAt = Date.now();
+      let serverNow = null;
+      try {
+        const h = r.headers && typeof r.headers.get === 'function' ? r.headers.get('date') : null;
+        const t = h ? Date.parse(h) : NaN;
+        if (Number.isFinite(t)) serverNow = t + 500; // whole seconds: the middle of that second
+      } catch (_) {
+        serverNow = null;
+      }
       let data = null;
       try {
         data = await r.json();
       } catch (_) {
         data = null;
       }
-      return { status: r.status, ok: r.ok, data };
+      return { status: r.status, ok: r.ok, data, serverNow, receivedAt };
+    }
+
+    /**
+     * Learns the offset between the server clock and this device's clock from an answer: its `Date` header, else – for
+     * a code the server just created (POST /api/pairing) – `expiresAt - ttlMs` = the server's „now“.
+     */
+    function learnClock(r, p, { fresh = false } = {}) {
+      let skew = null;
+      if (r && Number.isFinite(r.serverNow)) skew = r.serverNow - r.receivedAt;
+      else if (fresh && p && Number.isFinite(p.expiresAt) && Number(p.ttlMs) > 0) skew = p.expiresAt - p.ttlMs - r.receivedAt;
+      if (skew !== null && Number.isFinite(skew)) st.skew = Math.abs(skew) <= SKEW_NOISE_MS ? 0 : skew;
+    }
+
+    /** When the code runs out on THIS device's clock (null for none / the 2.2 link). */
+    function localExpiry(p) {
+      if (!p || p.legacy || !Number.isFinite(p.expiresAt)) return null;
+      return p.expiresAt - st.skew;
+    }
+
+    /** A phone just paired: hold the internet QR back (screen capture, shared call) – the WLAN code stays. */
+    function holdTunnel() {
+      if (st.tunnelWanted || tunnelPairingUrl(st.data)) log('🔒 Handy gekoppelt – Internet-QR ausgeblendet („➕ Weiteres Handy“ zeigt ihn wieder)');
+      st.tunnelWanted = false;
+      st.tunnelHeld = true;
     }
 
     function apply(n) {
@@ -486,6 +532,7 @@
         st.known.add(d.id);
         st.connected = d;
         log(`📱 Handy verbunden: ${d.name}`);
+        holdTunnel();
       }
       if (st.connected) st.connected = n.devices.find((d) => d.id === st.connected.id) || null;
     }
@@ -518,6 +565,7 @@
           else if (panels > st.healthBase && !st.connected) {
             st.connected = { id: 'remote', name: 'Fernbedienung', legacy: true };
             log('📱 Fernbedienung verbunden (Handy oder weiteres Fenster)');
+            holdTunnel();
           } else if (panels <= st.healthBase && st.connected && st.connected.legacy) st.connected = null;
         }
       } catch (_) {
@@ -536,6 +584,7 @@
           if (n) {
             st.mode = 'setup';
             st.error = '';
+            learnClock(r, n.pairing);
             apply(n);
           } else if (r.status === 404) st.mode = 'legacy';
           else if (r.status === 401 || r.status === 403) st.mode = 'forbidden';
@@ -579,7 +628,7 @@
     function current() {
       const t = tunnelPairingUrl(st.data);
       const lan = lanLink();
-      if (t && (st.tunnelWanted || !lan)) return { url: t, via: 'tunnel' };
+      if (t && (st.tunnelWanted || (!lan && !st.tunnelHeld))) return { url: t, via: 'tunnel' };
       return { url: lan, via: lan ? 'lan' : '' };
     }
 
@@ -698,6 +747,10 @@
       });
       if (q('tunnel-msg')) q('tunnel-msg').textContent = ctx.tunnelMsg;
       r.querySelectorAll('[data-pair-act="lan"]').forEach((b) => (b.hidden = !(ctx.link.via === 'tunnel' && lanLink())));
+      r.querySelectorAll('[data-pair-act="more"]').forEach((b) => {
+        b.hidden = !ctx.more;
+        b.disabled = st.tunnelBusy || tunnelState() === 'starting';
+      });
       r.querySelectorAll('[data-pair-act="new"]').forEach((b) => (b.disabled = st.mode !== 'setup'));
       r.querySelectorAll('[data-pair-act="copy"]').forEach((b) => (b.disabled = !ctx.link.url));
       const ul = q('devices');
@@ -724,8 +777,9 @@
       if (hint && !st.hintShown) log('📶 Noch kein Handy da – Tipp: anderes Netz? → Internet-Link');
       st.hintShown = hint;
       let expiry = '';
-      if (p && !p.legacy && Number.isFinite(p.expiresAt) && link.url) {
-        const left = p.expiresAt - now;
+      const until = localExpiry(p);
+      if (until !== null && link.url) {
+        const left = until - now;
         expiry = left > 0 ? `Code gilt noch ${countdown(left)} min und nur einmal – danach kommt automatisch ein neuer.` : 'Code abgelaufen – neuer Code wird geholt …';
       }
       let warn = '';
@@ -734,6 +788,7 @@
       let emptyText = 'QR-Code lädt …';
       if (st.mode === 'offline') emptyText = 'Server nötig';
       else if (st.mode === 'forbidden') emptyText = 'Nur am PC';
+      else if ((st.mode === 'setup' || st.mode === 'legacy') && !link.url && st.tunnelHeld && tunnelPairingUrl(st.data)) emptyText = '🔒 Internet-QR ausgeblendet (Handy gekoppelt) – „➕ Weiteres Handy“';
       else if ((st.mode === 'setup' || st.mode === 'legacy') && !link.url) emptyText = st.tunnelBusy || tunnelState() === 'starting' ? 'Internet-Link startet …' : 'Kein WLAN-Code – Internet-Link nutzen ↓';
       else if (st.mode === 'error') emptyText = 'Server nicht erreichbar';
       const ts = tunnelState();
@@ -750,6 +805,8 @@
         tunnelMsg,
         status: status(now, link),
         done: !!st.connected || !!(st.data && st.data.devices && st.data.devices.length),
+        // after a pairing: the internet QR comes back only on request (it is online, or the only way in)
+        more: (st.mode === 'setup' || st.mode === 'legacy') && st.tunnelHeld && !hint && link.via !== 'tunnel' && (!!tunnelPairingUrl(st.data) || !lanLink()),
       };
       for (const r of roots) renderRoot(r, ctx);
       const summary = { mode: st.mode, url: link.url, via: link.via, connected: st.connected ? st.connected.name : '', devices: st.data && st.data.devices ? st.data.devices.length : 0, hint, done: ctx.done, tunnel: ts };
@@ -777,8 +834,9 @@
 
     function maybeRenew(now, vis) {
       const p = st.data && st.data.pairing;
-      if (!vis || st.mode !== 'setup' || !p || p.legacy || !Number.isFinite(p.expiresAt) || st.renewing || now < st.renewBlockedUntil) return;
-      if (p.expiresAt - now > renewBeforeMs) return;
+      const until = localExpiry(p);
+      if (!vis || st.mode !== 'setup' || until === null || st.renewing || now < st.renewBlockedUntil) return;
+      if (until - now > renewBeforeMs) return;
       st.renewing = true;
       newCode({ auto: true }).finally(() => {
         st.renewing = false;
@@ -802,7 +860,9 @@
         const r = await req('POST', '/api/pairing', {});
         const p = r.ok && r.data ? pairingFrom(r.data.pairing || r.data) : null;
         if (p && st.data) {
+          learnClock(r, p, { fresh: true });
           st.data.pairing = p;
+          st.renewBlockedUntil = Date.now() + RENEW_PAUSE_MS;
           log(auto ? '🔄 Kopplungs-Code automatisch erneuert' : '🔄 Neuer Kopplungs-Code');
         } else st.renewBlockedUntil = Date.now() + 10000;
       } catch (_) {
@@ -815,6 +875,7 @@
 
     async function startTunnel() {
       st.tunnelWanted = true;
+      st.tunnelHeld = false;
       if (tunnelState() === 'online') {
         render();
         return st.data.tunnel;
@@ -879,7 +940,7 @@
       const act = b.dataset.pairAct;
       if (act === 'new') newCode();
       else if (act === 'copy') copyLink(b);
-      else if (act === 'tunnel') startTunnel();
+      else if (act === 'tunnel' || act === 'more') startTunnel();
       else if (act === 'lan') {
         st.tunnelWanted = false;
         render();
@@ -915,8 +976,16 @@
       removeDevice,
       copyLink,
       current,
+      tick,
       useLan() {
         st.tunnelWanted = false;
+        render();
+      },
+      /** The tunnel is started elsewhere (the Handy card's own button): show its QR once it is online. */
+      wantTunnel() {
+        st.tunnelWanted = true;
+        st.tunnelHeld = false;
+        st.lastFetch = 0;
         render();
       },
       get data() {
@@ -929,12 +998,15 @@
           url: link.url,
           via: link.via,
           code: st.data && st.data.pairing ? st.data.pairing.code : '',
+          expiresAt: localExpiry(st.data && st.data.pairing), // on this device's clock
+          skew: st.skew,
           connected: st.connected ? { ...st.connected } : null,
           devices: st.data && st.data.devices ? st.data.devices.map((d) => ({ ...d })) : [],
           hint: st.hintShown,
           hintAt: st.hintAt,
           tunnel: tunnelState(),
           tunnelWanted: st.tunnelWanted,
+          tunnelHeld: st.tunnelHeld,
           running: st.running,
         };
       },

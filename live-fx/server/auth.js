@@ -14,7 +14,7 @@
 //
 // 2.3 – LAN by default: server.js listens on 0.0.0.0, so `guard()` runs before routing for every request that is
 // not local. Without a session such a request only reaches the pairing page (/p, POST /api/pair, GET /m), public
-// static code (css/js/icons/memes/vendor/models/docs, manifest, sw.js) and a minimal /health. The OBS overlay on
+// static code (css/js/icons/memes/vendor/models/docs, both manifests, sw.js) and a minimal /health. The OBS overlay on
 // another PC uses the overlay key (`overlay.html?key=<k>`, read-only: overlay page, overlay events, uploaded assets).
 //
 // Order of checks in requireAuth: a valid Bearer always wins. Without one, a disallowed Host is a
@@ -261,8 +261,10 @@ function requireAuth(handler) {
 
 // ---------- guard for requests that are not local ----------
 
-// Public without a session (GET/HEAD): pairing page, legacy phone handshake, health, PWA files and static code.
-const OPEN_GET_RE = /^\/(?:p\/?|m|health|favicon\.ico|manifest\.webmanifest|sw\.js|(?:css|js|icons|memes|vendor|models|docs)\/.+)$/;
+// Public without a session (GET/HEAD): pairing page (/p = pair.html, also under its file name), legacy phone handshake,
+// health, PWA files and static code. Browsers fetch a web manifest WITHOUT cookies, so both manifests must be open –
+// otherwise the phone's home-screen app (mobile.webmanifest, start_url /mobile.html) never installs. None holds secrets.
+const OPEN_GET_RE = /^\/(?:p\/?|pair\.html|m|health|favicon\.ico|manifest\.webmanifest|mobile\.webmanifest|sw\.js|(?:css|js|icons|memes|vendor|models|docs)\/.+)$/;
 const OPEN_POST = new Set(['/api/pair']);
 // HTML pages that need a session: an unpaired device is sent to the pairing page instead.
 const PAGE_NEXT = new Map([

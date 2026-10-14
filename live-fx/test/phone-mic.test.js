@@ -260,7 +260,7 @@ test('router: no PC fire within the hold time → the phone fires (and keeps fir
   assert.deepEqual(changes, ['phone']);
 });
 
-test('router: a panel fire „Handy-Mikro: …“ hands firing to the PC; three silent batches → unknown again', () => {
+test('router: a panel fire „Handy-Mikro: …“ hands firing to the PC; silent windows fire late, then unknown again', () => {
   const clock = fakeClock();
   const r = PM.createRouter({ ...clock });
   const fired = [];
@@ -279,18 +279,74 @@ test('router: a panel fire „Handy-Mikro: …“ hands firing to the PC; three 
   r.observe({ type: 'fire', source: 'Handy-Mikro: „krass“ (≈ wow)' });
   clock.advance(5000);
   assert.equal(r.state, 'pc');
-  // the panel stopped listening: three batches without an answer
-  for (let i = 0; i < 3; i++) {
-    r.hits([{ id: 'lol' }], fire);
-    clock.advance(2000);
-  }
-  assert.equal(r.state, 'unknown');
-  assert.deepEqual(fired, [], 'nothing fired twice');
+  assert.deepEqual(fired, [], 'nothing fired twice while the PC answers');
+  // the panel stopped listening: each window without an answer fires its hits late from the phone
+  r.hits([{ id: 'lol' }], fire);
+  clock.advance(PM.VERIFY_MS - 1);
+  assert.deepEqual(fired, [], 'still waiting for the PC');
+  clock.advance(1);
+  assert.deepEqual(fired, ['lol'], 'late, not lost');
+  assert.equal(r.state, 'pc', 'one silent window is not enough to give up on the PC');
+  r.hits([{ id: 'omg' }], fire);
+  clock.advance(PM.VERIFY_MS);
+  assert.deepEqual(fired, ['lol', 'omg']);
+  assert.equal(r.state, 'unknown', `${PM.MISS_LIMIT} silent windows → unknown`);
+  assert.equal(r.stats.lateFires, 2);
   r.hits([{ id: 'gg' }], fire);
   clock.advance(PM.HOLD_MS);
-  assert.deepEqual(fired, ['gg'], 'back to the phone');
+  assert.deepEqual(fired, ['lol', 'omg', 'gg'], 'back to the phone');
+  assert.equal(r.state, 'phone');
   r.reset();
   assert.equal(r.state, 'unknown');
+});
+
+test('router: the panel switches away from „Extern“ – every line after it still fires exactly once', () => {
+  const clock = fakeClock();
+  const r = PM.createRouter({ ...clock });
+  const fired = [];
+  const fire = (h) => fired.push(h.trigger.id);
+  const hit = (id) => ({ trigger: { id }, keyword: id });
+  r.hits([hit('bruh')], fire);
+  r.observe({ type: 'fire', source: 'Handy-Mikro: „bruh“', trigger: { id: 'bruh' } });
+  clock.advance(3000);
+  assert.equal(r.state, 'pc');
+  // the panel stops: four trigger lines, 2.5 s apart
+  for (const id of ['wow', 'lol', 'omg', 'gg']) {
+    r.hits([hit(id)], fire);
+    clock.advance(2500);
+  }
+  assert.deepEqual(fired, ['wow', 'lol', 'omg', 'gg'], 'no effect lost on stream, none twice');
+  assert.equal(r.state, 'phone');
+});
+
+test('router: no late fire while the PC answers in the window, or for a trigger the PC fired just before', () => {
+  const clock = fakeClock();
+  const r = PM.createRouter({ ...clock });
+  const fired = [];
+  const fire = (h) => fired.push(h.trigger.id);
+  const hit = (id) => ({ trigger: { id } });
+  r.observe({ type: 'fire', source: 'Handy-Mikro: „x“', trigger: { id: 'x' } });
+  assert.equal(r.state, 'pc');
+  clock.advance(5000);
+  // two hits in one window, the PC answers one of them (its cooldown or tolerance held back the other)
+  r.hits([hit('wow')], fire);
+  clock.advance(200);
+  r.hits([hit('lol')], fire);
+  r.observe({ type: 'fire', source: 'Handy-Mikro: „wow“', trigger: { id: 'wow' } });
+  clock.advance(5000);
+  assert.deepEqual(fired, [], 'the PC is answering: nothing late');
+  // the PC fired „krass“ on an interim line, the phone's matcher only hits it on the final: no second effect
+  r.observe({ type: 'fire', source: 'Handy-Mikro: „krass“', trigger: { id: 'krass' } });
+  clock.advance(600);
+  r.hits([hit('krass')], fire);
+  clock.advance(PM.VERIFY_MS + 10);
+  assert.deepEqual(fired, [], 'same trigger the PC just fired: its cooldown, not a miss');
+  assert.equal(r.state, 'pc');
+  // reset forgets the windows
+  r.hits([hit('omg')], fire);
+  r.reset();
+  clock.advance(PM.VERIFY_MS * 2);
+  assert.deepEqual(fired, [], 'reset drops the watched hits');
 });
 
 // ---------------------------------------------------------------- level

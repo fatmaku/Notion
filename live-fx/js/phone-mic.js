@@ -14,7 +14,9 @@
 //               a fire whose source starts with „Handy-Mikro:“ (the panel's format `<source>: „<word>“`) proves the
 //               PC is matching these lines → the phone stays quiet. While that is unknown, the first hits wait HOLD_MS
 //               for the PC and then fire from the phone (no panel listening = the phone fires, nothing is lost).
-//               Three hit batches in a row without a PC fire → unknown again (the panel switched its input back).
+//               While the PC fires, the phone's hits are dropped – but kept for one verification window (VERIFY_MS):
+//               no PC fire in it → the phone fires them late (an effect late, never lost on stream). Two such windows
+//               in a row → unknown again (the panel switched its input back or stopped listening).
 //   Level       getUserMedia + AnalyserNode RMS (not on iOS, where a second capture interrupts Web Speech; and
 //               released when the recognizer reports `audio-capture`); otherwise pulses from speech events.
 //
@@ -41,7 +43,7 @@
   const QUEUE_MAX = 8;
   const HOLD_MS = 900; // phone → server → panel → server → phone, also through the tunnel
   const VERIFY_MS = 1800;
-  const MISS_LIMIT = 3;
+  const MISS_LIMIT = 2;
   const SILENCE_RESTART_MS = 150;
   const QUICK_END_MS = 1000;
   const ERROR_BACKOFF_MS = [500, 1000, 2000, 5000];
@@ -250,11 +252,13 @@
     const onChange = opts.onChange || noop;
     let state = 'unknown'; // 'unknown' | 'pc' | 'phone'
     let pending = []; // [{ hit, fire }] held while unknown
+    let watching = []; // [{ hit, fire, at }] dropped for the PC in the current verification window
+    const lastPcAt = new Map(); // trigger id → time of the PC's last „Handy-Mikro: …“ fire of it
     let holdTimer = null;
     let verifyTimer = null;
     let misses = 0;
     let pcSeen = false;
-    const stats = { phoneFires: 0, held: 0, droppedForPc: 0, pcFires: 0 };
+    const stats = { phoneFires: 0, held: 0, droppedForPc: 0, pcFires: 0, lateFires: 0 };
 
     function set(next) {
       if (next === state) return;
@@ -273,12 +277,34 @@
       }
     }
 
-    function expectPc() {
+    function hitId(h) {
+      const id = h && ((h.trigger && h.trigger.id) || h.id);
+      return id == null ? null : String(id);
+    }
+
+    function expectPc(list, fire) {
+      const at = t.now();
+      for (const h of list) watching.push({ hit: h, fire, at });
       if (verifyTimer) return; // one verification window at a time
       pcSeen = false;
       verifyTimer = t.setTimeout(() => {
         verifyTimer = null;
-        if (pcSeen) return;
+        const watched = watching;
+        watching = [];
+        if (pcSeen) return; // the PC answered in this window
+        // A trigger the PC fired just before (e.g. on an earlier interim line) is in its cooldown there: no late fire.
+        const late = watched.filter((p) => {
+          const id = hitId(p.hit);
+          const pcAt = id === null ? undefined : lastPcAt.get(id);
+          return !(pcAt !== undefined && p.at - pcAt <= verifyMs);
+        });
+        if (!late.length) return;
+        // The PC did not answer: it stopped matching the phone's lines. Fire what it was handed – late, not lost.
+        for (const p of late) {
+          stats.lateFires++;
+          stats.phoneFires++;
+          safe(p.fire, p.hit);
+        }
         misses++;
         if (misses >= missLimit) {
           misses = 0;
@@ -293,7 +319,7 @@
       if (!arr.length) return 0;
       if (state === 'pc') {
         stats.droppedForPc += arr.length;
-        expectPc();
+        expectPc(arr, fire);
         return 0;
       }
       if (state === 'phone') {
@@ -320,6 +346,8 @@
       if (!msg || msg.type !== 'fire' || typeof msg.source !== 'string' || !msg.source.startsWith(prefix)) return false;
       stats.pcFires++;
       pcSeen = true;
+      const id = hitId(msg.trigger);
+      if (id !== null) lastPcAt.set(id, t.now());
       misses = 0;
       if (holdTimer) t.clearTimeout(holdTimer);
       holdTimer = null;
@@ -335,6 +363,8 @@
       holdTimer = null;
       verifyTimer = null;
       pending = [];
+      watching = [];
+      lastPcAt.clear();
       misses = 0;
       set('unknown');
     }
@@ -865,6 +895,8 @@
     LANGS,
     MESSAGES,
     HOLD_MS,
+    VERIFY_MS,
+    MISS_LIMIT,
     INTERIM_MS,
     availability,
     resolveLang,

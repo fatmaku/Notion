@@ -352,6 +352,9 @@ dialog.phone-dialog::backdrop { background: rgba(5, 6, 10, .7); }
 #mobile-card.has-pairing .legacy-link, #mobile-card.has-pairing .legacy-only { display: none; }
 #mobile-card:not(.has-pairing) .pairing-only, #mobile-card:not(.has-pairing) .mobile-pair { display: none; } /* older servers: the 2.2 card as before */
 #mobile-card .mobile-pair .pair-hint { display: none !important; } /* the card has its own internet-link box below */
+/* with pairing, that box only starts / stops the tunnel: its internet QR is shown by the pairing view above (held back
+   once a phone paired), never twice and never permanently while the tunnel runs */
+#mobile-card.has-pairing #tunnel-qr-wrap, #mobile-card.has-pairing #tunnel-box .urls, #mobile-card.has-pairing #btn-copy-tunnel { display: none; }
 
 /* first run: assistant only, everything else behind one bar */
 .wizard-foot { display: none; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border); }

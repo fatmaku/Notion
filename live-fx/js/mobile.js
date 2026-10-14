@@ -382,6 +382,14 @@
     }
   }
 
+  /** Pack name without its leading emoji – the tile already shows it big („🎮 Gaming“ → „Gaming“). */
+  function packName(p) {
+    const label = String(p.label || p.id || '');
+    const flag = String(p.flag || '');
+    if (!flag || !label.startsWith(flag)) return label;
+    return label.slice(flag.length).trim() || label;
+  }
+
   function packTiles(root) {
     const list = PS.summary(triggers);
     root.innerHTML = '';
@@ -394,7 +402,7 @@
       b.dataset.pack = p.id;
       b.setAttribute('aria-pressed', p.loaded ? 'true' : 'false');
       b.title = p.description || p.label;
-      b.innerHTML = `<span class="flag">${esc(p.flag)}</span><span class="lbl">${esc(p.label)}</span><span class="meta">${p.loaded ? '✓ geladen' : p.present ? `${p.present}/${p.count}` : `${p.count} Trigger`}</span>`;
+      b.innerHTML = `<span class="flag" aria-hidden="true">${esc(p.flag)}</span><span class="lbl">${esc(packName(p))}</span><span class="meta">${p.loaded ? '✓ geladen' : p.present ? `${p.present}/${p.count}` : `${p.count} Trigger`}</span>`;
       b.addEventListener('click', () => togglePack(p.id));
       root.appendChild(b);
     }
@@ -666,7 +674,8 @@
     const a2hs = $('#setup-a2hs');
     a2hs.hidden = standalone;
     a2hs.textContent = /iPhone|iPad|iPod/.test(navigator.userAgent)
-      ? '📲 Tipp: In Safari „Teilen“ → „Zum Home-Bildschirm“ – dann startest du LiveFX wie eine App.'
+      ? // an iOS home-screen app has its own cookie jar: it needs the 6-digit code once (same text as pair.js a2hsIos)
+        '📲 Tipp: In Safari „Teilen“ → „Zum Home-Bildschirm“ – dann startest du LiveFX wie eine App. Beim ersten Öffnen der App einmal den 6-stelligen Code aus dem Panel eintippen.'
       : '📲 Tipp: Browser-Menü ⋮ → „Zum Startbildschirm hinzufügen“ – dann startest du LiveFX wie eine App.';
     setupGo(step, { smooth: false });
     try {

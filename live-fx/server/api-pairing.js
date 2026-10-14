@@ -1,9 +1,10 @@
 // LiveFX – pairing routes (2.3) on top of server/pairing.js, plus the one-call setup info for the panel.
 //
-//   GET    /p                  pairing page for the phone (inline HTML, no file on disk). The QR link is
-//                              `/p#<secret>` (fragment: never sent in a request line or logged); the page POSTs it.
-//                              Without a fragment it shows the 6-digit code form. `?next=camera|panel` picks the page
-//                              opened after pairing (default: the phone remote /mobile.html).
+//   GET    /p                  pairing page for the phone: pair.html + js/pair.js (strict CSP, no inline script; the
+//                              built-in pairPage() only when pair.html is missing). The QR link is `/p#<secret>`
+//                              (fragment: never sent in a request line or logged); the page POSTs it. Without a
+//                              fragment it shows the 6-digit code form. `?next=camera|panel` picks the page opened
+//                              after pairing (default: the phone remote /mobile.html).
 //   POST   /api/pair           { secret } | { code, name? }  → 200 { ok, device, redirect } + Set-Cookie livefx_dev
 //                              (open, same-origin, 10 attempts/min per client address, see pairing.js for the global cap)
 //   POST   /api/pairing        { next? } → { ok, pairing }  fresh code (auth)
@@ -16,7 +17,9 @@
 // virtual adapters (WSL, Hyper-V, Docker, VirtualBox, VPN, Tailscale …) last – the QR code uses the best one.
 'use strict';
 
+const fs = require('fs');
 const os = require('os');
+const path = require('path');
 const crypto = require('crypto');
 const dgram = require('dgram');
 const { json, readJson, HttpError } = require('./router');
@@ -25,6 +28,8 @@ const { cookieHeader, clearCookieHeader } = require('./pairing');
 const { createLimiter } = require('./api-mobile');
 
 const PAIR_ATTEMPTS_PER_MIN = 10;
+// pair.html (served as /p): its own inline <style>, ONE external script (/js/pair.js), fetch to the same origin only.
+const PAIR_CSP = "default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; manifest-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'";
 const NEXT_PAGES = { mobile: '/mobile.html', camera: '/camera.html', panel: '/' };
 const VIRTUAL_IFACE_RE = /vEthernet|WSL|docker|^br-|^veth|virbr|VirtualBox|vboxnet|VMware|vmnet|Hyper-V|utun|^tun|^tap|tailscale|zerotier|^zt|^wg|Hamachi|ham\d|npcap|Loopback|Pseudo|Teredo|isatap/i;
 
@@ -162,13 +167,15 @@ function pairingLinks(ctx, code, { next = 'mobile' } = {}) {
     ttlMs: code ? code.ttlMs : null,
     via: tunnelUrl ? 'tunnel' : lanUrl ? 'lan' : null,
     reason: tunnelUrl || lanUrl ? null : b.lan.reason || 'local_only',
+    // too many wrong typed codes: typing is refused for a few minutes (the QR code keeps working), see pairing.js
+    locked: !!(ctx && ctx.pairing && ctx.pairing.locked),
   };
 }
 
 /** Everything the setup assistant / Handy card needs (GET /api/setup). */
 function setupInfo(ctx, req, { fresh = false } = {}) {
   const b = baseUrls(ctx);
-  const code = fresh ? ctx.pairing.create() : ctx.pairing.current();
+  const code = fresh ? ctx.pairing.create({ unlock: true }) : ctx.pairing.current();
   const device = auth.isLocal(req) ? null : ctx.pairing.deviceFromRequest(req);
   const key = ctx.overlayKey || auth.overlayKeyFor(ctx.token);
   const tunnelStatus = ctx.tunnel && typeof ctx.tunnel.status === 'function' ? ctx.tunnel.status() : { status: 'idle', url: null, error: null };
@@ -346,18 +353,32 @@ function register(router, ctx) {
   if (!ctx.pairing) throw new Error('api-pairing: ctx.pairing fehlt (server/pairing.js createPairing)');
   const limiter = createLimiter({ max: PAIR_ATTEMPTS_PER_MIN, windowMs: 60 * 1000 });
 
+  // pair.html is read per request (about 10 KB, `no-store` anyway), so an updated file needs no restart.
+  const pairHtml = () => {
+    try {
+      return ctx.rootDir ? fs.readFileSync(path.join(ctx.rootDir, 'pair.html')) : null;
+    } catch (_) {
+      return null;
+    }
+  };
   const page = (req, res, rctx) => {
-    const nonce = crypto.randomBytes(12).toString('base64');
-    const paired = !auth.isLocal(req) && !!ctx.pairing.deviceFromRequest(req);
-    const body = pairPage({ nonce, paired, next: rctx.url.searchParams.get('next') || '' });
+    let body = pairHtml();
+    let csp = PAIR_CSP;
+    if (!body) {
+      // Fallback (pair.html missing from a stripped install): the built-in page with a nonce for its inline script.
+      const nonce = crypto.randomBytes(12).toString('base64');
+      const paired = !auth.isLocal(req) && !!ctx.pairing.deviceFromRequest(req);
+      body = Buffer.from(pairPage({ nonce, paired, next: rctx.url.searchParams.get('next') || '' }), 'utf8');
+      csp = PAIR_CSP.replace("script-src 'self'", `script-src 'nonce-${nonce}'`);
+    }
     res.writeHead(200, {
       'content-type': 'text/html; charset=utf-8',
-      'content-length': Buffer.byteLength(body),
+      'content-length': body.length,
       'cache-control': 'no-store',
       'referrer-policy': 'no-referrer',
       'x-content-type-options': 'nosniff',
       'x-frame-options': 'DENY',
-      'content-security-policy': `default-src 'none'; script-src 'nonce-${nonce}'; style-src 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
+      'content-security-policy': csp,
     });
     res.end(req.method === 'HEAD' ? undefined : body);
   };
@@ -390,9 +411,13 @@ function register(router, ctx) {
         invalid: 'Code falsch – den QR-Code im Panel scannen oder den 6-stelligen Code eintippen.',
         expired: 'Code abgelaufen – im Panel einen neuen QR-Code anzeigen.',
         used: 'Dieser Code wurde schon benutzt – im Panel einen neuen anzeigen.',
-        locked: 'Zu viele Fehlversuche – im Panel einen neuen QR-Code anzeigen.',
+        locked: 'Zu viele Fehlversuche – Code-Eingabe ein paar Minuten gesperrt. Den QR-Code im Panel scannen (geht weiter) oder dort „Neuer Code“ klicken.',
       };
-      json(res, r.reason === 'locked' ? 429 : 400, { ok: false, error: r.reason === 'invalid' ? 'invalid_code' : r.reason, message: messages[r.reason] || 'Koppeln fehlgeschlagen' });
+      const locked = r.reason === 'locked';
+      const retryS = locked && r.retryAfterMs > 0 ? Math.ceil(r.retryAfterMs / 1000) : 0;
+      const out = { ok: false, error: r.reason === 'invalid' ? 'invalid_code' : r.reason, message: messages[r.reason] || 'Koppeln fehlgeschlagen' };
+      if (retryS) out.retryAfter = retryS;
+      json(res, locked ? 429 : 400, out, retryS ? { 'retry-after': String(retryS) } : {});
       return;
     }
     const headers = {};
@@ -410,7 +435,8 @@ function register(router, ctx) {
         const body = await readJson(req, 4096).catch(() => ({}));
         next = nextKey(body && body.next);
       }
-      json(res, 200, { ok: true, pairing: pairingLinks(ctx, ctx.pairing.create(), { next }) });
+      // An explicit new code (panel „Neuer Code“, phone „Weiteres Handy koppeln“) also lifts a typing lock.
+      json(res, 200, { ok: true, pairing: pairingLinks(ctx, ctx.pairing.create({ unlock: true }), { next }) });
     })
   );
 
@@ -463,4 +489,4 @@ function register(router, ctx) {
   );
 }
 
-module.exports = { register, rankLanAddresses, detectDefaultRouteIp, lanState, pairingLinks, setupInfo, pairPage, NEXT_PAGES, PAIR_ATTEMPTS_PER_MIN };
+module.exports = { register, rankLanAddresses, detectDefaultRouteIp, lanState, pairingLinks, setupInfo, pairPage, NEXT_PAGES, PAIR_ATTEMPTS_PER_MIN, PAIR_CSP };

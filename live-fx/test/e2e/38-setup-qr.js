@@ -60,7 +60,7 @@ function verifyQr(q, expected, what) {
 function installMock(ctx, base) {
   const port = new URL(base).port;
   const lan = `http://192.168.178.23:${port}`;
-  const m = { seq: 0, posts: 0, deletes: [], devices: [], tunnel: { state: 'idle', url: null, error: null, pairingUrl: null }, lan };
+  const m = { seq: 0, devSeq: 0, posts: 0, deletes: [], devices: [], tunnel: { state: 'idle', url: null, error: null, pairingUrl: null }, lan };
   const newCode = () => {
     m.seq++;
     const secret = `mocksecret${m.seq}xyzxyz`;
@@ -81,7 +81,7 @@ function installMock(ctx, base) {
   });
   m.body = body;
   m.redeem = (name) => {
-    m.devices.push({ id: `dev${m.devices.length + 1}`, name, via: 'lan', createdAt: new Date().toISOString(), lastSeen: new Date().toISOString() });
+    m.devices.push({ id: `dev${++m.devSeq}`, name, via: 'lan', createdAt: new Date().toISOString(), lastSeen: new Date().toISOString() });
     m.pairing = newCode();
   };
   return Promise.all([
@@ -253,6 +253,49 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     await page.click('#wiz-phone-lan');
     await page.waitForFunction(() => window.livefx.setup.pairing.state.via === 'lan', null, { timeout: 3000 });
     log('tunnel button swaps the QR to the internet link and back');
+
+    // (h2) a phone pairs while the internet QR is on screen → the internet QR is held back (screen capture / shared
+    // call), the WLAN code stays, „➕ Weiteres Handy (Internet)“ brings it back; the Handy card's own tunnel button
+    // drives the same pairing view, and the card never shows a second, permanent internet QR
+    assert.equal(await page.locator('#wiz-phone-more').isVisible(), false, 'no „Weiteres Handy“ before a pairing');
+    await page.waitForSelector('#wiz-phone-hint:not([hidden])', { timeout: 7000 });
+    await page.click('#wiz-phone-tunnel');
+    await page.waitForFunction((t) => window.livefx.setup.pairing.state.url.startsWith(`${t}/p`), TUNNEL, { timeout: 6000 });
+    const tunnelLink2 = await page.evaluate(() => window.livefx.setup.pairing.state.url);
+    const phone2 = await pctx.newPage(); // a new page: a mere #hash change on the open one would not load anything
+    await phone2.goto(Setup.withOrigin(tunnelLink2, new URL(lanLink).origin)); // same one-time code, reachable here
+    await page.waitForFunction(() => /Handy verbunden/.test(document.querySelector('#wiz-phone-state').textContent), null, { timeout: 8000 });
+    await page.waitForFunction(() => window.livefx.setup.pairing.state.via === 'lan', null, { timeout: 5000 });
+    const held = await page.evaluate(() => window.livefx.setup.pairing.state);
+    assert.equal(held.tunnelHeld, true, 'internet QR held back after the pairing');
+    assert.equal(held.tunnelWanted, false);
+    for (const sel of ['#wiz-phone-qr', '#mobile-pair-qr', '#dlg-phone-qr']) {
+      const payload = await page.getAttribute(sel, 'data-qr-payload');
+      assert.ok(payload && !payload.startsWith(TUNNEL), `${sel}: WLAN code, not the internet QR (${payload})`);
+    }
+    assert.ok(await page.locator('#wiz-phone-more').isVisible(), '„➕ Weiteres Handy (Internet)“ offered');
+    await page.click('#wiz-phone-more');
+    await page.waitForFunction((t) => window.livefx.setup.pairing.state.url.startsWith(`${t}/p`), TUNNEL, { timeout: 5000 });
+    assert.equal(await page.locator('#wiz-phone-more').isVisible(), false, 'button gone while the internet QR shows');
+    await page.click('#wiz-phone-lan');
+    await page.waitForFunction(() => window.livefx.setup.pairing.state.via === 'lan', null, { timeout: 3000 });
+    // the card's „🌐 Internet-Link starten“ (js/mobile-link.js) → the pairing views show the internet QR; „⏹ stoppen“ → WLAN
+    await page.click('#btn-tunnel');
+    await page.waitForFunction((t) => window.livefx.setup.pairing.state.url.startsWith(`${t}/p`), TUNNEL, { timeout: 6000 });
+    verifyQr(await readQr(page, '#mobile-pair-qr'), await page.evaluate(() => window.livefx.setup.pairing.state.url), 'Handy card internet QR');
+    const dupHidden = await page.evaluate(() => {
+      const w = document.querySelector('#tunnel-qr-wrap');
+      const was = w.hidden;
+      w.hidden = false;
+      const d = getComputedStyle(w).display;
+      w.hidden = was;
+      return d === 'none' && getComputedStyle(document.querySelector('#btn-copy-tunnel')).display === 'none';
+    });
+    assert.ok(dupHidden, 'the card shows no second internet QR / link while pairing works');
+    await page.waitForFunction(() => document.querySelector('#btn-tunnel').dataset.status === 'online', null, { timeout: 5000 });
+    await page.click('#btn-tunnel');
+    await page.waitForFunction(() => window.livefx.setup.pairing.state.via === 'lan', null, { timeout: 3000 });
+    log('after a pairing the internet QR is held back; „Weiteres Handy“ and the card button bring it back');
 
     // (i) printable setup card: two QR codes (pairing + overlay), DE / TR / EN lines, A6 / A5, PNG export
     const pairingNow = await page.evaluate(() => window.livefx.setup.pairing.state.url);

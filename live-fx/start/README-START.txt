@@ -30,6 +30,9 @@ Windows-Firewall
    Beim ersten Start fragt Windows: „Zugriff zulassen“ klicken (private Netzwerke).
    Sonst findet das Handy den PC nicht. Nachträglich: Windows-Sicherheit → Firewall →
    „App durch Firewall zulassen“ → „Node.js JavaScript Runtime“ → Haken bei „Privat“.
+   QR-Code tut nichts? Windows 11 stellt ein neues WLAN oft auf „Öffentlich“ – dann blockt die
+   Firewall trotzdem. Einstellungen → Netzwerk und Internet → WLAN → dein Netz → Netzwerkprofil
+   „Privat“ wählen (oder in der Firewall-Frage zusätzlich „Öffentliche Netzwerke“ ankreuzen).
 
 Mac: „kann nicht geöffnet werden, da es von einem nicht verifizierten Entwickler stammt“
    Das ist Gatekeeper (Dateien aus dem Internet). Einmalig:
@@ -61,6 +64,8 @@ LiveFX’i başlat (Türkçe)
    Telefon ve PC aynı Wi‑Fi’de olmalı. Dışarıdaysan panelde „Internet-Link“.
    Kod 10 dakika ve tek kullanımlık; telefon 180 gün eşleşmiş kalır (panelden silinebilir).
 Windows Güvenlik Duvarı sorarsa: „Erişime izin ver“ (özel ağlar).
+QR kod bir şey yapmıyor mu? Windows 11 yeni Wi‑Fi’yi çoğu zaman „Ortak“ (Public) yapar: Ayarlar → Ağ ve İnternet →
+Wi‑Fi → ağın → Ağ profili „Özel“ seç (ya da güvenlik duvarı sorusunda „Ortak ağlar“ı da işaretle).
 Mac „doğrulanmamış geliştirici“ derse: dosyaya sağ tık → „Aç“ → „Aç“ (macOS 15+: Sistem Ayarları →
 Gizlilik ve Güvenlik → „Yine de Aç“).
 Kurulumsuz Node: Node ZIP’ini aç, klasörün adını „node“ yap ve LiveFX klasörüne koy (LiveFX\node\node.exe).
@@ -76,6 +81,8 @@ Start LiveFX (English)
    Phone and PC on the same Wi‑Fi; elsewhere use “Internet-Link” in the panel.
    The code is valid for 10 minutes, once; the phone stays paired for 180 days (removable in the panel).
 Windows Firewall asks: click “Allow access” (private networks).
+QR code does nothing? Windows 11 often marks a new Wi‑Fi as “Public”: Settings → Network & internet → Wi‑Fi →
+your network → Network profile “Private” (or also tick “Public networks” in the firewall prompt).
 Mac “unidentified developer”: right-click the file → “Open” → “Open” (macOS 15+: System Settings →
 Privacy & Security → “Open Anyway”).
 Portable Node: unzip the official Node archive, rename the folder to “node”, put it into the LiveFX folder

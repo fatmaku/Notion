@@ -379,6 +379,7 @@
               <button id="btn-tunnel" title="Cloudflare-Schnelltunnel starten: kostenlos, ohne Konto, zufällige https-Adresse" disabled>🌐 Internet-Link starten</button>
               <button id="btn-copy-tunnel" title="Internet-Link in die Zwischenablage kopieren" disabled>📋 Link kopieren</button>
             </div>
+            <p class="help pairing-only" id="tunnel-pair-note">Der Internet-QR erscheint oben im Kopplungs-Feld. Ist ein Handy gekoppelt, blendet LiveFX ihn aus – „➕ Weiteres Handy (Internet)“ zeigt ihn wieder.</p>
             <p class="help" id="tunnel-hint">Beim ersten Start lädt LiveFX <code>cloudflared</code> (Cloudflare, ~40 MB) einmalig herunter. Kein Internet am PC? Handy-Hotspot einschalten und PC damit verbinden – dann geht der WLAN-Link. Download von Hand: <a id="tunnel-manual" href="https://github.com/cloudflare/cloudflared/releases" target="_blank">cloudflared</a>.</p>
           </div>
         </div>
@@ -387,7 +388,7 @@
         </div>
         <p class="help" id="mobile-offline-hint" hidden>⚠️ Server nötig: <code>node server.js</code> starten und das Panel über <code>http://127.0.0.1:8787/</code> öffnen.</p>
         <p class="help legacy-only">Handy im selben WLAN; Server mit <code>HOST=0.0.0.0 node server.js</code> starten (PowerShell: <code>$env:HOST="0.0.0.0"; node server.js</code>), sonst ist er nur am PC erreichbar. Der Link enthält deinen Token – nicht im Stream zeigen.</p>
-        <p class="help pairing-only">Der QR-Code enthält nur einen kurzen Einmal-Code – nicht deinen Token. Gekoppelte Handys stehen in der Liste und lassen sich jederzeit „entfernen“.</p>
+        <p class="help pairing-only">Der QR-Code enthält nur einen kurzen Einmal-Code – nicht deinen Token. Gekoppelte Handys stehen in der Liste und lassen sich jederzeit „entfernen“. „🔄 Neuer Code“ macht den alten nicht ungültig – er gilt bis zum Ablauf (max. 10 Minuten) oder bis ein Handy ihn benutzt; ein fremdes Gerät in der Liste einfach „entfernen“.</p>
       </section>
 
       <section class="card" id="camera-card">

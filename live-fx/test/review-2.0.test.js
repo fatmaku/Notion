@@ -449,8 +449,11 @@ test('review: sw.js shell lists every browser file on disk, caches nothing live'
   const re = new RegExp(netOnly.slice(1, -1));
   for (const p of ['/api/chat', '/api/gift', '/fire', '/events', '/assets/x.mp3', '/health', '/m', '/models/x', '/docs/VIEWER.md']) assert.ok(re.test(p), `${p} must be network-only`);
   assert.ok(!shell.some((p) => p.startsWith('/api/')));
-  assert.match(src, /SHELL_VERSION = '2\.3\.0'/);
-  assert.equal(require(path.join(ROOT, 'package.json')).version, '2.3.0', 'package.json and SHELL_VERSION move together');
+  // An activated worker re-precaches whenever /health's version (package.json) differs from SHELL_VERSION – so the two
+  // must be equal, or every phone / panel downloads the whole shell again on each activation.
+  const shellVersion = (/const SHELL_VERSION = '(\d+\.\d+\.\d+)'/.exec(src) || [])[1];
+  assert.ok(shellVersion, 'SHELL_VERSION is a x.y.z version');
+  assert.equal(shellVersion, require(path.join(ROOT, 'package.json')).version, 'package.json and SHELL_VERSION move together');
   for (const p of ['/js/qr.js', '/js/packs-store.js', '/js/story-director.js', '/js/phonetic.js']) assert.ok(shell.includes(p), `${p} (2.2) is in the full shell`);
   assert.ok(shell.includes('/memes/index.json'), 'sticker index is in the full shell');
   // 2.3 camera view: in the full shell, never in the OBS overlay shell

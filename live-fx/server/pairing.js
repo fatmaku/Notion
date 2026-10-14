@@ -3,6 +3,7 @@
 //   create()                     → { id, code: '123456', secret, createdAt, expiresAt }   (10 min, single use)
 //   current({ minRemainingMs })  → the newest open code with enough time left, else a fresh one
 //   redeem({ secret | code, … }) → { ok, device, cookieValue } | { ok: false, reason: invalid | expired | used | locked }
+//   create({ unlock: true })     → also ends a typing lock early (the streamer asked for a new code in the panel)
 //   mintDevice({ … })            → { device, cookieValue }   (legacy `/m?token=` link, server/api-mobile.js)
 //   deviceFromRequest(req)       → device | null  (cookie `livefx_dev=<id>.<secret>`)
 //   listDevices() / revoke(id) / revokeAll()
@@ -13,7 +14,10 @@
 // a cookie, a QR code or a link. Devices unused for 180 days expire; `revoke` takes effect on the next request.
 //
 // Brute force: a 6-digit code has 10^6 values. Besides the per-address limit in api-pairing.js (10 attempts/min),
-// all open codes are burnt after MAX_GLOBAL_FAILURES wrong attempts (from any address) – a new QR is one click.
+// all open codes are burnt after MAX_GLOBAL_FAILURES wrong attempts (from any address) and typed codes are refused
+// for LOCK_MS (5 min) – also codes created meanwhile, so rotating addresses (IPv6 over the tunnel) buys at most 20
+// guesses per lock instead of 20 per panel poll. The QR secret (128 bit) keeps working during the lock; a burnt code
+// answers `locked` (not `invalid`). The lock ends early when the streamer asks for a new code (`create({ unlock })`).
 'use strict';
 
 const fs = require('fs');
@@ -28,6 +32,7 @@ const COOKIE_MAX_AGE_S = Math.round(DEVICE_MAX_AGE_MS / 1000);
 const MAX_OPEN_CODES = 20;
 const MAX_DEVICES = 50;
 const MAX_GLOBAL_FAILURES = 20;
+const LOCK_MS = 5 * 60 * 1000;
 const TOUCH_PERSIST_MS = 60 * 1000;
 const COOKIE_RE = /^([A-Za-z0-9_-]{8,32})\.([A-Za-z0-9_-]{20,128})$/;
 const SECRET_RE = /^[A-Za-z0-9_-]{16,128}$/;
@@ -74,12 +79,13 @@ function cleanName(name) {
 }
 
 function createPairing(opts = {}) {
-  const { dataDir = null, log = () => {}, now = Date.now, ttlMs = CODE_TTL_MS, deviceMaxAgeMs = DEVICE_MAX_AGE_MS, maxDevices = MAX_DEVICES, onChange = null } = opts;
+  const { dataDir = null, log = () => {}, now = Date.now, ttlMs = CODE_TTL_MS, deviceMaxAgeMs = DEVICE_MAX_AGE_MS, maxDevices = MAX_DEVICES, lockMs = LOCK_MS, onChange = null } = opts;
   const file = dataDir ? path.join(dataDir, DEVICES_FILE) : null;
-  const codes = new Map(); // id -> { id, code, secretHash, createdAt, expiresAt, usedAt, deviceId, note }
+  const codes = new Map(); // id -> { id, code, secretHash, createdAt, expiresAt, usedAt, burntAt, deviceId, note }
   const devices = new Map(); // id -> { id, hash, name, ua, via, createdAt, lastSeen }
   const listeners = new Set(onChange ? [onChange] : []);
   let globalFailures = 0;
+  let lockedUntil = 0; // typed codes are refused until then (after MAX_GLOBAL_FAILURES wrong attempts)
   let dirty = false;
   let lastPersist = 0;
   let persistTimer = null;
@@ -187,7 +193,11 @@ function createPairing(opts = {}) {
 
   function openCodes() {
     const t = now();
-    return Array.from(codes.values()).filter((c) => !c.usedAt && c.expiresAt > t);
+    return Array.from(codes.values()).filter((c) => !c.usedAt && !c.burntAt && c.expiresAt > t);
+  }
+
+  function isLocked() {
+    return lockedUntil > now();
   }
 
   function publicCode(c, secret) {
@@ -203,14 +213,21 @@ function createPairing(opts = {}) {
     throw new Error('kein freier Kopplungscode');
   }
 
-  /** New pairing code (single use, ttlMs). The secret is returned once and only its hash is kept. */
-  function create({ note = '' } = {}) {
+  /**
+   * New pairing code (single use, ttlMs). The secret is returned once and only its hash is kept. `unlock` = the streamer
+   * explicitly asked for it (panel „Neuer Code“, POST /api/pairing): typed codes work again at once.
+   */
+  function create({ note = '', unlock = false } = {}) {
     prune();
+    if (unlock && lockedUntil) {
+      lockedUntil = 0;
+      globalFailures = 0;
+    }
     const open = openCodes().sort((a, b) => a.createdAt - b.createdAt);
     while (open.length >= MAX_OPEN_CODES) codes.delete(open.shift().id);
     const secret = b64url(crypto.randomBytes(16));
     const t = now();
-    const c = { id: b64url(crypto.randomBytes(6)), code: newCode(), secretHash: sha256(secret), secret, createdAt: t, expiresAt: t + ttlMs, usedAt: 0, deviceId: null, note: String(note).slice(0, 40) };
+    const c = { id: b64url(crypto.randomBytes(6)), code: newCode(), secretHash: sha256(secret), secret, createdAt: t, expiresAt: t + ttlMs, usedAt: 0, burntAt: 0, deviceId: null, note: String(note).slice(0, 40) };
     codes.set(c.id, c);
     return publicCode(c, secret);
   }
@@ -229,10 +246,15 @@ function createPairing(opts = {}) {
     return best ? publicCode(best, best.secret) : create();
   }
 
-  function burnOpenCodes() {
+  /** Makes every open code unusable. `keep` = remember them for a while, so redeeming one answers `locked`. */
+  function burnOpenCodes({ keep = false } = {}) {
     let n = 0;
+    const t = now();
     for (const c of openCodes()) {
-      codes.delete(c.id);
+      if (keep) {
+        c.burntAt = t;
+        c.secret = null;
+      } else codes.delete(c.id);
       n++;
     }
     return n;
@@ -269,24 +291,32 @@ function createPairing(opts = {}) {
   function redeem({ secret, code, name = '', userAgent = '', via = 'lan', existing = null } = {}) {
     prune();
     let c = null;
-    if (typeof secret === 'string' && SECRET_RE.test(secret)) {
+    const bySecret = typeof secret === 'string' && SECRET_RE.test(secret);
+    if (!bySecret && isLocked()) {
+      // Typing is locked: refuse without looking the digits up (no oracle, no counting) – the QR secret still works.
+      return { ok: false, reason: 'locked', retryAfterMs: lockedUntil - now() };
+    }
+    if (bySecret) {
       const h = sha256(secret);
       for (const x of codes.values()) if (safeEqualHex(x.secretHash, h)) c = x;
     } else if (typeof code === 'string' && CODE_RE.test(code.trim())) {
       const digits = code.trim();
       const matches = Array.from(codes.values()).filter((x) => x.code === digits).sort((a, b) => b.createdAt - a.createdAt);
-      c = matches.find((x) => !x.usedAt && x.expiresAt > now()) || matches[0] || null;
+      c = matches.find((x) => !x.usedAt && !x.burntAt && x.expiresAt > now()) || matches[0] || null;
     }
     if (!c) {
       globalFailures++;
       if (globalFailures >= MAX_GLOBAL_FAILURES) {
-        const n = burnOpenCodes();
+        const n = burnOpenCodes({ keep: true });
         globalFailures = 0;
-        log(`pairing: ${MAX_GLOBAL_FAILURES} falsche Kopplungsversuche – ${n} offene Codes ungültig gemacht (neuen QR-Code im Panel anzeigen)`);
-        return { ok: false, reason: 'locked' };
+        lockedUntil = now() + lockMs;
+        log(`pairing: ${MAX_GLOBAL_FAILURES} falsche Kopplungsversuche – ${n} offene Codes ungültig, Code-Eingabe ${Math.round(lockMs / 60000)} Minuten gesperrt (QR-Code scannen geht weiter; im Panel „Neuer Code“ hebt die Sperre auf)`);
+        emit({ event: 'locked', until: new Date(lockedUntil).toISOString() });
+        return { ok: false, reason: 'locked', retryAfterMs: lockMs };
       }
       return { ok: false, reason: 'invalid' };
     }
+    if (c.burntAt) return { ok: false, reason: 'locked', retryAfterMs: Math.max(0, lockedUntil - now()) };
     if (c.usedAt) return { ok: false, reason: 'used' };
     if (c.expiresAt <= now()) return { ok: false, reason: 'expired' };
     c.usedAt = now();
@@ -402,6 +432,13 @@ function createPairing(opts = {}) {
     get openCount() {
       return openCodes().length;
     },
+    /** True while typed codes are refused (after too many wrong attempts). */
+    get locked() {
+      return isLocked();
+    },
+    get lockedUntil() {
+      return isLocked() ? lockedUntil : 0;
+    },
     get deviceCount() {
       return devices.size;
     },
@@ -417,4 +454,4 @@ function clearCookieHeader({ secure = false } = {}) {
   return `${COOKIE_NAME}=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0${secure ? '; Secure' : ''}`;
 }
 
-module.exports = { createPairing, cookieHeader, clearCookieHeader, shortDeviceName, cleanName, COOKIE_NAME, CODE_TTL_MS, DEVICE_MAX_AGE_MS, MAX_GLOBAL_FAILURES, COOKIE_MAX_AGE_S };
+module.exports = { createPairing, cookieHeader, clearCookieHeader, shortDeviceName, cleanName, COOKIE_NAME, CODE_TTL_MS, DEVICE_MAX_AGE_MS, MAX_GLOBAL_FAILURES, LOCK_MS, COOKIE_MAX_AGE_S };

@@ -2401,7 +2401,7 @@
     return {
       pairingUrl: (st && st.url) || '',
       code: (st && st.code) || '',
-      expiresAt: p ? p.expiresAt : null,
+      expiresAt: st && Number.isFinite(st.expiresAt) ? st.expiresAt : p ? p.expiresAt : null, // on this PC's clock
       legacy: !!(p && p.legacy),
       overlayUrl: lanOverlayUrl() || wizardOverlayUrl(),
       version: (config && config.version) || (pairing && pairing.data && pairing.data.version) || '',
@@ -2459,6 +2459,20 @@
     bus.onMessage((m) => {
       if (m && m.type === 'pairing' && pairing) pairing.refresh();
     });
+    // the Handy card's own tunnel button (js/mobile-link.js starts / stops the tunnel): the internet QR is shown by the
+    // pairing views (the card's duplicate QR is hidden while pairing works) – capture phase = the state before the click
+    const tunnelBtn = $('#btn-tunnel');
+    if (tunnelBtn) {
+      tunnelBtn.addEventListener(
+        'click',
+        () => {
+          if (!pairing) return;
+          if (tunnelBtn.dataset.status === 'online') pairing.useLan();
+          else pairing.wantTunnel();
+        },
+        true
+      );
+    }
     if ($('#pill-phone')) $('#pill-phone').addEventListener('click', openPhoneDialog);
     if ($('#phone-dialog-close')) $('#phone-dialog-close').addEventListener('click', closePhoneDialog);
     if ($('#phone-dialog')) {

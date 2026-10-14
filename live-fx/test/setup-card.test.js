@@ -1,6 +1,8 @@
 // js/setup-card.js – easy setup helpers: /api/setup normalisation (real server shape, tolerant of gaps), the 2.2
 // fallback from /api/config, overlay links for the LAN, tunnel pairing links, first-run decision, code formatting,
-// pairing view markup and the printable setup card (two QR codes, A6/A5, no script, escaped payloads).
+// pairing view markup and the printable setup card (two QR codes, A6/A5, no script, escaped payloads); the pairing
+// controller against a fake server: expiry on the server clock (skewed device clocks), renewal pause, internet QR held
+// back after a pairing.
 'use strict';
 
 const test = require('node:test');
@@ -182,4 +184,173 @@ test('cardHtml: two QR codes (pairing + overlay) that decode to their payloads, 
   const legacy = S.cardHtml({ pairingUrl: 'http://1.2.3.4:8787/m?token=x', legacy: true, overlayUrl: '' });
   assert.match(legacy, /Zugangs-Token/, 'legacy token link carries a warning');
   assert.strictEqual((legacy.match(/data-qr-payload=/g) || []).length, 1, 'no overlay QR without an URL');
+});
+
+// ---------- pairing controller (createPairing) with a fake server ----------
+const TUNNEL_ORIGIN = 'https://brave-otter.trycloudflare.com';
+
+/**
+ * Fake /api/setup + POST /api/pairing + POST /api/tunnel/start. `skewMs` = how far the PC/phone clock (Date.now, mocked)
+ * runs AHEAD of the server; `dateHeader: false` = answers without a `Date` header; `ttlMs` = lifetime of new codes.
+ */
+function fakeServer({ skewMs = 0, dateHeader = true, ttlMs = 600000, lan = true, tunnel = false } = {}) {
+  const m = { posts: 0, gets: 0, seq: 0, devices: [], tunnel, lan };
+  const serverNow = () => Date.now() - skewMs;
+  const code = () => {
+    m.seq++;
+    const t = serverNow();
+    const secret = `secret${m.seq}secret${m.seq}`;
+    return { url: m.lan ? `http://192.168.178.23:8787/p#${secret}` : null, lanUrl: m.lan ? `http://192.168.178.23:8787/p#${secret}` : null, tunnelUrl: m.tunnel ? `${TUNNEL_ORIGIN}/p#${secret}` : null, manualUrl: 'http://192.168.178.23:8787/p', code: String(400000 + m.seq), expiresAt: new Date(t + ttlMs).toISOString(), ttlMs };
+  };
+  m.pairing = code();
+  const withTunnel = (p) => ({ ...p, tunnelUrl: m.tunnel ? S.withOrigin(p.lanUrl || `http://192.168.178.23:8787/p#${p.code}`, TUNNEL_ORIGIN) : null });
+  const answer = (json) => ({
+    status: 200,
+    ok: true,
+    headers: { get: (k) => (k.toLowerCase() === 'date' && dateHeader ? new Date(serverNow()).toUTCString() : null) },
+    json: async () => json,
+  });
+  m.fetch = async (url, init = {}) => {
+    const method = init.method || 'GET';
+    if (url === '/api/setup') {
+      m.gets++;
+      const p = withTunnel(m.pairing);
+      return answer({
+        ok: true,
+        lanUrls: m.lan ? ['http://192.168.178.23:8787/'] : [],
+        bestLanUrl: m.lan ? 'http://192.168.178.23:8787/' : null,
+        tunnel: m.tunnel ? { state: 'online', url: TUNNEL_ORIGIN, pairingUrl: p.tunnelUrl } : { state: 'idle', url: null },
+        pairing: p,
+        devices: m.devices,
+        lan: { listening: m.lan, reason: m.lan ? null : 'local_only' },
+      });
+    }
+    if (url === '/api/pairing' && method === 'POST') {
+      m.posts++;
+      m.pairing = code();
+      return answer({ ok: true, pairing: withTunnel(m.pairing) });
+    }
+    if (url === '/api/tunnel/start' && method === 'POST') {
+      m.tunnel = true;
+      return answer({ ok: true, status: 'online', url: TUNNEL_ORIGIN });
+    }
+    return { status: 404, ok: false, headers: { get: () => null }, json: async () => ({ ok: false }) };
+  };
+  m.pair = (name) => {
+    m.devices.push({ id: `dev${m.devices.length + 1}`, name, lastSeen: new Date(serverNow()).toISOString() });
+    m.pairing = code();
+  };
+  return m;
+}
+const flush = async () => {
+  for (let i = 0; i < 4; i++) await new Promise((r) => setImmediate(r));
+};
+
+function controller(server, extra = {}) {
+  return S.createPairing({ roots: [], window: {}, online: true, isVisible: () => true, fetch: server.fetch, pollMs: 2000, ...extra });
+}
+
+test('controller: countdown and renewal follow the server clock (device clock 9.8 min ahead → no renewal loop)', async (t) => {
+  const start = Date.parse('2026-10-09T08:00:00Z');
+  t.mock.timers.enable({ apis: ['setInterval', 'Date'], now: start });
+  const skewMs = 9.8 * 60000;
+  const srv = fakeServer({ skewMs });
+  const c = controller(srv);
+  c.start();
+  await flush();
+  assert.strictEqual(c.state.mode, 'setup');
+  const st = c.state;
+  assert.ok(Math.abs(st.skew + skewMs) < 1500, `offset learnt from the Date header (${st.skew})`);
+  const left = st.expiresAt - Date.now();
+  assert.ok(left > 590000 && left <= 601000, `a fresh code shows ~10 min on this device's clock (${left} ms)`);
+  for (let i = 0; i < 10; i++) {
+    t.mock.timers.tick(1000);
+    await flush();
+  }
+  assert.strictEqual(srv.posts, 0, 'no POST /api/pairing for a code that is still valid on the server');
+  // 9 min 45 s later (server clock): now it really is about to expire → exactly ONE renewal
+  t.mock.timers.tick(575000);
+  await flush();
+  for (let i = 0; i < 8; i++) {
+    t.mock.timers.tick(1000);
+    await flush();
+  }
+  assert.strictEqual(srv.posts, 1, `one renewal shortly before the server-side expiry (${srv.posts})`);
+  assert.ok(c.state.expiresAt - Date.now() > 590000, 'the renewed code counts down from ~10 min again');
+  c.stop();
+});
+
+test('controller: without a Date header the offset comes from a fresh code; a renewal is followed by a 30 s pause', async (t) => {
+  t.mock.timers.enable({ apis: ['setInterval', 'Date'], now: Date.parse('2026-10-09T08:00:00Z') });
+  const srv = fakeServer({ skewMs: 9.8 * 60000, dateHeader: false });
+  const c = controller(srv);
+  c.start();
+  await flush();
+  for (let i = 0; i < 6; i++) {
+    t.mock.timers.tick(1000);
+    await flush();
+  }
+  assert.strictEqual(srv.posts, 1, `the code looks expired on the skewed clock: ONE renewal, then the offset is known (${srv.posts})`);
+  assert.ok(c.state.expiresAt - Date.now() > 590000, 'fresh code: expiresAt - ttlMs = server „now“');
+  // a server that hands out codes which really die within the renewal window must not be asked every second
+  const short = fakeServer({ ttlMs: 10000 });
+  const c2 = controller(short);
+  c2.start();
+  await flush();
+  for (let i = 0; i < 25; i++) {
+    t.mock.timers.tick(1000);
+    await flush();
+  }
+  assert.ok(short.posts >= 1 && short.posts <= 2, `at most one renewal per 30 s (${short.posts} in 25 s)`);
+  c.stop();
+  c2.stop();
+});
+
+test('controller: once a phone pairs, the internet QR is held back until the streamer asks for it again', async (t) => {
+  t.mock.timers.enable({ apis: ['setInterval', 'Date'], now: Date.parse('2026-10-09T08:00:00Z') });
+  // (a) WLAN works, the streamer switched to the internet QR
+  const srv = fakeServer();
+  const c = controller(srv);
+  c.start();
+  await flush();
+  assert.strictEqual(c.state.via, 'lan');
+  await c.startTunnel();
+  assert.strictEqual(c.state.via, 'tunnel');
+  assert.ok(c.state.url.startsWith(`${TUNNEL_ORIGIN}/p#`));
+  srv.pair('iPhone · Safari');
+  await c.refresh();
+  assert.strictEqual(c.state.connected && c.state.connected.name, 'iPhone · Safari');
+  assert.strictEqual(c.state.via, 'lan', 'back to the WLAN code after the pairing');
+  assert.strictEqual(c.state.tunnelWanted, false);
+  assert.strictEqual(c.state.tunnelHeld, true);
+  await c.startTunnel(); // „➕ Weiteres Handy (Internet)“ / the tunnel button
+  assert.strictEqual(c.state.via, 'tunnel', 'internet QR on request');
+  c.stop();
+
+  // (b) no WLAN (e.g. camera view through the tunnel): the internet QR is the automatic one – until a phone pairs
+  const off = fakeServer({ lan: false, tunnel: true });
+  const c2 = controller(off);
+  c2.start();
+  await flush();
+  assert.strictEqual(c2.state.via, 'tunnel', 'without WLAN the internet QR shows by itself');
+  off.pair('Android · Chrome');
+  await c2.refresh();
+  assert.strictEqual(c2.state.url, '', 'no QR on screen after the pairing');
+  assert.strictEqual(c2.state.tunnelHeld, true);
+  for (let i = 0; i < 20; i++) {
+    t.mock.timers.tick(30000);
+    await flush();
+  }
+  assert.strictEqual(c2.state.url, '', 'it does not come back by itself (renewals, polls)');
+  c2.wantTunnel();
+  await c2.refresh();
+  assert.strictEqual(c2.state.via, 'tunnel', 'wantTunnel() (the Handy card button) shows it again');
+  c2.stop();
+});
+
+test('pairViewHtml: „➕ Weiteres Handy“ button, honest „Neuer Code“ tooltip', () => {
+  const html = S.pairViewHtml({ id: 'v' });
+  assert.match(html, /id="v-more"[^>]*data-pair-act="more"[^>]*hidden/, '„➕ Weiteres Handy“ starts hidden');
+  assert.doesNotMatch(html, /alte wird ungültig/, 'the „Neuer Code“ tooltip does not promise to kill the old code');
+  assert.match(html, /alte bleibt bis zum Ablauf gültig/);
 });

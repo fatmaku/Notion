@@ -378,7 +378,10 @@ Rechne mit 1–3 s Verzögerung pro Sprechpause; Details, Grenzen und Fehlersuch
   (`overlay.html?key=…`, nur lesen) und Tools mit dem **API-Token** dürfen etwas. Alle anderen im WLAN oder über den
   Tunnel sehen nur die Kopplungsseite. Wer gar keinen Zugriff von außen will: `node server.js --local`.
 - Der **API-Token** steht nie in einem QR-Code, Link oder Cookie für andere Geräte; QR-Codes tragen nur einen
-  Einmal-Code (10 Minuten). Tabelle „wer darf was“: [docs/START.md](docs/START.md#sicherheit--was-wer-erreicht).
+  Einmal-Code (10 Minuten). „🔄 Neuer Code“ macht den alten **nicht** ungültig – er gilt bis zum Ablauf; ein fremdes
+  Gerät in der Liste „entfernen“. Ist ein Handy gekoppelt, blendet das Panel den Internet-QR aus (Bildschirmaufnahme,
+  geteilter Call) – „➕ Weiteres Handy (Internet)“ zeigt ihn wieder. Tabelle „wer darf was“:
+  [docs/START.md](docs/START.md#sicherheit--was-wer-erreicht).
 - Jede schreibende Route verlangt Token, Panel am PC oder gekoppeltes Gerät mit passendem `Origin` (CSRF-Schutz);
   Host-Allowlist gegen DNS-Rebinding auf allen Routen.
 - Ausgeliefert werden nur Panel, Overlay, `css/`, `js/`, die Sticker in `memes/` und hochgeladene Medien – nie Server-Code,

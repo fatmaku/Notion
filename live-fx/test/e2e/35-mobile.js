@@ -385,25 +385,35 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     await mic.selectOption('#mic-lang', 'auto');
     await mic.close();
 
-    // (i) panel „Handy“ card: QR code of the WLAN link + internet link controls; then the service worker
+    // (i) panel „Handy“ card: pairing mode – its QR carries a one-time code (/p#…), never the master token; the 2.2 token
+    // link (js/mobile-link.js, `.legacy-link`, kept for older servers only) stays hidden. The test server runs with
+    // HOST=127.0.0.1 (test/helpers/server.js), so there is no WLAN code: the card says so instead of drawing a dead QR.
+    // The LAN pairing QR itself is decoded module by module in e2e 38. Plus the internet link controls; then the service worker.
     const panel = await ctx.newPage();
     panel.on('pageerror', (e) => errors.push(`panel: ${e.message}`));
     await panel.goto(`${base}/`);
     await panel.waitForSelector('#pad button');
-    await panel.evaluate(() => window.livefxMobileLink.ready);
-    const qr = await panel.evaluate(() => {
-      const c = document.querySelector('#mobile-qr');
-      return { size: Number(c.dataset.qrSize), width: c.width, version: Number(c.dataset.qrVersion), url: document.querySelector('#mobile-url').textContent };
+    await panel.waitForFunction(() => document.querySelector('#mobile-card').classList.contains('has-pairing'), null, { timeout: 5000 });
+    await panel.waitForFunction(() => {
+      const s = document.querySelector('#mobile-pair-view [data-pair="state"]');
+      return s && s.textContent && !/lädt/.test(s.textContent);
+    }, null, { timeout: 5000 });
+    assert.equal(await panel.locator('#mobile-card .legacy-link').isVisible(), false, '2.2 token link hidden');
+    const card = await panel.evaluate(() => {
+      const c = document.querySelector('#mobile-card');
+      return { text: c.innerText, payloads: [...c.querySelectorAll('[data-qr-payload]')].map((e) => e.dataset.qrPayload), state: c.querySelector('#mobile-pair-view [data-pair="state"]').textContent };
     });
-    assert.ok(qr.size >= 25 && qr.width > 0, `QR drawn: ${JSON.stringify(qr)}`);
-    assert.ok(qr.url.includes(`/m?token=${token}`), 'QR encodes the phone link');
-    const decoded = await panel.evaluate((text) => window.LiveFXQR.encode(text), qr.url);
-    assert.equal(decoded.size, qr.size, 'canvas matches the encoder for the shown link');
+    assert.ok(!card.text.includes(token), 'no master token visible in the Handy card');
+    for (const p of card.payloads) {
+      assert.ok(!p.includes(token), `no master token in a QR: ${p}`);
+      assert.match(p, /\/p#/, `QR = pairing link: ${p}`);
+    }
+    if (!card.payloads.length) assert.match(card.state, /Handy-Zugriff ist aus/, `local-only server: explained, no dead QR (${card.state})`);
     assert.match(await panel.textContent('#btn-tunnel'), /Internet-Link starten/);
     assert.equal((await panel.textContent('#tunnel-state')).trim(), 'aus');
     assert.ok(await panel.locator('#tunnel-qr-wrap').isHidden(), 'no internet QR before the tunnel runs');
     assert.match(await panel.getAttribute('#tunnel-manual', 'href'), /^https:\/\/github\.com\/cloudflare\/cloudflared\/releases/);
-    log(`panel QR v${qr.version} (${qr.size}×${qr.size}) + internet-link controls ok`);
+    log(`panel Handy card: ${card.payloads.length ? `pairing QR ${card.payloads[0].replace(/#.*/, '#…')}` : `no WLAN QR (${card.state.slice(0, 40)}…)`}, no token; internet-link controls ok`);
 
     // (j) service worker: the panel shell survives offline + a dead server
     await panel.evaluate(() => navigator.serviceWorker.ready.then(() => true));
