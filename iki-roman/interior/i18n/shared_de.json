@@ -3,28 +3,28 @@
   "fixed": {
     "Öleceğimi ilk kez o sabah düşünmedim.": "Dass ich sterben würde, dachte ich an jenem Morgen nicht zum ersten Mal.",
     "Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.": "Ich öffnete die Tür. Den Namen des Mannes, der hereinkommen wird, kenne ich noch nicht.",
-    "Okurken hangi elinle tuttuğunu kontrol et.": "Prüfe beim Lesen, mit welcher Hand du es hältst.",
+    "Okurken hangi elinle tuttuğunu kontrol et.": "Prüfe beim Lesen, in welcher Hand du das hier hältst.",
     "seni ikinci kez öldürmüş gibi oluruz": "als hätten wir dich ein zweites Mal getötet",
-    "Bazen onları ben yazmıyorum gibi geliyor": "Manchmal kommt es mir vor, als wäre nicht ich es, der sie schreibt",
+    "Bazen onları ben yazmıyorum gibi geliyor": "Manchmal kommt es mir vor, als wäre ich es nicht, der sie schreibt",
     "İnsan hakikati öğrenmez, hatırlar": "Der Mensch lernt die Wahrheit nicht, er erinnert sich",
-    "Metale üç kez vuruluyor, sonra biri su istiyordu": "Drei Schläge auf Metall, dann bat jemand um Wasser",
-    "Kırılmış.": "Zerbrochen.",
+    "Metale üç kez vuruluyor, sonra biri su istiyordu": "drei Schläge auf Metall, dann bat jemand um Wasser",
+    "Kırılmış.": "Angeknackst.",
     "siyah paket": "schwarzes Paket",
     "kırmızı ip": "rote Schnur",
     "Tümör": "Tumor"
   },
   "fixed_context": {
     "Öleceğimi ilk kez o sabah düşünmedim.": "Erster Satz beider Romane (BY [37], [3443]; SA [1360]). Steht immer allein als Absatz.",
-    "Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.": "Arbeitsnotiz im Manuskript (BY [522] nach Doppelpunkt, [3201] am Absatzende; SA [1363] nach Doppelpunkt). Zwei vollständige Sätze, Großschreibung passt überall.",
-    "Okurken hangi elinle tuttuğunu kontrol et.": "BY [2801] eigener Absatz; SA [1323] als zweiter Satz einer Randnotiz nach ‚Schreib diese Zeile mit deiner eigenen Hand.‘ Kurzform in BY [1156]/[2802] ‚Okurken eline de bak‘ → ‚Schau beim Lesen auch auf deine Hand.‘ (nicht fest, aber bitte so).",
-    "seni ikinci kez öldürmüş gibi oluruz": "Ganzer Satz in beiden Büchern identisch (BY [3170] in „ “, SA [1735] ohne): ‚Görev olursa sustuğumuz gün seni ikinci kez öldürmüş gibi oluruz.‘ Empfohlener Gesamtsatz: „Wenn es zur Pflicht wird, dann ist es an dem Tag, an dem wir schweigen, als hätten wir dich ein zweites Mal getötet.“",
-    "Bazen onları ben yazmıyorum gibi geliyor": "BY [3203] eigener Absatz, SA [1698] in „ “. Folgesatz in beiden: ‚Ben sustuğumda da odalarında konuşuyorlar.‘ → „Auch wenn ich schweige, reden sie in ihren Zimmern weiter.“ ‚sie‘ = die Figuren; Sprecher ist Sefa (männlich) → ‚der sie schreibt‘.",
-    "İnsan hakikati öğrenmez, hatırlar": "Motto (SA [40] mit „ “ und !, [362]; BY [3382] mit !). Fester Teil ohne Ausrufezeichen, damit er in ‚…, hatırlar!“‘ wie in ‚hatırlar.‘ passt.",
-    "Metale üç kez vuruluyor, sonra biri su istiyordu": "BY [989] Satzanfang. SA [1324] steht die Wendung kleingeschrieben mitten im Satz (‚Sahnedeki kayıtta metale üç kez vuruluyor, …‘) → dort mit Doppelpunkt anschließen: „In der Aufnahme der Szene: Drei Schläge auf Metall, dann bat jemand um Wasser.“ (nach Doppelpunkt ganzer Satz → Großschreibung korrekt). SA-Kapitel ‚ÜÇ VURUŞ‘ → ‚DREI SCHLÄGE‘.",
-    "Kırılmış.": "SA [1326] als Einwortreplik in „ “; in BY nur über die Übernahme der Szene. Muss auf ein kaputtes Gerät UND auf einen Menschen passen (SA [1328]: ob zum Gerät oder zum Gegenüber gesagt, bleibt offen).",
-    "siyah paket": "BY [324] ‚Vor meiner Tür lag ein schwarzes Paket.‘, [340] ‚das Foto vom schwarzen Paket‘ → dort bitte als ‚das Foto, schwarzes Paket vor meiner Tür, …‘ oder ‚ein schwarzes Paket zeigte‘ formulieren, sodass die Form ‚schwarzes Paket‘ (Nom./Akk. Sg. ohne Artikel oder nach ‚ein‘) wörtlich vorkommt. SA [1694] Aufzählung: ‚Eine Tür, ein schwarzes Paket, eine rote Schnur, ein Mann mit verbundenem rechten Daumen.‘",
-    "kırmızı ip": "14× in BY, alle Fälle (ipe/ipi/ip). Feminin gewählt, weil ‚rote Schnur‘ im Nominativ UND Akkusativ (mit/ohne Artikel) unverändert bleibt; nur Dativ/Genitiv (‚roten Schnur‘) ist zu vermeiden → umformulieren (‚sah auf die rote Schnur‘ statt ‚blickte zur roten Schnur‘). Mythologische Fäden in BY [171] dürfen zusätzlich ‚Ariadnefaden‘ / ‚roter Faden des Schicksals‘ heißen, solange ‚rote Schnur‘ im Absatz steht.",
-    "Tümör": "BY [3439] einzelnes Wort auf einem Bericht (‚Tumor.‘); SA [1349] „Es könnte ein Tumor sein“, [1658] ‚Die Lage des Tumors‘ enthält ‚Tumor‘, [1694] ‚Tumor‘. Immer groß, daher in allen Fällen enthalten."
+    "Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.": "Arbeitsnotiz im Manuskript (BY [522] nach Doppelpunkt, [3201] am Absatzende; SA [1363] nach Doppelpunkt). Zwei vollständige Sätze, Großschreibung passt überall. BY [3201]: das Echo ‚kapağını açtım. Kapıyı açtım.‘ erhalten → „… öffnete ich die erste Mappe. Ich öffnete die Tür. Den Namen des Mannes, der hereinkommen wird, kenne ich noch nicht.“ (nicht ‚schlug ich die Mappe auf‘).",
+    "Okurken hangi elinle tuttuğunu kontrol et.": "BY [2801] eigener Absatz (unter der Notiz auf dem ‚sauberen Blatt‘ [2798]); SA [1323] als zweiter Satz einer Randnotiz nach „Schreib diese Zeile mit deiner eigenen Hand.“ ‚das hier‘ verweist selbstreferenziell auf das Blatt/Heft/Buch in der Hand des Lesenden (BY [3444]: die Hand außerhalb der Zeile) und braucht kein Bezugswort im Vortext. Kurzform in BY [1156]/[2802] ‚Okurken eline de bak‘ → „Schau beim Lesen auch auf deine Hand.“ (nicht fest, aber bitte so).",
+    "seni ikinci kez öldürmüş gibi oluruz": "Ganzer Satz in beiden Büchern identisch (BY [3170] in „ “ als knappe Replik auf „E, aynı şey.“, SA [1735] ohne): ‚Görev olursa sustuğumuz gün seni ikinci kez öldürmüş gibi oluruz.‘ Verbindlicher Gesamtsatz: „Wird es zur Pflicht, ist es an dem Tag, an dem wir verstummen, als hätten wir dich ein zweites Mal getötet.“ BY [3170] mit Vorsatz: „Ist es nicht. Wird es zur Pflicht, …“ (‚Değil.‘). ‚verstummen‘ für ‚sustuğumuz gün‘: der Tag, an dem das Erzählen aufhört.",
+    "Bazen onları ben yazmıyorum gibi geliyor": "BY [3203] eigener Absatz, SA [1698] in „ “. Der Folgesatz ist in beiden Büchern obligatorisch und direkt anzuschließen: ‚Ben sustuğumda da odalarında konuşuyorlar.‘ → „Auch wenn ich schweige, reden sie in ihren Zimmern weiter.“ – erst er macht ‚sie‘ = die Figuren (Plural) eindeutig (Vortext BY [3201] ‚die Tür‘, SA [1697] ‚Onu yazdığınızı …‘ → „Sie sagen, Sie hätten ihn geschrieben.“ ‚ihn‘ = den Roman). Sprecher ist Sefa (männlich) → ‚der sie schreibt‘.",
+    "İnsan hakikati öğrenmez, hatırlar": "Motto, 7 Fundstellen: SA [40] (allein, „ … !“), [362] („ … !“ am Absatzanfang), [473] (im Mund des Iblis, mitten in der Rede, ‚hatırlar!‘), [705] (Muhibbi Amcas Brief, ‚hatırlar!‘), [1540] („ … !“ diye geçti içimden), [1714] („ … ,“ diye bir söz vardı – mit Komma, kein Ausrufezeichen); BY [3382] (allein, mit !). Fester Teil ohne Satzzeichen, damit er in ‚…, hatırlar!“‘ wie in ‚…, hatırlar“,‘ passt. SA [1714]: „„Der Mensch lernt die Wahrheit nicht, er erinnert sich“, hieß ein Satz.“ Hinweis für SA: die Figur ‚Hakikat Medeni‘ trägt das Wort ‚Hakikat‘ als Namen – einmal glossieren (‚Hakikat, die Wahrheit‘).",
+    "Metale üç kez vuruluyor, sonra biri su istiyordu": "Feste Form kleingeschrieben, damit sie ohne Doppelpunkt mitten im Satz steht. BY [989] (einziger vom Prüfer erzwungener Fundort, Satzanfang): „Man hörte drei Schläge auf Metall, dann bat jemand um Wasser.“ SA [1324] zitiert die Wendung kleingeschrieben (‚Sahnedeki kayıtta metale üç kez vuruluyor, …‘); der Prüfer deckt diese Stelle NICHT ab (case-sensitive Teilstring), die Brücke ist dort trotzdem verbindlich: „In der Aufnahme in meiner Szene hörte man drei Schläge auf Metall, dann bat jemand um Wasser.“ Präteritum wie die umgebende Erzählung, agenslos wie ‚vuruluyor‘. SA-Kapitel ‚ÜÇ VURUŞ‘ → ‚DREI SCHLÄGE‘.",
+    "Kırılmış.": "SA [1326] als Einwortreplik in „ “ (vom Prüfer erzwungen); BY [3451] steht ‚„Kırılmış,“ dedim.‘ mit Komma (nicht erzwungen, aber verbindlich): „„Angeknackst“, sagte ich.“ Muss auf ein defektes Gerät (SA [1328] ‚bozuk bir alet‘) UND auf einen gekränkten Menschen passen, ohne dass der Satz verrät, wem er gilt (SA [1328]; BY [3453] ‚Birinde insan, ötekinde kırılan bir eşya vardı‘). Umfeld abstimmen: SA [1328] ‚bozuk bir alet‘ → „ein angeknackstes Gerät“ (oder „ein kaputtes Gerät“); BY [3453] → „In dem einen ein Mensch, in dem anderen ein Ding, das einen Knacks hatte.“ – ‚einen Knacks haben‘ gilt im Deutschen für Dinge wie für Menschen und trägt die Doppeldeutigkeit weiter.",
+    "siyah paket": "BY [324] „Vor meiner Tür lag ein schwarzes Paket.“; [340] ‚das Foto vom schwarzen Paket‘ → dort umformulieren, sodass die Form ‚schwarzes Paket‘ (Nom./Akk. Sg. ohne Artikel oder nach ‚ein‘) wörtlich vorkommt, z. B. „das Foto, das ein schwarzes Paket vor meiner Tür zeigte“. SA [1694] Aufzählung: „Eine Tür, ein schwarzes Paket, eine rote Schnur, ein Mann mit verbundenem rechten Daumen.“",
+    "kırmızı ip": "14× in BY (alle Kasus: ipe/ipi/iple/ipi), 1× SA [1694]. Feminin gewählt, weil ‚rote Schnur‘ in Nominativ UND Akkusativ (mit/ohne Artikel, auch nach ‚dünne‘/‚eine dünne‘) unverändert bleibt; Dativ/Genitiv (‚roten Schnur‘) sind zu vermeiden → umformulieren. Pflicht-Umformulierungen: BY [2796] ‚ince bir kırmızı iple bağlanmıştı‘ → „Die Papierrolle hielt eine dünne rote Schnur zusammen.“ (nicht ‚mit einer dünnen roten Schnur gebunden‘); BY [168] ‚kırmızı ipe baktı‘ → „… sah auf die rote Schnur auf dem Paket.“ (nicht ‚blickte zur roten Schnur‘); BY [65], [450], [1027], [1258], [2351], [2526] ‚bağlanmıştı/dolanmıştı/vardı‘ → Subjektkonstruktion „… war eine dünne rote Schnur gebunden/gewickelt“ bzw. „… war eine dünne rote Schnur“; BY [2842] ‚Paketin kırmızı ipi‘ → „Die rote Schnur des Pakets …“. Mythologische Fäden in BY [171] dürfen zusätzlich ‚Ariadnefaden‘ / ‚roter Faden des Schicksals‘ heißen, solange ‚rote Schnur‘ im Absatz steht.",
+    "Tümör": "BY [3439] einzelnes Wort auf einem Bericht („Tumor.“); SA [1349] „Es könnte ein Tumor sein“, [1658] ‚Die Lage des Tumors‘ enthält ‚Tumor‘, [1694] ‚Tumor‘. Immer groß, daher in allen Kasus enthalten."
   },
   "names": {
     "Tuncay Sancak": "Tuncay Sancak",
@@ -106,10 +106,34 @@
     "São Paulo": "São Paulo",
     "Mekke": "Mekka",
     "Medine": "Medina",
-    "Yesrib": "Yesrib",
-    "Marmara Üniversitesi": "Marmara-Universität"
+    "Yesrib": "Yathrib",
+    "Marmara Üniversitesi": "Marmara-Universität",
+    "Âdem": "Âdem",
+    "Âdemoğulları": "die Söhne Âdems",
+    "İsa": "İsa",
+    "Meryem": "Meryem",
+    "Meryem oğlu İsa": "İsa, Sohn der Meryem",
+    "Nâsıralı İsa": "İsa von Nazareth",
+    "İbrahim": "İbrahim",
+    "Davut": "Davut",
+    "Kabil": "Kabil",
+    "Ebu Bekir": "Ebu Bekir",
+    "Selman-ı Farisi": "Selman-ı Farisi",
+    "Kuba": "Kuba",
+    "Nazım Abi": "Nazım Abi",
+    "Agâh Efendi": "Agâh Efendi",
+    "Sefa Hocam": "Sefa Hocam",
+    "Hakan Hocam": "Hakan Hocam",
+    "Küçük Saatçi": "der Kleine Uhrmacher",
+    "Selin Özer": "Selin Özer",
+    "Emrah Cebiroğlu": "Emrah Cebiroğlu",
+    "Ceylan": "Gazelle",
+    "Sefarizmalar": "Sefarismen",
+    "Şemsettin Günaltay Caddesi": "Şemsettin-Günaltay-Straße",
+    "Kaptan Arif Sokağı": "Kaptan-Arif-Gasse",
+    "Göztepe Kampüsü": "Campus Göztepe"
   },
-  "names_rule": "Personennamen beider Bücher bleiben unverändert, mit türkischen Buchstaben (ı, ş, ğ, İ). Koranisch-islamische Figuren behalten die Form des türkischen Erzählers (Musa, Havva, Bilal, Azrail, Mikail, Ümeyye, Yesrib), weil die Stimme ein türkischer Muslim ist; nur ‚Muhyiddin İbnü'l-Arabî‘ erhält die im Deutschen eingeführte Form ‚Muhyiddin Ibn Arabi‘. Türkische Orte/Stadtteile bleiben (Kadıköy, Erenköy, Fikirtepe, Göztepe, Balat, Edirne); Großstädte mit festem deutschem Exonym erhalten dieses (Istanbul ohne Punkt-İ, London, Mekka, Medina, Singapur). Institutionen werden übersetzt (Marmara-Universität, Meralis-Institut …), Eigenname ‚Meralis‘ und Operationsname ‚FETİH-1453‘ bleiben.",
+  "names_rule": "Personennamen beider Bücher bleiben unverändert, mit türkischen Buchstaben (ı, ş, ğ, İ, â). Koranisch-islamische PERSONEN behalten die Form des türkischen Erzählers, weil die Stimme ein türkischer Muslim ist: Musa, Havva, Âdem, İsa, Meryem, İbrahim, Davut, Kabil, Ebu Bekir, Bilal, Azrail, Mikail, Ümeyye – nie Adam/Jesus/Maria/Abraham/David/Kain. Zusammensetzungen: ‚Meryem oğlu İsa‘ → „İsa, Sohn der Meryem“; ‚Nâsıralı İsa‘ → „İsa von Nazareth“; ‚Âdemoğulları‘ → „die Söhne Âdems“. Nur ‚Muhyiddin İbnü'l-Arabî‘ erhält die im Deutschen eingeführte Form ‚Muhyiddin Ibn Arabi‘. ORTE: türkische Stadtteile/Städte bleiben (Kadıköy, Erenköy, Fikirtepe, Göztepe, Balat, Edirne); Orte mit festem deutschem Exonym erhalten dieses – Istanbul (ohne Punkt-İ), London, Mekka, Medina, Singapur und ebenso Yathrib für ‚Yesrib‘ (SA [1266] „nach Yathrib, ins Dorf Kuba“; SA [1284] „früher Yathrib, später Medina genannt“). Institutionen werden übersetzt (Marmara-Universität, Campus Göztepe, Meralis-Institut …), Straßen als Bindestrich-Komposita (Şemsettin-Günaltay-Straße, Kaptan-Arif-Gasse); Eigenname ‚Meralis‘ und Operationsname ‚FETİH-1453‘ bleiben. Decknamen und Kunstwörter werden übersetzt: ‚Küçük Saatçi‘ → „der Kleine Uhrmacher“ (in Anführung/als Ruf: „Kleiner Uhrmacher“), ‚Sefarizmalar‘ → „Sefarismen“. Die Gazelle der SA-Rahmenfabel (‚Ceylan‘) heißt „Gazelle“; als Anrede ohne Artikel („He, Gazelle, …“), sonst ‚die Gazelle‘.",
   "motto": "Der Mensch lernt die Wahrheit nicht, er erinnert sich!",
   "book_titles": {
     "BY": "DER REISENDE",
@@ -119,15 +143,150 @@
     "BY": "1453 – Der Preis des Erwachens",
     "SA": ""
   },
+  "title_references": "‚yolcu‘ als Anrede oder Verweis auf das Partnerbuch immer „Reisender“ (nie ‚Wanderer‘/‚Passagier‘), ‚şahit‘ als Verweis immer „Zeuge“ (nie ‚Augenzeuge‘). SA [38]: „Vergiss nicht, Reisender: Jetzt brichst du zu deiner eigentlichen Reise auf, der Weg wartet auf dich, und der Zeuge auch … Vergiss es nicht, denn:“ SA [705] ‚şahidi bulacaksın‘ → „wirst du den Zeugen finden“.",
   "address_forms": {
-    "Abi": "bleibt: „Sefa Abi“ (nachgestellt, groß). Als Anrede ohne Namen („abi“) je nach Register ‚Bruder‘ / ‚Mann‘ / weglassen.",
-    "Hoca": "bleibt: „Hakan Hoca“ (nachgestellt). Direkte Anrede „Hocam“ bleibt „Hocam“. Als Gattungswort (‚Hoca diye çağrılan bir insan‘) übersetzen: ‚ein Mensch, den alle Hoca nennen‘; ‚hoca‘ im Sinn von Lehrer/Dozent/Arzt sinngemäß.",
+    "Abi": "bleibt, nachgestellt und groß: „Sefa Abi“ (14×), „Nazım Abi“ (SA [336], [843]; dieselbe Person wird von anderen Sprechern „Nazım Efendi“ genannt – beide Formen bleiben). Als Anrede ohne Namen („abi“) je nach Register ‚Bruder‘ / ‚Mann‘ / weglassen.",
+    "Hoca": "bleibt, nachgestellt: „Hakan Hoca“ (67×), in direkter Anrede „Hakan Hocam“, „Sefa Hocam“ / „Mustafa Sefa Hocam“ → „Sefa Hocam“. Isoliertes „Hocam“ (46×) bleibt nur als direkte Anrede am Satzanfang/-ende; in längeren Repliken darf es entfallen, damit keine Hocam-Flut entsteht. Possessiv im Erzähltext/Bericht wird übersetzt: ‚Hocamız sizi bekliyor‘ → „Unser Hoca erwartet Sie“ (nie ‚Hocamız‘). Als Gattungswort (‚Hoca diye çağrılan bir insan‘ SA [1349]) → „ein Mensch, den alle Hoca nennen“; ‚hoca‘ im Sinn von Lehrer/Dozent/Arzt sinngemäß.",
     "Hanım": "bleibt: „Vildan Hanım“, „Zehra Hanım“, „Rana Hanım“, „Nehir Hanım“. Nie ‚Frau Vildan‘.",
     "Bey": "bleibt: „Sefa Bey“, „Hakikat Bey“, „Nihat Bey“, „Yusuf Bey“, „Hasan Bey“. Nie ‚Herr Sefa‘.",
     "Amca": "bleibt: „Muhibbi Amca“. Possessive Formen ‚Muhibbi Amcam/Amcan‘ in der Anrede ebenfalls „Muhibbi Amca“; wo echte Verwandtschaft gemeint ist (‚amcam‘ ohne Namen): ‚mein Onkel‘ / ‚dein Onkel‘.",
-    "Efendi": "bleibt: „Nazım Efendi“.",
-    "Hz.": "wird nicht als Kürzel übernommen (im Deutschen als ‚Hertz‘ lesbar): „Hz. Muhammed“ → ‚der Prophet Muhammed‘, „Hz. Azrail“ → ‚der Todesengel Azrail‘, „Hz. Ebu Bekir“ → ‚Ebu Bekir‘ (bei Bedarf ‚der ehrwürdige Ebu Bekir‘); „Hazreti …“ ebenso. Einmalig im Vorspann eine kurze Anrede-Erklärung (Abi, Hoca, Hanım, Bey, Amca, Efendi) als Glossar."
+    "Efendi": "bleibt: „Nazım Efendi“ (13×), „Agâh Efendi“ (SA, Wasserträger im Dorf – alte, nicht-urbane Verwendung, bleibt ebenso). ‚Yahu Efendi‘ ist keine Anrede mit Namen → ‚Mensch, mein Herr‘ o. ä.",
+    "Hz.": "wird nicht als Kürzel übernommen (im Deutschen als ‚Hertz‘ lesbar): „Hz. Muhammed“ / „Hazreti Muhammed“ → ‚der Prophet Muhammed‘, „Hz. Azrail“ → ‚der Todesengel Azrail‘, „Hz. Ebu Bekir“ → ‚Ebu Bekir‘ (bei Bedarf ‚der ehrwürdige Ebu Bekir‘), „Hz. İsa“ → ‚der Prophet İsa‘ (SA [395]; in SA [391] ‚Meryem oğlu Hz. İsa‘ → „İsa, dem Sohn der Meryem“ ohne Titel), „Hz. Âdem“ → ‚Âdem‘ (bei Erstnennung ‚der erste Mensch, Âdem‘), „Peygamberimiz (SAV)“ → ‚unser Prophet (s.a.v.)‘.",
+    "(AS) / (SAV)": "Die Segensformeln bleiben als Kürzel in Kleinbuchstaben mit Punkten: „(AS)“ → „(a.s.)“, „(SAV)“ → „(s.a.v.)“ – sie gehören zur Stimme der frommen Erzähler (Muhibbi Amca, Barnabas-Kapitel) und werden einmal im Glossar erklärt (a.s. = aleyhisselam, ‚Friede sei mit ihm‘; s.a.v. = sallallahu aleyhi ve sellem). Steht das Kürzel allein für den Propheten (SA [542] ‚Ne dedi cevap olarak (SAV)‘) → „Was antwortete er (s.a.v.)“. ‚İbrahim Peygamber (AS)‘ → „der Prophet İbrahim (a.s.)“.",
+    "Glossar": "Einmalig im Vorspann beider Bücher eine kurze Anrede-Erklärung (Abi, Hoca/Hocam, Hanım, Bey, Amca, Efendi, a.s., s.a.v.) als Glossar."
   },
-  "typography": "Neue Rechtschreibung; Dialog „ “, Zitat im Zitat ‚ ‘; Gedankenstrich ‚–‘ mit Leerzeichen; Auslassung ‚…‘. Türkische Diakritika in Namen bleiben.",
-  "notes": "Erster Satz: ‚Dass ich sterben würde, dachte ich an jenem Morgen nicht zum ersten Mal.‘ stellt den Tod an den Satzanfang und trägt die Pointe (nicht zum ersten Mal) ans Ende; stimmt in SA [1361] mit ‚o ölümünü benden önce düşünmüş‘ überein. Arbeitsnotiz-Satz: Präteritum + Präsens wie im Türkischen (açtım / bilmiyorum), ‚hereinkommen wird‘ hält die Szene offen. Hand-Satz: ‚Prüfe‘ (volle Imperativform, schriftsprachlich wie ‚kontrol et‘), Objekt ‚es‘ bleibt wie im Türkischen unbestimmt (Buch oder Blatt). ‚als hätten wir dich ein zweites Mal getötet‘ ist als Nebensatz in jeden Hauptsatz einbaubar. ‚Manchmal kommt es mir vor, als wäre nicht ich es, der sie schreibt‘: Spaltsatz macht die Betonung auf ‚ich‘ hörbar, die im Türkischen durch das gesetzte Pronomen ‚ben‘ entsteht. Motto: ‚Der Mensch lernt die Wahrheit nicht, er erinnert sich‘ – objektlos wie ‚hatırlar‘, Komma wie im Original, fünf Hebungen; ‚Wahrheit‘ statt ‚Hakikat‘, Hinweis für SA: die Figur ‚Hakikat Medeni‘ trägt dieses Wort als Namen – einmal glossieren (‚Hakikat, die Wahrheit‘). Metall-Szene: ‚Drei Schläge auf Metall, dann bat jemand um Wasser‘ im Präteritum wie die umgebende Erzählung; beginnt mit einem Substantiv-Syntagma, damit die Wendung in SA nach Doppelpunkt mitten im Satz stehen kann. ‚Zerbrochen.‘ deckt Gerät und Mensch ab (‚Kaputt.‘ verlöre die Kränkung, die in kırılmak mitschwingt). ‚schwarzes Paket‘ und ‚rote Schnur‘ sind so gewählt, dass die häufigsten Kasus (Nom./Akk.) die feste Form unverändert enthalten; ‚Schnur‘ (nicht ‚Faden‘), weil es Paketschnur und Handgelenkband zugleich ist und feminin flexionsstabiler bleibt; der deutsche ‚rote Faden‘ darf in BY [171] zusätzlich erscheinen. ‚Tumor‘ ist in allen Flexionen enthalten. Anredeformen bleiben türkisch (gängige Praxis deutscher Übersetzungen türkischer Gegenwartsliteratur), ‚Hz.‘ wird aufgelöst."
+  "typography": "Neue Rechtschreibung; Dialog „ “, Zitat im Zitat ‚ ‘; Gedankenstrich ‚–‘ mit Leerzeichen; Auslassung ‚…‘. Türkische Diakritika in Namen bleiben (ı, ş, ğ, İ, â).",
+  "decisions": [
+    {
+      "key": "Kırılmış.",
+      "critics": [
+        "critic-adv",
+        "critic-lit"
+      ],
+      "decision": "angenommen",
+      "result": "„Angeknackst.“",
+      "reason": "‚Zerbrochen‘ überschießt beim Menschen (existenziell vernichtet statt gekränkt) und ist für ein ‚bozuk‘ (defektes) Gerät nicht das natürliche Wort. ‚Angeknackst‘ gilt für Dinge (angebrochen/gesprungen) wie für Menschen (umgangssprachlich: verletzt, gekränkt, ‚einen Knacks weghaben‘) im leichten Alltagsregister von kırılmış, lässt SA [1328] offen, wem das Wort gilt, und erlaubt in BY [3453] ‚ein Ding, das einen Knacks hatte‘. ‚Angeschlagen‘ (Echo zu ‚drei Schläge‘) wurde erwogen, trifft beim Menschen aber ‚mitgenommen/groggy‘, nicht ‚gekränkt‘; ‚Kaputt‘ beim Menschen ‚erschöpft‘. BY [3451] (Komma statt Punkt, vom Prüfer nicht erfasst) wird in fixed_context mit verpflichtet."
+    },
+    {
+      "key": "Bazen onları ben yazmıyorum gibi geliyor",
+      "critics": [
+        "critic-adv"
+      ],
+      "decision": "angenommen",
+      "result": "„Manchmal kommt es mir vor, als wäre ich es nicht, der sie schreibt“",
+      "reason": "Idiomatische Spaltsatz-Negation; die Betonung auf ‚ich‘ bleibt durch den Spaltsatz hörbar. ‚als schriebe nicht ich sie‘ verworfen (zu preziös für eine Telefon-/Sprechzimmerreplik). Folgesatz in beiden Büchern verpflichtend angeschlossen, damit ‚sie‘ = die Figuren eindeutig ist."
+    },
+    {
+      "key": "kırmızı ip",
+      "critics": [
+        "critic-adv"
+      ],
+      "decision": "angenommen",
+      "result": "feste Form bleibt „rote Schnur“; Pflicht-Umformulierungen BY [2796], [168] u. a. in fixed_context",
+      "reason": "Der Prüfer erfasst alle Kasusformen des türkischen Schlüssels; die Dativ-Zwangsstellen sind jetzt mit vorgegebenen Nominativ-/Akkusativ-Lösungen benannt, damit der Build nicht scheitert."
+    },
+    {
+      "key": "Metale üç kez vuruluyor, sonra biri su istiyordu",
+      "critics": [
+        "critic-adv",
+        "critic-lit"
+      ],
+      "decision": "angenommen (critic-lit), teilweise (critic-adv)",
+      "result": "„drei Schläge auf Metall, dann bat jemand um Wasser“ (kleingeschrieben)",
+      "reason": "Die kleingeschriebene Nominalform passt ohne Doppelpunkt-Regieanweisung in BY [989] („Man hörte drei Schläge …“) wie in SA [1324] („… hörte man drei Schläge …“) – genau die geforderte Form, die auch an der nicht geprüften kleingeschriebenen SA-Stelle passt. Der Hinweis von critic-adv, dass SA [1324] vom Prüfer nicht erzwungen wird, ist in fixed_context als verbindliche Pflicht vermerkt; die vorgeschlagene Tool-Änderung liegt außerhalb dieser Datei."
+    },
+    {
+      "key": "Okurken hangi elinle tuttuğunu kontrol et.",
+      "critics": [
+        "critic-adv",
+        "critic-lit"
+      ],
+      "decision": "angenommen",
+      "result": "„Prüfe beim Lesen, in welcher Hand du das hier hältst.“",
+      "reason": "‚es‘ hatte an keiner Fundstelle einen sicheren Bezug (SA [1323]: ‚diese Zeile‘ f.; BY [2801]: allein). ‚das hier‘ ist selbstreferenziell – der Lesende hält das Buch – und ‚in welcher Hand … hältst‘ ist idiomatischer als ‚mit welcher Hand‘. Kurzform „Schau beim Lesen auch auf deine Hand.“ bleibt."
+    },
+    {
+      "key": "names: Yesrib",
+      "critics": [
+        "critic-adv",
+        "critic-lit"
+      ],
+      "decision": "angenommen",
+      "result": "„Yesrib“ → „Yathrib“",
+      "reason": "Die Exonym-Regel gilt für Orte (Mekka, Medina, London); ‚Yesrib‘ in einem Satz mit ‚Medina‘ (SA [1284]) mischte zwei Systeme. Die Erzähler-Regel ist jetzt ausdrücklich auf Personen beschränkt. Bei Erstnennung SA [1266] kein Zusatz nötig, SA [1284] erklärt selbst ‚früher Yathrib, später Medina‘."
+    },
+    {
+      "key": "fixed.İnsan hakikati öğrenmez, hatırlar",
+      "critics": [
+        "critic-lit"
+      ],
+      "decision": "abgelehnt (Wortlaut), angenommen (Fundstellen)",
+      "result": "„Der Mensch lernt die Wahrheit nicht, er erinnert sich“ bleibt; fixed_context nennt jetzt alle 7 Fundstellen (SA [40], [362], [473], [705], [1540], [1714]; BY [3382])",
+      "reason": "‚sich erinnern‘ ist im Deutschen absolut gebräuchlich und vollständig („Ich erinnere mich.“); der Verzicht auf das Objekt spiegelt die Ellipse des Türkischen (‚hatırlar‘ ohne ‚onu‘) und öffnet die platonische Anamnesis-Lesart, die Iblis in SA [473] und Muhibbi Amca in SA [705] meinen. ‚er erinnert sich an sie‘ macht den Aphorismus prosaisch und endet auf ein nachklappendes Präpositionalobjekt; ‚– er erinnert sie‘ (transitiv) ist markiert-norddeutsch und erzwänge einen Gedankenstrich gegen das Komma des Originals. Fehlender Fundort SA [705] (Brief) ergänzt."
+    },
+    {
+      "key": "names / address_forms.Hz.",
+      "critics": [
+        "critic-lit"
+      ],
+      "decision": "angenommen",
+      "result": "Âdem, İsa, Meryem, İbrahim, Davut, Kabil, Ebu Bekir (+ Komposita) in names; Hz.-Regel um İsa/Âdem erweitert; (AS)/(SAV) → (a.s.)/(s.a.v.) mit Glossar",
+      "reason": "Genau bei diesen Figuren droht das Ausweichen auf Adam/Jesus/Maria; die Regel steht jetzt in der Datei. ‚Nuh‘ kommt in keinem Text vor und wurde nicht aufgenommen. Kürzel bleiben (kleingeschrieben mit Punkten), weil sie zur frommen Erzählstimme gehören; Weglassen hätte das Register geglättet."
+    },
+    {
+      "key": "fixed_context.seni ikinci kez öldürmüş gibi oluruz",
+      "critics": [
+        "critic-lit"
+      ],
+      "decision": "angenommen",
+      "result": "Gesamtsatz: „Wird es zur Pflicht, ist es an dem Tag, an dem wir verstummen, als hätten wir dich ein zweites Mal getötet.“ (BY mit Vorsatz „Ist es nicht.“)",
+      "reason": "Knapper, ohne ‚dann/an dem/an dem‘; ‚verstummen‘ markiert das Aufhören des Erzählens. Der feste Teil ist unverändert."
+    },
+    {
+      "key": "fixed.Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.",
+      "critics": [
+        "critic-lit"
+      ],
+      "decision": "abgelehnt (Wortlaut), angenommen (Echo in BY [3201])",
+      "result": "„… der hereinkommen wird, kenne ich noch nicht.“ bleibt; BY [3201] „öffnete ich die erste Mappe. Ich öffnete die Tür.“",
+      "reason": "‚der gleich hereinkommt‘ fügt eine Unmittelbarkeit (‚gleich‘) hinzu, die im Türkischen (‚girecek‘, reines Futur) nicht steht; das Futur hält offen, ob und wann der Mann kommt – das ist die Pointe der Arbeitsnotiz, und eine Notiz darf leicht papieren klingen. Die Wiederholung von ‚açtım‘ ist dagegen verbindlich vorgegeben."
+    },
+    {
+      "key": "address_forms.Hoca",
+      "critics": [
+        "critic-lit"
+      ],
+      "decision": "angenommen",
+      "result": "Sefa Hocam, Hakan Hocam, Hocamız → ‚unser Hoca‘, Hocam nur als direkte Anrede",
+      "reason": "Verhindert die Hocam-Flut (46× isoliert) und regelt den Possessiv im Erzähltext."
+    },
+    {
+      "key": "address_forms.Abi / Efendi",
+      "critics": [
+        "critic-lit"
+      ],
+      "decision": "angenommen",
+      "result": "„Nazım Abi“, „Agâh Efendi“ in names; Vermerk zu Nazım Abi/Efendi",
+      "reason": "Beide Formen kommen vor und bezeichnen je nach Sprecher dieselbe Person; ‚Yahu Efendi‘ zusätzlich als Nicht-Anrede markiert."
+    },
+    {
+      "key": "names (Vollständigkeit)",
+      "critics": [
+        "critic-lit"
+      ],
+      "decision": "angenommen",
+      "result": "Küçük Saatçi → „der Kleine Uhrmacher“, Selin Özer, Emrah Cebiroğlu, Ceylan → „Gazelle“, Sefarizmalar → „Sefarismen“, Şemsettin-Günaltay-Straße, Kaptan-Arif-Gasse, Campus Göztepe",
+      "reason": "Deckname und Kunstwort werden wie Institutionen übersetzt; ‚Gazelle‘ ist bereits in Trailer/Marketing eingeführt. Straßennamen als Bindestrich-Komposita nach deutscher Konvention; ‚Sokak‘ → Gasse, ‚Cadde‘ → Straße."
+    },
+    {
+      "key": "book_titles / notes (Querverweis yolcu)",
+      "critics": [
+        "critic-lit"
+      ],
+      "decision": "angenommen",
+      "result": "Feld title_references: ‚yolcu‘ → „Reisender“, ‚şahit‘ → „Zeuge“, SA [38] vorgegeben",
+      "reason": "Der textinterne Verweis auf das Partnerbuch muss den Titel wörtlich tragen."
+    }
+  ],
+  "notes": "SCHLUSSREDAKTION (Stand: alle Einwände aus shared_de_issues.json entschieden, Einzelbegründungen im Feld ‚decisions‘). Angenommen: Kırılmış → „Angeknackst.“ (Doppeldeutigkeit Gerät/gekränkter Mensch, SA [1326–1328], BY [3451–3453]); Hand-Satz → „Prüfe beim Lesen, in welcher Hand du das hier hältst.“; Spaltsatz → „als wäre ich es nicht, der sie schreibt“; Metall-Satz kleingeschrieben „drei Schläge auf Metall, dann bat jemand um Wasser“ (passt in BY [989] und an der nicht geprüften Stelle SA [1324] ohne Doppelpunkt); Yesrib → Yathrib; koranische Figuren, Anredevarianten, Decknamen und Straßen in names ergänzt; Hz.-Regel erweitert, (AS)/(SAV) → (a.s.)/(s.a.v.) mit Glossar; Pflicht-Umformulierungen für ‚rote Schnur‘ (BY [2796], [168] u. a.); Gesamtsatz zu ‚seni ikinci kez …‘ gestrafft (‚verstummen‘); Titelverweise ‚yolcu‘/‚şahit‘ geregelt. Abgelehnt: Motto bleibt objektlos „Der Mensch lernt die Wahrheit nicht, er erinnert sich“ (Ellipse wie ‚hatırlar‘, Anamnesis-Lesart, Komma des Originals; Fundstellen auf 7 ergänzt); Arbeitsnotiz bleibt „der hereinkommen wird“ (kein ‚gleich‘ im Original; Echo ‚öffnete … Ich öffnete‘ in BY [3201] aber verbindlich). ÜBERSETZUNGSENTSCHEIDUNGEN: Erster Satz ‚Dass ich sterben würde, dachte ich an jenem Morgen nicht zum ersten Mal.‘ stellt den Tod an den Satzanfang und trägt die Pointe (nicht zum ersten Mal) ans Ende; stimmt in SA [1361] mit ‚o ölümünü benden önce düşünmüş‘ überein. Arbeitsnotiz-Satz: Präteritum + Präsens wie im Türkischen (açtım / bilmiyorum). Hand-Satz: ‚Prüfe‘ (volle Imperativform, schriftsprachlich wie ‚kontrol et‘), ‚das hier‘ deiktisch auf das Buch in der Hand des Lesenden. ‚als hätten wir dich ein zweites Mal getötet‘ ist als Nebensatz in jeden Hauptsatz einbaubar. Spaltsatz macht die Betonung auf ‚ich‘ hörbar, die im Türkischen durch das gesetzte Pronomen ‚ben‘ entsteht. Motto: objektlos wie ‚hatırlar‘, Komma wie im Original, fünf Hebungen; ‚Wahrheit‘ statt ‚Hakikat‘ – die Figur ‚Hakikat Medeni‘ einmal glossieren. Metall-Satz: Präteritum wie die umgebende Erzählung, agenslos wie ‚vuruluyor‘, Nominalform damit er mitten im Satz stehen kann. ‚Angeknackst.‘ deckt Gerät (angebrochen) und Mensch (gekränkt, ‚einen Knacks weghaben‘) im leichten Register ab; ‚Zerbrochen‘/‚Kaputt‘ verlören je eine Seite. ‚schwarzes Paket‘ und ‚rote Schnur‘ sind so gewählt, dass Nom./Akk. die feste Form unverändert enthalten; ‚Schnur‘ (nicht ‚Faden‘), weil es Paketschnur und Handgelenkband zugleich ist; der deutsche ‚rote Faden‘ darf in BY [171] zusätzlich erscheinen. ‚Tumor‘ ist in allen Flexionen enthalten. Anredeformen bleiben türkisch (gängige Praxis deutscher Übersetzungen türkischer Gegenwartsliteratur), ‚Hz.‘ wird aufgelöst, Segensformeln bleiben als Kürzel. PRÜFTECHNIK: Jede Übersetzung eines festen Satzes muss als exakter, case-sensitiver Teilstring im Zielabsatz jeder Fundstelle stehen (i18n_build.py); deshalb beginnen Teilsätze klein (‚seni ikinci kez …‘, ‚drei Schläge …‘, ‚schwarzes Paket‘, ‚rote Schnur‘), ‚Tumor‘ ist Aufschrift (groß), und das Motto trägt kein Satzzeichen. Nicht vom Prüfer erfasste, aber verbindliche Brücken: SA [1324] (kleingeschriebenes ‚metale …‘), BY [3451] (‚Kırılmış,‘ mit Komma)."
 }

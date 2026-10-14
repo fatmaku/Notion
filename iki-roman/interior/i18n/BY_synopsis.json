@@ -4174,5 +4174,1135 @@
    }
   ],
   "tone": "Ich-Erzählung im Präteritum (türkisch -di/-mişti), Gegenwartsebene mit umfangreichen berichteten Rückblenden (Yusufs Lebensgeschichte, Jugend des Erzählers vor 23 Jahren). Großer Dialoganteil: knappe, oft einzeilige Frage-Antwort-Wechsel am Telefon und am Tisch; der Erzähler siezt Yusuf (siz), Yusuf duzt ihn. Register nüchtern, analytisch, mit aphoristischen Sätzen und psychologischer Selbstreflexion; eingeschobene kursive Heftnotizen und ein Tonband-Einschub (Style „Book Inset“). Enthüllungskapitel mit vielen Rückverweisen auf Objekte und Ereignisse früherer Kapitel; Lautmalerei (Tok. Tok. Tok.) und knappe Ein-Satz-Absätze als Rhythmuselemente."
+ },
+ {
+  "uid": "U37",
+  "title": "42. Labirentin Emanetleri",
+  "summary": "Gegenwartsebene, Fortsetzung der Szene im Servicegebäude des stillgelegten Observatoriums (unter der rostigen Antennenschüssel). Yusuf (Cems Vater, ehemals Meralis, jetzt Überläufer) erklärt dem Ich-Erzähler, Nehir, Tarık und der Anwältin Selin das Emanet-System: Vier Metallschlüssel aktivieren vier unabhängige Treuhandverträge (İstanbul, Berlin, Nairobi, Toronto); werden alle vier binnen 24 Stunden vor Notaren gedreht, gehen sieben miteinander verifizierte Archive an Journalisten, Ärzte, Menschenrechtsjuristen und Forscher in sieben Städten. Es wird enthüllt, dass der Erzähler selbst den ersten Entwurf des Systems baute, Leyla es aktualisierte, Nehir den Quellenschutz ergänzte, Yusuf es versteckte und Cem seinen Ort fand (deshalb wollte Cem die Disk mit der Verifikationskette zurück). Dann fahren zwei schwarze Wagen vor: ein Gerichtsvollzieher mit zwei Meralis-Anwälten und private Sicherheitsleute mit einer einstweiligen Verfügung, die nur die vier beschriebenen Kisten erfasst; die Beschreibung war 54 Minuten vor dem Treffen ins System gelangt – Yusuf blickt zum Kabelkasten an der Decke (Hinweis auf eine Wanze). Emir entdeckt per Video einen doppelten Boden: Die Kisten waren Köder, die vier Schlüssel liegen in einem Rahmen im mechanischen Koffer, den Selin per Notar-Emanet-Schein geschützt hat. Die Gruppe flieht durch den Servicetunnel, während Yusuf mit dem alten Sender alle Funkgeräte elf Minuten lang wie ein Babyschreien heulen lässt; am Tunnelausgang versperrt Cem den Weg und bietet Leylas letzte Aufnahme gegen die Schlüssel. Der Erzähler verweigert beide von Cem vorbereiteten Zukünfte (Monster oder Kranker) und wählt den „dritten Weg“: nicht alles veröffentlichen, Namen, Medikamentenakten und Kinder schützen, nur Methode, Geldweg und Befehlskette an unabhängige Institutionen geben – auch mit Cems Vorgesetzten. Cem lässt sie passieren und schickt Leylas Aufnahme auf Nehirs Telefon; die Vollzieher versiegeln leere Kisten.",
+  "characters": [
+   "Ich-Erzähler (Protagonist, namenlos; Vater von Duru und Emir, Ehemann von Zeynep; baute einst den ersten Entwurf des Emanet-Systems; redet mit Cem)",
+   "Nehir (Journalistin/Vertraute des Erzählers, Leylas Freundin; ergänzte den Quellenschutz; antwortet Cem „Seninkini de kesmeden“)",
+   "Yusuf (Cems leiblicher Vater, ehemaliger Meralis-Mann, Aussteiger; hat Koffer und alte Aufzeichnungen gebracht; betreibt den alten Sender; bleibt zurück)",
+   "Selin / Avukat Selin (Anwältin der Gruppe; hat den Koffer als Notar-Emanet registriert und eine Schutzklage vorbereitet; verhandelt an der Tür und protokolliert)",
+   "Tarık (Technik-Experte der Gruppe; schaltet die Leitung auf den Festanschluss, erkennt die Wagen)",
+   "Emir (Sohn des Erzählers; per Videoanruf von der sicheren Adresse; erkennt den doppelten Boden an den Schraubenköpfen)",
+   "Zeynep (Ehefrau des Erzählers; bei Emir an der sicheren Adresse, nur erwähnt)",
+   "Cem (Gegenspieler, Meralis-Mann; Yusufs Sohn, der den Vater seit 27 Jahren für tot erklärt; sitzt am Steuer des zweiten Wagens; übergibt am Ende Leylas Aufnahme)",
+   "Leyla (verstorbene Freundin/Mitstreiterin; aktualisierte das System; ihre „letzte Aufnahme“ ist das Tauschobjekt)",
+   "İcra görevlisi / icra memuru (Gerichtsvollzieher; vollstreckt die Verfügung, beschlagnahmt nur die Kisten)",
+   "Zwei Meralis-Anwälte und private Sicherheitsleute (namenlos)",
+   "Der tote Ingenieur (namenlos; konstruierte den Sender mit dem Babyschrei-Signal)",
+   "TOPLAYICI, AVCI, SESSİZ SES (die drei inneren Stimmen des Erzählers, als Einschübe)"
+  ],
+  "terms": [
+   {
+    "tr": "Labirentin Emanetleri",
+    "meaning": "Kapiteltitel, „Die Hinterlegungen/Anvertrauten des Labyrinths“. Der Anfangsbuchstabe L schließt das Akrostichon der Kapiteltitel SENİ BUL („Finde dich“) ab (constraint group SENI_BUL, index 6 von 7): Der Titel muss in der Übersetzung mit dem letzten Buchstaben des zielsprachlichen Akrostichons beginnen."
+   },
+   {
+    "tr": "emanet / emanet sözleşmesi / noter emaneti / emanet fişi",
+    "meaning": "Treuhand-Hinterlegung bzw. Treuhandvertrag (Escrow); Notar-Hinterlegung; Hinterlegungsschein. Zentrales juristisches Konstrukt: Schlüssel aktivieren Verträge, der Koffer ist durch den Notar-Emanet-Schein vor Beschlagnahme geschützt. Konsistent als „Hinterlegung/Treuhand“ übersetzen."
+   },
+   {
+    "tr": "dört metal anahtar / dört metal kutu",
+    "meaning": "Vier Metallschlüssel (das eigentliche Instrument) vs. vier Metallkisten mit den Aufschriften İstanbul, Berlin, Nairobi, Toronto (Köder). Die Kisten sind in der Verfügung einzeln beschrieben; im Text einmal fett hervorgehoben („dört metal kutuyu“)."
+   },
+   {
+    "tr": "mekanik çanta",
+    "meaning": "Der mechanische Koffer (bereits früher im Roman auf einem Foto im Teegarten gesehen), enthält den Lesegerät-Mechanismus und am Ende die vier Schlüssel in einem dünnen Rahmen."
+   },
+   {
+    "tr": "levha",
+    "meaning": "Platte/Kontaktplatte in jeder Kiste, die die Lage der Schlüssel verifiziert."
+   },
+   {
+    "tr": "tek kullanımlık doğrulama kodu",
+    "meaning": "Einmaliger Verifikationscode, den die Schlüssel vor dem Notar im Lesegerät erzeugen."
+   },
+   {
+    "tr": "doğrulama zinciri",
+    "meaning": "Verifikationskette der Schlüssel, lag auf der Disk, die Cem zurückverlangte; Cem besitzt eine Kopie."
+   },
+   {
+    "tr": "yedi arşiv / yedi şehir",
+    "meaning": "Sieben miteinander durch Prüfzeichen verbundene Archive in sieben Städten (vier Hauptstädte + Londra, São Paulo, Singapur in Kap. 43); keines enthält allein alle Namen."
+   },
+   {
+    "tr": "tedbir kararı / uygulama talebi",
+    "meaning": "Einstweilige (Sicherungs-)Verfügung / Vollstreckungsantrag. Die Verfügung erlaubt keine Durchsuchung, keine Festnahme, keine Telefonbeschlagnahme – nur die vier beschriebenen Kisten."
+   },
+   {
+    "tr": "icra görevlisi / icra memuru",
+    "meaning": "Gerichtsvollzieher (zwei Varianten im Text, gleiche Person/Funktion)."
+   },
+   {
+    "tr": "acil koruma başvurusu",
+    "meaning": "Eilantrag auf Schutz, den Selin für den Koffer vorbereitet hat."
+   },
+   {
+    "tr": "tutanağa geçirtmek",
+    "meaning": "Zu Protokoll nehmen lassen – Selins Verfahrensstrategie an der Tür."
+   },
+   {
+    "tr": "Batı kapısı",
+    "meaning": "Westtor des Servicegebäudes, Fluchtweg."
+   },
+   {
+    "tr": "çanağın eski verici hattı",
+    "meaning": "Alte Sendeleitung der (rostigen) Antennenschüssel; stört alle Funkgeräte in der Nähe für elf Minuten (11 – wiederkehrendes Zahlenmotiv 11.11)."
+   },
+   {
+    "tr": "çocuk ağlaması / bebek ağlaması",
+    "meaning": "Das Störsignal klingt wie Kinder-/Babyweinen; der tote Ingenieur stellte es so ein. Running gag: „Ben o mühendisi tanımak istiyorum“ (Tarık) – „Öldü.“ – „Daha da çok.“ (= „Umso mehr“, ironisch)."
+   },
+   {
+    "tr": "kablo kutusu (tavandaki)",
+    "meaning": "Kabelkasten an der Decke, zu dem Yusuf blickt – impliziter Hinweis auf eine Abhöreinrichtung, die den Standort der Kisten verraten hat."
+   },
+   {
+    "tr": "Vida başları ters yönde",
+    "meaning": "„Die Schraubenköpfe sind verkehrt herum“ – Emirs Entdeckung des doppelten Bodens (sahte taban). Scherz danach: „Vidalarla ne zaman ayrı bir konuşma grubu kurdunuz?“ – „Seni almadık. Uzun mesaj atıyorsun.“ (Chatgruppe mit den Schrauben, der Vater wurde nicht aufgenommen, weil er zu lange Nachrichten schreibt)."
+   },
+   {
+    "tr": "TOPLAYICI / AVCI / SESSİZ SES",
+    "meaning": "„Sammler / Jäger / Stille Stimme“ – die drei wiederkehrenden inneren Stimmen des Erzählers (Book-Inset-Einschübe mit Label). Formatierung: Label fett, Text kursiv. Namen durchgängig gleich übersetzen wie in früheren Paketen."
+   },
+   {
+    "tr": "Benim babam yirmi yedi yıl önce öldü",
+    "meaning": "Cem: „Mein Vater starb vor 27 Jahren“ – der Tag, an dem Yusuf sich diesen Namen gab bzw. „sich entschied, mein Feind zu sein“. Bestätigt die Vater-Sohn-Beziehung Yusuf–Cem."
+   },
+   {
+    "tr": "Üçüncü bir yol var",
+    "meaning": "„Es gibt einen dritten Weg“ – Kernaussage des Erzählers gegen Cems zwei Szenarien („canavara çevirmek“ = zum Monster machen, „hasta ilan etmek“ = für krank erklären)."
+   },
+   {
+    "tr": "Her şeyi yayımlamayacağım",
+    "meaning": "„Ich werde nicht alles veröffentlichen“ – Wendepunkt; Prinzip: Namen, Medikamentenakten, Kinder, Quellen zurückhalten; Methode, Geldweg, Befehlskette weitergeben."
+   },
+   {
+    "tr": "Tam gerçeği kimse taşıyamaz. Doğru kişiye doğru parçayı vereceğim.",
+    "meaning": "„Die ganze Wahrheit kann niemand tragen. Ich gebe dem richtigen Menschen das richtige Stück.“ – Leitsatz."
+   },
+   {
+    "tr": "İstanbul risk bütçesi",
+    "meaning": "„İstanbul-Risikobudget“ – internes Meralis-Dokument mit Unterschriften (imzalarıyla) und übergeordneten Genehmigungen (üst onayları), das Cem auch seine Vorgesetzten belastet."
+   },
+   {
+    "tr": "Seninkini de kesmeden",
+    "meaning": "Nehir: „Auch deine [Genehmigung/Unterschrift] nicht herausgeschnitten“ – d. h. Cems eigener Name bleibt im Dokument."
+   },
+   {
+    "tr": "Leyla'nın son kaydı",
+    "meaning": "Leylas letzte (Video-)Aufnahme, Cems Tauschangebot; landet am Ende als Datei auf Nehirs Telefon; wird in Kap. 43 angesehen."
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Der Konzern/das Netzwerk, Antagonist des Romans (Anwälte, Fonds, Überwachung)."
+   },
+   {
+    "tr": "Bu bir kaçış değildi.",
+    "meaning": "„Das war keine Flucht.“ – Schlussreflexion: Der Erfolg beruht auf einer juristisch eng gezogenen Grenze der Verfügung, nicht auf Flucht."
+   }
+  ],
+  "tone": "Spannungsgeladenes Gegenwartspräteritum in der Ich-Perspektive; knappe, filmische Dialoge in kurzen Absätzen; juristisch präzises Vokabular (Verfügung, Protokoll, Hinterlegung) neben trockenem Familienhumor (Schrauben-Chatgruppe, Ingenieur). Die inneren Stimmen als kurze kursive Einschübe. Der Dialog mit Cem ist kühl, lakonisch, ohne Waffen – Machtkampf über Worte und Grenzen."
+ },
+ {
+  "uid": "U38",
+  "title": "43. Başlangıç Sensin",
+  "summary": "Gegenwartsebene, die 24 Stunden der Aktivierung und die Wochen danach, erzählt teils summarisch. Die vier Schlüssel werden nacheinander gedreht – nicht synchron wie im Film: Berlin öffnet als erstes (im Safe liegt kein Dokument, sondern ein Einmal-Zugangsgerät; gleichzeitig wird ein gefälschtes Meralis-Archiv mit falschen Zahlungsdaten eingespielt, Nehir verlangt Abgleich mit den Registern); in Nairobi fällt der Strom aus, Amina lässt das Gerät per Motorradkurier zur Offline-Archivkammer der Stadtbibliothek bringen, der Kurier läuft die letzten zwei Kilometer; in Toronto sitzt die Kontaktplatte verkehrt, Emir rettet die Lage mit der Anweisung, die Kiste zu kippen und zweimal „so leicht zu klopfen, dass Papa nicht aufwacht, aber Duman schon“; in İstanbul trifft bei Selin und dem Notar eine Verfügung ein, die 13 Minuten zu spät kommt. Drei Sekundärarchive in London, São Paulo und Singapur aktivieren sich selbst: „Vier Schlüssel öffneten sieben Türen.“ Dann enthüllt Duru, dass der mitgelieferte Archiv-Viewer unter dem Vorwand einer „akustischen Integritätsprüfung“ Mikrofonzugriff verlangt und jedes geöffnete Paket per Hochfrequenzton an Meralis meldet; Geräte werden in Kartenschränke, Gesetzbücher und „deutsches Steuerrecht“ (Nehirs Witz) gepackt. Nehirs Publikationsregel – Methode statt Namen, keine Gesundheitsdaten, keine Kinderakten, keine unbestätigten Todesbezüge – führt zur nüchternen ersten Schlagzeile aus London; der Erzähler empfindet Enttäuschung, erkennt aber, dass die Wahrheit keiner Verzauberung bedarf. Meralis schlägt zurück (Fälschungen, Leaks, Fondssperren, Ermittlung in İstanbul), Festnahmen und Vertragsauflösungen folgen, Meralis tilgt seinen Namen aus Logos; Cem verschwindet, Yusuf stellt sich. Nachts sieht die Familie Leylas letzte Aufnahme: Sie bittet, das schwarze Buch nicht zu vernichten, sondern zu zeigen und zu erklären, warum man ihm glauben will; sie benennt die Stärken von Nehir, Duru, Emir und Zeynep und endet mit „Başlangıç sensin“. Nach dem Video erscheint der Hinweis auf eine zweite Aufnahme, die nach dem Tod des Empfängers freigeschaltet wird – ohne Countdown, nur mit der Nummer des Herzmonitors des Erzählers. Danach folgt der Teiltitel „BEŞİNCİ PERDE — DÖNÜŞ“.",
+  "characters": [
+   "Ich-Erzähler (Protagonist; Empfänger von Leylas Paket; trägt einen Herzrhythmus-Rekorder)",
+   "Nehir (Journalistin, Koordinatorin der Publikationsgruppe; gibt die Schlussanweisung; weint beim Video)",
+   "Tarık (Technik; analysiert Datenpakete, erkennt gezielte Angriffe)",
+   "Duru (Tochter des Erzählers; entdeckt den akustischen Tracker im Archiv-Viewer; hält Nehirs Hand)",
+   "Emir (Sohn; rettet den Toronto-Schlüssel per Video mit der „Duman“-Klopfregel)",
+   "Zeynep (Ehefrau; in Leylas Botschaft als die, die „zuhause alles aufrecht hält“)",
+   "Selin (Anwältin; führt mit dem Notar die İstanbul-Aktivierung, pariert die Verfügung)",
+   "Amina (Mitglied des Nairobi-Teams; bringt das Gerät in die Bibliothek)",
+   "Berlin muhabiri (Berliner Reporter, namenlos; ungeduldig, fragt „Bizde ne var?“)",
+   "Toronto'daki hukukçu (Jurist in Toronto, namenlos; 22 Minuten Verspätung; später Opfer eines Steuer-Leaks)",
+   "São Paulo'daki gazeteci (Journalist, namenlos; fürchtet, die Geschichte werde schwächer)",
+   "Singapur'daki araştırmacı (Forscher, zieht sich zurück; zwei Teams ersetzen ihn)",
+   "Motosiklet kuryesi (Kurier in Nairobi, namenlos)",
+   "İcra memuru (Gerichtsvollzieher in İstanbul)",
+   "Noter (Notar in İstanbul)",
+   "Leyla (verstorben; spricht in ihrer letzten Videoaufnahme; bandagierter Finger von der Papierschneidemaschine)",
+   "Cem (Gegenspieler; verschwindet)",
+   "Yusuf (Cems Vater; stellt sich der Staatsanwaltschaft, „kein Held“)",
+   "Duman (vermutlich Haustier/Katze der Familie – Vergleichsgröße in Emirs Klopfregel; Name bedeutet „Rauch“)"
+  ],
+  "terms": [
+   {
+    "tr": "Başlangıç Sensin",
+    "meaning": "Kapiteltitel und Leylas Schlusssatz im Video: „Der Anfang bist du“ (Gegensatz zu „sonu arıyorsun“ = du suchst das Ende). Titel und Zitat identisch übersetzen."
+   },
+   {
+    "tr": "tek kullanımlık erişim cihazı",
+    "meaning": "Einmal-Zugangsgerät, das statt Dokumenten im Safe liegt."
+   },
+   {
+    "tr": "sahte Meralis arşivi",
+    "meaning": "Gefälschtes Archiv mit echten Firmennamen und falschen Zahlungsdaten – Falle für voreilige Veröffentlichung."
+   },
+   {
+    "tr": "sicil / resmî sicil",
+    "meaning": "(Handels-)Register; Abgleich der Daten „tek tek sicille“."
+   },
+   {
+    "tr": "İki gün kaybetmek, iki yıldır hazırlanan yalanı yayımlamaktan ucuz.",
+    "meaning": "Nehir: „Zwei Tage zu verlieren ist billiger, als eine zwei Jahre lang vorbereitete Lüge zu veröffentlichen.“ – Parallelismus iki gün / iki yıl erhalten."
+   },
+   {
+    "tr": "çevrim dışı arşiv odası",
+    "meaning": "Offline-Archivraum der Stadtbibliothek Nairobi."
+   },
+   {
+    "tr": "Medeniyet genel olarak öyle",
+    "meaning": "Tarık: „Die Zivilisation hängt im Allgemeinen daran [an einer Tankanzeige]“ – trockener Humor."
+   },
+   {
+    "tr": "kontak levhası",
+    "meaning": "Kontaktplatte im Toronto-Kasten, verkehrt eingesetzt."
+   },
+   {
+    "tr": "delil zinciri",
+    "meaning": "Beweiskette (chain of custody) – darf durch Öffnen nicht gebrochen werden."
+   },
+   {
+    "tr": "Babamın uyanmadığı ama Duman'ın uyandığı kadar",
+    "meaning": "Emirs Maßeinheit fürs Klopfen: „So fest, dass Papa nicht aufwacht, aber Duman schon.“ Duman = Haustier (Katze) der Familie; Kommentar: „Bu ölçü uluslararası delil protokolünde yoktu. İşe yaradı.“"
+   },
+   {
+    "tr": "Meralis'e ait ticari sırların her türlü çoğaltılması",
+    "meaning": "Wortlaut der Verfügung: „jede Vervielfältigung von Meralis gehörenden Geschäftsgeheimnissen“. Selins Konter: Vervielfältigung vor 13 Minuten abgeschlossen; Verteilung (dağıtım) nicht in diesem Land, hier nur Verifikationsschlüssel geöffnet."
+   },
+   {
+    "tr": "ikincil arşiv",
+    "meaning": "Sekundärarchive in Londra, São Paulo, Singapur, aktivieren sich automatisch."
+   },
+   {
+    "tr": "Dört anahtar, yedi kapıyı açmıştı.",
+    "meaning": "„Vier Schlüssel hatten sieben Türen geöffnet.“ – Leitsatz, Zahlen 4/7 konsistent halten."
+   },
+   {
+    "tr": "akustik bütünlük kontrolü",
+    "meaning": "„Akustische Integritätsprüfung“ – Vorwand des Archiv-Viewers für Mikrofonzugriff; Hochfrequenzton kodiert die Paket-ID und sendet sie an Meralis. In Anführungszeichen belassen."
+   },
+   {
+    "tr": "arşiv görüntüleyicisi",
+    "meaning": "Archiv-Viewer/Anzeigeprogramm, mit den Kisten geliefert – „Kendi yüklediğimiz araç, anahtarı teslim ediyordu.“"
+   },
+   {
+    "tr": "Alman vergi mevzuatı",
+    "meaning": "Nehirs Witz: Berlin soll das Gerät in „deutsches Steuerrecht“ legen – „İçine hiçbir ses girmez“ (da dringt kein Ton hinein/heraus)."
+   },
+   {
+    "tr": "doğrulama haritası",
+    "meaning": "Verifikationskarte, die die Teams aus den Dateien extrahieren."
+   },
+   {
+    "tr": "İsimleri değil yöntemi paylaşın.",
+    "meaning": "Nehirs Schlussanweisung: „Teilt die Methode, nicht die Namen.“ Liste: ham sağlık verisi (Rohgesundheitsdaten), çocuk dosyası (Kinderakten), doğrulanmamış ölüm bağlantısı (unbestätigte Todesbezüge), „bizim yorumumuzu da delil gibi yazmayın“."
+   },
+   {
+    "tr": "Daha az patlar. Daha uzun yaşar.",
+    "meaning": "Nehir: „Es knallt weniger. Es lebt länger.“ – über die abgespeckte Geschichte."
+   },
+   {
+    "tr": "Yedi ülkedeki davranış programlarını aynı hukuk ve yatırım ağı bağlıyor",
+    "meaning": "Erste Schlagzeile (London, unabhängige Rechercheseite): „Verhaltensprogramme in sieben Ländern sind durch dasselbe Rechts- und Investitionsnetz verbunden“. Bewusst nüchtern; fett gesetzt."
+   },
+   {
+    "tr": "küresel karanlık güçler / uyanmış melek avı",
+    "meaning": "„Globale dunkle Mächte“ / „Jagd auf erwachte Engel“ – die verschwörerischen Formeln, die in der Schlagzeile NICHT stehen (Rückbezug auf das Weltbild, dem der Erzähler früher anhing; „uyanış“ = Erwachen, vgl. Buchtitel)."
+   },
+   {
+    "tr": "Gerçek, inanmak için büyülenmeye ihtiyaç duymayacak kadar ayakta duruyordu.",
+    "meaning": "„Die Wahrheit stand fest genug, um keine Verzauberung zu brauchen, damit man ihr glaubt.“ – thematischer Schlüsselsatz."
+   },
+   {
+    "tr": "İstanbul hücresi",
+    "meaning": "„İstanbul-Zelle“ von Meralis; drei Manager festgenommen, zwei am nächsten Tag frei."
+   },
+   {
+    "tr": "Bir canavarın başını kesmemiştik. İnsanlara gövdesinin nereden geçtiğini göstermiştik.",
+    "meaning": "„Wir hatten keinem Ungeheuer den Kopf abgeschlagen. Wir hatten den Menschen gezeigt, wo sein Leib verläuft.“ – Bilanz."
+   },
+   {
+    "tr": "Doğru tarafa geçmek, yanlış tarafta yaptıklarını silmiyordu.",
+    "meaning": "Über Yusuf: „Auf die richtige Seite zu wechseln löschte nicht, was er auf der falschen getan hatte.“"
+   },
+   {
+    "tr": "kâğıt giyotini",
+    "meaning": "Papierschneidemaschine – Leylas bandagierter Finger verweist auf eine frühere Szene (Schnittverletzung)."
+   },
+   {
+    "tr": "Siyah kitap",
+    "meaning": "„Das schwarze Buch“ – wiederkehrendes Objekt (Leylas/der Gruppe Dokumentation der Verschwörungsnarrative?); Leyla: nicht vernichten, zeigen, und erklären, warum der Glaube daran tröstet."
+   },
+   {
+    "tr": "Bizi kandıran yalanlar aptal olduğumuz için çalışmaz. Acımıza saygı gösteriyormuş gibi yaptıkları için çalışır.",
+    "meaning": "Leyla: „Die Lügen, die uns täuschen, funktionieren nicht, weil wir dumm sind. Sie funktionieren, weil sie so tun, als respektierten sie unseren Schmerz.“ – zentrales Zitat des Romans."
+   },
+   {
+    "tr": "Duru'nun okulda duyduğu uğultu",
+    "meaning": "„Das Summen/Dröhnen, das Duru in der Schule hörte“ – Rückverweis auf früheres Kapitel (Durus Wahrnehmung)."
+   },
+   {
+    "tr": "Bu işi de tek başına bitirmeye kalkma.",
+    "meaning": "Leyla: „Versuch nicht, auch diese Sache allein zu Ende zu bringen.“"
+   },
+   {
+    "tr": "Paketin alıcısı öldükten sonra açılacak ikinci kayıt hazır.",
+    "meaning": "Systemmeldung unter dem Video (fett): „Die zweite Aufnahme, die nach dem Tod des Paketempfängers geöffnet wird, ist bereit.“ Darunter kein Countdown, nur die Nummer des Herzmonitors – Cliffhanger zu Kap. 44."
+   },
+   {
+    "tr": "kalp atışımı uzaktan izleyen tıbbi cihaz",
+    "meaning": "Medizinisches Gerät zur Fernüberwachung des Herzschlags (in Kap. 44: ritim kaydedicisi)."
+   },
+   {
+    "tr": "BEŞİNCİ PERDE — DÖNÜŞ",
+    "meaning": "Teiltitel (Book Part) nach Kap. 43: „Fünfter Akt — Rückkehr“ (perde = Vorhang/Akt, Theatermetaphorik der Buchteile; wie die früheren PERDE-Titel übersetzen). Gehört formal zwischen U38 und U39."
+   }
+  ],
+  "tone": "Montagehaft, zwischen Tempo (Aktivierungssequenz in vier Städten, kurze Dialogzeilen) und Raffung (Wochenchronik der Folgen). Ironisch-nüchterner Erzählton, der Pathos bewusst unterläuft („Filmlerde…“, „Gerçekte…“); dann intimer, elegischer Ton beim Video Leylas (direkte, warme Ansprache, Imperative). Schlussmeldung kalt-maschinell."
+ },
+ {
+  "uid": "U39",
+  "title": "44. Bedenin Bildiği Tarih",
+  "summary": "Gegenwartsebene, Beginn des fünften Akts „Dönüş“. Der Erzähler erklärt die Auflösung des Cliffhangers: Die Nummer unter Leylas Video gehört dem Herzrhythmus-Rekorder, den er seit zwei Monaten wegen nächtlicher Aussetzer trägt – Leyla kannte das Gerät nicht, sondern hatte im Seitencode den Patienten-Zuordnungsschlüssel des Meralis-Überwachungssubunternehmers hinterlegt, sodass die Seite beim Öffnen automatisch das zuletzt mit seinem Konto verknüpfte Gerät abfragte: Sie wusste nicht, welches Gerät er tragen würde, sondern über welchen Kanal Meralis ihn überwachen würde. Die Daten des Rekorders waren nie beim Krankenhaus angekommen (drei Subunternehmerwechsel, der letzte Meralis-Fonds); Tarık findet die Rohkopie, der Arzt ruft ihn sofort ins Krankenhaus. Mit Duru, Emir, Zeynep und Nehir im Wartezimmer; der Kardiologe diagnostiziert gefährliche ventrikuläre Rhythmusattacken und eine wahrscheinlich erbliche, fortschreitende Herzmuskelerkrankung; auf „Ölecek miyim?“ verbietet der Erzähler die Floskel „Hepimiz—“ und verlangt Wahrscheinlichkeiten: hohes Risiko eines plötzlichen Herztods, Klinikaufenthalt, Medikamente, implantierbares Schutzgerät; Prognose „Jahre, vielleicht weniger“. Jeder in der Familie reagiert in seiner Sprache (Zeynep praktisch, Duru Ausfallrate, Emir Batteriewechsel). Der Erzähler nimmt die Behandlung ausdrücklich an – er schuldet den Kindern kein heroisches Sterben, sondern möglichst gewöhnliches Leben. Vor dem Eingriff fragt Duru, ob er es immer gewusst habe; seine ehrliche Antwort „Bilmiyorum“ nennt sie „endlich eine anständige Antwort“. Sie hält seine Hand; das Kapitel (und dieses Paket) endet mit der Reflexion über den ersten und letzten Händedruck eines Kindes und dem Schlusssatz über den gegenwärtigen Augenblick als einziges ehrliches Maß.",
+  "characters": [
+   "Ich-Erzähler (Protagonist, herzkrank; Vater von Duru und Emir; Ehemann von Zeynep)",
+   "Duru (Tochter; abgeblätterter schwarzer Nagellack; zeichnet wie der Vater mit dem Daumen kleine Kreise; letztes Gespräch am Bett)",
+   "Emir (Sohn; fragt nach Batteriewechsel des Implantats)",
+   "Zeynep (Ehefrau; stellt die praktischen Fragen)",
+   "Nehir (Vertraute/Journalistin; begleitet ins Krankenhaus; hatte früher nur „Doktor, yaşım için fena olmadığımı söyledi“ gehört)",
+   "Tarık (Technik; analysiert Video und Seitenlog, findet die Rohdaten)",
+   "Leyla (verstorben; hat den Patienten-Zuordnungsschlüssel in der Emanet-Seite hinterlegt)",
+   "Doktorum / Kardiyolog (behandelnder Arzt, namenlos; rückt die Brille zurecht)",
+   "Meralis'in izleme taşeronu (Überwachungssubunternehmer von Meralis, Eigentümer: ein Meralis-Fonds)",
+   "Hastane personeli (Krankenhauspersonal, weiß nicht, wer der Patient ist)"
+  ],
+  "terms": [
+   {
+    "tr": "Bedenin Bildiği Tarih",
+    "meaning": "Kapiteltitel: „Das Datum, das der Körper kennt“ (tarih = Datum/Geschichte; Doppeldeutigkeit möglichst erhalten) – der Körper „wusste“ vor dem Verstand vom nahenden Tod."
+   },
+   {
+    "tr": "BEŞİNCİ PERDE — DÖNÜŞ",
+    "meaning": "Teiltitel direkt vor diesem Kapitel: „Fünfter Akt — Rückkehr“."
+   },
+   {
+    "tr": "ritim kaydedicisi",
+    "meaning": "Herzrhythmus-Rekorder (implantierbarer/tragbarer Ereignisrekorder) auf der Brust; in Kap. 43 „kalp atışımı uzaktan izleyen tıbbi cihaz“."
+   },
+   {
+    "tr": "hasta eşleştirme anahtarı",
+    "meaning": "Patienten-Zuordnungsschlüssel beim Überwachungssubunternehmer – Leylas Trick: dynamische Abfrage des aktuellen Geräts statt fester Geräte-ID (sabit cihaz kimliği)."
+   },
+   {
+    "tr": "bağlantı kaydı / sorgu",
+    "meaning": "Verbindungsprotokoll der Seite / (Datenbank-)Abfrage, die Tarık findet."
+   },
+   {
+    "tr": "Gelecekte hangi cihazı taşıyacağımı bilmemiş; onların beni hangi kanaldan izleyeceğini bilmişti.",
+    "meaning": "Kernsatz der Auflösung: „Sie wusste nicht, welches Gerät ich künftig tragen würde; sie wusste, über welchen Kanal sie mich überwachen würden.“"
+   },
+   {
+    "tr": "uzaktan izleme hizmeti / taşeron",
+    "meaning": "Fernüberwachungsdienst / Subunternehmer; drei Wechsel, der letzte gehört einem Meralis-Fonds – erklärt, warum die Daten das Krankenhaus nie erreichten."
+   },
+   {
+    "tr": "Doktor, yaşım için fena olmadığımı söyledi",
+    "meaning": "Früheres Zitat des Erzählers an Nehir („Der Arzt sagte, für mein Alter sei ich nicht schlecht dran“) – rückwirkend als Verschweigen des Geräts markiert; identisch mit der Fassung im früheren Paket halten."
+   },
+   {
+    "tr": "Bazen hastalık bir bedende başlar, bütün ailenin sandalye düzenini değiştirir.",
+    "meaning": "„Manchmal beginnt eine Krankheit in einem Körper und verändert die Sitzordnung der ganzen Familie.“"
+   },
+   {
+    "tr": "kalbin alt odacıkları / ritim atakları",
+    "meaning": "Herzkammern (Ventrikel) / Rhythmusattacken – medizinisch: ventrikuläre Tachykardien; laienverständlich halten, wie im Original."
+   },
+   {
+    "tr": "kalp kasında ilerleyen, muhtemelen kalıtsal bozulma",
+    "meaning": "Fortschreitende, wahrscheinlich erbliche Herzmuskelerkrankung (Kardiomyopathie) – „kalıtsal“ ist für Duru/Emir relevant."
+   },
+   {
+    "tr": "Ölecek miyim? / Hepimiz—",
+    "meaning": "„Werde ich sterben?“ / „Wir alle—“ (abgebrochene Floskel „wir alle sterben“); Konter: „Felsefeyi ben yapıyorum, siz olasılığı söyleyin.“ (Die Philosophie mache ich, Sie nennen die Wahrscheinlichkeit)."
+   },
+   {
+    "tr": "ani ritim bozukluğu riski",
+    "meaning": "Risiko einer plötzlichen Rhythmusstörung (plötzlicher Herztod)."
+   },
+   {
+    "tr": "koruyucu cihaz (göğse yerleştirilecek)",
+    "meaning": "Schutzgerät, das in die Brust implantiert wird (= Defibrillator/ICD, im Text nicht benannt); reduziert das Risiko, „sıfırlamayacaktı“ (würde es nicht auf null bringen)."
+   },
+   {
+    "tr": "Ölüm içeri girdiğinde herkes kendi dilinde konuşuyordu.",
+    "meaning": "„Als der Tod hereinkam, sprach jeder in seiner eigenen Sprache.“ – Zusammenfassung der Familienreaktionen."
+   },
+   {
+    "tr": "Tedaviyi kabul ediyorum.",
+    "meaning": "„Ich nehme die Behandlung an.“ – bewusst ausgesprochen; Gegensatz zum früheren Todesgefühl/Todeswunsch-Verdacht."
+   },
+   {
+    "tr": "kahraman gibi ölmek / sıradan yaşamak",
+    "meaning": "„wie ein Held sterben“ vs. „so gewöhnlich wie möglich leben“ – Schuldigkeit gegenüber den Kindern."
+   },
+   {
+    "tr": "Tıbben hayır. / Ama hissediyordun.",
+    "meaning": "„Medizinisch nein.“ / „Aber du hast es gespürt.“ – Dialog mit Duru über das vorausgeahnte Sterben; Antwort „Bilmiyorum“ → Duru: „Sonunda düzgün bir cevap.“ (Endlich eine anständige Antwort)."
+   },
+   {
+    "tr": "soyulmuş siyah oje",
+    "meaning": "Abgeblätterter schwarzer Nagellack – Durus wiederkehrendes Detail."
+   },
+   {
+    "tr": "başparmağının küçük daireler çizmesi",
+    "meaning": "Durus Daumen zeichnet bei Anspannung kleine Kreise – wie der des Vaters (vererbte Geste, Spiegel zur vererbten Krankheit)."
+   },
+   {
+    "tr": "İnsan, çocuğunun elini ilk kez tuttuğu anı hatırlar. Son kez tuttuğu anı ise ancak sonradan bilebilir.",
+    "meaning": "„Man erinnert sich an den Moment, in dem man die Hand seines Kindes zum ersten Mal hielt. Den Moment des letzten Mals kann man erst im Nachhinein kennen.“"
+   },
+   {
+    "tr": "Şimdiki an bazen evrenin bize verdiği tek dürüst ölçüdür. Elinizde kalan, avucunuzdaki başka bir avuçtur.",
+    "meaning": "Letzte Zeile des Kapitels und des Pakets: „Der gegenwärtige Augenblick ist manchmal das einzige ehrliche Maß, das das Universum uns gibt. Was euch bleibt, ist eine andere Handfläche in eurer Handfläche.“ Wechsel von „ben“ zur Anrede in 2. Person Plural (siz) – aphoristischer Schluss, Bild avuç/avuç (Hand in Hand) erhalten; „ölçü“ (Maß) schließt an Emirs „ölçü“ in Kap. 43 und das Motiv der Zahlen/Zeichen an."
+   }
+  ],
+  "tone": "Ruhig, konzentriert, nach innen gewandt; medizinisches Setting mit klarer, unpathetischer Sprache. Trockener Widerstand gegen Floskeln (Dialog mit dem Arzt), dann zunehmend zärtlich und aphoristisch; der Schluss in der 2. Person Plural, fast essayistisch. Keine inneren Stimmen (TOPLAYICI/AVCI/SESSİZ SES) in diesem Kapitel."
+ },
+ {
+  "uid": "U40",
+  "title": "45. Beni Öldürmeyen Adam",
+  "summary": "Gegenwart, einige Tage bis Monate nach der Herzoperation des Ich-Erzählers (Schriftsteller/Kommunikationsforscher, Erzähler des gesamten Romans, Name im Paket nicht genannt). Nach dem Eingriff erhält er im Krankenhaus eine schwarze, auf 14.53 Uhr stehen gebliebene Uhr mit einer Zimmernummer; er geht diesmal nicht allein, sondern mit Sicherheit, Polizei, Anwältin Selin am Telefon, Nehir und Tarık abgesichert in einen stillgelegten Physiotherapieraum, wo Cem wartet. Cem, den Meralis als eigenmächtigen Lokalmanager fallen lässt, übergibt die echte fehlende 42. Seite des roten Notizbuchs und erklärt die gesamte Operation: Brandschutz-Sensorkontrolle als Vorwand für den Wohnungseinbruch (vom Erzähler per Formular unbemerkt genehmigt), Kamera im Rauchmelder (daher wussten sie von den drei Umschlägen), gefälschter Zettel und blaue Feder, Rotjacken-Beobachterin, manipulierte Rollladen/Türen/Uhren im Laden, Fiberkamera in Yusufs Servicegebäude (daher die 54 Minuten vorab ergänzten Vollstreckungsdetails), synthetisches Leyla-Video mit echter Tonspur, das alte Beratungs-Konto für die Anrufumleitung, Brandstiftung als 'Archivbereinigung' aus dem Istanbul-Risikobudget, und schließlich Leylas Tod: gefälschte Klinikdaten, Dosiserhöhung, von einem Wartungsmitarbeiter ausgetauschte Medikamentenschachtel, motorisierter Türriegel von außen gesteuert. Das 'Gesicht im Zug' bleibt offen (Tarıks Analyse: 19-Sekunden-Einblendung durch gemeinsamen Zulieferer, Serverlogs ausstehend), ebenso Nehirs letzte Frage 'Bazı cümleler neden yazıldıkları zamandan fazlasını biliyor?'. Cem gesteht, dass FETİH aus dem Abwehrmodell des Erzählers gebaut wurde ('Du hast die Form der Tür gezeichnet, wir haben die Öffnungsrichtung geändert') und erklärt, er habe ihn nicht getötet, weil ein Lebender lenkbar, ein Toter aber ein Symbol sei (Zweck der Deepfakes in sieben Sprachen: sein Gesicht für fremde Sätze mieten). Cem wird festgenommen und später wegen Beweisvernichtung und Organisationsverdacht in U-Haft genommen; Yusuf beantragt Besuch bei seinem Sohn und will ihm sagen, dass er über Aylins Tod nichts weiß; Meralis taucht unter anderem Firmennamen in einem anderen Land wieder auf ('Wir haben keinen Krieg beendet, nur sichtbar gemacht'). Epilogartiger Schluss: Spaziergang (500 m) am Strand mit Nehir, gegenseitiges Eingeständnis von Schuld (ihre zwei Tage Warten, sein Ehrgeiz beim Versand des Modells), der Tresorschlüssel bleibt bei ihr, vorsichtige Liebeserklärung, gemeinsamer Supermarkteinkauf als Form des 'Ja'; im dritten Monat Rhythmusstörungen, im fünften Monat fortschreitende Herzschwäche, Aufnahme ins Transplantationsverfahren. Letzte Zeile des Kapitels: der Erzähler schreibt den Arztsatz 'Bir gün iyi hissetmen riskin bittiği anlamına gelmez' zum ersten Mal ohne Widerspruch auf. Kein Akrostichon in diesem Kapitel; es ist nicht das letzte Kapitel des Romans (Kapitel 45, Schlussteil der Auflösung).",
+  "characters": [
+   "Ich-Erzähler (Schriftsteller/Forscher mit Herzkrankheit; Autor des roten Notizbuchs und des Abwehrmodells, das Meralis zu FETİH umbaute; Vater von Duru; frisch operiert, Defibrillator/Gerät implantiert)",
+   "Cem (Sohn von Yusuf und Aylin; Istanbul-Verantwortlicher von Meralis, 'der Mann, der mich nicht tötete'; wird festgenommen und inhaftiert)",
+   "Nehir (Leylas jüngere Schwester; Verbündete und Partnerin des Erzählers; hatte zwei Tage gewartet, bevor sie Leylas Hilferuf nachging; verwahrt den Tresorschlüssel)",
+   "Leyla (Nehirs ältere Schwester, 'ablam'; Freundin des Erzählers; durch manipulierte Medikation getötet – wird rückblickend aufgeklärt)",
+   "Selin (Anwältin/Rechtsbeistand des Erzählers, per Telefon zugeschaltet; verhandelt Beweisübergabe ohne Schweigezusage)",
+   "Tarık (Technik-/Forensikhelfer; erhält Live-Standort, analysiert später die Videoebene der App)",
+   "Duru (Tochter des Erzählers; im Rückblick: schwarzer abgeblätterter Nagellack, fand Zettel, Feder und Notizbuch auf ihrem Stuhl; legte im Laden den Stecker der Soundanlage um)",
+   "Yusuf (Cems Vater; Uhrmacher/Werkstattbesitzer, Servicegebäude mit Kisten; beantragt Haftbesuch; Witwer von Aylin)",
+   "Aylin (Cems Mutter, Yusufs Frau; bei einem 'Unfall' gestorben, Hintergrund ungeklärt)",
+   "Nihat Bey (Hausverwalter des Erzählers; ließ den 'Techniker' mit Ersatzschlüssel ein)",
+   "Meralis (Konzern/Organisation hinter FETİH; 'İstanbul hücresi' = Istanbuler Zelle; Subunternehmer-Ketten)",
+   "kırmızı montlu kadın (Rotjacken-Frau, 'Routenbeobachterin', die Duru folgte)",
+   "Teknisyen / bakım görevlisi (anonyme Subunternehmer-Techniker und Wartungskräfte, Ausführende der einzelnen Schritte)",
+   "Hekim / Doktor (Ärzte des Erzählers bzw. Leylas Hausärztin)"
+  ],
+  "terms": [
+   {
+    "tr": "Beni Öldürmeyen Adam",
+    "meaning": "Kapiteltitel: 'Der Mann, der mich nicht tötete' – bezieht sich auf Cem und seinen Satz 'Seni neden öldürmedim, biliyor musun?'"
+   },
+   {
+    "tr": "14.53 ↺",
+    "meaning": "Wiederkehrendes Zeit-Motiv des Romans; stehen gebliebene Uhrzeit auf der schwarzen Uhr; das Zeichen ↺ (Zurück zum Anfang) ist Teil der Motivgruppe BAŞA DÖN (Absatz 3009 als 'keep' markiert – unverändert übernehmen)"
+   },
+   {
+    "tr": "BAŞA DÖN",
+    "meaning": "Constraint-Gruppe im Dokument (Absatz 3010, Index 4 von 7): 'Zum Anfang zurück' – über Kapitel verteilte Parallelstellen, die formal konsistent übersetzt werden müssen (Vorlage: 'Diğer yüzünde bir oda numarası vardı.')"
+   },
+   {
+    "tr": "siyah saat / siyah kitap / beyaz kitap",
+    "meaning": "Schwarze Uhr (Botschaft Cems), schwarzes Buch (Meralis-Text, in Leylas Todeswoche zugestellt), weißes Buch (Leylas Gegentext an den Erzähler) – wiederkehrende Objekte"
+   },
+   {
+    "tr": "kırmızı defter / kırk ikinci sayfa",
+    "meaning": "Rotes Notizbuch des Erzählers; die fehlende 42. Seite enthält die Fortsetzung seines Abwehrmodells gegen Manipulation (Muster sichtbar machen, Vertrauensbeziehungen stärken, Gefühl und Ereignis trennen, verteilte Verifikation statt einer Autorität)"
+   },
+   {
+    "tr": "mavi uçlu tüy",
+    "meaning": "Feder mit blauer Spitze, 'Zeichen des Vaters' – von Meralis nachgefärbt und als Wegweiser platziert ('Babanın işaretini bizim yön tabelamız yaptık')"
+   },
+   {
+    "tr": "FETİH",
+    "meaning": "Name des Manipulationsprogramms von Meralis (wörtlich 'Eroberung', Anklang an 1453/Titel); aus dem Abwehrmodell des Erzählers umgekehrt gebaut – Akronym groß und unübersetzt lassen"
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Konzernname, nicht übersetzen; 'İstanbul hücresi' = Istanbuler Zelle, 'risk bütçesi' = Risikobudget"
+   },
+   {
+    "tr": "üç zarf / avukat kasası",
+    "meaning": "Drei Umschläge, die der Erzähler um 10.18 Uhr vorbereitete (von der Kamera erfasst); liegen im Anwaltstresor, dessen Ersatzschlüssel Nehir behält"
+   },
+   {
+    "tr": "yedi dildeki sahte görüntü / yedi ayrı görüntüm",
+    "meaning": "Deepfake-Videos des Erzählers in sieben Sprachen, die einen unveröffentlichten Satz aus dem Notizbuch sprechen – Zweck: 'yüzümü kendi cümlelerine kiralamak'"
+   },
+   {
+    "tr": "bir oda gerideyim",
+    "meaning": "Satz des Erzählers beim Diagnosegespräch ('Ich bin ein Zimmer zurück'), der über Versicherungsdienstleister zu Meralis gelangte – wörtlich wie in früheren Kapiteln wiedergeben"
+   },
+   {
+    "tr": "Bazı cümleler neden yazıldıkları zamandan fazlasını biliyor?",
+    "meaning": "Nehirs letzte, offen bleibende Frage auf dem dreigeteilten Zettel ('Warum wissen manche Sätze mehr als die Zeit, in der sie geschrieben wurden?'); die übrigen Zeilen – 'Leyla konuştu', 'Cem geleceği biliyor', 'Evren işaret gönderiyor', 'Nehir'i yedi yıl önce tanıyordun' – werden durchgestrichen und mit görüntü / veri hırsızlığı / örüntü / sonradan eklenen mürekkep erklärt; Zitate müssen mit den früheren Kapiteln identisch sein"
+   },
+   {
+    "tr": "kelimenin sınırı",
+    "meaning": "Leitmotiv 'die Grenze des Wortes': Cem schrumpft Taten sprachlich ('Ben bütçeyi onayladım'); Nehir spiegelt es ironisch beim 500-m-Limit ('Tıp burada kelimenin sınırını belirlemiş')"
+   },
+   {
+    "tr": "Sen kapının şeklini çizdin / Biz hangi yöne açıldığını değiştirdik",
+    "meaning": "Cems Schlüsselsatz: 'Du hast die Form der Tür gezeichnet, wir haben geändert, in welche Richtung sie sich öffnet' – Türmotiv des Romans"
+   },
+   {
+    "tr": "getirme kararı / gözaltı / tutuklama",
+    "meaning": "Juristische Termini: Vorführungsbeschluss, Polizeigewahrsam, Untersuchungshaft; 'delil karartma' = Verdunkelung/Beweisvernichtung, 'örgütlü suç' = organisierte Kriminalität"
+   },
+   {
+    "tr": "Nihat Bey",
+    "meaning": "Anrede 'Bey' (Herr) für den Hausverwalter; beibehalten"
+   },
+   {
+    "tr": "ablam / Ablamın arkadaşı",
+    "meaning": "'meine ältere Schwester' (Nehir über Leyla); 'Ablamın arkadaşına âşık olmak çok kötü bir yas tepkisi gibi' – ironisches Liebesgeständnis"
+   },
+   {
+    "tr": "Ben ayrıntı toplayıcıyım / Şu an kötü avcısın",
+    "meaning": "Wortspiel: 'Ich bin Detailsammler' – 'Gerade bist du ein schlechter Jäger' (Nehir weicht dem Wort 'âşık' aus)"
+   },
+   {
+    "tr": "Biz bir savaşı bitirmemiştik. / Yalnız savaşı görünür yapmıştık.",
+    "meaning": "Zwei einzeilige Fazit-Absätze; Parallelismus bewahren"
+   },
+   {
+    "tr": "Bir gün iyi hissetmen riskin bittiği anlamına gelmez",
+    "meaning": "Letzter Satz des Kapitels (Arztzitat): 'Dass du dich einen Tag gut fühlst, heißt nicht, dass das Risiko vorbei ist' – der Erzähler schreibt ihn erstmals ohne Einspruch auf"
+   },
+   {
+    "tr": "nakil merkezi / bekleme listesi",
+    "meaning": "Transplantationszentrum / Warteliste – medizinische Zeitebene am Kapitelende (3. und 5. Monat nach der OP)"
+   }
+  ],
+  "tone": "Nüchtern-präzise Ich-Erzählung mit forensischer Verhördynamik (kurze Frage-Antwort-Wechsel, viele Einzeiler), juristisch-technisches Vokabular (Subunternehmer, Fiberkamera, Risikobudget); im Schlussteil leise, trocken-ironische Intimität zwischen Erzähler und Nehir, Reflexion ohne Pathos. Durchgehend 'sen' zwischen Erzähler, Cem und Nehir; Selin spricht förmlich ('siz'). Keine Erzählzeitwechsel, aber Rückblicke in erklärender Form."
+ },
+ {
+  "uid": "U41",
+  "title": "46. Son Olabilecek Şeyler",
+  "summary": "Der Ich-Erzähler (herzkranker Protagonist mit implantiertem Defibrillator, auf der Transplantations-Warteliste) bilanziert in Rückschau die ersten sechs Monate seiner Behandlung: Mit Sohn Emir repariert er die Uhren im Laden des verstorbenen Vaters, Tochter Duru bewirbt sich an Universitäten, mit Ex-Frau Zeynep führt er das lange aufgeschobene Gespräch über das Ende der Ehe. Zeyneps Satz „Hinterlass den Kindern keine Aufgabe, hinterlass Erinnerung“ bringt ihn dazu, den Satz „Erzählt einander von mir, wenn ich nicht mehr bin“ im Abschiedsbrief durchzustreichen und alle Umschläge neu zu schreiben – ohne Aufträge, nur mit Erinnerungen; dazu das Heft „Yanıldığım Yerler“ für Duru, Großvaters Schraubenzieher mit Notiz für Emir, die leere Mappe „BENDEN KALAN İŞLER“ für Zeynep. Mit Nehir (Journalistin, Partnerin) wächst das Vertrauen langsam wieder; am Grab Leylas sagt sie, sie habe sich selbst nicht verziehen, er verspricht zu bleiben „so gut ich kann“. Die veröffentlichten Akten führen zu Prozessen gegen Meralis; der Erzähler bereitet das weiße und schwarze Buch kommentiert zur Publikation vor und macht aus dem roten Heft einen Roman mit dem Titel „1453 — Uyanışın Bedeli“. Metafiktionale Ebene: Sefa Abi, der Schriftsteller, der ein Manuskript über ihn schreibt, schickt eine neue Fassung mit der Notiz, seine Figuren redeten weiter, wenn er schweige; der Erzähler findet in seinem eigenen Heft den leeren Stuhl, erinnert sich diesmal, wann er ihn zeichnete, und malt niemanden hinein. Ein weißer Schmetterling am Fenster (Gegenbild zum roten Schmetterling-Siegel des schwarzen Buches), dann Yusufs zeitgesteuerte Nachricht mit der letzten Aufnahme der Lupenlampe des Vaters: Der 19-jährige Erzähler flüstert in die Kamera: „Schreib diesmal die letzte Seite nicht. Du wirst dich nach dem Tod an sie erinnern.“",
+  "characters": [
+   "Ich-Erzähler (namenlos; Protagonist, herzkrank mit Defibrillator, Vater von Duru und Emir, Autor des Romans im Roman)",
+   "Emir (Sohn; Uhrenbastler, mag keine lange Berührung, autistische Züge; bekommt Großvaters Schraubenzieher)",
+   "Duru (Tochter; wählt zwischen Sounddesign und Kognitionswissenschaft; bekommt das Heft „Yanıldığım Yerler“)",
+   "Zeynep (Ex-Frau, Mutter der Kinder; bekommt Passwörter und die leere Mappe „BENDEN KALAN İŞLER“)",
+   "Nehir (Journalistin, Partnerin des Erzählers; Leyla nahestehend, Schuldgefühle wegen Leylas Tod)",
+   "Leyla (verstorben; ihr Grab wird besucht; hinterließ ein ‚Emanet‘-Depot)",
+   "Sefa Abi (Schriftsteller, der den Erzähler als Romanfigur schreibt; schickt Manuskriptfassungen im Oktober und November)",
+   "Selin (Juristin/Treuhänderin; erteilt Publikationsfreigabe für die forensischen Kopien)",
+   "Cem (Antagonist; zeigte, dass Empathie keinen Schutz garantiert)",
+   "Yusuf (Vertrauter/Zeuge; sendet eine zeitgesteuerte Nachricht mit der alten Aufnahme)",
+   "Vater des Erzählers (verstorbener Uhrmacher; Laden, Lupenlampe mit Kamera, Rätselheft)",
+   "Großvater des Erzählers (seine Uhrmacher-Schraubenzieher gehen an Emir)",
+   "Meralis (Organisation/Konzern hinter dem schwarzen Buch und den Kliniken)",
+   "Psykhe / Pervane (mythologische bzw. Divan-Dichtungs-Referenzen zum Schmetterling)"
+  ],
+  "terms": [
+   {
+    "tr": "Son Olabilecek Şeyler",
+    "meaning": "Kapiteltitel: „Dinge, die die letzten sein könnten“ – alles im Kapitel steht unter dem Vorzeichen eines möglichen Abschieds."
+   },
+   {
+    "tr": "zarf / zarflar",
+    "meaning": "Abschiedsumschläge für Duru, Emir und Zeynep (bereits in Kap. 1 vorbereitet, Aufschrift „GEREKİRSE“ für Zeynep); hier werden sie neu geschrieben – ohne Aufträge, nur Erinnerungen. Kehren in Kap. 48 wieder („Öffnet die Umschläge jetzt nicht“)."
+   },
+   {
+    "tr": "Görev bırakma. Hatıra bırak.",
+    "meaning": "Zeyneps Kernsatz: „Hinterlass keine Aufgabe, hinterlass Erinnerung.“ Gegensatzpaar görev (Aufgabe/Pflicht) vs. hatıra (Erinnerungsstück)."
+   },
+   {
+    "tr": "Ben yokken birbirinize beni anlatın.",
+    "meaning": "Der durchgestrichene Satz aus dem Umschlag; die Stelle bleibt bewusst leer (Motiv der Leerstelle, vgl. leere Schlusszeile)."
+   },
+   {
+    "tr": "Taksit yapalım.",
+    "meaning": "Wortspiel: „Zahlen wir in Raten“ – Antwort auf „Eine Entschuldigung reicht nicht“."
+   },
+   {
+    "tr": "Yanıldığım Yerler",
+    "meaning": "Titel des Heftes für Duru: „Wo ich mich geirrt habe“ – enthält revidierte Ideen (Jäger/Sammler, Empathie, Ehrlichkeit). Wird in Kap. 47 im roten Heft übergeben. Einheitlich übersetzen."
+   },
+   {
+    "tr": "Avcı–toplayıcı ayrımı",
+    "meaning": "Jäger–Sammler-Unterscheidung: zentrale Theorie des Erzählers über Menschentypen (und über seine inneren Stimmen AVCI/TOPLAYICI); hier als „nützliche Geschichte, gefährlich zur Klassifizierung“ relativiert."
+   },
+   {
+    "tr": "Zihin ev değilse hapishane de değildir. Kapıyı kendin açabilirsin.",
+    "meaning": "Motto auf der ersten Seite des Heftes; Tür-Motiv (kapı) zieht sich durch den Roman."
+   },
+   {
+    "tr": "dedemin tornavidaları / alet kutusu",
+    "meaning": "Großvaters Uhrmacher-Schraubenzieher mit Notiz: „Öffne etwas, um zu verstehen, wie es funktioniert – nicht um zu kontrollieren, was dir nicht gehört.“ Plus Nachsatz über Schrauben in einem kleinen Gefäß (Running Gag: Schrauben, vida; Emir sortiert Schrauben)."
+   },
+   {
+    "tr": "BENDEN KALAN İŞLER",
+    "meaning": "Aufschrift der leeren Mappe für Zeynep: „Von mir hinterlassene Aufgaben“ – sie ist leer; als „vasiyet“ (Testament) bezeichnet. Großschreibung/Hervorhebung wie im Original."
+   },
+   {
+    "tr": "Seni affetmedim. – Beni mi? – Kendimi.",
+    "meaning": "Nehir am Grab: „Ich habe nicht verziehen“ – gemeint ist sie selbst, nicht er."
+   },
+   {
+    "tr": "sonucunu bilmeden kalma sözü",
+    "meaning": "„Versprechen zu bleiben, ohne das Ergebnis zu kennen“ – Nehirs Frage „Bekleyecek misin?“ / seine Antwort „Elimden geldiğince“ („so gut ich kann“) wird in Kap. 48 wörtlich wieder aufgenommen."
+   },
+   {
+    "tr": "beyaz kitap / siyah kitap / kırmızı defter",
+    "meaning": "Die drei Textkörper des Romans: weißes Buch (offizielle/‚helle‘ Lehre), schwarzes Buch (Meralis’ gefährliche Doktrin, Siegel roter Schmetterling), rotes Heft (persönliche Aufzeichnungen des Erzählers, wird zum Roman)."
+   },
+   {
+    "tr": "adli kopyalar / kişisel verileri kapatılmış",
+    "meaning": "Forensische Kopien mit geschwärzten personenbezogenen Daten – juristisches Register."
+   },
+   {
+    "tr": "1453 — Uyanışın Bedeli",
+    "meaning": "Titel des Romans im Roman (= Titel des vorliegenden Buches). 1453 = Eroberungsjahr Konstantinopels (fetih); hier umgedeutet: „sich selbst zu erobern ist schwerer, als andere zu besiegen“. Verweist zugleich auf die Uhrzeit 14.53. Titel nicht übersetzen, ggf. Untertitel „Der Preis des Erwachens“."
+   },
+   {
+    "tr": "Sefa Abi / nüsha",
+    "meaning": "„Abi“ = ältere-Bruder-Anrede (respektvoll-vertraut). Nüsha = Manuskriptfassung/Exemplar (vgl. Kap. 15 „Nüshaların Söylemediği“). Metafiktion: Sefa schreibt den Erzähler als Romanfigur."
+   },
+   {
+    "tr": "Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.",
+    "meaning": "Sefa Abis Notiz auf dem ersten Manuskript (wiederkehrendes Zitat): „Ich habe die Tür geöffnet. Den Namen des Mannes, der hereinkommen wird, kenne ich noch nicht.“"
+   },
+   {
+    "tr": "Benim de kafam aynı apartman. Yönetici seçemiyoruz.",
+    "meaning": "Scherz: „Mein Kopf ist dasselbe Mietshaus – wir können keinen Hausverwalter wählen“ (Anspielung auf die inneren Stimmen als ‚Bewohner‘)."
+   },
+   {
+    "tr": "boş sandalye",
+    "meaning": "Der leere Stuhl – wiederkehrendes Bild (Randzeichnung im Heft des Erzählers und in Sefas Manuskript; in Kap. 46 auch Durus „leerer Stuhl“ bei der verpassten Aufführung). Der Erzähler zeichnet niemanden hinein."
+   },
+   {
+    "tr": "beyaz kelebek / kırmızı kelebek",
+    "meaning": "Weißer Schmetterling am Fenster (ruft nirgendwohin) vs. roter Schmetterling als Siegel des schwarzen Buches (Schmerz als Verwandlung verkauft)."
+   },
+   {
+    "tr": "Psykhe",
+    "meaning": "Griechische Seelen-Figur mit Schmetterlingsflügeln; Schmetterling = Seele/Verwandlung."
+   },
+   {
+    "tr": "pervane",
+    "meaning": "Motte/Falter der Divan-Dichtung, die um die Kerze des Geliebten kreist und das Verbrennen riskiert (Sufi-Topos)."
+   },
+   {
+    "tr": "Divan şiiri",
+    "meaning": "Osmanische klassische Dichtung."
+   },
+   {
+    "tr": "zaman ayarlı mesaj",
+    "meaning": "Zeitgesteuerte/verzögert zugestellte Nachricht (Yusuf)."
+   },
+   {
+    "tr": "İlk kitabı sen yaşarken yayımla. İkincisi, öldüğün gün başlayacak.",
+    "meaning": "Yusufs Botschaft: „Veröffentliche das erste Buch, solange du lebst. Das zweite beginnt an dem Tag, an dem du stirbst.“ Verweist auf das Zwei-Bücher-Konzept und die Fortsetzung."
+   },
+   {
+    "tr": "babamın büyüteç lambası",
+    "meaning": "Die Lupenlampe des Vaters mit verborgener Kamera; ihre Aufnahmen (u. a. des 19-jährigen Erzählers) sind Schlüsselbeweise."
+   },
+   {
+    "tr": "Bu kez son sayfayı yazma. Onu öldükten sonra hatırlayacaksın.",
+    "meaning": "Der zentrale Satz des 19-jährigen Erzählers: „Schreib diesmal die letzte Seite nicht. Du wirst dich nach dem Tod an sie erinnern.“ Begründet die leere Schlusszeile und die Schlussformel „İnsan hakikati öğrenmez, hatırlar“ in Kap. 48."
+   }
+  ],
+  "tone": "Ruhige, bilanzierende Ich-Erzählung im Präteritum (Rückschau auf sechs Monate); kurze Dialogzeilen mit trockenem Familienhumor (Emir, Duru, Zeynep); eingerückte Inset-Texte als Notizen/Mottos; essayistische Passagen (Schmetterling, Psykhe, Pervane); zum Schluss mystisch-unheimlicher Umschlag mit der Flüsteraufnahme."
+ },
+ {
+  "uid": "U42",
+  "title": "47. Son Olduğunu Bilmeden",
+  "summary": "Zeitebene: November 2027, ein Jahr nach der Ankunft des schwarzen Pakets. Der Erzähler befragt Tarık (Forensiker) und Yusuf zur alten Aufnahme; sie kann weder als Prophezeiung noch als Kinderspruch eindeutig gelesen werden. Er löscht seine letzte Seite nicht, fügt aber ein leeres Blatt an. Das Buch erscheint am 11. November um 14.53 Uhr; eine Krähe, Kater Duman und eine weiße Feder begleiten den Moment, der Erzähler deutet sie bewusst nicht als Zeichen. Mit Duru überarbeitet er den Warntext (die „DİKKAT“-Seite des Romananfangs): Er lässt den Haken „Uyanıştan sonra geri dönüş yoktur“ stehen, fügt aber den Gegen-Absatz hinzu, der die Methode an die Leser zurückgibt; die Schlusszeile bleibt leer. Duru zeigt auf die Lücken in der Kapitelnummerierung und die Rücksprungpfeile neben den Uhrzeiten – es ist die Rätselmethode aus dem Bilmece-Heft des Vaters (Akrostichon), die bewusst nicht als „Druckfehler“ erklärt wird („Okura güven“). Er übergibt Selin seine letzten Aufnahmen für das Emanet (erst sein Abschied, dann die Jugendaufnahme). Dann ein letzter gewöhnlicher Tag ohne Wissen um sein Ende: Bäcker Hasan Bey, der Laden mit den auf 09.17, 02.40 und 14.53 stehenden Uhren, Emirs Puls-Uhr, die Übergabe der Schraubenzieher zu Lebzeiten, Tonstudio mit Duru (Stimme zittert beim Warntext, „Gerçek“), Übergabe des roten Heftes samt „Yanıldığım Yerler“, gemeinsames Mantı-Kochen mit Zeynep, Nehir und den Kindern; Nachrichten: Durus Zusage, Zeyneps Umzug, erster internationaler Meralis-Prozesstermin, Yusuf frei ohne Zeugenschutz, Cems Haftbeschwerde abgelehnt. Die inneren Stimmen schweigen erstmals von selbst („O gelmeden de buradaydım“). Auf dem Balkon fragt Duru „Wirst du dich an uns erinnern?“; Nehir bleibt über Nacht („Evet“). Gegen Morgen vibriert der Defibrillator erneut – diesmal drückt er den Notfallknopf.",
+  "characters": [
+   "Ich-Erzähler (Protagonist; veröffentlicht sein Buch, erlebt unwissend seinen letzten Tag)",
+   "Duru (Tochter; Lektorin/Kritikerin des Warntexts, Sounddesign-Studentin in spe, nimmt Hörbuch auf, erhält das rote Heft)",
+   "Emir (Sohn; baut die Puls-Uhr, sortiert Schrauben, erhält die Schraubenzieher zu Lebzeiten)",
+   "Zeynep (Ex-Frau; zieht in neue Wohnung, kocht Mantı)",
+   "Nehir (Partnerin, Journalistin; berichtet vom Meralis-Prozess, bleibt über Nacht)",
+   "Tarık (Video-/Forensikexperte; prüft die Aufnahme)",
+   "Yusuf (Vertrauter aus der Jugend; erinnert sich an den Satz; freigelassen, Prozess ohne Haft, lehnt Zeugenschutz ab)",
+   "Selin (Juristin/Treuhänderin; verwaltet das Emanet und die Aufnahmen)",
+   "Hasan Bey (Bäcker an der Straßenecke; „Bey“ = Herr)",
+   "Duman (Kater des Erzählers; Name = „Rauch“)",
+   "Cem (Antagonist in U-Haft; seine Krankenhaus-Aussagen werden von Anwälten relativiert)",
+   "Meralis (Organisation; Prozesse, gestoppte Programme)",
+   "Leyla (verstorben; ihr Emanet mit Todesbedingung)",
+   "Vater des Erzählers (Uhrmacher; Laden, Bilmece-Heft, letzte Nachricht „Brot in den Laden bringen“)",
+   "Taxifahrer, Motorradkurier, Mutter mit Kind (anonyme Passanten als ‚Zentren eigener Geschichten‘)",
+   "Innere Stimmen Avcı und Toplayıcı (schweigen erstmals)"
+  ],
+  "terms": [
+   {
+    "tr": "Son Olduğunu Bilmeden",
+    "meaning": "Kapiteltitel: „Ohne zu wissen, dass es das letzte war“ – der letzte Tag wird ohne Vorwissen erzählt."
+   },
+   {
+    "tr": "Siyah paket",
+    "meaning": "Das schwarze Paket (Kap. 2), Auslöser der Handlung, kam im November 2026; jetzt November 2027."
+   },
+   {
+    "tr": "Kasım 2027 / 11 Kasım, 14.53",
+    "meaning": "Zeitangabe und Erscheinungsdatum/-uhrzeit des Buches; 14.53 spiegelt 1453 (Titel) und die Uhrzeit des Todes in Kap. 48."
+   },
+   {
+    "tr": "14.53 ↺",
+    "meaning": "Kursive Marke mit Rücksprungpfeil (babamın dönüş işareti). AKROSTICHON: Der erste Buchstabe des jeweils FOLGENDEN Absatzes ergibt über das Buch gelesen „BAŞA DÖN“ (= „Kehr zum Anfang zurück“: B-A-Ş-A-D-Ö-N; Fundstellen pid 154, 243, 2104, 2313, 3009, 3233, 3378). In diesem Paket: nach pid 3233 muss der Absatz 3234 mit „Ö“ beginnen (Özellikle…), nach pid 3378 der Absatz 3379 mit „N“ (Nabzımı…). Übersetzer müssen die Anfangsbuchstaben der Folgeabsätze mit dem Gesamtteam abstimmen. Marke selbst unverändert übernehmen."
+   },
+   {
+    "tr": "Numaralarda bıraktığım boşluklar",
+    "meaning": "Lücken in der Kapitelnummerierung (fehlende Kapitel 6, 10, 14, 19, 27, 33, 41). AKROSTICHON: der erste Buchstabe des auf die Lücke folgenden Kapiteltitels ergibt „SENİ BUL“ (= „Finde dich/Find dich selbst“: Silinen, Emanetin, Nüshaların, İnanmayan, Bir, Unutulmuş, Labirentin). Die Lücken sind keine gestrichenen Szenen und dürfen nicht „korrigiert“ werden; Kapiteltitel-Anfangsbuchstaben teamweit koordinieren. Erklärt in Kap. 1 (Bilmece-Heft des Vaters) und Kap. 50."
+   },
+   {
+    "tr": "babamın bilmece defteri",
+    "meaning": "Das Rätselheft des Vaters: Regeln – ausgelassene Nummer → Anfangsbuchstabe des nächsten Titels; Rücksprungpfeil neben einer Zahl → Anfangsbuchstabe des Absatzes darunter; Knoten mit gleich langen Enden → Anfangsbuchstabe des nächsten Absatzes; „Yarım sesler“ (halbe Stimmen): bei „Ses burada kesildi“ das letzte gehörte Wort bewahren, nichts dazuerfinden."
+   },
+   {
+    "tr": "Dizgi hatası",
+    "meaning": "„Satzfehler/Druckfehler“ – wofür Leser die Lücken halten werden; es wird bewusst keine Korrekturnotiz gesetzt."
+   },
+   {
+    "tr": "Okura güven",
+    "meaning": "Durus Zettel: „Vertrau dem Leser/der Leserin.“"
+   },
+   {
+    "tr": "YAYINDA",
+    "meaning": "Bildschirmmeldung „ONLINE/VERÖFFENTLICHT“, fett."
+   },
+   {
+    "tr": "karga",
+    "meaning": "Krähe – wiederkehrendes Zeichenmotiv (vgl. Kap. 11 „Emanetin Peşindeki Karga“, Kap. 48 um 14.52). „Kargayı Yusuf tutmamıştı“ – niemand hat sie bestellt."
+   },
+   {
+    "tr": "Bu onların cümlesi",
+    "meaning": "Duru: der Warntext „Uyanmak isteyenler okusun, ötekiler kapatsın“ benutzt dieselbe Haken-Methode wie das schwarze Buch (Auserwähltheit + Unumkehrbarkeit)."
+   },
+   {
+    "tr": "Uyanıştan sonra geri dönüş yoktur.",
+    "meaning": "„Nach dem Erwachen gibt es kein Zurück.“ Fettgedruckter Kernsatz der „DİKKAT“-Seite am Buchanfang (pid 15); hier beim Hörbuch gelesen. Identisch übersetzen."
+   },
+   {
+    "tr": "Bir de şu var: Bu kitap sizi uyandırdığını iddia ederse önce kitabı sorgulayın…",
+    "meaning": "Der nachträglich angefügte Gegen-Absatz (pid 16 der DİKKAT-Seite): „Fragt zuerst das Buch… Was hat diese Warnung euch tun lassen? Wer profitiert von eurer Neugier? Wer hat wirklich entschieden?“ Wortgleich mit dem Vorspann halten."
+   },
+   {
+    "tr": "Bir şeyin var olduğunu nasıl anlarsın?",
+    "meaning": "Der ‚erste Satz‘ des Buches (fett; steht auch auf der Titelseite pid 4): „Woran erkennst du, dass etwas existiert?“"
+   },
+   {
+    "tr": "Son cümlesini boş bırakmıştım.",
+    "meaning": "Die leere Schlusszeile des Buches – Leitmotiv der Schlusskapitel (Kap. 50 „Boş Bırakılan Son Cümle“)."
+   },
+   {
+    "tr": "emanet",
+    "meaning": "Anvertrautes/Depot: Leylas hinterlegte Aufnahme, deren Öffnung an den Tod gebunden ist; der Erzähler fügt sein eigenes Abschiedsvideo hinzu (Reihenfolge: erst sein Abschied, dann die Jugendaufnahme)."
+   },
+   {
+    "tr": "Uyanmışsın yine. – Bu kez belgeli.",
+    "meaning": "Bäcker-Dialog: „Bist wieder mal ‚erwacht‘.“ – „Diesmal mit Belegen.“ Ironie über ‚uyanmış insanlar‘ (Erwachte)."
+   },
+   {
+    "tr": "09.17 / 02.40 / 14.53",
+    "meaning": "Stehengebliebene Uhrzeiten der Ladenuhren; nur die große Wanduhr steht auf 14.53. Zahlen beibehalten."
+   },
+   {
+    "tr": "nabızlı saat",
+    "meaning": "Emirs Puls-Uhr: Zeiger bewegt sich mit dem Herzschlag des Erzählers (Sensor am Handgelenk); in Kap. 49 abmontiert."
+   },
+   {
+    "tr": "Bazen bir atımı kaçırıyor. – Benim kalbim de.",
+    "meaning": "„Manchmal lässt sie einen Schlag aus.“ – „Mein Herz auch.“ Doppeldeutigkeit atım (Schlag der Uhr/des Herzens)."
+   },
+   {
+    "tr": "mantı",
+    "meaning": "Türkische gefüllte Teigtaschen; Familienkochszene; Emirs Scherz, Schrauben (vida) hineinzustecken."
+   },
+   {
+    "tr": "Sınırları toplum çiziyor.",
+    "meaning": "Wortspiel: Teigstücke sehen aus wie die Verwaltungskarte der Türkei – „Grenzen zieht die Gesellschaft“."
+   },
+   {
+    "tr": "tutuksuz yargılanmak / tanık koruma",
+    "meaning": "Verfahren ohne Untersuchungshaft / Zeugenschutz (Yusuf)."
+   },
+   {
+    "tr": "baskı altında kurulmuş varsayımlar",
+    "meaning": "„Unter Druck entstandene Annahmen“ – Formel von Cems Anwälten für seine Krankenhausaussagen."
+   },
+   {
+    "tr": "Avcı / Toplayıcı",
+    "meaning": "Jäger/Sammler – zwei der inneren Stimmen; schweigen hier erstmals freiwillig: „Seslerini susturmamıştım; kimse konuşmak istemiyordu.“"
+   },
+   {
+    "tr": "O gelmeden de buradaydım.",
+    "meaning": "„Auch bevor er (der Satz) kam, war ich da.“ Präsenz ohne Kommentar – Höhepunkt des Kapitels."
+   },
+   {
+    "tr": "Sen bizi hatırlayacak mısın?",
+    "meaning": "Durus Gegenfrage „Wirst DU dich an UNS erinnern?“ (nach dem Tod) – vorbereitet die Schlussformel über Erinnern."
+   },
+   {
+    "tr": "Kalabilirim. – Kalmamı ister misin? – Evet.",
+    "meaning": "Nehir an der Tür; das „Evet“ knüpft an die „Eşik“-Passage des Vorspanns an (Hayat sana önce hayır demeyi öğretir)."
+   },
+   {
+    "tr": "cihaz / acil düğmesi",
+    "meaning": "Implantierter Defibrillator (ICD) / Notfallknopf. „Bu kez işareti felsefeye çevirmedim“ – er deutet das Signal diesmal nicht."
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum, mit vorausdeutenden Einschüben („Bir gün … bilmiyordum“). Alltagsrealismus und warmer Familienhumor (Mantı-Szene), knappe schlagfertige Dialoge; reflexiv-essayistische Sätze über Zeichen und Neugier; wachsende Zärtlichkeit (Balkon, Türschwelle); abrupter, nüchterner Schluss."
+ },
+ {
+  "uid": "U43",
+  "title": "48. Saat 14.53",
+  "summary": "Gegenwart des letzten Tages: Der Erzähler wird bei Bewusstsein ins Krankenhaus gebracht und verlangt gegen Nehirs Rat, dass die Kinder sofort kommen. Das Herz gerät mehrfach in gefährliche Rhythmen; der Defibrillator funktioniert, aber der Herzmuskel pumpt nicht genug, ein sicherer Transfer in ein anderes Zentrum ist nicht möglich. Gegen Mittag nimmt der behandelnde Arzt die Familie beiseite; der Erzähler liest das Ergebnis von ihren Gesichtern. Die inneren Stimmen (AVCI, TOPLAYICI, ŞÜPHECİ, MUHASEBECİ) wollen erstmals alle dasselbe, die SESSİZ SES bittet, keine von ihnen zu unterdrücken. Letzte Dialoge: an Emir „Öffnet die Umschläge, wann ihr wollt“, an Duru „Die letzte Zeile des Buches schreibt der/die Lesende“, an Zeynep „Ich sorge mich auch um dich“, an Nehir die Wiederaufnahme von „Elimden geldiğince“. Alle Namen, Akten und vorbereiteten Sätze weichen zurück; das einzige verbleibende Wort ist „Ben“. Um 14.52 setzt sich eine Krähe vor das Zimmer (nur Duru sieht es), um 14.53 wird der Herzton zum Dauerton; „14.53 ↺“; Wiederbelebung erfolglos. Schluss: „Ben öldüm. Ve hikâye orada başlamadı. İnsan hakikati öğrenmez, hatırlar! Hatırladığım yer orada başladı.“ – Auflösung der Jugendaufnahme (die letzte Seite wird nach dem Tod ‚erinnert‘) und Übergang zu den Nachlasskapiteln 49–50, in denen die Familie weitererzählt.",
+  "characters": [
+   "Ich-Erzähler (stirbt um 14.53; erzählt bis über den eigenen Tod hinaus)",
+   "Duru (Tochter; rechts am Bett; sieht die Krähe und erzählt es später)",
+   "Emir (Sohn; links am Bett; fragt nach den Umschlägen)",
+   "Zeynep (Ex-Frau; am Fenster, weint, übernimmt die Verantwortung für die Kinder)",
+   "Nehir (Partnerin; am Fußende, erinnert an das Versprechen zu warten)",
+   "Sorumlu hekim / Doktorlar (behandelnder Arzt und Ärzteteam)",
+   "Innere Stimmen: AVCI (Jäger), TOPLAYICI (Sammler), ŞÜPHECİ (Skeptiker), MUHASEBECİ (Buchhalter), SESSİZ SES (die leise Stimme)",
+   "Krähe (Zeichenmotiv vor dem Fenster um 14.52)"
+  ],
+  "terms": [
+   {
+    "tr": "Saat 14.53",
+    "meaning": "Kapiteltitel: „14.53 Uhr“ – Todeszeit, Erscheinungszeit des Buches, Spiegel von 1453. Zahlen unverändert lassen."
+   },
+   {
+    "tr": "AVCI / TOPLAYICI / ŞÜPHECİ / MUHASEBECİ / SESSİZ SES",
+    "meaning": "Die inneren Stimmen des Erzählers als Inset-Dialog (fett Name, kursiv Rede): Jäger („Bir yol bul“), Sammler („Bütün seçenekleri yeniden sırala“), Skeptiker („Belki doktor yanılıyor“), Buchhalter („Yapılacaklar listesi tamamlanmadı“), Leise Stimme („Şimdi hiçbirini susturma. Hepsi seni yaşatmaya çalıştı“). Namen konsistent mit allen früheren Paketen (auch İNANAN in Kap. 1); Format beibehalten."
+   },
+   {
+    "tr": "sorumlu hekim",
+    "meaning": "Verantwortlicher/behandelnder Arzt."
+   },
+   {
+    "tr": "güvenli transfer / nakil",
+    "meaning": "Sicherer Transport in ein Transplantationszentrum / Transplantation – scheitert an Rhythmus und Bettenbestätigung."
+   },
+   {
+    "tr": "canlandırma",
+    "meaning": "Reanimation/Wiederbelebung."
+   },
+   {
+    "tr": "Zarfları şimdi açmayın. – Ne zaman? – Canınız istediğinde.",
+    "meaning": "Die Umschläge aus Kap. 46: „Öffnet sie, wann euch danach ist“ – Emir: „Das ist eine sehr schlechte Anweisung“ – „Endlich hab ich’s gelernt“ (keine Aufgaben hinterlassen)."
+   },
+   {
+    "tr": "Kitabın son cümlesi? – Siz yazmayın. – Peki kim yazacak? – Okuyan.",
+    "meaning": "Auflösung der leeren Schlusszeile: Nicht die Kinder, sondern die Lesenden schreiben den letzten Satz. „Okuyan“ geschlechtsneutral („wer liest“)."
+   },
+   {
+    "tr": "Bir kere de işi bana bırak.",
+    "meaning": "Zeynep: „Überlass die Sache einmal mir.“"
+   },
+   {
+    "tr": "Bekleyeceğine söz vermiştin. – Elimden geldiğince dedim. – Kelimelerin sınırını değiştiriyorsun. – Senden öğrendim.",
+    "meaning": "Wörtliche Wiederaufnahme von Kap. 46 (Nehir/Grab): das Versprechen „so gut ich kann“. Formulierung identisch zu Kap. 46 halten."
+   },
+   {
+    "tr": "Ben.",
+    "meaning": "Das letzte verbleibende Wort („Ich“) als eigener Absatz; korrespondiert mit „Ben öldüm“ und dem Erzähler als namenloser Instanz."
+   },
+   {
+    "tr": "14.52 / karga",
+    "meaning": "Krähe setzt sich eine Minute vor dem Tod vor das Zimmer; der Erzähler sieht es nicht selbst – Duru berichtet es später (Erzählperspektive überschreitet den Tod)."
+   },
+   {
+    "tr": "14.53 ↺",
+    "meaning": "Letzte Rücksprung-Marke des Buches. Akrostichon „BAŞA DÖN“ (siehe U42): der folgende Absatz (pid 3379) muss mit „N“ beginnen („Nabzımı…“). In der Übersetzung Anfangsbuchstaben des Folgeabsatzes mit dem Team abstimmen."
+   },
+   {
+    "tr": "Ben öldüm.",
+    "meaning": "„Ich starb / Ich bin gestorben.“ Nüchterner Zwei-Wort-Satz, eigener Absatz."
+   },
+   {
+    "tr": "Ve hikâye orada başlamadı.",
+    "meaning": "„Und die Geschichte begann nicht dort.“ Negation einer erwarteten Pointe."
+   },
+   {
+    "tr": "İnsan hakikati öğrenmez, hatırlar!",
+    "meaning": "Schlussformel: „Der Mensch lernt die Wahrheit nicht, er erinnert sich an sie!“ (platonische Anamnesis-Anklang; hakikat = Wahrheit im emphatisch-mystischen Sinn, nicht gerçek). Löst die Aufnahme des 19-Jährigen ein („Onu öldükten sonra hatırlayacaksın“). Ausrufezeichen beibehalten."
+   },
+   {
+    "tr": "Hatırladığım yer orada başladı.",
+    "meaning": "Letzte Zeile des Pakets und des Kapitels: „Der Ort, an den ich mich erinnerte, begann dort.“ / „Dort begann, woran ich mich erinnere.“ Anschließend ein leerer Absatz (pid 3384) – als Leerstelle beibehalten; Kap. 49 „Geride Kalanlar“ wechselt die Perspektive."
+   }
+  ],
+  "tone": "Knapp, nüchtern, hohe Dichte; sehr kurze Absätze und Ein-Wort-Sätze; Inset-Dialog der inneren Stimmen; Dialoge zärtlich und schlagfertig trotz Sterbesituation; am Ende lakonisch-mystischer Ton mit aphoristischer Schlussformel. Erzählperspektive überschreitet den Tod („Bunu ben görmedim. Sonradan Duru anlatacaktı“)."
+ },
+ {
+  "uid": "U44",
+  "title": "49. Geride Kalanlar",
+  "summary": "Erstes Kapitel nach dem Tod des namenlosen Ich-Erzählers (Vater, Schriftsteller; im vorigen Paket um 14.53 im Krankenhaus gestorben). Der Erzähler berichtet weiter aus einer postumen, allwissenden Ich-Perspektive, wie die Hinterbliebenen – Tochter Duru, Sohn Emir, Ex-Frau Zeynep und die Journalistin Nehir – die ersten Tage in seiner Wohnung verbringen: das stehengelassene Teeglas, die Diskrepanz 14.52/14.53 auf der Sterbeurkunde, die von Emir ausgebaute Werkstattuhr mit Pulskabel, die Sprachaufnahme, die Duru erst beim zweiten Anlauf anhören kann. Nehir vollendet ihren Artikel; Tarıks Abschlussbericht bestätigt die Manipulation der Zugaufnahme (Fremd-Layer in der App des Erzählers plus separater Stream auf Bahnhofstafeln), der Urheber bleibt offen, Meralis legt erneut Einspruch ein. Die Anwältin Selin löst die „zweite Aufnahme“ aus: ein Video der letzten Wochen, in dem der Erzähler jedem Kind, Zeynep und Nehir eine Botschaft hinterlässt, gefolgt von der alten, von Yusuf aufbewahrten Jugendaufnahme (19 Jahre, in der Werkstatt des Vaters), in der der junge Erzähler die Akrostichon-Regel ausspricht: nach jedem Absatz, in dem der Knoten mit gleich langen Enden erwähnt wird, den Anfangsbuchstaben des nächsten Absatzes lesen; bei fehlenden Kapitelnummern den Anfangsbuchstaben der nächsten Überschrift nehmen. Bei dem Wort „Buradaydın“ bricht der Ton ab; Duru trägt es als viertes Wort unter „Yarım sesler“ ein. Emir findet sieben Rückkehrpfeile (↺) neben der Uhrzeit 14.53 und notiert die Absatzanfänge darunter; die Spur führt „weiter zurück“ als nur eine Seite. Das Kapitel endet mit der Frage des toten Erzählers, woher er sich an all das erinnert.",
+  "characters": [
+   "Ich-Erzähler (toter Vater, Schriftsteller; erzählt postum, namenlos; spricht im Video der Reihe nach Duru, Emir, Zeynep, Nehir an)",
+   "Duru (Tochter, 17; hat die Sprachaufnahme und das Video angehört, trägt das vierte 'halbe Wort' ins Notizbuch ein)",
+   "Emir (jüngerer Sohn; Werkzeuge/Werkstattuhr, Robotik; findet die sieben Rückkehrpfeile)",
+   "Zeynep (Ex-Frau, Mutter der Kinder; bekommt den 'blauen Ordner' mit den Hausunterlagen)",
+   "Nehir (investigative Journalistin, Freundin/Verbündete des Erzählers, jüngere Schwester der getöteten Leyla; schreibt den Artikel fertig)",
+   "Tarık (IT-Sicherheitsexperte, Nehirs Quelle; prüft die Videomanipulation und die Kopie der zweiten Aufnahme)",
+   "Selin (Anwältin der Familie/Nehirs; verwaltet die Hinterlegung, reicht die Sterbeurkunde ein)",
+   "Leyla (Nehirs ältere Schwester, getötet; hatte die Jugendaufnahme des Erzählers aufbewahrt und die 'ikinci kayıt' angelegt)",
+   "Yusuf (Yusuf Vural, alter Setzer/Buchbinder; verwahrte die Jugendaufnahme)",
+   "Aylin (Cems Mutter, Ärztin im Datenarchiv, tot; eine der drei früheren 'halben Stimmen')",
+   "Meralis (fiktives Institut/Konsortium, Gegenspieler; legt Einspruch gegen das Verfahren ein)",
+   "Der Vater des Erzählers (Uhrmacher; seine Uhr, seine Werkstatt, seine Lese-/Rückkehrzeichen)",
+   "Der junge Erzähler mit 19 (nur im Video; spricht die Akrostichon-Regel)"
+  ],
+  "terms": [
+   {
+    "tr": "Geride Kalanlar",
+    "meaning": "Kapiteltitel: 'Die Zurückgebliebenen / Hinterbliebenen' – zugleich das, was zurückbleibt (Gegenstände, Aufnahmen, Zeichen)."
+   },
+   {
+    "tr": "14.53 / 14.52",
+    "meaning": "Todeszeitpunkt auf der Sterbeurkunde (14.53) vs. Uhrzeit, zu der die Krähe sich setzte (14.52); 14.53 ist die Leitzahl des ganzen Romans (Zugabfahrt, Schließfach 1453, Operation FETİH-1453). Zahlenformat mit Punkt beibehalten wie in den früheren Paketen."
+   },
+   {
+    "tr": "Babamın saati / dükkândaki saat",
+    "meaning": "Uhr aus der Werkstatt des Vaters, deren Zeiger per Kabel an den Puls des Erzählers gekoppelt war (frühere Kapitel); Emir baut sie aus, wirft sie aber nicht weg. 'Suçluluğun bir saate ihtiyacı var' – Schuld braucht eine Uhr(zeit)."
+   },
+   {
+    "tr": "kayıp eşya teorisi",
+    "meaning": "'Theorie der verlorenen Gegenstände' – scherzhafte Hausphilosophie des Erzählers (verlorene Dinge liegen unterm Bett); Insider-Ton zwischen Vater und Sohn."
+   },
+   {
+    "tr": "ses kaydım / uyarı",
+    "meaning": "Die Sprachaufnahme des Erzählers für Duru; 'uyarı' = die Warnung (der Warntext 'DİKKAT' vom Buchanfang bzw. die Warnung, die er vorliest); Duru hält die Aufnahme an der Stelle an, an der seine Stimme zittert."
+   },
+   {
+    "tr": "dış katman / ayrı yayın akışı",
+    "meaning": "'Fremd-Layer' (in die App des Erzählers eingeschleust) und 'separater Stream' (auf den Bahnhofs-Anzeigetafeln) – technische Begriffe aus Tarıks Bericht zur Manipulation des Zugvideos; konsistent mit früheren Paketen halten."
+   },
+   {
+    "tr": "Meralis'in itiraz dilekçesi",
+    "meaning": "Einspruchs-/Widerspruchsschrift von Meralis im laufenden Verfahren; zeigt, dass der Tod des Erzählers den Fall nicht beendet."
+   },
+   {
+    "tr": "ikinci kayıt",
+    "meaning": "'Die zweite Aufnahme' – Leylas Bezeichnung für die hinterlegte Datei, die nach dem Tod des Paketempfängers freigegeben wird (B16: 'Paketin alıcısı öldükten sonra açılacak ikinci kayıt hazır'). Enthält jetzt das Abschiedsvideo der letzten Wochen plus die Jugendaufnahme."
+   },
+   {
+    "tr": "emanet / emanet listesi",
+    "meaning": "Hinterlegung/Treuhandgut und die Liste, die ausweist, welche Datei von wem stammt; 'teslim koşulu' = Freigabebedingung (mit Selin neu geschrieben)."
+   },
+   {
+    "tr": "mavi klasör",
+    "meaning": "Blauer Ordner mit den Hausunterlagen für Zeynep; 'Eksikleri Selin biliyor' – was fehlt, weiß Selin."
+   },
+   {
+    "tr": "Çekmecenin dibindeki motor",
+    "meaning": "Der Motor unten in der Schublade – angefangenes, unerklärtes Bastelprojekt des Erzählers (Rollladen-/Kepenk-Motor-Motiv aus früheren Kapiteln); Emir muss es nicht zu Ende bringen."
+   },
+   {
+    "tr": "“Bekle dersem bana inanma. Yaşa.”",
+    "meaning": "Botschaft an Nehir: 'Wenn ich sage warte, glaub mir nicht. Lebe.' – Kernsatz des Abschieds; kurz und imperativisch halten."
+   },
+   {
+    "tr": "Yusuf'un sakladığı kayıt / eski parça",
+    "meaning": "Die alte Jugendaufnahme (Erzähler mit 19 in der Werkstatt des Vaters, weißes Heft), die Yusuf verwahrte."
+   },
+   {
+    "tr": "beyaz kaplı defter",
+    "meaning": "Weiß eingebundenes Heft des 19-Jährigen – möglicherweise das spätere Buch selbst ('Sonradan kitap olacak şeyin kendisi mi, yalnızca benzeri mi'). Unbestimmtheit bewahren."
+   },
+   {
+    "tr": "kırmızı ip / eşit uçlu düğüm",
+    "meaning": "Roter Faden, dessen Knoten zwei gleich lange Enden hat – Leitmotiv seit dem schwarzen Paket (B01: 'Düğümün iki ucu aynı uzunluktaydı'); in diesem Kapitel bindet der junge Erzähler den Faden zum Ring und legt ihn auf die Seite."
+   },
+   {
+    "tr": "Akrostichon-Regel (pid 3416)",
+    "meaning": "'Eşit uçlu düğümün anlatıldığı her paragraftan sonraki paragrafın ilk harfini sırayla oku. Sayılarda da boşluğu doldurma; eksik numaradan sonraki başlığın ilk harfi yerinde duruyor.' – Lies der Reihe nach den Anfangsbuchstaben des Absatzes, der auf jeden Absatz mit dem Knoten mit gleich langen Enden folgt; bei Zahlen die Lücke nicht füllen – der Anfangsbuchstabe der Überschrift nach der fehlenden Nummer steht an seinem Platz. Geht auf die Lese-Spiele des Vaters zurück (B00 pid 71, 77). Für die Übersetzung sind damit Anfangsbuchstaben bestimmter Absätze/Überschriften im gesamten Roman potenziell bedeutungstragend – Rücksprache mit dem Gesamtlektorat nötig."
+   },
+   {
+    "tr": "Aradığın şey ipin sonunda değil",
+    "meaning": "'Was du suchst, ist nicht am Ende des Fadens' – Gedanke des toten Erzählers beim Zuschauen; Ariadne-Faden-Motiv aus B01."
+   },
+   {
+    "tr": "“Buradaydın.”",
+    "meaning": "'Du warst hier.' – letztes hörbares Wort der Jugendaufnahme, als Book Inset (eigener Absatzstil) gesetzt; wird zum vierten 'halben Wort'. Doppeldeutig: Verweis auf einen vergangenen Tag oder auf die vorliegende Seite. Wortgleich mit Schlussteil des Romans ('buradayım') – Wortstamm 'burada' konsistent wiedergeben."
+   },
+   {
+    "tr": "Ses burada kesildi.",
+    "meaning": "'Hier brach der Ton ab.' – formelhafter kursiver Vermerk; die Regel aus B00 (pid 81): das zuletzt gehörte Wort aufheben, den Rest nicht erfinden."
+   },
+   {
+    "tr": "Yarım sesler",
+    "meaning": "'Halbe Stimmen' – Rubrik im Notizbuch des Erzählers; die vier Wörter: Burada. Biliyorsun. Gördüm. Buradaydın. (von Leyla, Yusuf, Aylin und nun dem jungen Erzähler). Reihenfolge und Wortform der vier Wörter müssen mit früheren Paketen übereinstimmen."
+   },
+   {
+    "tr": "dönüş okları / ↺",
+    "meaning": "Rückkehrpfeile, die der Erzähler beim Schreiben neben die Uhrzeit 14.53 zeichnete ('14.53 ↺' erscheint als kursive Zwischenzeile in mehreren Kapiteln); 'Yedi taneydi' – sieben Stück. Emir überträgt die Absatzanfänge darunter – Teil des Akrostichons."
+   },
+   {
+    "tr": "“Önceki sayfaya mı?” – “Daha geriye.”",
+    "meaning": "'Auf die vorige Seite?' – 'Weiter zurück.' Verweis darauf, dass die Spur zum Buchanfang zurückführt (Kreisstruktur des Romans)."
+   },
+   {
+    "tr": "dört yüz bir an",
+    "meaning": "'vierhunderteins Augenblicke', die sich auf dem schwarz werdenden Bildschirm überlagern – Zahlenmotiv (401); Zahl unverändert übernehmen."
+   },
+   {
+    "tr": "Ben bunu nereden hatırlıyorum?",
+    "meaning": "'Woher erinnere ich mich daran?' – Schlussfrage des Kapitels; knüpft an 'İnsan hakikati öğrenmez, hatırlar!' (Ende des vorigen Pakets) an und leitet zu Kapitel 50 über."
+   }
+  ],
+  "tone": "Ruhig, elegisch, lakonisch; kurze Hauptsätze, nüchterne Alltagsdetails als Trauerarbeit, dazwischen postume Ich-Kommentare mit leiser Ironie. Dialoge knapp, familiär (keine förmlichen Anreden; Kinder sagen 'Babam'). Videobotschaft in direkter, zärtlich-nüchterner Du-Ansprache. Kursive Einschübe (Ses burada kesildi; die vier Wörter) formal exakt übernehmen; 'Buradaydın' als Book Inset."
+ },
+ {
+  "uid": "U45",
+  "title": "50. Boş Bırakılan Son Cümle",
+  "summary": "Schlusskapitel, vollständig im Nachtod-Bewusstsein des Ich-Erzählers, ohne äußere Handlung: Er sucht seine Hand, seinen Namen, seine Grenze und erlebt in schneller Folge Szenen aus fremder Perspektive – Durus Geburt aus ihren Augen, die Werkstatt des Vaters aus dessen Blick, dann einen unbekannten Mann an einem fremden Schreibtisch, der auf einen Befund mit dem Wort 'Tümör' starrt und zu schreiben beginnt: Er 'öffnet eine Tür auf dem Papier', setzt einen Mann, den roten Faden, das schwarze Paket und die Kinder am Frühstückstisch ein und schreibt den ersten Satz des Romans ('Öleceğimi ilk kez o sabah düşünmedim'). Der Erzähler erkennt sich als Geschriebenen eines Schreibenden, der selbst aus seiner eigenen Angst schreibt; der grüne Korridor der Kindheitserinnerung erscheint aus beiden Seiten der Tür, das Missverständnis 'Kırılmış' / 'Kapak' wird als zweiseitig erkannt, der bandagierte und der heile Daumen werden zwei Händen zugeordnet (der erlebten und der schreibenden). Die Ich-Grenze löst sich auf ('Herkes bendim'), ohne die Anderen zu vereinnahmen; er trägt Leylas Angst, Cems Angst, sagt 'Ben yaptım' für sein eigenes Schweigen, nicht an Cems Stelle. Die Kindheitsfrage aus der Werkstatt ('Hepsinin adını öğrenince ne olacak?') und der Koranvers von den Namen, die Adam gelehrt wurden, führen zur Auflösung des Namens: 'Âdem. İnsan.' – nicht der Name im Ausweis, sondern der erste Mensch, der alles neu lernt; danach 'Allah dedim', die Erfahrung, dass kein 'Gegenüber' bleibt. Der Text wendet sich zunehmend an das 'du' des Lesers: Die Tür ohne Klinke ist die zum Buchanfang, die Frage der ersten Seite kehrt wieder, die Stimme, die der Leser jetzt beim Lesen hört, wird befragt ('Benim miydi?'). Es folgen, durch Leerzeilen getrennt, die Schlusszeilen 'Bütün kanıtlarımı kaybettim.' – 'Ama hâlâ buradayım.' – 'Kim?' – und als letzte Zeile in Versalien 'BENİ ARAMA.'",
+  "characters": [
+   "Ich-Erzähler (toter Vater/Schriftsteller; hier zugleich Geschriebener, Schreibender und Leserstimme; erkennt sich als 'Âdem / İnsan')",
+   "Der Mann am Schreibtisch / 'kalemi tutan el' (der Autor der Figur – unbenannt; schreibt nach einer Tumordiagnose den Roman; nicht mit dem realen Autorennamen gleichsetzen)",
+   "Duru (Tochter; Geburtsnacht, ihre Angst, ihr Kopf auf seiner Schulter, hebt am Ende den Kopf und stellt eine unvorbereitete Frage)",
+   "Emir (Sohn)",
+   "Zeynep (Ex-Frau)",
+   "Nehir (Journalistin; 'Nehir'in yanığı' – ihre Verbrennung, hält die Hand unter kaltes Wasser)",
+   "Leyla (Nehirs getötete Schwester; 'Leyla'nın son odası', ihre Angst hinter der Tür)",
+   "Cem (Cem Arven, Meralis-Strategiedirektor, Sohn Aylins; Täter/Mitverantwortlicher an Leylas Tod, über die Akte gebeugt)",
+   "Der Vater des Erzählers (Uhrmacher; Werkstatt, überkochende Teekanne)",
+   "Der Erzähler als Kind / 'Babamın dükkânındaki çocuk' (stellt die Frage nach den Namen)",
+   "Der Mann, der Wasser reicht (Arzt/Betreuer im grünen Korridor der Kindheitserinnerung)",
+   "Der Leser / 'sen' (direkt angesprochene zweite Person Singular am Ende)",
+   "İçimdeki sesler (die benannten inneren Stimmen des Erzählers – Çocuk, Muhasebeci, Kurtarıcı, Gölge –, von denen hier 'keine vortritt')"
+  ],
+  "terms": [
+   {
+    "tr": "Boş Bırakılan Son Cümle",
+    "meaning": "Kapiteltitel: 'Der leer gelassene letzte Satz' – bezieht sich auf den Satz unter dem letzten Rückkehrpfeil ('Son okun altındaki satırı ben ne zaman yazmıştım?') und auf die typografisch leeren Absätze vor den Schlusszeilen (pids 3511, 3513, 3515, 3517, 3518 sind Leerzeilen und müssen erhalten bleiben)."
+   },
+   {
+    "tr": "Önce hastane sandım.",
+    "meaning": "'Zuerst hielt ich es für das Krankenhaus.' – Eröffnungssatz; Bezug auf den Tod im Krankenhaus (voriges Paket)."
+   },
+   {
+    "tr": "Tümör",
+    "meaning": "Kursives Einzelwort: der Befund auf dem Schreibtisch des Autors; nicht die Diagnose des Erzählers ('Benim kalbimin çizgileri değildi bunlar')."
+   },
+   {
+    "tr": "Kâğıda bir kapı açtı.",
+    "meaning": "'Er öffnete eine Tür auf dem Papier.' – der Autor beginnt den Roman; 'kapı' (Tür) ist Leitmotiv (Erster Akt heißt 'KAPI')."
+   },
+   {
+    "tr": "Kırmızı bir ip, siyah bir paket",
+    "meaning": "Roter Faden, schwarzes Paket – die Requisiten vom Romananfang (B01), hier als Erfindungen des Schreibenden sichtbar."
+   },
+   {
+    "tr": "Öleceğimi ilk kez o sabah düşünmedim.",
+    "meaning": "Wörtlich der erste Satz von Kapitel 1 (B00 pid 37); muss zeichengenau identisch mit der dortigen Übersetzung sein."
+   },
+   {
+    "tr": "Nehir'in yanığı",
+    "meaning": "Nehirs Brandwunde (sie hält die Hand unter kaltes Wasser) – Verweis auf eine frühere Szene; nicht paraphrasieren."
+   },
+   {
+    "tr": "Leyla'nın son odası",
+    "meaning": "'Leylas letztes Zimmer' – der Raum, in dem sie starb/eingeschlossen war; 'Leyla hâlâ içerideydi'."
+   },
+   {
+    "tr": "Yeşil koridor",
+    "meaning": "Grüner Korridor – wiederkehrende, ungesicherte Kindheitserinnerung (Klinik, ein Mann reicht ein Wasserglas mit nach innen gebogenem Plastikrand; B02, B05, B06, B15). Hier erstmals von beiden Seiten der Tür erlebt."
+   },
+   {
+    "tr": "“Kırılmış.” / “Kapak.”",
+    "meaning": "Zwei Repliken aus verschiedenen Zeitebenen, die ein Missverständnis bilden: 'kırılmış' = zerbrochen (Deckel/Gerät) oder gekränkt/verletzt (Mensch); 'kapak' = Deckel (des Geräts, an dem der Daumen aufgeschnitten wurde, B06 'Üst kapak kırık; sağ başparmak kesildi') und zugleich Buchdeckel/-cover. 'Birinde insan, ötekinde kırılan bir eşya vardı' – die Doppeldeutigkeit von 'kırılmış' (Sache zerbrochen / Mensch verletzt) ist tragend."
+   },
+   {
+    "tr": "Bantlı başparmak / sağlam başparmak",
+    "meaning": "Bandagierter vs. heiler Daumen – zwei Hände: die der erlebten Szene und die des Schreibenden (Motiv seit B06)."
+   },
+   {
+    "tr": "program / yarım ay",
+    "meaning": "Das halbseitige Programmblatt des Lesetags ('Bir hikâyeyi kim tamamlar?', B06) mit dem Wasserring ('halbmondförmiger Abdruck') auf der Rückseite; 'Suyun izi programın arkasına yarım ay olarak geçti'."
+   },
+   {
+    "tr": "Herkes bendim.",
+    "meaning": "'Alle waren ich.' – Kernsatz der Ich-Auflösung; sofort relativiert: das macht die Anderen nicht zu seinem Besitz."
+   },
+   {
+    "tr": "“Ben yaptım.”",
+    "meaning": "'Ich habe es getan.' – Schuldeingeständnis des Erzählers für sein eigenes Schweigen/Zögern, ausdrücklich nicht stellvertretend für Cem."
+   },
+   {
+    "tr": "Bağışlama borcu",
+    "meaning": "'Vergebungsschuld' – 'Kimseye bağışlama borcu veremiyordum': er kann niemandem eine Pflicht zur Vergebung auferlegen."
+   },
+   {
+    "tr": "Hepsinin adını öğrenince ne olacak?",
+    "meaning": "Kursive Kindheitsfrage in der Werkstatt des Vaters (B00 pid 91: die Teekanne kochte über, die Frage blieb offen): 'Was ist, wenn ich alle ihre Namen gelernt habe?'"
+   },
+   {
+    "tr": "bütün isimlerin öğretildiğini söyleyen ayet",
+    "meaning": "Anspielung auf Koran 2:31 (Bakara), 'Und Er lehrte Adam alle Namen' – im Text nicht als Zitat ausgewiesen, nur umschrieben; so belassen."
+   },
+   {
+    "tr": "Âdem. / İnsan.",
+    "meaning": "Auflösung des Namens: 'Adam. / Mensch.' – Âdem = Adam (erster Mensch) und zugleich türkisch 'adam' = Mann; 'Nüfus kâğıdımdaki ad değil' – nicht der Name im Personalausweis. Der Erzähler erhält keinen bürgerlichen Namen."
+   },
+   {
+    "tr": "Allah dedim.",
+    "meaning": "'Ich sagte Allah/Gott.' – nüchtern, ohne Ausruf; danach: 'O'nun gibi olmak isteyecek kadar yalnızdım' (Großschreibung 'O' = Gott), 'Kaynak' (die Quelle) – sufisch gefärbte Rückkehr-/Einheitsmotivik ('dönmek', 'birleşmek'), ausdrücklich ohne Verschmelzungsbild."
+   },
+   {
+    "tr": "Bana verilen hayatla ne yapmıştım?",
+    "meaning": "'Was hatte ich mit dem mir gegebenen Leben gemacht?' – Frage im Präteritum, die 'beim Lesen die Zeitform wechselt' (Leser-Gegenwart); Tempuswechsel-Hinweis im Folgesatz beachten."
+   },
+   {
+    "tr": "“Bana ne?”",
+    "meaning": "'Was geht's mich an?' – die Position, die nach der Ganzheitserfahrung nicht mehr möglich ist."
+   },
+   {
+    "tr": "kolu olmayan kapı / kitabın başına dönen kapı",
+    "meaning": "Tür ohne Klinke = Rückkehr zum Buchanfang; zirkuläre Struktur: der Roman beginnt beim Lesen immer wieder."
+   },
+   {
+    "tr": "Adı—",
+    "meaning": "'Sein/ihr Name—' abgebrochen mit Gedankenstrich; der Name wird nicht genannt; Satzzeichen übernehmen."
+   },
+   {
+    "tr": "Bir soru kalmıştı. … Belki ilk sayfada.",
+    "meaning": "Verweis auf die Frage der ersten Seite des Buches (B00 pid 4, Book Inset): 'Bir şeyin var olduğunu nasıl anlarsın?' – 'Woran erkennst du, dass etwas existiert?' Die Frage wird hier nicht wiederholt, nur evoziert."
+   },
+   {
+    "tr": "Buraya. / Şimdi bu sözcüğü okurken duyduğun ses. / Benim miydi?",
+    "meaning": "'Hierher.' – 'Die Stimme, die du jetzt beim Lesen dieses Wortes hörst.' – 'War sie meine?' – direkte Leseransprache in der 2. Person Singular; 'bura-' korrespondiert mit 'Buradaydın' (Kap. 49) und 'buradayım' (Schluss)."
+   },
+   {
+    "tr": "Bütün kanıtlarımı kaybettim.",
+    "meaning": "'Ich habe alle meine Beweise verloren.' – 'kanıt' = Beweis (Krimi-Register, Nehirs Beweissammlung) – hier auf die Ich-Identität bezogen."
+   },
+   {
+    "tr": "Ama hâlâ buradayım.",
+    "meaning": "'Aber ich bin noch hier.' – Antwort auf die Frage der ersten Seite; zwischen Leerzeilen stehend."
+   },
+   {
+    "tr": "Kim?",
+    "meaning": "'Wer?' – vorletzte Zeile, alleinstehend."
+   },
+   {
+    "tr": "BENİ ARAMA.",
+    "meaning": "Letzte Zeile des Romans, in Versalien mit Punkt. Doppeldeutig: 'Such mich nicht' und 'Ruf mich nicht an' (aramak = suchen / anrufen; im Roman wird ständig telefoniert und gesucht). Zugleich Umkehr von 'Adımı aradım' ('Ich suchte meinen Namen'). Form (Großbuchstaben, Punkt, Alleinstellung nach zwei Leerzeilen) beibehalten; Zieltext sollte möglichst beide Bedeutungen oder zumindest 'suchen' tragen."
+   },
+   {
+    "tr": "İnsan hakikati öğrenmez, hatırlar! / Hatırladığım yer orada başladı.",
+    "meaning": "Schlusssätze des vorigen Pakets (prev_tail), auf die dieses Kapitel mit 'hatırlamak' antwortet: 'Hatırlamak artık tek bir kafatasının içine sığmak zorunda değildi.'"
+   },
+   {
+    "tr": "sen / okur",
+    "meaning": "Ab pid 3482/3483 wechselt der Text in die 2. Person Singular ('sana da açılıyordu', 'kendi sesinle okuduğun insan', 'duyduğun ses'): der Leser wird angesprochen, nicht eine Figur. Duzen, kein förmliches 'Sie'."
+   }
+  ],
+  "tone": "Meditativ, mystisch-philosophisch, zugleich streng und schmucklos: sehr kurze Absätze, viele Ein-Satz- und Ein-Wort-Absätze, rhetorische Fragen, Parallelismen, Tempus- und Perspektivwechsel als Stilmittel. Religiöses Vokabular (Âdem, Allah, ayet, merhamet, zulüm) nüchtern, ohne Pathos. Gegen Ende Übergang in direkte Leseransprache; die letzten zehn Zeilen sind als einzeln stehende, durch Leerzeilen getrennte Verse gesetzt, Schlusszeile in Versalien. Keine Dialoge außer den zwei isolierten Repliken 'Kırılmış' / 'Kapak'."
  }
 ]
