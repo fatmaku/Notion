@@ -12,8 +12,7 @@
     "words": 41360,
     "text_check": {
       "model_vs_docx": "ok",
-      "print_html_vs_model": "ok",
-      "epub_vs_model": "ok"
+      "print_html_vs_model": "ok"
     },
     "pdf": "/home/user/Notion/iki-roman/interior/out/YOLCU_Innenteil_A5.pdf",
     "pdf_pages": 260,
@@ -121,7 +120,10 @@
     },
     "stranded_chapter_endings_remaining": {
       "ch-28": 2
-    }
+    },
+    "lang": "tr",
+    "slug": "YOLCU",
+    "docx": "YOLCU_TR_v5.docx"
   },
   "SA": {
     "title": "ŞAHİT",

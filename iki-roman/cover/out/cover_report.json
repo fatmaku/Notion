@@ -1,9 +1,12 @@
 {
   "BY": {
     "pages": 260,
-    "pages_source": "interior/out/report.json",
+    "pages_source": "interior/out/report.json [BY]",
     "spine_mm": 16.51,
     "tr": {
+      "pages": 260,
+      "pages_source": "interior/out/report.json [BY]",
+      "spine_mm": 16.51,
       "geometry": {
         "page_w": 318.86,
         "page_h": 216.35,
@@ -87,7 +90,7 @@
   },
   "SA": {
     "pages": 194,
-    "pages_source": "interior/out/report.json",
+    "pages_source": "interior/out/report.json [SA]",
     "spine_mm": 12.32,
     "tr": {
       "geometry": {
@@ -144,16 +147,19 @@
       ]
     },
     "de": {
+      "pages": 210,
+      "pages_source": "CLI",
+      "spine_mm": 13.34,
       "geometry": {
-        "page_w": 314.67,
+        "page_w": 315.69,
         "page_h": 216.35,
-        "spine": 12.32,
+        "spine": 13.34,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 163.495
+        "front_x": 164.51500000000001
       },
       "fullcover_check": {
-        "width_mm": 314.67,
+        "width_mm": 315.69,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",

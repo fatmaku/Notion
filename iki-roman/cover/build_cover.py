@@ -15,10 +15,14 @@ Maße (KDP): Trim 148 × 210 mm, Beschnitt 3,175 mm, Rücken = Seiten × 0,0635 
 Text-Sicherheitszone 6,35 mm vom Trim, Rückentext ≥ 1,6 mm von den Rückenkanten,
 Barcode-Freifläche 50,8 × 30,5 mm unten rechts auf der Rückseite (6,35 mm von Trim und Rücken).
 
-Aufruf: python3 build_cover.py [--pages-by N] [--pages-sa N] [--langs tr,en,de] [--books BY,SA]
-Ohne --pages-* wird interior/out/report.json gelesen; fehlt es, gelten Schätzwerte (Warnung).
+Aufruf: python3 build_cover.py [--pages BY:tr=260,BY:en=276,SA:de=210] [--langs tr,en,de] [--books BY,SA]
+Seitenzahl je (Buch, Sprache): --pages (freie Teilmenge) > interior/out/report.json (tr: Schlüssel BY/SA;
+en/de: BY_EN, BY_DE, SA_EN, SA_DE → pdf_pages) > Schätzung mit Warnung (en/de: zunächst die türkische
+Seitenzahl, sonst ESTIMATES). --pages-by/--pages-sa bleiben als Kurzform für BY:tr=N / SA:tr=N erhalten.
+cover_report.json wird je Buch/Sprache fortgeschrieben: report[BUCH]['pages'/'spine_mm'] = türkische Ausgabe
+(Kompatibilität), report[BUCH][SPRACHE]['pages'/'spine_mm'/'geometry'/'fullcover_check'/'ebook_px'] je Sprache.
 """
-import argparse, json, os, sys, math
+import argparse, json, os, re, sys, math
 from weasyprint import HTML
 import pymupdf
 from PIL import Image
@@ -58,18 +62,49 @@ def spine_width(pages):
     return round(pages * SPINE_MM_PER_PAGE, 2)
 
 
-def page_counts(args):
+def report_key(book, lang):
+    """Schlüssel im Innenteil-Bericht (interior/out/report.json): BY/SA türkisch, BY_EN, BY_DE, SA_EN, SA_DE."""
+    return book if lang == 'tr' else f'{book}_{lang.upper()}'
+
+
+def parse_pages(spec):
+    """'BY:tr=260,BY:en=276,SA:de=210' → {('BY', 'tr'): 260, ...}; jede Teilmenge erlaubt."""
     counts = {}
+    for item in filter(None, (s.strip() for s in (spec or '').split(','))):
+        m = re.fullmatch(r'(BY|SA):(tr|en|de)=(\d+)', item)
+        if not m or int(m.group(3)) <= 0:
+            sys.exit(f'--pages: ungültiger Eintrag {item!r} (erwartet BUCH:SPRACHE=N, z. B. BY:en=276)')
+        counts[(m.group(1), m.group(2))] = int(m.group(3))
+    return counts
+
+
+ESTIMATE_WARNING = 'SCHÄTZUNG – vor dem Upload mit der echten Seitenzahl neu bauen!'
+
+
+def page_counts(args):
+    """Seitenzahl und Quelle je (Buch, Sprache): CLI > interior/out/report.json > Schätzung (Warnung).
+    Für en/de ohne eigenen Innenteil gilt die türkische Seitenzahl als Schätzung, sonst ESTIMATES."""
+    cli = parse_pages(args.pages)
+    for book in ('BY', 'SA'):                                   # Altoptionen = türkische Seitenzahl
+        n = getattr(args, f'pages_{book.lower()}')
+        if n:
+            cli.setdefault((book, 'tr'), n)
     rep = os.path.join(ROOT, 'interior', 'out', 'report.json')
-    data = json.load(open(rep)) if os.path.exists(rep) else {}
-    for key in ('BY', 'SA'):
-        cli = getattr(args, f'pages_{key.lower()}')
-        if cli:
-            counts[key] = (cli, 'CLI')
-        elif key in data and data[key].get('pdf_pages'):
-            counts[key] = (int(data[key]['pdf_pages']), 'interior/out/report.json')
-        else:
-            counts[key] = (ESTIMATES[key], 'SCHÄTZUNG – vor dem Upload mit der echten Seitenzahl neu bauen!')
+    data = json.load(open(rep, encoding='utf-8')) if os.path.exists(rep) else {}
+    counts = {}
+    for book in ('BY', 'SA'):
+        for lang in LANG_NAMES:                                 # tr zuerst (Rückfall für en/de)
+            key = report_key(book, lang)
+            if (book, lang) in cli:
+                counts[(book, lang)] = (cli[(book, lang)], 'CLI')
+            elif isinstance(data.get(key), dict) and data[key].get('pdf_pages'):
+                counts[(book, lang)] = (int(data[key]['pdf_pages']), f'interior/out/report.json [{key}]')
+            elif lang != 'tr' and not counts[(book, 'tr')][1].startswith('SCHÄTZUNG'):
+                tr_pages, tr_source = counts[(book, 'tr')]
+                counts[(book, lang)] = (tr_pages, f'SCHÄTZUNG – türkische Seitenzahl übernommen ({tr_source}); '
+                                                  f'nach dem Satz des Innenteils {key} neu bauen!')
+            else:
+                counts[(book, lang)] = (ESTIMATES[book], ESTIMATE_WARNING)
     return counts
 
 
@@ -333,19 +368,25 @@ def doppelansicht(langs, report):
 
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--pages-by', type=int); ap.add_argument('--pages-sa', type=int)
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--pages', help='Seitenzahl je Buch und Sprache, z. B. BY:tr=260,BY:en=276,SA:de=210 (freie Teilmenge)')
+    ap.add_argument('--pages-by', type=int, help='Kurzform für BY:tr=N')
+    ap.add_argument('--pages-sa', type=int, help='Kurzform für SA:tr=N')
     ap.add_argument('--langs', default='tr,en,de'); ap.add_argument('--books', default='BY,SA')
     args = ap.parse_args()
     langs = args.langs.split(','); books = args.books.split(',')
     counts = page_counts(args)
-    report = {}
+    # Bericht je Buch/Sprache fortschreiben (Teilläufe löschen keine fremden Einträge)
+    report_path = os.path.join(OUT, 'cover_report.json')
+    report = json.load(open(report_path, encoding='utf-8')) if os.path.exists(report_path) else {}
     for book in books:
-        pages, source = counts[book]
-        sw = spine_width(pages)
-        print(f'{book}: {pages} Seiten ({source}) → Rücken {sw:.2f} mm')
-        report[book] = {'pages': pages, 'pages_source': source, 'spine_mm': sw}
+        tr_pages, tr_source = counts[(book, 'tr')]
+        entry = report.setdefault(book, {})
+        entry.update({'pages': tr_pages, 'pages_source': tr_source, 'spine_mm': spine_width(tr_pages)})   # = TR (Kompatibilität)
         for lang in langs:
+            pages, source = counts[(book, lang)]
+            sw = spine_width(pages)
+            print(f'{book} {LANG_NAMES[lang]}: {pages} Seiten ({source}) → Rücken {sw:.2f} mm')
             outdir = os.path.join(OUT, book, LANG_NAMES[lang]); os.makedirs(outdir, exist_ok=True)
             pdf, geo = build_fullcover(book, lang, pages, outdir)
             chk = check_pdf(pdf, geo['page_w'], geo['page_h'])
@@ -353,11 +394,13 @@ def main():
             jpg, size = build_ebook(book, lang, outdir)
             render_png(pdf, os.path.join(outdir, 'Vorschau.png'), dpi=72)
             guides_png(pdf, os.path.join(outdir, 'Fullcover_Guides.png'), geo)
-            report[book][lang] = {'geometry': geo, 'fullcover_check': chk, 'ebook_px': size}
+            entry[lang] = {'pages': pages, 'pages_source': source, 'spine_mm': sw,
+                           'geometry': geo, 'fullcover_check': chk, 'ebook_px': size}
             print(f'  {LANG_NAMES[lang]}: Fullcover {chk["width_mm"]} x {chk["height_mm"]} mm, Fonts eingebettet: {chk["fonts_embedded"]}, eBook {size}')
     if set(books) >= {'BY', 'SA'}:
         doppelansicht(langs, report)
-    json.dump(report, open(os.path.join(OUT, 'cover_report.json'), 'w'), indent=2, ensure_ascii=False)
+    os.makedirs(OUT, exist_ok=True)
+    json.dump(report, open(report_path, 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
     print('fertig →', OUT)
 
 

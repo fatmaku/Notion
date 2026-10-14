@@ -2,7 +2,10 @@
 """docx2book.py — Manuskript (DOCX) → Druck-PDF (A5, KDP) und Kindle-EPUB.
 
 Aufruf:
-    python3 docx2book.py --book BY|SA [--pdf] [--epub] [--cover kapak.jpg] [--out out/] [--preview]
+    python3 docx2book.py --book BY|SA|BY_EN|BY_DE|SA_EN|SA_DE [--pdf] [--epub] [--cover kapak.jpg] [--out out/] [--preview]
+
+Buchschlüssel: BY/SA = türkische Originale, *_EN/*_DE = Übersetzungen (eigenes DOCX unter
+interior/src/i18n/<slug>.docx, eigene Dateinamen über `slug`, UI-Texte aus STRINGS[lang]).
 
 Ablauf:
     DOCX ──parse──▶ Absatzliste (Stil, Runs, Bilder)
@@ -12,7 +15,7 @@ Ablauf:
                     (b) EPUB-3-Paket mit epub.css ──epubcheck──▶ Bericht
 
 Türkisch: Groß-/Kleinschreibung wird nie per CSS verändert (i→İ, ı→I nur in Python).
-Weiche Trennzeichen (tr_hyphen) nur im Druck-HTML, nie im EPUB.
+Weiche Trennzeichen (hyphen.py: tr regelbasiert, en/de pyphen) nur im Druck-HTML, nie im EPUB.
 Alle Ausgaben sind deterministisch (feste Zeitstempel im EPUB, uuid5-Kennung).
 """
 from __future__ import annotations
@@ -39,7 +42,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from tr_hyphen import SHY, hyphenate_text  # noqa: E402
+from hyphen import SHY, hyphenate_text  # noqa: E402  (tr: tr_hyphen, en/de: pyphen)
 
 ROOT = HERE.parent
 FONT_DIR = ROOT / "fonts"
@@ -51,6 +54,7 @@ UPLOADS = Path("/root/.claude/uploads/6549e111-23e7-5e00-8587-d424b5294a16")
 BOOKS = {
     "BY": {
         "docx": UPLOADS / "d3456fe2-BEN_YOKSAM_1453_TR.docx",
+        "lang": "tr",
         "slug": "YOLCU",
         "title": "YOLCU",             # vormals BEN YOKSAM (Titeländerung 01.10.2026)
         "author": "Tuncay Sancak",
@@ -60,6 +64,7 @@ BOOKS = {
     },
     "SA": {
         "docx": UPLOADS / "883e6864-SAHIDI_ARARKEN_TR.docx",
+        "lang": "tr",
         "slug": "SAHIT",
         "title": "ŞAHİT",             # vormals ŞAHİDİ ARARKEN
         "author": "Mustafa Sefa Güvenir",
@@ -69,6 +74,23 @@ BOOKS = {
         "genre": "Roman",
     },
 }
+I18N_SRC = ROOT / "interior" / "src" / "i18n"     # übersetzte Manuskripte: <slug>.docx
+
+
+def _translation(base: str, lang: str, slug: str, title: str, **extra) -> dict:
+    """Übersetzungsausgabe: wie das Original (Struktur, Prüfzahlen, Kolumnentitel-Stil), aber eigene
+    Sprache, eigener Dateiname und eigenes Manuskript. `title` entspricht cover/texts.json → title_i18n;
+    gesetzt wird stets der Titel aus dem DOCX (Absatzvorlage Title), der Registerwert dient nur dem Abgleich."""
+    cfg = dict(BOOKS[base])
+    cfg.update(lang=lang, slug=slug, title=title, docx=I18N_SRC / f"{slug}.docx")
+    cfg.update(extra)
+    return cfg
+
+
+BOOKS["BY_EN"] = _translation("BY", "en", "YOLCU_EN", "THE TRAVELLER")
+BOOKS["BY_DE"] = _translation("BY", "de", "YOLCU_DE", "DER REISENDE")
+BOOKS["SA_EN"] = _translation("SA", "en", "SAHIT_EN", "THE WITNESS", genre="A Novel")
+BOOKS["SA_DE"] = _translation("SA", "de", "SAHIT_DE", "DER ZEUGE", genre="Roman")
 
 PAGE_W, PAGE_H = 148.0, 210.0
 M_INNER, M_OUTER, M_TOP, M_BOTTOM = 20.0, 15.5, 16.5, 16.5
@@ -76,6 +98,68 @@ TYPE_W = PAGE_W - M_INNER - M_OUTER   # 112.5 mm
 TYPE_H = PAGE_H - M_TOP - M_BOTTOM    # 177 mm
 
 ORNAMENT = "•  •  •"
+
+# ----------------------------------------------------------------------------
+# Sprachabhängige Texte – alles, was nicht aus dem Manuskript kommt (Überschriften,
+# Kapiteltexte, Widmung, Motto usw. stehen übersetzt im jeweiligen DOCX).
+# ----------------------------------------------------------------------------
+STRINGS = {
+    "tr": {
+        "toc": "İçindekiler", "toc_caps": "İÇİNDEKİLER",          # IHV (EPUB / Druck, Versalien)
+        "dedication": "İthaf", "copyright": "Telif",               # EPUB-Seitentitel
+        "cover": "Kapak", "cover_alt": "{title} — kapak", "start": "Başlangıç",   # EPUB-Landmarks/guide
+        "illustration": "İllüstrasyon",                            # Bildtafeln (alt/Titel)
+        "temp_cover": "GEÇİCİ KAPAK", "temp_cover_source": "geçici (otomatik üretildi)",
+        "meta_description": "{title} — {author}. İç sayfa dizgisi, A5.",
+        "copyright_lines": [
+            ("", "© 2026 {author}. Tüm hakları saklıdır."),
+            ("", "Bu kitabın hiçbir bölümü yazarın yazılı izni olmadan çoğaltılamaz."),
+            ("cp-gap", "Kapak tasarımı: ____________"),
+            ("", "ISBN: ____________ (KDP tarafından atanır)"),
+            ("", "Birinci baskı, 2026"),
+            ("cp-gap", "Dizgi: Literata & Cinzel (SIL Open Font License)"),
+        ],
+    },
+    "en": {
+        "toc": "Contents", "toc_caps": "CONTENTS",
+        "dedication": "Dedication", "copyright": "Copyright",
+        "cover": "Cover", "cover_alt": "{title} — cover", "start": "Beginning",
+        "illustration": "Illustration",
+        "temp_cover": "TEMPORARY COVER", "temp_cover_source": "temporary (generated automatically)",
+        "meta_description": "{title} — {author}. Interior typesetting, A5.",
+        "copyright_lines": [
+            ("", "© 2026 {author}. All rights reserved."),
+            ("", "No part of this book may be reproduced without the written permission of the author."),
+            ("cp-gap", "Cover design: ____________"),
+            ("", "ISBN: ____________ (assigned by KDP)"),
+            ("", "First edition, 2026"),
+            ("cp-gap", "Typeset in Literata & Cinzel (SIL Open Font License)"),
+        ],
+    },
+    "de": {
+        "toc": "Inhalt", "toc_caps": "INHALT",
+        "dedication": "Widmung", "copyright": "Impressum",
+        "cover": "Umschlag", "cover_alt": "{title} — Umschlag", "start": "Textanfang",
+        "illustration": "Illustration",
+        "temp_cover": "VORLÄUFIGES COVER", "temp_cover_source": "vorläufig (automatisch erzeugt)",
+        "meta_description": "{title} — {author}. Innenteil-Satz, A5.",
+        "copyright_lines": [
+            ("", "© 2026 {author}. Alle Rechte vorbehalten."),
+            ("", "Kein Teil dieses Buches darf ohne schriftliche Genehmigung des Autors vervielfältigt werden."),
+            ("cp-gap", "Umschlaggestaltung: ____________"),
+            ("", "ISBN: ____________ (wird von KDP vergeben)"),
+            ("", "Erste Auflage 2026"),
+            ("cp-gap", "Satz: Literata & Cinzel (SIL Open Font License)"),
+        ],
+    },
+}
+
+HYPH_LANG = "tr"   # Sprache der Silbentrennung im Druck-HTML; main() setzt sie aus BOOKS[key]["lang"]
+
+
+def strings(book) -> dict:
+    """Sprachtabelle des Buches."""
+    return STRINGS[book.cfg["lang"]]
 
 
 def tr_upper(s: str) -> str:
@@ -429,7 +513,7 @@ def runs_html(runs: list[Run], hyph: bool) -> str:
     des Absatzes (kein abgetrennter Wortrest als letzte Zeile)."""
     out = []
     for r in runs:
-        t = hyphenate_text(r.text) if hyph else r.text
+        t = hyphenate_text(r.text, HYPH_LANG) if hyph else r.text
         t = esc(t).replace("\n", "<br/>")
         if r.bold:
             t = f"<strong>{t}</strong>"
@@ -523,14 +607,7 @@ def copyright_lines(book: Book) -> list[tuple[str, str]]:
     lines = [("cp-title", book.front.title)]
     if book.front.subtitle:
         lines.append(("cp-subtitle", book.front.subtitle))
-    return lines + [
-        ("", f"© 2026 {a}. Tüm hakları saklıdır."),
-        ("", "Bu kitabın hiçbir bölümü yazarın yazılı izni olmadan çoğaltılamaz."),
-        ("cp-gap", "Kapak tasarımı: ____________"),
-        ("", "ISBN: ____________ (KDP tarafından atanır)"),
-        ("", "Birinci baskı, 2026"),
-        ("cp-gap", "Dizgi: Literata & Cinzel (SIL Open Font License)"),
-    ]
+    return lines + [(cls, text.format(author=a)) for cls, text in strings(book)["copyright_lines"]]
 
 
 def dedication_html(book: Book) -> str:
@@ -633,7 +710,7 @@ def make_temp_cover(book: Book, path: Path) -> None:
     dr.line([W / 2 - 120, 1900, W / 2 + 120, 1900], fill=(120, 108, 80), width=2)
     tw = dr.textlength(book.front.author, font=f_auth)
     dr.text(((W - tw) / 2, 2000), book.front.author, font=f_auth, fill=(220, 214, 196))
-    note = "GEÇİCİ KAPAK"
+    note = strings(book)["temp_cover"]
     tw = dr.textlength(note, font=f_note)
     dr.text(((W - tw) / 2, 2400), note, font=f_note, fill=(110, 110, 110))
     im.save(path, "JPEG", quality=90, optimize=True)
@@ -647,6 +724,7 @@ def print_html(book: Book, build_dir: Path, first_body_page: Optional[int],
     """Druck-HTML. `tracking`: {Kapitel-ID: letter-spacing in em} zur Vermeidung verwaister
     Kapitelenden (1–2 Zeilen allein auf der letzten Seite)."""
     cfg, f = book.cfg, book.front
+    lang, S = cfg["lang"], strings(book)
     css_path = HERE / "print.css"
     img_dir = build_dir / "img_print"
     img_dir.mkdir(parents=True, exist_ok=True)
@@ -670,10 +748,10 @@ def print_html(book: Book, build_dir: Path, first_body_page: Optional[int],
         if em:
             extra_css += f"#{uid} p {{ letter-spacing: {em:+.3f}em; }}\n"
 
-    out = [f'<!DOCTYPE html>\n<html lang="tr"><head><meta charset="utf-8"/>',
+    out = [f'<!DOCTYPE html>\n<html lang="{lang}"><head><meta charset="utf-8"/>',
            f"<title>{esc(f.title)}</title>",
            f'<meta name="author" content="{esc(f.author)}"/>',
-           f'<meta name="description" content="{esc(f.title)} — {esc(f.author)}. İç sayfa dizgisi, A5."/>',
+           f'<meta name="description" content="{esc(S["meta_description"].format(title=f.title, author=f.author))}"/>',
            f'<meta name="generator" content="docx2book.py"/>',
            f'<link rel="stylesheet" href="{css_path.as_uri()}"/>',
            f"<style>{extra_css}</style></head><body>"]
@@ -691,7 +769,7 @@ def print_html(book: Book, build_dir: Path, first_body_page: Optional[int],
     numbered = any(u.number for u in book.chapters)
     ncol = '<td class="n">{}</td>' if numbered else ""
     span = ' colspan="2"' if numbered else ""
-    toc = ['<nav class="toc" id="toc"><h1>İÇİNDEKİLER</h1><table>']
+    toc = [f'<nav class="toc" id="toc"><h1>{esc(S["toc_caps"])}</h1><table>']
     for u in book.units:
         if u.kind == "act":
             toc.append(f'<tr class="toc-act"><td{span}><a href="#{u.id}">{esc(u.title)}</a></td></tr>')
@@ -880,19 +958,19 @@ def verify_toc_numbers(pdf_path: Path, book: Book, anchors: dict[str, int], firs
 # ----------------------------------------------------------------------------
 XHTML_HEAD = ('<?xml version="1.0" encoding="utf-8"?>\n<!DOCTYPE html>\n'
               '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" '
-              'xml:lang="tr" lang="tr">\n<head>\n<meta charset="utf-8"/>\n<title>{title}</title>\n'
+              'xml:lang="{lang}" lang="{lang}">\n<head>\n<meta charset="utf-8"/>\n<title>{title}</title>\n'
               '<link rel="stylesheet" type="text/css" href="../epub.css"/>\n</head>\n<body{body_attr}>\n')
 XHTML_FOOT = "\n</body>\n</html>\n"
 
 
-def xhtml(title: str, body: str, epub_type: str = "") -> str:
+def xhtml(title: str, body: str, epub_type: str = "", lang: str = "tr") -> str:
     attr = f' epub:type="{epub_type}"' if epub_type else ""
-    return XHTML_HEAD.format(title=esc(title), body_attr=attr) + body + XHTML_FOOT
+    return XHTML_HEAD.format(title=esc(title), body_attr=attr, lang=lang) + body + XHTML_FOOT
 
 
 def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]) -> dict:
     cfg, f = book.cfg, book.front
-    slug = cfg["slug"]
+    slug, lang, S = cfg["slug"], cfg["lang"], strings(book)
     src_dir = build_dir / f"{slug}_epub"
     for sub in ("META-INF", "OEBPS/text", "OEBPS/images", "OEBPS/fonts"):
         (src_dir / sub).mkdir(parents=True, exist_ok=True)
@@ -906,7 +984,7 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
         cover_source = str(cover)
     else:
         make_temp_cover(book, cover_path)
-        cover_source = "geçici (otomatik üretildi)"
+        cover_source = S["temp_cover_source"]
     files.append(("OEBPS/images/cover.jpg", cover_path.read_bytes()))
     files.append(("OEBPS/epub.css", (HERE / "epub.css").read_bytes()))
     files.append(("OEBPS/fonts/Cinzel-700.ttf", (FONT_DIR / "Cinzel-700.ttf").read_bytes()))
@@ -923,7 +1001,7 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
     text_files: dict[str, str] = {}
 
     def add_page(pid: str, fname: str, title: str, body: str, epub_type: str = "", linear: bool = True):
-        content = xhtml(title, body, epub_type)
+        content = xhtml(title, body, epub_type, lang)
         text_files[fname] = content
         files.append((f"OEBPS/text/{fname}", content.encode("utf-8")))
         manifest.append((pid, f"text/{fname}", "application/xhtml+xml", ""))
@@ -935,20 +1013,20 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
 
     # Vorspann
     add_page("cover", "cover.xhtml", f.title,
-             f'<section class="cover" epub:type="cover"><img src="../images/cover.jpg" alt="{esc(f.title)} — kapak"/></section>',
+             f'<section class="cover" epub:type="cover"><img src="../images/cover.jpg" alt="{esc(S["cover_alt"].format(title=f.title))}"/></section>',
              "frontmatter")
     add_page("titlepage", "titlepage.xhtml", f.title,
              f'<section class="titlepage" epub:type="titlepage">{titlepage_html(book)}</section>', "frontmatter")
     if f.frontispiece is not None:
         add_image("img-frontispiece", "frontispiece.jpg", image_for_epub(f.frontispiece.image[1]))
         add_page("frontispiece", "frontispiece.xhtml", f.title,
-                 '<section class="frontispiece"><img src="../images/frontispiece.jpg" alt="İllüstrasyon"/></section>',
+                 f'<section class="frontispiece"><img src="../images/frontispiece.jpg" alt="{esc(S["illustration"])}"/></section>',
                  "frontmatter")
     cp = "".join(f'<p class="{c}">{esc(t)}</p>' if c else f"<p>{esc(t)}</p>" for c, t in copyright_lines(book))
-    add_page("copyright", "copyright.xhtml", "Telif", f'<section class="copyright" epub:type="copyright-page">{cp}</section>',
+    add_page("copyright", "copyright.xhtml", S["copyright"], f'<section class="copyright" epub:type="copyright-page">{cp}</section>',
              "frontmatter")
     if f.dedication:
-        add_page("dedication", "dedication.xhtml", "İthaf",
+        add_page("dedication", "dedication.xhtml", S["dedication"],
                  f'<section class="dedication" epub:type="dedication">{dedication_html(book)}</section>', "frontmatter")
 
     # Werkteil-Dateien (zuerst erzeugen, damit das HTML-IHV die Dateinamen kennt)
@@ -963,8 +1041,8 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
             title = u.title
         elif u.kind == "plate":
             add_image(f"img-{u.id}", f"{u.id}.jpg", image_for_epub(u.para.image[1]))
-            body = f'<section class="plate" id="{u.id}"><img src="../images/{u.id}.jpg" alt="İllüstrasyon"/></section>'
-            title = "İllüstrasyon"
+            body = f'<section class="plate" id="{u.id}"><img src="../images/{u.id}.jpg" alt="{esc(S["illustration"])}"/></section>'
+            title = S["illustration"]
         else:
             body = (f'<section class="chapter" id="{u.id}" epub:type="chapter">{chapter_head_html(u, book, "epub")}\n'
                     f'{blocks_html(u.blocks, "epub")}</section>')
@@ -972,7 +1050,7 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
         body_pages.append((u.id, fname, u, title, body))
 
     # HTML-Inhaltsverzeichnis
-    toc = ['<section class="toc"><h1>İçindekiler</h1>']
+    toc = [f'<section class="toc"><h1>{esc(S["toc"])}</h1>']
     for u in book.units:
         if u.kind == "act":
             toc.append(f'<p class="toc-act"><a href="{u.id}.xhtml">{esc(u.title)}</a></p>')
@@ -982,7 +1060,7 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
                 if b.kind == "h2":
                     toc.append(f'<p class="toc-sub"><a href="{u.id}.xhtml#{b.id}">{esc(b.paras[0].text.strip())}</a></p>')
     toc.append("</section>")
-    add_page("toc", "toc.xhtml", "İçindekiler", "\n".join(toc), "frontmatter")
+    add_page("toc", "toc.xhtml", S["toc"], "\n".join(toc), "frontmatter")
 
     first_body_file = None
     for pid, fname, u, title, body in body_pages:
@@ -1016,13 +1094,13 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
         return "\n".join(out)
 
     tree = nav_tree()
-    nav_body = (f'<nav epub:type="toc" id="toc">\n<h1>İçindekiler</h1>\n{ol(tree)}\n</nav>\n'
+    nav_body = (f'<nav epub:type="toc" id="toc">\n<h1>{esc(S["toc"])}</h1>\n{ol(tree)}\n</nav>\n'
                 f'<nav epub:type="landmarks" hidden="hidden">\n<ol>\n'
-                f'  <li><a epub:type="cover" href="text/cover.xhtml">Kapak</a></li>\n'
-                f'  <li><a epub:type="toc" href="text/toc.xhtml">İçindekiler</a></li>\n'
-                f'  <li><a epub:type="bodymatter" href="text/{first_body_file}">Başlangıç</a></li>\n'
+                f'  <li><a epub:type="cover" href="text/cover.xhtml">{esc(S["cover"])}</a></li>\n'
+                f'  <li><a epub:type="toc" href="text/toc.xhtml">{esc(S["toc"])}</a></li>\n'
+                f'  <li><a epub:type="bodymatter" href="text/{first_body_file}">{esc(S["start"])}</a></li>\n'
                 f'</ol>\n</nav>')
-    nav = xhtml("İçindekiler", nav_body).replace('href="../epub.css"', 'href="epub.css"')
+    nav = xhtml(S["toc"], nav_body, lang=lang).replace('href="../epub.css"', 'href="epub.css"')
     files.append(("OEBPS/nav.xhtml", nav.encode("utf-8")))
 
     book_uuid = "urn:uuid:" + str(uuid.uuid5(uuid.NAMESPACE_URL, f"https://kdp.example/{slug}/{f.author}"))
@@ -1041,9 +1119,9 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
             out.append(f"{pad}</navPoint>")
         return "\n".join(out)
 
-    ncx_nodes = [("İçindekiler", "text/toc.xhtml", [])] + tree
+    ncx_nodes = [(S["toc"], "text/toc.xhtml", [])] + tree
     ncx = (f'<?xml version="1.0" encoding="utf-8"?>\n'
-           f'<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="tr">\n<head>\n'
+           f'<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="{lang}">\n<head>\n'
            f'  <meta name="dtb:uid" content="{book_uuid}"/>\n  <meta name="dtb:depth" content="3"/>\n'
            f'  <meta name="dtb:totalPageCount" content="0"/>\n  <meta name="dtb:maxPageNumber" content="0"/>\n</head>\n'
            f'<docTitle><text>{esc(f.title)}</text></docTitle>\n<docAuthor><text>{esc(f.author)}</text></docAuthor>\n'
@@ -1068,23 +1146,23 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
     subtitle = (f'    <dc:title id="subtitle">{esc(f.subtitle)}</dc:title>\n'
                 f'    <meta refines="#subtitle" property="title-type">subtitle</meta>\n') if f.subtitle else ""
     opf = (f'<?xml version="1.0" encoding="utf-8"?>\n'
-           f'<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid" xml:lang="tr">\n'
+           f'<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid" xml:lang="{lang}">\n'
            f'  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">\n'
            f'    <dc:identifier id="bookid">{book_uuid}</dc:identifier>\n'
            f'    <dc:title id="title">{esc(f.title)}</dc:title>\n'
            f'    <meta refines="#title" property="title-type">main</meta>\n{subtitle}'
            f'    <dc:creator id="creator">{esc(f.author)}</dc:creator>\n'
            f'    <meta refines="#creator" property="role" scheme="marc:relators">aut</meta>\n'
-           f'    <dc:language>tr</dc:language>\n'
+           f'    <dc:language>{lang}</dc:language>\n'
            f'    <dc:publisher>{esc(f.author)}</dc:publisher>\n'
            f'    <dc:date>2026-01-01</dc:date>\n'
            f'    <meta property="dcterms:modified">{modified}</meta>\n'
            f'    <meta name="cover" content="cover-image"/>\n'
            f'  </metadata>\n  <manifest>\n{items}\n  </manifest>\n'
            f'  <spine toc="ncx">\n{refs}\n  </spine>\n'
-           f'  <guide>\n    <reference type="cover" title="Kapak" href="text/cover.xhtml"/>\n'
-           f'    <reference type="toc" title="İçindekiler" href="text/toc.xhtml"/>\n'
-           f'    <reference type="text" title="Başlangıç" href="text/{first_body_file}"/>\n  </guide>\n'
+           f'  <guide>\n    <reference type="cover" title="{esc(S["cover"])}" href="text/cover.xhtml"/>\n'
+           f'    <reference type="toc" title="{esc(S["toc"])}" href="text/toc.xhtml"/>\n'
+           f'    <reference type="text" title="{esc(S["start"])}" href="text/{first_body_file}"/>\n  </guide>\n'
            f'</package>\n')
     files.append(("OEBPS/content.opf", opf.encode("utf-8")))
     files.append(("META-INF/container.xml", (
@@ -1202,9 +1280,15 @@ def main(argv=None) -> int:
     cfg = dict(BOOKS[args.book])
     if args.docx:
         cfg["docx"] = args.docx if args.docx.is_absolute() else (Path.cwd() / args.docx)
-    print(f"[{args.book}] lese {cfg['docx'].name}")
+    global HYPH_LANG
+    HYPH_LANG = cfg["lang"]
+    if not cfg["docx"].exists():
+        raise SystemExit(f"FEHLER: Manuskript {cfg['docx']} nicht gefunden (mit --docx angeben).")
+    print(f"[{args.book}] lese {cfg['docx'].name} (Sprache {cfg['lang']}, Ausgabe {cfg['slug']}_*)")
     paras = parse_docx(cfg["docx"])
     book = build_book(args.book, paras)
+    if book.front.title != cfg["title"]:
+        print(f"[{args.book}] HINWEIS: Titel im DOCX {book.front.title!r} ≠ Register {cfg['title']!r} – gesetzt wird der DOCX-Titel.")
     model_check = diff_report(docx_text(paras), model_text(book))
     print(f"[{args.book}] {len(paras)} Absätze, {len(book.chapters)} Kapitel, "
           f"{len([u for u in book.units if u.kind == 'act'])} Akte, {len(book.plates)} Bildtafeln; Modellprüfung: {model_check}")
@@ -1216,6 +1300,7 @@ def main(argv=None) -> int:
     entry = report.get(args.book, {})
     entry.update({
         "title": book.front.title, "author": book.front.author,
+        "lang": cfg["lang"], "slug": cfg["slug"], "docx": cfg["docx"].name,
         "chapters": len(book.chapters),
         "heading1_paragraphs": sum(1 for p in paras if p.style == "Heading 1"),
         "heading1_expected": cfg["expected_h1"],
@@ -1224,7 +1309,8 @@ def main(argv=None) -> int:
         "images": len(book.plates) + (1 if book.front.frontispiece else 0),
         "docx_paragraphs": len(paras),
         "words": len(re.findall(r"\w+", docx_text(paras))),
-        "text_check": {"model_vs_docx": model_check},
+        # Teilprüfungen fortschreiben: ein reiner --pdf-Lauf löscht nicht das EPUB-Ergebnis (und umgekehrt)
+        "text_check": {**entry.get("text_check", {}), "model_vs_docx": model_check},
     })
 
     if args.pdf:
