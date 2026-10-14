@@ -1,0 +1,128 @@
+[
+ {
+  "key": "Kırılmış.",
+  "severity": "medium",
+  "problem": "„Zerbrochen.“ trägt die Doppeldeutigkeit nicht, auf der die Szene beruht. Türkisch kırılmak heißt (1) zerbrechen und (2) alltäglich ‚gekränkt/beleidigt sein‘. SA [1328]: „Birinin elinde bozuk bir alet, ötekinin önünde boş bir bardak vardı. İlk sözü alete mi, karşısındaki insana mı söylediğini yazmadım. … Bazen tek kelimeyi eksik bırakınca iki ayrı hikâye aynı masaya oturuyordu.“ BY [3453]: „Birinde insan, ötekinde kırılan bir eşya vardı. Şimdi yanlış anlaşılmanın iki tarafını da biliyordum.“ Das ‚Missverständnis‘ funktioniert nur, wenn das Wort einem Gegenüber ins Gesicht gesagt werden kann. „Zerbrochen“ über einen Menschen ist kein Alltagssatz (ein ‚zerbrochener Mensch‘ ist existenziell vernichtet, nicht gekränkt), und zum Gerät passt es ebenfalls schlecht: SA [1328] nennt es „bozuk bir alet“ (defekt, nicht zersplittert). Die Begründung in notes (‚Kaputt verlöre die Kränkung‘) trifft auf ‚Zerbrochen‘ genauso zu – es überschießt statt zu kränken. Die evidenzielle -mış-Nuance (‚offenbar‘) geht in jeder Ein-Wort-Lösung verloren, das ist hinnehmbar.",
+  "suggestion": "„Angeknackst.“ (Gerät: angebrochen/gesprungen; Mensch, umgangssprachlich: angeschlagen, gekränkt – trägt beide Lesarten in alltäglichem Register und bleibt leicht wie kırılmış) oder schlichter „Kaputt.“ (Gerät: defekt = ‚bozuk‘; Mensch: ‚Du bist ja kaputt‘ = fertig/am Ende). Beides lässt SA [1328] offen, ob zum Gerät oder zum Gegenüber gesprochen wird; „Zerbrochen.“ tut das nicht. Übersetzung von SA [1328] ‚bozuk bir alet‘ dann abstimmen (‚ein kaputtes Gerät‘).",
+  "critic": "shared de critic-adv"
+ },
+ {
+  "key": "Bazen onları ben yazmıyorum gibi geliyor",
+  "severity": "low",
+  "problem": "„als wäre nicht ich es, der sie schreibt“ ist grammatisch, aber die Stellung ‚nicht ich es‘ wirkt gestelzt; die idiomatische Spaltsatz-Negation lautet ‚als wäre ich es nicht, der …‘. Zudem: In BY [3201]–[3203] steht der Satz direkt nach „Ich öffnete die Tür. Den Namen des Mannes …“ – ‚sie‘ wird für einen Moment auf ‚die Tür‘ (f. Sg.) bezogen; erst der Folgesatz („… reden sie in ihren Zimmern weiter“) löst zum Plural auf. In SA [1698] ist der Vorgänger „Onu yazdığınızı söylüyorsunuz“ (Sg. ‚ihn‘), auch dort muss der Plural ‚sie‘ hörbar sein.",
+  "suggestion": "„Manchmal kommt es mir vor, als wäre ich es nicht, der sie schreibt“ – oder, wenn der Pluralbezug sicherer sein soll: „Manchmal kommt es mir vor, als schriebe nicht ich sie“. Der Folgesatz „Auch wenn ich schweige, reden sie in ihren Zimmern weiter.“ ist in beiden Büchern obligatorisch direkt anzuschließen, damit ‚sie‘ = die Figuren eindeutig wird.",
+  "critic": "shared de critic-adv"
+ },
+ {
+  "key": "kırmızı ip",
+  "severity": "low",
+  "problem": "Der Checker wählt Absätze per Teilstring des türkischen Schlüssels (i18n_export.py:56), also auch ‚kırmızı ipe/ipi/iple‘, und verlangt dort „rote Schnur“ wörtlich (i18n_build.py:49). BY [2796] „Kâğıt rulo, ince bir kırmızı iple bağlanmıştı.“ erzwingt im Deutschen natürlicherweise Dativ (‚mit einer dünnen roten Schnur gebunden‘) → Build-Fehler. BY [168] „paketin üzerindeki kırmızı ipe baktı“ ist nur im Akkusativ (‚sah auf die rote Schnur‘) konform, ‚blickte zur roten Schnur‘ nicht. Die fixed_context nennt die Regel, aber nicht die konkrete Zwangsstelle.",
+  "suggestion": "Für BY [2796] vorab festlegen: „Die Papierrolle hielt eine dünne rote Schnur zusammen.“ (Nominativ); für BY [168]: „… sah auf die rote Schnur auf dem Paket.“ Optional in fixed_context die beiden Absatznummern als Pflicht-Umformulierungen eintragen, damit der Übersetzer nicht erst am Build scheitert.",
+  "critic": "shared de critic-adv"
+ },
+ {
+  "key": "Metale üç kez vuruluyor, sonra biri su istiyordu",
+  "severity": "low",
+  "problem": "Der Schlüssel beginnt mit großem ‚Metale‘; in SA [1324] steht „Sahnedeki kayıtta metale üç kez vuruluyor, …“ kleingeschrieben. Da der Abgleich case-sensitiv ist (i18n_export.py:56 `f in text`), wird der feste Satz in SA gar nicht erzwungen – ein SA-Übersetzer kann z. B. ‚wurde dreimal auf Metall geschlagen‘ schreiben, und die Brücke zu BY [989] reißt unbemerkt. Außerdem ist die in fixed_context vorgeschlagene Einbettung „In der Aufnahme der Szene: Drei Schläge …“ hölzern; nach Doppelpunkt ist die Großschreibung nur vertretbar, weil der zweite Teil ein finiter Satz ist.",
+  "suggestion": "In fixed_context ausdrücklich vermerken, dass SA [1324] trotz fehlender Checker-Abdeckung die Wendung wörtlich enthalten muss (oder im Tool eine kleingeschriebene Variante des Schlüssels ergänzen – außerhalb dieser Datei). Natürlichere SA-Einbettung mit korrekter Großschreibung: „Auf der Aufnahme in der Szene: Drei Schläge auf Metall, dann bat jemand um Wasser.“ oder „Die Aufnahme in der Szene: Drei Schläge auf Metall, dann bat jemand um Wasser.“",
+  "critic": "shared de critic-adv"
+ },
+ {
+  "key": "Okurken hangi elinle tuttuğunu kontrol et.",
+  "severity": "low",
+  "problem": "„… mit welcher Hand du es hältst“ braucht ein neutrales Bezugswort, das der Türkische (objektlos) nicht liefert. In BY [2801] steht der Satz allein; der letzte Gegenstand davor ist BY [2798] „temiz bir yaprak“ (→ ‚ein sauberes Blatt‘, n. – passt) und in SA [1323] „Defterime“ (→ ‚Heft‘/‚Notizbuch‘, n. – passt). Wählt der Übersetzer dort ‚Seite‘ oder ‚Kladde‘ (f.), hängt ‚es‘ in der Luft. Der Satz ist außerdem an den tatsächlichen Leser gerichtet (BY [3444] ‚die Hand außerhalb der Zeile‘), wofür ‚es‘ schwach deiktisch ist.",
+  "suggestion": "Entweder in fixed_context festhalten, dass vor beiden Fundstellen ein neutrales Bezugswort (Blatt/Heft/Notizbuch) stehen muss, oder deiktisch formulieren: „Prüfe beim Lesen, in welcher Hand du das hier hältst.“ (‚in welcher Hand‘ ist für ‚halten‘ zudem idiomatischer als ‚mit welcher Hand‘).",
+  "critic": "shared de critic-adv"
+ },
+ {
+  "key": "names: Yesrib / Medine",
+  "severity": "low",
+  "problem": "Die Regel gibt Großstädten deutsche Exonyme (Mekka, Medina), lässt aber ‚Yesrib‘ in türkischer Form. SA [1285] nennt beides in einem Satz: „ismi önceleri Yesrib sonradan Medine olarak … değişen“ → ‚früher Yesrib, später Medina‘ mischt zwei Systeme; der deutsche Leser kennt ‚Yathrib‘ (so in allen deutschen Nachschlagewerken), ‚Yesrib‘ erkennt er nicht als denselben Ort.",
+  "suggestion": "„Yesrib“ → „Yathrib“ (SA [1266], [1285]), konsistent mit ‚Mekka/Medina‘; die Erzähler-Regel (Musa, Havva, Bilal …) auf Personen beschränken, nicht auf Ortsnamen mit etabliertem deutschem Namen.",
+  "critic": "shared de critic-adv"
+ },
+ {
+  "key": "fixed.İnsan hakikati öğrenmez, hatırlar",
+  "problem": "„er erinnert sich“ ohne Objekt wirkt im Deutschen abgebrochen (sich erinnern verlangt normalerweise ein ‚an …‘/‚daran‘); im Türkischen ist das Objekt ‚hakikati‘ nur elidiert, nicht fehlend. Als Motto, das 6× steht (SA [40], [362], [473] im Mund des Iblis, [1540], [1714] mit Komma statt ‚!‘, BY [3382]), muss der Satz als vollständiger Aphorismus tragen. Zudem listet fixed_context nur 3 der 6 Fundstellen.",
+  "suggestion": "„Der Mensch lernt die Wahrheit nicht, er erinnert sich an sie“ (passt mit ‚!‘, ‚.‘ und ‚,“‘ an allen sechs Stellen; motto = „… an sie!“). Literarischere Alternative, falls gewollt: „Der Mensch lernt die Wahrheit nicht – er erinnert sie“ (transitives ‚erinnern‘, philosophisch-anamnetisch), dann aber Komma→Gedankenstrich konsequent. fixed_context um SA [473] (Iblis zitiert das Motto!), [1540], [1714] ergänzen.",
+  "severity": "medium",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "fixed.Kırılmış.",
+  "problem": "Die Doppeldeutigkeit von ‚kırılmış‘ ist laut SA [1328] und vor allem BY [3453] („Birinde insan, ötekinde kırılan bir eşya vardı“) konstitutiv: einmal ein kaputtes Gerät, einmal ein gekränkter Mensch. „Zerbrochen.“ deckt den Menschen nur im Sinn ‚seelisch zerstört‘ ab – das milde ‚kırılmak‘ (gekränkt, verletzt) geht verloren, und für ‚bozuk bir alet‘ (defektes Gerät) ist ‚zerbrochen‘ ebenfalls nicht das natürliche Wort (Geräte sind ‚kaputt‘, ‚zerbrochen‘ ist Glas/Keramik).",
+  "suggestion": "„Angeschlagen.“ – sagt man über ein beschädigtes Ding (Tasse, Gerät, Material) wie über einen Menschen (angeschlagen = verletzt, mitgenommen), ist ein Einwort-Satz und klingt zudem an die ‚drei Schläge auf Metall‘ an. Umgangssprachlichere Variante mit gleicher Doppelbedeutung: „Angeknackst.“ Falls „Zerbrochen.“ bleibt, sollte BY [3453] bewusst als ‚ein Mensch – ein zerbrochenes Ding‘ formuliert werden, damit die Lesart ‚Mensch‘ überhaupt aufgeht.",
+  "severity": "medium",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "names / address_forms.Hz.",
+  "problem": "Die Namensliste enthält Musa, Havva, Bilal, Azrail, Mikail, Ümeyye, Yesrib, aber nicht die ebenso vorkommenden koranischen Figuren Âdem (SA 18×, BY [3479] als Einwort-Absatz „Âdem.“), İsa (SA [34], [36], [391], [395]), Meryem („Meryem oğlu İsa“), İbrahim, Davut, Kabil, Ebu Bekir, Nuh. Genau bei diesen besteht die Gefahr, dass Übersetzer:innen auf Jesus/Maria/Abraham/David/Kain/Adam ausweichen – dann wäre die Regel ‚Form des türkischen Erzählers‘ gebrochen. Die Hz.-Regel nennt nur Muhammed/Azrail/Ebu Bekir; „Hz. İsa“, „Hz. Âdem“ sowie die Kürzel „(AS)“ (SA [1264]) und „(SAV)“ (SA [391]) sind ungeregelt.",
+  "suggestion": "names ergänzen: „Âdem“: „Âdem“ (mit Zirkumflex, da Havva/Musa auch türkisch bleiben; Alternative nur, wenn alle Figuren umgestellt werden), „İsa“: „İsa“, „Meryem“: „Meryem“, „Meryem oğlu İsa“: „İsa, Sohn der Meryem“, „Nâsıralı İsa“: „İsa von Nazareth“, „İbrahim“: „İbrahim“, „Davut“: „Davut“, „Kabil“: „Kabil“, „Ebu Bekir“: „Ebu Bekir“, „Nuh“: „Nuh“. Hz.-Regel erweitern: „Hz. İsa“ → ‚der Prophet İsa‘, „Hz. Âdem“ → ‚Âdem‘ (ggf. ‚der erste Mensch, Âdem‘), „İbrahim Peygamber (AS)“ → ‚der Prophet İbrahim (a.s.)‘, „(SAV)“ → ‚(s.a.v.)‘ – oder beide Kürzel einmal im Glossar erklären und im Text weglassen; die Entscheidung muss in der Datei stehen.",
+  "severity": "medium",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "fixed.Metale üç kez vuruluyor, sonra biri su istiyordu",
+  "problem": "Weil die feste Form mit großem „Drei“ beginnt, zwingt sie SA [1324] in eine Doppelpunkt-Konstruktion („In der Aufnahme der Szene: Drei Schläge …“), die mitten in einem erzählenden Absatz wie eine Regieanweisung wirkt; außerdem mischt die Wendung ein Nominalsyntagma mit einem Präteritum-Nebensatz. Bedeutung ist korrekt (agenslos wie ‚vuruluyor‘).",
+  "suggestion": "Feste Form kleingeschrieben definieren: „drei Schläge auf Metall, dann bat jemand um Wasser“. Dann BY [989]: „Man hörte drei Schläge auf Metall, dann bat jemand um Wasser.“ und SA [1324]: „In der Aufnahme der Szene hörte man drei Schläge auf Metall, dann bat jemand um Wasser.“ – beide Male wörtlich enthalten, ohne Doppelpunkt. Kapitel ‚ÜÇ VURUŞ‘ → ‚DREI SCHLÄGE‘ bleibt stimmig.",
+  "severity": "low",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "fixed.Okurken hangi elinle tuttuğunu kontrol et.",
+  "problem": "Das Objekt „es“ hat an keiner Fundstelle einen Bezug: in SA [1323] geht ‚Bu satırı‘ (fem. ‚diese Zeile‘) voraus, in BY [2801] steht der Satz allein unter einem Brief. Das Türkische hat gar kein Objekt. Außerdem ist ‚etwas in der Hand halten‘ idiomatischer als ‚mit der Hand halten‘.",
+  "suggestion": "„Prüfe beim Lesen, in welcher Hand du das hier hältst.“ – ‚das hier‘ verweist selbstreferenziell auf das Blatt/Buch, das der Leser gerade hält (genau die Pointe des Satzes), und funktioniert in Notizbuch (SA) und Brief (BY) gleichermaßen. Kurzform BY [1156]/[2802] bleibt „Schau beim Lesen auch auf deine Hand.“",
+  "severity": "low",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "fixed_context.seni ikinci kez öldürmüş gibi oluruz",
+  "problem": "Die feste Wendung selbst ist gut einbaubar. Der empfohlene Gesamtsatz („Wenn es zur Pflicht wird, dann ist es an dem Tag, an dem wir schweigen, als hätten wir …“) ist aber schwerfällig (dann/an dem/an dem) und ‚schweigen‘ trifft ‚sustuğumuz gün‘ (der Tag, an dem wir verstummen) nicht ganz; in BY [3170] ist es eine knappe Replik auf „E, aynı şey.“",
+  "suggestion": "Empfehlung ersetzen durch: „Ist es nicht. Wird es zur Pflicht, ist es an dem Tag, an dem wir verstummen, als hätten wir dich ein zweites Mal getötet.“ (BY) bzw. ohne Vorsatz in SA [1735]. ‚verstummen‘ markiert den Moment des Aufhörens wie ‚susmak‘ hier.",
+  "severity": "low",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "fixed.Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.",
+  "problem": "Bedeutung und Tempusmischung stimmen. „der hereinkommen wird“ klingt für eine Arbeitsnotiz leicht papieren; der Relativsatz mit Futur ist im gesprochenen/notierten Deutsch unüblich. Zudem geht in BY [3201] das Echo ‚kapağını açtım. Kapıyı açtım.‘ verloren, wenn davor ‚schlug ich die Mappe auf‘ steht.",
+  "suggestion": "Optional: „Ich öffnete die Tür. Den Namen des Mannes, der gleich hereinkommt, kenne ich noch nicht.“ Unabhängig davon in BY [3201] ‚öffnete ich die erste Mappe. Ich öffnete die Tür.‘ setzen, damit die Wiederholung von ‚açtım‘ erhalten bleibt.",
+  "severity": "low",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "address_forms.Hoca",
+  "problem": "Die Regel kennt nur „Hakan Hoca“ und „Hocam“. In SA wird aber auch Sefa so angesprochen („Sefa Hocam“ [47], „Mustafa Sefa Hocam“ [326]) und es gibt „Hocamız“ (unser Hoca). „Hocam“ steht 51× – die Regel sollte sagen, dass es nur in direkter Anrede bleibt und im Erzähltext/Possessiv (‚Hocamız sizi bekliyor‘) übersetzt wird, sonst entsteht eine Hocam-Flut.",
+  "suggestion": "Ergänzen: „Sefa Hocam“/„Mustafa Sefa Hocam“ → „Sefa Hocam“ (nachgestellt wie Hakan Hoca); „Hocamız“ → ‚unser Hoca‘ (nicht ‚Hocamız‘); „Hocam“ nur als isolierte Anrede, in längeren Repliken je nach Satz auch weglassbar.",
+  "severity": "low",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "address_forms.Abi / Efendi",
+  "problem": "Abi-Regel nennt nur „Sefa Abi“, im Text gibt es auch „Nazım Abi“ (SA [336], [843]); Efendi-Regel nennt nur „Nazım Efendi“, es gibt auch „Agâh Efendi“ (SA) – dort als Dorf-Wasserträger, also die alte, nicht-urbane Verwendung von Efendi.",
+  "suggestion": "„Nazım Abi“: „Nazım Abi“ und „Agâh Efendi“: „Agâh Efendi“ in names aufnehmen; bei Efendi vermerken, dass dieselbe Person als „Nazım Efendi“ und „Nazım Abi“ angesprochen wird (unterschiedliche Sprecher), beide Formen bleiben.",
+  "severity": "low",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "names (Vollständigkeit)",
+  "problem": "Es fehlen mehrere wiederkehrende Namen/Aliasse: „Küçük Saatçi“ (BY [334], [358], [1080] – Deckname), „Selin Özer“ (BY, Liste hat nur Selin), „Emrah Cebiroğlu“ (SA), „Ceylan“ (SA-Rahmenfabel, als Figur angesprochen: „Hey! Ceylan“), „Sefarizmalar“ (SA [6], Kunstwort), Straßennamen „Şemsettin Günaltay Caddesi“, „Kaptan Arif Sokağı“ (SA [127]), Universitätsort „Göztepe Kampüsü“.",
+  "suggestion": "Aufnehmen: „Küçük Saatçi“: „der Kleine Uhrmacher“ (Deckname, übersetzt wie Institutionen; in Anführung „Kleiner Uhrmacher“), „Selin Özer“: „Selin Özer“, „Emrah Cebiroğlu“: „Emrah Cebiroğlu“, „Ceylan“: „Gazelle“ (als Figur ohne Artikel in Anrede: „He, Gazelle, …“; sonst ‚die Gazelle‘), „Sefarizmalar“: „Sefarismen“, „Şemsettin Günaltay Caddesi“: „Şemsettin-Günaltay-Straße“, „Kaptan Arif Sokağı“: „Kaptan-Arif-Gasse“.",
+  "severity": "low",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "names.Yesrib",
+  "problem": "Für Städte gilt laut names_rule das deutsche Exonym (Mekka, Medina, London), für „Yesrib“ wird aber die türkische Form behalten. Im Deutschen ist „Yathrib“ eingeführt; „Yesrib“ wird kein deutscher Leser mit Medina verbinden.",
+  "suggestion": "„Yesrib“: „Yathrib“ (mit einmaligem Zusatz ‚das spätere Medina‘ bei Erstnennung), konsistent zur Exonym-Regel.",
+  "severity": "low",
+  "critic": "shared de critic-lit"
+ },
+ {
+  "key": "book_titles / notes (Querverweis yolcu)",
+  "problem": "SA [38] „Unutma yolcu, sen şimdi çıkıyorsun asıl yolculuğuna …“ ist der textinterne Verweis auf den Titel des Partnerbuchs. Die Datei legt „DER REISENDE“ fest, regelt aber nicht, dass ‚yolcu‘ an dieser Stelle (und bei weiteren Anreden ‚yolcu‘) als „Reisender“ wiedergegeben werden muss, nicht als ‚Wanderer‘/‚Passagier‘.",
+  "suggestion": "In notes oder fixed_context ergänzen: ‚yolcu‘ als Anrede/Verweis immer „Reisender“ (SA [38]: „Vergiss nicht, Reisender: Jetzt brichst du zu deiner eigentlichen Reise auf …“), ‚şahit‘ als Verweis immer „Zeuge“.",
+  "severity": "low",
+  "critic": "shared de critic-lit"
+ }
+]

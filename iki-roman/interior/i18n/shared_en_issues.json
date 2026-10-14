@@ -1,0 +1,51 @@
+[
+ {
+  "key": "fixed[\"Tümör\"] / notes §11 – SA [1694]",
+  "severity": "high",
+  "problem": "Note 11 handles the case-sensitive check only for SA [1349] and [1658] and then says 'elsewhere ordinary lower-case tumour is fine'. But the third SA Fundstelle, [1694] 'Tümör haberini aldığım geceki defteri önüne koydum.', also carries the capital (sentence-initial) and is therefore a checked paragraph. The natural English ('I put in front of him the notebook from the night I had been told about the tumour') contains only lower-case 'tumour' and will fail the substring check – the bible leaves the translator no instruction here.",
+  "suggestion": "Add [1694] to note 11 with a capitalised opening that treats the word as the word on the report (as at BY [3439]), e.g. 'Tumour – I put in front of him the notebook from the night that word had arrived.' or '…the notebook from the night the word Tumour had come.'",
+  "critic": "shared en critic-adv"
+ },
+ {
+  "key": "fixed[\"Tümör\"] / notes §11 – SA [1658], [1349]",
+  "severity": "medium",
+  "problem": "The suggested opener for SA [1658], 'Tumour position like yours is consistent with…', is ungrammatical in English (count noun without article). For [1349] 'Tumour, possibly' turns what the Turkish calls a cümle (a sentence: 'Tümör olabilir') into a fragment, which is why the note has to downgrade 'cümlesini' to 'the words'.",
+  "suggestion": "[1658]: use a mass-noun medical phrasing that is grammatical with a capital: 'Tumour location in your case is consistent with the change in your speech over recent months and your growing withdrawal.' [1349]: keep it a sentence: “I heard the sentence ‘Tumour is a possibility’, then other words too…” (or ‘Tumour cannot be ruled out’).",
+  "critic": "shared en critic-adv"
+ },
+ {
+  "key": "fixed[\"Öleceğimi ilk kez o sabah düşünmedim.\"]",
+  "severity": "medium",
+  "problem": "'thought about dying' renders ölümü düşünmek (general contemplation of death), not öleceğimi düşünmek (the thought that I was going to die – a future certainty). The next lines make the distinction explicit: BY [38] 'İnsan ölümü düşünür … Benimki düşünce değildi' is the generic contemplation the narrator sets himself apart from, and BY [39] 'Gidecektim.' continues the future certainty of Öleceğim. The negation scope (not the first time) is correctly kept, but the opening line is flattened into the generic category the second paragraph rejects.",
+  "suggestion": "'That morning was not the first time I had thought I was going to die.' – keeps the negated 'first time', keeps 'thought' for the 'Mine was not a thought' echo, preserves the future 'was going to' that BY [39] 'I was going to go' picks up, and avoids the 'thought I would die (laughing)' idiom the note rightly fears. Works unchanged at SA [1360] and BY [3443].",
+  "critic": "shared en critic-adv"
+ },
+ {
+  "key": "fixed[\"Metale üç kez vuruluyor, sonra biri su istiyordu\"]",
+  "severity": "low",
+  "problem": "The Turkish is a finite narrative sentence (passive 'vuruluyor' + imperfect 'istiyordu' – someone WAS asking for water, open-ended, cut off). The verbless noun phrase 'three knocks on metal, then someone asking for water' reads like a list item, loses the past-progressive, and forces the translator to merge two Turkish sentences at BY [989] ('…götürdü. Metale üç kez vuruluyor…' must become '…described: three knocks…'). It also weakens the later echo SA [1668] 'Su isteyen bir ses çıkmadı' (no voice asked for water).",
+  "suggestion": "Use a finite lower-case clause that still slots in after a colon (BY [989]) or after 'In the recording in that scene, ' (SA [1324]): 'metal was struck three times, then someone was asking for water'. If the noun phrase is kept, at least note that 'knocks' (chapter title 'Three Knocks') must also be used for SA [1665] 'üç metal ses', [1667]/[1681] 'üç vuruş' and BY [989] 'masaya üç kez vurduğumu' so the motif stays audible.",
+  "critic": "shared en critic-adv"
+ },
+ {
+  "key": "fixed[\"Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.\"], fixed[\"Bazen onları ben yazmıyorum gibi geliyor\"] – apostrophes",
+  "severity": "low",
+  "problem": "Both entries contain a typographic apostrophe (don’t, I’m). The check is a plain case-sensitive substring match, and the two source files use different conventions (BY_TR_full.txt: 428 straight ' vs 26 curly ’; SA_TR_full.txt: 131 straight vs 183 curly). A translator or a pipeline that normalises to straight apostrophes will silently fail these two checks at BY [522], [3201], [3203] and SA [1363], [1698]. The notes fix “ ” and ‘ ’ but say nothing about apostrophes.",
+  "suggestion": "Add one line to notes: 'Apostrophes are always typographic ’ (U+2019), including inside the fixed sentences; the pipeline must not normalise them.' Alternatively, remove the risk by making the entries contraction-free ('I do not yet know…', 'Sometimes it feels as if I am not the one writing them') – though the first option keeps the better register.",
+  "critic": "shared en critic-adv"
+ },
+ {
+  "key": "names[\"Belam Bin Baura\"]",
+  "severity": "low",
+  "problem": "Note 12 and the exonyms table say scriptural/historical figures take their established English forms (Musa → Moses, Ebu Bekir → Abu Bakr, Bilal-i Habeşi → Bilal al-Habashi). Belam Bin Baura is the same kind of figure – the Qur'anic-exegesis Bal‘am ibn Bā‘ūrā, i.e. the biblical Balaam son of Beor – and SA [1159]–[1172] tells exactly that story against Moses ('Kızıldeniz'i ikiye asası ile bölen Musa'). Keeping the Turkish spelling next to 'Moses' is inconsistent and hides the recognisable figure from an English reader.",
+  "suggestion": "'Bal‘am ibn Ba‘ura' (established transliteration; use 'Bal‘am' alone where the Turkish has 'Belam') with a glossary gloss '= the biblical Balaam', or simply 'Balaam'. Balakt, Hanzeb, Mabeh are not established figures and can stay as they are.",
+  "critic": "shared en critic-adv"
+ },
+ {
+  "key": "notes §8 – 'Kapak.' → 'Lid.'",
+  "severity": "low",
+  "problem": "At SA [1328] the speaker of 'Kapak.' has 'boş bir bardak' (an empty glass) in front of him; what one asks for over an empty glass is the cap of the bottle, not a lid. 'Lid' also drops the second Turkish sense that both books play with – kapak = cover of the file ('ilk dosyanın kapağını açtım', BY [3201]) and cap of the pen that is about to drip at BY [2803]. BY [3453] 'ötekinde kırılan bir eşya vardı' pairs the word with a broken object, so the object sense must stay primary.",
+  "suggestion": "'Cap.' – one flat word like the Turkish, fits the empty glass (bottle cap) and the pen cap; if the file-cover echo matters more, 'Cover.' Either way keep it one word.",
+  "critic": "shared en critic-adv"
+ }
+]
