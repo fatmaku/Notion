@@ -7,3 +7,9 @@ assets/upscaled/referenz_x4_lanczos.png
 __pycache__/
 trailer/out/tmp/
 /out/
+# Übersetzungspipeline: aus den Manuskripten ableitbare Arbeitsdateien
+interior/i18n/*_source.json
+interior/i18n/*_TR_full.txt
+interior/i18n/*/batches/
+interior/i18n/*/ctx_*/
+interior/i18n/work/*/reading/
