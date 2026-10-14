@@ -45,7 +45,7 @@ Die genauen Zahlen (Seiten, Rücken, Fullcover-Maß) stehen nach jedem Build in 
 
 1. **Innenteil-PDF** hochladen (`interior/out/*_Innenteil_A5.pdf`), Trim 5,83 × 8,27 in, **ohne Beschnitt**, Schwarz-Weiß, Creme.
 2. Seitenzahl aus der KDP-Vorschau mit `cover_report.json` vergleichen (beide Innenteile haben eine gerade Seitenzahl; bei ungerader Zahl hängt `docx2book.py` eine leere Schlussseite an, damit KDP nichts ergänzen muss). Weicht sie trotzdem ab, Cover neu bauen:
-   `python3 cover/build_cover.py --pages-by <N> --pages-sa <M>`
+   `python3 cover/build_cover.py --pages BY:tr=<N>,SA:tr=<M>` (je Sprache eigene Seitenzahl, z. B. `BY:en=276`; `--pages-by/--pages-sa` bleiben als Alias für TR)
 3. Im KDP-**Cover-Calculator** (Print Options → „Cover Calculator“) die Maße gegenprüfen; die dort ausgegebene Breite muss mit `Fullcover.pdf` übereinstimmen (Toleranz 0,1 mm).
 4. **Fullcover.pdf** hochladen (eine Seite, Fonts eingebettet, RGB, keine Schnittmarken). Barcode-Option: „KDP druckt Barcode“ (die weiße Fläche ist dafür frei).
 5. KDP-Vorschau prüfen: Rückentext mittig, nichts in der Beschnittzone abgeschnitten, Faust an der Kante.
@@ -68,6 +68,10 @@ bash interior/src/v6/merge_straff.sh
 # Innenteil + ePub (aus YOLCU v5 und ŞAHİT v6; ohne --docx wird das Original-Manuskript gesetzt)
 python3 interior/docx2book.py --book BY --pdf --epub --cover cover/out/BY/TR/eBook-Cover.jpg --docx interior/src/YOLCU_TR_v5.docx
 python3 interior/docx2book.py --book SA --pdf --epub --cover cover/out/SA/TR/eBook-Cover.jpg --docx interior/src/SAHIT_TR_v6.docx
+
+# Englische / deutsche Ausgaben (Manuskripte aus der Übersetzungspipeline, interior/src/i18n/<SLUG>.docx)
+python3 interior/docx2book.py --book BY_EN --pdf --epub --cover cover/out/BY/EN/eBook-Cover.jpg   # ebenso BY_DE, SA_EN, SA_DE
+python3 cover/build_cover.py --langs en,de            # Seitenzahlen aus interior/out/report.json (BY_EN, BY_DE, SA_EN, SA_DE)
 python3 interior/check_pdf.py interior/out/*_Innenteil_A5.pdf --json interior/out/check_pdf.json
 
 # Trailer (9 Videos + SRT + Stills)
@@ -89,3 +93,7 @@ Abhängigkeiten: Python 3.11 mit weasyprint, pillow, pypdf, pymupdf, fonttools, 
 - Portraits wurden nicht retuschiert, nur identisch beschnitten, gegradet und vignettiert.
 - Trailer-Musik ist ein generierter Platzhalter; Sprecherstimme fehlt. Beides ist im Marketing-Dokument als Brief mit Zeitmarken beschrieben.
 - Der Innenteil ist ausschließlich Türkisch (keine Übersetzung beauftragt). EN/DE-Cover sind für spätere Übersetzungsausgaben bzw. Marketing gedacht.
+
+## Übersetzungspipeline (TR → EN/DE)
+
+Werkzeuge in `interior/tools/`: `i18n_export.py` (DOCX → `interior/i18n/<BUCH>_source.json`, Absätze mit `<b>/<i>`, Akrostichon-Positionen, feste Sätze), `i18n_prepare.py` (`split` → Pakete, `bible-input` → Material für die Bibel, `context` → Bibel-Auszug je Paket), `i18n_bible_check.py` (prüft `shared_<lang>.json` und `<BUCH>_<LANG>_bible.json`: Buchstabenzahlen der Akrosticha, feste Sätze, Titel, Labels), `i18n_check.py` (prüft ein Übersetzungspaket `interior/i18n/work/<BUCH>_<LANG>/B*.json`, `--merge` → `final.json`), `i18n_build.py` (Übersetzung + Quell-DOCX → Ziel-DOCX mit identischen Absatzvorlagen; setzt in ŞAHİT die fetten Code-Buchstaben neu; prüft Akrosticha), `i18n_reading.py` (Lesefassung für Ganzbuchprüfungen). Die Agenten-Workflows liegen in `interior/i18n/workflows/`. Die drei Akrosticha von YOLCU (7/7/9 Positionen) und der Fettbuchstaben-Code von ŞAHİT werden in jeder Sprache mit einer sinngleichen Lösung gleicher Buchstabenzahl neu gebaut; die Brückensätze beider Bücher werden einmal je Sprache verbindlich festgelegt (`shared_<lang>.json`) und maschinell in beiden Büchern geprüft.
