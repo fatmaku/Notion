@@ -1290,6 +1290,7 @@ def main(argv=None) -> int:
     cfg = dict(BOOKS[args.book])
     if args.docx:
         cfg["docx"] = args.docx if args.docx.is_absolute() else (Path.cwd() / args.docx)
+    BOOKS[args.book] = cfg            # auch build_book()/EPUB sehen das überschriebene Manuskript
     global HYPH_LANG
     HYPH_LANG = cfg["lang"]
     if not cfg["docx"].exists():
