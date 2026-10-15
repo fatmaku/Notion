@@ -1,0 +1,35 @@
+export const meta = {
+  name: 'benyoksam-kontrol',
+  description: 'BEN YOKSAM – bütün kitap kontrolü: süreklilik/mantık okuyucuları, sistem ve okur-notu denetçisi, son okuma, düzeltme, jüri',
+  phases: [{ title: 'Okuma' }, { title: 'Düzeltme' }, { title: 'Jüri' }],
+}
+const { chunks } = args
+const I = '/home/user/Notion/iki-roman/interior'
+const B = `${I}/benyoksam`
+const RD = `${B}/reading`
+const K = `${I}/../analyse/BEN_YOKSAM_Konsept.md`
+const ISSUES = { type: 'object', properties: { issues: { type: 'array', items: { type: 'object', properties: { ref: { type: 'string', description: 'uid:index' }, severity: { type: 'string', enum: ['high', 'medium', 'low'] }, kind: { type: 'string' }, problem: { type: 'string' }, fix: { type: 'string' } }, required: ['ref', 'severity', 'kind', 'problem', 'fix'] } }, summary: { type: 'string' } }, required: ['issues', 'summary'] }
+const COMMON = `BEN YOKSAM (Tuncay Sancak) – YOLCU'dan türetilen, kendi başına duran yeni roman; konsept (bağlayıcı): ${K}; okurun defteri: ${I}/../analyse/Okur_Notlari_Tuncay_2026-10.md; kaynak YOLCU özetleri: ${I}/i18n/BY_synopsis.json. Lesefassung: ${RD}/chunk_<n>.txt (satırlar „[uid:index] metin“; # = bölüm, === = perde, „    | “ = iç ses), ${RD}/index.json, bütün kitap ${RD}/full.txt. Bulgular HER ZAMAN ref (uid:index) ve somut düzeltme metniyle (fix = tam yeni cümle/paragraf). severity: high = mantık hatası, çelişki, ŞAHİT kalıntısı, sistem ihlali, sırrın erken verilmesi; medium = plan/ses/süreklilik ihlali, belirgin üslup sorunu; low = zevk. Dosya DEĞİŞTİRME.`
+phase('Okuma')
+const readers = await parallel([
+  ...chunks.map(k => () => agent(`${COMMON}
+Rol: süreklilik ve mantık okuru. ${RD}/chunk_${k}.txt dosyasını baştan sona oku (index.json'a bak). Ara: zaman çizgisi (tarihler, 14.53, geceler), mekân, kim ne zaman ne biliyor, adlar (ad haritası konseptte), yapay zekâ–Deccal katmanının adım adım tutarlılığı (ne zaman ne açıklanıyor; önceki bölümlerle çelişki), araştırmacı/gizli kahraman ve Tuncay Sancak'ın yerinin tutarlılığı, iç seslerin etiketleri, tekrarlar ve kopukluklar (bir bölümün sonu ile sonrakinin başı).`, { label: `okuma ${k}`, phase: 'Okuma', schema: ISSUES, effort: 'high' })),
+  () => agent(`${COMMON}
+Rol: sistem ve ŞAHİT denetçisi (bütün kitap, grep ile ${RD}/full.txt). (1) ŞAHİT'e ve YOLCU çiftine her türlü gönderme (Sefa, Hakan Hıdıroğlu, Muhibbi, Erenköy'deki hastane sahnesi yeşil oda/plastik bardak, „Kapıyı açtım…“ notu, „Metale üç kez…“, ortak açılış cümlesi, motto „İnsan hakikati öğrenmez…“, „üçüncü kitap“ fikri) kaldı mı? (2) Sistem: eksik bölüm numaraları, 14.53 ↺ işaretleri, düğüm cümleleri, kırmızı ip, siyah paket, zarflar, anahtarlar, A-1453, Meralis, FETİH, beş şehir, Alfa sınıflaması – hepsi tutarlı mı, yeni katmanla çelişiyor mu? (3) Deccal işaretleri ve kutsal cevaplar: kaynaklara uygun ve saygılı mı; doktrin iddiası, hadis/ayet yanlış aktarımı var mı (tam metnini kontrol et)? (4) Okurun defterindeki yıldızlı ve sayfa numaralı cümleler kitapta duruyor mu (tek tek grep)?`, { label: 'sistem', phase: 'Okuma', schema: ISSUES, effort: 'high' }),
+  ...chunks.map(k => () => agent(`${COMMON}
+Rol: son okuma (düzelti) ve üslup editörü, Türkçe. ${RD}/chunk_${k}.txt dosyasını kelime kelime oku: TDK yazımı, ek hataları, noktalama (diyalog), anlamı ters dönmüş cümleler, eksik sözcükler, „hâlâ / hikâye / kâğıt / âşık“ birliği; sahne sonu özdeyişi yoğunluğu (okurun eleştirisi: azaltılmalı – aşırı yerleri işaretle), hukuk/mahkeme usul dili (seyreltilmeli), yapay zekâ pasajlarında klişe ve açıklama fazlalığı; YOLCU'nun sesinden sapan şişkin cümleler. Yalnız somut düzeltme metni verebileceğin şeyleri bildir.`, { label: `düzelti ${k}`, phase: 'Okuma', schema: ISSUES, effort: 'high' })),
+])
+const all = readers.filter(Boolean).flatMap(r => r.issues)
+const act = all.filter(i => i.severity !== 'low')
+log(`${all.length} bulgu, ${act.length} high/medium`)
+phase('Düzeltme')
+const APPLY = { type: 'object', properties: { ok: { type: 'boolean' }, applied: { type: 'integer' }, rejected: { type: 'array', items: { type: 'string' } }, notes: { type: 'string' } }, required: ['ok', 'applied', 'rejected', 'notes'] }
+const fixResult = act.length ? await agent(`${COMMON}
+Rol: son redaksiyon. Bulgular (high/medium): ${JSON.stringify(act, null, 1)}
+Metin bölüm dosyalarında: ${B}/work/<uid>.json ({"uid", "paras": [{"style", "text"} | {"image": pid}]}); ref = uid:index (paras dizisindeki sıra). Her haklı bulguyu ilgili dosyada uygula (paragrafı bütün olarak yeniden yaz, <b>/<i> koru; çelişen bulguları karara bağla; konsepte ya da sisteme aykırı bulguları reddet). Her değiştirilen bölüm için: cd ${I} && python3 tools/byk_check.py --unit <uid> (OK olmalı); sonda: python3 tools/byk_check.py --all (OK olmalı). Dön: ok, applied, rejected (ref + gerekçe), notes.`, { label: 'uygulama', phase: 'Düzeltme', schema: APPLY, effort: 'high' }) : { ok: true, applied: 0, rejected: [], notes: 'bulgu yok' }
+phase('Jüri')
+const JURY = { type: 'object', properties: { M: { type: 'number' }, Mi: { type: 'number' }, R: { type: 'number' }, G: { type: 'number' }, standalone: { type: 'boolean' }, verdict: { type: 'string' }, to_ten: { type: 'array', items: { type: 'string' } }, issues: { type: 'array', items: { type: 'object', properties: { ref: { type: 'string' }, severity: { type: 'string', enum: ['high', 'medium', 'low'] }, problem: { type: 'string' }, fix: { type: 'string' } }, required: ['ref', 'severity', 'problem', 'fix'] } } }, required: ['M', 'Mi', 'R', 'G', 'standalone', 'verdict', 'to_ten', 'issues'] }
+const jury = await parallel(['yayınevi editörü (uluslararası psikolojik gerilim)', 'dikkatli okur, ilahiyat ve mistik edebiyat bilgisiyle', 'YOLCU\'yu okumuş sıkı mantık okuru (YOLCU özetleri elinde; BEN YOKSAM'ın kendi başına durup durmadığını ve ŞAHİT'ten bağımsızlığını sınar)'].map((role, i) => () => agent(`${COMMON}
+Rol: ${role}. Redaksiyondan sonra kitabı BAŞTAN SONA oku: cd ${I} && python3 tools/byk_reading.py (Lesefassung'u tazele), sonra ${RD}/full.txt. Puanla 1–10 (7 = profesyonel/yayımlanabilir, 8 = çok iyi, 8,5 = tasarımda olağanüstü, 9 = güçlü editörün değiştireceği neredeyse yok, 10 = türünün ölçütü): M mantık, Mi mistik katman (Deccal–yapay zekâ paraleli ve kutsal cevaplar dâhil), R roman/gerilim, G genel; standalone: ŞAHİT'i bilmeyen okur için eksiksiz mi? to_ten: 10'a kalanlar. Kalan sorunlar ref + fix ile.`, { label: `jüri ${i + 1}`, phase: 'Jüri', schema: JURY, effort: 'high' })))
+const js = jury.filter(Boolean)
+return { findings: all.length, acted: act.length, applied: fixResult && fixResult.applied, rejected: fixResult && fixResult.rejected, jury: js.map(j => ({ M: j.M, Mi: j.Mi, R: j.R, G: j.G, standalone: j.standalone, verdict: j.verdict, to_ten: j.to_ten, open: j.issues.filter(x => x.severity !== 'low').length })), jury_issues: js.flatMap(j => j.issues.filter(x => x.severity !== 'low')) }
