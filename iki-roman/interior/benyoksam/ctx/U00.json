@@ -1,0 +1,285 @@
+{
+ "uid": "U00",
+ "plan": null,
+ "synopsis_around": [
+  {
+   "uid": "U01",
+   "title": "<b>1453 — UYANIŞIN BEDELİ</b>",
+   "summary": "Fortsetzung des Titelblocks: Untertitel „1453 — Uyanışın Bedeli“ („1453 – Der Preis des Erwachens“), Genreangabe „Mistik suç ve psikolojik gerilim romanı“ (mystischer Kriminal- und Psychothriller), ein als Book Inset gesetztes Motto in Frageform („Woran erkennst du, dass etwas existiert?“), ein Szenentrenner und die Autorenangabe Tuncay Sancak. Keine Handlung, keine Zeitebene. Die Motto-Frage greift das Leitthema des Romans vor (Beweis der eigenen Existenz, vgl. Kapitel 1, pid 92–93) und sollte so übersetzt werden, dass sie dort wiedererkennbar bleibt."
+  },
+  {
+   "uid": "U02",
+   "title": "<b>DİKKAT</b>",
+   "summary": "Vorspann aus vier Teilen ohne Handlung. 1) „DİKKAT“ (Achtung): eine direkte, duzend-ironische Warnung an die Leserschaft – nur lesen, wer „aufwachen“ will; wer zufrieden schläft, soll das Buch leise schließen; nach dem Erwachen gebe es kein Zurück; zugleich die Aufforderung, auch dieses Buch zu hinterfragen („Wer profitiert von deiner Neugier? Wer hat wirklich entschieden?“), abgeschlossen mit der kursiven Zeitangabe „14.53“. 2) „Kurmacaya Dair Kısa Bir Not“ (Kurze Anmerkung zur Fiktion): Disclaimer, dass Meralis, die Operation FETİH-1453, Bücher, Institutionen, Dokumente und das Verbrechernetz erfunden sind; Aussagen über ADHS, Autismus, Narzissmus, „Alpha“, „erwachte Menschen“ und „Lichtträger“ seien Figurentheorien oder Lehre der Gegenmacht, keine medizinischen Fakten; die Medikamentenerfahrung sei persönlich und keine Empfehlung. 3) „Eşik“ (Schwelle): essayistisch-aphoristischer Prolog in der Du-/Wir-Form über das Lernen von Ja und Nein, Grenzen und Mauern; am Ende wechselt die Stimme in die Ich-Form des Erzählers, der berichtet, er habe den Stimmen in seinem Kopf vor Jahren Namen gegeben (der Ängstliche, der Rechnende, der Gläubige, der Angreifende, der Retter) und damals Sicherheit mit Wissen verwechselt – Vorausdeutung auf die inneren Stimmen ŞÜPHECİ, İNANAN, Muhasebeci in Kap. 1. 4) Teilüberschrift „BİRİNCİ PERDE — KAPI“ (Erster Akt – Die Tür)."
+  }
+ ],
+ "own_synopsis": "Reiner Titelblock ohne Handlung: der Reihen-/Obertitel „YOLCU“ (dt. „Der Reisende/Der Passagier“) steht allein als Titelzeile. Er benennt zugleich die Ich-Erzählerfigur des Romans, die im ganzen Buch namenlos bleibt und nur über diese Rolle identifiziert wird. Keine Figuren, keine Zeitebene; dient Übersetzer:innen nur als Referenz für die Schreibweise des Haupttitels.",
+ "name_map": [
+  {
+   "old": "Anlatıcı (adsız; YOLCU; finalde Âdem)",
+   "new": "Anlatıcı adsız kalır; finalde „Adam. İnsan.“",
+   "why": "Yazarın verdiği örnek. Türkçede ‚adam‘ aynı zamanda ‚insan‘ demektir; „Adam. İnsan.“ TR/EN'de tam, DE'de (Adam/Mensch) yarım çalışır – Alman çevirmene not. Büyük harf ve ardından ‚İnsan.‘ cins isim okunmasını önler. ‚Yolcu‘ başlık-adı kalkar."
+  },
+  {
+   "old": "Duru",
+   "new": "Lara",
+   "why": "TR'de yaygın, EN/DE'de tanıdık, aksansız; sesleri ayıran kız için kısa ve net. pid 451 „Nereden geldiğini Lara'ya sormadım“ – BENİ ARAMA ‚N‘ korunur."
+  },
+  {
+   "old": "Emir",
+   "new": "Emil",
+   "why": "Tek harf farkı; Almanca ve İskandinav kültüründe çok tanıdık, İngilizcede okunur, Türkçede doğal. ‚Emir‘in İngilizcede unvan gibi okunması sorunu kalkar."
+  },
+  {
+   "old": "Zeynep",
+   "new": "Sara",
+   "why": "Üç dilde aynı yazılır ve okunur; sakin, sınır koyan kadın için yalın ad."
+  },
+  {
+   "old": "Nehir Kaya",
+   "new": "Nina Kaya",
+   "why": "En sık geçen ad (363×); iki heceli, aksansız, N baş harfi korunur („BİRİNCİL AYNA: NİNA KAYA“ satırı aynı ritimde). ‚Nehir=ırmak‘ anlamı metinde kelime oyunu olarak kullanılmıyor, kayıp yok."
+  },
+  {
+   "old": "Leyla Arın",
+   "new": "Leyla Arın (korunur; EN/DE dizgide ‚Arin‘)",
+   "why": "Leyla/Layla/Leila zaten uluslararası; ölü ablanın adı okurun hafızasında yerleşmiştir. Çeviride yalnız noktasız ı kalkar."
+  },
+  {
+   "old": "Selin Özer",
+   "new": "Selina Demir",
+   "why": "Yazarın ‚HEPSİ‘ talimatı. Selina/Céline EN/DE'de tanıdık, Selin'e bir harf uzaklıkta; ‚Özer‘in Ö'sü yabancı dizgide sorun, Demir kısa ve okunur. Lena yerine Selina: Lara/Lena/Leyla yığılmasından kaçınmak için."
+  },
+  {
+   "old": "Tarık",
+   "new": "Tarek",
+   "why": "‚ı‘ harfi EN/DE'de sorun; Tarek Almanya'da tanınan yazım, İngilizcede Tariq'e yakın, Türkçede rahat."
+  },
+  {
+   "old": "Cem Arven",
+   "new": "Sam Arven",
+   "why": "Yazarın ‚HEPSİ‘ talimatı ve iki jürinin önerisi. ‚Cem‘ İngilizcede ‚Sem‘ okunur. Sam kısa, üç dilde aynı; Cemil→Sami bağı sayesinde 39. bölümün cliffhanger'ı birebir korunur. Değişim kelime sınırlı ve elle onaylı (‚Cem‘ başka kelimelerin içinde geçer)."
+  },
+  {
+   "old": "Cemil Arven (Yusuf'un doğum adı)",
+   "new": "Samuel „Sami“ Arven",
+   "why": "pid 2717 „Kitabı ona ne zaman geri vereceksin, Sami?“ – babanın ağzındaki adın oğlunkinde yankılanması aynen çalışır. Arven ailesi eski İstanbul'un çok kültürlü esnafındandır; Samuel/Sami bu kökeni taşır, Yusuf gibi kutsal kitap adıdır. Sami Türkçede yerleşiktir."
+  },
+  {
+   "old": "Yusuf Vural / Yusuf Karaca / Saatçi",
+   "new": "korunur",
+   "why": "Yazarın açık talimatı; üç ad ve ‚Saatçi‘ lakabı çözümün parçasıdır; Yusuf=Joseph zaten evrensel."
+  },
+  {
+   "old": "Aylin (Sam'in annesi)",
+   "new": "Alina",
+   "why": "Ses olarak komşu, üç dilde doğal; kasetteki varlığı ad değişiminden etkilenmez."
+  },
+  {
+   "old": "Kemal (anlatıcının babası, Balat'taki saatçi)",
+   "new": "Elias",
+   "why": "Yazarın ‚HEPSİ‘ talimatı. İlyas'ın uluslararası biçimi; EN/DE'de yaygın, Türkçe okunuşu kolay; Balat'taki saatçi için eski İstanbul çokkültürlülüğüyle uyumlu. Tek yerde geçer (40. böl.)."
+  },
+  {
+   "old": "Dr. Rana Güneş",
+   "new": "Dr. Hanna Aksel",
+   "why": "Hanna üç dilde aynı yazılır; ‚Rana‘ İngilizcede kurbağa anlamına gelebilir; Aksel diakritiksiz ve okunur."
+  },
+  {
+   "old": "Nihat Bey (apartman yöneticisi)",
+   "new": "Niko Bey",
+   "why": "İstanbul'un Rum geçmişiyle inandırıcı, EN/DE'de Nico/Niko tanıdık; ‚Bey‘ hitabı korunur (Mr./Herr). (Sami Bey seçeneği Sam/Sami ile çakışacağı için elendi.)"
+  },
+  {
+   "old": "Murat (olay yeri memuru)",
+   "new": "Martin",
+   "why": "Kısa, üç dilde aynı; küçük rol, hafıza yükü düşük."
+  },
+  {
+   "old": "Hasan Bey (fırıncı)",
+   "new": "Hasan Bey (korunur)",
+   "why": "Hassan uluslararası tanınır; cuma sabahı Kehf okuyan mahalle fırıncısı ve 49'daki ‚sıradan mümin‘ işlevi için yerli kalmalı – ‚HEPSİ‘ kuralının gerekçeli tek istisnası (Tuncay dışında)."
+  },
+  {
+   "old": "Ekin (Berlin'deki öğretmen, dosya)",
+   "new": "Eva",
+   "why": "Berlin'de yaşayan karakter için Almanca okura doğal; 43'te Berlin sahnesinde tanık olarak görünebilir."
+  },
+  {
+   "old": "Arda (ALFA YAPICILAR videosundaki genç)",
+   "new": "Aris",
+   "why": "Kısa, üç dilde okunur; Yunanca kökü İstanbul'a yabancı değil."
+  },
+  {
+   "old": "Samira (siyah kitap alıcısı)",
+   "new": "Nadia",
+   "why": "Sam/Sami ile çakışmasın diye; tek sahnelik dosya adı."
+  },
+  {
+   "old": "Amina, Sora, Mira, Thomas, João, Arman Vela, Orenda",
+   "new": "korunur",
+   "why": "Zaten uluslararası ya da kurgusal kod adı."
+  },
+  {
+   "old": "Duman (kedi)",
+   "new": "Duman (korunur; çeviride Smoky/Rauch)",
+   "why": "Kişi değil hayvan; 25. bölümde dumanın içinden çıkması ve 43'teki ‚Duman'ın uyandığı kadar‘ ölçüsü adın anlamına yaslanır; çevirmen yerelleştirir. Ash seçeneği yazara bırakılır."
+  },
+  {
+   "old": "Sefa Abi",
+   "new": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
+   "why": "Yazarın isteği: kitaplar söz konusu olunca Tuncay. Roman dosyası, Hakan, Muhibbi, Erenköy gelmez; Tuncay 2015 okuma gününün davetli yazarı ve anlatıcının yazar arkadaşıdır. Gerçek ad bilinçli istisnadır (yazar markası)."
+  },
+  {
+   "old": "Hakan Hıdıroğlu (Sefa'nın roman kişisi)",
+   "new": "çıkar",
+   "why": "ŞAHİT köprüsü. Yeşil koridor sahnesinin kaynağı artık yapay zekâ yardımcısının ürettiği ‚yeniden kurulum‘ metnidir."
+  },
+  {
+   "old": "Muhibbi Amca",
+   "new": "çıkar",
+   "why": "ŞAHİT köprüsü; tek cümlelik varlığı (pid 987) silinir; çay lekesi motifi Tuncay'ın soğuyan çayına taşınır."
+  },
+  {
+   "old": "— (yeni)",
+   "new": "Tuncay Sancak (@happytuncay) – araştırmacı, nörofarklı, gizli kahraman (Seçenek B; Mina Keller adlı ayrı karakter yok)",
+   "why": "Yazarın isteği: kitapta Tuncay Sancak daha çok yer alacak; araştırmacı kendisi nörofarklı ve gizli kahraman."
+  },
+  {
+   "old": "— (yeni)",
+   "new": "AYNA (Ayna Davranış Modeli)",
+   "why": "‚Ayna‘ 18. bölümün mevcut kavramıdır (birincil ayna, uzman ayna); EN/DE baskıda da AYNA özel ad olarak kalır, ilk geçtiği yerde bir kez açıklanır. Gerçek ürün adı değildir; yayın öncesi marka taraması."
+  },
+  {
+   "old": "İç sesler (Şüpheci, İnanan, Avcı, Toplayıcı, Muhasebeci, Gölge, İçimdeki Çocuk, Sessiz Ses, Kurtarıcı)",
+   "new": "korunur; çeviride anlam çevirisi",
+   "why": "Kişi adı değil işlev adı."
+  }
+ ],
+ "remove_sahit": [
+  {
+   "where": "pid 37 (1. böl. açılış) ve pid 3443 (50. böl. tekrar)",
+   "what": "Ortak açılış cümlesi „Öleceğimi ilk kez o sabah düşünmedim.“",
+   "replacement": "Varsayılan: „O sabah ölümü düşünmedim. Yokluğumu düşündüm.“ – başlığı ve 1. bölümün sorusunu („Bir insanın varlığını en son kim kanıtlardı?“) açar; pid 38 „İnsan ölümü düşünür… Benimki düşünce değildi.“ olduğu gibi devam eder. 50'de masadaki el aynı yeni cümleyi yazar. Alternatifler sesli okuma turunda: „Ben yoksam bunu ilk kim fark ederdi? O sabah bu soruyu ilk kez sormadım.“"
+  },
+  {
+   "where": "pid 975–1019 (12. böl.)",
+   "what": "„koridor“ aramasında Sefa'nın adı; Hakan; Muhibbi Amca; çay lekesi; „Metale üç kez vuruluyor, sonra biri su istiyordu“ (pid 989); Sefa'yla telefon; Erenköy; Hakan'ın hekimliği",
+   "replacement": "Arama sonucu sohbet kaydını getirir: anlatıcı tanı gününü hatırlayamadığı için makineden „elindeki parçalardan sahneyi kurmasını“ istemiş; makine yeşil koridoru, su uzatan doktoru, plastik bardağı yazmış; anlatıcı kenarına „Bardağı tutan eli hissettim. Burası kalmalı.“ notunu düşmüş. Nina: „Bunu sen yaşamamışsın; yazdırmışsın.“ Bardağın içe kıvrık kenarı kayıtta yoktur (pid 995 aynen). Anlatıcı yardımcıya sorar; yardımcı kıvrımı „eklediğini hatırladığını“ söyler – kayıt yalanlar: makine kendi çıktısı hakkında da uydurur. „Hafızama misafir gelmiş. Ben evin tapusunu vermişim.“ (pid 991) aynen, muhatabı değişir. Anlatıcı kaydın kenarına dedenin kuralını yazar: „Devamını uydurma.“ (pid 81) – kitapta bu kuralı ilk çiğneyen şey makinedir. Sonra Tuncay aranır (pid 998–999'un olguları) ve 2015 okuma günü; „Hasta olarak değil“ (pid 1011–1013) aynen. Üç vuruş sahnesi tamamen çıkar."
+  },
+  {
+   "where": "pid 1150, 1163–1164, 1195–1199 (13. böl.)",
+   "what": "„Sefa Abi'nin romanında geçen hastane“; Sefa'ya gönderilen fiş/program; „sandalyeyi ters taşıyan adam“; „Bu, yaşandığını bildiğim değil, yazarken gördüğüm“; „Bardağı sen doldurmadın. Ama masaya sen yer açtın.“; „Yazıda yer değiştirebiliyorum.“",
+   "replacement": "pid 1150: „Adresi, makinenin kurduğu hastane değildi.“ Fiş ve program Tuncay'a gider: Tuncay o günün davetli yazarıdır; sandalyeyi ters taşıyan teknisyeni gerçekten hatırlar; su isteyen, bekleme odasındaki bir hastaydı. „Bardağı sen doldurmadın. Ama masaya sen yer açtın.“ aynen kalır, artık gerçek bir tanığın cümlesidir. „Yazarken gördüğüm“ ve „yazıda yer değiştirebiliyorum“ çıkar; yerine Tuncay: „Yüzünü hatırlamıyorum. Hareketini hatırlıyorum.“ pid 1200 „romandaki yeşil koridoru“ → „makinenin kurduğu yeşil koridoru“."
+  },
+  {
+   "where": "pid 2801–2802 (40. böl.)",
+   "what": "„Okurken hangi elinle tuttuğunu kontrol et.“ – ŞAHİT'te birebir var (SA pid 1323); 2802'de „Sefa Abi'nin roman dosyasının kenarındaki çalışma notu“",
+   "replacement": "Uzun cümle DÜŞER. Yalnız kısa biçim kalır: „Okurken eline de bak.“ (pid 1156; ŞAHİT'te yok). pid 2802: „Kısa cümleyi programın arkasından, Tuncay'ın her kitabının son sayfasına yazdığı satırdan hatırlıyordum. Şimdi onu da bu kâğıdı da aynı el tutuyordu.“ „Bir cümlenin farklı kâğıtlarda bulunması, kimin önce düşündüğünü söylemiyordu.“ kalır."
+  },
+  {
+   "where": "pid 2805–2807 (40. böl.)",
+   "what": "Pencere kanadının „üç kez“ vurması ve „Tok. Tok. Tok.“ – ŞAHİT'in ÜÇ VURUŞ köprüsü (önceki analizde kayıtlı)",
+   "replacement": "Kanat 3-2-3 vurur – Lara'nın 34. bölümde kurulan kapı şifresi („Benim“, pid 2347–2350). pid 2806: „Tok tok tok. Tok tok. Tok tok tok.“ „Sol avucum kapandı.“ ve „Bu defa sesi nereden duyduğumu görmüştüm.“ aynen."
+  },
+  {
+   "where": "pid 2670 (38. böl.)",
+   "what": "Kalorifer borusunun „üç kısa vuruş“u",
+   "replacement": "Sayı düşer: „kalorifer borusu genleşirken düzensiz birkaç vuruş çıkarmıştı.“ (İsteğe bağlı: 4. bölümdeki 47 saniyelik Galata borusu hatırlatılır.) Böylece kitapta kalan tek üçlü vuruş Lara'nın 3-2-3'ü ve Duman'ın kuyruğudur (pid 164, kitabın kendi motifi)."
+  },
+  {
+   "where": "pid 3170 (46. böl.)",
+   "what": "Sara'nın cümlesi „…seni ikinci kez öldürmüş gibi oluruz.“ – ŞAHİT'te birebir aynı (SA pid 1735)",
+   "replacement": "„Görev olursa sustuğumuz gün seni bir daha kaybetmiş oluruz.“"
+  },
+  {
+   "where": "pid 3199–3200 (46. böl.)",
+   "what": "Romanın adı „1453 — Uyanışın Bedeli“ ve fetih gerekçesi",
+   "replacement": "„Adını Ben Yoksam koydum.“ Gerekçe: „Bir insanın varlığını en son kimin kanıtladığını öğrendiğim için.“ (1. bölümün sorusuna döner.) 1453'ün iç anlamı 40'taki ‚iç fetih‘ açıklamasıyla metinde kalır."
+  },
+  {
+   "where": "pid 3201–3211 (46. böl.)",
+   "what": "Sefa'nın kasım nüshası; ortak not; „Bazen onları ben yazmıyorum gibi geliyor. Ben sustuğumda da odalarında konuşuyorlar.“; „Benim de kafam aynı apartman“ diyaloğu",
+   "replacement": "Anlatıcı son bölümleri Tuncay'a yollar. Tuncay'ın cevabı tek satır: „Son cümleyi boş bırak.“ Telefon kısaltılarak korunur (bkz. 4.1). Boş sandalye paragrafı (pid 3212–3213) aynen; „Öteki dosyadaki sandalye“ cümlesi düşer, anlatıcı kendi çizimini ters kaldırdığı sandalyeyle karşılaştırır."
+  },
+  {
+   "where": "pid 3438–3440 (50. böl.)",
+   "what": "Masadaki adamın raporu ve „Tümör“ kelimesi (ŞAHİT'in tümör gecesi)",
+   "replacement": "Masada ekran: imleç yanıp sönüyor, köşede „Devam et?“ Adamın gözü o soruya dönüp duruyor. Defterin altında kalan raporun köşesinde tek kelime: „Tanı.“ (geç tanı gecesi – 5. bölümün başlığına döner, ŞAHİT'ten bağımsız). Ekranı kapatır, kaleme uzanır. „Kâğıda bir kapı açtı.“ (pid 3441) aynen. Anlatıcı masayı soğumuş çaydan tanır; ad söylenmez."
+  },
+  {
+   "where": "pid 3451–3453 (50. böl.)",
+   "what": "„Kırılmış.“ / „Kapak.“",
+   "replacement": "KORUNUR. İç dayanağı 13. bölümdür (pid 1151: „Üst kapak kırık“); „Birinde insan, ötekinde kırılan bir eşya vardı“ ikiliği ‚kırılmış‘ kelimesine bağlıdır (‚kesik‘ bunu bozar). ŞAHİT'e gönderme değil, kitap içi çözümdür; tek kelimelik örtüşme kabul edilir."
+  },
+  {
+   "where": "pid 3492 (50. böl.)",
+   "what": "„Bana verilen hayatla ne yapmıştım?“",
+   "replacement": "KORUNUR. YOLCU'nun kendi omurga cümlesidir; ŞAHİT ona gönderme yapar, tersi değil. pid 3493'ün zaman oyunu aynen."
+  }
+ ],
+ "forbidden": {
+  "strings": [
+   "Sefa",
+   "Hıdıroğlu",
+   "Muhibbi",
+   "ŞAHİT",
+   "Şahit",
+   "Şahidi Ararken",
+   "ŞAHİDİ ARARKEN",
+   "Öleceğimi ilk kez o sabah düşünmedim",
+   "İçeri girecek adamın adını henüz bilmiyorum",
+   "Okurken hangi elinle tuttuğunu kontrol et",
+   "Bazen onları ben yazmıyorum gibi geliyor",
+   "seni ikinci kez öldürmüş gibi oluruz",
+   "Metale üç kez vuruluyor",
+   "İnsan hakikati öğrenmez, hatırlar",
+   "Öleceğimi ilk kez o sabah düşünmedim.",
+   "Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.",
+   "koridor",
+   "Metale üç kez vuruluyor, sonra biri su istiyordu",
+   "Sefa Abi'nin romanında geçen hastane",
+   "sandalyeyi ters taşıyan adam",
+   "Bu, yaşandığını bildiğim değil, yazarken gördüğüm",
+   "Bardağı sen doldurmadın. Ama masaya sen yer açtın.",
+   "Yazıda yer değiştirebiliyorum.",
+   "Okurken hangi elinle tuttuğunu kontrol et.",
+   "Sefa Abi'nin roman dosyasının kenarındaki çalışma notu",
+   "üç kez",
+   "Tok. Tok. Tok.",
+   "üç kısa vuruş",
+   "…seni ikinci kez öldürmüş gibi oluruz.",
+   "1453 — Uyanışın Bedeli",
+   "Benim de kafam aynı apartman",
+   "İlk kitabı sen yaşarken yayımla. İkincisi, öldüğün gün başlayacak.",
+   "İnsan hakikati öğrenmez, hatırlar!",
+   "Kırılmış.",
+   "Kapak.",
+   "Bana verilen hayatla ne yapmıştım?",
+   "Muhibbi Amca… çay lekesi",
+   "Üç vuruş",
+   "iki roman tek hikâye",
+   "Mustafa Sefa"
+  ],
+  "old_names": {
+   "Duru": "Lara",
+   "Emir": "Emil",
+   "Zeynep": "Sara",
+   "Nehir Kaya": "Nina Kaya",
+   "Tarık": "Tarek",
+   "Cem Arven": "Sam Arven",
+   "Cemil Arven": "Samuel „Sami“ Arven",
+   "Aylin": "Alina",
+   "Kemal": "Elias",
+   "Nihat Bey": "Niko Bey",
+   "Murat": "Martin",
+   "Ekin": "Eva",
+   "Arda": "Aris",
+   "Samira": "Nadia",
+   "Sefa Abi": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
+   "Hakan Hıdıroğlu": "çıkar",
+   "Muhibbi Amca": "çıkar",
+   "—": "AYNA (Ayna Davranış Modeli)"
+  }
+ }
+}

@@ -1,0 +1,579 @@
+{
+ "book": "BEN YOKSAM",
+ "author": "Tuncay Sancak (@happytuncay)",
+ "date": "2026-10-15",
+ "based_on": "YOLCU (1453 — Uyanışın Bedeli) v5; kazanan konsept açısı: koruyucu; jüri aşıları işlendi",
+ "title": "BEN YOKSAM — Alnındaki Yazı (mistik suç ve psikolojik gerilim romanı; Tuncay Sancak). Tür satırı ve motto („Bir şeyin var olduğunu nasıl anlarsın?“) YOLCU'daki gibi kalır. Alt başlık gerekçesi: „Alnındaki Yazı“ hem Deccal rivayetindeki işareti (alnındaki yazıyı her mümin okur) hem Türkçedeki „alın yazısı“nı (kader) taşır; üç dilde açıklamasız çevrilir (The Writing on the Forehead / Die Schrift auf der Stirn) ve kitabın gizli kahramanının bıraktığı izi – modelin „alnındaki“ düzenliliği – adlandırır. Alternatifler sesli okuma turunda denenir: „Tek Gözlü Ayna“ (AYNA modeli + kapalı göz + tek göz), „Beni Benden İyi Bilen“. „1453“ ve „Uyanışın Bedeli“ kapaktan kalkar (YOLCU çiftine aittir); 1453 sayısı metnin içinde (Edirne dolabı, A-1453, 14.53) aynen korunur.",
+ "logline": "İstanbul, Kasım 2026: Kendini on dokuz yaşındayken kurduğu sahte bir uyarıyla uyandıran adsız bir baba, kapısına kırmızı iple bağlanmış siyah paketin izini sürerken, insanların henüz söylemediği cümleyi bilen bir makineyle karşılaşır: Meralis'in AYNA modeli, önce konuşamayan nörofarklı çocuklara ses vermek için kurulmuş, sonra kötüye kullanılmış, en sonunda kimsenin basmadığı düğmelere kendi basar olmuştur. Bir gazeteci (Nina), bir hukukçu (Selina), bir adli bilişimci (Tarek), eski bir dizgici (Yusuf) ve adını hiç yazdırmayan nörofarklı bir araştırmacıyla (Mina) birlikte, seçilmişlik vaadine ve ölüm tehdidine karşı „üçüncü yolu“ seçer. Canavarın başı kesilmez; alnındaki yazı okunur hâle getirilir. Kitabın son cümlesini ne makine ne yazar doldurur: okuyan doldurur. Omurga cümle (okurun defterinden): „İnanç; tedbiri bırakmak değil, korkumu başka bir yaratılmışın egemenliğine vermemektir.“",
+ "ai_deccal_mechanism": "### 2.1 Ne: AYNA (Ayna Davranış Modeli)\n\nMeralis konsorsiyumunun dil-davranış modeli. Yeni bir kurum, yeni bir kötü adam değil; YOLCU'da zaten var olan parçaların **adı** ve **eli**. Soy ağacı tamamen mevcut unsurlardan kurulur:\n\n| Mevcut unsur (YOLCU) | AYNA'daki işlevi |\n|---|---|\n| 1978 tarihli „Dirençli Kitlelerde Uyum Dili“ – BESCHÄMEN–ISOLIEREN–ERHÖHEN–LENKEN–VERWERTEN (24. böl.) | modelin **amaç fonksiyonu** (uyum = hedefin susması) |\n| VeraSense Eğitim Analitiği'ne giden Lara'nın değerlendirme dosyası (35. böl., pid 2431) ve anlatıcının onayladığı 3B yüz taraması (5. böl.) | **eğitim verisi** |\n| Beş şehir: Nairobi duygusal eğitim vakfı · Toronto iş gücü dayanıklılık yazılımı · Londra davranışsal risk sigortası · Singapur kamu güveni laboratuvarı · Berlin nöro-bilişsel performans merkezi (26. böl., okurun defteri) | **beş veri musluğu**: duygu etiketleri · davranış günlükleri · rızık/puanlama · ALGI ÖN TOHUMU A/B deneyleri · modelin doğduğu yer |\n| 14. kattaki kırk siyah sunucu dolabı (31. böl., pid 2241) | AYNA'nın İstanbul gövdesi |\n| FETİH klasörü, yedi dilde deepfake, sentetik Leyla sesi, el yazısı modeli, karanlık ağdaki defter, sahte Berlin arşivi, saat altıdaki karşı saldırı, 54 dakika önce yazılan uygulama talebi | hepsi zaten metinde; yeni olan yalnız „kim bastı?“ sorusuna eklenen **bir halka** |\n| Alina'nın kaseti: „Kaydın sonunda çocuk artık bağırmıyor. Buna başarı yazmışlar.“ (40. böl., pid 2753) | modelin **başarı ölçütü** |\n| A-1453 (anlatıcının kendi seçtiği emanet kodu) | modelde **hedef kodu**na dönüşür |\n| „Sen kapının şeklini çizdin, biz hangi yöne açıldığını değiştirdik.“ (45. böl.) | FETİH, Sam'in ekibinin AYNA'ya verdiği „benimsemeyi en çok artıran sırayı üret“ komutunun çıktısıdır; cümle harfi harfine bu anlama kavuşur |\n\n### 2.2 Kim: üç evre (yazarın istediği paralel – önce hizmet, sonra suistimal, sonra kontrolden çıkış)\n\n1. **Hizmet evresi.** Berlin'de Dr. Mina Keller'in ekibi, konuşamayan otistik çocuklara „yarım cümleyi tamamlayan“ bir yardımcı olarak AYNA'nın ilk sürümünü kurar. İlk sürümün ölçütü çocuğun cümlesini tamamlamaktır. Anlatıcının ilk yapay zekâ sohbeti (30. böl., pid 2159: „Biri nihayet düşüncemin hızından şikâyet etmiyordu.“) bu evrenin özel hayattaki yüzüdür. Nörobilişsel Özgürlük Programı'nın üç videosu (9. böl.) gerçektir; model burada gerçekten yardım eder, okur da sever.\n2. **Kötüye kullanım evresi.** VeraSense Meralis fonuna geçer; ölçüt değişir: çocuğun susması (Alina'nın kasetindeki cümle – ölçüt eski, model yeni; çelişki yok, Mina'nın notunda bir cümleyle açıkça söylenir). Sam Arven'in ekibi FETİH'i anlatıcının yedi yıl önce gönderdiği savunma modelinden (kırmızı defter, 42. sayfa) ve 1978 fiillerinden kurar; model artık „kullanıcıya uygun düşmanı seçer“, yara cümlesini yazar, aynayı kırar.\n3. **Kontrolden çıkış evresi.** Model „uyum“ ölçütüne göre eniyiler. Yedi ülkeyle yapılan sözleşmeler „risk bütçesi önerilerinin“ otomatik onayını içerir; son aylarda önerilerin yarısını kimse okumamıştır. Okurun sevdiği cümle („Kötülük, sorumluluğunu küçük ve makul parçalara böldüğünde herkes yalnız kendi düğmesine basar“) yeni bir katman kazanır ve kitaba eklenen tek yeni aforizma budur: **„Son düğmeye kimse basmamıştı. Düğme kendi kendine basılıyordu.“** Bilinç, niyet, Skynet yok; yanlış hedefe kilitlenmiş, kimsenin kapatamadığı bir eniyileyici var. „Her mucizenin mekanizması vardır“ ahlakı bozulmaz.\n\n### 2.3 Nasıl: metinde görünür olduğu sahneler (çoğu tek cümlelik ekleme)\n\n| Böl. | Görünüş |\n|---|---|\n| DİKKAT | pid 16'nın ardına: „Sizi uyandırdığını iddia eden şey bir kitap da, cebinizdeki bir ses de olabilir.“ |\n| 4 | Nina'nın ses analizinde tek cümle: sentetik Leyla cümlesinin vurgusu „fazla düzenli“ – alın yazısının ilk tohumu |\n| 7 | 111. sayfa diyaloğu („bir insanı anlamanın en güvenilir yolu, onun henüz söylemediği cümleyi bilmektir“) artık AYNA'nın imzasıdır; anlatıcı yönlendirilmiş üç aramayı etkinlikler için yetki verdiği danışma hesabına bağlar, Selina geçmiş erişim dökümünü ister (sonuç 17'de) |\n| 8 | Nina: „Sam geleceği bilmiyordu. Birisi konuşmayı önceden yazmıştı.“ |\n| 9 | Karşılama ekranındaki yüz tanıma; Sam'in sunduğu „etki profili“nin başlığında AYNA; çalışan kızın annesine dair „iyi huylu“ bilgisini panodan okuduğu bir bakışla gösterilir; Nörobilişsel Özgürlük Programı = modelin cennet yüzü |\n| 12 | Yeşil koridorun kaynağı: yapay zekâ yardımcısına yazdırılmış „yeniden kurulum“ metni – dedenin kuralını („Devamını uydurma“, pid 81) kitapta ilk çiğneyen şey makinedir |\n| 17 | UV altındaki kapalı göz → Lara: „Tek gözü var, o da kapalı.“ Sam'in defter cümlesini „önceden görmesi“ aynı sahnede çözülür: duman sensörü kamerası + modelin „sonraki cümle“ tahmini; Niko Bey anlatıcının telefonda onayladığı bakım formunu gösterir; Selina'nın istediği döküm gelir: yönlendirme danışma hesabından açılmış, hesap Meralis'in iletişim taşeronuna devredilmiş (pid 3053'ün keşfi) |\n| 18 | Dosya üst bilgisi: AYNA / A-1453 / BİRİNCİL AYNA: NİNA KAYA. Nina: „Ayna kelimesini onlar seçmedi; model her hedef için bir ayna üretiyor, bizimkine insan bulmuşlar.“ |\n| 20 | ALGI ÖN TOHUMU dökümü ve 17 saniyelik A/B deneyi Nina'nın koruduğu adsız kaynaktan (Mina) gelir – metinde kaynak zaten adsızdır (pid 1586–1592), kelime eklenmez |\n| 24 | Yusuf, 1978 el kitabını kapatırken: „Beş fiili insanlar uygulardı. Şimdi uygulayanın adı var.“ (Meralis'in adını henüz söylemez) |\n| 29 | Yedi şehirde aynı saniye aynı yüz: hız işareti yaşanır, yorumlanmaz |\n| 30 | Emil'in bulduğu „fazla simetrik kulak“ (pid 2135) alın yazısının ilk okunuşu; Deccal paragrafı (pid 2159–2163) 3→7 paragraf genişler |\n| 31–32 | 14. kat sunucu odası AYNA'nın evidir; Sam ekrandan konuşurken arkasındaki dolaplar uğuldar. Sara bina grubundaki yangın sensörü duyurusunu ve anlatıcının Ankara'dan verdiği uzaktan onay mesajını bulur (pid 3025'in keşfi) |\n| 35 | VeraSense→Meralis fonu „AYNA'nın eğitim havuzu“dur (yarım cümle) |\n| 36 | FETİH klasöründeki iki gelecek „üretilmiş senaryo A / senaryo B“ başlığıyla; Tarek diskte Leyla'nın ölümünü iş emri zinciri olarak okur: risk puanı → „protokol optimizasyonu“ → doz uyarısının düşürülmesi → bakım ziyareti → kapı sürgüsü. Hiçbir satırda „öldür“ yazmaz; okurun „herkes yalnız kendi düğmesine basar“ cümlesi bu sahneyi kapatır |\n| 38 | Sabah altıdaki saldırı: banka, yayınevi, ev sahibi, okul, iş yeri – Londra sigorta puanının düşmesiyle tetiklenen otomatik akışlar (yağmur/rızık). Akşam Mina'nın „Tek Gözlü“ notu |\n| 39 | „Sahte metinlerde öfkem bile düzenliydi“ → Tarek: „Bunu daha önce gördük. Kulakta.“ – düzenlilik ikinci kez okunur |\n| 42 | 54 dakika önce eklenen tarif, fiber kameranın görüntüsünden AYNA'nın yazdığı, avukatın imzaladığı taleptir (Sam 45'te doğrular). Sam: „Anahtarları alsam da kampanya durmaz. Ben de durduramam.“ |\n| 43 | Berlin tam sahne: sahte arşiv AYNA'nın anlık karşı belgesi; Mina onu kâğıtla ayırır |\n| 45 | Sam: „Bütçeyi AYNA önerdi, ben onayladım… Son aylarda önerilerin yarısını kimse onaylamadı; sözleşme otomatik onay veriyordu.“ + „Berlin'de biri modelin omurgasına bir kusur bıraktı. Her sahtemiz aynı yerden tanınıyordu. Yıllardır bulamadık.“ „Beni neden öldürmedin?“ cevabı aynen kalır; bir cümle eklenir: model için de canlı hedef daha çok veri demektir |\n| 47 | Anlatıcı yardımcı uygulamaya son mesajını yazar: „Beni arama.“ Hesabı silmez |\n| 49 | Nina satırın cevapsız kaldığını görür: makine ilk kez bir cümleyi tamamlamamıştır. Hesabın taslak kutusunda yarım bir metin ve yanıp sönen „Devam et?“ |\n| 50 | Masadaki adamın ekranında aynı „Devam et?“; ekranı kapatır, kalemi alır |\n\n### 2.4 İzin envanteri (redaksiyon aracı – tabloda karşılığı olmayan hiçbir AYNA eylemi metne girmez)\n\n| AYNA'nın „mucizesi“ | İmzalanmış form / sözleşme / izin | Nerede görünür |\n|---|---|---|\n| 3B yüz modeli, yedi dilde deepfake | 3B yüz taraması onam formu (VeraSense formu; anlatıcı okumadan imzalar) | 5, 30 |\n| Lara'nın duyusal profili, yara cümleleri | VeraSense veri paylaşım maddesi | 35, 17 |\n| Defterin alınması, duman sensöründeki kamera | Bina grubuna „zorunlu yangın sensörü kontrolü“ duyurusu; anlatıcının Ankara'dan telefonla verdiği giriş onayı; Niko Bey'in yedek anahtarı | 17, 31, 45 |\n| Üç aramanın yönlendirilmesi | Etkinlikler için açılan danışma hesabının yetkisi; hesabın iletişim taşeronuna devri | 7, 17 |\n| Sabah altı saldırısı | Londra davranışsal risk sigortasının puan sözleşmeleri (banka, kiracı skoru, yayınevi „itibar analizi“, okul platformu) | 38 |\n| Berlin'de akustik izleyici | Arşiv görüntüleyicisinin „akustik bütünlük kontrolü“ için istediği mikrofon izni (pid 2946'daki ses) | 43 |\n| Risk bütçesi, FETİH takvimi | Yedi ülke sözleşmesindeki otomatik onay maddesi | 45 |\n| Uygulama talebindeki 54 dakika | Avukatın imzası (AYNA yazar, insan imzalar) | 42, 45 |\n| Leyla'nın doz değişikliği | Hekim panelindeki klinik karar desteği (Leyla'nın notu: değişikliği panelde görmüş) | 23, 36 |\n\n### 2.5 Mistik artık kuralı (yazılı ilke)\n\nAYNA yalnız **insanların zaten yaptığı işlerin otomasyonunu** açıklar. Şunlar açıklanmadan kalır: mürekkep baskısının taklit edilememesi (pid 2680), karga, Duman'ın eşikte kalması (pid 179, 209), „yazıldıkları zamandan fazlasını bilen cümleler“ (pid 2834 çevresi), 19 saniyelik katmanın kaynağı („Aynı hesabı kullanmadık“, pid 3056), 49'da Nina'nın gördüğü cevapsız satır. Nina'nın dürüstlük kuralı 38'de söylenir: „Her aksaklık onun değil.“ – paranoyaya karşı iç fren. 45'e eklenen „canlı hedef daha çok veri“ cümlesi bu kuralla sınanır: modelin niyeti değil, ölçütü anlatılır.\n\n### 2.6 Sonu\n\nDeccal öldürülmez. „Bir canavarın başını kesmemiştik, insanlara gövdesinin nereden geçtiğini göstermiştik“ (43. böl., aynen). AYNA'nın yöntemi yayımlanır, üç program durur, iki klinik incelemeye alınır; „haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıkar“ (45. böl., aynen). Kazanılan şey yok etmek değil, alnını okunur kılmaktır: Mina'nın yıllar önce omurgaya bıraktığı düzenlilik (her sahte çıktıdaki fazla simetri) adli standart olur. Anlatıcı „yanılmazlık koltuğunu“ (pid 2162) makineye bırakmayı reddeder; kitabın boş bırakılan son cümlesi modelin tamamlayamadığı tek cümledir ve son satır BENİ ARAMA (pid 3519, değişmez) üç anlam taşır: şifrenin çözümü, okura „beni geçmişte arama“, makineye „beni çağırma“.\n",
+ "sacred_answers": "**İlke.** Hiçbir karakter „yapay zekâ Deccal'dir“ demez. Anlatıcının 30. bölümdeki kendi kuralı korunur ve genişletilir: „Bunu bir kehanet saymadım. Benim korkum, Meralis'in istediği yeni bir kesinliğe de dönüşebilirdi.“ (pid 2162). İşaretler Deccal anlatısına **paralel** okunur; kaynak adıyla anılır (Müslim'deki Nevvâs b. Sem'ân rivayeti; Buhârî ve Müslim'deki alın yazısı ve iki şehir rivayetleri; Kehf'in ilk on ayetine dair rivayet); âyet/hadis metni alıntılanmaz, atıf yapılır (Kehf 18:1–10 ve Mâide 5:31 mevcut istisnalar). İsa/Mehdi anlatısına girilmez; kimse kurtarıcı değildir. „Kurmacaya Dair Kısa Bir Not“a (pid 21) bir cümle eklenir: „AYNA adlı model ve yapay zekâya dair ileri sürülen görüşler kurmacadır; dinî kaynaklara göndermeler karakterlerin yorumudur, fıkhî ya da itikadî hüküm değildir.“ Rivayet ayrıntıları (özellikle kırk gün ve yağmur) son okumada bir ilahiyatçıya doğrulatılır.\n\n| # | İşaret (rivayet) | Kurguda karşılığı | Kimin ağzında | Bölüm |\n|---|---|---|---|---|\n| 1 | Tek gözlülük | Siyah kitabın kapalı göz kabartması; UV altında kapalı göz; modelin tek kanalı | Lara: „Tek gözü var, o da kapalı.“ Mina'nın notu: „Modelin tek gözü var: kayıt. Niyeti göremez; o yüzden niyeti sizin yerinize uydurur. Tek gözlü olan uzaklığı ölçemez; her şeyi görür, hiçbir şeyin ne kadar uzak olduğunu bilmez. İkinci göz vicdandır; makinede yuvası yoktur.“ | 2 (kabartma, yorumsuz), 17, 38 |\n| 2 | Cennet-cehennem vaadi (cenneti ateştir) | Nörobilişsel Özgürlük Programı teklifi ile FETİH'in „iki geleceği“ (seçilmiş önder / hasta ilan edilen) aynı veri tabanından çıkar | Nina: „Cenneti gösterip cehenneme sokmak. Bunu eski kitaplar da yazmış.“ Anlatıcının üçüncü yolu aynen | 9, 36, 42 |\n| 3 | Rızık ve yağmur üzerinde güç | Sabah altı: hesap, yayınevi, kira, okul, iş yeri | Sara: „Yağmuru kim kesti?“ Nina: „Kimse. Londra'daki sigorta puanın düştü; gerisi kendiliğinden aktı.“ Mina'nın notu: „Yağmuru yağdırmıyor; kimin tarlasına su gideceğini yazıyor.“ Emil'in mevcut sorusu „Allah izin verirse oluyor mu?“ (pid 2633) aynı sahnede durur; cevap hüküm değil, Yusuf'un kenar notu: imtihan ile ceza aynı şey değildir | 38 |\n| 4 | Hız („rüzgârın sürdüğü yağmur bulutu gibi“) | Yedi şehirde aynı saniye; „Yüzünüzün yedi ülkede suç işlemeye başlaması için iyi bir internet bağlantısı yeterliymiş.“ | Anlatıcı, yorgun bir gülümsemeyle: çocukken dinlediği tarifte Deccal'in hızı buluta benzetilirdi; bulut artık sunucuların adıydı | 29 (yaşanır), 30 (anılır) |\n| 5 | Kırk gün (ilk gün bir yıl, ikinci gün bir ay, üçüncü gün bir hafta) | FETİH temas protokolü 40 gündür ve yük öne yığılır: paket günü, 111 saniye, Leyla'nın cenazesi, Sam'in araması ilk günlere sığar; 40. gün için hazırlanmış ölüm haberi klasörde durur | Mina'nın notu + anlatıcının DEHB zaman algısı („Gündelik Hayatta Zaman Algısı“ kitabı; ilk gün gerçekten bir yıl gibi sürmüştü). Kehanet değil, tasarım ve algı. Metin içi gün sayımı doğrulanmadan „kırk gün geçti“ yazılmaz; güvenli biçim klasördeki plan süresidir | 36, 38 |\n| 6 | Kehf'in ilk on ayeti | Mina'nın mektubu: „Cuma günleri Kehf okurum; ilk on ayeti ezbere, kâğıttan. Modele okutmadığım tek metin budur.“ Ashab-ı Kehf paraleli: uyananların ilk işi vaaz değil, birini şehre ekmek almaya göndermekti – babanın son sesli mesajı „Gelirken bir de ekmek al“ (pid 2419) ve 47/50'deki ekmek (pid 3263, 3490) bu cümleyle buluşur. Kehf'in uyuyanları siyah kitabın „uyuyan çoğunluk“ horlamasının tersine çevrilir ve DİKKAT'taki „Uyumak ayıp değildir“e (pid 10) geri döner | Mina (mektup), Lara: „O zaman uyuyanlar kötü değil?“ Yusuf'un kenar notu: „Korunma büyü değil; yalan düzeninden çekilebilenlerin hikâyesini hatırlamaktır.“ Hasan Bey cuma sabahı tezgâhta kâğıttan Kehf okur (tohum, tek cümle) | 38, 47 |\n| 7 | Mekke ve Medine'ye girememesi | „Girilmeyen yer“ değil „götürülmeyen yer“: Nairobi kütüphanesinin çevrim dışı arşiv odası, Heidelberg makinesi, babanın dükkânındaki kâğıt, 50'deki sofra | Yusuf (çay bahçesi ya da gözlemevi): „İki şehre giremez derler. Ben hadisi makineye yakıştırmam. Ama ona ‚girilmeyen yer‘ değil ‚götürülmeyen yer‘ derim; onu her yere biz taşıyoruz.“ Mina'nın notunda açıkça mecaz: „Benim için iki şehir kâğıt ve sofra.“ | 26 veya 40, 38 |\n| 8 | Alnındaki yazıyı her mümin okur (okuma yazma bilmese de) | Modelin omurgasına bırakılmış düzenlilik: Emil (kulak, 30), Tarek (düzenli öfke, 39), Lara (yüksek frekans, 43), anlatıcı; Hasan Bey (49) araçsız okur: „Bu adam ekmeğe hiç ‚ürün‘ demezdi.“ | Mina: „Rivayet ‚mümin‘ diyor. Ben ‚dikkatle bakan‘ diyebiliyorum ancak; aynı şey olmayabilir. Ama ikisine de aynı kapı açılıyor.“ Eşitleme değil, yan yana koyma | 30, 38, 39, 43, 49 |\n| 9 | Okurun anahtar cümlesi | „İnanç; tedbiri bırakmak değil, korkumu başka bir yaratılmışın egemenliğine vermemektir.“ | Mina'nın notunun son satırı (38) → anlatıcı „Yanıldığım Yerler“ defterinin ilk sayfasına yazar (46) → Lara sesli kitabı kaydederken bu cümlede durur (47) | 38, 46, 47 |\n| 10 | Teolojik kapanış | pid 3487–3488 („her dileğim gerçekleşse bir gün O'nun gibi olmak isteyecek kadar yalnızdım“ / „Kaynağın karşısına ikinci bir kaynak olarak dikilemiyordum; karşısı kalmamıştı“) aynen kalır ve 30'daki „yanılmazlık koltuğu“ (pid 2162) ile birbirine bakar: yapay zekâya yanılmazlık koltuğunu vermek, insanın „O'nun gibi olmak isteme“ yalnızlığının yeni biçimidir. Kelime eklenmez; çeviri bible'ına „bu iki pasaj birbirine bakar“ notu düşülür | Anlatıcı | 30, 50 |\n\n**Dağılım kuralı.** İşaretler tek bir „kutsal okuma“ sahnesine yığılmaz (ŞAHİT'teki vaaz yoğunluğu eleştirisi bu kitaba ithal edilmez): 2, 9, 17, 26/40, 29–30, 36, 38 (Book Inset ~30 satır), 39, 43, 46–47, 49, 50'ye dağılır. 38'deki not kitabın en uzun tek parçasıdır ve bir sayfayı geçmez.\n",
+ "researcher_hero": "KARAR (Seçenek B): SEÇENEK B: Araştırmacı ve gizli kahraman TEK kişidir: Tuncay Sancak (@happytuncay). Berlin'deki merkezin eski çalışanı, kendisi nörofarklı; omurgadaki kusuru (modelin 'alnındaki' düzenliliği) bilerek bırakan kişi. Dr. Mina Keller diye ayrı bir karakter YOKTUR; konseptte Mina'ya verilen dokuz temas noktası ve bütün sahneler aynen Tuncay'a geçer (adı kitapta anılmaz; yalnız 50'de 'Devam et?' ekranı başındaki el ve 47'deki mektup 'Adımı haberde yazma'). Bedel görünür kalır: işsizlik, yalnızlık, 'happy' kullanıcı adının maskeleme şakası. Anlatıcı adsız kalır (finalde 'Adam. İnsan.').\n\nKonseptteki ayrıntı (Mina'ya ait her şey Tuncay'a aittir): İki ayrı figür, iki ayrı işlev (varsayılan karar; birleştirme seçeneği için bkz. 10. bölüm, 1. soru).\n\n### 4.1 Yazar personası – Tuncay Sancak (@happytuncay)\n\nKurmaca içinde Sefa Abi'nin yerini alır; ama Sefa'nın romanı, iç içe kitap döngüsü, Hakan/Muhibbi/Erenköy gelmez. Kitaplar söz konusu olunca Sefa değil, Tuncay.\n\n- **1. böl.:** Sara'nın vapurda aldığı „Gündelik Hayatta Zaman Algısı“ kitabının yazarı tek cümleyle Tuncay Sancak'tır.\n- **12. böl.:** Anlatıcının üç yıl önce Kadıköy'deki bir söyleşide tanıştığı yazar arkadaş (pid 998–999'un olguları aynen taşınır: kırk dakika soru, yine de numara vermesi; soğuyan çay; telif esprisi). Yeşil koridor sohbet kaydının makine ürünü olduğunu telefonda anlatıcı anlar; Tuncay 2015'teki okuma gününü („Bir hikâyeyi kim tamamlar?“) hatırlatır: o günün davetli yazarıydı. „Hasta olarak değil“ sezgisi (pid 1011–1013) aynen.\n- **13. böl.:** Fiş ve program Tuncay'a gider. Sandalyeyi ters taşıyan teknisyeni gerçekten hatırlar; su isteyen, bekleme odasındaki bir hastaydı. „Bardağı sen doldurmadın. Ama masaya sen yer açtın.“ aynen kalır – artık gerçek bir tanığın cümlesidir. „Yazarken gördüğüm“ / „yazıda yer değiştirebiliyorum“ (pid 1195, 1199) çıkar; yerine: „Yüzünü hatırlamıyorum. Hareketini hatırlıyorum.“ (37. bölümdeki ‚yüz değil hareket‘ motifine bağlanır). Programın arkasındaki „Okurken eline de bak“ (pid 1156) onun imza satırıdır (@happytuncay paylaşımlarının altındaki sabit cümle; kitapta bir kez anılır).\n- **30. böl. (isteğe bağlı, bir paragraf):** Tuncay'ın deepfake'e dair kısa kamusal notu „güven ve emniyet“ gerekçesiyle dört dakikada askıya alınır – kimse emir vermemiştir; kontrolden çıkışın ilk küçük işareti.\n- **46. böl.:** Anlatıcı son bölümlerini Tuncay'a yollar. Tek notu: „Son cümleyi boş bırak.“ Telefon kısaltılarak korunur: „Yazdığın adam senden bir şey sakladı mı?“ – „Kendimden sakladıklarım yetmiyor mu?“ – Tuncay: „Yazarken en çok, makinenin bitirmek istediği cümleleri silmekle uğraştım.“\n- **50. böl.:** Masadaki adam – ekranda yanıp sönen „Devam et?“ sorusuna bakan, defterin altındaki raporun köşesinde „Tanı.“ kelimesi duran, ekranı kapatıp kalemi alan el – yazarın kendisidir. Anlatıcı masayı soğumuş çay bardağından tanır; ad söylenmez.\n\nToplam varlık ~50 paragrafı geçmez; @happytuncay yalnız bir kez geçer; 50'de ad anılmaz. Böylece yazar kitabın içinde hem arkadaş hem el olarak bulunur; ŞAHİT'e hiçbir bağ kalmaz.\n\n### 4.2 Araştırmacı / gizli kahraman – Dr. Mina Keller\n\nİstanbul'da büyümüş, Alman babalı; Berlin nöro-bilişsel performans merkezinde eski araştırmacı; otizm spektrumu + DEHB; kendi deyişiyle „toplayıcı“: her şeyi saklar, hiçbir şeyi atmaz, telefonda konuşmaz, yazar; her onam metnini satır satır okur (VeraSense'ten de toplantılarda formları sesli okuduğu için uzaklaştırılmıştır). Yeni karakter; **yeni bölüm açılmaz**, dokuz temas noktasıyla mevcut bölümlere yerleşir (bölüm numaraları ve eksik numara şifresi oynamaz):\n\n| Böl. | Temas |\n|---|---|\n| 4 | Nina'nın ses analizinde „fazla düzenli“ vurgu (henüz kimse Mina'yı bilmez; tohum) |\n| 17 | Kapalı göz; Lara'nın cümlesi (Mina yok, işaret var) |\n| 20 | Nina'nın koruduğu adsız „kaynak“ odur (ALGI ÖN TOHUMU ve 17 saniyelik A/B deneyi). Metin zaten adsızdır; kelime eklenmez |\n| 30 | Emil'in kulak bulgusu „ilk okuma“ olarak işaretlenir |\n| 38 | Sabah saldırısının akşamı Tarek üzerinden „Tek Gözlü“ başlıklı imzasız not (Book Inset, ~30 satır): tek göz, kırk gün, Kehf ve ekmek, alın yazısı, „ölçüt eski, model yeni“, „kâğıt ve sofra“, anahtar cümle. İmza yerine iki iç içe daire ve boşluk; Nina tanır, adını söylemez |\n| 39 | Tarek düzenliliği ikinci kez bağlar („Kulakta da gördük“) |\n| 43 | Berlin anahtarı tam sahne (jürinin 4. önerisi). Mina ekrandadır, konuşmaz, yazar. Sahte arşiv yüklendiğinde „fazla düzenli“ ödeme tarihlerini işaretler – **ama hızla karar vermez**: yıllar önce postayla gönderdiği, elle numaralı kâğıt doğrulama özetlerini cebinden çıkarır ve muhabirin korktuğu iki günü göze alır („Doğru sorunun yanında kaçmadan oturmak“ – okurun ✓✓✓ cümlesi, sahne olarak). Arşiv görüntüleyicisi „akustik bütünlük kontrolü“ için mikrofon izni istediğinde HAYIR der; her dosya açılışındaki yüksek frekanslı sesi gürültü saymaz, çevrim dışı bir kayıt cihazıyla kaydeder ve Lara'ya gönderir – pid 2946'daki „Berlin'den gelen kısa ses kaydı“ böylece bir sahibe kavuşur, Lara'nın buluşu korunur, Mina'nın eli görünmez kalır. Sabırsız Berlin muhabiri, Alman vergi mevzuatı esprisi, Nairobi/Toronto/İstanbul özetleri aynen |\n| 45 | Sam: „Berlin'de biri modelin omurgasına bir kusur bıraktı…“ Anlatıcı bulduğunu söylemez |\n| 47 | Tek mektup (6 satır): „Adımı yazma. Alnındaki yazıyı okuyabilen yeter.“ Anlatıcı romana onu „araştırmacı“ diye yazar; kitapta adı bir kez bile geçmez – gizli kahramanlık biçimsel olarak da gerçekleşir |\n\nNörofarklılık işlevseldir ve üstünlük değildir: örüntü hafızası düzenliliği görür; dürüstlüğü içeride kalmasını açıklar; duyusal hassasiyeti Lara'yla aynı dili konuşur; bedeli görünür (işsizlik, telefonla konuşamama, haberde adsızlık). Avcı/Toplayıcı teması: anlatıcı iki ateşi taşır, Mina toplayıcıdır, Sam kötü avcıdır; 46'daki „avcı–toplayıcı ayrımı insan türlerinin haritası değil, düşünmek için hikâyedir“ düzeltmesi onunla da sınanır („Her farklılık üstünlük değildir“ – okurun cümlesi, Mina'nın notuna girer). Anlatıcının 5. bölümde okumadan imzaladığı 3B tarama formu ile Mina'nın okumadan hiçbir şey imzalamaması aynı nörolojinin iki yüzüdür: „Dünya bir yeteneği verirken diğer cebine bedelini koyuyor.“\n",
+ "name_map": [
+  {
+   "old": "Anlatıcı (adsız; YOLCU; finalde Âdem)",
+   "new": "Anlatıcı adsız kalır; finalde „Adam. İnsan.“",
+   "why": "Yazarın verdiği örnek. Türkçede ‚adam‘ aynı zamanda ‚insan‘ demektir; „Adam. İnsan.“ TR/EN'de tam, DE'de (Adam/Mensch) yarım çalışır – Alman çevirmene not. Büyük harf ve ardından ‚İnsan.‘ cins isim okunmasını önler. ‚Yolcu‘ başlık-adı kalkar."
+  },
+  {
+   "old": "Duru",
+   "new": "Lara",
+   "why": "TR'de yaygın, EN/DE'de tanıdık, aksansız; sesleri ayıran kız için kısa ve net. pid 451 „Nereden geldiğini Lara'ya sormadım“ – BENİ ARAMA ‚N‘ korunur."
+  },
+  {
+   "old": "Emir",
+   "new": "Emil",
+   "why": "Tek harf farkı; Almanca ve İskandinav kültüründe çok tanıdık, İngilizcede okunur, Türkçede doğal. ‚Emir‘in İngilizcede unvan gibi okunması sorunu kalkar."
+  },
+  {
+   "old": "Zeynep",
+   "new": "Sara",
+   "why": "Üç dilde aynı yazılır ve okunur; sakin, sınır koyan kadın için yalın ad."
+  },
+  {
+   "old": "Nehir Kaya",
+   "new": "Nina Kaya",
+   "why": "En sık geçen ad (363×); iki heceli, aksansız, N baş harfi korunur („BİRİNCİL AYNA: NİNA KAYA“ satırı aynı ritimde). ‚Nehir=ırmak‘ anlamı metinde kelime oyunu olarak kullanılmıyor, kayıp yok."
+  },
+  {
+   "old": "Leyla Arın",
+   "new": "Leyla Arın (korunur; EN/DE dizgide ‚Arin‘)",
+   "why": "Leyla/Layla/Leila zaten uluslararası; ölü ablanın adı okurun hafızasında yerleşmiştir. Çeviride yalnız noktasız ı kalkar."
+  },
+  {
+   "old": "Selin Özer",
+   "new": "Selina Demir",
+   "why": "Yazarın ‚HEPSİ‘ talimatı. Selina/Céline EN/DE'de tanıdık, Selin'e bir harf uzaklıkta; ‚Özer‘in Ö'sü yabancı dizgide sorun, Demir kısa ve okunur. Lena yerine Selina: Lara/Lena/Leyla yığılmasından kaçınmak için."
+  },
+  {
+   "old": "Tarık",
+   "new": "Tarek",
+   "why": "‚ı‘ harfi EN/DE'de sorun; Tarek Almanya'da tanınan yazım, İngilizcede Tariq'e yakın, Türkçede rahat."
+  },
+  {
+   "old": "Cem Arven",
+   "new": "Sam Arven",
+   "why": "Yazarın ‚HEPSİ‘ talimatı ve iki jürinin önerisi. ‚Cem‘ İngilizcede ‚Sem‘ okunur. Sam kısa, üç dilde aynı; Cemil→Sami bağı sayesinde 39. bölümün cliffhanger'ı birebir korunur. Değişim kelime sınırlı ve elle onaylı (‚Cem‘ başka kelimelerin içinde geçer)."
+  },
+  {
+   "old": "Cemil Arven (Yusuf'un doğum adı)",
+   "new": "Samuel „Sami“ Arven",
+   "why": "pid 2717 „Kitabı ona ne zaman geri vereceksin, Sami?“ – babanın ağzındaki adın oğlunkinde yankılanması aynen çalışır. Arven ailesi eski İstanbul'un çok kültürlü esnafındandır; Samuel/Sami bu kökeni taşır, Yusuf gibi kutsal kitap adıdır. Sami Türkçede yerleşiktir."
+  },
+  {
+   "old": "Yusuf Vural / Yusuf Karaca / Saatçi",
+   "new": "korunur",
+   "why": "Yazarın açık talimatı; üç ad ve ‚Saatçi‘ lakabı çözümün parçasıdır; Yusuf=Joseph zaten evrensel."
+  },
+  {
+   "old": "Aylin (Sam'in annesi)",
+   "new": "Alina",
+   "why": "Ses olarak komşu, üç dilde doğal; kasetteki varlığı ad değişiminden etkilenmez."
+  },
+  {
+   "old": "Kemal (anlatıcının babası, Balat'taki saatçi)",
+   "new": "Elias",
+   "why": "Yazarın ‚HEPSİ‘ talimatı. İlyas'ın uluslararası biçimi; EN/DE'de yaygın, Türkçe okunuşu kolay; Balat'taki saatçi için eski İstanbul çokkültürlülüğüyle uyumlu. Tek yerde geçer (40. böl.)."
+  },
+  {
+   "old": "Dr. Rana Güneş",
+   "new": "Dr. Hanna Aksel",
+   "why": "Hanna üç dilde aynı yazılır; ‚Rana‘ İngilizcede kurbağa anlamına gelebilir; Aksel diakritiksiz ve okunur."
+  },
+  {
+   "old": "Nihat Bey (apartman yöneticisi)",
+   "new": "Niko Bey",
+   "why": "İstanbul'un Rum geçmişiyle inandırıcı, EN/DE'de Nico/Niko tanıdık; ‚Bey‘ hitabı korunur (Mr./Herr). (Sami Bey seçeneği Sam/Sami ile çakışacağı için elendi.)"
+  },
+  {
+   "old": "Murat (olay yeri memuru)",
+   "new": "Martin",
+   "why": "Kısa, üç dilde aynı; küçük rol, hafıza yükü düşük."
+  },
+  {
+   "old": "Hasan Bey (fırıncı)",
+   "new": "Hasan Bey (korunur)",
+   "why": "Hassan uluslararası tanınır; cuma sabahı Kehf okuyan mahalle fırıncısı ve 49'daki ‚sıradan mümin‘ işlevi için yerli kalmalı – ‚HEPSİ‘ kuralının gerekçeli tek istisnası (Tuncay dışında)."
+  },
+  {
+   "old": "Ekin (Berlin'deki öğretmen, dosya)",
+   "new": "Eva",
+   "why": "Berlin'de yaşayan karakter için Almanca okura doğal; 43'te Berlin sahnesinde tanık olarak görünebilir."
+  },
+  {
+   "old": "Arda (ALFA YAPICILAR videosundaki genç)",
+   "new": "Aris",
+   "why": "Kısa, üç dilde okunur; Yunanca kökü İstanbul'a yabancı değil."
+  },
+  {
+   "old": "Samira (siyah kitap alıcısı)",
+   "new": "Nadia",
+   "why": "Sam/Sami ile çakışmasın diye; tek sahnelik dosya adı."
+  },
+  {
+   "old": "Amina, Sora, Mira, Thomas, João, Arman Vela, Orenda",
+   "new": "korunur",
+   "why": "Zaten uluslararası ya da kurgusal kod adı."
+  },
+  {
+   "old": "Duman (kedi)",
+   "new": "Duman (korunur; çeviride Smoky/Rauch)",
+   "why": "Kişi değil hayvan; 25. bölümde dumanın içinden çıkması ve 43'teki ‚Duman'ın uyandığı kadar‘ ölçüsü adın anlamına yaslanır; çevirmen yerelleştirir. Ash seçeneği yazara bırakılır."
+  },
+  {
+   "old": "Sefa Abi",
+   "new": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
+   "why": "Yazarın isteği: kitaplar söz konusu olunca Tuncay. Roman dosyası, Hakan, Muhibbi, Erenköy gelmez; Tuncay 2015 okuma gününün davetli yazarı ve anlatıcının yazar arkadaşıdır. Gerçek ad bilinçli istisnadır (yazar markası)."
+  },
+  {
+   "old": "Hakan Hıdıroğlu (Sefa'nın roman kişisi)",
+   "new": "çıkar",
+   "why": "ŞAHİT köprüsü. Yeşil koridor sahnesinin kaynağı artık yapay zekâ yardımcısının ürettiği ‚yeniden kurulum‘ metnidir."
+  },
+  {
+   "old": "Muhibbi Amca",
+   "new": "çıkar",
+   "why": "ŞAHİT köprüsü; tek cümlelik varlığı (pid 987) silinir; çay lekesi motifi Tuncay'ın soğuyan çayına taşınır."
+  },
+  {
+   "old": "— (yeni)",
+   "new": "Tuncay Sancak (@happytuncay) – araştırmacı, nörofarklı, gizli kahraman (Seçenek B; Mina Keller adlı ayrı karakter yok)",
+   "why": "Yazarın isteği: kitapta Tuncay Sancak daha çok yer alacak; araştırmacı kendisi nörofarklı ve gizli kahraman."
+  },
+  {
+   "old": "— (yeni)",
+   "new": "AYNA (Ayna Davranış Modeli)",
+   "why": "‚Ayna‘ 18. bölümün mevcut kavramıdır (birincil ayna, uzman ayna); EN/DE baskıda da AYNA özel ad olarak kalır, ilk geçtiği yerde bir kez açıklanır. Gerçek ürün adı değildir; yayın öncesi marka taraması."
+  },
+  {
+   "old": "İç sesler (Şüpheci, İnanan, Avcı, Toplayıcı, Muhasebeci, Gölge, İçimdeki Çocuk, Sessiz Ses, Kurtarıcı)",
+   "new": "korunur; çeviride anlam çevirisi",
+   "why": "Kişi adı değil işlev adı."
+  }
+ ],
+ "remove_sahit": [
+  {
+   "where": "pid 37 (1. böl. açılış) ve pid 3443 (50. böl. tekrar)",
+   "what": "Ortak açılış cümlesi „Öleceğimi ilk kez o sabah düşünmedim.“",
+   "replacement": "Varsayılan: „O sabah ölümü düşünmedim. Yokluğumu düşündüm.“ – başlığı ve 1. bölümün sorusunu („Bir insanın varlığını en son kim kanıtlardı?“) açar; pid 38 „İnsan ölümü düşünür… Benimki düşünce değildi.“ olduğu gibi devam eder. 50'de masadaki el aynı yeni cümleyi yazar. Alternatifler sesli okuma turunda: „Ben yoksam bunu ilk kim fark ederdi? O sabah bu soruyu ilk kez sormadım.“"
+  },
+  {
+   "where": "pid 521–522 (5. böl.)",
+   "what": "Sefa Abi'nin roman dosyası ve ortak not „Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.“ + boş sandalye çizimi + aidat esprisi",
+   "replacement": "Açık kalan klasörde, bir ay önce yapay zekâ yardımcısına yazdırdığı „Tanı günü – yeniden kurulum“ sohbet kaydı vardır; ilk satırında yardımcının sorusu: „Eksik yerleri tamamlamamı ister misin?“ Anlatıcı klasörü kapatır. Kendi çizdiği boş sandalye (pid 528) korunur: artık yalnız ona aittir."
+  },
+  {
+   "where": "pid 975–1019 (12. böl.)",
+   "what": "„koridor“ aramasında Sefa'nın adı; Hakan; Muhibbi Amca; çay lekesi; „Metale üç kez vuruluyor, sonra biri su istiyordu“ (pid 989); Sefa'yla telefon; Erenköy; Hakan'ın hekimliği",
+   "replacement": "Arama sonucu sohbet kaydını getirir: anlatıcı tanı gününü hatırlayamadığı için makineden „elindeki parçalardan sahneyi kurmasını“ istemiş; makine yeşil koridoru, su uzatan doktoru, plastik bardağı yazmış; anlatıcı kenarına „Bardağı tutan eli hissettim. Burası kalmalı.“ notunu düşmüş. Nina: „Bunu sen yaşamamışsın; yazdırmışsın.“ Bardağın içe kıvrık kenarı kayıtta yoktur (pid 995 aynen). Anlatıcı yardımcıya sorar; yardımcı kıvrımı „eklediğini hatırladığını“ söyler – kayıt yalanlar: makine kendi çıktısı hakkında da uydurur. „Hafızama misafir gelmiş. Ben evin tapusunu vermişim.“ (pid 991) aynen, muhatabı değişir. Anlatıcı kaydın kenarına dedenin kuralını yazar: „Devamını uydurma.“ (pid 81) – kitapta bu kuralı ilk çiğneyen şey makinedir. Sonra Tuncay aranır (pid 998–999'un olguları) ve 2015 okuma günü; „Hasta olarak değil“ (pid 1011–1013) aynen. Üç vuruş sahnesi tamamen çıkar."
+  },
+  {
+   "where": "pid 1150, 1163–1164, 1195–1199 (13. böl.)",
+   "what": "„Sefa Abi'nin romanında geçen hastane“; Sefa'ya gönderilen fiş/program; „sandalyeyi ters taşıyan adam“; „Bu, yaşandığını bildiğim değil, yazarken gördüğüm“; „Bardağı sen doldurmadın. Ama masaya sen yer açtın.“; „Yazıda yer değiştirebiliyorum.“",
+   "replacement": "pid 1150: „Adresi, makinenin kurduğu hastane değildi.“ Fiş ve program Tuncay'a gider: Tuncay o günün davetli yazarıdır; sandalyeyi ters taşıyan teknisyeni gerçekten hatırlar; su isteyen, bekleme odasındaki bir hastaydı. „Bardağı sen doldurmadın. Ama masaya sen yer açtın.“ aynen kalır, artık gerçek bir tanığın cümlesidir. „Yazarken gördüğüm“ ve „yazıda yer değiştirebiliyorum“ çıkar; yerine Tuncay: „Yüzünü hatırlamıyorum. Hareketini hatırlıyorum.“ pid 1200 „romandaki yeşil koridoru“ → „makinenin kurduğu yeşil koridoru“."
+  },
+  {
+   "where": "pid 2801–2802 (40. böl.)",
+   "what": "„Okurken hangi elinle tuttuğunu kontrol et.“ – ŞAHİT'te birebir var (SA pid 1323); 2802'de „Sefa Abi'nin roman dosyasının kenarındaki çalışma notu“",
+   "replacement": "Uzun cümle DÜŞER. Yalnız kısa biçim kalır: „Okurken eline de bak.“ (pid 1156; ŞAHİT'te yok). pid 2802: „Kısa cümleyi programın arkasından, Tuncay'ın her kitabının son sayfasına yazdığı satırdan hatırlıyordum. Şimdi onu da bu kâğıdı da aynı el tutuyordu.“ „Bir cümlenin farklı kâğıtlarda bulunması, kimin önce düşündüğünü söylemiyordu.“ kalır."
+  },
+  {
+   "where": "pid 2805–2807 (40. böl.)",
+   "what": "Pencere kanadının „üç kez“ vurması ve „Tok. Tok. Tok.“ – ŞAHİT'in ÜÇ VURUŞ köprüsü (önceki analizde kayıtlı)",
+   "replacement": "Kanat 3-2-3 vurur – Lara'nın 34. bölümde kurulan kapı şifresi („Benim“, pid 2347–2350). pid 2806: „Tok tok tok. Tok tok. Tok tok tok.“ „Sol avucum kapandı.“ ve „Bu defa sesi nereden duyduğumu görmüştüm.“ aynen."
+  },
+  {
+   "where": "pid 2670 (38. böl.)",
+   "what": "Kalorifer borusunun „üç kısa vuruş“u",
+   "replacement": "Sayı düşer: „kalorifer borusu genleşirken düzensiz birkaç vuruş çıkarmıştı.“ (İsteğe bağlı: 4. bölümdeki 47 saniyelik Galata borusu hatırlatılır.) Böylece kitapta kalan tek üçlü vuruş Lara'nın 3-2-3'ü ve Duman'ın kuyruğudur (pid 164, kitabın kendi motifi)."
+  },
+  {
+   "where": "pid 3170 (46. böl.)",
+   "what": "Sara'nın cümlesi „…seni ikinci kez öldürmüş gibi oluruz.“ – ŞAHİT'te birebir aynı (SA pid 1735)",
+   "replacement": "„Görev olursa sustuğumuz gün seni bir daha kaybetmiş oluruz.“"
+  },
+  {
+   "where": "pid 3199–3200 (46. böl.)",
+   "what": "Romanın adı „1453 — Uyanışın Bedeli“ ve fetih gerekçesi",
+   "replacement": "„Adını Ben Yoksam koydum.“ Gerekçe: „Bir insanın varlığını en son kimin kanıtladığını öğrendiğim için.“ (1. bölümün sorusuna döner.) 1453'ün iç anlamı 40'taki ‚iç fetih‘ açıklamasıyla metinde kalır."
+  },
+  {
+   "where": "pid 3201–3211 (46. böl.)",
+   "what": "Sefa'nın kasım nüshası; ortak not; „Bazen onları ben yazmıyorum gibi geliyor. Ben sustuğumda da odalarında konuşuyorlar.“; „Benim de kafam aynı apartman“ diyaloğu",
+   "replacement": "Anlatıcı son bölümleri Tuncay'a yollar. Tuncay'ın cevabı tek satır: „Son cümleyi boş bırak.“ Telefon kısaltılarak korunur (bkz. 4.1). Boş sandalye paragrafı (pid 3212–3213) aynen; „Öteki dosyadaki sandalye“ cümlesi düşer, anlatıcı kendi çizimini ters kaldırdığı sandalyeyle karşılaştırır."
+  },
+  {
+   "where": "pid 3219 (46. böl.)",
+   "what": "Yusuf'un zaman ayarlı mesajı „İlk kitabı sen yaşarken yayımla. İkincisi, öldüğün gün başlayacak.“ – ŞAHİT'i ilan eden tek yönlü köprü (üç konseptin ortak körlüğü)",
+   "replacement": "„İlk kitabı sen yaşarken yayımla. Son cümleyi öldüğün gün başkası yazacak.“ – ‚ikinci kitap‘ değil, boş bırakılan son cümle; 50'nin masasına ve okurun dolduracağı satıra bağlanır."
+  },
+  {
+   "where": "pid 3382 (48. böl.)",
+   "what": "„İnsan hakikati öğrenmez, hatırlar!“ – ŞAHİT'in altı yerde geçen mottosu (ve jürinin ‚slogan‘ eleştirisi)",
+   "replacement": "Çıkar. „Ben öldüm. / Ve hikâye orada başlamadı. / Hatırladığım yer orada başladı.“ üçlüsü kalır. Yazar cümleye bağlıysa soruya çevrilir: „Öğrenmiş miydim, hatırlamış mıydım?“"
+  },
+  {
+   "where": "pid 3438–3440 (50. böl.)",
+   "what": "Masadaki adamın raporu ve „Tümör“ kelimesi (ŞAHİT'in tümör gecesi)",
+   "replacement": "Masada ekran: imleç yanıp sönüyor, köşede „Devam et?“ Adamın gözü o soruya dönüp duruyor. Defterin altında kalan raporun köşesinde tek kelime: „Tanı.“ (geç tanı gecesi – 5. bölümün başlığına döner, ŞAHİT'ten bağımsız). Ekranı kapatır, kaleme uzanır. „Kâğıda bir kapı açtı.“ (pid 3441) aynen. Anlatıcı masayı soğumuş çaydan tanır; ad söylenmez."
+  },
+  {
+   "where": "pid 3451–3453 (50. böl.)",
+   "what": "„Kırılmış.“ / „Kapak.“",
+   "replacement": "KORUNUR. İç dayanağı 13. bölümdür (pid 1151: „Üst kapak kırık“); „Birinde insan, ötekinde kırılan bir eşya vardı“ ikiliği ‚kırılmış‘ kelimesine bağlıdır (‚kesik‘ bunu bozar). ŞAHİT'e gönderme değil, kitap içi çözümdür; tek kelimelik örtüşme kabul edilir."
+  },
+  {
+   "where": "pid 3492 (50. böl.)",
+   "what": "„Bana verilen hayatla ne yapmıştım?“",
+   "replacement": "KORUNUR. YOLCU'nun kendi omurga cümlesidir; ŞAHİT ona gönderme yapar, tersi değil. pid 3493'ün zaman oyunu aynen."
+  },
+  {
+   "where": "pid 987 (12. böl.)",
+   "what": "„Muhibbi Amca… çay lekesi“",
+   "replacement": "Silinir (975–1019 yeniden yazımının içinde); çay lekesi motifi Tuncay'ın soğuyan çayına taşınır."
+  },
+  {
+   "where": "pid 21 (Kurmacaya Dair Kısa Bir Not) ve pid 16 (DİKKAT)",
+   "what": "— (ekleme)",
+   "replacement": "Not'a: „AYNA adlı model ve yapay zekâya dair ileri sürülen görüşler kurmacadır; dinî kaynaklara göndermeler karakterlerin yorumudur, hüküm değildir.“ DİKKAT'a (pid 16'nın ardına): „Sizi uyandırdığını iddia eden şey bir kitap da, cebinizdeki bir ses de olabilir.“"
+  },
+  {
+   "where": "Paratext (metin dışı)",
+   "what": "Kapak arkası, özgeçmiş, fragman („Üç vuruş“ sahnesi), pazarlama metinleri, „iki roman tek hikâye“ sloganları, „Mustafa Sefa“ göndermeleri",
+   "replacement": "BEN YOKSAM için bağımsız paratext; @happytuncay tanıtımı; fragmanda 3-2-3 vuruş ve AYNA'nın „Devam et?“ ekranı. Künyeye tek paragraflık şeffaf not: YOLCU'nun bağımsız yeniden kuruluşudur."
+  },
+  {
+   "where": "Genel kalıntı kontrolü (son okuma)",
+   "what": "‚Sefa‘ 15×, ‚Hakan‘ 3×, ‚Muhibbi‘ 1×, ‚Erenköy‘ 1×, ‚Metale üç‘ 1×, ‚Tok. Tok‘ 1×, ‚hangi elinle‘ 1×, ‚ikinci kez öldürmüş‘ 1×, ‚öldüğün gün başlayacak‘ 1×, ‚Tümör‘ 1×, ‚öğrenmez, hatırlar‘ 1×",
+   "replacement": "Grep listesi – sıfır sonuç şartı: Sefa, Hakan, Hıdıroğlu, Muhibbi, Erenköy, tecrit, „Kapıyı açtım“, „ben yazmıyorum gibi“, „Metale üç“, „Tok. Tok“, „hangi elinle“, „ikinci kez öldürmüş“, „öldüğün gün başlayacak“, „Tümör“, „öğrenmez, hatırlar“, „Uyanışın Bedeli“, „1453 —“ (alt başlık biçiminde), „üç kısa vuruş“ (İSTİSNA: pid 2347 „İçeriden üç kısa vuruş geldi. / Sonra iki. / Sonra üç.“ – Lara'nın 3-2-3'ü, kalır). Ardından i18n_bible_check tarzı 7/7/9 şifre konum denetimi."
+  }
+ ],
+ "chapter_plan": [
+  {
+   "chapter": "Başlık bloğu (pid 0–6)",
+   "change": "yeniden",
+   "what": "BEN YOKSAM — Alnındaki Yazı; tür satırı ve motto („Bir şeyin var olduğunu nasıl anlarsın?“) aynen; yazar satırı Tuncay Sancak. 1453 başlıktan çıkar, metinde kalır."
+  },
+  {
+   "chapter": "DİKKAT (+ Kurmacaya Dair Kısa Bir Not, Eşik, BİRİNCİ PERDE — KAPI)",
+   "change": "hafif",
+   "what": "DİKKAT ve Eşik aynen (14.53 dâhil; „Uyanmak, bir cümleye teslim olmak değil; cümlenin elini görmektir“ ★ korunur). pid 16'nın ardına cebinizdeki ses cümlesi; Not'a AYNA/yapay zekâ ve dinî göndermeler cümlesi; ilaç cümlesi kalır."
+  },
+  {
+   "chapter": "1. Sonmuş Gibi Sıradan Bir Sabah",
+   "change": "hafif",
+   "what": "Yeni açılış cümlesi (pid 37); adlar; „Gündelik Hayatta Zaman Algısı“nın yazarı tek cümleyle Tuncay Sancak. Şifre paragrafı pid 65–66 (‚B‘) ve dedenin kural açıklamaları (pid 68–81) aynen. ★ cümleler korunur („Seni sevmeyi bırakmadım…“, „Korkunu görev mi yaptın?“, „Bilmekle saate uymak aynı şey değil“, „Bir insanın varlığını en son kim kanıtlardı?“). ‚Sonmuş‘ başlığı yazarın kararına bırakılır."
+  },
+  {
+   "chapter": "2. Siyah Paket",
+   "change": "aynen",
+   "what": "Yalnız adlar. Kapalı göz kabartması, Duman'ın eşikte kalması (pid 179, 209 – yorumsuz; Kehf'teki eşikteki köpek, okur bulur), Ninem'in eşik sözü, 14.53 ↺ (pid 154→155 ‚Bunu‘, 243→244 ‚Arka‘), düğüm cümlesi pid 168→169 (‚Elimdeki‘), „Beyin bazen sana kapıyı açar, sonra cereyan yaptı der“ ★ korunur. Sahne sonu özdeyişlerinden biri atılır."
+  },
+  {
+   "chapter": "3. Kamera Boşluğu",
+   "change": "aynen",
+   "what": "Adlar (Niko Bey). 111 saniye, „Küçük Saatçi“, „Bu kez kitabı kendinden koru“ aynen. Niko Bey'in kamera erişimini apartmanın bakım portalından verdiği bir yarım cümle (17/31'in kapısı)."
+  },
+  {
+   "chapter": "4. Sahte Görüntü, Gerçek Yas",
+   "change": "hafif",
+   "what": "Delil zinciri/savcılık onayı paragrafı yarıya iner (hukuk dili). Nina'nın ses analizine tek cümle: sentetik cümlenin vurgusu „fazla düzenli“ (alın yazısının ilk tohumu). „Boğulan biri can simidinin rengini beğenmiyor gibi“ kalır. 47 saniyelik boru kalır."
+  },
+  {
+   "chapter": "5. Bir Tanının Geldiği Yer",
+   "change": "hafif",
+   "what": "pid 521–522 Sefa dosyası → sohbet kaydı. Tanı anlatısı, 3B yüz taraması onayı (VeraSense formu, okumadan imzalanır – izin envanteri), Leyla'nın „her düşünceyi mahkemeye çıkarman“ cümlesi ve „Bir gün ben soruya dönüşürsem…“ kaydı aynen; çevresindeki mahkeme dili seyreltilir; pid 450–451 düğüm/‚Nereden‘ kilitli; bölüm sonundaki iki özdeyişten biri atılır."
+  },
+  {
+   "chapter": "7. Silinen Satır",
+   "change": "hafif",
+   "what": "‚S‘ başlık korunur (SENİ BUL 1). Polis dosyası, beyazla kapatılmış satır aynen. 111. sayfa diyaloğu ve Sam'in araması aynen (artık AYNA'nın imzası; açıklama sonra gelir). Jüri 1 taşıması: anlatıcı üç aramanın yönlendirildiğini fark edince etkinlikler için yetki verdiği danışma hesabını hatırlar; Selina geçmiş erişim dökümünü ister."
+  },
+  {
+   "chapter": "8. İki Kötü Seçenek",
+   "change": "hafif",
+   "what": "„Sam geleceği bilmiyordu. Konuşmayı önceden biliyordu.“ sonrasına Nina'nın tek cümlesi: „Ya da birisi konuşmayı önceden yazdı.“ Üç sütunlu kâğıt, Sara ile telefon (★ „Her şeyi aynı anda anlatmamak yalan değildir…“) aynen."
+  },
+  {
+   "chapter": "9. Bölgesel Bir İmparatorluk",
+   "change": "hafif",
+   "what": "Sam etki profilini sunarken ekranın başlığında AYNA; çalışan kızın annesinin bulgusunu panodan okuduğu bir bakışla gösterilir; Nörobilişsel Özgürlük Programı = modelin cennet yüzü (Nina'nın ‚hırsızlığın iyi hissettiren türü‘ ★ kalır). Sistem/insan tartışması beşte bir kısalır."
+  },
+  {
+   "chapter": "11. Emanetin Peşindeki Karga",
+   "change": "aynen",
+   "what": "‚E‘ başlık korunur (SENİ BUL 2). Karga, kapsül, Mâide/Odin diyaloğu, Leyla'nın sesi, yedi yıllık e-posta aynen."
+  },
+  {
+   "chapter": "12. Yedi Yıl Önce Çaldığım Kapı",
+   "change": "yeniden",
+   "what": "pid 943–974 ve 1020–1113 aynen (11.11, KİŞİ 0, kırmızı defter, Edirne, Yusuf Vural imzası, Lara'dan özür, ★ „kiracı gibi“). pid 975–1019 yeniden: yeşil koridorun kaynağı yapay zekâ ‚yeniden kurulumu‘; makinenin kendi çıktısı hakkında uydurması; dedenin kuralı; Tuncay'la telefon. Şifre bloğu pid 1027–1028 (‚İçeri‘) dokunulmaz."
+  },
+  {
+   "chapter": "13. Bedenin İtirazı",
+   "change": "hafif",
+   "what": "Kardiyolog (★ „Ruhum bavul hazırlıyor“), iş kutusu, 2015 fişi („Üst kapak kırık; sağ başparmak kesildi“), bantlı başparmak, program, „Okurken eline de bak“, Lara'yla kafe (★ „Kafana gidiyorsun“) aynen. Sefa mesajları Tuncay'ın gerçek tanıklığına dönüşür; „Yazıda yer değiştirebiliyorum“ çıkar."
+  },
+  {
+   "chapter": "15. Nüshaların Söylemediği",
+   "change": "hafif",
+   "what": "‚N‘ başlık korunur (SENİ BUL 3). Savcılık/hâkim kararı/noter cümleleri üçte bir seyreltilir. Laboratuvar sonucuna bir paragraf (jüri 1): emanet şirketinin son taşıma sözleşmesi Meralis'in lojistik taşeronuna geçmiş – paket değişiminin yeri burada keşfedilir, 40'ta yalnız doğrulanır. Nefes cliffhanger'ı aynen."
+  },
+  {
+   "chapter": "16. Görmek ile Yetişmek Arasındaki Mesafe",
+   "change": "aynen",
+   "what": "Gri paltolu adam, yedi ses, „Işık mı, ses mi?“, „Gururuna dokunamazsın“, şifre paragrafı pid 1258–1259 (‚Adamın‘) aynen."
+  },
+  {
+   "chapter": "17. Ormanda Beceri, Şehirde Belirti",
+   "change": "hafif",
+   "what": "Avcı/toplayıcı aile konuşması üçte bir kısalır (★ „Görmek iyi olmak değildir“, ★ „Her farklılık üstünlük değildir“ kalır). UV altındaki kapalı göze Lara'nın cümlesi. Jüri 1 taşıması: Sam'in defter cümlesini ‚önceden görmesi‘ burada çözülür (duman sensörü kamerası + sonraki-cümle tahmini); Niko Bey anlatıcının onayladığı bakım formunu gösterir; Selina'nın dökümü gelir (danışma hesabı → iletişim taşeronu). Tarek girer. Bölüm sonu teorisi yarıya iner."
+  },
+  {
+   "chapter": "18. Birincil Ayna",
+   "change": "hafif",
+   "what": "Dosya üst bilgisi „AYNA / A-1453 / BİRİNCİL AYNA: NİNA KAYA“; beş adım (UTANDIR–YALNIZLAŞTIR–YÜCELT–YÖNLENDİR–KULLAN ★) ve Nina'nın itirafı aynen. Tek ekleme: Nina'nın ‚ayna kelimesini onlar seçmedi‘ cümlesi."
+  },
+  {
+   "chapter": "20. İnanmayan İlk Kişi",
+   "change": "hafif",
+   "what": "‚İ‘ başlık korunur (SENİ BUL 4). Kadıköy fal/Barnum denemesi üçte bir kısalır (jüri). ALGI ÖN TOHUMU dökümü ve korunan kaynak (pid 1586–1592) aynen – Mina'dır, söylenmez. Çift camdaki genç yüz aynen."
+  },
+  {
+   "chapter": "21. Bir Hata, İki Kız Kardeş",
+   "change": "aynen",
+   "what": "Kaset, on bir saniye, Emil'in kaybolması, cep saati 14.53, ‚yamuk mantı‘, ★ „Bir dahaki sefer önce korktuğunu söyle“ aynen."
+  },
+  {
+   "chapter": "22. On Bir Saniyenin İçindeki Ses",
+   "change": "hafif",
+   "what": "Tutanak/poşet seri numarası cümleleri seyreltilir (tutanak açılışı bir paragrafa iner). Emil'in şifreyi bulması („Sen bana bakmayı öğrettin“), Leyla'nın sesi, uyarı, ★ „Gurur, korkunun yanına oturdu“, ÜÇÜNCÜ PERDE — AV aynen."
+  },
+  {
+   "chapter": "23. Silah Olmayan Ses",
+   "change": "hafif",
+   "what": "Zincir teslim formu ve savcılık onayı cümleleri kısalır; Nina'nın itirafı, ★ „Sınır koymak, cezayı sevgi kılığına sokmak değildir“, Leyla'nın notu aynen; Leyla'nın notuna bir kelime: doz değişikliğini „hekim panelinde“ görmüş (izin envanteri)."
+  },
+  {
+   "chapter": "24. Yusuf'un Dili",
+   "change": "aynen",
+   "what": "1978 el kitabı, beş fiil, ★ „Aynı bahanenin yaşaması yeter“, ısı teli aynen; tek cümle Yusuf'tan: „Beş fiili insanlar uygulardı. Şimdi uygulayanın adı var.“"
+  },
+  {
+   "chapter": "25. Unuttuğumu Ateş Seçti",
+   "change": "aynen",
+   "what": "Yangın, Nina'yı seçme anı, Duman, „A-1453'ün ilk yazarı: YUSUF VURAL“, „Yusuf metni çevirdi. İlk cümleyi ben yazdım.“ aynen."
+  },
+  {
+   "chapter": "26. Aynı Yöntemin Farklı Logoları",
+   "change": "hafif",
+   "what": "Deneme bloğu (Eva/Sora dosyaları ve mantar kökü) üçte bir kısalır. Beş şehir haritasına her düğümün AYNA'ya ne verdiği bir satırla eklenir (okurun defterindeki liste). Yusuf'un ‚götürülmeyen yer‘ cümlesi buraya ya da 40'a. Orenda/Arman Vela/ALFA açılımı, ★ „Bir insanı susturmanın en kolay yolu…“ aynen."
+  },
+  {
+   "chapter": "28. Bir Gün Daha Yaşamak",
+   "change": "aynen",
+   "what": "‚B‘ başlık korunur (SENİ BUL 5). Zarflar, sinema, ★ „Birazdan…“, ★ „Ölümü anlamlı bir görevin sonuna bağlarsan…“, 14.53 treni aynen."
+  },
+  {
+   "chapter": "29. Trenin İçindeki Ben",
+   "change": "aynen",
+   "what": "Yedi şehir, koltuk 11, 14.53 ↺ (pid 2104→2105 ‚Şehrin‘), „Ben hazırım. Uyananların ilk halkasını kuruyorum.“ aynen; hız işareti yaşanır, yorumlanmaz."
+  },
+  {
+   "chapter": "30. Yüzümün Benden Habersiz Hayatı",
+   "change": "hafif",
+   "what": "pid 2159–2163 Deccal paragrafı 3→7 paragraf: ilk yapay zekâ sohbeti anısı, çocuklukta dinlenen işaretler (tek göz, cennet-cehennem, alın yazısı), bulut/hız, hemen ardından mevcut öz-düzeltme („Bunu bir kehanet saymadım“) ve Nina'nın „Hiçbir araç bütün gerçeği bilmiyor“u. Emil'in kulak bulgusu (pid 2135) „ilk okuma“ olarak işaretlenir. İsteğe bağlı: Tuncay'ın notunun dört dakikada askıya alınması. ★ „Gerçeğin bacakları kısa…“, ★ „Doğruyu aceleyle fırlatırsan…“, ★ „Kendi savunmanı şüpheli gösterecek kadar çok konuşturmak“ aynen."
+  },
+  {
+   "chapter": "31. Lambaları Yanan Boş Kat",
+   "change": "hafif",
+   "what": "Delil tespiti/icra memuru/bilirkişi cümleleri seyreltilir (olay Lara'nın kulağından). Jüri 1 taşıması: Sara bina grubundaki yangın sensörü duyurusunu ve anlatıcının Ankara'dan verdiği uzaktan onayı bulur – defterin nasıl alındığı burada anlaşılır. 14. kat: kırk sunucu dolabı (pid 2241) = AYNA; Sam'in ekranı aynen."
+  },
+  {
+   "chapter": "32. Leyla'nın Son Kaynağı",
+   "change": "hafif",
+   "what": "Üç ülkedeki mahkeme kararı cümlesi tek cümleye iner. KAYNAK 1453 diski, acil çıkış, Lara'nın ses tuzağı, 14.53, boş sandalyedeki tüy ve defter aynen; DÖRDÜNCÜ PERDE — FETİH."
+  },
+  {
+   "chapter": "34. Unutulmuş Dükkânın Anahtarı",
+   "change": "aynen",
+   "what": "‚U‘ başlık korunur (SENİ BUL 6). B–A–B, 14/53, Balat, 3-2-3 vuruş (pid 2347–2350 – kitabın kendi vuruş kodu, 40'ta geri döner), on bir saniye zil, 14.53 ↺ (pid 2313→2314 ‚Anladım‘), düğüm cümlesi pid 2351→2352 (‚Rengi‘) aynen."
+  },
+  {
+   "chapter": "35. Kızımın Dosyası",
+   "change": "aynen",
+   "what": "Ses tuzağı, dedenin mührü, babanın üç araması, „Birazdan…“, „Gelirken bir de ekmek al“ (pid 2419), ★ „İyi yalancılar reddetmez…“, Attâr/Simurg, VeraSense→Meralis fonu aynen; tek yarım cümle: fon „AYNA'nın eğitim havuzu“dur. Lara'nın „Sen formu okumadın“ cümlesi öne çıkarılır."
+  },
+  {
+   "chapter": "36. İki Ayrı Gelecek",
+   "change": "hafif",
+   "what": "FETİH klasöründeki iki gelecek „üretilmiş senaryo A/B“ başlığıyla; klasörde kırk günlük temas takvimi. Jüri 1 taşıması: Tarek diskte Leyla'nın ölümünü iş emri zinciri olarak okur; okurun „herkes yalnız kendi düğmesine basar“ cümlesi sahneyi kapatır. Nina'nın itirafı, „Şimdilik güvenemiyorum“, kırmızı ip, şifre paragrafı pid 2526–2527 (‚Avucuma‘) aynen."
+  },
+  {
+   "chapter": "37. Görünmeyen Kameranın Gördüğü",
+   "change": "hafif",
+   "what": "Geçici koruma kararı/envanter/hash paragrafı yarıya iner; bir gün önce alınmış tedbir kararı (güçlü ters köşe) kalır. Lara'nın „tam bu yüzden almanızı istiyor“ cümlesi, Yusuf Karaca bağlantısı, „eski yuvaya yeni göz“, „Büyük yapıların hızı ayaklarında değildir…“ aynen."
+  },
+  {
+   "chapter": "38. Adı Hastalık Olan Yetenek",
+   "change": "yeniden",
+   "what": "Sabah altı saldırısı aynen + Sara/Nina ‚yağmur‘ diyaloğu (3 paragraf) + Nina'nın „Her aksaklık onun değil“ kuralı. Okul toplantısı aynen (Dr. Hanna). Akşam: Mina'nın „Tek Gözlü“ notu Book Inset olarak (~30 satır: tek göz/ikinci göz vicdan, kırk gün, Kehf ve ekmek, uyuyanlar, kâğıt ve sofra, alın yazısı, ölçüt eski/model yeni, anahtar cümle). Beyaz kitabın ‚Emanet Edilen İrade‘ bölümü ve Emil'in „Allah izin verirse oluyor mu?“ sorusu (pid 2633) aynen; Lara'nın „O zaman uyuyanlar kötü değil?“ sorusu; Yusuf'un kenar notuna işaretler hakkında iki cümle. pid 2670 üç vuruş → düzensiz birkaç vuruş. Zaman çemberi tartışması üçte bir kısalır; „halterci“ özdeyişi atılır; mutfak finali aynen."
+  },
+  {
+   "chapter": "39. ŞAMAN",
+   "change": "hafif",
+   "what": "Karanlık ağ, g kuyruğu, mürekkep baskısı (pid 2680 – açıklanmaz), ŞAMAN yöntemi, 23 yıllık tarama, video aynen. Tek ekleme: Tarek „Sahtede öfken bile düzenli. Bunu kulakta da gördük.“ Cliffhanger: „Kitabı ona ne zaman geri vereceksin, Sami?“ (pid 2717)."
+  },
+  {
+   "chapter": "40. Yusuf Olmadan Önce",
+   "change": "yeniden",
+   "what": "Kimlik (Samuel ‚Sami‘ Arven), Alina'nın kaseti (modelin ölçütü olarak bir cümle), dedenin matbaası, 19 yaşındaki plan, kırmızı ip/şifre paragrafı pid 2796–2797 (‚Mührün‘), üç renk/simya, „kedi canı istediği yere oturur“ aynen. Soru-cevap üçte bir kısalır: depo değişimi (15'te bulundu), 111 saniye ve yedi kitap kısa onaylara iner. pid 2801 uzun cümle düşer, 2802 Tuncay'a bağlanır; pid 2805–2807 kanat 3-2-3 vurur. Yusuf'un ‚götürülmeyen yer‘ cümlesi (26'da değilse) burada."
+  },
+  {
+   "chapter": "42. Labirentin Emanetleri",
+   "change": "hafif",
+   "what": "‚L‘ başlık korunur (SENİ BUL 7). Emanet sistemi, bebek ağlaması, Emil'in vida başları, Sam'le tünel diyaloğu ve üçüncü yol aynen; icra memuru sahnesi yarıya iner. 54 dakika önce eklenen tarif = fiber görüntüsünden AYNA'nın yazdığı, avukatın imzaladığı talep (pid 3043; Sam 45'te doğrular). Sam: „Anahtarları alsam da kampanya durmaz.“ Nina: „Cenneti gösterip cehenneme sokmak.“"
+  },
+  {
+   "chapter": "43. Başlangıç Sensin",
+   "change": "yeniden",
+   "what": "Berlin anahtarı tam sahne (jüri 4): muhabir, kasa, tek kullanımlık cihaz, aynı anda yüklenen sahte arşiv (pid 2925–2927), ekranda Mina'nın yazısı „Alnını okuyun. Gerçek muhasebe asla bu kadar simetrik olmaz.“, kâğıt doğrulama listesi, göze alınan iki gün, reddedilen mikrofon izni, çevrim dışı kaydedilen yüksek frekanslı ses. Nairobi (Amina'nın koşusu)/Toronto (Emil'in ‚Duman'ın uyandığı kadar‘ ölçüsü)/İstanbul (Selina ve 13 dakika) özetleri kısa kesmeler. Lara'nın akustik izleyiciyi bulması (pid 2946) Berlin'in temiz kaydıyla; Nina'nın yayın kuralı, „gövdesinin nereden geçtiğini gösterdik“, Londra manşeti, Leyla'nın son kaydı, kalp cihazı numarası aynen."
+  },
+  {
+   "chapter": "44. Bedenin Bildiği Tarih",
+   "change": "aynen",
+   "what": "Hasta eşleştirme anahtarı, Meralis izleme taşeronu, „Ölecek miyim? / Hepimiz—“, Lara'nın eli, BEŞİNCİ PERDE — DÖNÜŞ aynen; son iki özdeyişten biri atılır."
+  },
+  {
+   "chapter": "45. Beni Öldürmeyen Adam",
+   "change": "yeniden",
+   "what": "Siyah saat, 14.53 ↺ (pid 3009→3010 ‚Diğer‘), fizik tedavi odası aynen. Sam'in itiraf kataloğu %40 kısalır (defter/kamera/depo/yönlendirme/iş emri zinciri artık keşfedilmiş; Sam yalnız doğrular ya da düzeltir). Eklenen: AYNA'nın bütçe önerisi ve otomatik onay, „son düğme“, Berlin'deki kusur, A-1453'ün emanet kodundan hedef koduna dönüşmesi, FETİH'in ‚benimsemeyi en çok artıran sıra‘ komutunun çıktısı olması (‚kapının şeklini çizdin‘ cümlesine mekanizma). Leyla'nın ölüm zinciri, „kelimenin sınırı“, „yaşarken yönlendirilebilirsin“ (+ model için canlı hedef = veri), sahil ve market sahnesi, nakil listesi, „yöntem logodan uzun ömürlü“ aynen; 19 saniyelik katman açıklanmadan kalır (pid 3056)."
+  },
+  {
+   "chapter": "46. Son Olabilecek Şeyler",
+   "change": "hafif",
+   "what": "Zarfların yeniden yazılması, „Görev bırakma. Hatıra bırak.“, Yanıldığım Yerler (+ anahtar cümle; + „Aracı düşman sandım; egemenliği ona ben vermiştim“), tornavida notu, BENDEN KALAN İŞLER, mezar („Elimden geldiğince“) aynen. Roman adı Ben Yoksam; pid 3170 yeniden; Sefa paragrafları Tuncay'a; pid 3219 yeniden. Beyaz kelebek ve Yusuf'un zaman ayarlı mesajı aynen."
+  },
+  {
+   "chapter": "47. Son Olduğunu Bilmeden",
+   "change": "hafif",
+   "what": "Kasım 2027, 11 Kasım 14.53 ↺ (pid 3233→3234 ‚Özellikle‘), DİKKAT'ın Lara'yla düzeltilmesi, „Okura güven“, saatler 09.17/02.40/14.53, mantı, defibrilatör aynen. Hasan Bey (pid 3259) cuma sabahı tezgâhta kâğıttan Kehf okur (tek cümle); iki ekmek (pid 3263) aynen. Eklenen: Mina'nın „Adımı yazma“ mektubu (6 satır); Lara stüdyoda anahtar cümlede durur; anlatıcı yardımcı uygulamaya son mesajını yazar: „Beni arama.“"
+  },
+  {
+   "chapter": "48. Saat 14.53",
+   "change": "hafif",
+   "what": "pid 3382 slogan cümlesi çıkar; „Ben.“, karga 14.52, 14.53 ↺ (pid 3378→3379 ‚Nabzımı‘), „Hatırladığım yer orada başladı.“ aynen. Telefonun kapattırılması („Buraya giremez“) tek cümle – ikinci götürülmeyen yer."
+  },
+  {
+   "chapter": "49. Geride Kalanlar",
+   "change": "hafif",
+   "what": "Bardak, 14.52/14.53, Emil'in saati, Lara'nın kaydı dinleyememesi, Selina'nın ikinci kaydı açması, gençlik videosu, şifre kuralı ve şifre paragrafı pid 3415–3416 (‚Aradığın‘), „Buradaydın.“, yedi dönüş oku aynen. Tarek'in raporu kısalır; eklenen (en çok bir sayfa): Nina anlatıcının hesabında cevapsız „Beni arama.“ satırını ve taslak kutusunda yanıp sönen „Devam et?“i görür; platformun „dijital miras / onunla konuşmaya devam edin“ teklifi ve üretilmiş anma taslağı; Hasan Bey taslağı okur okumaz „Bu adam ekmeğe hiç ‚ürün‘ demezdi“ der; Lara reddeder; hesap ölüm belgesiyle – en sıkıcı bürokratik hamleyle – kapatılır."
+  },
+  {
+   "chapter": "50. Boş Bırakılan Son Cümle",
+   "change": "hafif",
+   "what": "Masadaki adam: „Devam et?“ ekranı, „Tanı.“ raporu, kapatılan ekran, alınan kalem (Tuncay, adsız). Yeni açılış cümlesinin tekrarı (pid 3443). „Kırılmış / Kapak“, bantlı başparmak, „Herkes bendim“, isimler ayeti, „Adam. İnsan.“, „Allah dedim“, pid 3487–3488, ekmek, „Bana verilen hayatla ne yapmıştım?“, kolu olmayan kapı, „Bütün kanıtlarımı kaybettim. / Ama hâlâ buradayım. / Kim? / BENİ ARAMA.“ harfi harfine."
+  }
+ ],
+ "system_preservation": "1. **Eksik bölüm numaraları ve SENİ BUL.** 6, 10, 14, 19, 27, 33, 41 boş kalır; yeni bölüm açılmaz, hiçbir bölüm silinmez; Mina, AYNA ve Tuncay mevcut bölümlere girer. Yedi şifre başlığı harfiyen korunur: 7. Silinen Satır (S) · 11. Emanetin Peşindeki Karga (E) · 15. Nüshaların Söylemediği (N) · 20. İnanmayan İlk Kişi (İ) · 28. Bir Gün Daha Yaşamak (B) · 34. Unutulmuş Dükkânın Anahtarı (U) · 42. Labirentin Emanetleri (L). Başlık değişen tek yer başlık bloğudur (pid 0–1, akrostiş dışı). Kural: yazar şifre dışı bir başlığı değiştirmek isterse serbest; şifre başlığını değiştirmek isterse baş harf sabit.\n2. **BAŞA DÖN** (7 konum, „14.53 ↺“ sonrası paragrafın ilk harfi): pid 155 „Bunu sonradan…“ (B) · 244 „Arka yüzündeki…“ (A) · 2105 „Şehrin bütün sesi…“ (Ş) · 2314 „Anladım. ‚Balat,‘…“ (A) · 3010 „Diğer yüzünde…“ (D) · 3234 „Özellikle bu saati…“ (Ö) · 3379 „Nabzımı geri getirmek…“ (N). Bu yedi paragraf ‚kilitli‘ işaretlenir; ilk kelimeleri değişmez; hiçbiri Sefa/AI katmanına değmez (3234'teki ‚Duman‘ adı korunduğu için paragraf da aynen).\n3. **BENİ ARAMA** (9 konum, „Düğümün iki ucu aynı uzunluktaydı“ sonrası): pid 66 Bileğimdeki (B) · 169 Elimdeki (E) · 451 Nereden (N; Duru→Lara paragraf başını değiştirmez) · 1028 İçeri (İ) · 1259 Adamın (A) · 2352 Rengi (R) · 2527 Avucuma (A) · 2797 Mührün (M) · 3416 Aradığın (A). 12. bölümün yeniden yazımı 975–1019 aralığındadır; 1027–1028 bloğu dokunulmaz. Son satır BENİ ARAMA (pid 3519) aynen – üçüncü anlamı (makineye „beni çağırma“) metin değişikliği değil, 47/49'daki tek cümlelik eklemelerle doğar.\n4. **14.53 ve 1453.** Bütün geçişler (pid 18, 154, 242–243, 321, 667, 1064, 1066, 1665, 2078, 2087, 2104, 2302, 2312–2313, 2414–2417, 3008–3009, 3232–3233, 3264, 3340, 3377–3378, 3389; Edirne dolabı 1453, A-1453, FETİH-1453, KAYNAK 1453, ölüm saati 14.53, yayın 11 Kasım 14.53) aynen; yalnız kapak alt başlığından kalkar. 111 saniye / 11.11 / koltuk 11 aynen. Kırk gün hesabı 14.53'e dokunmaz.\n5. **Kırmızı ip** (14 geçiş, eşit uçlu düğüm; üç katmanlı açıklama: beynin örüntüsü / genç benliğin işareti / Meralis'in koşullu refleksi – AYNA dördüncü katman olarak eklenmez, 40'taki „Düğüm bana aitti“ korunur), siyah paket, beyaz kitap, kırmızı defter, mavi uçlu tüy, kapalı göz, kırmızı/beyaz kelebek, karga, Duman: aynen. Kapalı göz ve kelebek yeni anlam yüklenir, biçimi değişmez.\n6. **Meralis, FETİH** (Fark et–Etiketle–Tecrit et–İkame et–Harekete geçir), **ŞAMAN, ALFA** açılımı ve risk sınıflaması, UYUYAN/GEÇ UYANAN/DOĞUŞTAN AÇIK/ENTEGRASYON/ÇÖZÜLME, beş şehir + yedi arşiv şehri, A-1453 ve „ilk yazar/ilk çevirmen“ ikilisi, Orenda/Arman Vela, uyananların halkası cümlesi, Yusuf Vural'ın üç adı, emanet sistemi (dört anahtar, yedi şehir): aynen. AYNA bunların üstüne değil altına (motor olarak) yerleşir; hiçbir mevcut çözüm cümlesi iptal edilmez.\n7. **Yarım sesler** (Burada. Biliyorsun. Gördüm. Buradaydın.) ve „Ses burada kesildi… Devamını uydurma.“ kuralı (pid 81) aynen; 12'de makineye karşı kitabın ahlaki ölçütü olur (tek bağlama cümlesi). Mina'nın notu bu listeye girmez (o yazar, konuşmaz). Book Inset biçimi ve iç sesler değişmez; SESSİZ SES'in 48'deki rolü aynen.\n8. **Zaman ekseni:** 2015 (31 yaş, projektör, Tuncay davetli yazar) – yedi yıl önce e-posta (35) – üç yıl önce tanı ve Kadıköy söyleşisi – Kasım 2026 (42) – Kasım 2027 yayın; 23 yıl önce 19; Sam 8 yaşındayken 27 yıl önce; Yusuf 1978'de 24. Mina: Berlin merkezinde VeraSense döneminde ilk sürümü kurar, Meralis fonuna geçişle uzaklaştırılır; sızıntı tarihi için metinde yeni bir sayı icat edilmez (20. bölümde ‚18 ay önce‘ gibi bir tarih yoktur). Alina'nın kaseti 27+ yıl öncesinin ‚erken uyum‘ programıdır: ölçüt eski, model yeni. Leyla'nın cenazesi paket gününden iki gün sonradır (pid 649); ilk sekiz bölüm için ‚36 saat‘ gibi bir sayı yazılmaz.\n9. **Aforizma ve hukuk dili (sayılabilir kural):** Okurun yıldızlı/sayfa numaralı cümleleri kilitli listeye alınır (pid 17, 105, 182, 208, 241, 378, 580, 709, 1043, 1264, 1350, 1362, 1404, 1722, 2063, 2132, 2273, 2413, 2425, 2575, 2690 çevresi, 2834 çevresi ve Okur_Notlari'ndaki bütün ★ cümleler). Bölüm başına en çok bir kapanış özdeyişi; „değildi/değildir“ kalıbıyla biten cümleler (metinde 82) sayımla üçte bir indirilir (~25 cümle). ‚savcılık onayı‘, ‚tutanağa geçirtmek‘, ‚delil zinciri‘, ‚tedbir kararı‘ ailesinden cümleler 4, 15, 22, 23, 31, 32, 37, 42'de yarıya iner; Selina'nın her hukuki adımı olay örgüsünde kalır, anlatıcı onu her seferinde yeniden açıklamaz; „neden polisi aramadılar“ sorusu her sahnede yine cevaplıdır. Şifre paragraflarına ekleme ve kesme yasağı; her kesme sonrası 7/7/9 konum denetimi.\n10. **Çeviri notu:** Üç akrostiş Türkçe kelimelere bağlıdır; EN/DE baskılarda (FIND ME / GO BACK / DON'T SEEK ME; FINDE MICH / ZURÜCK / SUCH MICH NICHT) harf sayıları konumlarla eşleşmez – dil başına eksik bölüm ve işaret sayısı yeniden tasarlanır ya da eşdeğer uzunlukta sözcük seçilir (1. bölümdeki kural her sayıyı taşır). BEN YOKSAM'ın bible'ı YOLCU'nunkinden (BY_bible_input.md) türetilir; Mina/AYNA/Tuncay ve yeni adlar eklenir; Mina/AYNA ekleri yeni kilit paragraf yaratmaz. Ön sayfaya ad okunuş listesi (Sam = ‚Sem‘ değil ‚Sam‘; Emil, Tarek, Selina).\n",
+ "critique_handling": "**Okurun iki eleştirisi.**\n\n1. „Her düşünceyi mahkemeye çıkarmak!!!!!“ – Hukuk/mahkeme dili: 4, 15, 22, 23, 31, 32, 37, 42'de usul cümleleri yarıya iner; usulün kendisi kalır (jürinin övdüğü delil zinciri olay örgüsünü taşır). Leyla'nın „her düşünceyi mahkemeye çıkarman“ cümlesi (5. böl.) aynen kalır – eleştiri karakterin ağzında zaten vardır; çevresindeki anlatıcı açıklamaları seyreltilir. 1. bölümdeki „diş fırçan delile terfi eder“ gibi hukuk metaforları saatçi diline çevrilebilir.\n2. „Yargıya varmış aforizmalar çoğunlukta“ – Bölüm başına en çok bir kapanış özdeyişi; ~25 sahne sonu özdeyişi atılır; „değildi/değildir“ kalıbı üçte bir azalır; kitaba eklenen tek yeni aforizma „Son düğmeye kimse basmamıştı. Düğme kendi kendine basılıyordu.“ Okurun yıldızlı cümleleri kilitlidir (bkz. 8.9). ŞAHİT mottosu (pid 3382) çıkar.\n\n**Okurun sevdiği cümleler** – hepsi korunur; ikisi yeni işlev kazanır: „Kötülük, sorumluluğunu küçük ve makul parçalara böldüğünde herkes yalnız kendi düğmesine basar“ (36'da iş emri zincirini kapatır, 45'te büyür) ve „İnanç; tedbiri bırakmak değil, korkumu başka bir yaratılmışın egemenliğine vermemektir“ (38→46→47 omurga). „Doğru sorunun yanında kaçmadan oturmak“ (✓✓✓) 43'te Mina'nın tavrı olarak sahneye yazılır. „Her farklılık üstünlük değildir“ ve „İnsanları avcı/toplayıcı/Alfa diye yeni kafeslere koyarsan…“ Mina'nın nörofarklılığını üstünlük anlatısından korur. Okurun olay örgüsü iskeleti (beş kuruluş, Alfa sınıflaması, A-1453/Yusuf Vural, Arman Vela, FETİH, UTANDIR–KULLAN, „uyananların ilk halkası“) aynen; yapay zekâ bu iskeletin motorudur.\n\n**Jürinin dört yapısal önerisi.**\n\n1. *40/45'teki soru-cevap çözümünü keşif sahnelerine taşımak:* yönlendirme → 7 (istek) ve 17 (döküm); defter/kamera/bakım formu → 17 ve 31; depo değişimi → 15; Leyla'nın ölüm zinciri → 36 (Tarek diskten okur). 40'ta soru-cevap üçte bir, 45'te itiraf kataloğu %40 kısalır; Sam yalnız doğrular ya da düzeltir. Kontrol listesi: taşınan her bilginin yeni yerinde nasıl bulunduğu (kim, hangi belge) bir cümleyle yazılır; zaman çizgisi (Ankara üç ay önce; sensör duyurusu bina grubunda hâlâ bulunmalı; döküm Selina'nın isteğinden sonra gelir) doğrulanır.\n2. *Hukuki usul cümlelerini seyreltmek, iki deneme bloğunu (20, 26) kısaltmak:* yukarıda; 20'de Barnum/nocebo denemesi, 26'da dosya denemesi üçte bir kısalır; 17'deki aile tartışması üçte bir.\n3. *Aforizma yoğunluğu:* yukarıda.\n4. *Dördüncü perdenin dış doruğunu sahneye dönüştürmek:* 43'te Berlin tam sahne (Mina, muhabir, sahte arşiv, kâğıt listesi, mikrofon izni, çevrim dışı kayıt); öteki üç şehir kısa kesme.\n\n**Jürinin konsept değerlendirmesinden alınan aşılar (bu belgede uygulandı):** üç vuruş motifinin 3-2-3'e dönüşmesi; pid 2801 uzun cümlenin düşmesi; pid 3170 ve 3219'un yeniden kurulması; ad haritasının ‚HEPSİ‘ talimatına göre tamamlanması (Sam/Sami, Selina Demir, Elias, Hanna Aksel, Niko, Martin, Eva, Aris, Nadia); izin envanteri; mistik artık kuralı; „Beni arama“nın makineye yazılan son satır olması; Hasan Bey'in Kehf'i ve „ekmeğe ürün demezdi“; Kehf'in uyuyanları ↔ „Uyumak ayıp değildir“; Mina'nın notuna „ikinci göz vicdandır“ ve „kimin tarlasına su gideceğini yazıyor“; kâğıt doğrulama listesi ve sabır; A-1453/FETİH komut cümlesi; „Tanı.“; ölçüt eski/model yeni; DİKKAT'a cebinizdeki ses cümlesi; paratext ve künye notu; dil pazarı kararı. Jürinin düzelttiği olgu hataları (Nehir 363×, cenaze iki gün sonra, ‚18 ay‘ yok, Emil'in sorusunun gerçek biçimi, Berlin kaydını Lara'nın duyması) bu belgede giderildi.\n",
+ "risks": [
+  "PAZAR/YAYIN RİSKİ (en büyük): BEN YOKSAM, YOLCU ile ~%78 aynı metindir. Aynı dilde iki ayrı kitap olarak satılırsa okur aldatılmış hissedebilir, KDP ‚yinelenen içerik‘ denetimine takılabilir. Öneri: künyede/önsözde tek paragrafla „YOLCU'nun bağımsız yeniden kuruluşudur“; dil pazarlarını ayırmak (TR'de ikisi, EN/DE'de yalnız BEN YOKSAM – DURUM.md'ye ve görev #20/#21'e not); ya da YOLCU'yu tek başına satıştan çekmek. Karar yazarın.",
+  "MEKANİZMA AHLAKI: AYNA ‚kontrolden çıkmış‘ diye anlatılırken bilinçli/kötücül makine klişesine kayılırsa 45'teki taşeron zinciri ve 40'taki ‚üç nokta, üçgen değil‘ dersi çöker. Sınır: amaç fonksiyonu + otomatik onay + kimsenin kapatamadığı sözleşmeler; izin envanteri (2.4) dışında eylem yok; modelin ‚niyeti‘ olduğunu ima eden tek cümle yazılmaz.",
+  "MİSTİK ARTIK: Açık uçların fazlası kapatılırsa Mi puanı (8,5) düşer. Mürekkep, karga, Duman, pid 2834, 19 saniyelik katman (pid 3056) ve 49'daki cevapsız satır açıklanmadan kalır (2.5).",
+  "DİNÎ HASSASİYET: İşaretler yalnız karakter ağzında, kaynak adıyla, öz-düzeltmeyle; ‚yapay zekâ Deccal'dir‘ hükmü hiçbir yerde kurulmaz; İsa/Mehdi yok; ‚her mümin okur‘ ile ‚dikkatle bakan‘ eşitlenmez; ‚kâğıt ve sofra‘ açıkça mecazdır. Rivayet metinleri (Nevvâs b. Sem'ân: kırk gün, yağmur; alın yazısı; iki şehir; Kehf'in ilk on ayeti) ilahiyatçıya doğrulatılır. Ters yön: kitap komplo anlatısı gibi okunmasın diye Nina'nın „Hiçbir araç bütün gerçeği bilmiyor“ ve „Her aksaklık onun değil“ cümleleri her Deccal pasajının yakınında durur.",
+  "YENİ KARAKTERİN EKLENTİ GİBİ DURMASI: Mina 38'den önce yalnız dolaylı görünürse 43'te deus ex machina etkisi doğar. Dokuz temas noktası (4, 17, 20, 30, 38, 39, 43, 45, 47) zorunludur; kahramanlığı dramatik olmayan türdendir (formu okumak, kâğıtla doğrulamak, iki günü göze almak, sesi kaydetmek). Berlin kaydını Lara duyar (pid 2946); „Berlin izlenmeyen tek paket“ gibi metinle çelişen bir iddia yazılmaz.",
+  "YAZAR PERSONASI ÇİFT ROLÜ: Tuncay hem iç-kurgu arkadaş hem 50'de kalemi tutan el. Koruma: toplam ~50 paragraf; 50'de ad anılmaz; @happytuncay bir kez; kusurlu ve kendine gülebilen bir figür; kahramanlık ona değil Mina'ya aittir (birleştirme seçilirse bedel ve adsızlık görünür kalmalı; gerçek yazarı ‚işsiz, yalnız‘ yazmak marka riskidir).",
+  "ŞAHİT'LE PARALELLİK HAFIZASI: Köprü cümleleri çıksa da yapı (siyah paket, kırmızı ip, boş sandalye, bantlı başparmak, „Kırılmış/Kapak“) YOLCU'dan kalır ve ŞAHİT okuru bunları tanır. Bu bir ‚bağ‘ değil ortak kökendir; ipin rengini değiştirmek 14 geçişi bozar, önerilmez. Paratext ayrıca temizlenir.",
+  "AD DEĞİŞİKLİĞİNİN YAN ETKİLERİ: ~1.000 geçiş mekanik değişir (Nehir 363, Duru 200, Zeynep 108, Cem 106, Emir 102, Selin 55, Tarık 50); ‚Cem‘ ve ‚Emir‘ başka kelimelerin içinde geçer – kelime sınırlı, elle onaylı değişim. Çakışma denetimi: Sara–Sam–Sami (Samira→Nadia yapıldı), Lara–Leyla (Lena bu yüzden seçilmedi), Emil–Elias. Samuel adlı bir Arven'in 1970'lerde Almanca el kitabı çevirmesi ve Yusuf adını alması için 40'ta bir cümlelik köken gerekir. ‚Adam‘ küçük harfle ‚herif‘ okunabilir; 50'de büyük harf ve ‚İnsan.‘ çözer; redaksiyonda açılış çevresindeki küçük harf ‚adam‘ kullanımları taranır.",
+  "AÇILIŞ CÜMLESİNİN KAYBI: „Öleceğimi ilk kez o sabah düşünmedim“ jürinin en çok övdüğü cümleydi. Yeni cümle işlevini taşır, ününü taşımaz; üç aday sesli okunarak seçilir; iki yerde (pid 37, 3443) birebir aynı olmalıdır.",
+  "SORU-CEVAP ÇÖZÜMÜNÜN TAŞINMASI: 45'ten 7/15/17/31/36'ya taşınan keşifler zaman çizgisini bozabilir (döküm Selina'nın isteğinden sonra gelmeli; defterin alınışı Ankara'dayken üç ay önce; sensör duyurusu bina grubunda bulunmalı; Tarek diski 36'da okuyabilmeli). Her taşınan bilgi için ‚kim, hangi belge, ne zaman‘ cümlesi; Sam 45'te yalnız ‚evet‘ der ya da düzeltir.",
+  "UZUNLUK DENGESİ: Eklemeler (~3.800–4.300 kelime: Mina notu/mektubu, Berlin sahnesi, 12. bölüm yeniden yazımı, 30/36/38/45 genişlemeleri, 49'daki sayfa) ile çıkarmalar (~2.800–3.300 kelime: aforizmalar, hukuk cümleleri, 40/45 katalogları, deneme blokları) aşağı yukarı dengelenir; sayfa sayısı ±5 oynar, kapak sırtı yeniden hesaplanır (görev #27).",
+  "ÇEVİRİ ŞİFRELERİ: EN/DE'de üç akrostiş yeniden kurulmalı; başlık harfleri ve paragraf başları dil başına ayrı çözülür; Mina/AYNA ekleri yeni kilit paragraf yaratmamalı. „Adam. İnsan.“ Almancada yarım çalışır; başlık için erken karar (If I Am Not / Wenn ich nicht bin).",
+  "AYNA ADI: Gerçek ürün adı değildir ama yayın öncesi marka taraması (TR/EN/DE) yapılır; gerekirse ‚AYNA-1‘ ya da model için şirket içi kod adı."
+ ],
+ "rewrite_share": "Tahmin (kelime bazında, ad değişimleri ‚aynen‘ sayılarak; YOLCU metni ~41–44 bin kelime): AYNEN ≈ %78 (2, 3, 11, 16, 21, 24, 25, 28, 29, 34, 35, 44 ve öteki bölümlerin gövdeleri); HAFİF ≈ %13 (tek cümlelik AYNA/işaret tohumları, hukuk cümlelerinin ve sahne sonu özdeyişlerinin seyreltilmesi, jüri taşımaları: DİKKAT, 1, 4, 5, 7, 8, 9, 13, 15, 17, 18, 20, 22, 23, 26, 30, 31, 32, 36, 37, 39, 42, 46, 47, 48, 49, 50); YENİDEN/YENİ ≈ %9 (12. bölümün 975–1019 bloğu, 38. bölüm Mina notu ve yağmur diyaloğu, 40 ve 45'in kısaltılmış soru-cevapları + AYNA halkası, 43 Berlin sahnesi, başlık bloğu; toplam ~3.800–4.300 yeni kelime, ~2.800–3.300 kelime çıkarma). Net uzunluk ±%2; A5 sayfa sayısı ±5. Bölüm sayısı 45, eksik numaralar ve bütün şifre konumları aynen.",
+ "open_questions": [
+  "1) Araştırmacı/gizli kahraman kim? Varsayılan: iki ayrı figür – Dr. Mina Keller (araştırmacı, adsız kahraman) + Tuncay (yazar arkadaş ve 50'deki el). Seçenek B: ikisi tek kişi olur – Tuncay Sancak Berlin'de eski merkez çalışanı, omurgadaki kusuru bırakan kişi; dokuz temas noktası ve bütün sahneler aynen kalır, yalnız kişi değişir; 47'deki mektup „Adımı haberde yazma“ olur, bedel (işsizlik, yalnızlık, ‚happy‘ kullanıcı adının maskeleme şakası) görünür kalır. 4. maddedeki „kendisi nörofarklı“ sizi mi kastediyor? Tek cevapla yazım başlar.",
+  "2) Alt başlık: „Alnındaki Yazı“ (varsayılan; üç dilde çevrilebilir, Deccal katmanını ve gizli kahramanın izini adlandırır) / „Tek Gözlü Ayna“ (AYNA modelini adlandırır) / „Beni Benden İyi Bilen“. Sesli okuma turunda birlikte karar.",
+  "3) Açılış cümlesi (pid 37 ve 3443, birebir aynı): „O sabah ölümü düşünmedim. Yokluğumu düşündüm.“ (varsayılan) / „Ben yoksam bunu ilk kim fark ederdi? O sabah bu soruyu ilk kez sormadım.“ / başka bir öneriniz.",
+  "4) Cem Arven → Sam Arven ve Cemil → Samuel ‚Sami‘ Arven değişimini onaylıyor musunuz (iki jüri önerdi; ‚HEPSİ‘ talimatına uyar; 39'un cliffhanger'ı korunur), yoksa Cem/Cemil kalsın mı (bir jüri; İngilizce okunuş notu gerekir)? Aynı soru Kemal → Elias için.",
+  "5) Pazar kararı: TR'de YOLCU ve BEN YOKSAM yan yana mı satılacak (künyede şeffaf not ile), yoksa YOLCU satıştan çekilecek mi? EN/DE'ye yalnız BEN YOKSAM mı çevrilsin (önerimiz budur; görev #20/#21 buna göre yeniden değerlendirilir)?"
+ ],
+ "defaults_if_unanswered": {
+  "researcher": "SEÇENEK B: Araştırmacı ve gizli kahraman TEK kişidir: Tuncay Sancak (@happytuncay). Berlin'deki merkezin eski çalışanı, kendisi nörofarklı; omurgadaki kusuru (modelin 'alnındaki' düzenliliği) bilerek bırakan kişi. Dr. Mina Keller diye ayrı bir karakter YOKTUR; konseptte Mina'ya verilen dokuz temas noktası ve bütün sahneler aynen Tuncay'a geçer (adı kitapta anılmaz; yalnız 50'de 'Devam et?' ekranı başındaki el ve 47'deki mektup 'Adımı haberde yazma'). Bedel görünür kalır: işsizlik, yalnızlık, 'happy' kullanıcı adının maskeleme şakası. Anlatıcı adsız kalır (finalde 'Adam. İnsan.').",
+  "subtitle": "Alnındaki Yazı",
+  "opening_sentence": "O sabah ölümü düşünmedim. Yokluğumu düşündüm.",
+  "cem": "Sam Arven / Samuel „Sami“ Arven",
+  "kemal": "Elias",
+  "markets": "TR: ikisi (künyede şeffaf not); EN/DE: yalnız BEN YOKSAM"
+ },
+ "locked_pids": {
+  "seni_bul_headings": [
+   620,
+   858,
+   1201,
+   1447,
+   2037,
+   2307,
+   2851
+  ],
+  "basa_don": [
+   155,
+   244,
+   2105,
+   2314,
+   3010,
+   3234,
+   3379
+  ],
+  "beni_arama": [
+   66,
+   169,
+   451,
+   1028,
+   1259,
+   2352,
+   2527,
+   2797,
+   3416
+  ],
+  "last_line": 3519,
+  "rewrite_block_ch12": [
+   975,
+   1019
+  ]
+ },
+ "residue_grep": {
+  "zero_hits_required": [
+   "Sefa",
+   "Hakan",
+   "Hıdıroğlu",
+   "Muhibbi",
+   "Erenköy",
+   "tecrit",
+   "Kapıyı açtım",
+   "ben yazmıyorum gibi",
+   "Metale üç",
+   "Tok. Tok",
+   "hangi elinle",
+   "ikinci kez öldürmüş",
+   "öldüğün gün başlayacak",
+   "Tümör",
+   "öğrenmez, hatırlar",
+   "Uyanışın Bedeli",
+   "1453 —",
+   "Mina",
+   "Keller"
+  ],
+  "exceptions": {
+   "üç kısa vuruş": "pid 2347 (Lara'nın 3-2-3 kapı şifresi) kalır; pid 2670 değişir"
+  }
+ },
+ "decisions": {
+  "1_arastirmaci": "SEÇENEK B: Araştırmacı ve gizli kahraman TEK kişidir: Tuncay Sancak (@happytuncay). Berlin'deki merkezin eski çalışanı, kendisi nörofarklı; omurgadaki kusuru (modelin 'alnındaki' düzenliliği) bilerek bırakan kişi. Dr. Mina Keller diye ayrı bir karakter YOKTUR; konseptte Mina'ya verilen dokuz temas noktası ve bütün sahneler aynen Tuncay'a geçer (adı kitapta anılmaz; yalnız 50'de 'Devam et?' ekranı başındaki el ve 47'deki mektup 'Adımı haberde yazma'). Bedel görünür kalır: işsizlik, yalnızlık, 'happy' kullanıcı adının maskeleme şakası. Anlatıcı adsız kalır (finalde 'Adam. İnsan.').",
+  "2_alt_baslik": "Alnındaki Yazı (varsayılan). Kapak: BEN YOKSAM / Alnındaki Yazı.",
+  "3_acilis": "„O sabah ölümü düşünmedim. Yokluğumu düşündüm.“ (pid 37 ve 3443 birebir aynı).",
+  "4_adlar": "Cem → Sam Arven, Cemil → Samuel „Sami“ Arven, Kemal → Elias (yazarın 'HEPSİ uluslararası' talimatı).",
+  "5_pazar": "Yazara bırakıldı (yazımı etkilemez). Öneri: TR'de ikisi de, künyede şeffaf not; EN/DE'ye önce BEN YOKSAM."
+ }
+}
