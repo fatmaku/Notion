@@ -172,29 +172,9 @@
  ],
  "remove_sahit": [
   {
-   "where": "pid 37 (1. böl. açılış) ve pid 3443 (50. böl. tekrar)",
-   "what": "Ortak açılış cümlesi „Öleceğimi ilk kez o sabah düşünmedim.“",
-   "replacement": "Varsayılan: „O sabah ölümü düşünmedim. Yokluğumu düşündüm.“ – başlığı ve 1. bölümün sorusunu („Bir insanın varlığını en son kim kanıtlardı?“) açar; pid 38 „İnsan ölümü düşünür… Benimki düşünce değildi.“ olduğu gibi devam eder. 50'de masadaki el aynı yeni cümleyi yazar. Alternatifler sesli okuma turunda: „Ben yoksam bunu ilk kim fark ederdi? O sabah bu soruyu ilk kez sormadım.“"
-  },
-  {
    "where": "pid 521–522 (5. böl.)",
    "what": "Sefa Abi'nin roman dosyası ve ortak not „Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.“ + boş sandalye çizimi + aidat esprisi",
    "replacement": "Açık kalan klasörde, bir ay önce yapay zekâ yardımcısına yazdırdığı „Tanı günü – yeniden kurulum“ sohbet kaydı vardır; ilk satırında yardımcının sorusu: „Eksik yerleri tamamlamamı ister misin?“ Anlatıcı klasörü kapatır. Kendi çizdiği boş sandalye (pid 528) korunur: artık yalnız ona aittir."
-  },
-  {
-   "where": "pid 3438–3440 (50. böl.)",
-   "what": "Masadaki adamın raporu ve „Tümör“ kelimesi (ŞAHİT'in tümör gecesi)",
-   "replacement": "Masada ekran: imleç yanıp sönüyor, köşede „Devam et?“ Adamın gözü o soruya dönüp duruyor. Defterin altında kalan raporun köşesinde tek kelime: „Tanı.“ (geç tanı gecesi – 5. bölümün başlığına döner, ŞAHİT'ten bağımsız). Ekranı kapatır, kaleme uzanır. „Kâğıda bir kapı açtı.“ (pid 3441) aynen. Anlatıcı masayı soğumuş çaydan tanır; ad söylenmez."
-  },
-  {
-   "where": "pid 3451–3453 (50. böl.)",
-   "what": "„Kırılmış.“ / „Kapak.“",
-   "replacement": "KORUNUR. İç dayanağı 13. bölümdür (pid 1151: „Üst kapak kırık“); „Birinde insan, ötekinde kırılan bir eşya vardı“ ikiliği ‚kırılmış‘ kelimesine bağlıdır (‚kesik‘ bunu bozar). ŞAHİT'e gönderme değil, kitap içi çözümdür; tek kelimelik örtüşme kabul edilir."
-  },
-  {
-   "where": "pid 3492 (50. böl.)",
-   "what": "„Bana verilen hayatla ne yapmıştım?“",
-   "replacement": "KORUNUR. YOLCU'nun kendi omurga cümlesidir; ŞAHİT ona gönderme yapar, tersi değil. pid 3493'ün zaman oyunu aynen."
   }
  ],
  "forbidden": {
@@ -257,8 +237,7 @@
    "Samira": "Nadia",
    "Sefa Abi": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
    "Hakan Hıdıroğlu": "çıkar",
-   "Muhibbi Amca": "çıkar",
-   "—": "AYNA (Ayna Davranış Modeli)"
+   "Muhibbi Amca": "çıkar"
   }
  }
 }

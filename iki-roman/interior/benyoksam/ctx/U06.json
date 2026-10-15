@@ -170,23 +170,7 @@
    "why": "Kişi adı değil işlev adı."
   }
  ],
- "remove_sahit": [
-  {
-   "where": "pid 3382 (48. böl.)",
-   "what": "„İnsan hakikati öğrenmez, hatırlar!“ – ŞAHİT'in altı yerde geçen mottosu (ve jürinin ‚slogan‘ eleştirisi)",
-   "replacement": "Çıkar. „Ben öldüm. / Ve hikâye orada başlamadı. / Hatırladığım yer orada başladı.“ üçlüsü kalır. Yazar cümleye bağlıysa soruya çevrilir: „Öğrenmiş miydim, hatırlamış mıydım?“"
-  },
-  {
-   "where": "pid 3451–3453 (50. böl.)",
-   "what": "„Kırılmış.“ / „Kapak.“",
-   "replacement": "KORUNUR. İç dayanağı 13. bölümdür (pid 1151: „Üst kapak kırık“); „Birinde insan, ötekinde kırılan bir eşya vardı“ ikiliği ‚kırılmış‘ kelimesine bağlıdır (‚kesik‘ bunu bozar). ŞAHİT'e gönderme değil, kitap içi çözümdür; tek kelimelik örtüşme kabul edilir."
-  },
-  {
-   "where": "pid 3492 (50. böl.)",
-   "what": "„Bana verilen hayatla ne yapmıştım?“",
-   "replacement": "KORUNUR. YOLCU'nun kendi omurga cümlesidir; ŞAHİT ona gönderme yapar, tersi değil. pid 3493'ün zaman oyunu aynen."
-  }
- ],
+ "remove_sahit": [],
  "forbidden": {
   "strings": [
    "Sefa",
@@ -247,8 +231,7 @@
    "Samira": "Nadia",
    "Sefa Abi": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
    "Hakan Hıdıroğlu": "çıkar",
-   "Muhibbi Amca": "çıkar",
-   "—": "AYNA (Ayna Davranış Modeli)"
+   "Muhibbi Amca": "çıkar"
   }
  }
 }

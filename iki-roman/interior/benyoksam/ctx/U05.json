@@ -170,43 +170,7 @@
    "why": "Kişi adı değil işlev adı."
   }
  ],
- "remove_sahit": [
-  {
-   "where": "pid 37 (1. böl. açılış) ve pid 3443 (50. böl. tekrar)",
-   "what": "Ortak açılış cümlesi „Öleceğimi ilk kez o sabah düşünmedim.“",
-   "replacement": "Varsayılan: „O sabah ölümü düşünmedim. Yokluğumu düşündüm.“ – başlığı ve 1. bölümün sorusunu („Bir insanın varlığını en son kim kanıtlardı?“) açar; pid 38 „İnsan ölümü düşünür… Benimki düşünce değildi.“ olduğu gibi devam eder. 50'de masadaki el aynı yeni cümleyi yazar. Alternatifler sesli okuma turunda: „Ben yoksam bunu ilk kim fark ederdi? O sabah bu soruyu ilk kez sormadım.“"
-  },
-  {
-   "where": "pid 3170 (46. böl.)",
-   "what": "Sara'nın cümlesi „…seni ikinci kez öldürmüş gibi oluruz.“ – ŞAHİT'te birebir aynı (SA pid 1735)",
-   "replacement": "„Görev olursa sustuğumuz gün seni bir daha kaybetmiş oluruz.“"
-  },
-  {
-   "where": "pid 3199–3200 (46. böl.)",
-   "what": "Romanın adı „1453 — Uyanışın Bedeli“ ve fetih gerekçesi",
-   "replacement": "„Adını Ben Yoksam koydum.“ Gerekçe: „Bir insanın varlığını en son kimin kanıtladığını öğrendiğim için.“ (1. bölümün sorusuna döner.) 1453'ün iç anlamı 40'taki ‚iç fetih‘ açıklamasıyla metinde kalır."
-  },
-  {
-   "where": "pid 3201–3211 (46. böl.)",
-   "what": "Sefa'nın kasım nüshası; ortak not; „Bazen onları ben yazmıyorum gibi geliyor. Ben sustuğumda da odalarında konuşuyorlar.“; „Benim de kafam aynı apartman“ diyaloğu",
-   "replacement": "Anlatıcı son bölümleri Tuncay'a yollar. Tuncay'ın cevabı tek satır: „Son cümleyi boş bırak.“ Telefon kısaltılarak korunur (bkz. 4.1). Boş sandalye paragrafı (pid 3212–3213) aynen; „Öteki dosyadaki sandalye“ cümlesi düşer, anlatıcı kendi çizimini ters kaldırdığı sandalyeyle karşılaştırır."
-  },
-  {
-   "where": "pid 3219 (46. böl.)",
-   "what": "Yusuf'un zaman ayarlı mesajı „İlk kitabı sen yaşarken yayımla. İkincisi, öldüğün gün başlayacak.“ – ŞAHİT'i ilan eden tek yönlü köprü (üç konseptin ortak körlüğü)",
-   "replacement": "„İlk kitabı sen yaşarken yayımla. Son cümleyi öldüğün gün başkası yazacak.“ – ‚ikinci kitap‘ değil, boş bırakılan son cümle; 50'nin masasına ve okurun dolduracağı satıra bağlanır."
-  },
-  {
-   "where": "pid 3382 (48. böl.)",
-   "what": "„İnsan hakikati öğrenmez, hatırlar!“ – ŞAHİT'in altı yerde geçen mottosu (ve jürinin ‚slogan‘ eleştirisi)",
-   "replacement": "Çıkar. „Ben öldüm. / Ve hikâye orada başlamadı. / Hatırladığım yer orada başladı.“ üçlüsü kalır. Yazar cümleye bağlıysa soruya çevrilir: „Öğrenmiş miydim, hatırlamış mıydım?“"
-  },
-  {
-   "where": "pid 3438–3440 (50. böl.)",
-   "what": "Masadaki adamın raporu ve „Tümör“ kelimesi (ŞAHİT'in tümör gecesi)",
-   "replacement": "Masada ekran: imleç yanıp sönüyor, köşede „Devam et?“ Adamın gözü o soruya dönüp duruyor. Defterin altında kalan raporun köşesinde tek kelime: „Tanı.“ (geç tanı gecesi – 5. bölümün başlığına döner, ŞAHİT'ten bağımsız). Ekranı kapatır, kaleme uzanır. „Kâğıda bir kapı açtı.“ (pid 3441) aynen. Anlatıcı masayı soğumuş çaydan tanır; ad söylenmez."
-  }
- ],
+ "remove_sahit": [],
  "forbidden": {
   "strings": [
    "Sefa",
@@ -267,8 +231,7 @@
    "Samira": "Nadia",
    "Sefa Abi": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
    "Hakan Hıdıroğlu": "çıkar",
-   "Muhibbi Amca": "çıkar",
-   "—": "AYNA (Ayna Davranış Modeli)"
+   "Muhibbi Amca": "çıkar"
   }
  }
 }

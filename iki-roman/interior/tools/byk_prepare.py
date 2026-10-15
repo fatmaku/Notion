@@ -98,7 +98,7 @@ def context():
     for m in concept.get("name_map", []):
         old, new = m.get("old", ""), m.get("new", "")
         o = re.sub(r"\s*\(.*?\)\s*", "", old).strip()
-        if o and new and not re.search(r"korunur|değişmez|kalır|bleibt|unchanged", new, re.I) and o.split()[0] not in new:
+        if o and new and o not in ("—", "-", "–") and not re.search(r"korunur|değişmez|kalır|bleibt|unchanged", new, re.I) and o.split()[0] not in new:
             old_names[o] = new
     fb["old_names"] = old_names
     for e in concept.get("remove_sahit", []):
@@ -122,7 +122,7 @@ def context():
         ctx = {"uid": u["uid"], "plan": plan_for(d["title"], d["number"]),
                "synopsis_around": [{"uid": a, "title": syn[a].get("title"), "summary": syn[a].get("summary")} for a in around if a in syn],
                "own_synopsis": syn.get(u["uid"], {}).get("summary"),
-               "name_map": concept.get("name_map", []), "remove_sahit": [e for e in concept.get("remove_sahit", []) if any(str(pid) in str(e.get("where", "")) for pid in u["pids"]) or u["uid"] in str(e.get("where", "")) or (d["number"] is not None and re.search(rf"\b{d['number']}\.", str(e.get("where", ""))))],
+               "name_map": concept.get("name_map", []), "remove_sahit": [e for e in concept.get("remove_sahit", []) if any(re.search(rf"(?<!\d){pid}(?!\d)", str(e.get("where", ""))) for pid in u["pids"]) or u["uid"] in str(e.get("where", "")) or (d["number"] is not None and re.search(rf"(?<!\d){d['number']}\. böl", str(e.get("where", "")))) or ("Paratext" in str(e.get("where", "")) and u["uid"] in ("U00", "U01", "U02")) or ("pid 21 " in str(e.get("where", "")) and u["uid"] == "U02")],
                "forbidden": fb}
         (BYK / "ctx" / f"{u['uid']}.json").write_text(json.dumps(ctx, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(units)} Kontextdateien → {BYK / 'ctx'}; old_names: {old_names}")

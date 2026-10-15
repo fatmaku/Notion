@@ -177,21 +177,6 @@
    "replacement": "Varsayılan: „O sabah ölümü düşünmedim. Yokluğumu düşündüm.“ – başlığı ve 1. bölümün sorusunu („Bir insanın varlığını en son kim kanıtlardı?“) açar; pid 38 „İnsan ölümü düşünür… Benimki düşünce değildi.“ olduğu gibi devam eder. 50'de masadaki el aynı yeni cümleyi yazar. Alternatifler sesli okuma turunda: „Ben yoksam bunu ilk kim fark ederdi? O sabah bu soruyu ilk kez sormadım.“"
   },
   {
-   "where": "pid 521–522 (5. böl.)",
-   "what": "Sefa Abi'nin roman dosyası ve ortak not „Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.“ + boş sandalye çizimi + aidat esprisi",
-   "replacement": "Açık kalan klasörde, bir ay önce yapay zekâ yardımcısına yazdırdığı „Tanı günü – yeniden kurulum“ sohbet kaydı vardır; ilk satırında yardımcının sorusu: „Eksik yerleri tamamlamamı ister misin?“ Anlatıcı klasörü kapatır. Kendi çizdiği boş sandalye (pid 528) korunur: artık yalnız ona aittir."
-  },
-  {
-   "where": "pid 975–1019 (12. böl.)",
-   "what": "„koridor“ aramasında Sefa'nın adı; Hakan; Muhibbi Amca; çay lekesi; „Metale üç kez vuruluyor, sonra biri su istiyordu“ (pid 989); Sefa'yla telefon; Erenköy; Hakan'ın hekimliği",
-   "replacement": "Arama sonucu sohbet kaydını getirir: anlatıcı tanı gününü hatırlayamadığı için makineden „elindeki parçalardan sahneyi kurmasını“ istemiş; makine yeşil koridoru, su uzatan doktoru, plastik bardağı yazmış; anlatıcı kenarına „Bardağı tutan eli hissettim. Burası kalmalı.“ notunu düşmüş. Nina: „Bunu sen yaşamamışsın; yazdırmışsın.“ Bardağın içe kıvrık kenarı kayıtta yoktur (pid 995 aynen). Anlatıcı yardımcıya sorar; yardımcı kıvrımı „eklediğini hatırladığını“ söyler – kayıt yalanlar: makine kendi çıktısı hakkında da uydurur. „Hafızama misafir gelmiş. Ben evin tapusunu vermişim.“ (pid 991) aynen, muhatabı değişir. Anlatıcı kaydın kenarına dedenin kuralını yazar: „Devamını uydurma.“ (pid 81) – kitapta bu kuralı ilk çiğneyen şey makinedir. Sonra Tuncay aranır (pid 998–999'un olguları) ve 2015 okuma günü; „Hasta olarak değil“ (pid 1011–1013) aynen. Üç vuruş sahnesi tamamen çıkar."
-  },
-  {
-   "where": "pid 1150, 1163–1164, 1195–1199 (13. böl.)",
-   "what": "„Sefa Abi'nin romanında geçen hastane“; Sefa'ya gönderilen fiş/program; „sandalyeyi ters taşıyan adam“; „Bu, yaşandığını bildiğim değil, yazarken gördüğüm“; „Bardağı sen doldurmadın. Ama masaya sen yer açtın.“; „Yazıda yer değiştirebiliyorum.“",
-   "replacement": "pid 1150: „Adresi, makinenin kurduğu hastane değildi.“ Fiş ve program Tuncay'a gider: Tuncay o günün davetli yazarıdır; sandalyeyi ters taşıyan teknisyeni gerçekten hatırlar; su isteyen, bekleme odasındaki bir hastaydı. „Bardağı sen doldurmadın. Ama masaya sen yer açtın.“ aynen kalır, artık gerçek bir tanığın cümlesidir. „Yazarken gördüğüm“ ve „yazıda yer değiştirebiliyorum“ çıkar; yerine Tuncay: „Yüzünü hatırlamıyorum. Hareketini hatırlıyorum.“ pid 1200 „romandaki yeşil koridoru“ → „makinenin kurduğu yeşil koridoru“."
-  },
-  {
    "where": "pid 2801–2802 (40. böl.)",
    "what": "„Okurken hangi elinle tuttuğunu kontrol et.“ – ŞAHİT'te birebir var (SA pid 1323); 2802'de „Sefa Abi'nin roman dosyasının kenarındaki çalışma notu“",
    "replacement": "Uzun cümle DÜŞER. Yalnız kısa biçim kalır: „Okurken eline de bak.“ (pid 1156; ŞAHİT'te yok). pid 2802: „Kısa cümleyi programın arkasından, Tuncay'ın her kitabının son sayfasına yazdığı satırdan hatırlıyordum. Şimdi onu da bu kâğıdı da aynı el tutuyordu.“ „Bir cümlenin farklı kâğıtlarda bulunması, kimin önce düşündüğünü söylemiyordu.“ kalır."
@@ -245,11 +230,6 @@
    "where": "pid 3492 (50. böl.)",
    "what": "„Bana verilen hayatla ne yapmıştım?“",
    "replacement": "KORUNUR. YOLCU'nun kendi omurga cümlesidir; ŞAHİT ona gönderme yapar, tersi değil. pid 3493'ün zaman oyunu aynen."
-  },
-  {
-   "where": "pid 987 (12. böl.)",
-   "what": "„Muhibbi Amca… çay lekesi“",
-   "replacement": "Silinir (975–1019 yeniden yazımının içinde); çay lekesi motifi Tuncay'ın soğuyan çayına taşınır."
   }
  ],
  "forbidden": {
@@ -312,8 +292,7 @@
    "Samira": "Nadia",
    "Sefa Abi": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
    "Hakan Hıdıroğlu": "çıkar",
-   "Muhibbi Amca": "çıkar",
-   "—": "AYNA (Ayna Davranış Modeli)"
+   "Muhibbi Amca": "çıkar"
   }
  }
 }

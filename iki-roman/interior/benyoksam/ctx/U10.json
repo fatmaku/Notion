@@ -170,18 +170,7 @@
    "why": "Kişi adı değil işlev adı."
   }
  ],
- "remove_sahit": [
-  {
-   "where": "pid 2801–2802 (40. böl.)",
-   "what": "„Okurken hangi elinle tuttuğunu kontrol et.“ – ŞAHİT'te birebir var (SA pid 1323); 2802'de „Sefa Abi'nin roman dosyasının kenarındaki çalışma notu“",
-   "replacement": "Uzun cümle DÜŞER. Yalnız kısa biçim kalır: „Okurken eline de bak.“ (pid 1156; ŞAHİT'te yok). pid 2802: „Kısa cümleyi programın arkasından, Tuncay'ın her kitabının son sayfasına yazdığı satırdan hatırlıyordum. Şimdi onu da bu kâğıdı da aynı el tutuyordu.“ „Bir cümlenin farklı kâğıtlarda bulunması, kimin önce düşündüğünü söylemiyordu.“ kalır."
-  },
-  {
-   "where": "pid 2805–2807 (40. böl.)",
-   "what": "Pencere kanadının „üç kez“ vurması ve „Tok. Tok. Tok.“ – ŞAHİT'in ÜÇ VURUŞ köprüsü (önceki analizde kayıtlı)",
-   "replacement": "Kanat 3-2-3 vurur – Lara'nın 34. bölümde kurulan kapı şifresi („Benim“, pid 2347–2350). pid 2806: „Tok tok tok. Tok tok. Tok tok tok.“ „Sol avucum kapandı.“ ve „Bu defa sesi nereden duyduğumu görmüştüm.“ aynen."
-  }
- ],
+ "remove_sahit": [],
  "forbidden": {
   "strings": [
    "Sefa",
@@ -242,8 +231,7 @@
    "Samira": "Nadia",
    "Sefa Abi": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
    "Hakan Hıdıroğlu": "çıkar",
-   "Muhibbi Amca": "çıkar",
-   "—": "AYNA (Ayna Davranış Modeli)"
+   "Muhibbi Amca": "çıkar"
   }
  }
 }

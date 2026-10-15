@@ -170,13 +170,7 @@
    "why": "Kişi adı değil işlev adı."
   }
  ],
- "remove_sahit": [
-  {
-   "where": "pid 2670 (38. böl.)",
-   "what": "Kalorifer borusunun „üç kısa vuruş“u",
-   "replacement": "Sayı düşer: „kalorifer borusu genleşirken düzensiz birkaç vuruş çıkarmıştı.“ (İsteğe bağlı: 4. bölümdeki 47 saniyelik Galata borusu hatırlatılır.) Böylece kitapta kalan tek üçlü vuruş Lara'nın 3-2-3'ü ve Duman'ın kuyruğudur (pid 164, kitabın kendi motifi)."
-  }
- ],
+ "remove_sahit": [],
  "forbidden": {
   "strings": [
    "Sefa",
@@ -237,8 +231,7 @@
    "Samira": "Nadia",
    "Sefa Abi": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
    "Hakan Hıdıroğlu": "çıkar",
-   "Muhibbi Amca": "çıkar",
-   "—": "AYNA (Ayna Davranış Modeli)"
+   "Muhibbi Amca": "çıkar"
   }
  }
 }
