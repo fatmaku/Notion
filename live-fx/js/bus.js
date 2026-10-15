@@ -5,6 +5,12 @@
 //      (preview iframe, an opened overlay tab, file:// demo mode).
 //   2. Server-Sent Events via server.js – needed when the overlay runs inside OBS / Streamlabs
 //      (a separate browser). The panel POSTs to /fire, every overlay subscribes to /events.
+//      2.4: long-poll fallback `GET /events/poll` (same events, same ids) where SSE does not get through –
+//      Cloudflare Quick Tunnels (`*.trycloudflare.com`, the Internet link) do not support Server-Sent Events.
+//      Chosen automatically on a trycloudflare host, when EventSource fails twice within 10 s, or when the
+//      stream opens but not even the initial `state` frame arrives within 8 s (a buffering proxy); in the
+//      automatic fallback SSE is tried again after 2 / 5 / 10 minutes. `?transport=poll|sse` pins one (tests).
+//      status().transport tells which one is live ('sse' | 'poll').
 //
 // A message can therefore arrive twice (once per transport). Every message carries an `id`
 // created by the sender; receivers remember the last 300 ids and drop repeats, and a sender
@@ -18,6 +24,26 @@
   const FIRE_MAX_AGE_MS = 5000;
   const SEND_RETRY_MS = [300, 1000, 3000];
   const SSE_BACKOFF_MS = [1000, 2000, 4000, 8000, 15000];
+  const POLL_WAIT_MS = 25000; // the server holds a poll this long when nothing happens (server/sse.js caps it at 25 s)
+  const POLL_TIMEOUT_MS = POLL_WAIT_MS + 10000;
+  const SSE_FAIL_WINDOW_MS = 10000;
+  const SSE_FAILS_TO_POLL = 2;
+  const SSE_STALL_MS = 8000;
+  const SSE_RETRY_AFTER_MS = [120000, 300000, 600000];
+  const TUNNEL_HOST_RE = /\.trycloudflare\.com$/i;
+
+  /** Transport for this page: `?transport=poll|sse` pins it, a Quick Tunnel host means poll, otherwise SSE first. */
+  function pickTransport(loc) {
+    let forced = '';
+    try {
+      forced = String(new URLSearchParams((loc && loc.search) || '').get('transport') || '').toLowerCase();
+    } catch (_) {
+      forced = '';
+    }
+    if (forced === 'poll' || forced === 'sse') return { transport: forced, forced: true, reason: 'param' };
+    if (TUNNEL_HOST_RE.test(String((loc && loc.hostname) || ''))) return { transport: 'poll', forced: true, reason: 'tunnel' };
+    return { transport: 'sse', forced: false, reason: null };
+  }
 
   function newId(prefix) {
     const S = global.LiveFXSchema;
@@ -40,13 +66,36 @@
       this.closed = false;
       this._sseTimer = null;
       this._sseBackoff = 0;
+      this._sseStall = null;
+      this._sseFails = []; // timestamps of recent EventSource failures (fallback to long-poll)
+      this._sseRetryStep = 0;
+      this._sseRetryTimer = null;
+      this.transport = 'sse'; // 'sse' | 'poll'
+      this.transportForced = false;
+      this.transportReason = null;
+      this._lastSeq = null; // sequence id of the last event seen (SSE lastEventId / poll `next`)
+      this._pollTimer = null;
+      this._pollBackoff = 0;
+      this._pollGen = 0;
+      this._pollCtl = null;
+      this.cid = String(newId(this.role)).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40);
 
       this.bc = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel(CHANNEL) : null;
       if (this.bc) this.bc.onmessage = (e) => this._emit(e.data);
 
       const isHttp = /^https?:$/.test(global.location ? global.location.protocol : '');
       this.serverBase = isHttp ? '' : null;
-      if (isHttp && typeof EventSource !== 'undefined') this._connectSSE();
+      if (isHttp) {
+        const pick = pickTransport(global.location);
+        const canSse = typeof EventSource !== 'undefined';
+        const canPoll = typeof fetch === 'function';
+        this.transportForced = pick.forced;
+        this.transportReason = pick.reason;
+        if (canPoll && (pick.transport === 'poll' || !canSse)) {
+          this.transport = 'poll';
+          this._connectPoll();
+        } else if (canSse) this._connectSSE();
+      }
     }
 
     // ---------- public API ----------
@@ -63,7 +112,7 @@
     }
 
     status() {
-      return { serverOk: this.serverOk, sse: this.sse, authError: this.authError, queued: this.queue.length };
+      return { serverOk: this.serverOk, sse: this.sse, authError: this.authError, queued: this.queue.length, transport: this.transport };
     }
 
     /** Broadcasts a message to every overlay (and other panels). Returns the message id. */
@@ -84,6 +133,9 @@
     close() {
       this.closed = true;
       clearTimeout(this._sseTimer);
+      clearTimeout(this._sseStall);
+      clearTimeout(this._sseRetryTimer);
+      this._stopPoll();
       if (this.es) this.es.close();
       if (this.bc) this.bc.close();
       this.sse = 'off';
@@ -206,20 +258,33 @@
     _connectSSE() {
       if (this.closed) return;
       clearTimeout(this._sseTimer);
+      clearTimeout(this._sseStall);
       if (this.es) this.es.close();
+      this.transport = 'sse';
       this.sse = 'connecting';
       this._status();
-      const es = new EventSource(`${this.serverBase}/events?role=${this.role}`);
+      // `since` lets a switch back from long-poll replay what happened meanwhile (the browser's own reconnects
+      // send Last-Event-ID, which the server prefers).
+      const since = this._lastSeq !== null ? `&since=${this._lastSeq}` : '';
+      const es = new EventSource(`${this.serverBase}/events?role=${this.role}${since}`);
       this.es = es;
+      let gotData = false;
       es.onopen = () => {
         if (es !== this.es) return;
         this.serverOk = true;
         this.sse = 'open';
         this._sseBackoff = 0;
         this._status();
+        clearTimeout(this._sseStall);
+        // The server writes the `state` frame right away; nothing within 8 s = a proxy buffers the stream.
+        if (!gotData) this._sseStall = setTimeout(() => es === this.es && !gotData && this._sseFailed(true), SSE_STALL_MS);
       };
       es.onmessage = (e) => {
         if (es !== this.es) return;
+        gotData = true;
+        clearTimeout(this._sseStall);
+        const seq = Number(e.lastEventId);
+        if (e.lastEventId !== '' && Number.isFinite(seq)) this._lastSeq = seq;
         try {
           this._emit(JSON.parse(e.data));
         } catch (_) {
@@ -228,7 +293,9 @@
       };
       es.onerror = () => {
         if (es !== this.es) return;
+        clearTimeout(this._sseStall);
         this.serverOk = false;
+        if (this._sseFailed(false)) return; // switched to long-poll
         if (es.readyState === EventSource.CLOSED) {
           // The browser gave up (non-200 response, wrong content type). Reconnect ourselves.
           this.sse = 'closed';
@@ -240,7 +307,114 @@
         this._status();
       };
     }
+
+    /** Counts an EventSource failure; switches to long-poll (and returns true) after 2 within 10 s or a stall. */
+    _sseFailed(stalled) {
+      if (this.transportForced || this.closed || typeof fetch !== 'function') return false;
+      const now = Date.now();
+      this._sseFails = this._sseFails.filter((t) => now - t < SSE_FAIL_WINDOW_MS);
+      this._sseFails.push(now);
+      if (!stalled && this._sseFails.length < SSE_FAILS_TO_POLL) return false;
+      this._switchToPoll(stalled ? 'stall' : 'errors');
+      return true;
+    }
+
+    _switchToPoll(reason) {
+      clearTimeout(this._sseTimer);
+      clearTimeout(this._sseStall);
+      if (this.es) {
+        this.es.onopen = this.es.onmessage = this.es.onerror = null;
+        this.es.close();
+        this.es = null;
+      }
+      this._sseFails = [];
+      this.transport = 'poll';
+      this.transportReason = reason;
+      this.serverOk = false;
+      this._pollBackoff = 0;
+      this._connectPoll();
+      // automatic fallback only: SSE gets another chance later (the network may have changed, the server restarted)
+      clearTimeout(this._sseRetryTimer);
+      const wait = SSE_RETRY_AFTER_MS[Math.min(this._sseRetryStep++, SSE_RETRY_AFTER_MS.length - 1)];
+      this._sseRetryTimer = setTimeout(() => {
+        if (this.closed || this.transport !== 'poll' || this.transportForced) return;
+        this._stopPoll();
+        this._connectSSE();
+      }, wait);
+    }
+
+    // ---------- long-poll (2.4) ----------
+
+    _stopPoll() {
+      this._pollGen++;
+      clearTimeout(this._pollTimer);
+      if (this._pollCtl) {
+        try {
+          this._pollCtl.abort();
+        } catch (_) {
+          /* already done */
+        }
+      }
+      this._pollCtl = null;
+    }
+
+    _connectPoll() {
+      if (this.closed) return;
+      clearTimeout(this._pollTimer);
+      if (this.sse !== 'open') {
+        this.sse = 'connecting';
+        this._status();
+      }
+      const gen = ++this._pollGen;
+      const ctl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      this._pollCtl = ctl;
+      const q = [`role=${this.role}`, `cid=${encodeURIComponent(this.cid)}`, `wait=${POLL_WAIT_MS}`];
+      if (this._lastSeq !== null) q.push(`since=${this._lastSeq}`);
+      const kill = ctl ? setTimeout(() => ctl.abort(), POLL_TIMEOUT_MS) : null;
+      const done = () => clearTimeout(kill);
+      fetch(`${this.serverBase}/events/poll?${q.join('&')}`, {
+        cache: 'no-store',
+        credentials: 'same-origin',
+        headers: { accept: 'application/json' },
+        signal: ctl ? ctl.signal : undefined,
+      })
+        .then((r) => {
+          if (gen !== this._pollGen || this.closed) return null;
+          if (!r.ok) {
+            done();
+            this._pollFailed(r.status);
+            return null;
+          }
+          return r.json().then((d) => {
+            done();
+            if (gen !== this._pollGen || this.closed) return;
+            if (!d || !Array.isArray(d.events)) throw new Error('bad poll answer');
+            if (Number.isFinite(Number(d.next))) this._lastSeq = Number(d.next);
+            const changed = this.sse !== 'open' || !this.serverOk;
+            this.serverOk = true;
+            this.sse = 'open';
+            this._pollBackoff = 0;
+            if (changed) this._status();
+            for (const m of d.events) this._emit(m);
+            this._pollTimer = setTimeout(() => this._connectPoll(), 0);
+          });
+        })
+        .catch(() => {
+          done();
+          if (gen !== this._pollGen || this.closed) return;
+          this._pollFailed(0);
+        });
+    }
+
+    /** Like EventSource: network trouble = 'connecting' (retrying), an HTTP refusal (401 not paired …) = 'closed'. */
+    _pollFailed(status) {
+      this.serverOk = false;
+      this.sse = status ? 'closed' : 'connecting';
+      this._status();
+      const delay = SSE_BACKOFF_MS[Math.min(this._pollBackoff++, SSE_BACKOFF_MS.length - 1)];
+      this._pollTimer = setTimeout(() => this._connectPoll(), delay);
+    }
   }
 
-  global.LiveFXBus = { Bus };
+  global.LiveFXBus = { Bus, pickTransport, POLL_WAIT_MS };
 })(typeof window !== 'undefined' ? window : globalThis);

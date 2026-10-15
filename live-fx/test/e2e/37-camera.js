@@ -321,6 +321,88 @@ async function run({ browser, startServer, api, shotDir, log }) {
 
     await page.screenshot({ path: path.join(shotDir, '37-camera.png') });
 
+    // (h2) „📱 Fernbedienung“: the pairing QR opens in a box OUTSIDE the picture – never in a recording or the output:
+    // not inside #frame (the compositor and the Pixelgenau crop only see #frame), the composited frame is the same with
+    // and without the box, a recording closes it and locks the button, clean mode hides it.
+    await page.click('#btn-remote');
+    await page.waitForFunction(() => {
+      const c = document.querySelector('#remote-qr canvas');
+      const e = document.querySelector('#remote-qr .qr-empty');
+      return (c && c.dataset.qrPayload) || (e && !e.hidden && e.textContent !== 'QR-Code lädt …');
+    }, null, { timeout: 8000 });
+    const remote = await page.evaluate(() => {
+      const box = document.querySelector('#remote-qr');
+      const c = box.querySelector('canvas');
+      const r = box.getBoundingClientRect();
+      return {
+        open: window.livefxCamera.remoteOpen,
+        inFrame: document.querySelector('#frame').contains(box),
+        inView: document.querySelector('#view').contains(box),
+        payload: c ? c.dataset.qrPayload || '' : '',
+        state: window.livefxCamera.remote ? window.livefxCamera.remote.state : null,
+        rect: [r.left, r.top, r.width, r.height],
+        expanded: document.querySelector('#btn-remote').getAttribute('aria-expanded'),
+      };
+    });
+    assert.ok(remote.open && remote.expanded === 'true', `remote box open: ${JSON.stringify(remote)}`);
+    assert.equal(remote.inFrame, false, 'QR box is not part of the picture (#frame)');
+    assert.equal(remote.inView, false, 'QR box is not inside #view');
+    assert.ok(remote.state && ['setup', 'legacy'].includes(remote.state.mode), `pairing data loaded: ${JSON.stringify(remote.state)}`);
+    if (remote.payload) assert.ok(!remote.payload.includes(token) || remote.state.mode === 'legacy', 'pairing QR without the master token');
+    await page.screenshot({ path: path.join(shotDir, '37-camera-remote.png') });
+    // the composited frame does not contain the box: count pure-black pixels where the box sits, open vs closed
+    const blackUnderBox = (rect) =>
+      page.evaluate((rc) => {
+        const cam = window.livefxCamera;
+        cam.compositor.paint();
+        const c = cam.compositor.canvas;
+        const fr = document.querySelector('#frame').getBoundingClientRect();
+        const k = c.width / fr.width;
+        const x0 = Math.max(0, Math.floor((rc[0] - fr.left) * k));
+        const y0 = Math.max(0, Math.floor((rc[1] - fr.top) * k));
+        const w = Math.min(c.width - x0, Math.ceil(rc[2] * k));
+        const h = Math.min(c.height - y0, Math.ceil(rc[3] * k));
+        if (w <= 0 || h <= 0) return { black: 0, area: 0 };
+        const d = c.getContext('2d').getImageData(x0, y0, w, h).data;
+        let black = 0;
+        for (let i = 0; i < d.length; i += 4) if (d[i] < 16 && d[i + 1] < 16 && d[i + 2] < 16 && d[i + 3] > 200) black++;
+        return { black, area: w * h };
+      }, rect);
+    await page.selectOption('#cam-device', 'off'); // still picture: no camera noise in the comparison
+    await page.waitForFunction(() => window.livefxCamera.state.camera === 'off', null, { timeout: 3000 });
+    const withBox = await blackUnderBox(remote.rect);
+    await page.click('#remote-close');
+    assert.equal(await page.evaluate(() => window.livefxCamera.remoteOpen), false, '✕ closes the box');
+    const withoutBox = await blackUnderBox(remote.rect);
+    assert.ok(withBox.area > 1000, `box lies over the picture area (${withBox.area} px)`);
+    assert.ok(Math.abs(withBox.black - withoutBox.black) < withBox.area * 0.01, `composited frame unchanged by the QR box (${withBox.black} vs ${withoutBox.black} black px)`);
+    await page.selectOption('#cam-device', camId || '');
+    await page.waitForFunction(() => window.livefxCamera.state.camera === 'on' && document.querySelector('#cam').videoWidth > 0, null, { timeout: 5000 });
+    // a recording closes the box and locks the button until it ends
+    await page.click('#btn-remote');
+    await page.waitForFunction(() => window.livefxCamera.remoteOpen);
+    const lock = await page.evaluate(async () => {
+      const cam = window.livefxCamera;
+      const done = cam.startRecording({ mic: false, fx: false });
+      const during = { open: cam.remoteOpen, disabled: document.querySelector('#btn-remote').disabled };
+      await new Promise((r) => setTimeout(r, 600));
+      const later = { open: cam.remoteOpen, disabled: document.querySelector('#btn-remote').disabled };
+      await cam.openRemote(); // refused while recording
+      const refused = cam.remoteOpen;
+      await cam.stopRecording();
+      await done;
+      document.querySelector('#rec-close').click();
+      return { during, later, refused, after: document.querySelector('#btn-remote').disabled };
+    });
+    assert.deepEqual(lock, { during: { open: false, disabled: true }, later: { open: false, disabled: true }, refused: false, after: false }, `recording closes + locks the QR box: ${JSON.stringify(lock)}`);
+    // clean mode (H / output window) never shows it
+    await page.click('#btn-remote');
+    await page.waitForFunction(() => window.livefxCamera.remoteOpen);
+    await page.keyboard.press('h');
+    assert.equal(await page.locator('#remote-qr').isVisible(), false, 'clean mode hides the QR box');
+    await page.keyboard.press('h');
+    log('📱 Fernbedienung QR: outside the picture, not composited, closed while recording / in clean mode');
+
     // (i) panel: camera card + record link, Story-Stil / Band-Position selects send layout messages
     const panel = await ctx.newPage();
     panel.on('pageerror', (e) => errors.push(`panel: ${e.message}`));

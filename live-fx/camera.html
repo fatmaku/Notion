@@ -42,6 +42,7 @@
       <button type="button" id="btn-sound" aria-pressed="true" title="Effekt-Sounds in diesem Fenster an / aus">🔊</button>
       <button type="button" id="btn-rec" class="rec" title="Aufnahme starten / stoppen (Taste R)">⏺ Aufnahme</button>
       <button type="button" id="btn-studio" title="Spracherkennung in diesem Fenster: Stichwörter feuern Effekte, Sätze bauen die Live-Story">🎙️ Live-Mikro</button>
+      <button type="button" id="btn-remote" aria-expanded="false" aria-controls="remote-qr" title="Handy als Fernbedienung: QR-Code scannen – erscheint nie in Aufnahme oder Ausgabefenster">📱<span class="lbl"> Fernbedienung</span></button>
       <button type="button" id="btn-full" title="Vollbild (Taste F)">⛶</button>
       <button type="button" id="btn-popup" title="Sauberes Ausgabefenster ohne Leiste öffnen – für OBS-Fensteraufnahme oder Bildschirm teilen">⧉ Ausgabe</button>
       <button type="button" id="btn-more" aria-expanded="false" aria-controls="drawer" title="Mehr Einstellungen">⚙</button>
@@ -65,6 +66,20 @@
         Anleitung (WhatsApp, FaceTime, Zoom, OBS-Kamera): <a href="docs/KAMERA.md" target="_blank">docs/KAMERA.md</a></p>
     </div>
   </div>
+
+  <!-- „📱 Fernbedienung“: pairing QR for the phone (js/setup-card.js, loaded on demand). Outside #frame on purpose: the
+       compositor and the „Pixelgenau“ capture only see #frame; hidden in clean mode / the output window, closed while
+       recording. -->
+  <section id="remote-qr" class="remote" hidden role="dialog" aria-labelledby="remote-title">
+    <div class="remote-box">
+      <div class="remote-head">
+        <h2 id="remote-title">📱 Handy als Fernbedienung</h2>
+        <button type="button" id="remote-close" aria-label="Schließen">✕</button>
+      </div>
+      <p class="help">Scannen → Soundboard, Szenen und Lautstärke am Handy. Dieses Fenster ist nie in der Aufnahme oder im Ausgabefenster und schließt sich, sobald du aufnimmst.</p>
+      <div class="pair-view" id="remote-view" data-pair-view="cam-remote" data-qr="220"><p class="help">QR-Code lädt …</p></div>
+    </div>
+  </section>
 
   <section id="rec-result" class="result" hidden aria-label="Aufnahme fertig">
     <div class="result-box">

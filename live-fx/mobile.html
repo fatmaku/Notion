@@ -4,71 +4,196 @@
   <meta charset="utf-8">
   <title>LiveFX – Handy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0f1115">
+  <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4f5f8" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="dark light">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="LiveFX">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="manifest" href="/mobile.webmanifest">
   <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
-  <header>
-    <div class="title">
+  <header id="top">
+    <div class="bar">
       <span class="dot" id="dot-server" title="Verbindung zum Server"></span>
-      <strong>🎬 LiveFX</strong>
-      <span class="sub" id="status">verbinde …</span>
-    </div>
-    <div class="controls">
-      <button type="button" id="btn-mute" title="Effekte anhalten">⏸ Pause</button>
-      <div class="volbox" role="group" aria-label="Lautstärke Overlay">
-        <button type="button" id="btn-vol-down" title="Leiser (−6 dB)">🔉 Leiser</button>
-        <span class="vol-label" id="vol-label">80 %</span>
-        <button type="button" id="btn-vol-up" title="Lauter (+6 dB)">🔊 Lauter</button>
-        <input id="volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Lautstärke Overlay" hidden>
+      <div class="who">
+        <strong>🎬 LiveFX</strong>
+        <span class="sub" id="status">verbinde …</span>
       </div>
+      <button type="button" id="mic-live" class="mic-live" hidden title="Handy-Mikro hört zu – antippen für die Einstellungen" aria-label="Handy-Mikro an"><span class="mic-live-dot"></span>🎙</button>
+      <button type="button" id="btn-mute" class="pause" title="Alle Effekte anhalten">⏸ Pause</button>
     </div>
-    <div class="quick">
-      <button type="button" id="btn-mic" title="Spracherkennung am Handy">🎙️ Mikro</button>
-      <button type="button" id="btn-band" title="Story-Band im Overlay ein-/ausblenden" data-on="0">📖 Band an</button>
-      <button type="button" id="btn-zone" title="Effekt-Zone im Overlay wechseln" data-zone="full">🎯 Zone: überall</button>
-    </div>
-    <div class="quick quick-look">
-      <button type="button" id="btn-style" title="Story-Stil im Overlay wechseln: Gemischt → Zeichnung → Emoji" data-style="mixed">✏️ Stil: Gemischt</button>
-      <button type="button" id="btn-bandpos" title="Band-Position im Hochformat (9:16): ganz unten ↔ über dem Chat" data-pos="bottom">📐 Band: ganz unten</button>
-    </div>
+    <div id="transcript" aria-live="polite"><span class="muted">Tippe eine Kachel – der Effekt erscheint im Stream. Lange drücken = Favorit ⭐</span></div>
   </header>
 
-  <main>
-    <div class="row">
-      <input id="search" type="search" placeholder="Suchen … (Name oder Stichwort)" autocomplete="off" autocapitalize="off" aria-label="Trigger suchen">
-    </div>
-    <p class="hint" id="mic-hint" hidden></p>
+  <div id="auth-banner" class="banner" role="alert" hidden>
+    <span>⚠️ Dieses Handy ist nicht (mehr) gekoppelt.</span>
+    <a class="btn-link" href="/p" id="auth-pair">Jetzt koppeln</a>
+  </div>
 
-    <div id="transcript" aria-live="polite"><span class="muted">Tippe eine Kachel – der Effekt erscheint im Overlay. Lange drücken = Favorit ⭐</span></div>
+  <main id="tabs">
+    <!-- ✨ Effekte -->
+    <section class="tab" id="tab-fx" data-tab="fx" role="tabpanel" aria-labelledby="tabbtn-fx">
+      <div class="row">
+        <input id="search" type="search" placeholder="Suchen … (Name oder Stichwort)" autocomplete="off" autocapitalize="off" aria-label="Trigger suchen">
+      </div>
 
-    <section id="favs-card" hidden>
-      <h2>⭐ Favoriten <span class="count" id="favs-count"></span></h2>
-      <div class="pad" id="favs"></div>
+      <section id="favs-card" hidden>
+        <h2>⭐ Favoriten <span class="count" id="favs-count"></span></h2>
+        <div class="pad" id="favs"></div>
+      </section>
+
+      <section>
+        <h2>Effekte <span class="count" id="count"></span></h2>
+        <div class="pad" id="pad"></div>
+        <p class="hint" id="empty" hidden>Nichts gefunden.</p>
+      </section>
+      <p class="hint center">Antippen = Effekt im Stream · lange drücken = ⭐ Favorit</p>
     </section>
 
-    <section id="scenes-card" hidden>
-      <h2>Szenen</h2>
-      <div class="scenes" id="scenes"></div>
+    <!-- 📖 Story -->
+    <section class="tab" id="tab-story" data-tab="story" role="tabpanel" aria-labelledby="tabbtn-story" hidden>
+      <section id="scenes-card" hidden>
+        <h2>🎬 Szenen</h2>
+        <div class="scenes" id="scenes"></div>
+      </section>
+      <section class="card">
+        <h2>📖 Story-Band im Stream</h2>
+        <div class="grid2">
+          <button type="button" id="btn-band" class="tile-btn" title="Story-Band im Overlay ein-/ausblenden" data-on="0">📖 Band an</button>
+          <button type="button" id="btn-zone" class="tile-btn" title="Effekt-Zone im Overlay wechseln" data-zone="full">🎯 Zone: überall</button>
+          <button type="button" id="btn-style" class="tile-btn" title="Story-Stil im Overlay wechseln: Gemischt → Zeichnung → Emoji" data-style="mixed">✏️ Stil: Gemischt</button>
+          <button type="button" id="btn-bandpos" class="tile-btn" title="Band-Position im Hochformat (9:16): ganz unten ↔ über dem Chat" data-pos="bottom">📐 Band: ganz unten</button>
+        </div>
+        <p class="hint">Das Band zeigt die Geschichte, die du erzählst, als kleine Szene unten im Bild. „Zone“ legt fest, wo Effekte erscheinen.</p>
+      </section>
     </section>
 
-    <section>
-      <h2>Effekte <span class="count" id="count"></span></h2>
-      <div class="pad" id="pad"></div>
-      <p class="hint" id="empty" hidden>Nichts gefunden.</p>
+    <!-- 🔊 Ton -->
+    <section class="tab" id="tab-sound" data-tab="sound" role="tabpanel" aria-labelledby="tabbtn-sound" hidden>
+      <section class="card vol-card">
+        <h2>🔊 Lautstärke im Stream</h2>
+        <div class="vol-big" id="vol-label">80 %</div>
+        <input id="volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="Lautstärke Overlay">
+        <div class="volbox" role="group" aria-label="Lautstärke Overlay">
+          <button type="button" id="btn-vol-down" title="Leiser (−6 dB)">🔉 Leiser</button>
+          <button type="button" id="btn-vol-up" title="Lauter (+6 dB)">🔊 Lauter</button>
+        </div>
+      </section>
+
+      <section class="card" id="mic-card">
+        <h2>🎙 Handy-Mikro</h2>
+        <p class="hint">Dein Handy hört zu, der PC zeigt die Effekte – praktisch, wenn du nicht am PC sitzt.</p>
+        <button type="button" id="btn-mic" class="big" title="Spracherkennung am Handy">🎙 Handy-Mikro starten</button>
+        <div class="meter" id="mic-meter" aria-hidden="true"><span id="mic-level"></span></div>
+        <label class="field" id="mic-lang-field" for="mic-lang">Sprache
+          <select id="mic-lang">
+            <option value="auto">Auto</option>
+            <option value="de-DE">Deutsch</option>
+            <option value="tr-TR">Türkçe</option>
+            <option value="en-US">English</option>
+          </select>
+        </label>
+        <p class="hint" id="mic-route" hidden></p>
+        <p class="hint" id="mic-hint" hidden></p>
+        <div class="notice" id="mic-https" hidden>
+          <strong>🔒 Für das Handy-Mikro: Internet-Link nutzen</strong>
+          <p>Browser erlauben das Mikrofon nur über eine sichere Verbindung (https). Über das WLAN läuft LiveFX mit http – der Internet-Link ist https.</p>
+          <button type="button" id="btn-mic-upgrade" class="big primary">🌍 Zum Internet-Link wechseln</button>
+          <p class="hint" id="mic-upgrade-msg" role="status"></p>
+          <p class="hint">Oder am PC im Panel „📱 Handy“ → „Internet-Link starten“ und den neuen QR-Code scannen. <a href="/docs/HANDY-HTTPS.md" target="_blank" rel="noopener">Mehr dazu</a></p>
+        </div>
+      </section>
     </section>
 
-    <section id="packs-card">
-      <h2>📦 Pakete <span class="count" id="packs-count"></span></h2>
-      <div class="packs" id="packs"></div>
-      <p class="hint">Ein Paket fügt seine Trigger hinzu – am PC und hier. Antippen = laden / entfernen.</p>
+    <!-- ☰ Mehr -->
+    <section class="tab" id="tab-more" data-tab="more" role="tabpanel" aria-labelledby="tabbtn-more" hidden>
+      <section class="card" id="conn-card">
+        <h2>📶 Verbindung</h2>
+        <p id="conn-text">Prüfe …</p>
+        <div class="stack">
+          <button type="button" id="btn-setup">🧭 Einrichtung nochmal zeigen</button>
+          <button type="button" id="btn-invite">📱 Weiteres Handy koppeln (QR)</button>
+        </div>
+        <div class="invite" id="invite-box" hidden>
+          <p class="hint">Mit dem anderen Handy diesen QR-Code scannen – oder auf dessen Handy die Seite <b id="invite-url"></b> öffnen und den Code eintippen.</p>
+          <canvas id="invite-qr" aria-label="QR-Code zum Koppeln"></canvas>
+          <p class="code" id="invite-code"></p>
+          <p class="hint" id="invite-expiry"></p>
+          <button type="button" id="btn-invite-new">↻ Neuer Code</button>
+        </div>
+        <button type="button" id="btn-unpair" class="danger" hidden>Dieses Handy abmelden</button>
+      </section>
+
+      <section id="packs-card">
+        <h2>📦 Pakete <span class="count" id="packs-count"></span></h2>
+        <div class="packs" id="packs"></div>
+        <p class="hint">Ein Paket fügt seine Trigger hinzu – am PC und hier. Antippen = laden / entfernen.</p>
+      </section>
+
+      <section class="card">
+        <h2>❓ Hilfe</h2>
+        <p class="hint">Handy-Anleitung: <a href="/docs/HANDY.md" target="_blank" rel="noopener">docs/HANDY.md</a> · Mikro über https: <a href="/docs/HANDY-HTTPS.md" target="_blank" rel="noopener">docs/HANDY-HTTPS.md</a></p>
+      </section>
     </section>
   </main>
+
+  <nav id="tabbar" role="tablist" aria-label="Bereiche">
+    <button type="button" role="tab" id="tabbtn-fx" data-tab="fx" aria-controls="tab-fx" aria-selected="true"><span class="ico">✨</span><span class="lbl">Effekte</span></button>
+    <button type="button" role="tab" id="tabbtn-story" data-tab="story" aria-controls="tab-story" aria-selected="false"><span class="ico">📖</span><span class="lbl">Story</span></button>
+    <button type="button" role="tab" id="tabbtn-sound" data-tab="sound" aria-controls="tab-sound" aria-selected="false"><span class="ico">🔊</span><span class="lbl">Ton</span></button>
+    <button type="button" role="tab" id="tabbtn-more" data-tab="more" aria-controls="tab-more" aria-selected="false"><span class="ico">☰</span><span class="lbl">Mehr</span></button>
+  </nav>
+
+  <!-- First-run setup assistant: four swipe steps (scroll-snap), skippable, re-open from „Mehr“. -->
+  <div id="setup" class="setup" role="dialog" aria-modal="true" aria-labelledby="setup-title" hidden>
+    <div class="setup-top">
+      <strong id="setup-title">Einrichtung</strong>
+      <div class="dots" id="setup-dots" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <button type="button" id="setup-skip" class="linkish">Überspringen</button>
+    </div>
+    <div class="setup-track" id="setup-track">
+      <section class="setup-step" id="setup-step-1" data-step="1" aria-label="Schritt 1 von 4">
+        <div class="big-icon ok" id="setup-conn-icon">✔</div>
+        <h3 id="setup-conn-title">Verbunden</h3>
+        <p class="lead" id="setup-conn-text">Dein Handy ist mit LiveFX auf dem PC verbunden.</p>
+        <p class="hint" id="setup-device"></p>
+        <a class="btn-link big" id="setup-pair" href="/p" hidden>📱 Jetzt koppeln</a>
+        <p class="hint">In drei kurzen Schritten bist du startklar. Wischen oder „Weiter“ tippen.</p>
+      </section>
+      <section class="setup-step" id="setup-step-2" data-step="2" aria-label="Schritt 2 von 4">
+        <h3>📦 Pakete wählen</h3>
+        <p class="lead">Welche Sprüche sagst du oft? Tippe Pakete an – sie werden am PC und hier geladen.</p>
+        <div class="packs" id="setup-packs"></div>
+        <p class="hint" id="setup-packs-count"></p>
+      </section>
+      <section class="setup-step" id="setup-step-3" data-step="3" aria-label="Schritt 3 von 4">
+        <h3>🎉 Test-Effekt</h3>
+        <p class="lead">Schick einen Effekt in deinen Stream – schau dabei auf OBS oder die Vorschau am PC.</p>
+        <button type="button" id="setup-test" class="big primary">🎉 Test-Effekt senden</button>
+        <p class="result" id="setup-test-result" role="status"></p>
+        <p class="hint">Noch kein OBS eingerichtet? Am PC im Start-Assistenten den Schritt „OBS“ machen – oder im Panel die Vorschau öffnen. Den Test kannst du beliebig oft wiederholen.</p>
+      </section>
+      <section class="setup-step" id="setup-step-4" data-step="4" aria-label="Schritt 4 von 4">
+        <h3>✅ Fertig – so bedienst du LiveFX</h3>
+        <ul class="tips">
+          <li><span>✨</span><div><b>Effekte</b>: Kachel antippen = Effekt im Stream. Lange drücken = ⭐ Favorit (stehen dann ganz oben).</div></li>
+          <li><span>⏸</span><div><b>Pause</b> oben rechts hält alle Effekte an – jederzeit.</div></li>
+          <li><span>🔊</span><div><b>Ton</b>: Leiser/Lauter für den Stream – und das 🎙 Handy-Mikro.</div></li>
+          <li><span>📖</span><div><b>Story</b>: Band ein/aus, Szenen wie 🌧️ Regen oder 🌙 Nacht.</div></li>
+          <li><span>☰</span><div><b>Mehr</b>: Pakete, diese Einrichtung, weiteres Handy per QR koppeln.</div></li>
+        </ul>
+        <p class="hint" id="setup-a2hs" hidden></p>
+      </section>
+    </div>
+    <div class="setup-nav">
+      <button type="button" id="setup-back">← Zurück</button>
+      <button type="button" id="setup-next" class="primary">Weiter →</button>
+    </div>
+  </div>
 
   <script src="js/triggers.js"></script>
   <script src="js/packs.js"></script>
@@ -79,7 +204,8 @@
   <script src="js/store.js"></script>
   <script src="js/safety.js"></script>
   <script src="js/assets.js"></script>
-  <script src="js/asr.js"></script>
+  <script src="js/qr.js"></script>
+  <script src="js/phone-mic.js"></script>
   <script src="js/mobile.js"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('/sw.js').catch(() => {});

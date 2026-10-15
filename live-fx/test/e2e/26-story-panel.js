@@ -106,11 +106,17 @@ async function run({ browser, startServer, api, waitFor, shotDir, log }) {
     await overlay.screenshot({ path: path.join(shotDir, 'story-panel-overlay.png') });
     await panel.screenshot({ path: path.join(shotDir, 'story-panel.png'), fullPage: true });
 
-    // (d) interim results are ignored in "sicher" mode (story mode) – no second fire
+    // (d) interim results are ignored in "sicher" mode – no second fire. Since 2.2 story mode keeps the reaction
+    // ("fast" here), so pick "sicher" explicitly: otherwise only the 2 s story gap held „im wald“ back, and a slow
+    // full-page screenshot above (full suite under load) let the interim line fire the forest scene.
+    await panel.selectOption('#asr-reaction', 'safe');
+    assert.equal(await panel.evaluate(() => window.livefx.asrSettings.reaction), 'safe');
     const logBefore = await panel.evaluate(() => document.querySelector('#log').children.length);
     await panel.evaluate(() => window.livefx.handleText('im wald', false, { source: 'Test' }));
     await sleep(200);
     assert.equal(await panel.evaluate(() => document.querySelector('#log').children.length), logBefore, 'interim text does not fire in safe mode');
+    await panel.selectOption('#asr-reaction', 'fast');
+    assert.equal(await panel.evaluate(() => window.livefx.asrSettings.reaction), 'fast');
 
     // (e) reload keeps story mode on (pad visible, settings still story)
     await panel.reload();

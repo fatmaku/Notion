@@ -192,3 +192,62 @@ body.clean .cam-off button { cursor: pointer; }
   .status { display: none; }
   #btn-popup { display: none; }
 }
+
+/* ---- „📱 Fernbedienung“: phone pairing QR (outside #frame – never in a recording; hidden in clean mode) ---- */
+.remote {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 8;
+  width: min(380px, calc(100vw - 24px));
+  max-height: calc(100vh - var(--bar-h, 0px) - 24px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+}
+.remote[hidden], body.clean .remote { display: none !important; }
+.remote-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.remote-head h2 { margin: 0; font-size: 16px; }
+.remote-head button { padding: 4px 10px; }
+.remote .help { margin: 6px 0 0; }
+#btn-remote[aria-expanded="true"] { border-color: var(--accent-2); background: #2a2350; }
+.pair-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 10px; }
+.pair-qr-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.pair-info-col { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.qr-wrap { display: flex; justify-content: center; align-items: center; background: #fff; border-radius: 12px; padding: 8px; max-width: 100%; }
+.qr-wrap.empty { background: var(--panel-2); border: 1px dashed var(--border); width: 180px; height: 180px; }
+.qr-wrap canvas { display: block; max-width: 100%; height: auto; aspect-ratio: 1 / 1; image-rendering: pixelated; }
+.qr-wrap canvas[hidden], .qr-empty[hidden], [data-pair][hidden] { display: none; }
+.qr-empty { color: var(--muted); font-size: 13px; text-align: center; padding: 10px; }
+.pair-code { font-size: 13px; color: var(--muted); }
+.pair-code b { font-size: 22px; color: var(--text); letter-spacing: 0.08em; font-family: ui-monospace, Menlo, Consolas, monospace; }
+.pair-expiry { font-size: 11px; text-align: center; margin: 0; }
+.pair-expiry:empty { display: none; }
+.pair-state { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; }
+.pair-connected .pair-state, .done .pair-state { color: var(--ok); }
+.dot.pulse { animation: cam-blink 1.4s steps(2) infinite; }
+.pair-steps { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.pair-steps b { color: var(--text); }
+.pair-url-line { overflow-wrap: anywhere; }
+.pair-url-line code { word-break: break-all; }
+.pair-url-line code.manual { white-space: nowrap; word-break: normal; }
+.pair-url-line code { color: var(--text); }
+.pair-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.pair-actions button, .pair-hint button, .pair-devices button, .pair-addrs button { padding: 5px 10px; font-size: 13px; }
+.pair-addrs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.pair-addrs .chip.sel { border-color: var(--accent-2); }
+.pair-hint { background: rgba(255, 176, 32, 0.1); border: 1px solid rgba(255, 176, 32, 0.6); border-radius: 12px; padding: 10px 12px; font-size: 13px; }
+.pair-hint-title { font-weight: 700; }
+.pair-hint .actions { margin-top: 6px; }
+.pair-devices { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.pair-devices li { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 6px 8px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; }
+.pair-devices .dev-seen { flex: 1 1 auto; margin: 0; }
+.help.warn { color: var(--warn); }
+@media (max-width: 560px) {
+  #btn-remote .lbl { display: none; }
+  .remote { top: 8px; right: 8px; left: 8px; width: auto; }
+}

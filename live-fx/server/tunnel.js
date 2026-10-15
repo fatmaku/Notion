@@ -3,8 +3,10 @@
 //   cloudflared tunnel --url http://127.0.0.1:<port> --no-autoupdate
 //
 // prints a random `https://<words>.trycloudflare.com` URL on stderr; every request to it is forwarded to the
-// local server. Free, no account, no port forwarding. The phone link becomes `https://<tunnel>/m?token=…`,
-// which is a secure context, so the phone microphone works without a self-signed certificate.
+// local server. Free, no account, no port forwarding. The phone link becomes a pairing link
+// `https://<tunnel>/p#<secret>` (2.3, server/api-pairing.js – the master token is not part of it), which is a secure
+// context, so the phone microphone works without a self-signed certificate. Requests through the tunnel are never
+// treated as local (server/auth.js viaTunnel / isLocal), even though cloudflared connects from 127.0.0.1.
 //
 // Binary: `LIVEFX_CLOUDFLARED` (explicit path) → `cloudflared` on PATH → `<dataDir>/bin/cloudflared(.exe)`;
 // missing → one-time download of the official GitHub release for this platform into `<dataDir>/bin/`.
