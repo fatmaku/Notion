@@ -66,7 +66,9 @@ Antwort auf „Einrichtung erleichtern, am besten für Handy, auch immer QR-Einr
   `js/phone-mic.js`, `js/setup-card.js`; `/events/poll` nie im Cache. Tests: `pairing`, `auth-lan`, `terminal-qr`,
   `start-launchers`, `setup-card`, `pair`, `phone-mic`, `events-poll`, `bus-transport`; e2e `12-poll` (inkl. echter
   https-Seite unter einem `*.trycloudflare.com`-Namen), `38-setup-qr`, `39-phone-setup`, erweitert `35-mobile`,
-  `36-wizard`, `37-camera`.
+  `36-wizard`, `37-camera`. Stabilisiert: `26-story-panel` prüft „Zwischenergebnisse feuern nicht“ jetzt wirklich mit
+  Reaktion „sicher“ (vorher hielt nur die 2-s-Pause den Treffer zurück), `30-media` zeichnet das `<audio>` der
+  6-ms-Test-WAV beim Anlegen auf (es verschwindet nach `ended` evtl. vor dem Bild-Laden).
 
 ## 2.3.0 – Band ganz unten, Story räumt auf, Applaus läuft durch, Zeichenfilm, Kamera-Ansicht für WhatsApp & FaceTime
 

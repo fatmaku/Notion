@@ -46,9 +46,15 @@ async function run({ browser, startServer, api, shotDir, log }) {
     await overlay.goto(`${base}/overlay.html`);
     await overlay.waitForFunction(() => window.livefx && window.livefx.renderer, null, { timeout: 5000 });
 
-    // 1. image + file sound
+    // 1. image + file sound. The 100-byte test wav lasts ~6 ms and its <audio> is removed on `ended`, which can happen
+    // before the image has loaded – so record every <audio> the renderer adds instead of looking for it afterwards.
     await overlay.evaluate(
       ({ pngName, wavName }) => {
+        window.__audioSrcs = [];
+        const stage = document.querySelector('#stage');
+        new MutationObserver((list) => {
+          for (const m of list) for (const n of m.addedNodes) if (n.nodeName === 'AUDIO') window.__audioSrcs.push(n.getAttribute('src') || '');
+        }).observe(stage, { childList: true, subtree: true });
         window.livefx.renderer.fire({
           id: 't',
           label: 't',
@@ -71,7 +77,7 @@ async function run({ browser, startServer, api, shotDir, log }) {
         naturalWidth: img.naturalWidth,
         posSafe: card.classList.contains('fx-pos-safe'),
         text: card.textContent,
-        audio: !!document.querySelector('#stage audio[src$=".wav"]'),
+        audio: !!document.querySelector('#stage audio[src$=".wav"]') || (window.__audioSrcs || []).some((s) => s.endsWith('.wav')),
         fileSounds: window.livefx.renderer.stats.fileSounds,
         fires: window.livefx.renderer.stats.fires,
       };
