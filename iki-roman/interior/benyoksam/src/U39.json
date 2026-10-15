@@ -1,0 +1,370 @@
+{
+ "uid": "U39",
+ "title": "44. Bedenin Bildiği Tarih",
+ "number": 44,
+ "words": 422,
+ "constraints": {
+  "uid": "U39",
+  "number": 44,
+  "title": "44. Bedenin Bildiği Tarih",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 422
+ },
+ "synopsis": {
+  "uid": "U39",
+  "title": "44. Bedenin Bildiği Tarih",
+  "summary": "Gegenwartsebene, Beginn des fünften Akts „Dönüş“. Der Erzähler erklärt die Auflösung des Cliffhangers: Die Nummer unter Leylas Video gehört dem Herzrhythmus-Rekorder, den er seit zwei Monaten wegen nächtlicher Aussetzer trägt – Leyla kannte das Gerät nicht, sondern hatte im Seitencode den Patienten-Zuordnungsschlüssel des Meralis-Überwachungssubunternehmers hinterlegt, sodass die Seite beim Öffnen automatisch das zuletzt mit seinem Konto verknüpfte Gerät abfragte: Sie wusste nicht, welches Gerät er tragen würde, sondern über welchen Kanal Meralis ihn überwachen würde. Die Daten des Rekorders waren nie beim Krankenhaus angekommen (drei Subunternehmerwechsel, der letzte Meralis-Fonds); Tarık findet die Rohkopie, der Arzt ruft ihn sofort ins Krankenhaus. Mit Duru, Emir, Zeynep und Nehir im Wartezimmer; der Kardiologe diagnostiziert gefährliche ventrikuläre Rhythmusattacken und eine wahrscheinlich erbliche, fortschreitende Herzmuskelerkrankung; auf „Ölecek miyim?“ verbietet der Erzähler die Floskel „Hepimiz—“ und verlangt Wahrscheinlichkeiten: hohes Risiko eines plötzlichen Herztods, Klinikaufenthalt, Medikamente, implantierbares Schutzgerät; Prognose „Jahre, vielleicht weniger“. Jeder in der Familie reagiert in seiner Sprache (Zeynep praktisch, Duru Ausfallrate, Emir Batteriewechsel). Der Erzähler nimmt die Behandlung ausdrücklich an – er schuldet den Kindern kein heroisches Sterben, sondern möglichst gewöhnliches Leben. Vor dem Eingriff fragt Duru, ob er es immer gewusst habe; seine ehrliche Antwort „Bilmiyorum“ nennt sie „endlich eine anständige Antwort“. Sie hält seine Hand; das Kapitel (und dieses Paket) endet mit der Reflexion über den ersten und letzten Händedruck eines Kindes und dem Schlusssatz über den gegenwärtigen Augenblick als einziges ehrliches Maß.",
+  "characters": [
+   "Ich-Erzähler (Protagonist, herzkrank; Vater von Duru und Emir; Ehemann von Zeynep)",
+   "Duru (Tochter; abgeblätterter schwarzer Nagellack; zeichnet wie der Vater mit dem Daumen kleine Kreise; letztes Gespräch am Bett)",
+   "Emir (Sohn; fragt nach Batteriewechsel des Implantats)",
+   "Zeynep (Ehefrau; stellt die praktischen Fragen)",
+   "Nehir (Vertraute/Journalistin; begleitet ins Krankenhaus; hatte früher nur „Doktor, yaşım için fena olmadığımı söyledi“ gehört)",
+   "Tarık (Technik; analysiert Video und Seitenlog, findet die Rohdaten)",
+   "Leyla (verstorben; hat den Patienten-Zuordnungsschlüssel in der Emanet-Seite hinterlegt)",
+   "Doktorum / Kardiyolog (behandelnder Arzt, namenlos; rückt die Brille zurecht)",
+   "Meralis'in izleme taşeronu (Überwachungssubunternehmer von Meralis, Eigentümer: ein Meralis-Fonds)",
+   "Hastane personeli (Krankenhauspersonal, weiß nicht, wer der Patient ist)"
+  ],
+  "terms": [
+   {
+    "tr": "Bedenin Bildiği Tarih",
+    "meaning": "Kapiteltitel: „Das Datum, das der Körper kennt“ (tarih = Datum/Geschichte; Doppeldeutigkeit möglichst erhalten) – der Körper „wusste“ vor dem Verstand vom nahenden Tod."
+   },
+   {
+    "tr": "BEŞİNCİ PERDE — DÖNÜŞ",
+    "meaning": "Teiltitel direkt vor diesem Kapitel: „Fünfter Akt — Rückkehr“."
+   },
+   {
+    "tr": "ritim kaydedicisi",
+    "meaning": "Herzrhythmus-Rekorder (implantierbarer/tragbarer Ereignisrekorder) auf der Brust; in Kap. 43 „kalp atışımı uzaktan izleyen tıbbi cihaz“."
+   },
+   {
+    "tr": "hasta eşleştirme anahtarı",
+    "meaning": "Patienten-Zuordnungsschlüssel beim Überwachungssubunternehmer – Leylas Trick: dynamische Abfrage des aktuellen Geräts statt fester Geräte-ID (sabit cihaz kimliği)."
+   },
+   {
+    "tr": "bağlantı kaydı / sorgu",
+    "meaning": "Verbindungsprotokoll der Seite / (Datenbank-)Abfrage, die Tarık findet."
+   },
+   {
+    "tr": "Gelecekte hangi cihazı taşıyacağımı bilmemiş; onların beni hangi kanaldan izleyeceğini bilmişti.",
+    "meaning": "Kernsatz der Auflösung: „Sie wusste nicht, welches Gerät ich künftig tragen würde; sie wusste, über welchen Kanal sie mich überwachen würden.“"
+   },
+   {
+    "tr": "uzaktan izleme hizmeti / taşeron",
+    "meaning": "Fernüberwachungsdienst / Subunternehmer; drei Wechsel, der letzte gehört einem Meralis-Fonds – erklärt, warum die Daten das Krankenhaus nie erreichten."
+   },
+   {
+    "tr": "Doktor, yaşım için fena olmadığımı söyledi",
+    "meaning": "Früheres Zitat des Erzählers an Nehir („Der Arzt sagte, für mein Alter sei ich nicht schlecht dran“) – rückwirkend als Verschweigen des Geräts markiert; identisch mit der Fassung im früheren Paket halten."
+   },
+   {
+    "tr": "Bazen hastalık bir bedende başlar, bütün ailenin sandalye düzenini değiştirir.",
+    "meaning": "„Manchmal beginnt eine Krankheit in einem Körper und verändert die Sitzordnung der ganzen Familie.“"
+   },
+   {
+    "tr": "kalbin alt odacıkları / ritim atakları",
+    "meaning": "Herzkammern (Ventrikel) / Rhythmusattacken – medizinisch: ventrikuläre Tachykardien; laienverständlich halten, wie im Original."
+   },
+   {
+    "tr": "kalp kasında ilerleyen, muhtemelen kalıtsal bozulma",
+    "meaning": "Fortschreitende, wahrscheinlich erbliche Herzmuskelerkrankung (Kardiomyopathie) – „kalıtsal“ ist für Duru/Emir relevant."
+   },
+   {
+    "tr": "Ölecek miyim? / Hepimiz—",
+    "meaning": "„Werde ich sterben?“ / „Wir alle—“ (abgebrochene Floskel „wir alle sterben“); Konter: „Felsefeyi ben yapıyorum, siz olasılığı söyleyin.“ (Die Philosophie mache ich, Sie nennen die Wahrscheinlichkeit)."
+   },
+   {
+    "tr": "ani ritim bozukluğu riski",
+    "meaning": "Risiko einer plötzlichen Rhythmusstörung (plötzlicher Herztod)."
+   },
+   {
+    "tr": "koruyucu cihaz (göğse yerleştirilecek)",
+    "meaning": "Schutzgerät, das in die Brust implantiert wird (= Defibrillator/ICD, im Text nicht benannt); reduziert das Risiko, „sıfırlamayacaktı“ (würde es nicht auf null bringen)."
+   },
+   {
+    "tr": "Ölüm içeri girdiğinde herkes kendi dilinde konuşuyordu.",
+    "meaning": "„Als der Tod hereinkam, sprach jeder in seiner eigenen Sprache.“ – Zusammenfassung der Familienreaktionen."
+   },
+   {
+    "tr": "Tedaviyi kabul ediyorum.",
+    "meaning": "„Ich nehme die Behandlung an.“ – bewusst ausgesprochen; Gegensatz zum früheren Todesgefühl/Todeswunsch-Verdacht."
+   },
+   {
+    "tr": "kahraman gibi ölmek / sıradan yaşamak",
+    "meaning": "„wie ein Held sterben“ vs. „so gewöhnlich wie möglich leben“ – Schuldigkeit gegenüber den Kindern."
+   },
+   {
+    "tr": "Tıbben hayır. / Ama hissediyordun.",
+    "meaning": "„Medizinisch nein.“ / „Aber du hast es gespürt.“ – Dialog mit Duru über das vorausgeahnte Sterben; Antwort „Bilmiyorum“ → Duru: „Sonunda düzgün bir cevap.“ (Endlich eine anständige Antwort)."
+   },
+   {
+    "tr": "soyulmuş siyah oje",
+    "meaning": "Abgeblätterter schwarzer Nagellack – Durus wiederkehrendes Detail."
+   },
+   {
+    "tr": "başparmağının küçük daireler çizmesi",
+    "meaning": "Durus Daumen zeichnet bei Anspannung kleine Kreise – wie der des Vaters (vererbte Geste, Spiegel zur vererbten Krankheit)."
+   },
+   {
+    "tr": "İnsan, çocuğunun elini ilk kez tuttuğu anı hatırlar. Son kez tuttuğu anı ise ancak sonradan bilebilir.",
+    "meaning": "„Man erinnert sich an den Moment, in dem man die Hand seines Kindes zum ersten Mal hielt. Den Moment des letzten Mals kann man erst im Nachhinein kennen.“"
+   },
+   {
+    "tr": "Şimdiki an bazen evrenin bize verdiği tek dürüst ölçüdür. Elinizde kalan, avucunuzdaki başka bir avuçtur.",
+    "meaning": "Letzte Zeile des Kapitels und des Pakets: „Der gegenwärtige Augenblick ist manchmal das einzige ehrliche Maß, das das Universum uns gibt. Was euch bleibt, ist eine andere Handfläche in eurer Handfläche.“ Wechsel von „ben“ zur Anrede in 2. Person Plural (siz) – aphoristischer Schluss, Bild avuç/avuç (Hand in Hand) erhalten; „ölçü“ (Maß) schließt an Emirs „ölçü“ in Kap. 43 und das Motiv der Zahlen/Zeichen an."
+   }
+  ],
+  "tone": "Ruhig, konzentriert, nach innen gewandt; medizinisches Setting mit klarer, unpathetischer Sprache. Trockener Widerstand gegen Floskeln (Dialog mit dem Arzt), dann zunehmend zärtlich und aphoristisch; der Schluss in der 2. Person Plural, fast essayistisch. Keine inneren Stimmen (TOPLAYICI/AVCI/SESSİZ SES) in diesem Kapitel."
+ },
+ "paras": [
+  {
+   "pid": 2980,
+   "style": "Heading 1",
+   "text": "<b>44. Bedenin Bildiği Tarih</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2981,
+   "style": "Opening",
+   "text": "Leyla'nın emanet sayfasındaki numara, göğsümde taşıdığım ritim kaydedicisine aitti. Fakat numara, Leyla hayattayken videoya yazılmış değildi. Tarık indirdiği görüntüyü yeniden açtığında altta numara yoktu; onu ekleyen, videoyu taşıyan sayfaydı. Sayfanın bağlantı kaydında küçük bir sorgu buldu: Leyla, sabit cihaz kimliği yerine Meralis'in izleme taşeronundaki hasta eşleştirme anahtarını bırakmıştı. Sayfa açılınca o gün hesabıma bağlı olan son cihazın numarasını çekmişti. Gelecekte hangi cihazı taşıyacağımı bilmemiş; onların beni hangi kanaldan izleyeceğini bilmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2982,
+   "style": "Normal",
+   "text": "Cihazı iki ay önce, geceleri kalbimin kısa süreliğine boşluğa düşmesi yüzünden takmışlardı. İlk rapor normal görünmüştü. Nehir'e “Doktor, yaşım için fena olmadığımı söyledi,” derken bu cihazdan hiç söz etmemiştim. Sonraki veriler hastanenin sistemine ulaşmamıştı. Cihazın uzaktan izleme hizmetini sağlayan şirket, arada üç taşeron değiştirmişti. Son taşeronun sahibi Meralis fonlarından biriydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2983,
+   "style": "Normal",
+   "text": "Tarık kayıtların ham kopyasını bulduğunda doktorum beni aynı gün hastaneye çağırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2984,
+   "style": "Normal",
+   "text": "Duru, Emir, Zeynep ve Nehir benimle geldi. Bekleme odasında beş kişi oturunca hastane personeli hangimizin hasta olduğunu anlamakta zorlandı. Ben de emin değildim. Bazen hastalık bir bedende başlar, bütün ailenin sandalye düzenini değiştirir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2985,
+   "style": "Normal",
+   "text": "Kardiyolog ekrandaki çizgileri gösterdi. Kalbimin alt odacıklarından başlayan tehlikeli ritim atakları vardı. Bazıları uykuda, bazıları son haftalardaki koşuşturmalar sırasında olmuştu. Kalp kasında ilerleyen, muhtemelen kalıtsal bir bozulma görünüyor; daha ileri inceleme gerekiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2986,
+   "style": "Normal",
+   "text": "“Ölecek miyim?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2987,
+   "style": "Normal",
+   "text": "Doktor gözlüğünü düzeltti. “Hepimiz—”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2988,
+   "style": "Normal",
+   "text": "“O cümleyi kullanmayın. Felsefeyi ben yapıyorum, siz olasılığı söyleyin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2989,
+   "style": "Normal",
+   "text": "Doktor hafifçe gülümsedi. Sonra ciddi bir sesle ani ritim bozukluğu riskimin yüksek olduğunu, hastanede kalmam gerektiğini söyledi. İlaç, yakın takip ve göğsüme yerleştirilecek koruyucu bir cihaz önerdi. Bunlar riski azaltacaktı; sıfırlamayacaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2990,
+   "style": "Normal",
+   "text": "“Ne kadar zamanım var?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2991,
+   "style": "Normal",
+   "text": "“Bunu dürüstçe söyleyemem. Yıllar olabilir. Daha az olabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2992,
+   "style": "Normal",
+   "text": "Nehir'in eli sandalyenin kenarını sıktı. Zeynep doktora bütün pratik soruları sordu. Duru cihazın başarısızlık oranını öğrenmek istedi. Emir, pilinin nasıl değiştiğini sordu. Ben odadaki floresanın sesini dinledim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2993,
+   "style": "Normal",
+   "text": "Ölüm içeri girdiğinde herkes kendi dilinde konuşuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2994,
+   "style": "Normal",
+   "text": "“Tedaviyi kabul ediyorum,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2995,
+   "style": "Normal",
+   "text": "Bunu özellikle söyledim. Ölümü sezmiş olmam, ona gitmek istediğim anlamına gelmiyordu. Çocuklarımın karşısında kahraman gibi ölmeye değil, mümkün olduğu kadar sıradan yaşamaya borçluydum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2996,
+   "style": "Normal",
+   "text": "İşlemden önce Duru odada tek başına yanıma geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2997,
+   "style": "Normal",
+   "text": "“Sen bunu başından beri biliyor muydun?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2998,
+   "style": "Normal",
+   "text": "“Tıbben hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2999,
+   "style": "Normal",
+   "text": "“Ama hissediyordun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3000,
+   "style": "Normal",
+   "text": "“Belki bedenimdeki kesintileri fark ettim. Zihnim onlara ölüm adını verdi. Belki de gerçekten başka bir şey biliyordum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3001,
+   "style": "Normal",
+   "text": "“Hangisi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3002,
+   "style": "Normal",
+   "text": "“Bilmiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3003,
+   "style": "Normal",
+   "text": "Duru başını salladı. “Sonunda düzgün bir cevap.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3004,
+   "style": "Normal",
+   "text": "Elimi tuttu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3005,
+   "style": "Normal",
+   "text": "İnsan, çocuğunun elini ilk kez tuttuğu anı hatırlar. Son kez tuttuğu anı ise ancak sonradan bilebilir. Bu yüzden o gün “son” kelimesini düşünmedim. Elinin sıcaklığını düşündüm. Tırnağındaki soyulmuş siyah ojeyi. Başparmağının, gergin olduğunda benimki gibi küçük daireler çizmesini.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3006,
+   "style": "Normal",
+   "text": "Şimdiki an bazen evrenin bize verdiği tek dürüst ölçüdür. Elinizde kalan, avucunuzdaki başka bir avuçtur.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

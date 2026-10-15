@@ -1,0 +1,724 @@
+{
+ "uid": "U09",
+ "title": "8. İki Kötü Seçenek",
+ "number": 8,
+ "words": 468,
+ "constraints": {
+  "uid": "U09",
+  "number": 8,
+  "title": "8. İki Kötü Seçenek",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 468
+ },
+ "synopsis": {
+  "uid": "U09",
+  "title": "8. İki Kötü Seçenek",
+  "summary": "Unmittelbare Fortsetzung in der Gegenwart, Wohnung des Erzählers. Der Erzähler reflektiert, dass Cem nicht die Zukunft kennt, sondern das Gespräch vorher kannte – was ihn noch mehr beunruhigt. Nehir schafft die drei Umschläge aus dem Haus (durchleuchtet, gewogen, fotografiert, in Beweisbeutel und eine verschlossene Metallbox, Versteck unbekannt); der Erzähler lässt sie als „Freundin“ versprechen, sie nicht zu öffnen. Sie rät vom Meralis-Treffen ab – Hingehen heißt, ihren Weg gehen, Nichthingehen heißt, sie kommen anders („zwei schlechte Optionen“, ein Satz, den Nehir von Leyla hat). Sie beschließen hinzugehen, aber mit Sicherungen: Aufzeichnung, parallele Prüfung der Handelsregister, Live-Standort an Selin Özer und einen zweiten Strafverteidiger, Kinder bei Zeynep, Selin alarmiert notfalls die Polizei. Nehir teilt ein Blatt in drei Spalten (BİLDİĞİMİZ / SANDIĞIMIZ / BİZDEN İNANMAMIZ İSTENEN). Telefonat mit Zeynep: Der Erzähler lügt zuerst („işle ilgili“), erzählt ihr dann alles (schwarzes Paket, Leylas Stimme, Buch, Umschläge, Cems Anruf) – nur nicht das Gefühl, dass er „gehen“ werde. Sie streiten kurz, ob man der 17-jährigen Duru die Wahrheit sagt; Zeynep: Ehrlichkeit heißt auch, den Zeitpunkt des Empfängers zu achten. Zeynep fragt, ob er Nehir vertraut („mehr als mir selbst“), und schließt mit der Warnung, keine Heldentaten zu begehen – seine seien nie geplant.",
+  "characters": [
+   "Ich-Erzähler (namenlos; neurodivergent; vor dem Spiegel; lügt schlecht und gut – Zeynep merkt beides)",
+   "Nehir (Journalistin, Leylas Schwester; sichert Umschläge, plant das Treffen, Drei-Spalten-Methode)",
+   "Zeynep (Ex-Frau des Erzählers, Mutter von Duru und Emir; ruhig, pragmatisch; schweigt, wenn sie Angst hat)",
+   "Cem (Arven) (Meralis; nur erwähnt, Anrufer aus Kap. 7)",
+   "Leyla (verstorbene Schwester Nehirs; Quelle des Satzes über die zwei schlechten Optionen; ihr Name verändert die Luft im Raum)",
+   "Selin Özer (Anwältin; erhält Live-Standort, Notfallkontakt) – erstmals mit vollem Namen",
+   "zweiter Anwalt (Strafrecht; namenlos)",
+   "Duru (17, Tochter; Theaterprobe/„prova“) und Emir (Sohn; Robotik-AG) – erwähnt"
+  ],
+  "terms": [
+   {
+    "tr": "İki Kötü Seçenek",
+    "meaning": "Kapiteltitel: „Zwei schlechte Optionen“ – Nehirs/Leylas Erwachsenseins-Definition: zwischen zwei schlechten Wahlmöglichkeiten bewusst den Preis wählen (Anklang an den Buchtitel „Uyanışın Bedeli“)."
+   },
+   {
+    "tr": "Cem geleceği bilmiyordu. / Konuşmayı önceden biliyordu.",
+    "meaning": "Eröffnungs-Antithese: „kannte nicht die Zukunft / kannte das Gespräch im Voraus“ – Vorwissen vs. Prophetie; parallele Satzstruktur erhalten."
+   },
+   {
+    "tr": "ağzında başkasının anahtarı bulunan bir kapı",
+    "meaning": "Bild: „eine Tür, in deren Schloss (wörtl. Mund) der Schlüssel eines anderen steckt“ – Freiheit gegenüber jemandem, der die nächsten fünf Minuten kennt. Schlüssel/Tür-Motiv wiederkehrend."
+   },
+   {
+    "tr": "kanıt torbası / metal kutu",
+    "meaning": "Beweisbeutel / Metallkassette – Nehir sichert die Umschläge darin; Versteck wird nicht genannt (später relevant)."
+   },
+   {
+    "tr": "Gazeteci sözü mü, arkadaş sözü mü? — Hangisi daha pahalıysa. — Arkadaş.",
+    "meaning": "„Journalistenwort oder Freundeswort? – Das teurere. – Freundin.“ Schlüsseldialog über Vertrauen; „pahalı“ (teuer) = Preis/Bedel-Motiv."
+   },
+   {
+    "tr": "Başka yoldan gelirler. / İstedikleri yoldan gitmiş olursun.",
+    "meaning": "„Dann kommen sie auf anderem Weg / Dann gehst du den Weg, den sie wollen.“ – Wegmetapher für die Dilemma-Logik."
+   },
+   {
+    "tr": "Bunu bir duvar yazısından mı çaldın? — Ablamdan.",
+    "meaning": "„Hast du das von einer Graffiti-Wand geklaut? – Von meiner Schwester.“ – „abla“ = ältere Schwester (Leyla)."
+   },
+   {
+    "tr": "Selin Özer",
+    "meaning": "Voller Name der Anwältin (bisher nur „Selin“)."
+   },
+   {
+    "tr": "ceza hukuku",
+    "meaning": "Strafrecht – Fachgebiet des zweiten Anwalts."
+   },
+   {
+    "tr": "canlı konum",
+    "meaning": "Live-Standortfreigabe per Handy."
+   },
+   {
+    "tr": "BİLDİĞİMİZ / SANDIĞIMIZ / BİZDEN İNANMAMIZ İSTENEN",
+    "meaning": "Nehirs drei Spaltenüberschriften (fett, Großbuchstaben): „WAS WIR WISSEN / WAS WIR ANNEHMEN / WAS WIR GLAUBEN SOLLEN“. Wiederkehrendes Ermittlungswerkzeug; Einträge: „Leyla konuştu“ (Spalte 3), „Görüntü sahtedir“ (1), „Cem her şeyi bilir“ (2)."
+   },
+   {
+    "tr": "Gerçek hangi sütunda? — Yer değiştirmeye dayanabilende.",
+    "meaning": "„In welcher Spalte steht die Wahrheit? – In der, die das Umsortieren aushält.“ – Aphorismus, prägnant halten."
+   },
+   {
+    "tr": "prova",
+    "meaning": "Durus (Theater-/Musik-)Probe – wiederkehrender Termin seit Kap. 1."
+   },
+   {
+    "tr": "robotik kulübü",
+    "meaning": "Emirs Robotik-AG nach der Schule."
+   },
+   {
+    "tr": "İşle ilgili.",
+    "meaning": "„Geschäftlich.“ – die schlechte Lüge an Zeynep."
+   },
+   {
+    "tr": "gidecekmişim gibi hissediyorum",
+    "meaning": "„Ich habe das Gefühl, als würde ich gehen (sterben/verschwinden)“ – Anspielung auf die Todesahnung aus Kap. 1–2 und die Umschläge; das Einzige, was er Zeynep verschweigt. Mehrdeutigkeit von „gitmek“ bewahren."
+   },
+   {
+    "tr": "bütün haritayı bitirmemi beklerdi",
+    "meaning": "Zeyneps Verhalten bei Angst: sie lässt ihn „die ganze Karte zu Ende zeichnen“ (Karten-/Plan-Bild)."
+   },
+   {
+    "tr": "On yedi, kurşun geçirmez demek değil.",
+    "meaning": "„Siebzehn heißt nicht kugelsicher.“ – Zeynep über Duru."
+   },
+   {
+    "tr": "Dürüstlük yalnız doğru bilgi vermek değildir. O bilgiyi taşıyacak kişinin zamanını da gözetmektir.",
+    "meaning": "Zeyneps Ethik-Satz (Leyla sagte Ähnliches): Ehrlichkeit = richtige Information + Rücksicht auf den Zeitpunkt des Empfängers. Zitatfähig."
+   },
+   {
+    "tr": "Ona güveniyor musun? — Benden fazla. — Bu cevap değil. — Zaten o yüzden doğru.",
+    "meaning": "„Vertraust du ihr? – Mehr als mir. – Das ist keine Antwort. – Genau deshalb ist es wahr.“ – Antwort/Nicht-Antwort-Motiv."
+   },
+   {
+    "tr": "kahramanlık",
+    "meaning": "„Heldentum/Heldentat“ – Zeynep: „Deine Heldentaten sind nie geplant. Das ist das Problem.“ – Pointe am Kapitelende."
+   }
+  ],
+  "tone": "Ich-Erzählung im Präteritum, Gegenwartsebene, kammerspielartig (Wohnung, Telefon). Sehr dialoglastig mit kurzen, schlagabtauschartigen Zeilen ohne Inquit; trockener Humor; aphoristische Verdichtungen (Erwachsensein, Wahrheit in den Spalten, Ehrlichkeit). Zwischendurch reflexive Passagen des Erzählers über Freiheit/Vorwissen und über Zeyneps Reaktionsmuster. Fette Großbuchstaben nur für die drei Spaltenüberschriften. Beziehungsebene Erzähler–Zeynep: vertraut, leicht ironisch, fürsorglich."
+ },
+ "paras": [
+  {
+   "pid": 691,
+   "style": "Heading 1",
+   "text": "<b>8. İki Kötü Seçenek</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 692,
+   "style": "Opening",
+   "text": "Cem geleceği bilmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 693,
+   "style": "Normal",
+   "text": "Konuşmayı önceden biliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 694,
+   "style": "Normal",
+   "text": "Bu ayrım beni rahatlatmalıydı. Rahatlatmadı. Bir insan yarın ne söyleyeceğini bilen birine karşı kendisini özgür hissedebilir; ama beş dakika sonra ne söyleyeceğini bilen birinin karşısında özgürlük, ağzında başkasının anahtarı bulunan bir kapıya benzer.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 695,
+   "style": "Normal",
+   "text": "Cem telefonu kapattıktan sonra Nehir'in ilk işi zarfları evden çıkarmak oldu. Her birini ışığa tuttu, tarttı, fotoğrafladı ve kendi getirdiği kanıt torbalarına koydu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 696,
+   "style": "Normal",
+   "text": "“İçlerini açma,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 697,
+   "style": "Normal",
+   "text": "“Açmayacağım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 698,
+   "style": "Normal",
+   "text": "“Söz ver.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 699,
+   "style": "Normal",
+   "text": "“Gazeteci sözü mü, arkadaş sözü mü?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 700,
+   "style": "Normal",
+   "text": "“Hangisi daha pahalıysa.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 701,
+   "style": "Normal",
+   "text": "“Arkadaş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 702,
+   "style": "Normal",
+   "text": "Zarfları metal bir kutuya kilitledi. Kutuyu nereye götürdüğünü söylemedi. Normalde bu beni öfkelendirirdi. O gün, birinin benden habersiz doğru bir şey yapabilme ihtimaline tutundum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 703,
+   "style": "Normal",
+   "text": "Meralis görüşmesine gitmememi istedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 704,
+   "style": "Normal",
+   "text": "“Gitmezsem ne olur?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 705,
+   "style": "Normal",
+   "text": "“Başka yoldan gelirler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 706,
+   "style": "Normal",
+   "text": "“Gidersem?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 707,
+   "style": "Normal",
+   "text": "“İstedikleri yoldan gitmiş olursun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 708,
+   "style": "Normal",
+   "text": "“Demek iki seçeneğim de kötü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 709,
+   "style": "Normal",
+   "text": "“Yetişkinlik genellikle budur. Çocukken iyi ve kötü seçenekler var sanıyorsun. Sonra iki kötü seçenek arasında hangi bedeli bilinçli ödeyeceğini öğreniyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 710,
+   "style": "Normal",
+   "text": "“Bunu bir duvar yazısından mı çaldın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 711,
+   "style": "Normal",
+   "text": "“Ablamdan.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 712,
+   "style": "Normal",
+   "text": "Leyla'nın adı odanın havasını değiştirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 713,
+   "style": "Normal",
+   "text": "Gitmeye karar verdik. Karar “Cem'in davetine uyacağız” değildi. Buluşmayı kaydedecek, Meralis'in şirket sicillerini eş zamanlı inceleyecek, Selin Özer'e ve ceza hukuku alanında çalışan ikinci bir avukata canlı konum gönderecek, çocukları görüşme boyunca Zeynep'in yanında tutacaktık. Selin, bizden haber alamazsa önce polisi arayacaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 714,
+   "style": "Normal",
+   "text": "Nehir bir kâğıdı üçe böldü: <b>BİLDİĞİMİZ</b>, <b>SANDIĞIMIZ</b>, <b>BİZDEN İNANMAMIZ İSTENEN</b>. “Leyla konuştu” üçüncü sütundaydı. “Görüntü sahtedir” birincide. “Cem her şeyi bilir” ikincideydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 715,
+   "style": "Normal",
+   "text": "“Her cevap geldiğinde yerlerini değiştireceğiz,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 716,
+   "style": "Normal",
+   "text": "“Gerçek hangi sütunda?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 717,
+   "style": "Normal",
+   "text": "“Yer değiştirmeye dayanabilende.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 718,
+   "style": "Normal",
+   "text": "Nehir planı yazarken ben aynadaki yüzüme baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 719,
+   "style": "Normal",
+   "text": "“Bu kadarına gerek var mı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 720,
+   "style": "Normal",
+   "text": "“Çocuklarının isimlerini biliyorlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 721,
+   "style": "Normal",
+   "text": "“İnternetten bulabilirler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 722,
+   "style": "Normal",
+   "text": "“Zarfları biliyorlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 723,
+   "style": "Normal",
+   "text": "“Onu açıklayamıyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 724,
+   "style": "Normal",
+   "text": "“Açıklayamamak, tehlikenin küçük olduğu anlamına gelmez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 725,
+   "style": "Normal",
+   "text": "Bir süre sonra Zeynep aradı. Duru'nun provadan çıktığını, Emir'in okuldan sonra robotik kulübüne gideceğini söyledi. Sesindeki sıradanlık, bütün gece uyanık kaldığımı ona anlatmayı daha zorlaştırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 726,
+   "style": "Normal",
+   "text": "“Akşam gelemeyeceğim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 727,
+   "style": "Normal",
+   "text": "“Neden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 728,
+   "style": "Normal",
+   "text": "“Bir görüşme var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 729,
+   "style": "Normal",
+   "text": "“Hangi görüşme?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 730,
+   "style": "Normal",
+   "text": "“İşle ilgili.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 731,
+   "style": "Normal",
+   "text": "Zeynep sustu. Ben kötü yalan söylediğimde hemen anlardı. Aslında iyi yalan söylediğimde de anlardı; yalnızca iyi söylediğim için daha çok kızardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 732,
+   "style": "Normal",
+   "text": "“Çocuklarla ilgili mi?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 733,
+   "style": "Normal",
+   "text": "“Doğrudan değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 734,
+   "style": "Normal",
+   "text": "“Dolaylı olarak?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 735,
+   "style": "Normal",
+   "text": "“İsimlerini bilen biri var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 736,
+   "style": "Normal",
+   "text": "Telefonun öbür ucunda sandalye sesi duyuldu. Zeynep oturmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 737,
+   "style": "Normal",
+   "text": "“Başından anlat.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 738,
+   "style": "Normal",
+   "text": "Anlattım. Siyah paketi, Leyla'nın sesini, kitabı, zarfları ve Cem'in aramasını. Yalnız “gidecekmişim gibi hissediyorum” kısmını anlatmadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 739,
+   "style": "Normal",
+   "text": "Zeynep dinledi. Araya girmedi. Bu, korktuğu zaman yaptığı şeydi. Öfkeliyken cümlelerimin yanlış yerine itiraz ederdi; korktuğunda bütün haritayı bitirmemi beklerdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 740,
+   "style": "Normal",
+   "text": "“Çocuklara söylemeyeceğiz,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 741,
+   "style": "Normal",
+   "text": "“Duru on yedi yaşında.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 742,
+   "style": "Normal",
+   "text": "“On yedi, kurşun geçirmez demek değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 743,
+   "style": "Normal",
+   "text": "“Onları korumak için yalan mı söyleyelim?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 744,
+   "style": "Normal",
+   "text": "“Her şeyi aynı anda anlatmamak yalan değildir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 745,
+   "style": "Normal",
+   "text": "“Gerçeği saklamak—”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 746,
+   "style": "Normal",
+   "text": "“Dürüstlük yalnız doğru bilgi vermek değildir. O bilgiyi taşıyacak kişinin zamanını da gözetmektir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 747,
+   "style": "Normal",
+   "text": "Leyla da benzerini söylerdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 748,
+   "style": "Normal",
+   "text": "“Görüşmeye yalnız gitmeyeceğim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 749,
+   "style": "Normal",
+   "text": "“Nehir'le mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 750,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 751,
+   "style": "Normal",
+   "text": "“Ona güveniyor musun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 752,
+   "style": "Normal",
+   "text": "“Benden fazla.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 753,
+   "style": "Normal",
+   "text": "“Bu cevap değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 754,
+   "style": "Normal",
+   "text": "“Zaten o yüzden doğru.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 755,
+   "style": "Normal",
+   "text": "Zeynep içini çekti. “Çocukların yanında telefonun açık olsun. Bir şey olursa bana kahramanlık yapma.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 756,
+   "style": "Normal",
+   "text": "“Kahramanlık planım yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 757,
+   "style": "Normal",
+   "text": "“Senin kahramanlıkların planlı olmuyor. Sorun o.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

@@ -1,0 +1,653 @@
+{
+ "uid": "U22",
+ "title": "24. Yusuf'un Dili",
+ "number": 24,
+ "words": 500,
+ "constraints": {
+  "uid": "U22",
+  "number": 24,
+  "title": "24. Yusuf'un Dili",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 500
+ },
+ "synopsis": {
+  "uid": "U22",
+  "title": "24. Yusuf'un Dili",
+  "summary": "Gegenwart, noch am Abend der Werkstattuntersuchung: Die Männerstimme aus der Uhr wird erklärt – Yusuf hat sieben vorab aufgenommene Warnungen hinterlegt, die ein Drucksensor im Uhrdeckel in fester Reihenfolge abspielt; die siebte lautet „Nereden başladığını biliyorsun.“ Yusuf ruft von einer Telefonzelle in Edirne an. Der Erzähler stellt ihn wegen Emir zur Rede (Yusuf sagt „Haklısın“, entschuldigt sich aber nicht) und fragt nach der Kiste vom Bahnhof Edirne. Yusuf enthüllt: Der Erzähler habe ihm schon mit 17 ein Paket übergeben, kannte ihn damals nur als „Saatçi“ (der Erzähler selbst hieß „Küçük Saatçi“), und Yusuf habe in der Druckerei des Großvaters gearbeitet – von der der Erzähler nichts wusste. Nehir findet parallel ein 1978 in Deutschland gedrucktes, violettes Handbuch („Dirençli Kitlelerde Uyum Dili“), übersetzt von Yusuf Vural; Yusuf gesteht, es mit 24 übersetzt zu haben, angeblich zum Schutz politisch Verfolgter. Fünf deutsche Verben (BESCHÄMEN – ISOLIEREN – ERHÖHEN – LENKEN – VERWERTEN / UTANDIR – YALNIZLAŞTIR – YÜCELT – YÖNLENDİR – KULLAN) bilden das Skelett des Schwarzen Buches; Yusuf erklärt, es gebe keine jahrtausendealte Verschwörung, sondern vererbte Kontrollmethoden („Aynı bahanenin yaşaması yeter“). Auf die Frage, warum Leyla starb, warnt Yusuf plötzlich: Ein von ihm installierter unabhängiger Hitzedraht an der alten Presse habe ausgelöst – sofort raus. Glas splittert, die Leitung bricht ab.",
+  "characters": [
+   "Ich-Erzähler (Kindheitsspitzname „Küçük Saatçi“; Großvater hatte angeblich eine Druckerei)",
+   "Yusuf Vural (voller Name erstmals genannt; „Saatçi“; Übersetzer des Handbuchs von 1978; ruft aus Edirne an)",
+   "Nehir (recherchiert parallel, findet das Handbuch, spricht Yusuf mit „Yusuf Bey“ an)",
+   "Emir (Sohn, 12; erwähnt als Überbringer der Uhr)",
+   "Dede (Großvater des Erzählers; erwähnt)",
+   "Leyla (erwähnt)",
+   "Meralis (Organisation; „damals nicht unter diesem Namen“)"
+  ],
+  "terms": [
+   {
+    "tr": "yedi ayrı uyarı",
+    "meaning": "sieben vorab aufgenommene Warnungen auf dem Uhrchip; Sensor im Deckel spielt sie in fester Reihenfolge ab"
+   },
+   {
+    "tr": "Nereden başladığını biliyorsun.",
+    "meaning": "siebte Warnung Yusufs: „Du weißt, wo du angefangen hast.“ – Leitmotiv zur verdrängten Vergangenheit des Erzählers"
+   },
+   {
+    "tr": "Bir falcı ... İyi bir arşivci",
+    "meaning": "Aphorismus: Wahrsager scheint die Zukunft zu kennen, guter Archivar kennt die Reihenfolge menschlicher Fehler"
+   },
+   {
+    "tr": "ankesörlü telefon",
+    "meaning": "Münztelefon/Telefonzelle (in Edirne)"
+   },
+   {
+    "tr": "Edirne Garı",
+    "meaning": "Bahnhof Edirne – Ort einer früheren Übergabe (Kiste) zwischen Erzähler und Yusuf, Rückgriff auf frühere Pakete"
+   },
+   {
+    "tr": "Saatçi / Küçük Saatçi",
+    "meaning": "„Uhrmacher“ / „Kleiner Uhrmacher“ – Yusufs Deckname gegenüber dem 17-jährigen Erzähler bzw. dessen Kindheitsspitzname; beides konsistent übersetzen oder belassen"
+   },
+   {
+    "tr": "Dedemin matbaası",
+    "meaning": "Druckerei des Großvaters, deren Existenz der Erzähler bestreitet („Sen öyle biliyordun“)"
+   },
+   {
+    "tr": "Yusuf Vural",
+    "meaning": "voller Name Yusufs als Übersetzer (fett im Original); taucht in U23 als „ilk yazar“ wieder auf"
+   },
+   {
+    "tr": "Dirençli Kitlelerde Uyum Dili",
+    "meaning": "türkischer Titel des 1978 in Deutschland gedruckten violetten Handbuchs („Die Sprache der Anpassung in widerständigen Massen“); in U23 als „Mor kitap“ bezeichnet"
+   },
+   {
+    "tr": "mor kapaklı el kitabı / Mor kitap",
+    "meaning": "das violette Handbuch – neues Farbobjekt neben Siyah kitap (schwarz) und Beyaz kitap (weiß)"
+   },
+   {
+    "tr": "BESCHÄMEN — ISOLIEREN — ERHÖHEN — LENKEN — VERWERTEN",
+    "meaning": "fünf deutsche Verben aus dem Handbuch (im Original auf Deutsch, fett, Gedankenstriche); in deutscher Übersetzung identisch belassen"
+   },
+   {
+    "tr": "UTANDIR — YALNIZLAŞTIR — YÜCELT — YÖNLENDİR — KULLAN",
+    "meaning": "Yusufs türkische Übersetzung der fünf Verben (Imperative); Skelett des Schwarzen Buches"
+   },
+   {
+    "tr": "Siyah kitap",
+    "meaning": "das Schwarze Buch (Manipulationshandbuch von Meralis); „yedi siyah kitap“ in U23"
+   },
+   {
+    "tr": "Yusuf Bey",
+    "meaning": "höfliche Anrede Nehirs mit „Bey“ (Herr); Erzähler siezt Yusuf („siz“), wechselt in der Panik kurz zum Du („Bunu baştan niye söylemedin?“)"
+   },
+   {
+    "tr": "Aynı bahanenin yaşaması yeter.",
+    "meaning": "Yusufs Kernsatz: Das Böse braucht keine unsterblichen Menschen, nur denselben fortlebenden Vorwand"
+   },
+   {
+    "tr": "ısı teli",
+    "meaning": "unabhängiger, batteriebetriebener Hitzedraht/Thermosensor an der alten Presse (pres hattı), den Yusuf installiert hat"
+   },
+   {
+    "tr": "Özür dilemedi. Haklı olduğumu söyledi.",
+    "meaning": "Unterscheidung zwischen Entschuldigung und Zugeständnis – wiederkehrende Beziehungsethik des Romans"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum; Telefon-Dialog in kurzen Repliken, dazwischen reflexive Erzählerkommentare und Aphorismen. Historisch-politische Enthüllungsebene (1978, Deutschland, Übersetzung), zweisprachige Begriffslisten als fette Einschübe. Steigerung zum Actioncliffhanger am Ende."
+ },
+ "paras": [
+  {
+   "pid": 1826,
+   "style": "Heading 1",
+   "text": "<b>24. Yusuf'un Dili</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1827,
+   "style": "Opening",
+   "text": "Cep saatindeki erkek sesi, kayıt bitiminden sonra eklenen başka bir dosyaydı. “Nehir'e bu soruyu sorarsan Leyla'nın neden öldüğünü hiçbir zaman öğrenemezsin” cümlesi bizim konuşmamızı canlı dinleyen birinden gelmemişti. Yusuf, olası soruları önceden tahmin ederek yedi ayrı uyarı kaydetmişti. Saatin kapağında basınca devreye giren küçük sensör, dosyaları belirli sırayla oynatıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1828,
+   "style": "Normal",
+   "text": "Bir falcı geleceği bilirmiş gibi görünür. İyi bir arşivci, insanların hangi sırayla hata yapacağını bilir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1829,
+   "style": "Normal",
+   "text": "Yedinci uyarı en kısasıydı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1830,
+   "style": "Book Inset",
+   "text": "“Sana hiç görmediğin bir yol göstermiyorum. Nereden başladığını biliyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1831,
+   "style": "Normal",
+   "text": "<i>Ses burada kesildi.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1832,
+   "style": "Normal",
+   "text": "Bilmiyordum. Daha doğrusu, bilmediğime o sırada çok güveniyordum. Leyla'nın kaydından ayırdığım kelimenin altına bunu da yazdım. İkisi yan yana gelince bana ait olmayan bir hatıra için imza istiyor gibiydiler.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1833,
+   "style": "Normal",
+   "text": "Yusuf o gece, atölyedeki inceleme bitmeden bizi aradı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1834,
+   "style": "Normal",
+   "text": "Numara, Edirne'deki bir ankesörlü telefona aitti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1835,
+   "style": "Normal",
+   "text": "“Saat size ulaştı,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1836,
+   "style": "Normal",
+   "text": "“Emir'e yaklaşmayacaktınız,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1837,
+   "style": "Normal",
+   "text": "“O bana yaklaştı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1838,
+   "style": "Normal",
+   "text": "“On iki yaşında.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1839,
+   "style": "Normal",
+   "text": "“Bu yüzden onu oyuna katmadım. Saati verdim ve ayrıldım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1840,
+   "style": "Normal",
+   "text": "“Çocuğuma gizli mesaj taşıttınız.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1841,
+   "style": "Normal",
+   "text": "“Haklısın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1842,
+   "style": "Normal",
+   "text": "Özür dilemedi. Haklı olduğumu söyledi. Bu ikisi aynı şey değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1843,
+   "style": "Normal",
+   "text": "“Edirne Garı'nda size ne verdim?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1844,
+   "style": "Normal",
+   "text": "“Bir kutu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1845,
+   "style": "Normal",
+   "text": "“İçinde ne vardı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1846,
+   "style": "Normal",
+   "text": "“Açmadım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1847,
+   "style": "Normal",
+   "text": "“Niye size verdim?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1848,
+   "style": "Normal",
+   "text": "“Bunu ilk kez vermedin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1849,
+   "style": "Normal",
+   "text": "Telefonu daha sıkı tuttum. “Ne demek bu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1850,
+   "style": "Normal",
+   "text": "“On yedi yaşındayken de bana bir paket bıraktın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1851,
+   "style": "Normal",
+   "text": "Kas hafızamın omzuma yerleştirdiği ağrı geri geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1852,
+   "style": "Normal",
+   "text": "“Sizi on yedi yaşımda tanıyor muydum?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1853,
+   "style": "Normal",
+   "text": "“Beni Yusuf diye tanımıyordun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1854,
+   "style": "Normal",
+   "text": "“Ne diye?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1855,
+   "style": "Normal",
+   "text": "“Saatçi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1856,
+   "style": "Normal",
+   "text": "Çocukluk lakabım Küçük Saatçi'ydi. Karşımdaki adam kendisini yalnız Saatçi diye tanıtmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1857,
+   "style": "Normal",
+   "text": "“Dedemi tanıyor muydunuz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1858,
+   "style": "Normal",
+   "text": "“Onun matbaasında çalıştım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1859,
+   "style": "Normal",
+   "text": "“Dedemin matbaası yoktu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1860,
+   "style": "Normal",
+   "text": "“Sen öyle biliyordun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1861,
+   "style": "Normal",
+   "text": "Nehir aramayı izlerken ayrı bir bilgisayarda Yusuf'un geçmişini tarıyordu. Ekrana bir belge getirdi. 1978 tarihli, Almanya'da basılmış mor kapaklı bir el kitabı. Çevirmen: <b>Yusuf Vural</b>.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1862,
+   "style": "Normal",
+   "text": "Kitabın adı Türkçeye “Dirençli Kitlelerde Uyum Dili” diye çevrilmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1863,
+   "style": "Normal",
+   "text": "“Bu metni siz mi çevirdiniz?” diye sordu Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1864,
+   "style": "Normal",
+   "text": "Yusuf sustu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1865,
+   "style": "Normal",
+   "text": "“Yusuf Bey?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1866,
+   "style": "Normal",
+   "text": "“Yirmi dört yaşındaydım,” dedi. “Metnin siyasi baskı altındaki insanları korumak için hazırlandığını söylediler. Hangi cümlelerin kişiyi içine kapattığını, hangilerinin güven verdiğini sınıflandırdım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1867,
+   "style": "Normal",
+   "text": "“Sonra?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1868,
+   "style": "Normal",
+   "text": "“Aynı cümleleri seçim kampanyalarında, şirket eğitimlerinde, kapalı gruplarda ve sorgu odalarında gördüm.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1869,
+   "style": "Normal",
+   "text": "Nehir el kitabının taramasını açtı. Bir sayfada Almanca beş fiil vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1870,
+   "style": "Book Inset",
+   "text": "<b>BESCHÄMEN — ISOLIEREN — ERHÖHEN — LENKEN — VERWERTEN</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1871,
+   "style": "Normal",
+   "text": "Yusuf'un eski Türkçe çevirisi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1872,
+   "style": "Book Inset",
+   "text": "<b>UTANDIR — YALNIZLAŞTIR — YÜCELT — YÖNLENDİR — KULLAN</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1873,
+   "style": "Normal",
+   "text": "Siyah kitabın iskeleti buydu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1874,
+   "style": "Normal",
+   "text": "“Meralis o zaman var mıydı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1875,
+   "style": "Normal",
+   "text": "“Bu adla değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1876,
+   "style": "Normal",
+   "text": "“Kim vardı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1877,
+   "style": "Normal",
+   "text": "“Aynı yöntemi farklı amaçlarla alan kurumlar. Bir kısmı insanları gerçekten korudu. Bir kısmı, korumayı itaatle karıştırdı. Sonra dosyalar el değiştirdi, şirketler birleşti, devletler düştü, logolar yenilendi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1878,
+   "style": "Normal",
+   "text": "“Binlerce yıllık gizli örgüt mü anlatıyorsunuz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1879,
+   "style": "Normal",
+   "text": "“Hayır,” dedi Yusuf. “Daha sıradan ve daha kötü bir şey anlatıyorum. İnsan, kontrol işe yarayınca yöntemi miras bırakır. Kötülüğün ölümsüz olması için aynı insanların yaşaması gerekmez. Aynı bahanenin yaşaması yeter.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1880,
+   "style": "Normal",
+   "text": "Bu cümle, siyah kitabın büyük komplosundan daha inandırıcıydı. Çünkü sihirli düşman gerektirmiyordu. Yalnız insanın başkasının özgürlüğünden korkmasını.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1881,
+   "style": "Normal",
+   "text": "“Leyla neden öldü?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1882,
+   "style": "Normal",
+   "text": "Yusuf'un sesi birden değişti. “Arka odadaki eski pres hattına bağımsız bir ısı teli bırakmıştım. Resmî alarm sistemine bağlı değil. Az önce devreye girdi. Hemen çıkın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1883,
+   "style": "Normal",
+   "text": "“Bunu baştan niye söylemedin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1884,
+   "style": "Normal",
+   "text": "“Sinyal şimdi geldi. Önce yangından sağ çıkın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1885,
+   "style": "Normal",
+   "text": "Atölyenin arka odasından cam kırılma sesi geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1886,
+   "style": "Normal",
+   "text": "Telefon kapandı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

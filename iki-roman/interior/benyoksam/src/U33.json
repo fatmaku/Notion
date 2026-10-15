@@ -1,0 +1,443 @@
+{
+ "uid": "U33",
+ "title": "37. Görünmeyen Kameranın Gördüğü",
+ "number": 37,
+ "words": 523,
+ "constraints": {
+  "uid": "U33",
+  "number": 37,
+  "title": "37. Görünmeyen Kameranın Gördüğü",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 523
+ },
+ "synopsis": {
+  "uid": "U33",
+  "title": "37. Görünmeyen Kameranın Gördüğü",
+  "summary": "Unmittelbare Fortsetzung, gleiche Nacht im Laden. Das Foto wurde von der Lupenlampe des Vaters gemacht: Tarık findet darin eine stecknadelkopfgroße Linse mit eigener Batterie – die Linse ist neu, die Metallfassung alt und mit der blauen Tinte des Vaters markiert; jemand hat in eine alte Fassung ein neues „Auge“ gesetzt. Auf Zeyneps Frage nach dem Papier-Eigentümer des Ladens nennt der Erzähler „Yusuf“: Vor 16 Jahren übertrug er den Laden an eine Firma, deren alleiniger Gesellschafter Yusuf Karaca war, ein angeblicher alter Kunde des Vaters – er hat diesen Namen jahrelang nicht mit dem „Saatçi“ (Uhrmacher) und dem Mann im grauen Mantel verbunden, aus Vermeidung, nicht nur wegen seiner Gedächtnislücken; Zeynep hält ihm vor, dass er ihr unterwegs von „der Firma eines Freundes“ erzählt hatte. Yusuf ist unerreichbar, sein Teegarten am Friedhof seit zwei Tagen geschlossen; das von ihm überreichte lila Handbuch trägt Spuren derselben blauen Tinte. Die Polizei beschlagnahmt die Kamera und – trotz Selins Einspruch – das weiße Buch, aufgrund einer bereits am Vortag um 17.40 Uhr erlassenen einstweiligen Schutzverfügung, in der Meralis İstanbul gestohlene Geschäftsgeheimnisse in „einem weißgebundenen Einzelexemplar“ beschrieb – obwohl die Gruppe das Buch erst vor einer Stunde fand. Duru wehrt sich klarsichtig („Onlar da tam bu yüzden almanızı istiyor“). Tarık hat bereits eine gehashte Arbeitskopie erstellt, deren Existenz Selin offiziell ins versiegelte Inventar meldet, ohne den Inhalt zu verbreiten. Die Nacht endet unruhig mit der Frage, wer das Buch wann und mit welcher Erlaubnis sehen darf.",
+  "characters": [
+   "Ich-Erzähler (Adem, Vater; hat den Laden vor 16 Jahren verkauft, verdrängte den Namen Yusuf Karaca)",
+   "Tarık (Forensik/Technik; findet die Linse, erstellt gehashte Arbeitskopie des Buchs)",
+   "Nehir (Journalistin, Schwester Leylas; stellt Fragen zur Lampe und zur Übertragung)",
+   "Zeynep (Partnerin des Erzählers; konfrontiert ihn mit der Halbwahrheit „Firma eines Freundes“)",
+   "Duru (Tochter; wehrt sich gegen Beschlagnahme des Buchs, in dem ihre Akte steckt)",
+   "Selin (Anwältin der Gruppe; legt Einspruch ein, meldet Kopie und Hash ins Inventar)",
+   "Yusuf / Yusuf Karaca / Saatçi / gri paltolu adam (der Mann im grauen Mantel, „der Uhrmacher“; Papier-Eigentümer des Ladens, betreibt Teegarten am Friedhof, gab das lila Handbuch; unerreichbar)",
+   "Memur (Polizeibeamter, vollzieht die Schutzverfügung)",
+   "Vater des Erzählers (verstorbener Uhrmacher; blaue Tinte, fotografierte mit umgedrehter Kamera)",
+   "Meralis İstanbul (Konzern; Antragsteller der Schutzverfügung)"
+  ],
+  "terms": [
+   {
+    "tr": "Görünmeyen Kameranın Gördüğü",
+    "meaning": "Kapiteltitel: „Was die unsichtbare Kamera sah“."
+   },
+   {
+    "tr": "büyüteç lambası / pirinç gövde",
+    "meaning": "Lupenlampe mit Messingkörper des Vaters – entpuppt sich als Kameraversteck: toplu iğne başı kadar lens (stecknadelkopfgroße Linse), Batterie im Lampenfuß, alte Metallfassung (yuva), neuer Chip-Produktionscode."
+   },
+   {
+    "tr": "mavi mürekkep",
+    "meaning": "Blaue Tinte des Vaters – Markierung auf der Kamerafassung und in den Fasern von Yusufs lila Handbuch; verbindendes Indiz."
+   },
+   {
+    "tr": "Babam fotoğraf makinesini ters tutarak çekim yapardı. / Güçlü bir hayır.",
+    "meaning": "„Mein Vater fotografierte, indem er die Kamera verkehrt herum hielt“ – ironische Verneinung, dass der Vater die Kamera eingebaut hat; „Ein starkes Nein“."
+   },
+   {
+    "tr": "Yusuf Karaca",
+    "meaning": "Voller Name des Käufers/Gesellschafters der Firma, die den Laden vor 16 Jahren übernahm; identisch mit Saatçi und dem gri paltolu adam. Eigenname."
+   },
+   {
+    "tr": "Saatçi",
+    "meaning": "„Der Uhrmacher“ – Beiname, unter dem der Erzähler Yusuf in seiner Jugend kannte; auch Beruf des Vaters. Als Anrede/Beiname groß schreiben."
+   },
+   {
+    "tr": "gri paltolu adam",
+    "meaning": "„Der Mann im grauen Mantel“ – frühere Bezeichnung Yusufs in vorigen Kapiteln (atölye, Telefonat)."
+   },
+   {
+    "tr": "devir / devretmek",
+    "meaning": "Übertragung/Verkauf des Ladens an eine Firma (şirketin vekili = Firmenbevollmächtigter), nach sechs Jahren Schuldentilgung nach dem Tod des Vaters."
+   },
+   {
+    "tr": "bir arkadaşının şirketi",
+    "meaning": "„Die Firma eines Freundes“ – Halbwahrheit, die der Erzähler Zeynep unterwegs erzählt hatte."
+   },
+   {
+    "tr": "Sen yüz değil, hareket hatırlıyordun",
+    "meaning": "„Du hast dir nicht Gesichter, sondern Bewegungen gemerkt“ – Zeyneps Hinweis auf die Erinnerungsart des Erzählers (Motiv aus früheren Kapiteln)."
+   },
+   {
+    "tr": "mor el kitabı",
+    "meaning": "Das lila Handbuch, das Yusuf der Gruppe gab; kein Adressvermerk, aber blaue Tinte in den Fasern."
+   },
+   {
+    "tr": "mezarlık yanındaki çay bahçesi",
+    "meaning": "Yusufs Teegarten neben dem Friedhof, seit zwei Tagen geschlossen."
+   },
+   {
+    "tr": "delil torbası",
+    "meaning": "Beweismittelbeutel der Polizei."
+   },
+   {
+    "tr": "geçici koruma kararı / uygulama yazısı",
+    "meaning": "Einstweilige Schutz-/Sicherungsverfügung (Vortag, 17.40 Uhr) und deren Vollstreckungsschreiben für die Adresse; juristische Termini."
+   },
+   {
+    "tr": "çalınmış ticari sırlar / beyaz kaplı, tek nüsha bir kitap",
+    "meaning": "„Gestohlene Geschäftsgeheimnisse“ in „einem weißgebundenen Buch in einem einzigen Exemplar“ – Formulierung von Meralis im Antrag, die das Buch beschreibt, bevor es gefunden wurde."
+   },
+   {
+    "tr": "Büyük yapıların hızı ayaklarında değildir. Kapıların arkasında önceden imzalanmış kâğıtları vardır.",
+    "meaning": "Aphorismus: Große Strukturen sind nicht schnell auf den Füßen, sie haben vorab unterschriebene Papiere hinter den Türen."
+   },
+   {
+    "tr": "Onlar da tam bu yüzden almanızı istiyor",
+    "meaning": "Durus Erwiderung: „Genau deshalb wollen sie, dass Sie es mitnehmen.“ – Spiegelung des Satzes des Beamten („Tam da bu yüzden inceleyeceğiz“)."
+   },
+   {
+    "tr": "hash değeri / çalışma kopyası / mühürlü envanter",
+    "meaning": "Hashwert, Arbeitskopie, versiegeltes Inventar – forensisch-juristische Begriffe; Selin meldet Existenz und Hash offiziell, verbreitet Inhalt nicht."
+   },
+   {
+    "tr": "beyaz kitap",
+    "meaning": "Weißes Buch (Fortsetzung aus U32); enthält Durus Akte („benim dosyamın bulunduğu delil“); wird beschlagnahmt."
+   },
+   {
+    "tr": "Selin",
+    "meaning": "Anwältin der Gruppe (koruma başvurusu = Schutzantrag); Anrede im Text ohne Titel."
+   }
+  ],
+  "tone": "Ich-Erzählung im Präteritum, dichte Dialogpassagen in kurzen Zeilen, teils ohne Sprecherangabe (Zuordnung aus Kontext: Zeynep befragt den Erzähler, Nehir und Memur sprechen in klar markierten Wechseln). Nüchtern-analytischer Krimi-Ton mit forensischen und juristischen Details, durchsetzt von Selbstanklage des Erzählers (kaçınma = Vermeidung statt Gedächtnisgeheimnis) und aphoristischen Verallgemeinerungen. Schlussabsatz reflexiv, moralisch abwägend, Register leicht gehoben."
+ },
+ "paras": [
+  {
+   "pid": 2534,
+   "style": "Heading 1",
+   "text": "<b>37. Görünmeyen Kameranın Gördüğü</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2535,
+   "style": "Opening",
+   "text": "Fotoğrafı çeken şey babamın büyüteç lambasıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2536,
+   "style": "Normal",
+   "text": "Tarık, pirinç gövdenin içinden toplu iğne başı kadar bir lens çıkardı. Gücünü duvardaki hattan değil, lambanın ayağına yerleştirilmiş ince bir bataryadan alıyordu. Lens yeni, onu saklayan metal yuva eskiydi. Yuva, babamın kullandığı mavi mürekkeple işaretlenmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2537,
+   "style": "Normal",
+   "text": "“Baban mı yerleştirmiş?” diye sordu Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2538,
+   "style": "Normal",
+   "text": "“Babam fotoğraf makinesini ters tutarak çekim yapardı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2539,
+   "style": "Normal",
+   "text": "“Bu hayır mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2540,
+   "style": "Normal",
+   "text": "“Güçlü bir hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2541,
+   "style": "Normal",
+   "text": "Tarık metaldeki aşınmayı inceledi. Yuvanın kaç yıllık olduğunu bundan çıkaramazdı; fakat lehimin üstündeki kat kat tozla lens çevresindeki yeni çizikler birbirine benzemiyordu. Kartın üretim kodu da çok yeniydi. Biri eski bir yuvaya yeni bir göz yerleştirmişti. Ne zaman, kimin izniyle? Henüz bilmiyorduk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2542,
+   "style": "Normal",
+   "text": "Zeynep, “Dükkânın kâğıt üstündeki sahibi kim?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2543,
+   "style": "Normal",
+   "text": "Adı söylemek istemedim. Söylemeyince değişmeyecekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2544,
+   "style": "Normal",
+   "text": "“Yusuf.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2545,
+   "style": "Normal",
+   "text": "Nehir yüzüme döndü. “Babanın dükkânını on altı yıl önce Yusuf'a mı devrettin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2546,
+   "style": "Normal",
+   "text": "“Devirde kendisi yoktu. Şirketin vekili gelmişti. Alıcı şirketin tek ortağı Yusuf Karaca diye biriydi; evrakın arasında, babamın eski müşterisi olduğunu söyleyen imzalı bir not vardı. Babamın ölümünden sonra borçları altı yıl taşımıştık. Satış işlerini kapatmak istiyordum. Gençken yalnız Saatçi dediğim adamla o ismi birleştirmedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2547,
+   "style": "Normal",
+   "text": "Zeynep, “Yolda bir arkadaşının şirketi dedin,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2548,
+   "style": "Normal",
+   "text": "“Tanımadığım birine devrettiğimi söylemek daha kötü geldi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2549,
+   "style": "Normal",
+   "text": "“O zaman kötü olanı söyle. Ben hangisinin gerçek olduğunu seçmek zorunda kalmayayım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2550,
+   "style": "Normal",
+   "text": "“Gri paltolu adam senin hayatına geçen hafta girmedi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2551,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2552,
+   "style": "Normal",
+   "text": "“Bunu yeni mi fark ediyorsun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2553,
+   "style": "Normal",
+   "text": "“Atölyede görünce tanıdık geldi. Telefondaki Saatçi sözünden sonra parçalar dönmeye başladı. Ama dükkânın evrakındaki Yusuf'un da o olduğunu ancak şimdi kabul ediyorum. İsmi biliyordum; o ismin nereye bağlandığını bilmek istemiyordum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2554,
+   "style": "Normal",
+   "text": "“Sen yüz değil, hareket hatırlıyordun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2555,
+   "style": "Normal",
+   "text": "“Hareketi de hatırlamak istemedim. İmzayı atınca geçmişi kapattığımı sandım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2556,
+   "style": "Normal",
+   "text": "Zeynep yüzüme baktı. Defterleri, kutuları, saatleri saklayan adam bir şirketin adını yıllarca okumamıştı. Bu, belleğimin gizeminden önce benim kaçınmamdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2557,
+   "style": "Normal",
+   "text": "Yusuf telefonunu açmadı. Evinde yoktu. Mezarlık yanındaki çay bahçesi iki gündür kapalıydı. Bize verdiği mor el kitabının arka kapağında adres bulunmadı; fakat liflerin arasında babamın dükkânındaki mavi mürekkepten vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2558,
+   "style": "Normal",
+   "text": "Polis, kamerayı delil torbasına koydu. Beyaz kitaba da el koymak istedi. Selin itiraz etti. Memurun telefonuna üç dakika sonra yeni bir karar çıkmadı; bir gün önce saat 17.40'ta verilmiş geçici koruma kararının o adresteki uygulama yazısı ulaştı. Meralis İstanbul, kendisine ait çalınmış ticari sırların “beyaz kaplı, tek nüsha bir kitapta” bulunduğunu bildirmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2559,
+   "style": "Normal",
+   "text": "“Biz kitabı bir saat önce bulduk,” dedi Nehir. “Bunlar dün tarif etmiş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2560,
+   "style": "Normal",
+   "text": "Memur ekrandaki tarihi yeniden kontrol etti. “Karar yeni değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2561,
+   "style": "Normal",
+   "text": "Büyük yapıların hızı ayaklarında değildir. Kapıların arkasında önceden imzalanmış kâğıtları vardır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2562,
+   "style": "Normal",
+   "text": "Sorunun cevabı hız değildi. Daha kötüydü: Kitabın burada olacağını bizden önce kim biliyordu?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2563,
+   "style": "Normal",
+   "text": "Duru kitabı bırakmak istemedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2564,
+   "style": "Normal",
+   "text": "“Bu benim dosyamın bulunduğu delil,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2565,
+   "style": "Normal",
+   "text": "“Tam da bu yüzden inceleyeceğiz,” dedi memur.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2566,
+   "style": "Normal",
+   "text": "“Onlar da tam bu yüzden almanızı istiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2567,
+   "style": "Normal",
+   "text": "Memur bir an durdu. Duru'nun öfkesi çocuğun öfkesi değildi; cümlenin içindeki çelişkiyi yakalayan birinin berraklığıydı. Yine de kitabı aldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2568,
+   "style": "Normal",
+   "text": "Tarık kitabı ilk bulunduğu anda, Selin'in koruma başvurusuna eklenmek üzere hash değeri alınmış çalışma kopyasına aktarmıştı. Selin bu kopyanın varlığını ve hashini memurun önündeki mühürlü envantere bildirdi; içeriğini yaymadı, asıl kitapla da karıştırmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2569,
+   "style": "Normal",
+   "text": "Hayatta doğru şeyi yapmakla her şeyi söylemek bazen aynı davranış değildir diye düşünmek kolaydı. Bu düşüncenin ne kadar kolay kötüye kullanılabileceğini bildiğim için, o gece hiçbirimiz rahat uyumadık. Bu kez sakladığımız şey kopyanın varlığı değildi; kimin, hangi koşulda ve hangi izinle görebileceğiydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

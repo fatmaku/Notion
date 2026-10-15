@@ -1,0 +1,498 @@
+{
+ "uid": "U14",
+ "title": "15. Nüshaların Söylemediği",
+ "number": 15,
+ "words": 708,
+ "constraints": {
+  "uid": "U14",
+  "number": 15,
+  "title": "15. Nüshaların Söylemediği",
+  "title_letter": "N",
+  "marks": [],
+  "knots": [],
+  "images": [
+   1238
+  ],
+  "book_part": null,
+  "words": 708
+ },
+ "synopsis": {
+  "uid": "U14",
+  "title": "15. Nüshaların Söylemediği",
+  "summary": "Gegenwart, Ermittlungsstrang. Über den Schließfachbeleg finden der Erzähler, Nehir und Anwältin Selin die Spur von Yusuf Vural (Ex-Setzer, Teilhaber einer geschlossenen Druckerei); seine letzte Adresse ist die Buchbinderwerkstatt, zu der der Hund Duman sie geführt hatte. Die Polizei hatte nur außen kontrolliert; die Staatsanwaltschaft verweigert eine Durchsuchung ohne richterlichen Beschluss. Die Kapsel/Speicherkarte wird versiegelt übergeben, nur ein forensisches Abbild der unpersönlichen Teile ist einsehbar (Betonung der Beweiskette). Der neue Eigentümer (Zwangsvollstreckung) lässt die Werkstatt nur mit eigenem Anwalt und Notar zur 'Zustandsfeststellung' öffnen; Nehir und der Erzähler sind nur Beobachter. Parallel: Meralis wiederholt schriftlich ein Angebot, das Laborergebnis des schwarzen Buches kommt (neues Papier, UV-Tracer, roter Faden aus drei Fasern, Lieferliste zeigt Binderei in Prag und Istanbul), Zeynep ändert den Schulweg der Kinder. In der Werkstatt: Geruch nach Metall, Feuchtigkeit und Bitterorange, alte Druckmaschinen, ein frisch gesäuberter Tisch mit sieben verschlossenen Schubladen (laut Protokoll offen und leer). Die sieben Codes aus der Karte passen; der Eigentümer öffnet die erste, ein lose gebundenes Buch kippt heraus. Zwei Blätter: ein Satz aus dem roten Notizbuch des Erzählers ('Bir insanı kendi yarasına göre nasıl kandırırsın?') mit Manipulationsanweisung ('Hedef ... tamamlandığını hissettir') – 'Sie haben nicht nur beobachtet, sie haben mit mir geschrieben'; und ein Blatt in seiner eigenen Handschrift, datiert sieben Jahre zuvor: 'İlk kitabı aldım ... İkinci kitabı Nehir'e vermeden önce onu denemeliyim.' Nehir: 'Vor sieben Jahren kanntest du mich nicht.' Die Hintertür schließt sich; ein fremder Atem ist zu hören. Cliffhanger.",
+  "characters": [
+   "Ich-Erzähler (Adem; Beobachter bei der Zustandsfeststellung; seine eigene Handschrift taucht auf)",
+   "Nehir (Partnerin; recherchiert Lieferanten; liest ihren Namen auf dem Blatt)",
+   "Selin (Anwältin der Gruppe; führt Protokolle, ruft Staatsanwaltschaft an)",
+   "Yusuf Vural (gesuchter Ex-Setzer/Druckereiteilhaber; letzte Adresse = Werkstatt; erscheint hier nicht persönlich)",
+   "Duman (Hund, hatte die Gruppe früher zur Werkstatt geführt)",
+   "Mülk sahibi (neuer Eigentümer der Werkstatt per Zwangsvollstreckung, namenlos, vorsichtig, korrekt)",
+   "Avukat des Eigentümers (namenlos)",
+   "Noter und Noter-Helfer (Notar und protokollführender Gehilfe, filmen)",
+   "Savcılık (Staatsanwaltschaft, Institution)",
+   "Meralis (Firma/Organisation, wiederholt ein schriftliches Angebot – Gegenspieler)",
+   "Zeynep (Ex-Frau; ändert Schulweg der Kinder – nur erwähnt)",
+   "Innere Stimmen: TOPLAYICI, AVCI, ŞÜPHECİ",
+   "Unbekannter Atmender (gri paltolu adam, Auflösung in U15)"
+  ],
+  "terms": [
+   {
+    "tr": "Nüshaların Söylemediği",
+    "meaning": "Kapiteltitel: 'Was die Exemplare/Abschriften nicht sagen' – nüsha = Exemplar, Kopie, Probedruck"
+   },
+   {
+    "tr": "emanet dolabı fişi",
+    "meaning": "Schließfachbeleg (aus früherem Kapitel), führt zu Yusuf Vural"
+   },
+   {
+    "tr": "dizgiciler birliği",
+    "meaning": "Setzer-Vereinigung/Zunft; Register von Yusuf Vural"
+   },
+   {
+    "tr": "cilt atölyesi",
+    "meaning": "Buchbinderwerkstatt; zentraler Schauplatz von U14 und U15"
+   },
+   {
+    "tr": "kapsül / kart",
+    "meaning": "Kapsel mit Speicherkarte (früher gefunden); versiegelt übergeben; enthält Datei mit sieben Codes"
+   },
+   {
+    "tr": "adli görüntü / kayıt değeri",
+    "meaning": "forensisches Abbild / Hash-Wert – Beweiskette (chain of custody); 'sıkıcı zincir' = die langweilige Kette, die Beweise glaubwürdig macht"
+   },
+   {
+    "tr": "hâkim kararı / gecikmesinde sakınca bulunan hâl",
+    "meaning": "richterlicher Beschluss / Gefahr im Verzug – türkische Strafprozessbegriffe, juristisch exakt übersetzen"
+   },
+   {
+    "tr": "icra yoluyla teslim",
+    "meaning": "Übergabe durch Zwangsvollstreckung; der Eigentümer erhielt die Werkstatt so"
+   },
+   {
+    "tr": "teslim tutanağı",
+    "meaning": "Übergabeprotokoll; darin erscheint der Tisch als <b>boş</b> (leer) – fett im Original, Hervorhebung beibehalten"
+   },
+   {
+    "tr": "durum tespiti",
+    "meaning": "notarielle Zustandsfeststellung/Beweissicherung – ausdrücklich KEINE polizeiliche Durchsuchung"
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Name einer Firma/Organisation (Antagonist), die dem Erzähler ein Angebot macht; nicht übersetzen"
+   },
+   {
+    "tr": "siyah kitap",
+    "meaning": "das schwarze Buch, das vor der Tür des Erzählers abgelegt wurde; Laboranalyse: neues Papier, UV-Tracer, roter Faden"
+   },
+   {
+    "tr": "kırmızı ip",
+    "meaning": "roter Faden/Schnur (drei Fasern); Markenzeichen; taucht in U15 am Handgelenk des Mannes wieder auf"
+   },
+   {
+    "tr": "UV izleyici",
+    "meaning": "industrieller UV-Tracer (grüner Staub an der Feder)"
+   },
+   {
+    "tr": "Prag",
+    "meaning": "zweite Binderei auf der Lieferliste (neben Istanbul)"
+   },
+   {
+    "tr": "turunç kokusu",
+    "meaning": "Geruch nach Bitterorange/Pomeranze in der Werkstatt"
+   },
+   {
+    "tr": "yedi kilitli çekmece / yedi şifre",
+    "meaning": "sieben Schubladen, sieben Codes – Zahl sieben wiederkehrend (auch 'sieben Jahre', 'sieben Probeexemplare', 'sieben Geräusche')"
+   },
+   {
+    "tr": "deneme nüshası",
+    "meaning": "Probeexemplar/Andruck; sieben davon in der Werkstatt"
+   },
+   {
+    "tr": "kırmızı defter",
+    "meaning": "das rote Notizbuch des Erzählers (frühere Kapitel); Quelle des zitierten Satzes"
+   },
+   {
+    "tr": "Bir insanı kendi yarasına göre nasıl kandırırsın? Önce yarasını doğru anlatırsın.",
+    "meaning": "'Wie täuscht man einen Menschen gemäß seiner eigenen Wunde? Zuerst beschreibt man seine Wunde richtig.' – Satz des Erzählers, von den Manipulatoren verwendet"
+   },
+   {
+    "tr": "Hedef ... fikrinin çalındığını değil, tamamlandığını hissettir",
+    "meaning": "Manipulationsanweisung: 'Lass das Ziel fühlen, dass seine Idee nicht gestohlen, sondern vollendet wurde' – Echo zu 'Bir hikâyeyi kim tamamlar?'"
+   },
+   {
+    "tr": "Beni bana satarak neyi ölçüyorlar?",
+    "meaning": "'Was messen sie, indem sie mich an mich verkaufen?' – Handschrift des Erzählers, sieben Jahre alt"
+   },
+   {
+    "tr": "İkinci kitabı Nehir'e vermeden önce onu denemeliyim",
+    "meaning": "'Bevor ich Nehir das zweite Buch gebe, muss ich sie testen' – Rätselsatz: Erzähler kannte Nehir damals nicht"
+   },
+   {
+    "tr": "TOPLAYICI / AVCI / ŞÜPHECİ",
+    "meaning": "innere Stimmen des Erzählers (Sammler / Jäger / Skeptiker) – feste Labels im Stil 'Book Inset', in Großbuchstaben, konsistent zu früheren Paketen übersetzen"
+   },
+   {
+    "tr": "Temiz masa, kirli zeminden daha çok şey söyler",
+    "meaning": "TOPLAYICI: 'Ein sauberer Tisch sagt mehr als ein schmutziger Boden'"
+   },
+   {
+    "tr": "Beni yalnız izlememişler, benimle birlikte yazmışlar",
+    "meaning": "'Sie haben mich nicht nur beobachtet; sie haben mit mir geschrieben.'"
+   },
+   {
+    "tr": "SENI_BUL (constraint group)",
+    "meaning": "technische Markierung der Kapitelüberschrift (Gruppe 2/7) – nicht übersetzen, nur Struktur"
+   }
+  ],
+  "tone": "Ich-Erzählung im Präteritum; Krimi-/Prozedural-Register mit präziser juristischer Terminologie und bewusst 'langweiliger' Beweiskettenlogik; kurze, geschnittene Absätze gegen Ende (Spannungsaufbau); innere Stimmen als kursive Inset-Zeilen mit fettem Label; zitierte Fundstücke als kursive Insets ohne Label."
+ },
+ "paras": [
+  {
+   "pid": 1201,
+   "style": "Heading 1",
+   "text": "<b>15. Nüshaların Söylemediği</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "SENI_BUL",
+    "index": 2,
+    "n": 7
+   }
+  },
+  {
+   "pid": 1202,
+   "style": "Opening",
+   "text": "Yusuf Vural'ın izini emanet dolabı fişinden bulduk. Adı, eski dizgiciler birliğinin kayıtlarında ve kapanmış bir matbaanın ortaklık belgesinde geçiyordu. Son adresi, Duman'ın bizi götürdüğü cilt atölyesiydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1203,
+   "style": "Normal",
+   "text": "Polis ilk gece yalnız dışarıyı ve açık çatı hattını kontrol etmişti. İçeri girmemiş, “kimse yok” da dememişti. Kırık pencerenin yıllardır öyle olduğu ve içeriden yardım çağrısı gelmediği için savcılık, hâkim kararı ya da gecikmesinde sakınca bulunan somut bir durum olmadan iş yerinde arama yapılamayacağını bildirmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1204,
+   "style": "Normal",
+   "text": "Kapsülün aslı mühürlenerek teslim edildi. Selin, teslim tutanağına kartın içeriğinin bizim güvenliğimizle de ilgili olduğunu yazdırdı; savcılığın izin verdiği kişisel olmayan bölümlerin, değeri kaydedilmiş ve sonradan değiştirilemeyeceği doğrulanmış adli görüntüsünü inceleyebildik. “Kopyası bizde” demek kolaydı. Gerçekte her dosyanın kimden, hangi saatte ve hangi kayıt değeriyle geldiğini gösteren sıkıcı bir zincir vardı. Delili güvenilir yapan şey çoğu zaman heyecan değil, o sıkıcılıktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1205,
+   "style": "Normal",
+   "text": "Atölyenin kapısını açabilecek mülk sahibini bulmamız iki gün sürdü. Adam önce kapıyı açmayı reddetti. Eski kiracı aylar önce ortadan kaybolmuş; yer, icra yoluyla kendisine teslim edilmişti. Teslim tutanağında makineler sabit demirbaş, en arkadaki çalışma masası ise <b>boş</b> görünüyordu. Selin aynı kelimeyi iki kez okudu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1206,
+   "style": "Normal",
+   "text": "“İçeride gerçekten kitap varsa,” dedi, “ya tutanak yanlış ya da teslimden sonra biri geri girdi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1207,
+   "style": "Normal",
+   "text": "Bir cevap bulmamıştık. Yalnız soruyu değiştirmiştik: Atölyenin kapısını bize kim açacaktı değil, resmî olarak boş teslim edilen yere bizden önce kim dönmüştü?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1208,
+   "style": "Normal",
+   "text": "Mülk sahibi, kendi avukatı ve noter aracılığıyla yapılacak durum tespiti olmadan içeri girmeyi kabul etmedi. Haklıydı. Biz de kabul ettik. O iki günde Meralis teklifini yazılı olarak yineledi, siyah kitabın laboratuvar sonucu geldi ve Zeynep çocukların okul yolunu değiştirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1209,
+   "style": "Normal",
+   "text": "Kitabın kâğıdı yeni üretimdi. Tüydeki yeşil toz, endüstriyel UV izleyiciydi. Kırmızı ipte üç farklı lif vardı. Karışım tek başına adres vermiyordu; Nehir'in ulaştığı tedarikçinin ilgili parti sevk listesinde ise iki cilt atölyesi görünüyordu. Biri Prag'da, diğeri İstanbul'daydı. Aradığımız ip oradan geçmiş olabilirdi. Kime ulaştığını ayrıca göstermemiz gerekecekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1210,
+   "style": "Normal",
+   "text": "İstanbul'daki adres önümüzdeydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1211,
+   "style": "Normal",
+   "text": "Anahtarı mülk sahibi çevirdi; yanında kendi avukatı, Selin, noter ve noterin tuttuğu kayda yardımcı olan görevli vardı. Nehir'le ben, mülk sahibinin yazılı izniyle gözlemci olarak girdik. Bu bir kolluk araması değildi: Mülk sahibi, icra yoluyla kendisine teslim edilen iş yerinin o günkü durumunu kayda aldırıyordu. Kapıyı ve çekmeceleri onun izni dışında açmayacak, bir şeye dokunmayacaktık. Kişisel belge ya da suç şüphesi doğuran bir şey görünürse durum tespiti duracak, savcılığa haber verilecekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1212,
+   "style": "Normal",
+   "text": "Kapı açılınca ağır metal, nem ve turunç kokusu yüzümüze geldi. İçeride eski baskı makineleri siyah hayvanlar gibi sıralanmıştı. Yerde kâğıt kırpıntıları, duvarlarda nem izleri vardı. En arkadaki masanın üstü ise yeni temizlenmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1213,
+   "style": "Book Inset",
+   "text": "<b>TOPLAYICI:</b> <i>Temiz masa, kirli zeminden daha çok şey söyler.</i>",
+   "keep": false,
+   "image": false,
+   "label": "TOPLAYICI",
+   "constraint": null
+  },
+  {
+   "pid": 1214,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Arka kapı açık.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 1215,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>İkiniz aynı anda konuşunca hiçbir şey duyamıyorum.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 1216,
+   "style": "Normal",
+   "text": "Masanın altında yedi kilitli çekmece vardı. İcra teslim tutanağında aynı masanın çekmeceleri açık ve boş görünüyordu. Şimdi kilit yuvalarının çevresinde yeni metal çizikleri vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1217,
+   "style": "Normal",
+   "text": "Kapsülden çıkan kartın savcılık izniyle incelenen son dosyasında yedi şifre vardı. Teslim tutanağında boş görünen çekmecelerin kilitlerine benziyorlardı. Şifreleri ben girmedim. Mülk sahibi, tutanaktaki farkı kendi avukatı ve noter önünde kayda geçirmek için ilkini kendisi girdi. Çekmece açılırken cildi gevşek bir kitap yana devrildi; birbirine yapışmamış iki yaprak yüzü yukarı bakacak biçimde masaya kaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1218,
+   "style": "Normal",
+   "text": "Selin hepimizi geri çekti. Savcılığı aradı, gördüğümüz şeyi ve devam edilirse delilin bozulabileceğini tutanağa geçirdi. Mülk sahibiyle kendi avukatı ön bölüme geçti; noter gördüklerini tutanağa geçirirken yardımcısı açık çekmeceyi ve bizi kesintisiz kayda alarak kapıda kaldı. Dokunmamamız gerekiyordu. Okumak için dokunmamız gerekmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1219,
+   "style": "Normal",
+   "text": "Daha sonra yapılan incelemede kapıma bırakılan kitabın kesim izi ve cilt lifi, atölyedeki yedi deneme nüshasıyla karşılaştırılacaktı. Aynı üretim ailesinden geliyorlardı; benimkinin kenar notlarıysa yeniden hazırlanmıştı. Kendi cümlelerim, çocukluk anılarım ve yalnız birkaç kişinin bildiği ayrıntılar vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1220,
+   "style": "Normal",
+   "text": "Bir sayfada, kırmızı defterimde yıllar önce yazdığım cümle duruyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1221,
+   "style": "Book Inset",
+   "text": "<i>Bir insanı kendi yarasına göre nasıl kandırırsın? Önce yarasını doğru anlatırsın.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1222,
+   "style": "Normal",
+   "text": "Altında başka bir not:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1223,
+   "style": "Book Inset",
+   "text": "<i>Hedef bunun kendisine ait olduğunu fark ederse ikinci aşamaya geç. Ona fikrinin çalındığını değil, tamamlandığını hissettir.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1224,
+   "style": "Normal",
+   "text": "“Beni yalnız izlememişler,” dedim. “Benimle birlikte yazmışlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1225,
+   "style": "Normal",
+   "text": "Nehir, yanına düşen ikinci yaprağa baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1226,
+   "style": "Normal",
+   "text": "El yazısı bana aitti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1227,
+   "style": "Book Inset",
+   "text": "<i>İlk kitabı aldım. Beklediğim kadar eski değil. İçindeki fikirlerin yarısı bana ait olabilir. Beni bana satarak neyi ölçüyorlar?</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1228,
+   "style": "Normal",
+   "text": "Tarih yedi yıl önceydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1229,
+   "style": "Normal",
+   "text": "“Kitabı hiç teslim almadığını söyledin,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1230,
+   "style": "Normal",
+   "text": "“Hatırlamıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1231,
+   "style": "Normal",
+   "text": "Sayfanın altında ikinci bir cümle vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1232,
+   "style": "Book Inset",
+   "text": "<i>İkinci kitabı Nehir'e vermeden önce onu denemeliyim.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1233,
+   "style": "Normal",
+   "text": "Nehir adını okudu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1234,
+   "style": "Normal",
+   "text": "Sonra bana baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1235,
+   "style": "Normal",
+   "text": "“Yedi yıl önce beni tanımıyordun,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1236,
+   "style": "Normal",
+   "text": "Atölyenin arka kapısı kapandı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1237,
+   "style": "Normal",
+   "text": "İçeride bizden başka birinin nefesi duyuldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1238,
+   "style": "Normal",
+   "text": "",
+   "keep": true,
+   "image": true,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

@@ -1,0 +1,115 @@
+{
+ "uid": "U01",
+ "title": "1453 — UYANIŞIN BEDELİ",
+ "number": null,
+ "words": 21,
+ "constraints": {
+  "uid": "U01",
+  "number": null,
+  "title": "1453 — UYANIŞIN BEDELİ",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [
+   3
+  ],
+  "book_part": null,
+  "words": 21
+ },
+ "synopsis": {
+  "uid": "U01",
+  "title": "<b>1453 — UYANIŞIN BEDELİ</b>",
+  "summary": "Fortsetzung des Titelblocks: Untertitel „1453 — Uyanışın Bedeli“ („1453 – Der Preis des Erwachens“), Genreangabe „Mistik suç ve psikolojik gerilim romanı“ (mystischer Kriminal- und Psychothriller), ein als Book Inset gesetztes Motto in Frageform („Woran erkennst du, dass etwas existiert?“), ein Szenentrenner und die Autorenangabe Tuncay Sancak. Keine Handlung, keine Zeitebene. Die Motto-Frage greift das Leitthema des Romans vor (Beweis der eigenen Existenz, vgl. Kapitel 1, pid 92–93) und sollte so übersetzt werden, dass sie dort wiedererkennbar bleibt.",
+  "characters": [
+   "Tuncay Sancak (Autor, Book-Metadata-Zeile; nicht übersetzen)"
+  ],
+  "terms": [
+   {
+    "tr": "1453",
+    "meaning": "Jahr der Eroberung Konstantinopels; im Roman Titelzahl, Name der fiktiven Operation FETİH-1453 und als Uhrzeit „14.53“ wiederkehrendes Zeichen (U02, pid 18). Zahl überall identisch halten."
+   },
+   {
+    "tr": "Uyanışın Bedeli",
+    "meaning": "„Der Preis des Erwachens“; „uyanış/uyanmak“ (Erwachen/aufwachen) ist Schlüsselmotiv des ganzen Buchs (vgl. DİKKAT-Vorwort), eine feste Entsprechung wählen."
+   },
+   {
+    "tr": "Mistik suç ve psikolojik gerilim romanı",
+    "meaning": "Genrezeile: mystischer Kriminal- und Psychothriller (Opening-Stil, kursiv)."
+   },
+   {
+    "tr": "Bir şeyin var olduğunu nasıl anlarsın?",
+    "meaning": "Motto-Frage („Woran erkennst du, dass etwas existiert?“); kehrt thematisch in Kap. 1 wieder (Wer beweist zuletzt die Existenz eines Menschen?)."
+   },
+   {
+    "tr": "•  •  •",
+    "meaning": "Szenentrenner (Scene Break), unverändert übernehmen (keep=true)."
+   }
+  ],
+  "tone": "Paratext: Untertitel, Genrezeile kursiv, Motto fett, Autorenzeile; formell, knapp."
+ },
+ "paras": [
+  {
+   "pid": 1,
+   "style": "Heading 1",
+   "text": "<b>1453 — UYANIŞIN BEDELİ</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2,
+   "style": "Opening",
+   "text": "<i>Mistik suç ve psikolojik gerilim romanı</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3,
+   "style": "Normal",
+   "text": "",
+   "keep": true,
+   "image": true,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 4,
+   "style": "Book Inset",
+   "text": "<b>Bir şeyin var olduğunu nasıl anlarsın?</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 5,
+   "style": "Scene Break",
+   "text": "•  •  •",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 6,
+   "style": "Book Metadata",
+   "text": "Tuncay Sancak",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 7,
+   "style": "Normal",
+   "text": "",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

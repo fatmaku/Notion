@@ -1,0 +1,657 @@
+{
+ "uid": "U05",
+ "title": "3. Kamera Boşluğu",
+ "number": 3,
+ "words": 502,
+ "constraints": {
+  "uid": "U05",
+  "number": 3,
+  "title": "3. Kamera Boşluğu",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 502
+ },
+ "synopsis": {
+  "uid": "U05",
+  "title": "3. Kamera Boşluğu",
+  "summary": "Unmittelbar nach dem Fund ruft der Erzähler die investigative Journalistin Nehir an, die jüngere Schwester seiner Freundin Leyla; er kennt Nehir seit zwei Jahren durch Leyla. Nehir drängt ihn, die Polizei zu rufen, er gesteht ihr, dass das Buch von den drei Umschlägen „weiß“ und dass er „etwas für die Kinder vorbereitet“ hat, weil er fühlt, dass er „gehen“ wird – Sterben wolle er aber nicht. Auf Nehirs Anweisung filmt er Paket, Buch, Faden, Feder und Tür; über den Hausverwalter Nihat Bey erhält er einen temporären Zugang zur Kameraaufzeichnung seines Stockwerks: Um 14.52 kommt Duman, um 14.53 friert das Bild ein, um 14.54.51 ist das Paket da – genau 111 Sekunden Lücke. Im letzten Bild vor dem Einfrieren erkennt er im dunklen Treppenhaus Leylas Gesicht (Haar im Nacken, Brille auf dem Kopf, charakteristische Kopfneigung nach rechts), und obwohl die Kamera keinen Ton haben sollte, sagt ihre Stimme „Küçük Saatçi“. Nehir enthüllt mit sich verhärtender Stimme, dass Leyla vor drei Tagen gestorben ist – sie selbst hat es erst an diesem Morgen erfahren (Assistentin, Polizei öffnet die Tür, Gerichtsmediziner schätzt Todeszeitpunkt auf drei Tage zurück, Obduktion läuft, Beerdigung steht aus) und ist sofort geflogen. Die eingefrorene Leyla blickt direkt in die Kamera und spricht einen zweiten Satz: „Bu kez kitabı kendinden koru.“ Zeitebene: derselbe Abend, Gegenwart, mit kurzer Exposition zu Nehir und Leyla.",
+  "characters": [
+   "Ich-Erzähler (ruft Nehir an, spürt Gerilim/Spannungen in Räumen; behauptet „metaphorische Handschuhe“)",
+   "Nehir (investigative Journalistin, jüngere Schwester Leylas, Freundin des Erzählers seit zwei Jahren; findet Bankbelege, Kamerawinkel, Firmenregister; arbeitet nur über legale Kanäle; am Telefon, auf dem Weg nach Istanbul)",
+   "Leyla (ältere Schwester Nehirs, enge Freundin des Erzählers; vor drei Tagen tot aufgefunden; erscheint im Standbild der Kamera; nennt den Erzähler „Küçük Saatçi“)",
+   "Selin Özer (Presserechtsanwältin, zu der Nehir für offizielle Türen geht; nur erwähnt)",
+   "Nihat Bey (Hausverwalter / apartman yöneticisi; gewährt temporären Kamerazugang)",
+   "Duman (Kater; taucht um 14.52 in der Aufzeichnung auf)",
+   "Duru, Emir (Kinder des Erzählers, erwähnt: Universitätswahl, auseinandergebaute Geräte)",
+   "Leylas Assistentin (ungenannt; meldete Leylas Fehlen)",
+   "Adli doktor (Gerichtsmediziner, erwähnt)"
+  ],
+  "terms": [
+   {
+    "tr": "Kamera Boşluğu",
+    "meaning": "Kapiteltitel: „Kameralücke“ – die 111 Sekunden eingefrorenen Bildes zwischen 14.53 und 14.54.51."
+   },
+   {
+    "tr": "111 saniye",
+    "meaning": "Exakte Dauer der Lücke; korrespondiert mit der Zahl 111 auf der Karte (U04). Zahl beibehalten."
+   },
+   {
+    "tr": "araştırmacı gazeteci",
+    "meaning": "Investigative Journalistin – Nehirs Beruf; betont wird: keine Polizistin, arbeitet mit Quellen, offenen Registern und Anwältin, „ignoriert kein Schloss“."
+   },
+   {
+    "tr": "abla",
+    "meaning": "Ältere Schwester (Leyla ist Nehirs abla). Nehir sagt „Ablam üç gün önce öldü“. Verwandtschaftsgrad eindeutig wiedergeben (ältere Schwester)."
+   },
+   {
+    "tr": "Bey (Nihat Bey)",
+    "meaning": "Höfliche Anrede + Vorname für den Hausverwalter; je nach Zielsprache „Herr Nihat“/beibehalten."
+   },
+   {
+    "tr": "Küçük Saatçi",
+    "meaning": "„Kleiner Uhrmacher“ – Leylas Kosename für den Erzähler (Anspielung auf die Wanduhr-Episode in U04). Fester Name, immer gleich übersetzen; wird in U06 als „alte“ Tonaufnahme identifiziert."
+   },
+   {
+    "tr": "Bu kez kitabı kendinden koru.",
+    "meaning": "„Diesmal schütz das Buch vor dir selbst.“ – zweiter Satz der Leyla-Stimme; Doppeldeutigkeit (nicht dich vor dem Buch, sondern das Buch vor dir) unbedingt erhalten; wird in U06 als „neue“ Aufnahme identifiziert."
+   },
+   {
+    "tr": "Mecazi eldiven",
+    "meaning": "„Metaphorische Handschuhe“ – Erzähler gibt zu, das Buch ohne Handschuhe angefasst zu haben; trockene Pointe."
+   },
+   {
+    "tr": "Nehir Türkçe konuşmadığı bir sessizlikle cevap verdi",
+    "meaning": "Wortspiel: Nehir antwortet mit einem Schweigen, „in dem sie kein Türkisch sprach“ – ihr Schweigen ist beredt/vorwurfsvoll; frei, aber mit Humor übertragen."
+   },
+   {
+    "tr": "Gazeteci sesi gidip arkadaş sesi geldi",
+    "meaning": "„Die Journalistenstimme ging, die Freundinnenstimme kam“ – Registerwechsel Nehirs, wiederkehrende Charakterisierung."
+   },
+   {
+    "tr": "bakım firması",
+    "meaning": "Wartungsfirma der Hausanlage/Kameras mit Fernzugriff; Nehir will deren Zugang finden – wird in U06 als Einspielungsort vermutet."
+   },
+   {
+    "tr": "Galata",
+    "meaning": "(in U06) Istanbuler Stadtteil, wo Leylas Arbeitszimmer lag; Schauplatz der Romanhandlung ist Istanbul."
+   },
+   {
+    "tr": "Sen merakınla yangın arasında güvenlik mesafesi bırakmıyorsun",
+    "meaning": "Nehirs Vorwurf: „Du lässt zwischen deiner Neugier und dem Feuer keinen Sicherheitsabstand“ – charakterisiert den Erzähler."
+   }
+  ],
+  "tone": "Ich-Erzählung in der Vergangenheit; überwiegend schneller, knapper Telefondialog mit lakonischen Einzeilern, dazu ein expositorischer Absatz über Nehir/Leyla und ein berichtender Absatz (indirekte Rede) über Leylas Tod. Protokollartige Zeitangaben (14.51, 14.52, 14.53, 14.54.51). Spannung steigt zum Kapitelende in einen unheimlichen Schlusssatz; Humor bleibt als Abwehr erhalten (Eldiven, „Romantik“). Nehirs Sprache: direkt, kontrollierend, fürsorglich-hart."
+ },
+ "paras": [
+  {
+   "pid": 282,
+   "style": "Heading 1",
+   "text": "<b>3. Kamera Boşluğu</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 283,
+   "style": "Opening",
+   "text": "Telefonumu aldım, Nehir'i aradım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 284,
+   "style": "Normal",
+   "text": "İkinci çalışta açtı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 285,
+   "style": "Normal",
+   "text": "“Bir şey söylemeden önce,” dedi Nehir, “nefes al.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 286,
+   "style": "Normal",
+   "text": "“Nefes alıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 287,
+   "style": "Normal",
+   "text": "“Hayır. Kelimelerin arasından hava kaçıyor. O başka.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 288,
+   "style": "Normal",
+   "text": "Nehir'le iki yıl önce Leyla sayesinde tanışmıştık. Leyla onun ablasıydı; Nehir ise insanların “tesadüf” dediği şeylerin banka kaydını, kamera açısını ve şirket sicilini bulan bir araştırmacı gazeteci. O da polis değildi. Resmî bir kapıyı açması gerektiğinde kaynağa, açık kayda ve basın hukuku avukatı Selin Özer'e giderdi; kapının kilidini yok saymazdı. Ben bir odadaki görünmeyen gerilimi fark ederdim. Nehir, o odanın kirasını kimin ödediğini bulurdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 289,
+   "style": "Normal",
+   "text": "“Kapımın önüne kitap bırakmışlar,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 290,
+   "style": "Normal",
+   "text": "“Polisi ara.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 291,
+   "style": "Normal",
+   "text": "“Önce beni dinle.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 292,
+   "style": "Normal",
+   "text": "“Polisi aradıktan sonra dinlerim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 293,
+   "style": "Normal",
+   "text": "“Kitap üç zarfı biliyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 294,
+   "style": "Normal",
+   "text": "Nehir sustu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 295,
+   "style": "Normal",
+   "text": "Gazeteci sesi gidip arkadaş sesi geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 296,
+   "style": "Normal",
+   "text": "“Hangi zarflar?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 297,
+   "style": "Normal",
+   "text": "“Sonra anlatırım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 298,
+   "style": "Normal",
+   "text": "“Hayır. İnsanlar ‘sonra anlatırım’ cümlesini genellikle anlatılacak şeyi tek başına taşıyamadığında kurar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 299,
+   "style": "Normal",
+   "text": "“Çocuklara bir şey hazırladım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 300,
+   "style": "Normal",
+   "text": "“Neden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 301,
+   "style": "Normal",
+   "text": "“Bilmiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 302,
+   "style": "Normal",
+   "text": "Bu kez daha uzun sustu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 303,
+   "style": "Normal",
+   "text": "“Ölmek mi istiyorsun?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 304,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 305,
+   "style": "Normal",
+   "text": "Cevap verirken tereddüt etmedim. Ölmek istemiyordum. Daha çok kitap okuyacak, çocuklarımla kavga edecek, Duru'nun üniversite seçimini gereğinden büyük bir medeniyet tartışmasına çevirecek, Emir'in söktüğü cihazların vidalarına basacaktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 306,
+   "style": "Normal",
+   "text": "“Ama gidecekmişim gibi hissediyorum,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 307,
+   "style": "Normal",
+   "text": "Nehir'in nefesini duydum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 308,
+   "style": "Normal",
+   "text": "“Kitaba dokunma.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 309,
+   "style": "Normal",
+   "text": "“Geç kaldın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 310,
+   "style": "Normal",
+   "text": "“Tabii geç kaldım. Sen merakınla yangın arasında güvenlik mesafesi bırakmıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 311,
+   "style": "Normal",
+   "text": "“Eldiven taktım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 312,
+   "style": "Normal",
+   "text": "“Gerçekten mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 313,
+   "style": "Normal",
+   "text": "Elime baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 314,
+   "style": "Normal",
+   "text": "“Mecazi eldiven.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 315,
+   "style": "Normal",
+   "text": "Nehir Türkçe konuşmadığı bir sessizlikle cevap verdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 316,
+   "style": "Normal",
+   "text": "“Kamerayı aç,” dedi sonunda. “Paketi, kitabı, ipi, tüyü ve kapıyı göster. Sonra apartman kayıtlarına bakacağız.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 317,
+   "style": "Normal",
+   "text": "Bilgisayarı açtım. Apartman yöneticisi Nihat Bey'i arayıp paketi anlattım. Kendi katımın ilgili saat aralığını izleyebilmem için açtığı geçici bağlantıya girdim; bütün binanın kayıtları önümde değildi. Görüntüyü geri sardım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 318,
+   "style": "Normal",
+   "text": "14.51.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 319,
+   "style": "Normal",
+   "text": "Koridor boştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 320,
+   "style": "Normal",
+   "text": "14.52'de Duman merdivenlerden çıktı. Kapımın önünde durdu, boş zemini kokladı ve kameranın görmediği alt basamağa baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 321,
+   "style": "Normal",
+   "text": "14.53'te ekran dondu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 322,
+   "style": "Normal",
+   "text": "Zaman sayacı ilerliyor, görüntü değişmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 323,
+   "style": "Normal",
+   "text": "14.54.51'de kayıt geri geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 324,
+   "style": "Normal",
+   "text": "Kapımın önünde siyah paket vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 325,
+   "style": "Normal",
+   "text": "Tam yüz on bir saniye.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 326,
+   "style": "Normal",
+   "text": "“Bakım firmasının uzaktan erişimini bulacağım,” dedi Nehir. “Sen kapıyı kilitle.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 327,
+   "style": "Normal",
+   "text": "Kaydı kare kare ilerlettim. Donmadan önceki son karede, merdiven boşluğunun karanlığında bir yüz vardı. Kadın yüzü. Saçları ensesinde toplanmış, gözlüğü başının üstüne kaldırılmıştı. Kameraya değil, yukarıya bakıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 328,
+   "style": "Normal",
+   "text": "Görüntüyü büyüttüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 329,
+   "style": "Normal",
+   "text": "Leyla'ydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 330,
+   "style": "Normal",
+   "text": "Onu tanımamak mümkün değildi. Bir insanın yüzünü unutabilirdim. Saçını, gözlüğünü, montunu karıştırabilirdim. Ama başını düşünürken hafifçe sağa eğişini unutmazdım. Leyla bir cümlenin yalan olabileceğini sezdiğinde böyle dururdu; sanki kulağını sözün arkasındaki odaya dayardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 331,
+   "style": "Normal",
+   "text": "Karede dudakları hareket ediyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 332,
+   "style": "Normal",
+   "text": "Kamerada ses olmaması gerekiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 333,
+   "style": "Normal",
+   "text": "Fakat bilgisayarın hoparlöründen metalik bir tıkırtı geldi. Ardından Leyla'nın sesi duyuldu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 334,
+   "style": "Normal",
+   "text": "“Küçük Saatçi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 335,
+   "style": "Normal",
+   "text": "Telefonun öbür ucunda Nehir nefes almayı bıraktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 336,
+   "style": "Normal",
+   "text": "“Bu ne zaman kaydedilmiş?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 337,
+   "style": "Normal",
+   "text": "Nehir hemen cevap vermedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 338,
+   "style": "Normal",
+   "text": "“Nehir?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 339,
+   "style": "Normal",
+   "text": "Nehir adımı söyledi. Sesi, kırılmamak için sertleşti. “Ablam üç gün önce öldü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 340,
+   "style": "Normal",
+   "text": "Bunu Nehir de o sabah öğrenmişti. Leyla iki randevuya gelmeyince asistanı Nehir'i aramış; polis kapıyı açtığında bedenini bulmuştu. Adli doktor, ölümün yaklaşık üç gün önce gerçekleştiğini söylemişti. Beden otopsi için tutuluyor, cenaze henüz bekliyordu. Nehir haberi telefonda söylemek istememiş, ilk uçağa binmişti. Beni aramaya hazırlanırken, ona gönderdiğim siyah paket fotoğrafını görmüş; şimdi üç günlük ölümü, birkaç saatlik bilgisiyle taşıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 341,
+   "style": "Normal",
+   "text": "Ekrandaki Leyla başını kaldırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 342,
+   "style": "Normal",
+   "text": "Doğrudan kameraya baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 343,
+   "style": "Normal",
+   "text": "Ve kayıt donmuş olmasına rağmen ikinci bir cümle söyledi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 344,
+   "style": "Normal",
+   "text": "“Bu kez kitabı kendinden koru.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

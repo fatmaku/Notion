@@ -1,0 +1,653 @@
+{
+ "uid": "U21",
+ "title": "23. Silah Olmayan Ses",
+ "number": 23,
+ "words": 698,
+ "constraints": {
+  "uid": "U21",
+  "number": 23,
+  "title": "23. Silah Olmayan Ses",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 698
+ },
+ "synopsis": {
+  "uid": "U21",
+  "title": "23. Silah Olmayan Ses",
+  "summary": "Gegenwart, Fortsetzung: Auf dem Chip liegt auch die vollständige Aufnahme. Im Labor vergrößert ein Audio-Experte das Geräusch: eine Papierguillotine („Kâğıt giyotini“ / „Kesim makinesi“); nach dem Knall flucht Leyla („Parmağımı kestim“), Nehir lacht nervös, der Mann in der Aufnahme ist Yusuf, der Leylas Hand verbindet. Es gab also keinen Mord in der Szene, aber eine Lüge: Nehir gesteht, die elf Sekunden aus ihrer Kopie geschnitten und das Original auf einer Karte an Yusuf weitergegeben zu haben, um ihn vor Polizei, Meralis und dem Erzähler zu schützen. Es folgt eine harte Vertrauensauseinandersetzung, in der Nehir erklärt, warum sie den Erzähler fürchtet (er macht Menschen zu Teilen seiner „Wahrheit“); die inneren Stimmen (İçimdeki Çocuk, Kurtarıcı, Gölge, Sessiz Ses) melden sich, und der Erzähler setzt Regeln statt Strafe. Das Labor datiert die Aufnahme auf ca. 30 Stunden vor Leylas geschätztem Tod und ordnet das Geräusch der alten Heidelberg-Maschine zu. Eine staatsanwaltlich genehmigte Nachuntersuchung in der Werkstatt am selben Abend (mit Tatortbeamtem Murat und Maschinenexperte) fördert im Messerschacht der Schneidemaschine getrocknetes Blut, ein Glasröhrchen und eine handschriftliche Notiz Leylas zutage: Sie habe die Dosisänderung auf ihrem Rezeptbildschirm nicht veranlasst und das Medikament abgesetzt. Das Kapitel endet mit dem Hinweis, dass die Gruppe in der Werkstatt nur glaubte, sicher zu sein.",
+  "characters": [
+   "Ich-Erzähler",
+   "Nehir (gesteht den Schnitt der Aufnahme; Schwester Leylas)",
+   "Leyla (in der Aufnahme und über ihre Notiz; verstorben)",
+   "Yusuf (Mann in der Aufnahme; verband Leylas Hand; untergetaucht)",
+   "Laboratuvar uzmanı (Audio-Experte, namenlos)",
+   "Selin (Anwältin; beantragt Nachuntersuchung)",
+   "Murat (olay yeri memuru – Tatort-/Spurensicherungsbeamter, neu eingeführt)",
+   "Makine uzmanı (unabhängiger Maschinenexperte, namenlos)",
+   "Mülk sahibi (Eigentümer der Werkstatt, erteilt schriftliche Erlaubnis)",
+   "İçimdeki Çocuk, Kurtarıcı, Gölge, Sessiz Ses (innere Stimmen des Erzählers)",
+   "Meralis (Organisation/Konzern als Gegenspieler, nur erwähnt)"
+  ],
+  "terms": [
+   {
+    "tr": "Kâğıt giyotini / Kesim makinesi",
+    "meaning": "Papierguillotine / Schneidemaschine; der Erzähler fragt nach einem „beruhigenderen Namen“ – Wortwitz über die beiden Bezeichnungen erhalten"
+   },
+   {
+    "tr": "Heidelberg makinesi",
+    "meaning": "alte Heidelberg-Druck-/Schneidemaschine in der Werkstatt; Markenname beibehalten"
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Name der gegnerischen Organisation (Konzern/Netzwerk); unübersetzt lassen"
+   },
+   {
+    "tr": "Teknik doğrular güveni kurtarmıyor",
+    "meaning": "„Technische Wahrheiten retten kein Vertrauen“ – Kernsatz des Erzählers; „Bende yoktu“ war technisch wahr"
+   },
+   {
+    "tr": "Biliyorum",
+    "meaning": "„Ich weiß“ – Nehirs wiederholte Floskel, die der Erzähler ihr vorhält („Bu cümleyi çok kullanmaya başladın“); Wiederholung muss im Ziel erkennbar bleiben"
+   },
+   {
+    "tr": "İçimdeki Çocuk / Kurtarıcı / Gölge / Sessiz Ses",
+    "meaning": "innere Stimmen des Erzählers (Inneres Kind / Retter / Schatten / Stille Stimme); feststehende Namen, als Instanzen großgeschrieben; Sessiz Ses spricht kursiv in Inset-Form"
+   },
+   {
+    "tr": "Sınır koymak, cezayı sevgi kılığına sokmak değildir.",
+    "meaning": "Zitat der Sessiz Ses: „Grenzen setzen heißt nicht, Strafe als Liebe zu verkleiden.“"
+   },
+   {
+    "tr": "Hak etmeden almak istemiyorum",
+    "meaning": "Nehir über Vergebung: will sie nicht unverdient annehmen"
+   },
+   {
+    "tr": "zincir teslim formu",
+    "meaning": "Chain-of-Custody-Formular (Beweismittelkette)"
+   },
+   {
+    "tr": "savcılık",
+    "meaning": "Staatsanwaltschaft; genehmigt die zeitlich begrenzte Nachuntersuchung"
+   },
+   {
+    "tr": "olay yeri görevlisi / memuru",
+    "meaning": "Spurensicherungs-/Tatortbeamter (= Murat)"
+   },
+   {
+    "tr": "çalışma kopyaları / asıllar",
+    "meaning": "Arbeitskopien vs. Originale (nummerierte Beweisbeutel) von Yusufs alten Aufzeichnungen – juristisch wichtige Unterscheidung, wiederkehrend in U23"
+   },
+   {
+    "tr": "Reçete ekranımdaki doz değişikliği",
+    "meaning": "Dosisänderung auf Leylas (digitalem) Rezept, die sie nicht veranlasst hat – Hinweis auf Manipulation ihres Medikaments; Leylas Notiz wird kursiv zitiert"
+   },
+   {
+    "tr": "bıçak yuvası",
+    "meaning": "Messerschacht/Messeraufnahme der Schneidemaschine, in dem Blut, Röhrchen und Notiz versteckt waren"
+   },
+   {
+    "tr": "yeni vida eski diş",
+    "meaning": "neue Schraube im alten Gewinde – Detail, mit dem der Erzähler erkennt, dass die Maschine schon einmal geöffnet wurde"
+   },
+   {
+    "tr": "Yüzey temiz. Makinenin içine bakmadılar.",
+    "meaning": "Nehir: Oberfläche sauber, ins Innere hat die Polizei nicht geschaut"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum; Mischung aus forensischer Nüchternheit (Protokolle, Genehmigungen, Beweiskette) und intensiver Beziehungsszene mit trockenen, schlagfertigen Dialogen. Inneres Stimmen-Ensemble als kurze Einschübe, Sessiz Ses kursiv. Leylas Notiz als kursiver Einschub ohne Label. Kapitelende mit vorausdeutender Erzählerbemerkung („Yalnızca güvende olduğumuzu sanıyorduk“)."
+ },
+ "paras": [
+  {
+   "pid": 1765,
+   "style": "Heading 1",
+   "text": "<b>23. Silah Olmayan Ses</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1766,
+   "style": "Opening",
+   "text": "Nehir patlamanın adını koymuştu. Benden sakladığı şeyin adını henüz koymamıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1767,
+   "style": "Normal",
+   "text": "Yusuf, kesilmiş parçanın yanına tam kaydı da koymuştu. Tarık saat yongasının ikinci klasöründe dosyayı bulduğunda yalnız on bir saniyenin çevresinden nelerin çıkarıldığını değil, patlamadan sonra konuşmanın sürdüğünü de gördük.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1768,
+   "style": "Normal",
+   "text": "Kaydı laboratuvara götürmemizin nedeni artık silah aramak değildi. Nehir'in anlattığı kazanın yeri ve zamanı, Leyla'nın son günlerine bağımsız bir iz bırakıyor muydu? Uzman patlamanın hemen öncesindeki sürtünmeyi büyüttü. Metal bir kol ray üzerinde ilerliyor, dişliler geriliyor, sonra ağır bıçak aşağı düşüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1769,
+   "style": "Normal",
+   "text": "“Kâğıt giyotini,” dedi uzman.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1770,
+   "style": "Normal",
+   "text": "“İnsanın içini rahatlatan bir adı yok mu?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1771,
+   "style": "Normal",
+   "text": "“Kesim makinesi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1772,
+   "style": "Normal",
+   "text": "“Daha iyi olmadı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1773,
+   "style": "Normal",
+   "text": "Patlamadan sonra Nehir'in çığlığı sandığım ses, kısa bir “Ah!” idi. Ardından Leyla küfrediyor, Nehir ise sinirden gülüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1774,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Parmağımı kestim.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1775,
+   "style": "Book Inset",
+   "text": "<b>NEHİR:</b> “Bıçağı indirirken elini niye oraya koydun?”",
+   "keep": false,
+   "image": false,
+   "label": "NEHİR",
+   "constraint": null
+  },
+  {
+   "pid": 1776,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Kâğıt kaydı.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1777,
+   "style": "Book Inset",
+   "text": "<b>NEHİR:</b> “Bilim insanısın.”",
+   "keep": false,
+   "image": false,
+   "label": "NEHİR",
+   "constraint": null
+  },
+  {
+   "pid": 1778,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Kâğıt bunu bilmiyor.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1779,
+   "style": "Normal",
+   "text": "Kayıttaki erkek Yusuf'tu. Kapıyı açmış, Leyla'nın elini sarmış, sonra arka odadan ilk yardım çantası getirmişti. Nehir'in benden sakladığı sahnede cinayet yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1780,
+   "style": "Normal",
+   "text": "Yalan vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1781,
+   "style": "Normal",
+   "text": "“Neden kestin?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1782,
+   "style": "Normal",
+   "text": "Nehir laboratuvar masasının karşısında oturuyordu. Uykusuzluktan gözlerinin altı koyulaşmıştı. “Yusuf'u korumak için.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1783,
+   "style": "Normal",
+   "text": "“Kimden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1784,
+   "style": "Normal",
+   "text": "“Polisten. Meralis'ten. Senden.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1785,
+   "style": "Normal",
+   "text": "“Beni aynı sıraya koyman hoş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1786,
+   "style": "Normal",
+   "text": "“Ablam öldükten sonra kaydı bulduğumda Yusuf ortadan kaybolmuştu. Sesi duyulursa onu önce şüpheli yapacaklardı. Sana verirsem onu bulmaya çalışacaktın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1787,
+   "style": "Normal",
+   "text": "“Doğru.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1788,
+   "style": "Normal",
+   "text": "“İşte.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1789,
+   "style": "Normal",
+   "text": "“Doğru olması, benim yerime karar vermeni doğru yapmıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1790,
+   "style": "Normal",
+   "text": "“Biliyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1791,
+   "style": "Normal",
+   "text": "“Bu cümleyi çok kullanmaya başladın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1792,
+   "style": "Normal",
+   "text": "“Çünkü yanlış yaptığım şeylerin sayısı arttı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1793,
+   "style": "Normal",
+   "text": "Nehir kaydın kendi kopyasındaki on bir saniyeyi silmiş, orijinali ayrı bir kartta saklamıştı. Leyla'nın ölümünü öğrendikten sonra biri evine girmeye çalışınca kartı Yusuf'a ulaştırmıştı. “Bende yoktu,” derken teknik olarak doğruyu söylemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1794,
+   "style": "Normal",
+   "text": "“Teknik doğrular güveni kurtarmıyor,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1795,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1796,
+   "style": "Normal",
+   "text": "“Yine yaptın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1797,
+   "style": "Normal",
+   "text": "“Başka ne diyeyim?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1798,
+   "style": "Normal",
+   "text": "“Neden benden korktuğunu söyle.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1799,
+   "style": "Normal",
+   "text": "Nehir ilk kez bakışını kaçırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1800,
+   "style": "Normal",
+   "text": "“Çünkü bir şeyin doğru olduğuna karar verdiğinde,” dedi, “önündeki insanı o doğrunun parçası yapıyorsun. İtiraz ederse gerçeğe itiraz etmiş gibi görüyorsun. Yusuf'u dinlemeden suçlayacağından korktum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1801,
+   "style": "Normal",
+   "text": "“Şimdi suçlamıyor muyum?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1802,
+   "style": "Normal",
+   "text": "“Şimdi beni suçluyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1803,
+   "style": "Normal",
+   "text": "İçimdeki Çocuk, Nehir'i hayatımdan çıkarmamı istedi. Böylece bir daha kimse benden bilgi saklayamazdı. Kurtarıcı, onun ablasını kaybettiğini hatırlattı. Gölge, acısını kullanırsam tartışmayı kazanabileceğimi söyledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1804,
+   "style": "Normal",
+   "text": "Sessiz Ses en son konuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1805,
+   "style": "Book Inset",
+   "text": "<b>SESSİZ SES:</b> <i>Sınır koymak, cezayı sevgi kılığına sokmak değildir.</i>",
+   "keep": false,
+   "image": false,
+   "label": "SESSİZ SES",
+   "constraint": null
+  },
+  {
+   "pid": 1806,
+   "style": "Normal",
+   "text": "“Bundan sonra hiçbir dosyayı tek başına tutmayacaksın,” dedim. “Kaynağı koruman gerekiyorsa ismini söylemezsin; ama varlığını saklamazsın. Benimle ilgili karar verirsen bana söylersin. Yine yaparsan birlikte çalışmayız.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1807,
+   "style": "Normal",
+   "text": "Nehir başını salladı. “Tamam.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1808,
+   "style": "Normal",
+   "text": "“Seni affetmedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1809,
+   "style": "Normal",
+   "text": "“İstemedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1810,
+   "style": "Normal",
+   "text": "“Yalan.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1811,
+   "style": "Normal",
+   "text": "“Evet,” dedi. “İstedim. Ama hak etmeden almak istemiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1812,
+   "style": "Normal",
+   "text": "Kendisi hakkında hem doğru hem rahatsız edici bir cümle kurabilen insanla kavga etmek zordur. Sana yumruk atacak yer bırakmaz.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1813,
+   "style": "Normal",
+   "text": "Laboratuvar uzmanı, konuşmayı duymamış gibi davranarak ekrana bir sonuç getirdi. Arka plandaki kesim sesi, atölyedeki eski Heidelberg makinesinden alınan örnekle uyuşuyordu. Tam dosyanın zaman bilgisi, Leyla'nın tahmin edilen ölümünden yaklaşık otuz saat öncesini gösteriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1814,
+   "style": "Normal",
+   "text": "“Parmağından çıkan kan hâlâ atölyede olabilir,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1815,
+   "style": "Normal",
+   "text": "“Polis temiz demişti.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1816,
+   "style": "Normal",
+   "text": "“Yüzey temiz. Makinenin içine bakmadılar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1817,
+   "style": "Normal",
+   "text": "Selin, ses analizini ve ilk incelemede kayda alınan makine seri numarasını ek inceleme talebine koydu. Mülk sahibi yazılı izin verdi; savcılık, olay yeri görevlisiyle bağımsız makine uzmanının katılacağı sınırlı bir incelemeyi aynı akşam için onayladı. Atölyeye bu kez yalnız anahtarla değil, tutanağa yazılmış saat aralığıyla girdik.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1818,
+   "style": "Normal",
+   "text": "Kesim makinesinin bıçak yuvasını ben sökmedim. Uzman vidaları çıkarırken birinin sesi diğerlerinden daha kısa geldi. Yeni vida eski dişin sonuna daha erken oturmuştu. Bunu söylediğimde görevli önce saate baktı, sonra vidaların aşınmasını büyüteçle karşılaştırdı. Haklıydım. Makine daha önce açılmış, sonra aynı biçimde kapatılmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1819,
+   "style": "Normal",
+   "text": "İçeride kurumuş kan, küçük bir cam tüp ve Leyla'nın el yazısıyla tarih vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1820,
+   "style": "Normal",
+   "text": "Kanın, kayıttaki parmak kesisiyle bağlantılı olduğunu düşündüm. Fakat tüpün altına iliştirilmiş not daha önemliydi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1821,
+   "style": "Book Inset",
+   "text": "<i>Bugün burada olduğumu gösterir. Reçete ekranımdaki doz değişikliğini ben istemedim. İlacı durdurdum. Yeniden almadan hekimimle görüşeceğim. Kayıt sonradan değişirse bu notu ve yanıtını birlikte saklayın.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1822,
+   "style": "Normal",
+   "text": "Görevli tüpü mühürleyip zincir teslim formuyla laboratuvar kuryesine verdi. Makine uzmanı ayrıldı; olay yeri memuru Murat, ön bölümde fotoğraf listesini ve çıkış tutanağını tamamlamak için kaldı. Tutanakta belirtilen inceleme süremizin bitmesine kırk dakika vardı. Selin, Murat'ın görüş alanındaki arka masada Nehir'le benim Yusuf'un eski kayıtlarını adli kopyalarla karşılaştırabileceğimizi teyit etti. Orijinaller çoktan numaralanmış torbalardaydı; önümüzde duranlar, aynı gün çıkarılmış çalışma kopyalarıydı. İçeride yalnız değildik. Yalnızca güvende olduğumuzu sanıyorduk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1823,
+   "style": "Normal",
+   "text": "Leyla tehlikeyi fark etmişti. O notta vazgeçen bir insanın değil, ertesi günü sağ çıkarmaya çalışan birinin el yazısı vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1824,
+   "style": "Normal",
+   "text": "Hangi yanıtı almıştı?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1825,
+   "style": "Normal",
+   "text": "Nehir notun fotoğrafını Selin'e yolladı. Bu kez beklemedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

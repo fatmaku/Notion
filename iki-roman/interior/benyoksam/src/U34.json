@@ -1,0 +1,1104 @@
+{
+ "uid": "U34",
+ "title": "38. Adı Hastalık Olan Yetenek",
+ "number": 38,
+ "words": 1260,
+ "constraints": {
+  "uid": "U34",
+  "number": 38,
+  "title": "38. Adı Hastalık Olan Yetenek",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 1260
+ },
+ "synopsis": {
+  "uid": "U34",
+  "title": "38. Adı Hastalık Olan Yetenek",
+  "summary": "Gegenwartsebene, Ich-Erzähler (Vater von Duru und Emir, Ehemann von Zeynep, Autor, 42 Jahre alt). Um sechs Uhr morgens beginnt Meralis' Gegenangriff: Konto eingefroren, Verlag setzt sein Buch aus, Vermieter kündigt, Konferenzen abgesagt, anonyme Anzeige an Durus Schule, Dossier an Zeyneps Arbeitgeber – nirgends fällt der Name Meralis. In der Schulsitzung (Direktor, Beratungslehrerin, Rechtsberater, Musiklehrer, zwei Verwalter) soll Duru wegen der sieben Deepfake-Videos als 'Schutzmaßnahme' vom Schulbetrieb ausgeschlossen werden; Zeynep, Duru, der Musiklehrer und per Video Dr. Rana (mit eng begrenzter schriftlicher Einwilligung) wehren das ab, Duru bleibt. Zu Hause liest die Familie das von Tarık gescannte weiße Buch: es widerspricht der Jäger-Sammler-Typologie des schwarzen Buches, warnt im Abschnitt 'Emanet Edilen İrade' vor Kaffeesatz, Horoskopen, Magie-Angst usw., sobald sie Geld, Angst oder Gehorsam fordern; Gespräch mit Emir über Glauben, Vorbestimmung und ob Allah Böses 'zulässt'. Eine Randnotiz über 'kötü uyanmışlar' führt zu Cem; der Erzähler schreibt im Notizbuch 'Bakım sözleşmesi', 'erişim hesabı?', Nehir ergänzt 'Kim, ne zaman?'. Eine Zeitzeichnung (Vergangenheit/Gegenwart/Zukunft als Punkte auf einem Kreis) löst eine Debatte über freien Willen und 'sind wir in jemandes Buch?' aus; Yusufs Randnotiz zu ibnü'l-vakt; das Kapitel endet ruhig in der Küche (Orangenschalen, Regen, Heizungsrohr klopft dreimal, Katze Duman) mit der Einsicht, dass Stärke heißt, die Last teilen zu dürfen.",
+  "characters": [
+   "Ich-Erzähler (Vater, Autor, 42, neurodivergentes Profil; wird von Meralis diffamiert)",
+   "Zeynep (Ehefrau, ruhig, pragmatisch; spricht in der Schulsitzung)",
+   "Duru (Tochter, 17, scharfsinnig, hat eine neurodiverse Diagnose; Musik-Probengruppe)",
+   "Emir (Sohn, jünger, trocken-humorvoll, am Computer)",
+   "Nehir (Vertraute/Mitstreiterin des Erzählers; ergänzt Notizen, 'würde auf den Fuß treten')",
+   "Tarık (Technikexperte, hat das weiße Buch gescannt, forensische Hilfe)",
+   "Dr. Rana / Rana Hanım (Ärztin/Klinikerin von Duru, zugeschaltet per Video)",
+   "Müdür (Schuldirektor)",
+   "Rehber öğretmen (Beratungslehrer/in, wirkt unbehaglich)",
+   "Hukuk danışmanı (Rechtsberater der Schule, Gegenspieler in der Sitzung)",
+   "Müzik öğretmeni (Musiklehrer, verteidigt Duru)",
+   "Cem (Verdächtiger; Name fällt mit 'Bakım sözleşmesi/erişim hesabı' – Wartungsvertrag/Zugangskonto)",
+   "Yusuf (ältere Mentorfigur; kleine Handschrift in Randnotizen des weißen Buchs)",
+   "Leyla (erwähnt in U35; hier nicht)",
+   "Duman (Katze der Familie)",
+   "Meralis (Gegnerorganisation, nie namentlich in den Angriffen)"
+  ],
+  "terms": [
+   {
+    "tr": "Adı Hastalık Olan Yetenek",
+    "meaning": "Kapiteltitel: 'Die Begabung, die Krankheit heißt' – Neurodivergenz (Autismus/ADHS) als Fähigkeit vs. Diagnose/Stigma"
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Gegnernetzwerk/Organisation; führt Rufmord-Kampagne mit verteilter Verantwortung; Name bleibt unverändert"
+   },
+   {
+    "tr": "karşı saldırı",
+    "meaning": "Gegenangriff – koordinierte bürokratische Schikanen"
+   },
+   {
+    "tr": "Buradayım.",
+    "meaning": "'Ich bin hier.' – Ein-Satz-Absatz, Selbstvergewisserung des Erzählers (wiederkehrende Formel im Roman)"
+   },
+   {
+    "tr": "yedi video",
+    "meaning": "die sieben synthetischen (Deepfake-)Videos mit dem Gesicht des Erzählers; 'sentetik görüntüler'"
+   },
+   {
+    "tr": "oluşum",
+    "meaning": "'Gebilde/Gruppierung' – Euphemismus des Rechtsberaters für angebliche Sekte/Gruppe"
+   },
+   {
+    "tr": "koruyucu tedbir",
+    "meaning": "'Schutzmaßnahme' – Euphemismus für Ausschluss; Methode aus dem schwarzen Buch: Ausgrenzung 'Schutz' nennen"
+   },
+   {
+    "tr": "siyah kitap / beyaz kitap",
+    "meaning": "schwarzes Buch (Manipulationshandbuch von Meralis, 'FETİH', Erwähltheitsfalle) vs. weißes Buch (Gegen-/Originalfassung mit Einwänden und Randnotizen)"
+   },
+   {
+    "tr": "Book Inset",
+    "meaning": "Stilname für Zitate aus dem weißen Buch; fett setzen wie im Original"
+   },
+   {
+    "tr": "ŞÜPHECİ / SESSİZ SES / GÖLGE",
+    "meaning": "innere Stimmen des Erzählers (der Zweifler / die Stille Stimme / der Schatten), als Dialoglabels in Insets; feste Bezeichnungen beibehalten"
+   },
+   {
+    "tr": "avcı–toplayıcı / alfa",
+    "meaning": "Jäger–Sammler–Alpha-Typologie des schwarzen Buches; weißes Buch nennt sie 'köken hikâyesi' (Ursprungsgeschichte), keinen Stammbaum"
+   },
+   {
+    "tr": "Emanet Edilen İrade",
+    "meaning": "Abschnittstitel im weißen Buch: 'Der anvertraute/abgegebene Wille' – über Kaffeesatzlesen, Sterne, Glücksbringer, Heilsteine, 'enerji çalan insanlar'"
+   },
+   {
+    "tr": "kahve falı / üç vakit",
+    "meaning": "Kaffeesatzlesen; 'drei Zeiten' = frühere Wahrsage-Episode, Pointe: 'Hesap geldi' (die Rechnung kam)"
+   },
+   {
+    "tr": "Evren geniş olabilir ama son ödeme tarihi yereldir.",
+    "meaning": "Witz: 'Das Universum mag weit sein, aber die Zahlungsfrist ist lokal' – Erzähler als 'Muhasebeci' (Buchhalter-Seite)"
+   },
+   {
+    "tr": "kötü uyanmışlar",
+    "meaning": "'die böse Erwachten' – Seite im weißen Buch über Manipulatoren mit Mustererkennung und Herrschaftsanspruch"
+   },
+   {
+    "tr": "Bakım sözleşmesi / erişim hesabı / Kim, ne zaman?",
+    "meaning": "Notizen im Notizbuch zu Cem: Wartungsvertrag, Zugangskonto, 'Wer, wann?' – Ermittlungsspur"
+   },
+   {
+    "tr": "Kırmızı defter",
+    "meaning": "rotes Notizbuch des Erzählers (private Aufzeichnungen, 'artık her şeyi görüyorum'); zentral in U35"
+   },
+   {
+    "tr": "uyandığım gece / Uyanışın bedeli",
+    "meaning": "'die Nacht, in der ich erwachte'; Titelmotiv 'Preis des Erwachens' – Inset definiert ihn neu: nicht Leiden, sondern Lernen, dass Leid kein Herrschaftsrecht gibt"
+   },
+   {
+    "tr": "ibnü'l-vakt",
+    "meaning": "sufischer Terminus 'Kind des Augenblicks/der Zeit' (Yusufs Randnotiz); 'yolcu' = der Wanderer/Reisende auf dem Weg (Romantitel-Bezug)"
+   },
+   {
+    "tr": "Rana Hanım",
+    "meaning": "Anrede Hanım = Frau/Dame; Duru sagt 'Rana Hanım' für Dr. Rana"
+   },
+   {
+    "tr": "Baba",
+    "meaning": "'Papa' – Anrede der Kinder"
+   },
+   {
+    "tr": "nörogelişimsel özellikler / tanı",
+    "meaning": "neuroentwicklungsbezogene Merkmale / Diagnose; Leitsatz Dr. Rana: Beurteilung nach Verhalten, nicht nach Diagnose; Durus Satz 'Her şeyi tanıya bağlama' (Führ nicht alles auf die Diagnose zurück)"
+   },
+   {
+    "tr": "Halterci / barı yere bırakmak",
+    "meaning": "Schlussbild: Gewichtheber, der lernt, die Hantel sicher abzulegen = Last teilen"
+   },
+   {
+    "tr": "Duman",
+    "meaning": "Katze (wörtl. 'Rauch'); Eigenname beibehalten"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum (türkisches -di-Vergangenheit), reflektiv und lakonisch; schnelle, pointierte Familiendialoge mit trockenem Humor; eingeschobene fett gesetzte Buchzitate (Book Inset) und innere Stimmen als Label-Dialog; aphoristische Einzelsätze als Absätze; religiös-philosophische Passage (Allah, Glaube, Vorbestimmung) in schlichter, nicht predigender Sprache."
+ },
+ "paras": [
+  {
+   "pid": 2570,
+   "style": "Heading 1",
+   "text": "<b>38. Adı Hastalık Olan Yetenek</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2571,
+   "style": "Opening",
+   "text": "Meralis karşı saldırıya sabah altıda başladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2572,
+   "style": "Normal",
+   "text": "Banka hesabım “olağan dışı bağış trafiği” gerekçesiyle geçici olarak donduruldu. Yayınevim, yüzümün kullanıldığı yedi videonun ardından kitabımı askıya aldığını bildirdi. Ev sahibim, binaya gazeteciler geldiği için sözleşmeyi yenilemeyeceğini söyledi. İki konferans iptal edildi. Duru'nun okuluna, babasının tehlikeli bir gruba çocuk üye topladığına ilişkin isimsiz ihbar gönderildi. Zeynep'in iş yerindeki yöneticisine aile mahremiyetini sorgulayan bir dosya ulaştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2573,
+   "style": "Normal",
+   "text": "Buradayım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2574,
+   "style": "Normal",
+   "text": "Hiçbir mesajda Meralis adı yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2575,
+   "style": "Normal",
+   "text": "Her darbe tek başına makul görünüyordu. Kötülük, sorumluluğunu küçük ve makul parçalara böldüğünde herkes yalnız kendi düğmesine basar; kimse makinenin tamamını yaptığını düşünmez.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2576,
+   "style": "Normal",
+   "text": "Okul bizi aynı gün toplantıya çağırdı. Müdürün odasında rehber öğretmen, hukuk danışmanı, Duru'nun müzik öğretmeni ve tanımadığım iki yönetici vardı. Masanın karşı tarafına üç sandalye koymuşlardı. Zeynep, Duru ve ben oturduk. Sandalyelerin aynı hizada olması tarafsızlık duygusu veriyordu. Masanın yalnız bir tarafında dosya bulunması bu duyguyu bozuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2577,
+   "style": "Normal",
+   "text": "Hukuk danışmanı o yedi videoyu açtı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2578,
+   "style": "Normal",
+   "text": "“Duru'nun babası olarak bu oluşumla ilişkiniz netleşene kadar kızınızın okul faaliyetlerine ara vermesini öneriyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2579,
+   "style": "Normal",
+   "text": "“Oluşum yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2580,
+   "style": "Normal",
+   "text": "“Videoda kurduğunuzu söylüyorsunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2581,
+   "style": "Normal",
+   "text": "“Videodaki ben değilim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2582,
+   "style": "Normal",
+   "text": "“Bu teknik değerlendirme gerektirir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2583,
+   "style": "Normal",
+   "text": "“Değerlendirmeyi yapan üç uzmanın raporunu size gönderdik.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2584,
+   "style": "Normal",
+   "text": "“Sosyal medyada farklı görüşler var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2585,
+   "style": "Normal",
+   "text": "Nehir yanımda olsaydı ayağıma basardı. Ben de içimden kendi ayağıma bastım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2586,
+   "style": "Normal",
+   "text": "“Sosyal medya görüşü teknik delil değildir,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2587,
+   "style": "Normal",
+   "text": "Müdür araya girdi. “Biz yalnız öğrencilerimizin güvenliğini düşünüyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2588,
+   "style": "Normal",
+   "text": "Zeynep sakin bir sesle sordu: “Duru'nun okula gelmemesi hangi somut riski azaltacak?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2589,
+   "style": "Normal",
+   "text": "“Diğer veliler endişeli.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2590,
+   "style": "Normal",
+   "text": "“Endişenin nesnesi kızımız mı, babası mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2591,
+   "style": "Normal",
+   "text": "“Aile bir bütündür.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2592,
+   "style": "Normal",
+   "text": "Duru ilk kez konuştu. “Ben bir şey yapmadım ki.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2593,
+   "style": "Normal",
+   "text": "“Yaptığını söylemiyoruz,” dedi müdür.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2594,
+   "style": "Normal",
+   "text": "“Ama beni çıkarıyorsunuz. Babamı değil, beni.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2595,
+   "style": "Normal",
+   "text": "Hukuk danışmanı bunun ceza değil, koruyucu tedbir olduğunu söyledi. Siyah kitaptaki yöntem aklıma geldi: Bir insanı dışlarken dışlama deme. Koruma de. Böylece itiraz ederse kendi güvenliğine karşı çıkıyormuş gibi görünür.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2596,
+   "style": "Normal",
+   "text": "Fakat odadaki herkes Meralis'in parçası değildi. Rehber öğretmen rahatsız görünüyordu. Müzik öğretmeni dosyasını kapattı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2597,
+   "style": "Normal",
+   "text": "“Duru'nun prova grubunda kalması gerekiyor,” dedi. “Diğer öğrencilerle herhangi bir sorun yaşamadı. Onu gönderirsek internetteki söylentiyi okul kararıyla doğrulamış oluruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2598,
+   "style": "Normal",
+   "text": "Müdür, “Velilerin tepkisi?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2599,
+   "style": "Normal",
+   "text": "“Velilere gerçek bilgi veririz. Bir öğrenciyi onların korkusuna teslim etmeyiz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2600,
+   "style": "Normal",
+   "text": "Duru'nun ve Zeynep'in yalnız bu toplantı için verdiği dar kapsamlı yazılı rızayla Dr. Rana görüntülü bağlandı. Tanının ayrıntılarını açmadı; yalnız Duru'nun sağlık bilgilerinin izinsiz kullanıldığına dair klinik inceleme başlattığını, nörogelişimsel özelliklerin onu şiddet veya manipülasyonla ilişkilendirmediğini ve eğitim hakkını kısıtlayacak tıbbi gerekçe bulunmadığını söyledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2601,
+   "style": "Normal",
+   "text": "“Ama babasında da benzer bir profil var,” dedi hukuk danışmanı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2602,
+   "style": "Normal",
+   "text": "Dr. Rana'nın yüzü sertleşti. “Nörogelişimsel özellikler suç delili değildir. Bir kişiyi davranışıyla değerlendirirsiniz. Tanısıyla değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2603,
+   "style": "Normal",
+   "text": "Toplantı iki saat sürdü. Sonunda Duru okulda kaldı, prova programı değişmedi ve okul ailelere sentetik görüntüler hakkında bilgilendirme gönderdi. Hukuk danışmanı karara itiraz notu düştü. Müdür özür dilemedi; “süreci birlikte yöneteceğiz” dedi. Bazen adalet büyük bir zafer cümlesiyle değil, haksız sandalyeden kalkmamakla kazanılır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2604,
+   "style": "Normal",
+   "text": "Koridorda Duru bana döndü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2605,
+   "style": "Normal",
+   "text": "“Konuşmayı uzatmadın,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2606,
+   "style": "Normal",
+   "text": "“İçimden dört konferans verdim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2607,
+   "style": "Normal",
+   "text": "“Gelişme var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2608,
+   "style": "Normal",
+   "text": "“Bunu rapora ekleyelim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2609,
+   "style": "Normal",
+   "text": "“Her şeyi tanıya bağlama.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2610,
+   "style": "Normal",
+   "text": "Gülümsedim. Kendi cümlesini unutmamıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2611,
+   "style": "Normal",
+   "text": "Öğle vakti sosyal medyada iki etiket aynı anda yükseldi. Birinde yalancıydım. Ötekinde kurtarıcı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2612,
+   "style": "Normal",
+   "text": "“Baba, bak. Bu hesap iki tarafta da yazmış,” dedi Duru. Ekranı burnuma kadar getirdi. “Şurada yalancısın, burada seni dinlemeyen herkes aptal. Aynı adam. Profil fotoğrafını bile değiştirmemiş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2613,
+   "style": "Normal",
+   "text": "“On yedi yaşında olmasan iletişim danışmanım olabilirdin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2614,
+   "style": "Normal",
+   "text": "“On yedi yaşında olduğum için senden daha ucuza çalışırım sanıyorsan anneme söylerim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2615,
+   "style": "Normal",
+   "text": "Emir başını bilgisayarından kaldırdı. “Ben ücret karşılığı babamıza inanmamayı teklif ediyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2616,
+   "style": "Normal",
+   "text": "Zeynep mutfaktan seslendi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2617,
+   "style": "Normal",
+   "text": "“Onu zaten bedava yapıyorsunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2618,
+   "style": "Normal",
+   "text": "Tarık'ın taradığı beyaz kitabı birlikte okuduk. Avcı–toplayıcı sayfasını bulunca yeniden açıklamaya hazırlanmıştım. Duru parmağını benim ezbere bildiğim satırların altına koydu. Siyah nüshada burada yeni bir başlık başlıyordu. Beyazında bir itiraz vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2619,
+   "style": "Book Inset",
+   "text": "<b>Bu bir köken hikâyesidir; ispatlanmış bir soy ağacı değil. İnsanları “avcı”, “toplayıcı” ve “alfa” diye yeni kafeslere ayırırsan eski hatayı başka isimle tekrarlarsın.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2620,
+   "style": "Normal",
+   "text": "Meralis, otizmi veya DEHB'yi icat etmemişti. Duru'nun yaşadıklarını da. Sabahki toplantıyı düşününce fark daha açıktı: Dr. Rana aynı tanıyla destek istiyor, hukuk danışmanı bizi susturmaya çalışıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2621,
+   "style": "Normal",
+   "text": "“Bunu da gönderelim mi okula?” dedi Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2622,
+   "style": "Normal",
+   "text": "“Beyaz kitabı mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2623,
+   "style": "Normal",
+   "text": "“Yok. Rana Hanım'ın söylediklerini. Yazılı olsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2624,
+   "style": "Normal",
+   "text": "Zeynep telefonunu aldı. İstedikleri yardımdı; bir efsaneye kabul edilmek değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2625,
+   "style": "Normal",
+   "text": "Beyaz kitabın sonraki başlığı <b>Emanet Edilen İrade</b> idi. Kahve falı, yıldız yorumları, uğur nesneleri, büyü korkusu, şifalı taşlar ve “enerji çalan insanlar” aynı sayfada yan yana duruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2626,
+   "style": "Book Inset",
+   "text": "<b>Bir yorum sana kendini düşündürüyorsa soru olabilir.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2627,
+   "style": "Book Inset",
+   "text": "<b>Senden korku, para, itaat, sağlık kararı veya başka bir insanın iradesini istiyorsa artık yalnız yorum değildir.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2628,
+   "style": "Normal",
+   "text": "Emir, “Birisi bana büyü yaptığını söylerse?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2629,
+   "style": "Normal",
+   "text": "“Önce bana anlat.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2630,
+   "style": "Normal",
+   "text": "“Sen inanmazsın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2631,
+   "style": "Normal",
+   "text": "“Korktuğuna inanırım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2632,
+   "style": "Normal",
+   "text": "Kendi inancımda yaratılmış hiçbir taşın, yıldızın, falcının veya insanın Allah'tan bağımsız mutlak güç sahibi olduğuna inanamazdım. Fakat yıllarca bu cümleyi de yanlış kullanmıştım. Korktuğumda, “Demek yeterince inanmıyorsun,” diyerek kendimi ikinci kez cezalandırmıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2633,
+   "style": "Normal",
+   "text": "“Allah izin verirse oluyor mu?” diye sordu Emir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2634,
+   "style": "Normal",
+   "text": "“Benim anladığım şu,” dedim. “Dünyada nedenler, seçimler ve sonuçlar var. Bir şeyin gerçekleşmesine izin verilmiş olması, yapılan kötülüğün onaylandığı veya mağdurun cezalandırıldığı anlamına gelmez. İnanç, tedbiri bırakmak değil; korkumu başka bir yaratılmışın egemenliğine vermemektir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2635,
+   "style": "Normal",
+   "text": "“O zaman sorun inanmak mı?” diye sordu Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2636,
+   "style": "Normal",
+   "text": "“Hayır. Neye inandığını sınamadan iradeni teslim etmek.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2637,
+   "style": "Normal",
+   "text": "Emir beyaz kitaba baktı. “Kahve falındaki üç vakit ne oldu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2638,
+   "style": "Normal",
+   "text": "“Hesap geldi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2639,
+   "style": "Normal",
+   "text": "“Bu kitapta bütün mistik şeylerin sonu faturaya çıkıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2640,
+   "style": "Normal",
+   "text": "“Muhasebeci yanımı küçümseme,” dedim. “Evren geniş olabilir ama son ödeme tarihi yereldir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2641,
+   "style": "Normal",
+   "text": "Kitabın “kötü uyanmışlar” sayfasında bir kenar notu vardı: <i>Bir suçluyu açıklayacak tanıyı uzaktan koyunca, yaptığı seçimleri de açıklamış olmuyorsun.</i> Altındaki profilde güçlü örüntü algısı, insan okuma yeteneği ve kendinde başkasını yönetme hakkı görme yan yana duruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2642,
+   "style": "Normal",
+   "text": "“Cem,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2643,
+   "style": "Normal",
+   "text": "Defterde Cem'in adının yanına bir teşhis yazacakken durdum. “Bakım sözleşmesi”, “erişim hesabı?” yazdım. Nehir kalemi aldı, altına “Kim, ne zaman?” ekledi. Son kelimenin yanına koyduğum soru işaretini silmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2644,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Peki senin iyi seçimlerin yetenek, kötü seçimlerin aşırı yük mü?</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 2645,
+   "style": "Book Inset",
+   "text": "<b>SESSİZ SES:</b> <i>Adını koy. Sonra sorumluluğu yerine bırak.</i>",
+   "keep": false,
+   "image": false,
+   "label": "SESSİZ SES",
+   "constraint": null
+  },
+  {
+   "pid": 2646,
+   "style": "Normal",
+   "text": "Sonraki kenar notunda bir soru vardı: <i>Her şeyi mi görüyorsun, yoksa hiçbir şeyin güvenli olduğuna inanamıyor musun?</i> Kırmızı defterimde “artık her şeyi görüyorum” yazdığım geceyi hatırladım. O geceyi artık yalnız “uyandığım gece” diye anlatamıyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2647,
+   "style": "Book Inset",
+   "text": "<b>Bir kez gördüğün şeyi görmemiş olamazsın. Ama gördüğün her şeyi tek başına taşımak zorunda da değilsin. Uyanışın bedeli acı çekmek değil; acının sana başkasını yönetme hakkı vermediğini öğrenmektir.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2648,
+   "style": "Normal",
+   "text": "Bu cümleyi iki kez okudum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2649,
+   "style": "Normal",
+   "text": "Emir kitabın kenarındaki zaman çizimini gösterdi. Geçmiş, şimdi ve gelecek üç ayrı ok olarak değil, aynı dairenin üstündeki noktalar gibi çizilmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2650,
+   "style": "Normal",
+   "text": "“Gelecek zaten oldu mu?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2651,
+   "style": "Normal",
+   "text": "“Fizikte zaman hakkında böyle yorumlanan modeller var,” dedim. “Ama bu çizim bilimsel kanıt değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2652,
+   "style": "Normal",
+   "text": "“Kitap ne diyor?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2653,
+   "style": "Normal",
+   "text": "“Her anın bir yerde var olabileceğini. Bizim onları sırayla yaşadığımızı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2654,
+   "style": "Normal",
+   "text": "“O zaman seçim yapmıyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2655,
+   "style": "Normal",
+   "text": "Duru itiraz etti. “Bir kitabın sonu basılmış diye karakter seçmemiş olmuyor. Karakter için sayfa ilk kez geliyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2656,
+   "style": "Normal",
+   "text": "“Karakter gerçek değil,” dedi Emir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2657,
+   "style": "Normal",
+   "text": "“Biz de birinin kitabındaysak?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2658,
+   "style": "Normal",
+   "text": "Emir bana baktı. “Öyle miyiz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2659,
+   "style": "Normal",
+   "text": "“Yazar olsaydı odanı topladığın bir bölüm yazardı,” dedim. “Demek ki kontrol onda değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2660,
+   "style": "Normal",
+   "text": "Emir bu kanıtı yeterli buldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2661,
+   "style": "Normal",
+   "text": "Ben bulmadım. Zihnim hemen dört ayrı teori üretti. Her birinin altında beş yeni soru açıldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2662,
+   "style": "Normal",
+   "text": "“Cevabı bulamayacağız,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2663,
+   "style": "Normal",
+   "text": "Duru beyaz kitabı kapattı. “Belki bugün bulmamamız gerekiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2664,
+   "style": "Normal",
+   "text": "“Neden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2665,
+   "style": "Normal",
+   "text": "“Sonunu bilseydik ne yapardık?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2666,
+   "style": "Normal",
+   "text": "“Hazırlanırdık.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2667,
+   "style": "Normal",
+   "text": "“Sen zaten hazırlanıyorsun. Daha fazlasını bilsen yaşamayı tamamen bırakabilirsin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2668,
+   "style": "Normal",
+   "text": "Kitabın kenarında Yusuf'un küçük yazısıyla bir not vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2669,
+   "style": "Book Inset",
+   "text": "<i>Bazı Sufi metinleri yolcuya ibnü'l-vakt, vaktin çocuğu der. Geçmişi inkâr eden değil; bulunduğu anın hakkını, gelecek adına çalmayan kişi.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2670,
+   "style": "Normal",
+   "text": "Mutfakta portakal kabuğunun kokusu vardı. Zeynep meyveleri soyup masaya koymuştu. Dışarıda yağmur başlamış, kalorifer borusu genleşirken üç kısa vuruş çıkarmıştı. Duman pencerenin önünde su damlalarını yakalamaya çalışıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2671,
+   "style": "Normal",
+   "text": "“Belki sorunun görevi cevap vermek değildir,” dedim. “Bizi bu ana daha dikkatli getirmek olabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2672,
+   "style": "Normal",
+   "text": "Emir portakal aldı. “Ben portakalı soru sormadan da buldum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2673,
+   "style": "Normal",
+   "text": "“Bu da başka bir bilgelik.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2674,
+   "style": "Normal",
+   "text": "Belki sonsuzluk, çok uzun zaman değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2675,
+   "style": "Normal",
+   "text": "Bir anın içinden kaçmadan durabilmekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2676,
+   "style": "Normal",
+   "text": "Yıllarca güçlü olmayı daha ağır yük taşıyabilmek sanmıştım. Belki güç, yükü paylaşmayı kabul etmekti. Halterci büyüdükçe ağırlığın artması gerekmezdi; bazen barı yere güvenle bırakmayı öğrenmesi gerekirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

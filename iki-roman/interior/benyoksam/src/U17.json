@@ -1,0 +1,382 @@
+{
+ "uid": "U17",
+ "title": "18. Birincil Ayna",
+ "number": 18,
+ "words": 259,
+ "constraints": {
+  "uid": "U17",
+  "number": 18,
+  "title": "18. Birincil Ayna",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 259
+ },
+ "synopsis": {
+  "uid": "U17",
+  "title": "18. Birincil Ayna",
+  "summary": "Gegenwartsebene, unmittelbar anschließend: Erzähler und Nehir leiten aus den sichtbaren und verdeckten Druckschichten der Bücher das gemeinsame Fünf-Stufen-Schema von Meralis ab (Scham benennen – isolieren – Anderssein als Überlegenheit umdeuten – Feind wählen – Auftrag geben). Nehir zeigt, dass für jede Zielperson ein 'Spiegel' (ayna) definiert ist: die vertraute Gegenstimme, die zerstört werden soll, damit das Subjekt für alle Behauptungen des Buches offen wird. Der Erzähler erfährt seinen Zielcode A-1453 und liest die Einstufung seines Umfelds (Zeynep: Schuldbindung; Duru: hohes emotionales Risiko; Emir: Zielansprache verboten; Leyla: Fachspiegel, Kontrolle verloren; Nehir: Primärspiegel). Unter 'A-1453 / BİRİNCİL AYNA: NEHİR KAYA' stehen drei Aufträge, darunter 'ein echtes Verschweigen an einen sichtbaren Verrat binden'. Konfrontiert gesteht Nehir am Fenster, sie habe auf Leylas Wunsch Meralis Informationen über den Erzähler gegeben. Cliffhanger: Der Erzähler glaubt nicht dem Buch, sondern erkennt, mit welcher Wahrheit es ihn treffen wird.",
+  "characters": [
+   "Ich-Erzähler (Zielcode A-1453)",
+   "Nehir Kaya (Journalistin, hier erstmals mit Nachnamen; 'Primärspiegel'; gesteht Informationsweitergabe)",
+   "Leyla (verstorben; 'uzman ayna'; hatte Nehir um die Weitergabe gebeten)",
+   "Zeynep, Duru, Emir (nur als Einträge in der Zielakte)",
+   "Meralis (Organisation, Urheber der Akte)"
+  ],
+  "terms": [
+   {
+    "tr": "Birincil Ayna",
+    "meaning": "Kapiteltitel 'Primärspiegel' – die wichtigste vertraute Gegenstimme der Zielperson, hier Nehir; Begriff konsistent mit 'ayna' halten"
+   },
+   {
+    "tr": "ayna",
+    "meaning": "'Spiegel' – Meralis-Terminus für die Vertrauensperson, die noch widerspricht ohne herabzusetzen; wird gezielt zum Feind gemacht"
+   },
+   {
+    "tr": "uzman ayna",
+    "meaning": "'Fachspiegel/Expertenspiegel' – Leylas Rolle in der Akte, Vermerk 'kontrol kaybedildi' (Kontrolle verloren)"
+   },
+   {
+    "tr": "A-1453",
+    "meaning": "Zielcode des Erzählers (Bezug zum Romantitel '1453'); Großschreibung/Format beibehalten"
+   },
+   {
+    "tr": "hedef kodu",
+    "meaning": "Zielcode – Akten-Terminologie"
+   },
+   {
+    "tr": "ortak şablon / beş aşama",
+    "meaning": "gemeinsame Schablone in fünf Stufen: utancı adlandırma, ayırma, üstünlük olarak paketleme, düşman seçme, görev verme"
+   },
+   {
+    "tr": "Güven kırıldığında özne, kitabın bütün iddialarına açık hâle gelir.",
+    "meaning": "Aktensatz: 'Ist das Vertrauen gebrochen, wird das Subjekt für alle Behauptungen des Buches offen' – 'özne' = Subjekt (technisch-kalter Jargon)"
+   },
+   {
+    "tr": "geçmiş otorite ve suçluluk bağı",
+    "meaning": "Akteneintrag zu Zeynep: 'frühere Autorität und Schuldbindung'"
+   },
+   {
+    "tr": "yüksek duygusal risk, düşük yönlendirme uygunluğu",
+    "meaning": "Akteneintrag zu Duru: 'hohes emotionales Risiko, geringe Lenkbarkeit'"
+   },
+   {
+    "tr": "doğrudan hedefleme yasak — tepki öngörülemez",
+    "meaning": "Akteneintrag zu Emir: 'direkte Ansprache verboten – Reaktion unvorhersehbar'"
+   },
+   {
+    "tr": "Gerçek bir saklamayı görünür bir ihanete bağla",
+    "meaning": "Auftrag 2: 'Ein echtes Verschweigen an einen sichtbaren Verrat binden' – 'saklama' (Verschweigen/Verbergen) ist der Schlüsselbegriff, den der Erzähler aufgreift ('Neyi sakladın?')"
+   },
+   {
+    "tr": "Hedefi, yalnız kendi sezgisinin temiz kaldığına inandır",
+    "meaning": "Auftrag 3: Ziel glauben machen, nur seine eigene Intuition sei 'sauber' geblieben"
+   },
+   {
+    "tr": "Bir insanı önce küçültüyorlar… yalnız onlar büyütebilirmiş gibi",
+    "meaning": "Erzähler-Formel 'erst kleinmachen, dann so tun, als könnten nur sie großmachen'"
+   },
+   {
+    "tr": "Meralis'e senin hakkında bilgi verdim",
+    "meaning": "Nehirs Geständnis – Wendepunkt; auf Leylas Wunsch hin"
+   },
+   {
+    "tr": "kitabın beni hangi doğruyla vuracağını anladım",
+    "meaning": "Schlusssatz: 'ich begriff, mit welcher Wahrheit das Buch mich treffen würde' – Parallelismus zu 'kitabın doğru olduğuna inanmadım' bewahren"
+   }
+  ],
+  "tone": "Ich-Erzählung im Präteritum, sehr knapp und kühl; anaphorische Kurzabsätze (İlk aşama / İkinci aşama …), Aktenjargon in fetten Book Insets (Großschrift, nummerierte Aufträge), dann ein verdichtetes, spannungsgeladenes Zwei-Personen-Gespräch mit körperlichen Details (Fingernagel in der Handfläche, Rücken zum Fenster). Schlussparallelismus als Cliffhanger."
+ },
+ "paras": [
+  {
+   "pid": 1415,
+   "style": "Heading 1",
+   "text": "<b>18. Birincil Ayna</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1416,
+   "style": "Opening",
+   "text": "Atölyedeki kitapların görünür ve gizli baskı katmanlarını karşılaştırdığımızda ortak şablon ortaya çıktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1417,
+   "style": "Normal",
+   "text": "İlk aşama, kişinin utancını doğru adlandırıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1418,
+   "style": "Normal",
+   "text": "İkinci aşama, onu bu acıyı yaşamayanlardan ayırıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1419,
+   "style": "Normal",
+   "text": "Üçüncü aşama, farklılığı üstünlük diye yeniden paketliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1420,
+   "style": "Normal",
+   "text": "Dördüncü aşama, bir düşman seçiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1421,
+   "style": "Normal",
+   "text": "Beşinci aşama, kişiye görev veriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1422,
+   "style": "Normal",
+   "text": "“Bir insanı önce küçültüyorlar,” dedim. “Sonra yalnız onlar büyütebilirmiş gibi davranıyorlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1423,
+   "style": "Normal",
+   "text": "Nehir ekranı bana çevirdi. “Her hedef için bir ‘ayna’ belirlemişler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1424,
+   "style": "Normal",
+   "text": "Ayna, kişinin hâlâ güvendiği karşı sesti. Aileden biri, arkadaş, doktor, meslektaş. Kitabın iddialarına hemen katılmayacak fakat kişiyi küçük de görmeyecek biri.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1425,
+   "style": "Normal",
+   "text": "“Aynayı düşman yapınca ne oluyor?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1426,
+   "style": "Normal",
+   "text": "Nehir dosyanın altındaki cümleyi gösterdi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1427,
+   "style": "Book Inset",
+   "text": "<b>Güven kırıldığında özne, kitabın bütün iddialarına açık hâle gelir.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1428,
+   "style": "Normal",
+   "text": "Benim hedef kodum <b>A-1453</b> idi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1429,
+   "style": "Normal",
+   "text": "Dosyada hayatımdaki insanlar sıralanmıştı. Zeynep: geçmiş otorite ve suçluluk bağı. Duru: yüksek duygusal risk, düşük yönlendirme uygunluğu. Emir: doğrudan hedefleme yasak — tepki öngörülemez. Leyla: uzman ayna, kontrol kaybedildi. Nehir: birincil ayna.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1430,
+   "style": "Book Inset",
+   "text": "<b>A-1453 / BİRİNCİL AYNA: NEHİR KAYA</b>",
+   "keep": false,
+   "image": false,
+   "label": "A-1453 / BİRİNCİL AYNA",
+   "constraint": null
+  },
+  {
+   "pid": 1431,
+   "style": "Normal",
+   "text": "Altında üç görev vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1432,
+   "style": "Book Inset",
+   "text": "<b>1. Nehir'in güvenilirliğini hedefin gözünde tartışmalı hâle getir.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1433,
+   "style": "Book Inset",
+   "text": "<b>2. Gerçek bir saklamayı görünür bir ihanete bağla.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1434,
+   "style": "Book Inset",
+   "text": "<b>3. Hedefi, yalnız kendi sezgisinin temiz kaldığına inandır.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1435,
+   "style": "Normal",
+   "text": "“Gerçek bir saklama,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1436,
+   "style": "Normal",
+   "text": "Nehir cevap vermedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1437,
+   "style": "Normal",
+   "text": "Ekranın ışığı yüzünün yarısını aydınlatıyordu. Sol eli masanın altındaydı. Tırnağını avucuna bastırdığını gördüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1438,
+   "style": "Normal",
+   "text": "“Neyi sakladın?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1439,
+   "style": "Normal",
+   "text": "“Bu dosya seni bana karşı çevirmek için yazılmış.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1440,
+   "style": "Normal",
+   "text": "“Bu, soruma cevap değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1441,
+   "style": "Normal",
+   "text": "“Tam da istedikleri şeyi yapıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1442,
+   "style": "Normal",
+   "text": "“Belki istedikleri şey, senin gerçekten sakladığın bir şeyi kullanmak.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1443,
+   "style": "Normal",
+   "text": "Nehir ayağa kalktı. Pencereye yürüdü. Sırtı bana dönüktü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1444,
+   "style": "Normal",
+   "text": "“Leyla'nın isteğiyle Meralis'e senin hakkında bilgi verdim,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1445,
+   "style": "Normal",
+   "text": "O an kitabın doğru olduğuna inanmadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1446,
+   "style": "Normal",
+   "text": "O an, kitabın beni hangi doğruyla vuracağını anladım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

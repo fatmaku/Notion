@@ -1,0 +1,651 @@
+{
+ "uid": "U29",
+ "title": "32. Leyla'nın Son Kaynağı",
+ "number": 32,
+ "words": 466,
+ "constraints": {
+  "uid": "U29",
+  "number": 32,
+  "title": "32. Leyla'nın Son Kaynağı",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": "DÖRDÜNCÜ PERDE — FETİH",
+  "words": 466
+ },
+ "synopsis": {
+  "uid": "U29",
+  "title": "32. Leyla'nın Son Kaynağı",
+  "summary": "Fortsetzung in Echtzeit im 14. Stock: Cem droht Nehir per Bildschirm – alle Brandakten seien in drei Ländern gerichtlich geschützt, ein entwendeter Datenträger würde sie und die Verteidigung des Erzählers kompromittieren; „Sie haben mich hier hochgebracht“ – „Dafür gibt es keine Aufzeichnung.“ Auf dem Metalltisch liegt eine Festplatte mit Leylas Handschrift „KAYNAK 1453“; der Erzähler verbietet ihr, sie anzufassen, Nehir dokumentiert nur Seriennummer und Kratzer. Der Notausgang klemmt; Tarık findet über das Typenschild die mechanische Lösung, während „Durus“ Stimme auf der Leitung spricht – der Erzähler ist erbost, dass sie mithört. Die inneren Stimmen (Toplayıcı, Muhasebeci, Avcı) kommentieren seine Schuld, Duru unwissend gelassen zu haben. Beim Abstieg spielt Cem Nehir ein Überwachungsvideo zu: Sie selbst nahm vor drei Wochen – zwei Tage nach der Nachricht von Leylas Tod – genau diese Platte vom Tisch und übergab sie Cem am Hinterausgang. Nehir gesteht: „Diski aldım … Evet“ (sie gab sie Cem). Gleichzeitig ruft Zeynep an: Duru ist nicht zu Hause, ihre Stimme auf der Leitung war eine Aufnahme über ihren Computer. Uhrzeit 14.53; auf Durus leerem Stuhl liegen eine weiße Feder und das rote Heft mit einer Notiz in der Handschrift des Erzählers: „Kızımı bulmak istiyorsam önce ona neden yalan söylediğimi hatırlamalıyım.“ Danach folgt die Teilüberschrift „DÖRDÜNCÜ PERDE — FETİH“.",
+  "characters": [
+   "Ich-Erzähler (zu Hause, per Kopfhörer; Vater von Duru)",
+   "Nehir (im 14. Stock; gesteht, die Platte vor drei Wochen genommen und Cem gegeben zu haben)",
+   "Cem (Antagonist, Meralis; spricht über Bildschirm und Lautsprecher, sendet Überwachungsvideo)",
+   "Leyla (Nehirs verstorbene ältere Schwester; ihre Handschrift auf der Platte „KAYNAK 1453“)",
+   "Tarık (IT-Forensiker; löst den Notausgang über das Typenschild)",
+   "Yusuf (ehemaliger Subunternehmer; kennt die Lage des Notausgangs)",
+   "Duru (Tochter; ihre Stimme auf der Leitung ist eine Aufnahme – sie ist verschwunden)",
+   "Zeynep (Ehefrau; meldet Durus Verschwinden, schickt Foto)",
+   "Innere Stimmen: TOPLAYICI, MUHASEBECİ, AVCI"
+  ],
+  "terms": [
+   {
+    "tr": "Leyla'nın Son Kaynağı",
+    "meaning": "Kapiteltitel: „Leylas letzte Quelle“ – Kaynak = Quelle (journalistisch) und Datenträger"
+   },
+   {
+    "tr": "KAYNAK 1453",
+    "meaning": "Beschriftung der Festplatte in Leylas Handschrift; 1453 (Eroberung Konstantinopels) ist Titelzahl des Romans; fett gesetzt, unübersetzt lassen bzw. als Eigenname behandeln"
+   },
+   {
+    "tr": "üç ülkedeki mahkeme kararı",
+    "meaning": "Gerichtsbeschlüsse in drei Ländern, die die Brandakten schützen"
+   },
+   {
+    "tr": "makbuz",
+    "meaning": "Quittung – Metapher: das Böse reicht einem die Quittung für die Tür, die man freiwillig durchschritt"
+   },
+   {
+    "tr": "seri numarası / kapağın çizikleri",
+    "meaning": "Seriennummer und Kratzer am Gehäuse, von Nehir dokumentiert"
+   },
+   {
+    "tr": "acil çıkış / kapı kolu / etiket / şema",
+    "meaning": "Notausgang, Türgriff, Typenschild, Schaltplan – mechanische Öffnung (Flügel heranziehen, dann Griff drücken)"
+   },
+   {
+    "tr": "TOPLAYICI",
+    "meaning": "neue innere Stimme „der Sammler“ (neben Muhasebeci/Buchhalter und Avcı/Jäger)"
+   },
+   {
+    "tr": "Bugünlük yeter",
+    "meaning": "„Für heute reicht es“ – Nehirs Abbruchsatz"
+   },
+   {
+    "tr": "güvenlik kaydı / montaj",
+    "meaning": "Überwachungsaufnahme; der Erzähler vermutet Montage, Nehir: „Tamamı değil“ (nicht ganz)"
+   },
+   {
+    "tr": "üç hafta önce / Leyla'nın ölümünün öğrenildiği günden iki gün sonra",
+    "meaning": "Zeitangabe des Diebstahls: vor drei Wochen, zwei Tage nach Bekanntwerden von Leylas Tod"
+   },
+   {
+    "tr": "14.53",
+    "meaning": "Uhrzeit auf der Armbanduhr – Anspielung auf 1453; als Ziffern belassen"
+   },
+   {
+    "tr": "beyaz tüy",
+    "meaning": "weiße Feder – wiederkehrendes Zeichen/Signatur des Gegners auf Durus Stuhl"
+   },
+   {
+    "tr": "kırmızı defter",
+    "meaning": "das verschwundene rote Heft taucht auf Durus Stuhl wieder auf"
+   },
+   {
+    "tr": "Kızımı bulmak istiyorsam önce ona neden yalan söylediğimi hatırlamalıyım.",
+    "meaning": "Notiz in der eigenen Handschrift des Erzählers: „Wenn ich meine Tochter finden will, muss ich mich zuerst erinnern, warum ich sie belogen habe.“ – fett, Schlüsselsatz"
+   },
+   {
+    "tr": "DÖRDÜNCÜ PERDE — FETİH",
+    "meaning": "Teilüberschrift nach dem Kapitel: „Vierter Akt — Eroberung“ (Fetih = Eroberung, Bezug zu 1453); Style „Book Part“"
+   },
+   {
+    "tr": "Dokunma",
+    "meaning": "„Fass es nicht an“ – dreifach wiederholter Befehl des Erzählers"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum, hohe Spannung, sehr kurze Absätze und Einzeilen-Dialoge; Cem spricht kühl-juristisch und höflich-bedrohlich (Siez-Form „siz“ zwischen Nehir und Cem); aphoristische Erzählerkommentare („Kötülük bazen büyük bir kahkaha atmaz…“); innere Stimmen als Book Inset (fett + kursiv); endet mit Cliffhanger und Akt-Überschrift."
+ },
+ "paras": [
+  {
+   "pid": 2246,
+   "style": "Heading 1",
+   "text": "<b>32. Leyla'nın Son Kaynağı</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2247,
+   "style": "Opening",
+   "text": "“Oradan çık,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2248,
+   "style": "Normal",
+   "text": "Nehir cevap vermedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2249,
+   "style": "Normal",
+   "text": "Cem ekrandan konuşmaya devam etti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2250,
+   "style": "Normal",
+   "text": "“Yangınla ilgili bütün kayıtlar üç ülkedeki mahkeme kararıyla koruma altında. Buradaki bir diski izinsiz alırsan yalnız hırsızlıkla suçlanmayacaksın. Kaynaklarını ve korumaya çalıştığın adamın savunmasını aynı anda tartışmaya açacaksın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2251,
+   "style": "Normal",
+   "text": "“Beni buraya siz çıkardınız,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2252,
+   "style": "Normal",
+   "text": "“Bunu kanıtlayan kayıt yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2253,
+   "style": "Normal",
+   "text": "“Kayıtları siz tutuyorsunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2254,
+   "style": "Normal",
+   "text": "“Tam olarak.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2255,
+   "style": "Normal",
+   "text": "Kötülük bazen büyük bir kahkaha atmaz. Düzgün bir ceket giyer, hukuki bir cümle kurar ve size özgür iradenizle girdiğiniz kapının makbuzunu uzatır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2256,
+   "style": "Normal",
+   "text": "Tarık kamera akışını kesmeye çalıştı; ağ bağlantısı değişti. Yusuf acil çıkışın katın kuzeyinde olması gerektiğini söyledi. Nehir, ekranın karşısındaki metal masada tek bir disk gördü. Üzerinde Leyla'nın el yazısıyla <b>KAYNAK 1453</b> yazıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2257,
+   "style": "Normal",
+   "text": "“Dokunma,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2258,
+   "style": "Normal",
+   "text": "“Ablamın yazısı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2259,
+   "style": "Normal",
+   "text": "“Tam da bu yüzden dokunma.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2260,
+   "style": "Normal",
+   "text": "Cem gülümsedi. “Yanındaki adam artık doğru soruyu soruyor. Geç de olsa.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2261,
+   "style": "Normal",
+   "text": "“Doğru soru ne?” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2262,
+   "style": "Normal",
+   "text": "“Bu diskin neden burada olduğu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2263,
+   "style": "Normal",
+   "text": "Nehir diske yaklaşmadı. Telefonunu masaya doğru tuttu, seri numarasını ve kapağın çiziklerini kaydetti. Sonra acil çıkışa yürüdü. Kapı açılmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2264,
+   "style": "Normal",
+   "text": "“Kartımı mı okutayım?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2265,
+   "style": "Normal",
+   "text": "“Kart değil,” dedi Duru kulaklıktan.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2266,
+   "style": "Normal",
+   "text": "Sesini duyunca öfkelendim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2267,
+   "style": "Normal",
+   "text": "“Duru, bu hatta ne işin var?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2268,
+   "style": "Normal",
+   "text": "“Bir dakika.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2269,
+   "style": "Normal",
+   "text": "Bekledik. Tarık, Nehir'den telefonu kapı kolunun altındaki etikete çevirmesini istedi. Az önce bulduğu bakım sayfasında aynı serinin acil çıkış düzeneği de vardı. Etiketteki son iki harfi büyüttü, doğru modele ait şemayı açtı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2270,
+   "style": "Normal",
+   "text": "“Kart okuyucu giriş için,” dedi. “Çıkış mekanik. Kolu tam indiremiyorsun; kapı kanadı kasaya yük bindirmiş olabilir. Önce kanadı kendine doğru biraz çek, sonra kolu indir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2271,
+   "style": "Normal",
+   "text": "“Duru, sen bunu sesten mi anladın?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2272,
+   "style": "Normal",
+   "text": "“Buradayım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2273,
+   "style": "Normal",
+   "text": "Soruma cevap saydım. Korkarken insan yanındaki sesin mantığını değil, varlığını kontrol ediyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2274,
+   "style": "Normal",
+   "text": "Nehir telefonu cebine koydu. İki eliyle kapıyı kendine çekti; içeride metal sürtündü. Kolu yeniden bastığında bu kez sonuna kadar indi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2275,
+   "style": "Normal",
+   "text": "Kapı açıldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2276,
+   "style": "Book Inset",
+   "text": "<b>TOPLAYICI:</b> <i>Duru önce duydu.</i>",
+   "keep": false,
+   "image": false,
+   "label": "TOPLAYICI",
+   "constraint": null
+  },
+  {
+   "pid": 2277,
+   "style": "Book Inset",
+   "text": "<b>MUHASEBECİ:</b> <i>Ve sen onu korumak isterken bilgisiz bıraktın.</i>",
+   "keep": false,
+   "image": false,
+   "label": "MUHASEBECİ",
+   "constraint": null
+  },
+  {
+   "pid": 2278,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Şimdi çıkmalarını sağla. Sonra suçluluk duyarsın.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 2279,
+   "style": "Normal",
+   "text": "Nehir merdivenlerden inerken Cem'in sesi kattaki hoparlörlerden geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2280,
+   "style": "Normal",
+   "text": "“Diski almadığın için kazandığını sanıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2281,
+   "style": "Normal",
+   "text": "“Bugünlük yeter,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2282,
+   "style": "Normal",
+   "text": "“Onu zaten üç hafta önce aldın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2283,
+   "style": "Normal",
+   "text": "Nehir durdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2284,
+   "style": "Normal",
+   "text": "Ben de nefesimi tuttum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2285,
+   "style": "Normal",
+   "text": "Cem, Nehir'in telefonuna bir güvenlik kaydı gönderdi. Açılan görüntüde Nehir, başka bir gece aynı metal masanın başında duruyor, <b>KAYNAK 1453</b> yazılı diski çantasına koyuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2286,
+   "style": "Normal",
+   "text": "Tarih, Leyla'nın ölümünün öğrenildiği günden iki gün sonraydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2287,
+   "style": "Normal",
+   "text": "Görüntünün devamında Nehir, binanın arka çıkışında Cem'le buluşuyor ve diski ona veriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2288,
+   "style": "Normal",
+   "text": "“Bu montaj,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2289,
+   "style": "Normal",
+   "text": "Nehir hemen cevap vermedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2290,
+   "style": "Normal",
+   "text": "O sessizlik, görüntüden daha ağırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2291,
+   "style": "Normal",
+   "text": "“Tamamı değil,” dedi sonunda.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2292,
+   "style": "Normal",
+   "text": "“Hangi kısmı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2293,
+   "style": "Normal",
+   "text": "“Diski aldım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2294,
+   "style": "Normal",
+   "text": "“Cem'e verdin mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2295,
+   "style": "Normal",
+   "text": "Nehir'in ayak sesleri kesildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2296,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2297,
+   "style": "Normal",
+   "text": "Aynı anda Zeynep aradı. Sesi nefessizdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2298,
+   "style": "Normal",
+   "text": "“Duru evde değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2299,
+   "style": "Normal",
+   "text": "“Az önce benimle konuşuyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2300,
+   "style": "Normal",
+   "text": "“Odasından. Öyle sandım. Telefonu yatağında, kulaklığı bilgisayara bağlı. Biri önceden kaydettiği sesini hatta vermiş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2301,
+   "style": "Normal",
+   "text": "Saatime baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2302,
+   "style": "Normal",
+   "text": "14.53.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2303,
+   "style": "Normal",
+   "text": "Zeynep bir fotoğraf gönderdi. Duru'nun boş sandalyesinde beyaz bir tüy ve kırmızı defterim duruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2304,
+   "style": "Normal",
+   "text": "Defterin üstündeki notu kendi el yazımla yazmıştım:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2305,
+   "style": "Book Inset",
+   "text": "<b>Kızımı bulmak istiyorsam önce ona neden yalan söylediğimi hatırlamalıyım.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2306,
+   "style": "Book Part",
+   "text": "<b>DÖRDÜNCÜ PERDE — FETİH</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

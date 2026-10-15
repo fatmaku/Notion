@@ -1,0 +1,571 @@
+{
+ "uid": "U25",
+ "title": "28. Bir Gün Daha Yaşamak",
+ "number": 28,
+ "words": 338,
+ "constraints": {
+  "uid": "U25",
+  "number": 28,
+  "title": "28. Bir Gün Daha Yaşamak",
+  "title_letter": "B",
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 338
+ },
+ "synopsis": {
+  "uid": "U25",
+  "title": "28. Bir Gün Daha Yaşamak",
+  "summary": "Gegenwart, direkt nach dem Treffen mit Yusuf. Erzähler und Nehir gehen am Ufer entlang; er fragt nach den Umschlägen (zarflar), die Nehir im Tresor einer unabhängigen Anwältin hinterlegt hat – zu öffnen nur mit seiner Sterbeurkunde oder schriftlichen Anweisung, wie es auf den Umschlägen selbst stand. Nehir konfrontiert ihn damit, dass er seit Monaten seine Sachen verteilt (Bücher signiert, die Uhr seines Vaters für Emir reparieren lässt, Durus Kindheitsaufnahmen sichert, Zeyneps Versicherungsakte aktualisiert) – er bereitet sich auf seinen Tod vor, kennt „kein Datum, nur die Richtung: zum Anfang“. Nehir warnt, dass er das Sterben romantisiert und jedes weitere Leben als Verzögerung empfinden wird: „Verschiebe das Leben nicht, während du dich aufs Sterben vorbereitest“ – ausdrücklich ihr eigener Satz, nicht einer von ihrer Schwester. Am Abend geht er mit Emir und Duru ins Kino, Handy aus, erträgt das Summen des Notausgangsschilds, ohne einzuschreiten; Emir hakt sich bei ihm ein; nachts rührt er die Umschläge erstmals nicht an. Am nächsten Morgen ruft Yusuf an: Er soll den Zug um 14.53 nehmen (Ticket Söğütlüçeşme–Ankara, Platz 11) – nicht einsteigen heiße sterben, einsteigen „vielleicht Schlimmeres“. Eine anonyme Nachricht erklärt: Einsteigen = Auserwählter, Nichteinsteigen = Opfer, „wir wollen deinen dritten Weg sehen“.",
+  "characters": [
+   "Ich-Erzähler (Protagonist; bereitet heimlich seinen Tod vor)",
+   "Nehir (Verbündete/Partnerin; hat die Umschläge hinterlegt; hat eine Schwester – „ablam“ –, deren Sätze zuvor als „Wandsprüche“ zitiert wurden)",
+   "Emir (Sohn des Erzählers; soll die Uhr des Großvaters erben; errät Filmenden früh)",
+   "Duru (Tochter des Erzählers; hat Nehir vom Verteilen der Sachen erzählt)",
+   "Zeynep (Familienmitglied im Haushalt der Kinder – Mutter der Kinder/Angehörige; Erzähler kümmert sich um ihre Versicherungsakte; bitte Rolle aus Vorpaketen übernehmen)",
+   "Yusuf Vural (ruft an, überbringt die Zuganweisung als Sprachrohr dessen, was Meralis erwartet)",
+   "Bağımsız avukat (unabhängige:r Anwält:in mit Tresor; vermutlich Selin)",
+   "Nehirs Schwester (abla; nur erwähnt, Quelle früherer „duvar yazısı“-Sätze)",
+   "Meralis (anonymer Absender der Botschaft)"
+  ],
+  "terms": [
+   {
+    "tr": "Zarflar",
+    "meaning": "Die Umschläge – Abschiedsbriefe/Verfügungen des Erzählers; wiederkehrendes Objekt, jetzt im Anwaltstresor"
+   },
+   {
+    "tr": "Ölüm belgesi",
+    "meaning": "Sterbeurkunde (Bedingung zum Öffnen der Umschläge)"
+   },
+   {
+    "tr": "„Ben açamazsam ölüm belgesiyle açın.“",
+    "meaning": "Aufschrift auf den Umschlägen: Wenn ich sie nicht öffnen kann, öffnet sie mit der Sterbeurkunde"
+   },
+   {
+    "tr": "Dağıtmak / düzenlemek",
+    "meaning": "Wortspiel: Duru sagt, er „verteile“ (dağıtmak) seine Sachen; er behauptet, er „ordne“ (düzenlemek) – im Deutschen Doppeldeutigkeit (verteilen/verstreuen) mitdenken"
+   },
+   {
+    "tr": "Babanın saati",
+    "meaning": "Die Uhr des Vaters des Erzählers (Erbstück für Emir); Uhren-Motiv (vgl. Narbe über der Braue in U26)"
+   },
+   {
+    "tr": "Başlangıç",
+    "meaning": "„Der Anfang“ – Richtung, in die der Erzähler zu gehen glaubt (1453-Motiv/Ursprung)"
+   },
+   {
+    "tr": "İş bitirme listesi",
+    "meaning": "To-do-Liste – Nehirs Bild: Leben wird zur Abarbeitungsliste, wenn man den Tod an eine Mission bindet"
+   },
+   {
+    "tr": "Duvar yazısı",
+    "meaning": "„Wandspruch“ – Erzähler-Spott über Nehirs Aphorismen; „Ablamdan değil. Benden.“ (nicht von meiner Schwester, von mir) verweist auf frühere Kapitel, in denen Nehirs Schwester Sätze an Wände schrieb"
+   },
+   {
+    "tr": "Yan çıkış levhası",
+    "meaning": "Notausgangsschild – dessen Elektrosummen hört der Erzähler (sensorische Hypersensibilität); er schreitet diesmal nicht ein"
+   },
+   {
+    "tr": "Söğütlüçeşme",
+    "meaning": "Bahnhof auf der asiatischen Seite Istanbuls (Kadıköy), Abfahrtsort des Hochgeschwindigkeitszugs nach Ankara"
+   },
+   {
+    "tr": "Koltuk 11 / 14.53",
+    "meaning": "Platz 11, Abfahrt 14.53 – Uhrzeit mit Anklang an 1453; als Ziffern beibehalten"
+   },
+   {
+    "tr": "Seçilmiş kişi / kurban / üçüncü yol",
+    "meaning": "Auserwählter / Opfer / dritter Weg – die Dreiteilung aus der anonymen Botschaft, in U26 aufgenommen"
+   },
+   {
+    "tr": "Zeynep",
+    "meaning": "Eigenname; Haushalt, in dem die Kinder sind (U26: „Zeynep çocuklarla evdeydi“)"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum; intimes, leises Kapitel mit schnellen, kurzen Dialogzeilen (Schlagabtausch, einsilbige Antworten: „Yalan.“ – „İki.“). Melancholisch, mit trockenem Witz des Erzählers („O ayrı bir suç dosyası“). Wechsel zu knappem Thriller-Telefonat mit Yusuf; Schluss mit kursiver anonymer Botschaft als Book-Inset."
+ },
+ "paras": [
+  {
+   "pid": 2037,
+   "style": "Heading 1",
+   "text": "<b>28. Bir Gün Daha Yaşamak</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "SENI_BUL",
+    "index": 4,
+    "n": 7
+   }
+  },
+  {
+   "pid": 2038,
+   "style": "Opening",
+   "text": "Görüşmeden sonra Nehir'le sahilde yürüdük. Deniz, rüzgârın altında koyu metal gibi kıvrılıyordu. Bir martı çöp kutusundan ekmek poşeti çıkarıp bütün kaldırıma dağıttı. İnsan medeniyetinin ince tabakası, aç bir kuşun gagası karşısında on saniye dayanmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2039,
+   "style": "Normal",
+   "text": "“Zarflar nerede?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2040,
+   "style": "Normal",
+   "text": "“Güvende.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2041,
+   "style": "Normal",
+   "text": "“Bu kez yeri bilmek istiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2042,
+   "style": "Normal",
+   "text": "Nehir adresi söyledi. Bağımsız avukatın kasasındaydı; açılması için benim ölüm belgem veya yazılı talimatım gerekiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2043,
+   "style": "Normal",
+   "text": "“Ölüm belgesi kısmını sen mi ekledin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2044,
+   "style": "Normal",
+   "text": "“Zarfların üstündeki notu okudum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2045,
+   "style": "Normal",
+   "text": "“Açmayacağına söz verdin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2046,
+   "style": "Normal",
+   "text": "“Dışında yazıyordu: ‘Ben açamazsam ölüm belgesiyle açın.’”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2047,
+   "style": "Normal",
+   "text": "Onu unutmuştum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2048,
+   "style": "Normal",
+   "text": "“Bunu ne zamandır yapıyorsun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2049,
+   "style": "Normal",
+   "text": "“Bir haftadır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2050,
+   "style": "Normal",
+   "text": "“Yalan.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2051,
+   "style": "Normal",
+   "text": "“İki.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2052,
+   "style": "Normal",
+   "text": "“Duru, senin aylardır eşyalarını dağıttığını söyledi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2053,
+   "style": "Normal",
+   "text": "“Düzenlediğimi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2054,
+   "style": "Normal",
+   "text": "“Hayır. İnsanlara dağıttığını. Eski kitaplarını imzalayıp veriyorsun. Babanın saatini Emir için tamir ettiriyorsun. Duru'nun çocukluk kayıtlarını ayrı diske koymuşsun. Zeynep'in evindeki sigorta dosyasını güncellemişsin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2055,
+   "style": "Normal",
+   "text": "“Bunlar sorumluluk.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2056,
+   "style": "Normal",
+   "text": "“Senin sorumlulukla ilişkin aniden bu kadar düzelirse insan şüphelenir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2057,
+   "style": "Normal",
+   "text": "Gülümsedim. O gülmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2058,
+   "style": "Normal",
+   "text": "“Tarih bilmiyorum,” dedim. “Yalnız yön biliyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2059,
+   "style": "Normal",
+   "text": "“Nereye?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2060,
+   "style": "Normal",
+   "text": "“Başlangıca.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2061,
+   "style": "Normal",
+   "text": "“Bunu romantikleştirme.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2062,
+   "style": "Normal",
+   "text": "“Çalışıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2063,
+   "style": "Normal",
+   "text": "“Hayır. Ölümü anlamlı bir görevin sonuna bağlarsan yaşamayı iş bitirme listesine çevirirsin. Sonra hâlâ burada olduğun her gün sana gecikme gibi gelir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2064,
+   "style": "Normal",
+   "text": "Bu cümle beni durdurdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2065,
+   "style": "Normal",
+   "text": "Belki de gideceğimi hissettiğim için hazırlanmıyordum. Hazırlandığım için her şeyi son gibi hissediyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2066,
+   "style": "Normal",
+   "text": "“Ne yapmamı istiyorsun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2067,
+   "style": "Normal",
+   "text": "“Ölmeye hazırlanırken yaşamayı erteleme.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2068,
+   "style": "Normal",
+   "text": "“Bu da duvar yazısı gibi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2069,
+   "style": "Normal",
+   "text": "“Ablamdan değil. Benden.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2070,
+   "style": "Normal",
+   "text": "O akşam çocuklarla sinemaya gittim. Telefonumu kapattım. Film kötüydü. Emir sonunu ilk yirmi dakikada tahmin etti, Duru başrolün bütün kararlarına sinirlendi. Ben film boyunca yan çıkış levhasının elektrik sesini duydum; fakat bir kez olsun kalkıp görevliye söylemedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2071,
+   "style": "Normal",
+   "text": "Çıkışta Duru, “Beğendin mi?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2072,
+   "style": "Normal",
+   "text": "“Sizinle izlemeyi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2073,
+   "style": "Normal",
+   "text": "“Film?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2074,
+   "style": "Normal",
+   "text": "“O ayrı bir suç dosyası.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2075,
+   "style": "Normal",
+   "text": "Emir koluma girdi. Normalde yapmazdı. Belki Nehir ona bir şey söylemişti. Belki çocuklar, yetişkinlerin saklamaya çalıştığı korkuyu sesin altından duyuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2076,
+   "style": "Normal",
+   "text": "O gece ilk kez zarflara dokunmadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2077,
+   "style": "Normal",
+   "text": "Ertesi sabah Yusuf aradı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2078,
+   "style": "Normal",
+   "text": "“Saat 14.53 trenine bin,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2079,
+   "style": "Normal",
+   "text": "“Nereye?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2080,
+   "style": "Normal",
+   "text": "“Bilet telefonunda.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2081,
+   "style": "Normal",
+   "text": "“Binmezsem?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2082,
+   "style": "Normal",
+   "text": "“Öleceksin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2083,
+   "style": "Normal",
+   "text": "“Binersem?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2084,
+   "style": "Normal",
+   "text": "“Belki daha kötü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2085,
+   "style": "Normal",
+   "text": "“İnsanları ikna etme eğitiminizin eksik kaldığı belli.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2086,
+   "style": "Normal",
+   "text": "“Seni ikna etmiyorum. Meralis'in hangi cevabı beklediğini söylüyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2087,
+   "style": "Normal",
+   "text": "Telefonuma bilet geldi. Söğütlüçeşme'den Ankara'ya. Koltuk 11. Kalkış 14.53.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2088,
+   "style": "Normal",
+   "text": "Altında isimsiz bir mesaj:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2089,
+   "style": "Book Inset",
+   "text": "<i>Trene binersen seçilmiş kişi olacaksın. Binmezsen kurban. Üçüncü yolunu görmek istiyoruz.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

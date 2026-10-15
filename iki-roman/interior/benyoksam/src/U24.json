@@ -1,0 +1,846 @@
+{
+ "uid": "U24",
+ "title": "26. Aynı Yöntemin Farklı Logoları",
+ "number": 26,
+ "words": 1186,
+ "constraints": {
+  "uid": "U24",
+  "number": 26,
+  "title": "26. Aynı Yöntemin Farklı Logoları",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 1186
+ },
+ "synopsis": {
+  "uid": "U24",
+  "title": "26. Aynı Yöntemin Farklı Logoları",
+  "summary": "Gegenwart, unmittelbar nach dem Brand der Werkstatt (Atölye) am Ende des Vorpakets. Der Ich-Erzähler erkennt, dass der auf der verbrannten Seite als „erster Satz“ ausgewiesene Satz tatsächlich von ihm stammt – aus seinem roten Notizbuch von vor sieben Jahren, wo er als Verteidigungsprinzip gegen die eigene Verwundung stand; in der Neuauflage des Schwarzen Buchs wurde er zum Auftakt eines Angriffsplans umgedeutet. Eine forensische Untersuchung zeigt, dass das Wort „Nehir'e“ nachträglich per Mikro-Transferdruck aus seinen Handschriftbuchstaben eingefügt wurde – Meralis hat die Vergangenheit manipuliert, um ihn an seinem Gedächtnis zweifeln zu lassen. Nach dem Brand verschwindet die Istanbuler Zelle; Meralis distanziert sich öffentlich. Erzähler und Nehir analysieren die gerettete Weltkarte (Stiftungen in Nairobi, Toronto, London, Singapur, Berlin, verbunden über Fonds, Verwaltungsfirmen, Kanzleien und sieben Nachnamen – „Pilzgeflecht statt Spinnennetz“) und lesen die Fallakten der Lehrerin Ekin (Berlin, DOĞUŞTAN AÇIK) und der Pflegekraft Sora (Nairobi, GEÇ UYANAN), die zeigen, wie Meralis „Erwachte“ über Scheinselbsthilfegruppen in Verschwörungsglauben lenkt. Beim Treffen mit Yusuf Vural in einem Teegarten hinter Haydarpaşa (neben einem alten Friedhof) erklärt dieser, dass Meralis nur die moderne, datenbasierte Form uralter Kontrollmethoden sei; er zeigt sein kommentiertes lila Handbuch, kündigt erstmals verbindlich die Übergabe eines Metallkoffers an (Foto + Hinterlegungsschein gehen an Anwältin Selin), entschlüsselt die Akte „VELA / EĞİTİM REFORMU / RİSK: ALFA“ (Präsident Arman Vela des fiktiven Landes Orenda, Flugzeugabsturz nach Bildungsreform – Codenamen; Struktur ähnelt Leylas Tod) und das Akronym ALFA. Yusufs kurze körperliche Reaktion bei Cems Namen deutet an, dass er mehr über Cem weiß, als er zugibt. Das Kapitel endet mit den inneren Stimmen GÖLGE und ŞÜPHECİ und Yusufs Warnung vor der Lüge „Du bist zu wach, um dich zu irren“.",
+  "characters": [
+   "Ich-Erzähler (Protagonist, Verfasser des roten Notizbuchs, Vater von Emir und Duru; ADHS/neurodivergent, hört z. B. Elektrosummen)",
+   "Nehir (engste Verbündete/Partnerin des Erzählers, Ermittlerin, analytisch, trocken-ironisch)",
+   "Yusuf Vural (alter Mann; 1978 Übersetzer von A-1453, nicht dessen Autor; trägt diesmal braunes Jackett statt grauen Mantels, Stoffbeutel; besitzt das lila Handbuch)",
+   "Meralis (Konzern/Organisation, Gegenspieler; führt Akten über „Risikogruppen“)",
+   "Cem (Meralis-Manager, Entegrasyon-Typ; Yusuf kennt „seine Akte“)",
+   "Selin (unabhängige Anwältin der Gruppe; erhält Foto und Hinterlegungsschein)",
+   "Ekin (Lehrerin in Berlin, Fallakte DOĞUŞTAN AÇIK)",
+   "Sora (Gesundheitsmitarbeiterin in Nairobi, Fallakte GEÇ UYANAN, Brandüberlebende)",
+   "Arman Vela (Codename; Präsident des fiktiven Landes Orenda, starb bei Flugzeugabsturz)",
+   "Leyla (bereits tot; ihr Tod hatte dieselbe Struktur einer „bewusst nicht geschützten Gefahr“)",
+   "GÖLGE (innere Stimme des Erzählers, „Schatten“, verführerisch)",
+   "ŞÜPHECİ (innere Stimme des Erzählers, „Skeptiker“, warnend)"
+  ],
+  "terms": [
+   {
+    "tr": "Kırmızı defter",
+    "meaning": "Das rote Notizbuch des Erzählers; Quelle des manipulierten „ersten Satzes“ und seiner Handschrift"
+   },
+   {
+    "tr": "Siyah kitap",
+    "meaning": "Das Schwarze Buch – ideologische Schrift der Zelle/Sekte, teilt Menschen in Schlafende/Erwachte; Neuauflage enthält den gestohlenen Satz"
+   },
+   {
+    "tr": "Mor el kitabı",
+    "meaning": "Lila Handbuch (Meralis-Methodenhandbuch); Yusufs Exemplar mit Randnotizen über historische Anwendungen"
+   },
+   {
+    "tr": "A-1453",
+    "meaning": "Der Urtext/das Buch, dessen erster Übersetzer (1978) Yusuf Vural ist – „ilk çevirmen“, nicht „ilk yazar“"
+   },
+   {
+    "tr": "İlk yazar",
+    "meaning": "„Erster Autor“ im Systemjargon: wer einen neuen Satz ins System einspeist, nicht der Verfasser des Gesamttexts"
+   },
+   {
+    "tr": "Bir insanı susturmanın en kolay yolu … söyletmektir.",
+    "meaning": "Zitat aus dem roten Notizbuch (Schlüsselsatz des Romans): Man bringt jemanden zum Schweigen, indem man ihn eine so große Wahrheit sagen lässt, dass alle widersprechen. Konsistent übersetzen, kehrt wieder"
+   },
+   {
+    "tr": "İkinci kitabı vermeden önce onu denemeliyim. / Nehir'e",
+    "meaning": "Alter Satz unter Infrarot; „Nehir'e“ (für Nehir / Nehir gegenüber) nachträglich eingefügt"
+   },
+   {
+    "tr": "Aktarım baskısı",
+    "meaning": "Transferdruck – Fälschungstechnik, mit der Handschriftbuchstaben übertragen wurden"
+   },
+   {
+    "tr": "Atölye",
+    "meaning": "Die (abgebrannte) Werkstatt der Istanbuler Zelle"
+   },
+   {
+    "tr": "İstanbul hücresi",
+    "meaning": "Istanbuler Zelle (Untergrundgruppe), nach dem Brand verschwunden"
+   },
+   {
+    "tr": "Karşı anlatı",
+    "meaning": "Gegennarrativ – Meralis' vorbereitete PR-Erklärung"
+   },
+   {
+    "tr": "Mantar kökü / örümcek ağı",
+    "meaning": "Pilzgeflecht (Myzel) statt Spinnennetz: Netzwerk ohne Zentrum (Nehirs Bild)"
+   },
+   {
+    "tr": "UYUYAN / GEÇ UYANAN / DOĞUŞTAN AÇIK / ENTEGRASYON / ÇÖZÜLME",
+    "meaning": "Meralis-Kategorien (Schlafend / Spät erwacht / Von Geburt an offen / Integration / Auflösung): im Schwarzen Buch Menschentypen, intern Marketing- und Risikogruppen. Als Großbuchstaben-Codes beibehalten"
+   },
+   {
+    "tr": "Entegrasyon adayı",
+    "meaning": "Integrationskandidat: „böser Erwachter“, der Wahrnehmung zur Kontrolle nutzt und von Meralis rekrutiert wird (Anspielung auf Cem)"
+   },
+   {
+    "tr": "Uyanmış / uyanmak",
+    "meaning": "„Erwacht(e)“ – Zentralbegriff; hier neu definiert als „unterscheiden können“ statt „glauben“"
+   },
+   {
+    "tr": "Uyumak vs. dinlenmek",
+    "meaning": "Schlafen (nicht sehen wollen) vs. Ausruhen (das Gesehene eine Weile nicht tragen) – Nehirs Unterscheidung, Wortfeld bitte durchhalten"
+   },
+   {
+    "tr": "Haydarpaşa",
+    "meaning": "Historischer Bahnhof in Kadıköy/Istanbul; dahinter Friedhof und Teegarten (Treffpunkt)"
+   },
+   {
+    "tr": "Çay bahçesi",
+    "meaning": "Teegarten"
+   },
+   {
+    "tr": "Metal taşıma çantası / teslim fişi / emanet kayıtları",
+    "meaning": "Metallkoffer, Übergabeschein, Hinterlegungsakten – Yusufs angekündigte Beweisübergabe"
+   },
+   {
+    "tr": "VELA / EĞİTİM REFORMU / RİSK: ALFA",
+    "meaning": "Aktentitel auf der Karte (Vela / Bildungsreform / Risiko: ALFA)"
+   },
+   {
+    "tr": "Orenda",
+    "meaning": "Fiktives kleines europäisches Land (Codename in den Akten)"
+   },
+   {
+    "tr": "ALFA: Algı — Link kurma — Farkındalık — Ahlaki bağımsızlık",
+    "meaning": "Akronym (Wahrnehmung – Verknüpfen – Bewusstheit – moralische Unabhängigkeit); Risikoklasse, kein Menschentyp. Beim Übersetzen Akronym ALFA möglichst erhalten, ggf. Anpassung der Ausformulierung"
+   },
+   {
+    "tr": "DEHB",
+    "meaning": "ADHS"
+   },
+   {
+    "tr": "Nörotipik",
+    "meaning": "neurotypisch"
+   },
+   {
+    "tr": "Taşeron",
+    "meaning": "Subunternehmer – Mechanismus indirekter Befehlsketten („das Wort Feuer fällt nie“)"
+   },
+   {
+    "tr": "GÖLGE / ŞÜPHECİ",
+    "meaning": "Innere Stimmen des Erzählers („Schatten“/„Skeptiker“), als Book-Inset formatiert; feste Bezeichnungen aus früheren Kapiteln"
+   },
+   {
+    "tr": "En güvenli yalan … ‘Sen yanılmayacak kadar uyanıksın’",
+    "meaning": "Yusufs Schlusssatz: Die sicherste Lüge ist nicht „Du bist schwach“, sondern „Du bist zu wach, um dich zu irren“"
+   },
+   {
+    "tr": "Abi/Hoca/Hanım",
+    "meaning": "In diesem Paket keine Anredeformen; Erzähler und Yusuf siezen sich („tanıyor musunuz“), Nehir und Erzähler duzen sich"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum, mit knappen Dialogen; analytisch-ermittelnder Thriller-Ton mit essayistischen Passagen (Traumareflexion, Kategorienkritik). Trockener Humor zwischen Erzähler und Nehir („Suç araştırırken gastronomi bekleme“). Zitate, Aktentitel und Akronyme als Book-Inset (fett/kursiv); innere Stimmen GÖLGE/ŞÜPHECİ als beschriftete Einwürfe. Hinweis: Kapitelnummerierung springt von 26 auf 28 (kein Kapitel 27 im Paket) – beibehalten."
+ },
+ "paras": [
+  {
+   "pid": 1960,
+   "style": "Heading 1",
+   "text": "<b>26. Aynı Yöntemin Farklı Logoları</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1961,
+   "style": "Opening",
+   "text": "İlk cümleyi ben yazmıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1962,
+   "style": "Normal",
+   "text": "Kitabı değil.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1963,
+   "style": "Normal",
+   "text": "Yanan sayfadaki el yazısı gerçeğe benziyordu; fakat cümlenin kendisi kırmızı defterimde vardı. Yedi yıl önce, insanın kendi yarasına karşı nasıl savunma geliştirebileceğini yazarken şu başlığı kullanmıştım:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1964,
+   "style": "Book Inset",
+   "text": "<b>Bir insanı susturmanın en kolay yolu sesini kesmek değildir. Ona, herkesin karşı çıkacağı kadar büyük bir hakikat söyletmektir.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1965,
+   "style": "Normal",
+   "text": "Yusuf'un 1978 çevirisinde bu cümle yoktu. Siyah kitabın yeni baskısında vardı. Ben bir savunma ilkesi yazmıştım; birileri onu saldırı planının girişine çevirmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1966,
+   "style": "Normal",
+   "text": "Atölyedeki adli kopyada Nehir'in adının geçtiği satır da incelendi. Sayfanın köşesindeki tarih yedi yıl öncesine aitti; mürekkebin tamamı değil. Kızılötesi görüntüde eski cümle şöyleydi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1967,
+   "style": "Book Inset",
+   "text": "<i>İkinci kitabı vermeden önce onu denemeliyim.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1968,
+   "style": "Normal",
+   "text": "<b>Nehir'e</b> kelimesi daha sonra, kırmızı defterimdeki harflerden üretilen mikroskobik bir aktarım baskısıyla araya eklenmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1969,
+   "style": "Normal",
+   "text": "Nehir'le yedi yıl önce tanışmamıştım. Meralis geçmişe adını yazmış, sonra benden kendi hafızamı suçlamamı beklemişti. Cevap beni rahatlatmadı. Nehir'in gönderdiği sayfalardan harflerimi alabilirlerdi. Peki ellerindeki yalnız o seçki miydi, yoksa defterin bilmediğimiz başka yerlerine de ulaşmışlar mıydı?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1970,
+   "style": "Normal",
+   "text": "“İlk yazar demek bu,” dedi Nehir. “Metnin tamamını yazdığın anlamına gelmiyor. Sisteme yeni cümleyi sokan kişi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1971,
+   "style": "Normal",
+   "text": "“O zaman Meralis beni yedi yıldır izlemiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1972,
+   "style": "Normal",
+   "text": "“Daha uzun süredir mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1973,
+   "style": "Normal",
+   "text": "“Ya da daha eski bir arşivi kullanıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1974,
+   "style": "Normal",
+   "text": "Yangından sonra İstanbul hücresi ortadan kayboldu. Meralis binası açıktı, çalışanlar işlerine gidiyordu; fakat Cem toplantılarını iptal etmiş, şirket açıklama yayımlamıştı. Açıklamada atölyeyle ilişkileri olmadığı, “radikal grupların Meralis adını kullanarak yanlış bilgi ürettiği” yazıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1975,
+   "style": "Normal",
+   "text": "Yangın sürerken karşı anlatı hazırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1976,
+   "style": "Normal",
+   "text": "Kurtardığımız küresel haritadaki kuruluşları araştırdık. İlk bakışta birbirleriyle ilgisizdiler. Nairobi'de duyusal eğitim vakfı. Toronto'da iş gücü dayanıklılık yazılımı. Londra'da davranışsal risk sigortası. Singapur'da kamu güveni laboratuvarı. Berlin'de nörobilişsel performans merkezi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1977,
+   "style": "Normal",
+   "text": "Ortak isim yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1978,
+   "style": "Normal",
+   "text": "Ortak yatırım fonları vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1979,
+   "style": "Normal",
+   "text": "Fonların ortak yönetim şirketleri.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1980,
+   "style": "Normal",
+   "text": "Yönetim şirketlerinin aynı hukuk büroları.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1981,
+   "style": "Normal",
+   "text": "Hukuk bürolarının danışman listelerinde aynı yedi soyadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1982,
+   "style": "Normal",
+   "text": "“Bir örümcek ağı değil,” dedi Nehir. “Örümcek ağında merkez vardır. Bu mantar kökü gibi. Bir parçasını kesince başka yerden çıkıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1983,
+   "style": "Normal",
+   "text": "“Bunu daha iştah açıcı bir şeye benzetemez miydin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1984,
+   "style": "Normal",
+   "text": "“Suç araştırırken gastronomi bekleme.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1985,
+   "style": "Normal",
+   "text": "Haritadaki hedef dosyalarının bir kısmı isim yerine renk taşıyordu. <b>UYUYAN</b>, <b>GEÇ UYANAN</b>, <b>DOĞUŞTAN AÇIK</b>, <b>ENTEGRASYON</b>, <b>ÇÖZÜLME</b>. Siyah kitap bunları insan türleri gibi anlatıyordu. Meralis'in iç yazışmalarıysa daha soğuktu: Bunlar pazarlama ve risk gruplarıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1986,
+   "style": "Normal",
+   "text": "Berlin dosyasında Ekin adlı bir öğretmen vardı. Okulun sınav sonuçlarındaki düzenli oynama farkını bulmuş, yönetim onu “takıntılı, ekip çalışmasına kapalı ve kurumsal güveni zedeleyen” biri olarak raporlamıştı. Ekin çocukluğundan beri benzer tutarsızlıkları görüyordu; Meralis onu <b>DOĞUŞTAN AÇIK</b> diye sınıflandırmıştı. Önce kendisine destek grubu önerilmiş, sonra gruptaki sahte bir üye onu okul müdürünün bütün sistemi yöneten suç ağının başı olduğuna ikna etmeye çalışmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1987,
+   "style": "Normal",
+   "text": "Ekin bu büyük iddiayı reddetmişti. Çünkü küçük sahtekârlığın kanıtı vardı, büyük komplonun yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1988,
+   "style": "Normal",
+   "text": "“Uyanmış dedikleri bu mu?” diye sordum. “İnanmak değil, ayırabilmek mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1989,
+   "style": "Normal",
+   "text": "“Dosyaya göre tehlikeli olan yanı bu,” dedi Nehir. “Onu yücelterek yönlendirememişler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1990,
+   "style": "Normal",
+   "text": "İkinci dosya Nairobi'den Sora adlı bir sağlık çalışanına aitti. Büyük bir bina yangınından sağ çıktıktan sonra seslere, kokulara ve insanların küçük davranış değişikliklerine karşı aşırı tetikte yaşamaya başlamıştı. Daha önce “uyuyan” diye sınıflandırılan profili, travmadan sonra <b>GEÇ UYANAN</b> olarak değiştirilmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1991,
+   "style": "Normal",
+   "text": "Sora ilk aylarda gördüğü her tehlike işaretinin gerçek olduğuna inanmıştı. Uyumak için içiyor, içtikçe rüyalarla anıları birbirine karıştırıyordu. Meralis'in sözde destek programı ona içkiyi bırakması için yardım etmiş, aynı zamanda korkularını belirli siyasi gruplara yönlendirmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1992,
+   "style": "Normal",
+   "text": "“Bir insan travmayla gerçekten uyanabilir mi?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1993,
+   "style": "Normal",
+   "text": "Nehir dosyayı kapattı. “Belki tehlikeye uyanır. Bu, evrenin bütün gerçeğine uyandığı anlamına gelmez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1994,
+   "style": "Normal",
+   "text": "Bazen insanın sinir sistemi yangın bittikten sonra alarmı kapatamıyordu. Alkol, madde, aşırı çalışma, sürekli seks, kumar ya da ekran; hepsi sessizliğe benzeyen kısa bir oda sunabilirdi. Bir kez bir şeyi fark ettikten sonra eski hâle dönmek mümkün olmayabilirdi, ama bu sonsuza kadar çıplak sinirle yaşamak zorunda olduğun anlamına gelmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1995,
+   "style": "Normal",
+   "text": "“Ben de bazen uyumak istiyorum,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1996,
+   "style": "Normal",
+   "text": "Nehir bana baktı. “Uyumak mı, dinlenmek mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1997,
+   "style": "Normal",
+   "text": "“Farkı ne?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1998,
+   "style": "Normal",
+   "text": "“Uyumak dediğinde görmemeyi istiyorsun. Dinlenmekte gördüğünü bir süre taşımıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1999,
+   "style": "Normal",
+   "text": "Dosyalarda bu ayrım yoktu. Meralis insanı ya etkisiz ya kullanılabilir sayıyordu. Siyah kitap ise ya uyuyan ya uyanmış. İki anlatı da aradaki yorgun, kararsız, yardım isteyen insanı görünmez yapıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2000,
+   "style": "Normal",
+   "text": "Yusuf bizimle yüz yüze görüşmeyi kabul etti. Yer olarak Haydarpaşa'nın arkasındaki eski bir mezarlığın yanındaki çay bahçesini seçti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2001,
+   "style": "Normal",
+   "text": "Gri paltosunu giymemişti. Kahverengi bir ceket, yıpranmış ayakkabılar ve elinde bez çanta vardı. Onu sokakta görsem emekli öğretmen sanırdım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2002,
+   "style": "Normal",
+   "text": "“Atölyeyi kim yaktı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2003,
+   "style": "Normal",
+   "text": "“Meralis'in doğrudan çalışanı olmayabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2004,
+   "style": "Normal",
+   "text": "“Bu cevap, şirket avukatının cevabı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2005,
+   "style": "Normal",
+   "text": "“Çünkü sistem öyle çalışıyor. Bir taşeronun borçlu çalışanına ‘dosyaları yok et, borcun silinsin’ denir. Emir zincirinde ateş kelimesi geçmez. Sonuç yine ateştir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2006,
+   "style": "Normal",
+   "text": "Yusuf bez çantasından mor el kitabının başka bir kopyasını çıkardı. Kenarlarına yıllar boyunca notlar düşmüştü. Aynı yöntemlerin nerelerde ortaya çıktığını işaretlemişti: savaş sonrası yeniden eğitim programları, fabrika işçi seçimi, okul disiplin sistemleri, reklam araştırmaları, siyasi kampanyalar, bağımlılık tedavileri, tarikat çözme programları ve tarikatların kendisi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2007,
+   "style": "Normal",
+   "text": "Ardından kapalı bir metal taşıma çantasının fotoğrafını ve eski teslim fişini çıkardı. Nehir, isteği üzerine ikisini Selin'e yolladı. Avukat telefonda çantanın kendisini ve önceki emanet kayıtlarını görmek istedi. Yusuf, “Bugün getireceğim,” dedi. Fişi Nehir'e bıraktı; konuşup kaybolmak yerine ilk kez önümüzde bir teslim saati belirlemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2008,
+   "style": "Normal",
+   "text": "Yusuf, Meralis'in binlerce yıllık tek örgüt olmadığını anlattı. Eski imparatorluklar, loncalar ve dinî kurumlar insanları utanç, ödül, dışlanma ve seçilmişlik üzerinden yönetmişti. Modern şirketler bu yöntemleri ölçülebilir veriye çevirmişti. Her çağ öncekinden belgeler devralmış, işe yarayanı yeni ahlak diliyle paketlemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2009,
+   "style": "Normal",
+   "text": "“Karanlık güç dediğiniz şey insanlar mı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2010,
+   "style": "Normal",
+   "text": "“İnsanların bir seçimi,” dedi Yusuf. “Başkalarının özgürlüğü yerine kontrolü seçmek. O seçim kuruma dönüşünce, seçimi yapan ölse bile yöntem yaşamaya devam eder.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2011,
+   "style": "Normal",
+   "text": "Nehir haritadaki bir dosyayı gösterdi. <b>VELA / EĞİTİM REFORMU / RİSK: ALFA</b>.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2012,
+   "style": "Normal",
+   "text": "Arman Vela, on iki yıl önce küçük Avrupa ülkesi Orenda'nın devlet başkanıydı. Ülkenin okullarında tek başarı ölçüsü yerine farklı dikkat ve öğrenme biçimlerine göre program hazırlayan bir reform açıklamıştı. Bir ay sonra uçağı düşmüş, kazanın bakım hatasından kaynaklandığı bildirilmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2013,
+   "style": "Normal",
+   "text": "“Gerçek başkan mı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2014,
+   "style": "Normal",
+   "text": "“Orenda ve Vela bu dosyalarda geçen kod adları,” dedi Nehir. “Hangi olaya denk geldiğini bilmiyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2015,
+   "style": "Normal",
+   "text": "Yusuf başını salladı. “Gerçek bir olaydan türetilmiş olabilir. Ama belgenin doğrulanmayan kısmını gerçek tarihe yapıştırırsanız Meralis kazanır. İnsanları size karşı çıkaracak kadar büyük bir iddia söylemiş olursunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2016,
+   "style": "Normal",
+   "text": "Dosyada uçak firmasının güvenlik uyarısını aylarca beklettiği, bakım taşeronunun aynı Meralis fonundan kredi aldığı ve reform sonrasında bu kredinin silindiği yazıyordu. Doğrudan “uçağı düşür” emri yoktu. Ölüm, bilerek korunmayan bir riskin içinde gerçekleşmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2017,
+   "style": "Normal",
+   "text": "Leyla'nın ölümüne benzeyen bir yapı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2018,
+   "style": "Normal",
+   "text": "“ALFA ne?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2019,
+   "style": "Normal",
+   "text": "Yusuf mor kitabın arka kapağından katlanmış bir kâğıt çıkardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2020,
+   "style": "Book Inset",
+   "text": "<b>ALFA: Algı — Link kurma — Farkındalık — Ahlaki bağımsızlık</b>",
+   "keep": false,
+   "image": false,
+   "label": "ALFA",
+   "constraint": null
+  },
+  {
+   "pid": 2021,
+   "style": "Normal",
+   "text": "“Bir insan türü değil,” dedi. “Risk sınıfı. Örüntüleri hızlı bağlayan, başkalarına güvenilir dil verebilen ve ödülle kolay yön değiştirmeyen kişiler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2022,
+   "style": "Normal",
+   "text": "“DEHB ve otizm?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2023,
+   "style": "Normal",
+   "text": "“Listede çoklar. Ama herkes değil. Bazıları tanısız. Bazıları nörotipik. Meralis tanıdan çok etkiye bakıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2024,
+   "style": "Normal",
+   "text": "“Peki kötü uyanmışlar?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2025,
+   "style": "Normal",
+   "text": "“Dosyada başka kodları var: Entegrasyon adayı. Aynı algıyı kontrol için kullanan kişiyi tehdit saymıyorlar. İşe alıyorlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2026,
+   "style": "Normal",
+   "text": "Cem'i düşündüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2027,
+   "style": "Normal",
+   "text": "Yusuf'un başparmağı mor kitabın kapağında durdu. Tırnağının altındaki kâğıt lifi beyazladı. Yalnız bir saniyeydi; sonra elini çay bardağına götürdü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2028,
+   "style": "Normal",
+   "text": "“Onu tanıyor musunuz?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2029,
+   "style": "Normal",
+   "text": "“Dosyasını,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2030,
+   "style": "Normal",
+   "text": "Doğru bir cevaptı. Sorunun tamamına verilmemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2031,
+   "style": "Normal",
+   "text": "“Siyah kitap bunu biyolojik savaşa çeviriyor,” dedi Nehir. “İyi farklı beyinler ve kötü farklı beyinler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2032,
+   "style": "Normal",
+   "text": "“Çünkü insan, ahlaki seçimin yükünden kaçıp doğuştan iyi olduğuna inanmayı seviyor,” dedi Yusuf.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2033,
+   "style": "Book Inset",
+   "text": "<b>GÖLGE:</b> <i>Doğuştan güçlü olmak da kötü bir ödül sayılmaz.</i>",
+   "keep": false,
+   "image": false,
+   "label": "GÖLGE",
+   "constraint": null
+  },
+  {
+   "pid": 2034,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>İşte kitabın sana açtığı kapı.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 2035,
+   "style": "Normal",
+   "text": "Yusuf bana baktı. Sanki içimdeki konuşmayı duymuş gibi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2036,
+   "style": "Normal",
+   "text": "“En güvenli yalan ‘Sen zayıfsın’ değildir,” dedi. “‘Sen yanılmayacak kadar uyanıksın’ yalanıdır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

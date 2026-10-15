@@ -1,0 +1,525 @@
+{
+ "uid": "U20",
+ "title": "22. On Bir Saniyenin İçindeki Ses",
+ "number": 22,
+ "words": 339,
+ "constraints": {
+  "uid": "U20",
+  "number": 22,
+  "title": "22. On Bir Saniyenin İçindeki Ses",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": "ÜÇÜNCÜ PERDE — AV",
+  "words": 339
+ },
+ "synopsis": {
+  "uid": "U20",
+  "title": "22. On Bir Saniyenin İçindeki Ses",
+  "summary": "Gegenwart, am Morgen nach dem Ende des vorigen Pakets: Die Anwältin Selin öffnet vor laufender Kamera protokollgerecht den Beweisbeutel mit der Taschenuhr, Tarık scannt sie und findet einen Speicherchip. Das Passwort sind die Zeigerwinkel aus der Kinderzeichnung des Ich-Erzählers – entdeckt vom zwölfjährigen Sohn Emir („Sen bana bakmayı öğrettin“). Nachdem die Kinder (Emir, Duru) ins Nebenzimmer geschickt wurden, hört die Gruppe die fehlenden elf Sekunden der Werkstattaufnahme von Leyla und Nehir: Leyla sagt „1453'ü ona bırak“ und „Beyaz kitap ... Yusuf'ta değil“, eine Männerstimme fragt „Burada ne yapıyorsunuz?“, dann ein harter Knall wie ein Schuss und Nehirs Schrei. Der Erzähler konfrontiert Nehir: Sie war im Raum und hat die Aufnahme selbst herausgeschnitten; sie behauptet, es sei kein Schuss, sondern eine Schneidemaschine gewesen, Leyla habe sich die Hand geschnitten. Da ertönt aus der Taschenuhr eine weitere, nicht zur Aufnahme gehörende Männerstimme: „Nehir'e bu soruyu sorarsan Leyla'nın neden öldüğünü hiçbir zaman öğrenemezsin.“ Am Kapitelende steht der Teiltitel „ÜÇÜNCÜ PERDE — AV“ (Dritter Akt – Die Jagd), der die folgenden Kapitel einleitet.",
+  "characters": [
+   "Ich-Erzähler (namenloser Protagonist, Vater von Emir und Duru, Kindheitsspitzname „Küçük Saatçi“)",
+   "Nehir (Partnerin des Erzählers bei der Recherche, jüngere Schwester der toten Leyla)",
+   "Leyla (Nehirs verstorbene Schwester, Wissenschaftlerin; nur als Stimme in der Aufnahme)",
+   "Selin (Anwältin; führt Protokoll, sichert Beweise)",
+   "Tarık (Techniker; scannt die Uhr, findet den Chip)",
+   "Emir (Sohn des Erzählers, 12 Jahre; entschlüsselt das Passwort)",
+   "Duru (Tochter des Erzählers, jünger als Emir)",
+   "Yusuf (abwesender Archivar/„Saatçi“; Besitzer der Uhr, Männerstimme in Aufnahme und Warnung)"
+  ],
+  "terms": [
+   {
+    "tr": "cep saati",
+    "meaning": "Taschenuhr mit verstecktem Speicherchip; Yusuf hat sie über Emir an den Erzähler gebracht; wiederkehrendes Schlüsselobjekt"
+   },
+   {
+    "tr": "hafıza yongası",
+    "meaning": "Speicherchip (technischer Begriff, kein Anglizismus im Original)"
+   },
+   {
+    "tr": "akrep ve yelkovan",
+    "meaning": "Stunden- und Minutenzeiger; ihre Winkel aus der Kinderzeichnung des Erzählers sind das Passwort"
+   },
+   {
+    "tr": "on bir saniye",
+    "meaning": "die elf fehlenden Sekunden der Werkstattaufnahme – Titelmotiv; wiederkehrend seit früheren Paketen"
+   },
+   {
+    "tr": "atölye kaydı",
+    "meaning": "Audioaufnahme aus der Druckwerkstatt (Leylas Werkstatt), aus der die elf Sekunden herausgeschnitten wurden"
+   },
+   {
+    "tr": "1453",
+    "meaning": "Codename/Nummer des Buches bzw. Projekts (A-1453); auch Titelzahl des Romans; Leyla: „1453'ü ona bırak“"
+   },
+   {
+    "tr": "Beyaz kitap",
+    "meaning": "das „Weiße Buch“ – gesuchtes Gegenstück zu den schwarzen Büchern; Leyla: „Yusuf'ta değil“"
+   },
+   {
+    "tr": "tutanak",
+    "meaning": "amtliches Protokoll; Selin dokumentiert alles beweisfest"
+   },
+   {
+    "tr": "poşetin seri numarası",
+    "meaning": "Seriennummer des Beweisbeutels (Kette der Beweismittelsicherung)"
+   },
+   {
+    "tr": "Ablam",
+    "meaning": "„meine ältere Schwester“ – Nehir über Leyla; Anredeform/Verwandtschaftsbezeichnung konsequent halten"
+   },
+   {
+    "tr": "Kesim makinesi",
+    "meaning": "Schneidemaschine (Papierschneider) – Nehirs Erklärung für den Knall"
+   },
+   {
+    "tr": "Gurur, korkunun yanına oturdu",
+    "meaning": "Bild: Stolz und Angst teilen sich einen Stuhl wie zwei Verwandte, die sich nicht mögen – typischer lakonischer Erzählerstil"
+   },
+   {
+    "tr": "ÜÇÜNCÜ PERDE — AV",
+    "meaning": "Teilüberschrift „Dritter Akt – Die Jagd“ (Buchteil-Markierung, Stil „Book Part“); AV korrespondiert mit der inneren Stimme AVCI (Jäger)"
+   },
+   {
+    "tr": "LEYLA / NEHİR / ERKEK",
+    "meaning": "Sprecherlabels in den Transkript-Einschüben (Stil „Book Inset“, fett); ERKEK = „Mann“ (unbekannte Männerstimme, später als Yusuf identifiziert)"
+   }
+  ],
+  "tone": "Ich-Erzählung in der Vergangenheit (Präteritum), knapp und lakonisch, viele kurze Dialogzeilen ohne Inquit-Formeln. Transkriptpassagen als Einschübe mit fettem Sprecherlabel. Spannungsaufbau über Audio, Schweigen und Kinderfernsehen im Nebenraum; Kapitelende als Cliffhanger plus Aktwechsel."
+ },
+ "paras": [
+  {
+   "pid": 1717,
+   "style": "Heading 1",
+   "text": "<b>22. On Bir Saniyenin İçindeki Ses</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1718,
+   "style": "Opening",
+   "text": "Ertesi sabah Selin, poşetin seri numarasını tutanağa geçirip kamera karşısında ağzını açtı. Tarık saate çıplak elle dokunmadan tarama yaptı; cep saatinin arka bölümünde küçük bir hafıza yongası vardı. Şifre, çocukluk çizimimdeki akrep ve yelkovanın açılarıydı. Bunu Nehir değil, Emir fark etti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1719,
+   "style": "Normal",
+   "text": "“Saatte iki çizgi var,” dedi. “Açıları şifre yapmış olabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1720,
+   "style": "Normal",
+   "text": "“Bunu nasıl gördün?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1721,
+   "style": "Normal",
+   "text": "“Sen bana bakmayı öğrettin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1722,
+   "style": "Normal",
+   "text": "Gurur, korkunun yanına oturdu. Aynı sandalyeyi paylaşmak zorunda kalan iki akraba gibi birbirlerinden hoşlanmıyorlardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1723,
+   "style": "Normal",
+   "text": "Emir'e teşekkür ettik. Saatin içinden hangi kayıtların çıkacağını bilmiyorduk; Selin dinlemeye başlamadan önce çocukların yan odaya geçmesini istedi. Duru kardeşini alıp televizyonun başına oturdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1724,
+   "style": "Normal",
+   "text": "İlk açılan klasörde tek ses dosyası vardı. Leyla ve Nehir'in atölye kaydının eksik on bir saniyesi. Saatin uyarı kayıtları başka bir klasördeydi; önce bu parçayı dinledik.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1725,
+   "style": "Normal",
+   "text": "“Yusuf bunu nereden aldı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1726,
+   "style": "Normal",
+   "text": "“Ablam ona vermiş olabilir,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1727,
+   "style": "Normal",
+   "text": "“Yusuf'u tanıyordunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1728,
+   "style": "Normal",
+   "text": "“Leyla tanıyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1729,
+   "style": "Normal",
+   "text": "“Sen?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1730,
+   "style": "Normal",
+   "text": "“Bir kez gördüm.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1731,
+   "style": "Normal",
+   "text": "“Bunu da mı şimdi öğreniyorum?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1732,
+   "style": "Normal",
+   "text": "Nehir cevap vermedi. Bilgisayarı çevrim dışı moda aldı, hoparlörü kıstı ve dosyayı başlattı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1733,
+   "style": "Normal",
+   "text": "Önce Leyla'nın sesi geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1734,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “1453'ü ona bırak.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1735,
+   "style": "Book Inset",
+   "text": "<b>NEHİR:</b> “Onu hazırlamadan mı?”",
+   "keep": false,
+   "image": false,
+   "label": "NEHİR",
+   "constraint": null
+  },
+  {
+   "pid": 1736,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Hazır olmak, korkmamak değildir.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1737,
+   "style": "Book Inset",
+   "text": "<b>NEHİR:</b> “Beyaz kitabı nerede sakladın?”",
+   "keep": false,
+   "image": false,
+   "label": "NEHİR",
+   "constraint": null
+  },
+  {
+   "pid": 1738,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Yusuf'ta değil.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1739,
+   "style": "Normal",
+   "text": "Bir erkek sesi araya girdi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1740,
+   "style": "Book Inset",
+   "text": "<b>ERKEK:</b> “Burada ne yapıyorsunuz?”",
+   "keep": false,
+   "image": false,
+   "label": "ERKEK",
+   "constraint": null
+  },
+  {
+   "pid": 1741,
+   "style": "Normal",
+   "text": "Nehir kayıtta nefesini çekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1742,
+   "style": "Normal",
+   "text": "Leyla, “Kapıyı kilitle,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1743,
+   "style": "Normal",
+   "text": "Sonra çok sert, kuru bir patlama duyuldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1744,
+   "style": "Normal",
+   "text": "Silah sesi gibi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1745,
+   "style": "Normal",
+   "text": "Ardından Nehir çığlık attı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1746,
+   "style": "Normal",
+   "text": "Kayıt bitti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1747,
+   "style": "Normal",
+   "text": "Odadaki herkes sustu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1748,
+   "style": "Normal",
+   "text": "Emir ve Duru yan odadaydı. Televizyonun sesi duvardan hafifçe geliyordu. Bir çizgi film karakteri gülüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1749,
+   "style": "Normal",
+   "text": "Ben Nehir'e baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1750,
+   "style": "Normal",
+   "text": "“Bu kaydın sende olmadığını söyledin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1751,
+   "style": "Normal",
+   "text": "Nehir'in yüzündeki bütün renk çekildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1752,
+   "style": "Normal",
+   "text": "“Bende yoktu,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1753,
+   "style": "Normal",
+   "text": "“Ama o odadaydın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1754,
+   "style": "Normal",
+   "text": "Nehir gözlerini benden kaçırmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1755,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1756,
+   "style": "Normal",
+   "text": "“Silahı kim ateşledi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1757,
+   "style": "Normal",
+   "text": "“Silah değil,” dedi hemen. “Kesim makinesi. Leyla elini kesti. Ben oradaydım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1758,
+   "style": "Normal",
+   "text": "Söylediği şeyi bir an anlayamadım. Ölüm korkusu, duyduğum her sert sese aynı adı vermişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1759,
+   "style": "Normal",
+   "text": "“O zaman bu parçayı senden önce neden bir saatin içinden dinliyorum?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1760,
+   "style": "Normal",
+   "text": "Nehir gözünü saatten ayırmadı. “Çünkü ben çıkardım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1761,
+   "style": "Normal",
+   "text": "O sırada cep saatinin hoparlörü yeniden çalıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1762,
+   "style": "Normal",
+   "text": "Kayıtta olmayan bir erkek sesi odaya yayıldı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1763,
+   "style": "Normal",
+   "text": "“Nehir'e bu soruyu sorarsan Leyla'nın neden öldüğünü hiçbir zaman öğrenemezsin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1764,
+   "style": "Book Part",
+   "text": "<b>ÜÇÜNCÜ PERDE — AV</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

@@ -1,0 +1,745 @@
+{
+ "uid": "U41",
+ "title": "46. Son Olabilecek Şeyler",
+ "number": 46,
+ "words": 906,
+ "constraints": {
+  "uid": "U41",
+  "number": 46,
+  "title": "46. Son Olabilecek Şeyler",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 906
+ },
+ "synopsis": {
+  "uid": "U41",
+  "title": "46. Son Olabilecek Şeyler",
+  "summary": "Der Ich-Erzähler (herzkranker Protagonist mit implantiertem Defibrillator, auf der Transplantations-Warteliste) bilanziert in Rückschau die ersten sechs Monate seiner Behandlung: Mit Sohn Emir repariert er die Uhren im Laden des verstorbenen Vaters, Tochter Duru bewirbt sich an Universitäten, mit Ex-Frau Zeynep führt er das lange aufgeschobene Gespräch über das Ende der Ehe. Zeyneps Satz „Hinterlass den Kindern keine Aufgabe, hinterlass Erinnerung“ bringt ihn dazu, den Satz „Erzählt einander von mir, wenn ich nicht mehr bin“ im Abschiedsbrief durchzustreichen und alle Umschläge neu zu schreiben – ohne Aufträge, nur mit Erinnerungen; dazu das Heft „Yanıldığım Yerler“ für Duru, Großvaters Schraubenzieher mit Notiz für Emir, die leere Mappe „BENDEN KALAN İŞLER“ für Zeynep. Mit Nehir (Journalistin, Partnerin) wächst das Vertrauen langsam wieder; am Grab Leylas sagt sie, sie habe sich selbst nicht verziehen, er verspricht zu bleiben „so gut ich kann“. Die veröffentlichten Akten führen zu Prozessen gegen Meralis; der Erzähler bereitet das weiße und schwarze Buch kommentiert zur Publikation vor und macht aus dem roten Heft einen Roman mit dem Titel „1453 — Uyanışın Bedeli“. Metafiktionale Ebene: Sefa Abi, der Schriftsteller, der ein Manuskript über ihn schreibt, schickt eine neue Fassung mit der Notiz, seine Figuren redeten weiter, wenn er schweige; der Erzähler findet in seinem eigenen Heft den leeren Stuhl, erinnert sich diesmal, wann er ihn zeichnete, und malt niemanden hinein. Ein weißer Schmetterling am Fenster (Gegenbild zum roten Schmetterling-Siegel des schwarzen Buches), dann Yusufs zeitgesteuerte Nachricht mit der letzten Aufnahme der Lupenlampe des Vaters: Der 19-jährige Erzähler flüstert in die Kamera: „Schreib diesmal die letzte Seite nicht. Du wirst dich nach dem Tod an sie erinnern.“",
+  "characters": [
+   "Ich-Erzähler (namenlos; Protagonist, herzkrank mit Defibrillator, Vater von Duru und Emir, Autor des Romans im Roman)",
+   "Emir (Sohn; Uhrenbastler, mag keine lange Berührung, autistische Züge; bekommt Großvaters Schraubenzieher)",
+   "Duru (Tochter; wählt zwischen Sounddesign und Kognitionswissenschaft; bekommt das Heft „Yanıldığım Yerler“)",
+   "Zeynep (Ex-Frau, Mutter der Kinder; bekommt Passwörter und die leere Mappe „BENDEN KALAN İŞLER“)",
+   "Nehir (Journalistin, Partnerin des Erzählers; Leyla nahestehend, Schuldgefühle wegen Leylas Tod)",
+   "Leyla (verstorben; ihr Grab wird besucht; hinterließ ein ‚Emanet‘-Depot)",
+   "Sefa Abi (Schriftsteller, der den Erzähler als Romanfigur schreibt; schickt Manuskriptfassungen im Oktober und November)",
+   "Selin (Juristin/Treuhänderin; erteilt Publikationsfreigabe für die forensischen Kopien)",
+   "Cem (Antagonist; zeigte, dass Empathie keinen Schutz garantiert)",
+   "Yusuf (Vertrauter/Zeuge; sendet eine zeitgesteuerte Nachricht mit der alten Aufnahme)",
+   "Vater des Erzählers (verstorbener Uhrmacher; Laden, Lupenlampe mit Kamera, Rätselheft)",
+   "Großvater des Erzählers (seine Uhrmacher-Schraubenzieher gehen an Emir)",
+   "Meralis (Organisation/Konzern hinter dem schwarzen Buch und den Kliniken)",
+   "Psykhe / Pervane (mythologische bzw. Divan-Dichtungs-Referenzen zum Schmetterling)"
+  ],
+  "terms": [
+   {
+    "tr": "Son Olabilecek Şeyler",
+    "meaning": "Kapiteltitel: „Dinge, die die letzten sein könnten“ – alles im Kapitel steht unter dem Vorzeichen eines möglichen Abschieds."
+   },
+   {
+    "tr": "zarf / zarflar",
+    "meaning": "Abschiedsumschläge für Duru, Emir und Zeynep (bereits in Kap. 1 vorbereitet, Aufschrift „GEREKİRSE“ für Zeynep); hier werden sie neu geschrieben – ohne Aufträge, nur Erinnerungen. Kehren in Kap. 48 wieder („Öffnet die Umschläge jetzt nicht“)."
+   },
+   {
+    "tr": "Görev bırakma. Hatıra bırak.",
+    "meaning": "Zeyneps Kernsatz: „Hinterlass keine Aufgabe, hinterlass Erinnerung.“ Gegensatzpaar görev (Aufgabe/Pflicht) vs. hatıra (Erinnerungsstück)."
+   },
+   {
+    "tr": "Ben yokken birbirinize beni anlatın.",
+    "meaning": "Der durchgestrichene Satz aus dem Umschlag; die Stelle bleibt bewusst leer (Motiv der Leerstelle, vgl. leere Schlusszeile)."
+   },
+   {
+    "tr": "Taksit yapalım.",
+    "meaning": "Wortspiel: „Zahlen wir in Raten“ – Antwort auf „Eine Entschuldigung reicht nicht“."
+   },
+   {
+    "tr": "Yanıldığım Yerler",
+    "meaning": "Titel des Heftes für Duru: „Wo ich mich geirrt habe“ – enthält revidierte Ideen (Jäger/Sammler, Empathie, Ehrlichkeit). Wird in Kap. 47 im roten Heft übergeben. Einheitlich übersetzen."
+   },
+   {
+    "tr": "Avcı–toplayıcı ayrımı",
+    "meaning": "Jäger–Sammler-Unterscheidung: zentrale Theorie des Erzählers über Menschentypen (und über seine inneren Stimmen AVCI/TOPLAYICI); hier als „nützliche Geschichte, gefährlich zur Klassifizierung“ relativiert."
+   },
+   {
+    "tr": "Zihin ev değilse hapishane de değildir. Kapıyı kendin açabilirsin.",
+    "meaning": "Motto auf der ersten Seite des Heftes; Tür-Motiv (kapı) zieht sich durch den Roman."
+   },
+   {
+    "tr": "dedemin tornavidaları / alet kutusu",
+    "meaning": "Großvaters Uhrmacher-Schraubenzieher mit Notiz: „Öffne etwas, um zu verstehen, wie es funktioniert – nicht um zu kontrollieren, was dir nicht gehört.“ Plus Nachsatz über Schrauben in einem kleinen Gefäß (Running Gag: Schrauben, vida; Emir sortiert Schrauben)."
+   },
+   {
+    "tr": "BENDEN KALAN İŞLER",
+    "meaning": "Aufschrift der leeren Mappe für Zeynep: „Von mir hinterlassene Aufgaben“ – sie ist leer; als „vasiyet“ (Testament) bezeichnet. Großschreibung/Hervorhebung wie im Original."
+   },
+   {
+    "tr": "Seni affetmedim. – Beni mi? – Kendimi.",
+    "meaning": "Nehir am Grab: „Ich habe nicht verziehen“ – gemeint ist sie selbst, nicht er."
+   },
+   {
+    "tr": "sonucunu bilmeden kalma sözü",
+    "meaning": "„Versprechen zu bleiben, ohne das Ergebnis zu kennen“ – Nehirs Frage „Bekleyecek misin?“ / seine Antwort „Elimden geldiğince“ („so gut ich kann“) wird in Kap. 48 wörtlich wieder aufgenommen."
+   },
+   {
+    "tr": "beyaz kitap / siyah kitap / kırmızı defter",
+    "meaning": "Die drei Textkörper des Romans: weißes Buch (offizielle/‚helle‘ Lehre), schwarzes Buch (Meralis’ gefährliche Doktrin, Siegel roter Schmetterling), rotes Heft (persönliche Aufzeichnungen des Erzählers, wird zum Roman)."
+   },
+   {
+    "tr": "adli kopyalar / kişisel verileri kapatılmış",
+    "meaning": "Forensische Kopien mit geschwärzten personenbezogenen Daten – juristisches Register."
+   },
+   {
+    "tr": "1453 — Uyanışın Bedeli",
+    "meaning": "Titel des Romans im Roman (= Titel des vorliegenden Buches). 1453 = Eroberungsjahr Konstantinopels (fetih); hier umgedeutet: „sich selbst zu erobern ist schwerer, als andere zu besiegen“. Verweist zugleich auf die Uhrzeit 14.53. Titel nicht übersetzen, ggf. Untertitel „Der Preis des Erwachens“."
+   },
+   {
+    "tr": "Sefa Abi / nüsha",
+    "meaning": "„Abi“ = ältere-Bruder-Anrede (respektvoll-vertraut). Nüsha = Manuskriptfassung/Exemplar (vgl. Kap. 15 „Nüshaların Söylemediği“). Metafiktion: Sefa schreibt den Erzähler als Romanfigur."
+   },
+   {
+    "tr": "Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.",
+    "meaning": "Sefa Abis Notiz auf dem ersten Manuskript (wiederkehrendes Zitat): „Ich habe die Tür geöffnet. Den Namen des Mannes, der hereinkommen wird, kenne ich noch nicht.“"
+   },
+   {
+    "tr": "Benim de kafam aynı apartman. Yönetici seçemiyoruz.",
+    "meaning": "Scherz: „Mein Kopf ist dasselbe Mietshaus – wir können keinen Hausverwalter wählen“ (Anspielung auf die inneren Stimmen als ‚Bewohner‘)."
+   },
+   {
+    "tr": "boş sandalye",
+    "meaning": "Der leere Stuhl – wiederkehrendes Bild (Randzeichnung im Heft des Erzählers und in Sefas Manuskript; in Kap. 46 auch Durus „leerer Stuhl“ bei der verpassten Aufführung). Der Erzähler zeichnet niemanden hinein."
+   },
+   {
+    "tr": "beyaz kelebek / kırmızı kelebek",
+    "meaning": "Weißer Schmetterling am Fenster (ruft nirgendwohin) vs. roter Schmetterling als Siegel des schwarzen Buches (Schmerz als Verwandlung verkauft)."
+   },
+   {
+    "tr": "Psykhe",
+    "meaning": "Griechische Seelen-Figur mit Schmetterlingsflügeln; Schmetterling = Seele/Verwandlung."
+   },
+   {
+    "tr": "pervane",
+    "meaning": "Motte/Falter der Divan-Dichtung, die um die Kerze des Geliebten kreist und das Verbrennen riskiert (Sufi-Topos)."
+   },
+   {
+    "tr": "Divan şiiri",
+    "meaning": "Osmanische klassische Dichtung."
+   },
+   {
+    "tr": "zaman ayarlı mesaj",
+    "meaning": "Zeitgesteuerte/verzögert zugestellte Nachricht (Yusuf)."
+   },
+   {
+    "tr": "İlk kitabı sen yaşarken yayımla. İkincisi, öldüğün gün başlayacak.",
+    "meaning": "Yusufs Botschaft: „Veröffentliche das erste Buch, solange du lebst. Das zweite beginnt an dem Tag, an dem du stirbst.“ Verweist auf das Zwei-Bücher-Konzept und die Fortsetzung."
+   },
+   {
+    "tr": "babamın büyüteç lambası",
+    "meaning": "Die Lupenlampe des Vaters mit verborgener Kamera; ihre Aufnahmen (u. a. des 19-jährigen Erzählers) sind Schlüsselbeweise."
+   },
+   {
+    "tr": "Bu kez son sayfayı yazma. Onu öldükten sonra hatırlayacaksın.",
+    "meaning": "Der zentrale Satz des 19-jährigen Erzählers: „Schreib diesmal die letzte Seite nicht. Du wirst dich nach dem Tod an sie erinnern.“ Begründet die leere Schlusszeile und die Schlussformel „İnsan hakikati öğrenmez, hatırlar“ in Kap. 48."
+   }
+  ],
+  "tone": "Ruhige, bilanzierende Ich-Erzählung im Präteritum (Rückschau auf sechs Monate); kurze Dialogzeilen mit trockenem Familienhumor (Emir, Duru, Zeynep); eingerückte Inset-Texte als Notizen/Mottos; essayistische Passagen (Schmetterling, Psykhe, Pervane); zum Schluss mystisch-unheimlicher Umschlag mit der Flüsteraufnahme."
+ },
+ "paras": [
+  {
+   "pid": 3157,
+   "style": "Heading 1",
+   "text": "<b>46. Son Olabilecek Şeyler</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3158,
+   "style": "Opening",
+   "text": "Tedavinin ilk altı ayını yaşadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3159,
+   "style": "Normal",
+   "text": "“Yaşadım” derken yalnız hayatta kaldığımı söylemiyorum. Emir'le babamın dükkânındaki saatleri temizledik. Birini tamir etmek için üç saat uğraştık; sonunda saatin bozuk olmadığını, pilini ters taktığımızı fark ettik. Emir bunu benden önce fark etmişti ama “öğrenme sürecini bozmak istemediğini” söyledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3160,
+   "style": "Normal",
+   "text": "Duru üniversite başvurularını yaptı. Ses tasarımıyla bilişsel bilim arasında kaldı. Ona tek bir doğru seçim olmadığını söyledim. “Bunu söyleyen adam, kahvaltıda peynir seçerken yedi dakika düşünüyor,” dedi. Başvurularını kendi yaptı; benden yalnız son metinleri okumamı istedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3161,
+   "style": "Normal",
+   "text": "Zeynep'le yıllardır tamamlamadığımız bir konuşmayı bitirdik. Evliliğimizin neden sona erdiğini ilk kez suçlu aramadan anlattık. Ben onun düzenini kontrol sanmıştım; o benim özgürlük dediğim şeyin yükünü yıllarca taşımıştı. Birbirimizi sevmemiş değildik.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3162,
+   "style": "Normal",
+   "text": "“Sana bir özür borçluyum,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3163,
+   "style": "Normal",
+   "text": "“Bir tane yetmez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3164,
+   "style": "Normal",
+   "text": "“Taksit yapalım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3165,
+   "style": "Normal",
+   "text": "Güldü. Sonra ciddileşti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3166,
+   "style": "Normal",
+   "text": "“Çocuklara ölümünden sonra görev bırakma. Hatıra bırak.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3167,
+   "style": "Normal",
+   "text": "“Bir cümle yazmıştım,” dedim. “Ben yokken birbirinize beni anlatın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3168,
+   "style": "Normal",
+   "text": "“Anlatırız.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3169,
+   "style": "Normal",
+   "text": "“E, aynı şey.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3170,
+   "style": "Normal",
+   "text": "“Değil. Görev olursa sustuğumuz gün seni ikinci kez öldürmüş gibi oluruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3171,
+   "style": "Normal",
+   "text": "İtiraz edecektim. Çocukların bir gün, yalnızca o gün, beni düşünmeden gülebileceğini hayal ettim. İçimde buna alınan küçücük bir yer vardı. Onu onlara miras bırakamazdım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3172,
+   "style": "Normal",
+   "text": "Zarfı açtım. Cümlenin üstünü çizdim. Yerine daha güzel bir söz aramadım. Boş kalması gerekiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3173,
+   "style": "Normal",
+   "text": "Zeynep kâğıda değil, bana baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3174,
+   "style": "Normal",
+   "text": "“Tamam,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3175,
+   "style": "Normal",
+   "text": "Zarfları o akşam yeniden yazdım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3176,
+   "style": "Normal",
+   "text": "Duru'ya gerçeği bulma görevi vermedim. Kaçırdığım on yaş gösterisini de, yıllar sonra kuliste ışığı kısmak için uğraştığım müzik provasını da yazdım. Doğru ışıkta yüzünün nasıl sakinleştiğini hatırlıyordum. Sonraki günün iyi babası, önceki günün boş sandalyesini doldurmuyordu. Emir'e saatleri tamamlama görevi vermedim. Birlikte bozduğumuz şeylerin listesini ve hiçbirini onarmak zorunda olmadığını yazdım. Zeynep'e çocukları benim adıma korumasını söylemedim. Zaten yıllardır yaptığı görünmez emeği gördüğümü söyledim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3177,
+   "style": "Normal",
+   "text": "Duru için ayrıca <b>Yanıldığım Yerler</b> adlı bir defter hazırladım. İçinde parlak teorilerim değil, değiştirmek zorunda kaldığım fikirler vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3178,
+   "style": "Normal",
+   "text": "Avcı–toplayıcı ayrımını insan türlerinin haritası sanmıştım; sonra bunun düşünmek için yararlı, insanları sınıflandırmak için tehlikeli bir hikâye olduğunu yazdım. Empatinin iyi insan yaptığına inanmıştım; Cem, başkasının duygusunu görmenin onu korumayı garanti etmediğini göstermişti. Her şeyi anlatmanın dürüstlük olduğunu savunmuştum; Duru ve Zeynep, zamanlama ile rızanın da gerçeğin parçası olduğunu öğretmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3179,
+   "style": "Normal",
+   "text": "Defterin ilk sayfasına şunu yazdım:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3180,
+   "style": "Book Inset",
+   "text": "<i>Bir fikri yıllarca savunmuş olman, onu ömür boyu taşımak zorunda olduğun anlamına gelmez. Zihin ev değilse hapishane de değildir. Kapıyı kendin açabilirsin.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3181,
+   "style": "Normal",
+   "text": "Emir'e dedemin tornavidalarını bıraktım; fakat alet kutusunun içine bir not koydum:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3182,
+   "style": "Book Inset",
+   "text": "<i>Bir şeyi nasıl çalıştığını anlamak için aç. Sana ait olmadığı hâlde kontrol etmek için değil.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3183,
+   "style": "Normal",
+   "text": "Sonra notun fazla öğüt koktuğunu düşünüp arkasına ikinci cümleyi ekledim:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3184,
+   "style": "Book Inset",
+   "text": "<i>Ve vidaları küçük bir kaba koy. Benim gibi halının üstünde bırakma.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3185,
+   "style": "Normal",
+   "text": "Zeynep'e hesap şifreleriyle birlikte boş bir dosya bıraktım. Kapağında <b>BENDEN KALAN İŞLER</b> yazıyordu. İçinde hiçbir iş yoktu. Bunu gördüğünde beni aradı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3186,
+   "style": "Normal",
+   "text": "“Bu şaka mı?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3187,
+   "style": "Normal",
+   "text": "“Vasiyet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3188,
+   "style": "Normal",
+   "text": "“İlk kez işe yarar bir vasiyet hazırlamışsın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3189,
+   "style": "Normal",
+   "text": "Sesi güldü. Altında ağlamaya yakın bir yer vardı. Oraya dokunmadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3190,
+   "style": "Normal",
+   "text": "Nehir'le güvenimiz bir konuşmada düzelmedi. Dosyaları birlikte açtık, birbirimize hangi bilgiyi neden sakladığımızı söyledik, bazı günler tartıştık, bazı günler yalnız yürüdük. Leyla'nın mezarına gittiğimizde Nehir, “Seni affetmedim,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3191,
+   "style": "Normal",
+   "text": "“Beni mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3192,
+   "style": "Normal",
+   "text": "“Kendimi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3193,
+   "style": "Normal",
+   "text": "“İkisi de zaman alabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3194,
+   "style": "Normal",
+   "text": "“Bekleyecek misin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3195,
+   "style": "Normal",
+   "text": "“Elimden geldiğince.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3196,
+   "style": "Normal",
+   "text": "Bu bir aşk ilanı değildi. Ondan daha zor bir şeydi: sonucunu bilmeden kalma sözü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3197,
+   "style": "Normal",
+   "text": "Yayımlanan dosyalar davalara dönüştü. Bazıları kapandı, bazıları yıllarca sürecekti. Meralis'in eğitim programlarından üçü durduruldu. İki klinik bağımsız incelemeye alındı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3198,
+   "style": "Normal",
+   "text": "Selin'in yayım izni aldığı, kişisel verileri kapatılmış adli kopyalar üzerinden beyaz ve siyah kitabı yan yana yayıma hazırladım. Siyah kitabın tehlikeli cümlelerini silmedim; kenarlarına hangi gerçek acıya dokunduklarını, sonra suçluyu nasıl değiştirdiklerini yazdım. Kırmızı defteri ise bir roman hâline getirdim. Gerçek isimleri değiştirdim, korunması gerekenleri sakladım, kendi hatalarımı küçültmedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3199,
+   "style": "Normal",
+   "text": "Adını <b>1453 — Uyanışın Bedeli</b> koydum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3200,
+   "style": "Normal",
+   "text": "Bir fetih yılı olduğu için değil yalnız. Bir insanın kendini fethetmesinin, başkasını yenmekten daha zor olduğunu öğrendiğim için.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3201,
+   "style": "Normal",
+   "text": "Sefa Abi'nin kasımda yolladığı yeni nüsha, ekimdekinden ayrı duruyordu. Kendi son bölümlerimi ona göndermeden önce ilk dosyanın kapağını açtım. <i>Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3202,
+   "style": "Normal",
+   "text": "Yeni nüshada notun altında bir cümle daha vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3203,
+   "style": "Normal",
+   "text": "<i>Bazen onları ben yazmıyorum gibi geliyor. Ben sustuğumda da odalarında konuşuyorlar.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3204,
+   "style": "Normal",
+   "text": "Telefon ettim. “Benim de kafam aynı apartman,” dedim. “Yönetici seçemiyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3205,
+   "style": "Normal",
+   "text": "Güldü; sonra kelimenin ortasında durdu. Söyleyeceğini bulmak için beklediği o kısa aralık, gülüşünden uzun geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3206,
+   "style": "Normal",
+   "text": "“Yazdığın adamın senden sakladığı bir şey oldu mu?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3207,
+   "style": "Normal",
+   "text": "“Benim kendimden sakladığım şeyler yetmiyor mu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3208,
+   "style": "Normal",
+   "text": "“Onu demiyorum. Sen dinlenmek için kalemi bırakıyorsun. O, kaldığı yerden devam ediyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3209,
+   "style": "Normal",
+   "text": "Pencereye baktım. Karşı dairede bir adam perdeyi çekti. Onun akşamını bilmeden kendi akşamıma döndüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3210,
+   "style": "Normal",
+   "text": "“Belki de iyi yazmışsındır,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3211,
+   "style": "Normal",
+   "text": "“Belki.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3212,
+   "style": "Normal",
+   "text": "Telefon kapandıktan sonra kendi defterimi açtım. Sayfanın kenarında boş bir sandalye vardı. Ne zaman çizdiğimi bu kez hatırladım. İçimdeki seslerin sustuğu, birinin dinlemeye devam ettiği gündü. Öteki dosyadaki sandalyeyi daha önce görmüştüm. Ama benim çizdiğim kapıya değil, kâğıdın dışına dönüktü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3213,
+   "style": "Normal",
+   "text": "Defteri kapattım. Sandalyeye kimse çizmedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3214,
+   "style": "Normal",
+   "text": "Kitabın son sayfasını bitirdiğim gün pencereme beyaz bir kelebek kondu. Kış biteli çok olmuştu; bunda doğaüstü bir şey yoktu. Yine de onu izledim. Kanatlarını iki kez açtı, kapattı ve uçtu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3215,
+   "style": "Normal",
+   "text": "Eski Yunan sanatında Psykhe'ye kelebek kanatları verilmiş, kelebek ruhun bedenden ayrılışı ve dönüşümüyle yan yana düşünülmüştü. Divan şiirindeki pervane ise sevgilinin mumu çevresinde dönüyor, ışığa yaklaşırken yanmayı göze alıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3216,
+   "style": "Normal",
+   "text": "Meralis kırmızı kelebeği siyah kitabın mührü yapmıştı. Acıyı dönüşüm diye sunuyor, insanı kendi ateşine uçmaya çağırıyordu. Penceremdeki beyaz kelebek hiçbir yere çağırmadı. Kondu, bekledi ve gitti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3217,
+   "style": "Normal",
+   "text": "Belki olgunlaşmak her ateşe kutsal diye uçmamak, bazı ışıklara uzaktan bakabilmekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3218,
+   "style": "Normal",
+   "text": "Telefonuma Yusuf'un zaman ayarlı mesajı geldi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3219,
+   "style": "Book Inset",
+   "text": "<b>İlk kitabı sen yaşarken yayımla. İkincisi, öldüğün gün başlayacak.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3220,
+   "style": "Normal",
+   "text": "Mesajın altında babamın büyüteç lambasının hiç görmediğimiz son kaydı vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3221,
+   "style": "Normal",
+   "text": "Görüntüde on dokuz yaşındaki ben, kameraya yaklaşıp fısıldıyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3222,
+   "style": "Normal",
+   "text": "“Bu kez son sayfayı yazma. Onu öldükten sonra hatırlayacaksın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

@@ -1,0 +1,1716 @@
+{
+ "uid": "U12",
+ "title": "12. Yedi Yıl Önce Çaldığım Kapı",
+ "number": 12,
+ "words": 1973,
+ "constraints": {
+  "uid": "U12",
+  "number": 12,
+  "title": "12. Yedi Yıl Önce Çaldığım Kapı",
+  "title_letter": null,
+  "marks": [],
+  "knots": [
+   "İ"
+  ],
+  "images": [],
+  "book_part": null,
+  "words": 1973
+ },
+ "synopsis": {
+  "uid": "U12",
+  "title": "12. Yedi Yıl Önce Çaldığım Kapı",
+  "summary": "Der Ich-Erzähler (im Roman als Yolcu/\"Reisender\" geführt; Vater von Duru und Emir, Ehemann von Zeynep) sitzt mit Nehir vor dem Rechner und stellt fest, dass er die E-Mail mit dem Betreff \"Yasak arşiv başvurusu — Uyanışın Bedeli\" sieben Jahre zuvor (11. November, 11.11 Uhr) selbst geschickt hat, sich aber nicht daran erinnert; über Dateinamen, lokale Backups, ein Küchenfoto und einen Keks von Zeynep wird die Autorschaft bestätigt. Beim Suchen nach dem \"grünen Korridor\" (Krankenhaus-Erinnerung aus früheren Kapiteln) entdeckt er, dass er die Szene nicht erlebt, sondern einen Monat zuvor im Romanmanuskript von Sefa Abi gelesen und kommentiert hat – dort ist Hakan Hıdıroğlu die Figur, außerdem taucht Muhibbi Amca auf. Ein Telefonat mit Sefa Abi (mit Nehirs Wissen, aufgezeichnet) zeigt, dass ein Detail – der nach innen gebogene Rand des Plastikbechers – im Manuskript fehlt; beide \"erinnern\" es; der Erzähler ahnt, dass er einst nicht als Patient, sondern als Techniker (Projektor, Lesetag) im Krankenhaus in Erenköy war. Rückblende: Mit 35 holte er vor dem Verkauf des Elternhauses seine Jugendhefte (rotes Heft mit sieben Symbolen, Uhrzeichnung); ein Foto zeigt eine rote Schnur am Türgriff und ihn selbst nur als \"KİŞİ 0\" markiert; damals, noch vor seiner ADHS-Diagnose, recherchierte er monatelang (Suchverlauf, 03.42-Uhr-Frage über Krähen) und schrieb im roten Heft eine \"Manipulationskarte\", die Leyla später sah. Die Antwort auf die E-Mail kam nach drei Tagen mit einem Zugticket Edirne–Istanbul 14.53, Sitz 11; Kalender und Schließfachquittung (Edirne Gar, Fach 1453, Unterschrift \"Yusuf Vural\") sowie drei Sprachmemos belegen, dass er ein Paket abgab und einem \"Saatçi\" (Uhrmacher) nicht folgen sollte – er erinnert Yusuf nur körperlich. Zeynep erinnert den Tag als den, an dem er Durus Schulaufführung verpasste; am Abend entschuldigt er sich bei Duru persönlich, die den Fall knapp abschließt.",
+  "characters": [
+   "Ich-Erzähler / Yolcu (Protagonist, ca. 42, neurodivergent, ADHS-Diagnose erst nach der E-Mail; Vater, Ehemann, früher Technikhelfer für Ton-/Bildsysteme, Sohn eines Ladenbesitzers)",
+   "Nehir (Begleiterin/Ermittlerin an seiner Seite, nüchtern-analytisch, stellt Kontrollfragen; duzt ihn)",
+   "Zeynep (Ehefrau des Erzählers; nur am Telefon, direkt und ehrlich)",
+   "Duru (Tochter, heute 17, damals 10; Schulaufführung vor sieben Jahren)",
+   "Emir (Sohn, erwähnt als Baby in der Rückblende)",
+   "Sefa Abi (Schriftsteller, Freund seit einer Lesung in Kadıköy vor drei Jahren; Autor des Manuskripts mit Hakan Hıdıroğlu und Muhibbi Amca; kalter Tee als Markenzeichen)",
+   "Hakan Hıdıroğlu (Romanfigur in Sefa Abis Manuskript, Arzt/'hekim'; die Krankenhausszene gehört ihm)",
+   "Muhibbi Amca (Romanfigur in Sefa Abis Manuskript, alter Mann, mit dem Sefa spricht)",
+   "Leyla (Vertrauensperson/Therapeutin-artige Figur aus früheren Kapiteln; sah die Notizen; 'letztes Gespräch' erwähnt)",
+   "Rana (erwähnt; Teil eines anderen Teams, das den Erzähler 'bewertet' – nicht identisch mit Hakan)",
+   "Yusuf Vural (Unterschrift auf der Schließfachquittung Edirne; dem Erzähler unbekannt, Körper reagiert auf den Namen)",
+   "Saatçi / der Uhrmacher (unbekannte Person aus dem Sprachmemo: 'falls der Uhrmacher nicht kommt')",
+   "Mutter des Erzählers (erwähnt; hinterließ Schlüssel des Elternhauses)",
+   "Innere Stimmen: ŞÜPHECİ (Skeptiker), İNANAN (Gläubiger), AVCI (Jäger), TOPLAYICI (Sammler), GÖLGE (Schatten)"
+  ],
+  "terms": [
+   {
+    "tr": "Yedi Yıl Önce Çaldığım Kapı",
+    "meaning": "Kapiteltitel: 'Die Tür, an die ich vor sieben Jahren klopfte' – 'kapı çalmak' = anklopfen; Motiv Tür/Kapı zieht sich durch (11.11 als 'Tür', Haustür mit roter Schnur, Duru 'schließt die Tür' des Themas)."
+   },
+   {
+    "tr": "Yasak arşiv başvurusu — Uyanışın Bedeli",
+    "meaning": "Betreffzeile der E-Mail: 'Antrag auf das verbotene Archiv — Der Preis des Erwachens'; 'Uyanışın Bedeli' ist der Buchuntertitel; konsistent übersetzen."
+   },
+   {
+    "tr": "Bana gerçeği gönderin. Bedeli neyse öderim.",
+    "meaning": "Satz aus der E-Mail (prev_tail): 'Schickt mir die Wahrheit. Den Preis zahle ich, was immer er ist.' – wird in der Antwort (pid 1063) aufgegriffen: 'fragen Sie zuerst, welchen Preis Sie wollen'."
+   },
+   {
+    "tr": "11.11 / melek sayısı",
+    "meaning": "Sendezeitpunkt 11. Nov., 11:11 Uhr; 'Engelszahl' (Esoterik-Begriff); Nehir erklärt den Aufmerksamkeits-/Frequenzeffekt."
+   },
+   {
+    "tr": "İnanan / Şüpheci / Avcı / Toplayıcı / Gölge",
+    "meaning": "Wiederkehrende innere Stimmen des Erzählers, gesetzt als 'Book Inset' in Versalien: Gläubiger, Skeptiker, Jäger, Sammler, Schatten. Namen durchgehend gleich halten; 'Avcı-Toplayıcı' spiegelt auch die 'Jäger-Sammler-Aufmerksamkeitstheorie' im Suchverlauf."
+   },
+   {
+    "tr": "kırmızı defter / yedi sembol",
+    "meaning": "Rotes Heft aus der Jugend (17 J.) mit sieben Symbolen und Kindheits-Uhrzeichnung; wiederkehrendes Objekt; später 'Manipulationskarte' auf der ersten Seite."
+   },
+   {
+    "tr": "yeşil koridor / yeşil oda / plastik bardak / ağzındaki kıvrım",
+    "meaning": "Grüner Korridor/grünes Zimmer des Krankenhauses (Erenköy), Plastikbecher mit nach innen gebogenem Rand – zentrale Erinnerungs-Details; der Rand fehlt im Manuskript."
+   },
+   {
+    "tr": "Sefa Abi",
+    "meaning": "'Abi' = älterer Bruder, respektvoll-vertraute Anrede; unübersetzt lassen (Sefa Abi)."
+   },
+   {
+    "tr": "Muhibbi Amca",
+    "meaning": "'Amca' = Onkel, Anrede für älteren Mann; Muhibbi war zugleich Dichtername Süleymans des Prächtigen (Anspielung); unübersetzt lassen."
+   },
+   {
+    "tr": "Hakan Hıdıroğlu / hekimlik",
+    "meaning": "Romanfigur bei Sefa Abi; 'hekimlik' = Arztberuf; Erzähler: wir brauchen weder Hakans Arztstatus noch Meralis' Server."
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Wiederkehrender Eigenname (Institution/System/Firma mit Server) aus früheren Kapiteln; nicht übersetzen."
+   },
+   {
+    "tr": "Rana",
+    "meaning": "Figur aus früheren Kapiteln; gehört zum Team, das die 'değerlendirme' (neurologische/psychologische Begutachtung) des Erzählers macht."
+   },
+   {
+    "tr": "Leyla",
+    "meaning": "Figur aus früheren Kapiteln (Gesprächspartnerin/Therapeutin); Zitat: 'Wie ein Dieb zu denken, um ein gutes Schloss zu bauen, macht einen nicht zum Dieb.'"
+   },
+   {
+    "tr": "KİŞİ 0",
+    "meaning": "'PERSON 0' – Beschriftung der Gesichtserkennung im Fotoprogramm statt seines Namens; Motiv der 'gelöschten'/nicht benannten Identität; fett gesetzt."
+   },
+   {
+    "tr": "kırmızı ip (kapı kolunda)",
+    "meaning": "Rote Schnur am Türgriff des Elternhauses, Knoten mit zwei gleich langen Enden; wiederkehrendes Zeichen."
+   },
+   {
+    "tr": "Buradayım çünkü düşünüyorum.",
+    "meaning": "'Ich bin hier, weil ich denke' – Umkehrung von Descartes' Cogito; Halt-Satz des Erzählers."
+   },
+   {
+    "tr": "DEHB",
+    "meaning": "Türkisches Akronym für ADHS (Dikkat Eksikliği Hiperaktivite Bozukluğu); im Deutschen ADHS/Englisch ADHD."
+   },
+   {
+    "tr": "nörofarklı / otistik",
+    "meaning": "neurodivergent / autistisch – Selbstverortung des Erzählers; Register respektvoll, nicht pathologisierend."
+   },
+   {
+    "tr": "Kargalar insanın öldüğünü önceden bilir mi?",
+    "meaning": "Suchanfrage um 03.42 Uhr: 'Wissen Krähen vorher, dass ein Mensch stirbt?' – Krähenmotiv des Romans."
+   },
+   {
+    "tr": "uyanmış insanları sınıflandıran yasak kitap",
+    "meaning": "Suchbegriff: 'verbotenes Buch, das erwachte Menschen klassifiziert' – verweist auf das gesuchte Archiv/Buch (Uyanış)."
+   },
+   {
+    "tr": "manipülasyon haritası",
+    "meaning": "'Manipulationskarte': Notizen im roten Heft mit Kategorien Utanç, Yalnızlık, Üstünlük, Düşman, Görev (Scham, Einsamkeit, Überlegenheit, Feind, Auftrag)."
+   },
+   {
+    "tr": "Bir insanı kendi yarasına göre nasıl kandırırsın? Önce yarasını doğru anlatırsın.",
+    "meaning": "Zitat aus dem roten Heft: 'Wie täuscht man einen Menschen über seine eigene Wunde? Indem man ihm zuerst seine Wunde richtig beschreibt.'"
+   },
+   {
+    "tr": "Aradığınız metin yasak değildir. Yasak olduğu söylenerek seçilir.",
+    "meaning": "Antwort-E-Mail nach drei Tagen: 'Der Text, den Sie suchen, ist nicht verboten. Er wird ausgewählt, indem man sagt, er sei verboten.' – Schlüsselsatz."
+   },
+   {
+    "tr": "Edirne – İstanbul, 14.53, Koltuk 11",
+    "meaning": "Zugticket; Zahlen 14.53 (Anspielung auf 1453) und 11 wiederkehren; Kalendereintrag '14.53 — Yusuf / paketi bırak / açma' (Paket abgeben / nicht öffnen)."
+   },
+   {
+    "tr": "Dolap 1453 / Edirne Garı emanet dolabı",
+    "meaning": "Schließfach Nr. 1453 am Bahnhof Edirne (Gepäckaufbewahrung); 1453 = Eroberung Konstantinopels, Titelzahl des Romans."
+   },
+   {
+    "tr": "Yusuf Vural",
+    "meaning": "Unterschrift auf der Schließfachquittung; neue Figur, Name in Fettdruck."
+   },
+   {
+    "tr": "Saatçi",
+    "meaning": "'Uhrmacher' – Deckname/Person im Sprachmemo ('Saatçi gelmezse paketi dolaba bırak'); verknüpft mit Uhrmotiv (Uhrzeichnung, Vaters Laden mit Kleingeräten)."
+   },
+   {
+    "tr": "Hafızama misafir gelmiş. Ben evin tapusunu vermişim.",
+    "meaning": "Wortspiel: 'In mein Gedächtnis kam ein Gast, und ich habe ihm die Grundbuchurkunde des Hauses überschrieben' – Fortsetzung der Mieter-im-Haus-Metapher (pid 946)."
+   },
+   {
+    "tr": "Kıyamet sonrası plan hazır, dosya adı bilinmiyor.",
+    "meaning": "Selbstironie: 'Post-Apokalypse-Plan fertig, Dateiname unbekannt.'"
+   },
+   {
+    "tr": "Duru'nun okul gösterisi",
+    "meaning": "Schulaufführung der zehnjährigen Duru (ein Satz auf der Bühne), die der Erzähler bis auf fünf Minuten verpasste; Zeynep: 'Die richtige Zeit war, als deine Tochter auf der Bühne stand.'"
+   },
+   {
+    "tr": "Kadıköy / Erenköy / Edirne",
+    "meaning": "Orte: Kadıköy (Istanbul, Lesung mit Sefa Abi), Erenköy (Istanbul, Krankenhaus im Manuskript), Edirne (Bahnhof, Schließfach)."
+   },
+   {
+    "tr": "Book Inset",
+    "meaning": "Absatzstil für innere Stimmen, Zitate, Notizen, Kalendereinträge und Sprachmemos – typografisch abgesetzt übersetzen (fett + kursiv beibehalten)."
+   }
+  ],
+  "tone": "Ich-Erzählung in der Vergangenheit (Präteritum/-dı und Berichtsformen -mış für nicht selbst erinnerte, rekonstruierte Handlungen – im Deutschen durch 'offenbar/wie sich zeigt' oder Perfekt-Distanz wiedergeben). Ruhig-analytisches Register mit trockenem, selbstironischem Humor; kurze Dialogzeilen im Wechsel mit essayistischen Reflexionen über Gedächtnis und Erinnerungstäuschung. Innere Stimmen (ŞÜPHECİ, İNANAN, AVCI, TOPLAYICI, GÖLGE) als eingesetzte Kurzzeilen in Versalien/Kursiv. Rückblenden auf drei Zeitebenen: Gegenwart (mit Nehir), vor einem Monat (Manuskript), vor sieben Jahren (E-Mail, Elternhaus, Edirne, Schulaufführung), vor drei Jahren (Kadıköy). Emotionale Steigerung gegen Ende (Scham, Entschuldigung bei Duru), nüchtern gehalten, ohne Pathos."
+ },
+ "paras": [
+  {
+   "pid": 943,
+   "style": "Heading 1",
+   "text": "<b>12. Yedi Yıl Önce Çaldığım Kapı</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 944,
+   "style": "Opening",
+   "text": "Mesajı ben yazmıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 945,
+   "style": "Normal",
+   "text": "Bu, onu hatırladığım anlamına gelmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 946,
+   "style": "Normal",
+   "text": "İnsan kendi geçmişine bakarken iki büyük hata yapar. Birincisi, yaptığı her şeyi bugünkü aklıyla açıklayabileceğini sanır. İkincisi, hatırlamadığı şeyi yapmadığına inanır. Bugünkü benliğimiz, eski benliğin bıraktığı evde kiracı gibi dolaşır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 947,
+   "style": "Normal",
+   "text": "E-postanın tarihine baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 948,
+   "style": "Normal",
+   "text": "Yedi yıl önce, 11 Kasım. Saat 11.11.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 949,
+   "style": "Normal",
+   "text": "Ekranda dört tane bir görünce içimdeki İnanan hemen ayağa kalktı. İnternette 11.11'e “melek sayısı”, kapı, hizalanma ve evrenden onay diyen binlerce sayfa vardı. Bir sayının çok paylaşılması onu kadim yapmıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 950,
+   "style": "Normal",
+   "text": "Nehir saate baktı. “Bugün kaç kere 11.11 gördün?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 951,
+   "style": "Normal",
+   "text": "“Bir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 952,
+   "style": "Normal",
+   "text": "“Dün?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 953,
+   "style": "Normal",
+   "text": "“Hatırlamıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 954,
+   "style": "Normal",
+   "text": "“Çünkü dün aramıyordun. Beyin bir örüntüye önem verince onu kalabalığın içinden seçer. Bu, gördüğün şeyin değersiz olduğu anlamına gelmez. Yalnız kaynağının mutlaka evren olduğu anlamına gelmez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 955,
+   "style": "Normal",
+   "text": "Sayı bana ne yapacağımı söylemiyordu. Daha rahatsız edici bir şey yapıyordu: Benim çoktan ne aradığımı gösteriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 956,
+   "style": "Normal",
+   "text": "Gönderim saatini kendim seçmişsem 11.11 bir mesajdı; gönderen bendim. Başkası seçmişse, benim hangi mesajı duymak istediğimi biliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 957,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Sayı kanıt değildir.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 958,
+   "style": "Book Inset",
+   "text": "<b>İNANAN:</b> <i>Ama bazen iyi bir sorudur.</i>",
+   "keep": false,
+   "image": false,
+   "label": "İNANAN",
+   "constraint": null
+  },
+  {
+   "pid": 959,
+   "style": "Normal",
+   "text": "İkisi ilk kez kavga etmeden aynı ekrana baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 960,
+   "style": "Normal",
+   "text": "Konu satırı <b>Yasak arşiv başvurusu — Uyanışın Bedeli</b> idi. Alıcı adresi anlamsız harflerden oluşuyordu. Sunucu yıllar önce kapanmıştı. Mesajın ekinde on yedi yaşımda yazdığım sayfanın taraması, çocukluk saat çizimim ve kırmızı defterdeki yedi sembol vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 961,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Birisi hesabını kullandı.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 962,
+   "style": "Book Inset",
+   "text": "<b>TOPLAYICI:</b> <i>Dosya adlarına bak.</i>",
+   "keep": false,
+   "image": false,
+   "label": "TOPLAYICI",
+   "constraint": null
+  },
+  {
+   "pid": 963,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Kendini masum ilan etmeden önce gönderim kayıtlarını bul.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 964,
+   "style": "Normal",
+   "text": "Eklerin dosya adları bana aitti. Tarihleri yazarken yıl, ay, gün sırasını kullanır; sonuna konuyu değil, o gün içtiğim kahvenin ilk harfini eklerdim. Bir siber güvenlik uzmanı görse saldırgan değil, yardıma muhtaç olduğuma karar verirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 965,
+   "style": "Normal",
+   "text": "Karttaki iletiyi eski bilgisayarımın sakladığım yedeğiyle karşılaştırdık. Aynı ekler yerel giden kutusunda da vardı. Telefon yedeğimde o tarihten kalma bir doğrulama mesajı, birkaç dakika sonra çekilmiş bir mutfak fotoğrafı duruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 966,
+   "style": "Normal",
+   "text": "“Üçü birbirini destekliyor,” dedi Nehir. “Ama hiçbirinin üstünde parmağın yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 967,
+   "style": "Normal",
+   "text": "Ekin dosya adındaki kahve harfini gördüm. Fotoğrafta fincanın yanında Zeynep'in yarım bıraktığı kurabiye duruyordu. Kurabiyeyi ona sormadan yemiş, mesajı gönderirken kırıntıları klavyeye dökmüştüm. En büyük sırrımın yanında en küçük kabahatim açıldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 968,
+   "style": "Normal",
+   "text": "“Bunu ben gönderdim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 969,
+   "style": "Normal",
+   "text": "“Senin hatırladığınla yedekteki kayıt bu kez uyuşuyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 970,
+   "style": "Normal",
+   "text": "“Niye şimdiye kadar hatırlamıyordum?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 971,
+   "style": "Normal",
+   "text": "“Yedi yıl önceki her e-postanı hatırlıyor musun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 972,
+   "style": "Normal",
+   "text": "“Hayatımı değiştirecek olanları hatırlamam gerekmez mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 973,
+   "style": "Normal",
+   "text": "“Hayatını değiştirdiğini şimdi biliyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 974,
+   "style": "Normal",
+   "text": "“Peki ya olmayan bir şeyi hatırlıyorsam?” dedim. “O yeşil koridoru?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 975,
+   "style": "Normal",
+   "text": "Nehir, telefonuma yazdığım kısa notu yeniden okudu. Bilgisayarı kendime çevirdim. Kendi dosyalarım arasında “koridor” sözcüğünü aradım. Sonuçlardan birinin yanında Sefa Abi'nin adı çıktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 976,
+   "style": "Normal",
+   "text": "Bir ay önce gelen mesajı açtım. Yazdığı romanı okumamı, kafamın takıldığı yerlere not düşmemi istemişti. Dosyayı bu amaçla kendisi göndermişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 977,
+   "style": "Normal",
+   "text": "Nehir'e ekranı gösterdim. Soruşturma evrakı değil, üstüne çay dökülmesinden bile utanacağım bir arkadaş emaneti okuyorduk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 978,
+   "style": "Normal",
+   "text": "Sayfada bir adam, hastaneye gittiği günü hatırlamaya çalışıyordu. Yeşil oda. Hesabını veremediği bir zaman. Su uzatan bir doktor. Hemen altındaki paragrafta bardak doktorun değil, susayan adamın elindeydi. Anlatı hangi gözün içinden baktığını söylemeden yer değiştiriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 979,
+   "style": "Normal",
+   "text": "“Hakan,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 980,
+   "style": "Normal",
+   "text": "Adı bir sonraki satırdaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 981,
+   "style": "Normal",
+   "text": "Nehir bana baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 982,
+   "style": "Normal",
+   "text": "“Bunu sen yaşamamışsın, okumuşsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 983,
+   "style": "Normal",
+   "text": "İtiraz edecektim. Sayfanın kenarında kendi notumu gördüm: <i>Bardağı tutan eli hissettim. Burası kalmalı.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 984,
+   "style": "Normal",
+   "text": "Notun altında bir ay önceki tarih vardı. Gönderdiğim cevapta da aynı sahneden söz etmişim. Masanın başında beliren koridorun, zihnime girebileceği açık bir kapısı vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 985,
+   "style": "Normal",
+   "text": "“Rana değil,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 986,
+   "style": "Normal",
+   "text": "“Hayır. Senin değerlendirmeni yapan ekip başka. Bu, romandaki Hakan Hıdıroğlu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 987,
+   "style": "Normal",
+   "text": "Dosyanın ilerleyen sayfalarında bir başka adın altını çizmişim: Muhibbi Amca. Sefa'nın konuştuğu yaşlı adam. Onun olduğu yerleri hızlı geçmemiştim; sayfanın kenarında çay lekesi vardı. Bir kitabı nerede bıraktığımı bazen kendi notlarımdan önce fincanım hatırlıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 988,
+   "style": "Normal",
+   "text": "Sayfayı ilerlettim. Metindeki adam da hatırladığı güne itiraz ediyordu. Kendi geçmişime tanık diye çağırdığım sahnenin sahibi bile o sahneye güvenememişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 989,
+   "style": "Normal",
+   "text": "Bir başka notum bizi eski bir ses kaydının anlatıldığı sayfaya götürdü. Metale üç kez vuruluyor, sonra biri su istiyordu. Okurken masaya üç kez vurduğumu da hatırladım. Ya da bunu şimdi yaptığım için, o gün de yaptığımı sanıyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 990,
+   "style": "Normal",
+   "text": "Gülmeye başladım. Nehir neden güldüğümü sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 991,
+   "style": "Normal",
+   "text": "“Hafızama misafir gelmiş. Ben evin tapusunu vermişim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 992,
+   "style": "Normal",
+   "text": "Nehir gülümsedi; sonra eski e-postaya dönmem için bekledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 993,
+   "style": "Normal",
+   "text": "Telefonumdaki notun başına <i>Bu koridoru okudum</i> yazdım. Önceki cümleyi silmedim. <i>Benim mi?</i> sorusu altında kaldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 994,
+   "style": "Normal",
+   "text": "Suyun serinliğini açıklayacak bir sözcük bulamamıştım. Ama serinlik, başka birinin hayatını benim yapmıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 995,
+   "style": "Normal",
+   "text": "Yine de dosyada bir şey eksikti. Plastik bardak vardı; ağzındaki kıvrım yoktu. Kendi notumu açtım. Orada da yoktu. Sonradan gördüğüm bir ayrıntıyı ilk okumaya taşıyor olabilirdim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 996,
+   "style": "Normal",
+   "text": "“Sefa Abi'ye soralım,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 997,
+   "style": "Normal",
+   "text": "Nehir başını salladı. “Az önce fazla kesin konuştum. Sahneyi okuduğunu bulduk. Bildiğin her ayrıntıyı oradan aldığını değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 998,
+   "style": "Normal",
+   "text": "Bir gizemi korumak için telefonu açmayan roman kahramanı olmamaya karar verdim. Sefa Abi'yi aradım. Üç yıl önce Kadıköy'deki bir söyleşide tanışmıştık; ben konuşmasının ardından kırk dakikalık soru sormuş, o buna rağmen numarasını vermişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 999,
+   "style": "Normal",
+   "text": "Hoparlörü açmadan önce yanımda Nehir olduğunu söyledim, konuşmayı kaydetmek için izin istedim. “Kendi kitabımı bana delil diye okutacaksan telif alırım,” dedi. Sesi tanıdıktı. Çayını büyük ihtimalle yine soğutmuştu. Bir sesi tanımak, sahibinin bütün hikâyesini bilmekmiş gibi rahatlattı beni.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1000,
+   "style": "Normal",
+   "text": "Önce dosyayı sordum. Ekimde gönderdiği ara nüshaydı. O tarihten sonra yaptığı eklemeleri henüz yollamamıştı. Ekrandaki eki birlikte açtık; yeniden gönderilmiş, aynı adlı başka bir dosyaya bakmıyorduk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1001,
+   "style": "Normal",
+   "text": "Sonra bardağı tarif ettim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1002,
+   "style": "Normal",
+   "text": "Sefa Abi sustu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1003,
+   "style": "Normal",
+   "text": "“İçeri mi kıvrılmıştı?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1004,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1005,
+   "style": "Normal",
+   "text": "“Onu sen mi düzeltiyorsun, sana su veren mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1006,
+   "style": "Normal",
+   "text": "Sağ başparmağımı sol avucumun içine bastırdım. O hareketi yaparken canım acıyormuş gibi geliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1007,
+   "style": "Normal",
+   "text": "“Ben,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1008,
+   "style": "Normal",
+   "text": "“Ben de kendi elimle düzelttiğimi hatırlıyorum,” dedi Sefa Abi. Sonra ekledi: “Yazarken. O sahneyi yazarken elim de yapmıştı. Şimdi olmuş bir gün gibi geliyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1009,
+   "style": "Normal",
+   "text": "İkimiz de gülmedik.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1010,
+   "style": "Normal",
+   "text": "Sefa Abi'nin metinde kurduğu hastane Erenköy'deydi. Yılını sordum. “Bu bir tutanak değil,” dedi. “Odanın bir kısmını gördüğüm yerlerden, bir kısmını yazarken kurdum. Seni oraya koyduğumu da hatırlamıyorum.” Ben de oraya hasta olarak gittiğimi hatırlamıyordum. Onun yazdığı hastaneyle benim hatırlamaya çalıştığım yeri aynı adres sayamazdık.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1011,
+   "style": "Normal",
+   "text": "“Hasta olarak değil,” dedim birden.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1012,
+   "style": "Normal",
+   "text": "Nehir yüzüme baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1013,
+   "style": "Normal",
+   "text": "Emir bebekken gündüz bir arkadaşımın ses ve görüntü sistemleri işine yardım ediyor, geceleri yazıyordum. Babamın dükkânını çoktan devretmiştik; küçük cihazları söküp toplama huyum kalmıştı. Bir projektör, bir hastane, yarıda kesilmiş bir okuma günü. Başka hiçbir şey gelmedi. Hafızam filmi açmıyor, afişini gösterip kapatıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1014,
+   "style": "Normal",
+   "text": "Sefa Abi eski taslaklarına bakacağını söyledi. Ben de evdeki iş evraklarını arayacaktım. Bunun için romandaki Hakan'ın hekimliğine, Meralis'in sunucusuna veya gizli bir yetkiye ihtiyacımız yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1015,
+   "style": "Normal",
+   "text": "Telefon kapanınca Nehir sordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1016,
+   "style": "Normal",
+   "text": "“Şimdi ne biliyoruz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1017,
+   "style": "Normal",
+   "text": "“Aynı sahneyi iki kişi hatırlıyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1018,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1019,
+   "style": "Normal",
+   "text": "Haklıydı. Aynı sahneyi okumuştuk. Hatırladığımız şeylerin ne kadarının oradan geldiğini henüz bilmiyorduk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1020,
+   "style": "Normal",
+   "text": "Nehir karttaki ekran görüntülerini sırayla açtı. Mesajı göndermeden önce üç ay boyunca aynı arşivi aramıştım. Kapalı forumlara üyelik başvuruları, eski kitap katalogları, Latince ve Almanca anahtar kelimeler, Osmanlıca bir risalenin eksik sayfaları. Arama geçmişimde “uyanmış insanları sınıflandıran yasak kitap”, “avcı toplayıcı dikkat teorisi”, “narsisizm empatiyi silah gibi kullanmak” ve gece 03.42'de sorulmuş çok önemli bir soru vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1021,
+   "style": "Book Inset",
+   "text": "<i>Kargalar insanın öldüğünü önceden bilir mi?</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1022,
+   "style": "Normal",
+   "text": "“Bilimsel yöntemin zirvesi,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1023,
+   "style": "Normal",
+   "text": "“Saat üç kırk ikiymiş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1024,
+   "style": "Normal",
+   "text": "“Bilim o saatte uyuyor mu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1025,
+   "style": "Normal",
+   "text": "“Hakemli dergiler uyuyor. Merak uyanık.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1026,
+   "style": "Normal",
+   "text": "O dönemi yavaş yavaş hatırladım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1027,
+   "style": "Normal",
+   "text": "E-postaya eklediğim tarama beni o mesajdan birkaç ay önceki bir sabaha götürdü. Otuz beş yaşındaydım. Annem, çocukluğumun geçtiği ev satılmadan önce bodrumdaki son kutuları almam için anahtarı bırakmıştı. Telefon yedeğinde o güne ait tek fotoğraf, evin giriş kapısını gösteriyordu. Kapı koluna ince bir kırmızı ip bağlanmıştı. Düğümün iki ucu aynı uzunluktaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1028,
+   "style": "Normal",
+   "text": "İçeri neden girdiğimi hatırlıyordum: on yedi yaşımda tuttuğum defterleri almak için. İpi neden fotoğrafladığımı hatırlamıyordum. Görüntüde kapının camına vuran silik yansımam vardı. Telefon yüzümü seçmiş, beyaz bir kareyle işaretlemişti. Fakat fotoğrafın kişi bilgilerinde adım yerine yalnızca <b>KİŞİ 0</b> yazıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BENI_ARAMA",
+    "index": 3,
+    "n": 9
+   }
+  },
+  {
+   "pid": 1029,
+   "style": "Normal",
+   "text": "“Kişi sıfır, silinmiş insan demek değil,” dedi Nehir. “Programa adını öğretmemiş olabilirsin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1030,
+   "style": "Normal",
+   "text": "“Ya öğretip unuttuysam?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1031,
+   "style": "Normal",
+   "text": "“O zaman kaybolan şeyle hiç yazılmamış şeyi ayırmamız gerekiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1032,
+   "style": "Normal",
+   "text": "Camdaki yansıma oradaydı. Yine de fotoğrafın dışında kalan bana tutunacak bir cümle aradım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1033,
+   "style": "Normal",
+   "text": "Buradayım çünkü düşünüyorum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1034,
+   "style": "Normal",
+   "text": "Yedi yıl önce, o e-postayı yazarken henüz tanı almamıştım. DEHB'nin yalnız zorluk değil, farklı dikkat biçimi olarak da yaşandığını okumuştum. Otistik insanların ayrıntı, dürüstlük, derin ilgi ve duyusal dünya üzerine anlattıklarını dinlemiştim. Rahatlatıcıydı. Yıllarca ayıp saydığım şeylerin bazıları başka insanların da hayatıydı. Ama başkasının deneyimini tanımak, kendi değerlendirmeme gitmekten daha kolay gelmişti. Kitapları bitiriyor, randevuyu erteliyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1035,
+   "style": "Normal",
+   "text": "Fakat rahatlama yetmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1036,
+   "style": "Normal",
+   "text": "“Neden?” sorusu kısa süre sonra “Ne için?” sorusuna dönüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1037,
+   "style": "Normal",
+   "text": "Eğer bu özellikler yalnız hata değilse ne işe yarıyordu?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1038,
+   "style": "Normal",
+   "text": "Eğer bazıları tehlikeyi, bazıları sistemi, bazıları başkasının acısını farklı biçimde görüyorsa bunun insanlık tarihindeki yeri neydi?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1039,
+   "style": "Normal",
+   "text": "Eğer dünya bu insanları sürekli yoruyorsa sorun yalnız insanda mıydı?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1040,
+   "style": "Normal",
+   "text": "Soruların her biri değerliydi. Ben hepsini aynı gece cevaplamak istiyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1041,
+   "style": "Normal",
+   "text": "O aylarda uyku saatlerim dağıldı. Bir konuya giriyor, on iki saat sonra susadığımı fark ediyordum. Dünyanın farklı yerlerindeki insanlarla konuşuyor, notlar çıkarıyor, çocukların okul mesajlarını geç cevaplıyor, Zeynep'e “çok önemli bir şeyin eşiğindeyim” diyordum. O ise çöpün kapının eşiğinde üç gündür beklediğini söylüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1042,
+   "style": "Normal",
+   "text": "Bir gece kırmızı defterin ilk sayfasına şunu yazmıştım:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1043,
+   "style": "Book Inset",
+   "text": "<i>Bir insanı kendi yarasına göre nasıl kandırırsın? Önce yarasını doğru anlatırsın.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1044,
+   "style": "Normal",
+   "text": "Altına:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1045,
+   "style": "Book Inset",
+   "text": "<i>Bu yöntemi öğrenirsem kendimi koruyabilirim.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1046,
+   "style": "Normal",
+   "text": "Savunma amacıyla başladığım notlar giderek bir manipülasyon haritasına dönüşmüş. Utanç, yalnızlık, üstünlük, düşman, görev. İnsanların hangi sırayla kapandığını ve hangi cümlede açıldığını sınıflandırmışım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1047,
+   "style": "Normal",
+   "text": "Nehir sayfaları okurken yüzü sertleşti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1048,
+   "style": "Normal",
+   "text": "“Bunu Leyla görmüş müydü?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1049,
+   "style": "Normal",
+   "text": "“Yıllar sonra. Onunla tanıştıktan sonra eski notları yeniden çıkardım. Son görüşmemizde de birkaç sayfayı birlikte okuduk.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1050,
+   "style": "Normal",
+   "text": "“Ne dedi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1051,
+   "style": "Normal",
+   "text": "“İyi bir kilit yapmak için hırsız gibi düşünmenin, insanı hırsız yapmadığını söyledi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1052,
+   "style": "Normal",
+   "text": "“Devamı vardır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1053,
+   "style": "Normal",
+   "text": "“Hırsız gibi düşünmekten hoşlanmaya başlarsam ona söylememi istedi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1054,
+   "style": "Normal",
+   "text": "Nehir taramayı kapattı. “Söyledin mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1055,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1056,
+   "style": "Normal",
+   "text": "“Neden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1057,
+   "style": "Normal",
+   "text": "“Hoşlandığımı düşünmedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1058,
+   "style": "Normal",
+   "text": "“Şimdi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1059,
+   "style": "Normal",
+   "text": "Gölge cevap vermek istedi. Onu susturmadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1060,
+   "style": "Book Inset",
+   "text": "<b>GÖLGE:</b> <i>Bir insanın hangi düğmeye basınca değiştiğini bilmek güçtür. Güç hoşuna gitti.</i>",
+   "keep": false,
+   "image": false,
+   "label": "GÖLGE",
+   "constraint": null
+  },
+  {
+   "pid": 1061,
+   "style": "Normal",
+   "text": "“Şimdi emin değilim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1062,
+   "style": "Normal",
+   "text": "E-postanın yanıtı üç gün sonra gelmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1063,
+   "style": "Book Inset",
+   "text": "<i>Aradığınız metin yasak değildir. Yasak olduğu söylenerek seçilir. Bedeli ödemek istiyorsanız önce hangi bedeli istediğinizi sorun.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1064,
+   "style": "Normal",
+   "text": "Altında bir tren bileti bulunuyordu. Edirne'den İstanbul'a, 14.53. Koltuk 11.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1065,
+   "style": "Normal",
+   "text": "Takvimimde aynı gün için tek not vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1066,
+   "style": "Book Inset",
+   "text": "<b>14.53 — Yusuf / paketi bırak / açma</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1067,
+   "style": "Normal",
+   "text": "“Yusuf kim?” diye sordu Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1068,
+   "style": "Normal",
+   "text": "“Bilmiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1069,
+   "style": "Normal",
+   "text": "Bu kez yalan söylemiyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1070,
+   "style": "Normal",
+   "text": "Fakat adı ağzımdan çıkar çıkmaz bedenim onu tanıdı. Sol omzum gerildi. Dilimin altında metal tadı belirdi. Bazı anılar zihne resim olarak dönmez; kasın içinde bekleyen bir talimat gibi uyanır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1071,
+   "style": "Normal",
+   "text": "“Edirne'ye gitmişim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1072,
+   "style": "Normal",
+   "text": "“Bilet okutulmuş. Aynı akşam İstanbul'a dönmüşsün.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1073,
+   "style": "Normal",
+   "text": "“Neden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1074,
+   "style": "Normal",
+   "text": "Nehir ekrandaki son dosyayı açtı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1075,
+   "style": "Normal",
+   "text": "Edirne Garı'nın emanet dolabı fişi. Dolap 1453.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1076,
+   "style": "Normal",
+   "text": "Teslim alan imzası:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1077,
+   "style": "Normal",
+   "text": "<b>Yusuf Vural.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1078,
+   "style": "Normal",
+   "text": "Tren garının yedi yıl önceki kamera kayıtları çoktan silinmişti. Fakat bilet hesabımda koltuk değişikliği, kredi kartımda çay ödemesi ve telefonumun eski bulut yedeğinde üç kısa ses kaydı vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1079,
+   "style": "Normal",
+   "text": "İlk kayıtta trenin sesi duyuluyordu. Kendi kendime konuşmuşum:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1080,
+   "style": "Book Inset",
+   "text": "“Saatçi gelmezse paketi dolaba bırak. Adamı takip etme. Bu kez sorunun peşinden gitmeyeceksin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1081,
+   "style": "Normal",
+   "text": "İkinci kayıtta yalnız nefesim ve uzaktan bir çocuğun ağlaması vardı. Sonunda bir erkek sesi, “Bunu sana ilk kim söyledi?” diye soruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1082,
+   "style": "Normal",
+   "text": "Ben, “Henüz söylemedi,” diyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1083,
+   "style": "Normal",
+   "text": "Üçüncü kayıt İstanbul'a dönüş yolundaydı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1084,
+   "style": "Book Inset",
+   "text": "“Unutursam bunun korkaklık olduğunu sanma. Bazı bilgiler zamanından önce açılırsa insanı korumaz, tüketir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1085,
+   "style": "Normal",
+   "text": "Sesim bugünkünden daha hızlı, daha yorgundu. Kendime mesaj bırakmıştım; fakat mesajın nerede tutulacağını kaydetmemiştim. Bu, benim güvenlik anlayışımın özeti olabilirdi: Kıyamet sonrası plan hazır, dosya adı bilinmiyor.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1086,
+   "style": "Normal",
+   "text": "Zeynep'i aradım. Yedi yıl önce Edirne'ye gittiğim günü hatırlayıp hatırlamadığını sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1087,
+   "style": "Normal",
+   "text": "“Duru'nun okul gösterisini kaçırdığın gün,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1088,
+   "style": "Normal",
+   "text": "Kasım ayıydı. Duru on yaşındaydı ve sahnede tek cümle söyleyecekti. Prova sırasında ışık ve ses yüzünden defalarca kulise kaçmış, sonunda çıkmaya karar vermişti. Ben sabah ona orada olacağıma söz vermiştim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1089,
+   "style": "Normal",
+   "text": "“Gösteriye yetişmedim mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1090,
+   "style": "Normal",
+   "text": "“Son beş dakikasına. Duru seni seyircide aramayı bırakmıştı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1091,
+   "style": "Normal",
+   "text": "Anı geri gelmedi. Onun yerine utanç geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1092,
+   "style": "Normal",
+   "text": "“Neden Edirne'ye gittiğimi söyledim mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1093,
+   "style": "Normal",
+   "text": "“Bir kitabı yanlış zamanda bulmamamız için dedin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1094,
+   "style": "Normal",
+   "text": "“Sen ne dedin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1095,
+   "style": "Normal",
+   "text": "“Doğru zamanın kızının sahnede olduğu zaman olduğunu söyledim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1096,
+   "style": "Normal",
+   "text": "Telefonun öbür ucunda sessizlik oldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1097,
+   "style": "Normal",
+   "text": "“Yine kendini yargılamak için mi aradın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1098,
+   "style": "Normal",
+   "text": "“Ne yaptığımı anlamak için.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1099,
+   "style": "Normal",
+   "text": "“İkisini karıştırıyorsun. Duru'yu kırdın. Bu gerçek. O gün yaptığın başka şey dünyayı kurtarmış olsa bile kırılmadı sayılmaz. Ama bunu hatırlamaman da sevgisiz olduğunun kanıtı değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1100,
+   "style": "Normal",
+   "text": "“Ona özür diledim mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1101,
+   "style": "Normal",
+   "text": "“Hediye aldın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1102,
+   "style": "Normal",
+   "text": "“Yani hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1103,
+   "style": "Normal",
+   "text": "“Yani henüz değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1104,
+   "style": "Normal",
+   "text": "Telefonu kapattıktan sonra Duru'ya hemen yazmak istedim. Sonra bu özrün onun yarası için mi, benim utancımı hafifletmek için mi olacağını sordum. Cevabı bilmeden mesaj atmadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1105,
+   "style": "Normal",
+   "text": "Gece ona yüz yüze söyledim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1106,
+   "style": "Normal",
+   "text": "Duru gösteriyi hatırlıyordu. “O gün gelmediğin için değil,” dedi. “Sonra neden gelmediğini anlatırken benim gösterimden daha heyecanlı konuştuğun için kızmıştım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1107,
+   "style": "Normal",
+   "text": "“Özür dilerim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1108,
+   "style": "Normal",
+   "text": "“Tamam.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1109,
+   "style": "Normal",
+   "text": "“Bu kadar mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1110,
+   "style": "Normal",
+   "text": "“Yedi yıllık konuşmayı üç saat yapmak zorunda mıyız?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1111,
+   "style": "Normal",
+   "text": "“İstersen yapabiliriz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1112,
+   "style": "Normal",
+   "text": "“İstemiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1113,
+   "style": "Normal",
+   "text": "Duru konuyu kapattı. Ben de ilk kez onun kapattığı kapıyı yeniden açmadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

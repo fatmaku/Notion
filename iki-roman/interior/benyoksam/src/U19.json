@@ -1,0 +1,1169 @@
+{
+ "uid": "U19",
+ "title": "21. Bir Hata, İki Kız Kardeş",
+ "number": 21,
+ "words": 810,
+ "constraints": {
+  "uid": "U19",
+  "number": 21,
+  "title": "21. Bir Hata, İki Kız Kardeş",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 810
+ },
+ "synopsis": {
+  "uid": "U19",
+  "title": "21. Bir Hata, İki Kız Kardeş",
+  "summary": "Gegenwartsebene, zunächst bei Nehir: Die Eröffnung erklärt die Herkunft der Schwestern – Leyla und Nehir hatten dieselbe Mutter, verschiedene Väter; Leyla war neun Jahre älter, ersatzmütterlich, ging in die Akademie, Nehir in den Journalismus. Nehir spielt eine Tonaufnahme der beiden Schwestern aus der Buchbinderwerkstatt (Hintergrund: Bindemaschinen) vor, in der Leyla das Verschicken des Buches ohne aktuelle Einwilligung des Erzählers verteidigt („Meralis önce davranacak“; „Söylersem kitabı değil, beni sınar“); die Aufnahme bricht ab – eine Lücke von elf Sekunden („Yine on bir“), diesmal ohne Beweis für Meralis' Eingriff; Nehir verneint weitere Kopien, der Erzähler kann keine Lüge hören, traut dem aber nicht. Dann ruft Duru an: Emir ist nach dem Robotikklub verschwunden, Handy aus; ein Klubfreund sah ihn an der Hintertür mit einem alten Mann in grauem Mantel – der Erzähler erkennt: Yusuf. Trotz Streit fährt Nehir; sie finden Emir vier Straßen entfernt vor einem Elektronikladen, mit einer alten Taschenuhr (geschlossenes-Auge-Zeichen auf dem Deckel, stehengeblieben um 14.53, Inschrift „Saat çalışmıyorsa sesi dinle“, leises digitales Summen im Inneren); Yusuf behauptete, sie stamme vom Großvater, kannte Details aus der Kindheit des Erzählers und wirkte ängstlich. Nehir sichert die Uhr in einem provisorischen Beweisbeutel (Seriennummer von Selin erfasst), Öffnung nur unter Video und mit Zeugen. Zuhause: Zeynep ordnet das Chaos („aynı anda yalnız bir felaket“), Emir erklärt, er habe nur beim falschen Schraubendreher geholfen; Vater und Duru ziehen die Parallele – ein echter Gegenstand macht die Absicht des Überbringers nicht echt, und der Vater glaubt dem Buch aus demselben Fehler. Familien-Sicherheitsplan mit Codewort „yamuk mantı“, Powerbank-Verhandlung mit Emir (sechs Tage, Schraube messen erlaubt) und abschließendes Nachtgespräch: „Korktuğum için kızdım“ – „Bir dahaki sefer önce korktuğunu söyle.“",
+  "characters": [
+   "Ich-Erzähler (Vater, Protagonist)",
+   "Nehir (Journalistin, Leylas jüngere Halbschwester; fährt den Wagen, sichert die Uhr)",
+   "Leyla (verstorbene ältere Schwester, nur in der Tonaufnahme/Erzählung)",
+   "Duru (Tochter des Erzählers, ältere der beiden Kinder; wählt das Codewort)",
+   "Emir (Sohn des Erzählers, jüngeres Kind, Robotikklub, technikbegeistert, schraubt alles auf)",
+   "Zeynep (Ehefrau des Erzählers, Mutter von Duru und Emir)",
+   "Yusuf (alter Mann im grauen Mantel, weißer Bart, Narbe an der Augenbraue; überbringt die Taschenuhr; mit dem Erzähler/dessen Großvater verbunden)",
+   "Selin (Verbündete mit polizeilich-forensischem Bezug; erfasst telefonisch die Seriennummer – nur erwähnt)",
+   "Großvater des Erzählers („dede“, nur erwähnt, angeblicher Vorbesitzer der Uhr)",
+   "Emirs Klubfreund und Schulsicherheit (Nebenfiguren, nur berichtet)",
+   "Meralis (Organisation, nur erwähnt)"
+  ],
+  "terms": [
+   {
+    "tr": "Bir Hata, İki Kız Kardeş",
+    "meaning": "Kapiteltitel „Ein Fehler, zwei Schwestern“ – der eine Fehler (Vertrauen in echte Details → Vertrauen in die Absicht) verbindet Leylas Entscheidung, Emirs Verhalten und den Vater; „kız kardeş“ = Schwestern (Leyla/Nehir)."
+   },
+   {
+    "tr": "aynı anneden, farklı babalardan",
+    "meaning": "Halbschwestern mütterlicherseits; Leyla neun Jahre älter – Fakten für Konsistenz."
+   },
+   {
+    "tr": "abla / Ablam",
+    "meaning": "Ältere Schwester, Anrede/Bezeichnung Nehirs für Leyla („Ablam insanlara gereğinden fazla ikinci şans verirdi“). Im Deutschen „meine Schwester/große Schwester“."
+   },
+   {
+    "tr": "Sana şans vermedik. Seni tanıdık.",
+    "meaning": "Nehirs Pointe „Wir gaben dir keine Chance. Wir lernten dich kennen.“ – Gegensatz Chance/Erkennen erhalten."
+   },
+   {
+    "tr": "atölye / cilt makineleri",
+    "meaning": "Leylas Buchbinderwerkstatt mit Bindemaschinen (wiederkehrender Ort der Reihe, Ort der weißen Kopie); Hintergrundgeräusch der Aufnahme."
+   },
+   {
+    "tr": "LEYLA: / NEHİR: (Transkript)",
+    "meaning": "Aufnahme als Book-Inset mit fettem Sprecherlabel und Anführungszeichen; Zeit: vor Leylas Tod. Leylas Sätze: „Çünkü Meralis önce davranacak“ (Meralis wird zuvorkommen), „Söylersem kitabı değil, beni sınar“ (dann prüft er mich statt das Buch), „Beni korumaya çalışırken kendisini göremez“."
+   },
+   {
+    "tr": "Yedi yıl önceki başvurusu",
+    "meaning": "„seine Bewerbung/sein Antrag von vor sieben Jahren“ – frühere Einwilligung des Erzählers (vermutlich Projektteilnahme), die Leyla als Erlaubnis deutete."
+   },
+   {
+    "tr": "on bir saniyelik boşluk / Yine on bir",
+    "meaning": "Elf-Sekunden-Lücke in der Aufnahme; „Wieder elf“ – Zahl 11 ist ein wiederkehrendes Muster im Roman (frühere Lücken Meralis zugeschrieben). Zahl exakt erhalten."
+   },
+   {
+    "tr": "Robotik kulübü",
+    "meaning": "Robotik-AG an Emirs Schule."
+   },
+   {
+    "tr": "gri paltolu yaşlı adam / gri palto, beyaz sakal, kaşında iz",
+    "meaning": "Signalement Yusufs (grauer Mantel, weißer Bart, Narbe an der Augenbraue) – wiederkehrende Erkennungsmerkmale; „Gri palto mu?“ löst sofort die Identifikation aus."
+   },
+   {
+    "tr": "Yusuf",
+    "meaning": "Einzeiliger Absatz nur mit dem Namen – Erkenntnismoment des Erzählers; als eigener Absatz belassen."
+   },
+   {
+    "tr": "elektronikçilerin olduğu sokak / elektronikçi vitrini",
+    "meaning": "Straße der Elektronikläden; Emir steht vor einem Schaufenster."
+   },
+   {
+    "tr": "cep saati",
+    "meaning": "Alte Taschenuhr – neues zentrales Objekt: Rückdeckel mit „kapalı göz işareti“ (Zeichen des geschlossenen Auges, Meralis/Yusuf-Symbol der Reihe), Zeiger stehen auf 14.53 (Anspielung auf 1453), Batterie/digitales Summen im Inneren."
+   },
+   {
+    "tr": "Saat çalışmıyorsa sesi dinle.",
+    "meaning": "Fette Inset-Inschrift im Innendeckel: „Wenn die Uhr nicht läuft, hör auf den Klang.“ – Hinweistext; in späteren Paketen relevant."
+   },
+   {
+    "tr": "14.53",
+    "meaning": "Uhrzeit, zu der die Uhr stehenblieb; Echo auf 1453 (Titel „YOLCU – 1453“). Schreibweise beibehalten (Punkt/Doppelpunkt nach Zielsprachenkonvention, aber Zahl 14:53)."
+   },
+   {
+    "tr": "çarkları kulaktan tanımak",
+    "meaning": "„die Zahnräder am Gehör erkennen“ – Kindheitsdetail des Erzählers, das Yusuf kennt und mit dem er Emirs Vertrauen gewinnt."
+   },
+   {
+    "tr": "dede / Dedenden kaldığını söyledi",
+    "meaning": "Großvater; „er sagte, sie sei von deinem Großvater geblieben“ – die Uhr als angebliches Erbstück."
+   },
+   {
+    "tr": "kanıt poşeti / geçici koruma poşeti",
+    "meaning": "Beweisbeutel; ausdrücklich kein polizeilich versiegelter, sondern ein manipulationsanzeigender Schutzbeutel; „resmî teslim“ = offizielle Übergabe; Öffnung nur mit Videoaufzeichnung und unabhängigem Zeugen."
+   },
+   {
+    "tr": "Selin",
+    "meaning": "Verbündete Figur (aus früheren Paketen, forensisch/polizeinah); erfasst die Seriennummer telefonisch."
+   },
+   {
+    "tr": "Bu evde aynı anda yalnız bir felaket konuşacak.",
+    "meaning": "Zeyneps Hausregel „In diesem Haus wird immer nur eine Katastrophe gleichzeitig besprochen“ – trockener Humor, charakterisierend."
+   },
+   {
+    "tr": "Biliyorum",
+    "meaning": "„Ich weiß“ – explizit kontrastiert: Nehirs „biliyorum“ (Übernahme von Verantwortung, in der Aufnahme Leylas „Biliyorum“) vs. Emirs „biliyorum“ (Tür, um das Gespräch zu beenden). Gleichlaut im Zieltext erhalten."
+   },
+   {
+    "tr": "Gerçek bir eşya, onu getiren kişinin niyetini gerçek yapmaz.",
+    "meaning": "Kernsatz: „Ein echter Gegenstand macht die Absicht dessen, der ihn bringt, nicht echt.“ Duru überträgt ihn auf das Buch: „Kitap senin hakkında gerçek şeyler biliyor diye geri kalanına inanmak istiyorsun.“"
+   },
+   {
+    "tr": "hepimiz aynı dersteyiz. Kimse öğretmen değil.",
+    "meaning": "Zeynep: „Wir sitzen alle in derselben Lektion. Niemand ist Lehrer.“"
+   },
+   {
+    "tr": "aile güvenlik planı",
+    "meaning": "Familien-Sicherheitsplan: Symbole, Name Meralis, Yusufs Beschreibung, keine fremden Anweisungen befolgen."
+   },
+   {
+    "tr": "yamuk mantı",
+    "meaning": "Notfall-Codewort Durus, wörtlich „schiefe/krumme Mantı“ (türkische Teigtaschen); Witz: der Vater kann Mantı nicht ordentlich schließen – hat es nie gemacht. Fett gesetzt; Wortspiel in der Zielsprache mit Fußnote oder als Lehnwort „Mantı“ lösen, aber Pointe erhalten."
+   },
+   {
+    "tr": "taşınabilir pil",
+    "meaning": "Powerbank; Verhandlung „Bir hafta sökmeyeceksin“ – 5 – 7 – 6 Tage, „vidasını ölçebilirim“ (Schraube messen) – Emirs Charakter."
+   },
+   {
+    "tr": "Korktuğum için kızdım. / Bir dahaki sefer önce korktuğunu söyle.",
+    "meaning": "Schlussdialog Vater–Sohn: „Ich war wütend, weil ich Angst hatte.“ – „Sag nächstes Mal zuerst, dass du Angst hast.“ Chiasmus „Kızdığın için mi korktun? / Korktuğum için kızdım“ erhalten."
+   },
+   {
+    "tr": "Baba",
+    "meaning": "Anrede der Kinder an den Erzähler („Baba, Emir'e ulaşamıyoruz“); „Annem“ = Zeynep aus Kindersicht."
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum; Eröffnungsabsatz im Stil „Opening“ als knappe biografische Exposition der Schwestern (Plusquamperfekt). Tonaufnahme als fett gelabelte Transkript-Insets mit Anführungszeichen. Dann Thriller-Beschleunigung (Anruf, Autofahrt, Suche) mit sehr kurzen Sätzen und einzeiligen Absätzen („Yusuf.“), danach warmes, humorvolles Familienregister (Zeyneps Hausregeln, Durus Schlagfertigkeit, Emirs Verhandlungslogik). Enden auf lakonischer, emotional offener Vater-Sohn-Zeile. Durchgehend Du-Anrede; Kinder sagen „Baba“."
+ },
+ "paras": [
+  {
+   "pid": 1604,
+   "style": "Heading 1",
+   "text": "<b>21. Bir Hata, İki Kız Kardeş</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1605,
+   "style": "Opening",
+   "text": "Leyla ve Nehir aynı anneden, farklı babalardandı. Leyla ondan dokuz yaş büyüktü. Nehir küçükken okul toplantılarına ablası gider, saçını ablası toplar, ilk haber yazısını ablasına okuturdu. Sonra Leyla akademiye, Nehir gazeteciliğe girmiş; biri insanların zihnini anlamaya, diğeri o zihinden kimlerin para kazandığını bulmaya çalışmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1606,
+   "style": "Normal",
+   "text": "“Ablam insanlara gereğinden fazla ikinci şans verirdi,” dedi Nehir. “Ben ilk şans için bile belge isterim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1607,
+   "style": "Normal",
+   "text": "“Bana hangisini verdiniz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1608,
+   "style": "Normal",
+   "text": "“Sana şans vermedik. Seni tanıdık.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1609,
+   "style": "Normal",
+   "text": "Nehir, Leyla'nın ölümünden önce kaydettiği görüşmeyi açtı. İki kız kardeş atölyedeydi. Arka planda cilt makinelerinin sesi duyuluyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1610,
+   "style": "Normal",
+   "text": "Konuşanların adı dosyada etiketlenmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1611,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Kitabı ona göndermeden önce iznini aldığımızı sanmak istiyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1612,
+   "style": "Book Inset",
+   "text": "<b>NEHİR:</b> “Yedi yıl önceki başvurusu bugünkü izni değil.”",
+   "keep": false,
+   "image": false,
+   "label": "NEHİR",
+   "constraint": null
+  },
+  {
+   "pid": 1613,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Biliyorum.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1614,
+   "style": "Book Inset",
+   "text": "<b>NEHİR:</b> “Yine de gönderiyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": "NEHİR",
+   "constraint": null
+  },
+  {
+   "pid": 1615,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Çünkü Meralis önce davranacak.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1616,
+   "style": "Book Inset",
+   "text": "<b>NEHİR:</b> “O zaman ona söyle.”",
+   "keep": false,
+   "image": false,
+   "label": "NEHİR",
+   "constraint": null
+  },
+  {
+   "pid": 1617,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Söylersem kitabı değil, beni sınar.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1618,
+   "style": "Book Inset",
+   "text": "<b>NEHİR:</b> “Sınasın.”",
+   "keep": false,
+   "image": false,
+   "label": "NEHİR",
+   "constraint": null
+  },
+  {
+   "pid": 1619,
+   "style": "Book Inset",
+   "text": "<b>LEYLA:</b> “Beni korumaya çalışırken kendisini göremez.”",
+   "keep": false,
+   "image": false,
+   "label": "LEYLA",
+   "constraint": null
+  },
+  {
+   "pid": 1620,
+   "style": "Normal",
+   "text": "Kayıt burada kesiliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1621,
+   "style": "Normal",
+   "text": "“Devamı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1622,
+   "style": "Normal",
+   "text": "“Kopyada yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1623,
+   "style": "Normal",
+   "text": "“Kaç saniye?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1624,
+   "style": "Normal",
+   "text": "Nehir dosyanın zaman çizelgesini gösterdi. On bir saniyelik boşluk vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1625,
+   "style": "Normal",
+   "text": "“Yine on bir,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1626,
+   "style": "Normal",
+   "text": "“Bu kez Meralis'in yaptığına dair kanıt yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1627,
+   "style": "Normal",
+   "text": "“Sende başka kopya var mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1628,
+   "style": "Normal",
+   "text": "“Yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1629,
+   "style": "Normal",
+   "text": "Yalanı sesinde duymadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1630,
+   "style": "Normal",
+   "text": "Bu, yalan olmadığı anlamına gelmiyordu. Nehir, mesleği gereği sesini kontrol edebiliyordu. Ben de insanları okuma becerime fazla güvendiğimde, okumadığım yeri kendi korkumla dolduruyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1631,
+   "style": "Normal",
+   "text": "Telefonum çaldı. Duru arıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1632,
+   "style": "Normal",
+   "text": "“Baba, Emir'e ulaşamıyoruz,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1633,
+   "style": "Normal",
+   "text": "Ayağa kalktım. “Nerede olması gerekiyor?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1634,
+   "style": "Normal",
+   "text": "“Robotik kulübü bitmiş. Annem trafikte. Ben okula geldim, burada yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1635,
+   "style": "Normal",
+   "text": "Odadaki bütün teoriler bir anda küçüldü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1636,
+   "style": "Normal",
+   "text": "“Konumunu açtın mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1637,
+   "style": "Normal",
+   "text": "“Telefonu kapalı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1638,
+   "style": "Normal",
+   "text": "“Arkadaşlarını ara. Ben geliyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1639,
+   "style": "Normal",
+   "text": "Nehir çantasını aldı. “Arabayı ben sürerim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1640,
+   "style": "Normal",
+   "text": "“Bunu yalnız yapacağım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1641,
+   "style": "Normal",
+   "text": "“Çocuğun kayıp,” dedi Duru telefondan. “Kavganızı sonra yaparsınız.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1642,
+   "style": "Normal",
+   "text": "Arabada Duru'yla telefonda kaldım. Emir'in kulüp arkadaşlarından biri, onu okulun arka kapısında gri paltolu yaşlı bir adamla konuşurken görmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1643,
+   "style": "Normal",
+   "text": "“Gri palto mu?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1644,
+   "style": "Normal",
+   "text": "Nehir bana baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1645,
+   "style": "Normal",
+   "text": "“Evet,” dedi Duru. “Adam ona bir şey vermiş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1646,
+   "style": "Normal",
+   "text": "Yusuf.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1647,
+   "style": "Normal",
+   "text": "Kulüp arkadaşı, gri paltolunun elektronikçilerin olduğu sokağı sorduğunu ve Emir'in de “bir vitrine bakacağım” dediğini hatırladı. Okul güvenliği, çıkış kamerasından Emir'in o yöne yürüdüğünü teyit etti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1648,
+   "style": "Normal",
+   "text": "Emir'i okuldan dört sokak ötede bulduk. Bir elektronikçinin vitrinine bakıyordu. Elinde eski bir cep saati vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1649,
+   "style": "Normal",
+   "text": "Arabadan inerken bacaklarımın titrediğini hissettim. Ona kızmak, sarılmaktan daha kolaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1650,
+   "style": "Normal",
+   "text": "“Telefonun niye kapalı?” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1651,
+   "style": "Normal",
+   "text": "“Şarjı bitti.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1652,
+   "style": "Normal",
+   "text": "“Yabancı biriyle niye gittin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1653,
+   "style": "Normal",
+   "text": "“Gitmedim. Buraya kadar yürüdüm.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1654,
+   "style": "Normal",
+   "text": "“Sana ne verdi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1655,
+   "style": "Normal",
+   "text": "Emir cep saatini uzattı. Arka kapağında kapalı göz işareti vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1656,
+   "style": "Normal",
+   "text": "“Dedenden kaldığını söyledi,” dedi. “Sana vermem gerekiyormuş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1657,
+   "style": "Normal",
+   "text": "“Adamın adı neydi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1658,
+   "style": "Normal",
+   "text": "“Söylemedi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1659,
+   "style": "Normal",
+   "text": "“Nasıl görünüyordu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1660,
+   "style": "Normal",
+   "text": "“Gri palto, beyaz sakal. Kaşında iz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1661,
+   "style": "Normal",
+   "text": "“Başka?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1662,
+   "style": "Normal",
+   "text": "Emir düşündü. “Senden korkuyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1663,
+   "style": "Normal",
+   "text": "“Nereden anladın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1664,
+   "style": "Normal",
+   "text": "“Senin adını söylerken saate baktı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1665,
+   "style": "Normal",
+   "text": "Cep saatini açtım. İbreler çalışmıyordu. 14.53'te durmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1666,
+   "style": "Normal",
+   "text": "İç kapağında minicik bir yazı vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1667,
+   "style": "Book Inset",
+   "text": "<b>Saat çalışmıyorsa sesi dinle.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1668,
+   "style": "Normal",
+   "text": "Saati kulağıma götürdüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1669,
+   "style": "Normal",
+   "text": "Mekanizma durmuştu. Yine de içinden çok hafif bir dijital uğultu geliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1670,
+   "style": "Normal",
+   "text": "Emir de duydu. “İçinde pil var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1671,
+   "style": "Normal",
+   "text": "Nehir saati kanıt poşetine koydu. Bu polis mühürlü torba değildi; Selin'in telefonla seri numarasını kayda geçirdiği, ağzı açılırsa iz bırakan geçici koruma poşetiydi. Saat, resmî teslimden önce ancak görüntülü kayıt ve bağımsız tanıkla açılacaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1672,
+   "style": "Normal",
+   "text": "“Eve gidiyoruz,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1673,
+   "style": "Normal",
+   "text": "“Önce içini açacağız,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1674,
+   "style": "Normal",
+   "text": "“Çocuklarının yanında değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1675,
+   "style": "Normal",
+   "text": "Bu kez itiraz etmedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1676,
+   "style": "Normal",
+   "text": "Zeynep eve geldiğinde önce Emir'e sarıldı, sonra benden ve Nehir'den açıklama istedi. Olayı anlatırken her cümlemiz bir sonrakinin içine girdi. Yusuf, siyah kitap, cep saati, Leyla'nın kaydı. Zeynep elini kaldırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1677,
+   "style": "Normal",
+   "text": "“Birer birer. Bu evde aynı anda yalnız bir felaket konuşacak.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1678,
+   "style": "Normal",
+   "text": "Emir mutfak masasının ucunda oturuyordu. Önündeki saate bakıyor, bizim yüzümüze bakmıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1679,
+   "style": "Normal",
+   "text": "“Adam seni çağırdı mı?” diye sordu Zeynep.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1680,
+   "style": "Normal",
+   "text": "“Hayır. Okul kapısında saati açmaya çalışıyordu. Yanlış tornavida kullanıyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1681,
+   "style": "Normal",
+   "text": "“Sen de yardım mı ettin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1682,
+   "style": "Normal",
+   "text": "“Vida başını bozacaktı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1683,
+   "style": "Normal",
+   "text": "“Emir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1684,
+   "style": "Normal",
+   "text": "“Biliyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1685,
+   "style": "Normal",
+   "text": "Söylediği “biliyorum”, Nehir'inki gibi sorumluluk kabulü değildi. Yakalanmış bir çocuğun konuşmayı çabuk bitirmek için kullandığı kapıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1686,
+   "style": "Normal",
+   "text": "Yanına oturdum. “Neyi biliyorsun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1687,
+   "style": "Normal",
+   "text": "Omuzlarını kaldırdı. “Yabancıyla konuşmamam gerektiğini.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1688,
+   "style": "Normal",
+   "text": "“Ama konuştun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1689,
+   "style": "Normal",
+   "text": "“Çünkü saat dedeminmiş. Adam senin çocukken çarkları kulaktan tanıdığını söyledi. Bunu nereden bilebilir?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1690,
+   "style": "Normal",
+   "text": "Doğru soru, yanlış güvenin anahtarı olmuştu. Yusuf, Emir'i şekerle ya da tehditle değil, merakla yakalamıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1691,
+   "style": "Normal",
+   "text": "“Bilebilir,” dedim. “Ben söylemiş olabilirim. Eski bir videodan duymuş olabilir. Birinin özel bir şey bilmesi, güvenilir olduğu anlamına gelmez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1692,
+   "style": "Normal",
+   "text": "“Ama saat gerçek.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1693,
+   "style": "Normal",
+   "text": "“Gerçek bir eşya, onu getiren kişinin niyetini gerçek yapmaz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1694,
+   "style": "Normal",
+   "text": "Duru kapının yanında kollarını bağladı. “Baba, sen de günlerdir aynı hatayı yapıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1695,
+   "style": "Normal",
+   "text": "Ona bakınca devam etti:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1696,
+   "style": "Normal",
+   "text": "“Kitap senin hakkında gerçek şeyler biliyor diye geri kalanına inanmak istiyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1697,
+   "style": "Normal",
+   "text": "Zeynep sandalyeye oturdu. “Güzel. O zaman hepimiz aynı dersteyiz. Kimse öğretmen değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1698,
+   "style": "Normal",
+   "text": "Bir aile güvenlik planı yaptık. Çocuklara bütün soruşturma dosyasını vermedik; fakat kullanılan sembolleri, Meralis adını, Yusuf'un tarifini ve bize ait olmayan hiçbir talimatı izlememeleri gerektiğini anlattık. Gerçek bir acil durumda kullanacağımız kelimeyi Duru seçti: <b>yamuk mantı</b>.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1699,
+   "style": "Normal",
+   "text": "“Neden bu?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1700,
+   "style": "Normal",
+   "text": "“Sen düzgün mantı kapatamıyorsun. Başkası tahmin edemez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1701,
+   "style": "Normal",
+   "text": "“Ben yapmadım ki hiç.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1702,
+   "style": "Normal",
+   "text": "“Tam da bu yüzden.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1703,
+   "style": "Normal",
+   "text": "Emir'e telefonunun şarjını takip etmesi için yeni bir taşınabilir pil verdim. Pili hemen açıp içindeki hücreleri görmek istedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1704,
+   "style": "Normal",
+   "text": "“Bir hafta sökmeyeceksin,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1705,
+   "style": "Normal",
+   "text": "“Beş gün.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1706,
+   "style": "Normal",
+   "text": "“Yedi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1707,
+   "style": "Normal",
+   "text": "“Altı, ama vidasını ölçebilirim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1708,
+   "style": "Normal",
+   "text": "Anlaştık.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1709,
+   "style": "Normal",
+   "text": "Gece yatmadan önce yanıma geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1710,
+   "style": "Normal",
+   "text": "“Korktun mu?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1711,
+   "style": "Normal",
+   "text": "“Çok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1712,
+   "style": "Normal",
+   "text": "“Belli etmedin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1713,
+   "style": "Normal",
+   "text": "“Kızdım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1714,
+   "style": "Normal",
+   "text": "“Kızdığın için mi korktun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1715,
+   "style": "Normal",
+   "text": "“Korktuğum için kızdım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1716,
+   "style": "Normal",
+   "text": "Bir süre bunu düşündü. Sonra, “Bir dahaki sefer önce korktuğunu söyle,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

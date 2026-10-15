@@ -1,0 +1,1315 @@
+{
+ "uid": "U04",
+ "title": "2. Siyah Paket",
+ "number": 2,
+ "words": 1344,
+ "constraints": {
+  "uid": "U04",
+  "number": 2,
+  "title": "2. Siyah Paket",
+  "title_letter": null,
+  "marks": [
+   "B",
+   "A"
+  ],
+  "knots": [
+   "E"
+  ],
+  "images": [],
+  "book_part": null,
+  "words": 1344
+ },
+ "synopsis": {
+  "uid": "U04",
+  "title": "2. Siyah Paket",
+  "summary": "Der Ich-Erzähler (ein neurodivergenter Vater, dessen Name im Text nicht genannt wird; im Vorkapitel hat er seine Kinder Duru und Emir bei Zeynep abgesetzt) steigt mit Einkaufstüten die 102 Stufen zu seiner Wohnung im fünften Stock hinauf und findet vor seiner Tür den Kater Duman sitzend und ein mattschwarzes, mit rotem Faden verschnürtes Paket ohne Adresse oder Etikett. Er reflektiert über den roten Faden (Ariadne, roter Schicksalsfaden, jüdische Nazar-Tradition) und seine Großmutter („Schwelle“), nimmt das Paket mit hinein, legt es neben die drei am Morgen vorbereiteten Umschläge (Duru, Emir, Zeynep), die er dann in die Schublade räumt, filmt das Auspacken mit dem Handy und löst den Knoten. Darin: ein alt wirkendes titelloses Buch mit einem geprägten geschlossenen Auge, eine schwarze, grünlich schimmernde Feder mit öligem Staub und eine cremefarbene Karte („UYANIŞIN BEDELİ / Schließ dieses Buch jetzt / Wenn du weitermachst, gibt es kein Zurück“; Rückseite: 1453 und 111). Die erste Seite enthält einen Satz über die Kindheitsdiagnose sowie eine handschriftliche Notiz, die mit seinem Namen beginnt; das löst eine Rückblende aus: Mit acht Jahren repariert er im Unterricht die stehengebliebene Wanduhr, wird vom Lehrer mit „Sana mı kaldı?“ abgekanzelt und zeichnet zu Hause eine Uhr, die – wie er Jahre später entdeckt – 14.53 zeigt, mit einem geschlossenen Auge und einer schwarzen Vogelform am Rand. Zurück in der Gegenwart liest er weiter (Schlafende/Erwachte, Jäger/Sammler/„zwei Feuer in einem Körper“, Macht benennt und misst den Unterschied), findet auf Seite 20 einen nachträglich aufgedruckten roten Schmetterlingsstempel mit Unendlichkeitszeichen, nach Seite 22 einen herausgeschnittenen Anhang mit halbem 1453-Siegel, daneben mit Bleistift das Datum des Tages, 14.53 und den Satz „Wenn du drei Umschläge vorbereitet hast, bist du bereit anzufangen“. Die inneren Stimmen reagieren panisch (jemand war im Haus, woher kennt es die Namen der Kinder?); die Sessiz Ses schweigt. Zeitebene: Gegenwart (nachmittags 14.53, regnerisch), erzählt retrospektiv, mit eingebetteter Kindheitsrückblende.",
+  "characters": [
+   "Ich-Erzähler (namenlos im Paket; Vater von Duru und Emir, neurodivergent, filmt gewohnheitsmäßig alles, verfolgt das Gefühl eines nahen Abschieds/Todes)",
+   "Duman (grauer Kater mit eingerissenem rechten Ohr und gelben Augen; gehört niemandem im Haus, vom Erzähler „müdür“ genannt; weigert sich, die Schwelle zu überschreiten)",
+   "Duru (Tochter des Erzählers, älter, vor Studienwahl; Empfängerin eines Umschlags)",
+   "Emir (Sohn des Erzählers, baut Geräte auseinander; Empfängerin eines Umschlags)",
+   "Zeynep (Mutter der Kinder / Ex-Partnerin des Erzählers, bei der die Kinder sind; Empfängerin des dritten Umschlags)",
+   "Ninem (Großmutter des Erzählers, nur in Erinnerung: Spruch über die Schwelle)",
+   "Öğretmen (Lehrer in der Rückblende, Klasse der Achtjährigen; sagt „Sana mı kaldı?“)",
+   "Innere Stimmen des Erzählers: İnanan, Şüpheci, Muhasebeci, Avcı, İçimdeki Çocuk, Sessiz Ses (sprechen in Book-Inset-Dialogzeilen)"
+  ],
+  "terms": [
+   {
+    "tr": "14.53 ↺",
+    "meaning": "Wiederkehrendes Zeit-Leitmotiv (Uhrzeit 14:53, Pfeil = Rücklauf/Wiederholung); steht als Opening-Zeile und innerhalb des Kapitels; Bezug zu 1453 (Eroberung Konstantinopels) und zur Kinderzeichnung. Zahl und Symbol unverändert übernehmen."
+   },
+   {
+    "tr": "Siyah Paket",
+    "meaning": "Kapiteltitel und zentrales Objekt: mattschwarzes Paket mit rotem Faden, Kreuzverschnürung, einfacher Knoten mit gleich langen Enden; ohne Adresse, Name, Etikett, Barcode."
+   },
+   {
+    "tr": "kırmızı ip",
+    "meaning": "Roter Faden/Schnur um das Paket; Erzähler verknüpft ihn mit Ariadnefaden, dem ostasiatischen roten Schicksalsfaden und dem jüdischen roten Armband gegen den bösen Blick. Wiederkehrendes Objekt (wird später von der Spurensicherung eingetütet)."
+   },
+   {
+    "tr": "Eşik",
+    "meaning": "Schwelle; Großmutters Spruch „Eşik ne içeridir ne dışarı; kararsız yere bütün ağırlığınla basma“ – Schwelle ist weder innen noch außen. Motiv, das Duman körperlich wiederholt (bleibt auf der Schwelle)."
+   },
+   {
+    "tr": "İNANAN / ŞÜPHECİ / MUHASEBECİ / AVCI / İÇİMDEKİ ÇOCUK / SESSİZ SES",
+    "meaning": "Benannte innere Stimmen des Erzählers (der Gläubige, der Skeptiker, der Buchhalter, der Jäger, das Innere Kind, die Stille Stimme). Erscheinen als Book-Inset in VERSALIEN + Doppelpunkt + kursiver Satz. Muhasebeci kümmert sich nur um Alltägliches („Yoğurt ısınıyor“ – der Joghurt wird warm). Sessiz Ses: so benannt, weil sie meist schweigt und nie laut wird. Namen durchgängig einheitlich übersetzen; in U06 kommt GÖLGE hinzu."
+   },
+   {
+    "tr": "müdür",
+    "meaning": "„Direktor/Chef“ – scherzhafte Anrede des Erzählers an den Kater Duman."
+   },
+   {
+    "tr": "Duman",
+    "meaning": "Name des Katers (wörtl. „Rauch“, passend zu grauem Fell). Eigenname, nicht übersetzen."
+   },
+   {
+    "tr": "üç zarf (Duru. Emir. Zeynep.)",
+    "meaning": "Drei am Morgen vorbereitete Umschläge mit den Namen der Kinder und Zeyneps – Abschiedsbriefe, die niemand gesehen hat; das Buch spielt auf sie an. Zentrales Rätsel ab hier."
+   },
+   {
+    "tr": "kapalı göz kabartması",
+    "meaning": "Geprägtes geschlossenes Auge auf dem Buchdeckel, von einer feinen Linie durchzogen („als wäre es nicht geschlossen, sondern zweigeteilt“); taucht als Kinderkritzelei in der Rückblende wieder auf."
+   },
+   {
+    "tr": "siyah kuş tüyü",
+    "meaning": "Schwarze Vogelfeder auf dem Buch; hinterlässt öligen Staub mit grünlichem Schimmer (später „yeşil toz“ als Laborprobe). Verbindung zur Krähe der Schulszene und der schwarzen Form in der Kinderzeichnung."
+   },
+   {
+    "tr": "UYANIŞIN BEDELİ",
+    "meaning": "„Der Preis des Erwachens“ – Aufschrift der Karte, zugleich Untertitel des Romans (YOLCU – 1453 Uyanışın Bedeli). Auf dem Cover-Titel abstimmen."
+   },
+   {
+    "tr": "1453",
+    "meaning": "Zahl auf der Kartenrückseite und halbes Siegel im Buch; Anspielung auf die Eroberung Istanbuls und Spiegelung von 14.53. Fett gesetzt."
+   },
+   {
+    "tr": "111",
+    "meaning": "Kleinere Zahl unter 1453; entspricht später den 111 Sekunden Kameralücke (U05). Konsistent als Zahl lassen."
+   },
+   {
+    "tr": "Küçük Saatçi",
+    "meaning": "(erst U05 ausgesprochen) „Kleiner Uhrmacher“ – Kosename Leylas für den Erzähler; wurzelt in dieser Uhr-Rückblende."
+   },
+   {
+    "tr": "Sana mı kaldı?",
+    "meaning": "„Bist du dafür zuständig?/Wer hat dich gefragt?“ – Satz des Lehrers, der den Erzähler lebenslang verfolgt; wird dreimal refrainartig wiederholt, dazu Variante „Her şeyi de sen mi anlayacaksın?“. Als knappe, abwertende Floskel wiedergeben, einheitlich."
+   },
+   {
+    "tr": "İstese yapar",
+    "meaning": "„Wenn er wollte, könnte er“ – Urteil über das Kind; der Erzähler entlarvt es als verdeckten Vorwurf (nicht krank, sondern faul/problematisch/„zu viel“)."
+   },
+   {
+    "tr": "Sana çocukken hasta dedilerse, önce kimin rahatladığını sor.",
+    "meaning": "Erster Satz des Buches (fett): „Wenn man dich als Kind krank nannte, frag zuerst, wer dadurch erleichtert war.“ Kernzitat des Romans."
+   },
+   {
+    "tr": "Uyuyanlar / Uyananlar",
+    "meaning": "„Die Schlafenden sehen die Welt, wie sie ist. Die Erwachten sehen, wie sie gezeigt wird.“ – Buchzitat, Grundlage der Erwachens-Rhetorik; Terminologie Schlafende/Erwachte festlegen."
+   },
+   {
+    "tr": "avcılar, toplayıcılar, iki ateşi aynı bedende taşıyanlar",
+    "meaning": "Jäger, Sammler und „die zwei Feuer im selben Körper tragen“ – verschleierte Typologie für ADHS/Autismus/AuDHS; die Wörter DEHB und Otizm kommen im Buch bewusst nicht vor."
+   },
+   {
+    "tr": "DEHB",
+    "meaning": "Türkisches Akronym für ADHS (Dikkat Eksikliği Hiperaktivite Bozukluğu). Im Zieltext mit landesüblichem Akronym (ADHS/ADHD) wiedergeben."
+   },
+   {
+    "tr": "kırmızı kelebek damgası + sonsuzluk işareti",
+    "meaning": "Roter Schmetterlingsstempel mit Unendlichkeitszeichen auf S. 20, nachträglich aufgedruckt; wiederkehrendes Zeichen (Anspielung auf das Neurodiversitäts-Symbol)."
+   },
+   {
+    "tr": "İyi olanları deli, kötü olanları lider diye tanıyacaksın.",
+    "meaning": "„Die Guten wirst du als Verrückte kennenlernen, die Bösen als Führer“ – manipulatives Buchzitat; Erzähler: die stärkste Lüge benennt den Schmerz richtig und tauscht heimlich den Schuldigen aus."
+   },
+   {
+    "tr": "…bana geri…",
+    "meaning": "Zwei lesbare Wörter der Kinderschrift auf der Rückseite der Zeichnung („…mir zurück…“); Fragment, dessen Anfang und Ende später enthüllt werden – offen und fragmentarisch lassen."
+   },
+   {
+    "tr": "Üç zarf hazırladıysan artık başlamaya hazırsın.",
+    "meaning": "Bleistiftnotiz im Buch: „Wenn du drei Umschläge vorbereitet hast, bist du bereit anzufangen.“ Löst den Schock aus."
+   },
+   {
+    "tr": "Book Inset",
+    "meaning": "Stilbezeichnung: eingerückte Zitate aus dem schwarzen Buch (fett oder kursiv) und Repliken der inneren Stimmen; Formatierung beibehalten."
+   }
+  ],
+  "tone": "Ich-Erzählung in der Vergangenheit (retrospektiv, mit vorgreifenden Hinweisen: „Bunu sonradan güvenlik kamerasından öğrendim“, „sonradan internette anlatıldığı gibi“). Trocken-selbstironischer Humor, kurze Absätze, oft Ein-Satz-Absätze; Wechsel zwischen Alltagsbeobachtung, Essayistik (Mythologie des roten Fadens) und Aphorismen. Innere Stimmen als knappe Dialogzeilen in Versalien. Eingebettete Kindheitsrückblende in schlichter, kindlicher Wahrnehmung. Buchzitate in getragenem, manifestartigem Ton (fett). Register: literarische Umgangssprache, präzise, ohne Pathos."
+ },
+ "paras": [
+  {
+   "pid": 153,
+   "style": "Heading 1",
+   "text": "<b>2. Siyah Paket</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 154,
+   "style": "Opening",
+   "text": "<i>14.53 ↺</i>",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 155,
+   "style": "Normal",
+   "text": "Bunu sonradan güvenlik kamerasından öğrendim. O anda saate bakmıyordum. Sol elimde iki poşet vardı; sağ elimle tırabzana tutunup beşinci kata çıkarken neden yine asansöre binmediğimi düşünüyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BASA_DON",
+    "index": 0,
+    "n": 7
+   }
+  },
+  {
+   "pid": 156,
+   "style": "Normal",
+   "text": "Asansör bozuk değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 157,
+   "style": "Normal",
+   "text": "Ben biraz bozuk olabilirdim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 158,
+   "style": "Normal",
+   "text": "İnsan, çalışır durumdaki asansör dururken yüz iki basamak çıkıyorsa bunun üç sebebi vardır: Spor yaptığını sanıyordur, kapalı yerde kalmaktan hoşlanmıyordur ya da kafasındaki düşünceler nefesinden hızlı koşmaya başlamıştır. Ben üçüne de sahiptim. Paket hâlinde gelmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 159,
+   "style": "Normal",
+   "text": "Dördüncü katla beşinci kat arasındaki sahanlıkta Duman'ı gördüm. Apartmanın kedisi değildi; çünkü apartmandaki herkes onun kendisine ait olduğunu düşünüyordu. O ise kimseye ait olmadığına emindi. Gri tüyleri, sağ kulağındaki küçük yırtık ve insana sanki kira borcu varmış gibi bakan sarı gözleriyle basamakta oturuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 160,
+   "style": "Normal",
+   "text": "“Çekil bakalım, müdür.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 161,
+   "style": "Normal",
+   "text": "Duman çekilmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 162,
+   "style": "Normal",
+   "text": "Kapımın önüne bakıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 163,
+   "style": "Normal",
+   "text": "Orada siyah bir paket vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 164,
+   "style": "Normal",
+   "text": "İlk dikkatimi çeken paket olmadı. Duman'ın kuyruğuydu. Ucunu yere vuruyor, duruyor, sonra yeniden vuruyordu. Bir, iki, üç. Bekle. Bir, iki, üç.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 165,
+   "style": "Book Inset",
+   "text": "<b>İNANAN:</b> <i>Hayvanlar tehlikeyi önceden sezer.</i>",
+   "keep": false,
+   "image": false,
+   "label": "İNANAN",
+   "constraint": null
+  },
+  {
+   "pid": 166,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Kedi bu. Paket bomba olsa da böyle bakar, yaş mama olsa da.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 167,
+   "style": "Book Inset",
+   "text": "<b>MUHASEBECİ:</b> <i>Yoğurt ısınıyor.</i>",
+   "keep": false,
+   "image": false,
+   "label": "MUHASEBECİ",
+   "constraint": null
+  },
+  {
+   "pid": 168,
+   "style": "Normal",
+   "text": "İçimdeki Çocuk, diğerlerine karışmadan paketin üzerindeki kırmızı ipe baktı. Düğümün iki ucu aynı uzunluktaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 169,
+   "style": "Normal",
+   "text": "Elimdeki poşetleri yere bıraktım. Paketin üstünde adres, isim, kargo etiketi, barkod, bant izi yoktu. Mat siyah kâğıda sarılmıştı; kırmızı ip dört köşeden geçiyor, ortada tek düğümle birleşiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BENI_ARAMA",
+    "index": 1,
+    "n": 9
+   }
+  },
+  {
+   "pid": 170,
+   "style": "Normal",
+   "text": "Ninem çocukken kapı eşiğine basmamı istemezdi. Nedenini sorduğumda, “Eşik ne içeridir ne dışarı; kararsız yere bütün ağırlığınla basma,” derdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 171,
+   "style": "Normal",
+   "text": "Kırmızı ip de tek bir hikâyeye ait değildi. Eski Yunan anlatısında rengi önemli olmayan Ariadne ipi, Theseus'a labirentten dönüş yolunu buldururdu. Çin ve Japon halk anlatılarındaki kırmızı kader ipi, yolları kesişecek insanları görünmez bir bağla birleştirirdi. Bazı Yahudi halk geleneklerinde ise kırmızı ip nazara ve uğursuzluğa karşı bileğe bağlanırdı; bu uygulamanın dinî kaynağı aynı gelenek içinde bile tartışmalıydı. Aynı ip yol gösterebilir, bağ kurabilir veya düğümü fazla sıkılırsa hareketi kesebilirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 172,
+   "style": "Normal",
+   "text": "Paketi hazırlayan kişi bunu biliyor muydu? Yoksa ben, önüme bırakılmış tek bir ipe bütün kitaplığımı mı doluyordum? Düğüme baktıkça birinin benden önce aynı soruyu sorduğu hissine kapıldım. Koridorun ışığı söndü. Elimi hâlâ uzatmamıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 173,
+   "style": "Normal",
+   "text": "Düğüme dokununca Duman tısladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 174,
+   "style": "Normal",
+   "text": "Elimi çektim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 175,
+   "style": "Normal",
+   "text": "“Sen bir şey biliyorsan açık konuş,” dedim. “İmalı hareketlerin bana benziyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 176,
+   "style": "Normal",
+   "text": "Koridorda kimse yoktu. Üst kattaki daireden çamaşır makinesinin sıkma sesi geliyor, aşağıdan kızarmış soğan kokusu yükseliyordu. Karşı komşunun kapısının altından televizyon ışığı vuruyordu. Dünya, sıradanlığını kanıtlamak için elinden geleni yapıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 177,
+   "style": "Normal",
+   "text": "Paketi içeri aldım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 178,
+   "style": "Normal",
+   "text": "Duman gelmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 179,
+   "style": "Normal",
+   "text": "Normalde kapıyı bir santim açık bıraksam benden önce salona girer, koltuğa kurulup evin tapusunu üzerine alırdı. Bu kez eşikte kaldı. Burnunu havaya kaldırdı, paketi iki kere kokladı ve geri çekildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 180,
+   "style": "Normal",
+   "text": "“Peki,” dedim. “İçimizi rahatlattın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 181,
+   "style": "Normal",
+   "text": "Paketi çalışma masama koydum. Masanın üstünde, sabah çocuklar gittikten sonra hazırladığım üç zarf duruyordu. Duru. Emir. Zeynep. Siyah paket onların yanına gelince görüntü o kadar açık bir anlama büründü ki zarfları çekmeceye kaldırdım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 182,
+   "style": "Normal",
+   "text": "Ölüm korkusu tuhaf bir yönetmendir. En doğal hareketine bile fazla oyunculuk yaptırır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 183,
+   "style": "Normal",
+   "text": "Telefonumu sehpanın üzerine sabitledim ve kaydı açtım. Bu davranışım sonradan internette anlatıldığı gibi olağanüstü öngörüden kaynaklanmıyordu. Ben bozulmuş bir tost makinesini açarken bile video çeken biriydim. Bir vida artarsa nereden çıktığını bulmak için. Hayatımda da hep bir vida artmıştı; keşke çocukluktan beri kayıt alıyor olsaydım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 184,
+   "style": "Normal",
+   "text": "Kırmızı ipi kesmedim. Düğümü çözdüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 185,
+   "style": "Normal",
+   "text": "Siyah kâğıdın altında eski görünümlü bir kitap vardı. Kapağı deri değildi ama deri gibi çatlatılmıştı. Ne yazar adı, ne yayınevi, ne de başlık vardı. Ortasında yalnızca kapalı bir göz kabartması bulunuyordu. Gözün tam ortasından ince bir çizgi geçiyordu; sanki kapalı değil de ikiye bölünmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 186,
+   "style": "Normal",
+   "text": "Kitabın üstünde siyah bir kuş tüyü vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 187,
+   "style": "Normal",
+   "text": "Tüyü elime aldığımda parmak uçlarımda belli belirsiz yağlı bir toz kaldı. Işığa tutunca yeşile çalan bir parıltı gördüm. O an anlam vermedim. Tüy sonuçta. Kuş gidip kuru temizlemeden çıkacak değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 188,
+   "style": "Normal",
+   "text": "Altında küçük, krem rengi bir kart duruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 189,
+   "style": "Normal",
+   "text": "Ön yüzünde üç satır yazıyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 190,
+   "style": "Book Inset",
+   "text": "<b>UYANIŞIN BEDELİ</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 191,
+   "style": "Book Inset",
+   "text": "Bu kitabı şimdi kapat.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 192,
+   "style": "Book Inset",
+   "text": "Devam edersen geri dönüş yok.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 193,
+   "style": "Normal",
+   "text": "Kartı çevirdim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 194,
+   "style": "Normal",
+   "text": "<b>1453</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 195,
+   "style": "Normal",
+   "text": "Rakamların altında daha küçük bir sayı vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 196,
+   "style": "Normal",
+   "text": "<b>111</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 197,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Kod.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 198,
+   "style": "Book Inset",
+   "text": "<b>İNANAN:</b> <i>İşaret.</i>",
+   "keep": false,
+   "image": false,
+   "label": "İNANAN",
+   "constraint": null
+  },
+  {
+   "pid": 199,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Pazarlama.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 200,
+   "style": "Normal",
+   "text": "Muhasebeci hâlâ yoğurtla ilgileniyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 201,
+   "style": "Normal",
+   "text": "Kitabı açmadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 202,
+   "style": "Normal",
+   "text": "Önce yoğurdu dolaba koydum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 203,
+   "style": "Normal",
+   "text": "Mutfağa geçerken koridordaki aynada kendimi gördüm. Saçım yağmurdan kabarmış, montumun omzu ıslanmıştı. Elimde siyah tüy vardı. Görüntü mistik olmaktan çok çocuk tiyatrosunda kötü büyücüyü oynayan yorgun bir babaya benziyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 204,
+   "style": "Normal",
+   "text": "Güldüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 205,
+   "style": "Normal",
+   "text": "Sonra aynadaki ben, gülmeyi benden yarım saniye geç bırakmış gibi geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 206,
+   "style": "Normal",
+   "text": "Durup baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 207,
+   "style": "Normal",
+   "text": "Elbette aynı anda bırakmıştık.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 208,
+   "style": "Normal",
+   "text": "Beyin bazen sana kapıyı açar, sonra cereyan yaptı der.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 209,
+   "style": "Normal",
+   "text": "Salona döndüm. Duman hâlâ eşikteydi. Kitabın ilk sayfasını açtım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 210,
+   "style": "Normal",
+   "text": "Kâğıt sarartılmıştı ama kokusu eski değildi. Eski kitap; toz, nem, tutkal, başkasının evi ve unutulmuş zaman kokar. Bu kitap matbaa boyası, metal ve hafifçe turunç kokuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 211,
+   "style": "Normal",
+   "text": "İlk sayfada tek cümle vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 212,
+   "style": "Book Inset",
+   "text": "<b>Sana çocukken hasta dedilerse, önce kimin rahatladığını sor.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 213,
+   "style": "Normal",
+   "text": "Altında, adımla başlayan el yazısı bir not bulunuyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 214,
+   "style": "Book Inset",
+   "text": "<i>Sana hiç hasta demediler. Daha kötüsünü yaptılar. Seni tembel, sorunlu ve fazla sandılar. Böylece yardım etmek zorunda kalmadılar.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 215,
+   "style": "Normal",
+   "text": "Nefesim filmlerdeki gibi kesilmedi. Gerçekte insan önce cümlenin dil bilgisine bakıyor. Sonra mürekkebin rengine. Sonra kendi adını bir daha okuyor. En son korkuyor.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 216,
+   "style": "Normal",
+   "text": "Ben de o sırayla yaptım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 217,
+   "style": "Normal",
+   "text": "Yazı bana ait değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 218,
+   "style": "Normal",
+   "text": "Fakat cümle, yıllardır farklı biçimlerde kurduğum bir cümleydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 219,
+   "style": "Normal",
+   "text": "Çocukken bana hasta demediler.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 220,
+   "style": "Normal",
+   "text": "“İstese yapar,” dediler.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 221,
+   "style": "Normal",
+   "text": "Bu cümle dışarıdan umut gibi görünür. İçeride suçlama taşır. Yapamıyorsan istemiyorsundur. Unuttuysan önemsemiyorsundur. Gürültüye dayanamadıysan nazlısındır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 222,
+   "style": "Normal",
+   "text": "Sekiz yaşındayken sınıfın duvar saati durmuştu. Öğretmen kesirleri anlatıyordu. Ben saatin saniye ibresinin neden aynı yerde titrediğini izliyordum. Tık. Geri. Tık. Geri. Bütün sınıf öğretmenin sesini duyarken ben küçücük metalin pes etmeyişini dinliyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 223,
+   "style": "Normal",
+   "text": "“Cevap ver. Orada mısın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 224,
+   "style": "Normal",
+   "text": "Soruyu duymamıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 225,
+   "style": "Normal",
+   "text": "“Bilmiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 226,
+   "style": "Normal",
+   "text": "“Tabii bilmiyorsun. Yine başka yerdesin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 227,
+   "style": "Normal",
+   "text": "Çocuklar güldü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 228,
+   "style": "Normal",
+   "text": "Pencerenin dışında bir karga vardı. Gagasında beyaz bir şey tutuyordu. O an karga olmayı istedim. Aptal olduğumu düşündüğüm için değil. Bir karga derste dalıp giderse kimse ailesini çağırmazdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 229,
+   "style": "Normal",
+   "text": "Teneffüste saati duvardan indirdim. Sandalyenin üstüne çıkmış, arka kapağını kalem ucuyla açmaya çalışıyordum. Öğretmen içeri girdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 230,
+   "style": "Normal",
+   "text": "“Ne yapıyorsun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 231,
+   "style": "Normal",
+   "text": "“Bozulmuş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 232,
+   "style": "Normal",
+   "text": "“Sana mı kaldı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 233,
+   "style": "Normal",
+   "text": "Bu soru hayatım boyunca peşimden geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 234,
+   "style": "Normal",
+   "text": "Bir haksızlık görürüm: Sana mı kaldı?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 235,
+   "style": "Normal",
+   "text": "Bir sistemin yanlışını söylerim: Sana mı kaldı?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 236,
+   "style": "Normal",
+   "text": "Bir insanın sesindeki kırılmayı fark ederim: Her şeyi de sen mi anlayacaksın?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 237,
+   "style": "Normal",
+   "text": "Öğretmen saati elimden aldı. Arka kapağı açıktı. İçindeki küçük pil gevşemişti. Parmağımla yerine bastırınca saniye ibresi ilerledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 238,
+   "style": "Normal",
+   "text": "Saat çalıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 239,
+   "style": "Normal",
+   "text": "Öğretmen sevinmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 240,
+   "style": "Normal",
+   "text": "“Bir daha izinsiz dokunma,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 241,
+   "style": "Normal",
+   "text": "O gün iki şey öğrendim. Bozuk bir şeyi düzeltmek ona dokunma hakkı vermiyordu. Bir de doğru olmak, başına iş gelmesini engellemiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 242,
+   "style": "Normal",
+   "text": "Eve gidince bir duvar saati çizdim. Akrep ile yelkovanı rastgele koydum. Yıllar sonra defteri tekrar bulduğumda saatin 14.53'ü gösterdiğini fark edecektim. Alt köşede kapalı göze benzeyen bir karalama vardı; sayfanın yırtılmış kenarında ise kuş mu, leke mi olduğu anlaşılmayan siyah bir şekil.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 243,
+   "style": "Normal",
+   "text": "<i>14.53 ↺</i>",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 244,
+   "style": "Normal",
+   "text": "Arka yüzündeki çocuk yazısından yalnız iki kelime okunuyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BASA_DON",
+    "index": 1,
+    "n": 7
+   }
+  },
+  {
+   "pid": 245,
+   "style": "Book Inset",
+   "text": "<i>…bana geri…</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 246,
+   "style": "Normal",
+   "text": "Cümlenin başını da sonunu da o gece henüz bilmiyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 247,
+   "style": "Normal",
+   "text": "Daha doğrusu, hatırlamadığımı sanıyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 248,
+   "style": "Normal",
+   "text": "Yalnız kitabın cümlesi, sınıfta herkes gülerken içimde oluşan eski sessizliğin adresini biliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 249,
+   "style": "Normal",
+   "text": "İşte bu yüzden tehlikeliydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 250,
+   "style": "Normal",
+   "text": "Yalan söylemiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 251,
+   "style": "Normal",
+   "text": "Doğruyu nereye bağlayacağını saklıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 252,
+   "style": "Normal",
+   "text": "Sayfayı çevirdim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 253,
+   "style": "Book Inset",
+   "text": "<b>Uyuyanlar dünyayı olduğu gibi görür.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 254,
+   "style": "Book Inset",
+   "text": "<b>Uyananlar, dünyanın nasıl gösterildiğini görür.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 255,
+   "style": "Normal",
+   "text": "Bir sonraki sayfada avcılar, toplayıcılar ve “iki ateşi aynı bedende taşıyanlar” anlatılıyordu. Bazı insanların çevredeki değişimi herkesten önce fark ettiği; bazılarının tek bir ayrıntının içinde günlerce ilerleyebildiği; bazılarının hem geniş alanı hem derinliği aynı anda gördüğü yazıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 256,
+   "style": "Normal",
+   "text": "Sonra dil değişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 257,
+   "style": "Normal",
+   "text": "Kitap soru sormayı bırakıp cevap vermeye başladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 258,
+   "style": "Book Inset",
+   "text": "<b>İktidar, farkı yok edemezse ona isim verir. İsim verince ölçer. Ölçünce sınırlar. Sınırlayınca halkın gözünde küçültür.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 259,
+   "style": "Normal",
+   "text": "DEHB kelimesi geçmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 260,
+   "style": "Normal",
+   "text": "Otizm de.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 261,
+   "style": "Normal",
+   "text": "Ama cümlelerin çevresinde onların gölgesi vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 262,
+   "style": "Normal",
+   "text": "Yirminci sayfada kırmızı bir kelebek damgası bulunuyordu. Kanatlarının arasında küçük bir sonsuzluk işareti duruyordu. Parmağımı üstünde gezdirince damganın sonradan basıldığını anladım. Mürekkep kâğıdın liflerine tam oturmamıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 263,
+   "style": "Normal",
+   "text": "Altında şu cümle vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 264,
+   "style": "Book Inset",
+   "text": "<b>İyi olanları deli, kötü olanları lider diye tanıyacaksın.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 265,
+   "style": "Normal",
+   "text": "Bu cümle beni korkutmadan önce rahatlattı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 266,
+   "style": "Normal",
+   "text": "En güçlü yalan, yıllardır adını koyamadığın acıya doğru adı söyler; sonra suçluyu gizlice değiştirir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 267,
+   "style": "Normal",
+   "text": "Yirmi ikinci sayfadan sonra numarasız bir ek kesilmişti. Kalan dipte <b>1453</b> mührünün yarısı görünüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 268,
+   "style": "Normal",
+   "text": "Kesik sayfanın karşısına kurşun kalemle bir tarih yazılmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 269,
+   "style": "Normal",
+   "text": "O günün tarihi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 270,
+   "style": "Normal",
+   "text": "Altında saat:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 271,
+   "style": "Normal",
+   "text": "<b>14.53</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 272,
+   "style": "Normal",
+   "text": "Ve bir cümle:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 273,
+   "style": "Book Inset",
+   "text": "<i>Üç zarf hazırladıysan artık başlamaya hazırsın.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 274,
+   "style": "Normal",
+   "text": "Çekmeceye baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 275,
+   "style": "Normal",
+   "text": "Duru, Emir, Zeynep.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 276,
+   "style": "Normal",
+   "text": "Zarfları kimse görmemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 277,
+   "style": "Normal",
+   "text": "Ben hazırlarken telefonum başka odadaydı. Perdeler kapalıydı. Bu ayrıntıları kendime hemen söyledim; çünkü aklımın önce en korkunç ihtimali kuracağını biliyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 278,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Birisi eve girdi.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 279,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Hâlâ içeride olabilir.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 280,
+   "style": "Book Inset",
+   "text": "<b>İÇİMDEKİ ÇOCUK:</b> <i>Çocukların adını nereden biliyor?</i>",
+   "keep": false,
+   "image": false,
+   "label": "İÇİMDEKİ ÇOCUK",
+   "constraint": null
+  },
+  {
+   "pid": 281,
+   "style": "Normal",
+   "text": "Sessiz Ses konuşmadı. Ona bu adı en çok sustuğu için vermiştim; konuştuğu nadir anlarda da sesini hiç yükseltmezdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

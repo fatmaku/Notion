@@ -91,6 +91,16 @@ BOOKS["BY_EN"] = _translation("BY", "en", "YOLCU_EN", "THE TRAVELLER")
 BOOKS["BY_DE"] = _translation("BY", "de", "YOLCU_DE", "DER REISENDE")
 BOOKS["SA_EN"] = _translation("SA", "en", "SAHIT_EN", "THE WITNESS", genre="A Novel")
 BOOKS["SA_DE"] = _translation("SA", "de", "SAHIT_DE", "DER ZEUGE", genre="Roman")
+BOOKS["BYK"] = {                      # BEN YOKSAM – eigenständige Neufassung aus YOLCU (Tuncay Sancak)
+    "docx": ROOT / "interior" / "src" / "BEN_YOKSAM_TR_v1.docx",
+    "lang": "tr",
+    "slug": "BEN_YOKSAM",
+    "title": "BEN YOKSAM",
+    "author": "Tuncay Sancak",
+    "expected_h1": 45,
+    "expected_images": 4,
+    "heads_italic": True,
+}
 
 PAGE_W, PAGE_H = 148.0, 210.0
 M_INNER, M_OUTER, M_TOP, M_BOTTOM = 20.0, 15.5, 16.5, 16.5

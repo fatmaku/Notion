@@ -1,0 +1,793 @@
+{
+ "uid": "U37",
+ "title": "42. Labirentin Emanetleri",
+ "number": 42,
+ "words": 875,
+ "constraints": {
+  "uid": "U37",
+  "number": 42,
+  "title": "42. Labirentin Emanetleri",
+  "title_letter": "L",
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 875
+ },
+ "synopsis": {
+  "uid": "U37",
+  "title": "42. Labirentin Emanetleri",
+  "summary": "Gegenwartsebene, Fortsetzung der Szene im Servicegebäude des stillgelegten Observatoriums (unter der rostigen Antennenschüssel). Yusuf (Cems Vater, ehemals Meralis, jetzt Überläufer) erklärt dem Ich-Erzähler, Nehir, Tarık und der Anwältin Selin das Emanet-System: Vier Metallschlüssel aktivieren vier unabhängige Treuhandverträge (İstanbul, Berlin, Nairobi, Toronto); werden alle vier binnen 24 Stunden vor Notaren gedreht, gehen sieben miteinander verifizierte Archive an Journalisten, Ärzte, Menschenrechtsjuristen und Forscher in sieben Städten. Es wird enthüllt, dass der Erzähler selbst den ersten Entwurf des Systems baute, Leyla es aktualisierte, Nehir den Quellenschutz ergänzte, Yusuf es versteckte und Cem seinen Ort fand (deshalb wollte Cem die Disk mit der Verifikationskette zurück). Dann fahren zwei schwarze Wagen vor: ein Gerichtsvollzieher mit zwei Meralis-Anwälten und private Sicherheitsleute mit einer einstweiligen Verfügung, die nur die vier beschriebenen Kisten erfasst; die Beschreibung war 54 Minuten vor dem Treffen ins System gelangt – Yusuf blickt zum Kabelkasten an der Decke (Hinweis auf eine Wanze). Emir entdeckt per Video einen doppelten Boden: Die Kisten waren Köder, die vier Schlüssel liegen in einem Rahmen im mechanischen Koffer, den Selin per Notar-Emanet-Schein geschützt hat. Die Gruppe flieht durch den Servicetunnel, während Yusuf mit dem alten Sender alle Funkgeräte elf Minuten lang wie ein Babyschreien heulen lässt; am Tunnelausgang versperrt Cem den Weg und bietet Leylas letzte Aufnahme gegen die Schlüssel. Der Erzähler verweigert beide von Cem vorbereiteten Zukünfte (Monster oder Kranker) und wählt den „dritten Weg“: nicht alles veröffentlichen, Namen, Medikamentenakten und Kinder schützen, nur Methode, Geldweg und Befehlskette an unabhängige Institutionen geben – auch mit Cems Vorgesetzten. Cem lässt sie passieren und schickt Leylas Aufnahme auf Nehirs Telefon; die Vollzieher versiegeln leere Kisten.",
+  "characters": [
+   "Ich-Erzähler (Protagonist, namenlos; Vater von Duru und Emir, Ehemann von Zeynep; baute einst den ersten Entwurf des Emanet-Systems; redet mit Cem)",
+   "Nehir (Journalistin/Vertraute des Erzählers, Leylas Freundin; ergänzte den Quellenschutz; antwortet Cem „Seninkini de kesmeden“)",
+   "Yusuf (Cems leiblicher Vater, ehemaliger Meralis-Mann, Aussteiger; hat Koffer und alte Aufzeichnungen gebracht; betreibt den alten Sender; bleibt zurück)",
+   "Selin / Avukat Selin (Anwältin der Gruppe; hat den Koffer als Notar-Emanet registriert und eine Schutzklage vorbereitet; verhandelt an der Tür und protokolliert)",
+   "Tarık (Technik-Experte der Gruppe; schaltet die Leitung auf den Festanschluss, erkennt die Wagen)",
+   "Emir (Sohn des Erzählers; per Videoanruf von der sicheren Adresse; erkennt den doppelten Boden an den Schraubenköpfen)",
+   "Zeynep (Ehefrau des Erzählers; bei Emir an der sicheren Adresse, nur erwähnt)",
+   "Cem (Gegenspieler, Meralis-Mann; Yusufs Sohn, der den Vater seit 27 Jahren für tot erklärt; sitzt am Steuer des zweiten Wagens; übergibt am Ende Leylas Aufnahme)",
+   "Leyla (verstorbene Freundin/Mitstreiterin; aktualisierte das System; ihre „letzte Aufnahme“ ist das Tauschobjekt)",
+   "İcra görevlisi / icra memuru (Gerichtsvollzieher; vollstreckt die Verfügung, beschlagnahmt nur die Kisten)",
+   "Zwei Meralis-Anwälte und private Sicherheitsleute (namenlos)",
+   "Der tote Ingenieur (namenlos; konstruierte den Sender mit dem Babyschrei-Signal)",
+   "TOPLAYICI, AVCI, SESSİZ SES (die drei inneren Stimmen des Erzählers, als Einschübe)"
+  ],
+  "terms": [
+   {
+    "tr": "Labirentin Emanetleri",
+    "meaning": "Kapiteltitel, „Die Hinterlegungen/Anvertrauten des Labyrinths“. Der Anfangsbuchstabe L schließt das Akrostichon der Kapiteltitel SENİ BUL („Finde dich“) ab (constraint group SENI_BUL, index 6 von 7): Der Titel muss in der Übersetzung mit dem letzten Buchstaben des zielsprachlichen Akrostichons beginnen."
+   },
+   {
+    "tr": "emanet / emanet sözleşmesi / noter emaneti / emanet fişi",
+    "meaning": "Treuhand-Hinterlegung bzw. Treuhandvertrag (Escrow); Notar-Hinterlegung; Hinterlegungsschein. Zentrales juristisches Konstrukt: Schlüssel aktivieren Verträge, der Koffer ist durch den Notar-Emanet-Schein vor Beschlagnahme geschützt. Konsistent als „Hinterlegung/Treuhand“ übersetzen."
+   },
+   {
+    "tr": "dört metal anahtar / dört metal kutu",
+    "meaning": "Vier Metallschlüssel (das eigentliche Instrument) vs. vier Metallkisten mit den Aufschriften İstanbul, Berlin, Nairobi, Toronto (Köder). Die Kisten sind in der Verfügung einzeln beschrieben; im Text einmal fett hervorgehoben („dört metal kutuyu“)."
+   },
+   {
+    "tr": "mekanik çanta",
+    "meaning": "Der mechanische Koffer (bereits früher im Roman auf einem Foto im Teegarten gesehen), enthält den Lesegerät-Mechanismus und am Ende die vier Schlüssel in einem dünnen Rahmen."
+   },
+   {
+    "tr": "levha",
+    "meaning": "Platte/Kontaktplatte in jeder Kiste, die die Lage der Schlüssel verifiziert."
+   },
+   {
+    "tr": "tek kullanımlık doğrulama kodu",
+    "meaning": "Einmaliger Verifikationscode, den die Schlüssel vor dem Notar im Lesegerät erzeugen."
+   },
+   {
+    "tr": "doğrulama zinciri",
+    "meaning": "Verifikationskette der Schlüssel, lag auf der Disk, die Cem zurückverlangte; Cem besitzt eine Kopie."
+   },
+   {
+    "tr": "yedi arşiv / yedi şehir",
+    "meaning": "Sieben miteinander durch Prüfzeichen verbundene Archive in sieben Städten (vier Hauptstädte + Londra, São Paulo, Singapur in Kap. 43); keines enthält allein alle Namen."
+   },
+   {
+    "tr": "tedbir kararı / uygulama talebi",
+    "meaning": "Einstweilige (Sicherungs-)Verfügung / Vollstreckungsantrag. Die Verfügung erlaubt keine Durchsuchung, keine Festnahme, keine Telefonbeschlagnahme – nur die vier beschriebenen Kisten."
+   },
+   {
+    "tr": "icra görevlisi / icra memuru",
+    "meaning": "Gerichtsvollzieher (zwei Varianten im Text, gleiche Person/Funktion)."
+   },
+   {
+    "tr": "acil koruma başvurusu",
+    "meaning": "Eilantrag auf Schutz, den Selin für den Koffer vorbereitet hat."
+   },
+   {
+    "tr": "tutanağa geçirtmek",
+    "meaning": "Zu Protokoll nehmen lassen – Selins Verfahrensstrategie an der Tür."
+   },
+   {
+    "tr": "Batı kapısı",
+    "meaning": "Westtor des Servicegebäudes, Fluchtweg."
+   },
+   {
+    "tr": "çanağın eski verici hattı",
+    "meaning": "Alte Sendeleitung der (rostigen) Antennenschüssel; stört alle Funkgeräte in der Nähe für elf Minuten (11 – wiederkehrendes Zahlenmotiv 11.11)."
+   },
+   {
+    "tr": "çocuk ağlaması / bebek ağlaması",
+    "meaning": "Das Störsignal klingt wie Kinder-/Babyweinen; der tote Ingenieur stellte es so ein. Running gag: „Ben o mühendisi tanımak istiyorum“ (Tarık) – „Öldü.“ – „Daha da çok.“ (= „Umso mehr“, ironisch)."
+   },
+   {
+    "tr": "kablo kutusu (tavandaki)",
+    "meaning": "Kabelkasten an der Decke, zu dem Yusuf blickt – impliziter Hinweis auf eine Abhöreinrichtung, die den Standort der Kisten verraten hat."
+   },
+   {
+    "tr": "Vida başları ters yönde",
+    "meaning": "„Die Schraubenköpfe sind verkehrt herum“ – Emirs Entdeckung des doppelten Bodens (sahte taban). Scherz danach: „Vidalarla ne zaman ayrı bir konuşma grubu kurdunuz?“ – „Seni almadık. Uzun mesaj atıyorsun.“ (Chatgruppe mit den Schrauben, der Vater wurde nicht aufgenommen, weil er zu lange Nachrichten schreibt)."
+   },
+   {
+    "tr": "TOPLAYICI / AVCI / SESSİZ SES",
+    "meaning": "„Sammler / Jäger / Stille Stimme“ – die drei wiederkehrenden inneren Stimmen des Erzählers (Book-Inset-Einschübe mit Label). Formatierung: Label fett, Text kursiv. Namen durchgängig gleich übersetzen wie in früheren Paketen."
+   },
+   {
+    "tr": "Benim babam yirmi yedi yıl önce öldü",
+    "meaning": "Cem: „Mein Vater starb vor 27 Jahren“ – der Tag, an dem Yusuf sich diesen Namen gab bzw. „sich entschied, mein Feind zu sein“. Bestätigt die Vater-Sohn-Beziehung Yusuf–Cem."
+   },
+   {
+    "tr": "Üçüncü bir yol var",
+    "meaning": "„Es gibt einen dritten Weg“ – Kernaussage des Erzählers gegen Cems zwei Szenarien („canavara çevirmek“ = zum Monster machen, „hasta ilan etmek“ = für krank erklären)."
+   },
+   {
+    "tr": "Her şeyi yayımlamayacağım",
+    "meaning": "„Ich werde nicht alles veröffentlichen“ – Wendepunkt; Prinzip: Namen, Medikamentenakten, Kinder, Quellen zurückhalten; Methode, Geldweg, Befehlskette weitergeben."
+   },
+   {
+    "tr": "Tam gerçeği kimse taşıyamaz. Doğru kişiye doğru parçayı vereceğim.",
+    "meaning": "„Die ganze Wahrheit kann niemand tragen. Ich gebe dem richtigen Menschen das richtige Stück.“ – Leitsatz."
+   },
+   {
+    "tr": "İstanbul risk bütçesi",
+    "meaning": "„İstanbul-Risikobudget“ – internes Meralis-Dokument mit Unterschriften (imzalarıyla) und übergeordneten Genehmigungen (üst onayları), das Cem auch seine Vorgesetzten belastet."
+   },
+   {
+    "tr": "Seninkini de kesmeden",
+    "meaning": "Nehir: „Auch deine [Genehmigung/Unterschrift] nicht herausgeschnitten“ – d. h. Cems eigener Name bleibt im Dokument."
+   },
+   {
+    "tr": "Leyla'nın son kaydı",
+    "meaning": "Leylas letzte (Video-)Aufnahme, Cems Tauschangebot; landet am Ende als Datei auf Nehirs Telefon; wird in Kap. 43 angesehen."
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Der Konzern/das Netzwerk, Antagonist des Romans (Anwälte, Fonds, Überwachung)."
+   },
+   {
+    "tr": "Bu bir kaçış değildi.",
+    "meaning": "„Das war keine Flucht.“ – Schlussreflexion: Der Erfolg beruht auf einer juristisch eng gezogenen Grenze der Verfügung, nicht auf Flucht."
+   }
+  ],
+  "tone": "Spannungsgeladenes Gegenwartspräteritum in der Ich-Perspektive; knappe, filmische Dialoge in kurzen Absätzen; juristisch präzises Vokabular (Verfügung, Protokoll, Hinterlegung) neben trockenem Familienhumor (Schrauben-Chatgruppe, Ingenieur). Die inneren Stimmen als kurze kursive Einschübe. Der Dialog mit Cem ist kühl, lakonisch, ohne Waffen – Machtkampf über Worte und Grenzen."
+ },
+ "paras": [
+  {
+   "pid": 2851,
+   "style": "Heading 1",
+   "text": "<b>42. Labirentin Emanetleri</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "SENI_BUL",
+    "index": 6,
+    "n": 7
+   }
+  },
+  {
+   "pid": 2852,
+   "style": "Opening",
+   "text": "Yusuf dört kutunun her birinde anahtarların yerini doğrulayacak ayrı bir levha bulunduğunu söyledi. Metal anahtarlar banka kasası açmıyordu; birbirinden bağımsız dört emanet sözleşmesini etkinleştiriyordu. Çantadaki okuyucuda, noter önünde sırayla çevrildiklerinde ilgili ülkede bekleyen emanet için tek kullanımlık doğrulama kodu üreteceklerdi. Metal parçaları dört ülkeye yetiştirmemiz gerekmiyordu. Selin, çay bahçesinde fotoğrafını gördüğüm mekanik çantanın yeni emanet fişini çıkardı. Yusuf o gün sözünü tutmuş, çantayı ve eski kayıtları getirmişti. Selin çantayı kendi adına değil, noter emanetine kaydettirmiş; onu da hedefleyen bir karar gelirse sunacağı koruma başvurusunu hazırlamıştı. Fişi çantanın seri numarasıyla karşılaştırdı. Dört anahtar aynı yirmi dört saat içinde kullanılırsa, yedi şehirdeki gazetecilere, hekimlere, insan hakları hukukçularına ve araştırmacılara yedi ayrı arşiv ulaşacaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2853,
+   "style": "Normal",
+   "text": "Hiçbir arşiv tek başına bütün isimleri içermiyordu. Yedisi doğrulama işaretleriyle birbirine bağlanıyordu. Bir kopya sahteyse diğerleri bunu gösterecek, bir şehir susturulursa kalan altısı yöntemi açıklayacaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2854,
+   "style": "Normal",
+   "text": "“Bunu da ben mi kurdum?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2855,
+   "style": "Normal",
+   "text": "“İlk taslağını,” dedi Yusuf. “Leyla güncelledi. Nehir kaynak korumasını ekledi. Ben sakladım. Cem ise sistemin yerini buldu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2856,
+   "style": "Normal",
+   "text": "“O yüzden diski geri istedi,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2857,
+   "style": "Normal",
+   "text": "Yusuf başını salladı. “Diskte anahtarların doğrulama zinciri vardı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2858,
+   "style": "Normal",
+   "text": "“Cem'in elinde mi şimdi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2859,
+   "style": "Normal",
+   "text": "“Bir kopyası.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2860,
+   "style": "Normal",
+   "text": "Telefonlarımız aynı anda mobil çekim gücünü kaybetti. Servis binasının sabit bağlantısı çalışıyordu; Tarık görüşme hattını ona geçirdi, sonra pencereye koştu. Gözlemevinin giriş yolunda iki siyah araç durdu. Plakaları farklı şehirlerden, modelleri aynıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2861,
+   "style": "Normal",
+   "text": "“Polis?” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2862,
+   "style": "Normal",
+   "text": "Avukat Selin dışarı baktı. İlk araçtan yelekli bir icra görevlisiyle iki Meralis avukatı, ikinciden özel güvenlik çalışanları indi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2863,
+   "style": "Normal",
+   "text": "“Polis değiller,” dedi. “Bu, yetkisiz oldukları anlamına gelmiyor. Ellerinde karar var; ama kimseyi gözaltına alamazlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2864,
+   "style": "Normal",
+   "text": "Yusuf kutuları bize doğru itti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2865,
+   "style": "Normal",
+   "text": "“Batı kapısından çıkın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2866,
+   "style": "Normal",
+   "text": "“Siz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2867,
+   "style": "Normal",
+   "text": "“Çanağın eski verici hattını çalıştıracağım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2868,
+   "style": "Normal",
+   "text": "“Ne işe yarar?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2869,
+   "style": "Normal",
+   "text": "“Yakındaki bütün telsizleri on bir dakika boyunca çocuk ağlaması gibi öttürür.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2870,
+   "style": "Normal",
+   "text": "“Neden çocuk ağlaması?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2871,
+   "style": "Normal",
+   "text": "“Mühendis öyle ayarlamış.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2872,
+   "style": "Normal",
+   "text": "Tarık, “Ben o mühendisi tanımak istiyorum,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2873,
+   "style": "Normal",
+   "text": "“Öldü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2874,
+   "style": "Normal",
+   "text": "“Daha da çok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2875,
+   "style": "Normal",
+   "text": "İcra görevlisinin dayandığı geniş tedbir kararı bir gün önce alınmıştı ve binanın tamamını arama izni vermiyordu. Fakat karara o sabah eklenen uygulama talebi, Yusuf'un elinde bulunduğu öne sürülen, üzerlerinde İstanbul, Berlin, Nairobi ve Toronto yazan <b>dört metal kutuyu</b> tek tek tarif ediyordu. Bu tarif, buluşmadan elli dört dakika önce sisteme girmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2876,
+   "style": "Normal",
+   "text": "Selin belgeyi okurken ilk kez cümlesinin ortasında durdu. Şehir adları eski emanet kayıtlarından öğrenilebilirdi. Ama dört kutunun bugün burada olduğunu kim bildirmişti? Yusuf buluşma adresini dün gece yalnız bize göndermişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2877,
+   "style": "Normal",
+   "text": "Yusuf tavandaki kablo kutusuna baktı. Ben bakışını gördüm; ne aradığını henüz bilmiyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2878,
+   "style": "Normal",
+   "text": "Selin ön kapıya gidip konuşmaya başladı. Kararın kişileri tutmaya, telefonlara el koymaya ya da binanın odalarını aramaya izin vermediğini; yalnız tarif edilen kutularla sınırlı olduğunu tutanağa geçirtti. Yüksek sesle konuşuyor, her cümleyi kendi telefonuna kaydediyordu. Yusuf, zorla arama tartışması çıkarmak yerine tarif edilen dört kutuyu teslim edeceğini söyledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2879,
+   "style": "Normal",
+   "text": "Biz batı kapısına yöneldik; kutular hâlâ masadaydı. Zeynep'in yanında, güvenli adreste; konum paylaşımı kapalı ve istediği anda bağlantıyı kesebileceği görüntülü görüşmede duran Emir, kutulardan birinin mekanik çantaya sığmadığını söyledi. Ekrana bakıp iç kapağın altında sahte taban olduğunu gördü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2880,
+   "style": "Normal",
+   "text": "“Bunu nasıl gördün?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2881,
+   "style": "Normal",
+   "text": "“Vida başları ters yönde.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2882,
+   "style": "Normal",
+   "text": "“Vidalarla ne zaman ayrı bir konuşma grubu kurdunuz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2883,
+   "style": "Normal",
+   "text": "“Seni almadık. Uzun mesaj atıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2884,
+   "style": "Normal",
+   "text": "Sahte tabanı kaldırınca dört metal anahtar tek bir ince çerçeveye yerleşti. Kutular yemdi; asıl düzenek onların taşıma çantasındaydı. Boş kutuları Yusuf'a bıraktık, çantayla batı kapısından çıktık.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2885,
+   "style": "Book Inset",
+   "text": "<b>TOPLAYICI:</b> <i>Ayrıntı yine yolu açtı.</i>",
+   "keep": false,
+   "image": false,
+   "label": "TOPLAYICI",
+   "constraint": null
+  },
+  {
+   "pid": 2886,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Araçlar yaklaşıyor.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 2887,
+   "style": "Book Inset",
+   "text": "<b>SESSİZ SES:</b> <i>Yalnız ne gördüğünü değil, kiminle gördüğünü hatırla.</i>",
+   "keep": false,
+   "image": false,
+   "label": "SESSİZ SES",
+   "constraint": null
+  },
+  {
+   "pid": 2888,
+   "style": "Normal",
+   "text": "Paslı çanağın altındaki servis tüneline girdik. Arkamızda verici çalıştı. Bütün telsizlerden bebek ağlamasına benzeyen keskin bir ses yükseldi. Tarık haklıydı; bunu tasarlayan mühendisi ben de tanımak istedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2889,
+   "style": "Normal",
+   "text": "Nehir önden koşmuş, tünelin çıkışında arabanın kapısını açık tutuyordu. İkinci araç yolu kapatmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2890,
+   "style": "Normal",
+   "text": "Direksiyonda Cem vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2891,
+   "style": "Normal",
+   "text": "Camı indirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2892,
+   "style": "Normal",
+   "text": "“Anahtarları bana verirseniz Leyla'nın son kaydını veririm,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2893,
+   "style": "Normal",
+   "text": "“Baban içeride,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2894,
+   "style": "Normal",
+   "text": "Cem'in yüzünde küçük bir kas hareket etti. “Benim babam yirmi yedi yıl önce öldü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2895,
+   "style": "Normal",
+   "text": "“Kendine Yusuf dediği gün mü?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2896,
+   "style": "Normal",
+   "text": "“Bana düşman olmayı seçtiği gün.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2897,
+   "style": "Normal",
+   "text": "Cem arabanın kapısını açmadı. Silah göstermedi. Yalnız önümüzde duruyordu ve arkamızdaki adamlar yaklaşıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2898,
+   "style": "Normal",
+   "text": "“Üçüncü bir yol var,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2899,
+   "style": "Normal",
+   "text": "“Her sıkışan insan bunu söyler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2900,
+   "style": "Normal",
+   "text": "“Hayır. Sen iki gelecek hazırladın: Beni canlı tutup canavara çevirmek ya da öldürüp hasta ilan etmek. Ben ikisini de seçmeyeceğim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2901,
+   "style": "Normal",
+   "text": "“Ne yapacaksın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2902,
+   "style": "Normal",
+   "text": "“Her şeyi yayımlamayacağım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2903,
+   "style": "Normal",
+   "text": "Cem ilk kez şaşırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2904,
+   "style": "Normal",
+   "text": "“Korktun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2905,
+   "style": "Normal",
+   "text": "“İsimleri yayımlarsam sizin hedef gösterdiğiniz insanları ben tamamlamış olurum. İlaç kayıtlarını, çocukları, kaynakları saklayacağım. Yöntemi, para yolunu ve doğrulanabilir emir zincirini bağımsız kurumlara vereceğim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2906,
+   "style": "Normal",
+   "text": "“İnsanlar eksik gerçeğe inanmaz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2907,
+   "style": "Normal",
+   "text": "“Tam gerçeği kimse taşıyamaz. Doğru kişiye doğru parçayı vereceğim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2908,
+   "style": "Normal",
+   "text": "Cem bana uzun süre baktı. Belki ilk kez kontrol edemediği şeyin kaos değil, sınır olduğunu görüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2909,
+   "style": "Normal",
+   "text": "Sonra aracını yarım metre geri aldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2910,
+   "style": "Normal",
+   "text": "“İstanbul risk bütçesini de verecek misin?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2911,
+   "style": "Normal",
+   "text": "“İmzalarıyla.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2912,
+   "style": "Normal",
+   "text": "“Üst onayları kesmeden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2913,
+   "style": "Normal",
+   "text": "Nehir cevap verdi. “Seninkini de kesmeden.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2914,
+   "style": "Normal",
+   "text": "Cem'in eli direksiyonda durdu. Bir an önce o belgeleri durdurmak için gelmiş gibi görünmüyordu. Bizi, belgelerin hangi bölümünü taşıyacağımızı seçmeye zorlamıştı. Üstündekiler de görünür olacaksa önümüzden çekilecekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2915,
+   "style": "Normal",
+   "text": "“Geç,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2916,
+   "style": "Normal",
+   "text": "“Bunu senin lehine yazmayacağız,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2917,
+   "style": "Normal",
+   "text": "“Ben de henüz neyin lehime olduğunu söylemedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2918,
+   "style": "Normal",
+   "text": "Yanından geçerken Nehir'in telefonuna bir dosya düştü. Leyla'nın son kaydıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2919,
+   "style": "Normal",
+   "text": "Arkamızda servis binasının kapıları açıldı. Selin ve Yusuf dışarı çıktı. İcra görevlileri onları tutmamıştı. Kararda tek tek tarif edilen dört kutuyu mühürleyip teslim aldılar.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2920,
+   "style": "Normal",
+   "text": "Kutularda anahtar yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2921,
+   "style": "Normal",
+   "text": "Dört anahtar Selin'in noter emanet fişiyle koruduğu mekanik çantadaydı. İcra memuru fişi ve acil koruma başvurusunu tutanağa ekledi; kararın tarif ettiği kutulara el koydu, çantaya değil. Bu bir kaçış değildi. Kararın kapsamı için o sabah hukuken çizilmiş dar bir sınırdı; karşı taraf bunu öğrense muhtemelen yeni bir karar isteyecekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

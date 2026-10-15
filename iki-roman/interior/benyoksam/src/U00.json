@@ -1,0 +1,41 @@
+{
+ "uid": "U00",
+ "title": "(Titelblock)",
+ "number": null,
+ "words": 1,
+ "constraints": {
+  "uid": "U00",
+  "number": null,
+  "title": "(Titelblock)",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 1
+ },
+ "synopsis": {
+  "uid": "U00",
+  "title": "(Titelblock)",
+  "summary": "Reiner Titelblock ohne Handlung: der Reihen-/Obertitel „YOLCU“ (dt. „Der Reisende/Der Passagier“) steht allein als Titelzeile. Er benennt zugleich die Ich-Erzählerfigur des Romans, die im ganzen Buch namenlos bleibt und nur über diese Rolle identifiziert wird. Keine Figuren, keine Zeitebene; dient Übersetzer:innen nur als Referenz für die Schreibweise des Haupttitels.",
+  "characters": [],
+  "terms": [
+   {
+    "tr": "YOLCU",
+    "meaning": "Haupttitel des Romans und zugleich Bezeichnung des namenlosen Ich-Erzählers („der Reisende“ / „der Passagier“); im ganzen Buch konsistent als Titelwort behandeln, nicht übersetzen, wenn das Projekt den Titel als Eigennamen führt."
+   }
+  ],
+  "tone": "Paratext (Titelseite), keine Erzählhaltung; fett gesetzt."
+ },
+ "paras": [
+  {
+   "pid": 0,
+   "style": "Title",
+   "text": "<b>YOLCU</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

@@ -1,0 +1,778 @@
+{
+ "uid": "U23",
+ "title": "25. Unuttuğumu Ateş Seçti",
+ "number": 25,
+ "words": 799,
+ "constraints": {
+  "uid": "U23",
+  "number": 25,
+  "title": "25. Unuttuğumu Ateş Seçti",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 799
+ },
+ "synopsis": {
+  "uid": "U23",
+  "title": "25. Unuttuğumu Ateş Seçti",
+  "summary": "Gegenwart, unmittelbar anschließend: Brand in der Werkstatt, von mehreren Stellen gleichzeitig; die Nachuntersuchung wird drei Hitzezeitschalter, durchtrennte Sprinkler- und Sensorkabel ergeben (Brandstiftung). Während Nehir zwei Arbeitskopien in ihre Tasche wirft, trifft sie ein brennendes Deckenteil; der Erzähler steht zwischen Toplayıcı (Bücher retten) und Avcı (Ausgang prüfen) und wählt Nehir – ein zentrales Entscheidungsmoment, das er später dreimal in wechselnder Reihenfolge erinnert. Hintertür verkettet, Flucht über Papierballen durchs Dachfenster; die Katze Duman taucht unvermutet auf und findet den Ausgang vor ihnen. Auf dem Dach Panikreaktion des Erzählers, Nehir erdet ihn („Duvarın içine bakıyorsun“); er gesteht, einen Moment die Bücher gewollt zu haben, sie kontert, beide seien kurz dumm gewesen; er hält ihre Hand. Polizei vernimmt getrennt, Murat hat die Originalbeutel gerettet, Nehirs Tasche wird beschlagnahmt und dokumentiert; der Brandermittler bestätigt Yusufs Hitzedraht (19 Sekunden vor seinem Anruf). Im Krankenhaus kommt Zeynep („Kahramanlık planın yoktu“ – „Plansız yapmışsın“); zu Hause misst Duru das Versprechen „kaybolmayacağım“ am Feuer („Şimdilik“). Am nächsten Morgen zeigen Fotos von drei mitgerutschten Seiten: Meralis-Niederlassungen weltweit, „ALFA RİSK SINIFLAMASI“ und die halb verbrannte Zeile „A-1453'ün ilk yazarı: YUSUF VURAL“. Der Erzähler widerspricht: Yusuf sei nur der erste Übersetzer – in der Ecke steht in seiner eigenen Handschrift: „Yusuf metni çevirdi. İlk cümleyi ben yazdım.“",
+  "characters": [
+   "Ich-Erzähler (entdeckt eigene Handschrift auf dem Dokument; hat offenbar vergessene Vergangenheit als Urheber)",
+   "Nehir (Verbrennung am Arm; rettet zwei Arbeitskopien; stabilisiert den Erzähler)",
+   "Duman (graue Katze, taucht in der Werkstatt auf; keiner „gehört“ sie)",
+   "Murat (Tatortbeamter; evakuiert Beweisbeutel, trägt Bodycam)",
+   "Selin (Anwältin; sendet Staatsanwaltschaftsschreiben)",
+   "Zeynep (kommt ins Krankenhaus; Mutter der Kinder / (Ex-)Partnerin des Erzählers – Beziehung aus früheren Paketen)",
+   "Emir (Sohn; reinigt Dumans Schnurrhaare)",
+   "Duru (Tochter; prüft das Versprechen „kaybolmayacağım“)",
+   "Yusuf Vural (abwesend; Hitzedraht, auf dem Dokument als „ilk yazar“ genannt)",
+   "Sağlık görevlisi (Sanitäter)",
+   "Toplayıcı, Avcı, Sessiz Ses (innere Stimmen)",
+   "Meralis (Organisation; Brandstiftung impliziert)"
+  ],
+  "terms": [
+   {
+    "tr": "Unuttuğumu Ateş Seçti",
+    "meaning": "Kapiteltitel: „Das Feuer wählte, was ich vergessen hatte“ – doppeldeutig: das Feuer trifft die Auswahl der Seiten und legt die vergessene Urheberschaft frei"
+   },
+   {
+    "tr": "Toplayıcı / Avcı",
+    "meaning": "„Sammler“ / „Jäger“ – innere Stimmen bzw. Typentheorie des Erzählers („Toplayıcı bilgiyi korur“, „Avcı tehlikeye gider“); Avcı korrespondiert mit Akttitel AV"
+   },
+   {
+    "tr": "Sessiz Ses",
+    "meaning": "„Stille Stimme“ – innere Instanz, sagt hier nur „Nehir öksürüyor“"
+   },
+   {
+    "tr": "Duman",
+    "meaning": "Eigenname der Katze (wörtlich „Rauch“) – Wortspiel mit dem Brand; Name nicht übersetzen, ggf. Anmerkung"
+   },
+   {
+    "tr": "ısı zamanlayıcısı",
+    "meaning": "Hitzezeitschalter (Brandsatz-Timer), drei Stück zwischen den Ballen"
+   },
+   {
+    "tr": "sprinkler hattı",
+    "meaning": "Sprinklerleitung, durchtrennt"
+   },
+   {
+    "tr": "turunç kokusu",
+    "meaning": "Bitterorangenduft in der Werkstatt (wiederkehrendes Geruchsmotiv der Werkstatt aus früheren Paketen)"
+   },
+   {
+    "tr": "çalışma kopyaları / asıllar / numaralanmış delil torbaları",
+    "meaning": "Arbeitskopien vs. Originale in nummerierten Beweisbeuteln; die Kopien dürfen nicht als Beweis dienen – juristisch konsistent halten"
+   },
+   {
+    "tr": "yaka kamerası",
+    "meaning": "Bodycam Murats"
+   },
+   {
+    "tr": "kundaklama",
+    "meaning": "Brandstiftung"
+   },
+   {
+    "tr": "Dokunma.",
+    "meaning": "„Fass nicht an“ – Nehirs wiederkehrender Satz (im Brand ausnahmsweise nicht gesagt, danach wegen der Brandwunde wieder)"
+   },
+   {
+    "tr": "Duvarın içine bakıyorsun",
+    "meaning": "Nehir: „Du schaust in die Wand hinein“ – dissoziativer Blick des Erzählers in der Panik"
+   },
+   {
+    "tr": "Düşünmek yapmak değildir.",
+    "meaning": "Nehir: „Denken ist nicht Tun.“"
+   },
+   {
+    "tr": "Kahramanlık planın yoktu. / Plansız yapmışsın.",
+    "meaning": "Zeyneps trockener Kommentar: „Du hattest keinen Heldenplan.“ – „Dann hast du's ohne Plan gemacht.“"
+   },
+   {
+    "tr": "kaybolmayacağım / Şimdilik",
+    "meaning": "Versprechen des Erzählers an Duru („Ich werde nicht verschwinden“) und ihr Prüfwort „vorerst“; „şimdilik“ hier als „gefunden werden“ statt „kleiner werden“ umgedeutet – Rückgriff auf frühere Pakete"
+   },
+   {
+    "tr": "ALFA RİSK SINIFLAMASI",
+    "meaning": "„ALPHA-RISIKOKLASSIFIKATION“ – Dokumentüberschrift (fett) auf der zweiten geretteten Seite"
+   },
+   {
+    "tr": "A-1453",
+    "meaning": "Aktenzeichen/Codename des Buches/Projekts; „A-1453'ün ilk yazarı: YUSUF VURAL“ (fett, Inset)"
+   },
+   {
+    "tr": "ilk yazar / ilk çevirmen",
+    "meaning": "„erster Autor“ vs. „erster Übersetzer“ – entscheidende Unterscheidung in der Schlusspointe"
+   },
+   {
+    "tr": "Yusuf metni çevirdi. İlk cümleyi ben yazdım.",
+    "meaning": "handschriftliche Notiz des Erzählers (kursiv): „Yusuf übersetzte den Text. Den ersten Satz schrieb ich.“ – Schlusszeile des Pakets, Enthüllung der eigenen Mitverantwortung"
+   },
+   {
+    "tr": "yanmış kelebekler gibi",
+    "meaning": "Bild: verbrannte Seiten fliegen wie verbrannte Schmetterlinge"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum, mit Prolepsen im Futur-der-Vergangenheit („bulunacak, anlaşılacaktı“). Actionsequenz in kurzen Sätzen, innere Stimmen als fette Labels mit kursivem Text, dann Nachbeben: Panikkörperlichkeit, Erinnerungsunsicherheit (dreifaches Erinnern derselben Sekunde), trockener Humor (Katze, Besitzfrage im Krankenwagen). Schluss mit Dokumentenzitat und knapper Enthüllungspointe."
+ },
+ "paras": [
+  {
+   "pid": 1887,
+   "style": "Heading 1",
+   "text": "<b>25. Unuttuğumu Ateş Seçti</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1888,
+   "style": "Opening",
+   "text": "İlk dumanı kapının altından gördüm. Gri, ince bir çizgiydi. Sonra turunç kokusunun altında keskin plastik kokusu yükseldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1889,
+   "style": "Normal",
+   "text": "“Çıkıyoruz,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1890,
+   "style": "Normal",
+   "text": "“Kan tüpü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1891,
+   "style": "Normal",
+   "text": "“Kurye götürdü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1892,
+   "style": "Normal",
+   "text": "“Mor kitap.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1893,
+   "style": "Normal",
+   "text": "“Taraması var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1894,
+   "style": "Normal",
+   "text": "“Yedi siyah kitap.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1895,
+   "style": "Normal",
+   "text": "“Seni bekliyorum. Kitapları değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1896,
+   "style": "Normal",
+   "text": "Ateş, arka odadaki kâğıt yığınlarına aynı anda yayılmıştı. Bu doğal bir başlangıç değildi. Sonraki incelemede, balyaların arasına iki gün önce yerleştirilmiş üç küçük ısı zamanlayıcısı bulunacak, sprinkler hattının ve tavandaki sensör kablolarının da aynı girişte kesildiği anlaşılacaktı. O an yalnız keskin plastik kokusunu, çalışmayan sistemi ve yangının birkaç yerden birden büyüdüğünü biliyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1897,
+   "style": "Book Inset",
+   "text": "<b>TOPLAYICI:</b> <i>Kitapları kurtar.</i>",
+   "keep": false,
+   "image": false,
+   "label": "TOPLAYICI",
+   "constraint": null
+  },
+  {
+   "pid": 1898,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Arka çıkışı kontrol et.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 1899,
+   "style": "Book Inset",
+   "text": "<b>SESSİZ SES:</b> <i>Nehir öksürüyor.</i>",
+   "keep": false,
+   "image": false,
+   "label": "SESSİZ SES",
+   "constraint": null
+  },
+  {
+   "pid": 1900,
+   "style": "Normal",
+   "text": "Murat ön taraftan “Herkes dışarı!” diye bağırırken Nehir masadaki iki çalışma kopyasını çantasına attı. Sonra tavandan yanan bir parça düştü. Koluna çarptı. Dengesini kaybedip kâğıt kesim masasının yanına düştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1901,
+   "style": "Normal",
+   "text": "Bir saniyede iki gelecek gördüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1902,
+   "style": "Normal",
+   "text": "Birinde masadaki kopyaları alıyor, Nehir'in kendi başına kalkacağını varsayıyordum. Önümdeki sayfalar kurtuluyor, Nehir belki çıkıyordu. Asılları korunuyordu. Bunu biliyordum; yine de gözüm önümdekileri bırakmıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1903,
+   "style": "Normal",
+   "text": "Diğerinde ona gidiyor, yıllardır aradığımız sayfaları ateşe bırakıyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1904,
+   "style": "Normal",
+   "text": "İnsan büyük teorilerini seçim anında tanır. “Toplayıcı bilgiyi korur” diyordum. “Avcı tehlikeye gider” diyordum. O an ikisi de beni kendi yönüne çekiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1905,
+   "style": "Normal",
+   "text": "Nehir'i seçtim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1906,
+   "style": "Normal",
+   "text": "Kolundan tutup kaldırdım. Bu kez “dokunma” demedi. Ön kapıyla aramıza alev alan bir raf devrilmişti. Paltosunu yüzüne kapattım, arka çıkışa koştuk. Kapı dışarıdan zincirlenmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1907,
+   "style": "Normal",
+   "text": "“Pencere,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1908,
+   "style": "Normal",
+   "text": "Çatı penceresi yüksekteydi. Eski kâğıt balyalarını üst üste koyduk. Ben çıktım, camın kalanını montumla kırdım. Nehir'i yukarı çektim. Son anda masanın altından Duman fırladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1909,
+   "style": "Normal",
+   "text": "“Bu kedi buraya nasıl girdi?” diye bağırdı Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1910,
+   "style": "Normal",
+   "text": "“Kendisine sor!”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1911,
+   "style": "Normal",
+   "text": "Duman pencere eşiğine tek sıçrayışta çıktı. Ben, iki yetişkin insan ve küresel komplo teorisi aynı yeri üç dakikada bulamamıştık.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1912,
+   "style": "Normal",
+   "text": "Çatıya geçtiğimizde aşağıda itfaiye sirenleri duyuldu. Atölyenin pencerelerinden alevler yükseldi. Masada bıraktığımız çalışma kopyalarının sayfaları havaya kalkıyor, yanmış kelebekler gibi sokağa savruluyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1913,
+   "style": "Normal",
+   "text": "Nehir'in kolundaki kumaş derisine yapışmıştı. Çekmeye çalışınca elimi itti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1914,
+   "style": "Normal",
+   "text": "“Dokunma.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1915,
+   "style": "Normal",
+   "text": "“Yanmış.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1916,
+   "style": "Normal",
+   "text": "“Biliyorum. Deriyi de kaldırırsın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1917,
+   "style": "Normal",
+   "text": "Çatının kenarına ilerlerken dizlerim titremeye başladı. Yangının içinde bedenim düzgün çalışmış, tehlike azaldığında hesabı önümüze koymuştu. Nefesim hızlandı. Ağzımda is tadı, kulaklarımda tek bir yüksek uğultu vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1918,
+   "style": "Normal",
+   "text": "“Bana bak,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1919,
+   "style": "Normal",
+   "text": "“Bakıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1920,
+   "style": "Normal",
+   "text": "“Hayır. Duvarın içine bakıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1921,
+   "style": "Normal",
+   "text": "Gözlerimi yüzüne odakladım. Sağ kaşının ucunda küçük bir kül parçası vardı. Onu söylemek istedim. Bu, yapılacaklar listesinin en kolay maddesiydi. Onun yerine, “Seni orada bırakabilirdim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1922,
+   "style": "Normal",
+   "text": "“Bırakmadın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1923,
+   "style": "Normal",
+   "text": "“Bir an düşündüm.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1924,
+   "style": "Normal",
+   "text": "“Düşünmek yapmak değildir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1925,
+   "style": "Normal",
+   "text": "“Kitapları seçmek istedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1926,
+   "style": "Normal",
+   "text": "“Ben de iki tanesini çantaya attım. İkimiz de bir an aptaldık.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1927,
+   "style": "Normal",
+   "text": "Nehir bunu teselli olsun diye söylemedi. Olayı küçültmediği için rahatladım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1928,
+   "style": "Normal",
+   "text": "Az sonra aynı anı üçüncü kez hatırladım. İlkinde Nehir'e uzandığımı, ikincisinde kitaba baktığımı biliyordum. Üçüncüsünde ikisinin sırası değişti. Aşağıdaki birinin telefonu o saniyeleri çekmiş olsa kollarımın nereye gittiğini görebilirdik. İçimde hangisinin önce geldiğini hiçbir kamera göstermeyecekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1929,
+   "style": "Normal",
+   "text": "Nehir'in kül bulaşmış eli hâlâ bileğimdeydi. “Bakıyorum,” demiştim ona. Gerçekte kendi hakkımda kurulacak cümleye bakıyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1930,
+   "style": "Normal",
+   "text": "Bu sefer kendimi anlatmadım. Elini tuttum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1931,
+   "style": "Normal",
+   "text": "İtfaiye merdiveni çatıya ulaştı. Murat ön kapıdan çıkmış, numaralanmış delil torbalarını yangın tahliye çantasına koymuştu; yaka kamerası içeride kimin neye dokunduğunu kaydetmişti. Aşağı indiğimizde polis bizi ayrı araçlara oturttu. Yangının birkaç noktada başlaması kundaklamaya işaret ediyordu; atölyeye yasal erişimimiz olsa da mesai dışında içeride bulunmamız yine de sorgulanacaktı. Selin savcılık yazısını ve Murat'ın tutanağını gönderene kadar bir memur Nehir'in çantasına el koydu. İçindeki iki çalışma kopyası ve gevşek sayfalar ayrı ayrı fotoğraflandı; hiçbirinin asıl delil yerine kullanılmayacağı kayda geçti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1932,
+   "style": "Normal",
+   "text": "Yangın inceleme ekibi ertesi gün Yusuf'un sözünü ettiği bağımsız ısı telini pres hattının arkasında buldu. Resmî alarm kabloları kesilmişti; pille çalışan tel ise ilk ani sıcaklık artışını, telefondaki uyarısından on dokuz saniye önce kaydetmişti. Yangını önceden görmemişti. Meralis'in susturmayı unuttuğu eski bir sensörü dinlemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1933,
+   "style": "Normal",
+   "text": "Ambulansta koluna pansuman yapılırken bana kızdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1934,
+   "style": "Normal",
+   "text": "“Duman'ı niye getirdin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1935,
+   "style": "Normal",
+   "text": "“Getirmedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1936,
+   "style": "Normal",
+   "text": "Kedi sedyenin altından miyavladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1937,
+   "style": "Normal",
+   "text": "Sağlık görevlisi aşağı baktı. “Bu sizin mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1938,
+   "style": "Normal",
+   "text": "“Hayır,” dedik aynı anda.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1939,
+   "style": "Normal",
+   "text": "Duman gözlerini kapattı. İnsanların mülkiyet tartışması onu ilgilendirmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1940,
+   "style": "Normal",
+   "text": "Zeynep hastaneye geldiğinde çocukları komşuya bırakmıştı. Nehir'in kolunu gördü, sonra benim kaşımın üstündeki kesiye baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1941,
+   "style": "Normal",
+   "text": "“Kahramanlık planın yoktu,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1942,
+   "style": "Normal",
+   "text": "“Hâlâ yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1943,
+   "style": "Normal",
+   "text": "“Plansız yapmışsın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1944,
+   "style": "Normal",
+   "text": "O gece çocuklara yangının her ayrıntısını anlatmadık. Ama iyi olduğumuzu yüz yüze gösterdik. Emir, Duman'ın bıyıklarındaki isi ıslak bezle temizledi. Duru bana hiçbir şey söylemeden uzun süre baktı; sanki verdiğim “kaybolmayacağım” sözünün yangına dayanıp dayanmadığını ölçüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1945,
+   "style": "Normal",
+   "text": "“Buradayım,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1946,
+   "style": "Normal",
+   "text": "“Şimdilik,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1947,
+   "style": "Normal",
+   "text": "Haklıydı. Fakat bu kez şimdilik kelimesi küçülmek değil, bulunmak anlamına geliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1948,
+   "style": "Normal",
+   "text": "Ertesi sabah soruşturma ekibi, Nehir'in çantasından çıkan çalışma kopyalarının yüksek çözünürlüklü fotoğraflarını Selin'e gönderdi. Asılları adli depodaydı; bizim baktığımız her satır oradaki görüntüyle karşılaştırılacaktı. İki kopyadan biri ıslanmış, diğeri kenarından yanmıştı. Aralarında, Nehir düşerken masadan çantaya sürüklenen üç sayfa vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1949,
+   "style": "Normal",
+   "text": "Birinci sayfada dünyanın farklı şehirlerinde Meralis'e bağlı kuruluşlar vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1950,
+   "style": "Normal",
+   "text": "İkinci sayfada <b>ALFA RİSK SINIFLAMASI</b> başlığı duruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1951,
+   "style": "Normal",
+   "text": "Üçüncü sayfa yarıya kadar yanmıştı. Okunabilen tek satır:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1952,
+   "style": "Book Inset",
+   "text": "<b>A-1453'ün ilk yazarı: YUSUF VURAL</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1953,
+   "style": "Normal",
+   "text": "Nehir bana baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1954,
+   "style": "Normal",
+   "text": "“Kitabın ilk yazarı o.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1955,
+   "style": "Normal",
+   "text": "Ben ekrandaki yanan atölyenin fotoğrafına baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1956,
+   "style": "Normal",
+   "text": "“Hayır,” dedim. “O yalnız ilk çevirmen.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1957,
+   "style": "Normal",
+   "text": "Çünkü kâğıdın alt köşesinde, ateşin yemediği küçük bir not vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1958,
+   "style": "Normal",
+   "text": "El yazısı bana aitti:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1959,
+   "style": "Book Inset",
+   "text": "<i>Yusuf metni çevirdi. İlk cümleyi ben yazdım.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

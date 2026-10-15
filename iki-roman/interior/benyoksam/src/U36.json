@@ -1,0 +1,1400 @@
+{
+ "uid": "U36",
+ "title": "40. Yusuf Olmadan Önce",
+ "number": 40,
+ "words": 2229,
+ "constraints": {
+  "uid": "U36",
+  "number": 40,
+  "title": "40. Yusuf Olmadan Önce",
+  "title_letter": null,
+  "marks": [],
+  "knots": [
+   "M"
+  ],
+  "images": [],
+  "book_part": null,
+  "words": 2229
+ },
+ "synopsis": {
+  "uid": "U36",
+  "title": "40. Yusuf Olmadan Önce",
+  "summary": "Gegenwartsebene, Ich-Erzähler (der Protagonist, Vater von Duru, Ehemann von Zeynep). Nachdem im vorigen Kapitel auf einem alten Video der Vater des Erzählers (Kemal) Yusuf mit dem Namen „Cemil“ angesprochen hat, ruft Yusuf an und enthüllt seine wahre Identität: Er wurde als Cemil Arven geboren, trug in Dokumenten die Decknamen Yusuf Vural und Yusuf Karaca, und Cem Arven – der Gegenspieler im Dienst von Meralis – ist sein Sohn. In einem Telefongespräch (mit Nehir dabei) erzählt Yusuf die Vorgeschichte: Cems Mutter Aylin, Ärztin im Datenarchiv des alten Netzwerks, starb zwei Tage vor der geplanten Flucht bei einem Autounfall; Yusuf ließ den achtjährigen Cem bei seiner Schwester zurück, Cem trat später selbst in das Netzwerk ein. Am nächsten Morgen treffen sich der Erzähler, Nehir, Tarık und die Anwältin Selin mit Yusuf im Servicegebäude eines stillgelegten Radioobservatoriums; Yusuf bringt vier Metallkisten (İstanbul, Berlin, Nairobi, Toronto) mit und spielt eine Tonbandaufnahme Aylins ab. Es folgen die zentralen Auflösungen des Romans: Der Erzähler selbst hat mit 19 Jahren im Laden seines Vaters das Weiße Buch kompiliert (ohne Autorennamen), das Rote Heft als Weg für sich selbst angelegt, die Zahl 1453 und das Schließfach in Edirne gewählt, die Kamera in der Lupenlampe installieren lassen, die Paketkette und das Lieferschema mit roter Schnur (ohne Feder, ohne drei Umschläge) entworfen und bewusst entschieden, alles zu vergessen (ohne Hypnose – durch Schlaflosigkeit, Trauma, den Tod des Vaters und jahrelanges Verdrängen). Meralis hat diese Eigensignale in Druckmittel verwandelt: die weiße Lieferkopie (von Leyla einen Tag vor ihrem Tod versiegelt) wurde im Umschlagdepot eines Logistik-Subunternehmers elf Minuten lang gegen das Schwarze Buch ausgetauscht; Cem ließ den Speicherstreifen mit dem FETİH-Ordner und Durus Bericht ins Weiße Buch unter der Lupe einkleben, damit Duru es findet; die 111-Sekunden-Kameralücke spielt auf die 11.11-Fixierung des Erzählers an. Yusuf gesteht außerdem, die sieben schwarzen Bücher und die Kapsel in der Dachrinne der Werkstatt selbst deponiert zu haben (illegal), der Kater Duman folgte nur seiner Rattenroute. Das Kapitel endet mit der Deutung der drei Buchfarben über die alchemistischen Stufen nigredo/albedo/rubedo, Nehirs Warnung vor Symbol-„Wörterbüchern“, dem dreifachen Klopfen eines Fensterflügels (Tok. Tok. Tok.), auf das sich die linke Hand des Erzählers schließt, und der Erkenntnis, dass sich wiederholende Zahlen drei Schichten haben: eigenes Gehirnmuster, Erinnerungszeichen des jüngeren Ich, konditionierter Reflex durch Meralis. Ungeklärt bleibt die Seite mit dem Entschuldigungsversprechen an Duru und deren Tinte.",
+  "characters": [
+   "Ich-Erzähler (Protagonist, ehemaliger Student der Bewusstseins-/Verhaltensforschung, Vater von Duru, Ehemann von Zeynep; hat mit 19 das Weiße Buch kompiliert und das Vergessen selbst gewählt; neigt zu Mustererkennung, 11.11-Fixierung, Linkshand-Reflex)",
+   "Yusuf / Cemil Arven (alias Yusuf Vural, Yusuf Karaca; früher Übersetzer und Setzer im Vorläufernetzwerk von Meralis, Aussteiger mit Dokumenten; Mentor des jungen Erzählers, auch „Saatçi“ genannt; Vater von Cem Arven)",
+   "Cem Arven (Sohn von Yusuf/Cemil und Aylin; Gegenspieler, arbeitet für Meralis; hat das Weiße Buch im Laden für Duru präparieren lassen)",
+   "Aylin (verstorbene Frau Yusufs, Mutter Cems; Ärztin im Datenarchiv des Netzwerks; starb bei Autounfall; ihre Stimme auf Tonband)",
+   "Nehir (Begleiterin/Vertraute des Erzählers, skeptisch-analytische Stimme, warnt vor Symbol-Deutungen)",
+   "Tarık (Techniker im Team, analysiert Scans, Klebstoffschichten, Versionsdaten)",
+   "Selin (Anwältin des Teams, anwesend beim Treffen)",
+   "Zeynep (Ehefrau des Erzählers, bleibt mit den Kindern in der sicheren Wohnung)",
+   "Duru (Tochter des Erzählers; hat das Weiße Buch gefunden; Empfängerin einer versprochenen Entschuldigung)",
+   "Kemal (verstorbener Vater des Erzählers, Uhrmacher und Schlossöffner, starb als der Erzähler 20 war)",
+   "Großvater des Erzählers (offiziell Uhren- und Kalenderhändler, betrieb im Keller eine illegale Pedaldruckpresse – „dedenin matbaası“)",
+   "Leyla (verstorben; bereitete die Lieferkopie des Weißen Buches vor und versiegelte sie einen Tag vor ihrem Tod)",
+   "Sefa Abi (Autorfigur; aus dessen Romanmanuskript stammt die Randnotiz „Okurken hangi elinle tuttuğunu kontrol et“)",
+   "Meralis (die Organisation/Institution, Gegner; Nachfolger eines Verhaltensforschungsnetzwerks der 1970er)",
+   "Duman (Kater, der die Dachroute der Werkstatt nutzte)",
+   "Yusufs Schwester (nahm den achtjährigen Cem auf; nur erwähnt)"
+  ],
+  "terms": [
+   {
+    "tr": "Yusuf Olmadan Önce",
+    "meaning": "Kapiteltitel: „Bevor er Yusuf wurde / Vor Yusuf“ – bezieht sich auf Yusufs frühere Identität Cemil Arven."
+   },
+   {
+    "tr": "Cemil Arven",
+    "meaning": "Geburtsname Yusufs; Arven ist auch der Nachname seines Sohnes Cem (Cem nahm den vom Vater aufgegebenen Namen wieder an)."
+   },
+   {
+    "tr": "Yusuf Vural / Yusuf Karaca",
+    "meaning": "Decknamen Yusufs: Vural im Handbuch von 1978, Karaca im Notareintrag des Ladens (Schutzname). Alle drei Namen im Original fett ausgezeichnet."
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Gegnerische Organisation; entstand aus einem kleinen Verhaltensforschungsnetzwerk Ende der 1970er (Militär, Werbung, geschlossene Kliniken). Name unverändert übernehmen."
+   },
+   {
+    "tr": "eski ağ / öncül ağ",
+    "meaning": "„das alte Netzwerk“ / „Vorläufernetzwerk“ – Bezeichnung für Meralis' Vorgängerstruktur, für die Yusuf arbeitete."
+   },
+   {
+    "tr": "beyaz kitap",
+    "meaning": "Das Weiße Buch: vom 19-jährigen Erzähler kompilierte Sammlung alter Texte, Einsprüche, Yusufs Übersetzungen und eigener Methode, ohne Autorennamen; von Yusuf vor 23 Jahren im Fach unter der Lupe im Laden deponiert."
+   },
+   {
+    "tr": "siyah kitap",
+    "meaning": "Das Schwarze Buch: Manipulationsinstrument von Meralis, das dem Erzähler statt der weißen Kopie zugestellt wurde; sieben Exemplare („yedi siyah kitap“) für Zielpersonen in verschiedenen Ländern."
+   },
+   {
+    "tr": "kırmızı defter",
+    "meaning": "Das Rote Heft: der vom Erzähler für sich selbst angelegte „Weg“; Neufassung eines ersten dünnen Schulhefts."
+   },
+   {
+    "tr": "kırmızı ip",
+    "meaning": "Rote Schnur (Ariadnefaden-Motiv); gehörte zum ursprünglichen Lieferschema des Erzählers (Knoten mit zwei gleich langen Enden), wurde von Meralis zum Bindemittel umgedeutet. FIXED-Begriff – konsistent übersetzen."
+   },
+   {
+    "tr": "Düğümün iki ucu aynı uzunluktaydı",
+    "meaning": "Fixierter Satz: „Die beiden Enden des Knotens waren gleich lang“ – wiederkehrendes Erkennungsmerkmal des Erzählers."
+   },
+   {
+    "tr": "tüy / üç zarf / saat",
+    "meaning": "Feder, drei Umschläge, Uhr: Elemente des Pakets. Im Original-Schema nur Schnur und Uhr; Feder und drei Umschläge wurden von Meralis „in der letzten Auflage“ hinzugefügt. Einige Federn hat Yusuf gelegt."
+   },
+   {
+    "tr": "1453",
+    "meaning": "Zahl/Code: vom jungen Erzähler gewählt (innere Eroberung vor äußerer, Schließfach in Edirne), von Meralis zum Risikocode umgedeutet; Titelbezug („1453 Uyanışın Bedeli“)."
+   },
+   {
+    "tr": "iç fetih",
+    "meaning": "„innere Eroberung“ – Metapher des Erzählers; wird im Kapitel relativiert: Selbstbeherrschung heißt nicht, die eigenen Teile zu besetzen."
+   },
+   {
+    "tr": "FETİH klasörü",
+    "meaning": "„Ordner FETİH“ (Eroberung): aktuelle Meralis-Akte, auf einem dünnen Speicherstreifen ins Weiße Buch eingeklebt. Großschreibung beibehalten."
+   },
+   {
+    "tr": "11.11 / 111 saniye",
+    "meaning": "Zahlenfixierung des Erzählers; die 111-Sekunden-Kameralücke wurde von Meralis bewusst daran angelehnt."
+   },
+   {
+    "tr": "Saatçi",
+    "meaning": "„der Uhrmacher“ – Deckname/Bezeichnung für Yusuf aus der Jugend des Erzählers (erstes Paket mit 17)."
+   },
+   {
+    "tr": "büyüteç lambası",
+    "meaning": "Lupenlampe im Laden des Vaters mit versteckter Kamera (auf Wunsch des jungen Erzählers; später von Meralis mit neuer Linse versehen) und Fach darunter."
+   },
+   {
+    "tr": "dedenin matbaası",
+    "meaning": "„die Druckerei deines Großvaters“: illegale Pedalpresse im Keller für Gewerkschaftsbulletins, Exil-Dichter und Protesttexte."
+   },
+   {
+    "tr": "erken uyum programı",
+    "meaning": "„Frühanpassungsprogramm“ für sensorisch empfindliche Kinder; „Anpassung“ = das Kind hört auf, seinen Schmerz zu äußern. Neurodiversitäts-Thema des Romans."
+   },
+   {
+    "tr": "Kaydın sonunda çocuk artık bağırmıyor…",
+    "meaning": "Aylins Tonbandzitat (Stil „Book Inset“): „Am Ende der Aufnahme schreit das Kind nicht mehr. Das haben sie Erfolg genannt. Ich habe dieses Verstummen gesehen.“"
+   },
+   {
+    "tr": "Ses burada kesildi.",
+    "meaning": "Kursive Regieanweisung: „Hier brach die Stimme/Aufnahme ab.“"
+   },
+   {
+    "tr": "İnsan zihni üç noktayı görünce üçgen çizer.",
+    "meaning": "Yusufs Aphorismus über Mustererkennung („Drei Punkte, und der Geist zeichnet ein Dreieck“)."
+   },
+   {
+    "tr": "İnsan alınacak eşya değildir. Seçtiği yerden ancak kendisi döner.",
+    "meaning": "Yusufs Satz über Cem: Ein Mensch ist kein Gegenstand, den man zurückholt."
+   },
+   {
+    "tr": "Bu kitap saklanırsa yasaklanır; dağıtılırsa kaybolmaz.",
+    "meaning": "Zitat des jungen Erzählers über das Weiße Buch."
+   },
+   {
+    "tr": "Hakikat tek kişinin malı olursa onun kibriyle ölür.",
+    "meaning": "Zitat des jungen Erzählers, Begründung für die Anonymität des Weißen Buches."
+   },
+   {
+    "tr": "Unutursam: Bu düğümü ben seçtim. Ondan sonra yapılan her şeyi ben seçmedim.",
+    "meaning": "Kursive Notiz des Erzählers im Heft („Falls ich vergesse: …“) – Serie der „Unutursam“-Notizen."
+   },
+   {
+    "tr": "Okurken hangi elinle tuttuğunu kontrol et.",
+    "meaning": "FIXED-Satz: „Prüfe beim Lesen, mit welcher Hand du es hältst.“ Stammt aus Sefa Abis Randnotiz; Kurzform „Okurken eline de bak.“ auf der Programmrückseite."
+   },
+   {
+    "tr": "Tok. Tok. Tok.",
+    "meaning": "Lautmalerei des dreifachen Klopfens (hier: Fensterflügel); wiederkehrender Trigger, auf den sich die linke Hand schließt."
+   },
+   {
+    "tr": "Sol avucum kapandı.",
+    "meaning": "Körperreflex des Erzählers (linke Handfläche schließt sich); wiederkehrendes Motiv zusammen mit dem grünen Korridor."
+   },
+   {
+    "tr": "yeşil koridor",
+    "meaning": "Wiederkehrendes Erinnerungsbild (grüner Korridor, bandagierter Daumen, Glas Wasser)."
+   },
+   {
+    "tr": "nigredo, albedo, rubedo",
+    "meaning": "Alchemistische Stufen des Großen Werks (Schwärzung, Weißung, Rötung) – Deutungsrahmen für schwarzes, weißes, rotes Buch. Lateinisch, kursiv belassen."
+   },
+   {
+    "tr": "Büyük Eser",
+    "meaning": "Das Große Werk (Opus Magnum) der Alchemie."
+   },
+   {
+    "tr": "BENI_ARAMA",
+    "meaning": "Constraint-Gruppe (pid 2797, Index 7 von 9): Satz gehört zu einer über den Roman verteilten Reihe, parallel formulieren."
+   },
+   {
+    "tr": "Abi",
+    "meaning": "Anrede „älterer Bruder“ (Sefa Abi) – respektvoll-vertraut, nicht übersetzen oder konsistent behandeln."
+   },
+   {
+    "tr": "emanet dolabı / emanet gözü",
+    "meaning": "Schließfach (Edirne) bzw. verschlossenes Depotfach in der Werkstatt."
+   },
+   {
+    "tr": "icra teslimi",
+    "meaning": "Zwangsvollstreckungsübergabe der Werkstatt („offiziell leer übergeben“)."
+   },
+   {
+    "tr": "kapsül / oluk",
+    "meaning": "Kapsel in der Dachrinne mit Kartencodes zu den Büchern; von der Krähe verschoben."
+   },
+   {
+    "tr": "karga",
+    "meaning": "Krähe(n) – Symbol, das niemand steuert („benden emir almıyorlar“)."
+   }
+  ],
+  "tone": "Ich-Erzählung im Präteritum (türkisch -di/-mişti), Gegenwartsebene mit umfangreichen berichteten Rückblenden (Yusufs Lebensgeschichte, Jugend des Erzählers vor 23 Jahren). Großer Dialoganteil: knappe, oft einzeilige Frage-Antwort-Wechsel am Telefon und am Tisch; der Erzähler siezt Yusuf (siz), Yusuf duzt ihn. Register nüchtern, analytisch, mit aphoristischen Sätzen und psychologischer Selbstreflexion; eingeschobene kursive Heftnotizen und ein Tonband-Einschub (Style „Book Inset“). Enthüllungskapitel mit vielen Rückverweisen auf Objekte und Ereignisse früherer Kapitel; Lautmalerei (Tok. Tok. Tok.) und knappe Ein-Satz-Absätze als Rhythmuselemente."
+ },
+ "paras": [
+  {
+   "pid": 2718,
+   "style": "Heading 1",
+   "text": "<b>40. Yusuf Olmadan Önce</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2719,
+   "style": "Opening",
+   "text": "Babamın ağzından çıkan “Cemil” adı, görüntü bittiğinde odada asılı kaldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2720,
+   "style": "Normal",
+   "text": "Yusuf iki saat sonra beni aradı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2721,
+   "style": "Normal",
+   "text": "“Artık yerini biliyorsun,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2722,
+   "style": "Normal",
+   "text": "“Senin yerini bilmiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2723,
+   "style": "Normal",
+   "text": "“Adımı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2724,
+   "style": "Normal",
+   "text": "“Adınız Yusuf değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2725,
+   "style": "Normal",
+   "text": "“Yirmi yedi yıldır kalıcı olarak Yusuf.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2726,
+   "style": "Normal",
+   "text": "“Ondan önce?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2727,
+   "style": "Normal",
+   "text": "“Cemil Arven.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2728,
+   "style": "Normal",
+   "text": "1978 tarihli el kitabında <b>Yusuf Vural</b>, babamın dükkânının noter kaydında <b>Yusuf Karaca</b>, karşımdaki adamın doğum belgesinde ise <b>Cemil Arven</b> yazıyordu. Yusuf adını önce operasyonlarda ödünç almış, eski ağdan koptuktan sonra bir daha bırakmamıştı. Karaca, korunmak için aldığı soyadıydı. Cem ise annesinin ölümünden sonra babasının terk ettiği Arven soyadını geri almıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2729,
+   "style": "Normal",
+   "text": "Cem'in soyadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2730,
+   "style": "Normal",
+   "text": "Nehir de söze girdi. “Cem Arven oğlunuz mu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2731,
+   "style": "Normal",
+   "text": "Telefonun öbür ucunda uzun bir sessizlik oldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2732,
+   "style": "Normal",
+   "text": "“Oğlumdu,” dedi Yusuf. “Sonra benden öğrendiği her şeyi, kaçtığım şeye verdi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2733,
+   "style": "Normal",
+   "text": "Yusuf daha sonra Cem'in hikâyesini anlattı. Cem, Yusuf hâlâ eski ağ için çalışırken doğmuştu. Annesi Aylin veri arşivinde doktordu; araştırmaların insanların davranışını iyileştireceğine inanıyordu. Dosyalardaki zararları gördüğünde Yusuf'la birlikte ayrılmaya karar vermiş, fakat hazırladıkları kaçıştan iki gün önce bir trafik kazasında ölmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2734,
+   "style": "Normal",
+   "text": "“Meralis mi öldürdü?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2735,
+   "style": "Normal",
+   "text": "“Kanıtlayamadım,” dedi Yusuf. “Fren hattı eskiydi. Yol ıslaktı. Aynı hafta tehdit almıştık. İnsan zihni üç noktayı görünce üçgen çizer. Bazen üçgen vardır. Bazen yalnız üç nokta.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2736,
+   "style": "Normal",
+   "text": "Yusuf, sekiz yaşındaki Cem'i kız kardeşine bırakıp belgelerle kaçmıştı. Bunun geçici olacağını düşünmüş; altı ay sonra döndüğünde ev gözetim altındaymış. Oğlunu korumak için uzak kalmayı seçmiş, fakat çocuğa bunu kimse açıklamamıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2737,
+   "style": "Normal",
+   "text": "“Cem annesini kaybetti,” dedi Yusuf. “Sonra babasının onu bir kutu kâğıt için bıraktığına inandı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2738,
+   "style": "Normal",
+   "text": "“Yanlış mıydı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2739,
+   "style": "Normal",
+   "text": "Telefonda kısa bir soluk duydum. “Tam olarak değil,” dedi Yusuf.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2740,
+   "style": "Normal",
+   "text": "Yıllar sonra Cem, babasının sakladığı ağa kendi isteğiyle girmişti. Başlangıçta Yusuf'u bulmak için. Sonra kendisini terk eden güçsüz adamla, dünyayı yöneten kurum arasında seçim yaptığını düşünmüş ve kurumu seçmişti. İnsanların belirsizlik yüzünden acı çektiğine, doğru kişilerin kontrolünde düzenin merhamet olduğuna inanıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2741,
+   "style": "Normal",
+   "text": "“Ona yöntemleri siz öğrettiniz,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2742,
+   "style": "Normal",
+   "text": "“Çocukken yalnız oyun oynadığımı sanıyordum. Birinin sesinden yalanı bulmasını, odadaki en tedirgin kişiyi seçmesini, bir cümlede hangi kelimenin insanı kapattığını gösteriyordum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2743,
+   "style": "Normal",
+   "text": "“Onu geri almak istiyor musunuz?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2744,
+   "style": "Normal",
+   "text": "“İnsan alınacak eşya değildir,” dedi Yusuf. “Seçtiği yerden ancak kendisi döner.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2745,
+   "style": "Normal",
+   "text": "Bu cümlede bilgelik kadar kaçış da vardı. Yusuf, oğlunun seçimine saygı duyduğunu söylerken ona yeniden yaklaşmanın riskinden saklanıyor olabilirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2746,
+   "style": "Normal",
+   "text": "“Cem'e oğlunuz olduğunu söyleyecek misiniz?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2747,
+   "style": "Normal",
+   "text": "“Biliyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2748,
+   "style": "Normal",
+   "text": "“Sizin hâlâ babası olduğunuzu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2749,
+   "style": "Normal",
+   "text": "Yusuf cevap vermedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2750,
+   "style": "Normal",
+   "text": "Yusuf buluşma yeri olarak bu kez insanların gerçekten konuşmadığı bir yer seçti: yıllardır kullanılmayan bir radyo gözlemevinin servis binası. Ertesi sabah şehrin dışındaki tepelere çıktığımızda, göğe çevrilmiş paslı çanağın altında bekliyordu. Yanımda Nehir, Tarık ve avukatımız Selin vardı. Zeynep çocuklarla güvenli adreste kalmıştı; hepimizin aynı arabaya binmesinin kötü bir aile planlaması olacağını söylemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2751,
+   "style": "Normal",
+   "text": "Yusuf masaya dört metal kutu koydu. Her birinde başka bir şehir adı vardı: İstanbul, Berlin, Nairobi, Toronto.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2752,
+   "style": "Normal",
+   "text": "İstanbul kutusundan çıkardığı kasetlerden birinin dijital aktarımını açtı. Etiketin kenarında Aylin'in adı vardı. İlk kez sesini duyuyordum; şimdiye kadar onun yerine hep bir erkek konuşmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2753,
+   "style": "Book Inset",
+   "text": "“Kaydın sonunda çocuk artık bağırmıyor. Buna başarı yazmışlar. Ben o susuşu gördüm.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2754,
+   "style": "Normal",
+   "text": "<i>Ses burada kesildi.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2755,
+   "style": "Normal",
+   "text": "Yusuf cihazı kapatmadı. Dosyanın bittiğini gösteren çizgiye baktı; biraz daha beklerse Aylin soluk alıp devam edecekmiş gibi. Sonra başparmağıyla kasetin çatlamış köşesini örttü. Defterime kasetin etiketini ve son duyduğum kelimeyi geçirdim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2756,
+   "style": "Normal",
+   "text": "Yusuf, Meralis'in bugünkü adıyla doğmadığını anlattı. Yetmişlerin sonunda davranış araştırmaları yapan küçük bir ağda çevirmen ve dizgiciydi. Askerî kurumlar, reklam şirketleri ve kapalı klinikler birbirinden yöntem alıyor; farklı adlar altında aynı soruyu soruyordu: Bir insanın karar verdiğini sanarken hangi kararları önceden hazırlayabiliriz?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2757,
+   "style": "Normal",
+   "text": "Yusuf metinleri basmış, kodları çevirmiş, insanların zayıf noktalarının ürün özelliği gibi listelendiğini görmüştü. Önce bunun düzen sağlamak için gerekli olduğuna inanmıştı. Sonra dosyalardan birinde, duyusal hassasiyeti olan çocukların “erken uyum” programına alındığını gördü. Uyum dedikleri, çocuğun acısını söylemeyi bırakmasıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2758,
+   "style": "Normal",
+   "text": "“Kaçtım,” dedi Yusuf. “Ama yalnız belgelerle kaçmadım. Yöntemleri de kafamda taşıdım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2759,
+   "style": "Normal",
+   "text": "Yıllar sonra babamın dükkânına gelmişti. Babam Kemal, saat tamir etmenin yanında eski makinelerin kilitlerini de açardı. Yusuf, içinden mikrofilm çıkan bir cep saatini ona götürmüş; babam filmi okuyunca onu kovmak yerine çay koymuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2760,
+   "style": "Normal",
+   "text": "Yusuf'un “dedenin matbaası” dediği yer de böylece açıklandı. Dedem resmî kayıtlarda saat ve takvim satan küçük bir esnaftı. Dükkânın bodrumunda ise yasaklanmış sendika bültenlerini, sürgündeki şairlerin kitapçıklarını ve resmî matbaaların basmaya korktuğu itiraz metinlerini çoğaltan eski bir pedal makinesi varmış. Aile, polis baskınından sonra o bodrumdan bir daha söz etmemişti. Ben matbaayı bilmeden, matbaacının mürekkep kokusu içinde büyümüştüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2761,
+   "style": "Normal",
+   "text": "“Babam bunları biliyor muydu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2762,
+   "style": "Normal",
+   "text": "“Bir kısmını. Sana anlatmamasını ben istemedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2763,
+   "style": "Normal",
+   "text": "“Herkes beni korumak için benden bir şey saklamış.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2764,
+   "style": "Normal",
+   "text": "“Sen de çocuklarına yaptın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2765,
+   "style": "Normal",
+   "text": "On yedi yaşımda Saatçi'ye verdiğim ilk paket, ne taşıdığını bilmediğim mühürlü bir zarftı. On dokuz yaşımda babamın dükkânında yeniden karşılaştığımızda gerçek çalışmamız başlamıştı. Üniversiteye yeni girmiş, üç gece uyumadan bilinç, zaman ve insan davranışı üzerine notlar yazmıştım. Yusuf'un belgelerini gördüğümde korkmak yerine sınıflandırmaya başlamıştım. Bu tepki onu etkilemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2766,
+   "style": "Normal",
+   "text": "“Sana beyaz parçaları verdim,” dedi. “Sen hepsini okudun. Sonra bana, ‘Bu kitap saklanırsa yasaklanır; dağıtılırsa kaybolmaz,’ dedin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2767,
+   "style": "Normal",
+   "text": "“Beyaz kitabı ben mi yazdım?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2768,
+   "style": "Normal",
+   "text": "“Derledin. Eski metinleri, itirazları, benim çevirilerimi ve kendi yöntemini bir araya getirdin. Ama yazar adını koymadın. ‘Hakikat tek kişinin malı olursa onun kibriyle ölür,’ dedin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2769,
+   "style": "Normal",
+   "text": "“Kırmızı defter?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2770,
+   "style": "Normal",
+   "text": "“Kendin için hazırladığın yol. İlk ince defteri yıllar sonra aldığın kırmızı kaplı deftere parça parça yeniden yazdın. Hatırlamadığını sanırken eski cümlelerini yeniden buluyordun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2771,
+   "style": "Normal",
+   "text": "“1453'ü Meralis mi seçti?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2772,
+   "style": "Normal",
+   "text": "“Hayır. Sen seçtin. İstanbul'un fethini anlatmak için değil; insanın başkasını fethetmeden önce kendi içindeki şehre girmesi gerektiğini yazmıştın. Edirne'deki emanet dolabını da sen 1453 diye özellikle seçmiştin. Meralis dosyanı ele geçirince senin işaretini risk koduna çevirdi. Sonra aynı sayı sana onların damgası gibi göründü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2773,
+   "style": "Normal",
+   "text": "Ama iç fetih de tehlikeli bir benzetmeydi. İçimdeki korkuyu, çocuğu veya gölgeyi düşman sayıp ezmeye kalkarsam imparatorluğu yalnız bedenimin içine taşımış olurdum. Kendini fethetmek, parçalarını işgal etmek değil; hangisinin hangi korkuyla konuştuğunu duyup yönetimi tek birine bırakmamaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2774,
+   "style": "Normal",
+   "text": "“Neden hatırlamıyorum?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2775,
+   "style": "Normal",
+   "text": "Yusuf gözlerini kaçırdı. İlk kez yaşlı değil, yorgun görünüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2776,
+   "style": "Normal",
+   "text": "“Çünkü hatırlamamanı istedin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2777,
+   "style": "Normal",
+   "text": "Genç hâlim, Meralis'in öncül ağının kendisini izlediğini fark etmişti. Doğrudan kaçamayacağını, sürekli tehlike duygusuyla yaşarsa ya aklını yitireceğini ya da kendini seçilmiş sanacağını yazmıştı. Bu yüzden belgeleri Yusuf'a bırakmış, kendi kopyalarını yok etmiş ve hayatına dönmüştü. Hipnoz, ilaç veya hafıza silme makinesi yoktu. Uykusuzluk, travma, babamın ertesi yıl, ben yirmi yaşındayken ölmesi ve yıllarca bu anılara dönmemek için gösterdiğim çaba vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2778,
+   "style": "Normal",
+   "text": "“Büyüteç lambasındaki kamerayı kim yerleştirdi?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2779,
+   "style": "Normal",
+   "text": "“Sen istedin,” dedi Yusuf. “Kendi talimatlarını daha sonra inkâr edebileceğini söyledin. Kamera yalnız masaya oturup belirli düğmeye bastığında çalışıyordu. Kayıtlar kapalı kasete gidiyordu; dışarıya yayın yapmıyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2780,
+   "style": "Normal",
+   "text": "“Sonra siz mi izlediniz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2781,
+   "style": "Normal",
+   "text": "“Baban öldükten sonra sistemi kapattım. Yıllar sonra Meralis eski yuvayı bulup lensi değiştirdi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2782,
+   "style": "Normal",
+   "text": "“Beyaz kitabı dükkâna kim koydu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2783,
+   "style": "Normal",
+   "text": "“Ben. Yirmi üç yıl önce senin talimatınla büyütecin altındaki bölmeye yerleştirdim. Anahtarı paspasın altında bırakmadım, kilidi değiştirmedim, Duru'yu çağırmadım. Cem kitabın orada olduğunu kamera yuvasının eski çizimlerinden buldu. Dükkâna giren ekip kapağı açıp güncel FETİH klasörünü taşıyan ince bellek şeridini yerleştirdi, Duru'nun raporunu da sayfaların arasına koydu. Sonra eski tutkal çizgisini taklit ederek kapağı yeniden kapattı. Tarık'ın bulduğu yeni yapıştırıcı tabakası bu yüzden kitabın kâğıdından yirmi üç yıl daha gençti. Kitabı almak yerine kızının bulmasını istedi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2784,
+   "style": "Normal",
+   "text": "“Neden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2785,
+   "style": "Normal",
+   "text": "“Sana gerçeği en çok sevdiğin aynanın söylemesi için. Ondan duyarsan daha derine işleyeceğini biliyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2786,
+   "style": "Normal",
+   "text": "“Peki kapımdaki paketi kim hazırladı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2787,
+   "style": "Normal",
+   "text": "“Soruyu katmanlarına ayır,” dedi Yusuf. “Paket zincirini sen kurdun. Beyaz kitabın teslim kopyasını Leyla hazırladı. Kapına gelen siyah kitabıysa Meralis onun yerine koydu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2788,
+   "style": "Normal",
+   "text": "“Değişim nerede yapıldı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2789,
+   "style": "Normal",
+   "text": "“Yirmi üç yıl önceki talimatın, koşullar oluştuğunda paketin atölyedeki kilitli emanet gözünden bağımsız bir kurye tarafından alınmasını söylüyordu. Leyla doğru kopyayı ölümünden bir gün önce oraya mühürledi. Emanet şirketi hâlâ bağımsız görünüyordu; fakat son taşıma sözleşmesi Meralis'in lojistik taşeronuna geçmişti. Paket aktarma deposunda on bir dakika kayıt dışı kaldı. Dış ambalajı ve kırmızı ipi koruyup beyaz kopyayı çıkardılar; siyah kitabı, tüyü ve sonradan basılan kartı yerleştirdiler. Kapına gelen kurye, taşıdığı şeyin değiştirildiğini bilmiyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2790,
+   "style": "Normal",
+   "text": "Yusuf dört kutudan birini açtı. İçinde gençliğimden kalma banka talimatları, noter belgeleri, ses kasetleri ve dükkânda çekilmiş fotoğraflar vardı. On dokuz yaşındaki hâlim, gelecekte bazı koşullar gerçekleşirse kendime <b>beyaz kitabın</b> gönderilmesini istemişti: 1453 kodlu sınıflandırmanın yeniden kullanılması, babamın dükkânındaki kameranın değiştirilmesi ve benim kamu önünde belirli bir etkiye ulaşmam.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2791,
+   "style": "Normal",
+   "text": "“Yani kendi tuzağımı değil, kendi alarmımı kurmuşum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2792,
+   "style": "Normal",
+   "text": "“Evet. Meralis alarmın sesini değiştirdi. Sen kapıyı açtığında kendi uyarını duyduğunu sandın; onların emrini okudun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2793,
+   "style": "Normal",
+   "text": "“Kırmızı ip, tüy, üç zarf?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2794,
+   "style": "Normal",
+   "text": "“İlk teslim şablonunda kırmızı ip ve saat vardı. Tüy yoktu. Üç zarf da yoktu. Bunlar son baskıda eklendi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2795,
+   "style": "Normal",
+   "text": "Sensördeki kamera üç zarfın nasıl görülebileceğini açıklıyordu. Hâlâ bilmediğimiz, o görüntüyle çoktan yola çıkmış olması gereken kitabın hangi noktada buluştuğuydu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2796,
+   "style": "Normal",
+   "text": "Yusuf, İstanbul kutusunun iç kapağındaki dar bölmeyi açtı. İçinden gençliğimde hazırladığım ilk teslim şablonu çıktı. Kâğıt rulo, ince bir kırmızı iple bağlanmıştı. Düğümün iki ucu aynı uzunluktaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2797,
+   "style": "Normal",
+   "text": "Mührün altındaki tarihe göre ip yirmi üç yıldır kutudaydı. Demek şekli önce Meralis seçmemişti. Düğüm bana aitti. Bir işareti kendime yol olsun diye bırakmış, sonra bir başkasının aynı işareti boynuma dolamasına yardım etmiştim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BENI_ARAMA",
+    "index": 7,
+    "n": 9
+   }
+  },
+  {
+   "pid": 2798,
+   "style": "Normal",
+   "text": "Eski kâğıda dokunmadım. Yanımdaki defterden temiz bir yaprak açtım, üstüne bugünün tarihini yazdım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2799,
+   "style": "Normal",
+   "text": "<i>Unutursam: Bu düğümü ben seçtim. Ondan sonra yapılan her şeyi ben seçmedim.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2800,
+   "style": "Normal",
+   "text": "Altına istemeden bir cümle daha geldi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2801,
+   "style": "Normal",
+   "text": "<i>Okurken hangi elinle tuttuğunu kontrol et.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2802,
+   "style": "Normal",
+   "text": "Kalemi durdurdum. Uzun cümleyi Sefa Abi'nin roman dosyasının kenarındaki çalışma notundan hatırlıyordum; mektubun kendisiyle aynı yazı değildi. Evdeki programın arkasında daha kısası vardı: <i>Okurken eline de bak.</i> Şimdi ikisini de benim elim tutuyordu. Bir cümlenin farklı kâğıtlarda bulunması, kimin önce düşündüğünü söylemiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2803,
+   "style": "Normal",
+   "text": "Kalemin ucunda bir mürekkep damlası büyüdü. Kâğıda değmesin diye elimi kaldırdım. Yazının yanına bir açıklama eklemedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2804,
+   "style": "Normal",
+   "text": "“Bitirdin mi?” diye sordu Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2805,
+   "style": "Normal",
+   "text": "Yaprağı yırtıp uzattım. O sırada Yusuf servis binasının paslı penceresini araladı. Gevşek kanat çerçeveye üç kez vurdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2806,
+   "style": "Normal",
+   "text": "Tok. Tok. Tok.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2807,
+   "style": "Normal",
+   "text": "Sol avucum kapandı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2808,
+   "style": "Normal",
+   "text": "Bu defa sesi nereden duyduğumu görmüştüm. Yine de susadım. Nehir yaprağı sağ yanımdan geri uzatınca boşta duran sol elimle aldım. Kâğıdın üstündeki cümle, yaptığım hareketi önceden biliyormuş gibi durdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2809,
+   "style": "Normal",
+   "text": "Bir an ona inandım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2810,
+   "style": "Normal",
+   "text": "Sonra sağ elimde hâlâ kalem olduğunu gördüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2811,
+   "style": "Normal",
+   "text": "Yusuf pencereyi sabitleyip masaya döndü. Boğazını temizledi; konuşacakken yeniden sustu. Sürahiyi aldım, önce onun bardağını doldurdum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2812,
+   "style": "Normal",
+   "text": "Kendi bardağıma su koyarken yeşil koridor bir kez daha belirdi. Bu kez kendimi su içenin yerine koymadım. Bantlı başparmağım, yere bıraktığım çanta, bardağın altına açılan küçücük boşluk vardı. Yusuf'un önündeki evrakları kenara çektim. Eski günü artık eksiksiz bildiğim için değil, bugünkü hareketin kime iyi geleceğini gördüğüm için. Hatırlamak aynı güne dönmek değildi belki. Bazen geçmişten getirdiğin soruya, başka birinin yanında ilk kez düzgün cevap vermekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2813,
+   "style": "Normal",
+   "text": "Kâğıdı masaya koydum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2814,
+   "style": "Normal",
+   "text": "Bugünün tarihi üstteydi. Eski mühürlü sayfa yanında duruyordu. İkisini ayrı ayrı fotoğrafladım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2815,
+   "style": "Normal",
+   "text": "“Atölye resmî olarak boş teslim edilmişti,” dedim. “Yedi siyah kitabı kim koydu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2816,
+   "style": "Normal",
+   "text": "“Ben,” dedi Yusuf. “Meralis'in farklı ülkelerde denediği yedi hedef kitabını yıllar içinde topladım. Senin için hazırlanan deneme nüshası da aralarındaydı. İcra tesliminden sonra eski çatı yolunu ve kopyasını sakladığım arka kapı anahtarını kullandım. Bu yasal değildi. Güvenli sandım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2817,
+   "style": "Normal",
+   "text": "“Kapsülü oluğa da siz mi sakladınız?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2818,
+   "style": "Normal",
+   "text": "“Evet. Karttaki şifreler kitapları bulmanız içindi. Karga kapsülü sakladığım yerden birkaç metre taşımış. Onu planlamadım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2819,
+   "style": "Normal",
+   "text": "“Duman?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2820,
+   "style": "Normal",
+   "text": "“Çatı arasındaki fareleri avlıyordu. Cilt reçinesinin turunç kokusu boruya sinmişti. O yolu sizden önce defalarca kullanmış.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2821,
+   "style": "Normal",
+   "text": "Böylece kedinin bizi seçmediğini, bizim onun alışkanlığını yol sandığımızı öğrendim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2822,
+   "style": "Normal",
+   "text": "“Peki neden içeride saklandınız?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2823,
+   "style": "Normal",
+   "text": "“Kart yerinden çıkınca atölyenin izlendiğini anladım. Kitapları başka yere taşımaya döndüm. Siz beklediğimden önce geldiniz. Seni görmek istedim; sonra sesleri kullanıp kaçtım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2824,
+   "style": "Normal",
+   "text": "“Meralis kitapları neden hemen almadı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2825,
+   "style": "Normal",
+   "text": "“Çünkü okumanızı istediler. Siyah kitabın ikinci aşaması, hedefin komployu kendi başına bulduğuna inanmasıydı. Resmî kopyalar çıkınca kanıt onlar için yararlı olmaktan çıktı. O zaman atölyeyi yaktılar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2826,
+   "style": "Normal",
+   "text": "Kapı açılmamıştı. İki ayrı el, aynı kapıyı farklı nedenlerle aralık bırakmıştı. Kendimi avcı sanarken iki tuzağın kesiştiği yerde yürümüştüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2827,
+   "style": "Normal",
+   "text": "“On dokuz yaşında geleceği bilmiyordun,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2828,
+   "style": "Normal",
+   "text": "“Ama Duru'dan özür dileyeceğimi yazmışım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2829,
+   "style": "Normal",
+   "text": "Yusuf, “O sayfa eski taramada yok,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2830,
+   "style": "Normal",
+   "text": "Tarık başını kaldırdı. “Ama sürüm tarihi yirmi üç yıl önce.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2831,
+   "style": "Normal",
+   "text": "“Sürüm tarihi değiştirilebilir,” dedi Yusuf.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2832,
+   "style": "Normal",
+   "text": "“Mürekkep?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2833,
+   "style": "Normal",
+   "text": "“Açıklayamıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2834,
+   "style": "Normal",
+   "text": "İşte iki gerçek yan yana duruyordu. Fiziksel yol açıklanabiliyordu. Beyaz kitabın “yasak” sayılması da tek bir gizli devlet kararı değildi. İçindeki belgeler kimi yerde ticari sır, kimi yerde telif ihlali, kimi yerde ulusal güvenlik gerekçesiyle toplatılmış; siyah kitap ise bu yasağı seçilmişlik duygusunu büyüten bir reklama çevirmişti. Fakat bazı cümleler yazıldıkları zamandan fazlasını biliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2835,
+   "style": "Normal",
+   "text": "Yusuf masaya üç metni yan yana koydu: siyah baskının kurtardığımız çalışma kopyası, beyaz kitabın taraması ve kırmızı defter.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2836,
+   "style": "Normal",
+   "text": "“Renkleri tesadüf sanmıştım,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2837,
+   "style": "Normal",
+   "text": "“Sen kırmızıyı sevdiğin için defteri aldın,” dedi Yusuf. “Beyaz kapağı gençken sen seçtin; Leyla teslim kopyasında o rengi korudu. Siyahı Meralis seçti. Ama onlar eski dönüşüm dilini biliyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2838,
+   "style": "Normal",
+   "text": "Avrupa simya yazmalarında Büyük Eser'in bazı anlatıları kararma, beyazlaşma ve kızarma aşamalarından geçiyordu: <i>nigredo, albedo, rubedo.</i> Önce eski biçim çözülür, sonra birbirine karışan şeyler ayrıştırılır, sonunda bulunan bilgi yeni bir bütün ve eylem hâline gelirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2839,
+   "style": "Normal",
+   "text": "Meralis siyahı seçmişti; çünkü insanın eski kimliğini çözüp onu karanlıkta yalnız bırakmak istiyordu. Beyaz kitap kanıtı inançtan, desteği itaatten, yeteneği üstünlükten ayırıyordu. Kırmızı defter ise yalnız anlamakla kalmayıp karar vermemi istiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2840,
+   "style": "Normal",
+   "text": "“Siyah kötü, beyaz iyi, kırmızı tamamlanmış mı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2841,
+   "style": "Normal",
+   "text": "“Hayır,” dedi Nehir. “İşte yine sözlük istiyorsun. Siyah gece ve yas da olabilir. Beyaz kefen ve silme de. Kırmızı hayat, utanç, aşk veya kan. Rengi ahlaklı ya da ahlaksız yapan, kullananın niyeti ve ortaya çıkan sonuçtur.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2842,
+   "style": "Normal",
+   "text": "Paketin kırmızı ipi, siyah kitabı yalnız süslemiyordu. Labirentten çıkaran ipi bu kez kitabın çevresine dolamışlardı. Yol gösterme simgesini bağlama aracına çevirmek Meralis'in bütün yönteminin küçük bir maketiydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2843,
+   "style": "Normal",
+   "text": "“Semboller?” diye sordum. “Kargalar, tüyler, 11.11?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2844,
+   "style": "Normal",
+   "text": "“Sayıları sen seçtin. Bazı tüyleri ben bıraktım. Kargayı bırakamam; benden emir almıyorlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2845,
+   "style": "Normal",
+   "text": "“111 saniyelik kamera boşluğu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2846,
+   "style": "Normal",
+   "text": "“Meralis senin 11.11 takıntını biliyordu. Teknik ekibe akılda kalacak bir süre lazımdı. Senin işaretini operasyon süresine çevirdiler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2847,
+   "style": "Normal",
+   "text": "Demek tekrar eden sayıların üç katmanı vardı. Önce beynimin seçtiği örüntü. Sonra genç hâlimin kendine bıraktığı hatırlatıcı. En sonunda Meralis'in bana karşı kullandığı koşullu refleks.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2848,
+   "style": "Normal",
+   "text": "“Hangisi gerçek?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2849,
+   "style": "Normal",
+   "text": "“Üçü de,” dedi Nehir. “Ama hiçbiri tek başına evrenin sana emir verdiğini kanıtlamıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2850,
+   "style": "Normal",
+   "text": "Evrenin beni seçtiğine inanmak kolaydı. Bir kedinin canı istediği yere oturduğunu kabul etmek daha alçak gönüllüydü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

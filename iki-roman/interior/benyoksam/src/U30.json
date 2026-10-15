@@ -1,0 +1,623 @@
+{
+ "uid": "U30",
+ "title": "34. Unutulmuş Dükkânın Anahtarı",
+ "number": 34,
+ "words": 610,
+ "constraints": {
+  "uid": "U30",
+  "number": 34,
+  "title": "34. Unutulmuş Dükkânın Anahtarı",
+  "title_letter": "U",
+  "marks": [
+   "A"
+  ],
+  "knots": [
+   "R"
+  ],
+  "images": [],
+  "book_part": null,
+  "words": 610
+ },
+ "synopsis": {
+  "uid": "U30",
+  "title": "34. Unutulmuş Dükkânın Anahtarı",
+  "summary": "Gegenwartsebene, unmittelbar nach dem Ende von Kapitel 33 (14.53 Uhr, Duru ist aus der Wohnung verschwunden, das rote Notizbuch liegt auf ihrem Stuhl). Der Ich-Erzähler (der Vater, der ‚Yolcu') untersucht mit seiner Frau Zeynep das rote Notizbuch: Seite 42 ist herausgerissen, auf Seite 41 stehen gepresst die Buchstaben B–A–B und der Durchdruck ‚14 / 53'; eine Taubenfeder mit blau gefärbter Spitze steckt im Einband. Er deutet die Hinweise auf den Uhrmacherladen seines verstorbenen Vaters in Balat (Hausnummer 14, Wanduhr am Todestag um 14.53 stehengeblieben) und gesteht Zeynep auf der Fahrt, dass er den Laden nie verkauft, sondern vor 16 Jahren heimlich über die Firma eines Freundes gehalten hat – aus Scham, den Vater nicht gerettet zu haben. Der kleine Sohn Emir will mitkommen (‚Duru ist meine Schwester'), bleibt aber bei Nehir, der der Erzähler misstrauisch den Schlüssel übergibt und das ‚Disk-Thema' auf später vertagt; Selin bringt Aussagen und Kameraaufzeichnung zur Polizei. Vor dem Laden: neues Vorhängeschloss, der alte Schlüssel passt nicht, die Polizei verlangt Warten; aus dem Inneren kommt Durus Kindheits-Klopfzeichen (3-2-3 = ‚Ich bin's'), am Türgriff hängt eine rote Schnur. Statt das Schloss aufzubrechen, öffnet der Erzähler den Rollladen über den vom Vater versteckten Notfallmechanismus (alter Klingelknopf, 11 Sekunden gedrückt). Drinnen sitzt Duru unverletzt am Arbeitstisch des Großvaters vor einem weißen Buch und fragt: ‚Warum hast du mich belogen?'",
+  "characters": [
+   "Ich-Erzähler / Yolcu (Vater von Duru und Emir, Ehemann von Zeynep; Sohn eines verstorbenen Uhrmachers; Name wird im Text nicht genannt)",
+   "Zeynep (Ehefrau des Erzählers, Mutter von Duru und Emir; sachlich, stellt die unbequemen Fragen)",
+   "Duru (Tochter, ca. 17, minderjährig; neurodivergent/geräuschempfindlich; erscheint erst am Kapitelende leibhaftig)",
+   "Emir (jüngerer Sohn, Durus Bruder; Kind)",
+   "Nehir (Vertraute/Nachbarin aus den Vorkapiteln; es gibt einen ungeklärten ‚Disk'-Konflikt zwischen ihr und dem Erzähler; bleibt bei Emir)",
+   "Selin (Begleiterin Nehirs; übergibt Aussagen und Kameraaufzeichnung der Polizei)",
+   "Babam / der Vater des Erzählers (verstorbener Uhrmacher, Laden in Balat; nur in Erinnerung)",
+   "Annem / die Mutter des Erzählers (nur erwähnt; wollte den Laden verkaufen)",
+   "Polizei-Telefonist:in (Stimme am Hörer, verweigert Erlaubnis zum Aufbrechen)",
+   "Der/die unbekannte Fremde mit roter Schnur am Handgelenk (nur erinnert, aus Vorkapiteln)"
+  ],
+  "terms": [
+   {
+    "tr": "kırmızı defter",
+    "meaning": "das rote Notizbuch des Erzählers; wiederkehrendes Leitobjekt (Seite 42 fehlt, Seite 41 trägt B–A–B und den Durchdruck 14 / 53)"
+   },
+   {
+    "tr": "B — A — B",
+    "meaning": "gepresste Buchstaben auf Seite 41; vom Erzähler als Anfang von ‚BABA(M)' (Vater) bzw. Hinweis auf den Laden des Vaters gelesen – Buchstaben unverändert lassen, ggf. Fußnote"
+   },
+   {
+    "tr": "14 / 53 · 14.53 ↺",
+    "meaning": "Leitmotiv: Uhrzeit, zu der die Wanduhr im Laden am Todestag des Vaters stehenblieb; ↺-Zeichen steht kursiv als eigene Zeile (Wiederkehr-Symbol) – typografisch beibehalten"
+   },
+   {
+    "tr": "Balat",
+    "meaning": "Istanbuler Stadtteil am Goldenen Horn; Standort des Uhrmacherladens (Hausnummer 14)"
+   },
+   {
+    "tr": "dükkân / kepenk / servis kapısı",
+    "meaning": "Laden / Rollladen (Rollgitter) / schmale Nebentür für Lieferungen"
+   },
+   {
+    "tr": "mavi mürekkep (çark boyası)",
+    "meaning": "blaue Tuschierfarbe, mit der der Uhrmacher-Vater Zahnräder einfärbte, um Druckstellen sichtbar zu machen; auch Farbe an der Federspitze"
+   },
+   {
+    "tr": "beyaz güvercin tüyü",
+    "meaning": "weiße Taubenfeder mit blau getränkter Spitze – gelegtes ‚Zeichen'; wird in Kap. 35 einer echten, zufällig gefallenen Feder gegenübergestellt"
+   },
+   {
+    "tr": "kırmızı ip",
+    "meaning": "rote Schnur mit symmetrischem Knoten; wiederkehrendes Zeichen (Foto, Krankenhausstuhl, Handgelenk des Fremden, jetzt Türgriff)"
+   },
+   {
+    "tr": "üç kısa vuruş – iki – üç / ‚Benim.'",
+    "meaning": "Durus Kindheits-Klopfcode 3-2-3 = ‚Ich bin's'"
+   },
+   {
+    "tr": "disk meselesi",
+    "meaning": "‚die Sache mit der Festplatte/Disk' – offener Konflikt mit Nehir aus Vorkapiteln; neutral als ‚Disk' übersetzen"
+   },
+   {
+    "tr": "reşit olmamak",
+    "meaning": "minderjährig sein (Grund, warum die Polizei ein Team schickt)"
+   },
+   {
+    "tr": "tutanak",
+    "meaning": "polizeiliches Protokoll; der Erzähler will Einstiegszeit und Knopf protokollieren lassen"
+   },
+   {
+    "tr": "acil açma motoru / zil düğmesi",
+    "meaning": "Notöffnungsmotor des Rollladens, verdrahtet mit dem alten (ausgebauten) Klingelknopf"
+   },
+   {
+    "tr": "ablam",
+    "meaning": "‚meine große Schwester' (Emir über Duru); Anredeform Abla"
+   },
+   {
+    "tr": "Zitat: ‚Sen bazen sırrı başkasından değil, sırrın içindeki eski hâlinden saklıyorsun.'",
+    "meaning": "Zeyneps Schlüsselsatz: Man verbirgt das Geheimnis nicht vor anderen, sondern vor dem eigenen früheren Ich darin"
+   },
+   {
+    "tr": "Zitat (Ende Kap. 33, Durchdruck): ‚Kızımı bulmak istiyorsam önce ona neden yalan söylediğimi hatırlamalıyım.'",
+    "meaning": "Motiv des Kapitels: Wiedergefunden wird die Tochter nur über das Eingeständnis der eigenen Lüge"
+   }
+  ],
+  "tone": "Ich-Erzählung in der Vergangenheit (Präteritum, türk. -di/-miş gemischt), knappe, nüchterne Sätze mit präzisen handwerklich-technischen Details (Uhrmacherei, Schlösser), eingestreut aphoristische Reflexionen (‚Bu bir sınırdı. Aynı zamanda cezaydı.'). Viel kurzer, schlagabtauschartiger Dialog ohne Inquit-Formeln. Erster Absatz als ‚Opening'-Stil (Kapiteleinstieg), kursive Einzeiler als Leitmotiv-Einschübe. Register: literarisch-sachlich, kein Pathos; Suspense durch Verknappung."
+ },
+ "paras": [
+  {
+   "pid": 2307,
+   "style": "Heading 1",
+   "text": "<b>34. Unutulmuş Dükkânın Anahtarı</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "SENI_BUL",
+    "index": 5,
+    "n": 7
+   }
+  },
+  {
+   "pid": 2308,
+   "style": "Opening",
+   "text": "Kırmızı defterin Duru'nun sandalyesinde durması, onu götüren kişinin defteri artık saklamaya ihtiyaç duymadığını gösteriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2309,
+   "style": "Normal",
+   "text": "Ya da Duru'yu kimse götürmemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2310,
+   "style": "Normal",
+   "text": "Zeynep fotoğrafı çektikten sonra defteri kapatmış, sandalyedeki beyaz tüy arka kapağın içine kaymıştı. Defteri açtığımda orada sıkışmış buldum. Güvercin tüyüydü; ucu, mavi mürekkeple boyanmıştı. Aynı mürekkep çocukluğumda babamın saat tamirlerinde kullandığı küçük şişede bulunurdu. Babam, çarkların birbirine değip değmediğini görmek için dişlilere ince bir boya sürerdi. Mavi iz, baskının nerede oluştuğunu gösterirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2311,
+   "style": "Normal",
+   "text": "Kırmızı defterin kırk ikinci sayfası koparılmıştı. Kırk birinci sayfadaki son cümlede üç harf, bastırılarak yazılmıştı: <b>B — A — B</b>. Sonraki sayfanın ilk satırından kâğıda geçen izde ise yalnız iki sayı seçiliyordu: <b>14 / 53</b>.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2312,
+   "style": "Normal",
+   "text": "Babamın dükkânının kapı numarası 14'tü. Dükkândaki büyük duvar saati, öldüğü gün 14.53'te durmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2313,
+   "style": "Normal",
+   "text": "<i>14.53 ↺</i>",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2314,
+   "style": "Normal",
+   "text": "Anladım. “Balat,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BASA_DON",
+    "index": 3,
+    "n": 7
+   }
+  },
+  {
+   "pid": 2315,
+   "style": "Normal",
+   "text": "Zeynep'in yüzü gerildi. “O dükkân satılmadı mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2316,
+   "style": "Normal",
+   "text": "“Size öyle söyledim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2317,
+   "style": "Normal",
+   "text": "“Neden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2318,
+   "style": "Normal",
+   "text": "“Çünkü babam öldükten sonra oraya her girdiğimde saatlerin hepsi beni bekliyormuş gibi geliyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2319,
+   "style": "Normal",
+   "text": "“Bu, satmadığını söylememenin nedeni değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2320,
+   "style": "Normal",
+   "text": "“Asıl neden daha kötü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2321,
+   "style": "Normal",
+   "text": "Zeynep anahtarları aldı. “Yolda anlatırsın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2322,
+   "style": "Normal",
+   "text": "Emir'i komşuya bırakmak istedik. Emir kabul etmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2323,
+   "style": "Normal",
+   "text": "“Duru benim ablam.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2324,
+   "style": "Normal",
+   "text": "“Bu yüzden güvende kalman gerekiyor,” dedi Zeynep.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2325,
+   "style": "Normal",
+   "text": "“Güvende kalınca ona ne faydam olacak?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2326,
+   "style": "Normal",
+   "text": "Zeynep cevap vermeden bana baktı. Emir'in sorusu, yetişkinlerin çocukları korumak için kullandığı bütün hazır cümlelerin altına ince bir testere sokmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2327,
+   "style": "Normal",
+   "text": "Nehir, Selin'le birlikte binadan çıkmış, biz hazırlanırken eve ulaşmıştı. İfadeleri ve kamera kaydını Selin polise teslim edecekti. Sonunda Emir'i Nehir'le bıraktık. Nehir'in yüzüne bakmadan anahtarı uzattım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2328,
+   "style": "Normal",
+   "text": "“Onu buradan çıkarma.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2329,
+   "style": "Normal",
+   "text": "“Bak, disk meselesini—”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2330,
+   "style": "Normal",
+   "text": "“Duru'yu bulduktan sonra.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2331,
+   "style": "Normal",
+   "text": "Bu bir sınırdı. Aynı zamanda cezaydı. O an hangisini yaptığımı bilmiyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2332,
+   "style": "Normal",
+   "text": "Balat'a giderken Zeynep dükkânın gerçeğini sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2333,
+   "style": "Normal",
+   "text": "“Babam öldüğünde borcu vardı,” dedim. “Annem satmak istedi. Ben borcun bir kısmını ödeyip dükkânı bir arkadaşın şirketine devrettim. Kâğıt üstünde benim değil. Ama anahtar bende.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2334,
+   "style": "Normal",
+   "text": "“Evliliğimiz sırasında mı yaptın bunu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2335,
+   "style": "Normal",
+   "text": "“İlk yılında. Duru bir yaşındaydı; düğünümüzden önce doğmuştu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2336,
+   "style": "Normal",
+   "text": "“On altı yıl önce bana neden söylemedin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2337,
+   "style": "Normal",
+   "text": "“Utandım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2338,
+   "style": "Normal",
+   "text": "“Neden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2339,
+   "style": "Normal",
+   "text": "“Babamı kurtaramamışım gibi geliyordu. Dükkânı kurtarırsam borcum azalacak sandım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2340,
+   "style": "Normal",
+   "text": "Zeynep bir süre sustu. Yağmur ön cama vuruyor, silecekler iki düşüncenin arasına giren inatçı parantezler gibi çalışıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2341,
+   "style": "Normal",
+   "text": "“Sen,” dedi, “bazen sırrı başkasından değil, sırrın içindeki eski hâlinden saklıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2342,
+   "style": "Normal",
+   "text": "Haklıydı. Bunu söylemek istemedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2343,
+   "style": "Normal",
+   "text": "Dükkânın kepengi kapalıydı. Yanındaki dar servis kapısının asma kilidi yeniydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2344,
+   "style": "Normal",
+   "text": "Eski anahtarım uymadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2345,
+   "style": "Normal",
+   "text": "Polisi aradık. Duru'nun reşit olmaması, telefonunun evde kalması ve tehdit dosyaları nedeniyle ekip göndereceklerini söylediler. Beklememiz gerekiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2346,
+   "style": "Normal",
+   "text": "Zeynep telefonu hoparlöre aldı. Adımızı, dükkânla ilişkimi, yeni kilidi ve içeride bir çocuk bulunabileceği şüphesini görevliye tek tek söyledi. Karşıdaki ses bize kapıyı kırma izni vermedi; böyle bir izni telefondaki görevli veremezdi. Ekip gelene kadar beklememizi tekrarladı. Ben de beklememenin hukuki ve fiziksel sonucunu üstleneceğimi söyledim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2347,
+   "style": "Normal",
+   "text": "İçeriden üç kısa vuruş geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2348,
+   "style": "Normal",
+   "text": "Sonra iki.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2349,
+   "style": "Normal",
+   "text": "Sonra üç.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2350,
+   "style": "Normal",
+   "text": "Duru küçükken odasının kapısına böyle vururdu: <i>Benim.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2351,
+   "style": "Normal",
+   "text": "Vuruşların geldiği yöne dönerken kepengin sağındaki dar servis kapısının kolunu gördüm. Paslı metalin çevresine ince bir kırmızı ip bağlanmıştı. Düğümün iki ucu aynı uzunluktaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2352,
+   "style": "Normal",
+   "text": "Rengi yağmurda koyulaşmıştı. Fotoğraftaki, hastane sandalyesindeki ve yabancının bileğindeki ipleri düşündüm. İlk kez hepsinin aynı şeyi göstermediğini, belki yalnız aynı yere bakmamı sağladığını hissettim: elimle açacağım bir sonraki kapıya.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BENI_ARAMA",
+    "index": 5,
+    "n": 9
+   }
+  },
+  {
+   "pid": 2353,
+   "style": "Normal",
+   "text": "Kepenge yüklendim. Zeynep kolumu tuttu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2354,
+   "style": "Normal",
+   "text": "“Polisi bekle.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2355,
+   "style": "Normal",
+   "text": "“İçeride kızımız var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2356,
+   "style": "Normal",
+   "text": "“Tam da bu yüzden düşün.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2357,
+   "style": "Normal",
+   "text": "Kapının yanındaki eski zil düğmesini gördüm. Babam zili yıllar önce sökmüştü; kablosu kepengin acil açma motoruna bağlıydı. İnsanlar hırsıza karşı kilit takar, sonra kendileri unutursa diye duvarın arkasına bir yol bırakır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2358,
+   "style": "Normal",
+   "text": "Kepenk raylarında ayrıca bir kilit yoktu. Zile on bir saniye bastım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2359,
+   "style": "Normal",
+   "text": "Kepenk yükseldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2360,
+   "style": "Normal",
+   "text": "Ben kilidi kırmamıştım; babamın kurduğu acil sistemi kullanmıştım. Bu ayrıntı içeride bir çocuk varsa bizi haklı, yoksa yaptığımızı zararsız kılmıyordu. Polis geldiğinde ilk işim düğmenin yerini göstermek ve giriş saatini tutanağa yazdırmak olacaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2361,
+   "style": "Normal",
+   "text": "Duru içeride, babamın çalışma masasının başında oturuyordu. Karşısında beyaz kaplı bir kitap vardı. Ağlamıyordu. Bizi görünce rahatlamadı da.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2362,
+   "style": "Normal",
+   "text": "“Nihayet,” dedi. “Bana niye yalan söyledin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

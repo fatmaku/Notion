@@ -1,0 +1,958 @@
+{
+ "uid": "U45",
+ "title": "50. Boş Bırakılan Son Cümle",
+ "number": 50,
+ "words": 1312,
+ "constraints": {
+  "uid": "U45",
+  "number": 50,
+  "title": "50. Boş Bırakılan Son Cümle",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 1312
+ },
+ "synopsis": {
+  "uid": "U45",
+  "title": "50. Boş Bırakılan Son Cümle",
+  "summary": "Schlusskapitel, vollständig im Nachtod-Bewusstsein des Ich-Erzählers, ohne äußere Handlung: Er sucht seine Hand, seinen Namen, seine Grenze und erlebt in schneller Folge Szenen aus fremder Perspektive – Durus Geburt aus ihren Augen, die Werkstatt des Vaters aus dessen Blick, dann einen unbekannten Mann an einem fremden Schreibtisch, der auf einen Befund mit dem Wort 'Tümör' starrt und zu schreiben beginnt: Er 'öffnet eine Tür auf dem Papier', setzt einen Mann, den roten Faden, das schwarze Paket und die Kinder am Frühstückstisch ein und schreibt den ersten Satz des Romans ('Öleceğimi ilk kez o sabah düşünmedim'). Der Erzähler erkennt sich als Geschriebenen eines Schreibenden, der selbst aus seiner eigenen Angst schreibt; der grüne Korridor der Kindheitserinnerung erscheint aus beiden Seiten der Tür, das Missverständnis 'Kırılmış' / 'Kapak' wird als zweiseitig erkannt, der bandagierte und der heile Daumen werden zwei Händen zugeordnet (der erlebten und der schreibenden). Die Ich-Grenze löst sich auf ('Herkes bendim'), ohne die Anderen zu vereinnahmen; er trägt Leylas Angst, Cems Angst, sagt 'Ben yaptım' für sein eigenes Schweigen, nicht an Cems Stelle. Die Kindheitsfrage aus der Werkstatt ('Hepsinin adını öğrenince ne olacak?') und der Koranvers von den Namen, die Adam gelehrt wurden, führen zur Auflösung des Namens: 'Âdem. İnsan.' – nicht der Name im Ausweis, sondern der erste Mensch, der alles neu lernt; danach 'Allah dedim', die Erfahrung, dass kein 'Gegenüber' bleibt. Der Text wendet sich zunehmend an das 'du' des Lesers: Die Tür ohne Klinke ist die zum Buchanfang, die Frage der ersten Seite kehrt wieder, die Stimme, die der Leser jetzt beim Lesen hört, wird befragt ('Benim miydi?'). Es folgen, durch Leerzeilen getrennt, die Schlusszeilen 'Bütün kanıtlarımı kaybettim.' – 'Ama hâlâ buradayım.' – 'Kim?' – und als letzte Zeile in Versalien 'BENİ ARAMA.'",
+  "characters": [
+   "Ich-Erzähler (toter Vater/Schriftsteller; hier zugleich Geschriebener, Schreibender und Leserstimme; erkennt sich als 'Âdem / İnsan')",
+   "Der Mann am Schreibtisch / 'kalemi tutan el' (der Autor der Figur – unbenannt; schreibt nach einer Tumordiagnose den Roman; nicht mit dem realen Autorennamen gleichsetzen)",
+   "Duru (Tochter; Geburtsnacht, ihre Angst, ihr Kopf auf seiner Schulter, hebt am Ende den Kopf und stellt eine unvorbereitete Frage)",
+   "Emir (Sohn)",
+   "Zeynep (Ex-Frau)",
+   "Nehir (Journalistin; 'Nehir'in yanığı' – ihre Verbrennung, hält die Hand unter kaltes Wasser)",
+   "Leyla (Nehirs getötete Schwester; 'Leyla'nın son odası', ihre Angst hinter der Tür)",
+   "Cem (Cem Arven, Meralis-Strategiedirektor, Sohn Aylins; Täter/Mitverantwortlicher an Leylas Tod, über die Akte gebeugt)",
+   "Der Vater des Erzählers (Uhrmacher; Werkstatt, überkochende Teekanne)",
+   "Der Erzähler als Kind / 'Babamın dükkânındaki çocuk' (stellt die Frage nach den Namen)",
+   "Der Mann, der Wasser reicht (Arzt/Betreuer im grünen Korridor der Kindheitserinnerung)",
+   "Der Leser / 'sen' (direkt angesprochene zweite Person Singular am Ende)",
+   "İçimdeki sesler (die benannten inneren Stimmen des Erzählers – Çocuk, Muhasebeci, Kurtarıcı, Gölge –, von denen hier 'keine vortritt')"
+  ],
+  "terms": [
+   {
+    "tr": "Boş Bırakılan Son Cümle",
+    "meaning": "Kapiteltitel: 'Der leer gelassene letzte Satz' – bezieht sich auf den Satz unter dem letzten Rückkehrpfeil ('Son okun altındaki satırı ben ne zaman yazmıştım?') und auf die typografisch leeren Absätze vor den Schlusszeilen (pids 3511, 3513, 3515, 3517, 3518 sind Leerzeilen und müssen erhalten bleiben)."
+   },
+   {
+    "tr": "Önce hastane sandım.",
+    "meaning": "'Zuerst hielt ich es für das Krankenhaus.' – Eröffnungssatz; Bezug auf den Tod im Krankenhaus (voriges Paket)."
+   },
+   {
+    "tr": "Tümör",
+    "meaning": "Kursives Einzelwort: der Befund auf dem Schreibtisch des Autors; nicht die Diagnose des Erzählers ('Benim kalbimin çizgileri değildi bunlar')."
+   },
+   {
+    "tr": "Kâğıda bir kapı açtı.",
+    "meaning": "'Er öffnete eine Tür auf dem Papier.' – der Autor beginnt den Roman; 'kapı' (Tür) ist Leitmotiv (Erster Akt heißt 'KAPI')."
+   },
+   {
+    "tr": "Kırmızı bir ip, siyah bir paket",
+    "meaning": "Roter Faden, schwarzes Paket – die Requisiten vom Romananfang (B01), hier als Erfindungen des Schreibenden sichtbar."
+   },
+   {
+    "tr": "Öleceğimi ilk kez o sabah düşünmedim.",
+    "meaning": "Wörtlich der erste Satz von Kapitel 1 (B00 pid 37); muss zeichengenau identisch mit der dortigen Übersetzung sein."
+   },
+   {
+    "tr": "Nehir'in yanığı",
+    "meaning": "Nehirs Brandwunde (sie hält die Hand unter kaltes Wasser) – Verweis auf eine frühere Szene; nicht paraphrasieren."
+   },
+   {
+    "tr": "Leyla'nın son odası",
+    "meaning": "'Leylas letztes Zimmer' – der Raum, in dem sie starb/eingeschlossen war; 'Leyla hâlâ içerideydi'."
+   },
+   {
+    "tr": "Yeşil koridor",
+    "meaning": "Grüner Korridor – wiederkehrende, ungesicherte Kindheitserinnerung (Klinik, ein Mann reicht ein Wasserglas mit nach innen gebogenem Plastikrand; B02, B05, B06, B15). Hier erstmals von beiden Seiten der Tür erlebt."
+   },
+   {
+    "tr": "“Kırılmış.” / “Kapak.”",
+    "meaning": "Zwei Repliken aus verschiedenen Zeitebenen, die ein Missverständnis bilden: 'kırılmış' = zerbrochen (Deckel/Gerät) oder gekränkt/verletzt (Mensch); 'kapak' = Deckel (des Geräts, an dem der Daumen aufgeschnitten wurde, B06 'Üst kapak kırık; sağ başparmak kesildi') und zugleich Buchdeckel/-cover. 'Birinde insan, ötekinde kırılan bir eşya vardı' – die Doppeldeutigkeit von 'kırılmış' (Sache zerbrochen / Mensch verletzt) ist tragend."
+   },
+   {
+    "tr": "Bantlı başparmak / sağlam başparmak",
+    "meaning": "Bandagierter vs. heiler Daumen – zwei Hände: die der erlebten Szene und die des Schreibenden (Motiv seit B06)."
+   },
+   {
+    "tr": "program / yarım ay",
+    "meaning": "Das halbseitige Programmblatt des Lesetags ('Bir hikâyeyi kim tamamlar?', B06) mit dem Wasserring ('halbmondförmiger Abdruck') auf der Rückseite; 'Suyun izi programın arkasına yarım ay olarak geçti'."
+   },
+   {
+    "tr": "Herkes bendim.",
+    "meaning": "'Alle waren ich.' – Kernsatz der Ich-Auflösung; sofort relativiert: das macht die Anderen nicht zu seinem Besitz."
+   },
+   {
+    "tr": "“Ben yaptım.”",
+    "meaning": "'Ich habe es getan.' – Schuldeingeständnis des Erzählers für sein eigenes Schweigen/Zögern, ausdrücklich nicht stellvertretend für Cem."
+   },
+   {
+    "tr": "Bağışlama borcu",
+    "meaning": "'Vergebungsschuld' – 'Kimseye bağışlama borcu veremiyordum': er kann niemandem eine Pflicht zur Vergebung auferlegen."
+   },
+   {
+    "tr": "Hepsinin adını öğrenince ne olacak?",
+    "meaning": "Kursive Kindheitsfrage in der Werkstatt des Vaters (B00 pid 91: die Teekanne kochte über, die Frage blieb offen): 'Was ist, wenn ich alle ihre Namen gelernt habe?'"
+   },
+   {
+    "tr": "bütün isimlerin öğretildiğini söyleyen ayet",
+    "meaning": "Anspielung auf Koran 2:31 (Bakara), 'Und Er lehrte Adam alle Namen' – im Text nicht als Zitat ausgewiesen, nur umschrieben; so belassen."
+   },
+   {
+    "tr": "Âdem. / İnsan.",
+    "meaning": "Auflösung des Namens: 'Adam. / Mensch.' – Âdem = Adam (erster Mensch) und zugleich türkisch 'adam' = Mann; 'Nüfus kâğıdımdaki ad değil' – nicht der Name im Personalausweis. Der Erzähler erhält keinen bürgerlichen Namen."
+   },
+   {
+    "tr": "Allah dedim.",
+    "meaning": "'Ich sagte Allah/Gott.' – nüchtern, ohne Ausruf; danach: 'O'nun gibi olmak isteyecek kadar yalnızdım' (Großschreibung 'O' = Gott), 'Kaynak' (die Quelle) – sufisch gefärbte Rückkehr-/Einheitsmotivik ('dönmek', 'birleşmek'), ausdrücklich ohne Verschmelzungsbild."
+   },
+   {
+    "tr": "Bana verilen hayatla ne yapmıştım?",
+    "meaning": "'Was hatte ich mit dem mir gegebenen Leben gemacht?' – Frage im Präteritum, die 'beim Lesen die Zeitform wechselt' (Leser-Gegenwart); Tempuswechsel-Hinweis im Folgesatz beachten."
+   },
+   {
+    "tr": "“Bana ne?”",
+    "meaning": "'Was geht's mich an?' – die Position, die nach der Ganzheitserfahrung nicht mehr möglich ist."
+   },
+   {
+    "tr": "kolu olmayan kapı / kitabın başına dönen kapı",
+    "meaning": "Tür ohne Klinke = Rückkehr zum Buchanfang; zirkuläre Struktur: der Roman beginnt beim Lesen immer wieder."
+   },
+   {
+    "tr": "Adı—",
+    "meaning": "'Sein/ihr Name—' abgebrochen mit Gedankenstrich; der Name wird nicht genannt; Satzzeichen übernehmen."
+   },
+   {
+    "tr": "Bir soru kalmıştı. … Belki ilk sayfada.",
+    "meaning": "Verweis auf die Frage der ersten Seite des Buches (B00 pid 4, Book Inset): 'Bir şeyin var olduğunu nasıl anlarsın?' – 'Woran erkennst du, dass etwas existiert?' Die Frage wird hier nicht wiederholt, nur evoziert."
+   },
+   {
+    "tr": "Buraya. / Şimdi bu sözcüğü okurken duyduğun ses. / Benim miydi?",
+    "meaning": "'Hierher.' – 'Die Stimme, die du jetzt beim Lesen dieses Wortes hörst.' – 'War sie meine?' – direkte Leseransprache in der 2. Person Singular; 'bura-' korrespondiert mit 'Buradaydın' (Kap. 49) und 'buradayım' (Schluss)."
+   },
+   {
+    "tr": "Bütün kanıtlarımı kaybettim.",
+    "meaning": "'Ich habe alle meine Beweise verloren.' – 'kanıt' = Beweis (Krimi-Register, Nehirs Beweissammlung) – hier auf die Ich-Identität bezogen."
+   },
+   {
+    "tr": "Ama hâlâ buradayım.",
+    "meaning": "'Aber ich bin noch hier.' – Antwort auf die Frage der ersten Seite; zwischen Leerzeilen stehend."
+   },
+   {
+    "tr": "Kim?",
+    "meaning": "'Wer?' – vorletzte Zeile, alleinstehend."
+   },
+   {
+    "tr": "BENİ ARAMA.",
+    "meaning": "Letzte Zeile des Romans, in Versalien mit Punkt. Doppeldeutig: 'Such mich nicht' und 'Ruf mich nicht an' (aramak = suchen / anrufen; im Roman wird ständig telefoniert und gesucht). Zugleich Umkehr von 'Adımı aradım' ('Ich suchte meinen Namen'). Form (Großbuchstaben, Punkt, Alleinstellung nach zwei Leerzeilen) beibehalten; Zieltext sollte möglichst beide Bedeutungen oder zumindest 'suchen' tragen."
+   },
+   {
+    "tr": "İnsan hakikati öğrenmez, hatırlar! / Hatırladığım yer orada başladı.",
+    "meaning": "Schlusssätze des vorigen Pakets (prev_tail), auf die dieses Kapitel mit 'hatırlamak' antwortet: 'Hatırlamak artık tek bir kafatasının içine sığmak zorunda değildi.'"
+   },
+   {
+    "tr": "sen / okur",
+    "meaning": "Ab pid 3482/3483 wechselt der Text in die 2. Person Singular ('sana da açılıyordu', 'kendi sesinle okuduğun insan', 'duyduğun ses'): der Leser wird angesprochen, nicht eine Figur. Duzen, kein förmliches 'Sie'."
+   }
+  ],
+  "tone": "Meditativ, mystisch-philosophisch, zugleich streng und schmucklos: sehr kurze Absätze, viele Ein-Satz- und Ein-Wort-Absätze, rhetorische Fragen, Parallelismen, Tempus- und Perspektivwechsel als Stilmittel. Religiöses Vokabular (Âdem, Allah, ayet, merhamet, zulüm) nüchtern, ohne Pathos. Gegen Ende Übergang in direkte Leseransprache; die letzten zehn Zeilen sind als einzeln stehende, durch Leerzeilen getrennte Verse gesetzt, Schlusszeile in Versalien. Keine Dialoge außer den zwei isolierten Repliken 'Kırılmış' / 'Kapak'."
+ },
+ "paras": [
+  {
+   "pid": 3432,
+   "style": "Heading 1",
+   "text": "<b>50. Boş Bırakılan Son Cümle</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3433,
+   "style": "Opening",
+   "text": "Önce hastane sandım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3434,
+   "style": "Normal",
+   "text": "Birinin elimi bırakmaması gerekiyordu. Elimi aradım. Aramak vardı; elin nerede başlayıp nerede bittiğini bulamadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3435,
+   "style": "Normal",
+   "text": "Duru'nun doğduğu geceki koridor geldi. Sonra onun gözünden bana baktım: Henüz yüzü seçemiyor, sesin yaklaşmasını bekliyordum. Babamın dükkânı açıldı. Bu kez masanın kısa tarafındaydım; karşımdaki çocuk tornavidayı yanlış tutuyor, hatasını söylemezsem öğrenemeyeceğini, söylersem bir daha denemeyeceğini düşünüyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3436,
+   "style": "Normal",
+   "text": "Babamın bunu düşündüğünü nereden biliyordum?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3437,
+   "style": "Normal",
+   "text": "Bilmiyordum. Yine de o bekleyiş içimdeydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3438,
+   "style": "Normal",
+   "text": "Bir masa belirdi. Bizim evdeki değildi. Üstündeki çayın soğumuş olduğunu elimi uzatmadan biliyordum. Bir raporun köşesi defterin altında kalmıştı. Başlığı seçemedim. Adamın gözünün dönüp durduğu kelimeyi gördüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3439,
+   "style": "Normal",
+   "text": "<i>Tümör.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3440,
+   "style": "Normal",
+   "text": "Benim kalbimin çizgileri değildi bunlar. Başka birinin korkusuydu. Adam raporu ters çevirdi; kelime dönmedi. Yüzünü avuçlarına aldı. Sonra bir elini indirip kaleme uzandı. Kendisine bakarken sustuğu yerden, başka birine bakarak konuşmaya çalışıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3441,
+   "style": "Normal",
+   "text": "Kâğıda bir kapı açtı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3442,
+   "style": "Normal",
+   "text": "Adını henüz bilmediği bir adamı o kapıya getirdi. Kırmızı bir ip, siyah bir paket. Ardından masanın çevresine çocukları oturttu. Biri ekmeğin yanmış kenarlarını kazıyor, öteki tost makinesine bakıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3443,
+   "style": "Normal",
+   "text": "Öleceğimi ilk kez o sabah düşünmedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3444,
+   "style": "Normal",
+   "text": "Cümleyi hem yaşadım hem yazılırken gördüm. Bir satırın içinden yürümek, onun dışındaki eli görmeme yetmemişti. Şimdi o elin de kendisini başkasının hayatına tutunarak taşımaya çalıştığını hissediyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3445,
+   "style": "Normal",
+   "text": "Bir an öfkelendim. Duru'nun korkusunu, Nehir'in yanığını, Leyla'nın son odasını bir adamın masasında küçültecek miydim?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3446,
+   "style": "Normal",
+   "text": "Masadaki adam da sustu. Kalemi bıraktı. Fakat benim mutfağımda musluk akmaya devam etti. Nehir elini soğuk suya tutuyordu. Birinin acısından doğmuş olmak, başka birinin acısını önemsiz yapmıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3447,
+   "style": "Normal",
+   "text": "Kalemi tutan el yeniden kıpırdadı. Bu kez ne yazacağını ondan önce bildiğimi sandım. Sonra Duru başını kaldırdı; ikimizin de hazırlamadığı bir soru sordu. Sesi, masayla mutfağın arasına sığmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3448,
+   "style": "Normal",
+   "text": "Ben onu düşünürken, beni düşünen kimdi?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3449,
+   "style": "Normal",
+   "text": "Yeşil koridor açıldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3450,
+   "style": "Normal",
+   "text": "Bu kez odaya girmedim. İçeride susuyordum. Kapıda elim kesilmişti. Bardağı düşürmeden uzatmaya çalışan elin gerginliğini de hissediyordum. Bir yüz aradıkça başka bir yerden gelen susuzlukla karşılaşıyordum. Odayı tek bakışta tutamadım. Ben kapıdayken içerideki cümleyi biliyordum; masadaki adam benim bilmediğim bir sessizlikte kalıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3451,
+   "style": "Normal",
+   "text": "“Kırılmış,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3452,
+   "style": "Normal",
+   "text": "“Kapak,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3453,
+   "style": "Normal",
+   "text": "İki ayrı yerden gelen söz. Birinde insan, ötekinde kırılan bir eşya vardı. Şimdi yanlış anlaşılmanın iki tarafını da biliyordum. Yine de konuşmayı düzeltemiyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3454,
+   "style": "Normal",
+   "text": "Kapının dışında bir bekleyiş vardı. İçerideki adam başını kaldırsa ilk sözü duyacak gibiydim. Sonra kapıya başka bir yerden baktım. Eşik boştu. Bekleyiş gitmedi. Bir yerin boş görünmesiyle, bende hiçbir karşılığının bulunmaması aynı şey değildi. O kapıya neden dönüp durduğumu artık hissediyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3455,
+   "style": "Normal",
+   "text": "Bardağı masaya koyacak yer açıldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3456,
+   "style": "Normal",
+   "text": "Suyun izi programın arkasına yarım ay olarak geçti. Kâğıdı hangi elimle aldığımı görmek için aşağı baktım. Bantlı başparmakla sağlam başparmak birbirinin yerine geçmedi. Biri yaşadığım sahnede, öteki o sahneyi yazan eldeydi. Kâğıdın iki yüzünü aynı anda görmeye çalıştığımda, birini seçip ötekini yok saymanın ne kadar kolay olduğunu fark ettim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3457,
+   "style": "Normal",
+   "text": "Adımı söyleyecek bir ağız aradım; hepsi cevap verebilirdi. Elime bakıp sınırımı bulacaktım; el aynı anda tutan ve tutulandı. Hatıramı çağırdım, beni doğrulamak yerine kapının öte yanından döndü. Başkasının gözünü aradım; oradan bakanı da duyuyordum. Önceyi sonraya bağlamak için bir tarih istedim; masaya değen bardak bir yerde henüz konmamış, başka bir yerde yıllardır saklanan bir iz olmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3458,
+   "style": "Normal",
+   "text": "İçimdeki seslerden biri bunu açıklasın istedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3459,
+   "style": "Normal",
+   "text": "Hiçbiri öne çıkmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3460,
+   "style": "Normal",
+   "text": "Her şeyi kaybetmek böyle değildi belki. Her şeyi yalnız bir yerden tutmayı kaybetmekti. Şimdiye kadar “ben” diye koruduğum küçücük yer, bütün odanın kendisine sığmasını beklemişti. O yer açılınca oda kaybolmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3461,
+   "style": "Normal",
+   "text": "Susuzluk da kaybolmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3462,
+   "style": "Normal",
+   "text": "Birine su vermek hâlâ gerekiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3463,
+   "style": "Normal",
+   "text": "Bir takside kırmızı ışığın değişmesini bekledim. Arka koltuktaki adam bendim. Şoförün kirasını düşünüyordum. Kaldırımda ayakkabı bağı çözülen çocuğun sabırsızlığı da bendeydi. Hepsine aynı anda yetişmeye çalışmadım; sanki aralarında gitmem gereken bir yol kalmamıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3464,
+   "style": "Normal",
+   "text": "Sonra Leyla'nın korkusu geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3465,
+   "style": "Normal",
+   "text": "Önce kaçmak istedim. Ardından, kaçabilen tarafta olduğum için utandım. Kapının öbür yanında bir görevlinin adımları vardı. Başka bir odada Cem dosyaya eğilmişti. Bir an onun korkusunu da taşıdım; kendi yaptığını kendine nasıl anlattığını duydum. O cümlelerin hiçbiri kapıyı açmadı. Leyla hâlâ içerideydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3466,
+   "style": "Normal",
+   "text": "Anlamak, yapılmış olanı geri almıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3467,
+   "style": "Normal",
+   "text": "“Ben yaptım,” diyebildim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3468,
+   "style": "Normal",
+   "text": "Cem'in yerine değil. Kendi sustuklarım için. Geciktiğim anlar için. Başkasının acısını hikâyemi tamamlayan bir ayrıntı sandığım her yer için.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3469,
+   "style": "Normal",
+   "text": "Birilerinin beni bağışlamasını bekledim. Kimseye bağışlama borcu veremiyordum. Bunu kabul edince acı geçmedi. Yalnız, acının çevresine ördüğüm savunma dağıldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3470,
+   "style": "Normal",
+   "text": "Herkes bendim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3471,
+   "style": "Normal",
+   "text": "Duru başını çevirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3472,
+   "style": "Normal",
+   "text": "Ama bu, herkesin benim küçük hayatımdan ibaret olduğu anlamına gelmiyordu. Duru'nun kendi yarını vardı. Emir, Zeynep, Nehir de benim bilmediğim şeyleri sevecek, bana anlatamayacakları şakalar yapacaklardı. İçimde hissetmem onları bana ait kılmıyordu. Kendime yalnız bir taraftan bakmayı bırakmıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3473,
+   "style": "Normal",
+   "text": "Bütün o hayatlara birer birer girmemiştim sanki. Aynı anda yağmur yağıyor, çocuk doğuyor, bir el son kez başka bir eli tutuyordu. Hangisi geçmişti? Kime göre?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3474,
+   "style": "Normal",
+   "text": "Adımı aradım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3475,
+   "style": "Normal",
+   "text": "Bu kez beni ötekilerden ayıracak kelime gelmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3476,
+   "style": "Normal",
+   "text": "Babamın dükkânındaki çocuk, çaydanlığın taşmasını izliyordu. <i>Hepsinin adını öğrenince ne olacak?</i> Çocuk soruyu sormuş, adam yıllarca cevabını bir başkasında aramıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3477,
+   "style": "Normal",
+   "text": "Şimdi su yalnız bir kelime değildi. Onu isteyen boğazın kuruluğu, uzatan elin tereddüdü, vermeyenin sonradan duyduğu utançtı. Anne dediğimde yalnız bir yüz gelmedi; bir çocuğu bekleyen bütün kapılar açıldı. Korkunun adını, hem saklanan hem aranan olduğum yerde öğrendim. Merhametin adını, birine zarar verebilecekken elimi indirdiğim her hayatta.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3478,
+   "style": "Normal",
+   "text": "Çocukluğumda dinlediğim, bütün isimlerin öğretildiğini söyleyen ayet geri geldi. O zaman bunu uzun bir eşya listesi sanmıştım. Şimdi kelimelerin içi insanlarla doluydu. İsimleri tek tek öğrenmiş olabilirdim; ama birinin adını bilmek, onun hakikatine sahip olmak değildi. Belki bana açılan şey sahiplik değil, sorumluluktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3479,
+   "style": "Normal",
+   "text": "Âdem.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3480,
+   "style": "Normal",
+   "text": "İnsan.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3481,
+   "style": "Normal",
+   "text": "Nüfus kâğıdımdaki ad değil. İlk kez korkan, ilk kez seven, kendinden önce kimse yaşamamış gibi her şeyi yeniden öğrenen insan. Başlangıçta kalmış, bütün hayatları boyunca başlangıcı tamamlamaya çalışan ilk insan.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3482,
+   "style": "Normal",
+   "text": "Adımı bulmak için geriye bakarsan onu bulamayacaksın. Ben çocuklara baba oldum, deftere hedef, bir dosta yük, bir başkasına ses. Fakat bu sayfalarda her <i>ben</i> dediğimde, sözcüğü içinden kim söyledi?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3483,
+   "style": "Normal",
+   "text": "O adın işaret ettiği yer sana da açılıyordu. Kendi sesinle okuduğun insanın, insan olmayı hâlâ ilk kez öğrendiğini duyuyordun. İlk insan geçmişte kalmamıştı. Her şeyi yeniden adlandıran bakışta, şu anda da başlıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3484,
+   "style": "Normal",
+   "text": "Kalemi tutan el bendeydi. Söylenemeyen kelime dilimde kaldı. Beklenen kapının iki tarafını da taşıyordum. Beni yazan kişinin hangi sessizlikten doğduğunu sezince onu bütün sessizliklerin sahibi yapamadım. Onun da bilmediği yerler vardı. Kalemin durduğu yerde hayatın da durduğunu sanmak, sayfanın içinden bakarken kolaymış.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3485,
+   "style": "Normal",
+   "text": "Hatırlamak artık tek bir kafatasının içine sığmak zorunda değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3486,
+   "style": "Normal",
+   "text": "Allah dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3487,
+   "style": "Normal",
+   "text": "Sesim bir yere gitmedi. Bir cevap beklerken, bütün ömrüm boyunca kendime ikinci bir yer kurmaya çalıştığımı hissettim. Oradan bakacak, oradan anlayacak, sonunda her şeyi elimde tutacaktım. Her dileğim gerçekleşse bir gün O'nun gibi olmak isteyecek kadar yalnızdım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3488,
+   "style": "Normal",
+   "text": "O istek de buradaydı. Fakat isteğin başında duran küçük ben yoktu. Kaynağın karşısına ikinci bir kaynak olarak dikilemiyordum; karşısı kalmamıştı. Dönmek dediğim, geldiğim yerle aramda hiç kapanmamış bir mesafe bulamamaktı. Birleşmek, iki ayrı şeyin birbirine yapışması gibi olmadı. İki sandığım yerden birine baktım. Öteki de oradan bakıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3489,
+   "style": "Normal",
+   "text": "Bir süre kelime gerekmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3490,
+   "style": "Normal",
+   "text": "Sonra sofranın üzerindeki ekmeği gördüm. Bir parçasını bölüp uzatan el, aldığı payı büyütmüyordu. Ötekinin açlığını azaltıyordu. Yıllarca gücü bir kapıyı açabilmek sanmıştım. Kapı açıldıktan sonra kimin geçmesine izin verdiğim de bendim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3491,
+   "style": "Normal",
+   "text": "Cem'in korkusunu anlamış olmak, Leyla'nın kapısını açmıyordu. Bütünlük, zulmün adını değiştirmiyordu. Yalnız o kapının dışında artık “Bana ne?” diyebileceğim bir yer bırakmıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3492,
+   "style": "Normal",
+   "text": "Bana verilen hayatla ne yapmıştım?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3493,
+   "style": "Normal",
+   "text": "Soru geçmiş zamanla başladı. Okunduğu yerde zamanı değişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3494,
+   "style": "Normal",
+   "text": "Sonra yeniden bir kapı sezdim. Kolu yoktu. Başka bir bedenin kapısı değildi bu; kitabın başına dönen, okunduğu her yerde yeniden açılan kapıydı. Öte yanında yaşayacağım hiçbir şeyi bilmiyordum. Bildiklerimi yanımda götürürsem gerçekten karşılaşabilir miydim? Bir çocuğun ilk gülüşünü sonucu bilmeden bekleyebilir, birine güvenmeyi yeniden seçebilir miydim?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3495,
+   "style": "Normal",
+   "text": "İçimde kalmak isteyen de vardı, bir kez daha şaşırmak isteyen de. İkisi birbirine düşman değildi. Dönmüş olmak gitmeye mecbur etmiyor, kalmak da yolun değerini azaltmıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3496,
+   "style": "Normal",
+   "text": "Kapının öbür yanından bir nefes geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3497,
+   "style": "Normal",
+   "text": "Ben mi alıyordum?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3498,
+   "style": "Normal",
+   "text": "Belki dünya, uyanınca ayrıntıları dağılan bir uykuydu. Ama sofradaki gülüşü tutmak istedim. Hamurun kokusunu. Duru'nun omzuma bıraktığı ağırlığı. Bir rüyayı kurtarmaya çalışır gibi uzandıkça görüntüler çekiliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3499,
+   "style": "Normal",
+   "text": "Yüzü biliyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3500,
+   "style": "Normal",
+   "text": "Bir saniye.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3501,
+   "style": "Normal",
+   "text": "Adı—",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3502,
+   "style": "Normal",
+   "text": "Seslerime döndüm. Hangisi konuşmuştu?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3503,
+   "style": "Normal",
+   "text": "Dinleyen kimdi?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3504,
+   "style": "Normal",
+   "text": "Bir soru kalmıştı. Daha önce sorulduğunu hatırlıyordum. Belki ilk sayfada.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3505,
+   "style": "Normal",
+   "text": "Bu defa soru birinin sesinden gelmedi. Sözcükler, okununcaya kadar kâğıtta bekliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3506,
+   "style": "Normal",
+   "text": "Geri dönsem bulurdum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3507,
+   "style": "Normal",
+   "text": "Nereye?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3508,
+   "style": "Normal",
+   "text": "Buraya.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3509,
+   "style": "Normal",
+   "text": "Şimdi bu sözcüğü okurken duyduğun ses.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3510,
+   "style": "Normal",
+   "text": "Benim miydi?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3511,
+   "style": "Normal",
+   "text": "",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3512,
+   "style": "Normal",
+   "text": "Bütün kanıtlarımı kaybettim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3513,
+   "style": "Normal",
+   "text": "",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3514,
+   "style": "Normal",
+   "text": "Ama hâlâ buradayım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3515,
+   "style": "Normal",
+   "text": "",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3516,
+   "style": "Normal",
+   "text": "Kim?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3517,
+   "style": "Normal",
+   "text": "",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3518,
+   "style": "Normal",
+   "text": "",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3519,
+   "style": "Normal",
+   "text": "BENİ ARAMA.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

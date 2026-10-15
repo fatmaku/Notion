@@ -1,0 +1,1081 @@
+{
+ "uid": "U10",
+ "title": "9. Bölgesel Bir İmparatorluk",
+ "number": 9,
+ "words": 942,
+ "constraints": {
+  "uid": "U10",
+  "number": 9,
+  "title": "9. Bölgesel Bir İmparatorluk",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 942
+ },
+ "synopsis": {
+  "uid": "U10",
+  "title": "9. Bölgesel Bir İmparatorluk",
+  "summary": "Gegenwartsebene, am Folgetag: Der Erzähler und Nehir besuchen die Meralis-Zentrale in Karaköy, ein restauriertes ehemaliges Bankgebäude. Ohne Ausweiskontrolle begrüßt sie ein Bildschirm per Gesichtserkennung („HOŞ GELDİNİZ. SİZİ BEKLİYORDUK.“). Cem Arven (Mitte dreißig, graue Strähnen, teurer Anzug) empfängt sie im fünften Stock, kondoliert Nehir („Nehir Hanım“) und weicht der Frage aus, ob er Leyla kannte. Im Besprechungsraum zeigt eine Weltkarte rote Punkte (Istanbul, Berlin, London, Toronto, Nairobi, Singapur, São Paulo) und Hunderte Partnerfirmen: Meralis ist kein Institut, sondern ein Konsortium (Gesundheitstech, Bildung, Arbeitswelt, öffentliche Resilienz, digitales Vertrauen) für die Region „Östliches Mittelmeer und Mitteleuropa“. Cem präsentiert ein detailliertes Wirkungsprofil des Erzählers aus „öffentlichen Daten“ (Nehir bestreitet die Rechtmäßigkeit), dann drei Videos von neurodivergenten Menschen, denen Umfeldanpassungen halfen – samt anschließender Totalvermessung ihrer Emotionen und Sozialbindungen. Streit über „Der Mensch ist kein System“; Cem hält dem Erzähler vor, selbst alle im Raum wie Systeme zu lesen. Demonstration: Cem sagt einer Mitarbeiterin mit zitternder Hand unaufgefordert, der Befund ihrer Mutter sei gutartig – Nehir nennt das „die Sorte Diebstahl, die sich gut anfühlt“. Der Erzähler erkennt, dass Cem dieselbe Wahrnehmungsgabe hat wie er und nur die Moral den Unterschied macht. Cem bietet ihm an, Gesicht des „Nörobilişsel Özgürlük Programı“ zu werden (Forschungsbudget, Publikationsfonds, Zentren, sensorisch angepasste Schulen); die inneren Stimmen Muhasebeci, Gölge und Şüpheci melden sich. Auf die Fragen nach dem schwarzen Buch und den Umschlägen reagiert Cem ausweichend und mit einer „Warnung“, keiner Drohung. Der Erzähler lehnt die Mappe ab; Cems Abschiedssatz: Nicht alle wollten ihn zum Schweigen bringen, manche wollten, dass er lauter spreche. Im Aufzug erinnert er sich an den Buchsatz über Verrückte und Anführer und wundert sich über die Enttäuschung in seiner eigenen Stimme.",
+  "characters": [
+   "Ich-Erzähler (namenlos; neurodivergenter Redner/Aktivist mit Online-Reichweite; soll Gesicht des Meralis-Programms werden; von Cem mit „Beyefendi“ angesprochen)",
+   "Nehir (Journalistin, Leylas Schwester; juristisch scharf, stoppt den Erzähler mit Fußberührung unter dem Tisch)",
+   "Cem Arven (regionaler Strategiedirektor von Meralis für Östliches Mittelmeer/Mitteleuropa; Mitte dreißig; empathisch-grenzüberschreitend; Spiegelfigur des Erzählers)",
+   "Leyla (verstorben; Cem „kannte ihre Arbeiten“)",
+   "junge Meralis-Mitarbeiterin (bringt Tee, zitternde Hand, Mutter mit gutartigem Befund; namenlos)",
+   "Muhasebeci, Gölge, Şüpheci (die drei inneren Stimmen des Erzählers: Buchhalter, Schatten, Skeptiker)",
+   "drei Personen in den Videos (Kind unter dem Tisch, junge Frau im Großraumbüro, Ingenieur im Vorstellungsgespräch; namenlos)",
+   "Duru und Emir (Kinder; Umschläge erwähnt)"
+  ],
+  "terms": [
+   {
+    "tr": "Bölgesel Bir İmparatorluk",
+    "meaning": "Kapiteltitel: „Ein regionales Imperium“ – greift Cems Titel „bölgesel strateji direktörü“ und Nehirs Notiz „Bölgesel. Daha büyük yapı var.“ auf."
+   },
+   {
+    "tr": "Karaköy",
+    "meaning": "Stadtteil Istanbuls am Goldenen Horn (historisches Bankenviertel); Ortsname beibehalten."
+   },
+   {
+    "tr": "tarihle sermayenin evlenip çocuklarına mimarlık ödülü aldığı bir yer",
+    "meaning": "Ironisches Bild: ein Ort, an dem „Geschichte und Kapital geheiratet und für ihre Kinder einen Architekturpreis bekommen haben“."
+   },
+   {
+    "tr": "HOŞ GELDİNİZ. SİZİ BEKLİYORDUK.",
+    "meaning": "Fetter Bildschirmtext in Großbuchstaben: „WILLKOMMEN. WIR HABEN SIE ERWARTET.“ – Gesichtserkennung ohne Ausweiskontrolle."
+   },
+   {
+    "tr": "yüz tanıma",
+    "meaning": "Gesichtserkennung."
+   },
+   {
+    "tr": "Nehir Hanım / Beyefendi",
+    "meaning": "Cems förmliche Anreden (Frau Nehir / mein Herr); er siezt durchgehend; der Erzähler und Nehir siezen Cem ebenfalls."
+   },
+   {
+    "tr": "Başınız sağ olsun",
+    "meaning": "Türkische Beileidsformel („Mein Beileid“)."
+   },
+   {
+    "tr": "Çalışmalarını biliyordum. — Bu başka bir cevap.",
+    "meaning": "„Ich kannte ihre Arbeiten. – Das ist eine andere Antwort.“ – Ausweichmuster Cems; Antwort-Motiv."
+   },
+   {
+    "tr": "Siz kendinizi yıllardır anlatıyorsunuz.",
+    "meaning": "„Sie erzählen sich selbst seit Jahren“ – Hinweis auf die öffentliche Selbstdarstellung des Erzählers als Datenquelle."
+   },
+   {
+    "tr": "İstanbul, Berlin, Londra, Toronto, Nairobi, Singapur, São Paulo",
+    "meaning": "Rote Punkte auf der Meralis-Weltkarte; Städtenamen in Zielsprache üblich schreiben."
+   },
+   {
+    "tr": "eğitim analitiği, iş gücü dayanıklılığı, davranışsal sağlık, kriz iletişimi, veri güvenliği, sosyal etki yatırımları",
+    "meaning": "Branchenliste der Tochterfirmen: Bildungsanalytik, Arbeitskräfte-Resilienz, Verhaltensgesundheit, Krisenkommunikation, Datensicherheit, Social-Impact-Investments."
+   },
+   {
+    "tr": "Doğu Akdeniz ve Orta Avrupa",
+    "meaning": "Cems Zuständigkeitsregion: Östliches Mittelmeer und Mitteleuropa."
+   },
+   {
+    "tr": "Meralis bir enstitü değil. / konsorsiyum",
+    "meaning": "Enthüllung: Meralis ist kein Institut (trotz „Toplumsal Uyum Enstitüsü“ im Buch), sondern ein Konsortium."
+   },
+   {
+    "tr": "sistemi esnetmek / insanları sisteme uydurmak",
+    "meaning": "Cems Slogan „Systeme dehnen statt Menschen anpassen“ vs. Erzählers Misstrauen; „uyum“ (Anpassung) ist Leitbegriff des Romans."
+   },
+   {
+    "tr": "sandalyemi kontrol ederim / Fazla rahat. Kaçmayı geciktirir.",
+    "meaning": "Witz: „Dann prüfe ich meinen Stuhl“ – „Zu bequem. Verzögert die Flucht.“ – trockener Humor des Erzählers."
+   },
+   {
+    "tr": "sus işareti / Hızını fark et işareti",
+    "meaning": "Nehirs Fußberührung unter dem Tisch: nicht „sei still“, sondern „merk, wie schnell du bist“ (kursiv gesetzt)."
+   },
+   {
+    "tr": "Kamuya açık veriler / sınırsız profil çıkarma",
+    "meaning": "„Öffentlich zugängliche Daten“ vs. „grenzenloses Profiling“ – juristischer Schlagabtausch Nehir–Cem."
+   },
+   {
+    "tr": "Erişimle etki aynı şey değil.",
+    "meaning": "„Reichweite und Wirkung sind nicht dasselbe.“ – Cems Begründung, warum der Erzähler ausgewählt wurde."
+   },
+   {
+    "tr": "davranış bozukluğu / uyum eksikliği / iletişim yetersizliği",
+    "meaning": "Diagnoselabels der drei Videopersonen: Verhaltensstörung / Anpassungsdefizit / Kommunikationsschwäche – Fachton."
+   },
+   {
+    "tr": "sessiz alan / yazılı iletişim / önceden soru listesi",
+    "meaning": "Die drei Anpassungen: Ruhezone, schriftliche Kommunikation, vorab übermittelte Fragenliste – entsprechen dem, was der Erzähler jahrelang gefordert hat."
+   },
+   {
+    "tr": "İnsan karmaşık bir sistemdir. — İnsan sistem değildir.",
+    "meaning": "Kernkontroverse: „Der Mensch ist ein komplexes System“ (Cem) – „Der Mensch ist kein System“ (Erzähler)."
+   },
+   {
+    "tr": "anlamak",
+    "meaning": "Das Verb „verstehen“, das beide – Erzähler und Cem – für ihr Mustererkennen benutzen; der Erzähler fragt, wo der Unterschied beginnt."
+   },
+   {
+    "tr": "iyi huylu",
+    "meaning": "Medizinisch „gutartig“ – das Wort, das die Mitarbeiterin dreimal im Flur sagte; Cem errät daraus den Befund."
+   },
+   {
+    "tr": "Empati bazen kapıyı çalmadan girmektir. — O, hırsızlığın kendisini iyi hissettiren türü.",
+    "meaning": "Cem: „Empathie heißt manchmal, ohne Anklopfen einzutreten.“ – Nehir: „Das ist die Sorte Diebstahl, die sich gut anfühlt.“ Tür-Motiv; zitatfähige Gegenüberstellung."
+   },
+   {
+    "tr": "Yeteneklerimiz aynı kapıyı bulabilirdi. / Ahlakımız kapıdan nasıl gireceğimizi belirliyordu.",
+    "meaning": "Zweizeiliger Merksatz (zwei eigene Absätze): gleiche Begabung, unterschiedliche Moral – Spiegelthema Erzähler/Cem."
+   },
+   {
+    "tr": "Nörobilişsel Özgürlük Programı",
+    "meaning": "„Programm für neurokognitive Freiheit“ – Meralis-Programm, dessen Gesicht der Erzähler werden soll (in Anführungszeichen)."
+   },
+   {
+    "tr": "duyusal olarak uyarlanmış okullar",
+    "meaning": "Sensorisch angepasste Schulen – Teil des Angebots."
+   },
+   {
+    "tr": "MUHASEBECİ / GÖLGE / ŞÜPHECİ",
+    "meaning": "Die drei inneren Stimmen des Erzählers (Buchhalter / Schatten / Skeptiker), als fette Sprecherlabels mit kursiver Rede im Inset; aus Kap. 1 bekannt (Muhasebeci zählt). Namen konsistent übersetzen. Hier: „Wie vielen hilft dieses Geld? / Wie viele hören dir mit diesem Geld zu? / Warum klangen beide wie derselbe Satz?“"
+   },
+   {
+    "tr": "İş birliği. — Bu kelime, sözleşmelerde ‘itaat’ kelimesinin iyi giyinmiş hâlidir.",
+    "meaning": "„Zusammenarbeit. – Dieses Wort ist in Verträgen die gut gekleidete Form von ‚Gehorsam‘.“ – Wortspiel mit „iyi giyinmiş“ (gut angezogen), passend zu Cems Anzug."
+   },
+   {
+    "tr": "Bu yüzden sizi seçtik.",
+    "meaning": "„Deshalb haben wir Sie ausgewählt.“ – Cems erstes echtes Lachen."
+   },
+   {
+    "tr": "Hangi kitap?",
+    "meaning": "Cems Ausweichen auf die Frage nach dem schwarzen Buch; nur die Muskeln um seine Augen erstarren."
+   },
+   {
+    "tr": "İnsan davranışı, doğru veriyle sanıldığından daha az gizemlidir.",
+    "meaning": "Cems Credo: „Mit den richtigen Daten ist menschliches Verhalten weniger geheimnisvoll als angenommen.“"
+   },
+   {
+    "tr": "Tehdit mi? — Uyarı. — Farkı kim belirliyor? — Sonucun kime yaradığı.",
+    "meaning": "„Drohung? – Warnung. – Wer bestimmt den Unterschied? – Wem das Ergebnis nützt.“ – Schlagabtausch um die Umschläge."
+   },
+   {
+    "tr": "Beyefendi, herkes sizi susturmaya çalışmıyor. Bazıları daha yüksek sesle konuşmanızı istiyor.",
+    "meaning": "Cems Schlusssatz: „Nicht alle wollen Sie zum Schweigen bringen. Manche wollen, dass Sie lauter sprechen.“ – Echo auf „Bizi susturmak mı istiyorsunuz?“ aus Kap. 7."
+   },
+   {
+    "tr": "İyi olanları deli, kötü olanları lider diye tanıyacaksın.",
+    "meaning": "Kursives Zitat aus dem schwarzen Buch (aus früherem Kapitel): „Die Guten wirst du als Verrückte erkennen, die Bösen als Anführer.“ Wortlaut mit früherer Übersetzung abgleichen."
+   },
+   {
+    "tr": "lider / deli",
+    "meaning": "Anführer / Verrückter – Schlussreflexion: Cem sieht nicht verrückt aus; der Erzähler hört Enttäuschung in seiner eigenen Absage ans Führen."
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum, Gegenwartsebene; längstes und dialogreichstes Kapitel des Pakets. Register: gepflegt-förmliches Siezen in einem Corporate-Setting, kontrastiert mit sarkastischen Einwürfen des Erzählers und Nehirs juristischer Schärfe. Ideendebatte (Empathie, Daten, System vs. Mensch) in Stichomythie-artigen Kurzzeilen; dazwischen präzise Körper-/Mikroexpressionsbeobachtungen (Blickdauer, Augenmuskeln, zitternde Hand). Innere Stimmen als dramatisierter Inset mit fetten Sprecherlabels und kursiver Rede. Aphoristische Zweizeiler als Einzelabsätze; Kapitelschluss mit kursivem Buchzitat und leiser Selbstironie."
+ },
+ "paras": [
+  {
+   "pid": 758,
+   "style": "Heading 1",
+   "text": "<b>9. Bölgesel Bir İmparatorluk</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 759,
+   "style": "Opening",
+   "text": "Meralis binası Karaköy'de, eski bir bankanın restore edilmiş genel merkezindeydi. Dışarıdan bakınca tarihle sermayenin evlenip çocuklarına mimarlık ödülü aldığı bir yere benziyordu. Taş cephe korunmuş, içeriye cam asansörler, sessiz kapılar ve insana kendi ayakkabısından utanma hissi veren açık renk zeminler eklenmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 760,
+   "style": "Normal",
+   "text": "Cem'in davetiyle adlarımız ziyaretçi listesine önceden işlenmişti. Turnike yalnız toplantının yapılacağı kata geçiş verdi; kimlik kontrolü yapılmaması yine de tuhaftı. Ekranda yüzüm belirdi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 761,
+   "style": "Book Inset",
+   "text": "<b>HOŞ GELDİNİZ. SİZİ BEKLİYORDUK.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 762,
+   "style": "Normal",
+   "text": "“Yüz tanıma,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 763,
+   "style": "Normal",
+   "text": "Nehir tavandaki kameraya baktı. “Ya da telefon konumu. Etkilenmek için seçenek çok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 764,
+   "style": "Normal",
+   "text": "Cem bizi beşinci katta karşıladı. Otuzlarının ortasındaydı. Saçlarına erken düşen birkaç beyazı boyamamış, pahalı takım elbisesini ucuzmuş gibi taşıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 765,
+   "style": "Normal",
+   "text": "Elimi sıktığında gözlerime tam gerektiği kadar baktı. Bir saniye az baksa kaçınma, iki saniye fazla baksa hâkimiyet olurdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 766,
+   "style": "Normal",
+   "text": "“Başınız sağ olsun, Nehir Hanım,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 767,
+   "style": "Normal",
+   "text": "Nehir'in yüzü değişmedi. “Ablamı tanıyor muydunuz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 768,
+   "style": "Normal",
+   "text": "“Çalışmalarını biliyordum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 769,
+   "style": "Normal",
+   "text": "“Bu başka bir cevap.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 770,
+   "style": "Normal",
+   "text": "Cem gülümsedi. “Sizinle çalışmak anlatıldığı kadar zor olacak.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 771,
+   "style": "Normal",
+   "text": "“Bizi kim anlattı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 772,
+   "style": "Normal",
+   "text": "“Siz kendinizi yıllardır anlatıyorsunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 773,
+   "style": "Normal",
+   "text": "Toplantı odasının duvarında dünya haritası vardı. İstanbul, Berlin, Londra, Toronto, Nairobi, Singapur ve São Paulo'da kırmızı noktalar yanıyordu. Altında küçük harflerle şirket adları sıralanmıştı: eğitim analitiği, iş gücü dayanıklılığı, davranışsal sağlık, kriz iletişimi, veri güvenliği, sosyal etki yatırımları.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 774,
+   "style": "Normal",
+   "text": "“Bölgesel strateji direktörüyüm dediniz,” dedim. “Neyin bölgesi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 775,
+   "style": "Normal",
+   "text": "“Doğu Akdeniz ve Orta Avrupa.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 776,
+   "style": "Normal",
+   "text": "“Enstitü için fazla geniş.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 777,
+   "style": "Normal",
+   "text": "“Meralis bir enstitü değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 778,
+   "style": "Normal",
+   "text": "Cem duvardaki haritayı açtı. Kırmızı noktaların altında yüzlerce daha küçük ortaklık belirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 779,
+   "style": "Normal",
+   "text": "“Sağlık teknolojisi, eğitim, iş dünyası, kamu dayanıklılığı ve dijital güven alanlarında çalışan bir konsorsiyumuz. İnsanların farklı düşünme biçimlerini sisteme uyum sağlamaya zorlamak yerine sistemleri esnetmeyi amaçlıyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 780,
+   "style": "Normal",
+   "text": "“İnsanları sisteme uydurmak için kurulmuş bir yer, ‘sistemi esnetiyoruz’ dediğinde sandalyemi kontrol ederim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 781,
+   "style": "Normal",
+   "text": "Cem sandalyesine baktı. “Rahat değil mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 782,
+   "style": "Normal",
+   "text": "“Fazla rahat. Kaçmayı geciktirir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 783,
+   "style": "Normal",
+   "text": "Nehir masanın altında ayağıma dokundu. Bu, <i>sus</i> işareti değildi. <i>Hızını fark et</i> işaretiydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 784,
+   "style": "Normal",
+   "text": "Cem önümdeki ekrana bir dosya açtı. Konferans konuşmalarım, yazılarım, yardım kampanyalarım, insanlar üzerinde yarattığım etkiye dair grafikler vardı. Bir videomdan sonra yetişkin tanısı için başvuranların sayısı, başka bir konuşmamdan sonra çevrim içi gruplardaki duygu değişimi, hangi cümlelerimin hangi yaş grubunda daha çok paylaşıldığı ölçülmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 785,
+   "style": "Normal",
+   "text": "“Bunları hangi izinle topladınız?” diye sordu Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 786,
+   "style": "Normal",
+   "text": "“Kamuya açık veriler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 787,
+   "style": "Normal",
+   "text": "“Kamuya açık olması, sınırsız profil çıkarmaya izin vermez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 788,
+   "style": "Normal",
+   "text": "“Hukuk ekibimiz farklı düşünüyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 789,
+   "style": "Normal",
+   "text": "“Hukuk ekibinizin düşüncesi mahkeme kararı değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 790,
+   "style": "Normal",
+   "text": "Cem bana döndü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 791,
+   "style": "Normal",
+   "text": "“Videolarınızdan sonra çocuğuna başka gözle bakan aileler var. İşini değiştiren, destek arayan, kendisini ilk kez kusurlu hissetmeyen insanlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 792,
+   "style": "Normal",
+   "text": "“Benden daha çok takipçisi olan yüz kişi var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 793,
+   "style": "Normal",
+   "text": "“Erişimle etki aynı şey değil. Siz insanlara ne düşüneceklerini söylemiyorsunuz. Onların zaten düşündüğü fakat söyleyemediği şeyi dile getiriyorsunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 794,
+   "style": "Normal",
+   "text": "Bu tanım hoşuma gitti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 795,
+   "style": "Normal",
+   "text": "Sonra beni korkuttu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 796,
+   "style": "Normal",
+   "text": "Cem, toplantı odasının camını tek dokunuşla kararttı. Duvarda üç kısa görüntü açıldı. İlkinde bir sınıfta masanın altında oturan çocuk, ikincisinde açık ofiste kulaklarını kapatan genç bir kadın, üçüncüsünde ise iş görüşmesinde göz teması kurmayan bir mühendis vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 797,
+   "style": "Normal",
+   "text": "“Üçü de mevcut sistemlerinde sorun sayıldı,” dedi Cem. “Çocuğa davranış bozukluğu, kadına uyum eksikliği, mühendise iletişim yetersizliği yazıldı. Biz ortamı değiştirdik. Çocuğa sessiz alan, kadına yazılı iletişim, mühendise önceden soru listesi verdik. Üçünün de performansı yükseldi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 798,
+   "style": "Normal",
+   "text": "Görüntülerde sahte görünen bir şey yoktu. Tam tersine, yıllardır savunduğum desteği gösteriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 799,
+   "style": "Normal",
+   "text": "“Bunun nesi kötü?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 800,
+   "style": "Normal",
+   "text": "“Henüz hiçbir şeyi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 801,
+   "style": "Normal",
+   "text": "Cem başka bir dosya açtı. Aynı üç kişinin çalışma verileri, duygusal tepkileri, karar hızları ve sosyal bağları grafiklere dönüşmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 802,
+   "style": "Normal",
+   "text": "“Destek verdikten sonra ölçmüşsünüz,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 803,
+   "style": "Normal",
+   "text": "“Sonucun işe yarayıp yaramadığını nasıl anlayacağız?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 804,
+   "style": "Normal",
+   "text": "“İşe yarayan şeyle insan hakkında toplayabileceğiniz her şeyi birbirine karıştırmadan.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 805,
+   "style": "Normal",
+   "text": "“İnsan karmaşık bir sistemdir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 806,
+   "style": "Normal",
+   "text": "“İnsan sistem değildir,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 807,
+   "style": "Normal",
+   "text": "Cem bana baktı. “Bu cümleyi söyleyen siz, beş dakika önce odadaki herkesi sistem gibi okudunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 808,
+   "style": "Normal",
+   "text": "Haklı olduğu kısmı hemen gördüm. İnsanların hareketlerini örüntü diye topluyor, sonra bunu onları anlamak için yaptığımı söylüyordum. Cem de aynı fiili kullanıyordu: anlamak.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 809,
+   "style": "Normal",
+   "text": "Fark nerede başlıyordu?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 810,
+   "style": "Normal",
+   "text": "Kapı açıldı. Genç bir çalışan çay getirdi. Tepsiyi masaya koyarken sağ eli hafifçe titredi. Cem ona bakmadan, “Annenin sonucu iyi çıkacak,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 811,
+   "style": "Normal",
+   "text": "Kadın durdu. Yüzündeki profesyonel ifade bir anlığına dağıldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 812,
+   "style": "Normal",
+   "text": "“Nereden biliyorsunuz?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 813,
+   "style": "Normal",
+   "text": "“Bugün hastaneden arandın. Koridorda ‘iyi huylu’ kelimesini üç kez söyledin. Hâlâ inanamadığın için elin titriyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 814,
+   "style": "Normal",
+   "text": "Kadının gözleri doldu. “Teşekkür ederim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 815,
+   "style": "Normal",
+   "text": "Çıktığında Cem bana döndü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 816,
+   "style": "Normal",
+   "text": "“Siz de gördünüz mü?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 817,
+   "style": "Normal",
+   "text": "“Telefonunda hastane bilekliği olan bir fotoğraf açıktı,” dedim. “Ama sonucu duymadım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 818,
+   "style": "Normal",
+   "text": "“Ben duydum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 819,
+   "style": "Normal",
+   "text": "“Bunu herkesin önünde söylemeniz gerekmiyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 820,
+   "style": "Normal",
+   "text": "“Rahatladı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 821,
+   "style": "Normal",
+   "text": "“Ya paylaşmak istemiyorsa?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 822,
+   "style": "Normal",
+   "text": "“Teşekkür etti.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 823,
+   "style": "Normal",
+   "text": "“Siz onun adına sınırı geçip sonra rahatlamasını izin saydınız.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 824,
+   "style": "Normal",
+   "text": "Cem sandalyesine yaslandı. “Empati bazen kapıyı çalmadan girmektir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 825,
+   "style": "Normal",
+   "text": "“Hayır,” dedi Nehir. “O, hırsızlığın kendisini iyi hissettiren türü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 826,
+   "style": "Normal",
+   "text": "Cem'in yüzü kızmadı. Fakat az önceki sıcaklığı kapandı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 827,
+   "style": "Normal",
+   "text": "O an Cem'in bana benzeyen yanını daha açık gördüm. İkimiz de başkasının cümlesinden önce gelen işareti fark ediyorduk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 828,
+   "style": "Normal",
+   "text": "Yeteneklerimiz aynı kapıyı bulabilirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 829,
+   "style": "Normal",
+   "text": "Ahlakımız kapıdan nasıl gireceğimizi belirliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 830,
+   "style": "Normal",
+   "text": "Cem, bana Meralis'in “Nörobilişsel Özgürlük Programı”nın yüzü olmayı teklif etti. Araştırma bütçesi, bağımsız yayın fonu, farklı ülkelerde merkezler, çocuklar için duyusal olarak uyarlanmış okullar. Rakamı görünce Muhasebeci içimde ayağa kalktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 831,
+   "style": "Book Inset",
+   "text": "<b>MUHASEBECİ:</b> <i>Bu parayla kaç kişiye yardım edilir?</i>",
+   "keep": false,
+   "image": false,
+   "label": "MUHASEBECİ",
+   "constraint": null
+  },
+  {
+   "pid": 832,
+   "style": "Book Inset",
+   "text": "<b>GÖLGE:</b> <i>Bu parayla kaç kişi seni dinler?</i>",
+   "keep": false,
+   "image": false,
+   "label": "GÖLGE",
+   "constraint": null
+  },
+  {
+   "pid": 833,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Neden ikisi aynı cümle gibi geldi?</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 834,
+   "style": "Normal",
+   "text": "“Karşılığında ne istiyorsunuz?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 835,
+   "style": "Normal",
+   "text": "“İş birliği.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 836,
+   "style": "Normal",
+   "text": "“Bu kelime, sözleşmelerde ‘itaat’ kelimesinin iyi giyinmiş hâlidir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 837,
+   "style": "Normal",
+   "text": "Cem ilk kez gerçekten güldü. “Bu yüzden sizi seçtik.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 838,
+   "style": "Normal",
+   "text": "“Siyah kitabı siz mi gönderdiniz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 839,
+   "style": "Normal",
+   "text": "Gülümsemesi kaybolmadı. Yalnız gözlerinin çevresindeki kaslar durdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 840,
+   "style": "Normal",
+   "text": "“Hangi kitap?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 841,
+   "style": "Normal",
+   "text": "“Cümleyi biliyordunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 842,
+   "style": "Normal",
+   "text": "“Siz söylediniz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 843,
+   "style": "Normal",
+   "text": "“Ben söylemeden önce biliyordunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 844,
+   "style": "Normal",
+   "text": "“İnsan davranışı, doğru veriyle sanıldığından daha az gizemlidir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 845,
+   "style": "Normal",
+   "text": "“Çocuklarımın zarfları da veri mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 846,
+   "style": "Normal",
+   "text": "Bu kez iki saniye sustu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 847,
+   "style": "Normal",
+   "text": "“Onları daha güvenli yere kaldırdınız mı?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 848,
+   "style": "Normal",
+   "text": "Nehir öne eğildi. “Bu bir tehdit mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 849,
+   "style": "Normal",
+   "text": "“Uyarı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 850,
+   "style": "Normal",
+   "text": "“Farkı kim belirliyor?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 851,
+   "style": "Normal",
+   "text": "“Sonucun kime yaradığı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 852,
+   "style": "Normal",
+   "text": "Görüşme bittiğinde teklif dosyasını almadım. Cem ısrar etmedi. Asansöre yürürken arkamızdan konuştu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 853,
+   "style": "Normal",
+   "text": "“Beyefendi, herkes sizi susturmaya çalışmıyor. Bazıları daha yüksek sesle konuşmanızı istiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 854,
+   "style": "Normal",
+   "text": "Asansör kapısı kapanırken kendi yansımama baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 855,
+   "style": "Normal",
+   "text": "Siyah kitabın cümlesi aklıma geldi: <i>İyi olanları deli, kötü olanları lider diye tanıyacaksın.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 856,
+   "style": "Normal",
+   "text": "Cem, deliye benzemiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 857,
+   "style": "Normal",
+   "text": "Ben de lider olmak istemediğimi söylerken sesimin neden hayal kırıklığı taşıdığını bilmiyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

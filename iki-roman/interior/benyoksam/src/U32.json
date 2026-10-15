@@ -1,0 +1,807 @@
+{
+ "uid": "U32",
+ "title": "36. İki Ayrı Gelecek",
+ "number": 36,
+ "words": 910,
+ "constraints": {
+  "uid": "U32",
+  "number": 36,
+  "title": "36. İki Ayrı Gelecek",
+  "title_letter": null,
+  "marks": [],
+  "knots": [
+   "A"
+  ],
+  "images": [],
+  "book_part": null,
+  "words": 910
+ },
+ "synopsis": {
+  "uid": "U32",
+  "title": "36. İki Ayrı Gelecek",
+  "summary": "Gegenwartsebene, direkt nach dem Wiederfinden von Duru in der Werkstatt/dem alten Uhrmacherladen des Vaters. Der Ich-Erzähler (Adem, der Vater) und Zeynep informieren Nehir; Emir wird bei der Nachbarin untergebracht. Die Polizei stellt fest: kein Einbruch, das Schloss der Hintertür wurde neu gesetzt, die Kameras wurden durch einen angeblichen Gemeindeauftrag eines Meralis-Subunternehmers lahmgelegt – Meralis hat Duru nicht entführt, sondern ihre Neugier und Kränkung gelenkt. Im Hinterzimmer unter der Lupenlampe des Vaters konfrontiert der Erzähler Nehir: Sie gesteht, dass die Festplatte Cem gehörte, Leyla sie von Cem gestohlen und per Kurier an Nehir geschickt hatte; Cem war Leylas Quelle (Beruhigungsprotokoll von Meralis). In der verschlüsselten Vorschau sah Nehir zwei Tage vor Leylas Tod, dass Leyla selbst als „Anwendungsziel“ auf einer Liste von 19 Personen stand, warnte sie aber nur halb („Henüz kesin bir şey yok“), um die Quelle zu schützen. Der Erzähler sagt „Şimdilik güvenemiyorum“ – er schließt die Tür nicht, zeigt nur, wo sie ist. Tarık findet im Einband des weißen Buchs einen Speicherstreifen mit dem Operationsordner FETİH (Akronym, fünf Stufen), der für den Erzähler zwei Zukünfte vorbereitet: öffentliche Zerstörung als Sektenführer oder eine vorformulierte Todesmeldung. Dann kommt von anonymem Konto ein Screenshot dieser Meldung mit einem Familienfoto, das Minuten zuvor aus dem Inneren des Ladens aufgenommen wurde – obwohl niemand sonst da war. Außerdem findet der Erzähler eine rote Schnur in der Manteltasche; Duru widerspricht seiner Erinnerung an die Krankenhausschnur von vor drei Jahren; die Schnur wird als Beweis in einen Umschlag gelegt.",
+  "characters": [
+   "Ich-Erzähler (Adem, Vater von Duru und Emir, Schriftsteller mit Gedächtnislücken; Sohn des verstorbenen Uhrmachers)",
+   "Duru (Tochter des Erzählers, Teenager, wurde gerade wiedergefunden; klar und widerständig)",
+   "Emir (jüngerer Sohn, wird bei der Nachbarin untergebracht)",
+   "Zeynep (Partnerin/Ehefrau des Erzählers, Mutter von Duru und Emir)",
+   "Nehir (Schwester der toten Leyla, Journalistin; hat die Festplatte kopiert; vertrauensbelastet)",
+   "Leyla (verstorben, Schwester Nehirs, ehemalige Patientin/Zielperson von Meralis; Rückblende)",
+   "Cem (Leylas Quelle, arbeitet „für sich selbst“, hat die Gruppe gelenkt statt getötet)",
+   "Tarık (Technik-/Forensikspezialist der Gruppe, analysiert Disk und Speicherstreifen offline)",
+   "Polizei (anonyme Beamte, prüfen den Laden)",
+   "Komşu (Nachbarin, nimmt Emir auf)",
+   "Vater des Erzählers (verstorbener Uhrmacher; Lupenlampe)",
+   "Meralis (Konzern/Klinik, Antagonist; Subunternehmer)",
+   "Sessiz Ses (innere Stimme, erscheint nur im prev_tail, nicht in dieser Unit)"
+  ],
+  "terms": [
+   {
+    "tr": "İki Ayrı Gelecek",
+    "meaning": "Kapiteltitel: „Zwei getrennte Zukünfte“ – die zwei von Meralis vorbereiteten Szenarien für den Erzähler (Rufmord oder Todesmeldung)."
+   },
+   {
+    "tr": "Meralis / Meralis İstanbul",
+    "meaning": "Antagonistischer Konzern/Klinik; manipuliert, kauft Subunternehmer (taşeron), hat Beruhigungsprotokolle (sakinleştirici protokolü) an Patienten getestet. Eigenname, nicht übersetzen."
+   },
+   {
+    "tr": "taşeron",
+    "meaning": "Subunternehmer; einer von drei Meralis-Subunternehmern hat die Kamera-Abschaltung als Gemeindearbeit (belediye çalışması) getarnt."
+   },
+   {
+    "tr": "dükkân",
+    "meaning": "Der alte Uhrmacherladen des Vaters, Schauplatz; mit arka oda (Hinterzimmer), arka kapı (Hintertür), paspas (Fußmatte)."
+   },
+   {
+    "tr": "büyüteç lambası",
+    "meaning": "Lupenlampe des Vaters (Messing/pirinç, gelbes Licht); wiederkehrendes Objekt, in U33 als versteckte Kamera enthüllt."
+   },
+   {
+    "tr": "disk",
+    "meaning": "Die Festplatte mit Meralis-Aufzeichnungen; gehörte Cem, von Leyla gestohlen, an Nehir per kurye zarfı (Kurierumschlag) geschickt, von Nehir an Cem zurückgegeben (Hintertür-Szene auf Video)."
+   },
+   {
+    "tr": "Gözlemci değil. Uygulama hedefi.",
+    "meaning": "„Keine Beobachterin. Anwendungsziel.“ – Leylas Status auf der Liste: sie war Versuchsobjekt des Protokolls, nicht Zeugin."
+   },
+   {
+    "tr": "Henüz kesin bir şey yok",
+    "meaning": "„Noch nichts Sicheres“ – Nehirs beschwichtigender Zusatz in der Warnnachricht an Leyla; zentraler Schuldsatz."
+   },
+   {
+    "tr": "on dokuz kişi / yirminci",
+    "meaning": "19 Personen auf der Zielliste (Gesundheitsdaten, Adressen), Leyla als „die Zwanzigste“, die Nehir nur unvollständig warnte."
+   },
+   {
+    "tr": "Kaynağı aç demedim. Ablanı ara dedim.",
+    "meaning": "„Ich sagte nicht: Enthülle die Quelle. Ich sagte: Ruf deine Schwester an.“ Abla = ältere Schwester (Leyla ist Nehirs ältere Schwester)."
+   },
+   {
+    "tr": "Şimdilik güvenemiyorum",
+    "meaning": "„Vorerst kann ich dir nicht vertrauen“ – bewusste Abgrenzung von „Sana güvenemiyorum“; Motiv der Tür, deren Ort gezeigt, aber nicht geschlossen wird (Anschluss an SESSİZ SES im prev_tail: Hayır … kapının nerede olduğunu söyleyen çizgidir)."
+   },
+   {
+    "tr": "beyaz kitap",
+    "meaning": "Das weiße Buch (einzelnes Exemplar, Handschrift des Erzählers, Randnotizen); im Einband ein bellek şeridi (hauchdünner Speicherstreifen)."
+   },
+   {
+    "tr": "FETİH",
+    "meaning": "Akronym des Operationsordners: Fark et (erkennen), Etiketle (etikettieren), Tecrit et (isolieren), İkame et (ersetzen), Harekete geçir (zum Handeln treiben). Zugleich „Eroberung“ – Anspielung auf 1453/Fetih im Buchtitel. Die Anfangsbuchstaben müssen in der Übersetzung ein Akronym ergeben oder mit Glossierung erhalten bleiben; İ mit Punkt beachten."
+   },
+   {
+    "tr": "uyanmış melekler",
+    "meaning": "„Erwachte Engel“ – Begriff aus den Randnotizen des weißen Buchs (nicht von Meralis): Menschen, die trotz weltlicher Belohnungen die Freiheit anderer wählen; keine biologische Überlegenheit."
+   },
+   {
+    "tr": "yedi ayrı görüntü",
+    "meaning": "Sieben gefälschte Videoaufnahmen des Erzählers (frühere Kapitel), Basis für die geplante Fake-Organisation/Manifest."
+   },
+   {
+    "tr": "tarikat lideri",
+    "meaning": "Sektenführer – geplantes öffentliches Bild des Erzählers in Zukunft 1."
+   },
+   {
+    "tr": "Tartışmalı konuşmalarıyla tanınan yazar, evinde ölü bulundu…",
+    "meaning": "Vorformulierte Todesmeldung (Zukunft 2), Pressestil; Datum leer; später als Screenshot mit Familienfoto zugeschickt."
+   },
+   {
+    "tr": "kırmızı ip",
+    "meaning": "Rote Schnur – wiederkehrendes Objekt: einst am Krankenhausstuhl (vor drei Jahren), an der Türklinke, jetzt feucht um die Schlüssel in der Manteltasche; Knoten mit zwei gleich langen Enden. Erinnerungsunsicherheit."
+   },
+   {
+    "tr": "Üç yıllık anı, bir yıllık cebe sığmaya çalışıyordu",
+    "meaning": "Bild: eine drei Jahre alte Erinnerung passt nicht in eine ein Jahr alte Tasche (Mantel letzten Winter gekauft) – Hinweis auf manipulierte/unzuverlässige Erinnerung."
+   },
+   {
+    "tr": "Kolay olanı gerçek sanmamaya çalıştım",
+    "meaning": "„Ich versuchte, das Leichte nicht für das Wahre zu halten“ – Leitsatz des Erzählers gegen voreilige Verknüpfung."
+   },
+   {
+    "tr": "Book Inset",
+    "meaning": "Stil für eingerückte Dokument-/Zitatblöcke (FETİH-Liste, Todesmeldung); fett setzen wie im Original."
+   }
+  ],
+  "tone": "Ich-Erzählung im Präteritum (Vergangenheitsform, türk. -di/-mişti), nüchtern, knappe Dialogwechsel in kurzen Zeilen, dazwischen aphoristische Reflexionssätze (z. B. „haklı öfke, her vurduğu yeri haklı yapmaz“). Verhörartige Frage-Antwort-Sequenz zwischen Erzähler und Nehir; Dialog ohne Inquit-Formeln. Eingebettete Dokumentblöcke (Akronymliste, Nachrichtenmeldung) in Fett. Thriller-Spannung am Ende (Foto aus dem Inneren des Raums), gepaart mit Unzuverlässigkeits-Motiv des Gedächtnisses."
+ },
+ "paras": [
+  {
+   "pid": 2459,
+   "style": "Heading 1",
+   "text": "<b>36. İki Ayrı Gelecek</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2460,
+   "style": "Opening",
+   "text": "Duru'yu bulduğumuzu Nehir'e söyledik. Duru, Emir'le konuşup iyi olduğunu anlattı; o da bu kez komşuda kalmayı kabul etti. Zeynep komşumuzu aradı. Nehir, Emir'i ona teslim ettikten sonra yanımıza geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2461,
+   "style": "Normal",
+   "text": "Polis o gelmeden önce dükkânı kontrol etmişti. Zorla giriş izi yoktu. Arka kapının kilidi yeni değiştirilmiş, anahtar paspasın altına bırakılmıştı. Kameralar o sabah belediye çalışması gibi görünen bir işlemle devre dışı kalmıştı. İş emrini açan şirket, Meralis'in üç taşeronundan birine aitti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2462,
+   "style": "Normal",
+   "text": "Meralis Duru'yu kaçırmamıştı. Daha etkili bir şey yapmıştı: Onun merakını, öfkesini ve babasına duyduğu kırgınlığı aynı yöne çevirmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2463,
+   "style": "Normal",
+   "text": "Nehir'le arka odada konuştuk. Babamın eski büyüteç lambası ikimizin arasında duruyordu. Sarı ışık yüzündeki yorgunluğu büyütüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2464,
+   "style": "Normal",
+   "text": "“Diski neden Cem'e verdin?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2465,
+   "style": "Normal",
+   "text": "“Çünkü disk onundu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2466,
+   "style": "Normal",
+   "text": "“Leyla'nın adı yazıyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2467,
+   "style": "Normal",
+   "text": "“Leyla, Cem'den çalmıştı. Sonra bana gönderdi. İçindeki kayıtları kopyalamamı ve aslı iade etmemi söyledi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2468,
+   "style": "Normal",
+   "text": "“Görüntüde masadan alıyordun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2469,
+   "style": "Normal",
+   "text": "“O masaya gitmedim. Disk bana kurye zarfında geldi. Arka kapıda Cem'e verdiğim bölüm gerçek.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2470,
+   "style": "Normal",
+   "text": "Telefonunda teslim fotoğrafını açtı. Zarfın köşesi yırtılmış, barkodun bir kısmı kat yerinde kalmıştı. Leyla'nın ölümünden önceki gündü. Sonra bilgisayarına kopyaladığı dosyaların listesini gösterdi. Tarık'ın bunları ayrıca incelemesi gerekecekti; fakat ekrandaki tek tarihin iki ayrı olayın yerine konduğunu artık görebiliyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2471,
+   "style": "Normal",
+   "text": "“Niye o anda söylemedin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2472,
+   "style": "Normal",
+   "text": "“Çünkü sahte kısmı anlatırken gerçek kısmından kaçtığımı düşünecektin. Sonra tam olarak bunu yaptım. Sustukça daha da kötü oldu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2473,
+   "style": "Normal",
+   "text": "“Bunu neden sakladın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2474,
+   "style": "Normal",
+   "text": "“Cem, Leyla'nın kaynağıydı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2475,
+   "style": "Normal",
+   "text": "Odayı yeniden değerlendirdim. Nehir'in her sustuğu anı, her yarım cümlesini, Cem'in bizi öldürmek yerine yönlendirdiği zamanları.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2476,
+   "style": "Normal",
+   "text": "“Cem sizinle mi çalışıyordu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2477,
+   "style": "Normal",
+   "text": "“Kendisiyle çalışıyordu. Bazen çıkarımız aynı yere düşüyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2478,
+   "style": "Normal",
+   "text": "Nehir, Leyla'nın ölümünden bir hafta önce aldığı şifreli mesajları gösterdi. Leyla, Meralis'in bazı hastalarda kullandığı sakinleştirici protokolünün kayıtlarını istemişti. Cem dosyaları vermiş, karşılığında kaynağının korunmasını şart koşmuştu. Nehir diski kopyalamış; fakat kimliklerin bulunduğu bir bölümü haber dosyasına eklememişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2479,
+   "style": "Normal",
+   "text": "“O bölümde Leyla'nın adı da vardı,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2480,
+   "style": "Normal",
+   "text": "“Ne olarak?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2481,
+   "style": "Normal",
+   "text": "“Gözlemci değil. Uygulama hedefi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2482,
+   "style": "Normal",
+   "text": "“Bunu ne zaman gördün?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2483,
+   "style": "Normal",
+   "text": "“Ölmeden iki gün önce. Disk gelmeden, Cem'in yolladığı şifreli ön izlemede.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2484,
+   "style": "Normal",
+   "text": "“Ona söyledin mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2485,
+   "style": "Normal",
+   "text": "Nehir gözlerini kapattı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2486,
+   "style": "Normal",
+   "text": "“Adının o listede olduğunu söylemedim. Eve yalnız gitme, klinikten gelen her şeyi yeniden kontrol et diye yazdım. O da reçetesindeki tuhaflığı zaten gördüğünü söyledi. İlacı bırakmıştı; kendi hekimine ulaşacaktı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2487,
+   "style": "Normal",
+   "text": "“Sen?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2488,
+   "style": "Normal",
+   "text": "“Mesajın sonuna ‘Henüz kesin bir şey yok’ ekledim. Dosyayı doğrulamayı bekliyordum. O cümleyi beni dinlesin diye yazdım. Rahatlasın diye. Ne kadar saçma olduğunu şimdi duyuyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2489,
+   "style": "Normal",
+   "text": "“Doğruysa iki gün kaybettin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2490,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2491,
+   "style": "Normal",
+   "text": "“Polise gitseydin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2492,
+   "style": "Normal",
+   "text": "“Belki yaşardı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2493,
+   "style": "Normal",
+   "text": "“Bana söyleseydin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2494,
+   "style": "Normal",
+   "text": "“Belki.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2495,
+   "style": "Normal",
+   "text": "“O listeyi yayımlamadan da ona hedef olduğunu söyleyebilirdin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2496,
+   "style": "Normal",
+   "text": "Nehir'in sesi sertleşti. “On dokuz kişinin sağlık kaydı, adresi ve yasa dışı ilaç geçmişi vardı. Kaynağı açarsam—”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2497,
+   "style": "Normal",
+   "text": "“Kaynağı aç demedim. Ablanı ara dedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2498,
+   "style": "Normal",
+   "text": "Elindeki telefonu masaya koydu. Ekrandaki mesajı kapatmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2499,
+   "style": "Normal",
+   "text": "“Evet,” dedi. “Arayabilirdim. Yanına da gidebilirdim. On dokuz kişiyi korumak zorundaydım. Bu, yirminciyi eksik uyarmamı gerektirmiyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2500,
+   "style": "Normal",
+   "text": "Öfkem haklıydı. Ama haklı öfke, her vurduğu yeri haklı yapmaz. Nehir bir karar vermiş, kararın bedeli korkunç olmuştu. Bu, onun Leyla'yı öldürdüğü anlamına gelmiyordu. Yine de benden gerçeği saklamıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2501,
+   "style": "Normal",
+   "text": "“Sana güvenemiyorum,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2502,
+   "style": "Normal",
+   "text": "“Anlıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2503,
+   "style": "Normal",
+   "text": "“Hayır. Şimdilik güvenemiyorum. Bu aynı şey değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2504,
+   "style": "Normal",
+   "text": "Nehir başını kaldırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2505,
+   "style": "Normal",
+   "text": "Aramızdaki kapıyı kapatmamıştım. Yalnız yerini göstermiştim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2506,
+   "style": "Normal",
+   "text": "Nehir masanın öteki tarafına geçti. Az önce bana bakarken gördüğü adamın kim olduğunu merak ettim. Sorsam belki söylerdi. Söylediğini kendi yüzümün yerine koyacak, sonra bir daha değişmemesini bekleyecektim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2507,
+   "style": "Normal",
+   "text": "Sormadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2508,
+   "style": "Normal",
+   "text": "Camda yansımamız vardı. Nehir kıpırdayınca benim yüzümün üstünden çekildi. İlk kez, birinin beni görmeyi bırakmasının beni yok etmediğini düşünürken de korktum. Çünkü bu kez kim olduğumu onun bakışıyla tamamlayamayacaktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2509,
+   "style": "Normal",
+   "text": "Tarık, beyaz kitabın kapağında çok ince bir bellek şeridi buldu. İçinde <b>FETİH</b> adlı bir operasyon klasörü vardı. Sözcüğün her harfi bir aşamayı gösteriyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2510,
+   "style": "Book Inset",
+   "text": "<b>F</b>ark et — etkili kişileri belirle.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2511,
+   "style": "Book Inset",
+   "text": "<b>E</b>tiketle — davranışı kimliğe çevir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2512,
+   "style": "Book Inset",
+   "text": "<b>T</b>ecrit et — güvenilir ilişkileri parçala.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2513,
+   "style": "Book Inset",
+   "text": "<b>İ</b>kame et — yerine kontrollü bir anlatı koy.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2514,
+   "style": "Book Inset",
+   "text": "<b>H</b>arekete geçir — hedefi kendi itibarını yok edecek eyleme yönelt.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2515,
+   "style": "Normal",
+   "text": "Dosyadaki hedef tek kişi değildi. Öğretmenler, sanatçılar, mühendisler, ebeveyn grupları, travma sonrası algısı keskinleşen insanlar, tanı almış veya almamış yüzlerce kişi vardı. Meralis onları “uyanmış melekler” diye adlandırmıyordu. Bu söz beyaz kitabın kenar notlarında geçiyordu ve biyolojik bir üstünlüğü değil, dünyanın ödüllerine rağmen başkasının özgürlüğünü seçebilen insanı tarif ediyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2516,
+   "style": "Normal",
+   "text": "FETİH klasöründe benim için iki ayrı gelecek hazırlanmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2517,
+   "style": "Normal",
+   "text": "Birinci dosyada, yedi ayrı görüntümden sonra kuracağım sözde örgütün manifestosu, para transferleri ve şiddet çağrıları vardı. Beni canlı bırakıp herkesin önünde yalancı, tarikat lideri ve çocuklarını tehlikeye atan bir baba yapacaklardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2518,
+   "style": "Normal",
+   "text": "İkinci dosyada ölüm haberim yazılmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2519,
+   "style": "Book Inset",
+   "text": "<b>Tartışmalı konuşmalarıyla tanınan yazar, evinde ölü bulundu. İlk bulgular, uzun süredir yaşadığı psikolojik sorunlara işaret ediyor.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2520,
+   "style": "Normal",
+   "text": "Tarih bölümü boştu. Tarık'ın çevrim dışı açtığı bellek şeridindeki taslak burada bitiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2521,
+   "style": "Normal",
+   "text": "Sonra telefonuma isimsiz bir hesaptan aynı haberin ekran görüntüsü geldi. Bu kez altına bir aile fotoğrafı eklenmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2522,
+   "style": "Normal",
+   "text": "Fotoğraf daha birkaç dakika önce çekilmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2523,
+   "style": "Normal",
+   "text": "Fotoğrafta Duru, beyaz kitabın başında oturuyordu. Zeynep yanında, ben karşısında ayaktaydım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2524,
+   "style": "Normal",
+   "text": "Fotoğrafın çekildiği açı, dükkânın içindendi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2525,
+   "style": "Normal",
+   "text": "Arka odada bizden başka kimse yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2526,
+   "style": "Normal",
+   "text": "Telefonumu aramak için elimi montumun cebine soktum. Anahtarlara ince bir kırmızı ip dolanmıştı. Islanmış, sonra avucumun içinde kurumaya başlamıştı. Kapı kolundaki ipe benziyordu. Düğümün iki ucu aynı uzunluktaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2527,
+   "style": "Normal",
+   "text": "Avucuma baktım. Onu çözdüğümü hatırlamıyordum. Zeynep de aldığımı görmemişti. Bir an, yıllar önce hastane sandalyesinden aldığımı sandığım ipe dokunduğumu hissettim. Montu geçen kış satın almıştım. Üç yıllık anı, bir yıllık cebe sığmaya çalışıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BENI_ARAMA",
+    "index": 6,
+    "n": 9
+   }
+  },
+  {
+   "pid": 2528,
+   "style": "Normal",
+   "text": "“Hastanedeki ipi hatırlıyor musun?” diye sordum Duru'ya.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2529,
+   "style": "Normal",
+   "text": "“Kolumuza takmaya çalıştığın şeyi mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2530,
+   "style": "Normal",
+   "text": "“Cebime koymuştum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2531,
+   "style": "Normal",
+   "text": "“Hayır. Çıkarken sandalyedeydi. Ben sana başkasının eşyasını alma demiştim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2532,
+   "style": "Normal",
+   "text": "O cümleyi hatırlamadım. Duru da ipin renginden tam emin değildi. İkimizden birinin belleğini ötekinin üstüne mühürleyemezdim. Zeynep, dükkânın kapısını içeri girmeden çektiği görüntüyü açtı. Kayıt ip bağlıyken bitiyordu. Sonraki fotoğrafta kol boştu; aradaki an elimizde yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2533,
+   "style": "Normal",
+   "text": "İpi bir zarfa koyup bulunduğu yeri yazdık. İki olayın arasını aynı renkle doldurmak çok kolaydı. Kolay olanı gerçek sanmamaya çalıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

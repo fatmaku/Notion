@@ -1,0 +1,644 @@
+{
+ "uid": "U15",
+ "title": "16. Görmek ile Yetişmek Arasındaki Mesafe",
+ "number": 16,
+ "words": 578,
+ "constraints": {
+  "uid": "U15",
+  "number": 16,
+  "title": "16. Görmek ile Yetişmek Arasındaki Mesafe",
+  "title_letter": null,
+  "marks": [],
+  "knots": [
+   "A"
+  ],
+  "images": [],
+  "book_part": null,
+  "words": 578
+ },
+ "synopsis": {
+  "uid": "U15",
+  "title": "16. Görmek ile Yetişmek Arasındaki Mesafe",
+  "summary": "Unmittelbare Fortsetzung von U14 in der Werkstatt. Der Atem gehört einem Mann über siebzig im grauen Mantel: schmales Gesicht, weißer Bart, alte Narbe über der linken Augenbraue, in der Hand ein schwarzes Buch wie das des Erzählers. Nehir befiehlt ihm ruhig, das Buch abzulegen ('Polis yolda'); es folgt ein knapper, aphoristischer Schlagabtausch ('Açıklama, yanlış kişiye verilirse delildir'). Die inneren Stimmen streiten, ob er eine Waffe hält; am rechten Handgelenk trägt er einen dünnen roten Faden mit gleich langen Knotenenden. Unter dem Buch liegt keine Waffe, sondern ein Kassettenrekorder: sieben gleichzeitige Geräusche (Türklopfen, Glasbruch, Schritte) fluten den Raum. Der Erzähler erstarrt in einer sensorischen Überlastung (alle Sender zugleich offen), kann nicht laufen; Nehir verfolgt den Mann, verliert ihn an der Ecke. Zurück findet sie den Erzähler kauernd, stellt nicht 'Geht es dir gut?', sondern 'Licht oder Ton?', schaltet Rekorder und Neonlicht aus und führt eine Erdungsübung durch (fünf Dinge sehen, vier berühren); Humor ('Gururum' / 'Gururuna dokunamazsın') löst die Überlastung. Nehir deutet den Plan: Er hat dich mit Ton gestoppt und mich von dir getrennt – Begabung und ihr Preis in derselben Akte. Selin, Eigentümer und Notar kommen; Spurensicherung in sechs Minuten; nach Eintreffen des Durchsuchungsbefehls wandert das zurückgelassene Buch in eine Beweistüte. Vor der Kamera geöffnet: leere Seiten, in der Mitte ein Satz 'Kitabın sana ait olan sayfasını bul. Başkasının teorisinde kahraman olma.', darunter ein 'Y' – Yusuf. Der Erzähler erinnert sich nicht an ihn, aber Yusuf kennt ihn. Eingangs wird klargestellt, dass Nehir das 'zweite Buch' nie erhalten hat.",
+  "characters": [
+   "Ich-Erzähler (Adem; sensorische Überlastung/Shutdown, kann nicht hinterherlaufen)",
+   "Nehir (handelt entschlossen, verfolgt den Mann, führt Grounding-Übung durch)",
+   "Gri paltolu adam / Yusuf (Yusuf Vural, >70, weißer Bart, Narbe über linker Braue, roter Faden am rechten Handgelenk; hinterlässt Buch mit 'Y')",
+   "Selin (Anwältin; dokumentiert Uhrzeit, Zeugen, Hintertür; schimpft erst nach den Formalitäten)",
+   "Mülk sahibi und Noterlik görevlisi (Eigentümer, Notarsgehilfe)",
+   "Olay yeri ekibi / savcı (Spurensicherung, Staatsanwalt – Institutionen)",
+   "Duman (Hund, unter einem Auto während der Übung gesehen)",
+   "simitçi (Simit-Verkäufer gegenüber, Nebendetail)",
+   "Innere Stimmen: AVCI, TOPLAYICI, ŞÜPHECİ, MUHASEBECİ, İÇİMDEKİ ÇOCUK"
+  ],
+  "terms": [
+   {
+    "tr": "Görmek ile Yetişmek Arasındaki Mesafe",
+    "meaning": "Kapiteltitel: 'Die Distanz zwischen Sehen und Hinkommen/Einholen' – yetişmek = rechtzeitig erreichen, aufholen; Erzähler sieht den Fliehenden, kann aber nicht folgen"
+   },
+   {
+    "tr": "gri paltolu adam",
+    "meaning": "'der Mann im grauen Mantel' – Bezeichnung für Yusuf, bevor sein Name fällt; konsistent halten"
+   },
+   {
+    "tr": "Seni daha yavaş bulacaklarını sanmıştım",
+    "meaning": "Yusuf: 'Ich dachte, sie würden dich langsamer finden' – impliziert Dritte, die den Erzähler suchen"
+   },
+   {
+    "tr": "Açıklama, yanlış kişiye verilirse delildir. / Doğru kişiye verilirse? / Yine delildir.",
+    "meaning": "Aphoristischer Dialog: 'Eine Erklärung ist Beweis, wenn sie der falschen Person gegeben wird. – Und der richtigen? – Auch dann.'"
+   },
+   {
+    "tr": "Bu atölyede isimler uzun süre kalmaz / Klişe cümleler daha mı dayanıklı?",
+    "meaning": "'In dieser Werkstatt bleiben Namen nicht lange' – Erzähler kontert: 'Sind Klischeesätze haltbarer?' – ironische Selbstreflexion des Genres"
+   },
+   {
+    "tr": "kırmızı ip; Düğümün iki ucu aynı uzunluktaydı",
+    "meaning": "roter Faden am rechten Handgelenk; 'die beiden Knotenenden waren gleich lang' – im Quelltext als FIXED markiert: Wortlaut/Detail muss exakt erhalten bleiben; Verbindung zum roten Faden im schwarzen Buch (U14)"
+   },
+   {
+    "tr": "kasetçalar",
+    "meaning": "Kassettenrekorder unter dem Buch; spielt sieben Geräusche gleichzeitig ab – Werkzeug der sensorischen Falle"
+   },
+   {
+    "tr": "yedi ayrı ses",
+    "meaning": "sieben verschiedene Geräusche – Zahl sieben wiederkehrend"
+   },
+   {
+    "tr": "dünyanın ses ayarını kaybetmiş bir radyo; bütün istasyonlar aynı anda açıktı",
+    "meaning": "Bild für sensorische Überlastung: 'ein Radio, das die Senderabstimmung verloren hat; alle Sender gleichzeitig offen'"
+   },
+   {
+    "tr": "çok iyi duyuyor / İyi kelimesi yanlıştı",
+    "meaning": "'er hört sehr gut' – Erzähler: 'gut' ist das falsche Wort; gutes Hören = auswählen können (Neurodivergenz-Thema)"
+   },
+   {
+    "tr": "bedenim taş kesildi",
+    "meaning": "'mein Körper wurde zu Stein' – Freeze-Reaktion, nicht Ohnmacht"
+   },
+   {
+    "tr": "AVCI / TOPLAYICI / ŞÜPHECİ / MUHASEBECİ / İÇİMDEKİ ÇOCUK",
+    "meaning": "innere Stimmen: Jäger / Sammler / Skeptiker / Buchhalter / das Kind in mir – Labels konsistent zu früheren Paketen; 'Avcı bedenimde öne doğru eğildi' = die Jäger-Stimme als Körperimpuls"
+   },
+   {
+    "tr": "İkiniz de insan anatomisini internetten öğrendiniz",
+    "meaning": "ŞÜPHECİ: 'Ihr beide habt menschliche Anatomie aus dem Internet gelernt' – Humor der Skeptikerstimme"
+   },
+   {
+    "tr": "Işık mı, ses mi?",
+    "meaning": "Nehir: 'Licht oder Ton?' – statt 'Geht es dir gut?'; zeigt ihre Vertrautheit mit seiner Überlastung"
+   },
+   {
+    "tr": "Beş şey söyle. Gördüğün. / Dört şey. Dokunduğun.",
+    "meaning": "5-4-3-2-1-Grounding-Technik (fünf Dinge sehen, vier berühren); Erzähler: 'Bu yöntem internette var' – Nehir: 'Şu an internet sensin' ('Gerade bist du das Internet')"
+   },
+   {
+    "tr": "Duvar. Montum. Dizim. Gururum. / Gururuna dokunamazsın. / Şu an çok sert.",
+    "meaning": "Wortspiel: 'Wand. Jacke. Knie. Mein Stolz.' – 'Deinen Stolz kannst du nicht berühren.' – 'Gerade ist er sehr hart.' (sert = hart/verletzt); Lachen löst die Überlastung"
+   },
+   {
+    "tr": "simitçi",
+    "meaning": "Simit-Verkäufer (Sesamkringel) – Lokalkolorit Istanbul, ggf. als 'Simit-Verkäufer' belassen"
+   },
+   {
+    "tr": "Seni sesle durdurdu, beni senden ayırdı",
+    "meaning": "Nehirs Analyse des Plans: 'Er hat dich mit Ton gestoppt und mich von dir getrennt'"
+   },
+   {
+    "tr": "yeteneğimin ve bedelinin aynı dosyada bulunduğu",
+    "meaning": "'dass meine Begabung und ihr Preis in derselben Akte liegen' – Kernaussage zur Neurodivergenz; 'bedel' verweist auf den Buchtitel (Uyanışın Bedeli)"
+   },
+   {
+    "tr": "olay yeri ekibi / numaralı delil torbası / yazılı arama emri",
+    "meaning": "Spurensicherung / nummerierte Beweistüte / schriftlicher Durchsuchungsbefehl – prozedural korrekt"
+   },
+   {
+    "tr": "Kitabın sana ait olan sayfasını bul. Başkasının teorisinde kahraman olma.",
+    "meaning": "Einziger Satz im leeren Buch, fett: 'Finde die Seite des Buches, die dir gehört. Sei nicht der Held in der Theorie eines anderen.' – zentrales Motto"
+   },
+   {
+    "tr": "Y / Yusuf",
+    "meaning": "Initiale unter dem Satz; Identifizierung des grauen Mannes als Yusuf (Vural)"
+   },
+   {
+    "tr": "Adını hâlâ hatırlamıyordum. Fakat o beni tanıyordu.",
+    "meaning": "Schlusssatz: 'An seinen Namen erinnerte ich mich noch immer nicht. Aber er kannte mich.'"
+   },
+   {
+    "tr": "BENI_ARAMA (constraint group)",
+    "meaning": "technische Markierung an Absatz 1259 (Gruppe 4/9) – Struktur, nicht übersetzen"
+   }
+  ],
+  "tone": "Ich-Erzählung im Präteritum, Thriller-Tempo mit sehr kurzen Sätzen und Einzeilern; dann Innenperspektive einer sensorischen Überlastung (Aufzählungen gleichzeitiger Geräusche); Dialog trocken-witzig; innere Stimmen als kursive Insets mit fetten Labels; Schluss nüchtern-prozedural, letzter Satz lakonisch."
+ },
+ "paras": [
+  {
+   "pid": 1239,
+   "style": "Heading 1",
+   "text": "<b>16. Görmek ile Yetişmek Arasındaki Mesafe</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1240,
+   "style": "Opening",
+   "text": "Nehir ikinci kitabı hiç almamıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1241,
+   "style": "Normal",
+   "text": "Atölyenin arka tarafındaki nefes, onun değildi. Biz masanın iki yanındaydık. Ses, kâğıt istiflerinin arkasından geliyordu: yavaş, ölçülü, yaşlı bir insanın nefesi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1242,
+   "style": "Normal",
+   "text": "Nehir telefonunun ışığını o yöne çevirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1243,
+   "style": "Normal",
+   "text": "“Çıkın,” dedi. Sesi yüksek değildi. Emir verecek kadar netti. “Polis yolda.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1244,
+   "style": "Normal",
+   "text": "Kâğıtların arasından gri paltolu bir adam çıktı. Yetmişini yeni geçmiş görünüyordu. İnce yüzlü, beyaz sakallıydı; sol kaşının üstünde eski bir yara izi vardı. Elinde benimkine benzeyen siyah bir kitap tutuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1245,
+   "style": "Normal",
+   "text": "“Onu masaya bırakın,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1246,
+   "style": "Normal",
+   "text": "Adam bana baktı. “Seni daha yavaş bulacaklarını sanmıştım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1247,
+   "style": "Normal",
+   "text": "“Ben de sizi daha açıklayıcı bulacağımı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1248,
+   "style": "Normal",
+   "text": "“Açıklama, yanlış kişiye verilirse delildir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1249,
+   "style": "Normal",
+   "text": "“Doğru kişiye verilirse?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1250,
+   "style": "Normal",
+   "text": "“Yine delildir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1251,
+   "style": "Normal",
+   "text": "Konuşurken sağ eli kitabın altında, görünmüyordu. Avcı bedenimde öne doğru eğildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1252,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Elinde silah olabilir.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 1253,
+   "style": "Book Inset",
+   "text": "<b>TOPLAYICI:</b> <i>Sağ omzu düşük değil. Ağır bir şey tutmuyor.</i>",
+   "keep": false,
+   "image": false,
+   "label": "TOPLAYICI",
+   "constraint": null
+  },
+  {
+   "pid": 1254,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>İkiniz de insan anatomisini internetten öğrendiniz.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 1255,
+   "style": "Normal",
+   "text": "Nehir adama doğru bir adım attı. “Adınız?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1256,
+   "style": "Normal",
+   "text": "“Bu atölyede isimler uzun süre kalmaz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1257,
+   "style": "Normal",
+   "text": "“Klişe cümleler daha mı dayanıklı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1258,
+   "style": "Normal",
+   "text": "Adam kitabı kavrarken paltonun kolu bir parmak kadar geri çekildi. Sağ bileğinde ince bir kırmızı ip vardı. Düğümün iki ucu aynı uzunluktaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1259,
+   "style": "Normal",
+   "text": "Adamın ağzının kenarı kıpırdadı. Sonra elindeki siyah kitabı yere bıraktı. Altında silah yoktu. Küçük bir kasetçalar vardı. Düğmesine bastı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BENI_ARAMA",
+    "index": 4,
+    "n": 9
+   }
+  },
+  {
+   "pid": 1260,
+   "style": "Normal",
+   "text": "Makinelerin arasından aynı anda yedi ayrı ses yükseldi. Kapı vurması, cam kırılması, üst kattan koşan ayaklar. Atölyenin akustiği sesleri çoğalttı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1261,
+   "style": "Normal",
+   "text": "Ben hangi yöne bakacağımı seçemedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1262,
+   "style": "Normal",
+   "text": "Nehir adamın peşinden koştu. Gri palto arka kapıdan çıktı. Ben iki adım sonra floresan lambanın titreşimini, kasetlerdeki ayak seslerini, dışarıdaki sireni, metal kapının yankısını ve kendi kalbimi aynı anda duymaya başladım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1263,
+   "style": "Normal",
+   "text": "Her ses eşit derecede yakındı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1264,
+   "style": "Normal",
+   "text": "İnsanlar buna bazen “çok iyi duyuyor” der. İyi kelimesi yanlıştı. İyi duymak, istediğin sesi seçebilmektir. Ben bazen dünyanın ses ayarını kaybetmiş bir radyoydum; bütün istasyonlar aynı anda açıktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1265,
+   "style": "Normal",
+   "text": "Kapıya varınca gri paltolu adam sokağın öbür ucundaydı. Nehir onu takip ediyordu. Bir motosiklet kornası, fren, çöp kamyonunun geri vites uyarısı. Görüntü daraldı. Dizlerimin bağı çözülmedi; bedenim tersine taş kesildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1266,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Koş.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 1267,
+   "style": "Book Inset",
+   "text": "<b>MUHASEBECİ:</b> <i>Nefesin düzensiz.</i>",
+   "keep": false,
+   "image": false,
+   "label": "MUHASEBECİ",
+   "constraint": null
+  },
+  {
+   "pid": 1268,
+   "style": "Book Inset",
+   "text": "<b>İÇİMDEKİ ÇOCUK:</b> <i>Herkes sana bakıyor.</i>",
+   "keep": false,
+   "image": false,
+   "label": "İÇİMDEKİ ÇOCUK",
+   "constraint": null
+  },
+  {
+   "pid": 1269,
+   "style": "Normal",
+   "text": "Koşamadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1270,
+   "style": "Normal",
+   "text": "Nehir adamı köşede kaybetti. Geri döndüğünde beni atölye kapısının yanında çömelmiş buldu. “İyi misin?” diye sormadı. Cevabın işe yaramayacağını biliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1271,
+   "style": "Normal",
+   "text": "“Işık mı, ses mi?” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1272,
+   "style": "Normal",
+   "text": "“Hepsi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1273,
+   "style": "Normal",
+   "text": "Kasetçaları kapattı. Floresanı söndürdü. Beni kolumdan çekmedi; duvara dayanmam için boşluk bıraktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1274,
+   "style": "Normal",
+   "text": "“Beş şey söyle,” dedi. “Gördüğün.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1275,
+   "style": "Normal",
+   "text": "“Bu yöntem internette var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1276,
+   "style": "Normal",
+   "text": "“Şu an internet sensin. Beş şey.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1277,
+   "style": "Normal",
+   "text": "“Kırmızı kapı. Islak kaldırım. Senin bağcığın çözülmüş. Duman şu arabanın altında. Karşıdaki simitçi beni soyguncu sanıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1278,
+   "style": "Normal",
+   "text": "“Dört şey. Dokunduğun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1279,
+   "style": "Normal",
+   "text": "“Duvar. Montum. Dizim. Gururum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1280,
+   "style": "Normal",
+   "text": "“Gururuna dokunamazsın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1281,
+   "style": "Normal",
+   "text": "“Şu an çok sert.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1282,
+   "style": "Normal",
+   "text": "Nehir istemeden güldü. Ses, diğer bütün seslerden ayrıldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1283,
+   "style": "Normal",
+   "text": "Birkaç dakika sonra dünya yeniden katmanlandı. Siren uzakta, konuşmalar dışarıda, kalbim içerideydi. Her şey aynı anda var olmaya devam ediyordu; ama hepsi aynı anda görev istemiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1284,
+   "style": "Normal",
+   "text": "“Peşinden gidemedim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1285,
+   "style": "Normal",
+   "text": "“Ben de yakalayamadım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1286,
+   "style": "Normal",
+   "text": "“Benim yüzümden.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1287,
+   "style": "Normal",
+   "text": "“Hayır. Planı buydu. Seni sesle durdurdu, beni senden ayırdı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1288,
+   "style": "Normal",
+   "text": "Bu cümle yeteneğimin ve bedelinin aynı dosyada bulunduğunu ilk kez bu kadar açık gösterdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1289,
+   "style": "Normal",
+   "text": "Selin, mülk sahibi ve noterlik görevlisi ön kapıdan sokağa çıktığında adam çoktan arka geçitte kaybolmuştu. Selin ilk olarak beni azarlamadı; saati söyledi, tanıkları kayda aldı ve arka kapının görüntüsünü çekti. Azarını işlemler bitene sakladı. Olay yeri ekibi altı dakika sonra geldi; savcının yazılı arama emri gelene kadar atölye girişini koruma altına aldı. Arama emri ulaştıktan sonra gri paltolunun bıraktığı kitap, bizim çantamıza değil, numaralı delil torbasına girdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1290,
+   "style": "Normal",
+   "text": "Kitap kamera önünde açıldığında sayfaları boştu. Yalnız ortasında tek cümle vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1291,
+   "style": "Book Inset",
+   "text": "<b>Kitabın sana ait olan sayfasını bul. Başkasının teorisinde kahraman olma.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1292,
+   "style": "Normal",
+   "text": "Altında küçük bir <b>Y</b> harfi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1293,
+   "style": "Normal",
+   "text": "Yusuf.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1294,
+   "style": "Normal",
+   "text": "Adını hâlâ hatırlamıyordum. Fakat o beni tanıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

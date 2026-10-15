@@ -1,0 +1,1573 @@
+{
+ "uid": "U18",
+ "title": "20. İnanmayan İlk Kişi",
+ "number": 20,
+ "words": 1565,
+ "constraints": {
+  "uid": "U18",
+  "number": 20,
+  "title": "20. İnanmayan İlk Kişi",
+  "title_letter": "İ",
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 1565
+ },
+ "synopsis": {
+  "uid": "U18",
+  "title": "20. İnanmayan İlk Kişi",
+  "summary": "Gegenwartsebene, in Nehirs Wohnung/Arbeitsraum (sie steht am Fenster, später am Laptop): Direkt im Anschluss an die Enthüllung des Vorpakets (Nehir hat auf Leylas Wunsch Informationen über den Ich-Erzähler an Meralis gegeben) verhört der Erzähler sie – öffentliche Vorträge, alte Projektdateien, Bewertungsnotizen und „einige Seiten“ des roten Heftes wurden vor 18 Monaten, als Leyla noch lebte, weitergegeben; Diagnosebericht, Kinder und Zeynep nicht. Nehir gibt ohne Ausflüchte zu, dass sie und Leyla ihn als „Köder“ benutzten, um zu messen, wie Meralis seine Ansprache je nach gelieferten Daten veränderte; die inneren Stimmen (AVCI, GÖLGE, ŞÜPHECİ, Sessiz Ses) melden sich. Lange Rückblende zur ersten Begegnung in einer kleinen Lokanta in Kadıköy, wo Leyla die beiden zusammenbrachte: Nehir erklärt sofort, sie glaube ihm nicht; der Erzähler „liest“ sie, dann wird auf Leylas Vorschlag ein Experiment mit Kaffeesatzlesen gemacht – Anlass für ein Gespräch über Barnum-Sätze, sich selbst erfüllende Prophezeiungen, Zauber/Nocebo, Kristalle, „Energie stehlen“ und Täterschutz durch Opferbeschuldigung; die „Rechnung“ als Pointe („haber üç vakte kadar“). Zurück in der Gegenwart zeigt Nehir die Ordner: drei Datensätze mit Meralis' angepasster Sprache, ein geleaktes A/B-Experiment (17-Sekunden-Brummen auf zwei Konten mit gegensätzlichen Vorankündigungen) und die Methode ALGI ÖN TOHUMU; der Erzähler erkennt, dass das schwarze Paket genau so mit dem Wort „uyanış“ bei ihm gearbeitet hat. Weitere Enthüllungen: Leyla bereitete eine echte, weiß gebundene Kopie des Textes vor (verschollen); Meralis nannte Nehir „birincil ayna“ (Sufi-Spiegelmotiv); Nehir schützt eine ungenannte „Quelle“. Schluss: In der Doppelverglasung erscheint neben den Spiegelbildern ein jüngeres Gesicht, das den 19-jährigen Fotos des Erzählers gleicht, und verschwindet.",
+  "characters": [
+   "Ich-Erzähler (Protagonist, neurodivergenter „Menschenleser“, ehemaliger Video-/Vortragsmacher, Vater von Duru und Emir)",
+   "Nehir (Journalistin, Partnerin des Erzählers bei Recherchen, jüngere Halbschwester Leylas; die „inanmayan ilk kişi“ und „birincil ayna“)",
+   "Leyla (verstorbene Akademikerin/Psychologin, Nehirs ältere Schwester, Mentorin/Freundin des Erzählers; nur in Rückblende und Erwähnung)",
+   "Meralis (Organisation/Gegenspieler; verschickt das schwarze Buch, manipuliert via Daten)",
+   "Zeynep (Ehefrau des Erzählers, nur erwähnt)",
+   "Duru (Tochter, nur erwähnt)",
+   "Emir (Sohn, nur erwähnt)",
+   "Yusuf (Mann im grauen Mantel; Name fällt hier nicht, Hintergrundfigur)",
+   "AVCI / GÖLGE / ŞÜPHECİ / Sessiz Ses (innere Stimmen des Erzählers)",
+   "Mann am Nachbartisch in Kadıköy (Nebenfigur, Rückblende)",
+   "Kellner (Nebenfigur, Rückblende)"
+  ],
+  "terms": [
+   {
+    "tr": "İnanmayan İlk Kişi",
+    "meaning": "Kapiteltitel: „Die erste Person, die nicht glaubte“ – Nehir, die dem Erzähler bei der ersten Begegnung sofort Skepsis entgegenbrachte; Titelbezug am Kapitelende (Vertrauen gerade wegen des Nicht-Glaubens)."
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Wiederkehrender Eigenname der gegnerischen Organisation; nicht übersetzen. Bietet dem Erzähler ein „Bildungsprogramm“ an, verschickt das schwarze Buch, führt A/B-Manipulationsexperimente durch."
+   },
+   {
+    "tr": "kırmızı defter",
+    "meaning": "„das rote Heft“ – persönliche Notizen des Erzählers (u. a. Avcı-Toplayıcı-Notizen); wiederkehrendes Objekt, Teile wurden an Meralis weitergegeben."
+   },
+   {
+    "tr": "siyah kitap / siyah paket / ikinci kitap",
+    "meaning": "Das schwarze, auf den Erzähler personalisierte Buch/Paket von Meralis (im Roman wiederkehrend; „kitap“ = dieses Buch, das ihm Rollen zuweist, z. B. Nehir als Verräterin)."
+   },
+   {
+    "tr": "beyaz kapaklı kitap / beyaz kitap",
+    "meaning": "Die weiße Kopie des „echten Textes“, die Leyla vorbereitete; verschollen. Gegenstück zum schwarzen Buch – neu eingeführt, später relevant."
+   },
+   {
+    "tr": "tanı raporu",
+    "meaning": "Diagnosebericht (Neurodivergenz-Diagnose des Erzählers); „tanıdan sonra yazdığım öfke metinleri“ = Wuttexte nach der Diagnose."
+   },
+   {
+    "tr": "AVCI / GÖLGE / ŞÜPHECİ",
+    "meaning": "Innere Stimmen des Erzählers (Jäger / Schatten / Skeptiker), stets als Buchinset mit Label in Großbuchstaben und kursivem Text; Namen im Roman konsistent übersetzen (bisherige Lösung der Reihe beibehalten)."
+   },
+   {
+    "tr": "Sessiz Ses",
+    "meaning": "„Die stille Stimme“ – vierte, leise innere Instanz, die hier auf Angst unter der Wut verweist; wird im Fließtext, nicht als Inset genannt."
+   },
+   {
+    "tr": "yem yapmak",
+    "meaning": "„jemanden als Köder benutzen“ – Vorwurf des Erzählers an Nehir und Leyla."
+   },
+   {
+    "tr": "birincil ayna",
+    "meaning": "„primärer Spiegel“ – Codename Meralis' für Nehir in der Akte; Spiegel-Motiv aus Sufi-Texten (Herz als Spiegel, Polieren = Rost entfernen, nicht Licht erschaffen)."
+   },
+   {
+    "tr": "Kadıköy",
+    "meaning": "Stadtteil auf der asiatischen Seite Istanbuls; Ort der ersten Begegnung in einer kleinen Lokanta (Rückblende)."
+   },
+   {
+    "tr": "lokanta",
+    "meaning": "Einfaches Restaurant/Garküche; Nebenfigur: der Mann am Nachbartisch „hesabı bekleyen adam“."
+   },
+   {
+    "tr": "Türk kahvesi / fincan / telve / fal / falıma bak",
+    "meaning": "Türkischer Mokka, Tasse, Kaffeesatz, Wahrsagen; „Falıma bak“ = „Lies mir aus dem Kaffeesatz“. Ritual: Tasse umgedreht auf Untertasse. Zentrales Experiment der Rückblende."
+   },
+   {
+    "tr": "İki yolun var … Üç vakte kadar haber alacaksın",
+    "meaning": "Standardsätze der Kaffeesatzleser (Barnum-Formeln): „Du hast zwei Wege“, „jemand, der dich liebt, verbirgt etwas“, „binnen drei Zeiten erhältst du Nachricht“; „üç vakit“ absichtlich vage (3 Stunden/Tage/Monate). Pointe: Nachricht = die Rechnung (hesap/adisyon)."
+   },
+   {
+    "tr": "Dördü de doğru",
+    "meaning": "Leylas Replik „Alle vier stimmen“ – die vier Barnum-Aussagen; Zahl im Zieltext beibehalten."
+   },
+   {
+    "tr": "büyü",
+    "meaning": "Zauber/Verhexung; Diskussion, wie die Behauptung „dir wurde Zauber angetan“ Symptome bündelt (Nocebo)."
+   },
+   {
+    "tr": "plasebo / nosebo",
+    "meaning": "Fachbegriffe, Leyla betont „sınırlı ama gerçek“ (begrenzt, aber real); Beispiel: „Mermiye inanmayınca mermi durmaz.“"
+   },
+   {
+    "tr": "kuvars kolye / taş",
+    "meaning": "Polierter Quarzanhänger, den der Erzähler damals in der Tasche trug; Dialog „Taş hatırlatıyor. Nefesi ben alıyorum.“ (Stein erinnert, atmen tue ich)."
+   },
+   {
+    "tr": "enerjimi çaldı / enerji çalmak",
+    "meaning": "„hat meine Energie gestohlen“ – esoterische Formel, die der Erzähler kritisch zerlegt; Nehir ergänzt die Gefahr der Opferbeschuldigung („izin vermeseydin etkilenmezdin“)."
+   },
+   {
+    "tr": "Hızın bizi kapıya getirdi, kesinliğin yanlış zile bastı",
+    "meaning": "Nehirs Satz nach dem Fehlurteil des Erzählers: „Deine Schnelligkeit brachte uns an die Tür, deine Gewissheit drückte die falsche Klingel.“ Bildhafte Formel, möglichst wörtlich erhalten."
+   },
+   {
+    "tr": "A/B deneyi dökümü",
+    "meaning": "Protokoll/Transkript eines A/B-Experiments von Meralis: dasselbe 17-sekündige Brummen („on yedi saniyelik uğultu“) zwei Gruppen mit gegensätzlicher Erwartung gezeigt."
+   },
+   {
+    "tr": "ALGI ÖN TOHUMU",
+    "meaning": "Meralis-Methode „Wahrnehmungs-Vorsaat“ / „Perception Pre-Seeding“, fett gesetzt, gefolgt von vier fetten Inset-Regeln (Sag zuerst, was man fühlen wird; mach die ersten Fühlenden sichtbar; nenne Widersprechende unsensibel/unbewusst; das Subjekt nimmt den gelernten Rahmen wahr). Terminus für das ganze Buch festlegen."
+   },
+   {
+    "tr": "uyanış / uyanmış avcılar",
+    "meaning": "„Erwachen“ – Schlüsselwort des schwarzen Pakets (vgl. Untertitel „Uyanışın Bedeli“); „erwachte Jäger“ = gefälschter Text, der nach Weitergabe der Avcı-Toplayıcı-Notizen in einer geschlossenen Gruppe kursierte."
+   },
+   {
+    "tr": "avcı–toplayıcı notları",
+    "meaning": "Jäger-und-Sammler-Notizen des Erzählers im roten Heft (Neurodivergenz-Theorie), die Meralis umdeutete."
+   },
+   {
+    "tr": "sistemik haksızlık / tarihsel bastırma",
+    "meaning": "„systemische Ungerechtigkeit“ / „historische Unterdrückung“ – Vokabular, das Meralis nach Erhalt der Wuttexte verstärkt einsetzte."
+   },
+   {
+    "tr": "kaynak",
+    "meaning": "„Quelle“ (journalistisch: Informant). Nehir schützt eine konkrete Person; der Erzähler hört den Tonwechsel. Kursiv gesetzt im Original; Spannungsfaden für spätere Pakete."
+   },
+   {
+    "tr": "Güven böyle çalışmıyor",
+    "meaning": "„So funktioniert Vertrauen nicht“ – Leitsatz Nehirs im Streit um Informationsrechte."
+   },
+   {
+    "tr": "çift cam",
+    "meaning": "Doppelverglasung; Motiv der doppelten Spiegelung, in der das jüngere Gesicht (ca. 19 Jahre, wie der Erzähler damals) erscheint – übernatürlich-ambivalentes Motiv, bewusst offen lassen."
+   },
+   {
+    "tr": "Matematiğim de gergin",
+    "meaning": "Ausweichende Antwort „Meine Mathematik ist auch angespannt“ – trockener Humor, Eingeständnis, dass er gerade nicht klar denkt; Wortlaut nicht glätten."
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum; knappe, kurze Dialogzeilen (oft nur „Hayır.“/„Evet.“), stakkatoartige Einzeiler („Henüz.“). Mischung aus Kammerspiel-Konfrontation und essayistischer Aufklärungspassage (Barnum-Effekt, Nocebo, Medienmanipulation) im Gewand einer heiteren Lokanta-Rückblende. Plusquamperfekt für die Rückblende (-mıştı-Formen) – im Deutschen Abgrenzung der Zeitebene beachten. Innere Stimmen als fett gelabelte, kursive Book-Inset-Zeilen; Meralis-Methode als fette Inset-Thesen. Register sachlich-analytisch mit trockenem Humor und Aphorismen („Bir şeye kıymet vermekle ondan emir almak aynı hareket değildi“). Du-Anrede zwischen allen Figuren (sen)."
+ },
+ "paras": [
+  {
+   "pid": 1447,
+   "style": "Heading 1",
+   "text": "<b>20. İnanmayan İlk Kişi</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "SENI_BUL",
+    "index": 3,
+    "n": 7
+   }
+  },
+  {
+   "pid": 1448,
+   "style": "Opening",
+   "text": "Nehir Meralis'e bilgi vermişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1449,
+   "style": "Normal",
+   "text": "Bu, bana ihanet ettiği anlamına gelmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1450,
+   "style": "Normal",
+   "text": "Henüz.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1451,
+   "style": "Normal",
+   "text": "“Ne verdin?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1452,
+   "style": "Normal",
+   "text": "Nehir pencerenin önünden dönmedi. “Kamuya açık konuşmalarını, eski proje dosyalarını, kendi izninle Leyla'ya gönderdiğin değerlendirme notlarını.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1453,
+   "style": "Normal",
+   "text": "“Tanı raporumu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1454,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1455,
+   "style": "Normal",
+   "text": "“Çocuklarımı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1456,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1457,
+   "style": "Normal",
+   "text": "“Zeynep'i?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1458,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1459,
+   "style": "Normal",
+   "text": "“Kırmızı defteri?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1460,
+   "style": "Normal",
+   "text": "Bu kez durdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1461,
+   "style": "Normal",
+   "text": "“Bazı sayfaları,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1462,
+   "style": "Normal",
+   "text": "İçimdeki sesler aynı anda ayağa kalktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1463,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Dosyaları al.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 1464,
+   "style": "Book Inset",
+   "text": "<b>GÖLGE:</b> <i>Ona, seni kaybetmenin nasıl bir şey olduğunu göster.</i>",
+   "keep": false,
+   "image": false,
+   "label": "GÖLGE",
+   "constraint": null
+  },
+  {
+   "pid": 1465,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Önce tarihleri sor.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 1466,
+   "style": "Normal",
+   "text": "Sessiz Ses, öfkemin altında daha yavaş bir şeyi işaret ediyordu: korku.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1467,
+   "style": "Normal",
+   "text": "“Ne zaman?” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1468,
+   "style": "Normal",
+   "text": "“On sekiz ay önce.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1469,
+   "style": "Normal",
+   "text": "“Leyla yaşıyorken.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1470,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1471,
+   "style": "Normal",
+   "text": "“Niye?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1472,
+   "style": "Normal",
+   "text": "“Çünkü Meralis o sırada sana yaklaşmaya hazırlanıyordu. Bunu biliyorduk.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1473,
+   "style": "Normal",
+   "text": "“Biz kim?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1474,
+   "style": "Normal",
+   "text": "“Leyla ve ben.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1475,
+   "style": "Normal",
+   "text": "“Bana niye söylemediniz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1476,
+   "style": "Normal",
+   "text": "“Çünkü yaklaşımın hangi veriye göre değiştiğini görmek istedik. Sana bilgi verirsek davranışın değişecekti.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1477,
+   "style": "Normal",
+   "text": "“Yani beni yem yaptınız.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1478,
+   "style": "Normal",
+   "text": "Nehir yüzünü bana çevirdi. “Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1479,
+   "style": "Normal",
+   "text": "Savunma yapmaması öfkemi azalttı. Buna da öfkelendim. İnsan bazen karşısındakinin kötü bir mazeret söylemesini ister; böylece ondan nefret etmek kolaylaşır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1480,
+   "style": "Normal",
+   "text": "“Bunun etik olduğunu mu düşünüyorsun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1481,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1482,
+   "style": "Normal",
+   "text": "“Ama yaptın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1483,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1484,
+   "style": "Normal",
+   "text": "“Leyla istedi diye?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1485,
+   "style": "Normal",
+   "text": "“Leyla benden yapmamı istedi. Kararı ben verdim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1486,
+   "style": "Normal",
+   "text": "Bu, onu affetmem için yeterli değildi. Fakat karşımda hangi insanın durduğunu görmem için önemliydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1487,
+   "style": "Normal",
+   "text": "Onunla tanıştığımız günü hatırladım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1488,
+   "style": "Normal",
+   "text": "Leyla bizi Kadıköy'de küçük bir lokantada buluşturmuştu. Nehir masaya oturur oturmaz bana inanmadığını söylemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1489,
+   "style": "Normal",
+   "text": "“Neye?” diye sormuştum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1490,
+   "style": "Normal",
+   "text": "“İnsanların odadaki enerjisini okuduğuna.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1491,
+   "style": "Normal",
+   "text": "“Ben de öyle söylemedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1492,
+   "style": "Normal",
+   "text": "“Videonda ‘odaya girince enerjiyi hissediyorum’ dedin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1493,
+   "style": "Normal",
+   "text": "“Enerji kelimesini kısa olsun diye kullandım. İnsanların ses yüksekliği, oturma biçimi, bakış yönü, nefes aralığı, kimin kime dönmediği—”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1494,
+   "style": "Normal",
+   "text": "“Yani gözlem.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1495,
+   "style": "Normal",
+   "text": "“Gözlemden fazlası.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1496,
+   "style": "Normal",
+   "text": "“Kanıt?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1497,
+   "style": "Normal",
+   "text": "“Sen şu an kızgın değilsin. Ablana karşı koruyucusun. Benim onu etkilediğimi düşünüyorsun. Aynı zamanda beni aptal bulmak istemiyorsun; çünkü o zaman Leyla'nın bana değer vermesini de sorgulaman gerekir. Bu yüzden cümlelerin sert, sesin sakin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1498,
+   "style": "Normal",
+   "text": "Nehir birkaç saniye bana baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1499,
+   "style": "Normal",
+   "text": "“Leyla sana bunları anlattı,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1500,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1501,
+   "style": "Normal",
+   "text": "“O zaman yüzümden okudun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1502,
+   "style": "Normal",
+   "text": "“Bir kısmını.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1503,
+   "style": "Normal",
+   "text": "“Kalanı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1504,
+   "style": "Normal",
+   "text": "“Tahmin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1505,
+   "style": "Normal",
+   "text": "“İnsanlar senin tahminine inanırsa ne olur?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1506,
+   "style": "Normal",
+   "text": "“Bazen kendilerini görülmüş hissederler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1507,
+   "style": "Normal",
+   "text": "“Yanlışsan?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1508,
+   "style": "Normal",
+   "text": "“Düzeltirler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1509,
+   "style": "Normal",
+   "text": "“Senden etkilenmişlerse düzeltmeyebilirler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1510,
+   "style": "Normal",
+   "text": "Leyla, önündeki Türk kahvesini bitirip fincanı tabağa kapattı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1511,
+   "style": "Normal",
+   "text": "“Madem başladınız,” dedi, “deney yapalım.” Fincanı bana çevirdi. “Falıma bak.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1512,
+   "style": "Normal",
+   "text": "“İnanmıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1513,
+   "style": "Normal",
+   "text": "“Fincanın geleceği bildiğine inanmanı istemedim. Beni okuyabildiğine inanıyorsun. Göster.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1514,
+   "style": "Normal",
+   "text": "Fincanı açtım. Telve, kenardan aşağı inen iki koyu yol ve ortada kuşa benzeyen bir leke bırakmıştı. Kahve falına bakanların kullandığı cümleleri çocukluğumdan biliyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1515,
+   "style": "Normal",
+   "text": "“İki yolun var,” dedim. “Yakınında seni seven ama senden bir şey saklayan biri var. Geçmişten taşıdığın bir yük yüzünden yeni bir başlangıcı erteliyorsun. Üç vakte kadar haber alacaksın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1516,
+   "style": "Normal",
+   "text": "Leyla kaşını kaldırdı. “Dördü de doğru.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1517,
+   "style": "Normal",
+   "text": "Nehir, “Benim için de doğru,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1518,
+   "style": "Normal",
+   "text": "Yan masada hesabı bekleyen adam bize dönüp, “Benim için de,” dedi. Sonra mahcup olup tekrar telefonuna baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1519,
+   "style": "Normal",
+   "text": "“İstanbul'da iki yol arasında kalmayan insan bulmak daha büyük kehanet,” dedim. “Bizi seven birinin bir şey saklaması da güvenli cümle. Haber dediğin telefon, fatura, mesaj, kargo veya üst komşunun matkabı olabilir. Üç vakit ise üç saat çıkarsa saat, üç ay çıkarsa ay olur.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1520,
+   "style": "Normal",
+   "text": "“Yani falcı karşısındakini kandırıyor,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1521,
+   "style": "Normal",
+   "text": "“Her zaman değil. Bazen ikisi de birlikte hikâye kuruyor. İnsan uyan kısmı tutuyor, uymayanı bırakıyor. Sonra kehanete uygun davranıyor. ‘Eski birinden haber var’ denince yıllardır bakmadığı hesabı açıyor, bir fotoğrafı beğeniyor ve karşı taraf yazarsa fincan bilmiş oluyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1522,
+   "style": "Normal",
+   "text": "Leyla fincanın kenarındaki kuşa dokundu. “Kehanet geleceği görmedi. Küçük bir davranışla geleceğin yoluna taş koydu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1523,
+   "style": "Normal",
+   "text": "“Peki büyü?” diye sordu Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1524,
+   "style": "Normal",
+   "text": "“Birisi sana büyü yapıldığını söylerse, o günden sonra baş ağrını, kötü rüyanı, kırılan bardağı ve geciken otobüsü aynı dosyaya koyabilirsin. Korku uykunu bozar. Uykusuzluk dikkati ve bedeni değiştirir. Sonuç gerçektir; ama bu, görünmez bir gücün bardağı kırdığını kanıtlamaz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1525,
+   "style": "Normal",
+   "text": "Leyla başını salladı. “Beklenti bedensel deneyimi etkileyebilir. Plasebo ve nosebo dediğimiz alan bunun sınırlı ama gerçek örneklerini gösterir. Sınırlı kelimesini unutma. Düşünce her şeyi yapmaz. Mermiye inanmayınca mermi durmaz. Ama ağrı, kaşıntı, kaygı, yorgunluk ve yan etki algısı; beklenti, öğrenme ve bağlamdan etkilenebilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1526,
+   "style": "Normal",
+   "text": "“Yani belirtiler hayal mi?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1527,
+   "style": "Normal",
+   "text": "“Hayır. Beynin ürettiği deneyim sahte değildir. Korkudan çarpan kalp gerçekten çarpar. Hatan, mekanizmayı öğrendiğin anda acıyı küçümsemek olur.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1528,
+   "style": "Normal",
+   "text": "Fincana baktım. Düşünceyi hemen evren teorisine çevirecektim. Leyla telveye dokundu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1529,
+   "style": "Normal",
+   "text": "“Daha kahvenin içindeyiz,” dedi. “Oradan bir çık.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1530,
+   "style": "Normal",
+   "text": "Nehir masadaki parlak kuvars kolyemi gösterdi. O yıllarda taşı cilalı olduğu için cebimde gezdiriyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1531,
+   "style": "Normal",
+   "text": "“Kristal enerji veriyor mu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1532,
+   "style": "Normal",
+   "text": "“Soğukluğu elime iyi geliyor. Ona dokununca nefesimi yavaşlatmayı hatırlıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1533,
+   "style": "Normal",
+   "text": "“Taş mı yapıyor, sen mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1534,
+   "style": "Normal",
+   "text": "“Taş hatırlatıyor. Nefesi ben alıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1535,
+   "style": "Normal",
+   "text": "Taşı yeniden cebime koydum. Bir şeye kıymet vermekle ondan emir almak aynı hareket değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1536,
+   "style": "Normal",
+   "text": "“Ya ‘enerjimi çaldı’ dediğin insanlar?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1537,
+   "style": "Normal",
+   "text": "“Sözümü kesen, beni sürekli tetikte bırakan, suçlu hissettirip sınırımı aşan insanın yanında yoruluyorum. Buna enerji çalmak demek hızlı. Ama görünmez bir sıvı transferini kanıtlamıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1538,
+   "style": "Normal",
+   "text": "“Bir de tehlikeli,” dedi Nehir. “Çünkü ‘izin vermeseydin etkilenmezdin’ diye mağduru suçlayabilirsin. İnsan inanmasa da tehditten, aşağılanmadan, ekonomik baskıdan ve şiddetten etkilenir. Sinir sistemi felsefe tartışmasını beklemiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1539,
+   "style": "Normal",
+   "text": "O cümleyi sevmedim; çünkü benim güzel formülümden daha doğruydu. Kimse zihnimin mutlak sahibi değildi. Ama bu, başkasının bana yalnız ben izin verirsem zarar verebileceği anlamına gelmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1540,
+   "style": "Normal",
+   "text": "Leyla fincanı yeniden kapattı. “Fal eğlence olabilir, ritüel olabilir, insanın konuşamadığını konuşturabilir. Tehlike, hikâyenin kendisini kanıt diye satması; korku üretip para, itaat veya sağlık kararı istemesi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1541,
+   "style": "Normal",
+   "text": "“Peki üç vakte kadar ne olacak?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1542,
+   "style": "Normal",
+   "text": "“Hesap gelecek,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1543,
+   "style": "Normal",
+   "text": "Garson aynı anda masaya adisyonu bıraktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1544,
+   "style": "Normal",
+   "text": "Üçümüz de güldük. Kehanet doğru çıkmıştı; çünkü lokantaların gizli güçleri vardı: fiyat listesi ve kapanış saati.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1545,
+   "style": "Normal",
+   "text": "Bu yüzden ondan hoşlanmamıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1546,
+   "style": "Normal",
+   "text": "Bu yüzden ona güvenmiştim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1547,
+   "style": "Normal",
+   "text": "Zamanla Nehir'in soğuk sandığım yerlerinin dikkat olduğunu gördüm. Birinin acısını hemen kendi hikâyesine çevirmiyordu. O da benim hızımın her zaman dikkatsizlik olmadığını gördü. Bazen herkes hâlâ giriş cümlesini tartışırken konuşmanın nereye varacağını duyuyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1548,
+   "style": "Normal",
+   "text": "Birlikte kayıp bir yardım fonunun izini sürdük. Bir eğitim merkezindeki çocuk verilerinin izinsiz satıldığını ortaya çıkardık. Bir kez de tamamen yanıldım; masum bir adamı ağın merkezi sanmıştım. Nehir yayımlamadan önce şirket kaydındaki tarih hatasını buldu. O gün bana bağırmadı. Yalnızca “Hızın bizi kapıya getirdi, kesinliğin yanlış zile bastı,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1549,
+   "style": "Normal",
+   "text": "Onun adı dosyada “birincil ayna” olarak geçtiğinde acı yalnız ihanetten gelmedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1550,
+   "style": "Normal",
+   "text": "Gerçek bir bağı silah olarak kullanmışlardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1551,
+   "style": "Normal",
+   "text": "Leyla bir konuşmamızda Sufi metinlerindeki ayna benzetmesini anlatmıştı. Kalp veya ruh, insanın hem kendini hem kendinden büyük olanı tanıdığı aynaya benzetiliyordu. Aynayı parlatmak yeni bir ışık yaratmak değildi; üstündeki pası, kiri ve kendi yüzüne yapışmış görüntüyü ayırmaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1552,
+   "style": "Normal",
+   "text": "“Ama ayna yalnız doğruyu göstermez,” demişti Leyla. “Eğriyse büker. Kırıksa çoğaltır. Çok seviyorsan yalnız bakmak istediğin yeri gösterirsin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1553,
+   "style": "Normal",
+   "text": "Meralis, Nehir'e ayna adını vermişti; çünkü bana her istediğimi onaylamıyordu. Sonra aynayı kırmaya çalışmış, parçaların her birinde yalnız kendi haklı yüzümü görmemi istemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1554,
+   "style": "Normal",
+   "text": "“Leyla'yla neyi ölçtünüz?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1555,
+   "style": "Normal",
+   "text": "Nehir bilgisayarına döndü. Bir klasör açtı. Tarihler, gönderilen belgeler ve Meralis'in tepki değişimleri yan yana konmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1556,
+   "style": "Normal",
+   "text": "İlk dosyada yalnız kamuya açık konuşmalarım vardı. Meralis bana eğitim programı teklif etmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1557,
+   "style": "Normal",
+   "text": "İkinci dosyada tanıdan sonra yazdığım öfke metinleri eklenmişti. Teklifin dili değişmiş, “sistemik haksızlık” ve “tarihsel bastırma” kelimeleri artmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1558,
+   "style": "Normal",
+   "text": "Nehir bir de Leyla'ya içeriden gönderilmiş bir A/B deneyi dökümü açtı. Gönderenin adını kapattı; deneyde anılan iki yayının arşiv görüntülerini yanına koydu. Tarihlerle hesaplar örtüşüyordu. Bu, Leyla ile Nehir'in yaptığı bir çalışma değildi. Döküme göre Meralis, aynı on yedi saniyelik uğultuyu iki ayrı hesaptan yayımlamış, dinleyenlere bir deneye katıldıklarını söylememişti. Bir gruba sesin zihni berraklaştıran yeni bir odak frekansı olduğu, diğerine baş ağrısı ve huzursuzluk yaratabileceği söylenmişti. Ses dosyası aynıydı. Altındaki yorumlar farklı dünyalar kuruyordu. Birinci grupta insanlar daha iyi çalıştıklarını, ikincide baskı ve mide bulantısı hissettiklerini yazmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1559,
+   "style": "Normal",
+   "text": "“Hepsi numara mı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1560,
+   "style": "Normal",
+   "text": "“Hayır,” dedi Nehir. “Yorum yazanların içinde reklam hesapları var. Ama gerçek kullanıcılar da var. Önce birkaç sahte kişi beklenen belirtinin adını koyuyor. Sonra insanlar bedenlerinde zaten gün boyunca gelip giden şeyleri o adla fark etmeye başlıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1561,
+   "style": "Normal",
+   "text": "Meralis yönteme <b>ALGI ÖN TOHUMU</b> diyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1562,
+   "style": "Book Inset",
+   "text": "<b>Önce ne hissedeceğini söyle.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1563,
+   "style": "Book Inset",
+   "text": "<b>Sonra hisseden ilk kişileri görünür kıl.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1564,
+   "style": "Book Inset",
+   "text": "<b>Karşı çıkanları duyarsız veya bilinçsiz diye adlandır.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1565,
+   "style": "Book Inset",
+   "text": "<b>Özne artık yalnız olayı değil, kendisine öğretilen çerçeveyi algılar.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1566,
+   "style": "Normal",
+   "text": "Bu, düşünceyle duvar yıkmak değildi. Daha sıradan ve bu yüzden daha kullanışlıydı. Televizyondaki bir korku haberi, sosyal medyadaki yüz aynı yorum ve uzman görünümlü tek cümle birlikte çalıştığında, kişiye kendi kararını verdiği hissini bırakıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1567,
+   "style": "Normal",
+   "text": "“Medya herkesi istediği gibi yönetebilir mi?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1568,
+   "style": "Normal",
+   "text": "“Hayır. İnsanlar aynı değil, mesajlar kusursuz değil, gerçek hayat sürekli araya giriyor. Ama belirsiz olduğun yerde sana ilk açıklamayı verirlerse sonraki kanıtları onun çevresine dizme ihtimalin artar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1569,
+   "style": "Normal",
+   "text": "Siyah paketin bana yaptığı tam buydu. Önce “uyanış” kelimesini koymuş, sonra karşılaştığım her şeyi uyanışın kanıtı olarak toplamamı beklemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1570,
+   "style": "Normal",
+   "text": "Üçüncü dosyada kırmızı defterdeki avcı–toplayıcı notları bulunuyordu. Bir hafta sonra kapalı bir grupta “uyanmış avcılar” hakkında sahte bir metin dolaşıma girmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1571,
+   "style": "Normal",
+   "text": "“Siyah kitabın nasıl kişiselleştirildiğini böyle bulduk,” dedi Nehir. “Hangi belgeyi verirsek bir sonraki baskıda onun dili çıkıyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1572,
+   "style": "Normal",
+   "text": "“İkinci kitabı bana siz mi gönderdiniz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1573,
+   "style": "Normal",
+   "text": "“Hayır. Leyla gerçek metnin bir kopyasını hazırlıyordu. Siyah değil, beyaz kapaklıydı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1574,
+   "style": "Normal",
+   "text": "“Nerede?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1575,
+   "style": "Normal",
+   "text": "“Bilmiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1576,
+   "style": "Normal",
+   "text": "“Leyla öldü. Beyaz kitap kayıp. Siyah kitap kapımda. Ne kadar kullanışlı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1577,
+   "style": "Normal",
+   "text": "Nehir'in yüzü kapandı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1578,
+   "style": "Normal",
+   "text": "“Bana kızabilirsin,” dedi. “Ama kitabın sana benim hakkımda verdiği rolü oynama.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1579,
+   "style": "Normal",
+   "text": "“Rol gerçek bir şeyin üstüne yazılmış.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1580,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1581,
+   "style": "Normal",
+   "text": "“Başka ne saklıyorsun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1582,
+   "style": "Normal",
+   "text": "“Şu an cevap versem inanacak mısın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1583,
+   "style": "Normal",
+   "text": "“Cevabına bağlı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1584,
+   "style": "Normal",
+   "text": "“Hayır. Güven böyle çalışmıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1585,
+   "style": "Normal",
+   "text": "“Güven saklayarak mı çalışıyor?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1586,
+   "style": "Normal",
+   "text": "“Kaynak koruyarak bazen.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1587,
+   "style": "Normal",
+   "text": "Bu cümleyi söylediği an sesindeki küçük değişimi duydum. <i>Kaynak.</i> Genel bir kelime gibi çıkmadı. Belirli bir kişiyi saklayan kelimeydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1588,
+   "style": "Normal",
+   "text": "“Kim?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1589,
+   "style": "Normal",
+   "text": "“Neyi kim?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1590,
+   "style": "Normal",
+   "text": "“Koruduğun kaynak.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1591,
+   "style": "Normal",
+   "text": "“Şu an konu o değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1592,
+   "style": "Normal",
+   "text": "“Demek var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1593,
+   "style": "Normal",
+   "text": "Nehir gözlerini kapadı. “Her açık kapıdan koşarak geçmek zorunda değilsin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1594,
+   "style": "Normal",
+   "text": "“Sen de her kapıyı benim iyiliğim için kapatamazsın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1595,
+   "style": "Normal",
+   "text": "Aramızdaki bağ, ilk kez bilgi eksikliğinden değil, bilgi üzerindeki hak yüzünden gerildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1596,
+   "style": "Normal",
+   "text": "Pencerenin çift camında Nehir'in iki yansıması vardı. Arkasında benim yüzüm görünüyordu. Sonra ikinci bir yüz daha belirdi: saçları daha gür, çenesi daha ince, on dokuz yaşındaki fotoğraflarıma benzeyen biri.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1597,
+   "style": "Normal",
+   "text": "Başını benden önce çevirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1598,
+   "style": "Normal",
+   "text": "Geri baktım. Odada kimse yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1599,
+   "style": "Normal",
+   "text": "“Ne oldu?” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1600,
+   "style": "Normal",
+   "text": "“Çift cam.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1601,
+   "style": "Normal",
+   "text": "“Birini mi gördün?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1602,
+   "style": "Normal",
+   "text": "“Matematiğim de gergin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1603,
+   "style": "Normal",
+   "text": "Camdaki genç yüz kaybolmuştu. Kendi yansımam, söylemediğim bir cümleyi biliyormuş gibi bana bakıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

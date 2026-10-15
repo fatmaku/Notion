@@ -1,0 +1,1023 @@
+{
+ "uid": "U31",
+ "title": "35. Kızımın Dosyası",
+ "number": 35,
+ "words": 1333,
+ "constraints": {
+  "uid": "U31",
+  "number": 35,
+  "title": "35. Kızımın Dosyası",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 1333
+ },
+ "synopsis": {
+  "uid": "U31",
+  "title": "35. Kızımın Dosyası",
+  "summary": "Gegenwart im Laden in Balat, direkt anschließend; Duru erzählt rückblickend den Nachmittag, der Erzähler blendet in die eigene Vergangenheit (Tod des Vaters vor rund 20+ Jahren). Enthüllung 1: Duru wurde nicht entführt. Eine Nachricht, scheinbar vom alten E-Mail-Konto des Vaters, enthielt einen Satz, den nur er ihr gesagt hatte, sowie eine Seite aus ihrer klinischen Bewertungsakte; sie legte Notizbuch und Feder selbst auf ihren Stuhl, ließ ihr Handy zurück (nahm Zeyneps altes Tastentelefon) und fuhr zum Laden. Das ‚Gespräch' mit ihr am Aufzug/an der Tür war eine selbstgebaute Stimmfalle: zwölf vorab aufgenommene Kurzsätze (‚Bir dakika', ‚On dört', ‚Kart değil'), ausgelöst per Schlagwort über Tarıks offen gelassene Debug-Session – ein amateurhaftes Spiegelbild dessen, was Meralis mit den Figuren macht. Im Laden sprangen alle Uhren gleichzeitig an (versteckte Lautsprecher), unter der Lupenlampe fand Duru ein weißes Buch mit dem Siegel des Großvaters (zwei ineinanderliegende Kreise mit Spalt: ‚Wenn zwei Zahnräder ganz verschmelzen, drehen sie nicht'). Rückblende: Der Vater rief am Todestag dreimal an, der Erzähler (20) ging nicht ran; die Uhr auf 14.53 ‚bewies' nichts (Todeszeit laut Rettungsdienst 14.20–14.50), die Schuld brauchte nur eine Uhrzeit; die letzte Sprachnachricht (Kassette bei Yusuf) bat bloß um Brot. Enthüllung 2: Das Buch enthält Durus vollständige Bewertungsakte; der Erzähler hatte ungelesen eine Einwilligung zur Datenweitergabe an ‚VeraSense Eğitim Analitiği' unterschrieben, die zwei Jahre später an den Meralis-Fonds überging; er weiß das seit sechs Monaten und hatte Duru gesagt, die Daten seien ‚gelöscht' (nur in der Klinik). Duru konfrontiert ihn (‚Du hast die Grenze des Wortes verschoben'), er gibt es erstmals zu und verspricht Offenheit; Duru präzisiert: nicht alles wissen, nur das über sie. Gespräch über Zeichen (Taube, Attârs Simurg); letzte Buchseite: ein Satz in der Handschrift des Erzählers, den er nicht kennt.",
+  "characters": [
+   "Ich-Erzähler / Yolcu (Vater; war 20 beim Tod seines Vaters; unterschrieb die Einwilligung; verschweigt seit 6 Monaten die Datenweitergabe)",
+   "Duru (Tochter, minderjährig; geräusch- und mustersensibel, hat eigene Bewertungsakte; baute die Stimmfalle; Trägerin der Sätze ‚Son adımı ben attım', ‚Bu boşluk sensin')",
+   "Zeynep (Mutter/Ehefrau; nennt den Erzähler beim Namen, der nicht im Text steht; vermittelt, setzt sich neben Duru)",
+   "Babam / der Großvater (verstorbener Uhrmacher; Urheber des Siegels und der Sprachnachricht mit der Brot-Bitte)",
+   "Tarık (aus Vorkapiteln; technischer Helfer, der die Tür-Öffnungsmethode fand und eine Debug-Session offen ließ)",
+   "Nehir (aus Vorkapiteln; ihr Satz ‚Kartımı mı okutayım?' löste die Aufnahme ‚Kart değil' aus)",
+   "Dr. Rana (Klinikerin, die den kürzeren Bewertungsbericht ausgehändigt hatte)",
+   "Yusuf (Vertrauter/Freund aus Vorkapiteln; bewahrt die letzte Sprachnachricht des Vaters auf Kassette)",
+   "Cem (aus Vorkapiteln; dem der Erzähler den Satz über ‚gute Lügner verschieben die Grenze des Satzes' gesagt hatte)",
+   "Meralis (Gegenspieler-Organisation/Fonds, KI-gestützte Manipulation; übernahm VeraSense)",
+   "VeraSense Eğitim Analitiği (Firma, Empfängerin der anonymisierten Forschungsdaten)",
+   "Kırmızı montlu kadın (Frau in roter Jacke, mögliche Verfolgerin im Bus; unklar ob real)",
+   "SESSİZ SES (die ‚stille Stimme' – kursiv gesetzte innere/aphoristische Instanz in Einschüben)",
+   "Ferîdüddin Attâr (persischer Sufi-Dichter, nur zitiert: Vogelgespräche/Simurg)"
+  ],
+  "terms": [
+   {
+    "tr": "Kızımın Dosyası",
+    "meaning": "Kapiteltitel: ‚Die Akte meiner Tochter' – Durus klinische Bewertungs-/Forschungsakte"
+   },
+   {
+    "tr": "değerlendirme (dosyası / günü)",
+    "meaning": "neuropsychologische Bewertung/Assessment Durus; ‚Bewertungstag' = Rückblende, an dem der Erzähler den Satz über das lauteste Geräusch sagte"
+   },
+   {
+    "tr": "Zitat: ‚Bir odadaki en yüksek ses, kimsenin duymadığını söylediği sestir.'",
+    "meaning": "Satz des Vaters an Duru am Bewertungstag (Floreszenzlampe); wird als Identitätsbeweis in der Lock-Nachricht benutzt – fett gesetzt, als Inset"
+   },
+   {
+    "tr": "Zitat (Durus Text mit 14): ‚Bazen herkesin sustuğu yerde bile ses var. Bunu söylersem beni yalancı sanıyorlar.'",
+    "meaning": "nur der Klinik bekannte Seite der Akte; kursiv als Inset"
+   },
+   {
+    "tr": "ses tuzağı",
+    "meaning": "‚Stimmfalle': Durus Programm, das per Schlagwort (alarm, kart, kapı, on dört) vorab aufgenommene Sätze abspielt"
+   },
+   {
+    "tr": "ortak hata ayıklama oturumu",
+    "meaning": "gemeinsame Debug-Session (Tarıks offen gelassener Zweikanal-Audiokanal)"
+   },
+   {
+    "tr": "‚Bir dakika', ‚Buradayım', ‚On dört', ‚Kart değil'",
+    "meaning": "vier der zwölf aufgenommenen Kurzsätze; müssen mit den Übersetzungen derselben Repliken in Kap. 32/33 identisch sein"
+   },
+   {
+    "tr": "‚Kartımı mı okutayım?'",
+    "meaning": "Nehirs Satz vor der Tür (Karte scannen?) – das Wort ‚kart' triggert ‚Kart değil'; Übersetzung muss ‚Karte' enthalten"
+   },
+   {
+    "tr": "acil durum kelimesi / yamuk mantı",
+    "meaning": "Familien-Notfallcodewort ‚yamuk mantı' (‚schiefe/krumme Mantı' – Teigtaschen); wörtlich beibehalten oder transkribieren; wurde an der Tür nicht abgefragt"
+   },
+   {
+    "tr": "eski tuşlu acil telefon",
+    "meaning": "altes Tastentelefon, das Zeynep für Stromausfälle geladen hält; Duru nimmt es statt ihres Smartphones (‚telefonunu' – Singular!)"
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "zentrale Gegenmacht des Romans (KI-/Datenfonds); betreibt dieselbe Technik der ‚richtigen Sätze zur richtigen Zeit'"
+   },
+   {
+    "tr": "VeraSense Eğitim Analitiği",
+    "meaning": "Firmenname: ‚VeraSense Bildungsanalytik' – Eigenname beibehalten, Zusatz übersetzbar"
+   },
+   {
+    "tr": "anonim araştırma havuzu / onay formu / silme talebi",
+    "meaning": "anonymer Forschungsdatenpool / Einwilligungsformular (vom Erzähler ungelesen unterschrieben) / Löschantrag (abgelehnt)"
+   },
+   {
+    "tr": "beyaz kitap",
+    "meaning": "weißes Buch ohne Titel, mit dem Siegel des Großvaters; enthält Durus Akte, Vorhersagen des Gesprächs und einen Satz in der Handschrift des Erzählers"
+   },
+   {
+    "tr": "mühür: iç içe iki daire ve boşluk",
+    "meaning": "Siegel des Großvaters – zwei ineinanderliegende Kreise mit unsichtbarem Spalt; bei Meralis ‚Integrationsbefehl', bei Duru ‚Grenze'; Vaterspruch: ‚İki çark tamamen birleşirse dönemez'"
+   },
+   {
+    "tr": "büyüteç lambası / gizli bölme / çoklu priz",
+    "meaning": "Lupenlampe / Geheimfach / Mehrfachsteckdose (Duru schaltet so die Lautsprecher in den Uhren aus)"
+   },
+   {
+    "tr": "14.53 / 14.20–14.50",
+    "meaning": "Leitmotiv relativiert: Uhrzeit der stehengebliebenen Uhr vs. geschätzte Todeszeit laut Rettungsdienstprotokoll"
+   },
+   {
+    "tr": "Zitat: ‚Birazdan, insanın kendisine söylediği en pahalı yalanlardan biridir.'",
+    "meaning": "Aphorismus: ‚Gleich' als teuerste Selbstlüge (der Erzähler ging nicht ans Telefon)"
+   },
+   {
+    "tr": "Zitat (Sprachnachricht): ‚Oğlum, senin bıraktığın kutuyu konuşacağız. Gelirken bir de ekmek al.'",
+    "meaning": "letzte Nachricht des Vaters: ‚Mein Sohn, wir reden über die Kiste, die du dagelassen hast. Bring unterwegs auch Brot mit.' – ‚kutu' (Kiste/Box) ist offener Faden"
+   },
+   {
+    "tr": "Simurg / yedi vadi / Attâr",
+    "meaning": "Anspielung auf Attârs ‚Mantık at-Tayr' (Die Konferenz der Vögel): 30 Vögel suchen den Simurg durch sieben Täler und finden sich selbst"
+   },
+   {
+    "tr": "Kutsal Ruh",
+    "meaning": "Heiliger Geist (Taube in christlicher Ikonographie)"
+   },
+   {
+    "tr": "melek işareti",
+    "meaning": "‚Engelszeichen' – ironisch zitierte Internet-Deutungen der weißen Feder"
+   },
+   {
+    "tr": "SESSİZ SES",
+    "meaning": "wiederkehrende fett gesetzte Rubrik ‚STILLE STIMME' mit kursivem Aphorismus; Einheitlich übersetzen (vgl. frühere Pakete)"
+   },
+   {
+    "tr": "Zitat: ‚Hayır bir duvar değildir. Kapının nerede olduğunu söyleyen çizgidir.'",
+    "meaning": "Aphorismus der Stillen Stimme: Das Nein ist keine Mauer, sondern die Linie, die zeigt, wo die Tür ist"
+   },
+   {
+    "tr": "Zitat: ‚Çocuğunu korumak istiyorsan onun yerine korkma. Korktuğunda yanında kal.'",
+    "meaning": "Schlusssatz des weißen Buches in der (ihm fremden) Handschrift des Erzählers"
+   },
+   {
+    "tr": "Zitat: ‚Kelimenin sınırını değiştirmişsin.' / ‚İyi yalancılar reddetmezdi. Cümlenin sınırını değiştirirdi.'",
+    "meaning": "Motiv ‚Grenze des Wortes verschieben' (gelöscht = nur in der Klinik gelöscht); Rückverweis auf Cem-Szene"
+   },
+   {
+    "tr": "‚Bu boşluk sensin.'",
+    "meaning": "Durus Deutung des Siegels: Der Spalt bist du – du verbindest alle, lässt aber keinen Spielraum"
+   },
+   {
+    "tr": "Oğlum",
+    "meaning": "‚mein Sohn' – Anrede des Vaters"
+   },
+   {
+    "tr": "112",
+    "meaning": "türkische Notrufnummer (Rettung/Notfall)"
+   }
+  ],
+  "tone": "Ich-Erzählung, überwiegend Präteritum; Durus Bericht in indirekter Rede mit -miş-Vergangenheit (Hörensagen/Rekonstruktion) – im Deutschen durch Konjunktiv/Plusquamperfekt markieren. Längerer analytischer Passus zur Technik der Stimmfalle (nüchtern, präzise), dann Wechsel in eine intime Rückblende zum Tod des Vaters (elegisch, aphoristisch, kurze Einzelsätze als Absätze: ‚Ama zihnim 14.53'ü seçmişti.'). Dialog knapp, oft ohne Inquit; Duru spricht präzise, trocken-ironisch (Internet-Feder-Witz), Zeynep lakonisch. Mehrere ‚Book Inset'-Blöcke (fett/kursiv) als Zitate aus Nachrichten, Akte, weißem Buch und ‚SESSİZ SES'. Religiös-mystische Verweise (Heiliger Geist, Attâr) bewusst zurückhaltend, nicht predigend. Kapitel endet offen mit unbekanntem Satz in eigener Handschrift."
+ },
+ "paras": [
+  {
+   "pid": 2363,
+   "style": "Heading 1",
+   "text": "<b>35. Kızımın Dosyası</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2364,
+   "style": "Opening",
+   "text": "Duru kaçırılmamıştı. Öğleden sonra bilgisayarında, benim eski e-posta hesabımdan gelmiş gibi görünen bir mesaj bulmuştu. Mesajda kırmızı defterin evdeki yeri ve yalnız onun bileceği bir cümle vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2365,
+   "style": "Book Inset",
+   "text": "<b>Bir odadaki en yüksek ses, kimsenin duymadığını söylediği sestir.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2366,
+   "style": "Normal",
+   "text": "Bu cümleyi ona değerlendirme gününde ben söylemiştim. Floresan lambadan rahatsız olduğunu anlatıp herkesin “Biz duymuyoruz,” dediğine öfkelendiğinde.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2367,
+   "style": "Normal",
+   "text": "Mesaj, fotoğraf kutusunun altındaki defteri açmadan almasını; arasındaki not ve mavi uçlu tüyü de onunla birlikte sandalyesine koymasını, kendi telefonunu evde bırakmasını ve babamın dükkânına gelmesini istemişti. Duru emrin tekil kurulmasına takılmıştı: <i>telefonunu</i>. Kendi telefonunu masaya bırakmış, Zeynep'in elektrik kesintileri için şarjlı tuttuğu eski tuşlu acil telefonu cebine koymuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2368,
+   "style": "Normal",
+   "text": "Asansör kaydındaki on dördü, evden çıkmadan önce gerçekten duymuş ve mesajla bize yazmıştı. Sonraki konuşma aynı şey değildi. Tarık'ın bir hafta önce evde alarm seslerini denerken açık bıraktığı ortak hata ayıklama oturumunu kullanmış; o oturumun çift yönlü ses kanalına kendi dizüstüsünü bağlamıştı. Canlı bir konuşmada birçok soruya uyabilecek on iki kısa cümle kaydetmişti: “Bir dakika”, “Buradayım”, “On dört”, “Kart değil” gibi. Dizüstü bilgisayarında kurduğu basit program, açık görüşme hattında <i>alarm, kart, kapı, on dört</i> gibi kelimeleri duyunca ilgili kaydı oynatıyordu; tanıdığı bir kelime çıkmazsa sıradaki bekleme cümlesine geçiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2369,
+   "style": "Normal",
+   "text": "“Kart değil” yanıtı bize olağanüstü isabetli gelmişti. Dökümde, Nehir'in “Kartımı mı okutayım?” sözündeki tek kelimenin tetiklediği bir kayıt olduğunu gördük. Kapıyı açan yöntemi Tarık bulmuştu. Duru'nun sesi ise onu izleyen bütün konuşmaya, kızım da bizimle düşünüyormuş duygusu vermişti. Nehir'le birlikte Duru'yla canlı konuştuğumuzu sandığımız anlarda, önceden bıraktığı parçaların arasını biz tamamlıyorduk. Acil durum kelimesini, yamuk mantıyı, o kapının önünde sormak aklıma bile gelmemişti; kelimeyi seçen de Duru'ydu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2370,
+   "style": "Normal",
+   "text": "“Canlı konuşmayı taklit eden bir ses tuzağı kurmuşsun,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2371,
+   "style": "Normal",
+   "text": "“Sizin sesinizi taklit etmedim. Kendi sesimi bıraktım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2372,
+   "style": "Normal",
+   "text": "“Bunun güvenli olduğunu mu düşündün?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2373,
+   "style": "Normal",
+   "text": "“Hayır. Ama beni aramaya geç başlamanız için yeterli olacağını düşündüm.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2374,
+   "style": "Normal",
+   "text": "Meralis'in bize yaptığı şeyin küçük ve amatör bir örneğini kızım kendi iradesiyle kurmuştu: Doğru cümleyi doğru anda duyurarak karşısındakine konuşmanın sürdüğü hissini vermek.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2375,
+   "style": "Normal",
+   "text": "Duru, eve gelen mesajı gördüğünde ilk olarak annesine söylemek istemişti. Sonra mesajın altında kendi değerlendirme dosyasının, babasına hiç anlatmadığı bir sayfası açılmıştı. On dört yaşındayken yazdığı kısa bir metin:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2376,
+   "style": "Book Inset",
+   "text": "<i>Bazen herkesin sustuğu yerde bile ses var. Bunu söylersem beni yalancı sanıyorlar.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2377,
+   "style": "Normal",
+   "text": "Bu sayfayı yalnız klinik görmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2378,
+   "style": "Normal",
+   "text": "“Beni tanıdıklarını sandım,” dedi Duru. “Sonra bunun saçma olduğunu düşündüm. Dosyamı bilmeleri beni tanıdıkları anlamına gelmez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2379,
+   "style": "Normal",
+   "text": "“Yine de geldin,” dedi Zeynep.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2380,
+   "style": "Normal",
+   "text": "“Çünkü babamın bildiğini öğrenmem gerekiyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2381,
+   "style": "Normal",
+   "text": "Duru otobüse binmiş, üç durak sonra izlendiğinden şüphelenip inmişti. Peşindeki kırmızı montlu kadın da inince bir markete girmiş, arka kapıdan çıkmış ve taksiye binmişti. Kadının gerçekten onu izleyip izlemediğini bilmiyordu; aynı durakta inen sıradan biri de olabilirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2382,
+   "style": "Normal",
+   "text": "“Korktun mu?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2383,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2384,
+   "style": "Normal",
+   "text": "“Niye geri dönmedin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2385,
+   "style": "Normal",
+   "text": "“Çünkü korktuğum için verdiğim her kararın doğru olduğuna inanmak istemedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2386,
+   "style": "Normal",
+   "text": "Cümle benimdi. Yıllar önce kırmızı deftere yazmıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2387,
+   "style": "Normal",
+   "text": "Taksiden dükkânın bir sokak gerisinde inmiş. Ön kapıda yeni kilidi görünce geri dönmeyi düşünmüş. O sırada beyaz bir güvercin kepengin önüne konmuş ve kanadından tüy düşmüş. Bu, sandalyesinde bırakılan mavi uçlu tüy değildi. Biri yönlendirilmişti; öteki canlı bir kuştan, gözünün önünde düşmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2388,
+   "style": "Normal",
+   "text": "“Onu işaret sandım,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2389,
+   "style": "Normal",
+   "text": "“Belki sıradan bir güvercindi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2390,
+   "style": "Normal",
+   "text": "“İnternete sorsam melek işareti diyecek,” dedi Duru. “Bir site yeni başlangıç, biri ölen yakının mesajı, biri de para geliyor yazıyor. Aynı tüyün ekonomik görüşü bile belli değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2391,
+   "style": "Normal",
+   "text": "Zeynep istemeden gülümsedi. “İnternete belirti sorduğunda da iki dakika içinde ölüyor oluyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2392,
+   "style": "Normal",
+   "text": "Hristiyan resimlerinde güvercin Kutsal Ruh'u, modern dünyada barışı hatırlatabiliyordu. Ferîdüddin Attâr'ın eski Sufi anlatısında ise kuşlar uzaktaki Simurg'u bulmak için yedi vadiden geçiyordu. Kuş, tek başına bir cevap değildi; insanın arayışını taşıyan bir şekildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2393,
+   "style": "Normal",
+   "text": "“Attâr'ın hikâyesi nasıl bitiyor?” diye sordu Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2394,
+   "style": "Normal",
+   "text": "“Kuşlar vardıklarında aradıkları şeyin sandıkları kadar uzakta olmadığını görüyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2395,
+   "style": "Normal",
+   "text": "“Bu cevap değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2396,
+   "style": "Normal",
+   "text": "“Sonunu anlatırsam işaret değil, özet olur.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2397,
+   "style": "Normal",
+   "text": "Duru tüyü avucunda çevirdi. “Belki mesele onun ne anlama geldiği değil. Bana ne yaptırdığı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2398,
+   "style": "Normal",
+   "text": "“Seni o kapıdan geçirdi,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2399,
+   "style": "Normal",
+   "text": "“Biliyorum. Ama bana ne yapmam gerektiğini söylemedi. Yalnız neden geldiğimi hatırlattı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2400,
+   "style": "Normal",
+   "text": "Arka kapının anahtarını paspasın altında bulduğunda bunun bir tuzak olduğunu kesin olarak anlamıştı. İçeri girmiş, kapıyı açık bırakmış ve eski acil telefonun ekranında 112 aramasını hazır tutmuştu. Fakat içeri girer girmez telefonun çekimi kesilmiş, kapı arkasından kapanmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2401,
+   "style": "Normal",
+   "text": "“Biri var mıydı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2402,
+   "style": "Normal",
+   "text": "“Hayır. O daha kötüydü. Bütün dükkân sanki beni bekliyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2403,
+   "style": "Normal",
+   "text": "Masadaki saatler aynı anda çalışmaya başlamıştı. Duru, mekanizmaların içinde hoparlör olduğunu fark etmiş; ses düzeneklerinin bağlı olduğu çoklu prizi kapatarak onları susturmuştu. Ancak bundan sonra büyüteç lambasının altındaki gizli bölmeyi fark etmiş, beyaz kitabı orada bulmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2404,
+   "style": "Normal",
+   "text": "“Yani seni buraya getiren yalnız merak değildi,” dedim. “Birileri adım adım ortam hazırlamış.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2405,
+   "style": "Normal",
+   "text": "“Evet. Ama son adımı ben attım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2406,
+   "style": "Normal",
+   "text": "Zeynep, “Bunu söylemen sorumluluğu aldığını gösteriyor,” dedi. “Bir daha yapabileceğin anlamına gelmiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2407,
+   "style": "Normal",
+   "text": "Duru başını salladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2408,
+   "style": "Normal",
+   "text": "“Burada sizin tam olarak ne söyleyeceğiniz yazıyor,” dedi Duru. “Annemin ‘Telefonunu neden bıraktın?’ diye soracağı da. Senin önce kızıp sonra sesini kısacağın da.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2409,
+   "style": "Normal",
+   "text": "“Bu seni güvende yapmıyor,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2410,
+   "style": "Normal",
+   "text": "“Sizin hiçbiriniz güvende değilsiniz. Bana yalnız güvende olduğum yalanını söylüyorsunuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2411,
+   "style": "Normal",
+   "text": "Beyaz kitabın kapağında isim yoktu. İlk sayfasında babamın mührü vardı: İç içe geçen iki daire ve aralarında küçük bir boşluk. Çocukken bunun bozuk basıldığını sanırdım. Babam, “İki çark tamamen birleşirse dönemez,” derdi. “Aralarında gözle görünmeyen bir pay kalmalı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2412,
+   "style": "Normal",
+   "text": "Babam öldüğünde yirmi yaşındaydım. O sabah beni üç kez aramıştı. İlkinde dersteydim, ikincisinde kütüphanede sınava çalışıyor, üçüncüsünde ise telefonun titreşimini görüp “Birazdan dönerim,” diye düşünüyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2413,
+   "style": "Normal",
+   "text": "Birazdan, insanın kendisine söylediği en pahalı yalanlardan biridir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2414,
+   "style": "Normal",
+   "text": "Onu dükkânda, çalışma masasının yanında bulmuşlardı. Kalbi durmuştu. Sağ eli büyük duvar saatinin açık kapağında kalmış, yere düşen tornavida elektrik hattına çarpınca mekanizma durmuştu. Akrep ile yelkovan 14.53'ü gösteriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2415,
+   "style": "Normal",
+   "text": "Yıllarca saatin babamın öldüğü anı bildiğini düşündüm. Sonra ambulans kaydında tahmin edilen ölüm zamanının 14.20 ile 14.50 arasında olduğunu öğrendim. Saat ölümünü kaydetmemişti. Yalnız benim dükkâna geldiğim zamanı gösteriyor olabilirdi. Belki de tornavida daha sonra düşmüştü. Kesinliği yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2416,
+   "style": "Normal",
+   "text": "Ama zihnim 14.53'ü seçmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2417,
+   "style": "Normal",
+   "text": "Çünkü suçluluğun bir saate ihtiyacı vardı. “Telefonu açmadım” cümlesi biçimsiz ve sonsuzdu. 14.53 ise çizilebilir, tekrarlanabilir, bir deftere mühürlenebilirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2418,
+   "style": "Normal",
+   "text": "Babamın son mesajını yıllarca dinleyemedim. Telefon değiştirirken kaybolduğunu sandım. Yusuf daha sonra bir kasette sakladığını söyleyecekti. Mesajda büyük bir sır yoktu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2419,
+   "style": "Book Inset",
+   "text": "“Oğlum, senin bıraktığın kutuyu konuşacağız. Gelirken bir de ekmek al.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2420,
+   "style": "Normal",
+   "text": "Son istediği şey kozmik değildi. Ekmekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2421,
+   "style": "Normal",
+   "text": "Belki bu yüzden ölümü hissetmeye başladığımda çocukların sesini, faturaları, şifreleri ve kahvaltıyı düzenliyordum. Babamın tamamlayamadığı sırdan çok, alamadığı ekmek içimde kalmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2422,
+   "style": "Normal",
+   "text": "Duru, mühürdeki iki çemberin arasına parmağını koydu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2423,
+   "style": "Normal",
+   "text": "“Bu boşluk sensin,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2424,
+   "style": "Normal",
+   "text": "“Neden?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2425,
+   "style": "Normal",
+   "text": "“Herkesi birbirine bağlamaya çalışıyorsun. Sonra hareket edecek pay bırakmıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2426,
+   "style": "Normal",
+   "text": "Babamın cümlesi, torununun ağzından başka bir anlama dönmüştü. İşaretlerin belki de gerçek gücü buydu. Aynı şekil, zaman değiştikçe yeni bir karar soruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2427,
+   "style": "Normal",
+   "text": "Aynı mühür Meralis'in elinde bütünleşme emri, Duru'nun elinde sınır olmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2428,
+   "style": "Normal",
+   "text": "Duru kitabın ortasındaki dosyayı açtı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2429,
+   "style": "Normal",
+   "text": "Kendi değerlendirme sonuçlarıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2430,
+   "style": "Normal",
+   "text": "Dr. Rana'nın bize verdiği rapordan daha uzundu. Ek bölümde Duru'nun ses ayrıştırma, örüntü tamamlama ve anlam tutarsızlığına duyarlılığı ölçülmüş; sonuçların anonim bir araştırma havuzuna aktarılmasına izin verildiği yazıyordu. Onay formunda benim imzam vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2431,
+   "style": "Normal",
+   "text": "Altında başka bir şirketin adı geçiyordu: <b>VeraSense Eğitim Analitiği</b>.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2432,
+   "style": "Normal",
+   "text": "Şirket iki yıl sonra Meralis fonuna devredilmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2433,
+   "style": "Normal",
+   "text": "“Bunu biliyor muydun?” diye sordu Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2434,
+   "style": "Normal",
+   "text": "“Başta hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2435,
+   "style": "Normal",
+   "text": "“Sonra?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2436,
+   "style": "Normal",
+   "text": "Sessiz kaldım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2437,
+   "style": "Normal",
+   "text": "Zeynep adımı söyledi. Başımı kaldırdım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2438,
+   "style": "Normal",
+   "text": "“Altı ay önce öğrendim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2439,
+   "style": "Normal",
+   "text": "Duru başını eğdi. “Bana araştırma verilerinin silindiğini söyledin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2440,
+   "style": "Normal",
+   "text": "“Klinikten silindi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2441,
+   "style": "Normal",
+   "text": "“Kelimenin sınırını değiştirmişsin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2442,
+   "style": "Normal",
+   "text": "Cem'e söylediğim cümle, kızımın ağzından bana döndü. İyi yalancılar reddetmezdi. Cümlenin sınırını değiştirirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2443,
+   "style": "Normal",
+   "text": "“Seni korkutmak istemedim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2444,
+   "style": "Normal",
+   "text": "“Hayır. Kendi suçluluğunu görmek istemedin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2445,
+   "style": "Normal",
+   "text": "“Haklısın,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2446,
+   "style": "Normal",
+   "text": "Bu kez söyleyebildim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2447,
+   "style": "Normal",
+   "text": "Ona izin formunu okumadan imzaladığımı, değerlendirme günü kendi geçmişimi düşünmekten dikkatimin dağıldığını anlattım. Altı ay önce veri devrini bulunca şirkete silme talebi göndermiş, yasal yanıt almıştım. Yanıta eklenen, Duru'ya ait profil örneğinde adı kapalıydı; okul gösterisi, duyusal tepkileri ve benimle akrabalığı duruyordu. Meralis buna anonim diyordu. O zamandan beri Meralis adını biliyor, Duru'nun oradaki yerini konuşmaktan kaçıyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2448,
+   "style": "Normal",
+   "text": "“Neden bana söylemedin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2449,
+   "style": "Normal",
+   "text": "“Seni benim savaşıma çekmemek için.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2450,
+   "style": "Normal",
+   "text": "“Ben senin savaşına değerlendirme günü girdim. Sen yalnız bana haritayı vermedin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2451,
+   "style": "Normal",
+   "text": "Zeynep, Duru'nun yanına oturdu. Ben ayakta kaldım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2452,
+   "style": "Normal",
+   "text": "“Bundan sonra hiçbir bilgin senden saklanmayacak,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2453,
+   "style": "Normal",
+   "text": "Duru gözlerini sildi. “Her şeyi bilmek istemiyorum. Hakkımda olanı bilmek istiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2454,
+   "style": "Normal",
+   "text": "Aradaki fark büyüktü. Ben yine her şeye “evet” diyerek hatamı düzeltmeye çalışmıştım. Duru ise doğru şeye evet, geri kalanına hayır diyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2455,
+   "style": "Book Inset",
+   "text": "<b>SESSİZ SES:</b> <i>Hayır bir duvar değildir. Kapının nerede olduğunu söyleyen çizgidir.</i>",
+   "keep": false,
+   "image": false,
+   "label": "SESSİZ SES",
+   "constraint": null
+  },
+  {
+   "pid": 2456,
+   "style": "Normal",
+   "text": "Beyaz kitabın sonraki sayfasında tek cümle vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2457,
+   "style": "Book Inset",
+   "text": "<b>Çocuğunu korumak istiyorsan onun yerine korkma. Korktuğunda yanında kal.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2458,
+   "style": "Normal",
+   "text": "Altında tarih yoktu. Yazı bana aitti; fakat kelimeler tanıdık değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

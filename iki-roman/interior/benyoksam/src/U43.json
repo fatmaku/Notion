@@ -1,0 +1,514 @@
+{
+ "uid": "U43",
+ "title": "48. Saat 14.53",
+ "number": 48,
+ "words": 299,
+ "constraints": {
+  "uid": "U43",
+  "number": 48,
+  "title": "48. Saat 14.53",
+  "title_letter": null,
+  "marks": [
+   "N"
+  ],
+  "knots": [],
+  "images": [
+   3384
+  ],
+  "book_part": null,
+  "words": 299
+ },
+ "synopsis": {
+  "uid": "U43",
+  "title": "48. Saat 14.53",
+  "summary": "Gegenwart des letzten Tages: Der Erzähler wird bei Bewusstsein ins Krankenhaus gebracht und verlangt gegen Nehirs Rat, dass die Kinder sofort kommen. Das Herz gerät mehrfach in gefährliche Rhythmen; der Defibrillator funktioniert, aber der Herzmuskel pumpt nicht genug, ein sicherer Transfer in ein anderes Zentrum ist nicht möglich. Gegen Mittag nimmt der behandelnde Arzt die Familie beiseite; der Erzähler liest das Ergebnis von ihren Gesichtern. Die inneren Stimmen (AVCI, TOPLAYICI, ŞÜPHECİ, MUHASEBECİ) wollen erstmals alle dasselbe, die SESSİZ SES bittet, keine von ihnen zu unterdrücken. Letzte Dialoge: an Emir „Öffnet die Umschläge, wann ihr wollt“, an Duru „Die letzte Zeile des Buches schreibt der/die Lesende“, an Zeynep „Ich sorge mich auch um dich“, an Nehir die Wiederaufnahme von „Elimden geldiğince“. Alle Namen, Akten und vorbereiteten Sätze weichen zurück; das einzige verbleibende Wort ist „Ben“. Um 14.52 setzt sich eine Krähe vor das Zimmer (nur Duru sieht es), um 14.53 wird der Herzton zum Dauerton; „14.53 ↺“; Wiederbelebung erfolglos. Schluss: „Ben öldüm. Ve hikâye orada başlamadı. İnsan hakikati öğrenmez, hatırlar! Hatırladığım yer orada başladı.“ – Auflösung der Jugendaufnahme (die letzte Seite wird nach dem Tod ‚erinnert‘) und Übergang zu den Nachlasskapiteln 49–50, in denen die Familie weitererzählt.",
+  "characters": [
+   "Ich-Erzähler (stirbt um 14.53; erzählt bis über den eigenen Tod hinaus)",
+   "Duru (Tochter; rechts am Bett; sieht die Krähe und erzählt es später)",
+   "Emir (Sohn; links am Bett; fragt nach den Umschlägen)",
+   "Zeynep (Ex-Frau; am Fenster, weint, übernimmt die Verantwortung für die Kinder)",
+   "Nehir (Partnerin; am Fußende, erinnert an das Versprechen zu warten)",
+   "Sorumlu hekim / Doktorlar (behandelnder Arzt und Ärzteteam)",
+   "Innere Stimmen: AVCI (Jäger), TOPLAYICI (Sammler), ŞÜPHECİ (Skeptiker), MUHASEBECİ (Buchhalter), SESSİZ SES (die leise Stimme)",
+   "Krähe (Zeichenmotiv vor dem Fenster um 14.52)"
+  ],
+  "terms": [
+   {
+    "tr": "Saat 14.53",
+    "meaning": "Kapiteltitel: „14.53 Uhr“ – Todeszeit, Erscheinungszeit des Buches, Spiegel von 1453. Zahlen unverändert lassen."
+   },
+   {
+    "tr": "AVCI / TOPLAYICI / ŞÜPHECİ / MUHASEBECİ / SESSİZ SES",
+    "meaning": "Die inneren Stimmen des Erzählers als Inset-Dialog (fett Name, kursiv Rede): Jäger („Bir yol bul“), Sammler („Bütün seçenekleri yeniden sırala“), Skeptiker („Belki doktor yanılıyor“), Buchhalter („Yapılacaklar listesi tamamlanmadı“), Leise Stimme („Şimdi hiçbirini susturma. Hepsi seni yaşatmaya çalıştı“). Namen konsistent mit allen früheren Paketen (auch İNANAN in Kap. 1); Format beibehalten."
+   },
+   {
+    "tr": "sorumlu hekim",
+    "meaning": "Verantwortlicher/behandelnder Arzt."
+   },
+   {
+    "tr": "güvenli transfer / nakil",
+    "meaning": "Sicherer Transport in ein Transplantationszentrum / Transplantation – scheitert an Rhythmus und Bettenbestätigung."
+   },
+   {
+    "tr": "canlandırma",
+    "meaning": "Reanimation/Wiederbelebung."
+   },
+   {
+    "tr": "Zarfları şimdi açmayın. – Ne zaman? – Canınız istediğinde.",
+    "meaning": "Die Umschläge aus Kap. 46: „Öffnet sie, wann euch danach ist“ – Emir: „Das ist eine sehr schlechte Anweisung“ – „Endlich hab ich’s gelernt“ (keine Aufgaben hinterlassen)."
+   },
+   {
+    "tr": "Kitabın son cümlesi? – Siz yazmayın. – Peki kim yazacak? – Okuyan.",
+    "meaning": "Auflösung der leeren Schlusszeile: Nicht die Kinder, sondern die Lesenden schreiben den letzten Satz. „Okuyan“ geschlechtsneutral („wer liest“)."
+   },
+   {
+    "tr": "Bir kere de işi bana bırak.",
+    "meaning": "Zeynep: „Überlass die Sache einmal mir.“"
+   },
+   {
+    "tr": "Bekleyeceğine söz vermiştin. – Elimden geldiğince dedim. – Kelimelerin sınırını değiştiriyorsun. – Senden öğrendim.",
+    "meaning": "Wörtliche Wiederaufnahme von Kap. 46 (Nehir/Grab): das Versprechen „so gut ich kann“. Formulierung identisch zu Kap. 46 halten."
+   },
+   {
+    "tr": "Ben.",
+    "meaning": "Das letzte verbleibende Wort („Ich“) als eigener Absatz; korrespondiert mit „Ben öldüm“ und dem Erzähler als namenloser Instanz."
+   },
+   {
+    "tr": "14.52 / karga",
+    "meaning": "Krähe setzt sich eine Minute vor dem Tod vor das Zimmer; der Erzähler sieht es nicht selbst – Duru berichtet es später (Erzählperspektive überschreitet den Tod)."
+   },
+   {
+    "tr": "14.53 ↺",
+    "meaning": "Letzte Rücksprung-Marke des Buches. Akrostichon „BAŞA DÖN“ (siehe U42): der folgende Absatz (pid 3379) muss mit „N“ beginnen („Nabzımı…“). In der Übersetzung Anfangsbuchstaben des Folgeabsatzes mit dem Team abstimmen."
+   },
+   {
+    "tr": "Ben öldüm.",
+    "meaning": "„Ich starb / Ich bin gestorben.“ Nüchterner Zwei-Wort-Satz, eigener Absatz."
+   },
+   {
+    "tr": "Ve hikâye orada başlamadı.",
+    "meaning": "„Und die Geschichte begann nicht dort.“ Negation einer erwarteten Pointe."
+   },
+   {
+    "tr": "İnsan hakikati öğrenmez, hatırlar!",
+    "meaning": "Schlussformel: „Der Mensch lernt die Wahrheit nicht, er erinnert sich an sie!“ (platonische Anamnesis-Anklang; hakikat = Wahrheit im emphatisch-mystischen Sinn, nicht gerçek). Löst die Aufnahme des 19-Jährigen ein („Onu öldükten sonra hatırlayacaksın“). Ausrufezeichen beibehalten."
+   },
+   {
+    "tr": "Hatırladığım yer orada başladı.",
+    "meaning": "Letzte Zeile des Pakets und des Kapitels: „Der Ort, an den ich mich erinnerte, begann dort.“ / „Dort begann, woran ich mich erinnere.“ Anschließend ein leerer Absatz (pid 3384) – als Leerstelle beibehalten; Kap. 49 „Geride Kalanlar“ wechselt die Perspektive."
+   }
+  ],
+  "tone": "Knapp, nüchtern, hohe Dichte; sehr kurze Absätze und Ein-Wort-Sätze; Inset-Dialog der inneren Stimmen; Dialoge zärtlich und schlagfertig trotz Sterbesituation; am Ende lakonisch-mystischer Ton mit aphoristischer Schlussformel. Erzählperspektive überschreitet den Tod („Bunu ben görmedim. Sonradan Duru anlatacaktı“)."
+ },
+ "paras": [
+  {
+   "pid": 3340,
+   "style": "Heading 1",
+   "text": "<b>48. Saat 14.53</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3341,
+   "style": "Opening",
+   "text": "Ambulans geldiğinde bilincim açıktı. Nehir çocukları aramak istemedi; önce doktorun ne diyeceğini beklemeyi önerdi. Ona hayır dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3342,
+   "style": "Normal",
+   "text": "“Şimdi gelsinler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3343,
+   "style": "Normal",
+   "text": "Hastanede kalbim birkaç kez tehlikeli ritme girdi. Yerleştirilen cihaz görevini yaptı, fakat kalp kası yeterince kan pompalamıyordu. Doktorlar ilaç verdi, müdahale etti, başka bir merkeze nakli yeniden değerlendirdi. O gece ritmim kararsızken güvenli transfer için uygun yatak da doğrulanmadı. Saatler ilerledikçe sesleri daha yavaş ve daha dürüst oldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3344,
+   "style": "Normal",
+   "text": "Öğleye doğru tedavimi izleyen sorumlu hekim ailemi ayrı odaya aldı. Ben onların ne konuştuğunu duymadım. Döndüklerinde yüzlerinden anladım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3345,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Bir yol bul.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 3346,
+   "style": "Book Inset",
+   "text": "<b>TOPLAYICI:</b> <i>Bütün seçenekleri yeniden sırala.</i>",
+   "keep": false,
+   "image": false,
+   "label": "TOPLAYICI",
+   "constraint": null
+  },
+  {
+   "pid": 3347,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Belki doktor yanılıyor.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 3348,
+   "style": "Book Inset",
+   "text": "<b>MUHASEBECİ:</b> <i>Yapılacaklar listesi tamamlanmadı.</i>",
+   "keep": false,
+   "image": false,
+   "label": "MUHASEBECİ",
+   "constraint": null
+  },
+  {
+   "pid": 3349,
+   "style": "Normal",
+   "text": "Sesler bu kez aynı şeyi istiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3350,
+   "style": "Normal",
+   "text": "Sonra içlerinden daha sessiz olanı yükseldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3351,
+   "style": "Book Inset",
+   "text": "<b>SESSİZ SES:</b> <i>Şimdi hiçbirini susturma. Hepsi seni yaşatmaya çalıştı.</i>",
+   "keep": false,
+   "image": false,
+   "label": "SESSİZ SES",
+   "constraint": null
+  },
+  {
+   "pid": 3352,
+   "style": "Normal",
+   "text": "Duru yatağın sağında, Emir solunda durdu. Zeynep pencerenin yanında ağlıyor ve ağladığı için özür dilememeye çalışıyordu. Nehir yatağın ucunda ellerini birbirine kilitlemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3353,
+   "style": "Normal",
+   "text": "“Zarfları şimdi açmayın,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3354,
+   "style": "Normal",
+   "text": "Emir burnunu çekti. “Ne zaman?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3355,
+   "style": "Normal",
+   "text": "“Canınız istediğinde.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3356,
+   "style": "Normal",
+   "text": "“Bu çok kötü talimat.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3357,
+   "style": "Normal",
+   "text": "“Sonunda öğrendim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3358,
+   "style": "Normal",
+   "text": "Duru, “Kitabın son cümlesi?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3359,
+   "style": "Normal",
+   "text": "“Siz yazmayın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3360,
+   "style": "Normal",
+   "text": "“Peki kim yazacak?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3361,
+   "style": "Normal",
+   "text": "“Okuyan.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3362,
+   "style": "Normal",
+   "text": "Zeynep yanıma geldi. Yıllarca taşıdığı öfke, sevgi ve yorgunluk aynı yüzün içinde duruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3363,
+   "style": "Normal",
+   "text": "“Çocukları merak etme,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3364,
+   "style": "Normal",
+   "text": "“Seni de merak ediyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3365,
+   "style": "Normal",
+   "text": "“Bir kere de işi bana bırak.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3366,
+   "style": "Normal",
+   "text": "Gülümsedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3367,
+   "style": "Normal",
+   "text": "Nehir kulağıma eğildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3368,
+   "style": "Normal",
+   "text": "“Bekleyeceğine söz vermiştin,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3369,
+   "style": "Normal",
+   "text": "“Elimden geldiğince dedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3370,
+   "style": "Normal",
+   "text": "“Kelimelerin sınırını değiştiriyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3371,
+   "style": "Normal",
+   "text": "“Senden öğrendim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3372,
+   "style": "Normal",
+   "text": "Gözlerinden yaş akarken güldü. Bazı gülüşler mutluluktan doğmaz. Acının insanı tamamen ele geçirmesine karşı açtığımız küçük pencerelerdir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3373,
+   "style": "Normal",
+   "text": "İsimler, dosyalar, tanılar ve hazırladığım bütün cümleler geriye çekildi. Kalan tek kelimeyi içimden söyledim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3374,
+   "style": "Normal",
+   "text": "Ben.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3375,
+   "style": "Normal",
+   "text": "Saat 14.52'de odanın dışına bir karga kondu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3376,
+   "style": "Normal",
+   "text": "Bunu ben görmedim. Sonradan Duru anlatacaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3377,
+   "style": "Normal",
+   "text": "14.53'te kalbimin sesi monitörde uzadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3378,
+   "style": "Normal",
+   "text": "<i>14.53 ↺</i>",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3379,
+   "style": "Normal",
+   "text": "Nabzımı geri getirmek için doktorlar canlandırmaya başladı. Yapılan müdahalelere rağmen bedenim cevap vermedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BASA_DON",
+    "index": 6,
+    "n": 7
+   }
+  },
+  {
+   "pid": 3380,
+   "style": "Normal",
+   "text": "Ben öldüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3381,
+   "style": "Normal",
+   "text": "Ve hikâye orada başlamadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3382,
+   "style": "Normal",
+   "text": "İnsan hakikati öğrenmez, hatırlar!",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3383,
+   "style": "Normal",
+   "text": "Hatırladığım yer orada başladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3384,
+   "style": "Normal",
+   "text": "",
+   "keep": true,
+   "image": true,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

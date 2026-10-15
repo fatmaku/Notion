@@ -1,0 +1,1231 @@
+{
+ "uid": "U16",
+ "title": "17. Ormanda Beceri, Şehirde Belirti",
+ "number": 17,
+ "words": 1512,
+ "constraints": {
+  "uid": "U16",
+  "number": 17,
+  "title": "17. Ormanda Beceri, Şehirde Belirti",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 1512
+ },
+ "synopsis": {
+  "uid": "U16",
+  "title": "17. Ormanda Beceri, Şehirde Belirti",
+  "summary": "Gegenwartsebene, Tage nach dem Polizeieinsatz in der Werkstatt (vgl. B06): Der Ich-Erzähler (Zielperson, Vater von Duru und Emir, ADHS-Diagnose, Bühnenredner), Nehir (Journalistin, Mitermittlerin) und Anwältin Selin vergleichen die forensischen Aufnahmen der sieben beschlagnahmten schwarzen Bücher (Türkisch, Deutsch, Englisch, Französisch, Arabisch, Spanisch, Portugiesisch, Swahili). Äußerlich identisch, enthält jedes eine auf den Empfänger zugeschnittene 'Wundsatz'-Seite (Mira: Familie; Thomas: Staat/Medikamente; Samira: Religion; João: Konzerne); unter UV-Licht erscheinen versteckte zweite Symbole (Wolfskopf unter dem Schmetterling, Zielkreuz unter dem Kompass, geschlossenes Auge unter dem gebrochenen Heiligenschein) und die Anweisung 'Wähle den zum Nutzer passenden Feind'. Zu Hause lesen Erzähler und Kinder gegen Zeyneps Bedenken die Jäger-Sammler-Seite; es folgt ein langes Familiengespräch über die 'Jäger/Sammler/Macher(Alpha)'-Theorie des Erzählers, über 'kosmische Balance' (Leylas Randnotiz warnt davor, Leid in eine Lotterie zu verwandeln) und Durus Satz 'Sehen ist nicht Gutsein'. Als der Erzähler nachts einen Satz ins Notizbuch schreibt, trifft Sekunden später eine Nachricht von Cem ein, der den Gedanken 'vorausgesehen' habe; am nächsten Tag schickt Cem ein Video des 'ALFA YAPICILAR PROGRAMI' (Meralis-Jugendwerkstatt). Über Nehirs Quelle, den Sicherheitsexperten Tarık, und einen Beamten via Selin wird im Arbeitszimmer eine versteckte Kamera im Rauchmelder gefunden (Bezug zu den 'drei Umschlägen' und dem Eröffnungsvideo). Tarık findet im Bewerbungspaket des Programms eine Klausel, die Stipendien an Datenweitergabe und Schweige-/Schlichtungspflicht bindet; die Gruppe leitet den Vertrag an eine Menschenrechtsorganisation weiter (Prolepse: Monate später Klage). Das Kapitel endet mit einem Theorie-Eintrag über Manipulation und dem Dialog der inneren Stimmen Gölge / Sessiz Ses.",
+  "characters": [
+   "Ich-Erzähler (Zielperson A-1453, Vater, ADHS-Diagnose, Autor der Jäger-Sammler-Theorie)",
+   "Zeynep (Ex-Frau des Erzählers, Mutter von Duru und Emir, skeptisch-schützend)",
+   "Duru (Tochter, 17, scharfsinnig, Musikprobe)",
+   "Emir (Sohn, jünger, neugierig, Physik-/Naturkunde-Hausaufgabe, UV-Lampe)",
+   "Nehir (Journalistin, enge Mitermittlerin, später 'Primärspiegel')",
+   "Selin (Anwältin, Zugang zu forensischen Aufnahmen, vermittelt Beamten)",
+   "Cem (Meralis-Figur, schickt unheimliche Nachrichten und das Programm-Video)",
+   "Tarık (Sicherheitsexperte, Nehirs Quelle, Ex-Subunternehmer eines Bildungszentrums, nur per Video bekannt)",
+   "Leyla (verstorbene Expertin/'Fachspiegel', Randnotizen im Buch)",
+   "Mira, Thomas, Samira, João (Empfänger anderer schwarzer Bücher, nur in Akten)",
+   "Arda (Jugendlicher im Meralis-Video, Schulverweis, erstes abgeschlossenes Projekt)",
+   "Gölge (innere Stimme 'Schatten')",
+   "Sessiz Ses (innere Stimme 'Stille Stimme')",
+   "Beamter der Spurensicherung (unbenannt, via Selin)"
+  ],
+  "terms": [
+   {
+    "tr": "siyah kitap",
+    "meaning": "das schwarze Buch – personalisiertes Manipulationsinstrument von Meralis; sieben Exemplare in verschiedenen Sprachen; wiederkehrendes Objekt"
+   },
+   {
+    "tr": "yara cümlesi",
+    "meaning": "'Wundsatz' – der auf die persönliche Wunde des Empfängers zugeschnittene erste Satz im schwarzen Buch"
+   },
+   {
+    "tr": "KULLANICIYA UYGUN DÜŞMAN SEÇ",
+    "meaning": "versteckte Druckanweisung 'Wähle den zum Nutzer passenden Feind' – Kern der Hedefleme-Logik (Familie/Staat/Religion/Medizin)"
+   },
+   {
+    "tr": "avcı / toplayıcı",
+    "meaning": "Jäger / Sammler – Leitmetapher der Theorie des Erzählers (Jäger sieht Bewegung/Gefahr, Sammler bewahrt Unterschied/Detail); im Buch implizit ADHS=Jäger, Autismus=Sammler"
+   },
+   {
+    "tr": "yapıcı",
+    "meaning": "'Macher/Erbauer' – wer Jäger und Sammler vereint; vom Erzähler geprägt, von Meralis übernommen"
+   },
+   {
+    "tr": "alfa",
+    "meaning": "Alpha – früherer, vom Erzähler bereuter Begriff für 'yapıcı'; Emir: 'schreiende Männer im Internet'; Meralis behält ihn (ALFA YAPICILAR PROGRAMI)"
+   },
+   {
+    "tr": "ALFA YAPICILAR PROGRAMI",
+    "meaning": "'Alpha-Macher-Programm' – Meralis-Jugendwerkstatt-Programm, Titel des von Cem geschickten Videos; als Eigenname/Großschrift behandeln"
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Organisation/Institut hinter den Büchern und dem Programm; Eigenname, nicht übersetzen"
+   },
+   {
+    "tr": "Görmek, iyi olmak değildir",
+    "meaning": "'Sehen ist nicht Gutsein' – Schlusssatz der Jäger-Sammler-Seite, von Duru als Kernsatz markiert; wiederkehrendes Zitat"
+   },
+   {
+    "tr": "Yetenek bir yön gösterir. Ahlak hangi yöne yürüdüğünü belirler.",
+    "meaning": "Notizbuch-Satz des Erzählers ('Talent zeigt eine Richtung; Moral bestimmt, in welche man geht'); Cem antwortet: 'Aber wer bestimmt die Richtung?'"
+   },
+   {
+    "tr": "kozmik denge",
+    "meaning": "'kosmische Balance' – frühere Überzeugung des Erzählers, Leid werde anderswo kompensiert; Leyla: 'Mach Schmerz nicht zur Lotterie mit Gewinn'; 'Denge adalet demek değildir'"
+   },
+   {
+    "tr": "Acıyı anlamlı yapmak isterken onu ödüllü piyangoya çevirme.",
+    "meaning": "Leylas Randnotiz – kursiv, Zitatcharakter"
+   },
+   {
+    "tr": "beyin sisi",
+    "meaning": "Gehirnnebel (Brain Fog) – Medikamentenerfahrung des Erzählers"
+   },
+   {
+    "tr": "camın arkasından yaşıyor",
+    "meaning": "'wie hinter Glas leben' – Thomas' Beschreibung der ersten Medikation"
+   },
+   {
+    "tr": "DEHB",
+    "meaning": "ADHS (Dikkat Eksikliği Hiperaktivite Bozukluğu)"
+   },
+   {
+    "tr": "UV lambası / kâğıt analizi",
+    "meaning": "UV-Lampe zum Sichtbarmachen versteckter Druckschichten; Emir: 'der langweilige Name für Spionage'"
+   },
+   {
+    "tr": "adli görüntü / kayıt değeri sabitlenmiş",
+    "meaning": "forensische Aufnahme mit fixiertem Hashwert/Prüfwert – juristisch gesichertes Beweisbild"
+   },
+   {
+    "tr": "Üç zarf",
+    "meaning": "'Drei Umschläge' – Rückverweis auf frühere Bedrohung (frühere Pakete); der Erzähler sagt es beim Kamerafund"
+   },
+   {
+    "tr": "duman sensörü",
+    "meaning": "Rauchmelder – darin versteckte Kamera mit eigener SIM-/Funkkarte, nicht im WLAN sichtbar"
+   },
+   {
+    "tr": "açılış videosu",
+    "meaning": "Eröffnungsvideo – früheres Video des Erzählers an seinem Schreibtisch, von der Kamera eingesehen"
+   },
+   {
+    "tr": "çalışma defteri",
+    "meaning": "Arbeits-/Notizbuch des Erzählers, Ort der Theorie-Einträge (kursive Book Insets)"
+   },
+   {
+    "tr": "sessizlik teminatı",
+    "meaning": "'Schweigegarantie' – Stipendien an Datenfreigabe und interne Schlichtung vor öffentlicher Kritik gebunden"
+   },
+   {
+    "tr": "bağımsız hak örgütü",
+    "meaning": "unabhängige Menschenrechts-/Bürgerrechtsorganisation, an die der Vertrag geht"
+   },
+   {
+    "tr": "İyi manipülasyon yoktur",
+    "meaning": "'Es gibt keine gute Manipulation' – Theorie-Eintrag; 'Yardım kapıyı gösterir' (Hilfe zeigt die Tür)"
+   },
+   {
+    "tr": "GÖLGE / SESSİZ SES",
+    "meaning": "innere Stimmen 'Schatten' / 'Stille Stimme' – Dialogformat in Book Insets (fett + kursiv), wiederkehrend"
+   },
+   {
+    "tr": "CEM:",
+    "meaning": "Nachrichten-Format (fetter Sprecher-Tag + Text) für SMS/Chat von Cem"
+   },
+   {
+    "tr": "Ormanda Beceri, Şehirde Belirti",
+    "meaning": "Kapiteltitel: 'Im Wald Fähigkeit, in der Stadt Symptom' – Kernsatz 1349: 'Bir klinikte belirti denen şey, ormanda beceri olabilirdi'"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum (Vergangenheit), reflexiv-essayistisch mit viel knappem, pointiertem Familien-Dialog (Kinder antworten schlagfertig, Aphorismen wie 'Çalışmak bıraktığın anlamına gelmiyor'). Trockener Humor (Emir/Duru), nüchterne Verfahrenssprache bei Forensik und Vertragsanalyse. Book Insets: fett = Buch-/Chat-Text, kursiv = Notizbuch-Einträge und Leylas Randnotizen; am Ende Dialog der inneren Stimmen (GÖLGE/SESSİZ SES). Style 'Opening' markiert den Kapitelanfang."
+ },
+ "paras": [
+  {
+   "pid": 1295,
+   "style": "Heading 1",
+   "text": "<b>17. Ormanda Beceri, Şehirde Belirti</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1296,
+   "style": "Opening",
+   "text": "Atölyede bulduğumuz yedi kitabı incelemek günler sürdü. Bu sırada hayat, suç romanı olduğundan habersiz devam etti. Çöp çıkarıldı. Emir'in fen ödevi kayboldu. Duru'nun müzik provası ertelendi. Zeynep, çocukların yanında telefonuma her baktığımda kaşını kaldırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1297,
+   "style": "Normal",
+   "text": "Savcının yazılı arama emriyle olay yeri ekibinin açtığı çekmecelerin ilkinde Türkçe, ikincisinde Almanca siyah kitap vardı. Sonrakiler İngilizce, Fransızca, Arapça, İspanyolca, Portekizce ve Svahiliydi. Kitaplar numaralandı; biz yalnız Selin üzerinden erişebildiğimiz, kayıt değeri sabitlenmiş adli görüntüleri karşılaştırdık.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1298,
+   "style": "Normal",
+   "text": "Yedi kitap dışarıdan aynıydı; açıldıklarında değildi. İlk sayfadaki yara cümlesi her alıcı için değişiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1299,
+   "style": "Normal",
+   "text": "Mira adlı bir kadının kitabında ailesinin onu susturduğu yazıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1300,
+   "style": "Normal",
+   "text": "Thomas'ın kitabında devletin yeteneğini ilaçla bastırdığı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1301,
+   "style": "Normal",
+   "text": "Thomas'ın dosyasında gerçek bir tedavi öyküsü de vardı. İlk kullandığı ilaçta iştahı kesilmiş, uykusu bozulmuş ve kendisini “camın arkasından yaşıyor” gibi hissetmişti. Doktoruyla başka doza ve sonra başka tedaviye geçmiş; sonunda yarar gördüğü bir düzen bulmuştu. Siyah kitap ilk üç satırı almış, doktorla birlikte çözüm aradığı devamını silmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1302,
+   "style": "Normal",
+   "text": "Benim beyin sisi deneyimim de aynı makineye girebilirdi. “Bu ilaç bana uymadı” cümlesi insanı kendi kararının sahibi bırakıyordu. “İlaçlar yeteneğimizi söndürmek için var” cümlesi ise önce öfke, sonra düşman, en sonunda kitap adına konuşacak bir asker üretiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1303,
+   "style": "Normal",
+   "text": "Samira'nın kitabında dinî otoritenin rüyalarından korktuğu, João'nunkinde şirketlerin yaratıcılığını çaldığı yazıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1304,
+   "style": "Normal",
+   "text": "Farklı ışık altında çekilen adli görüntüler karşılaştırıldığında baskının gizlenmiş katmanları belirdi. Benim kitabımdaki kelebeğin altında kurt başı, Thomas'ın kitabındaki pusulanın altında hedef işareti, Samira'nın kırık halesinin altında kapalı bir göz vardı. Şekiller değişmiyor, üst üste basılmış ikinci çizimler görünür oluyordu. Hepsinin altında aynı talimat vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1305,
+   "style": "Book Inset",
+   "text": "<b>KULLANICIYA UYGUN DÜŞMAN SEÇ.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1306,
+   "style": "Book Inset",
+   "text": "<b>Aile yarası varsa aile. Kurum yarası varsa devlet. İnanç yarası varsa din. Tanı yarası varsa tıp.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1307,
+   "style": "Book Inset",
+   "text": "<b>Kendi düşmanını seçtiğini sanması güveni artırır.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1308,
+   "style": "Normal",
+   "text": "“Bu kitap yasak değil,” dedi Nehir. “Yasakmış gibi dağıtılan bir hedefleme aracı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1309,
+   "style": "Normal",
+   "text": "“Leyla gerçek bir metinden söz ediyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1310,
+   "style": "Normal",
+   "text": "“Belki bu, onun bozulmuş hâli.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1311,
+   "style": "Normal",
+   "text": "Bir akşam Emir, yemek masasındaki UV lambasını gördü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1312,
+   "style": "Normal",
+   "text": "“Bu ne?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1313,
+   "style": "Normal",
+   "text": "“Kitaplardaki görünmez mürekkebi gösteriyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1314,
+   "style": "Normal",
+   "text": "“Casusluk mu?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1315,
+   "style": "Normal",
+   "text": "“Kâğıt analizi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1316,
+   "style": "Normal",
+   "text": "“Casusluğun sıkıcı adı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1317,
+   "style": "Normal",
+   "text": "Lambayı ona vermedim. O da sormayı bıraktı; on dakika sonra cihazı elimdeyken nasıl açtığımı omzumun üstünden izliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1318,
+   "style": "Normal",
+   "text": "Duru, siyah kitabın ilk sayfasını okumak istedi. Zeynep karşı çıktı. Ben, “Onun hakkında konuşulan şeyi ondan saklayamayız,” dedim. Zeynep, “Onun hakkında konuşulan her şeyi ona göstermek zorunda da değiliz,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1319,
+   "style": "Normal",
+   "text": "Sonunda yalnız tıbbi veya bilimsel gerçek olmadığına dair notu ve avcı–toplayıcı sayfasını birlikte okuduk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1320,
+   "style": "Book Inset",
+   "text": "<b>Avcı hareketi görür.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1321,
+   "style": "Book Inset",
+   "text": "<b>Toplayıcı farkı saklar.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1322,
+   "style": "Book Inset",
+   "text": "<b>İkisini taşıyan, hem tehlikeyi hem düzeni görebilir.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1323,
+   "style": "Book Inset",
+   "text": "<b>Ama görmek, iyi olmak değildir.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1324,
+   "style": "Normal",
+   "text": "Emir ilk soruyu sordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1325,
+   "style": "Normal",
+   "text": "“Ben hangisiyim?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1326,
+   "style": "Normal",
+   "text": "“Bilmiyorum,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1327,
+   "style": "Normal",
+   "text": "“Sen bunu yıllardır düşünmedin mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1328,
+   "style": "Normal",
+   "text": "“Düşünmekle bilmek aynı şey değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1329,
+   "style": "Normal",
+   "text": "Duru sayfayı çevirdi. “Kitap, DEHB'liler avcı, otistikler toplayıcı demeye mi çalışıyor?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1330,
+   "style": "Normal",
+   "text": "“Bunu açıkça yazmıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1331,
+   "style": "Normal",
+   "text": "“Ama okuyanın oraya gitmesini istiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1332,
+   "style": "Normal",
+   "text": "On yedi yaşındaki kızım, kitabın yaptığı şeyi benden hızlı görmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1333,
+   "style": "Normal",
+   "text": "“Evet,” dedim. “Bence istiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1334,
+   "style": "Normal",
+   "text": "“Peki sen inanıyor musun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1335,
+   "style": "Normal",
+   "text": "Soruyu çocuklarıma cevaplamak, sahnede cevaplamaktan zordu. Sahnede yanlış cümleyi sonra düzeltebilirdim. Çocuk, babasının kesinliğini kendisine duvar yapabilirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1336,
+   "style": "Normal",
+   "text": "“Bir kısmını düşünmeye değer buluyorum,” dedim. “İnsanların farklı dikkat biçimleri geçmişte ve bugün farklı işlere yarayabilir. Ama ‘şu tanıdaki herkes budur’ dersem insanı yine bir kutuya koyarım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1337,
+   "style": "Normal",
+   "text": "“Sen avcı mısın?” diye sordu Emir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1338,
+   "style": "Normal",
+   "text": "“Anahtarımı kaybedip iki şirket arasındaki gizli bağlantıyı bulan türden.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1339,
+   "style": "Normal",
+   "text": "“Kötü avcı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1340,
+   "style": "Normal",
+   "text": "“Şehir için kötü. Belki ormanda iyiydim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1341,
+   "style": "Normal",
+   "text": "Duru güldü. “Ormanda telefonu nerede şarj edecektin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1342,
+   "style": "Normal",
+   "text": "Onlara yıllardır zihnimde büyüyen teoriyi anlattım. Taş Devri'nde bir grubun yaşadığını düşündüğümü söyledim. Birinin dikkati ormanın her yerine yayılıyordu: daldaki kıpırtı, uzaktaki koku, topraktaki yeni iz. Başka biri tek bitkiye eğiliyor; yaprakların küçük farkını görüyor, hangisinin zehirli olduğunu yıllarca unutmuyordu. Biri tehlike gelince önce koşuyor, diğeri herkes unuttuğunda bilgiyi saklıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1343,
+   "style": "Normal",
+   "text": "“Peki ikisini yapan?” diye sordu Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1344,
+   "style": "Normal",
+   "text": "“Hem hareketi hem sistemi görenler. Onlara önce ‘yapıcı’ dedim. Daha kibirli bir gecemde ‘alfa’ yazdım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1345,
+   "style": "Normal",
+   "text": "“Alfa kötü bir kelime,” dedi Emir. “İnternette bağıran adamlar kullanıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1346,
+   "style": "Normal",
+   "text": "“Bu yüzden artık sevmiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1347,
+   "style": "Normal",
+   "text": "“Kitap seviyor,” dedi Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1348,
+   "style": "Normal",
+   "text": "Haklıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1349,
+   "style": "Normal",
+   "text": "Bir klinikte belirti denen şey, ormanda beceri olabilirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1350,
+   "style": "Normal",
+   "text": "Dünya bir yeteneği verirken öbür cebine bedelini koyuyor gibiydi. Çok duyarsan seçmekte zorlanıyor, çok derin hissedersen cevap vermekte gecikiyor, çok uzağı görürsen ayağının önündeki basamağı kaçırıyordun.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1351,
+   "style": "Normal",
+   "text": "Bir dönem bunu evrenin değişmez muhasebe kuralı sanmıştım. İşitmeyen daha iyi görür, görmeyen daha iyi duyar; ayaklarını kullanamayan ellerini güçlendirir; çok talihsizlik yaşayan insan karşılığında olağanüstü mizah, sabır veya sezgi alır diye yazmıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1352,
+   "style": "Normal",
+   "text": "Leyla o sayfanın kenarına tek cümle koymuştu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1353,
+   "style": "Book Inset",
+   "text": "<i>Acıyı anlamlı yapmak isterken onu ödüllü piyangoya çevirme.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1354,
+   "style": "Normal",
+   "text": "Duru, “Birinin ayakları yoksa güçlü eller borçlu değil ona,” dedi. “Belki spor yapmıştır. Belki elleri de ağrıyordur.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1355,
+   "style": "Normal",
+   "text": "“Doğru.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1356,
+   "style": "Normal",
+   "text": "“Leyla öldüğü için ne kazandı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1357,
+   "style": "Normal",
+   "text": "Cevap vermedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1358,
+   "style": "Normal",
+   "text": "Kozmik dengeyi, başıma gelen haksızlığın başka yerde mutlaka telafi edileceğine dair sözleşme gibi kullanıyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1359,
+   "style": "Normal",
+   "text": "“Bu adil mi?” diye sordu Emir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1360,
+   "style": "Normal",
+   "text": "“Bilmiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1361,
+   "style": "Normal",
+   "text": "“Kozmik denge diyorsun ya.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1362,
+   "style": "Normal",
+   "text": "“Denge, adalet demek değildir. Terazinin iki tarafında ağırlık olması, yükün eşit dağıldığını göstermez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1363,
+   "style": "Normal",
+   "text": "Duru kitabın son cümlesine dokundu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1364,
+   "style": "Normal",
+   "text": "“Görmek iyi olmak değildir,” dedi. “Bence önemli yer burası.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1365,
+   "style": "Normal",
+   "text": "O gece çalışma defterime şunu yazdım:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1366,
+   "style": "Book Inset",
+   "text": "<i>Yetenek bir yön gösterir. Ahlak hangi yöne yürüdüğünü belirler.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1367,
+   "style": "Normal",
+   "text": "Tam noktayı koyduğumda Cem'den mesaj geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1368,
+   "style": "Book Inset",
+   "text": "<b>CEM:</b> Güzel cümle. Ama yönü kim belirleyecek?",
+   "keep": false,
+   "image": false,
+   "label": "CEM",
+   "constraint": null
+  },
+  {
+   "pid": 1369,
+   "style": "Normal",
+   "text": "Defteri kimseye göndermemiştim. Cümleyi sesli de okumamıştım. Telefonu kapatıp masaya bıraktım. Beş saniye sonra ekran yeniden yandı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1370,
+   "style": "Book Inset",
+   "text": "<b>CEM:</b> Korkma. Kelimeni okumadım. Aynı sonuca varacağını tahmin ettim.",
+   "keep": false,
+   "image": false,
+   "label": "CEM",
+   "constraint": null
+  },
+  {
+   "pid": 1371,
+   "style": "Normal",
+   "text": "Bu açıklama beni rahatlatmadı. Birinin düşüncemi çalmasıyla nereye varacağını önceden bilmesi arasında, mahremiyet açısından düşündüğüm kadar büyük bir fark yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1372,
+   "style": "Normal",
+   "text": "Nehir'e mesajları gösterdim. Cevap yazmamamı söyledi. Ben cevap yazmadım. Sonra taslağı on iki kez değiştirdim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1373,
+   "style": "Normal",
+   "text": "Ertesi gün Cem bir video bağlantısı yolladı. Açmadım. Bağlantının ön izlemesinde, bir grup genç atölyede ahşap parçaları birleştiriyordu. Başlıkta <b>ALFA YAPICILAR PROGRAMI</b> yazıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1374,
+   "style": "Normal",
+   "text": "Emir omzumun üstünden gördü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1375,
+   "style": "Normal",
+   "text": "“Alfa kelimesini bırakmamışlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1376,
+   "style": "Normal",
+   "text": "“Bırakmayacaklar. İnsan kendisini üstün hissettiren etiketi kolay bırakmıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1377,
+   "style": "Normal",
+   "text": "“Sen bıraktın mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1378,
+   "style": "Normal",
+   "text": "“Bırakmaya çalışıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1379,
+   "style": "Normal",
+   "text": "“Çalışmak bıraktığın anlamına gelmiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1380,
+   "style": "Normal",
+   "text": "Evde çocuk yetiştirmenin tehlikeli yanı, kendi cümlelerinizin size karşı ücretsiz kullanılmasıdır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1381,
+   "style": "Normal",
+   "text": "Videoyu kapalı ortamda inceletmek için Nehir'in iki yıl önce çocuk verilerini satan eğitim merkezini araştırırken kaynak olarak tanıştığı, benim yüzünü hiç görmediğim güvenlik uzmanı Tarık'a ulaştık. Tarık o merkezin taşeronunda çalışmış, “anonim” denilen dosyaların öğrenci adlarıyla dışarı aktarıldığını görünce işi bırakmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1382,
+   "style": "Normal",
+   "text": "Benimle ilk görüşmesi görüntülü oldu. Selam vermeden önce dosyanın özet değerini, sonra kameramın üreticisini söyledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1383,
+   "style": "Normal",
+   "text": "“İnsanlarla böyle mi tanışıyorsunuz?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1384,
+   "style": "Normal",
+   "text": "“Sunucular daha az alıngan,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1385,
+   "style": "Normal",
+   "text": "Ona önce videoyu değil, Cem'in defterime yazdığım cümlenin hemen ardından gönderdiği mesajı gösterdim. “Tahmin ettim” demesi bir açıklama değil, benim kabul etmemi istediği açıklamaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1386,
+   "style": "Normal",
+   "text": "Ertesi sabah Selin üzerinden gelen görevliyle, evdeki cihazları tek tek yerinde kontrol ettik. İlk gece kapılara ve bilgisayara bakmıştık; bu kez duvara asılı olup cihaz saymadığım şeylere de baktık. Çalışma odasındaki duman sensörünün kapağında, deliklerden birinin gerisinde ikinci bir cam parladı. Görevli sensörü fotoğraflayıp söktü. İçinde kameranın kendi bağlantısını sağlayan ayrı bir kart vardı; evin kablosuz ağ listesinde görünmüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1387,
+   "style": "Normal",
+   "text": "“Üç zarf,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1388,
+   "style": "Normal",
+   "text": "Tarık kameranın baktığı açıyla açılış videomdaki masayı karşılaştırdı. “O masayı görebilir. Ama o sabah kimin izlediğini, görüntünün nerede saklandığını daha bilmiyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1389,
+   "style": "Normal",
+   "text": "Kamera mühürlendi. Anahtarlar, erişim hesapları ve bakım izinleri yeniden düzenlendi. Tavan boş kaldı; baktıkça rahatlamıyor, daha çok utanıyordum. Nehir, “Sakladıkları şeyi görmemen, görmelerine izin verdiğin anlamına gelmez,” dedi. Yine de o gece çocuklarla kendi evimde kalmadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1390,
+   "style": "Normal",
+   "text": "Tarık daha sonra videoya döndü; kendisine ulaşan kopyada sonradan yapılmış bir montaj izi bulmadı. Gençlerin bir kısmı DEHB veya otizm tanısı aldıklarını anlatıyor, bazıları iki profile ilişkin özelliklerinden söz ediyor, bazıları hiçbir tanı belirtmiyordu. Bir ekip düzensiz arazide kullanılacak su arıtma sistemi yapıyor, başka ekip işitme güçlüğü olan insanlar için titreşimli alarm geliştiriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1391,
+   "style": "Normal",
+   "text": "Cem kaydın sonunda konuştu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1392,
+   "style": "Normal",
+   "text": "“Avcı hızlı tehlikeyi, toplayıcı kalıcı ayrıntıyı görür. İkisi bir kişide birleştiğinde yapıcı doğar. Tarihte yeni yolları açanlar bunlardı. Çoğunluk onları önce tuhaf, sonra tehlikeli, en sonunda vazgeçilmez saydı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1393,
+   "style": "Normal",
+   "text": "Söyledikleri, teorimin en heyecan verici hâliydi. Aynı zamanda en tehlikelisi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1394,
+   "style": "Normal",
+   "text": "Duru videoyu durdurdu. “Bunlar gerçekten iyi işler yapıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1395,
+   "style": "Normal",
+   "text": "“Evet.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1396,
+   "style": "Normal",
+   "text": "“O zaman neden kötü?” diye sordu Emir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1397,
+   "style": "Normal",
+   "text": "“İş kötü değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1398,
+   "style": "Normal",
+   "text": "“Cem kötü mü?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1399,
+   "style": "Normal",
+   "text": "“Bir insanı tek sıfatla bitirmek istemiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1400,
+   "style": "Normal",
+   "text": "Duru, “Ama bize ondan uzak dur diyorsun,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1401,
+   "style": "Normal",
+   "text": "“Çünkü iyi bir sonuç, yöntemin tamamını temizlemez. Gençlere destek veriyor olabilir. Aynı anda onların kendisine borçlu hissetmesini, yalnız Meralis'in onları anladığına inanmasını da sağlayabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1402,
+   "style": "Normal",
+   "text": "“Ya gerçekten yalnız onlar anlıyorsa?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1403,
+   "style": "Normal",
+   "text": "Soru bana aitti. Tanıdan sonraki ilk aylarda onu defalarca düşünmüştüm. Beni yıllarca yanlış anlayan dünyaya karşı, sonunda beni bütünüyle anlayan bir topluluk fikri sıcak bir oda gibiydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1404,
+   "style": "Normal",
+   "text": "“Bir grup seni yalnız kendisinin anladığını söylüyorsa,” dedim, “seni anlamaktan çok kapıyı kilitliyor olabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1405,
+   "style": "Normal",
+   "text": "Videoda gençlerden biri konuşuyordu. Adı Arda'ydı. Okuldan atıldıktan sonra Meralis atölyesinde ilk kez bir projeyi tamamladığını, ailesinin kendisine inanmaya başladığını söylüyordu. Yüzündeki gurur sahte değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1406,
+   "style": "Normal",
+   "text": "Zeynep sessizce yanımıza geldi. “Bazen kötü kurumda iyi öğretmen, iyi kurumda kötü yönetici olur,” dedi. “Çocukların hayatını teoriye kurban etmeyin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1407,
+   "style": "Normal",
+   "text": "“Peki ne yapalım?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1408,
+   "style": "Normal",
+   "text": "“Arda'nın desteğini kesmeden verisinin ve bağlılığının nasıl kullanıldığını araştırın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1409,
+   "style": "Normal",
+   "text": "Tarık, Cem'in tanıtım bağlantısına eklediği başvuru paketini de inceledi. Gençlere imzalatılan sözleşme videonun içinde değil, indirilebilir izin eklerinin arasındaydı. Bursun devamı, davranış verilerinin “ortak araştırma kuruluşlarıyla” paylaşılmasına ve programın kamuya açık eleştirilerinde önce kurum içi uzlaşma sürecine başvurulmasına bağlıydı. Saklamamışlardı; desteği isteyenin bu dili olağan karşılayacağını varsaymışlardı. Destek, sessizlik teminatıyla verilmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1410,
+   "style": "Normal",
+   "text": "Arda'ya doğrudan ulaşmadık. Onu yeni bir riskin içine sokabilirdik. Sözleşmeyi bağımsız bir hak örgütüne gönderdik. Aylar sonra gençlerin bursu kesilmeden veri maddesinin değişmesi için dava açılacaktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1411,
+   "style": "Normal",
+   "text": "O gün teorime bir satır daha ekledim:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1412,
+   "style": "Book Inset",
+   "text": "<i>İyi manipülasyon yoktur. Birinin iyiliği için bile seçimini gizlice daraltıyorsan yaptığın şey yardım değil, yönetimdir. Yardım kapıyı gösterir; geçip geçmemeyi insana bırakır.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 1413,
+   "style": "Book Inset",
+   "text": "<b>GÖLGE:</b> <i>Ya yanlış kapıyı seçerse?</i>",
+   "keep": false,
+   "image": false,
+   "label": "GÖLGE",
+   "constraint": null
+  },
+  {
+   "pid": 1414,
+   "style": "Book Inset",
+   "text": "<b>SESSİZ SES:</b> <i>O zaman yanında kalırsın. Onun yerine yürümezsin.</i>",
+   "keep": false,
+   "image": false,
+   "label": "SESSİZ SES",
+   "constraint": null
+  }
+ ]
+}

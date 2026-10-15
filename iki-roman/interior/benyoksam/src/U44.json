@@ -1,0 +1,567 @@
+{
+ "uid": "U44",
+ "title": "49. Geride Kalanlar",
+ "number": 49,
+ "words": 793,
+ "constraints": {
+  "uid": "U44",
+  "number": 49,
+  "title": "49. Geride Kalanlar",
+  "title_letter": null,
+  "marks": [],
+  "knots": [
+   "A"
+  ],
+  "images": [],
+  "book_part": null,
+  "words": 793
+ },
+ "synopsis": {
+  "uid": "U44",
+  "title": "49. Geride Kalanlar",
+  "summary": "Erstes Kapitel nach dem Tod des namenlosen Ich-Erzählers (Vater, Schriftsteller; im vorigen Paket um 14.53 im Krankenhaus gestorben). Der Erzähler berichtet weiter aus einer postumen, allwissenden Ich-Perspektive, wie die Hinterbliebenen – Tochter Duru, Sohn Emir, Ex-Frau Zeynep und die Journalistin Nehir – die ersten Tage in seiner Wohnung verbringen: das stehengelassene Teeglas, die Diskrepanz 14.52/14.53 auf der Sterbeurkunde, die von Emir ausgebaute Werkstattuhr mit Pulskabel, die Sprachaufnahme, die Duru erst beim zweiten Anlauf anhören kann. Nehir vollendet ihren Artikel; Tarıks Abschlussbericht bestätigt die Manipulation der Zugaufnahme (Fremd-Layer in der App des Erzählers plus separater Stream auf Bahnhofstafeln), der Urheber bleibt offen, Meralis legt erneut Einspruch ein. Die Anwältin Selin löst die „zweite Aufnahme“ aus: ein Video der letzten Wochen, in dem der Erzähler jedem Kind, Zeynep und Nehir eine Botschaft hinterlässt, gefolgt von der alten, von Yusuf aufbewahrten Jugendaufnahme (19 Jahre, in der Werkstatt des Vaters), in der der junge Erzähler die Akrostichon-Regel ausspricht: nach jedem Absatz, in dem der Knoten mit gleich langen Enden erwähnt wird, den Anfangsbuchstaben des nächsten Absatzes lesen; bei fehlenden Kapitelnummern den Anfangsbuchstaben der nächsten Überschrift nehmen. Bei dem Wort „Buradaydın“ bricht der Ton ab; Duru trägt es als viertes Wort unter „Yarım sesler“ ein. Emir findet sieben Rückkehrpfeile (↺) neben der Uhrzeit 14.53 und notiert die Absatzanfänge darunter; die Spur führt „weiter zurück“ als nur eine Seite. Das Kapitel endet mit der Frage des toten Erzählers, woher er sich an all das erinnert.",
+  "characters": [
+   "Ich-Erzähler (toter Vater, Schriftsteller; erzählt postum, namenlos; spricht im Video der Reihe nach Duru, Emir, Zeynep, Nehir an)",
+   "Duru (Tochter, 17; hat die Sprachaufnahme und das Video angehört, trägt das vierte 'halbe Wort' ins Notizbuch ein)",
+   "Emir (jüngerer Sohn; Werkzeuge/Werkstattuhr, Robotik; findet die sieben Rückkehrpfeile)",
+   "Zeynep (Ex-Frau, Mutter der Kinder; bekommt den 'blauen Ordner' mit den Hausunterlagen)",
+   "Nehir (investigative Journalistin, Freundin/Verbündete des Erzählers, jüngere Schwester der getöteten Leyla; schreibt den Artikel fertig)",
+   "Tarık (IT-Sicherheitsexperte, Nehirs Quelle; prüft die Videomanipulation und die Kopie der zweiten Aufnahme)",
+   "Selin (Anwältin der Familie/Nehirs; verwaltet die Hinterlegung, reicht die Sterbeurkunde ein)",
+   "Leyla (Nehirs ältere Schwester, getötet; hatte die Jugendaufnahme des Erzählers aufbewahrt und die 'ikinci kayıt' angelegt)",
+   "Yusuf (Yusuf Vural, alter Setzer/Buchbinder; verwahrte die Jugendaufnahme)",
+   "Aylin (Cems Mutter, Ärztin im Datenarchiv, tot; eine der drei früheren 'halben Stimmen')",
+   "Meralis (fiktives Institut/Konsortium, Gegenspieler; legt Einspruch gegen das Verfahren ein)",
+   "Der Vater des Erzählers (Uhrmacher; seine Uhr, seine Werkstatt, seine Lese-/Rückkehrzeichen)",
+   "Der junge Erzähler mit 19 (nur im Video; spricht die Akrostichon-Regel)"
+  ],
+  "terms": [
+   {
+    "tr": "Geride Kalanlar",
+    "meaning": "Kapiteltitel: 'Die Zurückgebliebenen / Hinterbliebenen' – zugleich das, was zurückbleibt (Gegenstände, Aufnahmen, Zeichen)."
+   },
+   {
+    "tr": "14.53 / 14.52",
+    "meaning": "Todeszeitpunkt auf der Sterbeurkunde (14.53) vs. Uhrzeit, zu der die Krähe sich setzte (14.52); 14.53 ist die Leitzahl des ganzen Romans (Zugabfahrt, Schließfach 1453, Operation FETİH-1453). Zahlenformat mit Punkt beibehalten wie in den früheren Paketen."
+   },
+   {
+    "tr": "Babamın saati / dükkândaki saat",
+    "meaning": "Uhr aus der Werkstatt des Vaters, deren Zeiger per Kabel an den Puls des Erzählers gekoppelt war (frühere Kapitel); Emir baut sie aus, wirft sie aber nicht weg. 'Suçluluğun bir saate ihtiyacı var' – Schuld braucht eine Uhr(zeit)."
+   },
+   {
+    "tr": "kayıp eşya teorisi",
+    "meaning": "'Theorie der verlorenen Gegenstände' – scherzhafte Hausphilosophie des Erzählers (verlorene Dinge liegen unterm Bett); Insider-Ton zwischen Vater und Sohn."
+   },
+   {
+    "tr": "ses kaydım / uyarı",
+    "meaning": "Die Sprachaufnahme des Erzählers für Duru; 'uyarı' = die Warnung (der Warntext 'DİKKAT' vom Buchanfang bzw. die Warnung, die er vorliest); Duru hält die Aufnahme an der Stelle an, an der seine Stimme zittert."
+   },
+   {
+    "tr": "dış katman / ayrı yayın akışı",
+    "meaning": "'Fremd-Layer' (in die App des Erzählers eingeschleust) und 'separater Stream' (auf den Bahnhofs-Anzeigetafeln) – technische Begriffe aus Tarıks Bericht zur Manipulation des Zugvideos; konsistent mit früheren Paketen halten."
+   },
+   {
+    "tr": "Meralis'in itiraz dilekçesi",
+    "meaning": "Einspruchs-/Widerspruchsschrift von Meralis im laufenden Verfahren; zeigt, dass der Tod des Erzählers den Fall nicht beendet."
+   },
+   {
+    "tr": "ikinci kayıt",
+    "meaning": "'Die zweite Aufnahme' – Leylas Bezeichnung für die hinterlegte Datei, die nach dem Tod des Paketempfängers freigegeben wird (B16: 'Paketin alıcısı öldükten sonra açılacak ikinci kayıt hazır'). Enthält jetzt das Abschiedsvideo der letzten Wochen plus die Jugendaufnahme."
+   },
+   {
+    "tr": "emanet / emanet listesi",
+    "meaning": "Hinterlegung/Treuhandgut und die Liste, die ausweist, welche Datei von wem stammt; 'teslim koşulu' = Freigabebedingung (mit Selin neu geschrieben)."
+   },
+   {
+    "tr": "mavi klasör",
+    "meaning": "Blauer Ordner mit den Hausunterlagen für Zeynep; 'Eksikleri Selin biliyor' – was fehlt, weiß Selin."
+   },
+   {
+    "tr": "Çekmecenin dibindeki motor",
+    "meaning": "Der Motor unten in der Schublade – angefangenes, unerklärtes Bastelprojekt des Erzählers (Rollladen-/Kepenk-Motor-Motiv aus früheren Kapiteln); Emir muss es nicht zu Ende bringen."
+   },
+   {
+    "tr": "“Bekle dersem bana inanma. Yaşa.”",
+    "meaning": "Botschaft an Nehir: 'Wenn ich sage warte, glaub mir nicht. Lebe.' – Kernsatz des Abschieds; kurz und imperativisch halten."
+   },
+   {
+    "tr": "Yusuf'un sakladığı kayıt / eski parça",
+    "meaning": "Die alte Jugendaufnahme (Erzähler mit 19 in der Werkstatt des Vaters, weißes Heft), die Yusuf verwahrte."
+   },
+   {
+    "tr": "beyaz kaplı defter",
+    "meaning": "Weiß eingebundenes Heft des 19-Jährigen – möglicherweise das spätere Buch selbst ('Sonradan kitap olacak şeyin kendisi mi, yalnızca benzeri mi'). Unbestimmtheit bewahren."
+   },
+   {
+    "tr": "kırmızı ip / eşit uçlu düğüm",
+    "meaning": "Roter Faden, dessen Knoten zwei gleich lange Enden hat – Leitmotiv seit dem schwarzen Paket (B01: 'Düğümün iki ucu aynı uzunluktaydı'); in diesem Kapitel bindet der junge Erzähler den Faden zum Ring und legt ihn auf die Seite."
+   },
+   {
+    "tr": "Akrostichon-Regel (pid 3416)",
+    "meaning": "'Eşit uçlu düğümün anlatıldığı her paragraftan sonraki paragrafın ilk harfini sırayla oku. Sayılarda da boşluğu doldurma; eksik numaradan sonraki başlığın ilk harfi yerinde duruyor.' – Lies der Reihe nach den Anfangsbuchstaben des Absatzes, der auf jeden Absatz mit dem Knoten mit gleich langen Enden folgt; bei Zahlen die Lücke nicht füllen – der Anfangsbuchstabe der Überschrift nach der fehlenden Nummer steht an seinem Platz. Geht auf die Lese-Spiele des Vaters zurück (B00 pid 71, 77). Für die Übersetzung sind damit Anfangsbuchstaben bestimmter Absätze/Überschriften im gesamten Roman potenziell bedeutungstragend – Rücksprache mit dem Gesamtlektorat nötig."
+   },
+   {
+    "tr": "Aradığın şey ipin sonunda değil",
+    "meaning": "'Was du suchst, ist nicht am Ende des Fadens' – Gedanke des toten Erzählers beim Zuschauen; Ariadne-Faden-Motiv aus B01."
+   },
+   {
+    "tr": "“Buradaydın.”",
+    "meaning": "'Du warst hier.' – letztes hörbares Wort der Jugendaufnahme, als Book Inset (eigener Absatzstil) gesetzt; wird zum vierten 'halben Wort'. Doppeldeutig: Verweis auf einen vergangenen Tag oder auf die vorliegende Seite. Wortgleich mit Schlussteil des Romans ('buradayım') – Wortstamm 'burada' konsistent wiedergeben."
+   },
+   {
+    "tr": "Ses burada kesildi.",
+    "meaning": "'Hier brach der Ton ab.' – formelhafter kursiver Vermerk; die Regel aus B00 (pid 81): das zuletzt gehörte Wort aufheben, den Rest nicht erfinden."
+   },
+   {
+    "tr": "Yarım sesler",
+    "meaning": "'Halbe Stimmen' – Rubrik im Notizbuch des Erzählers; die vier Wörter: Burada. Biliyorsun. Gördüm. Buradaydın. (von Leyla, Yusuf, Aylin und nun dem jungen Erzähler). Reihenfolge und Wortform der vier Wörter müssen mit früheren Paketen übereinstimmen."
+   },
+   {
+    "tr": "dönüş okları / ↺",
+    "meaning": "Rückkehrpfeile, die der Erzähler beim Schreiben neben die Uhrzeit 14.53 zeichnete ('14.53 ↺' erscheint als kursive Zwischenzeile in mehreren Kapiteln); 'Yedi taneydi' – sieben Stück. Emir überträgt die Absatzanfänge darunter – Teil des Akrostichons."
+   },
+   {
+    "tr": "“Önceki sayfaya mı?” – “Daha geriye.”",
+    "meaning": "'Auf die vorige Seite?' – 'Weiter zurück.' Verweis darauf, dass die Spur zum Buchanfang zurückführt (Kreisstruktur des Romans)."
+   },
+   {
+    "tr": "dört yüz bir an",
+    "meaning": "'vierhunderteins Augenblicke', die sich auf dem schwarz werdenden Bildschirm überlagern – Zahlenmotiv (401); Zahl unverändert übernehmen."
+   },
+   {
+    "tr": "Ben bunu nereden hatırlıyorum?",
+    "meaning": "'Woher erinnere ich mich daran?' – Schlussfrage des Kapitels; knüpft an 'İnsan hakikati öğrenmez, hatırlar!' (Ende des vorigen Pakets) an und leitet zu Kapitel 50 über."
+   }
+  ],
+  "tone": "Ruhig, elegisch, lakonisch; kurze Hauptsätze, nüchterne Alltagsdetails als Trauerarbeit, dazwischen postume Ich-Kommentare mit leiser Ironie. Dialoge knapp, familiär (keine förmlichen Anreden; Kinder sagen 'Babam'). Videobotschaft in direkter, zärtlich-nüchterner Du-Ansprache. Kursive Einschübe (Ses burada kesildi; die vier Wörter) formal exakt übernehmen; 'Buradaydın' als Book Inset."
+ },
+ "paras": [
+  {
+   "pid": 3385,
+   "style": "Heading 1",
+   "text": "<b>49. Geride Kalanlar</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3386,
+   "style": "Opening",
+   "text": "Benden sonra eve ilk döndükleri gün, mutfaktaki bardak hâlâ masadaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3387,
+   "style": "Normal",
+   "text": "Zeynep onu kaldıracakken Duru, “Dursun,” dedi. Ertesi sabah Emir yanlışlıkla o bardaktan su içti. Bir şey olacakmış gibi birbirlerine baktılar. Sonra Zeynep bardağı aldı, yıkadı, dolaba koydu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3388,
+   "style": "Normal",
+   "text": "Birinin ölmesiyle bütün eşyalarının görevinden ayrılması gerekmiyordu. Bunu öğrenmeleri zaman aldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3389,
+   "style": "Normal",
+   "text": "Ölüm belgesine 14.53 yazılmıştı. Emir, monitörün saatiyle koridordaki saat arasında iki dakika fark olduğunu söyledi; doktorun hangisine bakarak saati söylediğini kimse bilmiyordu. Duru karganın 14.52'de konduğunu anlatmaktan vazgeçmedi. İkisi de haklı olabilirdi. Babamın saati bana suçluluğun bir saate ihtiyacı olduğunu öğretmişti; çocuklarımın elinde aynı saat suçluluk olarak değil, hatıra olarak kaldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3390,
+   "style": "Normal",
+   "text": "Emir dükkândaki saati söktü. Nabzımla hareket eden ibrenin kablosunu çıkardı ama saati atmadı. Günlerce masasında açık durdu; bir akşam içinden çıkardığı vidayı kaybettiği için bana kızdı. Yanında olsam kayıp eşya teorisi anlatırdım. Çocuk eğilip yatağın altına baktı. Vidayı buldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3391,
+   "style": "Normal",
+   "text": "Duru ses kaydımı ilk denemesinde dinleyemedi. Kulağındaki sesle kapının arkasından bir daha gelmeyecek ses arasında bir yer vardı; oradan geçemedi. Dosyayı kapattı. Ertesi hafta yeniden açtı. Uyarıyı okurken titrediğim yerde kaydı durdurdu, bir süre mutfakta oturdu. Sonra döndü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3392,
+   "style": "Normal",
+   "text": "Nehir haberi tamamladı. Son paragrafta ismimi yazdı, sildi, yeniden yazdı. Tarık'ın son raporu, trendeki görüntünün hem benim uygulamama eklenen dış katmanla hem istasyon panolarındaki ayrı yayın akışıyla manipüle edildiğini doğruluyordu; katmanı kimin yüklediği ise soruşturmanın açık dosyası olarak kaldı. Meralis'in yeni itiraz dilekçesi o sabah gelmişti. Ölümüm dosyayı bitirmemişti. Nehir avukatı aradı; önce belgeyi, sonra beni konuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3393,
+   "style": "Normal",
+   "text": "Leyla'nın “ikinci kayıt” dediği emanet de bir bildirim sesiyle kendiliğinden açılmadı. Onun sakladığı gençlik kaydına son aylarımda kendi vedamı eklemiş, teslim koşulunu Selin'le yeniden yazmıştım. Hangi dosyanın kimden geldiği emanet listesinde ayrıydı. Selin, ölüm belgesini bu dosyaya sundu. Gelen bağlantıyı aileye iletti. Tarık, önlerine bir oyun daha konmuş olma ihtimaline karşı dosyanın kopyasını kontrol etti. Hazır olduklarında birlikte izleyebileceklerini söyledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3394,
+   "style": "Normal",
+   "text": "Hazır olmadılar.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3395,
+   "style": "Normal",
+   "text": "Yine de bir akşam açtılar.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3396,
+   "style": "Normal",
+   "text": "Ekranda ben vardım. On dokuz yaşında değildim. Saçımın kırları, gömleğimin yanlış iliklenmiş düğmesi, dirseğimin yanında soğuyan çay: Son haftalarımdan biriydi. Görüntünün kenarında tarih vardı; herkesi bilerek kadraja çağırır gibi sandalyemi biraz geriye çekmiştim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3397,
+   "style": "Normal",
+   "text": "“Duru,” dedim, “ilk kaydı yirmi defa çektim. Her seferinde daha akıllı görünüyordum. Sonra hangisine inanacağını düşündüm.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3398,
+   "style": "Normal",
+   "text": "Duru burnunu çekti. “Buna da pek değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3399,
+   "style": "Normal",
+   "text": "Ekrandaki ben onu duymadım. Çaydan bir yudum aldım, yüzümü buruşturdum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3400,
+   "style": "Normal",
+   "text": "“Emir, aletler sende. Ama benim başladığım bütün işleri bitirmek zorunda değilsin. Çekmecenin dibindeki motor için özellikle söylüyorum. Ne yapacağımı ben de bilmiyordum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3401,
+   "style": "Normal",
+   "text": "Emir güldü. Gülüşünün ardından gelen sesi saklamak için yüzünü koluna gömdü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3402,
+   "style": "Normal",
+   "text": "“Zeynep, özrümün geride bıraktığım işleri sana yükleyen başka bir kâğıt olmasını istemiyorum. Evin dosyaları mavi klasörde. Eksikleri Selin biliyor. Senin bilmek zorunda olmadığın şeyleri biraz geç öğrendim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3403,
+   "style": "Normal",
+   "text": "Zeynep başını eğdi. Ağlarken de kızabildiği için rahatladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3404,
+   "style": "Normal",
+   "text": "“Nehir…”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3405,
+   "style": "Normal",
+   "text": "Kayıtta uzun bir boşluk oldu. Elimi masaya koyup kaldırdım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3406,
+   "style": "Normal",
+   "text": "“Bekle dersem bana inanma. Yaşa. Bunu söylemekte zorlanıyorum diye çıkarmayacağım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3407,
+   "style": "Normal",
+   "text": "Nehir parmağını durdurma tuşuna götürdü. Dokunmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3408,
+   "style": "Normal",
+   "text": "“Sonra eski bir parça var,” dedim. “Yusuf'un sakladığı kayıttan. Kendime yol bıraktığımı biliyorum. O yolun tamamını o gün bilip bilmediğimi hâlâ bilmiyorum. Bildiğimle tahmin ettiğimi size aynı sesle anlatmak istemedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3409,
+   "style": "Normal",
+   "text": "Görüntü değişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3410,
+   "style": "Normal",
+   "text": "Babamın dükkânında, on dokuz yaşındaki hâlim masaya eğilmişti. Önünde beyaz kaplı bir defter vardı. Sonradan kitap olacak şeyin kendisi mi, yalnızca benzeri mi olduğu görünmüyordu. Kamera kapağın alt köşesini kesiyordu. Gençliğimin yüzünde, dünyayı çözmek üzere olan insanların yorucu ciddiyeti vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3411,
+   "style": "Normal",
+   "text": "“Durdur,” dedi Emir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3412,
+   "style": "Normal",
+   "text": "Duru görüntüyü durdurdu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3413,
+   "style": "Normal",
+   "text": "“Babam bize de böyle bakıyordu. Bir şey anlatmadan hemen önce.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3414,
+   "style": "Normal",
+   "text": "“Biliyorum,” dedi Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3415,
+   "style": "Normal",
+   "text": "Görüntü yürüdü. Genç ben masanın kenarındaki ince kırmızı ipi aldı. İki ucunu birbirine bağlayıp boş sayfaya bıraktı; parmağını çekince çemberin bir yanı içeri kıvrıldı. Düğümün iki ucu aynı uzunluktaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3416,
+   "style": "Normal",
+   "text": "Aradığın şey ipin sonunda değil, diye düşündüm onu izlerken. Bunu hangi yaşımdaki ben düşünüyordu? Ekrandaki genç adam konuştu: “Eşit uçlu düğümün anlatıldığı her paragraftan sonraki paragrafın ilk harfini sırayla oku. Sayılarda da boşluğu doldurma; eksik numaradan sonraki başlığın ilk harfi yerinde duruyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BENI_ARAMA",
+    "index": 8,
+    "n": 9
+   }
+  },
+  {
+   "pid": 3417,
+   "style": "Normal",
+   "text": "Parmağını sayfaya koydu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3418,
+   "style": "Book Inset",
+   "text": "“Buradaydın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3419,
+   "style": "Normal",
+   "text": "<i>Ses burada kesildi.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3420,
+   "style": "Normal",
+   "text": "Görüntüde hâlâ konuşuyordu. Duru geri aldı. Aynı kelime duyuldu, aynı yerde ses kayboldu. Genç adamın parmağının değdiği satır kadrajın altındaydı. Geçmişteki bir günü mü, karşısında duran sayfayı mı gösterdiği anlaşılmıyordu. Devamını dudaklarından çıkarmaya çalıştıkça başka bir cümle görüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3421,
+   "style": "Normal",
+   "text": "Defterimde <i>Yarım sesler</i> başlığının altında üç kelime vardı. Yanlarında Leyla, Yusuf ve Aylin'in kayıtlarına düştüğüm küçük notlar. Duru dördüncüyü ekledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3422,
+   "style": "Normal",
+   "text": "<i>Burada. Biliyorsun. Gördüm. Buradaydın.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3423,
+   "style": "Normal",
+   "text": "Hepsini kendi sesiyle okuyunca durdu. Sonuncusu kime söylenmişti? Ekrandaki genç adama mı, sayfayı çeviren ona mı? Emir bir şey diyecekti; vazgeçti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3424,
+   "style": "Normal",
+   "text": "“Yarın bakarız,” dedi Zeynep.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3425,
+   "style": "Normal",
+   "text": "Kaydı bu sefer bıraktılar.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3426,
+   "style": "Normal",
+   "text": "Biraz sonra Emir masadaki sayfalarda aynı saatin yanına çizilmiş dönüş oklarını buldu. Yedi taneydi. Altlarındaki paragraf başlarını bir kâğıda geçirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3427,
+   "style": "Normal",
+   "text": "“Önceki sayfaya mı?” diye sordu Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3428,
+   "style": "Normal",
+   "text": "Emir kapağı kaldırdı. “Daha geriye.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3429,
+   "style": "Normal",
+   "text": "Son okun altındaki satırı ben ne zaman yazmıştım?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3430,
+   "style": "Normal",
+   "text": "Evdeki gece, benim son cümleme ihtiyaç duymadan sürdü. Emir acıktığını söyledi. Duru pencereyi kapattı. Nehir bilgisayarın kapağını indirirken kararan ekranda dört yüz bir an üst üste geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 3431,
+   "style": "Normal",
+   "text": "Ben bunu nereden hatırlıyorum?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

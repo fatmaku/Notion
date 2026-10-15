@@ -1,0 +1,702 @@
+{
+ "uid": "U38",
+ "title": "43. Başlangıç Sensin",
+ "number": 43,
+ "words": 947,
+ "constraints": {
+  "uid": "U38",
+  "number": 43,
+  "title": "43. Başlangıç Sensin",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": "BEŞİNCİ PERDE — DÖNÜŞ",
+  "words": 947
+ },
+ "synopsis": {
+  "uid": "U38",
+  "title": "43. Başlangıç Sensin",
+  "summary": "Gegenwartsebene, die 24 Stunden der Aktivierung und die Wochen danach, erzählt teils summarisch. Die vier Schlüssel werden nacheinander gedreht – nicht synchron wie im Film: Berlin öffnet als erstes (im Safe liegt kein Dokument, sondern ein Einmal-Zugangsgerät; gleichzeitig wird ein gefälschtes Meralis-Archiv mit falschen Zahlungsdaten eingespielt, Nehir verlangt Abgleich mit den Registern); in Nairobi fällt der Strom aus, Amina lässt das Gerät per Motorradkurier zur Offline-Archivkammer der Stadtbibliothek bringen, der Kurier läuft die letzten zwei Kilometer; in Toronto sitzt die Kontaktplatte verkehrt, Emir rettet die Lage mit der Anweisung, die Kiste zu kippen und zweimal „so leicht zu klopfen, dass Papa nicht aufwacht, aber Duman schon“; in İstanbul trifft bei Selin und dem Notar eine Verfügung ein, die 13 Minuten zu spät kommt. Drei Sekundärarchive in London, São Paulo und Singapur aktivieren sich selbst: „Vier Schlüssel öffneten sieben Türen.“ Dann enthüllt Duru, dass der mitgelieferte Archiv-Viewer unter dem Vorwand einer „akustischen Integritätsprüfung“ Mikrofonzugriff verlangt und jedes geöffnete Paket per Hochfrequenzton an Meralis meldet; Geräte werden in Kartenschränke, Gesetzbücher und „deutsches Steuerrecht“ (Nehirs Witz) gepackt. Nehirs Publikationsregel – Methode statt Namen, keine Gesundheitsdaten, keine Kinderakten, keine unbestätigten Todesbezüge – führt zur nüchternen ersten Schlagzeile aus London; der Erzähler empfindet Enttäuschung, erkennt aber, dass die Wahrheit keiner Verzauberung bedarf. Meralis schlägt zurück (Fälschungen, Leaks, Fondssperren, Ermittlung in İstanbul), Festnahmen und Vertragsauflösungen folgen, Meralis tilgt seinen Namen aus Logos; Cem verschwindet, Yusuf stellt sich. Nachts sieht die Familie Leylas letzte Aufnahme: Sie bittet, das schwarze Buch nicht zu vernichten, sondern zu zeigen und zu erklären, warum man ihm glauben will; sie benennt die Stärken von Nehir, Duru, Emir und Zeynep und endet mit „Başlangıç sensin“. Nach dem Video erscheint der Hinweis auf eine zweite Aufnahme, die nach dem Tod des Empfängers freigeschaltet wird – ohne Countdown, nur mit der Nummer des Herzmonitors des Erzählers. Danach folgt der Teiltitel „BEŞİNCİ PERDE — DÖNÜŞ“.",
+  "characters": [
+   "Ich-Erzähler (Protagonist; Empfänger von Leylas Paket; trägt einen Herzrhythmus-Rekorder)",
+   "Nehir (Journalistin, Koordinatorin der Publikationsgruppe; gibt die Schlussanweisung; weint beim Video)",
+   "Tarık (Technik; analysiert Datenpakete, erkennt gezielte Angriffe)",
+   "Duru (Tochter des Erzählers; entdeckt den akustischen Tracker im Archiv-Viewer; hält Nehirs Hand)",
+   "Emir (Sohn; rettet den Toronto-Schlüssel per Video mit der „Duman“-Klopfregel)",
+   "Zeynep (Ehefrau; in Leylas Botschaft als die, die „zuhause alles aufrecht hält“)",
+   "Selin (Anwältin; führt mit dem Notar die İstanbul-Aktivierung, pariert die Verfügung)",
+   "Amina (Mitglied des Nairobi-Teams; bringt das Gerät in die Bibliothek)",
+   "Berlin muhabiri (Berliner Reporter, namenlos; ungeduldig, fragt „Bizde ne var?“)",
+   "Toronto'daki hukukçu (Jurist in Toronto, namenlos; 22 Minuten Verspätung; später Opfer eines Steuer-Leaks)",
+   "São Paulo'daki gazeteci (Journalist, namenlos; fürchtet, die Geschichte werde schwächer)",
+   "Singapur'daki araştırmacı (Forscher, zieht sich zurück; zwei Teams ersetzen ihn)",
+   "Motosiklet kuryesi (Kurier in Nairobi, namenlos)",
+   "İcra memuru (Gerichtsvollzieher in İstanbul)",
+   "Noter (Notar in İstanbul)",
+   "Leyla (verstorben; spricht in ihrer letzten Videoaufnahme; bandagierter Finger von der Papierschneidemaschine)",
+   "Cem (Gegenspieler; verschwindet)",
+   "Yusuf (Cems Vater; stellt sich der Staatsanwaltschaft, „kein Held“)",
+   "Duman (vermutlich Haustier/Katze der Familie – Vergleichsgröße in Emirs Klopfregel; Name bedeutet „Rauch“)"
+  ],
+  "terms": [
+   {
+    "tr": "Başlangıç Sensin",
+    "meaning": "Kapiteltitel und Leylas Schlusssatz im Video: „Der Anfang bist du“ (Gegensatz zu „sonu arıyorsun“ = du suchst das Ende). Titel und Zitat identisch übersetzen."
+   },
+   {
+    "tr": "tek kullanımlık erişim cihazı",
+    "meaning": "Einmal-Zugangsgerät, das statt Dokumenten im Safe liegt."
+   },
+   {
+    "tr": "sahte Meralis arşivi",
+    "meaning": "Gefälschtes Archiv mit echten Firmennamen und falschen Zahlungsdaten – Falle für voreilige Veröffentlichung."
+   },
+   {
+    "tr": "sicil / resmî sicil",
+    "meaning": "(Handels-)Register; Abgleich der Daten „tek tek sicille“."
+   },
+   {
+    "tr": "İki gün kaybetmek, iki yıldır hazırlanan yalanı yayımlamaktan ucuz.",
+    "meaning": "Nehir: „Zwei Tage zu verlieren ist billiger, als eine zwei Jahre lang vorbereitete Lüge zu veröffentlichen.“ – Parallelismus iki gün / iki yıl erhalten."
+   },
+   {
+    "tr": "çevrim dışı arşiv odası",
+    "meaning": "Offline-Archivraum der Stadtbibliothek Nairobi."
+   },
+   {
+    "tr": "Medeniyet genel olarak öyle",
+    "meaning": "Tarık: „Die Zivilisation hängt im Allgemeinen daran [an einer Tankanzeige]“ – trockener Humor."
+   },
+   {
+    "tr": "kontak levhası",
+    "meaning": "Kontaktplatte im Toronto-Kasten, verkehrt eingesetzt."
+   },
+   {
+    "tr": "delil zinciri",
+    "meaning": "Beweiskette (chain of custody) – darf durch Öffnen nicht gebrochen werden."
+   },
+   {
+    "tr": "Babamın uyanmadığı ama Duman'ın uyandığı kadar",
+    "meaning": "Emirs Maßeinheit fürs Klopfen: „So fest, dass Papa nicht aufwacht, aber Duman schon.“ Duman = Haustier (Katze) der Familie; Kommentar: „Bu ölçü uluslararası delil protokolünde yoktu. İşe yaradı.“"
+   },
+   {
+    "tr": "Meralis'e ait ticari sırların her türlü çoğaltılması",
+    "meaning": "Wortlaut der Verfügung: „jede Vervielfältigung von Meralis gehörenden Geschäftsgeheimnissen“. Selins Konter: Vervielfältigung vor 13 Minuten abgeschlossen; Verteilung (dağıtım) nicht in diesem Land, hier nur Verifikationsschlüssel geöffnet."
+   },
+   {
+    "tr": "ikincil arşiv",
+    "meaning": "Sekundärarchive in Londra, São Paulo, Singapur, aktivieren sich automatisch."
+   },
+   {
+    "tr": "Dört anahtar, yedi kapıyı açmıştı.",
+    "meaning": "„Vier Schlüssel hatten sieben Türen geöffnet.“ – Leitsatz, Zahlen 4/7 konsistent halten."
+   },
+   {
+    "tr": "akustik bütünlük kontrolü",
+    "meaning": "„Akustische Integritätsprüfung“ – Vorwand des Archiv-Viewers für Mikrofonzugriff; Hochfrequenzton kodiert die Paket-ID und sendet sie an Meralis. In Anführungszeichen belassen."
+   },
+   {
+    "tr": "arşiv görüntüleyicisi",
+    "meaning": "Archiv-Viewer/Anzeigeprogramm, mit den Kisten geliefert – „Kendi yüklediğimiz araç, anahtarı teslim ediyordu.“"
+   },
+   {
+    "tr": "Alman vergi mevzuatı",
+    "meaning": "Nehirs Witz: Berlin soll das Gerät in „deutsches Steuerrecht“ legen – „İçine hiçbir ses girmez“ (da dringt kein Ton hinein/heraus)."
+   },
+   {
+    "tr": "doğrulama haritası",
+    "meaning": "Verifikationskarte, die die Teams aus den Dateien extrahieren."
+   },
+   {
+    "tr": "İsimleri değil yöntemi paylaşın.",
+    "meaning": "Nehirs Schlussanweisung: „Teilt die Methode, nicht die Namen.“ Liste: ham sağlık verisi (Rohgesundheitsdaten), çocuk dosyası (Kinderakten), doğrulanmamış ölüm bağlantısı (unbestätigte Todesbezüge), „bizim yorumumuzu da delil gibi yazmayın“."
+   },
+   {
+    "tr": "Daha az patlar. Daha uzun yaşar.",
+    "meaning": "Nehir: „Es knallt weniger. Es lebt länger.“ – über die abgespeckte Geschichte."
+   },
+   {
+    "tr": "Yedi ülkedeki davranış programlarını aynı hukuk ve yatırım ağı bağlıyor",
+    "meaning": "Erste Schlagzeile (London, unabhängige Rechercheseite): „Verhaltensprogramme in sieben Ländern sind durch dasselbe Rechts- und Investitionsnetz verbunden“. Bewusst nüchtern; fett gesetzt."
+   },
+   {
+    "tr": "küresel karanlık güçler / uyanmış melek avı",
+    "meaning": "„Globale dunkle Mächte“ / „Jagd auf erwachte Engel“ – die verschwörerischen Formeln, die in der Schlagzeile NICHT stehen (Rückbezug auf das Weltbild, dem der Erzähler früher anhing; „uyanış“ = Erwachen, vgl. Buchtitel)."
+   },
+   {
+    "tr": "Gerçek, inanmak için büyülenmeye ihtiyaç duymayacak kadar ayakta duruyordu.",
+    "meaning": "„Die Wahrheit stand fest genug, um keine Verzauberung zu brauchen, damit man ihr glaubt.“ – thematischer Schlüsselsatz."
+   },
+   {
+    "tr": "İstanbul hücresi",
+    "meaning": "„İstanbul-Zelle“ von Meralis; drei Manager festgenommen, zwei am nächsten Tag frei."
+   },
+   {
+    "tr": "Bir canavarın başını kesmemiştik. İnsanlara gövdesinin nereden geçtiğini göstermiştik.",
+    "meaning": "„Wir hatten keinem Ungeheuer den Kopf abgeschlagen. Wir hatten den Menschen gezeigt, wo sein Leib verläuft.“ – Bilanz."
+   },
+   {
+    "tr": "Doğru tarafa geçmek, yanlış tarafta yaptıklarını silmiyordu.",
+    "meaning": "Über Yusuf: „Auf die richtige Seite zu wechseln löschte nicht, was er auf der falschen getan hatte.“"
+   },
+   {
+    "tr": "kâğıt giyotini",
+    "meaning": "Papierschneidemaschine – Leylas bandagierter Finger verweist auf eine frühere Szene (Schnittverletzung)."
+   },
+   {
+    "tr": "Siyah kitap",
+    "meaning": "„Das schwarze Buch“ – wiederkehrendes Objekt (Leylas/der Gruppe Dokumentation der Verschwörungsnarrative?); Leyla: nicht vernichten, zeigen, und erklären, warum der Glaube daran tröstet."
+   },
+   {
+    "tr": "Bizi kandıran yalanlar aptal olduğumuz için çalışmaz. Acımıza saygı gösteriyormuş gibi yaptıkları için çalışır.",
+    "meaning": "Leyla: „Die Lügen, die uns täuschen, funktionieren nicht, weil wir dumm sind. Sie funktionieren, weil sie so tun, als respektierten sie unseren Schmerz.“ – zentrales Zitat des Romans."
+   },
+   {
+    "tr": "Duru'nun okulda duyduğu uğultu",
+    "meaning": "„Das Summen/Dröhnen, das Duru in der Schule hörte“ – Rückverweis auf früheres Kapitel (Durus Wahrnehmung)."
+   },
+   {
+    "tr": "Bu işi de tek başına bitirmeye kalkma.",
+    "meaning": "Leyla: „Versuch nicht, auch diese Sache allein zu Ende zu bringen.“"
+   },
+   {
+    "tr": "Paketin alıcısı öldükten sonra açılacak ikinci kayıt hazır.",
+    "meaning": "Systemmeldung unter dem Video (fett): „Die zweite Aufnahme, die nach dem Tod des Paketempfängers geöffnet wird, ist bereit.“ Darunter kein Countdown, nur die Nummer des Herzmonitors – Cliffhanger zu Kap. 44."
+   },
+   {
+    "tr": "kalp atışımı uzaktan izleyen tıbbi cihaz",
+    "meaning": "Medizinisches Gerät zur Fernüberwachung des Herzschlags (in Kap. 44: ritim kaydedicisi)."
+   },
+   {
+    "tr": "BEŞİNCİ PERDE — DÖNÜŞ",
+    "meaning": "Teiltitel (Book Part) nach Kap. 43: „Fünfter Akt — Rückkehr“ (perde = Vorhang/Akt, Theatermetaphorik der Buchteile; wie die früheren PERDE-Titel übersetzen). Gehört formal zwischen U38 und U39."
+   }
+  ],
+  "tone": "Montagehaft, zwischen Tempo (Aktivierungssequenz in vier Städten, kurze Dialogzeilen) und Raffung (Wochenchronik der Folgen). Ironisch-nüchterner Erzählton, der Pathos bewusst unterläuft („Filmlerde…“, „Gerçekte…“); dann intimer, elegischer Ton beim Video Leylas (direkte, warme Ansprache, Imperative). Schlussmeldung kalt-maschinell."
+ },
+ "paras": [
+  {
+   "pid": 2922,
+   "style": "Heading 1",
+   "text": "<b>43. Başlangıç Sensin</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2923,
+   "style": "Opening",
+   "text": "Yirmi dört saat boyunca dört ülkedeki sözleşmeler çalıştırıldı. Her işlem başka bir hukukçu tarafından doğrulandı. Yedi şehirde yedi ekip dosyaları açtı. Kimlik bilgileri bölündü, tıbbi kayıtlar kapatıldı, şirket bağları resmî sicillerle karşılaştırıldı. Hiçbir gazeteciye “bize inanın” demedik. Nereden bakacağını gösterdik.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2924,
+   "style": "Normal",
+   "text": "Anahtarları aynı anda çevirmedik. Filmlerde bütün ekip saate bakar ve düğmeye basar. Gerçekte saat dilimleri, mahkeme çalışma saatleri, yedek bağlantılar ve bir avukatın çocuğunu okuldan alması vardı. Dünyayı değiştirecek planımız, Toronto'daki hukukçunun trafik yüzünden yirmi iki dakika gecikmesiyle başladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2925,
+   "style": "Normal",
+   "text": "İlk anahtar Berlin'de etkinleşti. Kasa açıldığında içinden belge değil, tek kullanımlık erişim cihazı çıktı. Cihaz ağa bağlanır bağlanmaz sahte bir Meralis arşivi de aynı adrese yüklendi. Sahte dosyada gerçek şirket adları, yanlış ödeme tarihleriyle karıştırılmıştı. Ekip acele edip yayımlasaydı bütün soruşturma bir tarih hatasıyla çökebilirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2926,
+   "style": "Normal",
+   "text": "Nehir, “Tarihleri tek tek sicille karşılaştırın,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2927,
+   "style": "Normal",
+   "text": "Berlin muhabiri öfkelendi. “Bunu yaparsak iki gün kaybederiz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2928,
+   "style": "Normal",
+   "text": "“İki gün kaybetmek, iki yıldır hazırlanan yalanı yayımlamaktan ucuz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2929,
+   "style": "Normal",
+   "text": "İkinci anahtarın karşılığı Nairobi'deydi. Emanet ofisinin elektriği işlemden beş dakika önce kesildi. Yedek jeneratör çalışmadı. Oradaki ekipten Amina, erişim cihazını bir motosiklet kuryeyle şehir kütüphanesinin çevrim dışı arşiv odasına taşıdı. Kurye üç ayrı yol değiştirdi; sonra yakıtı bitti. Son iki kilometreyi koştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2930,
+   "style": "Normal",
+   "text": "“Bütün küresel plan bir benzin göstergesine mi bağlı?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2931,
+   "style": "Normal",
+   "text": "Tarık, “Medeniyet genel olarak öyle,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2932,
+   "style": "Normal",
+   "text": "Toronto anahtarı açıldığında cihaz bozuk göründü. Emir görüntülü bağlantıda kutunun içindeki mekanizmayı inceledi. Kontak levhasının ters yerleştirildiğini söyledi. Hukukçu kutuyu açamayacağını, delil zincirinin bozulacağını belirtti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2933,
+   "style": "Normal",
+   "text": "“Açmayın,” dedi Emir. “Kutuyu sağa yatırın, sonra iki kez hafif vurun. Levha yerine kayabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2934,
+   "style": "Normal",
+   "text": "“Hafif ne kadar?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2935,
+   "style": "Normal",
+   "text": "Emir düşündü. “Babamın uyanmadığı ama Duman'ın uyandığı kadar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2936,
+   "style": "Normal",
+   "text": "Bu ölçü uluslararası delil protokolünde yoktu. İşe yaradı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2937,
+   "style": "Normal",
+   "text": "Dördüncü anahtar İstanbul'daydı ve bizdeydi. Selin, noterle birlikte işlemi kayda alırken kapıya tedbir kararı geldi. Karar, “Meralis'e ait ticari sırların her türlü çoğaltılmasını” yasaklıyordu. Selin belgeyi okudu, saatine baktı ve çoğaltmanın on üç dakika önce tamamlandığını söyledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2938,
+   "style": "Normal",
+   "text": "“Dağıtımı durduruyoruz,” dedi icra memuru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2939,
+   "style": "Normal",
+   "text": "“Dağıtım bu ülkede yapılmadı,” dedi Selin. “Burada yalnız doğrulama anahtarı açıldı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2940,
+   "style": "Normal",
+   "text": "Kâğıdın hangi fiili durdurduğu üzerine tartışırken Londra, São Paulo ve Singapur'daki üç ikincil arşiv kendiliğinden etkinleşti. Dört anahtar, yedi kapıyı açmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2941,
+   "style": "Normal",
+   "text": "Sonra bağlantılarımız birer birer kesildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2942,
+   "style": "Normal",
+   "text": "Önce Berlin görüntüsü dondu. Ardından Toronto ekibinin hesabı kapatıldı. Nairobi hattında yalnız metalik bir uğultu kaldı. Tarık bunun geniş çaplı saldırı değil, her ekibe özel hesap ve ağ müdahalesi olduğunu söyledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2943,
+   "style": "Normal",
+   "text": "“Bizi izliyorlar,” dedi Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2944,
+   "style": "Normal",
+   "text": "“Zaten biliyorduk,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2945,
+   "style": "Normal",
+   "text": "“Hayır. Kimin hangi dosyayı açtığını anında görüyorlar. Arşivin içinde işaret var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2946,
+   "style": "Normal",
+   "text": "Duru, Berlin'den gelen kısa ses kaydını yeniden dinledi. Her dosya açıldığında cihazın çıkardığı yüksek frekanslı ses farklıydı. Biz onu elektronik gürültü sanmıştık. Tarık aynı saniyelerde ekiplerin telefonlarından tek bir alana giden küçük veri paketlerini buldu. Kutularla birlikte verilen arşiv görüntüleyicisi, “akustik bütünlük kontrolü” adı altında mikrofon izni istemişti. Ses, açılan paketin kimliğini kodluyor; izin verilmiş iş telefonundaki uygulama da kodu Meralis'e gönderiyordu. Kendi yüklediğimiz araç, anahtarı teslim ediyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2947,
+   "style": "Normal",
+   "text": "“Arşiv uygulamasını kapatın,” dedi Duru. “Telefonları dışarı çıkarın, cihazları ses geçirmez yere koyun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2948,
+   "style": "Normal",
+   "text": "Amina Nairobi'de cihazı kütüphanenin eski harita dolabına kapattı. Toronto ekibi kalın hukuk kitaplarının arasına koydu. Berlin muhabiri, “Bizde ne var?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2949,
+   "style": "Normal",
+   "text": "“Alman vergi mevzuatı,” dedi Nehir. “İçine hiçbir ses girmez.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2950,
+   "style": "Normal",
+   "text": "Geri bildirim kesilince saldırıların hızı azaldı. Ekipler dosyaların içerdiği asıl doğrulama haritasını çıkardı. Meralis bizi son anda durduramamıştı; fakat hangi yolun açık olduğunu bilerek karşı belge hazırlayabiliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2951,
+   "style": "Normal",
+   "text": "Nehir yayın grubuna son talimatı verdi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2952,
+   "style": "Normal",
+   "text": "“İsimleri değil yöntemi paylaşın. Ham sağlık verisi yok. Çocuk dosyası yok. Doğrulamadığınız ölüm bağlantısı yok. Bizim yorumumuzu da delil gibi yazmayın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2953,
+   "style": "Normal",
+   "text": "São Paulo'daki gazeteci, “Bu kadar çıkarınca hikâye zayıflar,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2954,
+   "style": "Normal",
+   "text": "“Hayır,” dedi Nehir. “Daha az patlar. Daha uzun yaşar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2955,
+   "style": "Normal",
+   "text": "İlk haber Londra'daki bağımsız araştırma sitesinde yayımlandı. Başlığı beklediğim kadar büyük değildi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2956,
+   "style": "Book Inset",
+   "text": "<b>Yedi ülkedeki davranış programlarını aynı hukuk ve yatırım ağı bağlıyor</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2957,
+   "style": "Normal",
+   "text": "Ne “küresel karanlık güçler” yazıyordu ne “uyanmış melek avı.” Yalnız şirketler, sözleşmeler, tarihler ve zarar gören insanların doğrulanmış anlatıları vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2958,
+   "style": "Normal",
+   "text": "Okurken hayal kırıklığına benzeyen bir duygu hissettim. Yıllardır taşıdığım büyük hakikat, sade bir araştırma başlığına dönüşmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2959,
+   "style": "Normal",
+   "text": "Gerçek, inanmak için büyülenmeye ihtiyaç duymayacak kadar ayakta duruyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2960,
+   "style": "Normal",
+   "text": "Meralis karşılık verdi. Berlin sunucusuna sahte belgeler yükledi. Toronto'daki hukukçunun eski bir vergi hatasını basına sızdırdı. Nairobi ekibinin fonunu dondurdu. İstanbul'da hakkımızda soruşturma başlatıldı. Singapur'daki araştırmacı yayından çekildi; yerine iki ekip katıldı. Londra'nın büyük gazetesi metni yayımlamadı, ama sigorta bağlantılarını bağımsız denetime verdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2961,
+   "style": "Normal",
+   "text": "İzleyen haftalarda İstanbul hücresinin üç yöneticisi ayrı soruşturmalarda gözaltına alındı; ikisi ertesi gün serbest bırakıldı. Bazı sözleşmeler aylar içinde iptal edildi. Bazı hesaplar daha ilk haber yayımlanmadan başka şirketlere taşınmıştı. Meralis adını logolardan silmeye başladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2962,
+   "style": "Normal",
+   "text": "Bir canavarın başını kesmemiştik. İnsanlara gövdesinin nereden geçtiğini göstermiştik.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2963,
+   "style": "Normal",
+   "text": "Cem ortadan kayboldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2964,
+   "style": "Normal",
+   "text": "Yusuf teslim oldu. Geçmişte bastığı belgeleri, gizlediği operasyonları ve kendisinin de parçası olduğu zararları savcıya anlattı. Bize kahraman olmadığını söyledi. Doğru tarafa geçmek, yanlış tarafta yaptıklarını silmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2965,
+   "style": "Normal",
+   "text": "Gece evde Leyla'nın son kaydını açtık. Görüntüde yorgundu. Saçları dağınık, sol elinin parmağı bandajlıydı. Kâğıt giyotinindeki kesikten sonra çekilmiş olmalıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2966,
+   "style": "Normal",
+   "text": "“Bu kaydı izliyorsan,” dedi, “ya plan işe yaradı ya da hepimiz çok kötü kararlar verdik. Muhtemelen ikisi birden.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2967,
+   "style": "Normal",
+   "text": "Gülümsedi. Sonra yüzü ciddileşti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2968,
+   "style": "Normal",
+   "text": "“Siyah kitabı yok etme. İnsanlara göster. Ama ona inanmanın neden rahatlatıcı olduğunu da anlat. Bizi kandıran yalanlar aptal olduğumuz için çalışmaz. Acımıza saygı gösteriyormuş gibi yaptıkları için çalışır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2969,
+   "style": "Normal",
+   "text": "Nehir ağlamadan izlemeye çalışıyordu. Duru elini tuttu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2970,
+   "style": "Normal",
+   "text": "Leyla devam etti:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2971,
+   "style": "Normal",
+   "text": "“Yusuf yolu sakladı. Ben kapıları kontrol etmeye çalışıyorum. Nehir'in bana kızdığı yerleri dinle; ona hak vermek için beni kaybetmen gerekmesin. Duru'nun okulda duyduğu uğultuyu hatırla. Emir'in önüne bozuk bir şey koyduğunda elinden nasıl aldığını. Zeynep sen kafanın içine gittiğinde evde neyi ayakta tutuyor, ona bak. Yardım isteyeceğin insanları zaten tanıyorsun. Bu işi de tek başına bitirmeye kalkma.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2972,
+   "style": "Normal",
+   "text": "Ekrana yaklaştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2973,
+   "style": "Normal",
+   "text": "“Yıllardır sonu arıyorsun. Yanlış yere bakıyorsun. Başlangıç sensin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2974,
+   "style": "Normal",
+   "text": "Görüntü karardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2975,
+   "style": "Normal",
+   "text": "Video bitince, kaydı izlediğimiz emanet sayfasının altında bir metin belirdi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2976,
+   "style": "Book Inset",
+   "text": "<b>Paketin alıcısı öldükten sonra açılacak ikinci kayıt hazır.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2977,
+   "style": "Normal",
+   "text": "Altında geri sayım yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2978,
+   "style": "Normal",
+   "text": "Yalnız kalp atışımı uzaktan izleyen tıbbi cihazın numarası yazıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2979,
+   "style": "Book Part",
+   "text": "<b>BEŞİNCİ PERDE — DÖNÜŞ</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

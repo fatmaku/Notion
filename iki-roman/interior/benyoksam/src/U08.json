@@ -1,0 +1,788 @@
+{
+ "uid": "U08",
+ "title": "7. Silinen Satır",
+ "number": 7,
+ "words": 799,
+ "constraints": {
+  "uid": "U08",
+  "number": 7,
+  "title": "7. Silinen Satır",
+  "title_letter": "S",
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 799
+ },
+ "synopsis": {
+  "uid": "U08",
+  "title": "7. Silinen Satır",
+  "summary": "Gegenwartsebene, Morgengrauen nach der Nacht mit dem gefälschten Kameravideo: Nehir öffnet am Rechner des Ich-Erzählers den Ordner „POLİS DOSYASI“ – Unterlagen zu Leylas Tod, die sie als Angehörige über die Anwältin Selin erhalten hat (Protokolle, Obduktionsanhänge, Telefonverbindungsdaten, eine ältere Vorab-Kopie). Offizielle Version: Leyla wurde in ihrer von innen verriegelten Wohnung mit hoher Dosis Beruhigungsmittel gefunden, Medien schreiben von Suizid; Nehir bestreitet das als Schwester und als Journalistin. In der Kontaktliste entdecken sie eine weiß übermalte Zeile – in der älteren Kopie steht dort ein geschwärzter Name mit dem Vermerk, vor Kontaktaufnahme sei „amir onayı“ (Genehmigung eines Vorgesetzten) einzuholen; Selin bestätigt über die Nummer, dass die Zeile dem Erzähler gehört. Leyla hat ihn vor ihrem Tod dreimal angerufen, die Anrufe wurden aber umgeleitet; er zählt erstmals, wie viele Personen Zugriff auf sein Konto haben. Eingeschobene Vorausblende: Leylas Beerdigung zwei Tage später im feinen Regen, Nehir weint nicht, wird aber wütend, als man ihr die Schaufel abnimmt. Nachmittags dokumentiert das Labor das schwarze Buch per Kamera: Auf Seite 111 steht ein namenloser Dialog („Wollen Sie uns zum Schweigen bringen?“ …) unter dem Logo eines roten Schmetterlings mit geschlossenen Flügeln und dem Schriftzug „Meralis Toplumsal Uyum Enstitüsü, Görüşme: 14.53“. Sofort ruft von unterdrückter Nummer Cem Arven an, „regionaler Strategiedirektor“ von Meralis; der Erzähler spricht testweise die Buchsätze, Cem antwortet Wort für Wort mit den Gegensätzen aus dem Buch und rät zum Schluss, die für die Kinder vorbereiteten Umschläge sicherer aufzubewahren.",
+  "characters": [
+   "Ich-Erzähler (namenlos, männlich; neurodivergenter Redner/Autor mit großer Online-Reichweite; Vater von Duru und Emir; Ex-Mann von Zeynep; Freund und Bühnenpartner der verstorbenen Leyla)",
+   "Nehir (investigative Journalistin, jüngere Schwester Leylas; Anzeigeerstatterin/„müşteki“ im Fall; führt die Ermittlung, zeichnet alles auf)",
+   "Leyla Arın (verstorbene bekannte Neuropsychologin, Nehirs ältere Schwester; nur in Akten, Erinnerung und Beerdigung präsent)",
+   "Selin (Özer) (Anwältin von Nehir; vermittelt Akten, holt Freigaben vom Staatsanwalt)",
+   "Cem Arven (Anrufer, stellt sich als regionaler Strategiedirektor von Meralis vor; ruhige, weiche Stimme; kennt die Buchsätze und die Umschläge)",
+   "Duru und Emir (Kinder des Erzählers, nur erwähnt – Umschläge an sie)",
+   "Vater des Erzählers (erwähnt: „babamın kuralı“, die Regel, das letzte Wort aufzuschreiben)",
+   "ungenannter Mann in der Kinderszene / „hedef“ des Buches (Anspielung: dieselbe Person?)"
+  ],
+  "terms": [
+   {
+    "tr": "Silinen Satır",
+    "meaning": "Kapiteltitel: „Die gelöschte Zeile“ – die weiß übermalte Zeile in der Kontaktliste der Polizeiakte, die dem Erzähler gehört."
+   },
+   {
+    "tr": "POLİS DOSYASI",
+    "meaning": "Von Nehir benannter Ordner (Großbuchstaben, fett): „Polizeiakte“ – ihre inoffizielle Sammlung der Ermittlungsunterlagen; Schreibweise beibehalten."
+   },
+   {
+    "tr": "müşteki",
+    "meaning": "Juristisch: Anzeigeerstatter/Geschädigte(r) – Nehirs Status im Verfahren; darüber erhält sie Akteneinsicht."
+   },
+   {
+    "tr": "tutanak / otopsi ekleri / operatör kayıtları",
+    "meaning": "Protokoll / Anhänge zum Obduktionsbericht / Verbindungsdaten des Mobilfunkanbieters – Bestandteile der Akte."
+   },
+   {
+    "tr": "Tanınmış nöropsikolog yaşamına son verdi.",
+    "meaning": "Fett gesetzte Medien-Schlagzeile: „Bekannte Neuropsychologin nahm sich das Leben.“ – die offizielle Lesart, die Nehir bestreitet."
+   },
+   {
+    "tr": "Merhumun görüştüğü kişiler…",
+    "meaning": "Amtsdeutsch der Akte: „Personen, mit denen die Verstorbene in Kontakt stand…“ – Satz, in dem die Zeile fehlt."
+   },
+   {
+    "tr": "[Ad ve soyadı kapalı] — aranmadı. Not: Kişiye ulaşılmadan önce amir onayı alınacak.",
+    "meaning": "Fetter Akten-Inset: „[Vor- und Nachname geschwärzt] — nicht angerufen. Vermerk: Vor Kontaktaufnahme Genehmigung des Vorgesetzten einholen.“ Zentrales Indiz; „amir onayı“ = Vorgesetztenfreigabe."
+   },
+   {
+    "tr": "Ben buradayım çünkü hatırlıyorum.",
+    "meaning": "Alleinstehender Leitsatz des Erzählers („Ich bin hier, weil ich mich erinnere“); Motiv Erinnerung vs. Akte – unmittelbar nach dem Eingeständnis, dass sein Gedächtnis die Lücke selbst gefüllt hat."
+   },
+   {
+    "tr": "Hangisini? / Nasıl hangisini?",
+    "meaning": "Wortwechsel über „welchen Namen?“ – Anspielung auf die Identitätsfrage des Erzählers (Vater der Kinder, „hedef“ des schwarzen Buches, Leylas Anrufziel – dieselbe Person?). Mehrdeutigkeit erhalten."
+   },
+   {
+    "tr": "yönlendirme",
+    "meaning": "Rufumleitung – Leylas drei Anrufe wurden umgeleitet; Erzähler leitet an Veranstaltungstagen sonst beruflich Anrufe an einen „danışma hizmeti“ (Beratungs-/Sekretariatsdienst) um."
+   },
+   {
+    "tr": "anahtar dağıtmak",
+    "meaning": "Bild: „Schlüssel verteilen“ – wie viele Personen Zugriff auf sein Telefonkonto haben."
+   },
+   {
+    "tr": "cevap olma",
+    "meaning": "Leylas wiederkehrende Mahnung an den Erzähler: „Werde keine Antwort“ (vgl. prev_tail: „Wenn ich eines Tages zur Frage werde, benutz mich nicht als Antwort“). Frage/Antwort-Motiv konsistent halten."
+   },
+   {
+    "tr": "babamın kuralı",
+    "meaning": "Regel des Vaters: das letzte Wort einer Aufnahme/eines Gesprächs aufschreiben (aus früheren Kapiteln; hier in der Beerdigungs-/Notizszene impliziert)."
+   },
+   {
+    "tr": "defter",
+    "meaning": "Notizheft des Erzählers – er schreibt die Beerdigungsszene später hinein; Hinweis auf die retrospektive Erzählsituation."
+   },
+   {
+    "tr": "Büyük kelimeleri kanıt gelmeden kullanma.",
+    "meaning": "Nehirs Journalistenmaxime: „Benutze keine großen Wörter, bevor Beweise da sind.“ Charakterisiert ihr Register."
+   },
+   {
+    "tr": "sahte kamera",
+    "meaning": "Das gefälschte Kameravideo mit Leylas Stimme (Kapitel 3–4) – wiederkehrendes Objekt."
+   },
+   {
+    "tr": "siyah kitap / kişiye özel kitap",
+    "meaning": "Das schwarze Buch aus dem schwarzen Paket (Kap. 2), auf den Erzähler zugeschnitten; jetzt als Beweismittel („resmî torba“, versiegelter Beutel) im Labor; Seite 111 enthält den Meralis-Dialog."
+   },
+   {
+    "tr": "yüz on birinci sayfa",
+    "meaning": "Seite 111 des schwarzen Buches – wiederkehrende Seitenangabe, genau so übertragen."
+   },
+   {
+    "tr": "— Bizi susturmak mı istiyorsunuz? / — Hayır. Sizi dinlemek istiyoruz. / — O zaman niye bütün cümlelerimi siz bitiriyorsunuz? / — Çünkü bir insanı anlamanın en güvenilir yolu, onun henüz söylemediği cümleyi bilmektir.",
+    "meaning": "Vierzeiliger Dialog aus dem Buch (Inset mit Gedankenstrichen), den Cem am Telefon wörtlich wiederholt. MUSS in beiden Vorkommen (pid 656–659 und 678–686) identisch übersetzt werden; wird in späteren Kapiteln wieder zitiert."
+   },
+   {
+    "tr": "manipülatör cümlesi",
+    "meaning": "Nehirs Kommentar: ein „gut geschriebener Manipulatorensatz“."
+   },
+   {
+    "tr": "kanatları kapalı kırmızı kelebek",
+    "meaning": "Logo von Meralis: roter Schmetterling mit geschlossenen Flügeln (in Kap. 2 Stempel mit Unendlichkeitszeichen zwischen den Flügeln). Wiederkehrendes Symbol."
+   },
+   {
+    "tr": "Meralis Toplumsal Uyum Enstitüsü",
+    "meaning": "„Meralis-Institut für gesellschaftliche Anpassung/Kohäsion“ – Firmenname, Eigenname „Meralis“ nicht übersetzen; „Toplumsal Uyum“ doppeldeutig (Anpassung/Harmonie), konsistent wählen."
+   },
+   {
+    "tr": "Görüşme: 14.53",
+    "meaning": "„Gespräch: 14.53“ – Uhrzeit-/Protokollangabe unter dem Logo; Zahl beibehalten."
+   },
+   {
+    "tr": "Bölgesel. Daha büyük yapı var.",
+    "meaning": "Nehirs fette Bildschirmnotiz: „Regional. Es gibt eine größere Struktur.“"
+   },
+   {
+    "tr": "bölgesel strateji direktörü",
+    "meaning": "Cems Titel: regionaler Strategiedirektor – wird in Kap. 9 Titel „Bölgesel Bir İmparatorluk“ aufgegriffen."
+   },
+   {
+    "tr": "zarflar",
+    "meaning": "Die drei Umschläge mit den Namen Duru, Emir, Zeynep, die der Erzähler am Morgen von Kap. 1 vorbereitet hat (Abschiedsbriefe/Vorsorge); Cem weiß von ihnen."
+   },
+   {
+    "tr": "Nehir Hanım / Beyefendi",
+    "meaning": "Höfliche Anredeformen (Frau Nehir / mein Herr) – Cem siezt durchgehend."
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum, retrospektiv (der Erzähler kommentiert aus späterer Sicht: „Bu sahneyi daha sonra defterime yazdım“). Nüchtern-analytischer Ermittlungston mit knappen, schlagfertigen Dialogen (kurze Zeilen, oft ohne Inquit); eingeschobene Akten-/Buchzitate als fette bzw. gestrichelte „Book Inset“-Blöcke. Einzelne alleinstehende Leitsätze als Absatz. Aphoristische Reflexionen (Schlüssel-Bild, Frage/Antwort). Thriller-Spannungsaufbau in der Telefonszene; Trauer bleibt unterkühlt (Beerdigung als kurze, präzise Vorausblende)."
+ },
+ "paras": [
+  {
+   "pid": 620,
+   "style": "Heading 1",
+   "text": "<b>7. Silinen Satır</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "SENI_BUL",
+    "index": 0,
+    "n": 7
+   }
+  },
+  {
+   "pid": 621,
+   "style": "Opening",
+   "text": "Sabaha karşı Nehir, bilgisayarında <b>POLİS DOSYASI</b> adını verdiği klasörü açtı. Bu, emniyetin bütün soruşturması değildi. Leyla'nın yakını ve dosyanın müştekisi olarak avukatı Selin üzerinden alabildiği tutanaklar, otopsi ekleri, operatörden gelen kayıtlar ve resmî dosyaya girmeden önce bir kaynağın sakladığı ön inceleme görüntüleriydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 622,
+   "style": "Normal",
+   "text": "Resmî kayıtta Leyla evinde bulunmuştu. Kanında yüksek dozda sakinleştirici vardı. Kapı içeriden kilitliydi; elektronik sürgünün kaydı da bunu gösteriyordu. Zorla giriş izi yoktu. İlk değerlendirme, “ilaçların istemli veya istemsiz aşırı kullanımı” diyordu. Medyaya sızan tek cümle ise daha kesindi: <b>Tanınmış nöropsikolog yaşamına son verdi.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 623,
+   "style": "Normal",
+   "text": "“Ablam intihar etmedi,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 624,
+   "style": "Normal",
+   "text": "“Bunu kız kardeşi olarak mı söylüyorsun, gazeteci olarak mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 625,
+   "style": "Normal",
+   "text": "“İkisi de.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 626,
+   "style": "Normal",
+   "text": "“İkisi aynı şey değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 627,
+   "style": "Normal",
+   "text": "“Biliyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 628,
+   "style": "Normal",
+   "text": "Nehir kendisine tebliğ edilen ekleri açtı. Leyla'nın son yetmiş iki saat içindeki aramaları listelenmişti. Üçüncü sayfanın altındaki metinde garip bir boşluk vardı. Cümle “Merhumun görüştüğü kişiler…” diye başlıyor, virgülden sonra devam ediyordu. Fakat ortada sanki bir satır beyazla boyanmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 629,
+   "style": "Normal",
+   "text": "Belgenin daha eski bir ön izleme kopyasını bulduk. Silinen yerde, adı ayrıca kapatılmış bir kişi satırı vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 630,
+   "style": "Book Inset",
+   "text": "<b>[Ad ve soyadı kapalı] — aranmadı. Not: Kişiye ulaşılmadan önce amir onayı alınacak.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 631,
+   "style": "Normal",
+   "text": "O satır tek başına beni kanıtlamıyordu. Telefon numarası kapatılmış, doğum tarihi karartılmıştı. Yine de bana ait olduğundan emindim; Leyla'nın beni neden arayacağını hatırlıyordum. Hafızamın, belgenin boş yerini doldurduğunu fark etmedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 632,
+   "style": "Normal",
+   "text": "Ben buradayım çünkü hatırlıyorum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 633,
+   "style": "Normal",
+   "text": "“Beni niye aramamışlar?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 634,
+   "style": "Normal",
+   "text": "“Daha iyi soru: Seni aramadan önce niye amir onayı almaları gerekiyormuş?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 635,
+   "style": "Normal",
+   "text": "Nehir bu soruyu Selin'e iletti. Avukatın yanıtı önce bizi durdurdu: Kimliği kapatılmış bir satırı, bize uyuyor diye benim saymayacaktık. Bir saat sonra, erişebildiği asıl ekteki sıra numarasını benim verdiğim telefon numarasıyla eşleştirdi. Satır gerçekten bana aitti. Onay notunu kimin yazdığını ise o kopyadan söyleyemiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 636,
+   "style": "Normal",
+   "text": "Nehir numaranın yanına adımı yazdı. Başkasının beni bulabilmesi için yeterli olan işaret, benim kendimi bulmama yetmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 637,
+   "style": "Normal",
+   "text": "“Adını yazdım,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 638,
+   "style": "Normal",
+   "text": "“Hangisini?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 639,
+   "style": "Normal",
+   "text": "Elini klavyeden çekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 640,
+   "style": "Normal",
+   "text": "“Nasıl hangisini?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 641,
+   "style": "Normal",
+   "text": "Çocukların baba dediğiyle, siyah kitabın hedef dediğiyle, Leyla'nın son aramasında ulaşmaya çalıştığı aynı kişi miydi? Soru ağzıma kadar geldi. Söylesem yine herkesi bir kavramın içine çekecektim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 642,
+   "style": "Normal",
+   "text": "“Yazdığın kalsın,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 643,
+   "style": "Normal",
+   "text": "Nehir elini klavyeye geri koydu. Ben bir süre, ekrandaki adımın beni çağırmasını bekledim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 644,
+   "style": "Normal",
+   "text": "Telefon kayıtlarında Leyla'nın ölümünden önce beni üç kez aradığı görünüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 645,
+   "style": "Normal",
+   "text": "Benim telefonumda cevapsız arama yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 646,
+   "style": "Normal",
+   "text": "Operatörün dosyaya verdiği özette üç aramanın da yönlendirmeye girdiği görünüyordu. Nereye aktarıldığı o ekte yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 647,
+   "style": "Normal",
+   "text": "“Bu, neden telefonunun çalmadığını açıklayabilir,” dedi Nehir. “Yönlendirmeyi kimin açtığını öğrenmeden gerisini yazmayalım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 648,
+   "style": "Normal",
+   "text": "Etkinlik günlerinde iş aramalarımı bir danışma hizmetine aktarıyordum. O hafta bunu istememiştim. Nehir, hesabıma erişim verdiğim kişileri listelememi istedi. Kendime ait sandığım bir telefon numarasının çevresine kaç anahtar dağıttığımı ilk kez saydım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 649,
+   "style": "Normal",
+   "text": "Leyla'nın cenazesi iki gün sonra yapıldı. Yağmur inceydi; şemsiyeler birbirine çarpıyor, insanlar onun hakkında geçmiş zamanla konuşmaya alışamıyordu. Tabutun başında söyleyecek büyük bir cümle bulamadım. On bir şehirde birlikte çalıştığımızı, gecenin üçünde birbirimize soru gönderdiğimizi, bana “cevap olma” diye kızdığını düşündüm. Sonra yalnız mezara atılan ilk toprağın sesini duydum. Nehir ağlamadı. Kürek elinden alındığında, sanki biri araştırmasını yarıda kesmiş gibi öfkelendi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 650,
+   "style": "Normal",
+   "text": "Bu sahneyi daha sonra defterime yazdım. O sabah bilgisayarın başında ise yalnız yönlendirilmiş aramalara bakıyor ve acıyı işe çevirirsek dağılmayacağımızı sanıyorduk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 651,
+   "style": "Normal",
+   "text": "“Bu, sıradan bir ölüm örtbasından büyük,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 652,
+   "style": "Normal",
+   "text": "Nehir gözlerini ekrandan ayırmadı. “Büyük kelimeleri kanıt gelmeden kullanma.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 653,
+   "style": "Normal",
+   "text": "“Sahte kamera, yönlendirilmiş arama, kişiye özel kitap. Ne zaman büyük diyebilirim?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 654,
+   "style": "Normal",
+   "text": "“Büyük olduğu için değil, sınırını henüz bilmediğimiz için dikkat edeceksin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 655,
+   "style": "Normal",
+   "text": "Leyla dosyasıyla olası bağlantı tutanağa girince Selin, savcıdan yalnız görüntü erişimi için acil onay aldı. Öğleden sonra laboratuvar, resmî torbayı kamera önünde açtı ve sayfaları belgeledi. Biz başka odadaki izleme ekranından yalnız bu görüntüleri gördük. Yüz on birinci sayfada bir konuşma yazılıydı. İki kişi arasında geçiyordu. İsim yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 656,
+   "style": "Book Inset",
+   "text": "— Bizi susturmak mı istiyorsunuz?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 657,
+   "style": "Book Inset",
+   "text": "— Hayır. Sizi dinlemek istiyoruz.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 658,
+   "style": "Book Inset",
+   "text": "— O zaman niye bütün cümlelerimi siz bitiriyorsunuz?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 659,
+   "style": "Book Inset",
+   "text": "— Çünkü bir insanı anlamanın en güvenilir yolu, onun henüz söylemediği cümleyi bilmektir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 660,
+   "style": "Normal",
+   "text": "“Bu benim konuşma biçimim,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 661,
+   "style": "Normal",
+   "text": "“Senin konuşma biçimin internette üç bin saat var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 662,
+   "style": "Normal",
+   "text": "“Karşımdakinin cümlesi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 663,
+   "style": "Normal",
+   "text": "“O da iyi yazılmış bir manipülatör cümlesi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 664,
+   "style": "Normal",
+   "text": "Sayfanın altında bir logo görünüyordu: kanatları kapalı kırmızı kelebek.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 665,
+   "style": "Normal",
+   "text": "Altında:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 666,
+   "style": "Book Inset",
+   "text": "<b>Meralis Toplumsal Uyum Enstitüsü</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 667,
+   "style": "Book Inset",
+   "text": "<b>Görüşme: 14.53</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 668,
+   "style": "Normal",
+   "text": "O sırada telefonum çaldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 669,
+   "style": "Normal",
+   "text": "Numara gizliydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 670,
+   "style": "Normal",
+   "text": "Nehir eliyle beklememi işaret etti, bilgisayardan kaydı açtı. Ben telefonu hoparlöre aldım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 671,
+   "style": "Normal",
+   "text": "Bir erkek sesi adımı ve soyadımı okuyup doğru kişiye ulaşıp ulaşmadığını sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 672,
+   "style": "Normal",
+   "text": "Sakin, yumuşak, telaşsızdı. Size iyi bir haber olduğuna inandıran seslerden biriydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 673,
+   "style": "Normal",
+   "text": "“Buyurun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 674,
+   "style": "Normal",
+   "text": "“Ben Cem Arven. Meralis'in bölgesel strateji direktörüyüm.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 675,
+   "style": "Normal",
+   "text": "Nehir ekranına not aldı: <b>Bölgesel. Daha büyük yapı var.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 676,
+   "style": "Normal",
+   "text": "Cem konuşmaya devam etti:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 677,
+   "style": "Normal",
+   "text": "“Yaşadığınız rahatsızlık için üzgünüz. Yarın görüşmek isteriz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 678,
+   "style": "Normal",
+   "text": "“Bizi susturmak mı istiyorsunuz?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 679,
+   "style": "Normal",
+   "text": "Nehir başını kaldırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 680,
+   "style": "Normal",
+   "text": "Kitaptaki ilk cümleyi söylemiştim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 681,
+   "style": "Normal",
+   "text": "Telefondaki adam bir an sustu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 682,
+   "style": "Normal",
+   "text": "“Hayır,” dedi Cem. “Sizi dinlemek istiyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 683,
+   "style": "Normal",
+   "text": "Boğazım kurudu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 684,
+   "style": "Normal",
+   "text": "“O zaman niye bütün cümlelerimi siz bitiriyorsunuz?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 685,
+   "style": "Normal",
+   "text": "Cem güldü. Sesi ne şaşkın ne de tedirgindi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 686,
+   "style": "Normal",
+   "text": "“Çünkü bir insanı anlamanın en güvenilir yolu,” dedi, “onun henüz söylemediği cümleyi bilmektir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 687,
+   "style": "Normal",
+   "text": "Nehir kaydı durdurmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 688,
+   "style": "Normal",
+   "text": "Ben kitabın yüz on birinci sayfasına baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 689,
+   "style": "Normal",
+   "text": "Cem son olarak şunu söyledi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 690,
+   "style": "Normal",
+   "text": "“Ayrıca çocuklarınıza hazırladığınız zarfları daha güvenli bir yerde tutmanızı öneririm.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

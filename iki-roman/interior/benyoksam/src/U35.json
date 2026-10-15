@@ -1,0 +1,467 @@
+{
+ "uid": "U35",
+ "title": "39. ŞAMAN",
+ "number": 39,
+ "words": 525,
+ "constraints": {
+  "uid": "U35",
+  "number": 39,
+  "title": "39. ŞAMAN",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 525
+ },
+ "synopsis": {
+  "uid": "U35",
+  "title": "39. ŞAMAN",
+  "summary": "Gegenwartsebene, am selben Abend: Eine digitale Kopie des roten Notizbuchs wird unter dem Namen des Erzählers im Darknet veröffentlicht – echte private Notizen (Kinder, Streit mit Zeynep, nie Gesagtes an Nehir) vermischt mit gefälschten Gewaltaufrufen. Tarık vergleicht die Versionen: die Fälschung imitiert das Schriftmodell, aber nicht den Druck des Stifts (bei Wut zieht der Erzähler den g-Schwanz nach links). Im Notizbuch steht die fünfstufige Methode ŞAMAN gegen FETİH (Şahit ol, Ayır, Merkezine dön, Adını koy, Niyetini seç); der Erzähler deutet sie als Disziplin, nicht als Titel oder Abstammung (Leylas Frage 'Hangi halkın hangi şamanı?'). Tarık findet eine 23 Jahre alte Scan-Version derselben Seite in jüngerer Handschrift mit der Notiz an das 42-jährige Ich: 'Nenn dich nicht Schamane, entschuldige dich zuerst bei deiner Tochter' – was er heute getan hat; Duru hält dagegen, dass die Zeile nachträglich eingefügt sein könnte; zwei Zeitstempel, zwei mögliche Leben. Ein beigefügtes Video (Kamera in der Lupenlampe) zeigt das 19-jährige Ich im Laden des Vaters beim Schreiben der Methode in ein Schulheft, am Rand Yusuf; der junge Erzähler sagt in die Kamera: 'Wenn du die Todesnachricht siehst, trag das Datum nicht ein. Sie haben zwei Zukünfte vorbereitet, wähl die dritte.' Cliffhanger: Der Vater nennt Yusuf 'Cemil' und fragt, wann er 'ihm' das Buch zurückgeben werde.",
+  "characters": [
+   "Ich-Erzähler (42; als 19-Jähriger im Video)",
+   "Duru (Tochter, liest über die Schulter, skeptisch-analytisch)",
+   "Zeynep (Ehefrau; fragt nach Handschriftenanalyse)",
+   "Tarık (Technikexperte; Versionsvergleich, Metadaten, Video)",
+   "Nehir (erwähnt: Sätze, die er ihr nie sagte)",
+   "Leyla (erwähnt: frühere Gesprächspartnerin, stellte die Frage 'Hangi halkın hangi şamanı?')",
+   "Yusuf – im Video vom Vater 'Cemil' genannt (Mentor; wahrer Name/Zweitname enthüllt; mögliche Verbindung zu 'Cem')",
+   "Babam (Vater des Erzählers, Ladenbesitzer; im 23 Jahre alten Video)",
+   "Meralis (implizit: Urheber des Leaks)"
+  ],
+  "terms": [
+   {
+    "tr": "ŞAMAN",
+    "meaning": "Akronym der 5-Schritte-Methode: Ş–Şahit ol (bezeuge), A–Ayır (trenne), M–Merkezine dön (kehr zur Mitte zurück), A–Adını koy (benenn es), N–Niyetini seç (wähl deine Absicht). Im Zieltext muss das Akronym als Wort 'Schamane/Shaman' lesbar bleiben – ggf. Anfangsbuchstaben anpassen und Lösung über alle Pakete konsistent halten"
+   },
+   {
+    "tr": "FETİH",
+    "meaning": "Akronym/Codename der Manipulationsmethode des schwarzen Buches (wörtl. 'Eroberung'); Gegenstück zu ŞAMAN; aus früheren Paketen übernehmen"
+   },
+   {
+    "tr": "karanlık ağ",
+    "meaning": "Darknet"
+   },
+   {
+    "tr": "Kırmızı defter",
+    "meaning": "rotes Notizbuch; Einband vor 7 Jahren gekauft; älteste Scan-Version angeblich 23 Jahre alt"
+   },
+   {
+    "tr": "sürüm bilgisi / tarama",
+    "meaning": "Versionsinformation / Scan – forensische Metadaten"
+   },
+   {
+    "tr": "mürekkep baskısı",
+    "meaning": "Druck des Stifts/Tintenauftrag – Echtheitsmerkmal der Handschrift"
+   },
+   {
+    "tr": "Sormam hata.",
+    "meaning": "Zeyneps trockene Replik: 'Mein Fehler, dass ich gefragt habe.'"
+   },
+   {
+    "tr": "Hangi halkın hangi şamanı?",
+    "meaning": "Leylas Frage: 'Welcher Schamane welchen Volkes?' – Warnung vor erfundener Abstammung, 'seçilmişlik tuzağı' (Erwähltheitsfalle)"
+   },
+   {
+    "tr": "GÖLGE / SESSİZ SES",
+    "meaning": "innere Stimmen: Schatten ('Unvan daha parlaktı' – der Titel war glänzender) vs. Stille Stimme ('Disiplin daha dürüst' – Disziplin ist ehrlicher)"
+   },
+   {
+    "tr": "Kırk iki yaşındaki hâlime",
+    "meaning": "'An mein 42-jähriges Ich' – Notiz des 19-Jährigen; 'Önce kızından özür dile' (entschuldige dich zuerst bei deiner Tochter)"
+   },
+   {
+    "tr": "Ölüm haberini gördüğünde tarihi doldurma",
+    "meaning": "'Wenn du die Todesnachricht siehst, füll das Datum nicht aus' – Prophezeiung/Anweisung, Bezug auf frühere Motive (Todesanzeige/Datum); 'iki gelecek – üçüncüsünü seç'"
+   },
+   {
+    "tr": "babamın dükkânı / büyüteç lambası",
+    "meaning": "Laden des Vaters; Lupenlampe (Kameraposition) – wiederkehrender Ort der Rückblenden"
+   },
+   {
+    "tr": "Cemil",
+    "meaning": "Name, mit dem der Vater Yusuf anspricht – Enthüllung; Nähe zum Namen 'Cem' (Verdächtiger in U34) beachten, nicht angleichen"
+   },
+   {
+    "tr": "Kitabı ona ne zaman geri vereceksin",
+    "meaning": "'Wann gibst du ihm das Buch zurück?' – Schlusssatz; 'Kitap' = das weiße/originale Buch; 'ona' = dem Erzähler (bleibt bewusst offen)"
+   },
+   {
+    "tr": "tanı ölçütü",
+    "meaning": "'Diagnosekriterium' – Vater-Tochter-Scherz ('Duruma göre tanı ölçütü')"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum, verdichtet und spannungsgeladen; forensisch-nüchterne Passagen (Metadaten, Handschrift) wechseln mit knappen, schlagfertigen Vater-Tochter-Dialogen; fett gesetzte Akronym-Liste als Book Inset; innere Stimmen als Label-Dialog; Zeitschleifen-/Vorherbestimmungsmotiv; endet mit einem Cliffhanger-Satz in wörtlicher Rede."
+ },
+ "paras": [
+  {
+   "pid": 2677,
+   "style": "Heading 1",
+   "text": "<b>39. ŞAMAN</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2678,
+   "style": "Opening",
+   "text": "Kırmızı defterin dijital kopyası akşam karanlık ağda yayımlandı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2679,
+   "style": "Normal",
+   "text": "Dosya, benim adımla yüklenmişti. İçinde özel notlarım, çocukların isimleri, Zeynep'le tartışmalarımdan parçalar ve Nehir'e hiç söylemediğim cümleler vardı. Sayfaların arasına şiddet çağrıları eklenmişti. Gerçek cümlelerim, sahte paragrafların arasında rehin tutuluyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2680,
+   "style": "Normal",
+   "text": "Tarık sürümleri karşılaştırdı. Sahte sayfalar fonttan anlaşılmıyordu; çünkü benim yazımın sayısal modeli kullanılmıştı. Fakat mürekkep baskısı taklit edilememişti. Gerçek sayfalarda bazı kelimelere düşünürken daha fazla bastırıyor, “g” harfinin kuyruğunu öfkelendiğimde sola çekiyordum. Sahte metinlerde öfkem bile düzenliydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2681,
+   "style": "Normal",
+   "text": "“İnsan el yazısından sinirlenme yönünü bulmanız normal mi?” diye sordu Zeynep.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2682,
+   "style": "Normal",
+   "text": "“Bilmiyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2683,
+   "style": "Normal",
+   "text": "“Sormam hata.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2684,
+   "style": "Normal",
+   "text": "Kırmızı defterimde, FETİH'e karşı beş adımlı bir yöntem vardı. Baş harfleri <b>ŞAMAN</b> kelimesini oluşturuyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2685,
+   "style": "Book Inset",
+   "text": "<b>Ş — Şahit ol:</b> İlk duyguyu inkâr etmeden izle.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2686,
+   "style": "Book Inset",
+   "text": "<b>A — Ayır:</b> Gördüğün olayla ona verdiğin anlamı birbirinden ayır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2687,
+   "style": "Book Inset",
+   "text": "<b>M — Merkezine dön:</b> Bedenini, sınırını ve gerçekten bildiğin şeyi bul.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2688,
+   "style": "Book Inset",
+   "text": "<b>A — Adını koy:</b> Korkuya korku, manipülasyona manipülasyon, bilinmeyene bilinmeyen de.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2689,
+   "style": "Book Inset",
+   "text": "<b>N — Niyetini seç:</b> Tepki verme; hangi insana dönüşmek istediğine göre davran.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2690,
+   "style": "Normal",
+   "text": "Bu, doğaüstü bir unvanın tarifi değildi. Kendi zihninin gürültüsü içinde yolunu bulma disipliniydi. Şaman, başkalarının görmediğini gördüğünü iddia eden değil; gördüğünün ne kadarının kendinden geldiğini sınayabilen kişiydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2691,
+   "style": "Normal",
+   "text": "Leyla'nın son görüşmemizde sorduğu soru geri döndü: <i>Hangi halkın hangi şamanı?</i> Ben Leyla'nın saydığı geleneklerden birinin temsilcisi değildim. Kendime kadim bir soy uydurursam siyah kitabın seçilmişlik tuzağına başka kapıdan girerdim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2692,
+   "style": "Normal",
+   "text": "ŞAMAN, bu yüzden bir kimlik değil, hatırlatma olmalıydı. Görmek yetmezdi. Eşikten geri dönmek, gördüğünü sınamak ve insanları sana bağlamadan işe yarar hâle getirmek gerekiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2693,
+   "style": "Book Inset",
+   "text": "<b>GÖLGE:</b> <i>Unvan daha parlaktı.</i>",
+   "keep": false,
+   "image": false,
+   "label": "GÖLGE",
+   "constraint": null
+  },
+  {
+   "pid": 2694,
+   "style": "Book Inset",
+   "text": "<b>SESSİZ SES:</b> <i>Disiplin daha dürüst.</i>",
+   "keep": false,
+   "image": false,
+   "label": "SESSİZ SES",
+   "constraint": null
+  },
+  {
+   "pid": 2695,
+   "style": "Normal",
+   "text": "Yöntemi ne zaman yazdığımı hatırlamıyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2696,
+   "style": "Normal",
+   "text": "Tarık dosyanın sürüm bilgisini açtı. En eski tarama yirmi üç yıl önce yapılmış görünüyordu. O tarihte kırmızı defter bende değildi. En azından benim bildiğim kırmızı defter yoktu; kapağını yedi yıl önce satın almıştım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2697,
+   "style": "Normal",
+   "text": "Yirmi üç yıllık görüntüde aynı sayfa, daha genç ve daha düzensiz el yazımla yazılmıştı. Başlığın altında şu not vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2698,
+   "style": "Book Inset",
+   "text": "<b>Kırk iki yaşındaki hâlime: Bu yöntemi unuttuğunda kendine “şaman” deme. Önce kızından özür dile.</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2699,
+   "style": "Normal",
+   "text": "Duru omzumun üstünden okudu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2700,
+   "style": "Normal",
+   "text": "“Bunu bugün yaptın,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2701,
+   "style": "Normal",
+   "text": "“Yirmi üç yıl önce yapacağımı biliyormuşum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2702,
+   "style": "Normal",
+   "text": "“Ya da bugün yaptığını yirmi üç yıl önceki sayfaya eklediler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2703,
+   "style": "Normal",
+   "text": "“Benim kızım olduğun belli.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2704,
+   "style": "Normal",
+   "text": "“Bu iltifat mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2705,
+   "style": "Normal",
+   "text": "“Duruma göre tanı ölçütü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2706,
+   "style": "Normal",
+   "text": "Tarık taramanın tarihini ayrı, elimizdeki kopyanın son kaydedildiği tarihi ayrı gösterdi. Ekranda iki küçük kutu vardı. Hangisine bakarsam başka bir hayat mümkün oluyordu. Biri geçmişte bana yazılmış bir uyarı, öteki bugün geçmişime yerleştirilmiş bir cümle. Henüz asıl sayfanın o satırını kesintisiz gösteren bir kayıt yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2707,
+   "style": "Normal",
+   "text": "“On dokuz yaşındaki hâline inanmak istiyorsun,” dedi Duru.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2708,
+   "style": "Normal",
+   "text": "“Ya gerçekten biliyorsa?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2709,
+   "style": "Normal",
+   "text": "“O zaman şu an kendin karar vermekten kurtuluyor musun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2710,
+   "style": "Normal",
+   "text": "Parmağımı tarihten çektim. Yıllar önce yazılmış olması, bugün yapacağım şeyin sorumluluğunu genç bir çocuğa veremiyordu. Ama yaşadığım anın bir başkasının hatırası olabileceği düşüncesi artık ekrandan çıkmıştı. Tarih kutusunu kapattım; onu kapatamadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2711,
+   "style": "Normal",
+   "text": "Tarık, taramanın yanındaki video aktarımını açtı. Arka planda babamın dükkânı görünüyordu. On dokuz yaşındaki hâlim masanın başında oturuyor, kırmızı olmayan ince bir okul defterine aynı yöntemi yazıyordu. Kameranın açısı, büyüteç lambasının içindendi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2712,
+   "style": "Normal",
+   "text": "Kadrajın kenarında Yusuf vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2713,
+   "style": "Normal",
+   "text": "Genç ben, kameraya doğru başını kaldırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2714,
+   "style": "Normal",
+   "text": "“Ölüm haberini gördüğünde tarihi doldurma,” dedi. “Onlar iki gelecek hazırladı. Sen üçüncüsünü seç.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2715,
+   "style": "Normal",
+   "text": "Sonra kadraja babam girdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2716,
+   "style": "Normal",
+   "text": "Babam, Yusuf'a dönüp benim hiç duymadığım bir isim söyledi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2717,
+   "style": "Normal",
+   "text": "“Kitabı ona ne zaman geri vereceksin, Cemil?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

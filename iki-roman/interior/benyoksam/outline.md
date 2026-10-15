@@ -1,0 +1,48 @@
+# BEN YOKSAM – Kapitelübersicht (Quelle: YOLCU v5)
+
+- U00 · (Titelblock) · 1 kelime — Reiner Titelblock ohne Handlung: der Reihen-/Obertitel „YOLCU“ (dt
+- U01 · 1453 — UYANIŞIN BEDELİ · 21 kelime — Fortsetzung des Titelblocks: Untertitel „1453 — Uyanışın Bedeli“ („1453 – Der Preis des Erwachens“), Genreangabe „Mistik suç ve psikolojik gerilim romanı“ (mystischer Kriminal- und Psychothriller), ein als Book Inset ges
+- U02 · DİKKAT · 342 kelime — Vorspann aus vier Teilen ohne Handlung
+- U03 · 1. Sonmuş Gibi Sıradan Bir Sabah · 1518 kelime — Istanbul, November 2026, Regen: Der namenlose Ich-Erzähler (ca
+- U04 · 2. Siyah Paket · 1344 kelime — Der Ich-Erzähler (ein neurodivergenter Vater, dessen Name im Text nicht genannt wird; im Vorkapitel hat er seine Kinder Duru und Emir bei Zeynep abgesetzt) steigt mit Einkaufstüten die 102 Stufen zu seiner Wohnung im fün
+- U05 · 3. Kamera Boşluğu · 502 kelime — Unmittelbar nach dem Fund ruft der Erzähler die investigative Journalistin Nehir an, die jüngere Schwester seiner Freundin Leyla; er kennt Nehir seit zwei Jahren durch Leyla
+- U06 · 4. Sahte Görüntü, Gerçek Yas · 672 kelime — Noch vor Mitternacht kommt Nehir in die Wohnung des Erzählers und beweist am Computer, dass Leyla in jenem Flur nicht gesprochen hat: Das Standbild stammt aus einer elf Monate alten Aufnahme, als Leyla an seiner Tür eine
+- U07 · 5. Bir Tanının Geldiği Yer · 2227 kelime — Der Ich-Erzähler (ein neurodivergenter Mann, Ehemann von Zeynep, Vater von Duru; im Roman der „Yolcu“) sitzt in der Rahmenhandlung nachts mit Nehir, der jüngeren Schwester der verstorbenen Leyla Arın, am Tisch und erzähl
+- U08 · 7. Silinen Satır · 799 kelime — Gegenwartsebene, Morgengrauen nach der Nacht mit dem gefälschten Kameravideo: Nehir öffnet am Rechner des Ich-Erzählers den Ordner „POLİS DOSYASI“ – Unterlagen zu Leylas Tod, die sie als Angehörige über die Anwältin Seli
+- U09 · 8. İki Kötü Seçenek · 468 kelime — Unmittelbare Fortsetzung in der Gegenwart, Wohnung des Erzählers
+- U10 · 9. Bölgesel Bir İmparatorluk · 942 kelime — Gegenwartsebene, am Folgetag: Der Erzähler und Nehir besuchen die Meralis-Zentrale in Karaköy, ein restauriertes ehemaliges Bankgebäude
+- U11 · 11. Emanetin Peşindeki Karga · 996 kelime — Unmittelbar nach dem Gespräch mit Cem Arven bei Meralis (Ende Kapitel 10) setzen sich der namenlose Ich-Erzähler und Nehir in ein Café; Nehir legt die Firmenkette hinter dem Istanbuler Meralis-Gebäude offen (Londoner Ver
+- U12 · 12. Yedi Yıl Önce Çaldığım Kapı · 1973 kelime — Der Ich-Erzähler (im Roman als Yolcu/"Reisender" geführt; Vater von Duru und Emir, Ehemann von Zeynep) sitzt mit Nehir vor dem Rechner und stellt fest, dass er die E-Mail mit dem Betreff "Yasak arşiv başvurusu — Uyanışın
+- U13 · 13. Bedenin İtirazı · 1026 kelime — Der Ich-Erzähler (Adem, Vater von Duru und Emir, Ex-Mann von Zeynep) geht vor dem geplanten Anruf bei Yusuf zum Kardiologen; Nehir begleitet ihn ins Krankenhaus
+- U14 · 15. Nüshaların Söylemediği · 708 kelime — Gegenwart, Ermittlungsstrang
+- U15 · 16. Görmek ile Yetişmek Arasındaki Mesafe · 578 kelime — Unmittelbare Fortsetzung von U14 in der Werkstatt
+- U16 · 17. Ormanda Beceri, Şehirde Belirti · 1512 kelime — Gegenwartsebene, Tage nach dem Polizeieinsatz in der Werkstatt (vgl
+- U17 · 18. Birincil Ayna · 259 kelime — Gegenwartsebene, unmittelbar anschließend: Erzähler und Nehir leiten aus den sichtbaren und verdeckten Druckschichten der Bücher das gemeinsame Fünf-Stufen-Schema von Meralis ab (Scham benennen – isolieren – Anderssein a
+- U18 · 20. İnanmayan İlk Kişi · 1565 kelime — Gegenwartsebene, in Nehirs Wohnung/Arbeitsraum (sie steht am Fenster, später am Laptop): Direkt im Anschluss an die Enthüllung des Vorpakets (Nehir hat auf Leylas Wunsch Informationen über den Ich-Erzähler an Meralis geg
+- U19 · 21. Bir Hata, İki Kız Kardeş · 810 kelime — Gegenwartsebene, zunächst bei Nehir: Die Eröffnung erklärt die Herkunft der Schwestern – Leyla und Nehir hatten dieselbe Mutter, verschiedene Väter; Leyla war neun Jahre älter, ersatzmütterlich, ging in die Akademie, Neh
+- U20 · 22. On Bir Saniyenin İçindeki Ses · 339 kelime — Gegenwart, am Morgen nach dem Ende des vorigen Pakets: Die Anwältin Selin öffnet vor laufender Kamera protokollgerecht den Beweisbeutel mit der Taschenuhr, Tarık scannt sie und findet einen Speicherchip
+- U21 · 23. Silah Olmayan Ses · 698 kelime — Gegenwart, Fortsetzung: Auf dem Chip liegt auch die vollständige Aufnahme
+- U22 · 24. Yusuf'un Dili · 500 kelime — Gegenwart, noch am Abend der Werkstattuntersuchung: Die Männerstimme aus der Uhr wird erklärt – Yusuf hat sieben vorab aufgenommene Warnungen hinterlegt, die ein Drucksensor im Uhrdeckel in fester Reihenfolge abspielt; d
+- U23 · 25. Unuttuğumu Ateş Seçti · 799 kelime — Gegenwart, unmittelbar anschließend: Brand in der Werkstatt, von mehreren Stellen gleichzeitig; die Nachuntersuchung wird drei Hitzezeitschalter, durchtrennte Sprinkler- und Sensorkabel ergeben (Brandstiftung)
+- U24 · 26. Aynı Yöntemin Farklı Logoları · 1186 kelime — Gegenwart, unmittelbar nach dem Brand der Werkstatt (Atölye) am Ende des Vorpakets
+- U25 · 28. Bir Gün Daha Yaşamak · 338 kelime — Gegenwart, direkt nach dem Treffen mit Yusuf
+- U26 · 29. Trenin İçindeki Ben · 329 kelime — Gegenwart, Tag der 14.53-Abfahrt am Bahnhof Söğütlüçeşme
+- U27 · 30. Yüzümün Benden Habersiz Hayatı · 1007 kelime — Unmittelbar nach dem 19-sekündigen Deepfake-Video am Bahnhof (Vorkapitel: das Gesicht des Ich-Erzählers verkündet in sieben Sprachen „Ben hazırım
+- U28 · 31. Lambaları Yanan Boş Kat · 811 kelime — Gegenwartsebene: Der Erzähler sucht das rote Heft; Emir erinnert sich, es im Vorsommer unter der alten Fotokiste gesehen zu haben – das Gedächtnis des Erzählers ist unzuverlässig
+- U29 · 32. Leyla'nın Son Kaynağı · 466 kelime — Fortsetzung in Echtzeit im 14
+- U30 · 34. Unutulmuş Dükkânın Anahtarı · 610 kelime — Gegenwartsebene, unmittelbar nach dem Ende von Kapitel 33 (14.53 Uhr, Duru ist aus der Wohnung verschwunden, das rote Notizbuch liegt auf ihrem Stuhl)
+- U31 · 35. Kızımın Dosyası · 1333 kelime — Gegenwart im Laden in Balat, direkt anschließend; Duru erzählt rückblickend den Nachmittag, der Erzähler blendet in die eigene Vergangenheit (Tod des Vaters vor rund 20+ Jahren)
+- U32 · 36. İki Ayrı Gelecek · 910 kelime — Gegenwartsebene, direkt nach dem Wiederfinden von Duru in der Werkstatt/dem alten Uhrmacherladen des Vaters
+- U33 · 37. Görünmeyen Kameranın Gördüğü · 523 kelime — Unmittelbare Fortsetzung, gleiche Nacht im Laden
+- U34 · 38. Adı Hastalık Olan Yetenek · 1260 kelime — Gegenwartsebene, Ich-Erzähler (Vater von Duru und Emir, Ehemann von Zeynep, Autor, 42 Jahre alt)
+- U35 · 39. ŞAMAN · 525 kelime — Gegenwartsebene, am selben Abend: Eine digitale Kopie des roten Notizbuchs wird unter dem Namen des Erzählers im Darknet veröffentlicht – echte private Notizen (Kinder, Streit mit Zeynep, nie Gesagtes an Nehir) vermischt
+- U36 · 40. Yusuf Olmadan Önce · 2229 kelime — Gegenwartsebene, Ich-Erzähler (der Protagonist, Vater von Duru, Ehemann von Zeynep)
+- U37 · 42. Labirentin Emanetleri · 875 kelime — Gegenwartsebene, Fortsetzung der Szene im Servicegebäude des stillgelegten Observatoriums (unter der rostigen Antennenschüssel)
+- U38 · 43. Başlangıç Sensin · 947 kelime — Gegenwartsebene, die 24 Stunden der Aktivierung und die Wochen danach, erzählt teils summarisch
+- U39 · 44. Bedenin Bildiği Tarih · 422 kelime — Gegenwartsebene, Beginn des fünften Akts „Dönüş“
+- U40 · 45. Beni Öldürmeyen Adam · 1913 kelime — Gegenwart, einige Tage bis Monate nach der Herzoperation des Ich-Erzählers (Schriftsteller/Kommunikationsforscher, Erzähler des gesamten Romans, Name im Paket nicht genannt)
+- U41 · 46. Son Olabilecek Şeyler · 906 kelime — Der Ich-Erzähler (herzkranker Protagonist mit implantiertem Defibrillator, auf der Transplantations-Warteliste) bilanziert in Rückschau die ersten sechs Monate seiner Behandlung: Mit Sohn Emir repariert er die Uhren im L
+- U42 · 47. Son Olduğunu Bilmeden · 1276 kelime — Zeitebene: November 2027, ein Jahr nach der Ankunft des schwarzen Pakets
+- U43 · 48. Saat 14.53 · 299 kelime — Gegenwart des letzten Tages: Der Erzähler wird bei Bewusstsein ins Krankenhaus gebracht und verlangt gegen Nehirs Rat, dass die Kinder sofort kommen
+- U44 · 49. Geride Kalanlar · 793 kelime — Erstes Kapitel nach dem Tod des namenlosen Ich-Erzählers (Vater, Schriftsteller; im vorigen Paket um 14.53 im Krankenhaus gestorben)
+- U45 · 50. Boş Bırakılan Son Cümle · 1312 kelime — Schlusskapitel, vollständig im Nachtod-Bewusstsein des Ich-Erzählers, ohne äußere Handlung: Er sucht seine Hand, seinen Namen, seine Grenze und erlebt in schneller Folge Szenen aus fremder Perspektive – Durus Geburt aus 

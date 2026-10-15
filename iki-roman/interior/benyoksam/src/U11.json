@@ -1,0 +1,979 @@
+{
+ "uid": "U11",
+ "title": "11. Emanetin Peşindeki Karga",
+ "number": 11,
+ "words": 996,
+ "constraints": {
+  "uid": "U11",
+  "number": 11,
+  "title": "11. Emanetin Peşindeki Karga",
+  "title_letter": "E",
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": "İKİNCİ PERDE — KİTAP",
+  "words": 996
+ },
+ "synopsis": {
+  "uid": "U11",
+  "title": "11. Emanetin Peşindeki Karga",
+  "summary": "Unmittelbar nach dem Gespräch mit Cem Arven bei Meralis (Ende Kapitel 10) setzen sich der namenlose Ich-Erzähler und Nehir in ein Café; Nehir legt die Firmenkette hinter dem Istanbuler Meralis-Gebäude offen (Londoner Verhaltensanalytik-Fonds → Gesundheitstechnologiefirma in Toronto → Datensicherheitsgruppe mit öffentlichen Aufträgen) und erhält von einer Quelle zwei Wartungsbelege, die zeigen, dass dieselbe Technikkartennummer kurz vor dem Kamera-Aussetzer im Wohnhaus des Erzählers benutzt und zwei Stunden später im Technikdepot von Meralis eingesetzt wurde – mit unterschiedlichen Namen auf den Belegen; die Seiten gehen an Anwältin Selin. Auf dem Heimweg folgt der Erzähler gegen Nehirs Protest der Katze Duman zu einer scheinbar stillgelegten Buchbinderwerkstatt (Galata Cilt Servisi); ein vermeintlicher 'LİS'-Schriftzug entpuppt sich als Fehldeutung (VİS aus 'Servisi'), aber unter der Tür riecht es nach Orange, Metall und Feuchtigkeit – dem Geruch des schwarzen Buches – und es findet sich ein orangefarbener Harzfleck. Nach einem Streit (Polizei rufen vs. selbst hinein) steigen beide mit Erlaubnis des Nachbarhausverwalters auf den Treppenabsatz der Feuertreppe; eine Krähe lässt eine Metallkapsel in die Regenrinne fallen, die der Erzähler mit Emirs Teleskopmagnet herausfischt: Auf ihr ist ein roter Schmetterling eingraviert, innen liegt eine Speicherkarte. Es folgt ein Dialog über Zeichen und Zufall mit Verweisen auf die Krähe in der Sure al-Mâ'ida (Kain/Abel) und Odins Raben Gedanke und Gedächtnis. In Selins Büro wird die Kapsel protokolliert und forensisch kopiert; die erste Datei ist eine Sprachaufnahme der toten Leyla (im Hintergrund eine Buchbindemaschine), die sagt: 'Das schwarze Buch hat dich nicht gefunden – du hast es vor Jahren gefunden.' Die zweite Datei ist ein Screenshot aus dem sieben Jahre alten E-Mail-Konto des Erzählers: eine von ihm selbst gesendete 'Verbotene Archivanfrage — Uyanışın Bedeli' mit dem Satz 'Schickt mir die Wahrheit, ich zahle den Preis' und einem eingescannten Zettel in seiner Handschrift mit 17 Jahren: 'Ich werde vergessen. Deshalb muss ich mir das Buch selbst schicken.' Das Kapitel schließt den ersten Akt; danach folgt die Teilüberschrift 'İKİNCİ PERDE — KİTAP' (Zweiter Akt — Das Buch). Erzählzeit: Gegenwart der Handlung (Abend desselben Tages), mit kurzen Rückblicken (Kindheit, Emirs Werkzeugkasten am Morgen, E-Mail vor sieben Jahren) und einer prolepsischen Erzählerbemerkung ('Später sollte ich verstehen...').",
+  "characters": [
+   "Ich-Erzähler (namenlos; Vater von Duru und Emir, Ex-Mann von Zeynep; neurodivergent, erkennt Muster und Details, neigt zu voreiligen 'Zeichen'; Empfänger des schwarzen Buches; stellt sich hier als Absender der Archivanfrage vor sieben Jahren heraus)",
+   "Nehir (investigative Journalistin/Rechercheurin, jüngere Schwester der toten Leyla; nüchtern, skeptisch, verifiziert alles über Register und Belege; duzt den Erzähler)",
+   "Duman (graue Katze aus dem Wohnhaus des Erzählers, 'gehört niemandem'; führt zur Werkstatt – vermutlich weil sie den Weg bereits kennt)",
+   "Cem Arven (Regionaler Strategiedirektor von Meralis; nur erwähnt; Nehir analysiert seine Ausweichtaktik)",
+   "Selin / Selin Özer (Presserechtsanwältin; nur erwähnt bzw. im Büro handelnd; sorgt für Beweissicherung, ruft IT-Forensiker)",
+   "Leyla (verstorbene ältere Schwester Nehirs, Bekannte des Erzählers aus Berlin; spricht nur als Stimme auf der Speicherkarte)",
+   "Emir (Sohn des Erzählers; nur erwähnt: sein Werkzeugkasten/Teleskopmagnet)",
+   "Mutter des Erzählers (nur erwähnt im Streit: 'nach meiner Mutter auch noch von dir Erlaubnis')",
+   "Saha sorumlusu / Quelle (Außendienst-/Schichtverantwortlicher des Wartungs-Subunternehmers; liefert Nehir zwei Belege; anonym)",
+   "Apartman yöneticisi (Hausverwalter des Wohnhauses des Erzählers; hatte Selin das Türprotokoll gegeben)",
+   "Yan binanın yöneticisi (Verwalter des Nachbargebäudes; öffnet die Feuertreppe)",
+   "Bilişim uzmanı (IT-Forensiker, von Selin gerufen; erstellt Schreibschutz-Kopie)",
+   "Karga (die Krähe; Tier, kein Charakter – aber zentrales Motiv und Titelgeber)"
+  ],
+  "terms": [
+   {
+    "tr": "Emanetin Peşindeki Karga",
+    "meaning": "Kapiteltitel: 'Die Krähe hinter dem Anvertrauten / dem Vermächtnis'. 'Emanet' = anvertrautes Gut, Treuhand, Hinterlassenschaft (religiös konnotiert, Amana); meint hier die Kapsel/Speicherkarte Leylas. Wiederkehrender Begriff im Roman."
+   },
+   {
+    "tr": "Meralis",
+    "meaning": "Fiktive Organisation ('Meralis Toplumsal Uyum Enstitüsü' = Meralis-Institut für gesellschaftliche Anpassung) mit Logo roter Schmetterling mit geschlossenen Flügeln; Istanbuler Gebäude; Cem Arven ist Direktor. Name unübersetzt lassen."
+   },
+   {
+    "tr": "siyah kitap",
+    "meaning": "das schwarze Buch – das anonym dem Erzähler zugestellte Buch 'Uyanışın Bedeli'; roter Schmetterlingsstempel, Geruch nach Orange/Metall/Feuchtigkeit; zentrales Objekt. Zitat daraus im prev_tail: 'İyi olanları deli, kötü olanları lider diye tanıyacaksın.'"
+   },
+   {
+    "tr": "Uyanışın Bedeli",
+    "meaning": "'Der Preis des Erwachens' – Titel des schwarzen Buches und Untertitel des Romans; erscheint hier im E-Mail-Betreff 'Yasak arşiv başvurusu — Uyanışın Bedeli' (Verbotene Archivanfrage). Einheitlich mit Buchtitel übersetzen."
+   },
+   {
+    "tr": "kırmızı kelebek",
+    "meaning": "roter Schmetterling – Erkennungszeichen von Meralis und des schwarzen Buches; hier in die Metallkapsel graviert. Wiederkehrendes Motiv."
+   },
+   {
+    "tr": "kapsül / hafıza kartı",
+    "meaning": "Metallkapsel (zylindrisch, glänzend) mit Speicherkarte darin; die 'Emanet'. Wird in einen Beweisbeutel (delil poşeti) gelegt."
+   },
+   {
+    "tr": "Duman",
+    "meaning": "Name der Katze, wörtlich 'Rauch' (graues Fell). Als Eigenname belassen."
+   },
+   {
+    "tr": "Nehir",
+    "meaning": "Eigenname (wörtlich 'Fluss'); nicht übersetzen."
+   },
+   {
+    "tr": "saha sorumlusu",
+    "meaning": "Außendienst-/Einsatzverantwortlicher des Wartungs-Subunternehmers (taşeron); Nehirs Quelle. 'Kaynak' = Quelle (journalistisch)."
+   },
+   {
+    "tr": "hak ediş",
+    "meaning": "Leistungsabrechnung/Abschlagszahlung im Bauwesen; der Subunternehmer bewahrt unterschriebene Arbeitsbelege (iş fişi) für die Monatsabrechnung auf."
+   },
+   {
+    "tr": "teknik kart",
+    "meaning": "Technik-Zugangskarte mit Nummer; dieselbe Nummer auf beiden Belegen (Wohnhaus + Meralis-Depot), aber verschiedene Trägernamen."
+   },
+   {
+    "tr": "kapı kaydı",
+    "meaning": "Türprotokoll/Zugangslog des Wohnhauses, vom Hausverwalter an Selin übergeben (Bezug zu Kapitel 3 'Kamera Boşluğu' = Kameralücke)."
+   },
+   {
+    "tr": "soru işareti / ünlem",
+    "meaning": "Fragezeichen vs. Ausrufezeichen – Nehir markiert Befunde mit '?', der Erzähler setzt voreilig '!'; charakterisierender Kontrast (Skepsis vs. Gewissheit)."
+   },
+   {
+    "tr": "İyi yalancılar reddetmez. Senin cümlenin sınırını değiştirir.",
+    "meaning": "Nehirs Maxime: Gute Lügner leugnen nicht, sie verschieben die Grenze deines Satzes (Cem sagte 'welches Buch?', nicht 'ich habe kein Buch geschickt')."
+   },
+   {
+    "tr": "elinde havai fişekle benzin kokusunu takip etmek",
+    "meaning": "Nehirs Bild: Mit dem Erzähler zu ermitteln ist, als folge man Benzingeruch mit einem Feuerwerkskörper in der Hand. Pointe: 'Havai fişek sensin' (Der Feuerwerkskörper bist du)."
+   },
+   {
+    "tr": "LİS / GALATA CİLT SERVİSİ / VİS",
+    "meaning": "Wortspiel mit Schildresten: Der Erzähler liest 'LİS' (Endung von Meralis), tatsächlich sind es die Reste von 'SERVİSİ' (Service), ein abgeblättertes V sah wie L aus. 'Cilt servisi/atölyesi' = Buchbinderei. In der Übersetzung muss die Verwechslung L/V in den sichtbaren Buchstaben nachvollziehbar bleiben (ggf. drei Großbuchstaben, die im Zielsprachen-Namen der Werkstatt vorkommen und zugleich wie eine Endung von 'Meralis' wirken)."
+   },
+   {
+    "tr": "Bir örüntü daha buldun. Yanlış olanını.",
+    "meaning": "'Du hast wieder ein Muster gefunden. Das falsche.' – Leitmotiv Mustererkennung vs. Beweis; Lehre: Ähnlichkeit reicht nicht, man muss erklären, warum sie da ist."
+   },
+   {
+    "tr": "turunç, metal ve nem kokusu",
+    "meaning": "Geruch nach Bitterorange/Orange, Metall und Feuchtigkeit – Geruchssignatur des schwarzen Buches; 'turuncu reçine lekesi' = orangefarbener Harzfleck (Buchbinderharz)."
+   },
+   {
+    "tr": "kurala güvenme, kendi sezgine güven",
+    "meaning": "'Vertrau nicht der Regel, vertrau deiner Intuition' – von Nehir als genau die Reaktion benannt, auf die das schwarze Buch abzielt (Manipulationsmechanik)."
+   },
+   {
+    "tr": "Bilinçli olmak bazen evde oturmaktır.",
+    "meaning": "Nehir: 'Bewusst sein heißt manchmal, zu Hause zu sitzen.' Antwort auf die ironische Formel des Erzählers 'Evde oturup bilinçli olalım'. 'Bilinçli/uyanış' knüpft an den Buchtitel (Erwachen) an."
+   },
+   {
+    "tr": "Kavgayı nükleer seviyeye taşıdı.",
+    "meaning": "Komischer Einschub: 'Annen haklı olabilir' (Deine Mutter könnte recht haben) hebt den Streit auf 'nukleares Niveau' – trockener Humor des Erzählers."
+   },
+   {
+    "tr": "yalnızca",
+    "meaning": "'nur' – 'das fleißigste Lügenwort, das Menschen benutzen, bevor sie in Schwierigkeiten geraten'; Aphorismus des Erzählers."
+   },
+   {
+    "tr": "hem manzara hem tetanos",
+    "meaning": "Istanbuls Dächer bieten 'zugleich Panorama und Tetanus' – rostige Dächer; humoristisches Bild."
+   },
+   {
+    "tr": "teleskopik mıknatıs",
+    "meaning": "Teleskopmagnet aus Emirs Werkzeugkasten; der Erzähler hatte ihn am Morgen behalten ('erst den Rost entfernen'); Motiv des aufgeschobenen Geschenks, das erstmals nützt."
+   },
+   {
+    "tr": "işaret",
+    "meaning": "'Zeichen' (im Sinne von Omen/Fügung); Dauerstreitpunkt: Erzähler sieht Zeichen, Nehir warnt 'Şimdiden işaret yapma' (Mach jetzt nicht gleich ein Zeichen daraus). Erzählerdefinition: Zeichen = Schnittpunkt dessen, was ein Tier von sich aus tut, und meines Dortseins im richtigen Moment."
+   },
+   {
+    "tr": "Mâide suresi",
+    "meaning": "Sure al-Mâ'ida (5:31): Nach dem Brudermord schickt Gott eine Krähe, die in der Erde scharrt und Kain zeigt, wie er den Leichnam bedeckt. Erzähler: Die Krähe bringt nicht den Tod, sie lehrt die erste Arbeit, die der Mensch nach dem Mord nicht kennt. Koranische Referenz; standardisierte Transkription der Zielsprache verwenden."
+   },
+   {
+    "tr": "Kabil",
+    "meaning": "Kain (islamische Namensform Qabil); 'Kabil'in kim olduğunu da bilmiyordu' – die Krähe wusste auch nicht, wer Kain war."
+   },
+   {
+    "tr": "Şimdi kendini kutsal metne mi yazdın? / Hayır. Kuşu yazdım.",
+    "meaning": "Wortwechsel: 'Hast du dich jetzt in den heiligen Text geschrieben?' – 'Nein. Den Vogel.' Selbstironie des Erzählers."
+   },
+   {
+    "tr": "Odin'in iki kuzgunu – Düşünce ve Hafıza",
+    "meaning": "Odins Raben Huginn und Muninn (Gedanke und Gedächtnis), die täglich die Welt umfliegen und berichten; in der Zielsprache ggf. die Namen Huginn/Muninn ergänzen oder die Übersetzung 'Gedanke/Gedächtnis' belassen wie im Original (Original nennt nur die Bedeutungen)."
+   },
+   {
+    "tr": "Düşünce, hafıza, gömülen beden",
+    "meaning": "'Gedanke, Gedächtnis, begrabener Körper' – der Erzähler bündelt beide Mythen und findet es 'etwas zu ordentlich', dass alle drei in der Kapsel stecken (Selbstmisstrauen gegenüber eigener Mustersucht)."
+   },
+   {
+    "tr": "kültür tarihini bitirdiysen",
+    "meaning": "Nehirs trockene Zurechtweisung: 'Wenn du mit der Kulturgeschichte fertig bist, zurück zum Fingerabdruck am Schnabel.'"
+   },
+   {
+    "tr": "Bize anlam bırakmadı. Yalnız kartı bıraktı.",
+    "meaning": "'Sie ließ uns keine Bedeutung. Nur die Karte.' – Pointe zur Krähe; Parallelismus bırakmak/bırakmak erhalten."
+   },
+   {
+    "tr": "veri yazmayı engelleyen okuyucu / inceleme kopyası / çevrim dışı cihaz",
+    "meaning": "Forensik-Terminologie: Schreibblocker (write blocker), forensische Arbeitskopie/Image, Offline-Gerät (air-gapped). Beweiskette (Protokollierung in Selins Büro)."
+   },
+   {
+    "tr": "cilt makinesi",
+    "meaning": "Buchbindemaschine – im Hintergrund von Leylas Aufnahme zu hören; verbindet Leyla mit der Buchbinderwerkstatt und der Herstellung des schwarzen Buches."
+   },
+   {
+    "tr": "Ya plan tuttu ya da planı onlar değiştirdi.",
+    "meaning": "Leylas Satz: 'Entweder der Plan ging auf, oder sie haben den Plan geändert. Beides ist nicht gut.' 'Onlar' (sie) = die Gegenseite/Meralis, unbestimmt lassen."
+   },
+   {
+    "tr": "Siyah kitap seni bulmadı. Sen kitabı yıllar önce buldun.",
+    "meaning": "Zentrale Enthüllung: 'Das schwarze Buch hat nicht dich gefunden. Du hast das Buch vor Jahren gefunden.' Wendepunkt des ersten Akts."
+   },
+   {
+    "tr": "Yasak arşiv başvurusu — Uyanışın Bedeli",
+    "meaning": "E-Mail-Betreff (Book-Inset, fett): 'Antrag auf verbotenes Archiv / Verbotene Archivanfrage — Der Preis des Erwachens'. Absender: der Erzähler selbst, vor sieben Jahren."
+   },
+   {
+    "tr": "Bana gerçeği gönderin. Bedeli neyse öderim.",
+    "meaning": "E-Mail-Text (Book-Inset, kursiv): 'Schickt mir die Wahrheit. Was immer der Preis ist, ich zahle ihn.' – 'bedel' greift den Buchtitel auf; dieselbe Vokabel verwenden wie in 'Uyanışın Bedeli'."
+   },
+   {
+    "tr": "Unutacağım. Bu yüzden kitabı bana ben göndermeliyim.",
+    "meaning": "Handschriftliche Notiz des Erzählers mit 17 (Book-Inset, kursiv): 'Ich werde vergessen. Deshalb muss ich mir das Buch selbst schicken.' Schlüsselsatz; Pronomenbetonung 'bana ben' (ich – mir selbst) erhalten."
+   },
+   {
+    "tr": "İKİNCİ PERDE — KİTAP",
+    "meaning": "Teilüberschrift (Style 'Book Part'): 'Zweiter Akt — Das Buch'. Der Roman ist in 'Perde' (Akte, Theaterbegriff) gegliedert; konsistent mit 'BİRİNCİ PERDE' aus früherem Paket übersetzen."
+   },
+   {
+    "tr": "Beyefendi",
+    "meaning": "(im prev_tail) respektvolle Anrede Cems an den Erzähler, 'mein Herr'; der Erzähler wird von Cem gesiezt, von Nehir geduzt."
+   },
+   {
+    "tr": "Book Inset / Opening / Book Part",
+    "meaning": "Layout-Styles: 'Opening' = erster Absatz des Kapitels (ggf. Initiale), 'Book Inset' = eingerückte Dokument-Zitate (E-Mail, Notiz), 'Book Part' = Aktüberschrift. Formatierung <b>/<i> exakt übernehmen."
+   }
+  ],
+  "tone": "Ich-Erzählung im Präteritum (Vergangenheitsform, -di/-miş-Mischung mit Plusquamperfekt für Rückblicke), mit einer prolepsischen Bemerkung ('Sonradan ... anlayacaktım'). Register: literarisch-nüchtern, viel schneller, lakonischer Dialog in kurzen Zeilen (Nehir trocken-skeptisch, Erzähler ironisch-selbstironisch, pointierte Schlagabtausche wie 'Herkes yeteneği kadar' / 'Dünya adil değil'). Aphoristische Erzählersätze ('yalnızca ... en çalışkan yalandır', 'hem manzara hem tetanos'). Eingeschobene kulturgeschichtlich-religiöse Reflexion (Koran-Sure, nordische Mythologie) in ruhigem, erklärendem Ton. Verfahrenssprache für Beweissicherung und Forensik sachlich-präzise. Dokumentzitate (E-Mail-Betreff, Notiz) als abgesetzte Insets; keine inneren Stimmen (ŞÜPHECİ/AVCI etc.) in diesem Kapitel. Kapitelschluss mit Enthüllungs-Cliffhanger und Akt-Grenze."
+ },
+ "paras": [
+  {
+   "pid": 858,
+   "style": "Heading 1",
+   "text": "<b>11. Emanetin Peşindeki Karga</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "SENI_BUL",
+    "index": 1,
+    "n": 7
+   }
+  },
+  {
+   "pid": 859,
+   "style": "Opening",
+   "text": "Meralis'ten çıkınca Nehir beni eve göndermedi. Binanın şirket sicillerini, ortaklarını ve bakım firmalarını incelemek için yakındaki bir kafeye oturduk. Ben beş dakika içinde duvardaki saatin saniye ibresinin geri kaldığını fark ettim. Nehir yirmi dakika içinde Meralis'in İstanbul binasının, Londra merkezli bir davranış analitiği fonuna; fonun, Toronto'daki sağlık teknolojisi şirketine; onun da kamu ihaleleri alan bir veri güvenliği grubuna bağlı olduğunu buldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 860,
+   "style": "Normal",
+   "text": "“Ben saati çözdüm,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 861,
+   "style": "Normal",
+   "text": "“Tebrikler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 862,
+   "style": "Normal",
+   "text": "“Sen küresel şirket ağını.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 863,
+   "style": "Normal",
+   "text": "“Herkes yeteneği kadar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 864,
+   "style": "Normal",
+   "text": "“Dünya adil değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 865,
+   "style": "Normal",
+   "text": "Nehir'in telefonuna bir dosya geldi. Gece aradığı saha sorumlusu, apartmanımızın bakım kaydını kendi vardiya çizelgesiyle karşılaştırmıştı. Apartmanı da Meralis'in teknik deposunu da aynı taşeronun ekibi dolaşıyordu. Adam, tamamlanan işlerin imzalı fişlerini ay sonunda hak edişe eklemek için saklıyordu. Elindeki iş evrakından yalnız o geceye ait iki kaydı paylaşmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 866,
+   "style": "Normal",
+   "text": "Nehir iki satırı büyüttü. Apartman yöneticisinin Selin'e verdiği kapı kaydında, kamera donmadan hemen önce kullanılan teknik kart numarası vardı. Öteki belgede aynı numarayla Meralis'in bodrumundaki teknik depodan cihaz teslim alınmıştı. Arada iki saat bulunuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 867,
+   "style": "Normal",
+   "text": "“Kartı taşıyanın adı iki fişte farklı,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 868,
+   "style": "Normal",
+   "text": "“Sahte isim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 869,
+   "style": "Normal",
+   "text": "“Olabilir. Ortak kullanılan kart da olabilir. Şu an kişiyi değil, yolu görüyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 870,
+   "style": "Normal",
+   "text": "Kaynağın telefonda söylediği saati dosyanın üstüne not etti, sonra Selin'e yalnız ilgili iki sayfayı yolladı. Avukat, asıl kayıtların korunmasını isteyecekti. Nehir ekrandaki bağlantının yanına soru işareti koydu. Ben çoktan ünlem koymuştum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 871,
+   "style": "Normal",
+   "text": "“Cem yalan söyledi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 872,
+   "style": "Normal",
+   "text": "“Cem ‘kitabı göndermedim’ demedi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 873,
+   "style": "Normal",
+   "text": "“Hangi kitap dedi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 874,
+   "style": "Normal",
+   "text": "“İyi yalancılar reddetmez. Senin cümlenin sınırını değiştirir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 875,
+   "style": "Normal",
+   "text": "Dışarı çıktığımızda hava kararmıştı. Duman sokağın köşesinde bizi bekliyordu. Bunun tesadüf olduğunu düşünmek istedim; eve üç sokak vardı ve Duman bölgesini genişletmeyi seven bir kediydi. Bizi görünce miyavlamadı. Burnunu yere yaklaştırıp ara sokağa girdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 876,
+   "style": "Normal",
+   "text": "“Peşinden gitmeyeceğiz,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 877,
+   "style": "Normal",
+   "text": "Duman durdu, bize baktı, yeniden yürüdü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 878,
+   "style": "Normal",
+   "text": "“Kesinlikle gitmeyeceğiz,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 879,
+   "style": "Normal",
+   "text": "Ben yürümeye başladım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 880,
+   "style": "Normal",
+   "text": "“Seninle suç araştırmak,” dedi arkamdan gelirken, “elinde havai fişekle benzin kokusunu takip etmek gibi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 881,
+   "style": "Normal",
+   "text": "“Benzin kokusunu o takip ediyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 882,
+   "style": "Normal",
+   "text": "“Havai fişek sensin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 883,
+   "style": "Normal",
+   "text": "Duman bizi yıllardır kapalı görünen bir cilt atölyesine götürdü. Kepenk paslıydı. Kapının üstündeki tabeladan yalnız üç harf kalmıştı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 884,
+   "style": "Normal",
+   "text": "<b>LİS</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 885,
+   "style": "Normal",
+   "text": "Meralis'in son üç harfi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 886,
+   "style": "Normal",
+   "text": "“Bu kadarını da tesadüf saymayacaksın herhâlde,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 887,
+   "style": "Normal",
+   "text": "Nehir ışığı tabelaya yandan tuttu: <b>GALATA CİLT SERVİSİ</b>. L sandığım, boyası dökülmüş V'ydi. Meralis'in imzasını değil, <i>servisi</i> kelimesinden kalan VİS'i okuyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 888,
+   "style": "Normal",
+   "text": "“Bir örüntü daha buldun,” dedi Nehir. “Yanlış olanını.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 889,
+   "style": "Normal",
+   "text": "Utandım. Aynı anda rahatladım. Yanlış çıkan işaret yöntemi görünür kılmıştı: Benzerlik bulmak yetmiyordu; benzerliğin neden orada olduğunu da kanıtlamak gerekiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 890,
+   "style": "Normal",
+   "text": "Kapının altındaki aralıktan turunç, metal ve nem kokusu geliyordu. Siyah kitaptaki koku.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 891,
+   "style": "Normal",
+   "text": "Duman burnunu kapının altındaki turuncu reçine lekesine sürdü, sonra yan binanın duvarına sıçradı. Yağmur borusunun çevresinde eski pati izleri ve fare pislikleri vardı. Nehir telefonuyla fotoğrafını çekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 892,
+   "style": "Normal",
+   "text": "“Bizi buraya getirmedi,” dedi. “Kendi yolunu tekrar ediyor olabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 893,
+   "style": "Normal",
+   "text": "O anda bu cümle gizemi küçültmüş gibi geldi. Sonradan, bizi doğru soruya götüren ilk cümlenin bu olduğunu anlayacaktım: Duman yolu biliyorsa, bu atölyeye daha önce kim girip çıkmıştı?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 894,
+   "style": "Normal",
+   "text": "Nehir polisi aramak istedi. Ben çatıda açık bir pencere gördüm. Tartıştık. Ben içeride kanıt yok edilmeden girmemiz gerektiğini söyledim; Nehir bunun tam da kitapta hedeflenen “kurala güvenme, kendi sezgine güven” tepkisi olduğunu söyledi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 895,
+   "style": "Normal",
+   "text": "“O zaman hiçbir şey yapmayalım,” dedim. “Evde oturup bilinçli olalım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 896,
+   "style": "Normal",
+   "text": "“Bilinçli olmak bazen evde oturmaktır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 897,
+   "style": "Normal",
+   "text": "“Bu yaşta annemden sonra bir de senden izin almayacağım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 898,
+   "style": "Normal",
+   "text": "“Annen haklı olabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 899,
+   "style": "Normal",
+   "text": "Kavgayı nükleer seviyeye taşıdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 900,
+   "style": "Normal",
+   "text": "Polise konum gönderdik, avukata mesaj bıraktık. Yan binanın yöneticisi, kapalı atölyenin çatısına geçmememiz şartıyla kendi yangın merdiveninin üst sahanlığını açtı. Yalnızca dışarıyı kontrol edecektik. Bu cümledeki “yalnızca” kelimesi, insanların belaya girmeden önce kullandığı en çalışkan yalandır.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 901,
+   "style": "Normal",
+   "text": "Çatı seviyesindeki sahanlığa vardığımızda eski İstanbul binaları önümüzdeydi. Kiremitler, antenler, su depoları. Atölyenin alçak çatısı korkuluğun hemen ötesindeydi. Şehir insana aynı anda hem manzara hem tetanos sunuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 902,
+   "style": "Normal",
+   "text": "Bir karga yağmur oluğunun kenarında duruyordu. Gagasında parlak, silindir biçimli bir şey vardı. Bizi görünce kanatlandı, parçayı düşürdü ve karşı çatıya kondu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 903,
+   "style": "Normal",
+   "text": "Metal parça oluğun içine yuvarlandı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 904,
+   "style": "Normal",
+   "text": "Elimi uzattım, yetişemedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 905,
+   "style": "Normal",
+   "text": "Emir'in alet kutusundan aldığım teleskopik mıknatıs çantamdaydı. Sabah ona vermeyi düşünmüş, sonra “önce pasını temizlerim” diyerek geri koymuştum. Bir hediyeyi geciktirmem ilk kez işe yaradı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 906,
+   "style": "Normal",
+   "text": "Mıknatısı oluğa uzattım. Metal kapsül ucuna yapıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 907,
+   "style": "Normal",
+   "text": "Üstünde kırmızı kelebek kazılıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 908,
+   "style": "Normal",
+   "text": "Kapağını açınca küçük bir hafıza kartı çıktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 909,
+   "style": "Normal",
+   "text": "“Karga bunu planlamadı,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 910,
+   "style": "Normal",
+   "text": "“Biliyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 911,
+   "style": "Normal",
+   "text": "“Şimdiden işaret yapma.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 912,
+   "style": "Normal",
+   "text": "“Bir şey söylemedim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 913,
+   "style": "Normal",
+   "text": "“Yüzün söyledi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 914,
+   "style": "Normal",
+   "text": "Kargaya baktım. Başını yana eğmiş bizi izliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 915,
+   "style": "Normal",
+   "text": "“Belki işaret,” dedim, “bir hayvanın emre uyması değildir. Onun kendi yaptığı şeyle benim doğru anda orada olmamın kesişmesidir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 916,
+   "style": "Normal",
+   "text": "“Belki de parlak şeyi seven bir kargadır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 917,
+   "style": "Normal",
+   "text": "“İkisi aynı anda doğru olamaz mı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 918,
+   "style": "Normal",
+   "text": "Çocukken kargayı uğursuz sanırdım. Sonra Mâide suresindeki anlatıyı okumuştum: İnsan, öldürdüğü kardeşinin bedenini ne yapacağını bilemeyince yeri eşeleyen kargadan örtmeyi ve gömmeyi öğreniyordu. Oradaki karga ölümü getirmiyordu. Cinayetten sonra insanın bilmediği ilk işi öğretiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 919,
+   "style": "Normal",
+   "text": "“Bu hikâyede de bir ölünün saklanan gerçeğini çıkarıyor,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 920,
+   "style": "Normal",
+   "text": "Nehir yüzüme baktı. “Karga, kapsülün içinde ne olduğunu bilmiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 921,
+   "style": "Normal",
+   "text": "“Kabil'in kim olduğunu da bilmiyordu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 922,
+   "style": "Normal",
+   "text": "“Şimdi kendini kutsal metne mi yazdın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 923,
+   "style": "Normal",
+   "text": "“Hayır. Kuşu yazdım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 924,
+   "style": "Normal",
+   "text": "Eski İskandinav anlatılarında Odin'in iki kuzgununun adlarının Düşünce ve Hafıza anlamına geldiğini okumuştum. Her gün dünyayı dolaşıp gördüklerini geri taşıyorlardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 925,
+   "style": "Normal",
+   "text": "“Düşünce, hafıza, gömülen beden,” dedim. “Bu kapsülde üçünün de olması biraz fazla düzenli.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 926,
+   "style": "Normal",
+   "text": "Nehir kargaya baktı, sonra kapsülü delil poşetine koydu. “Kültür tarihini bitirdiysen kuşun gagasındaki parmak izine dönelim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 927,
+   "style": "Normal",
+   "text": "Karga, hakkındaki tartışmayı değersiz bulmuş gibi kanatlandı. Bize anlam bırakmadı. Yalnız kartı bıraktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 928,
+   "style": "Normal",
+   "text": "Aşağı indik. Selin'in geldiği ofiste, kapsülü nereden ve nasıl aldığımızı anlatıp kayda geçirdik. Kapsülü açmış olmamızın geri alınamayacağını, kalanına dokunmadan teslim etmemiz gerektiğini söyledi. Çağırdığı bilişim uzmanı, karta veri yazmayı engelleyen okuyucudan bir inceleme kopyası aldı. O kopyayı çevrim dışı cihazda açtık. İlk dosya Leyla'nın sesiydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 929,
+   "style": "Normal",
+   "text": "Arka planda cilt makinesi çalışıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 930,
+   "style": "Normal",
+   "text": "Leyla kayda adımı söyleyerek başladı. Sesi yorgun, aceleciydi. “Bunu dinliyorsan iki ihtimal var. Ya plan tuttu ya da planı onlar değiştirdi. İkisi de iyi değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 931,
+   "style": "Normal",
+   "text": "Bir kâğıt hışırtısı duyuldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 932,
+   "style": "Normal",
+   "text": "“Siyah kitap seni bulmadı,” dedi Leyla. “Sen kitabı yıllar önce buldun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 933,
+   "style": "Normal",
+   "text": "Nehir karttaki diğer dosyayı açtı. Yedi yıl önce kullandığım eski e-posta hesabının ekran görüntüsüydü. Gönderilenler klasöründe bir mesaj vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 934,
+   "style": "Normal",
+   "text": "Konu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 935,
+   "style": "Book Inset",
+   "text": "<b>Yasak arşiv başvurusu — Uyanışın Bedeli</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 936,
+   "style": "Normal",
+   "text": "Gönderen bendim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 937,
+   "style": "Normal",
+   "text": "Mesajın altında tek cümle yazıyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 938,
+   "style": "Book Inset",
+   "text": "<i>Bana gerçeği gönderin. Bedeli neyse öderim.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 939,
+   "style": "Normal",
+   "text": "Eklerde taranmış bir kâğıt görünüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 940,
+   "style": "Normal",
+   "text": "Kâğıdın üstünde on yedi yaşındaki el yazımla şu not vardı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 941,
+   "style": "Book Inset",
+   "text": "<i>Unutacağım. Bu yüzden kitabı bana ben göndermeliyim.</i>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 942,
+   "style": "Book Part",
+   "text": "<b>İKİNCİ PERDE — KİTAP</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

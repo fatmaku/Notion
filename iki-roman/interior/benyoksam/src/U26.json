@@ -1,0 +1,369 @@
+{
+ "uid": "U26",
+ "title": "29. Trenin İçindeki Ben",
+ "number": 29,
+ "words": 329,
+ "constraints": {
+  "uid": "U26",
+  "number": 29,
+  "title": "29. Trenin İçindeki Ben",
+  "title_letter": null,
+  "marks": [
+   "Ş"
+  ],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 329
+ },
+ "synopsis": {
+  "uid": "U26",
+  "title": "29. Trenin İçindeki Ben",
+  "summary": "Gegenwart, Tag der 14.53-Abfahrt am Bahnhof Söğütlüçeşme. Der Erzähler steigt nicht ein, geht aber auf den Bahnsteig – ein bewusstes Umgehen der Regel („dritter Weg“), das Nehir als Wortspiel bezeichnet. Die Operation ist abgesichert: Drohung und Ticket wurden der Bahnpolizei gemeldet, zwei Zivilbeamte beobachten den Waggon, Nehir ist in der Menge, Yusuf am Gegenbahnsteig, Zeynep bei den Kindern zu Hause; Standort und Pulsmesser des Erzählers werden geteilt, er filmt mit Tarıks empfohlener Beweis-App, Nehir parallel mit ihrer Handykamera. Um 14.52 treffen auf seinem Handy Livebilder von Bahnhöfen in Berlin, Toronto, Nairobi, Singapur, São Paulo, London und Istanbul ein, alle mit derselben Uhrzeit; der Erzähler erlebt einen synästhetischen Moment, in dem sein Bahnsteig aufhört, der Mittelpunkt der Welt zu sein. Als der Zug einfährt, sieht er auf dem Handybild hinter dem Fenster von Platz 11 einen Mann in seiner Jacke, mit seinem Gesicht und der nur ihm bekannten Narbe über der linken Braue (Schraubenzieher beim Öffnen eines Uhrdeckels in der Kindheit); das Double legt die Hand ans Fenster, er hebt unwillkürlich die seine, es sagt „Du bist zu spät“. Der reale Platz 11 ist leer, nur sein eigenes Spiegelbild. Gleichzeitig erscheint sein Gesicht auf den Bildschirmen der sieben Städte und spricht in sieben Sprachen: „Ich bin bereit. Ich gründe den ersten Ring der Erwachten.“ – Meralis/der Gegner hat ein Deepfake-Double geschaffen, das den Erzähler zum Sektenführer stilisiert.",
+  "characters": [
+   "Ich-Erzähler (Protagonist; sein Deepfake/Double erscheint im Zug und weltweit auf Bildschirmen)",
+   "Nehir (Verbündete; filmt, überwacht Pulsdaten, fragt „Burada mısın?“)",
+   "Yusuf Vural (am Gegenbahnsteig)",
+   "Tarık (Technik-/Sicherheitsverbündeter; empfahl die kommerzielle Beweis-Aufnahme-App; nur erwähnt)",
+   "Zeynep (zu Hause bei den Kindern; nur erwähnt)",
+   "Emir und Duru (Kinder des Erzählers; nur erwähnt)",
+   "Ulaştırma polisi / iki sivil görevli (Bahnpolizei, zwei Zivilbeamte)",
+   "Ekrandaki ben / Trenin içindeki ben (das Double/Deepfake des Erzählers)",
+   "Meralis (impliziter Urheber der Inszenierung)"
+  ],
+  "terms": [
+   {
+    "tr": "Trenin İçindeki Ben",
+    "meaning": "Kapiteltitel: „Das Ich im Zug“ / „Ich, im Zug“ – das Double"
+   },
+   {
+    "tr": "„Trene binmedim. Perona gittim.“",
+    "meaning": "Ich stieg nicht in den Zug. Ich ging auf den Bahnsteig. – Kern des „dritten Wegs“; knapp halten"
+   },
+   {
+    "tr": "Sözleşmenin küçük yazısı",
+    "meaning": "Das Kleingedruckte des Vertrags – Erzähler rechtfertigt sein Regel-Umgehen"
+   },
+   {
+    "tr": "Kuralın etrafından dolanmak",
+    "meaning": "Um die Regel herumgehen – Nehirs Vorwurf, wiederkehrende Charakterisierung des Erzählers"
+   },
+   {
+    "tr": "Ulaştırma polisi",
+    "meaning": "Bahn-/Verkehrspolizei"
+   },
+   {
+    "tr": "Nabız ölçer",
+    "meaning": "Pulsmesser (Daten auf Nehirs Bildschirm)"
+   },
+   {
+    "tr": "Delil kayıt uygulaması",
+    "meaning": "Beweis-Aufzeichnungs-App (kommerziell, von Tarık empfohlen)"
+   },
+   {
+    "tr": "Berlin, Toronto, Nairobi, Singapur, São Paulo, Londra, İstanbul",
+    "meaning": "Die sieben Städte (parallel zu den Meralis-Standorten aus U24, plus São Paulo); „yedi“ (sieben) ist Leitzahl – sieben Städte, sieben Nachnamen, sieben Jahre"
+   },
+   {
+    "tr": "İstasyon panosu",
+    "meaning": "Bahnhofsanzeigetafel (zeigt überall dieselbe Uhrzeit)"
+   },
+   {
+    "tr": "14.53 ↺",
+    "meaning": "Kursive Zeiteinblendung mit Wiederholungspfeil – grafisches Zeichen beibehalten; Anklang an 1453"
+   },
+   {
+    "tr": "Sol kaşımın üstündeki küçük iz",
+    "meaning": "Kleine Narbe über der linken Augenbraue (Kindheit, Schraubenzieher beim Öffnen eines Uhrgehäuses) – Identitätsmerkmal, das das Double kennt; Uhren-Motiv"
+   },
+   {
+    "tr": "Mont",
+    "meaning": "Jacke/Anorak des Erzählers, vom Double getragen"
+   },
+   {
+    "tr": "„Geç kaldın.“",
+    "meaning": "„Du bist zu spät / Du hast dich verspätet“ – Satz des Doubles"
+   },
+   {
+    "tr": "„Ben hazırım. Uyananların ilk halkasını kuruyorum.“",
+    "meaning": "Schlusssatz des Doubles in sieben Sprachen: „Ich bin bereit. Ich gründe den ersten Ring/Kreis der Erwachten.“ – „halka“ (Ring, Kreis, Zelle) konsistent zu früheren Verwendungen"
+   },
+   {
+    "tr": "Uyananlar",
+    "meaning": "Die Erwachten (Sektenbegriff, vgl. uyanmış in U24)"
+   },
+   {
+    "tr": "Düşünüyorum.",
+    "meaning": "„Ich denke nach.“ – einzeiliger Präsens-Einschub, markiert Zeitstillstand"
+   }
+  ],
+  "tone": "Ich-Erzählung, überwiegend Präteritum, mit Wechsel ins Präsens („Düşünüyorum.“) und extrem kurzen Absätzen im Höhepunkt (Ein-Satz-Absätze, Zeitmarken 14.51/14.52/14.53). Erst nüchtern-protokollarisch (Sicherheitsaufbau), dann synästhetisch-schwebend (sieben Städte), schließlich unheimlich (Doppelgänger, Deepfake). Suspense-Finale; Dialog minimal."
+ },
+ "paras": [
+  {
+   "pid": 2090,
+   "style": "Heading 1",
+   "text": "<b>29. Trenin İçindeki Ben</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2091,
+   "style": "Opening",
+   "text": "Trene binmedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2092,
+   "style": "Normal",
+   "text": "Perona gittim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2093,
+   "style": "Normal",
+   "text": "Nehir bunun kelime oyunu olduğunu söyledi. Ben, “Hayat bazen sözleşmenin küçük yazısını okuyana alan açar,” dedim. O da “Hayat değil, sen yine kuralın etrafından dolanıyorsun,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2094,
+   "style": "Normal",
+   "text": "İstasyonda dört ayrı güvenlik halkası vardı. Ölüm tehdidini ve bileti ulaştırma polisine önceden bildirmiştik; mesaj tek başına peronu kapattırmaya yetmemişti ama iki sivil görevli biletimdeki vagonun girişlerini gözlüyordu. Ben o vagondaki on birinci koltuğu arayacaktım. Nehir kalabalığın içinde, Yusuf karşı perondaydı. Güvenlik birimi kendi kameralarından izliyordu; bize canlı erişim vermemişlerdi. Zeynep çocuklarla evdeydi. Konumum dört kişide, nabız ölçerim Nehir'in ekranındaydı. Tarık ticari bir delil kayıt uygulaması önermişti. Ben onun kamerasını açık tutarken Nehir birkaç adım geriden kendi telefonunun normal kamerasıyla kesintisiz kayıt alıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2095,
+   "style": "Normal",
+   "text": "14.51'de tren istasyona yaklaştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2096,
+   "style": "Normal",
+   "text": "14.52'de telefonuma dünyanın farklı şehirlerinden görüntüler düştü. Berlin, Toronto, Nairobi, Singapur, São Paulo, Londra ve İstanbul. Her ekranda aynı saati gösteren bir istasyon panosu vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2097,
+   "style": "Normal",
+   "text": "Bir an ekranlara bakmadım; ekranların içinden baktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2098,
+   "style": "Normal",
+   "text": "Sol kulağımda Berlin istasyonunun Almanca anonsu, sağ elimde Nairobi'de telefona yağmur düşmesinin soğuğu vardı. São Paulo'da bir çocuk annesinin elini çekiyor, Londra'da biri kahvesinin kapağını kapatıyordu. Hiçbirini gerçekten görmemiştim. Yedi görüntünün sesleri üst üste binmiş, zihnim boşluklarını tamamlamış olabilirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2099,
+   "style": "Normal",
+   "text": "Yine de o bir nefeste kendi peronum, dünyanın merkezi olmaktan çıktı. Yedi şehirde yedi ayrı insan, benim büyük sırrımı bir reklam panosundaki kesinti kadar yaşıyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2100,
+   "style": "Normal",
+   "text": "Nehir koluma dokundu. “Burada mısın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2101,
+   "style": "Normal",
+   "text": "“Buradayım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2102,
+   "style": "Normal",
+   "text": "Söylerken hangi burayı kastettiğimi bilmiyordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2103,
+   "style": "Normal",
+   "text": "Düşünüyorum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2104,
+   "style": "Normal",
+   "text": "<i>14.53 ↺</i>",
+   "keep": true,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2105,
+   "style": "Normal",
+   "text": "Şehrin bütün sesi çekilmiş gibiydi. Tren perona girdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": {
+    "group": "BASA_DON",
+    "index": 2,
+    "n": 7
+   }
+  },
+  {
+   "pid": 2106,
+   "style": "Normal",
+   "text": "Telefon ekranında, on birinci koltuğun camının ardında bir adam oturuyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2107,
+   "style": "Normal",
+   "text": "Benim montumu giymişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2108,
+   "style": "Normal",
+   "text": "Benim yüzümdü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2109,
+   "style": "Normal",
+   "text": "Başını yana çevirdiğinde sol kaşımın üstündeki küçük izi gördüm. Çocukken saat kapağı açarken tornavida kaymıştı. O izin yüksek çözünürlüklü fotoğrafı internette yoktu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2110,
+   "style": "Normal",
+   "text": "Ekrandaki ben, avucunu pencereye koydu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2111,
+   "style": "Normal",
+   "text": "Ben de istemeden elimi kaldırdım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2112,
+   "style": "Normal",
+   "text": "Görüntü dudaklarını oynattı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2113,
+   "style": "Normal",
+   "text": "“Geç kaldın,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2114,
+   "style": "Normal",
+   "text": "Tren durdu. Kapılar açıldı. Telefonu indirdim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2115,
+   "style": "Normal",
+   "text": "On birinci koltuk boştu. Çıplak camda yalnız kendi soluk yansımam vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2116,
+   "style": "Normal",
+   "text": "Aynı anda yedi şehirdeki ekranlarda benim yüzüm belirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2117,
+   "style": "Normal",
+   "text": "Yedi ayrı dilde aynı cümleyi söyledi:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2118,
+   "style": "Normal",
+   "text": "“Ben hazırım. Uyananların ilk halkasını kuruyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

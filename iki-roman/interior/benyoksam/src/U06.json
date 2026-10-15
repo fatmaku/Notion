@@ -1,0 +1,863 @@
+{
+ "uid": "U06",
+ "title": "4. Sahte Görüntü, Gerçek Yas",
+ "number": 4,
+ "words": 672,
+ "constraints": {
+  "uid": "U06",
+  "number": 4,
+  "title": "4. Sahte Görüntü, Gerçek Yas",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 672
+ },
+ "synopsis": {
+  "uid": "U06",
+  "title": "4. Sahte Görüntü, Gerçek Yas",
+  "summary": "Noch vor Mitternacht kommt Nehir in die Wohnung des Erzählers und beweist am Computer, dass Leyla in jenem Flur nicht gesprochen hat: Das Standbild stammt aus einer elf Monate alten Aufnahme, als Leyla an seiner Tür eine Tasche mit Orangen fallen ließ (der Erzähler hatte das Video aus Jux aufbewahrt, eine Sicherung ist vorhanden; sogar der nasse Fleck auf der Schulter stimmt). Die Tonspur besteht aus zwei Aufnahmen: „Küçük Saatçi“ ist alt, „Bu kez kitabı kendinden koru“ ist neu und trägt den Raumklang von Leylas Arbeitszimmer in Galata, wo das Heizungsrohr alle 47 Sekunden klopft – Nehir stoppt die Zeit und belegt es. Zwischen Nehirs Trauer-in-Aktion (zitternder Daumen, Beweise sammeln) und den morbiden Scherzen des Erzählers entsteht ein unausgesprochener Vorwurf; die inneren Stimmen (İçimdeki Çocuk, Şüpheci, neu: Gölge) kommentieren die Angst, „verrückt“ genannt zu werden. Nehir dokumentiert alles, sichert das Original-Video schreibgeschützt und ruft über Anwältin Selin die Polizei; die Spurensicherung tütet Buch, Faden und Feder mit Siegelnummern ein, ein unabhängiges Labor darf erst nach Staatsanwaltschaftsfreigabe Mikroproben (Fingerabdrücke, Papierfasern, grüner Staub) untersuchen – Beweiskette. Im Verhör-Dialog über die Umschläge (keine Kamera, kein Smart Speaker, Handy in der Küche, keine Cloud) fragt Nehir nach dem Grund für die Umschläge; der Erzähler kann nur ein Gefühl nennen, erwähnt eine ärztliche Untersuchung ohne Befund und einen zweiten Termin. Zuletzt zeigt eine Systemwarnung, dass die Tonspur einen Tag vor Leylas Tod erstellt wurde: Entweder hat Leyla die Warnung selbst vorbereitet und jemand hat sie gestohlen, oder Leyla hat das System „einer Seite“ benutzt. Nehir nimmt den kalt gewordenen Tee: Sie werden bis zum Morgen arbeiten. Zeitebene: Nacht desselben Tages, Gegenwart.",
+  "characters": [
+   "Ich-Erzähler (Gastgeber; stellt zwei Tees hin, macht Todeswitze als Abwehr; hat Herz/Blut/Lunge untersuchen lassen, zweiter Termin steht an; liest kleine Muskelbewegungen, nicht große Gefühle)",
+   "Nehir (Journalistin, Leylas jüngere Schwester; trauert durch Beweissicherung; trennt Bild- und Tonspur, misst den 47-Sekunden-Rhythmus; ruft Polizei über Selin)",
+   "Leyla (verstorben; ihr elf Monate altes Video mit den Orangen; ihr Arbeitszimmer in Galata mit klopfendem Heizungsrohr; Tonspur einen Tag vor ihrem Tod erstellt)",
+   "Selin (Özer) (Anwältin, über die die Polizei gerufen wird)",
+   "Olay yeri ekibi (Spurensicherung; tütet Buch, Faden, Feder ein, protokolliert Siegelnummern)",
+   "Duru, Emir, Zeynep (Umschlag-Adressaten; „DURU“ sichtbar in der halb offenen Schublade)",
+   "Innere Stimmen: İçimdeki Çocuk, Şüpheci, Gölge (neu)"
+  ],
+  "terms": [
+   {
+    "tr": "Sahte Görüntü, Gerçek Yas",
+    "meaning": "Kapiteltitel: „Falsches Bild, echte Trauer“ – Gegenüberstellung der Fälschung und Nehirs realer Trauer."
+   },
+   {
+    "tr": "Biri yedek",
+    "meaning": "„Einer ist Ersatz“ – der zweite Tee „gegen das, was dem Tee zustoßen könnte“; Running Gag des Erzählers, Nehir nimmt am Ende den kalten."
+   },
+   {
+    "tr": "portakallar",
+    "meaning": "Orangen, die Leyla vor elf Monaten an der Tür die Treppe hinunterrollten – Quelle des gefälschten Standbilds; eventuell wiederkehrendes Erinnerungsbild."
+   },
+   {
+    "tr": "görüntü ve ses katmanları",
+    "meaning": "Bild- und Tonspur/-ebenen der Kameradatei; Nehir trennt sie (technisches Register)."
+   },
+   {
+    "tr": "dalga biçimi",
+    "meaning": "Wellenform (Audio); Fachbegriff."
+   },
+   {
+    "tr": "oda sesi",
+    "meaning": "Raumklang/Raumton (room tone) – akustischer Fingerabdruck von Leylas Arbeitszimmer."
+   },
+   {
+    "tr": "kalorifer borusu / kırk yedi saniye / tak",
+    "meaning": "Heizungsrohr in Leylas Galata-Arbeitszimmer, das alle 47 Sekunden metallisch klopft („tak“, kursiv als Lautmalerei); Beweis für die Herkunft der neuen Tonaufnahme. Zahl 47 beibehalten."
+   },
+   {
+    "tr": "Eski / Yeni",
+    "meaning": "Nehirs Einwort-Urteile: „Küçük Saatçi“ = alt, „Bu kez kitabı kendinden koru“ = neu (aus Leylas letzter Woche)."
+   },
+   {
+    "tr": "GÖLGE",
+    "meaning": "„Schatten“ – neue innere Stimme, sagt nur „Henüz“ (Noch nicht). In die Liste der Stimmen aufnehmen, einheitlich benennen."
+   },
+   {
+    "tr": "Sana deli demesinden korkuyorsun",
+    "meaning": "İçimdeki Çocuk: „Du hast Angst, dass sie dich verrückt nennt“ – das unausgesprochene Wort zwischen Nehir und dem Erzähler."
+   },
+   {
+    "tr": "salt okunur kopya",
+    "meaning": "Schreibgeschützte Kopie (read-only) des Original-Videos; Beweissicherung."
+   },
+   {
+    "tr": "delil zinciri",
+    "meaning": "Beweiskette (chain of custody); Begründung, warum Buch/Faden/Feder nicht mehr angefasst werden."
+   },
+   {
+    "tr": "mühür numarası / tutanak",
+    "meaning": "Siegelnummer der Asservatenbeutel / Protokoll der Spurensicherung."
+   },
+   {
+    "tr": "savcılık onayı / bağımsız laboratuvar / mikroörnek",
+    "meaning": "Freigabe der Staatsanwaltschaft; unabhängiges Labor; Mikroprobe – Fingerabdruck, Papierfaser und „yeşil toz“ (grüner Staub von der Feder, vgl. U04)."
+   },
+   {
+    "tr": "Üç zarf, üç dosya, üç kişi, üç karar",
+    "meaning": "Nehirs Relativierung: Dreiergruppen sind im Leben häufig; der Satz trifft dich, deshalb hältst du ihn für persönlich."
+   },
+   {
+    "tr": "Akıllı hoparlör / Bulut hesabı",
+    "meaning": "Smart Speaker / Cloud-Konto – Nehirs Checkliste möglicher Überwachungswege; Erzähler hat keine davon („Senin hayatında bir şeyin dijital kopyasının bulunmaması beni rahatlatmıyor“)."
+   },
+   {
+    "tr": "Nedeni olsa his değil, bilgi olurdu",
+    "meaning": "„Gäbe es einen Grund, wäre es kein Gefühl, sondern Wissen“ – Kernsatz zur Vorahnung des Erzählers."
+   },
+   {
+    "tr": "Yaşın için fena değilsin / Romantik konuştuğunda ürküyorum",
+    "meaning": "Wortspiel-Abtausch: Arztbefund „für dein Alter nicht schlecht“ wird von Nehir wiederholt, Erzähler kontert mit „Wenn du romantisch wirst, erschrecke ich“."
+   },
+   {
+    "tr": "Bir taraf / Hangi taraf?",
+    "meaning": "„Eine Seite/Partei“ – erste Andeutung gegnerischer Lager, die Leylas Warnung gestohlen oder deren System Leyla benutzt hat; Begriff für spätere Pakete offen und neutral halten."
+   },
+   {
+    "tr": "apartmanın bakım firması",
+    "meaning": "Wartungsfirma des Hauses, über deren Fernzugriff das gefälschte Bild in die Kameraaufzeichnung eingespielt wurde (Vermutung)."
+   }
+  ],
+  "tone": "Ich-Erzählung in der Vergangenheit, kammerspielartig in der nächtlichen Wohnung. Dichter Wechsel aus forensisch-technischem Vokabular (Spuren, Tonspur, Beweiskette) und schlagfertigen, oft morbid-humorvollen Dialogen; viele Einzeiler, stichwortartiges Frage-Antwort-Verhör. Beobachtende Psychologie (Nehirs Daumen, Schultern „einen Zentimeter“ tiefer). Innere Stimmen in Versalien-Inset. Aphoristische Schlussätze pro Absatz; Ende mit lakonischer Pointe („sabaha kadar çalışacağız“)."
+ },
+ "paras": [
+  {
+   "pid": 345,
+   "style": "Heading 1",
+   "text": "<b>4. Sahte Görüntü, Gerçek Yas</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 346,
+   "style": "Opening",
+   "text": "Leyla konuşmamıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 347,
+   "style": "Normal",
+   "text": "En azından o koridorda, o saatte değil.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 348,
+   "style": "Normal",
+   "text": "Nehir bunu gece yarısından önce kanıtladı. Eve gelir gelmez montunu çıkarmadan bilgisayarımın başına oturdu. Ben ona çay koydum. Çayı masaya bıraktım, beş dakika sonra aynı yere bir çay daha koydum. Nehir iki bardağa baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 349,
+   "style": "Normal",
+   "text": "“Biri yedek,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 350,
+   "style": "Normal",
+   "text": "“Neye karşı?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 351,
+   "style": "Normal",
+   "text": "“Çayın başına gelebilecek şeylere.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 352,
+   "style": "Normal",
+   "text": "“Bir suç mahallinde seninle çalışınca insan sıradan cümlelerin değerini anlıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 353,
+   "style": "Normal",
+   "text": "Sesi sakindi. Elleri değildi. Fareyi tutan sağ başparmağı aralıklarla seğiriyordu. Nehir ilk şokunu yapılacaklar listesine dönüştürmüştü. Bazı insanlar acı çekince ağlar. Bazıları odadaki bütün çekmeceleri etiketler. Nehir kanıt topluyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 354,
+   "style": "Normal",
+   "text": "Kamera dosyasının görüntü ve ses katmanlarını ayırdı. Leyla on bir ay önce buraya geldiğinde kapıda düşürdüğü çantadan portakallar merdivenlere yuvarlanmış, ben o görüntüyü ona takılmak için saklamıştım. Yedeği bulduk. Şimdi ekrandaki yüz, eski kayıttakiyle aynı baş eğişini yapıyordu; ıslak omuzdaki leke bile yerindeydi. Donmuş karenin nereden alındığını ilk kez gösterebiliyorduk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 355,
+   "style": "Normal",
+   "text": "“Peki ses?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 356,
+   "style": "Normal",
+   "text": "Nehir dalga biçimini büyüttü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 357,
+   "style": "Normal",
+   "text": "“İki ayrı kayıttan.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 358,
+   "style": "Normal",
+   "text": "“Küçük Saatçi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 359,
+   "style": "Normal",
+   "text": "“Eski.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 360,
+   "style": "Normal",
+   "text": "“Bu kez kitabı kendinden koru?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 361,
+   "style": "Normal",
+   "text": "Nehir kulaklığını taktı, dinledi, çıkardı. Sonra yeniden taktı. Bir sesi iki kez dinlemesi normaldi. Aynı sesi beş kez dinliyorsa ya önemli bir şey bulmuştu ya da kabul etmek istemiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 362,
+   "style": "Normal",
+   "text": "“Yeni,” dedi. “Ablamın son haftasındaki kayıtlarla aynı oda sesi var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 363,
+   "style": "Normal",
+   "text": "“Nereden biliyorsun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 364,
+   "style": "Normal",
+   "text": "“Galata'daki çalışma odasında kalorifer borusu kırk yedi saniyede bir vururdu. Dinle.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 365,
+   "style": "Normal",
+   "text": "Sesi yükseltti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 366,
+   "style": "Normal",
+   "text": "Leyla, “Bu kez kitabı kendinden koru,” dedi. Ardından metalik bir <i>tak</i> duyuldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 367,
+   "style": "Normal",
+   "text": "Nehir kronometreyi başlattı. Kırk yedi saniye sonra başka bir cümlenin kesilmiş kuyruğunda aynı ses geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 368,
+   "style": "Normal",
+   "text": "“Boru,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 369,
+   "style": "Normal",
+   "text": "“İnsan ablasının çalışma odasındaki borunun ritmini nasıl ezberler?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 370,
+   "style": "Normal",
+   "text": "“Sen çocuklarının kahvaltıdaki sesini niye kaydettin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 371,
+   "style": "Normal",
+   "text": "Soruyu cevaplamadım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 372,
+   "style": "Normal",
+   "text": "Nehir masanın yanındaki çekmeceye baktı. Zarfları görmüş olmalıydı; çekmece tam kapanmamıştı. Bir köşede <b>DURU</b> yazısı seçiliyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 373,
+   "style": "Normal",
+   "text": "“Bunları sonra konuşacağız,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 374,
+   "style": "Normal",
+   "text": "“Şimdi konuşsak sonra yapacak işimiz kalmaz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 375,
+   "style": "Normal",
+   "text": "“Ölümle ilgili şaka yapmak zorunda değilsin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 376,
+   "style": "Normal",
+   "text": "“Şaka yapmıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 377,
+   "style": "Normal",
+   "text": "“Daha kötü.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 378,
+   "style": "Normal",
+   "text": "Aramızda, söylenirse geri alınamayacak bir cümle durdu. Nehir onu söylemedi. Bunun için minnettardım; minnettarlık da o an sinirimi bozdu. Boğulan biri can simidinin rengini beğenmiyor gibi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 379,
+   "style": "Book Inset",
+   "text": "<b>İÇİMDEKİ ÇOCUK:</b> <i>Sana deli demesinden korkuyorsun.</i>",
+   "keep": false,
+   "image": false,
+   "label": "İÇİMDEKİ ÇOCUK",
+   "constraint": null
+  },
+  {
+   "pid": 380,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Söylemedi.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 381,
+   "style": "Book Inset",
+   "text": "<b>GÖLGE:</b> <i>Henüz.</i>",
+   "keep": false,
+   "image": false,
+   "label": "GÖLGE",
+   "constraint": null
+  },
+  {
+   "pid": 382,
+   "style": "Normal",
+   "text": "Nehir kitaba yeniden dokunmadı. Bulunduğu yeri dört açıdan fotoğrafladı, paketi açtığım videonun aslını salt okunur kopyaya aldı ve avukat Selin üzerinden polisi çağırdı. Olay yeri ekibi siyah kitabı, ipi ve tüyü ayrı torbalara koyup mühür numaralarını tutanağa yazdı. Bağımsız laboratuvar ancak savcılık onayından sonra, resmî torba kamera önünde açılarak alınacak mikroörnek üzerinde çalışacaktı. Parmak izi, kâğıt lifi ve yeşil toz sonuçlarını mahkemede tartışılabilir kılmanın tek yolu, merakımızı delil zincirinden uzak tutmaktı. Ardından Nehir kapının kilidini, pencere mandallarını ve çalışma odasının genel görüntülerini kaydetti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 383,
+   "style": "Normal",
+   "text": "“Biri eve girmiş mi?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 384,
+   "style": "Normal",
+   "text": "“Şimdilik işaret yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 385,
+   "style": "Normal",
+   "text": "“Zarfları nasıl biliyorlar?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 386,
+   "style": "Normal",
+   "text": "“Belki bilmiyorlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 387,
+   "style": "Normal",
+   "text": "“Kitapta yazıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 388,
+   "style": "Normal",
+   "text": "“Üç zarf, üç dosya, üç kişi, üç karar. İnsan hayatında üç tane olan çok şey var. Cümle seni vurduğu için sana özel sanıyorsun.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 389,
+   "style": "Normal",
+   "text": "“Duru, Emir, Zeynep.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 390,
+   "style": "Normal",
+   "text": "Nehir sustu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 391,
+   "style": "Normal",
+   "text": "“Sabah hazırladım,” dedim. “Üstlerine isimlerini yazdım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 392,
+   "style": "Normal",
+   "text": "“Kamera?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 393,
+   "style": "Normal",
+   "text": "“Çalışma odasında yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 394,
+   "style": "Normal",
+   "text": "“Akıllı hoparlör?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 395,
+   "style": "Normal",
+   "text": "“Yok.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 396,
+   "style": "Normal",
+   "text": "“Telefon?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 397,
+   "style": "Normal",
+   "text": "“Mutfaktaydı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 398,
+   "style": "Normal",
+   "text": "“Bulut hesabın?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 399,
+   "style": "Normal",
+   "text": "“Zarfları buluta yüklemedim, Nehir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 400,
+   "style": "Normal",
+   "text": "“Senin hayatında bir şeyin dijital kopyasının bulunmaması beni rahatlatmıyor. Daha çok korkutuyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 401,
+   "style": "Normal",
+   "text": "Çekmeceyi açtı. Zarflara dokunmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 402,
+   "style": "Normal",
+   "text": "“Neden hazırladın?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 403,
+   "style": "Normal",
+   "text": "“Söyledim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 404,
+   "style": "Normal",
+   "text": "“Hayır. ‘Gidecekmişim gibi hissediyorum’ dedin. Ben nedeni soruyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 405,
+   "style": "Normal",
+   "text": "“Nedeni olsa his değil, bilgi olurdu.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 406,
+   "style": "Normal",
+   "text": "Nehir yüzüme baktı. Gözlerinde acıdan daha eski bir yorgunluk vardı. Ablasının ölümünü açıklayamıyordu; şimdi karşısında, ölümü önceden seziyormuş gibi konuşan bir adam duruyordu. Benden haklı çıkmamamı istiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 407,
+   "style": "Normal",
+   "text": "Ben de.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 408,
+   "style": "Normal",
+   "text": "“Yarın doktordan randevu al,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 409,
+   "style": "Normal",
+   "text": "“Aldım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 410,
+   "style": "Normal",
+   "text": "“Ne zaman?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 411,
+   "style": "Normal",
+   "text": "“Geçen hafta.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 412,
+   "style": "Normal",
+   "text": "“Sonuç?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 413,
+   "style": "Normal",
+   "text": "“Kan, kalp, akciğer, ne buldularsa baktılar. Doktor, yaşım için fena olmadığımı söyledi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 414,
+   "style": "Normal",
+   "text": "“Yaşın için fena değilsin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 415,
+   "style": "Normal",
+   "text": "“Romantik konuştuğunda ürküyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 416,
+   "style": "Normal",
+   "text": "“Şaka yapma şimdi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 417,
+   "style": "Normal",
+   "text": "“İkinci randevu da var.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 418,
+   "style": "Normal",
+   "text": "Nehir'in omuzları bir santim indi. İnsanların büyük duygularını bazen geç anlardım; küçük kas hareketlerini kaçırmazdım. Bu yüzden bazıları beni derin, bazıları mekanik bulurdu. İkisi de tam doğru değildi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 419,
+   "style": "Normal",
+   "text": "Nehir güvenlik dosyasını kopyalarken ekranın köşesinde bir uyarı belirdi: ses katmanının oluşturulma tarihi, Leyla'nın ölümünden bir gün önceydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 420,
+   "style": "Normal",
+   "text": "“Ablam bunu kendisi hazırlamış olabilir,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 421,
+   "style": "Normal",
+   "text": "“O zaman neden görüntüyü apartmanın bakım firması yerleştirdi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 422,
+   "style": "Normal",
+   "text": "“Bilmiyoruz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 423,
+   "style": "Normal",
+   "text": "“Bir taraf onun uyarısını çaldı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 424,
+   "style": "Normal",
+   "text": "“Ya da Leyla bir tarafın sistemini kullandı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 425,
+   "style": "Normal",
+   "text": "“Hangi taraf?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 426,
+   "style": "Normal",
+   "text": "Nehir çaylardan soğumuş olanı aldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 427,
+   "style": "Normal",
+   "text": "“İşte bu yüzden sabaha kadar çalışacağız.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

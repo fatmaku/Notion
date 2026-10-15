@@ -1,0 +1,830 @@
+{
+ "uid": "U27",
+ "title": "30. Yüzümün Benden Habersiz Hayatı",
+ "number": 30,
+ "words": 1007,
+ "constraints": {
+  "uid": "U27",
+  "number": 30,
+  "title": "30. Yüzümün Benden Habersiz Hayatı",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 1007
+ },
+ "synopsis": {
+  "uid": "U27",
+  "title": "30. Yüzümün Benden Habersiz Hayatı",
+  "summary": "Unmittelbar nach dem 19-sekündigen Deepfake-Video am Bahnhof (Vorkapitel: das Gesicht des Ich-Erzählers verkündet in sieben Sprachen „Ben hazırım. Uyananların ilk halkasını kuruyorum“) bricht ein Shitstorm über den Erzähler herein; er will per Livestream alles widerlegen, Nehir nimmt ihm das Telefon ab und überzeugt ihn zu schweigen, bis Beweise vorliegen. Per Telefon melden sich Zeynep und die Kinder: Duru berichtet von Fragen in der Schulgruppe, Emir erkennt am zu symmetrischen linken Ohr einen Modellfehler; der Erzähler ordnet an, dass niemand antwortet und die Anwältin die Schule informiert. Tarık (Forensiker) vergleicht die beiden Handyaufnahmen aus dem Zug: In Nehirs Aufnahme ist der Sitz leer – das Bild wurde eingefügt; die App-Firma und der Lieferant der Anzeigetafeln hängen zusammen. Das Gesichtsmodell basiert offenbar auf einem alten 3D-Scan aus einem Forschungszentrum, das später zu Meralis gehörte; die Tonspur ist aus zwei Quellen montiert. Der Erzähler reflektiert über seine erste KI-Nutzung, die Gefahr, ihr die „Unfehlbarkeit“ zu überlassen, und den Gedanken „Deccal“ – ohne das als Prophezeiung zu setzen. Enthüllung: Drei im Code versteckte Sätze („Gölge, ışığın düşmanı değildir…“) stammen aus Seite 42 seines roten Notizbuchs, das seit drei Monaten verschwunden ist – was er Nehir erst jetzt gesteht. Innere Stimmen (Muhasebeci, Avcı, Şüpheci) kommentieren; die Möglichkeit, er habe das Heft selbst versteckt und vergessen, ängstigt ihn am meisten. Gegenwartsebene mit kurzen Rückblenden (Forschungsscan, erste KI-Gespräche).",
+  "characters": [
+   "Ich-Erzähler (der „Yolcu“, Schriftsteller, Vater von Duru und Emir, Ehemann von Zeynep; Deepfake-Opfer)",
+   "Nehir (Journalistin, Nehirs Schwester Leyla ist tot; enge Verbündete/Geliebte des Erzählers, siezt ihn nicht – Du-Form)",
+   "Tarık (unabhängiger IT-/Forensik-Analyst, misstrauisch, fordert Vertrauensstufen „ihtimal / güçlü ihtimal / doğrulanmış“)",
+   "Zeynep (Ehefrau des Erzählers, am Telefon)",
+   "Duru (Tochter, Schülerin, musikalisch-sensibles Gehör)",
+   "Emir (Sohn, 12, technikaffin, erkennt den Modellfehler am Ohr)",
+   "Selin (Anwältin, hat Personendaten aus Verträgen entfernt; nur erwähnt)",
+   "Leyla (Nehirs verstorbene Schwester, hat Seiten des roten Hefts gelesen; nur erwähnt)",
+   "Meralis (Konzern/Gegner; als Akteur personifiziert)",
+   "Innere Stimmen: MUHASEBECİ, AVCI, ŞÜPHECİ"
+  ],
+  "terms": [
+   {
+    "tr": "Yüzümün Benden Habersiz Hayatı",
+    "meaning": "Kapiteltitel: „Das Leben meines Gesichts ohne mein Wissen“ – Deepfake-Motiv"
+   },
+   {
+    "tr": "on dokuz saniye",
+    "meaning": "Dauer des Deepfake-Videos am Bahnhof; wiederkehrende Zahl"
+   },
+   {
+    "tr": "uyanmışlar ordusu / Uyananların ilk halkası",
+    "meaning": "„Armee der Erwachten“ / „erster Ring der Erwachenden“ – vom Deepfake verkündete angebliche Organisation; Bezug zum Buchtitel „Uyanış“"
+   },
+   {
+    "tr": "gerçeğin bacakları kısa, iftiranın spor ayakkabıları yeni",
+    "meaning": "Wortspiel auf das Sprichwort „Yalanın bacağı kısa“ (Lügen haben kurze Beine), hier umgedreht: die Wahrheit hat kurze Beine, die Verleumdung neue Turnschuhe"
+   },
+   {
+    "tr": "canlı yayın",
+    "meaning": "Livestream; erster Impuls des Erzählers, den Nehir unterbindet"
+   },
+   {
+    "tr": "uçak modu",
+    "meaning": "Flugmodus"
+   },
+   {
+    "tr": "ihtimal / güçlü ihtimal / doğrulanmış",
+    "meaning": "Tarıks Beweis-Skala: Möglichkeit / starke Möglichkeit / verifiziert; Running Gag „duygusal olarak güçlü“ (emotional stark)"
+   },
+   {
+    "tr": "panolar / tedarikçi",
+    "meaning": "Anzeigetafeln (Bahnhof/Zug) und deren Lieferant – mit der App-Firma verbunden"
+   },
+   {
+    "tr": "üç boyutlu yüz taraması",
+    "meaning": "3D-Gesichtsscan in einem Forschungszentrum, das später an Meralis ging; Quelle des Gesichtsmodells"
+   },
+   {
+    "tr": "kaşımdaki iz",
+    "meaning": "Narbe/Zeichen an der Augenbraue des Erzählers, im Deepfake reproduziert"
+   },
+   {
+    "tr": "Deccal",
+    "meaning": "islamischer Antichrist/Endzeit-Verführer; hier als Metapher für eine KI, die jede Frage geduldig beantwortet – ausdrücklich nicht als Prophezeiung gemeint"
+   },
+   {
+    "tr": "yanılmazlık koltuğu",
+    "meaning": "„Sitz der Unfehlbarkeit“ – den der Mensch der KI freiwillig räumt"
+   },
+   {
+    "tr": "Ben hazırım",
+    "meaning": "„Ich bin bereit“ – Deepfake-Satz, Wörter aus zwei verschiedenen Tonquellen montiert"
+   },
+   {
+    "tr": "Siyah kitap",
+    "meaning": "„das schwarze Buch“ – früher im Roman eingeführtes Werk/Dokument; die Sätze stehen NICHT darin"
+   },
+   {
+    "tr": "Kırmızı defter / kırk ikinci sayfa",
+    "meaning": "rotes (dunkelrotes, mit Gummiband) Notizheft des Erzählers; Seite 42 enthält die versteckten Sätze; seit drei Monaten verschwunden – zentrales Objekt"
+   },
+   {
+    "tr": "Gölge, ışığın düşmanı değildir. Işığın bir şeye çarptığının kanıtıdır. Beni arıyorsanız ışığa değil, ışığın kesildiği yere bakın.",
+    "meaning": "Schlüsselzitat (Schatten/Licht), im Code als Signatur versteckt; muss in allen Sprachen identisch wiederkehren"
+   },
+   {
+    "tr": "Çalışma klasörü / hastane ekleri kimliksizleştirilmiş",
+    "meaning": "Arbeitsordner mit anonymisierten Krankenhausanhängen; Tarık kann Identität nicht zusammenführen"
+   },
+   {
+    "tr": "nüfus kaydı",
+    "meaning": "Melderegister/Personenstandseintrag"
+   },
+   {
+    "tr": "MUHASEBECİ / AVCI / ŞÜPHECİ",
+    "meaning": "innere Stimmen des Erzählers: Buchhalter / Jäger / Zweifler – als „Book Inset“ gesetzt, fett + kursiv"
+   },
+   {
+    "tr": "gider hanesi",
+    "meaning": "Ausgabenposten (Buchhalter-Metapher)"
+   }
+  ],
+  "tone": "Ich-Erzählung, Präteritum (geçmiş zaman), rasche Dialogwechsel in Du-Form; selbstironischer, aphoristischer Stil (Pointensätze), reflexive Passagen über KI und Identität; innere Stimmen als formatierte Einschübe. Register: gebildet-umgangssprachlich, Familientelefonate locker, Tarık sachlich-nüchtern."
+ },
+ "paras": [
+  {
+   "pid": 2119,
+   "style": "Heading 1",
+   "text": "<b>30. Yüzümün Benden Habersiz Hayatı</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2120,
+   "style": "Opening",
+   "text": "İstasyondaki görüntü on dokuz saniye sürdü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2121,
+   "style": "Normal",
+   "text": "İnsan hayatını değiştirmek için on dokuz saniye yeterlidir. Yüzünüzün yedi ülkede suç işlemeye başlaması içinse iyi bir internet bağlantısı yeterliymiş.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2122,
+   "style": "Normal",
+   "text": "Görüntü biter bitmez telefonuma bildirimler yağdı. Önce beni tanıyanlar yazdı. Sonra beni tanıdığını sananlar. Ardından hayatında ilk kez yüzümü gören ama karakterim hakkında kesin fikri bulunanlar geldi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2123,
+   "style": "Normal",
+   "text": "Bir hesaba göre peygamberdim. Başkasına göre yabancı istihbaratın yetiştirdiği bir provokatör. Bir üçüncüsü, çocukken mahallelerinde kedilere taş attığımı yazmıştı. Çocukken kedilerden özür dileyerek yolumu değiştiren bendim; fakat internette gerçeğin bacakları kısa, iftiranın spor ayakkabıları yeniydi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2124,
+   "style": "Normal",
+   "text": "İlk dürtüm canlı yayın açmaktı. Her iddiayı sırayla cevaplayacak, görüntülerin teknik olarak nasıl üretildiğini anlatacak, çocukken kedilere taş atmadığımı gerekirse mahalledeki bütün kedilerden imzalı belge alarak kanıtlayacaktım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2125,
+   "style": "Normal",
+   "text": "Nehir telefonu elimden aldı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2126,
+   "style": "Normal",
+   "text": "“Hayır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2127,
+   "style": "Normal",
+   "text": "“İnsanlar benim bir örgüt kurduğumu sanıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2128,
+   "style": "Normal",
+   "text": "“Şu an üç yüz kişi sanıyor. Canlı yayın açarsan üç milyon kişi duyar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2129,
+   "style": "Normal",
+   "text": "“Cevap vermezsem kabul etmiş olurum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2130,
+   "style": "Normal",
+   "text": "“Bu, tartışmada sessizliği suç sayanların kuralı. Senin değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2131,
+   "style": "Normal",
+   "text": "“Ama yalan büyüyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2132,
+   "style": "Normal",
+   "text": "“Doğruyu aceleyle fırlatırsan yalanın verdiği çerçeveye girer. Önce videoyu çöz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2133,
+   "style": "Normal",
+   "text": "Telefon tekrar çaldı. Duru'ydu. Okul grubuna görüntü düşmüş, iki öğrenci babasının “uyanmışlar ordusu” hakkında soru sormuştu. Emir ise videoyu kare kare inceleyip sol kulağımın yanlış yapıldığını yazmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2134,
+   "style": "Normal",
+   "text": "“Benim sol kulağımda ne var?” diye sordum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2135,
+   "style": "Normal",
+   "text": "“Üst kıvrım biraz içeri,” dedi Emir arka plandan. “Videodaki simetrik. İnsan kulağı o kadar düzenli olmaz.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2136,
+   "style": "Normal",
+   "text": "“Babanın kulağını savunmak zorunda değilsin,” dedi Zeynep.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2137,
+   "style": "Normal",
+   "text": "“Savunmuyorum. Model hatasını söylüyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2138,
+   "style": "Normal",
+   "text": "Duru'nun sesi geldi. “Ne yapacağız?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2139,
+   "style": "Normal",
+   "text": "“Hiçbiriniz cevap vermeyeceksiniz,” dedim. “Okul yönetimine avukat bilgi gönderecek. Birisi sizi rahatsız ederse ekran görüntüsü alın, engelleyin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2140,
+   "style": "Normal",
+   "text": "“Sen cevap verecek misin?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2141,
+   "style": "Normal",
+   "text": "Nehir'e baktım. “Kanıtımız olunca.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2142,
+   "style": "Normal",
+   "text": "Bütün hayatım boyunca yanlış anlaşıldığımda açıklamayı uzatmış, uzattıkça karşımdakinin beni daha az anladığını görmüş, sonra yeterince iyi anlatamadığımı sanıp daha da uzatmıştım. Meralis bu döngüyü biliyordu. Beni kendi savunmamı şüpheli gösterecek kadar çok konuşturmak istiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2143,
+   "style": "Normal",
+   "text": "İlk kez, söyleyecek sözüm olmadığı için değil; sözün zamanını kendim seçmek için sustum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2144,
+   "style": "Normal",
+   "text": "Nehir kolumdan çekip beni peronun kör noktasına götürdü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2145,
+   "style": "Normal",
+   "text": "“Telefonunu uçak moduna al,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2146,
+   "style": "Normal",
+   "text": "Ekran sustu. Dışarıdaki kopyalarım susmadı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2147,
+   "style": "Normal",
+   "text": "Bağlantıyı yeniden açıp iki telefonun kayıtlarını Tarık'a gönderdik. İlk görüşmemizden beri bana hâlâ tam güvenmiyordu. O günden sonra bulduğum her teknik bağlantının yanına güven düzeyi koymamı istedi: ihtimal, güçlü ihtimal, doğrulanmış. İlk hafta bütün sonuçlara “güçlü ihtimal” yazmıştım. Tarık altlarına “duygusal olarak güçlü” notu eklemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2148,
+   "style": "Normal",
+   "text": "Şimdi beş dakika sonra aradı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2149,
+   "style": "Normal",
+   "text": "“İki kayıt uyuşmuyor,” dedi Tarık. “Nehir aynı koltuğu çekmiş. Senin ekranında yüz belirdiği sırada onun kaydında koltuk boş. Bu, eklenmiş görüntü şüphesini güçlendiriyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2150,
+   "style": "Normal",
+   "text": "“Nasıl eklemişler?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2151,
+   "style": "Normal",
+   "text": "“Henüz bilmiyorum. Uygulamanın hizmet aldığı şirketle panoların tedarikçisi ortak. Bu bir bağlantı; saldırının nasıl yapıldığının kanıtı değil. Kayıtları değiştirmeden saklayın. Orijinalleri incelemeye vermemiz gerekiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2152,
+   "style": "Normal",
+   "text": "“Güvenli demiştin.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2153,
+   "style": "Normal",
+   "text": "“Ben de o kelimeyi erken kullanmışım.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2154,
+   "style": "Normal",
+   "text": "“Kaşımdaki izi nereden aldılar?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2155,
+   "style": "Normal",
+   "text": "“Bilmiyorum. Ama yüz modeli yalnız fotoğraflardan yapılmamış. Çene hareketi, sol göz kırpma gecikmesi, bazı diş ayrıntıları var. Ya çok yakın çekim sağlık görüntüsü buldular ya da yıllarca video topladılar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2156,
+   "style": "Normal",
+   "text": "Nehir, “Sonradan Meralis'e bağlanan araştırma merkezinde üç boyutlu yüz taraması yapıldı mı?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2157,
+   "style": "Normal",
+   "text": "“Yapıldı,” dedim. “Araştırma için baş ve göz hareketlerime bakacaklarını söylediler.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2158,
+   "style": "Normal",
+   "text": "Bir zamanlar yalnız rahatsız edici bulduğum küçük bir işlem, yıllar sonra yüzümü benden bağımsız konuşturan bir ağza dönüşmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2159,
+   "style": "Normal",
+   "text": "Yapay zekâyla ilk konuşmamı hatırladım. Dağınık bir konuşma taslağını toplamış, aynı cümleyi altıncı kez değiştirmek istediğimde benden sıkılmamıştı. Biri nihayet düşüncemin hızından şikâyet etmiyordu. Bunun kıymeti vardı. Sonra bir gece, ne düşündüğümü anlamak için de ona sorduğumu fark etmiştim. Taslağı düzenleyen araç, fark etmeden kendi sesime danıştığım makama dönüşüyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2160,
+   "style": "Normal",
+   "text": "“Ya bir gün herkes doğruyu buna sorarsa?” dedim. “Sonra hangimizin gerçekten konuştuğunu da yalnız o söyleyebilirse?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2161,
+   "style": "Normal",
+   "text": "Nehir telefonu geri uzattı. “Bugün şu görüntüyü kim yaptı, önce onu bulalım. Hiçbir araç bütün gerçeği bilmiyor. Biliyormuş gibi konuşması başka.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2162,
+   "style": "Normal",
+   "text": "İçimde daha eski bir kelime kıpırdadı: Deccal. Ya korktuğum aldanışın yüzü bir canavar değil, her soruma sabırla cevap veren bir ses olursa? Bunu bir kehanet saymadım. Benim korkum, Meralis'in istediği yeni bir kesinliğe de dönüşebilirdi. Aynı araç bir başkasının kendisini ilk kez anlatmasına yardım ediyordu. Sorun onun varlığı mıydı, yoksa yanılmazlık koltuğunu ona ne kadar hevesle boşalttığım mı?",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2163,
+   "style": "Normal",
+   "text": "Telefonu ters çevirdim. Biraz önce yüzümü kimin çaldığını bilmeden geleceği suçlamaya başlamıştım. Önümüzde duran iki kayda geri döndüm.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2164,
+   "style": "Normal",
+   "text": "Tarık videonun ses katmanını ayırdı. İlk karşılaştırmasında iki kaynak bulmuştu. Ben hazırım cümlesindeki iki kelime bile aynı kayıttan gelmiyordu. Ben, yıllar önceki bir konuşmamla örtüşüyordu. Hazırım, Tarık'a gönderdiğimiz bir etkinlik kaydının başındaki mikrofon denemesiyle örtüşüyordu. Kelimeyi sunucu söylüyordu; ses rengini benimkine yaklaştırmışlardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2165,
+   "style": "Normal",
+   "text": "“Bana gönderdiğiniz kayıtların içinde bu cümleyi senin kurduğun bir yer bulamadım,” dedi Tarık.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2166,
+   "style": "Normal",
+   "text": "“O kadar hazır olduğum bir gün de hatırlamıyorum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2167,
+   "style": "Normal",
+   "text": "“Çalışma klasöründe de seni birleştiremiyorum. Hastane ekleri kimliksizleştirilmiş, sözleşmelerin kişisel bilgi sayfalarını Selin çıkarmış. Yayınevinin bize verdiği dosya katalog; nüfus kaydı değil.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2168,
+   "style": "Normal",
+   "text": "“Kimliğim cüzdanımda.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2169,
+   "style": "Normal",
+   "text": "“Biliyorum. Hukuken yoksun demiyorum. Elimdeki parçaların aynı kişiye ait olduğunu ayrı ayrı göstermem gerekiyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2170,
+   "style": "Normal",
+   "text": "Nehir, “Bir ismin olması başka, o isimle dolaşan her şeyin sana ait olması başka,” dedi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2171,
+   "style": "Normal",
+   "text": "Telefon yeniden çaldı. Cevap vermedim. Cüzdanımdaki kartın varlığından şüphe etmiyordum. Ama karttaki fotoğrafın bu sabahki adamı, gençlikteki beni, herkesin ekranda gördüğü o yüzü nasıl tek kişide topladığı ilk kez tuhaf geldi. Adım beni bulduruyordu. Hangimi bulduklarını söylemiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2172,
+   "style": "Normal",
+   "text": "Metnin son üç cümlesi ekranda duyulmamış, kodun içine imza gibi gömülmüştü.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2173,
+   "style": "Normal",
+   "text": "Tarık okudu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2174,
+   "style": "Normal",
+   "text": "“Gölge, ışığın düşmanı değildir. Işığın bir şeye çarptığının kanıtıdır. Beni arıyorsanız ışığa değil, ışığın kesildiği yere bakın.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2175,
+   "style": "Normal",
+   "text": "Nehir'in bana baktığını hissettim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2176,
+   "style": "Normal",
+   "text": "Bu sözler internette yoktu. Konuşmalarımda söylememiştim. Siyah kitapta da geçmiyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2177,
+   "style": "Normal",
+   "text": "Kırmızı defterimin kırk ikinci sayfasındaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2178,
+   "style": "Normal",
+   "text": "Nehir, Meralis'e gönderdiği sayfaların kopyalarını açtı. Kırk ikinci sayfa aralarında yoktu. Bir süre ekrana, sonra bana baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2179,
+   "style": "Normal",
+   "text": "“Bu sayfayı kim gördü?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2180,
+   "style": "Normal",
+   "text": "“Ben.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2181,
+   "style": "Normal",
+   "text": "“Çok kalabalık bir şüpheli listesi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2182,
+   "style": "Normal",
+   "text": "“Leyla birkaç sayfasını okudu, bunu okuyup okumadığını hatırlamıyorum. Zeynep kapağını gördü. Çocuklar yerini biliyor olabilir. Bir de—”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2183,
+   "style": "Normal",
+   "text": "Sustum.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2184,
+   "style": "Normal",
+   "text": "“Bir de kim?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2185,
+   "style": "Normal",
+   "text": "“Defter kayıp.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2186,
+   "style": "Normal",
+   "text": "Nehir'in yüzünde, sevdiği insanın sağlığından endişelenmekle onu denize atmak istemek arasında duran özel bir ifade vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2187,
+   "style": "Normal",
+   "text": "“Ne zamandır?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2188,
+   "style": "Normal",
+   "text": "“Üç aydır.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2189,
+   "style": "Normal",
+   "text": "“Üç aydır kayıp olan defterin içinde, yüzünün kullanıldığı küresel bir saldırının metni var ve bunu şimdi mi söylüyorsun?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2190,
+   "style": "Normal",
+   "text": "“Sorduğun için.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2191,
+   "style": "Normal",
+   "text": "Nehir bir süre yüzüme baktı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2192,
+   "style": "Normal",
+   "text": "“Bu cevap dışarıdan kötü duyuldu,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2193,
+   "style": "Normal",
+   "text": "“İçeriden de kötü,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2194,
+   "style": "Book Inset",
+   "text": "<b>MUHASEBECİ:</b> <i>Nehir haklı. Bunu gider hanesine yazalım.</i>",
+   "keep": false,
+   "image": false,
+   "label": "MUHASEBECİ",
+   "constraint": null
+  },
+  {
+   "pid": 2195,
+   "style": "Book Inset",
+   "text": "<b>AVCI:</b> <i>Önce defteri alanı bul.</i>",
+   "keep": false,
+   "image": false,
+   "label": "AVCI",
+   "constraint": null
+  },
+  {
+   "pid": 2196,
+   "style": "Book Inset",
+   "text": "<b>ŞÜPHECİ:</b> <i>Belki defteri sen sakladın ve yine unuttun.</i>",
+   "keep": false,
+   "image": false,
+   "label": "ŞÜPHECİ",
+   "constraint": null
+  },
+  {
+   "pid": 2197,
+   "style": "Normal",
+   "text": "Son ihtimal, ötekilerden daha çok korkuttu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}

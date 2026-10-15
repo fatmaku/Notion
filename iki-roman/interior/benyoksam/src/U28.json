@@ -1,0 +1,554 @@
+{
+ "uid": "U28",
+ "title": "31. Lambaları Yanan Boş Kat",
+ "number": 31,
+ "words": 811,
+ "constraints": {
+  "uid": "U28",
+  "number": 31,
+  "title": "31. Lambaları Yanan Boş Kat",
+  "title_letter": null,
+  "marks": [],
+  "knots": [],
+  "images": [],
+  "book_part": null,
+  "words": 811
+ },
+ "synopsis": {
+  "uid": "U28",
+  "title": "31. Lambaları Yanan Boş Kat",
+  "summary": "Gegenwartsebene: Der Erzähler sucht das rote Heft; Emir erinnert sich, es im Vorsommer unter der alten Fotokiste gesehen zu haben – das Gedächtnis des Erzählers ist unzuverlässig. Statt heimlich ins Meralis-Rechenzentrum einzudringen (Yusuf warnt vor einer Falle), nutzt die Gruppe eine gerichtliche Beweissicherung, die Anwältin Selin wegen nachträglich veränderter Versicherungsakten des abgebrannten Ateliers erwirkt hat: Gerichtsvollzieher, unabhängiger IT-Sachverständiger, Selin und Firmenanwalt vor Ort, Nehir als Beobachterin; Erzähler, Tarık und Yusuf verfolgen alles von zu Hause über Nehirs Videoverbindung. Die gezeigte Etage der Kanzlei entpuppt sich als Kulisse („eine Idee von Büro“, Plastikpflanzen). Duru identifiziert aus einer Tonaufnahme überlagerte Aufzugsansagen und schließt auf ein verstecktes 14. Stockwerk (Pläne: 13 Stockwerke); ein Kartenleser-Signal „zwei kurz, ein lang“ bestätigt eine zweite Route. Beim Abschluss der Inspektion schließen sich die Aufzugstüren vor Nehir allein, die Kabine fährt ungerufen in den 14. Stock, die Rückwand öffnet sich zu einem Servicegang; Nehir tritt hinaus – ohne Einbruch, nur „aus einem defekten Aufzug“. Der Stock ist ein Serverraum; auf einem Bildschirm erscheint Cem und fragt, ob sie wegen des Notizhefts komme oder um zu erfahren, wer ihre Schwester getötet hat (Cliffhanger).",
+  "characters": [
+   "Ich-Erzähler (zu Hause am Tisch, koordiniert per Kopfhörer)",
+   "Nehir (Journalistin, vor Ort als Beobachterin; wird im Aufzug isoliert und landet im 14. Stock)",
+   "Emir (Sohn, 12, baut Uhren, erinnert den Fundort des Hefts)",
+   "Duru (Tochter; hört aus Geräuschen die versteckte Etage heraus; schreibt per Nachricht)",
+   "Zeynep (Ehefrau; befragt wegen des Hefts)",
+   "Yusuf (ehemaliger Subunternehmer bei Meralis, kennt alte Zugangscodes; warnt vor der Falle)",
+   "Tarık (IT-Forensiker, findet Herstellerseite des Kartenlesers)",
+   "Selin (Anwältin, erwirkt Beweissicherungsbeschluss, vor Ort)",
+   "İcra memuru (Gerichtsvollzieher, namenlos)",
+   "Bağımsız bilişim bilirkişisi (unabhängiger IT-Sachverständiger, namenlos)",
+   "Şirket avukatı (Firmenanwalt von Meralis, namenlos)",
+   "Cem (Meralis-Gegenspieler; erscheint am Ende auf dem Bildschirm; seine Kameras überwachen)",
+   "Leyla (Nehirs tote Schwester – „ablan“ in Cems Frage)"
+  ],
+  "terms": [
+   {
+    "tr": "Lambaları Yanan Boş Kat",
+    "meaning": "Kapiteltitel: „Das leere Stockwerk mit brennenden Lampen“"
+   },
+   {
+    "tr": "kırmızı / bordo defter – koyu kırmızı, lastikli",
+    "meaning": "Emirs Rückfrage rot oder bordeaux; das gesuchte Heft ist dunkelrot mit Gummiband"
+   },
+   {
+    "tr": "eski fotoğraf kutusu",
+    "meaning": "alte Fotokiste, unter der das Heft zuletzt lag"
+   },
+   {
+    "tr": "Meralis İstanbul veri merkezi / Meralis kampüsü",
+    "meaning": "Rechenzentrum und Campus des Konzerns; Kanzlei und Datenblock teilen einen Serviceschacht (ortak servis çekirdeği)"
+   },
+   {
+    "tr": "yanan atölye / yangın poliçesi / sigorta dosyası",
+    "meaning": "das abgebrannte Atelier (früheres Ereignis), dessen Brandversicherungsakte nachträglich geändert wurde"
+   },
+   {
+    "tr": "delil tespiti kararı",
+    "meaning": "gerichtlicher Beweissicherungsbeschluss (begrenzt auf Versionshistorie, Server, Zugriffsprotokolle)"
+   },
+   {
+    "tr": "icra memuru",
+    "meaning": "Gerichtsvollzieher"
+   },
+   {
+    "tr": "bilirkişi",
+    "meaning": "gerichtlicher Sachverständiger"
+   },
+   {
+    "tr": "arşiv terminali",
+    "meaning": "Archivterminal in der Kanzlei"
+   },
+   {
+    "tr": "taşeron kodları",
+    "meaning": "Zugangscodes aus Yusufs Zeit als Subunternehmer"
+   },
+   {
+    "tr": "ofis fikri",
+    "meaning": "„die Idee eines Büros“ – Kulissenbüro"
+   },
+   {
+    "tr": "İnsan kaynaklarının hayali gibi",
+    "meaning": "Scherz: „wie der Traum der Personalabteilung“ (alles Plastik/uniform)"
+   },
+   {
+    "tr": "kat anonsları / 14. kat / -2",
+    "meaning": "Aufzugsansagen; versteckte 14. Etage; Untergeschoss -2; in Plänen 13 Stockwerke, Obergeschoss als „teknik hacim“ (Technikraum) deklariert"
+   },
+   {
+    "tr": "iki kısa, bir uzun",
+    "meaning": "Signalrhythmus des Kartenlesers = zweite Route; wiederkehrendes akustisches Motiv (Duru)"
+   },
+   {
+    "tr": "bozuk buzdolabı anısı",
+    "meaning": "Rückblende: Duru hörte den Kühlschrankdefekt zwei Tage vor allen anderen – Beleg für ihr Gehör"
+   },
+   {
+    "tr": "Arıza. Kabini boşaltın.",
+    "meaning": "Aufzugsdurchsage „Störung. Kabine räumen.“"
+   },
+   {
+    "tr": "çıkış tutanağı",
+    "meaning": "Abschlussprotokoll der Inspektion"
+   },
+   {
+    "tr": "Cem'in kamerası",
+    "meaning": "Überwachungskameras unter Cems Kontrolle; Motiv: Beweis „freiwilligen“ Eintretens"
+   },
+   {
+    "tr": "ablan",
+    "meaning": "„deine ältere Schwester“ (Leyla); Anredeform abla = ältere Schwester"
+   },
+   {
+    "tr": "Olgunluk olabilir. Ateşim de çıkmış olabilir.",
+    "meaning": "Selbstironie: „Könnte Reife sein. Könnte auch Fieber sein.“"
+   }
+  ],
+  "tone": "Ich-Erzählung im Präteritum, Thriller-Tempo mit kurzen Dialogzeilen über Kopfhörer; humorvoll-ironische Einsprengsel (Sicherheitssystem gegen 12-Jährigen, Plastikpflanzen); Durus Nachricht als formatierter Einschub (Book Inset, Name fett). Verfahrens- und Technikvokabular präzise und nüchtern."
+ },
+ "paras": [
+  {
+   "pid": 2198,
+   "style": "Heading 1",
+   "text": "<b>31. Lambaları Yanan Boş Kat</b>",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2199,
+   "style": "Opening",
+   "text": "Kırmızı defter evdeki çalışma masamın sağ alt çekmecesinde dururdu. Çekmeceyi kilitlemezdim; kilitli şeyler Emir'in ilgisini mıknatıs gibi çekiyordu. Kilitsiz çekmeceyi ise sıkıcı buluyordu. Bu, on iki yaşındaki bir çocuğa karşı geliştirdiğim ileri güvenlik sistemiydi ve görüldüğü üzere uluslararası bir yapılanmaya karşı yeterli gelmemişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2200,
+   "style": "Normal",
+   "text": "Zeynep'e sordum. Defteri almamıştı. Duru, kapağının fotoğrafını bir kez çektiğini ama sayfaları okumadığını söyledi. Emir, “Kırmızı olan mı, bordo olan mı?” diye sorunca evde gereğinden fazla defter bulundurduğumu anladım.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2201,
+   "style": "Normal",
+   "text": "“Koyu kırmızı, lastikli,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2202,
+   "style": "Normal",
+   "text": "“En son senin eski fotoğraf kutunun altındaydı,” dedi Emir. “Masada değildi.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2203,
+   "style": "Normal",
+   "text": "“Ne zaman gördün?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2204,
+   "style": "Normal",
+   "text": "“Geçen yaz. Saat yaparken küçük tornavida arıyordum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2205,
+   "style": "Normal",
+   "text": "Demek ki ben, hatırladığım yere koymamıştım. Ya da hatırladığım anı, başka bir defterin anısıydı. İnsan hafızası arşivci gibi görünür ama aslında fazla öz güvenli bir hikâye anlatıcısıdır; boşlukları doldurur, sonra doldurduğunu inkâr eder.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2206,
+   "style": "Normal",
+   "text": "Nehir, Meralis İstanbul veri merkezine girmemiz gerektiğini söylediğinde Yusuf itiraz etti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2207,
+   "style": "Normal",
+   "text": "“Bina tuzak,” dedi Yusuf. “Yangından sonra içeri gireceğinizi biliyorlar.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2208,
+   "style": "Normal",
+   "text": "“O zaman gitmeyeceğiz,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2209,
+   "style": "Normal",
+   "text": "Yusuf şaşırdı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2210,
+   "style": "Normal",
+   "text": "“Bunu senden duymayı beklemiyordum.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2211,
+   "style": "Normal",
+   "text": "“Ben de. Olgunluk olabilir. Ateşim de çıkmış olabilir.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2212,
+   "style": "Normal",
+   "text": "Veri merkezine gizlice girmek yerine, aynı Meralis kampüsündeki hukuk şirketinin arşiv erişimini kullandık. Hukuk ofisi ayrı girişliydi; iki blok ortak servis çekirdeğine bağlanıyordu. Selin, yanan atölyenin sigorta dosyasının sonradan değiştirildiğine dair iki ayrı kayıt bulmuş ve mahkemeden sınırlı bir delil tespiti kararı almıştı. Karar bize şirketin bütün sistemini ya da servis katlarını açmıyordu; yalnız yangın poliçesinin sürüm geçmişini, dosyayı çağıran sunucuyu ve erişim kayıtlarını hukuk ofisindeki arşiv terminalinde, bağımsız bilirkişinin önünde görme hakkı veriyordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2213,
+   "style": "Normal",
+   "text": "Bir icra memuru, bağımsız bilişim bilirkişisi, Selin ve şirket avukatı içeride olacaktı. Nehir, yangın dosyasındaki ilgili taraf ve gazeteci olarak gözlemci sıfatıyla katılacaktı. Tarık, yalnız bilirkişinin izin verdiği ağ kayıtlarını uzaktan karşılaştıracak; Yusuf eski taşeron kodlarını kontrol edecek; ben ise Meralis dosyalarındaki tarih örüntülerini çıkaracaktım. Kimse sisteme zorla girmeyecek, kimse tek başına hareket etmeyecekti. En azından kâğıt üzerindeki plan buydu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2214,
+   "style": "Normal",
+   "text": "Ben, Tarık ve Yusuf evdeki masanın başında kaldık. Nehir'in izinli görüntü hattında yalnız incelemenin bize açılan kısmını görüyorduk. İlk sorun, hukuk şirketinin heyete gösterdiği katın aslında boş olmasıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2215,
+   "style": "Normal",
+   "text": "Resepsiyon, toplantı odaları ve çalışanlar vardı; ama bilgisayarlar yerel bir görüntü ağına bağlıydı. Masalardaki kişisel eşyaların hepsi birbirine fazla benziyordu: aynı marka kupa, aynı yeni not defteri, aynı solmamış aile fotoğrafları. Bir ofis değil, ofis fikri kurulmuştu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2216,
+   "style": "Normal",
+   "text": "Nehir kulaklığından fısıldadı:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2217,
+   "style": "Normal",
+   "text": "“Masadaki bitkilerin hepsi plastik.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2218,
+   "style": "Normal",
+   "text": "“İnsan kaynaklarının hayali gibi,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2219,
+   "style": "Normal",
+   "text": "“Ciddiyim.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2220,
+   "style": "Normal",
+   "text": "“Ben de.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2221,
+   "style": "Normal",
+   "text": "O sırada Duru mesaj attı. Ona planın ayrıntılarını vermemiştim; yalnızca Meralis'in güvenlik ekranından aldığımız kısa bir ses kaydını dinletmiş, duyduğu ritmi tarif etmesini istemiştim. Duru müzikte melodiden çok sesin dokusuna ve aradaki kusura bağlanırdı; makinelerdeki düzensiz tekrarları hemen fark ederdi. Çocukken bozuk buzdolabımızın motor sesindeki değişimi bizden iki gün önce duymuştu. Biz abarttığını sanmış, üçüncü gün mutfakta küçük bir göl bulmuştuk.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2222,
+   "style": "Normal",
+   "text": "Mesajında şöyle yazıyordu:",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2223,
+   "style": "Book Inset",
+   "text": "<b>Duru:</b> Bu alarm değil. İki asansörün kat anonsları üst üste binmiş. Biri 8'e kadar sayıyor, diğeri -2'den sonra 14 diyor. Binanın planda görünmeyen 14. katı var.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2224,
+   "style": "Normal",
+   "text": "Planlarda bina on üç katlıydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2225,
+   "style": "Normal",
+   "text": "Nehir, bilirkişi yangın sigortası belgelerini incelerken penceredeki yansımayı çekti. Karşı binanın camında, bulundukları katın üstünde ışığı yanan başka bir sıra görünüyordu. Asansör panelinde on dört yoktu; ama şirket avukatı kartını okuttuğunda cihazdan iki kısa, bir uzun ses gelmişti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2226,
+   "style": "Normal",
+   "text": "Duru'nun duyduğu ritim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2227,
+   "style": "Normal",
+   "text": "Tarık, kart okuyucunun üretici bakım sayfasını buldu. İki kısa, bir uzun sinyal bu modelde ikinci bir rota seçildiğini gösteriyordu. Kartın hangi kata izin verdiğini henüz bilmiyorduk. Ek planda teknik hacim diye çizilmiş üst katta ışık yanıyordu; içeride ne yapıldığını ise pencere sayarak öğrenemezdik.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2228,
+   "style": "Normal",
+   "text": "“İçeri girmeyin,” dedim.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2229,
+   "style": "Normal",
+   "text": "Tam o sırada toplantı katındaki inceleme bitti. İcra memuru, bilirkişi ve Selin on ikinci kattaki asansör sahanlığında çıkış tutanağını tamamlarken Nehir kabine adım attı. Heyetin de bineceğini sanmıştı. Kapılar erken kapandı. Nehir'in açık telefon kamerasından, şirket avukatının dışarıda kalan şaşkın yüzünü gördük; rol yapıyorsa bile iyi oynuyordu. Kabin yukarı hareket etti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2230,
+   "style": "Normal",
+   "text": "“Kartı okutmadım,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2231,
+   "style": "Normal",
+   "text": "“Acil durdurmaya bas.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2232,
+   "style": "Normal",
+   "text": "“Çalışmıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2233,
+   "style": "Normal",
+   "text": "Kulaklığımda iki kısa, bir uzun sinyal ve ardından asansör kapısının açılma sesi duyuldu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2234,
+   "style": "Normal",
+   "text": "“On dördün önündeyim,” dedi Nehir.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2235,
+   "style": "Normal",
+   "text": "“Koridora çıkma. Memur polisi arıyor.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2236,
+   "style": "Normal",
+   "text": "“Öndeki kapı açılmadı,” dedi. “Arkamdaki açıldı.”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2237,
+   "style": "Normal",
+   "text": "Yük taşımak için iki yöne açılan bir kabindi. Ayna sandığı arka yüzün iki kanadı yana çekilmişti. Önde kapalı metal, arkada dar bir servis geçidi vardı. Tavandaki hoparlör, “Arıza. Kabini boşaltın,” diyordu. Nehir acil çağrı düğmesine yeniden bastı. Aynı cümle baştan başladı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2238,
+   "style": "Normal",
+   "text": "“Burada mı bekleyeyim?” diye sordu.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2239,
+   "style": "Normal",
+   "text": "Telefon kamerası bir an zemine döndü. Kabinle geçit arasında seviye farkı yoktu. Nehir bir ayağını dışarı koydu, telefonunu kapının önünde tutarak kabine döndü. Arka kapılar kapanmaya başlayınca elini çekti. Ekranda artık kapanmış iki kanat vardı; Nehir'in solukları kulaklığımdaydı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2240,
+   "style": "Normal",
+   "text": "İçeri girmek için bir kilit kırmamıştı. Bozulduğu söylenen bir asansörden çıkmıştı. Cem'in kamerası ise yalnız kapıdan kendi ayaklarıyla geçen bir kadın kaydedecekti.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2241,
+   "style": "Normal",
+   "text": "On dördüncü kat boş değildi. Kırk kadar siyah sunucu dolabı, soğutma uğultusu ve tavanda dönen kameralar vardı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2242,
+   "style": "Normal",
+   "text": "Meralis ona kapıyı açmamıştı. Kapıyı arkasından kapatmıştı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2243,
+   "style": "Normal",
+   "text": "Ekranlardan biri yandı.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2244,
+   "style": "Normal",
+   "text": "Cem'in yüzü belirdi.",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  },
+  {
+   "pid": 2245,
+   "style": "Normal",
+   "text": "“Hoş geldin, Nehir,” dedi. “Onun defterini geri almak için mi geldin, yoksa ablanı kimin öldürdüğünü öğrenmek için mi?”",
+   "keep": false,
+   "image": false,
+   "label": null,
+   "constraint": null
+  }
+ ]
+}
