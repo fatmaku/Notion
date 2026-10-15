@@ -178,5 +178,38 @@
         "ZEUGE"
       ]
     }
+  },
+  "BYK": {
+    "_hinweis": "Eigenständiges Buch (Neufassung von YOLCU, eigenes Cover: build_cover_byk.py). Platzhalter: subtitle, blurb und tagline werden später ohne Codeänderung ersetzt; leere Felder werden auf dem Cover weggelassen.",
+    "title": "BEN YOKSAM",
+    "title_lines": [
+      "BEN",
+      "YOKSAM"
+    ],
+    "subtitle": "",
+    "author": "Tuncay Sancak",
+    "author_caps": "TUNCAY SANCAK",
+    "genre": {
+      "tr": "Mistik suç ve psikolojik gerilim romanı"
+    },
+    "headline": {
+      "tr": "Bir şeyin var olduğunu nasıl anlarsın?"
+    },
+    "questions": {
+      "tr": [
+        "Gördüğün için mi?",
+        "Hatırladığın için mi?",
+        "Yoksa biri sana var olduğunu söylediği için mi?"
+      ]
+    },
+    "blurb": {
+      "tr": [
+        "(Klappentext folgt)"
+      ]
+    },
+    "tagline": {
+      "tr": ""
+    },
+    "former_title": ""
   }
 }

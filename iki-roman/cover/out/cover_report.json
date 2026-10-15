@@ -176,5 +176,42 @@
         2560
       ]
     }
+  },
+  "BYK": {
+    "pages": 260,
+    "pages_source": "interior/out/report.json [BYK]",
+    "spine_mm": 16.51,
+    "title": "BEN YOKSAM",
+    "tr": {
+      "pages": 260,
+      "pages_source": "interior/out/report.json [BYK]",
+      "spine_mm": 16.51,
+      "geometry": {
+        "page_w": 318.86,
+        "page_h": 216.35,
+        "spine": 16.51,
+        "back_x": 3.175,
+        "spine_x": 151.175,
+        "front_x": 167.685
+      },
+      "fullcover_check": {
+        "width_mm": 318.86,
+        "height_mm": 216.35,
+        "fonts": [
+          "/FICKVL+Literata-Semi-Bold",
+          "/FWDZFX+Cinzel",
+          "/JVDBRE+Literata",
+          "/STCGVO+Cinzel-Bold"
+        ],
+        "fonts_embedded": true,
+        "ok": true
+      },
+      "ebook_px": [
+        1600,
+        2560
+      ],
+      "front_art": "assets/benyoksam/front_art_x4plus.png",
+      "layout_warnings": []
+    }
   }
 }

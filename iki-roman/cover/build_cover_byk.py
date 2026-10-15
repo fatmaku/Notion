@@ -1,0 +1,347 @@
+#!/usr/bin/env python3
+"""Cover-Satz für BEN YOKSAM (Schlüssel BYK in texts.json) – eigenständiges Buch mit eigenem Frontmotiv.
+
+Amazon KDP, Taschenbuch A5 (148 × 210 mm, Beschnitt 3,175 mm, Rücken = Seiten × 0,0635 mm) und eBook-Cover.
+Geometrie, CSS-Bausteine und Prüfroutinen kommen aus build_cover.py (dort ändert sich nichts).
+
+Ausgabe in cover/out/BYK/TR/:
+  Fullcover.pdf, Frontcover.pdf, Backcover.pdf, eBook-Cover.jpg (1600 × 2560), Vorschau.png, Fullcover_Guides.png
+cover/out/cover_report.json wird unter dem Schlüssel "BYK" fortgeschrieben (BY/SA bleiben erhalten).
+
+Frontmotiv: assets/benyoksam/front_art_x4plus.png (4096 × 6144), sonst front_art_2048x3072.png.
+Das Motiv (2:3) wird auf das Frontpanel inkl. Beschnitt (154,35 × 216,35 mm) „cover“-skaliert; der Überhang
+wird unten (Boden) beschnitten, damit oben der Himmel für den Titel frei bleibt. Titel, Untertitel und
+Autorname werden als goldene Cinzel-Rastertypografie (title_art.py) ins Motiv gesetzt, die Genrezeile als
+Vektortext. Alle Positionen sind relativ zum Quellbild definiert (u = x/Breite, v = y/Höhe), damit Druck-
+front und eBook-Cover (anderer Zuschnitt) dieselbe Komposition zeigen.
+
+Abgeleitete Bilder (werden bei jedem Lauf neu erzeugt): assets/benyoksam/derived/
+  BYK_front.png (1823 × 2555 px = 300 dpi inkl. Beschnitt), BYK_ebook_art.png (1600 × 2560),
+  BYK_back_bg.png (unscharfer, abgedunkelter Motivausschnitt), BYK_spine_bg.png
+
+Aufruf: python3 build_cover_byk.py [--pages N]
+Seitenzahl: --pages > interior/out/report.json ["BYK"]["pdf_pages"] > Schätzung mit Warnung.
+"""
+import argparse, json, os, sys, math
+import numpy as np
+from weasyprint import HTML
+import pymupdf
+from PIL import Image, ImageFilter
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from build_cover import (BLEED, TRIM_W, TRIM_H, SAFE, BARCODE_W, BARCODE_H, FONT_CSS, GOLD, CREAM, ROOT, OUT,
+                         spine_width, css_base, back_css, spine_css, front_css, check_pdf, render_png, guides_png)
+from title_art import place
+
+BOOK = 'BYK'
+LANG = 'tr'
+TEXTS = json.load(open(os.path.join(HERE, 'texts.json'), encoding='utf-8'))
+T = TEXTS[BOOK]
+ART_DIR = os.path.join(ROOT, 'assets', 'benyoksam')
+DERIVED = os.path.join(ART_DIR, 'derived')
+PORTRAIT = os.path.join(ROOT, 'assets', 'upscaled', 'BY_portrait.png')     # Portrait Tuncay Sancak (wie YOLCU-Rückseite)
+SRC_CANDIDATES = ['front_art_x4plus.png', 'front_art_2048x3072.png']
+ESTIMATE = 260
+ESTIMATE_WARNING = 'SCHÄTZUNG – vor dem Upload mit der echten Seitenzahl neu bauen!'
+
+DPI = 300
+PX_PER_MM = DPI / 25.4
+PANEL_W_MM, PANEL_H_MM = TRIM_W + 2 * BLEED, TRIM_H + 2 * BLEED          # 154,35 × 216,35 mm
+PANEL_W_PX, PANEL_H_PX = int(round(PANEL_W_MM * PX_PER_MM)), int(round(PANEL_H_MM * PX_PER_MM))   # 1823 × 2555
+EBOOK_W, EBOOK_H = 1600, 2560
+
+# Komposition relativ zum Quellbild (2:3). Das Motiv wird in Zielbreite eingepasst; sichtbar bleibt im Druck
+# v ∈ [0, 0.934] (Trim-Unterkante bei v ≈ 0.921, Sicherheitszone bis v ≈ 0.893). Kopf des Mannes ab v ≈ 0.22,
+# Buch v 0.56–0.69, Katze v 0.55–0.68, Feder v 0.87–0.905 (u 0.60–0.76), roter Faden mittig unten.
+LAYOUT = dict(
+    title1=dict(v=0.0734, cap=0.0518, tracking=0.12),     # "BEN"  – Mitte der Versalhöhe, Versalhöhe in Anteilen der Bildbreite
+    title2=dict(v=0.1360, cap=0.1070, tracking=0.05),     # "YOKSAM"
+    title_single=dict(v=0.1150, cap=0.1070, tracking=0.05),
+    subtitle=dict(v=0.1940, cap=0.0260, tracking=0.08),   # unter dem Titel, über dem Kopf (v 0.22)
+    author=dict(v=0.8500, cap=0.0255, tracking=0.22),     # über der Feder, innerhalb der Sicherheitszone
+    genre_v=0.8130,                                       # Genrezeile (Vektortext), Zeilenmitte
+    max_w=0.80,                                           # max. Titelbreite in Anteilen der Panelbreite
+)
+PALE_GOLD = ((0.0, (255, 246, 214)), (0.35, (244, 222, 150)), (0.65, (222, 184, 96)), (1.0, (170, 124, 48)))
+BACK_CROP = (0.0, 0.05, 0.56, 0.62)                       # Quellbild-Ausschnitt (u0, v0, u1, v1) für die Rückseite
+
+
+# ----------------------------------------------------------------------------- Quellbild & Zuschnitt
+def load_source():
+    """Bestes vorhandenes Frontmotiv; eine gerade entstehende (unvollständige) Datei wird übersprungen."""
+    for name in SRC_CANDIDATES:
+        p = os.path.join(ART_DIR, name)
+        if not os.path.exists(p):
+            continue
+        try:
+            im = Image.open(p); im.load()
+            return im.convert('RGB'), p
+        except Exception as e:                      # z. B. truncated PNG während des Schreibens
+            print(f'WARNUNG: {name} nicht lesbar ({e}), nächste Quelle', file=sys.stderr)
+    sys.exit(f'Kein Frontmotiv in {ART_DIR} ({", ".join(SRC_CANDIDATES)})')
+
+
+def fit_cover(src, W, H, ax=0.5, ay=0.0):
+    """object-fit: cover – Quelle auf (W, H) skalieren und beschneiden; ax/ay = Anteil des Überhangs, der
+    links/oben wegfällt. Liefert (Bild, Abbildung (u, v) → (x, y) in Zielpixeln, Skalierung)."""
+    s = max(W / src.width, H / src.height)
+    sw, sh = int(math.ceil(src.width * s)), int(math.ceil(src.height * s))
+    im = src.resize((sw, sh), Image.LANCZOS)
+    ox, oy = int(round((sw - W) * ax)), int(round((sh - H) * ay))
+    im = im.crop((ox, oy, ox + W, oy + H))
+    def to_px(u, v):
+        return (u * src.width * s - ox, v * src.height * s - oy)
+    return im, to_px, s
+
+
+def vertical_shade(im, top=(0.0, 0.30, 0.32), bottom=(0.74, 1.0, 0.22)):
+    """Dezenter dunkler Verlauf oben (hinter dem Titel) und unten (hinter dem Autornamen): (v0, v1, max. Alpha)."""
+    a = np.asarray(im).astype(np.float32)
+    H = a.shape[0]
+    v = np.linspace(0, 1, H, dtype=np.float32)
+    def ramp(v0, v1, amax, rising):
+        t = np.clip((v - v0) / (v1 - v0), 0, 1)
+        t = t * t * (3 - 2 * t)
+        return amax * (t if rising else (1 - t))
+    alpha = ramp(top[0], top[1], top[2], False) + ramp(bottom[0], bottom[1], bottom[2], True)
+    a *= (1 - alpha)[:, None, None]
+    return Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
+
+
+def set_typography(art, to_px, scale_w):
+    """Titel (1–2 Zeilen), Untertitel (falls vorhanden) und Autorname als goldene Cinzel-Raster ins Motiv setzen.
+    scale_w = Quellbildbreite in Zielpixeln (Bezug für Versalhöhen); liefert Glyphenboxen für die Prüfung."""
+    lines = [l for l in T['title_lines'] if l.strip()] or [T['title']]
+    max_w = LAYOUT['max_w'] * art.width
+    boxes = {}
+    cx = art.width / 2
+    if len(lines) == 1:
+        L = LAYOUT['title_single']
+        boxes['title'] = place(art, lines[0], L['cap'] * scale_w, max_w, to_px(0.5, L['v'])[1], cx, tracking=L['tracking'])
+    else:
+        L1, L2 = LAYOUT['title1'], LAYOUT['title2']
+        boxes['title1'] = place(art, lines[0], L1['cap'] * scale_w, max_w, to_px(0.5, L1['v'])[1], cx, tracking=L1['tracking'])
+        boxes['title2'] = place(art, ' '.join(lines[1:]), L2['cap'] * scale_w, max_w, to_px(0.5, L2['v'])[1], cx, tracking=L2['tracking'])
+    sub = (T.get('subtitle') or '').strip()
+    if sub:
+        L = LAYOUT['subtitle']
+        boxes['subtitle'] = place(art, sub, L['cap'] * scale_w, max_w, to_px(0.5, L['v'])[1], cx, weight=700, tracking=L['tracking'])
+    L = LAYOUT['author']
+    boxes['author'] = place(art, T['author_caps'], L['cap'] * scale_w, max_w, to_px(0.5, L['v'])[1], cx,
+                            weight=700, tracking=L['tracking'], stops=PALE_GOLD, glow=(0.10, 120), shadow=(0, 0.05, 0.06, 220))
+    return boxes
+
+
+def build_art(src):
+    """Erzeugt die abgeleiteten Rasterbilder; liefert Glyphenboxen (Druckfront, px) und Genre-Positionen."""
+    os.makedirs(DERIVED, exist_ok=True)
+    # Druckfront inkl. Beschnitt (300 dpi)
+    front, to_px, s = fit_cover(src, PANEL_W_PX, PANEL_H_PX, ax=0.5, ay=0.0)
+    front = vertical_shade(front)
+    boxes = set_typography(front, to_px, src.width * s)
+    front.save(os.path.join(DERIVED, 'BYK_front.png'))
+    genre_y_mm = to_px(0.5, LAYOUT['genre_v'])[1] / PX_PER_MM          # ab Panel-Oberkante (= Beschnittkante)
+    # eBook-Art 1600 × 2560 (schmaler: seitlich leicht beschnitten, oben/unten nichts)
+    eb, to_px_e, s_e = fit_cover(src, EBOOK_W, EBOOK_H, ax=0.5, ay=0.5)
+    eb = vertical_shade(eb)
+    set_typography(eb, to_px_e, src.width * s_e)
+    eb.save(os.path.join(DERIVED, 'BYK_ebook_art.png'))
+    genre_y_px = to_px_e(0.5, LAYOUT['genre_v'])[1]
+    # Rückseiten-Hintergrund: unscharfer, abgedunkelter Motivausschnitt im Blau-Nacht-Klima – linker Bildteil
+    # (Wolken, Skyline mit Moschee, Wasser) ohne die Figur, damit keine Silhouette als Fleck durchscheint.
+    small = src.resize((src.width // 2, src.height // 2), Image.LANCZOS) if src.width > 2100 else src
+    u0, v0, u1, v1 = BACK_CROP
+    region = small.crop((int(u0 * small.width), int(v0 * small.height), int(u1 * small.width), int(v1 * small.height)))
+    bg, _, _ = fit_cover(region, PANEL_W_PX, PANEL_H_PX, ax=0.5, ay=0.5)
+    bg = bg.filter(ImageFilter.GaussianBlur(48))
+    a = np.asarray(bg).astype(np.float32)
+    H, W = a.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    v, u = yy / H, xx / W
+    # Grundabdunklung; Textspalte links etwas stärker; Ränder dunkel (nichts Helles am Schnitt)
+    k = 0.60 * (1 - 0.30 * np.clip((0.62 - u) / 0.62, 0, 1)) * (1 - 0.25 * np.clip((v - 0.55) / 0.45, 0, 1))
+    edge = np.clip(np.minimum(xx, W - 1 - xx) / 110.0, 0, 1) * np.clip(np.minimum(yy, H - 1 - yy) / 110.0, 0, 1)
+    k *= 0.72 + 0.28 * edge
+    a *= k[..., None]
+    a += np.random.default_rng(5).normal(0, 1.6, (H, W, 1)).astype(np.float32)      # feines Korn gegen Banding
+    Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).save(os.path.join(DERIVED, 'BYK_back_bg.png'))
+    # Rücken-Hintergrund: Nachtblau, Verlauf oben → unten mit leichtem Korn
+    h, w = PANEL_H_PX, 240
+    t = np.linspace(0, 1, h, dtype=np.float32)[:, None, None]
+    col = (1 - t) * np.array((18, 26, 46), np.float32) + t * np.array((6, 8, 15), np.float32)
+    col = np.repeat(col, w, axis=1)
+    x = np.linspace(-1, 1, w, dtype=np.float32)[None, :, None]
+    col = col * (1 + 0.10 * np.exp(-(x / 0.55) ** 2))
+    col += np.random.default_rng(23).normal(0, 2.0, (h, w, 1)).astype(np.float32)
+    Image.fromarray(np.clip(col, 0, 255).astype(np.uint8)).save(os.path.join(DERIVED, 'BYK_spine_bg.png'))
+    return boxes, genre_y_mm, genre_y_px
+
+
+# ----------------------------------------------------------------------------- HTML-Panels
+def back_panel_html(x, y):
+    """Rückseite wie das BY-Template: Portrait oben rückenseitig (rechts), Text außen; Tagline unten; Barcode-Feld."""
+    P = lambda mm: f'{mm:.3f}mm'
+    headline = T['headline'][LANG]
+    questions = ''.join(f'<div class="q">{q}</div>' for q in T['questions'][LANG])
+    blurb = ''.join(f'<p>{p}</p>' for p in T['blurb'][LANG] if p.strip())
+    tagline = (T.get('tagline', {}).get(LANG) or '').strip()
+    bar_x = x + TRIM_W - SAFE - BARCODE_W
+    bar_y = y + TRIM_H - SAFE - BARCODE_H
+    return f"""
+    <img class="fill" src="file://{DERIVED}/BYK_back_bg.png" style="left:{P(x - BLEED)}; top:{P(y - BLEED)}; width:{P(TRIM_W + 2 * BLEED)}; height:{P(TRIM_H + 2 * BLEED)};">
+    <div class="abs backflow" style="left:{P(x + 10)}; top:{P(y + 9)}; width:{P(TRIM_W - 19)}; height:{P(TRIM_H - 9 - 48)};">
+      <img class="portrait" src="file://{PORTRAIT}">
+      <div class="cinzel gold headline">{headline}</div>
+      <div class="orn"><span class="line"></span><img src="file://{HERE}/assets/butterfly.svg" class="bf"><span class="line"></span></div>
+      <div class="lit cream questions">{questions}</div>
+      <div class="lit cream blurb">{blurb}</div>
+    </div>
+    {f'<div class="abs bottomblock" style="left:{P(x + 10)}; top:{P(y + TRIM_H - 44.5)}; width:{P(TRIM_W - 20)};"><div class="cinzel gold tagline">{tagline}</div></div>' if tagline else ''}
+    <div class="abs barcode" style="left:{P(bar_x)}; top:{P(bar_y)}; width:{P(BARCODE_W)}; height:{P(BARCODE_H)};"></div>
+    """
+
+
+def spine_panel_html(x, y, sw):
+    P = lambda mm: f'{mm:.3f}mm'
+    inner = sw - 2 * 1.8                                           # 1,6 mm Pflichtabstand + Reserve
+    title_pt = max(6.0, min(15.0, inner / 0.72 * 2.835 * 0.92))   # Versalhöhe Cinzel ≈ 0,72 em; 1 mm = 2,835 pt
+    author_pt = max(5.0, title_pt * 0.62)
+    return f"""
+    <img class="fill" src="file://{DERIVED}/BYK_spine_bg.png" style="left:{P(x)}; top:{P(y - BLEED)}; width:{P(sw)}; height:{P(TRIM_H + 2 * BLEED)}; object-fit: cover; object-position: center;">
+    <div class="abs spine-title cinzel gold" style="left:{P(x + sw / 2 - 80)}; top:{P(y + 12 + 80 - sw / 2)}; width:160mm; height:{P(sw)}; font-size:{title_pt:.1f}pt; line-height:{P(sw)}; transform: rotate(90deg); transform-origin: 80mm {P(sw / 2)};">{T['title']}</div>
+    <img src="file://{HERE}/assets/butterfly.svg" class="abs" style="left:{P(x + sw / 2 - 2.6)}; top:{P(y + 108)}; width:5.2mm; height:4.7mm;">
+    <div class="abs spine-author cinzel cream" style="left:{P(x + sw / 2 - 45)}; top:{P(y + 120 + 45 - sw / 2)}; width:90mm; height:{P(sw)}; font-size:{author_pt:.1f}pt; line-height:{P(sw)}; transform: rotate(90deg); transform-origin: 45mm {P(sw / 2)};">{T['author_caps']}</div>
+    """
+
+
+def front_panel_html(x, y, genre_y_mm):
+    """Front: fertig komponiertes Motiv (inkl. Beschnitt) + Genrezeile als Vektortext."""
+    P = lambda mm: f'{mm:.3f}mm'
+    genre = (T['genre'].get(LANG) or '').strip()
+    return f"""
+    <img class="fill" src="file://{DERIVED}/BYK_front.png" style="left:{P(x - BLEED)}; top:{P(y - BLEED)}; width:{P(TRIM_W + 2 * BLEED)}; height:{P(TRIM_H + 2 * BLEED)};">
+    {f'<div class="abs genre lit cream" style="left:{P(x + 10)}; top:{P(y - BLEED + genre_y_mm - 2.3)}; width:{P(TRIM_W - 20)};">{genre}</div>' if genre else ''}
+    """
+
+
+def byk_css():
+    return f"""
+    .genre {{ font-size: 10pt; letter-spacing: 0.04em; opacity: 0.92; }}
+    """
+
+
+# ----------------------------------------------------------------------------- Builds
+def build_fullcover(pages, outdir, genre_y_mm):
+    sw = spine_width(pages)
+    page_w = 2 * BLEED + 2 * TRIM_W + sw
+    page_h = TRIM_H + 2 * BLEED
+    bx, by = BLEED, BLEED
+    sx = BLEED + TRIM_W
+    fx = BLEED + TRIM_W + sw
+    html = f"""<!doctype html><html lang="{LANG}"><head><meta charset="utf-8"><style>
+    {css_base(page_w, page_h)}{back_css()}{spine_css()}{front_css()}{byk_css()}
+    </style></head><body>
+    {back_panel_html(bx, by)}
+    {front_panel_html(fx, by, genre_y_mm)}
+    {spine_panel_html(sx, by, sw)}
+    </body></html>"""
+    pdf = os.path.join(outdir, 'Fullcover.pdf')
+    HTML(string=html, base_url=HERE).write_pdf(pdf)
+    return pdf, dict(page_w=page_w, page_h=page_h, spine=sw, back_x=bx, spine_x=sx, front_x=fx)
+
+
+def build_single(outdir, which, genre_y_mm):
+    page_w, page_h = TRIM_W + 2 * BLEED, TRIM_H + 2 * BLEED
+    body = back_panel_html(BLEED, BLEED) if which == 'back' else front_panel_html(BLEED, BLEED, genre_y_mm)
+    html = f"""<!doctype html><html lang="{LANG}"><head><meta charset="utf-8"><style>
+    {css_base(page_w, page_h)}{back_css()}{front_css()}{byk_css()}
+    </style></head><body>{body}</body></html>"""
+    pdf = os.path.join(outdir, 'Backcover.pdf' if which == 'back' else 'Frontcover.pdf')
+    HTML(string=html, base_url=HERE).write_pdf(pdf)
+    return pdf
+
+
+def build_ebook(outdir, genre_y_px):
+    """1600 × 2560 px: Seite in CSS-px (96 dpi) → Raster mit 96 dpi = exakt 1600 × 2560."""
+    genre = (T['genre'].get(LANG) or '').strip()
+    html = f"""<!doctype html><html lang="{LANG}"><head><meta charset="utf-8"><style>
+    {FONT_CSS}
+    @page {{ size: {EBOOK_W}px {EBOOK_H}px; margin: 0; }}
+    html, body {{ margin:0; padding:0; }}
+    body {{ width:{EBOOK_W}px; height:{EBOOK_H}px; position:relative; overflow:hidden; background:#000; }}
+    img.art {{ position:absolute; left:0; top:0; width:{EBOOK_W}px; height:{EBOOK_H}px; }}
+    .genre {{ position:absolute; left:120px; width:{EBOOK_W - 240}px; top:{genre_y_px - 26:.0f}px; text-align:center; font-family:'Literata',serif; font-size:42px; letter-spacing:0.04em; color:{CREAM}; opacity:0.92; }}
+    </style></head><body><img class="art" src="file://{DERIVED}/BYK_ebook_art.png">{f'<div class="genre">{genre}</div>' if genre else ''}</body></html>"""
+    tmp = os.path.join(outdir, '_ebook.pdf')
+    HTML(string=html, base_url=HERE).write_pdf(tmp)
+    doc = pymupdf.open(tmp)
+    pix = doc[0].get_pixmap(dpi=96, alpha=False)
+    jpg = os.path.join(outdir, 'eBook-Cover.jpg')
+    Image.frombytes('RGB', (pix.width, pix.height), pix.samples).save(jpg, quality=92, subsampling=0)
+    doc.close(); os.remove(tmp)
+    return jpg, (pix.width, pix.height)
+
+
+def page_count(args):
+    if args.pages:
+        return args.pages, 'CLI'
+    rep = os.path.join(ROOT, 'interior', 'out', 'report.json')
+    data = json.load(open(rep, encoding='utf-8')) if os.path.exists(rep) else {}
+    if isinstance(data.get(BOOK), dict) and data[BOOK].get('pdf_pages'):
+        return int(data[BOOK]['pdf_pages']), f'interior/out/report.json [{BOOK}]'
+    return ESTIMATE, ESTIMATE_WARNING
+
+
+def check_layout(boxes):
+    """Glyphenboxen der Druckfront gegen Sicherheitszone (6,35 mm ab Trim) prüfen."""
+    lo = (BLEED + SAFE) * PX_PER_MM
+    hi_x, hi_y = PANEL_W_PX - lo, PANEL_H_PX - lo
+    problems = []
+    for name, (x0, y0, x1, y1) in boxes.items():
+        if x0 < lo or y0 < lo or x1 > hi_x or y1 > hi_y:
+            problems.append(f'{name}: Box ({x0 / PX_PER_MM:.1f}, {y0 / PX_PER_MM:.1f})–({x1 / PX_PER_MM:.1f}, {y1 / PX_PER_MM:.1f}) mm verletzt die Sicherheitszone')
+    return problems
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument('--pages', type=int, help=f'Seitenzahl des Innenteils (sonst interior/out/report.json [{BOOK}])')
+    args = ap.parse_args()
+    if args.pages is not None and args.pages <= 0:
+        sys.exit('--pages muss > 0 sein')
+    pages, source = page_count(args)
+    sw = spine_width(pages)
+    print(f'{BOOK} TR: {pages} Seiten ({source}) → Rücken {sw:.2f} mm')
+
+    src, src_path = load_source()
+    print(f'Frontmotiv: {os.path.relpath(src_path, ROOT)} {src.size}')
+    boxes, genre_y_mm, genre_y_px = build_art(src)
+    for name, b in boxes.items():
+        print(f'  {name}: x {b[0] / PX_PER_MM:.1f}–{b[2] / PX_PER_MM:.1f} mm, y {b[1] / PX_PER_MM:.1f}–{b[3] / PX_PER_MM:.1f} mm (ab Beschnittkante)')
+    for p in check_layout(boxes):
+        print('  WARNUNG:', p)
+
+    outdir = os.path.join(OUT, BOOK, 'TR'); os.makedirs(outdir, exist_ok=True)
+    pdf, geo = build_fullcover(pages, outdir, genre_y_mm)
+    chk = check_pdf(pdf, geo['page_w'], geo['page_h'])
+    build_single(outdir, 'front', genre_y_mm); build_single(outdir, 'back', genre_y_mm)
+    jpg, size = build_ebook(outdir, genre_y_px)
+    render_png(pdf, os.path.join(outdir, 'Vorschau.png'), dpi=72)
+    guides_png(pdf, os.path.join(outdir, 'Fullcover_Guides.png'), geo)
+
+    report_path = os.path.join(OUT, 'cover_report.json')
+    report = json.load(open(report_path, encoding='utf-8')) if os.path.exists(report_path) else {}
+    entry = report.setdefault(BOOK, {})
+    lang_entry = {'pages': pages, 'pages_source': source, 'spine_mm': sw, 'geometry': geo,
+                  'fullcover_check': chk, 'ebook_px': list(size), 'front_art': os.path.relpath(src_path, ROOT),
+                  'layout_warnings': check_layout(boxes)}
+    entry.update({'pages': pages, 'pages_source': source, 'spine_mm': sw, 'title': T['title'], LANG: lang_entry})
+    json.dump(report, open(report_path, 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
+    print(f'  Fullcover {chk["width_mm"]} x {chk["height_mm"]} mm (Soll {geo["page_w"]:.2f} x {geo["page_h"]:.2f}), '
+          f'Fonts eingebettet: {chk["fonts_embedded"]}, ok: {chk["ok"]}, eBook {size}')
+    print('fertig →', outdir)
+
+
+if __name__ == '__main__':
+    main()
