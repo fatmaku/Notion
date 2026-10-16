@@ -1,0 +1,16 @@
+{
+  "appId": "de.ladeklar.kaya",
+  "appName": "Kaya Fahrer",
+  "webDir": "www",
+  "server": {
+    "url": "https://app.ladeklar.de/t/KAYA",
+    "cleartext": false,
+    "allowNavigation": ["app.ladeklar.de"]
+  },
+  "ios": { "contentInset": "always", "limitsNavigationsToAppBoundDomains": true },
+  "android": { "allowMixedContent": false },
+  "plugins": {
+    "PushNotifications": { "presentationOptions": ["badge", "sound", "alert"] },
+    "SplashScreen": { "launchShowDuration": 600, "backgroundColor": "#0b1622" }
+  }
+}

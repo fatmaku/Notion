@@ -1,0 +1,9 @@
+# HTTPS with Let's Encrypt. Add one line per licensee subdomain or custom domain
+# (wildcards like *.ladeklar.de need a DNS challenge plugin).
+{$DOMAIN} {
+	encode gzip
+	reverse_proxy app:8080
+}
+# kaya.{$DOMAIN}, fahrer.kaya-logistik.de {
+# 	reverse_proxy app:8080
+# }

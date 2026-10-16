@@ -1,0 +1,23 @@
+{
+  "name": "ladeklar",
+  "version": "1.0.0",
+  "description": "LADEKLAR – White-Label-App für Speditionen: Lizenzgeber-Konsole, Disposition und Fahrer-App mit Live-Status, Lieferschein-Foto und Push.",
+  "private": true,
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js --demo-data",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node --test test/*.test.js",
+    "test:e2e": "node e2e/run.js",
+    "build:demo": "node tools/build-demo.js"
+  },
+  "engines": {
+    "node": ">=22.5"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  }
+}

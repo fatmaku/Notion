@@ -1,0 +1,17 @@
+# Ladeklar on one server (e.g. Hetzner/IONOS in Germany): app + Caddy (automatic HTTPS).
+#   cp .env.example .env   (fill in)   ·   docker compose up -d
+#   first licensor account: docker compose exec app node server/index.js setup you@firma.de 'Starkes-Passwort'
+services:
+  app:
+    build: { context: .., dockerfile: deploy/Dockerfile }
+    restart: unless-stopped
+    env_file: .env
+    volumes: [ladeklar-data:/data]
+  caddy:
+    image: caddy:2.8
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment: { DOMAIN: "${DOMAIN}" }
+    volumes: [./Caddyfile:/etc/caddy/Caddyfile:ro, caddy-data:/data, caddy-config:/config]
+    depends_on: [app]
+volumes: { ladeklar-data: {}, caddy-data: {}, caddy-config: {} }
