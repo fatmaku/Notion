@@ -1,0 +1,23 @@
+[
+ {
+  "index": 62,
+  "severity": "medium",
+  "kind": "mantık/süreklilik (kim ne biliyor)",
+  "problem": "Index 62–63 A-1453'ü yeni bir bilgiymiş gibi veriyor. Oysa 40. bölümde (U36) Yusuf anlatıcıya bunu zaten söylemişti: „Sen seçtin… Edirne'deki emanet dolabını da sen 1453 diye özellikle seçmiştin. Meralis dosyanı ele geçirince senin işaretini risk koduna çevirdi.“ Sam'in „Sayıyı sen seçmiştin“ demesi bilinen bir şeyi tekrarlıyor. Konseptin istediği yeni katman (çeviren bir insan değil, AYNA'nın anahtar araması) Yusuf'un sözünün düzeltilmesi olarak kurulmalı. Kural da bu: Sam yalnız doğrular ya da düzeltir.",
+  "fix": "62: “Yusuf, 1453'ü benim işaretimden risk koduna sizin çevirdiğinizi söyledi.”\n63: “Kimse oturup çevirmedi. AYNA dosyalarında en sık tekrarlanan anahtarı aradı, seninkini buldu ve dosyanın başına yazdı. Biz yalnız tabloya geçirdik.”\n(64 „Kendi emanetime koyduğum numarayla aranmıştım.“ aynen kalabilir.)"
+ },
+ {
+  "index": 18,
+  "severity": "medium",
+  "kind": "plana aykırılık (kısaltma) + dil",
+  "problem": "Plan, Sam'in itiraf kataloğunun %50 kısalmasını istiyor (irfan kelime bütçesi, yaklaşık −250 kelime). Kaynakta 665 kelime olan blok (pid 3023–3063) çalışmada 431 kelime; eklemeler düşülünce kısalma yaklaşık %40'ta kalıyor. Tüy iki kez açıklanıyor: 18'de („tüyle birlikte defterin arasına koyup“), 35–36'da yeniden („Mavi uçlu tüy?“ / boyanın kaynağı). Ayrıca 18'deki „Lara'ya sandalyesine koymasını“ cümlesinde nesne eksik (kaynakta „üçünü de bulup“ vardı).",
+  "fix": "18'i şöyle yaz ve 35 ile 36'yı sil: “Evet. Teknisyen kırk ikinci sayfayı çıkardı, taranan el yazından o notu üretti; tüyü dükkândaki eski şişenin boyasıyla renklendirip hepsini fotoğraf kutusunun altına bıraktı. Babanın işaretini bizim yön tabelamız yaptık. Lara'ya üçünü bulup sandalyesine koymasını o günkü mesajla biz söyledik.”"
+ },
+ {
+  "index": 111,
+  "severity": "medium",
+  "kind": "ses (sahne sonu özdeyişi) / tekrar",
+  "problem": "„Biz bir savaşı bitirmemiştik. / Yalnız savaşı görünür yapmıştık.“ ikilisi, iki bölüm önce 43'ün (U38) kapanışındaki „Bir canavarın başını kesmemiştik. İnsanlara gövdesinin nereden geçtiğini göstermiştik.“ ile aynı kurulumda: değildi kalıbı, ardından görünür kılma. Okurun eleştirisi gereği sahne sonu özdeyişleri azaltılmalıydı. Bu bölüme ise 49 (zorunlu) ve 64 yeni özdeyiş olarak eklendi, buna karşılık yalnız 3036 çıktı. Plan yalnız „yöntem logodan uzun ömürlü“ cümlesini aynen istiyor; savaş ikilisini istemiyor.",
+  "fix": "111 ve 112 silinir. Sahne 110'un son cümlesiyle („…yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü.“) kapanır."
+ }
+]
