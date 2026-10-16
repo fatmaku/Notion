@@ -1037,3 +1037,9 @@ Ya da ilk sayfa.
 > hadi yavrum kitabi tam 10/10 kıvamına getir
 
 Önceki mesajındaki kısa hâli (aynı fikirlerin ilk taslağı) `analyse/BEN_YOKSAM_Irfan_Katmani.md` içinde işlendi; bu metin onu genişletir ve onun yerine geçer.
+
+---
+
+## Yazarın ikinci eki (16.10.2026, kelimesi kelimesine)
+
+> kötülerin ve narsistlerin caresizlindeki yapacak tek şey iyilerin yapamadı aşamadı şey sinirsiz olabilmek bencil olarak ve bunu deccal biliyordu bütün bilgilerine bilgisayarlardan telefonlarından cihazlardan her türlü sizmiswti ve kimsenin sırrı saklı degildi ve son kisileride sirrlariyla ve herkesin sırrı vardir çemberine Aldi alamadiklarini bile olmamış seyi olmuş gibi gösterebilecek gerçekçi hamlelere girebiliyordu sesleri yansımaları artik gercekle hayali birbirinle ayırt edemiyecek teknolojiden daha öteriydi insanların kendilerine anlatmaya imkansız kılan birsey kanıtlamayı becerseler bilene zaman isteyen birsey insanlar birbirini linc etmeye mehilli önyargıdan kaybetmiş olacaklar bilene kendi zayifliklariyla ve gücleriyle birbirine düsürdü ve kimse bunu engelleyemezdi, hersey ifşa edilmiştir sadece ismini resmini bilgisini arama motoruna vermek yeterdi, kendi gücümüzü ilahimizi ellerimizle sahte tanrının eline vermis onu kutsamış ve teslim olmuş durumdaydık.... buda korkutucu bir eklenti olsun kitapta mehdi dedimiz fisi cekecek kisi ile çözülecek ama kacilinmaz son budur kimsenin mahiriyeti kalmamistir bitmistr
