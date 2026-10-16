@@ -107,6 +107,7 @@ nav.toc { page: front; break-before: right; }
 .toc tr.toc-act td { font-family: "Cinzel"; font-weight: 400; font-size: 9.5pt; letter-spacing: 0.1em; padding-top: 9pt; break-after: avoid; }
 .toc tr.toc-act td a::after { content: leader(" ") target-counter(attr(href), page); letter-spacing: 0; }
 .toc tr.toc-sub td.t { padding-left: 5mm; font-style: italic; font-size: 9.5pt; }
+.toc tr.toc-il td.t { padding-left: 5mm; font-style: italic; font-size: 9.5pt; }   /* Zwischenkapitel */
 
 /* ---------- Werkteil ---------- */
 div.body { page: body; }
@@ -138,3 +139,26 @@ div.inset .label { font-weight: 700; font-size: 8.3pt; letter-spacing: 0.06em; }
 
 /* Szenenwechsel-Ornament */
 p.scenebreak { text-align: center; text-indent: 0; margin: 7pt 0; letter-spacing: 0.6em; font-size: 9pt; break-before: avoid; break-after: avoid; }
+
+/* ---------- Zwischenkapitel (Absatzvorlagen „Interlude …“, nur BEN YOKSAM) ----------
+ * Beginnt wie ein Kapitel auf neuer Seite (keine erzwungene Leerseite), eigene Seitenvorlage:
+ * Kolumnentitel recto = Titel des Zwischenkapitels (gesperrte Versalien), verso = Autor wie im
+ * Fließtext, auf der Titelseite beide leer (first-except); Pagina unten wie im Fließtext.
+ * Text ohne Einzug, mit kleinem Absatzabstand und im Flattersatz: die vielen Einzeiler stehen wie
+ * ein Manuskript, kurze zweizeilige Absätze reißen nicht auf (das letzte Wort wird nie getrennt).
+ * Getrennt werden nur Wörter ab INTERLUDE_HYPH_MIN_WORD Buchstaben (docx2book.py).
+ */
+@page interlude:right { @top-center { content: string(ilhead, first-except); font-style: normal; font-size: 7.5pt; letter-spacing: 0.16em; } }
+@page interlude:blank { @top-center { content: none; } @bottom-center { content: none; } }
+section.interlude { page: interlude; break-before: page; }
+header.il-head { padding-top: 46mm; margin-bottom: 12mm; text-align: center; break-inside: avoid; break-after: avoid; }
+.il-head p { text-indent: 0; text-align: center; }
+h1.il-title { font-family: "Cinzel"; font-weight: 700; font-size: 14pt; line-height: 19pt; letter-spacing: 0.2em; margin: 0 0 0 0.2em; string-set: ilhead attr(data-head), verso attr(data-verso); }
+.il-head p.il-subtitle { font-style: italic; font-size: 10.5pt; line-height: 14.5pt; margin-top: 4.5mm; }
+.il-head div.il-lead { margin: 8mm 7mm 0 7mm; }
+.il-lead p { font-style: italic; font-size: 8.5pt; line-height: 12pt; }
+.il-lead p + p { margin-top: 1.5pt; }
+.il-body h2.sub { font-size: 10pt; line-height: 14.5pt; letter-spacing: 0.06em; margin: 22pt 0 9pt 0; }
+.il-body h2.sub + p { break-after: avoid; }          /* Überschrift nie mit nur einer Zeile am Seitenfuß */
+.il-body p.noindent { margin-bottom: 0.42em; text-align: left; }
+div.il-end { text-align: center; margin-top: 12pt; letter-spacing: 0.6em; padding-left: 0.6em; font-size: 9pt; break-before: avoid; }

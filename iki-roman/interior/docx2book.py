@@ -9,10 +9,13 @@ interior/src/i18n/<slug>.docx, eigene Dateinamen über `slug`, UI-Texte aus STRI
 
 Ablauf:
     DOCX ──parse──▶ Absatzliste (Stil, Runs, Bilder)
-         ──build──▶ Buchmodell (Titelblock, Vorwort, Akte, Kapitel, Bildtafeln)
+         ──build──▶ Buchmodell (Titelblock, Vorwort, Akte, Kapitel, Zwischenkapitel, Bildtafeln)
          ──render─▶ (a) Druck-HTML + print.css ──WeasyPrint──▶ PDF (zwei Durchläufe:
                         1. Layout, 2. Seitenzähler-Neustart auf der ersten Werkseite)
                     (b) EPUB-3-Paket mit epub.css ──epubcheck──▶ Bericht
+
+Zwischenkapitel (nur BEN YOKSAM): Absatzvorlagen „Interlude Title/Subtitle/Lead/Heading“ und „Interlude“
+→ eigene Einheit (kein Kapitel), eigene Seitenvorlage im Druck, eigene XHTML-Datei im EPUB.
 
 Türkisch: Groß-/Kleinschreibung wird nie per CSS verändert (i→İ, ı→I nur in Python).
 Weiche Trennzeichen (hyphen.py: tr regelbasiert, en/de pyphen) nur im Druck-HTML, nie im EPUB.
@@ -108,6 +111,7 @@ TYPE_W = PAGE_W - M_INNER - M_OUTER   # 112.5 mm
 TYPE_H = PAGE_H - M_TOP - M_BOTTOM    # 177 mm
 
 ORNAMENT = "•  •  •"
+INTERLUDE_HYPH_MIN_WORD = 8   # Zwischenkapitel (Flattersatz): kürzere Wörter nicht trennen; 0 = wie Fließtext
 
 # ----------------------------------------------------------------------------
 # Sprachabhängige Texte – alles, was nicht aus dem Manuskript kommt (Überschriften,
@@ -277,7 +281,7 @@ class Block:
 
 @dataclass
 class Unit:
-    kind: str                       # 'preface' | 'chapter' | 'act' | 'plate'
+    kind: str                       # 'preface' | 'chapter' | 'act' | 'plate' | 'interlude'
     id: str
     title: str = ""                 # Überschrift wie im Manuskript
     number: str = ""                # Kapitelnummer ('1'), leer wenn keine
@@ -286,6 +290,8 @@ class Unit:
     para: Optional[Para] = None     # Überschrift/Bild-Absatz
     act_label: str = ""             # 'BİRİNCİ PERDE'
     act_name: str = ""              # 'KAPI'
+    subtitle: str = ""              # Zwischenkapitel: Absatzvorlage „Interlude Subtitle“
+    lead: list[Para] = field(default_factory=list)   # Zwischenkapitel: „Interlude Lead“ (Vorspann-/Künyezeilen)
 
 
 @dataclass
@@ -317,8 +323,15 @@ class Book:
     def plates(self) -> list[Unit]:
         return [u for u in self.units if u.kind == "plate"]
 
+    @property
+    def interludes(self) -> list[Unit]:
+        return [u for u in self.units if u.kind == "interlude"]
+
 
 CH_NUM_RE = re.compile(r"^(\d+)\.\s+(.+)$")
+# Zwischenkapitel (nur BEN YOKSAM): beginnt mit „Interlude Title“ und endet beim nächsten Book Part,
+# Heading 1 oder Interlude Title. Innerhalb sind nur diese Vorlagen (und Scene Break) erlaubt.
+INTERLUDE_STYLES = ("Interlude Title", "Interlude Subtitle", "Interlude Lead", "Interlude Heading", "Interlude")
 
 
 def build_book(key: str, paras: list[Para]) -> Book:
@@ -356,7 +369,7 @@ def build_book(key: str, paras: list[Para]) -> Book:
 
     # --- Werkteil
     units: list[Unit] = []
-    n_ch = n_act = n_plate = 0
+    n_ch = n_act = n_plate = n_il = 0
     cur: Optional[Unit] = None
     pending_inset: Optional[Block] = None
     prev_kind = None  # Art des zuletzt gesetzten Blocks (für Einzug)
@@ -410,6 +423,33 @@ def build_book(key: str, paras: list[Para]) -> Book:
                 u.name = u.title
             new_unit(u)
             continue
+        if st == "Interlude Title":
+            n_il += 1
+            new_unit(Unit("interlude", f"interlude-{n_il}", title=text.strip(), para=p))
+            continue
+        if st in INTERLUDE_STYLES:
+            if cur is None or cur.kind != "interlude":
+                raise SystemExit(f"FEHLER: Absatzstil {st!r} außerhalb eines Zwischenkapitels "
+                                 f"(Absatz {p.idx}: {text.strip()[:40]!r}) – zuerst „Interlude Title“.")
+            close_inset()
+            if st == "Interlude Subtitle":
+                if cur.subtitle or cur.lead or cur.blocks:
+                    raise SystemExit(f"FEHLER: „Interlude Subtitle“ nur einmal und direkt nach „Interlude Title“ (Absatz {p.idx}).")
+                cur.subtitle = text.strip()
+            elif st == "Interlude Lead":
+                if cur.blocks:
+                    raise SystemExit(f"FEHLER: „Interlude Lead“ nach dem Textbeginn des Zwischenkapitels (Absatz {p.idx}).")
+                cur.lead.append(p)
+            elif st == "Interlude Heading":
+                cur.blocks.append(Block("h2", [p], id=f"{cur.id}-s{sum(1 for b in cur.blocks if b.kind == 'h2') + 1}"))
+                prev_kind = "heading"
+            else:   # „Interlude“: Fließtext, stets ohne Einzug
+                cur.blocks.append(Block("p", [p], noindent=True))
+                prev_kind = "p"
+            continue
+        if cur is not None and cur.kind == "interlude" and st != "Scene Break":
+            raise SystemExit(f"FEHLER: Absatzstil {st!r} im Zwischenkapitel {cur.title!r} (Absatz {p.idx}: {text.strip()[:40]!r}) "
+                             f"– erlaubt sind dort nur {', '.join(INTERLUDE_STYLES[1:])} und Scene Break.")
         if cur is None:
             # Text vor der ersten Überschrift (SA: Epigraph + Vorwort)
             new_unit(Unit("preface", "preface"))
@@ -476,21 +516,28 @@ def model_text(book: Book) -> str:
     for u in book.units:
         if u.kind in ("chapter", "act"):
             out.append(u.title)
+        elif u.kind == "interlude":
+            out += [u.title, u.subtitle] + [p.text for p in u.lead]
         for b in u.blocks:
             out.extend(p.text for p in b.paras)
     return "".join(out)
 
 
 def expected_body_text(book: Book) -> str:
-    """Erwarteter Text des Werkteils, wie er im HTML erscheint (Kapitelnummer ohne Punkt)."""
+    """Erwarteter Text des Werkteils, wie er im HTML erscheint (Kapitelnummer ohne Punkt,
+    Zwischenkapitel mit Schlussornament)."""
     out = []
     for u in book.units:
         if u.kind == "chapter":
             out.append((u.number + u.name) if u.number else u.title)
         elif u.kind == "act":
             out.append(u.title)
+        elif u.kind == "interlude":
+            out += [u.title, u.subtitle] + [p.text for p in u.lead]
         for b in u.blocks:
             out.extend(p.text for p in b.paras)
+        if u.kind == "interlude":
+            out.append(ORNAMENT)
     return "".join(out)
 
 
@@ -518,9 +565,10 @@ def diff_report(expected: str, got: str) -> str:
 LABEL_RE = re.compile(r"^([^:\n]{1,40}):")
 
 
-def runs_html(runs: list[Run], hyph: bool) -> str:
+def runs_html(runs: list[Run], hyph: bool, min_hyph_word: int = 0) -> str:
     """Runs → HTML (<em>/<strong>); im Druck mit weichen Trennzeichen, außer im letzten Wort
-    des Absatzes (kein abgetrennter Wortrest als letzte Zeile)."""
+    des Absatzes (kein abgetrennter Wortrest als letzte Zeile). `min_hyph_word`: nur Wörter mit
+    mindestens so vielen Buchstaben trennen (Flattersatz der Zwischenkapitel)."""
     out = []
     for r in runs:
         t = hyphenate_text(r.text, HYPH_LANG) if hyph else r.text
@@ -534,7 +582,17 @@ def runs_html(runs: list[Run], hyph: bool) -> str:
     if hyph and SHY in s:
         cut = max(s.rfind(" "), s.rfind(" ")) + 1   # Beginn des letzten Wortes (Tags enthalten keine Leerzeichen)
         s = s[:cut] + s[cut:].replace(SHY, "")
+        if min_hyph_word:
+            def keep_long(m: re.Match) -> str:
+                w = m.group(0)
+                letters = sum(c.isalpha() for c in TAG_RE.sub("", w))
+                return w if letters >= min_hyph_word else w.replace(SHY, "")
+            s = WORD_RE.sub(keep_long, s)
     return s
+
+
+TAG_RE = re.compile(r"<[^>]+>")
+WORD_RE = re.compile(r"[^ \u00a0]+")   # Wort samt angrenzender Tags/Satzzeichen
 
 
 def split_runs(runs: list[Run], n: int) -> tuple[list[Run], list[Run]]:
@@ -563,7 +621,7 @@ def inset_para_html(p: Para, hyph: bool) -> str:
     return runs_html(p.runs, hyph)
 
 
-def blocks_html(blocks: list[Block], mode: str) -> str:
+def blocks_html(blocks: list[Block], mode: str, min_hyph_word: int = 0) -> str:
     hyph = mode == "print"
     inset_tag = "div" if mode == "print" else "aside"
     out = []
@@ -580,7 +638,7 @@ def blocks_html(blocks: list[Block], mode: str) -> str:
         else:
             cls = "opening" if b.kind == "opening" else ("noindent" if b.noindent else "")
             cls_attr = f' class="{cls}"' if cls else ""
-            out.append(f"<p{cls_attr}>{runs_html(b.paras[0].runs, hyph)}</p>")
+            out.append(f"<p{cls_attr}>{runs_html(b.paras[0].runs, hyph, min_hyph_word)}</p>")
     return "\n".join(out)
 
 
@@ -594,6 +652,61 @@ def chapter_head_html(u: Unit, book: Book, mode: str = "print") -> str:
 def act_html(u: Unit) -> str:
     label = f'<p class="act-label">{esc(u.act_label)}</p><p class="act-dash">—</p>' if u.act_label else ""
     return f'{label}<h1 class="act-title">{esc(u.act_name)}</h1>'
+
+
+SMALL_WORDS = {   # bleiben in gemischter Schreibung klein (außer am Anfang)
+    "tr": {"ve", "ile", "ya", "veya", "yahut", "da", "de", "ki", "mi", "mı", "mu", "mü"},
+    "en": {"a", "an", "and", "as", "at", "by", "for", "in", "of", "on", "or", "the", "to", "with"},
+}
+ROMAN_RE = re.compile(r"^[IVXLCDM]+\.?$")
+
+
+def mixed_case(s: str, lang: str) -> str:
+    """Versalientitel → gemischte Schreibung für Verzeichnisse („ÜÇÜNCÜ GÖZ“ → „Üçüncü Göz“).
+    Nur tr/en und nur, wenn der Titel ganz in Versalien steht (dt. Substantive sind nicht erkennbar);
+    römische Zahlen bleiben stehen. Türkisch: İ→i, I→ı (nie über str.lower() allein)."""
+    if lang not in SMALL_WORDS:
+        return s
+    upper = tr_upper if lang == "tr" else str.upper
+    lower = (lambda t: t.replace("İ", "i").replace("I", "ı").lower()) if lang == "tr" else str.lower
+    if s != upper(s):
+        return s
+    words = s.split(" ")
+    out = []
+    for k, w in enumerate(words):
+        if not w or ROMAN_RE.match(w):
+            out.append(w)
+            continue
+        low = lower(w)
+        if k and low in SMALL_WORDS[lang]:
+            out.append(low)
+            continue
+        m = re.search(r"\w", low)
+        out.append(low[:m.start()] + upper(low[m.start()]) + low[m.start() + 1:] if m else low)
+    return " ".join(out)
+
+
+def interlude_toc_label(u: Unit, book: Book) -> str:
+    """IHV-/Navigationseintrag eines Zwischenkapitels: Titel + erste Abschnittsüberschrift
+    („Üçüncü Göz — I. Üç Gözün Sırrı“)."""
+    label = mixed_case(u.title, book.cfg["lang"])
+    first = next((b.paras[0].text.strip() for b in u.blocks if b.kind == "h2"), "")
+    return f"{label} — {first}" if first else label
+
+
+def interlude_html(u: Unit, book: Book, mode: str) -> str:
+    """Zwischenkapitel: Kopf (Titel, Untertitel, Vorspannzeilen), Text ohne Einzug, Schlussornament.
+    Im Druck setzt der Titel die Kolumnentitel (recto Titel, verso Autor; auf der Titelseite leer)."""
+    attrs = (f' data-head="{html.escape(u.title)}" data-verso="{html.escape(tr_upper(book.front.author))}"'
+             if mode == "print" else "")
+    head = [f'<h1 class="il-title"{attrs}>{esc(u.title)}</h1>']
+    if u.subtitle:
+        head.append(f'<p class="il-subtitle">{esc(u.subtitle)}</p>')
+    if u.lead:
+        head.append('<div class="il-lead">' + "".join(f"<p>{runs_html(p.runs, False)}</p>" for p in u.lead) + "</div>")
+    return (f'<header class="il-head">{"".join(head)}</header>\n'
+            f'<div class="il-body">\n{blocks_html(u.blocks, mode, INTERLUDE_HYPH_MIN_WORD)}\n</div>\n'
+            f'<div class="il-end">{esc(ORNAMENT)}</div>')
 
 
 def preface_html(u: Unit, mode: str) -> str:
@@ -789,6 +902,8 @@ def print_html(book: Book, build_dir: Path, first_body_page: Optional[int],
             for b in u.blocks:
                 if b.kind == "h2":
                     toc.append(f'<tr class="toc-sub">{ncol.format("")}<td class="t"><a href="#{b.id}">{esc(b.paras[0].text.strip())}</a></td></tr>')
+        elif u.kind == "interlude":
+            toc.append(f'<tr class="toc-il">{ncol.format("")}<td class="t"><a href="#{u.id}">{esc(interlude_toc_label(u, book))}</a></td></tr>')
     toc.append("</table></nav>")
     out.append("\n".join(toc))
     # Werkteil
@@ -804,6 +919,8 @@ def print_html(book: Book, build_dir: Path, first_body_page: Optional[int],
             out.append(f'<section class="act" id="{u.id}"{bs}>{anchor}{act_html(u)}</section>')
         elif u.kind == "plate":
             out.append(plate_section(u.para, u.id))
+        elif u.kind == "interlude":
+            out.append(f'<section class="interlude" id="{u.id}"{bs}>{anchor}{interlude_html(u, book, "print")}</section>')
         else:
             out.append(f'<section class="chapter" id="{u.id}"{bs}>{anchor}{chapter_head_html(u, book)}\n'
                        f'{blocks_html(u.blocks, "print")}</section>')
@@ -833,8 +950,9 @@ TRACKING_STEPS = (-0.008, -0.015, 0.010, 0.020)   # em; Reihenfolge der Versuche
 
 
 def stranded_endings(book: Book, anchors: dict[str, int], counts: list[int], max_lines: int = 2) -> dict[str, int]:
-    """Kapitel, deren letzte Seite höchstens `max_lines` Zeilen trägt → {Kapitel-ID: Zeilen}."""
-    order = [u for u in book.units if u.kind in ("chapter", "preface")]
+    """Kapitel (auch Vorwort, Zwischenkapitel), deren letzte Seite höchstens `max_lines` Zeilen trägt
+    → {Kapitel-ID: Zeilen}."""
+    order = [u for u in book.units if u.kind in ("chapter", "preface", "interlude")]
     result = {}
     for u in order:
         start = anchors[u.id]
@@ -942,15 +1060,23 @@ def verify_toc_numbers(pdf_path: Path, book: Book, anchors: dict[str, int], firs
         for y in sorted(rows):
             lines.append([w for _, w in sorted(rows[y])])
     problems = []
-    entries = [(u.id, u.number, u.name if u.number else u.title) for u in book.units if u.kind in ("chapter", "act")]
-    entries += [(b.id, "", b.paras[0].text.strip()) for u in book.chapters for b in u.blocks if b.kind == "h2"]
-    for uid, number, name in entries:
+    # (Anker, Kapitelnummer, Eintragstext, Anzahl Vergleichswörter)
+    entries = [(u.id, u.number, u.name if u.number else u.title, 2) for u in book.units if u.kind in ("chapter", "act")]
+    entries += [(b.id, "", b.paras[0].text.strip(), 2) for u in book.chapters for b in u.blocks if b.kind == "h2"]
+    # Zwischenkapitel beginnen oft gleich („Üçüncü Göz — …“): vier Wörter vergleichen, jede Zeile nur einmal
+    entries += [(u.id, "", interlude_toc_label(u, book), 4) for u in book.interludes]
+    used: set[int] = set()
+    for uid, number, name, n_words in entries:
         expected = anchors[uid] - first_body + 1
-        first_words = name.split()[:2]
+        first_words = name.split()[:n_words]
         found = None
         for k, words in enumerate(lines):
+            if n_words > 2 and k in used:
+                continue
             start = [w for w in words if not (number and w == number + ".")]
             if start[:len(first_words)] == first_words and (not number or (number + ".") in words):
+                if n_words > 2:
+                    used.add(k)
                 # Seitenzahl steht am Ende dieser oder einer der folgenden (umbrochenen) Zeilen
                 for words2 in lines[k:k + 3]:
                     last = words2[-1].rstrip(".")
@@ -996,7 +1122,10 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
         make_temp_cover(book, cover_path)
         cover_source = S["temp_cover_source"]
     files.append(("OEBPS/images/cover.jpg", cover_path.read_bytes()))
-    files.append(("OEBPS/epub.css", (HERE / "epub.css").read_bytes()))
+    css = (HERE / "epub.css").read_bytes()
+    if book.interludes:   # Zusatzregeln nur bei Bedarf anhängen: EPUBs ohne Zwischenkapitel bleiben bytegleich
+        css += b"\n" + (HERE / "epub_interlude.css").read_bytes()
+    files.append(("OEBPS/epub.css", css))
     files.append(("OEBPS/fonts/Cinzel-700.ttf", (FONT_DIR / "Cinzel-700.ttf").read_bytes()))
 
     manifest = [
@@ -1053,6 +1182,9 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
             add_image(f"img-{u.id}", f"{u.id}.jpg", image_for_epub(u.para.image[1]))
             body = f'<section class="plate" id="{u.id}"><img src="../images/{u.id}.jpg" alt="{esc(S["illustration"])}"/></section>'
             title = S["illustration"]
+        elif u.kind == "interlude":
+            body = f'<section class="interlude" id="{u.id}" epub:type="chapter">{interlude_html(u, book, "epub")}</section>'
+            title = interlude_toc_label(u, book)
         else:
             body = (f'<section class="chapter" id="{u.id}" epub:type="chapter">{chapter_head_html(u, book, "epub")}\n'
                     f'{blocks_html(u.blocks, "epub")}</section>')
@@ -1069,6 +1201,8 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
             for b in u.blocks:
                 if b.kind == "h2":
                     toc.append(f'<p class="toc-sub"><a href="{u.id}.xhtml#{b.id}">{esc(b.paras[0].text.strip())}</a></p>')
+        elif u.kind == "interlude":
+            toc.append(f'<p class="toc-il"><a href="{u.id}.xhtml">{esc(interlude_toc_label(u, book))}</a></p>')
     toc.append("</section>")
     add_page("toc", "toc.xhtml", S["toc"], "\n".join(toc), "frontmatter")
 
@@ -1078,7 +1212,7 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
         if first_body_file is None:
             first_body_file = fname
 
-    # Navigation (nav.xhtml, verschachtelt: Akte → Kapitel → Zwischenüberschriften) und NCX
+    # Navigation (nav.xhtml, verschachtelt: Akte → Kapitel/Zwischenkapitel → Zwischenüberschriften) und NCX
     def nav_tree():
         tree = []      # Liste von (text, href, children)
         cur_act = None
@@ -1090,6 +1224,8 @@ def build_epub(book: Book, out_dir: Path, build_dir: Path, cover: Optional[Path]
                 subs = [(b.paras[0].text.strip(), f"text/{u.id}.xhtml#{b.id}", []) for b in u.blocks if b.kind == "h2"]
                 node = (u.title, f"text/{u.id}.xhtml", subs)
                 (cur_act[2] if cur_act else tree).append(node)
+            elif u.kind == "interlude":   # eigene Ebene neben den Kapiteln des Aktes
+                (cur_act[2] if cur_act else tree).append((interlude_toc_label(u, book), f"text/{u.id}.xhtml", []))
         return tree
 
     def ol(nodes, indent=1):
@@ -1253,6 +1389,9 @@ def make_previews(book: Book, pdf_path: Path, anchors: dict[str, int], n_pages: 
     plates = book.plates
     if plates:
         pages.append(anchors[plates[0].id])
+    if book.interludes:                                          # erstes Zwischenkapitel: Titel- und Folgeseite
+        p0 = anchors[book.interludes[0].id]
+        pages += [p0, p0 + 1]
     mid = (first_body + n_pages) // 2
     pages += spread(mid)
     pages.append(n_pages)
@@ -1301,8 +1440,9 @@ def main(argv=None) -> int:
     if book.front.title != cfg["title"]:
         print(f"[{args.book}] HINWEIS: Titel im DOCX {book.front.title!r} ≠ Register {cfg['title']!r} – gesetzt wird der DOCX-Titel.")
     model_check = diff_report(docx_text(paras), model_text(book))
+    il_info = f", {len(book.interludes)} Zwischenkapitel" if book.interludes else ""
     print(f"[{args.book}] {len(paras)} Absätze, {len(book.chapters)} Kapitel, "
-          f"{len([u for u in book.units if u.kind == 'act'])} Akte, {len(book.plates)} Bildtafeln; Modellprüfung: {model_check}")
+          f"{len([u for u in book.units if u.kind == 'act'])} Akte, {len(book.plates)} Bildtafeln{il_info}; Modellprüfung: {model_check}")
     if model_check != "ok":
         raise SystemExit("FEHLER: Modelltext weicht vom DOCX ab.")
 
@@ -1323,6 +1463,12 @@ def main(argv=None) -> int:
         # Teilprüfungen fortschreiben: ein reiner --pdf-Lauf löscht nicht das EPUB-Ergebnis (und umgekehrt)
         "text_check": {**entry.get("text_check", {}), "model_vs_docx": model_check},
     })
+    if book.interludes:   # nur bei Bedarf, damit Berichte der anderen Bücher unverändert bleiben
+        entry["interludes"] = [{"id": u.id, "title": u.title, "toc": interlude_toc_label(u, book),
+                                "sections": sum(1 for b in u.blocks if b.kind == "h2"),
+                                "paragraphs": sum(1 for b in u.blocks if b.kind == "p")} for u in book.interludes]
+    else:
+        entry.pop("interludes", None)
 
     if args.pdf:
         print(f"[{args.book}] PDF wird gesetzt (zwei WeasyPrint-Durchläufe) …")
@@ -1356,7 +1502,8 @@ def main(argv=None) -> int:
             "toc_page_numbers_check": toc_check,
             "tracking_adjustments_em": r["tracking"],
             "stranded_chapter_endings_remaining": r["stranded_remaining"],
-            "chapter_pages": {u.id: r["anchors"][u.id] - first_body + 1 for u in book.units if u.kind in ("chapter", "act", "plate")},
+            "chapter_pages": {u.id: r["anchors"][u.id] - first_body + 1 for u in book.units
+                              if u.kind in ("chapter", "act", "plate", "interlude")},
         })
         print(f"[{args.book}] PDF: {r['pdf_path']} ({r['pages']} Seiten, Werkteil ab PDF-Seite {first_body}); "
               f"Textprüfung Druck-HTML: {r['print_html_text_check']}; IHV-Seitenzahlen: {toc_check}")

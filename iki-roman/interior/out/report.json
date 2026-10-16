@@ -333,6 +333,9 @@
     },
     "epub_cover": "cover/out/SA/TR/eBook-Cover.jpg",
     "tracking_adjustments_em": {},
-    "stranded_chapter_endings_remaining": {}
+    "stranded_chapter_endings_remaining": {},
+    "lang": "tr",
+    "slug": "SAHIT",
+    "docx": "SAHIT_TR_v6.docx"
   }
 }
