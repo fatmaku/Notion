@@ -1,0 +1,10 @@
+{
+  "_hinweis": "Vor dem Druck ausfüllen und neu erzeugen: node tools/build-print.js",
+  "firma": "[Firmenname]",
+  "ansprechpartner": "[Ansprechpartner]",
+  "telefon": "[Telefon]",
+  "email": "[E-Mail]",
+  "website": "ladeklar.de",
+  "qr": "https://ladeklar.de",
+  "anschrift": "[Straße Nr., PLZ Ort]"
+}

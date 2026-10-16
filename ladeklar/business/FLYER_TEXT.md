@@ -24,7 +24,7 @@ Live-Board, dazwischen eine feine Linie mit kleinem Häkchen. Kein Stockfoto, ec
 | Telefonhörer mit Häkchen | **Weniger Anrufe** | Jeder Schritt kommt als Push ins Büro: Bestätigt, Aufgeladen, Abgeladen. Kein „Wo bist du?“ mehr. |
 | Kamera über einem Blatt Papier | **Lieferschein sofort** | Foto vor Abschluss. Der Abliefernachweis geht am selben Tag als PDF raus – die Rechnung auch. |
 | Uhr neben einer Laderampe | **Standgeld mit Beleg** | Ankunft und Abfahrt mit Zeitstempel. Die Wartezeit an der Rampe ist belegt. |
-| Sprechblase mit Weltkugel | **7 Sprachen, große Knöpfe** | Deutsch, Englisch, Polnisch, Rumänisch, Türkisch, Russisch, Ukrainisch. Bedienbar mit Handschuhen. |
+| Sprechblase mit Weltkugel | **8 Sprachen, große Knöpfe** | Deutsch, Englisch, Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch. Bedienbar mit Handschuhen. |
 | Schild mit leerem Logofeld | **Ihre Marke** | Ihr Logo, Ihre Farben, Ihr App-Name – auf dem Fahrerhandy und in jeder Mitteilung. |
 | Schutzschild mit Häkchen | **Keine Dauerortung** | Standort nur beim Statuswechsel und nur, wenn Sie es einschalten. Muster-Betriebsvereinbarung inklusive. |
 
@@ -110,7 +110,7 @@ Ein Tipp. Alles klar.
 **Drei Punkte (mit kleinen Icons):**
 - Telefonhörer mit Häkchen – Jeder Schritt live im Büro, ohne Anruf.
 - Kamera – Lieferschein-Foto sofort, Rechnung am selben Tag.
-- Sprechblase – Fahrer-App in 7 Sprachen, keine Dauerortung.
+- Sprechblase – Fahrer-App in 8 Sprachen, keine Dauerortung.
 
 **Call-to-Action:**
 30 Tage kostenlos testen: [kurze URL] oder QR scannen.

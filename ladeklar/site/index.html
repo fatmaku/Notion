@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LADEKLAR</title>
+<meta name="description" content="Fahrer-App und Live-Disposition für Speditionen und Transportunternehmen – unter Ihrem Logo. Lieferschein-Foto, Push-Mitteilung, 8 Sprachen. 30 Tage kostenlos testen.">
+<meta name="theme-color" content="#0b1622">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+/*FONTS*/
+/* Layout: a night-asphalt hero where the motorway net is alive and a phone taps itself while the
+   office receives the push → then alternating ink and cool-paper bands on one 1180px column;
+   real product screens carry every argument, brass marks the one thing to press. */
+:root {
+  --ink: #0b1622; --ink-2: #0f1d2e; --ink-3: #172a40; --on-ink: #e8eef5; --on-ink-2: #9fb0c3; --ink-line: rgba(232, 238, 245, .12);
+  --paper: #f2f5f8; --paper-2: #e6ebf1; --card: #ffffff; --text: #0b1622; --text-2: #3a4b5e; --muted: #66768a; --line: #d6dee6;
+  --brass: #c8a45c; --brass-2: #e6cd92; --brass-ink: #1b1508; --teal: #0e7c7b; --ok: #12804c; --ok-2: #3fc483; --warn: #a86400; --bad: #c42f2f;
+  --f-display: 'Archivo', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-text: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --fs-0: .8125rem; --fs-1: .9375rem; --fs-2: 1.0625rem; --fs-3: 1.3125rem; --fs-4: 1.75rem; --fs-5: clamp(2rem, 4.2vw, 3.1rem); --fs-6: clamp(2.7rem, 5.6vw, 4.9rem);
+  --w: 1180px; --r: 14px; --r-lg: 22px;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { margin: 0; background: var(--paper); color: var(--text); font: 500 var(--fs-1)/1.6 var(--f-text); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--ink); }
+img, video, canvas { max-width: 100%; display: block; }
+img { height: auto; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--f-display); font-stretch: 112%; font-weight: 800; letter-spacing: -.02em; line-height: 1.04; margin: 0; text-wrap: balance; }
+h2 { font-size: var(--fs-5); }
+h3 { font-size: var(--fs-3); letter-spacing: -.01em; line-height: 1.2; }
+p { margin: 0; }
+.ic { width: 1.2em; height: 1.2em; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+:focus-visible { outline: 3px solid var(--brass-2); outline-offset: 3px; border-radius: 6px; }
+.wrap { width: 100%; max-width: calc(var(--w) + 2 * max(16px, env(safe-area-inset-left, 0px))); margin: 0 auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+@media (max-width: 560px) { .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); } }
+.band { padding-block: clamp(64px, 9vw, 120px); overflow-x: clip; }
+.ink { background: var(--ink); color: var(--on-ink); }
+.eyebrow { font: 800 var(--fs-0)/1.2 var(--f-text); text-transform: uppercase; letter-spacing: .14em; color: var(--teal); }
+.ink .eyebrow, .hero .eyebrow { color: var(--brass-2); }
+.lead { font-size: var(--fs-2); color: var(--text-2); max-width: 60ch; }
+.ink .lead { color: var(--on-ink-2); }
+.head { display: grid; gap: 16px; max-width: 760px; margin-bottom: clamp(36px, 5vw, 60px); }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 999px; font: 800 var(--fs-1)/1 var(--f-text); text-decoration: none; border: 0; cursor: pointer; transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .2s; }
+.btn-gold { background: linear-gradient(180deg, var(--brass-2), var(--brass)); color: var(--brass-ink); box-shadow: 0 10px 30px rgba(200, 164, 92, .28), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(200, 164, 92, .38), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.btn-line { background: transparent; color: var(--on-ink); box-shadow: inset 0 0 0 1.5px var(--ink-line); }
+.btn-line:hover { box-shadow: inset 0 0 0 1.5px var(--brass); }
+.btn .ic { transition: transform .25s var(--ease); }
+.btn:hover .ic.go { transform: translateX(4px); }
+
+/* ---------- header ---------- */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgba(11, 22, 34, .82); backdrop-filter: blur(14px) saturate(1.3); -webkit-backdrop-filter: blur(14px) saturate(1.3); color: var(--on-ink); border-bottom: 1px solid transparent; transition: border-color .3s, background .3s; }
+.top.scrolled { border-bottom-color: var(--ink-line); background: rgba(11, 22, 34, .92); }
+.top .wrap { display: flex; align-items: center; gap: 28px; height: 68px; }
+.brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font: 800 1.05rem/1 var(--f-display); font-stretch: 125%; letter-spacing: .16em; }
+.brand svg { width: 34px; height: 34px; }
+.nav { display: flex; gap: 26px; margin-left: auto; }
+.nav a { text-decoration: none; font-weight: 700; color: var(--on-ink-2); transition: color .2s; }
+.nav a:hover { color: var(--on-ink); }
+.top .btn { min-height: 42px; padding: 0 18px; }
+@media (max-width: 900px) { .nav { display: none; } .top .btn { margin-left: auto; } }
+@media (max-width: 400px) { .top .btn span { display: none; } .top .btn { padding: 0 14px; } }
+
+/* ---------- hero ---------- */
+.hero { position: relative; overflow: hidden; background: radial-gradient(1200px 600px at 78% 10%, #18304a 0%, transparent 60%), radial-gradient(900px 500px at 0% 100%, #102538 0%, transparent 60%), var(--ink); color: var(--on-ink); }
+.hero::after { content: ""; position: absolute; inset: auto 0 0; height: 120px; background: linear-gradient(transparent, rgba(11, 22, 34, .9)); pointer-events: none; }
+#net { position: absolute; top: 0; right: 0; width: min(64%, 860px); height: 100%; opacity: .9; }
+.hero .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 32px; align-items: center; padding-block: clamp(48px, 7vw, 96px) clamp(56px, 7vw, 96px); }
+.hero h1 { font-size: var(--fs-6); font-stretch: 116%; line-height: .95; letter-spacing: -.035em; }
+.hero h1 em { font-style: normal; display: block; background: linear-gradient(100deg, var(--brass) 0%, var(--brass-2) 45%, #fff3d6 52%, var(--brass-2) 60%, var(--brass) 100%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 6s var(--ease) 1.2s infinite; }
+@keyframes sheen { 0% { background-position: 100% 0; } 40%, 100% { background-position: -20% 0; } }
+.hero .copy { display: grid; gap: 26px; align-content: start; }
+.hero .lead { font-size: clamp(1.02rem, 1.4vw, 1.18rem); color: #b9c7d6; max-width: 54ch; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--on-ink-2); font-weight: 700; font-size: var(--fs-0); }
+.facts span { display: inline-flex; align-items: center; gap: 7px; }
+.facts .ic { color: var(--ok-2); width: 1.05em; height: 1.05em; }
+.rise { animation: rise .9s var(--ease) both; }
+.rise.d1 { animation-delay: .08s; } .rise.d2 { animation-delay: .16s; } .rise.d3 { animation-delay: .24s; } .rise.d4 { animation-delay: .32s; }
+@keyframes rise { from { transform: translateY(22px); opacity: .35; } }
+
+/* stage: phone + push feed */
+#stage { position: relative; min-height: 600px; display: flex; justify-content: flex-end; align-items: center; }
+.phone { position: relative; width: 292px; flex: none; border-radius: 46px; padding: 10px; background: linear-gradient(145deg, #2c3644, #0b1016); box-shadow: 0 50px 100px rgba(0, 0, 0, .55), inset 0 0 0 1.5px #3c4859, 0 0 0 1px rgba(255, 255, 255, .05); transform: rotate(-2.5deg); animation: float 7s ease-in-out infinite; }
+@keyframes float { 50% { transform: rotate(-2.5deg) translateY(-10px); } }
+.phone .scr { position: relative; aspect-ratio: 390 / 844; border-radius: 37px; overflow: hidden; background: #eef1f4; }
+.phone .scr img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s ease; }
+.phone .scr img.on { opacity: 1; }
+.phone .isl { position: absolute; top: 20px; left: 50%; width: 86px; height: 25px; margin-left: -43px; border-radius: 20px; background: #000; z-index: 3; }
+.tap { position: absolute; z-index: 4; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(255, 255, 255, .5); border: 2.5px solid #fff; opacity: 0; pointer-events: none; }
+.tap.go { animation: tap .75s var(--ease); }
+@keyframes tap { 0% { opacity: 0; transform: scale(1.5); } 35% { opacity: .95; transform: scale(.78); } 100% { opacity: 0; transform: scale(1.9); } }
+#feed { position: absolute; left: 0; top: 64px; z-index: 5; width: min(318px, 62%); display: grid; gap: 10px; }
+.note { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 11px; align-items: center; padding: 11px 13px; border-radius: 18px; background: rgba(250, 252, 255, .94); color: var(--ink); box-shadow: 0 18px 50px rgba(0, 0, 0, .38), inset 0 0 0 1px rgba(255, 255, 255, .6); backdrop-filter: blur(10px); transition: transform .6s var(--ease), opacity .6s var(--ease); }
+.note.new { transform: translateY(-16px) scale(.96); opacity: 0; }
+.note.gone { opacity: 0; transform: translateY(10px) scale(.96); }
+.note .ni { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--teal); color: #fff; }
+.note.done .ni { background: var(--ok); }
+.note small { display: block; font-size: .6875rem; font-weight: 700; color: var(--muted); letter-spacing: .02em; }
+.note b { display: block; font-size: .875rem; font-weight: 800; line-height: 1.25; }
+.note p { font-size: .78rem; color: var(--text-2); font-weight: 600; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.route-tag { position: absolute; right: 236px; bottom: 54px; z-index: 5; display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: rgba(15, 29, 46, .82); box-shadow: inset 0 0 0 1px var(--ink-line); backdrop-filter: blur(8px); font: 800 var(--fs-0)/1 var(--f-text); color: var(--on-ink); white-space: nowrap; }
+.route-tag i { width: 8px; height: 8px; border-radius: 50%; background: var(--brass-2); box-shadow: 0 0 0 4px rgba(230, 205, 146, .2); }
+.route-tag span { color: var(--on-ink-2); font-weight: 700; }
+@media (max-width: 980px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+  #net { width: 100%; opacity: .45; }
+  #stage { min-height: 0; justify-content: center; padding-top: 8px; }
+  .phone { width: 260px; margin-left: 150px; }
+  #feed { left: max(0px, calc(50% - 300px)); top: 40px; width: min(300px, 60%); }
+  .route-tag { right: auto; left: max(0px, calc(50% - 300px)); bottom: 30px; }
+}
+@media (max-width: 560px) {
+  .phone { width: 220px; margin-left: 110px; border-radius: 38px; padding: 8px; }
+  .phone .scr { border-radius: 31px; }
+  .phone .isl { width: 70px; height: 20px; margin-left: -35px; top: 15px; }
+  #feed { left: 0; top: 24px; width: 64%; gap: 8px; }
+  .note { grid-template-columns: 32px minmax(0, 1fr); padding: 9px 10px; gap: 9px; border-radius: 15px; }
+  .note .ni { width: 32px; height: 32px; border-radius: 10px; }
+  .note b { font-size: .8rem; } .note p { font-size: .72rem; }
+  .route-tag { left: 0; bottom: 18px; font-size: .72rem; padding: 8px 12px; }
+}
+
+/* ---------- ticker ---------- */
+.ticker { background: var(--ink-2); color: var(--on-ink); border-block: 1px solid var(--ink-line); overflow: hidden; }
+.ticker .row { display: flex; width: max-content; animation: tick 60s linear infinite; }
+.ticker:hover .row { animation-play-state: paused; }
+.ticker ul { display: flex; gap: 0; margin: 0; padding: 0; list-style: none; }
+.ticker li { display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; white-space: nowrap; font-weight: 700; font-size: var(--fs-0); color: var(--on-ink-2); border-right: 1px solid var(--ink-line); font-variant-numeric: tabular-nums; }
+.ticker li b { color: var(--on-ink); font-family: var(--f-display); font-stretch: 110%; letter-spacing: .02em; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: .75rem; font-weight: 800; }
+.chip.ok { background: rgba(63, 196, 131, .14); color: #7fe0ae; }
+.chip.go { background: rgba(111, 156, 242, .16); color: #a9c4ff; }
+.chip.wait { background: rgba(240, 173, 60, .16); color: #f6c877; }
+.chip.bad { background: rgba(240, 114, 114, .16); color: #ffaaaa; }
+@keyframes tick { to { transform: translateX(-50%); } }
+
+/* ---------- gains: today vs. with Ladeklar ---------- */
+.gains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; }
+.gain { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 18px; padding: 28px 0; border-top: 1px solid var(--line); }
+.gain .gi { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: var(--card); color: var(--teal); box-shadow: 0 1px 2px rgba(11, 22, 34, .06), 0 6px 18px rgba(11, 22, 34, .06); }
+.gain .gi .ic { width: 24px; height: 24px; }
+.gain .was { font-size: var(--fs-0); color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+.gain .was s { text-decoration-color: rgba(196, 47, 47, .55); text-decoration-thickness: 1.5px; }
+.gain h3 { margin-bottom: 6px; }
+.gain p { color: var(--text-2); }
+@media (max-width: 800px) { .gains { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- steps ---------- */
+.steps-band { position: relative; overflow: hidden; }
+.steps-band::before { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.06' stroke-width='1.2'%3E%3Cpath d='M-10 70 C 60 60 90 120 160 110 S 280 40 370 60'/%3E%3Cpath d='M-10 250 C 70 230 110 290 190 270 S 300 200 370 230'/%3E%3Cpath d='M60 -10 C 70 80 30 150 80 220 S 100 320 90 370'/%3E%3Cpath d='M250 -10 C 230 70 280 140 260 210 S 220 310 240 370'/%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
+.steps { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; counter-reset: s; }
+.step { position: relative; padding: 30px 28px 32px; border-radius: var(--r-lg); background: linear-gradient(180deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, .02)); box-shadow: inset 0 0 0 1px var(--ink-line); display: grid; gap: 12px; align-content: start; }
+.step .num { font: 900 4.2rem/0.9 var(--f-display); font-stretch: 125%; color: transparent; -webkit-text-stroke: 1.5px var(--brass); letter-spacing: -.04em; }
+.step p { color: var(--on-ink-2); }
+.step .time { margin-top: 6px; display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: var(--fs-0); color: var(--brass-2); }
+@media (max-width: 860px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- feature rows ---------- */
+.feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 88px); align-items: center; }
+.feature + .feature { margin-top: clamp(72px, 10vw, 128px); }
+.feature.flip .text { order: 2; }
+.feature .text { display: grid; gap: 18px; align-content: start; }
+.ticks { display: grid; gap: 10px; margin: 6px 0 0; padding: 0; list-style: none; }
+.ticks li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; color: var(--text-2); }
+.ticks .ic { color: var(--ok); width: 20px; height: 20px; margin-top: 2px; }
+.ink .ticks li { color: var(--on-ink-2); }
+.ink .ticks .ic { color: var(--ok-2); }
+@media (max-width: 860px) { .feature { grid-template-columns: minmax(0, 1fr); } .feature.flip .text { order: 0; } }
+
+.fan { position: relative; height: 560px; }
+.fan .ph { position: absolute; top: 40px; width: 230px; border-radius: 34px; padding: 7px; background: #0e141c; box-shadow: 0 30px 70px rgba(11, 22, 34, .28), inset 0 0 0 1.5px #39465a; transition: transform .6s var(--ease); }
+.fan .ph img { border-radius: 28px; aspect-ratio: 390 / 844; object-fit: cover; width: 100%; }
+.fan .ph:nth-child(1) { left: 2%; transform: rotate(-8deg) translateY(30px); }
+.fan .ph:nth-child(2) { left: 50%; margin-left: -115px; top: 0; z-index: 2; }
+.fan .ph:nth-child(3) { right: 2%; transform: rotate(8deg) translateY(30px); }
+.fan:hover .ph:nth-child(1) { transform: rotate(-11deg) translate(-14px, 24px); }
+.fan:hover .ph:nth-child(3) { transform: rotate(11deg) translate(14px, 24px); }
+@media (max-width: 560px) { .fan { height: 420px; } .fan .ph { width: 170px; border-radius: 26px; padding: 5px; } .fan .ph img { border-radius: 21px; } .fan .ph:nth-child(2) { margin-left: -85px; } .fan .ph:nth-child(1) { left: -2%; } .fan .ph:nth-child(3) { right: -2%; } }
+
+.laptop { position: relative; }
+.laptop .lid { padding: 12px 12px 14px; border-radius: 18px 18px 0 0; background: linear-gradient(#232c38, #11171f); box-shadow: 0 40px 90px rgba(11, 22, 34, .32), inset 0 0 0 1.5px #333f4f; }
+.laptop .lid img { border-radius: 6px; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; width: 100%; }
+.laptop .base { height: 16px; margin: 0 -5%; border-radius: 0 0 18px 18px; background: linear-gradient(#d3dae2, #8e9aa8); box-shadow: 0 20px 40px rgba(11, 22, 34, .2); }
+.laptop .pop { position: absolute; right: -10px; top: 18%; width: min(300px, 70%); }
+@media (max-width: 560px) { .laptop .pop { right: 0; top: auto; bottom: -40px; } }
+
+.proof { position: relative; display: grid; justify-items: center; }
+.proof .sheet { width: min(440px, 92%); border-radius: 6px; overflow: hidden; background: #fbfaf6; box-shadow: 0 40px 90px rgba(0, 0, 0, .45); transform: rotate(1.6deg); }
+.proof .stamp { position: absolute; left: 4%; bottom: 10%; display: grid; gap: 4px; padding: 14px 18px; border-radius: 16px; background: var(--ink-3); box-shadow: inset 0 0 0 1px var(--ink-line), 0 20px 40px rgba(0, 0, 0, .35); font-variant-numeric: tabular-nums; }
+.proof .stamp small { color: var(--on-ink-2); font-weight: 700; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+.proof .stamp b { font: 800 1.3rem/1.1 var(--f-display); font-stretch: 112%; color: var(--brass-2); }
+
+.brands { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; max-width: 520px; margin-left: auto; }
+.brands figure { margin: 0; display: grid; gap: 12px; justify-items: center; }
+.brands .ph { width: 100%; max-width: 240px; border-radius: 32px; padding: 7px; background: #0e141c; box-shadow: 0 26px 60px rgba(11, 22, 34, .25), inset 0 0 0 1.5px #39465a; }
+.brands .ph img { border-radius: 26px; aspect-ratio: 390 / 844; object-fit: cover; width: 100%; }
+.brands figcaption { font-weight: 800; font-size: var(--fs-0); color: var(--muted); }
+.brands figure:nth-child(2) { margin-top: 48px; }
+
+/* languages */
+.lang-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+#word { position: relative; display: inline-grid; height: 1.1em; overflow: hidden; vertical-align: bottom; color: var(--brass-2); }
+#word span { grid-area: 1 / 1; transform: translateY(105%); transition: transform .7s var(--ease); white-space: nowrap; }
+#word span.on { transform: none; }
+#word span.out { transform: translateY(-105%); }
+@media (prefers-reduced-motion: reduce) { #word span:first-child { transform: none; } }
+.langs { display: grid; grid-template-columns: repeat(8, minmax(120px, 1fr)); gap: 14px; overflow-x: auto; padding: 10px 2px 18px; scrollbar-width: thin; }
+.langs figure { margin: 0; display: grid; gap: 10px; justify-items: center; transition: transform .5s var(--ease); }
+.langs img { width: 100%; border-radius: 18px; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; box-shadow: 0 0 0 1px var(--ink-line), 0 18px 40px rgba(0, 0, 0, .35); transition: box-shadow .5s var(--ease); }
+.langs figcaption { font-weight: 800; font-size: var(--fs-0); color: var(--on-ink-2); transition: color .5s; }
+.langs figure.hot { transform: translateY(-8px); }
+.langs figure.hot img { box-shadow: 0 0 0 2px var(--brass), 0 24px 50px rgba(0, 0, 0, .45); }
+.langs figure.hot figcaption { color: var(--brass-2); }
+
+/* devices strip */
+.devices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: clamp(48px, 7vw, 80px); }
+.device { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; padding: 22px; border-radius: var(--r); background: var(--card); box-shadow: 0 1px 2px rgba(11, 22, 34, .05); }
+.device .ic { width: 28px; height: 28px; color: var(--teal); }
+.device b { display: block; font-family: var(--f-display); font-stretch: 110%; font-size: var(--fs-2); }
+.device p { color: var(--text-2); font-size: var(--fs-0); margin-top: 4px; }
+@media (max-width: 800px) { .devices { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- trailer ---------- */
+#film { position: relative; border-radius: var(--r-lg); overflow: hidden; background: #000; box-shadow: 0 40px 100px rgba(0, 0, 0, .5), 0 0 0 1px var(--ink-line); aspect-ratio: 16 / 9; }
+#film video { width: 100%; height: 100%; object-fit: cover; }
+#film .play { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(transparent 40%, rgba(0, 0, 0, .35)); border: 0; cursor: pointer; color: var(--brass-ink); }
+#film .play span { display: grid; place-items: center; width: clamp(72px, 10vw, 104px); aspect-ratio: 1; border-radius: 50%; background: linear-gradient(180deg, var(--brass-2), var(--brass)); box-shadow: 0 0 0 10px rgba(230, 205, 146, .18), 0 20px 50px rgba(0, 0, 0, .5); transition: transform .3s var(--ease), box-shadow .3s; }
+#film .play:hover span { transform: scale(1.07); box-shadow: 0 0 0 16px rgba(230, 205, 146, .14), 0 20px 50px rgba(0, 0, 0, .5); }
+#film .play .ic { width: 38%; height: 38%; fill: currentColor; margin-left: 6%; }
+#film.playing .play { display: none; }
+.film-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; margin-top: 18px; color: var(--on-ink-2); font-weight: 700; font-size: var(--fs-0); }
+
+/* ---------- ROI ---------- */
+#roi { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 28px; align-items: stretch; }
+.panel { padding: clamp(24px, 3vw, 36px); border-radius: var(--r-lg); background: var(--card); box-shadow: 0 1px 2px rgba(11, 22, 34, .05), 0 20px 60px rgba(11, 22, 34, .07); }
+.ctrl { display: grid; gap: 10px; }
+.ctrl + .ctrl { margin-top: 26px; }
+.ctrl label { display: flex; justify-content: space-between; gap: 12px; font-weight: 800; }
+.ctrl label output { font-family: var(--f-display); font-stretch: 110%; color: var(--teal); font-variant-numeric: tabular-nums; }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 28px; background: transparent; cursor: pointer; }
+input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 6px; background: var(--paper-2); }
+input[type=range]::-moz-range-track { height: 6px; border-radius: 6px; background: var(--paper-2); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; margin-top: -10px; border-radius: 50%; background: var(--card); border: 6px solid var(--teal); box-shadow: 0 4px 12px rgba(11, 22, 34, .2); }
+input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--card); border: 6px solid var(--teal); box-shadow: 0 4px 12px rgba(11, 22, 34, .2); }
+.ctrl small { color: var(--muted); font-weight: 600; }
+.result { background: var(--ink); color: var(--on-ink); display: grid; gap: 22px; align-content: start; position: relative; overflow: hidden; }
+.result::before { content: ""; position: absolute; inset: -40% -20% auto auto; width: 70%; aspect-ratio: 1; background: radial-gradient(circle, rgba(200, 164, 92, .18), transparent 65%); pointer-events: none; }
+.big { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.big b { font: 900 clamp(2.6rem, 6vw, 4.2rem)/1 var(--f-display); font-stretch: 118%; letter-spacing: -.03em; color: var(--brass-2); font-variant-numeric: tabular-nums; }
+.big span { color: var(--on-ink-2); font-weight: 700; }
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.kpi { padding: 14px; border-radius: var(--r); background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px var(--ink-line); }
+.kpi small { display: block; color: var(--on-ink-2); font-weight: 700; font-size: .75rem; }
+.kpi b { font: 800 1.35rem/1.2 var(--f-display); font-stretch: 110%; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) { .kpis { grid-template-columns: minmax(0, 1fr); } }
+.parts { display: grid; gap: 12px; }
+.part-l { display: flex; justify-content: space-between; gap: 12px; font-weight: 700; font-size: var(--fs-0); color: var(--on-ink-2); }
+.part-l span { color: var(--on-ink); font-variant-numeric: tabular-nums; }
+.bar { height: 8px; border-radius: 8px; background: rgba(255, 255, 255, .08); overflow: hidden; margin-top: 6px; }
+.bar i { display: block; height: 100%; width: var(--w, 0%); border-radius: 8px; background: linear-gradient(90deg, var(--brass), var(--brass-2)); transition: width .5s var(--ease); }
+.foot { color: var(--muted); font-size: .78rem; line-height: 1.5; margin-top: 18px; max-width: 110ch; }
+@media (max-width: 900px) { #roi { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- prices ---------- */
+.switch { display: inline-flex; padding: 5px; border-radius: 999px; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px var(--ink-line); }
+.switch button { min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; color: var(--on-ink-2); font: 800 var(--fs-0)/1 var(--f-text); cursor: pointer; }
+.switch button[aria-pressed=true] { background: var(--on-ink); color: var(--ink); }
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 34px; align-items: stretch; }
+.plan { position: relative; display: grid; grid-template-rows: auto auto auto 1fr; gap: 16px; padding: 30px 28px; border-radius: var(--r-lg); background: rgba(255, 255, 255, .04); box-shadow: inset 0 0 0 1px var(--ink-line); transition: transform .4s var(--ease), box-shadow .4s; }
+.plan:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px rgba(232, 238, 245, .22); }
+.plan.star { background: linear-gradient(180deg, rgba(200, 164, 92, .14), rgba(200, 164, 92, .03)); box-shadow: inset 0 0 0 1.5px var(--brass); }
+.plan .tag { position: absolute; top: -13px; left: 26px; padding: 5px 12px; border-radius: 999px; background: var(--brass); color: var(--brass-ink); font-weight: 800; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
+.plan h3 { font-size: var(--fs-0); text-transform: uppercase; letter-spacing: .16em; color: var(--on-ink-2); font-family: var(--f-text); }
+.price { display: flex; align-items: baseline; gap: 8px; }
+.price b { font: 900 3rem/1 var(--f-display); font-stretch: 115%; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+.price span { color: var(--on-ink-2); font-weight: 700; font-size: var(--fs-0); }
+.plan .yr { color: var(--brass-2); font-weight: 700; font-size: var(--fs-0); min-height: 1.6em; }
+.plan .ticks li { font-size: var(--fs-1); }
+.addon { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; gap: 18px; align-items: center; margin-top: 18px; padding: 22px 26px; border-radius: var(--r-lg); background: rgba(255, 255, 255, .03); box-shadow: inset 0 0 0 1px var(--ink-line); }
+.addon .ic { width: 30px; height: 30px; color: var(--brass-2); }
+.addon b { font-family: var(--f-display); font-stretch: 110%; font-size: var(--fs-2); }
+.addon p { color: var(--on-ink-2); font-size: var(--fs-0); }
+.addon .amt { font: 800 var(--fs-2)/1.2 var(--f-display); font-stretch: 110%; text-align: right; white-space: nowrap; }
+.legal-note { margin-top: 18px; color: var(--on-ink-2); font-size: .78rem; }
+@media (max-width: 900px) { .plans { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .addon { grid-template-columns: 36px minmax(0, 1fr); } .addon .amt { grid-column: 2; text-align: left; } }
+
+/* ---------- trust ---------- */
+.trust { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border-radius: var(--r-lg); overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+.trust > div { background: var(--card); padding: 28px; display: grid; gap: 10px; align-content: start; }
+.trust .ic { width: 28px; height: 28px; color: var(--teal); }
+.trust b { font-family: var(--f-display); font-stretch: 110%; font-size: var(--fs-2); line-height: 1.25; }
+.trust p { color: var(--text-2); font-size: var(--fs-1); }
+.trust .law { font: 700 .72rem/1.3 var(--f-text); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 900px) { .trust { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .trust { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- FAQ ---------- */
+.faq { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 80px); align-items: start; }
+.faq details { border-top: 1px solid var(--line); }
+.faq details:last-child { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; display: flex; justify-content: space-between; gap: 18px; padding: 22px 0; cursor: pointer; font: 800 var(--fs-2)/1.35 var(--f-text); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary .ic { color: var(--teal); transition: transform .35s var(--ease); margin-top: 2px; }
+.faq details[open] summary .ic { transform: rotate(45deg); }
+.faq details p { padding: 0 0 24px; color: var(--text-2); max-width: 64ch; }
+@media (max-width: 860px) { .faq { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- final CTA + footer ---------- */
+.final { position: relative; overflow: hidden; text-align: left; }
+.final .wrap { position: relative; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); gap: 40px; align-items: end; }
+.final h2 { font-size: clamp(2.2rem, 5vw, 4rem); }
+.final h2 em { font-style: normal; color: var(--brass-2); }
+.final .cta { display: grid; gap: 14px; justify-items: start; }
+.contact { display: grid; gap: 8px; color: var(--on-ink-2); font-weight: 700; }
+.contact div { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.contact code { font: 700 var(--fs-1) var(--f-text); color: var(--on-ink); user-select: all; }
+.copy-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .08); color: var(--on-ink-2); font: 700 .75rem var(--f-text); cursor: pointer; }
+.copy-btn[data-state=ok]::after { content: " kopiert"; color: var(--ok-2); }
+.copy-btn[data-state=sel]::after { content: " markiert"; color: var(--brass-2); }
+@media (max-width: 860px) { .final .wrap { grid-template-columns: minmax(0, 1fr); } }
+footer { background: #070e17; color: var(--on-ink-2); padding-block: 40px 48px; font-size: var(--fs-0); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 18px 40px; align-items: center; justify-content: space-between; }
+footer nav { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+footer a { text-decoration: none; font-weight: 700; }
+footer a:hover { color: var(--on-ink); }
+footer .note-line { flex-basis: 100%; color: #6f8196; }
+
+/* reveal: transform only, so nothing is ever hidden */
+.rv.pre { transform: translateY(36px); }
+.rv.pre.in { transform: none; transition: transform 1s var(--ease); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .phone .scr img[data-k="phone-2b-ok"] { opacity: 1; }
+  .ticker .row { width: auto; overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+<!--ICONS-->
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#start" aria-label="LADEKLAR Startseite"><!--MARK-->LADEKLAR</a>
+    <nav class="nav" aria-label="Hauptmenü">
+      <a href="#nutzen">Nutzen</a><a href="#ablauf">Ablauf</a><a href="#funktionen">Funktionen</a><a href="#preise">Preise</a><a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-gold" href="{{DEMO_URL}}" target="_blank" rel="noopener"><span>Live-Demo</span><svg class="ic go" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg></a>
+  </div>
+</header>
+
+<main id="start">
+<section class="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow rise">Fahrer-App und Live-Disposition · unter Ihrem Logo</p>
+      <h1 class="rise d1">Tippen statt <em>telefonieren.</em></h1>
+      <p class="lead rise d2">Ihre Fahrer bestätigen Auftrag, Beladung und Ablieferung mit einem Tipp und fotografieren den Lieferschein. Ihr Büro sieht jeden Schritt live und bekommt eine Push-Mitteilung. In 10 Minuten eingerichtet, ohne Hardware.</p>
+      <div class="cta rise d3">
+        <a class="btn btn-gold" href="{{DEMO_URL}}" target="_blank" rel="noopener">Live-Demo öffnen <svg class="ic go" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg></a>
+        <a class="btn btn-line" href="#trailer"><svg class="ic" viewBox="0 0 24 24"><use href="#i-play"/></svg> Trailer ansehen</a>
+      </div>
+      <div class="facts rise d4">
+        <span><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg>30 Tage kostenlos, ohne Zahlungsdaten</span>
+        <span><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg>Server in Deutschland</span>
+        <span><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg>Android, iPhone, Tablet, PC</span>
+      </div>
+    </div>
+    <div id="stage" data-taps='{{TAPS}}' aria-label="Animation: Der Fahrer tippt auf dem Handy, das Büro erhält die Mitteilung">
+      <div id="feed" aria-live="off">
+        <div class="note"><span class="ni"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg></span><div><small>KAYA Dispo · vor 4 Min.</small><b>Olena Kovalenko: Abgeladen</b><p>KAY-2610-0017 · Ulm → München</p></div></div>
+        <div class="note"><span class="ni"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg></span><div><small>KAYA Dispo · vor 9 Min.</small><b>Piotr Nowak hat bestätigt</b><p>KAY-2610-0018 · Mannheim → Nürnberg</p></div></div>
+      </div>
+      <div class="phone">
+        <div class="isl"></div>
+        <div class="scr">
+          <img data-k="phone-1-confirm" class="on" src="assets/phone/phone-1-confirm.webp" alt="Fahrer-App: Auftrag Stuttgart nach Hamburg mit großem Knopf Bestätigen" width="390" height="844">
+          <img data-k="phone-1b-ok" src="assets/phone/phone-1b-ok.webp" alt="" width="390" height="844" loading="lazy">
+          <img data-k="phone-2-loaded" src="assets/phone/phone-2-loaded.webp" alt="" width="390" height="844" loading="lazy">
+          <img data-k="phone-2b-ok" src="assets/phone/phone-2b-ok.webp" alt="" width="390" height="844" loading="lazy">
+          <img data-k="phone-3-unloaded" src="assets/phone/phone-3-unloaded.webp" alt="" width="390" height="844" loading="lazy">
+          <img data-k="phone-3b-ok" src="assets/phone/phone-3b-ok.webp" alt="" width="390" height="844" loading="lazy">
+          <img data-k="phone-4-podbutton" src="assets/phone/phone-4-podbutton.webp" alt="" width="390" height="844" loading="lazy">
+          <img data-k="phone-5-pod" src="assets/phone/phone-5-pod.webp" alt="" width="390" height="844" loading="lazy">
+          <img data-k="phone-6-delivered" src="assets/phone/phone-6-delivered.webp" alt="" width="390" height="844" loading="lazy">
+          <span class="tap"></span>
+        </div>
+      </div>
+      <div class="route-tag"><i></i>Stuttgart → Hamburg <span>· 655 km · S-KL 2041</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-label="Beispiel-Statusmeldungen">
+  <div class="row">
+    <!--TICKER-->
+  </div>
+</div>
+
+<section class="band" id="nutzen">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Was Ladeklar Ihnen abnimmt</p>
+      <h2>Sechs Dinge, die heute jeden Tag Zeit kosten.</h2>
+      <p class="lead">Wir haben den Alltag in kleinen und mittleren Transportbetrieben durchgespielt: Disposition, Fahrer, Buchhaltung. Das hier fällt weg oder wird einfacher.</p>
+    </div>
+    <div class="gains">
+      <div class="gain rv"><span class="gi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-phone"/></svg></span><div><p class="was">Heute: <s>„Wo bist du gerade?“ Zehn Anrufe pro Tour.</s></p><h3>Jeder Schritt kommt als Push ins Büro.</h3><p>Bestätigt, aufgeladen, abgeladen, zugestellt. Mit Uhrzeit und Fahrzeug, auf PC und Handy.</p></div></div>
+      <div class="gain rv"><span class="gi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-camera"/></svg></span><div><p class="was">Heute: <s>Lieferscheine kommen Tage später ins Büro.</s></p><h3>Lieferschein-Foto vor dem Abschluss.</h3><p>Der Abliefernachweis liegt am selben Tag als PDF vor. Die Rechnung kann sofort raus.</p></div></div>
+      <div class="gain rv"><span class="gi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-hourglass"/></svg></span><div><p class="was">Heute: <s>Standzeit an der Rampe lässt sich nicht belegen.</s></p><h3>Ankunft und Abfahrt mit Zeitstempel.</h3><p>Die Wartezeit steht im Nachweis. Standgeld fordern Sie mit Beleg ein.</p></div></div>
+      <div class="gain rv"><span class="gi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-languages"/></svg></span><div><p class="was">Heute: <s>Fahrer aus fünf Ländern, Anweisungen gehen verloren.</s></p><h3>Fahrer-App in 8 Sprachen.</h3><p>Große Knöpfe mit Symbolen, bedienbar mit Arbeitshandschuhen. Jeder Fahrer wählt seine Sprache.</p></div></div>
+      <div class="gain rv"><span class="gi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-wifi-off"/></svg></span><div><p class="was">Heute: <s>Funkloch, und die Meldung ist weg.</s></p><h3>Funktioniert auch ohne Netz.</h3><p>Die App speichert jeden Schritt und sendet ihn nach, sobald wieder Empfang da ist.</p></div></div>
+      <div class="gain rv"><span class="gi"><svg class="ic" viewBox="0 0 24 24"><use href="#i-shield-check"/></svg></span><div><p class="was">Heute: <s>Kundendaten in privaten WhatsApp-Gruppen.</s></p><h3>Alles an einem Ort, sauber getrennt.</h3><p>Jedes Unternehmen hat seinen eigenen Bereich. Server in Deutschland, Auftragsverarbeitung nach DSGVO.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band ink steps-band" id="ablauf">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Ablauf</p>
+      <h2>In drei Schritten startklar.</h2>
+      <p class="lead">Kein Installationstermin, keine Hardware im Lkw. Ihre Fahrer nutzen das Handy, das sie schon haben.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv"><span class="num">1</span><h3>Einrichten</h3><p>Logo hochladen, Fahrzeuge und Fahrer eintragen. Die Fahrer bekommen eine Einladung per QR-Code oder WhatsApp-Link und melden sich mit einer 6-stelligen PIN an.</p><span class="time"><svg class="ic" viewBox="0 0 24 24"><use href="#i-timer"/></svg>ca. 10 Minuten</span></div>
+      <div class="step rv"><span class="num">2</span><h3>Lieferung anlegen</h3><p>Route, Zeitfenster, Ladung und Fahrer. Die Buchungsnummer entsteht automatisch, wiederkehrende Touren legen Sie mit einem Klick erneut an.</p><span class="time"><svg class="ic" viewBox="0 0 24 24"><use href="#i-timer"/></svg>unter 1 Minute je Lieferung</span></div>
+      <div class="step rv"><span class="num">3</span><h3>Fahrer tippt, Büro sieht's</h3><p>Der Fahrer wählt seinen Lkw, bestätigt den Auftrag und tippt jeden Schritt. Sie sehen alles live, der Lieferschein liegt sofort im Archiv.</p><span class="time"><svg class="ic" viewBox="0 0 24 24"><use href="#i-timer"/></svg>1 Tipp je Schritt</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="funktionen">
+  <div class="wrap">
+    <div class="feature">
+      <div class="text rv">
+        <p class="eyebrow">Für Fahrer</p>
+        <h2>Ein Knopf pro Schritt. Mehr nicht.</h2>
+        <p class="lead">Nach der Anmeldung sieht der Fahrer nur das, was sein Unternehmen für ihn angelegt hat: seinen Lkw aus dem Fuhrpark und seine Aufträge.</p>
+        <ul class="ticks">
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Lkw und Auflieger aus dem Fuhrpark wählen</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Auftrag bestätigen, aufgeladen, abgeladen: je ein Tipp</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Lieferschein fotografieren, Unterschrift auf dem Display</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Notizen und Probleme mit Vorlagen: Rampe belegt, Stau, Schaden</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Zwei Minuten lang rückgängig machen, falls daneben getippt</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Fahrsperre: während der Fahrt bleibt der Bildschirm gesperrt</span></li>
+        </ul>
+      </div>
+      <div class="fan rv" aria-label="Drei Bildschirme der Fahrer-App">
+        <div class="ph"><img src="assets/screens/fahrer-03-lkw-waehlen.webp" alt="Lkw aus dem Fuhrpark wählen" width="390" height="844" loading="lazy"></div>
+        <div class="ph"><img src="assets/screens/fahrer-04-auftrag-bestaetigen.webp" alt="Auftrag mit einem Tipp bestätigen" width="390" height="844" loading="lazy"></div>
+        <div class="ph"><img src="assets/screens/fahrer-11-lieferschein-unterschrift.webp" alt="Lieferschein-Foto und Unterschrift des Empfängers" width="390" height="844" loading="lazy"></div>
+      </div>
+    </div>
+
+    <div class="feature flip">
+      <div class="text rv">
+        <p class="eyebrow">Für das Büro</p>
+        <h2>Alle Touren live auf einem Bildschirm.</h2>
+        <p class="lead">Buchungsnummer, Fahrer, Fahrzeug, Route und Status: auf einen Blick. Probleme stehen oben, damit Sie sofort reagieren.</p>
+        <ul class="ticks">
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Live-Übersicht mit Push-Mitteilung auf PC und Handy</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Offene Lieferungen anlegen, die sich Fahrer selbst nehmen</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Verlauf mit Suche: heute, gestern, letztes Jahr</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Berichte je Fahrer, Kunde und Strecke, Export als CSV</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>HU- und SP-Fristen je Fahrzeug im Blick</span></li>
+        </ul>
+      </div>
+      <div class="laptop rv">
+        <div class="lid"><img src="assets/screens/office-live.webp" alt="Live-Übersicht der Disposition mit aktiven Touren" width="1440" height="900" loading="lazy"></div>
+        <div class="base"></div>
+        <div class="pop note"><span class="ni"><svg class="ic" viewBox="0 0 24 24"><use href="#i-bell"/></svg></span><div><small>KAYA Dispo · jetzt</small><b>Problem: Rampe belegt</b><p>Andrei Popescu · KAY-2610-0021 · Köln</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band ink">
+  <div class="wrap">
+    <div class="feature">
+      <div class="text rv">
+        <p class="eyebrow">Abliefernachweis</p>
+        <h2>Der Beleg ist fertig, bevor der Lkw vom Hof rollt.</h2>
+        <p class="lead">Foto des Lieferscheins, Unterschrift des Empfängers, Zeitstempel und auf Wunsch der Standort beim Statuswechsel. Als PDF für Ihren Kunden und Ihre Buchhaltung.</p>
+        <ul class="ticks">
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Standzeit an Lade- und Entladestelle automatisch berechnet</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Palettentausch erfassen: gegeben, erhalten, offen</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Archiv mit einstellbarer Aufbewahrungsfrist</span></li>
+        </ul>
+      </div>
+      <div class="proof rv">
+        <div class="sheet"><img src="assets/screens/office-proof.webp" alt="Abliefernachweis mit Lieferschein-Foto, Unterschrift und Zeitstempeln" width="828" height="916" loading="lazy"></div>
+        <div class="stamp"><small>Standzeit Hamburg</small><b>0:47 h belegt</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="marke">
+  <div class="wrap">
+    <div class="feature">
+      <div class="text rv">
+        <p class="eyebrow">White-Label</p>
+        <h2>Ihre Marke. Nicht unsere.</h2>
+        <p class="lead">Ihre Fahrer sehen Ihr Logo, Ihre Farbe und Ihren App-Namen, auch in jeder Push-Mitteilung. Der Name Ladeklar tritt in den Hintergrund.</p>
+        <ul class="ticks">
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Logo und Farbe in zwei Minuten hinterlegt</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Eigene Adresse, z. B. kaya.ladeklar.de oder fahrer.ihre-firma.de</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Auf Wunsch eigene App im App Store und bei Google Play</span></li>
+        </ul>
+      </div>
+      <div class="brands rv">
+        <figure><div class="ph"><img src="assets/screens/login-kaya.webp" alt="Anmeldung im Design von Kaya Logistik" width="390" height="844" loading="lazy"></div><figcaption>Kaya Logistik, Stuttgart</figcaption></figure>
+        <figure><div class="ph"><img src="assets/screens/login-nord.webp" alt="Anmeldung im Design von Nordlicht Spedition" width="390" height="844" loading="lazy"></div><figcaption>Nordlicht Spedition, Hamburg</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band ink" id="sprachen">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">8 Sprachen</p>
+      <h2 class="lang-head">Ein Knopf heißt <span id="word" aria-live="off"><span class="on">Aufgeladen</span><span>Załadowane</span><span>Încărcat</span><span>Naloženo</span><span>Yüklendi</span><span>Загружено</span><span>Завантажено</span><span>Loaded</span></span></h2>
+      <p class="lead">Deutsch, Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch und Englisch. Das Büro arbeitet auf Deutsch, der Fahrer in seiner Sprache. Notiz-Vorlagen werden übersetzt angezeigt.</p>
+    </div>
+    <div class="langs rv">
+      <!--LANGS-->
+    </div>
+  </div>
+</section>
+
+<section class="band ink" id="trailer" style="padding-top: 0">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Trailer</p>
+      <h2>Ein Tag in der Disposition. Mit und ohne Ladeklar.</h2>
+    </div>
+    <div id="film" class="rv">
+      <video preload="none" playsinline poster="assets/trailer-poster.jpg" aria-label="Ladeklar Trailer">
+        <source src="assets/trailer.mp4" type="video/mp4">
+      </video>
+      <button class="play" type="button" aria-label="Trailer abspielen"><span><svg class="ic" viewBox="0 0 24 24"><use href="#i-play"/></svg></span></button>
+    </div>
+    <div class="film-meta"><span>{{TRAILER_LEN}} · mit Ton</span><span>Alle Bildschirme stammen aus der echten App.</span></div>
+  </div>
+</section>
+
+<section class="band" id="rechner">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Rechner</p>
+      <h2>Was bringt das Ihrem Betrieb?</h2>
+      <p class="lead">Schieben Sie die Regler auf Ihre Zahlen. Die Annahmen stehen unter dem Rechner.</p>
+    </div>
+    <div id="roi">
+      <div class="panel">
+        <div class="ctrl"><label for="roi-n">Fahrer <output id="roi-n-v">10</output></label><input id="roi-n" type="range" min="1" max="60" step="1" value="10"><small>Annahme: ein Lkw je Fahrer</small></div>
+        <div class="ctrl"><label for="roi-d">Lieferungen je Fahrer und Tag <output id="roi-d-v">2</output></label><input id="roi-d" type="range" min="1" max="8" step="1" value="2"><small>21 Arbeitstage im Monat</small></div>
+        <div class="ctrl"><label for="roi-r">Stundensatz Disposition <output id="roi-r-v">26 €</output></label><input id="roi-r" type="range" min="18" max="45" step="1" value="26"><small>Arbeitgeberkosten je Stunde</small></div>
+      </div>
+      <div class="panel result" aria-live="polite">
+        <div>
+          <p class="eyebrow">Nutzen je Monat</p>
+          <div class="big"><b data-o="total">1.244 €</b><span>bei <span data-o="deliveries">420</span> Lieferungen</span></div>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><small>weniger Telefon</small><b><span data-o="hours">25</span> Std.</b></div>
+          <div class="kpi"><small>Tarif <span data-o="plan">Flotte</span></small><b data-o="price">129 €</b></div>
+          <div class="kpi"><small>Nutzen zu Kosten</small><b data-o="ratio">9,6 : 1</b></div>
+        </div>
+        <div class="parts">
+          <div><div class="part-l">Weniger Statusanrufe <span>655 €</span></div><div class="bar"><i data-b="calls"></i></div></div>
+          <div><div class="part-l">Standgeld mit Beleg <span>400 €</span></div><div class="bar"><i data-b="wait"></i></div></div>
+          <div><div class="part-l">Rechnung 4 Tage früher (Zinsvorteil) <span>107 €</span></div><div class="bar"><i data-b="cash"></i></div></div>
+          <div><div class="part-l">Keine Suche nach Lieferscheinen <span>82 €</span></div><div class="bar"><i data-b="search"></i></div></div>
+        </div>
+      </div>
+    </div>
+    <p class="foot">Annahmen: 2 Statusanrufe à 3 Minuten je Lieferung, davon 60 % ersetzt · bei 3 % der Lieferungen 15 Minuten Suche nach dem Lieferschein · Umsatz 10.700 € je Lkw und Monat, Rechnung 4 Tage früher, Zinssatz 9 % p. a. · 2 Standzeitfälle je Lkw und Monat à 1 Stunde, Standgeld 40 € je Stunde, in der Hälfte der Fälle durchsetzbar. Beispielrechnung, Ihr Ergebnis kann abweichen. Preise netto zzgl. 19 % USt.</p>
+  </div>
+</section>
+
+<section class="band ink" id="preise">
+  <div class="wrap">
+    <div class="head rv" style="margin-bottom: 0">
+      <p class="eyebrow">Preise</p>
+      <h2>Ein Preis pro Betrieb. Keine Kosten je Lieferung.</h2>
+      <p class="lead">Alle Tarife enthalten unbegrenzt viele Lieferungen, Push-Mitteilungen, 8 Sprachen, Offline-Betrieb und Ihr eigenes Logo. 30 Tage kostenlos testen.</p>
+      <div><div class="switch" id="billing" role="group" aria-label="Zahlweise"><button type="button" data-v="m" aria-pressed="true">Monatlich</button><button type="button" data-v="y" aria-pressed="false">Jährlich · 2 Monate geschenkt</button></div></div>
+    </div>
+    <div class="plans">
+      <div class="plan rv"><h3>Start</h3><div class="price"><b data-m="49">49 €</b><span>je Monat</span></div><p class="yr" data-y="49">monatlich kündbar zum Monatsende</p>
+        <ul class="ticks"><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>3 Fahrer</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>6 Fahrzeuge, 1 Disponent</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>5 GB Lieferschein-Archiv</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Basis-Berichte</span></li></ul></div>
+      <div class="plan star rv"><span class="tag">Empfohlen ab 4 Fahrern</span><h3>Flotte</h3><div class="price"><b data-m="129">129 €</b><span>je Monat</span></div><p class="yr" data-y="129">monatlich kündbar zum Monatsende</p>
+        <ul class="ticks"><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>15 Fahrer, jeder weitere 7 €</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>40 Fahrzeuge, 5 Disponenten</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>50 GB Lieferschein-Archiv</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Berichte und CSV-Export</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Eigene Subdomain</span></li></ul></div>
+      <div class="plan rv"><h3>Premium</h3><div class="price"><b data-m="299">299 €</b><span>je Monat</span></div><p class="yr" data-y="299">monatlich kündbar zum Monatsende</p>
+        <ul class="ticks"><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>40 Fahrer, jeder weitere 6 €</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Fahrzeuge und Disponenten unbegrenzt</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>250 GB Lieferschein-Archiv</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Eigene Domain, REST-API</span></li><li><svg class="ic" viewBox="0 0 24 24"><use href="#i-check"/></svg><span>Prioritäts-Support, SLA 99,5 %</span></li></ul></div>
+    </div>
+    <div class="addon rv"><svg class="ic" viewBox="0 0 24 24"><use href="#i-store"/></svg><div><b>Eigene App im App Store und bei Google Play</b><p>Zusatz zum Premium-Tarif: Ihre App mit Ihrem Namen und Symbol, veröffentlicht in Ihrem Entwicklerkonto.</p></div><div class="amt">1.990 € einmalig<br><span style="color: var(--on-ink-2); font-size: .85em">+ 99 € je Monat</span></div></div>
+    <p class="legal-note">Alle Preise netto zzgl. 19 % USt. Angebot nur für Unternehmer im Sinne von § 14 BGB. Jahreszahlung: 12 Monate Laufzeit, zahlen Sie 10.</p>
+  </div>
+</section>
+
+<section class="band" id="recht">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Für den deutschen Markt</p>
+      <h2>Datenschutz und Recht sind eingebaut.</h2>
+      <p class="lead">Fahrer sind Beschäftigte, Lieferscheine enthalten Kundendaten. Ladeklar ist darauf ausgelegt und bringt die nötigen Unterlagen mit.</p>
+    </div>
+    <div class="trust rv">
+      <div><svg class="ic" viewBox="0 0 24 24"><use href="#i-map-pin"/></svg><span class="law">Art. 28 DSGVO</span><b>Server in Deutschland, AVV inklusive</b><p>Der Vertrag zur Auftragsverarbeitung wird bei der Registrierung elektronisch geschlossen.</p></div>
+      <div><svg class="ic" viewBox="0 0 24 24"><use href="#i-eye"/></svg><span class="law">§ 26 BDSG · Art. 88 DSGVO</span><b>Keine Dauerortung</b><p>Standort nur beim Statuswechsel, nur wenn Sie es einschalten und der Fahrer zustimmt. Nach 90 Tagen gelöscht.</p></div>
+      <div><svg class="ic" viewBox="0 0 24 24"><use href="#i-handshake"/></svg><span class="law">§ 87 Abs. 1 Nr. 6 BetrVG</span><b>Muster-Betriebsvereinbarung</b><p>Für Betriebe mit Betriebsrat liegt ein Muster bei, abgestimmt auf die Funktionen der App.</p></div>
+      <div><svg class="ic" viewBox="0 0 24 24"><use href="#i-download"/></svg><span class="law">Data Act · Art. 20 DSGVO</span><b>Ihre Daten gehören Ihnen</b><p>Export aller Lieferungen, Fahrer und Lieferscheine jederzeit als CSV, JSON und PDF.</p></div>
+      <div><svg class="ic" viewBox="0 0 24 24"><use href="#i-lock"/></svg><span class="law">Art. 32 DSGVO</span><b>Sicher nach Stand der Technik</b><p>Verschlüsselte Verbindung, getrennte Mandanten, Protokoll jeder Änderung, tägliche Sicherung.</p></div>
+      <div><svg class="ic" viewBox="0 0 24 24"><use href="#i-traffic-cone"/></svg><span class="law">§ 23 StVO</span><b>Bedienung nur im Stand</b><p>Die Fahrsperre sperrt die Knöpfe, solange das Fahrzeug fährt. Nutzungsregeln für Fahrer liegen bei.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="faq" style="padding-top: 0">
+  <div class="wrap faq">
+    <div class="head rv"><p class="eyebrow">Fragen</p><h2>Häufige Fragen</h2><p class="lead">Ihre Frage ist nicht dabei? Schreiben Sie uns, wir zeigen Ihnen Ladeklar gern in 15 Minuten am Telefon.</p></div>
+    <div>
+      <details open><summary>Brauchen meine Fahrer ein neues Handy?<svg class="ic" viewBox="0 0 24 24"><use href="#i-plus"/></svg></summary><p>Nein. Ladeklar läuft im Browser jedes aktuellen Smartphones und lässt sich wie eine App auf dem Startbildschirm ablegen. Push-Mitteilungen funktionieren auf Android und auf dem iPhone ab iOS 16.4.</p></details>
+      <details><summary>Was passiert im Funkloch?<svg class="ic" viewBox="0 0 24 24"><use href="#i-plus"/></svg></summary><p>Der Fahrer tippt wie gewohnt. Die App speichert jeden Schritt samt Lieferschein-Foto auf dem Gerät und sendet ihn automatisch, sobald wieder Empfang da ist. Die Uhrzeit bleibt die des Tippens.</p></details>
+      <details><summary>Können Subunternehmer mitfahren?<svg class="ic" viewBox="0 0 24 24"><use href="#i-plus"/></svg></summary><p>Ja. Sie legen Subunternehmer-Fahrer wie eigene Fahrer an. Jeder Fahrer sieht nur seine eigenen Aufträge und die offenen Lieferungen, die Sie freigeben.</p></details>
+      <details><summary>Wird der Fahrer überwacht?<svg class="ic" viewBox="0 0 24 24"><use href="#i-plus"/></svg></summary><p>Nein. Es gibt keine Dauerortung. Der Standort wird höchstens beim Statuswechsel gespeichert, wenn Sie das einschalten und der Fahrer zustimmt. Berichte je Fahrer lassen sich abschalten.</p></details>
+      <details><summary>Wie schnell sind wir startklar?<svg class="ic" viewBox="0 0 24 24"><use href="#i-plus"/></svg></summary><p>Logo, Fahrzeuge und Fahrer sind in etwa 10 Minuten eingetragen. Die Fahrer melden sich per QR-Code oder Link mit einer 6-stelligen PIN an.</p></details>
+      <details><summary>Wie kann ich kündigen?<svg class="ic" viewBox="0 0 24 24"><use href="#i-plus"/></svg></summary><p>Bei monatlicher Zahlung zum Ende jedes Monats. Bei Jahreszahlung zum Ende der Laufzeit. Ihre Daten können Sie jederzeit vollständig exportieren.</p></details>
+      <details><summary>Gibt es eine Schnittstelle zu unserer Software?<svg class="ic" viewBox="0 0 24 24"><use href="#i-plus"/></svg></summary><p>Im Premium-Tarif gibt es eine REST-API mit API-Schlüssel, um Lieferungen anzulegen und Status abzurufen. In allen anderen Tarifen exportieren Sie als CSV.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band ink final">
+  <div class="wrap">
+    <div class="rv"><h2>30 Tage testen. Mit Ihren Fahrern, <em>unter Ihrem Logo.</em></h2></div>
+    <div class="cta rv">
+      <a class="btn btn-gold" href="{{DEMO_URL}}" target="_blank" rel="noopener">Live-Demo öffnen <svg class="ic go" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg></a>
+      <div class="contact">
+        <div><svg class="ic" viewBox="0 0 24 24"><use href="#i-mail"/></svg><code>{{EMAIL}}</code><button class="copy-btn" type="button" data-copy="{{EMAIL}}"><svg class="ic" viewBox="0 0 24 24"><use href="#i-copy"/></svg>Kopieren</button></div>
+        <div><svg class="ic" viewBox="0 0 24 24"><use href="#i-phone"/></svg><code>{{TELEFON}}</code></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#start"><!--MARK-->LADEKLAR</a>
+    <nav aria-label="Rechtliches">
+      <a href="recht/impressum.html">Impressum</a>
+      <a href="recht/datenschutz.html">Datenschutz</a>
+      <a href="recht/agb.html">AGB</a>
+      <a href="recht/speicher.html">Cookies und Speicher</a>
+    </nav>
+    <p class="note-line">© 2026 {{FIRMA}} · Ein Tipp. Alles klar. · Diese Website setzt keine Cookies und lädt nichts von fremden Servern.</p>
+  </div>
+</footer>
+<!--SCRIPT-->
+</body>
+</html>

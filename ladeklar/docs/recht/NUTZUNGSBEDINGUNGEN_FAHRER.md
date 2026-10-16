@@ -5,7 +5,7 @@
 
 Herausgeber: [Firma des Kunden] · Stand: [Datum]
 
-Diese Regeln gelten für alle, die für [Firma des Kunden] mit der App [App-Name] Lieferungen melden – angestellte Fahrer, Aushilfen und Fahrer von Subunternehmern. Die App gibt es in sieben Sprachen; diese Regeln erhalten Sie in [Deutsch und der Sprache Ihrer App].
+Diese Regeln gelten für alle, die für [Firma des Kunden] mit der App [App-Name] Lieferungen melden – angestellte Fahrer, Aushilfen und Fahrer von Subunternehmern. Die App gibt es in acht Sprachen; diese Regeln erhalten Sie in [Deutsch und der Sprache Ihrer App].
 
 ---
 

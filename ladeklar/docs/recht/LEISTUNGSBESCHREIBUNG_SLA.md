@@ -98,9 +98,9 @@ Disponenten haben keinen Zugriff auf Branding, Abonnement, Team-Admins, Datenexp
 
 > **Prüfhinweis (Technik):** Ziffer (2) und der Hinweis vor dem Abmelden sind als Anforderungen formuliert und vor Veröffentlichung mit der Umsetzung abzugleichen. Doppelte Zeitstempel erhöhen die Nachvollziehbarkeit (Integrität) der Abliefernachweise.
 
-### 2.7 Sprachen
+### 2.8 Sprachen
 
-Die Fahrer-App ist in sieben Sprachen verfügbar: Deutsch, Englisch, Polnisch, Rumänisch, Türkisch, Russisch und Ukrainisch. Die Oberfläche nutzt zusätzlich Symbole. Disposition und Administration sind in [Deutsch und Englisch] verfügbar.
+Die Fahrer-App ist in acht Sprachen verfügbar: Deutsch, Englisch, Polnisch, Rumänisch, Türkisch, Russisch und Ukrainisch. Die Oberfläche nutzt zusätzlich Symbole. Disposition und Administration sind in [Deutsch und Englisch] verfügbar.
 
 ### 2.8 Standortfunktionen
 

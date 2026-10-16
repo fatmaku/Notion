@@ -38,7 +38,7 @@ Beispielrechnung im Businessplan, mit Fußnote.
 | 9 | 0:34–0:38 | Lkw an der Rampe, Paletten rollen hinein. Neuer Knopf mit Icon „Paket nach oben“. Tipp. | Aufgeladen. | Tempo | Klick auf den Beat |
 | 10 | 0:38–0:43 | Entladung beim Kunden, Knopf „Abgeladen“, dann Kamera: Lieferschein wird fotografiert, Blitz, Foto fliegt als kleines Bild nach oben aus dem Handy. | Abgeladen. Lieferschein fotografiert. | Zufriedenheit | Kamera-Auslöser |
 | 11 | 0:43–0:48 | Schnitt ins Büro: Laptop mit Live-Board. Push-Mitteilung gleitet ein, Fortschrittsbalken füllt sich, Kachel „Heute zugestellt“ zählt hoch. Die Disponentin lehnt sich zurück. | Das Büro sieht es. Sofort. | Kontrolle, Ruhe | Push-Ton, Musik öffnet sich |
-| 12 | 0:48–0:52 | Der Knopf auf dem Handy wechselt die Sprache: DE → PL → RO → TR → RU → UK → EN; das Icon bleibt gleich. Kleines Schild-Icon mit Häkchen. | 7 Sprachen. Keine Dauerortung. | Vertrauen | Klick je Sprachwechsel |
+| 12 | 0:48–0:52 | Der Knopf auf dem Handy wechselt die Sprache: DE → PL → RO → CS → TR → RU → UK → EN; das Icon bleibt gleich. Kleines Schild-Icon mit Häkchen. | 8 Sprachen. Keine Dauerortung. | Vertrauen | Klick je Sprachwechsel |
 | 13 | 0:52–0:57 | Abendlicht. Die Disponentin klappt den Laptop zu. Auf dem Bildschirm vorher: Abliefernachweis-PDF „gesendet“, Rechnung mit Stempel „RAUS“. | 17:00 Uhr. Alles erledigt. Rechnung raus. | Feierabend-Gefühl | warmer Akkord |
 | 14 | 0:57–1:03 | Drei Zahlen zählen nacheinander hoch, je mit Icon (Telefonhörer, Dokument, Uhr). Fußnote unten klein. | 25 Stunden weniger Telefon im Monat* / Rechnung am selben Tag / Standzeit belegt. Standgeld gesichert. | Stolz | drei Beats |
 | 15 | 1:03–1:07 | Das App-Icon auf einem Home-Bildschirm wechselt das Logo: Ladeklar → „Kaya Transporte“ → ein weiteres Beispiellogo; Login-Seite färbt sich in die Kundenfarbe. | Ihr Logo. Ihre App. | Stolz, Zugehörigkeit | sanfter Swoosh |
@@ -65,7 +65,7 @@ Erste Sekunde muss ohne Ton funktionieren.
 | 4 | 0:09–0:11 | Weiß, Logo baut sich aus Häkchen auf | Ladeklar. | Erleichterung |
 | 5 | 0:11–0:17 | Daumen tippt im Takt: Bestätigen, Aufgeladen, Abgeladen, Foto | Ein Tipp. Alles klar. | Klarheit |
 | 6 | 0:17–0:21 | Live-Board, Push gleitet ein | Das Büro sieht's live. | Ruhe |
-| 7 | 0:21–0:24 | Knopf wechselt Sprache, App-Icon wechselt Logo | 7 Sprachen. Ihr Logo. | Vertrauen |
+| 7 | 0:21–0:24 | Knopf wechselt Sprache, App-Icon wechselt Logo | 8 Sprachen. Ihr Logo. | Vertrauen |
 | 8 | 0:24–0:27 | Rechnung mit Stempel „RAUS“ | Rechnung am selben Tag. | Zufriedenheit |
 | 9 | 0:27–0:30 | Endkarte mit QR | 30 Tage kostenlos testen. | Zuversicht |
 

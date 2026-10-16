@@ -128,7 +128,7 @@ Im Sinne dieser AGB bedeuten:
 | Fahrzeuge (LKW und Auflieger) | 6 | 40 | unbegrenzt |
 | Disponenten-Zugänge | 1 | 5 | unbegrenzt |
 | eigenes Logo, Farben, App-Name | ja | ja | ja |
-| Lieferungen, Push-Benachrichtigungen, 7 Sprachen, Offline-Funktion | ja, unbegrenzt | ja, unbegrenzt | ja, unbegrenzt |
+| Lieferungen, Push-Benachrichtigungen, 8 Sprachen, Offline-Funktion | ja, unbegrenzt | ja, unbegrenzt | ja, unbegrenzt |
 | Lieferschein-Speicher | 5 GB | 50 GB | 250 GB |
 | Berichte und CSV-Export | Basis | voll | voll |
 | eigene Subdomain / eigene Domain | – | Subdomain | eigene Domain |

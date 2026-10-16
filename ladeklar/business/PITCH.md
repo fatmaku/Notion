@@ -15,7 +15,7 @@ der App, keine Stockfotos von Lkw-Kolonnen.
 
 - White-Label-App für Speditionen und Transportunternehmen
 - Fahrer tippen statt telefonieren, die Disposition sieht jede Tour live
-- In 10 Minuten startklar, ohne Hardware, in 7 Sprachen
+- In 10 Minuten startklar, ohne Hardware, in 8 Sprachen
 
 **Große Kennzahl:** –
 
@@ -61,7 +61,7 @@ Quellen: Telematik [Q29], Disponenten [Q28], Fahrer [Q18]; Geschichte und Beispi
 - Jeder Schritt erzeugt eine Push-Mitteilung und einen Zeitstempel im Büro
 - Lieferschein-Foto vor Abschluss, Abliefernachweis als PDF am selben Tag
 - Standzeit an der Rampe wird gemessen – Beleg für Standgeld
-- Eigenes Logo, 7 Sprachen, keine Dauerortung
+- Eigenes Logo, 8 Sprachen, keine Dauerortung
 
 **Große Kennzahl:** **1 Knopf**
 
@@ -71,7 +71,7 @@ Bestätigen, Aufgeladen, Abgeladen, Lieferschein fotografieren. Jeder Tipp lande
 Disposition, mit Uhrzeit. Bevor eine Tour abgeschlossen werden kann, braucht es ein Foto vom Lieferschein. Damit
 geht der Abliefernachweis noch am selben Tag an den Kunden und an die Buchhaltung. Wenn der Fahrer an der Rampe
 ankommt, tippt er „Angekommen“ – so entsteht ein Beleg für die Wartezeit, und Standgeld wird durchsetzbar. Die App
-läuft in sieben Sprachen und funktioniert auch im Funkloch. Und ganz wichtig für Betriebsräte: Ladeklar ortet nicht
+läuft in acht Sprachen und funktioniert auch im Funkloch. Und ganz wichtig für Betriebsräte: Ladeklar ortet nicht
 dauerhaft. Ein Standort wird nur im Moment eines Statuswechsels gespeichert, und nur, wenn der Betrieb das einschaltet.
 
 ---
@@ -180,7 +180,7 @@ Deckungsbeitrag. Ab 2028 vertreiben auch Partner gegen 25 Prozent Provision.
 - Telematik (Webfleet, YellowFox, Fleetboard): Hardware, 15–35 € je Fahrzeug, 24–36 Monate Laufzeit [Q51]
 - TMS (CarLo, WinSped): Projekt, Preise auf Anfrage [Q58][Q59]
 - App-Tools (LOGISTIQO, SPEDION-App, Couplink): nah dran, aber ohne White-Label und ohne beworbene Mehrsprachigkeit
-- Ladeklar: 10 Minuten, keine Hardware, eigene Marke, 7 Sprachen, keine Dauerortung
+- Ladeklar: 10 Minuten, keine Hardware, eigene Marke, 8 Sprachen, keine Dauerortung
 
 **Große Kennzahl:** **129 €** im Monat für 10 Fahrer – ohne Hardware und Einbau
 
@@ -191,7 +191,7 @@ YellowFox lösen Ortung und Lenkzeiten, brauchen aber meist eine Box im Fahrzeug
 Euro und binden zwei bis drei Jahre. Speditionssoftware wie CarLo oder WinSped ist ein Projekt für den
 Mittelstand. Am nächsten sind uns App-Tools wie LOGISTIQO oder die Apps von SPEDION und Couplink. Unser
 Unterschied: Wir sind in zehn Minuten startklar, ohne Hardware, wir erscheinen unter der Marke des Kunden, wir
-führen Fahrer in sieben Sprachen über Icons, und wir orten nicht dauerhaft. Für einen Betrieb mit zehn Fahrern
+führen Fahrer in acht Sprachen über Icons, und wir orten nicht dauerhaft. Für einen Betrieb mit zehn Fahrern
 kostet das 129 Euro im Monat. Was wir von den Wettbewerbern lernen, haben wir in die Roadmap übernommen:
 Mehrstopp-Touren, Saisonpause und Schnittstellen zur vorhandenen Telematik.
 
@@ -201,7 +201,7 @@ Mehrstopp-Touren, Saisonpause und Schnittstellen zur vorhandenen Telematik.
 
 **Überschrift:** Produkt fertig, Pilot startet im November
 
-- v1.0 fertig: Lizenzkonsole, White-Label, Disposition, Fahrer-App, Push, Offline, 7 Sprachen, Rechtsvorlagen
+- v1.0 fertig: Lizenzkonsole, White-Label, Disposition, Fahrer-App, Push, Offline, 8 Sprachen, Rechtsvorlagen
 - Online-Demo mit Live-Sync zwischen Handy und PC
 - Pilot November/Dezember 2026: 5 Betriebe mit 4–15 Lkw (Stückgut, Baustoff)
 - Messgrößen: ≥ 80 % Fahrer aktiv in Woche 1, ≥ 90 % Lieferungen mit Foto, Telefonate −50 % (Strichliste)
@@ -211,7 +211,7 @@ Mehrstopp-Touren, Saisonpause und Schnittstellen zur vorhandenen Telematik.
 
 **Sprechertext (ca. 70 Sek.):**
 Ich will ehrlich sein: Wir haben noch keinen Umsatz. Was wir haben, ist ein fertiges Produkt. Version 1.0 läuft –
-mit Lizenzkonsole, White-Label, Disposition, Fahrer-App, Push-Mitteilungen, Offline-Betrieb und sieben Sprachen.
+mit Lizenzkonsole, White-Label, Disposition, Fahrer-App, Push-Mitteilungen, Offline-Betrieb und acht Sprachen.
 Die Rechtsvorlagen von AGB bis Muster-Betriebsvereinbarung liegen vor. Im November und Dezember starten wir mit
 fünf Pilotbetrieben mit vier bis fünfzehn Lkw, aus Stückgut und Baustofflogistik. Wir messen drei Dinge: Nutzen
 mindestens 80 Prozent der Fahrer die App in der ersten Woche? Haben mindestens 90 Prozent der Lieferungen ein

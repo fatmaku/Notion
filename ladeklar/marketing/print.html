@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Ladeklar – Druckvorlagen</title>
+<!-- Print layouts with 3 mm bleed: ?doc=flyer (A4, 2 pages) or ?doc=postcard (A6, 2 pages).
+     Trim size A4 210×297 → page 216×303 mm; A6 105×148 → 111×154 mm. Keep text ≥ 6 mm inside the trim. -->
+<link rel="stylesheet" href="/web/css/fonts.css">
+<style>
+  :root { --ink: #0b1622; --ink2: #13233a; --brass: #c8a45c; --brass2: #e6cd92; --paper: #f4f6f8; --text: #18222e; --muted: #5d6c7d; --teal: #0e7c7b; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Manrope, sans-serif; color: var(--text); }
+  .page { position: relative; overflow: hidden; break-after: page; background: #fff; }
+  .A4 { width: 216mm; height: 303mm; }
+  .A6 { width: 111mm; height: 154mm; }
+  .safe { position: absolute; inset: 9mm; } /* 3 mm bleed + 6 mm margin */
+  .A6 .safe { inset: 8mm; }
+  .disp { font-family: Archivo, Manrope, sans-serif; font-stretch: 112%; font-weight: 850; letter-spacing: -.02em; }
+  .ic { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ink { background: var(--ink); color: #fff; }
+  canvas.net { position: absolute; }
+  .wm { display: flex; align-items: center; gap: 2.4mm; font: 850 11pt Archivo; font-stretch: 125%; letter-spacing: .16em; }
+  .wm svg { width: 8mm; height: 8mm; }
+  /* front */
+  .hero { position: absolute; left: 0; right: 0; top: 0; height: 178mm; overflow: hidden; background: radial-gradient(90% 70% at 90% 0%, rgba(200,164,92,.32), transparent 60%), radial-gradient(70% 60% at 0% 100%, rgba(14,124,123,.35), transparent 60%), var(--ink); color: #fff; }
+  .hero h1 { position: absolute; left: 12mm; top: 30mm; font-size: 40pt; line-height: .98; width: 120mm; }
+  .hero h1 em { font-style: normal; color: var(--brass2); }
+  .hero .sub { position: absolute; left: 12mm; top: 79mm; width: 92mm; font-size: 11.5pt; line-height: 1.45; color: #c7d2de; font-weight: 600; }
+  .stoerer { position: absolute; right: 13mm; top: 14mm; width: 34mm; height: 34mm; border-radius: 50%; background: var(--brass); color: var(--ink); display: grid; place-items: center; text-align: center; font: 850 10.5pt/1.1 Manrope; transform: rotate(10deg); box-shadow: 0 2mm 6mm rgba(0,0,0,.35); }
+  .stoerer b { display: block; font: 850 21pt/1 Archivo; }
+  .phoneimg { position: absolute; border-radius: 6.5mm; border: 1.6mm solid #1c2430; box-shadow: 0 4mm 12mm rgba(0,0,0,.5); overflow: hidden; background: #000; }
+  .phoneimg img, .lap img { width: 100%; display: block; }
+  .lap { position: absolute; border-radius: 3mm 3mm 0 0; border: 2mm solid #1c2430; border-bottom-width: 3mm; box-shadow: 0 4mm 12mm rgba(0,0,0,.45); overflow: hidden; background: #fff; }
+  .lapbase { position: absolute; height: 3.2mm; border-radius: 0 0 3mm 3mm; background: linear-gradient(#d4dbe3, #95a2b0); }
+  .benefits { position: absolute; left: 12mm; right: 12mm; top: 188mm; display: grid; grid-template-columns: 1fr 1fr; gap: 6.5mm 9mm; }
+  .bf { display: grid; grid-template-columns: 11mm 1fr; gap: 3.5mm; align-items: start; }
+  .bf .i { width: 11mm; height: 11mm; border-radius: 3mm; background: #f3ecdc; color: #8a6a26; display: grid; place-items: center; font-size: 6mm; }
+  .bf b { display: block; font: 800 11pt Manrope; color: var(--ink); margin-bottom: .8mm; }
+  .bf p { font-size: 8.6pt; line-height: 1.42; color: #3b4a5c; }
+  .foot { position: absolute; left: 12mm; right: 12mm; bottom: 11mm; display: flex; justify-content: space-between; align-items: center; font-size: 9pt; color: var(--muted); border-top: .3mm solid #dfe4ea; padding-top: 3mm; }
+  .foot b { color: var(--ink); }
+  /* back */
+  .bk h2 { font-size: 22pt; color: var(--ink); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; margin-top: 5mm; }
+  .step { border: .35mm solid #dfe4ea; border-radius: 4mm; padding: 5mm 4.5mm; }
+  .step .n { font: 850 26pt/1 Archivo; color: var(--brass); }
+  .step b { display: block; font: 800 10.5pt Manrope; margin: 2mm 0 1.2mm; color: var(--ink); }
+  .step p { font-size: 8.4pt; line-height: 1.42; color: #3b4a5c; }
+  .roi { margin-top: 6mm; border-radius: 5mm; padding: 6mm 7mm; display: grid; grid-template-columns: 1.25fr 1fr; gap: 6mm; align-items: center; position: relative; overflow: hidden; }
+  .roi .k { font: 850 25pt/1 Archivo; color: var(--brass2); }
+  .roi p { font-size: 9pt; line-height: 1.45; color: #c7d2de; }
+  .roi .vs { display: flex; gap: 4mm; }
+  .roi .vs div { flex: 1; border-radius: 3mm; background: rgba(255,255,255,.07); padding: 3.5mm; text-align: center; }
+  .roi .vs b { display: block; font: 850 17pt Archivo; color: #fff; }
+  .roi .vs span { font-size: 7.6pt; color: #9fb0c3; }
+  .more { margin-top: 6mm; columns: 2; column-gap: 8mm; font-size: 8.8pt; line-height: 1.5; }
+  .more li { list-style: none; padding-left: 5mm; position: relative; break-inside: avoid; margin-bottom: 1.2mm; }
+  .more li::before { content: ""; position: absolute; left: 0; top: 1.5mm; width: 2.4mm; height: 1.4mm; border-left: .5mm solid var(--teal); border-bottom: .5mm solid var(--teal); transform: rotate(-45deg); }
+  .plans { margin-top: 6mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .plan { border: .35mm solid #dfe4ea; border-radius: 4mm; padding: 4mm; }
+  .plan.hl { border: .6mm solid var(--brass); box-shadow: 0 0 0 1.2mm #f3ecdc; }
+  .plan .t { font: 800 7.5pt Manrope; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .plan .p { font: 850 22pt/1.1 Archivo; color: var(--ink); }
+  .plan .p small { font: 700 7.5pt Manrope; color: var(--muted); }
+  .plan p { font-size: 7.8pt; line-height: 1.4; color: #3b4a5c; margin-top: 1.5mm; }
+  .cta { margin-top: 6mm; border-radius: 5mm; padding: 5mm 6mm; display: grid; grid-template-columns: 1fr 30mm; gap: 6mm; align-items: center; background: var(--ink); color: #fff; }
+  .cta .h { font: 850 15pt/1.1 Archivo; font-stretch: 108%; }
+  .cta .h em { font-style: normal; color: var(--brass2); }
+  .cta p { font-size: 8.8pt; color: #c7d2de; margin-top: 2mm; line-height: 1.45; }
+  .qr { width: 30mm; height: 30mm; background: #fff; border-radius: 2.5mm; padding: 1.8mm; }
+  .qr svg { width: 100%; height: 100%; display: block; }
+  .fine { margin-top: 4mm; font-size: 6.4pt; line-height: 1.4; color: var(--muted); }
+  /* postcard */
+  .pc-front { background: radial-gradient(100% 80% at 100% 0%, rgba(200,164,92,.35), transparent 60%), var(--ink); color: #fff; }
+  .pc-front h1 { position: absolute; left: 8mm; top: 14mm; font-size: 24pt; line-height: 1; }
+  .pc-front h1 em { font-style: normal; color: var(--brass2); }
+  .pc-front .sub { position: absolute; left: 8mm; top: 42mm; width: 48mm; font-size: 8.4pt; line-height: 1.4; color: #c7d2de; font-weight: 600; }
+  .pc-back h3 { font-size: 13pt; color: var(--ink); }
+  .pc-back li { list-style: none; display: grid; grid-template-columns: 6mm 1fr; gap: 2mm; font-size: 7.6pt; line-height: 1.35; margin-top: 2.6mm; color: #2b3949; }
+  .pc-back li .i { width: 6mm; height: 6mm; border-radius: 1.8mm; background: #f3ecdc; color: #8a6a26; display: grid; place-items: center; font-size: 3.6mm; }
+  .addr { position: absolute; right: 8mm; top: 54mm; width: 44mm; }
+  .addr div { border-bottom: .3mm solid #b9c3cf; height: 7mm; }
+  .stamp { position: absolute; right: 8mm; top: 9mm; width: 17mm; height: 20mm; border: .3mm dashed #b9c3cf; display: grid; place-items: center; font-size: 6pt; color: #8a97a6; text-align: center; }
+  .hand { font-family: Manrope, sans-serif; font-style: italic; font-weight: 500; font-size: 7.6pt; color: #1f3fa8; line-height: 1.45; margin-top: 3mm; border-left: .6mm solid #c8a45c; padding-left: 2.4mm; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="module">
+import { icon } from '/web/js/icons.js';
+import { routeNet } from '/web/js/routenet.js';
+import { qrSvg } from '/web/js/media.js';
+const Q = new URLSearchParams(location.search);
+const C = await fetch('/marketing/print-config.json').then((r) => r.json());
+const MARK = `<svg viewBox="0 0 40 40"><rect width="40" height="40" rx="11" fill="#c8a45c"/><path d="M11 12v16h9" stroke="#0b1622" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="m21 22 4 4 7-9" stroke="#0b1622" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const root = document.getElementById('root');
+const BENEFITS = [
+  ['phone', 'Weniger Anrufe', 'Jeder Schritt kommt als Push ins Büro: Bestätigt, Aufgeladen, Abgeladen. Kein „Wo bist du?“ mehr.'],
+  ['camera', 'Lieferschein sofort', 'Foto vor Abschluss. Der Abliefernachweis geht am selben Tag als PDF raus – die Rechnung auch.'],
+  ['hourglass', 'Standgeld mit Beleg', 'Ankunft und Abfahrt mit Zeitstempel. Die Wartezeit an der Rampe ist belegt.'],
+  ['languages', '8 Sprachen, große Knöpfe', 'Deutsch, Englisch, Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch. Bedienbar mit Handschuhen.'],
+  ['palette', 'Ihre Marke', 'Ihr Logo, Ihre Farben, Ihr App-Name – auf dem Fahrerhandy und in jeder Mitteilung.'],
+  ['shield-check', 'Keine Dauerortung', 'Standort nur beim Statuswechsel und nur, wenn Sie es einschalten. Muster-Betriebsvereinbarung inklusive.'],
+];
+if ((Q.get('doc') || 'flyer') === 'flyer') {
+  root.innerHTML = `
+  <section class="page A4"><div class="hero"><canvas class="net" style="left:70mm;top:-10mm;width:160mm;height:200mm"></canvas>
+    <div class="wm" style="position:absolute;left:12mm;top:14mm">${MARK}LADEKLAR</div>
+    <div class="stoerer"><div><b>30</b>Tage kostenlos testen</div></div>
+    <h1 class="disp">Tippen statt<br><em>telefonieren.</em></h1>
+    <p class="sub">Die App für Ihre Fahrer und Ihre Disposition – unter Ihrem Logo. In 10 Minuten startklar, ohne Hardware.</p>
+    <div class="lap" style="left:74mm;top:104mm;width:118mm"><img src="/video/assets/office-live.png" alt=""></div><div class="lapbase" style="left:68mm;top:178.5mm;width:130mm;display:none"></div>
+    <div class="phoneimg" style="left:150mm;top:58mm;width:50mm"><img src="/video/assets/phone-2-loaded.png" alt=""></div>
+  </div>
+  <div class="benefits">${BENEFITS.map(([ic, t, p]) => `<div class="bf"><span class="i">${icon(ic)}</span><div><b>${t}</b><p>${p}</p></div></div>`).join('')}</div>
+  <div class="foot"><span><b>Ein Tipp. Alles klar.</b></span><span>${C.website}</span></div></section>
+
+  <section class="page A4 bk"><div class="safe" style="inset:11mm 12mm">
+    <h2 class="disp">So einfach geht’s</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><b>Einrichten</b><p>Logo hochladen, LKW und Fahrer eintragen, Einladung per WhatsApp verschicken. Fertig in 10 Minuten.</p></div>
+      <div class="step"><div class="n">2</div><b>Lieferung anlegen</b><p>Route, Datum, Fahrer. Die Buchungsnummer entsteht automatisch, Stammrouten wiederholen Sie mit einem Klick.</p></div>
+      <div class="step"><div class="n">3</div><b>Fahrer tippt, Büro sieht’s</b><p>Ihr Fahrer tippt den nächsten Schritt, Sie sehen ihn live. Der Lieferschein liegt sofort im Archiv.</p></div>
+    </div>
+    <div class="roi ink"><canvas class="net" style="right:-20mm;top:-30mm;width:90mm;height:110mm;opacity:.6"></canvas><div style="position:relative"><span style="font:800 7.5pt Manrope;letter-spacing:.16em;color:#e6cd92">WAS DAS BRINGT · BEISPIEL 10 FAHRER</span><div class="k" style="margin-top:2mm">≈ 25 Stunden</div><p>weniger Telefon im Monat, Rechnung am selben Tag, Standzeit belegt.*</p></div>
+      <div class="vs" style="position:relative"><div><b>1.244 €</b><span>rechnerischer Nutzen / Monat*</span></div><div style="background:rgba(200,164,92,.18)"><b>129 €</b><span>Ladeklar Flotte / Monat</span></div></div></div>
+    <ul class="more">${['Funktioniert auch im Funkloch (Offline-Speicher)', 'Fahrsperre während der Fahrt', 'Rückgängig 2 Minuten lang', 'Unterschrift des Empfängers auf dem Display', 'Palettentausch erfassen', 'HU-/SP-Fristen je Fahrzeug', 'Läuft auf jedem Smartphone, kein App Store nötig', 'Daten in Deutschland gehostet, Export jederzeit'].map((x) => `<li>${x}</li>`).join('')}</ul>
+    <div class="plans">
+      <div class="plan"><div class="t">Start</div><div class="p">49 €<small> / Monat</small></div><p>3 Fahrer · 6 Fahrzeuge · 1 Disponent</p></div>
+      <div class="plan hl"><div class="t" style="color:#8a6a26">Flotte · beliebt</div><div class="p">129 €<small> / Monat</small></div><p>15 Fahrer · 40 Fahrzeuge · 5 Disponenten · jeder weitere Fahrer 7 €</p></div>
+      <div class="plan"><div class="t">Premium</div><div class="p">299 €<small> / Monat</small></div><p>40 Fahrer · Fahrzeuge & Disponenten unbegrenzt · weitere Fahrer 6 € · API · SLA 99,5 %</p></div>
+    </div>
+    <p style="font-size:7.8pt;color:#3b4a5c;margin-top:2.5mm">Zusatz für Premium: eigene App im App Store und bei Google Play – 1.990 € einmalig + 99 € im Monat. Jahreszahlung: 2 Monate geschenkt.</p>
+    <div class="cta"><div><div class="h">Jetzt <em>30 Tage kostenlos</em> testen – ohne Zahlungsdaten.</div><p>${C.firma} · ${C.ansprechpartner}<br>${C.telefon} · ${C.email} · ${C.website}</p></div><div class="qr">${qrSvg(C.qr)}</div></div>
+    <p class="fine">* Beispielrechnung für einen Betrieb mit 10 Fahrern und 420 Lieferungen im Monat; Annahmen: 2 Statusanrufe à 3 Minuten je Lieferung, davon 60 % ersetzt, Disponenten-Stundensatz 26 €, Rechnung 4 Tage früher, Standgeld 40 € je Stunde in 50 % der Fälle durchsetzbar. Ihr Ergebnis kann abweichen. Alle Preise netto zzgl. 19 % USt. Angebot nur für Unternehmer im Sinne von § 14 BGB. ${C.firma}, ${C.anschrift}.</p>
+  </div></section>`;
+} else {
+  root.innerHTML = `
+  <section class="page A6 pc-front"><canvas class="net" style="left:30mm;top:20mm;width:90mm;height:140mm"></canvas>
+    <h1 class="disp">Tippen statt<br><em>telefonieren.</em></h1>
+    <p class="sub">Die Fahrer-App unter Ihrem Logo. Ab 49 € im Monat.</p>
+    <div class="phoneimg" style="left:58mm;top:56mm;width:40mm;border-radius:5mm;border-width:1.2mm;transform:rotate(-6deg)"><img src="/video/assets/phone-3-unloaded.png" alt=""></div>
+    <div class="wm" style="position:absolute;left:8mm;bottom:9mm;font-size:8pt">${MARK.replace('<svg ', '<svg style="width:6mm;height:6mm" ')}LADEKLAR</div></section>
+  <section class="page A6 pc-back"><div class="safe">
+    <h3 class="disp">Ein Tipp. Alles klar.</h3>
+    <ul style="width:50mm">${[['phone', 'Jeder Schritt live im Büro, ohne Anruf.'], ['camera', 'Lieferschein-Foto sofort, Rechnung am selben Tag.'], ['languages', 'Fahrer-App in 8 Sprachen, keine Dauerortung.']].map(([i, t]) => `<li><span class="i">${icon(i)}</span><span>${t}</span></li>`).join('')}</ul>
+    <p style="font:800 8.2pt Manrope;margin-top:4mm;width:52mm;color:#0b1622">30 Tage kostenlos testen: ${C.website} oder QR scannen.</p>
+    <p class="hand" style="width:46mm">[Anrede] [Nachname], ich rufe Sie in den nächsten Tagen gern an und zeige Ihnen Ladeklar in 10 Minuten.<br>[Vorname Nachname]</p>
+    <div class="qr" style="position:absolute;left:0;bottom:8mm;width:20mm;height:20mm;padding:1mm;border:.3mm solid #dfe4ea">${qrSvg(C.qr)}</div>
+    <p style="position:absolute;left:23mm;bottom:9mm;font-size:6.6pt;line-height:1.4;color:#5d6c7d;width:30mm">${C.telefon}<br>${C.email}</p>
+    <p class="fine" style="position:absolute;left:0;bottom:0;width:58mm;font-size:5.4pt">Preise netto zzgl. USt., nur für Unternehmer. Keine Post mehr gewünscht? ${C.email}. Absender: ${C.firma}, ${C.anschrift}</p>
+  </div><div class="stamp">Brief-<br>marke</div><div class="addr"><div></div><div></div><div></div><div></div></div></section>`;
+}
+for (const c of document.querySelectorAll('canvas.net')) { const n = routeNet(c, { accent: '#e6cd92', trucks: 16, alpha: 0.75, pad: 10 }); n.drawAt(6.4); }
+await document.fonts.ready;
+await Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; }))));
+window.READY = true;
+</script>
+</body>
+</html>

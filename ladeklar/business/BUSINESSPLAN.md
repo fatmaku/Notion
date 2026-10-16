@@ -42,7 +42,7 @@ Muttersprache als Deutsch [Q22].
 **Lösung.** Ladeklar ist eine White-Label-App für Speditionen, Transportunternehmen, Kurierdienste und Betriebe mit
 eigenem Fuhrpark. Die Disposition legt Lieferungen an, der Fahrer bestätigt jeden Schritt mit einem großen Knopf
 (Bestätigt, Aufgeladen, Abgeladen, Lieferschein-Foto), die Disposition sieht alles live und bekommt eine
-Push-Mitteilung. Keine Hardware, Einführung in 10 Minuten, Fahrer-App in 7 Sprachen, unter dem Logo des Kunden.
+Push-Mitteilung. Keine Hardware, Einführung in 10 Minuten, Fahrer-App in 8 Sprachen, unter dem Logo des Kunden.
 Standort nur im Moment eines Statuswechsels und nur, wenn der Betrieb es einschaltet – keine Dauerortung.
 
 **Geschäftsmodell.** Der Gründer ist **Lizenzgeber** und vermietet Zugänge als Software-as-a-Service an
@@ -94,7 +94,7 @@ begrenzt und protokolliert (PLAN.md Kap. 2).
 | Name | [Name des Gründers] |
 | Ausbildung/Erfahrung | [z. B. Softwareentwicklung, Erfahrung in Disposition/Logistik] |
 | Rolle in Ladeklar | Geschäftsführer: Produkt, Vertrieb, Partner, Finanzen |
-| Bisherige Leistung | Produkt v1.0 fertig (Lizenzkonsole, White-Label, Disposition, Fahrer-App, Push, Offline, 7 Sprachen, Rechtsvorlagen) |
+| Bisherige Leistung | Produkt v1.0 fertig (Lizenzkonsole, White-Label, Disposition, Fahrer-App, Push, Offline, 8 Sprachen, Rechtsvorlagen) |
 | Lücken im Team | Vertrieb in der Fläche (Einstellung Juli 2027), zweite Entwicklerkapazität (Oktober 2027) |
 | Beirat (geplant) | 1 Inhaber einer Spedition mit 10–30 Lkw, 1 Steuerberater/Branchenkenner |
 
@@ -119,7 +119,7 @@ beantragen).
   Abliefernachweis als PDF, Berichte, CSV-Export.
 - **Fahrer-App (PWA, optional Store-App):** immer genau ein großer Knopf für den nächsten Schritt; Notiz und
   Schnellbausteine („Stau“, „Warte an Rampe“), Problem melden mit Foto, Navigation, Anrufen, Rückgängig 2 Minuten.
-- **Eingebaute Antworten auf Alltagsprobleme:** 7 Sprachen (DE, EN, PL, RO, TR, RU, UK), Fahrsperre ab ca. 8 km/h,
+- **Eingebaute Antworten auf Alltagsprobleme:** 8 Sprachen (DE, EN, PL, RO, CS, TR, RU, UK), Fahrsperre ab ca. 8 km/h,
   Offline-Warteschlange, Foto-Pflicht vor Abschluss, Standzeit-Erfassung, Palettentausch, Fahrzeugbelegung, HU/SP-
   Fristen, Unterschrift, Dunkelmodus, Datenexport (EU Data Act), REST-API (Premium).
 
@@ -210,7 +210,7 @@ Ausführlich mit Tabelle in `MARKTANALYSE.md`, Kap. 8. Kurzfassung:
   andere Kategorie.
 
 **Positionierung:** Ladeklar ist die **schnellste Einführung** (10 Minuten, keine Hardware), **unter eigener Marke**,
-mit **Icon-Bedienung in 7 Sprachen** und **ohne Dauerortung** – deshalb auch in Betrieben mit Betriebsrat einführbar.
+mit **Icon-Bedienung in 8 Sprachen** und **ohne Dauerortung** – deshalb auch in Betrieben mit Betriebsrat einführbar.
 
 ---
 
@@ -559,7 +559,7 @@ Eine Preissenkung ist teurer als 50 % mehr Churn – Rabatte sind daher kein Wac
 | Risiko | Wahrscheinlichkeit | Wirkung | Gegenmaßnahme |
 |---|---|---|---|
 | Neukunden wachsen langsamer als geplant | mittel | hoch (Wachstum −30 % → Break-even Monat 57) | Einstellungsregel (Kap. 9), Partnerkanal früh testen, Förder-Check als Türöffner, Kosten je Kanal monatlich messen |
-| Fahrer nutzen die App nicht | mittel | hoch | Ein-Knopf-Bedienung, 7 Sprachen, Einladung per WhatsApp, Erfolgsquote je Fahrer im Board, Einführungsschulung per Video in der Muttersprache |
+| Fahrer nutzen die App nicht | mittel | hoch | Ein-Knopf-Bedienung, 8 Sprachen, Einladung per WhatsApp, Erfolgsquote je Fahrer im Board, Einführungsschulung per Video in der Muttersprache |
 | Betriebsrat oder Fahrer lehnen Privathandy ab | mittel | mittel | keine Dauerortung, Muster-Betriebsvereinbarung, Firmen-Handys/Tablets als Option, PWA ohne Store-Download |
 | Churn höher als geplant (Insolvenzen, Saisonbetrieb) | mittel | mittel | Saisonpause (v1.2), Kundenerfolgs-Anrufe in Monat 1 und 3, Jahreszahlung fördern |
 | Wettbewerber bietet Gleiches kostenlos (Telematik-Bündel) | mittel | mittel | Schnittstellen statt Konkurrenz (v1.3), White-Label und Einfachheit als Unterschied, Partnerschaften mit Telematik-Händlern |

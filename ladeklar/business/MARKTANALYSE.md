@@ -163,7 +163,7 @@ Sensitivität „Churn doppelt“ im Businessplan.
 - Im internationalen Straßentransport arbeiten zunehmend Fahrer aus **Belarus, der Ukraine und Moldau** [Q25];
   Russisch ist dort häufig Verkehrssprache (Annahme, aus Praxisgesprächen abzuleiten, nicht statistisch belegt).
 
-**Folgerung für die sieben Sprachen der Fahrer-App (DE, EN, PL, RO, TR, RU, UK):** Polnisch und Rumänisch decken
+**Folgerung für die acht Sprachen der Fahrer-App (DE, EN, PL, RO, CS, TR, RU, UK):** Polnisch und Rumänisch decken
 die beiden größten Herkunftsgruppen ab, Türkisch die größte ausländische Beschäftigtengruppe insgesamt, Russisch und
 Ukrainisch Fahrer aus Osteuropa, Englisch dient als Brücke. **Tschechisch fehlt** – Tschechien gehört laut BALM zu den
 drei wichtigsten Herkunftsländern [Q22]. Empfehlung: Tschechisch (CS) und Bulgarisch (BG) in v1.1 ergänzen; der
@@ -206,7 +206,7 @@ Firma, und mit Datenschutzrisiken bei privaten Messengern auf Fahrerhandys (Eins
 | Wartezeit an der Rampe wird nicht bezahlt | 78 % warten > 30 Min., 46 % > 1 Std., ca. 12 % ca. 2 Std.; 62,2 % der Rampenbetreiber informieren Fahrer selten oder nie über die erwartete Wartezeit | [Q35][Q37] | Ankunft erfassen, Standzeit mit Zeitstempel |
 | Standgeld ohne Nachweis kaum durchsetzbar | üblich 30–50 €/Std., oft erst nach 2–3 Std.; VBGL: 2 Std. Be- und 2 Std. Entladung frei (Komplettladung 40 t) | [Q36][Q39][Q40] | Standzeit-Bericht je Lieferung |
 | Fahrer warten teils sehr lange | 37 % der Fahrer warten manchmal über 3 Std. (Stiftung Truckers Life 2021, Sekundärzitat); 55 % warten oft länger als geplant (Verdi, 200 Fahrer, nicht repräsentativ) | [Q41][Q38] | wie oben |
-| Sprachbarriere | 30,4 % ausländische Berufskraftfahrer | [Q22] | 7 Sprachen, Icons statt Text |
+| Sprachbarriere | 30,4 % ausländische Berufskraftfahrer | [Q22] | 8 Sprachen, Icons statt Text |
 | Handy am Steuer | 100 € Bußgeld + 1 Punkt (BKatV Nr. 246.1) | [Q82] | Fahrsperre ab ca. 8 km/h |
 | Betriebsrat und Datenschutz bei Ortung | GPS-Ortung ist mitbestimmungspflichtig (§ 87 Abs. 1 Nr. 6 BetrVG; ArbG Kaiserslautern 1 BVGa 5/08); Test mit Echtdaten ohne Information unzulässig (BayLDA) | [Q83] | keine Dauerortung, Standort nur beim Statuswechsel, Muster-Betriebsvereinbarung |
 | Kostendruck, Insolvenzen | Insolvenzdichte 14 je 1.000 Unternehmen (höchster Wert) | [Q45] | ab 49 € im Monat, keine Hardware, 30 Tage Test |
@@ -330,7 +330,7 @@ klare Lieferscheinpflicht, regionale Verbände). Kurier erst mit Mehrstopp-Toure
 
 | Anbieter | Kategorie | Kernfunktionen | Preis (öffentlich) | Hardware nötig? | White-Label? | Sprachen Fahrer-App | Quelle |
 |---|---|---|---|---|---|---|---|
-| **Ladeklar** | Auftrags-App | Aufträge, Status per Knopf, Push, Lieferschein-Foto, Unterschrift, Standzeit, Palettentausch, Fristen, Offline | **49 / 129 / 299 €/Monat**, öffentlich | **nein** (PWA, Firmencode + PIN) | **ja, alle Tarife**; Store-App als Zusatz | **7** (DE, EN, PL, RO, TR, RU, UK) | PLAN.md |
+| **Ladeklar** | Auftrags-App | Aufträge, Status per Knopf, Push, Lieferschein-Foto, Unterschrift, Standzeit, Palettentausch, Fristen, Offline | **49 / 129 / 299 €/Monat**, öffentlich | **nein** (PWA, Firmencode + PIN) | **ja, alle Tarife**; Store-App als Zusatz | **7** (DE, EN, PL, RO, CS, TR, RU, UK) | PLAN.md |
 | Papier + Telefon + WhatsApp + Excel | Status quo | Nachrichten, Fotos, Tabellen | 0 € Lizenz | nein | – | jede, aber unstrukturiert | – |
 | SPEDION | App-Telematik | Telematik-App (Android), Aufträge, Navigation, Lenk-/Ruhezeiten, Module einzeln buchbar | k. A.; Pay-per-Use: Kombigebühr je bewegtes Fahrzeug, Einrichtungsgebühr, keine Laufzeitbindung | Android-Gerät; keine Box beworben | nicht beworben | k. A. | [Q46] |
 | Couplink | Telematik, hardwareunabhängig | Smartmatics-App, Auftragsmanagement, Disposition, Ortung, Workflow-Creator; seit 2000, > 800 Kunden DACH | Starter-Paket mit Ortung kostenlos (Stand älterer Artikel), sonst k. A. | nein (Smartphone) oder vorhandene Telematik | nicht beworben | k. A. | [Q47] |
@@ -377,13 +377,13 @@ einer älteren Spediteursbefragung bei rund 60 € je Fahrzeug und Monat [Q63].
                                         │   LOGISTIQO, Couplink-App, SPEDION-App
                                         │
                                         │           ● LADEKLAR  (10 Minuten, eigene Marke,
-                                        │                        7 Sprachen, keine Dauerortung)
+                                        │                        8 Sprachen, keine Dauerortung)
                                         ▼
                          wenig, aber genau die nötigen Schritte
 ```
 
 Kernaussage: **Ladeklar ist das schnellste Werkzeug vom Zettel zur digitalen Tour.** Keine Hardware, kein
-Einbautermin, Fahrer starten mit Firmencode und PIN, Bedienung über einen großen Knopf, Fahrer-App in 7 Sprachen,
+Einbautermin, Fahrer starten mit Firmencode und PIN, Bedienung über einen großen Knopf, Fahrer-App in 8 Sprachen,
 unter dem Logo des Kunden. Standort nur beim Statuswechsel und nur wenn eingeschaltet – damit auch in Betrieben
 mit Betriebsrat einführbar.
 
@@ -395,7 +395,7 @@ mit Betriebsrat einführbar.
 |---|---|
 | Einführung in 10 Minuten, keine Hardware, PWA ohne Store-Download | Neue Marke ohne Referenzen, Gründer allein im ersten Halbjahr |
 | White-Label in allen Tarifen (eigene Marke gegenüber Fahrern und Kunden) | Noch keine Mehrstopp-Touren (v1.1), keine Telematik-Schnittstelle |
-| Icons + 7 Sprachen, Fahrsperre, Offline-Warteschlange | Keine Live-Ortung – für manche Kunden ein Nachteil |
+| Icons + 8 Sprachen, Fahrsperre, Offline-Warteschlange | Keine Live-Ortung – für manche Kunden ein Nachteil |
 | Datenschutz by Design: keine Dauerortung, AVV, Muster-Betriebsvereinbarung | Kein Temperatur-Monitoring, kein Lenkzeit-Modul (v2.0) |
 | Öffentliche, niedrige Preise ab 49 € | Niedriger ARPA (ca. 122–130 €) verlangt viele Kunden und effizienten Vertrieb |
 

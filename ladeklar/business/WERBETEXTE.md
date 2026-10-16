@@ -30,7 +30,7 @@ Push-Mitteilung. Der Abliefernachweis liegt als PDF vor, bevor der Lkw vom Hof r
 
 Drei Dinge waren mir wichtig:
 1. Startklar in 10 Minuten, ohne Hardware und ohne Einbautermin.
-2. Fahrer-App in 7 Sprachen, weil 30,4 % der Berufskraftfahrer keine deutsche Staatsangehörigkeit haben (BALM).
+2. Fahrer-App in 8 Sprachen, weil 30,4 % der Berufskraftfahrer keine deutsche Staatsangehörigkeit haben (BALM).
 3. Keine Dauerortung. Ein Standort wird nur beim Statuswechsel gespeichert – und nur, wenn der Betrieb das will.
 
 Ab heute kann jeder Betrieb Ladeklar 30 Tage kostenlos testen, unter dem eigenen Logo.
@@ -59,7 +59,7 @@ Wie lösen Sie das heute?
 
 #Spedition #Liquidität #Lieferschein #Transportunternehmen
 
-### Post 3 – Sieben Sprachen
+### Post 3 – Acht Sprachen
 
 Ende 2023 hatten 30,4 % der sozialversicherungspflichtig beschäftigten Berufskraftfahrer in Deutschland keine
 deutsche Staatsangehörigkeit – ein Höchstwert. Die meisten kommen aus Polen, Tschechien und Rumänien (BALM,
@@ -190,7 +190,7 @@ meist 0,50–4,00 € [Q70]), Budget 1.000 € im Monat (laut Finanzmodell), Zie
 **Anzeige 1 – Fahrer-App**
 - Titel: Fahrer-App für Speditionen · Tippen statt telefonieren · In 10 Minuten startklar · Ohne Hardware, ab 49 €/Monat · 30 Tage kostenlos testen
 - Beschreibung 1: Fahrer bestätigen jeden Schritt per Knopf. Die Disposition sieht alles live.
-- Beschreibung 2: Lieferschein-Foto, Abliefernachweis als PDF, 7 Sprachen. Unter Ihrem Logo.
+- Beschreibung 2: Lieferschein-Foto, Abliefernachweis als PDF, 8 Sprachen. Unter Ihrem Logo.
 - Pfad: fahrer-app / spedition
 
 **Anzeige 2 – Lieferschein**
@@ -206,9 +206,9 @@ meist 0,50–4,00 € [Q70]), Budget 1.000 € im Monat (laut Finanzmodell), Zie
 - Pfad: disposition / live
 
 **Anzeige 4 – Mehrsprachig**
-- Titel: Fahrer-App in 7 Sprachen · Polnisch, Rumänisch, Türkisch · Große Knöpfe, wenig Text · Ihr Logo auf der App · Kostenlos 30 Tage testen
+- Titel: Fahrer-App in 8 Sprachen · Polnisch, Rumänisch, Tschechisch · Große Knöpfe, wenig Text · Ihr Logo auf der App · Kostenlos 30 Tage testen
 - Beschreibung 1: Icons statt Menüs: Ihre Fahrer verstehen die App sofort, auch ohne Deutsch.
-- Beschreibung 2: DE, EN, PL, RO, TR, RU, UK. Offline-fähig, mit Fahrsperre. Ab 49 € im Monat.
+- Beschreibung 2: DE, EN, PL, RO, CS, TR, RU, UK. Offline-fähig, mit Fahrsperre. Ab 49 € im Monat.
 - Pfad: fahrer-app / sprachen
 
 **Anzeige 5 – Standgeld und Datenschutz**
@@ -226,7 +226,7 @@ Zeichenzahlen wurden geprüft (siehe Tabelle 3.3).
 | 1 | Ohne Hardware, ab 49 €/Monat | 28 | Fahrer bestätigen jeden Schritt per Knopf. Die Disposition sieht alles live. | 76 |
 | 2 | Abliefernachweis sofort | 23 | Der Fahrer fotografiert den Lieferschein, das Büro hat ihn sofort. Kein Suchen mehr. | 84 |
 | 3 | Disposition ohne Dauertelefon | 29 | Bestätigt, aufgeladen, abgeladen: Ihre Fahrer tippen, Sie sehen es sofort. | 74 |
-| 4 | Polnisch, Rumänisch, Türkisch | 29 | DE, EN, PL, RO, TR, RU, UK. Offline-fähig, mit Fahrsperre. Ab 49 € im Monat. | 76 |
+| 4 | Polnisch, Rumänisch, Türkisch | 29 | DE, EN, PL, RO, CS, TR, RU, UK. Offline-fähig, mit Fahrsperre. Ab 49 € im Monat. | 76 |
 | 5 | Standzeit an der Rampe belegt | 29 | Standort nur beim Statuswechsel. Muster-Betriebsvereinbarung und AVV dabei. | 75 |
 
 ---
@@ -291,7 +291,7 @@ Guten Tag [Anrede] [Nachname],
 ich möchte Ihnen nicht hinterherschreiben, deshalb ist das meine letzte Mail zu diesem Thema.
 
 Zwei Fragen höre ich oft: „Kommen meine Fahrer damit klar?“ und „Was sagt der Betriebsrat?“
-Zur ersten: Die Fahrer-App zeigt immer nur einen großen Knopf und läuft in sieben Sprachen, darunter Polnisch,
+Zur ersten: Die Fahrer-App zeigt immer nur einen großen Knopf und läuft in acht Sprachen, darunter Polnisch,
 Rumänisch und Türkisch. Zur zweiten: Ladeklar ortet nicht dauerhaft; eine Muster-Betriebsvereinbarung liegt bei.
 
 Wenn es gerade nicht passt, ist das völlig in Ordnung. Wenn doch, reicht eine kurze Antwort mit „Test“, und ich
@@ -334,7 +334,7 @@ Viele Grüße
 | Einwand | Antwort |
 |---|---|
 | **„Wir haben WhatsApp.“** | „Das nutzen die meisten, und es funktioniert, solange man jede Nachricht liest. Was WhatsApp nicht kann: Ihnen eine Liste zeigen, welche Tour bestätigt, geladen und abgeladen ist, den Lieferschein der richtigen Buchung zuordnen und die Wartezeit mit Zeitstempel ausweisen. Außerdem liegen Firmendaten dann auf Privathandys. Ladeklar ersetzt nicht das Gespräch, sondern die zehn Nachrichten pro Tour. Wollen wir das in zehn Minuten nebeneinanderlegen?“ |
-| **„Meine Fahrer sind nicht technisch.“** | „Genau für diese Fahrer ist Ladeklar gebaut. Auf dem Bildschirm gibt es immer nur einen großen Knopf, mit Icon, in sieben Sprachen. Wer WhatsApp bedienen kann, kann Ladeklar bedienen. Wenn ein Fahrer sich vertippt, kann er es zwei Minuten lang rückgängig machen. Mein Vorschlag: Wir testen mit zwei Fahrern, die Sie für am skeptischsten halten.“ |
+| **„Meine Fahrer sind nicht technisch.“** | „Genau für diese Fahrer ist Ladeklar gebaut. Auf dem Bildschirm gibt es immer nur einen großen Knopf, mit Icon, in acht Sprachen. Wer WhatsApp bedienen kann, kann Ladeklar bedienen. Wenn ein Fahrer sich vertippt, kann er es zwei Minuten lang rückgängig machen. Mein Vorschlag: Wir testen mit zwei Fahrern, die Sie für am skeptischsten halten.“ |
 | **„Der Betriebsrat macht da nicht mit.“** | „Das verstehe ich, und bei Ortungssystemen ist der Betriebsrat zu Recht beteiligt. Ladeklar ortet nicht dauerhaft. Ein Standort wird nur beim Drücken eines Status gespeichert – und nur, wenn Sie das überhaupt einschalten. Wir geben Ihnen eine Muster-Betriebsvereinbarung und die Datenschutzhinweise für die Fahrer mit. Soll ich Ihnen beides vorab schicken, damit der Betriebsrat es in Ruhe lesen kann?“ |
 | **„Zu teuer.“** | „Darf ich kurz nachrechnen? Bei [10] Fahrern zahlen Sie im Tarif Flotte 129 € im Monat, das sind 8,60 € je Fahrer. Wenn Ihre Disposition dadurch nur eine Stunde Telefon pro Woche spart, ist das schon mehr wert. Dazu kommen Rechnungen am selben Tag und belegte Standzeiten. Testen Sie 30 Tage kostenlos und messen Sie selbst – ohne Zahlungsdaten.“ |
 | „Wir haben schon Telematik.“ | „Sehr gut, dann wissen Sie, wo der Lkw ist. Ladeklar sagt Ihnen, was mit der Ladung passiert ist: bestätigt, geladen, abgeladen, Lieferschein da. Das läuft parallel zur Telematik auf dem Handy des Fahrers, ohne zweite Box.“ |
@@ -347,7 +347,7 @@ Viele Grüße
 
 „Kennen Sie das? Die Dispo telefoniert den halben Morgen den Fahrern hinterher, und der Lieferschein kommt am Freitag.
 Bei Ladeklar tippt der Fahrer einen großen Knopf – Bestätigt, Aufgeladen, Abgeladen, Lieferschein-Foto – und Sie
-sehen es sofort im Büro. Ohne Hardware, in sieben Sprachen, unter Ihrem eigenen Logo und ohne Dauerortung. Nach
+sehen es sofort im Büro. Ohne Hardware, in acht Sprachen, unter Ihrem eigenen Logo und ohne Dauerortung. Nach
 zehn Minuten läuft die erste Tour. Darf ich es Ihnen hier am Handy zeigen? Dauert zwei Minuten.“
 
 (ca. 70 Wörter, gesprochen ca. 30 Sekunden)
@@ -358,7 +358,7 @@ zehn Minuten läuft die erste Tour. Darf ich es Ihnen hier am Handy zeigen? Daue
 
 1. Tippen statt telefonieren: Ladeklar – die Fahrer-App unter eurem Logo. 30 Tage kostenlos testen: [Link]
 2. Bestätigt. Aufgeladen. Abgeladen. Lieferschein-Foto. Ein Tipp, und das Büro weiß Bescheid. [Link]
-3. Fahrer-App in 7 Sprachen, ohne Dauerortung, ab 49 € im Monat. Jetzt testen: [Link]
+3. Fahrer-App in 8 Sprachen, ohne Dauerortung, ab 49 € im Monat. Jetzt testen: [Link]
 
 ---
 
@@ -368,7 +368,7 @@ zehn Minuten läuft die erste Tour. Darf ich es Ihnen hier am Handy zeigen? Daue
 
 **Tippen statt telefonieren: Ladeklar bringt die Fahrer-App für kleine Speditionen unter eigenem Logo**
 
-*Neue White-Label-App verbindet Fahrer und Disposition ohne Hardware – in sieben Sprachen und ohne Dauerortung*
+*Neue White-Label-App verbindet Fahrer und Disposition ohne Hardware – in acht Sprachen und ohne Dauerortung*
 
 **[Ort], [Datum].** Mit Ladeklar startet eine App, die Speditionen, Transportunternehmen und Betrieben mit eigenem
 Fuhrpark die tägliche Telefonkette zwischen Disposition und Fahrern abnimmt. Fahrer bestätigen jeden Arbeitsschritt
