@@ -87,6 +87,36 @@ def split():
     print(f"{len(cons)} Units → {BYK / 'src'}; constraints.json, outline.md")
 
 
+def ucuncu_goz_for(uid, number, concept):
+    """Tuncays „ÜÇÜNCÜ GÖZ“: Zwischenkapitel nach diesem Kapitel, Rahmenhinweise, Doppelungen mit der İrfan-Schicht."""
+    il_file = BYK / "interludes.json"
+    data = json.load(open(il_file, encoding="utf-8")) if il_file.exists() else {}
+    ug = concept.get("ucuncu_goz", {})
+    num = str(number) if number is not None else None
+
+    def hits(entries, keys=("uid", "chapter", "where")):
+        out = []
+        for e in entries or []:
+            blob = " ".join(str(e.get(k, "")) for k in keys)
+            if uid in blob or (num and re.search(rf"(?<!\d){num}(?!\d)", str(e.get("chapter", "")))):
+                out.append(e)
+        return out
+    after = [{"n": il["n"], "insert": il.get("insert"), "sections": [sec["heading"] for sec in il["sections"]]}
+             for il in data.get("interludes", []) if il.get("after_uid") == uid]
+    neighbours = [{"n": il["n"], "after_uid": il["after_uid"], "sections": [sec["heading"] for sec in il["sections"]]}
+                  for il in data.get("interludes", [])]
+    return {
+        "hinweis": "Tuncays Text „ÜÇÜNCÜ GÖZ“ wird als Zwischenkapitel automatisch aus benyoksam/interludes.json eingefügt – "
+                   "NICHT in die Kapiteldatei schreiben und nicht in Szenen wiederholen; nur die Rahmenhinweise (frame) dieses Kapitels umsetzen.",
+        "interlude_after_this_chapter": after,
+        "all_interludes": neighbours,
+        "frame": hits(data.get("frame") or ug.get("frame")),
+        "irfan_dedupe": hits(data.get("irfan_dedupe") or ug.get("irfan_dedupe")),
+        "plug_resolution": data.get("plug_resolution") or ug.get("plug_resolution"),
+        "fiction_note_sentence": (data.get("fiction_note_sentence") or ug.get("fiction_note_sentence")) if uid in ("U01", "U02") else None,
+    }
+
+
 def context():
     exp = load_src()
     syn = {s["uid"]: s for s in json.load(open(I18N / "BY_synopsis.json", encoding="utf-8"))}
@@ -128,6 +158,7 @@ def context():
                "own_synopsis": syn.get(u["uid"], {}).get("summary"),
                "name_map": concept.get("name_map", []), "remove_sahit": [e for e in concept.get("remove_sahit", []) if any(re.search(rf"(?<!\d){pid}(?!\d)", str(e.get("where", ""))) for pid in u["pids"]) or u["uid"] in str(e.get("where", "")) or (d["number"] is not None and re.search(rf"(?<!\d){d['number']}\. böl", str(e.get("where", "")))) or ("Paratext" in str(e.get("where", "")) and u["uid"] in ("U00", "U01", "U02")) or ("pid 21 " in str(e.get("where", "")) and u["uid"] == "U02")],
                "forbidden": fb}
+        ctx["ucuncu_goz"] = ucuncu_goz_for(u["uid"], d["number"], concept)
         (BYK / "ctx" / f"{u['uid']}.json").write_text(json.dumps(ctx, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(units)} Kontextdateien → {BYK / 'ctx'}; old_names: {old_names}")
 

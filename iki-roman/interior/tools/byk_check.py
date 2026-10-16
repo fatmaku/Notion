@@ -17,6 +17,52 @@ from i18n_common import KNOT, MARK, strip_tags, tags_balanced  # noqa: E402
 I = Path(__file__).resolve().parent.parent
 BYK = I / "benyoksam"
 STYLES = {"Title", "Heading 1", "Heading 2", "Book Part", "Opening", "Normal", "Book Inset", "Scene Break", "Book Metadata"}
+INTERLUDE_STYLES = {"Interlude Title", "Interlude Subtitle", "Interlude Lead", "Interlude Heading", "Interlude"}
+INTERLUDES = BYK / "interludes.json"     # Tuncays „ÜÇÜNCÜ GÖZ“ als Zwischenkapitel; nur hier, nie in den Unit-Dateien
+
+
+def interlude_paras(il):
+    """Ein Zwischenkapitel aus interludes.json → Absatzliste im Unit-Format."""
+    out = [{"style": "Interlude Title", "text": il.get("title") or "ÜÇÜNCÜ GÖZ"}]
+    if il.get("subtitle"):
+        out.append({"style": "Interlude Subtitle", "text": il["subtitle"]})
+    out += [{"style": "Interlude Lead", "text": t} for t in il.get("lead", []) if t.strip()]
+    for sec in il["sections"]:
+        out.append({"style": "Interlude Heading", "text": sec["heading"]})
+        out += [{"style": "Interlude", "text": t} for t in sec["paras"] if t.strip()]
+    return out
+
+
+def insert_interludes(merged, errs, warns, fb):
+    """Fügt die Zwischenkapitel an den in interludes.json festgelegten Stellen ein."""
+    if not INTERLUDES.exists():
+        warns.append("interludes.json fehlt – Buch ohne Zwischenkapitel")
+        return merged
+    data = json.load(open(INTERLUDES, encoding="utf-8"))
+    for il in sorted(data["interludes"], key=lambda x: -x["n"]):     # von hinten, damit Indizes stimmen
+        idx = [k for k, p in enumerate(merged) if p.get("uid") == il["after_uid"]]
+        if not idx:
+            errs.append(f"Zwischenkapitel {il['n']}: Unit {il['after_uid']} fehlt"); continue
+        if il.get("insert", "end_of_unit") == "before_book_part":
+            bp = [k for k in idx if merged[k].get("style") == "Book Part"]
+            if not bp:
+                errs.append(f"Zwischenkapitel {il['n']}: {il['after_uid']} hat keine Akt-Überschrift"); continue
+            pos = bp[0]
+            while pos - 1 in idx and not text_of(merged[pos - 1]).strip() and not merged[pos - 1].get("image"):
+                pos -= 1                                                  # vor Leerabsätzen vor der Akt-Seite
+        else:
+            pos = idx[-1] + 1
+        paras = [dict(p, uid=f"IL{il['n']}") for p in interlude_paras(il)]
+        for k, p in enumerate(paras):
+            if not tags_balanced(p["text"]):
+                errs.append(f"Zwischenkapitel {il['n']} [{k}] Auszeichnung fehlerhaft: {p['text'][:60]!r}")
+        for w in check_forbidden(paras, fb, where=f"IL{il['n']}"):
+            warns.append("Zwischenkapitel: " + w)
+        merged[pos:pos] = paras
+    n = len(data["interludes"])
+    if n != 6:
+        warns.append(f"{n} Zwischenkapitel (geplant 6)")
+    return merged
 LABEL_RE = re.compile(r"^([^:\n]{1,40}):")
 TR_UP = str.maketrans("iı", "İI")
 MISSING = [6, 10, 14, 19, 27, 33, 41]
@@ -146,6 +192,12 @@ def check_all(cons, fb):
         merged += [dict(p, uid=uid) for p in w["paras"]]
     if errs:
         return errs, warns, merged
+    merged = insert_interludes(merged, errs, warns, fb)
+    if errs:
+        return errs, warns, merged
+    il_words = sum(len(text_of(p).split()) for p in merged if p.get("style") in INTERLUDE_STYLES)
+    if il_words:
+        print(f"Zwischenkapitel: {sum(1 for p in merged if p.get('style') == 'Interlude Title')} Stück, {il_words} Wörter")
     texts = [text_of(p) for p in merged]
     # Titelblock
     if merged[0].get("style") != "Title" or texts[0].strip() != "BEN YOKSAM":

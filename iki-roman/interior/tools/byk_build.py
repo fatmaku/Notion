@@ -41,6 +41,16 @@ def main():
                         t.remove(x)
                 rpr[st] = t
                 break
+    # Absatzvorlagen der Zwischenkapitel (Tuncays „ÜÇÜNCÜ GÖZ“) anlegen, falls die Vorlage sie nicht hat
+    from docx.enum.style import WD_STYLE_TYPE
+    names = {st.name for st in doc.styles}
+    for name, base in (("Interlude Title", "Heading 2"), ("Interlude Subtitle", "Normal"), ("Interlude Lead", "Normal"),
+                       ("Interlude Heading", "Heading 2"), ("Interlude", "Normal")):
+        if name not in names:
+            st = doc.styles.add_style(name, WD_STYLE_TYPE.PARAGRAPH)
+            st.base_style = doc.styles[base]
+        if name not in rpr and base in rpr:
+            rpr[name] = rpr[base]
     body = doc.element.body
     for el in list(body):
         if el.tag != qn("w:sectPr"):
