@@ -101,10 +101,14 @@ def context():
         if o and new and o not in ("—", "-", "–") and not re.search(r"korunur|değişmez|kalır|bleibt|unchanged", new, re.I) and o.split()[0] not in new:
             old_names[o] = new
     fb["old_names"] = old_names
+    KEEP = ("Bana verilen hayatla ne yapmıştım?", "koridor", "Kırılmış.", "Kapak.")  # YOLCU'nun kendi cümleleri / genel kelimeler – yasak değil (irfan katmanı, 16.10)
     for e in concept.get("remove_sahit", []):
+        if str(e.get("replacement", "")).strip().upper().startswith("KORUNUR"):
+            continue  # korunan ŞAHİT örtüşmeleri yasak dize üretmez
         for s in re.findall(r"„([^“]{6,80})“", e.get("what", "")):
-            if s not in fb["strings"]:
+            if s not in fb["strings"] and s not in KEEP:
                 fb["strings"].append(s)
+    fb["strings"] = [x for x in fb["strings"] if x not in KEEP]
     (BYK / "forbidden.json").write_text(json.dumps(fb, ensure_ascii=False, indent=1), encoding="utf-8")
     plan = concept.get("chapter_plan", [])
 

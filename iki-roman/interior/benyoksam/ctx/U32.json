@@ -3,7 +3,7 @@
  "plan": {
   "chapter": "36. İki Ayrı Gelecek",
   "change": "hafif",
-  "what": "FETİH klasöründeki iki gelecek „üretilmiş senaryo A/B“ başlığıyla; klasörde kırk günlük temas takvimi. Jüri 1 taşıması: Tarek diskte Leyla'nın ölümünü iş emri zinciri olarak okur; okurun „herkes yalnız kendi düğmesine basar“ cümlesi sahneyi kapatır. Nina'nın itirafı, „Şimdilik güvenemiyorum“, kırmızı ip, şifre paragrafı pid 2526–2527 (‚Avucuma‘) aynen."
+  "what": "FETİH klasöründeki iki gelecek „üretilmiş senaryo A/B“ başlığıyla; klasörde kırk günlük temas takvimi. Jüri 1 taşıması: Tarek diskte Leyla'nın ölümünü iş emri zinciri olarak okur; okurun „herkes yalnız kendi düğmesine basar“ cümlesi sahneyi kapatır. Nina'nın itirafı, „Şimdilik güvenemiyorum“, kırmızı ip, şifre paragrafı pid 2526–2527 (‚Avucuma‘) aynen. İRFAN: Senaryo A ile Senaryo B ARASINA (U32 paras 64–65) bir paragraf: 'Senaryo A bir cennet teklifiydi; Meralis'te bana sunulan programın büyütülmüş hâli. Beş şehir kimseyi zincirlemiyor, bağlıyordu: duygu etiketi, puan, dayanıklılık yazılımı, kamu güveni ölçümü. Hepsi gönlü eğlendiriyordu. Kaybettiğim her şeyin yerine daha parlak bir şey konuyor, maneviyi aramayı bırakmam için kimsenin beni zorlaması gerekmiyordu.' B'nin tek satırı faturayı verir; ölüm haberi → ekran görüntüsü gerilimine hiçbir şey girmez; 'ip' ve 'koridor' kelimeleri yok. U32 yeniden açılır."
  },
  "synopsis_around": [
   {
@@ -189,7 +189,6 @@
    "İnsan hakikati öğrenmez, hatırlar",
    "Öleceğimi ilk kez o sabah düşünmedim.",
    "Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.",
-   "koridor",
    "Metale üç kez vuruluyor, sonra biri su istiyordu",
    "Sefa Abi'nin romanında geçen hastane",
    "sandalyeyi ters taşıyan adam",
@@ -206,9 +205,6 @@
    "Benim de kafam aynı apartman",
    "İlk kitabı sen yaşarken yayımla. İkincisi, öldüğün gün başlayacak.",
    "İnsan hakikati öğrenmez, hatırlar!",
-   "Kırılmış.",
-   "Kapak.",
-   "Bana verilen hayatla ne yapmıştım?",
    "Muhibbi Amca… çay lekesi",
    "Üç vuruş",
    "iki roman tek hikâye",

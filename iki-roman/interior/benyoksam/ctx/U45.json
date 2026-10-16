@@ -2,8 +2,8 @@
  "uid": "U45",
  "plan": {
   "chapter": "50. Boş Bırakılan Son Cümle",
-  "change": "hafif",
-  "what": "Masadaki adam: „Devam et?“ ekranı, „Tanı.“ raporu, kapatılan ekran, alınan kalem (Tuncay, adsız). Yeni açılış cümlesinin tekrarı (pid 3443). „Kırılmış / Kapak“, bantlı başparmak, „Herkes bendim“, isimler ayeti, „Adam. İnsan.“, „Allah dedim“, pid 3487–3488, ekmek, „Bana verilen hayatla ne yapmıştım?“, kolu olmayan kapı, „Bütün kanıtlarımı kaybettim. / Ama hâlâ buradayım. / Kim? / BENİ ARAMA.“ harfi harfine."
+  "change": "yeniden",
+  "what": "Masadaki adam: „Devam et?“ ekranı, „Tanı.“ raporu, kapatılan ekran, alınan kalem (Tuncay, adsız). Yeni açılış cümlesinin tekrarı (pid 3443). „Kırılmış / Kapak“, bantlı başparmak, „Herkes bendim“, isimler ayeti, „Adam. İnsan.“, „Allah dedim“, pid 3487–3488, ekmek, „Bana verilen hayatla ne yapmıştım?“, kolu olmayan kapı, „Bütün kanıtlarımı kaybettim. / Ama hâlâ buradayım. / Kim? / BENİ ARAMA.“ harfi harfine. [change hafif→yeniden, irfan] İRFAN (yalnız 3483–3496 aralığına ekler; kilitli cümleler harfi harfine; 3487–3488'e kelime eklenmez): (a) pid 3483'ten SONRA, 3484 öncesine iki paragraf – 'İsimlerin içinde yalnız sevdiklerim yoktu. Secde edenin adını da, etmeyenin adını da kendimde buldum; melek dediğim yanım ve karşı çıkan yanım aynı ilk insanın içinde yaşıyordu. Kitap'ın söylediği kibirdi. Eski bir derviş hikâyesi buna bir de sevgi ekler: tek bir yüzden başkasına eğilemeyecek kadar bağlanmış, ihanetini o sevgiyle açıklamış. En korkuncu şuydu: ikisinin de içimde adı vardı.' / 'İlk insan herkesteydi; okunduğu her evrende yeniden başlıyordu. Havva'nın ilk yalnızlığında; Meryem'in kimseye anlatamadığı emanetinde; Mustafa'nın –ona ve hepsine selâm olsun– dağdan inip \"beni örtün\" dediği gecede; sokaktaki her Mehmet'te. Alnını geç okuduğumuz adam da insandı; onun adını da kendimde buldum. Bütün isimleri öğrenmek için dünyadaydım, iyinin de kötünün de. Öğrendiğimi sandığım adları yaşamadan bilmiyormuşum; her biri bir ömürdü, ezber değil.' ('Âdem' yazımı ve 'Deccal' adı YOK; 'Adam. İnsan.' 3479–3480 doruk olarak kalır.) (b) pid 3489'dan SONRA, 3490 (ekmek) öncesine tek imge: 'Babamın mührü geldi: iki çark, aralarında gözle görünmeyen pay. Pay kalkarsa çark dönmez. Ayrılık değildi; paydı.' ('Ben O'yum' ibaresi olumsuz biçimde bile yazılmaz; Yunus yok.) (c) pid 3495'ten SONRA, 3496 öncesine: 'Şükür için unutmak gerekiyormuş. Her şeyi hatırlayarak doğan kimse ekmeğe şaşırmaz. Bana verilen hayat, hatırlayayım diye unutturulmuş bir hayattı; bu kapı unutmayı yeniden teklif ediyordu.' 'Kırılmış/Kapak': YOLCU biçimi '\"Kırılmış,\" dedim' noktasızdır, aynen."
  },
  "synopsis_around": [
   {
@@ -200,7 +200,6 @@
    "İnsan hakikati öğrenmez, hatırlar",
    "Öleceğimi ilk kez o sabah düşünmedim.",
    "Kapıyı açtım. İçeri girecek adamın adını henüz bilmiyorum.",
-   "koridor",
    "Metale üç kez vuruluyor, sonra biri su istiyordu",
    "Sefa Abi'nin romanında geçen hastane",
    "sandalyeyi ters taşıyan adam",
@@ -217,9 +216,6 @@
    "Benim de kafam aynı apartman",
    "İlk kitabı sen yaşarken yayımla. İkincisi, öldüğün gün başlayacak.",
    "İnsan hakikati öğrenmez, hatırlar!",
-   "Kırılmış.",
-   "Kapak.",
-   "Bana verilen hayatla ne yapmıştım?",
    "Muhibbi Amca… çay lekesi",
    "Üç vuruş",
    "iki roman tek hikâye",
