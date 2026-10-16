@@ -97,14 +97,20 @@ def word_re(name):
     return re.compile(r"(?<![\wçğıöşüÇĞİÖŞÜ])" + re.escape(name) + r"(?![\wçğıöşüÇĞİÖŞÜ])")
 
 
-def check_forbidden(paras, fb, where=""):
+def forbidden_exempt(fb, uid, s, t):
+    """Konsept-İSTİSNA: verbotene Zeichenkette nur in genau diesem Absatz (uid + exakter Text) erlaubt."""
+    return any(e.get("uid") == uid and e.get("string") == s and strip_tags(t).strip() == strip_tags(e.get("text", "")).strip()
+               for e in fb.get("exceptions", []))
+
+
+def check_forbidden(paras, fb, where="", uid=None):
     errs = []
     for k, p in enumerate(paras):
         t = text_of(p)
         if not t:
             continue
         for s in fb["strings"]:
-            if s in t:
+            if s in t and not (uid and forbidden_exempt(fb, uid, s, t)):
                 errs.append(f"{where}[{k}] verbotener ŞAHİT-Bezug {s!r}: {t[:80]!r}")
         for old, new in fb.get("old_names", {}).items():
             if word_re(old).search(t):
@@ -186,7 +192,7 @@ def check_unit(uid, work, src, cons, fb, plan=None):
     lo, hi = (0.35, 1.8) if change in ("yeniden", "yeni", "çıkar") else (0.6, 1.5)
     if c["words"] >= 150 and not (lo * c["words"] <= words <= hi * c["words"]):
         warns.append(f"Länge {words} Wörter vs. Quelle {c['words']} (Plan: {change or '–'})")
-    errs += check_forbidden(paras, fb)
+    errs += check_forbidden(paras, fb, uid=uid)
     return errs, warns
 
 

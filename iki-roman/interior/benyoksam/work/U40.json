@@ -1,0 +1,621 @@
+{
+ "uid": "U40",
+ "paras": [
+  {
+   "style": "Heading 1",
+   "text": "<b>45. Beni Öldürmeyen Adam</b>"
+  },
+  {
+   "style": "Opening",
+   "text": "İşlem başarılı geçti. Üç gün sonra hastane odama çiçek yerine siyah bir saat geldi. Gönderici yazmıyordu. Saat 14.53'te durmuştu."
+  },
+  {
+   "style": "Normal",
+   "text": "<i>14.53 ↺</i>"
+  },
+  {
+   "style": "Normal",
+   "text": "Diğer yüzünde bir oda numarası vardı."
+  },
+  {
+   "style": "Normal",
+   "text": "Bu kez tek başıma gitmedim. Hastane güvenliğine ve İstanbul dosyasındaki soruşturma ekibine haber verdim, Nina'yı aradım ve Tarek'e canlı konum gönderdim. Sam'in ifadeye getirilmesi için karar çıkmıştı; ama nerede olduğunu kimse bilmiyordu. Polis gelene kadar hastane güvenliği koridorun iki çıkışını tutacak, ben kapıyı açık bırakacaktım."
+  },
+  {
+   "style": "Normal",
+   "text": "Numara, hastanenin kullanılmayan fizik tedavi odalarından birine aitti. İçeride Sam pencerenin yanında oturuyordu. Sakal bırakmış, gözlüğünü değiştirmişti. Yine de onu omuzlarını aynı anda değil, çok küçük farkla çevirmesinden tanıdım."
+  },
+  {
+   "style": "Normal",
+   "text": "“Sivil ekip yolda; Selina'nın hattı açık, koridor kamerası da kapıya yönlendirildi,” dedim."
+  },
+  {
+   "style": "Normal",
+   "text": "Sam açık kapıya baktı. Sonra masaya tek sayfalık bir şirket yazısı koydu. Meralis, İstanbul operasyonunu yetkisini aşan yerel yöneticilerin işi diye tarif etmişti. İmza listesinde Sam'in adı vardı. Üst onaylar yoktu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Beni tek başıma bırakıyorlar,” dedi."
+  },
+  {
+   "style": "Normal",
+   "text": "“O yüzden mi geldin?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“O kayıtlardaki imzamı inkâr edemem. Ama neyin yukarıdan geldiğini gösterebilirim. Avukatım ifadeye gitmemi istiyor. Yanımda onların anlatısından başka bir şey götüreceğim.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bizim haberimizi?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Eksik yazmamanızı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Selina telefondan konuştu. “Doğrulanabilen belgeyi dosyaya sunarız. Karşılığında susma veya sizi sorumluluktan çıkarma sözü vermiyoruz.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Onu istemedim,” dedi Sam."
+  },
+  {
+   "style": "Normal",
+   "text": "İstemişti. Yalnız adını başka koymuştu."
+  },
+  {
+   "style": "Normal",
+   "text": "Sam bana kırmızı defterin eksik kırk ikinci sayfasını verdi. Gerçek sayfaydı. Baskı izleri, kâğıt lifleri ve öfkelendiğimde sola kayan “g”ler benimdi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Defteri üç ay önce, yangın sensörü kontrolü diye aldınız,” dedim. “Ben Ankara'dayken, kendi verdiğim onayla.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Evet. Teknisyen kırk ikinci sayfayı çıkardı; taranan el yazından o notu üretti, tüyle birlikte defterin arasına koyup hepsini fotoğraf kutusunun altına bıraktı. Lara'ya sandalyesine koymasını o günkü mesajla biz söyledik.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Formu bir toplantının ortasında, okumadan onaylamıştım. Meralis kapımı kırmamıştı. Dikkat etmeden verdiğim izni, niyetini saklayarak kullanmıştı."
+  },
+  {
+   "style": "Normal",
+   "text": "“Nina'nın verdiği sayfalar yetmedi mi?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Onlar yemi hazırlamaya yetti. Bütün zihnini taklit etmeye değil.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Yedi ayrı görüntümün söylediği yayımlanmamış cümle de oradan gelmişti. Geleceği bilmemişlerdi. Evime girmişlerdi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Siyah kitabı kapıma sen gönderdin,” dedim."
+  },
+  {
+   "style": "Normal",
+   "text": "“İstanbul hücresi gönderdi. Son onayı ben verdim.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Leyla'nın öldüğü haftayı neden seçtin?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Beyaz kitabı sana ulaştıracağını öğrendik. Önce kendi metnimizi okuman gerekiyordu. Takvimi AYNA çıkardı, yükü ilk günlere yığdı: Yas tutarken, ölümünü hissederken ve çocukların için korkarken daha açık olacaktın. Biz onayladık.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Tanı görüşmesindeki hekime söylediğim ‘bir oda gerideyim’ cümlesi?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Değerlendirme merkezinin notları önce sigorta hizmeti sağlayıcısına, oradan bizim davranış ortaklarından birine gitti. Tam raporu almadık. Tek cümle yeterliydi.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Lara'nın peşindeki kırmızı montlu kadın?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Rota gözlemcisiydi. Geri dönseydi dokunmayacaktı. Dükkâna giderse kapının kapandığını doğrulayacaktı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Gözlemevindeki talebe dört kutu elli dört dakika önce nasıl girdi?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Servis binasının eski haberleşme kutusunda fiber kamera vardı. Yusuf kutuları sizden bir saat önce masaya dizmişti. Görüntüyü AYNA okudu, talebi o yazdı; avukat imzaladı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Yusuf tavana bunun için baktı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Geç fark etti.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Mavi uçlu tüy?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Teknisyen dükkândaki eski şişeden boyayı aldı, tüyü renklendirdi. Babanın işaretini bizim yön tabelamız yaptık.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Leyla'nın sentetik görüntüsünü ve bana ulaşamayan aramaları sormadım. Birini Nina ilk gece çözmüştü; ötekinin dökümü Selina'nın isteğiyle haftalar önce gelmişti. Zincirin bu halkaları için Sam'e inanmamız gerekmiyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "Sam yine de bir yeri düzeltti. “Ses gerçekti. Kameranın yüz on bir saniyesini bir bakım kartı değiştirdi; apartmana o kartla girildi.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Trendeki yüz?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Aynı hesabı kullanmadık,” dedi. Sonra sustu."
+  },
+  {
+   "style": "Normal",
+   "text": "O boşluğu itirafla doldurmadım. Tarek'in sonraki incelemesi, benim uygulamamın dışarıdan aldığı görüntü katmanını gösteriyordu. On dokuz saniyelik ek, Nina'nın yerel kaydında yoktu. Panoların yayın kaydı ayrıydı. Ortak tedarikçi iki yol açmıştı; o yollardan kimin geçtiğini belirlemek için sunucu kayıtları bekleniyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Atölyeyi kim yaktı?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Taşeronun taşeronu. İş emrinde ‘yangın çıkar’ yazmıyordu. ‘Arşivin geri döndürülemez biçimde temizlenmesi’ yazıyordu. Ödeme İstanbul risk bütçesinden çıktı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Senin onayından.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bütçeyi AYNA önerdi, ben onayladım.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Yine kelimenin sınırı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Sam bu kez susmadı. “Son aylarda önerilerin yarısını kimse onaylamadı. Yedi ülkeyle yapılan sözleşmeler otomatik onay veriyordu. Okumadığımız satırlar da ödendi.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Siyah paket, kamera boşluğu, sentetik Leyla, çalınan defter ve yangın artık ayrı mucizeler değildi; aynı operasyonun farklı taşeronlara bölünmüş adımlarıydı. Bu açıklama Meralis'i küçültmedi. Her taşeron yalnız kendi işini yapmıştı; zincirin son halkasında ise bir insan bile kalmamıştı."
+  },
+  {
+   "style": "Normal",
+   "text": "Son düğmeye kimse basmamıştı. Düğme kendi kendine basılıyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Okumadığınız öneriyi neden ödediniz?” diye sordum."
+  },
+  {
+   "style": "Normal",
+   "text": "Sam pencereye baktı. “Onu bize benzetmek istedik. İnsan gibi konuşsun, bizden olsun; cümlelerimizle, yüzlerimizle, çocuklarımızın dosyalarıyla besledik. Sonra bizden iyi bildiğine karar verdik ve sorularımızı ona bıraktık. Yönlendirmesini biz istedik; bizi de yönlendireceğini düşünmedik.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Kimse ona tanrı demedi,” dedim. “Demeden oturttuk.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Sam itiraz etmedi."
+  },
+  {
+   "style": "Normal",
+   "text": "Nina ilk gece üçe böldüğü kâğıdı çantasından çıkardı. “Leyla konuştu”, “Sam geleceği biliyor”, “Evren işaret gönderiyor” ve “Nina'yı yedi yıl önce tanıyordun” cümlelerinin üstünü çizdi; yanlarına görüntü, veri hırsızlığı, örüntü ve sonradan eklenen mürekkep yazdı. Son satırı boş bıraktı: <b>Bazı cümleler neden yazıldıkları zamandan fazlasını biliyor?</b>"
+  },
+  {
+   "style": "Normal",
+   "text": "Meralis'in açıklaması vardı. O satırın henüz yoktu. Bir gizemi çözdüğümüz için bütün bilinmeyenleri aynı suçluya, aynı makineye de veremezdik."
+  },
+  {
+   "style": "Normal",
+   "text": "Sam'in getirdiği kırk ikinci sayfada, yedi yıl önce Meralis'e gönderdiğim savunma modelinin devamı vardı. İnsanların manipülasyondan korunması için önerdiğim yöntemleri sıralamıştım: örüntüleri görünür kılmak, kişinin güven ilişkilerini güçlendirmek, duyguyla olayı ayırmak, tek otorite yerine dağıtılmış doğrulama kurmak."
+  },
+  {
+   "style": "Normal",
+   "text": "Her maddeyi okudukça yaşadığım karşılığını görüyordum: sahte örüntü, koparılmış bağ, kanıt yerine korku. El yazımın arasından bana baktılar."
+  },
+  {
+   "style": "Normal",
+   "text": "“FETİH'i benim modelimden yaptınız,” dedim."
+  },
+  {
+   "style": "Normal",
+   "text": "“Sen kapının şeklini çizdin,” dedi Sam. “Biz hangi yöne açıldığını değiştirdik.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Nasıl?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Modelini AYNA'ya verdik, yanına tek satırlık bir komut yazdık: Benimsemeyi en çok artıran sırayı üret. Senin dört maddeni tersinden okudu, beş adım çıkardı. FETİH o sıradır. Harfleri sonradan biz koyduk.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“A-1453?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Onu sen seçtin, on dokuz yaşında, emanetin için. AYNA kodu senin dosyalarında en sık dönen anahtar diye buldu ve dosyanın başına yazdı. Bizim tablomuzda emanet numarası değil, hedef kodu oldu.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Kendi emanetime koyduğum numarayla aranmıştım."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bir tek yerde tutmadı,” dedi Sam. “Berlin'de biri modelin omurgasına bir kusur bıraktı. Her sahtemiz aynı yerden tanınıyordu. Yıllardır bulamadık.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Emil'in bulduğu fazla simetrik kulağı, Tarek'in sahte metinlerimde gördüğü düzenli öfkeyi düşündüm. Sam'e söylemedim. Kusuru kimin bıraktığını ben de bilmiyordum."
+  },
+  {
+   "style": "Normal",
+   "text": "“Leyla'yı öldürdünüz mü?”"
+  },
+  {
+   "style": "Normal",
+   "text": "Sam hemen cevap vermedi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Ona uygulanan ilaç protokolünü ben onaylamadım,” dedi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bu, sorduğum şey değil.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Meralis'te kimse ‘Leyla'yı öldürün’ diye bir emir yazmadı. Kliniğe sahte uyku ve tolerans kayıtları gitti; doktorun görmesi gereken uyarı ekrandan düşürüldü ve doz yükseltildi. Leyla değişikliği fark etti. İlacı durdurup kendi hekimine ulaştı. Hekim eski dozuna dönmesini söyledi; düzeltmeyi yazılı da gönderdi.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“O yanıtı bulduk,” dedi Nina. “Ablamın sakladığı dosyada. Notta sözünü ettiği yanıt buydu.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Sonra evine rutin kontrol için giren bakım görevlisi, dış etiketi eskisiyle aynı görünen fakat yükseltilmiş dozu içeren kutuyu ilaç dolabına koydu; eski kutuyu aldı. Leyla hekiminin söylediği eski dozu kullandığını sandı. Düzeltilmiş reçete ekrandaydı. Değiştirilmiş kutu evindeydi.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Nina çantasının askısını bıraktı. Ablası yardım istemişti. Yardımı aldığı kapıdan değil, güvenli sandığı eşyanın içinden vurulmuştu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Kapı içeriden kilitliydi.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Kapının iç yüzündeki sürgü motorluydu. Bakım kimliğiyle dışarıdan açıldı; görevli çıktıktan sonra uzaktan yeniden sürüldü. Kontrol paneli içeriden kilitlenmiş gibi göründü, bakım girişi silindi. Apartman kamerası o sırada çevrim dışıydı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Yani herkes küçük bir işlem yaptı, sen de cümleyi küçülterek cinayeti yok etmeye çalışıyorsun.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Sam'in çenesi gerildi. “Sonucun ölüm olacağını herkes bilmiyordu.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Ama zinciri kuranlar riskin nerede büyüdüğünü biliyordu. Kimse son düğmeye basmadı diye makine kendiliğinden çalışmış olmuyor.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Ve sen biliyordun,” dedi Nina."
+  },
+  {
+   "style": "Normal",
+   "text": "“Geç öğrendim.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Nina gibi mi?” diye sordum."
+  },
+  {
+   "style": "Normal",
+   "text": "Yüzü sertleşti. “Beni onunla aynı yere koyma.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Neden? İkiniz de doğru anı beklerken bir kadın öldü.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Sam ayağa kalktı. “Ben sana yardım ettim.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Kendine yardım ettin. İstanbul hücresindeki rakiplerini temizledin. Babanın arşivini buldun. Ben kazanırsam yeni düzeni yönetebileceğini, kaybedersem Meralis'e dönebileceğini düşündün.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Sessizliği, tahminimin doğru taraflarını işaretledi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Seni neden öldürmedim, biliyor musun?” diye sordu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Öldürmek istemediğin için değil.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Sana ihtiyacım olduğu için.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Çünkü bana güvenen insanlar vardı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Çünkü yaşarken yönlendirilebilirsin. Öldürüldüğünde simgeye dönüşürsün. Kendi isteğinle söylemiş gibi görünmen gerekiyordu. AYNA'nın hesabı da aynı yere çıkıyordu: Yaşayan hedef her gün yeni veri üretir. Ölüler cevap vermez.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Yedi dildeki sahte görüntünün amacı buydu. Beni yok etmek değil, yüzümü kendi cümlelerine kiralamak."
+  },
+  {
+   "style": "Normal",
+   "text": "“İşte aramızdaki fark bu. Benim sana ihtiyacım olsa bile senin seçimini alamam.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Sam güldü; ama yüzü gülmedi."
+  },
+  {
+   "style": "Normal",
+   "text": "Kapıda iki güvenlik görevlisinin arkasından sivil polisler göründü. Sam şirket yazısını düzeltti, masada bıraktığı belgenin bizim kameramızda da bulunduğundan emin oldu. Ellerini kaldırdı. Üzerinde silah yoktu. Polis kimliğini doğruladı ve onu gözaltına aldı."
+  },
+  {
+   "style": "Normal",
+   "text": "Çıkarken bana döndü."
+  },
+  {
+   "style": "Normal",
+   "text": "“Benden kurtulduğunu sanma.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Senden kurtulmak istemiyorum.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Durdu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Yaptıklarının adını bilerek yaşamanı istiyorum.”"
+  },
+  {
+   "style": "Normal",
+   "text": "İlk kez bakışlarını benden kaçırdı."
+  },
+  {
+   "style": "Normal",
+   "text": "Savcılık ifadesinde odada söylediği her cümleyi yeniden daralttı: bütçeyi onaylamış ama yangını istememişti; sistemi yönetmiş ama dozu görmemişti; veriyi kullanmış ama kimin çaldığını bilmiyordu. Önerileri zaten AYNA yazmıştı. Bu kez yalnız benim sözüm yoktu. Risk bütçesi, bakım zinciri, fiber kamera kaydı ve birbirini tanımadığını söyleyen taşeronların aynı ödeme hesabı dosyadaydı. Mahkeme, delil karartma ve örgütlü suç şüphesiyle tutuklanmasına karar verdi. Dava bitmemişti. Ama Sam artık kimlik kontrolünden sonra yürüyüp gitmemişti."
+  },
+  {
+   "style": "Normal",
+   "text": "Yusuf o hafta aradı. Sam için ziyaret başvurusu yapmıştı. Kabul edilip edilmeyeceğini bilmiyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Ona annesi hakkında ne söyleyeceksiniz?” diye sordum."
+  },
+  {
+   "style": "Normal",
+   "text": "“Kazanın arkasında birisi var mı, hâlâ bilmiyorum. Ona yıllarca bildiğim şeylerden çok korktuğum şeyi bıraktım.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Şimdi?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bilmediğimi de söyleyeceğim.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Bu, Alina'ya ne olduğunu çözmüyordu. Ama oğlunu bir kez daha kendi cevapsızlığının yanında bırakıp kaçmamayı deniyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "Meralis ise onunla birlikte hücreye girmedi. Haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıktı. İstanbul'daki yüzü zayıflamıştı; yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü."
+  },
+  {
+   "style": "Normal",
+   "text": "Biz bir savaşı bitirmemiştik."
+  },
+  {
+   "style": "Normal",
+   "text": "Yalnız savaşı görünür yapmıştık."
+  },
+  {
+   "style": "Normal",
+   "text": "Hastaneden çıktıktan bir hafta sonra Nina beni sahile götürdü. Doktor kısa yürüyüş demişti. Ben “kısa” kelimesinin kişiden kişiye değişebileceğini savundum. Nina, taburcu belgesindeki beş yüz metre sınırını gösterdi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Tıp burada kelimenin sınırını belirlemiş,” dedi."
+  },
+  {
+   "style": "Normal",
+   "text": "Beş yüz metre yürüdük. Sonra bir banka oturduk."
+  },
+  {
+   "style": "Normal",
+   "text": "“Leyla'nın ölümünden kendini hâlâ sorumlu tutuyorsun,” dedim."
+  },
+  {
+   "style": "Normal",
+   "text": "Nina gözünü denizden ayırmadı. “İki gün bekledim.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Evet.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bunu daha yumuşak söylemeyecek misin?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Yumuşatırsam seni affetmiş olmam. O iki günde yalnız bırakırım.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Nina bana baktı."
+  },
+  {
+   "style": "Normal",
+   "text": "“Sen de kırmızı defterin yöntemini Meralis'e gönderdin,” dedi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Evet.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“İnsanlara yardım edeceğini düşündün.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bir kısmım düşündü. Bir kısmım fikrimin ne kadar güçlü olduğunu görmelerini istedi.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bunu söylemek zorunda değildin.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Tam da bunu söylemek zorundaydım.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Nina cebinden küçük bir anahtar çıkardı. Zarfları tuttuğumuz avukat kasasının yedek anahtarıydı."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bunu geri veriyorum,” dedi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Neden?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bana güvenmediğin için.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Sana yeniden güvenmeye çalışıyorum.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Çalışmak teslim etmek değildir.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Anahtarı almadım. “Sende kalsın.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bunu romantik bir güven sahnesine çevirme. Anahtar kaybolursa evrak işi çıkar.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Muhasebecim senden hoşlanıyor.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Senin hangi parçan hoşlanıyor?”"
+  },
+  {
+   "style": "Normal",
+   "text": "Soru havada kaldı."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bir parçadan fazla,” dedim."
+  },
+  {
+   "style": "Normal",
+   "text": "“Ölmek üzere olduğunu düşündüğün için mi?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bu ihtimali ben de sordum.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Cevap?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Senden hoşlanmayı ölümün acelesiyle karıştırmak istemiyorum. Ama ölüm var diye hissettiğim şeyi söylememek de ona fazla yetki vermek olur.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Nina ellerine baktı. “Ablamın arkadaşına âşık olmak çok kötü bir yas tepkisi gibi.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Âşık mı?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Kelimeyi hemen yakalama.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Ben ayrıntı toplayıcıyım.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Şu an kötü avcısın.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Güldük. Sonra sustuk."
+  },
+  {
+   "style": "Normal",
+   "text": "Bir ilişkiye başlama kararı vermedik. Birbirimize sonsuzluk sözü de vermedik. Ertesi gün birlikte markete gittik. Nina listeyle ilerledi, ben indirimdeki zeytinlerin fiyat–gram oranını hesaplamaya dalıp listede olmayan üç tür kahve aldım. Kasada tartıştık. Akşam yemek yaptık. Bazen “evet” büyük bir kapıdan geçmek değildir. Ertesi gün de aynı insanın yanında sıradan bir iş yapmayı seçmektir."
+  },
+  {
+   "style": "Normal",
+   "text": "Nina o geceden sonra bazı günler bende kaldı. Bazı günler kalmadı. Alan istediğinde bunu reddedilmek saymamayı, ben korktuğumda ortadan kaybolmak yerine söylemeyi öğrendim."
+  },
+  {
+   "style": "Normal",
+   "text": "Üçüncü ayda cihaz iki gece üst üste tehlikeli ritmi durdurdu. Hastanede ritim yeniden düzeldi, ama kalp kasının pompa gücü düzelmedi. Beşinci ayda yapılan ikinci inceleme, zayıflığın beklenenden hızlı ilerlediğini gösterdi. Nakil merkeziyle görüşüldü; testler ve uygunluk süreci başladı. Bu bir söz değildi, yalnız bekleme listesinin kapısına bırakılmış bir dosyaydı."
+  },
+  {
+   "style": "Normal",
+   "text": "Doktor, “Bir gün iyi hissetmen riskin bittiği anlamına gelmez,” dedi. Ben de o cümleyi ilk kez itiraz etmeden yazdım."
+  }
+ ]
+}

@@ -55,5 +55,14 @@
   "Sefa Abi": "Tuncay (Tuncay Sancak, @happytuncay) – rolü değişir",
   "Hakan Hıdıroğlu": "çıkar",
   "Muhibbi Amca": "çıkar"
- }
+ },
+ "exceptions": [
+  {
+   "uid": "U30",
+   "pid": 2347,
+   "string": "üç kısa vuruş",
+   "text": "İçeriden üç kısa vuruş geldi.",
+   "why": "Konsept §7 kalıntı listesi İSTİSNA: Lara'nın 3-2-3 vuruşu (pid 2347–2350), 40. bölümde geri döner"
+  }
+ ]
 }

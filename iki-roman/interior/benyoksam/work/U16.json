@@ -1,0 +1,505 @@
+{
+ "uid": "U16",
+ "paras": [
+  {
+   "style": "Heading 1",
+   "text": "<b>17. Ormanda Beceri, Şehirde Belirti</b>"
+  },
+  {
+   "style": "Opening",
+   "text": "Atölyede bulduğumuz yedi kitabı incelemek günler sürdü. Bu sırada hayat, suç romanı olduğundan habersiz devam etti. Çöp çıkarıldı. Emil'in fen ödevi kayboldu. Lara'nın müzik provası ertelendi. Sara, çocukların yanında telefonuma her baktığımda kaşını kaldırdı."
+  },
+  {
+   "style": "Normal",
+   "text": "Olay yeri ekibinin açtığı çekmecelerin ilkinde Türkçe, ikincisinde Almanca siyah kitap vardı. Sonrakiler İngilizce, Fransızca, Arapça, Portekizce ve Svahiliydi. Kitaplar emanete alındı; biz yalnız Selina'nın getirebildiği adli görüntüleri karşılaştırdık."
+  },
+  {
+   "style": "Normal",
+   "text": "Yedi kitap dışarıdan aynıydı; açıldıklarında değildi. İlk sayfadaki yara cümlesi her alıcı için değişiyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "Mira adlı bir kadının kitabında ailesinin onu susturduğu yazıyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "Thomas'ın kitabında devletin yeteneğini ilaçla bastırdığı."
+  },
+  {
+   "style": "Normal",
+   "text": "Thomas'ın dosyasında gerçek bir tedavi öyküsü de vardı. İlk kullandığı ilaçta iştahı kesilmiş, uykusu bozulmuş ve kendisini “camın arkasından yaşıyor” gibi hissetmişti. Doktoruyla başka doza ve sonra başka tedaviye geçmiş; sonunda yarar gördüğü bir düzen bulmuştu. Siyah kitap ilk üç satırı almış, doktorla birlikte çözüm aradığı devamını silmişti."
+  },
+  {
+   "style": "Normal",
+   "text": "Benim beyin sisi deneyimim de aynı makineye girebilirdi. “Bu ilaç bana uymadı” cümlesi insanı kendi kararının sahibi bırakıyordu. “İlaçlar yeteneğimizi söndürmek için var” cümlesi ise önce öfke, sonra düşman, en sonunda kitap adına konuşacak bir asker üretiyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "Nadia'nın kitabında dinî otoritenin rüyalarından korktuğu, João'nunkinde şirketlerin yaratıcılığını çaldığı yazıyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "Farklı ışık altında çekilen adli görüntüler karşılaştırıldığında baskının gizlenmiş katmanları belirdi. Benim kitabımdaki kelebeğin altında kurt başı, Thomas'ın kitabındaki pusulanın altında hedef işareti, Nadia'nın kırık halesinin altında kapalı bir göz vardı. Şekiller değişmiyor, üst üste basılmış ikinci çizimler görünür oluyordu. Hepsinin altında aynı talimat vardı:"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>KULLANICIYA UYGUN DÜŞMAN SEÇ.</b>"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>Aile yarası varsa aile. Kurum yarası varsa devlet. İnanç yarası varsa din. Tanı yarası varsa tıp.</b>"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>Kendi düşmanını seçtiğini sanması güveni artırır.</b>"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bu kitap yasak değil,” dedi Nina. “Yasakmış gibi dağıtılan bir hedefleme aracı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Leyla gerçek bir metinden söz ediyordu.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Belki bu, onun bozulmuş hâli.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Bir akşam Emil, yemek masasındaki UV lambasını gördü."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bu ne?” diye sordu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Kitaplardaki görünmez mürekkebi gösteriyor.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Casusluk mu?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Kâğıt analizi.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Casusluğun sıkıcı adı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Lambayı ona vermedim. O da sormayı bıraktı; on dakika sonra cihazı elimdeyken nasıl açtığımı omzumun üstünden izliyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "Siyah kitabım lambanın yanında, yemek masasındaydı. Lara parmağını kapaktaki kabartmanın üstünde gezdirdi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Tek gözü var, o da kapalı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Kapalı değil, bölünmüş,” dedi Emil."
+  },
+  {
+   "style": "Normal",
+   "text": "“Öbürü nerede?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Çizen koymamış.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Belki koyacak yer bulamamış.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Çocukken bir akşam, bir gözümü elimle kapatıp apartmanın merdivenlerini inmiştim. Neden yaptığımı hatırlamıyorum. Yalnız aşağıya vardığımda tırabzanı bırakamadığımı hatırlıyorum."
+  },
+  {
+   "style": "Normal",
+   "text": "Lara, siyah kitabın ilk sayfasını okumak istedi. Sara karşı çıktı. Ben, “Onun hakkında konuşulan şeyi ondan saklayamayız,” dedim. Sara, “Onun hakkında konuşulan her şeyi ona göstermek zorunda da değiliz,” dedi."
+  },
+  {
+   "style": "Normal",
+   "text": "Sonunda yalnız tıbbi veya bilimsel gerçek olmadığına dair notu ve avcı–toplayıcı sayfasını birlikte okuduk."
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>Avcı hareketi görür.</b>"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>Toplayıcı farkı saklar.</b>"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>İkisini taşıyan, hem tehlikeyi hem düzeni görebilir.</b>"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>Ama görmek, iyi olmak değildir.</b>"
+  },
+  {
+   "style": "Normal",
+   "text": "“Ben hangisiyim?” diye sordu Emil."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bilmiyorum,” dedim."
+  },
+  {
+   "style": "Normal",
+   "text": "“Sen bunu yıllardır düşünmedin mi?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Düşünmekle bilmek aynı şey değil.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Lara sayfayı çevirdi. “Kitap, DEHB'liler avcı, otistikler toplayıcı demeye mi çalışıyor?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bunu açıkça yazmıyor.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Ama okuyanın oraya gitmesini istiyor.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bence istiyor,” dedim."
+  },
+  {
+   "style": "Normal",
+   "text": "“Peki sen inanıyor musun?”"
+  },
+  {
+   "style": "Normal",
+   "text": "Soruyu çocuklarıma cevaplamak, sahnede cevaplamaktan zordu. Çocuk, babasının kesinliğini kendisine duvar yapabilirdi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bir kısmını düşünmeye değer buluyorum,” dedim. “Ama ‘şu tanıdaki herkes budur’ dersem insanı yine bir kutuya koyarım.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Sen avcı mısın?” diye sordu Emil."
+  },
+  {
+   "style": "Normal",
+   "text": "“Anahtarımı kaybedip iki şirket arasındaki gizli bağlantıyı bulan türden.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Kötü avcı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Şehir için kötü. Belki ormanda iyiydim.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Onlara yıllardır zihnimde büyüyen teoriyi anlattım. Taş Devri'nde bir grupta birinin dikkati daldaki kıpırtıya, topraktaki yeni ize yayılıyordu. Başka biri tek bitkiye eğiliyor, hangi yaprağın zehirli olduğunu yıllarca unutmuyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Peki ikisini yapan?” diye sordu Lara."
+  },
+  {
+   "style": "Normal",
+   "text": "“Hem hareketi hem sistemi görenler. Onlara önce ‘yapıcı’ dedim. Daha kibirli bir gecemde ‘alfa’ yazdım.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Alfa kötü bir kelime,” dedi Emil. “İnternette bağıran adamlar kullanıyor.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bu yüzden artık sevmiyorum.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Kitap seviyor,” dedi Lara. “Her farklılık üstünlük değildir.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Haklıydı."
+  },
+  {
+   "style": "Normal",
+   "text": "Bir klinikte belirti denen şey, ormanda beceri olabilirdi."
+  },
+  {
+   "style": "Normal",
+   "text": "Dünya bir yeteneği verirken öbür cebine bedelini koyuyor gibiydi. Çok duyarsan seçmekte zorlanıyor, çok derin hissedersen cevap vermekte gecikiyor, çok uzağı görürsen ayağının önündeki basamağı kaçırıyordun."
+  },
+  {
+   "style": "Normal",
+   "text": "Bir dönem buna kozmik denge deyip başıma gelen haksızlığın başka yerde mutlaka telafi edileceğini defterime yazmıştım."
+  },
+  {
+   "style": "Normal",
+   "text": "Leyla o sayfanın kenarına tek cümle koymuştu:"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<i>Acıyı anlamlı yapmak isterken onu ödüllü piyangoya çevirme.</i>"
+  },
+  {
+   "style": "Normal",
+   "text": "“Leyla öldüğü için ne kazandı?” diye sordu Lara."
+  },
+  {
+   "style": "Normal",
+   "text": "Cevap vermedim."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bu adil mi?” diye sordu Emil. “Kozmik denge diyorsun ya.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Denge, adalet demek değildir. Terazinin iki tarafında ağırlık olması, yükün eşit dağıldığını göstermez.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Lara kitabın son cümlesine dokundu. “Görmek iyi olmak değildir,” dedi. “Bence önemli yer burası.”"
+  },
+  {
+   "style": "Normal",
+   "text": "O gece çalışma odamdaki masada çalışma defterimi açıp şunu yazdım:"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<i>Yetenek bir yön gösterir. Ahlak hangi yöne yürüdüğünü belirler.</i>"
+  },
+  {
+   "style": "Normal",
+   "text": "Tam noktayı koyduğumda Sam'den mesaj geldi."
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>SAM:</b> Güzel cümle. Ama yönü kim belirleyecek?"
+  },
+  {
+   "style": "Normal",
+   "text": "Defteri kimseye göndermemiştim. Cümleyi sesli de okumamıştım. Telefonu kapatıp masaya bıraktım. Beş saniye sonra ekran yeniden yandı."
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>SAM:</b> Korkma. Kelimeni okumadım. Aynı sonuca varacağını tahmin ettim."
+  },
+  {
+   "style": "Normal",
+   "text": "Bu açıklama beni rahatlatmadı. Birinin düşüncemi çalmasıyla nereye varacağını önceden bilmesi arasında, mahremiyet açısından düşündüğüm kadar büyük bir fark yoktu."
+  },
+  {
+   "style": "Normal",
+   "text": "Nina'ya mesajları gösterdim. Cevap yazmamamı söyledi. Ben cevap yazmadım. Sonra taslağı on iki kez değiştirdim."
+  },
+  {
+   "style": "Normal",
+   "text": "Ertesi gün Sam bir video bağlantısı yolladı. Açmadım. Bağlantının ön izlemesinde, bir grup genç atölyede ahşap parçaları birleştiriyordu. Başlıkta <b>ALFA YAPICILAR PROGRAMI</b> yazıyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "Emil omzumun üstünden gördü."
+  },
+  {
+   "style": "Normal",
+   "text": "“Alfa kelimesini bırakmamışlar.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bırakmayacaklar. İnsan kendisini üstün hissettiren etiketi kolay bırakmıyor.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Sen bıraktın mı?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bırakmaya çalışıyorum.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Çalışmak bıraktığın anlamına gelmiyor.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Evde çocuk yetiştirmenin tehlikeli yanı, kendi cümlelerinizin size karşı ücretsiz kullanılmasıdır."
+  },
+  {
+   "style": "Normal",
+   "text": "Videoyu kapalı ortamda inceletmek için Nina'nın iki yıl önce çocuk verilerini satan eğitim merkezini araştırırken kaynak olarak tanıştığı, benim yüzünü hiç görmediğim güvenlik uzmanı Tarek'e ulaştık. Tarek o merkezin taşeronunda çalışmış, “anonim” denilen dosyaların öğrenci adlarıyla dışarı aktarıldığını görünce işi bırakmıştı."
+  },
+  {
+   "style": "Normal",
+   "text": "Benimle ilk görüşmesi görüntülü oldu. Selam vermeden önce dosyanın özet değerini, sonra kameramın üreticisini söyledi."
+  },
+  {
+   "style": "Normal",
+   "text": "“İnsanlarla böyle mi tanışıyorsunuz?” diye sordum."
+  },
+  {
+   "style": "Normal",
+   "text": "“Sunucular daha az alıngan,” dedi."
+  },
+  {
+   "style": "Normal",
+   "text": "Ona önce videoyu değil, Sam'in defterime yazdığım cümlenin hemen ardından gönderdiği mesajı gösterdim. “Tahmin ettim” demesi bir açıklama değil, benim kabul etmemi istediği açıklamaydı. Tarek mesajı iki kez okudu ve yalnız, “Önce evine bakalım,” dedi."
+  },
+  {
+   "style": "Normal",
+   "text": "Ertesi sabah Selina üzerinden gelen görevliyle, evdeki cihazları tek tek yerinde kontrol ettik. İlk gece kapılara ve bilgisayara bakmıştık; bu kez duvara asılı olup cihaz saymadığım şeylere de baktık. Çalışma odasındaki duman sensörünün kapağında, deliklerden birinin gerisinde ikinci bir cam parladı. Görevli sensörü fotoğraflayıp söktü. İçinde kameranın kendi bağlantısını sağlayan ayrı bir kart vardı; evin kablosuz ağ listesinde görünmüyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "“Üç zarf,” dedim."
+  },
+  {
+   "style": "Normal",
+   "text": "Tarek kameranın baktığı açıyla açılış videomdaki masayı karşılaştırdı. “O masayı görebilir. Ama o sabah kimin izlediğini, görüntünün nerede saklandığını daha bilmiyoruz.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Çalışma defterimi de o masada açmıştım."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bu açıdan bir sayfa baştan sona okunmaz,” dedi Tarek. “İlk kelimeler okunur, kalemin nereye gittiği okunur. Gerisini tahmin eden bir model için o kadarı yeter.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Sam'in iki mesajı da yalan değildi. Kamera kalemi görmüş, makine cümlenin devamını yazmıştı."
+  },
+  {
+   "style": "Normal",
+   "text": "Görevli sensörü kimin taktığını sordu. Apartman yöneticisi Niko Bey yukarı çıktı, telefonunda binanın bakım portalını açtı ve üç ay önceki iş emrini gösterdi: <b>Zorunlu yangın sensörü kontrolü.</b> Altında daire sahibinin uzaktan onayı vardı. Benim adım, benim numaram, bir öğleden sonra saati."
+  },
+  {
+   "style": "Normal",
+   "text": "“Siz izin verdiniz,” dedi Niko Bey. “Teknisyeni yedek anahtarla ben aldım içeri.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Formu hatırlamıyordum. Onay kutusunu işaretlediğimi de. İş emrindeki firma, Nina'nın kafede okuduğu iş fişlerindeki taşerondu."
+  },
+  {
+   "style": "Normal",
+   "text": "Selina'nın operatörden istediği geçmiş erişim dökümü de o sabah geldi. Leyla'nın üç aramasını aktaran yönlendirme, etkinlikler için yetki verdiğim danışma hesabının girişiyle açılmıştı. Hizmet birkaç ay önce el değiştirmiş, hesap Meralis'in iletişim taşeronuna devredilmişti. Nina devralan şirketin adını Karaköy'deki binanın sicil kayıtlarından tanıdı. Ben eski yetkiyi hiç kapatmamıştım."
+  },
+  {
+   "style": "Normal",
+   "text": "Kamera mühürlendi. Anahtarlar, erişim hesapları ve bakım izinleri yeniden düzenlendi; danışma hesabının yetkisini o gün kapattık. Tavan boş kaldı; baktıkça rahatlamıyor, daha çok utanıyordum. Nina, “Sakladıkları şeyi görmemen, görmelerine izin verdiğin anlamına gelmez,” dedi. Yine de o gece çocuklarla kendi evimde kalmadım."
+  },
+  {
+   "style": "Normal",
+   "text": "Tarek daha sonra videoya döndü; kendisine ulaşan kopyada sonradan yapılmış bir montaj izi bulmadı. Gençlerin bir kısmı DEHB veya otizm tanısı aldıklarını anlatıyor, bazıları iki profile ilişkin özelliklerinden söz ediyor, bazıları hiçbir tanı belirtmiyordu. Bir ekip düzensiz arazide kullanılacak su arıtma sistemi yapıyor, başka ekip işitme güçlüğü olan insanlar için titreşimli alarm geliştiriyordu."
+  },
+  {
+   "style": "Normal",
+   "text": "Sam kaydın sonunda konuştu:"
+  },
+  {
+   "style": "Normal",
+   "text": "“Avcı hızlı tehlikeyi, toplayıcı kalıcı ayrıntıyı görür. İkisi bir kişide birleştiğinde yapıcı doğar. Tarihte yeni yolları açanlar bunlardı. Çoğunluk onları önce tuhaf, sonra tehlikeli, en sonunda vazgeçilmez saydı.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Söyledikleri, teorimin en heyecan verici hâliydi. Aynı zamanda en tehlikelisi."
+  },
+  {
+   "style": "Normal",
+   "text": "Lara videoyu durdurdu. “Bunlar gerçekten iyi işler yapıyor.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Evet.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“O zaman neden kötü?” diye sordu Emil."
+  },
+  {
+   "style": "Normal",
+   "text": "“İş kötü değil.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Sam kötü mü?”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bir insanı tek sıfatla bitirmek istemiyorum.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Lara, “Ama bize ondan uzak dur diyorsun,” dedi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Çünkü iyi bir sonuç, yöntemin tamamını temizlemez. Gençlere destek veriyor olabilir. Aynı anda onların kendisine borçlu hissetmesini, yalnız Meralis'in onları anladığına inanmasını da sağlayabilir.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Ya gerçekten yalnız onlar anlıyorsa?”"
+  },
+  {
+   "style": "Normal",
+   "text": "Soru bana aitti. Tanıdan sonraki ilk aylarda onu defalarca düşünmüştüm. Beni yıllarca yanlış anlayan dünyaya karşı, sonunda beni bütünüyle anlayan bir topluluk fikri sıcak bir oda gibiydi."
+  },
+  {
+   "style": "Normal",
+   "text": "“Bir grup seni yalnız kendisinin anladığını söylüyorsa,” dedim, “seni anlamaktan çok kapıyı kilitliyor olabilir.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Videoda gençlerden biri konuşuyordu. Adı Aris'ti. Okuldan atıldıktan sonra Meralis atölyesinde ilk kez bir projeyi tamamladığını, ailesinin kendisine inanmaya başladığını söylüyordu. Yüzündeki gurur sahte değildi."
+  },
+  {
+   "style": "Normal",
+   "text": "Sara sessizce yanımıza geldi. “Bazen kötü kurumda iyi öğretmen, iyi kurumda kötü yönetici olur,” dedi. “Çocukların hayatını teoriye kurban etmeyin.”"
+  },
+  {
+   "style": "Normal",
+   "text": "“Peki ne yapalım?” diye sordum."
+  },
+  {
+   "style": "Normal",
+   "text": "“Aris'in desteğini kesmeden verisinin ve bağlılığının nasıl kullanıldığını araştırın.”"
+  },
+  {
+   "style": "Normal",
+   "text": "Tarek, Sam'in tanıtım bağlantısına eklediği başvuru paketini de inceledi. Gençlere imzalatılan sözleşme videonun içinde değil, indirilebilir izin eklerinin arasındaydı. Bursun devamı, davranış verilerinin “ortak araştırma kuruluşlarıyla” paylaşılmasına ve programın kamuya açık eleştirilerinde önce kurum içi uzlaşma sürecine başvurulmasına bağlıydı. Saklamamışlardı; desteği isteyenin bu dili olağan karşılayacağını varsaymışlardı."
+  },
+  {
+   "style": "Normal",
+   "text": "Aris'e doğrudan ulaşmadık. Onu yeni bir riskin içine sokabilirdik. Sözleşmeyi bağımsız bir hak örgütüne gönderdik. Aylar sonra gençlerin bursu kesilmeden veri maddesinin değişmesi için dava açılacaktı."
+  },
+  {
+   "style": "Normal",
+   "text": "O gün teorime bir satır daha ekledim:"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<i>İyi manipülasyon yoktur. Yardım kapıyı gösterir; geçip geçmemeyi insana bırakır.</i>"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>GÖLGE:</b> <i>Ya yanlış kapıyı seçerse?</i>"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>SESSİZ SES:</b> <i>O zaman yanında kalırsın. Onun yerine yürümezsin.</i>"
+  }
+ ]
+}

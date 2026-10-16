@@ -569,7 +569,8 @@
    "Keller"
   ],
   "exceptions": {
-   "üç kısa vuruş": "pid 2347 (Lara'nın 3-2-3 kapı şifresi) kalır; pid 2670 değişir"
+   "üç kısa vuruş": "pid 2347 (Lara'nın 3-2-3 kapı şifresi) kalır; pid 2670 değişir",
+   "Uyanışın Bedeli": "U04 pid 190 kart başlığı; U11 satır 314 ve U12 satır 74 e-posta konusu – olay örgüsü kanıtı, alt başlık değil; ‚1453 —‘ ile birlikte geçemez."
   }
  },
  "decisions": {
