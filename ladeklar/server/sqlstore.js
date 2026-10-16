@@ -73,6 +73,7 @@ export function createSqlStore(file) {
     upsert: db.prepare('INSERT INTO push_subs (endpoint, user_id, p256dh, auth, created) VALUES (?, ?, ?, ?, ?) ON CONFLICT (endpoint) DO UPDATE SET user_id = excluded.user_id, p256dh = excluded.p256dh, auth = excluded.auth'),
     forUser: db.prepare('SELECT * FROM push_subs WHERE user_id = ?'),
     del: db.prepare('DELETE FROM push_subs WHERE endpoint = ?'),
+    delUser: db.prepare('DELETE FROM push_subs WHERE user_id = ?'),
   };
   const kv = {
     get: (k) => { const r = db.prepare('SELECT v FROM kv WHERE k = ?').get(k); return r ? JSON.parse(r.v) : null; },

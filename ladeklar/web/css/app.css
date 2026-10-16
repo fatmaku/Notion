@@ -184,9 +184,9 @@ textarea.input { min-height: 84px; resize: vertical; line-height: 1.45; }
 .steps .nd .ic { width: 14px; height: 14px; stroke-width: 2.6; }
 .steps .done .nd { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
 .steps .now .nd { border-color: var(--brand); color: var(--brand); box-shadow: 0 0 0 5px color-mix(in oklab, var(--brand) 18%, transparent); animation: ring 2.2s infinite; }
-.steps .lb { font-size: 11px; font-weight: 700; color: var(--muted); line-height: 1.2; max-width: calc(100% + 6px); hyphens: auto; }
+.steps .lb { font-size: 11px; font-weight: 700; color: var(--muted); line-height: 1.2; max-width: calc(100% + 4px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @container lk (max-width: 480px) { .steps .lb { font-size: 9.5px; letter-spacing: -.015em; } .steps .tm { font-size: 9.5px; } }
-@container lk (max-width: 560px) { .steps[style*="--n:6"] .st:not(.now) .lb { visibility: hidden; } .steps[style*="--n:6"] .st.now .lb { white-space: nowrap; } .steps[style*="--n:6"] .st:first-child.now .lb { align-self: flex-start; } .steps[style*="--n:6"] .st:last-child.now .lb { align-self: flex-end; } }
+@container lk (max-width: 560px) { .steps[style*="--n:6"] .st:not(.now) .lb { visibility: hidden; } .steps[style*="--n:6"] .st.now .lb { white-space: nowrap; overflow: visible; max-width: none; } .steps[style*="--n:6"] .st:first-child.now .lb { align-self: flex-start; } .steps[style*="--n:6"] .st:last-child.now .lb { align-self: flex-end; } }
 .steps .done .lb, .steps .now .lb { color: var(--text); }
 .steps .tm { font-size: 10.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .bar { height: 6px; border-radius: 4px; background: var(--line); overflow: hidden; }
@@ -442,6 +442,11 @@ textarea.input { min-height: 84px; resize: vertical; line-height: 1.45; }
 .lockcover .ic { width: 72px; height: 72px; color: var(--brass-2); stroke-width: 1.6; }
 .offline { display: flex; align-items: center; gap: 10px; padding: 8px 14px; background: var(--warn); color: #111; font-weight: 800; font-size: var(--fs-sm); }
 .undo { position: absolute; z-index: 45; left: 50%; bottom: calc(76px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 16px; border-radius: 16px; background: var(--ink); color: var(--on-ink); box-shadow: var(--shadow-3); font-weight: 700; font-size: var(--fs-sm); animation: up .4s var(--ease-out) both; white-space: nowrap; max-width: calc(100% - 20px); }
+.btn.two-line { white-space: normal; justify-content: flex-start; text-align: left; padding-block: 10px; min-height: 64px; }
+.btn.two-line > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.btn.two-line small { font-size: var(--fs-sm); font-weight: 650; opacity: .88; font-variant-numeric: tabular-nums; }
+.pwfirst .login-in { max-width: 520px; grid-template-columns: minmax(0, 1fr) !important; }
+.danger-zone { border: 1px solid color-mix(in oklab, var(--bad) 40%, var(--line)); }
 .undo button { border: 0; border-radius: 11px; padding: 10px 14px; background: var(--brass); color: var(--brass-ink); font-weight: 850; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
 .undo .ring { width: 22px; height: 22px; } .undo .ring circle { fill: none; stroke: var(--brass-2); stroke-width: 3; stroke-dasharray: 63; animation: countdown var(--dur, 120s) linear forwards; transform: rotate(-90deg); transform-origin: center; }
 

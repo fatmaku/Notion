@@ -23,7 +23,7 @@ export function render(app) {
     : `<div class="hero">${WORDMARK}
         <h1>${t('Ein Tipp.')}<br><em>${t('Alles klar.')}</em></h1>
         <p class="lead">${t('Die White-Label-App für Speditionen: Fahrer bestätigen jede Tour mit einem Tipp, die Disposition sieht alles live – mit Lieferschein-Foto.')}</p>
-        <div class="proof"><div><b>7</b>${t('Sprachen für Fahrer')}</div><div><b>10 Min.</b>${t('bis zur ersten Tour')}</div><div><b>0 €</b>${t('Hardware')}</div></div></div>`;
+        <div class="proof"><div><b>8</b>${t('Sprachen für Fahrer')}</div><div><b>10 Min.</b>${t('bis zur ersten Tour')}</div><div><b>0 €</b>${t('Hardware')}</div></div></div>`;
 
   let form = '';
   if (mode === 'invite') {
@@ -53,7 +53,7 @@ export function render(app) {
   return `<div class="login" data-key="login"><canvas class="net" data-keep data-key="net" aria-hidden="true"></canvas>
     <div class="login-in">${hero}
       <div class="panel-glass">
-        ${mode === 'invite' ? '' : `<div class="seg" role="tablist"><button data-act="loginMode" data-m="driver" aria-pressed="${mode === 'driver'}">${icon('truck')}${t('Fahrer')}</button><button data-act="loginMode" data-m="office" aria-pressed="${mode === 'office'}">${icon('building-2')}${t('Büro / Disposition')}</button></div>`}
+        ${mode === 'invite' ? '' : `<div class="seg" role="tablist"><button data-act="loginMode" data-m="driver" aria-pressed="${mode === 'driver'}">${icon('truck')}${t('Fahrer|login')}</button><button data-act="loginMode" data-m="office" aria-pressed="${mode === 'office'}">${icon('building-2')}${t('Büro / Disposition')}</button></div>`}
         ${form}
         <div class="divider" style="background:rgba(255,255,255,.1)"></div>
         ${langPicker(app)}

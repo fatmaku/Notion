@@ -2,8 +2,9 @@
 // drivers with PIN invites, the truck/trailer pool, reports, settings incl. own logo & colour.
 import { icon, esc, pill, problemPill, plate, avatar, flag, stepper, routeTitle, goodsFacts, placeBlock, timeline, notesThread, docsGrid, sheet, emptyState, logoImg, licenseBanner, deliveryCompact, eventText, eventDetail, eventTone, EVENT_ICON, VEHICLE_ICON, vehicleTypeText, featureText, progressRatio } from './common.js';
 import { t, tStatus, tStep, tProblem, LANG_NAMES } from '../i18n.js';
-import { time, dateTime, dayLabel, isoToday, addDays, ago, minutes, num, kg, phoneHref, window_, longDate } from '../format.js';
+import { time, dateTime, dayLabel, isoToday, addDays, ago, minutes, num, kg, phoneHref, window_, longDate, phone as fmtPhone } from '../format.js';
 import { compressPhoto, processLogo, qrSvg } from '../media.js';
+import { createZip, exportFileName } from '../../../core/zip.js';
 import { VEHICLE_TYPES, VEHICLE_FEATURES, PLANS } from '../../../core/engine.js';
 
 export const routes = ['live', 'deliveries', 'drivers', 'vehicles', 'reports', 'settings'];
@@ -135,9 +136,9 @@ function driversPage(app) {
   return `<div class="page-h"><div><h1>${t('Fahrer')}</h1><p class="lead">${t('Jeder Fahrer bekommt einen eigenen Zugang mit PIN – per Link, QR-Code oder WhatsApp.')}</p></div><button class="btn btn-primary" data-act="newDriver">${icon('user-plus')}${t('Fahrer anlegen')}</button></div>
     ${lic ? `<div class="card pad row wrap"><div class="grow"><b>${t('{n} von {m} Fahrer-Plätzen belegt', { n: active, m: lic.driverSeats })}</b><div class="bar" style="margin-top:8px;--p:${Math.min(1, active / lic.driverSeats)}"><i></i></div></div><span class="pill brand">${esc(lic.plan.name)}</span></div>` : ''}
     ${!list ? sk(260) : list.length ? `<div class="grid" style="--min:290px">${list.map((u, i) => `<article class="card pad stack" style="--gap:12px;animation:rise .45s ${i * 35}ms both;${u.active ? '' : 'opacity:.6'}" data-key="u-${esc(u.id)}">
-      <div class="row">${avatar(u.name, 'lg')}<div class="grow"><h4 class="ellip">${esc(u.name)}</h4><div class="small muted">${esc(u.phone || '')}</div></div>${flag(u.lang)}</div>
+      <div class="row">${avatar(u.name, 'lg')}<div class="grow"><h4 class="ellip">${esc(u.name)}</h4><div class="small muted">${esc(fmtPhone(u.phone))}</div></div>${flag(u.lang)}</div>
       <div class="row wrap" style="--gap:6px">${u.vehiclePlate ? plate(u.vehiclePlate) : `<span class="pill">${icon('truck')}${t('kein LKW')}</span>`}${u.trailerPlate ? plate(u.trailerPlate) : ''}${u.activeDeliveries ? `<span class="pill live info">${t('{n} Tour(en)', { n: u.activeDeliveries })}</span>` : ''}${u.licenseClass ? `<span class="pill">${icon('id-card')}${esc(u.licenseClass)}</span>` : ''}${u.active ? '' : `<span class="pill bad">${icon('lock')}${t('gesperrt')}</span>`}</div>
-      <div class="row wrap" style="--gap:6px"><button class="btn btn-sm" data-act="resetPin" data-id="${esc(u.id)}">${icon('key-round')}${t('Neue PIN & Einladung')}</button><button class="btn btn-sm btn-ghost" data-act="editDriver" data-id="${esc(u.id)}">${icon('pencil')}${t('Bearbeiten')}</button><button class="btn btn-sm btn-ghost" data-act="toggleUser" data-id="${esc(u.id)}" data-on="${u.active ? '0' : '1'}">${icon(u.active ? 'lock' : 'refresh-cw')}${u.active ? t('Sperren') : t('Entsperren')}</button>${u.phone ? `<a class="btn btn-sm btn-ghost" href="${esc(phoneHref(u.phone))}">${icon('phone')}</a>` : ''}</div></article>`).join('')}</div>` : `<div class="card">${emptyState('users', t('Noch keine Fahrer'), t('Legen Sie den ersten Fahrer an – er bekommt eine PIN und einen Einladungslink.'), `<button class="btn btn-primary" data-act="newDriver">${icon('user-plus')}${t('Fahrer anlegen')}</button>`)}</div>`}`;
+      <div class="row wrap" style="--gap:6px"><button class="btn btn-sm" data-act="resetPin" data-id="${esc(u.id)}">${icon('key-round')}${t('Neue PIN & Einladung')}</button><button class="btn btn-sm btn-ghost" data-act="editDriver" data-id="${esc(u.id)}">${icon('pencil')}${t('Bearbeiten')}</button><button class="btn btn-sm btn-ghost" data-act="toggleUser" data-id="${esc(u.id)}" data-on="${u.active ? '0' : '1'}">${icon(u.active ? 'lock' : 'refresh-cw')}${u.active ? t('Sperren') : t('Entsperren')}</button>${u.phone ? `<a class="btn btn-sm btn-ghost" href="${esc(phoneHref(u.phone))}" aria-label="${t('Anrufen')}">${icon('phone')}</a>` : ''}${isAdmin(app) ? `<button class="btn btn-sm btn-ghost" data-act="askDelete" data-id="${esc(u.id)}" aria-label="${t('Löschen')}" title="${t('Löschen')}">${icon('trash-2')}</button>` : ''}</div></article>`).join('')}</div>` : `<div class="card">${emptyState('users', t('Noch keine Fahrer'), t('Legen Sie den ersten Fahrer an – er bekommt eine PIN und einen Einladungslink.'), `<button class="btn btn-primary" data-act="newDriver">${icon('user-plus')}${t('Fahrer anlegen')}</button>`)}</div>`}`;
 }
 
 // ---------- vehicles ----------
@@ -162,9 +163,14 @@ function reportsPage(app) {
   const months = Array.from({ length: 6 }, (_, i) => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - i); return d.toISOString().slice(0, 7); });
   const m = app.ui.month || months[0];
   const kpi = (cls, ic, v, l) => `<div class="kpi ${cls}" style="cursor:default"><span class="k-ic">${icon(ic)}</span><span class="k-v">${v}</span><span class="k-l">${l}</span></div>`;
-  return `<div class="page-h"><div><h1>${t('Berichte')}</h1><p class="lead">${t('Leistung, Pünktlichkeit, Standzeiten und Palettenkonto.')}</p></div><select class="input" style="width:auto" data-input="month">${months.map((x) => `<option value="${x}" ${x === m ? 'selected' : ''}>${new Date(x + '-15').toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}</option>`).join('')}</select></div>
+  const wait = (n) => (n == null ? '–' : esc(minutes(n, t)));
+  const custRows = (r?.byCustomer || []).map((x) => `<tr style="cursor:default"><td><b>${esc(x.customer || t('ohne Auftraggeber'))}</b></td><td class="num">${x.count}</td><td class="num">${wait(x.avgWaiting)}</td><td class="num">${x.problems}</td></tr>`).join('');
+  const placeRows = (r?.byPlace || []).slice(0, 15).map((x) => `<tr style="cursor:default"><td><b>${esc(x.place || x.city)}</b>${x.place && x.city ? `<div class="xs muted">${esc(x.city)}</div>` : ''}</td><td>${x.side === 'pickup' ? `<span class="pill">${icon('arrow-up-from-line')}${t('Laden')}</span>` : `<span class="pill">${icon('arrow-down-to-line')}${t('Entladen')}</span>`}</td><td class="num">${x.count}</td><td class="num">${wait(x.avgWaiting)}${x.avgWaiting != null && x.measured < x.count ? `<div class="xs muted">${t('aus {n} Touren', { n: x.measured })}</div>` : ''}</td></tr>`).join('');
+  return `<div class="page-h"><div><h1>${t('Berichte')}</h1><p class="lead">${t('Leistung, Pünktlichkeit, Standzeiten und Palettenkonto.')}</p></div><div class="row wrap">${r ? `<button class="btn" data-act="reportCsv">${icon('download')}CSV</button>` : ''}<select class="input" style="width:auto" data-input="month">${months.map((x) => `<option value="${x}" ${x === m ? 'selected' : ''}>${new Date(x + '-15').toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}</option>`).join('')}</select></div></div>
     ${!r ? sk(220) : `<div class="kpis">${kpi('ok', 'circle-check-big', r.delivered, t('Zugestellt'))}${kpi('info', 'timer', r.onTimeRate == null ? '–' : r.onTimeRate + ' %', t('Pünktlich'))}${kpi('warn', 'hourglass', r.avgWaiting == null ? '–' : r.avgWaiting + ' min', t('Ø Standzeit je Tour'))}${kpi('', 'boxes', (r.palletsGiven - r.palletsTaken > 0 ? '−' : '') + Math.abs(r.palletsGiven - r.palletsTaken), t('Palettensaldo (offen)'))}</div>
       <section class="card"><div class="card-h"><h3>${t('Je Fahrer')}</h3></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('Fahrer')}</th><th class="num">${t('Zugestellt')}</th><th class="num">${t('Standzeit gesamt')}</th><th class="num">${t('Probleme')}</th></tr></thead><tbody>${r.byDriverHidden ? `<tr><td colspan="4" class="muted">${t('Auswertungen je Fahrer sind ausgeschaltet (Einstellungen → Abläufe).')}</td></tr>` : ''}${r.byDriver.map((x) => `<tr style="cursor:default"><td><div class="row">${avatar(x.driverName)}<b>${esc(x.driverName)}</b></div></td><td class="num">${x.delivered}</td><td class="num">${esc(minutes(x.waiting, t))}</td><td class="num">${x.problems}</td></tr>`).join('') || `<tr><td colspan="4" class="muted">${t('Keine Daten in diesem Monat.')}</td></tr>`}</tbody></table></div></section>
+      <section class="card"><div class="card-h"><h3>${t('Je Auftraggeber')}</h3></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('Auftraggeber')}</th><th class="num">${t('Zugestellt')}</th><th class="num">${t('Ø Standzeit je Tour')}</th><th class="num">${t('Probleme')}</th></tr></thead><tbody>${custRows || `<tr><td colspan="4" class="muted">${t('Keine Daten in diesem Monat.')}</td></tr>`}</tbody></table></div></section>
+      <section class="card"><div class="card-h"><h3>${t('Je Lade- und Entladestelle')}</h3><span class="small muted">${t('längste Standzeit zuerst')}</span></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('Stelle')}</th><th>${t('Art')}</th><th class="num">${t('Touren')}</th><th class="num">${t('Ø Standzeit')}</th></tr></thead><tbody>${placeRows || `<tr><td colspan="4" class="muted">${t('Keine Daten in diesem Monat.')}</td></tr>`}</tbody></table></div></section>
       <div class="banner info">${icon('info')}<span class="grow">${t('Standzeiten entstehen aus den Tipps „Angekommen“ und „Aufgeladen/Abgeladen“ – die Grundlage für Standgeld-Rechnungen.')}</span></div>`}`;
 }
 
@@ -227,7 +233,7 @@ function flowSection(app, tn) {
 function teamSection(app) {
   const list = app.data.staff;
   return `<section class="card"><div class="card-h"><h3>${t('Büro-Zugänge')}</h3><button class="btn btn-primary btn-sm" data-act="newStaff">${icon('user-plus')}${t('Disponent anlegen')}</button></div>
-    <div class="list" style="margin-top:8px">${!list ? sk(100) : list.map((u) => `<div class="li" style="cursor:default">${avatar(u.name)}<div class="grow"><div class="t1">${esc(u.name)} ${u.id === app.me.user.id ? `<span class="pill">${t('Sie')}</span>` : ''}</div><div class="t2">${esc(u.email)} · ${u.role === 'admin' ? t('Admin') : t('Disponent')}${u.active ? '' : ' · ' + t('gesperrt')}</div></div>${u.id !== app.me.user.id ? `<button class="btn btn-sm btn-ghost" data-act="resetPin" data-id="${esc(u.id)}">${icon('key-round')}${t('Neues Passwort')}</button><button class="btn btn-sm btn-ghost" data-act="toggleUser" data-id="${esc(u.id)}" data-on="${u.active ? '0' : '1'}">${icon(u.active ? 'lock' : 'refresh-cw')}</button>` : ''}</div>`).join('')}</div></section>`;
+    <div class="list" style="margin-top:8px">${!list ? sk(100) : list.map((u) => `<div class="li" style="cursor:default">${avatar(u.name)}<div class="grow"><div class="t1">${esc(u.name)} ${u.id === app.me.user.id ? `<span class="pill">${t('Sie')}</span>` : ''}</div><div class="t2">${esc(u.email)} · ${u.role === 'admin' ? t('Admin') : t('Disponent')}${u.active ? '' : ' · ' + t('gesperrt')}</div></div><button class="btn btn-sm btn-ghost" data-act="editStaff" data-id="${esc(u.id)}" aria-label="${t('Bearbeiten')}" title="${t('Bearbeiten')}">${icon('pencil')}</button>${u.id !== app.me.user.id ? `<button class="btn btn-sm btn-ghost" data-act="resetPin" data-id="${esc(u.id)}">${icon('key-round')}${t('Neues Passwort')}</button><button class="btn btn-sm btn-ghost" data-act="toggleUser" data-id="${esc(u.id)}" data-on="${u.active ? '0' : '1'}" aria-label="${u.active ? t('Sperren') : t('Entsperren')}" title="${u.active ? t('Sperren') : t('Entsperren')}">${icon(u.active ? 'lock' : 'refresh-cw')}</button><button class="btn btn-sm btn-ghost" data-act="askDelete" data-id="${esc(u.id)}" aria-label="${t('Löschen')}" title="${t('Löschen')}">${icon('trash-2')}</button>` : ''}</div>`).join('')}</div></section>`;
 }
 function licenseSection(app) {
   const l = app.me.license;
@@ -241,7 +247,8 @@ function dataSection(app, tn) {
   const sup = tn.supportAccessUntil && tn.supportAccessUntil > Date.now();
   const audit = app.data.audit || [];
   return `<section class="card pad stack"><h3>${icon('download')} ${t('Datenexport')}</h3><p class="small muted">${t('Alle Daten Ihres Unternehmens jederzeit mitnehmen – auch beim Anbieterwechsel (EU Data Act).')}</p>
-    <div class="row wrap">${app.api.mode === 'demo' ? `<button class="btn" data-act="exportJson">${icon('file-down')}${t('Alles als JSON')}</button><button class="btn" data-act="exportCsv">${icon('file-down')}${t('Lieferungen als CSV')}</button>` : `<a class="btn" href="${esc(app.api.exportUrl('json'))}" download>${icon('file-down')}${t('Alles als JSON')}</a><a class="btn" href="${esc(app.api.exportUrl('csv'))}" download>${icon('file-down')}${t('Lieferungen als CSV')}</a>`}</div></section>
+    <div class="row wrap">${app.api.mode === 'demo' ? `<button class="btn btn-primary" data-act="exportZip">${icon('archive')}${t('Alles als ZIP (mit Lieferscheinen)')}</button><button class="btn" data-act="exportJson">${icon('file-down')}${t('Alles als JSON')}</button><button class="btn" data-act="exportCsv">${icon('file-down')}${t('Lieferungen als CSV')}</button>` : `<a class="btn btn-primary" href="${esc(app.api.exportUrl('zip'))}" download>${icon('archive')}${t('Alles als ZIP (mit Lieferscheinen)')}</a><a class="btn" href="${esc(app.api.exportUrl('json'))}" download>${icon('file-down')}${t('Alles als JSON')}</a><a class="btn" href="${esc(app.api.exportUrl('csv'))}" download>${icon('file-down')}${t('Lieferungen als CSV')}</a>`}</div>
+    <p class="xs muted">${t('Das ZIP enthält alle Daten als JSON und CSV sowie jedes Foto, jeden Lieferschein, jede Unterschrift und Ihr Logo als Datei.')}</p></section>
     <section class="card pad stack"><h3>${icon('shield-check')} ${t('Support-Zugriff')}</h3><p class="small muted">${t('Der Anbieter sieht Ihre Lieferdaten nicht. Nur wenn Sie Hilfe brauchen, können Sie hier einen befristeten Zugriff freigeben – er wird protokolliert.')}</p>
       <div class="row wrap">${sup ? `<span class="pill warn">${icon('clock')}${t('freigegeben bis {d}', { d: esc(dateTime(tn.supportAccessUntil)) })}</span><button class="btn btn-sm" data-act="support" data-h="0">${t('Jetzt beenden')}</button>` : `<button class="btn btn-sm" data-act="support" data-h="24">${icon('handshake')}${t('Für 24 Stunden freigeben')}</button>`}</div></section>
     <section class="card"><div class="card-h"><h3>${icon('history')} ${t('Protokoll')}</h3></div><div class="list" style="margin-top:6px">${audit.slice(0, 25).map((e) => `<div class="li" style="cursor:default"><span class="xs muted mono" style="width:92px">${esc(dateTime(e.at))}</span><div class="grow"><div class="t1 small">${esc(e.action)}</div><div class="t2">${esc(e.actorName || '')}</div></div></div>`).join('') || `<p class="small muted" style="padding:12px 18px">${t('Noch keine Einträge.')}</p>`}</div></section>`;
@@ -275,6 +282,7 @@ function sheetView(app) {
   if (s.type === 'access') return accessSheet(app);
   if (s.type === 'notifications') return notificationsSheet(app);
   if (s.type === 'proof') return proofSheet(app);
+  if (s.type === 'deleteUser') return deleteUserSheet(app);
   if (s.type === 'cancel') return sheet({ key: 'cancel', title: t('Lieferung stornieren'), body: `<form id="cancelForm" data-form="cancel"><label class="field"><span>${t('Grund (geht an den Fahrer)')}</span><textarea class="input" name="reason" placeholder="${t('z. B. Kunde hat verschoben')}"></textarea></label></form>`, foot: `<button class="btn" data-act="close">${t('Abbrechen')}</button><button class="btn btn-danger" type="submit" form="cancelForm">${icon('ban')}${t('Stornieren')}</button>` });
   return '';
 }
@@ -311,7 +319,7 @@ function deliverySheet(app) {
           <div class="section-t">${t('Notizen mit dem Fahrer')}</div>${notesThread(app, d)}
           <form data-form="note" data-id="${esc(d.id)}" class="row" style="--gap:8px"><input class="input" name="text" placeholder="${t('Nachricht an den Fahrer …')}" required><button class="btn btn-primary" type="submit" aria-label="${t('Senden')}">${icon('send')}</button></form>
           <div class="section-t">${t('Verlauf')}</div>${timeline(d)}</div></div>`,
-    foot: `${!done ? `<button class="btn btn-danger btn-ghost" data-act="openSheet" data-type="cancel" data-id="${esc(d.id)}">${icon('ban')}${t('Stornieren')}</button>` : ''}<span class="grow"></span>${officeStep}<button class="btn" data-act="proof" data-id="${esc(d.id)}">${icon('receipt-text')}${t('Abliefernachweis')}</button><button class="btn" data-act="duplicate" data-id="${esc(d.id)}">${icon('copy')}${t('Wiederholen')}</button>${!done || true ? `<button class="btn btn-primary" data-act="editDelivery" data-id="${esc(d.id)}">${icon('pencil')}${t('Bearbeiten')}</button>` : ''}`,
+    foot: `${!done ? `<button class="btn btn-danger btn-ghost" data-act="openSheet" data-type="cancel" data-id="${esc(d.id)}">${icon('ban')}${t('Stornieren')}</button>` : ''}<span class="grow"></span>${officeStep}<button class="btn" data-act="proof" data-id="${esc(d.id)}">${icon('receipt-text')}${t('Abliefernachweis')}</button><button class="btn" data-act="duplicate" data-id="${esc(d.id)}">${icon('copy')}${t('Wiederholen')}</button><button class="btn btn-primary" data-act="editDelivery" data-id="${esc(d.id)}">${icon('pencil')}${done ? t('Nachbearbeiten') : t('Bearbeiten')}</button>`,
   });
 }
 
@@ -337,6 +345,16 @@ function deliveryFormSheet(app) {
   const drivers = (app.data.drivers || []).filter((u) => u.active);
   const vs = app.data.vehicles || [];
   const editing = !!f.id;
+  if (editing && f.done) {
+    // after delivery or cancellation only the bookkeeping fields may change (the route is evidence)
+    return sheet({
+      key: 'dform', title: t('Lieferung nachbearbeiten'), sub: `${esc(f.bookingNo)} · ${t('Nach dem Abschluss lassen sich nur Auftraggeber, Referenz und interne Notiz ändern.')}`,
+      body: `<form id="dForm" data-form="delivery" class="stack" style="--gap:16px" autocomplete="off">
+        <div class="fgrid"><label class="field"><span>${t('Auftraggeber')}</span><input class="input" name="customer" value="${esc(f.customer || '')}"></label><label class="field"><span>${t('Referenz des Kunden')}</span><input class="input" name="reference" value="${esc(f.reference || '')}"></label></div>
+        <label class="field"><span>${t('Interne Notiz (sieht der Fahrer nicht)')}</span><textarea class="input" name="internalNote" rows="3">${esc(f.internalNote || '')}</textarea></label></form>`,
+      foot: `<button class="btn" data-act="close">${t('Abbrechen')}</button><button class="btn btn-primary btn-lg" type="submit" form="dForm">${icon('check')}${t('Speichern')}</button>`,
+    });
+  }
   return sheet({
     key: 'dform', wide: true, title: editing ? t('Lieferung bearbeiten') : f.copyOf ? t('Lieferung wiederholen') : t('Neue Lieferung'), sub: editing ? esc(f.bookingNo) : t('Pflicht sind nur Lade-, Entladeort und Ladedatum – der Rest hilft dem Fahrer.'),
     body: `<form id="dForm" data-form="delivery" class="stack" style="--gap:16px" autocomplete="off">
@@ -377,11 +395,27 @@ function driverFormSheet(app) {
   });
 }
 function staffFormSheet(app) {
+  const f = app.ui.form || {};
+  const self = f.id && f.id === app.me.user.id;
   return sheet({
-    key: 'stform', title: t('Disponent anlegen'), sub: t('Bekommt einen eigenen Büro-Zugang mit E-Mail und Passwort.'),
-    body: `<form id="stForm" data-form="staff" class="fgrid"><label class="field full"><span>${t('Name')} *</span><input class="input" name="name" required></label><label class="field full"><span>${t('E-Mail')} *</span><input class="input" type="email" name="email" required></label>
-      <label class="field"><span>${t('Rolle')}</span><select class="input" name="role"><option value="dispatcher">${t('Disponent')}</option><option value="admin">${t('Admin')}</option></select></label><label class="field"><span>${t('Sprache')}</span><select class="input" name="lang">${['de', 'en', 'tr'].map((k) => `<option value="${k}">${LANG_NAMES[k]}</option>`).join('')}</select></label></form>`,
-    foot: `<button class="btn" data-act="close">${t('Abbrechen')}</button><button class="btn btn-primary" type="submit" form="stForm">${icon('check')}${t('Anlegen')}</button>`,
+    key: 'stform', title: f.id ? t('Büro-Zugang bearbeiten') : t('Büro-Zugang anlegen'), sub: f.id ? (self ? t('Ihre eigene Rolle kann nur ein anderer Admin ändern.') : '') : t('Bekommt einen eigenen Büro-Zugang mit E-Mail und Passwort.'),
+    body: `<form id="stForm" data-form="staff" class="fgrid"><label class="field full"><span>${t('Name')} *</span><input class="input" name="name" value="${esc(f.name || '')}" required></label><label class="field full"><span>${t('E-Mail')} *</span><input class="input" type="email" name="email" value="${esc(f.email || '')}" required></label>
+      <label class="field"><span>${t('Rolle')}</span><select class="input" name="role" ${self ? 'disabled' : ''}><option value="dispatcher" ${f.role === 'admin' ? '' : 'selected'}>${t('Disponent')}</option><option value="admin" ${f.role === 'admin' ? 'selected' : ''}>${t('Admin')}</option></select></label><label class="field"><span>${t('Sprache')}</span><select class="input" name="lang">${['de', 'en', 'tr'].map((k) => `<option value="${k}" ${(f.lang || 'de') === k ? 'selected' : ''}>${LANG_NAMES[k]}</option>`).join('')}</select></label></form>`,
+    foot: `<button class="btn" data-act="close">${t('Abbrechen')}</button><button class="btn btn-primary" type="submit" form="stForm">${icon('check')}${f.id ? t('Speichern') : t('Anlegen')}</button>`,
+  });
+}
+function deleteUserSheet(app) {
+  const u = app.ui.del;
+  if (!u) return '';
+  const driver = u.role === 'driver';
+  return sheet({
+    key: 'deluser', title: t('{name} endgültig löschen?', { name: esc(u.name) }),
+    body: `<div class="banner bad">${icon('trash-2')}<span class="grow">${t('Das lässt sich nicht rückgängig machen.')}</span></div>
+      <ul class="small stack" style="--gap:6px;margin:0;padding-left:18px"><li>${driver ? t('Name, Handynummer, PIN und Mitteilungen werden gelöscht, die Anmeldung endet sofort.') : t('Name, E-Mail, Passwort und Mitteilungen werden gelöscht, die Anmeldung endet sofort.')}</li>
+      <li>${t('Abgeschlossene Lieferungen bleiben für Ihre Unterlagen erhalten und zeigen „Gelöschter Nutzer“.')}</li>
+      ${driver ? `<li>${t('Offene und bestätigte Aufträge gehen zurück an die Disposition. Eine schon beladene Tour bitte vorher abschließen oder umplanen.')}</li>` : ''}</ul>
+      <p class="xs muted">${t('Nur sperren statt löschen? Dann bleibt der Zugang erhalten und lässt sich später wieder freigeben.')}</p>`,
+    foot: `<button class="btn" data-act="close">${t('Abbrechen')}</button><button class="btn btn-danger" data-act="confirmDelete" data-id="${esc(u.id)}">${icon('trash-2')}${t('Endgültig löschen')}</button>`,
   });
 }
 function vehicleFormSheet(app) {
@@ -413,7 +447,7 @@ function accessSheet(app) {
     return sheet({
       key: 'access', title: t('Zugang für {name}', { name: esc(a.user.name) }), sub: t('Die PIN wird nur jetzt angezeigt.'),
       body: `<div class="row wrap" style="--gap:18px;align-items:flex-start"><div class="qr">${qrSvg(link)}</div><div class="stack grow" style="min-width:220px"><span class="eyebrow">PIN</span><div class="secret"><span class="grow" id="pin-val">${esc(a.pin.replace(/(\d{3})(\d{3})/, '$1 $2'))}</span><button class="btn btn-sm" data-act="copy" data-copy="${esc(a.pin)}">${icon('copy')}</button></div>
-        <dl class="kv"><dt>${t('Firmencode')}</dt><dd class="mono">${esc(tn.code)}</dd><dt>${t('Login')}</dt><dd>${esc(a.user.phone)}</dd></dl><p class="small muted">${t('QR-Code mit der Handy-Kamera scannen – oder Einladung schicken:')}</p></div></div>
+        <dl class="kv"><dt>${t('Firmencode')}</dt><dd class="mono">${esc(tn.code)}</dd><dt>${t('Login')}</dt><dd>${esc(fmtPhone(a.user.phone))}</dd></dl><p class="small muted">${t('QR-Code mit der Handy-Kamera scannen – oder Einladung schicken:')}</p></div></div>
         <div class="card pad small" id="invite-text" style="background:var(--surface-2)">${esc(msg)}</div>`,
       foot: `<button class="btn" data-act="copy" data-from="#invite-text">${icon('copy')}${t('Text kopieren')}</button><a class="btn" href="https://wa.me/${esc((a.user.phone || '').replace(/[^\d]/g, ''))}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${icon('send')}WhatsApp</a><a class="btn" href="sms:${esc(a.user.phone)}?&body=${encodeURIComponent(msg)}">${icon('smartphone')}SMS</a><button class="btn btn-primary" data-act="close">${t('Fertig')}</button>`,
     });
@@ -472,16 +506,26 @@ function fromDelivery(d, copy = false) {
     base.copyOf = d.id; base.driverId = ''; base.vehicleId = ''; base.trailerId = '';
     return base;
   }
-  return { ...base, id: d.id, bookingNo: d.bookingNo };
+  return { ...base, id: d.id, bookingNo: d.bookingNo, done: ['delivered', 'cancelled'].includes(d.status) };
 }
 let suggestTimer = 0;
 
-async function download(app, filename, text) {
+async function download(app, filename, data) {
   const dl = await (window.claude?.use?.('downloads') ?? Promise.resolve(null)).catch(() => null);
   if (!dl) return app.toast({ title: t('Export bereit'), body: t('In der echten App lädt der Browser die Datei direkt herunter.'), plain: true, icon: 'file-down' });
-  try { await dl.save({ filename, data: text }); app.toast({ title: t('Gespeichert'), plain: true, icon: 'check' }); }
+  try { await dl.save({ filename, data }); app.toast({ title: t('Gespeichert'), plain: true, icon: 'check' }); }
   catch (e) { if (e?.code !== 'declined') app.toast({ title: t('Download ist hier nicht möglich.'), plain: true, err: true, icon: 'circle-alert' }); }
 }
+
+const dataUrlBytes = (u) => {
+  const i = u.indexOf(',');
+  if (!u.startsWith('data:') || i < 0) return null;
+  const raw = u.slice(i + 1);
+  if (!u.slice(0, i).endsWith(';base64')) return new TextEncoder().encode(decodeURIComponent(raw));
+  const bin = atob(raw); const out = new Uint8Array(bin.length);
+  for (let k = 0; k < bin.length; k++) out[k] = bin.charCodeAt(k);
+  return out;
+};
 
 // ---------- actions ----------
 export const actions = {
@@ -511,7 +555,21 @@ export const actions = {
   },
   newDriver: (el, ev, app) => { app.ui.form = {}; app.open({ type: 'driverForm' }); },
   editDriver: (el, ev, app) => { app.ui.form = (app.data.drivers || []).find((u) => u.id === el.dataset.id); app.open({ type: 'driverForm', id: el.dataset.id }); },
-  newStaff: (el, ev, app) => app.open({ type: 'staffForm' }),
+  newStaff: (el, ev, app) => { app.ui.form = {}; app.open({ type: 'staffForm' }); },
+  editStaff: (el, ev, app) => { app.ui.form = { ...(app.data.staff || []).find((u) => u.id === el.dataset.id) }; app.open({ type: 'staffForm', id: el.dataset.id }); },
+  askDelete: (el, ev, app) => {
+    const u = [...(app.data.drivers || []), ...(app.data.staff || [])].find((x) => x.id === el.dataset.id);
+    if (!u) return;
+    app.ui.del = { id: u.id, name: u.name, role: u.role };
+    app.open({ type: 'deleteUser', id: u.id });
+  },
+  async confirmDelete(el, ev, app) {
+    const r = await app.call('deleteUser', { id: el.dataset.id }).catch(() => null);
+    if (!r) return;
+    app.toast({ title: t('Gelöscht – der Zugang ist beendet'), plain: true, icon: 'trash-2' });
+    app.ui.del = null; app.close();
+    app.data.drivers = null; app.data.staff = null; app.load();
+  },
   async resetPin(el, ev, app) {
     const r = await app.call('resetSecret', { id: el.dataset.id }).catch(() => null);
     if (r) { app.ui.access = { role: r.user.role, user: r.user, pin: r.pin, password: r.password }; app.open({ type: 'access' }); }
@@ -531,7 +589,31 @@ export const actions = {
   openNotification: (el, ev, app) => { if (el.dataset.id) app.open({ type: 'delivery', id: el.dataset.id }); },
   async removeDoc(el, ev, app) { await app.call('removeDoc', { id: el.dataset.id, fileId: el.dataset.file }).catch(() => null); await refreshSheetData(app); app.render(); },
   async pushOn(el, ev, app) { try { const r = await app.api.push.enable(); app.toast({ title: r === 'granted' ? t('Mitteilungen sind an') : t('Mitteilungen wurden im Browser blockiert'), plain: true, icon: 'bell' }); app.render(); } catch (e) { app.error(e); } },
+  async exportZip(el, ev, app) {
+    const data = await app.call('exportData', {}).catch(() => null);
+    if (!data) return;
+    const parts = [];
+    const zip = createZip((chunk) => parts.push(chunk));
+    const files = data.files.map((f) => ({ ...f, path: exportFileName(f) }));
+    for (const f of files) { const bytes = dataUrlBytes(app.fileUrl(f.id) || ''); if (bytes) zip.add(f.path, bytes, f.at); }
+    zip.add('daten.json', JSON.stringify({ ...data, files }, null, 2), Date.now());
+    zip.end();
+    download(app, `ladeklar-export-${data.company.code}-${isoToday()}.zip`, new Blob(parts, { type: 'application/zip' }));
+  },
   async exportJson(el, ev, app) { const data = await app.call('exportData', {}).catch(() => null); if (data) download(app, `ladeklar-export-${isoToday()}.json`, JSON.stringify(data, null, 2)); },
+  async reportCsv(el, ev, app) {
+    const r = app.data.reports;
+    if (!r) return;
+    const q = (x) => (/[;"\n]/.test(String(x ?? '')) ? `"${String(x).replace(/"/g, '""')}"` : x ?? '');
+    const rows = [[t('Bericht'), r.month], [], [t('Zugestellt'), r.delivered], [t('Pünktlich') + ' %', r.onTimeRate ?? ''], [t('Ø Standzeit je Tour') + ' (min)', r.avgWaiting ?? ''], [t('Paletten abgegeben'), r.palletsGiven], [t('Paletten mitgenommen'), r.palletsTaken], [],
+      [t('Auftraggeber'), t('Zugestellt'), t('Ø Standzeit je Tour') + ' (min)', t('Probleme')], ...r.byCustomer.map((x) => [x.customer || t('ohne Auftraggeber'), x.count, x.avgWaiting ?? '', x.problems]), [],
+      [t('Stelle'), t('Stadt'), t('Art'), t('Touren'), t('Ø Standzeit') + ' (min)', t('gemessen')], ...r.byPlace.map((x) => [x.place, x.city, x.side === 'pickup' ? t('Laden') : t('Entladen'), x.count, x.avgWaiting ?? '', x.measured]),
+      ...(r.byDriver.length ? [[], [t('Fahrer'), t('Zugestellt'), t('Standzeit gesamt') + ' (min)', t('Probleme')], ...r.byDriver.map((x) => [x.driverName, x.delivered, x.waiting, x.problems])] : [])];
+    const text = '\ufeff' + rows.map((row) => row.map(q).join(';')).join('\r\n');
+    const name = `bericht-${r.month}.csv`;
+    if (app.api.mode === 'demo') return download(app, name, text);
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8' })); a.download = name; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  },
   async exportCsv(el, ev, app) {
     const ds = await app.call('listDeliveries', { tab: 'all', limit: 1000 }).catch(() => null);
     if (!ds) return;
@@ -583,12 +665,13 @@ export const forms = {
   async delivery(fd, form, app) {
     const v = nested(fd);
     const f = app.ui.form || {};
-    const payload = { customer: v.customer, reference: v.reference, pickup: v.pickup, dropoff: v.dropoff, goods: { ...v.goods, adr: !!v.goods?.adr }, urgent: !!v.urgent, instructions: v.instructions, internalNote: v.internalNote, driverId: v.driverId || null, vehicleId: v.vehicleId || null, trailerId: v.trailerId || null };
-    if (!payload.driverId) payload.openForAll = true;
+    const payload = f.done ? { customer: v.customer, reference: v.reference, internalNote: v.internalNote } : { customer: v.customer, reference: v.reference, pickup: v.pickup, dropoff: v.dropoff, goods: { ...v.goods, adr: !!v.goods?.adr }, urgent: !!v.urgent, instructions: v.instructions, internalNote: v.internalNote, driverId: v.driverId || null, vehicleId: v.vehicleId || null, trailerId: v.trailerId || null };
+    if (!f.done && !payload.driverId) payload.openForAll = true;
     const r = await app.call(f.id ? 'updateDelivery' : 'createDelivery', f.id ? { id: f.id, ...payload } : payload);
     if (!r) return;
     app.ui.form = null;
-    app.toast({ title: f.id ? t('Gespeichert · {no}', { no: r.bookingNo }) : t('Angelegt · {no}', { no: r.bookingNo }), body: r.driverName ? t('{n} wurde benachrichtigt.', { n: r.driverName }) : t('Alle Fahrer sehen den Auftrag.'), plain: true, icon: 'check' });
+    const body = r.driverName ? t('{n} wurde benachrichtigt.', { n: r.driverName }) : r.status === 'open' && r.openForAll && S(app).driverTakesOpen ? t('Alle Fahrer sehen den Auftrag.') : r.status === 'open' ? t('Der Auftrag wartet, bis Sie ihn einem Fahrer zuteilen.') : '';
+    app.toast({ title: f.id ? t('Gespeichert · {no}', { no: r.bookingNo }) : t('Angelegt · {no}', { no: r.bookingNo }), body, plain: true, icon: 'check' });
     app.open({ type: 'delivery', id: r.id });
     app.load();
   },
@@ -619,7 +702,14 @@ export const forms = {
     app.data.drivers = null; app.load();
   },
   async staff(fd, form, app) {
-    const r = await app.call('createUser', Object.fromEntries(fd.entries()));
+    const f = app.ui.form || {};
+    const v = Object.fromEntries(fd.entries());
+    if (f.id) {
+      const r = await app.call('updateUser', { id: f.id, name: v.name, email: v.email, lang: v.lang, ...(v.role ? { role: v.role } : {}) });
+      if (r) { app.close(); app.toast({ title: t('Gespeichert'), plain: true, icon: 'check' }); if (r.id === app.me.user.id) app.me.user = { ...app.me.user, name: r.name, email: r.email }; app.data.staff = null; app.load(); }
+      return;
+    }
+    const r = await app.call('createUser', v);
     if (r) { app.ui.access = { role: r.user.role, user: r.user, password: r.password }; app.open({ type: 'access' }); app.load(); }
   },
   async vehicle(fd, form, app) {

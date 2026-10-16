@@ -84,6 +84,18 @@ const berlinParts = (ms) => {
 export const berlinDate = (ms) => { const p = berlinParts(ms); return `${p.year}-${p.month}-${p.day}`; };
 export const berlinTime = (ms) => { const p = berlinParts(ms); return `${p.hour}:${p.minute}`; };
 const deDate = (iso) => (isDate(iso) ? `${iso.slice(8, 10)}.${iso.slice(5, 7)}.` : '');
+/** 23:59:59 German time on the given ISO day (CET or CEST). */
+export const berlinEndOfDay = (iso) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  let x = Date.UTC(y, m - 1, d, 22, 59, 59);
+  if (berlinDate(x) !== iso) x -= 3600e3;
+  return x;
+};
+const monthIndex = (ym) => Number(ym.slice(0, 4)) * 12 + Number(ym.slice(5, 7)) - 1;
+const monthOf = (ms) => berlinDate(ms).slice(0, 7);
+const monthLabel = (idx) => `${String((idx % 12) + 1).padStart(2, '0')}/${Math.floor(idx / 12)}`;
+const normHost = (v) => str(v, 253).toLowerCase().replace(/^https?:\/\//, '').replace(/[/:].*$/, '').replace(/\.$/, '');
+const isHost = (h) => /^(?=.{4,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/.test(h);
 
 export const routeLabel = (d) => `${d.pickup?.city || d.pickup?.place || '?'} → ${d.dropoff?.city || d.dropoff?.place || '?'}`;
 export const progressOf = (status) => PROGRESS[status] ?? 0;
@@ -179,8 +191,9 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
   const deliver = (evt) => { try { onEvent(evt); } catch (e) { /* listeners must never break a write */ } };
   const emit = (evt) => { if (pending) pending.push(evt); else deliver(evt); };
   const getT = (id) => store.get('tenants', id);
-  const audit = (actor, action, target, extra) => {
-    store.put('audit', { id: newId(), at: now(), tenantId: actor?.tenantId || null, actorId: actor?.id || null, role: actor?.role || null, action, target: target || null, ...(extra ? { extra } : {}) });
+  let ctx = null; // context of the running call from the transport, e.g. { ip } on the server
+  const audit = (actor, action, target, extra, meta = ctx) => {
+    store.put('audit', { id: newId(), at: now(), tenantId: actor?.tenantId || null, actorId: actor?.id || null, role: actor?.role || null, action, target: target || null, ...(extra ? { extra } : {}), ...(meta?.ip ? { ip: str(meta.ip, 64) } : {}) });
   };
 
   // ---------- notifications ----------
@@ -300,13 +313,19 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     return d;
   }
 
+  // PREFIX-YYMM-NNNN: the running number starts at 0001 every month and is unique per company.
   function nextBookingNo(t) {
     const tt = clone(t);
-    tt.bookingSeq = (tt.bookingSeq || 0) + 1;
-    store.put('tenants', tt);
     const p = berlinParts(now());
+    const ym = p.year.slice(2) + p.month;
+    if (tt.bookingSeqMonth && tt.bookingSeqMonth !== ym) tt.bookingSeq = 0;
+    tt.bookingSeqMonth = ym;
     const prefix = (settingsOf(tt).bookingPrefix || tt.code.slice(0, 3)).toUpperCase();
-    return `${prefix}-${p.year.slice(2)}${p.month}-${String(tt.bookingSeq).padStart(4, '0')}`;
+    const taken = new Set(store.find('deliveries', { tenantId: tt.id }).map((d) => d.bookingNo));
+    let no;
+    do { tt.bookingSeq = (tt.bookingSeq || 0) + 1; no = `${prefix}-${ym}-${String(tt.bookingSeq).padStart(4, '0')}`; } while (taken.has(no));
+    store.put('tenants', tt);
+    return no;
   }
 
   function seatCheck(t, role) {
@@ -334,42 +353,52 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     if (x.failedLogins >= LOCK_AFTER) { x.lockedUntil = now() + LOCK_MS; x.failedLogins = 0; }
     store.put('users', x);
   }
-  function loginOk(u) {
+  function loginOk(u, meta) {
     const x = clone(u);
     x.failedLogins = 0; x.lockedUntil = null; x.lastLoginAt = now();
     store.put('users', x);
+    audit(x, 'login', x.id, null, meta);
     return x;
   }
+  // failed logins go into the company's log (with IP on the server) – the account owner can see them
+  const loginRefused = (u, meta, extra, code, message, status = 401) => {
+    audit(u ? { id: u.id, tenantId: u.tenantId, role: u.role } : extra?.tenantId ? { tenantId: extra.tenantId } : null, 'login.failed', u?.id || null, { reason: code, ...(extra?.who ? { who: extra.who } : {}) }, meta);
+    fail(code, message, status);
+  };
 
   const auth = {
-    /** Staff and platform login with e-mail + password. */
-    login({ email, password }) {
+    /** Staff and platform login with e-mail + password. meta: { ip } from the transport. */
+    login({ email, password } = {}, meta = null) {
       const e = normEmail(email);
       const u = store.find('users', { email: e })[0];
-      if (!u || !u.active || u.role === 'driver') fail('bad_login', 'E-Mail oder Passwort ist falsch.', 401);
+      if (!u || !u.active || u.role === 'driver') loginRefused(null, meta, { who: e }, 'bad_login', 'E-Mail oder Passwort ist falsch.');
       checkLock(u);
-      if (!hash.verify(String(password || ''), u.passwordHash)) { loginFailed(u); fail('bad_login', 'E-Mail oder Passwort ist falsch.', 401); }
-      if (u.tenantId) { const t = getT(u.tenantId); if (!t || licenseState(t, now()) === 'cancelled') fail('license_inactive', 'Der Zugang dieses Unternehmens ist beendet.', 403); }
-      return publicUser(loginOk(u));
+      if (!hash.verify(String(password || ''), u.passwordHash)) { loginFailed(u); loginRefused(u, meta, null, 'bad_login', 'E-Mail oder Passwort ist falsch.'); }
+      if (u.tenantId) {
+        const t = getT(u.tenantId);
+        // after a cancellation only the admin may still sign in – read-only, to export the data
+        if (!t || (licenseState(t, now()) === 'cancelled' && u.role !== 'admin')) fail('license_inactive', 'Der Zugang dieses Unternehmens ist beendet. Nur der Admin kann die Daten noch exportieren.', 403);
+      }
+      return publicUser(loginOk(u, meta));
     },
     /** Driver login with company code + phone (or personal number) + 6-digit PIN. */
-    driverLogin({ code, phone, pin }) {
+    driverLogin({ code, phone, pin } = {}, meta = null) {
       const t = store.find('tenants', { code: str(code, 20).toUpperCase() })[0];
       if (!t) fail('bad_login', 'Firmencode, Telefonnummer oder PIN ist falsch.', 401);
       const p = normPhone(phone);
       const u = store.find('users', { tenantId: t.id, role: 'driver' }).find((x) => x.phone === p || (x.personalNo && x.personalNo === str(phone, 20)));
-      if (!u || !u.active) fail('bad_login', 'Firmencode, Telefonnummer oder PIN ist falsch.', 401);
+      if (!u || !u.active) loginRefused(null, meta, { tenantId: t.id, who: p }, 'bad_login', 'Firmencode, Telefonnummer oder PIN ist falsch.');
       checkLock(u);
-      if (!hash.verify(String(pin || ''), u.pinHash)) { loginFailed(u); fail('bad_login', 'Firmencode, Telefonnummer oder PIN ist falsch.', 401); }
+      if (!hash.verify(String(pin || ''), u.pinHash)) { loginFailed(u); loginRefused(u, meta, null, 'bad_login', 'Firmencode, Telefonnummer oder PIN ist falsch.'); }
       if (['cancelled', 'suspended', 'expired'].includes(licenseState(t, now()))) fail('license_inactive', 'Der Zugang ist zurzeit gesperrt. Bitte die Disposition anrufen.', 403);
-      return publicUser(loginOk(u));
+      return publicUser(loginOk(u, meta));
     },
     /** Driver login from an invite link: the link carries the user id, the driver types only the PIN. */
-    inviteLogin({ userId, pin }) {
+    inviteLogin({ userId, pin } = {}, meta = null) {
       const u = store.get('users', str(userId, 64));
       if (!u || u.role !== 'driver' || !u.active) fail('bad_login', 'Einladung ungültig oder PIN falsch.', 401);
       const t = getT(u.tenantId);
-      return auth.driverLogin({ code: t.code, phone: u.phone, pin });
+      return auth.driverLogin({ code: t.code, phone: u.phone, pin }, meta);
     },
     /** Resolve a session's user id to the current actor (null when deactivated). */
     actor(userId) {
@@ -456,9 +485,9 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
   }
   function licenseView(t) {
     return {
-      id: t.id, code: t.code, name: t.name, contact: t.contact, email: t.email, phone: t.phone, address: t.address,
-      plan: t.plan, extraDrivers: t.extraDrivers || 0, storeApp: !!t.storeApp, status: t.status, state: licenseState(t, now()),
-      trialEnd: t.trialEnd || null, licenseEnd: t.licenseEnd || null, createdAt: t.createdAt, branding: t.branding,
+      id: t.id, code: t.code, name: t.name, legalName: t.legalName || '', vatId: t.vatId || '', contact: t.contact, email: t.email, phone: t.phone, address: t.address,
+      plan: t.plan, extraDrivers: t.extraDrivers || 0, storeApp: !!t.storeApp, status: t.status, state: licenseState(t, now()), domains: t.domains || [],
+      trialEnd: t.trialEnd || null, licenseEnd: t.licenseEnd || null, paidSince: t.paidSince || null, createdAt: t.createdAt, branding: t.branding,
       licenseNote: t.licenseNote || '', billing: t.billing || 'monthly', seats: driverSeats(t), monthly: monthlyPrice(t), usage: usage(t),
     };
   }
@@ -476,11 +505,13 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     if (!isEmail(adminEmail)) fail('invalid', 'Bitte eine gültige E-Mail für den Admin-Zugang angeben.', 400, { fields: ['adminEmail'] });
     if (emailTaken(adminEmail)) fail('conflict', 'Diese E-Mail hat schon einen Zugang.', 409, { fields: ['adminEmail'] });
     const trialDays = num(input.trialDays, 0, 365) ?? TRIAL_DAYS;
+    if (bool(input.storeApp) && plan !== 'premium') fail('invalid', 'Die White-Label-App im Store ist ein Zusatz zum Tarif Premium.', 400, { fields: ['storeApp'] });
     const t = {
       id: newId(), code, name, legalName: str(input.legalName || name, 160), contact: str(input.contact, 80),
       email: adminEmail, phone: str(input.phone, 40), address: str(input.address, 200), vatId: str(input.vatId, 30),
-      plan, extraDrivers: num(input.extraDrivers, 0, 999) || 0, storeApp: bool(input.storeApp),
+      plan, extraDrivers: PLANS[plan].extraDriver ? num(input.extraDrivers, 0, 999) || 0 : 0, storeApp: bool(input.storeApp),
       status: trialDays > 0 ? 'trial' : 'active', trialEnd: trialDays > 0 ? now() + trialDays * 864e5 : null, licenseEnd: null,
+      paidSince: trialDays > 0 ? null : now(), statusAt: now(), domains: [],
       billing: input.billing === 'yearly' ? 'yearly' : 'monthly',
       branding: { appName: str(input.appName || name, 40), color: /^#[0-9a-f]{6}$/i.test(input.color || '') ? input.color : '#1f6feb', logoFileId: null, iconFileId: null },
       settings: { ...DEFAULT_SETTINGS, bookingPrefix: str(input.bookingPrefix || code.slice(0, 3), 6).toUpperCase() },
@@ -502,22 +533,73 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     if (!t) fail('not_found', 'Lizenznehmer nicht gefunden.', 404);
     if (p.plan && PLANS[p.plan]) t.plan = p.plan;
     if ('extraDrivers' in p) t.extraDrivers = num(p.extraDrivers, 0, 999) || 0;
+    if (!planOf(t).extraDriver) t.extraDrivers = 0; // Start has a fixed number of drivers
     if ('storeApp' in p) t.storeApp = bool(p.storeApp);
+    if (t.storeApp && t.plan !== 'premium') fail('invalid', 'Die White-Label-App im Store ist ein Zusatz zum Tarif Premium.', 400, { fields: ['storeApp'] });
     if ('billing' in p) t.billing = p.billing === 'yearly' ? 'yearly' : 'monthly';
-    if (p.status && ['trial', 'active', 'suspended', 'cancelled'].includes(p.status)) t.status = p.status;
+    if (p.status && ['trial', 'active', 'suspended', 'cancelled'].includes(p.status) && p.status !== t.status) {
+      t.status = p.status;
+      t.statusAt = now();
+      if (p.status === 'active' && !t.paidSince) t.paidSince = now();
+    }
     if ('trialEnd' in p) t.trialEnd = num(p.trialEnd) || null;
-    if ('licenseEnd' in p) t.licenseEnd = num(p.licenseEnd) || null;
+    if ('licenseEnd' in p) t.licenseEnd = isDate(p.licenseEnd) ? berlinEndOfDay(p.licenseEnd) : num(p.licenseEnd) || null;
     if ('extendTrialDays' in p) t.trialEnd = Math.max(t.trialEnd || 0, now()) + (num(p.extendTrialDays, 1, 365) || 0) * 864e5;
     if ('licenseNote' in p) t.licenseNote = text(p.licenseNote, 500);
     if ('name' in p) t.name = str(p.name, 120) || t.name;
+    if ('legalName' in p) t.legalName = str(p.legalName, 160) || t.name;
+    if ('vatId' in p) t.vatId = str(p.vatId, 30);
     if ('contact' in p) t.contact = str(p.contact, 80);
+    if ('email' in p) {
+      const e = normEmail(p.email);
+      if (e && !isEmail(e)) fail('invalid', 'Bitte eine gültige E-Mail angeben.', 400, { fields: ['email'] });
+      t.email = e;
+    }
     if ('phone' in p) t.phone = str(p.phone, 40);
     if ('address' in p) t.address = str(p.address, 200);
+    if ('domains' in p) {
+      const list = [...new Set((Array.isArray(p.domains) ? p.domains : String(p.domains || '').split(/[\s,;]+/)).map(normHost).filter(Boolean))].slice(0, 5);
+      if (list.length && planOf(t).domain !== 'custom') fail('plan', 'Eigene Domains gibt es im Tarif Premium.', 403, { fields: ['domains'] });
+      for (const h of list) {
+        if (!isHost(h)) fail('invalid', `„${h}“ ist keine gültige Domain (Beispiel: fahrer.firma.de).`, 400, { fields: ['domains'] });
+        if (store.find('tenants', {}).some((x) => x.id !== t.id && (x.domains || []).includes(h))) fail('conflict', `Die Domain ${h} ist schon einem anderen Kunden zugeordnet.`, 409, { fields: ['domains'] });
+      }
+      t.domains = list;
+    }
     if (p.branding) t.branding = { ...t.branding, ...cleanBranding(p.branding, t) };
     store.put('tenants', t);
     audit(a, 'tenant.license', t.id, { plan: t.plan, status: t.status });
     changed('tenants', t);
     return licenseView(t);
+  });
+
+  /** Support case: the customer's admin is locked out. New one-time password, must be changed at login. */
+  def('resetTenantAdmin', ['platform'], (a, { id }) => {
+    const t = getT(id);
+    if (!t) fail('not_found', 'Lizenznehmer nicht gefunden.', 404);
+    const admins = store.find('users', { tenantId: t.id, role: 'admin' }).filter((u) => !u.deleted).sort((x, y) => (y.active - x.active) || (x.createdAt - y.createdAt));
+    if (!admins.length) fail('not_found', 'Dieser Kunde hat keinen Admin-Zugang.', 404);
+    const u = clone(admins[0]);
+    const password = genPassword(rand);
+    Object.assign(u, { passwordHash: hash.make(password), mustChangePassword: true, failedLogins: 0, lockedUntil: null, active: true });
+    store.put('users', u);
+    audit({ ...a, tenantId: t.id }, 'user.reset_by_licensor', u.id); // visible in the customer's own log
+    return { password, user: publicUser(u) };
+  });
+
+  /** Final deletion after a cancellation (AVV: return or delete). Type the company code to confirm. */
+  def('deleteTenant', ['platform'], (a, { id, confirmCode }) => {
+    const t = getT(id);
+    if (!t) fail('not_found', 'Lizenznehmer nicht gefunden.', 404);
+    if (t.status !== 'cancelled') fail('invalid', 'Löschen ist erst nach der Kündigung möglich.', 409);
+    if (str(confirmCode, 20).toUpperCase() !== t.code) fail('invalid', `Zur Bestätigung bitte den Firmencode ${t.code} eingeben.`, 400, { fields: ['confirmCode'] });
+    const userIds = store.find('users', { tenantId: t.id }).map((u) => u.id);
+    const fileIds = store.find('files', { tenantId: t.id }).map((f) => f.id);
+    for (const col of ['deliveries', 'vehicles', 'notifications', 'files', 'audit', 'users']) for (const x of store.find(col, { tenantId: t.id })) store.del(col, x.id);
+    store.del('tenants', t.id);
+    audit(a, 'tenant.delete', t.id, { code: t.code, name: t.name, users: userIds.length, files: fileIds.length });
+    emit({ type: 'change', tenantId: null, col: 'tenants', id: t.id });
+    return { ok: true, tenantId: t.id, userIds, fileIds };
   });
 
   def('platformStats', ['platform'], () => {
@@ -532,15 +614,31 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     return { tenants: ts.length, active: live.length, trial: trial.length, trialEndingSoon: soon.map((t) => ({ id: t.id, name: t.name, trialEnd: t.trialEnd })), suspended: ts.filter((t) => t.status === 'suspended').length, mrr: Math.round(mrr * 100) / 100, arr: Math.round(mrr * 12 * 100) / 100, drivers, deliveriesMonth, byPlan };
   });
 
+  // Billing rule. The paid licence starts at `paidSince` (creation without a trial, or the switch from
+  // trial to active). Monthly payers are billed for every calendar month from that month on. Yearly
+  // payers are billed once a year in advance – in the start month and every 12 months after – for 12
+  // months at the price of 10. A month is billed only while the licence is paid: a suspension or
+  // cancellation counts from the month of the status change (`statusAt`), a licence end after its month.
+  // The positions use today's plan and add-ons (the preview does not keep a price history).
   def('billingRun', ['platform'], (a, { month } = {}) => {
-    const m = /^\d{4}-\d{2}$/.test(month || '') ? month : berlinDate(now()).slice(0, 7);
-    const lines = store.find('tenants', {}).filter((t) => licenseState(t, now()) === 'active').map((t) => {
+    const m = /^\d{4}-\d{2}$/.test(month || '') ? month : monthOf(now());
+    const cur = monthIndex(m);
+    const billable = (t) => {
+      if (!t.paidSince || t.status === 'trial') return false;
+      const start = monthIndex(monthOf(t.paidSince));
+      if (cur < start) return false;
+      if (['suspended', 'cancelled'].includes(t.status) && monthIndex(monthOf(t.statusAt || t.createdAt)) <= cur) return false;
+      if (t.licenseEnd && monthIndex(monthOf(t.licenseEnd)) < cur) return false;
+      return t.billing !== 'yearly' || (cur - start) % 12 === 0;
+    };
+    const lines = store.find('tenants', {}).filter(billable).map((t) => {
       const p = planOf(t);
       const items = [{ text: `Ladeklar ${p.name}`, qty: 1, unit: p.price }];
       if (p.extraDriver && t.extraDrivers) items.push({ text: 'Zusätzliche Fahrer', qty: t.extraDrivers, unit: p.extraDriver });
       if (t.storeApp) items.push({ text: 'White-Label-App (Store-Betrieb)', qty: 1, unit: STORE_APP.monthly });
-      const net = items.reduce((s, i) => s + i.qty * i.unit, 0) * (t.billing === 'yearly' ? 10 : 1);
-      return { tenantId: t.id, name: t.legalName || t.name, code: t.code, billing: t.billing, period: t.billing === 'yearly' ? `${m} (Jahr)` : m, items, net, vat: Math.round(net * VAT * 100) / 100, gross: Math.round(net * (1 + VAT) * 100) / 100 };
+      const yearly = t.billing === 'yearly';
+      const net = items.reduce((s, i) => s + i.qty * i.unit, 0) * (yearly ? 10 : 1);
+      return { tenantId: t.id, name: t.legalName || t.name, code: t.code, billing: t.billing || 'monthly', period: yearly ? `${monthLabel(cur)} – ${monthLabel(cur + 11)}` : monthLabel(cur), items, net, vat: Math.round(net * VAT * 100) / 100, gross: Math.round(net * (1 + VAT) * 100) / 100 };
     });
     return { month: m, lines, net: lines.reduce((s, l) => s + l.net, 0), gross: Math.round(lines.reduce((s, l) => s + l.gross, 0) * 100) / 100 };
   });
@@ -619,7 +717,7 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     const vehicles = store.find('vehicles', { tenantId: t.id });
     const active = store.find('deliveries', { tenantId: t.id }).filter((d) => ACTIVE.includes(d.status));
     return store.find('users', { tenantId: t.id })
-      .filter((u) => !role || u.role === role || (role === 'staff' && u.role !== 'driver'))
+      .filter((u) => !u.deleted && (!role || u.role === role || (role === 'staff' && u.role !== 'driver')))
       .sort((x, y) => (y.active - x.active) || x.name.localeCompare(y.name, 'de'))
       .map((u) => ({ ...publicUser(u), vehiclePlate: vehicles.find((v) => v.id === u.vehicleId)?.plate || '', trailerPlate: vehicles.find((v) => v.id === u.trailerId)?.plate || '', activeDeliveries: active.filter((d) => d.driverId === u.id).length }));
   });
@@ -663,6 +761,7 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
 
   def('updateUser', STAFF, (a, { id, ...p }) => {
     const u = clone(scoped('users', id, a));
+    if (u.deleted) fail('not_found', 'Nicht gefunden.', 404);
     if (u.role !== 'driver' && a.role !== 'admin') fail('forbidden', 'Nur der Admin kann Team-Zugänge ändern.', 403);
     if ('name' in p) u.name = str(p.name, 80) || u.name;
     if ('lang' in p) u.lang = pickLang(p.lang);
@@ -692,6 +791,7 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
 
   def('setUserActive', STAFF, (a, { id, active }) => {
     const u = clone(scoped('users', id, a));
+    if (u.deleted) fail('not_found', 'Nicht gefunden.', 404);
     if (u.role !== 'driver' && a.role !== 'admin') fail('forbidden', 'Nur der Admin kann Team-Zugänge sperren.', 403);
     if (u.id === a.id) fail('invalid', 'Den eigenen Zugang können Sie nicht sperren.');
     const on = bool(active);
@@ -704,8 +804,40 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     return publicUser(u);
   }, { write: true });
 
+  /**
+   * Delete a person (GDPR): the account is anonymised – name, contact data, secrets and messages go;
+   * finished deliveries keep the reference so the company's records stay complete. Open or confirmed
+   * tours go back to the office; a tour that is already loaded has to be finished or re-planned first.
+   * Allowed in every licence state, also when the company may no longer change anything else.
+   */
+  def('deleteUser', ['admin'], (a, { id }) => {
+    const u = clone(scoped('users', id, a));
+    if (u.id === a.id) fail('invalid', 'Den eigenen Zugang können Sie nicht löschen.');
+    if (u.deleted) return { ok: true, id: u.id };
+    const ds = store.find('deliveries', { tenantId: u.tenantId, driverId: u.id }).filter((d) => !DONE.includes(d.status));
+    if (ds.some((d) => progressOf(d.status) >= progressOf('loaded'))) fail('invalid', 'Der Fahrer hat eine beladene Tour. Bitte erst abschließen oder einem anderen Fahrer geben.', 409);
+    for (const d0 of ds) {
+      const d = clone(d0);
+      d.driverId = null; d.status = 'open'; d.openForAll = false;
+      addEvent(d, a, 'unassigned', { from: d0.status });
+      store.put('deliveries', d);
+      deliveryChanged(d);
+    }
+    if (u.role === 'driver') releaseAll(u);
+    Object.assign(u, {
+      name: 'Gelöschter Nutzer', email: null, phone: '', personalNo: '', licenseClass: '', note: '', passwordHash: null, pinHash: null,
+      active: false, deleted: true, deletedAt: now(), geoConsent: null, geoConsentAt: null, failedLogins: 0, lockedUntil: null, mustChangePassword: false,
+    });
+    store.put('users', u);
+    for (const n of store.find('notifications', { userId: u.id })) store.del('notifications', n.id);
+    audit(a, 'user.delete', u.id, { role: u.role });
+    changed('users', u);
+    return { ok: true, id: u.id };
+  });
+
   def('resetSecret', STAFF, (a, { id }) => {
     const u = clone(scoped('users', id, a));
+    if (u.deleted) fail('not_found', 'Nicht gefunden.', 404);
     if (u.role !== 'driver' && a.role !== 'admin') fail('forbidden', 'Nur der Admin kann Passwörter zurücksetzen.', 403);
     let secret;
     if (u.role === 'driver') { secret = genPin(rand); u.pinHash = hash.make(secret); }
@@ -1007,11 +1139,39 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
       if (d.palletExchange) { palletsGiven += d.palletExchange.given || 0; palletsTaken += d.palletExchange.taken || 0; }
       rows.set(d.driverId, r);
     }
+    // Per customer and per loading/unloading place (no personal data, so not tied to reportsByDriver).
+    // Waiting time at a stop = "arrived" tap → "loaded" (pickup) or → "unloaded" (dropoff), the same
+    // pairs as waitingMinutes(). Without the arrival tap (setting trackArrival off) a stop has no
+    // waiting time and only counts. Sorted by the longest average waiting time first.
+    const evAt = (d, type) => (d.events || []).filter((e) => e.type === type && !e.undone).map((e) => e.at).pop();
+    const stopWait = (d, arrived, done) => { const a = evAt(d, arrived), b = evAt(d, done); return a && b && b > a ? Math.round((b - a) / 60000) : null; };
+    const avg = (sum, n) => (n ? Math.round(sum / n) : null);
+    const byWait = (x, y) => (y.avgWaiting ?? -1) - (x.avgWaiting ?? -1) || y.count - x.count;
+    const cust = new Map(), places = new Map();
+    for (const d of ds) {
+      const ck = (d.customer || '').trim().toLowerCase();
+      const c = cust.get(ck) || { customer: d.customer || '', count: 0, problems: 0, waitSum: 0, waitN: 0 };
+      c.count++;
+      if ((d.events || []).some((e) => e.type === 'problem')) c.problems++;
+      const w = waitingMinutes(d); if (w != null) { c.waitSum += w; c.waitN++; }
+      cust.set(ck, c);
+      for (const [side, p, arrived, done] of [['pickup', d.pickup, 'arrived_pickup', 'loaded'], ['dropoff', d.dropoff, 'arrived_dropoff', 'unloaded']]) {
+        if (!p || !(p.place || p.city)) continue;
+        const key = `${side}|${(p.place || '').toLowerCase()}|${(p.city || '').toLowerCase()}`;
+        const x = places.get(key) || { side, place: p.place || '', city: p.city || '', count: 0, waitSum: 0, waitN: 0 };
+        x.count++;
+        const sw = stopWait(d, arrived, done); if (sw != null) { x.waitSum += sw; x.waitN++; }
+        places.set(key, x);
+      }
+    }
+    const out = (x) => { const { waitSum, waitN, ...rest } = x; return { ...rest, avgWaiting: avg(waitSum, waitN), measured: waitN }; };
     return {
       month: m, delivered: ds.length, onTimeRate: withWindow ? Math.round((onTime / withWindow) * 100) : null,
       avgWaiting: waitN ? Math.round(waitSum / waitN) : null, palletsGiven, palletsTaken,
       byDriver: settingsOf(t).reportsByDriver ? [...rows.values()].sort((x, y) => y.delivered - x.delivered) : [],
       byDriverHidden: !settingsOf(t).reportsByDriver,
+      byCustomer: [...cust.values()].map(out).sort(byWait),
+      byPlace: [...places.values()].map(out).sort(byWait),
     };
   });
 
@@ -1095,6 +1255,10 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
         const f = store.get('files', signatureFileId);
         if (!f || f.tenantId !== t.id || f.kind !== 'signature') fail('invalid', 'Unterschrift nicht gefunden.');
         d.signatureFileId = f.id;
+      } else {
+        // signed offline: the signature arrived as a document of this delivery just before this step
+        const sig = [...(d.docs || [])].reverse().find((x) => x.kind === 'signature');
+        if (sig) d.signatureFileId = sig.fileId;
       }
       if (s.requireSignature && !d.signatureFileId) fail('signature_required', 'Bitte den Empfänger unterschreiben lassen.', 409);
       extra.pods = pods.length;
@@ -1144,7 +1308,7 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     return { ok: true };
   }, { write: true });
 
-  def('reportProblem', ['driver'], (a, { id, code, note, fileId, geo }) => {
+  def('reportProblem', ['driver'], (a, { id, code, note, fileId, photo, geo }) => {
     const t = tenantOf(a);
     const d = deliveryFor(a, id);
     if (d.driverId !== a.id) fail('forbidden', 'Diese Lieferung ist nicht Ihnen zugeteilt.', 403);
@@ -1152,8 +1316,10 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     const c = PROBLEMS.includes(code) ? code : 'other';
     let fid = null;
     if (fileId) { const f = store.get('files', fileId); if (f && f.tenantId === t.id) fid = f.id; }
+    // photo: true – the picture was uploaded to this delivery right before (also queued offline)
+    if (!fid && photo) fid = [...(d.docs || [])].reverse().find((x) => x.kind === 'damage' && x.by === a.id && now() - x.at < 6 * 3600e3)?.fileId || null;
     d.problem = { code: c, note: text(note, 500), at: now(), by: a.id, fileId: fid };
-    if (fid) d.docs = [...(d.docs || []), { fileId: fid, kind: 'damage', at: now(), by: a.id }];
+    if (fid && !(d.docs || []).some((x) => x.fileId === fid)) d.docs = [...(d.docs || []), { fileId: fid, kind: 'damage', at: now(), by: a.id }];
     addEvent(d, a, 'problem', { code: c, note: d.problem.note, geo: cleanGeo(geo, settingsOf(t), a) });
     store.put('deliveries', d);
     deliveryChanged(d);
@@ -1251,7 +1417,11 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
       store.put('deliveries', { ...d0, events: d0.events.map((e) => (e.geo && e.at < geoLimit ? (({ geo, ...rest }) => rest)(e) : e)) });
     }
     for (const n of store.find('notifications', {})) if (n.at < geoLimit) store.del('notifications', n.id);
-    for (const e of store.find('audit', {})) if (e.at < now() - 3 * 365.25 * 864e5) store.del('audit', e.id);
+    // the log is kept 3 years; IP addresses and typed login names in it only 90 days
+    for (const e of store.find('audit', {})) {
+      if (e.at < now() - 3 * 365.25 * 864e5) store.del('audit', e.id);
+      else if (e.at < geoLimit && (e.ip || e.extra?.who)) { const { ip, ...rest } = e; if (rest.extra?.who) rest.extra = (({ who, ...x }) => x)(rest.extra); store.put('audit', rest); }
+    }
     return removed;
   }
 
@@ -1264,22 +1434,28 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
   }
 
   // ---------- dispatcher ----------
-  function call(actor, name, args = {}) {
+  // With a start password only these calls work – the app shows the "own password" form first.
+  const BEFORE_OWN_PASSWORD = new Set(['me', 'changePassword', 'updateProfile', 'listNotifications', 'markNotificationsRead']);
+  /** meta: transport context, e.g. { ip } – written to the audit log. */
+  function call(actor, name, args = {}, meta = null) {
     const m = M[name];
     if (!m) fail('not_found', `Unbekannte Aktion: ${name}`, 404);
     if (!actor) fail('unauthorized', 'Bitte anmelden.', 401);
     if (!m.roles.includes(actor.role)) fail('forbidden', 'Dafür fehlt die Berechtigung.', 403);
+    if (actor.mustChangePassword && !BEFORE_OWN_PASSWORD.has(name)) fail('password_change', 'Bitte zuerst ein eigenes Passwort vergeben.', 403);
     if (m.write && actor.role !== 'platform') {
       const t = getT(actor.tenantId);
-      if (!writable(t, now())) fail('license_inactive', 'Die Lizenz ist nicht aktiv. Daten können angesehen und exportiert, aber nicht geändert werden.', 403, { state: licenseState(t, now()) });
+      if (!writable(t, now())) fail('license_inactive', licenseState(t, now()) === 'cancelled' ? 'Der Vertrag ist gekündigt. Daten können bis zur Löschung angesehen und exportiert, aber nicht geändert werden.' : 'Die Lizenz ist nicht aktiv. Daten können angesehen und exportiert, aber nicht geändert werden.', 403, { state: licenseState(t, now()) });
     }
     let out;
     const queue = [];
     pending = queue;
+    ctx = meta;
     try {
       store.tx(() => { out = m.fn(actor, args && typeof args === 'object' ? args : {}); });
     } finally {
       pending = null;
+      ctx = null;
     }
     queue.forEach(deliver);
     return out;

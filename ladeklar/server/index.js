@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { createEngine, EngineError, VERSION, berlinDate, routeLabel } from '../core/engine.js';
 import { statusText } from '../core/texts.js';
 import { seedDemo } from '../core/seed.js';
+import { createZip, exportFileName } from '../core/zip.js';
 import { createSqlStore } from './sqlstore.js';
 import { generateVapidKeys, sendPush } from './webpush.js';
 
@@ -258,14 +259,14 @@ export function createServer(opts = {}) {
         if (p === '/api/auth/login' && req.method === 'POST') {
           if (limited('login:' + ip(req), 20, 60e3)) return json(res, 429, { error: { code: 'rate', message: 'Zu viele Versuche. Bitte eine Minute warten.' } });
           const b = await readJson(req);
-          const u = engine.auth.login(b);
+          const u = engine.auth.login(b, { ip: ip(req) });
           startSession(res, u, req);
           return json(res, 200, { user: u });
         }
         if ((p === '/api/auth/driver' || p === '/api/auth/invite') && req.method === 'POST') {
           if (limited('login:' + ip(req), 20, 60e3)) return json(res, 429, { error: { code: 'rate', message: 'Zu viele Versuche. Bitte eine Minute warten.' } });
           const b = await readJson(req);
-          const u = p === '/api/auth/invite' ? engine.auth.inviteLogin(b) : engine.auth.driverLogin(b);
+          const u = p === '/api/auth/invite' ? engine.auth.inviteLogin(b, { ip: ip(req) }) : engine.auth.driverLogin(b, { ip: ip(req) });
           startSession(res, u, req);
           return json(res, 200, { user: u });
         }
@@ -324,9 +325,17 @@ export function createServer(opts = {}) {
           const name = p.slice(10);
           if (name === 'createFile') return json(res, 400, { error: { code: 'invalid', message: 'Dateien bitte über /api/files hochladen.' } });
           const b = await readJson(req);
-          const out = engine.call(user, name, b);
+          const out = engine.call(user, name, b, { ip: ip(req) });
+          // sessions and push subscriptions end together with the access
           if (name === 'setUserActive' && b.active === false) sql.sessions.delUser.run(b.id);
           if (name === 'resetSecret') sql.sessions.delUser.run(b.id);
+          if (name === 'resetTenantAdmin') sql.sessions.delUser.run(out.user.id);
+          if (name === 'deleteUser') { sql.sessions.delUser.run(out.id); sql.push.delUser.run(out.id); }
+          if (name === 'deleteTenant') {
+            for (const id of out.userIds) { sql.sessions.delUser.run(id); sql.push.delUser.run(id); }
+            fs.rmSync(path.join(DATA_DIR, 'files', out.tenantId), { recursive: true, force: true });
+            return json(res, 200, { ok: true, users: out.userIds.length, files: out.fileIds.length });
+          }
           return json(res, 200, out ?? null);
         }
 
@@ -366,8 +375,29 @@ export function createServer(opts = {}) {
           return json(res, 200, { ok: true });
         }
 
+        if (p === '/api/export/all.zip') {
+          // everything incl. delivery notes, photos, signatures and logo – streamed, not held in memory
+          const data = engine.call(user, 'exportData', {}, { ip: ip(req) });
+          const day = berlinDate(Date.now());
+          res.writeHead(200, { 'Content-Type': 'application/zip', 'Content-Disposition': `attachment; filename="ladeklar-export-${data.company.code}-${day}.zip"`, 'Cache-Control': 'no-store' });
+          const zip = createZip((chunk) => res.write(chunk));
+          const missing = [];
+          const files = data.files.map((f) => ({ ...f, path: exportFileName(f) }));
+          for (const f of files) {
+            const rec = sql.store.get('files', f.id);
+            let buf = null;
+            if (rec?.data) { const raw = rec.data.slice(rec.data.indexOf(',') + 1); buf = rec.data.includes(';base64,') ? Buffer.from(raw, 'base64') : Buffer.from(decodeURIComponent(raw)); }
+            else { try { buf = fs.readFileSync(path.join(DATA_DIR, 'files', f.tenantId, f.id + '.bin')); } catch { missing.push(f.id); } }
+            if (buf) zip.add(f.path, buf, f.at);
+          }
+          zip.add('lieferungen.csv', deliveriesCsv(user), Date.now());
+          zip.add('daten.json', JSON.stringify({ ...data, files, missingFiles: missing }, null, 2), Date.now());
+          zip.add('LIESMICH.txt', `Ladeklar-Datenexport ${data.company.name} (${data.company.code}) vom ${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })}\r\n\r\ndaten.json      alle Daten (Firma, Nutzer ohne Passwörter, Fahrzeuge, Lieferungen mit Verlauf und Notizen, Protokoll)\r\nlieferungen.csv Lieferungen als Tabelle (Excel: Daten > Aus Text/CSV, Trennzeichen Semikolon)\r\ndateien/        Lieferscheine, Fotos, Unterschriften und Logo; die Zuordnung steht in daten.json unter files[].path\r\n`, Date.now());
+          zip.end();
+          return res.end();
+        }
         if (p === '/api/export/all.json') {
-          const data = engine.call(user, 'exportData', {});
+          const data = engine.call(user, 'exportData', {}, { ip: ip(req) });
           res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Content-Disposition': `attachment; filename="ladeklar-export-${berlinDate(Date.now())}.json"`, 'Cache-Control': 'no-store' });
           return res.end(JSON.stringify(data, null, 2));
         }

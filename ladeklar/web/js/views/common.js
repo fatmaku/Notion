@@ -40,7 +40,7 @@ export function stepper(d, { times = true } = {}) {
     const pos = i + 1;
     const cls = pos <= idx ? 'done' : pos === idx + 1 && idx >= 0 ? 'now' : '';
     const at = pos <= idx ? evAt(s) : null;
-    return `<div class="st ${cls}"><span class="nd">${icon(STEP_ICON[s])}</span><span class="lb">${esc(short[s])}</span>${times ? `<span class="tm">${at ? time(at) : '&nbsp;'}</span>` : ''}</div>`;
+    return `<div class="st ${cls}"><span class="nd">${icon(STEP_ICON[s])}</span><span class="lb" title="${esc(short[s])}">${esc(short[s])}</span>${times ? `<span class="tm">${at ? time(at) : '&nbsp;'}</span>` : ''}</div>`;
   }).join('')}</div>`;
 }
 export function progressRatio(d) {
@@ -68,11 +68,11 @@ export function goodsFacts(d) {
   return out.join('');
 }
 
-export const EVENT_ICON = { created: 'plus', assigned: 'user-plus', accepted: 'check', arrived_pickup: 'map-pin', loaded: 'arrow-up-from-line', arrived_dropoff: 'map-pin', unloaded: 'arrow-down-to-line', delivered: 'circle-check-big', cancelled: 'ban', returned: 'undo-2', problem: 'triangle-alert', problem_resolved: 'shield-check', note: 'message-square-text', doc: 'camera', doc_removed: 'trash-2', undo: 'rotate-ccw', updated: 'pencil', vehicle: 'truck' };
+export const EVENT_ICON = { created: 'plus', assigned: 'user-plus', accepted: 'check', arrived_pickup: 'map-pin', loaded: 'arrow-up-from-line', arrived_dropoff: 'map-pin', unloaded: 'arrow-down-to-line', delivered: 'circle-check-big', cancelled: 'ban', returned: 'undo-2', problem: 'triangle-alert', problem_resolved: 'shield-check', note: 'message-square-text', doc: 'camera', doc_removed: 'trash-2', undo: 'rotate-ccw', updated: 'pencil', vehicle: 'truck', unassigned: 'user-x' };
 export function eventText(e) {
   const k = {
     created: t('Lieferung angelegt'), assigned: t('Fahrer zugewiesen'), accepted: t('Buchung bestätigt'), arrived_pickup: t('An der Ladestelle angekommen'), loaded: t('Aufgeladen'), arrived_dropoff: t('An der Entladestelle angekommen'), unloaded: t('Abgeladen'), delivered: t('Zugestellt – Lieferschein bestätigt'),
-    cancelled: t('Storniert'), returned: t('Zurückgegeben'), problem: t('Problem gemeldet'), problem_resolved: t('Problem erledigt'), note: t('Notiz'), doc: t('Dokument hochgeladen'), doc_removed: t('Dokument entfernt'), undo: t('Schritt zurückgenommen'), updated: t('Geändert'), vehicle: t('Fahrzeug gesetzt'),
+    cancelled: t('Storniert'), returned: t('Zurückgegeben'), problem: t('Problem gemeldet'), problem_resolved: t('Problem erledigt'), note: t('Notiz'), doc: t('Dokument hochgeladen'), doc_removed: t('Dokument entfernt'), undo: t('Schritt zurückgenommen'), updated: t('Geändert'), vehicle: t('Fahrzeug gesetzt'), unassigned: t('Fahrer entfernt (Zugang gelöscht)'),
   }[e.type] || e.type;
   return k;
 }
@@ -140,7 +140,8 @@ export function licenseBanner(app) {
     if (days > 10) return '';
     return `<div class="banner info">${icon('sparkles')}<span class="grow">${t('Testphase: noch {n} Tage. Danach läuft Ihr Tarif „{p}“ weiter, sobald Sie ihn bestätigen.', { n: days, p: l.plan.name })}</span></div>`;
   }
-  if (['suspended', 'expired', 'cancelled'].includes(l.state)) return `<div class="banner bad">${icon('lock')}<span class="grow">${t('Ihr Zugang ist gesperrt. Daten können angesehen und exportiert werden. Bitte melden Sie sich beim Anbieter.')}</span></div>`;
+  if (l.state === 'cancelled') return `<div class="banner bad">${icon('lock')}<span class="grow">${t('Ihr Vertrag ist gekündigt. Sie können alle Daten bis zur Löschung ansehen und exportieren (Einstellungen → Daten & Datenschutz), aber nichts mehr ändern.')}</span></div>`;
+  if (['suspended', 'expired'].includes(l.state)) return `<div class="banner bad">${icon('lock')}<span class="grow">${t('Ihr Zugang ist gesperrt. Daten können angesehen und exportiert werden. Bitte melden Sie sich beim Anbieter.')}</span></div>`;
   return '';
 }
 

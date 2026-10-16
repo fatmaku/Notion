@@ -8,9 +8,10 @@ import * as login from './views/login.js';
 import * as driver from './views/driver.js';
 import * as staff from './views/staff.js';
 import * as platform from './views/platform.js';
+import * as password from './views/password.js';
 import { toastsHtml, lightboxHtml } from './views/common.js';
 
-const VIEWS = { login, driver, staff, platform };
+const VIEWS = { login, driver, staff, platform, password };
 
 function inkFor(hex) {
   const m = /^#?([0-9a-f]{6})$/i.exec(hex || '');
@@ -28,7 +29,7 @@ export function createApp(root, opts = {}) {
   };
   let raf = 0, refreshTimer = 0, loadSeq = 0;
 
-  app.kind = () => (!app.me ? 'login' : app.me.user.role === 'driver' ? 'driver' : app.me.user.role === 'platform' ? 'platform' : 'staff');
+  app.kind = () => (!app.me ? 'login' : app.me.user.role === 'driver' ? 'driver' : app.me.user.mustChangePassword ? 'password' : app.me.user.role === 'platform' ? 'platform' : 'staff');
   app.view = () => VIEWS[app.kind()];
   app.role = () => app.me?.user?.role || null;
   app.tenant = () => app.me?.tenant || null;
@@ -41,7 +42,7 @@ export function createApp(root, opts = {}) {
     const v = app.view();
     const color = app.kind() === 'platform' ? '#c8a45c' : app.tenant()?.branding?.color || app.ui.loginBrand?.color || null;
     root.classList.add('lk');
-    root.classList.toggle('platform', app.kind() === 'platform' || (app.kind() === 'login' && !color));
+    root.classList.toggle('platform', app.kind() === 'platform' || (['login', 'password'].includes(app.kind()) && !color));
     root.classList.toggle('has-pill', !!opts.demoPill);
     if (color && app.kind() !== 'platform') { root.style.setProperty('--brand', color); root.style.setProperty('--brand-ink', inkFor(color)); }
     else { root.style.removeProperty('--brand'); root.style.removeProperty('--brand-ink'); }
@@ -69,7 +70,11 @@ export function createApp(root, opts = {}) {
     const seq = ++loadSeq;
     try {
       await v.load(app);
-    } catch (e) { if (e.code === 'unauthorized') return app.signedOut(); if (e.code !== 'network') app.error(e); }
+    } catch (e) {
+      if (e.code === 'unauthorized') return app.signedOut();
+      if (e.code === 'password_change' && app.me) { app.me.user.mustChangePassword = true; return app.render(); }
+      if (e.code !== 'network') app.error(e);
+    }
     if (seq === loadSeq) app.invalidate();
   };
   app.refresh = (delay = 120) => { clearTimeout(refreshTimer); refreshTimer = setTimeout(() => { app.load(); app.view().refreshSheet?.(app); }, delay); };

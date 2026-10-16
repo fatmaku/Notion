@@ -1,10 +1,11 @@
 // Driver app: one big button – always the next step. Truck from the pool, confirm the booking,
 // loaded, unloaded, delivery-note photo, done. Notes, problems, navigation and a call to the
-// office are one tap away. Works offline, locks while driving, speaks seven languages.
+// office are one tap away. Works offline, locks while driving, speaks eight languages.
 import { icon, esc, pill, problemPill, plate, stepper, routeTitle, goodsFacts, placeBlock, timeline, notesThread, docsGrid, sheet, emptyState, logoImg, langPicker, licenseBanner, PROBLEM_ICON, STEP_ICON, VEHICLE_ICON, vehicleTypeText, featureText } from './common.js';
 import { t, tStep, tStatus, tProblem, problemCodes, noteShortcuts } from '../i18n.js';
-import { time, longDate, dayLabel, window_, mapsHref, phoneHref, dateTime } from '../format.js';
+import { time, longDate, dayLabel, window_, mapsHref, phoneHref, dateTime, phone as fmtPhone } from '../format.js';
 import { compressPhoto, signaturePad, rasterize } from '../media.js';
+import { nextStep, progressOf } from '../../../core/engine.js';
 
 export const routes = ['home', 'jobs', 'history', 'more'];
 export const defaultRoute = () => 'home';
@@ -18,13 +19,51 @@ export async function load(app) {
   app.data.home = home;
   app.data.history = hist;
   if (home?.me && app.me) app.me.user = { ...app.me.user, ...home.me };
+  if (!app.api.queueSize) app.ui.localDocs = {}; // everything from the outbox has arrived
   await refreshSheetData(app);
   watchDriving(app);
 }
+
+// ---------- offline: what the phone knows without network ----------
+// The last driverHome plus photos that still wait in the outbox. Steps tapped in a dead zone are
+// applied here at once, so the driver can go on (loaded → unloaded → delivery note → done).
+function withLocal(app, d) {
+  const extra = app.ui.localDocs?.[d.id];
+  return extra?.length ? { ...d, docs: [...(d.docs || []), ...extra] } : d;
+}
+function localJob(app, id) {
+  const h = app.data.home;
+  const d = h && [h.current, ...(h.mine || []), ...(h.offered || [])].find((x) => x && x.id === id);
+  return d ? withLocal(app, d) : null;
+}
+function addLocalDoc(app, id, doc) {
+  app.ui.localDocs = app.ui.localDocs || {};
+  app.ui.localDocs[id] = [...(app.ui.localDocs[id] || []), doc];
+}
+function applyLocalStep(app, id, step) {
+  const h = app.data.home;
+  if (!h) return;
+  const at = Date.now();
+  for (const d of [h.current, ...h.mine, ...h.offered]) {
+    if (!d || d.id !== id) continue;
+    d.events = [...(d.events || []), { id: 'local-' + at, at, type: step, by: app.me.user.id, role: 'driver', from: d.status, local: true }];
+    d.status = step;
+    d.next = nextStep(d, settings(app));
+    if (step === 'accepted') d.driverId = app.me.user.id;
+  }
+  const cur = h.mine.find((d) => d.id === id) || h.offered.find((d) => d.id === id);
+  if (cur && step === 'accepted' && !h.mine.includes(cur)) { h.mine.unshift(cur); h.offered = h.offered.filter((d) => d !== cur); }
+  if (step === 'delivered') { h.mine = h.mine.filter((d) => d.id !== id); h.doneToday = (h.doneToday || 0) + 1; }
+  h.current = h.mine.find((d) => progressOf(d.status) >= 1) || null;
+}
+
 async function refreshSheetData(app) {
   const s = app.ui.sheet;
   if (!s) return;
-  if (s.id && ['job', 'pod', 'note', 'problem', 'return', 'pallets'].includes(s.type)) app.data.job = await app.api.call('getDelivery', { id: s.id }).catch(() => null);
+  if (s.id && ['job', 'pod', 'note', 'problem', 'return', 'pallets'].includes(s.type)) {
+    const fresh = await app.api.call('getDelivery', { id: s.id }).catch(() => null);
+    app.data.job = fresh ? withLocal(app, fresh) : localJob(app, s.id);
+  }
   if (s.type === 'vehicle') app.data.vehicles = await app.api.call('listVehicles', {});
   if (s.type === 'notifications') app.data.notes = await app.api.call('listNotifications', {});
 }
@@ -53,7 +92,7 @@ export function render(app) {
     ${!app.online || app.queue ? `<div class="offline">${icon('wifi-off')}${app.online ? t('{n} Schritt(e) werden gesendet …', { n: app.queue }) : t('Offline – Ihre Schritte werden gespeichert und automatisch gesendet.')}</div>` : ''}
     <main class="drv-main" data-key="main-${r}">${licenseBanner(app)}${!h ? skeleton() : r === 'jobs' ? jobsView(app, h) : r === 'history' ? historyView(app) : r === 'more' ? moreView(app, h) : homeView(app, h)}</main>
     <nav class="tabbar">${[['home', 'truck', t('Fahrt')], ['jobs', 'list-checks', t('Aufträge'), offerCount], ['history', 'history', t('Verlauf')], ['more', 'circle-user', t('Mehr')]].map(([k, ic, l, c]) => `<button data-act="go" data-to="${k}" aria-current="${r === k ? 'page' : 'false'}">${icon(ic)}${esc(l)}${c ? `<span class="dot">${c}</span>` : ''}</button>`).join('')}</nav>
-    ${undoBar(app)}${sheetView(app)}${successView(app)}${lockView(app)}
+    ${app.ui.sheet ? '' : undoBar(app)}${sheetView(app)}${successView(app)}${lockView(app)}
   </div>`;
 }
 
@@ -74,6 +113,11 @@ function homeView(app, h) {
   if (s.driverPicksTruck && !h.vehicle) {
     out += `<section class="card pad stack" data-key="pick-truck"><div class="row"><span class="avatar">${icon('truck')}</span><div class="grow"><h3>${t('Welchen LKW fahren Sie heute?')}</h3><p class="small muted">${t('Einmal tippen – die Disposition sieht es sofort.')}</p></div></div>
       <button class="step-btn" data-act="openSheet" data-type="vehicle"><span class="si">${icon('truck')}</span><span><b>${t('LKW wählen')}</b><small>${t('aus dem Fuhrpark Ihrer Firma')}</small></span>${icon('chevron-right', 'go')}</button></section>`;
+  }
+  if (lockNeedsPermission(app) && !(s.geoOnStatus && h.me.geoConsent == null)) {
+    out += `<section class="card pad stack" data-key="lock-consent"><div class="row"><span class="avatar">${icon('octagon-x')}</span><div class="grow"><h3>${t('Fahrsperre einschalten')}</h3></div></div>
+      <p class="small">${t('Damit die Knöpfe während der Fahrt gesperrt sind, braucht die App die Standortfreigabe. Die Geschwindigkeit wird nur auf diesem Handy ausgewertet – Ihr Standort wird weder gespeichert noch gesendet.')}</p>
+      <div class="row wrap"><button class="btn btn-primary" data-act="lockAllow">${icon('check')}${t('Standort freigeben')}</button><button class="btn" data-act="lockLater">${t('Später')}</button></div></section>`;
   }
   if (s.geoOnStatus && h.me.geoConsent == null) {
     out += `<section class="card pad stack" data-key="geo-consent"><div class="row"><span class="avatar">${icon('map-pin')}</span><div class="grow"><h3>${t('Standort beim Status-Tipp teilen?')}</h3></div></div>
@@ -104,7 +148,7 @@ function jobCard(app, d, hero = false) {
   const s = settings(app);
   const next = d.next;
   const target = ['accepted', 'open', 'arrived_pickup'].includes(d.status) ? d.pickup : d.dropoff;
-  const pods = (d.docs || []).filter((x) => x.kind === 'pod').length;
+  const pods = (withLocal(app, d).docs || []).filter((x) => x.kind === 'pod').length;
   let btn = '';
   if (next) {
     const ic = next === 'delivered' ? (pods || !s.requirePod ? 'circle-check-big' : 'camera') : STEP_ICON[next];
@@ -167,12 +211,13 @@ function moreView(app, h) {
   const me = h.me;
   const push = app.api.push;
   return `<div class="page-h"><h2>${t('Mehr')}</h2></div>
-    <section class="card pad stack"><div class="row"><span class="avatar lg">${esc((me.name || '?').split(' ').map((x) => x[0]).join('').slice(0, 2))}</span><div class="grow"><h3>${esc(me.name)}</h3><p class="small muted">${esc(me.phone || '')}${me.licenseClass ? ' · ' + t('Klasse {k}', { k: esc(me.licenseClass) }) : ''}</p></div></div>
-      ${h.tenant?.phone ? `<a class="btn btn-primary btn-lg" href="${esc(phoneHref(h.tenant.phone))}">${icon('phone')}${t('Disposition anrufen')} · ${esc(h.tenant.phone)}</a>` : ''}</section>
+    <section class="card pad stack"><div class="row"><span class="avatar lg">${esc((me.name || '?').split(' ').map((x) => x[0]).join('').slice(0, 2))}</span><div class="grow"><h3>${esc(me.name)}</h3><p class="small muted">${esc(fmtPhone(me.phone))}${me.licenseClass ? ' · ' + t('Klasse {k}', { k: esc(me.licenseClass) }) : ''}</p></div></div>
+      ${h.tenant?.phone ? `<a class="btn btn-primary btn-lg two-line" href="${esc(phoneHref(h.tenant.phone))}">${icon('phone')}<span><b>${t('Disposition anrufen')}</b><small>${esc(fmtPhone(h.tenant.phone))}</small></span></a>` : ''}</section>
     <section class="card pad stack"><h4>${icon('languages')} ${t('Sprache')}</h4>${langPicker(app, 'chips lang-chips')}</section>
     ${push && push.supported() ? `<section class="card pad stack"><h4>${icon('bell-ring')} ${t('Mitteilungen')}</h4><p class="small muted">${t('Neue Aufträge und Änderungen kommen als Push-Mitteilung – auch wenn die App geschlossen ist.')}</p><button class="btn" data-act="pushOn">${icon('bell')}${push.state() === 'granted' ? t('Mitteilungen sind an') : t('Mitteilungen einschalten')}</button></section>` : ''}
     <section class="card pad stack"><h4>${icon('shield-check')} ${t('Sicherheit & Datenschutz')}</h4>
       <p class="small">${t('Bitte die App nur im Stand mit ausgeschaltetem Motor bedienen (§ 23 StVO). Während der Fahrt sperrt sie sich selbst.')}</p>
+      ${settings(app).driveLock ? `<p class="small muted">${app.ui.lockPerm === 'denied' ? t('Die Fahrsperre ist aus, weil der Standort im Browser blockiert ist. Bitte in den Browser-Einstellungen erlauben.') : t('Für die Fahrsperre wertet die App die Geschwindigkeit nur auf diesem Handy aus. Der Standort wird dafür weder gespeichert noch gesendet.')}</p>` : ''}
       ${settings(app).geoOnStatus ? `<label class="switch"><input type="checkbox" data-input="geoToggle" ${me.geoConsent ? 'checked' : ''}><span class="grow"><b>${t('Standort beim Status-Tipp teilen')}</b><small>${t('Nur im Moment des Tipps, keine Dauerortung. Freiwillig.')}</small></span></label>` : `<p class="small muted">${t('Ihr Standort wird nicht gespeichert.')}</p>`}</section>
     ${app.queue ? `<div class="banner bad">${icon('wifi-off')}<span class="grow">${t('{n} Schritt(e) sind noch nicht gesendet. Bitte erst mit Netz abmelden.', { n: app.queue })}</span></div>` : ''}
     <button class="btn btn-danger btn-lg" data-act="${app.queue ? 'noop' : 'logout'}" ${app.queue ? 'disabled' : ''}>${icon('log-out')}${t('Abmelden')}</button>`;
@@ -314,19 +359,36 @@ export function mounted(app) {
 }
 
 // ---------- driving lock (§ 23 StVO) ----------
+// The speed comes from the phone's location, evaluated on the phone only – never stored or sent.
+// Independent of "store the position at a status change": the lock needs the permission, not consent
+// to storage, so the driver is asked once with an explanation (card on the start screen).
 function watchDriving(app) {
-  if (app._watching || !settings(app).driveLock || !navigator.geolocation || app.api.mode === 'demo') return;
+  if (!settings(app).driveLock || !navigator.geolocation || app.api.mode === 'demo') return;
+  if (app._watching) return;
+  if (!app._lockPermAsked && navigator.permissions?.query) {
+    app._lockPermAsked = true;
+    navigator.permissions.query({ name: 'geolocation' }).then((r) => {
+      const upd = () => { const was = app.ui.lockPerm; app.ui.lockPerm = r.state; if (r.state === 'granted') startWatch(app); if (was !== r.state) app.invalidate(); };
+      r.onchange = upd; upd();
+    }).catch(() => {});
+  }
+}
+function startWatch(app) {
+  if (app._watching || !settings(app).driveLock) return;
   app._watching = true;
-  const start = () => {
-    let fast = 0, slowSince = 0;
-    app._geoWatch = navigator.geolocation.watchPosition((p) => {
-      const v = p.coords.speed; // m/s
-      if (v == null) return;
-      if (v > 2.3) { fast++; slowSince = 0; if (fast >= 2 && !app.ui.locked) { app.ui.locked = true; app.render(); } }
-      else if (v < 0.9) { fast = 0; if (!slowSince) slowSince = Date.now(); if (app.ui.locked && Date.now() - slowSince > 5000) { app.ui.locked = false; app.render(); } }
-    }, () => {}, { enableHighAccuracy: true, maximumAge: 5000 });
-  };
-  if (navigator.permissions?.query) navigator.permissions.query({ name: 'geolocation' }).then((r) => { if (r.state === 'granted' || settings(app).geoOnStatus) start(); }).catch(() => {});
+  let fast = 0, slowSince = 0;
+  app._geoWatch = navigator.geolocation.watchPosition((p) => {
+    const v = p.coords.speed; // m/s
+    if (v == null) return;
+    if (v > 2.3) { fast++; slowSince = 0; if (fast >= 2 && !app.ui.locked) { app.ui.locked = true; app.render(); } }
+    else if (v < 0.9) { fast = 0; if (!slowSince) slowSince = Date.now(); if (app.ui.locked && Date.now() - slowSince > 5000) { app.ui.locked = false; app.render(); } }
+  }, () => {}, { enableHighAccuracy: true, maximumAge: 5000 });
+}
+const LOCK_LATER = 'lk.lockLater';
+function lockNeedsPermission(app) {
+  if (!settings(app).driveLock || app.api.mode === 'demo' || app.ui.lockPerm !== 'prompt') return false;
+  try { if (Number(localStorage.getItem(LOCK_LATER) || 0) > Date.now()) return false; } catch { /* storage blocked */ }
+  return true;
 }
 function position(app) {
   if (!settings(app).geoOnStatus || !app.data.home?.me?.geoConsent || !navigator.geolocation) return Promise.resolve(undefined);
@@ -343,8 +405,9 @@ async function doStep(app, id, step, extra = {}) {
   const queued = r.queued;
   app.ui.sheet = null; app.ui.form = null;
   app.ui.success = { n: ++successN, title: tStatus(step), body: queued ? t('Gespeichert – wird gesendet, sobald Netz da ist') : t('Disposition ist informiert · {t}', { t: time(Date.now()) }) };
+  // undo needs the server (2-minute window from the server's time stamp) – not offered for queued steps
   if (!queued) app.ui.undo = { id, until: Date.now() + 120000, label: `${tStatus(step)} · ${time(Date.now())}` };
-  else if (app.data.home) { const cur = app.data.home.mine.find((d) => d.id === id) || app.data.home.offered.find((d) => d.id === id); if (cur) cur.status = step; }
+  else applyLocalStep(app, id, step);
   app.render();
   setTimeout(() => { app.ui.success = null; app.render(); }, 1500);
   setTimeout(() => { if (app.ui.undo && app.ui.undo.until <= Date.now() + 50) { app.ui.undo = null; app.render(); } }, 120100);
@@ -359,6 +422,11 @@ async function upload(app, file, opts) {
 
 export const actions = {
   noop: () => {},
+  lockAllow(el, ev, app) {
+    // the browser shows its own question; the permission watcher starts the lock once allowed
+    navigator.geolocation?.getCurrentPosition(() => { app.ui.lockPerm = 'granted'; startWatch(app); app.render(); }, () => { app.render(); }, { timeout: 15000 });
+  },
+  lockLater(el, ev, app) { try { localStorage.setItem(LOCK_LATER, String(Date.now() + 7 * 864e5)); } catch { /* storage blocked */ } app.ui.lockPerm = 'later'; app.render(); },
   async geoConsent(el, ev, app) {
     const v = el.dataset.v === '1';
     if (v && navigator.geolocation) navigator.geolocation.getCurrentPosition(() => {}, () => {}, { timeout: 8000 });
@@ -408,7 +476,8 @@ export const actions = {
     const receiver = app.root.querySelector('#pod-receiver')?.value || '';
     let signatureFileId;
     try {
-      if (app._sig && !app._sig.isEmpty()) { const b = await app._sig.toBlob(); const f = await app.api.upload(b, { kind: 'signature', name: 'unterschrift.png' }); signatureFileId = f.id; }
+      // uploaded to the delivery, so it is queued with the step in a dead zone and found by the server
+      if (app._sig && !app._sig.isEmpty()) { const b = await app._sig.toBlob(); const f = await app.api.upload(b, { kind: 'signature', deliveryId: d.id, name: 'unterschrift.png' }); if (!f.queued) signatureFileId = f.id; }
     } catch (e) { return app.error(e); }
     app.ui.receiver = ''; app.ui.wantSig = false;
     await doStep(app, d.id, 'delivered', { receiver, signatureFileId }).catch(() => {});
@@ -424,7 +493,12 @@ export const inputs = {
     if (ev.type !== 'change' || !el.files?.length) return;
     app.ui.receiver = app.root.querySelector('#pod-receiver')?.value || app.ui.receiver;
     app.ui.uploading = true; app.render();
-    try { for (const f of el.files) await upload(app, f, { kind: 'pod', deliveryId: el.dataset.id }); } catch (e) { app.error(e); }
+    try {
+      for (const f of el.files) {
+        const r = await upload(app, f, { kind: 'pod', deliveryId: el.dataset.id });
+        if (r?.queued) addLocalDoc(app, el.dataset.id, { fileId: r.id, kind: 'pod', localUrl: r.localUrl, queued: true, at: Date.now(), mime: 'image/jpeg' });
+      }
+    } catch (e) { app.error(e); }
     app.ui.uploading = false; el.value = '';
     await refreshSheetData(app); app.render();
   },
@@ -439,9 +513,10 @@ export const forms = {
   },
   async problem(fd, form, app) {
     const id = form.dataset.id; const f = app.ui.form || {};
-    let fileId;
-    if (f.file) { const up = await upload(app, f.file, { kind: 'damage' }).catch(() => null); fileId = up?.id; }
-    const r = await app.call('reportProblem', { id, code: f.code, note: fd.get('note'), fileId, geo: await position(app) });
+    let fileId, photo = false;
+    // the photo belongs to the delivery – in a dead zone it waits in the outbox, before the report
+    if (f.file) { const up = await upload(app, f.file, { kind: 'damage', deliveryId: id }).catch((e) => { app.error(e); return null; }); if (up?.queued) photo = true; else fileId = up?.id; }
+    const r = await app.call('reportProblem', { id, code: f.code, note: fd.get('note'), fileId, photo, geo: await position(app) });
     if (r) { app.ui.form = null; app.close(); app.toast({ title: t('Problem gemeldet – die Disposition ist informiert'), plain: true, icon: 'triangle-alert' }); app.load(); }
   },
   async return(fd, form, app) {

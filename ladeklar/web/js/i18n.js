@@ -29,7 +29,10 @@ export function detectLang() {
 export function rememberLang(l) { try { localStorage.setItem('lk.lang', l); } catch { /* storage blocked */ } }
 
 export function t(key, params) {
-  let s = current === 'de' ? key : DICT[current]?.[key] ?? (current === 'de' ? key : DICT.en?.[key]) ?? key;
+  // 'Fahrer|login': the German text is the part before the bar, the rest only separates translations
+  const bar = key.indexOf('|');
+  const de = bar > 0 ? key.slice(0, bar) : key;
+  let s = current === 'de' ? de : DICT[current]?.[key] ?? DICT.en?.[key] ?? de;
   if (params) s = s.replace(/\{(\w+)\}/g, (_, k) => (params[k] == null ? '' : String(params[k])));
   return s;
 }

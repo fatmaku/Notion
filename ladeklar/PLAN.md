@@ -110,7 +110,7 @@ Ansprechpartner Ladestelle). **Rückgängig** ist 2 Minuten lang nach jedem Schr
 
 | Lücke im Alltag | Lösung in Ladeklar | Status |
 |---|---|---|
-| Fahrer sprechen oft Polnisch, Rumänisch, Türkisch, Russisch, Ukrainisch | Fahrer-App in **7 Sprachen** (DE, EN, PL, RO, TR, RU, UK), dazu Icons statt Text | v1 |
+| Fahrer sprechen oft Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch | Fahrer-App in **8 Sprachen** (DE, EN, PL, RO, CS, TR, RU, UK), dazu Icons statt Text | v1 |
 | Handy während der Fahrt ist verboten (§ 23 Abs. 1a StVO) | **Fahrsperre**: ab ca. 8 km/h überdeckt ein Hinweis die Knöpfe (optional, nur mit Standortfreigabe) | v1 |
 | Funklöcher, Auslandsroaming | **Offline-Warteschlange**: Schritte und Fotos werden gespeichert und gesendet, sobald Netz da ist; Fotos werden auf ~200 KB verkleinert | v1 |
 | Versehentliche Tipps mit Handschuhen | große Knöpfe (≥ 64 px), **Rückgängig 2 Min.** statt Rückfragen | v1 |
@@ -154,7 +154,7 @@ Ansprechpartner Ladestelle). **Rückgängig** ist 2 Minuten lang nach jedem Schr
 | Fahrzeuge (LKW + Auflieger) | 6 | 40 | unbegrenzt |
 | Disponenten-Zugänge | 1 | 5 | unbegrenzt |
 | Eigenes Logo, Farben, App-Name | ✔ | ✔ | ✔ |
-| Lieferungen, Push, 7 Sprachen, Offline | ✔ unbegrenzt | ✔ | ✔ |
+| Lieferungen, Push, 8 Sprachen, Offline | ✔ unbegrenzt | ✔ | ✔ |
 | Lieferschein-Speicher | 5 GB | 50 GB | 250 GB |
 | Berichte & CSV-Export | Basis | ✔ | ✔ |
 | Eigene Subdomain / eigene Domain | – | Subdomain | eigene Domain |
@@ -203,7 +203,7 @@ Freigabe.
 
 | Phase | Inhalt |
 |---|---|
-| **v1.0 (jetzt)** | alles oben: Lizenzkonsole, White-Label, Disposition, Fahrer-App, Push, Offline, 7 Sprachen, Recht |
+| **v1.0 (jetzt)** | alles oben: Lizenzkonsole, White-Label, Disposition, Fahrer-App, Push, Offline, 8 Sprachen, Recht |
 | v1.1 | Zwischenstopps (Sammeltouren), Kundenportal mit Sendungsverfolgungs-Link, Webhooks |
 | v1.2 | Abrechnung automatisch (SEPA-Lastschrift, Rechnungen, Anbindung lexoffice/sevDesk/DATEV) |
 | v1.3 | eCMR (elektronischer Frachtbrief), Schnittstellen zu Frachtbörsen und Telematik |
