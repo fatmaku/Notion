@@ -227,5 +227,14 @@ export default {
   "Zur Fahrt": "La cursă",
   "Zurück": "Înapoi",
   "Zurückgeben": "Returnează",
-  "Zurückgegeben": "Returnată"
+  "Zurückgegeben": "Returnată",
+  "Fahrer|login": "Șofer",
+  "Fahrsperre einschalten": "Activează blocarea în mers",
+  "Damit die Knöpfe während der Fahrt gesperrt sind, braucht die App die Standortfreigabe. Die Geschwindigkeit wird nur auf diesem Handy ausgewertet – Ihr Standort wird weder gespeichert noch gesendet.": "Pentru ca butoanele să fie blocate în timpul mersului, aplicația are nevoie de acces la locație. Viteza este verificată doar pe acest telefon – locația ta nu este nici salvată, nici trimisă.",
+  "Standort freigeben": "Permite locația",
+  "Später": "Mai târziu",
+  "Die Fahrsperre ist aus, weil der Standort im Browser blockiert ist. Bitte in den Browser-Einstellungen erlauben.": "Blocarea în mers este oprită, pentru că locația este blocată în browser. Te rugăm s-o permiți din setările browserului.",
+  "Für die Fahrsperre wertet die App die Geschwindigkeit nur auf diesem Handy aus. Der Standort wird dafür weder gespeichert noch gesendet.": "Pentru blocarea în mers aplicația verifică viteza doar pe acest telefon. Locația nu este nici salvată, nici trimisă.",
+  "Fahrer entfernt (Zugang gelöscht)": "Șofer eliminat (cont șters)",
+  "Ihr Vertrag ist gekündigt. Sie können alle Daten bis zur Löschung ansehen und exportieren (Einstellungen → Daten & Datenschutz), aber nichts mehr ändern.": "Contractul a fost reziliat. Până la ștergere puteți vedea și exporta toate datele, dar nu mai puteți modifica nimic.",
 };

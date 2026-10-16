@@ -27,10 +27,10 @@ export function render(app) {
   return `<div class="shell" data-key="pshell">
     <aside class="rail"><div class="brandmark">${WORDMARK.replace('LADEKLAR</span>', '</span>')}<div><div class="title">LADEKLAR</div><div class="sub">${t('Lizenzgeber-Konsole')}</div></div></div>
       ${nav.map(([k, ic, l]) => `<button class="nav" data-act="go" data-to="${k}" aria-current="${r === k ? 'page' : 'false'}">${icon(ic)}${esc(l)}</button>`).join('')}
-      <div class="foot"><div class="row">${avatar(app.me.user.name)}<div class="grow"><div class="ellip" style="font-weight:750">${esc(app.me.user.name)}</div><div class="xs" style="color:var(--on-ink-2)">${esc(app.me.user.email)}</div></div><button class="ibtn" data-act="logout" aria-label="${t('Abmelden')}">${icon('log-out')}</button></div></div></aside>
+      <div class="foot"><div class="row">${avatar(app.me.user.name)}<div class="grow"><div class="ellip" style="font-weight:750">${esc(app.me.user.name)}</div><div class="xs" style="color:var(--on-ink-2)">${esc(app.me.user.email)}</div></div><button class="ibtn" data-act="openAccount" aria-label="${t('Mein Konto')}" title="${t('Mein Konto')}">${icon('key-round')}</button><button class="ibtn" data-act="logout" aria-label="${t('Abmelden')}">${icon('log-out')}</button></div></div></aside>
     <header class="topbar"><div class="brandmark">${WORDMARK}</div><span class="grow"></span><button class="btn btn-primary" data-act="newTenant">${icon('plus')}<span>${t('Lizenznehmer anlegen')}</span></button></header>
     <main class="main" data-key="pmain-${r}"><div class="page">${r === 'tenants' ? tenantsPage(app) : r === 'billing' ? billingPage(app) : r === 'plans' ? plansPage(app) : overviewPage(app)}</div></main>
-    <nav class="tabbar">${nav.map(([k, ic, l]) => `<button data-act="go" data-to="${k}" aria-current="${r === k ? 'page' : 'false'}">${icon(ic)}${esc(l)}</button>`).join('')}<button data-act="logout">${icon('log-out')}${t('Abmelden')}</button></nav>
+    <nav class="tabbar">${nav.map(([k, ic, l]) => `<button data-act="go" data-to="${k}" aria-current="${r === k ? 'page' : 'false'}">${icon(ic)}${esc(l)}</button>`).join('')}<button data-act="openAccount">${icon('circle-user')}${t('Konto')}</button></nav>
     ${sheetView(app)}</div>`;
 }
 const sk = (h) => `<div class="sk" style="height:${h}px"></div>`;
@@ -67,7 +67,7 @@ function tenantsPage(app) {
   const f = app.ui.tfilter || 'all';
   const shown = (ts || []).filter((x) => f === 'all' || x.state === f);
   return `<div class="page-h"><div><h1>${t('Lizenznehmer')}</h1><p class="lead">${t('Tarif, Plätze, Laufzeit und Status je Kunde.')}</p></div><button class="btn btn-primary" data-act="newTenant">${icon('plus')}${t('Lizenznehmer anlegen')}</button></div>
-    <div class="seg">${[['all', t('Alle')], ['active', t('Aktiv')], ['trial', t('Test')], ['suspended', t('Gesperrt')], ['expired', t('Abgelaufen')]].map(([k, l]) => `<button data-act="tfilter" data-k="${k}" aria-pressed="${f === k}">${esc(l)}<span class="count">${(ts || []).filter((x) => k === 'all' || x.state === k).length}</span></button>`).join('')}</div>
+    <div class="seg">${[['all', t('Alle')], ['active', t('Aktiv')], ['trial', t('Test')], ['suspended', t('Gesperrt')], ['expired', t('Abgelaufen')], ['cancelled', t('Gekündigt')]].map(([k, l]) => `<button data-act="tfilter" data-k="${k}" aria-pressed="${f === k}">${esc(l)}<span class="count">${(ts || []).filter((x) => k === 'all' || x.state === k).length}</span></button>`).join('')}</div>
     ${!ts ? sk(300) : `<section class="card tbl-wrap"><table class="tbl"><thead><tr><th>${t('Kunde')}</th><th>${t('Tarif')}</th><th>${t('Status')}</th><th>${t('Fahrer')}</th><th class="num">${t('Fahrzeuge')}</th><th class="num">${t('Lieferungen / Monat')}</th><th class="num">${t('Umsatz / Monat')}</th><th>${t('Letzte Aktivität')}</th></tr></thead><tbody>
       ${shown.map((x) => `<tr data-act="openTenant" data-id="${esc(x.id)}" data-key="tt-${esc(x.id)}"><td><div class="row">${tlogo(app, x)}<div><b>${esc(x.name)}</b><div class="xs muted mono">${esc(x.code)}</div></div></div></td><td>${esc(PLANS[x.plan]?.name)}${x.storeApp ? ` <span class="pill">${icon('store')}App</span>` : ''}${x.billing === 'yearly' ? ` <span class="pill">${t('jährlich')}</span>` : ''}</td><td>${statePill(x.state)}${x.state === 'trial' && x.trialEnd ? `<div class="xs muted">${t('bis {d}', { d: esc(new Date(x.trialEnd).toLocaleDateString('de-DE')) })}</div>` : ''}</td>
         <td><div class="seats"><span class="xs tabular">${x.usage.drivers}/${x.seats}</span><div class="bar" style="--p:${Math.min(1, x.usage.drivers / x.seats)}"><i></i></div></div></td><td class="num">${x.usage.vehicles}</td><td class="num">${num(x.usage.deliveriesMonth)}</td><td class="num">${euro(x.monthly)}</td><td class="small muted">${x.usage.lastActivity ? esc(ago(x.usage.lastActivity, t)) : '–'}</td></tr>`).join('') || `<tr><td colspan="8">${emptyState('building-2', t('Keine Lizenznehmer in dieser Ansicht'))}</td></tr>`}</tbody></table></section>`}`;
@@ -75,11 +75,13 @@ function tenantsPage(app) {
 
 function billingPage(app) {
   const b = app.data.billing;
-  const months = Array.from({ length: 6 }, (_, i) => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - i); return d.toISOString().slice(0, 7); });
-  return `<div class="page-h"><div><h1>${t('Abrechnung')}</h1><p class="lead">${t('Rechnungsvorschau aller aktiven Lizenzen – netto, 19 % USt., brutto.')}</p></div><div class="row wrap"><select class="input" style="width:auto" data-input="bmonth">${months.map((m) => `<option value="${m}" ${(app.ui.bmonth || months[0]) === m ? 'selected' : ''}>${new Date(m + '-15').toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}</option>`).join('')}</select>${app.api.mode === 'demo' ? '' : `<a class="btn" href="${esc(app.api.exportUrl('billing', '?month=' + (app.ui.bmonth || months[0])))}" download>${icon('download')}CSV</a>`}</div></div>
+  // six months back and the next twelve – yearly payers appear in their renewal month only
+  const months = Array.from({ length: 19 }, (_, i) => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + 12 - i); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; });
+  const thisMonth = months[12];
+  return `<div class="page-h"><div><h1>${t('Abrechnung')}</h1><p class="lead">${t('Rechnungsvorschau aller aktiven Lizenzen – netto, 19 % USt., brutto.')}</p></div><div class="row wrap"><select class="input" style="width:auto" data-input="bmonth">${months.map((m) => `<option value="${m}" ${(app.ui.bmonth || thisMonth) === m ? 'selected' : ''}>${new Date(m + '-15').toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}${m === thisMonth ? ' · ' + t('aktuell') : ''}</option>`).join('')}</select>${app.api.mode === 'demo' ? '' : `<a class="btn" href="${esc(app.api.exportUrl('billing', '?month=' + (app.ui.bmonth || thisMonth)))}" download>${icon('download')}CSV</a>`}</div></div>
     ${!b ? sk(260) : `<div class="kpis"><div class="kpi dark" style="cursor:default"><span class="k-l">${t('Netto')}</span><span class="k-v">${euro(b.net)}</span></div><div class="kpi" style="cursor:default"><span class="k-l">${t('USt. 19 %')}</span><span class="k-v">${euro(b.gross - b.net)}</span></div><div class="kpi ok" style="cursor:default"><span class="k-l">${t('Brutto')}</span><span class="k-v">${euro(b.gross)}</span></div><div class="kpi" style="cursor:default"><span class="k-l">${t('Rechnungen')}</span><span class="k-v">${b.lines.length}</span></div></div>
     <section class="card tbl-wrap"><table class="tbl"><thead><tr><th>${t('Kunde')}</th><th>${t('Zeitraum')}</th><th>${t('Positionen')}</th><th class="num">${t('Netto')}</th><th class="num">${t('USt.')}</th><th class="num">${t('Brutto')}</th></tr></thead><tbody>${b.lines.map((l) => `<tr style="cursor:default"><td><b>${esc(l.name)}</b><div class="xs mono muted">${esc(l.code)}</div></td><td>${esc(l.period)}</td><td class="small">${l.items.map((i) => `${i.qty} × ${esc(i.text)} à ${euro(i.unit)}`).join('<br>')}${l.billing === 'yearly' ? `<br><span class="xs muted">${t('Jahreszahlung: 12 Monate zum Preis von 10')}</span>` : ''}</td><td class="num">${euro(l.net)}</td><td class="num">${euro(l.vat)}</td><td class="num"><b>${euro(l.gross)}</b></td></tr>`).join('') || `<tr><td colspan="6" class="muted">${t('Keine aktiven Lizenzen.')}</td></tr>`}</tbody></table></section>
-    <div class="banner info">${icon('info')}<span class="grow">${t('Testphasen und gesperrte Kunden werden nicht berechnet. Die automatische Rechnungsstellung (SEPA, DATEV-Export) folgt in Version 1.2.')}</span></div>`}`;
+    <div class="banner info">${icon('info')}<span class="grow">${t('Monatszahler erscheinen jeden Monat ab Beginn der bezahlten Lizenz, Jahreszahler einmal im Jahr im Verlängerungsmonat (12 Monate zum Preis von 10). Testphasen, gesperrte und gekündigte Kunden werden ab dem Monat der Änderung nicht berechnet. Die automatische Rechnungsstellung (SEPA, DATEV-Export) folgt in Version 1.2.')}</span></div>`}`;
 }
 
 function plansPage(app) {
@@ -96,6 +98,8 @@ function sheetView(app) {
   if (s.type === 'newTenant') return newTenantSheet(app);
   if (s.type === 'created') return createdSheet(app);
   if (s.type === 'tenant') return tenantSheet(app);
+  if (s.type === 'account') return accountSheet(app);
+  if (s.type === 'adminReset') return adminResetSheet(app);
   return '';
 }
 function newTenantSheet(app) {
@@ -128,29 +132,69 @@ function createdSheet(app) {
     foot: `<button class="btn" data-act="copy" data-from="#welcome-text">${icon('copy')}${t('Willkommenstext kopieren')}</button><a class="btn" href="mailto:${esc(c.admin.email)}?subject=${encodeURIComponent('Ihr Ladeklar-Zugang')}&body=${encodeURIComponent(mail)}">${icon('mail')}${t('Per E-Mail')}</a><button class="btn btn-primary" data-act="close">${t('Fertig')}</button>`,
   });
 }
+function accountSheet(app) {
+  const u = app.me.user;
+  return sheet({
+    key: 'account', title: t('Mein Konto'), sub: esc(u.email),
+    body: `<form id="pwForm" data-form="password" class="fgrid"><label class="field full"><span>${t('Aktuelles Passwort')}</span><input class="input" type="password" name="current" autocomplete="current-password" required></label><label class="field full"><span>${t('Neues Passwort (mind. 10 Zeichen)')}</span><input class="input" type="password" name="next" minlength="10" autocomplete="new-password" required></label></form>
+      <p class="small muted">${t('Ein langes Passwort schützt alle Lizenznehmer. Teilen Sie den Zugang nicht.')}</p>`,
+    foot: `<button class="btn btn-danger btn-ghost" data-act="logout">${icon('log-out')}${t('Abmelden')}</button><span class="grow"></span><button class="btn btn-primary" type="submit" form="pwForm">${icon('key-round')}${t('Passwort ändern')}</button>`,
+  });
+}
+function adminResetSheet(app) {
+  const r = app.ui.reset;
+  if (!r) return '';
+  return sheet({
+    key: 'adminReset', title: t('Neues Startpasswort'), sub: t('Wird nur jetzt angezeigt. Der Admin muss es bei der nächsten Anmeldung ändern.'), back: 'backToTenant',
+    body: `<dl class="kv"><dt>${t('Admin')}</dt><dd>${esc(r.user.name)} · ${esc(r.user.email)}</dd></dl><div class="secret"><span class="grow">${esc(r.password)}</span><button class="btn btn-sm" data-act="copy" data-copy="${esc(r.password)}">${icon('copy')}</button></div>
+      <p class="small muted">${t('Bitte telefonisch oder auf einem zweiten Weg übermitteln, nicht in derselben E-Mail wie die Anmeldeadresse. Alle Sitzungen dieses Admins wurden beendet.')}</p>`,
+    foot: `<button class="btn btn-primary" data-act="backToTenant">${t('Fertig')}</button>`,
+  });
+}
 function tenantSheet(app) {
   const x = app.data.tenant;
   if (!x || x.id !== app.ui.sheet.id) return sheet({ title: t('Laden …'), body: sk(300) });
+  const prem = x.plan === 'premium';
+  const isoDay = (ms) => (ms ? new Date(ms).toLocaleDateString('sv-SE', { timeZone: 'Europe/Berlin' }) : '');
   return sheet({
     key: 'tenant', title: esc(x.name), sub: `<span class="mono">${esc(x.code)}</span> · ${t('Kunde seit {d}', { d: esc(new Date(x.createdAt).toLocaleDateString('de-DE')) })}`,
     body: `<div class="row wrap">${tlogo(app, x)}${statePill(x.state)}<span class="pill brand">${esc(PLANS[x.plan].name)}</span><b class="grow" style="text-align:right">${euro(x.monthly)} / ${t('Monat')}</b></div>
       <div class="kpis"><div class="kpi" style="cursor:default"><span class="k-v">${x.usage.drivers}<span class="small muted">/${x.seats}</span></span><span class="k-l">${t('Fahrer')}</span></div><div class="kpi" style="cursor:default"><span class="k-v">${x.usage.vehicles}</span><span class="k-l">${t('Fahrzeuge')}</span></div><div class="kpi" style="cursor:default"><span class="k-v">${x.usage.deliveriesMonth}</span><span class="k-l">${t('Lieferungen / Monat')}</span></div><div class="kpi" style="cursor:default"><span class="k-v">${x.usage.staff}</span><span class="k-l">${t('Büro-Zugänge')}</span></div></div>
       <form id="licForm" data-form="license" class="stack"><div class="section-t">${t('Lizenz')}</div><div class="fgrid">
-        <label class="field"><span>${t('Tarif')}</span><select class="input" name="plan">${Object.values(PLANS).map((p) => `<option value="${p.id}" ${x.plan === p.id ? 'selected' : ''}>${esc(p.name)} · ${p.price} €</option>`).join('')}</select></label>
-        <label class="field"><span>${t('Zusätzliche Fahrer')}</span><input class="input" type="number" min="0" name="extraDrivers" value="${x.extraDrivers}"></label>
+        <label class="field"><span>${t('Tarif')}</span><select class="input" name="plan" data-input="licPlan">${Object.values(PLANS).map((p) => `<option value="${p.id}" ${x.plan === p.id ? 'selected' : ''}>${esc(p.name)} · ${p.price} €</option>`).join('')}</select></label>
+        <label class="field"><span>${t('Zusätzliche Fahrer')}</span><input class="input" type="number" min="0" name="extraDrivers" value="${x.extraDrivers}" ${x.plan === 'start' ? 'disabled' : ''}><span class="hint" data-hint="extra">${x.plan === 'start' ? t('Im Tarif Start nicht möglich – bitte auf Flotte wechseln.') : ''}</span></label>
         <label class="field"><span>${t('Zahlweise')}</span><select class="input" name="billing"><option value="monthly" ${x.billing === 'monthly' ? 'selected' : ''}>${t('monatlich')}</option><option value="yearly" ${x.billing === 'yearly' ? 'selected' : ''}>${t('jährlich')}</option></select></label>
-        <label class="check" style="align-self:end;padding-bottom:10px"><input type="checkbox" name="storeApp" ${x.storeApp ? 'checked' : ''}>${t('White-Label-App im Store')}</label>
+        <label class="field"><span>${t('Laufzeit bis (leer = unbefristet)')}</span><input class="input" type="date" name="licenseEnd" value="${esc(isoDay(x.licenseEnd))}"></label>
+        <label class="check full" style="padding-bottom:4px"><input type="checkbox" name="storeApp" ${x.storeApp ? 'checked' : ''} ${prem ? '' : 'disabled'}>${t('White-Label-App im Store')}<span class="xs muted" data-hint="store">${prem ? '' : ' · ' + t('nur mit Premium')}</span></label>
+        <label class="field full"><span>${t('Eigene Domains (Premium, durch Komma getrennt)')}</span><input class="input mono" name="domains" value="${esc((x.domains || []).join(', '))}" placeholder="fahrer.kaya-logistik.de" ${prem ? '' : 'disabled'}><span class="hint">${t('DNS beim Kunden: CNAME auf app.ladeklar.de, dann im Caddyfile eintragen.')}</span></label>
         <label class="field full"><span>${t('Interne Notiz')}</span><textarea class="input" name="licenseNote" rows="2">${esc(x.licenseNote)}</textarea></label></div>
         <div><button class="btn btn-primary" type="submit">${icon('check')}${t('Lizenz speichern')}</button></div></form>
       <div class="section-t">${t('Status')}</div>
       <div class="row wrap">${x.state !== 'active' ? `<button class="btn btn-ok" data-act="setStatus" data-s="active">${icon('circle-check-big')}${t('Aktivieren')}</button>` : ''}${x.state === 'trial' || x.state === 'expired' ? `<button class="btn" data-act="extendTrial">${icon('hourglass')}${t('Test +14 Tage')}</button>` : ''}${x.state !== 'suspended' ? `<button class="btn btn-danger" data-act="setStatus" data-s="suspended">${icon('lock')}${t('Sperren')}</button>` : ''}${x.state !== 'cancelled' ? `<button class="btn btn-ghost" data-act="setStatus" data-s="cancelled">${icon('ban')}${t('Kündigen')}</button>` : ''}</div>
-      <p class="small muted">${t('Gesperrt: Kunde kann Daten ansehen und exportieren, aber nichts ändern; Fahrer können sich nicht anmelden.')}</p>
-      <div class="section-t">${t('Kontakt')}</div><dl class="kv"><dt>${t('Ansprechpartner')}</dt><dd>${esc(x.contact || '–')}</dd><dt>${t('E-Mail')}</dt><dd>${esc(x.email || '–')}</dd><dt>${t('Telefon')}</dt><dd>${esc(x.phone || '–')}</dd><dt>${t('Anschrift')}</dt><dd>${esc(x.address || '–')}</dd></dl>`,
+      <p class="small muted">${t('Gesperrt: Kunde kann Daten ansehen und exportieren, aber nichts ändern; Fahrer können sich nicht anmelden. Gekündigt: nur der Admin meldet sich noch an, um die Daten zu exportieren.')}</p>
+      <div class="section-t">${t('Firma und Kontakt')}</div>
+      <form id="coForm" data-form="company" class="stack"><div class="fgrid">
+        <label class="field"><span>${t('Firmenname')}</span><input class="input" name="name" value="${esc(x.name)}" required></label><label class="field"><span>${t('Rechtlicher Name (Rechnung)')}</span><input class="input" name="legalName" value="${esc(x.legalName || '')}"></label>
+        <label class="field"><span>${t('Ansprechpartner')}</span><input class="input" name="contact" value="${esc(x.contact || '')}"></label><label class="field"><span>${t('E-Mail (Rechnung, Kontakt)')}</span><input class="input" type="email" name="email" value="${esc(x.email || '')}"></label>
+        <label class="field"><span>${t('Telefon')}</span><input class="input" type="tel" name="phone" value="${esc(x.phone || '')}"></label><label class="field"><span>${t('USt-IdNr.')}</span><input class="input" name="vatId" value="${esc(x.vatId || '')}"></label>
+        <label class="field full"><span>${t('Anschrift')}</span><input class="input" name="address" value="${esc(x.address || '')}"></label></div>
+        <div><button class="btn" type="submit">${icon('check')}${t('Firmendaten speichern')}</button></div></form>
+      <div class="section-t">${t('Support')}</div>
+      <div class="row wrap"><button class="btn" data-act="resetAdmin">${icon('key-round')}${t('Admin-Passwort zurücksetzen')}</button><span class="small muted">${t('Für den Fall, dass der Kunde sich ausgesperrt hat. Wird im Protokoll des Kunden vermerkt.')}</span></div>
+      ${x.state === 'cancelled' ? `<section class="card pad stack danger-zone"><h4>${icon('trash-2')} ${t('Endgültig löschen')}</h4><p class="small">${t('Löscht alle Daten dieses Kunden: Lieferungen, Lieferscheine, Fotos, Fahrer, Fahrzeuge und Protokoll. Vorher muss der Kunde seine Daten exportiert haben oder auf den Export verzichtet haben (AVV).')}</p>
+        <form id="delTenantForm" data-form="deleteTenant" class="row wrap"><label class="field grow" style="min-width:200px"><span>${t('Zur Bestätigung den Firmencode {c} eingeben', { c: esc(x.code) })}</span><input class="input mono" name="confirmCode" autocomplete="off" style="text-transform:uppercase" required></label><button class="btn btn-danger" type="submit" style="align-self:end">${icon('trash-2')}${t('Kunden endgültig löschen')}</button></form></section>` : ''}`,
   });
 }
 
 export const actions = {
   newTenant: (el, ev, app) => app.open({ type: 'newTenant' }),
+  openAccount: (el, ev, app) => app.open({ type: 'account' }),
+  backToTenant: (el, ev, app) => { app.ui.reset = null; app.open({ type: 'tenant', id: app.ui.lastTenant }); },
+  async resetAdmin(el, ev, app) {
+    const id = app.ui.sheet.id;
+    const r = await app.call('resetTenantAdmin', { id }).catch(() => null);
+    if (r) { app.ui.reset = r; app.ui.lastTenant = id; app.open({ type: 'adminReset', id }); }
+  },
   openTenant: (el, ev, app) => app.open({ type: 'tenant', id: el.dataset.id }),
   tfilter: (el, ev, app) => { app.ui.tfilter = el.dataset.k; app.render(); },
   async setStatus(el, ev, app) { const r = await app.call('updateTenantLicense', { id: app.ui.sheet.id, status: el.dataset.s }).catch(() => null); if (r) { app.data.tenant = r; app.toast({ title: t('Status gespeichert'), plain: true, icon: 'check' }); app.load(); } },
@@ -158,6 +202,16 @@ export const actions = {
 };
 export const inputs = {
   bmonth: (el, ev, app) => { if (ev.type !== 'change') return; app.ui.bmonth = el.value; app.data.billing = null; app.render(); app.load(); },
+  licPlan(el, ev, app) {
+    if (ev.type !== 'change') return;
+    const f = el.form, plan = el.value;
+    const store = f.querySelector('[name=storeApp]'), extra = f.querySelector('[name=extraDrivers]'), dom = f.querySelector('[name=domains]');
+    store.disabled = plan !== 'premium'; if (store.disabled) store.checked = false;
+    dom.disabled = plan !== 'premium';
+    extra.disabled = plan === 'start'; if (extra.disabled) extra.value = 0;
+    f.querySelector('[data-hint=store]').textContent = plan === 'premium' ? '' : ' · ' + t('nur mit Premium');
+    f.querySelector('[data-hint=extra]').textContent = plan === 'start' ? t('Im Tarif Start nicht möglich – bitte auf Flotte wechseln.') : '';
+  },
   codeHint: (el, ev, app) => { const f = el.form; const code = f.querySelector('[name=code]'); if (code && !code.dataset.touched) code.placeholder = el.value.replace(/[^A-Za-z0-9]/g, '').slice(0, 8).toUpperCase() || 'MUSTER'; },
 };
 export const forms = {
@@ -169,7 +223,21 @@ export const forms = {
   },
   async license(fd, form, app) {
     const v = Object.fromEntries(fd.entries());
-    const r = await app.call('updateTenantLicense', { id: app.ui.sheet.id, plan: v.plan, extraDrivers: Number(v.extraDrivers), billing: v.billing, storeApp: v.storeApp === 'on', licenseNote: v.licenseNote });
+    const r = await app.call('updateTenantLicense', { id: app.ui.sheet.id, plan: v.plan, extraDrivers: Number(v.extraDrivers || 0), billing: v.billing, storeApp: v.storeApp === 'on', licenseEnd: v.licenseEnd || null, licenseNote: v.licenseNote, ...('domains' in v ? { domains: v.domains } : {}) });
     if (r) { app.data.tenant = r; app.toast({ title: t('Lizenz gespeichert · {e} / Monat', { e: euro(r.monthly) }), plain: true, icon: 'check' }); app.load(); }
+  },
+  async company(fd, form, app) {
+    const v = Object.fromEntries(fd.entries());
+    const r = await app.call('updateTenantLicense', { id: app.ui.sheet.id, name: v.name, legalName: v.legalName, contact: v.contact, email: v.email, phone: v.phone, vatId: v.vatId, address: v.address });
+    if (r) { app.data.tenant = r; app.toast({ title: t('Firmendaten gespeichert'), plain: true, icon: 'check' }); app.load(); }
+  },
+  async deleteTenant(fd, form, app) {
+    const id = app.ui.sheet.id;
+    const r = await app.call('deleteTenant', { id, confirmCode: String(fd.get('confirmCode') || '').trim() });
+    if (r) { app.close(); app.toast({ title: t('Kunde gelöscht – {u} Zugänge, {f} Dateien', { u: r.users ?? r.userIds?.length ?? 0, f: r.files ?? r.fileIds?.length ?? 0 }), plain: true, icon: 'trash-2' }); app.data.tenant = null; app.load(); }
+  },
+  async password(fd, form, app) {
+    const r = await app.call('changePassword', { current: fd.get('current'), next: fd.get('next') });
+    if (r) { form.reset(); app.close(); app.toast({ title: t('Passwort geändert'), plain: true, icon: 'key-round' }); }
   },
 };

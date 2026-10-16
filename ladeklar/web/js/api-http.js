@@ -99,7 +99,7 @@ export function createHttpApi() {
       }
     },
     fileUrl: (id) => '/api/files/' + encodeURIComponent(id),
-    exportUrl: (kind, q = '') => ({ json: '/api/export/all.json', csv: '/api/export/deliveries.csv', billing: '/api/export/billing.csv' + q }[kind]),
+    exportUrl: (kind, q = '') => ({ zip: '/api/export/all.zip', json: '/api/export/all.json', csv: '/api/export/deliveries.csv', billing: '/api/export/billing.csv' + q }[kind]),
     inviteLink: (userId) => `${location.origin}/i/${userId}`,
     tenantLink: (code) => `${location.origin}/t/${code}`,
     push: {

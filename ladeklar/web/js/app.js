@@ -80,10 +80,10 @@ export function createApp(root, opts = {}) {
   app.refresh = (delay = 120) => { clearTimeout(refreshTimer); refreshTimer = setTimeout(() => { app.load(); app.view().refreshSheet?.(app); }, delay); };
 
   // ---------- calls ----------
-  app.call = async (method, args = {}, { quiet = false } = {}) => {
+  app.call = async (method, args = {}, { quiet = false, queuedToast = true } = {}) => {
     try {
       const r = await app.api.call(method, args);
-      if (r && r.queued && !quiet) app.toast({ title: t('Gespeichert – wird gesendet, sobald Netz da ist'), plain: true, icon: 'wifi-off' });
+      if (r && r.queued && !quiet && queuedToast) app.toast({ title: t('Gespeichert – wird gesendet, sobald Netz da ist'), plain: true, icon: 'wifi-off' });
       return r ?? {};
     } catch (e) {
       if (e.code === 'unauthorized') { app.signedOut(); return null; }

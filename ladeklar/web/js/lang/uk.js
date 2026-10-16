@@ -227,5 +227,14 @@ export default {
   "Zur Fahrt": "До рейсу",
   "Zurück": "Назад",
   "Zurückgeben": "Повернути",
-  "Zurückgegeben": "Повернуто"
+  "Zurückgegeben": "Повернуто",
+  "Fahrer|login": "Водій",
+  "Fahrsperre einschalten": "Увімкнути блокування в дорозі",
+  "Damit die Knöpfe während der Fahrt gesperrt sind, braucht die App die Standortfreigabe. Die Geschwindigkeit wird nur auf diesem Handy ausgewertet – Ihr Standort wird weder gespeichert noch gesendet.": "Щоб кнопки блокувалися під час руху, застосунку потрібен доступ до геолокації. Швидкість перевіряється лише на цьому телефоні – ваше місцезнаходження не зберігається і не надсилається.",
+  "Standort freigeben": "Дозволити геолокацію",
+  "Später": "Пізніше",
+  "Die Fahrsperre ist aus, weil der Standort im Browser blockiert ist. Bitte in den Browser-Einstellungen erlauben.": "Блокування в дорозі вимкнене, бо геолокацію заблоковано в браузері. Дозвольте її в налаштуваннях браузера.",
+  "Für die Fahrsperre wertet die App die Geschwindigkeit nur auf diesem Handy aus. Der Standort wird dafür weder gespeichert noch gesendet.": "Для блокування в дорозі застосунок перевіряє швидкість лише на цьому телефоні. Місцезнаходження при цьому не зберігається і не надсилається.",
+  "Fahrer entfernt (Zugang gelöscht)": "Водія видалено (обліковий запис стерто)",
+  "Ihr Vertrag ist gekündigt. Sie können alle Daten bis zur Löschung ansehen und exportieren (Einstellungen → Daten & Datenschutz), aber nichts mehr ändern.": "Договір розірвано. До видалення ви можете переглядати й вивантажувати всі дані, але нічого не можете змінити.",
 };

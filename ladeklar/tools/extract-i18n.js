@@ -1,4 +1,4 @@
-// Collects every t('…') key from the UI. Driver/login/common screens need all seven
+// Collects every t('…') key from the UI. Driver/login/common screens need all eight
 // languages, office/licensor screens English + Turkish. Writes web/js/lang/_keys.json.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -21,4 +21,4 @@ const out = {};
 for (const [k, s] of [...keys.entries()].sort((a, b) => a[0].localeCompare(b[0], 'de'))) out[k] = s.has('driver') ? 'all' : 'office';
 fs.writeFileSync(path.join(root, 'lang', '_keys.json'), JSON.stringify(out, null, 1));
 const all = Object.values(out).filter((v) => v === 'all').length;
-console.log(`${Object.keys(out).length} keys (${all} for all 7 languages, ${Object.keys(out).length - all} office-only)`);
+console.log(`${Object.keys(out).length} keys (${all} for all 8 languages, ${Object.keys(out).length - all} office-only)`);

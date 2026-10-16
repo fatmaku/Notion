@@ -21,7 +21,7 @@ const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ladeklar-e2e-'));
 const srv = createServer({ dataDir, quiet: true, platformEmail: 'inhaber@ladeklar.de', platformPassword: 'Plattform-Test-2026' });
 const port = await srv.listen(0, '127.0.0.1');
 const BASE = `http://127.0.0.1:${port}`;
-const browser = await chromium.launch();
+const browser = await chromium.launch({ args: ['--lang=de-DE'], env: { ...process.env, LANG: 'de_DE.UTF-8', LANGUAGE: 'de', LC_ALL: 'de_DE.UTF-8' } });
 
 async function page(name, vp, extra = {}) {
   const ctx = await browser.newContext({ viewport: vp, locale: 'de-DE', timezoneId: 'Europe/Berlin', deviceScaleFactor: vp.width < 500 ? 2 : 1, ...extra });
@@ -85,16 +85,26 @@ await step('Lizenzgeber', 'Lizenznehmer anlegen (Tarif Flotte, 30 Tage Test)', a
 });
 
 // ---------------- Unternehmen ----------------
-await step('Unternehmen', 'Admin meldet sich mit Startpasswort an', async () => { await officeLogin(office, 'petra@test-spedition.de', adminPw); await office.waitForSelector('.kpi'); });
-await step('Unternehmen', 'Eigenes Passwort vergeben', async () => {
-  await office.click('.rail [data-to=settings]');
-  await office.click('[data-act=ssec][data-k=account]');
-  await office.fill('form[data-form=password] [name=current]', adminPw);
-  await office.fill('form[data-form=password] [name=next]', 'Petra-Neu-Passwort-1');
-  await office.click('form[data-form=password] button[type=submit]');
+await step('Unternehmen', 'Admin meldet sich mit Startpasswort an – zuerst eigenes Passwort, vorher geht nichts', async () => {
+  await office.goto(BASE + '/');
+  await office.click('[data-act="loginMode"][data-m="office"]');
+  await office.fill('form[data-form=office] input[name=email]', 'petra@test-spedition.de');
+  await office.fill('form[data-form=office] input[name=password]', adminPw);
+  await office.click('form[data-form=office] button[type=submit]');
+  await office.waitForSelector('form[data-form=firstPassword]');
+  const blocked = await office.evaluate(async () => (await (await fetch('/api/call/listDeliveries', { method: 'POST', headers: { 'X-Ladeklar': '1', 'Content-Type': 'application/json' }, body: '{}' })).json()).error?.code);
+  expect(blocked === 'password_change', 'Startpasswort darf nichts freigeben: ' + blocked);
+  const s = await shot(office, 'unternehmen-erstes-passwort');
+  await office.fill('form[data-form=firstPassword] [name=current]', adminPw);
+  await office.fill('form[data-form=firstPassword] [name=next]', 'Petra-Neu-Passwort-1');
+  await office.fill('form[data-form=firstPassword] [name=again]', 'Petra-Neu-Passwort-1');
+  await office.click('form[data-form=firstPassword] button[type=submit]');
+  await office.waitForSelector('.kpi');
   await toastWith(office, /Passwort geändert/);
+  return s;
 });
 await step('Unternehmen', 'Logo hochladen, Farbe und App-Name setzen (White-Label)', async () => {
+  await office.click('.rail [data-to=settings]');
   await office.click('[data-act=ssec][data-k=brand]');
   await office.setInputFiles('input[data-input=logoFile]', FIX('logo.png'));
   await toastWith(office, /Logo gespeichert/, 10000);
@@ -280,6 +290,36 @@ await step('Unternehmen', 'Problem kommt als dringende Mitteilung, Störung wird
   await office.click('[data-act=resolve]');
   await office.waitForFunction(() => document.querySelector('.kpi[data-tab=problems] .k-v')?.textContent === '0', null, { timeout: 5000 });
   await office.keyboard.press('Escape');
+  return s;
+});
+await step('Fahrer', 'Funkloch bis zum Schluss: Aufgeladen, Abgeladen, Lieferschein-Foto, Zugestellt – alles offline', async () => {
+  await phone.waitForSelector('.step-btn[data-step=loaded]');
+  await phone.ctx.setOffline(true);
+  await phone.tap('.step-btn[data-step=loaded]');
+  await phone.waitForSelector('.success'); await phone.waitForSelector('.success', { state: 'detached', timeout: 4000 });
+  await phone.tap('.step-btn[data-step=unloaded]');
+  await phone.waitForSelector('.success'); await phone.waitForSelector('.success', { state: 'detached', timeout: 4000 });
+  await phone.tap('.step-btn[data-step=delivered]');
+  await phone.waitForSelector('[data-key=pod] input[data-input=podFile]', { state: 'attached', timeout: 6000 });
+  await phone.setInputFiles('input[data-input=podFile]', FIX('lieferschein.jpg'));
+  await phone.waitForSelector('[data-key=pod] .doc img', { timeout: 10000 });
+  await phone.fill('#pod-receiver', 'Frau Weber');
+  await phone.tap('[data-act=finish]');
+  await phone.waitForSelector('.success');
+  await phone.waitForSelector('.success', { state: 'detached', timeout: 4000 });
+  expect(await phone.locator('.offline').count() === 1, 'Offline-Hinweis fehlt');
+  expect(await phone.evaluate(() => window.ladeklar?.queue ?? -1) >= 4, 'vier Einträge in der Warteschlange erwartet');
+  const s = await shot(phone, 'fahrer-offline-abschluss');
+  await phone.ctx.setOffline(false);
+  await phone.waitForSelector('.offline', { state: 'detached', timeout: 25000 });
+  await toastWith(office, /Zugestellt/, 15000);
+  const d = await office.evaluate(async (no) => {
+    const list = await (await fetch('/api/call/listDeliveries', { method: 'POST', headers: { 'X-Ladeklar': '1', 'Content-Type': 'application/json' }, body: JSON.stringify({ tab: 'all', q: no }) })).json();
+    return list[0];
+  }, bookingNo2);
+  expect(d.status === 'delivered', 'Status im Büro: ' + d.status);
+  expect((d.docs || []).some((x) => x.kind === 'pod'), 'Lieferschein fehlt im Büro');
+  expect(d.receiver === 'Frau Weber', 'Empfänger fehlt');
   return s;
 });
 await step('Fahrer', 'Sicherheit: Fahrer kann keine Büro-Funktionen aufrufen', async () => {

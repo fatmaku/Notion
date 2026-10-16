@@ -82,7 +82,8 @@ export function render(app) {
   const unread = app.me.unread || 0;
   const offerCount = (h?.offered?.length || 0) + (h?.mine?.filter((d) => d.status === 'open').length || 0);
   const first = (me.name || '').split(' ')[0];
-  return `<div class="drv" data-key="drv">
+  const undoOn = !app.ui.sheet && app.ui.undo && app.ui.undo.until > Date.now();
+  return `<div class="drv ${undoOn ? 'has-undo' : ''}" data-key="drv">
     <header class="drv-top">
       <div class="bar1">${logoImg(app, tn)}<span class="grow"></span>
         <button class="ibtn" data-act="openSheet" data-type="notifications" aria-label="${t('Mitteilungen')}">${icon('bell')}${unread ? `<span class="dot">${unread > 9 ? '9+' : unread}</span>` : ''}</button></div>
@@ -159,9 +160,9 @@ function jobCard(app, d, hero = false) {
   const callNo = target?.phone || app.data.home?.tenant?.phone;
   return `<article class="job ${app.flash.has(d.id) ? 'flash' : ''}" data-key="job-${esc(d.id)}">
     <div class="job-h">${pill(d.status)}${problemPill(d.problem)}<span class="grow"></span><span class="mono small muted">${esc(d.bookingNo)}</span></div>
-    <div class="job-route"><div class="cities"><div class="city">${esc(d.pickup.city || d.pickup.place)}</div>
+    <div class="job-route"><div class="cities"><div class="city ${cityLen(d.pickup.city || d.pickup.place)}">${esc(d.pickup.city || d.pickup.place)}</div>
       <svg class="lane" viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true"><circle cx="4" cy="11" r="4"/><path d="M10 11 H90"/><circle cx="96" cy="11" r="4"/></svg>
-      <div class="city to">${esc(d.dropoff.city || d.dropoff.place)}</div></div>
+      <div class="city to ${cityLen(d.dropoff.city || d.dropoff.place)}">${esc(d.dropoff.city || d.dropoff.place)}</div></div>
       <div class="when"><div>${icon('arrow-up-from-line')} ${esc(dayLabel(d.pickup.date, t))} ${esc(window_(d.pickup))}<br><span class="muted">${esc(d.pickup.place || '')}</span></div><div>${icon('arrow-down-to-line')} ${esc(dayLabel(d.dropoff.date || d.pickup.date, t))} ${esc(window_(d.dropoff))}<br><span class="muted">${esc(d.dropoff.place || '')}</span></div></div></div>
     <div class="job-facts">${goodsFacts(d)}${d.goods?.text ? `<span class="fact">${icon('package')}${esc(d.goods.text)}</span>` : ''}</div>
     ${d.instructions ? `<div class="job-note">${icon('info')}<span>${esc(d.instructions)}</span></div>` : ''}
@@ -177,6 +178,9 @@ function jobCard(app, d, hero = false) {
       <div class="row between"><button class="btn btn-ghost btn-sm" data-act="openSheet" data-type="job" data-id="${esc(d.id)}">${icon('file-text')}${t('Alle Details')}</button>${['accepted', 'arrived_pickup'].includes(d.status) ? `<button class="btn btn-ghost btn-sm" data-act="openSheet" data-type="return" data-id="${esc(d.id)}">${icon('undo-2')}${t('Zurückgeben')}</button>` : ''}</div>
     </div></article>`;
 }
+
+// long city names get a smaller size instead of breaking in the middle of the word (Ludwigsbu-rg)
+const cityLen = (c) => { const n = Math.max(...String(c || '').split(/\s+/).map((w) => w.length)); return n > 13 ? 'xlong' : n > 9 ? 'long' : ''; };
 
 function offerCard(app, d, i) {
   const mine = d.driverId === app.me.user.id;
@@ -400,14 +404,14 @@ let successN = 0;
 async function doStep(app, id, step, extra = {}) {
   const geo = await position(app);
   const method = step === 'accepted' ? 'acceptDelivery' : 'advanceDelivery';
-  const r = await app.call(method, { id, step, geo, ...extra });
+  const r = await app.call(method, { id, step, geo, ...extra }, { queuedToast: false });
   if (!r) return;
   const queued = r.queued;
   app.ui.sheet = null; app.ui.form = null;
   app.ui.success = { n: ++successN, title: tStatus(step), body: queued ? t('Gespeichert – wird gesendet, sobald Netz da ist') : t('Disposition ist informiert · {t}', { t: time(Date.now()) }) };
   // undo needs the server (2-minute window from the server's time stamp) – not offered for queued steps
   if (!queued) app.ui.undo = { id, until: Date.now() + 120000, label: `${tStatus(step)} · ${time(Date.now())}` };
-  else applyLocalStep(app, id, step);
+  else { applyLocalStep(app, id, step); if (app.ui.undo?.id === id) app.ui.undo = null; }
   app.render();
   setTimeout(() => { app.ui.success = null; app.render(); }, 1500);
   setTimeout(() => { if (app.ui.undo && app.ui.undo.until <= Date.now() + 50) { app.ui.undo = null; app.render(); } }, 120100);

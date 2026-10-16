@@ -13,12 +13,16 @@ const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'lk-manual-'));
 const srv = createServer({ dataDir: dir, quiet: true, demoData: true });
 const port = await srv.listen(0, '127.0.0.1');
 const BASE = `http://127.0.0.1:${port}`;
-const b = await chromium.launch();
+// German browser locale, so date and time fields show dd.mm.yyyy like on a German PC
+const b = await chromium.launch({ args: ['--lang=de-DE'], env: { ...process.env, LANG: 'de_DE.UTF-8', LANGUAGE: 'de', LC_ALL: 'de_DE.UTF-8' } });
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-const shot = async (p, name) => { await wait(700); await p.screenshot({ path: path.join(OUT, name + '.png') }); console.log(' ', name); };
+// wait until toasts are gone, so no "Angelegt · …" message covers a button in the manual
+const noToasts = (p) => p.waitForFunction(() => !document.querySelector('.toast'), null, { timeout: 9000 }).catch(() => {});
+const shot = async (p, name, { toasts = false } = {}) => { if (!toasts) await noToasts(p); await wait(700); await p.screenshot({ path: path.join(OUT, name + '.png') }); console.log(' ', name); };
 const errs = [];
-async function ctx(vp, mobile) {
-  const c = await b.newContext({ viewport: vp, deviceScaleFactor: mobile ? 2 : 1, isMobile: !!mobile, hasTouch: !!mobile, locale: 'de-DE', timezoneId: 'Europe/Berlin' });
+// drivers: location already allowed (the drive-lock question is shown once, see fahrer-17)
+async function ctx(vp, mobile, { geo = !!mobile } = {}) {
+  const c = await b.newContext({ viewport: vp, deviceScaleFactor: mobile ? 2 : 1, isMobile: !!mobile, hasTouch: !!mobile, locale: 'de-DE', timezoneId: 'Europe/Berlin', ...(geo ? { permissions: ['geolocation'], geolocation: { latitude: 48.8, longitude: 9.18 } } : {}) });
   const p = await c.newPage();
   p.on('pageerror', (e) => errs.push(e.message));
   return p;
@@ -96,6 +100,14 @@ await d.tap('.tabbar [data-to=home]');
 await ui(d, () => { window.ladeklar.ui.locked = true; window.ladeklar.render(); });
 await shot(d, 'fahrer-16-fahrsperre');
 await ui(d, () => { window.ladeklar.ui.locked = false; window.ladeklar.render(); });
+// first start on a phone without location permission: the drive lock asks once, with explanation
+const d2 = await ctx({ width: 390, height: 844 }, true, { geo: false });
+await d2.goto(BASE + '/t/KAYA'); await d2.fill('form[data-form=driver] [name=phone]', '0176 1000 0002');
+for (const k of '123456') await d2.tap(`[data-act=pinKey][data-k="${k}"]`);
+if (await d2.waitForSelector('[data-key=lock-consent]', { timeout: 6000 }).then(() => true, () => false)) {
+  await ui(d2, () => { window.ladeklar.lang = 'de'; window.ladeklar.render(); }); // German for the manual, without changing Piotr's setting
+  await shot(d2, 'fahrer-17-fahrsperre-freigabe');
+} else console.log('  (fahrer-17: Browser fragt nicht nach dem Standort – übersprungen)');
 
 // ---------- office (Ayşe, admin) ----------
 const o = await ctx({ width: 1440, height: 900 });
@@ -117,6 +129,11 @@ await o.click('[data-act=newDriver] >> nth=0'); await shot(o, 'buero-13-fahrer-a
 await o.click('.rail [data-to=vehicles]'); await o.waitForSelector('[data-key^="v-"]'); await shot(o, 'buero-14-fahrzeuge');
 await o.click('[data-act=newVehicle] >> nth=0'); await shot(o, 'buero-15-fahrzeug-anlegen'); await o.keyboard.press('Escape');
 await o.click('.rail [data-to=reports]'); await o.waitForSelector('.tbl'); await shot(o, 'buero-16-berichte');
+await ui(o, () => { const m = document.querySelector('.main'); m.scrollTo(0, m.scrollHeight); });
+await shot(o, 'buero-23-berichte-kunden-stellen');
+await ui(o, () => document.querySelector('.main').scrollTo(0, 0));
+await o.click('.rail [data-to=drivers]'); await o.waitForSelector('[data-act=askDelete]');
+await o.click('[data-act=askDelete] >> nth=-1'); await o.waitForSelector('[data-key=deluser]'); await shot(o, 'buero-24-fahrer-loeschen'); await o.keyboard.press('Escape');
 await o.click('.rail [data-to=settings]'); await shot(o, 'buero-17-einstellungen-marke');
 for (const [k, n] of [['flow', 'buero-18-ablaeufe'], ['team', 'buero-19-team'], ['license', 'buero-20-lizenz'], ['data', 'buero-21-daten'], ['api', 'buero-22-api']]) { await o.click(`[data-act=ssec][data-k=${k}]`); await shot(o, n); }
 const tb = await ctx({ width: 1024, height: 768 });
@@ -131,7 +148,10 @@ const l = await ctx({ width: 1440, height: 900 });
 await office(l, 'inhaber@ladeklar.de', 'Ladeklar-Demo-2026');
 await shot(l, 'lizenzgeber-01-uebersicht');
 await l.click('.rail [data-to=tenants]'); await l.waitForSelector('.tbl'); await shot(l, 'lizenzgeber-02-lizenznehmer');
-await l.click('tr >> text=Kaya Logistik'); await l.waitForSelector('[data-key=tenant] form'); await shot(l, 'lizenzgeber-03-lizenz-bearbeiten'); await l.keyboard.press('Escape');
+await l.click('tr >> text=Kaya Logistik'); await l.waitForSelector('[data-key=tenant] form'); await shot(l, 'lizenzgeber-03-lizenz-bearbeiten');
+await ui(l, () => { const b = document.querySelector('[data-key=tenant] .sheet-b'); b.scrollTo(0, b.scrollHeight); });
+await shot(l, 'lizenzgeber-08-firma-support'); await l.keyboard.press('Escape');
+await l.click('[data-act=openAccount] >> nth=0'); await l.waitForSelector('[data-key=account]'); await shot(l, 'lizenzgeber-09-konto'); await l.keyboard.press('Escape');
 await l.click('[data-act=newTenant] >> nth=0'); await l.fill('form[data-form=tenant] [name=name]', 'Muster Spedition GmbH'); await l.fill('form[data-form=tenant] [name=adminEmail]', 'chef@muster-spedition.de'); await shot(l, 'lizenzgeber-04-anlegen');
 await l.click('button[form=ntForm]'); await l.waitForSelector('[data-key=created]'); await shot(l, 'lizenzgeber-05-zugang'); await l.keyboard.press('Escape');
 await l.click('.rail [data-to=billing]'); await l.waitForSelector('.tbl'); await shot(l, 'lizenzgeber-06-abrechnung');

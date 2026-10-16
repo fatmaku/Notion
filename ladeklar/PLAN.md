@@ -48,7 +48,9 @@ angemeldeten Nutzers. Ein Test stellt sicher, dass Unternehmen A nie Daten von U
 1. Plattform-Konsole → **„+ Lizenznehmer“**: Firmenname, Anschrift, Ansprechpartner, E-Mail, Telefon.
 2. Tarif wählen (Start / Flotte / Premium), Testzeitraum (Standard 30 Tage) oder Laufzeit.
 3. Firmencode wird vorgeschlagen (z. B. `KAYA`), Buchungsnummern-Präfix (z. B. `KAY`).
-4. Admin-Zugang wird erzeugt (E-Mail + Startpasswort, beim ersten Login ändern).
+4. Admin-Zugang wird erzeugt (E-Mail + Startpasswort). Beim ersten Login erscheint zuerst „Eigenes Passwort
+   vergeben“ – vorher lässt die Plattform keine andere Aktion zu. Hat sich ein Kunde ausgesperrt, setzt der
+   Lizenzgeber das Admin-Passwort zurück (neues Startpasswort, Eintrag im Protokoll des Kunden).
 5. Optional: Logo und Markenfarbe gleich mitgeben – oder der Kunde macht es selbst.
 
 ### 3.2 Lizenznehmer richtet sich ein (Einrichtungs-Assistent, 4 Schritte)
@@ -65,7 +67,8 @@ Pflicht: **Route** (Ladeort → Entladeort, z. B. *Stuttgart → Hamburg*), **La
 Optional: Auftraggeber, Kundenreferenz, Adressen, Zeitfenster, Ansprechpartner + Telefon an Lade-/Entladestelle,
 Ware, Paletten, Gewicht, ADR (Gefahrgut), Temperatur, Hinweise für den Fahrer, Fahrer und Fahrzeug.
 
-- **Buchungsnummer** wird automatisch vergeben: `KAY-2610-0042` (Präfix – Jahr/Monat – laufende Nr.).
+- **Buchungsnummer** wird automatisch vergeben: `KAY-2610-0042` (Präfix – Jahr/Monat – laufende Nr.). Die
+  laufende Nummer beginnt jeden Monat wieder bei 0001 und ist je Unternehmen und Monat eindeutig.
 - **Zuweisen** an einen Fahrer **oder** als **„offen für alle Fahrer“** veröffentlichen – dann kann
   sich ein freier Fahrer die Tour selbst nehmen (abschaltbar).
 - **„Wiederholen“** kopiert eine frühere Lieferung (Stammrouten in Sekunden).
@@ -90,7 +93,7 @@ Die Fahrer-Ansicht zeigt **immer genau einen großen Knopf: den nächsten Schrit
 
 Jederzeit verfügbar: **Notiz** (Freitext + Schnellbausteine: „Stau“, „Warte an Rampe“, „Kunde nicht da“, …),
 **Problem melden** (Stau/Verspätung, Panne, Unfall, Ware beschädigt, Annahme verweigert, Adresse falsch,
-Sonstiges – mit Foto), **Navigation** (öffnet Google Maps / Apple Karten), **Anrufen** (Disposition,
+Sonstiges – mit Foto), **Navigation** (öffnet auf iPhone/iPad Apple Karten, sonst Google Maps), **Anrufen** (Disposition,
 Ansprechpartner Ladestelle). **Rückgängig** ist 2 Minuten lang nach jedem Schritt möglich.
 **Zurückgeben**: Der Fahrer kann eine bestätigte, noch nicht beladene Tour mit Grund zurückgeben.
 
@@ -104,14 +107,15 @@ Ansprechpartner Ladestelle). **Rückgängig** ist 2 Minuten lang nach jedem Schr
   nach Buchungsnummer, Ort, Fahrer, Kennzeichen, Referenz.
 - **Abliefernachweis** (druckbar als PDF): Buchungsdaten, Zeitstrahl, Lieferschein-Fotos, Unterschrift –
   sofort an Kunde oder Buchhaltung, Rechnung kann am selben Tag raus.
-- **Berichte**: Lieferungen je Fahrer/Monat, Pünktlichkeit, mittlere Standzeit, Export CSV.
+- **Berichte**: Lieferungen je Fahrer/Monat (abschaltbar), je Auftraggeber und je Lade-/Entladestelle mit
+  mittlerer Standzeit (längste zuerst – zeigt, wo Standgeld fällig ist), Pünktlichkeit, Palettenkonto, Export CSV.
 
 ## 4. Was wir zusätzlich eingebaut haben (Lückenanalyse → geschlossen)
 
 | Lücke im Alltag | Lösung in Ladeklar | Status |
 |---|---|---|
 | Fahrer sprechen oft Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch | Fahrer-App in **8 Sprachen** (DE, EN, PL, RO, CS, TR, RU, UK), dazu Icons statt Text | v1 |
-| Handy während der Fahrt ist verboten (§ 23 Abs. 1a StVO) | **Fahrsperre**: ab ca. 8 km/h überdeckt ein Hinweis die Knöpfe (optional, nur mit Standortfreigabe) | v1 |
+| Handy während der Fahrt ist verboten (§ 23 Abs. 1a StVO) | **Fahrsperre**: ab ca. 8 km/h überdeckt ein Hinweis die Knöpfe. Braucht die Standortfreigabe im Browser – der Fahrer wird einmal mit Erklärung gefragt; die Geschwindigkeit wird nur auf dem Gerät ausgewertet, nichts gespeichert (unabhängig von „Standort beim Statuswechsel“) | v1 |
 | Funklöcher, Auslandsroaming | **Offline-Warteschlange**: Schritte und Fotos werden gespeichert und gesendet, sobald Netz da ist; Fotos werden auf ~200 KB verkleinert | v1 |
 | Versehentliche Tipps mit Handschuhen | große Knöpfe (≥ 64 px), **Rückgängig 2 Min.** statt Rückfragen | v1 |
 | Lieferscheine kommen Tage später oder gar nicht ins Büro | Foto-Pflicht vor Abschluss (abschaltbar), Archiv je Lieferung, Abliefernachweis | v1 |
@@ -125,8 +129,11 @@ Ansprechpartner Ladestelle). **Rückgängig** ist 2 Minuten lang nach jedem Schr
 | Fahrer verlieren Zugangsdaten | Einladungslink/QR, PIN-Reset durch Disposition, Sitzung bleibt 90 Tage angemeldet | v1 |
 | Kunde will eigene App im Store | **White-Label-App** (Capacitor) mit eigenem Namen/Icon – Premium-Zusatz | vorbereitet |
 | Anbindung an TMS/Buchhaltung | **REST-API** mit API-Schlüssel (Premium), CSV-Export, Webhook (Roadmap) | v1 (API Basis) |
-| Daten mitnehmen bei Kündigung (EU Data Act) | **Datenexport** (JSON + CSV + Dateien) jederzeit durch Admin | v1 |
-| Lizenz läuft ab / Zahlung fehlt | Status *Test · Aktiv · Gesperrt · Gekündigt*; gesperrt = nur Lesen + Export | v1 |
+| Daten mitnehmen bei Kündigung (EU Data Act) | **Datenexport** jederzeit durch den Admin: ZIP mit allen Daten (JSON, CSV) und jeder Datei (Lieferscheine, Fotos, Unterschriften, Logo), einzeln auch JSON/CSV | v1 |
+| Lizenz läuft ab / Zahlung fehlt | Status *Test · Aktiv · Gesperrt · Gekündigt*; gesperrt = nur Lesen + Export; gekündigt = nur der Admin meldet sich noch an (lesen + Export), danach löscht der Lizenzgeber den Kunden endgültig (Firmencode zur Bestätigung) | v1 |
+| Löschpflicht (DSGVO) für ausgeschiedene Fahrer/Disponenten | **Löschen** durch den Admin: Name, Kontakt, PIN/Passwort und Mitteilungen weg, abgeschlossene Lieferungen bleiben mit „Gelöschter Nutzer“; offene Touren gehen zurück an die Disposition | v1 |
+| Nachweis bei Anmeldeproblemen / Angriffen | **Protokoll** mit Anmeldungen und Fehlversuchen inkl. IP-Adresse (IP und eingegebener Name nach 90 Tagen entfernt) | v1 |
+| Funkloch beim Abschluss | Abladen, Lieferschein-Foto, Unterschrift und „Zugestellt“ funktionieren offline; alles wird in der richtigen Reihenfolge nachgesendet | v1 |
 | Platzgrenzen je Tarif | Fahrer-/Fahrzeuglimits werden geprüft, klare Hinweise zum Upgrade | v1 |
 | Nachtschicht / Kabine dunkel | automatischer **Dunkelmodus** | v1 |
 | Grenzüberschreitend (CMR) | Feld Land/Länderkennzeichen, CMR-Frachtbrief als Dokumentart, eCMR-Schnittstelle (Roadmap) | v1 / Roadmap |
@@ -162,6 +169,10 @@ Ansprechpartner Ladestelle). **Rückgängig** ist 2 Minuten lang nach jedem Schr
 | **White-Label-App im App Store / Google Play** | – | – | Zusatz: 1.990 € einmalig + 99 €/Monat |
 
 - **30 Tage kostenlos testen**, ohne Zahlungsdaten. Jahreszahlung: 2 Monate geschenkt.
+- **Abrechnungsregel** (Rechnungsvorschau der Konsole): Monatszahler ab dem Monat, in dem die bezahlte Lizenz
+  beginnt (Anlage ohne Test oder Wechsel von Test auf Aktiv), jeden Monat; Jahreszahler einmal im Jahr im
+  Startmonat und dann alle 12 Monate (12 Monate zum Preis von 10). Sperre oder Kündigung gelten ab dem Monat
+  der Änderung, eine Laufzeit bis zu ihrem Monat. Die Store-App gibt es nur zu Premium, zusätzliche Fahrer nicht im Tarif Start.
 - Partner-/Reseller-Lizenz (z. B. Verbände, Telematik-Händler): 20–30 % Provision, Roadmap.
 - Nur für Unternehmer (§ 14 BGB) – kein Verbrauchergeschäft, kein Widerrufsrecht.
 

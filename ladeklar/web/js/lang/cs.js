@@ -227,5 +227,14 @@ export default {
   "Zur Fahrt": "K jízdě",
   "Zurück": "Zpět",
   "Zurückgeben": "Vrátit",
-  "Zurückgegeben": "Vráceno"
+  "Zurückgegeben": "Vráceno",
+  "Fahrer|login": "Řidič",
+  "Fahrsperre einschalten": "Zapnout blokování za jízdy",
+  "Damit die Knöpfe während der Fahrt gesperrt sind, braucht die App die Standortfreigabe. Die Geschwindigkeit wird nur auf diesem Handy ausgewertet – Ihr Standort wird weder gespeichert noch gesendet.": "Aby byla tlačítka během jízdy zablokovaná, potřebuje aplikace přístup k poloze. Rychlost se vyhodnocuje jen v tomto telefonu – vaše poloha se neukládá ani neodesílá.",
+  "Standort freigeben": "Povolit polohu",
+  "Später": "Později",
+  "Die Fahrsperre ist aus, weil der Standort im Browser blockiert ist. Bitte in den Browser-Einstellungen erlauben.": "Blokování za jízdy je vypnuté, protože poloha je v prohlížeči zablokovaná. Povolte ji prosím v nastavení prohlížeče.",
+  "Für die Fahrsperre wertet die App die Geschwindigkeit nur auf diesem Handy aus. Der Standort wird dafür weder gespeichert noch gesendet.": "Pro blokování za jízdy aplikace vyhodnocuje rychlost jen v tomto telefonu. Poloha se přitom neukládá ani neodesílá.",
+  "Fahrer entfernt (Zugang gelöscht)": "Řidič odebrán (účet smazán)",
+  "Ihr Vertrag ist gekündigt. Sie können alle Daten bis zur Löschung ansehen und exportieren (Einstellungen → Daten & Datenschutz), aber nichts mehr ändern.": "Smlouva byla vypovězena. Do smazání můžete všechna data prohlížet a exportovat, ale nic měnit.",
 };

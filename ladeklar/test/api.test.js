@@ -143,6 +143,18 @@ test('end to end over HTTP: licensor → company → driver, live events, push, 
     assert.equal(exp.data.format, 'ladeklar-export');
     assert.ok(!JSON.stringify(exp.data).includes('scrypt$'), 'no password hashes in the export');
     assert.equal((await driver.req('GET', '/api/export/deliveries.csv')).status, 403);
+    // full export as ZIP: data, CSV and the delivery note itself
+    const zipRes = await fetch(base + '/api/export/all.zip', { headers: { Cookie: admin.cookie } });
+    assert.equal(zipRes.status, 200);
+    assert.equal(zipRes.headers.get('content-type'), 'application/zip');
+    const zip = Buffer.from(await zipRes.arrayBuffer());
+    assert.equal(zip.readUInt32LE(0), 0x04034b50);
+    assert.equal(zip.readUInt32LE(zip.length - 22), 0x06054b50, 'end of central directory');
+    assert.equal(zip.readUInt16LE(zip.length - 12), 4, 'four entries: photo, CSV, JSON, read-me');
+    assert.ok(zip.includes(JPEG), 'the delivery note photo is inside');
+    assert.ok(zip.includes(Buffer.from('daten.json')) && zip.includes(Buffer.from('dateien/pod/')));
+    assert.ok(!zip.includes(Buffer.from('scrypt$')), 'no password hashes');
+    assert.equal((await fetch(base + '/api/export/all.zip', { headers: { Cookie: driver.cookie } })).status, 403);
     const bill = await lic.req('GET', '/api/export/billing.csv');
     assert.equal(bill.status, 200);
 
@@ -158,6 +170,14 @@ test('end to end over HTTP: licensor → company → driver, live events, push, 
     // deactivating a driver ends the session immediately
     await admin.call('setUserActive', { id: drv.data.user.id, active: false });
     assert.equal((await driver.req('GET', '/api/session')).status, 401);
+    // deleting a person ends sessions too; the failed login above is in the log with the IP
+    const drv2 = await admin.call('createUser', { role: 'driver', name: 'Piotr Nowak', phone: '0176 7654321', lang: 'pl' });
+    const driver2 = client();
+    assert.equal((await driver2.req('POST', '/api/auth/driver', { code: 'KAYA', phone: '01767654321', pin: drv2.data.pin })).status, 200);
+    assert.equal((await admin.call('deleteUser', { id: drv2.data.user.id })).status, 200);
+    assert.equal((await driver2.req('GET', '/api/session')).status, 401);
+    const log = (await admin.call('auditLog', {})).data;
+    assert.ok(log.some((e) => e.action === 'login.failed' && e.ip === '127.0.0.1'), 'failed driver login logged with IP');
 
     await staffSse.stop(); await driverSse.stop();
     void s;

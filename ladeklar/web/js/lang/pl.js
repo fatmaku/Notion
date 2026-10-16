@@ -227,5 +227,14 @@ export default {
   "Zur Fahrt": "Do jazdy",
   "Zurück": "Wstecz",
   "Zurückgeben": "Zwróć",
-  "Zurückgegeben": "Zwrócone"
+  "Zurückgegeben": "Zwrócone",
+  "Fahrer|login": "Kierowca",
+  "Fahrsperre einschalten": "Włącz blokadę podczas jazdy",
+  "Damit die Knöpfe während der Fahrt gesperrt sind, braucht die App die Standortfreigabe. Die Geschwindigkeit wird nur auf diesem Handy ausgewertet – Ihr Standort wird weder gespeichert noch gesendet.": "Aby przyciski były zablokowane podczas jazdy, aplikacja potrzebuje dostępu do lokalizacji. Prędkość jest sprawdzana tylko na tym telefonie – Twoja lokalizacja nie jest ani zapisywana, ani wysyłana.",
+  "Standort freigeben": "Zezwól na lokalizację",
+  "Später": "Później",
+  "Die Fahrsperre ist aus, weil der Standort im Browser blockiert ist. Bitte in den Browser-Einstellungen erlauben.": "Blokada podczas jazdy jest wyłączona, bo lokalizacja jest zablokowana w przeglądarce. Zezwól na nią w ustawieniach przeglądarki.",
+  "Für die Fahrsperre wertet die App die Geschwindigkeit nur auf diesem Handy aus. Der Standort wird dafür weder gespeichert noch gesendet.": "Na potrzeby blokady aplikacja sprawdza prędkość tylko na tym telefonie. Lokalizacja nie jest przy tym ani zapisywana, ani wysyłana.",
+  "Fahrer entfernt (Zugang gelöscht)": "Kierowca usunięty (konto skasowane)",
+  "Ihr Vertrag ist gekündigt. Sie können alle Daten bis zur Löschung ansehen und exportieren (Einstellungen → Daten & Datenschutz), aber nichts mehr ändern.": "Umowa została wypowiedziana. Do czasu usunięcia możesz przeglądać i eksportować wszystkie dane, ale nie możesz niczego zmieniać.",
 };
