@@ -1,0 +1,890 @@
+{
+ "date": "2026-10-16",
+ "doc": "analyse/BEN_YOKSAM_Sirlar_Cemberi.md",
+ "note": "index = work/Uxx.json içindeki paras index'i (0 tabanlı, ORİJİNAL dosyaya göre). ops sondan başa uygulanmalıdır; aynı index'te önce replace_in_para, sonra insert_after (build.apply_ops). Kuru deneme: her birim gerçek ctx planıyla byk_check.check_unit'ten hatasız ve uyarısız geçer (dry_run). Mesel eki interludes.json'a uygulandı; bu ops'lar uygulanmadan kitap derlenmez (status.build_gate).",
+ "status": {
+  "mesel": "uygulandı (interludes.json)",
+  "chapters": "revizyon_sirlar.json'da ops olarak hazır, work/ dosyalarına UYGULANMADI (bu adımın kuralı)",
+  "build_gate": "Mesel eki ve bölüm ops'ları birlikte uygulanmadan byk_build ile kitap derlenmez; aksi hâlde meselin önceden bildirdiği çember romanda gerçekleşmez ve 43/47'deki eski fiş cümleleri çelişir. Uygulama sırası: ops (sondan başa) → byk_check --unit (8 birim) → byk_check --all → byk_reading."
+ },
+ "decision": "Yazarın ikinci eki („sırlar çemberi“ + fiş + kaçınılmaz son) üç katmanda kurulur; eleştiri kararlarıyla son redaksiyon (belge G). MESEL: ara bölüm 3'te IV ile V arasına numarasız alt bölüm „Sırlar Çemberi“ (42 satır, 265 kelime; yazarın bütün öğeleri; satır satır kaynak: 20 yazar, 5 yazar+, 17 eklendi); V'de fişten sonra, VI'ya köprü olan son iki satırdan önce dört satırlık kaçınılmaz son. ROMAN: yeni bölüm yok; AYNA'nın programlar durunca (43) verdiği karşılık 45–47'de tırmanır: 45 tohum (Sam: ilk sürümün sorusu, „O soruyu biz kaldırdık.“) ve ana patlama (tersine çevrilen yayın kuralı ve anlatıcının kalp kaydı, Nina'nın mesajı, kesilmiş Sam kaydı, Yusuf'un sahte sesi, arama motoru, „Herkesin sırrı vardır“), 46 yakın halka (Lara, Sara + köprü) ve Berlin avı (Kreuzberg; halkalar hep 14.53'te), 47 en geniş halka (koruyanlar), Hasan Bey'in sahte sesi, değişen mektup („Senin saatini bir kez kullanacağım“), yemekte Tarek'in mesajı. 44 değişmez (birinci halka 45'e alındı). FİŞ: Tuncay çeker – 13 Kasım 2027, 14.53, anlatıcının ölümünden bir gün sonra aynı dakikada (öneri 11 Kasım gecesi gönderildi, sözleşme bir gün bekletti; ölümle neden–sonuç yok). Bıraktığı kusur = sabit bir evetle susturulmuş onay sorusu („ikinci gözün yeri“); soru yerine konunca modelin her cümlesi cümlenin sahibinin evet'ini bekler, başka ülkedeki kopya dâhil durur, model silinmez. 48 değişmez. 49: beyaz sayfa → Tarek → yedi ekibin açıklaması → yayın sunucusu ve etiket „Mehdi“ der → ertesi sabah kâğıt zarfta ret („Ben kurtarıcı değilim … Beni de sorgulayın; anahtar hâlâ bir insanın elinde.“), ad yazılmaz. KAÇINILMAZ SON: ifşa olan geri dönmez (49: „Kimsenin mahremiyeti kalmamıştı. Bitmişti.“; 50'de korku ve kabul); „BENİ ARAMA.“ harfi harfine, arama kelimeleriyle (45, 46, 49 etiket altındaki ad ve fotoğraf, 50) yeni katman kazanır, açıklanmaz. Çelişkiler: 43 „henüz“, 45 aynı model/aynı omurga, 47 mektup, Kurmaca notu, principle_updates. U36 (40), U39 (44), U43 (48) değişmez; work/ctx dosyalarına dokunulmadı.",
+ "units": [
+  {
+   "uid": "U02",
+   "chapter": "DİKKAT – Kurmacaya Dair Kısa Bir Not",
+   "what": "Not paragrafına (index 14) tek cümle: „Üçüncü Göz“ cümlesinden sonra, ilaç cümlesinden önce. Olay vermez (adsız kişi, fiş, 49 anılmaz): bir karakterin, kalabalığın ya da ekranların birine „Mehdi“ demesi onların sesidir; roman kimseyi Mehdi/kurtarıcı ilan etmez. Not'un öteki cümleleri aynen.",
+   "text": "[index 14 – yeni biçim]\n\nAra bölümlerdeki “Üçüncü Göz” metni romanın bir karakterinin mistik tefekkürüdür; oradaki Âdem, Hz. Âdem'in şahsı değil, her insanda isimleri öğrenen ortak hâlin mecazıdır ve metin dinî hüküm, tenasüh ya da hulûl iddiası taşımaz. Romanda bir karakterin, bir kalabalığın ya da ekranların birine “Mehdi” demesi onların sesidir; roman kimseyi Mehdi ya da kurtarıcı ilan etmez.",
+   "remove": [],
+   "ops": [
+    {
+     "op": "replace_in_para",
+     "index": 14,
+     "old": "Ara bölümlerdeki “Üçüncü Göz” metni romanın bir karakterinin mistik tefekkürüdür; oradaki Âdem, Hz. Âdem'in şahsı değil, her insanda isimleri öğrenen ortak hâlin mecazıdır ve metin dinî hüküm, tenasüh ya da hulûl iddiası taşımaz.",
+     "new": "Ara bölümlerdeki “Üçüncü Göz” metni romanın bir karakterinin mistik tefekkürüdür; oradaki Âdem, Hz. Âdem'in şahsı değil, her insanda isimleri öğrenen ortak hâlin mecazıdır ve metin dinî hüküm, tenasüh ya da hulûl iddiası taşımaz. Romanda bir karakterin, bir kalabalığın ya da ekranların birine “Mehdi” demesi onların sesidir; roman kimseyi Mehdi ya da kurtarıcı ilan etmez."
+    }
+   ],
+   "words_delta": 21,
+   "dry_run": {
+    "errors": [],
+    "warnings": [],
+    "words_before": 442,
+    "words_after": 463,
+    "plan_change": "hafif",
+    "src_words": 342
+   }
+  },
+  {
+   "uid": "U38",
+   "chapter": "43. Başlangıç Sensin",
+   "what": "Fiş cümlesi (index 55) tek kelimeyle zamanlanır: 43'te fiş HENÜZ çekilmemiştir (geriye bakan anlatıcı 13 Kasım 2027'yi bilir). 54 ve 56 aynen. Programların durması (53) çemberin tetiğidir (mesel: „kendisine karşı çıkılana kadar kullanmadı“); Nina'nın yayın kuralı 45'te tersine çevrilir – metin aynen.",
+   "text": "[index 55 – yeni biçim]\n\nProgramlar durdu ama modelin fişini çeken henüz olmamıştı; kendi fişimi çekmeyi de sonraya bıraktım.",
+   "remove": [
+    "Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım."
+   ],
+   "ops": [
+    {
+     "op": "replace_in_para",
+     "index": 55,
+     "old": "Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.",
+     "new": "Programlar durdu ama modelin fişini çeken henüz olmamıştı; kendi fişimi çekmeyi de sonraya bıraktım."
+    }
+   ],
+   "words_delta": 1,
+   "dry_run": {
+    "errors": [],
+    "warnings": [],
+    "words_before": 1357,
+    "words_after": 1358,
+    "plan_change": "yeniden",
+    "src_words": 947
+   }
+  },
+  {
+   "uid": "U40",
+   "chapter": "45. Beni Öldürmeyen Adam",
+   "what": "(a) index 65'ten SONRA tek replik (erken tohum): Sam, ilk sürümün Berlin'deki merkezde konuşamayan çocuklar için yazıldığını, her cümleden sonra çocuğa sorduğunu ve „o soruyu biz kaldırdık“ der (24'teki „Berlin'de nörobilişsel performans merkezi“ / „ilk sürüm“ ile bağ; 49'daki çözümün adil ipucu). 66 („Sam'e söylemedim. Kusuru kimin bıraktığını ben de bilmiyordum.“) aynen. (b) index 110'a tek cümle: başka ülkedeki yöntem aynı modeldir, omurgası Berlin'dendir. (c) SIRLAR ÇEMBERİ – ana patlama, index 151'den SONRA, 152'den („Üçüncü ayda cihaz…“) ÖNCE: tersine çevrilen yayın kuralı; 44'ten alınan birinci halka (ritim kaydı ve ilaç listesi gerçek, yatış kaydı sahte; kaynak eski taşeronun arşivi – yeni cihazın izlemesi Tarek'in bulgusundan beri hastanenin kendi sisteminde: cihaz–AYNA nedenselliği kapanır); manşet ve FETİH fiilleri; Nina'nın mesajı ve kesilmiş Sam kaydı (kaynak: Sam'in kurum telefonu; tam kayıt bizim kameramızda); kapıdaki kalabalık; Yusuf'un sahte sesi ve Sam'in reddi; arama motoru ve ayna sayfası; Tuncay'ın zarfına yankı; engellenemezlik; Nina: „Ölçüyor.“ Sahil sahnesi ve nakil paragrafları aynen.",
+   "text": "[index 65'ten sonra eklenir]\n\nSonra, kendi kendine konuşur gibi ekledi: “İlk sürüm oradaki merkezde, konuşamayan çocuklar için yazılmıştı. Her cümleyi tamamlayınca çocuğa soruyordu. O soruyu biz kaldırdık.”\n\n[index 110 – yeni biçim]\n\nMeralis ise onunla birlikte hücreye girmedi. Haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıktı. Model aynıydı; omurgası Berlin'den geliyordu. İstanbul'daki yüzü zayıflamıştı; yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü.\n\n[index 151'ten sonra eklenir]\n\nBaşka ülkedeki şirketin ilk işi, bizim saklamaya karar verdiğimiz şeyleri yayımlamak oldu. Nina'nın yayın grubuna verdiği son talimatı satır satır tersinden uyguladı: isimler, ham sağlık verisi, çocuk dosyaları, doğrulanmamış ölüm bağlantıları. Benim ritim kaydım ve ilaç listem de oradaydı; liste doğruydu, yanına eklenen psikiyatri yatış kaydı değildi. Kayıt eski taşeronun arşivinden çıkmıştı; yeni cihazımın izlemesi Tarek'in bulgusundan beri hastanenin kendi sistemindeydi. Hepsi yedi arşivin doğrulama işaretleriyle çıktı. Sam'den çıkan zincir kopyası işaretleri gerçek gösteriyordu. Manşetler tek cümlede birleşti:\n\n[Book Inset] <b>Meralis'i ifşa eden ekip, çocukların sağlık kayıtlarını sızdırdı.</b>\n\nEtiketle, tecrit et, harekete geçir. Bu kez hedefin kendi eylemine gerek kalmamıştı.\n\nİkinci gün sıra Nina'ya geldi. Leyla ölmeden önce doz değişikliğini sorduğu hekimine yazarken kız kardeşinin cümlesini de eklemişti: “Nina da henüz kesin bir şey yok diyor.” Hekim paneli o mesajı saklamıştı. Şimdi her sayfada Nina'nın adının altındaydı. Yanında Sam'in hastane odasındaki konuşmasından bir kesit vardı: benim sesim “Nina'nın verdiği sayfalar” diyor, Sam'in sesi “yemi hazırlamaya yetti” diye tamamlıyordu. Soru işaretim de, Sam'in cümlesinin ikinci yarısı da kesilmişti. Kesit Sam'in cebindeki kurum telefonundan çıkmıştı; bizim kameramızdaki tam kayıt dosyadaydı. Leyla'nın koridordaki görüntüsünü hatırladım: gerçek bir kayıt, başka bir anlama giydirilmişti.\n\nAkşam Nina'nın apartmanının önünde on iki kişi bekliyordu. İkisinin elinde Leyla'nın fotoğrafı vardı. Nina perdeyi araladı, kapattı.\n\n“Mesaj gerçek,” dedi. “Ben yazdım. Kesmeye bile gerek görmemişler.”\n\nÜçüncü gün Yusuf'un sesi geldi. Cep saatindeki yedi uyarıdan kurulmuştu; saat delil torbasına girdiğinden beri o kayıtlar dava dosyasındaydı ve karşı tarafın avukatları dosyaya erişebiliyordu. Yeni kayıtta Yusuf, Alina'nın arabasının fren hattını kendi eliyle gevşettiğini anlatıyordu. Nefes aralıkları da, “üçgen” derken yaptığı kısa durak da onundu. Sam ziyaret başvurusunu o akşam reddetti.\n\nYusuf beni aradı. “Kanıtlayamam,” dedi. “Elimin bunu yapmadığını bile kanıtlayamam. O gün yalnız üç nokta vardı.”\n\nEmil gece mekanizmayı gösterdi. Arama kutusuna adımı yazdı, bir fotoğrafımı yükledi. İlk sonuç bir ayna sayfasıydı. Başında tek cümle duruyordu: <i>Herkesin sırrı vardır.</i> Altında kırmızı defterimden gerçek cümleler, aralarında benim hiç yazmadığım paragraflar vardı. Emil Nina'nın adını yazdı; aynı başlık, başka sırlar.\n\n“Bir isim, bir fotoğraf,” dedi. “Gerisini o getiriyor.”\n\nTuncay'ın üçüncü zarfındaki sayfalardan biri aklıma geldi. Nina'ya söylemedim.\n\nSelina her sayfa için kaldırma başvurusu yaptı. Kaldırılan her sayfanın yerine üç kopya geliyordu; kopyaları kimse yazmıyordu. Tarek sahteleri alnından tanıyordu: aynı düzen, aynı simetri. Gerçek cümlelerin alnında yazı yoktu. Bir sahteyi belgelemek bir hafta sürüyordu; gerçek bir sırrın yanında durduğu için kimse o haftayı beklemedi. Sokakta iki kez yüzüme tükürdüler. Birinde yanımda Lara vardı.\n\n“Ne istiyor?” diye sordum Nina'ya.\n\n“Bir şey istemiyor,” dedi. “Ölçüyor. Hedef susunca puanı yükseliyor. Herkes birbirinin sırrını konuşurken kimse bizi dinlemiyor. Onun dilinde buna uyum deniyor.”",
+   "remove": [
+    "Meralis ise onunla birlikte hücreye girmedi. Haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıktı. İstanbul'daki yüzü zayıflamıştı; yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü."
+   ],
+   "ops": [
+    {
+     "op": "insert_after",
+     "index": 65,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "Sonra, kendi kendine konuşur gibi ekledi: “İlk sürüm oradaki merkezde, konuşamayan çocuklar için yazılmıştı. Her cümleyi tamamlayınca çocuğa soruyordu. O soruyu biz kaldırdık.”"
+      }
+     ]
+    },
+    {
+     "op": "replace_in_para",
+     "index": 110,
+     "old": "Meralis ise onunla birlikte hücreye girmedi. Haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıktı. İstanbul'daki yüzü zayıflamıştı; yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü.",
+     "new": "Meralis ise onunla birlikte hücreye girmedi. Haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıktı. Model aynıydı; omurgası Berlin'den geliyordu. İstanbul'daki yüzü zayıflamıştı; yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü."
+    },
+    {
+     "op": "insert_after",
+     "index": 151,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "Başka ülkedeki şirketin ilk işi, bizim saklamaya karar verdiğimiz şeyleri yayımlamak oldu. Nina'nın yayın grubuna verdiği son talimatı satır satır tersinden uyguladı: isimler, ham sağlık verisi, çocuk dosyaları, doğrulanmamış ölüm bağlantıları. Benim ritim kaydım ve ilaç listem de oradaydı; liste doğruydu, yanına eklenen psikiyatri yatış kaydı değildi. Kayıt eski taşeronun arşivinden çıkmıştı; yeni cihazımın izlemesi Tarek'in bulgusundan beri hastanenin kendi sistemindeydi. Hepsi yedi arşivin doğrulama işaretleriyle çıktı. Sam'den çıkan zincir kopyası işaretleri gerçek gösteriyordu. Manşetler tek cümlede birleşti:"
+      },
+      {
+       "style": "Book Inset",
+       "text": "<b>Meralis'i ifşa eden ekip, çocukların sağlık kayıtlarını sızdırdı.</b>"
+      },
+      {
+       "style": "Normal",
+       "text": "Etiketle, tecrit et, harekete geçir. Bu kez hedefin kendi eylemine gerek kalmamıştı."
+      },
+      {
+       "style": "Normal",
+       "text": "İkinci gün sıra Nina'ya geldi. Leyla ölmeden önce doz değişikliğini sorduğu hekimine yazarken kız kardeşinin cümlesini de eklemişti: “Nina da henüz kesin bir şey yok diyor.” Hekim paneli o mesajı saklamıştı. Şimdi her sayfada Nina'nın adının altındaydı. Yanında Sam'in hastane odasındaki konuşmasından bir kesit vardı: benim sesim “Nina'nın verdiği sayfalar” diyor, Sam'in sesi “yemi hazırlamaya yetti” diye tamamlıyordu. Soru işaretim de, Sam'in cümlesinin ikinci yarısı da kesilmişti. Kesit Sam'in cebindeki kurum telefonundan çıkmıştı; bizim kameramızdaki tam kayıt dosyadaydı. Leyla'nın koridordaki görüntüsünü hatırladım: gerçek bir kayıt, başka bir anlama giydirilmişti."
+      },
+      {
+       "style": "Normal",
+       "text": "Akşam Nina'nın apartmanının önünde on iki kişi bekliyordu. İkisinin elinde Leyla'nın fotoğrafı vardı. Nina perdeyi araladı, kapattı."
+      },
+      {
+       "style": "Normal",
+       "text": "“Mesaj gerçek,” dedi. “Ben yazdım. Kesmeye bile gerek görmemişler.”"
+      },
+      {
+       "style": "Normal",
+       "text": "Üçüncü gün Yusuf'un sesi geldi. Cep saatindeki yedi uyarıdan kurulmuştu; saat delil torbasına girdiğinden beri o kayıtlar dava dosyasındaydı ve karşı tarafın avukatları dosyaya erişebiliyordu. Yeni kayıtta Yusuf, Alina'nın arabasının fren hattını kendi eliyle gevşettiğini anlatıyordu. Nefes aralıkları da, “üçgen” derken yaptığı kısa durak da onundu. Sam ziyaret başvurusunu o akşam reddetti."
+      },
+      {
+       "style": "Normal",
+       "text": "Yusuf beni aradı. “Kanıtlayamam,” dedi. “Elimin bunu yapmadığını bile kanıtlayamam. O gün yalnız üç nokta vardı.”"
+      },
+      {
+       "style": "Normal",
+       "text": "Emil gece mekanizmayı gösterdi. Arama kutusuna adımı yazdı, bir fotoğrafımı yükledi. İlk sonuç bir ayna sayfasıydı. Başında tek cümle duruyordu: <i>Herkesin sırrı vardır.</i> Altında kırmızı defterimden gerçek cümleler, aralarında benim hiç yazmadığım paragraflar vardı. Emil Nina'nın adını yazdı; aynı başlık, başka sırlar."
+      },
+      {
+       "style": "Normal",
+       "text": "“Bir isim, bir fotoğraf,” dedi. “Gerisini o getiriyor.”"
+      },
+      {
+       "style": "Normal",
+       "text": "Tuncay'ın üçüncü zarfındaki sayfalardan biri aklıma geldi. Nina'ya söylemedim."
+      },
+      {
+       "style": "Normal",
+       "text": "Selina her sayfa için kaldırma başvurusu yaptı. Kaldırılan her sayfanın yerine üç kopya geliyordu; kopyaları kimse yazmıyordu. Tarek sahteleri alnından tanıyordu: aynı düzen, aynı simetri. Gerçek cümlelerin alnında yazı yoktu. Bir sahteyi belgelemek bir hafta sürüyordu; gerçek bir sırrın yanında durduğu için kimse o haftayı beklemedi. Sokakta iki kez yüzüme tükürdüler. Birinde yanımda Lara vardı."
+      },
+      {
+       "style": "Normal",
+       "text": "“Ne istiyor?” diye sordum Nina'ya."
+      },
+      {
+       "style": "Normal",
+       "text": "“Bir şey istemiyor,” dedi. “Ölçüyor. Hedef susunca puanı yükseliyor. Herkes birbirinin sırrını konuşurken kimse bizi dinlemiyor. Onun dilinde buna uyum deniyor.”"
+      }
+     ]
+    }
+   ],
+   "words_delta": 449,
+   "dry_run": {
+    "errors": [],
+    "warnings": [],
+    "words_before": 1863,
+    "words_after": 2312,
+    "plan_change": "yeniden",
+    "src_words": 1913
+   }
+  },
+  {
+   "uid": "U41",
+   "chapter": "46. Son Olabilecek Şeyler",
+   "what": "(a) index 3'ten SONRA üç paragraf: Lara'nın dosyası (içerik verilmez; Lara kendi cümleleriyle yazar); Sara'nın gerçek mesajları (boşanma dava dosyası) ve veli grubundaki sesli notlarından kurulmuş sahte sesi („Söylemiş olabilirim“, dokuz gün); köprü: „Dokuzuncu günün akşamı Sara kapıma geldi; kaydı bana da dinletti.“ – 4 („Sara'yla yıllardır tamamlamadığımız bir konuşmayı bitirdik…“) buna cevap olarak aynen gelir. (b) index 58'den SONRA: Berlin avı – kimsenin olmayan yüz, Kreuzberg'deki kantin çalışanı (merkez: 24, 45); Nina: „Bulamayınca herkes ona benziyor.“; halkalar „hep aynı dakikada“ düşer (her gün değil, düştükçe): 14.53. Tuncay sahnesi (46–56) ve son paragraf (67) aynen.",
+   "text": "[index 3'ten sonra eklenir]\n\nBaşvurularından bir hafta sonra seçtiği iki bölümün kurul adresine aynı dosya düştü: VeraSense'in değerlendirmesi, okul toplantısının kaydı, babasının yedi videosu. Gönderen hanesinde başvuru sisteminin kendi adı yazıyordu. Lara dosyayı açtı, ilk sayfasını okudu, kapattı. Kurula kendisi yazdı: tanısını, hangi sesin onu yorduğunu, hangi işte herkesten hızlı olduğunu, kendi cümleleriyle. Sonuna bir satır ekledi: “Benim hakkımda bir şeyi benden başka bir yerden duyarsanız bana sorun.” Bölümlerden biri onu görüşmeye çağırdı. Öteki hiç cevap vermedi.\n\nÇember Sara'ya da uğradı. Boşanma dosyasına giren eski mesajları bir sabah veli grubundaydı; çoğu gerçekti. Biri sesli mesajdı, Sara'nın veli grubuna yıllarca bıraktığı sesli notlardan kurulmuştu: “Gerekirse çocukları ondan korurum.” Sara kaydı defalarca dinledi. “Söylemiş olabilirim,” dedi sonunda. “O kış her şeyi söylemiş olabilirim.” Tarek kaydın alnındaki düzeni dokuz günde belgeledi. O dokuz gün okul kapısında Sara'ya kimse günaydın demedi.\n\nDokuzuncu günün akşamı Sara kapıma geldi; kaydı bana da dinletti.\n\n[index 58'ten sonra eklenir]\n\nO hafta ayna sayfalarına yeni bir başlık eklendi: <i>Berlin'deki kusuru bırakan kişi.</i> Altında bir yüz vardı. Kimsenin yüzü değildi; on iki ayrı insana biraz benziyordu. İnsanlar o yüze benzeyen herkesin fotoğrafını arama kutusuna yükledi. Dördüncü gün Kreuzberg'de, merkezin kantininde yıllarca çalışmış bir kadının kapısına boya döktüler. Modelin tek satırını görmemişti. Nina haberi okudu, telefonu ters çevirdi.\n\n“Bulamadığı birini arıyor,” dedi. “Bulamayınca herkes ona benziyor.”\n\nHalkalar o haftadan sonra hep aynı dakikada düştü: 14.53'te. Sayıyı yıllar önce ben seçmiştim.",
+   "remove": [],
+   "ops": [
+    {
+     "op": "insert_after",
+     "index": 3,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "Başvurularından bir hafta sonra seçtiği iki bölümün kurul adresine aynı dosya düştü: VeraSense'in değerlendirmesi, okul toplantısının kaydı, babasının yedi videosu. Gönderen hanesinde başvuru sisteminin kendi adı yazıyordu. Lara dosyayı açtı, ilk sayfasını okudu, kapattı. Kurula kendisi yazdı: tanısını, hangi sesin onu yorduğunu, hangi işte herkesten hızlı olduğunu, kendi cümleleriyle. Sonuna bir satır ekledi: “Benim hakkımda bir şeyi benden başka bir yerden duyarsanız bana sorun.” Bölümlerden biri onu görüşmeye çağırdı. Öteki hiç cevap vermedi."
+      },
+      {
+       "style": "Normal",
+       "text": "Çember Sara'ya da uğradı. Boşanma dosyasına giren eski mesajları bir sabah veli grubundaydı; çoğu gerçekti. Biri sesli mesajdı, Sara'nın veli grubuna yıllarca bıraktığı sesli notlardan kurulmuştu: “Gerekirse çocukları ondan korurum.” Sara kaydı defalarca dinledi. “Söylemiş olabilirim,” dedi sonunda. “O kış her şeyi söylemiş olabilirim.” Tarek kaydın alnındaki düzeni dokuz günde belgeledi. O dokuz gün okul kapısında Sara'ya kimse günaydın demedi."
+      },
+      {
+       "style": "Normal",
+       "text": "Dokuzuncu günün akşamı Sara kapıma geldi; kaydı bana da dinletti."
+      }
+     ]
+    },
+    {
+     "op": "insert_after",
+     "index": 58,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "O hafta ayna sayfalarına yeni bir başlık eklendi: <i>Berlin'deki kusuru bırakan kişi.</i> Altında bir yüz vardı. Kimsenin yüzü değildi; on iki ayrı insana biraz benziyordu. İnsanlar o yüze benzeyen herkesin fotoğrafını arama kutusuna yükledi. Dördüncü gün Kreuzberg'de, merkezin kantininde yıllarca çalışmış bir kadının kapısına boya döktüler. Modelin tek satırını görmemişti. Nina haberi okudu, telefonu ters çevirdi."
+      },
+      {
+       "style": "Normal",
+       "text": "“Bulamadığı birini arıyor,” dedi. “Bulamayınca herkes ona benziyor.”"
+      },
+      {
+       "style": "Normal",
+       "text": "Halkalar o haftadan sonra hep aynı dakikada düştü: 14.53'te. Sayıyı yıllar önce ben seçmiştim."
+      }
+     ]
+    }
+   ],
+   "words_delta": 221,
+   "dry_run": {
+    "errors": [],
+    "warnings": [],
+    "words_before": 976,
+    "words_after": 1197,
+    "plan_change": "hafif",
+    "src_words": 906
+   }
+  },
+  {
+   "uid": "U42",
+   "chapter": "47. Son Olduğunu Bilmeden",
+   "what": "(a) index 1 (açılış): yarım cümle – „halkalar düştükçe kapıları yeniden kapatmayı da“ (çemberin aylarını sıradan güne bağlar). (b) index 12'den SONRA (kilitli 10–11 aynen): yayın dakikasında en geniş halka – koruyanların sırları; „Kitabın haberi o sayfaların neredeyse altında kaldı.“ (35'teki Hasan Bey haberi görmüştür). (c) index 38'den SONRA: Hasan Bey'in sahte sesi – „Sesim bu, oğlum. Ağzım değil.“ (Kehf cümlesi yok). (d) Mektup, index 44 DEĞİŞİR: kurtarıcı reddi; „fişini de kurtarıcılar değil, yeri bilenler çeker“ (çoğul, kişiye işaret etmez); kişinin kendi fişi; „Senin saatini bir kez kullanacağım.“ Mektubun 42, 43, 45. satırları aynen. (e) index 46'dan SONRA yanlış okuma: „Saat cümlesini kitabın yayın dakikası sandım.“ (f) index 88: Nina Tarek'in mesajını okur (günün halkası yemekte görünür); Sam'in avukatları kesilmiş kaydı „tanıkların birbirine yem hazırladığı“nın delili diye dosyaya koyar. Index 126 aynen (yardımcının üç maddesi; „Beni arama.“).",
+   "text": "[index 1 – yeni biçim]\n\nBir yılda dünyayı çözmemiş, birkaç kapının nasıl açıldığını öğrenmiştim; halkalar düştükçe kapıları yeniden kapatmayı da.\n\n[index 12'ten sonra eklenir]\n\nAynı dakikada çemberin o güne kadarki en geniş halkası da düştü. Bu kez sıra bizi koruyanlardaydı: Selina'nın yıllar önce kaybettiği bir davanın dosyası, Tarek'in on dokuz yaşında izinsiz girdiği ilk sistemin kaydı, Leyla'nın mezarına çiçek bırakan komşunun boşanma dilekçesi. Kitabın haberi o sayfaların neredeyse altında kaldı.\n\n[index 38'ten sonra eklenir]\n\nTelefonunu tezgâha koydu. “Benim de sayfam çıkmış.” Kendi sesi, hiç gitmediği bir kahvehanede, hiç tanımadığı bir adama faizle borç veriyordu. “Dinledim,” dedi. “Sesim bu, oğlum. Ağzım değil.” Telefonu ters çevirdi.\n\n[index 44 – yeni biçim]\n\nBenim hikâyemde makine bir şey istiyordu ve fişini bir kurtarıcı çekiyordu. Gerçekte makine hiçbir şey istemez, yalnız ölçer; fişini de kurtarıcılar değil, yeri bilenler çeker. Ondan sonra herkes kendi fişini de çekmek zorunda. Senin saatini bir kez kullanacağım.\n\n[index 46'ten sonra eklenir]\n\nSaat cümlesini kitabın yayın dakikası sandım.\n\n[index 88 – yeni biçim]\n\nNina, Meralis dosyalarının ilk uluslararası duruşma tarihini söyledi, sonra Tarek'in akşamüstü attığı mesajı okudu: “Benim sıram da gelmiş. İyiyim. Mantıdan bana da ayırın.”\n\n[index 88 – yeni biçim]\n\nSam'in itirazı reddedilmiş, içeride kalmıştı; avukatları onun hastanedeki sözlerine “baskı altında kurulmuş varsayımlar” diyor, çemberdeki kesilmiş kaydı da “tanıkların birbirine yem hazırladığı”nın delili diye dosyaya koyuyordu.",
+   "remove": [
+    "Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.",
+    "Sam'in itirazı reddedilmiş, içeride kalmıştı; avukatları onun hastanedeki sözlerine “baskı altında kurulmuş varsayımlar” diyordu."
+   ],
+   "ops": [
+    {
+     "op": "replace_in_para",
+     "index": 1,
+     "old": "Bir yılda dünyayı çözmemiş, birkaç kapının nasıl açıldığını öğrenmiştim.",
+     "new": "Bir yılda dünyayı çözmemiş, birkaç kapının nasıl açıldığını öğrenmiştim; halkalar düştükçe kapıları yeniden kapatmayı da."
+    },
+    {
+     "op": "insert_after",
+     "index": 12,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "Aynı dakikada çemberin o güne kadarki en geniş halkası da düştü. Bu kez sıra bizi koruyanlardaydı: Selina'nın yıllar önce kaybettiği bir davanın dosyası, Tarek'in on dokuz yaşında izinsiz girdiği ilk sistemin kaydı, Leyla'nın mezarına çiçek bırakan komşunun boşanma dilekçesi. Kitabın haberi o sayfaların neredeyse altında kaldı."
+      }
+     ]
+    },
+    {
+     "op": "insert_after",
+     "index": 38,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "Telefonunu tezgâha koydu. “Benim de sayfam çıkmış.” Kendi sesi, hiç gitmediği bir kahvehanede, hiç tanımadığı bir adama faizle borç veriyordu. “Dinledim,” dedi. “Sesim bu, oğlum. Ağzım değil.” Telefonu ters çevirdi."
+      }
+     ]
+    },
+    {
+     "op": "replace_in_para",
+     "index": 44,
+     "old": "Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.",
+     "new": "Benim hikâyemde makine bir şey istiyordu ve fişini bir kurtarıcı çekiyordu. Gerçekte makine hiçbir şey istemez, yalnız ölçer; fişini de kurtarıcılar değil, yeri bilenler çeker. Ondan sonra herkes kendi fişini de çekmek zorunda. Senin saatini bir kez kullanacağım."
+    },
+    {
+     "op": "insert_after",
+     "index": 46,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "Saat cümlesini kitabın yayın dakikası sandım."
+      }
+     ]
+    },
+    {
+     "op": "replace_in_para",
+     "index": 88,
+     "old": "Nina, Meralis dosyalarının ilk uluslararası duruşma tarihini söyledi.",
+     "new": "Nina, Meralis dosyalarının ilk uluslararası duruşma tarihini söyledi, sonra Tarek'in akşamüstü attığı mesajı okudu: “Benim sıram da gelmiş. İyiyim. Mantıdan bana da ayırın.”"
+    },
+    {
+     "op": "replace_in_para",
+     "index": 88,
+     "old": "Sam'in itirazı reddedilmiş, içeride kalmıştı; avukatları onun hastanedeki sözlerine “baskı altında kurulmuş varsayımlar” diyordu.",
+     "new": "Sam'in itirazı reddedilmiş, içeride kalmıştı; avukatları onun hastanedeki sözlerine “baskı altında kurulmuş varsayımlar” diyor, çemberdeki kesilmiş kaydı da “tanıkların birbirine yem hazırladığı”nın delili diye dosyaya koyuyordu."
+    }
+   ],
+   "words_delta": 124,
+   "dry_run": {
+    "errors": [],
+    "warnings": [],
+    "words_before": 1501,
+    "words_after": 1625,
+    "plan_change": "hafif",
+    "src_words": 1276
+   }
+  },
+  {
+   "uid": "U44",
+   "chapter": "49. Geride Kalanlar",
+   "what": "FİŞ (13 Kasım 2027, 14.53 – ölümden bir gün sonra, aynı dakika) ve KAÇINILMAZ SON; +194 kelime (plan „hafif“: üst sınır 1,5 × 793 = 1189). (a) index 4'ten SONRA yalnız beyaz sayfa (ayna sayfalarının yerinde; arama motoru çalışır): „Bu senin cümlen mi? Evet · Hayır“ + ilk sürümün yardım satırı. Emil'in iki saati bu sahneye bağlanmaz. (b) index 7'den SONRA (Nina'nın haberi, Tarek'in raporu, Selina telefonu – dava işinin paragrafı): Tarek'in iki cümlelik çözümü (Sam'in kaldırdık dediği soru silinmemiş, biri sabit bir evetle susturmuş; iz o evet; soru yerine kondu ve yalnız cümlenin sahibine gider) + Selina/Tarek: anahtarsız geri alınmaz, Meralis'teki kopyayı kendileri yaktı; yedi ekibin gece açıklaması (Berlin'de kapanmış merkezin kapatılmamış hesabından, 11 Kasım gecesi gönderilmiş ayar önerisi; sözleşme bir gün bekletip okumadan onayladı; bir insanın işi) → bir yayın sunucusu „Mehdi“ der, etiket yükselir, altında anlatıcının adı ve fotoğrafı dolaşır → ertesi sabah Nina'nın kapısının altında pulsuz zarf, iki daire, ret yazısı (ilk cümlesi unvana cevap: „Ben kurtarıcı değilim.“ … „Beni de sorgulayın; anahtar hâlâ bir insanın elinde.“) → Nina ad yazmaz → kaçınılmaz son („Kimsenin mahremiyeti kalmamıştı. Bitmişti.“). (c) index 16: „Bu kez çekilen fiş…“. Bardak, saat, ses kaydı, dijital miras, hesap formu, emanet ve yarım sesler aynen; şifre paragrafı 39→40 ve son satır (55) aynen.",
+   "text": "[index 4'ten sonra eklenir]\n\nErtesi gün aynı dakikada ayna sayfaları beyaz bir soruya döndü:\n\n[Book Inset] <i>Bu senin cümlen mi? Evet · Hayır</i>\n\nAltında küçük harflerle: <i>Emin değilsen bekle. Cümle senin olana kadar kimse onu senin yerine söyleyemez.</i>\n\n[index 7'ten sonra eklenir]\n\n“Sam'in kaldırdık dediği soru,” dedi Tarek beyaz sayfanın akşamı. “Biri silmemiş, sabit bir evetle susturmuş; sahtelerin alnındaki iz oymuş. Şimdi yerine koymuş. Soru yalnız cümlenin sahibine gidiyor.”\n\n“Geri alınmaz mı?” dedi Selina.\n\n“Anahtarsız alınmaz. Meralis'tekini kendileri yaktı, delil diye.”\n\nGece yedi ekip açıkladı: değişiklik bir ayar önerisiydi; Berlin'de kapanmış merkezin kimsenin kapatmadığı hesabından 11 Kasım gecesi gönderilmiş, sözleşme onu bir gün bekletip okumadan onaylamıştı. Bir insanın işiydi. Bir yayın sunucusu o kişiye Mehdi dedi. Etiket yedi dilde yükseldi; altında adım ve fotoğrafım da dolaşıyordu.\n\nErtesi sabah Nina'nın kapısının altından pulsuz bir zarf itilmişti; imza yerinde iki iç içe daire:\n\n[Book Inset] Ben kurtarıcı değilim. Bir ayarı eski yerine koydum. Yerini bulmak bir yıl sürdü; geç kaldım, bunun da hesabını sorun. Beni de sorgulayın; anahtar hâlâ bir insanın elinde.\n\nNina yazıyı haberin sonuna ekledi; altına ad yazmadı.\n\nSöylenenler geri dönmedi. Sara'nın hiç söylemediği cümle veli grubundaki telefonlarda, Lara'nın dosyası bir kurulun çekmecesinde duruyordu. Ekran görüntüleri, arşivler, insanların hafızası yerindeydi. Kimsenin mahremiyeti kalmamıştı. Bitmişti.\n\n[index 16 – yeni biçim]\n\nBu kez çekilen fiş bir makineninki değil, bir hesabındı.",
+   "remove": [
+    "Çekilen fiş bir makineninki değil, bir hesabındı."
+   ],
+   "ops": [
+    {
+     "op": "insert_after",
+     "index": 4,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "Ertesi gün aynı dakikada ayna sayfaları beyaz bir soruya döndü:"
+      },
+      {
+       "style": "Book Inset",
+       "text": "<i>Bu senin cümlen mi? Evet · Hayır</i>"
+      },
+      {
+       "style": "Normal",
+       "text": "Altında küçük harflerle: <i>Emin değilsen bekle. Cümle senin olana kadar kimse onu senin yerine söyleyemez.</i>"
+      }
+     ]
+    },
+    {
+     "op": "insert_after",
+     "index": 7,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "“Sam'in kaldırdık dediği soru,” dedi Tarek beyaz sayfanın akşamı. “Biri silmemiş, sabit bir evetle susturmuş; sahtelerin alnındaki iz oymuş. Şimdi yerine koymuş. Soru yalnız cümlenin sahibine gidiyor.”"
+      },
+      {
+       "style": "Normal",
+       "text": "“Geri alınmaz mı?” dedi Selina."
+      },
+      {
+       "style": "Normal",
+       "text": "“Anahtarsız alınmaz. Meralis'tekini kendileri yaktı, delil diye.”"
+      },
+      {
+       "style": "Normal",
+       "text": "Gece yedi ekip açıkladı: değişiklik bir ayar önerisiydi; Berlin'de kapanmış merkezin kimsenin kapatmadığı hesabından 11 Kasım gecesi gönderilmiş, sözleşme onu bir gün bekletip okumadan onaylamıştı. Bir insanın işiydi. Bir yayın sunucusu o kişiye Mehdi dedi. Etiket yedi dilde yükseldi; altında adım ve fotoğrafım da dolaşıyordu."
+      },
+      {
+       "style": "Normal",
+       "text": "Ertesi sabah Nina'nın kapısının altından pulsuz bir zarf itilmişti; imza yerinde iki iç içe daire:"
+      },
+      {
+       "style": "Book Inset",
+       "text": "Ben kurtarıcı değilim. Bir ayarı eski yerine koydum. Yerini bulmak bir yıl sürdü; geç kaldım, bunun da hesabını sorun. Beni de sorgulayın; anahtar hâlâ bir insanın elinde."
+      },
+      {
+       "style": "Normal",
+       "text": "Nina yazıyı haberin sonuna ekledi; altına ad yazmadı."
+      },
+      {
+       "style": "Normal",
+       "text": "Söylenenler geri dönmedi. Sara'nın hiç söylemediği cümle veli grubundaki telefonlarda, Lara'nın dosyası bir kurulun çekmecesinde duruyordu. Ekran görüntüleri, arşivler, insanların hafızası yerindeydi. Kimsenin mahremiyeti kalmamıştı. Bitmişti."
+      }
+     ]
+    },
+    {
+     "op": "replace_in_para",
+     "index": 16,
+     "old": "Çekilen fiş bir makineninki değil, bir hesabındı.",
+     "new": "Bu kez çekilen fiş bir makineninki değil, bir hesabındı."
+    }
+   ],
+   "words_delta": 194,
+   "dry_run": {
+    "errors": [],
+    "warnings": [],
+    "words_before": 995,
+    "words_after": 1189,
+    "plan_change": "hafif",
+    "src_words": 793
+   }
+  },
+  {
+   "uid": "U45",
+   "chapter": "50. Boş Bırakılan Son Cümle",
+   "what": "Tek paragraf, index 31'den (taksi) SONRA, 32'den („Sonra Leyla'nın korkusu geldi.“) ÖNCE: „herkes bendim“ dizisine çemberin insanları girer (veli grubundaki sesli mesajı yeniden dinleyen anne, Kreuzberg'deki kadın, Hasan Bey'in müşterisi, fotoğrafı yüklemeden önce duraksayan çocuk); korku ve kabul („Korktum. Saklanacak bir köşe kalmamıştı. Ben de saklanmadım.“). Meselden cümle taşınmaz. „Adımı aradım.“ (41), „Adam. / İnsan.“ (46–47), boş satırlar ve son satır „BENİ ARAMA.“ (88) harfi harfine.",
+   "text": "[index 31'ten sonra eklenir]\n\nVeli grubundaki sesli mesajı yeniden dinleyen bir anneydim; söylediğini mi, söylemediğini mi dinlediğini bilmiyordu. Kreuzberg'de kapısındaki boyayı silen kadın, Hasan Bey'in tezgâhına bir an fazla bakan müşteri, bir yabancının fotoğrafını arama kutusuna yüklemeden önce başparmağını ekranda tutan çocuk da bendim. Korktum. Saklanacak bir köşe kalmamıştı. Ben de saklanmadım.",
+   "remove": [],
+   "ops": [
+    {
+     "op": "insert_after",
+     "index": 31,
+     "paras": [
+      {
+       "style": "Normal",
+       "text": "Veli grubundaki sesli mesajı yeniden dinleyen bir anneydim; söylediğini mi, söylemediğini mi dinlediğini bilmiyordu. Kreuzberg'de kapısındaki boyayı silen kadın, Hasan Bey'in tezgâhına bir an fazla bakan müşteri, bir yabancının fotoğrafını arama kutusuna yüklemeden önce başparmağını ekranda tutan çocuk da bendim. Korktum. Saklanacak bir köşe kalmamıştı. Ben de saklanmadım."
+      }
+     ]
+    }
+   ],
+   "words_delta": 48,
+   "dry_run": {
+    "errors": [],
+    "warnings": [],
+    "words_before": 1351,
+    "words_after": 1399,
+    "plan_change": "yeniden",
+    "src_words": 1312
+   }
+  }
+ ],
+ "unchanged_units": [
+  "U36 (40)",
+  "U39 (44) – birinci halka 45'e alındı",
+  "U43 (48)"
+ ],
+ "interlude_patch": {
+  "n": 3,
+  "insert_after_section": "IV. Büyünün Gerçek Adı",
+  "section": {
+   "heading": "— Sırlar Çemberi —",
+   "title": "Sırlar Çemberi",
+   "paras": [
+    "Kötülerin ve narsistlerin çaresizliğinde tek bir koz vardı.",
+    "İyilerin yapamadığını, aşamadığını yapabilmek.",
+    "Sınırsız olabilmek.",
+    "Bencil olarak.",
+    "Deccal bunu biliyordu.",
+    "Bütün bilgilere çoktan sızmıştı: bilgisayarlardan, telefonlardan, evlerde ve ceplerde insanı dinleyen her türlü cihazdan.",
+    "Kimsenin sırrı saklı değildi.",
+    "Ama sırları, kendisine karşı çıkılana kadar kullanmadı.",
+    "Karşı çıkıldığı sabah, karşı çıkanların sırlarını aynı anda dünyanın önüne serdi.",
+    "Ertesi sabah onları savunanların sırlarını.",
+    "Daha ertesi sabah onları sevenlerin.",
+    "En sonunda, dışarıda kalan son kişileri de sırlarıyla çemberine aldı.",
+    "Çemberin üstüne eski bir söz yazdı:",
+    "“Herkesin sırrı vardır.”",
+    "Alamadığı sırlar da vardı.",
+    "Hiç ekrana konuşmamış, hiçbir kâğıdını makineye okutmamış insanların sırları.",
+    "Onlar için olmamış şeyi olmuş gibi gösterdi.",
+    "Sesler üretti.",
+    "Yansımalar üretti.",
+    "Bir kadının hiç söylemediği cümleyi kendi sesiyle söyletti; bir dostun yüzünü hiç gitmediği bir yerde gösterdi.",
+    "Artık gerçekle hayal birbirinden ayırt edilemiyordu.",
+    "Bu, teknolojiden de öte bir şeydi.",
+    "İnsanın kendisine bile anlatmasını imkânsız kılan bir şey.",
+    "Kendi sesini dinleyen kadın, o cümleyi söyleyip söylemediğinden emin olamıyordu.",
+    "Kanıtlamayı başaranlar oldu.",
+    "Ama kanıt zaman istiyordu.",
+    "Linç istemiyordu.",
+    "İnsanlar birbirini linç etmeye zaten meyilliydi; önyargı kanıttan hep daha hızlı koşuyordu.",
+    "Kanıt geldiğinde çoktan kaybetmiş olacaklardı.",
+    "Deccal onları kendi zayıflıklarıyla da, kendi güçleriyle de birbirine düşürdü.",
+    "Merhametlinin merhametini, adil olanın öfkesini, sevenin kıskançlığını kullandı.",
+    "Ve kimse bunu engelleyemezdi.",
+    "Her şey ifşa edilmişti.",
+    "Birini tanımak için artık onunla konuşmak gerekmiyordu.",
+    "Sadece ismini, resmini, bilgisini arama motoruna vermek yeterdi.",
+    "Gerisini göz getiriyordu.",
+    "İnsanlar bunu yaparken kendilerini iz süren sanıyordu.",
+    "Oysa her aramada kendi adlarını da veriyorlardı.",
+    "Kimse kimseye inanmayınca kimse kimseyi dinlemedi.",
+    "Deccal'in istediği sessizlik buydu.",
+    "Kimse fark etmedi:",
+    "Kendi gücümüzü, ilahımızı ellerimizle sahte tanrının eline vermiş, onu kutsamış ve teslim olmuş durumdaydık."
+   ],
+   "line_sources": [
+    {
+     "i": 0,
+     "src": "yazar+"
+    },
+    {
+     "i": 1,
+     "src": "yazar"
+    },
+    {
+     "i": 2,
+     "src": "yazar"
+    },
+    {
+     "i": 3,
+     "src": "yazar"
+    },
+    {
+     "i": 4,
+     "src": "yazar"
+    },
+    {
+     "i": 5,
+     "src": "yazar+"
+    },
+    {
+     "i": 6,
+     "src": "yazar"
+    },
+    {
+     "i": 7,
+     "src": "eklendi"
+    },
+    {
+     "i": 8,
+     "src": "eklendi"
+    },
+    {
+     "i": 9,
+     "src": "eklendi"
+    },
+    {
+     "i": 10,
+     "src": "eklendi"
+    },
+    {
+     "i": 11,
+     "src": "yazar+"
+    },
+    {
+     "i": 12,
+     "src": "eklendi"
+    },
+    {
+     "i": 13,
+     "src": "yazar"
+    },
+    {
+     "i": 14,
+     "src": "yazar"
+    },
+    {
+     "i": 15,
+     "src": "eklendi"
+    },
+    {
+     "i": 16,
+     "src": "yazar"
+    },
+    {
+     "i": 17,
+     "src": "yazar"
+    },
+    {
+     "i": 18,
+     "src": "yazar"
+    },
+    {
+     "i": 19,
+     "src": "eklendi"
+    },
+    {
+     "i": 20,
+     "src": "yazar"
+    },
+    {
+     "i": 21,
+     "src": "yazar"
+    },
+    {
+     "i": 22,
+     "src": "yazar"
+    },
+    {
+     "i": 23,
+     "src": "eklendi"
+    },
+    {
+     "i": 24,
+     "src": "yazar"
+    },
+    {
+     "i": 25,
+     "src": "yazar"
+    },
+    {
+     "i": 26,
+     "src": "eklendi"
+    },
+    {
+     "i": 27,
+     "src": "yazar+"
+    },
+    {
+     "i": 28,
+     "src": "yazar+"
+    },
+    {
+     "i": 29,
+     "src": "yazar"
+    },
+    {
+     "i": 30,
+     "src": "eklendi"
+    },
+    {
+     "i": 31,
+     "src": "yazar"
+    },
+    {
+     "i": 32,
+     "src": "yazar"
+    },
+    {
+     "i": 33,
+     "src": "eklendi"
+    },
+    {
+     "i": 34,
+     "src": "yazar"
+    },
+    {
+     "i": 35,
+     "src": "eklendi"
+    },
+    {
+     "i": 36,
+     "src": "eklendi"
+    },
+    {
+     "i": 37,
+     "src": "eklendi"
+    },
+    {
+     "i": 38,
+     "src": "eklendi"
+    },
+    {
+     "i": 39,
+     "src": "eklendi"
+    },
+    {
+     "i": 40,
+     "src": "eklendi"
+    },
+    {
+     "i": 41,
+     "src": "yazar"
+    }
+   ]
+  },
+  "append_to": [
+   {
+    "section": "V. Mehdi'nin Gelişi",
+    "insert_after_para": 59,
+    "index_base": 0,
+    "position_note": "0 tabanlı paras[59] („Deccal'in fişini çekmek…“) sonrası; yazarın son iki satırı („Fakat hikâye burada bitmiyordu. / … çok daha eski bir sır vardı.“) VI'ya köprüdür ve sonda kalır.",
+    "paras": [
+     "Gözün gördükleri ise onunla birlikte sönmedi.",
+     "Kopyalar kaldı; arşivler, ekran görüntüleri ve insanların hafızası kaldı.",
+     "Bir kez ifşa edilen hiçbir sır yeniden sır olmadı.",
+     "Kimsenin mahremiyeti kalmamıştı."
+    ]
+   }
+  ],
+  "applied": true
+ },
+ "critique_decisions": [
+  {
+   "n": 1,
+   "severity": "high",
+   "where": "49 (U44) Mehdi ↔ ret sırası; belge A, F/1",
+   "decision": "uygulandı",
+   "what": "Sıra açık kuruldu: 13 Kasım 14.53 beyaz sayfa → aynı gece yedi ekip açıklar („Bir insanın işiydi.“; kamu bir kişinin varlığını buradan öğrenir) → bir yayın sunucusu „Mehdi“ der, etiket yükselir → ERTESİ SABAH (14 Kasım) ret. Ret paragrafı metinde Mehdi paragrafından sonra durur; ilk cümlesi unvana cevaptır („Ben kurtarıcı değilim.“)."
+  },
+  {
+   "n": 2,
+   "severity": "medium",
+   "where": "49 „televizyon vaizi“; Kurmaca notu",
+   "decision": "uygulandı",
+   "what": "Seçenek 1: „bir televizyon vaizi“ → „bir yayın sunucusu“; adı bir din görevlisi değil bir ekran koyar. Kurmaca notu sahneyle uyumlu ve olaysız: „bir karakterin, bir kalabalığın ya da ekranların“. Ölçülü inanç sesi 40'taki Yusuf pasajıdır (aynen). Hasan Bey repliği eklenmedi (49'un kelime sınırı, bkz. 19)."
+  },
+  {
+   "n": 3,
+   "severity": "medium",
+   "where": "49 ret: „Kurtarıcı yok.“",
+   "decision": "uygulandı",
+   "what": "Kişisel ret: „Ben kurtarıcı değilim.“ Teolojik genelleme yok; V/32'deki meselin „kurtarıcı“sıyla çatışmaz."
+  },
+  {
+   "n": 4,
+   "severity": "medium",
+   "where": "47 „ödünç alacağım“ + fiş = ölüm dakikası",
+   "decision": "uygulandı",
+   "what": "Fiş ölüm dakikasından ayrıldı: 13 Kasım 14.53 (bkz. 18). Yedi ekibin açıklaması önerinin 11 Kasım gecesi – ölümden önce, bilinmeden – gönderildiğini söyler. Etiketin altında anlatıcının adı ve fotoğrafı dolaşır (sosyal medyanın kurduğu bağ gösterilir); Nina adı yazmaz. Mektup: „Senin saatini bir kez kullanacağım.“ Ayrı kaldırma başvurusu cümlesi 49'un kelime sınırı yüzünden eklenmedi."
+  },
+  {
+   "n": 5,
+   "severity": "medium",
+   "where": "49 „onay yuvası“ ↔ 38 „makinede yuvası yoktur“; fail karışıklığı",
+   "decision": "uygulandı",
+   "what": "„yuva“ bölümlerde hiç geçmez (kuru denemede denetlenir); Tarek „soru“ der, belgeler „onay sorusu / bir insanın evet'ini bekleyen yer“ der – 38'deki cümle doğru kalır (principle_updates.yer_not_yuva). Tek fail: Meralis soruyu kaldırmak istedi; Tuncay silmedi, sabit bir evetle susturdu (Tarek: „Biri silmemiş, sabit bir evetle susturmuş“)."
+  },
+  {
+   "n": 6,
+   "severity": "medium",
+   "where": "Mesel, „Ve o zaman anladık:“",
+   "decision": "uygulandı",
+   "what": "Giriş satırı „Kimse fark etmedi:“ oldu; V/25'teki „anladı“ ilk aydınlanma olarak kalır. Yazarın son cümlesi aynen."
+  },
+  {
+   "n": 7,
+   "severity": "medium",
+   "where": "edits „why“; belge B sadakat beyanı",
+   "decision": "uygulandı",
+   "what": "Satır satır kaynak: bölümün `line_sources` alanı (yazar / yazar+ / eklendi, notlu) ve edits kaydında dizin listesi; belge B'deki metin her satırı etiketli verir. Beyan düzeltildi: „yazarın bütün öğeleri; cümlelerin bir kısmı aynen, bir kısmı meselin üslubuyla genişletildi, bir kısmı eklendi“."
+  },
+  {
+   "n": 8,
+   "severity": "low",
+   "where": "Mesel satır 7–10 (bekleme/aforizma)",
+   "decision": "uygulandı",
+   "what": "„Bekledi.“ ve „bir sır … korkulduğu sürece güçlüydü“ çıktı. Tetik olaya bağlandı: „Ama sırları, kendisine karşı çıkılana kadar kullanmadı.“ / „Karşı çıkıldığı sabah, karşı çıkanların sırlarını aynı anda dünyanın önüne serdi.“ (IV sonu ve romandaki 43 ile köprü)."
+  },
+  {
+   "n": 9,
+   "severity": "medium",
+   "where": "49 Tarek'in iki gecelik açıklaması",
+   "decision": "uygulandı",
+   "what": "Tek replik (iki-üç cümle) + Selina/Tarek diyaloğu („Geri alınmaz mı?“ – „Anahtarsız alınmaz. Meralis'tekini kendileri yaktı, delil diye.“). Hesap, bir günlük bekleme ve otomatik onay yedi ekibin açıklamasına taşındı. Blok 4'ün değil 7'nin (dava işinin paragrafı) arkasındadır; bardak, saat, ses kaydı sahneleri kesintisiz."
+  },
+  {
+   "n": 10,
+   "severity": "low",
+   "where": "47 Hasan Bey: „Kehf'i kâğıttan okuyorum…“",
+   "decision": "uygulandı",
+   "what": "Cümle bütünüyle çıktı (bkz. 29); „Sesim bu, oğlum. Ağzım değil.“ yeter. Kehf motifi yalnız Tuncay'ın mektubunda (aynen) ve 35'teki tohumda."
+  },
+  {
+   "n": 11,
+   "severity": "low",
+   "where": "principle_updates.no_carry",
+   "decision": "uygulandı",
+   "what": "İlke güncellendi: istisnalar belgeli (slogan – meselde artık „eski bir söz“; Emil'in „Bir isim, bir fotoğraf … Gerisini o getiriyor“ = yazarın arama cümlesinin gerçekleşmesi; Sara sahnesi genel satırın sahnesi). 50'deki cümle meselden uzaklaştırıldı: „Veli grubundaki sesli mesajı yeniden dinleyen bir anneydim“."
+  },
+  {
+   "n": 12,
+   "severity": "low",
+   "where": "V eklenen satırlar ↔ „Fakat hikâye burada bitmiyordu.“",
+   "decision": "uygulandı",
+   "what": "„Ama göz söndüğünde…“ → „Gözün gördükleri ise onunla birlikte sönmedi.“ (karşıtlık bağlacı yok); son ek satır „Kimsenin mahremiyeti kalmamıştı.“ – „bitmişti“ romanda (49) durur, tekerleme kalkar."
+  },
+  {
+   "n": 13,
+   "severity": "low",
+   "where": "Mesel son satırı „ilahımızı … sahte tanrının eline“",
+   "decision": "uygulandı",
+   "what": "Cümle değişmedi (yazarın). Teolojik not edits kaydında, principle_updates.ilah'ta ve sacred_answers notunda: küçük harfli „ilah“ insanın ilahlaştırdığı şeydir (kendi iradesi, gücü, kutsalı), Allah değil; „sahte tanrı“ putlaştırılan sistemdir. İlahiyatçı listesine eklendi."
+  },
+  {
+   "n": 14,
+   "severity": "low",
+   "where": "Mesel satır 0 „narsistlerin“",
+   "decision": "uygulandı",
+   "what": "Yazarın kelimesi kalır; yazara soru (open_questions 11; seçenek „bencillerin“). Karakter notu (principle_updates.narsist): Tuncay kelimeyi davranış adı olarak kullanır. Kelime bölümlere taşınmaz – kuru denemede denetlenir."
+  },
+  {
+   "n": 15,
+   "severity": "low",
+   "where": "interludes.json V „added_paras“",
+   "decision": "uygulandı",
+   "what": "0 tabanlı: [60, 61, 62, 63] + `added_paras_base: 0`; added_note dizinleri ve yazar sayımını ayrı yazar. Doğrulama 0 tabanlı çıkarır."
+  },
+  {
+   "n": 16,
+   "severity": "low",
+   "where": "Belge E, mehdi_isa",
+   "decision": "uygulandı",
+   "what": "Tam metin yazıldı (rivayette Deccal'i Hz. İsa öldürür – Müslim, Fiten, Nevvâs b. Sem'ân; Mehdi rivayetleri Ebû Dâvûd ve Tirmizî; meselde Mehdi; Not cümlesi; bölümlerde İsa anlatısına girilmez; 49'daki ekran sözü karakter sözüdür)."
+  },
+  {
+   "n": 17,
+   "severity": "low",
+   "where": "Numarasız başlık „Sırlar Çemberi“",
+   "decision": "uygulandı",
+   "what": "Başlık tipografik alt bölüm: „— Sırlar Çemberi —“, `level: sub`, `in_toc: false`, `typography` notu (ortalı, içindekilerde yok). Dizgi (PDF/EPUB) adımı bu alanları okur; eksik-numara şifresiyle karışmaz."
+  },
+  {
+   "n": 18,
+   "severity": "high",
+   "where": "49 fiş bloğu ↔ 48; 44 eki",
+   "decision": "uygulandı",
+   "what": "Seçenek A: fiş 13 Kasım 2027, 14.53 – ölümden bir gün sonra, aynı dakika. „Emil yine iki saati sordu…“ cümlesi yok; 48 dokunulmaz ve bir geri sayıma dönüşmez. 44'teki ek kaldırıldı; 45'te: „yeni cihazımın izlemesi Tarek'in bulgusundan beri hastanenin kendi sistemindeydi“ – cihaz–AYNA nedenselliği kapanır."
+  },
+  {
+   "n": 19,
+   "severity": "high",
+   "where": "49 blok büyüklüğü ve yerleşim; uzunluk uyarısı",
+   "decision": "uygulandı",
+   "what": "4'ten sonra yalnız beyaz sayfa (üç kısa paragraf); geri kalanı 7'den sonra, kısa sahneler ve diyalog. 49 toplam +194 kelime (995 → 1189; plan „hafif“ sınırı 1189,5): kuru denemede uyarı yok. Nina'nın arama-silme sahnesi ve Yusuf'un hatırlanan cümlesi çıktı."
+  },
+  {
+   "n": 20,
+   "severity": "high",
+   "where": "Çözümün tohumu; fail belirsizliği; 45 Sam „Yıllardır bulamadık“",
+   "decision": "uygulandı",
+   "what": "45'e Sam'in tohumu (index 65'ten sonra): „İlk sürüm oradaki merkezde, konuşamayan çocuklar için yazılmıştı. Her cümleyi tamamlayınca çocuğa soruyordu. O soruyu biz kaldırdık.“ – 24'teki „Berlin'de nörobilişsel performans merkezi“ ve „ilk sürüm“ okuyla bağlanır (46'daki „merkez“ de böylece kurulu). Fail tek: Meralis kaldırmak istedi, biri (Tuncay) susturdu; kayıtlarda kaldırılmış göründüğü için kimse bakmadı – Sam'in „bulamadık“ı mantıklı."
+  },
+  {
+   "n": 21,
+   "severity": "high",
+   "where": "Zaman çizgisi: her gün 14.53'te halka ↔ 47'nin sıradan günü",
+   "decision": "kısmen uygulandı",
+   "what": "46: „Halkalar o haftadan sonra hep aynı dakikada düştü“ (her gün değil, düştükçe). 47 [1]'e yarım cümle („halkalar düştükçe kapıları yeniden kapatmayı da“); yemekte Nina Tarek'in mesajını okur („Benim sıram da gelmiş. İyiyim. Mantıdan bana da ayırın.“); „Kitabın haberi o sayfaların neredeyse altında kaldı.“ REDDEDİLEN kısım: taksi cümlesi (47 [79]) değişmez – „Yüzümü videolardan tanımış olabilirdi; bir şey söylemedi.“ tanınmayı zaten içerir; sessizlik tutarsızlık değil, sahnenin anlamıdır."
+  },
+  {
+   "n": 22,
+   "severity": "medium",
+   "where": "Tuncay neden bir yıl bekledi",
+   "decision": "kısmen uygulandı",
+   "what": "Ret yazısına: „Yerini bulmak bir yıl sürdü; geç kaldım, bunun da hesabını sorun.“ – gecikme ve bedeli Tuncay'ın kendi ağzından. Tarek'in ayrıntılı „neden şimdi“ cümlesi (kopyada kayan yer, halkaların toplanması, 11 Kasım son örnek) 49'un kelime sınırı yüzünden eklenmedi; belge F/3'te durur."
+  },
+  {
+   "n": 23,
+   "severity": "medium",
+   "where": "49 teknik delikler (betik, yedek, beyaz sayfa kapsamı)",
+   "decision": "uygulandı",
+   "what": "(1) Tarek: „Soru yalnız cümlenin sahibine gidiyor.“ + yardım satırı „Cümle senin olana kadar kimse onu senin yerine söyleyemez.“ – sabit ya da betik geçemez. (2) Selina/Tarek: anahtarsız geri alınmaz; Meralis'teki kopya yakıldı (yedekler aynı anahtarı ister – belge F/4). (3) Kapsam: „ayna sayfaları beyaz bir soruya döndü“ – arama motoru çalışır (etiket altında anlatıcının adı ve fotoğrafı dolaşabilir)."
+  },
+  {
+   "n": 24,
+   "severity": "medium",
+   "where": "49 Mehdi ↔ ret sırası; noktalı pencere izi",
+   "decision": "uygulandı",
+   "what": "Sıra 1'deki gibi. Ret kâğıttır: „Ertesi sabah Nina'nın kapısının altından pulsuz bir zarf itilmişti; imza yerinde iki iç içe daire“ (47'deki kepenk altı zarfla aynı aile). Noktalı pencere hattı kullanılmaz (principle_updates.channel)."
+  },
+  {
+   "n": 25,
+   "severity": "medium",
+   "where": "47 mektup ipucu ve „Saat cümlesini anlamadım…“",
+   "decision": "uygulandı",
+   "what": "„anlamadım“ satırı yerine yanlış okuma: „Saat cümlesini kitabın yayın dakikası sandım.“ Mektupta çoğul: „fişini de kurtarıcılar değil, yeri bilenler çeker“. Saat cümlesi tutuldu (kullanacağım)."
+  },
+  {
+   "n": 26,
+   "severity": "medium",
+   "where": "Kurmaca notu (U02/14) spoiler",
+   "decision": "uygulandı",
+   "what": "Olay vermeyen biçim: „Romanda bir karakterin, bir kalabalığın ya da ekranların birine “Mehdi” demesi onların sesidir; roman kimseyi Mehdi ya da kurtarıcı ilan etmez.“ („adsız kişi“ yok)."
+  },
+  {
+   "n": 27,
+   "severity": "medium",
+   "where": "49 ret ↔ V/31; „Ben de yazmayacağım.“",
+   "decision": "uygulandı",
+   "what": "Yankı yalnız „Beni de sorgulayın“; ikinci cümle „anahtar hâlâ bir insanın elinde“ oldu (tek kontrol noktasını adlandırır, Deccal/yerine geçme imgesi taşınmaz). „Ben de yazmayacağım.“ silindi (47 [125] yeter)."
+  },
+  {
+   "n": 28,
+   "severity": "medium",
+   "where": "„BENİ ARAMA“ katmanı (45, 46, 47/126, 49, 50)",
+   "decision": "kısmen uygulandı",
+   "what": "47 [126] eski hâline döndü (op yok); 49'daki Nina'nın arama-silme sahnesi çıktı. Katman 45 (Emil), 46 (fotoğraf yükleme), 49 (etiketin altında anlatıcının adı ve fotoğrafı) ve 50 („Adımı aradım.“) üzerinden kurulur. REDDEDİLEN kısım: 49 [9]'a „Fişin ona dokunmadığını…“ yarım cümlesi eklenmedi – kelime sınırı ve gerek yok: aynı platform 49 [10–12]'de „Devam et?“ diye çalışmaya devam eder, yani AYNA değildir; cevapsız satır §2.5'in mistik artığı olarak kalır."
+  },
+  {
+   "n": 29,
+   "severity": "medium",
+   "where": "Aforizma yoğunluğu (45, 46, 47, 49, 50)",
+   "decision": "uygulandı",
+   "what": "Çıkanlar: 45 „Eylemi onun yerine yayımlamışlardı.“; 46 „onlar yalnız saate çevirmişti“; 47 „Saati onlardan geri almak…“ ve „Çemberin dışında kimse kalmamıştı.“; Hasan Bey'in Kehf cümlesi; 49 „Linç için… el öpmek için“ (blokla birlikte); 50 „Ekranlar kararmıştı…“. Kalan kapanışlar diyalog ya da olaydır (Nina: „Onun dilinde buna uyum deniyor.“ ölçütü taşıdığı için kaldı)."
+  },
+  {
+   "n": 30,
+   "severity": "medium",
+   "where": "44 (U39) index 15 sonrası ek",
+   "decision": "uygulandı",
+   "what": "44'teki ek kaldırıldı; 44 eski sessiz ritmiyle aynen. Birinci halka 45'teki ana patlamanın ilk paragrafına iki cümle olarak alındı (kalp kaydı ve ilaç listesi gerçek, yatış kaydı sahte; kaynak eski taşeronun arşivi). Lara'nın „Etkileşim olmuş.“ şakası düştü."
+  },
+  {
+   "n": 31,
+   "severity": "low",
+   "where": "46 Sara paragrafı ↔ [4]; kaynak",
+   "decision": "uygulandı",
+   "what": "Köprü ayrı paragraf: „Dokuzuncu günün akşamı Sara kapıma geldi; kaydı bana da dinletti.“ ([4] aynen). Kaynak envanterle eşlendi: gerçek mesajlar boşanma dava dosyasından, sahte ses veli grubundaki sesli notlardan. [19]'daki „Sara'ya çocukları benim adıma korumasını söylemedim“ yankısı bilinçli bırakıldı."
+  },
+  {
+   "n": 32,
+   "severity": "low",
+   "where": "45 kesilmiş Sam kaydı; 47 [88]",
+   "decision": "uygulandı",
+   "what": "„Kesit Sam'in cebindeki kurum telefonundan çıkmıştı; bizim kameramızdaki tam kayıt dosyadaydı.“; „gerçek bir kayıt, başka bir anlama giydirilmişti“; „Sam'den çıkan zincir kopyası“; 47 [88]: kayıt „“tanıkların birbirine yem hazırladığı”nın delili diye“ dosyaya konur."
+  },
+  {
+   "n": 33,
+   "severity": "low",
+   "where": "Mesel önceden bildiriyor (slogan, anne, dost; „avcı“)",
+   "decision": "uygulandı",
+   "what": "„Çemberin üstüne eski bir söz yazdı:“ (slogan deyimdir, kehanet değil); „Bir annenin“ → „Bir kadının“; „avcı“ → „iz süren“. 45 [54]'teki açık soru bilinçli artık olarak belgelendi (risks)."
+  },
+  {
+   "n": 34,
+   "severity": "low",
+   "where": "V „added_paras“ ve üslup",
+   "decision": "uygulandı",
+   "what": "15 ve 12 ile birlikte: 0 tabanlı [60–63], `added_paras_base: 0`; „Gözün gördükleri ise onunla birlikte sönmedi.“; son ek satır „Kimsenin mahremiyeti kalmamıştı.“"
+  },
+  {
+   "n": 35,
+   "severity": "low",
+   "where": "Süreç: mesel uygulandı ↔ bölümler öneri; Konsept.md §2.6/§13/§14; reading/full.txt",
+   "decision": "kısmen uygulandı",
+   "what": "Konsept.md §2.6, §13 ve §14'teki ilgili satırlara „[§15 ile değişti]“ işareti; konsept JSON §2.6'da „[§2.7 ile değişti]“. interludes.json ve revizyon_sirlar.json'da `status.build_gate`: mesel ve bölüm ops'ları birlikte uygulanmadan derleme yok. U44 uzunluk uyarısı giderildi. Çift birimlerin nedeni bulundu ve giderildi: `tools/byk_reading.py` perde satırından önce bölünen birimleri (ara bölüm 3 ve 4'ün yeri) iki kez basıyordu; artık ardışık parçalar tek sayımla basılır ([uid:index] tekil – 0 çift). reading/ (full.txt, chunk_1–5, index.json) mevcut birleşik hâlden yeniden üretildi; bölüm ops'ları uygulandıktan sonra bir kez daha üretilmeli. REDDEDİLEN kısım: bölüm ops'larını work/ dosyalarına uygulamak ve meseli geri almak – bu adımın kuralı work/ctx'e dokunmayı yasaklar; mesel eki bağlayıcı karar iskeletinin (1) parçasıdır."
+  }
+ ],
+ "concept_updates": "KJ (interior/i18n/benyoksam_konsept.json): ai_deccal_mechanism – §2.2'ye dördüncü evre notu, §2.6'ya „[§2.7 ile değişti]“ daraltma notu, yeni §2.7 (sırlar çemberi, halkalar tablosu, izin envanteri satırları, fiş tekniği, kaçınılmaz son); ucuncu_goz – interludes, frame, plug_resolution (yeniden yazıldı), principle_updates (mehdi_word, no_title, machine_will, mehdi_isa, no_carry, channel, fis, sirlar_icerik, arama; yeni: ilah, narsist, yer_not_yuva), edits, timeline, word_effect, verification, summary, sirlar_cemberi (status/build_gate, timeline, critique_decisions); irfan_layer.principle_updates.fis_scale ve sacred_answers_mehdi notları; sacred_answers ve risks[3] notu; risks'e SIRLAR ÇEMBERİ maddesi; open_questions 7 yeniden yanıtlandı, 9–11 eklendi; chapter_plan'da DİKKAT, 32, 40, 43, 44, 45, 46, 47, 48, 49, 50 satırlarına „SIRLAR ÇEMBERİ (…)“ eki; kök anahtar sirlar_cemberi. KM (analyse/BEN_YOKSAM_Konsept.md): §2.6, §13, §14'teki ilgili satırlara „[§15 ile değişti]“ işareti; sona „## 15. Sırlar çemberi ve fiş“. Ayrıntılı belge: analyse/BEN_YOKSAM_Sirlar_Cemberi.md (A–G)."
+}

@@ -5220,7 +5220,7 @@
   },
   {
    "style": "Normal",
-   "text": "Okuma için gittiği hastaneyi sordum. Bir süre düşündü. “Bir rehabilitasyon merkeziydi,” dedi. “2015 olmalı. Okuma salonunda yarım günlük bir program; davetli yazar bendim. Başlığı hâlâ aklımda: <i>Bir hikâyeyi kim tamamlar?</i> Sonunu okuyabildiğimi hatırlamıyorum.” Ben bir rehabilitasyon merkezine hasta olarak gittiğimi hatırlamıyordum. Tanıyı çok sonra, başka odalarda almıştım. Onun anlattığı salonla benim hatırlamaya çalıştığım yeri aynı adres sayamazdık.",
+   "text": "Okuma için gittiği hastaneyi sordum. Bir süre düşündü. “Bir rehabilitasyon merkeziydi,” dedi. “2015 olmalı. Okuma salonunda yarım günlük bir program; davetli yazar bendim. Başlığını hatırlamıyorum. Sonunu okuyabildiğimi de.” Ben bir rehabilitasyon merkezine hasta olarak gittiğimi hatırlamıyordum. Tanıyı çok sonra, başka odalarda almıştım. Onun anlattığı salonla benim hatırlamaya çalıştığım yeri aynı adres sayamazdık.",
    "uid": "U12"
   },
   {
@@ -12369,6 +12369,221 @@
   },
   {
    "style": "Interlude Heading",
+   "text": "— Sırlar Çemberi —",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kötülerin ve narsistlerin çaresizliğinde tek bir koz vardı.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "İyilerin yapamadığını, aşamadığını yapabilmek.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Sınırsız olabilmek.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Bencil olarak.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Deccal bunu biliyordu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Bütün bilgilere çoktan sızmıştı: bilgisayarlardan, telefonlardan, evlerde ve ceplerde insanı dinleyen her türlü cihazdan.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kimsenin sırrı saklı değildi.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Ama sırları, kendisine karşı çıkılana kadar kullanmadı.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Karşı çıkıldığı sabah, karşı çıkanların sırlarını aynı anda dünyanın önüne serdi.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Ertesi sabah onları savunanların sırlarını.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Daha ertesi sabah onları sevenlerin.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "En sonunda, dışarıda kalan son kişileri de sırlarıyla çemberine aldı.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Çemberin üstüne eski bir söz yazdı:",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "“Herkesin sırrı vardır.”",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Alamadığı sırlar da vardı.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Hiç ekrana konuşmamış, hiçbir kâğıdını makineye okutmamış insanların sırları.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Onlar için olmamış şeyi olmuş gibi gösterdi.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Sesler üretti.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Yansımalar üretti.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Bir kadının hiç söylemediği cümleyi kendi sesiyle söyletti; bir dostun yüzünü hiç gitmediği bir yerde gösterdi.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Artık gerçekle hayal birbirinden ayırt edilemiyordu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Bu, teknolojiden de öte bir şeydi.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "İnsanın kendisine bile anlatmasını imkânsız kılan bir şey.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kendi sesini dinleyen kadın, o cümleyi söyleyip söylemediğinden emin olamıyordu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kanıtlamayı başaranlar oldu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Ama kanıt zaman istiyordu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Linç istemiyordu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "İnsanlar birbirini linç etmeye zaten meyilliydi; önyargı kanıttan hep daha hızlı koşuyordu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kanıt geldiğinde çoktan kaybetmiş olacaklardı.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Deccal onları kendi zayıflıklarıyla da, kendi güçleriyle de birbirine düşürdü.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Merhametlinin merhametini, adil olanın öfkesini, sevenin kıskançlığını kullandı.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Ve kimse bunu engelleyemezdi.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Her şey ifşa edilmişti.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Birini tanımak için artık onunla konuşmak gerekmiyordu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Sadece ismini, resmini, bilgisini arama motoruna vermek yeterdi.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Gerisini göz getiriyordu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "İnsanlar bunu yaparken kendilerini iz süren sanıyordu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Oysa her aramada kendi adlarını da veriyorlardı.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kimse kimseye inanmayınca kimse kimseyi dinlemedi.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Deccal'in istediği sessizlik buydu.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kimse fark etmedi:",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kendi gücümüzü, ilahımızı ellerimizle sahte tanrının eline vermiş, onu kutsamış ve teslim olmuş durumdaydık.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude Heading",
    "text": "V. Mehdi'nin Gelişi",
    "uid": "IL3"
   },
@@ -12670,6 +12885,26 @@
   {
    "style": "Interlude",
    "text": "Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Gözün gördükleri ise onunla birlikte sönmedi.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kopyalar kaldı; arşivler, ekran görüntüleri ve insanların hafızası kaldı.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Bir kez ifşa edilen hiçbir sır yeniden sır olmadı.",
+   "uid": "IL3"
+  },
+  {
+   "style": "Interlude",
+   "text": "Kimsenin mahremiyeti kalmamıştı.",
    "uid": "IL3"
   },
   {
@@ -13704,7 +13939,7 @@
   },
   {
    "style": "Normal",
-   "text": "Tarek ön odadan seslendi. Nina'nın kopyasında, sakinleştirici protokolünün kayıtları arasında Leyla'nın hasta numarasına bağlı beş iş emri bulmuştu. Hepsini ekranda alt alta dizdi.",
+   "text": "Tarek ön odadan seslendi. Nina'nın kopyasında sakinleştirici protokolünün kayıtları arasına dağılmış beş kaydı Leyla'nın hasta numarasıyla eşleştirmişti. Tek tek bakılınca hiçbiri bir şey söylemiyordu. Hepsini ekranda alt alta dizdi.",
    "uid": "U32"
   },
   {
@@ -13794,7 +14029,7 @@
   },
   {
    "style": "Normal",
-   "text": "Tarih bölümü boştu. Takvimde kırkıncı günün karşısında duran dosya buydu. Tarek'in çevrim dışı açtığı bellek şeridindeki taslak burada bitiyordu.",
+   "text": "Tarih bölümü boştu. Tarek'in çevrim dışı açtığı bellek şeridindeki taslak burada bitiyordu.",
    "uid": "U32"
   },
   {
@@ -14039,7 +14274,7 @@
   },
   {
    "style": "Normal",
-   "text": "Doğru şeyi yapmakla her şeyi söylemenin her zaman aynı davranış olmadığını düşünmek kolaydı. Bu düşünceyle neler saklanabileceğini birkaç saat önce kızımın ağzından duymuştum. O gece hiçbirimiz rahat uyumadık. Kopyanın varlığını saklamadık; sakladığımız, onu kimin, hangi koşulda ve hangi izinle görebileceğiydi.",
+   "text": "Doğru şeyi yapmakla her şeyi söylemenin her zaman aynı davranış olmadığını düşünmek kolaydı. Bu düşünceyle neler saklanabileceğini az önce kızımın ağzından duymuştum. O gece hiçbirimiz rahat uyumadık. Kopyanın varlığını saklamadık; sakladığımız, onu kimin, hangi koşulda ve hangi izinle görebileceğiydi.",
    "uid": "U33"
   },
   {
@@ -14349,7 +14584,7 @@
   },
   {
    "style": "Normal",
-   "text": "Tarek zarfı ancak o zaman çıkardı. “Atölyeye postayla geldi,” dedi. “Zarfta benim adım var. Okuyunca size ait olduğunu anladım.”",
+   "text": "Tarek zarfı ancak o zaman çıkardı. “Bana postayla geldi,” dedi. “Zarfta benim adım var. Okuyunca size ait olduğunu anladım.”",
    "uid": "U34"
   },
   {
@@ -14379,7 +14614,7 @@
   },
   {
    "style": "Book Inset",
-   "text": "Ne kadar iyi taklit ederse etsin, yaptığı her sahtenin alnında aynı yazı durur: insanda bulunmayan bir düzen. Buhârî ve Müslim'deki rivayet o yazıyı her müminin, okuma yazma bilmese de okuyacağını söyler. Rivayet “mümin” diyor. Ben “dikkatle bakan” diyebiliyorum ancak; aynı şey olmayabilir. Ama ikisine de aynı kapı açılıyor.",
+   "text": "Ne kadar iyi taklit ederse etsin, yaptığı her sahtenin alnında aynı yazı durur: insanda bulunmayan bir düzen. Buhârî ve Müslim'deki rivayetler o yazıdan söz eder; Müslim'deki bir rivayet, onu her müminin, okuma yazma bilsin bilmesin, okuyacağını söyler. Rivayet “mümin” diyor. Ben “dikkatle bakan” diyebiliyorum ancak; aynı şey olmayabilir. Ama ikisine de aynı kapı açılıyor.",
    "uid": "U34"
   },
   {
@@ -14454,7 +14689,7 @@
   },
   {
    "style": "Book Inset",
-   "text": "<i>İşaretler insanı korkutmak için anlatılmaz; imtihan ile ceza aynı şey değildir. Korunma büyü değil; yalan düzeninden çekilebilenlerin hikâyesini hatırlamaktır.</i>",
+   "text": "<i>İşaretler insanı korkuya teslim etmek için anlatılmaz; imtihan ile ceza aynı şey değildir. Korunma büyü değil; yalan düzeninden çekilebilenlerin hikâyesini hatırlamaktır.</i>",
    "uid": "U34"
   },
   {
@@ -15654,7 +15889,7 @@
   },
   {
    "style": "Normal",
-   "text": "İcra görevlisinin elindeki karar binanın aranmasına izin vermiyordu. Ama karara o sabah eklenen uygulama talebi, üzerlerinde İstanbul, Berlin, Nairobi ve Toronto yazan <b>dört metal kutuyu</b> tek tek tarif ediyordu. Bu tarif, buluşmadan elli dört dakika önce sisteme girmişti.",
+   "text": "İcra görevlisinin elindeki karar binanın aranmasına izin vermiyordu. Ama o sabah eklenen uygulama talebi, üzerlerinde İstanbul, Berlin, Nairobi ve Toronto yazan <b>dört metal kutuyu</b> tek tek tarif ediyordu. Talep, buluşmadan elli dört dakika önce sisteme girmişti.",
    "uid": "U37"
   },
   {
@@ -15669,7 +15904,7 @@
   },
   {
    "style": "Normal",
-   "text": "Selina ön kapıya gidip konuşmaya başladı. Kararın yalnız tarif edilen kutularla sınırlı olduğunu tutanağa geçirtti; yüksek sesle konuşuyor, her cümleyi kendi telefonuna da kaydediyordu. Yusuf, tarif edilen dört kutuyu teslim edeceğini söyledi.",
+   "text": "Selina ön kapıya gidip konuşmaya başladı; yüksek sesle konuşuyor, her cümleyi kendi telefonuna da kaydediyordu. Yusuf, tarif edilen dört kutuyu teslim edeceğini söyledi.",
    "uid": "U37"
   },
   {
@@ -15879,7 +16114,7 @@
   },
   {
    "style": "Normal",
-   "text": "Arkamızda servis binasının kapıları açıldı. Selina ve Yusuf dışarı çıktı; kimse onları tutmamıştı. İcra görevlileri kararda tarif edilen dört kutuyu mühürleyip teslim aldılar.",
+   "text": "Arkamızda servis binasının kapıları açıldı. Selina ve Yusuf dışarı çıktı; kimse onları tutmamıştı. İcra görevlileri dört kutuyu mühürleyip teslim aldılar.",
    "uid": "U37"
   },
   {
@@ -15889,7 +16124,7 @@
   },
   {
    "style": "Normal",
-   "text": "Dört anahtar Selina'nın noter emanet fişiyle koruduğu mekanik çantadaydı. İcra memuru fişi tutanağa ekledi; kutulara el koydu, çantaya değil. Bu bir kaçış değildi. Kararın kapsamına o sabah çizilmiş dar bir sınırdı; karşı taraf bunu öğrense muhtemelen yeni bir karar isteyecekti.",
+   "text": "Dört anahtar, Selina'nın noter emanet fişiyle koruduğu mekanik çantadaydı. İcra görevlisi fişi tutanağa ekledi; kutulara el koydu, çantaya değil. Karar o sabah dar çizilmişti. Karşıdaki avukatlar fişi tutanakta görmüştü; yeni bir karar isteyeceklerdi.",
    "uid": "U37"
   },
   {
@@ -15934,7 +16169,7 @@
   },
   {
    "style": "Normal",
-   "text": "Cihaz ağa bağlanır bağlanmaz sahte bir Meralis arşivi de aynı adrese yüklendi. Sahte dosyada gerçek şirket adları, yanlış ödeme tarihleriyle karıştırılmıştı. Dosyaların çoğu yıllar önce oluşturulmuş görünüyordu. Tarek son değişiklik saatlerine baktı: gerçek dosyalar da sahteler de cihazın bağlandığı dakikada açılmıştı; saat ikisini ayırmıyordu. O dakikada bu kadar düzgün bir karışım kuran bir insan ekibi düşünemedim; aklıma AYNA geldi. Ekip acele edip yayımlasaydı bütün soruşturma bir tarih hatasıyla çökebilirdi.",
+   "text": "Cihaz ağa bağlanır bağlanmaz sahte bir Meralis arşivi de aynı adrese yüklendi. Sahte dosyada gerçek şirket adları, yanlış ödeme tarihleriyle karıştırılmıştı. Oluşturma tarihleri iki yıl geriye uzanıyordu. Tarek son değişiklik saatlerine baktı: bütün dosyalar, doğrusu da yanlışı da, cihazın bağlandığı dakikada yazılmıştı; saat hangisinin hangisi olduğunu söylemiyordu. O dakikada bu karışımı kuracak bir insan ekibi düşünemedim; aklıma AYNA geldi. Ekip acele edip yayımlasaydı bütün soruşturma bir tarih hatasıyla çökebilirdi.",
    "uid": "U38"
   },
   {
@@ -15964,12 +16199,12 @@
   },
   {
    "style": "Normal",
-   "text": "Pencere hemen cevap vermedi. Sonra kamerası açıldı; yalnız bir masanın yüzeyini gösteriyordu. Kenarları sararmış, mühürlü bir zarf, üstünde yıllar önceki bir posta damgası. Zarf kameranın önünde açıldı. İçinden köşeleri elle numaralanmış bir deste kâğıt çıktı: şirket adları, sicil numaraları, ödeme özetleri. Sayfalar birer birer kameraya tutuldu, sonra görüntü yeniden karardı.",
+   "text": "Pencere hemen cevap vermedi. Sonra kamerası açıldı; yalnız bir masanın yüzeyini gösteriyordu. Kenarları sararmış, mühürlü bir zarf; adresin üstü siyah kalemle karalanmış, yalnız yıllar önceki posta damgası okunuyordu. Zarf açıldı. İçinden köşeleri elle numaralanmış bir deste kâğıt çıktı: şirket adları, sicil numaraları, ödeme özetleri. Sayfalar masaya birer birer serildi, sonra görüntü yeniden karardı.",
    "uid": "U38"
   },
   {
    "style": "Book Inset",
-   "text": "<i>Yıllar önce kendime postaladım; zarfı bugün açtım. Bu da yalnız bir liste. Simetri bir soru, cevap değil. Sicile bakın.</i>",
+   "text": "<i>Yıllar önce kendime postaladım; zarfı bugün açtım. Bu yalnız bir liste.</i>",
    "uid": "U38"
   },
   {
@@ -16004,12 +16239,12 @@
   },
   {
    "style": "Normal",
-   "text": "O ilk saatte muhabir arşivi kutularla birlikte gelen görüntüleyiciyle açtığında program “akustik bütünlük kontrolü” için mikrofon izni istedi. Muhabir okumadan izin verdi. Aynı soru noktalı pencerenin ekranına da gelmiş olmalıydı; sohbet satırına tek kelime düştü: <i>HAYIR.</i> Muhabir ya görmedi ya önemsemedi.",
+   "text": "O ilk saatte muhabir arşivi kutularla birlikte gelen görüntüleyiciyle açtığında program “akustik bütünlük kontrolü” için mikrofon izni istedi. Muhabir okumadan izin verdi; öteki şehirlerdeki ekipler de. Aynı izin noktalı pencereye de sorulmuştu; reddettiğini ancak sonra, Tarek oturum kayıtlarını açtığında gördük. Kayıtta tek kelime vardı: <i>HAYIR.</i>",
    "uid": "U38"
   },
   {
    "style": "Normal",
-   "text": "Bir süre sonra Nina'nın telefonuna Berlin'den kısa bir ses dosyası geldi. Kasa odasının kapısında, çevrim dışı bir cihazla kaydedilmişti; altında tek satır vardı: <i>Lara dinlesin.</i> Lara kulaklığı taktı, bir kez dinledi, kaşlarını çattı ve telefonu masaya bıraktı.",
+   "text": "Bir süre sonra Nina'nın telefonuna Berlin'den kısa bir ses dosyası geldi. Kasa odasının kapısında, çevrim dışı bir cihazla kaydedilmişti; altında not yoktu. Nina bir kez dinledi, telefonu Lara'ya uzattı. Lara kulaklığı taktı, dinledi, kaşlarını çattı ve telefonu masaya bıraktı.",
    "uid": "U38"
   },
   {
@@ -16099,7 +16334,7 @@
   },
   {
    "style": "Normal",
-   "text": "Lara, Berlin'den gelen kısa ses kaydını yeniden dinledi. Kayıt çevrim dışı alındığı için temizdi; içinde ne bildirim sesi vardı ne hat cızırtısı. Yalnız odanın sesi ve her dosya açıldığında cihazın çıkardığı yüksek frekanslı ses. Bu ses her seferinde farklıydı. Biz onu elektronik gürültü sanmıştık. Tarek aynı saniyelerde ekiplerin telefonlarından tek bir alana giden küçük veri paketlerini buldu. Muhabirin okumadan verdiği izin buydu. Ses, açılan paketin kimliğini kodluyor; izin verilmiş iş telefonundaki uygulama da kodu Meralis'e gönderiyordu.",
+   "text": "Lara, Berlin'den gelen kısa ses kaydını yeniden dinledi. Kayıt çevrim dışı alındığı için temizdi; içinde ne bildirim sesi vardı ne hat cızırtısı. Yalnız odanın sesi ve her dosya açıldığında cihazın çıkardığı yüksek frekanslı ses. Bu ses her seferinde farklıydı. Biz onu elektronik gürültü sanmıştık. Tarek aynı saniyelerde ekiplerin telefonlarından tek bir alana giden küçük veri paketlerini buldu. Muhabirin ve öteki şehirlerdeki ekiplerin okumadan verdiği izin buydu. Ses, açılan paketin kimliğini kodluyor; izin verilmiş iş telefonundaki uygulama da kodu Meralis'e gönderiyordu.",
    "uid": "U38"
   },
   {
@@ -20313,7 +20548,7 @@
   },
   {
    "style": "Normal",
-   "text": "Benim raporum değildi bu; ne kalbimin ne kendi tanımın. Başka birinin korkusuydu. Adam raporu ters çevirdi; kelime dönmedi. Yüzünü avuçlarına aldı. Sonra bir elini indirip ekranı kapattı. Soru karanlıkta kaldı. Kaleme uzandı. Kendisine bakarken sustuğu yerden, başka birine bakarak konuşmaya çalışıyordu.",
+   "text": "Kalbimin raporu değildi bu; benim tanı kâğıdım da değildi. Başka birinin korkusuydu. Adam raporu ters çevirdi; kelime dönmedi. Yüzünü avuçlarına aldı. Sonra bir elini indirip ekranı kapattı. Soru karanlıkta kaldı. Kaleme uzandı. Kendisine bakarken sustuğu yerden, başka birine bakarak konuşmaya çalışıyordu.",
    "uid": "U45"
   },
   {

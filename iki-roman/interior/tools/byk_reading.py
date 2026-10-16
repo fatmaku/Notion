@@ -22,17 +22,21 @@ def main():
     merged = B / "BEN_YOKSAM_units.json"      # von byk_check.py --all: Kapitel + Zwischenkapitel (uid IL1…IL6)
     if merged.exists():
         allp = json.load(open(merged, encoding="utf-8"))["paras"]
-        order = []
+        # zusammenhängende Läufe (eine Unit kann durch ein Zwischenkapitel vor ihrer Akt-Zeile geteilt sein);
+        # Index = Position in der Unit, damit [uid:index] eindeutig bleibt (kein doppelter Abdruck)
+        groups, seen = [], {}
         for p in allp:
-            if not order or order[-1] != p["uid"]:
-                order.append(p["uid"])
-        groups = [(uid, [p for p in allp if p["uid"] == uid]) for uid in order]
+            uid = p["uid"]
+            if not groups or groups[-1][0] != uid:
+                groups.append((uid, [], seen.get(uid, 0)))
+            groups[-1][1].append(p)
+            seen[uid] = seen.get(uid, 0) + 1
     else:
-        groups = [(uid, json.load(open(B / "work" / f"{uid}.json", encoding="utf-8"))["paras"]) for uid in cons]
-    for uid, paras in groups:
+        groups = [(uid, json.load(open(B / "work" / f"{uid}.json", encoding="utf-8"))["paras"], 0) for uid in cons]
+    for uid, paras, off in groups:
         w = {"paras": paras}
         lines, words = [], 0
-        for k, p in enumerate(w["paras"]):
+        for k, p in enumerate(w["paras"], off):
             if p.get("image"):
                 lines.append(f"[{uid}:{k}] ⟨resim {p['image']}⟩"); continue
             t = strip_tags(p.get("text", ""))

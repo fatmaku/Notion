@@ -29,7 +29,7 @@
    "9. Bölgesel Bir İmparatorluk",
    "11. Emanetin Peşindeki Karga"
   ],
-  "words": 9984
+  "words": 9995
  },
  {
   "chunk": 2,
@@ -44,7 +44,8 @@
    "U17",
    "U18",
    "U19",
-   "U20"
+   "U20",
+   "IL2"
   ],
   "titles": [
    "ARA BÖLÜM IL1",
@@ -57,14 +58,14 @@
    "18. Birincil Ayna",
    "20. İnanmayan İlk Kişi",
    "21. Bir Hata, İki Kız Kardeş",
-   "22. On Bir Saniyenin İçindeki Ses"
+   "22. On Bir Saniyenin İçindeki Ses",
+   "ARA BÖLÜM IL2"
   ],
-  "words": 10247
+  "words": 9942
  },
  {
   "chunk": 3,
   "units": [
-   "IL2",
    "U20",
    "U21",
    "U22",
@@ -78,10 +79,10 @@
    "IL3",
    "U29",
    "U30",
-   "U31"
+   "U31",
+   "U32"
   ],
   "titles": [
-   "ARA BÖLÜM IL2",
    "22. On Bir Saniyenin İçindeki Ses",
    "23. Silah Olmayan Ses",
    "24. Yusuf'un Dili",
@@ -95,14 +96,14 @@
    "ARA BÖLÜM IL3",
    "32. Leyla'nın Son Kaynağı",
    "34. Unutulmuş Dükkânın Anahtarı",
-   "35. Kızımın Dosyası"
+   "35. Kızımın Dosyası",
+   "36. İki Ayrı Gelecek"
   ],
-  "words": 10413
+  "words": 10357
  },
  {
   "chunk": 4,
   "units": [
-   "U32",
    "U33",
    "U34",
    "U35",
@@ -110,10 +111,11 @@
    "U37",
    "U38",
    "IL4",
-   "U38"
+   "U38",
+   "U39",
+   "U40"
   ],
   "titles": [
-   "36. İki Ayrı Gelecek",
    "37. Görünmeyen Kameranın Gördüğü",
    "38. Adı Hastalık Olan Yetenek",
    "39. ŞAMAN",
@@ -121,15 +123,15 @@
    "42. Labirentin Emanetleri",
    "43. Başlangıç Sensin",
    "ARA BÖLÜM IL4",
-   "43. Başlangıç Sensin"
+   "43. Başlangıç Sensin",
+   "44. Bedenin Bildiği Tarih",
+   "45. Beni Öldürmeyen Adam"
   ],
-  "words": 10260
+  "words": 10014
  },
  {
   "chunk": 5,
   "units": [
-   "U39",
-   "U40",
    "U41",
    "IL5",
    "U42",
@@ -139,8 +141,6 @@
    "U45"
   ],
   "titles": [
-   "44. Bedenin Bildiği Tarih",
-   "45. Beni Öldürmeyen Adam",
    "46. Son Olabilecek Şeyler",
    "ARA BÖLÜM IL5",
    "47. Son Olduğunu Bilmeden",
@@ -149,6 +149,6 @@
    "49. Geride Kalanlar",
    "50. Boş Bırakılan Son Cümle"
   ],
-  "words": 8940
+  "words": 6703
  }
 ]

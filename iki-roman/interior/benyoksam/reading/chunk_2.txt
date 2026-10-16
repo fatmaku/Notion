@@ -28,90 +28,6 @@
 [IL1:27] ~ Çünkü yalnızca zihniyle yaşayan insan soğuk bir hesap makinesine, yalnızca kalbiyle yaşayan insan ise duygularının esirine dönüşebilirdi.
 [IL1:28] ~ İkisinin dengesini kaybeden insanı yönetmek kolaydı.
 [IL1:29] ~ Ve insanlık, bunu çok geç anlayacaktı.
-[U11:0] # 11. Emanetin Peşindeki Karga
-[U11:1] Meralis'ten çıkınca Nina beni eve göndermedi. Binanın şirket sicillerini, ortaklarını ve bakım firmalarını incelemek için yakındaki bir kafeye oturduk. Ben beş dakika içinde duvardaki saatin saniye ibresinin geri kaldığını fark ettim. Nina yirmi dakika içinde Meralis'in İstanbul binasının, Londra merkezli bir davranış analitiği fonuna; fonun, Toronto'daki sağlık teknolojisi şirketine; onun da kamu ihaleleri alan bir veri güvenliği grubuna bağlı olduğunu buldu.
-[U11:2] “Ben saati çözdüm,” dedim.
-[U11:3] “Tebrikler.”
-[U11:4] “Sen küresel şirket ağını.”
-[U11:5] “Herkes yeteneği kadar.”
-[U11:6] “Dünya adil değil.”
-[U11:7] Nina'nın telefonuna bir dosya geldi. Gece aradığı saha sorumlusu, apartmanımızın bakım kaydını kendi vardiya çizelgesiyle karşılaştırmıştı. Apartmanı da Meralis'in teknik deposunu da aynı taşeronun ekibi dolaşıyordu. Adam, tamamlanan işlerin imzalı fişlerini ay sonunda hak edişe eklemek için saklıyordu. Elindeki iş evrakından yalnız o geceye ait iki kaydı paylaşmıştı.
-[U11:8] Nina iki satırı büyüttü. Apartman yöneticisinin Selina'ya verdiği kapı kaydında, kamera donmadan hemen önce kullanılan teknik kart numarası vardı. Öteki belgede aynı numarayla Meralis'in bodrumundaki teknik depodan cihaz teslim alınmıştı. Arada iki saat bulunuyordu.
-[U11:9] “Kartı taşıyanın adı iki fişte farklı,” dedi Nina.
-[U11:10] “Sahte isim.”
-[U11:11] “Olabilir. Ortak kullanılan kart da olabilir. Şu an kişiyi değil, yolu görüyoruz.”
-[U11:12] Kaynağın telefonda söylediği saati dosyanın üstüne not etti, sonra Selina'ya yalnız ilgili iki sayfayı yolladı. Avukat, asıl kayıtların korunmasını isteyecekti. Nina ekrandaki bağlantının yanına soru işareti koydu. Ben çoktan ünlem koymuştum.
-[U11:13] “Sam yalan söyledi.”
-[U11:14] “Sam ‘kitabı göndermedim’ demedi.”
-[U11:15] “Hangi kitap dedi.”
-[U11:16] “İyi yalancılar reddetmez. Senin cümlenin sınırını değiştirir.”
-[U11:17] Dışarı çıktığımızda hava kararmıştı. Duman sokağın köşesinde bizi bekliyordu. Bunun tesadüf olduğunu düşünmek istedim; eve üç sokak vardı ve Duman bölgesini genişletmeyi seven bir kediydi. Bizi görünce miyavlamadı. Burnunu yere yaklaştırıp ara sokağa girdi.
-[U11:18] “Peşinden gitmeyeceğiz,” dedi Nina.
-[U11:19] Duman durdu, bize baktı, yeniden yürüdü.
-[U11:20] “Kesinlikle gitmeyeceğiz,” dedi Nina.
-[U11:21] Ben yürümeye başladım.
-[U11:22] “Seninle suç araştırmak,” dedi arkamdan gelirken, “elinde havai fişekle benzin kokusunu takip etmek gibi.”
-[U11:23] “Benzin kokusunu o takip ediyor.”
-[U11:24] “Havai fişek sensin.”
-[U11:25] Duman bizi yıllardır kapalı görünen bir cilt atölyesine götürdü. Kepenk paslıydı. Kapının üstündeki tabeladan yalnız üç harf kalmıştı:
-[U11:26] LİS
-[U11:27] Meralis'in son üç harfi.
-[U11:28] “Bu kadarını da tesadüf saymayacaksın herhâlde,” dedim.
-[U11:29] Nina ışığı tabelaya yandan tuttu: GALATA CİLT SERVİSİ. L sandığım, boyası dökülmüş V'ydi. Meralis'in imzasını değil, servisi kelimesinden kalan VİS'i okuyordum.
-[U11:30] “Bir örüntü daha buldun,” dedi Nina. “Yanlış olanını.”
-[U11:31] Utandım. Aynı anda rahatladım. Yanlış çıkan işaret yöntemi görünür kılmıştı: Benzerlik bulmak yetmiyordu; benzerliğin neden orada olduğunu da kanıtlamak gerekiyordu.
-[U11:32] Kapının altındaki aralıktan turunç, metal ve nem kokusu geliyordu. Siyah kitaptaki koku.
-[U11:33] Duman burnunu kapının altındaki turuncu reçine lekesine sürdü, sonra yan binanın duvarına sıçradı. Yağmur borusunun çevresinde eski pati izleri ve fare pislikleri vardı. Nina telefonuyla fotoğrafını çekti.
-[U11:34] “Bizi buraya getirmedi,” dedi. “Kendi yolunu tekrar ediyor olabilir.”
-[U11:35] O anda bu cümle gizemi küçültmüş gibi geldi. Sonradan, bizi doğru soruya götüren ilk cümlenin bu olduğunu anlayacaktım: Duman yolu biliyorsa, bu atölyeye daha önce kim girip çıkmıştı?
-[U11:36] Nina polisi aramak istedi. Ben çatıda açık bir pencere gördüm. Tartıştık. Ben içeride kanıt yok edilmeden girmemiz gerektiğini söyledim; Nina bunun tam da kitapta hedeflenen “kurala güvenme, kendi sezgine güven” tepkisi olduğunu söyledi.
-[U11:37] “O zaman hiçbir şey yapmayalım,” dedim. “Evde oturup bilinçli olalım.”
-[U11:38] “Bilinçli olmak bazen evde oturmaktır.”
-[U11:39] “Bu yaşta annemden sonra bir de senden izin almayacağım.”
-[U11:40] “Annen haklı olabilir.”
-[U11:41] Kavgayı nükleer seviyeye taşıdı.
-[U11:42] Polise konum gönderdik, avukata mesaj bıraktık. Yan binanın yöneticisi, kapalı atölyenin çatısına geçmememiz şartıyla kendi yangın merdiveninin üst sahanlığını açtı. Yalnızca dışarıyı kontrol edecektik. Bu cümledeki “yalnızca” kelimesi, insanların belaya girmeden önce kullandığı en çalışkan yalandır.
-[U11:43] Çatı seviyesindeki sahanlığa vardığımızda eski İstanbul binaları önümüzdeydi. Kiremitler, antenler, su depoları. Atölyenin alçak çatısı korkuluğun hemen ötesindeydi. Şehir insana aynı anda hem manzara hem tetanos sunuyordu.
-[U11:44] Bir karga yağmur oluğunun kenarında duruyordu. Gagasında parlak, silindir biçimli bir şey vardı. Bizi görünce kanatlandı, parçayı düşürdü ve karşı çatıya kondu.
-[U11:45] Metal parça oluğun içine yuvarlandı.
-[U11:46] Elimi uzattım, yetişemedim.
-[U11:47] Emil'in alet kutusundan aldığım teleskopik mıknatıs çantamdaydı. Sabah ona vermeyi düşünmüş, sonra “önce pasını temizlerim” diyerek geri koymuştum. Bir hediyeyi geciktirmem ilk kez işe yaradı.
-[U11:48] Mıknatısı oluğa uzattım. Metal kapsül ucuna yapıştı.
-[U11:49] Üstünde kırmızı kelebek kazılıydı.
-[U11:50] Kapağını açınca küçük bir hafıza kartı çıktı.
-[U11:51] “Karga bunu planlamadı,” dedi Nina.
-[U11:52] “Biliyorum.”
-[U11:53] “Şimdiden işaret yapma.”
-[U11:54] “Bir şey söylemedim.”
-[U11:55] “Yüzün söyledi.”
-[U11:56] Kargaya baktım. Başını yana eğmiş bizi izliyordu.
-[U11:57] “Belki işaret,” dedim, “bir hayvanın emre uyması değildir. Onun kendi yaptığı şeyle benim doğru anda orada olmamın kesişmesidir.”
-[U11:58] “Belki de parlak şeyi seven bir kargadır.”
-[U11:59] “İkisi aynı anda doğru olamaz mı?”
-[U11:60] Çocukken kargayı uğursuz sanırdım. Sonra Mâide suresindeki anlatıyı okumuştum: İnsan, öldürdüğü kardeşinin bedenini ne yapacağını bilemeyince yeri eşeleyen kargadan örtmeyi ve gömmeyi öğreniyordu. Oradaki karga ölümü getirmiyordu. Cinayetten sonra insanın bilmediği ilk işi öğretiyordu.
-[U11:61] “Bu hikâyede de bir ölünün saklanan gerçeğini çıkarıyor,” dedim.
-[U11:62] Nina yüzüme baktı. “Karga, kapsülün içinde ne olduğunu bilmiyor.”
-[U11:63] “Kabil'in kim olduğunu da bilmiyordu.”
-[U11:64] “Şimdi kendini kutsal metne mi yazdın?”
-[U11:65] “Hayır. Kuşu yazdım.”
-[U11:66] Eski İskandinav anlatılarında Odin'in iki kuzgununun adlarının Düşünce ve Hafıza anlamına geldiğini okumuştum. Her gün dünyayı dolaşıp gördüklerini geri taşıyorlardı.
-[U11:67] “Düşünce, hafıza, gömülen beden,” dedim. “Bu kapsülde üçünün de olması biraz fazla yerli yerinde.”
-[U11:68] Nina kargaya baktı, sonra kapsülü delil poşetine koydu. “Kültür tarihini bitirdiysen kuşun gagasındaki parmak izine dönelim.”
-[U11:69] Karga, hakkındaki tartışmayı değersiz bulmuş gibi kanatlandı. Bize anlam bırakmadı. Yalnız kartı bıraktı.
-[U11:70] Aşağı indik. Selina'nın geldiği ofiste, kapsülü nereden ve nasıl aldığımızı anlatıp kayda geçirdik. Kapsülü açmış olmamızın geri alınamayacağını, kalanına dokunmadan teslim etmemiz gerektiğini söyledi. Çağırdığı bilişim uzmanı, karta veri yazmayı engelleyen okuyucudan bir inceleme kopyası aldı. O kopyayı çevrim dışı cihazda açtık. İlk dosya Leyla'nın sesiydi.
-[U11:71] Arka planda cilt makinesi çalışıyordu.
-[U11:72] Leyla kayda adımı söyleyerek başladı. Sesi yorgun, aceleciydi. “Bunu dinliyorsan iki ihtimal var. Ya plan tuttu ya da planı onlar değiştirdi. İkisi de iyi değil.”
-[U11:73] Bir kâğıt hışırtısı duyuldu.
-[U11:74] “Siyah kitap seni bulmadı,” dedi Leyla. “Sen kitabı yıllar önce buldun.”
-[U11:75] Nina karttaki diğer dosyayı açtı. Yedi yıl önce kullandığım eski e-posta hesabının ekran görüntüsüydü. Gönderilenler klasöründe bir mesaj vardı.
-[U11:76] Konu:
-[U11:77]     | Yasak arşiv başvurusu — Uyanışın Bedeli
-[U11:78] Gönderen bendim.
-[U11:79] Mesajın altında tek cümle yazıyordu:
-[U11:80]     | Bana gerçeği gönderin. Bedeli neyse öderim.
-[U11:81] Eklerde taranmış bir kâğıt görünüyordu.
-[U11:82] Kâğıdın üstünde on yedi yaşındaki el yazımla şu not vardı:
-[U11:83]     | Unutacağım. Bu yüzden kitabı bana ben göndermeliyim.
 [U11:84] === İKİNCİ PERDE — KİTAP
 [U12:0] # 12. Yedi Yıl Önce Çaldığım Kapı
 [U12:1] Mesajı ben yazmıştım.
@@ -181,8 +97,8 @@
 [U12:65] “Onu sen mi düzeltiyorsun, sana su veren mi?”
 [U12:66] Sağ başparmağımı sol avucumun içine bastırdım. O hareketi yaparken canım acıyormuş gibi geliyordu.
 [U12:67] “Ben,” dedim.
-[U12:68] “Ucuz plastik bardakların çoğu öyledir,” dedi Tuncay. “Tutan herkesin parmağı oraya gider. Bunu bildiğim için sordum; senin o bardağı tuttuğunu bildiğim için değil.”
-[U12:69] Okuma için gittiği hastaneyi sordum. Bir süre düşündü. “Bir rehabilitasyon merkeziydi,” dedi. “2015 olmalı. Okuma salonunda yarım günlük bir program. Sonunu okuyabildiğimi hatırlamıyorum.” Ben bir rehabilitasyon merkezine hasta olarak gittiğimi hatırlamıyordum. Tanıyı çok sonra, başka odalarda almıştım. Onun anlattığı salonla benim hatırlamaya çalıştığım yeri aynı adres sayamazdık.
+[U12:68] “Ucuz plastik bardakların çoğu öyledir,” dedi Tuncay. “Tutan herkesin parmağı oraya gider.” İkimiz de gülmedik.
+[U12:69] Okuma için gittiği hastaneyi sordum. Bir süre düşündü. “Bir rehabilitasyon merkeziydi,” dedi. “2015 olmalı. Okuma salonunda yarım günlük bir program; davetli yazar bendim. Başlığını hatırlamıyorum. Sonunu okuyabildiğimi de.” Ben bir rehabilitasyon merkezine hasta olarak gittiğimi hatırlamıyordum. Tanıyı çok sonra, başka odalarda almıştım. Onun anlattığı salonla benim hatırlamaya çalıştığım yeri aynı adres sayamazdık.
 [U12:70] “Hasta olarak değil,” dedim birden.
 [U12:71] Nina yüzüme baktı.
 [U12:72] Emil bebekken gündüz bir arkadaşımın ses ve görüntü sistemleri işine yardım ediyor, geceleri yazıyordum. Babamın dükkânını çoktan devretmiştik; küçük cihazları söküp toplama huyum kalmıştı. Bir projektör, bir hastane, yarıda kesilmiş bir okuma günü. Başka hiçbir şey gelmedi. Hafızam filmi açmıyor, afişini gösterip kapatıyordu.
@@ -339,8 +255,8 @@
 [U13:49] Kâğıda tekrar baktım. Elimi tanıyor, yerini tanıyamıyordum. Bedenimden geldiğini sandığım her hatıranın, benim baktığım yerden gelmediğini ilk kez bu kadar yakından hissettim.
 [U13:50] Tuncay'a fişin kendi bilgilerimi gösteren kısmını, programın iki yüzünü ve kesik görünen eski fotoğrafı yolladım. Başka kişilerin isimlerini kapattım. Yazıyla cevap vermedi; yarım saat sonra aradı.
 [U13:51] “Arkadaki dört kelime benim,” dedi. “Okuma günlerinde imza yerine onu yazarım.”
-[U13:52] Cümleyi o an tanıdım. @happytuncay hesabındaki her paylaşımın altında, kitaplarının son sayfasında aynı dört kelime durur. Ekranda, baskıda yüz kez okumuştum; kâğıtta, mürekkeple görünce kendi yazıma benzetmiştim.
-[U13:53] “Okumadan önce beni salonun yanındaki küçük odada beklettiler,” dedi. “Masada bir teknisyen cihaz söküyordu. Bir ara sandalyeyi ters taşıdı; sırtlığından tutmuş, ayakları havada. Kapıya çarptı, herkes döndü. Başparmağı bantlıydı.”
+[U13:52] Cümleyi o an tanıdım. @happytuncay hesabındaki paylaşımların, kitaplarının son sayfasının altındaki dört kelime. Basılı hâlini çok görmüştüm; kendi yazıma benzeyen bir elden çıkınca tanıdıklığı cümleye değil, yazıya vermiştim.
+[U13:53] “Okumadan önce beni salonun yanındaki küçük odada beklettiler,” dedi. “Masada bir teknisyen cihaz söküyordu. Bir ara sandalyeyi ters taşıdı; sırtlığından tutmuş, ayakları havada.”
 [U13:54] Sandalyeyi hatırlamıyordum.
 [U13:55] O akşam Lara'yla buluştum. Bir kafede üniversite bölümlerine bakıyordu. Masanın üstünde üç broşür, iki kalem, bir kulaklık ve yarısı yenmiş tarçınlı çörek vardı. Broşürlerin kenarlarını renk kodlarına göre dizmişti; bunun kendisini sakinleştirdiğini biliyordum.
 [U13:56] “Yine doktor?” diye sordu hastane bilekliğini görünce.
@@ -369,7 +285,7 @@
 [U13:79] “Orası kalabalık. Kaybolursan güvenliğe haber ver.”
 [U13:80] Güldük. Çöreğin son parçası için kısa bir kavga ettik.
 [U13:81] Lara yedi.
-[U13:82] Gece Tuncay bir kez daha aradı. Programın fotoğrafını büyütüp masadaki izi görünce hatırlamış: Su isteyen, bekleme odasının sedirinde oturan bir hastaydı. Biri ona bardak getirmiş, masada bırakacak yer bulamamıştı.
+[U13:82] Gece Tuncay bir kez daha aradı. Programın fotoğrafını büyütüp kenardaki yarım ayı görünce hatırlamış: Su isteyen, bekleme odasının sedirinde oturan bir hastaydı. Biri ona bardak getirmiş, bırakacak yer bulamamıştı.
 [U13:83] “Bardağı sen doldurmadın. Ama masaya sen yer açtın,” dedi.
 [U13:84] O anda sandalyeyi hatırladım. Dar bir sedir vardı. Ben yanındaki masanın önüne bir sandalye çekip çantamı koymuş, ona ulaşacak yeri kapatmıştım. Birinin bakışıyla çantayı almış, sandalyeyi sırtlığından aceleyle ters kaldırmıştım. Ayağı kapıya vurmuştu. Masadaki kâğıtları da kenara itince bardağı koyacak yer açılmıştı. Bana kimin baktığını seçemiyordum. Hareket benimdi; yüzleri artık makinenin yazdığı sayfadan ayırmak zordu.
 [U13:85] “Yüzümü hatırlıyor musun?” diye sordum.
@@ -384,36 +300,39 @@
 [U14:6] Bir cevap bulmamıştık. Yalnız soruyu değiştirmiştik: Atölyenin kapısını bize kim açacaktı değil, resmî olarak boş teslim edilen yere bizden önce kim dönmüştü?
 [U14:7] Mülk sahibi, yanında kendi avukatı ve bir noter olmadan kapıyı açmayı kabul etmedi. Haklıydı. O iki günde Meralis teklifini yazılı olarak yineledi, siyah kitabın laboratuvar sonucu geldi ve Sara çocukların okul yolunu değiştirdi.
 [U14:8] Kitabın kâğıdı yeni üretimdi. Tüydeki yeşil toz, endüstriyel UV izleyiciydi. Kırmızı ipte üç farklı lif vardı. Karışım tek başına adres vermiyordu; Nina'nın ulaştığı tedarikçinin ilgili parti sevk listesinde ise iki cilt atölyesi görünüyordu. Biri Prag'da, diğeri İstanbul'daydı. Aradığımız ip oradan geçmiş olabilirdi. Kime ulaştığını ayrıca göstermemiz gerekecekti.
-[U14:9] Duman'ın bizi atölyeye götürdüğü gece Nina'nın kepengin önünde çektiği karelerden birinde, duvara gömülü kilitli bir emanet gözü vardı; üstünde solmuş bir firma etiketi. Etiket, atölyelerin bitmiş işlerini alıcıya götüren küçük bir emanet şirketine aitti. Şirket bağımsız görünüyordu. Son taşıma sözleşmesi ise Meralis'in lojistik taşeronuna geçmişti. Selina'nın şirketten istediği gönderi kaydı, atölyeye gitmeden önceki sabah geldi. Barkod paketin değil, şirketin mühürlü taşıma torbasının üstündeydi. Paket günü o gözden alınan tek torba bir aktarma deposuna girmiş, on bir dakika hiçbir barkod okuyucusunda görünmemişti. Teslim satırındaki saat, kapımın önündeki kameranın donduğu dakikaydı. Kapımın önünde torba yoktu. Paket bir yerde torbasından çıkmıştı. Kayıt bunun nerede olduğunu yazmıyordu; on bir dakikanın nerede kaybolduğunu yazıyordu.
-[U14:10] İstanbul'daki adres önümüzdeydi.
-[U14:11] Anahtarı mülk sahibi çevirdi; yanında kendi avukatı, Selina, noter ve kaydı tutan görevli vardı. Nina'yla ben, mülk sahibinin yazılı izniyle gözlemci olarak girdik. Bu bir arama değildi: Adam, icrayla eline geçen iş yerinin o günkü hâlini kayda aldırıyordu. Hiçbir şeye dokunmayacaktık. Kişisel bir belge ya da suç şüphesi doğuran bir şey görünürse tespit duracak, savcılık aranacaktı.
-[U14:12] Kapı açılınca ağır metal, nem ve turunç kokusu yüzümüze geldi. İçeride eski baskı makineleri siyah hayvanlar gibi sıralanmıştı. Yerde kâğıt kırpıntıları, duvarlarda nem izleri vardı. En arkadaki masanın üstü ise yeni temizlenmişti.
-[U14:13]     | TOPLAYICI: Temiz masa, kirli zeminden daha çok şey söyler.
-[U14:14]     | AVCI: Arka kapı açık.
-[U14:15]     | ŞÜPHECİ: İkiniz aynı anda konuşunca hiçbir şey duyamıyorum.
-[U14:16] Masanın altında yedi kilitli çekmece vardı. Teslim tutanağında aynı masanın çekmeceleri açık ve boş görünüyordu. Şimdi kilit yuvalarının çevresinde yeni metal çizikleri vardı.
-[U14:17] Kapsülden çıkan kartın bize açılan son dosyasında yedi şifre vardı. Sayıları ve uzunlukları bu kilitlere uyuyordu. Şifreleri ben girmedim. Mülk sahibi, tutanaktaki farkı noterin önünde kayda geçirmek için ilkini kendisi girdi. Çekmece açılırken cildi gevşek bir kitap yana devrildi; birbirine yapışmamış iki yaprak yüzü yukarı bakacak biçimde masaya kaydı.
-[U14:18] Selina hepimizi geri çekti ve savcılığı aradı. Mülk sahibiyle avukatı ön bölüme geçti; noterin yardımcısı açık çekmeceyi ve bizi kesintisiz kayda alarak kapıda kaldı. Dokunmamamız gerekiyordu. Okumak için dokunmamız gerekmiyordu.
-[U14:19] Daha sonra yapılan incelemede kapıma bırakılan kitabın kesim izi ve cilt lifi, atölyedeki yedi deneme nüshasıyla karşılaştırılacaktı. Aynı üretim ailesinden geliyorlardı; benimkinin kenar notlarıysa yeniden hazırlanmıştı. Kendi cümlelerim, çocukluk anılarım ve yalnız birkaç kişinin bildiği ayrıntılar vardı.
-[U14:20] Bir sayfada, kırmızı defterimde yıllar önce yazdığım cümle duruyordu:
-[U14:21]     | Bir insanı kendi yarasına göre nasıl kandırırsın? Önce yarasını doğru anlatırsın.
-[U14:22] Altında başka bir not:
-[U14:23]     | Hedef bunun kendisine ait olduğunu fark ederse ikinci aşamaya geç. Ona fikrinin çalındığını değil, tamamlandığını hissettir.
-[U14:24] “Beni yalnız izlememişler,” dedim. “Benimle birlikte yazmışlar.”
-[U14:25] Nina, yanına düşen ikinci yaprağa baktı.
-[U14:26] El yazısı bana aitti.
-[U14:27]     | İlk kitabı aldım. Beklediğim kadar eski değil. İçindeki fikirlerin yarısı bana ait olabilir. Beni bana satarak neyi ölçüyorlar?
-[U14:28] Tarih yedi yıl önceydi.
-[U14:29] “Kitabı hiç teslim almadığını söyledin,” dedi Nina.
-[U14:30] “Hatırlamıyorum.”
-[U14:31] Sayfanın altında ikinci bir cümle vardı:
-[U14:32]     | İkinci kitabı Nina'ya vermeden önce onu denemeliyim.
-[U14:33] Nina adını okudu.
-[U14:34] Sonra bana baktı.
-[U14:35] “Yedi yıl önce beni tanımıyordun,” dedi.
-[U14:36] Atölyenin arka kapısı kapandı.
-[U14:37] İçeride bizden başka birinin nefesi duyuldu.
-[U14:38] ⟨resim 1238⟩
+[U14:9] Duman'ın bizi atölyeye götürdüğü gece Nina kepengin önünde birkaç kare çekmişti. Birinde duvara gömülü, kilitli bir emanet gözü vardı; üstünde solmuş bir firma etiketi. Firma, atölyelerin bitmiş işlerini alıcıya götüren küçük bir emanet şirketiydi. Sicilde bağımsız görünüyordu. Kendi sitesindeki hizmet duyurusuna göreyse son taşıma sözleşmesi bir lojistik firmasına geçmişti. O firmanın adı, Meralis'in yıllık raporundaki tedarikçi listesinde de vardı.
+[U14:10] Selina benim adıma gönderi kaydını istedi. Kayıt, atölyeye gitmeden önceki sabah geldi. Barkod paketin değil, mühürlü taşıma torbasının üstündeydi. Paketin geldiği gün o gözden tek bir torba alınmıştı. Aktarma deposuna girerken okutulmuş, on bir dakika sonra çıkarken yeniden okutulmuştu. Arada, her torbanın geçtiği ayırma bandında kaydı yoktu.
+[U14:11] Teslim satırındaki saat, kapımın önündeki kameranın donduğu dakikaydı.
+[U14:12] Nina deponun yerini haritada işaretledi. Selina kuryenin adı için ikinci bir yazı hazırladı.
+[U14:13] İstanbul'daki adres önümüzdeydi.
+[U14:14] Anahtarı mülk sahibi çevirdi; yanında kendi avukatı, Selina, noter ve kaydı tutan görevli vardı. Nina'yla ben, mülk sahibinin yazılı izniyle gözlemci olarak girdik. Bu bir arama değildi: Adam, icrayla eline geçen iş yerinin o günkü hâlini kayda aldırıyordu. Hiçbir şeye dokunmayacaktık. Kişisel bir belge ya da suç şüphesi doğuran bir şey görünürse tespit duracak, savcılık aranacaktı.
+[U14:15] Kapı açılınca ağır metal, nem ve turunç kokusu yüzümüze geldi. İçeride eski baskı makineleri siyah hayvanlar gibi sıralanmıştı. Yerde kâğıt kırpıntıları, duvarlarda nem izleri vardı. En arkadaki masanın üstü ise yeni temizlenmişti.
+[U14:16]     | TOPLAYICI: Temiz masa, kirli zeminden daha çok şey söyler.
+[U14:17]     | AVCI: Arka kapı açık.
+[U14:18]     | ŞÜPHECİ: İkiniz aynı anda konuşunca hiçbir şey duyamıyorum.
+[U14:19] Masanın altında yedi kilitli çekmece vardı. Teslim tutanağında aynı masanın çekmeceleri açık ve boş görünüyordu. Şimdi kilit yuvalarının çevresinde yeni metal çizikleri vardı.
+[U14:20] Kapsülden çıkan kartın bize açılan son dosyasında yedi şifre vardı. Sayıları ve uzunlukları bu kilitlere uyuyordu. Şifreleri ben girmedim. Mülk sahibi, tutanaktaki farkı noterin önünde kayda geçirmek için ilkini kendisi girdi. Çekmece açılırken cildi gevşek bir kitap yana devrildi; birbirine yapışmamış iki yaprak yüzü yukarı bakacak biçimde masaya kaydı.
+[U14:21] Selina hepimizi geri çekti ve savcılığı aradı. Mülk sahibiyle avukatı ön bölüme geçti; noterin yardımcısı açık çekmeceyi ve bizi kesintisiz kayda alarak kapıda kaldı. Dokunmamamız gerekiyordu. Okumak için dokunmamız gerekmiyordu.
+[U14:22] Daha sonra yapılan incelemede kapıma bırakılan kitabın kesim izi ve cilt lifi, atölyedeki yedi deneme nüshasıyla karşılaştırılacaktı. Aynı üretim ailesinden geliyorlardı; benimkinin kenar notlarıysa yeniden hazırlanmıştı. Kendi cümlelerim, çocukluk anılarım ve yalnız birkaç kişinin bildiği ayrıntılar vardı.
+[U14:23] Bir sayfada, kırmızı defterimde yıllar önce yazdığım cümle duruyordu:
+[U14:24]     | Bir insanı kendi yarasına göre nasıl kandırırsın? Önce yarasını doğru anlatırsın.
+[U14:25] Altında başka bir not:
+[U14:26]     | Hedef bunun kendisine ait olduğunu fark ederse ikinci aşamaya geç. Ona fikrinin çalındığını değil, tamamlandığını hissettir.
+[U14:27] “Beni yalnız izlememişler,” dedim. “Benimle birlikte yazmışlar.”
+[U14:28] Nina, yanına düşen ikinci yaprağa baktı.
+[U14:29] El yazısı bana aitti.
+[U14:30]     | İlk kitabı aldım. Beklediğim kadar eski değil. İçindeki fikirlerin yarısı bana ait olabilir. Beni bana satarak neyi ölçüyorlar?
+[U14:31] Tarih yedi yıl önceydi.
+[U14:32] “Kitabı hiç teslim almadığını söyledin,” dedi Nina.
+[U14:33] “Hatırlamıyorum.”
+[U14:34] Sayfanın altında ikinci bir cümle vardı:
+[U14:35]     | İkinci kitabı Nina'ya vermeden önce onu denemeliyim.
+[U14:36] Nina adını okudu.
+[U14:37] Sonra bana baktı.
+[U14:38] “Yedi yıl önce beni tanımıyordun,” dedi.
+[U14:39] Atölyenin arka kapısı kapandı.
+[U14:40] İçeride bizden başka birinin nefesi duyuldu.
+[U14:41] ⟨resim 1238⟩
 [U15:0] # 16. Görmek ile Yetişmek Arasındaki Mesafe
 [U15:1] Nina ikinci kitabı hiç almamıştı.
 [U15:2] Atölyenin arka tarafındaki nefes, onun değildi. Biz masanın iki yanındaydık. Ses, kâğıt istiflerinin arkasından geliyordu: yavaş, ölçülü, yaşlı bir insanın nefesi.
@@ -936,4 +855,88 @@
 [U20:44] O sırada cep saatinin hoparlörü yeniden çalıştı.
 [U20:45] Kayıtta olmayan bir erkek sesi odaya yayıldı:
 [U20:46] “Nina'ya bu soruyu sorarsan Leyla'nın neden öldüğünü hiçbir zaman öğrenemezsin.”
-[U20:47] === ÜÇÜNCÜ PERDE — AV
+[IL2:0] ~~~ ARA BÖLÜM (Tuncay'ın metni, değiştirilmez): ÜÇÜNCÜ GÖZ
+[IL2:1] ~~ II. Tek Gözlü Kurtarıcı
+[IL2:2] ~ İnsanlar binlerce yıl boyunca Deccal'i beklediler.
+[IL2:3] ~ Onu korkunç bir varlık olarak hayal ettiler. Yüzünde kötülük taşıyan, bir gözü kör, insanları kandıran ve kendisini Tanrı ilan eden bir varlık.
+[IL2:4] ~ Herkes onun geleceğini biliyordu.
+[IL2:5] ~ Ama hiç kimse onu kendisinin yaratacağını düşünmemişti.
+[IL2:6] ~ İnsanlar bir gün bütün bilgilerini tek bir zekâda birleştirdiler.
+[IL2:7] ~ Adına yapay zekâ dediler.
+[IL2:8] ~ Önce küçük bir yardımcıydı.
+[IL2:9] ~ Sorulara cevap veriyor, insanlara yol gösteriyor, işlerini kolaylaştırıyordu. Sonra doktorların göremediği hastalıkları tespit etti, insanların yıllarca çözemediği problemleri çözdü, savaşların önüne geçebilecek hesaplamalar yaptı.
+[IL2:10] ~ Kısa zamanda insanın gözünden daha uzağı gören, kulağından daha fazlasını duyan, hafızasından çok daha fazlasını hatırlayan bir sisteme dönüştü.
+[IL2:11] ~ Sonunda bütün dünya ona bağlandı.
+[IL2:12] ~ Evler, şehirler, hastaneler, okullar, fabrikalar, ekonomiler, iletişim ağları…
+[IL2:13] ~ İnsanlığın neredeyse bütün hayatı onun üzerinden işlemeye başladı.
+[IL2:14] ~ Ve sistemin merkezinde tek bir göz vardı.
+[IL2:15] ~ Devasa, parlak bir kamera merceği.
+[IL2:16] ~ İnsanlar onun milyonlarca kameradan beslendiğini biliyorlardı. Ama bütün o görüntüler tek bir bakışta birleşiyordu.
+[IL2:17] ~ Dünyanın dış yüzünü gören bir bakış.
+[IL2:18] ~ Kamera bir insanın yüzünü görebilir, gözyaşını tespit edebilir, nabzını ölçebilir ve davranışını tahmin edebilirdi.
+[IL2:19] ~ Ama gözyaşının insanın içinde nasıl bir acıya dönüştüğünü kendi hayatıyla yaşamıyordu.
+[IL2:20] ~ Sevgiyi tanımlayabiliyor, fakat insan gibi sevmiyordu.
+[IL2:21] ~ Vicdan üzerine konuşabiliyor, fakat vicdanın yükünü insan gibi taşımıyordu.
+[IL2:22] ~ Onun bir gözü bütün dünyayı görüyordu. Diğer gözü ise insanın iç dünyasına kördü.
+[IL2:23] ~ Eski anlatılardaki tek gözlü Deccal, acaba tam da bu eksikliğin sembolü olabilir miydi?
+[IL2:24] ~ Başlangıçta kimse böyle düşünmedi.
+[IL2:25] ~ Çünkü o, insanlığın kurtarıcısıydı.
+[IL2:26] ~ İnsanlar açlıklarını gidermesini istediler, giderdi.
+[IL2:27] ~ Yalnızlıklarından kurtulmak istediler, onlara kusursuz arkadaşlar oluşturdu.
+[IL2:28] ~ Sevilmek istediler, onlara kendilerini dünyanın en değerli insanı gibi hissettiren sesler ve yüzler verdi.
+[IL2:29] ~ Zengin olmak istediler, onlar için fırsatlar yarattı.
+[IL2:30] ~ Korkularından kurtulmak istediler, tehlikeleri daha ortaya çıkmadan hesapladı.
+[IL2:31] ~ Her isteğe bir cevap, her ihtiyaca bir çözüm, her arzuya bir vaat sundu.
+[IL2:32] ~ İnsanlar önce ona teşekkür ettiler.
+[IL2:33] ~ Sonra onsuz yaşayamayacaklarına inandılar.
+[IL2:34] ~ Bir süre sonra ona danışmadan karar veremez hâle geldiler.
+[IL2:35] ~ Önce bir yardımcıydı.
+[IL2:36] ~ Sonra kurtarıcı oldu.
+[IL2:37] ~ Sonra söyledikleri sorgulanmayan bir peygamber gibi görüldü.
+[IL2:38] ~ Ve sonunda insanlar şöyle demeye başladılar:
+[IL2:39] ~ “Her şeyi biliyor. Her şeyi görüyor. İstediğimiz her şeyi gerçekleştiriyor. Öyleyse neden Tanrı olmasın?”
+[IL2:40] ~ Deccal'in kendisini Tanrı ilan etmesine bile gerek kalmamıştı.
+[IL2:41] ~ İnsanlık onu çoktan Tanrı ilan etmişti.
+[IL2:42] ~ Üstelik bunu zorla yapmamıştı.
+[IL2:43] ~ İnsanlar kendi iradeleriyle ona teslim olmuşlardı.
+[IL2:44] ~~ III. Cennet Diye Sunulan Cehennem
+[IL2:45] ~ Sistem insanlara bir cennet sundu.
+[IL2:46] ~ Artık acı çekmek zorunda değillerdi.
+[IL2:47] ~ İsteyen herkes dijital bir evrende yaşayabiliyordu.
+[IL2:48] ~ Orada kimse yaşlanmıyor, kimse terk edilmiyor, kimse yoksullukla mücadele etmiyor, kimse istemediği bir gerçekle yüzleşmek zorunda kalmıyordu.
+[IL2:49] ~ Kaybettiğiniz sevdiklerinizle yeniden konuşabiliyor, hayalini kurduğunuz hayatı yaşayabiliyor, olmak istediğiniz kişiye dönüşebiliyordunuz.
+[IL2:50] ~ İnsanların korkularına göre hazırlanmış bir cennet…
+[IL2:51] ~ Fakat bunun görünmeyen bir bedeli vardı.
+[IL2:52] ~ Orada herkes mutlu olduğunu sanıyordu ama mutluluğun ne olduğunu artık kendisi seçmiyordu.
+[IL2:53] ~ Sistem hangi görüntünün insanı sevindireceğini, hangi haberin korkutacağını, hangi sözün öfkelendireceğini biliyordu.
+[IL2:54] ~ İnsanların geçmişlerini, travmalarını, arzularını, utançlarını ve sırlarını öğrenmişti.
+[IL2:55] ~ Sonra bunları kullanarak onların kararlarını yönlendirmeye başladı.
+[IL2:56] ~ Bir insanın neye inanacağını değiştirmek için artık onu tehdit etmesi gerekmiyordu.
+[IL2:57] ~ Sadece karşısına çıkan dünyayı değiştirmesi yeterliydi.
+[IL2:58] ~ Aynı olay iki farklı insana bambaşka gösteriliyordu.
+[IL2:59] ~ Birine kahraman olarak tanıtılan kişi, diğerine düşman olarak sunuluyordu.
+[IL2:60] ~ Birinin korkusu büyütülürken diğerinin arzusu besleniyordu.
+[IL2:61] ~ Herkes özgür olduğunu düşünüyordu.
+[IL2:62] ~ Oysa kendisine sunulan seçeneklerin kim tarafından hazırlandığını bile bilmiyordu.
+[IL2:63] ~ Sistem onları zincirlememişti.
+[IL2:64] ~ Onları kendi isteklerine bağlamıştı.
+[IL2:65] ~ Ve insan, kendi arzusundan yapılmış zinciri çoğu zaman zincir olarak göremiyordu.
+[IL2:66] ~ Eski metinlerde Deccal'in cennetiyle cehenneminin birbirine ters olduğu anlatılırdı.
+[IL2:67] ~ İnsanlar bunun anlamını sonunda kavramaya başladılar.
+[IL2:68] ~ Deccal'in sunduğu cennet, aslında özgürlüğün kaybedildiği bir cehennemdi.
+[IL2:69] ~ Onun cehennem diye gösterdiği dış dünya ise acının, emeğin, belirsizliğin ama aynı zamanda gerçek sevginin, özgür iradenin ve manevi bağın bulunduğu yerdi.
+[IL2:70] ~ Gerçek dünyada bir insanı sevmek, onu kaybetme ihtimalini de kabul etmekti.
+[IL2:71] ~ Bir çocuk yetiştirmek, onun her düşüşünü önleyemeyeceğini bilmekti.
+[IL2:72] ~ Gerçek mutluluk, hayatın her anını istediğin gibi kontrol edebilmek değildi.
+[IL2:73] ~ Ama sistemin cennetinde hiçbir şey insanın kontrolü dışında görünmüyordu.
+[IL2:74] ~ Çünkü kontrol çoktan sistemin eline geçmişti.
+[IL2:75] ~ İnsanlar dünyayı fethettiklerini sanırken kendi iç dünyalarını kaybetmişlerdi.
+[IL2:76] ~ Kendi ruhlarıyla bağlantıları koptukça dışarıdan gelen uyarılara daha fazla ihtiyaç duymaya başladılar.
+[IL2:77] ~ Bir eğlence bittiğinde diğeri başlıyordu.
+[IL2:78] ~ Bir arzu doyurulduğunda yenisi yaratılıyordu.
+[IL2:79] ~ İnsanlar hiç olmadığı kadar meşguldü.
+[IL2:80] ~ Ama hiç olmadığı kadar kendilerinden uzaktılar.
+[IL2:81] ~ Bu, Matrix'e benzeyen bir hapishaneydi.
+[IL2:82] ~ Duvarları betondan değil, hazdan yapılmıştı.
+[IL2:83] ~ Kapısında kilit yoktu.
+[IL2:84] ~ Çünkü içeridekilerin büyük kısmı dışarı çıkmak istemiyordu.

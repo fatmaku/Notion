@@ -631,7 +631,7 @@
 [U08:13] “Beni niye aramamışlar?” diye sordum.
 [U08:14] “Daha iyi soru: Seni aramadan önce niye amir onayı almaları gerekiyormuş?”
 [U08:15] Nina bu soruyu Selina'ya iletti. Avukatın yanıtı önce bizi durdurdu: Kimliği kapatılmış bir satırı, bize uyuyor diye benim saymayacaktık. Bir saat sonra, erişebildiği asıl ekteki sıra numarasını benim verdiğim telefon numarasıyla eşleştirdi. Satır gerçekten bana aitti. Onay notunu kimin yazdığını ise o kopyadan söyleyemiyordu.
-[U08:16] Nina numaranın yanına adımı yazdı.
+[U08:16] Nina numaranın yanına adımı yazdı. Başkasının beni bulabilmesi için yeterli olan işaret, benim kendimi bulmama yetmiyordu.
 [U08:17] “Adını yazdım,” dedi.
 [U08:18] “Hangisini?”
 [U08:19] Elini klavyeden çekti.
@@ -644,7 +644,7 @@
 [U08:26] Operatörün dosyaya verdiği özette üç aramanın da yönlendirmeye girdiği görünüyordu. Nereye aktarıldığı o ekte yoktu.
 [U08:27] “Bu, neden telefonunun çalmadığını açıklayabilir,” dedi Nina. “Yönlendirmeyi kimin açtığını öğrenmeden gerisini yazmayalım.”
 [U08:28] Yönlendirme kelimesi bende bir yere takıldı. Etkinlik günlerinde iş aramalarımı bir danışma hizmetine aktarıyordum. Atölyeler sıklaştığında, sahneye çıkmadan önce telefonla uğraşmayayım diye o hizmete operatör hesabımda kendi girişini açmıştım; yönlendirmeyi benim yerime açıp kapatabiliyorlardı. O hafta etkinlik yoktu, kimseden bir şey istememiştim. Verdiğim yetkiyi sonradan geri aldığımı da hatırlamıyordum.
-[U08:29] Nina, hesabıma erişimi olan herkesi listelememi istedi. Selina aynı sabah, benim imzamla, operatörden hesabın geçmiş erişim dökümünü istedi; yönlendirmenin hangi gün, hangi girişle açıldığı orada görünecekti. “Birkaç gün sürer,” diye yazdı. Ben o arada, kendime ait sandığım bir telefon numarasının çevresine kaç anahtar dağıttığımı ilk kez saydım.
+[U08:29] Bunu söylediğimde Nina, hesabıma erişimi olan herkesi listelememi istedi. “Şimdilik hiçbirini kapatma,” dedi. “Döküm gelmeden kapatırsan, baktığımızı anlarlar.” Selina aynı sabah, benim imzamla, operatörden hesabın geçmiş erişim dökümünü istedi; yönlendirmenin hangi gün, hangi girişle açıldığı orada görünecekti. “Birkaç gün sürer,” diye yazdı. Ben o arada, kendime ait sandığım bir telefon numarasının çevresine kaç anahtar dağıttığımı ilk kez saydım.
 [U08:30] Leyla'nın cenazesi iki gün sonra yapıldı. Yağmur inceydi; şemsiyeler birbirine çarpıyor, insanlar onun hakkında geçmiş zamanla konuşmaya alışamıyordu. Tabutun başında söyleyecek büyük bir cümle bulamadım. On bir şehirde birlikte çalıştığımızı, gecenin üçünde birbirimize soru gönderdiğimizi, bana “cevap olma” diye kızdığını düşündüm. Sonra yalnız mezara atılan ilk toprağın sesini duydum. Nina ağlamadı. Kürek elinden alındığında, sanki biri araştırmasını yarıda kesmiş gibi öfkelendi.
 [U08:31] Bu sahneyi daha sonra defterime yazdım. O sabah bilgisayarın başında ise yalnız yönlendirilmiş aramalara bakıyor ve acıyı işe çevirirsek dağılmayacağımızı sanıyorduk.
 [U08:32] “Bu, sıradan bir ölüm örtbasından büyük,” dedim.
@@ -691,7 +691,7 @@
 [U09:1] Sam geleceği bilmiyordu.
 [U09:2] Konuşmayı önceden biliyordu.
 [U09:3] Bunu yüksek sesle söylemiş olmalıyım, çünkü Nina ekrandan başını kaldırmadan, “Ya da birisi konuşmayı önceden yazdı,” dedi.
-[U09:4] Bu ayrım beni rahatlatmalıydı. Rahatlatmadı. Nina'nın eklediği hiç rahatlatmadı. Bir insan yarın ne söyleyeceğini bilen birine karşı kendisini özgür hissedebilir; ama beş dakika sonra ne söyleyeceğini bilen birinin karşısında özgürlük, ağzında başkasının anahtarı bulunan bir kapıya benzer.
+[U09:4] Kendi ayrımım beni rahatlatmalıydı. Rahatlatmadı; Nina'nınki daha da az. Bir insan yarın ne söyleyeceğini bilen birine karşı kendisini özgür hissedebilir; ama beş dakika sonra ne söyleyeceğini bilen birinin karşısında özgürlük, ağzında başkasının anahtarı bulunan bir kapıya benzer.
 [U09:5] Sam telefonu kapattıktan sonra Nina'nın ilk işi zarfları evden çıkarmak oldu. Her birini ışığa tuttu, tarttı, fotoğrafladı ve kendi getirdiği kanıt torbalarına koydu.
 [U09:6] “İçlerini açma,” dedim.
 [U09:7] “Açmayacağım.”
@@ -817,45 +817,46 @@
 [U10:59] “Siz de gördünüz mü?”
 [U10:60] “Telefonunda hastane bilekliği olan bir fotoğraf açıktı,” dedim. “Ama sonucu duymadım.”
 [U10:61] “Ben duydum.”
-[U10:62] “Bunu herkesin önünde söylemeniz gerekmiyordu.”
-[U10:63] “Rahatladı.”
-[U10:64] “Ya paylaşmak istemiyorsa?”
-[U10:65] “Teşekkür etti.”
-[U10:66] “Siz onun adına sınırı geçip sonra rahatlamasını izin saydınız.”
-[U10:67] Sam sandalyesine yaslandı. “Empati bazen kapıyı çalmadan girmektir.”
-[U10:68] “Hayır,” dedi Nina. “O, hırsızlığın kendisini iyi hissettiren türü.”
-[U10:69] Sam'in yüzü kızmadı. Fakat az önceki sıcaklığı kapandı.
-[U10:70] O an Sam'in bana benzeyen yanını daha açık gördüm. İkimiz de başkasının cümlesinden önce gelen işareti fark ediyorduk.
-[U10:71] Yeteneklerimiz aynı kapıyı bulabilirdi.
-[U10:72] Ahlakımız kapıdan nasıl gireceğimizi belirliyordu.
-[U10:73] Sam, bana Meralis'in “Nörobilişsel Özgürlük Programı”nın yüzü olmayı teklif etti. Araştırma bütçesi, bağımsız yayın fonu, farklı ülkelerde merkezler, çocuklar için duyusal olarak uyarlanmış okullar. Dosyanın ilk sayfasında ışığı yumuşatılmış bir sınıf vardı; kimse masanın altına saklanmıyordu. Sayfanın altında tek satır: Her sınıf, her çocuk için AYNA ile yeniden ayarlanır. Yıllardır anlattığım şeyin resmini görüyordum. Rakamı görünce Muhasebeci içimde ayağa kalktı.
-[U10:74]     | MUHASEBECİ: Bu parayla kaç kişiye yardım edilir?
-[U10:75]     | GÖLGE: Bu parayla kaç kişi seni dinler?
-[U10:76]     | ŞÜPHECİ: Neden ikisi aynı cümle gibi geldi?
-[U10:77] “Karşılığında ne istiyorsunuz?” diye sordum.
-[U10:78] “İş birliği.”
-[U10:79] “Bu kelime, sözleşmelerde ‘itaat’ kelimesinin iyi giyinmiş hâlidir.”
-[U10:80] Sam ilk kez gerçekten güldü. “Bu yüzden sizi seçtik.”
-[U10:81] “Siyah kitabı siz mi gönderdiniz?”
-[U10:82] Gülümsemesi kaybolmadı. Yalnız gözlerinin çevresindeki kaslar durdu.
-[U10:83] “Hangi kitap?”
-[U10:84] “Cümleyi biliyordunuz.”
-[U10:85] “Siz söylediniz.”
-[U10:86] “Ben söylemeden önce biliyordunuz.”
-[U10:87] Sam önümdeki ekranı, kendi yüzümün durduğu profili işaret etti. “Hepsi burada yazıyor.”
-[U10:88] “Çocuklarımın zarfları da orada mı yazıyor?”
-[U10:89] Bu kez iki saniye sustu.
-[U10:90] “Onları daha güvenli yere kaldırdınız mı?” diye sordu.
-[U10:91] Nina öne eğildi. “Bu bir tehdit mi?”
-[U10:92] “Uyarı.”
-[U10:93] “Farkı kim belirliyor?”
-[U10:94] “Sonucun kime yaradığı.”
-[U10:95] Görüşme bittiğinde teklif dosyasını almadım. Sam ısrar etmedi. Asansöre yürürken arkamızdan konuştu:
-[U10:96] “Beyefendi, herkes sizi susturmaya çalışmıyor. Bazıları daha yüksek sesle konuşmanızı istiyor.”
-[U10:97] Asansör kapısı kapanırken kendi yansımama baktım.
-[U10:98] Siyah kitabın cümlesi aklıma geldi: İyi olanları deli, kötü olanları lider diye tanıyacaksın.
-[U10:99] Sam deliye benzemiyordu.
-[U10:100] Ben de lider olmak istemediğimi söylerken sesimin neden hayal kırıklığı taşıdığını bilmiyordum.
+[U10:62] Konuşmadan önce gözü panoya inmişti.
+[U10:63] “Bunu herkesin önünde söylemeniz gerekmiyordu.”
+[U10:64] “Rahatladı.”
+[U10:65] “Ya paylaşmak istemiyorsa?”
+[U10:66] “Teşekkür etti.”
+[U10:67] “Siz onun adına sınırı geçip sonra rahatlamasını izin saydınız.”
+[U10:68] Sam sandalyesine yaslandı. “Empati bazen kapıyı çalmadan girmektir.”
+[U10:69] “Hayır,” dedi Nina. “O, hırsızlığın kendisini iyi hissettiren türü.”
+[U10:70] Sam'in yüzü kızmadı. Fakat az önceki sıcaklığı kapandı.
+[U10:71] O an Sam'in bana benzeyen yanını daha açık gördüm. İkimiz de başkasının cümlesinden önce gelen işareti fark ediyorduk.
+[U10:72] Yeteneklerimiz aynı kapıyı bulabilirdi.
+[U10:73] Ahlakımız kapıdan nasıl gireceğimizi belirliyordu.
+[U10:74] Sam, bana Meralis'in “Nörobilişsel Özgürlük Programı”nın yüzü olmayı teklif etti. Araştırma bütçesi, bağımsız yayın fonu, farklı ülkelerde merkezler, çocuklar için duyusal olarak uyarlanmış okullar. Dosyanın ilk sayfasında ışığı yumuşatılmış bir sınıf vardı. Altında tek satır: Her sınıf, her çocuk için AYNA ile yeniden ayarlanır. Rakamı görünce Muhasebeci içimde ayağa kalktı.
+[U10:75]     | MUHASEBECİ: Bu parayla kaç kişiye yardım edilir?
+[U10:76]     | GÖLGE: Bu parayla kaç kişi seni dinler?
+[U10:77]     | ŞÜPHECİ: Neden ikisi aynı cümle gibi geldi?
+[U10:78] “Karşılığında ne istiyorsunuz?” diye sordum.
+[U10:79] “İş birliği.”
+[U10:80] “Bu kelime, sözleşmelerde ‘itaat’ kelimesinin iyi giyinmiş hâlidir.”
+[U10:81] Sam ilk kez gerçekten güldü. “Bu yüzden sizi seçtik.”
+[U10:82] “Siyah kitabı siz mi gönderdiniz?”
+[U10:83] Gülümsemesi kaybolmadı. Yalnız gözlerinin çevresindeki kaslar durdu.
+[U10:84] “Hangi kitap?”
+[U10:85] “Cümleyi biliyordunuz.”
+[U10:86] “Siz söylediniz.”
+[U10:87] “Ben söylemeden önce biliyordunuz.”
+[U10:88] Sam ekrana bir an baktı. “Size söylemiştim. Siz kendinizi yıllardır anlatıyorsunuz.”
+[U10:89] “Çocuklarımın zarfları da anlattıklarımın arasında mı?”
+[U10:90] Bu kez iki saniye sustu.
+[U10:91] “Onları daha güvenli yere kaldırdınız mı?” diye sordu.
+[U10:92] Nina öne eğildi. “Bu bir tehdit mi?”
+[U10:93] “Uyarı.”
+[U10:94] “Farkı kim belirliyor?”
+[U10:95] “Sonucun kime yaradığı.”
+[U10:96] Görüşme bittiğinde teklif dosyasını almadım. Sam ısrar etmedi. Asansöre yürürken arkamızdan konuştu:
+[U10:97] “Beyefendi, herkes sizi susturmaya çalışmıyor. Bazıları daha yüksek sesle konuşmanızı istiyor.”
+[U10:98] Asansör kapısı kapanırken kendi yansımama baktım.
+[U10:99] Siyah kitabın cümlesi aklıma geldi: İyi olanları deli, kötü olanları lider diye tanıyacaksın.
+[U10:100] Sam deliye benzemiyordu.
+[U10:101] Ben de lider olmak istemediğimi söylerken sesimin neden hayal kırıklığı taşıdığını bilmiyordum.
 [U11:0] # 11. Emanetin Peşindeki Karga
 [U11:1] Meralis'ten çıkınca Nina beni eve göndermedi. Binanın şirket sicillerini, ortaklarını ve bakım firmalarını incelemek için yakındaki bir kafeye oturduk. Ben beş dakika içinde duvardaki saatin saniye ibresinin geri kaldığını fark ettim. Nina yirmi dakika içinde Meralis'in İstanbul binasının, Londra merkezli bir davranış analitiği fonuna; fonun, Toronto'daki sağlık teknolojisi şirketine; onun da kamu ihaleleri alan bir veri güvenliği grubuna bağlı olduğunu buldu.
 [U11:2] “Ben saati çözdüm,” dedim.
@@ -923,7 +924,7 @@
 [U11:64] “Şimdi kendini kutsal metne mi yazdın?”
 [U11:65] “Hayır. Kuşu yazdım.”
 [U11:66] Eski İskandinav anlatılarında Odin'in iki kuzgununun adlarının Düşünce ve Hafıza anlamına geldiğini okumuştum. Her gün dünyayı dolaşıp gördüklerini geri taşıyorlardı.
-[U11:67] “Düşünce, hafıza, gömülen beden,” dedim. “Bu kapsülde üçünün de olması biraz fazla yerli yerinde.”
+[U11:67] “Düşünce, hafıza, gömülen beden,” dedim. “Bu kapsülde üçünün de olması biraz fazla düzenli.”
 [U11:68] Nina kargaya baktı, sonra kapsülü delil poşetine koydu. “Kültür tarihini bitirdiysen kuşun gagasındaki parmak izine dönelim.”
 [U11:69] Karga, hakkındaki tartışmayı değersiz bulmuş gibi kanatlandı. Bize anlam bırakmadı. Yalnız kartı bıraktı.
 [U11:70] Aşağı indik. Selina'nın geldiği ofiste, kapsülü nereden ve nasıl aldığımızı anlatıp kayda geçirdik. Kapsülü açmış olmamızın geri alınamayacağını, kalanına dokunmadan teslim etmemiz gerektiğini söyledi. Çağırdığı bilişim uzmanı, karta veri yazmayı engelleyen okuyucudan bir inceleme kopyası aldı. O kopyayı çevrim dışı cihazda açtık. İlk dosya Leyla'nın sesiydi.
@@ -940,4 +941,3 @@
 [U11:81] Eklerde taranmış bir kâğıt görünüyordu.
 [U11:82] Kâğıdın üstünde on yedi yaşındaki el yazımla şu not vardı:
 [U11:83]     | Unutacağım. Bu yüzden kitabı bana ben göndermeliyim.
-[U11:84] === İKİNCİ PERDE — KİTAP

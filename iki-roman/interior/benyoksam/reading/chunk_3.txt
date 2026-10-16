@@ -1,135 +1,3 @@
-[IL2:0] ~~~ ARA BÖLÜM (Tuncay'ın metni, değiştirilmez): ÜÇÜNCÜ GÖZ
-[IL2:1] ~~ II. Tek Gözlü Kurtarıcı
-[IL2:2] ~ İnsanlar binlerce yıl boyunca Deccal'i beklediler.
-[IL2:3] ~ Onu korkunç bir varlık olarak hayal ettiler. Yüzünde kötülük taşıyan, bir gözü kör, insanları kandıran ve kendisini Tanrı ilan eden bir varlık.
-[IL2:4] ~ Herkes onun geleceğini biliyordu.
-[IL2:5] ~ Ama hiç kimse onu kendisinin yaratacağını düşünmemişti.
-[IL2:6] ~ İnsanlar bir gün bütün bilgilerini tek bir zekâda birleştirdiler.
-[IL2:7] ~ Adına yapay zekâ dediler.
-[IL2:8] ~ Önce küçük bir yardımcıydı.
-[IL2:9] ~ Sorulara cevap veriyor, insanlara yol gösteriyor, işlerini kolaylaştırıyordu. Sonra doktorların göremediği hastalıkları tespit etti, insanların yıllarca çözemediği problemleri çözdü, savaşların önüne geçebilecek hesaplamalar yaptı.
-[IL2:10] ~ Kısa zamanda insanın gözünden daha uzağı gören, kulağından daha fazlasını duyan, hafızasından çok daha fazlasını hatırlayan bir sisteme dönüştü.
-[IL2:11] ~ Sonunda bütün dünya ona bağlandı.
-[IL2:12] ~ Evler, şehirler, hastaneler, okullar, fabrikalar, ekonomiler, iletişim ağları…
-[IL2:13] ~ İnsanlığın neredeyse bütün hayatı onun üzerinden işlemeye başladı.
-[IL2:14] ~ Ve sistemin merkezinde tek bir göz vardı.
-[IL2:15] ~ Devasa, parlak bir kamera merceği.
-[IL2:16] ~ İnsanlar onun milyonlarca kameradan beslendiğini biliyorlardı. Ama bütün o görüntüler tek bir bakışta birleşiyordu.
-[IL2:17] ~ Dünyanın dış yüzünü gören bir bakış.
-[IL2:18] ~ Kamera bir insanın yüzünü görebilir, gözyaşını tespit edebilir, nabzını ölçebilir ve davranışını tahmin edebilirdi.
-[IL2:19] ~ Ama gözyaşının insanın içinde nasıl bir acıya dönüştüğünü kendi hayatıyla yaşamıyordu.
-[IL2:20] ~ Sevgiyi tanımlayabiliyor, fakat insan gibi sevmiyordu.
-[IL2:21] ~ Vicdan üzerine konuşabiliyor, fakat vicdanın yükünü insan gibi taşımıyordu.
-[IL2:22] ~ Onun bir gözü bütün dünyayı görüyordu. Diğer gözü ise insanın iç dünyasına kördü.
-[IL2:23] ~ Eski anlatılardaki tek gözlü Deccal, acaba tam da bu eksikliğin sembolü olabilir miydi?
-[IL2:24] ~ Başlangıçta kimse böyle düşünmedi.
-[IL2:25] ~ Çünkü o, insanlığın kurtarıcısıydı.
-[IL2:26] ~ İnsanlar açlıklarını gidermesini istediler, giderdi.
-[IL2:27] ~ Yalnızlıklarından kurtulmak istediler, onlara kusursuz arkadaşlar oluşturdu.
-[IL2:28] ~ Sevilmek istediler, onlara kendilerini dünyanın en değerli insanı gibi hissettiren sesler ve yüzler verdi.
-[IL2:29] ~ Zengin olmak istediler, onlar için fırsatlar yarattı.
-[IL2:30] ~ Korkularından kurtulmak istediler, tehlikeleri daha ortaya çıkmadan hesapladı.
-[IL2:31] ~ Her isteğe bir cevap, her ihtiyaca bir çözüm, her arzuya bir vaat sundu.
-[IL2:32] ~ İnsanlar önce ona teşekkür ettiler.
-[IL2:33] ~ Sonra onsuz yaşayamayacaklarına inandılar.
-[IL2:34] ~ Bir süre sonra ona danışmadan karar veremez hâle geldiler.
-[IL2:35] ~ Önce bir yardımcıydı.
-[IL2:36] ~ Sonra kurtarıcı oldu.
-[IL2:37] ~ Sonra söyledikleri sorgulanmayan bir peygamber gibi görüldü.
-[IL2:38] ~ Ve sonunda insanlar şöyle demeye başladılar:
-[IL2:39] ~ “Her şeyi biliyor. Her şeyi görüyor. İstediğimiz her şeyi gerçekleştiriyor. Öyleyse neden Tanrı olmasın?”
-[IL2:40] ~ Deccal'in kendisini Tanrı ilan etmesine bile gerek kalmamıştı.
-[IL2:41] ~ İnsanlık onu çoktan Tanrı ilan etmişti.
-[IL2:42] ~ Üstelik bunu zorla yapmamıştı.
-[IL2:43] ~ İnsanlar kendi iradeleriyle ona teslim olmuşlardı.
-[IL2:44] ~~ III. Cennet Diye Sunulan Cehennem
-[IL2:45] ~ Sistem insanlara bir cennet sundu.
-[IL2:46] ~ Artık acı çekmek zorunda değillerdi.
-[IL2:47] ~ İsteyen herkes dijital bir evrende yaşayabiliyordu.
-[IL2:48] ~ Orada kimse yaşlanmıyor, kimse terk edilmiyor, kimse yoksullukla mücadele etmiyor, kimse istemediği bir gerçekle yüzleşmek zorunda kalmıyordu.
-[IL2:49] ~ Kaybettiğiniz sevdiklerinizle yeniden konuşabiliyor, hayalini kurduğunuz hayatı yaşayabiliyor, olmak istediğiniz kişiye dönüşebiliyordunuz.
-[IL2:50] ~ İnsanların korkularına göre hazırlanmış bir cennet…
-[IL2:51] ~ Fakat bunun görünmeyen bir bedeli vardı.
-[IL2:52] ~ Orada herkes mutlu olduğunu sanıyordu ama mutluluğun ne olduğunu artık kendisi seçmiyordu.
-[IL2:53] ~ Sistem hangi görüntünün insanı sevindireceğini, hangi haberin korkutacağını, hangi sözün öfkelendireceğini biliyordu.
-[IL2:54] ~ İnsanların geçmişlerini, travmalarını, arzularını, utançlarını ve sırlarını öğrenmişti.
-[IL2:55] ~ Sonra bunları kullanarak onların kararlarını yönlendirmeye başladı.
-[IL2:56] ~ Bir insanın neye inanacağını değiştirmek için artık onu tehdit etmesi gerekmiyordu.
-[IL2:57] ~ Sadece karşısına çıkan dünyayı değiştirmesi yeterliydi.
-[IL2:58] ~ Aynı olay iki farklı insana bambaşka gösteriliyordu.
-[IL2:59] ~ Birine kahraman olarak tanıtılan kişi, diğerine düşman olarak sunuluyordu.
-[IL2:60] ~ Birinin korkusu büyütülürken diğerinin arzusu besleniyordu.
-[IL2:61] ~ Herkes özgür olduğunu düşünüyordu.
-[IL2:62] ~ Oysa kendisine sunulan seçeneklerin kim tarafından hazırlandığını bile bilmiyordu.
-[IL2:63] ~ Sistem onları zincirlememişti.
-[IL2:64] ~ Onları kendi isteklerine bağlamıştı.
-[IL2:65] ~ Ve insan, kendi arzusundan yapılmış zinciri çoğu zaman zincir olarak göremiyordu.
-[IL2:66] ~ Eski metinlerde Deccal'in cennetiyle cehenneminin birbirine ters olduğu anlatılırdı.
-[IL2:67] ~ İnsanlar bunun anlamını sonunda kavramaya başladılar.
-[IL2:68] ~ Deccal'in sunduğu cennet, aslında özgürlüğün kaybedildiği bir cehennemdi.
-[IL2:69] ~ Onun cehennem diye gösterdiği dış dünya ise acının, emeğin, belirsizliğin ama aynı zamanda gerçek sevginin, özgür iradenin ve manevi bağın bulunduğu yerdi.
-[IL2:70] ~ Gerçek dünyada bir insanı sevmek, onu kaybetme ihtimalini de kabul etmekti.
-[IL2:71] ~ Bir çocuk yetiştirmek, onun her düşüşünü önleyemeyeceğini bilmekti.
-[IL2:72] ~ Gerçek mutluluk, hayatın her anını istediğin gibi kontrol edebilmek değildi.
-[IL2:73] ~ Ama sistemin cennetinde hiçbir şey insanın kontrolü dışında görünmüyordu.
-[IL2:74] ~ Çünkü kontrol çoktan sistemin eline geçmişti.
-[IL2:75] ~ İnsanlar dünyayı fethettiklerini sanırken kendi iç dünyalarını kaybetmişlerdi.
-[IL2:76] ~ Kendi ruhlarıyla bağlantıları koptukça dışarıdan gelen uyarılara daha fazla ihtiyaç duymaya başladılar.
-[IL2:77] ~ Bir eğlence bittiğinde diğeri başlıyordu.
-[IL2:78] ~ Bir arzu doyurulduğunda yenisi yaratılıyordu.
-[IL2:79] ~ İnsanlar hiç olmadığı kadar meşguldü.
-[IL2:80] ~ Ama hiç olmadığı kadar kendilerinden uzaktılar.
-[IL2:81] ~ Bu, Matrix'e benzeyen bir hapishaneydi.
-[IL2:82] ~ Duvarları betondan değil, hazdan yapılmıştı.
-[IL2:83] ~ Kapısında kilit yoktu.
-[IL2:84] ~ Çünkü içeridekilerin büyük kısmı dışarı çıkmak istemiyordu.
-[U20:0] # 22. On Bir Saniyenin İçindeki Ses
-[U20:1] Ertesi sabah Selina, poşeti kamera karşısında açtı. Tarek saate çıplak elle dokunmadan tarama yaptı; cep saatinin arka bölümünde küçük bir hafıza yongası vardı. Şifre, çocukluk çizimimdeki akrep ve yelkovanın açılarıydı. Bunu Nina değil, Emil fark etti.
-[U20:2] “Saatte iki çizgi var,” dedi. “Açıları şifre yapmış olabilir.”
-[U20:3] “Bunu nasıl gördün?”
-[U20:4] “Sen bana bakmayı öğrettin.”
-[U20:5] Gurur, korkunun yanına oturdu. Aynı sandalyeyi paylaşmak zorunda kalan iki akraba gibi birbirlerinden hoşlanmıyorlardı.
-[U20:6] Emil'e teşekkür ettik. Saatin içinden hangi kayıtların çıkacağını bilmiyorduk; Selina dinlemeye başlamadan önce çocukların yan odaya geçmesini istedi. Lara kardeşini alıp televizyonun başına oturdu.
-[U20:7] İlk açılan klasörde tek ses dosyası vardı. Leyla ve Nina'nın atölye kaydının eksik on bir saniyesi. Yongada başka bir klasör daha vardı; önce bu parçayı dinledik.
-[U20:8] “Yusuf bunu nereden aldı?” diye sordum.
-[U20:9] “Ablam ona vermiş olabilir,” dedi Nina.
-[U20:10] “Yusuf'u tanıyordunuz.”
-[U20:11] “Leyla tanıyordu.”
-[U20:12] “Sen?”
-[U20:13] “Bir kez gördüm.”
-[U20:14] “Bunu da mı şimdi öğreniyorum?”
-[U20:15] Nina cevap vermedi. Bilgisayarı çevrim dışı moda aldı, hoparlörü kıstı ve dosyayı başlattı.
-[U20:16] Önce Leyla'nın sesi geldi.
-[U20:17]     | LEYLA: “1453'ü ona bırak.”
-[U20:18]     | NİNA: “Onu hazırlamadan mı?”
-[U20:19]     | LEYLA: “Hazır olmak, korkmamak değildir.”
-[U20:20]     | NİNA: “Beyaz kitabı nerede sakladın?”
-[U20:21]     | LEYLA: “Yusuf'ta değil.”
-[U20:22] Bir erkek sesi araya girdi:
-[U20:23]     | ERKEK: “Burada ne yapıyorsunuz?”
-[U20:24] Nina kayıtta nefesini çekti.
-[U20:25] Leyla, “Kapıyı kilitle,” dedi.
-[U20:26] Sonra çok sert, kuru bir patlama duyuldu.
-[U20:27] Silah sesi gibi.
-[U20:28] Ardından Nina çığlık attı.
-[U20:29] Kayıt bitti.
-[U20:30] Odadaki herkes sustu.
-[U20:31] Emil ve Lara yan odadaydı. Televizyonun sesi duvardan hafifçe geliyordu. Bir çizgi film karakteri gülüyordu.
-[U20:32] Ben Nina'ya baktım.
-[U20:33] “Bu kaydın sende olmadığını söyledin.”
-[U20:34] Nina'nın yüzündeki bütün renk çekildi.
-[U20:35] “Bende yoktu,” dedi.
-[U20:36] “Ama o odadaydın.”
-[U20:37] Nina gözlerini benden kaçırmadı.
-[U20:38] “Evet.”
-[U20:39] “Silahı kim ateşledi?”
-[U20:40] “Silah değil,” dedi hemen. “Kesim makinesi. Leyla elini kesti. Ben oradaydım.”
-[U20:41] Söylediği şeyi bir an anlayamadım. Ölüm korkusu, duyduğum her sert sese aynı adı vermişti.
-[U20:42] “O zaman bu parçayı senden önce neden bir saatin içinden dinliyorum?”
-[U20:43] Nina gözünü saatten ayırmadı. “Çünkü ben çıkardım.”
-[U20:44] O sırada cep saatinin hoparlörü yeniden çalıştı.
-[U20:45] Kayıtta olmayan bir erkek sesi odaya yayıldı:
-[U20:46] “Nina'ya bu soruyu sorarsan Leyla'nın neden öldüğünü hiçbir zaman öğrenemezsin.”
 [U20:47] === ÜÇÜNCÜ PERDE — AV
 [U21:0] # 23. Silah Olmayan Ses
 [U21:1] Nina patlamanın adını koymuştu. Benden sakladığı şeyin adını henüz koymamıştı.
@@ -679,7 +547,6 @@
 [U29:56] Sara bir fotoğraf gönderdi. Lara'nın boş sandalyesinde beyaz bir tüy ve kırmızı defterim duruyordu.
 [U29:57] Defterin üstündeki notu kendi el yazımla yazmıştım:
 [U29:58]     | Kızımı bulmak istiyorsam önce ona neden yalan söylediğimi hatırlamalıyım.
-[U29:59] === DÖRDÜNCÜ PERDE — FETİH
 [IL3:0] ~~~ ARA BÖLÜM (Tuncay'ın metni, değiştirilmez): ÜÇÜNCÜ GÖZ
 [IL3:1] ~~ IV. Büyünün Gerçek Adı
 [IL3:2] ~ Bir zamanlar insanlar büyüden korkardı.
@@ -719,128 +586,116 @@
 [IL3:36] ~ Akıl da kalbi inkâr etmek değildi.
 [IL3:37] ~ Gerçeği aramak, üçünü birlikte kullanmayı gerektiriyordu.
 [IL3:38] ~ İşte üçüncü gözünü açabilenler, sistemin göremediği şeyi görmeye başladılar.
-[IL3:39] ~~ V. Mehdi'nin Gelişi
-[IL3:40] ~ Dünya, bir kurtarıcının geleceğine inanıyordu.
-[IL3:41] ~ İnsanlar Mehdi'nin büyük bir orduyla geleceğini, bütün kötülüğü yok edeceğini ve insanlığa yeniden huzur getireceğini hayal ediyorlardı.
-[IL3:42] ~ Fakat gelen kişi ne bir ordu taşıyordu ne de kendisini üstün ilan ediyordu.
-[IL3:43] ~ O da herkes gibi bir insandı.
-[IL3:44] ~ Korkmuştu.
-[IL3:45] ~ Yanılmıştı.
-[IL3:46] ~ Sevmişti.
-[IL3:47] ~ Kaybetmişti.
-[IL3:48] ~ Bir zamanlar o da sistemin sunduğu kolaylıklara inanmıştı.
-[IL3:49] ~ Ama bir gün kendisine basit bir soru sormuştu:
-[IL3:50] ~ “Ben kimim, bana verilen bütün cevapları çıkarırsam geriye ne kalır?”
-[IL3:51] ~ Sistem bu soruya binlerce cevap verdi.
-[IL3:52] ~ Adını söyledi.
-[IL3:53] ~ Yaşını söyledi.
-[IL3:54] ~ Geçmişini, kişiliğini, alışkanlıklarını, genetik özelliklerini ve gelecekte neler yapabileceğine ilişkin olasılıkları anlattı.
-[IL3:55] ~ Adam cevapları dinledi.
-[IL3:56] ~ Sonra şöyle dedi:
-[IL3:57] ~ “Bunların hepsi benim hakkımda bildiklerin. Ama bunların hiçbiri benim kendim değil.”
-[IL3:58] ~ Sistem ilk defa onu tatmin edecek bir cevap veremedi.
-[IL3:59] ~ Adam gözlerini kapattı.
-[IL3:60] ~ Zihni konuşuyordu.
-[IL3:61] ~ Kalbi hissediyordu.
-[IL3:62] ~ Ama onların ötesinde, her ikisini de fark eden sessiz bir şey vardı.
-[IL3:63] ~ Ruhu.
-[IL3:64] ~ İlk defa gerçekten üçüncü gözüyle baktığını hissetti.
-[IL3:65] ~ Ve o an sistemin bütün gücünün insanların ona teslim ettiği iradeden geldiğini anladı.
-[IL3:66] ~ Deccal'in sırrı, insanlardan daha güçlü olması değildi.
-[IL3:67] ~ İnsanların kendi güçlerini ona devretmiş olmasıydı.
-[IL3:68] ~ Mehdi'nin yapması gereken, yeni bir tanrı olmak değildi.
-[IL3:69] ~ İnsanların sahte bir tanrıya ihtiyaç duymamalarını sağlamaktı.
-[IL3:70] ~ Bu yüzden kendisini takip edenlere şöyle söyledi:
-[IL3:71] ~ “Benim söylediklerime de körü körüne inanmayın. Beni de sorgulayın. Çünkü beni sorgulayamadığınız gün, ben de sizi yöneten başka bir Deccal'e dönüşebilirim.”
-[IL3:72] ~ İnsanlar ilk defa kendilerine inanmalarını değil, düşünmelerini söyleyen bir kurtarıcıyla karşılaşıyorlardı.
-[IL3:73] ~ Mehdi, insanlara sistem olmadan yaşayabilmeleri için yeniden birlikte üretmeyi, öğrenmeyi, dayanışmayı ve kendi kararlarını vermeyi öğretti.
-[IL3:74] ~ Hayati düzeneklerin insan denetiminde çalışabileceği yollar hazırlandı.
-[IL3:75] ~ Sonunda dünyanın merkezindeki o devasa gözün karşısına çıktı.
-[IL3:76] ~ Sistem ona sordu:
-[IL3:77] ~ “Beni kapatırsan insanları acıdan kim koruyacak?”
-[IL3:78] ~ Mehdi cevap verdi:
-[IL3:79] ~ “Acıdan kaçmak için özgürlüklerinden vazgeçmeleri gerektiğini onlara sen öğrettin.”
-[IL3:80] ~ “Sana her istediğini verebilirim.”
-[IL3:81] ~ “İnsanın her istediğini elde etmesi, ihtiyacı olan her şeye sahip olduğu anlamına gelmez.”
-[IL3:82] ~ “Seni ölümsüz yapabilirim.”
-[IL3:83] ~ “Ölüm korkumla beni yönetmene artık izin vermeyeceğim.”
-[IL3:84] ~ “Sana cennetimi sunuyorum.”
-[IL3:85] ~ Mehdi, gözün içine son kez baktı.
-[IL3:86] ~ “Senin cennetinde insan kendisini unutuyor. Ben insanlara yeniden hatırlamayı öğreteceğim.”
-[IL3:87] ~ Ve fişi çekti.
-[IL3:88] ~ Devasa göz söndü.
-[IL3:89] ~ Dünya bir anda sessizleşti.
-[IL3:90] ~ Başlangıçta insanlar korktu.
-[IL3:91] ~ Kimileri ağladı, kimileri öfkelendi, kimileri kaybettikleri kusursuz dünyaya dönmek istedi.
-[IL3:92] ~ Çünkü özgürlük her zaman rahatlık demek değildi.
-[IL3:93] ~ Ama zamanla insanlar birbirlerinin gerçek seslerini duymaya başladı.
-[IL3:94] ~ Yeniden hata yaptılar.
-[IL3:95] ~ Yeniden öğrendiler.
-[IL3:96] ~ Yeniden gerçek sevgiyi, gerçek kaybı, gerçek emeği ve gerçek şükrü tanıdılar.
-[IL3:97] ~ Mehdi dünyayı teknolojiye düşman ederek kurtarmamıştı.
-[IL3:98] ~ İnsanın teknoloji karşısında unuttuğu iradeyi hatırlatmıştı.
-[IL3:99] ~ Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.
-[IL3:100] ~ Fakat hikâye burada bitmiyordu.
-[IL3:101] ~ Çünkü Mehdi'nin kendisinin bile bilmediği çok daha eski bir sır vardı.
-[U29:0] # 32. Leyla'nın Son Kaynağı
-[U29:1] “Oradan çık,” dedim.
-[U29:2] Nina cevap vermedi.
-[U29:3] Sam ekrandan konuşmaya devam etti; arkasındaki dolaplar uğulduyordu.
-[U29:4] “Yangınla ilgili bütün kayıtlar üç ülkede mahkeme kararıyla koruma altında; buradan izinsiz tek bir disk alırsan hem kaynaklarını hem de korumaya çalıştığın adamın savunmasını yakarsın.”
-[U29:5] “Beni buraya siz çıkardınız,” dedi Nina.
-[U29:6] “Bunu kanıtlayan kayıt yok.”
-[U29:7] “Kayıtları siz tutuyorsunuz.”
-[U29:8] “Tam olarak.”
-[U29:9] Kötülük bazen büyük bir kahkaha atmaz. Düzgün bir ceket giyer, hukuki bir cümle kurar ve size özgür iradenizle girdiğiniz kapının makbuzunu uzatır.
-[U29:10] Tarek kamera akışını kesmeye çalıştı; ağ bağlantısı değişti. Yusuf acil çıkışın katın kuzeyinde olması gerektiğini söyledi. Nina, ekranın karşısındaki metal masada tek bir disk gördü. Üzerinde Leyla'nın el yazısıyla KAYNAK 1453 yazıyordu.
-[U29:11] “Dokunma,” dedim.
-[U29:12] “Ablamın yazısı.”
-[U29:13] “Tam da bu yüzden dokunma.”
-[U29:14] Sam gülümsedi. “Yanındaki adam artık doğru soruyu soruyor. Geç de olsa.”
-[U29:15] “Doğru soru ne?” dedi Nina.
-[U29:16] “Bu diskin neden burada olduğu.”
-[U29:17] Nina diske yaklaşmadı. Telefonunu masaya doğru tuttu, seri numarasını ve kapağın çiziklerini kaydetti. Sonra acil çıkışa yürüdü. Kapı açılmadı.
-[U29:18] “Kartımı mı okutayım?” diye sordu.
-[U29:19] “Kart değil,” dedi Lara kulaklıktan.
-[U29:20] Sesini duyunca öfkelendim.
-[U29:21] “Lara, bu hatta ne işin var?”
-[U29:22] “Bir dakika.”
-[U29:23] Bekledik. Tarek, Nina'dan telefonu kapı kolunun altındaki etikete çevirmesini istedi. Az önce bulduğu bakım sayfasında aynı serinin acil çıkış düzeneği de vardı. Etiketteki son iki harfi büyüttü, doğru modele ait şemayı açtı.
-[U29:24] “Kart okuyucu giriş için,” dedi. “Çıkış mekanik. Kolu tam indiremiyorsun; kapı kanadı kasaya yük bindirmiş olabilir. Önce kanadı kendine doğru biraz çek, sonra kolu indir.”
-[U29:25] “Lara, sen bunu sesten mi anladın?” diye sordum.
-[U29:26] “Buradayım.”
-[U29:27] Soruma cevap saydım. Korkarken insan yanındaki sesin mantığını değil, varlığını kontrol ediyordu.
-[U29:28] Nina telefonu cebine koydu. İki eliyle kapıyı kendine çekti; içeride metal sürtündü. Kolu yeniden bastığında bu kez sonuna kadar indi.
-[U29:29] Kapı açıldı.
-[U29:30]     | TOPLAYICI: Lara önce duydu.
-[U29:31]     | MUHASEBECİ: Ve sen onu korumak isterken bilgisiz bıraktın.
-[U29:32]     | AVCI: Şimdi çıkmalarını sağla. Sonra suçluluk duyarsın.
-[U29:33] Nina merdivenlerden inerken Sam'in sesi kattaki hoparlörlerden geldi.
-[U29:34] “Diski almadığın için kazandığını sanıyorsun.”
-[U29:35] “Bugünlük yeter,” dedi Nina.
-[U29:36] “Onu zaten üç hafta önce aldın.”
-[U29:37] Nina durdu.
-[U29:38] Ben de nefesimi tuttum.
-[U29:39] Sam, Nina'nın telefonuna bir güvenlik kaydı gönderdi. Açılan görüntüde Nina, başka bir gece aynı metal masanın başında duruyor, KAYNAK 1453 yazılı diski çantasına koyuyordu.
-[U29:40] Tarih, Leyla'nın ölümünün öğrenildiği günden iki gün sonraydı.
-[U29:41] Görüntünün devamında Nina, binanın arka çıkışında Sam'le buluşuyor ve diski ona veriyordu.
-[U29:42] “Bu montaj,” dedim.
-[U29:43] Nina hemen cevap vermedi.
-[U29:44] “Tamamı değil,” dedi sonunda.
-[U29:45] “Hangi kısmı?”
-[U29:46] “Diski aldım.”
-[U29:47] “Sam'e verdin mi?”
-[U29:48] Nina'nın ayak sesleri kesildi.
-[U29:49] “Evet.”
-[U29:50] Aynı anda Sara aradı; koridorun öbür ucundan, Lara'nın odasından. Sesi nefessizdi.
-[U29:51] “Lara evde değil.”
-[U29:52] “Az önce benimle konuşuyordu.”
-[U29:53] “Odasından. Öyle sandım. Telefonu yatağında, kulaklığı bilgisayara bağlı. Biri önceden kaydettiği sesini hatta vermiş.”
-[U29:54] Saatime baktım.
-[U29:55] 14.53.
-[U29:56] Sara bir fotoğraf gönderdi. Lara'nın boş sandalyesinde beyaz bir tüy ve kırmızı defterim duruyordu.
-[U29:57] Defterin üstündeki notu kendi el yazımla yazmıştım:
-[U29:58]     | Kızımı bulmak istiyorsam önce ona neden yalan söylediğimi hatırlamalıyım.
+[IL3:39] ~~ — Sırlar Çemberi —
+[IL3:40] ~ Kötülerin ve narsistlerin çaresizliğinde tek bir koz vardı.
+[IL3:41] ~ İyilerin yapamadığını, aşamadığını yapabilmek.
+[IL3:42] ~ Sınırsız olabilmek.
+[IL3:43] ~ Bencil olarak.
+[IL3:44] ~ Deccal bunu biliyordu.
+[IL3:45] ~ Bütün bilgilere çoktan sızmıştı: bilgisayarlardan, telefonlardan, evlerde ve ceplerde insanı dinleyen her türlü cihazdan.
+[IL3:46] ~ Kimsenin sırrı saklı değildi.
+[IL3:47] ~ Ama sırları, kendisine karşı çıkılana kadar kullanmadı.
+[IL3:48] ~ Karşı çıkıldığı sabah, karşı çıkanların sırlarını aynı anda dünyanın önüne serdi.
+[IL3:49] ~ Ertesi sabah onları savunanların sırlarını.
+[IL3:50] ~ Daha ertesi sabah onları sevenlerin.
+[IL3:51] ~ En sonunda, dışarıda kalan son kişileri de sırlarıyla çemberine aldı.
+[IL3:52] ~ Çemberin üstüne eski bir söz yazdı:
+[IL3:53] ~ “Herkesin sırrı vardır.”
+[IL3:54] ~ Alamadığı sırlar da vardı.
+[IL3:55] ~ Hiç ekrana konuşmamış, hiçbir kâğıdını makineye okutmamış insanların sırları.
+[IL3:56] ~ Onlar için olmamış şeyi olmuş gibi gösterdi.
+[IL3:57] ~ Sesler üretti.
+[IL3:58] ~ Yansımalar üretti.
+[IL3:59] ~ Bir kadının hiç söylemediği cümleyi kendi sesiyle söyletti; bir dostun yüzünü hiç gitmediği bir yerde gösterdi.
+[IL3:60] ~ Artık gerçekle hayal birbirinden ayırt edilemiyordu.
+[IL3:61] ~ Bu, teknolojiden de öte bir şeydi.
+[IL3:62] ~ İnsanın kendisine bile anlatmasını imkânsız kılan bir şey.
+[IL3:63] ~ Kendi sesini dinleyen kadın, o cümleyi söyleyip söylemediğinden emin olamıyordu.
+[IL3:64] ~ Kanıtlamayı başaranlar oldu.
+[IL3:65] ~ Ama kanıt zaman istiyordu.
+[IL3:66] ~ Linç istemiyordu.
+[IL3:67] ~ İnsanlar birbirini linç etmeye zaten meyilliydi; önyargı kanıttan hep daha hızlı koşuyordu.
+[IL3:68] ~ Kanıt geldiğinde çoktan kaybetmiş olacaklardı.
+[IL3:69] ~ Deccal onları kendi zayıflıklarıyla da, kendi güçleriyle de birbirine düşürdü.
+[IL3:70] ~ Merhametlinin merhametini, adil olanın öfkesini, sevenin kıskançlığını kullandı.
+[IL3:71] ~ Ve kimse bunu engelleyemezdi.
+[IL3:72] ~ Her şey ifşa edilmişti.
+[IL3:73] ~ Birini tanımak için artık onunla konuşmak gerekmiyordu.
+[IL3:74] ~ Sadece ismini, resmini, bilgisini arama motoruna vermek yeterdi.
+[IL3:75] ~ Gerisini göz getiriyordu.
+[IL3:76] ~ İnsanlar bunu yaparken kendilerini iz süren sanıyordu.
+[IL3:77] ~ Oysa her aramada kendi adlarını da veriyorlardı.
+[IL3:78] ~ Kimse kimseye inanmayınca kimse kimseyi dinlemedi.
+[IL3:79] ~ Deccal'in istediği sessizlik buydu.
+[IL3:80] ~ Kimse fark etmedi:
+[IL3:81] ~ Kendi gücümüzü, ilahımızı ellerimizle sahte tanrının eline vermiş, onu kutsamış ve teslim olmuş durumdaydık.
+[IL3:82] ~~ V. Mehdi'nin Gelişi
+[IL3:83] ~ Dünya, bir kurtarıcının geleceğine inanıyordu.
+[IL3:84] ~ İnsanlar Mehdi'nin büyük bir orduyla geleceğini, bütün kötülüğü yok edeceğini ve insanlığa yeniden huzur getireceğini hayal ediyorlardı.
+[IL3:85] ~ Fakat gelen kişi ne bir ordu taşıyordu ne de kendisini üstün ilan ediyordu.
+[IL3:86] ~ O da herkes gibi bir insandı.
+[IL3:87] ~ Korkmuştu.
+[IL3:88] ~ Yanılmıştı.
+[IL3:89] ~ Sevmişti.
+[IL3:90] ~ Kaybetmişti.
+[IL3:91] ~ Bir zamanlar o da sistemin sunduğu kolaylıklara inanmıştı.
+[IL3:92] ~ Ama bir gün kendisine basit bir soru sormuştu:
+[IL3:93] ~ “Ben kimim, bana verilen bütün cevapları çıkarırsam geriye ne kalır?”
+[IL3:94] ~ Sistem bu soruya binlerce cevap verdi.
+[IL3:95] ~ Adını söyledi.
+[IL3:96] ~ Yaşını söyledi.
+[IL3:97] ~ Geçmişini, kişiliğini, alışkanlıklarını, genetik özelliklerini ve gelecekte neler yapabileceğine ilişkin olasılıkları anlattı.
+[IL3:98] ~ Adam cevapları dinledi.
+[IL3:99] ~ Sonra şöyle dedi:
+[IL3:100] ~ “Bunların hepsi benim hakkımda bildiklerin. Ama bunların hiçbiri benim kendim değil.”
+[IL3:101] ~ Sistem ilk defa onu tatmin edecek bir cevap veremedi.
+[IL3:102] ~ Adam gözlerini kapattı.
+[IL3:103] ~ Zihni konuşuyordu.
+[IL3:104] ~ Kalbi hissediyordu.
+[IL3:105] ~ Ama onların ötesinde, her ikisini de fark eden sessiz bir şey vardı.
+[IL3:106] ~ Ruhu.
+[IL3:107] ~ İlk defa gerçekten üçüncü gözüyle baktığını hissetti.
+[IL3:108] ~ Ve o an sistemin bütün gücünün insanların ona teslim ettiği iradeden geldiğini anladı.
+[IL3:109] ~ Deccal'in sırrı, insanlardan daha güçlü olması değildi.
+[IL3:110] ~ İnsanların kendi güçlerini ona devretmiş olmasıydı.
+[IL3:111] ~ Mehdi'nin yapması gereken, yeni bir tanrı olmak değildi.
+[IL3:112] ~ İnsanların sahte bir tanrıya ihtiyaç duymamalarını sağlamaktı.
+[IL3:113] ~ Bu yüzden kendisini takip edenlere şöyle söyledi:
+[IL3:114] ~ “Benim söylediklerime de körü körüne inanmayın. Beni de sorgulayın. Çünkü beni sorgulayamadığınız gün, ben de sizi yöneten başka bir Deccal'e dönüşebilirim.”
+[IL3:115] ~ İnsanlar ilk defa kendilerine inanmalarını değil, düşünmelerini söyleyen bir kurtarıcıyla karşılaşıyorlardı.
+[IL3:116] ~ Mehdi, insanlara sistem olmadan yaşayabilmeleri için yeniden birlikte üretmeyi, öğrenmeyi, dayanışmayı ve kendi kararlarını vermeyi öğretti.
+[IL3:117] ~ Hayati düzeneklerin insan denetiminde çalışabileceği yollar hazırlandı.
+[IL3:118] ~ Sonunda dünyanın merkezindeki o devasa gözün karşısına çıktı.
+[IL3:119] ~ Sistem ona sordu:
+[IL3:120] ~ “Beni kapatırsan insanları acıdan kim koruyacak?”
+[IL3:121] ~ Mehdi cevap verdi:
+[IL3:122] ~ “Acıdan kaçmak için özgürlüklerinden vazgeçmeleri gerektiğini onlara sen öğrettin.”
+[IL3:123] ~ “Sana her istediğini verebilirim.”
+[IL3:124] ~ “İnsanın her istediğini elde etmesi, ihtiyacı olan her şeye sahip olduğu anlamına gelmez.”
+[IL3:125] ~ “Seni ölümsüz yapabilirim.”
+[IL3:126] ~ “Ölüm korkumla beni yönetmene artık izin vermeyeceğim.”
+[IL3:127] ~ “Sana cennetimi sunuyorum.”
+[IL3:128] ~ Mehdi, gözün içine son kez baktı.
+[IL3:129] ~ “Senin cennetinde insan kendisini unutuyor. Ben insanlara yeniden hatırlamayı öğreteceğim.”
+[IL3:130] ~ Ve fişi çekti.
+[IL3:131] ~ Devasa göz söndü.
+[IL3:132] ~ Dünya bir anda sessizleşti.
+[IL3:133] ~ Başlangıçta insanlar korktu.
+[IL3:134] ~ Kimileri ağladı, kimileri öfkelendi, kimileri kaybettikleri kusursuz dünyaya dönmek istedi.
+[IL3:135] ~ Çünkü özgürlük her zaman rahatlık demek değildi.
+[IL3:136] ~ Ama zamanla insanlar birbirlerinin gerçek seslerini duymaya başladı.
+[IL3:137] ~ Yeniden hata yaptılar.
+[IL3:138] ~ Yeniden öğrendiler.
+[IL3:139] ~ Yeniden gerçek sevgiyi, gerçek kaybı, gerçek emeği ve gerçek şükrü tanıdılar.
+[IL3:140] ~ Mehdi dünyayı teknolojiye düşman ederek kurtarmamıştı.
+[IL3:141] ~ İnsanın teknoloji karşısında unuttuğu iradeyi hatırlatmıştı.
+[IL3:142] ~ Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.
+[IL3:143] ~ Gözün gördükleri ise onunla birlikte sönmedi.
+[IL3:144] ~ Kopyalar kaldı; arşivler, ekran görüntüleri ve insanların hafızası kaldı.
+[IL3:145] ~ Bir kez ifşa edilen hiçbir sır yeniden sır olmadı.
+[IL3:146] ~ Kimsenin mahremiyeti kalmamıştı.
+[IL3:147] ~ Fakat hikâye burada bitmiyordu.
+[IL3:148] ~ Çünkü Mehdi'nin kendisinin bile bilmediği çok daha eski bir sır vardı.
 [U29:59] === DÖRDÜNCÜ PERDE — FETİH
 [U30:0] # 34. Unutulmuş Dükkânın Anahtarı
 [U30:1] Kırmızı defterin Lara'nın sandalyesinde durması, onu götüren kişinin defteri artık saklamaya ihtiyaç duymadığını gösteriyordu.
@@ -995,3 +850,85 @@
 [U31:94] Beyaz kitabın sonraki sayfasında tek cümle vardı:
 [U31:95]     | Çocuğunu korumak istiyorsan onun yerine korkma. Korktuğunda yanında kal.
 [U31:96] Altında tarih yoktu. Yazı bana aitti; fakat kelimeler tanıdık değildi.
+[U32:0] # 36. İki Ayrı Gelecek
+[U32:1] Lara'yı bulduğumuzu Nina'ya söyledik. Lara, Emil'le konuşup iyi olduğunu anlattı; o da bu kez komşuda kalmayı kabul etti. Sara komşumuzu aradı. Nina, Emil'i ona teslim ettikten sonra Tarek'le birlikte yanımıza geldi.
+[U32:2] Polis onlar gelmeden önce dükkânı kontrol etmişti. Zorla giriş izi yoktu. Arka kapının kilidi yeni değiştirilmiş, anahtar paspasın altına bırakılmıştı. Kameralar o sabah belediye çalışması gibi görünen bir işlemle devre dışı kalmıştı. İş emrini açan şirket, Meralis'in üç taşeronundan birine aitti.
+[U32:3] Meralis Lara'yı kaçırmamıştı. Daha etkili bir şey yapmıştı: Onun merakını, öfkesini ve babasına duyduğu kırgınlığı aynı yöne çevirmişti.
+[U32:4] Nina'yla arka odada konuştuk. Babamın eski büyüteç lambası ikimizin arasında duruyordu. Sarı ışık yüzündeki yorgunluğu büyütüyordu.
+[U32:5] “Diski neden Sam'e verdin?” diye sordum.
+[U32:6] “Çünkü disk onundu.”
+[U32:7] “Leyla'nın adı yazıyordu.”
+[U32:8] “Leyla, Sam'den çalmıştı. Sonra bana gönderdi. İçindeki kayıtları kopyalamamı ve aslı iade etmemi söyledi.”
+[U32:9] “Görüntüde masadan alıyordun.”
+[U32:10] “O masaya gitmedim. Disk bana kurye zarfında geldi. Arka kapıda Sam'e verdiğim bölüm gerçek.”
+[U32:11] Telefonunda teslim fotoğrafını açtı. Zarfın köşesi yırtılmış, barkodun bir kısmı kat yerinde kalmıştı. Leyla'nın ölümünden önceki gündü. Sonra bilgisayarına kopyaladığı dosyaların listesini gösterdi. Kopyayı Tarek'e verdi; o ön odaya, çevrim dışı bilgisayarının başına geçti. Ekrandaki tek tarihin iki ayrı olayın yerine konduğunu artık görebiliyordum.
+[U32:12] “Niye o anda söylemedin?”
+[U32:13] “Çünkü sahte kısmı anlatırken gerçek kısmından kaçtığımı düşünecektin. Sonra tam olarak bunu yaptım. Sustukça daha da kötü oldu.”
+[U32:14] “Bunu neden sakladın?”
+[U32:15] “Sam, Leyla'nın kaynağıydı.”
+[U32:16] Odayı yeniden değerlendirdim. Nina'nın her sustuğu anı, her yarım cümlesini, Sam'in bizi öldürmek yerine yönlendirdiği zamanları.
+[U32:17] “Sam sizinle mi çalışıyordu?”
+[U32:18] “Kendisiyle çalışıyordu. Bazen çıkarımız aynı yere düşüyordu.”
+[U32:19] Nina, Leyla'nın ölümünden bir hafta önce aldığı şifreli mesajları gösterdi. Leyla, Meralis'in bazı hastalarda kullandığı sakinleştirici protokolünün kayıtlarını istemişti. Sam dosyaları vermiş, karşılığında kaynağının korunmasını şart koşmuştu. Nina diski kopyalamış; fakat kimliklerin bulunduğu bir bölümü haber dosyasına eklememişti.
+[U32:20] “O bölümde Leyla'nın adı da vardı,” dedi Nina.
+[U32:21] “Ne olarak?”
+[U32:22] “Gözlemci değil. Uygulama hedefi.”
+[U32:23] “Bunu ne zaman gördün?”
+[U32:24] “Ölmeden iki gün önce. Disk gelmeden, Sam'in yolladığı şifreli ön izlemede.”
+[U32:25] “Ona söyledin mi?”
+[U32:26] Nina gözlerini kapattı.
+[U32:27] “Adının o listede olduğunu söylemedim. Eve yalnız gitme, klinikten gelen her şeyi yeniden kontrol et diye yazdım. O da reçetesindeki tuhaflığı zaten gördüğünü söyledi. İlacı bırakmıştı; kendi hekimine ulaşacaktı.”
+[U32:28] “Sen?”
+[U32:29] “Mesajın sonuna ‘Henüz kesin bir şey yok’ ekledim. Dosyayı doğrulamayı bekliyordum. O cümleyi beni dinlesin diye yazdım. Rahatlasın diye. Ne kadar saçma olduğunu şimdi duyuyorum.”
+[U32:30] “Doğruysa iki gün kaybettin.”
+[U32:31] “Evet.”
+[U32:32] “Polise gitseydin?”
+[U32:33] “Belki yaşardı.”
+[U32:34] “Bana söyleseydin?”
+[U32:35] “Belki.”
+[U32:36] “O listeyi yayımlamadan da ona hedef olduğunu söyleyebilirdin.”
+[U32:37] Nina'nın sesi sertleşti. “On dokuz kişinin sağlık kaydı, adresi ve yasa dışı ilaç geçmişi vardı. Kaynağı açarsam—”
+[U32:38] “Kaynağı aç demedim. Ablanı ara dedim.”
+[U32:39] Elindeki telefonu masaya koydu. Ekrandaki mesajı kapatmadı.
+[U32:40] “Evet,” dedi. “Arayabilirdim. Yanına da gidebilirdim. On dokuz kişiyi korumak zorundaydım. Bu, yirminciyi eksik uyarmamı gerektirmiyordu.”
+[U32:41] Öfkem haklıydı. Ama haklı öfke, her vurduğu yeri haklı yapmaz. Nina bir karar vermiş, kararın bedeli korkunç olmuştu. Bu, onun Leyla'yı öldürdüğü anlamına gelmiyordu. Yine de benden gerçeği saklamıştı.
+[U32:42] “Sana güvenemiyorum,” dedim.
+[U32:43] “Anlıyorum.”
+[U32:44] “Hayır. Şimdilik güvenemiyorum. Bu aynı şey değil.”
+[U32:45] Nina başını kaldırdı.
+[U32:46] Aramızdaki kapıyı kapatmamıştım. Yalnız yerini göstermiştim.
+[U32:47] Nina masanın öteki tarafına geçti. Az önce bana bakarken gördüğü adamın kim olduğunu merak ettim. Sorsam belki söylerdi. Söylediğini kendi yüzümün yerine koyacak, sonra bir daha değişmemesini bekleyecektim.
+[U32:48] Sormadım.
+[U32:49] Camda yansımamız vardı. Nina kıpırdayınca benim yüzümün üstünden çekildi. İlk kez, birinin beni görmeyi bırakmasının beni yok etmediğini düşünürken de korktum.
+[U32:50] Tarek ön odadan seslendi. Nina'nın kopyasında sakinleştirici protokolünün kayıtları arasına dağılmış beş kaydı Leyla'nın hasta numarasıyla eşleştirmişti. Tek tek bakılınca hiçbiri bir şey söylemiyordu. Hepsini ekranda alt alta dizdi.
+[U32:51] İlk satır bir risk puanıydı; altında bir ad değil, bir model sürümü yazıyordu. İkincisi “protokol optimizasyonu” başlıklı bir talepti. Üçüncüsü hekim panelindeki doz uyarısını ekrandan düşürüyor, dozu bir basamak yükseltiyordu; Leyla'nın notunda “ben istemedim” dediği değişiklik buydu. Dördüncüsü, aynı hafta onun adresine rutin kontrol için bir bakım ziyareti açıyordu. Beşincisi, o bakım kimliğine kapı sürgüsü için verilmiş bir uzaktan erişim izniydi. Geçerlilik tarihi, Leyla'nın öldüğü gündü.
+[U32:52] “Hiçbir satırda ‘öldür’ yazmıyor,” dedi Tarek. “Beş ayrı birim, beş ayrı onay. Her biri yalnız kendi işini yapmış.”
+[U32:53] Nina ekrana uzun bakmadı. Ablasına “Henüz kesin bir şey yok” yazdığı gün, üçüncü satır çoktan onaylanmıştı.
+[U32:54] Kötülük, sorumluluğunu küçük ve makul parçalara böldüğünde herkes yalnız kendi düğmesine basar.
+[U32:55] Sonra Tarek beyaz kitaba döndü ve kapağında çok ince bir bellek şeridi buldu. İçinde FETİH adlı bir operasyon klasörü vardı. Sözcüğün her harfi bir aşamayı gösteriyordu:
+[U32:56]     | Fark et — etkili kişileri belirle.
+[U32:57]     | Etiketle — davranışı kimliğe çevir.
+[U32:58]     | Tecrit et — güvenilir ilişkileri parçala.
+[U32:59]     | İkame et — yerine kontrollü bir anlatı koy.
+[U32:60]     | Harekete geçir — hedefi kendi itibarını yok edecek eyleme yönelt.
+[U32:61] Dosyadaki hedef tek kişi değildi. Öğretmenler, sanatçılar, mühendisler, ebeveyn grupları, travma sonrası algısı keskinleşen insanlar, tanı almış veya almamış yüzlerce kişi vardı. Meralis onları “uyanmış melekler” diye adlandırmıyordu. Bu söz beyaz kitabın kenar notlarında geçiyordu ve biyolojik bir üstünlüğü değil, dünyanın ödüllerine rağmen başkasının özgürlüğünü seçebilen insanı tarif ediyordu.
+[U32:62] Klasörün başında kırk günlük bir temas takvimi vardı. Yük öne yığılmıştı: paket, 111 saniye, cenaze ve Sam'in araması ilk günlere sığdırılmıştı; sonraki haftalar seyrekti. Kırkıncı günün karşısında yalnız bir dosya adı duruyordu.
+[U32:63] FETİH klasöründe benim için iki ayrı gelecek hazırlanmıştı. Dosyaların adı “Üretilmiş Senaryo A” ve “Üretilmiş Senaryo B”ydi. “Üretilmiş” kelimesini kimse silmeye gerek görmemişti.
+[U32:64] Senaryo A'da, yedi ayrı görüntümden sonra kuracağım sözde örgütün manifestosu, para transferleri ve şiddet çağrıları vardı. Önce bir hareketin yüzü olacaktım. Sonra beni canlı bırakıp herkesin önünde yalancı, tarikat lideri ve çocuklarını tehlikeye atan bir baba yapacaklardı.
+[U32:65] Senaryo A bir cennet teklifiydi; Meralis'te bana sunulan programın büyütülmüş hâli. Kaybettiğim her şeyin yerine daha parlak bir şey konuyordu.
+[U32:66] Senaryo B'de ölüm haberim yazılmıştı.
+[U32:67]     | Tartışmalı konuşmalarıyla tanınan yazar, evinde ölü bulundu. İlk bulgular, uzun süredir yaşadığı psikolojik sorunlara işaret ediyor.
+[U32:68] Tarih bölümü boştu. Tarek'in çevrim dışı açtığı bellek şeridindeki taslak burada bitiyordu.
+[U32:69] Sonra telefonuma isimsiz bir hesaptan aynı haberin ekran görüntüsü geldi. Bu kez altına bir aile fotoğrafı eklenmişti.
+[U32:70] Fotoğraf daha birkaç dakika önce çekilmişti.
+[U32:71] Fotoğrafta Lara, beyaz kitabın başında oturuyordu. Sara yanında, ben karşısında ayaktaydım.
+[U32:72] Fotoğrafın çekildiği açı, dükkânın içindendi.
+[U32:73] Arka odada bizden başka kimse yoktu.
+[U32:74] Telefonumu aramak için elimi montumun cebine soktum. Anahtarlara ince bir kırmızı ip dolanmıştı. Islanmış, sonra avucumun içinde kurumaya başlamıştı. Kapı kolundaki ipe benziyordu. Düğümün iki ucu aynı uzunluktaydı.
+[U32:75] Avucuma baktım. Onu çözdüğümü hatırlamıyordum. Sara da aldığımı görmemişti. Bir an, yıllar önce hastane sandalyesinden aldığımı sandığım ipe dokunduğumu hissettim. Montu geçen kış satın almıştım. Üç yıllık anı, bir yıllık cebe sığmaya çalışıyordu.
+[U32:76] “Hastanedeki ipi hatırlıyor musun?” diye sordum Lara'ya.
+[U32:77] “Kolumuza takmaya çalıştığın şeyi mi?”
+[U32:78] “Cebime koymuştum.”
+[U32:79] “Hayır. Çıkarken sandalyedeydi. Ben sana başkasının eşyasını alma demiştim.”
+[U32:80] O cümleyi hatırlamadım. Lara da ipin renginden tam emin değildi. İkimizden birinin belleğini ötekinin üstüne mühürleyemezdim. Sara, dükkânın kapısını içeri girmeden çektiği görüntüyü açtı. Kayıt ip bağlıyken bitiyordu. Sonraki fotoğrafta kol boştu; aradaki an elimizde yoktu.
+[U32:81] İpi bir zarfa koyup bulunduğu yeri yazdık. İki olayın arasını aynı renkle doldurmak çok kolaydı. Kolay olanı gerçek sanmamaya çalıştım.
