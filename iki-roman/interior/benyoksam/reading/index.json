@@ -1,0 +1,154 @@
+[
+ {
+  "chunk": 1,
+  "units": [
+   "U00",
+   "U01",
+   "U02",
+   "U03",
+   "U04",
+   "U05",
+   "U06",
+   "U07",
+   "U08",
+   "U09",
+   "U10",
+   "U11"
+  ],
+  "titles": [
+   "(Titelblock)",
+   "1453 — UYANIŞIN BEDELİ",
+   "DİKKAT",
+   "1. Sonmuş Gibi Sıradan Bir Sabah",
+   "2. Siyah Paket",
+   "3. Kamera Boşluğu",
+   "4. Sahte Görüntü, Gerçek Yas",
+   "5. Bir Tanının Geldiği Yer",
+   "7. Silinen Satır",
+   "8. İki Kötü Seçenek",
+   "9. Bölgesel Bir İmparatorluk",
+   "11. Emanetin Peşindeki Karga"
+  ],
+  "words": 9984
+ },
+ {
+  "chunk": 2,
+  "units": [
+   "IL1",
+   "U11",
+   "U12",
+   "U13",
+   "U14",
+   "U15",
+   "U16",
+   "U17",
+   "U18",
+   "U19",
+   "U20"
+  ],
+  "titles": [
+   "ARA BÖLÜM IL1",
+   "11. Emanetin Peşindeki Karga",
+   "12. Yedi Yıl Önce Çaldığım Kapı",
+   "13. Bedenin İtirazı",
+   "15. Nüshaların Söylemediği",
+   "16. Görmek ile Yetişmek Arasındaki Mesafe",
+   "17. Ormanda Beceri, Şehirde Belirti",
+   "18. Birincil Ayna",
+   "20. İnanmayan İlk Kişi",
+   "21. Bir Hata, İki Kız Kardeş",
+   "22. On Bir Saniyenin İçindeki Ses"
+  ],
+  "words": 10247
+ },
+ {
+  "chunk": 3,
+  "units": [
+   "IL2",
+   "U20",
+   "U21",
+   "U22",
+   "U23",
+   "U24",
+   "U25",
+   "U26",
+   "U27",
+   "U28",
+   "U29",
+   "IL3",
+   "U29",
+   "U30",
+   "U31"
+  ],
+  "titles": [
+   "ARA BÖLÜM IL2",
+   "22. On Bir Saniyenin İçindeki Ses",
+   "23. Silah Olmayan Ses",
+   "24. Yusuf'un Dili",
+   "25. Unuttuğumu Ateş Seçti",
+   "26. Aynı Yöntemin Farklı Logoları",
+   "28. Bir Gün Daha Yaşamak",
+   "29. Trenin İçindeki Ben",
+   "30. Yüzümün Benden Habersiz Hayatı",
+   "31. Lambaları Yanan Boş Kat",
+   "32. Leyla'nın Son Kaynağı",
+   "ARA BÖLÜM IL3",
+   "32. Leyla'nın Son Kaynağı",
+   "34. Unutulmuş Dükkânın Anahtarı",
+   "35. Kızımın Dosyası"
+  ],
+  "words": 10413
+ },
+ {
+  "chunk": 4,
+  "units": [
+   "U32",
+   "U33",
+   "U34",
+   "U35",
+   "U36",
+   "U37",
+   "U38",
+   "IL4",
+   "U38"
+  ],
+  "titles": [
+   "36. İki Ayrı Gelecek",
+   "37. Görünmeyen Kameranın Gördüğü",
+   "38. Adı Hastalık Olan Yetenek",
+   "39. ŞAMAN",
+   "40. Yusuf Olmadan Önce",
+   "42. Labirentin Emanetleri",
+   "43. Başlangıç Sensin",
+   "ARA BÖLÜM IL4",
+   "43. Başlangıç Sensin"
+  ],
+  "words": 10260
+ },
+ {
+  "chunk": 5,
+  "units": [
+   "U39",
+   "U40",
+   "U41",
+   "IL5",
+   "U42",
+   "U43",
+   "IL6",
+   "U44",
+   "U45"
+  ],
+  "titles": [
+   "44. Bedenin Bildiği Tarih",
+   "45. Beni Öldürmeyen Adam",
+   "46. Son Olabilecek Şeyler",
+   "ARA BÖLÜM IL5",
+   "47. Son Olduğunu Bilmeden",
+   "48. Saat 14.53",
+   "ARA BÖLÜM IL6",
+   "49. Geride Kalanlar",
+   "50. Boş Bırakılan Son Cümle"
+  ],
+  "words": 8940
+ }
+]
