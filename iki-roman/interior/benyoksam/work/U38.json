@@ -19,11 +19,11 @@
   },
   {
    "style": "Normal",
-   "text": "Berlin hattında bir pencere daha vardı. Kamerası da mikrofonu da kapalıydı; adın yazacağı yerde yalnız bir nokta duruyordu. Nina'ya kim olduğunu sordum. “Doğrulama ekibinden,” dedi. Başka bir şey söylemedi."
+   "text": "Berlin hattında bir pencere daha vardı; bağlantı aynı binadan, kasa odasının yanındaki doğrulama odasından geliyordu. Kamerası da mikrofonu da kapalıydı; adın yazılacağı yerde yalnız bir nokta duruyordu. Nina'ya kim olduğunu sordum. “Doğrulama ekibinden,” dedi. Başka bir şey söylemedi."
   },
   {
    "style": "Normal",
-   "text": "Cihaz ağa bağlanır bağlanmaz sahte bir Meralis arşivi de aynı adrese yüklendi. Sahte dosyada gerçek şirket adları, yanlış ödeme tarihleriyle karıştırılmıştı. Dosyaların çoğu yıllar önce oluşturulmuş görünüyordu; Tarek son değişiklik saatlerine baktığında hepsinin cihazın bağlandığı dakikayı gösterdiğini gördü. Arşiv yıllardır hazır bekliyordu, ama bizim açtığımız kasaya o dakika uydurulmuştu. Bir insan ekibi bunu bu hızla yapamazdı; AYNA yapabilirdi. Ekip acele edip yayımlasaydı bütün soruşturma bir tarih hatasıyla çökebilirdi."
+   "text": "Cihaz ağa bağlanır bağlanmaz sahte bir Meralis arşivi de aynı adrese yüklendi. Sahte dosyada gerçek şirket adları, yanlış ödeme tarihleriyle karıştırılmıştı. Dosyaların çoğu yıllar önce oluşturulmuş görünüyordu. Tarek son değişiklik saatlerine baktı: gerçek dosyalar da sahteler de cihazın bağlandığı dakikada açılmıştı; saat ikisini ayırmıyordu. O dakikada bu kadar düzgün bir karışım kuran bir insan ekibi düşünemedim; aklıma AYNA geldi. Ekip acele edip yayımlasaydı bütün soruşturma bir tarih hatasıyla çökebilirdi."
   },
   {
    "style": "Normal",
@@ -40,10 +40,6 @@
   {
    "style": "Normal",
    "text": "Ardından tarihleri tek tek işaretledi. Bütün ödemeler ayın on beşinde yapılmıştı. Hiçbiri hafta sonuna denk gelip pazartesiye kaymamış, hiçbir bayram tatili bir havaleyi geciktirmemişti. Ne bir iade vardı ne bir düzeltme kaydı ne de geç kesilmiş bir fatura."
-  },
-  {
-   "style": "Normal",
-   "text": "<i>Alnını.</i> Bu kelimeyi yakın zamanda bir kâğıtta okumuştum. Nina ekrana bir an fazla baktı."
   },
   {
    "style": "Normal",
@@ -79,7 +75,7 @@
   },
   {
    "style": "Normal",
-   "text": "Noktalı pencere bir şey eklemedi. Kapanmadı da. Sonraki iki gün, kâğıttaki her satır sicille karşılaştırılırken o nokta Berlin ekibinin yanından ayrılmadı; hat koptuğunda yeniden bağlandı, ne acele etti ne çekildi."
+   "text": "Noktalı pencere bir şey eklemedi. Kapanmadı da."
   },
   {
    "style": "Normal",
@@ -87,7 +83,7 @@
   },
   {
    "style": "Normal",
-   "text": "Bir süre sonra Nina'nın telefonuna Berlin'den kısa bir ses dosyası geldi. Çevrim dışı bir cihazla kaydedilmişti; altında tek satır vardı: <i>Lara dinlesin.</i> Lara kulaklığı taktı, bir kez dinledi, kaşlarını çattı ve telefonu masaya bıraktı."
+   "text": "Bir süre sonra Nina'nın telefonuna Berlin'den kısa bir ses dosyası geldi. Kasa odasının kapısında, çevrim dışı bir cihazla kaydedilmişti; altında tek satır vardı: <i>Lara dinlesin.</i> Lara kulaklığı taktı, bir kez dinledi, kaşlarını çattı ve telefonu masaya bıraktı."
   },
   {
    "style": "Normal",
@@ -159,7 +155,7 @@
   },
   {
    "style": "Normal",
-   "text": "Lara, Berlin'den gelen kısa ses kaydını yeniden dinledi. Kayıt çevrim dışı alındığı için temizdi; içinde ne bildirim sesi vardı ne hat cızırtısı. Yalnız odanın sesi ve her dosya açıldığında cihazın çıkardığı yüksek frekanslı ses. Bu ses her seferinde farklıydı. Biz onu elektronik gürültü sanmıştık. Tarek aynı saniyelerde ekiplerin telefonlarından tek bir alana giden küçük veri paketlerini buldu. Kutularla birlikte verilen arşiv görüntüleyicisi, “akustik bütünlük kontrolü” adı altında mikrofon izni istemişti. Ses, açılan paketin kimliğini kodluyor; izin verilmiş iş telefonundaki uygulama da kodu Meralis'e gönderiyordu."
+   "text": "Lara, Berlin'den gelen kısa ses kaydını yeniden dinledi. Kayıt çevrim dışı alındığı için temizdi; içinde ne bildirim sesi vardı ne hat cızırtısı. Yalnız odanın sesi ve her dosya açıldığında cihazın çıkardığı yüksek frekanslı ses. Bu ses her seferinde farklıydı. Biz onu elektronik gürültü sanmıştık. Tarek aynı saniyelerde ekiplerin telefonlarından tek bir alana giden küçük veri paketlerini buldu. Muhabirin okumadan verdiği izin buydu. Ses, açılan paketin kimliğini kodluyor; izin verilmiş iş telefonundaki uygulama da kodu Meralis'e gönderiyordu."
   },
   {
    "style": "Normal",
@@ -175,7 +171,7 @@
   },
   {
    "style": "Normal",
-   "text": "Geri bildirim kesilince saldırıların hızı azaldı. Ekipler dosyaların içerdiği asıl doğrulama haritasını çıkardı. Meralis bizi son anda durduramamıştı; fakat hangi yolun açık olduğunu bilerek karşı belge hazırlayabiliyordu."
+   "text": "Geri bildirim kesilince saldırıların hızı azaldı. Berlin'de kâğıttaki her satır iki gün boyunca sicille karşılaştırıldı; noktalı pencere o iki gün ne acele etti ne çekildi, hat koptukça yeniden bağlandı. Ekipler dosyaların içerdiği asıl doğrulama haritasını çıkardı. Meralis bizi son anda durduramamıştı; fakat hangi yolun açık olduğunu bilerek karşı belge hazırlayabiliyordu."
   },
   {
    "style": "Normal",
