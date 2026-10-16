@@ -3,7 +3,7 @@
  "plan": {
   "chapter": "1. Sonmuş Gibi Sıradan Bir Sabah",
   "change": "hafif",
-  "what": "Yeni açılış cümlesi (pid 37); adlar; „Gündelik Hayatta Zaman Algısı“nın yazarı tek cümleyle Tuncay Sancak. Şifre paragrafı pid 65–66 (‚B‘) ve dedenin kural açıklamaları (pid 68–81) aynen. ★ cümleler korunur („Seni sevmeyi bırakmadım…“, „Korkunu görev mi yaptın?“, „Bilmekle saate uymak aynı şey değil“, „Bir insanın varlığını en son kim kanıtlardı?“). ‚Sonmuş‘ başlığı yazarın kararına bırakılır."
+  "what": "Yeni açılış cümlesi (pid 37); adlar; „Gündelik Hayatta Zaman Algısı“nın yazarı tek cümleyle Tuncay Sancak. Şifre paragrafı pid 65–66 (‚B‘) ve dedenin kural açıklamaları (pid 68–81) aynen. ★ cümleler korunur („Seni sevmeyi bırakmadım…“, „Korkunu görev mi yaptın?“, „Bilmekle saate uymak aynı şey değil“, „Bir insanın varlığını en son kim kanıtlardı?“). ‚Sonmuş‘ başlığı yazarın kararına bırakılır. ÜÇÜNCÜ GÖZ (aynı konudaki İRFAN talimatının önüne geçer; analyse/BEN_YOKSAM_Ucuncu_Goz_Yerlesim.md): tanıtma (künyeden önce): Tuncay künyeden (ara bölüm 1, 11'in sonu) önce kurmaca içinde bir kişi olarak var olur. work/U03'teki cümleye („Kitabın adı <i>Gündelik Hayatta Zaman Algısı</i> idi; yazarı Tuncay Sancak'tı ve o gün benim için kapaktaki bir addan ibaretti.“) yarım cümle eklenir: dostluk önceden haber verilir, 12'deki tanışma (üç yıl önce, Kadıköy) ile çelişmez. Böylece künye kapaktaki yazara değil, anlatıcının arkadaşına işaret eder; 12'deki söz künyeyi geriye dönük doğrular. U03 yalnız bu cümle için yeniden açılır. Önerilen: Kitabın adı <i>Gündelik Hayatta Zaman Algısı</i> idi; yazarı Tuncay Sancak'tı. Yıllar sonra arkadaşım olacaktı; o gün benim için kapaktaki bir addan ibaretti."
  },
  "synopsis_around": [
   {
@@ -204,7 +204,7 @@
   {
    "where": "pid 3201–3211 (46. böl.)",
    "what": "Sefa'nın kasım nüshası; ortak not; „Bazen onları ben yazmıyorum gibi geliyor. Ben sustuğumda da odalarında konuşuyorlar.“; „Benim de kafam aynı apartman“ diyaloğu",
-   "replacement": "Anlatıcı son bölümleri Tuncay'a yollar. Tuncay'ın cevabı tek satır: „Son cümleyi boş bırak.“ Telefon kısaltılarak korunur (bkz. 4.1). Boş sandalye paragrafı (pid 3212–3213) aynen; „Öteki dosyadaki sandalye“ cümlesi düşer, anlatıcı kendi çizimini ters kaldırdığı sandalyeyle karşılaştırır."
+   "replacement": "Anlatıcı son bölümleri Tuncay'a yollar. Tuncay'ın cevabı tek satır: „Son cümleyi boş bırak.“ Konuşma kısaltılarak korunur, yüz yüze, babanın dükkânında (bkz. 4.1; ÜÇÜNCÜ GÖZ kararı – telefon değil). Boş sandalye paragrafı (pid 3212–3213) aynen; „Öteki dosyadaki sandalye“ cümlesi düşer, anlatıcı kendi çizimini ters kaldırdığı sandalyeyle karşılaştırır."
   },
   {
    "where": "pid 3219 (46. böl.)",
@@ -290,5 +290,73 @@
    "Hakan Hıdıroğlu": "çıkar",
    "Muhibbi Amca": "çıkar"
   }
+ },
+ "ucuncu_goz": {
+  "hinweis": "Tuncays Text „ÜÇÜNCÜ GÖZ“ wird als Zwischenkapitel automatisch aus benyoksam/interludes.json eingefügt – NICHT in die Kapiteldatei schreiben und nicht in Szenen wiederholen; nur die Rahmenhinweise (frame) dieses Kapitels umsetzen.",
+  "interlude_after_this_chapter": [],
+  "all_interludes": [
+   {
+    "n": 1,
+    "after_uid": "U11",
+    "sections": [
+     "I. Üç Gözün Sırrı"
+    ]
+   },
+   {
+    "n": 2,
+    "after_uid": "U20",
+    "sections": [
+     "II. Tek Gözlü Kurtarıcı",
+     "III. Cennet Diye Sunulan Cehennem"
+    ]
+   },
+   {
+    "n": 3,
+    "after_uid": "U29",
+    "sections": [
+     "IV. Büyünün Gerçek Adı",
+     "V. Mehdi'nin Gelişi"
+    ]
+   },
+   {
+    "n": 4,
+    "after_uid": "U38",
+    "sections": [
+     "VI. Âdem'in Unuttuğu İsimler",
+     "VII. Şeytan da Âdem'in İçindeydi"
+    ]
+   },
+   {
+    "n": 5,
+    "after_uid": "U41",
+    "sections": [
+     "VIII. Beyaz Işığın Parçalanması",
+     "IX. Toprağın Altındaki Görünmeyen Ağ"
+    ]
+   },
+   {
+    "n": 6,
+    "after_uid": "U43",
+    "sections": [
+     "X. Yaratıcı'ya Dönüş",
+     "XI. Son Unutuş",
+     "Sonsöz — Üçüncü Göz Açıldığında",
+     "Son not"
+    ]
+   }
+  ],
+  "frame": [
+   {
+    "uid": "U03",
+    "chapter": "1. Sonmuş Gibi Sıradan Bir Sabah",
+    "kind": "tanıtma (künyeden önce)",
+    "what": "Tuncay künyeden (ara bölüm 1, 11'in sonu) önce kurmaca içinde bir kişi olarak var olur. work/U03'teki cümleye („Kitabın adı <i>Gündelik Hayatta Zaman Algısı</i> idi; yazarı Tuncay Sancak'tı ve o gün benim için kapaktaki bir addan ibaretti.“) yarım cümle eklenir: dostluk önceden haber verilir, 12'deki tanışma (üç yıl önce, Kadıköy) ile çelişmez. Böylece künye kapaktaki yazara değil, anlatıcının arkadaşına işaret eder; 12'deki söz künyeyi geriye dönük doğrular. U03 yalnız bu cümle için yeniden açılır.",
+    "text": "Kitabın adı <i>Gündelik Hayatta Zaman Algısı</i> idi; yazarı Tuncay Sancak'tı. Yıllar sonra arkadaşım olacaktı; o gün benim için kapaktaki bir addan ibaretti.",
+    "words": 4
+   }
+  ],
+  "irfan_dedupe": [],
+  "plug_resolution": "Meselde (V) Mehdi fişi çeker ve büyük göz söner; romanda AYNA'nın fişi çekilmez (Konsept §2.6; 45 „aynı yöntem başka bir ülkede“; 50'de ekranda hâlâ „Devam et?“). Fark iki yerde adlandırılır: (1) 43'te anlatıcının ağzında, tek cümle ve kapsamıyla: „Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.“ (2961'deki ve §2.6'daki kısmi durdurmalarla çelişmez). (2) 47'de meselin yazarının mektubunda – fiş farkı, irade farkı ve kahramanlık reddi birlikte: „Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.“ Meselin kendi son cümlesi (V: „Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.“) bu okumayı zaten içerir: mesel büyük ölçekte masal anlatır, roman küçük ölçekte gerçeği. Fiş zinciri: V (mesel, makine) → 40 Yusuf („kendi fişini çektiğinde geri gelen denge“) → 43 (modelin fişini çeken olmadı) → 47 mektup (herkes kendi fişini çeker) + „Beni arama.“ → 49 (bir hesabın fişi) → 50 ekranı kapatıp kalemi alan el. „Fiş“ kelimesi bölümlerde yalnız 40, 43, 47, 49'da geçer. Açık soru 7 böylece yazarın metniyle uzlaşır: yazarın „sonunda fişi çekerken“ öğesi meselde birebir yaşar; romanın gerçekliği kişisel ölçekte kalır; §2.5 (niyet yok, ölçüt var), §2.6 ve 45 değişmez.",
+  "fiction_note_sentence": null
  }
 }

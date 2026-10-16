@@ -3,7 +3,7 @@
  "plan": {
   "chapter": "42. Labirentin Emanetleri",
   "change": "hafif",
-  "what": "‚L‘ başlık korunur (SENİ BUL 7). Emanet sistemi, bebek ağlaması, Emil'in vida başları, Sam'le tünel diyaloğu ve üçüncü yol aynen; icra memuru sahnesi yarıya iner. 54 dakika önce eklenen tarif = fiber görüntüsünden AYNA'nın yazdığı, avukatın imzaladığı talep (pid 3043; Sam 45'te doğrular). Sam: „Anahtarları alsam da kampanya durmaz.“ Nina: „Cenneti gösterip cehenneme sokmak.“ İRFAN: Nina'nın 'Cenneti gösterip cehenneme sokmak. Bunu eski kitaplar da yazmış.' cümlesi ve anlatıcının tek cevabı kuşatma bittikten SONRA, araçta (pid 2921'den sonra): 'Bir şey daha yazmış: Görmeyenler, sunulanın cennet olmadığını içine girince de anlamamış.' 'Sen gördün mü?' sorusu yok; 2897–2918 gerilimine girilmez."
+  "what": "‚L‘ başlık korunur (SENİ BUL 7). Emanet sistemi, bebek ağlaması, Emil'in vida başları, Sam'le tünel diyaloğu ve üçüncü yol aynen; icra memuru sahnesi yarıya iner. 54 dakika önce eklenen tarif = fiber görüntüsünden AYNA'nın yazdığı, avukatın imzaladığı talep (pid 3043; Sam 45'te doğrular). Sam: „Anahtarları alsam da kampanya durmaz.“ Nina: „Cenneti gösterip cehenneme sokmak.“ İRFAN: Nina'nın 'Cenneti gösterip cehenneme sokmak. Bunu eski kitaplar da yazmış.' cümlesi ve anlatıcının tek cevabı kuşatma bittikten SONRA, araçta (pid 2921'den sonra): 'Bir şey daha yazmış: Görmeyenler, sunulanın cennet olmadığını içine girince de anlamamış.' 'Sen gördün mü?' sorusu yok; 2897–2918 gerilimine girilmez. ÜÇÜNCÜ GÖZ (aynı konudaki İRFAN talimatının önüne geçer; analyse/BEN_YOKSAM_Ucuncu_Goz_Yerlesim.md): adil ipucu: Araçta Nina'nın „Cenneti gösterip cehenneme sokmak“ cümlesine anlatıcının cevabı meselle konuşan kısa bir yankıya iner; Tuncay'ın „her şeyi bilmesi“ ilk kez şakayla anılır. Önerilen: “Tuncay da yazmış,” dedim. Nina güldü. “Senin yazar arkadaşın her şeyi yazmış.” | İRFAN 42 → yankı + adil ipucu: „“Tuncay da yazmış,” dedim. Nina güldü. “Senin yazar arkadaşın her şeyi yazmış.”“"
  },
  "synopsis_around": [
   {
@@ -229,5 +229,83 @@
    "Hakan Hıdıroğlu": "çıkar",
    "Muhibbi Amca": "çıkar"
   }
+ },
+ "ucuncu_goz": {
+  "hinweis": "Tuncays Text „ÜÇÜNCÜ GÖZ“ wird als Zwischenkapitel automatisch aus benyoksam/interludes.json eingefügt – NICHT in die Kapiteldatei schreiben und nicht in Szenen wiederholen; nur die Rahmenhinweise (frame) dieses Kapitels umsetzen.",
+  "interlude_after_this_chapter": [],
+  "all_interludes": [
+   {
+    "n": 1,
+    "after_uid": "U11",
+    "sections": [
+     "I. Üç Gözün Sırrı"
+    ]
+   },
+   {
+    "n": 2,
+    "after_uid": "U20",
+    "sections": [
+     "II. Tek Gözlü Kurtarıcı",
+     "III. Cennet Diye Sunulan Cehennem"
+    ]
+   },
+   {
+    "n": 3,
+    "after_uid": "U29",
+    "sections": [
+     "IV. Büyünün Gerçek Adı",
+     "V. Mehdi'nin Gelişi"
+    ]
+   },
+   {
+    "n": 4,
+    "after_uid": "U38",
+    "sections": [
+     "VI. Âdem'in Unuttuğu İsimler",
+     "VII. Şeytan da Âdem'in İçindeydi"
+    ]
+   },
+   {
+    "n": 5,
+    "after_uid": "U41",
+    "sections": [
+     "VIII. Beyaz Işığın Parçalanması",
+     "IX. Toprağın Altındaki Görünmeyen Ağ"
+    ]
+   },
+   {
+    "n": 6,
+    "after_uid": "U43",
+    "sections": [
+     "X. Yaratıcı'ya Dönüş",
+     "XI. Son Unutuş",
+     "Sonsöz — Üçüncü Göz Açıldığında",
+     "Son not"
+    ]
+   }
+  ],
+  "frame": [
+   {
+    "uid": "U37",
+    "chapter": "42. Labirentin Emanetleri",
+    "kind": "adil ipucu",
+    "what": "Araçta Nina'nın „Cenneti gösterip cehenneme sokmak“ cümlesine anlatıcının cevabı meselle konuşan kısa bir yankıya iner; Tuncay'ın „her şeyi bilmesi“ ilk kez şakayla anılır.",
+    "text": "“Tuncay da yazmış,” dedim. Nina güldü. “Senin yazar arkadaşın her şeyi yazmış.”",
+    "words": 0
+   }
+  ],
+  "irfan_dedupe": [
+   {
+    "chapter": "42",
+    "uid": "U37",
+    "mesel": "III",
+    "karar": "yankı + adil ipucu",
+    "before": "“Bir şey daha yazmış,” dedim. “Görmeyenler, sunulanın cennet olmadığını içine girince de anlamamış.”",
+    "after": "“Tuncay da yazmış,” dedim. Nina güldü. “Senin yazar arkadaşın her şeyi yazmış.”",
+    "delta": -1
+   }
+  ],
+  "plug_resolution": "Meselde (V) Mehdi fişi çeker ve büyük göz söner; romanda AYNA'nın fişi çekilmez (Konsept §2.6; 45 „aynı yöntem başka bir ülkede“; 50'de ekranda hâlâ „Devam et?“). Fark iki yerde adlandırılır: (1) 43'te anlatıcının ağzında, tek cümle ve kapsamıyla: „Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.“ (2961'deki ve §2.6'daki kısmi durdurmalarla çelişmez). (2) 47'de meselin yazarının mektubunda – fiş farkı, irade farkı ve kahramanlık reddi birlikte: „Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.“ Meselin kendi son cümlesi (V: „Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.“) bu okumayı zaten içerir: mesel büyük ölçekte masal anlatır, roman küçük ölçekte gerçeği. Fiş zinciri: V (mesel, makine) → 40 Yusuf („kendi fişini çektiğinde geri gelen denge“) → 43 (modelin fişini çeken olmadı) → 47 mektup (herkes kendi fişini çeker) + „Beni arama.“ → 49 (bir hesabın fişi) → 50 ekranı kapatıp kalemi alan el. „Fiş“ kelimesi bölümlerde yalnız 40, 43, 47, 49'da geçer. Açık soru 7 böylece yazarın metniyle uzlaşır: yazarın „sonunda fişi çekerken“ öğesi meselde birebir yaşar; romanın gerçekliği kişisel ölçekte kalır; §2.5 (niyet yok, ölçüt var), §2.6 ve 45 değişmez.",
+  "fiction_note_sentence": null
  }
 }

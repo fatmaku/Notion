@@ -3,7 +3,7 @@
  "plan": {
   "chapter": "40. Yusuf Olmadan Önce",
   "change": "yeniden",
-  "what": "Kimlik (Samuel ‚Sami‘ Arven), Alina'nın kaseti (modelin ölçütü olarak bir cümle), dedenin matbaası, 19 yaşındaki plan, kırmızı ip/şifre paragrafı pid 2796–2797 (‚Mührün‘), üç renk/simya, „kedi canı istediği yere oturur“ aynen. Soru-cevap yarıya iner (irfan kelime bütçesi): depo değişimi (15'te bulundu), 111 saniye ve yedi kitap kısa onaylara iner. pid 2801 uzun cümle düşer, 2802 Tuncay'a bağlanır; pid 2805–2807 kanat 3-2-3 vurur. Yusuf'un ‚götürülmeyen yer‘ cümlesi (26'da değilse) burada. İRFAN: Yusuf'un tek Mehdi pasajı (3 replik), yüz yüze bölümde – gözlemevinin servis binası (pid 2750) –, pid 2792'nin ardına, on dokuz yaşındaki plana (pid 2790) bakarak: 'Dedem ahir zamanda birinin gelip ortalığı düzelteceğini anlatırdı. Büyüyünce o cümlenin kimlere ne yaptırdığını gördüm; bizim el kitabımız da bir listeydi. Ben ihtiyar bir dizgiciyim, hüküm veremem. Yalnız şunu düşünürüm: Belki Mehdi bir kişi değildir. Belki insan kendi fişini çektiğinde geri gelen dengedir; onu kimse getirmez. Biri fişi çeker, biri sofrayı kurar, biri çocuğunu okuldan alır. Fişi çekenin de dengeye ihtiyacı vardır; yoksa yeni fişi o takar.' – 'Bu bir kehanet mi?' – 'Bir ihtiyarın kendini sakinleştirmesi.' Kitapta 'Mehdi' kelimesi yalnız burada."
+  "what": "Kimlik (Samuel ‚Sami‘ Arven), Alina'nın kaseti (modelin ölçütü olarak bir cümle), dedenin matbaası, 19 yaşındaki plan, kırmızı ip/şifre paragrafı pid 2796–2797 (‚Mührün‘), üç renk/simya, „kedi canı istediği yere oturur“ aynen. Soru-cevap yarıya iner (irfan kelime bütçesi): depo değişimi (15'te bulundu), 111 saniye ve yedi kitap kısa onaylara iner. pid 2801 uzun cümle düşer, 2802 Tuncay'a bağlanır; pid 2805–2807 kanat 3-2-3 vurur. Yusuf'un ‚götürülmeyen yer‘ cümlesi (26'da değilse) burada. İRFAN: Yusuf'un tek Mehdi pasajı (3 replik), yüz yüze bölümde – gözlemevinin servis binası (pid 2750) –, pid 2792'nin ardına, on dokuz yaşındaki plana (pid 2790) bakarak: 'Dedem ahir zamanda birinin gelip ortalığı düzelteceğini anlatırdı. Büyüyünce o cümlenin kimlere ne yaptırdığını gördüm; bizim el kitabımız da bir listeydi. Ben ihtiyar bir dizgiciyim, hüküm veremem. Yalnız şunu düşünürüm: Belki Mehdi bir kişi değildir. Belki insan kendi fişini çektiğinde geri gelen dengedir; onu kimse getirmez. Biri fişi çeker, biri sofrayı kurar, biri çocuğunu okuldan alır. Fişi çekenin de dengeye ihtiyacı vardır; yoksa yeni fişi o takar.' – 'Bu bir kehanet mi?' – 'Bir ihtiyarın kendini sakinleştirmesi.' Kitapta 'Mehdi' kelimesi yalnız burada. ÜÇÜNCÜ GÖZ (aynı konudaki İRFAN talimatının önüne geçer; analyse/BEN_YOKSAM_Ucuncu_Goz_Yerlesim.md): İRFAN 40 → karşı-ses olarak kalır, kısalır: „… Belki Mehdi bir kişi değildir. Belki insan kendi fişini çektiğinde geri gelen dengedir; onu kimse getirmez. Biri fişi çeker, biri sofrayı kurar, biri çocuğunu okuldan alır. (son cümle çıkar: V'teki Mehdi'nin „beni de sorgulayın“ uyarısının tekrarıydı; „Bu bir kehanet mi?“ – „Bir ihtiyarın kendini sakinleştirmesi.“ aynen)“"
  },
  "synopsis_around": [
   {
@@ -240,5 +240,74 @@
    "Hakan Hıdıroğlu": "çıkar",
    "Muhibbi Amca": "çıkar"
   }
+ },
+ "ucuncu_goz": {
+  "hinweis": "Tuncays Text „ÜÇÜNCÜ GÖZ“ wird als Zwischenkapitel automatisch aus benyoksam/interludes.json eingefügt – NICHT in die Kapiteldatei schreiben und nicht in Szenen wiederholen; nur die Rahmenhinweise (frame) dieses Kapitels umsetzen.",
+  "interlude_after_this_chapter": [],
+  "all_interludes": [
+   {
+    "n": 1,
+    "after_uid": "U11",
+    "sections": [
+     "I. Üç Gözün Sırrı"
+    ]
+   },
+   {
+    "n": 2,
+    "after_uid": "U20",
+    "sections": [
+     "II. Tek Gözlü Kurtarıcı",
+     "III. Cennet Diye Sunulan Cehennem"
+    ]
+   },
+   {
+    "n": 3,
+    "after_uid": "U29",
+    "sections": [
+     "IV. Büyünün Gerçek Adı",
+     "V. Mehdi'nin Gelişi"
+    ]
+   },
+   {
+    "n": 4,
+    "after_uid": "U38",
+    "sections": [
+     "VI. Âdem'in Unuttuğu İsimler",
+     "VII. Şeytan da Âdem'in İçindeydi"
+    ]
+   },
+   {
+    "n": 5,
+    "after_uid": "U41",
+    "sections": [
+     "VIII. Beyaz Işığın Parçalanması",
+     "IX. Toprağın Altındaki Görünmeyen Ağ"
+    ]
+   },
+   {
+    "n": 6,
+    "after_uid": "U43",
+    "sections": [
+     "X. Yaratıcı'ya Dönüş",
+     "XI. Son Unutuş",
+     "Sonsöz — Üçüncü Göz Açıldığında",
+     "Son not"
+    ]
+   }
+  ],
+  "frame": [],
+  "irfan_dedupe": [
+   {
+    "chapter": "40",
+    "uid": "U36",
+    "mesel": "V",
+    "karar": "karşı-ses olarak kalır, kısalır",
+    "before": "… Belki Mehdi bir kişi değildir. Belki insan kendi fişini çektiğinde geri gelen dengedir; onu kimse getirmez. Biri fişi çeker, biri sofrayı kurar, biri çocuğunu okuldan alır. Fişi çekenin de dengeye ihtiyacı vardır; yoksa yeni fişi o takar.",
+    "after": "… Belki Mehdi bir kişi değildir. Belki insan kendi fişini çektiğinde geri gelen dengedir; onu kimse getirmez. Biri fişi çeker, biri sofrayı kurar, biri çocuğunu okuldan alır. (son cümle çıkar: V'teki Mehdi'nin „beni de sorgulayın“ uyarısının tekrarıydı; „Bu bir kehanet mi?“ – „Bir ihtiyarın kendini sakinleştirmesi.“ aynen)",
+    "delta": -11
+   }
+  ],
+  "plug_resolution": "Meselde (V) Mehdi fişi çeker ve büyük göz söner; romanda AYNA'nın fişi çekilmez (Konsept §2.6; 45 „aynı yöntem başka bir ülkede“; 50'de ekranda hâlâ „Devam et?“). Fark iki yerde adlandırılır: (1) 43'te anlatıcının ağzında, tek cümle ve kapsamıyla: „Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.“ (2961'deki ve §2.6'daki kısmi durdurmalarla çelişmez). (2) 47'de meselin yazarının mektubunda – fiş farkı, irade farkı ve kahramanlık reddi birlikte: „Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.“ Meselin kendi son cümlesi (V: „Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.“) bu okumayı zaten içerir: mesel büyük ölçekte masal anlatır, roman küçük ölçekte gerçeği. Fiş zinciri: V (mesel, makine) → 40 Yusuf („kendi fişini çektiğinde geri gelen denge“) → 43 (modelin fişini çeken olmadı) → 47 mektup (herkes kendi fişini çeker) + „Beni arama.“ → 49 (bir hesabın fişi) → 50 ekranı kapatıp kalemi alan el. „Fiş“ kelimesi bölümlerde yalnız 40, 43, 47, 49'da geçer. Açık soru 7 böylece yazarın metniyle uzlaşır: yazarın „sonunda fişi çekerken“ öğesi meselde birebir yaşar; romanın gerçekliği kişisel ölçekte kalır; §2.5 (niyet yok, ölçüt var), §2.6 ve 45 değişmez.",
+  "fiction_note_sentence": null
  }
 }

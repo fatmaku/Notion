@@ -44,13 +44,21 @@ def main():
     # Absatzvorlagen der Zwischenkapitel (Tuncays „ÜÇÜNCÜ GÖZ“) anlegen, falls die Vorlage sie nicht hat
     from docx.enum.style import WD_STYLE_TYPE
     names = {st.name for st in doc.styles}
-    for name, base in (("Interlude Title", "Heading 2"), ("Interlude Subtitle", "Normal"), ("Interlude Lead", "Normal"),
-                       ("Interlude Heading", "Heading 2"), ("Interlude", "Normal")):
+    # Alle auf „Normal“ (keine Überschriften-Vererbung): „Interlude Title“ bekommt Gliederungsebene 1 (wie die Kapitel, nicht deren
+    # Unterpunkt im Navigationsbereich/Inhaltsverzeichnis), „Interlude Heading“ bleibt Textkörper. Schrift (rPr) wie die Vorlage „look“.
+    from docx.oxml import OxmlElement
+    for name, look, outline in (("Interlude Title", "Heading 2", 0), ("Interlude Subtitle", "Normal", None),
+                                ("Interlude Lead", "Normal", None), ("Interlude Heading", "Heading 2", None), ("Interlude", "Normal", None)):
         if name not in names:
             st = doc.styles.add_style(name, WD_STYLE_TYPE.PARAGRAPH)
-            st.base_style = doc.styles[base]
-        if name not in rpr and base in rpr:
-            rpr[name] = rpr[base]
+            st.base_style = doc.styles["Normal"]
+            if outline is not None:
+                ppr = st.element.get_or_add_pPr()
+                ol = OxmlElement("w:outlineLvl")
+                ol.set(qn("w:val"), str(outline))
+                ppr.append(ol)
+        if name not in rpr and look in rpr:
+            rpr[name] = rpr[look]
     body = doc.element.body
     for el in list(body):
         if el.tag != qn("w:sectPr"):

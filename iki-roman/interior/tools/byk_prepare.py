@@ -101,7 +101,10 @@ def ucuncu_goz_for(uid, number, concept):
             if uid in blob or (num and re.search(rf"(?<!\d){num}(?!\d)", str(e.get("chapter", "")))):
                 out.append(e)
         return out
-    after = [{"n": il["n"], "insert": il.get("insert"), "sections": [sec["heading"] for sec in il["sections"]]}
+    after = [{"n": il["n"], "insert": il.get("insert"), "after_pid": il.get("after_pid"),
+              "sections": [sec["heading"] for sec in il["sections"]],
+              "anker": ("Book Part bleibt letzter Absatz der Unit; Zwischenkapitel steht davor" if il.get("insert") == "before_book_part" else
+                        f"letztes Element der Unit = src pid {il.get('after_pid')} UNVERÄNDERT; nichts dahinter schreiben (byk_check prüft)")}
              for il in data.get("interludes", []) if il.get("after_uid") == uid]
     neighbours = [{"n": il["n"], "after_uid": il["after_uid"], "sections": [sec["heading"] for sec in il["sections"]]}
                   for il in data.get("interludes", [])]

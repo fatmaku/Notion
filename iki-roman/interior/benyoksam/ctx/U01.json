@@ -236,5 +236,64 @@
    "Hakan Hıdıroğlu": "çıkar",
    "Muhibbi Amca": "çıkar"
   }
+ },
+ "ucuncu_goz": {
+  "hinweis": "Tuncays Text „ÜÇÜNCÜ GÖZ“ wird als Zwischenkapitel automatisch aus benyoksam/interludes.json eingefügt – NICHT in die Kapiteldatei schreiben und nicht in Szenen wiederholen; nur die Rahmenhinweise (frame) dieses Kapitels umsetzen.",
+  "interlude_after_this_chapter": [],
+  "all_interludes": [
+   {
+    "n": 1,
+    "after_uid": "U11",
+    "sections": [
+     "I. Üç Gözün Sırrı"
+    ]
+   },
+   {
+    "n": 2,
+    "after_uid": "U20",
+    "sections": [
+     "II. Tek Gözlü Kurtarıcı",
+     "III. Cennet Diye Sunulan Cehennem"
+    ]
+   },
+   {
+    "n": 3,
+    "after_uid": "U29",
+    "sections": [
+     "IV. Büyünün Gerçek Adı",
+     "V. Mehdi'nin Gelişi"
+    ]
+   },
+   {
+    "n": 4,
+    "after_uid": "U38",
+    "sections": [
+     "VI. Âdem'in Unuttuğu İsimler",
+     "VII. Şeytan da Âdem'in İçindeydi"
+    ]
+   },
+   {
+    "n": 5,
+    "after_uid": "U41",
+    "sections": [
+     "VIII. Beyaz Işığın Parçalanması",
+     "IX. Toprağın Altındaki Görünmeyen Ağ"
+    ]
+   },
+   {
+    "n": 6,
+    "after_uid": "U43",
+    "sections": [
+     "X. Yaratıcı'ya Dönüş",
+     "XI. Son Unutuş",
+     "Sonsöz — Üçüncü Göz Açıldığında",
+     "Son not"
+    ]
+   }
+  ],
+  "frame": [],
+  "irfan_dedupe": [],
+  "plug_resolution": "Meselde (V) Mehdi fişi çeker ve büyük göz söner; romanda AYNA'nın fişi çekilmez (Konsept §2.6; 45 „aynı yöntem başka bir ülkede“; 50'de ekranda hâlâ „Devam et?“). Fark iki yerde adlandırılır: (1) 43'te anlatıcının ağzında, tek cümle ve kapsamıyla: „Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.“ (2961'deki ve §2.6'daki kısmi durdurmalarla çelişmez). (2) 47'de meselin yazarının mektubunda – fiş farkı, irade farkı ve kahramanlık reddi birlikte: „Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.“ Meselin kendi son cümlesi (V: „Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.“) bu okumayı zaten içerir: mesel büyük ölçekte masal anlatır, roman küçük ölçekte gerçeği. Fiş zinciri: V (mesel, makine) → 40 Yusuf („kendi fişini çektiğinde geri gelen denge“) → 43 (modelin fişini çeken olmadı) → 47 mektup (herkes kendi fişini çeker) + „Beni arama.“ → 49 (bir hesabın fişi) → 50 ekranı kapatıp kalemi alan el. „Fiş“ kelimesi bölümlerde yalnız 40, 43, 47, 49'da geçer. Açık soru 7 böylece yazarın metniyle uzlaşır: yazarın „sonunda fişi çekerken“ öğesi meselde birebir yaşar; romanın gerçekliği kişisel ölçekte kalır; §2.5 (niyet yok, ölçüt var), §2.6 ve 45 değişmez.",
+  "fiction_note_sentence": "Ara bölümlerdeki “Üçüncü Göz” metni romanın bir karakterinin mistik tefekkürüdür; oradaki Âdem, Hz. Âdem'in şahsı değil, her insanda isimleri öğrenen ortak hâlin mecazıdır ve metin dinî hüküm, tenasüh ya da hulûl iddiası taşımaz."
  }
 }

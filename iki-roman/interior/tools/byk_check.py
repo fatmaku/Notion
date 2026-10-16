@@ -52,7 +52,19 @@ def insert_interludes(merged, errs, warns, fb):
                 pos -= 1                                                  # vor Leerabsätzen vor der Akt-Seite
         else:
             pos = idx[-1] + 1
+            last = merged[idx[-1]]                                         # Anker: letztes Element der Unit muss unverändert sein
+            if il.get("after_image"):
+                if last.get("image") != il.get("after_pid"):
+                    errs.append(f"Zwischenkapitel {il['n']}: letztes Element von {il['after_uid']} muss Bild {il.get('after_pid')} sein "
+                                f"(after_pid) – gefunden {last.get('image') or text_of(last)[:50]!r}")
+            elif il.get("after_text") is not None:
+                if strip_tags(last.get("text", "")).strip() != strip_tags(il["after_text"]).strip():
+                    errs.append(f"Zwischenkapitel {il['n']}: letzter Absatz von {il['after_uid']} muss pid {il.get('after_pid')} unverändert sein "
+                                f"({strip_tags(il['after_text'])[:50]!r}) – gefunden {text_of(last)[:50]!r}")
         paras = [dict(p, uid=f"IL{il['n']}") for p in interlude_paras(il)]
+        w_calc = sum(len(text_of(p).split()) for p in paras if p["style"] != "Interlude Title")
+        if il.get("words") is not None and il["words"] != w_calc:
+            warns.append(f"Zwischenkapitel {il['n']}: words={il['words']} ≠ gezählt {w_calc}")
         for k, p in enumerate(paras):
             if not tags_balanced(p["text"]):
                 errs.append(f"Zwischenkapitel {il['n']} [{k}] Auszeichnung fehlerhaft: {p['text'][:60]!r}")

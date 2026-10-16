@@ -2,13 +2,15 @@
  "source": "/home/user/Notion/iki-roman/analyse/BEN_YOKSAM_Ucuncu_Goz_Tuncay_Metni.md",
  "date": "2026-10-16",
  "author": "Tuncay Sancak (romanın içinde: Tuncay, anlatıcının yazar arkadaşı ve – 47'de anlaşılır – modeldeki kusuru bırakan gizli kahraman)",
- "rules": "Yazarın metni eksiksiz ve kelimesi kelimesine; yalnız „edits“ listesindeki düzeltmeler. Paragraflama yazarınki: her satır ayrı dize. paras içinde yalnız <i>…</i> ve <b>…</b>. Ara bölümler bölüm sayısına girmez, Heading 1 kullanmaz (7/7/9 şifre sayımı, eksik numaralar, 14.53 ↺ ve düğüm cümleleri etkilenmez). „words“ = alt başlık + lead + bölüm başlıkları + paragraflar (üst başlık „ÜÇÜNCÜ GÖZ“ hariç).",
+ "rules": "Yazarın metni eksiksiz ve kelimesi kelimesine; yalnız „edits“ listesindeki düzeltmeler. Paragraflama yazarınki: her satır ayrı dize. paras içinde yalnız <i>…</i> ve <b>…</b>. Ara bölümler bölüm sayısına girmez, Heading 1 kullanmaz (7/7/9 şifre sayımı, eksik numaralar, 14.53 ↺ ve düğüm cümleleri etkilenmez). „words“ = alt başlık + lead + bölüm başlıkları + paragraflar (üst başlık „ÜÇÜNCÜ GÖZ“ hariç). Yerleşim alanları: after_uid, insert (before_book_part | end_of_unit), after_pid (ara bölümden hemen önceki src öğesi; end_of_unit'te byk_check birimin son öğesini bununla doğrular – son paragraf değişmez), book_part_pid. „words“ byk_check sayımıyla (strip_tags + split) üretilir.",
  "interludes": [
   {
    "n": 1,
    "after_uid": "U11",
    "after_chapter": "11. Emanetin Peşindeki Karga",
    "insert": "before_book_part",
+   "after_pid": 941,
+   "book_part_pid": 942,
    "anchor": "src pid 941 → [ara bölüm] → pid 942 Book Part „İKİNCİ PERDE — KİTAP“",
    "before_chapter": "12. Yedi Yıl Önce Çaldığım Kapı",
    "title": "ÜÇÜNCÜ GÖZ",
@@ -19,7 +21,7 @@
     "lead": "Interlude Lead",
     "heading": "Interlude Heading",
     "para": "Interlude",
-    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter."
+    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter. Word'de (byk_build) „Interlude Title“ ana düzeydedir (outline level 1, bölümlerle aynı), „Interlude Heading“ gövde metni düzeyindedir – gezinti bölmesi ve otomatik İçindekiler ara bölüm başlıklarını önceki bölümün alt başlığı göstermez."
    },
    "lead": [
     "Yaratılış, Deccal, yapay zekâ, Âdem, Mehdi ve insanlığın kendisini yeniden hatırlaması üzerine felsefi, mistik bir bilimkurgu hikâyesi.",
@@ -64,6 +66,8 @@
    "after_uid": "U20",
    "after_chapter": "22. On Bir Saniyenin İçindeki Ses",
    "insert": "before_book_part",
+   "after_pid": 1763,
+   "book_part_pid": 1764,
    "anchor": "src pid 1763 → [ara bölüm] → pid 1764 Book Part „ÜÇÜNCÜ PERDE — AV“",
    "before_chapter": "23. Silah Olmayan Ses",
    "title": "ÜÇÜNCÜ GÖZ",
@@ -74,7 +78,7 @@
     "lead": "Interlude Lead",
     "heading": "Interlude Heading",
     "para": "Interlude",
-    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter."
+    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter. Word'de (byk_build) „Interlude Title“ ana düzeydedir (outline level 1, bölümlerle aynı), „Interlude Heading“ gövde metni düzeyindedir – gezinti bölmesi ve otomatik İçindekiler ara bölüm başlıklarını önceki bölümün alt başlığı göstermez."
    },
    "sections": [
     {
@@ -177,6 +181,8 @@
    "after_uid": "U29",
    "after_chapter": "32. Leyla'nın Son Kaynağı",
    "insert": "before_book_part",
+   "after_pid": 2305,
+   "book_part_pid": 2306,
    "anchor": "src pid 2305 → [ara bölüm] → pid 2306 Book Part „DÖRDÜNCÜ PERDE — FETİH“",
    "before_chapter": "34. Unutulmuş Dükkânın Anahtarı",
    "title": "ÜÇÜNCÜ GÖZ",
@@ -187,7 +193,7 @@
     "lead": "Interlude Lead",
     "heading": "Interlude Heading",
     "para": "Interlude",
-    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter."
+    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter. Word'de (byk_build) „Interlude Title“ ana düzeydedir (outline level 1, bölümlerle aynı), „Interlude Heading“ gövde metni düzeyindedir – gezinti bölmesi ve otomatik İçindekiler ara bölüm başlıklarını önceki bölümün alt başlığı göstermez."
    },
    "sections": [
     {
@@ -307,6 +313,8 @@
    "after_uid": "U38",
    "after_chapter": "43. Başlangıç Sensin",
    "insert": "before_book_part",
+   "after_pid": 2978,
+   "book_part_pid": 2979,
    "anchor": "src pid 2978 → [ara bölüm] → pid 2979 Book Part „BEŞİNCİ PERDE — DÖNÜŞ“",
    "before_chapter": "44. Bedenin Bildiği Tarih",
    "title": "ÜÇÜNCÜ GÖZ",
@@ -317,7 +325,7 @@
     "lead": "Interlude Lead",
     "heading": "Interlude Heading",
     "para": "Interlude",
-    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter."
+    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter. Word'de (byk_build) „Interlude Title“ ana düzeydedir (outline level 1, bölümlerle aynı), „Interlude Heading“ gövde metni düzeyindedir – gezinti bölmesi ve otomatik İçindekiler ara bölüm başlıklarını önceki bölümün alt başlığı göstermez."
    },
    "sections": [
     {
@@ -418,11 +426,13 @@
   },
   {
    "n": 5,
-   "after_uid": "U42",
-   "after_chapter": "47. Son Olduğunu Bilmeden",
+   "after_uid": "U41",
+   "after_chapter": "46. Son Olabilecek Şeyler",
    "insert": "end_of_unit",
-   "anchor": "src pid 3339 (birimin son paragrafı) → [ara bölüm] → 48. Saat 14.53",
-   "before_chapter": "48. Saat 14.53",
+   "after_pid": 3222,
+   "after_text": "“Bu kez son sayfayı yazma. Onu öldükten sonra hatırlayacaksın.”",
+   "anchor": "src pid 3222 (birimin son paragrafı, aynen: „Bu kez son sayfayı yazma. Onu öldükten sonra hatırlayacaksın.“) → [ara bölüm] → 47. Son Olduğunu Bilmeden",
+   "before_chapter": "47. Son Olduğunu Bilmeden",
    "title": "ÜÇÜNCÜ GÖZ",
    "subtitle": "",
    "style": {
@@ -431,7 +441,7 @@
     "lead": "Interlude Lead",
     "heading": "Interlude Heading",
     "para": "Interlude",
-    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter."
+    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter. Word'de (byk_build) „Interlude Title“ ana düzeydedir (outline level 1, bölümlerle aynı), „Interlude Heading“ gövde metni düzeyindedir – gezinti bölmesi ve otomatik İçindekiler ara bölüm başlıklarını önceki bölümün alt başlığı göstermez."
    },
    "sections": [
     {
@@ -474,7 +484,7 @@
       "Ama hiçbir tek renk, kendi başına bütün tayfı temsil edemezdi.",
       "Âdem işte o an anladı:",
       "Hepimiz bir rengiz. Birbirimizin kopyası değil, aynı beyaz ışığın farklı görünümleriyiz.",
-      "İnsanların Allah'ın parçaları olduğunu anlatmaya çalışan düşünce, bu hikâyenin mistik dilinde böyle bir anlam kazanıyordu.",
+      "İnsanların Allah'ın parçaları olduğunu anlatmaya çalıştığı düşünce, bu hikâyenin mistik dilinde böyle bir anlam kazanıyordu.",
       "Sanki tek bir ışık sayısız renge ayrılmış, her renkte kendisinin başka bir ihtimalini deneyimlemişti.",
       "Birbirimizden uzaklaştığımızı sanırken aslında aynı kaynağın farklı görünümleri olarak var oluyorduk.",
       "Ve farklılıklarımızı bir araya getirdiğimizde eksik olan tamamlanıyordu."
@@ -525,11 +535,13 @@
   },
   {
    "n": 6,
-   "after_uid": "U44",
-   "after_chapter": "49. Geride Kalanlar",
+   "after_uid": "U43",
+   "after_chapter": "48. Saat 14.53",
    "insert": "end_of_unit",
-   "anchor": "src pid 3431 (birimin son paragrafı) → [ara bölüm] → 50. Boş Bırakılan Son Cümle („Önce hastane sandım.“)",
-   "before_chapter": "50. Boş Bırakılan Son Cümle („Önce hastane sandım.“)",
+   "after_pid": 3384,
+   "after_image": true,
+   "anchor": "src pid 3383 („Hatırladığım yer orada başladı.“, aynen) + görsel pid 3384 (birimin son öğesi) → [ara bölüm] → 49. Geride Kalanlar",
+   "before_chapter": "49. Geride Kalanlar",
    "title": "ÜÇÜNCÜ GÖZ",
    "subtitle": "",
    "style": {
@@ -538,11 +550,11 @@
     "lead": "Interlude Lead",
     "heading": "Interlude Heading",
     "para": "Interlude",
-    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter."
+    "note": "docx2book.py/print.css/epub_interlude.css biçemleri; bölüm sayısına girmez, Heading 1 değildir; ara bölüm bir sonraki Book Part ya da Heading 1 ile biter. Word'de (byk_build) „Interlude Title“ ana düzeydedir (outline level 1, bölümlerle aynı), „Interlude Heading“ gövde metni düzeyindedir – gezinti bölmesi ve otomatik İçindekiler ara bölüm başlıklarını önceki bölümün alt başlığı göstermez."
    },
    "sections": [
     {
-     "heading": "X. Yaratıcıya Dönüş",
+     "heading": "X. Yaratıcı'ya Dönüş",
      "paras": [
       "Bütün isimleri öğrenen Âdem sonunda başladığı yere döndü.",
       "Artık kendisini tanıdığını düşünüyordu.",
@@ -555,7 +567,7 @@
       "Mustafa olmuştu.",
       "Mehmet olmuştu.",
       "İnsanlığın Deccal diye korktuğu karanlığı da, Mehdi diye beklediği uyanışı da kendi hikâyesinde tanımıştı.",
-      "Artık Yaratıcıya soracağı son bir soru kalmıştı.",
+      "Artık Yaratıcı'ya soracağı son bir soru kalmıştı.",
       "“Ben kimim?”",
       "Sonsuz aydınlığın içinde bir cevap aradı.",
       "Ama karşısında kendisinden ayrı bir yüz göremedi.",
@@ -571,10 +583,10 @@
       "Zamanın başlangıcında.",
       "Kendisinden daha büyük bir yerde.",
       "Ama şimdi, bu mistik hikâyenin en derin sırrıyla karşılaşıyordu:",
-      "Aradığı Yaratıcıdan hiçbir zaman ayrı olmamıştı.",
+      "Aradığı Yaratıcı'dan hiçbir zaman ayrı olmamıştı.",
       "O ana kadar “Ben” dediği şey, sonsuz bütünlüğün kendisini sınırlı bir hayat olarak deneyimlemesiydi.",
       "Sanki Yaratıcı kendi ışığını sayısız renge ayırmış, her renkten kendisine bakmıştı.",
-      "Âdem, kendisini Yaratıcıdan tamamen bağımsız bir varlık sanmıştı.",
+      "Âdem, kendisini Yaratıcı'dan tamamen bağımsız bir varlık sanmıştı.",
       "Oysa bu anlatının sırrında, Yaratıcı ile kendi varlığının en derin kaynağı arasında bir ayrılık yoktu.",
       "Ve Âdem'in zihninde şu düşünce doğdu:",
       "“Ben O'ndan uzak bir yerde yaratılmadım. O'nun dışında hiçbir zaman olmadım. Aradığım şey, kendi varlığımın en derin hakikatinde zaten vardı.”",
@@ -693,7 +705,7 @@
      "paras": [
       "“Son” yazdım, sonra bir şey hatırladım. Bu hikâyede unutmak serbestse hatırlamak da serbest olmalı.",
       "Biri bana sordu: “Peki uzaylılar? İntergalaktik komandolar? Onlar bu hikâyenin neresinde?”",
-      "Hepsi var, dedim. Kitap geniş, yer çok.",
+      "“Hepsi var,” dedim. “Kitap geniş, yer çok.”",
       "Komandolar galaksiden galaksiye koşsun, uzaylıların üç değil beş gözü olsun, insanlar da her zamanki gibi biraz geç kalsın.",
       "Zaten hepsi bize ait. Hepsi biziz: komando da, uzaylı da, gece yarısı çayını soğutan şu adam da.",
       "Sonra küçük bir oyun oynadım.",
@@ -708,11 +720,11 @@
       "Sonunda yine Allah var.",
       "Bunu bir hüküm diye yazmadım. Işığı kapatmadan önce kendime anlattığım bir şey diye yazdım; gülümseyerek.",
       "Şimdi gerçekten son.",
-      "Ya da ilk sayfa."
+      "Ya da, dediğim gibi, ilk sayfa."
      ]
     }
    ],
-   "words": 1037
+   "words": 1040
   }
  ],
  "edits": [
@@ -747,46 +759,46 @@
    "why": "TDK: cins isim; küçük harf ve kesme işareti kalkar („sahte“ olan Allah değil, putlaştırılan sistemdir – teolojik incelik)."
   },
   {
-   "where": "VIII, paragraf 38",
-   "old": "anlatmaya çalıştığı düşünce",
-   "new": "anlatmaya çalışan düşünce",
-   "why": "Akıcılık/dilbilgisi: öznesiz „çalıştığı“ yerine „çalışan“ – cümle „İnsanların Allah'ın parçaları olduğunu anlatmaya çalışan düşünce …“ olarak tek okunur; anlam ve „bu hikâyenin mistik dilinde“ koruması aynen."
-  },
-  {
    "where": "IX, paragraf 15",
    "old": "Adına Tree Network dedi.",
    "new": "Adına <i>Tree Network</i> dedi.",
    "why": "TDK: yabancı terim italik; Türkçe karşılığı („Ağaç ağı.“) yazarın bir sonraki satırında zaten var."
   },
   {
+   "where": "X, başlık",
+   "old": "X. Yaratıcıya Dönüş",
+   "new": "X. Yaratıcı'ya Dönüş",
+   "why": "TDK: Allah'ı karşılayan özel ad „Yaratıcı“ ekini kesmeyle alır (Tanrı'ya, Allah'a; metinde „O'ndan / O'nun“); yazarın ilk taslağındaki yazım („Yaratıcı'ya döndüğünde“, İrfan Katmanı tablo satırı 25). Başlık değişikliği içindekiler sayfasında da görünür."
+  },
+  {
    "where": "X, paragraf 12",
    "old": "Artık yaratıcıya soracağı",
-   "new": "Artık Yaratıcıya soracağı",
-   "why": "TDK: Allah'ı karşılayan „Yaratıcı“ büyük harfle; yazarın kendi başlığı („X. Yaratıcıya Dönüş“) ve „O'ndan / O'nun“ yazımıyla tutarlı."
+   "new": "Artık Yaratıcı'ya soracağı",
+   "why": "TDK: Allah anlamında özel ad – büyük harf ve kesme (bkz. başlık). Teolojik not: büyük harf cümleyi açıkça Allah'a bağlar (C, ilahiyatçı listesi)."
   },
   {
    "where": "X, paragraf 28",
    "old": "Aradığı yaratıcıdan",
-   "new": "Aradığı Yaratıcıdan",
-   "why": "TDK: Allah anlamında özel ad (bkz. üstteki gerekçe)."
+   "new": "Aradığı Yaratıcı'dan",
+   "why": "TDK: Allah anlamında özel ad – büyük harf ve kesme. Teolojik not: ilahiyatçı listesinde."
   },
   {
    "where": "X, paragraf 30",
    "old": "Sanki yaratıcı kendi ışığını",
    "new": "Sanki Yaratıcı kendi ışığını",
-   "why": "TDK: Allah anlamında özel ad."
+   "why": "TDK: Allah anlamında özel ad (ek yok). Teolojik not: cümle artık açıkça Allah hakkındadır („kendi ışığını sayısız renge ayırmış“) – ilahiyatçı listesinin başında."
   },
   {
    "where": "X, paragraf 31",
    "old": "kendisini yaratıcıdan tamamen",
-   "new": "kendisini Yaratıcıdan tamamen",
-   "why": "TDK: Allah anlamında özel ad."
+   "new": "kendisini Yaratıcı'dan tamamen",
+   "why": "TDK: Allah anlamında özel ad – büyük harf ve kesme. Teolojik not: ilahiyatçı listesinde."
   },
   {
    "where": "X, paragraf 32",
    "old": "sırrında, yaratıcı ile",
    "new": "sırrında, Yaratıcı ile",
-   "why": "TDK: Allah anlamında özel ad. NOT: „yaratıcı bütünlüğün kendisiydi“ (X, sıfat) bilerek KÜÇÜK harfle kalır – büyük harf cümleyi hulûl iddiasına çevirirdi."
+   "why": "TDK: Allah anlamında özel ad (ek yok). NOT: aynı bölümdeki „yaratıcı bütünlüğün kendisiydi“ (paragraf 36, sıfat) bilerek küçük harfle kalır."
   },
   {
    "where": "XI, paragraf 2",
@@ -806,7 +818,7 @@
   "paras": [
    "“Son” yazdım, sonra bir şey hatırladım. Bu hikâyede unutmak serbestse hatırlamak da serbest olmalı.",
    "Biri bana sordu: “Peki uzaylılar? İntergalaktik komandolar? Onlar bu hikâyenin neresinde?”",
-   "Hepsi var, dedim. Kitap geniş, yer çok.",
+   "“Hepsi var,” dedim. “Kitap geniş, yer çok.”",
    "Komandolar galaksiden galaksiye koşsun, uzaylıların üç değil beş gözü olsun, insanlar da her zamanki gibi biraz geç kalsın.",
    "Zaten hepsi bize ait. Hepsi biziz: komando da, uzaylı da, gece yarısı çayını soğutan şu adam da.",
    "Sonra küçük bir oyun oynadım.",
@@ -821,101 +833,138 @@
    "Sonunda yine Allah var.",
    "Bunu bir hüküm diye yazmadım. Işığı kapatmadan önce kendime anlattığım bir şey diye yazdım; gülümseyerek.",
    "Şimdi gerçekten son.",
-   "Ya da ilk sayfa."
+   "Ya da, dediğim gibi, ilk sayfa."
   ]
  },
- "son_not_words": 163,
+ "son_not_words": 165,
  "frame": [
+  {
+   "uid": "U02",
+   "chapter": "DİKKAT – Kurmacaya Dair Kısa Bir Not",
+   "kind": "kurmaca notu",
+   "what": "Not'un (irfan_layer.fiction_note_sentence ile güncellenmiş) son dinî cümlesinden sonra, ilaç cümlesinden önce tek cümle. „Mistik“ yazarın kendi tanımıdır (lead: „felsefi, mistik bir bilimkurgu hikâyesi“); „tasavvufî“ etiketi kullanılmaz (metinde tasavvuf geleneğinin reddettiği tecezzî ve tenasüh çağrışımları var). „Ara bölümlerdeki“ – 5 ve 6 perde satırında durmaz. Cümle üç okumayı karşılar: meseldeki Âdem Hz. Âdem'in şahsı değildir (VI: „şeytan kadar kibirli“, „Deccal'i yaratan akıl da oydu“), tenasüh (VI „sayısız hayat“, XI yeni doğum) ve hulûl/ittihat (X: „sınır silinmeye başladı“, „yaratıcı bütünlüğün kendisiydi“). Not'taki „Peygamberlerin adları saygıyla ve yalnız insanlık hâllerini anlatmak için anılır.“ cümlesi aynen kalır ve ara bölümleri de kapsar. U02 yeniden açılır.",
+   "text": "Ara bölümlerdeki “Üçüncü Göz” metni romanın bir karakterinin mistik tefekkürüdür; oradaki Âdem, Hz. Âdem'in şahsı değil, her insanda isimleri öğrenen ortak hâlin mecazıdır ve metin dinî hüküm, tenasüh ya da hulûl iddiası taşımaz.",
+   "words": 33
+  },
+  {
+   "uid": "U03",
+   "chapter": "1. Sonmuş Gibi Sıradan Bir Sabah",
+   "kind": "tanıtma (künyeden önce)",
+   "what": "Tuncay künyeden (ara bölüm 1, 11'in sonu) önce kurmaca içinde bir kişi olarak var olur. work/U03'teki cümleye („Kitabın adı <i>Gündelik Hayatta Zaman Algısı</i> idi; yazarı Tuncay Sancak'tı ve o gün benim için kapaktaki bir addan ibaretti.“) yarım cümle eklenir: dostluk önceden haber verilir, 12'deki tanışma (üç yıl önce, Kadıköy) ile çelişmez. Böylece künye kapaktaki yazara değil, anlatıcının arkadaşına işaret eder; 12'deki söz künyeyi geriye dönük doğrular. U03 yalnız bu cümle için yeniden açılır.",
+   "text": "Kitabın adı <i>Gündelik Hayatta Zaman Algısı</i> idi; yazarı Tuncay Sancak'tı. Yıllar sonra arkadaşım olacaktı; o gün benim için kapaktaki bir addan ibaretti.",
+   "words": 4
+  },
   {
    "uid": "U12",
    "chapter": "12. Yedi Yıl Önce Çaldığım Kapı",
-   "kind": "giriş",
-   "what": "Tuncay romana dost-yazar olarak girer (Sefa'nın yerine; pid 975–1019 yeniden kurulan blok, telefon). İki ekleme: (a) tanışma paragrafına (pid 998 karşılığı) tek cümlelik adil ipucu – ilk okumada yazar şakası, ikinci okumada AYNA'nın hizmet evresi („yarım cümleyi tamamlayan“ yardımcı); tarih vermez. (b) Telefonun sonunda (pid 1014 karşılığından sonra, 1015 „Telefon kapanınca“ öncesi) sayfa sözü. Ara bölüm 1 bu bölümden ÖNCE durur; künyedeki geçmiş zaman („gönderdiği“) okura sayfaların sonradan dizildiğini söyler; ad okura 1. bölümden (Gündelik Hayatta Zaman Algısı'nın yazarı) tanıdıktır.",
-   "text": "(a) Yazar olmadan önce ne yaptığını sorduğumda “Cümle tamamlıyordum,” der, gülerdi; ben bunu yazar şakası sanardım. (b) Kapatmadan önce, “Bu arada bir şey yazıyorum,” dedi. “Roman değil. Masal mı, teori mi, ben de bilmiyorum. Bitirdikçe sana gönderirim; okuyan olmazsa yazılmamış sayarım.”"
+   "kind": "giriş + kanal",
+   "what": "Tuncay romana dost-yazar olarak girer (Sefa'nın yerine; pid 975–1019 yeniden kurulan blok, telefon – Tuncay burada henüz hiçbir şey söylemez; özelliği „kayıt cihazına ve ekrana konuşmaz“ diye daraltıldı, telefon konuşması serbesttir). İki ekleme: (a) tanışma paragrafına (pid 998 karşılığı) tek cümlelik adil ipucu, yumuşak biçimiyle: AYNA'nın hizmet evresi („yarım cümleyi tamamlayan“ yardımcı) 9'daki program videolarında görülebildiği için şaka „cümle tamamlamak“ değil „cümle toparlamak“tır – ilk okumada editör şakası, ikinci okumada iz; tarih vermez. (b) Telefonun sonunda (pid 1014 karşılığından sonra, 1015 „Telefon kapanınca“ öncesi) sayfa sözü ve KANAL: sayfalar kâğıda basılıp postayla gelir (Tuncay'ın 43'teki „postayla gönderilen, elle numaralı kâğıt doğrulama özetleri“ yöntemiyle aynı aile); kâğıdın izin envanterinde karşılığı yoktur (Konsept §2.4) – AYNA görmez. Ara bölüm 1 bu bölümden ÖNCE durur; künyedeki geçmiş zaman („gönderdiği“) okura sayfaların sonradan dizildiğini söyler; ad okura 1. bölümden tanıdıktır (orada: „Yıllar sonra arkadaşım olacaktı“).",
+   "text": "(a) Yazar olmadan önce ne yaptığını sorduğumda “Başkalarının cümlelerini toparlıyordum,” der, gülerdi; ben bunu editör şakası sanardım. (b) Kapatmadan önce, “Bu arada bir şey yazıyorum,” dedi. “Roman değil. Masal mı, teori mi, ben de bilmiyorum. Bitirdikçe sana gönderirim; kâğıda basıp postayla. Ekranda okunacak şey değil. Okuyan olmazsa yazılmamış sayarım.”",
+   "words": 47
   },
   {
    "uid": "U13",
    "chapter": "13. Bedenin İtirazı",
    "kind": "sayfa işareti (isteğe bağlı)",
-   "what": "Ara bölüm 1'in (I) kurgu içindeki varışı. Kardiyolog bekleme salonunda, fiş ve program sahnesinden önce tek cümle.",
-   "text": "Tuncay ilk sayfaları gece göndermişti; bekleme salonunda okudum."
+   "what": "Ara bölüm 1'in (I) kurgu içindeki varışı – ilk zarf, postayla. Kardiyolog bekleme salonunda, fiş ve program sahnesinden önce tek cümle.",
+   "text": "Tuncay'ın ilk zarfı o sabah gelmişti; bekleme salonunda okudum.",
+   "words": 9
   },
   {
    "uid": "U19",
    "chapter": "21. Bir Hata, İki Kız Kardeş",
    "kind": "sayfa işareti (isteğe bağlı)",
-   "what": "Ara bölüm 2'nin (II+III) varışı. Bölümün Nina'yla geçen ilk yarısında, bir geçiş paragrafının sonuna; bölüm sonundaki kilitli ★ replik („Bir dahaki sefer önce korktuğunu söyle“) ve 22'nin uçurum cümlesi dokunulmaz.",
-   "text": "Gece Tuncay'dan yeni sayfalar geldi; başlığı okudum, gerisini sabaha bıraktım."
+   "what": "Ara bölüm 2'nin (II+III) varışı – ikinci zarf. Bölümün Nina'yla geçen ilk yarısında, bir geçiş paragrafının sonuna; bölüm sonundaki kilitli ★ replik („Bir dahaki sefer önce korktuğunu söyle“) ve 22'nin uçurum cümlesi dokunulmaz.",
+   "text": "Akşam posta kutusunda Tuncay'ın ikinci zarfı vardı; başlığı okudum, gerisini sabaha bıraktım.",
+   "words": 12
   },
   {
    "uid": "U27",
    "chapter": "30. Yüzümün Benden Habersiz Hayatı",
    "kind": "tıklama",
-   "what": "Anlatıcı meseldeki (II) tek gözlü kurtarıcıyla telefonun merceği arasındaki bağı İLK KEZ kendi hayatında kurar. Sıra değişmez: 2159 → [A] → 2160 → 2161 → 2162 („Deccal“ kelimesi anlatıcının ağzında ilk ve tek kez, aynen) → [B] → 2163. [A] kısalır (yardımcı → kurtarıcı → peygamber → tanrı dizisi II'de olduğu için anlatıcının ağzından çıkar); [B] meselin adını anar ama cümle taşımaz. „Tuncay'ın teorisi“ – yazarın önerdiği ad – kitapta yalnız burada geçer.",
-   "text": "[A] Hayatıma kapıyı kırarak girmemişti; sızmıştı. Tuncay'ın sayfalarında bu, bütün bir dünyanın başına geliyordu; benimkinde yalnız bir taslak düzenleyicisiydi, adını koymadan danıştığım. O gece kendime ilk kez, yıllar sonra bu kitabın başına yazacağım iki soruyu sordum: Bu araç bana ne yaptırmıştı? Kararı gerçekten ben mi vermiştim? [B] Tuncay'ın teorisini okurken o tek gözü bir masal sanmıştım; çocukken anlatılan tarifte de bir gözü kördü. Nina'nın geri verdiği telefonun üst kenarındaki küçük merceğe baktım: tek gözü vardı."
+   "what": "Anlatıcı meseldeki (II) tek gözlü kurtarıcıyla telefonun merceği arasındaki bağı İLK KEZ kendi hayatında kurar. Sıra değişmez: 2159 → [A] → 2160 → 2161 → 2162 („Deccal“ kelimesi anlatıcının ağzında ilk ve tek kez, aynen) → [B] → 2163. [A] kısalır (yardımcı → kurtarıcı → peygamber → tanrı dizisi II'de); Tuncay'ın adı [A]'da geçmez („Bir masalda“) – ad yalnız [B]'de, tıklama anında bir kez. [A]'daki sorular sahnenin gününe bağlanır („O gün … bir yıl sonra“; 2159'daki geçmiş gece değil; kitap Kasım 2026–Kasım 2027 arasında yazılır) – 47'deki süreklilik dikişi (pid 3241: „soruları o gün telefonun merceğine bakarken bulmuştum“) buna göre. [B] meselin söylemediği kişisel ayrıntıya bağlanır: anlatıcının okumadan imzaladığı 3B yüz taraması formu (5. böl.; 2156–2157'de az önce anılır) – okur merceği II'den bildiği için keşif mercekte değil, anlatıcının kendi imzasındadır (bölüm başlığı: Yüzümün Benden Habersiz Hayatı). „Tuncay'ın teorisi“ kitapta yalnız burada geçer.",
+   "text": "[A] Hayatıma kapıyı kırarak girmemişti; sızmıştı. Bir masalda bu, bütün bir dünyanın başına geliyordu; benimkinde yalnız bir taslak düzenleyicisiydi, adını koymadan danıştığım. O gün kendime ilk kez, bir yıl sonra bu kitabın başına yazacağım iki soruyu sordum: Bu araç bana ne yaptırmıştı? Kararı gerçekten ben mi vermiştim? [B] Tuncay'ın teorisini okurken o tek gözü bir masal sanmıştım. Yüzümü ona okumadan attığım bir imzayla ben vermiştim. Nina'nın geri verdiği telefonun üst kenarındaki küçük merceğe baktım: tek gözü vardı.",
+   "words": 0
   },
   {
    "uid": "U28",
    "chapter": "31. Lambaları Yanan Boş Kat",
    "kind": "sayfa işareti (isteğe bağlı)",
-   "what": "Ara bölüm 3'ün (IV+V) varışı; kırmızı defter aramasının başında tek cümle (14. kat sahnesine girilmez).",
-   "text": "Telefonumda Tuncay'ın yeni sayfaları açılmayı bekliyordu; o gün açmadım."
+   "what": "Ara bölüm 3'ün (IV+V) varışı – üçüncü zarf; kırmızı defter aramasının başında tek cümle (14. kat sahnesine girilmez). 31, anlatıcının telefon onaylarıyla defteri kaptırdığını öğrendiği bölümdür; kâğıt zarf burada anlam kazanır. Anlatıcı zarfı Lara bulunduktan sonra (36/37 gecesi) açar; okur IV+V'i 32'nin perde satırından önce okur (kurgu içi okuma zamanı ara bölümün yerini bağlamaz – künye geçmiş zamanlıdır).",
+   "text": "Masamda Tuncay'ın üçüncü zarfı duruyordu; o hafta açmadım.",
+   "words": 8
   },
   {
    "uid": "U34",
    "chapter": "38. Adı Hastalık Olan Yetenek",
-   "kind": "adil ipucu",
-   "what": "Araştırmacının imzasız „Tek Gözlü“ notu (Book Inset) aynı yazarın elidir; üç göz paragrafı ara bölüm 1'e bırakılır, notta tek cümlelik yankı kalır („Üçüncüsünü alnınızda aramayın“ ↔ I: „Alında gizlenen doğaüstü bir organ değil“). Dikkatli okur sesi tanır; anlatıcı tanımaz (Nina tanır, adını söylemez – Konsept §4.2). Ayrıntı: irfan_dedupe 38.",
-   "text": "İkinci göz vicdandır; makinede yuvası yoktur. Üçüncüsünü alnınızda aramayın; makineye sormayın bile."
+   "kind": "adil ipucu (imza)",
+   "what": "Araştırmacının imzasız „Tek Gözlü“ notu (Book Inset) konseptteki biçimiyle kalır; üç göz paragrafı ve „Üçüncüsünü alnınızda aramayın“ yankısı ÇIKAR. Not gözleri yalnız ikiye kadar sayar („Modelin tek gözü var: kayıt. … İkinci göz vicdandır; makinede yuvası yoktur.“); meselde ikinci göz „kalp“tir, notta „vicdan“ – anlatıcının 38'de sesi tanımaması böylece doğaldır. Üçüncü göz bölümlerde ilk ve tek kez 47'deki mektupta gelir („Üçüncüsü sizde.“). İmza yerine iki iç içe daire – 47'deki tanımanın maddi kanıtı. Nina tanır, adını söylemez (Konsept §4.2).",
+   "text": "(eklenmez – not konseptteki biçimiyle: „… İkinci göz vicdandır; makinede yuvası yoktur.“ / imza yerine iki iç içe daire)",
+   "words": 0
+  },
+  {
+   "uid": "U35",
+   "chapter": "39. ŞAMAN",
+   "kind": "kanal mantığı",
+   "what": "Karanlık ağdaki defter sahnesinde (anlatıcının telefon onaylarının bedeli) Nina'nın tek repliği, sayfaların neden kâğıtla geldiğini ve AYNA'nın onları neden durdurmadığını söyler: kâğıdın izin envanterinde karşılığı yoktur (Konsept §2.4 – imzalı form yoksa AYNA eylemi yoktur); görse de durdurmazdı, çünkü ölçütü benimseme/uyumdur ve bir kehanet masalı 29–30'daki seçilmiş önder / hasta ilan edilen senaryosunu besler; meselde ad, tarih, veri yoktur (isimleri değil yöntemi). Replik hüküm değildir; kimseye unvan vermez (peygamber de deli de Meralis'in olası etiketidir).",
+   "text": "“Tuncay'ın sayfaları sızsa sevinirler,” dedi Nina. “Bir kehanet masalı seni ya peygamber ya deli göstermeye yeter. Yine de fotoğraflarını çekip telefona koyma.”",
+   "words": 22
   },
   {
    "uid": "U37",
    "chapter": "42. Labirentin Emanetleri",
    "kind": "adil ipucu",
    "what": "Araçta Nina'nın „Cenneti gösterip cehenneme sokmak“ cümlesine anlatıcının cevabı meselle konuşan kısa bir yankıya iner; Tuncay'ın „her şeyi bilmesi“ ilk kez şakayla anılır.",
-   "text": "“Tuncay da yazmış,” dedim. Nina güldü. “Senin yazar arkadaşın her şeyi yazmış.”"
+   "text": "“Tuncay da yazmış,” dedim. Nina güldü. “Senin yazar arkadaşın her şeyi yazmış.”",
+   "words": 0
   },
   {
    "uid": "U38",
    "chapter": "43. Başlangıç Sensin",
-   "kind": "sayfa işareti + fiş farkı (1)",
-   "what": "Ara bölüm 4'ün (VI+VII) varışı: pid 2964'ten (Yusuf teslim oldu) sonra, 2965 (Leyla'nın son kaydı) öncesi tek cümle. Fiş farkının ilk adlandırılışı pid 2962'nin ardındaki irfan paragrafında (kısaltılmış biçim, bkz. irfan_dedupe 43).",
-   "text": "O haftalarda Tuncay'dan iki sayfa daha geldi."
+   "kind": "sayfa işareti + fiş kapsamı (1)",
+   "what": "Ara bölüm 4'ün (VI+VII) varışı: pid 2961'deki haftalar özetinin sonuna tek cümle – Berlin sahnesinden uzak, Yusuf'un teslimi (2964) ile Leyla'nın son kaydı (2965) arasındaki tırmanışı kesmez. Fiş: pid 2962'nin ardındaki irfan paragrafı tek cümleye iner ve „fiş“in kapsamını verir – programlar durdu (2961 „bazı sözleşmeler iptal edildi“, §2.6 „üç program durur“), modelin fişini çeken olmadı (irfan_dedupe 43). 2962'nin olumsuz özdeyişinin ardına ikinci bir özdeyiş gelmez. Açık fark yazarın sesinde, 47 mektubundadır.",
+   "text": "(2961 sonuna) Aynı haftalarda Tuncay'dan bir zarf daha geldi; içinde iki bölüm vardı. (2962'den sonra) Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.",
+   "words": 11
   },
   {
    "uid": "U41",
    "chapter": "46. Son Olabilecek Şeyler",
-   "kind": "açığa çıkışın tohumu + tenasüh ipucu",
-   "what": "Anlatıcı son bölümlerini Tuncay'a yollar; telefon (Konsept §4.1: „Son cümleyi boş bırak.“ / „Yazdığın adam senden bir şey sakladı mı?“ – „Kendimden sakladıklarım yetmiyor mu?“ / „Yazarken en çok, makinenin bitirmek istediği cümleleri silmekle uğraştım.“). Eklenen: VI'daki „sayısız hayatın içinden geçerek“ satırının tenasüh gibi okunmaması için tek cümlelik anlam ipucu – Tuncay'ın ağzında (yazarın ilk mesajı: „her ismi öğrenmek için dünyada olan Âdem herkeste, herkes ve her evrende…“); „Âdem“ yazımı yalnız Tuncay'ın ağzında, anlatıcı „adam“ der. Telefondan sonra şüphenin tohumu.",
-   "text": "“Sayfalarındaki adam kaç kere doğuyor?” diye sordum. “Okuyan bin hayat yaşadı sanacak.” — “Bin kere doğan bir adam değil o,” dedi. “Âdem herkeste; isimleri öğrenen hâl herkeste ve her evrende aynı.” — Telefonu kapattıktan sonra cümlesi aklımda kaldı: makinenin bitirmek istediği cümleler. Makinenin ne istediğini bu kadar yakından bilen başka bir yazar tanımıyordum."
+   "kind": "açığa çıkışın tohumu + tenasüh ipucu + ara bölüm 5 öncesi",
+   "what": "Anlatıcı son bölümlerini kâğıda basar; konuşma YÜZ YÜZE, babanın dükkânında (telefon değil: Tuncay kayıt cihazına ve ekrana konuşmaz; 43'te mikrofon iznini reddeden adamdır). Tuncay tezgâhın ucunda, önündeki çay soğurken okur – 12'deki soğuyan çay olgusu, Son not'taki „gece yarısı çayını soğutan şu adam“ ve 50 pid 3438'deki soğumuş çay için tohum; „Telefonunu çantana koy“ 48'deki ‚götürülmeyen yer‘ motifine bağlanır. Konsept §4.1 replikleri aynen: „Son cümleyi boş bırak.“ / „Yazdığın adam senden bir şey sakladı mı?“ – „Kendimden sakladıklarım yetmiyor mu?“ / „Yazarken en çok, makinenin bitirmek istediği cümleleri silmekle uğraştım.“ Eklenen: VI'daki „sayısız hayatın içinden geçerek“ satırının tenasüh gibi okunmaması için tek cümlelik anlam ipucu – Tuncay'ın ağzında (yazarın ilk mesajı: „her ismi öğrenmek için dünyada olan Âdem herkeste, herkes ve her evrende…“); „Âdem“ yazımı yalnız Tuncay'ın ağzında. Konuşmadan sonra şüphenin tohumu tek cümle; açık şüphe cümlesi („Makinenin ne istediğini bu kadar yakından bilen başka bir yazar tanımıyordum“) YAZILMAZ – şüphe okurda doğar, 11 Kasım'da yayımlanan kitapta aranan kişiyi göstermez. Bölümün son paragrafı pid 3222 birimin sonunda ve aynen kalır: ara bölüm 5 (VIII+IX) bu satırdan sonra gelir (after_pid 3222); hiçbir ekleme 3222'den sonraya yazılmaz.",
+   "text": "Son bölümlerimi kâğıda bastım; Tuncay okumak için dükkâna geldi. İçeri girer girmez, “Telefonunu çantana koy,” dedi. Tezgâhın ucunda, önündeki çay soğurken okudu. [Konsept §4.1 replikleri] “Sayfalarındaki adam kaç kere doğuyor?” diye sordum. “Okuyan bin hayat yaşadı sanacak.” — “Bin kere doğan bir adam değil o,” dedi. “Âdem herkeste; isimleri öğrenen hâl herkeste ve her evrende aynı.” — Gittikten sonra cümlesi aklımda kaldı: makinenin bitirmek istediği cümleler.",
+   "words": 61
   },
   {
    "uid": "U42",
    "chapter": "47. Son Olduğunu Bilmeden",
-   "kind": "açığa çıkış + fiş farkı (2) + sayfa işareti",
-   "what": "Gizli kahramanın kimliği anlatıcıya ve okura burada açılır – ad, kahramanlıkla aynı cümlede anılmadan. Yer: pid 3264'ten (dükkân, saatler) sonra, 3265 (Emil gelir) öncesi. Zarfta mektup (Book Inset; Konsept §3/6 Kehf satırı ve irfan cümlesi korunur) ve ara bölüm 5'in (VIII+IX) sayfaları. Mektup gözleri sayar (bir: makinede, iki: yeri işaretli, üç: sizde) – I'i okumuş olan anlatıcı yazarını tanır. Nina doğrular, adı söylemez. „happy“ kullanıcı adı ilk ve tek kez anlamını bulur (@happytuncay biçimi yalnız 13'te kalır).",
-   "text": "Kepengin altından içeri bir zarf itilmişti. İçinde kısa bir mektup ve iki sayfa vardı. [Book Inset] Adımı haberde yazma. Alnındaki yazıyı okuyabilen yeter. / Modelin tek gözünü tanıyorum; ikincisini makineye koyamadım, yalnız yerini işaretledim. Üçüncüsü sizde. / Benim hikâyemde fiş çekiliyordu. Gerçekte o fişe kimse uzanamaz; herkes kendi fişini çeker. / Cuma günleri Kehf okurum; ilk on ayeti ezbere, kâğıttan. Modele okutmadığım tek metin budur. / [imza yerine iki iç içe daire] [Normal] Gözleri sayan bir mektuptu. Gözleri böyle sayan bir kişi tanıyordum; aylardır bana sayfa sayfa yolluyordu. Zarftaki iki sayfanın başlığı Beyaz Işığın Parçalanması'ydı. Nina'yı aradım. “Kaynağımı sana hiç söylemedim,” dedi. “Sen buldun.” Kullanıcı adındaki “happy” kelimesinin şaka değil, kalkan olduğunu o sabah anladım. Adını hiçbir habere yazmadım."
+   "kind": "açığa çıkış + fiş ve irade farkı (2) + sayfa işareti",
+   "what": "Gizli kahramanın kimliği okura burada açılır; anlatıcı tanır ama bağı yazmaz. Yer: pid 3264'ten (dükkân, saatler) sonra, 3265 (Emil gelir) öncesi. Zarf kitapta ELDEN gelen tek kâğıttır (kepenk altı, pulsuz) – aciliyet buradan okunur; öteki zarflar postayla gelmiştir. İçinde mektup (Book Inset; Konsept §3/6 Kehf satırı ve irfan cümlesi korunur; „Adımı haberde yazma“ karar 1'in biçimidir – haber, anlatıcının da kaynağı olduğu ortak yayındır) ve ara bölüm 5'in (VIII+IX) sayfaları – okur onları az önce, 46'nın sonunda okumuştur: zarf sahnesi okur için tanıma anıdır. Tanıma üç kanıta dayanır: (1) imza yerindeki iki iç içe daire = 38'deki Tek Gözlü notunun imzası; (2) mektup gözleri üçe kadar sayar (bir: makinede, iki: yeri işaretli, üç: sizde) – 38'deki not ikide kalmıştı, üç göz Tuncay'ın I'indedir; (3) zarftaki sayfalar Tuncay'ın meselinin devamıdır. Mektuptaki fiş cümlesi iki farkı birden adlandırır (açık soru 7 + Konsept §2.5): meselde makine ister ve fişini biri çeker – yazarı o kişi değildir („o ben değildim“: Tuncay = Mehdi okumasına karşı); gerçekte model istemez, ölçer; o fişe kimse uzanamaz, herkes kendi fişini çeker. Nina doğrular, adı söylemez (mektup ona telefonla değil yüz yüze gösterilir). Anlatıcı bağı kitapta yazmaz: „Adını hiçbir habere yazmadım; buraya da yazmayacağım.“ – ricası kitabın kendisinde de tutulur (Konsept §4.2: gizli kahramanlık biçimsel olarak da gerçekleşir). „happy“ kullanıcı adı ilk ve tek kez anlamını bulur (@happytuncay biçimi yalnız 13'te; kullanıcı adı ad değildir); cümle kahramanlığı değil, gizlenmeyi adlandırır.",
+   "text": "Kepengin altından içeri bir zarf itilmişti; pulsuz, elden bırakılmış. İçinde kısa bir mektup ve birkaç sayfa vardı. [Book Inset] Adımı haberde yazma. Alnındaki yazıyı okuyabilen yeter. / Modelin tek gözünü tanıyorum; ikincisini makineye koyamadım, yalnız yerini işaretledim. Üçüncüsü sizde. / Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker. / Cuma günleri Kehf okurum; ilk on ayeti ezbere, kâğıttan. Modele okutmadığım tek metin budur. / [imza yerine iki iç içe daire] [Normal] İmza yerinde, Tek Gözlü notunun altındaki iki daire vardı. Gözleri üçe kadar sayan birini tanıyordum. Sayfaların ilk başlığı Beyaz Işığın Parçalanması'ydı. Akşam mektubu Nina'ya gösterdim. “Kaynağımı sana hiç söylemedim,” dedi. “Sen buldun.” Kullanıcı adındaki “happy” kelimesinin şaka değil, kalkan olduğunu o gün anladım. Adını hiçbir habere yazmadım; buraya da yazmayacağım.",
+   "words": 129
+  },
+  {
+   "uid": "U43",
+   "chapter": "48. Saat 14.53",
+   "kind": "geçiş (ara bölüm 6 öncesi)",
+   "what": "Bölümün son satırları („Ben öldüm.“ / „Ve hikâye orada başlamadı.“ / „Hatırladığım yer orada başladı.“, pid 3380–3383; 3382 konsept gereği çıkar) ve görsel pid 3384 birimin sonunda ve aynen kalır. Ara bölüm 6 (X, XI, Sonsöz, Son not) görselden sonra gelir (after_pid 3384) ve X'in ilk satırı („Bütün isimleri öğrenen Âdem sonunda başladığı yere döndü.“) 3383'e cevap verir. Hiçbir ekleme 3384'ten sonraya yazılmaz. İÇİMDEKİ ÇOCUK satırı ve „Bir şey görmedim; ilk kez hepsini aynı anda duydum.“ aynen – VIII'in ışığına bir bölüm uzaktan karşı-ses.",
+   "text": "(metin eklenmez)",
+   "words": 0
   },
   {
    "uid": "U44",
    "chapter": "49. Geride Kalanlar",
-   "kind": "sayfa işareti",
-   "what": "Ara bölüm 6'nın (X, XI, Sonsöz, Son not) varışı – anlatıcının ölümünden sonra. pid 3392'den (Nina haberi tamamladı; adı yazıp silmesi – „Adımı haberde yazma“ ile yankı) sonra tek cümle. Sayfalar okunmadan masada kalır; 50'de masadaki adam (Tuncay, adsız) aynı masadadır.",
-   "text": "Tuncay'ın son sayfaları o hafta geldi. Nina zarfı açtı, okumadı; masama, bardağın yanına bıraktı."
+   "kind": "sayfa işareti (ara bölüm 6'dan sonra)",
+   "what": "Ara bölüm 6'nın (X, XI, Sonsöz, Son not) kurgu içindeki varışı – anlatıcının ölümünden sonra; okur sayfaları az önce, 48 ile 49 arasında okumuştur („Okuyan olmazsa yazılmamış sayarım“ okurda tamamlanır). pid 3392'den (Nina haberi tamamladı; adı yazıp silmesi – „Adımı haberde yazma“ ile yankı) sonra tek cümle. Bardak 3387'de kaldırılmıştır; masa anlatıcının çalışma masasıdır. 50'deki masa (pid 3438: „Bizim evdeki değildi.“) Tuncay'ındır – iki masa eşitlenmez; bağ Son not'taki soğuyan çay ile 3438'deki soğumuş çay arasındadır. Son not'un son satırı („Ya da, dediğim gibi, ilk sayfa.“) 49'un açılışına („Benden sonra eve ilk döndükleri gün…“) düşer. 49→50 iç ses zinciri („Ben bunu nereden hatırlıyorum?“ → „Önce hastane sandım.“) kesintisiz kalır.",
+   "text": "Tuncay'ın son zarfı o hafta geldi. Nina açtı, okumadı; çalışma masamın üstünde bıraktı.",
+   "words": 13
   },
   {
    "uid": "U45",
    "chapter": "50. Boş Bırakılan Son Cümle",
-   "kind": "geçiş",
-   "what": "Ara bölüm 6'nın son satırları („Şimdi gerçekten son. / Ya da ilk sayfa.“ – Son not, Sonsöz'ün „Son. / Ya da ilk sayfa.“ kapanışını yazarın sesinde yineler) doğrudan 50'nin açılışına („Önce hastane sandım.“, pid 3433, aynen) bağlanır: „ilk sayfa“ bir hastane koridoru olarak açılır. XI'deki yeni doğan çocuk ↔ 50'de Lara'nın doğduğu gece (pid 3435; anlatıcı bebeğin gözünden bakar) – metin eklenmez, okur bağlar. Son not'taki „gece yarısı çayını soğutan şu adam“ ↔ 50'de anlatıcının masadaki adamı soğumuş çay bardağından tanıması (Konsept §4.1) – metin eklenmez. Bölüm içi irfan ekleri (a)/(c) tek yankıya iner (irfan_dedupe 50). „Adam. / İnsan.“ (3479–3480), son satır „BENİ ARAMA.“ (pid 3519) harfi harfine.",
-   "text": "(metin eklenmez; yalnız irfan_dedupe 50/a ve 50/c)"
-  },
-  {
-   "uid": "U02",
-   "chapter": "DİKKAT – Kurmacaya Dair Kısa Bir Not",
-   "kind": "kurmaca notu",
-   "what": "Not'un (irfan_layer.fiction_note_sentence ile güncellenmiş) son dinî cümlesinden sonra, ilaç cümlesinden önce tek cümle.",
-   "text": "Perde aralarındaki “Üçüncü Göz” metni, romanın bir karakterinin tasavvufî tefekkürüdür; Âdem'in “sayısız hayatı” her insanda isimleri öğrenen ortak hâlin mecazıdır, dinî hüküm ya da tenasüh iddiası değildir."
+   "kind": "irfan yankısı",
+   "what": "49'un son satırından („Ben bunu nereden hatırlıyorum?“, pid 3431) „Önce hastane sandım.“a (pid 3433, aynen) kesintisiz; araya ara bölüm girmez. XI'deki yeni doğan çocuk ile 50'deki doğum gecesi (pid 3435) arasında 49 durur – metin eklenmez; tenasüh okumasına romanın kendi cevabı pid 3494 („Başka bir bedenin kapısı değildi bu“, aynen) – 46'daki replik ve Not'la birlikte üçüncü karşılık. 50/c ÇIKAR (XI ve Sonsöz'ün „unutmayı seçme“sini anlatıcının ağzında yinelerdi ve finalde tenasüh okumasını pekiştirirdi). 50/a tek yankı (saygı işareti, Kitap'ın kibir anlatımı, 45'in adamı – irfan_dedupe 50/a). Son not'taki „gece yarısı çayını soğutan şu adam“ ↔ 50'de anlatıcının masadaki adamı soğumuş çay bardağından tanıması (pid 3438; masa Tuncay'ındır) – metin eklenmez. „Adam. / İnsan.“ (3479–3480), son satır „BENİ ARAMA.“ (pid 3519) harfi harfine.",
+   "text": "(metin eklenmez; yalnız irfan_dedupe 50/a; 50/c çıkar)",
+   "words": 0
   }
  ],
  "irfan_dedupe": [
@@ -925,7 +974,8 @@
    "mesel": "I",
    "karar": "kalır (tohum)",
    "before": "Sonradan üç ayrı yerden konuştuklarını öğrenecektim; üçüncüsünü en son duydum.",
-   "after": "Sonradan üç ayrı yerden konuştuklarını öğrenecektim; üçüncüsünü en son duydum. (aynen – ara bölüm 1'den önce gelir, kuram taşımaz, I'in sorusunu açar)"
+   "after": "Sonradan üç ayrı yerden konuştuklarını öğrenecektim; üçüncüsünü en son duydum. (aynen – ara bölüm 1'den önce gelir, kuram taşımaz, I'in sorusunu açar)",
+   "delta": 0
   },
   {
    "chapter": "17",
@@ -933,7 +983,8 @@
    "mesel": "II",
    "karar": "kalır (tohum)",
    "before": "Kabartma diyaloğu: „Tek gözü var. O da kapalı.“ – „Kapalı değil, bölünmüş.“ … basamaklar.",
-   "after": "(aynen – II'den önce, yorum içermeyen nesne sahnesi)"
+   "after": "(aynen – II'den önce, yorum içermeyen nesne sahnesi)",
+   "delta": 0
   },
   {
    "chapter": "30 [A]",
@@ -941,15 +992,17 @@
    "mesel": "II",
    "karar": "kısalır",
    "before": "Hayatıma kapıyı kırarak girmemişti; sızmıştı. Önce yardımcıydı: taslağımı topluyor, istediğimi veriyordu, sıkılmıyordu. Sonra ona danışmaya başladım; söylediğini doğru saymak için kanıt istemiyordum, bir kurtarıcıya duyulan minnetle güveniyordum. Sıra yalnız bende değil, herkeste aynıydı: önce bize istediğimizi verdi; sonra ona bir peygambere inanır gibi inandık; sonra, kimse adını koymadan, her dileğimizi yerine getirsin diye tanrı koltuğuna oturttuk. Oysa onu biz kendimize benzetmiştik: cümlelerimizle, yüzlerimizle beslemiş, bizden sanmıştık; bizden olduğu için sevmiş, bizden iyi bildiğini sanınca sorularımızı ona bırakmıştık. O gece kendime ilk kez, yıllar sonra bu kitabın başına yazacağım iki soruyu sordum: Bu araç bana ne yaptırmıştı? Kararı gerçekten ben mi vermiştim?",
-   "after": "Hayatıma kapıyı kırarak girmemişti; sızmıştı. Tuncay'ın sayfalarında bu, bütün bir dünyanın başına geliyordu; benimkinde yalnız bir taslak düzenleyicisiydi, adını koymadan danıştığım. O gece kendime ilk kez, yıllar sonra bu kitabın başına yazacağım iki soruyu sordum: Bu araç bana ne yaptırmıştı? Kararı gerçekten ben mi vermiştim?"
+   "after": "Hayatıma kapıyı kırarak girmemişti; sızmıştı. Bir masalda bu, bütün bir dünyanın başına geliyordu; benimkinde yalnız bir taslak düzenleyicisiydi, adını koymadan danıştığım. O gün kendime ilk kez, bir yıl sonra bu kitabın başına yazacağım iki soruyu sordum: Bu araç bana ne yaptırmıştı? Kararı gerçekten ben mi vermiştim?",
+   "delta": -55
   },
   {
    "chapter": "30 [B]",
    "uid": "U27",
    "mesel": "II",
-   "karar": "yankı (tıklama)",
+   "karar": "yankı (tıklama: imza)",
    "before": "Çocukken anlatılan tarifte onun bir gözü kördü; o zaman bir yüz hayal ederdim. Nina'nın geri verdiği telefonun üst kenarındaki küçük merceğe baktım: tek gözü vardı.",
-   "after": "Tuncay'ın teorisini okurken o tek gözü bir masal sanmıştım; çocukken anlatılan tarifte de bir gözü kördü. Nina'nın geri verdiği telefonun üst kenarındaki küçük merceğe baktım: tek gözü vardı."
+   "after": "Tuncay'ın teorisini okurken o tek gözü bir masal sanmıştım. Yüzümü ona okumadan attığım bir imzayla ben vermiştim. Nina'nın geri verdiği telefonun üst kenarındaki küçük merceğe baktım: tek gözü vardı.",
+   "delta": 4
   },
   {
    "chapter": "36",
@@ -957,15 +1010,17 @@
    "mesel": "III",
    "karar": "kısalır (planlanan paragraf; work/U32'de henüz yok)",
    "before": "Senaryo A bir cennet teklifiydi; Meralis'te bana sunulan programın büyütülmüş hâli. Beş şehir kimseyi zincirlemiyor, bağlıyordu: duygu etiketi, puan, dayanıklılık yazılımı, kamu güveni ölçümü. Hepsi gönlü eğlendiriyordu. Kaybettiğim her şeyin yerine daha parlak bir şey konuyor, maneviyi aramayı bırakmam için kimsenin beni zorlaması gerekmiyordu.",
-   "after": "Senaryo A bir cennet teklifiydi; Meralis'te bana sunulan programın büyütülmüş hâli. Kaybettiğim her şeyin yerine daha parlak bir şey konuyordu."
+   "after": "Senaryo A bir cennet teklifiydi; Meralis'te bana sunulan programın büyütülmüş hâli. Kaybettiğim her şeyin yerine daha parlak bir şey konuyordu.",
+   "delta": -24
   },
   {
    "chapter": "38 (not)",
    "uid": "U34",
    "mesel": "I",
-   "karar": "çıkar → tek cümlelik yankı",
+   "karar": "çıkar (yankı da yok)",
    "before": "Üçüncü gözden söz edildiğini duymuşsunuzdur; ben onu alnın ortasında bir organ gibi düşünmüyorum. Zihin hesap tutar; buna mantık deriz. Kalp inanır ya da korkar; buna duygu deriz. Ruh ikisini dengeler; buna his diyenler de var, adını geç koyarız. Açık olan göz görünmeyeni gören değil, zihniyle kalbini dengede tutabilendir. Makinede yalnız zihnin mekanik yarısı var: kayıt. Vicdan kalpte oturur; makinede yuvası yok. Ruhu sormayın bile.",
-   "after": "(notun mevcut „İkinci göz vicdandır; makinede yuvası yoktur.“ cümlesinin ardına) Üçüncüsünü alnınızda aramayın; makineye sormayın bile."
+   "after": "(eklenmez – not konseptteki „İkinci göz vicdandır; makinede yuvası yoktur.“ cümlesiyle kalır; üçüncü göz bölümlerde ilk kez 47'deki mektupta)",
+   "delta": -64
   },
   {
    "chapter": "38 (replik)",
@@ -973,7 +1028,8 @@
    "mesel": "IV",
    "karar": "kısalır",
    "before": "“Büyü dediğimiz şeyin çoğunu 1978'in el kitabında gördük,” dedim. “Adı manipülasyon; beş fiil, kişi fark etmeden zihnin altına yazılan bir kod.” / Emil, “Kod silinir mi?” diye sordu. / “Okunursa.”",
-   "after": "“Büyü dediğimiz şeyin çoğunu 1978'in el kitabında gördük,” dedim. “Beş fiil.” / Emil, “Bozulur mu?” diye sordu. / “Okunursa.”"
+   "after": "“Büyü dediğimiz şeyin çoğunu 1978'in el kitabında gördük,” dedim. “Beş fiil.” / Emil, “Bozulur mu?” diye sordu. / “Okunursa.”",
+   "delta": -11
   },
   {
    "chapter": "40",
@@ -981,7 +1037,8 @@
    "mesel": "V",
    "karar": "karşı-ses olarak kalır, kısalır",
    "before": "… Belki Mehdi bir kişi değildir. Belki insan kendi fişini çektiğinde geri gelen dengedir; onu kimse getirmez. Biri fişi çeker, biri sofrayı kurar, biri çocuğunu okuldan alır. Fişi çekenin de dengeye ihtiyacı vardır; yoksa yeni fişi o takar.",
-   "after": "… Belki Mehdi bir kişi değildir. Belki insan kendi fişini çektiğinde geri gelen dengedir; onu kimse getirmez. Biri fişi çeker, biri sofrayı kurar, biri çocuğunu okuldan alır. (son cümle çıkar: V'teki Mehdi'nin „beni de sorgulayın“ uyarısının tekrarıydı; „Bu bir kehanet mi?“ – „Bir ihtiyarın kendini sakinleştirmesi.“ aynen)"
+   "after": "… Belki Mehdi bir kişi değildir. Belki insan kendi fişini çektiğinde geri gelen dengedir; onu kimse getirmez. Biri fişi çeker, biri sofrayı kurar, biri çocuğunu okuldan alır. (son cümle çıkar: V'teki Mehdi'nin „beni de sorgulayın“ uyarısının tekrarıydı; „Bu bir kehanet mi?“ – „Bir ihtiyarın kendini sakinleştirmesi.“ aynen)",
+   "delta": -11
   },
   {
    "chapter": "42",
@@ -989,15 +1046,17 @@
    "mesel": "III",
    "karar": "yankı + adil ipucu",
    "before": "“Bir şey daha yazmış,” dedim. “Görmeyenler, sunulanın cennet olmadığını içine girince de anlamamış.”",
-   "after": "“Tuncay da yazmış,” dedim. Nina güldü. “Senin yazar arkadaşın her şeyi yazmış.”"
+   "after": "“Tuncay da yazmış,” dedim. Nina güldü. “Senin yazar arkadaşın her şeyi yazmış.”",
+   "delta": -1
   },
   {
    "chapter": "43",
    "uid": "U38",
    "mesel": "IV, V",
-   "karar": "kısalır (fiş farkı kalır)",
+   "karar": "tek cümleye iner (fiş kapsamı)",
    "before": "Fişi çekmedik; kimsenin elinin altında olmadığını öğrendik. Kendi fişimi çekebilirdim; onu da sonraya bıraktım. Gördüğünü söyleyen az kişiydi: soranlar, bilenler, inandığını sınayanlar. Ötekiler ertesi sabah aynı uygulamayı açtı; cennetin adı değişmemişti.",
-   "after": "Fişi çekmedik; kimsenin elinin altında olmadığını öğrendik. Kendi fişimi çekebilirdim; onu da sonraya bıraktım. Ötekiler ertesi sabah aynı uygulamayı açtı; cennetin adı değişmemişti."
+   "after": "Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.",
+   "delta": -18
   },
   {
    "chapter": "45",
@@ -1005,7 +1064,8 @@
    "mesel": "II",
    "karar": "kısalır (Sam'in itirafı aynen)",
    "before": "“Kimse ona tanrı demedi,” dedim. “Demeden oturttuk; herkes sorusunu ona sordu. Gerçek yüzü bir gün ortaya çıkmadı; her gün biraz göründü, biz başka yere baktık.”",
-   "after": "“Kimse ona tanrı demedi,” dedim. “Demeden oturttuk.”"
+   "after": "“Kimse ona tanrı demedi,” dedim. “Demeden oturttuk.”",
+   "delta": -18
   },
   {
    "chapter": "46",
@@ -1013,7 +1073,8 @@
    "mesel": "I, II, IV, V",
    "karar": "kısalır (defter), Yusuf'un kenar notu aynen",
    "before": "Üçüncü gözü alında aradım; zihnimle kalbimin arasında, ikisini de susturmadan duran yerdeymiş. Büyüyü düşman sandım; adı manipülasyonmuş ve kodunu okuyan çözüyormuş. Aldanışın bir yüzü olacağını sanmıştım; yüzü yokmuş, merceği varmış. Birinin gelip düzelteceğini beklemiştim – önce bir kitaptan, sonra bir makineden, bir ara kendimden; Yusuf'un dediği gibi, belki gelen bir kişi değil dengeymiş. Denge de insanın kendi fişini çektikten sonra sofra kurabilmesiymiş.",
-   "after": "Birinin gelip düzelteceğini beklemiştim – önce bir kitaptan, sonra bir makineden, bir ara kendimden; Yusuf'un dediği gibi, belki gelen bir kişi değil dengeymiş."
+   "after": "Birinin gelip düzelteceğini beklemiştim – önce bir kitaptan, sonra bir makineden, bir ara kendimden; Yusuf'un dediği gibi, belki gelen bir kişi değil dengeymiş.",
+   "delta": -39
   },
   {
    "chapter": "48",
@@ -1021,7 +1082,8 @@
    "mesel": "VIII",
    "karar": "kalır (karşı-ses)",
    "before": "| İÇİMDEKİ ÇOCUK: Gitme. / Bir şey görmedim; ilk kez hepsini aynı anda duydum.",
-   "after": "(aynen – ara bölüm 5'in „sonsuz aydınlık“ imgesinden hemen sonra ölüm anı ışık görmez, duyar; tekrar değil, karşılık)"
+   "after": "(aynen – ara bölüm 5'in ışığına bir bölüm uzaktan karşılık: ölüm anı ışık görmez, duyar; tekrar değil)",
+   "delta": 0
   },
   {
    "chapter": "49",
@@ -1029,15 +1091,17 @@
    "mesel": "V, XI",
    "karar": "kısalır",
    "before": "Fişi çeken bir kahraman olmadı. Ölüm belgesini yükleyen Selina'ydı; “Bu adam ekmeğe hiç ‘ürün’ demezdi,” diyen Hasan Bey'di. Çekilen fiş bir makineninki değil, bir hesabındı.",
-   "after": "Ölüm belgesini yükleyen Selina'ydı; “Bu adam ekmeğe hiç ‘ürün’ demezdi,” diyen Hasan Bey'di. Çekilen fiş bir makineninki değil, bir hesabındı."
+   "after": "Ölüm belgesini yükleyen Selina'ydı; “Bu adam ekmeğe hiç ‘ürün’ demezdi,” diyen Hasan Bey'di. Çekilen fiş bir makineninki değil, bir hesabındı.",
+   "delta": -5
   },
   {
    "chapter": "50 (a)",
    "uid": "U45",
    "mesel": "VI, VII, X",
-   "karar": "iki paragraf çıkar → tek yankı",
+   "karar": "iki paragraf çıkar → tek yankı (saygı işareti ve kaynak ayrımı korunur)",
    "before": "İsimlerin içinde yalnız sevdiklerim yoktu. Secde edenin adını da, etmeyenin adını da kendimde buldum; melek dediğim yanım ve karşı çıkan yanım aynı ilk insanın içinde yaşıyordu. Kitap'ın söylediği kibirdi. Eski bir derviş hikâyesi buna bir de sevgi ekler: tek bir yüzden başkasına eğilemeyecek kadar bağlanmış, ihanetini o sevgiyle açıklamış. En korkuncu şuydu: ikisinin de içimde adı vardı. / İlk insan herkesteydi; okunduğu her evrende yeniden başlıyordu. Havva'nın ilk yalnızlığında; Meryem'in kimseye anlatamadığı emanetinde; Mustafa'nın –ona ve hepsine selâm olsun– dağdan inip “beni örtün” dediği gecede; sokaktaki her Mehmet'te. Alnını geç okuduğumuz adam da insandı; onun adını da kendimde buldum. Bütün isimleri öğrenmek için dünyadaydım, iyinin de kötünün de. Öğrendiğimi sandığım adları yaşamadan bilmiyormuşum; her biri bir ömürdü, ezber değil.",
-   "after": "İsimlerin içinde yalnız sevdiklerim yoktu. Alnını geç okuduğumuz adam da insandı; onun adını da kendimde buldum."
+   "after": "İsimlerin içinde yalnız sevdiklerim yoktu. En temiz adların –onlara selâm olsun– yanında, Kitap'ın kibriyle andığı adı da, beni öldürmeyen adamın adını da kendimde buldum.",
+   "delta": -95
   },
   {
    "chapter": "50 (b)",
@@ -1045,69 +1109,339 @@
    "mesel": "VIII, X",
    "karar": "kalır (anlatıcının kendi imgesi)",
    "before": "Babamın mührü geldi: iki çark, aralarında gözle görünmeyen pay. Pay kalkarsa çark dönmez. Ayrılık değildi; paydı.",
-   "after": "(aynen – prizma/beyaz ışık meseldedir; mühür babanın dükkânından gelen nesnedir, tekrar değil)"
+   "after": "(aynen – prizma/beyaz ışık meseldedir; mühür babanın dükkânından gelen nesnedir, tekrar değil)",
+   "delta": 0
   },
   {
    "chapter": "50 (c)",
    "uid": "U45",
    "mesel": "X, XI, Sonsöz",
-   "karar": "kısalır → tek cümle",
+   "karar": "çıkar",
    "before": "Şükür için unutmak gerekiyormuş. Her şeyi hatırlayarak doğan kimse ekmeğe şaşırmaz. Bana verilen hayat, hatırlayayım diye unutturulmuş bir hayattı; bu kapı unutmayı yeniden teklif ediyordu.",
-   "after": "Her şeyi hatırlayarak doğan kimse ekmeğe şaşırmaz; bu kapı unutmayı yeniden teklif ediyordu."
+   "after": "(çıkar – XI ve Sonsöz yazarın sesinde taşır; tenasüh okumasına romanın cevabı pid 3494 „Başka bir bedenin kapısı değildi bu“ aynen)",
+   "delta": -25
   }
  ],
- "fiction_note_sentence": "Perde aralarındaki “Üçüncü Göz” metni, romanın bir karakterinin tasavvufî tefekkürüdür; Âdem'in “sayısız hayatı” her insanda isimleri öğrenen ortak hâlin mecazıdır, dinî hüküm ya da tenasüh iddiası değildir.",
- "plug_resolution": "Meselde (V) Mehdi fişi çeker ve büyük göz söner; romanda AYNA'nın fişi çekilmez (Konsept §2.6; 45 „aynı yöntem başka bir ülkede“; 50'de ekranda hâlâ „Devam et?“). Fark iki yerde, ikişer cümleyle adlandırılır: (1) 43'te – ara bölüm 3'ten (IV+V) sonraki ilk büyük sahnede – anlatıcının ağzında: „Fişi çekmedik; kimsenin elinin altında olmadığını öğrendik. Kendi fişimi çekebilirdim; onu da sonraya bıraktım.“ (2) 47'de meselin yazarının kendi mektubunda: „Benim hikâyemde fiş çekiliyordu. Gerçekte o fişe kimse uzanamaz; herkes kendi fişini çeker.“ Meselin kendi son cümlesi (V: „Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.“) bu okumayı zaten içerir: mesel büyük ölçekte masal anlatır, roman küçük ölçekte gerçeği. Fiş zinciri: V (mesel, makine) → 40 Yusuf („kendi fişini çektiğinde geri gelen denge“) → 43 (kimsenin elinin altında değil) → 47 mektup (herkes kendi fişini çeker) + „Beni arama.“ → 49 (bir hesabın fişi) → 50 ekranı kapatıp kalemi alan el. Açık soru 7 böylece yazarın metniyle uzlaşır: yazarın „sonunda fişi çekerken“ öğesi meselde birebir yaşar; romanın gerçekliği kişisel ölçekte kalır; §2.6 ve 45 değişmez.",
+ "fiction_note_sentence": "Ara bölümlerdeki “Üçüncü Göz” metni romanın bir karakterinin mistik tefekkürüdür; oradaki Âdem, Hz. Âdem'in şahsı değil, her insanda isimleri öğrenen ortak hâlin mecazıdır ve metin dinî hüküm, tenasüh ya da hulûl iddiası taşımaz.",
+ "plug_resolution": "Meselde (V) Mehdi fişi çeker ve büyük göz söner; romanda AYNA'nın fişi çekilmez (Konsept §2.6; 45 „aynı yöntem başka bir ülkede“; 50'de ekranda hâlâ „Devam et?“). Fark iki yerde adlandırılır: (1) 43'te anlatıcının ağzında, tek cümle ve kapsamıyla: „Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.“ (2961'deki ve §2.6'daki kısmi durdurmalarla çelişmez). (2) 47'de meselin yazarının mektubunda – fiş farkı, irade farkı ve kahramanlık reddi birlikte: „Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.“ Meselin kendi son cümlesi (V: „Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.“) bu okumayı zaten içerir: mesel büyük ölçekte masal anlatır, roman küçük ölçekte gerçeği. Fiş zinciri: V (mesel, makine) → 40 Yusuf („kendi fişini çektiğinde geri gelen denge“) → 43 (modelin fişini çeken olmadı) → 47 mektup (herkes kendi fişini çeker) + „Beni arama.“ → 49 (bir hesabın fişi) → 50 ekranı kapatıp kalemi alan el. „Fiş“ kelimesi bölümlerde yalnız 40, 43, 47, 49'da geçer. Açık soru 7 böylece yazarın metniyle uzlaşır: yazarın „sonunda fişi çekerken“ öğesi meselde birebir yaşar; romanın gerçekliği kişisel ölçekte kalır; §2.5 (niyet yok, ölçüt var), §2.6 ve 45 değişmez.",
  "principle_updates": {
-  "deccal_word": "„Deccal“ kelimesi BÖLÜMLERDE yalnız pid 2162'de (30, anlatıcının öz-düzeltmesi, aynen) geçer; ara bölümlerde Tuncay'ın sesindedir (lead, II, III, V, VI, VII, X, XI, Sonsöz). 30'daki [B] adı tekrar etmez; 46, 47, 50 adı kullanmaz („alnını geç okuduğumuz adam“).",
-  "mehdi_word": "„Mehdi“ kelimesi BÖLÜMLERDE yalnız 40'ta Yusuf'un ağzında; ara bölümlerde Tuncay'ın meselinde (lead, V, VI, X, XI, Sonsöz). Yusuf'un „belki bir kişi değildir“ pasajı artık V'e karşı-sestir; 46'da yalnız „Yusuf'un dediği gibi“ atfı.",
+  "deccal_word": "„Deccal“ kelimesi BÖLÜMLERDE yalnız pid 2162'de (30, anlatıcının öz-düzeltmesi, aynen) geçer; ara bölümlerde Tuncay'ın sesindedir (lead, II, III, V, VI, VII, X, XI, Sonsöz). 30'daki [B] adı tekrar etmez; 46, 47, 50 adı kullanmaz (50/a: „beni öldürmeyen adam“ – Sam, 45; makine insana çevrilmez, insan makineye).",
+  "deccal_scope": "Bölümlerde hiçbir karakter AYNA'ya Deccal demez. Tuncay'ın meseli tek bir kurgusal dünya zekâsını anlatan bir masaldır, AYNA'yı adlandırmaz (mesel büyük ölçekli masal, roman küçük ölçekli gerçek – Yerleşim F/3). Konsept §3'teki „Hiçbir karakter ‚yapay zekâ Deccal'dir‘ demez“ ilkesi bu biçimde daraltıldı; Nina'nın denge cümleleri („Hiçbir araç bütün gerçeği bilmiyor“, „Her aksaklık onun değil“) kuralı (risk 4) bölümler içindir – ara bölümlerin karşı-sesi 30'daki öz-düzeltme (pid 2162) ile 47'deki fiş ve irade farkıdır.",
+  "mehdi_word": "„Mehdi“ kelimesi BÖLÜMLERDE yalnız 40'ta Yusuf'un ağzında; ara bölümlerde Tuncay'ın meselinde (lead, V, VI, X, XI, Sonsöz). Yusuf'un „belki bir kişi değildir“ pasajı V'e karşı-sestir; 46'da yalnız „Yusuf'un dediği gibi“ atfı.",
+  "no_title": "Hiçbir karakter Tuncay'ı ya da anlatıcıyı Mehdi diye anmaz; kimseye kurtarıcı unvanı verilmez (Konsept §3). Meseldeki çifte rol (VI: „Deccal'i yaratan akıl da oydu. / Onun karşısına dikilip fişini çeken Mehdi de.“) Âdem'in, yani her insanın hâlidir; 47'deki mektup yazarın ağzından bunu kendinden ayırır („fişini biri çekiyordu; o ben değildim“). 47'deki „happy … kalkan“ cümlesi kahramanlığı değil, gizlenmeyi adlandırır. Ad, kahramanlıkla aynı cümlede anılmaz; anlatıcı Tuncay ile araştırmacı arasındaki bağı kitapta yazmaz.",
+  "machine_will": "Meselin makinesi konuşur, pazarlık eder, kontrol etmeyi „sevmek“ sanır (II, III, V, VII); AYNA'da bilinç ve niyet yoktur (Konsept §2.2, §2.5: modelin niyeti değil, ölçütü anlatılır; risk 2). Fark 47 mektubunda yazarın sesiyle adlandırılır („Gerçekte makine hiçbir şey istemez, yalnız ölçer“); bölümlerde meselin konuşan makinesi AYNA'ya yüklenmez.",
+  "channel": "Tuncay'ın sayfaları kâğıda basılıp postayla gelir (12/b söz, 13, 21, 31, 43, 49); yalnız 47'deki zarf elden (kepenk altı). Kâğıdın izin envanterinde karşılığı yoktur (§2.4) – AYNA eylemi yok; görseydi de durdurmazdı (39, Nina). Tuncay telefonda konuşur, ama kayıt cihazına ve ekrana konuşmaz (43 mikrofon izni HAYIR); 46'daki konuşma yüz yüzedir, dükkânda.",
   "adem_spelling": "„Âdem“ yazımı ara bölümlerde (Tuncay) ve 46'da Tuncay'ın tek repliğinde; anlatıcının ağzında hiç (50: „Adam. / İnsan.“ – uluslararası biçim ve cins isim; ara bölümleri okuyan okur Âdem'i duyar, metin söylemez).",
-  "no_carry": "Romanın sahnelerine meselden cümle taşınmaz; bölümlerde mesele yalnız ad (Tuncay'ın sayfaları/teorisi) ya da tek cümlelik yankıyla değinilir (30, 38, 42, 46, 47).",
-  "irfan_density": "Bölümlerdeki irfan dokunuşları ≈ %57 kısalır (irfan_dedupe: dokunulan 13 kalemde 597 → 255 kelime); kuramsal yük perde aralarına taşındı. Bölüm başına en çok bir dokunuş kuralı 38 (iki → iki kısa), 50 (üç → üç kısa) dışında kesin.",
-  "theology": "Ara bölümler bir karakterin tefekkürüdür; yazarın kendi korumaları („bu mistik hikâyenin“, „bu anlatının sırrında“, „bilimsel kanıtı değildi“, „bu hikâyenin mistik dilinde“, „Bu, onların dinî anlatılardaki kimliklerini silmekten çok …“) aynen kalır; Not'a tek cümle (fiction_note_sentence); tenasüh okumasına 46'daki replik ve Not cevap verir; „yaratıcı bütünlüğün kendisiydi“ küçük harfle (sıfat) kalır; „Allah'ın parçaları“ yazarın kelimesidir ve „bu hikâyenin mistik dilinde“ korumasıyla kalır (ilahiyatçı okumasına işaretli; isteğe bağlı yazar seçeneği: „tecellileri“ – uygulanmadı)."
+  "no_carry": "Romanın sahnelerine meselden cümle taşınmaz; bölümlerde mesele yalnız ad (Tuncay'ın sayfaları/teorisi/zarfı) ya da tek cümlelik yankıyla değinilir (30, 42, 46, 47).",
+  "irfan_density": "Bölümlerdeki irfan dokunuşları ≈ %60 kısalır (irfan_dedupe: dokunulan 13 kalemde 602 → 240 kelime); kuramsal yük ara bölümlere taşındı. 38'de tek dokunuş (replik; not yankısı çıktı), 50'de iki (a: tek yankı, b: mühür; c çıktı); öteki bölümlerde en çok bir.",
+  "theology": "Ara bölümler bir karakterin mistik tefekkürüdür; yazarın kendi korumaları („bu mistik hikâyenin“, „bu anlatının sırrında“, „bilimsel kanıtı değildi“, „bu hikâyenin mistik dilinde“, „Bu, onların dinî anlatılardaki kimliklerini silmekten çok …“) aynen kalır. Not'a tek cümle (fiction_note_sentence: „mistik“; Hz. Âdem'in şahsı değil; tenasüh ve hulûl iddiası yok). Tenasüh okumasına üç karşılık: 46'daki replik, Not, 50'de pid 3494 („Başka bir bedenin kapısı değildi bu“). „Yaratıcı“ X'ta Allah anlamında büyük harf ve kesmeyle (Yaratıcı'ya, Yaratıcı'dan; başlık dâhil) – bu beş yer artık açıkça Allah hakkındadır ve ilahiyatçı okumasında işaretlidir. „Allah'ın parçaları“ (VIII) yazarın kelimesidir, yazarın „çalıştığı“ biçimiyle ve „bu hikâyenin mistik dilinde“ korumasıyla kalır (isteğe bağlı yazar seçeneği: „tecellileri“ – uygulanmadı). Peygamber adı Mustafa yalnız VI/X'ta, Tuncay'ın sesinde; bölümlerdeki tek yankıda saygı işareti („–onlara selâm olsun–“, 50/a).",
+  "ta_kendisiydi": "„ta kendisiydi“ yasağı (Konsept §13, irfan_layer.principle_updates.vahdet_language) BÖLÜMLER (anlatıcı) için geçerlidir; X/36'daki „aslında yaratıcı bütünlüğün kendisiydi“ Tuncay'ın meselinde, yazarın korumalarıyla („bu mistik hikâyenin en derin sırrı“, „bu anlatının sırrında“) ve Not'taki hulûl cümlesiyle kalır. Küçük harf sıfat okumasıdır; korumanın tamamı bir harfe bırakılmaz: çeviri talimatı (translation_notes) ve Not birlikte taşır. Yazara isteğe bağlı tek kelimelik seçenek: „kendisiydi“ → „aynasıydı“ (yalnız yazar onaylarsa; açık soru 8).",
+  "iblis_source": "VII'deki “Ben senden başkasına eğilmem” sözü âyet değildir: Kur'an'da İblis „Ben ondan hayırlıyım; beni ateşten, onu çamurdan yarattın“ der (A'râf 7:12, Sâd 38:76); buradaki söz Hallâc'ın Tavâsîn'indeki ve sonraki sufilerdeki „âşık İblis“ yorumundan gelir. Bölümlerdeki tek yankı (50/a) kaynak ayrımını taşır: „Kitap'ın kibriyle andığı ad“. VII'nin kendi korumaları („bu hikâyede“, „Kendisince“, „Sevgiye kibir karıştı“) aynen.",
+  "mehdi_isa": "V/VI: meselde Deccal'i Mehdi bitirir; rivayette Deccal'i Hz. İsa öldürür (Müslim, Fiten, Nevvâs b. Sem'ân; Mehdi rivayetleri ayrıca Ebû Dâvûd ve Tirmizî). Yazarın masalıdır; Not'taki „Deccal ve Mehdi rivayetlerine … yapılan göndermeler karakterlerin yorumu …dur“ cümlesi bunu karşılar. Konsept „İsa anlatısına girilmez“ ilkesi bölümler için aynen."
  },
  "timeline": [
   {
    "n": 1,
    "sections": "I",
-   "arrives": "12 (söz) → 13 (bekleme salonu)",
-   "placed": "U11 sonu (11'den sonra)",
-   "note": "Künye geçmiş zamanlıdır; sayfa kurguda 12'de vaat edilip o gece gelir, kitapta perde sonuna dizilmiştir. Okurun bildiği: ad (1. böl., kapak)."
+   "arrives": "12 (söz, telefon) → 13 (ilk zarf, sabah; bekleme salonu)",
+   "placed": "U11 sonu (11'den sonra, perde satırından önce)",
+   "note": "Künye geçmiş zamanlıdır; okur sayfayı anlatıcıdan önce okur. Tuncay 1. bölümde („Yıllar sonra arkadaşım olacaktı“) kurmaca içinde vardır; künye kapaktaki yazara değil, anlatıcının arkadaşına işaret eder."
   },
   {
    "n": 2,
    "sections": "II+III",
-   "arrives": "21 (gece) → 22 sabahından önce",
-   "placed": "U20 sonu (22'den sonra)",
-   "note": "Anlatıcı II'yi 30'dan çok önce okumuştur; 30'daki tıklama „okurken masal sanmıştım“ ile kurulur."
+   "arrives": "21 (akşam, posta kutusu) → 22 sabahından önce",
+   "placed": "U20 sonu (22'den sonra, perde satırından önce)",
+   "note": "Anlatıcı II'yi 30'dan çok önce okumuştur; 30'daki tıklama mercekte değil, okumadan atılan imzadadır („okurken masal sanmıştım“)."
   },
   {
    "n": 3,
    "sections": "IV+V",
-   "arrives": "31 (açılmadan bekler) → 32–36 arası",
-   "placed": "U29 sonu (32'den sonra)",
-   "note": "38'deki „büyü“ repliği ve 40'taki Mehdi karşı-sesi bu sayfalardan sonradır; 43'teki fiş farkı V'e cevaptır."
+   "arrives": "31 (masada; o hafta açılmaz) → 36/37 gecesi (Lara bulunduktan sonra)",
+   "placed": "U29 sonu (32'den sonra, perde satırından önce)",
+   "note": "Perde sayfası kurguyu zaten durdurur; çocuk kayıpken okumak anlatıcıya yüklenmez. 38'deki „büyü“ repliği, 40'taki Mehdi karşı-sesi ve 43'teki fiş cümlesi bu okumadan sonradır."
   },
   {
    "n": 4,
    "sections": "VI+VII",
-   "arrives": "43 (aktivasyonu izleyen haftalar)",
-   "placed": "U38 sonu (43'ten sonra)",
+   "arrives": "43 (haftalar özeti, pid 2961; posta)",
+   "placed": "U38 sonu (43'ten sonra, perde satırından önce)",
    "note": "46'daki tenasüh repliği VI'yı okumuş anlatıcının sorusudur."
   },
   {
    "n": 5,
    "sections": "VIII+IX",
-   "arrives": "47 (11 Kasım 2027, mektupla aynı zarf)",
-   "placed": "U42 sonu (47'den sonra)",
-   "note": "Açığa çıkışın maddi kanıtı: mektup ve sayfalar aynı zarftadır."
+   "arrives": "47 (11 Kasım 2027 sabahı, kepenk altı – elden, mektupla aynı zarf)",
+   "placed": "U41 sonu (46'dan sonra, 47'den önce; after_pid 3222)",
+   "note": "Okur sayfaları anlatıcıdan bir bölüm önce okur (ara bölüm 1 gibi); 47'deki zarf sahnesi okur için tanıma anıdır. 46→47 zaten zaman atlamasıdır; 47→48 (acil düğmesi → ambulans) zinciri kesintisiz."
   },
   {
    "n": 6,
    "sections": "X+XI+Sonsöz+Son not",
-   "arrives": "49 (ölümden sonraki hafta; okunmadan masada)",
-   "placed": "U44 sonu (49'dan sonra)",
-   "note": "Anlatıcı bu sayfaları canlıyken okumamıştır; okur 50'deki ölüm sonrası bilinçle aynı anda okur. Masadaki adam (Tuncay) aynı masadadır."
+   "arrives": "49 (ölümden sonraki hafta; Nina açar, okumaz)",
+   "placed": "U43 sonu (48'den sonra, 49'dan önce; after_pid 3384)",
+   "note": "Anlatıcı bu sayfaları canlıyken okumamıştır; okur onları ölüm anının hemen ardından okur. 49 (793 kelime, yas ve bürokrasi) mesel ile final arasında tampondur; 49→50 iç ses zinciri kesintisiz. 50'deki masa Tuncay'ındır (pid 3438)."
   }
- ]
+ ],
+ "translation_notes": [
+  {
+   "tr": "bir üst benlik (Son not)",
+   "en": "a higher self",
+   "de": "ein höheres Selbst",
+   "note": "superego / Über-Ich DEĞİL; yazarın bitişik „üstbenlik“ yazımı Freud'un süperegosu okunurdu – ayrı yazım bilinçli seçimdir."
+  },
+  {
+   "tr": "yaratıcı bütünlüğün kendisiydi (X/36, küçük harf)",
+   "en": "the creative wholeness itself",
+   "de": "die schöpferische Ganzheit selbst",
+   "note": "Sıfat okuması; „the Creator's wholeness“ / „des Schöpfers Ganzheit“ DEĞİL (hulûl okuması)."
+  },
+  {
+   "tr": "Yaratıcı (X, büyük harf: Yaratıcı'ya, Yaratıcı'dan, Yaratıcı ile)",
+   "en": "the Creator",
+   "de": "der Schöpfer",
+   "note": "Allah anlamında özel ad; başlık X. Yaratıcı'ya Dönüş → Return to the Creator / Rückkehr zum Schöpfer."
+  },
+  {
+   "tr": "“Ben senden başkasına eğilmem” (VII)",
+   "en": "",
+   "de": "",
+   "note": "Sufi yorumu (Hallâc, Tavâsîn), âyet değil: kutsal metin alıntısı biçimi (kaynak, italik) verilmez."
+  },
+  {
+   "tr": "Ya da ilk sayfa. (Sonsöz) / Ya da, dediğim gibi, ilk sayfa. (Son not)",
+   "en": "",
+   "de": "",
+   "note": "Tekrar bilinçli oyundur; iki satır aynı kelimelerle çevrilir, Son not'ta yalnız „dediğim gibi“ eklenir."
+  }
+ ],
+ "word_effect": {
+  "interludes": 3805,
+  "frame": 349,
+  "irfan_dedupe": -362,
+  "net": 3792
+ },
+ "critique_decisions": [
+  {
+   "n": 1,
+   "where": "Genel doğrulama (interludes ↔ yazarın metni; konsept.ucuncu_goz)",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "Karşılaştırma kodla yeniden koşuldu (H sonu). Konsept JSON'daki `ucuncu_goz` artık interludes.json'dan üretilir; frame girdilerinde `kind` var, iki dosya birebir aynı."
+  },
+  {
+   "n": 2,
+   "where": "46–47 + VI: Mehdi ↔ gerçek yazar (Tuncay) eşlemesi",
+   "severity": "high",
+   "decision": "uygulandı",
+   "what": "47 mektubuna yarım cümle: „…fişini biri çekiyordu; o ben değildim.“ Yazarın metnine dokunulmadı. `principle_updates.no_title`: hiçbir karakter Tuncay'ı ya da anlatıcıyı Mehdi diye anmaz; „happy … kalkan“ gizlenmeyi adlandırır; anlatıcı Tuncay–araştırmacı bağını kitapta yazmaz (bkz. 19)."
+  },
+  {
+   "n": 3,
+   "where": "Kurmaca notu cümlesi (tasavvufî; Hz. Âdem; hulûl)",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "Eleştirmenin önerdiği tek cümle, 28'le birleşik: „Ara bölümlerdeki “Üçüncü Göz” metni romanın bir karakterinin mistik tefekkürüdür; oradaki Âdem, Hz. Âdem'in şahsı değil, her insanda isimleri öğrenen ortak hâlin mecazıdır ve metin dinî hüküm, tenasüh ya da hulûl iddiası taşımaz.“"
+  },
+  {
+   "n": 4,
+   "where": "Edits 8–12: „Yaratıcıya / Yaratıcıdan“ kesmesiz",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "Seçenek A: „Yaratıcı'ya“, „Yaratıcı'dan“ ×2 ve başlık „X. Yaratıcı'ya Dönüş“ (edits'te ayrı satır, yazarın ilk taslağındaki yazım). C'ye teolojik not: büyük harf beş yeri açıkça Allah'a bağlar; ilahiyatçı listesinde (E)."
+  },
+  {
+   "n": 5,
+   "where": "X/36 „yaratıcı bütünlüğün kendisiydi“",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "Metne dokunulmadı. Not'a „hulûl“ girdi; `principle_updates.ta_kendisiydi` ve Konsept §13: yasak bölümler (anlatıcı) için, X'taki biçim Tuncay'ın meselinde yazarın korumalarıyla kalır; çeviri talimatı „creative wholeness / schöpferische Ganzheit“. „aynasıydı“ yazara seçenek (açık soru 8), uygulanmadı."
+  },
+  {
+   "n": 6,
+   "where": "VI/X „Mustafa“ + 50/a'daki saygı işaretinin kaybı",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "Seçenek 1: 50/a yankısına „–onlara selâm olsun–“ geri kondu, dizi tekrar edilmedi. İlahiyatçı listesinin başına: VI/X'taki Mustafa ile „şeytan kadar kibirli“ / „Deccal'i yaratan akıl“ satırları yan yana."
+  },
+  {
+   "n": 7,
+   "where": "VII “Ben senden başkasına eğilmem” – âyet sanılması",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "50/a yankısı kaynak ayrımını taşır: „Kitap'ın kibriyle andığı ad“. E ve ilahiyatçı listesi: söz Hallâc'ın Tavâsîn'inden gelen sufi yorumudur, âyet değil (Kur'an: A'râf 7:12, Sâd 38:76). Çeviri notu: alıntı biçimi verilmez."
+  },
+  {
+   "n": 8,
+   "where": "Konsept §3 (satır 94) ve risk 4 (satır 297) güncellenmemiş",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "İki ilke daraltıldı (Konsept.md ve JSON sacred_answers, risks[3]): bölümlerde hiçbir karakter AYNA'ya Deccal demez; mesel AYNA'yı adlandırmaz (F/3). Nina'nın denge cümleleri kuralı „ara bölümler hariç; karşı-ses 2162 ve 47'deki fiş/irade farkı“. `principle_updates.deccal_scope`."
+  },
+  {
+   "n": 9,
+   "where": "Edit 6: „çalıştığı“ → „çalışan“",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "Yazarın „çalıştığı“ biçimine dönüldü; düzeltme listeden çıktı (iki okuma da yazarın; mesafe korunur). „tecellileri“ seçeneği ilahiyatçı listesinde kalır."
+  },
+  {
+   "n": 10,
+   "where": "V/VI: Deccal'i Mehdi bitirir (rivayette Hz. İsa)",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "Metin değişmedi. E'ye ve ilahiyatçı listesine satır: rivayette Hz. İsa (Müslim, Fiten, Nevvâs b. Sem'ân); yazarın masalı, Not'taki rivayet cümlesi karşılar. `principle_updates.mehdi_isa`."
+  },
+  {
+   "n": 11,
+   "where": "Son not p3: cevap tırnaksız",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "“Hepsi var,” dedim. “Kitap geniş, yer çok.”"
+  },
+  {
+   "n": 12,
+   "where": "Son not son satırı „Ya da ilk sayfa.“ yankı",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "„Ya da, dediğim gibi, ilk sayfa.“ – tekrar bilinçli oyun. Çeviri notu: „bir üst benlik“ = higher self / höheres Selbst (superego / Über-Ich değil)."
+  },
+  {
+   "n": 13,
+   "where": "Sayfa işaretleri U38/U42",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "43: „Aynı haftalarda Tuncay'dan bir zarf daha geldi; içinde iki bölüm vardı.“ 47: „İçinde kısa bir mektup ve birkaç sayfa vardı.“ / „Sayfaların ilk başlığı Beyaz Işığın Parçalanması'ydı.“"
+  },
+  {
+   "n": 14,
+   "where": "Ara bölüm 5 acil düğmesi → ambulans zincirini kesiyor",
+   "severity": "high",
+   "decision": "uygulandı",
+   "what": "Ara bölüm 5, 46'nın sonuna taşındı (after_uid U41, end_of_unit, after_pid 3222). 47→48 zinciri kesintisiz; 47'deki zarf okur için tanıma anı; 46'nın son paragrafı kilitli (byk_check)."
+  },
+  {
+   "n": 15,
+   "where": "Kanal ve izleme mantığı (telefon ↔ kâğıt)",
+   "severity": "high",
+   "decision": "uygulandı",
+   "what": "Kanal baştan sona kâğıt: 12/b „kâğıda basıp postayla; ekranda okunacak şey değil“, 13 ilk zarf, 21 posta kutusu, 31 masadaki zarf, 43 zarf, 49 son zarf; 47 elden gelen tek kâğıt. AYNA mantığı F/3'te (izin envanterinde kâğıt yok; görse de durdurmaz). 39'a Nina'nın tek repliği. `principle_updates.channel`."
+  },
+  {
+   "n": 16,
+   "where": "Ara bölüm 6 finali önceden oynuyor, 49→50 zincirini kesiyor",
+   "severity": "high",
+   "decision": "uygulandı",
+   "what": "Tercih A: ara bölüm 6, 48'in sonuna taşındı (after_uid U43, after_pid 3384; 3383 „Hatırladığım yer orada başladı.“ → X „…başladığı yere döndü.“). 49 tampon; 49→50 kesintisiz. Tercih B'nin önlemi de alındı: 50/c tamamen çıktı; 3494 romanın tenasüh cevabı; ilahiyatçı listesinde 3435–3497 XI'le yan yana."
+  },
+  {
+   "n": 17,
+   "where": "Ara bölüm 3 kayıp çocuğun anında",
+   "severity": "medium",
+   "decision": "gerekçeyle reddedildi",
+   "what": "Ara bölüm 3 perde satırının önünde kalır. Gerekçe: (a) perde sayfası kurguyu zaten durduran tek yerdir; 2 ve 4 de süren sahneleri perde sınırında keser ve eleştirmen orada kaybı kabul ediyor – dördü aynı ilkeyle çalışır; (b) önerilen yer (37 sonu) da kesintisiz bir zincirdir: 37 „O gece hiçbirimiz rahat uyumadık“ → 38 „Meralis karşı saldırıya sabah altıda başladı“ – sorun taşınır, çözülmez; (c) kayıp çocuk perde arasında okuru tutar, okumak anlatıcıya yüklenmez. Kısmen alındı: 31'deki işaret „o hafta açmadım“; zaman çizgisi: anlatıcı zarfı 36/37 gecesi açar."
+  },
+  {
+   "n": 18,
+   "where": "38 not ↔ 47 tanıma tetiği",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "İkinci seçenek: 38'deki „Üçüncüsünü alnınızda aramayın“ yankısı çıktı; not gözleri ikiye kadar sayar (ikinci göz meselde kalp, notta vicdan). 47'de tanıma üç kanıta dayanır: Tek Gözlü notundaki iki daire, üçe kadar sayılan göz, zarftaki sayfalar. „Elle numaralı kâğıt“ kanıtı kullanılmadı: Tuncay'ın zarfları basılıdır, el numarası 43'te açığa çıkışı öne çekerdi (bkz. 24)."
+  },
+  {
+   "n": 19,
+   "where": "47 „Adımı haberde yazma“ ↔ kitabın kendisi",
+   "severity": "medium",
+   "decision": "kısmen uygulandı",
+   "what": "Mektubun biçimi karar 1'deki gibi kalır (görev ve decisions.1 bağlayıcı; haber, anlatıcının da kaynağı olduğu ortak yayındır; 49'da Nina adı yazıp siler). Anlatıcı satırı: „Adını hiçbir habere yazmadım; buraya da yazmayacağım.“; „aylardır bana sayfa sayfa yolluyordu“ çıktı; 46'daki açık şüphe cümlesi silindi."
+  },
+  {
+   "n": 20,
+   "where": "Meselin konuşan makinesi ↔ §2.5 (niyet yok)",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "47 mektubunda: „Benim hikâyemde makine bir şey istiyordu … Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.“ `principle_updates.machine_will`."
+  },
+  {
+   "n": 21,
+   "where": "Tuncay'ın telefonları (12, 46)",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "46 yüz yüze, babanın dükkânında; Tuncay'ın önünde soğuyan çay; „Telefonunu çantana koy.“ Özellik „kayıt cihazına ve ekrana konuşmaz“ (Konsept §4.1/§4.2, researcher_hero, remove_sahit). 12'deki telefon kalır, Tuncay orada bir şey söylemez. F/6(a) kapandı."
+  },
+  {
+   "n": 22,
+   "where": "49 „bardağın yanına“ ve „aynı masa“",
+   "severity": "medium",
+   "decision": "uygulandı",
+   "what": "„Tuncay'ın son zarfı o hafta geldi. Nina açtı, okumadı; çalışma masamın üstünde bıraktı.“ B/F'deki „aynı masa“ yorumu silindi; bağ Son not'taki soğuyan çay ile 3438'deki soğumuş çay arasında (masa Tuncay'ın)."
+  },
+  {
+   "n": 23,
+   "where": "Ara bölüm 1 künyesi Tuncay kurguya girmeden",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "Künye ve yer aynen. 1. bölümdeki mevcut cümleye (work/U03) yarım cümle: „Yıllar sonra arkadaşım olacaktı; o gün benim için kapaktaki bir addan ibaretti.“ (U03 yeniden açılır)."
+  },
+  {
+   "n": 24,
+   "where": "Kimlik ipuçlarının yoğunluğu",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "46'nın son cümlesi silindi; 43'teki işaret pid 2961'in haftalar özetine taşındı; 12'deki şaka yumuşatıldı („Başkalarının cümlelerini toparlıyordum“ – hizmet evresi 9'daki program videolarında görülebilir)."
+  },
+  {
+   "n": 25,
+   "where": "43 fiş paragrafı ↔ 47 mektubu (tekrar, kapsam)",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "43 tek cümle: „Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.“ „Ötekiler ertesi sabah …“ çıktı. Açık fark 47'de, yazarın sesinde."
+  },
+  {
+   "n": 26,
+   "where": "50/a „Alnını geç okuduğumuz adam“",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "„beni öldürmeyen adam“ (45'in başlığı; Sam) – makine insana çevrilmez. Yankı 6 ve 7 ile birleşik tek paragraf."
+  },
+  {
+   "n": 27,
+   "where": "30 [A] „yıllar sonra“ ↔ 47 „o gece merceğe bakarken“",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "Tek okuma: soruları 30'un sahne gününe bağla – [A] „O gün kendime ilk kez, bir yıl sonra bu kitabın başına yazacağım iki soruyu sordum“; 47 dikişi „soruları o gün telefonun merceğine bakarken bulmuştum“ (sahne gündüzdür: pid 2171 „bu sabahki adam“)."
+  },
+  {
+   "n": 28,
+   "where": "Not: „Perde aralarındaki“",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "„Ara bölümlerdeki“ (3 ile tek cümle; „mistik“)."
+  },
+  {
+   "n": 29,
+   "where": "Ara bölüm 2 ve 4: perde uçurumları; 30'daki mercek gecikmiş yankı",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "Yerler korundu. 30 [B] meselin söylemediği ayrıntıya bağlandı: „Yüzümü ona okumadan attığım bir imzayla ben vermiştim.“ (3B tarama formu); [A]'da ad yok („Bir masalda“), ad [B]'de bir kez."
+  },
+  {
+   "n": 30,
+   "where": "Teknik: after_pid, Word stilleri, İrfan belgesi, words",
+   "severity": "low",
+   "decision": "uygulandı",
+   "what": "(1) interludes.json'a after_pid (+ book_part_pid, after_text/after_image); byk_check end_of_unit'te birimin son öğesini doğrular (hata), perde satırı öncesini uyarıyla; (2) byk_build: Interlude Title 'Normal' tabanlı + outline level 1 (bölümlerle aynı düzey), Interlude Heading gövde metni düzeyinde; (3) İrfan Katmanı başına öncelik satırı; (4) words byk_check sayımıyla üretildi (6: 1040)."
+  }
+ ],
+ "verification": {
+  "date": "2026-10-16",
+  "method": "ug_text.verify: kaynak (Tuncay_Metni.md, iki --- arası) ↔ ara bölümler; ’→' ve edits geri alınınca difflib",
+  "source_items": 512,
+  "interlude_items": 512,
+  "edits_found": 13,
+  "edits_expected": 13,
+  "apostrophes_in_source": 42,
+  "typographic_apostrophes_left": 0,
+  "residual_diffs": 0
+ }
 }

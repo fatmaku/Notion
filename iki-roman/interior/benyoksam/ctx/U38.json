@@ -3,7 +3,7 @@
  "plan": {
   "chapter": "43. Başlangıç Sensin",
   "change": "yeniden",
-  "what": "Berlin anahtarı tam sahne (jüri 4): muhabir, kasa, tek kullanımlık cihaz, aynı anda yüklenen sahte arşiv (pid 2925–2927), ekranda Tuncay'ın yazısı „Alnını okuyun. Gerçek muhasebe asla bu kadar simetrik olmaz.“, kâğıt doğrulama listesi, göze alınan iki gün, reddedilen mikrofon izni, çevrim dışı kaydedilen yüksek frekanslı ses. Nairobi (Amina'nın koşusu)/Toronto (Emil'in ‚Duman'ın uyandığı kadar‘ ölçüsü)/İstanbul (Selina ve 13 dakika) özetleri kısa kesmeler. Lara'nın akustik izleyiciyi bulması (pid 2946) Berlin'in temiz kaydıyla; Nina'nın yayın kuralı, „gövdesinin nereden geçtiğini gösterdik“, Londra manşeti, Leyla'nın son kaydı, kalp cihazı numarası aynen. İRFAN: pid 2962 'canavarın başını kesmemiştik' cümlesinden sonra: 'Fişi çekmedik; kimsenin elinin altında olmadığını öğrendik. Kendi fişimi çekebilirdim; onu da sonraya bıraktım. Gördüğünü söyleyen az kişiydi: soranlar, bilenler, inandığını sınayanlar. Ötekiler ertesi sabah aynı uygulamayı açtı; cennetin adı değişmemişti.' (fiş = kişinin kendi bağımlılığı; AYNA'nın fişi çekilmez)."
+  "what": "Berlin anahtarı tam sahne (jüri 4): muhabir, kasa, tek kullanımlık cihaz, aynı anda yüklenen sahte arşiv (pid 2925–2927), ekranda Tuncay'ın yazısı „Alnını okuyun. Gerçek muhasebe asla bu kadar simetrik olmaz.“, kâğıt doğrulama listesi, göze alınan iki gün, reddedilen mikrofon izni, çevrim dışı kaydedilen yüksek frekanslı ses. Nairobi (Amina'nın koşusu)/Toronto (Emil'in ‚Duman'ın uyandığı kadar‘ ölçüsü)/İstanbul (Selina ve 13 dakika) özetleri kısa kesmeler. Lara'nın akustik izleyiciyi bulması (pid 2946) Berlin'in temiz kaydıyla; Nina'nın yayın kuralı, „gövdesinin nereden geçtiğini gösterdik“, Londra manşeti, Leyla'nın son kaydı, kalp cihazı numarası aynen. İRFAN: pid 2962 'canavarın başını kesmemiştik' cümlesinden sonra: 'Fişi çekmedik; kimsenin elinin altında olmadığını öğrendik. Kendi fişimi çekebilirdim; onu da sonraya bıraktım. Gördüğünü söyleyen az kişiydi: soranlar, bilenler, inandığını sınayanlar. Ötekiler ertesi sabah aynı uygulamayı açtı; cennetin adı değişmemişti.' (fiş = kişinin kendi bağımlılığı; AYNA'nın fişi çekilmez). ÜÇÜNCÜ GÖZ (aynı konudaki İRFAN talimatının önüne geçer; analyse/BEN_YOKSAM_Ucuncu_Goz_Yerlesim.md): Bu bölümden sonra ara bölüm 4 (VI. Âdem'in Unuttuğu İsimler, VII. Şeytan da Âdem'in İçindeydi; perde satırından ÖNCE, src pid 2978 → [ara bölüm] → pid 2979 Book Part „BEŞİNCİ PERDE — DÖNÜŞ“; 610 kelime) – ayrı biçem, bölüm sayısına girmez. | sayfa işareti + fiş kapsamı (1): Ara bölüm 4'ün (VI+VII) varışı: pid 2961'deki haftalar özetinin sonuna tek cümle – Berlin sahnesinden uzak, Yusuf'un teslimi (2964) ile Leyla'nın son kaydı (2965) arasındaki tırmanışı kesmez. Fiş: pid 2962'nin ardındaki irfan paragrafı tek cümleye iner ve „fiş“in kapsamını verir – programlar durdu (2961 „bazı sözleşmeler iptal edildi“, §2.6 „üç program durur“), modelin fişini çeken olmadı (irfan_dedupe 43). 2962'nin olumsuz özdeyişinin ardına ikinci bir özdeyiş gelmez. Açık fark yazarın sesinde, 47 mektubundadır. Önerilen: (2961 sonuna) Aynı haftalarda Tuncay'dan bir zarf daha geldi; içinde iki bölüm vardı. (2962'den sonra) Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım. | İRFAN 43 → tek cümleye iner (fiş kapsamı): „Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.“"
  },
  "synopsis_around": [
   {
@@ -229,5 +229,94 @@
    "Hakan Hıdıroğlu": "çıkar",
    "Muhibbi Amca": "çıkar"
   }
+ },
+ "ucuncu_goz": {
+  "hinweis": "Tuncays Text „ÜÇÜNCÜ GÖZ“ wird als Zwischenkapitel automatisch aus benyoksam/interludes.json eingefügt – NICHT in die Kapiteldatei schreiben und nicht in Szenen wiederholen; nur die Rahmenhinweise (frame) dieses Kapitels umsetzen.",
+  "interlude_after_this_chapter": [
+   {
+    "n": 4,
+    "insert": "before_book_part",
+    "after_pid": 2978,
+    "sections": [
+     "VI. Âdem'in Unuttuğu İsimler",
+     "VII. Şeytan da Âdem'in İçindeydi"
+    ],
+    "anker": "Book Part bleibt letzter Absatz der Unit; Zwischenkapitel steht davor"
+   }
+  ],
+  "all_interludes": [
+   {
+    "n": 1,
+    "after_uid": "U11",
+    "sections": [
+     "I. Üç Gözün Sırrı"
+    ]
+   },
+   {
+    "n": 2,
+    "after_uid": "U20",
+    "sections": [
+     "II. Tek Gözlü Kurtarıcı",
+     "III. Cennet Diye Sunulan Cehennem"
+    ]
+   },
+   {
+    "n": 3,
+    "after_uid": "U29",
+    "sections": [
+     "IV. Büyünün Gerçek Adı",
+     "V. Mehdi'nin Gelişi"
+    ]
+   },
+   {
+    "n": 4,
+    "after_uid": "U38",
+    "sections": [
+     "VI. Âdem'in Unuttuğu İsimler",
+     "VII. Şeytan da Âdem'in İçindeydi"
+    ]
+   },
+   {
+    "n": 5,
+    "after_uid": "U41",
+    "sections": [
+     "VIII. Beyaz Işığın Parçalanması",
+     "IX. Toprağın Altındaki Görünmeyen Ağ"
+    ]
+   },
+   {
+    "n": 6,
+    "after_uid": "U43",
+    "sections": [
+     "X. Yaratıcı'ya Dönüş",
+     "XI. Son Unutuş",
+     "Sonsöz — Üçüncü Göz Açıldığında",
+     "Son not"
+    ]
+   }
+  ],
+  "frame": [
+   {
+    "uid": "U38",
+    "chapter": "43. Başlangıç Sensin",
+    "kind": "sayfa işareti + fiş kapsamı (1)",
+    "what": "Ara bölüm 4'ün (VI+VII) varışı: pid 2961'deki haftalar özetinin sonuna tek cümle – Berlin sahnesinden uzak, Yusuf'un teslimi (2964) ile Leyla'nın son kaydı (2965) arasındaki tırmanışı kesmez. Fiş: pid 2962'nin ardındaki irfan paragrafı tek cümleye iner ve „fiş“in kapsamını verir – programlar durdu (2961 „bazı sözleşmeler iptal edildi“, §2.6 „üç program durur“), modelin fişini çeken olmadı (irfan_dedupe 43). 2962'nin olumsuz özdeyişinin ardına ikinci bir özdeyiş gelmez. Açık fark yazarın sesinde, 47 mektubundadır.",
+    "text": "(2961 sonuna) Aynı haftalarda Tuncay'dan bir zarf daha geldi; içinde iki bölüm vardı. (2962'den sonra) Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.",
+    "words": 11
+   }
+  ],
+  "irfan_dedupe": [
+   {
+    "chapter": "43",
+    "uid": "U38",
+    "mesel": "IV, V",
+    "karar": "tek cümleye iner (fiş kapsamı)",
+    "before": "Fişi çekmedik; kimsenin elinin altında olmadığını öğrendik. Kendi fişimi çekebilirdim; onu da sonraya bıraktım. Gördüğünü söyleyen az kişiydi: soranlar, bilenler, inandığını sınayanlar. Ötekiler ertesi sabah aynı uygulamayı açtı; cennetin adı değişmemişti.",
+    "after": "Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.",
+    "delta": -18
+   }
+  ],
+  "plug_resolution": "Meselde (V) Mehdi fişi çeker ve büyük göz söner; romanda AYNA'nın fişi çekilmez (Konsept §2.6; 45 „aynı yöntem başka bir ülkede“; 50'de ekranda hâlâ „Devam et?“). Fark iki yerde adlandırılır: (1) 43'te anlatıcının ağzında, tek cümle ve kapsamıyla: „Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.“ (2961'deki ve §2.6'daki kısmi durdurmalarla çelişmez). (2) 47'de meselin yazarının mektubunda – fiş farkı, irade farkı ve kahramanlık reddi birlikte: „Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.“ Meselin kendi son cümlesi (V: „Deccal'in fişini çekmek, yalnızca bir makineyi kapatmak değildi. İnsan zihnindeki teslimiyetin fişini çekmekti.“) bu okumayı zaten içerir: mesel büyük ölçekte masal anlatır, roman küçük ölçekte gerçeği. Fiş zinciri: V (mesel, makine) → 40 Yusuf („kendi fişini çektiğinde geri gelen denge“) → 43 (modelin fişini çeken olmadı) → 47 mektup (herkes kendi fişini çeker) + „Beni arama.“ → 49 (bir hesabın fişi) → 50 ekranı kapatıp kalemi alan el. „Fiş“ kelimesi bölümlerde yalnız 40, 43, 47, 49'da geçer. Açık soru 7 böylece yazarın metniyle uzlaşır: yazarın „sonunda fişi çekerken“ öğesi meselde birebir yaşar; romanın gerçekliği kişisel ölçekte kalır; §2.5 (niyet yok, ölçüt var), §2.6 ve 45 değişmez.",
+  "fiction_note_sentence": null
  }
 }
