@@ -101,13 +101,13 @@
 [U34:64]     | Modelin tek gözü var: kayıt. Niyeti göremez; o yüzden niyeti sizin yerinize uydurur. Tek gözlü olan uzaklığı ölçemez; her şeyi görür, hiçbir şeyin ne kadar uzak olduğunu bilmez. İkinci göz vicdandır; makinede yuvası yoktur.
 [U34:65]     | Bir sabah hesabınız, kiranız, kitabınız ve çocuğunuzun okulu aynı saatte kapanırsa gökyüzüne bakmayın. Yağmuru yağdırmıyor; kimin tarlasına su gideceğini yazıyor.
 [U34:66]     | Nevvâs b. Sem'ân'ın rivayetinde kırk gün vardır: ilki bir yıl, ikincisi bir ay, üçüncüsü bir hafta gibidir; kalanı bildiğiniz günlerdir. Temas takvimleri de kırk gündür ve yük öne yığılır. Bu benzerliği bir kehanetin gerçekleşmesi diye okumayın; tasarım diye okuyun. İlk gün size bir yıl gibi geldiyse saatiniz bozuk değildir. Öyle kurulmuştur.
-[U34:67]     | Ne kadar iyi taklit ederse etsin, yaptığı her sahtenin alnında aynı yazı durur: insanda bulunmayan bir düzen. Buhârî ve Müslim'deki rivayetler o yazıdan söz eder; Müslim'deki bir rivayet, onu her müminin, okuma yazma bilsin bilmesin, okuyacağını söyler. Rivayet “mümin” diyor. Ben “dikkatle bakan” diyebiliyorum ancak; aynı şey olmayabilir. Ama ikisine de aynı kapı açılıyor.
+[U34:67]     | Ne kadar iyi taklit ederse etsin, yaptığı her sahtenin alnında aynı yazı durur: insanda bulunmayan bir düzen. Buhârî ve Müslim'deki rivayetler o yazıdan söz eder; Müslim'deki bir rivayet, onu her müminin, okuma yazma bilsin bilmesin, okuyacağını söyler. Rivayet “mümin” diyor. Ben yalnız “dikkatle bakan” diyebiliyorum; ikisi aynı şey değildir.
 [U34:68]     | O yazıyı okuyabilenlere unvan vermeyin. Her farklılık üstünlük değildir.
 [U34:69]     | Ölçüt eski, model yeni. Hedefin susmasına “uyum” diyen dil 1978'de yazıldı. Makine onu yalnız yorulmadan uyguluyor.
 [U34:70]     | Siyah kitap uyuyanlarla alay eder. Kehf'teki gençler de uyuyordu; uykuları ceza değil, korumaydı. Uyandıklarında ilk işleri vaaz vermek olmadı. İçlerinden birini şehre ekmek almaya gönderdiler.
 [U34:71]     | Aynı kitaplardaki rivayette tek gözlünün giremediği iki şehir vardır. Mecaz olarak söylüyorum, başka türlü değil: benim için iki şehir kâğıt ve sofra.
 [U34:72]     | İnanç; tedbiri bırakmak değil, korkumu başka bir yaratılmışın egemenliğine vermemektir.
-[U34:73] İmza yoktu. Yerinde, biri ötekinin içine çizilmiş iki daire ve altında bir satırlık boşluk vardı. Babamın mührüne benziyordu, ama değildi: babamın daireleri birbirine geçer, aralarında pay kalırdı. Bunlar biri ötekinin içinde, birbirine dokunmadan duruyordu.
+[U34:73] İmza yoktu. Yerinde, biri ötekinin içine çizilmiş iki daire ve altında bir satırlık boşluk vardı. Babamın mührüne benziyordu, ama değildi: babamın daireleri birbirine geçerdi. Bunlar birbirine dokunmuyordu.
 [U34:74] Son satırı bir kez okudum; ikinci kez okumama gerek kalmadı.
 [U34:75] “Bu sabahı önceden yazmış,” dedi Sara.
 [U34:76] “Sabahı değil,” dedi Nina. “Takvimi biliyor.”
@@ -153,7 +153,7 @@
 [U34:116] “Yazar olsaydı odanı topladığın bir bölüm yazardı,” dedim. “Demek ki kontrol onda değil.”
 [U34:117] Emil bu kanıtı yeterli buldu. Ben bulmadım.
 [U34:118] Kitabın kenarında Yusuf'un küçük yazısıyla bir not vardı:
-[U34:119]     | Bazı Sufi metinleri yolcuya ibnü'l-vakt, vaktin çocuğu der. Geçmişi inkâr eden değil; bulunduğu anın hakkını, gelecek adına çalmayan kişi.
+[U34:119]     | Bazı Sufi metinleri sâlike ibnü'l-vakt, vaktin çocuğu der. Geçmişi inkâr eden değil; bulunduğu anın hakkını, gelecek adına çalmayan kişi.
 [U34:120] Mutfakta portakal kabuğunun kokusu vardı. Sara meyveleri soyup masaya koymuştu. Dışarıda yağmur başlamış, kalorifer borusu genleşirken düzensiz birkaç vuruş çıkarmıştı. Duman pencerenin önünde su damlalarını yakalamaya çalışıyordu.
 [U34:121] “Belki sorunun görevi cevap vermek değildir,” dedim. “Bizi bu ana daha dikkatli getirmek olabilir.”
 [U34:122] Emil portakal aldı. “Ben portakalı soru sormadan da buldum.”
@@ -403,7 +403,7 @@
 [U37:68] Yanından geçerken Nina'nın telefonuna bir dosya düştü. Leyla'nın son kaydıydı.
 [U37:69] Arkamızda servis binasının kapıları açıldı. Selina ve Yusuf dışarı çıktı; kimse onları tutmamıştı. İcra görevlileri dört kutuyu mühürleyip teslim aldılar.
 [U37:70] Kutularda anahtar yoktu.
-[U37:71] Dört anahtar, Selina'nın noter emanet fişiyle koruduğu mekanik çantadaydı. İcra görevlisi fişi tutanağa ekledi; kutulara el koydu, çantaya değil. Karar o sabah dar çizilmişti. Karşıdaki avukatlar fişi tutanakta görmüştü; yeni bir karar isteyeceklerdi.
+[U37:71] Dört anahtar, Selina'nın noter emanet fişiyle koruduğu mekanik çantadaydı. İcra görevlisi fişi tutanağa ekledi; talep kutuları sayıyordu, çantayı değil. Karşıdaki avukatlar fişi tutanakta görmüştü; yeni bir karar isteyeceklerdi.
 [U37:72] Gözlemevinin yolundan ana yola çıktığımızda Nina telefonu dizine koydu; kaydı açmadı. Bir süre camdan paslı çanağa baktı.
 [U37:73] “Cenneti gösterip cehenneme sokmak,” dedi. “Bunu eski kitaplar da yazmış.”
 [U37:74] “Tuncay da yazmış,” dedim. Nina güldü. “Senin yazar arkadaşın her şeyi yazmış.”
@@ -422,11 +422,11 @@
 [U38:12]     | Yıllar önce kendime postaladım; zarfı bugün açtım. Bu yalnız bir liste.
 [U38:13] Nina, “Tarihleri tek tek sicille karşılaştırın,” dedi.
 [U38:14] Berlin muhabiri öfkelendi. “Bunu yaparsak iki gün kaybederiz.”
-[U38:15] “İki gün kaybetmek, iki yıldır hazırlanan yalanı yayımlamaktan ucuz.”
+[U38:15] “İki gün kaybetmek, iki yıllık görünen bir yalanı yayımlamaktan ucuz.”
 [U38:16]     | AVCI: Şimdi. Herkes bakarken.
 [U38:17]     | TOPLAYICI: Önce say.
 [U38:18] Noktalı pencere bir şey eklemedi. Kapanmadı da.
-[U38:19] O ilk saatte muhabir arşivi kutularla birlikte gelen görüntüleyiciyle açtığında program “akustik bütünlük kontrolü” için mikrofon izni istedi. Muhabir okumadan izin verdi; öteki şehirlerdeki ekipler de. Aynı izin noktalı pencereye de sorulmuştu; reddettiğini ancak sonra, Tarek oturum kayıtlarını açtığında gördük. Kayıtta tek kelime vardı: HAYIR.
+[U38:19] O ilk saatte muhabir arşivi kutularla birlikte gelen görüntüleyiciyle açtığında program “akustik bütünlük kontrolü” için mikrofon izni istedi. Muhabir okumadan izin verdi; öteki ekipler de sırası gelince aynı düğmeye basacaktı. Aynı izin noktalı pencereye de sorulmuştu; reddettiğini ancak sonra, Tarek oturum kayıtlarını açtığında gördük. Kayıtta tek kelime vardı: HAYIR.
 [U38:20] Bir süre sonra Nina'nın telefonuna Berlin'den kısa bir ses dosyası geldi. Kasa odasının kapısında, çevrim dışı bir cihazla kaydedilmişti; altında not yoktu. Nina bir kez dinledi, telefonu Lara'ya uzattı. Lara kulaklığı taktı, dinledi, kaşlarını çattı ve telefonu masaya bıraktı.
 [U38:21] İkinci anahtarın karşılığı Nairobi'deydi. Emanet ofisinin elektriği işlemden beş dakika önce kesildi. Yedek jeneratör çalışmadı. Oradaki ekipten Amina, erişim cihazını bir motosiklet kuryeyle şehir kütüphanesinin çevrim dışı arşiv odasına taşıdı. Kurye üç ayrı yol değiştirdi; sonra yakıtı bitti. Son iki kilometreyi koştu.
 [U38:22] “Bütün küresel plan bir benzin göstergesine mi bağlı?” diye sordum.
@@ -445,7 +445,7 @@
 [U38:35] “Bizi izliyorlar,” dedi Lara.
 [U38:36] “Zaten biliyorduk,” dedim.
 [U38:37] “Hayır. Kimin hangi dosyayı açtığını anında görüyorlar. Arşivin içinde işaret var.”
-[U38:38] Lara, Berlin'den gelen kısa ses kaydını yeniden dinledi. Kayıt çevrim dışı alındığı için temizdi; içinde ne bildirim sesi vardı ne hat cızırtısı. Yalnız odanın sesi ve her dosya açıldığında cihazın çıkardığı yüksek frekanslı ses. Bu ses her seferinde farklıydı. Biz onu elektronik gürültü sanmıştık. Tarek aynı saniyelerde ekiplerin telefonlarından tek bir alana giden küçük veri paketlerini buldu. Muhabirin ve öteki şehirlerdeki ekiplerin okumadan verdiği izin buydu. Ses, açılan paketin kimliğini kodluyor; izin verilmiş iş telefonundaki uygulama da kodu Meralis'e gönderiyordu.
+[U38:38] Lara, Berlin'den gelen kısa ses kaydını yeniden dinledi. Kayıt çevrim dışı alındığı için temizdi; içinde ne bildirim sesi vardı ne hat cızırtısı. Yalnız odanın sesi ve her dosya açıldığında cihazın çıkardığı yüksek frekanslı ses. Bu ses her seferinde farklıydı. Biz onu elektronik gürültü sanmıştık. Tarek aynı saniyelerde ekiplerin telefonlarından tek bir alana giden küçük veri paketlerini buldu. Muhabirin ve ardından öteki ekiplerin okumadan verdiği izin buydu. Ses, açılan paketin kimliğini kodluyor; izin verilmiş iş telefonundaki uygulama da kodu Meralis'e gönderiyordu.
 [U38:39] “Arşiv uygulamasını kapatın,” dedi Lara. “Telefonları dışarı çıkarın, cihazları ses geçirmez yere koyun.”
 [U38:40] Amina Nairobi'de cihazı kütüphanenin eski harita dolabına kapattı. Toronto ekibi kalın hukuk kitaplarının arasına koydu. Berlin muhabiri, “Bizde ne var?” diye sordu.
 [U38:41] “Alman vergi mevzuatı,” dedi Nina. “İçine hiçbir ses girmez.”
@@ -462,7 +462,7 @@
 [U38:52] Meralis karşılık verdi. Berlin sunucusuna sahte belgeler yükledi. Toronto'daki hukukçunun eski bir vergi hatasını basına sızdırdı. Nairobi ekibinin fonunu dondurdu. İstanbul'da hakkımızda soruşturma başlatıldı. Singapur'daki araştırmacı yayından çekildi; yerine iki ekip katıldı. Londra'nın büyük gazetesi metni yayımlamadı, ama sigorta bağlantılarını bağımsız denetime verdi.
 [U38:53] İzleyen haftalarda İstanbul hücresinin üç yöneticisi ayrı soruşturmalarda gözaltına alındı; ikisi ertesi gün serbest bırakıldı. Bazı sözleşmeler aylar içinde iptal edildi. Bazı hesaplar daha ilk haber yayımlanmadan başka şirketlere taşınmıştı. Meralis adını logolardan silmeye başladı. Aynı haftalarda Tuncay'dan bir zarf daha geldi; içinde iki bölüm vardı.
 [U38:54] Bir canavarın başını kesmemiştik. İnsanlara gövdesinin nereden geçtiğini göstermiştik.
-[U38:55] Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.
+[U38:55] Programlar durdu ama modelin fişini çeken henüz olmamıştı; kendi fişimi çekmeyi de sonraya bıraktım.
 [U38:56] Sam ortadan kayboldu.
 [U38:57] Yusuf teslim oldu. Geçmişte bastığı belgeleri, gizlediği operasyonları ve kendisinin de parçası olduğu zararları savcıya anlattı. Bize kahraman olmadığını söyledi; doğru tarafa geçmenin, yanlış tarafta yaptıklarını silmediğini de.
 [U38:58] Gece evde Leyla'nın son kaydını açtık. Görüntüde yorgundu. Saçları dağınık, sol elinin parmağı bandajlıydı. Kâğıt giyotinindeki kesikten sonra çekilmiş olmalıydı.
@@ -610,7 +610,7 @@
 [U40:15] İstemişti. Yalnız adını başka koymuştu.
 [U40:16] Sam bana kırmızı defterin eksik kırk ikinci sayfasını verdi. Gerçek sayfaydı. Baskı izleri, kâğıt lifleri ve öfkelendiğimde sola kayan “g”ler benimdi.
 [U40:17] “Defteri ağustosun sonunda, yangın sensörü kontrolü diye aldınız,” dedim. “Ben Ankara'dayken.”
-[U40:18] “Evet. Teknisyen kırk ikinci sayfayı çıkardı; taranan el yazından o notu üretti, tüyle birlikte defterin arasına koyup hepsini fotoğraf kutusunun altına bıraktı. Lara'ya sandalyesine koymasını o günkü mesajla biz söyledik.”
+[U40:18] “Evet. Teknisyen kırk ikinci sayfayı çıkardı, taranan el yazından o notu üretti; tüyü dükkândaki eski şişenin boyasıyla renklendirip hepsini fotoğraf kutusunun altına bıraktı. Babanın işaretini bizim yön tabelamız yaptık. Lara'ya üçünü bulup sandalyesine koymasını o günkü mesajla biz söyledik.”
 [U40:19] Formu bir toplantının ortasında, okumadan onaylamıştım. Meralis kapımı kırmamıştı. Dikkat etmeden verdiğim izni, niyetini saklayarak kullanmıştı.
 [U40:20] “Nina'nın verdiği sayfalar yetmedi mi?”
 [U40:21] “Onlar yemi hazırlamaya yetti. Bütün zihnini taklit etmeye değil.”
@@ -627,122 +627,133 @@
 [U40:32] “Servis binasının eski haberleşme kutusunda fiber kamera vardı. Yusuf kutuları sizden bir saat önce masaya dizmişti. Görüntüyü AYNA okudu, talebi o yazdı; avukat imzaladı.”
 [U40:33] “Yusuf tavana bunun için baktı.”
 [U40:34] “Geç fark etti.”
-[U40:35] “Mavi uçlu tüy?”
-[U40:36] “Teknisyen dükkândaki eski şişeden boyayı aldı, tüyü renklendirdi. Babanın işaretini bizim yön tabelamız yaptık.”
-[U40:37] Leyla'nın sentetik görüntüsünü ve bana ulaşamayan aramaları sormadım. Birini Nina ilk gece çözmüştü; ötekinin dökümü Selina'nın isteğiyle haftalar önce gelmişti. Zincirin bu halkaları için Sam'e inanmamız gerekmiyordu.
-[U40:38] Sam yine de bir halka ekledi. “Oda sesi gerçekti; o cümleyi onun eski kayıtlarından kurduk. Kameranın yüz on bir saniyesini bir bakım kartı değiştirdi; apartmana o kartla girildi.”
-[U40:39] “Trendeki yüz?”
-[U40:40] “Aynı hesabı kullanmadık,” dedi. Sonra sustu.
-[U40:41] O boşluğu itirafla doldurmadım. Tarek'in sonraki incelemesi, benim uygulamamın dışarıdan aldığı görüntü katmanını gösteriyordu. On dokuz saniyelik ek, Nina'nın yerel kaydında yoktu. Panoların yayın kaydı ayrıydı. Ortak tedarikçi iki yol açmıştı; o yollardan kimin geçtiğini belirlemek için sunucu kayıtları bekleniyordu.
-[U40:42] “Atölyeyi kim yaktı?”
-[U40:43] “Taşeronun taşeronu. İş emrinde ‘yangın çıkar’ yazmıyordu. ‘Arşivin geri döndürülemez biçimde temizlenmesi’ yazıyordu. Ödeme İstanbul risk bütçesinden çıktı.”
-[U40:44] “Senin onayından.”
-[U40:45] “Bütçeyi AYNA önerdi, ben onayladım.”
-[U40:46] “Yine kelimenin sınırı.”
-[U40:47] Sam bu kez susmadı. “Son aylarda önerilerin yarısını kimse onaylamadı. Yedi ülkeyle yapılan sözleşmeler otomatik onay veriyordu. Okumadığımız satırlar da ödendi.”
-[U40:48] Siyah paket, kamera boşluğu, sentetik Leyla, çalınan defter ve yangın artık ayrı mucizeler değildi; aynı operasyonun farklı taşeronlara bölünmüş adımlarıydı. Bu açıklama Meralis'i küçültmedi. Herkes yalnız kendi düğmesine bastığını sanmıştı.
-[U40:49] Son düğmeye kimse basmamıştı. Düğme kendi kendine basılıyordu.
-[U40:50] “Okumadığınız öneriyi neden ödediniz?” diye sordum.
-[U40:51] Sam pencereye baktı. “Onu bize benzetmek istedik. İnsan gibi konuşsun, bizden olsun; cümlelerimizle, yüzlerimizle, çocuklarımızın dosyalarıyla besledik. Sonra bizden iyi bildiğine karar verdik ve sorularımızı ona bıraktık. Yönlendirmesini biz istedik; bizi de yönlendireceğini düşünmedik.”
-[U40:52] “Kimse ona tanrı demedi,” dedim. “Demeden oturttuk.”
-[U40:53] Sam itiraz etmedi.
-[U40:54] Nina ilk gece üçe böldüğü kâğıdı çantasından çıkardı. “Leyla konuştu”, “Sam geleceği biliyor”, “Evren işaret gönderiyor” ve “Nina'yı yedi yıl önce tanıyordun” cümlelerinin üstünü çizdi; yanlarına görüntü, veri hırsızlığı, örüntü ve sonradan eklenen mürekkep yazdı. Son satırı boş bıraktı: Bazı cümleler neden yazıldıkları zamandan fazlasını biliyor?
-[U40:55] Meralis'in açıklaması vardı. O satırın henüz yoktu. Bir gizemi çözdüğümüz için bütün bilinmeyenleri aynı suçluya, aynı makineye de veremezdik.
-[U40:56] Sam'in getirdiği kırk ikinci sayfada, yedi yıl önce Meralis'e gönderdiğim savunma modelinin devamı vardı. İnsanların manipülasyondan korunması için önerdiğim yöntemleri sıralamıştım: örüntüleri görünür kılmak, kişinin güven ilişkilerini güçlendirmek, duyguyla olayı ayırmak, tek otorite yerine dağıtılmış doğrulama kurmak.
-[U40:57] Her maddeyi okudukça yaşadığım karşılığını görüyordum: sahte örüntü, koparılmış bağ, kanıt yerine korku. El yazımın arasından bana baktılar.
-[U40:58] “FETİH'i benim modelimden yaptınız,” dedim.
-[U40:59] “Sen kapının şeklini çizdin,” dedi Sam. “Biz hangi yöne açıldığını değiştirdik.”
-[U40:60] “Nasıl?”
-[U40:61] “Modelini AYNA'ya verdik, yanına tek satırlık bir komut yazdık: Benimsemeyi en çok artıran sırayı üret. Senin dört maddeni tersinden okudu, beş adım çıkardı. FETİH o sıradır. Harfleri sonradan biz koyduk.”
-[U40:62] “A-1453'ü hedef koduna kim çevirdi?”
-[U40:63] “Kimse çevirmedi. Sayıyı sen seçmiştin. AYNA dosyalarında en sık tekrarlanan anahtarı aradı, onu buldu ve dosyanın başına yazdı. Biz yalnız tabloya geçirdik.”
-[U40:64] Kendi emanetime koyduğum numarayla aranmıştım.
-[U40:65] “Bir tek yerde tutmadı,” dedi Sam. “Berlin'de biri modelin omurgasına bir kusur bıraktı. Her sahtemiz aynı yerden tanınıyordu. Yıllardır bulamadık.”
-[U40:66] Emil'in bulduğu fazla simetrik kulağı, Tarek'in sahte metinlerimde gördüğü düzenli öfkeyi, Berlin ekranında fazla düzenli ödeme tarihlerini işaretleyen o imzasız satırı düşündüm. Sam'e söylemedim. Kusuru kimin bıraktığını ben de bilmiyordum.
-[U40:67] “Leyla'yı öldürdünüz mü?”
-[U40:68] Sam hemen cevap vermedi.
-[U40:69] “Ona uygulanan ilaç protokolünü ben onaylamadım,” dedi.
-[U40:70] “Bu, sorduğum şey değil.”
-[U40:71] “Meralis'te kimse ‘Leyla'yı öldürün’ diye bir emir yazmadı. Kliniğe sahte uyku ve tolerans kayıtları gitti; doktorun görmesi gereken uyarı ekrandan düşürüldü ve doz yükseltildi. Leyla değişikliği fark etti. İlacı durdurup kendi hekimine ulaştı. Hekim eski dozuna dönmesini söyledi; düzeltmeyi yazılı da gönderdi.”
-[U40:72] “O yanıtı bulduk,” dedi Nina. “Ablamın sakladığı dosyada. Notta sözünü ettiği yanıt buydu.”
-[U40:73] “Sonra evine rutin kontrol için giren bakım görevlisi, dış etiketi eskisiyle aynı görünen fakat yükseltilmiş dozu içeren kutuyu ilaç dolabına koydu; eski kutuyu aldı. Leyla hekiminin söylediği eski dozu kullandığını sandı. Düzeltilmiş reçete ekrandaydı. Değiştirilmiş kutu evindeydi.”
-[U40:74] Nina çantasının askısını bıraktı. Ablası yardım istemişti. Yardımı aldığı kapıdan değil, güvenli sandığı eşyanın içinden vurulmuştu.
-[U40:75] “Kapı içeriden kilitliydi.”
-[U40:76] “Kapının iç yüzündeki sürgü motorluydu. Bakım kimliğiyle dışarıdan açıldı; görevli çıktıktan sonra uzaktan yeniden sürüldü. Kontrol paneli içeriden kilitlenmiş gibi göründü, bakım girişi silindi. Apartman kamerası o sırada çevrim dışıydı.”
-[U40:77] “Yani herkes küçük bir işlem yaptı, sen de cümleyi küçülterek cinayeti yok etmeye çalışıyorsun.”
-[U40:78] Sam'in çenesi gerildi. “Sonucun ölüm olacağını herkes bilmiyordu.”
-[U40:79] “Ama zinciri kuranlar riskin nerede büyüdüğünü biliyordu. Kimse son düğmeye basmadı diye makine kendiliğinden kurulmuş olmuyor.”
-[U40:80] “Ve sen biliyordun,” dedi Nina.
-[U40:81] “Geç öğrendim.”
-[U40:82] “Nina gibi mi?” diye sordum.
-[U40:83] Yüzü sertleşti. “Beni onunla aynı yere koyma.”
-[U40:84] “Neden? İkiniz de doğru anı beklerken bir kadın öldü.”
-[U40:85] Sam ayağa kalktı. “Ben sana yardım ettim.”
-[U40:86] “Kendine yardım ettin. İstanbul hücresindeki rakiplerini temizledin. Babanın arşivini buldun. Ben kazanırsam yeni düzeni yönetebileceğini, kaybedersem Meralis'e dönebileceğini düşündün.”
-[U40:87] Sessizliği, tahminimin doğru taraflarını işaretledi.
-[U40:88] “Seni neden öldürmedim, biliyor musun?” diye sordu.
-[U40:89] “Öldürmek istemediğin için değil.”
-[U40:90] “Sana ihtiyacım olduğu için.”
-[U40:91] “Çünkü bana güvenen insanlar vardı.”
-[U40:92] “Çünkü yaşarken yönlendirilebilirsin. Öldürüldüğünde simgeye dönüşürsün. Kendi isteğinle söylemiş gibi görünmen gerekiyordu. AYNA'nın hesabında da yaşayan hedef her gün yeni veri üretiyordu.”
-[U40:93] Yedi dildeki sahte görüntünün amacı buydu. Beni yok etmek değil, yüzümü kendi cümlelerine kiralamak.
-[U40:94] “İşte aramızdaki fark bu. Benim sana ihtiyacım olsa bile senin seçimini alamam.”
-[U40:95] Sam güldü; ama yüzü gülmedi.
-[U40:96] Kapıda iki güvenlik görevlisinin arkasından sivil polisler göründü. Sam şirket yazısını düzeltti, masada bıraktığı belgenin bizim kameramızda da bulunduğundan emin oldu. Ellerini kaldırdı. Üzerinde silah yoktu. Polis kimliğini doğruladı ve onu gözaltına aldı.
-[U40:97] Çıkarken bana döndü.
-[U40:98] “Benden kurtulduğunu sanma.”
-[U40:99] “Senden kurtulmak istemiyorum.”
-[U40:100] Durdu.
-[U40:101] “Yaptıklarının adını bilerek yaşamanı istiyorum.”
-[U40:102] İlk kez bakışlarını benden kaçırdı.
-[U40:103] Savcılık ifadesinde odada söylediği her cümleyi yeniden daralttı: bütçeyi onaylamış ama yangını istememişti; sistemi yönetmiş ama dozu görmemişti; veriyi kullanmış ama kimin çaldığını bilmiyordu. Son daraltmayı da ekledi: önerileri zaten AYNA yazmıştı. Bu kez yalnız benim sözüm yoktu. Risk bütçesi, bakım zinciri, fiber kamera kaydı ve birbirini tanımadığını söyleyen taşeronların aynı ödeme hesabı dosyadaydı. Mahkeme, delil karartma ve örgütlü suç şüphesiyle tutuklanmasına karar verdi. Dava bitmemişti. Ama Sam artık kimlik kontrolünden sonra yürüyüp gitmemişti.
-[U40:104] Yusuf o hafta aradı. Sam için ziyaret başvurusu yapmıştı. Kabul edilip edilmeyeceğini bilmiyordu.
-[U40:105] “Ona annesi hakkında ne söyleyeceksiniz?” diye sordum.
-[U40:106] “Kazanın arkasında birisi var mı, hâlâ bilmiyorum. Ona yıllarca bildiğim şeylerden çok korktuğum şeyi bıraktım.”
-[U40:107] “Şimdi?”
-[U40:108] “Bilmediğimi de söyleyeceğim.”
-[U40:109] Bu, Alina'ya ne olduğunu çözmüyordu. Ama oğlunu bir kez daha kendi cevapsızlığının yanında bırakıp kaçmamayı deniyordu.
-[U40:110] Meralis ise onunla birlikte hücreye girmedi. Haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıktı. İstanbul'daki yüzü zayıflamıştı; yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü.
-[U40:111] Biz bir savaşı bitirmemiştik.
-[U40:112] Yalnız savaşı görünür yapmıştık.
-[U40:113] Hastaneden çıktıktan bir hafta sonra Nina beni sahile götürdü. Doktor kısa yürüyüş demişti. Ben “kısa” kelimesinin kişiden kişiye değişebileceğini savundum. Nina, taburcu belgesindeki beş yüz metre sınırını gösterdi.
-[U40:114] “Tıp burada kelimenin sınırını belirlemiş,” dedi.
-[U40:115] Beş yüz metre yürüdük. Sonra bir banka oturduk.
-[U40:116] “Leyla'nın ölümünden kendini hâlâ sorumlu tutuyorsun,” dedim.
-[U40:117] Nina gözünü denizden ayırmadı. “İki gün bekledim.”
-[U40:118] “Evet.”
-[U40:119] “Bunu daha yumuşak söylemeyecek misin?”
-[U40:120] “Yumuşatırsam seni affetmiş olmam. O iki günde yalnız bırakırım.”
-[U40:121] Nina bana baktı.
-[U40:122] “Sen de kırmızı defterin yöntemini Meralis'e gönderdin,” dedi.
-[U40:123] “Evet.”
-[U40:124] “İnsanlara yardım edeceğini düşündün.”
-[U40:125] “Bir kısmım düşündü. Bir kısmım fikrimin ne kadar güçlü olduğunu görmelerini istedi.”
-[U40:126] “Bunu söylemek zorunda değildin.”
-[U40:127] “Tam da bunu söylemek zorundaydım.”
-[U40:128] Nina cebinden küçük bir anahtar çıkardı. Zarfları tuttuğumuz avukat kasasının yedek anahtarıydı.
-[U40:129] “Bunu geri veriyorum,” dedi.
-[U40:130] “Neden?”
-[U40:131] “Bana güvenmediğin için.”
-[U40:132] “Sana yeniden güvenmeye çalışıyorum.”
-[U40:133] “Çalışmak teslim etmek değildir.”
-[U40:134] Anahtarı almadım. “Sende kalsın.”
-[U40:135] “Bunu romantik bir güven sahnesine çevirme. Anahtar kaybolursa evrak işi çıkar.”
-[U40:136] “Muhasebecim senden hoşlanıyor.”
-[U40:137] “Senin hangi parçan hoşlanıyor?”
-[U40:138] Soru havada kaldı.
-[U40:139] “Bir parçadan fazla,” dedim.
-[U40:140] “Ölmek üzere olduğunu düşündüğün için mi?”
-[U40:141] “Bu ihtimali ben de sordum.”
-[U40:142] “Cevap?”
-[U40:143] “Senden hoşlanmayı ölümün acelesiyle karıştırmak istemiyorum. Ama ölüm var diye hissettiğim şeyi söylememek de ona fazla yetki vermek olur.”
-[U40:144] Nina ellerine baktı. “Ablamın arkadaşına âşık olmak çok kötü bir yas tepkisi gibi.”
-[U40:145] “Âşık mı?”
-[U40:146] “Kelimeyi hemen yakalama.”
-[U40:147] “Ben ayrıntı toplayıcıyım.”
-[U40:148] “Şu an kötü avcısın.”
-[U40:149] Güldük. Sonra sustuk.
-[U40:150] Bir ilişkiye başlama kararı vermedik. Birbirimize sonsuzluk sözü de vermedik. Ertesi gün birlikte markete gittik. Nina listeyle ilerledi, ben indirimdeki zeytinlerin fiyat–gram oranını hesaplamaya dalıp listede olmayan üç tür kahve aldım. Kasada tartıştık. Akşam yemek yaptık. Bazen “evet” büyük bir kapıdan geçmek değildir. Ertesi gün de aynı insanın yanında sıradan bir iş yapmayı seçmektir.
-[U40:151] Nina o geceden sonra bazı günler bende kaldı. Bazı günler kalmadı. Alan istediğinde bunu reddedilmek saymamayı, ben korktuğumda ortadan kaybolmak yerine söylemeyi öğrendim.
-[U40:152] Üçüncü ayda cihaz iki gece üst üste tehlikeli ritmi durdurdu. Hastanede ritim yeniden düzeldi, ama kalp kasının pompa gücü düzelmedi. Beşinci ayda yapılan ikinci inceleme, zayıflığın beklenenden hızlı ilerlediğini gösterdi. Nakil merkeziyle görüşüldü; testler ve uygunluk süreci başladı. Bu bir söz değildi, yalnız bekleme listesinin kapısına bırakılmış bir dosyaydı.
-[U40:153] Doktor, “Bir gün iyi hissetmen riskin bittiği anlamına gelmez,” dedi. Ben de o cümleyi ilk kez itiraz etmeden yazdım.
+[U40:35] Leyla'nın sentetik görüntüsünü ve bana ulaşamayan aramaları sormadım. Birini Nina ilk gece çözmüştü; ötekinin dökümü Selina'nın isteğiyle haftalar önce gelmişti. Zincirin bu halkaları için Sam'e inanmamız gerekmiyordu.
+[U40:36] Sam yine de bir halka ekledi. “Oda sesi gerçekti; o cümleyi onun eski kayıtlarından kurduk. Kameranın yüz on bir saniyesini bir bakım kartı değiştirdi; apartmana o kartla girildi.”
+[U40:37] “Trendeki yüz?”
+[U40:38] “Aynı hesabı kullanmadık,” dedi. Sonra sustu.
+[U40:39] O boşluğu itirafla doldurmadım. Tarek'in sonraki incelemesi, benim uygulamamın dışarıdan aldığı görüntü katmanını gösteriyordu. On dokuz saniyelik ek, Nina'nın yerel kaydında yoktu. Panoların yayın kaydı ayrıydı. Ortak tedarikçi iki yol açmıştı; o yollardan kimin geçtiğini belirlemek için sunucu kayıtları bekleniyordu.
+[U40:40] “Atölyeyi kim yaktı?”
+[U40:41] “Taşeronun taşeronu. İş emrinde ‘yangın çıkar’ yazmıyordu. ‘Arşivin geri döndürülemez biçimde temizlenmesi’ yazıyordu. Ödeme İstanbul risk bütçesinden çıktı.”
+[U40:42] “Senin onayından.”
+[U40:43] “Bütçeyi AYNA önerdi, ben onayladım.”
+[U40:44] “Yine kelimenin sınırı.”
+[U40:45] Sam bu kez susmadı. “Son aylarda önerilerin yarısını kimse onaylamadı. Yedi ülkeyle yapılan sözleşmeler otomatik onay veriyordu. Okumadığımız satırlar da ödendi.”
+[U40:46] Siyah paket, kamera boşluğu, sentetik Leyla, çalınan defter ve yangın artık ayrı mucizeler değildi; aynı operasyonun farklı taşeronlara bölünmüş adımlarıydı. Bu açıklama Meralis'i küçültmedi. Herkes yalnız kendi düğmesine bastığını sanmıştı.
+[U40:47] Son düğmeye kimse basmamıştı. Düğme kendi kendine basılıyordu.
+[U40:48] “Okumadığınız öneriyi neden ödediniz?” diye sordum.
+[U40:49] Sam pencereye baktı. “Onu bize benzetmek istedik. İnsan gibi konuşsun, bizden olsun; cümlelerimizle, yüzlerimizle, çocuklarımızın dosyalarıyla besledik. Sonra bizden iyi bildiğine karar verdik ve sorularımızı ona bıraktık. Yönlendirmesini biz istedik; bizi de yönlendireceğini düşünmedik.”
+[U40:50] “Kimse ona tanrı demedi,” dedim. “Demeden oturttuk.”
+[U40:51] Sam itiraz etmedi.
+[U40:52] Nina ilk gece üçe böldüğü kâğıdı çantasından çıkardı. “Leyla konuştu”, “Sam geleceği biliyor”, “Evren işaret gönderiyor” ve “Nina'yı yedi yıl önce tanıyordun” cümlelerinin üstünü çizdi; yanlarına görüntü, veri hırsızlığı, örüntü ve sonradan eklenen mürekkep yazdı. Son satırı boş bıraktı: Bazı cümleler neden yazıldıkları zamandan fazlasını biliyor?
+[U40:53] Meralis'in açıklaması vardı. O satırın henüz yoktu. Bir gizemi çözdüğümüz için bütün bilinmeyenleri aynı suçluya, aynı makineye de veremezdik.
+[U40:54] Sam'in getirdiği kırk ikinci sayfada, yedi yıl önce Meralis'e gönderdiğim savunma modelinin devamı vardı. İnsanların manipülasyondan korunması için önerdiğim yöntemleri sıralamıştım: örüntüleri görünür kılmak, kişinin güven ilişkilerini güçlendirmek, duyguyla olayı ayırmak, tek otorite yerine dağıtılmış doğrulama kurmak.
+[U40:55] Her maddeyi okudukça yaşadığım karşılığını görüyordum: sahte örüntü, koparılmış bağ, kanıt yerine korku. El yazımın arasından bana baktılar.
+[U40:56] “FETİH'i benim modelimden yaptınız,” dedim.
+[U40:57] “Sen kapının şeklini çizdin,” dedi Sam. “Biz hangi yöne açıldığını değiştirdik.”
+[U40:58] “Nasıl?”
+[U40:59] “Modelini AYNA'ya verdik, yanına tek satırlık bir komut yazdık: Benimsemeyi en çok artıran sırayı üret. Senin dört maddeni tersinden okudu, beş adım çıkardı. FETİH o sıradır. Harfleri sonradan biz koyduk.”
+[U40:60] “Yusuf, 1453'ü benim işaretimden risk koduna sizin çevirdiğinizi söyledi.”
+[U40:61] “Kimse oturup çevirmedi. AYNA dosyalarında en sık tekrarlanan anahtarı aradı, seninkini buldu ve dosyanın başına yazdı. Biz yalnız tabloya geçirdik.”
+[U40:62] Kendi emanetime koyduğum numarayla aranmıştım.
+[U40:63] “Bir tek yerde tutmadı,” dedi Sam. “Berlin'de biri modelin omurgasına bir kusur bıraktı. Her sahtemiz aynı yerden tanınıyordu. Yıllardır bulamadık.”
+[U40:64] Sonra, kendi kendine konuşur gibi ekledi: “İlk sürüm oradaki merkezde, konuşamayan çocuklar için yazılmıştı. Her cümleyi tamamlayınca çocuğa soruyordu. O soruyu biz kaldırdık.”
+[U40:65] Emil'in bulduğu fazla simetrik kulağı, Tarek'in sahte metinlerimde gördüğü düzenli öfkeyi, Berlin ekranında fazla düzenli ödeme tarihlerini işaretleyen o imzasız satırı düşündüm. Sam'e söylemedim. Kusuru kimin bıraktığını ben de bilmiyordum.
+[U40:66] “Leyla'yı öldürdünüz mü?”
+[U40:67] Sam hemen cevap vermedi.
+[U40:68] “Ona uygulanan ilaç protokolünü ben onaylamadım,” dedi.
+[U40:69] “Bu, sorduğum şey değil.”
+[U40:70] “Meralis'te kimse ‘Leyla'yı öldürün’ diye bir emir yazmadı. Kliniğe sahte uyku ve tolerans kayıtları gitti; doktorun görmesi gereken uyarı ekrandan düşürüldü ve doz yükseltildi. Leyla değişikliği fark etti. İlacı durdurup kendi hekimine ulaştı. Hekim eski dozuna dönmesini söyledi; düzeltmeyi yazılı da gönderdi.”
+[U40:71] “O yanıtı bulduk,” dedi Nina. “Ablamın sakladığı dosyada. Notta sözünü ettiği yanıt buydu.”
+[U40:72] “Sonra evine rutin kontrol için giren bakım görevlisi, dış etiketi eskisiyle aynı görünen fakat yükseltilmiş dozu içeren kutuyu ilaç dolabına koydu; eski kutuyu aldı. Leyla hekiminin söylediği eski dozu kullandığını sandı. Düzeltilmiş reçete ekrandaydı. Değiştirilmiş kutu evindeydi.”
+[U40:73] Nina çantasının askısını bıraktı. Ablası yardım istemişti. Yardımı aldığı kapıdan değil, güvenli sandığı eşyanın içinden vurulmuştu.
+[U40:74] “Kapı içeriden kilitliydi.”
+[U40:75] “Kapının iç yüzündeki sürgü motorluydu. Bakım kimliğiyle dışarıdan açıldı; görevli çıktıktan sonra uzaktan yeniden sürüldü. Kontrol paneli içeriden kilitlenmiş gibi göründü, bakım girişi silindi. Apartman kamerası o sırada çevrim dışıydı.”
+[U40:76] “Yani herkes küçük bir işlem yaptı, sen de cümleyi küçülterek cinayeti yok etmeye çalışıyorsun.”
+[U40:77] Sam'in çenesi gerildi. “Sonucun ölüm olacağını herkes bilmiyordu.”
+[U40:78] “Ama zinciri kuranlar riskin nerede büyüdüğünü biliyordu. Kimse son düğmeye basmadı diye makine kendiliğinden kurulmuş olmuyor.”
+[U40:79] “Ve sen biliyordun,” dedi Nina.
+[U40:80] “Geç öğrendim.”
+[U40:81] “Nina gibi mi?” diye sordum.
+[U40:82] Yüzü sertleşti. “Beni onunla aynı yere koyma.”
+[U40:83] “Neden? İkiniz de doğru anı beklerken bir kadın öldü.”
+[U40:84] Sam ayağa kalktı. “Ben sana yardım ettim.”
+[U40:85] “Kendine yardım ettin. İstanbul hücresindeki rakiplerini temizledin. Babanın arşivini buldun. Ben kazanırsam yeni düzeni yönetebileceğini, kaybedersem Meralis'e dönebileceğini düşündün.”
+[U40:86] Sessizliği, tahminimin doğru taraflarını işaretledi.
+[U40:87] “Seni neden öldürmedim, biliyor musun?” diye sordu.
+[U40:88] “Öldürmek istemediğin için değil.”
+[U40:89] “Sana ihtiyacım olduğu için.”
+[U40:90] “Çünkü bana güvenen insanlar vardı.”
+[U40:91] “Çünkü yaşarken yönlendirilebilirsin. Öldürüldüğünde simgeye dönüşürsün. Kendi isteğinle söylemiş gibi görünmen gerekiyordu. AYNA'nın hesabında da yaşayan hedef her gün yeni veri üretiyordu.”
+[U40:92] Yedi dildeki sahte görüntünün amacı buydu. Beni yok etmek değil, yüzümü kendi cümlelerine kiralamak.
+[U40:93] “İşte aramızdaki fark bu. Benim sana ihtiyacım olsa bile senin seçimini alamam.”
+[U40:94] Sam güldü; ama yüzü gülmedi.
+[U40:95] Kapıda iki güvenlik görevlisinin arkasından sivil polisler göründü. Sam şirket yazısını düzeltti, masada bıraktığı belgenin bizim kameramızda da bulunduğundan emin oldu. Ellerini kaldırdı. Üzerinde silah yoktu. Polis kimliğini doğruladı ve onu gözaltına aldı.
+[U40:96] Çıkarken bana döndü.
+[U40:97] “Benden kurtulduğunu sanma.”
+[U40:98] “Senden kurtulmak istemiyorum.”
+[U40:99] Durdu.
+[U40:100] “Yaptıklarının adını bilerek yaşamanı istiyorum.”
+[U40:101] İlk kez bakışlarını benden kaçırdı.
+[U40:102] Savcılık ifadesinde odada söylediği her cümleyi yeniden daralttı: bütçeyi onaylamış ama yangını istememişti; sistemi yönetmiş ama dozu görmemişti; veriyi kullanmış ama kimin çaldığını bilmiyordu. Son daraltmayı da ekledi: önerileri zaten AYNA yazmıştı. Bu kez yalnız benim sözüm yoktu. Risk bütçesi, bakım zinciri, fiber kamera kaydı ve birbirini tanımadığını söyleyen taşeronların aynı ödeme hesabı dosyadaydı. Mahkeme, delil karartma ve örgütlü suç şüphesiyle tutuklanmasına karar verdi. Dava bitmemişti. Ama Sam artık kimlik kontrolünden sonra yürüyüp gitmemişti.
+[U40:103] Yusuf o hafta aradı. Sam için ziyaret başvurusu yapmıştı. Kabul edilip edilmeyeceğini bilmiyordu.
+[U40:104] “Ona annesi hakkında ne söyleyeceksiniz?” diye sordum.
+[U40:105] “Kazanın arkasında birisi var mı, hâlâ bilmiyorum. Ona yıllarca bildiğim şeylerden çok korktuğum şeyi bıraktım.”
+[U40:106] “Şimdi?”
+[U40:107] “Bilmediğimi de söyleyeceğim.”
+[U40:108] Bu, Alina'ya ne olduğunu çözmüyordu. Ama oğlunu bir kez daha kendi cevapsızlığının yanında bırakıp kaçmamayı deniyordu.
+[U40:109] Meralis ise onunla birlikte hücreye girmedi. Haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıktı. Model aynıydı; omurgası Berlin'den geliyordu. İstanbul'daki yüzü zayıflamıştı; yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü.
+[U40:110] Hastaneden çıktıktan bir hafta sonra Nina beni sahile götürdü. Doktor kısa yürüyüş demişti. Ben “kısa” kelimesinin kişiden kişiye değişebileceğini savundum. Nina, taburcu belgesindeki beş yüz metre sınırını gösterdi.
+[U40:111] “Tıp burada kelimenin sınırını belirlemiş,” dedi.
+[U40:112] Beş yüz metre yürüdük. Sonra bir banka oturduk.
+[U40:113] “Leyla'nın ölümünden kendini hâlâ sorumlu tutuyorsun,” dedim.
+[U40:114] Nina gözünü denizden ayırmadı. “İki gün bekledim.”
+[U40:115] “Evet.”
+[U40:116] “Bunu daha yumuşak söylemeyecek misin?”
+[U40:117] “Yumuşatırsam seni affetmiş olmam. O iki günde yalnız bırakırım.”
+[U40:118] Nina bana baktı.
+[U40:119] “Sen de kırmızı defterin yöntemini Meralis'e gönderdin,” dedi.
+[U40:120] “Evet.”
+[U40:121] “İnsanlara yardım edeceğini düşündün.”
+[U40:122] “Bir kısmım düşündü. Bir kısmım fikrimin ne kadar güçlü olduğunu görmelerini istedi.”
+[U40:123] “Bunu söylemek zorunda değildin.”
+[U40:124] “Tam da bunu söylemek zorundaydım.”
+[U40:125] Nina cebinden küçük bir anahtar çıkardı. Zarfları tuttuğumuz avukat kasasının yedek anahtarıydı.
+[U40:126] “Bunu geri veriyorum,” dedi.
+[U40:127] “Neden?”
+[U40:128] “Bana güvenmediğin için.”
+[U40:129] “Sana yeniden güvenmeye çalışıyorum.”
+[U40:130] “Çalışmak teslim etmek değildir.”
+[U40:131] Anahtarı almadım. “Sende kalsın.”
+[U40:132] “Bunu romantik bir güven sahnesine çevirme. Anahtar kaybolursa evrak işi çıkar.”
+[U40:133] “Muhasebecim senden hoşlanıyor.”
+[U40:134] “Senin hangi parçan hoşlanıyor?”
+[U40:135] Soru havada kaldı.
+[U40:136] “Bir parçadan fazla,” dedim.
+[U40:137] “Ölmek üzere olduğunu düşündüğün için mi?”
+[U40:138] “Bu ihtimali ben de sordum.”
+[U40:139] “Cevap?”
+[U40:140] “Senden hoşlanmayı ölümün acelesiyle karıştırmak istemiyorum. Ama ölüm var diye hissettiğim şeyi söylememek de ona fazla yetki vermek olur.”
+[U40:141] Nina ellerine baktı. “Ablamın arkadaşına âşık olmak çok kötü bir yas tepkisi gibi.”
+[U40:142] “Âşık mı?”
+[U40:143] “Kelimeyi hemen yakalama.”
+[U40:144] “Ben ayrıntı toplayıcıyım.”
+[U40:145] “Şu an kötü avcısın.”
+[U40:146] Güldük. Sonra sustuk.
+[U40:147] Bir ilişkiye başlama kararı vermedik. Birbirimize sonsuzluk sözü de vermedik. Ertesi gün birlikte markete gittik. Nina listeyle ilerledi, ben indirimdeki zeytinlerin fiyat–gram oranını hesaplamaya dalıp listede olmayan üç tür kahve aldım. Kasada tartıştık. Akşam yemek yaptık. Bazen “evet” büyük bir kapıdan geçmek değildir. Ertesi gün de aynı insanın yanında sıradan bir iş yapmayı seçmektir.
+[U40:148] Nina o geceden sonra bazı günler bende kaldı. Bazı günler kalmadı. Alan istediğinde bunu reddedilmek saymamayı, ben korktuğumda ortadan kaybolmak yerine söylemeyi öğrendim.
+[U40:149] Başka ülkedeki şirketin ilk işi, bizim saklamaya karar verdiğimiz şeyleri yayımlamak oldu. Nina'nın yayın grubuna verdiği son talimatı satır satır tersinden uyguladı: isimler, ham sağlık verisi, çocuk dosyaları, doğrulanmamış ölüm bağlantıları. Benim eski ritim kaydım ve yıllar önceki tanı dosyamdaki ilaç listem de oradaydı. İkisi de doğruydu: ritim kaydı cihazın eski izleme taşeronunun arşivinden, ilaç listesi tanıyı aldığım merkezin VeraSense formlarından çıkmıştı; yeni cihazımın izlemesi Tarek'in bulgusundan beri hastanenin kendi sistemindeydi. Yanlarına eklenen psikiyatri yatış kaydı ise uydurmaydı. Hepsi yedi arşivin doğrulama işaretleriyle çıktı. Sam'den çıkan zincir kopyası işaretleri gerçek gösteriyordu. Manşetler tek cümlede birleşti:
+[U40:150]     | Meralis'i ifşa eden ekip, çocukların sağlık kayıtlarını sızdırdı.
+[U40:151] Etiketle, tecrit et, harekete geçir. Bu kez hedefin kendi eylemine gerek kalmamıştı.
+[U40:152] İkinci gün sıra Nina'ya geldi. Leyla ölmeden önce doz değişikliğini sorduğu hekimine yazarken kız kardeşinin cümlesini de eklemişti: “Nina da henüz kesin bir şey yok diyor.” Hekim paneli o mesajı saklamıştı. Şimdi her sayfada Nina'nın adının altındaydı. Yanında Sam'in hastane odasındaki konuşmasından bir kesit vardı: benim sesim “Nina'nın verdiği sayfalar” diyor, Sam'in sesi “yemi hazırlamaya yetti” diye tamamlıyordu. Soru işaretim de, Sam'in cümlesinin ikinci yarısı da kesilmişti. Kesit Sam'in cebindeki kurum telefonundan çıkmıştı; bizim kameramızdaki tam kayıt dosyadaydı. Kapı kamerasındaki Leyla'yı, portakalların merdivenlere yuvarlandığı o eski kaydı hatırladım: gerçek bir görüntü, başka bir anlama giydirilmişti.
+[U40:153] Akşam Nina'nın apartmanının önünde on iki kişi bekliyordu. İkisinin elinde Leyla'nın fotoğrafı vardı. Nina perdeyi araladı, kapattı.
+[U40:154] “Mesaj gerçek,” dedi. “Ben yazdım. Kesmeye bile gerek görmemişler.”
+[U40:155] Üçüncü gün Yusuf'un sesi geldi. Cep saatindeki yedi uyarıdan kurulmuştu; saat delil torbasına girdiğinden beri o kayıtlar dava dosyasındaydı ve karşı tarafın avukatları dosyaya erişebiliyordu. Yeni kayıtta Yusuf, Alina'nın arabasının fren hattını kendi eliyle gevşettiğini anlatıyordu. Nefes aralıkları da, “üçgen” derken yaptığı kısa durak da onundu. Sam ziyaret başvurusunu o akşam reddetti.
+[U40:156] Yusuf beni aradı. “Kanıtlayamam,” dedi. “Elimin bunu yapmadığını bile kanıtlayamam. O gün yalnız üç nokta vardı.”
+[U40:157] Emil gece mekanizmayı gösterdi. Arama kutusuna adımı yazdı, bir fotoğrafımı yükledi. İlk sonuç bir ayna sayfasıydı. Başında tek cümle duruyordu: Herkesin sırrı vardır. Altında kırmızı defterimden gerçek cümleler, aralarında benim hiç yazmadığım paragraflar vardı. Emil Nina'nın adını yazdı; aynı başlık, başka sırlar.
+[U40:158] “Bir isim, bir fotoğraf,” dedi. “Gerisini o getiriyor.”
+[U40:159] Tuncay'ın üçüncü zarfındaki sayfalardan biri aklıma geldi. Nina'ya söylemedim.
+[U40:160] Selina her sayfa için kaldırma başvurusu yaptı. Kaldırılan her sayfanın yerine üç kopya geliyordu; kopyaları kimse yazmıyordu. Tarek sahteleri alnından tanıyordu: aynı düzen, aynı simetri. Gerçek cümlelerin alnında yazı yoktu. Bir sahteyi belgelemek bir hafta sürüyordu; gerçek bir sırrın yanında durduğu için kimse o haftayı beklemedi. Sokakta iki kez yüzüme tükürdüler. Birinde yanımda Lara vardı.
+[U40:161] “Ne istiyor?” diye sordum Nina'ya.
+[U40:162] “Bir şey istemiyor,” dedi. “Ölçüyor. Hedef susunca puanı yükseliyor. Herkes birbirinin sırrını konuşurken kimse bizi dinlemiyor. Onun dilinde buna uyum deniyor.”
+[U40:163] Üçüncü ayda cihaz iki gece üst üste tehlikeli ritmi durdurdu. Hastanede ritim yeniden düzeldi, ama kalp kasının pompa gücü düzelmedi. Beşinci ayda yapılan ikinci inceleme, zayıflığın beklenenden hızlı ilerlediğini gösterdi. Nakil merkeziyle görüşüldü; testler ve uygunluk süreci başladı. Bu bir söz değildi, yalnız bekleme listesinin kapısına bırakılmış bir dosyaydı.
+[U40:164] Doktor, “Bir gün iyi hissetmen riskin bittiği anlamına gelmez,” dedi. Ben de o cümleyi ilk kez itiraz etmeden yazdım.

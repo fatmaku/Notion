@@ -899,11 +899,11 @@
 [U32:46] Aramızdaki kapıyı kapatmamıştım. Yalnız yerini göstermiştim.
 [U32:47] Nina masanın öteki tarafına geçti. Az önce bana bakarken gördüğü adamın kim olduğunu merak ettim. Sorsam belki söylerdi. Söylediğini kendi yüzümün yerine koyacak, sonra bir daha değişmemesini bekleyecektim.
 [U32:48] Sormadım.
-[U32:49] Camda yansımamız vardı. Nina kıpırdayınca benim yüzümün üstünden çekildi. İlk kez, birinin beni görmeyi bırakmasının beni yok etmediğini düşünürken de korktum.
+[U32:49] Camda yansımamız vardı. Nina kıpırdayınca benim yüzümün üstünden çekildi. İlk kez, birinin beni görmeyi bırakmasının beni yok etmediğini düşünürken de korktum. Çünkü bu kez kim olduğumu onun bakışıyla tamamlayamayacaktım.
 [U32:50] Tarek ön odadan seslendi. Nina'nın kopyasında sakinleştirici protokolünün kayıtları arasına dağılmış beş kaydı Leyla'nın hasta numarasıyla eşleştirmişti. Tek tek bakılınca hiçbiri bir şey söylemiyordu. Hepsini ekranda alt alta dizdi.
 [U32:51] İlk satır bir risk puanıydı; altında bir ad değil, bir model sürümü yazıyordu. İkincisi “protokol optimizasyonu” başlıklı bir talepti. Üçüncüsü hekim panelindeki doz uyarısını ekrandan düşürüyor, dozu bir basamak yükseltiyordu; Leyla'nın notunda “ben istemedim” dediği değişiklik buydu. Dördüncüsü, aynı hafta onun adresine rutin kontrol için bir bakım ziyareti açıyordu. Beşincisi, o bakım kimliğine kapı sürgüsü için verilmiş bir uzaktan erişim izniydi. Geçerlilik tarihi, Leyla'nın öldüğü gündü.
 [U32:52] “Hiçbir satırda ‘öldür’ yazmıyor,” dedi Tarek. “Beş ayrı birim, beş ayrı onay. Her biri yalnız kendi işini yapmış.”
-[U32:53] Nina ekrana uzun bakmadı. Ablasına “Henüz kesin bir şey yok” yazdığı gün, üçüncü satır çoktan onaylanmıştı.
+[U32:53] Nina ekrana uzun bakmadı. Ablasına “Henüz kesin bir şey yok” yazdığı gün, dördüncü satır çoktan açılmıştı.
 [U32:54] Kötülük, sorumluluğunu küçük ve makul parçalara böldüğünde herkes yalnız kendi düğmesine basar.
 [U32:55] Sonra Tarek beyaz kitaba döndü ve kapağında çok ince bir bellek şeridi buldu. İçinde FETİH adlı bir operasyon klasörü vardı. Sözcüğün her harfi bir aşamayı gösteriyordu:
 [U32:56]     | Fark et — etkili kişileri belirle.

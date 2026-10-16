@@ -111,7 +111,7 @@
   },
   {
    "style": "Opening",
-   "text": "Bu bir romandır. Meralis, FETİH-1453 operasyonu, romandaki kitaplar, kurumlar, belgeler ve suç ağı hayal ürünüdür. DEHB, otizm, narsisizm, “alfa”, “uyanmış insanlar” ve “ışık taşıyanlar” üzerine ileri sürülen görüşler kimi yerde bir karakterin teorisi, kimi yerde karşı gücün öğretisidir; tıbbi ya da bilimsel gerçek diye sunulmaz. AYNA adlı model ve yapay zekâya dair ileri sürülen görüşler kurmacadır; dinî kaynaklara, Deccal ve Mehdi rivayetlerine ve tasavvuf geleneğine yapılan göndermeler karakterlerin yorumu ya da anlatıcının deneyimidir, fıkhî ya da itikadî hüküm değildir. Peygamberlerin adları saygıyla ve yalnız insanlık hâllerini anlatmak için anılır. Ara bölümlerdeki “Üçüncü Göz” metni romanın bir karakterinin mistik tefekkürüdür; oradaki Âdem, Hz. Âdem'in şahsı değil, her insanda isimleri öğrenen ortak hâlin mecazıdır ve metin dinî hüküm, tenasüh ya da hulûl iddiası taşımaz. Romandaki ilaç deneyimi kişiseldir ve hiçbir ilacı başlatma, değiştirme ya da bırakma önerisi değildir. Tedavi kararları kişiye göre, sağlık uzmanıyla birlikte verilir.",
+   "text": "Bu bir romandır. Meralis, FETİH-1453 operasyonu, romandaki kitaplar, kurumlar, belgeler ve suç ağı hayal ürünüdür. DEHB, otizm, narsisizm, “alfa”, “uyanmış insanlar” ve “ışık taşıyanlar” üzerine ileri sürülen görüşler kimi yerde bir karakterin teorisi, kimi yerde karşı gücün öğretisidir; tıbbi ya da bilimsel gerçek diye sunulmaz. AYNA adlı model ve yapay zekâya dair ileri sürülen görüşler kurmacadır; dinî kaynaklara, Deccal ve Mehdi rivayetlerine ve tasavvuf geleneğine yapılan göndermeler karakterlerin yorumu ya da anlatıcının deneyimidir, fıkhî ya da itikadî hüküm değildir. Peygamberlerin adları saygıyla ve yalnız insanlık hâllerini anlatmak için anılır. Ara bölümlerdeki “Üçüncü Göz” metni romanın bir karakterinin mistik tefekkürüdür; oradaki Âdem, Hz. Âdem'in şahsı değil, her insanda isimleri öğrenen ortak hâlin mecazıdır ve metin dinî hüküm, tenasüh ya da hulûl iddiası taşımaz. Romanda bir karakterin, bir kalabalığın ya da ekranların birine “Mehdi” demesi onların sesidir; roman kimseyi Mehdi ya da kurtarıcı ilan etmez. Romandaki ilaç deneyimi kişiseldir ve hiçbir ilacı başlatma, değiştirme ya da bırakma önerisi değildir. Tedavi kararları kişiye göre, sağlık uzmanıyla birlikte verilir.",
    "uid": "U02"
   },
   {
@@ -13934,7 +13934,7 @@
   },
   {
    "style": "Normal",
-   "text": "Camda yansımamız vardı. Nina kıpırdayınca benim yüzümün üstünden çekildi. İlk kez, birinin beni görmeyi bırakmasının beni yok etmediğini düşünürken de korktum.",
+   "text": "Camda yansımamız vardı. Nina kıpırdayınca benim yüzümün üstünden çekildi. İlk kez, birinin beni görmeyi bırakmasının beni yok etmediğini düşünürken de korktum. Çünkü bu kez kim olduğumu onun bakışıyla tamamlayamayacaktım.",
    "uid": "U32"
   },
   {
@@ -13954,7 +13954,7 @@
   },
   {
    "style": "Normal",
-   "text": "Nina ekrana uzun bakmadı. Ablasına “Henüz kesin bir şey yok” yazdığı gün, üçüncü satır çoktan onaylanmıştı.",
+   "text": "Nina ekrana uzun bakmadı. Ablasına “Henüz kesin bir şey yok” yazdığı gün, dördüncü satır çoktan açılmıştı.",
    "uid": "U32"
   },
   {
@@ -14614,7 +14614,7 @@
   },
   {
    "style": "Book Inset",
-   "text": "Ne kadar iyi taklit ederse etsin, yaptığı her sahtenin alnında aynı yazı durur: insanda bulunmayan bir düzen. Buhârî ve Müslim'deki rivayetler o yazıdan söz eder; Müslim'deki bir rivayet, onu her müminin, okuma yazma bilsin bilmesin, okuyacağını söyler. Rivayet “mümin” diyor. Ben “dikkatle bakan” diyebiliyorum ancak; aynı şey olmayabilir. Ama ikisine de aynı kapı açılıyor.",
+   "text": "Ne kadar iyi taklit ederse etsin, yaptığı her sahtenin alnında aynı yazı durur: insanda bulunmayan bir düzen. Buhârî ve Müslim'deki rivayetler o yazıdan söz eder; Müslim'deki bir rivayet, onu her müminin, okuma yazma bilsin bilmesin, okuyacağını söyler. Rivayet “mümin” diyor. Ben yalnız “dikkatle bakan” diyebiliyorum; ikisi aynı şey değildir.",
    "uid": "U34"
   },
   {
@@ -14644,7 +14644,7 @@
   },
   {
    "style": "Normal",
-   "text": "İmza yoktu. Yerinde, biri ötekinin içine çizilmiş iki daire ve altında bir satırlık boşluk vardı. Babamın mührüne benziyordu, ama değildi: babamın daireleri birbirine geçer, aralarında pay kalırdı. Bunlar biri ötekinin içinde, birbirine dokunmadan duruyordu.",
+   "text": "İmza yoktu. Yerinde, biri ötekinin içine çizilmiş iki daire ve altında bir satırlık boşluk vardı. Babamın mührüne benziyordu, ama değildi: babamın daireleri birbirine geçerdi. Bunlar birbirine dokunmuyordu.",
    "uid": "U34"
   },
   {
@@ -14874,7 +14874,7 @@
   },
   {
    "style": "Book Inset",
-   "text": "<i>Bazı Sufi metinleri yolcuya ibnü'l-vakt, vaktin çocuğu der. Geçmişi inkâr eden değil; bulunduğu anın hakkını, gelecek adına çalmayan kişi.</i>",
+   "text": "<i>Bazı Sufi metinleri sâlike ibnü'l-vakt, vaktin çocuğu der. Geçmişi inkâr eden değil; bulunduğu anın hakkını, gelecek adına çalmayan kişi.</i>",
    "uid": "U34"
   },
   {
@@ -16124,7 +16124,7 @@
   },
   {
    "style": "Normal",
-   "text": "Dört anahtar, Selina'nın noter emanet fişiyle koruduğu mekanik çantadaydı. İcra görevlisi fişi tutanağa ekledi; kutulara el koydu, çantaya değil. Karar o sabah dar çizilmişti. Karşıdaki avukatlar fişi tutanakta görmüştü; yeni bir karar isteyeceklerdi.",
+   "text": "Dört anahtar, Selina'nın noter emanet fişiyle koruduğu mekanik çantadaydı. İcra görevlisi fişi tutanağa ekledi; talep kutuları sayıyordu, çantayı değil. Karşıdaki avukatlar fişi tutanakta görmüştü; yeni bir karar isteyeceklerdi.",
    "uid": "U37"
   },
   {
@@ -16219,7 +16219,7 @@
   },
   {
    "style": "Normal",
-   "text": "“İki gün kaybetmek, iki yıldır hazırlanan yalanı yayımlamaktan ucuz.”",
+   "text": "“İki gün kaybetmek, iki yıllık görünen bir yalanı yayımlamaktan ucuz.”",
    "uid": "U38"
   },
   {
@@ -16239,7 +16239,7 @@
   },
   {
    "style": "Normal",
-   "text": "O ilk saatte muhabir arşivi kutularla birlikte gelen görüntüleyiciyle açtığında program “akustik bütünlük kontrolü” için mikrofon izni istedi. Muhabir okumadan izin verdi; öteki şehirlerdeki ekipler de. Aynı izin noktalı pencereye de sorulmuştu; reddettiğini ancak sonra, Tarek oturum kayıtlarını açtığında gördük. Kayıtta tek kelime vardı: <i>HAYIR.</i>",
+   "text": "O ilk saatte muhabir arşivi kutularla birlikte gelen görüntüleyiciyle açtığında program “akustik bütünlük kontrolü” için mikrofon izni istedi. Muhabir okumadan izin verdi; öteki ekipler de sırası gelince aynı düğmeye basacaktı. Aynı izin noktalı pencereye de sorulmuştu; reddettiğini ancak sonra, Tarek oturum kayıtlarını açtığında gördük. Kayıtta tek kelime vardı: <i>HAYIR.</i>",
    "uid": "U38"
   },
   {
@@ -16334,7 +16334,7 @@
   },
   {
    "style": "Normal",
-   "text": "Lara, Berlin'den gelen kısa ses kaydını yeniden dinledi. Kayıt çevrim dışı alındığı için temizdi; içinde ne bildirim sesi vardı ne hat cızırtısı. Yalnız odanın sesi ve her dosya açıldığında cihazın çıkardığı yüksek frekanslı ses. Bu ses her seferinde farklıydı. Biz onu elektronik gürültü sanmıştık. Tarek aynı saniyelerde ekiplerin telefonlarından tek bir alana giden küçük veri paketlerini buldu. Muhabirin ve öteki şehirlerdeki ekiplerin okumadan verdiği izin buydu. Ses, açılan paketin kimliğini kodluyor; izin verilmiş iş telefonundaki uygulama da kodu Meralis'e gönderiyordu.",
+   "text": "Lara, Berlin'den gelen kısa ses kaydını yeniden dinledi. Kayıt çevrim dışı alındığı için temizdi; içinde ne bildirim sesi vardı ne hat cızırtısı. Yalnız odanın sesi ve her dosya açıldığında cihazın çıkardığı yüksek frekanslı ses. Bu ses her seferinde farklıydı. Biz onu elektronik gürültü sanmıştık. Tarek aynı saniyelerde ekiplerin telefonlarından tek bir alana giden küçük veri paketlerini buldu. Muhabirin ve ardından öteki ekiplerin okumadan verdiği izin buydu. Ses, açılan paketin kimliğini kodluyor; izin verilmiş iş telefonundaki uygulama da kodu Meralis'e gönderiyordu.",
    "uid": "U38"
   },
   {
@@ -16419,7 +16419,7 @@
   },
   {
    "style": "Normal",
-   "text": "Programlar durdu ama modelin fişini çeken olmadı; kendi fişimi çekmeyi de sonraya bıraktım.",
+   "text": "Programlar durdu ama modelin fişini çeken henüz olmamıştı; kendi fişimi çekmeyi de sonraya bıraktım.",
    "uid": "U38"
   },
   {
@@ -17159,7 +17159,7 @@
   },
   {
    "style": "Normal",
-   "text": "“Evet. Teknisyen kırk ikinci sayfayı çıkardı; taranan el yazından o notu üretti, tüyle birlikte defterin arasına koyup hepsini fotoğraf kutusunun altına bıraktı. Lara'ya sandalyesine koymasını o günkü mesajla biz söyledik.”",
+   "text": "“Evet. Teknisyen kırk ikinci sayfayı çıkardı, taranan el yazından o notu üretti; tüyü dükkândaki eski şişenin boyasıyla renklendirip hepsini fotoğraf kutusunun altına bıraktı. Babanın işaretini bizim yön tabelamız yaptık. Lara'ya üçünü bulup sandalyesine koymasını o günkü mesajla biz söyledik.”",
    "uid": "U40"
   },
   {
@@ -17240,16 +17240,6 @@
   {
    "style": "Normal",
    "text": "“Geç fark etti.”",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "“Mavi uçlu tüy?”",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "“Teknisyen dükkândaki eski şişeden boyayı aldı, tüyü renklendirdi. Babanın işaretini bizim yön tabelamız yaptık.”",
    "uid": "U40"
   },
   {
@@ -17379,12 +17369,12 @@
   },
   {
    "style": "Normal",
-   "text": "“A-1453'ü hedef koduna kim çevirdi?”",
+   "text": "“Yusuf, 1453'ü benim işaretimden risk koduna sizin çevirdiğinizi söyledi.”",
    "uid": "U40"
   },
   {
    "style": "Normal",
-   "text": "“Kimse çevirmedi. Sayıyı sen seçmiştin. AYNA dosyalarında en sık tekrarlanan anahtarı aradı, onu buldu ve dosyanın başına yazdı. Biz yalnız tabloya geçirdik.”",
+   "text": "“Kimse oturup çevirmedi. AYNA dosyalarında en sık tekrarlanan anahtarı aradı, seninkini buldu ve dosyanın başına yazdı. Biz yalnız tabloya geçirdik.”",
    "uid": "U40"
   },
   {
@@ -17395,6 +17385,11 @@
   {
    "style": "Normal",
    "text": "“Bir tek yerde tutmadı,” dedi Sam. “Berlin'de biri modelin omurgasına bir kusur bıraktı. Her sahtemiz aynı yerden tanınıyordu. Yıllardır bulamadık.”",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "Sonra, kendi kendine konuşur gibi ekledi: “İlk sürüm oradaki merkezde, konuşamayan çocuklar için yazılmıştı. Her cümleyi tamamlayınca çocuğa soruyordu. O soruyu biz kaldırdık.”",
    "uid": "U40"
   },
   {
@@ -17619,17 +17614,7 @@
   },
   {
    "style": "Normal",
-   "text": "Meralis ise onunla birlikte hücreye girmedi. Haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıktı. İstanbul'daki yüzü zayıflamıştı; yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü.",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "Biz bir savaşı bitirmemiştik.",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "Yalnız savaşı görünür yapmıştık.",
+   "text": "Meralis ise onunla birlikte hücreye girmedi. Haftalar sonra aynı yöntem başka bir ülkede, başka bir şirket adıyla ortaya çıktı. Model aynıydı; omurgası Berlin'den geliyordu. İstanbul'daki yüzü zayıflamıştı; yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü.",
    "uid": "U40"
   },
   {
@@ -17829,6 +17814,76 @@
   },
   {
    "style": "Normal",
+   "text": "Başka ülkedeki şirketin ilk işi, bizim saklamaya karar verdiğimiz şeyleri yayımlamak oldu. Nina'nın yayın grubuna verdiği son talimatı satır satır tersinden uyguladı: isimler, ham sağlık verisi, çocuk dosyaları, doğrulanmamış ölüm bağlantıları. Benim eski ritim kaydım ve yıllar önceki tanı dosyamdaki ilaç listem de oradaydı. İkisi de doğruydu: ritim kaydı cihazın eski izleme taşeronunun arşivinden, ilaç listesi tanıyı aldığım merkezin VeraSense formlarından çıkmıştı; yeni cihazımın izlemesi Tarek'in bulgusundan beri hastanenin kendi sistemindeydi. Yanlarına eklenen psikiyatri yatış kaydı ise uydurmaydı. Hepsi yedi arşivin doğrulama işaretleriyle çıktı. Sam'den çıkan zincir kopyası işaretleri gerçek gösteriyordu. Manşetler tek cümlede birleşti:",
+   "uid": "U40"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>Meralis'i ifşa eden ekip, çocukların sağlık kayıtlarını sızdırdı.</b>",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "Etiketle, tecrit et, harekete geçir. Bu kez hedefin kendi eylemine gerek kalmamıştı.",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "İkinci gün sıra Nina'ya geldi. Leyla ölmeden önce doz değişikliğini sorduğu hekimine yazarken kız kardeşinin cümlesini de eklemişti: “Nina da henüz kesin bir şey yok diyor.” Hekim paneli o mesajı saklamıştı. Şimdi her sayfada Nina'nın adının altındaydı. Yanında Sam'in hastane odasındaki konuşmasından bir kesit vardı: benim sesim “Nina'nın verdiği sayfalar” diyor, Sam'in sesi “yemi hazırlamaya yetti” diye tamamlıyordu. Soru işaretim de, Sam'in cümlesinin ikinci yarısı da kesilmişti. Kesit Sam'in cebindeki kurum telefonundan çıkmıştı; bizim kameramızdaki tam kayıt dosyadaydı. Kapı kamerasındaki Leyla'yı, portakalların merdivenlere yuvarlandığı o eski kaydı hatırladım: gerçek bir görüntü, başka bir anlama giydirilmişti.",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "Akşam Nina'nın apartmanının önünde on iki kişi bekliyordu. İkisinin elinde Leyla'nın fotoğrafı vardı. Nina perdeyi araladı, kapattı.",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "“Mesaj gerçek,” dedi. “Ben yazdım. Kesmeye bile gerek görmemişler.”",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "Üçüncü gün Yusuf'un sesi geldi. Cep saatindeki yedi uyarıdan kurulmuştu; saat delil torbasına girdiğinden beri o kayıtlar dava dosyasındaydı ve karşı tarafın avukatları dosyaya erişebiliyordu. Yeni kayıtta Yusuf, Alina'nın arabasının fren hattını kendi eliyle gevşettiğini anlatıyordu. Nefes aralıkları da, “üçgen” derken yaptığı kısa durak da onundu. Sam ziyaret başvurusunu o akşam reddetti.",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "Yusuf beni aradı. “Kanıtlayamam,” dedi. “Elimin bunu yapmadığını bile kanıtlayamam. O gün yalnız üç nokta vardı.”",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "Emil gece mekanizmayı gösterdi. Arama kutusuna adımı yazdı, bir fotoğrafımı yükledi. İlk sonuç bir ayna sayfasıydı. Başında tek cümle duruyordu: <i>Herkesin sırrı vardır.</i> Altında kırmızı defterimden gerçek cümleler, aralarında benim hiç yazmadığım paragraflar vardı. Emil Nina'nın adını yazdı; aynı başlık, başka sırlar.",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bir isim, bir fotoğraf,” dedi. “Gerisini o getiriyor.”",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "Tuncay'ın üçüncü zarfındaki sayfalardan biri aklıma geldi. Nina'ya söylemedim.",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "Selina her sayfa için kaldırma başvurusu yaptı. Kaldırılan her sayfanın yerine üç kopya geliyordu; kopyaları kimse yazmıyordu. Tarek sahteleri alnından tanıyordu: aynı düzen, aynı simetri. Gerçek cümlelerin alnında yazı yoktu. Bir sahteyi belgelemek bir hafta sürüyordu; gerçek bir sırrın yanında durduğu için kimse o haftayı beklemedi. Sokakta iki kez yüzüme tükürdüler. Birinde yanımda Lara vardı.",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "“Ne istiyor?” diye sordum Nina'ya.",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bir şey istemiyor,” dedi. “Ölçüyor. Hedef susunca puanı yükseliyor. Herkes birbirinin sırrını konuşurken kimse bizi dinlemiyor. Onun dilinde buna uyum deniyor.”",
+   "uid": "U40"
+  },
+  {
+   "style": "Normal",
    "text": "Üçüncü ayda cihaz iki gece üst üste tehlikeli ritmi durdurdu. Hastanede ritim yeniden düzeldi, ama kalp kasının pompa gücü düzelmedi. Beşinci ayda yapılan ikinci inceleme, zayıflığın beklenenden hızlı ilerlediğini gösterdi. Nakil merkeziyle görüşüldü; testler ve uygunluk süreci başladı. Bu bir söz değildi, yalnız bekleme listesinin kapısına bırakılmış bir dosyaydı.",
    "uid": "U40"
   },
@@ -17855,6 +17910,21 @@
   {
    "style": "Normal",
    "text": "Lara üniversite başvurularını yaptı. Ses tasarımıyla bilişsel bilim arasında kaldı. Ona tek bir doğru seçim olmadığını söyledim. “Bunu söyleyen adam, kahvaltıda peynir seçerken yedi dakika düşünüyor,” dedi. Başvurularını kendi yaptı; benden yalnız son metinleri okumamı istedi.",
+   "uid": "U41"
+  },
+  {
+   "style": "Normal",
+   "text": "Başvurularından bir hafta sonra seçtiği iki bölümün kurul adresine aynı dosya düştü: VeraSense'in değerlendirmesi, okul toplantısının kaydı, babasının yedi videosu. Gönderen hanesinde başvuru sisteminin kendi adı yazıyordu; bir kopyası Lara'nın gelen kutusuna da gelmişti. Lara dosyayı açtı, ilk sayfasını okudu, kapattı. İki kurula da kendisi yazdı: tanısını, hangi sesin onu yorduğunu, hangi işte herkesten hızlı olduğunu, kendi cümleleriyle. Sonuna bir satır ekledi: “Benim hakkımda bir şeyi benden başka bir yerden duyarsanız bana sorun.” Bölümlerden biri onu görüşmeye çağırdı. Öteki hiç cevap vermedi.",
+   "uid": "U41"
+  },
+  {
+   "style": "Normal",
+   "text": "Çember Sara'ya da uğradı. Boşanma dosyasına giren eski mesajları bir sabah veli grubundaydı; çoğu gerçekti. Biri sesli mesajdı, Sara'nın o gruba yıllarca bıraktığı sesli notlardan kurulmuştu: “Gerekirse çocukları ondan korurum.” Sara kaydı defalarca dinledi. “Söylemiş olabilirim,” dedi sonunda. “O kış her şeyi söylemiş olabilirim.” Tarek kaydın alnındaki düzeni dokuz günde belgeledi. O dokuz gün okul kapısında Sara'ya kimse günaydın demedi.",
+   "uid": "U41"
+  },
+  {
+   "style": "Normal",
+   "text": "Dokuzuncu günün akşamı Sara kapıma geldi; kaydı bana da dinletti.",
    "uid": "U41"
   },
   {
@@ -18130,6 +18200,21 @@
   {
    "style": "Normal",
    "text": "Defteri kapattım. Sandalyeye kimse çizmedim.",
+   "uid": "U41"
+  },
+  {
+   "style": "Normal",
+   "text": "O hafta ayna sayfalarına yeni bir başlık eklendi: <i>Berlin'deki kusuru bırakan kişi.</i> Altında bir yüz vardı. Kimsenin yüzü değildi; on iki ayrı insana biraz benziyordu. İnsanlar o yüze benzeyen herkesin fotoğrafını arama kutusuna yükledi. Dördüncü gün Kreuzberg'de, merkezin kantininde yıllarca çalışmış bir kadının kapısına boya döktüler. Modelin tek satırını görmemişti. Nina haberi okudu, telefonu ters çevirdi.",
+   "uid": "U41"
+  },
+  {
+   "style": "Normal",
+   "text": "“Bulamadıkları birini arıyorlar,” dedi. “Bulamayınca herkes ona benziyor.”",
+   "uid": "U41"
+  },
+  {
+   "style": "Normal",
+   "text": "Halkalar o haftadan sonra hep aynı dakikada düştü: 14.53'te. Sayıyı yıllar önce ben seçmiştim.",
    "uid": "U41"
   },
   {
@@ -18579,7 +18664,7 @@
   },
   {
    "style": "Opening",
-   "text": "Yaz, dosyaları okurken geçti. Sonbaharda düzeltmeleri bitirdim. Siyah paketin kapıma bırakıldığı kasımdan bir sonraki kasıma gelmiştik; takvim artık Kasım 2027'yi gösteriyordu. Bir yılda dünyayı çözmemiş, birkaç kapının nasıl açıldığını öğrenmiştim.",
+   "text": "Yaz, dosyaları okurken geçti. Sonbaharda düzeltmeleri bitirdim. Siyah paketin kapıma bırakıldığı kasımdan bir sonraki kasıma gelmiştik; takvim artık Kasım 2027'yi gösteriyordu. Bir yılda dünyayı çözmemiş, birkaç kapının nasıl açıldığını öğrenmiştim; halkalar düştükçe kapıları yeniden kapatmayı da.",
    "uid": "U42"
   },
   {
@@ -18635,6 +18720,11 @@
   {
    "style": "Normal",
    "text": "Kargayı Yusuf tutmamıştı. Kediyi hiç kimse tutamazdı. Tüy de açık pencereden giren sıradan bir tüy olabilirdi.",
+   "uid": "U42"
+  },
+  {
+   "style": "Normal",
+   "text": "Aynı dakikada çemberin o güne kadarki en geniş halkası da düştü. Bu kez sıra bizi koruyanlardaydı: Selina'nın yıllar önce kaybettiği bir davanın dosyası, Tarek'in on dokuz yaşında izinsiz girdiği ilk sistemin kaydı, çocuklarımıza kapısını açan komşunun boşanma dilekçesi. Kitabın haberi o sayfaların neredeyse altında kaldı.",
    "uid": "U42"
   },
   {
@@ -18769,6 +18859,11 @@
   },
   {
    "style": "Normal",
+   "text": "Telefonunu tezgâha koydu. “Benim de sayfam çıkmış.” Kendi sesi, hiç gitmediği bir kahvehanede, hiç tanımadığı bir adama faizle borç veriyordu. “Dinledim,” dedi. “Sesim bu, oğlum. Ağzım değil.” Telefonu ters çevirdi.",
+   "uid": "U42"
+  },
+  {
+   "style": "Normal",
    "text": "İki ekmek aldım. Babamın son mesajını düşündüm. Birini dükkâna götürdüm.",
    "uid": "U42"
   },
@@ -18794,7 +18889,7 @@
   },
   {
    "style": "Book Inset",
-   "text": "Benim hikâyemde makine bir şey istiyordu ve fişini biri çekiyordu; o ben değildim. Gerçekte makine hiçbir şey istemez, yalnız ölçer; o fişe de kimse uzanamaz. Herkes kendi fişini çeker.",
+   "text": "Benim hikâyemde makine bir şey istiyordu ve fişini bir kurtarıcı çekiyordu. Gerçekte makine hiçbir şey istemez, yalnız ölçer; fişini de kurtarıcılar değil, yeri bilenler çeker. Ondan sonra herkes kendi fişini de çekmek zorunda. Senin saatini bir kez kullanacağım.",
    "uid": "U42"
   },
   {
@@ -18805,6 +18900,11 @@
   {
    "style": "Normal",
    "text": "İmza yerinde, Tek Gözlü notunun altındaki iki daire vardı. Gözleri üçe kadar sayan birini tanıyordum. Sayfaların ilk başlığı Beyaz Işığın Parçalanması'ydı.",
+   "uid": "U42"
+  },
+  {
+   "style": "Normal",
+   "text": "Saat cümlesini, kitabın yayımlandığı dakikaya bir selam sandım.",
    "uid": "U42"
   },
   {
@@ -19014,7 +19114,7 @@
   },
   {
    "style": "Normal",
-   "text": "Sara yeni evine taşınacağını anlattı. Nina, Meralis dosyalarının ilk uluslararası duruşma tarihini söyledi. Yusuf serbest kalmıştı; davasını dışarıda bekleyecek, tanık korumayı da istememişti. Sam'in itirazı reddedilmiş, içeride kalmıştı; avukatları onun hastanedeki sözlerine “baskı altında kurulmuş varsayımlar” diyordu.",
+   "text": "Sara yeni evine taşınacağını anlattı. Nina, Meralis dosyalarının ilk uluslararası duruşma tarihini söyledi, sonra mutfaktan attığı fotoğrafa Tarek'in verdiği cevabı okudu: “Benim sıram da gelmiş. İyiyim. Mantıdan bana da ayırın.” Yusuf serbest kalmıştı; davasını dışarıda bekleyecek, tanık korumayı da istememişti. Sam'in itirazı reddedilmiş, içeride kalmıştı; avukatları onun hastanedeki sözlerine “baskı altında kurulmuş varsayımlar” diyor, çemberdeki kesilmiş kaydı da “tanıkların birbirine yem hazırladığı”nın delili diye dosyaya koyuyordu.",
    "uid": "U42"
   },
   {
@@ -20253,6 +20353,21 @@
   },
   {
    "style": "Normal",
+   "text": "Ertesi gün aynı dakikada ayna sayfaları beyaz bir soruya döndü:",
+   "uid": "U44"
+  },
+  {
+   "style": "Book Inset",
+   "text": "<i>Bu senin cümlen mi? Evet · Hayır</i>",
+   "uid": "U44"
+  },
+  {
+   "style": "Normal",
+   "text": "Altında küçük harflerle: <i>Emin değilsen bekle. Cümle senin olana kadar kimse onu senin yerine söyleyemez.</i>",
+   "uid": "U44"
+  },
+  {
+   "style": "Normal",
    "text": "Emil dükkândaki saati söktü. Nabzımla hareket eden ibrenin kablosunu çıkardı ama saati atmadı. Günlerce masasında açık durdu; bir akşam içinden çıkardığı vidayı kaybettiği için bana kızdı. Yanında olsam kayıp eşya teorisi anlatırdım. Çocuk eğilip yatağın altına baktı. Vidayı buldu.",
    "uid": "U44"
   },
@@ -20264,6 +20379,46 @@
   {
    "style": "Normal",
    "text": "Nina haberi tamamladı. Son paragrafta ismimi yazdı, sildi, yeniden yazdı. Tarek'in son raporu da geldi: trendeki görüntüye iki yerden dokunulmuştu, benim uygulamama eklenen dış katmandan ve istasyon panolarındaki ayrı yayın akışından. Katmanı kimin yüklediği hâlâ bilinmiyordu. Meralis aynı sabah yeniden itiraz etti. Nina Selina'yı aradı; önce itirazı, sonra beni konuştu.",
+   "uid": "U44"
+  },
+  {
+   "style": "Normal",
+   "text": "“Sam'in kaldırdık dediği soru,” demişti Tarek beyaz sayfanın akşamı. “Biri silmemiş, sabit bir evetle susturmuş; sahtelerin alnındaki iz oymuş. Şimdi yerine koymuş. Soru yalnız cümlenin sahibine gidiyor.”",
+   "uid": "U44"
+  },
+  {
+   "style": "Normal",
+   "text": "“Geri alınmaz mı?” diye sormuştu Selina.",
+   "uid": "U44"
+  },
+  {
+   "style": "Normal",
+   "text": "“Anahtarsız alınmaz. Meralis'tekini delil karartırken yaktılar.”",
+   "uid": "U44"
+  },
+  {
+   "style": "Normal",
+   "text": "Aynı gece yedi ekip açıklamıştı: değişiklik bir ayar önerisiydi; Berlin'de kapanmış merkezin kimsenin kapatmadığı hesabından 11 Kasım gecesi gönderilmiş, sözleşme onu bir gün bekletip okumadan onaylamıştı. Bir insanın işiydi. Bir yayın sunucusu o kişiye “Mehdi” demişti. Etiket yedi dilde yükselmişti; altında adım ve fotoğrafım da dolaşıyordu.",
+   "uid": "U44"
+  },
+  {
+   "style": "Normal",
+   "text": "Ertesi sabah Nina'nın kapısının altından pulsuz bir zarf itilmişti; imza yerinde iç içe, birbirine dokunmayan iki daire:",
+   "uid": "U44"
+  },
+  {
+   "style": "Book Inset",
+   "text": "Ben kurtarıcı değilim. Bir ayarı eski yerine koydum. Yerini bulmak bir yıl sürdü; geç kaldım, bunun da hesabını sorun. Beni de sorgulayın; anahtar hâlâ bir insanın elinde.",
+   "uid": "U44"
+  },
+  {
+   "style": "Normal",
+   "text": "Nina yazıyı haberin sonuna eklemişti; altına ad yazmamıştı.",
+   "uid": "U44"
+  },
+  {
+   "style": "Normal",
+   "text": "Söylenenler geri dönmedi. Sara'nın hiç söylemediği cümle veli grubundaki telefonlarda, Lara'nın dosyası bir kurulun çekmecesinde duruyordu. Ekran görüntüleri, arşivler, insanların hafızası yerindeydi. Kimsenin mahremiyeti kalmamıştı. Bitmişti.",
    "uid": "U44"
   },
   {
@@ -20308,7 +20463,7 @@
   },
   {
    "style": "Normal",
-   "text": "Hesabı kapatmak için bir form gerekiyordu. Ertesi sabah Selina doldurdu: kimlik numaram, ölüm tarihim, saati. Saat kutusuna 14.53 yazdı, ölüm belgesinin taranmış hâlini ekledi, gönder tuşuna bastı. Üç iş günü sonra kısa bir e-posta geldi; hesap kapatılmıştı. Ölüm belgesini yükleyen Selina'ydı; “Bu adam ekmeğe hiç ‘ürün’ demezdi,” diyen Hasan Bey'di. Çekilen fiş bir makineninki değil, bir hesabındı.",
+   "text": "Hesabı kapatmak için bir form gerekiyordu. Ertesi sabah Selina doldurdu: kimlik numaram, ölüm tarihim, saati. Saat kutusuna 14.53 yazdı, ölüm belgesinin taranmış hâlini ekledi, gönder tuşuna bastı. Üç iş günü sonra kısa bir e-posta geldi; hesap kapatılmıştı. Ölüm belgesini yükleyen Selina'ydı; “Bu adam ekmeğe hiç ‘ürün’ demezdi,” diyen Hasan Bey'di. Bu kez çekilen fiş bir makineninki değil, bir hesabındı.",
    "uid": "U44"
   },
   {
@@ -20664,6 +20819,11 @@
   {
    "style": "Normal",
    "text": "Bir takside kırmızı ışığın değişmesini bekledim. Arka koltuktaki adam bendim. Şoförün kirasını düşünüyordum. Kaldırımda ayakkabı bağı çözülen çocuğun sabırsızlığı da bendeydi. Hepsine aynı anda yetişmeye çalışmadım; sanki aralarında gitmem gereken bir yol kalmamıştı.",
+   "uid": "U45"
+  },
+  {
+   "style": "Normal",
+   "text": "Veli grubundaki sesli mesajı yeniden dinleyen bir anneydim; ses benimdi, cümleyi hatırlamıyordum. Kreuzberg'de kapısındaki boyayı silen kadın, Hasan Bey'in tezgâhına bir an fazla bakan müşteri, bir yabancının fotoğrafını arama kutusuna yüklemeden önce başparmağını ekranda tutan çocuk da bendim. Korktum. Saklanacak bir köşe kalmamıştı. Ben de saklanmadım.",
    "uid": "U45"
   },
   {
