@@ -1,0 +1,89 @@
+{
+ "U32": [
+  {
+   "index": 49,
+   "severity": "medium",
+   "kind": "okurun/yazarın cümlesinin kaybı, tema tohumu",
+   "problem": "Kaynaktaki son cümle („Çünkü bu kez kim olduğumu onun bakışıyla tamamlayamayacaktım.“) atılmış. Bu bir sahne sonu özdeyişi değil, korkunun gerekçesi. Onsuz „düşünürken de korktum“ boşta kalıyor. Asıl kayıp şu: cümle, U17'deki „BİRİNCİL AYNA: NİNA KAYA“ satırına ve kitabın ‚başkasının bakışıyla tamamlanan ben‘ eksenine bağlanan tek yer. Plan da Nina sahnesini „aynen“ istiyor.",
+   "fix": "Camda yansımamız vardı. Nina kıpırdayınca benim yüzümün üstünden çekildi. İlk kez, birinin beni görmeyi bırakmasının beni yok etmediğini düşünürken de korktum. Çünkü bu kez kim olduğumu onun bakışıyla tamamlayamayacaktım."
+  },
+  {
+   "index": 53,
+   "severity": "medium",
+   "kind": "mantık / kim ne biliyor",
+   "problem": "„Üçüncü satır çoktan onaylanmıştı“ okura yeni bir şey söylemiyor. idx 27'ye göre Leyla doz değişikliğini zaten fark etmiş, ilacı bırakmıştı (U21'deki notu da aynı). Nina'nın yarım uyarısının değiştirebileceği halka dozu değil, bakım ziyaretidir. Nina „Eve yalnız gitme, klinikten gelen her şeyi yeniden kontrol et“ yazmıştı ve U40'ta Sam'in anlattığı kutu değişimi tam o ziyarette oluyor. Cümle yanlış halkayı gösterdiği için Nina'nın kaybettiği iki günün bedeli bulanıklaşıyor.",
+   "fix": "Nina ekrana uzun bakmadı. Ablasına “Henüz kesin bir şey yok” yazdığı gün, dördüncü satır çoktan açılmıştı."
+  }
+ ],
+ "U37": [
+  {
+   "index": 71,
+   "severity": "medium",
+   "kind": "mantık/süreklilik + usul dili",
+   "problem": "Mekanik çanta 33. paragrafta grupla birlikte batı kapısından çıkmış, tünelden geçip araca binmiş. İcra görevlisi çantayı hiç görmedi. Buna rağmen 'kutulara el koydu, çantaya değil' cümlesi çantanın oradaymış da bilerek bırakılmış gibi okunmasına yol açıyor. 'Karar o sabah dar çizilmişti' cümlesi ise kaynaktaki 'hukuken çizilmiş dar bir sınırdı' cümlesinden kalmış. 24. paragrafta 'bir gün önce' çıkınca da ne dediği belirsizleşti: karar mı o sabah verildi, talep mi? U40 (31/32) kararın önceden var olduğunu, ayrıntıların o sabah eklendiğini söylüyor. Ayrıca 46. paragrafta adamlar yaklaşmıştı; neden grubu durdurmadıkları bu cümleyle açıkça anlaşılmıyor.",
+   "fix": "Dört anahtar, Selina'nın noter emanet fişiyle koruduğu mekanik çantadaydı. İcra görevlisi fişi tutanağa ekledi; talep kutuları sayıyordu, çantayı değil. Karşıdaki avukatlar fişi tutanakta görmüştü; yeni bir karar isteyeceklerdi."
+  }
+ ],
+ "U34": [
+  {
+   "index": 67,
+   "severity": "high",
+   "kind": "kutsal cevap / doktrin iddiası",
+   "problem": "Notun son cümlesi „Ama ikisine de aynı kapı açılıyor.“ hadisteki „mümin“ ile araştırmacının „dikkatle bakan“ını eşitliyor. Bu, önceki cümledeki çekinceyi („aynı şey olmayabilir“) de geri alıyor. Konsept §8/4 bunu açıkça yasaklıyor: „‚her mümin okur‘ ile ‚dikkatle bakan‘ eşitlenmez“. Ayrıca rivayetin söylemediği bir hüküm kuruluyor.",
+   "fix": "Ne kadar iyi taklit ederse etsin, yaptığı her sahtenin alnında aynı yazı durur: insanda bulunmayan bir düzen. Buhârî ve Müslim'deki rivayetler o yazıdan söz eder; Müslim'deki bir rivayet, onu her müminin, okuma yazma bilsin bilmesin, okuyacağını söyler. Rivayet “mümin” diyor. Ben yalnız “dikkatle bakan” diyebiliyorum; ikisi aynı şey değildir."
+  },
+  {
+   "index": 73,
+   "severity": "medium",
+   "kind": "plana aykırılık / başka bölümün sırrını erken verme",
+   "problem": "Plan imza yerine yalnız „iki iç içe daire ve boşluk“ istiyor. Babanın mührüyle karşılaştırma eklenmiş ve bu eklemede „aralarında pay kalırdı“ deniyor. Oysa „pay“ kelimesi 50. bölümün tek irfan imgesinin anahtarı („Ayrılık değildi; paydı.“, babanın mührü, Konsept §2.10/§13). 38'de mühürle birlikte kullanılınca finalin imgesi önceden harcanıyor. U31'deki tarif zaten „aralarında küçük bir boşluk“ diyor.",
+   "fix": "İmza yoktu. Yerinde, biri ötekinin içine çizilmiş iki daire ve altında bir satırlık boşluk vardı. Babamın mührüne benziyordu, ama değildi: babamın daireleri birbirine geçerdi. Bunlar birbirine dokunmuyordu."
+  },
+  {
+   "index": 119,
+   "severity": "medium",
+   "kind": "YOLCU çiftine gönderme",
+   "problem": "Yusuf'un kenar notundaki „yolcuya“ kelimesi YOLCU'da romanın adına göz kırpıyordu (kaynaktaki terim notu da bunu „Romantitel-Bezug“ diye işaretliyor). Konsepte göre ‚Yolcu‘ başlık-adı kalkıyor; öteki work bölümlerinde de bu kelime temizlenmiş. Bu cümlede bağımsız kitapta eski kitaba işaret olarak kalıyor.",
+   "fix": "<i>Bazı Sufi metinleri sâlike ibnü'l-vakt, vaktin çocuğu der. Geçmişi inkâr eden değil; bulunduğu anın hakkını, gelecek adına çalmayan kişi.</i>"
+  }
+ ],
+ "U38": [
+  {
+   "index": 19,
+   "severity": "medium",
+   "kind": "mantık/süreklilik",
+   "problem": "Paragraf \"O ilk saatte\" diye başlıyor ve öteki şehirlerdeki ekiplerin de izni o sırada verdiğini söylüyor. O saatte açılmış tek anahtar Berlin'inki. Nairobi'de elektrik kesik, cihaz kuryeyle yolda. Toronto'nun levhası ters takılı. Londra, São Paulo ve Singapur'daki üç ikincil arşiv ancak dördüncü anahtardan sonra kendiliğinden açılıyor (32). Yani ilk saatte öteki ekiplerin önünde izin isteyen bir görüntüleyici yok.",
+   "fix": "O ilk saatte muhabir arşivi kutularla birlikte gelen görüntüleyiciyle açtığında program “akustik bütünlük kontrolü” için mikrofon izni istedi. Muhabir okumadan izin verdi; öteki ekipler de sırası gelince aynı düğmeye basacaktı. Aynı izin noktalı pencereye de sorulmuştu; reddettiğini ancak sonra, Tarek oturum kayıtlarını açtığında gördük. Kayıtta tek kelime vardı: <i>HAYIR.</i>  (38. paragraftaki eşi de buna göre: \"Muhabirin ve ardından öteki ekiplerin okumadan verdiği izin buydu.\")"
+  },
+  {
+   "index": 15,
+   "severity": "medium",
+   "kind": "mantık/süreklilik",
+   "problem": "5. paragraf sahte arşivi tek dakikada kurulmuş bir karışım olarak veriyor: bütün dosyalar cihazın bağlandığı dakikada yazılmış, anlatıcının aklına AYNA geliyor. Konsepte göre de bu, AYNA'nın anlık karşı belgesi. Nina'nın repliği ise \"iki yıldır hazırlanan yalan\" diyor. Okur yalanın iki yılda mı hazırlandığını, yoksa yalnız iki yıllıkmış gibi mi gösterildiğini bilemiyor. 45'te Sam'in itirafı yapılırken bu çelişki büyür.",
+   "fix": "“İki gün kaybetmek, iki yıllık görünen bir yalanı yayımlamaktan ucuz.”"
+  }
+ ],
+ "U40": [
+  {
+   "index": 62,
+   "severity": "medium",
+   "kind": "mantık/süreklilik (kim ne biliyor)",
+   "problem": "Index 62–63 A-1453'ü yeni bir bilgiymiş gibi veriyor. Oysa 40. bölümde (U36) Yusuf anlatıcıya bunu zaten söylemişti: „Sen seçtin… Edirne'deki emanet dolabını da sen 1453 diye özellikle seçmiştin. Meralis dosyanı ele geçirince senin işaretini risk koduna çevirdi.“ Sam'in „Sayıyı sen seçmiştin“ demesi bilinen bir şeyi tekrarlıyor. Konseptin istediği yeni katman (çeviren bir insan değil, AYNA'nın anahtar araması) Yusuf'un sözünün düzeltilmesi olarak kurulmalı. Kural da bu: Sam yalnız doğrular ya da düzeltir.",
+   "fix": "62: “Yusuf, 1453'ü benim işaretimden risk koduna sizin çevirdiğinizi söyledi.”\n63: “Kimse oturup çevirmedi. AYNA dosyalarında en sık tekrarlanan anahtarı aradı, seninkini buldu ve dosyanın başına yazdı. Biz yalnız tabloya geçirdik.”\n(64 „Kendi emanetime koyduğum numarayla aranmıştım.“ aynen kalabilir.)"
+  },
+  {
+   "index": 18,
+   "severity": "medium",
+   "kind": "plana aykırılık (kısaltma) + dil",
+   "problem": "Plan, Sam'in itiraf kataloğunun %50 kısalmasını istiyor (irfan kelime bütçesi, yaklaşık −250 kelime). Kaynakta 665 kelime olan blok (pid 3023–3063) çalışmada 431 kelime; eklemeler düşülünce kısalma yaklaşık %40'ta kalıyor. Tüy iki kez açıklanıyor: 18'de („tüyle birlikte defterin arasına koyup“), 35–36'da yeniden („Mavi uçlu tüy?“ / boyanın kaynağı). Ayrıca 18'deki „Lara'ya sandalyesine koymasını“ cümlesinde nesne eksik (kaynakta „üçünü de bulup“ vardı).",
+   "fix": "18'i şöyle yaz ve 35 ile 36'yı sil: “Evet. Teknisyen kırk ikinci sayfayı çıkardı, taranan el yazından o notu üretti; tüyü dükkândaki eski şişenin boyasıyla renklendirip hepsini fotoğraf kutusunun altına bıraktı. Babanın işaretini bizim yön tabelamız yaptık. Lara'ya üçünü bulup sandalyesine koymasını o günkü mesajla biz söyledik.”"
+  },
+  {
+   "index": 111,
+   "severity": "medium",
+   "kind": "ses (sahne sonu özdeyişi) / tekrar",
+   "problem": "„Biz bir savaşı bitirmemiştik. / Yalnız savaşı görünür yapmıştık.“ ikilisi, iki bölüm önce 43'ün (U38) kapanışındaki „Bir canavarın başını kesmemiştik. İnsanlara gövdesinin nereden geçtiğini göstermiştik.“ ile aynı kurulumda: değildi kalıbı, ardından görünür kılma. Okurun eleştirisi gereği sahne sonu özdeyişleri azaltılmalıydı. Bu bölüme ise 49 (zorunlu) ve 64 yeni özdeyiş olarak eklendi, buna karşılık yalnız 3036 çıktı. Plan yalnız „yöntem logodan uzun ömürlü“ cümlesini aynen istiyor; savaş ikilisini istemiyor.",
+   "fix": "111 ve 112 silinir. Sahne 110'un son cümlesiyle („…yöntem logodan, hatta onu kullanan insandan daha uzun ömürlüydü.“) kapanır."
+  }
+ ]
+}
