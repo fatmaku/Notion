@@ -22,6 +22,7 @@ Schritt mit einem Tipp und laden den Lieferschein hoch. Das Büro sieht alles li
 | Marktanalyse, Businessplan, Werbetexte | `business/` (PDF/DOCX: `business/pdf/`) |
 | Pitch-Deck | `business/Ladeklar_Pitch.pptx` und `business/pdf/Ladeklar_Pitch.pdf` |
 | Flyer A4 und Postkarte A6 (druckfertig, 3 mm Beschnitt) | `marketing/Ladeklar_Flyer_A4.pdf`, `marketing/Ladeklar_Postkarte_A6.pdf` |
+| Social-Media-Bilder zu den 5 LinkedIn-Posts (1080 × 1350) | `marketing/social/Ladeklar_Post_1.png` … `_5.png`, Texte in `business/WERBETEXTE.md` |
 | Trailer | `video/Ladeklar_Trailer_16x9.mp4` (72 s), `video/Ladeklar_Trailer_9x16.mp4` (30 s, Social Media) |
 | Website | Quelle `site/`, fertig gebaut `dist/site/` |
 | Online-Demo ohne Server | `dist/demo.html` (eine Datei, läuft im Browser) |
@@ -78,6 +79,7 @@ npm run test:e2e     # Browser-Tests je Rolle auf Handy, Tablet und Desktop, sch
 | `node tools/build-site.js` | Website nach `dist/site/` (Bilder, Trailer in Web-Größe, Rechtsseiten) |
 | `node tools/build-docs.js [handbuch\|recht\|business\|root]` | PDF und DOCX aus den Markdown-Texten |
 | `node tools/build-print.js` | Flyer und Postkarte; Kontaktdaten vorher in `marketing/print-config.json` eintragen |
+| `node tools/build-social.js` | Social-Media-Bilder |
 | `python3 tools/build-deck.py` | Pitch-Deck als PPTX |
 | `node video/capture.js 16x9` / `9x16` | Trailer neu rendern (Musik: `python3 video/music.py`) |
 | `node tools/manual-shots.js` | Bildschirmfotos für das Handbuch |

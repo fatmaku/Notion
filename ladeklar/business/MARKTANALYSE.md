@@ -436,7 +436,7 @@ mit Betriebsrat einführbar.
 | 4 | LOGISTIQO berechnet externe App-Nutzer mit 1 €, Couplink hat ein kostenloses Starter-Paket | [Q49][Q47] | **Kostenlose Gastzugänge für Subunternehmer-Fahrer** (pro Auftrag, ohne Platz im Tarif). Jeder Subunternehmer lernt Ladeklar kennen – eingebauter Vertriebskanal. |
 | 5 | Über 80 % der Lkw haben bereits Telematik [Q30]; Transporeon bucht > 100.000 Zeitfenster am Tag [Q55] | [Q30][Q55] | **Schnittstellen statt Konkurrenz:** Telematik-Positionen (Webfleet, YellowFox) optional übernehmen, Zeitfenster-Buchungsnummer erfassen, daraus **Standgeld-Beleg automatisch** erzeugen; eCMR früher angehen. |
 
-Weitere Hinweise: Tschechisch und Bulgarisch als Sprachen ergänzen (Kap. 3); Lenk- und Ruhezeiten (SPEDION-Kernfunktion)
+Weitere Hinweise: Bulgarisch als Sprache ergänzen, Tschechisch ist umgesetzt (Kap. 3); Lenk- und Ruhezeiten (SPEDION-Kernfunktion)
 bleiben bewusst draußen, weil Telematik das bereits abdeckt.
 
 ---

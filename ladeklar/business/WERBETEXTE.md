@@ -70,11 +70,11 @@ Gleichzeitig fehlen laut BGL rund 120.000 Lkw-Fahrer.
 Wer Fahrer halten will, muss es ihnen leicht machen. Eine App mit zehn Menüs und deutschen Fachbegriffen ist
 das Gegenteil davon.
 
-Die Fahrer-App von Ladeklar läuft in Deutsch, Englisch, Polnisch, Rumänisch, Türkisch, Russisch und Ukrainisch.
+Die Fahrer-App von Ladeklar läuft in Deutsch, Englisch, Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch und Ukrainisch.
 Wichtiger noch: Sie kommt fast ohne Text aus. Ein großer Knopf, ein Icon, der nächste Schritt. Bedienbar mit
 Handschuhen, mit Rückgängig-Funktion und Fahrsperre während der Fahrt.
 
-Tschechisch und Bulgarisch kommen als Nächstes.
+Bulgarisch kommt als Nächstes.
 
 Welche Sprache fehlt in Ihrem Fuhrpark noch?
 

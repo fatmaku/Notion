@@ -135,7 +135,7 @@ beantragen).
 | Version | Zeitraum (Plan) | Inhalt |
 |---|---|---|
 | v1.0 | jetzt | siehe oben |
-| v1.1 | Q2/2027 | **Zwischenstopps/Sammeltouren**, Kundenportal mit Sendungsverfolgungs-Link, Webhooks, Sprachen **Tschechisch und Bulgarisch**, **Gastzugänge für Subunternehmer-Fahrer** |
+| v1.1 | Q2/2027 | **Zwischenstopps/Sammeltouren**, Kundenportal mit Sendungsverfolgungs-Link, Webhooks, Sprache **Bulgarisch** (Tschechisch ist seit v1.0 enthalten), **Gastzugänge für Subunternehmer-Fahrer** |
 | v1.2 | Q4/2027 | Abrechnung automatisch (SEPA, Rechnungen, lexoffice/sevDesk/DATEV), **Schritt-Bausteine je Auftragsart** (Temperatur, Wiegeschein, Kran), **Saisonpause** |
 | v1.3 | 2028 | eCMR, Schnittstellen zu Frachtbörsen, Telematik (Positionen optional übernehmen), Zeitfenster-Nummern, **automatischer Standgeld-Beleg** |
 | v2.0 | 2029 | Arbeitszeit/Spesen, Lenk- und Ruhezeit-Hinweise, Lieferschein-Erkennung (OCR) |

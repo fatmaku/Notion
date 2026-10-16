@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Ladeklar – Social-Media-Bilder</title>
+<!-- 1080×1350 (LinkedIn/Instagram Hochformat), one image per ?post=1…5, matching business/WERBETEXTE.md, chapter 1. -->
+<link rel="stylesheet" href="/web/css/fonts.css">
+<style>
+  :root { --ink: #0b1622; --ink2: #13233a; --ink3: #1a2c45; --on: #e8eef5; --on2: #9fb0c3; --brass: #c8a45c; --brass2: #e6cd92; --teal: #0e7c7b; --ok: #3fc483; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1080px; height: 1350px; overflow: hidden; font-family: Manrope, sans-serif; color: var(--on); background: var(--ink); }
+  .post { position: relative; width: 1080px; height: 1350px; overflow: hidden; background: radial-gradient(900px 700px at 100% 0%, #1b3450 0%, transparent 65%), radial-gradient(800px 600px at 0% 100%, #0f2a3a 0%, transparent 60%), var(--ink); }
+  canvas.net { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; }
+  .disp { font-family: Archivo, Manrope, sans-serif; font-stretch: 116%; font-weight: 850; letter-spacing: -.03em; line-height: .98; }
+  .ic { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  h1 { position: absolute; left: 80px; top: 96px; font-size: 104px; width: 920px; text-wrap: balance; }
+  h1 em { font-style: normal; color: var(--brass2); }
+  .sub { position: absolute; left: 80px; font-size: 36px; line-height: 1.38; color: #c4d0dd; font-weight: 600; width: 860px; }
+  .foot { position: absolute; left: 80px; right: 80px; bottom: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .wm { display: flex; align-items: center; gap: 18px; font: 850 36px Archivo; font-stretch: 125%; letter-spacing: .16em; }
+  .wm svg { width: 64px; height: 64px; }
+  .cta { padding: 20px 30px; border-radius: 999px; background: linear-gradient(180deg, var(--brass2), var(--brass)); color: #1b1508; font: 800 30px Manrope; }
+  .phone { position: absolute; border-radius: 64px; padding: 14px; background: linear-gradient(145deg, #2c3644, #0b1016); box-shadow: 0 60px 120px rgba(0,0,0,.6), inset 0 0 0 2px #3c4859; }
+  .phone img { display: block; width: 100%; border-radius: 52px; }
+  .note { position: absolute; display: grid; grid-template-columns: 76px 1fr; gap: 20px; align-items: center; padding: 22px 26px; border-radius: 32px; background: rgba(250,252,255,.95); color: var(--ink); box-shadow: 0 30px 70px rgba(0,0,0,.45); }
+  .note .ni { width: 76px; height: 76px; border-radius: 22px; display: grid; place-items: center; background: var(--teal); color: #fff; font-size: 40px; }
+  .note small { display: block; font-size: 22px; font-weight: 700; color: #66768a; }
+  .note b { display: block; font-size: 30px; font-weight: 800; line-height: 1.2; }
+  .note p { font-size: 24px; color: #34465a; font-weight: 600; }
+  .sheet { position: absolute; border-radius: 10px; overflow: hidden; background: #fbfaf6; box-shadow: 0 50px 100px rgba(0,0,0,.55); }
+  .sheet img { display: block; width: 100%; }
+  .stamp { position: absolute; display: grid; gap: 6px; padding: 26px 32px; border-radius: 28px; background: var(--ink3); box-shadow: inset 0 0 0 2px rgba(232,238,245,.12), 0 30px 60px rgba(0,0,0,.45); }
+  .stamp small { font: 800 22px Manrope; letter-spacing: .12em; text-transform: uppercase; color: var(--on2); }
+  .stamp b { font: 850 54px Archivo; font-stretch: 112%; color: var(--brass2); }
+  .langs { position: absolute; left: 80px; right: 80px; top: 470px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .lb { display: grid; grid-template-columns: 72px 1fr; gap: 22px; align-items: center; padding: 22px 26px; border-radius: 30px; background: var(--teal); box-shadow: 0 20px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18); }
+  .lb .ii { width: 72px; height: 72px; border-radius: 20px; display: grid; place-items: center; background: rgba(255,255,255,.16); font-size: 38px; }
+  .lb b { display: block; font: 850 38px Manrope; line-height: 1.1; color: #fff; }
+  .lb small { display: block; font: 700 22px Manrope; color: rgba(255,255,255,.72); margin-top: 4px; }
+  .timeline { position: absolute; left: 80px; right: 80px; top: 720px; display: grid; gap: 0; }
+  .tl { display: grid; grid-template-columns: 150px 44px 1fr; gap: 24px; align-items: center; min-height: 112px; }
+  .tl time { font: 850 44px Archivo; font-stretch: 110%; text-align: right; font-variant-numeric: tabular-nums; }
+  .tl .dot { position: relative; width: 44px; height: 44px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 10px rgba(14,124,123,.25); }
+  .tl b { font: 800 38px Manrope; }
+  .tl p { font: 600 26px Manrope; color: var(--on2); }
+  .tl.wait { min-height: 150px; }
+  .tl.wait .dot { width: 6px; height: 150px; border-radius: 3px; margin-left: 19px; background: repeating-linear-gradient(var(--brass) 0 12px, transparent 12px 22px); box-shadow: none; }
+  .tl.wait b { color: var(--brass2); font: 850 64px Archivo; font-stretch: 112%; }
+  .ticks { position: absolute; left: 80px; right: 80px; display: grid; gap: 18px; }
+  .tk { display: grid; grid-template-columns: 64px 1fr; gap: 26px; align-items: center; padding: 20px 30px; border-radius: 30px; background: rgba(255,255,255,.05); box-shadow: inset 0 0 0 2px rgba(232,238,245,.1); }
+  .tk .ic { width: 56px; height: 56px; color: var(--ok); }
+  .tk b { display: block; font: 800 36px Manrope; }
+  .tk p { font: 600 26px Manrope; color: var(--on2); margin-top: 4px; }
+  .law { position: absolute; left: 80px; font: 800 24px Manrope; letter-spacing: .1em; text-transform: uppercase; color: var(--brass2); }
+  .big { position: absolute; font: 900 300px/0.85 Archivo; font-stretch: 125%; letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 3px rgba(200,164,92,.55); }
+</style>
+</head>
+<body>
+<div class="post" id="post"></div>
+<script type="module">
+import { routeNet } from '/web/js/routenet.js';
+import { icon } from '/web/js/icons.js';
+const n = +(new URLSearchParams(location.search).get('post') || 1);
+const MARK = '<svg viewBox="12 12 76 76"><rect x="12" y="12" width="76" height="76" rx="20" fill="#c8a45c"/><path d="M33 31v38h22" stroke="#0b1622" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="m53 56 9 9 15-21" stroke="#0b1622" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const foot = `<div class="foot"><div class="wm">${MARK}LADEKLAR</div><div class="cta">30 Tage kostenlos testen</div></div>`;
+const A = '/video/assets/';
+const POSTS = {
+  1: `<canvas class="net"></canvas>
+      <h1 class="disp">Bis 9 Uhr schon <em>23 Anrufe.</em></h1>
+      <p class="sub" style="top:440px;width:470px">Oder: ein Tipp vom Fahrer, und das Büro weiß Bescheid.</p>
+      <div class="phone" style="left:590px;top:420px;width:400px;transform:rotate(-3deg)"><img src="${A}phone-2-loaded.png"></div>
+      <div class="note" style="left:80px;top:760px;width:560px"><span class="ni">${icon('bell')}</span><div><small>Ihre Dispo · jetzt</small><b>Aufgeladen · unterwegs</b><p>Stuttgart → Hamburg · S-KL 2041</p></div></div>
+      <div class="note" style="left:120px;top:930px;width:520px"><span class="ni" style="background:#12804c">${icon('file-check')}</span><div><small>Ihre Dispo · 14:12</small><b>Zugestellt · Lieferschein da</b><p>Abliefernachweis als PDF</p></div></div>
+      ${foot}`,
+  2: `<canvas class="net"></canvas>
+      <h1 class="disp" style="font-size:84px">Lieferschein heute.<br><em>Rechnung heute.</em></h1>
+      <p class="sub" style="top:340px;width:480px">Der Fahrer fotografiert den Lieferschein, bevor er die Tour abschließt. Das Büro hat den Abliefernachweis sofort als PDF.</p>
+      <div class="sheet" style="left:580px;top:330px;width:440px;transform:rotate(3deg)"><img src="${A}office-proof.png"></div>
+      <div class="stamp" style="left:80px;top:900px"><small>Abladen bis Rechnung</small><b>0 Tage</b></div>
+      ${foot}`,
+  3: `<canvas class="net"></canvas>
+      <h1 class="disp">Ein Knopf. <em>Acht Sprachen.</em></h1>
+      <p class="sub" style="top:328px">Große Knöpfe mit Symbol, bedienbar mit Handschuhen.</p>
+      <div class="langs">${[['Aufgeladen', 'Deutsch'], ['Załadowane', 'Polski'], ['Încărcat', 'Română'], ['Naloženo', 'Čeština'], ['Yüklendi', 'Türkçe'], ['Загружено', 'Русский'], ['Завантажено', 'Українська'], ['Loaded', 'English']].map(([w, l]) => `<div class="lb"><span class="ii">${icon('arrow-up-from-line')}</span><div><b>${w}</b><small>${l}</small></div></div>`).join('')}</div>
+      ${foot}`,
+  4: `<canvas class="net"></canvas>
+            <h1 class="disp">An der Rampe gewartet? <em>Jetzt mit Beleg.</em></h1>
+      <p class="sub" style="top:470px">Ladeklar misst die Standzeit aus den Tipps des Fahrers. Mit Zeitstempel, Fahrer und Kennzeichen.</p>
+      <div class="timeline">
+        <div class="tl"><time>13:15</time><span class="dot"></span><div><b>Angekommen</b><p>HHLA Container Terminal, Gate B</p></div></div>
+        <div class="tl wait"><time></time><span class="dot"></span><div><b>47 Min. Standzeit</b><p>Standgeld nach § 412 HGB, meist 30–50 € je Stunde</p></div></div>
+        <div class="tl"><time>14:02</time><span class="dot"></span><div><b>Abgeladen</b><p>KAY-2610-0019 · S-KL 2041</p></div></div>
+      </div>
+      ${foot}`,
+  5: `<canvas class="net"></canvas>
+      <h1 class="disp">Keine <em>Dauerortung.</em></h1>
+      <p class="sub" style="top:330px">Die Disposition muss wissen, ob geladen ist und ob der Lieferschein da ist. Nicht, wo der Lkw jede Minute steht.</p>
+      <p class="law" style="top:520px">§ 87 Abs. 1 Nr. 6 BetrVG · DSGVO</p>
+      <div class="ticks" style="top:580px">
+        <div class="tk">${icon('map-pin')}<div><b>Standort nur beim Statuswechsel</b><p>und nur, wenn der Betrieb das einschaltet</p></div></div>
+        <div class="tk">${icon('eye')}<div><b>Fahrer sehen nur eigene Aufträge</b><p>Das Büro sieht Status, nicht jede Minute</p></div></div>
+        <div class="tk">${icon('handshake')}<div><b>Muster-Betriebsvereinbarung</b><p>plus AVV und Datenschutzhinweise für Fahrer</p></div></div>
+        <div class="tk">${icon('shield-check')}<div><b>Hosting in Deutschland</b><p>Datenexport jederzeit</p></div></div>
+      </div>
+      ${foot}`,
+};
+const root = document.getElementById('post');
+root.innerHTML = POSTS[n];
+const cv = root.querySelector('canvas.net');
+if (cv) {
+  const net = routeNet(cv, { trucks: 18, labels: 'all', labelSize: 18, pad: 60, alpha: 0.8, focus: n === 4 ? ['HH'] : ['S', 'HH'], path: n === 1 ? ['S', 'WÜ', 'F', 'KS', 'H', 'HH'] : null, pathProgress: 0.55 });
+  net.drawAt(5);
+}
+await document.fonts.ready;
+await Promise.all([...document.images].map((i) => i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })));
+window.READY = true;
+</script>
+</body>
+</html>
