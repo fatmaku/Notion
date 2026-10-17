@@ -47,6 +47,7 @@ def split(book):
 
 
 REVEAL_KEYS = {"BY": ["ilk harf", "eksik numara", "dönüş işareti", "BENİ ARAMA", "14.53"],
+               "BYK": ["ilk harf", "eksik numara", "dönüş işareti", "BENİ ARAMA", "Beni arama", "baş harf", "FETİH", "Fark et"],
                "SA": ["kalın", "besmele", "âlemlere rahmet", "alemlere rahmet", "koyu basıl", "harfler"]}
 
 
@@ -139,7 +140,7 @@ def context(book, lang):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--book", required=True, choices=["BY", "SA"])
+    ap.add_argument("--book", required=True, choices=["BY", "SA", "BYK"])
     ap.add_argument("--lang", choices=["en", "de"])
     ap.add_argument("stage", choices=["split", "bible-input", "context"])
     a = ap.parse_args()

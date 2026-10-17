@@ -61,9 +61,11 @@ def check_bible(book, lang):
         errs.append("book/lang stimmen nicht")
     if len(b["style_guide"].split()) < 150:
         errs.append("style_guide zu kurz (< 150 Wörter)")
-    # gemeinsame Sätze
-    sh_errs = check_shared(lang)
-    if sh_errs:
+    # gemeinsame Sätze (nicht für BYK: eigenständiges Buch ohne Brückensätze)
+    sh_errs = check_shared(lang) if book != "BYK" else []
+    if book == "BYK":
+        pass
+    elif sh_errs:
         errs += sh_errs
     else:
         sh = json.load(open(I18N / f"shared_{lang}.json", encoding="utf-8"))
@@ -91,7 +93,7 @@ def check_bible(book, lang):
             n, got = len(c["pids"]), len(letters(sol))
             if got != n:
                 errs.append(f"ciphers[{name}]: Lösung {sol!r} hat {got} Buchstaben, nötig {n}")
-    if book == "BY" and "BENİ ARAMA." in b["fixed"] and "BENI_ARAMA" in b["ciphers"]:
+    if book in ("BY", "BYK") and "BENİ ARAMA." in b["fixed"] and "BENI_ARAMA" in b["ciphers"]:
         if letters(b["fixed"]["BENİ ARAMA."]) != letters(b["ciphers"]["BENI_ARAMA"]["solution"]):
             errs.append("Schlusszeile fixed['BENİ ARAMA.'] muss die Akrostichon-Lösung BENI_ARAMA sein (gleiche Buchstaben)")
     # Überschriften
@@ -135,7 +137,7 @@ def check_bible(book, lang):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--book", choices=["BY", "SA"]); ap.add_argument("--lang", choices=["en", "de"])
+    ap.add_argument("--book", choices=["BY", "SA", "BYK"]); ap.add_argument("--lang", choices=["en", "de"])
     ap.add_argument("--shared", choices=["en", "de"])
     a = ap.parse_args()
     if a.shared:

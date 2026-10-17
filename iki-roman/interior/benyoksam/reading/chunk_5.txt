@@ -110,7 +110,7 @@
 [IL5:36] ~ Ama hiçbir tek renk, kendi başına bütün tayfı temsil edemezdi.
 [IL5:37] ~ Âdem işte o an anladı:
 [IL5:38] ~ Hepimiz bir rengiz. Birbirimizin kopyası değil, aynı beyaz ışığın farklı görünümleriyiz.
-[IL5:39] ~ İnsanların Allah'ın parçaları olduğunu anlatmaya çalıştığı düşünce, bu hikâyenin mistik dilinde böyle bir anlam kazanıyordu.
+[IL5:39] ~ Kimilerinin insanı Allah'ın bir parçası, kimilerinin ise O'nun isimlerinin bir yansıması diye anlattığı düşünce, bu hikâyenin mistik dilinde böyle bir anlam kazanıyordu.
 [IL5:40] ~ Sanki tek bir ışık sayısız renge ayrılmış, her renkte kendisinin başka bir ihtimalini deneyimlemişti.
 [IL5:41] ~ Birbirimizden uzaklaştığımızı sanırken aslında aynı kaynağın farklı görünümleri olarak var oluyorduk.
 [IL5:42] ~ Ve farklılıklarımızı bir araya getirdiğimizde eksik olan tamamlanıyordu.
@@ -367,7 +367,7 @@ Yoksa sana anlatıldığı gibi mi?
 [IL6:34] ~ Ve Âdem'in zihninde şu düşünce doğdu:
 [IL6:35] ~ “Ben O'ndan uzak bir yerde yaratılmadım. O'nun dışında hiçbir zaman olmadım. Aradığım şey, kendi varlığımın en derin hakikatinde zaten vardı.”
 [IL6:36] ~ Sonra daha da sarsıcı bir farkındalık yaşadı.
-[IL6:37] ~ Kendisini tamamen ayrı sandığı hâlde, aslında yaratıcı bütünlüğün kendisiydi.
+[IL6:37] ~ Kendisini tamamen ayrı sandığı hâlde, aslında yaratıcı bütünlüğün aynasıydı.
 [IL6:38] ~ Tek başına yaşayan küçük benliğiyle değil; bütün varoluşun kaynağında, ayrılığın ortadan kalktığı yerde.
 [IL6:39] ~ Ama tam bunu hatırladığında büyük bir sorun ortaya çıktı.
 [IL6:40] ~ Artık her şeyi biliyordu.

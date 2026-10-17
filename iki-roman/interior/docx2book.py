@@ -2,7 +2,7 @@
 """docx2book.py — Manuskript (DOCX) → Druck-PDF (A5, KDP) und Kindle-EPUB.
 
 Aufruf:
-    python3 docx2book.py --book BY|SA|BY_EN|BY_DE|SA_EN|SA_DE [--pdf] [--epub] [--cover kapak.jpg] [--out out/] [--preview]
+    python3 docx2book.py --book BY|SA|BYK|BY_EN|BY_DE|SA_EN|SA_DE|BYK_EN|BYK_DE [--pdf] [--epub] [--cover kapak.jpg] [--out out/] [--preview]
 
 Buchschlüssel: BY/SA = türkische Originale, *_EN/*_DE = Übersetzungen (eigenes DOCX unter
 interior/src/i18n/<slug>.docx, eigene Dateinamen über `slug`, UI-Texte aus STRINGS[lang]).
@@ -94,16 +94,25 @@ BOOKS["BY_EN"] = _translation("BY", "en", "YOLCU_EN", "THE TRAVELLER")
 BOOKS["BY_DE"] = _translation("BY", "de", "YOLCU_DE", "DER REISENDE")
 BOOKS["SA_EN"] = _translation("SA", "en", "SAHIT_EN", "THE WITNESS", genre="A Novel")
 BOOKS["SA_DE"] = _translation("SA", "de", "SAHIT_DE", "DER ZEUGE", genre="Roman")
-BOOKS["BYK"] = {                      # BEN YOKSAM – eigenständige Neufassung aus YOLCU (Tuncay Sancak)
-    "docx": ROOT / "interior" / "src" / "BEN_YOKSAM_TR_v1.docx",
+BOOKS["BYK"] = {                      # DECCAL = YAPAY ZEKÂ?! (Arbeitstitel BEN YOKSAM) – eigenständige Neufassung aus YOLCU (Tuncay Sancak)
+    "docx": ROOT / "interior" / "src" / "DECCAL_YAPAY_ZEKA_TR_v2.docx",
     "lang": "tr",
-    "slug": "BEN_YOKSAM",
-    "title": "BEN YOKSAM",
+    "slug": "DECCAL_YAPAY_ZEKA",
+    "title": "DECCAL = YAPAY ZEKÂ?!",
     "author": "Tuncay Sancak",
     "expected_h1": 45,
     "expected_images": 4,
     "heads_italic": True,
+    # Transparenzhinweis (Autorentscheidung 17.10.2026: YOLCU und dieses Buch erscheinen beide)
+    "copyright_extra": {
+        "tr": "Bu roman, yazarın YOLCU adlı romanının olay örgüsünden yola çıkan, kendi başına duran yeni bir yazımdır.",
+        "en": "This novel is a new, standalone work that grows out of the plot of the author's novel YOLCU.",
+        "de": "Dieser Roman ist ein neues, eigenständiges Werk, das aus der Handlung des Romans YOLCU desselben Autors hervorgeht.",
+    },
 }
+
+BOOKS["BYK_EN"] = _translation("BYK", "en", "THE_DEVIL_IS_IN_THE_AI", "THE DEVIL IS IN THE AI")
+BOOKS["BYK_DE"] = _translation("BYK", "de", "DER_TEUFEL_STECKT_IN_DER_KI", "DER TEUFEL STECKT IN DER KI")
 
 PAGE_W, PAGE_H = 148.0, 210.0
 M_INNER, M_OUTER, M_TOP, M_BOTTOM = 20.0, 15.5, 16.5, 16.5
@@ -730,7 +739,9 @@ def copyright_lines(book: Book) -> list[tuple[str, str]]:
     lines = [("cp-title", book.front.title)]
     if book.front.subtitle:
         lines.append(("cp-subtitle", book.front.subtitle))
-    return lines + [(cls, text.format(author=a)) for cls, text in strings(book)["copyright_lines"]]
+    lines += [(cls, text.format(author=a)) for cls, text in strings(book)["copyright_lines"]]
+    extra = book.cfg.get("copyright_extra", {}).get(book.cfg["lang"])   # buchspezifisch, z. B. Herkunftshinweis
+    return lines + [("cp-gap", extra)] if extra else lines
 
 
 def dedication_html(book: Book) -> str:

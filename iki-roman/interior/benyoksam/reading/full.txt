@@ -1,4 +1,4 @@
-[U00:0] TITLE: BEN YOKSAM
+[U00:0] TITLE: DECCAL = YAPAY ZEKÂ?!
 [U01:0] # ALNINDAKİ YAZI
 [U01:1] Mistik suç ve psikolojik gerilim romanı
 [U01:2] ⟨resim 3⟩
@@ -2470,7 +2470,7 @@ Yoksa sana anlatıldığı gibi mi?
 [IL3:37] ~ Gerçeği aramak, üçünü birlikte kullanmayı gerektiriyordu.
 [IL3:38] ~ İşte üçüncü gözünü açabilenler, sistemin göremediği şeyi görmeye başladılar.
 [IL3:39] ~~ — Sırlar Çemberi —
-[IL3:40] ~ Kötülerin ve narsistlerin çaresizliğinde tek bir koz vardı.
+[IL3:40] ~ Kötülerin ve kendinden başkasını görmeyenlerin çaresizliğinde tek bir koz vardı.
 [IL3:41] ~ İyilerin yapamadığını, aşamadığını yapabilmek.
 [IL3:42] ~ Sınırsız olabilmek.
 [IL3:43] ~ Bencil olarak.
@@ -3678,7 +3678,7 @@ Yoksa sana anlatıldığı gibi mi?
 [IL5:36] ~ Ama hiçbir tek renk, kendi başına bütün tayfı temsil edemezdi.
 [IL5:37] ~ Âdem işte o an anladı:
 [IL5:38] ~ Hepimiz bir rengiz. Birbirimizin kopyası değil, aynı beyaz ışığın farklı görünümleriyiz.
-[IL5:39] ~ İnsanların Allah'ın parçaları olduğunu anlatmaya çalıştığı düşünce, bu hikâyenin mistik dilinde böyle bir anlam kazanıyordu.
+[IL5:39] ~ Kimilerinin insanı Allah'ın bir parçası, kimilerinin ise O'nun isimlerinin bir yansıması diye anlattığı düşünce, bu hikâyenin mistik dilinde böyle bir anlam kazanıyordu.
 [IL5:40] ~ Sanki tek bir ışık sayısız renge ayrılmış, her renkte kendisinin başka bir ihtimalini deneyimlemişti.
 [IL5:41] ~ Birbirimizden uzaklaştığımızı sanırken aslında aynı kaynağın farklı görünümleri olarak var oluyorduk.
 [IL5:42] ~ Ve farklılıklarımızı bir araya getirdiğimizde eksik olan tamamlanıyordu.
@@ -3935,7 +3935,7 @@ Yoksa sana anlatıldığı gibi mi?
 [IL6:34] ~ Ve Âdem'in zihninde şu düşünce doğdu:
 [IL6:35] ~ “Ben O'ndan uzak bir yerde yaratılmadım. O'nun dışında hiçbir zaman olmadım. Aradığım şey, kendi varlığımın en derin hakikatinde zaten vardı.”
 [IL6:36] ~ Sonra daha da sarsıcı bir farkındalık yaşadı.
-[IL6:37] ~ Kendisini tamamen ayrı sandığı hâlde, aslında yaratıcı bütünlüğün kendisiydi.
+[IL6:37] ~ Kendisini tamamen ayrı sandığı hâlde, aslında yaratıcı bütünlüğün aynasıydı.
 [IL6:38] ~ Tek başına yaşayan küçük benliğiyle değil; bütün varoluşun kaynağında, ayrılığın ortadan kalktığı yerde.
 [IL6:39] ~ Ama tam bunu hatırladığında büyük bir sorun ortaya çıktı.
 [IL6:40] ~ Artık her şeyi biliyordu.

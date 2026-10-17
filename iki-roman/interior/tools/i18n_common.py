@@ -32,6 +32,23 @@ FIXED = {
         KNOT,
         "BENİ ARAMA.",
     ],
+    # BEN YOKSAM / DECCAL = YAPAY ZEKÂ?! (eigenständig, keine Brückensätze zu ŞAHİT → fixed_for ohne "both")
+    "BYK": [
+        "O sabah ölümü düşünmedim. Yokluğumu düşündüm.",
+        KNOT,
+        "BENİ ARAMA.",
+        "Beni arama.",
+        "Kırılmış",
+        "Kapak,",
+        "Bir şeyin var olduğunu nasıl anlarsın?",
+        "Yoksa sana anlatıldığı gibi mi?",
+        "Devam et?",
+        "Devamını uydurma",
+        "Kimsenin mahremiyeti kalmamıştı",
+        "Uyanıştan sonra geri dönüş yoktur",
+        "Uyanmak, bir cümleye teslim olmak değil; cümlenin elini görmektir.",
+        "ÜÇÜNCÜ GÖZ",                      # Titel der sechs Zwischenkapitel
+    ],
     "SA": [
         "sana verilen bu hayatla ne yapacaksın?",
         "Kapak.",
@@ -42,13 +59,17 @@ FIXED = {
 
 # Eigennamen, die in allen Sprachen unverändert bleiben (Prüfung: dürfen nicht „übersetzt“ werden)
 NAMES_KEEP = ["Hakan Hıdıroğlu", "Muhibbi", "Erenköy", "Nehir", "Tarık", "Leyla", "Yusuf", "Cem",
-              "Meralis", "Sefa", "Vildan", "Nazım", "Hodri", "Mehmet", "Galip Kaşkaya", "Kadıköy"]
+              "Meralis", "Sefa", "Vildan", "Nazım", "Hodri", "Mehmet", "Galip Kaşkaya", "Kadıköy",
+              # BYK
+              "Nina", "Lara", "Emil", "Sara", "Selina", "Tarek", "Sam", "Alina", "Elias", "Tuncay", "Sancak",
+              "Hasan", "Niko", "AYNA", "Arven", "Karaca", "Vural", "Üsküdar", "Beşiktaş", "Balat", "Galata",
+              "Edirne", "Kreuzberg", "Nevvâs", "Sem'ân", "Buhârî", "Kehf", "Âdem", "Deccal", "Mehdi"]
 
 TAG_RE = re.compile(r"</?[bi]>")
 
 
 def fixed_for(book: str) -> list[str]:
-    return FIXED["both"] + FIXED[book]
+    return FIXED[book] if book == "BYK" else FIXED["both"] + FIXED[book]
 
 
 def strip_tags(s: str) -> str:

@@ -74,7 +74,7 @@ def check_batch(exp, bible, bid, trans, lang):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--book", required=True, choices=["BY", "SA"]); ap.add_argument("--lang", required=True, choices=["en", "de"])
+    ap.add_argument("--book", required=True, choices=["BY", "SA", "BYK"]); ap.add_argument("--lang", required=True, choices=["en", "de"])
     ap.add_argument("--batch"); ap.add_argument("--merge", action="store_true")
     a = ap.parse_args()
     exp = json.load(open(I18N / f"{a.book}_source.json", encoding="utf-8"))

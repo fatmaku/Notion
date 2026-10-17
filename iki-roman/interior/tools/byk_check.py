@@ -218,8 +218,9 @@ def check_all(cons, fb):
         print(f"Zwischenkapitel: {sum(1 for p in merged if p.get('style') == 'Interlude Title')} Stück, {il_words} Wörter")
     texts = [text_of(p) for p in merged]
     # Titelblock
-    if merged[0].get("style") != "Title" or texts[0].strip() != "BEN YOKSAM":
-        errs.append(f"erster Absatz muss Title „BEN YOKSAM“ sein: {texts[0]!r}")
+    title = json.load(open(BYK / "book_meta.json", encoding="utf-8"))["title"]
+    if merged[0].get("style") != "Title" or texts[0].strip() != title:
+        errs.append(f"erster Absatz muss Title „{title}“ sein: {texts[0]!r}")
     if sum(1 for p in merged if p.get("style") == "Book Metadata") != 1:
         errs.append("genau ein Absatz Book Metadata (Autorname) nötig")
     n_h1 = sum(1 for p in merged if p.get("style") == "Heading 1")

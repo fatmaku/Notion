@@ -30,7 +30,8 @@ def nonempty_after(ps, i):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--book", required=True, choices=["BY", "SA"])
+    ap.add_argument("--book", required=True, choices=["BY", "SA", "BYK"])
+    ap.add_argument("--max-words", type=int, default=MAX_WORDS)
     ap.add_argument("--docx", required=True)
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
@@ -59,7 +60,7 @@ def main():
                       "words": len(text.split())})
 
     ciphers = {}
-    if book == "BY":
+    if book in ("BY", "BYK"):
         # SENİ BUL: Kapitel, deren Vorgängernummer fehlt → erster Buchstabe des Titels
         prev, seq = 0, []
         for i, p in enumerate(ps):
@@ -99,7 +100,7 @@ def main():
     # Pakete
     batches, b = [], None
     for u in units:
-        if b is None or b["words"] + u["words"] > MAX_WORDS:
+        if b is None or b["words"] + u["words"] > a.max_words:
             b = {"bid": f"B{len(batches):02d}", "units": [], "pids": [], "words": 0}
             batches.append(b)
         b["units"].append(u["uid"]); b["pids"] += u["pids"]; b["words"] += u["words"]

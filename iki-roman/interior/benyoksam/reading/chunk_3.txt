@@ -586,7 +586,7 @@
 [IL3:37] ~ Gerçeği aramak, üçünü birlikte kullanmayı gerektiriyordu.
 [IL3:38] ~ İşte üçüncü gözünü açabilenler, sistemin göremediği şeyi görmeye başladılar.
 [IL3:39] ~~ — Sırlar Çemberi —
-[IL3:40] ~ Kötülerin ve narsistlerin çaresizliğinde tek bir koz vardı.
+[IL3:40] ~ Kötülerin ve kendinden başkasını görmeyenlerin çaresizliğinde tek bir koz vardı.
 [IL3:41] ~ İyilerin yapamadığını, aşamadığını yapabilmek.
 [IL3:42] ~ Sınırsız olabilmek.
 [IL3:43] ~ Bencil olarak.

@@ -78,7 +78,7 @@ def main():
             run.text = text
             run.bold = True if b else None
             run.italic = True if i else None
-    doc.core_properties.title = "BEN YOKSAM"
+    doc.core_properties.title = json.load(open(Path(__file__).resolve().parent.parent / "benyoksam" / "book_meta.json", encoding="utf-8"))["title"]
     doc.core_properties.author = "Tuncay Sancak"
     doc.save(a.out)
     chk = Document(a.out).paragraphs

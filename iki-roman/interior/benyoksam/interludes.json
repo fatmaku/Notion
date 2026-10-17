@@ -242,7 +242,7 @@
      "heading": "— Sırlar Çemberi —",
      "title": "Sırlar Çemberi",
      "paras": [
-      "Kötülerin ve narsistlerin çaresizliğinde tek bir koz vardı.",
+      "Kötülerin ve kendinden başkasını görmeyenlerin çaresizliğinde tek bir koz vardı.",
       "İyilerin yapamadığını, aşamadığını yapabilmek.",
       "Sınırsız olabilmek.",
       "Bencil olarak.",
@@ -583,7 +583,7 @@
      "added_note": "paras[60]–paras[63] (0 tabanlı dizin; yazarın sayımıyla 61–64. satırlar) eklendi – yazarın ikinci eki: kaçınılmaz son. Yazarın paras[59] („Deccal'in fişini çekmek…“) ve paras[64]–paras[65] („Fakat hikâye burada bitmiyordu. / … çok daha eski bir sır vardı.“) satırları aynen; son iki satır VI'ya köprüdür ve sonda kalır."
     }
    ],
-   "words": 991
+   "words": 993
   },
   {
    "n": 4,
@@ -761,7 +761,7 @@
       "Ama hiçbir tek renk, kendi başına bütün tayfı temsil edemezdi.",
       "Âdem işte o an anladı:",
       "Hepimiz bir rengiz. Birbirimizin kopyası değil, aynı beyaz ışığın farklı görünümleriyiz.",
-      "İnsanların Allah'ın parçaları olduğunu anlatmaya çalıştığı düşünce, bu hikâyenin mistik dilinde böyle bir anlam kazanıyordu.",
+      "Kimilerinin insanı Allah'ın bir parçası, kimilerinin ise O'nun isimlerinin bir yansıması diye anlattığı düşünce, bu hikâyenin mistik dilinde böyle bir anlam kazanıyordu.",
       "Sanki tek bir ışık sayısız renge ayrılmış, her renkte kendisinin başka bir ihtimalini deneyimlemişti.",
       "Birbirimizden uzaklaştığımızı sanırken aslında aynı kaynağın farklı görünümleri olarak var oluyorduk.",
       "Ve farklılıklarımızı bir araya getirdiğimizde eksik olan tamamlanıyordu."
@@ -808,7 +808,7 @@
      ]
     }
    ],
-   "words": 520
+   "words": 527
   },
   {
    "n": 6,
@@ -868,7 +868,7 @@
       "Ve Âdem'in zihninde şu düşünce doğdu:",
       "“Ben O'ndan uzak bir yerde yaratılmadım. O'nun dışında hiçbir zaman olmadım. Aradığım şey, kendi varlığımın en derin hakikatinde zaten vardı.”",
       "Sonra daha da sarsıcı bir farkındalık yaşadı.",
-      "Kendisini tamamen ayrı sandığı hâlde, aslında yaratıcı bütünlüğün kendisiydi.",
+      "Kendisini tamamen ayrı sandığı hâlde, aslında yaratıcı bütünlüğün aynasıydı.",
       "Tek başına yaşayan küçük benliğiyle değil; bütün varoluşun kaynağında, ayrılığın ortadan kalktığı yerde.",
       "Ama tam bunu hatırladığında büyük bir sorun ortaya çıktı.",
       "Artık her şeyi biliyordu.",
@@ -1538,10 +1538,22 @@
    "note": "superego / Über-Ich DEĞİL; yazarın bitişik „üstbenlik“ yazımı Freud'un süperegosu okunurdu – ayrı yazım bilinçli seçimdir."
   },
   {
-   "tr": "yaratıcı bütünlüğün kendisiydi (X/36, küçük harf)",
-   "en": "the creative wholeness itself",
-   "de": "die schöpferische Ganzheit selbst",
-   "note": "Sıfat okuması; „the Creator's wholeness“ / „des Schöpfers Ganzheit“ DEĞİL (hulûl okuması)."
+   "tr": "yaratıcı bütünlüğün aynasıydı (X/36, küçük harf; yazar kararı 17.10.2026: „kendisiydi“ → „aynasıydı“)",
+   "en": "a mirror of the creative wholeness",
+   "de": "ein Spiegel der schöpferischen Ganzheit",
+   "note": "Sıfat okuması; „the Creator's wholeness“ / „des Schöpfers Ganzheit“ DEĞİL (hulûl okuması). Ayna = yansıma, özdeşlik değil; ucu açık kalır."
+  },
+  {
+   "tr": "Kimilerinin insanı Allah'ın bir parçası, kimilerinin ise O'nun isimlerinin bir yansıması diye anlattığı düşünce (VIII; yazar kararı 17.10.2026)",
+   "en": "the thought that some describe as the human being a part of God and others as a reflection of His names",
+   "de": "der Gedanke, den die einen so erzählen, dass der Mensch ein Teil Gottes sei, die anderen so, dass sich Seine Namen in ihm spiegeln",
+   "note": "Bilinçli olarak iki okuma yan yana; anlatı hangisinin doğru olduğuna karar vermez (yazar: „ucu açık kalabilir, insanlar kendince yorumlayabilir“). „Allah“ EN/DE'de bible kararına göre tek biçim."
+  },
+  {
+   "tr": "kendinden başkasını görmeyenler (IV/Sırlar Çemberi; yazar kararı 17.10.2026, „narsistlerin“ yerine)",
+   "en": "those who see no one but themselves",
+   "de": "die, die niemanden außer sich selbst sehen",
+   "note": "Klinik etiket bilinçli olarak kaldırıldı; davranış tarifi kalır."
   },
   {
    "tr": "Yaratıcı (X, büyük harf: Yaratıcı'ya, Yaratıcı'dan, Yaratıcı ile)",

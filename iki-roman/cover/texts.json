@@ -181,11 +181,43 @@
  },
  "BYK": {
   "_hinweis": "Eigenständiges Buch (Neufassung von YOLCU, eigenes Cover: build_cover_byk.py). Rückseiten-Blurb: höchstens 115 Wörter (azami 115 kelime), sonst Überlauf in .backflow (overflow:hidden) – nach jeder Änderung neu bauen und Abstand Blurb–Tagline prüfen (Ziel ≥ 6 mm). Headline der Rückseite weicht bewusst vom Innentitel-Motto („Bir şeyin var olduğunu nasıl anlarsın?“, U01:3) ab; ob das Motto im Innenteil bleibt, entscheidet der Autor.",
-  "title": "BEN YOKSAM",
-  "title_lines": [
-   "BEN",
-   "YOKSAM"
-  ],
+  "title": {
+   "tr": "DECCAL = YAPAY ZEKÂ?!",
+   "en": "THE DEVIL IS IN THE AI",
+   "de": "DER TEUFEL STECKT IN DER KI"
+  },
+  "title_lines": {
+   "tr": [
+    [
+     "DECCAL",
+     "big"
+    ],
+    [
+     "= YAPAY ZEKÂ?!",
+     "mid"
+    ]
+   ],
+   "en": [
+    [
+     "THE DEVIL",
+     "big"
+    ],
+    [
+     "IS IN THE AI",
+     "mid"
+    ]
+   ],
+   "de": [
+    [
+     "DER TEUFEL",
+     "big"
+    ],
+    [
+     "STECKT IN DER KI",
+     "mid"
+    ]
+   ]
+  },
   "subtitle": "ALNINDAKİ YAZI",
   "author": "Tuncay Sancak",
   "author_caps": "TUNCAY SANCAK",
@@ -215,6 +247,12 @@
   "former_title": "",
   "subtitle_lines": [
    "ALNINDAKİ YAZI"
-  ]
+  ],
+  "spine_title": {
+   "tr": "DECCAL = YAPAY ZEKÂ?!",
+   "en": "THE DEVIL IS IN THE AI",
+   "de": "DER TEUFEL STECKT IN DER KI"
+  },
+  "working_title": "BEN YOKSAM"
  }
 }
