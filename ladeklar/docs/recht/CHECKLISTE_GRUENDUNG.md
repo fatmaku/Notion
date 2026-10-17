@@ -59,7 +59,7 @@ Legende: [ ] offen · [x] erledigt · **Pflicht** = gesetzliche Pflicht · **Emp
 
 Fristbeginn: Ende des Kalenderjahres, in dem die Unterlage entstanden ist. Die Frist läuft nicht ab, solange die Unterlagen für noch nicht verjährte Steuern von Bedeutung sind.
 
-- [ ] **Lieferschein als Buchungsbeleg (für Kunden relevant):** Ein Lieferschein ist Buchungsbeleg, wenn er selbst gebucht wird oder Teil der Rechnung ist, etwa weil die Rechnung auf ihn Bezug nimmt und sich die nach § 14 Abs. 4 UStG erforderlichen Angaben aus ihm ergeben (§ 31 UStDV), oder wenn er Buchungsvermerke trägt. Dann gilt die Frist von acht Jahren. Diese Einordnung trifft der Kunde für seine Unterlagen; LADEKLAR bietet eine einstellbare Aufbewahrung abgeschlossener Lieferungen von 1 bis 10 Jahren (Voreinstellung 3 Jahre). Die Frist der Plattform zählt ab der letzten Änderung der Lieferung, nicht ab dem Ende des Kalenderjahres; wer acht Jahre einhalten muss, stellt mindestens neun Jahre ein oder archiviert vorher. Eine Ausnahme einzelner Lieferungen von der Löschung gibt es nicht.
+- [ ] **Lieferschein als Buchungsbeleg (für Kunden relevant):** Ein Lieferschein ist Buchungsbeleg, wenn er selbst gebucht wird oder Teil der Rechnung ist, etwa weil die Rechnung auf ihn Bezug nimmt und sich die nach § 14 Abs. 4 UStG erforderlichen Angaben aus ihm ergeben (§ 31 UStDV), oder wenn er Buchungsvermerke trägt. Dann gilt die Frist von acht Jahren. Diese Einordnung trifft der Kunde für seine Unterlagen; LADEKLAR bietet eine einstellbare Aufbewahrung abgeschlossener Lieferungen von 1 bis 10 Jahren (Voreinstellung 3 Jahre). Die Frist der Plattform zählt ab der Zustellung bzw. Stornierung der Lieferung, nicht ab dem Ende des Kalenderjahres; wer acht Jahre einhalten muss, stellt mindestens neun Jahre ein oder archiviert vorher. Eine Ausnahme einzelner Lieferungen von der Löschung gibt es nicht.
 - [ ] GoBD (BMF-Schreiben, zweite Änderung vom 14.07.2025 wegen E-Rechnung): Verfahrensdokumentation für die eigene Buchhaltung anlegen; bei E-Rechnungen genügt in der Regel die Aufbewahrung des strukturierten Teils.
 - [ ] Klarstellen (AGB § 5 Abs. 5, § 9 Abs. 7): LADEKLAR ist kein GoBD-Archiv.
 
@@ -94,13 +94,16 @@ Fristbeginn: Ende des Kalenderjahres, in dem die Unterlage entstanden ist. Die F
 
 - [ ] **Hosting-Vertrag** mit Rechenzentrum in Deutschland, ISO/IEC 27001-Zertifikat anfordern und ablegen.
 - [ ] **AVV mit jedem Unterauftragsverarbeiter** (Hosting, Backup; E-Mail-Versand nur falls eingesetzt – die Plattform versendet derzeit keine E-Mails) abschließen und in UNTERAUFTRAGSVERARBEITER.md eintragen.
-- [ ] Backup-Ziel räumlich getrennt, verschlüsselt; ersten Wiederherstellungstest dokumentieren.
-- [ ] Statusseite und Erreichbarkeitsüberwachung einrichten.
+- [ ] **Datensicherung einrichten:** `deploy/backup.sh` täglich per Cron starten (Beispiel im Skript: `15 2 * * * /opt/ladeklar/deploy/backup.sh /srv/backups`). Das Skript erzeugt eine konsistente Kopie der Datenbank (`VACUUM INTO`) und packt sie mit allen hochgeladenen Dateien in ein `.tar.gz`; Archive älter als 30 Tage löscht es. Es verschlüsselt nicht und überträgt nichts: Die Archive liegen zunächst auf demselben Server. Deshalb zusätzlich verschlüsseln (z. B. mit `age` oder `restic`) und an ein räumlich getrenntes Ziel in Deutschland übertragen; Schlüssel getrennt verwahren. Ersten Wiederherstellungstest dokumentieren (Archiv entpacken, `backup.db` als `ladeklar.db` und den Ordner `files` in `DATA_DIR` legen, Server starten).
+- [ ] Statusseite und Erreichbarkeitsüberwachung einrichten (der Server meldet unter `/api/health` seinen Zustand; der Docker-Healthcheck nutzt das bereits).
+- [ ] **Betrieb hinter dem Reverse Proxy:** `BASE_URL` mit `https://` setzen (sonst fehlen `Secure` am Sitzungs-Cookie und HSTS). Das Docker-Image setzt `TRUST_PROXY=1`; in `deploy/.env.example` `TRUST_PROXY_HOPS` auf die Zahl der vorgeschalteten Proxys setzen, die je eine Adresse an `X-Forwarded-For` anhängen (nur Caddy: 1; zusätzlich ein Load Balancer oder CDN: 2). Ist der Wert zu klein, treffen Anmeldesperren und Protokoll-IP den Proxy statt des Geräts; ist er zu groß, kann ein Angreifer seine Adresse fälschen. Ohne Proxy `TRUST_PROXY` nicht setzen.
+- [ ] Für jede Subdomain (Tarife Flotte und Premium) und jede eigene Domain (Premium) eine Zeile im `deploy/Caddyfile` ergänzen; die Plattform zeigt die Firmen-Marke unter einer Subdomain nur in Tarifen mit Subdomain bzw. eigener Domain.
 - [ ] `security.txt` und Postfach [Sicherheits-E-Mail] für Schwachstellenmeldungen einrichten.
 - [ ] TOM.md mit der tatsächlichen Umsetzung abgleichen (alle Zeilen „U“ oder mit Termin „G“).
 - [ ] Exportformate dokumentieren und unter [Website-URL/export-formate] veröffentlichen (Data Act Art. 26): Inhalt des ZIP-Archivs (`daten.json`, `lieferungen.csv`, Ordner `dateien/`, `LIESMICH.txt`), Aufbau von `daten.json`, Spalten der CSV-Dateien.
-- [ ] Den einzigen Lizenzgeber-Zugang mit langem Passwort schützen und sicher verwahren; die Konsole hat keine Zwei-Faktor-Authentifizierung und keinen zweiten Zugang.
-- [ ] Löschung gekündigter Kunden organisieren: Frist (§ 18 AGB) überwachen, Kunden vorher an den Export erinnern, Abrechnungsdaten des Kunden außerhalb der Plattform sichern, dann in der Konsole löschen (nur im Status „Gekündigt“, Eingabe des Firmencodes). Eine automatische Löschung gibt es nicht.
+- [ ] Den einzigen Lizenzgeber-Zugang (anlegen mit `node server/index.js setup <E-Mail> <Passwort>`, im Docker-Betrieb über `docker compose exec app …`) mit langem Passwort schützen und in der Konsole unter „Mein Konto“ die **Zwei-Faktor-Anmeldung einschalten**; die Konsole zeigt einen Warnhinweis, solange sie aus ist. Einen zweiten Lizenzgeber-Zugang gibt es nicht. `PLATFORM_EMAIL` und `PLATFORM_PASSWORD` nach dem ersten Start aus der `.env` entfernen.
+- [ ] **Notfall „Passwort vergessen oder Handy verloren“:** Auf dem Server `node server/index.js reset-platform-password <E-Mail> <neues Passwort>` ausführen (im Docker-Betrieb `docker compose exec app node server/index.js reset-platform-password …`). Das setzt ein neues Passwort (mindestens 10 Zeichen), schaltet die Zwei-Faktor-Anmeldung aus, hebt eine Sperre auf und beendet alle Sitzungen und Push-Abonnements des Zugangs; der Vorgang steht im Protokoll. Danach sofort anmelden und die Zwei-Faktor-Anmeldung neu einrichten. Den Ablauf im Notfallplan festhalten.
+- [ ] Löschung gekündigter Kunden organisieren: Frist (§ 18 AGB) überwachen, Kunden vorher an den Export erinnern, Abrechnungsdaten des Kunden außerhalb der Plattform sichern (die Lizenz-Historie steckt nicht im Export des Kunden und geht mit dem Mandanten verloren), dann in der Konsole löschen (nur im Status „Gekündigt“, Eingabe des Firmencodes). Eine automatische Löschung gibt es nicht. Die Dateien entfernt der Server mit.
 - [ ] Informationsseite zum Anbieterwechsel und zum Schutz vor Drittstaatenzugriff veröffentlichen (Data Act Art. 26, 28).
 
 ## 8. Datenschutz
@@ -140,7 +143,8 @@ Fristbeginn: Ende des Kalenderjahres, in dem die Unterlage entstanden ist. Die F
 ## 12. Zahlungsabwicklung und Vertrieb
 
 - [ ] Zahlungsweg festlegen: Rechnung mit Überweisung (Start), später SEPA-Lastschrift über [Zahlungsdienstleister] (Roadmap v1.2). Vertrag und gegebenenfalls AVV mit dem Zahlungsdienstleister prüfen; Rolle (eigener Verantwortlicher oder Auftragsverarbeiter) in der Datenschutzerklärung angeben.
-- [ ] Mahnwesen und Sperrprozess nach § 14 AGB (Mahnung mit Sperrandrohung, Frist von mindestens [10] Werktagen). Die Abrechnungsvorschau der Konsole führt einen Kunden ab dem Monat, in dem er gesperrt oder gekündigt wird, nicht mehr auf; die während der Sperrung fortbestehende Vergütung (§ 14 Abs. 4 AGB) daher gesondert abrechnen.
+- [ ] Mahnwesen und Sperrprozess nach § 14 AGB (Mahnung mit Sperrandrohung, Frist von mindestens [10] Werktagen). Die Abrechnungsvorschau der Konsole berechnet einen bezahlten Kunden auch während einer Sperre weiter (§ 14 Abs. 4 AGB) und nennt in jeder Zeile den Grund; die Regeln stehen unter der Tabelle. Sie erzeugt keine Rechnungen; zeitanteilige Tarifwechsel, Erstattungen nach § 16 Abs. 3 AGB und individuelle Leistungen gesondert abrechnen.
+- [ ] Kündigungs- und Tarifwünsche, die Kunden in der Plattform senden, täglich prüfen (Markierung und Filter „Anfragen“ in der Konsole); Zugang und Vertragsende in Textform bestätigen (§ 16 Abs. 5 AGB) und das Laufzeitende eintragen.
 - [ ] Reseller-/Partnerverträge (20–30 % Provision, Roadmap) erst nach anwaltlicher Prüfung; Datenschutzrollen klären.
 - [ ] **Muster-Kundenangebot** (Abschnitt 13) verwenden.
 
@@ -156,8 +160,8 @@ Fristbeginn: Ende des Kalenderjahres, in dem die Unterlage entstanden ist. Die F
 > | Position | Menge | Einzelpreis netto | Gesamt netto |
 > |---|---|---|---|
 > | Tarif [Start/Flotte/Premium], [monatliche/jährliche] Zahlweise | 1 | [49/129/299] € je Monat [bzw. Jahrespreis: zehnfacher Monatspreis] | [Betrag] € |
-> | Zusatzfahrer über [15/40] hinaus (nach Bedarf, monatlich nachträglich) | [Anzahl] | [7/6] € je Monat | [Betrag] € |
-> | Zusatzspeicher [optional] | [Anzahl] × [10] GB | [Preis] € je Monat | [Betrag] € |
+> | Zusatzfahrer über [15/40] hinaus (gebuchte Plätze, mit dem Monatspreis) | [Anzahl] | [7/6] € je Monat | [Betrag] € |
+> | [Zusatzspeicher – erst anbieten, wenn die Plattform ihn abbildet (AGB § 6 Abs. 2)] | [Anzahl] × [10] GB | [Preis] € je Monat | [Betrag] € |
 > | White-Label-App (nur Premium): Erstellung | 1 | 1.990 € einmalig | 1.990 € |
 > | White-Label-App: Betrieb und Pflege | 1 | 99 € je Monat | [Betrag] € |
 > | Einrichtung/Schulung [optional] | [Anzahl] Std. | [Preis] € | [Betrag] € |

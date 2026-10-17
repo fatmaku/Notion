@@ -13,8 +13,8 @@ Stand: [Datum]
 
 1. Wir, [Firma des Kunden], nutzen die App [App-Name], damit Sie Ihre Touren melden können und wir sehen, wie weit die Lieferung ist.
 2. Die App speichert Ihren Namen, Ihre Handynummer, Ihre Sprache und welches Fahrzeug Sie fahren.
-3. Wenn Sie auf einen Knopf tippen, zum Beispiel „Aufgeladen“, speichert die App die Uhrzeit und dass Sie es waren.
-4. Ihre Fotos von Lieferscheinen, Ihre Notizen und die Unterschrift des Empfängers zeigen, dass die Ware angekommen ist.
+3. Wenn Sie auf einen Knopf tippen, zum Beispiel „Aufgeladen“, speichert die App die Uhrzeit und dass Sie es waren. Auch ohne Netz zählt die Uhrzeit, zu der Sie getippt haben.
+4. Ihre Fotos von Lieferscheinen, Ihre Notizen und die Unterschrift des Empfängers zeigen, dass die Ware angekommen ist. Ohne Netz bleiben sie auf Ihrem Handy, bis sie gesendet sind. Beim Abmelden löscht die App Ihre Touren vom Handy.
 5. Die App verfolgt Sie nicht ständig. [Den Standort speichert sie nur in dem Moment, in dem Sie auf einen Statusknopf tippen oder ein Problem melden, und nur, wenn Sie in der App „Ja, teilen“ gewählt und den Standort im Handy erlaubt haben.] [Für die Fahrsperre liest die App nur die Geschwindigkeit, auf Ihrem Handy. Ihren Standort speichert und sendet sie dafür nicht.]
 6. Wenn Sie den Standort nicht erlauben, funktioniert die App trotzdem, und es entsteht Ihnen kein Nachteil. Nur die Fahrsperre ist dann aus.
 7. Wir nutzen die Daten nicht, um Ihre Leistung zu bewerten oder Sie zu überwachen[, außer in den Fällen, die in der Betriebsvereinbarung stehen].
@@ -53,15 +53,16 @@ Wir setzen die App [App-Name] (technische Plattform: LADEKLAR) ein, um
 | Datenart | Beispiele | Herkunft |
 |---|---|---|
 | Stammdaten | Name, Handynummer, Sprache, Führerscheinklasse, Rolle, [Personalnummer, interne Notiz der Disposition] | von uns angelegt, aus Ihrem Arbeits- bzw. Subunternehmervertrag |
-| Zugangsdaten | PIN (nur als Hash gespeichert, nicht lesbar), Sitzung (90 Tage, jede Nutzung verlängert sie), Zeitpunkt der letzten Anmeldung | App |
+| Zugangsdaten | PIN (nur als Hash gespeichert, nicht lesbar), Einladungslink (gilt 14 Tage und nur für eine Anmeldung), Sitzung (90 Tage, jede Nutzung verlängert sie), Zeitpunkt der letzten Anmeldung, Zahl der Fehlversuche und eine Sperre nach zu vielen Fehlversuchen | App |
 | Fahrzeug | gewähltes Fahrzeug und Auflieger, Kennzeichen | Ihre Auswahl in der App oder Zuteilung durch die Disposition |
-| Statusmeldungen | Schritt, Uhrzeit, Ihr Name; tippen Sie ohne Netz, speichert der Server die Uhrzeit, zu der die Meldung bei ihm ankommt; setzt die Disposition einen Schritt für Sie (z. B. nach Ihrem Anruf), ist er als Eintrag des Büros gekennzeichnet | Ihr Tippen in der App |
+| Statusmeldungen | Schritt, Uhrzeit, Ihr Name; tippen Sie ohne Netz, speichert der Server die Uhrzeit Ihres Tippens (Uhr Ihres Handys) und zusätzlich, wann die Meldung bei ihm ankam; liegt das Tippen mehr als 72 Stunden zurück, in der Zukunft oder vor dem vorigen Schritt, gilt die Ankunftszeit; setzt die Disposition einen Schritt für Sie (z. B. nach Ihrem Anruf), ist er als Eintrag des Büros gekennzeichnet | Ihr Tippen in der App |
 | Ankunftszeiten [falls eingeschaltet] | „Angekommen Ladestelle/Entladestelle“, berechnete Standzeit | Ihr Tippen in der App |
 | Fotos und Dokumente | Lieferscheine, Frachtbriefe, Fotos von Ware oder Schäden | von Ihnen aufgenommen |
 | Notizen und Problemmeldungen | Freitext, Schnellbausteine, Grund bei Rückgabe einer Tour | von Ihnen eingegeben |
 | Empfängerangaben | Name und Unterschrift des Empfängers | vom Empfänger auf Ihrem Gerät |
 | Standort beim Statuswechsel [falls eingeschaltet] | Koordinaten (auf etwa 1 m gerundet) und Genauigkeit beim Tippen auf einen Statusschritt oder beim Melden eines Problems; Ihre Zustimmung oder Ablehnung mit Zeitpunkt | Ihr Gerät, nur mit Ihrer Erlaubnis |
-| Technische Daten | Push-Abonnement für Benachrichtigungen, Browser-Kennung (User-Agent) Ihrer Sitzung, Protokoll mit Zeitpunkt und IP-Adresse jeder Anmeldung und jedes Fehlversuchs (bei einer unbekannten Handynummer auch die eingegebene Nummer) sowie der Änderungen an Ihrem Zugang | App und Server |
+| Technische Daten | Push-Abonnement für Benachrichtigungen, Browser-Kennung (User-Agent) Ihrer Sitzung, Protokoll mit Zeitpunkt und IP-Adresse jeder Anmeldung und jedes Fehlversuchs (bei einer unbekannten Handynummer auch die eingegebene Nummer) sowie der Änderungen an Ihrem Zugang, eine zufällige Kennung je Meldung, damit nichts doppelt ankommt (7 Tage) | App und Server |
+| Daten auf Ihrem Handy | Kopie Ihrer Kontoangaben und Ihrer zuletzt geladenen Touren (mit Adressen, Ansprechpartnern, Ware, Hinweisen), Ihr Verlauf, Mitteilungen und die Fahrzeugliste, damit die App auch im Funkloch startet; Schritte, Notizen, Fotos und Unterschriften, die noch nicht gesendet sind; eine Liste der Meldungen, die der Server abgelehnt hat („Nicht gesendet“) | App, im Speicher des Browsers (IndexedDB) |
 
 Bitte geben Sie in Notizen keine Gesundheitsangaben oder andere sensible Informationen an, wenn sie für die Lieferung nicht nötig sind. Nach einem Unfall mit Verletzten informieren Sie die Disposition bitte telefonisch.
 
@@ -71,7 +72,7 @@ Bitte geben Sie in Notizen keine Gesundheitsangaben oder andere sensible Informa
 
 (1) **Keine Dauerortung.** Die App erstellt keine Bewegungsprofile und übermittelt Ihren Standort nicht laufend.
 
-(2) **Standort beim Statuswechsel.** Wenn Sie auf einen Statusknopf tippen (z. B. „Buchung bestätigen“, „Aufgeladen“, „Abgeladen“) oder ein Problem melden, fragt die App einmalig den Standort ab und sendet ihn mit dieser Meldung. Das Handy darf dabei eine Position liefern, die bis zu einer Minute alt ist. Zweck ist der Nachweis, wo die Ware übernommen bzw. abgeliefert wurde und wo ein Problem auftrat. Die Disposition sieht den Standort im Verlauf der Lieferung als Link „Standort“; ein Klick öffnet Google Maps mit den Koordinaten. Nach 90 Tagen löscht die Plattform die Koordinaten automatisch.
+(2) **Standort beim Statuswechsel.** Wenn Sie auf einen Statusknopf tippen (z. B. „Buchung bestätigen“, „Aufgeladen“, „Abgeladen“) oder ein Problem melden, fragt die App einmalig den Standort ab und sendet ihn mit dieser Meldung. Das Handy darf dabei eine Position liefern, die bis zu einer Minute alt ist. Zweck ist der Nachweis, wo die Ware übernommen bzw. abgeliefert wurde und wo ein Problem auftrat. Die Disposition sieht den Standort im Verlauf der Lieferung als Link „Standort“; ein Klick öffnet Google Maps mit den Koordinaten. Solange die Koordinaten gespeichert sind, zeigt auch der Abliefernachweis sie je Schritt mit einem Link auf Google Maps. Nach 90 Tagen löscht die Plattform die Koordinaten automatisch.
 
 (3) **Fahrsperre.** Damit Sie die App während der Fahrt nicht bedienen, verdeckt ab etwa 8 km/h ein Hinweis die Knöpfe; etwa 5 Sekunden nach dem Anhalten sind sie wieder da. Dafür liest die App die Geschwindigkeit nur in Ihrem Gerät aus. Diese Positionen werden nicht gespeichert und nicht an uns übermittelt. Die Fahrsperre ist von der Funktion in Abs. 2 unabhängig: Sie braucht nur die Standortfreigabe im Gerät, nicht Ihre Zustimmung zum Speichern. Die App fragt einmal mit einer Erklärung danach; wählen Sie „Später“, fragt sie nach 7 Tagen erneut.
 
@@ -88,7 +89,7 @@ Bitte geben Sie in Notizen keine Gesundheitsangaben oder andere sensible Informa
 | Aufbewahrung von Unterlagen mit Buchungsbezug | Art. 6 Abs. 1 lit. c DSGVO i. V. m. § 147 AO und § 257 HGB |
 | Zugriff auf den Standort Ihres Geräts | § 25 Abs. 1 TDDDG (Einwilligung) |
 | Speicherung des Standorts beim Statuswechsel | Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 26 Abs. 2 BDSG (Einwilligung) |
-| Speicherung von Anmeldung, Sprache und Offline-Warteschlange im Gerät | § 25 Abs. 2 Nr. 2 TDDDG (unbedingt erforderlich) |
+| Speicherung von Anmeldung, Sprache, Kopie der Touren und Offline-Warteschlange im Gerät | § 25 Abs. 2 Nr. 2 TDDDG (unbedingt erforderlich) |
 | Sicherheitsprotokolle | Art. 6 Abs. 1 lit. f DSGVO (Schutz der Systeme) |
 
 Für Fahrer von Subunternehmern gelten anstelle der arbeitsrechtlichen Grundlagen Art. 6 Abs. 1 lit. b und lit. f DSGVO.
@@ -106,7 +107,7 @@ Für Fahrer von Subunternehmern gelten anstelle der arbeitsrechtlichen Grundlage
 ## 8. Wer die Daten erhält
 
 1. **Innerhalb unseres Unternehmens:** Disposition und Unternehmensleitung im Rahmen ihrer Aufgaben; die Buchhaltung für Abrechnungsunterlagen.
-2. **Unsere Auftraggeber und Empfänger:** Den Abliefernachweis (Buchungsdaten, Zeitstempel, Lieferschein-Fotos, Unterschrift) erstellt die Disposition in der App als Druckansicht bzw. PDF und gibt ihn an den Auftraggeber der Lieferung weiter. Darin erscheinen Ihr Name, die Kennzeichen und bei jedem Zeitstempel der Name der Person, die ihn gemeldet hat. Ihr Standort erscheint darin nicht.
+2. **Unsere Auftraggeber und Empfänger:** Den Abliefernachweis (Buchungsdaten, Zeitstempel, Lieferschein-Fotos, Unterschrift) erstellt die Disposition in der App als Druckansicht bzw. PDF und gibt ihn an den Auftraggeber der Lieferung weiter. Darin erscheinen Ihr Name, die Kennzeichen und bei jedem Zeitstempel der Name der Person, die ihn gemeldet hat. [Falls „Standort beim Statuswechsel“ eingeschaltet ist: Hat die Plattform zu einem Schritt einen Standort gespeichert (höchstens 90 Tage), erscheinen auch die Koordinaten mit einem Link auf Google Maps.] [Sonst: Ihr Standort erscheint darin nicht.]
 3. **Technischer Dienstleister:** [Firma] (LADEKLAR) betreibt die Plattform als Auftragsverarbeiter nach Art. 28 DSGVO in Rechenzentren in Deutschland. Die Konsole des Dienstleisters zeigt keine Touren, Namen von Fahrern oder Standorte. Die Plattform hat keinen Support-Modus; eine Freigabe für den Support können nur wir erteilen, sie gilt 24 Stunden und wird protokolliert.
 4. **Push-Dienste:** Benachrichtigungen werden verschlüsselt über den Push-Dienst Ihres Geräts übermittelt (Google, Apple, Mozilla oder Microsoft); dabei können Metadaten in den USA verarbeitet werden. Grundlage: Angemessenheitsbeschluss zum EU-US Data Privacy Framework bzw. Standardvertragsklauseln.
 5. **Behörden und Gerichte,** wenn wir rechtlich dazu verpflichtet sind oder es zur Rechtsverfolgung erforderlich ist, sowie unsere Versicherer bei Schadensfällen.
@@ -117,14 +118,15 @@ Für Fahrer von Subunternehmern gelten anstelle der arbeitsrechtlichen Grundlage
 
 | Daten | Speicherdauer |
 |---|---|
-| Lieferungen mit Statusmeldungen, Notizen, Fotos, Dokumenten, Unterschriften | [3] Jahre (von uns einstellbar: 1 bis 10 Jahre) nach der letzten Änderung der abgeschlossenen oder stornierten Lieferung; dann löscht die Plattform die ganze Lieferung automatisch [; Unterlagen, die wir länger aufbewahren müssen, archivieren wir vorher außerhalb der App] |
+| Lieferungen mit Statusmeldungen, Notizen, Fotos, Dokumenten, Unterschriften | [3] Jahre (von uns einstellbar: 1 bis 10 Jahre) nach der Zustellung bzw. Stornierung; dann löscht die Plattform die ganze Lieferung samt Dateien automatisch [; Unterlagen, die wir länger aufbewahren müssen, archivieren wir vorher außerhalb der App] |
 | Standort beim Statuswechsel | 90 Tage nach der Meldung; danach entfernt die Plattform die Koordinaten automatisch |
-| Ihre Stammdaten nach Ende der Zusammenarbeit | bis wir Ihren Zugang löschen [, spätestens [3] Monate nach Ende der Zusammenarbeit]. Beim Löschen entfernt die Plattform Name, Handynummer, Personalnummer, Führerscheinklasse, Notiz, PIN, Ihre Zustimmung zum Standort und Ihre Benachrichtigungen und beendet alle Anmeldungen. Abgeschlossene Lieferungen bleiben erhalten und zeigen dann „Gelöschter Nutzer“. |
+| Ihre Stammdaten nach Ende der Zusammenarbeit | bis wir Ihren Zugang löschen [, spätestens [3] Monate nach Ende der Zusammenarbeit]. Beim Löschen entfernt die Plattform Name, Handynummer, Personalnummer, Führerscheinklasse, Notiz, PIN, einen offenen Einladungslink, Ihre Zustimmung zum Standort und Ihre Benachrichtigungen und beendet alle Anmeldungen und Push-Abonnements. Abgeschlossene Lieferungen bleiben erhalten und zeigen dann „Gelöschter Nutzer“. |
 | Benachrichtigungen in der App | 90 Tage; es bleiben höchstens die 100 neuesten |
 | Protokoll von Anmeldungen und Änderungen | 3 Jahre; IP-Adressen und eingegebene Handynummern darin 90 Tage |
-| Anmeldung im Gerät (Sitzung) | 90 Tage ab der letzten Nutzung oder bis zur Abmeldung |
-| Offline-Warteschlange im Gerät | bis zur erfolgreichen Übermittlung |
-| Hinweise im Gerät (Sprache, Kopie Ihrer Kontoangaben für den Start ohne Netz, „Später“ bei der Fahrsperre) | bis zur Abmeldung bzw. bis Sie die Browserdaten löschen |
+| Anmeldung im Gerät (Sitzung) | 90 Tage ab der letzten Nutzung oder bis zur Abmeldung; sie endet sofort, wenn wir Ihnen einen neuen PIN geben, Ihren Zugang sperren oder löschen oder unser Zugang zur App gesperrt ist |
+| Offline-Warteschlange im Gerät | bis zur erfolgreichen Übermittlung; endet Ihre Anmeldung vorher (z. B. neuer PIN), bleibt sie auf dem Handy und wird gesendet, sobald Sie sich wieder anmelden; „Abmelden“ ist gesperrt, solange noch etwas wartet |
+| Kopie Ihrer Kontoangaben und Touren im Gerät, Liste „Nicht gesendet“ | bis zur Abmeldung; jedes neue Laden ersetzt die Kopie; endet die Anmeldung ohne Abmelden, bleibt sie bis zur nächsten Anmeldung |
+| Hinweise im Gerät (Sprache, „Später“ bei der Fahrsperre, Schalter für Push-Mitteilungen) | bis Sie sie ändern bzw. die Browserdaten löschen |
 
 ## 10. Ihre Rechte
 

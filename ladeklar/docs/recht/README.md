@@ -67,29 +67,29 @@ Datenschutzrechtliche Rollen: Für Auftrags- und Fahrerdaten ist der **Kunde Ver
 
 ## 4. Anforderungen an die App, die sich aus den Texten ergeben
 
-Die Texte beschreiben einige Funktionen, die in PLAN.md nicht oder nur grob festgelegt sind. Sie sind vor Veröffentlichung umzusetzen oder die Texte anzupassen:
+Die Texte beschreiben einige Funktionen, die in PLAN.md nicht oder nur grob festgelegt sind. Die Spalte „Stand“ gibt den Abgleich mit dem Code vom 17.10.2026 wieder. Offene Punkte sind vor Veröffentlichung umzusetzen oder die Texte anzupassen:
 
-| Anforderung | Grundlage in den Texten |
-|---|---|
-| Statusschritt funktioniert ohne Standortfreigabe; Standortabfrage nur nach Hinweis in der App (Einwilligung) | DATENSCHUTZHINWEISE_FAHRER Ziff. 5, COOKIES_SPEICHER Ziff. 4 |
-| Fahrsperre wertet Positionen nur lokal aus, keine Speicherung/Übertragung | LEISTUNGSBESCHREIBUNG A 2.8, TOM 2.5 |
-| EXIF-/GPS-Metadaten beim Verkleinern der Fotos entfernen | TOM 2.5, BV § 4 Abs. 5 |
-| getrennte Löschfristen (Standort, Benachrichtigungen, deaktivierte Fahrer, Audit-Log) und Ausnahme „Streitfall“; bisher nur `retentionYears` | LEISTUNGSBESCHREIBUNG A 6, TOM 8, BV § 7 |
-| Gerätezeit und Server-Eingangszeit bei Offline-Schritten; Kennzeichnung „offline erfasst“ | LEISTUNGSBESCHREIBUNG A 2.6 |
-| Warnhinweis vor Abmelden bei ungesendeter Warteschlange | LEISTUNGSBESCHREIBUNG A 2.6, NUTZUNGSBEDINGUNGEN Ziff. 6 |
-| Korrekturen nach Ablauf der 2-Minuten-Frist protokolliert, Original bleibt erhalten | LEISTUNGSBESCHREIBUNG A 2.9, TOM 3.2 |
-| Datenschutz-Kurzhinweis am Unterschriftenfeld (vom Kunden hinterlegbar) | LEISTUNGSBESCHREIBUNG A 2.9 Abs. 4 |
-| Einstellung „Fahrer im Abliefernachweis: Name / Vorname / Kürzel“ | DATENSCHUTZHINWEISE_FAHRER Ziff. 8 |
-| Support-Freigabe mit Dauer (Voreinstellung 24 h, max. 7 Tage), nur lesend, Protokoll für den Kunden sichtbar | AVV Anlage 4 |
-| Zwei-Faktor-Authentifizierung für Plattform-Konsole und Support-Modus | TOM 2.2, AVV Anlage 4 |
-| Datenexport auch im Status „Gesperrt“ und „Gekündigt“; Formatdokumentation veröffentlicht | AGB § 14, § 17, Anlage A |
-| Kündigung und Wechselverlangen über die Plattform; Erinnerung vor Verlängerung | AGB § 16 Abs. 2 und 5 |
-| Speicherkontingent: Hinweise bei 80/100 %, Überlauf bis 110 % | LEISTUNGSBESCHREIBUNG A 4 |
-| Push-Inhalte minimal (keine Dokumente, möglichst keine Namen) | LEISTUNGSBESCHREIBUNG A 2.5 |
-| Einladungslinks einmalig und befristet | TOM 2.2 |
-| Opt-out der Referenznennung in den Einstellungen | AGB § 25 |
-| Impressum und Datenschutz von Kunde **und** Anbieter im Info-Menü (White-Label) | IMPRESSUM Ziff. 1 |
-| Schwachstellen-Meldeweg (`security.txt`), CRA-Meldeprozess für Store-Apps | AGB § 24, CHECKLISTE Ziff. 10 |
+| Anforderung | Grundlage in den Texten | Stand 17.10.2026 |
+|---|---|---|
+| Statusschritt funktioniert ohne Standortfreigabe; Standortabfrage nur nach Hinweis in der App (Einwilligung) | DATENSCHUTZHINWEISE_FAHRER Ziff. 5, COOKIES_SPEICHER Ziff. 4 | umgesetzt |
+| Fahrsperre wertet Positionen nur lokal aus, keine Speicherung/Übertragung | LEISTUNGSBESCHREIBUNG A 2.8, TOM 2.5 | umgesetzt |
+| EXIF-/GPS-Metadaten beim Verkleinern der Fotos entfernen | TOM 2.5, BV § 4 Abs. 5 | umgesetzt (PDF unverändert) |
+| getrennte Löschfristen (Standort, Benachrichtigungen, deaktivierte Fahrer, Audit-Log) und Ausnahme „Streitfall“ | LEISTUNGSBESCHREIBUNG A 6, TOM 8, BV § 7 | feste Fristen für Standort, Benachrichtigungen und Audit-Log umgesetzt; Löschfrist ab Zustellung bzw. Storno; offen: automatische Löschung deaktivierter Fahrer, Ausnahme „Streitfall“ |
+| Gerätezeit und Server-Eingangszeit bei Offline-Schritten; Kennzeichnung „offline erfasst“ | LEISTUNGSBESCHREIBUNG A 2.6, TOM 3.2 | beide Zeiten gespeichert; offen: Kennzeichnung in Verlauf und Abliefernachweis |
+| Warnhinweis vor Abmelden bei ungesendeter Warteschlange | LEISTUNGSBESCHREIBUNG A 2.6, NUTZUNGSBEDINGUNGEN Ziff. 6 | umgesetzt (Abmelden gesperrt) |
+| Korrekturen nach Ablauf der 2-Minuten-Frist protokolliert, Original bleibt erhalten | LEISTUNGSBESCHREIBUNG A 2.9, TOM 3.2 | teilweise: geänderte Felder stehen im Verlauf, frühere Werte nicht |
+| Datenschutz-Kurzhinweis am Unterschriftenfeld (vom Kunden hinterlegbar) | LEISTUNGSBESCHREIBUNG A 2.9 Abs. 4 | offen: fester Text |
+| Einstellung „Fahrer im Abliefernachweis: Name / Vorname / Kürzel“ | DATENSCHUTZHINWEISE_FAHRER Ziff. 8 | offen |
+| Support-Freigabe mit Dauer (Voreinstellung 24 h, max. 7 Tage), nur lesend, Protokoll für den Kunden sichtbar | AVV Anlage 4 | Freigabe und Protokoll umgesetzt; offen: Support-Modus |
+| Zwei-Faktor-Authentifizierung für Plattform-Konsole und Support-Modus | TOM 2.2, AVV Anlage 4 | umgesetzt als Option für Lizenzgeber, Admins und Disponenten; offen: Pflicht, verschlüsselter Schlüssel |
+| Datenexport auch im Status „Gesperrt“ und „Gekündigt“; Formatdokumentation veröffentlicht | AGB § 14, § 17, Anlage A | Export umgesetzt (vollständige CSV, ZIP64); offen: Formatdokumentation |
+| Kündigung und Wechselverlangen über die Plattform; Erinnerung vor Verlängerung | AGB § 16 Abs. 2 und 5 | Kündigung und Tarifwunsch in der Plattform umgesetzt; offen: Wechselverlangen, Erinnerung vor Verlängerung |
+| Speicherkontingent: Hinweise bei 80/100 %, Überlauf bis 110 % | LEISTUNGSBESCHREIBUNG A 4 | Kontingent und Hinweise umgesetzt; offen: Überlaufpuffer, Zusatzspeicher |
+| Push-Inhalte minimal (keine Dokumente, möglichst keine Namen) | LEISTUNGSBESCHREIBUNG A 2.5 | keine Dokumente; Namen und Textauszüge enthalten |
+| Einladungslinks einmalig und befristet | TOM 2.2 | umgesetzt (14 Tage) |
+| Opt-out der Referenznennung in den Einstellungen | AGB § 25 | offen |
+| Impressum und Datenschutz von Kunde **und** Anbieter im Info-Menü (White-Label) | IMPRESSUM Ziff. 1 | teilweise: Die Anmeldeseite verlinkt `/legal/impressum`, `/legal/datenschutz` und `/legal/agb` des Anbieters; die HTML-Seiten fehlen noch (Ordner `web/legal/` anlegen); Seiten des Kunden sind nicht vorgesehen |
+| Schwachstellen-Meldeweg (`security.txt`), CRA-Meldeprozess für Store-Apps | AGB § 24, CHECKLISTE Ziff. 10 | `/.well-known/security.txt` umgesetzt (Kontakt aus `SECURITY_CONTACT`); offen: Seite `/legal/sicherheit`, auf die sie verweist; Meldeprozess ist Betrieb |
 
 ## 5. Rechtsentwicklungen, die zu beobachten sind (Stand 16.10.2026)
 

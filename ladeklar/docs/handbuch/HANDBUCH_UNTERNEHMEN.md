@@ -1,6 +1,6 @@
 # Ladeklar – Handbuch für Unternehmen
 
-Für Inhaber, Unternehmens-Admins und Disponenten · Stand 16.10.2026 · Ladeklar Version 1.0
+Für Inhaber, Unternehmens-Admins und Disponenten · Stand 17.10.2026 · Ladeklar Version 1.0
 
 Die Bildschirmfotos zeigen die Beispielfirma „Kaya Logistik“. In Ihrer App sehen Sie stattdessen Ihr eigenes Logo, Ihre Farbe und Ihren App-Namen.
 
@@ -34,9 +34,11 @@ Ladeklar nimmt Ihrer Disposition die Telefonate ab, mit denen Sie bisher hinter 
 
 | Rolle | Darf | Sieht in den Einstellungen |
 |---|---|---|
-| **Admin** (Inhaber, Leitung) | alles im eigenen Unternehmen: Lieferungen, Fahrer, Fahrzeuge, Berichte, Logo und Farbe, Abläufe, Büro-Zugänge anlegen und bearbeiten, Personen löschen, Datenexport, Support-Freigabe, API | alle Reiter |
+| **Admin** (Inhaber, Leitung) | alles im eigenen Unternehmen: Lieferungen, Fahrer, Fahrzeuge, Berichte, Logo und Farbe, Abläufe, Büro-Zugänge anlegen und bearbeiten, Personen löschen, Datenexport, Support-Freigabe, API, Tarifwechsel und Kündigung beim Anbieter anfragen | alle Reiter |
 | **Disponent** | Lieferungen anlegen, ändern, zuweisen und stornieren; Schritte für Fahrer setzen; Fahrer anlegen, bearbeiten, sperren und neue PIN vergeben; Fahrzeuge anlegen, bearbeiten, freigeben und entfernen; Berichte (auch als CSV); Lieferungen als CSV herunterladen | nur „Mein Konto“ und „Berichte“ |
 | **Fahrer** | eigene Touren und freie Aufträge sehen, Schritte bestätigen, Lieferschein fotografieren, Notizen und Probleme melden | – (eigene Fahrer-App, siehe [Fahrer-Kurzanleitung](FAHRER_KURZANLEITUNG.md)) |
+
+Jeder Büro-Zugang kann sich zusätzlich mit einem Code vom Handy schützen (Zwei-Faktor-Anmeldung, siehe [Mein Konto](#mein-konto)).
 
 Ihre Daten sind von allen anderen Unternehmen auf der Plattform getrennt. Auch der Anbieter von Ladeklar sieht Ihre Lieferungen, Lieferscheine und Fahrerdaten nicht.
 
@@ -65,9 +67,11 @@ Arbeiten Sie diese Liste einmal von oben nach unten ab. Danach kann die erste To
 
 > **Wichtig:** Mit dem Startpasswort kommen Sie nur bis zu diesem Bildschirm. Ladeklar lässt alles andere erst zu, wenn Sie ein eigenes Passwort vergeben haben. Das gilt für jeden Büro-Zugang mit Startpasswort: beim ersten Anmelden und nach jedem neuen Startpasswort (**Team → Neues Passwort** oder vom Anbieter). Mit **Abmelden** verlassen Sie den Bildschirm, ohne etwas zu ändern.
 
-Später ändern Sie Ihr Passwort unter **Einstellungen → Mein Konto**.
+Später ändern Sie Ihr Passwort unter **Einstellungen → Mein Konto**. Dort schalten Sie auch die **Zwei-Faktor-Anmeldung** ein. Das empfehlen wir für jeden Admin (siehe [Mein Konto](#mein-konto)).
 
-> **Tipp:** Nach fünf falschen Passwörtern ist der Zugang für 15 Minuten gesperrt. Im Büro bleiben Sie 14 Tage angemeldet, solange Sie die App regelmäßig nutzen. Jede Anmeldung und jeder Fehlversuch für einen Ihrer Zugänge steht mit IP-Adresse im Protokoll Ihres Unternehmens (siehe [Daten & Datenschutz](#daten--datenschutz)).
+Ist die Zwei-Faktor-Anmeldung an, erscheint nach E-Mail und Passwort das Feld **Code aus der Authenticator-App**. Tippen Sie den 6-stelligen Code aus der App ein und klicken Sie noch einmal auf **Anmelden**. Ihr Passwort bleibt dabei im Feld stehen.
+
+> **Tipp:** Nach fünf falschen Versuchen ist der Zugang für 15 Minuten gesperrt, nach zehn für eine Stunde, ab fünfzehn für 24 Stunden. Ein falscher Code zählt mit. Bei der 24-Stunden-Sperre bekommen die anderen Admins und Disponenten Ihres Unternehmens die Mitteilung „Zugang gesperrt: …“. Ein neues Passwort (**Team → Neues Passwort**) hebt jede Sperre sofort auf. Im Büro bleiben Sie 14 Tage angemeldet, solange Sie die App regelmäßig nutzen. Jede Anmeldung und jeder Fehlversuch für einen Ihrer Zugänge steht mit IP-Adresse im Protokoll Ihres Unternehmens (siehe [Daten & Datenschutz](#daten--datenschutz)).
 
 ### Schritt 2: Logo und Farbe
 
@@ -99,18 +103,18 @@ Mehr dazu in [Abschnitt 10](#10-der-fahrzeug-pool).
 3. Klicken Sie auf **Anlegen & PIN erzeugen**.
 4. Schicken Sie die Einladung mit **WhatsApp** oder **SMS** – oder lassen Sie den Fahrer den QR-Code mit der Handy-Kamera scannen.
 
-Mehr dazu in [Abschnitt 9](#9-fahrer-verwalten).
+Der Link in der Einladung gilt 14 Tage und nur für eine Anmeldung. Mehr dazu in [Abschnitt 9](#9-fahrer-verwalten).
 
 ### Schritt 6: Erste Lieferung
 
 1. Klicken Sie oben rechts auf **Neue Lieferung**.
 2. Tragen Sie Lade- und Entladeort (jeweils **Stadt**) und das Ladedatum ein.
-3. Wählen Sie einen **Fahrer** oder lassen Sie „— offen für alle Fahrer —“ stehen.
+3. Wählen Sie einen **Fahrer** oder lassen Sie „— offen für alle Fahrer —“ stehen. Dürfen Ihre Fahrer keine offenen Aufträge übernehmen, heißt diese Auswahl „— wartet auf Zuweisung —“.
 4. Klicken Sie auf **Lieferung anlegen**.
 
 Haben Sie einen Fahrer gewählt, bekommt er sofort eine Mitteilung. Mehr dazu in [Abschnitt 4](#4-lieferungen-anlegen-zuweisen-und-pflegen).
 
-> **Tipp:** Schalten Sie auf der Live-Übersicht die Push-Mitteilungen ein (Hinweis „Push-Mitteilungen einschalten …“ → **Einschalten**). Dann hören Sie es, wenn der Fahrer bestätigt.
+> **Tipp:** Schalten Sie die Push-Mitteilungen ein: auf der Live-Übersicht über den Hinweis „Push-Mitteilungen einschalten …“ → **Einschalten** oder unter **Einstellungen → Mein Konto** mit dem Schalter **Push-Mitteilungen in diesem Browser**. Dann hören Sie es, wenn der Fahrer bestätigt.
 
 ---
 
@@ -125,8 +129,8 @@ Nach der Anmeldung landen Sie auf **Live**. Hier sehen Sie auf einen Blick, was 
 | Kachel | Zählt | Ein Klick öffnet |
 |---|---|---|
 | **Offen** | alle Lieferungen, die noch kein Fahrer bestätigt hat | Lieferungen, Reiter „Offen“ |
-| **Unterwegs** | alle bestätigten, noch nicht zugestellten Touren | Lieferungen, Reiter „Live“ |
-| **Heute zugestellt** | heute abgeschlossene Lieferungen | Lieferungen, Reiter „Erledigt“ |
+| **Unterwegs** | alle laufenden Touren: bestätigt und noch nicht zugestellt. Eine bestätigte Tour mit späterem Ladedatum zählt erst ab ihrem Ladetag; bis dahin steht sie unter „Geplant“. | Lieferungen, Reiter „Live“ |
+| **Heute zugestellt** | Lieferungen, die heute zugestellt wurden (Zeitpunkt von „Bestätigen & abschließen“) | Lieferungen, Reiter „Erledigt“ |
 | **Störungen** | gemeldete Probleme, die noch niemand als erledigt markiert hat | Lieferungen, Reiter „Störungen“ |
 
 Sobald es eine Störung gibt, ist die Kachel „Störungen“ rot umrandet.
@@ -145,7 +149,7 @@ Ein Klick auf die Karte öffnet die Lieferung mit allen Details. Darunter folgt 
 
 ### Live-Ticker
 
-Rechts läuft der **Live-Ticker**: jede Meldung der letzten drei Tage mit Uhrzeit, Ereignis (z. B. „Aufgeladen“, „Dokument hochgeladen“, „Notiz“), Person und Route. Ein Klick auf die Route öffnet die Lieferung.
+Rechts läuft der **Live-Ticker**: die jüngsten Meldungen der letzten drei Tage mit Uhrzeit, Ereignis (z. B. „Aufgeladen“, „Dokument hochgeladen“, „Notiz“), Person und Route. Ein Klick auf die Route öffnet die Lieferung. Schritte, die ein Fahrer ohne Netz getippt hat, erscheinen erst, wenn sein Handy sie nachsendet – mit der Uhrzeit des Tipps.
 
 ### Fuhrpark und Fristen
 
@@ -180,10 +184,10 @@ Unter **Lieferungen** finden Sie Gegenwart, Zukunft und Vergangenheit an einem O
 | **Geplant** | offene oder bestätigte Lieferungen mit Ladedatum in der Zukunft |
 | **Offen** | alle Lieferungen, die noch kein Fahrer bestätigt hat |
 | **Störungen** | Lieferungen mit gemeldetem, noch nicht erledigtem Problem |
-| **Erledigt** | zugestellte und stornierte Lieferungen, neueste zuerst, als Tabelle |
-| **Alle** | alle Lieferungen als Tabelle |
+| **Erledigt** | zugestellte und stornierte Lieferungen als Tabelle, nach Ladedatum sortiert, neueste zuerst |
+| **Alle** | alle Lieferungen als Tabelle, nach Ladedatum sortiert, neueste zuerst |
 
-Rechts daneben können Sie **suchen** (Buchungsnummer, Auftraggeber, Referenz, Ort, Straße, Fahrer, Kennzeichen, Ware) und mit **Alle Fahrer** auf einen Fahrer filtern. **CSV** lädt die Lieferungen als Tabelle herunter (siehe [Abschnitt 14](#14-datenexport-und-anbieterwechsel)).
+Rechts daneben können Sie **suchen** (Buchungsnummer, Auftraggeber, Referenz, Ort, Straße, Fahrer, Kennzeichen, Ware) und mit **Alle Fahrer** auf einen Fahrer filtern. Die Treffer einer Suche stehen im Reiter **Alle**, neueste zuerst. Je Ansicht zeigt Ladeklar höchstens 300 Lieferungen. **CSV** lädt dagegen alle Lieferungen als Tabelle herunter (siehe [Abschnitt 14](#14-datenexport-und-anbieterwechsel)).
 
 In den Reitern Live, Geplant, Offen und Störungen stehen Lieferungen mit Störung zuerst, dann eilige, dann nach Ladetermin.
 
@@ -218,10 +222,12 @@ Danach öffnet sich die neue Lieferung.
 
 - **Land:** zur Auswahl stehen DE, AT, CH, NL, BE, FR, PL, CZ, IT, DK, LU, ES, RO und HU.
 - **Entladedatum:** darf nicht vor dem Ladedatum liegen.
+- **Uhrzeiten:** „bis“ darf nicht vor „von“ liegen. Am selben Tag darf die Entladezeit nicht vor der Ladezeit liegen. Sonst nennt Ladeklar das Problem, z. B. „Ladestelle: Die Uhrzeit „bis“ liegt vor „von“.“
+- **Paletten** 0 bis 66, **Gewicht** 0 bis 60.000 kg.
 - **Telefon vor Ort:** Diese Nummer wählt der Fahrer mit dem Knopf „Anrufen“, solange er zu dieser Stelle unterwegs ist. Ohne Nummer ruft „Anrufen“ die Disposition an.
 - **Hinweise für den Fahrer** erscheinen groß auf seiner Tour-Karte (z. B. „Gate B anmelden, Rampe 12“).
 - **Eilig** markiert die Lieferung rot; die Mitteilung an den Fahrer kommt mit hoher Priorität.
-- **LKW (optional):** Steht hier „Fahrer wählt selbst“, übernimmt die Lieferung das Fahrzeug, das der Fahrer in seiner App gewählt hat.
+- **LKW (optional):** Steht hier „Fahrer wählt selbst“, übernimmt die Lieferung das Fahrzeug, das der Fahrer in seiner App gewählt hat. Ist **Fahrer wählen ihr Fahrzeug selbst** an, gilt beim Bestätigen immer das Fahrzeug, das der Fahrer gewählt hat – auch wenn Sie hier eines eingetragen haben. Hat er keines gewählt, bleibt Ihres.
 
 **Die Buchungsnummer** vergibt Ladeklar automatisch: Präfix – Jahr und Monat – laufende Nummer, z. B. `KAY-2610-0019` (Präfix KAY, Oktober 2026, 19. Lieferung im Oktober). Die laufende Nummer beginnt jeden Monat wieder bei `0001`. Jede Buchungsnummer gibt es in Ihrem Unternehmen nur einmal. Das Präfix stellen Sie unter **Einstellungen → Abläufe** ein.
 
@@ -238,21 +244,24 @@ Sie haben zwei Wege:
 
 ![Fahrer-App, Reiter „Aufträge“: unter „Freie Aufträge“ offene Touren wie „Sindelfingen → Leipzig, Heute 16:00–18:00 · 28 Pal.“ mit dem Knopf „Auftrag übernehmen“](img/fahrer-13-auftraege.png)
 
-> **Wichtig:** „Offen für alle“ funktioniert nur, wenn unter **Einstellungen → Abläufe** der Schalter **Fahrer dürfen offene Aufträge übernehmen** an ist. Ist er aus, sehen die Fahrer offene Aufträge nicht und bekommen keine Mitteilung. Die Lieferung wartet dann im Büro, bis Sie sie zuweisen – auch wenn ihre Karte „offen für alle Fahrer“ zeigt.
+> **Wichtig:** „Offen für alle“ gibt es nur, wenn unter **Einstellungen → Abläufe** der Schalter **Fahrer dürfen offene Aufträge übernehmen** an ist. Ist er aus, heißt die erste Auswahl im Feld **Fahrer** „— wartet auf Zuweisung —“. Die Fahrer sehen die Lieferung dann nicht und bekommen keine Mitteilung. Sie wartet im Büro, bis Sie sie zuweisen; ihre Karte zeigt „wartet auf Zuweisung“.
 
 Später ändern Sie die Zuweisung in der geöffneten Lieferung im Bereich **Zuweisung**:
 
 ![Gerade angelegte Lieferung Stuttgart → Hamburg mit Status „Offen“, Hinweis „offen für alle Fahrer“ und dem Bereich „Zuweisung“ mit Fahrer, LKW, Auflieger und dem Kästchen „Offen für alle Fahrer (jeder kann übernehmen)“](img/buero-10-lieferung-angelegt.png)
 
 1. Wählen Sie **Fahrer**, **LKW** und **Auflieger**.
-2. Solange die Lieferung offen ist und keinen Fahrer hat, können Sie **Offen für alle Fahrer (jeder kann übernehmen)** an- oder abhaken. Ohne Haken bleibt die Lieferung im Büro, bis Sie sie zuweisen.
-3. Klicken Sie auf **Zuweisung speichern**.
+2. Solange die Lieferung offen ist und keinen Fahrer hat, können Sie **Offen für alle Fahrer (jeder kann übernehmen)** an- oder abhaken. Das Kästchen erscheint nur, wenn Fahrer offene Aufträge übernehmen dürfen. Ohne Haken bleibt die Lieferung im Büro, bis Sie sie zuweisen.
+3. Klicken Sie auf **Zuweisung speichern**. Haben Sie nichts geändert, erscheint „Nichts geändert.“
 
-Regeln beim Fahrerwechsel:
+#### Regeln beim Fahrerwechsel
 
-- Nach dem Beladen kann der Fahrer nicht mehr gewechselt werden.
-- Wechseln Sie den Fahrer einer Tour mit Status „Bestätigt“, wird sie wieder „Offen“; der neue Fahrer muss sie bestätigen. Steht die Tour schon auf „An Ladestelle“, behält sie diesen Status, und der neue Fahrer macht dort weiter.
-- Der bisherige Fahrer bekommt die Mitteilung „Auftrag storniert“.
+- Nach dem Beladen kann der Fahrer nicht mehr gewechselt werden. Das Feld **Fahrer** ist dann gesperrt.
+- Wechseln Sie den Fahrer einer Tour mit Status „Bestätigt“ oder „An Ladestelle“, wird sie wieder „Offen“. Der neue Fahrer muss sie selbst bestätigen.
+- LKW und Auflieger, die die Tour vom bisherigen Fahrer übernommen hat, werden aus der Tour entfernt. Ein Fahrzeug, das Sie selbst eingetragen haben, bleibt. Wählen Ihre Fahrer ihr Fahrzeug selbst, gilt beim Bestätigen das Fahrzeug des neuen Fahrers.
+- Die „Angekommen“-Zeiten des bisherigen Fahrers zählen nicht mehr für die Standzeit. Im Verlauf bleiben sie stehen.
+- Der bisherige Fahrer bekommt die Mitteilung „Auftrag storniert“, der neue „Neuer Auftrag …“.
+- Dieselben Regeln gelten, wenn ein Fahrer die Tour zurückgibt, seine Bestätigung mit **Rückgängig** zurücknimmt oder sein Zugang gelöscht wird.
 
 ### Wiederholen – Stammrouten in Sekunden
 
@@ -263,7 +272,7 @@ Regeln beim Fahrerwechsel:
 
 ### Bearbeiten
 
-Klicken Sie in der Lieferung auf **Bearbeiten**, ändern Sie die Felder und klicken Sie auf **Speichern**. Hat die Lieferung einen Fahrer, bekommt er bei jedem Speichern die Mitteilung „Auftrag geändert“.
+Klicken Sie in der Lieferung auf **Bearbeiten**, ändern Sie die Felder und klicken Sie auf **Speichern**. Hat die Lieferung einen Fahrer, bekommt er die Mitteilung „Auftrag geändert“ – aber nur, wenn sich etwas ändert, das er braucht: Lade- oder Entladestelle mit Datum und Uhrzeit, Ware, Hinweise für den Fahrer, LKW, Auflieger oder „Eilig“. Ändern Sie nur Auftraggeber, Referenz oder interne Notiz, bekommt er keine Mitteilung. Die Zuweisung ändert sich beim Bearbeiten nur, wenn Sie Fahrer, LKW oder Auflieger selbst umstellen.
 
 Grenzen:
 
@@ -278,7 +287,7 @@ Bei zugestellten und stornierten Lieferungen heißt der Knopf unten rechts **Nac
 2. Ändern Sie **Auftraggeber**, **Referenz des Kunden** oder **Interne Notiz (sieht der Fahrer nicht)**. Mehr Felder hat das Formular nicht: Orte, Ware, Fahrer und Zeitstempel bleiben, wie sie sind – sie sind der Nachweis der Fahrt.
 3. Klicken Sie auf **Speichern**. Der Fahrer bekommt keine Mitteilung.
 
-> **Wichtig:** Nachbearbeiten und jedes Dokument, das Sie später hinzufügen, gelten als letzte Änderung der Lieferung. Ab dann zählt die Lieferung in den Berichten im Monat dieser Änderung und am Änderungstag unter „Heute zugestellt“, und die CSV-Spalte „Zugestellt am“ zeigt diesen Zeitpunkt. Auch die Aufbewahrungsfrist zählt ab dieser Änderung. Den echten Zeitpunkt der Zustellung finden Sie weiter im Verlauf und im Abliefernachweis.
+> **Gut zu wissen:** Nachbearbeiten und Dokumente, die Sie später hinzufügen, ändern den Zeitpunkt der Zustellung nicht. Die Berichte, die Kachel „Heute zugestellt“, die CSV-Spalte „Zugestellt am“ und die Aufbewahrungsfrist richten sich immer nach der Zustellung – bei stornierten Lieferungen nach der Stornierung.
 
 ### Stornieren
 
@@ -286,7 +295,7 @@ Bei zugestellten und stornierten Lieferungen heißt der Knopf unten rechts **Nac
 2. Tragen Sie einen **Grund (geht an den Fahrer)** ein, z. B. „Kunde hat verschoben“.
 3. Klicken Sie auf **Stornieren**.
 
-Der Fahrer bekommt sofort eine dringende Mitteilung. Die Lieferung steht danach mit Status „Storniert“ unter **Erledigt**. Eine Stornierung lässt sich nicht zurücknehmen – legen Sie die Tour bei Bedarf mit **Wiederholen** neu an. Bereits abgeschlossene Lieferungen können nicht storniert werden.
+Der Fahrer bekommt sofort eine dringende Mitteilung „Auftrag storniert“ mit dem Grund. Die Lieferung steht danach mit Status „Storniert“ unter **Erledigt**. Eine Stornierung lässt sich nicht zurücknehmen – legen Sie die Tour bei Bedarf mit **Wiederholen** neu an. Bereits abgeschlossene Lieferungen können nicht storniert werden.
 
 ---
 
@@ -316,17 +325,21 @@ Der Fahrer sieht immer nur den nächsten Schritt als großen Knopf. Er kann kein
 
 ### Zeitstempel
 
-Unter jedem erledigten Schritt der Fortschrittsleiste steht die Uhrzeit. Alle Zeiten sind deutsche Zeit (Europe/Berlin). Als Zeitstempel gilt der Moment, in dem der Schritt bei Ladeklar ankommt – bei Schritten ohne Netz also der Moment, in dem das Handy sie nachsendet (siehe [Abschluss ohne Netz](#abschluss-ohne-netz)).
+Unter jedem erledigten Schritt der Fortschrittsleiste steht die Uhrzeit. Alle Zeiten sind deutsche Zeit (Europe/Berlin). Als Zeitstempel gilt der Moment, in dem der Fahrer tippt – auch wenn er ohne Netz getippt hat und das Handy den Schritt erst später nachsendet (siehe [Abschluss ohne Netz](#abschluss-ohne-netz)).
+
+Ladeklar nimmt dafür die Uhrzeit des Handys, wenn sie plausibel ist: höchstens 72 Stunden alt, höchstens 2 Minuten in der Zukunft und nicht vor dem vorigen Schritt oder der letzten Zuweisung der Tour. Sonst gilt der Moment, in dem der Schritt bei Ladeklar ankommt. Kommt ein Schritt später an, als er getippt wurde, speichert Ladeklar den Eingang zusätzlich; er steht im Datenexport (JSON).
 
 ### Der Verlauf
 
 In jeder geöffneten Lieferung steht rechts unten der **Verlauf** – ein Zeitstrahl mit allem, was passiert ist, neueste Meldung oben:
 
 - Uhrzeit und Tag
-- was passiert ist (z. B. „Lieferung angelegt“, „Fahrer zugewiesen“, „Buchung bestätigt“, „Aufgeladen“, „Dokument hochgeladen“, „Dokument entfernt“, „Notiz“, „Problem gemeldet“, „Problem erledigt“, „Geändert“, „Fahrzeug gesetzt“, „Zurückgegeben“, „Storniert“, „Schritt zurückgenommen“, „Fahrer entfernt (Zugang gelöscht)“)
+- was passiert ist (z. B. „Lieferung angelegt“, „Fahrer zugewiesen“, „Buchung bestätigt“, „Aufgeladen“, „Zugestellt – Lieferschein bestätigt“ bzw. „Zugestellt – ohne Lieferschein“, „Dokument hochgeladen“, „Dokument entfernt“, „Notiz“, „Problem gemeldet“, „Problem erledigt“, „Geändert“, „Fahrzeug gesetzt“, „Zurückgegeben“, „Storniert“, „Schritt zurückgenommen“, „Fahrer entfernt (Zugang gelöscht)“)
 - wer es getan hat; Aktionen aus dem Büro sind mit „Büro“ gekennzeichnet
 - Details, z. B. der Palettentausch beim Abladen oder die Art des Dokuments
 - einen Link **Standort**, wenn der Standort beim Tipp gespeichert wurde (nur mit Einwilligung des Fahrers, siehe [Abschnitt 12](#datenschutz-standort-und-auswertungen-je-fahrer))
+
+Ein Schritt, der ohne Netz getippt und später gesendet wurde, steht im Verlauf an der Stelle seiner Uhrzeit.
 
 ### Rückgängig (2 Minuten)
 
@@ -334,17 +347,17 @@ Hat sich ein Fahrer vertippt, kann er seinen eigenen letzten Schritt 2 Minuten l
 
 ![Fahrer-App nach „Buchung bestätigen“: in der Fortschrittsleiste ist „Bestätigt“ um 00:33 erledigt, der nächste Knopf heißt „Angekommen – Ladestelle“, unten die Leiste „Bestätigt · 00:33“ mit dem Knopf „Rückgängig“](img/fahrer-06-tour-mit-rueckgaengig.png)
 
-Sie bekommen dann die Mitteilung „Schritt zurückgenommen“. Im Verlauf bleibt der zurückgenommene Schritt sichtbar, ausgegraut, mit dem Eintrag „Schritt zurückgenommen – wieder „…““. Nimmt ein Fahrer „Auftrag übernehmen“ bei einem offenen Auftrag zurück, ist die Tour wieder für alle frei.
+Sie bekommen dann die Mitteilung „Schritt zurückgenommen“. Im Verlauf bleibt der zurückgenommene Schritt sichtbar, ausgegraut, mit dem Eintrag „Schritt zurückgenommen – wieder „…““. Nimmt ein Fahrer „Auftrag übernehmen“ bei einem offenen Auftrag zurück, ist die Tour wieder für alle frei. Nimmt er „Buchung bestätigen“ zurück, gelten die [Regeln beim Fahrerwechsel](#regeln-beim-fahrerwechsel) für LKW, Auflieger und Ankunftszeiten.
 
-Für Schritte, die der Fahrer ohne Netz getippt hat, bietet die App kein **Rückgängig** an.
+**Rückgängig** gibt es nur mit Netz. Ohne Netz blendet die App die Leiste aus, und für Schritte, die ohne Netz getippt wurden, bietet sie **Rückgängig** gar nicht an. Bricht die Verbindung beim Tippen auf **Rückgängig** ab, sieht der Fahrer „Rückgängig geht nur mit Netz.“ Die 2 Minuten zählen ab dem Tipp des Schritts.
 
 ### Zurückgegeben
 
-Solange noch nicht geladen ist (Status „Bestätigt“ oder „An Ladestelle“), kann der Fahrer eine Tour mit Grund zurückgeben, z. B. „krank, LKW defekt, Lenkzeit erreicht“. Sie bekommen eine dringende Mitteilung „Auftrag zurückgegeben“. Die Lieferung ist danach wieder **Offen**, ohne Fahrer und **nicht** für alle freigegeben – bitte weisen Sie sie neu zu (siehe [Zuweisen](#zuweisen-oder-offen-für-alle)). Nach dem Beladen kann der Fahrer nicht mehr zurückgeben; er ruft dann die Disposition an. Zum Zurückgeben braucht der Fahrer Netz.
+Solange noch nicht geladen ist (Status „Bestätigt“ oder „An Ladestelle“), kann der Fahrer eine Tour mit Grund zurückgeben, z. B. „krank, LKW defekt, Lenkzeit erreicht“. Sie bekommen eine dringende Mitteilung „Auftrag zurückgegeben“. Die Lieferung ist danach wieder **Offen**, ohne Fahrer und **nicht** für alle freigegeben – bitte weisen Sie sie neu zu (siehe [Zuweisen](#zuweisen-oder-offen-für-alle) und [Regeln beim Fahrerwechsel](#regeln-beim-fahrerwechsel)). Nach dem Beladen kann der Fahrer nicht mehr zurückgeben; er ruft dann die Disposition an. Zum Zurückgeben braucht der Fahrer Netz.
 
 ### Standzeit
 
-Mit Ankunft-Erfassung berechnet Ladeklar die **Standzeit**: die Minuten von „Angekommen – Ladestelle“ bis „Aufgeladen“ plus von „Angekommen – Entladestelle“ bis „Abgeladen“. Sie steht in der Lieferung („Standzeit 30 Min.“), in der Tabelle unter **Erledigt**, im Abliefernachweis und in den Berichten – die Grundlage für Standgeld-Rechnungen. Auch der Fahrer sieht sie: In seiner App unter **Verlauf** stehen seine abgeschlossenen Touren der letzten 30 Tage mit Standzeit.
+Mit Ankunft-Erfassung berechnet Ladeklar die **Standzeit**: die Minuten von „Angekommen – Ladestelle“ bis „Aufgeladen“ plus von „Angekommen – Entladestelle“ bis „Abgeladen“. Es zählen die Uhrzeiten der Tipps, auch bei Schritten ohne Netz. „Angekommen“-Zeiten eines früheren Fahrers zählen nicht. Sie steht in der Lieferung („Standzeit 30 Min.“), in der Tabelle unter **Erledigt**, im Abliefernachweis und in den Berichten – die Grundlage für Standgeld-Rechnungen. Auch der Fahrer sieht sie: In seiner App unter **Verlauf** stehen seine abgeschlossenen Touren der letzten 30 Tage mit Standzeit.
 
 ![Fahrer-App, Reiter „Verlauf – letzte 30 Tage“: drei zugestellte Touren mit Buchungsnummer, Uhrzeit und Standzeit](img/fahrer-14-verlauf.png)
 
@@ -360,44 +373,49 @@ Nach „Abgeladen“ öffnet der Fahrer mit dem nächsten Knopf den Bildschirm *
 
 1. **1 · Lieferschein:** Der Fahrer fotografiert den Lieferschein. Mehrseitige Lieferscheine fotografiert er Seite für Seite (**Weitere Seite**). Er kann auch eine PDF-Datei wählen. Fotos werden vor dem Senden automatisch verkleinert, damit sie auch im Ausland mit wenig Datenvolumen schnell ankommen.
 2. **2 · Empfänger:** Name des Empfängers (freiwillig) und – wenn verlangt oder gewünscht – die **Unterschrift** auf dem Display.
-3. **Bestätigen & abschließen:** Die Lieferung ist zugestellt; Sie bekommen die Mitteilung „Zugestellt · … Lieferschein liegt vor“.
+3. **Bestätigen & abschließen:** Die Lieferung ist zugestellt; Sie bekommen die Mitteilung „Zugestellt · … Lieferschein liegt vor“. Schließt der Fahrer ohne Lieferschein-Foto ab (nur möglich, wenn das Foto keine Pflicht ist), lautet sie „Zugestellt · … ohne Lieferschein“.
 
-Ist **Lieferschein-Foto ist Pflicht** eingeschaltet, kann der Fahrer erst abschließen, wenn mindestens ein Foto da ist. Ist **Unterschrift des Empfängers verlangen** eingeschaltet, geht es erst mit Unterschrift.
+Ist **Lieferschein-Foto ist Pflicht** eingeschaltet, kann der Fahrer erst abschließen, wenn mindestens ein Foto da ist. Ist **Unterschrift des Empfängers verlangen** eingeschaltet, bleibt **Bestätigen & abschließen** gesperrt, bis der Empfänger unterschrieben hat. Die App zeigt dann „Bitte den Empfänger unterschreiben lassen.“ Beides gilt auch ohne Netz.
 
 ### Abschluss ohne Netz
 
 Hat der Fahrer an der Rampe kein Netz, arbeitet er trotzdem bis zum Ende weiter. Oben in seiner App steht dann „Offline – Ihre Schritte werden gespeichert und automatisch gesendet.“
 
+- **Auch nach einem Neustart:** Die App öffnet sich auch im Funkloch, wenn der Fahrer sie auf diesem Handy schon einmal mit Netz benutzt hat. Sie zeigt seine Touren mit dem Stand, den das Handy zuletzt hatte. Hat das Handy noch keine Daten, steht dort „Keine Verbindung. Die Touren erscheinen, sobald wieder Netz da ist.“
 - Schritte (auch „Abgeladen“ mit Palettentausch), Lieferschein-Fotos, die Unterschrift, Notizen und Problemmeldungen mit Foto speichert das Handy und sendet sie später.
-- Die App zeigt sofort den nächsten Schritt und den Bildschirm **Abschluss** – aus den Daten, die das Handy schon hat. Ein gespeichertes Lieferschein-Foto zählt für die Lieferschein-Pflicht mit. Nach dem Abschluss steht dort „Gespeichert – wird gesendet, sobald Netz da ist“.
-- Sobald wieder Netz da ist, sendet die App alles in der Reihenfolge, in der der Fahrer getippt hat: zuerst Fotos und Unterschrift, dann „Bestätigen & abschließen“. Erst dann sehen Sie die Schritte im Büro und bekommen die Mitteilungen.
-- Als Uhrzeit gilt der Moment, in dem ein Schritt bei Ladeklar ankommt – nicht der Moment des Tippens.
-- **Rückgängig** gibt es für Schritte ohne Netz nicht.
-- Lehnt Ladeklar einen gespeicherten Schritt ab – zum Beispiel, weil Sie ihn inzwischen mit **Für Fahrer setzen** gesetzt haben –, sieht der Fahrer „Ein gespeicherter Schritt wurde abgelehnt: …“.
-- Abmelden kann sich der Fahrer erst, wenn alles gesendet ist. Unter **Mehr** steht bis dahin „… Schritt(e) sind noch nicht gesendet. Bitte erst mit Netz abmelden.“
-- **Zurückgeben** sowie Fahrzeug wählen oder abgeben brauchen Netz.
+- Die App zeigt sofort den nächsten Schritt und den Bildschirm **Abschluss** – aus den Daten, die das Handy schon hat. Ein gespeichertes Lieferschein-Foto zählt für die Lieferschein-Pflicht mit. Eine verlangte Unterschrift muss auch ohne Netz da sein. Nach dem Abschluss steht dort „Gespeichert – wird gesendet, sobald Netz da ist“.
+- **Reihenfolge:** Sobald wieder Netz da ist, sendet die App alles in der Reihenfolge, in der der Fahrer getippt hat: zuerst Fotos und Unterschrift, dann „Bestätigen & abschließen“. Neue Schritte stellen sich hinten an. Solange noch etwas wartet, steht oben „… Schritt(e) werden gesendet …“. Erst wenn ein Schritt angekommen ist, sehen Sie ihn im Büro und bekommen die Mitteilung.
+- **Uhrzeit:** Es zählt der Moment des Tippens, nicht der Moment des Sendens (siehe [Zeitstempel](#zeitstempel)). So stimmen auch Standzeit und Pünktlichkeit.
+- **Nichts doppelt:** Geht eine Antwort unterwegs verloren, sendet das Handy den Schritt oder das Foto noch einmal. Ladeklar erkennt die Wiederholung und speichert alles nur einmal.
+- **Rückgängig** gibt es nur mit Netz.
+- **Abgelehnt:** Lehnt Ladeklar einen gespeicherten Schritt ab – zum Beispiel, weil Sie ihn inzwischen mit **Für Fahrer setzen** gesetzt, die Tour storniert oder einem anderen Fahrer gegeben haben –, sieht der Fahrer die Meldung „Nicht gesendet: …“ mit Schritt, Buchungsnummer und Grund. Auf seinem Startbildschirm bleibt die Karte **Nicht gesendet** stehen („Die Disposition hat das nicht bekommen. Bitte prüfen und bei Bedarf anrufen.“), bis er auf **Verstanden** tippt.
+- **Neu anmelden:** Endet die Anmeldung des Fahrers, während Schritte warten (z. B. nach **Neue PIN & Einladung**), sieht er „Bitte neu anmelden. Gespeicherte Schritte werden danach gesendet.“ Die Schritte bleiben auf dem Handy und gehen raus, sobald sich derselbe Fahrer wieder anmeldet. Meldet sich auf dem Handy ein anderer Fahrer an, sendet es sie nicht.
+- **Abmelden:** Solange Schritte warten, ist **Abmelden** gesperrt. Unter **Mehr** steht dann „… Schritt(e) sind noch nicht gesendet. Bitte erst mit Netz abmelden.“ Ist alles gesendet, geht **Abmelden** auch ohne Netz. Das Handy meldet die Abmeldung dem Server, sobald wieder Netz da ist.
+- **Zurückgeben** sowie Fahrzeug wählen oder abgeben brauchen Netz. Solange gespeicherte Schritte warten, warten diese Aktionen ebenfalls; ohne Netz erscheint „Keine Verbindung.“
 
 ### Lieferschein und Fotos im Büro
 
-![Zugestellte Lieferung Böblingen → Nürnberg: Fortschrittsleiste mit allen Uhrzeiten, „Lieferschein & Fotos“ mit Lieferschein-Foto und Unterschrift, Palettentausch „10 abgegeben, 10 mitgenommen“, „Empfangen von: Herr Schulz“ und unten die Knöpfe „Abliefernachweis“, „Wiederholen“ und „Nachbearbeiten“](img/buero-07-lieferschein-im-buero.png)
+![Zugestellte Lieferung Böblingen → Nürnberg: Fortschrittsleiste mit allen Uhrzeiten, „Lieferschein & Fotos“ mit der Auswahl der Dokumentart, Lieferschein-Foto und Unterschrift, Palettentausch „10 abgegeben, 10 mitgenommen“, „Empfangen von: Herr Schulz“ und unten die Knöpfe „Abliefernachweis“, „Wiederholen“ und „Nachbearbeiten“](img/buero-07-lieferschein-im-buero.png)
 
-In der geöffneten Lieferung stehen rechts unter **Lieferschein & Fotos** alle Dokumente als kleine Bilder, beschriftet mit „Lieferschein“, „Schaden“ oder „Unterschrift“.
+In der geöffneten Lieferung stehen rechts unter **Lieferschein & Fotos** alle Dokumente als kleine Bilder, beschriftet mit „Lieferschein“, „CMR“, „Schaden“, „Ladung“, „Foto“ oder „Unterschrift“.
 
 - Ein Klick vergrößert das Bild; **Original** öffnet es in voller Größe. PDF-Dateien öffnen sich in einem neuen Fenster.
-- Mit **Hinzufügen** laden Sie selbst Fotos oder PDFs hoch – zum Beispiel, wenn der Fahrer den Papier-Lieferschein ins Büro bringt. Sie erscheinen als „Lieferschein“. Das geht auch noch nach der Zustellung, aber nicht bei stornierten Lieferungen.
-- Solange die Lieferung nicht abgeschlossen ist, können Sie ein Dokument mit dem kleinen **×** entfernen.
-- Erlaubt sind Fotos (JPG, PNG, WebP) bis 10 MB und PDF-Dateien bis 15 MB.
+- Mit **Hinzufügen** laden Sie selbst Fotos oder PDFs hoch – zum Beispiel, wenn der Fahrer den Papier-Lieferschein oder den CMR-Frachtbrief ins Büro bringt. Wählen Sie vorher in der Auswahl neben „Lieferschein & Fotos“ die Art: **Lieferschein** (Voreinstellung), **CMR**, **Schaden**, **Ladung** oder **Foto**. Das geht auch noch nach der Zustellung, aber nicht bei stornierten Lieferungen.
+- Für die Lieferschein-Pflicht zählt nur die Art **Lieferschein**.
+- Solange die Lieferung nicht abgeschlossen ist, können Sie ein Dokument mit dem kleinen **×** entfernen. Bei zugestellten Lieferungen bleibt jedes Dokument bis zum Ende der Aufbewahrung.
+- Erlaubt sind Fotos (JPG, PNG, WebP) bis 10 MB und PDF-Dateien bis 15 MB. Jede Datei zählt zum Speicher Ihres Tarifs (siehe [Speicher](#speicher)).
 
 ### Abliefernachweis (Drucken / PDF)
 
 Der Abliefernachweis fasst eine Lieferung auf einem Blatt zusammen – für Ihren Kunden oder Ihre Buchhaltung, damit die Rechnung am selben Tag raus kann.
 
-![Abliefernachweis KAY-2610-0015 mit Firmenlogo, Tabelle mit Auftraggeber, Lade- und Entladestelle, Ware, Fahrer/Fahrzeug, Status, Standzeit und Palettentausch, darunter „Zeitstempel“ und „Lieferschein & Fotos“, unten rechts der Knopf „Drucken / PDF“](img/buero-08-abliefernachweis.png)
+![Abliefernachweis KAY-2610-0015 mit Firmenlogo und Erstelldatum mit Jahr, Tabelle mit Auftraggeber, Lade- und Entladestelle, Ware, Fahrer/Fahrzeug, Status mit Zustellzeit, Standzeit und Palettentausch, darunter „Zeitstempel“ mit Datum, Jahr und Uhrzeit und „Lieferschein & Fotos“, unten rechts der Knopf „Drucken / PDF“](img/buero-08-abliefernachweis.png)
 
 1. Öffnen Sie die Lieferung und klicken Sie auf **Abliefernachweis**.
-2. Prüfen Sie den Inhalt: Ihr Logo, Buchungsnummer, Auftraggeber und Referenz, Lade- und Entladestelle, Ware, Fahrer und Fahrzeug, Status mit „Empfangen von …“, Standzeit und Palettentausch (falls erfasst), alle **Zeitstempel** mit Person sowie **Lieferschein & Fotos** mit Unterschrift.
-3. Klicken Sie auf **Drucken / PDF**. Es öffnet sich der Druckdialog Ihres Browsers. Wählen Sie einen Drucker oder „Als PDF speichern“.
-4. Mit dem Pfeil oben links kommen Sie zurück zur Lieferung.
+2. Prüfen Sie den Inhalt: Ihr Logo, Buchungsnummer und Erstelldatum, Auftraggeber und Referenz, Lade- und Entladestelle, Ware, Fahrer und Fahrzeug, Status mit Datum und Uhrzeit der Zustellung und „Empfangen von …“, Standzeit und Palettentausch (falls erfasst), alle **Zeitstempel** mit Datum, Jahr, Uhrzeit und Person sowie **Lieferschein & Fotos** mit Lieferscheinen, CMR, Schadensfotos und Unterschrift.
+3. Wurde beim Tipp der Standort gespeichert (siehe [Abschnitt 12](#datenschutz-standort-und-auswertungen-je-fahrer)), hat die Tabelle **Zeitstempel** eine weitere Spalte mit den Koordinaten. Ein Klick öffnet die Stelle in Google Maps. Darunter steht „Standort: nur im Moment des Tipps gespeichert, wenn der Fahrer zugestimmt hat.“
+4. Klicken Sie auf **Drucken / PDF**. Es öffnet sich der Druckdialog Ihres Browsers. Wählen Sie einen Drucker oder „Als PDF speichern“.
+5. Mit dem Pfeil oben links kommen Sie zurück zur Lieferung.
 
 > **Tipp:** Zurückgenommene Schritte erscheinen im Abliefernachweis nicht – dort stehen nur die gültigen Zeitstempel.
 
@@ -467,7 +485,7 @@ Gut zu wissen:
 - Für **Zugestellt** brauchen Sie bei eingeschalteter Lieferschein-Pflicht zuerst einen Lieferschein: Laden Sie ihn mit **Hinzufügen** hoch (Foto oder PDF). Sonst erscheint „Bitte zuerst den Lieferschein hinzufügen (Foto/PDF).“
 - Ist **Unterschrift des Empfängers verlangen** eingeschaltet, kann nur der Fahrer mit Unterschrift abschließen.
 - Beim Setzen von „Abgeladen“ aus dem Büro wird kein Palettentausch abgefragt.
-- Hat der Fahrer denselben Schritt ohne Netz schon getippt, wird sein gespeicherter Schritt beim Nachsenden abgelehnt. Es gilt Ihr Zeitstempel.
+- Hat der Fahrer denselben Schritt ohne Netz schon getippt, wird sein gespeicherter Schritt beim Nachsenden abgelehnt. Es gilt Ihr Zeitstempel. Der Fahrer sieht dann „Nicht gesendet: …“ (siehe [Abschluss ohne Netz](#abschluss-ohne-netz)).
 
 > **Wichtig:** Einen Schritt, den Sie für den Fahrer gesetzt haben, können Sie nicht zurücknehmen – „Rückgängig“ gibt es nur für den Fahrer und nur für seine eigenen Schritte. Prüfen Sie den Knopftext, bevor Sie klicken.
 
@@ -492,27 +510,31 @@ Jede Karte zeigt Name, Handynummer, die Sprache der App (Kürzel rechts oben), g
    - **Führerscheinklasse**, **Personalnummer**, **Notiz** (freiwillig)
 3. Klicken Sie auf **Anlegen & PIN erzeugen**.
 
-Ladeklar speichert die Handynummer international und zeigt sie gegliedert an: aus „0176 1000 0004“ wird „+49 176 10000004“. Jede Nummer darf es in Ihrem Unternehmen nur einmal geben.
+Ladeklar speichert die Handynummer international und zeigt sie gegliedert an: aus „0176 1000 0004“ wird „+49 176 10000004“. Auch Schreibweisen wie „+49 (0)176 …“ oder „0049 176 …“ ergeben dieselbe Nummer. Jede Handynummer und jede Personalnummer darf es in Ihrem Unternehmen nur einmal geben („Diese Handynummer ist schon vergeben.“ bzw. „Diese Personalnummer ist schon vergeben.“).
 
 ### Einladung per QR-Code, WhatsApp oder SMS
 
 Nach dem Anlegen öffnet sich das Fenster **Zugang für …**:
 
-![Fenster „Zugang für Andrei Popescu“ mit QR-Code, PIN, Firmencode KAYA, Login-Nummer, Einladungstext und den Knöpfen „Text kopieren“, „WhatsApp“, „SMS“ und „Fertig“](img/buero-12-fahrer-einladung.png)
+![Fenster „Zugang für Andrei Popescu“ mit QR-Code, PIN, Firmencode KAYA, Login-Nummer, „Link gültig bis“ mit Datum, dem Hinweis zur einmaligen Anmeldung, Einladungstext und den Knöpfen „Neue Einladung“, „Text kopieren“, „WhatsApp“, „SMS“ und „Fertig“](img/buero-12-fahrer-einladung.png)
 
-- **QR-Code:** Der Fahrer scannt ihn mit der Handy-Kamera und gibt nur noch die PIN ein.
+- **QR-Code:** Der Fahrer scannt ihn mit der Handy-Kamera und gibt nur noch die PIN ein. Der QR-Code enthält den Einladungslink.
 - **PIN:** 6 Ziffern. Mit dem Kopier-Knopf daneben übernehmen Sie sie in die Zwischenablage.
 - **Firmencode** und **Login** (die Handynummer) für die Anmeldung ohne Link.
+- **Link gültig bis:** Der Einladungslink gilt 14 Tage und nur für eine Anmeldung („Der Link gilt für eine Anmeldung. Abgelaufen oder benutzt? „Neue Einladung“ erzeugt Link und PIN neu.“).
 - **Einladungstext** zum Weiterleiten, zum Beispiel: „Hallo Andrei, hier ist dein Zugang zur App „Kaya Fahrer“: [Link] – PIN: 715185. Link öffnen, PIN eingeben, fertig. Login sonst mit Firmencode KAYA und deiner Handynummer.“
 - **WhatsApp** und **SMS** öffnen die jeweilige App mit dem fertigen Text an die Nummer des Fahrers; **Text kopieren** für jeden anderen Weg.
+- **Neue Einladung** erzeugt einen neuen Link und eine neue PIN – wie **Neue PIN & Einladung** auf der Fahrerkarte.
 
 > **Wichtig:** Die PIN wird nur jetzt angezeigt. Schicken Sie die Einladung, bevor Sie auf **Fertig** klicken. Haben Sie es vergessen, erzeugen Sie mit **Neue PIN & Einladung** einfach eine neue.
+
+Öffnet der Fahrer einen Link, der schon benutzt wurde oder abgelaufen ist, sieht er „Einladung abgelaufen – bitte neue Einladung im Büro anfordern“ und darunter die normale Anmeldung. Mit Firmencode, Handynummer und PIN kommt er weiterhin hinein. Ein gültiger Link öffnet die App in Ihrem Branding und in der Sprache des Fahrers.
 
 So kann sich ein Fahrer anmelden:
 
 | Weg | Was der Fahrer eingibt |
 |---|---|
-| Einladungslink oder QR-Code | nur die PIN |
+| Einladungslink oder QR-Code (einmal, 14 Tage gültig) | nur die PIN |
 | Link Ihrer Firma (unter **Firma & Marke** angezeigt, z. B. `…/t/KAYA`) | Handynummer und PIN |
 | allgemeine Anmeldeseite, Reiter **Fahrer** | Firmencode, Handynummer und PIN |
 
@@ -522,10 +544,10 @@ Statt der Handynummer kann der Fahrer im Feld „Handynummer“ auch seine **Per
 
 ### Neue PIN & Einladung
 
-Klicken Sie auf der Fahrerkarte auf **Neue PIN & Einladung**. Ladeklar erzeugt sofort eine neue PIN und zeigt wieder das Fenster mit QR-Code und Einladungstext.
+Klicken Sie auf der Fahrerkarte auf **Neue PIN & Einladung**. Ladeklar erzeugt sofort eine neue PIN und einen neuen Einladungslink und zeigt wieder das Fenster mit QR-Code und Einladungstext.
 
-- Die alte PIN gilt ab sofort nicht mehr.
-- Der Fahrer wird auf allen Geräten abgemeldet und meldet sich mit der neuen PIN wieder an.
+- Die alte PIN und der alte Einladungslink gelten ab sofort nicht mehr.
+- Der Fahrer wird auf allen Geräten abgemeldet und meldet sich mit der neuen PIN wieder an. Seine Push-Mitteilungen enden, bis er sich neu angemeldet hat.
 - Eine Sperre nach zu vielen falschen PINs wird damit ebenfalls aufgehoben.
 
 ### Fahrer sperren und entsperren
@@ -549,7 +571,7 @@ Was dabei passiert:
 - **Daten weg:** Der Name wird zu „Gelöschter Nutzer“. Handynummer bzw. E-Mail, PIN bzw. Passwort, Personalnummer, Führerscheinklasse, Notiz, Standort-Einwilligung und Mitteilungen werden gelöscht.
 - **Anmeldung endet sofort** auf allen Geräten.
 - **Abgeschlossene Lieferungen** bleiben für Ihre Unterlagen erhalten und zeigen als Fahrer „Gelöschter Nutzer“.
-- **Offene und bestätigte Touren** des Fahrers (Status „Offen“, „Bestätigt“ oder „An Ladestelle“) gehen zurück an die Disposition: Sie stehen danach unter **Lieferungen → Offen**, ohne Fahrer und nicht für alle freigegeben. Im Verlauf steht „Fahrer entfernt (Zugang gelöscht)“. Eine Mitteilung gibt es dafür nicht – weisen Sie die Touren neu zu.
+- **Offene und bestätigte Touren** des Fahrers (Status „Offen“, „Bestätigt“ oder „An Ladestelle“) gehen zurück an die Disposition: Sie stehen danach unter **Lieferungen → Offen**, ohne Fahrer und nicht für alle freigegeben. LKW und Auflieger aus seiner Fahrzeugwahl werden aus diesen Touren entfernt, seine „Angekommen“-Zeiten zählen nicht mehr (siehe [Regeln beim Fahrerwechsel](#regeln-beim-fahrerwechsel)). Im Verlauf steht „Fahrer entfernt (Zugang gelöscht)“. Eine Mitteilung gibt es dafür nicht – weisen Sie die Touren neu zu.
 - **Beladene Tour:** Hat der Fahrer eine Tour mit Status „Beladen · unterwegs“, „An Entladestelle“ oder „Entladen“, lehnt Ladeklar das Löschen ab („Der Fahrer hat eine beladene Tour. …“). Den Fahrer einer beladenen Tour können Sie nicht wechseln. Schließen Sie die Tour deshalb erst ab – notfalls mit **Für Fahrer setzen** – oder stornieren Sie sie.
 - Seine **Fahrzeuge** werden frei, der **Platz** in Ihrem Tarif auch. Die Person verschwindet aus den Listen.
 - Ihren **eigenen Zugang** können Sie nicht löschen.
@@ -562,7 +584,7 @@ Was dabei passiert:
 
 Die Sprache stellen Sie beim Anlegen oder unter **Bearbeiten** im Feld **Sprache der App** ein. Der Fahrer kann sie jederzeit selbst ändern (**Mehr → Sprache**). Mitteilungen an den Fahrer kommen in seiner Sprache.
 
-![Fahrer-App, Reiter „Mehr“: Name, Telefonnummer und Führerscheinklasse des Fahrers, zweizeiliger Knopf „Disposition anrufen“ mit der Nummer, Sprachauswahl mit acht Sprachen und darunter der Anfang des Bereichs „Mitteilungen“](img/fahrer-15-mehr.png)
+![Fahrer-App, Reiter „Mehr“: Name, Telefonnummer und Führerscheinklasse des Fahrers, zweizeiliger Knopf „Disposition anrufen“ mit der Nummer, Sprachauswahl mit acht Sprachen und darunter der Anfang des Bereichs „Mitteilungen“ mit dem Schalter „Push-Mitteilungen auf diesem Handy“](img/fahrer-15-mehr.png)
 
 ### Bearbeiten
 
@@ -595,7 +617,7 @@ Oben filtern Sie nach **Alle**, **LKW / Zugmaschinen** oder **Auflieger / Anhän
 3. Füllen Sie aus:
    - **Kennzeichen \*** (jedes Kennzeichen nur einmal)
    - **Art** – LKW: Sattelzugmaschine, Solo-LKW, Gliederzug, Kühlkoffer, Kipper, Tankwagen, Transporter; Auflieger: Planenauflieger, Kühlauflieger, Kipper, Container-Chassis, Tieflader, Kofferauflieger
-   - **Bezeichnung** (z. B. „MAN TGX 18.510“), **Nutzlast (kg)**, **Palettenstellplätze**
+   - **Bezeichnung** (z. B. „MAN TGX 18.510“), **Nutzlast (kg)** (0 bis 60.000), **Palettenstellplätze** (0 bis 66)
    - **Nächste HU** und **Nächste SP**
    - **Ausstattung**: Ladebordwand, Kühlung, ADR, Mitnahmestapler, Hebebühne, Kran
    - **Notiz** (z. B. „Werkstatt bis Freitag (Bremsen)“)
@@ -611,7 +633,8 @@ Ist **Fahrer wählen ihr Fahrzeug selbst** eingeschaltet, tippt der Fahrer in se
 
 - Ein gewähltes Fahrzeug gehört dem Fahrer, bis er es mit **Fahrzeug abgeben** zurückgibt. So können nie zwei Fahrer denselben LKW wählen.
 - Andere Fahrer sehen es ausgegraut mit „fährt …“.
-- Hat eine laufende Lieferung noch kein Fahrzeug, übernimmt sie automatisch LKW und Auflieger, die der Fahrer gewählt hat.
+- Bestätigt der Fahrer eine Tour, übernimmt sie LKW und Auflieger, die er gerade gewählt hat. Hat eine laufende Lieferung noch kein Fahrzeug, übernimmt sie es beim nächsten Schritt.
+- Wechselt der Fahrer vor dem Beladen, verliert die Tour das Fahrzeug des bisherigen Fahrers (siehe [Regeln beim Fahrerwechsel](#regeln-beim-fahrerwechsel)).
 
 Im Büro haben Sie drei Knöpfe:
 
@@ -627,11 +650,11 @@ Ist **Fahrer wählen ihr Fahrzeug selbst** ausgeschaltet, teilen Sie LKW und Auf
 
 ## 11. Berichte
 
-Unter **Berichte** sehen Sie Leistung, Pünktlichkeit, Standzeiten und Palettenkonto für einen Monat. Oben rechts wählen Sie den Monat (die letzten sechs Monate). Daneben lädt **CSV** den ganzen Bericht als Tabelle herunter.
+Unter **Berichte** sehen Sie Leistung, Pünktlichkeit, Standzeiten und Palettenkonto für einen Monat. Oben rechts wählen Sie den Monat: den laufenden und die 23 Monate davor, also zwei Jahre. Die Monate richten sich nach deutscher Zeit. Daneben lädt **CSV** den ganzen Bericht als Tabelle herunter.
 
-![Seite „Berichte“ mit dem Knopf „CSV“, der Monatsauswahl, den Kacheln „Zugestellt 9“, „Pünktlich 100 %“, „Ø Standzeit je Tour 84 min“ und „Palettensaldo (offen) −4“, der Tabelle „Je Fahrer“ und darunter dem Anfang der Tabelle „Je Auftraggeber“](img/buero-16-berichte.png)
+![Seite „Berichte“ mit dem Knopf „CSV“, der Monatsauswahl, den Kacheln „Zugestellt“, „Pünktlich“, „Ø Standzeit je Tour“ und „Palettensaldo (offen)“, der Tabelle „Je Fahrer“ und darunter dem Anfang der Tabelle „Je Auftraggeber“](img/buero-16-berichte.png)
 
-Ein Bericht zählt die Lieferungen, die im gewählten Monat zugestellt wurden. Ladeklar ordnet eine Lieferung dabei dem Monat ihrer letzten Änderung zu – normalerweise ist das die Zustellung (siehe [Nachbearbeiten](#nachbearbeiten--abgeschlossene-lieferungen)).
+Ein Bericht zählt die Lieferungen, die im gewählten Monat zugestellt wurden. Maßgeblich ist der Zeitpunkt von „Bestätigen & abschließen“. Spätere Änderungen wie [Nachbearbeiten](#nachbearbeiten--abgeschlossene-lieferungen) oder ein nachgereichtes Dokument verschieben eine Lieferung nicht in einen anderen Monat.
 
 | Kennzahl | So wird gerechnet |
 |---|---|
@@ -642,7 +665,7 @@ Ein Bericht zählt die Lieferungen, die im gewählten Monat zugestellt wurden. L
 
 ### Je Fahrer
 
-Die Tabelle **Je Fahrer** zeigt pro Fahrer: **Zugestellt**, **Standzeit gesamt** und **Probleme** (Lieferungen mit gemeldeter Störung). Ist **Auswertungen je Fahrer anzeigen** ausgeschaltet, steht dort „Auswertungen je Fahrer sind ausgeschaltet (Einstellungen → Abläufe).“
+Die Tabelle **Je Fahrer** zeigt pro Fahrer: **Zugestellt**, **Standzeit gesamt** und **Probleme** (Lieferungen mit gemeldeter Störung). Ist **Auswertungen je Fahrer anzeigen** ausgeschaltet, steht dort nur „Auswertungen je Fahrer sind ausgeschaltet (Einstellungen → Abläufe).“
 
 ### Je Auftraggeber
 
@@ -662,7 +685,7 @@ Die Tabellen **Je Auftraggeber** und **Je Lade- und Entladestelle** enthalten ke
 
 ### Bericht als CSV
 
-**CSV** lädt den Bericht des gewählten Monats als Datei `bericht-JJJJ-MM.csv` herunter. Sie öffnet sich in Excel (Trennzeichen Semikolon) und enthält die Kennzahlen, die Tabelle je Auftraggeber, alle Lade- und Entladestellen mit Zahl der gemessenen Touren und – nur wenn eingeschaltet – die Tabelle je Fahrer. Standzeiten stehen dort in Minuten.
+**CSV** lädt den Bericht des gewählten Monats als Datei `bericht-JJJJ-MM.csv` herunter. Sie öffnet sich in Excel (Trennzeichen Semikolon) und enthält die Kennzahlen, die Tabelle je Auftraggeber, alle Lade- und Entladestellen mit Zahl der gemessenen Touren und – nur wenn eingeschaltet – die Tabelle je Fahrer. Standzeiten stehen dort in Minuten. Jeder Download steht im Protokoll (`export.report`). Wie bei allen CSV-Dateien schützt Ladeklar Excel vor eingeschleusten Formeln (siehe [Lieferungen als CSV](#lieferungen-als-csv)).
 
 Für eigene Auswertungen aller Lieferungen laden Sie die Lieferungen als CSV herunter (siehe [Abschnitt 14](#14-datenexport-und-anbieterwechsel)).
 
@@ -708,7 +731,10 @@ Jeder Schalter wird sofort gespeichert („Gespeichert – gilt sofort für alle
 Darunter stellen Sie zwei Werte ein und klicken auf **Speichern**:
 
 - **Präfix der Buchungsnummer** – bis zu 6 Buchstaben oder Ziffern, z. B. „KAY“ ergibt `KAY-2610-0042`. Die laufende Nummer beginnt jeden Monat bei `0001`.
-- **Lieferscheine aufbewahren (Jahre)** – 1 bis 10 Jahre (Voreinstellung 3). Danach werden abgeschlossene Lieferungen samt Fotos automatisch gelöscht. Achten Sie auf Ihre gesetzlichen Aufbewahrungsfristen.
+- **Lieferscheine aufbewahren (Jahre)** – 1 bis 10 Jahre (Voreinstellung 3). Danach werden abgeschlossene Lieferungen samt Fotos automatisch gelöscht. Die Frist zählt ab der Zustellung bzw. Stornierung. Achten Sie auf Ihre gesetzlichen Aufbewahrungsfristen.
+  - Ein leeres Feld behält den bisherigen Wert.
+  - Andere Werte als ganze Jahre von 1 bis 10 lehnt Ladeklar ab („Bitte 1 bis 10 Jahre angeben – oder das Feld leer lassen.“).
+  - Senken Sie den Wert, fragt Ladeklar zuerst nach, z. B. „Aufbewahrung auf 1 Jahr senken? 12 abgeschlossene Lieferungen samt Lieferscheinen und Fotos werden innerhalb einer Stunde endgültig gelöscht.“ Erst mit **Ja, senken** wird gespeichert; **Abbrechen** lässt alles, wie es ist.
 
 So sehen Ihre Fahrer den Palettentausch beim Abladen und die Fahrsperre:
 
@@ -751,7 +777,7 @@ Unter **Büro-Zugänge** stehen alle Admins und Disponenten. Ihr eigener Zugang 
 **Zugang anlegen:**
 
 1. Klicken Sie auf **Disponent anlegen**. Es öffnet sich „Büro-Zugang anlegen“.
-2. Tragen Sie **Name \*** und **E-Mail \*** ein und wählen Sie **Rolle** (Disponent oder Admin) und **Sprache** (Deutsch, English oder Türkçe).
+2. Tragen Sie **Name \*** und **E-Mail \*** ein und wählen Sie **Rolle** (Disponent oder Admin) und **Sprache** (eine der acht Sprachen: Deutsch, English, Polski, Română, Čeština, Türkçe, Русский, Українська).
 3. Klicken Sie auf **Anlegen**. Ladeklar zeigt das **Startpasswort** – nur dieses eine Mal. Geben Sie es der Person sicher weiter. Beim ersten Anmelden muss sie ein eigenes Passwort vergeben (siehe [Schritt 1](#schritt-1-anmelden-und-passwort-ändern)).
 
 **Zugang bearbeiten:**
@@ -760,11 +786,11 @@ Unter **Büro-Zugänge** stehen alle Admins und Disponenten. Ihr eigener Zugang 
 2. Ändern Sie **Name**, **E-Mail**, **Rolle** oder **Sprache**.
 3. Klicken Sie auf **Speichern**.
 
-Ändern Sie die E-Mail, meldet sich die Person künftig mit der neuen E-Mail an. Jede E-Mail darf es nur einmal geben. Ihre eigene Rolle können Sie nicht ändern („Ihre eigene Rolle kann nur ein anderer Admin ändern.“).
+Ändern Sie die E-Mail, meldet sich die Person künftig mit der neuen E-Mail an. Jede Büro-E-Mail darf es auf der ganzen Plattform nur einmal geben – auch bei anderen Unternehmen („Diese E-Mail hat schon einen Zugang.“). Ihre eigene Rolle können Sie nicht ändern („Ihre eigene Rolle kann nur ein anderer Admin ändern.“).
 
 Bei jedem anderen Zugang finden Sie außerdem:
 
-- **Neues Passwort** – erzeugt ein neues Startpasswort und meldet die Person ab. Beim nächsten Anmelden muss sie ein eigenes Passwort vergeben.
+- **Neues Passwort** – erzeugt ein neues Startpasswort, meldet die Person auf allen Geräten ab und schaltet ihre Zwei-Faktor-Anmeldung aus. So helfen Sie auch jemandem, der sein Handy mit der Authenticator-App verloren hat. Beim nächsten Anmelden muss die Person ein eigenes Passwort vergeben.
 - das **Schloss** – sperrt den Zugang (bzw. entsperrt ihn wieder). Die Sitzung endet sofort.
 - den **Papierkorb** – löscht den Zugang (siehe [Person löschen](#person-löschen)).
 
@@ -772,15 +798,24 @@ Ihren eigenen Zugang können Sie nicht sperren und nicht löschen. Wie viele Bü
 
 ### Lizenz
 
-![Reiter „Lizenz“: „Ihr Tarif – Ladeklar Flotte“ mit Status „Aktiv“, Preis, Fahrer-Plätzen und Fahrzeugen, darunter die drei Tarife Start, Flotte und Premium](img/buero-20-lizenz.png)
+![Reiter „Lizenz“: „Ihr Tarif – Ladeklar Flotte“ mit Status „Aktiv“, Preis mit Grundpreis, Zahlweise, Fahrer, Fahrzeuge und Büro-Zugänge jeweils „… von …“, Speicher mit Balken, die Knöpfe „Tarif wechseln anfragen“ und „Kündigen“, darunter die drei Tarife Start, Flotte und Premium](img/buero-20-lizenz.png)
 
-Hier sehen Sie Ihren Tarif, den Status (Testphase, Aktiv, Gesperrt, Abgelaufen oder Gekündigt), Preis, Fahrer-Plätze, Fahrzeuge und – falls zutreffend – **Test bis** oder **Laufzeit bis**. Darunter stehen alle Tarife zum Vergleich. Für einen Tarifwechsel oder weitere Fahrer-Plätze genügt eine kurze Nachricht an Ihren Anbieter. Mehr in [Abschnitt 15](#15-lizenz-und-tarif).
+Hier sehen Sie (nur als Admin):
+
+- Ihren Tarif und den Status (Testphase, Aktiv, Gesperrt, Abgelaufen oder Gekündigt)
+- **Preis:** den Monatspreis netto mit seinen Teilen (Grundpreis, zusätzliche Fahrer, Store-App). Bei jährlicher Zahlung steht darunter „Jährlich im Voraus: … netto (10 × Monatspreis)“.
+- **Zahlweise:** monatlich oder jährlich
+- **Fahrer**, **Fahrzeuge** und **Büro-Zugänge:** wie viele Sie nutzen und wie viele Ihr Tarif umfasst, z. B. „6 von 15“. Liegen Sie darüber, steht dort „über dem Tarif“.
+- **Speicher:** wie viel Speicher Ihre Fotos und PDF-Dateien belegen (siehe [Speicher](#speicher))
+- falls zutreffend **Test bis** oder **Laufzeit bis**, jeweils mit Jahr
+
+Darunter stehen die Knöpfe **Tarif wechseln anfragen** und **Kündigen** (siehe [Tarif wechseln oder kündigen](#tarif-wechseln-oder-kündigen)) und alle Tarife zum Vergleich. Für weitere Fahrer-Plätze genügt eine kurze Nachricht an Ihren Anbieter. Mehr in [Abschnitt 15](#15-lizenz-und-tarif).
 
 ### Daten & Datenschutz
 
 ![Reiter „Daten & Datenschutz“ mit „Datenexport“ (Alles als ZIP (mit Lieferscheinen), Alles als JSON, Lieferungen als CSV), „Support-Zugriff“ (Für 24 Stunden freigeben) und „Protokoll“ mit Einträgen wie „user.reset“, „delivery.create“ und „login“](img/buero-21-daten.png)
 
-- **Datenexport:** **Alles als ZIP (mit Lieferscheinen)**, **Alles als JSON** und **Lieferungen als CSV** – siehe [Abschnitt 14](#14-datenexport-und-anbieterwechsel).
+- **Datenexport:** **Alles als ZIP (mit Lieferscheinen)**, **Alles als JSON** und **Lieferungen als CSV** – siehe [Abschnitt 14](#14-datenexport-und-anbieterwechsel). Jeder Download steht im Protokoll.
 - **Support-Zugriff:** Der Anbieter sieht Ihre Lieferdaten nicht. Mit **Für 24 Stunden freigeben** erteilen Sie eine befristete Freigabe. Danach steht dort „freigegeben bis …“, und mit **Jetzt beenden** nehmen Sie die Freigabe vorzeitig zurück. Freigabe und Ende werden protokolliert (`support.grant`, `support.revoke`). In Version 1.0 wird die Freigabe nur gespeichert und protokolliert: Sie öffnet dem Anbieter keinen Zugang zu Ihren Daten, und seine Konsole zeigt die Freigabe nicht an. Sagen Sie Ihrem Anbieter also Bescheid, wenn Sie freigegeben haben.
 - **Protokoll:** die letzten 25 Einträge mit Zeit und Person. Die Einträge sind technische Kurznamen:
 
@@ -796,10 +831,13 @@ Hier sehen Sie Ihren Tarif, den Status (Testphase, Aktiv, Gesperrt, Abgelaufen o
 | `vehicle.create` / `vehicle.update` / `vehicle.delete` / `vehicle.release` | Fahrzeug angelegt / geändert / entfernt / freigegeben |
 | `company.update` | Firma, Marke oder Abläufe geändert |
 | `password.change` | eigenes Passwort geändert |
+| `2fa.enable` / `2fa.disable` | Zwei-Faktor-Anmeldung eingeschaltet / ausgeschaltet |
 | `geo.consent` / `geo.withdraw` | Fahrer hat dem Standort beim Tipp zugestimmt / widersprochen |
 | `support.grant` / `support.revoke` | Support-Zugriff freigegeben / beendet |
 | `apikey.rotate` | API-Schlüssel erzeugt |
-| `data.export` | Datenexport (ZIP oder JSON) heruntergeladen |
+| `data.export` | Datenbestand für einen Export (ZIP oder JSON) zusammengestellt |
+| `export.zip` / `export.json` / `export.csv` / `export.report` | Download: ZIP, JSON, Lieferungen als CSV, Bericht als CSV |
+| `tenant.plan_request` / `tenant.cancel_request` | Tarifwechsel bzw. Kündigung beim Anbieter angefragt |
 
 Zu den Einträgen speichert Ladeklar die IP-Adresse des Geräts – auch bei Anmeldungen und Fehlversuchen. Die Liste zeigt sie nicht; sie steht im Export (ZIP oder JSON). Nach 90 Tagen entfernt Ladeklar die IP-Adressen aus dem Protokoll – ebenso eine eingetippte Handynummer, mit der kein Fahrer gefunden wurde.
 
@@ -812,21 +850,46 @@ Mit der REST-API legen Sie Lieferungen automatisch aus Ihrem TMS oder Ihrer Buch
 Im Tarif Premium:
 
 1. Klicken Sie auf **Schlüssel erzeugen** (später **Neuen Schlüssel erzeugen**).
-2. Kopieren Sie den Schlüssel (beginnt mit `lk_`). **Der Schlüssel wird nur jetzt angezeigt.** Ein neuer Schlüssel macht den alten ungültig.
+2. Kopieren Sie den Schlüssel (beginnt mit `lk_`). **Der Schlüssel wird nur jetzt angezeigt.** Verlassen Sie den Reiter, ist er nicht mehr zu sehen.
 3. Geben Sie den Schlüssel Ihrem IT-Dienstleister. Der Reiter zeigt Beispielaufrufe.
+
+Danach zeigt der Reiter nur noch `lk_…` mit den letzten 4 Zeichen und den Hinweis „Ein Schlüssel ist aktiv. Gespeichert sind nur die letzten 4 Zeichen – den ganzen Schlüssel kann niemand mehr anzeigen. …“. Ladeklar speichert vom Schlüssel nur eine Prüfsumme (Hash). Ist er verloren, erzeugen Sie einen neuen. Ein neuer Schlüssel macht den alten sofort ungültig.
 
 | Aufruf | Wirkung |
 |---|---|
-| `GET /api/v1/deliveries` | Lieferungen abfragen (optional `?tab=…&q=…`) |
+| `GET /api/v1/deliveries` | Lieferungen abfragen (ohne `tab`: alle, neueste zuerst). Optional: `tab`, `q`, `limit` (Voreinstellung 300, höchstens 1.000), `offset` zum Blättern und `updatedSince` (nur seit diesem Zeitpunkt geänderte). Die Antwort nennt im Kopf `X-Total-Count` die Gesamtzahl. |
 | `GET /api/v1/deliveries/{id}` | eine Lieferung abfragen |
 | `POST /api/v1/deliveries` | Lieferung anlegen |
 | `PATCH /api/v1/deliveries/{id}` | Lieferung ändern |
 
-Der Schlüssel wird als `Authorization: Bearer lk_…` mitgeschickt. Lieferungen aus der API verhalten sich wie im Büro angelegte – inklusive Mitteilungen an die Fahrer.
+Der Schlüssel wird als `Authorization: Bearer lk_…` mitgeschickt. Lieferungen aus der API verhalten sich wie im Büro angelegte – inklusive Mitteilungen an die Fahrer. Die API antwortet nur, solange Ihre Lizenz aktiv oder in der Testphase ist und Sie den Tarif Premium haben.
 
 ### Mein Konto
 
-Hier sehen Sie Name, E-Mail und Rolle, wählen die **Sprache** der Büro-Oberfläche (Deutsch, English, Türkçe), ändern Ihr Passwort (**Aktuelles Passwort**, **Neues Passwort (mind. 10 Zeichen)**, **Passwort ändern**) und melden sich mit **Abmelden** ab. Name und E-Mail ändert ein Admin unter **Team**.
+Diesen Reiter sehen Admins und Disponenten.
+
+- **Name, E-Mail, Rolle:** Name und E-Mail ändert ein Admin unter **Team**.
+- **Sprache** der Büro-Oberfläche: acht Knöpfe für Deutsch, English, Polski, Română, Čeština, Türkçe, Русский und Українська.
+- **Passwort ändern:** **Aktuelles Passwort**, **Neues Passwort (mind. 10 Zeichen)**, dann **Passwort ändern**. Auf allen anderen Geräten werden Sie danach abgemeldet. Dieses Gerät bleibt angemeldet.
+- **Zwei-Faktor-Anmeldung** (siehe unten)
+- **Mitteilungen:** der Schalter **Push-Mitteilungen in diesem Browser**. Ist er an, kommen Bestätigungen, Störungen und Notizen der Fahrer auch bei geschlossenem Browser. Der Schalter gilt nur für diesen Browser. Haben Sie die Mitteilungen im Browser blockiert, ist er ausgegraut („Mitteilungen wurden im Browser blockiert“).
+- **Abmelden**
+
+#### Zwei-Faktor-Anmeldung
+
+Mit der Zwei-Faktor-Anmeldung braucht jede Anmeldung zusätzlich einen 6-stelligen Code aus einer Authenticator-App auf Ihrem Handy (z. B. Google oder Microsoft Authenticator). Wer nur Ihr Passwort kennt, kommt dann nicht hinein.
+
+Einschalten:
+
+1. Klicken Sie unter **Zwei-Faktor-Anmeldung** auf **Einrichten**.
+2. Scannen Sie den QR-Code mit der Authenticator-App. Auf dem Handy selbst tippen Sie stattdessen **In der Authenticator-App öffnen**. Geht beides nicht, tippen Sie den Schlüssel unter „Oder den Schlüssel von Hand eingeben:“ in die App ein.
+3. Tragen Sie unter **2. Den 6-stelligen Code aus der App eingeben** den aktuellen Code ein und klicken Sie auf **Einschalten**. Es erscheint „Zwei-Faktor-Anmeldung ist an“.
+
+Ab jetzt fragt die Anmeldung nach dem Passwort nach dem **Code aus der Authenticator-App**. Die App zeigt alle 30 Sekunden einen neuen Code. Jeder Code gilt nur für eine Anmeldung. Ein falscher Code zählt als Fehlversuch („Der Code stimmt nicht. Bitte den aktuellen Code aus der App eingeben.“).
+
+Ausschalten: Tragen Sie unter **Zum Ausschalten: aktuelles Passwort** Ihr Passwort ein und klicken Sie auf **Ausschalten**.
+
+> **Wichtig:** Handy verloren? Ein Admin erzeugt Ihnen unter **Team** mit **Neues Passwort** ein neues Startpasswort; damit ist die Zwei-Faktor-Anmeldung aus. Sind Sie der einzige Admin, hilft Ihr Anbieter mit **Admin-Passwort zurücksetzen**. Danach richten Sie die Zwei-Faktor-Anmeldung neu ein.
 
 ---
 
@@ -846,28 +909,31 @@ Ist die App geöffnet, erscheint jede neue Mitteilung zusätzlich kurz oben rech
 |---|---|---|
 | Lieferung zugewiesen | – | „Neuer Auftrag …“ (dringend, wenn „Eilig“) |
 | Lieferung offen für alle | – | „Offener Auftrag“ an alle aktiven Fahrer (nur wenn Fahrer offene Aufträge übernehmen dürfen) |
-| Lieferung geändert | – | „Auftrag geändert“ |
-| Lieferung storniert | – | „Auftrag storniert“ (dringend) |
+| Lieferung geändert | – | „Auftrag geändert“ – nur wenn sich Orte, Zeiten, Ware, Hinweise, Fahrzeug oder „Eilig“ ändern |
+| Lieferung storniert | – | „Auftrag storniert“ mit Grund (dringend) |
 | Fahrer gewechselt | – | bisheriger Fahrer: „Auftrag storniert“; neuer Fahrer: „Neuer Auftrag …“ |
 | Fahrer bestätigt oder tippt einen Schritt | „Name: Status“ | – |
-| Fahrer schließt ab | „Zugestellt · … Lieferschein liegt vor“ | – |
+| Fahrer schließt ab | „Zugestellt · … Lieferschein liegt vor“ bzw. „Zugestellt · … ohne Lieferschein“ | – |
 | Fahrer meldet Problem | „Problem: …“ (dringend) | – |
 | Büro markiert Problem als erledigt | – | „Problem erledigt“ |
 | Notiz | „Notiz von Fahrer“ | „Notiz von Büro-Mitarbeiter“ |
 | Fahrer gibt Tour zurück | „Auftrag zurückgegeben“ (dringend) | – |
 | Fahrer nimmt Schritt zurück | „Schritt zurückgenommen“ | – |
 | Büro setzt Schritt für den Fahrer | – | „Auftrag geändert“ |
+| Ein Zugang ist nach 15 Fehlversuchen für 24 Stunden gesperrt | „Zugang gesperrt: Name“ (an alle anderen Admins und Disponenten) | – |
+| Speicher zu 80 % bzw. 100 % belegt | nur Admins: „Speicher zu 80 % belegt“ bzw. „Speicher voll“ (dringend) | – |
 
 Mitteilungen an Fahrer kommen in der Sprache des Fahrers. Schritte, die ein Fahrer ohne Netz getippt hat, melden sich erst, wenn sein Handy sie nachsendet. Jeder Nutzer behält die letzten 100 Mitteilungen; ältere als 90 Tage werden gelöscht.
 
-### Push-Mitteilungen einschalten
+### Push-Mitteilungen ein- und ausschalten
 
-Push-Mitteilungen kommen auch, wenn der Browser bzw. die App geschlossen ist.
+Push-Mitteilungen kommen auch, wenn der Browser bzw. die App geschlossen ist. Sie gelten je Gerät und Browser.
 
-- **Im Büro:** Auf der Live-Übersicht erscheint „Push-Mitteilungen einschalten – dann sehen Sie jeden Status sofort, auch bei geschlossenem Browser.“ Klicken Sie auf **Einschalten** und erlauben Sie die Mitteilungen im Browser.
-- **Beim Fahrer:** In der Fahrer-App unter **Mehr → Mitteilungen einschalten**.
+- **Im Büro:** Auf der Live-Übersicht erscheint „Push-Mitteilungen einschalten – dann sehen Sie jeden Status sofort, auch bei geschlossenem Browser.“ Klicken Sie auf **Einschalten** und erlauben Sie die Mitteilungen im Browser. Ein- und ausschalten können Sie sie jederzeit unter **Einstellungen → Mein Konto** mit dem Schalter **Push-Mitteilungen in diesem Browser**.
+- **Beim Fahrer:** In der Fahrer-App unter **Mehr → Mitteilungen** mit dem Schalter **Push-Mitteilungen auf diesem Handy**. Bei der ersten Einschaltung fragt der Browser um Erlaubnis.
+- Nach einer Passwortänderung, einer neuen PIN oder einem neuen Passwort meldet Ladeklar die Push-Mitteilungen der Person ab. Beim nächsten Start der App schaltet die App sie von selbst wieder ein, wenn der Browser sie erlaubt und niemand den Schalter ausgeschaltet hat.
 
-> **Tipp:** Erscheint „Mitteilungen wurden im Browser blockiert“, wurden sie früher einmal abgelehnt. Erlauben Sie sie in den Website-Einstellungen des Browsers wieder. Auf dem iPhone kommen Push-Mitteilungen nur, wenn die App über „Zum Home-Bildschirm“ installiert wurde.
+> **Tipp:** Ist der Schalter ausgegraut und steht dort „Mitteilungen wurden im Browser blockiert“, wurden die Mitteilungen früher einmal abgelehnt. Erlauben Sie sie in den Website-Einstellungen des Browsers wieder. Auf dem iPhone kommen Push-Mitteilungen nur, wenn die App über „Zum Home-Bildschirm“ installiert wurde.
 
 ---
 
@@ -885,26 +951,28 @@ Das ist der vollständige Export: alle Daten und jede Datei. Ladeklar stellt das
 |---|---|
 | `daten.json` | alle Daten wie bei **Alles als JSON**; unter `files[].path` steht zu jeder Datei der Pfad im ZIP und die zugehörige Lieferung |
 | `lieferungen.csv` | die Lieferungen als Tabelle, wie bei **Lieferungen als CSV** |
-| `dateien/` | jedes Lieferschein-Foto, jede PDF-Datei, jedes Schadensfoto, jede Unterschrift sowie Logo und Handy-Symbol, geordnet nach Art (z. B. `dateien/pod/` für Lieferscheine, `dateien/signature/` für Unterschriften) |
+| `dateien/` | jedes Lieferschein-Foto, jede PDF-Datei, jedes CMR- und Schadensfoto, jede Unterschrift sowie Logo und Handy-Symbol, geordnet nach Art (z. B. `dateien/pod/` für Lieferscheine, `dateien/cmr/` für CMR, `dateien/signature/` für Unterschriften). Der Dateiname beginnt mit dem Tag des Hochladens (deutsche Zeit). |
 | `LIESMICH.txt` | kurze Erklärung des Inhalts |
 
-Jeder Export steht im Protokoll (`data.export`).
+Jeder Export steht im Protokoll (`data.export` und `export.zip`).
 
 ### Lieferungen als CSV
 
 **Wo:** **Lieferungen → CSV** (Admin und Disponent) oder **Einstellungen → Daten & Datenschutz → Lieferungen als CSV**.
 
-Die Datei öffnet sich direkt in Excel (Trennzeichen Semikolon). Sie enthält bis zu 1.000 Lieferungen mit diesen Spalten:
+Die Datei öffnet sich direkt in Excel (Trennzeichen Semikolon). Sie enthält **alle** Lieferungen Ihres Unternehmens, nach Ladedatum sortiert, neueste zuerst, mit diesen Spalten:
 
 Buchungsnummer · Status · Auftraggeber · Referenz · Route · Ladeort · Ladedatum · Entladeort · Entladedatum · Fahrer · Kennzeichen · Auflieger · Ware · Paletten · Gewicht kg · Standzeit min · Empfänger · Lieferscheine (Anzahl) · Zugestellt am
 
-Haben Sie mehr als 1.000 Lieferungen, fehlen in der CSV-Datei Lieferungen. Vollständig ist dann nur `daten.json` aus dem ZIP oder **Alles als JSON**.
+- **Zugestellt am** ist der Zeitpunkt von „Bestätigen & abschließen“ (deutsche Zeit). Spätere Änderungen verschieben ihn nicht.
+- **Schutz vor Formeln:** Beginnt ein Text mit `=`, `+`, `-`, `@` oder einem Tabulator, setzt Ladeklar ein Hochkomma (`'`) davor. So führt Excel keine eingeschleusten Formeln aus, zum Beispiel aus einem Auftraggeber-Namen. Zahlen bleiben Zahlen. Sie müssen dafür nichts tun. Dasselbe gilt für den Bericht als CSV und für `lieferungen.csv` im ZIP.
+- Jeder Download steht im Protokoll (`export.csv`).
 
 ### Alles als JSON
 
 **Wo:** **Einstellungen → Daten & Datenschutz → Alles als JSON** (nur Admin).
 
-Die Datei enthält den vollständigen Datenbestand Ihres Unternehmens in maschinenlesbarer Form: Firmendaten und Einstellungen, alle Zugänge (ohne Passwörter und PINs), Fahrzeuge, Lieferungen mit Verlauf und Notizen, die Liste aller Dateien und das Protokoll. Jeder Export wird im Protokoll vermerkt.
+Die Datei enthält den vollständigen Datenbestand Ihres Unternehmens in maschinenlesbarer Form: Firmendaten und Einstellungen, alle Zugänge (ohne Passwörter, PINs und Zwei-Faktor-Schlüssel), Fahrzeuge, Lieferungen mit Verlauf und Notizen, die Liste aller Dateien und das Protokoll. Jeder Export wird im Protokoll vermerkt (`data.export` und `export.json`).
 
 > **Wichtig:** Die Fotos und PDF-Dateien selbst stecken nicht in der JSON-Datei, dort steht nur ihre Liste. Brauchen Sie die Dateien, nehmen Sie **Alles als ZIP (mit Lieferscheinen)**.
 
@@ -912,7 +980,7 @@ Die Datei enthält den vollständigen Datenbestand Ihres Unternehmens in maschin
 
 1. Laden Sie **Alles als ZIP (mit Lieferscheinen)** herunter. Darin stecken alle Daten, die CSV-Datei und alle Dateien.
 2. Öffnen Sie das ZIP und prüfen Sie, ob Lieferscheine und Daten vollständig sind.
-3. Dann kündigen.
+3. Dann kündigen: **Einstellungen → Lizenz → Kündigen** (siehe [Tarif wechseln oder kündigen](#tarif-wechseln-oder-kündigen)). Ihr Anbieter bestätigt die Kündigung und das Vertragsende.
 
 Nach der Kündigung kann sich nur noch der Admin anmelden – zum Ansehen und Exportieren, bis Ihr Anbieter die Daten endgültig löscht. Oben steht dann „Ihr Vertrag ist gekündigt. Sie können alle Daten bis zur Löschung ansehen und exportieren (Einstellungen → Daten & Datenschutz), aber nichts mehr ändern.“ Disponenten und Fahrer können sich nicht mehr anmelden.
 
@@ -922,7 +990,8 @@ Ihr Anbieter kann die Daten eines gekündigten Unternehmens endgültig löschen;
 
 | Was | Wird gelöscht nach |
 |---|---|
-| Abgeschlossene Lieferungen mit Lieferscheinen, Fotos und Unterschrift | der eingestellten Aufbewahrung (1–10 Jahre, **Einstellungen → Abläufe**), gezählt ab der letzten Änderung der Lieferung |
+| Abgeschlossene Lieferungen mit Lieferscheinen, Fotos und Unterschrift | der eingestellten Aufbewahrung (1–10 Jahre, **Einstellungen → Abläufe**), gezählt ab der Zustellung bzw. Stornierung |
+| Hochgeladene Dateien, die zu keiner Lieferung und zu keinem Logo gehören | 24 Stunden |
 | Gespeicherte Standorte beim Statuswechsel | 90 Tagen |
 | Mitteilungen | 90 Tagen |
 | IP-Adressen im Protokoll | 90 Tagen |
@@ -962,7 +1031,44 @@ Ladeklar prüft die Grenzen beim Anlegen:
 - **Fahrzeuge:** Es zählen alle Fahrzeuge im Pool (entfernte nicht).
 - **Büro-Zugänge:** Admin plus die Zahl der Disponenten aus der Tabelle.
 
-Für mehr Plätze genügt eine Nachricht an Ihren Anbieter.
+Wechselt Ihr Anbieter Sie in einen kleineren Tarif, obwohl Sie mehr Fahrer, Fahrzeuge oder Büro-Zugänge nutzen, bleiben alle bestehen. Unter **Fahrer**, **Fahrzeuge** bzw. **Einstellungen → Team** steht dann ein roter Hinweis, z. B. „Mehr aktive Fahrer (8) als Ihr Tarif umfasst (3). Neue Fahrer gehen erst wieder, wenn Sie Fahrer sperren oder den Tarif wechseln.“ Admins sehen daneben **Tarif ansehen**. Neue Fahrer, Fahrzeuge und Büro-Zugänge lassen sich erst wieder anlegen, wenn die Zahl unter der Grenze liegt. Eigene Domains entfallen, wenn der neue Tarif keine hat.
+
+Für mehr Plätze genügt eine Nachricht an Ihren Anbieter oder eine Anfrage unter **Tarif wechseln anfragen**.
+
+### Speicher
+
+Jeder Tarif hat einen Speicher für Lieferschein-Fotos, PDF-Dateien, Schadensfotos, Unterschriften und Ihr Logo (Start 5 GB, Flotte 50 GB, Premium 250 GB).
+
+- Unter **Einstellungen → Lizenz** steht in der Zeile **Speicher** z. B. „29 KB von 50 GB belegt (0 %)“ mit einem Balken.
+- Ab 80 % wird der Balken gelb, und dort steht „Der Speicher ist fast voll. …“. Alle Admins bekommen einmal die Mitteilung „Speicher zu 80 % belegt“.
+- Bei 100 % wird der Balken rot. Auf jeder Seite der Disposition steht dann „Der Speicher Ihres Tarifs ist voll. Bitte alte Lieferscheine exportieren und löschen oder den Tarif wechseln.“ Alle Admins bekommen die dringende Mitteilung „Speicher voll“.
+- Ist der Speicher voll, lehnt Ladeklar jedes neue Foto und jede neue Datei ab – auch die Lieferschein-Fotos Ihrer Fahrer. Ist **Lieferschein-Foto ist Pflicht** an, können Ihre Fahrer dann nicht abschließen.
+- Sinkt die Belegung unter 75 %, kommen die Mitteilungen beim nächsten Erreichen wieder.
+
+Platz schaffen Sie so: Laden Sie zuerst **Alles als ZIP (mit Lieferscheinen)** herunter. Senken Sie dann unter **Einstellungen → Abläufe** die Aufbewahrung; Ladeklar löscht die älteren abgeschlossenen Lieferungen samt Dateien innerhalb einer Stunde. Oder bitten Sie Ihren Anbieter um einen größeren Tarif. Einzelne Dokumente einer abgeschlossenen Lieferung lassen sich nicht löschen.
+
+### Tarif wechseln oder kündigen
+
+Tarifwechsel und Kündigung schickt der Admin als Anfrage an Ihren Anbieter. Ihr Anbieter sieht die Anfrage sofort in seiner Konsole und setzt sie um.
+
+**Tarif wechseln anfragen:**
+
+1. **Einstellungen → Lizenz → Tarif wechseln anfragen**.
+2. Wählen Sie unter **Gewünschter Tarif** den neuen Tarif. Nutzen Sie mehr Fahrer, Fahrzeuge oder Büro-Zugänge, als der Tarif umfasst, warnt Ladeklar: „Für diesen Tarif sind es zu viele: … Vor dem Wechsel bitte sperren oder entfernen.“
+3. Schreiben Sie bei Bedarf eine **Nachricht an Ihren Anbieter (optional)**.
+4. Klicken Sie auf **Anfrage senden**. Oben erscheint „Anfrage gesendet“.
+
+Bis der Anbieter den Tarif ändert, steht auf der Seite „Tarifwunsch „…“ gesendet am …. Ihr Anbieter meldet sich.“
+
+**Kündigen:**
+
+1. **Einstellungen → Lizenz → Kündigen**.
+2. Tragen Sie bei Bedarf einen **Grund der Kündigung (optional)** ein und klicken Sie auf **Weiter**.
+3. Lesen Sie die Rückfrage „Vertrag wirklich kündigen? …“ und klicken Sie auf **Kündigung senden**. Mit **Abbrechen** wird nichts gesendet.
+
+Danach steht dort „Kündigung gesendet am …. Ihr Anbieter bestätigt das Vertragsende. Bis dahin läuft alles weiter.“ Ein zweites **Kündigen** gibt es dann nicht. Erst wenn Ihr Anbieter die Kündigung umsetzt, ändert sich der Status auf „Gekündigt“. Laden Sie vorher Ihre Daten herunter (siehe [Anbieterwechsel](#anbieterwechsel--so-gehen-sie-vor)).
+
+Beide Anfragen stehen im Protokoll (`tenant.plan_request`, `tenant.cancel_request`). Sie gehen in jedem Status außer „Gekündigt“.
 
 ### Was der Lizenz-Status bedeutet
 
@@ -970,15 +1076,15 @@ Für mehr Plätze genügt eine Nachricht an Ihren Anbieter.
 |---|---|---|
 | **Testphase** | alle Funktionen; ab 10 Tagen vor Ende erscheint ein Hinweis „Testphase: noch … Tage“ | alle Funktionen |
 | **Aktiv** | alle Funktionen | alle Funktionen |
-| **Abgelaufen** (Test oder Laufzeit vorbei) | anmelden, ansehen und exportieren – aber nichts ändern | keine Anmeldung möglich |
-| **Gesperrt** (z. B. Zahlung offen) | anmelden, ansehen und exportieren – aber nichts ändern | keine Anmeldung möglich |
-| **Gekündigt** | nur der Admin kann sich anmelden: ansehen und exportieren, nichts ändern; Disponenten können sich nicht mehr anmelden | keine Anmeldung möglich |
+| **Abgelaufen** (Test oder Laufzeit vorbei) | anmelden, ansehen und exportieren – aber nichts ändern | abgemeldet, keine Anmeldung möglich |
+| **Gesperrt** (z. B. Zahlung offen) | anmelden, ansehen und exportieren – aber nichts ändern | abgemeldet, keine Anmeldung möglich |
+| **Gekündigt** | nur der Admin kann sich anmelden: ansehen und exportieren, nichts ändern; Disponenten werden abgemeldet und können sich nicht mehr anmelden | abgemeldet, keine Anmeldung möglich |
 
 Bei „Abgelaufen“ und „Gesperrt“ steht oben der Hinweis „Ihr Zugang ist gesperrt. Daten können angesehen und exportiert werden. Bitte melden Sie sich beim Anbieter.“ Wer dann etwas ändern will, sieht „Die Lizenz ist nicht aktiv. Daten können angesehen und exportiert, aber nicht geändert werden.“ Nach einer Kündigung lautet die Meldung „Der Vertrag ist gekündigt. Daten können bis zur Löschung angesehen und exportiert, aber nicht geändert werden.“ Ein Disponent, der sich nach der Kündigung anmelden will, sieht „Der Zugang dieses Unternehmens ist beendet. Nur der Admin kann die Daten noch exportieren.“
 
-Fahrer, die sich anmelden wollen, sehen „Der Zugang ist zurzeit gesperrt. Bitte die Disposition anrufen.“ Wer schon angemeldet ist, wird nicht abgemeldet: Er sieht seine Daten noch, kann aber nichts mehr ändern – Fahrer können keine Schritte mehr senden.
+Fahrer werden bei „Gesperrt“, „Abgelaufen“ und „Gekündigt“ abgemeldet, sobald ihre App das nächste Mal mit dem Server spricht. Wer sich dann anmelden will, sieht „Der Zugang ist zurzeit gesperrt. Bitte die Disposition anrufen.“ Zeigt die App noch Daten aus ihrem Speicher, steht oben „Zugang gesperrt – bitte die Disposition anrufen.“ Schritte, die ein Fahrer noch ohne Netz getippt hat, bleiben auf seinem Handy und gehen erst nach einer neuen Anmeldung raus. Auch die REST-API antwortet in diesen Status nicht mehr.
 
-In jedem Status möglich bleiben: Personen löschen (siehe [Person löschen](#person-löschen)), Support-Freigabe, eigenes Passwort und Sprache ändern.
+In jedem Status möglich bleiben: Personen sperren und löschen (siehe [Person löschen](#person-löschen)), Support-Freigabe, eigenes Passwort, Sprache und Zwei-Faktor-Anmeldung ändern, Daten exportieren. Tarifwechsel und Kündigung anfragen geht in jedem Status außer „Gekündigt“.
 
 ---
 
@@ -990,21 +1096,25 @@ Klicken Sie unter **Fahrer** auf seiner Karte auf **Neue PIN & Einladung** und s
 **Ich habe mein Passwort vergessen.**
 Ein Admin erzeugt Ihnen unter **Einstellungen → Team** mit **Neues Passwort** ein neues Startpasswort. Sind Sie der einzige Admin, wenden Sie sich an Ihren Anbieter: Er kann für Ihren Admin-Zugang ein neues Startpasswort erzeugen (im Protokoll: `user.reset_by_licensor`). In beiden Fällen vergeben Sie beim nächsten Anmelden ein eigenes Passwort.
 
+**Ich habe mein Handy mit der Authenticator-App verloren.**
+Dann fehlt Ihnen der Code für die Zwei-Faktor-Anmeldung. Ein Admin erzeugt Ihnen unter **Einstellungen → Team** mit **Neues Passwort** ein neues Startpasswort; damit ist die Zwei-Faktor-Anmeldung aus. Sind Sie der einzige Admin, hilft Ihr Anbieter mit **Admin-Passwort zurücksetzen** – das schaltet die Zwei-Faktor-Anmeldung ebenfalls aus. Richten Sie sie danach unter **Mein Konto** neu ein.
+
 **Ein Fahrer kommt nicht in die App.**
 Achten Sie auf die Meldung, die er sieht:
 
-- „Zu viele Fehlversuche. Bitte in 15 Minuten erneut versuchen.“ – nach fünf falschen PINs ist der Zugang 15 Minuten gesperrt. Warten Sie ab oder erzeugen Sie mit **Neue PIN & Einladung** eine neue PIN; das hebt die Sperre sofort auf.
+- „Zu viele Fehlversuche. Bitte in 15 Minuten erneut versuchen.“ – nach fünf falschen PINs ist der Zugang 15 Minuten gesperrt, nach zehn eine Stunde („… in einer Stunde …“), ab fünfzehn 24 Stunden. Warten Sie ab oder erzeugen Sie mit **Neue PIN & Einladung** eine neue PIN; das hebt jede Sperre sofort auf.
 - „Firmencode, Telefonnummer oder PIN ist falsch.“ – prüfen Sie Firmencode (steht unter **Einstellungen**) und Handynummer auf seiner Fahrerkarte. Ist der Fahrer dort als „gesperrt“ markiert, kann er sich ebenfalls nicht anmelden.
+- „Einladung abgelaufen – bitte neue Einladung im Büro anfordern“ – der Einladungslink wurde schon benutzt oder ist älter als 14 Tage. Der Fahrer meldet sich darunter mit Firmencode, Handynummer und PIN an, oder Sie schicken mit **Neue PIN & Einladung** einen neuen Link.
 - „Der Zugang ist zurzeit gesperrt. Bitte die Disposition anrufen.“ – Ihre Lizenz ist nicht aktiv (siehe [Abschnitt 15](#15-lizenz-und-tarif)).
 
 **Ein LKW wird als belegt angezeigt.**
 Ein anderer Fahrer hat ihn gewählt und nicht wieder abgegeben („fährt: Name“). Klicken Sie unter **Fahrzeuge** auf der Karte auf **Freigeben**. Steht dort „Werkstatt“, klicken Sie auf **Zurück in Betrieb**.
 
 **Ein Fahrer ist im Funkloch.**
-Der Fahrer tippt einfach weiter – bis zum Abschluss mit Lieferschein-Foto und Unterschrift. Die App zeigt „Offline – Ihre Schritte werden gespeichert und automatisch gesendet.“ Sobald wieder Netz da ist, sendet sie Schritte, Fotos, Unterschrift, Notizen und Problemmeldungen in der richtigen Reihenfolge. Sie sehen die Meldungen dann mit Verzögerung; als Uhrzeit gilt der Eingang bei Ladeklar. Abmelden kann sich der Fahrer erst, wenn alles gesendet ist. Einzelheiten in [Abschluss ohne Netz](#abschluss-ohne-netz).
+Der Fahrer tippt einfach weiter – bis zum Abschluss mit Lieferschein-Foto und Unterschrift. Die App zeigt „Offline – Ihre Schritte werden gespeichert und automatisch gesendet.“ Auch nach einem Neustart des Handys öffnet sich die App mit seinen Touren. Sobald wieder Netz da ist, sendet sie Schritte, Fotos, Unterschrift, Notizen und Problemmeldungen in der Reihenfolge, in der er getippt hat. Sie sehen die Meldungen dann mit Verzögerung, aber mit der Uhrzeit des Tipps. Abmelden kann sich der Fahrer erst, wenn alles gesendet ist. Einzelheiten in [Abschluss ohne Netz](#abschluss-ohne-netz).
 
 **Ein Fahrer hat den falschen Schritt getippt.**
-Innerhalb von 2 Minuten kann er selbst **Rückgängig** tippen – aber nur, wenn er beim Tippen Netz hatte. Danach lässt sich der Schritt nicht mehr zurücknehmen – auch nicht im Büro. Halten Sie den Fehler mit einer Notiz in der Lieferung fest; der Verlauf zeigt alle Zeiten.
+Innerhalb von 2 Minuten kann er selbst **Rückgängig** tippen – aber nur mit Netz und nur, wenn er auch beim Tippen Netz hatte. Danach lässt sich der Schritt nicht mehr zurücknehmen – auch nicht im Büro. Halten Sie den Fehler mit einer Notiz in der Lieferung fest; der Verlauf zeigt alle Zeiten.
 
 **Der Lieferschein hat mehrere Seiten oder liegt als PDF vor.**
 Der Fahrer fotografiert jede Seite einzeln (**Weitere Seite**) oder wählt eine PDF-Datei. Im Büro laden Sie zusätzliche Seiten oder PDFs in der Lieferung mit **Hinzufügen** hoch – auch nach der Zustellung.
@@ -1016,13 +1126,22 @@ Der Fahrer fotografiert jede Seite einzeln (**Weitere Seite**) oder wählt eine 
 Prüfen Sie: Ist unter **Einstellungen → Abläufe** der Schalter **Fahrer dürfen offene Aufträge übernehmen** an? Ist in der Lieferung **Offen für alle Fahrer (jeder kann übernehmen)** angehakt? Hat ein anderer Fahrer den Auftrag schon übernommen? Ist der Fahrer gesperrt?
 
 **Ein Fahrer bekommt keine Mitteilungen aufs Handy.**
-Der Fahrer tippt in der App auf **Mehr → Mitteilungen einschalten** und erlaubt die Mitteilungen. Auf dem iPhone muss die App über „Zum Home-Bildschirm“ installiert sein. Neue Aufträge sieht er in jedem Fall, sobald er die App öffnet.
+Der Fahrer schaltet in der App unter **Mehr → Mitteilungen** den Schalter **Push-Mitteilungen auf diesem Handy** ein und erlaubt die Mitteilungen. Ist der Schalter ausgegraut, hat er die Mitteilungen im Browser blockiert; er muss sie in den Browser-Einstellungen wieder erlauben. Auf dem iPhone muss die App über „Zum Home-Bildschirm“ installiert sein. Neue Aufträge sieht er in jedem Fall, sobald er die App öffnet.
 
 **Navi öffnet auf dem iPhone Apple Karten.**
 Das ist so gewollt: Auf iPhone und iPad öffnet **Navi** die Route in Apple Karten, auf allen anderen Geräten in Google Maps.
 
 **Die Lizenz ist gesperrt.**
-Sie können sich weiter anmelden, alle Daten ansehen und exportieren, aber nichts ändern. Ihre Fahrer können sich nicht anmelden. Melden Sie sich bei Ihrem Anbieter – nach der Freischaltung geht alles sofort weiter.
+Sie können sich weiter anmelden, alle Daten ansehen und exportieren, aber nichts ändern. Ihre Fahrer werden abgemeldet und können sich nicht anmelden. Melden Sie sich bei Ihrem Anbieter – nach der Freischaltung melden sich die Fahrer wieder an, und alles geht weiter.
+
+**Wir möchten den Tarif wechseln oder kündigen.**
+Als Admin unter **Einstellungen → Lizenz** mit **Tarif wechseln anfragen** bzw. **Kündigen** (siehe [Tarif wechseln oder kündigen](#tarif-wechseln-oder-kündigen)). Ihr Anbieter setzt die Anfrage um.
+
+**Der Speicher ist voll.**
+Neue Fotos und Lieferscheine gehen dann nicht mehr hoch. Laden Sie Ihre Daten als ZIP herunter und senken Sie die Aufbewahrung, oder fragen Sie einen größeren Tarif an (siehe [Speicher](#speicher)).
+
+**In Excel steht vor manchen Einträgen ein Hochkomma.**
+Das ist der Schutz vor eingeschleusten Formeln: Texte, die mit `=`, `+`, `-` oder `@` beginnen, bekommen in CSV-Dateien ein `'` davor (siehe [Lieferungen als CSV](#lieferungen-als-csv)).
 
 **Unser Vertrag ist gekündigt.**
 Der Admin kann sich weiter anmelden und unter **Einstellungen → Daten & Datenschutz** mit **Alles als ZIP (mit Lieferscheinen)** alle Daten herunterladen – bis Ihr Anbieter die Daten endgültig löscht. Ändern kann er nichts mehr. Disponenten und Fahrer können sich nicht mehr anmelden.
@@ -1034,22 +1153,22 @@ Sperren Sie ihn unter **Fahrer** mit **Sperren**. Sein Zugang ist sofort beendet
 Er hat noch eine beladene Tour. Schließen Sie sie ab – notfalls mit **Für Fahrer setzen** – oder stornieren Sie sie. Danach geht das Löschen. Löschen dürfen nur Admins.
 
 **Wie sehe ich alte Lieferungen?**
-Unter **Lieferungen** im Reiter **Erledigt** (zugestellte und stornierte, neueste zuerst) oder **Alle**. Nutzen Sie die Suche (Buchungsnummer, Ort, Auftraggeber, Referenz, Kennzeichen …) und den Filter **Alle Fahrer**. Je Ansicht zeigt Ladeklar höchstens 300 Lieferungen; finden Sie eine Lieferung nicht, grenzen Sie mit der Suche oder dem Fahrer-Filter ein. Lieferungen bleiben so lange gespeichert, wie unter **Lieferscheine aufbewahren (Jahre)** eingestellt ist.
+Unter **Lieferungen** im Reiter **Erledigt** (zugestellte und stornierte) oder **Alle** – beide nach Ladedatum, neueste zuerst. Nutzen Sie die Suche (Buchungsnummer, Ort, Auftraggeber, Referenz, Kennzeichen …) und den Filter **Alle Fahrer**. Je Ansicht zeigt Ladeklar die neuesten 300 Lieferungen; finden Sie eine ältere Lieferung nicht, grenzen Sie mit der Suche oder dem Fahrer-Filter ein. Die CSV-Datei enthält immer alle. Lieferungen bleiben so lange gespeichert, wie unter **Lieferscheine aufbewahren (Jahre)** eingestellt ist.
 
 **An welcher Rampe warten unsere Fahrer am längsten?**
 Schalten Sie **Ankunft an Lade- und Entladestelle erfassen** ein. Unter **Berichte** steht dann die Tabelle **Je Lade- und Entladestelle** mit der durchschnittlichen Standzeit, längste zuerst. Mit **CSV** nehmen Sie den Bericht für Standgeld-Gespräche mit.
 
 **Ein Fahrer hat eine Tour zurückgegeben.**
-Die Lieferung steht wieder unter **Offen**, ohne Fahrer. Öffnen Sie sie und weisen Sie unter **Zuweisung** einen anderen Fahrer zu – oder haken Sie **Offen für alle Fahrer** an.
+Die Lieferung steht wieder unter **Offen**, ohne Fahrer und ohne das Fahrzeug, das er mitgebracht hatte. Öffnen Sie sie und weisen Sie unter **Zuweisung** einen anderen Fahrer zu – oder haken Sie **Offen für alle Fahrer** an (nur möglich, wenn Fahrer offene Aufträge übernehmen dürfen).
 
 **Ich kann keinen weiteren Fahrer oder kein weiteres Fahrzeug anlegen.**
-Ihr Tarif ist ausgeschöpft. Sperren oder löschen Sie Fahrer, die nicht mehr fahren, entfernen Sie Fahrzeuge, die nicht mehr im Pool sind – oder bitten Sie Ihren Anbieter um mehr Plätze.
+Ihr Tarif ist ausgeschöpft – oder Sie liegen nach einem Tarifwechsel über der Grenze (roter Hinweis auf der Seite). Sperren oder löschen Sie Fahrer, die nicht mehr fahren, entfernen Sie Fahrzeuge, die nicht mehr im Pool sind – oder fragen Sie unter **Einstellungen → Lizenz** einen größeren Tarif an.
 
 **Der Kunde will einen Nachweis über die Zustellung.**
 Öffnen Sie die Lieferung, klicken Sie auf **Abliefernachweis** und dann auf **Drucken / PDF** → „Als PDF speichern“. Die PDF-Datei können Sie per E-Mail verschicken.
 
 **Ein Fahrer hat ein neues Handy.**
-Er öffnet den Einladungslink oder den Link Ihrer Firma auf dem neuen Handy und meldet sich mit seiner PIN an. Kennt er die PIN nicht mehr, erzeugen Sie eine neue – damit wird er auch auf dem alten Handy abgemeldet.
+Er öffnet den Link Ihrer Firma (z. B. `…/t/KAYA`) auf dem neuen Handy und meldet sich mit Handynummer und PIN an. Der Einladungslink hilft dafür nicht mehr, wenn er schon benutzt wurde. Kennt der Fahrer die PIN nicht mehr, erzeugen Sie mit **Neue PIN & Einladung** eine neue – damit wird er auch auf dem alten Handy abgemeldet.
 
 **Beim Tippen erscheint „Dieser Schritt passt gerade nicht. Bitte die Ansicht aktualisieren.“**
 Der Schritt wurde schon gesetzt – zum Beispiel vom Büro mit „Für Fahrer setzen“ oder auf einem zweiten Gerät. Nach dem Aktualisieren zeigt die App den richtigen nächsten Schritt.
@@ -1066,8 +1185,10 @@ Der Schritt wurde schon gesetzt – zum Beispiel vom Büro mit „Für Fahrer se
 | **Auflieger** | Anhänger ohne eigene Vorderachse (Sattelauflieger); in Ladeklar auch für Anhänger allgemein. |
 | **Buchungsnummer** | Eindeutige Nummer jeder Lieferung, automatisch vergeben: Präfix – Jahr/Monat – laufende Nummer, z. B. `KAY-2610-0042`. Die laufende Nummer beginnt jeden Monat bei `0001`. |
 | **Disponent** | Büro-Zugang für die Disposition: Lieferungen, Fahrer, Fahrzeuge, Berichte. |
+| **CMR** | Internationaler Frachtbrief. Im Büro als Dokumentart „CMR“ hochladbar; erscheint im Abliefernachweis. |
 | **Eilig** | Markierung für dringende Lieferungen; rot hervorgehoben, Mitteilung an den Fahrer mit hoher Priorität. |
 | **Fahrsperre** | Verdeckt die Knöpfe der Fahrer-App ab ca. 8 km/h (§ 23 StVO). Braucht die Standortfreigabe auf dem Handy; speichert keine Position. |
+| **Einladungslink** | Persönlicher Link für die erste Anmeldung eines Fahrers (`…/i/…`). Gilt 14 Tage und nur für eine Anmeldung; danach meldet sich der Fahrer mit Firmencode, Handynummer und PIN an. |
 | **Firmencode** | Kurzer Code Ihres Unternehmens (z. B. `KAYA`), mit dem sich Fahrer ohne Einladungslink anmelden. Steht unter **Einstellungen**. |
 | **Fortschrittsleiste** | Die Schritte einer Lieferung mit Uhrzeit, z. B. Bestätigt · Beladen · Entladen · Zugestellt. |
 | **Gelöschter Nutzer** | So erscheint eine gelöschte Person in alten Lieferungen. Ihre persönlichen Daten sind gelöscht. |
@@ -1082,11 +1203,13 @@ Der Schritt wurde schon gesetzt – zum Beispiel vom Büro mit „Für Fahrer se
 | **PIN** | 6-stellige Geheimzahl, mit der sich ein Fahrer anmeldet. |
 | **Pool** | Alle Fahrzeuge Ihres Unternehmens, aus denen Fahrer wählen. |
 | **Push-Mitteilung** | Nachricht aufs Handy oder an den Browser, auch wenn die App geschlossen ist. |
-| **Rückgängig** | Der Fahrer nimmt seinen letzten Schritt innerhalb von 2 Minuten zurück – nur bei Schritten, die er mit Netz getippt hat. |
+| **Rückgängig** | Der Fahrer nimmt seinen letzten Schritt innerhalb von 2 Minuten zurück – nur mit Netz und nur bei Schritten, die er mit Netz getippt hat. |
 | **Standzeit** | Wartezeit an Lade- und Entladestelle zwischen „Angekommen“ und „Aufgeladen“ bzw. „Abgeladen“; Grundlage für Standgeld. |
 | **Standgeld** | Vergütung, die Sie Ihrem Auftraggeber für Wartezeiten an der Rampe in Rechnung stellen. |
+| **Speicher** | Platz für Fotos, PDF-Dateien und Logo Ihres Tarifs (5, 50 oder 250 GB). Belegung unter **Einstellungen → Lizenz**. |
 | **Startpasswort** | Passwort für die erste Anmeldung eines Büro-Zugangs. Wird nur einmal angezeigt; danach muss ein eigenes Passwort vergeben werden. |
 | **Störung** | Vom Fahrer gemeldetes Problem (z. B. Panne, Stau, Annahme verweigert), bis es im Büro als erledigt markiert wird. |
 | **Verlauf** | Zeitstrahl aller Ereignisse einer Lieferung mit Uhrzeit und Person. |
 | **White-Label** | Die App läuft unter Ihrem Namen, Logo und Ihrer Farbe. |
-| **Zeitstempel** | Datum und Uhrzeit, zu der ein Schritt bei Ladeklar angekommen ist (deutsche Zeit). |
+| **Zeitstempel** | Datum und Uhrzeit, zu der der Fahrer einen Schritt getippt hat (deutsche Zeit) – auch bei Schritten ohne Netz. Ist die Uhrzeit des Handys nicht plausibel, gilt der Eingang bei Ladeklar. |
+| **Zwei-Faktor-Anmeldung** | Anmeldung mit Passwort und zusätzlich einem 6-stelligen Code aus einer Authenticator-App. Ein- und ausschalten unter **Einstellungen → Mein Konto**. |

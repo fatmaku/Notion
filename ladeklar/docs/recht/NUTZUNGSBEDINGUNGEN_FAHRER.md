@@ -29,9 +29,10 @@ Diese Regeln gelten für alle, die für [Firma des Kunden] mit der App [App-Name
 
 1. Ihre PIN ist persönlich. Geben Sie sie niemandem weiter, auch nicht Kollegen.
 2. Melden Sie sich nicht mit dem Zugang eines anderen Fahrers an.
-3. Leiten Sie Ihren Einladungslink nicht weiter und teilen Sie ihn nicht in Gruppen-Chats.
+3. Leiten Sie Ihren Einladungslink nicht weiter und teilen Sie ihn nicht in Gruppen-Chats. Der Link gilt 14 Tage und nur für eine Anmeldung. Ist er abgelaufen oder schon benutzt, melden Sie sich mit Firmencode, Handynummer und PIN an oder lassen sich im Büro eine neue Einladung geben.
 4. Wenn Ihr Handy verloren geht oder jemand Ihre PIN kennen könnte, melden Sie das sofort der Disposition. Die Disposition setzt Ihre PIN zurück; damit werden alle Anmeldungen beendet.
-5. Die App bleibt angemeldet; die Anmeldung endet erst, wenn Sie die App 90 Tage nicht genutzt haben. Melden Sie sich ab, wenn Sie das Gerät abgeben.
+5. Nach 5 falschen PINs ist Ihr Zugang 15 Minuten gesperrt, nach 10 eine Stunde, danach jeweils 24 Stunden. Eine neue PIN von der Disposition hebt die Sperre auf.
+6. Die App bleibt angemeldet; die Anmeldung endet, wenn Sie die App 90 Tage nicht genutzt haben, wenn Sie eine neue PIN bekommen oder wenn der Zugang Ihrer Firma gesperrt ist. Melden Sie sich ab, wenn Sie das Gerät abgeben. Abmelden löscht Ihre Touren vom Gerät.
 
 ## 3. Wahrheitsgemäße Meldungen
 
@@ -59,10 +60,11 @@ Diese Regeln gelten für alle, die für [Firma des Kunden] mit der App [App-Name
 
 ## 6. Offline und Funklöcher
 
-1. Ohne Netz speichert die App Ihre Schritte, Notizen, Problemmeldungen, Fotos und die Unterschrift des Empfängers und sendet sie der Reihe nach, sobald wieder Empfang besteht. Sie können eine Lieferung auch ohne Netz bis zum Abschluss melden.
-2. Als Uhrzeit eines Schritts speichert der Server den Zeitpunkt, zu dem die Meldung bei ihm ankommt, nicht den Zeitpunkt Ihres Tippens. Schreiben Sie nach einem längeren Funkloch die tatsächlichen Uhrzeiten in eine Notiz, besonders bei Ankunft und Wartezeit.
+1. Ohne Netz speichert die App Ihre Schritte, Notizen, Problemmeldungen, Fotos und die Unterschrift des Empfängers und sendet sie der Reihe nach, sobald wieder Empfang besteht. Sie können eine Lieferung auch ohne Netz bis zum Abschluss melden. Auch wenn Sie die App im Funkloch neu öffnen, sehen Sie Ihre Touren.
+2. Als Uhrzeit eines Schritts zählt der Zeitpunkt Ihres Tippens nach der Uhr Ihres Handys. Lassen Sie deshalb die automatische Uhrzeit im Handy eingeschaltet. Liegt das Tippen mehr als 72 Stunden zurück, zählt der Zeitpunkt, zu dem die Meldung beim Server ankommt; schreiben Sie dann die tatsächlichen Uhrzeiten in eine Notiz.
 3. Löschen Sie nicht die Browserdaten und deinstallieren Sie die App nicht, solange Einträge noch nicht gesendet sind. Sonst gehen sie verloren. Die App zeigt an, wenn noch etwas wartet; „Abmelden“ ist so lange gesperrt.
-4. Prüfen Sie nach längeren Funklöchern, ob alle Schritte angekommen sind. Lehnt der Server einen gespeicherten Schritt ab, zeigt die App einen Hinweis; rufen Sie dann die Disposition an.
+4. Prüfen Sie nach längeren Funklöchern, ob alle Schritte angekommen sind. Lehnt der Server einen gespeicherten Schritt ab (z. B. weil die Tour inzwischen storniert ist), zeigt die App ihn in der Karte „Nicht gesendet“ mit dem Grund; rufen Sie dann die Disposition an.
+5. Bittet die App Sie, sich neu anzumelden (z. B. nach einer neuen PIN), bleiben gespeicherte Schritte erhalten. Die App sendet sie, sobald Sie sich wieder angemeldet haben.
 
 ## 7. Eigene Geräte (BYOD)
 

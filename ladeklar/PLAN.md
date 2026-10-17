@@ -34,9 +34,9 @@ bekommen einen Zugang und bedienen die App fast nur über große Icon-Knöpfe.
 
 | Rolle | Wer | Darf | Darf nicht |
 |---|---|---|---|
-| **Lizenzgeber** (`platform`) | Plattformbetreiber (genau ein Lizenzgeber-Zugang) | Lizenznehmer anlegen, Tarif/Zusatzfahrer/Zahlweise/Laufzeit/Status ändern, Firmendaten und eigene Domains (Premium) pflegen, Markenfarbe bei der Anlage setzen, Admin-Passwort des Kunden zurücksetzen (neues Startpasswort, steht im Protokoll des Kunden), gekündigte Kunden endgültig löschen, Kennzahlen (Anzahl Fahrer, Fahrzeuge, Lieferungen) und Abrechnung sehen, eigenes Passwort ändern | Lieferungen, Lieferscheine, Fahrernamen oder Notizen eines Lizenznehmers einsehen (Datenschutz, AVV). Die Support-Freigabe des Kunden (befristet) wird nur gespeichert und protokolliert; einen Zugriff auf Kundendaten gibt es in der Konsole auch dann nicht. |
-| **Unternehmens-Admin** (`admin`) | Inhaber/Leitung des Lizenznehmers | alles im eigenen Unternehmen: Branding, Abläufe, Büro-Zugänge (Name, E-Mail, Rolle, Sprache), Fahrer, Fahrzeuge, Lieferungen, Personen löschen, Protokoll, Export, API-Schlüssel (Premium), Support-Freigabe | andere Unternehmen sehen, den eigenen Zugang sperren oder löschen |
-| **Disponent** (`dispatcher`) | Disposition | Lieferungen anlegen/ändern/zuweisen/stornieren, Fahrer anlegen, ändern, sperren und PIN zurücksetzen, Fahrzeuge anlegen, ändern und entfernen, Live-Übersicht, Verlauf, Notizen, Berichte, Lieferungen als CSV | Marke und Abläufe, Büro-Zugänge, Personen löschen, Gesamtexport (ZIP/JSON), Protokoll, API-Schlüssel |
+| **Lizenzgeber** (`platform`) | Plattformbetreiber (genau ein Lizenzgeber-Zugang) | Lizenznehmer anlegen, Tarif/Zusatzfahrer/Zahlweise/Laufzeit/Status ändern, Firmendaten und eigene Domains (Premium) pflegen, Markenfarbe bei der Anlage setzen, Admin-Passwort des Kunden zurücksetzen (neues Startpasswort, steht im Protokoll des Kunden), gekündigte Kunden endgültig löschen, Kennzahlen (Anzahl Fahrer, Fahrzeuge, Lieferungen, belegter Speicher) und Abrechnung sehen, Kündigungs- und Tarifwünsche der Kunden sehen und übernehmen, eigenes Passwort ändern und eine Zwei-Faktor-Anmeldung einschalten | Lieferungen, Lieferscheine, Fahrernamen oder Notizen eines Lizenznehmers einsehen (Datenschutz, AVV). Die Support-Freigabe des Kunden (befristet) wird nur gespeichert und protokolliert; einen Zugriff auf Kundendaten gibt es in der Konsole auch dann nicht. |
+| **Unternehmens-Admin** (`admin`) | Inhaber/Leitung des Lizenznehmers | alles im eigenen Unternehmen: Branding, Abläufe, Büro-Zugänge (Name, E-Mail, Rolle, Sprache), Fahrer, Fahrzeuge, Lieferungen, Personen löschen, Protokoll, Export, API-Schlüssel (Premium), Support-Freigabe, Lizenz-Seite mit Tarifwunsch und Kündigung, eigene Zwei-Faktor-Anmeldung | andere Unternehmen sehen, den eigenen Zugang sperren oder löschen |
+| **Disponent** (`dispatcher`) | Disposition | Lieferungen anlegen/ändern/zuweisen/stornieren, Fahrer anlegen, ändern, sperren und PIN zurücksetzen, Fahrzeuge anlegen, ändern und entfernen, Live-Übersicht, Verlauf, Notizen, Berichte, Lieferungen als CSV, eigene Zwei-Faktor-Anmeldung | Marke und Abläufe, Büro-Zugänge, Personen löschen, Gesamtexport (ZIP/JSON), Protokoll, API-Schlüssel |
 | **Fahrer** (`driver`) | angestellte Fahrer und Subunternehmer-Fahrer | eigene Fahrzeugwahl aus dem Pool, Lieferungen sehen, die ihm zugewiesen oder für alle freigegeben sind (wenn „Fahrer dürfen offene Aufträge übernehmen“ an ist), Status bestätigen, Fotos/Lieferschein hochladen, Notizen, Problem melden, eigener Verlauf (30 Tage) | Lieferungen anderer Fahrer sehen, Stammdaten ändern |
 
 Mandantentrennung ist im Kern (Engine) erzwungen: Jede Abfrage und Aktion prüft die `tenantId` des
@@ -51,7 +51,8 @@ angemeldeten Nutzers. Ein Test stellt sicher, dass Unternehmen A nie Daten von U
 3. Firmencode wird vorgeschlagen (z. B. `KAYA`), Buchungsnummern-Präfix (z. B. `KAY`).
 4. Admin-Zugang wird erzeugt (E-Mail + Startpasswort). Beim ersten Login erscheint zuerst „Eigenes Passwort
    vergeben“ – vorher lässt die Plattform keine andere Aktion zu. Hat sich ein Kunde ausgesperrt, setzt der
-   Lizenzgeber das Admin-Passwort zurück (neues Startpasswort, Eintrag im Protokoll des Kunden).
+   Lizenzgeber das Admin-Passwort zurück (neues Startpasswort, Zwei-Faktor-Anmeldung aus, alle Sitzungen enden, Eintrag im
+   Protokoll des Kunden).
 5. Optional: Markenfarbe gleich mitgeben. Das Logo lädt der Kunde selbst hoch.
 
 ### 3.2 Lizenznehmer richtet sich ein (4 Schritte über die Menüs, kein geführter Assistent)
@@ -60,7 +61,8 @@ angemeldeten Nutzers. Ein Test stellt sicher, dass Unternehmen A nie Daten von U
    Kühlkoffer, Kipper, Tank; Auflieger Plane/Kühl/Kipper/Container/Tieflader/Koffer), Nutzlast, Stellplätze,
    Ausstattung (Ladebordwand, Kühlung, ADR, Mitnahmestapler, Hebebühne, Kran), HU-/SP-Termin.
 3. **Fahrer** anlegen: Name, Handynummer, Sprache, Führerscheinklasse. Die App erzeugt eine 6-stellige PIN
-   und einen **Einladungstext mit Link/QR** zum Weiterleiten per WhatsApp/SMS.
+   und einen **Einladungstext mit Link/QR** zum Weiterleiten per WhatsApp/SMS. Der Link enthält ein zufälliges
+   Token, gilt 14 Tage und für eine Anmeldung; „Neue Einladung“ erzeugt Link und PIN neu.
 4. **Erste Lieferung** anlegen.
 
 ### 3.3 Disponent legt eine Lieferung an
@@ -75,6 +77,9 @@ Ware, Paletten, Gewicht, ADR (Gefahrgut), Temperatur, Hinweise für den Fahrer, 
   Fahrer offene Aufträge nicht; der Auftrag wartet, bis die Disposition ihn zuteilt.
 - **Nachbearbeiten**: Bei zugestellten oder stornierten Lieferungen lassen sich nur noch Auftraggeber, Referenz und
   interne Notiz ändern (Route, Zeiten und Nachweise bleiben, wie sie sind).
+- **Fahrerwechsel**: Bekommt eine bestätigte, noch nicht beladene Tour einen anderen Fahrer, geht sie auf „Offen“
+  zurück, der neue Fahrer bestätigt sie selbst, das Fahrzeug des vorigen Fahrers wird entfernt und dessen
+  Ankunftszeiten zählen nicht zur Standzeit. Nach dem Beladen ist kein Fahrerwechsel möglich.
 - **„Wiederholen“** kopiert eine frühere Lieferung (Stammrouten in Sekunden).
 - Orte, die schon einmal verwendet wurden, werden beim Tippen vorgeschlagen (kein extra Adressbuch nötig).
 
@@ -99,22 +104,24 @@ Jederzeit verfügbar: **Notiz** (Freitext + Schnellbausteine: „Stau, ca. 30 Mi
 „Kunde nicht erreichbar“, …), **Problem melden** (Stau/Verspätung, Panne, Unfall, Ware beschädigt, Annahme verweigert,
 Adresse falsch, Lange Wartezeit, Sonstiges – optional mit Foto), **Navigation** (öffnet auf iPhone/iPad Apple Karten,
 sonst Google Maps), **Anrufen** (Ansprechpartner der nächsten Stelle, sonst Disposition; unter „Mehr“ immer
-„Disposition anrufen“). **Rückgängig** ist 2 Minuten lang nach dem eigenen Schritt möglich – nur mit Netz, für offline
-getippte Schritte wird es nicht angeboten.
+„Disposition anrufen“). **Rückgängig** ist 2 Minuten lang nach dem eigenen Schritt möglich (gezählt ab dem Tippen) –
+nur mit Netz, für offline getippte Schritte wird es nicht angeboten.
 **Zurückgeben**: Der Fahrer kann eine bestätigte, noch nicht beladene Tour mit Grund zurückgeben.
 
 ### 3.5 Disposition sieht alles live
 - **Live-Board**: Kacheln „Offen · Unterwegs · Heute zugestellt · Störungen“, darunter jede aktive Tour mit
   Fortschrittsleiste, Fahrer, Kennzeichen, Route, letzter Meldung („vor 3 Min.“).
-- **Push-Benachrichtigung** bei jedem Schritt (Bestätigt, Aufgeladen, Abgeladen, Zugestellt + Lieferschein,
+- **Push-Benachrichtigung** bei jedem Schritt (Bestätigt, Aufgeladen, Abgeladen, Zugestellt mit bzw. ohne Lieferschein,
   Problem = hohe Priorität, Notiz, Zurückgegeben, Schritt zurückgenommen). Zusätzlich In-App-Mitteilung mit Ton und Glocke.
+  Der Push lässt sich je Gerät ein- und ausschalten (Büro: „Mein Konto“, Fahrer: „Mehr“).
 - **Für Fahrer setzen**: Meldet ein Fahrer telefonisch, setzt die Disposition den nächsten Schritt für ihn. Eine Buchung
   bestätigen oder einen Schritt zurücknehmen kann nur der Fahrer selbst.
 - **Verlauf** jeder Lieferung: Zeitstrahl mit Uhrzeit, Person, optional Standort beim Statuswechsel.
 - **Gegenwart / Zukunft / Vergangenheit**: Reiter „Live“, „Geplant“, „Offen“, „Störungen“, „Erledigt“, „Alle“ + Suche
-  nach Buchungsnummer, Auftraggeber, Referenz, Ort, Fahrer, Kennzeichen, Ware.
-- **Abliefernachweis** (druckbar als PDF): Buchungsdaten, Zeitstrahl, Lieferschein-Fotos, Unterschrift –
-  sofort an Kunde oder Buchhaltung, Rechnung kann am selben Tag raus.
+  nach Buchungsnummer, Auftraggeber, Referenz, Ort, Fahrer, Kennzeichen, Ware. „Live“ zeigt nur laufende Touren,
+  bestätigte Touren für spätere Tage stehen unter „Geplant“; „Erledigt“, „Alle“ und die Suche zeigen die neuesten zuerst.
+- **Abliefernachweis** (druckbar als PDF): Buchungsdaten, Zeitstrahl (Datum mit Jahr), Lieferschein-Fotos, Unterschrift,
+  falls gespeichert der Standort je Schritt – sofort an Kunde oder Buchhaltung, Rechnung kann am selben Tag raus.
 - **Berichte** je Monat: Lieferungen je Fahrer (abschaltbar), je Auftraggeber und je Lade-/Entladestelle mit
   mittlerer Standzeit (längste zuerst – zeigt, wo Standgeld fällig ist; die Tabellen je Auftraggeber und Stelle
   erscheinen auch, wenn die Auswertung je Fahrer aus ist), Pünktlichkeit, Palettenkonto, Export des ganzen Berichts
@@ -125,10 +132,10 @@ getippte Schritte wird es nicht angeboten.
 
 | Lücke im Alltag | Lösung in Ladeklar | Status |
 |---|---|---|
-| Fahrer sprechen oft Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch | Fahrer-App in **8 Sprachen** (DE, EN, PL, RO, CS, TR, RU, UK), dazu Icons statt Text; Büro und Konsole auf Deutsch, Englisch oder Türkisch | v1 |
+| Fahrer sprechen oft Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch | Fahrer-App, Büro und Konsole in **8 Sprachen** (DE, EN, PL, RO, CS, TR, RU, UK), in der Fahrer-App dazu Icons statt Text; Mitteilungen in der Sprache des Empfängers | v1 |
 | Handy während der Fahrt ist verboten (§ 23 Abs. 1a StVO) | **Fahrsperre**: ab ca. 8 km/h überdeckt ein Hinweis die Knöpfe. Braucht die Standortfreigabe im Browser – der Fahrer wird einmal mit Erklärung gefragt („Später“ blendet die Frage 7 Tage aus); die Geschwindigkeit wird nur auf dem Gerät ausgewertet, nichts gespeichert oder gesendet (unabhängig von „Standort beim Statuswechsel“). Ohne Freigabe ist die Fahrsperre aus | v1 |
-| Funklöcher, Auslandsroaming | **Offline-Warteschlange**: Schritte, Notizen, Problemmeldungen und Fotos werden gespeichert und in der richtigen Reihenfolge gesendet, sobald Netz da ist. Voraussetzung: Die Tour wurde vorher mit Netz geladen. Im Verlauf steht die Uhrzeit der Übertragung, nicht die des Tippens. Fotos werden vor dem Senden verkleinert (lange Seite höchstens 1.400 Pixel) | v1 |
-| Versehentliche Tipps mit Handschuhen | große Knöpfe (≥ 64 px), **Rückgängig 2 Min.** statt Rückfragen (mit Netz) | v1 |
+| Funklöcher, Auslandsroaming | **Offline-Warteschlange**: Schritte, Notizen, Problemmeldungen und Fotos werden gespeichert und streng in der richtigen Reihenfolge gesendet, sobald Netz da ist; nichts geht still verloren (endgültig abgelehnte Einträge erscheinen als „Nicht gesendet“), nichts kommt doppelt an. Die App startet auch im Funkloch mit den zuletzt geladenen Touren (Voraussetzung: einmal mit Netz geladen). Im Verlauf steht die Uhrzeit des Tippens (Gerätezeit mit Plausibilitätsprüfung), die Eingangszeit wird zusätzlich gespeichert. Fotos werden vor dem Senden verkleinert (lange Seite höchstens 1.400 Pixel) | v1 |
+| Versehentliche Tipps mit Handschuhen | großer Schritt-Knopf (≥ 88 px hoch), doppeltes Tippen zählt einmal, **Rückgängig 2 Min.** statt Rückfragen (mit Netz) | v1 |
 | Lieferscheine kommen Tage später oder gar nicht ins Büro | Foto-Pflicht vor Abschluss (abschaltbar), Archiv je Lieferung, Abliefernachweis | v1 |
 | Wartezeiten an der Rampe werden nicht bezahlt | optional **Ankunft erfassen** → Standzeit wird berechnet (Grundlage für Standgeld) | v1 |
 | Palettentausch (EPAL) wird vergessen | optional **Palettentausch** beim Abladen (abgegeben/mitgenommen) | v1 |
@@ -137,32 +144,37 @@ getippte Schritte wird es nicht angeboten.
 | Stammrouten jede Woche neu tippen | **Wiederholen** + Ortsvorschläge aus dem Verlauf | v1 |
 | Unterschrift des Empfängers | optional **Unterschriftenfeld** auf dem Display | v1 |
 | Datenschutz/Betriebsrat bei Ortung | **keine Dauerortung**: Standort nur im Moment eines Statuswechsels und nur, wenn das Unternehmen es einschaltet und der Fahrer zustimmt; Löschung nach 90 Tagen; Muster-Betriebsvereinbarung liegt bei | v1 |
-| Fahrer verlieren Zugangsdaten | Einladungslink/QR, PIN-Reset durch Disposition, Sitzung bleibt 90 Tage angemeldet | v1 |
+| Fahrer verlieren Zugangsdaten | Einladungslink/QR (einmal gültig, 14 Tage), PIN-Reset durch Disposition, Sitzung bleibt 90 Tage angemeldet; Login-Sperre steigt bei Fehlversuchen (15 Min., 1 Std., 24 Std.) | v1 |
+| Büro-Zugang abgegriffen | optionale **Zwei-Faktor-Anmeldung** (Authenticator-App) für Lizenzgeber, Admins und Disponenten; ein Passwortwechsel meldet alle anderen Geräte ab; neues Passwort durch Admin bzw. Lizenzgeber schaltet sie bei verlorenem Handy aus; für den Lizenzgeber `node server/index.js reset-platform-password` | v1 |
 | Kunde will eigene App im Store | **White-Label-App** (Capacitor) mit eigenem Namen/Icon – Premium-Zusatz; Push über APNs/FCM in der Store-App fehlt noch (heute Web-Push) | vorbereitet |
 | Anbindung an TMS/Buchhaltung | **REST-API** mit API-Schlüssel (Premium), CSV-Export, Webhook (Roadmap) | v1 (API Basis) |
-| Daten mitnehmen bei Kündigung (EU Data Act) | **Datenexport** jederzeit durch den Admin, auch bei Sperre und nach Kündigung: ZIP mit allen Daten (JSON, CSV) und jeder Datei (Lieferscheine, Fotos, Unterschriften, Logo), einzeln auch JSON/CSV; Disponenten laden die Lieferungen als CSV | v1 |
-| Lizenz läuft ab / Zahlung fehlt | Status *Test · Aktiv · Gesperrt · Gekündigt* (dazu *Abgelaufen* nach Test- oder Laufzeitende); gesperrt oder abgelaufen = nur Lesen + Export, Fahrer können sich nicht anmelden; gekündigt = nur der Admin meldet sich noch an (lesen + Export, Hinweisbanner), Disponenten und Fahrer werden bei der Anmeldung abgewiesen; danach löscht der Lizenzgeber den Kunden endgültig (Firmencode zur Bestätigung) | v1 |
-| Löschpflicht (DSGVO) für ausgeschiedene Fahrer/Disponenten | **Löschen** durch den Admin: Name, Kontakt, PIN/Passwort und Mitteilungen weg, die Anmeldung endet sofort; abgeschlossene Lieferungen bleiben mit „Gelöschter Nutzer“; offene und bestätigte Touren gehen zurück an die Disposition; solange der Fahrer eine beladene Tour hat, wird das Löschen abgelehnt | v1 |
+| Daten mitnehmen bei Kündigung (EU Data Act) | **Datenexport** jederzeit durch den Admin, auch bei Sperre und nach Kündigung: ZIP mit allen Daten (JSON, CSV) und jeder Datei (Lieferscheine, Fotos, Unterschriften, Logo), auch über 4 GB (ZIP64), einzeln auch JSON/CSV; Disponenten laden die Lieferungen als CSV (alle, ohne Grenze); Formeln in CSV-Zellen werden entschärft; jeder Export steht im Protokoll | v1 |
+| Kunde will Tarif wechseln oder kündigen | „Tarif wechseln anfragen“ und „Kündigen“ (mit Grund und Bestätigung) auf der Lizenz-Seite; die Konsole zeigt die Anfrage und übernimmt den Tarif auf Knopfdruck (beim Verkleinern mit Prüfung der Grenzen) | v1 |
+| Lizenz läuft ab / Zahlung fehlt | Status *Test · Aktiv · Gesperrt · Gekündigt* (dazu *Abgelaufen* nach Test- oder Laufzeitende); gesperrt oder abgelaufen = nur Lesen + Export, angemeldete Fahrer werden abgemeldet und können sich nicht anmelden; gekündigt = nur der Admin meldet sich noch an (lesen + Export, Hinweisbanner), angemeldete Disponenten und Fahrer werden abgemeldet; danach löscht der Lizenzgeber den Kunden endgültig (Firmencode zur Bestätigung) | v1 |
+| Löschpflicht (DSGVO) für ausgeschiedene Fahrer/Disponenten | **Löschen** durch den Admin: Name, Kontakt, PIN/Passwort, Zwei-Faktor-Schlüssel, Einladungslink und Mitteilungen weg, Anmeldung und Push enden sofort; abgeschlossene Lieferungen bleiben mit „Gelöschter Nutzer“; offene und bestätigte Touren gehen zurück an die Disposition; solange der Fahrer eine beladene Tour hat, wird das Löschen abgelehnt | v1 |
 | Nachweis bei Anmeldeproblemen / Angriffen | **Protokoll** mit Anmeldungen und Fehlversuchen inkl. IP-Adresse (IP und eingegebener Name nach 90 Tagen entfernt) | v1 |
 | Funkloch beim Abschluss | Abladen, Lieferschein-Foto, Unterschrift und „Zugestellt“ funktionieren offline; alles wird in der richtigen Reihenfolge nachgesendet | v1 |
-| Platzgrenzen je Tarif | Fahrer-, Fahrzeug- und Disponentenlimits werden geprüft, klare Hinweise zum Upgrade (das Speicherkontingent wird noch nicht geprüft) | v1 |
+| Platzgrenzen je Tarif | Fahrer-, Fahrzeug- und Disponentenlimits werden geprüft, klare Hinweise zum Upgrade; **Speicherkontingent** je Tarif mit Anzeige, Mitteilung bei 80 % und 100 % und Ablehnung weiterer Uploads bei vollem Speicher (ein Puffer für laufende Zustellungen fehlt noch); gelöschte Dokumente verschwinden auch vom Datenträger | v1 |
 | Nachtschicht / Kabine dunkel | automatischer **Dunkelmodus** | v1 |
-| Grenzüberschreitend (CMR) | Land je Lade- und Entladestelle; Dokumentart „CMR“ im Datenmodell (in der Oberfläche noch nicht wählbar, Uploads sind dort Lieferscheine); eCMR-Schnittstelle (Roadmap) | v1 / Roadmap |
+| Grenzüberschreitend (CMR) | Land je Lade- und Entladestelle; Dokumentart „CMR“ (im Büro beim Hinzufügen wählbar: Lieferschein, CMR, Schaden, Ladung, Foto; Uploads der Fahrer sind Lieferscheine bzw. Schadensfotos); eCMR-Schnittstelle (Roadmap) | v1 / Roadmap |
 
 ## 5. Datenmodell (vereinfacht)
 
 - **Tenant** (Lizenznehmer): `id, code, name, legalName, address, phone, email, vatId, plan, extraDrivers, storeApp, billing,
   status, statusAt, trialEnd, licenseEnd, paidSince, domains[], branding{appName, logoFileId, iconFileId, color},
   settings{driverPicksTruck, driverTakesOpen, requirePod, requireSignature, trackArrival, palletExchange, driveLock,
-  geoOnStatus, reportsByDriver, bookingPrefix, retentionYears}, bookingSeq, bookingSeqMonth, apiKey, supportAccessUntil`
+  geoOnStatus, reportsByDriver, bookingPrefix, retentionYears}, bookingSeq, bookingSeqMonth, apiKeyHash, apiKeyHint,
+  supportAccessUntil, storageUsed, storageWarn, history[] (Lizenz-Historie), cancelRequestedAt, cancelReason, planRequest`
 - **User**: `id, tenantId, role, name, email | phone, passwordHash | pinHash, mustChangePassword, lang, active, deleted,
-  vehicleId, trailerId, geoConsent`
+  vehicleId, trailerId, geoConsent, failedLogins, lockedUntil, inviteToken, inviteExpires, twoFactorSecret, twoFactorStep`
 - **Vehicle**: `id, tenantId, kind(truck|trailer), plate, type, payloadKg, pallets, features[], status(ok|workshop), driverId (belegt), huDue, spDue, note`
 - **Delivery**: `id, tenantId, bookingNo, customer, reference, pickup{place, street, zip, city, country, date, from, to, contact, phone},
   dropoff{…}, goods{text, pallets, weightKg, adr, temp}, driverId, vehicleId, trailerId, openForAll, status, problem,
-  notes[], events[], docs[], palletExchange, receiver, signatureFileId, internalNote, createdAt, updatedAt`
+  notes[], events[{at (Tipp-Zeit), rx (Eingang, falls abweichend), type, by, …}], docs[], palletExchange, receiver,
+  signatureFileId, internalNote, createdAt, updatedAt, deliveredAt, cancelledAt, autoVehicle`
 - **Status**: `open → accepted → (arrived_pickup) → loaded → (arrived_dropoff) → unloaded → delivered` · `cancelled`
-- **Notification**, **File** (Lieferschein, Foto, Unterschrift, Logo), **AuditLog**, **Session**, **PushSubscription**
+- **Notification**, **File** (Lieferschein, Foto, Unterschrift, Logo), **AuditLog**, **Session**, **PushSubscription**,
+  **Op** (Kennung gegen doppeltes Senden mit gespeichertem Ergebnis, 7 Tage)
 
 ## 6. Tarife (Lizenzmodell, netto zzgl. 19 % USt.)
 
@@ -182,12 +194,16 @@ getippte Schritte wird es nicht angeboten.
 | **White-Label-App im App Store / Google Play** | – | – | Zusatz: 1.990 € einmalig + 99 €/Monat |
 
 - **30 Tage kostenlos testen**, ohne Zahlungsdaten. Jahreszahlung: 2 Monate geschenkt.
-- **Abrechnungsregel** (Rechnungsvorschau der Konsole): Monatszahler ab dem Monat, in dem die bezahlte Lizenz
-  beginnt (Anlage ohne Test oder Wechsel von Test auf Aktiv), jeden Monat; Jahreszahler einmal im Jahr im
-  Startmonat und dann alle 12 Monate (12 Monate zum Preis von 10). Sperre oder Kündigung gelten ab dem Monat
-  der Änderung (dieser Monat wird schon nicht mehr berechnet), eine Laufzeit bis einschließlich ihres Monats. Die
-  Vorschau rechnet mit dem heutigen Tarif (keine Preishistorie) und zeigt sechs Monate zurück und zwölf voraus.
-  Die Store-App gibt es nur zu Premium, zusätzliche Fahrer nicht im Tarif Start.
+- **Abrechnungsregel** (Rechnungsvorschau der Konsole, aus der Lizenz-Historie): Bezahlt ist eine Lizenz, solange sie
+  aktiv ist – auch während einer Sperre (AGB § 14 Abs. 4) – bis zum Ende der Laufzeit; Testtage werden nie berechnet.
+  Monatszahler: jeder Kalendermonat mit mindestens einem bezahlten Tag, auch der Monat, in dem eine Kündigung wirksam
+  wird; Tarif und Zusätze wie am letzten bezahlten Tag des Monats. Jahreszahler: 12 Monate zum Preis von 10 im ersten
+  bezahlten Monat und dann alle 12 Monate, nicht, wenn die Laufzeit vor dem Verlängerungstag endet; Änderungen im
+  bezahlten Jahr gelten ab der Verlängerung. Wechsel monatlich → jährlich startet im Wechselmonat ein neues Jahr,
+  jährlich → monatlich rechnet Monatsbeiträge erst nach dem bezahlten Jahr. Einrichtung der Store-App: 1.990 €
+  einmalig im ersten bezahlten Monat mit App. Jede Zeile nennt ihren Grund; die Vorschau zeigt 12 Monate zurück und
+  12 voraus. Die Store-App gibt es nur zu Premium, zusätzliche Fahrer nicht im Tarif Start. Beim Verkleinern des
+  Tarifs prüft die Konsole die Grenzen; eigene Domains entfallen ohne Premium, Start hat keine Subdomain.
 - Partner-/Reseller-Lizenz (z. B. Verbände, Telematik-Händler): 20–30 % Provision, Roadmap.
 - Nur für Unternehmer (§ 14 BGB) – kein Verbrauchergeschäft, kein Widerrufsrecht.
 
@@ -210,10 +226,12 @@ Ordner `docs/recht/` – Muster, vor Verwendung von einer Rechtsanwältin/einem 
    NIS2-Einordnung, Steuer.
 
 Technische Umsetzung der Pflichten in der App: keine externen Schriften/Tracker (Schriften lokal), Rollen- und
-Mandantentrennung, Passwörter mit scrypt, eigenes Passwort beim ersten Login erzwungen, Protokoll (Audit-Log) mit
-Anmeldungen und Fehlversuchen inkl. IP (IP nach 90 Tagen entfernt), Löschfristen je Mandant, Löschen von Personen
-(anonymisiert), Datenexport als ZIP, Standort nur mit Einwilligung und nur bei Statuswechsel, kein Zugriff des
-Lizenzgebers auf Auftragsdaten. Hosting in Deutschland ist eine Betriebsentscheidung (geplant; Vorlage in `deploy/`),
+Mandantentrennung, Passwörter mit scrypt, eigenes Passwort beim ersten Login erzwungen, optionale Zwei-Faktor-Anmeldung,
+API-Schlüssel nur als Hash, Einladungslinks einmal gültig und befristet, Sitzungen enden mit Sperre, Kündigung und
+Passwortwechsel, Protokoll (Audit-Log) mit Anmeldungen, Fehlversuchen und Exporten inkl. IP (IP nach 90 Tagen
+entfernt), Löschfristen je Mandant (gelöschte Dateien auch vom Datenträger), Löschen von Personen (anonymisiert),
+Datenexport als ZIP, entschärfte Formeln in CSV-Dateien, Standort nur mit Einwilligung und nur bei Statuswechsel,
+kein Zugriff des Lizenzgebers auf Auftragsdaten. Hosting in Deutschland ist eine Betriebsentscheidung (geplant; Vorlage in `deploy/`),
 keine Eigenschaft des Codes.
 
 ## 8. Technik
@@ -224,7 +242,10 @@ keine Eigenschaft des Codes.
 - **Kern-Engine** `core/engine.js` – reine JavaScript-Logik (Rechte, Statusmaschine, Benachrichtigungen),
   identisch im Server und in der Online-Demo.
 - **Server** Node.js 22 ohne Framework, SQLite (`node:sqlite`), Live-Updates per Server-Sent Events,
-  **Web-Push (VAPID)**, Datei-Uploads mit Typprüfung, Sicherheits-Header, Login-Sperre nach Fehlversuchen.
+  **Web-Push (VAPID)** nur über die Push-Dienste der Browser-Hersteller, Datei-Uploads mit Typprüfung und
+  Speicherkontingent, Sicherheits-Header, steigende Login-Sperre nach Fehlversuchen, Kennung gegen doppeltes Senden
+  für jede schreibende Aktion; ein Fehler in einer Anfrage beendet den Server nicht.
+- **Service Worker**: speichert die ganze App (alle Module, Schriften, Symbole, Firmenlogo) für den Start ohne Netz.
 - **Mandanten-Branding** dynamisch: Manifest, Icons und Login-Seite je Firmencode, Subdomain oder eigener Domain
   (Subdomain und Domain brauchen einen DNS-Eintrag und eine Zeile im `deploy/Caddyfile`).
 - **Online-Demo**: dieselbe App mit lokaler Engine; Büro und Fahrer-Handy nebeneinander in einem Fenster; Live-Sync

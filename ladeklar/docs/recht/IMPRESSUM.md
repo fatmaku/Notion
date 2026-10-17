@@ -15,6 +15,8 @@
 
 > **Prüfhinweis:** Zu klären ist, ob die gebrandete Anmeldeseite unter der Subdomain bzw. Domain des Kunden ein eigenes geschäftsmäßiges Angebot des Kunden ist (dann eigene Impressumspflicht des Kunden) oder ein Dienst des Anbieters. Die vorgeschlagene doppelte Angabe deckt beide Auslegungen ab.
 
+> **Prüfhinweis (Technik):** Stand 17.10.2026 verlinkt nur die Anmeldeseite der App „Impressum“, „Datenschutz“ und „AGB“ (`/legal/impressum`, `/legal/datenschutz`, `/legal/agb`). Der Server liefert diese Seiten aus dem Ordner `web/legal/` aus; dort liegen noch keine Dateien, die Links führen also ins Leere. Vor dem Start die Seiten als HTML anlegen; `tools/build-site.js` erzeugt sie für die Website unter `dist/site/recht/` (`impressum.html`, `datenschutz.html`, `agb.html`, `speicher.html`), von dort lassen sie sich nach `web/legal/` kopieren. Ein Menü „Info“ nach der Anmeldung und Felder für das Impressum des Kunden gibt es nicht; beides ist für White-Label-Kunden nachzurüsten oder auf anderem Weg (z. B. Aushang, Store-Eintrag) zu lösen.
+
 ---
 
 ## 2. Variante A – GmbH bzw. UG (haftungsbeschränkt)

@@ -47,7 +47,7 @@ Der Arbeitgeber führt die App [App-Name] auf Grundlage der Plattform LADEKLAR e
 
 (1) Die Funktionen und die verarbeiteten Datenarten ergeben sich aus **Anlage 1** (Systembeschreibung, Funktionen, Datenkatalog). Die Anlage enthält auch die Einstellungen des Mandanten, die der Arbeitgeber gewählt hat.
 
-(2) Verarbeitet werden insbesondere: Stammdaten (Name, Handynummer, Sprache, Führerscheinklasse), gewähltes Fahrzeug, Statusmeldungen mit Zeitpunkt, Ankunftszeiten [falls eingeschaltet], Fotos und Dokumente, Notizen und Problemmeldungen, Empfängerangaben und Unterschriften, Standort beim Statuswechsel und beim Melden eines Problems [falls eingeschaltet], technische Daten (Anmeldungen und Fehlversuche mit IP-Adresse, Protokoll).
+(2) Verarbeitet werden insbesondere: Stammdaten (Name, Handynummer, Sprache, Führerscheinklasse), gewähltes Fahrzeug, Statusmeldungen mit Zeitpunkt (Zeitpunkt des Tippens auf dem Gerät, bei späterem Eingang zusätzlich die Eingangszeit), Ankunftszeiten [falls eingeschaltet], Fotos und Dokumente, Notizen und Problemmeldungen, Empfängerangaben und Unterschriften, Standort beim Statuswechsel und beim Melden eines Problems [falls eingeschaltet], technische Daten (Anmeldungen und Fehlversuche mit IP-Adresse, Protokoll).
 
 (3) Die Daten werden beim Anbieter [Firma] als Auftragsverarbeiter in Rechenzentren in Deutschland gespeichert. Der Anbieter hat keine Einsicht in die Auftragsdaten. Ein Admin des Arbeitgebers kann einen Support-Zugriff für 24 Stunden freigeben; Freigabe und vorzeitiges Ende werden protokolliert. Einen Support-Modus, der dem Anbieter Einsicht gibt, hat die Plattform derzeit nicht. Der Betriebsrat erhält den Auftragsverarbeitungsvertrag und die technischen und organisatorischen Maßnahmen zur Einsicht.
 
@@ -55,7 +55,7 @@ Der Arbeitgeber führt die App [App-Name] auf Grundlage der Plattform LADEKLAR e
 
 (1) **Verbot der Dauerortung.** Eine fortlaufende Ortung von Beschäftigten oder Fahrzeugen über die App ist unzulässig. Bewegungsprofile werden weder erstellt noch aus vorhandenen Daten zusammengesetzt.
 
-(2) **Standort beim Statuswechsel.** [Alternative A: Die Funktion wird nicht eingeschaltet.] [Alternative B: Die Funktion wird eingeschaltet. Der Standort wird nur beim Tippen auf einen Statusschritt oder beim Melden eines Problems abgefragt, also bei einer Meldung, die der Fahrer selbst auslöst, und nur, wenn der Fahrer in der App zugestimmt („Ja, teilen“) und die Standortfreigabe im Gerät erteilt hat. Die Zustimmung ist freiwillig und in der App unter „Mehr“ jederzeit abschaltbar. Die App funktioniert ohne Standort vollständig. Die Plattform löscht die Koordinaten nach 90 Tagen. Aus der Verweigerung oder dem Widerruf der Zustimmung dürfen dem Beschäftigten keine Nachteile entstehen.]
+(2) **Standort beim Statuswechsel.** [Alternative A: Die Funktion wird nicht eingeschaltet.] [Alternative B: Die Funktion wird eingeschaltet. Der Standort wird nur beim Tippen auf einen Statusschritt oder beim Melden eines Problems abgefragt, also bei einer Meldung, die der Fahrer selbst auslöst, und nur, wenn der Fahrer in der App zugestimmt („Ja, teilen“) und die Standortfreigabe im Gerät erteilt hat. Die Zustimmung ist freiwillig und in der App unter „Mehr“ jederzeit abschaltbar. Die App funktioniert ohne Standort vollständig. Die Plattform löscht die Koordinaten nach 90 Tagen. Bis dahin sieht die Disposition sie im Verlauf der Lieferung und im Abliefernachweis. Aus der Verweigerung oder dem Widerruf der Zustimmung dürfen dem Beschäftigten keine Nachteile entstehen.]
 
 (3) **Verwendung.** Standortangaben dürfen nur verwendet werden, um im Einzelfall den Ort der Übernahme oder Ablieferung nachzuweisen, eine Standzeit zu belegen oder eine Reklamation eines Auftraggebers zu klären. Sie dürfen nicht verwendet werden, um Fahrtrouten, Pausen, Fahrweise oder Geschwindigkeit zu kontrollieren.
 
@@ -94,7 +94,7 @@ Der Arbeitgeber führt die App [App-Name] auf Grundlage der Plattform LADEKLAR e
 | Disponent | Disposition | Lieferungen, Live-Übersicht, Verlauf, Berichte, Fahrer- und Fahrzeugverwaltung (Fahrer anlegen, ändern, sperren, PIN zurücksetzen; Fahrzeuge anlegen, ändern, löschen) ohne Löschen von Personen und ohne vollständigen Export; Download der Lieferliste und der Berichte als CSV |
 | Fahrer | Fahrer | eigene Lieferungen, [für alle freigegebene offene Aufträge, falls „Fahrer dürfen offene Aufträge übernehmen“ eingeschaltet ist,] eigener Verlauf |
 
-(2) Im Protokoll stehen insbesondere Anmeldungen und Fehlversuche, das Anlegen, Ändern (auch der Rolle), Sperren und Löschen von Zugängen, vollständige Exporte (ZIP, JSON) und die Freigabe von Support-Zugriffen, jeweils mit Zeitpunkt, Person und IP-Adresse. Der Download der Lieferliste und der Berichte als CSV wird nicht protokolliert. Der Betriebsrat kann das Protokoll [quartalsweise / jederzeit nach Anmeldung] einsehen; der Admin zeigt dazu die neuesten Einträge in den Einstellungen oder das vollständige Protokoll aus dem Datenexport.
+(2) Im Protokoll stehen insbesondere Anmeldungen und Fehlversuche, das Ein- und Ausschalten der Zwei-Faktor-Anmeldung, das Anlegen, Ändern (auch der Rolle), Sperren und Löschen von Zugängen, jeder Export (ZIP, JSON, Lieferliste und Berichte als CSV) und die Freigabe von Support-Zugriffen, jeweils mit Zeitpunkt, Person und IP-Adresse. Der Betriebsrat kann das Protokoll [quartalsweise / jederzeit nach Anmeldung] einsehen; der Admin zeigt dazu die neuesten Einträge in den Einstellungen oder das vollständige Protokoll aus dem Datenexport.
 
 (3) Der Export personenbezogener Daten ist nur für die Zwecke nach § 2 zulässig, insbesondere für Abliefernachweise an Auftraggeber, die Buchhaltung und einen Anbieterwechsel.
 
@@ -104,9 +104,9 @@ Der Arbeitgeber führt die App [App-Name] auf Grundlage der Plattform LADEKLAR e
 
 | Daten | Frist |
 |---|---|
-| Lieferungen mit Statusmeldungen, Fotos, Dokumenten, Unterschriften | [3] Jahre nach der letzten Änderung der abgeschlossenen bzw. stornierten Lieferung (Einstellung „Lieferscheine aufbewahren (Jahre)“, 1 bis 10 Jahre) [; Unterlagen, die Buchungsbelege sind, archiviert der Arbeitgeber vorher außerhalb der Plattform] |
+| Lieferungen mit Statusmeldungen, Fotos, Dokumenten, Unterschriften | [3] Jahre nach der Zustellung bzw. Stornierung der Lieferung (Einstellung „Lieferscheine aufbewahren (Jahre)“, 1 bis 10 Jahre) [; Unterlagen, die Buchungsbelege sind, archiviert der Arbeitgeber vorher außerhalb der Plattform] |
 | Standort beim Statuswechsel | 90 Tage nach der Meldung (fest) |
-| Stammdaten ausgeschiedener Beschäftigter | Der Arbeitgeber löscht den Zugang spätestens [3] Monate nach dem Ausscheiden; die Plattform ersetzt dabei den Namen durch „Gelöschter Nutzer“ und löscht Kontaktdaten, PIN bzw. Passwort und Mitteilungen; gespeicherte Lieferungen bleiben bis zu ihrer Löschung erhalten |
+| Stammdaten ausgeschiedener Beschäftigter | Der Arbeitgeber löscht den Zugang spätestens [3] Monate nach dem Ausscheiden; die Plattform ersetzt dabei den Namen durch „Gelöschter Nutzer“ und löscht Kontaktdaten, PIN bzw. Passwort, Einladungslink und Mitteilungen; gespeicherte Lieferungen bleiben bis zu ihrer Löschung erhalten |
 | In-App-Benachrichtigungen | 90 Tage (fest) |
 | Protokoll | 3 Jahre; IP-Adressen darin 90 Tage (fest) |
 
