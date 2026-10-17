@@ -1,6 +1,7 @@
 // Builds the online demo as one self-contained page:
 //   dist/ladeklar-demo.artifact.html  – body content for the Claude artifact (no <html>/<head>)
 //   dist/demo.html                    – standalone file (open locally or host anywhere static)
+//   node tools/build-demo.js --out <dir> writes both files to <dir> instead
 // The real app code + engine are bundled with esbuild; legal sample texts are embedded.
 import { build } from 'esbuild';
 import fs from 'node:fs';
@@ -8,7 +9,9 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 
 const ROOT = new URL('..', import.meta.url).pathname;
-const out = path.join(ROOT, 'dist');
+// --out <dir> builds somewhere else (e.g. a scratch folder for a check) and leaves dist/ alone
+const oi = process.argv.indexOf('--out');
+const out = oi > 0 && process.argv[oi + 1] ? path.resolve(process.argv[oi + 1]) : path.join(ROOT, 'dist');
 fs.mkdirSync(out, { recursive: true });
 
 const res = await build({

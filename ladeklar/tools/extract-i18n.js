@@ -52,6 +52,10 @@ for (const fn of ['fail', 'loginRefused', 'new EngineError']) {
     for (const x of msgs) add(x, 'driver');
   }
 }
+// billing rules and row reasons (licensor console shows them through t(), C14)
+const rules = /const BILLING_RULES = \[([\s\S]*?)\]\.join/.exec(engine)?.[1] || '';
+for (const m of rules.matchAll(/'((?:[^'\\]|\\.)*)'/g)) add(unq(m[1]), 'office');
+for (const m of engine.matchAll(/'((?:Monats|Jahres)beitrag(?: – [^'\\]*)?|Einrichtung der White-Label-App)'/g)) add(m[1], 'office');
 const server = fs.readFileSync(path.join(repo, 'server/index.js'), 'utf8');
 for (const m of server.matchAll(/\bmessage:\s*'((?:[^'\\]|\\.)*)'/g)) add(unq(m[1]), 'driver');
 for (const lit of callArgs(server, 'new\\s+EngineError')) for (const x of lit.slice(1).filter(isMessage)) add(x, 'driver');

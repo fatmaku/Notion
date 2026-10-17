@@ -194,7 +194,7 @@ textarea.input { min-height: 84px; resize: vertical; line-height: 1.45; }
 .bar.bad > i { background: var(--bad); }
 
 /* ---------- shell (staff & licensor) ---------- */
-.shell { display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; height: 100%; }
+.shell { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto; height: 100%; }
 .rail { display: none; }
 .topbar { display: flex; align-items: center; gap: 10px; padding: 10px max(14px, env(safe-area-inset-right, 0px)) 10px max(14px, env(safe-area-inset-left, 0px)); background: var(--ink); color: var(--on-ink); background-image: var(--net); background-size: 360px; position: relative; z-index: 3; }
 .topbar .brandmark { display: flex; align-items: center; gap: 10px; min-width: 0; }
@@ -212,7 +212,7 @@ textarea.input { min-height: 84px; resize: vertical; line-height: 1.45; }
 .tabbar button[aria-current="page"]::after { content: ""; position: absolute; top: 0; width: 22px; height: 3px; border-radius: 0 0 3px 3px; background: var(--brand); }
 .tabbar .dot { position: absolute; top: 4px; left: calc(50% + 6px); min-width: 16px; height: 16px; border-radius: 8px; background: var(--bad); color: #fff; font-size: 10px; line-height: 16px; }
 @container lk (min-width: 940px) {
-  .shell { grid-template-columns: 252px 1fr; grid-template-rows: auto 1fr; }
+  .shell { grid-template-columns: 252px minmax(0, 1fr); grid-template-rows: auto 1fr; }
   .rail { display: flex; flex-direction: column; grid-row: 1 / -1; background: var(--ink); background-image: var(--net), radial-gradient(120% 60% at 0% 0%, color-mix(in oklab, var(--brand) 26%, transparent), transparent 60%); background-size: 360px, 100% 100%; color: var(--on-ink); padding: 18px 14px 14px; gap: 4px; overflow: auto; }
   .rail .brandmark { display: flex; align-items: center; gap: 12px; padding: 4px 6px 18px; }
   .rail .brandmark .title { font: 800 var(--fs-md)/1.1 var(--f-display); font-stretch: 108%; }
@@ -549,7 +549,6 @@ textarea.input { min-height: 84px; resize: vertical; line-height: 1.45; }
 .demo-pill .tag { padding: 0 10px; color: var(--brass-2); letter-spacing: .1em; font-family: var(--f-display); font-stretch: 112%; }
 .demo-pill button { border: 0; background: transparent; color: #dfe7f0; padding: 8px 11px; border-radius: 11px; cursor: pointer; font-weight: 700; display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; }
 .demo-pill button:hover { background: rgba(255, 255, 255, .1); }
-.lk.has-pill .main, .lk.has-pill .drv-main { padding-bottom: 86px; }
 
 /* ---------- print (Abliefernachweis) ---------- */
 .proof-doc { background: #fff; color: #111; padding: 28px; border-radius: 12px; font-size: 13px; }
@@ -611,3 +610,43 @@ textarea.input { min-height: 84px; resize: vertical; line-height: 1.45; }
 .doc-kind { width: auto; min-height: 34px; padding-top: 4px; padding-bottom: 4px; font-size: var(--fs-sm); }
 /* 2FA secret for manual entry: long base32 text, smaller than a PIN */
 .secret.small { font-size: var(--fs-sm); letter-spacing: .06em; }
+
+/* ---- licensor-demo ---- */
+/* phones 360–414 px (console and office): the topbar CTA shrinks to its icon (label stays for screen
+   readers), titles ellipsize, tab labels and tour cards never widen the page */
+@container lk (max-width: 520px) {
+  .shell .topbar .btn-primary { padding-left: 12px; padding-right: 12px; }
+  .shell .topbar .btn-primary > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+.shell .topbar .brandmark > div { min-width: 0; }
+.shell .topbar .sub { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.shell .tabbar { grid-auto-columns: minmax(0, 1fr); }
+.shell .tabbar button { min-width: 0; text-align: center; line-height: 1.15; overflow-wrap: anywhere; }
+.tours { grid-template-columns: minmax(0, 1fr); }
+@container lk (min-width: 1240px) { .tours.two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tour > .row > .row { flex-wrap: wrap; }
+/* euro amounts in the console's KPI tiles fit two columns on a phone */
+@container lk (max-width: 440px) { .lk.platform .kpi .k-v { font-size: var(--fs-xl); overflow-wrap: anywhere; } }
+/* billing rules and over-limit details */
+.bill-rules { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-weight: 600; }
+/* 2FA hint: the button moves below the text on phones */
+.banner.tfa-hint { flex-wrap: wrap; } .banner.tfa-hint .grow { flex: 1 1 220px; }
+/* demo: the pill lives in a strip below the app, so it never covers tab bar, sheets or the undo bar */
+#app > .demo-main { height: 100%; }
+#app.demo-framed { --pill-h: calc(58px + env(safe-area-inset-bottom, 0px)); background: #05090e; }
+#app.demo-framed > .demo-main { height: calc(100% - var(--pill-h)); min-height: 0; }
+#app.demo-framed > .demo-split { bottom: var(--pill-h); }
+#app.demo-framed .phone { height: min(844px, calc(100vh - 110px - var(--pill-h))); }
+#app.demo-framed .tabbar { padding-bottom: 4px; }
+#app.demo-framed .sheet-f { padding-bottom: 14px; }
+#app.demo-framed .demo-pill { bottom: calc(7px + env(safe-area-inset-bottom, 0px)); }
+.demo-pill button.armed { background: var(--bad); color: #fff; }
+@media (max-width: 520px) {
+  .demo-pill { gap: 2px; padding: 4px; font-size: 11.5px; }
+  .demo-pill .tag { display: none; }
+  .demo-pill button { padding: 8px 8px; gap: 5px; }
+  .demo-pill button.mini:not(.armed) span { display: none; }
+}
+.demo-note { position: fixed; z-index: 95; top: calc(10px + env(safe-area-inset-top, 0px)); left: 50%; transform: translateX(-50%); display: flex; gap: 10px; align-items: center; max-width: calc(100% - 24px); padding: 10px 14px; border-radius: 14px; background: rgba(11, 22, 34, .94); color: #fff; box-shadow: 0 14px 40px rgba(0, 0, 0, .4); border: 1px solid rgba(255, 255, 255, .12); font-size: 13px; cursor: pointer; animation: drop .4s both; }
+.demo-note .ic { width: 18px; height: 18px; color: #e6cd92; flex: none; }
+.demo-note b { display: block; } .demo-note small { color: #b9c6d4; }

@@ -422,7 +422,7 @@ export function createServer(opts = {}) {
           await fs.promises.mkdir(dir, { recursive: true });
           await fs.promises.writeFile(tmp, buf);
           let f;
-          try { f = engine.call(user, 'createFile', { kind: url.searchParams.get('kind'), mime, size: buf.length, name: url.searchParams.get('name'), deliveryId: url.searchParams.get('deliveryId') || null }); }
+          try { f = engine.call(user, 'createFile', { kind: url.searchParams.get('kind'), mime, size: buf.length, name: url.searchParams.get('name'), deliveryId: url.searchParams.get('deliveryId') || null, _op: url.searchParams.get('op') || undefined }); } // C1: a replayed upload (same op) is not stored twice
           catch (e) { await fs.promises.rm(tmp, { force: true }).catch(() => {}); throw e; }
           fs.renameSync(tmp, binPath(f.tenantId, f.id));
           return json(res, 200, f);

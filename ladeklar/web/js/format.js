@@ -34,7 +34,8 @@ export function lastMonths(n, ms = Date.now()) {
 }
 export function monthLabel(ym) { const [y, m] = String(ym).split('-').map(Number); return new Intl.DateTimeFormat(loc(), { timeZone: 'UTC', month: 'long', year: 'numeric' }).format(Date.UTC(y, m - 1, 15)); }
 export function addDays(iso, n) { const [y, m, d] = iso.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10); }
-export function window_(p) { return p?.from && p?.to ? `${p.from}–${p.to}` : p?.from ? `ab ${p.from}` : p?.to ? `bis ${p.to}` : ''; }
+/** Time window; pass the view's t() so 'ab'/'bis' follow the UI language (keys 'ab {t}', 'bis {t}'). */
+export function window_(p, t = (k, v) => k.replace('{t}', v.t)) { return p?.from && p?.to ? `${p.from}–${p.to}` : p?.from ? t('ab {t}', { t: p.from }) : p?.to ? t('bis {t}', { t: p.to }) : ''; }
 
 export function ago(ms, t) {
   if (!ms) return '';

@@ -31,13 +31,14 @@ export function render(app) {
   const r = app.route.name;
   const req = requests(app.data.tenants).length;
   const nav = [['overview', 'gauge', t('Übersicht')], ['tenants', 'building-2', t('Lizenznehmer')], ['billing', 'receipt-text', t('Abrechnung')], ['plans', 'layers', t('Tarife')]];
+  const tab = { tenants: t('Kunden') }; // short label: five tabs share 360 px
   return `<div class="shell" data-key="pshell">
     <aside class="rail"><div class="brandmark">${WORDMARK.replace('LADEKLAR</span>', '</span>')}<div><div class="title">LADEKLAR</div><div class="sub">${t('Lizenzgeber-Konsole')}</div></div></div>
       ${nav.map(([k, ic, l]) => `<button class="nav" data-act="go" data-to="${k}" aria-current="${r === k ? 'page' : 'false'}">${icon(ic)}${esc(l)}${k === 'tenants' && req ? `<span class="count bad" title="${t('Offene Anfragen von Kunden')}">${req}</span>` : ''}</button>`).join('')}
       <div class="foot"><div class="row">${avatar(app.me.user.name)}<div class="grow"><div class="ellip" style="font-weight:750">${esc(app.me.user.name)}</div><div class="xs" style="color:var(--on-ink-2)">${esc(app.me.user.email)}</div></div><button class="ibtn" data-act="openAccount" aria-label="${t('Mein Konto')}" title="${t('Mein Konto')}">${icon('key-round')}</button><button class="ibtn" data-act="logout" aria-label="${t('Abmelden')}">${icon('log-out')}</button></div></div></aside>
     <header class="topbar"><div class="brandmark">${WORDMARK}</div><span class="grow"></span><button class="btn btn-primary topcta" data-act="newTenant" aria-label="${t('Lizenznehmer anlegen')}">${icon('plus')}<span>${t('Lizenznehmer anlegen')}</span></button></header>
     <main class="main" data-key="pmain-${r}"><div class="page">${tfaBanner(app)}${r === 'tenants' ? tenantsPage(app) : r === 'billing' ? billingPage(app) : r === 'plans' ? plansPage(app) : overviewPage(app)}</div></main>
-    <nav class="tabbar">${nav.map(([k, ic, l]) => `<button data-act="go" data-to="${k}" aria-current="${r === k ? 'page' : 'false'}">${icon(ic)}${esc(l)}${k === 'tenants' && req ? `<span class="dot">${req}</span>` : ''}</button>`).join('')}<button data-act="openAccount">${icon('circle-user')}${t('Konto')}</button></nav>
+    <nav class="tabbar">${nav.map(([k, ic, l]) => `<button data-act="go" data-to="${k}" aria-current="${r === k ? 'page' : 'false'}">${icon(ic)}${esc(tab[k] || l)}${k === 'tenants' && req ? `<span class="dot">${req}</span>` : ''}</button>`).join('')}<button data-act="openAccount">${icon('circle-user')}${t('Konto')}</button></nav>
     ${sheetView(app)}</div>`;
 }
 const sk = (h) => `<div class="sk" style="height:${h}px"></div>`;
@@ -54,7 +55,7 @@ function storageBar(x) {
 // C13: the licensor account manages every customer – a strong hint while it has no second factor
 function tfaBanner(app) {
   if (tfaOn(app)) return '';
-  return `<div class="banner bad" data-key="tfa-hint">${icon('shield-check')}<span class="grow"><b>${t('Zwei-Faktor-Anmeldung ist aus')}</b> · ${t('Ihr Zugang verwaltet alle Lizenznehmer. Bitte mit einem Code vom Handy schützen.')}</span><button class="btn btn-sm" data-act="openAccount">${t('Jetzt einschalten')}</button></div>`;
+  return `<div class="banner bad tfa-hint" data-key="tfa-hint">${icon('shield-check')}<span class="grow"><b>${t('Zwei-Faktor-Anmeldung ist aus')}</b> · ${t('Ihr Zugang verwaltet alle Lizenznehmer. Bitte mit einem Code vom Handy schützen.')}</span><button class="btn btn-sm" data-act="openAccount">${t('Jetzt einschalten')}</button></div>`;
 }
 
 function overviewPage(app) {

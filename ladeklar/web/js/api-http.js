@@ -379,7 +379,7 @@ export function createHttpApi(opts = {}) {
     },
     async upload(blob, { kind, deliveryId, name } = {}) {
       if (blob.size > MAX_UPLOAD) throw new ApiError('too_large', 'Die Datei ist zu groß.', 413);
-      const url = `/api/files?kind=${encodeURIComponent(kind || 'other')}${deliveryId ? '&deliveryId=' + encodeURIComponent(deliveryId) : ''}${name ? '&name=' + encodeURIComponent(name) : ''}`;
+      const url = `/api/files?kind=${encodeURIComponent(kind || 'other')}${deliveryId ? '&deliveryId=' + encodeURIComponent(deliveryId) : ''}${name ? '&name=' + encodeURIComponent(name) : ''}&op=${newOp()}`; // C1: the same op for every retry of this upload
       const item = { kind: 'upload', url, blob, fileKind: kind || 'other', deliveryId: deliveryId || null, name: name || null };
       const local = () => ({ queued: true, id: 'local-' + Date.now(), localUrl: URL.createObjectURL(blob) });
       const queueable = deliveryId && user;

@@ -270,7 +270,7 @@ function historyView(app) {
   const list = app.data.history;
   if (!list) return skeleton();
   return `<div class="page-h"><h2>${t('Verlauf')}</h2><span class="muted small">${t('letzte 30 Tage')}</span></div>
-    ${list.length ? `<div class="card list">${list.map((d) => `<button class="li" data-act="openSheet" data-type="job" data-id="${esc(d.id)}" data-key="h-${esc(d.id)}"><span class="avatar">${icon(d.status === 'delivered' ? 'circle-check-big' : 'ban')}</span><div class="grow"><div class="t1 ellip">${routeTitle(d)}</div><div class="t2">${esc(d.bookingNo)} · ${esc(dateTime(d.updatedAt))}${d.waitingMinutes != null ? ' · ' + t('Standzeit {n} Min.', { n: d.waitingMinutes }) : ''}</div></div>${pill(d.status)}</button>`).join('')}</div>` : `<div class="card">${emptyState('history', t('Noch keine abgeschlossenen Touren'))}</div>`}`;
+    ${list.length ? `<div class="card list">${list.map((d) => `<button class="li" data-act="openSheet" data-type="job" data-id="${esc(d.id)}" data-key="h-${esc(d.id)}"><span class="avatar">${icon(d.status === 'delivered' ? 'circle-check-big' : 'ban')}</span><div class="grow"><div class="t1 ellip">${routeTitle(d)}</div><div class="t2">${esc(d.bookingNo)} · ${esc(dateTime(d.deliveredAt || d.cancelledAt || d.updatedAt))}${d.waitingMinutes != null ? ' · ' + t('Standzeit {n} Min.', { n: d.waitingMinutes }) : ''}</div></div>${pill(d.status)}</button>`).join('')}</div>` : `<div class="card">${emptyState('history', t('Noch keine abgeschlossenen Touren'))}</div>`}`;
 }
 
 function moreView(app, h) {

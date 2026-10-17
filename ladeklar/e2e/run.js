@@ -377,6 +377,7 @@ await step('Lizenzgeber', 'Sieht Nutzung (Fahrer, Fahrzeuge, Lieferungen), aber 
 await step('Lizenzgeber', 'Sperren → Fahrer kann nichts mehr ändern; Aktivieren → weiter', async () => {
   await lic.click('tr >> text=Test Spedition');
   await lic.click('[data-act=setStatus][data-s=suspended]');
+  await lic.click('[data-key=ask-suspended] [data-act=askOk]'); // in-page confirmation (fix round 2)
   await toastWith(lic, /Status gespeichert/);
   const st = await phone.evaluate(async () => (await fetch('/api/call/selectVehicle', { method: 'POST', headers: { 'X-Ladeklar': '1', 'Content-Type': 'application/json' }, body: '{"vehicleId":null}' })).json());
   expect(st.error?.code === 'license_inactive', 'Sperre greift nicht');

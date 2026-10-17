@@ -27,7 +27,7 @@ export function createDemoWorld() {
   const listeners = new Set();
   const emit = (e) => listeners.forEach((fn) => { try { fn(e); } catch (err) { console.error(err); } });
   const bc = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('ladeklar-demo') : null;
-  let saveTimer = 0;
+  let saveTimer = 0, frozen = false; // frozen: the world is being reset – nothing may write it back
   const world = { sync: null, storageOk: !!storage, refreshed: false };
 
   let initial = {}, seededAt = 0;
@@ -44,7 +44,7 @@ export function createDemoWorld() {
     },
   });
   function save() {
-    if (!storage) return;
+    if (!storage || frozen) return;
     const d = store.dump(); const out = { seededAt };
     for (const c of PERSIST) out[c] = d[c] || [];
     try { storage.setItem(KEY, JSON.stringify(out)); } catch { /* quota: keep in memory */ }
@@ -52,8 +52,10 @@ export function createDemoWorld() {
   function scheduleSave() {
     if (!storage) return;
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(save, 250);
+    saveTimer = setTimeout(() => { saveTimer = 0; save(); }, 250);
   }
+  // a reload or a closed tab right after a tap must not lose the last write
+  try { window.addEventListener('pagehide', () => { if (saveTimer) { clearTimeout(saveTimer); saveTimer = 0; save(); } }); } catch { /* no window */ }
   const engine = createEngine({
     store, now: () => fixed ?? Date.now(), newId: rid,
     hash: { make: (s) => 'demo$' + s, verify: (s, h) => h === 'demo$' + s },
@@ -63,7 +65,7 @@ export function createDemoWorld() {
   if (!store.find('users', { role: 'platform' }).length) {
     seedDemo({ engine, store, clock });
     seededAt = Date.now();
-    clearTimeout(saveTimer); save();
+    clearTimeout(saveTimer); saveTimer = 0; save();
     if (world.refreshed) {
       // sessions of the old world point to users that no longer exist; other open tabs reload the new world
       try { for (const k of Object.keys(sess || {})) if (k.startsWith('lk.demo.') && k !== 'lk.demo.mode') sess.removeItem(k); } catch { /* */ }
@@ -82,13 +84,14 @@ export function createDemoWorld() {
     }
     scheduleSave();
   }
-  bc && (bc.onmessage = (m) => { if (m.data?.batch) applyRemote(m.data.batch); if (m.data?.reset) location.reload(); });
+  bc && (bc.onmessage = (m) => { if (m.data?.batch) applyRemote(m.data.batch); if (m.data?.reset) { frozen = true; location.reload(); } });
 
   world.store = store;
   world.engine = engine;
   world.applyRemote = applyRemote;
   world.on = (fn) => { listeners.add(fn); return () => listeners.delete(fn); };
   world.reset = () => {
+    frozen = true; clearTimeout(saveTimer);
     try { storage?.removeItem(KEY); } catch { /* */ }
     try { for (const k of Object.keys(sess || {})) if (k.startsWith('lk.demo.')) sess.removeItem(k); } catch { /* */ }
     try { bc?.postMessage({ reset: true }); } catch { /* */ }

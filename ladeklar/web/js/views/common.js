@@ -52,7 +52,7 @@ export function progressRatio(d) {
 export function placeBlock(p, kind) {
   const isPick = kind === 'pickup';
   return `<div class="place"><span class="pin ${isPick ? '' : 'b'}">${icon(isPick ? 'arrow-up-from-line' : 'arrow-down-to-line')}</span>
-    <div class="stack" style="--gap:2px"><span class="eyebrow">${isPick ? t('Ladestelle') : t('Entladestelle')} · ${esc(dayLabel(p.date, t))}${p.from || p.to ? ' · ' + esc(window_(p)) : ''}</span>
+    <div class="stack" style="--gap:2px"><span class="eyebrow">${isPick ? t('Ladestelle') : t('Entladestelle')} · ${esc(dayLabel(p.date, t))}${p.from || p.to ? ' · ' + esc(window_(p, t)) : ''}</span>
     <b>${esc(p.place || p.city)}</b><span class="small muted">${esc(address(p))}${p.country && p.country !== 'DE' ? ' · ' + esc(p.country) : ''}</span>
     ${p.contact || p.phone ? `<span class="small">${p.contact ? esc(p.contact) : ''}${p.phone ? ` · <a href="${esc(phoneHref(p.phone))}">${esc(p.phone)}</a>` : ''}</span>` : ''}</div></div>`;
 }
@@ -71,7 +71,7 @@ export function goodsFacts(d) {
 export const EVENT_ICON = { created: 'plus', assigned: 'user-plus', accepted: 'check', arrived_pickup: 'map-pin', loaded: 'arrow-up-from-line', arrived_dropoff: 'map-pin', unloaded: 'arrow-down-to-line', delivered: 'circle-check-big', cancelled: 'ban', returned: 'undo-2', problem: 'triangle-alert', problem_resolved: 'shield-check', note: 'message-square-text', doc: 'camera', doc_removed: 'trash-2', undo: 'rotate-ccw', updated: 'pencil', vehicle: 'truck', unassigned: 'user-x' };
 export function eventText(e) {
   const k = {
-    created: t('Lieferung angelegt'), assigned: t('Fahrer zugewiesen'), accepted: t('Buchung bestätigt'), arrived_pickup: t('An der Ladestelle angekommen'), loaded: t('Aufgeladen'), arrived_dropoff: t('An der Entladestelle angekommen'), unloaded: t('Abgeladen'), delivered: t('Zugestellt – Lieferschein bestätigt'),
+    created: t('Lieferung angelegt'), assigned: t('Fahrer zugewiesen'), accepted: t('Buchung bestätigt'), arrived_pickup: t('An der Ladestelle angekommen'), loaded: t('Aufgeladen'), arrived_dropoff: t('An der Entladestelle angekommen'), unloaded: t('Abgeladen'), delivered: e.pods === 0 ? t('Zugestellt – ohne Lieferschein') : t('Zugestellt – Lieferschein bestätigt'),
     cancelled: t('Storniert'), returned: t('Zurückgegeben'), problem: t('Problem gemeldet'), problem_resolved: t('Problem erledigt'), note: t('Notiz'), doc: t('Dokument hochgeladen'), doc_removed: t('Dokument entfernt'), undo: t('Schritt zurückgenommen'), updated: t('Geändert'), vehicle: t('Fahrzeug gesetzt'), unassigned: t('Fahrer entfernt (Zugang gelöscht)'),
   }[e.type] || e.type;
   return k;

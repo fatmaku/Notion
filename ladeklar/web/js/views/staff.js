@@ -470,8 +470,8 @@ function deliveryFormSheet(app) {
       <div class="section-t">${icon('arrow-down-to-line')} ${t('Entladestelle')}</div>${placeFields('dropoff', f.dropoff, app)}
       <div class="section-t">${icon('package')} ${t('Ware')}</div>
       <div class="fgrid" style="--cols:6"><label class="field span3"><span>${t('Beschreibung')}</span><input class="input" name="goods.text" value="${esc(f.goods?.text || '')}" placeholder="${t('z. B. Ersatzteile, 18 Paletten')}"></label>
-        <label class="field"><span>${t('Paletten')}</span><input class="input" type="number" min="0" max="99" name="goods.pallets" value="${esc(f.goods?.pallets ?? '')}"></label>
-        <label class="field span2"><span>${t('Gewicht (kg)')}</span><input class="input" type="number" min="0" name="goods.weightKg" value="${esc(f.goods?.weightKg ?? '')}"></label>
+        <label class="field"><span>${t('Paletten')}</span><input class="input" type="number" min="0" max="66" step="1" name="goods.pallets" value="${esc(f.goods?.pallets ?? '')}"></label>
+        <label class="field span2"><span>${t('Gewicht (kg)')}</span><input class="input" type="number" min="0" max="60000" name="goods.weightKg" value="${esc(f.goods?.weightKg ?? '')}"></label>
         <label class="field span2"><span>${t('Temperatur')}</span><input class="input" name="goods.temp" value="${esc(f.goods?.temp || '')}" placeholder="+2…+8 °C"></label>
         <label class="check span2" style="align-self:end;padding-bottom:10px"><input type="checkbox" name="goods.adr" ${f.goods?.adr ? 'checked' : ''}>${t('Gefahrgut (ADR)')}</label>
         <label class="check span2" style="align-self:end;padding-bottom:10px"><input type="checkbox" name="urgent" ${f.urgent ? 'checked' : ''}>${t('Eilig')}</label></div>
@@ -536,8 +536,8 @@ function vehicleFormSheet(app) {
       <div class="fgrid"><label class="field"><span>${t('Kennzeichen')} *</span><input class="input mono" name="plate" value="${esc(f.plate || '')}" required placeholder="S-KL 2041" style="text-transform:uppercase"></label>
         <label class="field"><span>${t('Art')}</span><select class="input" name="type">${VEHICLE_TYPES[kind].map((ty) => `<option value="${ty}" ${f.type === ty ? 'selected' : ''}>${esc(vehicleTypeText(ty))}</option>`).join('')}</select></label>
         <label class="field full"><span>${t('Bezeichnung')}</span><input class="input" name="name" value="${esc(f.name || '')}" placeholder="${kind === 'truck' ? 'MAN TGX 18.510' : 'Krone Profi Liner'}"></label>
-        <label class="field"><span>${t('Nutzlast (kg)')}</span><input class="input" type="number" name="payloadKg" value="${esc(f.payloadKg ?? '')}"></label>
-        <label class="field"><span>${t('Palettenstellplätze')}</span><input class="input" type="number" name="pallets" value="${esc(f.pallets ?? '')}"></label>
+        <label class="field"><span>${t('Nutzlast (kg)')}</span><input class="input" type="number" min="0" max="60000" name="payloadKg" value="${esc(f.payloadKg ?? '')}"></label>
+        <label class="field"><span>${t('Palettenstellplätze')}</span><input class="input" type="number" min="0" max="66" step="1" name="pallets" value="${esc(f.pallets ?? '')}"></label>
         <label class="field"><span>${t('Nächste HU')}</span><input class="input" type="date" name="huDue" value="${esc(f.huDue || '')}"></label>
         <label class="field"><span>${t('Nächste SP')}</span><input class="input" type="date" name="spDue" value="${esc(f.spDue || '')}"></label></div>
       <div class="field"><span>${t('Ausstattung')}</span><div class="chips">${VEHICLE_FEATURES.map((x) => `<label class="check chip"><input type="checkbox" name="features" value="${x}" ${(f.features || []).includes(x) ? 'checked' : ''}>${esc(featureText(x))}</label>`).join('')}</div></div>
@@ -572,7 +572,7 @@ function notificationsSheet(app) {
   const ns = app.data.notes;
   return sheet({
     key: 'notifications', title: t('Mitteilungen'),
-    body: !ns ? sk(200) : ns.length ? `<div class="list card">${ns.map((n) => `<button class="li ${n.read ? '' : 'unread'}" data-act="openNotification" data-id="${esc(n.deliveryId || '')}" data-key="n-${esc(n.id)}"><span class="avatar" style="${n.priority === 'high' ? 'background:var(--bad-bg);color:var(--bad)' : ''}">${icon(n.priority === 'high' ? 'triangle-alert' : n.type === 'delivered' ? 'file-check' : n.type === 'note' ? 'message-square-text' : 'bell')}</span><div class="grow"><div class="t1">${esc(n.title)}</div><div class="t2">${esc(n.body)}</div></div><span class="xs muted">${esc(ago(n.at, t))}</span></button>`).join('')}</div>` : emptyState('bell', t('Keine Mitteilungen')),
+    body: !ns ? sk(200) : ns.length ? `<div class="list card">${ns.map((n) => `<button class="li ${n.read ? '' : 'unread'}" data-act="openNotification" data-id="${esc(n.deliveryId || '')}" data-key="n-${esc(n.id)}"><span class="avatar" style="${n.priority === 'high' ? 'background:var(--bad-bg);color:var(--bad)' : ''}">${icon(n.priority === 'high' ? 'triangle-alert' : n.type === 'delivered' ? 'file-check' : n.type === 'delivered_nopod' ? 'circle-check-big' : n.type === 'note' ? 'message-square-text' : 'bell')}</span><div class="grow"><div class="t1">${esc(n.title)}</div><div class="t2">${esc(n.body)}</div></div><span class="xs muted">${esc(ago(n.at, t))}</span></button>`).join('')}</div>` : emptyState('bell', t('Keine Mitteilungen')),
     foot: `<button class="btn" data-act="markRead">${icon('check')}${t('Alle gelesen')}</button>`,
   });
 }
