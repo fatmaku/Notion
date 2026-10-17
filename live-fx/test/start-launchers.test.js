@@ -65,7 +65,7 @@ function freePort() {
 // ---------------------------------------------------------------- files
 
 test('start/ folder: launchers, README-START, executable bits', () => {
-  for (const f of ['Start-LiveFX.bat', 'Start-LiveFX.command', 'start.sh', 'README-START.txt']) assert.ok(fs.existsSync(path.join(START, f)), f);
+  for (const f of ['Start-LiveFX.bat', 'Start-LiveFX.command', 'start.sh', 'README-START.txt', 'MAC-HILFE.txt']) assert.ok(fs.existsSync(path.join(START, f)), f);
   if (process.platform !== 'win32') {
     for (const f of ['Start-LiveFX.command', 'start.sh']) assert.ok(fs.statSync(path.join(START, f)).mode & 0o111, `${f} is executable`);
   }
@@ -379,4 +379,20 @@ test('server.js stays parseable by old Node (version check first, no ?? / ?. in 
   assert.ok(!/\?\?|\?\.(?!\d)/.test(code), 'no nullish coalescing / optional chaining in server.js');
   assert.ok(head.indexOf('NODE_MAJOR < 20') < src.indexOf("require('./server/router')"), 'check runs before the modules load');
   assert.equal(require('../package.json').engines.node, '>=20');
+});
+
+test('Mac: "beschädigt" (Gatekeeper/quarantine) help in MAC-HILFE.txt, README-START and docs/START.md – DE / TR / EN', () => {
+  const help = fs.readFileSync(path.join(START, 'MAC-HILFE.txt'), 'utf8');
+  for (const s of ['beschädigt', 'hasarlı', 'damaged', 'Abbrechen', 'Vazgeç', 'Cancel', 'Papierkorb', 'Çöp Sepeti', 'Trash', 'start/start.sh']) {
+    assert.ok(help.includes(s), `MAC-HILFE.txt: ${s}`);
+  }
+  assert.equal(help.match(/xattr -cr/g).length, 3, 'xattr -cr in all three languages');
+  const readme = fs.readFileSync(path.join(START, 'README-START.txt'), 'utf8');
+  for (const s of ['ist beschädigt und kann nicht geöffnet werden', 'hasarlı ve açılamıyor', 'is damaged and can’t be opened', 'MAC-HILFE.txt']) {
+    assert.ok(readme.includes(s), `README-START.txt: ${s}`);
+  }
+  assert.equal(readme.match(/xattr -cr/g).length, 3, 'README-START: xattr -cr in DE / TR / EN');
+  const doc = fs.readFileSync(path.join(START, '..', 'docs', 'START.md'), 'utf8');
+  assert.ok(doc.match(/xattr -cr/g).length >= 3, 'docs/START.md: xattr -cr in DE / TR / EN');
+  assert.match(fs.readFileSync(path.join(START, 'Start-LiveFX.command'), 'utf8'), /xattr -cr/);
 });

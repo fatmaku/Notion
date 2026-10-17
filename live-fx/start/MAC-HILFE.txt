@@ -1,0 +1,50 @@
+LiveFX auf dem Mac – Meldung „beschädigt“?
+==========================================
+„Start-LiveFX.command“ ist beschädigt und kann nicht geöffnet werden …
+→ Die Datei ist NICHT kaputt. macOS sperrt nicht signierte Startdateien aus dem Internet.
+→ Im Fenster „Abbrechen“ klicken (NICHT in den Papierkorb legen).
+
+Einmal freigeben (1 Minute):
+  1. Terminal öffnen: ⌘ + Leertaste → „Terminal“ tippen → Enter
+  2. Eintippen:  xattr -cr     (mit Leerzeichen am Ende, noch KEIN Enter)
+  3. Den LiveFX-Ordner (live-fx) aus dem Finder ins Terminal-Fenster ziehen → Enter
+  4. start/Start-LiveFX.command doppelklicken – ab jetzt immer per Doppelklick
+
+Alternative ohne Freigabe: im Terminal  bash   tippen (mit Leerzeichen), die Datei start/start.sh
+hineinziehen, Enter.
+Fragt der Mac nach Zugriff auf „Downloads“ oder nach eingehenden Verbindungen → „Erlauben“.
+Fehlt Node.js, öffnet sich nodejs.org → „LTS“ (.pkg) installieren, dann noch einmal starten.
+
+
+LiveFX Mac’te – „hasarlı“ uyarısı mı?
+=====================================
+„Start-LiveFX.command hasarlı ve açılamıyor …“
+→ Dosya bozuk DEĞİL. macOS internetten gelen imzasız başlatma dosyalarını engelliyor.
+→ Pencerede „Vazgeç“e bas (Çöp Sepeti’ne TAŞIMA).
+
+Bir kez izin ver (1 dakika):
+  1. Terminal’i aç: ⌘ + boşluk → „Terminal“ yaz → Enter
+  2. Yaz:  xattr -cr     (sonunda boşluk, henüz Enter YOK)
+  3. LiveFX klasörünü (live-fx) Finder’dan Terminal penceresine sürükle → Enter
+  4. start/Start-LiveFX.command’a çift tıkla – artık hep çalışır
+
+Alternatif: Terminal’de  bash   yaz (boşlukla), start/start.sh dosyasını sürükle, Enter.
+Mac „İndirilenler“e erişim ya da gelen bağlantılar için izin isterse → „İzin Ver“.
+Node.js yoksa nodejs.org açılır → „LTS“ (.pkg) kur, sonra tekrar başlat.
+
+
+LiveFX on a Mac – “damaged” message?
+====================================
+“Start-LiveFX.command is damaged and can’t be opened …”
+→ The file is NOT broken. macOS blocks unsigned start files downloaded from the internet.
+→ Click “Cancel” (do NOT move it to the Trash).
+
+Allow it once (1 minute):
+  1. Open Terminal: ⌘ + Space → type “Terminal” → Enter
+  2. Type:  xattr -cr     (with a trailing space, no Enter yet)
+  3. Drag the LiveFX folder (live-fx) from Finder into the Terminal window → Enter
+  4. Double-click start/Start-LiveFX.command – from now on it always works
+
+Alternative: in Terminal type  bash   (with a space), drag start/start.sh in, Enter.
+If the Mac asks for access to “Downloads” or for incoming connections → “Allow”.
+No Node.js? nodejs.org opens → install “LTS” (.pkg), then start again.

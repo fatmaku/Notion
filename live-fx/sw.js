@@ -16,7 +16,7 @@
 // also compares it with the server's /health version and re-precaches when they differ).
 'use strict';
 
-const SHELL_VERSION = '2.4.0';
+const SHELL_VERSION = '2.4.1';
 const OVERLAY_MODE = new URLSearchParams(self.location.search).get('shell') === 'overlay';
 const CACHE_PREFIX = OVERLAY_MODE ? 'livefx-overlay-' : 'livefx-shell-';
 const CACHE = OVERLAY_MODE ? `livefx-overlay-v${SHELL_VERSION}` : `livefx-shell-v${SHELL_VERSION}`;

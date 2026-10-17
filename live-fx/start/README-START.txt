@@ -34,14 +34,21 @@ Windows-Firewall
    Firewall trotzdem. Einstellungen → Netzwerk und Internet → WLAN → dein Netz → Netzwerkprofil
    „Privat“ wählen (oder in der Firewall-Frage zusätzlich „Öffentliche Netzwerke“ ankreuzen).
 
-Mac: „kann nicht geöffnet werden, da es von einem nicht verifizierten Entwickler stammt“
-   Das ist Gatekeeper (Dateien aus dem Internet). Einmalig:
-   Rechtsklick (oder ctrl-Klick) auf Start-LiveFX.command → „Öffnen“ → „Öffnen“.
-   Ab macOS 15: einmal doppelklicken, dann Systemeinstellungen → Datenschutz & Sicherheit →
-   ganz unten „Dennoch öffnen“. Danach reicht ein Doppelklick.
-   „Keine Berechtigung“? Terminal öffnen, „bash “ tippen (mit Leerzeichen), die Datei
-   Start-LiveFX.command ins Terminal ziehen, Enter.
+Mac: „Start-LiveFX.command“ ist beschädigt und kann nicht geöffnet werden
+     (oder: „nicht verifizierter Entwickler“ / „Apple konnte nicht überprüfen …“)
+   Die Datei ist NICHT kaputt. macOS sperrt jede nicht signierte Startdatei, die aus dem Internet kommt
+   (Download-Markierung „Quarantäne“). Im Fenster „Abbrechen“ klicken – NICHT in den Papierkorb legen. Einmalig:
+     1. Terminal öffnen: ⌘ + Leertaste, „Terminal“ tippen, Enter.
+     2. xattr -cr  eintippen – mit Leerzeichen am Ende, noch NICHT Enter drücken.
+     3. Den ganzen LiveFX-Ordner (live-fx) aus dem Finder ins Terminal-Fenster ziehen, dann Enter.
+     4. Start-LiveFX.command wieder doppelklicken – ab jetzt startet es immer per Doppelklick.
+   Ohne Doppelklick geht es auch: im Terminal „bash “ tippen (mit Leerzeichen), die Datei start.sh aus dem
+   Ordner „start“ ins Terminal ziehen, Enter.
+   Nur bei „nicht verifizierter Entwickler“ gibt es zusätzlich: Systemeinstellungen → Datenschutz & Sicherheit →
+   ganz unten „Dennoch öffnen“ (bis macOS 14: Rechtsklick → „Öffnen“ → „Öffnen“).
+   Fragt der Mac „Terminal möchte auf Dateien im Ordner ‚Downloads‘ zugreifen“ → „Erlauben“.
    Die Mac-Firewall fragt ggf. „Eingehende Verbindungen erlauben?“ → „Erlauben“.
+   Kurzfassung: start/MAC-HILFE.txt
 
 Node.js ohne Installation (portabel)
    Auf https://nodejs.org/de/download die Datei „Windows Binary (.zip)“ (Mac: „macOS Binary (.tar.gz)“)
@@ -66,8 +73,13 @@ LiveFX’i başlat (Türkçe)
 Windows Güvenlik Duvarı sorarsa: „Erişime izin ver“ (özel ağlar).
 QR kod bir şey yapmıyor mu? Windows 11 yeni Wi‑Fi’yi çoğu zaman „Ortak“ (Public) yapar: Ayarlar → Ağ ve İnternet →
 Wi‑Fi → ağın → Ağ profili „Özel“ seç (ya da güvenlik duvarı sorusunda „Ortak ağlar“ı da işaretle).
-Mac „doğrulanmamış geliştirici“ derse: dosyaya sağ tık → „Aç“ → „Aç“ (macOS 15+: Sistem Ayarları →
-Gizlilik ve Güvenlik → „Yine de Aç“).
+Mac „… hasarlı ve açılamıyor“ ya da „doğrulanmamış geliştirici“ derse: dosya bozuk DEĞİL – macOS internetten
+gelen imzasız başlatma dosyalarını engelliyor. Pencerede „Vazgeç“e bas (Çöp Sepeti’ne taşıma). Bir kez:
+Terminal’i aç (⌘ + boşluk, „Terminal“ yaz, Enter) → „xattr -cr “ yaz (sonunda boşluk, henüz Enter yok) →
+LiveFX klasörünü (live-fx) Finder’dan Terminal penceresine sürükle → Enter. Sonra Start-LiveFX.command’a tekrar
+çift tıkla – artık hep çalışır. Ya da: Terminal’de „bash “ yaz, „start“ klasöründeki start.sh’i sürükle → Enter.
+(Sadece „doğrulanmamış geliştirici“de ayrıca: Sistem Ayarları → Gizlilik ve Güvenlik → „Yine de Aç“.)
+Kısa yardım: start/MAC-HILFE.txt
 Kurulumsuz Node: Node ZIP’ini aç, klasörün adını „node“ yap ve LiveFX klasörüne koy (LiveFX\node\node.exe).
 
 
@@ -83,7 +95,12 @@ Start LiveFX (English)
 Windows Firewall asks: click “Allow access” (private networks).
 QR code does nothing? Windows 11 often marks a new Wi‑Fi as “Public”: Settings → Network & internet → Wi‑Fi →
 your network → Network profile “Private” (or also tick “Public networks” in the firewall prompt).
-Mac “unidentified developer”: right-click the file → “Open” → “Open” (macOS 15+: System Settings →
-Privacy & Security → “Open Anyway”).
+Mac says “… is damaged and can’t be opened” or “unidentified developer”: the file is NOT broken – macOS blocks
+unsigned start files downloaded from the internet. Click “Cancel” (do not move it to the Trash). Once:
+open Terminal (⌘ + Space, type “Terminal”, Enter) → type “xattr -cr ” (with a trailing space, no Enter yet) →
+drag the LiveFX folder (live-fx) from Finder into the Terminal window → Enter. Then double-click
+Start-LiveFX.command again – from now on it just works. Or: in Terminal type “bash ”, drag start.sh from the
+“start” folder in → Enter. (“Unidentified developer” only: System Settings → Privacy & Security → “Open Anyway”.)
+Short help: start/MAC-HILFE.txt
 Portable Node: unzip the official Node archive, rename the folder to “node”, put it into the LiveFX folder
 (LiveFX\node\node.exe or LiveFX/node/bin/node).

@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.4.1 – Mac: Meldung „beschädigt“ beim Doppelklick auf Start-LiveFX.command
+
+- macOS (ab 15) sperrt nicht signierte Startdateien aus dem Internet und meldet dann **„Start-LiveFX.command ist
+  beschädigt und kann nicht geöffnet werden“** – die Datei ist in Ordnung, nur mit der Download-Markierung
+  (Quarantäne) versehen; „Dennoch öffnen“ und Rechtsklick → „Öffnen“ helfen bei dieser Meldung nicht.
+- Neu **`start/MAC-HILFE.txt`** (DE/TR/EN, direkt neben der Startdatei): „Abbrechen“ (nicht Papierkorb) → Terminal →
+  `xattr -cr ` + LiveFX-Ordner hineinziehen → Enter → ab dann Doppelklick. Ausweg ohne Freigabe: `bash ` +
+  `start/start.sh` hineinziehen → Enter.
+- `start/README-START.txt`, `docs/START.md` (Erste Hilfe, TR, EN), README-Schnellstart und der Kommentar in
+  `Start-LiveFX.command` entsprechend korrigiert; Test `start-launchers` prüft die Mac-Hilfe in allen drei Sprachen.
+
 ## 2.4.0 – Handy zuerst: QR-Einrichtung überall, Doppelklick-Start, WLAN ab Werk (mit Kopplung), Handy als Mikro
 
 Antwort auf „Einrichtung erleichtern, am besten für Handy, auch immer QR-Einrichtung“. Ausführlich: `docs/START.md`

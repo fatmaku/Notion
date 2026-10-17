@@ -1,6 +1,6 @@
 {
   "name": "livefx",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Live memes, stickers and sound effects for livestreams – triggered by what the streamer says.",
   "private": true,
   "main": "server.js",
