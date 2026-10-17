@@ -180,7 +180,7 @@
   }
  },
  "BYK": {
-  "_hinweis": "Eigenständiges Buch (Neufassung von YOLCU, eigenes Cover: build_cover_byk.py). Platzhalter: subtitle, blurb und tagline werden später ohne Codeänderung ersetzt; leere Felder werden auf dem Cover weggelassen.",
+  "_hinweis": "Eigenständiges Buch (Neufassung von YOLCU, eigenes Cover: build_cover_byk.py). Rückseiten-Blurb: höchstens 115 Wörter (azami 115 kelime), sonst Überlauf in .backflow (overflow:hidden) – nach jeder Änderung neu bauen und Abstand Blurb–Tagline prüfen (Ziel ≥ 6 mm). Headline der Rückseite weicht bewusst vom Innentitel-Motto („Bir şeyin var olduğunu nasıl anlarsın?“, U01:3) ab; ob das Motto im Innenteil bleibt, entscheidet der Autor.",
   "title": "BEN YOKSAM",
   "title_lines": [
    "BEN",
@@ -193,22 +193,24 @@
    "tr": "Mistik suç ve psikolojik gerilim romanı"
   },
   "headline": {
-   "tr": "Bir şeyin var olduğunu nasıl anlarsın?"
+   "tr": "Bir insanı anlamanın en güvenilir yolu, onun henüz söylemediği cümleyi bilmektir."
   },
   "questions": {
    "tr": [
-    "Gördüğün için mi?",
-    "Hatırladığın için mi?",
-    "Yoksa biri sana var olduğunu söylediği için mi?"
+    "Ya o cümleyi bir makine biliyorsa?",
+    "Siyah paketi kim bıraktı?",
+    "Kapalı göz kime bakıyor?"
    ]
   },
   "blurb": {
    "tr": [
-    "(Klappentext folgt)"
+    "İstanbul, Kasım 2026, saat 14.53. Söylenenle saklananı herkesten önce duyan bir adamın kapısına kırmızı iple bağlanmış siyah bir paket bırakılır. İçindeki kitabın kapağında yalnızca kapalı bir göz kabartması vardır; sayfaları ise onun çocukluğunu, korkularını, çekmecesinde sakladığı üç zarfı bilir.",
+    "Kafasındaki sesleri adlarıyla tanıyan bu adam, bir gazeteci ve bir adli bilişimciyle paketin izini sürerken karanlık bir ağa ve insanların cümlesini onlardan önce kuran bir makineye varır. Makine önce yardım eder, sonra yön verir. Yüzler kopyalanır, sırlar birer birer düşer; bedelini yalnız o ödemez.",
+    "Ya eski rivayetlerin tek gözlü aldatıcısı bir canavar değil de her soruna sabırla cevap veren bir ses olursa? Bölümlerin arasında “Üçüncü Göz” açılır: gerilimin ortasında mistik bir pencere."
    ]
   },
   "tagline": {
-   "tr": ""
+   "tr": "Uyanmak, bir cümleye teslim olmak değil; cümlenin elini görmektir."
   },
   "former_title": "",
   "subtitle_lines": [
