@@ -21,7 +21,7 @@
   },
   {
    "style": "Book Inset",
-   "text": "<b>Bir şeyin var olduğunu nasıl anlarsın?</b>",
+   "text": "<b>Bir şeyin var olduğunu nasıl anlarsın?\nYoksa sana anlatıldığı gibi mi?</b>",
    "uid": "U01"
   },
   {
@@ -18759,7 +18759,7 @@
   },
   {
    "style": "Book Inset",
-   "text": "<b>Bir şeyin var olduğunu nasıl anlarsın?</b>",
+   "text": "<b>Bir şeyin var olduğunu nasıl anlarsın?\nYoksa sana anlatıldığı gibi mi?</b>",
    "uid": "U42"
   },
   {

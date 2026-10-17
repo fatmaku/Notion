@@ -1,12 +1,32 @@
 {
  "uid": "U01",
  "paras": [
-  {"style": "Heading 1", "text": "<b>ALNINDAKİ YAZI</b>"},
-  {"style": "Opening", "text": "<i>Mistik suç ve psikolojik gerilim romanı</i>"},
-  {"image": 3},
-  {"style": "Book Inset", "text": "<b>Bir şeyin var olduğunu nasıl anlarsın?</b>"},
-  {"style": "Scene Break", "text": "•  •  •"},
-  {"style": "Book Metadata", "text": "Tuncay Sancak"},
-  {"style": "Normal", "text": ""}
+  {
+   "style": "Heading 1",
+   "text": "<b>ALNINDAKİ YAZI</b>"
+  },
+  {
+   "style": "Opening",
+   "text": "<i>Mistik suç ve psikolojik gerilim romanı</i>"
+  },
+  {
+   "image": 3
+  },
+  {
+   "style": "Book Inset",
+   "text": "<b>Bir şeyin var olduğunu nasıl anlarsın?\nYoksa sana anlatıldığı gibi mi?</b>"
+  },
+  {
+   "style": "Scene Break",
+   "text": "•  •  •"
+  },
+  {
+   "style": "Book Metadata",
+   "text": "Tuncay Sancak"
+  },
+  {
+   "style": "Normal",
+   "text": ""
+  }
  ]
 }
