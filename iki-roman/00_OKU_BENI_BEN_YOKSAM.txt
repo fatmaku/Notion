@@ -1,0 +1,44 @@
+BEN YOKSAM — Alnındaki Yazı · KDP PAKETİ (Türkçe)
+Tuncay Sancak (@happytuncay)
+====================================================================
+
+Bir şeyin var olduğunu nasıl anlarsın?
+Yoksa sana anlatıldığı gibi mi?
+
+Kendi başına duran bir roman. Başka bir kitaba, seriye ya da ortak hikâyeye bağlı değildir.
+
+
+SÜRÜM: TR 1.0 (17.10.2026)
+--------------------------
+- A5 (148 × 210 mm), 310 sayfa, krem kâğıt, siyah-beyaz iç sayfalar; 47.863 kelime
+  (6 “Üçüncü Göz” ara bölümü dâhil).
+- Bütün kitap kontrolü (233 bulgu, 104'ü uygulandı) ve iki jüri: 8,5 / 9 / 8 / 8,5 ve 8,5 / 9 / 8,3 / 8,6
+  (mantık / mistik katman / roman / genel). Jüri bulgularının hepsi bu sürümde işlendi
+  (ayrıntı: 3_Raporlar/BEN_YOKSAM_Degisiklik_Listesi.pdf).
+- Makine denetimi: 45 bölüm, akrostişler (SENİ BUL / BAŞA DÖN / BENİ ARAMA), 4 resim, 5 perde, son satır,
+  ŞAHİT kalıntısı 0 – hepsi OK. EPUB: epubcheck 0 hata, 0 uyarı.
+- Yayından önce: Değişiklik Listesi §7'deki yazar soruları (IL6:37 “kendisiydi/aynasıydı”, IL5:39,
+  “narsistlerin”) ve bir ilahiyatçı okuması.
+
+
+KLASÖRLER
+---------
+1_KDP_BEN_YOKSAM_TR   Amazon KDP'ye hemen yüklenebilir
+   BEN_YOKSAM_Ic_Sayfalar_A5.pdf   → KDP “Paperback manuscript” (iç sayfalar)
+   BEN_YOKSAM_Tam_Kapak_KDP.pdf    → KDP “Paperback cover” (arka + sırt + ön, taşma payı dâhil)
+   BEN_YOKSAM_Kindle.epub          → KDP “eBook manuscript”
+   BEN_YOKSAM_eKitap_Kapagi.jpg    → KDP “eBook cover” (1600 × 2560 px)
+   BEN_YOKSAM_Word.docx            → düzenlenebilir el yazması (Word)
+   BEN_YOKSAM_On_Kapak.pdf / _Arka_Kapak.pdf / _Kapak_Onizleme.png → tanıtım, matbaa, kontrol
+2_Pazarlama           KDP açıklaması, anahtar kelimeler, kategoriler, kısa biyografi (MD + PDF)
+3_Raporlar            Değişiklik listesi (YOLCU → BEN YOKSAM), konsept, irfan katmanı,
+                      “Üçüncü Göz” yerleşimi, Sırlar Çemberi
+
+
+KDP AYARLARI (ciltsiz)
+----------------------
+Trim size: 5.83 × 8.27 in (14.8 × 21 cm, A5) · Interior: Black & white, Cream paper
+Bleed: No bleed (iç sayfalar) · Cover finish: Matte önerilir · Sayfa: 310
+Tam kapak: 322,03 × 216,35 mm, sırt 19,68 mm (310 × 0,0635 mm) – yüklemeden önce KDP Cover
+Calculator'da 310 sayfa ile karşılaştırın. Barkod alanı arka kapakta sağ altta boş bırakıldı.
+ISBN: KDP'nin ücretsiz ISBN'i ya da kendi ISBN'iniz; künyedeki yer tutucuyu buna göre doldurun.

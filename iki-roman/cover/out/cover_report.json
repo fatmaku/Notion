@@ -178,24 +178,24 @@
     }
   },
   "BYK": {
-    "pages": 260,
-    "pages_source": "interior/out/report.json [BYK]",
-    "spine_mm": 16.51,
+    "pages": 310,
+    "pages_source": "CLI",
+    "spine_mm": 19.68,
     "title": "BEN YOKSAM",
     "tr": {
-      "pages": 260,
-      "pages_source": "interior/out/report.json [BYK]",
-      "spine_mm": 16.51,
+      "pages": 310,
+      "pages_source": "CLI",
+      "spine_mm": 19.68,
       "geometry": {
-        "page_w": 318.86,
+        "page_w": 322.03000000000003,
         "page_h": 216.35,
-        "spine": 16.51,
+        "spine": 19.68,
         "back_x": 3.175,
         "spine_x": 151.175,
-        "front_x": 167.685
+        "front_x": 170.85500000000002
       },
       "fullcover_check": {
-        "width_mm": 318.86,
+        "width_mm": 322.03,
         "height_mm": 216.35,
         "fonts": [
           "/FICKVL+Literata-Semi-Bold",
