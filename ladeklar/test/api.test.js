@@ -91,7 +91,7 @@ test('end to end over HTTP: licensor → company → driver, live events, push, 
     // push subscription for the dispatcher
     const ua = crypto.createECDH('prime256v1'); ua.generateKeys();
     const auth = crypto.randomBytes(16).toString('base64url');
-    assert.equal((await admin.req('POST', '/api/push/subscribe', { endpoint: 'https://push.example.net/sub/1', keys: { p256dh: ua.getPublicKey().toString('base64url'), auth } })).status, 200);
+    assert.equal((await admin.req('POST', '/api/push/subscribe', { endpoint: 'https://fcm.googleapis.com/fcm/send/sub-1', keys: { p256dh: ua.getPublicKey().toString('base64url'), auth } })).status, 200);
     assert.equal((await admin.req('POST', '/api/push/subscribe', { endpoint: 'http://evil', keys: {} })).status, 400);
 
     const staffSse = sseListen(base, admin.cookie);
@@ -109,7 +109,7 @@ test('end to end over HTTP: licensor → company → driver, live events, push, 
     const live = await staffSse.waitFor((e) => e.ev === 'notify' && /Bestätigt/.test(e.data.title));
     assert.match(live.data.body, /Stuttgart → Hamburg/);
     await new Promise((r) => setTimeout(r, 50));
-    assert.ok(pushed.some((x) => x.sub.endpoint === 'https://push.example.net/sub/1' && /Bestätigt/.test(x.payload.title)), 'web push sent to the dispatcher');
+    assert.ok(pushed.some((x) => x.sub.endpoint === 'https://fcm.googleapis.com/fcm/send/sub-1' && /Bestätigt/.test(x.payload.title)), 'web push sent to the dispatcher');
 
     await driver.call('advanceDelivery', { id: d.data.id, step: 'loaded' });
     await driver.call('advanceDelivery', { id: d.data.id, step: 'unloaded' });

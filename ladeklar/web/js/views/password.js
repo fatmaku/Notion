@@ -30,7 +30,7 @@ export const forms = {
   async firstPassword(fd, form, app) {
     if (fd.get('next') !== fd.get('again')) { app.ui.pwErr = t('Die beiden neuen Passwörter sind nicht gleich.'); app.render(); return; }
     try { await app.api.call('changePassword', { current: fd.get('current'), next: fd.get('next') }); }
-    catch (e) { app.ui.pwErr = e.code === 'network' ? t('Keine Verbindung.') : e.message; app.render(); return; }
+    catch (e) { app.ui.pwErr = t(e.message); app.render(); return; }
     app.ui.pwErr = '';
     const me = await app.api.session();
     if (me) app.setMe(me);

@@ -62,8 +62,8 @@ export async function processLogo(file, color = '#0e7c7b') {
   } finally { URL.revokeObjectURL(url); }
 }
 
-/** Signature pad on a canvas. Returns { clear(), isEmpty(), toBlob() , destroy() } */
-export function signaturePad(canvas) {
+/** Signature pad on a canvas. onChange(empty) runs when it gets its first stroke or is cleared. Returns { clear(), isEmpty(), toBlob() , destroy() } */
+export function signaturePad(canvas, { onChange } = {}) {
   const ratio = Math.max(1, window.devicePixelRatio || 1);
   const resize = () => { const r = canvas.getBoundingClientRect(); canvas.width = r.width * ratio; canvas.height = r.height * ratio; const g = canvas.getContext('2d'); g.scale(ratio, ratio); g.lineWidth = 2.6; g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = '#1f3fa8'; };
   resize();
@@ -74,12 +74,13 @@ export function signaturePad(canvas) {
     if (!drawing) return;
     const p = pos(e); const g = canvas.getContext('2d');
     g.beginPath(); g.moveTo(last.x, last.y); g.quadraticCurveTo(last.x, last.y, (last.x + p.x) / 2, (last.y + p.y) / 2); g.lineTo(p.x, p.y); g.stroke();
-    last = p; empty = false; e.preventDefault();
+    last = p; e.preventDefault();
+    if (empty) { empty = false; onChange?.(false); }
   };
   const up = () => { drawing = false; };
   canvas.addEventListener('pointerdown', down); canvas.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
   return {
-    clear() { const g = canvas.getContext('2d'); g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, canvas.width, canvas.height); g.restore(); empty = true; },
+    clear() { const g = canvas.getContext('2d'); g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, canvas.width, canvas.height); g.restore(); if (!empty) { empty = true; onChange?.(true); } },
     isEmpty: () => empty,
     toBlob: () => toBlob(canvas, 'image/png'),
     destroy() { canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); },

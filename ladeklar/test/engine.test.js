@@ -362,17 +362,20 @@ test('billing: monthly from the paid start, yearly only in the renewal month, st
   assert.deepEqual(codes('2026-09'), [], 'nothing before the paid start');
   assert.deepEqual(codes('2027-10'), ['JAHRAG', 'MONATGMB'], 'yearly renewal after 12 months');
   const yl = engine.call(platform, 'billingRun', { month: '2026-10' }).lines.find((l) => l.code === 'JAHRAG');
-  assert.equal(yl.net, (299 + 99) * 10);
+  assert.equal(yl.net, (299 + 99) * 10 + 1990, 'yearly fee + one-off store-app set-up (C14)');
   assert.equal(yl.period, '10/2026 – 09/2027');
   // trial converts in November → billed from November
   tick(20 * 864e5);
   engine.call(platform, 'updateTenantLicense', { id: tr.tenant.id, status: 'active' });
   assert.ok(codes('2026-11').includes('TESTKG'));
   assert.ok(!codes('2026-10').includes('TESTKG'));
-  // suspended in November: October stays billed, November not
+  // suspended in November: payment continues during a suspension (AGB § 14 Abs. 4, C14); cancelled → stops
   engine.call(platform, 'updateTenantLicense', { id: m.tenant.id, status: 'suspended' });
   assert.ok(codes('2026-10').includes('MONATGMB'));
-  assert.ok(!codes('2026-11').includes('MONATGMB'));
+  assert.ok(codes('2026-11').includes('MONATGMB'));
+  engine.call(platform, 'updateTenantLicense', { id: m.tenant.id, status: 'cancelled' });
+  assert.ok(codes('2026-11').includes('MONATGMB'), 'the month the cancellation takes effect is billed');
+  assert.ok(!codes('2026-12').includes('MONATGMB'));
   // store app only with Premium; extra drivers have no effect on Start
   assert.equal(code(() => engine.call(platform, 'updateTenantLicense', { id: m.tenant.id, storeApp: true })), 'invalid');
   assert.equal(code(() => engine.call(platform, 'updateTenantLicense', { id: y.tenant.id, plan: 'flotte' })), 'invalid', 'downgrade with store app must drop the app first');

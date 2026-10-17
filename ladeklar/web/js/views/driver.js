@@ -1,9 +1,9 @@
 // Driver app: one big button – always the next step. Truck from the pool, confirm the booking,
 // loaded, unloaded, delivery-note photo, done. Notes, problems, navigation and a call to the
 // office are one tap away. Works offline, locks while driving, speaks eight languages.
-import { icon, esc, pill, problemPill, plate, stepper, routeTitle, goodsFacts, placeBlock, timeline, notesThread, docsGrid, sheet, emptyState, logoImg, langPicker, licenseBanner, PROBLEM_ICON, STEP_ICON, VEHICLE_ICON, vehicleTypeText, featureText } from './common.js';
+import { icon, esc, pill, problemPill, plate, stepper, routeTitle, goodsFacts, placeBlock, timeline, notesThread, docsGrid, sheet, emptyState, logoImg, langPicker, PROBLEM_ICON, STEP_ICON, VEHICLE_ICON, vehicleTypeText, featureText } from './common.js';
 import { t, tStep, tStatus, tProblem, problemCodes, noteShortcuts } from '../i18n.js';
-import { time, longDate, dayLabel, window_, mapsHref, phoneHref, dateTime, phone as fmtPhone } from '../format.js';
+import { time, longDate, dayLabel, mapsHref, phoneHref, dateTime, phone as fmtPhone } from '../format.js';
 import { compressPhoto, signaturePad, rasterize } from '../media.js';
 import { nextStep, progressOf } from '../../../core/engine.js';
 
@@ -11,22 +11,45 @@ export const routes = ['home', 'jobs', 'history', 'more'];
 export const defaultRoute = () => 'home';
 
 // ---------- data ----------
+// Without network the transport answers driverHome/getDelivery from the phone's last copy.
 export async function load(app) {
   const [home, hist] = await Promise.all([
     app.api.call('driverHome', {}),
-    app.route.name === 'history' ? app.api.call('myHistory', {}) : Promise.resolve(app.data.history),
+    app.route.name === 'history' ? app.api.call('myHistory', {}).catch((e) => { if (e.code === 'network') return app.data.history; throw e; }) : Promise.resolve(app.data.history),
   ]);
+  await overlayOutbox(app, home);
+  app._nos = app._nos || new Map(); // booking numbers stay known for "not sent" notices, also of tours that left the list
+  for (const d of [home?.current, ...(home?.mine || []), ...(home?.offered || [])]) if (d) app._nos.set(d.id, d.bookingNo);
   app.data.home = home;
   app.data.history = hist;
   if (home?.me && app.me) app.me.user = { ...app.me.user, ...home.me };
-  if (!app.api.queueSize) app.ui.localDocs = {}; // everything from the outbox has arrived
+  app.ui.failed = (await app.api.failed?.().catch(() => null)) || [];
   await refreshSheetData(app);
   watchDriving(app);
+  // C7: a PIN reset ends all push subscriptions – renew silently if the phone still allows it
+  if (app.me && app._pushFor !== app.me.user.id) { app._pushFor = app.me.user.id; app.api.push?.resubscribe?.().catch(() => {}); }
+  if (app.route.name === 'more') pushStatus(app);
 }
 
 // ---------- offline: what the phone knows without network ----------
-// The last driverHome plus photos that still wait in the outbox. Steps tapped in a dead zone are
-// applied here at once, so the driver can go on (loaded → unloaded → delivery note → done).
+// The last driverHome plus what still waits in the outbox: steps tapped in a dead zone are applied
+// on top (also after the app was closed), photos show from the phone, so the driver can go on
+// (loaded → unloaded → delivery note → done).
+async function overlayOutbox(app, h) {
+  const items = (await app.api.outbox?.().catch(() => [])) || [];
+  const urls = (app._blobUrls = app._blobUrls || new Map()), docs = {};
+  for (const x of items) {
+    if (x.kind === 'call' && (x.method === 'acceptDelivery' || x.method === 'advanceDelivery')) applyLocalStep(app, h, x.args.id, x.method === 'acceptDelivery' ? 'accepted' : x.args.step, x.at);
+    else if (x.kind === 'upload' && x.deliveryId && x.blob) {
+      if (!urls.has(x.seq)) urls.set(x.seq, URL.createObjectURL(x.blob));
+      (docs[x.deliveryId] = docs[x.deliveryId] || []).push({ fileId: 'local-' + x.seq, kind: x.fileKind, localUrl: urls.get(x.seq), queued: true, at: x.at, mime: x.blob.type });
+    }
+  }
+  const live = new Set(items.map((x) => x.seq));
+  for (const [seq, url] of urls) if (!live.has(seq)) { URL.revokeObjectURL(url); urls.delete(seq); }
+  app._queuedSteps = items.filter((x) => x.kind === 'call' && x.args?.step).map((x) => ({ id: x.args.id, step: x.method === 'acceptDelivery' ? 'accepted' : x.args.step, at: x.at }));
+  app.ui.localDocs = docs;
+}
 function withLocal(app, d) {
   const extra = app.ui.localDocs?.[d.id];
   return extra?.length ? { ...d, docs: [...(d.docs || []), ...extra] } : d;
@@ -40,17 +63,19 @@ function addLocalDoc(app, id, doc) {
   app.ui.localDocs = app.ui.localDocs || {};
   app.ui.localDocs[id] = [...(app.ui.localDocs[id] || []), doc];
 }
-function applyLocalStep(app, id, step) {
-  const h = app.data.home;
-  if (!h) return;
-  const at = Date.now();
-  for (const d of [h.current, ...h.mine, ...h.offered]) {
-    if (!d || d.id !== id) continue;
-    d.events = [...(d.events || []), { id: 'local-' + at, at, type: step, by: app.me.user.id, role: 'driver', from: d.status, local: true }];
-    d.status = step;
-    d.next = nextStep(d, settings(app));
-    if (step === 'accepted') d.driverId = app.me.user.id;
-  }
+function stepLocal(app, d, step, at, s) {
+  if (!d || progressOf(d.status) >= progressOf(step)) return false; // the server has it already
+  d.events = [...(d.events || []), { id: 'local-' + at, at, type: step, by: app.me.user.id, role: 'driver', from: d.status, local: true }];
+  d.status = step;
+  d.next = nextStep(d, s);
+  if (step === 'accepted') d.driverId = app.me.user.id;
+  return true;
+}
+function applyLocalStep(app, h, id, step, at = Date.now()) {
+  if (!h || !app.me) return;
+  let hit = false;
+  for (const d of [h.current, ...h.mine, ...h.offered]) if (d && d.id === id && stepLocal(app, d, step, at, settings(app, h))) hit = true;
+  if (!hit) return;
   const cur = h.mine.find((d) => d.id === id) || h.offered.find((d) => d.id === id);
   if (cur && step === 'accepted' && !h.mine.includes(cur)) { h.mine.unshift(cur); h.offered = h.offered.filter((d) => d !== cur); }
   if (step === 'delivered') { h.mine = h.mine.filter((d) => d.id !== id); h.doneToday = (h.doneToday || 0) + 1; }
@@ -60,18 +85,44 @@ function applyLocalStep(app, id, step) {
 async function refreshSheetData(app) {
   const s = app.ui.sheet;
   if (!s) return;
+  const offline = (e) => { if (e.code !== 'network') throw e; s.missing = true; return null; };
+  s.missing = false;
   if (s.id && ['job', 'pod', 'note', 'problem', 'return', 'pallets'].includes(s.type)) {
-    const fresh = await app.api.call('getDelivery', { id: s.id }).catch(() => null);
+    let fresh = null, err = null;
+    try { fresh = await app.api.call('getDelivery', { id: s.id }); } catch (e) { err = e; }
+    if (app.ui.sheet !== s) return;
+    if (err?.code === 'not_found') { // e.g. the notification of a tour that now belongs to another driver
+      app.ui.sheet = null; app.data.job = null;
+      app.toast({ title: t('Dieser Auftrag ist nicht mehr für Sie.'), plain: true, icon: 'info' });
+      return app.render();
+    }
+    if (fresh) for (const q of app._queuedSteps || []) if (q.id === fresh.id) stepLocal(app, fresh, q.step, q.at, settings(app));
     app.data.job = fresh ? withLocal(app, fresh) : localJob(app, s.id);
+    if (!app.data.job) s.missing = true;
   }
-  if (s.type === 'vehicle') app.data.vehicles = await app.api.call('listVehicles', {});
-  if (s.type === 'notifications') app.data.notes = await app.api.call('listNotifications', {});
+  if (s.type === 'vehicle') app.data.vehicles = (await app.api.call('listVehicles', {}).catch(offline)) || app.data.vehicles;
+  if (s.type === 'notifications') app.data.notes = (await app.api.call('listNotifications', {}).catch(offline)) || app.data.notes;
 }
 export async function refreshSheet(app) { await refreshSheetData(app); app.invalidate(); }
 export async function sheetOpened(app) { await refreshSheetData(app); app.invalidate(); }
 export function openDelivery(app, id) { app.open({ type: 'job', id }); }
 
-const settings = (app) => app.data.home?.tenant?.settings || app.tenant()?.settings || {};
+// settings come with driverHome (cached), so rules like "signature required" hold offline too
+const settings = (app, h = app.data.home) => h?.tenant?.settings || app.tenant()?.settings || {};
+// time window in the driver's language (format.window_ has German words)
+const win = (p) => (p?.from && p?.to ? `${p.from}–${p.to}` : p?.from ? t('ab {t}', { t: p.from }) : p?.to ? t('bis {t}', { t: p.to }) : '');
+/** Drivers never see billing notices – only that the access is blocked (licence suspended, expired, ended). */
+function accessBanner(app, h) {
+  const st = h?.license || app.me?.license?.state;
+  return ['suspended', 'expired', 'cancelled'].includes(st) ? `<div class="banner bad">${icon('lock')}<span class="grow">${t('Zugang gesperrt – bitte die Disposition anrufen.')}</span></div>` : '';
+}
+/** For the "not sent" toast and card: which step of which tour. */
+export function queueLabel(app, x) {
+  const no = (x?.id && localJob(app, x.id)?.bookingNo) || app._nos?.get(x?.id);
+  const what = x.kind === 'upload' ? ({ pod: t('Lieferschein'), signature: t('Unterschrift') }[x.fileKind] || t('Foto'))
+    : x.method === 'acceptDelivery' ? tStatus('accepted') : x.method === 'advanceDelivery' ? tStatus(x.step) : x.method === 'addNote' ? t('Notiz') : x.method === 'reportProblem' ? t('Problem') : x.method;
+  return no ? `${what} · ${no}` : what;
+}
 
 // ---------- render ----------
 export function render(app) {
@@ -91,13 +142,22 @@ export function render(app) {
       <div class="vrow">${vehicleButtons(app, h)}</div>
     </header>
     ${!app.online || app.queue ? `<div class="offline">${icon('wifi-off')}${app.online ? t('{n} Schritt(e) werden gesendet …', { n: app.queue }) : t('Offline – Ihre Schritte werden gespeichert und automatisch gesendet.')}</div>` : ''}
-    <main class="drv-main" data-key="main-${r}">${licenseBanner(app)}${!h ? skeleton() : r === 'jobs' ? jobsView(app, h) : r === 'history' ? historyView(app) : r === 'more' ? moreView(app, h) : homeView(app, h)}</main>
+    <main class="drv-main" data-key="main-${r}">${accessBanner(app, h)}${failedCard(app)}${!h ? (app.online ? skeleton() : `<section class="card">${emptyState('wifi-off', t('Keine Verbindung.'), t('Die Touren erscheinen, sobald wieder Netz da ist.'))}</section>`) : r === 'jobs' ? jobsView(app, h) : r === 'history' ? historyView(app) : r === 'more' ? moreView(app, h) : homeView(app, h)}</main>
     <nav class="tabbar">${[['home', 'truck', t('Fahrt')], ['jobs', 'list-checks', t('Aufträge'), offerCount], ['history', 'history', t('Verlauf')], ['more', 'circle-user', t('Mehr')]].map(([k, ic, l, c]) => `<button data-act="go" data-to="${k}" aria-current="${r === k ? 'page' : 'false'}">${icon(ic)}${esc(l)}${c ? `<span class="dot">${c}</span>` : ''}</button>`).join('')}</nav>
     ${app.ui.sheet ? '' : undoBar(app)}${sheetView(app)}${successView(app)}${lockView(app)}
   </div>`;
 }
 
 function skeleton() { return `<div class="sk" style="height:320px;border-radius:26px"></div><div class="sk" style="height:96px"></div>`; }
+const offlineBody = () => emptyState('wifi-off', t('Keine Verbindung.'), t('Ohne Netz gerade nicht verfügbar.'));
+// queued steps the server refused for good: the driver sees what did not arrive and why
+function failedCard(app) {
+  const f = app.ui.failed || [];
+  if (!f.length) return '';
+  return `<section class="card pad stack" data-key="failed"><div class="row"><span class="avatar" style="color:var(--bad)">${icon('circle-alert')}</span><div class="grow"><h3>${t('Nicht gesendet')}</h3><p class="small muted">${t('Die Disposition hat das nicht bekommen. Bitte prüfen und bei Bedarf anrufen.')}</p></div></div>
+    <ul class="small stack" style="--gap:6px;margin:0;padding-left:18px">${f.map((x) => `<li><b>${esc(queueLabel(app, x))}</b> · ${esc(time(x.at))}<br>${esc(t(x.message))}</li>`).join('')}</ul>
+    <button class="btn" data-act="dismissFailed">${icon('check')}${t('Verstanden')}</button></section>`;
+}
 
 function vehicleButtons(app, h) {
   if (!h) return '';
@@ -155,7 +215,7 @@ function jobCard(app, d, hero = false) {
     const ic = next === 'delivered' ? (pods || !s.requirePod ? 'circle-check-big' : 'camera') : STEP_ICON[next];
     const label = next === 'delivered' && !pods && s.requirePod ? t('Lieferschein fotografieren') : tStep(next);
     const small = next === 'accepted' ? t('Sie übernehmen diese Tour') : next === 'delivered' ? (pods ? t('{n} Lieferschein-Foto(s) bereit', { n: pods }) : t('Danach bestätigen – fertig')) : esc(target?.place || target?.city || '');
-    btn = `<button class="step-btn ${next === 'delivered' && (pods || !s.requirePod) ? 'ok' : ''} ${app.ui.locked ? 'locked' : ''}" data-act="step" data-id="${esc(d.id)}" data-step="${next}" data-key="step-${esc(d.id)}-${next}"><span class="si">${icon(ic)}</span><span><b>${esc(label)}</b><small>${small}</small></span>${icon('chevron-right', 'go')}</button>`;
+    btn = `<button class="step-btn ${next === 'delivered' && (pods || !s.requirePod) ? 'ok' : ''} ${app.ui.locked && s.driveLock ? 'locked' : ''}" data-act="step" data-id="${esc(d.id)}" data-step="${next}" data-key="step-${esc(d.id)}-${next}"><span class="si">${icon(ic)}</span><span><b>${esc(label)}</b><small>${small}</small></span>${icon('chevron-right', 'go')}</button>`;
   }
   const callNo = target?.phone || app.data.home?.tenant?.phone;
   return `<article class="job ${app.flash.has(d.id) ? 'flash' : ''}" data-key="job-${esc(d.id)}">
@@ -163,22 +223,24 @@ function jobCard(app, d, hero = false) {
     <div class="job-route"><div class="cities"><div class="city ${cityLen(d.pickup.city || d.pickup.place)}">${esc(d.pickup.city || d.pickup.place)}</div>
       <svg class="lane" viewBox="0 0 100 22" preserveAspectRatio="none" aria-hidden="true"><circle cx="4" cy="11" r="4"/><path d="M10 11 H90"/><circle cx="96" cy="11" r="4"/></svg>
       <div class="city to ${cityLen(d.dropoff.city || d.dropoff.place)}">${esc(d.dropoff.city || d.dropoff.place)}</div></div>
-      <div class="when"><div>${icon('arrow-up-from-line')} ${esc(dayLabel(d.pickup.date, t))} ${esc(window_(d.pickup))}<br><span class="muted">${esc(d.pickup.place || '')}</span></div><div>${icon('arrow-down-to-line')} ${esc(dayLabel(d.dropoff.date || d.pickup.date, t))} ${esc(window_(d.dropoff))}<br><span class="muted">${esc(d.dropoff.place || '')}</span></div></div></div>
+      <div class="when"><div>${icon('arrow-up-from-line')} ${esc(dayLabel(d.pickup.date, t))} ${esc(win(d.pickup))}<br><span class="muted">${esc(d.pickup.place || '')}</span></div><div>${icon('arrow-down-to-line')} ${esc(dayLabel(d.dropoff.date || d.pickup.date, t))} ${esc(win(d.dropoff))}<br><span class="muted">${esc(d.dropoff.place || '')}</span></div></div></div>
     <div class="job-facts">${goodsFacts(d)}${d.goods?.text ? `<span class="fact">${icon('package')}${esc(d.goods.text)}</span>` : ''}</div>
     ${d.instructions ? `<div class="job-note">${icon('info')}<span>${esc(d.instructions)}</span></div>` : ''}
     ${d.problem ? `<div class="job-note" style="background:var(--bad-bg)">${icon('triangle-alert')}<span><b>${esc(tProblem(d.problem.code))}</b>${d.problem.note ? ' – ' + esc(d.problem.note) : ''} · ${t('Disposition ist informiert.')}</span></div>` : ''}
     ${d.status !== 'open' ? stepper(d) : ''}
     <div class="job-act">${btn}
       <div class="quick">
-        <a href="${esc(mapsHref(target))}" target="_blank" rel="noopener">${icon('navigation')}<span>${t('Navi')}</span></a>
-        ${callNo ? `<a href="${esc(phoneHref(callNo))}">${icon('phone')}<span>${t('Anrufen')}</span></a>` : `<button data-act="openSheet" data-type="job" data-id="${esc(d.id)}">${icon('phone')}<span>${t('Anrufen')}</span></button>`}
-        <button data-act="openSheet" data-type="note" data-id="${esc(d.id)}">${icon('message-square-text')}<span>${t('Notiz')}${d.notes?.length ? ` (${d.notes.length})` : ''}</span></button>
-        <button class="warn" data-act="openSheet" data-type="problem" data-id="${esc(d.id)}">${icon('triangle-alert')}<span>${t('Problem')}</span></button>
+        <a href="${esc(mapsHref(target))}" target="_blank" rel="noopener">${icon('navigation')}${qLabel(t('Navi'))}</a>
+        ${callNo ? `<a href="${esc(phoneHref(callNo))}">${icon('phone')}${qLabel(t('Anrufen'))}</a>` : `<button data-act="openSheet" data-type="job" data-id="${esc(d.id)}">${icon('phone')}${qLabel(t('Anrufen'))}</button>`}
+        <button data-act="openSheet" data-type="note" data-id="${esc(d.id)}">${icon('message-square-text')}${qLabel(t('Notiz') + (d.notes?.length ? ` (${d.notes.length})` : ''))}</button>
+        <button class="warn" data-act="openSheet" data-type="problem" data-id="${esc(d.id)}">${icon('triangle-alert')}${qLabel(t('Problem'))}</button>
       </div>
       <div class="row between"><button class="btn btn-ghost btn-sm" data-act="openSheet" data-type="job" data-id="${esc(d.id)}">${icon('file-text')}${t('Alle Details')}</button>${['accepted', 'arrived_pickup'].includes(d.status) ? `<button class="btn btn-ghost btn-sm" data-act="openSheet" data-type="return" data-id="${esc(d.id)}">${icon('undo-2')}${t('Zurückgeben')}</button>` : ''}</div>
     </div></article>`;
 }
 
+// quick-action label: wraps onto two lines in long languages (CSS), never cut off
+const qLabel = (l) => `<span>${esc(l)}</span>`;
 // long city names get a smaller size instead of breaking in the middle of the word (Ludwigsbu-rg)
 const cityLen = (c) => { const n = Math.max(...String(c || '').split(/\s+/).map((w) => w.length)); return n > 13 ? 'xlong' : n > 9 ? 'long' : ''; };
 
@@ -188,7 +250,7 @@ function offerCard(app, d, i) {
   return `<div class="offer ${mine && isOpen ? 'mine' : ''} ${app.flash.has(d.id) ? 'flash' : ''}" style="--i:${i}" data-key="offer-${esc(d.id)}">
     <div class="row between">${mine && isOpen ? `<span class="pill brand">${icon('sparkles')}${t('Neu für Sie')}</span>` : pill(d.status)}<span class="mono small muted">${esc(d.bookingNo)}</span></div>
     <div class="route">${routeTitle(d)}</div>
-    <div class="row wrap small" style="--gap:8px;font-weight:650">${icon('calendar')} ${esc(dayLabel(d.pickup.date, t))} ${esc(window_(d.pickup))}${d.goods?.pallets ? ` · ${d.goods.pallets} ${t('Pal.')}` : ''}${d.goods?.adr ? ' · ADR' : ''}${d.goods?.temp ? ' · ' + esc(d.goods.temp) : ''}</div>
+    <div class="row wrap small" style="--gap:8px;font-weight:650">${icon('calendar')} ${esc(dayLabel(d.pickup.date, t))} ${esc(win(d.pickup))}${d.goods?.pallets ? ` · ${d.goods.pallets} ${t('Pal.')}` : ''}${d.goods?.adr ? ' · ADR' : ''}${d.goods?.temp ? ' · ' + esc(d.goods.temp) : ''}</div>
     ${isOpen ? `<div class="row" style="--gap:8px"><button class="btn btn-primary take grow" data-act="step" data-id="${esc(d.id)}" data-step="accepted">${icon('check')}${mine ? t('Buchung bestätigen') : t('Auftrag übernehmen')}</button><button class="btn take" data-act="openSheet" data-type="job" data-id="${esc(d.id)}" aria-label="${t('Details')}">${icon('eye')}</button></div>` : `<button class="btn" data-act="go" data-to="home">${icon('truck')}${t('Zur Fahrt')}</button>`}
   </div>`;
 }
@@ -218,7 +280,8 @@ function moreView(app, h) {
     <section class="card pad stack"><div class="row"><span class="avatar lg">${esc((me.name || '?').split(' ').map((x) => x[0]).join('').slice(0, 2))}</span><div class="grow"><h3>${esc(me.name)}</h3><p class="small muted">${esc(fmtPhone(me.phone))}${me.licenseClass ? ' · ' + t('Klasse {k}', { k: esc(me.licenseClass) }) : ''}</p></div></div>
       ${h.tenant?.phone ? `<a class="btn btn-primary btn-lg two-line" href="${esc(phoneHref(h.tenant.phone))}">${icon('phone')}<span><b>${t('Disposition anrufen')}</b><small>${esc(fmtPhone(h.tenant.phone))}</small></span></a>` : ''}</section>
     <section class="card pad stack"><h4>${icon('languages')} ${t('Sprache')}</h4>${langPicker(app, 'chips lang-chips')}</section>
-    ${push && push.supported() ? `<section class="card pad stack"><h4>${icon('bell-ring')} ${t('Mitteilungen')}</h4><p class="small muted">${t('Neue Aufträge und Änderungen kommen als Push-Mitteilung – auch wenn die App geschlossen ist.')}</p><button class="btn" data-act="pushOn">${icon('bell')}${push.state() === 'granted' ? t('Mitteilungen sind an') : t('Mitteilungen einschalten')}</button></section>` : ''}
+    ${push && push.supported() ? `<section class="card pad stack"><h4>${icon('bell-ring')} ${t('Mitteilungen')}</h4>
+      <label class="switch"><input type="checkbox" data-input="pushToggle" ${app.ui.pushState === 'on' ? 'checked' : ''} ${app.ui.pushState === 'blocked' ? 'disabled' : ''}><span class="grow"><b>${t('Push-Mitteilungen auf diesem Handy')}</b><small>${app.ui.pushState === 'blocked' ? t('Mitteilungen wurden im Browser blockiert') : t('Neue Aufträge und Änderungen kommen als Push-Mitteilung – auch wenn die App geschlossen ist.')}</small></span></label></section>` : ''}
     <section class="card pad stack"><h4>${icon('shield-check')} ${t('Sicherheit & Datenschutz')}</h4>
       <p class="small">${t('Bitte die App nur im Stand mit ausgeschaltetem Motor bedienen (§ 23 StVO). Während der Fahrt sperrt sie sich selbst.')}</p>
       ${settings(app).driveLock ? `<p class="small muted">${app.ui.lockPerm === 'denied' ? t('Die Fahrsperre ist aus, weil der Standort im Browser blockiert ist. Bitte in den Browser-Einstellungen erlauben.') : t('Für die Fahrsperre wertet die App die Geschwindigkeit nur auf diesem Handy aus. Der Standort wird dafür weder gespeichert noch gesendet.')}</p>` : ''}
@@ -230,7 +293,7 @@ function moreView(app, h) {
 // ---------- overlays ----------
 function undoBar(app) {
   const u = app.ui.undo;
-  if (!u || u.until < Date.now()) return '';
+  if (!u || u.until < Date.now() || !app.online) return ''; // undo needs the server: only offered online
   const rest = Math.max(1, Math.round((u.until - Date.now()) / 1000));
   return `<div class="undo" data-key="undo-${esc(u.id)}-${u.until}"><svg class="ring" viewBox="0 0 24 24" style="--dur:${rest}s"><circle cx="12" cy="12" r="10"/></svg><span class="ellip">${esc(u.label)}</span><button data-act="undo" data-id="${esc(u.id)}">${icon('rotate-ccw')}${t('Rückgängig')}</button></div>`;
 }
@@ -251,7 +314,7 @@ function sheetView(app) {
   const d = app.data.job && app.data.job.id === s.id ? app.data.job : null;
   if (s.type === 'vehicle') return vehicleSheet(app);
   if (s.type === 'notifications') return notificationsSheet(app);
-  if (!d) return sheet({ title: t('Laden …'), body: skeleton() });
+  if (!d) return sheet({ title: s.missing ? t('Keine Verbindung.') : t('Laden …'), body: s.missing ? offlineBody() : skeleton() });
   if (s.type === 'job') return jobSheet(app, d);
   if (s.type === 'pod') return podSheet(app, d);
   if (s.type === 'pallets') return palletsSheet(app, d);
@@ -263,7 +326,7 @@ function sheetView(app) {
 
 function vehicleSheet(app) {
   const vs = app.data.vehicles;
-  if (!vs) return sheet({ title: t('Fahrzeug wählen'), body: skeleton() });
+  if (!vs) return sheet({ title: t('Fahrzeug wählen'), body: app.ui.sheet?.missing ? offlineBody() : skeleton() });
   const tile = (v) => `<button class="tile" data-act="pickVehicle" data-id="${esc(v.id)}" data-kind="${v.kind}" aria-pressed="${v.mine}" ${v.available || v.mine ? '' : 'disabled'} data-key="v-${esc(v.id)}">
       ${icon(VEHICLE_ICON[v.type] || 'truck', 'big')}${plate(v.plate, 'lg')}<span class="tt">${esc(v.name || vehicleTypeText(v.type))}</span>
       <span class="xs muted">${v.status === 'workshop' ? icon('wrench') + ' ' + t('Werkstatt') : v.busy ? icon('circle-user') + ' ' + t('fährt {n}', { n: esc(v.driverName) }) : (v.features || []).map(featureText).join(' · ') || vehicleTypeText(v.type)}</span></button>`;
@@ -279,7 +342,7 @@ function vehicleSheet(app) {
 
 function jobSheet(app, d) {
   return sheet({
-    title: `${routeTitle(d)}`, sub: `${esc(d.bookingNo)}${d.customer ? ' · ' + esc(d.customer) : ''}${d.reference ? ' · Ref. ' + esc(d.reference) : ''}`,
+    title: `${routeTitle(d)}`, sub: `${esc(d.bookingNo)}${d.customer ? ' · ' + esc(d.customer) : ''}${d.reference ? ' · ' + t('Ref.') + ' ' + esc(d.reference) : ''}`,
     body: `<div class="row wrap">${pill(d.status)}${problemPill(d.problem)}${d.vehiclePlate ? plate(d.vehiclePlate) : ''}${d.trailerPlate ? plate(d.trailerPlate) : ''}</div>
       ${placeBlock(d.pickup, 'pickup')}<div class="place"><span class="line"></span></div>${placeBlock(d.dropoff, 'dropoff')}
       <div class="row wrap">${goodsFacts(d)}${d.goods?.text ? `<span class="fact">${icon('package')}${esc(d.goods.text)}</span>` : ''}</div>
@@ -296,7 +359,8 @@ function podSheet(app, d) {
   const pods = (d.docs || []).filter((x) => x.kind === 'pod');
   const busy = app.ui.uploading;
   const addTile = `<label class="doc add" data-key="pod-add">${icon(busy ? 'refresh-cw' : 'camera')}<span>${busy ? t('Wird hochgeladen …') : pods.length ? t('Weitere Seite') : t('Lieferschein fotografieren')}</span><input class="sr" type="file" accept="image/*,application/pdf" capture="environment" multiple data-input="podFile" data-id="${esc(d.id)}"></label>`;
-  const ready = pods.length || !s.requirePod;
+  const needSig = signatureMissing(app, d);
+  const ready = (pods.length || !s.requirePod) && !needSig;
   return sheet({
     key: 'pod', title: t('Abschluss'), sub: `${esc(d.bookingNo)} · ${routeTitle(d)}`,
     body: `<div class="section-t">1 · ${t('Lieferschein')}</div>${docsGrid(app, { ...d, docs: pods }, { removable: true, add: addTile })}
@@ -304,8 +368,15 @@ function podSheet(app, d) {
       <div class="section-t">2 · ${t('Empfänger')}</div>
       <label class="field"><span>${t('Name des Empfängers')}${s.requireSignature ? '' : ' (' + t('optional') + ')'}</span><input class="input" id="pod-receiver" name="receiver" value="${esc(app.ui.receiver || d.receiver || '')}" placeholder="${t('z. B. Lager Süd, Herr Jensen')}"></label>
       ${s.requireSignature || app.ui.wantSig ? `<div class="field"><span>${t('Unterschrift')}</span><canvas class="sig" data-keep data-key="sig-${esc(d.id)}"></canvas><span class="hint">${t('Die Unterschrift wird nur als Empfangsnachweis für diese Lieferung gespeichert und an {firma} übermittelt.', { firma: esc(app.data.home?.tenant?.name || '') })}</span><button class="btn btn-ghost btn-sm" data-act="sigClear">${icon('rotate-ccw')}${t('Neu unterschreiben')}</button></div>` : `<button class="btn btn-ghost btn-sm" data-act="wantSig">${icon('signature')}${t('Unterschrift aufnehmen')}</button>`}`,
-    foot: `<button class="step-btn ok" style="min-height:76px;${ready ? '' : 'opacity:.5'}" data-act="finish" data-id="${esc(d.id)}" ${ready ? '' : 'disabled'}><span class="si">${icon('circle-check-big')}</span><span><b>${tStep('delivered')}</b><small>${ready ? t('Lieferschein geht sofort ins Büro') : t('Bitte zuerst den Lieferschein fotografieren')}</small></span></button>`,
+    foot: `<button class="step-btn ok" style="min-height:76px;${ready ? '' : 'opacity:.5'}" data-act="finish" data-id="${esc(d.id)}" ${ready ? '' : 'disabled'}><span class="si">${icon('circle-check-big')}</span><span><b>${tStep('delivered')}</b><small>${ready ? t('Lieferschein geht sofort ins Büro') : !(pods.length || !s.requirePod) ? t('Bitte zuerst den Lieferschein fotografieren') : t('Bitte den Empfänger unterschreiben lassen.')}</small></span></button>`,
   });
+}
+
+// "Unterschrift Pflicht": checked on the phone too, so a dead zone cannot skip it
+function signatureMissing(app, d) {
+  if (!settings(app).requireSignature || d.signatureFileId) return false;
+  if ((d.docs || []).some((x) => x.kind === 'signature' && x.queued)) return false;
+  return !app._sig || app._sig.isEmpty();
 }
 
 function palletsSheet(app, d) {
@@ -351,14 +422,14 @@ function notificationsSheet(app) {
   const ns = app.data.notes;
   return sheet({
     key: 'notifications', title: t('Mitteilungen'),
-    body: !ns ? skeleton() : ns.length ? `<div class="list card">${ns.map((n) => `<button class="li ${n.read ? '' : 'unread'}" data-act="openNotification" data-id="${esc(n.deliveryId || '')}"><span class="avatar">${icon(n.priority === 'high' ? 'triangle-alert' : 'bell')}</span><div class="grow"><div class="t1">${esc(n.title)}</div><div class="t2">${esc(n.body)} · ${esc(dateTime(n.at))}</div></div></button>`).join('')}</div>` : emptyState('bell', t('Keine Mitteilungen')),
+    body: !ns ? (app.ui.sheet?.missing ? offlineBody() : skeleton()) : ns.length ? `<div class="list card">${ns.map((n) => `<button class="li ${n.read ? '' : 'unread'}" data-act="openNotification" data-id="${esc(n.deliveryId || '')}"><span class="avatar">${icon(n.priority === 'high' ? 'triangle-alert' : 'bell')}</span><div class="grow"><div class="t1">${esc(n.title)}</div><div class="t2">${esc(n.body)} · ${esc(dateTime(n.at))}</div></div></button>`).join('')}</div>` : emptyState('bell', t('Keine Mitteilungen')),
     foot: `<button class="btn" data-act="markRead">${icon('check')}${t('Alle gelesen')}</button>`,
   });
 }
 
 export function mounted(app) {
   const c = app.root.querySelector('canvas.sig');
-  if (c && app._sigCanvas !== c) { app._sig?.destroy(); app._sigCanvas = c; app._sig = signaturePad(c); }
+  if (c && app._sigCanvas !== c) { app._sig?.destroy(); app._sigCanvas = c; app._sig = signaturePad(c, { onChange: () => app.invalidate() }); }
   if (!c && app._sig) { app._sig.destroy(); app._sig = null; app._sigCanvas = null; }
 }
 
@@ -366,27 +437,39 @@ export function mounted(app) {
 // The speed comes from the phone's location, evaluated on the phone only – never stored or sent.
 // Independent of "store the position at a status change": the lock needs the permission, not consent
 // to storage, so the driver is asked once with an explanation (card on the start screen).
+const LOCK_OK = 'lk.lockOk';
 function watchDriving(app) {
-  if (!settings(app).driveLock || !navigator.geolocation || app.api.mode === 'demo') return;
-  if (app._watching) return;
-  if (!app._lockPermAsked && navigator.permissions?.query) {
-    app._lockPermAsked = true;
-    navigator.permissions.query({ name: 'geolocation' }).then((r) => {
-      const upd = () => { const was = app.ui.lockPerm; app.ui.lockPerm = r.state; if (r.state === 'granted') startWatch(app); if (was !== r.state) app.invalidate(); };
-      r.onchange = upd; upd();
-    }).catch(() => {});
-  }
+  if (!settings(app).driveLock || !navigator.geolocation || app.api.mode === 'demo') return stopWatch(app); // office switched it off: unlock now
+  if (app._watching || app._lockPermAsked) return;
+  app._lockPermAsked = true;
+  // without the Permissions API (older iPhones) a former "allow" is remembered, else the card asks after a tap
+  const fallback = () => {
+    let ok = false;
+    try { ok = localStorage.getItem(LOCK_OK) === '1'; } catch { /* storage blocked */ }
+    if (ok) startWatch(app); else if (app.ui.lockPerm !== 'prompt') { app.ui.lockPerm = 'prompt'; app.invalidate(); }
+  };
+  if (!navigator.permissions?.query) return fallback();
+  navigator.permissions.query({ name: 'geolocation' }).then((r) => {
+    const upd = () => { const was = app.ui.lockPerm; app.ui.lockPerm = r.state; if (r.state === 'granted') startWatch(app); if (was !== r.state) app.invalidate(); };
+    r.onchange = upd; upd();
+  }).catch(fallback);
+}
+function stopWatch(app) {
+  if (app._geoWatch != null) navigator.geolocation?.clearWatch(app._geoWatch);
+  app._geoWatch = null; app._watching = false; app._lockPermAsked = false;
+  if (app.ui.locked) { app.ui.locked = false; app.invalidate(); }
 }
 function startWatch(app) {
   if (app._watching || !settings(app).driveLock) return;
   app._watching = true;
   let fast = 0, slowSince = 0;
   app._geoWatch = navigator.geolocation.watchPosition((p) => {
+    if (!settings(app).driveLock) return stopWatch(app);
     const v = p.coords.speed; // m/s
     if (v == null) return;
     if (v > 2.3) { fast++; slowSince = 0; if (fast >= 2 && !app.ui.locked) { app.ui.locked = true; app.render(); } }
     else if (v < 0.9) { fast = 0; if (!slowSince) slowSince = Date.now(); if (app.ui.locked && Date.now() - slowSince > 5000) { app.ui.locked = false; app.render(); } }
-  }, () => {}, { enableHighAccuracy: true, maximumAge: 5000 });
+  }, (err) => { if (err?.code === 1) { stopWatch(app); app._lockPermAsked = true; app.ui.lockPerm = 'denied'; try { localStorage.removeItem(LOCK_OK); } catch { /* */ } app.invalidate(); } }, { enableHighAccuracy: true, maximumAge: 5000 });
 }
 const LOCK_LATER = 'lk.lockLater';
 function lockNeedsPermission(app) {
@@ -401,17 +484,25 @@ function position(app) {
 
 // ---------- actions ----------
 let successN = 0;
+// one tap = one call: a second tap while the first is on its way is ignored (no duplicate step)
+const busy = new Set();
+async function once(key, fn) {
+  if (busy.has(key)) return;
+  busy.add(key);
+  try { return await fn(); } finally { busy.delete(key); }
+}
 async function doStep(app, id, step, extra = {}) {
+  const at = Date.now(); // the tap, not the moment the position is known or the server hears it (C2)
   const geo = await position(app);
   const method = step === 'accepted' ? 'acceptDelivery' : 'advanceDelivery';
-  const r = await app.call(method, { id, step, geo, ...extra }, { queuedToast: false });
+  const r = await app.call(method, { id, step, geo, at, ...extra }, { queuedToast: false });
   if (!r) return;
   const queued = r.queued;
   app.ui.sheet = null; app.ui.form = null;
   app.ui.success = { n: ++successN, title: tStatus(step), body: queued ? t('Gespeichert – wird gesendet, sobald Netz da ist') : t('Disposition ist informiert · {t}', { t: time(Date.now()) }) };
   // undo needs the server (2-minute window from the server's time stamp) – not offered for queued steps
   if (!queued) app.ui.undo = { id, until: Date.now() + 120000, label: `${tStatus(step)} · ${time(Date.now())}` };
-  else { applyLocalStep(app, id, step); if (app.ui.undo?.id === id) app.ui.undo = null; }
+  else { applyLocalStep(app, app.data.home, id, step, at); if (app.ui.undo?.id === id) app.ui.undo = null; }
   app.render();
   setTimeout(() => { app.ui.success = null; app.render(); }, 1500);
   setTimeout(() => { if (app.ui.undo && app.ui.undo.until <= Date.now() + 50) { app.ui.undo = null; app.render(); } }, 120100);
@@ -427,9 +518,14 @@ async function upload(app, file, opts) {
 export const actions = {
   noop: () => {},
   lockAllow(el, ev, app) {
-    // the browser shows its own question; the permission watcher starts the lock once allowed
-    navigator.geolocation?.getCurrentPosition(() => { app.ui.lockPerm = 'granted'; startWatch(app); app.render(); }, () => { app.render(); }, { timeout: 15000 });
+    // the browser shows its own question (after this tap); the lock starts once allowed
+    navigator.geolocation?.getCurrentPosition(() => {
+      app.ui.lockPerm = 'granted';
+      try { localStorage.setItem(LOCK_OK, '1'); } catch { /* storage blocked */ }
+      startWatch(app); app.render();
+    }, (err) => { if (err?.code === 1) app.ui.lockPerm = 'denied'; app.render(); }, { timeout: 15000 });
   },
+  dismissFailed: async (el, ev, app) => { await app.api.clearFailed?.(); app.ui.failed = []; app.render(); },
   lockLater(el, ev, app) { try { localStorage.setItem(LOCK_LATER, String(Date.now() + 7 * 864e5)); } catch { /* storage blocked */ } app.ui.lockPerm = 'later'; app.render(); },
   async geoConsent(el, ev, app) {
     const v = el.dataset.v === '1';
@@ -440,22 +536,31 @@ export const actions = {
   openSheet: (el, ev, app) => { app.ui.form = null; app.open({ type: el.dataset.type, id: el.dataset.id || null }); },
   async step(el, ev, app) {
     const { id, step } = el.dataset;
-    if (app.ui.locked) return;
     const s = settings(app);
+    if (app.ui.locked && s.driveLock) return;
     if (step === 'delivered') return app.open({ type: 'pod', id });
     if (step === 'unloaded' && s.palletExchange) { app.ui.form = null; return app.open({ type: 'pallets', id }); }
-    el.classList.add('is-busy');
-    await doStep(app, id, step).catch(() => {});
-    el.classList.remove('is-busy');
+    await once('step:' + id, async () => {
+      el.classList.add('is-busy');
+      await doStep(app, id, step).catch(() => {});
+      el.classList.remove('is-busy');
+    });
   },
-  commitStep: (el, ev, app) => doStep(app, el.dataset.id, el.dataset.step, el.dataset.step === 'unloaded' && app.ui.form ? { palletExchange: { given: app.ui.form.given, taken: app.ui.form.taken } } : {}).catch(() => {}),
+  commitStep: (el, ev, app) => once('step:' + el.dataset.id, () => doStep(app, el.dataset.id, el.dataset.step, el.dataset.step === 'unloaded' && app.ui.form ? { palletExchange: { given: app.ui.form.given, taken: app.ui.form.taken } } : {}).catch(() => {})),
   palAdj: (el, ev, app) => { const f = app.ui.form; f[el.dataset.k] = Math.max(0, Math.min(99, f[el.dataset.k] + Number(el.dataset.v))); app.render(); },
-  async undo(el, ev, app) {
-    const r = await app.call('undoStep', { id: el.dataset.id }).catch(() => null);
+  undo: (el, ev, app) => once('undo:' + el.dataset.id, async () => {
+    // only with network: an undo that is not confirmed by the server is never reported as done
+    const noNet = () => app.toast({ title: t('Rückgängig geht nur mit Netz.'), plain: true, err: true, icon: 'wifi-off' });
+    if (!app.online) return noNet();
+    let r = null;
+    try { r = await app.call('undoStep', { id: el.dataset.id }, { quiet: true }); } catch (e) {
+      if (e.code === 'network') return noNet();
+      if (e.code !== 'unauthorized') app.error(e);
+    }
     app.ui.undo = null;
-    if (r) app.toast({ title: t('Rückgängig gemacht – wieder „{s}“', { s: tStatus(r.status) }), plain: true, icon: 'rotate-ccw' });
+    if (r?.status) app.toast({ title: t('Rückgängig gemacht – wieder „{s}“', { s: tStatus(r.status) }), plain: true, icon: 'rotate-ccw' });
     app.load();
-  },
+  }),
   async pickVehicle(el, ev, app) {
     const kind = el.dataset.kind, id = el.dataset.id || null;
     const r = await app.call('selectVehicle', kind === 'truck' ? { vehicleId: id } : { trailerId: id }).catch(() => null);
@@ -475,8 +580,10 @@ export const actions = {
     app.ui.uploading = false; await refreshSheetData(app); app.render();
   },
   async removeDoc(el, ev, app) { await app.call('removeDoc', { id: el.dataset.id, fileId: el.dataset.file }).catch(() => null); await refreshSheetData(app); app.render(); },
-  async finish(el, ev, app) {
+  finish: (el, ev, app) => once('step:' + app.data.job?.id, async () => {
     const d = app.data.job;
+    if (!d) return;
+    if (signatureMissing(app, d)) return app.error({ message: 'Bitte den Empfänger unterschreiben lassen.' });
     const receiver = app.root.querySelector('#pod-receiver')?.value || '';
     let signatureFileId;
     try {
@@ -485,14 +592,27 @@ export const actions = {
     } catch (e) { return app.error(e); }
     app.ui.receiver = ''; app.ui.wantSig = false;
     await doStep(app, d.id, 'delivered', { receiver, signatureFileId }).catch(() => {});
-  },
+  }),
   async openNotification(el, ev, app) { if (el.dataset.id) app.open({ type: 'job', id: el.dataset.id }); },
   async markRead(el, ev, app) { await app.call('markNotificationsRead', {}).catch(() => null); app.me.unread = 0; await refreshSheetData(app); app.render(); },
-  async pushOn(el, ev, app) { try { const r = await app.api.push.enable(); app.toast({ title: r === 'granted' ? t('Mitteilungen sind an') : t('Mitteilungen wurden im Browser blockiert'), plain: true, icon: 'bell' }); app.render(); } catch (e) { app.error(e); } },
 };
+async function pushStatus(app) {
+  const st = await app.api.push?.status?.().catch(() => 'off');
+  if (st && st !== app.ui.pushState) { app.ui.pushState = st; app.invalidate(); }
+}
 
 export const inputs = {
   async geoToggle(el, ev, app) { if (ev.type !== 'change') return; await app.call('updateProfile', { geoConsent: el.checked }).catch(() => null); app.load(); },
+  // in-app switch: push on/off for this phone (off is remembered, no silent re-subscribe then)
+  async pushToggle(el, ev, app) {
+    if (ev.type !== 'change') return;
+    try {
+      if (el.checked) { const r = await app.api.push.enable(); app.toast({ title: r === 'granted' ? t('Mitteilungen sind an') : t('Mitteilungen wurden im Browser blockiert'), plain: true, icon: 'bell' }); }
+      else { await app.api.push.disable({ byUser: true }); app.toast({ title: t('Mitteilungen sind aus'), plain: true, icon: 'bell' }); }
+    } catch (e) { app.error(e); }
+    await pushStatus(app);
+    app.render();
+  },
   async podFile(el, ev, app) {
     if (ev.type !== 'change' || !el.files?.length) return;
     app.ui.receiver = app.root.querySelector('#pod-receiver')?.value || app.ui.receiver;
@@ -520,7 +640,8 @@ export const forms = {
     let fileId, photo = false;
     // the photo belongs to the delivery – in a dead zone it waits in the outbox, before the report
     if (f.file) { const up = await upload(app, f.file, { kind: 'damage', deliveryId: id }).catch((e) => { app.error(e); return null; }); if (up?.queued) photo = true; else fileId = up?.id; }
-    const r = await app.call('reportProblem', { id, code: f.code, note: fd.get('note'), fileId, photo, geo: await position(app) });
+    const at = Date.now();
+    const r = await app.call('reportProblem', { id, code: f.code, note: fd.get('note'), fileId, photo, at, geo: await position(app) });
     if (r) { app.ui.form = null; app.close(); app.toast({ title: t('Problem gemeldet – die Disposition ist informiert'), plain: true, icon: 'triangle-alert' }); app.load(); }
   },
   async return(fd, form, app) {

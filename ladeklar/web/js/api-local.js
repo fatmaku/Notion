@@ -5,13 +5,19 @@
 import { createEngine } from '../../core/engine.js';
 import { createMemStore } from '../../core/memstore.js';
 import { seedDemo, DEMO } from '../../core/seed.js';
+import { sha256 } from '../../core/sha256.js';
 
 const KEY = 'ladeklar.demo.v2';
+const MAX_AGE = 12 * 3600e3; // an older demo world is seeded again, so "today's" tours and trial ends stay current
 const PERSIST = ['tenants', 'users', 'vehicles', 'deliveries', 'notifications', 'files', 'audit'];
 const storage = (() => { try { const s = window.localStorage; s.setItem('lk.t', '1'); s.removeItem('lk.t'); return s; } catch { return null; } })();
 const sess = (() => { try { return window.sessionStorage; } catch { return null; } })();
 const rid = () => { const a = new Uint8Array(9); crypto.getRandomValues(a); return Array.from(a, (b) => b.toString(36).padStart(2, '0')).join('').slice(0, 14); };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const B64U = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+const token = () => { const a = new Uint8Array(24); crypto.getRandomValues(a); return Array.from(a, (b) => B64U[b & 63]).join(''); };
+// links created in the demo open the demo itself (#t/CODE, #i/TOKEN – see demo.js), never production
+const here = () => { try { return String(location.href).split('#')[0]; } catch { return ''; } };
 
 export { DEMO };
 
@@ -22,10 +28,13 @@ export function createDemoWorld() {
   const emit = (e) => listeners.forEach((fn) => { try { fn(e); } catch (err) { console.error(err); } });
   const bc = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('ladeklar-demo') : null;
   let saveTimer = 0;
-  const world = { sync: null, storageOk: !!storage };
+  const world = { sync: null, storageOk: !!storage, refreshed: false };
 
-  let initial = {};
-  try { const raw = storage?.getItem(KEY); if (raw) initial = JSON.parse(raw); } catch { initial = {}; }
+  let initial = {}, seededAt = 0;
+  try { const raw = storage?.getItem(KEY); if (raw) { const { seededAt: at, ...cols } = JSON.parse(raw); initial = cols; seededAt = Number(at) || 0; } } catch { initial = {}; }
+  // a world without seededAt (older demo version) or seeded more than 12 h ago starts afresh
+  const age = Date.now() - seededAt;
+  if ((initial.users || []).some((u) => u.role === 'platform') && !(age > -6e4 && age < MAX_AGE)) { initial = {}; world.refreshed = true; }
   const store = createMemStore({
     data: initial,
     onWrite: (batch) => {
@@ -34,21 +43,33 @@ export function createDemoWorld() {
       world.sync?.push(batch);
     },
   });
+  function save() {
+    if (!storage) return;
+    const d = store.dump(); const out = { seededAt };
+    for (const c of PERSIST) out[c] = d[c] || [];
+    try { storage.setItem(KEY, JSON.stringify(out)); } catch { /* quota: keep in memory */ }
+  }
   function scheduleSave() {
     if (!storage) return;
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => {
-      const d = store.dump(); const out = {};
-      for (const c of PERSIST) out[c] = d[c] || [];
-      try { storage.setItem(KEY, JSON.stringify(out)); } catch { /* quota: keep in memory */ }
-    }, 250);
+    saveTimer = setTimeout(save, 250);
   }
   const engine = createEngine({
     store, now: () => fixed ?? Date.now(), newId: rid,
     hash: { make: (s) => 'demo$' + s, verify: (s, h) => h === 'demo$' + s },
+    digest: sha256, token, // C12 API keys hashed, C11 invite tokens – as on the server
     onEvent: (e) => emit(e),
   });
-  if (!store.find('users', { role: 'platform' }).length) { seedDemo({ engine, store, clock }); scheduleSave(); }
+  if (!store.find('users', { role: 'platform' }).length) {
+    seedDemo({ engine, store, clock });
+    seededAt = Date.now();
+    clearTimeout(saveTimer); save();
+    if (world.refreshed) {
+      // sessions of the old world point to users that no longer exist; other open tabs reload the new world
+      try { for (const k of Object.keys(sess || {})) if (k.startsWith('lk.demo.') && k !== 'lk.demo.mode') sess.removeItem(k); } catch { /* */ }
+      try { bc?.postMessage({ reset: true }); } catch { /* */ }
+    }
+  }
 
   /** Apply documents that arrived from another tab/device and tell the panes. */
   function applyRemote(batch) {
@@ -82,6 +103,19 @@ export function createDemoWorld() {
   };
   world.find = (col, where) => store.find(col, where);
   world.user = (id) => store.get('users', id);
+  world.seededAt = () => seededAt;
+  /** The people of the sample company Kaya (the licensor may delete it) – null/[] when gone. */
+  world.demoUsers = () => {
+    const live = (u) => u.active !== false && !u.deleted;
+    const kaya = store.find('tenants', { code: 'KAYA' })[0] || null;
+    const of = (role) => (kaya ? store.find('users', { tenantId: kaya.id, role }).filter(live) : []);
+    const drivers = of('driver');
+    return {
+      kaya, platform: store.find('users', { role: 'platform' }).filter(live)[0] || null,
+      admin: of('admin')[0] || null, dispatcher: of('dispatcher')[0] || null, drivers,
+      mehmet: drivers.find((d) => d.name.startsWith('Mehmet')) || drivers[0] || null,
+    };
+  };
 
   /** One client per pane (own session). */
   world.client = (paneId) => {
@@ -129,8 +163,8 @@ export function createDemoWorld() {
         return f?.data || '';
       },
       exportUrl: () => '#',
-      inviteLink: (id) => `https://app.ladeklar.de/i/${id}`,
-      tenantLink: (code) => `https://app.ladeklar.de/t/${code}`,
+      inviteLink: (tk) => `${here()}#i/${tk}`,
+      tenantLink: (code) => `${here()}#t/${code}`,
       push: null,
     };
     return api;

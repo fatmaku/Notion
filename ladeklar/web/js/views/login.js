@@ -1,5 +1,6 @@
 // Sign-in: Ladeklar or the licensee's own branding (/t/CODE, subdomain), driver login with
-// company code + phone + PIN (big keypad), office login with e-mail, invite links with PIN only.
+// company code + phone + PIN (big keypad), office login with e-mail (+ 6-digit code with 2FA),
+// invite links /i/<token> with PIN only. Server messages are shown through t() (C8).
 import { icon, esc, langPicker } from './common.js';
 import { t } from '../i18n.js';
 import { routeNet } from '../routenet.js';
@@ -35,7 +36,8 @@ export function render(app) {
       <p class="xs muted">${t('PIN vergessen? Ihre Disposition setzt sie in Sekunden zurück.')}</p></form>`;
   } else if (mode === 'driver') {
     form = `<form class="stack" style="--gap:14px" data-form="driver" autocomplete="on">
-      ${b ? `<input type="hidden" name="code" value="${esc(b.code)}">` : `<label class="field"><span>${t('Firmencode')}</span><input class="input" name="code" autocapitalize="characters" autocomplete="organization" placeholder="z. B. KAYA" value="${esc(app.ui.code || '')}" required></label>`}
+      ${app.ui.inviteGone ? `<div class="banner bad" role="alert">${icon('clock')}<span class="grow">${t('Einladung abgelaufen – bitte neue Einladung im Büro anfordern')}</span></div>` : ''}
+      ${b ? `<input type="hidden" name="code" value="${esc(b.code)}">` : `<label class="field"><span>${t('Firmencode')}</span><input class="input" name="code" autocapitalize="characters" autocomplete="organization" placeholder="${esc(t('z. B. KAYA'))}" value="${esc(app.ui.code || '')}" required></label>`}
       <label class="field"><span>${t('Handynummer')}</span><input class="input" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0176 …" value="${esc(app.ui.phone || '')}" required></label>
       <div class="field"><span>${t('PIN (6 Ziffern)')}</span>${pinBoxes}</div>${keypad}
       ${err ? `<p class="small" style="color:#ffb4b4" role="alert">${esc(err)}</p>` : ''}
@@ -44,6 +46,7 @@ export function render(app) {
     form = `<form class="stack" style="--gap:14px" data-form="office" autocomplete="on">
       <label class="field"><span>${t('E-Mail')}</span><input class="input" name="email" type="email" autocomplete="username" placeholder="name@firma.de" value="${esc(app.ui.email || '')}" required></label>
       <label class="field"><span>${t('Passwort')}</span><input class="input" name="password" type="password" autocomplete="current-password" required></label>
+      ${app.ui.need2fa ? `<label class="field" data-key="otp"><span>${t('Code aus der Authenticator-App')}</span><input class="input mono" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="123456" required></label>` : ''}
       ${err ? `<p class="small" style="color:#ffb4b4" role="alert">${esc(err)}</p>` : ''}
       <button class="btn btn-primary btn-lg btn-block" type="submit">${icon('building-2')}${t('Anmelden')}</button>
       <p class="xs muted">${t('Für Disposition, Unternehmens-Admins und den Lizenzgeber.')}</p></form>`;
@@ -78,7 +81,7 @@ export function unmount(app) { app._net?.stop(); app._net = null; app._netCanvas
 function shake(app, msg) { app.ui.loginErr = msg; app.ui.pinShake = (app.ui.pinShake || 0) + 1; app.ui.pin = ''; app.render(); }
 
 export const actions = {
-  loginMode: (el, ev, app) => { app.ui.loginMode = el.dataset.m; app.ui.loginErr = ''; app.render(); },
+  loginMode: (el, ev, app) => { app.ui.loginMode = el.dataset.m; app.ui.loginErr = ''; app.ui.need2fa = false; app.render(); },
   pinKey: (el, ev, app) => {
     const k = el.dataset.k; let p = app.ui.pin || '';
     if (k === 'back') p = p.slice(0, -1); else if (k === 'clear') p = ''; else if (p.length < 6) p += k;
@@ -92,17 +95,22 @@ export const forms = {
   async driver(fd, form, app) {
     app.ui.code = fd.get('code'); app.ui.phone = fd.get('phone');
     if ((app.ui.pin || '').length !== 6) return shake(app, t('Bitte die 6-stellige PIN eingeben.'));
-    try { const me = await app.api.driverLogin({ code: fd.get('code'), phone: fd.get('phone'), pin: app.ui.pin }); app.ui.pin = ''; app.ui.loginErr = ''; unmount(app); app.setMe(me); }
-    catch (e) { shake(app, e.code === 'network' ? t('Keine Verbindung.') : e.message); }
+    try { const me = await app.api.driverLogin({ code: fd.get('code'), phone: fd.get('phone'), pin: app.ui.pin }); app.ui.pin = ''; app.ui.loginErr = ''; app.ui.inviteGone = false; unmount(app); app.setMe(me); }
+    catch (e) { shake(app, t(e.message)); }
   },
   async invite(fd, form, app) {
     if ((app.ui.pin || '').length !== 6) return shake(app, t('Bitte die 6-stellige PIN eingeben.'));
-    try { const me = await app.api.inviteLogin({ userId: app.ui.invite.userId, pin: app.ui.pin }); app.ui.pin = ''; unmount(app); app.setMe(me); }
-    catch (e) { shake(app, e.message); }
+    try { const me = await app.api.inviteLogin({ token: app.ui.invite.token, pin: app.ui.pin }); app.ui.pin = ''; app.ui.loginErr = ''; app.ui.invite = null; unmount(app); app.setMe(me); }
+    catch (e) { shake(app, t(e.message)); }
   },
   async office(fd, form, app) {
     app.ui.email = fd.get('email');
-    try { const me = await app.api.login({ email: fd.get('email'), password: fd.get('password') }); app.ui.loginErr = ''; unmount(app); app.setMe(me); }
-    catch (e) { app.ui.loginErr = e.code === 'network' ? t('Keine Verbindung.') : e.message; app.render(); }
+    const code = app.ui.need2fa ? String(fd.get('code') || '').replace(/\s/g, '') : undefined;
+    try { const me = await app.api.login({ email: fd.get('email'), password: fd.get('password'), ...(code ? { code } : {}) }); app.ui.loginErr = ''; app.ui.need2fa = false; unmount(app); app.setMe(me); }
+    catch (e) {
+      // C13: the password was right, the account wants the code from the authenticator app
+      if (e.code === 'need_2fa') { app.ui.need2fa = true; app.render(); const c = form.querySelector('[name="code"]'); if (c) { c.value = ''; c.focus(); } }
+      app.ui.loginErr = t(e.message); app.render();
+    }
   },
 };

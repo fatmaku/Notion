@@ -1,7 +1,7 @@
 // Shared building blocks for all screens.
 import { icon } from '../icons.js';
 import { t, tStatus, tProblem, getLang } from '../i18n.js';
-import { esc, time, dateTime, dayLabel, window_, kg, num, address, phoneHref, initials } from '../format.js';
+import { esc, time, dateTime, dayLabel, isoToday, window_, kg, num, address, phoneHref, initials } from '../format.js';
 
 export { icon, esc };
 
@@ -80,7 +80,7 @@ export function eventDetail(e) {
   if (e.type === 'problem') return `${tProblem(e.code)}${e.note ? ' – ' + e.note : ''}`;
   if (e.type === 'note' || e.type === 'returned' || e.type === 'cancelled') return e.note || '';
   if (e.type === 'unloaded' && e.pallets) return t('Paletten: {g} abgegeben, {t} mitgenommen', { g: e.pallets.given, t: e.pallets.taken });
-  if (e.type === 'doc') return e.kind === 'pod' ? t('Lieferschein') : e.kind === 'damage' ? t('Schadensfoto') : e.kind === 'signature' ? t('Unterschrift') : t('Foto');
+  if (e.type === 'doc') return e.kind === 'pod' ? t('Lieferschein') : e.kind === 'cmr' ? 'CMR' : e.kind === 'damage' ? t('Schadensfoto') : e.kind === 'signature' ? t('Unterschrift') : e.kind === 'load' ? t('Ladung') : t('Foto');
   if (e.type === 'undo') return t('wieder „{s}“', { s: tStatus(e.to) });
   return '';
 }
@@ -88,7 +88,7 @@ export const eventTone = (type) => (['delivered', 'problem_resolved'].includes(t
 
 export function timeline(d) {
   const evs = [...(d.events || [])].reverse();
-  return `<div class="timeline">${evs.map((e) => `<div class="tl ${e.undone ? 'undone' : ''}"><time>${time(e.at)}<br><span class="xs">${esc(dayLabel(new Date(e.at).toISOString().slice(0, 10), t))}</span></time><span class="tn ${eventTone(e.type)}">${icon(EVENT_ICON[e.type] || 'circle-dot')}</span><div class="stack" style="--gap:1px"><b>${esc(eventText(e))}</b><p>${esc(e.byName || '')}${e.role === 'driver' ? '' : e.byName ? ' · ' + t('Büro') : ''}${eventDetail(e) ? ' · ' + esc(eventDetail(e)) : ''}${e.geo ? ` · <a href="https://www.google.com/maps?q=${e.geo.lat},${e.geo.lng}" target="_blank" rel="noopener">${icon('map-pin')} ${t('Standort')}</a>` : ''}</p></div></div>`).join('')}</div>`;
+  return `<div class="timeline">${evs.map((e) => `<div class="tl ${e.undone ? 'undone' : ''}"><time>${time(e.at)}<br><span class="xs">${esc(dayLabel(isoToday(e.at), t))}</span></time><span class="tn ${eventTone(e.type)}">${icon(EVENT_ICON[e.type] || 'circle-dot')}</span><div class="stack" style="--gap:1px"><b>${esc(eventText(e))}</b><p>${esc(e.byName || '')}${e.role === 'driver' ? '' : e.byName ? ' · ' + t('Büro') : ''}${eventDetail(e) ? ' · ' + esc(eventDetail(e)) : ''}${e.geo ? ` · <a href="https://www.google.com/maps?q=${e.geo.lat},${e.geo.lng}" target="_blank" rel="noopener">${icon('map-pin')} ${t('Standort')}</a>` : ''}</p></div></div>`).join('')}</div>`;
 }
 
 export function notesThread(app, d) {
@@ -135,13 +135,15 @@ export function langPicker(app, cls = 'langs') {
 export function licenseBanner(app) {
   const l = app.me?.license;
   if (!l) return '';
+  if (l.state === 'cancelled') return `<div class="banner bad">${icon('lock')}<span class="grow">${t('Ihr Vertrag ist gekündigt. Sie können alle Daten bis zur Löschung ansehen und exportieren (Einstellungen → Daten & Datenschutz), aber nichts mehr ändern.')}</span></div>`;
+  if (['suspended', 'expired'].includes(l.state)) return `<div class="banner bad">${icon('lock')}<span class="grow">${t('Ihr Zugang ist gesperrt. Daten können angesehen und exportiert werden. Bitte melden Sie sich beim Anbieter.')}</span></div>`;
+  // C9: full storage stops every upload, also the drivers' delivery notes
+  if (l.storageLimit && l.storageUsed >= l.storageLimit) return `<div class="banner bad">${icon('archive')}<span class="grow">${t('Der Speicher Ihres Tarifs ist voll. Bitte alte Lieferscheine exportieren und löschen oder den Tarif wechseln.')}</span></div>`;
   if (l.state === 'trial' && l.trialEnd) {
     const days = Math.max(0, Math.ceil((l.trialEnd - Date.now()) / 864e5));
     if (days > 10) return '';
     return `<div class="banner info">${icon('sparkles')}<span class="grow">${t('Testphase: noch {n} Tage. Danach läuft Ihr Tarif „{p}“ weiter, sobald Sie ihn bestätigen.', { n: days, p: l.plan.name })}</span></div>`;
   }
-  if (l.state === 'cancelled') return `<div class="banner bad">${icon('lock')}<span class="grow">${t('Ihr Vertrag ist gekündigt. Sie können alle Daten bis zur Löschung ansehen und exportieren (Einstellungen → Daten & Datenschutz), aber nichts mehr ändern.')}</span></div>`;
-  if (['suspended', 'expired'].includes(l.state)) return `<div class="banner bad">${icon('lock')}<span class="grow">${t('Ihr Zugang ist gesperrt. Daten können angesehen und exportiert werden. Bitte melden Sie sich beim Anbieter.')}</span></div>`;
   return '';
 }
 
@@ -150,8 +152,13 @@ export function deliveryCompact(d, app, i = 0) {
     <div class="row between wrap"><div class="row" style="--gap:8px">${pill(d.status)}${problemPill(d.problem)}${d.urgent ? `<span class="pill bad">${icon('zap')}${t('Eilig')}</span>` : ''}</div><span class="mono small muted">${esc(d.bookingNo)}</span></div>
     <div class="route">${routeTitle(d)}</div>
     ${['open', 'cancelled'].includes(d.status) ? '' : stepper(d, { times: true })}
-    <div class="meta">${d.driverName ? `<span>${icon('circle-user')} ${esc(d.driverName)}</span>` : `<span>${icon('users')} ${d.openForAll ? t('offen für alle Fahrer') : t('kein Fahrer')}</span>`}${d.vehiclePlate ? plate(d.vehiclePlate) : ''}${d.trailerPlate ? plate(d.trailerPlate) : ''}<span>${icon('calendar')} ${esc(dayLabel(d.pickup?.date, t))}${d.pickup?.from ? ' ' + esc(d.pickup.from) : ''}</span>${d.customer ? `<span>${icon('building-2')} ${esc(d.customer)}</span>` : ''}<span class="muted" style="margin-left:auto">${icon('clock')} ${esc(lastLabel(d))}</span></div>
+    <div class="meta">${d.driverName ? `<span>${icon('circle-user')} ${esc(d.driverName)}</span>` : `<span>${icon('users')} ${esc(unassignedText(d, app))}</span>`}${d.vehiclePlate ? plate(d.vehiclePlate) : ''}${d.trailerPlate ? plate(d.trailerPlate) : ''}<span>${icon('calendar')} ${esc(dayLabel(d.pickup?.date, t))}${d.pickup?.from ? ' ' + esc(d.pickup.from) : ''}</span>${d.customer ? `<span>${icon('building-2')} ${esc(d.customer)}</span>` : ''}<span class="muted" style="margin-left:auto">${icon('clock')} ${esc(lastLabel(d))}</span></div>
   </button>`;
+}
+/** A delivery without driver: offered to everyone only while the company lets drivers take open jobs. */
+export function unassignedText(d, app) {
+  if (d.status !== 'open') return t('kein Fahrer');
+  return d.openForAll && app?.tenant?.()?.settings?.driverTakesOpen !== false ? t('offen für alle Fahrer') : t('wartet auf Zuweisung');
 }
 export function lastLabel(d) {
   const e = (d.events || []).filter((x) => !['updated'].includes(x.type)).pop();

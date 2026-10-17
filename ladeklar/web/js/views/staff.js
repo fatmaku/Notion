@@ -1,11 +1,13 @@
 // Company workspace (admin & dispatcher): live board, deliveries (present / future / past),
 // drivers with PIN invites, the truck/trailer pool, reports, settings incl. own logo & colour.
-import { icon, esc, pill, problemPill, plate, avatar, flag, stepper, routeTitle, goodsFacts, placeBlock, timeline, notesThread, docsGrid, sheet, emptyState, logoImg, licenseBanner, deliveryCompact, eventText, eventDetail, eventTone, EVENT_ICON, VEHICLE_ICON, vehicleTypeText, featureText, progressRatio } from './common.js';
+import { icon, esc, pill, problemPill, plate, avatar, flag, stepper, routeTitle, goodsFacts, placeBlock, timeline, notesThread, docsGrid, sheet, emptyState, logoImg, licenseBanner, deliveryCompact, unassignedText, eventText, eventDetail, eventTone, EVENT_ICON, VEHICLE_ICON, vehicleTypeText, featureText, progressRatio } from './common.js';
 import { t, tStatus, tStep, tProblem, LANG_NAMES } from '../i18n.js';
-import { time, dateTime, dayLabel, isoToday, addDays, ago, minutes, num, kg, phoneHref, window_, longDate, phone as fmtPhone } from '../format.js';
+import { time, dateTime, dateTimeFull, dateFull, dayLabel, isoToday, addDays, lastMonths, monthLabel, ago, minutes, num, kg, euro, fileSize, phoneHref, window_, longDate, phone as fmtPhone } from '../format.js';
 import { compressPhoto, processLogo, qrSvg } from '../media.js';
 import { createZip, exportFileName } from '../../../core/zip.js';
-import { VEHICLE_TYPES, VEHICLE_FEATURES, PLANS } from '../../../core/engine.js';
+import { toCsv } from '../../../core/csv.js';
+import { statusText } from '../../../core/texts.js';
+import { VEHICLE_TYPES, VEHICLE_FEATURES, PLANS, STORE_APP, monthlyPrice, routeLabel } from '../../../core/engine.js';
 
 export const routes = ['live', 'deliveries', 'drivers', 'vehicles', 'reports', 'settings'];
 export const defaultRoute = () => 'live';
@@ -18,15 +20,27 @@ export async function load(app) {
   const call = (m, a = {}) => app.api.call(m, a);
   const jobs = [call('dashboard').then((x) => { app.data.dash = x; })];
   if (r === 'deliveries') { const f = app.ui.dfilter || (app.ui.dfilter = { tab: 'live', q: '' }); jobs.push(call('listDeliveries', f).then((x) => { app.data.deliveries = x; })); }
-  if (r === 'drivers' || app.ui.sheet?.type === 'deliveryForm' || app.ui.sheet?.type === 'delivery') jobs.push(call('listUsers', { role: 'driver' }).then((x) => { app.data.drivers = x; }));
+  // the driver filter on "Lieferungen" needs the drivers, too
+  if (r === 'drivers' || (r === 'deliveries' && !app.data.drivers) || app.ui.sheet?.type === 'deliveryForm' || app.ui.sheet?.type === 'delivery') jobs.push(call('listUsers', { role: 'driver' }).then((x) => { app.data.drivers = x; }));
   if (r === 'vehicles' || app.ui.sheet?.type === 'deliveryForm' || app.ui.sheet?.type === 'delivery') jobs.push(call('listVehicles').then((x) => { app.data.vehicles = x; }));
-  if (r === 'reports') jobs.push(call('reports', { month: app.ui.month }).then((x) => { app.data.reports = x; }));
+  if (r === 'reports') jobs.push(call('reports', { month: app.ui.month || lastMonths(1)[0] }).then((x) => { app.data.reports = x; }));
   if (r === 'settings') {
     jobs.push(app.api.session().then((me) => { if (me) app.me = me; }));
-    if (isAdmin(app)) { jobs.push(call('listUsers', { role: 'staff' }).then((x) => { app.data.staff = x; })); jobs.push(call('auditLog', { limit: 40 }).then((x) => { app.data.audit = x; })); }
-  }
+    if (isAdmin(app)) {
+      jobs.push(call('listUsers', { role: 'staff' }).then((x) => { app.data.staff = x; })); jobs.push(call('auditLog', { limit: 40 }).then((x) => { app.data.audit = x; }));
+      if (section(app) === 'license') jobs.push(call('getTenantLicense').then((x) => { app.data.license = x; }));
+    }
+    if (section(app) === 'account') pushStatus(app);
+  } else app.ui.apiKey = null; // a new API key is shown once only
   await Promise.all(jobs);
   await refreshSheetData(app);
+  // C7: a password change ends all push subscriptions – renew silently while the browser still allows it
+  if (app.me && app._pushFor !== app.me.user.id) { app._pushFor = app.me.user.id; app.api.push?.resubscribe?.().catch(() => {}); }
+}
+const section = (app) => app.ui.ssec || (isAdmin(app) ? 'brand' : 'account');
+async function pushStatus(app) {
+  const st = await app.api.push?.status?.().catch(() => 'off');
+  if (st && st !== app.ui.pushState) { app.ui.pushState = st; app.invalidate(); }
 }
 async function refreshSheetData(app) {
   const s = app.ui.sheet;
@@ -135,18 +149,23 @@ function driversPage(app) {
   const active = (list || []).filter((u) => u.active).length;
   return `<div class="page-h"><div><h1>${t('Fahrer')}</h1><p class="lead">${t('Jeder Fahrer bekommt einen eigenen Zugang mit PIN – per Link, QR-Code oder WhatsApp.')}</p></div><button class="btn btn-primary" data-act="newDriver">${icon('user-plus')}${t('Fahrer anlegen')}</button></div>
     ${lic ? `<div class="card pad row wrap"><div class="grow"><b>${t('{n} von {m} Fahrer-Plätzen belegt', { n: active, m: lic.driverSeats })}</b><div class="bar" style="margin-top:8px;--p:${Math.min(1, active / lic.driverSeats)}"><i></i></div></div><span class="pill brand">${esc(lic.plan.name)}</span></div>` : ''}
+    ${lic && list && active > lic.driverSeats ? overBanner(app, t('Mehr aktive Fahrer ({n}) als Ihr Tarif umfasst ({m}). Neue Fahrer gehen erst wieder, wenn Sie Fahrer sperren oder den Tarif wechseln.', { n: active, m: lic.driverSeats })) : ''}
     ${!list ? sk(260) : list.length ? `<div class="grid" style="--min:290px">${list.map((u, i) => `<article class="card pad stack" style="--gap:12px;animation:rise .45s ${i * 35}ms both;${u.active ? '' : 'opacity:.6'}" data-key="u-${esc(u.id)}">
       <div class="row">${avatar(u.name, 'lg')}<div class="grow"><h4 class="ellip">${esc(u.name)}</h4><div class="small muted">${esc(fmtPhone(u.phone))}</div></div>${flag(u.lang)}</div>
       <div class="row wrap" style="--gap:6px">${u.vehiclePlate ? plate(u.vehiclePlate) : `<span class="pill">${icon('truck')}${t('kein LKW')}</span>`}${u.trailerPlate ? plate(u.trailerPlate) : ''}${u.activeDeliveries ? `<span class="pill live info">${t('{n} Tour(en)', { n: u.activeDeliveries })}</span>` : ''}${u.licenseClass ? `<span class="pill">${icon('id-card')}${esc(u.licenseClass)}</span>` : ''}${u.active ? '' : `<span class="pill bad">${icon('lock')}${t('gesperrt')}</span>`}</div>
       <div class="row wrap" style="--gap:6px"><button class="btn btn-sm" data-act="resetPin" data-id="${esc(u.id)}">${icon('key-round')}${t('Neue PIN & Einladung')}</button><button class="btn btn-sm btn-ghost" data-act="editDriver" data-id="${esc(u.id)}">${icon('pencil')}${t('Bearbeiten')}</button><button class="btn btn-sm btn-ghost" data-act="toggleUser" data-id="${esc(u.id)}" data-on="${u.active ? '0' : '1'}">${icon(u.active ? 'lock' : 'refresh-cw')}${u.active ? t('Sperren') : t('Entsperren')}</button>${u.phone ? `<a class="btn btn-sm btn-ghost" href="${esc(phoneHref(u.phone))}" aria-label="${t('Anrufen')}">${icon('phone')}</a>` : ''}${isAdmin(app) ? `<button class="btn btn-sm btn-ghost" data-act="askDelete" data-id="${esc(u.id)}" aria-label="${t('Löschen')}" title="${t('Löschen')}">${icon('trash-2')}</button>` : ''}</div></article>`).join('')}</div>` : `<div class="card">${emptyState('users', t('Noch keine Fahrer'), t('Legen Sie den ersten Fahrer an – er bekommt eine PIN und einen Einladungslink.'), `<button class="btn btn-primary" data-act="newDriver">${icon('user-plus')}${t('Fahrer anlegen')}</button>`)}</div>`}`;
 }
 
+const overBanner = (app, text) => `<div class="banner bad">${icon('circle-alert')}<span class="grow">${esc(text)}</span>${isAdmin(app) ? `<button class="btn btn-sm" data-act="toLicense">${t('Tarif ansehen')}</button>` : ''}</div>`;
+
 // ---------- vehicles ----------
 function vehiclesPage(app) {
   const list = app.data.vehicles;
   const k = app.ui.vkind || 'all';
   const shown = (list || []).filter((v) => k === 'all' || v.kind === k);
+  const max = app.me.license?.plan?.vehicles, count = (list || []).filter((v) => v.active !== false).length;
   return `<div class="page-h"><div><h1>${t('Fahrzeuge')}</h1><p class="lead">${t('Der Pool, aus dem Ihre Fahrer LKW und Auflieger wählen.')}</p></div><button class="btn btn-primary" data-act="newVehicle">${icon('plus')}${t('Fahrzeug anlegen')}</button></div>
+    ${list && max != null && count > max ? overBanner(app, t('Mehr Fahrzeuge ({n}) als Ihr Tarif umfasst ({m}). Neue Fahrzeuge gehen erst wieder, wenn Sie welche entfernen oder den Tarif wechseln.', { n: count, m: max })) : ''}
     <div class="seg">${[['all', t('Alle')], ['truck', t('LKW / Zugmaschinen')], ['trailer', t('Auflieger / Anhänger')]].map(([kk, l]) => `<button data-act="vkind" data-k="${kk}" aria-pressed="${k === kk}">${esc(l)}</button>`).join('')}</div>
     ${!list ? sk(240) : shown.length ? `<div class="grid" style="--min:270px">${shown.map((v, i) => `<article class="card pad stack" style="--gap:12px;animation:rise .45s ${i * 30}ms both" data-key="v-${esc(v.id)}">
       <div class="row between">${plate(v.plate, 'lg')}<span class="avatar">${icon(VEHICLE_ICON[v.type] || 'truck')}</span></div>
@@ -160,15 +179,15 @@ function vehiclesPage(app) {
 // ---------- reports ----------
 function reportsPage(app) {
   const r = app.data.reports;
-  const months = Array.from({ length: 6 }, (_, i) => { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - i); return d.toISOString().slice(0, 7); });
-  const m = app.ui.month || months[0];
+  const months = lastMonths(24); // Berlin months, the current one first
+  const m = app.ui.month || r?.month || months[0];
   const kpi = (cls, ic, v, l) => `<div class="kpi ${cls}" style="cursor:default"><span class="k-ic">${icon(ic)}</span><span class="k-v">${v}</span><span class="k-l">${l}</span></div>`;
   const wait = (n) => (n == null ? '–' : esc(minutes(n, t)));
   const custRows = (r?.byCustomer || []).map((x) => `<tr style="cursor:default"><td><b>${esc(x.customer || t('ohne Auftraggeber'))}</b></td><td class="num">${x.count}</td><td class="num">${wait(x.avgWaiting)}</td><td class="num">${x.problems}</td></tr>`).join('');
   const placeRows = (r?.byPlace || []).slice(0, 15).map((x) => `<tr style="cursor:default"><td><b>${esc(x.place || x.city)}</b>${x.place && x.city ? `<div class="xs muted">${esc(x.city)}</div>` : ''}</td><td>${x.side === 'pickup' ? `<span class="pill">${icon('arrow-up-from-line')}${t('Laden')}</span>` : `<span class="pill">${icon('arrow-down-to-line')}${t('Entladen')}</span>`}</td><td class="num">${x.count}</td><td class="num">${wait(x.avgWaiting)}${x.avgWaiting != null && x.measured < x.count ? `<div class="xs muted">${t('aus {n} Touren', { n: x.measured })}</div>` : ''}</td></tr>`).join('');
-  return `<div class="page-h"><div><h1>${t('Berichte')}</h1><p class="lead">${t('Leistung, Pünktlichkeit, Standzeiten und Palettenkonto.')}</p></div><div class="row wrap">${r ? `<button class="btn" data-act="reportCsv">${icon('download')}CSV</button>` : ''}<select class="input" style="width:auto" data-input="month">${months.map((x) => `<option value="${x}" ${x === m ? 'selected' : ''}>${new Date(x + '-15').toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}</option>`).join('')}</select></div></div>
+  return `<div class="page-h"><div><h1>${t('Berichte')}</h1><p class="lead">${t('Leistung, Pünktlichkeit, Standzeiten und Palettenkonto.')}</p></div><div class="row wrap">${r ? `<button class="btn" data-act="reportCsv">${icon('download')}CSV</button>` : ''}<select class="input" style="width:auto" data-input="month" aria-label="${t('Monat')}">${months.map((x) => `<option value="${x}" ${x === m ? 'selected' : ''}>${esc(monthLabel(x))}</option>`).join('')}</select></div></div>
     ${!r ? sk(220) : `<div class="kpis">${kpi('ok', 'circle-check-big', r.delivered, t('Zugestellt'))}${kpi('info', 'timer', r.onTimeRate == null ? '–' : r.onTimeRate + ' %', t('Pünktlich'))}${kpi('warn', 'hourglass', r.avgWaiting == null ? '–' : r.avgWaiting + ' min', t('Ø Standzeit je Tour'))}${kpi('', 'boxes', (r.palletsGiven - r.palletsTaken > 0 ? '−' : '') + Math.abs(r.palletsGiven - r.palletsTaken), t('Palettensaldo (offen)'))}</div>
-      <section class="card"><div class="card-h"><h3>${t('Je Fahrer')}</h3></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('Fahrer')}</th><th class="num">${t('Zugestellt')}</th><th class="num">${t('Standzeit gesamt')}</th><th class="num">${t('Probleme')}</th></tr></thead><tbody>${r.byDriverHidden ? `<tr><td colspan="4" class="muted">${t('Auswertungen je Fahrer sind ausgeschaltet (Einstellungen → Abläufe).')}</td></tr>` : ''}${r.byDriver.map((x) => `<tr style="cursor:default"><td><div class="row">${avatar(x.driverName)}<b>${esc(x.driverName)}</b></div></td><td class="num">${x.delivered}</td><td class="num">${esc(minutes(x.waiting, t))}</td><td class="num">${x.problems}</td></tr>`).join('') || `<tr><td colspan="4" class="muted">${t('Keine Daten in diesem Monat.')}</td></tr>`}</tbody></table></div></section>
+      <section class="card"><div class="card-h"><h3>${t('Je Fahrer')}</h3></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('Fahrer')}</th><th class="num">${t('Zugestellt')}</th><th class="num">${t('Standzeit gesamt')}</th><th class="num">${t('Probleme')}</th></tr></thead><tbody>${r.byDriverHidden ? `<tr><td colspan="4" class="muted">${t('Auswertungen je Fahrer sind ausgeschaltet (Einstellungen → Abläufe).')}</td></tr>` : (r.byDriver || []).map((x) => `<tr style="cursor:default"><td><div class="row">${avatar(x.driverName)}<b>${esc(x.driverName)}</b></div></td><td class="num">${x.delivered}</td><td class="num">${esc(minutes(x.waiting, t))}</td><td class="num">${x.problems}</td></tr>`).join('') || `<tr><td colspan="4" class="muted">${t('Keine Daten in diesem Monat.')}</td></tr>`}</tbody></table></div></section>
       <section class="card"><div class="card-h"><h3>${t('Je Auftraggeber')}</h3></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('Auftraggeber')}</th><th class="num">${t('Zugestellt')}</th><th class="num">${t('Ø Standzeit je Tour')}</th><th class="num">${t('Probleme')}</th></tr></thead><tbody>${custRows || `<tr><td colspan="4" class="muted">${t('Keine Daten in diesem Monat.')}</td></tr>`}</tbody></table></div></section>
       <section class="card"><div class="card-h"><h3>${t('Je Lade- und Entladestelle')}</h3><span class="small muted">${t('längste Standzeit zuerst')}</span></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('Stelle')}</th><th>${t('Art')}</th><th class="num">${t('Touren')}</th><th class="num">${t('Ø Standzeit')}</th></tr></thead><tbody>${placeRows || `<tr><td colspan="4" class="muted">${t('Keine Daten in diesem Monat.')}</td></tr>`}</tbody></table></div></section>
       <div class="banner info">${icon('info')}<span class="grow">${t('Standzeiten entstehen aus den Tipps „Angekommen“ und „Aufgeladen/Abgeladen“ – die Grundlage für Standgeld-Rechnungen.')}</span></div>`}`;
@@ -177,7 +196,7 @@ function reportsPage(app) {
 // ---------- settings ----------
 function settingsPage(app) {
   const tn = app.tenant();
-  const sec = app.ui.ssec || (isAdmin(app) ? 'brand' : 'account');
+  const sec = section(app);
   const tabs = isAdmin(app) ? [['brand', t('Firma & Marke')], ['flow', t('Abläufe')], ['team', t('Team')], ['license', t('Lizenz')], ['data', t('Daten & Datenschutz')], ['api', 'API'], ['account', t('Mein Konto')], ['reports', t('Berichte')]] : [['account', t('Mein Konto')], ['reports', t('Berichte')]];
   let body = '';
   if (sec === 'reports') { app.go('reports'); return ''; }
@@ -227,21 +246,72 @@ function flowSection(app, tn) {
   return `<section class="card pad"><h3>${t('Abläufe')}</h3><p class="small muted" style="margin:4px 0 6px">${t('Änderungen gelten sofort für alle Fahrer.')}</p>
     ${FLOW.map(([k, ic, l, d]) => `<label class="switch"><input type="checkbox" data-input="setting" data-k="${k}" ${s[k] ? 'checked' : ''}><span class="grow"><b>${icon(ic)} ${esc(t(l))}</b><small>${esc(t(d))}</small></span></label>`).join('')}</section>
     <section class="card pad"><form data-form="flowExtra" class="fgrid"><label class="field"><span>${t('Präfix der Buchungsnummer')}</span><input class="input mono" name="bookingPrefix" maxlength="6" value="${esc(s.bookingPrefix || '')}"><span class="hint">${t('Beispiel: {p}-2610-0042', { p: esc(s.bookingPrefix || 'KAY') })}</span></label>
-      <label class="field"><span>${t('Lieferscheine aufbewahren (Jahre)')}</span><input class="input" type="number" min="1" max="10" name="retentionYears" value="${esc(s.retentionYears || 3)}"><span class="hint">${t('Danach werden abgeschlossene Lieferungen samt Fotos automatisch gelöscht.')}</span></label>
+      <label class="field"><span>${t('Lieferscheine aufbewahren (Jahre)')}</span><input class="input" type="number" min="1" max="10" step="1" name="retentionYears" value="${esc(s.retentionYears || 3)}" placeholder="${esc(s.retentionYears || 3)}"><span class="hint">${t('1 bis 10 Jahre. Danach werden abgeschlossene Lieferungen samt Fotos automatisch gelöscht. Leeres Feld = bisheriger Wert.')}</span></label>
+      ${retentionConfirm(app)}
       <div class="full"><button class="btn btn-primary" type="submit">${icon('check')}${t('Speichern')}</button></div></form></section>`;
+}
+function retentionConfirm(app) {
+  const c = app.ui.retention;
+  if (!c) return '';
+  return `<div class="banner bad full">${icon('triangle-alert')}<span class="grow">${c.years === 1 ? t('Aufbewahrung auf 1 Jahr senken?') : t('Aufbewahrung auf {n} Jahre senken?', { n: c.years })} ${c.count ? t('{k} abgeschlossene Lieferungen samt Lieferscheinen und Fotos werden innerhalb einer Stunde endgültig gelöscht.', { k: c.count }) : t('Ältere abgeschlossene Lieferungen werden ab dann automatisch gelöscht.')}</span>
+    <button class="btn btn-sm" type="button" data-act="retentionCancel">${t('Abbrechen')}</button><button class="btn btn-sm btn-danger" type="button" data-act="retentionOk">${t('Ja, senken')}</button></div>`;
 }
 function teamSection(app) {
   const list = app.data.staff;
-  return `<section class="card"><div class="card-h"><h3>${t('Büro-Zugänge')}</h3><button class="btn btn-primary btn-sm" data-act="newStaff">${icon('user-plus')}${t('Disponent anlegen')}</button></div>
+  const max = app.me.license?.plan?.staff == null ? null : app.me.license.plan.staff + 1, count = (list || []).filter((u) => u.active).length;
+  return `${list && max != null && count > max ? overBanner(app, t('Mehr aktive Büro-Zugänge ({n}) als Ihr Tarif umfasst ({m}). Neue Zugänge gehen erst wieder, wenn Sie welche sperren oder den Tarif wechseln.', { n: count, m: max })) : ''}<section class="card"><div class="card-h"><h3>${t('Büro-Zugänge')}</h3><button class="btn btn-primary btn-sm" data-act="newStaff">${icon('user-plus')}${t('Disponent anlegen')}</button></div>
     <div class="list" style="margin-top:8px">${!list ? sk(100) : list.map((u) => `<div class="li" style="cursor:default">${avatar(u.name)}<div class="grow"><div class="t1">${esc(u.name)} ${u.id === app.me.user.id ? `<span class="pill">${t('Sie')}</span>` : ''}</div><div class="t2">${esc(u.email)} · ${u.role === 'admin' ? t('Admin') : t('Disponent')}${u.active ? '' : ' · ' + t('gesperrt')}</div></div><button class="btn btn-sm btn-ghost" data-act="editStaff" data-id="${esc(u.id)}" aria-label="${t('Bearbeiten')}" title="${t('Bearbeiten')}">${icon('pencil')}</button>${u.id !== app.me.user.id ? `<button class="btn btn-sm btn-ghost" data-act="resetPin" data-id="${esc(u.id)}">${icon('key-round')}${t('Neues Passwort')}</button><button class="btn btn-sm btn-ghost" data-act="toggleUser" data-id="${esc(u.id)}" data-on="${u.active ? '0' : '1'}" aria-label="${u.active ? t('Sperren') : t('Entsperren')}" title="${u.active ? t('Sperren') : t('Entsperren')}">${icon(u.active ? 'lock' : 'refresh-cw')}</button><button class="btn btn-sm btn-ghost" data-act="askDelete" data-id="${esc(u.id)}" aria-label="${t('Löschen')}" title="${t('Löschen')}">${icon('trash-2')}</button>` : ''}</div>`).join('')}</div></section>`;
 }
 function licenseSection(app) {
-  const l = app.me.license;
+  const l = app.me.license, tn = app.tenant(), x = app.data.license || {};
+  const plan = l.plan, p = PLANS[plan.id] || plan;
+  const extra = p.extraDriver ? Math.max(0, x.extraDrivers ?? tn.extraDrivers ?? 0) : 0, store = !!(x.storeApp ?? tn.storeApp);
+  const monthly = x.monthly ?? monthlyPrice({ plan: plan.id, extraDrivers: extra, storeApp: store });
+  const yearly = (x.billing || tn.billing) === 'yearly';
+  const items = [t('Grundpreis {p}', { p: euro(p.price) }), extra ? t('{n} zusätzliche Fahrer à {p}', { n: extra, p: euro(p.extraDriver) }) : '', store ? t('Store-App {p}', { p: euro(STORE_APP.monthly) }) : ''].filter(Boolean);
   const stateText = { trial: t('Testphase'), active: t('Aktiv'), suspended: t('Gesperrt'), expired: t('Abgelaufen'), cancelled: t('Gekündigt') }[l.state];
-  return `<section class="card pad stack"><div class="row between wrap"><div><span class="eyebrow">${t('Ihr Tarif')}</span><h2>Ladeklar ${esc(l.plan.name)}</h2></div><span class="pill ${l.state === 'active' ? 'ok' : l.state === 'trial' ? 'info' : 'bad'}">${esc(stateText)}</span></div>
-    <dl class="kv"><dt>${t('Preis')}</dt><dd>${l.plan.price} € ${t('netto / Monat')}</dd><dt>${t('Fahrer-Plätze')}</dt><dd>${l.driverSeats}</dd><dt>${t('Fahrzeuge')}</dt><dd>${l.plan.vehicles ?? t('unbegrenzt')}</dd>${l.trialEnd ? `<dt>${t('Test bis')}</dt><dd>${esc(dateTime(l.trialEnd))}</dd>` : ''}${l.licenseEnd ? `<dt>${t('Laufzeit bis')}</dt><dd>${esc(dateTime(l.licenseEnd))}</dd>` : ''}</dl>
-    <p class="small muted">${t('Für einen Tarifwechsel oder weitere Fahrer-Plätze genügt eine kurze Nachricht an Ihren Anbieter.')}</p></section>
-    <div class="plans">${Object.values(PLANS).map((p) => `<div class="plan ${p.id === l.plan.id ? 'hl' : ''}"><span class="eyebrow">${esc(p.name)}</span><div class="price">${p.price} €<small> / ${t('Monat')}</small></div><ul><li>${icon('check')}${t('{n} Fahrer inklusive', { n: p.drivers })}</li><li>${icon('check')}${p.vehicles ? t('{n} Fahrzeuge', { n: p.vehicles }) : t('Fahrzeuge unbegrenzt')}</li><li>${icon('check')}${t('Eigenes Logo & Farben')}</li>${p.api ? `<li>${icon('check')}${t('REST-API, eigene Domain')}</li>` : ''}</ul></div>`).join('')}</div>`;
+  // C9: storage of the plan
+  const used = l.storageUsed ?? x.storageUsed, limit = l.storageLimit ?? x.storageLimit;
+  const pct = limit ? Math.round((used / limit) * 100) : 0;
+  const storage = limit ? `<dt>${t('Speicher')}</dt><dd><div>${t('{u} von {l} belegt ({p} %)', { u: fileSize(used), l: fileSize(limit), p: pct })}</div><div class="bar ${pct >= 100 ? 'bad' : pct >= 80 ? 'warn' : ''}" style="margin-top:6px;--p:${Math.min(1, used / limit)}"><i></i></div>${pct >= 100 ? `<div class="small" style="color:var(--bad);margin-top:6px">${t('Der Speicher Ihres Tarifs ist voll. Bitte alte Lieferscheine exportieren und löschen oder den Tarif wechseln.')}</div>` : pct >= 80 ? `<div class="small" style="color:var(--warn);margin-top:6px">${t('Der Speicher ist fast voll. Bitte alte Lieferscheine exportieren und löschen oder den Tarif wechseln.')}</div>` : ''}</dd>` : '';
+  // C15: seats in use against the plan (over the limit after a downgrade)
+  const u = x.usage, lim = x.limits;
+  const seat = (label, n, m) => (n == null ? '' : `<dt>${label}</dt><dd>${m == null ? t('{n} (unbegrenzt)', { n }) : t('{n} von {m}', { n, m })}${m != null && n > m ? ` <span class="pill bad">${t('über dem Tarif')}</span>` : ''}</dd>`);
+  return `<section class="card pad stack"><div class="row between wrap"><div><span class="eyebrow">${t('Ihr Tarif')}</span><h2>Ladeklar ${esc(plan.name)}</h2></div><span class="pill ${l.state === 'active' ? 'ok' : l.state === 'trial' ? 'info' : 'bad'}">${esc(stateText)}</span></div>
+    <dl class="kv"><dt>${t('Preis')}</dt><dd><b>${esc(euro(monthly))} ${t('netto / Monat')}</b><div class="small muted">${esc(items.join(' · '))}</div>${yearly ? `<div class="small">${t('Jährlich im Voraus: {p} netto (10 × Monatspreis)', { p: esc(euro(monthly * 10)) })}</div>` : ''}</dd>
+      <dt>${t('Zahlweise')}</dt><dd>${yearly ? t('jährlich') : t('monatlich')}</dd>
+      ${u && lim ? seat(t('Fahrer'), u.drivers, lim.drivers) + seat(t('Fahrzeuge'), u.vehicles, lim.vehicles) + seat(t('Büro-Zugänge'), u.staff, lim.staff) : `<dt>${t('Fahrer-Plätze')}</dt><dd>${l.driverSeats}</dd><dt>${t('Fahrzeuge')}</dt><dd>${plan.vehicles ?? t('unbegrenzt')}</dd>`}
+      ${storage}
+      ${l.trialEnd ? `<dt>${t('Test bis')}</dt><dd>${esc(dateFull(l.trialEnd))}</dd>` : ''}${l.licenseEnd ? `<dt>${t('Laufzeit bis')}</dt><dd>${esc(dateFull(l.licenseEnd))}</dd>` : ''}</dl>
+    ${licenseRequests(app, tn, x, plan)}</section>
+    <div class="plans">${Object.values(PLANS).map((q) => `<div class="plan ${q.id === plan.id ? 'hl' : ''}"><span class="eyebrow">${esc(q.name)}</span><div class="price">${q.price} €<small> / ${t('Monat')}</small></div><ul><li>${icon('check')}${t('{n} Fahrer inklusive', { n: q.drivers })}</li><li>${icon('check')}${q.vehicles ? t('{n} Fahrzeuge', { n: q.vehicles }) : t('Fahrzeuge unbegrenzt')}</li><li>${icon('check')}${t('{n} GB Speicher', { n: q.storageGB })}</li><li>${icon('check')}${t('Eigenes Logo & Farben')}</li>${q.api ? `<li>${icon('check')}${t('REST-API, eigene Domain')}</li>` : ''}</ul></div>`).join('')}</div>`;
+}
+/** C16: plan change and cancellation are requests to the licensor; pending ones are shown. */
+function licenseRequests(app, tn, x, plan) {
+  const l = app.me.license;
+  const pr = x.planRequest ?? tn.planRequest, cr = x.cancelRequestedAt ?? tn.cancelRequestedAt;
+  const pending = `${pr ? `<div class="banner info">${icon('send')}<span class="grow">${t('Tarifwunsch „{p}“ gesendet am {d}. Ihr Anbieter meldet sich.', { p: esc(PLANS[pr.plan]?.name || pr.plan), d: esc(dateFull(pr.at)) })}</span></div>` : ''}${cr ? `<div class="banner">${icon('send')}<span class="grow">${t('Kündigung gesendet am {d}. Ihr Anbieter bestätigt das Vertragsende. Bis dahin läuft alles weiter.', { d: esc(dateFull(cr)) })}</span></div>` : ''}`;
+  if (l.state === 'cancelled') return pending;
+  const mode = app.ui.licReq;
+  if (mode === 'plan') {
+    const pick = PLANS[app.ui.planPick] ? app.ui.planPick : Object.keys(PLANS).find((k) => k !== plan.id);
+    const u = x.usage, q = PLANS[pick];
+    const over = u && q ? [[t('Fahrer'), u.drivers, q.drivers], [t('Fahrzeuge'), u.vehicles, q.vehicles], [t('Büro-Zugänge'), u.staff, q.staff == null ? null : q.staff + 1]].filter(([, n, m]) => m != null && n > m) : [];
+    return `${pending}<form data-form="planRequest" class="stack" style="--gap:10px"><label class="field"><span>${t('Gewünschter Tarif')}</span><select class="input" name="plan" data-input="planPick">${Object.values(PLANS).filter((k) => k.id !== plan.id).map((k) => `<option value="${k.id}" ${k.id === pick ? 'selected' : ''}>${esc(k.name)} · ${esc(euro(k.price))} ${t('netto / Monat')}</option>`).join('')}</select></label>
+      ${over.length ? `<div class="banner bad">${icon('circle-alert')}<span class="grow">${t('Für diesen Tarif sind es zu viele: {list}. Vor dem Wechsel bitte sperren oder entfernen.', { list: esc(over.map(([lb, n, m]) => `${lb} ${n}/${m}`).join(', ')) })}</span></div>` : ''}
+      <label class="field"><span>${t('Nachricht an Ihren Anbieter (optional)')}</span><textarea class="input" name="note" rows="2" maxlength="500"></textarea></label>
+      <div class="row wrap"><button class="btn" type="button" data-act="licReq" data-k="">${t('Abbrechen')}</button><button class="btn btn-primary" type="submit">${icon('send')}${t('Anfrage senden')}</button></div></form>`;
+  }
+  if (mode === 'cancel') {
+    return `${pending}<form data-form="cancelRequest" class="stack" style="--gap:10px"><label class="field"><span>${t('Grund der Kündigung (optional)')}</span><textarea class="input" name="reason" rows="2" maxlength="500">${esc(app.ui.cancelReason || '')}</textarea></label>
+      <div class="row wrap"><button class="btn" type="button" data-act="licReq" data-k="">${t('Abbrechen')}</button><button class="btn btn-danger" type="submit">${t('Weiter')}</button></div></form>`;
+  }
+  if (mode === 'cancelConfirm') {
+    return `${pending}<div class="banner bad">${icon('triangle-alert')}<span class="grow">${t('Vertrag wirklich kündigen? Ihr Anbieter bestätigt die Kündigung und das Vertragsende. Danach können Sie Ihre Daten noch ansehen und exportieren, aber nichts mehr ändern.')}</span></div>
+      <div class="row wrap"><button class="btn" data-act="licReq" data-k="">${t('Abbrechen')}</button><button class="btn btn-danger" data-act="cancelSend">${icon('send')}${t('Kündigung senden')}</button></div>`;
+  }
+  return `${pending}<div class="row wrap"><button class="btn" data-act="licReq" data-k="plan">${icon('layers')}${t('Tarif wechseln anfragen')}</button>${cr ? '' : `<button class="btn btn-ghost btn-danger" data-act="licReq" data-k="cancel">${icon('ban')}${t('Kündigen')}</button>`}</div>
+    <p class="small muted">${t('Für weitere Fahrer-Plätze genügt eine kurze Nachricht an Ihren Anbieter.')}</p>`;
 }
 function dataSection(app, tn) {
   const sup = tn.supportAccessUntil && tn.supportAccessUntil > Date.now();
@@ -257,17 +327,34 @@ function apiSection(app, tn) {
   const prem = app.me.license?.plan?.api;
   const key = app.ui.apiKey;
   return `<section class="card pad stack"><h3>${icon('link')} REST-API</h3><p class="small muted">${t('Lieferungen automatisch aus Ihrem TMS oder Ihrer Buchhaltung anlegen und abfragen.')}</p>
-    ${prem ? `${key ? `<div class="secret"><span class="grow">${esc(key)}</span><button class="btn btn-sm" data-act="copy" data-copy="${esc(key)}">${icon('copy')}</button></div><p class="small" style="color:var(--warn)">${t('Der Schlüssel wird nur jetzt angezeigt.')}</p>` : `<p class="small">${tn.apiKeySet ? t('Ein Schlüssel ist aktiv.') : t('Noch kein Schlüssel.')}</p>`}<div><button class="btn" data-act="rotateKey">${icon('key-round')}${tn.apiKeySet ? t('Neuen Schlüssel erzeugen') : t('Schlüssel erzeugen')}</button></div>
+    ${prem ? `${key ? `<div class="secret"><span class="grow">${esc(key)}</span><button class="btn btn-sm" data-act="copy" data-copy="${esc(key)}">${icon('copy')}</button></div><p class="small" style="color:var(--warn)">${t('Der Schlüssel wird nur jetzt angezeigt.')}</p>` : tn.apiKeySet ? `<div class="secret"><span class="grow mono">lk_…${esc(tn.apiKeyHint || '')}</span></div><p class="small muted">${t('Ein Schlüssel ist aktiv. Gespeichert sind nur die letzten 4 Zeichen – den ganzen Schlüssel kann niemand mehr anzeigen. Verloren? Einfach einen neuen erzeugen, der alte gilt dann nicht mehr.')}</p>` : `<p class="small">${t('Noch kein Schlüssel.')}</p>`}<div><button class="btn" data-act="rotateKey">${icon('key-round')}${tn.apiKeySet ? t('Neuen Schlüssel erzeugen') : t('Schlüssel erzeugen')}</button></div>
       <pre class="card pad xs mono" style="overflow:auto;margin:0;white-space:pre">curl -H "Authorization: Bearer lk_…" ${esc(location.origin)}/api/v1/deliveries
 curl -X POST -H "Authorization: Bearer lk_…" -H "Content-Type: application/json" \\
   -d '{"pickup":{"city":"Stuttgart","date":"${isoToday()}"},"dropoff":{"city":"Hamburg"}}' ${esc(location.origin)}/api/v1/deliveries</pre>` : `<div class="banner info">${icon('crown')}<span class="grow">${t('Die API ist im Tarif Premium enthalten.')}</span></div>`}</section>`;
 }
 function accountSection(app) {
+  const push = app.api.push, ps = app.ui.pushState;
   return `<section class="card pad stack"><h3>${t('Mein Konto')}</h3><dl class="kv"><dt>${t('Name')}</dt><dd>${esc(app.me.user.name)}</dd><dt>${t('E-Mail')}</dt><dd>${esc(app.me.user.email || '')}</dd><dt>${t('Rolle')}</dt><dd>${isAdmin(app) ? t('Admin') : t('Disponent')}</dd></dl>
-    <div class="field"><span>${t('Sprache')}</span><div class="seg">${['de', 'en', 'tr'].map((l) => `<button data-act="lang" data-lang="${l}" aria-pressed="${app.lang === l}">${LANG_NAMES[l]}</button>`).join('')}</div></div></section>
+    <div class="field"><span>${t('Sprache')}</span><div class="seg wrap">${Object.entries(LANG_NAMES).map(([l, name]) => `<button data-act="lang" data-lang="${l}" aria-pressed="${app.lang === l}">${esc(name)}</button>`).join('')}</div></div></section>
     ${app.me.user.mustChangePassword ? `<div class="banner">${icon('key-round')}<span class="grow">${t('Bitte vergeben Sie jetzt ein eigenes Passwort.')}</span></div>` : ''}
     <section class="card pad"><form data-form="password" class="fgrid"><label class="field"><span>${t('Aktuelles Passwort')}</span><input class="input" type="password" name="current" autocomplete="current-password" required></label><label class="field"><span>${t('Neues Passwort (mind. 10 Zeichen)')}</span><input class="input" type="password" name="next" minlength="10" autocomplete="new-password" required></label><div class="full"><button class="btn btn-primary" type="submit">${icon('key-round')}${t('Passwort ändern')}</button></div></form></section>
+    ${twoFactorSection(app)}
+    ${push && push.supported() ? `<section class="card pad stack"><h3>${icon('bell-ring')} ${t('Mitteilungen')}</h3>
+      <label class="switch"><input type="checkbox" data-input="pushToggle" ${ps === 'on' ? 'checked' : ''} ${ps === 'blocked' ? 'disabled' : ''}><span class="grow"><b>${t('Push-Mitteilungen in diesem Browser')}</b><small>${ps === 'blocked' ? t('Mitteilungen wurden im Browser blockiert') : t('Bestätigungen, Störungen und Notizen der Fahrer kommen als Push-Mitteilung – auch wenn der Browser geschlossen ist.')}</small></span></label></section>` : ''}
     <button class="btn btn-danger" data-act="logout" style="align-self:flex-start">${icon('log-out')}${t('Abmelden')}</button>`;
+}
+/** C13: two-factor login with an authenticator app (TOTP). */
+function twoFactorSection(app) {
+  const on = !!(app.me.user.twoFactor ?? app.me.twoFactor), su = app.ui.tfa;
+  const head = `<div class="row between wrap"><h3>${icon('shield-check')} ${t('Zwei-Faktor-Anmeldung')}</h3><span class="pill ${on ? 'ok' : ''}">${on ? t('an') : t('aus')}</span></div>`;
+  if (on) return `<section class="card pad stack">${head}<p class="small muted">${t('Beim Anmelden fragt die App zusätzlich nach dem 6-stelligen Code aus Ihrer Authenticator-App.')}</p>
+    <form data-form="tfaOff" class="fgrid"><label class="field"><span>${t('Zum Ausschalten: aktuelles Passwort')}</span><input class="input" type="password" name="password" autocomplete="current-password" required></label><div class="full"><button class="btn" type="submit">${t('Ausschalten')}</button></div></form></section>`;
+  if (su) return `<section class="card pad stack">${head}<div class="row wrap" style="--gap:18px;align-items:flex-start"><div class="qr">${qrSvg(su.otpauthUrl)}</div>
+    <div class="stack grow" style="min-width:220px"><p class="small">${t('1. QR-Code mit einer Authenticator-App scannen (z. B. Google oder Microsoft Authenticator). Auf diesem Handy: Link antippen.')}</p><a class="btn btn-sm" href="${esc(su.otpauthUrl)}" style="align-self:flex-start">${icon('smartphone')}${t('In der Authenticator-App öffnen')}</a>
+      <p class="small muted">${t('Oder den Schlüssel von Hand eingeben:')}</p><div class="secret small"><span class="grow mono" id="tfa-secret">${esc(su.secret.replace(/(.{4})(?=.)/g, '$1 '))}</span><button class="btn btn-sm" data-act="copy" data-copy="${esc(su.secret)}" aria-label="${t('Kopieren')}">${icon('copy')}</button></div>
+      <form data-form="tfaOn" class="stack" style="--gap:8px"><label class="field"><span>${t('2. Den 6-stelligen Code aus der App eingeben')}</span><input class="input mono" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9 ]{6,7}" maxlength="7" required></label>
+        <div class="row wrap"><button class="btn" type="button" data-act="tfaCancel">${t('Abbrechen')}</button><button class="btn btn-primary" type="submit">${icon('shield-check')}${t('Einschalten')}</button></div></form></div></div></section>`;
+  return `<section class="card pad stack">${head}<p class="small muted">${t('Schützt Ihr Büro-Konto zusätzlich mit einem Code vom Handy – auch wenn jemand Ihr Passwort kennt.')}</p><div><button class="btn" data-act="tfaSetup">${icon('shield-check')}${t('Einrichten')}</button></div></section>`;
 }
 
 // ---------- sheets ----------
@@ -290,20 +377,19 @@ function sheetView(app) {
 function deliverySheet(app) {
   const d = app.data.delivery;
   if (!d || d.id !== app.ui.sheet.id) return sheet({ title: t('Laden …'), body: sk(300), wide: true });
-  const drivers = (app.data.drivers || []).filter((u) => u.active);
   const vs = app.data.vehicles || [];
   const done = ['delivered', 'cancelled'].includes(d.status);
   const lockedDriver = ['loaded', 'arrived_dropoff', 'unloaded', 'delivered', 'cancelled'].includes(d.status);
   const assign = done ? '' : `<form data-form="assign" class="stack" style="--gap:10px"><div class="fgrid" style="--cols:3">
-      <label class="field"><span>${t('Fahrer')}</span><select class="input" name="driverId" ${lockedDriver ? 'disabled' : ''}><option value="">${t('— offen —')}</option>${drivers.map((u) => `<option value="${esc(u.id)}" ${d.driverId === u.id ? 'selected' : ''}>${esc(u.name)}</option>`).join('')}</select></label>
-      <label class="field"><span>${t('LKW')}</span><select class="input" name="vehicleId"><option value="">—</option>${vs.filter((v) => v.kind === 'truck').map((v) => `<option value="${esc(v.id)}" ${d.vehicleId === v.id ? 'selected' : ''}>${esc(v.plate)}</option>`).join('')}</select></label>
-      <label class="field"><span>${t('Auflieger')}</span><select class="input" name="trailerId"><option value="">—</option>${vs.filter((v) => v.kind === 'trailer').map((v) => `<option value="${esc(v.id)}" ${d.trailerId === v.id ? 'selected' : ''}>${esc(v.plate)}</option>`).join('')}</select></label></div>
-      ${!d.driverId && d.status === 'open' ? `<label class="check"><input type="checkbox" name="openForAll" ${d.openForAll ? 'checked' : ''}>${t('Offen für alle Fahrer (jeder kann übernehmen)')}</label>` : ''}
+      <label class="field"><span>${t('Fahrer')}</span><select class="input" name="driverId" ${lockedDriver ? 'disabled' : ''}><option value="">${S(app).driverTakesOpen ? t('— offen —') : t('— wartet auf Zuweisung —')}</option>${driverOptions(app, d.driverId, d.driverName)}</select></label>
+      <label class="field"><span>${t('LKW')}</span><select class="input" name="vehicleId"><option value="">—</option>${vehicleOptions(vs, 'truck', d.vehicleId, d.vehiclePlate, (v) => v.plate)}</select></label>
+      <label class="field"><span>${t('Auflieger')}</span><select class="input" name="trailerId"><option value="">—</option>${vehicleOptions(vs, 'trailer', d.trailerId, d.trailerPlate, (v) => v.plate)}</select></label></div>
+      ${!d.driverId && d.status === 'open' && S(app).driverTakesOpen ? `<label class="check"><input type="checkbox" name="openForAll" ${d.openForAll ? 'checked' : ''}>${t('Offen für alle Fahrer (jeder kann übernehmen)')}</label>` : ''}
       <div><button class="btn btn-sm" type="submit">${icon('check')}${t('Zuweisung speichern')}</button></div></form>`;
   const officeStep = d.next && d.status !== 'open' && !done ? `<button class="btn" data-act="officeStep" data-id="${esc(d.id)}" data-step="${d.next}" title="${t('Wenn der Fahrer telefonisch meldet')}">${icon('circle-check-big')}${t('Für Fahrer setzen: {s}', { s: tStep(d.next) })}</button>` : '';
   return sheet({
     key: 'delivery', wide: true, title: routeTitle(d), sub: `<span class="mono">${esc(d.bookingNo)}</span>${d.customer ? ' · ' + esc(d.customer) : ''}${d.reference ? ' · Ref. ' + esc(d.reference) : ''}`,
-    body: `<div class="row wrap">${pill(d.status)}${problemPill(d.problem)}${d.urgent ? `<span class="pill bad">${icon('zap')}${t('Eilig')}</span>` : ''}${d.driverName ? `<span class="pill">${icon('circle-user')}${esc(d.driverName)}</span>` : d.openForAll ? `<span class="pill warn">${icon('users')}${t('offen für alle Fahrer')}</span>` : ''}${plate(d.vehiclePlate)}${plate(d.trailerPlate)}${d.waitingMinutes != null ? `<span class="pill">${icon('hourglass')}${t('Standzeit')} ${esc(minutes(d.waitingMinutes, t))}</span>` : ''}</div>
+    body: `<div class="row wrap">${pill(d.status)}${problemPill(d.problem)}${d.urgent ? `<span class="pill bad">${icon('zap')}${t('Eilig')}</span>` : ''}${d.driverName ? `<span class="pill">${icon('circle-user')}${esc(d.driverName)}</span>` : d.status === 'open' ? `<span class="pill warn">${icon('users')}${esc(unassignedText(d, app))}</span>` : ''}${plate(d.vehiclePlate)}${plate(d.trailerPlate)}${d.waitingMinutes != null ? `<span class="pill">${icon('hourglass')}${t('Standzeit')} ${esc(minutes(d.waitingMinutes, t))}</span>` : ''}</div>
       ${d.problem ? `<div class="banner bad">${icon('triangle-alert')}<span class="grow"><b>${esc(tProblem(d.problem.code))}</b>${d.problem.note ? ' – ' + esc(d.problem.note) : ''} · ${esc(ago(d.problem.at, t))}</span><button class="btn btn-sm" data-act="resolve" data-id="${esc(d.id)}">${icon('shield-check')}${t('Erledigt')}</button></div>` : ''}
       ${d.status !== 'open' && d.status !== 'cancelled' ? `<div class="card pad">${stepper(d)}</div>` : ''}
       <div style="display:grid;gap:18px;grid-template-columns:minmax(0,1fr)" class="dgrid"><style>@container lk (min-width:1100px){.dgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}}</style>
@@ -315,12 +401,35 @@ function deliverySheet(app) {
           ${d.receiver ? `<p class="small">${t('Empfangen von')}: <b>${esc(d.receiver)}</b></p>` : ''}
           ${assign ? `<div class="section-t">${t('Zuweisung')}</div>${assign}` : ''}
         </div>
-        <div class="stack" style="--gap:14px"><div class="section-t">${t('Lieferschein & Fotos')}</div>${docsGrid(app, d, { removable: !done, add: d.status === 'cancelled' ? '' : `<label class="doc add">${icon('upload')}<span>${t('Hinzufügen')}</span><input class="sr" type="file" accept="image/*,application/pdf" multiple data-input="officeFile" data-id="${esc(d.id)}"></label>` })}
+        <div class="stack" style="--gap:14px"><div class="row between wrap"><div class="section-t">${t('Lieferschein & Fotos')}</div>${d.status === 'cancelled' ? '' : `<select class="input doc-kind" data-input="docKind" aria-label="${t('Dokumentart beim Hinzufügen')}">${DOC_KINDS().map(([k, l]) => `<option value="${k}" ${(app.ui.docKind || 'pod') === k ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select>`}</div>${docsGrid(app, d, { removable: !done, add: d.status === 'cancelled' ? '' : `<label class="doc add">${icon('upload')}<span>${t('Hinzufügen')}</span><input class="sr" type="file" accept="image/*,application/pdf" multiple data-input="officeFile" data-id="${esc(d.id)}"></label>` })}
           <div class="section-t">${t('Notizen mit dem Fahrer')}</div>${notesThread(app, d)}
           <form data-form="note" data-id="${esc(d.id)}" class="row" style="--gap:8px"><input class="input" name="text" placeholder="${t('Nachricht an den Fahrer …')}" required><button class="btn btn-primary" type="submit" aria-label="${t('Senden')}">${icon('send')}</button></form>
           <div class="section-t">${t('Verlauf')}</div>${timeline(d)}</div></div>`,
     foot: `${!done ? `<button class="btn btn-danger btn-ghost" data-act="openSheet" data-type="cancel" data-id="${esc(d.id)}">${icon('ban')}${t('Stornieren')}</button>` : ''}<span class="grow"></span>${officeStep}<button class="btn" data-act="proof" data-id="${esc(d.id)}">${icon('receipt-text')}${t('Abliefernachweis')}</button><button class="btn" data-act="duplicate" data-id="${esc(d.id)}">${icon('copy')}${t('Wiederholen')}</button><button class="btn btn-primary" data-act="editDelivery" data-id="${esc(d.id)}">${icon('pencil')}${done ? t('Nachbearbeiten') : t('Bearbeiten')}</button>`,
   });
+}
+
+const DOC_KINDS = () => [['pod', t('Lieferschein')], ['cmr', 'CMR'], ['damage', t('Schaden')], ['load', t('Ladung')], ['other', t('Foto')]];
+/** Active drivers; the current one stays visible (and is not sent again) even when locked or deleted. */
+function driverOptions(app, id, name, withPlate = false) {
+  const drivers = (app.data.drivers || []).filter((u) => u.active);
+  const cur = id && !drivers.some((u) => u.id === id) ? `<option value="${esc(id)}" selected disabled>${esc(name || t('Fahrer'))} · ${t('gesperrt')}</option>` : '';
+  return cur + drivers.map((u) => `<option value="${esc(u.id)}" ${id === u.id ? 'selected' : ''}>${esc(u.name)}${withPlate && u.vehiclePlate ? ' · ' + esc(u.vehiclePlate) : ''}</option>`).join('');
+}
+function vehicleOptions(vs, kind, id, plateText, label) {
+  const list = vs.filter((v) => v.kind === kind);
+  const cur = id && !list.some((v) => v.id === id) ? `<option value="${esc(id)}" selected disabled>${esc(plateText || '?')}</option>` : '';
+  return cur + list.map((v) => `<option value="${esc(v.id)}" ${id === v.id ? 'selected' : ''}>${esc(label(v))}</option>`).join('');
+}
+/** A select left as it was (or disabled) keeps the stored value; only real changes are sent. */
+function changedIds(fd, before, keys = ['driverId', 'vehicleId', 'trailerId']) {
+  const out = {};
+  for (const k of keys) {
+    const v = fd.get(k);
+    const next = v === null ? before[k] || null : v || null;
+    if (next !== (before[k] || null)) out[k] = next;
+  }
+  return out;
 }
 
 function placeFields(side, p = {}, app) {
@@ -342,7 +451,6 @@ function placeFields(side, p = {}, app) {
 
 function deliveryFormSheet(app) {
   const f = app.ui.form || {};
-  const drivers = (app.data.drivers || []).filter((u) => u.active);
   const vs = app.data.vehicles || [];
   const editing = !!f.id;
   if (editing && f.done) {
@@ -370,9 +478,9 @@ function deliveryFormSheet(app) {
       <div class="section-t">${icon('building-2')} ${t('Auftrag')}</div>
       <div class="fgrid"><label class="field"><span>${t('Auftraggeber')}</span><input class="input" name="customer" value="${esc(f.customer || '')}"></label><label class="field"><span>${t('Referenz des Kunden')}</span><input class="input" name="reference" value="${esc(f.reference || '')}"></label></div>
       <div class="section-t">${icon('users')} ${t('Fahrer & Fahrzeug')}</div>
-      <div class="fgrid" style="--cols:3"><label class="field"><span>${t('Fahrer')}</span><select class="input" name="driverId"><option value="">${t('— offen für alle Fahrer —')}</option>${drivers.map((u) => `<option value="${esc(u.id)}" ${f.driverId === u.id ? 'selected' : ''}>${esc(u.name)}${u.vehiclePlate ? ' · ' + esc(u.vehiclePlate) : ''}</option>`).join('')}</select></label>
-        <label class="field"><span>${t('LKW (optional)')}</span><select class="input" name="vehicleId"><option value="">${t('Fahrer wählt selbst')}</option>${vs.filter((v) => v.kind === 'truck').map((v) => `<option value="${esc(v.id)}" ${f.vehicleId === v.id ? 'selected' : ''}>${esc(v.plate)} · ${esc(v.name || vehicleTypeText(v.type))}</option>`).join('')}</select></label>
-        <label class="field"><span>${t('Auflieger (optional)')}</span><select class="input" name="trailerId"><option value="">—</option>${vs.filter((v) => v.kind === 'trailer').map((v) => `<option value="${esc(v.id)}" ${f.trailerId === v.id ? 'selected' : ''}>${esc(v.plate)} · ${esc(vehicleTypeText(v.type))}</option>`).join('')}</select></label></div>
+      <div class="fgrid" style="--cols:3"><label class="field"><span>${t('Fahrer')}</span><select class="input" name="driverId" ${f.locked ? 'disabled' : ''}><option value="">${S(app).driverTakesOpen ? t('— offen für alle Fahrer —') : t('— wartet auf Zuweisung —')}</option>${driverOptions(app, f.driverId, f.driverName, true)}</select>${f.locked ? `<span class="hint">${t('Nach dem Beladen bleibt der Fahrer.')}</span>` : ''}</label>
+        <label class="field"><span>${t('LKW (optional)')}</span><select class="input" name="vehicleId"><option value="">${t('Fahrer wählt selbst')}</option>${vehicleOptions(vs, 'truck', f.vehicleId, f.vehiclePlate, (v) => `${v.plate} · ${v.name || vehicleTypeText(v.type)}`)}</select></label>
+        <label class="field"><span>${t('Auflieger (optional)')}</span><select class="input" name="trailerId"><option value="">—</option>${vehicleOptions(vs, 'trailer', f.trailerId, f.trailerPlate, (v) => `${v.plate} · ${vehicleTypeText(v.type)}`)}</select></label></div>
       <label class="field"><span>${t('Hinweise für den Fahrer')}</span><textarea class="input" name="instructions" rows="2" placeholder="${t('z. B. Gate B anmelden, Ladungssicherung, Rampe 12')}">${esc(f.instructions || '')}</textarea></label>
       <label class="field"><span>${t('Interne Notiz (sieht der Fahrer nicht)')}</span><textarea class="input" name="internalNote" rows="2">${esc(f.internalNote || '')}</textarea></label>
     </form>`,
@@ -400,7 +508,7 @@ function staffFormSheet(app) {
   return sheet({
     key: 'stform', title: f.id ? t('Büro-Zugang bearbeiten') : t('Büro-Zugang anlegen'), sub: f.id ? (self ? t('Ihre eigene Rolle kann nur ein anderer Admin ändern.') : '') : t('Bekommt einen eigenen Büro-Zugang mit E-Mail und Passwort.'),
     body: `<form id="stForm" data-form="staff" class="fgrid"><label class="field full"><span>${t('Name')} *</span><input class="input" name="name" value="${esc(f.name || '')}" required></label><label class="field full"><span>${t('E-Mail')} *</span><input class="input" type="email" name="email" value="${esc(f.email || '')}" required></label>
-      <label class="field"><span>${t('Rolle')}</span><select class="input" name="role" ${self ? 'disabled' : ''}><option value="dispatcher" ${f.role === 'admin' ? '' : 'selected'}>${t('Disponent')}</option><option value="admin" ${f.role === 'admin' ? 'selected' : ''}>${t('Admin')}</option></select></label><label class="field"><span>${t('Sprache')}</span><select class="input" name="lang">${['de', 'en', 'tr'].map((k) => `<option value="${k}" ${(f.lang || 'de') === k ? 'selected' : ''}>${LANG_NAMES[k]}</option>`).join('')}</select></label></form>`,
+      <label class="field"><span>${t('Rolle')}</span><select class="input" name="role" ${self ? 'disabled' : ''}><option value="dispatcher" ${f.role === 'admin' ? '' : 'selected'}>${t('Disponent')}</option><option value="admin" ${f.role === 'admin' ? 'selected' : ''}>${t('Admin')}</option></select></label><label class="field"><span>${t('Sprache')}</span><select class="input" name="lang">${Object.entries(LANG_NAMES).map(([k, v]) => `<option value="${k}" ${(f.lang || 'de') === k ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select></label></form>`,
     foot: `<button class="btn" data-act="close">${t('Abbrechen')}</button><button class="btn btn-primary" type="submit" form="stForm">${icon('check')}${f.id ? t('Speichern') : t('Anlegen')}</button>`,
   });
 }
@@ -413,7 +521,7 @@ function deleteUserSheet(app) {
     body: `<div class="banner bad">${icon('trash-2')}<span class="grow">${t('Das lässt sich nicht rückgängig machen.')}</span></div>
       <ul class="small stack" style="--gap:6px;margin:0;padding-left:18px"><li>${driver ? t('Name, Handynummer, PIN und Mitteilungen werden gelöscht, die Anmeldung endet sofort.') : t('Name, E-Mail, Passwort und Mitteilungen werden gelöscht, die Anmeldung endet sofort.')}</li>
       <li>${t('Abgeschlossene Lieferungen bleiben für Ihre Unterlagen erhalten und zeigen „Gelöschter Nutzer“.')}</li>
-      ${driver ? `<li>${t('Offene und bestätigte Aufträge gehen zurück an die Disposition. Eine schon beladene Tour bitte vorher abschließen oder umplanen.')}</li>` : ''}</ul>
+      ${driver ? `<li>${t('Offene und bestätigte Aufträge gehen zurück an die Disposition. Eine schon beladene Tour bitte vorher abschließen oder stornieren.')}</li>` : ''}</ul>
       <p class="xs muted">${t('Nur sperren statt löschen? Dann bleibt der Zugang erhalten und lässt sich später wieder freigeben.')}</p>`,
     foot: `<button class="btn" data-act="close">${t('Abbrechen')}</button><button class="btn btn-danger" data-act="confirmDelete" data-id="${esc(u.id)}">${icon('trash-2')}${t('Endgültig löschen')}</button>`,
   });
@@ -442,14 +550,15 @@ function accessSheet(app) {
   const a = app.ui.access;
   const tn = app.tenant();
   if (a.role === 'driver') {
-    const link = app.api.inviteLink(a.user.id);
+    // C11: single-use invite link from the token; without one the company link still works
+    const link = a.invite?.token ? app.api.inviteLink(a.invite.token) : app.api.tenantLink?.(tn.code) || '';
     const msg = t('Hallo {name}, hier ist dein Zugang zur App „{app}“: {link} – PIN: {pin}. Link öffnen, PIN eingeben, fertig. Login sonst mit Firmencode {code} und deiner Handynummer.', { name: a.user.name.split(' ')[0], app: tn.branding?.appName || tn.name, link, pin: a.pin, code: tn.code });
     return sheet({
       key: 'access', title: t('Zugang für {name}', { name: esc(a.user.name) }), sub: t('Die PIN wird nur jetzt angezeigt.'),
       body: `<div class="row wrap" style="--gap:18px;align-items:flex-start"><div class="qr">${qrSvg(link)}</div><div class="stack grow" style="min-width:220px"><span class="eyebrow">PIN</span><div class="secret"><span class="grow" id="pin-val">${esc(a.pin.replace(/(\d{3})(\d{3})/, '$1 $2'))}</span><button class="btn btn-sm" data-act="copy" data-copy="${esc(a.pin)}">${icon('copy')}</button></div>
-        <dl class="kv"><dt>${t('Firmencode')}</dt><dd class="mono">${esc(tn.code)}</dd><dt>${t('Login')}</dt><dd>${esc(fmtPhone(a.user.phone))}</dd></dl><p class="small muted">${t('QR-Code mit der Handy-Kamera scannen – oder Einladung schicken:')}</p></div></div>
+        <dl class="kv"><dt>${t('Firmencode')}</dt><dd class="mono">${esc(tn.code)}</dd><dt>${t('Login')}</dt><dd>${esc(fmtPhone(a.user.phone))}</dd>${a.invite?.expiresAt ? `<dt>${t('Link gültig bis')}</dt><dd>${esc(dateFull(a.invite.expiresAt))}</dd>` : ''}</dl><p class="small muted">${t('QR-Code mit der Handy-Kamera scannen – oder Einladung schicken:')}</p>${a.invite?.token ? `<p class="xs muted">${t('Der Link gilt für eine Anmeldung. Abgelaufen oder benutzt? „Neue Einladung“ erzeugt Link und PIN neu.')}</p>` : ''}</div></div>
         <div class="card pad small" id="invite-text" style="background:var(--surface-2)">${esc(msg)}</div>`,
-      foot: `<button class="btn" data-act="copy" data-from="#invite-text">${icon('copy')}${t('Text kopieren')}</button><a class="btn" href="https://wa.me/${esc((a.user.phone || '').replace(/[^\d]/g, ''))}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${icon('send')}WhatsApp</a><a class="btn" href="sms:${esc(a.user.phone)}?&body=${encodeURIComponent(msg)}">${icon('smartphone')}SMS</a><button class="btn btn-primary" data-act="close">${t('Fertig')}</button>`,
+      foot: `<button class="btn btn-ghost" data-act="resetPin" data-id="${esc(a.user.id)}">${icon('refresh-cw')}${t('Neue Einladung')}</button><button class="btn" data-act="copy" data-from="#invite-text">${icon('copy')}${t('Text kopieren')}</button><a class="btn" href="https://wa.me/${esc((a.user.phone || '').replace(/[^\d]/g, ''))}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${icon('send')}WhatsApp</a><a class="btn" href="sms:${esc(a.user.phone)}?&body=${encodeURIComponent(msg)}">${icon('smartphone')}SMS</a><button class="btn btn-primary" data-act="close">${t('Fertig')}</button>`,
     });
   }
   return sheet({
@@ -473,12 +582,15 @@ function proofSheet(app) {
   if (!d) return sheet({ title: t('Laden …'), body: sk(300), wide: true });
   const tn = app.tenant();
   const pods = (d.docs || []).filter((x) => ['pod', 'cmr', 'damage'].includes(x.kind));
+  const steps = (d.events || []).filter((e) => !e.undone && ['accepted', 'arrived_pickup', 'loaded', 'arrived_dropoff', 'unloaded', 'delivered', 'problem'].includes(e.type));
+  const geoOk = (e) => Number.isFinite(e.geo?.lat) && Number.isFinite(e.geo?.lng);
+  const geo = steps.some(geoOk);
   return sheet({
     key: 'proof', wide: true, title: t('Abliefernachweis'), sub: esc(d.bookingNo), back: 'backToDelivery',
-    body: `<div class="proof-doc"><div class="row between" style="align-items:flex-start"><div><h1>${t('Abliefernachweis')}</h1><p>${t('Buchung')} <b>${esc(d.bookingNo)}</b> · ${t('erstellt')} ${esc(dateTime(Date.now()))}</p></div>${logoImg(app, tn, 'tlogo" style="width:150px;height:60px')}</div>
+    body: `<div class="proof-doc"><div class="row between" style="align-items:flex-start"><div><h1>${t('Abliefernachweis')}</h1><p>${t('Buchung')} <b>${esc(d.bookingNo)}</b> · ${t('erstellt')} ${esc(dateTimeFull(Date.now()))}</p></div>${logoImg(app, tn, 'tlogo" style="width:150px;height:60px')}</div>
       <table><tr><th>${t('Auftraggeber')}</th><td>${esc(d.customer || '–')}${d.reference ? ' · Ref. ' + esc(d.reference) : ''}</td></tr><tr><th>${t('Ladestelle')}</th><td>${esc([d.pickup.place, d.pickup.street, d.pickup.zip, d.pickup.city, d.pickup.country].filter(Boolean).join(', '))}</td></tr><tr><th>${t('Entladestelle')}</th><td>${esc([d.dropoff.place, d.dropoff.street, d.dropoff.zip, d.dropoff.city, d.dropoff.country].filter(Boolean).join(', '))}</td></tr>
-        <tr><th>${t('Ware')}</th><td>${esc(d.goods?.text || '')}${d.goods?.pallets ? ' · ' + d.goods.pallets + ' Pal.' : ''}${d.goods?.weightKg ? ' · ' + esc(kg(d.goods.weightKg)) : ''}</td></tr><tr><th>${t('Fahrer / Fahrzeug')}</th><td>${esc(d.driverName || '–')} · ${esc(d.vehiclePlate || '')} ${esc(d.trailerPlate || '')}</td></tr><tr><th>${t('Status')}</th><td>${esc(tStatus(d.status))}${d.receiver ? ' · ' + t('Empfangen von') + ' ' + esc(d.receiver) : ''}</td></tr>${d.waitingMinutes != null ? `<tr><th>${t('Standzeit')}</th><td>${esc(minutes(d.waitingMinutes, t))}</td></tr>` : ''}${d.palletExchange ? `<tr><th>${t('Palettentausch')}</th><td>${t('{g} abgegeben · {t} mitgenommen', { g: d.palletExchange.given, t: d.palletExchange.taken })}</td></tr>` : ''}</table>
-      <h3 style="margin-top:14px">${t('Zeitstempel')}</h3><table>${(d.events || []).filter((e) => !e.undone && ['accepted', 'arrived_pickup', 'loaded', 'arrived_dropoff', 'unloaded', 'delivered', 'problem'].includes(e.type)).map((e) => `<tr><td style="width:130px">${esc(dateTime(e.at))}</td><td>${esc(eventText(e))}${eventDetail(e) ? ' – ' + esc(eventDetail(e)) : ''}</td><td>${esc(e.byName || '')}</td></tr>`).join('')}</table>
+        <tr><th>${t('Ware')}</th><td>${esc(d.goods?.text || '')}${d.goods?.pallets ? ' · ' + d.goods.pallets + ' Pal.' : ''}${d.goods?.weightKg ? ' · ' + esc(kg(d.goods.weightKg)) : ''}</td></tr><tr><th>${t('Fahrer / Fahrzeug')}</th><td>${esc(d.driverName || '–')} · ${esc(d.vehiclePlate || '')} ${esc(d.trailerPlate || '')}</td></tr><tr><th>${t('Status')}</th><td>${esc(tStatus(d.status))}${d.status === 'delivered' && d.deliveredAt ? ' · ' + esc(dateTimeFull(d.deliveredAt)) : ''}${d.receiver ? ' · ' + t('Empfangen von') + ' ' + esc(d.receiver) : ''}</td></tr>${d.waitingMinutes != null ? `<tr><th>${t('Standzeit')}</th><td>${esc(minutes(d.waitingMinutes, t))}</td></tr>` : ''}${d.palletExchange ? `<tr><th>${t('Palettentausch')}</th><td>${t('{g} abgegeben · {t} mitgenommen', { g: d.palletExchange.given, t: d.palletExchange.taken })}</td></tr>` : ''}</table>
+      <h3 style="margin-top:14px">${t('Zeitstempel')}</h3><table>${steps.map((e) => `<tr><td style="width:150px">${esc(dateTimeFull(e.at))}</td><td>${esc(eventText(e))}${eventDetail(e) ? ' – ' + esc(eventDetail(e)) : ''}</td><td>${esc(e.byName || '')}</td>${geo ? `<td>${geoOk(e) ? `<a href="https://www.google.com/maps?q=${e.geo.lat.toFixed(6)},${e.geo.lng.toFixed(6)}" target="_blank" rel="noopener">${e.geo.lat.toFixed(5)}, ${e.geo.lng.toFixed(5)}</a>` : ''}</td>` : ''}</tr>`).join('')}</table>${geo ? `<p style="font-size:11px;color:#666">${t('Standort: nur im Moment des Tipps gespeichert, wenn der Fahrer zugestimmt hat.')}</p>` : ''}
       ${pods.length || d.signatureFileId ? `<h3 style="margin-top:14px">${t('Lieferschein & Fotos')}</h3><div class="imgs">${pods.map((x) => `<img src="${esc(app.fileUrl(x.fileId))}" alt="">`).join('')}${d.signatureFileId ? `<img src="${esc(app.fileUrl(d.signatureFileId))}" alt="" style="background:#fff;border:1px solid #ddd">` : ''}</div>` : ''}
       <p style="margin-top:14px;font-size:11px;color:#666">${t('Erstellt mit Ladeklar. Zeitstempel in deutscher Zeit (Europe/Berlin).')}</p></div>`,
     foot: app.api.mode === 'demo' ? `<span class="small muted">${t('In der echten App: Drucken oder als PDF speichern.')}</span>` : `<button class="btn btn-primary" data-act="print">${icon('printer')}${t('Drucken / PDF')}</button>`,
@@ -506,7 +618,7 @@ function fromDelivery(d, copy = false) {
     base.copyOf = d.id; base.driverId = ''; base.vehicleId = ''; base.trailerId = '';
     return base;
   }
-  return { ...base, id: d.id, bookingNo: d.bookingNo, done: ['delivered', 'cancelled'].includes(d.status) };
+  return { ...base, id: d.id, bookingNo: d.bookingNo, done: ['delivered', 'cancelled'].includes(d.status), locked: ['loaded', 'arrived_dropoff', 'unloaded'].includes(d.status), driverName: d.driverName, vehiclePlate: d.vehiclePlate, trailerPlate: d.trailerPlate };
 }
 let suggestTimer = 0;
 
@@ -533,7 +645,8 @@ export const actions = {
   openDelivery: (el, ev, app) => app.open({ type: 'delivery', id: el.dataset.id }),
   dtab: (el, ev, app) => { app.ui.dfilter = { ...(app.ui.dfilter || {}), tab: el.dataset.tab }; app.data.deliveries = null; if (app.route.name !== 'deliveries') app.go('deliveries'); else { app.render(); app.load(); } },
   vkind: (el, ev, app) => { app.ui.vkind = el.dataset.k; app.render(); },
-  ssec: (el, ev, app) => { app.ui.ssec = el.dataset.k; if (el.dataset.k === 'reports') return app.go('reports'); app.render(); },
+  toLicense: (el, ev, app) => { app.ui.ssec = 'license'; app.go('settings'); },
+  ssec: (el, ev, app) => { app.ui.ssec = el.dataset.k; app.ui.apiKey = null; app.ui.licReq = null; app.ui.tfa = null; if (el.dataset.k === 'reports') return app.go('reports'); app.render(); app.load(); },
   newDelivery: (el, ev, app) => { app.ui.form = {}; app.ui.suggest = null; app.open({ type: 'deliveryForm' }); },
   editDelivery: (el, ev, app) => { app.ui.form = fromDelivery(app.data.delivery); app.open({ type: 'deliveryForm', id: el.dataset.id }); },
   duplicate: (el, ev, app) => { app.ui.form = fromDelivery(app.data.delivery, true); app.open({ type: 'deliveryForm' }); },
@@ -572,7 +685,7 @@ export const actions = {
   },
   async resetPin(el, ev, app) {
     const r = await app.call('resetSecret', { id: el.dataset.id }).catch(() => null);
-    if (r) { app.ui.access = { role: r.user.role, user: r.user, pin: r.pin, password: r.password }; app.open({ type: 'access' }); }
+    if (r) { app.ui.access = { role: r.user.role, user: r.user, pin: r.pin, password: r.password, invite: r.invite || null }; app.open({ type: 'access' }); }
   },
   async toggleUser(el, ev, app) { const r = await app.call('setUserActive', { id: el.dataset.id, active: el.dataset.on === '1' }).catch(() => null); if (r) { app.toast({ title: r.active ? t('Entsperrt') : t('Gesperrt – die Sitzung ist beendet'), plain: true, icon: r.active ? 'refresh-cw' : 'lock' }); app.load(); } },
   newVehicle: (el, ev, app) => { app.ui.form = { kind: 'truck', features: [] }; app.open({ type: 'vehicleForm' }); },
@@ -590,41 +703,89 @@ export const actions = {
   async removeDoc(el, ev, app) { await app.call('removeDoc', { id: el.dataset.id, fileId: el.dataset.file }).catch(() => null); await refreshSheetData(app); app.render(); },
   async pushOn(el, ev, app) { try { const r = await app.api.push.enable(); app.toast({ title: r === 'granted' ? t('Mitteilungen sind an') : t('Mitteilungen wurden im Browser blockiert'), plain: true, icon: 'bell' }); app.render(); } catch (e) { app.error(e); } },
   async exportZip(el, ev, app) {
-    const data = await app.call('exportData', {}).catch(() => null);
+    // demo: the same archive as the server's /api/export/all.zip
+    const [data, ds] = await Promise.all([app.call('exportData', {}), app.call('listDeliveries', { tab: 'all', limit: 0 })]).catch(() => []);
     if (!data) return;
-    const parts = [];
+    const parts = [], missing = [];
     const zip = createZip((chunk) => parts.push(chunk));
     const files = data.files.map((f) => ({ ...f, path: exportFileName(f) }));
-    for (const f of files) { const bytes = dataUrlBytes(app.fileUrl(f.id) || ''); if (bytes) zip.add(f.path, bytes, f.at); }
-    zip.add('daten.json', JSON.stringify({ ...data, files }, null, 2), Date.now());
+    for (const f of files) { const bytes = dataUrlBytes(app.fileUrl(f.id) || ''); if (bytes) zip.add(f.path, bytes, f.at); else missing.push(f.id); }
+    const now0 = Date.now();
+    zip.add('lieferungen.csv', deliveriesCsv(ds || []), now0);
+    zip.add('daten.json', JSON.stringify({ ...data, files, missingFiles: missing }, null, 2), now0);
+    zip.add('LIESMICH.txt', readmeText(data.company, now0), now0);
     zip.end();
-    download(app, `ladeklar-export-${data.company.code}-${isoToday()}.zip`, new Blob(parts, { type: 'application/zip' }));
+    logExport(app, 'zip');
+    return download(app, `ladeklar-export-${data.company.code}-${isoToday()}.zip`, new Blob(parts, { type: 'application/zip' }));
   },
-  async exportJson(el, ev, app) { const data = await app.call('exportData', {}).catch(() => null); if (data) download(app, `ladeklar-export-${isoToday()}.json`, JSON.stringify(data, null, 2)); },
+  async exportJson(el, ev, app) { const data = await app.call('exportData', {}).catch(() => null); if (data) { logExport(app, 'json'); return download(app, `ladeklar-export-${isoToday()}.json`, JSON.stringify(data, null, 2)); } },
   async reportCsv(el, ev, app) {
     const r = app.data.reports;
     if (!r) return;
-    const q = (x) => (/[;"\n]/.test(String(x ?? '')) ? `"${String(x).replace(/"/g, '""')}"` : x ?? '');
     const rows = [[t('Bericht'), r.month], [], [t('Zugestellt'), r.delivered], [t('Pünktlich') + ' %', r.onTimeRate ?? ''], [t('Ø Standzeit je Tour') + ' (min)', r.avgWaiting ?? ''], [t('Paletten abgegeben'), r.palletsGiven], [t('Paletten mitgenommen'), r.palletsTaken], [],
       [t('Auftraggeber'), t('Zugestellt'), t('Ø Standzeit je Tour') + ' (min)', t('Probleme')], ...r.byCustomer.map((x) => [x.customer || t('ohne Auftraggeber'), x.count, x.avgWaiting ?? '', x.problems]), [],
       [t('Stelle'), t('Stadt'), t('Art'), t('Touren'), t('Ø Standzeit') + ' (min)', t('gemessen')], ...r.byPlace.map((x) => [x.place, x.city, x.side === 'pickup' ? t('Laden') : t('Entladen'), x.count, x.avgWaiting ?? '', x.measured]),
-      ...(r.byDriver.length ? [[], [t('Fahrer'), t('Zugestellt'), t('Standzeit gesamt') + ' (min)', t('Probleme')], ...r.byDriver.map((x) => [x.driverName, x.delivered, x.waiting, x.problems])] : [])];
-    const text = '\ufeff' + rows.map((row) => row.map(q).join(';')).join('\r\n');
+      ...(!r.byDriverHidden && r.byDriver?.length ? [[], [t('Fahrer'), t('Zugestellt'), t('Standzeit gesamt') + ' (min)', t('Probleme')], ...r.byDriver.map((x) => [x.driverName, x.delivered, x.waiting, x.problems])] : [])];
+    const text = '\ufeff' + toCsv(rows); // core/csv.js: formula cells are neutralised (CSV injection)
     const name = `bericht-${r.month}.csv`;
+    logExport(app, 'report'); // C18: built in the browser, so the client logs it
     if (app.api.mode === 'demo') return download(app, name, text);
     const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv;charset=utf-8' })); a.download = name; document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
   },
   async exportCsv(el, ev, app) {
-    const ds = await app.call('listDeliveries', { tab: 'all', limit: 1000 }).catch(() => null);
+    const ds = await app.call('listDeliveries', { tab: 'all', limit: 0 }).catch(() => null);
     if (!ds) return;
-    const rows = [['Buchungsnummer', 'Status', 'Auftraggeber', 'Route', 'Ladedatum', 'Fahrer', 'Kennzeichen', 'Standzeit min'], ...ds.map((d) => [d.bookingNo, tStatus(d.status), d.customer || '', d.route, d.pickup.date, d.driverName || '', d.vehiclePlate || '', d.waitingMinutes ?? ''])];
-    download(app, `lieferungen-${isoToday()}.csv`, '﻿' + rows.map((r) => r.map((x) => (/[;"\n]/.test(String(x)) ? `"${String(x).replace(/"/g, '""')}"` : x)).join(';')).join('\r\n'));
+    logExport(app, 'csv');
+    return download(app, `lieferungen-${isoToday()}.csv`, deliveriesCsv(ds));
   },
+  // ---- two-factor login (C13) ----
+  async tfaSetup(el, ev, app) { const r = await app.call('twoFactorSetup', {}).catch(() => null); if (r?.otpauthUrl) { app.ui.tfa = r; app.render(); } },
+  tfaCancel: (el, ev, app) => { app.ui.tfa = null; app.render(); },
+  // ---- licence requests to the provider (C16) ----
+  licReq: (el, ev, app) => { app.ui.licReq = el.dataset.k || null; if (!app.ui.licReq) app.ui.cancelReason = ''; app.render(); },
+  async cancelSend(el, ev, app) {
+    const r = await app.call('requestCancellation', { reason: app.ui.cancelReason || '' }).catch(() => null);
+    if (!r) return;
+    app.ui.licReq = null; app.ui.cancelReason = '';
+    app.me.tenant = { ...app.me.tenant, ...r };
+    if (app.data.license) app.data.license = { ...app.data.license, ...r };
+    app.toast({ title: t('Kündigung gesendet'), body: t('Ihr Anbieter bestätigt das Vertragsende.'), plain: true, icon: 'send' });
+    app.render(); app.load();
+  },
+  // ---- retention: lowering it deletes old deliveries, so it is confirmed first ----
+  retentionCancel: (el, ev, app) => { app.ui.retention = null; app.render(); },
+  async retentionOk(el, ev, app) { const c = app.ui.retention; app.ui.retention = null; if (c) await saveFlow(app, c.settings); else app.render(); },
 };
+const logExport = (app, kind) => app.call('logExport', { kind }, { quiet: true }).catch(() => null);
+async function saveFlow(app, settings) {
+  const r = await app.call('updateCompany', { settings }).catch(() => null);
+  if (r) { app.me.tenant = r; app.toast({ title: t('Gespeichert'), plain: true, icon: 'check' }); }
+  app.render();
+}
+const berlinStamp = (ms) => (ms ? new Date(ms).toLocaleString('de-DE', { timeZone: 'Europe/Berlin' }) : '');
+/** The same table as the server's deliveries.csv and lieferungen.csv (German, "Zugestellt am" from deliveredAt). */
+export function deliveriesCsv(ds) {
+  const head = ['Buchungsnummer', 'Status', 'Auftraggeber', 'Referenz', 'Route', 'Ladeort', 'Ladedatum', 'Entladeort', 'Entladedatum', 'Fahrer', 'Kennzeichen', 'Auflieger', 'Ware', 'Paletten', 'Gewicht kg', 'Standzeit min', 'Empfänger', 'Lieferscheine', 'Zugestellt am'];
+  const place = (p) => [p?.place, p?.street, p?.zip, p?.city].filter(Boolean).join(', ');
+  return '\ufeff' + toCsv([head, ...ds.map((d) => [d.bookingNo, statusText('de', d.status), d.customer, d.reference, routeLabel(d), place(d.pickup), d.pickup?.date, place(d.dropoff), d.dropoff?.date, d.driverName, d.vehiclePlate, d.trailerPlate, d.goods?.text, d.goods?.pallets, d.goods?.weightKg, d.waitingMinutes, d.receiver, (d.docs || []).filter((x) => x.kind === 'pod').length, d.status === 'delivered' ? berlinStamp(d.deliveredAt || d.updatedAt) : ''])]);
+}
+export const readmeText = (c, ms = Date.now()) => `Ladeklar-Datenexport ${c.name} (${c.code}) vom ${berlinStamp(ms)}\r\n\r\ndaten.json      alle Daten (Firma, Nutzer ohne Passwörter, Fahrzeuge, Lieferungen mit Verlauf und Notizen, Protokoll)\r\nlieferungen.csv Lieferungen als Tabelle (Excel: Daten > Aus Text/CSV, Trennzeichen Semikolon)\r\ndateien/        Lieferscheine, Fotos, Unterschriften und Logo; die Zuordnung steht in daten.json unter files[].path\r\n`;
 
 export const inputs = {
   driverFilter: (el, ev, app) => { if (ev.type !== 'change') return; app.ui.dfilter = { ...(app.ui.dfilter || {}), driverId: el.value || undefined }; app.load(); },
   month: (el, ev, app) => { if (ev.type !== 'change') return; app.ui.month = el.value; app.data.reports = null; app.render(); app.load(); },
+  docKind: (el, ev, app) => { if (ev.type === 'change') app.ui.docKind = el.value; },
+  planPick: (el, ev, app) => { if (ev.type !== 'change') return; app.ui.planPick = el.value; app.render(); },
+  // push on/off for this browser (off is remembered, so no silent re-subscribe then)
+  async pushToggle(el, ev, app) {
+    if (ev.type !== 'change') return;
+    try {
+      if (el.checked) { const r = await app.api.push.enable(); app.toast({ title: r === 'granted' ? t('Mitteilungen sind an') : t('Mitteilungen wurden im Browser blockiert'), plain: true, icon: 'bell' }); }
+      else { await app.api.push.disable({ byUser: true }); app.toast({ title: t('Mitteilungen sind aus'), plain: true, icon: 'bell' }); }
+    } catch (e) { app.error(e); }
+    await pushStatus(app);
+    app.render();
+  },
   placeSuggest(el, ev, app) {
     if (ev.type !== 'input') return;
     clearTimeout(suggestTimer);
@@ -655,7 +816,7 @@ export const inputs = {
   },
   async officeFile(el, ev, app) {
     if (ev.type !== 'change' || !el.files?.length) return;
-    try { for (const f of el.files) { const blob = await compressPhoto(f, app.api.mode === 'demo' ? { max: 1100, quality: 0.6 } : {}); await app.api.upload(blob, { kind: 'pod', deliveryId: el.dataset.id, name: f.name }); } } catch (e) { app.error(e); }
+    try { for (const f of el.files) { const blob = await compressPhoto(f, app.api.mode === 'demo' ? { max: 1100, quality: 0.6 } : {}); await app.api.upload(blob, { kind: app.ui.docKind || 'pod', deliveryId: el.dataset.id, name: f.name }); } } catch (e) { app.error(e); }
     el.value = ''; await refreshSheetData(app); app.render();
   },
 };
@@ -665,8 +826,14 @@ export const forms = {
   async delivery(fd, form, app) {
     const v = nested(fd);
     const f = app.ui.form || {};
-    const payload = f.done ? { customer: v.customer, reference: v.reference, internalNote: v.internalNote } : { customer: v.customer, reference: v.reference, pickup: v.pickup, dropoff: v.dropoff, goods: { ...v.goods, adr: !!v.goods?.adr }, urgent: !!v.urgent, instructions: v.instructions, internalNote: v.internalNote, driverId: v.driverId || null, vehicleId: v.vehicleId || null, trailerId: v.trailerId || null };
-    if (!f.done && !payload.driverId) payload.openForAll = true;
+    const payload = f.done ? { customer: v.customer, reference: v.reference, internalNote: v.internalNote } : { customer: v.customer, reference: v.reference, pickup: v.pickup, dropoff: v.dropoff, goods: { ...v.goods, adr: !!v.goods?.adr }, urgent: !!v.urgent, instructions: v.instructions, internalNote: v.internalNote };
+    if (!f.done) {
+      // editing details never touches the assignment unless a select was changed
+      const ids = f.id ? changedIds(fd, f) : { driverId: v.driverId || null, vehicleId: v.vehicleId || null, trailerId: v.trailerId || null };
+      Object.assign(payload, ids);
+      // "offen für alle" only where drivers may take open jobs; otherwise it waits for the office
+      if (!f.id || ('driverId' in ids && !ids.driverId)) payload.openForAll = !payload.driverId && !!S(app).driverTakesOpen;
+    }
     const r = await app.call(f.id ? 'updateDelivery' : 'createDelivery', f.id ? { id: f.id, ...payload } : payload);
     if (!r) return;
     app.ui.form = null;
@@ -677,9 +844,10 @@ export const forms = {
   },
   async assign(fd, form, app) {
     const d = app.data.delivery;
-    const payload = { id: d.id, vehicleId: fd.get('vehicleId') || null, trailerId: fd.get('trailerId') || null };
-    if (form.querySelector('[name=driverId]:not([disabled])')) payload.driverId = fd.get('driverId') || null;
+    const payload = { id: d.id, ...changedIds(fd, d) };
     if (form.querySelector('[name=openForAll]')) payload.openForAll = fd.get('openForAll') === 'on';
+    else if ('driverId' in payload && !payload.driverId) payload.openForAll = !!S(app).driverTakesOpen;
+    if (!Object.keys(payload).some((k) => k !== 'id' && !(k === 'openForAll' && payload[k] === !!d.openForAll))) return app.toast({ title: t('Nichts geändert.'), plain: true, icon: 'check' });
     const r = await app.call('updateDelivery', payload);
     if (r) { app.toast({ title: t('Zuweisung gespeichert'), plain: true, icon: 'check' }); app.data.delivery = await app.api.call('getDelivery', { id: d.id }); app.render(); app.load(); }
   },
@@ -698,7 +866,7 @@ export const forms = {
     const r = await app.call(f.id ? 'updateUser' : 'createUser', f.id ? { id: f.id, ...v } : { role: 'driver', ...v });
     if (!r) return;
     if (f.id) { app.close(); app.toast({ title: t('Gespeichert'), plain: true, icon: 'check' }); }
-    else { app.ui.access = { role: 'driver', user: r.user, pin: r.pin }; app.open({ type: 'access' }); }
+    else { app.ui.access = { role: 'driver', user: r.user, pin: r.pin, invite: r.invite || null }; app.open({ type: 'access' }); }
     app.data.drivers = null; app.load();
   },
   async staff(fd, form, app) {
@@ -725,9 +893,41 @@ export const forms = {
     if (r) { app.me.tenant = r; app.ui.previewColor = null; app.toast({ title: t('Gespeichert – Ihre Fahrer sehen die neue Marke sofort'), plain: true, icon: 'palette' }); app.render(); }
   },
   async flowExtra(fd, form, app) {
-    const r = await app.call('updateCompany', { settings: { bookingPrefix: fd.get('bookingPrefix'), retentionYears: Number(fd.get('retentionYears')) } });
-    if (r) { app.me.tenant = r; app.toast({ title: t('Gespeichert'), plain: true, icon: 'check' }); app.render(); }
+    const settings = { bookingPrefix: fd.get('bookingPrefix') };
+    // an empty field keeps the current retention (Number('') would be 0 → 1 year → deletion)
+    const raw = String(fd.get('retentionYears') ?? '').trim();
+    if (raw !== '') {
+      const n = Number(raw);
+      if (!Number.isInteger(n) || n < 1 || n > 10) { form.querySelector('[name=retentionYears]')?.classList.add('invalid'); return app.toast({ title: t('Bitte 1 bis 10 Jahre angeben – oder das Feld leer lassen.'), plain: true, err: true, icon: 'circle-alert' }); }
+      if (n < (S(app).retentionYears || 3)) {
+        const ds = await app.call('listDeliveries', { tab: 'done', limit: 0 }, { quiet: true }).catch(() => null);
+        const limit = Date.now() - n * 365.25 * 864e5;
+        app.ui.retention = { years: n, settings: { ...settings, retentionYears: n }, count: (ds || []).filter((d) => (d.deliveredAt || d.cancelledAt || d.updatedAt || 0) <= limit).length };
+        return app.render();
+      }
+      settings.retentionYears = n;
+    }
+    app.ui.retention = null;
+    await saveFlow(app, settings);
   },
+  async tfaOn(fd, form, app) {
+    const r = await app.call('twoFactorEnable', { code: String(fd.get('code') || '').replace(/\s/g, '') });
+    if (r) { app.ui.tfa = null; app.me.user = { ...app.me.user, twoFactor: true }; app.me.twoFactor = true; app.toast({ title: t('Zwei-Faktor-Anmeldung ist an'), plain: true, icon: 'shield-check' }); app.render(); }
+  },
+  async tfaOff(fd, form, app) {
+    const r = await app.call('twoFactorDisable', { password: fd.get('password') });
+    if (r) { app.me.user = { ...app.me.user, twoFactor: false }; app.me.twoFactor = false; app.toast({ title: t('Zwei-Faktor-Anmeldung ist aus'), plain: true, icon: 'shield-check' }); app.render(); }
+  },
+  async planRequest(fd, form, app) {
+    const r = await app.call('requestPlanChange', { plan: fd.get('plan'), note: fd.get('note') });
+    if (!r) return;
+    app.ui.licReq = null;
+    app.me.tenant = { ...app.me.tenant, ...r };
+    if (app.data.license) app.data.license = { ...app.data.license, ...r };
+    app.toast({ title: t('Anfrage gesendet'), body: t('Ihr Anbieter meldet sich.'), plain: true, icon: 'send' });
+    app.render(); app.load();
+  },
+  cancelRequest(fd, form, app) { app.ui.cancelReason = String(fd.get('reason') || ''); app.ui.licReq = 'cancelConfirm'; app.render(); },
   async password(fd, form, app) {
     const r = await app.call('changePassword', { current: fd.get('current'), next: fd.get('next') });
     if (r) { form.reset(); app.me.user.mustChangePassword = false; app.toast({ title: t('Passwort geändert'), plain: true, icon: 'key-round' }); app.render(); }

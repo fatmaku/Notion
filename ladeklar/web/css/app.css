@@ -594,3 +594,20 @@ textarea.input { min-height: 84px; resize: vertical; line-height: 1.45; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ---- client-driver ---- */
+/* quick actions: long labels (tr, ru, uk) get two lines and a smaller size on narrow phones, never "…" */
+.quick span { white-space: normal; overflow: visible; text-overflow: clip; text-align: center; line-height: 1.15; overflow-wrap: anywhere; hyphens: auto; }
+@media (max-width: 400px) { .quick button, .quick a { font-size: 10.5px; padding-left: 2px; padding-right: 2px; } }
+/* a step on its way cannot be tapped twice */
+.step-btn.is-busy { pointer-events: none; opacity: .75; }
+
+/* ---- office-ui ---- */
+/* language buttons (8 languages) wrap instead of scrolling sideways */
+.seg.wrap { flex-wrap: wrap; overflow: visible; }
+/* storage bar on the licence page: warning from 80 % */
+.bar.warn > i { background: var(--warn); }
+/* document type next to "Lieferschein & Fotos" in the delivery sheet */
+.doc-kind { width: auto; min-height: 34px; padding-top: 4px; padding-bottom: 4px; font-size: var(--fs-sm); }
+/* 2FA secret for manual entry: long base32 text, smaller than a PIN */
+.secret.small { font-size: var(--fs-sm); letter-spacing: .06em; }

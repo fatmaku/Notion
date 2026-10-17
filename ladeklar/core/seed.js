@@ -4,7 +4,7 @@
 // Everything is created through engine.call() with a travelling clock, so the data is exactly
 // what the real app would have produced.
 
-import { berlinDate } from './engine.js';
+import { berlinDate, berlinTime } from './engine.js';
 
 export const DEMO = {
   platform: { email: 'inhaber@ladeklar.de', password: 'Ladeklar-Demo-2026', name: 'Lizenzgeber (Sie)' },
@@ -102,7 +102,7 @@ export function seedDemo({ engine, store, clock, realNow = Date.now() }) {
   engine.call(nord.admin, 'updateCompany', { branding: { logoFileId: nordLogo.id, color: '#2563eb' } });
 
   const others = [
-    { name: 'Bauer Baustoff-Transporte', code: 'BAUER', plan: 'start', trialDays: 0, adminEmail: 'info@bauer-baustoff.de', contact: 'Thomas Bauer', color: '#b45309', mono: ['BB', '#b45309'], drivers: 3, ago: 140 },
+    { name: 'Bauer Baustoff-Transporte', code: 'BAUER', plan: 'start', trialDays: 30, paidAfter: 26, adminEmail: 'info@bauer-baustoff.de', contact: 'Thomas Bauer', color: '#b45309', mono: ['BB', '#b45309'], drivers: 3, ago: 140 },
     { name: 'Rhein-Main Kurier', code: 'RMK', plan: 'premium', trialDays: 0, storeApp: true, billing: 'yearly', extraDrivers: 0, adminEmail: 'it@rhein-main-kurier.de', contact: 'Sabine Hoffmann', color: '#7c2d12', mono: ['RM', '#7c2d12'], drivers: 26, ago: 300 },
     { name: 'Elbe Frisch Kühllogistik', code: 'ELBE', plan: 'flotte', trialDays: 0, adminEmail: 'buchhaltung@elbe-frisch.de', contact: 'Jan Meyer', color: '#0369a1', mono: ['EF', '#0369a1'], drivers: 8, ago: 210, suspend: true },
     { name: 'Alpen Express', code: 'ALPEN', plan: 'flotte', trialDays: 30, adminEmail: 'disposition@alpen-express.de', contact: 'Maria Huber', color: '#15803d', mono: ['AE', '#15803d'], drivers: 5, ago: 27 },
@@ -116,7 +116,10 @@ export function seedDemo({ engine, store, clock, realNow = Date.now() }) {
     if (o.drivers > 40) engine.call(platform, 'updateTenantLicense', { id: r.tenant.id, extraDrivers: o.drivers - 40 });
     for (let i = 0; i < o.drivers; i++) engine.call(r.admin, 'createUser', { role: 'driver', name: `${firstNames[i % firstNames.length]} ${String.fromCharCode(65 + (i % 26))}.`, phone: `+49 151 ${String(4000000 + i * 37 + o.ago).padStart(7, '0')}`, pin: DEMO.pin });
     for (let i = 0; i < Math.min(o.drivers, 6); i++) engine.call(r.admin, 'createVehicle', { kind: 'truck', plate: `${o.code.slice(0, 2)}-${o.code.slice(2, 3) || 'X'}${o.code.slice(3, 4) || 'K'} ${100 + i}` });
-    if (o.suspend) engine.call(platform, 'updateTenantLicense', { id: r.tenant.id, status: 'suspended', licenseNote: 'Zahlungsverzug seit 2 Monaten – Mahnung 2 versendet' });
+    // licence history for the billing preview: Bauer converted from its trial to a paid licence
+    if (o.paidAfter) { set(realNow - (o.ago - o.paidAfter) * 864e5); engine.call(platform, 'updateTenantLicense', { id: r.tenant.id, status: 'active' }); }
+    // Elbe was suspended two months ago (the note says so), paid from its start until then
+    if (o.suspend) { set(realNow - 60 * 864e5); engine.call(platform, 'updateTenantLicense', { id: r.tenant.id, status: 'suspended', licenseNote: 'Zahlungsverzug seit 2 Monaten – Mahnung 2 versendet' }); }
   }
   // Alpen's trial ends in three days
   const alpen = store.find('tenants', { code: 'ALPEN' })[0];
@@ -212,19 +215,29 @@ export function seedDemo({ engine, store, clock, realNow = Date.now() }) {
   engine.call(A, 'cancelDelivery', { id: canc.id, reason: 'Kunde hat den Auftrag verschoben.' });
 
   // ---------- today: live tours (Gegenwart) ----------
+  // Timed in hours before now; pickup/drop-off dates and windows follow from those times, so the world is
+  // consistent whenever it is seeded – at night a tour loaded at 22:00 simply has yesterday as pickup day.
   const h = (hoursAgo) => realNow - hoursAgo * 3600e3;
+  /** Time window of `hours` from the half hour at or before ms (Berlin offsets are whole hours). */
+  const slot = (ms, hours) => {
+    const s = Math.floor(ms / 1800e3) * 1800e3, e = s + hours * 3600e3;
+    return { date: berlinDate(s), from: berlinTime(s), to: berlinDate(e) === berlinDate(s) ? berlinTime(e) : '23:59' };
+  };
+  /** Window that opened up to 20 minutes before an arrival, on the arrival's day. */
+  const around = (ms, hours) => slot(Math.max(ms - 1200e3, berlinMs(berlinDate(ms), '00:00')), hours);
+  const midnight = berlinMs(today, '00:00');
   // 1) Mehmet: Stuttgart → Hamburg, loaded and on the way
   set(h(20));
-  const live1 = D({ customer: 'Bosch', reference: 'PO-4519921', pickup: { ...places.bosch, date: day(0), from: '05:30', to: '07:00' }, dropoff: { ...places.hhPort, date: day(0), from: '15:00', to: '20:00' }, goods: { text: 'Ersatzteile, Gitterboxen', pallets: 30, weightKg: 17800 }, driverId: mehmet.id, instructions: 'Gate B anmelden, Container-Nr. MSCU 418273-5. Ladungssicherung mit Antirutschmatten.' });
+  const live1 = D({ customer: 'Bosch', reference: 'PO-4519921', pickup: { ...places.bosch, ...around(h(8.6), 2) }, dropoff: { ...places.hhPort, ...slot(h(-1), 5) }, goods: { text: 'Ersatzteile, Gitterboxen', pallets: 30, weightKg: 17800 }, driverId: mehmet.id, instructions: 'Gate B anmelden, Container-Nr. MSCU 418273-5. Ladungssicherung mit Antirutschmatten.' });
   set(h(9.4)); engine.call(drv.mehmet, 'selectVehicle', { vehicleId: t1.id, trailerId: r1.id });
   set(h(9.3)); engine.call(drv.mehmet, 'acceptDelivery', { id: live1.id });
   set(h(8.6)); go(drv.mehmet, live1, 'arrived_pickup');
   set(h(7.9)); go(drv.mehmet, live1, 'loaded');
   set(h(3.2)); engine.call(drv.mehmet, 'addNote', { id: live1.id, text: 'Pause Raststätte Göttingen, 45 Min. Weiter um 13 Uhr.' });
 
-  // 2) Olena: Esslingen → Frankfurt, loaded, with a delay problem
+  // 2) Olena: Esslingen → Frankfurt, loaded, with a delay problem (the drop-off window is already over)
   set(h(19));
-  const live2 = D({ customer: 'Festo', reference: 'SO-77120', pickup: { ...places.es, date: day(0), from: '07:00', to: '08:30' }, dropoff: { ...places.fra, date: day(0), from: '11:00', to: '13:00' }, goods: { text: 'Luftfracht-Sendung, 14 Colli', pallets: 14, weightKg: 4100 }, driverId: olena.id, urgent: true, instructions: 'Luftfracht! Zeitfenster Cargo City unbedingt einhalten.' });
+  const live2 = D({ customer: 'Festo', reference: 'SO-77120', pickup: { ...places.es, ...around(h(5.6), 1.5) }, dropoff: { ...places.fra, ...slot(h(3), 2) }, goods: { text: 'Luftfracht-Sendung, 14 Colli', pallets: 14, weightKg: 4100 }, driverId: olena.id, urgent: true, instructions: 'Luftfracht! Zeitfenster Cargo City unbedingt einhalten.' });
   set(h(6.5)); engine.call(drv.olena, 'selectVehicle', { vehicleId: t2.id, trailerId: r3.id });
   set(h(6.4)); engine.call(drv.olena, 'acceptDelivery', { id: live2.id });
   set(h(5.6)); go(drv.olena, live2, 'arrived_pickup');
@@ -233,7 +246,7 @@ export function seedDemo({ engine, store, clock, realNow = Date.now() }) {
 
   // 3) Andrei: Neckarsulm → Köln, unloaded, the delivery note is still missing
   set(h(21));
-  const live3 = D({ customer: 'Lidl', reference: 'LS-2026-88113', pickup: { ...places.hn, date: day(0), from: '04:00', to: '05:00' }, dropoff: { ...places.koeln, date: day(0), from: '09:00', to: '11:00' }, goods: { text: 'Molkereiprodukte, gekühlt', pallets: 18, weightKg: 7200, temp: '+2…+6 °C' }, driverId: andrei.id });
+  const live3 = D({ customer: 'Lidl', reference: 'LS-2026-88113', pickup: { ...places.hn, ...around(h(9.7), 1) }, dropoff: { ...places.koeln, ...around(h(4.9), 2) }, goods: { text: 'Molkereiprodukte, gekühlt', pallets: 18, weightKg: 7200, temp: '+2…+6 °C' }, driverId: andrei.id });
   set(h(10.2)); engine.call(drv.andrei, 'selectVehicle', { vehicleId: t4.id });
   set(h(10.1)); engine.call(drv.andrei, 'acceptDelivery', { id: live3.id });
   set(h(9.7)); go(drv.andrei, live3, 'arrived_pickup');
@@ -241,31 +254,35 @@ export function seedDemo({ engine, store, clock, realNow = Date.now() }) {
   set(h(4.9)); go(drv.andrei, live3, 'arrived_dropoff');
   set(h(3.4)); go(drv.andrei, live3, 'unloaded', { palletExchange: { given: 18, taken: 18 } });
 
-  // 3b) Sven: a short morning tour, already delivered today
+  // 3b) Sven: a short morning tour, already delivered today (seeded early in the day it moves into the night)
+  const sh = 6.8 - Math.min(6.8, (realNow - midnight) / 3600e3 / 2);
+  const hs = (hoursAgo) => h(hoursAgo - sh);
   set(h(22));
-  const live0 = D({ customer: 'Bosch', reference: 'PO-4519870', pickup: { ...places.bosch, date: day(0), from: '05:00', to: '06:00' }, dropoff: { ...places.es, date: day(0), from: '07:00', to: '09:00' }, goods: { text: 'Musterteile, Express', pallets: 6, weightKg: 1800 }, driverId: sven.id });
-  set(h(8.9)); engine.call(drv.sven, 'selectVehicle', { vehicleId: t5.id });
-  set(h(8.8)); engine.call(drv.sven, 'acceptDelivery', { id: live0.id });
-  set(h(8.5)); go(drv.sven, live0, 'arrived_pickup');
-  set(h(8.1)); go(drv.sven, live0, 'loaded');
-  set(h(7.3)); go(drv.sven, live0, 'arrived_dropoff');
-  set(h(6.9)); go(drv.sven, live0, 'unloaded', { palletExchange: { given: 6, taken: 6 } });
-  set(h(6.85)); pod(drv.sven, live0, 'K. Lehmann', day(0));
-  set(h(6.8)); go(drv.sven, live0, 'delivered', { receiver: 'K. Lehmann' });
+  const live0 = D({ customer: 'Bosch', reference: 'PO-4519870', pickup: { ...places.bosch, ...around(hs(8.5), 1) }, dropoff: { ...places.es, ...around(hs(7.3), 2) }, goods: { text: 'Musterteile, Express', pallets: 6, weightKg: 1800 }, driverId: sven.id });
+  set(hs(8.9)); engine.call(drv.sven, 'selectVehicle', { vehicleId: t5.id });
+  set(hs(8.8)); engine.call(drv.sven, 'acceptDelivery', { id: live0.id });
+  set(hs(8.5)); go(drv.sven, live0, 'arrived_pickup');
+  set(hs(8.1)); go(drv.sven, live0, 'loaded');
+  set(hs(7.3)); go(drv.sven, live0, 'arrived_dropoff');
+  set(hs(6.9)); go(drv.sven, live0, 'unloaded', { palletExchange: { given: 6, taken: 6 } });
+  set(hs(6.85)); pod(drv.sven, live0, 'K. Lehmann', berlinDate(hs(6.85)));
+  set(hs(6.8)); go(drv.sven, live0, 'delivered', { receiver: 'K. Lehmann' });
   engine.call(drv.sven, 'releaseVehicle', {});
 
-  // 4) Piotr: Ludwigsburg → München, confirmed, not loaded yet
+  // 4) Piotr: Ludwigsburg → München, confirmed, not loaded yet (his pickup window is running now)
   set(h(20));
-  const live4 = D({ customer: 'Porsche AG', reference: 'PAG-55012', pickup: { ...places.lbg, date: day(0), from: '13:00', to: '15:00' }, dropoff: { ...places.muc, date: day(1), from: '06:00', to: '09:00' }, goods: { text: 'Karosserieteile in Gestellen', pallets: 24, weightKg: 8800 }, driverId: piotr.id });
+  const p4 = slot(Math.max(h(1), midnight), 2);
+  const live4 = D({ customer: 'Porsche AG', reference: 'PAG-55012', pickup: { ...places.lbg, ...p4 }, dropoff: { ...places.muc, date: addDays(p4.date, 1), from: '06:00', to: '09:00' }, goods: { text: 'Karosserieteile in Gestellen', pallets: 24, weightKg: 8800 }, driverId: piotr.id });
   set(h(2.1)); engine.call(drv.piotr, 'selectVehicle', { vehicleId: t3.id });
   set(h(2.0)); engine.call(drv.piotr, 'acceptDelivery', { id: live4.id });
 
-  // 5) open for everyone, today: Sindelfingen → Leipzig
+  // 5) open for everyone, loading in two hours: Sindelfingen → Leipzig
   set(h(1.4));
-  D({ customer: 'Mercedes-Benz', reference: 'MB-JIT-3381', pickup: { ...places.sifi, date: day(0), from: '16:00', to: '18:00' }, dropoff: { ...places.lej, date: day(1), from: '06:00', to: '08:00' }, goods: { text: 'Motorenteile JIT', pallets: 28, weightKg: 15400 }, openForAll: true });
+  const p5 = slot(h(-2), 2);
+  D({ customer: 'Mercedes-Benz', reference: 'MB-JIT-3381', pickup: { ...places.sifi, ...p5 }, dropoff: { ...places.lej, date: addDays(p5.date, 1), from: '06:00', to: '08:00' }, goods: { text: 'Motorenteile JIT', pallets: 28, weightKg: 15400 }, openForAll: true });
   // 6) assigned to Sven, waiting for his confirmation
   set(h(0.9));
-  D({ customer: 'IBM', reference: 'IBM-77-201', pickup: { ...places.bb, date: day(0), from: '14:00', to: '16:00' }, dropoff: { ...places.nue, date: day(0), from: '19:00', to: '21:00' }, goods: { text: 'Server-Racks, stoßempfindlich', pallets: 10, weightKg: 3900 }, driverId: sven.id, instructions: 'Nicht stapeln! Kippindikatoren prüfen.' });
+  D({ customer: 'IBM', reference: 'IBM-77-201', pickup: { ...places.bb, ...slot(realNow, 2) }, dropoff: { ...places.nue, ...slot(h(-5), 2) }, goods: { text: 'Server-Racks, stoßempfindlich', pallets: 10, weightKg: 3900 }, driverId: sven.id, instructions: 'Nicht stapeln! Kippindikatoren prüfen.' });
 
   // ---------- planned (Zukunft) ----------
   set(h(0.7));
@@ -278,7 +295,7 @@ export function seedDemo({ engine, store, clock, realNow = Date.now() }) {
   const [lars1] = mkDrivers(nord.admin, [['Henrik Jansen', '+49 160 2000 0001', 'de'], ['Kasia Wiśniewska', '+49 160 2000 0002', 'pl']]);
   const nv = engine.call(nord.admin, 'createVehicle', { kind: 'truck', plate: 'HH-NL 401', type: 'sattelzug' });
   engine.call(nord.admin, 'createVehicle', { kind: 'trailer', plate: 'HH-NL 901', type: 'plane' });
-  const nd = engine.call(nord.admin, 'createDelivery', { customer: 'Tchibo', pickup: { place: 'Tchibo Lager', city: 'Hamburg', date: day(0) }, dropoff: { city: 'Bremen', date: day(0) }, goods: { text: 'Kaffee, 22 Paletten', pallets: 22 }, driverId: lars1.id });
+  const nd = engine.call(nord.admin, 'createDelivery', { customer: 'Tchibo', pickup: { place: 'Tchibo Lager', city: 'Hamburg', date: berlinDate(h(1.1)) }, dropoff: { city: 'Bremen', date: berlinDate(h(-2)) }, goods: { text: 'Kaffee, 22 Paletten', pallets: 22 }, driverId: lars1.id });
   set(h(2.5)); engine.call(engine.auth.actor(lars1.id), 'selectVehicle', { vehicleId: nv.id });
   set(h(2.4)); engine.call(engine.auth.actor(lars1.id), 'acceptDelivery', { id: nd.id });
   set(h(1.1)); engine.call(engine.auth.actor(lars1.id), 'advanceDelivery', { id: nd.id, step: 'loaded' });

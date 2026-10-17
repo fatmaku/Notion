@@ -10,6 +10,9 @@ export const attr = esc;
 
 export function time(ms) { return ms ? new Intl.DateTimeFormat(loc(), { timeZone: TZ, hour: '2-digit', minute: '2-digit' }).format(ms) : ''; }
 export function dateTime(ms) { return ms ? new Intl.DateTimeFormat(loc(), { timeZone: TZ, day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).format(ms) : ''; }
+/** With the year – for printed proofs and contract dates: 16.10.2026, 16:30 / 16.10.2026. */
+export function dateTimeFull(ms) { return ms ? new Intl.DateTimeFormat(loc(), { timeZone: TZ, day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(ms) : ''; }
+export function dateFull(ms) { return ms ? new Intl.DateTimeFormat(loc(), { timeZone: TZ, day: '2-digit', month: '2-digit', year: 'numeric' }).format(ms) : ''; }
 export function longDate(ms) { return ms ? new Intl.DateTimeFormat(loc(), { timeZone: TZ, weekday: 'long', day: 'numeric', month: 'long' }).format(ms) : ''; }
 export function dayLabel(iso, t) {
   if (!iso) return '';
@@ -24,6 +27,12 @@ export function isoToday(ms = Date.now()) {
   const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(ms).map((x) => [x.type, x.value]));
   return `${p.year}-${p.month}-${p.day}`;
 }
+/** The last n months as 'YYYY-MM', newest first, counted in Berlin time (also just after midnight). */
+export function lastMonths(n, ms = Date.now()) {
+  const [y, m] = isoToday(ms).split('-').map(Number);
+  return Array.from({ length: n }, (_, i) => { const k = y * 12 + m - 1 - i; return `${Math.floor(k / 12)}-${String((k % 12) + 1).padStart(2, '0')}`; });
+}
+export function monthLabel(ym) { const [y, m] = String(ym).split('-').map(Number); return new Intl.DateTimeFormat(loc(), { timeZone: 'UTC', month: 'long', year: 'numeric' }).format(Date.UTC(y, m - 1, 15)); }
 export function addDays(iso, n) { const [y, m, d] = iso.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10); }
 export function window_(p) { return p?.from && p?.to ? `${p.from}–${p.to}` : p?.from ? `ab ${p.from}` : p?.to ? `bis ${p.to}` : ''; }
 
@@ -41,6 +50,8 @@ export function ago(ms, t) {
 export function minutes(n, t) { if (n == null) return '–'; const h = Math.floor(n / 60), m = n % 60; return h ? t('{h} Std. {m} Min.', { h, m }) : t('{m} Min.', { m }); }
 export function euro(n) { return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: n % 1 ? 2 : 0 }).format(n || 0); }
 export function num(n, d = 0) { return n == null ? '–' : new Intl.NumberFormat(loc(), { maximumFractionDigits: d }).format(n); }
+/** Bytes in binary units as plans count them: 1.5 GB, 250 GB. */
+export function fileSize(n) { let v = Math.max(0, Number(n) || 0), i = 0; while (v >= 1024 && i < 4) { v /= 1024; i++; } return `${num(v, i && v < 10 ? 1 : 0)} ${['B', 'KB', 'MB', 'GB', 'TB'][i]}`; }
 export function kg(n) { return n == null ? '' : n >= 1000 ? `${num(n / 1000, 1)} t` : `${num(n)} kg`; }
 export function phoneHref(p) { return 'tel:' + String(p || '').replace(/[^\d+]/g, ''); }
 /** +4917610000004 → +49 176 10000004 · +497114006200 → +49 711 4006200 (stored numbers are E.164-like). */

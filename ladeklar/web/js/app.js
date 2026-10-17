@@ -92,7 +92,8 @@ export function createApp(root, opts = {}) {
     }
   };
   app.try = async (fn) => { try { return await fn(); } catch { return null; } };
-  app.error = (e) => app.toast({ title: e.message || t('Das hat nicht geklappt.'), plain: true, err: true, icon: 'circle-alert' });
+  // engine/server messages stay German and stable – the dictionaries translate them (C8)
+  app.error = (e) => app.toast({ title: e?.message ? t(e.message) : t('Das hat nicht geklappt.'), plain: true, err: true, icon: 'circle-alert' });
   app.fileUrl = (id) => app.api.fileUrl(id, app.me?.user);
 
   // ---------- toasts ----------
@@ -108,8 +109,9 @@ export function createApp(root, opts = {}) {
   // ---------- session ----------
   app.setMe = (me) => {
     app.me = me;
+    if (app.api.online != null) app.online = app.api.online;
+    if (app.api.queueSize != null) app.queue = app.api.queueSize;
     if (me?.user?.lang && !opts.lang) { app.lang = me.user.lang; }
-    if (me) { try { localStorage.setItem('lk.me', JSON.stringify(me)); } catch { /* */ } }
     app.data = {};
     const v = app.view();
     app.route = { name: v.defaultRoute?.(app) || '', params: {} };
@@ -118,8 +120,15 @@ export function createApp(root, opts = {}) {
     app.render();
     opts.onSession?.(me);
   };
-  app.signedOut = () => { app.me = null; app.data = {}; app.ui = { loginBrand: app.ui.loginBrand }; app.render(); };
-  app.logout = async () => { await app.try(() => app.api.logout()); app.signedOut(); };
+  app.signedOut = (msg = '') => {
+    const u = app.me?.user, tn = app.me?.tenant;
+    app.me = null; app.data = {};
+    // a driver asked to sign in again (session ended) finds company code and phone filled in – not after "Abmelden"
+    app.ui = { loginBrand: app.ui.loginBrand, ...(msg && u?.role === 'driver' ? { loginMode: 'driver', code: tn?.code || '', phone: u.phone || '' } : {}), loginErr: msg };
+    app.render();
+  };
+  // ends the session here at once, also without network (the server is told as soon as possible)
+  app.logout = async () => { await app.try(() => app.api.logout()); app.queue = 0; app.signedOut(); };
   app.setLang = (l) => {
     app.lang = l; rememberLang(l);
     if (app.me) app.call('updateProfile', { lang: l }, { quiet: true }).catch(() => {});
@@ -128,6 +137,9 @@ export function createApp(root, opts = {}) {
 
   // ---------- live events ----------
   const off = app.api.on((e) => {
+    // network and outbox state count before the session is known (cold start in a dead zone)
+    if (e.type === 'online') { app.online = e.online; if (e.online && app.me) app.refresh(); app.invalidate(); return; }
+    if (e.type === 'queue') { app.queue = e.size; app.invalidate(); return; }
     if (!app.me) return;
     if (e.type === 'change') {
       if (e.col === 'deliveries' && e.id) { app.flash.add(e.id); setTimeout(() => { app.flash.delete(e.id); }, 1800); }
@@ -143,9 +155,12 @@ export function createApp(root, opts = {}) {
       if (!opts.muted) chime(n.priority === 'high');
       if (app.kind() === 'driver') buzz(n.priority === 'high' ? [120, 60, 120, 60, 200] : [60, 40, 60]);
       app.refresh(60);
-    } else if (e.type === 'online') { app.online = e.online; app.invalidate(); }
-    else if (e.type === 'queue') { app.queue = e.size; app.invalidate(); }
-    else if (e.type === 'queue-error') { app.toast({ title: t('Ein gespeicherter Schritt wurde abgelehnt: {m}', { m: e.error.message }), plain: true, err: true, icon: 'circle-alert' }); }
+    } else if (e.type === 'queue-error') {
+      const what = app.view().queueLabel?.(app, e.item);
+      app.toast({ title: what ? t('Nicht gesendet: {s}', { s: what }) : t('Ein gespeicherter Schritt wurde abgelehnt: {m}', { m: t(e.error.message) }), body: what ? t(e.error.message) : '', plain: true, err: true, icon: 'circle-alert', ms: 9000 });
+      app.refresh();
+    } else if (e.type === 'session') { app.me = { ...app.me, ...e.me }; app.refresh(); }
+    else if (e.type === 'auth') app.signedOut(e.queued ? t('Bitte neu anmelden. Gespeicherte Schritte werden danach gesendet.') : t('Bitte anmelden.'));
   });
 
   // ---------- DOM events (delegation) ----------
@@ -174,17 +189,20 @@ export function createApp(root, opts = {}) {
     const fn = actionsFor()[el.dataset.act];
     if (fn) Promise.resolve(fn(el, ev, app)).catch((e) => e && !e.code && console.error(e));
   };
+  const sending = new Set(); // forms in flight: a second tap must not send the same thing twice
   const onSubmit = (ev) => {
     const form = ev.target.closest('form[data-form]');
     if (!form) return;
     ev.preventDefault();
     const fn = (app.view().forms || {})[form.dataset.form];
-    if (!fn) return;
+    const key = form.dataset.form + ':' + (form.dataset.id || '');
+    if (!fn || sending.has(key)) return;
+    sending.add(key);
     const btn = form.querySelector('[type=submit]') || root.querySelector(`[form="${form.id}"][type=submit]`);
     btn?.classList.add('is-busy');
     Promise.resolve(fn(new FormData(form), form, app)).catch((e) => {
       if (e?.details?.fields) for (const f of e.details.fields) form.querySelector(`[name="${f}"]`)?.classList.add('invalid');
-    }).finally(() => btn?.classList.remove('is-busy'));
+    }).finally(() => { sending.delete(key); btn?.classList.remove('is-busy'); });
   };
   const onInput = (ev) => {
     ev.target.classList?.remove('invalid');
@@ -212,7 +230,13 @@ export function createApp(root, opts = {}) {
     setLang(app.lang);
     app.render();
     if (opts.tenantCode) { const b = await app.api.publicTenant(opts.tenantCode); if (b) app.ui.loginBrand = { ...b.branding, code: b.code, name: b.name, logoUrl: b.branding?.logoFileId ? app.api.fileUrl(b.branding.logoFileId) : null }; }
-    if (opts.inviteId) { const i = await app.api.inviteInfo(opts.inviteId); if (i) { app.ui.invite = i; app.ui.loginBrand = { ...i.tenant.branding, code: i.tenant.code, name: i.tenant.name, logoUrl: i.tenant.branding?.logoFileId ? app.api.fileUrl(i.tenant.branding.logoFileId) : null }; if (!opts.lang && i.lang) app.lang = i.lang; } }
+    if (opts.inviteId) {
+      // invite link /i/<token> (C11): null = used or expired (notice + normal login); no network = normal login
+      let i;
+      try { i = await app.api.inviteInfo(opts.inviteId); } catch { i = undefined; }
+      if (i) { app.ui.invite = { ...i, token: opts.inviteId }; app.ui.loginBrand = { ...i.tenant.branding, code: i.tenant.code, name: i.tenant.name, logoUrl: i.tenant.branding?.logoFileId ? app.api.fileUrl(i.tenant.branding.logoFileId) : null }; if (!opts.lang && i.lang) app.lang = i.lang; }
+      else if (i === null) app.ui.inviteGone = true;
+    }
     let me = null;
     try { me = await app.api.session(); } catch (e) { app.error(e); }
     app.booting = false;

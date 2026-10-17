@@ -78,8 +78,9 @@ export function decrypt(uaEcdh, authSecretB64u, buf) {
  */
 export async function sendPush(sub, payload, { keys, subject, ttl = 24 * 3600, urgency = 'normal', fetchImpl = fetch } = {}) {
   const body = encrypt(sub, typeof payload === 'string' ? payload : JSON.stringify(payload));
+  // no redirects (the endpoint host was checked against the push services) and no endless wait
   const res = await fetchImpl(sub.endpoint, {
-    method: 'POST',
+    method: 'POST', redirect: 'error', signal: AbortSignal.timeout(15e3),
     headers: {
       TTL: String(ttl), Urgency: urgency, 'Content-Encoding': 'aes128gcm', 'Content-Type': 'application/octet-stream',
       Authorization: vapidAuth(sub.endpoint, keys, subject),

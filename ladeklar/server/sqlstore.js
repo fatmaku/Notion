@@ -1,9 +1,9 @@
 // SQLite-backed store for the engine (node:sqlite, synchronous). One table holds every
 // collection as JSON; expression indexes keep the lookups the engine makes fast
-// (tenantId, userId, email, code, role, driverId).
+// (tenantId, userId, email, code, role, driverId, inviteToken).
 import { DatabaseSync } from 'node:sqlite';
 
-const INDEXED = ['tenantId', 'userId', 'email', 'code', 'role', 'driverId'];
+const INDEXED = ['tenantId', 'userId', 'email', 'code', 'role', 'driverId', 'inviteToken'];
 
 export function createSqlStore(file) {
   const db = new DatabaseSync(file);
@@ -67,12 +67,17 @@ export function createSqlStore(file) {
     touch: db.prepare('UPDATE sessions SET expires = ? WHERE token_hash = ?'),
     del: db.prepare('DELETE FROM sessions WHERE token_hash = ?'),
     delUser: db.prepare('DELETE FROM sessions WHERE user_id = ?'),
+    delOthers: db.prepare('DELETE FROM sessions WHERE user_id = ? AND token_hash IS NOT ?'), // all but the current one
     purge: db.prepare('DELETE FROM sessions WHERE expires < ?'),
   };
   const push = {
-    upsert: db.prepare('INSERT INTO push_subs (endpoint, user_id, p256dh, auth, created) VALUES (?, ?, ?, ?, ?) ON CONFLICT (endpoint) DO UPDATE SET user_id = excluded.user_id, p256dh = excluded.p256dh, auth = excluded.auth'),
+    // a browser shared by two people keeps one endpoint: it belongs to whoever subscribed last
+    upsert: db.prepare('INSERT INTO push_subs (endpoint, user_id, p256dh, auth, created) VALUES (?, ?, ?, ?, ?) ON CONFLICT (endpoint) DO UPDATE SET user_id = excluded.user_id, p256dh = excluded.p256dh, auth = excluded.auth, created = excluded.created'),
     forUser: db.prepare('SELECT * FROM push_subs WHERE user_id = ?'),
     del: db.prepare('DELETE FROM push_subs WHERE endpoint = ?'),
+    delOwn: db.prepare('DELETE FROM push_subs WHERE endpoint = ? AND user_id = ?'),
+    // keep the newest n subscriptions of a person: trim.run(userId, userId, n)
+    trim: db.prepare('DELETE FROM push_subs WHERE user_id = ? AND endpoint NOT IN (SELECT endpoint FROM push_subs WHERE user_id = ? ORDER BY created DESC, rowid DESC LIMIT ?)'),
     delUser: db.prepare('DELETE FROM push_subs WHERE user_id = ?'),
   };
   const kv = {
