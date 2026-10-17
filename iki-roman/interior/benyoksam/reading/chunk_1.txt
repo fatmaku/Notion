@@ -3,6 +3,7 @@
 [U01:1] Mistik suç ve psikolojik gerilim romanı
 [U01:2] ⟨resim 3⟩
 [U01:3]     | Bir şeyin var olduğunu nasıl anlarsın?
+Yoksa sana anlatıldığı gibi mi?
 [U01:4] •  •  •
 [U01:5] YAZAR: Tuncay Sancak
 [U02:0] # DİKKAT
@@ -262,7 +263,7 @@
 [U04:107] Altında şu cümle vardı:
 [U04:108]     | İyi olanları deli, kötü olanları lider diye tanıyacaksın.
 [U04:109] Bu cümle beni korkutmadan önce rahatlattı.
-[U04:110] En güçlü yalan, yıllardır adını koyamadığın acıya doğru adı söyler; sonra suçluyu gizlice değiştirir.
+[U04:110] Yıllardır adını koyamadığım şeye doğru bir ad veriyordu. Suçluyu kimin seçtiğini o gece sormadım.
 [U04:111] Yirmi ikinci sayfadan sonra numarasız bir ek kesilmişti. Kalan dipte 1453 mührünün yarısı görünüyordu.
 [U04:112] Kesik sayfanın karşısına kurşun kalemle bir tarih yazılmıştı.
 [U04:113] O günün tarihi.
@@ -336,7 +337,7 @@
 [U05:55] Nina hemen cevap vermedi.
 [U05:56] “Nina?”
 [U05:57] Nina adımı söyledi. Sesi, kırılmamak için sertleşti. “Ablam üç gün önce öldü.”
-[U05:58] Bunu Nina da o sabah öğrenmişti. Leyla iki randevuya gelmeyince asistanı Nina'yı aramış; polis kapıyı açtığında bedenini bulmuştu. Adli doktor, ölümün yaklaşık üç gün önce gerçekleştiğini söylemişti. Beden otopsi için tutuluyor, cenaze henüz bekliyordu. Nina haberi telefonda söylemek istememiş, ilk uçağa binmişti. Beni aramaya hazırlanırken, ona gönderdiğim siyah paket fotoğrafını görmüş; şimdi üç günlük ölümü, birkaç saatlik bilgisiyle taşıyordu.
+[U05:58] Nina bunu ancak o sabah öğrenmişti. Leyla iki randevuya gelmeyince asistanı Nina'yı aramış; polis kapıyı açtığında bedenini bulmuştu. Adli doktor, ölümün yaklaşık üç gün önce gerçekleştiğini söylemişti. Beden otopsi için tutuluyor, cenaze henüz bekliyordu. Nina haberi telefonda söylemek istememiş, ilk uçağa binmişti. Beni aramaya hazırlanırken telefonu çalmış; şimdi üç günlük ölümü, birkaç saatlik bilgisiyle taşıyordu.
 [U05:59] Ekrandaki Leyla başını kaldırdı.
 [U05:60] Doğrudan kameraya baktı.
 [U05:61] Ve kayıt donmuş olmasına rağmen ikinci bir cümle söyledi:
@@ -417,7 +418,7 @@
 [U06:73] Nina'nın omuzları bir santim indi. İnsanların büyük duygularını bazen geç anlardım; küçük kas hareketlerini kaçırmazdım. Bu yüzden bazıları beni derin, bazıları mekanik bulurdu.
 [U06:74] Nina güvenlik dosyasını kopyalarken ekranın köşesinde bir uyarı belirdi: Ses katmanının oluşturulma tarihi, Leyla'nın ölümünden bir gün önceydi.
 [U06:75] “Ablam bunu kendisi hazırlamış olabilir,” dedi.
-[U06:76] “O zaman neden görüntüyü apartmanın bakım firması yerleştirdi?”
+[U06:76] “O zaman görüntü neden apartmanın bakım bağlantısından girilmiş gibi duruyor?”
 [U06:77] “Bilmiyoruz.”
 [U06:78] “Bir taraf onun uyarısını çaldı.”
 [U06:79] “Ya da Leyla bir tarafın sistemini kullandı.”
@@ -521,7 +522,7 @@
 [U07:94] Klasörü kapattım. Nina'nın mutfakta açtığı musluk sustu.
 [U07:95] Nina suyu getirdi. Bardak camdı. İki elimle tuttum.
 [U07:96] “Adamın adı neydi?” diye sordu.
-[U07:97] Ağzım bir ismin ilk hecesini hazırladı. Söylemedim. Bir görüntünün yanına isim koyunca onu hatıra ilan etmek fazla kolaydı.
+[U07:97] Bir ad aradım; gelmedi. Bir görüntünün yanına isim koyunca onu hatıra ilan etmek fazla kolaydı.
 [U07:98] Telefonuma yalnız şunu yazdım: Yeşil koridor. Su. Benim mi?
 [U07:99] Sonra defteri açıp koridordan hemen önceki o kısacık sessizliği de kaydettim: Sesler sustu. Dinleyen susmadı. Kendi yazdığım cümlenin yanına, nedenini bilmeden boş bir sandalye çizdim.
 [U07:100] Kitap götürülmeden önce baktığım kırk ikinci sayfa, bu deneyimin yalnız bir cümlesini almıştı:
@@ -616,7 +617,7 @@
 [U07:189] Şimdi o kapılardan biri siyah kitapla açılmıştı.
 [U07:190] Leyla ise ölüydü.
 [U08:0] # 7. Silinen Satır
-[U08:1] Sabaha karşı Nina, bilgisayarında POLİS DOSYASI adını verdiği klasörü açtı. Bu, emniyetin bütün soruşturması değildi. Leyla'nın kız kardeşi olarak avukatı Selina üzerinden alabildiği tutanaklar, otopsi ekleri, operatörden gelen kayıtlar ve resmî dosyaya girmeden önce bir kaynağın sakladığı ön inceleme görüntüleriydi.
+[U08:1] Sabaha karşı Nina, bilgisayarında POLİS DOSYASI adını verdiği klasörü açtı. Bu, emniyetin bütün soruşturması değildi; Nina'nın kız kardeş olarak Selina aracılığıyla alabildiği birkaç tutanak, ilk otopsi notu, operatör kayıtları ve bir kaynağın sakladığı ön inceleme görüntüleriydi.
 [U08:2] Resmî kayıtta Leyla evinde bulunmuştu. Kanında yüksek dozda sakinleştirici vardı. Kapı içeriden kilitliydi; elektronik sürgünün kaydı da bunu gösteriyordu. Zorla giriş izi yoktu. İlk değerlendirme, “ilaçların istemli veya istemsiz aşırı kullanımı” diyordu. Medyaya sızan tek cümle ise daha kesindi: Tanınmış nöropsikolog yaşamına son verdi.
 [U08:3] “Ablam intihar etmedi,” dedi Nina.
 [U08:4] “Bunu kız kardeşi olarak mı söylüyorsun, gazeteci olarak mı?”
@@ -651,7 +652,7 @@
 [U08:33] Nina gözlerini ekrandan ayırmadı. “Büyük kelimeleri kanıt gelmeden kullanma.”
 [U08:34] “Sahte kamera, yönlendirilmiş arama, kişiye özel kitap. Ne zaman büyük diyebilirim?”
 [U08:35] “Büyük olduğu için değil, sınırını henüz bilmediğimiz için dikkat edeceksin.”
-[U08:36] Öğleden sonra, Selina'nın savcıdan aldığı izinle laboratuvar siyah kitabın torbasını kamera önünde açtı ve sayfaları belgeledi. Biz evden, laboratuvarın açtığı canlı bağlantıdan yalnız bu görüntüleri gördük. Yüz on birinci sayfada bir konuşma yazılıydı. İki kişi arasında geçiyordu. İsim yoktu.
+[U08:36] Öğleden sonra laboratuvar siyah kitabın sayfalarını tek tek fotoğrafladı; Selina görüntüleri bize de açtırmıştı. Yüz on birinci sayfada bir konuşma yazılıydı. İki kişi arasında geçiyordu. İsim yoktu.
 [U08:37]     | — Bizi susturmak mı istiyorsunuz?
 [U08:38]     | — Hayır. Sizi dinlemek istiyoruz.
 [U08:39]     | — O zaman niye bütün cümlelerimi siz bitiriyorsunuz?
@@ -691,7 +692,7 @@
 [U09:1] Sam geleceği bilmiyordu.
 [U09:2] Konuşmayı önceden biliyordu.
 [U09:3] Bunu yüksek sesle söylemiş olmalıyım, çünkü Nina ekrandan başını kaldırmadan, “Ya da birisi konuşmayı önceden yazdı,” dedi.
-[U09:4] Kendi ayrımım beni rahatlatmalıydı. Rahatlatmadı; Nina'nınki daha da az. Bir insan yarın ne söyleyeceğini bilen birine karşı kendisini özgür hissedebilir; ama beş dakika sonra ne söyleyeceğini bilen birinin karşısında özgürlük, ağzında başkasının anahtarı bulunan bir kapıya benzer.
+[U09:4] Kendi ayrımım beni rahatlatmalıydı. Rahatlatmadı; Nina'nınki daha da az. İnsan yarın ne olacağını bilen birinin karşısında kendini yine özgür hissedebilir; ama beş dakika sonra ne söyleyeceğini bilen birinin karşısında özgürlük, kilidinde başkasının anahtarı duran bir kapıya benzer.
 [U09:5] Sam telefonu kapattıktan sonra Nina'nın ilk işi zarfları evden çıkarmak oldu. Her birini ışığa tuttu, tarttı, fotoğrafladı ve kendi getirdiği kanıt torbalarına koydu.
 [U09:6] “İçlerini açma,” dedim.
 [U09:7] “Açmayacağım.”
@@ -828,7 +829,7 @@
 [U10:70] Sam'in yüzü kızmadı. Fakat az önceki sıcaklığı kapandı.
 [U10:71] O an Sam'in bana benzeyen yanını daha açık gördüm. İkimiz de başkasının cümlesinden önce gelen işareti fark ediyorduk.
 [U10:72] Yeteneklerimiz aynı kapıyı bulabilirdi.
-[U10:73] Ahlakımız kapıdan nasıl gireceğimizi belirliyordu.
+[U10:73] Ben o işareti görünce susardım; Sam görünce konuşuyordu.
 [U10:74] Sam, bana Meralis'in “Nörobilişsel Özgürlük Programı”nın yüzü olmayı teklif etti. Araştırma bütçesi, bağımsız yayın fonu, farklı ülkelerde merkezler, çocuklar için duyusal olarak uyarlanmış okullar. Dosyanın ilk sayfasında ışığı yumuşatılmış bir sınıf vardı. Altında tek satır: Her sınıf, her çocuk için AYNA ile yeniden ayarlanır. Rakamı görünce Muhasebeci içimde ayağa kalktı.
 [U10:75]     | MUHASEBECİ: Bu parayla kaç kişiye yardım edilir?
 [U10:76]     | GÖLGE: Bu parayla kaç kişi seni dinler?
@@ -864,7 +865,7 @@
 [U11:4] “Sen küresel şirket ağını.”
 [U11:5] “Herkes yeteneği kadar.”
 [U11:6] “Dünya adil değil.”
-[U11:7] Nina'nın telefonuna bir dosya geldi. Gece aradığı saha sorumlusu, apartmanımızın bakım kaydını kendi vardiya çizelgesiyle karşılaştırmıştı. Apartmanı da Meralis'in teknik deposunu da aynı taşeronun ekibi dolaşıyordu. Adam, tamamlanan işlerin imzalı fişlerini ay sonunda hak edişe eklemek için saklıyordu. Elindeki iş evrakından yalnız o geceye ait iki kaydı paylaşmıştı.
+[U11:7] Nina'nın telefonuna bir dosya geldi. Gece aradığı saha sorumlusu, apartmanımızın bakım kaydını kendi vardiya çizelgesiyle karşılaştırmıştı. Apartmanı da Meralis'in teknik deposunu da aynı taşeronun ekibi dolaşıyordu. Adam, tamamlanan işlerin imzalı fişlerini ay sonunda hak edişe eklemek için saklıyordu. Elindeki iş evrakından yalnız paketin bırakıldığı güne ait iki kaydı paylaşmıştı.
 [U11:8] Nina iki satırı büyüttü. Apartman yöneticisinin Selina'ya verdiği kapı kaydında, kamera donmadan hemen önce kullanılan teknik kart numarası vardı. Öteki belgede aynı numarayla Meralis'in bodrumundaki teknik depodan cihaz teslim alınmıştı. Arada iki saat bulunuyordu.
 [U11:9] “Kartı taşıyanın adı iki fişte farklı,” dedi Nina.
 [U11:10] “Sahte isim.”
@@ -904,7 +905,7 @@
 [U11:44] Bir karga yağmur oluğunun kenarında duruyordu. Gagasında parlak, silindir biçimli bir şey vardı. Bizi görünce kanatlandı, parçayı düşürdü ve karşı çatıya kondu.
 [U11:45] Metal parça oluğun içine yuvarlandı.
 [U11:46] Elimi uzattım, yetişemedim.
-[U11:47] Emil'in alet kutusundan aldığım teleskopik mıknatıs çantamdaydı. Sabah ona vermeyi düşünmüş, sonra “önce pasını temizlerim” diyerek geri koymuştum. Bir hediyeyi geciktirmem ilk kez işe yaradı.
+[U11:47] Emil'in alet kutusuna koymak için ayırdığım teleskopik mıknatıs çantamdaydı. Ona vermeden önce pasını temizlerim diye günlerdir yanımda taşıyordum. Bir hediyeyi geciktirmem ilk kez işe yaradı.
 [U11:48] Mıknatısı oluğa uzattım. Metal kapsül ucuna yapıştı.
 [U11:49] Üstünde kırmızı kelebek kazılıydı.
 [U11:50] Kapağını açınca küçük bir hafıza kartı çıktı.
@@ -927,7 +928,7 @@
 [U11:67] “Düşünce, hafıza, gömülen beden,” dedim. “Bu kapsülde üçünün de olması biraz fazla düzenli.”
 [U11:68] Nina kargaya baktı, sonra kapsülü delil poşetine koydu. “Kültür tarihini bitirdiysen kuşun gagasındaki parmak izine dönelim.”
 [U11:69] Karga, hakkındaki tartışmayı değersiz bulmuş gibi kanatlandı. Bize anlam bırakmadı. Yalnız kartı bıraktı.
-[U11:70] Aşağı indik. Selina'nın geldiği ofiste, kapsülü nereden ve nasıl aldığımızı anlatıp kayda geçirdik. Kapsülü açmış olmamızın geri alınamayacağını, kalanına dokunmadan teslim etmemiz gerektiğini söyledi. Çağırdığı bilişim uzmanı, karta veri yazmayı engelleyen okuyucudan bir inceleme kopyası aldı. O kopyayı çevrim dışı cihazda açtık. İlk dosya Leyla'nın sesiydi.
+[U11:70] Aşağıda Selina bizi bekliyordu. Kapsülü nasıl bulduğumuzu yazdırdı, açmış olmamıza kızdı, kalanına dokunmamızı yasakladı. Çağırdığı bilişim uzmanı kartın bir kopyasını aldı; kopyayı internete bağlı olmayan bir bilgisayarda açtık. İlk dosya Leyla'nın sesiydi.
 [U11:71] Arka planda cilt makinesi çalışıyordu.
 [U11:72] Leyla kayda adımı söyleyerek başladı. Sesi yorgun, aceleciydi. “Bunu dinliyorsan iki ihtimal var. Ya plan tuttu ya da planı onlar değiştirdi. İkisi de iyi değil.”
 [U11:73] Bir kâğıt hışırtısı duyuldu.

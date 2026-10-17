@@ -80,7 +80,7 @@
 [U12:48]     | Evet. Sahneyi daha somut kılmak için bardağın ağzına içe doğru küçük bir kıvrım eklediğimi hatırlıyorum. İstersen bu ayrıntıyı geliştirebilirim.
 [U12:49] Nina kaydı başından sonuna bir kez daha taradı. Bardak metinde iki yerde geçiyordu; ikisinde de düz, sıradan bir plastikti.
 [U12:50] “Hatırladığını söylüyor,” dedi Nina. “Kayıt aşağıda duruyor. Kıvrım yok.”
-[U12:51] Makine bir ay önce bana bir geçmiş yazmıştı. Şimdi o geçmişi nasıl yazdığını da yazıyordu. Buna yalan diyemedim; yalan, bildiğini saklayan birinin işiydi. Bu daha sade bir şeydi: Soru bir boşluk bırakıyor, makine boşluğu dolduruyordu.
+[U12:51] Makine bir ay önce bana bir geçmiş yazmıştı. Şimdi o geçmişi nasıl yazdığını da yazıyordu. Buna yalan diyemedim. Soru bir boşluk bırakıyor, makine boşluğu dolduruyordu.
 [U12:52] Gülmeye başladım. Nina neden güldüğümü sordu. Ekranda yanıp sönen imleci gösterdim.
 [U12:53] “Hafızama misafir gelmiş. Ben evin tapusunu vermişim.”
 [U12:54] Nina gülümsedi. Eski e-postaya dönmemi bekliyordu.
@@ -195,7 +195,7 @@
 [U12:163] “Yani henüz değil.”
 [U12:164] Telefonu kapattıktan sonra Lara'ya hemen yazmak istedim. Sonra bu özrün onun yarası için mi, benim utancımı hafifletmek için mi olacağını sordum. Cevabı bilmeden mesaj atmadım.
 [U12:165] Gece ona yüz yüze söyledim.
-[U12:166] Lara gösteriyi hatırlıyordu. “O gün gelmediğin için değil,” dedi. “Sonra neden gelmediğini anlatırken benim gösterimden daha heyecanlı konuştuğun için kızmıştım.”
+[U12:166] Lara gösteriyi hatırlıyordu. “O gün geç kaldığın için değil,” dedi. “Sonra neden geç kaldığını anlatırken benim gösterimden daha heyecanlı konuştuğun için kızmıştım.”
 [U12:167] “Özür dilerim.”
 [U12:168] “Tamam.”
 [U12:169] “Bu kadar mı?”
@@ -252,7 +252,7 @@
 [U13:46] Bu defa parmağım düzeltemedi. Banttaki yapışkan derimi çekti. Karşımda oturan biri, kendi sağlam başparmağıyla plastiği dışarı itti. Sonra aynı el, bardağı uzatan doktorun eli gibi göründü. İki yüzü yan yana getirmeye çalıştım; biri belirince öteki dağıldı. Metnin bana gösterdiği iki bakışı, aynı odada iki bedene çevirmiş olabilirdim. Fotoğrafta ise yalnız projektörün kapağıyla benim bantlı başparmağım vardı.
 [U13:47] “Su içen ben olmayabilirim,” dedim.
 [U13:48] “Şimdi öyle hatırlıyorsun,” dedi Nina.
-[U13:49] Kâğıda tekrar baktım. Elimi tanıyor, yerini tanıyamıyordum. Bedenimden geldiğini sandığım her hatıranın, benim baktığım yerden gelmediğini ilk kez bu kadar yakından hissettim.
+[U13:49] Kâğıda tekrar baktım. Elimi tanıyor, yerini tanıyamıyordum. Bedenimden geldiğini sandığım bir hatıranın, benim baktığım yerden gelmeyebileceğini ilk kez bu kadar yakından hissettim.
 [U13:50] Tuncay'a fişin kendi bilgilerimi gösteren kısmını, programın iki yüzünü ve kesik görünen eski fotoğrafı yolladım. Başka kişilerin isimlerini kapattım. Yazıyla cevap vermedi; yarım saat sonra aradı.
 [U13:51] “Arkadaki dört kelime benim,” dedi. “Okuma günlerinde imza yerine onu yazarım.”
 [U13:52] Cümleyi o an tanıdım. @happytuncay hesabındaki paylaşımların, kitaplarının son sayfasının altındaki dört kelime. Basılı hâlini çok görmüştüm; kendi yazıma benzeyen bir elden çıkınca tanıdıklığı cümleye değil, yazıya vermiştim.
@@ -266,7 +266,7 @@
 [U13:60] “Şimdilik kelimesi insanı hiç rahatlatmıyor.”
 [U13:61] “Doktorlar ‘sonsuza kadar kesinlikle yok’ yazmıyor.”
 [U13:62] Lara kulaklığının bir tarafını çıkardı. “Sen son zamanlarda vedalaşıyor gibi konuşuyorsun.”
-[U13:63] Çocuklardan gerçek saklamanın yalan olmadığını Sara söylemişti. O an, saklamanın da bir sınırı olduğunu anladım.
+[U13:63] Çocuklara her şeyi aynı anda anlatmamanın yalan olmadığını Sara söylemişti. O an, bunun da bir sınırı olduğunu anladım.
 [U13:64] “Bazen gidecekmişim gibi hissediyorum,” dedim. “Ama bunun doğru bilgi olduğunu bilmiyorum. Sağlığımı kontrol ettiriyorum. Kendime zarar vermeyi düşünmüyorum. Senden bir şeyi gizleyip sonra ‘seni korudum’ demek istemedim.”
 [U13:65] Lara uzun süre yüzüme baktı.
 [U13:66] “Ben ne yapacağım bu bilgiyle?”
@@ -290,11 +290,11 @@
 [U13:84] O anda sandalyeyi hatırladım. Dar bir sedir vardı. Ben yanındaki masanın önüne bir sandalye çekip çantamı koymuş, ona ulaşacak yeri kapatmıştım. Birinin bakışıyla çantayı almış, sandalyeyi sırtlığından aceleyle ters kaldırmıştım. Ayağı kapıya vurmuştu. Masadaki kâğıtları da kenara itince bardağı koyacak yer açılmıştı. Bana kimin baktığını seçemiyordum. Hareket benimdi; yüzleri artık makinenin yazdığı sayfadan ayırmak zordu.
 [U13:85] “Yüzümü hatırlıyor musun?” diye sordum.
 [U13:86] “Yüzünü hatırlamıyorum. Hareketini hatırlıyorum.”
-[U13:87] Telefonu bıraktıktan sonra programı yeniden çevirdim. Kenardaki yarım ay, yazıdan daha kalıcı görünüyordu. O kâğıdı evime hangi hareketle getirdiğimi hatırlamadım. Merkezdeki odayı, makinenin kurduğu yeşil koridoru ve Tuncay'ın gördüğü sandalyeyi birbirinden ayrı not ettim. Odanın fişi, sandalyenin tanığı vardı; koridorun yalnız bir kaydı vardı ve o kaydı ben yazdırmıştım. Yine de üçüne bakarken susayan aynı bendim.
+[U13:87] Telefonu bıraktıktan sonra programı yeniden çevirdim. Kenardaki yarım ay, yazıdan daha kalıcı görünüyordu. O kâğıdı evime hangi hareketle getirdiğimi hatırlamadım. Merkezdeki odayı, makinenin kurduğu yeşil koridoru ve Tuncay'ın gördüğü sandalyeyi birbirinden ayrı not ettim. Odanın fişi, sandalyenin tanığı vardı; koridorun yalnız bir kaydı vardı ve o kaydı ben yazdırmıştım.
 [U14:0] # 15. Nüshaların Söylemediği
 [U14:1] Yusuf Vural'ın izini emanet dolabı fişinden bulduk. Adı, eski dizgiciler birliğinin kayıtlarında ve kapanmış bir matbaanın ortaklık belgesinde geçiyordu. Son adresi, Duman'ın bizi götürdüğü cilt atölyesiydi.
 [U14:2] Polis ilk gece yalnız dışarıyı ve açık çatı hattını kontrol etmişti. İçeri girmemiş, “kimse yok” da dememişti. Çatıdaki pencere yıllardır kırıktı, içeriden yardım çağrısı gelmemişti; savcılık hâkim kararı olmadan iş yerinde arama yapılamayacağını bildirdi.
-[U14:3] Kapsülün aslı mühürlenerek teslim edildi. Biz yalnız kişisel olmayan bölümlerin, sonradan değiştirilemeyeceği doğrulanmış adli görüntüsünü inceleyebildik. “Kopyası bizde” demek kolaydı. Gerçekte her dosyanın kimden, hangi saatte ve hangi kayıt değeriyle geldiğini gösteren sıkıcı bir zincir vardı.
+[U14:3] Kapsülün aslı mühürlenip teslim edildi; bize yalnız kişisel olmayan bölümlerin adli kopyası açıldı. “Kopyası bizde” demek kolaydı; gerçekte her dosyanın arkasında sıkıcı bir zincir vardı.
 [U14:4] Atölyenin kapısını açabilecek mülk sahibini bulmamız iki gün sürdü. Adam önce kapıyı açmayı reddetti. Eski kiracı aylar önce ortadan kaybolmuş; yer, icra yoluyla kendisine teslim edilmişti. Teslim tutanağında makineler sabit demirbaş, en arkadaki çalışma masası ise boş görünüyordu. Selina aynı kelimeyi iki kez okudu.
 [U14:5] “İçeride gerçekten kitap varsa,” dedi, “ya tutanak yanlış ya da teslimden sonra biri geri girdi.”
 [U14:6] Bir cevap bulmamıştık. Yalnız soruyu değiştirmiştik: Atölyenin kapısını bize kim açacaktı değil, resmî olarak boş teslim edilen yere bizden önce kim dönmüştü?
@@ -305,7 +305,7 @@
 [U14:11] Teslim satırındaki saat, kapımın önündeki kameranın donduğu dakikaydı.
 [U14:12] Nina deponun yerini haritada işaretledi. Selina kuryenin adı için ikinci bir yazı hazırladı.
 [U14:13] İstanbul'daki adres önümüzdeydi.
-[U14:14] Anahtarı mülk sahibi çevirdi; yanında kendi avukatı, Selina, noter ve kaydı tutan görevli vardı. Nina'yla ben, mülk sahibinin yazılı izniyle gözlemci olarak girdik. Bu bir arama değildi: Adam, icrayla eline geçen iş yerinin o günkü hâlini kayda aldırıyordu. Hiçbir şeye dokunmayacaktık. Kişisel bir belge ya da suç şüphesi doğuran bir şey görünürse tespit duracak, savcılık aranacaktı.
+[U14:14] Anahtarı mülk sahibi çevirdi; yanında avukatı, Selina ve noter vardı. Nina'yla ben gözlemci olarak, hiçbir şeye dokunmamak şartıyla girdik. Adam yalnız icrayla eline geçen yerin o günkü hâlini kayda aldırıyordu.
 [U14:15] Kapı açılınca ağır metal, nem ve turunç kokusu yüzümüze geldi. İçeride eski baskı makineleri siyah hayvanlar gibi sıralanmıştı. Yerde kâğıt kırpıntıları, duvarlarda nem izleri vardı. En arkadaki masanın üstü ise yeni temizlenmişti.
 [U14:16]     | TOPLAYICI: Temiz masa, kirli zeminden daha çok şey söyler.
 [U14:17]     | AVCI: Arka kapı açık.
@@ -383,7 +383,7 @@
 [U15:47] “Benim yüzümden.”
 [U15:48] “Hayır. Planı buydu. Seni sesle durdurdu, beni senden ayırdı.”
 [U15:49] Bu cümle yeteneğimin ve bedelinin aynı dosyada bulunduğunu ilk kez bu kadar açık gösterdi.
-[U15:50] Selina, mülk sahibi ve noterlik görevlisi ön kapıdan sokağa çıktığında adam çoktan arka geçitte kaybolmuştu. Selina ilk olarak beni azarlamadı; saati söyledi, tanıkları kayda aldı ve arka kapının görüntüsünü çekti. Azarını işlemler bitene sakladı. Olay yeri ekibi altı dakika sonra geldi; hâkim kararı çıkana kadar atölyenin girişini tuttu. Karar ulaşınca gri paltolunun bıraktığı kitap, bizim çantamıza değil, numaralı delil torbasına girdi.
+[U15:50] Selina, mülk sahibi ve noter ön kapıdan sokağa çıktığında adam çoktan arka geçitte kaybolmuştu. Selina ilk olarak beni azarlamadı; saati söyledi, tanıkların adını yazdı. Azarını sonraya sakladı. Gri paltolunun bıraktığı kitap, bizim çantamıza değil, numaralı bir delil torbasına girdi.
 [U15:51] Kitap kamera önünde açıldığında sayfaları boştu. Yalnız ortasında tek cümle vardı:
 [U15:52]     | Kitabın sana ait olan sayfasını bul. Başkasının teorisinde kahraman olma.
 [U15:53] Altında küçük bir Y harfi.
@@ -391,7 +391,7 @@
 [U15:55] Adını hâlâ hatırlamıyordum. Fakat o beni tanıyordu.
 [U16:0] # 17. Ormanda Beceri, Şehirde Belirti
 [U16:1] Atölyede bulduğumuz yedi kitabı incelemek günler sürdü. Bu sırada hayat, suç romanı olduğundan habersiz devam etti. Çöp çıkarıldı. Emil'in fen ödevi kayboldu. Lara'nın müzik provası ertelendi. Sara, çocukların yanında telefonuma her baktığımda kaşını kaldırdı.
-[U16:2] Olay yeri ekibinin açtığı çekmecelerin ilkinde Türkçe, ikincisinde Almanca siyah kitap vardı. Sonrakiler İngilizce, Fransızca, Arapça, Portekizce ve Svahiliydi. Kitaplar emanete alındı; biz yalnız Selina'nın getirebildiği adli görüntüleri karşılaştırdık.
+[U16:2] Mülk sahibinin açtığı ilk çekmecede Türkçe, olay yeri ekibinin açtığı ikincisinde Almanca siyah kitap vardı. Sonrakiler İngilizce, Fransızca, Arapça, Portekizce ve Svahiliydi. Kitaplar emanete alındı; biz yalnız Selina'nın getirebildiği adli görüntüleri karşılaştırdık.
 [U16:3] Yedi kitap dışarıdan aynıydı; açıldıklarında değildi. İlk sayfadaki yara cümlesi her alıcı için değişiyordu.
 [U16:4] Mira adlı bir kadının kitabında ailesinin onu susturduğu yazıyordu.
 [U16:5] Thomas'ın kitabında devletin yeteneğini ilaçla bastırdığı.
@@ -473,12 +473,12 @@
 [U16:81] “Bırakmaya çalışıyorum.”
 [U16:82] “Çalışmak bıraktığın anlamına gelmiyor.”
 [U16:83] Evde çocuk yetiştirmenin tehlikeli yanı, kendi cümlelerinizin size karşı ücretsiz kullanılmasıdır.
-[U16:84] Videoyu kapalı ortamda inceletmek için Nina'nın iki yıl önce çocuk verilerini satan eğitim merkezini araştırırken kaynak olarak tanıştığı, benim yüzünü hiç görmediğim güvenlik uzmanı Tarek'e ulaştık. Tarek o merkezin taşeronunda çalışmış, “anonim” denilen dosyaların öğrenci adlarıyla dışarı aktarıldığını görünce işi bırakmıştı.
+[U16:84] Videoyu kapalı ortamda inceletmek için Tarek'e ulaştık. Nina onunla iki yıl önce, çocuk verilerini satan bir eğitim merkezini araştırırken kaynak olarak tanışmıştı; ben yüzünü hiç görmemiştim. Tarek o merkezin taşeronunda çalışmış, “anonim” denilen dosyaların öğrenci adlarıyla dışarı aktarıldığını görünce işi bırakmıştı.
 [U16:85] Benimle ilk görüşmesi görüntülü oldu. Selam vermeden önce dosyanın özet değerini, sonra kameramın üreticisini söyledi.
 [U16:86] “İnsanlarla böyle mi tanışıyorsunuz?” diye sordum.
 [U16:87] “Sunucular daha az alıngan,” dedi.
-[U16:88] Ona önce videoyu değil, Sam'in defterime yazdığım cümlenin hemen ardından gönderdiği mesajı gösterdim. “Tahmin ettim” demesi bir açıklama değil, benim kabul etmemi istediği açıklamaydı. Tarek mesajı iki kez okudu ve yalnız, “Önce evine bakalım,” dedi.
-[U16:89] Ertesi sabah Selina üzerinden gelen görevliyle, evdeki cihazları tek tek yerinde kontrol ettik. İlk gece kapılara ve bilgisayara bakmıştık; bu kez duvara asılı olup cihaz saymadığım şeylere de baktık. Çalışma odasındaki duman sensörünün kapağında, deliklerden birinin gerisinde ikinci bir cam parladı. Görevli sensörü fotoğraflayıp söktü. İçinde kameranın kendi bağlantısını sağlayan ayrı bir kart vardı; evin kablosuz ağ listesinde görünmüyordu.
+[U16:88] Ona önce videoyu değil, Sam'in defterime yazdığım cümlenin hemen ardından gönderdiği mesajı gösterdim. “Tahmin ettim” demesi bir açıklama değil, kabul etmemi istediği bir hikâyeydi. Tarek mesajı iki kez okudu ve yalnız, “Önce evine bakalım,” dedi.
+[U16:89] Ertesi sabah Selina üzerinden gelen görevliyle, evdeki cihazları tek tek yerinde kontrol ettik. İlk gece kapılara ve bilgisayara bakmıştık; bu kez tavanda ve duvarlarda durup cihaz saymadığım şeylere de baktık. Çalışma odasındaki duman sensörünün kapağında, deliklerden birinin gerisinde ikinci bir cam parladı. Görevli sensörü fotoğraflayıp söktü. İçinde kameranın kendi bağlantısını sağlayan ayrı bir kart vardı; evin kablosuz ağ listesinde görünmüyordu.
 [U16:90] “Üç zarf,” dedim.
 [U16:91] Tarek kameranın baktığı açıyla açılış videomdaki masayı karşılaştırdı. “O masayı görebilir. Ama o sabah kimin izlediğini, görüntünün nerede saklandığını daha bilmiyoruz.”
 [U16:92] Çalışma defterimi de o masada açmıştım.
@@ -511,7 +511,7 @@
 [U16:119] Tarek, Sam'in tanıtım bağlantısına eklediği başvuru paketini de inceledi. Gençlere imzalatılan sözleşme videonun içinde değil, indirilebilir izin eklerinin arasındaydı. Bursun devamı, davranış verilerinin “ortak araştırma kuruluşlarıyla” paylaşılmasına ve programın kamuya açık eleştirilerinde önce kurum içi uzlaşma sürecine başvurulmasına bağlıydı. Saklamamışlardı; desteği isteyenin bu dili olağan karşılayacağını varsaymışlardı.
 [U16:120] Aris'e doğrudan ulaşmadık. Onu yeni bir riskin içine sokabilirdik. Sözleşmeyi bağımsız bir hak örgütüne gönderdik. Aylar sonra gençlerin bursu kesilmeden veri maddesinin değişmesi için dava açılacaktı.
 [U16:121] O gün teorime bir satır daha ekledim:
-[U16:122]     | İyi manipülasyon yoktur. Yardım kapıyı gösterir; geçip geçmemeyi insana bırakır.
+[U16:122]     | Yardım kapıyı gösterir; geçip geçmemeyi insana bırakır.
 [U16:123]     | GÖLGE: Ya yanlış kapıyı seçerse?
 [U16:124]     | SESSİZ SES: O zaman yanında kalırsın. Onun yerine yürümezsin.
 [U17:0] # 18. Birincil Ayna
@@ -522,7 +522,7 @@
 [U17:5] Dördüncü aşama, bir düşman seçiyordu.
 [U17:6] Beşinci aşama, kişiye görev veriyordu.
 [U17:7] “Bir insanı önce küçültüyorlar,” dedim. “Sonra yalnız onlar büyütebilirmiş gibi davranıyorlar.”
-[U17:8] Nina ekranı bana çevirdi. “Her hedef için bir ‘ayna’ belirlemişler.”
+[U17:8] Nina ekranı bana çevirdi. “Her hedef için bir ‘ayna’ belirlenmiş.”
 [U17:9] Ayna, kişinin hâlâ güvendiği karşı sesti. Aileden biri, arkadaş, doktor, meslektaş. Kitabın iddialarına hemen katılmayacak fakat kişiyi küçük de görmeyecek biri.
 [U17:10] “Aynayı düşman yapınca ne oluyor?” diye sordum.
 [U17:11] Nina dosyanın altındaki cümleyi gösterdi:
@@ -530,7 +530,7 @@
 [U17:13] Benim hedef kodum A-1453 idi.
 [U17:14] Dosyada hayatımdaki insanlar sıralanmıştı. Sara: geçmiş otorite ve suçluluk bağı. Lara: yüksek duygusal risk, düşük yönlendirme uygunluğu. Emil: doğrudan hedefleme yasak — tepki öngörülemez. Leyla: uzman ayna, kontrol kaybedildi. Nina: birincil ayna.
 [U17:15]     | AYNA / A-1453 / BİRİNCİL AYNA: NİNA KAYA
-[U17:16] “Ayna kelimesini onlar seçmedi,” dedi Nina. “Model her hedef için bir ayna üretiyor. Bizimkine insan bulmuşlar.”
+[U17:16] “Bu dosyadaki ‘ayna’yı bir insan seçmemiş,” dedi Nina. “Modelin adı da oradan geliyor: her hedef için bir ayna üretiyor. Bizimkinde o rolü gerçek bir insana yazmış.”
 [U17:17] Altında üç görev vardı:
 [U17:18]     | 1. Nina'nın güvenilirliğini hedefin gözünde tartışmalı hâle getir.
 [U17:19]     | 2. Gerçek bir saklamayı görünür bir ihanete bağla.
@@ -688,7 +688,7 @@
 [U18:138] “Sen de her kapıyı benim iyiliğim için kapatamazsın.”
 [U18:139] Aramızdaki bağ, ilk kez bilgi eksikliğinden değil, bilgi üzerindeki hak yüzünden gerildi.
 [U18:140] Pencerenin çift camında Nina'nın iki yansıması vardı. Arkasında benim yüzüm görünüyordu. Sonra ikinci bir yüz daha belirdi: saçları daha gür, çenesi daha ince, on dokuz yaşındaki fotoğraflarıma benzeyen biri.
-[U18:141] Başını benden önce çevirdi.
+[U18:141] Camdaki genç yüz başını benden önce çevirdi.
 [U18:142] Geri baktım. Odada kimse yoktu.
 [U18:143] “Ne oldu?” dedi Nina.
 [U18:144] “Çift cam.”
@@ -762,12 +762,12 @@
 [U19:64] Saati kulağıma götürdüm.
 [U19:65] Mekanizma durmuştu. Yine de içinden çok hafif bir dijital uğultu geliyordu.
 [U19:66] Emil de duydu. “İçinde pil var.”
-[U19:67] Nina saati kanıt poşetine koydu. Bu polis mühürlü torba değildi; Selina'nın telefonla seri numarasını kayda geçirdiği, ağzı açılırsa iz bırakan geçici koruma poşetiydi. Saat, resmî teslimden önce ancak görüntülü kayıt ve bağımsız tanıkla açılacaktı.
+[U19:67] Nina saati, ağzı açılırsa iz bırakan bir kanıt poşetine koydu; Selina seri numarasını telefonda kayda geçirdi.
 [U19:68] “Eve gidiyoruz,” dedi.
 [U19:69] “Önce içini açacağız,” dedim.
 [U19:70] “Çocuklarının yanında değil.”
-[U19:71] Bu kez itiraz etmedim. Akşam posta kutusunda Tuncay'ın ikinci zarfı vardı; başlığı okudum, gerisini sabaha bıraktım.
-[U19:72] Sara eve geldiğinde önce Emil'e sarıldı, sonra benden ve Nina'dan açıklama istedi. Olayı anlatırken her cümlemiz bir sonrakinin içine girdi. Yusuf, siyah kitap, cep saati, Leyla'nın kaydı. Sara elini kaldırdı.
+[U19:71] Bu kez itiraz etmedim.
+[U19:72] Eve girerken posta kutusunda Tuncay'ın ikinci zarfını gördüm; başlıklarını okudum, gerisini sabaha bıraktım. Sara eve geldiğinde önce Emil'e sarıldı, sonra benden ve Nina'dan açıklama istedi. Olayı anlatırken her cümlemiz bir sonrakinin içine girdi. Yusuf, siyah kitap, cep saati, Leyla'nın kaydı. Sara elini kaldırdı.
 [U19:73] “Birer birer. Bu evde aynı anda yalnız bir felaket konuşacak.”
 [U19:74] Emil mutfak masasının ucunda oturuyordu. Önündeki saate bakıyor, bizim yüzümüze bakmıyordu.
 [U19:75] “Adam seni çağırdı mı?” diye sordu Sara.
