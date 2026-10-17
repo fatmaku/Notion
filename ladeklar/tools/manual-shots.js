@@ -10,7 +10,7 @@ const ROOT = new URL('..', import.meta.url).pathname;
 const OUT = path.join(ROOT, 'docs/handbuch/img');
 fs.mkdirSync(OUT, { recursive: true });
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'lk-manual-'));
-const srv = createServer({ dataDir: dir, quiet: true, demoData: true });
+const srv = createServer({ dataDir: dir, quiet: true, demoData: true, loginPerMinute: 200 });
 const port = await srv.listen(0, '127.0.0.1');
 const BASE = `http://127.0.0.1:${port}`;
 // German browser locale, so date and time fields show dd.mm.yyyy like on a German PC

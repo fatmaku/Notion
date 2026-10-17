@@ -107,9 +107,15 @@ for (const [key, g] of Object.entries(GROUPS)) {
     await page.evaluate(() => document.fonts.ready);
     const cover = await page.pdf({ format: 'A4', printBackground: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } });
     // content
-    await page.goto('about:blank');
-    await page.setContent(`<!doctype html><html lang="de"><head><meta charset="utf-8"><title>${title.replace(/[<>&]/g, '')}</title><base href="${base}"><style>${CSS}</style></head><body>${body}</body></html>`, { waitUntil: 'load' });
+    // rendered from a file next to the Markdown, so relative images (img/…) load – a page set from
+    // about:blank may not read file:// images
+    const htmlFile = path.join(path.dirname(src), `.render-${path.basename(src, '.md')}.html`);
+    fs.writeFileSync(htmlFile, `<!doctype html><html lang="de"><head><meta charset="utf-8"><title>${title.replace(/[<>&]/g, '')}</title><base href="${base}"><style>${CSS}</style></head><body>${body}</body></html>`);
+    await page.goto('file://' + htmlFile, { waitUntil: 'load' });
+    fs.rmSync(htmlFile, { force: true });
     await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map((i) => (i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; })))); });
+    const broken = await page.evaluate(() => [...document.images].filter((i) => !i.naturalWidth).map((i) => i.getAttribute('src')));
+    if (broken.length) throw new Error(`${path.relative(ROOT, src)}: Bilder fehlen: ${broken.join(', ')}`);
     const content = await page.pdf({
       format: 'A4', printBackground: true, displayHeaderFooter: true,
       margin: { top: '20mm', right: '18mm', bottom: '18mm', left: '18mm' },

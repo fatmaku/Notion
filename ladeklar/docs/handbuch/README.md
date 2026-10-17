@@ -32,7 +32,7 @@ node tools/build-docs.js
 
 Den Befehl im Hauptordner von Ladeklar ausführen.
 
-> **Tipp:** Drucken Sie die Fahrer-Kurzanleitung in den Sprachen Ihrer Fahrer aus und legen Sie sie ins Fahrerhaus. Jede Sprache passt auf eine Seite.
+> **Tipp:** Drucken Sie die Fahrer-Kurzanleitung in den Sprachen Ihrer Fahrer aus und legen Sie sie ins Fahrerhaus. Jede Sprache beginnt auf einer neuen Seite.
 
 ## Hinweise zur Pflege
 

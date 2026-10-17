@@ -20,7 +20,7 @@ const errors = [];
 let shotN = 0;
 
 const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ladeklar-e2e-'));
-const srv = createServer({ dataDir, quiet: true, platformEmail: 'inhaber@ladeklar.de', platformPassword: 'Plattform-Test-2026' });
+const srv = createServer({ dataDir, quiet: true, loginPerMinute: 200, platformEmail: 'inhaber@ladeklar.de', platformPassword: 'Plattform-Test-2026' });
 const port = await srv.listen(0, '127.0.0.1');
 const BASE = `http://127.0.0.1:${port}`;
 // the service worker's own requests go through Playwright's network, so a "dead zone" (route abort) also

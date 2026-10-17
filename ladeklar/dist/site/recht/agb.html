@@ -165,7 +165,9 @@ Zugangsdaten beim Kunden zustande.</p>
 einen Tarif in der Plattform bucht („[Tarif zahlungspflichtig buchen]“)
 und der Anbieter die Buchung in Textform bestätigt oder den Tarif
 freischaltet, oder indem der Kunde ein Angebot des Anbieters in Textform
-annimmt.</p>
+annimmt. [Solange die Plattform keine Buchungsfunktion hat, schaltet der
+Anbieter den Tarif nach einer Bestellung oder Angebotsannahme in
+Textform frei.]</p>
 <p>(4) Die Pflichten nach § 312i Abs. 1 Satz 1 Nr. 1 bis 3 BGB werden
 abbedungen. Der Kunde kann diese AGB, die Leistungsbeschreibung/SLA und
 den AVV jederzeit unter [Website-URL/recht] abrufen und in
@@ -182,12 +184,14 @@ ausgenommen.</p>
 <p>(2) Für die Testphase sind keine Zahlungsdaten erforderlich. Die
 Testphase endet automatisch mit Ablauf des 30. Tages. Sie wandelt sich
 nicht automatisch in einen kostenpflichtigen Vertrag um.</p>
-<p>(3) Bucht der Kunde bis zum Ende der Testphase keinen Tarif, wird der
-Mandant in den Status „Gesperrt“ versetzt. Der Admin kann dann für
-weitere 30 Tage alle Daten lesen und exportieren (§ 17 Abs. 1). Danach
-löscht der Anbieter den Mandanten einschließlich aller Kundendaten nach
-§ 18 Abs. 2. Bucht der Kunde einen Tarif, bleiben die in der Testphase
-erfassten Daten erhalten.</p>
+<p>(3) Bucht der Kunde bis zum Ende der Testphase keinen Tarif, sperrt
+die Plattform den Mandanten automatisch (Anzeige „Abgelaufen“); es
+gelten die Wirkungen des Status „Gesperrt“ (§ 14 Abs. 3). Der Admin kann
+dann für weitere 30 Tage alle Daten lesen und exportieren (§ 17 Abs. 1).
+Danach setzt der Anbieter den Status „Gekündigt“ und löscht den
+Mandanten einschließlich aller Kundendaten nach § 18 Abs. 2. Bucht der
+Kunde einen Tarif, bleiben die in der Testphase erfassten Daten
+erhalten.</p>
 <p>(4) Während der Testphase gelten keine Verfügbarkeitszusagen und
 keine Gutschriften nach dem SLA. Der Anbieter haftet während der
 Testphase – außer bei Verletzung von Leben, Körper oder Gesundheit, nach
@@ -271,9 +275,9 @@ Offline-Funktion</td>
 </tr>
 <tr class="odd">
 <td>Berichte und CSV-Export</td>
-<td>Basis</td>
-<td>voll</td>
-<td>voll</td>
+<td>ja</td>
+<td>ja</td>
+<td>ja</td>
 </tr>
 <tr class="even">
 <td>eigene Subdomain / eigene Domain</td>
@@ -303,13 +307,23 @@ Offline-Funktion</td>
 </table></div>
 <p>Der vollständige Datenexport nach § 17 steht in allen Tarifen zur
 Verfügung.</p>
-<p>(4) Die Plattform prüft die Grenzen des gebuchten Tarifs (Fahrer,
-Fahrzeuge, Disponenten, Speicher) und weist auf einen möglichen
-Tarifwechsel hin. Ein Wechsel in einen höheren Tarif ist jederzeit mit
-sofortiger Wirkung möglich und wird zeitanteilig abgerechnet. Ein
-Wechsel in einen niedrigeren Tarif wird zum Ende des laufenden
-Abrechnungszeitraums wirksam, wenn die Nutzung zu diesem Zeitpunkt
-innerhalb der Grenzen des niedrigeren Tarifs liegt.</p>
+<p>(4) Die Plattform prüft die Grenzen des gebuchten Tarifs
+(Fahrerplätze, Fahrzeuge, Büro-Zugänge, Speicher), nimmt darüber hinaus
+keine weiteren aktiven Zugänge, Fahrzeuge oder Dateien an und weist auf
+einen möglichen Tarifwechsel hin; die Regeln zum Speicher enthält die
+Leistungsbeschreibung/SLA (Teil A Ziffer 4). Den Wechsel in einen
+anderen Tarif kann der Admin in der Plattform anfragen (Einstellungen →
+Lizenz → „Tarif wechseln anfragen“); der Anbieter führt ihn aus. Ein
+Wechsel in einen höheren Tarif ist jederzeit mit sofortiger Wirkung
+möglich und wird zeitanteilig abgerechnet. Ein Wechsel in einen
+niedrigeren Tarif wird zum Ende des laufenden Abrechnungszeitraums
+wirksam, wenn die Nutzung zu diesem Zeitpunkt innerhalb der Grenzen des
+niedrigeren Tarifs liegt; die Plattform zeigt dem Anbieter vor dem
+Wechsel an, wo die Nutzung darüber liegt. Wird der Wechsel dennoch
+vereinbart, kann der Kunde bis zur Bereinigung keine weiteren Zugänge
+oder Fahrzeuge anlegen. Eigene Domains entfallen mit dem Wechsel in
+einen Tarif ohne eigene Domain, die Subdomain mit Firmen-Marke mit dem
+Wechsel in den Tarif Start.</p>
 <p>(5) Nicht geschuldet sind, soweit nicht ausdrücklich gesondert
 vereinbart:</p>
 <ol type="1">
@@ -334,14 +348,16 @@ lediglich aufruft.</li>
 <h2 id="-6-zusatzleistungen-und-white-label-app">§ 6 Zusatzleistungen
 und White-Label-App</h2>
 <p>(1) <strong>Zusatzfahrer.</strong> In den Tarifen Flotte und Premium
-kann der Kunde über die inklusiven Fahrer hinaus weitere Fahrerzugänge
-anlegen. Abgerechnet wird je Abrechnungsmonat die höchste Zahl
-gleichzeitig aktiver Fahrerzugänge, soweit sie die im Tarif enthaltene
-Zahl übersteigt. Deaktivierte Fahrerzugänge werden nicht berechnet. Im
-Tarif Start sind Zusatzfahrer nicht buchbar.</p>
-<p>(2) <strong>Zusatzspeicher.</strong> Der Kunde kann zusätzlichen
-Speicher zu [Preis] € netto je angefangene [10] GB und Monat buchen. Die
-Regeln bei Erreichen des Speicherkontingents ergeben sich aus der
+kann der Kunde über die inklusiven Fahrer hinaus zusätzliche
+Fahrerplätze buchen; der Anbieter schaltet sie frei. Abgerechnet wird je
+Abrechnungsmonat die Zahl der gebuchten Zusatzplätze, unabhängig davon,
+wie viele davon belegt sind. Mehr aktive Fahrerzugänge, als Plätze
+vorhanden sind, lässt die Plattform nicht zu; gesperrte und gelöschte
+Fahrerzugänge belegen keinen Platz. Im Tarif Start sind Zusatzfahrer
+nicht buchbar.</p>
+<p>(2) <strong>Zusatzspeicher.</strong> [Der Kunde kann zusätzlichen
+Speicher zu [Preis] € netto je angefangene [10] GB und Monat buchen.]
+Die Regeln bei Erreichen des Speicherkontingents ergeben sich aus der
 Leistungsbeschreibung/SLA.</p>
 <p>(3) <strong>White-Label-App (nur im Tarif Premium).</strong></p>
 <ol type="1">
@@ -414,8 +430,9 @@ Sichern), beschränkt auf den Vertragszweck und die Vertragslaufzeit
 einschließlich des Abrufzeitraums.</p>
 <p>(5) Der Anbieter darf aggregierte Nutzungskennzahlen je Mandant ohne
 Personenbezug und ohne Inhalte der Auftragsdaten (z. B. Anzahl der
-Fahrer, Fahrzeuge und Lieferungen, belegter Speicher) für Abrechnung,
-Kapazitätsplanung und Produktverbesserung verwenden.</p>
+Fahrer, Büro-Zugänge, Fahrzeuge und Lieferungen, Zeitpunkt der letzten
+Aktivität) für Abrechnung, Kapazitätsplanung und Produktverbesserung
+verwenden.</p>
 <p>(6) Alle Rechte an der Plattform, insbesondere am Quellcode, an der
 Dokumentation und an den Marken des Anbieters, verbleiben beim
 Anbieter.</p>
@@ -464,7 +481,9 @@ Einladungslinks und API-Schlüssel geheim und sorgt dafür, dass seine
 Nutzer dies ebenfalls tun. Admin- und Disponentenzugänge sind
 personengebunden. Bei Verdacht auf Missbrauch informiert der Kunde den
 Anbieter unverzüglich und setzt betroffene Zugänge zurück. Zugänge
-ausscheidender Nutzer deaktiviert der Kunde unverzüglich.</p>
+ausscheidender Nutzer deaktiviert der Kunde unverzüglich. Der Anbieter
+empfiehlt, für Admin- und Disponentenzugänge die Zwei-Faktor-Anmeldung
+der Plattform einzuschalten.</p>
 <p>(2) <strong>Verantwortung für Nutzer.</strong> Der Kunde ist für die
 Handlungen seiner Nutzer im Mandanten wie für eigene Handlungen
 verantwortlich, soweit sie im Zusammenhang mit der Nutzung der Plattform
@@ -493,7 +512,9 @@ eine Rechtsgrundlage besteht;</li>
 (Vorlage: Datenschutzhinweise für Fahrer einschließlich Kurzhinweis für
 Empfänger);</li>
 <li>erforderliche Einwilligungen, insbesondere für die Standortabfrage
-beim Statuswechsel, wirksam eingeholt werden;</li>
+beim Statuswechsel und für den Zugriff auf den Gerätestandort durch die
+Fahrsperre (in der Plattform voreingestellt eingeschaltet), wirksam
+eingeholt werden;</li>
 <li>eine erforderliche Datenschutz-Folgenabschätzung durchgeführt
 wird.</li>
 </ol>
@@ -513,10 +534,14 @@ personenbezogener Daten im Sinne des Art. 9 DSGVO (z. B. Angaben zu
 Verletzungen nach einem Unfall) erfasst werden, soweit dies nicht im
 Einzelfall erforderlich ist.</p>
 <p>(7) <strong>Aufbewahrung und Archivierung.</strong> Der Kunde legt
-die Löschfristen für seinen Mandanten fest. Er ist selbst dafür
-verantwortlich, handels- und steuerrechtliche Aufbewahrungspflichten zu
-erfüllen, insbesondere Unterlagen, die Buchungsbelege sind, nach den
-GoBD in seinen eigenen Systemen zu archivieren. Der Anbieter empfiehlt,
+fest, wie lange abgeschlossene Lieferungen mit allen Dokumenten
+aufbewahrt werden (1 bis 10 Jahre, Voreinstellung 3 Jahre, gerechnet ab
+der Zustellung bzw. Stornierung); danach löscht die Plattform sie
+automatisch. Die übrigen Fristen sind in der Leistungsbeschreibung Teil
+A Ziffer 6 festgelegt. Der Kunde ist selbst dafür verantwortlich,
+handels- und steuerrechtliche Aufbewahrungspflichten zu erfüllen,
+insbesondere Unterlagen, die Buchungsbelege sind, nach den GoBD in
+seinen eigenen Systemen zu archivieren. Der Anbieter empfiehlt,
 Abliefernachweise und Dokumente regelmäßig zu exportieren.</p>
 <p>(8) <strong>Endgeräte.</strong> Der Kunde stellt sicher, dass die
 Endgeräte seiner Nutzer die technischen Voraussetzungen der
@@ -582,13 +607,17 @@ Vorabversionen. Für sie gelten keine Verfügbarkeitszusagen.</p>
 Zahlung</h2>
 <p>(1) Alle Preise verstehen sich in Euro zuzüglich der jeweils
 gesetzlichen Umsatzsteuer.</p>
-<p>(2) <strong>Monatliche Zahlweise.</strong> Der Grundpreis des Tarifs
-ist monatlich im Voraus fällig. Zusatzfahrer und Zusatzspeicher werden
-monatlich nachträglich abgerechnet.</p>
+<p>(2) <strong>Monatliche Zahlweise.</strong> Der monatliche Preis aus
+Grundpreis des Tarifs, gebuchten Zusatzfahrern und gegebenenfalls dem
+Betrieb der White-Label-App ist für jeden Kalendermonat ab dem Monat des
+Beginns der kostenpflichtigen Nutzung im Voraus fällig. [Zusatzspeicher
+wird monatlich nachträglich abgerechnet.]</p>
 <p>(3) <strong>Jährliche Zahlweise.</strong> Bei jährlicher Zahlweise
-zahlt der Kunde für zwölf Monate den zehnfachen monatlichen Grundpreis
-im Voraus („2 Monate geschenkt“). Zusatzfahrer und Zusatzspeicher werden
-monatlich nachträglich abgerechnet.</p>
+zahlt der Kunde für zwölf Monate den zehnfachen monatlichen Preis
+einschließlich gebuchter Zusatzfahrer und des Betriebs der
+White-Label-App im Voraus („2 Monate geschenkt“), erstmals im Monat des
+Beginns der kostenpflichtigen Nutzung und danach alle zwölf Monate.
+[Zusatzspeicher wird monatlich nachträglich abgerechnet.]</p>
 <p>(4) Rechnungen werden elektronisch übermittelt. Der Kunde ist mit dem
 Empfang elektronischer Rechnungen einverstanden. Soweit gesetzlich
 vorgeschrieben oder vom Kunden gewünscht, stellt der Anbieter Rechnungen
@@ -625,11 +654,19 @@ Grundpreis länger als [14] Tage nach Fälligkeit in Verzug, kann der
 Anbieter den Mandanten in den Status „Gesperrt“ versetzen. Voraussetzung
 ist eine Mahnung in Textform, die die Sperrung ankündigt und eine
 Zahlungsfrist von mindestens [10] Werktagen setzt.</p>
-<p>(3) Im Status „Gesperrt“ können die Nutzer die Daten weiterhin lesen
-und der Admin kann alle Daten vollständig exportieren. Neue Lieferungen,
-Statusmeldungen und Uploads sind nicht möglich; die Fahrer-App zeigt
-einen entsprechenden Hinweis. Der Kunde ist selbst dafür verantwortlich,
-laufende Touren in diesem Fall auf andere Weise zu dokumentieren.</p>
+<p>(3) Im Status „Gesperrt“ können sich Admins und Disponenten weiter
+anmelden und die Daten lesen; der Admin kann alle Daten vollständig
+exportieren, Personen löschen und Kündigungs- oder Tarifwünsche senden.
+Neue Lieferungen, Statusmeldungen, Uploads und sonstige Änderungen sind
+nicht möglich; die App zeigt einen entsprechenden Hinweis. Die REST-API
+ist gesperrt. Angemeldete Fahrer werden abgemeldet und können sich nicht
+neu anmelden; die App zeigt ihnen „Zugang gesperrt – bitte die
+Disposition anrufen.“ Meldungen, die ein Fahrer ohne Netz gespeichert
+hat, bleiben auf seinem Gerät und werden erst gesendet, wenn er sich
+nach Aufhebung der Sperrung wieder anmeldet; liegt sein Tippen dann mehr
+als 72 Stunden zurück, speichert die Plattform den Zeitpunkt des
+Eingangs. Der Kunde ist selbst dafür verantwortlich, laufende Touren in
+diesem Fall auf andere Weise zu dokumentieren.</p>
 <p>(4) Der Anbieter hebt die Sperrung innerhalb von [einem] Werktag nach
 vollständigem Zahlungseingang auf. Die Vergütungspflicht besteht während
 der Sperrung fort.</p>
@@ -692,20 +729,38 @@ Anbieter liegt insbesondere in den Fällen des § 14 Abs. 5 sowie bei
 einem schwerwiegenden Verstoß gegen § 10 vor, der trotz Abmahnung in
 Textform nicht abgestellt wird.</p>
 <p>(5) Kündigungen bedürfen der Textform. Der Admin kann den Vertrag
-auch über die Plattform kündigen.</p>
-<p>(6) Nach Zugang einer Kündigung erhält der Mandant den Status
-„Gekündigt“. Bis zum Vertragsende steht die Plattform unverändert zur
-Verfügung.</p>
+auch in der Plattform kündigen (Einstellungen → Lizenz → „Kündigen“, mit
+optionalem Grund und einer Bestätigung auf derselben Seite). Die
+Plattform speichert Zeitpunkt und Grund, vermerkt die Kündigung im
+Protokoll des Kunden und benachrichtigt den Anbieter. Der Anbieter
+bestätigt dem Kunden den Zugang und das Vertragsende in Textform. Bis
+dahin läuft der Vertrag unverändert weiter.</p>
+<p>(6) Nach Zugang einer Kündigung trägt der Anbieter das Vertragsende
+als Laufzeitende in der Plattform ein. Bis zum Vertragsende steht die
+Plattform unverändert zur Verfügung. Mit dem Vertragsende sperrt die
+Plattform den Mandanten automatisch (Anzeige „Abgelaufen“, Wirkungen wie
+§ 14 Abs. 3), und der Anbieter setzt den Status „Gekündigt“: Nur noch
+der Admin kann sich anmelden; er kann alle Daten lesen, exportieren (§
+17 Abs. 1) und Personen löschen, aber nichts mehr ändern. Disponenten
+und Fahrer können sich nicht mehr anmelden.</p>
 <h2 id="-17-datenexport-und-anbieterwechsel-eu-data-act">§ 17
 Datenexport und Anbieterwechsel (EU Data Act)</h2>
 <p>(1) <strong>Jederzeitiger Export.</strong> Der Admin kann jederzeit,
-auch im Status „Gesperrt“ oder „Gekündigt“, alle exportierbaren Daten
-(Anlage A) in strukturierten, gängigen und maschinenlesbaren Formaten
-exportieren: JSON (vollständiger Datenbestand mit Metadaten), CSV
-(Tabellen) und die Originaldateien (Fotos, PDF-Dokumente,
-Unterschriften, Logo). Im Tarif Premium steht zusätzlich die REST-API
-zur Verfügung. Die Datenformate und Datenstrukturen sind unter
-[Website-URL/export-formate] dokumentiert.</p>
+auch im Status „Gesperrt“, „Abgelaufen“ oder „Gekündigt“, alle
+exportierbaren Daten (Anlage A) in strukturierten, gängigen und
+maschinenlesbaren Formaten exportieren: als ZIP-Archiv („Alles als ZIP
+(mit Lieferscheinen)“) mit JSON (<code>daten.json</code>, vollständiger
+Datenbestand mit Metadaten), CSV (<code>lieferungen.csv</code>, alle
+Lieferungen), allen gespeicherten Dateien (Fotos, PDF-Dokumente,
+Unterschriften, Logo) und einer Beschreibung
+(<code>LIESMICH.txt</code>); Archive über 4 GB im Format ZIP64; außerdem
+einzeln als JSON und als CSV. Berichte lassen sich je Monat als CSV
+herunterladen (die letzten 24 Monate). In CSV-Dateien sind Zellen, die
+mit einem Formelzeichen beginnen, durch ein vorangestelltes Apostroph
+entschärft. Jeder Export steht im Protokoll des Kunden. Im Tarif Premium
+steht zusätzlich die REST-API für Lieferungen zur Verfügung. Die
+Datenformate und Datenstrukturen sind unter [Website-URL/export-formate]
+dokumentiert.</p>
 <p>(2) <strong>Wechselverlangen.</strong> Der Kunde kann in Textform
 verlangen,</p>
 <ol type="1">
@@ -752,19 +807,26 @@ Zugriff aus Drittstaaten bereit.</p>
 <h2 id="-18-vertragsende-abrufzeitraum-und-löschung">§ 18 Vertragsende,
 Abrufzeitraum und Löschung</h2>
 <p>(1) Nach Vertragsende kann der Admin die Daten noch 30 Kalendertage
-lesen und exportieren (Abrufzeitraum). Im Fall des § 17 tritt der
+lesen und exportieren (Abrufzeitraum); der Mandant hat in dieser Zeit
+den Status „Gekündigt“ (§ 16 Abs. 6). Im Fall des § 17 tritt der
 Datenabrufzeitraum nach § 17 Abs. 4 an die Stelle dieses
 Abrufzeitraums.</p>
 <p>(2) Nach Ablauf des Abrufzeitraums löscht der Anbieter alle
 Kundendaten einschließlich der Dateien innerhalb von [30] Tagen
-vollständig. Datensicherungen werden im regulären Sicherungszyklus
-überschrieben, spätestens [30] Tage nach der Löschung im
-Produktivsystem. Der Anbieter bestätigt die Löschung auf Verlangen in
-Textform.</p>
+vollständig. Er löscht dazu den Mandanten in der Lizenzgeber-Konsole;
+die Plattform verlangt zur Bestätigung den Firmencode und entfernt
+Lieferungen, Dateien, Nutzer, Fahrzeuge, Mitteilungen, das Protokoll des
+Mandanten, Sitzungen, Push-Abonnements sowie die Firmen- und
+Lizenzdaten. Im Protokoll des Anbieters bleibt ein Eintrag mit
+Firmencode, Firmenname und Anzahl der gelöschten Nutzer und Dateien.
+Datensicherungen werden im regulären Sicherungszyklus überschrieben,
+spätestens [30] Tage nach der Löschung im Produktivsystem. Der Anbieter
+bestätigt die Löschung auf Verlangen in Textform.</p>
 <p>(3) Von der Löschung ausgenommen sind Daten, die der Anbieter als
 Verantwortlicher aufgrund eigener gesetzlicher Pflichten aufbewahren
-muss, insbesondere Vertrags- und Abrechnungsdaten. Auftragsdaten gehören
-nicht dazu.</p>
+muss, insbesondere Vertrags- und Abrechnungsdaten. Diese bewahrt der
+Anbieter außerhalb der Plattform auf (z. B. in seiner Buchhaltung).
+Auftragsdaten gehören nicht dazu.</p>
 <p>(4) Es obliegt dem Kunden, seine Daten vor Ablauf des Abrufzeitraums
 zu exportieren.</p>
 <h2 id="-19-mängelrechte">§ 19 Mängelrechte</h2>
@@ -858,9 +920,14 @@ Grundlage des AVV. Der AVV wird mit diesen AGB in elektronischer Form
 geschlossen (Art. 28 Abs. 9 DSGVO).</p>
 <p>(2) Der Anbieter hat keine Einsicht in Auftragsdaten. Ein
 Support-Zugriff auf den Mandanten erfolgt nur, wenn der Admin ihn
-freigibt; die Freigabe ist zeitlich begrenzt, jederzeit widerruflich und
-jeder Zugriff wird im für den Kunden einsehbaren Protokoll dokumentiert
-(Einzelheiten: AVV Anlage 4).</p>
+freigibt; die Freigabe gilt 24 Stunden, ist jederzeit widerruflich und
+wird im für den Kunden einsehbaren Protokoll dokumentiert. Die Plattform
+bietet derzeit keinen Support-Modus; auch mit Freigabe zeigt die
+Lizenzgeber-Konsole keine Auftragsdaten. Ein Einmalpasswort für einen
+ausgesperrten Admin erzeugt der Anbieter nur auf Anforderung des Kunden;
+die Plattform schaltet dabei die Zwei-Faktor-Anmeldung des Admins aus,
+und der Vorgang steht im Protokoll des Kunden (Einzelheiten: AVV Anlage
+4).</p>
 <p>(3) Für Daten zur Vertragsanbahnung, zum Kundenkonto und zur
 Abrechnung ist der Anbieter Verantwortlicher. Einzelheiten enthält die
 Datenschutzerklärung unter [Website-URL/datenschutz].</p>
@@ -908,10 +975,10 @@ Referenzkunden auf seiner Website, in Präsentationen und
 Vertriebsunterlagen nennen. Inhalte der Kundendaten und
 Vertragskonditionen werden dabei nicht offengelegt.</p>
 <p>(2) Der Kunde kann der Referenznennung jederzeit ohne Angabe von
-Gründen in Textform oder über die Einstellungen der Plattform
-widersprechen. Der Anbieter entfernt die Nennung dann innerhalb von [30]
-Tagen aus Online-Medien und verwendet sie in neuen Unterlagen nicht
-mehr.</p>
+Gründen in Textform [oder über die Einstellungen der Plattform – derzeit
+nicht vorhanden] widersprechen. Der Anbieter entfernt die Nennung dann
+innerhalb von [30] Tagen aus Online-Medien und verwendet sie in neuen
+Unterlagen nicht mehr.</p>
 <p>(3) Fallstudien, Zitate und Abbildungen von Mitarbeitern des Kunden
 verwendet der Anbieter nur mit gesonderter Zustimmung.</p>
 <h2 id="-26-höhere-gewalt">§ 26 Höhere Gewalt</h2>
@@ -978,68 +1045,83 @@ Exportierbare Daten und digitale Vermögenswerte</h3>
 <tbody>
 <tr class="odd">
 <td>Mandant</td>
-<td>Firmenname, Anschrift, Firmencode, Buchungsnummern-Präfix,
-Einstellungen (z. B. Fotopflicht, Unterschrift, Ankunftserfassung,
-Palettentausch, Fahrsperre, Standort beim Statuswechsel,
-Löschfristen)</td>
+<td>Firmenname, rechtlicher Name, Anschrift, Kontakt, Firmencode, Tarif-
+und Lizenzangaben, belegter Speicher, gesendete Kündigungs- und
+Tarifwünsche, Buchungsnummern-Präfix, Einstellungen (z. B. Fotopflicht,
+Unterschrift, Ankunftserfassung, Palettentausch, Fahrsperre, Standort
+beim Statuswechsel, Auswertungen je Fahrer, Aufbewahrung in Jahren),
+Ende einer Support-Freigabe, ob ein API-Schlüssel besteht (mit den
+letzten 4 Zeichen)</td>
 <td>JSON</td>
 </tr>
 <tr class="even">
 <td>Branding</td>
-<td>Logo, Markenfarbe, App-Name, Domain-Einstellungen</td>
-<td>JSON, Originaldatei</td>
+<td>Logo, App-Symbol, Markenfarbe, App-Name, eigene Domains</td>
+<td>JSON, gespeicherte Datei (PNG)</td>
 </tr>
 <tr class="odd">
 <td>Nutzer</td>
-<td>Name, Rolle, E-Mail bzw. Handynummer, Sprache, Status,
-Führerscheinklasse, zugeordnetes Fahrzeug</td>
-<td>JSON, CSV</td>
+<td>Name, Rolle, E-Mail bzw. Handynummer, Personalnummer, Sprache,
+Status, Führerscheinklasse, Notiz, zugeordnetes Fahrzeug, letzte
+Anmeldung, Zustimmung zum Standort, ob die Zwei-Faktor-Anmeldung
+eingeschaltet ist; gelöschte Personen als „Gelöschter Nutzer“</td>
+<td>JSON</td>
 </tr>
 <tr class="even">
 <td>Fahrzeuge</td>
 <td>Kennzeichen, Art, Nutzlast, Stellplätze, Ausstattung,
 HU-/SP-Termine, Status, Notizen</td>
-<td>JSON, CSV</td>
+<td>JSON</td>
 </tr>
 <tr class="odd">
 <td>Lieferungen</td>
 <td>Buchungsnummer, Auftraggeber, Referenz, Lade- und Entladestellen mit
 Adressen, Zeitfenstern und Ansprechpartnern, Ware, Paletten, Gewicht,
-Gefahrgut, Temperatur, Hinweise, Zuweisung, Status</td>
-<td>JSON, CSV</td>
+Gefahrgut, Temperatur, Hinweise, interne Notiz, Zuweisung, Status,
+Zustell- bzw. Stornozeitpunkt</td>
+<td>JSON; Lieferliste als CSV (alle Lieferungen, neueste zuerst)</td>
 </tr>
 <tr class="even">
 <td>Verlauf</td>
-<td>Ereignisse mit Zeitpunkt, handelnder Person und – falls erfasst –
-Standort; Notizen; Problemmeldungen; Palettentausch;
-Empfängerangaben</td>
-<td>JSON, CSV</td>
+<td>Ereignisse mit Zeitpunkt des Tippens, – falls abweichend –
+Eingangszeit beim Server, handelnder Person und – falls erfasst und
+jünger als 90 Tage – Standort; Notizen; Problemmeldungen;
+Palettentausch; Empfängerangaben</td>
+<td>JSON</td>
 </tr>
 <tr class="odd">
 <td>Dokumente</td>
 <td>Lieferschein-Fotos, PDF-Dokumente, Unterschriften, Fotos zu
-Problemmeldungen, Abliefernachweise</td>
-<td>Originaldateien, PDF</td>
+Problemmeldungen, jeweils als gespeicherte Datei (Fotos als JPEG,
+Unterschriften als PNG, PDF unverändert) mit Dateiliste</td>
+<td>Dateien im ZIP-Archiv, Liste in JSON</td>
 </tr>
 <tr class="even">
 <td>Berichte</td>
-<td>Auswertungen je Fahrer und Monat, Pünktlichkeit, Standzeiten</td>
-<td>CSV</td>
+<td>Auswertungen je Monat: Zugestellt, Pünktlichkeit, Standzeiten,
+Palettensaldo, je Auftraggeber, je Lade- und Entladestelle und – falls
+eingeschaltet – je Fahrer</td>
+<td>CSV (Download auf der Berichtsseite, wählbar sind die letzten 24
+Monate)</td>
 </tr>
 <tr class="odd">
 <td>Protokoll</td>
-<td>den Mandanten betreffende Einträge des Audit-Logs, einschließlich
-der Support-Zugriffe</td>
-<td>JSON, CSV</td>
+<td>den Mandanten betreffende Einträge des Audit-Logs (3 Jahre),
+einschließlich Anmeldungen, Fehlversuchen, Exporten und Freigaben des
+Support-Zugriffs, mit IP-Adressen der letzten 90 Tage</td>
+<td>JSON</td>
 </tr>
 <tr class="even">
 <td>Metadaten</td>
 <td>Erstellungs- und Änderungszeitpunkte, Bezüge zwischen Datensätzen
-(IDs)</td>
+(IDs), Zeitpunkt des Exports</td>
 <td>JSON</td>
 </tr>
 </tbody>
 </table></div>
+<p>Der Abliefernachweis ist keine gespeicherte Datei; die Plattform
+erzeugt ihn bei Bedarf als Druckansicht aus den exportierten
+Lieferdaten.</p>
 <h3 id="a2-vom-export-ausgenommene-daten">A.2 Vom Export ausgenommene
 Daten</h3>
 <div class="tbl"><table>
@@ -1051,17 +1133,34 @@ Daten</h3>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Passwort- und PIN-Hashes, Sitzungs-Tokens, API-Schlüssel, Schlüssel
-der Push-Abonnements</td>
+<td>Passwort- und PIN-Hashes, Zähler für Fehlversuche, Sitzungs-Tokens,
+API-Schlüssel und ihr Hash, Schlüssel der Zwei-Faktor-Anmeldung,
+Einladungs-Token, Schlüssel der Push-Abonnements</td>
 <td>Sicherheit; für einen Wechsel nicht erforderlich, Zugänge werden
 beim Zielanbieter neu vergeben</td>
 </tr>
 <tr class="even">
+<td>Kennungen gegen doppeltes Senden (mit dem Ergebnis der Aktion, 7
+Tage)</td>
+<td>technische Hilfsdaten; die Ergebnisse stehen in den exportierten
+Daten</td>
+</tr>
+<tr class="odd">
+<td>Lizenz-Historie, interne Notiz des Anbieters zur Lizenz, Merker für
+Speicherwarnungen</td>
+<td>Vertrags- und Abrechnungsdaten des Anbieters (§ 18 Abs. 3)</td>
+</tr>
+<tr class="even">
+<td>In-App-Mitteilungen</td>
+<td>Kopien von Status- und Hinweistexten, die nach 90 Tagen ohnehin
+gelöscht werden; die Inhalte stehen im Verlauf der Lieferungen</td>
+</tr>
+<tr class="odd">
 <td>interne Sicherheits- und Betriebsprotokolle des Anbieters, die nicht
 den Mandanten betreffen</td>
 <td>Sicherheit und Schutz anderer Kunden</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Quellcode, Vorlagen, Übersetzungen und Gestaltungselemente der
 Plattform</td>
 <td>Geschäftsgeheimnisse und Rechte des Anbieters</td>

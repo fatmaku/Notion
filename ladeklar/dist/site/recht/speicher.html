@@ -38,12 +38,14 @@ zu lokal gespeicherten Informationen (§ 25 TDDDG)</h1>
 <h2 id="1-kurz-gesagt">1. Kurz gesagt</h2>
 <p>Website und App von LADEKLAR speichern nur Informationen auf Ihrem
 Gerät, die für den von Ihnen gewünschten Dienst unbedingt erforderlich
-sind: Anmeldung, Sprache, Offline-Funktion, installierbare App und – nur
-nach Ihrer Freigabe – Push-Benachrichtigungen. Wir verwenden keine
-Cookies oder vergleichbaren Techniken für Analyse, Werbung oder Tracking
-und laden keine Inhalte von Drittanbietern (keine externen Schriften,
-keine Karten, keine Social-Media-Plugins). Deshalb zeigen wir kein
-Einwilligungsbanner.</p>
+sind: Anmeldung, Sprache, Offline-Funktion (einschließlich der zuletzt
+geladenen Touren in der Fahrer-App), installierbare App und – nur nach
+Ihrer Freigabe – Push-Benachrichtigungen. Wir verwenden keine Cookies
+oder vergleichbaren Techniken für Analyse, Werbung oder Tracking und
+laden keine Inhalte von Drittanbietern (keine externen Schriften, keine
+eingebetteten Karten, keine Social-Media-Plugins). Deshalb zeigen wir
+kein Einwilligungsbanner. Auf den Standort Ihres Geräts greift die App
+nur mit Ihrer Freigabe zu (Ziffer 4).</p>
 <h2 id="2-rechtsgrundlage">2. Rechtsgrundlage</h2>
 <p>(1) Nach § 25 Abs. 1 TDDDG ist die Speicherung von Informationen in
 Ihrem Endgerät und der Zugriff auf dort gespeicherte Informationen
@@ -71,71 +73,186 @@ gespeicherten Informationen</h2>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>[lk_session]</code></td>
-<td>Cookie (<code>HttpOnly</code>, <code>Secure</code>,
-<code>SameSite=[Lax]</code>), erstanbieterseitig</td>
+<td><code>lk_sid</code></td>
+<td>Cookie (<code>HttpOnly</code>, <code>SameSite=Lax</code>,
+<code>Secure</code> beim Betrieb über HTTPS), erstanbieterseitig</td>
 <td>hält Sie nach der Anmeldung angemeldet; enthält nur eine zufällige
-Kennung, serverseitig nur als Hash gespeichert</td>
-<td>bis zur Abmeldung, höchstens 90 Tage</td>
+Kennung (256 Bit); der Server speichert davon nur einen Hash</td>
+<td>Fahrer 90 Tage, Büro-Zugänge und Lizenzgeber 14 Tage; jede Nutzung
+verlängert die Frist; Abmelden löscht den Cookie sofort</td>
 <td>ohne Sitzung ist die Nutzung des Kontos nicht möglich</td>
 </tr>
 <tr class="even">
-<td><code>[lk_csrf]</code></td>
-<td>Cookie oder Formularfeld</td>
-<td>Schutz vor untergeschobenen Anfragen
-(Cross-Site-Request-Forgery)</td>
-<td>Sitzung</td>
-<td>Sicherheit des gewünschten Dienstes</td>
-</tr>
-<tr class="odd">
-<td><code>[lk_lang]</code></td>
+<td><code>lk.lang</code></td>
 <td>lokaler Speicher (localStorage)</td>
 <td>von Ihnen gewählte Sprache der App (DE, EN, PL, RO, CS, TR, RU,
 UK)</td>
 <td>bis Sie die Sprache ändern oder die Browserdaten löschen</td>
 <td>Darstellung in der gewünschten Sprache, auch vor der Anmeldung</td>
 </tr>
-<tr class="even">
-<td><code>[lk_tenant]</code></td>
+<tr class="odd">
+<td><code>lk.logoutPending</code></td>
 <td>lokaler Speicher</td>
-<td>zuletzt verwendeter Firmencode, damit Anmeldeseite, Logo und Farben
-Ihres Unternehmens angezeigt werden</td>
-<td>bis zur Abmeldung oder zum Löschen der Browserdaten</td>
-<td>Anmeldung und Branding des Unternehmens</td>
+<td>Merker für eine Abmeldung, die den Server noch nicht erreicht hat
+(Zeitpunkt der Abmeldung, gegebenenfalls die Adresse des
+Push-Abonnements, das der Server noch löschen soll); solange er besteht,
+setzt die App die alte Sitzung nicht fort</td>
+<td>bis der Server die Abmeldung bestätigt hat</td>
+<td>Abmelden wirkt auch ohne Netz sofort; der Server erfährt es beim
+nächsten Kontakt</td>
+</tr>
+<tr class="even">
+<td><code>lk.pushOff.&lt;Nutzer-ID&gt;</code></td>
+<td>lokaler Speicher</td>
+<td>Merker, dass Sie Push-Mitteilungen auf diesem Gerät mit dem Schalter
+in der App ausgeschaltet haben (Fahrer-App: „Mehr“; Büro: „Mein Konto“);
+die App richtet sie dann nicht von selbst neu ein</td>
+<td>bis Sie den Schalter wieder einschalten oder die Browserdaten
+löschen</td>
+<td>Ihre Entscheidung wird beachtet</td>
 </tr>
 <tr class="odd">
-<td><code>[lk_outbox]</code></td>
-<td>IndexedDB</td>
-<td>Offline-Warteschlange: noch nicht gesendete Statusmeldungen, Notizen
-und Fotos</td>
-<td>bis zur erfolgreichen Übertragung, dann automatisch gelöscht</td>
-<td>Funktion der App bei Funklöchern</td>
+<td><code>lk.lockOk</code></td>
+<td>lokaler Speicher (nur Fahrer-App)</td>
+<td>Merker, dass Sie nach „Standort freigeben“ den Standort für die
+Fahrsperre erlaubt haben; die App liest ihn nur auf Geräten, die den
+Status der Berechtigung nicht melden (z. B. ältere iPhones)</td>
+<td>bis Ihr Gerät die Freigabe verweigert (dann löscht die App ihn) oder
+bis zum Löschen der Browserdaten</td>
+<td>Fahrsperre ohne erneute Nachfrage bei jedem Start</td>
 </tr>
 <tr class="even">
-<td><code>[lk-app-v…]</code></td>
+<td><code>lk.lockLater</code></td>
+<td>lokaler Speicher (nur Fahrer-App)</td>
+<td>Zeitpunkt, bis zu dem die App nicht erneut nach der Standortfreigabe
+für die Fahrsperre fragt, nachdem Sie „Später“ gewählt haben</td>
+<td>die Frage bleibt 7 Tage ausgeblendet; der Eintrag selbst bleibt bis
+zum Löschen der Browserdaten</td>
+<td>Ihre Entscheidung „Später“ wird beachtet</td>
+</tr>
+<tr class="odd">
+<td><code>lk.me</code></td>
+<td>lokaler Speicher (nur aus älteren App-Versionen)</td>
+<td>frühere Kopie der Konto- und Firmenangaben; die aktuelle Version
+schreibt den Eintrag nicht mehr, liest ihn nur ersatzweise und löscht
+ihn</td>
+<td>bis zur Abmeldung oder bis die Sitzung endet</td>
+<td>Start der App ohne Netz nach einem Versionswechsel</td>
+</tr>
+<tr class="even">
+<td><code>ladeklar</code> (Datenbank, Version 2), Speicher
+<code>outbox</code></td>
+<td>IndexedDB</td>
+<td>Warteschlange ohne Netz, vor allem in der Fahrer-App: Bestätigen,
+Statusschritte, Notizen und Problemmeldungen mit allen Angaben
+(Zeitpunkt des Tippens, Kennung gegen doppeltes Senden, falls
+freigegeben der Standort), Fotos, PDF-Lieferscheine und die Unterschrift
+des Empfängers als Datei; jeder Eintrag ist dem angemeldeten Nutzer
+zugeordnet. Bricht im Büro die Verbindung ab, landen dort auch Notizen
+und Dokumente zu einer Lieferung kurz in der Warteschlange. Die App
+sendet die Einträge der Reihe nach</td>
+<td>bis zur erfolgreichen Übertragung oder bis der Server den Eintrag
+endgültig ablehnt; endet die Sitzung (z. B. neuer PIN), bleiben die
+Einträge erhalten und werden erst gesendet, wenn sich derselbe Nutzer
+wieder anmeldet</td>
+<td>Funktion der App bei Funklöchern</td>
+</tr>
+<tr class="odd">
+<td><code>ladeklar</code>, Speicher <code>kv</code>, Eintrag
+<code>me</code></td>
+<td>IndexedDB</td>
+<td>Kopie Ihrer Konto- und Firmenangaben aus der letzten Anmeldung (z.
+B. Name, Rolle, Handynummer bzw. E-Mail, Sprache, Firmenname und -code,
+Logo-Verweis, Einstellungen und Lizenzstand des Unternehmens), damit die
+App auch ohne Netz startet</td>
+<td>bis zur Abmeldung oder bis der Server die Sitzung als beendet
+meldet; die nächste Anmeldung überschreibt ihn</td>
+<td>Start der App ohne Netz (Offline-Funktion)</td>
+</tr>
+<tr class="even">
+<td><code>ladeklar</code>, Speicher <code>kv</code>, Einträge
+<code>c:&lt;Nutzer-ID&gt;:&lt;Abfrage&gt;</code></td>
+<td>IndexedDB (nur Fahrer-App)</td>
+<td>zuletzt geladene Daten des Fahrers: Startseite mit den aktuellen und
+angebotenen Touren, Details dieser Touren (Adressen, Zeitfenster,
+Ansprechpartner mit Telefonnummer, Ware, Hinweise, Verlauf,
+Dokumentenliste), eigener Verlauf, Mitteilungen und Fahrzeugliste; keine
+Fotos und keine Dokumente</td>
+<td>bis zur Abmeldung; jedes erfolgreiche Laden ersetzt sie; Details von
+Touren, die nicht mehr auf der Startseite stehen, löscht die App; endet
+die Sitzung ohne Abmelden, bleiben sie bis zur nächsten Anmeldung oder
+zum Löschen der Browserdaten</td>
+<td>Touren und Schritt-Knöpfe auch bei einem Start im Funkloch</td>
+</tr>
+<tr class="odd">
+<td><code>ladeklar</code>, Speicher <code>kv</code>, Eintrag
+<code>failed:&lt;Nutzer-ID&gt;</code></td>
+<td>IndexedDB (nur Fahrer-App)</td>
+<td>Liste der höchstens 50 letzten Einträge, die der Server endgültig
+abgelehnt hat (Art, Schritt, Lieferung, Grund, Zeitpunkt), für die Karte
+„Nicht gesendet“</td>
+<td>bis zur Abmeldung oder bis Sie „Verstanden“ tippen</td>
+<td>Sie sehen, was nicht angekommen ist</td>
+</tr>
+<tr class="even">
+<td><code>/sw.js</code> und Cache <code>lk-1.0.2</code></td>
 <td>Service Worker und Cache Storage</td>
-<td>Programmdateien der App (Oberfläche, Symbole, Schriften) für
-schnellen Start und Offline-Betrieb; keine personenbezogenen Daten</td>
-<td>bis zur nächsten App-Aktualisierung oder Deinstallation</td>
-<td>installierbare App und Offline-Funktion</td>
+<td>Programmdateien der App (Startseite mit der Marke des zuletzt
+geöffneten Unternehmens, Oberfläche, alle Skripte, Schriften, Symbole)
+sowie öffentlich abrufbares Logo und App-Symbol des Unternehmens; keine
+Lieferscheine, Fotos oder Unterschriften und keine sonstigen Antworten
+der Schnittstelle (<code>/api/</code>)</td>
+<td>bis zur nächsten App-Version (der alte Cache wird dann gelöscht)
+oder bis zum Löschen der Browserdaten</td>
+<td>installierbare App und Start ohne Netz</td>
 </tr>
 <tr class="odd">
 <td>Push-Abonnement</td>
 <td>im Browser gespeichertes Abonnement (Endpunkt und Schlüssel)</td>
 <td>Zustellung von Push-Benachrichtigungen</td>
-<td>bis Sie Benachrichtigungen in der App oder im Browser
-abschalten</td>
+<td>bis zur Abmeldung in der App, bis Sie den Schalter in der App oder
+Benachrichtigungen im Browser abschalten oder bis der Push-Dienst das
+Abonnement aufhebt; ein neuer PIN bzw. ein neues Passwort beendet es auf
+dem Server, die App richtet es beim nächsten Start ohne Nachfrage neu
+ein, wenn Benachrichtigungen erlaubt sind</td>
 <td>nur nach Ihrer ausdrücklichen Freigabe von Benachrichtigungen</td>
 </tr>
 <tr class="even">
-<td><code>[lk_demo]</code></td>
+<td><code>ladeklar.demo.v2</code></td>
 <td>lokaler Speicher (nur Online-Demo)</td>
-<td>Zustand der Online-Demo mit Beispieldaten</td>
-<td>bis zum Zurücksetzen der Demo oder Löschen der Browserdaten</td>
+<td>Zustand der Online-Demo mit Beispieldaten (Firmen, Nutzer,
+Fahrzeuge, Lieferungen, Mitteilungen, Dateien, Protokoll) und Zeitpunkt
+der Erzeugung</td>
+<td>bis „Demo zurücksetzen“ oder zum Löschen der Browserdaten; nach 12
+Stunden baut die Demo die Beispieldaten beim nächsten Öffnen neu
+auf</td>
+<td>Funktion der Demo</td>
+</tr>
+<tr class="odd">
+<td><code>lk.demo.&lt;Bereich&gt;</code>, <code>lk.demo.mode</code></td>
+<td>Sitzungsspeicher (sessionStorage, nur Online-Demo)</td>
+<td>in der Demo gewählte Rolle je Bildschirmbereich und gewählte
+Ansicht</td>
+<td>bis zum Schließen des Browser-Tabs oder „Demo zurücksetzen“</td>
+<td>Funktion der Demo</td>
+</tr>
+<tr class="even">
+<td><code>lk.t</code></td>
+<td>lokaler Speicher (nur Online-Demo)</td>
+<td>Prüfung, ob der Browser lokales Speichern erlaubt</td>
+<td>wird sofort wieder gelöscht</td>
 <td>Funktion der Demo</td>
 </tr>
 </tbody>
 </table></div>
+<p>Nicht gesondert gespeichert werden der Firmencode (er ergibt sich aus
+der Adresse, z. B. <code>/t/KAYA</code>, einer Subdomain oder der
+eigenen Domain des Unternehmens; er steht nur in der Kopie der
+Kontoangaben) und ein Schutz-Token gegen untergeschobene Anfragen (die
+App sendet dafür bei jeder schreibenden Anfrage eine feste Kopfzeile
+mit; der Cookie hat <code>SameSite=Lax</code>). Endet die Sitzung eines
+Fahrers, füllt die Anmeldeseite Firmencode und Handynummer aus dem
+Arbeitsspeicher vor; gespeichert wird dafür nichts.</p>
 <h2 id="4-zugriff-auf-gerätefunktionen">4. Zugriff auf
 Gerätefunktionen</h2>
 <div class="tbl"><table>
@@ -149,8 +266,9 @@ Gerätefunktionen</h2>
 <tbody>
 <tr class="odd">
 <td><strong>Kamera bzw. Dateiauswahl</strong></td>
-<td>nur wenn Sie auf „Lieferschein fotografieren“ oder „Foto hinzufügen“
-tippen</td>
+<td>nur wenn Sie auf „Lieferschein fotografieren“, „Weitere Seite“,
+„Hinzufügen“ oder beim Melden eines Problems auf „Foto hinzufügen
+(optional)“ tippen</td>
 <td>von Ihnen ausgelöst; unbedingt erforderlich für die gewünschte
 Foto-Funktion (§ 25 Abs. 2 Nr. 2 TDDDG)</td>
 </tr>
@@ -160,38 +278,63 @@ Foto-Funktion (§ 25 Abs. 2 Nr. 2 TDDDG)</td>
 <td>Ihre Freigabe; Einzelheiten in der Datenschutzerklärung</td>
 </tr>
 <tr class="odd">
-<td><strong>Standort</strong></td>
-<td>nur wenn Ihr Unternehmen die Funktion „Standort beim Statuswechsel“
-bzw. die Fahrsperre eingeschaltet hat und Sie zustimmen</td>
-<td><strong>Einwilligung</strong> nach § 25 Abs. 1 TDDDG, eingeholt über
-einen Hinweis in der App und die Berechtigungsabfrage Ihres Geräts;
-jederzeit widerruflich in den Geräteeinstellungen</td>
+<td><strong>Standort für die Fahrsperre</strong></td>
+<td>nur wenn Ihr Unternehmen die Fahrsperre eingeschaltet hat
+(Voreinstellung: eingeschaltet) und Sie den Standort freigeben. Die App
+erklärt vorher auf der Startseite, wofür sie ihn braucht; danach fragt
+Ihr Gerät die Berechtigung ab. Die App liest daraus nur die
+Geschwindigkeit, im Gerät; sie speichert und sendet den Standort dafür
+nicht.</td>
+<td><strong>Einwilligung</strong> nach § 25 Abs. 1 TDDDG über die
+Berechtigungsabfrage Ihres Geräts; jederzeit widerruflich in den Geräte-
+bzw. Browsereinstellungen</td>
+</tr>
+<tr class="even">
+<td><strong>Standort beim Statuswechsel</strong></td>
+<td>nur wenn Ihr Unternehmen „Standort beim Statuswechsel speichern“
+eingeschaltet hat, Sie in der App mit „Ja, teilen“ zugestimmt und den
+Standort im Gerät freigegeben haben. Die App fragt den Standort dann nur
+beim Tippen auf einen Statusschritt oder beim Melden eines Problems ab
+und sendet ihn mit dieser Meldung.</td>
+<td><strong>Einwilligung</strong> nach § 25 Abs. 1 TDDDG; widerruflich
+in der App unter „Mehr“ (Schalter „Standort beim Status-Tipp teilen“)
+oder in den Geräteeinstellungen</td>
 </tr>
 </tbody>
 </table></div>
 <p>Die Standortabfrage ist keine Ausnahme nach § 25 Abs. 2 TDDDG, weil
 sie nicht für einen von Ihnen selbst ausdrücklich gewünschten Dienst
 unbedingt erforderlich ist. Sie erfolgt deshalb nur mit Ihrer
-Einwilligung. Die App funktioniert ohne Standort vollständig.</p>
+Einwilligung. Die App funktioniert ohne Standort vollständig; ohne
+Freigabe ist nur die Fahrsperre aus.</p>
 <h2 id="5-begründung-warum-kein-einwilligungsbanner-erforderlich-ist">5.
 Begründung, warum kein Einwilligungsbanner erforderlich ist</h2>
 <ol type="1">
 <li><strong>Sitzungs-Cookie:</strong> Wer sich anmeldet, wünscht
 ausdrücklich die Nutzung seines Kontos. Ohne Sitzungskennung müsste bei
 jedem Aufruf neu angemeldet werden; die Kennung ist daher unbedingt
-erforderlich. Die Laufzeit von 90 Tagen entspricht dem Zweck, Fahrern
-eine erneute Eingabe von Firmencode und PIN unterwegs zu ersparen, und
+erforderlich. Die Laufzeit von 90 Tagen für Fahrer erspart ihnen die
+erneute Eingabe von Firmencode, Handynummer und PIN unterwegs; für
+Büro-Zugänge gelten 14 Tage. Jede Nutzung verlängert die Frist; sie
 endet mit der Abmeldung.</li>
-<li><strong>Sprache und Firmencode:</strong> Die Anzeige in der
-gewählten Sprache und im Erscheinungsbild des Unternehmens ist Teil des
-gewünschten Dienstes. Es werden keine Profile gebildet.</li>
-<li><strong>Offline-Warteschlange:</strong> Die Speicherung ist
-Voraussetzung dafür, dass Meldungen bei fehlender Verbindung nicht
-verloren gehen. Die Einträge werden nach Übertragung gelöscht.</li>
+<li><strong>Sprache, zwischengespeicherte Kontoangaben und
+Tourdaten:</strong> Die Anzeige in der gewählten Sprache und der Start
+der App ohne Netz sind Teil des gewünschten Dienstes. Ein Fahrer im
+Funkloch braucht dafür seine aktuellen Touren mit Adressen und
+Ansprechpartnern auf dem Gerät. Gespeichert wird nur, was die App
+zuletzt ohnehin angezeigt hat. Es werden keine Profile gebildet.</li>
+<li><strong>Offline-Warteschlange und Liste „Nicht gesendet“:</strong>
+Die Speicherung ist Voraussetzung dafür, dass Meldungen bei fehlender
+Verbindung nicht verloren gehen. Die Einträge werden nach Übertragung
+gelöscht. Was der Server ablehnt, zeigt die App, bis der Fahrer es
+bestätigt.</li>
+<li><strong>Merker zu Fahrsperre, Push und Abmelden:</strong> Die
+Einträge sorgen nur dafür, dass die App Ihre Entscheidungen beachtet und
+eine Abmeldung ohne Netz nachholt.</li>
 <li><strong>Service Worker und Cache:</strong> Die installierbare App
 und der Offline-Betrieb setzen die lokale Speicherung der
-Programmdateien voraus. Der Cache enthält keine personenbezogenen
-Daten.</li>
+Programmdateien voraus. Der Cache enthält außer dem öffentlichen Logo
+und App-Symbol des Unternehmens keine Inhalte aus der Plattform.</li>
 <li><strong>Push-Abonnement:</strong> Es entsteht erst durch die
 ausdrückliche Freigabe des Nutzers und dient allein dem gewünschten
 Dienst.</li>
@@ -201,13 +344,24 @@ einwilligungsbedürftigen Speichervorgänge oder Zugriffe Dritter.</li>
 </ol>
 <h2 id="6-was-sie-selbst-tun-können">6. Was Sie selbst tun können</h2>
 <ol type="1">
-<li>Abmelden beendet die Sitzung und entfernt den Sitzungs-Cookie.</li>
-<li>Sprache und Benachrichtigungen ändern Sie in der App.</li>
+<li>Abmelden beendet die Sitzung, löscht den Sitzungs-Cookie, die
+zwischengespeicherten Kontoangaben, die Tourdaten und die Liste „Nicht
+gesendet“ und meldet Push-Benachrichtigungen für dieses Gerät ab. Ohne
+Netz wirkt das Abmelden auf dem Gerät sofort; der Server erfährt es beim
+nächsten Kontakt (<code>lk.logoutPending</code>). In der Fahrer-App ist
+„Abmelden“ gesperrt, solange noch Einträge auf das Senden warten.</li>
+<li>Die Sprache ändern Sie in der App. Push-Benachrichtigungen schalten
+Sie in der App ein und aus (Fahrer-App: „Mehr“; Büro: „Mein Konto“);
+abschalten können Sie sie auch in den Einstellungen Ihres Browsers bzw.
+Geräts oder durch Abmelden.</li>
 <li>Über die Einstellungen Ihres Browsers können Sie alle gespeicherten
 Informationen löschen. Bitte beachten Sie, dass dann noch nicht
-gesendete Einträge der Offline-Warteschlange verloren gehen.</li>
+gesendete Einträge der Offline-Warteschlange verloren gehen. Auf einem
+geteilten Gerät sollten Sie sich deshalb immer mit Netz abmelden.</li>
 <li>Die Standortberechtigung entziehen Sie in den Einstellungen Ihres
-Geräts.</li>
+Geräts bzw. Browsers. Die Zustimmung zum Speichern des Standorts beim
+Statuswechsel können Sie zusätzlich in der App unter „Mehr“
+abschalten.</li>
 </ol>
 <p>Stand: [Datum]</p>
 </main></body></html>

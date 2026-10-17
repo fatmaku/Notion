@@ -168,6 +168,10 @@ Die Disposition funktioniert auch auf dem Tablet. Auf dem Handy finden Sie die B
 
 ![Live-Übersicht auf dem Tablet, angemeldet als Disponent Jonas mit Kacheln und aktiven Touren](img/tablet-01-disposition.png)
 
+Auch Ihre Fahrer können ein Tablet im Fahrerhaus nutzen. Im Querformat zeigt die Fahrer-App links die aktuelle Tour mit dem großen Knopf und rechts die nächsten Aufträge – hier in Türkisch, der Sprache von Mehmet.
+
+![Fahrer-App auf dem Tablet im Querformat: links die Tour Stuttgart → Hamburg mit dem Knopf für den nächsten Schritt, rechts die weiteren Aufträge](img/tablet-02-fahrerhaus.png)
+
 ---
 
 ## 4. Lieferungen anlegen, zuweisen und pflegen

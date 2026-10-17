@@ -30,6 +30,8 @@ export function createServer(opts = {}) {
   const DATA_DIR = path.resolve(opts.dataDir || process.env.DATA_DIR || path.join(ROOT, 'data'));
   const BASE_URL = opts.baseUrl || process.env.BASE_URL || '';
   const SECURE = BASE_URL.startsWith('https://');
+  // sign-ins per minute and address (tests that sign in many roles from one address raise it)
+  const LOGIN_PER_MIN = opts.loginPerMinute || 20;
   const TRUST_PROXY = opts.trustProxy ?? process.env.TRUST_PROXY === '1';
   const PROXY_HOPS = Math.max(1, Math.floor(Number(opts.trustProxyHops ?? process.env.TRUST_PROXY_HOPS ?? 1)) || 1);
   const PUSH_SUBJECT = process.env.PUSH_SUBJECT || 'mailto:support@ladeklar.de';
@@ -316,7 +318,7 @@ export function createServer(opts = {}) {
         if (p === '/api/health') return json(res, 200, { ok: true, version: VERSION, time: Date.now() });
 
         if (p === '/api/auth/login' && req.method === 'POST') {
-          if (limited('login:' + ip(req), 20, 60e3)) return json(res, 429, { error: { code: 'rate', message: 'Zu viele Versuche. Bitte eine Minute warten.' } });
+          if (limited('login:' + ip(req), LOGIN_PER_MIN, 60e3)) return json(res, 429, { error: { code: 'rate', message: 'Zu viele Versuche. Bitte eine Minute warten.' } });
           const b = await readJson(req);
           // C13: the 6-digit code goes along; without it a 2FA account answers need_2fa
           const u = engine.auth.login({ email: b.email, password: b.password, code: b.code }, { ip: ip(req) });
@@ -324,7 +326,7 @@ export function createServer(opts = {}) {
           return json(res, 200, { user: u });
         }
         if ((p === '/api/auth/driver' || p === '/api/auth/invite') && req.method === 'POST') {
-          if (limited('login:' + ip(req), 20, 60e3)) return json(res, 429, { error: { code: 'rate', message: 'Zu viele Versuche. Bitte eine Minute warten.' } });
+          if (limited('login:' + ip(req), LOGIN_PER_MIN, 60e3)) return json(res, 429, { error: { code: 'rate', message: 'Zu viele Versuche. Bitte eine Minute warten.' } });
           const b = await readJson(req);
           const u = p === '/api/auth/invite' ? engine.auth.inviteLogin(b, { ip: ip(req) }) : engine.auth.driverLogin(b, { ip: ip(req) });
           startSession(res, u, req);
