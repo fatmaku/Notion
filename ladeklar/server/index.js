@@ -355,7 +355,17 @@ export function createServer(opts = {}) {
           const m = /^\/api\/v1\/deliveries(?:\/([\w-]+))?$/.exec(p);
           if (!m) return json(res, 404, { error: { code: 'not_found' } });
           if (req.method === 'GET' && m[1]) return json(res, 200, engine.call(actor, 'getDelivery', { id: m[1] }));
-          if (req.method === 'GET') return json(res, 200, engine.call(actor, 'listDeliveries', { tab: url.searchParams.get('tab') || 'all', q: url.searchParams.get('q') || '' }));
+          if (req.method === 'GET') {
+            // newest first (C4); paging with offset/limit (max 1000) and updatedSince (ms or ISO date) for syncs (list-1)
+            const sp = url.searchParams;
+            const int = (k, d, max) => { const v = Number(sp.get(k)); return sp.get(k) != null && Number.isFinite(v) && v >= 0 ? Math.min(Math.floor(v), max) : d; };
+            const since = sp.get('updatedSince'), sinceMs = since ? (/^\d+$/.test(since) ? Number(since) : Date.parse(since)) : NaN;
+            let list = engine.call(actor, 'listDeliveries', { tab: sp.get('tab') || 'all', q: sp.get('q') || '', limit: 0 });
+            if (Number.isFinite(sinceMs)) list = list.filter((d) => (d.updatedAt || 0) > sinceMs);
+            const offset = int('offset', 0, Number.MAX_SAFE_INTEGER), limit = int('limit', 300, 1000) || 300;
+            res.setHeader('X-Total-Count', String(list.length));
+            return json(res, 200, list.slice(offset, offset + limit));
+          }
           if (req.method === 'POST' && !m[1]) return json(res, 201, engine.call(actor, 'createDelivery', await readJson(req)));
           if (req.method === 'PATCH' && m[1]) return json(res, 200, engine.call(actor, 'updateDelivery', { ...(await readJson(req)), id: m[1] }));
           return json(res, 405, { error: { code: 'method' } });

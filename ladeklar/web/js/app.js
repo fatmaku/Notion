@@ -107,8 +107,16 @@ export function createApp(root, opts = {}) {
   };
 
   // ---------- session ----------
+  // the service worker keeps public files (logo) for a cold start in a dead zone: fetch the logo once through it
+  const warmLogo = (me) => {
+    const id = me?.tenant?.branding?.logoFileId, sw = typeof navigator !== 'undefined' ? navigator.serviceWorker : null;
+    if (!id || app.api.mode !== 'server' || !sw) return;
+    const go = () => fetch(app.api.fileUrl(id), { credentials: 'same-origin' }).catch(() => {});
+    if (sw.controller) go(); else sw.addEventListener('controllerchange', go, { once: true });
+  };
   app.setMe = (me) => {
     app.me = me;
+    warmLogo(me);
     if (app.api.online != null) app.online = app.api.online;
     if (app.api.queueSize != null) app.queue = app.api.queueSize;
     if (me?.user?.lang && !opts.lang) { app.lang = me.user.lang; }
@@ -123,6 +131,7 @@ export function createApp(root, opts = {}) {
   app.signedOut = (msg = '') => {
     const u = app.me?.user, tn = app.me?.tenant;
     app.me = null; app.data = {};
+    app.toasts = []; // the last session's notifications must not stay on the login screen
     // a driver asked to sign in again (session ended) finds company code and phone filled in – not after "Abmelden"
     app.ui = { loginBrand: app.ui.loginBrand, ...(msg && u?.role === 'driver' ? { loginMode: 'driver', code: tn?.code || '', phone: u.phone || '' } : {}), loginErr: msg };
     app.render();

@@ -7,6 +7,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createServer } from '../server/index.js';
+import { PLANS } from '../core/engine.js';
+import { totp } from '../core/totp.js';
 
 const HERE = path.dirname(new URL(import.meta.url).pathname);
 const SHOTS = path.join(HERE, 'screens');
@@ -21,6 +23,9 @@ const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ladeklar-e2e-'));
 const srv = createServer({ dataDir, quiet: true, platformEmail: 'inhaber@ladeklar.de', platformPassword: 'Plattform-Test-2026' });
 const port = await srv.listen(0, '127.0.0.1');
 const BASE = `http://127.0.0.1:${port}`;
+// the service worker's own requests go through Playwright's network, so a "dead zone" (route abort) also
+// cuts off the worker – a reload then really has to come from the offline cache
+process.env.PW_EXPERIMENTAL_SERVICE_WORKER_NETWORK_EVENTS = '1';
 const browser = await chromium.launch({ args: ['--lang=de-DE'], env: { ...process.env, LANG: 'de_DE.UTF-8', LANGUAGE: 'de', LC_ALL: 'de_DE.UTF-8' } });
 
 async function page(name, vp, extra = {}) {
@@ -48,13 +53,27 @@ async function officeLogin(p, email, password) {
   await p.waitForSelector('.shell', { timeout: 8000 });
 }
 const kpi = async (p, tab) => Number(await p.locator(`.kpi[data-tab=${tab}] .k-v`).innerText());
+/** Dead zone: no network at all for this phone, also not for its service worker. */
+async function deadZone(p, on) {
+  if (on) { await p.ctx.setOffline(true); await p.ctx.route('**/*', (r) => r.abort('internetdisconnected')); }
+  else { await p.ctx.unrouteAll({ behavior: 'ignoreErrors' }); await p.ctx.setOffline(false); }
+}
+/** A call with the session of that page (as the app makes it). */
+const apiCall = (p, method, args = {}) => p.evaluate(async ([m, a]) => (await fetch('/api/call/' + m, { method: 'POST', headers: { 'X-Ladeklar': '1', 'Content-Type': 'application/json' }, body: JSON.stringify(a) })).json(), [method, args]);
+const findDelivery = async (p, no) => (await apiCall(p, 'listDeliveries', { tab: 'all', q: no })).find((d) => d.bookingNo === no);
+/** The driver select shows "Name · plate" once the driver has picked a truck. */
+async function pickDriver(p, name) {
+  const opt = p.locator('#dForm [name=driverId] option', { hasText: name }).first();
+  await opt.waitFor({ state: 'attached' });
+  await p.selectOption('#dForm [name=driverId]', await opt.getAttribute('value'));
+}
 async function toastWith(p, re, ms = 6000) {
   const loc = p.locator('.toast', { hasText: re }).first();
   await loc.waitFor({ timeout: ms });
   return loc;
 }
 
-let adminPw, pin, bookingNo, bookingNo2;
+let adminPw, pin, bookingNo, bookingNo2, bookingNo3, inviteUrl;
 const lic = await page('Lizenzgeber', { width: 1440, height: 900 });
 const office = await page('Unternehmen', { width: 1440, height: 900 });
 const phone = await page('Fahrer', { width: 390, height: 844 }, { isMobile: true, hasTouch: true, userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1' });
@@ -94,6 +113,8 @@ await step('Unternehmen', 'Admin meldet sich mit Startpasswort an – zuerst eig
   await office.waitForSelector('form[data-form=firstPassword]');
   const blocked = await office.evaluate(async () => (await (await fetch('/api/call/listDeliveries', { method: 'POST', headers: { 'X-Ladeklar': '1', 'Content-Type': 'application/json' }, body: '{}' })).json()).error?.code);
   expect(blocked === 'password_change', 'Startpasswort darf nichts freigeben: ' + blocked);
+  const exp = await office.evaluate(async () => (await fetch('/api/export/all.json')).status);
+  expect(exp === 403, 'Export mit Startpasswort: ' + exp);
   const s = await shot(office, 'unternehmen-erstes-passwort');
   await office.fill('form[data-form=firstPassword] [name=current]', adminPw);
   await office.fill('form[data-form=firstPassword] [name=next]', 'Petra-Neu-Passwort-1');
@@ -143,8 +164,35 @@ await step('Unternehmen', 'Fahrer anlegen → PIN + Einladung mit QR-Code', asyn
   pin = (await office.locator('#pin-val').innerText()).replace(/\s/g, '');
   expect(/^\d{6}$/.test(pin), 'PIN fehlt');
   expect(await office.locator('.qr svg').count() === 1, 'QR fehlt');
+  // C11: the link carries a single-use token, never the user id
+  const inv = await office.locator('#invite-text').innerText();
+  inviteUrl = /(https?:\/\/\S+?\/i\/[\w-]{24})(?![\w-])/.exec(inv)?.[1];
+  expect(inviteUrl, 'Einladungslink mit Token fehlt: ' + inv);
+  expect(/gültig bis/i.test(await office.locator('[data-key=access]').innerText()), 'Ablaufdatum der Einladung fehlt');
   const s = await shot(office, 'unternehmen-fahrer-einladung');
   await office.click('[data-key=access] [data-act=close]');
+  return s;
+});
+await step('Fahrer', 'Einladungslink gilt genau einmal: PIN eingeben → angemeldet, danach abgelehnt', async () => {
+  const mob = { isMobile: true, hasTouch: true };
+  const a = await page('Fahrer-Einladung', { width: 390, height: 844 }, mob);
+  await a.goto(inviteUrl);
+  await a.waitForSelector('form[data-form=invite]');
+  expect(/Tomasz/.test(await a.locator('.hero h1').innerText()), 'Begrüßung mit Vornamen fehlt');
+  expect(await a.locator('.brandlogin').count() === 1, 'Firmen-Marke fehlt auf der Einladungsseite');
+  const s = await shot(a, 'fahrer-einladung');
+  for (const k of pin) await a.tap(`[data-act=pinKey][data-k="${k}"]`);
+  await a.waitForSelector('.drv');
+  await a.ctx.close();
+  const b = await page('Fahrer-Einladung-2', { width: 390, height: 844 }, mob);
+  await b.goto(inviteUrl);
+  await b.waitForSelector('form[data-form=driver] .banner.bad');
+  expect(await b.locator('form[data-form=invite]').count() === 0, 'Einladung gilt noch ein zweites Mal');
+  const token = inviteUrl.split('/i/')[1];
+  const again = await b.evaluate(async ([tk, p]) => (await fetch('/api/auth/invite', { method: 'POST', headers: { 'X-Ladeklar': '1', 'Content-Type': 'application/json' }, body: JSON.stringify({ token: tk, pin: p }) })).status, [token, pin]);
+  expect(again === 401, 'zweite Anmeldung mit demselben Link: ' + again);
+  await shot(b, 'fahrer-einladung-benutzt');
+  await b.ctx.close();
   return s;
 });
 await step('Unternehmen', 'Lieferung Stuttgart → Hamburg anlegen (offen für alle Fahrer)', async () => {
@@ -229,6 +277,27 @@ await step('Fahrer', 'Notiz an die Disposition', async () => {
   await toastWith(office, /Notiz/);
   await phone.tap('.sheet [data-act=close] >> nth=0').catch(() => {});
 });
+await step('Fahrer', 'Antwort geht unterwegs verloren: die Notiz wird mit demselben _op wiederholt und nur einmal gespeichert', async () => {
+  const id = await phone.evaluate(() => { const h = window.ladeklar.data.home; return (h.current || h.mine?.[0])?.id; });
+  expect(id, 'keine laufende Tour');
+  const text = 'Rampe 4 – bitte klingeln';
+  const ops = [];
+  // the server stores the note, but the answer never reaches the phone (dead spot right after sending)
+  await phone.route('**/api/call/addNote', async (r) => { ops.push(r.request().postDataJSON()?._op); if (ops.length === 1) { await r.fetch(); return r.abort('connectionreset'); } return r.continue(); });
+  const notesBefore = (await apiCall(office, 'listNotifications', { limit: 100 })).filter((n) => n.type === 'note').length;
+  const out = await phone.evaluate(([i, x]) => window.ladeklar.api.call('addNote', { id: i, text: x }), [id, text]);
+  expect(out?.queued, 'Notiz sollte nach der verlorenen Antwort in der Warteschlange stehen');
+  await phone.evaluate(() => window.ladeklar.api.flush());
+  await phone.waitForFunction(() => window.ladeklar.api.queueSize === 0, null, { timeout: 10000 });
+  await phone.unroute('**/api/call/addNote');
+  expect(ops.length === 2 && ops[0] && ops[0] === ops[1], 'Wiederholung ohne dasselbe _op: ' + JSON.stringify(ops));
+  const d = await apiCall(office, 'getDelivery', { id });
+  const n = (d.notes || []).filter((x) => x.text === text).length;
+  expect(n === 1, `Notiz ${n}× gespeichert`);
+  await wait(800);
+  const notesAfter = (await apiCall(office, 'listNotifications', { limit: 100 })).filter((x) => x.type === 'note').length;
+  expect(notesAfter === notesBefore + 1, `Büro bekam ${notesAfter - notesBefore} Mitteilungen statt 1`);
+});
 await step('Fahrer', 'Lieferschein fotografieren, Empfänger, abschließen', async () => {
   await phone.tap('.step-btn[data-step=delivered]');
   await phone.waitForSelector('input[data-input=podFile]', { state: 'attached' });
@@ -261,7 +330,7 @@ await step('Unternehmen', 'Zweite Lieferung direkt dem Fahrer zuweisen', async (
   await office.click('[data-act=newDelivery] >> nth=0');
   await office.fill('#dForm [name="pickup.city"]', 'Ludwigsburg');
   await office.fill('#dForm [name="dropoff.city"]', 'München');
-  await office.selectOption('#dForm [name=driverId]', { label: 'Tomasz Kowalski' });
+  await pickDriver(office, 'Tomasz Kowalski');
   await office.click('button[form=dForm]');
   await office.waitForSelector('[data-key=delivery] .sheet-h .mono');
   bookingNo2 = (await office.locator('[data-key=delivery] .sheet-h .mono').innerText()).trim();
@@ -322,6 +391,139 @@ await step('Fahrer', 'Funkloch bis zum Schluss: Aufgeladen, Abgeladen, Liefersch
   expect(d.receiver === 'Frau Weber', 'Empfänger fehlt');
   return s;
 });
+await step('Unternehmen', 'Dritte Lieferung dem Fahrer zuweisen (Auftraggeber mit Formel im Namen)', async () => {
+  await office.click('.rail [data-to=live]');
+  await office.click('[data-act=newDelivery] >> nth=0');
+  await office.fill('#dForm [name=customer]', '=HYPERLINK("http://evil.example/x","Klick")');
+  await office.fill('#dForm [name="pickup.city"]', 'Esslingen');
+  await office.fill('#dForm [name="dropoff.city"]', 'Ulm');
+  await pickDriver(office, 'Tomasz Kowalski');
+  await office.click('button[form=dForm]');
+  await office.waitForSelector('[data-key=delivery] .sheet-h .mono');
+  bookingNo3 = (await office.locator('[data-key=delivery] .sheet-h .mono').innerText()).trim();
+  await office.keyboard.press('Escape');
+});
+await step('Fahrer', 'App im Funkloch neu geöffnet: Tour, Foto und Zugestellt gehen offline – das Büro bekommt alles mit den Tipp-Zeiten', async () => {
+  await toastWith(phone, new RegExp(bookingNo3));
+  await phone.waitForSelector('[data-act=step][data-step=accepted]');
+  await phone.tap('[data-act=step][data-step=accepted]');
+  await phone.waitForSelector('.success'); await phone.waitForSelector('.success', { state: 'detached', timeout: 5000 });
+  await phone.waitForSelector('.step-btn[data-step=loaded]');
+  await wait(1500); // the tour is in the phone's offline copy
+  await deadZone(phone, true);
+  await phone.reload(); // the driver closed the app; it opens again without any network (service worker + IndexedDB)
+  await phone.waitForSelector('.drv .step-btn[data-step=loaded]', { timeout: 15000 });
+  expect(await phone.locator('.offline').count() === 1, 'Offline-Hinweis fehlt nach dem Neustart');
+  await phone.waitForFunction(() => [...document.querySelectorAll('.drv img')].every((i) => i.complete), null, { timeout: 5000 }).catch(() => {});
+  expect(await phone.evaluate(() => { const l = [...document.querySelectorAll('.drv .logo-chip img')]; return l.length > 0 && l.every((i) => i.naturalWidth > 0); }), 'Firmenlogo fehlt nach dem Neustart ohne Netz');
+  const taps = {};
+  for (const st of ['loaded', 'unloaded']) {
+    taps[st] = Date.now();
+    await phone.tap(`.step-btn[data-step=${st}]`);
+    await phone.waitForSelector('.success'); await phone.waitForSelector('.success', { state: 'detached', timeout: 4000 });
+    await wait(1200);
+  }
+  await phone.tap('.step-btn[data-step=delivered]');
+  await phone.waitForSelector('[data-key=pod] input[data-input=podFile]', { state: 'attached', timeout: 6000 });
+  await phone.setInputFiles('input[data-input=podFile]', FIX('lieferschein.jpg'));
+  await phone.waitForSelector('[data-key=pod] .doc img', { timeout: 10000 });
+  await phone.fill('#pod-receiver', 'Herr Özdemir');
+  taps.delivered = Date.now();
+  await phone.tap('[data-act=finish]');
+  await phone.waitForSelector('.success'); await phone.waitForSelector('.success', { state: 'detached', timeout: 4000 });
+  expect(await phone.evaluate(() => window.ladeklar?.queue ?? -1) >= 4, 'vier Einträge in der Warteschlange erwartet');
+  const s = await shot(phone, 'fahrer-funkloch-neustart');
+  await wait(3000); // still in the dead zone
+  await deadZone(phone, false);
+  await phone.waitForSelector('.offline', { state: 'detached', timeout: 25000 });
+  await toastWith(office, new RegExp(`Zugestellt.*${bookingNo3}|${bookingNo3}.*Zugestellt`), 20000).catch(() => toastWith(office, /Zugestellt/, 5000));
+  await phone.waitForFunction(() => window.ladeklar.api.queueSize === 0, null, { timeout: 15000 });
+  const d = await apiCall(office, 'getDelivery', { id: (await findDelivery(office, bookingNo3)).id });
+  expect(d.status === 'delivered', 'Status im Büro: ' + d.status);
+  expect((d.docs || []).some((x) => x.kind === 'pod'), 'Lieferschein fehlt im Büro');
+  expect(d.receiver === 'Herr Özdemir', 'Empfänger fehlt');
+  const last = (type) => (d.events || []).filter((e) => e.type === type && !e.undone).pop();
+  for (const st of ['loaded', 'unloaded', 'delivered']) {
+    const e = last(st);
+    expect(e, st + ' fehlt im Verlauf');
+    expect(Math.abs(e.at - taps[st]) < 2000, `${st}: Zeit ${new Date(e.at).toISOString()} statt Tipp ${new Date(taps[st]).toISOString()}`);
+    expect(e.rx && e.rx - e.at >= 2500, `${st}: Empfangszeit fehlt oder zu früh (${e.rx})`);
+  }
+  expect(d.deliveredAt === last('delivered').at, 'deliveredAt ist nicht die Tipp-Zeit');
+  return s;
+});
+await step('Unternehmen', 'CSV-Export entschärft eine Formel im Auftraggeber und steht im Protokoll', async () => {
+  await office.click('.rail [data-to=deliveries]');
+  await office.waitForSelector('a[href="/api/export/deliveries.csv"]');
+  const [dl] = await Promise.all([office.waitForEvent('download'), office.click('a[href="/api/export/deliveries.csv"]')]);
+  const txt = fs.readFileSync(await dl.path(), 'utf8');
+  const row = txt.split(/\r?\n/).find((l) => l.includes(bookingNo3));
+  expect(row, 'Lieferung fehlt im CSV');
+  expect(row.includes(`"'=HYPERLINK(`), 'Formel nicht entschärft: ' + row);
+  expect(!row.split(';').some((c) => /^"?[=+@]/.test(c)), 'eine Zelle beginnt noch mit = + oder @: ' + row);
+  const log = await apiCall(office, 'auditLog', {});
+  expect(log.some((e) => e.action === 'export.csv'), 'Export fehlt im Protokoll');
+});
+await step('Unternehmen', 'Zwei-Faktor-Anmeldung: einschalten, abmelden – die Anmeldung verlangt den Code', async () => {
+  await office.click('.rail [data-to=settings]');
+  await office.click('[data-act=ssec][data-k=account]');
+  await office.click('[data-act=tfaSetup]');
+  await office.waitForSelector('#tfa-secret');
+  const secret = (await office.locator('#tfa-secret').innerText()).replace(/\s/g, '');
+  await office.fill('form[data-form=tfaOn] [name=code]', totp(secret, Date.now()));
+  await office.click('form[data-form=tfaOn] button[type=submit]');
+  await toastWith(office, /Zwei-Faktor-Anmeldung ist an/);
+  await office.click('main [data-act=logout]');
+  await office.waitForSelector('.login');
+  await office.click('[data-act="loginMode"][data-m="office"]');
+  await office.fill('form[data-form=office] input[name=email]', 'petra@test-spedition.de');
+  await office.fill('form[data-form=office] input[name=password]', 'Petra-Neu-Passwort-1');
+  await office.click('form[data-form=office] button[type=submit]');
+  await office.waitForSelector('form[data-form=office] [name=code]');
+  expect(await office.locator('.shell').count() === 0, 'ohne Code angemeldet');
+  await office.fill('form[data-form=office] [name=code]', totp(secret, Date.now() + 10 * 60e3)); // a wrong code
+  await office.click('form[data-form=office] button[type=submit]');
+  await office.waitForFunction(() => /Code stimmt nicht/.test(document.querySelector('form[data-form=office] [role=alert]')?.textContent || ''), null, { timeout: 6000 });
+  expect(await office.locator('.shell').count() === 0, 'mit falschem Code angemeldet');
+  const s = await shot(office, 'unternehmen-2fa-code');
+  await office.fill('form[data-form=office] input[name=password]', 'Petra-Neu-Passwort-1');
+  await office.fill('form[data-form=office] [name=code]', totp(secret, Date.now() + 30e3)); // the next code (each code counts once)
+  await office.click('form[data-form=office] button[type=submit]');
+  await office.waitForSelector('.shell', { timeout: 8000 });
+  // switched off again with the password, so the later logins need no code
+  await office.click('.rail [data-to=settings]');
+  await office.click('[data-act=ssec][data-k=account]');
+  await office.fill('form[data-form=tfaOff] [name=password]', 'Petra-Neu-Passwort-1');
+  await office.click('form[data-form=tfaOff] button[type=submit]');
+  await toastWith(office, /Zwei-Faktor-Anmeldung ist aus/);
+  return s;
+});
+await step('Unternehmen', 'Speicher voll: Upload abgelehnt mit klarer Meldung, Admin bekommt einen Hinweis, nichts landet auf der Platte', async () => {
+  // test hook: the company's storage is (nearly) used up – the plan values stay as they are
+  const t0 = srv.sql.store.find('tenants', { code: 'TEST' })[0];
+  const limit = PLANS[t0.plan].storageGB * 2 ** 30;
+  srv.sql.store.put('tenants', { ...t0, storageUsed: limit - 10 });
+  const dir = path.join(dataDir, 'files', t0.id);
+  const before = fs.readdirSync(dir).length;
+  try {
+    await office.click('.rail [data-to=deliveries]');
+    await office.click('[data-act=dtab][data-tab=done]');
+    await office.click(`tr[data-act=openDelivery] >> text=${bookingNo3}`);
+    await office.waitForSelector('[data-key=delivery] input[data-input=officeFile]', { state: 'attached' });
+    await office.setInputFiles('[data-key=delivery] input[data-input=officeFile]', FIX('lieferschein.jpg'));
+    await toastWith(office, /Speicher Ihres Tarifs ist voll/, 10000);
+    await toastWith(office, /Speicher voll/, 6000);
+    const s = await shot(office, 'unternehmen-speicher-voll');
+    expect(fs.readdirSync(dir).length === before, 'abgelehnte Datei liegt trotzdem auf der Platte');
+    const lic = await apiCall(office, 'getTenantLicense', {});
+    expect(lic.storageLimit === limit && lic.storageUsed === limit - 10, 'Speicherangaben falsch: ' + JSON.stringify([lic.storageUsed, lic.storageLimit]));
+    await office.keyboard.press('Escape');
+    return s;
+  } finally {
+    const t1 = srv.sql.store.get('tenants', t0.id);
+    srv.sql.store.put('tenants', { ...t1, storageUsed: t0.storageUsed, storageWarn: t0.storageWarn ?? null });
+  }
+});
 await step('Fahrer', 'Sicherheit: Fahrer kann keine Büro-Funktionen aufrufen', async () => {
   const st = await phone.evaluate(async () => (await fetch('/api/call/listDeliveries', { method: 'POST', headers: { 'X-Ladeklar': '1', 'Content-Type': 'application/json' }, body: '{}' })).status);
   expect(st === 403, 'erwartet 403, erhalten ' + st);
@@ -374,16 +576,28 @@ await step('Lizenzgeber', 'Sieht Nutzung (Fahrer, Fahrzeuge, Lieferungen), aber 
   expect(!/Stuttgart|Hamburg|Tomasz/.test(all), 'Lizenzgeber sieht Lieferinhalte!');
   return shot(lic, 'lizenzgeber-lizenznehmer');
 });
-await step('Lizenzgeber', 'Sperren → Fahrer kann nichts mehr ändern; Aktivieren → weiter', async () => {
+await step('Lizenzgeber', 'Sperren → Fahrer abgemeldet, Büro kann nur noch lesen; Aktivieren → weiter', async () => {
   await lic.click('tr >> text=Test Spedition');
   await lic.click('[data-act=setStatus][data-s=suspended]');
-  await lic.click('[data-key=ask-suspended] [data-act=askOk]'); // in-page confirmation (fix round 2)
+  await lic.click('[data-key=ask-suspended] [data-act=askOk]'); // in-page confirmation
   await toastWith(lic, /Status gespeichert/);
-  const st = await phone.evaluate(async () => (await fetch('/api/call/selectVehicle', { method: 'POST', headers: { 'X-Ladeklar': '1', 'Content-Type': 'application/json' }, body: '{"vehicleId":null}' })).json());
-  expect(st.error?.code === 'license_inactive', 'Sperre greift nicht');
+  // C6: the driver's session ends at once, the office keeps reading but cannot change anything
+  const st = await apiCall(phone, 'selectVehicle', { vehicleId: null });
+  expect(st.error?.code === 'unauthorized', 'Fahrer-Sitzung läuft trotz Sperre weiter: ' + JSON.stringify(st.error));
+  const ow = await apiCall(office, 'createDelivery', {});
+  expect(ow.error?.code === 'license_inactive', 'Büro kann trotz Sperre ändern: ' + JSON.stringify(ow.error));
+  expect(Array.isArray(await apiCall(office, 'listDeliveries', { tab: 'all' })), 'Büro kann nicht mehr lesen');
   await lic.click('[data-act=setStatus][data-s=active]');
   await toastWith(lic, /Status gespeichert/);
-  return shot(lic, 'lizenzgeber-lizenz');
+  const s = await shot(lic, 'lizenzgeber-lizenz');
+  await phone.goto(BASE + '/t/TEST');
+  await phone.waitForSelector('form[data-form=driver]');
+  await phone.fill('form[data-form=driver] [name=phone]', '0151 2345678');
+  for (const k of pin) await phone.tap(`[data-act=pinKey][data-k="${k}"]`);
+  await phone.waitForSelector('.drv');
+  const ok = await apiCall(phone, 'selectVehicle', { vehicleId: null });
+  expect(!ok.error, 'Fahrer nach dem Aktivieren: ' + JSON.stringify(ok.error));
+  return s;
 });
 await step('Lizenzgeber', 'Abrechnung zeigt den aktiven Kunden mit 19 % USt.', async () => {
   await lic.keyboard.press('Escape');

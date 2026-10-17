@@ -1,6 +1,6 @@
 // Ladeklar service worker: app shell offline, push notifications with the company's logo.
 // Bump VERSION with every release: the new worker then caches the whole shell again.
-const VERSION = 'lk-1.0.1';
+const VERSION = 'lk-1.0.2';
 // Everything a cold start without network needs. The JS modules are not listed: install follows the
 // imports from main.js, so a module can never be missing offline (a blank page in a dead zone).
 const SHELL = ['/', '/web/css/app.css', '/web/css/fonts.css',
@@ -40,7 +40,16 @@ self.addEventListener('activate', (e) => { e.waitUntil(caches.keys().then((ks) =
 
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
-  if (e.request.method !== 'GET' || url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return;
+  if (e.request.method !== 'GET' || url.origin !== self.location.origin) return;
+  // the company's logo and icons (public files) stay visible offline; delivery notes and photos are never kept here
+  if (url.pathname.startsWith('/api/files/')) {
+    e.respondWith(fetch(e.request).then((r) => {
+      if (r.ok && /\bpublic\b/.test(r.headers.get('cache-control') || '')) { const copy = r.clone(); caches.open(VERSION).then((c) => c.put(e.request, copy)).catch(() => {}); }
+      return r;
+    }).catch(() => caches.open(VERSION).then((c) => c.match(e.request)).then((hit) => hit || Response.error())));
+    return;
+  }
+  if (url.pathname.startsWith('/api/')) return;
   if (e.request.mode === 'navigate') {
     if (!APP_PAGE.test(url.pathname)) return;
     // the app page: fresh when the network answers quickly, else the cached shell (lie-fi never hangs)

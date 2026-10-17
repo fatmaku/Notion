@@ -29,12 +29,20 @@ const toBytes = (data) => (typeof data === 'string' ? enc.encode(data) : data in
 const MAX32 = 0xffffffff, MAX16 = 0xffff;
 const u64 = (v, at, n) => v.setBigUint64(at, BigInt(n), true);
 
+// ZIP times and export file names in German time, whatever the server's or browser's time zone (tz-1)
+let berlinFmt = null;
+function berlinParts(ms) {
+  berlinFmt = berlinFmt || new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Berlin', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' });
+  const p = {};
+  for (const x of berlinFmt.formatToParts(ms)) p[x.type] = x.value;
+  return p;
+}
 function dosTime(ms) {
-  const d = new Date(ms || Date.now());
-  const y = Math.max(1980, d.getFullYear());
+  const p = berlinParts(ms || Date.now());
+  const y = Math.max(1980, Number(p.year));
   return {
-    time: (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1),
-    date: ((y - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate(),
+    time: (Number(p.hour) << 11) | (Number(p.minute) << 5) | (Number(p.second) >> 1),
+    date: ((y - 1980) << 9) | (Number(p.month) << 5) | Number(p.day),
   };
 }
 
@@ -113,6 +121,6 @@ export function createZip(write, { crc = crc32, offset: base = 0 } = {}) {
 /** File name inside the export: dateien/<kind>/<date>_<id>.<ext> (ASCII only). */
 export function exportFileName(f) {
   const ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'application/pdf': 'pdf', 'image/svg+xml': 'svg' }[f.mime] || 'bin';
-  const day = f.at ? new Date(f.at).toISOString().slice(0, 10) : 'datei';
+  const day = f.at ? (({ year, month, day: dd }) => `${year}-${month}-${dd}`)(berlinParts(f.at)) : 'datei';
   return `dateien/${f.kind || 'other'}/${day}_${String(f.id).replace(/[^\w-]/g, '')}.${ext}`;
 }
