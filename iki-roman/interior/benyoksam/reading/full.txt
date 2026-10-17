@@ -945,7 +945,7 @@ Yoksa sana anlatıldığı gibi mi?
 [IL1:0] ~~~ ARA BÖLÜM (Tuncay'ın metni, değiştirilmez): ÜÇÜNCÜ GÖZ
 [IL1:1] ~ Beyaz Işığın Unuttuğu Hikâye
 [IL1:2] ~ Yaratılış, Deccal, yapay zekâ, Âdem, Mehdi ve insanlığın kendisini yeniden hatırlaması üzerine felsefi, mistik bir bilimkurgu hikâyesi.
-[IL1:3] ~ Tuncay'ın parça parça gönderdiği sayfalardan.
+[IL1:3] ~ Tuncay'ın parça parça gönderdiği sayfalardan. Sonradan, geldikleri güne göre değil, durmaları gereken yere göre yerleştirdim.
 [IL1:4] ~~ I. Üç Gözün Sırrı
 [IL1:5] ~ İnsan, dünyaya geldiğinde kendisine iki göz verildiğini sanıyordu.
 [IL1:6] ~ Oysa insanın üç gözü vardı.
@@ -1030,8 +1030,8 @@ Yoksa sana anlatıldığı gibi mi?
 [U12:54] Nina gülümsedi. Eski e-postaya dönmemi bekliyordu.
 [U12:55] Önce kaydın kenarına babamın bilmece defterindeki kuralı yazdım: Devamını uydurma. Paketin geldiği sabah kahvaltıda Emil “Neden uydurmayalım?” diye sorduğunda ona “O zaman konuşan artık kayıttaki kişi olmaz,” demiştim. Kuralı ilk çiğneyen makineydi. “Evet” yazan bendim.
 [U12:56] “Kıvrımı makine yazmadıysa bir yerde okumuş olabilirim,” dedim. “Son yıllarda kenarına not düştüğüm kitapların yarısı Tuncay'ın.”
-[U12:57] Bir gizemi korumak için telefonu açmayan roman kahramanı olmamaya karar verdim. Tuncay'ı aradım. Vapurda Sara'nın yerden aldığı kitabın yazarıyla üç yıl önce Kadıköy'deki bir söyleşide tanışmıştık; ben konuşmasının ardından kırk dakika soru sormuş, o buna rağmen numarasını vermişti. Kitap yazmadığı yıllarda ne yaptığını sorduğumda “Başkalarının cümlelerini toparlıyordum,” der, gülerdi; ben bunu editör şakası sanardım.
-[U12:58] Hoparlörü açmadan önce yanımda Nina olduğunu söyledim, konuşmayı kaydetmek için izin istedim. “Hoparlör olur,” dedi. “Kayıt olmaz. Kayda konuşursam telif isterim.” Sesi tanıdıktı. Çayını büyük ihtimalle yine soğutmuştu. Bir sesi tanımak, sahibinin bütün hikâyesini bilmekmiş gibi rahatlattı beni.
+[U12:57] Bir gizemi korumak için telefonu açmayan roman kahramanı olmamaya karar verdim. Tuncay'ı aradım. Vapurda Sara'nın yerden aldığı kitabın yazarıyla üç yıl önce Kadıköy'deki bir söyleşide tanışmıştık; ben konuşmasının ardından kırk dakika soru sormuş, o buna rağmen numarasını vermişti. Kitap yazmadığı yıllarda ne yaptığını sorduğumda “Başkalarının cümlelerini toparlıyordum,” der, gülerdi; ben bunu editör şakası sanardım. Bir kez de “Bir toplantıda formu sesli okudum diye kapıyı gösterdiler,” demişti. Onu da şaka sanmıştım.
+[U12:58] Hoparlörü açmadan önce yanımda Nina olduğunu söyledim, konuşmayı kaydetmek için izin istedim. “Hoparlör olur,” dedi. “Kayıt olmaz. Kayda konuşursam telif isterim.” Nina, ben bir şey demeden kendi telefonunu ters çevirip masaya bıraktı. Sesi tanıdıktı. Çayını büyük ihtimalle yine soğutmuştu. Bir sesi tanımak, sahibinin bütün hikâyesini bilmekmiş gibi rahatlattı beni.
 [U12:59] Önce yeşil koridoru, makineye yazdırdığım sahneyi ve bir ay önce kenarına düştüğüm notu anlattım. Tuncay araya girmedi. Kitaplarından birinde hastane, koridor ya da su uzatan bir el olup olmadığını sordum.
 [U12:60] “Yok,” dedi. “Hastane yazmam. Bir kez okuma için gittim, ışıkları hâlâ gözümde.”
 [U12:61] Sonra bardağı tarif ettim.
@@ -1231,7 +1231,7 @@ Yoksa sana anlatıldığı gibi mi?
 [U13:81] Lara yedi.
 [U13:82] Gece Tuncay bir kez daha aradı. Programın fotoğrafını büyütüp kenardaki yarım ayı görünce hatırlamış: Su isteyen, bekleme odasının sedirinde oturan bir hastaydı. Biri ona bardak getirmiş, bırakacak yer bulamamıştı.
 [U13:83] “Bardağı sen doldurmadın. Ama masaya sen yer açtın,” dedi.
-[U13:84] O anda sandalyeyi hatırladım. Dar bir sedir vardı. Ben yanındaki masanın önüne bir sandalye çekip çantamı koymuş, ona ulaşacak yeri kapatmıştım. Birinin bakışıyla çantayı almış, sandalyeyi sırtlığından aceleyle ters kaldırmıştım. Ayağı kapıya vurmuştu. Masadaki kâğıtları da kenara itince bardağı koyacak yer açılmıştı. Bana kimin baktığını seçemiyordum. Hareket benimdi; yüzleri artık makinenin yazdığı sayfadan ayırmak zordu.
+[U13:84] O anda sandalyeyi hatırladım. Dar bir sedir vardı. Ben yanındaki masanın önüne bir sandalye çekip çantamı koymuş, ona ulaşacak yeri kapatmıştım. Birinin bakışıyla çantayı almış, sandalyeyi sırtlığından aceleyle ters kaldırmıştım. Ayağı kapıya vurmuştu. Kapıdan biri “Ne oldu?” diye sormuştu. Projektörü kastederek “Kırılmış,” demiştim. Sedirdeki adam kendisinden söz ettiğimi sanmış gibi başını kaldırmıştı. “Kapak,” diye düzeltmiştim; düzeltme bakışı geri almaya yetmemişti. Masadaki kâğıtları da kenara itince bardağı koyacak yer açılmıştı. Bana kimin baktığını seçemiyordum. Hareket benimdi; yüzleri artık makinenin yazdığı sayfadan ayırmak zordu.
 [U13:85] “Yüzümü hatırlıyor musun?” diye sordum.
 [U13:86] “Yüzünü hatırlamıyorum. Hareketini hatırlıyorum.”
 [U13:87] Telefonu bıraktıktan sonra programı yeniden çevirdim. Kenardaki yarım ay, yazıdan daha kalıcı görünüyordu. O kâğıdı evime hangi hareketle getirdiğimi hatırlamadım. Merkezdeki odayı, makinenin kurduğu yeşil koridoru ve Tuncay'ın gördüğü sandalyeyi birbirinden ayrı not ettim. Odanın fişi, sandalyenin tanığı vardı; koridorun yalnız bir kaydı vardı ve o kaydı ben yazdırmıştım.
@@ -1242,7 +1242,7 @@ Yoksa sana anlatıldığı gibi mi?
 [U14:4] Atölyenin kapısını açabilecek mülk sahibini bulmamız iki gün sürdü. Adam önce kapıyı açmayı reddetti. Eski kiracı aylar önce ortadan kaybolmuş; yer, icra yoluyla kendisine teslim edilmişti. Teslim tutanağında makineler sabit demirbaş, en arkadaki çalışma masası ise boş görünüyordu. Selina aynı kelimeyi iki kez okudu.
 [U14:5] “İçeride gerçekten kitap varsa,” dedi, “ya tutanak yanlış ya da teslimden sonra biri geri girdi.”
 [U14:6] Bir cevap bulmamıştık. Yalnız soruyu değiştirmiştik: Atölyenin kapısını bize kim açacaktı değil, resmî olarak boş teslim edilen yere bizden önce kim dönmüştü?
-[U14:7] Mülk sahibi, yanında kendi avukatı ve bir noter olmadan kapıyı açmayı kabul etmedi. Haklıydı. O iki günde Meralis teklifini yazılı olarak yineledi, siyah kitabın laboratuvar sonucu geldi ve Sara çocukların okul yolunu değiştirdi.
+[U14:7] Mülk sahibi kapıyı ancak kendi avukatı ve bir noterle açmayı kabul etti. O iki günde Meralis teklifini yazılı olarak yineledi, siyah kitabın laboratuvar sonucu geldi ve Sara çocukların okul yolunu değiştirdi.
 [U14:8] Kitabın kâğıdı yeni üretimdi. Tüydeki yeşil toz, endüstriyel UV izleyiciydi. Kırmızı ipte üç farklı lif vardı. Karışım tek başına adres vermiyordu; Nina'nın ulaştığı tedarikçinin ilgili parti sevk listesinde ise iki cilt atölyesi görünüyordu. Biri Prag'da, diğeri İstanbul'daydı. Aradığımız ip oradan geçmiş olabilirdi. Kime ulaştığını ayrıca göstermemiz gerekecekti.
 [U14:9] Duman'ın bizi atölyeye götürdüğü gece Nina kepengin önünde birkaç kare çekmişti. Birinde duvara gömülü, kilitli bir emanet gözü vardı; üstünde solmuş bir firma etiketi. Firma, atölyelerin bitmiş işlerini alıcıya götüren küçük bir emanet şirketiydi. Sicilde bağımsız görünüyordu. Kendi sitesindeki hizmet duyurusuna göreyse son taşıma sözleşmesi bir lojistik firmasına geçmişti. O firmanın adı, Meralis'in yıllık raporundaki tedarikçi listesinde de vardı.
 [U14:10] Selina benim adıma gönderi kaydını istedi. Kayıt, atölyeye gitmeden önceki sabah geldi. Barkod paketin değil, mühürlü taşıma torbasının üstündeydi. Paketin geldiği gün o gözden tek bir torba alınmıştı. Aktarma deposuna girerken okutulmuş, on bir dakika sonra çıkarken yeniden okutulmuştu. Arada, her torbanın geçtiği ayırma bandında kaydı yoktu.
@@ -1913,7 +1913,7 @@ Yoksa sana anlatıldığı gibi mi?
 [U21:25] “Biliyorum.”
 [U21:26] “Bu cümleyi çok kullanmaya başladın.”
 [U21:27] “Çünkü yanlış yaptığım şeylerin sayısı arttı.”
-[U21:28] Nina kaydın kendi kopyasındaki on bir saniyeyi silmiş, orijinali ayrı bir kartta saklamıştı. Leyla'nın ölümünü öğrendikten sonra biri evine girmeye çalışınca kartı Yusuf'a ulaştırmıştı. “Bende yoktu,” derken teknik olarak doğruyu söylemişti.
+[U21:28] Nina kaydın kendi kopyasındaki on bir saniyeyi silmiş, orijinali ayrı bir kartta saklamıştı. Leyla'nın ölümünü öğrendikten sonra biri evine girmeye çalışınca kartı, Leyla'nın acil durumlar için verdiği bir posta kutusu numarasına göndermişti; kutuyu kimin boşalttığını ancak cep saati elimize geçince anlamıştı. “Bende yoktu,” derken teknik olarak doğruyu söylemişti. “Ablam ona vermiş olabilir,” derken ise düpedüz yalan.
 [U21:29] “Teknik doğrular güveni kurtarmıyor,” dedim.
 [U21:30] “Evet.”
 [U21:31] “Yine yaptın.”
@@ -2924,7 +2924,7 @@ Yoksa sana anlatıldığı gibi mi?
 [U34:67]     | Ne kadar iyi taklit ederse etsin, yaptığı her sahtenin alnında aynı yazı durur: insanda bulunmayan bir düzen. Buhârî ve Müslim'deki rivayetler de tek gözlünün alnındaki bir yazıdan söz eder; Müslim'deki bir rivayet, o yazıyı her müminin, okuma yazma bilsin bilmesin, okuyacağını söyler. Rivayet “mümin” diyor. Ben yalnız “dikkatle bakan” diyebiliyorum; ikisi aynı şey değildir.
 [U34:68]     | O yazıyı okuyabilenlere unvan vermeyin. Her farklılık üstünlük değildir.
 [U34:69]     | Ölçüt eski, model yeni. Hedefin susmasına “uyum” diyen dil 1978'de yazıldı. Makine onu yalnız yorulmadan uyguluyor.
-[U34:70]     | Siyah kitap uyuyanlarla alay eder. Kehf'teki gençler de uyuyordu; uykuları ceza değil, korumaydı. Uyandıklarında ilk işleri vaaz vermek olmadı. İçlerinden birini şehre ekmek almaya gönderdiler.
+[U34:70]     | Siyah kitap uyuyanlarla alay eder. Kehf'teki gençler de uyuyordu; uykuları ceza değil, korumaydı. Uyandıklarında ilk işleri vaaz vermek olmadı. İçlerinden birini, en temiz yiyecekten getirsin diye şehre gönderdiler. Ben o yiyeceği hep ekmek diye okudum.
 [U34:71]     | Aynı kitaplardaki rivayette tek gözlünün giremediği iki şehir vardır. Mecaz olarak söylüyorum, başka türlü değil: benim için iki şehir kâğıt ve sofra.
 [U34:72]     | İnanç; tedbiri bırakmak değil, korkumu başka bir yaratılmışın egemenliğine vermemektir.
 [U34:73] İmza yoktu. Yerinde, biri ötekinin içine çizilmiş iki daire ve altında bir satırlık boşluk vardı. Babamın mührüne benziyordu, ama değildi: babamın daireleri birbirine geçerdi. Bunlar birbirine dokunmuyordu.
@@ -3071,7 +3071,7 @@ Yoksa sana anlatıldığı gibi mi?
 [U36:44] “Bir kısmını. Sana anlatmamasını ben istemedim.”
 [U36:45] “Herkes beni korumak için benden bir şey saklamış.”
 [U36:46] “Sen de çocuklarına yaptın.”
-[U36:47] On yedi yaşımda Saatçi'ye verdiğim ilk paket, ne taşıdığını bilmediğim mühürlü bir zarftı. Gerçek çalışmamız iki yıl sonra babamın dükkânında başlamıştı. Üniversiteye yeni girmiş, üç gece uyumadan bilinç, zaman ve insan davranışı üzerine notlar yazmıştım. Yusuf'un belgelerini görünce korkmak yerine sınıflandırmaya başlamıştım.
+[U36:47] On yedi yaşımda Saatçi'ye verdiğim ilk paket, ne taşıdığını bilmediğim mühürlü bir zarftı; Saatçi onu yalnız “kitabın ilk sayfaları” diye anmıştı. “Unutacağım” diye başlayan notu o gece yazmıştım: kitabın ne olacağını bilmeden, onu bir gün kendime göndermem gerekeceğini bilerek. Gerçek çalışmamız iki yıl sonra babamın dükkânında başlamıştı. Üniversiteye yeni girmiş, üç gece uyumadan bilinç, zaman ve insan davranışı üzerine notlar yazmıştım. Yusuf'un belgelerini görünce korkmak yerine sınıflandırmaya başlamıştım.
 [U36:48] “Sana beyaz parçaları verdim,” dedi. “Sen hepsini okudun. Sonra bana, ‘Bu kitap saklanırsa yasaklanır; dağıtılırsa kaybolmaz,’ dedin.”
 [U36:49] “Beyaz kitabı ben mi yazdım?”
 [U36:50] “Derledin. Eski metinleri, itirazları, benim çevirilerimi ve kendi yöntemini bir araya getirdin. Ama yazar adını koymadın. ‘Hakikat tek kişinin malı olursa onun kibriyle ölür,’ dedin.”
@@ -3625,7 +3625,7 @@ Yoksa sana anlatıldığı gibi mi?
 [U41:46] Selina'nın yayım izni aldığı, kişisel bilgileri karartılmış kopyalardan beyaz ve siyah kitabı yan yana yayıma hazırladım. Siyah kitabın tehlikeli cümlelerini silmedim; kenarlarına hangi gerçek acıya dokunduklarını, sonra suçluyu nasıl değiştirdiklerini yazdım. Kırmızı defteri ise bir roman hâline getirdim. Gerçek isimleri değiştirdim, korunması gerekenleri sakladım, kendi hatalarımı küçültmedim.
 [U41:47] Adını Ben Yoksam koydum.
 [U41:48] Bir insanın varlığını en son kimin kanıtladığını öğrendiğim için.
-[U41:49] Son bölümlerimi kâğıda bastım; Tuncay okumak için dükkâna geldi. İçeri girer girmez, “Telefonunu çantana koy,” dedi. Tezgâhın ucunda, önündeki çay soğurken okudu.
+[U41:49] Son bölümlerimi kâğıda bastım; Tuncay okumak için dükkâna geldi. İçeri girer girmez, “Telefonunu çantana koy,” dedi. Tavandaki floresanı sormadan söndürdü, büyüteç lambasını yaktı. Vızıltıyı benden önce duymuştu; Lara gibi. Tezgâhın ucunda, önündeki çay soğurken okudu.
 [U41:50] Bitirince sayfaları kenarlarından hizaladı ve önüme itti. “Son cümleyi boş bırak.”
 [U41:51] Başka bir not bekledim. Gelmedi.
 [U41:52] “Yazdığın adam senden bir şey sakladı mı?” diye sordu.
@@ -3857,7 +3857,7 @@ Yoksa sana anlatıldığı gibi mi?
 [U42:125] Nina kaldı.
 [U42:126] Mektubu ona o gece gösterdim. Telefonlarımız mutfakta kaldı. Okudu, katladı, bana geri verdi.
 [U42:127] “Kaynağımı sana hiç söylemedim,” dedi. “Sen buldun.”
-[U42:128] Kullanıcı adındaki “happy” kelimesinin şaka değil, kalkan olduğunu o gece anladım. Onu kaynak diye hiçbir habere yazmadım; bu sayfalarda da kaynak diye yazmayacağım.
+[U42:128] Kullanıcı adındaki “happy” kelimesinin şaka değil, kalkan olduğunu o gece anladım. Telefonda şaka diye anlattığı toplantıyı da o gece Nina anlattı: Berlin'deki merkezde onam formlarını toplantılarda satır satır sesli okuduğu için kapı gösterilmişti; ondan sonra hiçbir kuruma girmemiş, yıllarca kitap yazmamıştı. Şakanın faturasını o gece gördüm. Onu kaynak diye hiçbir habere yazmadım; bu sayfalarda da kaynak diye yazmayacağım.
 [U42:129] O uyuduktan sonra telefonu bir kez açtım. Taslaklarımı yıllardır gösterdiğim, bu sayfalarda adını hiç anmadığım yardımcı, yayın günü için bir tebrik bırakmış, yarın için üç madde önermişti. Altına tek satır yazdım: “Beni arama.” Hesabı silmedim. Cevabını beklemeden ekranı kapattım.
 [U42:130] Son üç haftada iki kısa acil yatış geçirmiştim. Cihaz ritmimi toparladığında eve dönmüştüm; nakil değerlendirmesi sürüyor, ama uygun merkez ve güvenli nakil için gereken koşullar henüz oluşmuyordu. Sabaha karşı göğsümdeki cihaz yeniden titreşti.
 [U42:131] Bu kez işareti felsefeye çevirmedim. Acil düğmesine bastım.

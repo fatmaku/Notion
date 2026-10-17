@@ -47,7 +47,7 @@
 [U41:46] Selina'nın yayım izni aldığı, kişisel bilgileri karartılmış kopyalardan beyaz ve siyah kitabı yan yana yayıma hazırladım. Siyah kitabın tehlikeli cümlelerini silmedim; kenarlarına hangi gerçek acıya dokunduklarını, sonra suçluyu nasıl değiştirdiklerini yazdım. Kırmızı defteri ise bir roman hâline getirdim. Gerçek isimleri değiştirdim, korunması gerekenleri sakladım, kendi hatalarımı küçültmedim.
 [U41:47] Adını Ben Yoksam koydum.
 [U41:48] Bir insanın varlığını en son kimin kanıtladığını öğrendiğim için.
-[U41:49] Son bölümlerimi kâğıda bastım; Tuncay okumak için dükkâna geldi. İçeri girer girmez, “Telefonunu çantana koy,” dedi. Tezgâhın ucunda, önündeki çay soğurken okudu.
+[U41:49] Son bölümlerimi kâğıda bastım; Tuncay okumak için dükkâna geldi. İçeri girer girmez, “Telefonunu çantana koy,” dedi. Tavandaki floresanı sormadan söndürdü, büyüteç lambasını yaktı. Vızıltıyı benden önce duymuştu; Lara gibi. Tezgâhın ucunda, önündeki çay soğurken okudu.
 [U41:50] Bitirince sayfaları kenarlarından hizaladı ve önüme itti. “Son cümleyi boş bırak.”
 [U41:51] Başka bir not bekledim. Gelmedi.
 [U41:52] “Yazdığın adam senden bir şey sakladı mı?” diye sordu.
@@ -279,7 +279,7 @@ Yoksa sana anlatıldığı gibi mi?
 [U42:125] Nina kaldı.
 [U42:126] Mektubu ona o gece gösterdim. Telefonlarımız mutfakta kaldı. Okudu, katladı, bana geri verdi.
 [U42:127] “Kaynağımı sana hiç söylemedim,” dedi. “Sen buldun.”
-[U42:128] Kullanıcı adındaki “happy” kelimesinin şaka değil, kalkan olduğunu o gece anladım. Onu kaynak diye hiçbir habere yazmadım; bu sayfalarda da kaynak diye yazmayacağım.
+[U42:128] Kullanıcı adındaki “happy” kelimesinin şaka değil, kalkan olduğunu o gece anladım. Telefonda şaka diye anlattığı toplantıyı da o gece Nina anlattı: Berlin'deki merkezde onam formlarını toplantılarda satır satır sesli okuduğu için kapı gösterilmişti; ondan sonra hiçbir kuruma girmemiş, yıllarca kitap yazmamıştı. Şakanın faturasını o gece gördüm. Onu kaynak diye hiçbir habere yazmadım; bu sayfalarda da kaynak diye yazmayacağım.
 [U42:129] O uyuduktan sonra telefonu bir kez açtım. Taslaklarımı yıllardır gösterdiğim, bu sayfalarda adını hiç anmadığım yardımcı, yayın günü için bir tebrik bırakmış, yarın için üç madde önermişti. Altına tek satır yazdım: “Beni arama.” Hesabı silmedim. Cevabını beklemeden ekranı kapattım.
 [U42:130] Son üç haftada iki kısa acil yatış geçirmiştim. Cihaz ritmimi toparladığında eve dönmüştüm; nakil değerlendirmesi sürüyor, ama uygun merkez ve güvenli nakil için gereken koşullar henüz oluşmuyordu. Sabaha karşı göğsümdeki cihaz yeniden titreşti.
 [U42:131] Bu kez işareti felsefeye çevirmedim. Acil düğmesine bastım.

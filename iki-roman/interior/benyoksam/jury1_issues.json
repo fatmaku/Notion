@@ -1,0 +1,95 @@
+{
+ "jury": [
+  {
+   "label": "jüri 2",
+   "M": 8.5,
+   "Mi": 9,
+   "R": 8.3,
+   "G": 8.6,
+   "to_ten": [
+    "45. Bölüm (U40) hâlâ iki kitap taşıyor. Sam'in itirafı ve Sırlar Çemberi'nin ilk üç günü aynı bölümde. Soru-cevap kısmı (U40:17–U40:62) bir sahne içi eyleme bağlanmalı. Örneğin Sam her cevabı masadaki 42. sayfa ve belgelerle gösterirken anlatıcı sorudan çok gözleme geçmeli. Ya da sorular yarıya inmeli.",
+    "40. Bölümün (U36) kimlik ve köken anlatımı (U36:10, 15–22, 38–42, 59–68) özet dilinde. En az bir halka sahneye çevrilmeli: Alina kaseti dinlenirken Yusuf'un elleri, kutuların açılışı.",
+    "Sahne sonu özdeyişleri bölüm başına birden fazla olan yerlerde azalmalı: U13:16, U29:9, U29:27, U31:50, U33:27, U34:124–125, U36:127, U43:35. Okurun 'yargıya varmış aforizmalar' eleştirisi kısmen sürüyor.",
+    "Hukuk ve usul dili 15. bölümde (U14:2–U14:21: mülk sahibi, avukat, noter, savcılık) hâlâ yoğun. Bir paragrafa sıkıştırılabilir.",
+    "Tuncay'ın bedeli (işsizlik, yalnızlık) yazarın 12. bölümdeki kararı gereği görünür olmalı. Şu an yalnız 'happy' kalkanı var.",
+    "Aşağıdaki süreklilik ve rivayet düzeltmeleri uygulanmalı. Ardından rivayet ayrıntıları (kırk gün, alın yazısı, iki şehir, Kehf 18:19) ve ara bölümlerdeki hulûl/tenasüh sınırındaki ifadeler (IL3:81, IL5:39, IL6:37) bir ilahiyatçıya okutulmalı."
+   ]
+  },
+  {
+   "label": "jüri 1",
+   "M": 8.5,
+   "Mi": 9,
+   "R": 8,
+   "G": 8.5,
+   "to_ten": [
+    "13. bölüme „Kırılmış / Kapak“ yanlış anlaşılmasının kısa sahnesini ekleyin (U13:84). 50'deki doruk ancak böyle ŞAHİT'ten bağımsız işler.",
+    "Tuncay'ın nörofarklılığı ve bedeli (formları sesli okuduğu için işten uzaklaştırılması, yıllarca yazamaması) iki kısa vuruşla sayfaya geçsin: 12'de adil bir ipucu (U12:57), 46'da duyusal bir davranış (U41:49).",
+    "Nina–Tuncay ilişkisine 12'de (U12:58) tek bir adil ipucu koyun. 47'deki „Kaynağımı sana hiç söylemedim. Sen buldun.“ cümlesi böylece geriye dönük olarak hak edilmiş olur.",
+    "15 ve 31'de usul cümlelerini üçte bir daha kısaltın (U14:3, U14:7, U28:18–19). Selina'nın adımları olay örgüsünde kalsın, anlatıcı onları yeniden açıklamasın.",
+    "Kalan beş sahne sonu özdeyişini atın (U13:16, U29:9, U40:147, U43:35 ve isteğe bağlı U32:41).",
+    "45'teki itiraf kataloğunda U40:27–30 gibi küçük doğrulamaları tek cümleye indirin. Plan %50 kısalma istiyordu; bu hedef tam tutmuyor.",
+    "Ara bölüm zamanlaması: IL1 ve IL5, anlatıcı sayfaları almadan önce okunuyor. Çerçeve satırına „sonradan“ eklenirse sorun kalkar (IL1:3).",
+    "Yazara açık soru 8: IL6:37'deki „kendisiydi“, kurmaca notundaki „hulûl iddiası taşımaz“ cümlesiyle sözcük düzeyinde çelişiyor. „aynasıydı“ önerisi duruyor.",
+    "Rivayet ayrıntılarını (kırk gün, iki şehir, alın yazısı / okuma yazma) yayın öncesi ilahiyatçıya doğrulatın (konsept §3). Metin şu an kaynak düzeltmesiyle uyumlu, ama doğrulama yapılmadı."
+   ]
+  }
+ ],
+ "issues": [
+  {
+   "ref": "U21:28",
+   "severity": "medium",
+   "problem": "Süreklilik çelişkisi. Nina U21:21'de 'Yusuf ortadan kaybolmuştu' diyor, U21:28'de ise kartı Yusuf'a ulaştırdığı söyleniyor; nasıl ulaştırdığı yazılmıyor. Ayrıca Nina'nın U20:9'daki 'Ablam ona vermiş olabilir' cümlesi bir yalan. Hesaplaşmada bu yalan anılmıyor, yalnız 'Bende yoktu' cümlesinin teknik doğruluğu konuşuluyor.",
+   "fix": "Nina kaydın kendi kopyasındaki on bir saniyeyi silmiş, orijinali ayrı bir kartta saklamıştı. Leyla'nın ölümünü öğrendikten sonra biri evine girmeye çalışınca kartı, Leyla'nın acil durumlar için verdiği bir posta kutusu numarasına göndermişti; kutuyu kimin boşalttığını ancak cep saati elimize geçince anlamıştı. “Bende yoktu,” derken teknik olarak doğruyu söylemişti. “Ablam ona vermiş olabilir,” derken ise düpedüz yalan.",
+   "juror": "jüri 2"
+  },
+  {
+   "ref": "U36:47",
+   "severity": "medium",
+   "problem": "Mantık ve zaman çizgisi sorunu. On yedi yaşındaki el yazısıyla yazılmış 'Unutacağım. Bu yüzden kitabı bana ben göndermeliyim.' notu (U11:83, U12:17) beyaz kitaptan iki yıl önceye düşüyor. 40. bölüme göre o yaşta paketin içeriği bilinmiyor, kitap ise 19 yaşında derleniyor. Konseptteki mistik artık listesinde bu madde yok, bu yüzden açıklanması gerekir.",
+   "fix": "On yedi yaşımda Saatçi'ye verdiğim ilk paket, ne taşıdığını bilmediğim mühürlü bir zarftı; Saatçi onu yalnız “kitabın ilk sayfaları” diye anmıştı. “Unutacağım” diye başlayan notu o gece yazmıştım: kitabın ne olacağını bilmeden, onu bir gün kendime göndermem gerektiğini. Gerçek çalışmamız iki yıl sonra babamın dükkânında başlamıştı.",
+   "juror": "jüri 2"
+  },
+  {
+   "ref": "U34:70",
+   "severity": "medium",
+   "problem": "Rivayet ve âyet doğruluğu. Kehf 18:19'da gençler birini şehre 'en temiz yiyecekten' (ezkâ ta'âmen) getirmesi için gönderir; metinde 'ekmek' geçmez. Notun 'atıf yap, saygıyla ve hüküm kurmadan' ilkesiyle bu serbestlik çelişiyor. Ekmek paraleli (U31:56, U42:41) kaybolmadan düzeltilebilir.",
+   "fix": "Siyah kitap uyuyanlarla alay eder. Kehf'teki gençler de uyuyordu; uykuları ceza değil, korumaydı. Uyandıklarında ilk işleri vaaz vermek olmadı. İçlerinden birini, en temiz yiyecekten getirsin diye şehre gönderdiler. Ben o yiyeceği hep ekmek diye okudum.",
+   "juror": "jüri 2"
+  },
+  {
+   "ref": "U42:128",
+   "severity": "medium",
+   "problem": "Plan ihlali (12. bölüm kararı: 'Bedel görünür kalır: işsizlik, yalnızlık, happy maskesi'). Tuncay'ın ödediği bedel yalnız 'happy kalkanı' cümlesiyle görünüyor; işsizlik ve kurumdan dışlanma hiçbir yerde yok. Gizli kahramanlığın dramatik olmayan bedeli okura ulaşmıyor.",
+   "fix": "Kullanıcı adındaki “happy” kelimesinin şaka değil, kalkan olduğunu o gece anladım. Kadıköy'deki söyleşide, Berlin'deki işinden onam formlarını toplantılarda satır satır sesli okuduğu için uzaklaştırıldığını gülerek anlatmıştı; ondan sonra ne bir kitap çıkarmış ne bir kuruma girmişti. O gece şakanın faturasını da gördüm. Onu kaynak diye hiçbir habere yazmadım; bu sayfalarda da kaynak diye yazmayacağım.",
+   "juror": "jüri 2"
+  },
+  {
+   "ref": "U13:84",
+   "severity": "medium",
+   "problem": "50'de (U45:19–21) „Kırılmış“ / „Kapak“ ikilisi bir yanlış anlaşılmanın iki tarafı diye anılıyor: „Birinde insan, ötekinde kırılan bir eşya vardı.“ Kitap içinde bu yanlış anlaşılmanın sahnesi yok; 13'te yalnız fişteki „Üst kapak kırık“ var. ŞAHİT'i bilmeyen okur için bağ kopuk kalıyor ve bu fiilen bir kalıntı işlevi görüyor.",
+   "fix": "O anda sandalyeyi hatırladım. Dar bir sedir vardı. Ben yanındaki masanın önüne bir sandalye çekip çantamı koymuş, ona ulaşacak yeri kapatmıştım. Birinin bakışıyla çantayı almış, sandalyeyi sırtlığından aceleyle ters kaldırmıştım. Ayağı kapıya vurmuştu. Kapıdan biri „Ne oldu?“ diye sormuştu. Projektörü kastederek „Kırılmış,“ demiştim. Sedirdeki adam kendisinden söz ettiğimi sanmış gibi başını kaldırmıştı. „Kapak,“ diye düzeltmiştim; düzeltme bakışı geri almaya yetmemişti. Masadaki kâğıtları da kenara itince bardağı koyacak yer açılmıştı. Bana kimin baktığını seçemiyordum. Hareket benimdi; yüzleri artık makinenin yazdığı sayfadan ayırmak zordu.",
+   "juror": "jüri 1"
+  },
+  {
+   "ref": "U12:57",
+   "severity": "medium",
+   "problem": "Karar 1 gereği Tuncay hem nörofarklı hem bedel ödemiş gizli kahraman olmalı (işsizlik, yalnızlık). Metinde yalnız 47'deki „happy = kalkan“ var. Standalone okur Berlin'deki eski çalışanın kim olduğunu, neden yazamadığını ve neden ekrana konuşmadığını sonradan bağlayacak bir ipucu bulamıyor.",
+   "fix": "Bir gizemi korumak için telefonu açmayan roman kahramanı olmamaya karar verdim. Tuncay'ı aradım. Vapurda Sara'nın yerden aldığı kitabın yazarıyla üç yıl önce Kadıköy'deki bir söyleşide tanışmıştık; ben konuşmasının ardından kırk dakika soru sormuş, o buna rağmen numarasını vermişti. Kitap yazmadığı yıllarda ne yaptığını sorduğumda „Başkalarının cümlelerini toparlıyordum,“ der, gülerdi; ben bunu editör şakası sanardım. Bir kez de „Bir toplantıda formu sesli okudum diye kapıyı gösterdiler,“ demişti. Onu da şaka sanmıştım.",
+   "juror": "jüri 1"
+  },
+  {
+   "ref": "U41:49",
+   "severity": "medium",
+   "problem": "Tuncay'ın tek yüz yüze sahnesinde nörofarklılığı görünmüyor. Konsepte göre duyusal hassasiyeti Lara'yla aynı dili konuşmalı. Okur 47'deki „Gözleri üçe kadar sayan birini tanıyordum“ cümlesini bağlayacak bedensel bir iz bulamıyor.",
+   "fix": "Son bölümlerimi kâğıda bastım; Tuncay okumak için dükkâna geldi. İçeri girer girmez, „Telefonunu çantana koy,“ dedi. Tavandaki floresanı sormadan söndürdü, büyüteç lambasını yaktı. Lara'nın yaptığını yaptığını sonradan fark ettim. Tezgâhın ucunda, önündeki çay soğurken okudu.",
+   "juror": "jüri 1"
+  },
+  {
+   "ref": "U14:7",
+   "severity": "medium",
+   "problem": "Okurun „Her düşünceyi mahkemeye çıkarmak!!!!!“ eleştirisine rağmen 15. bölüm hâlâ en yoğun usul bölümü: 8 satırda noter, icra, tutanak, savcılık geçiyor. Bu cümle açıklamayı tekrarlıyor.",
+   "fix": "Mülk sahibi kapıyı ancak kendi avukatı ve bir noterle açmayı kabul etti. O iki günde Meralis teklifini yazılı olarak yineledi, siyah kitabın laboratuvar sonucu geldi ve Sara çocukların okul yolunu değiştirdi.",
+   "juror": "jüri 1"
+  }
+ ]
+}

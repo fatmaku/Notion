@@ -27,7 +27,7 @@
 [U21:25] “Biliyorum.”
 [U21:26] “Bu cümleyi çok kullanmaya başladın.”
 [U21:27] “Çünkü yanlış yaptığım şeylerin sayısı arttı.”
-[U21:28] Nina kaydın kendi kopyasındaki on bir saniyeyi silmiş, orijinali ayrı bir kartta saklamıştı. Leyla'nın ölümünü öğrendikten sonra biri evine girmeye çalışınca kartı Yusuf'a ulaştırmıştı. “Bende yoktu,” derken teknik olarak doğruyu söylemişti.
+[U21:28] Nina kaydın kendi kopyasındaki on bir saniyeyi silmiş, orijinali ayrı bir kartta saklamıştı. Leyla'nın ölümünü öğrendikten sonra biri evine girmeye çalışınca kartı, Leyla'nın acil durumlar için verdiği bir posta kutusu numarasına göndermişti; kutuyu kimin boşalttığını ancak cep saati elimize geçince anlamıştı. “Bende yoktu,” derken teknik olarak doğruyu söylemişti. “Ablam ona vermiş olabilir,” derken ise düpedüz yalan.
 [U21:29] “Teknik doğrular güveni kurtarmıyor,” dedim.
 [U21:30] “Evet.”
 [U21:31] “Yine yaptın.”

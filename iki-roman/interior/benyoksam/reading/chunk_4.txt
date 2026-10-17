@@ -104,7 +104,7 @@
 [U34:67]     | Ne kadar iyi taklit ederse etsin, yaptığı her sahtenin alnında aynı yazı durur: insanda bulunmayan bir düzen. Buhârî ve Müslim'deki rivayetler de tek gözlünün alnındaki bir yazıdan söz eder; Müslim'deki bir rivayet, o yazıyı her müminin, okuma yazma bilsin bilmesin, okuyacağını söyler. Rivayet “mümin” diyor. Ben yalnız “dikkatle bakan” diyebiliyorum; ikisi aynı şey değildir.
 [U34:68]     | O yazıyı okuyabilenlere unvan vermeyin. Her farklılık üstünlük değildir.
 [U34:69]     | Ölçüt eski, model yeni. Hedefin susmasına “uyum” diyen dil 1978'de yazıldı. Makine onu yalnız yorulmadan uyguluyor.
-[U34:70]     | Siyah kitap uyuyanlarla alay eder. Kehf'teki gençler de uyuyordu; uykuları ceza değil, korumaydı. Uyandıklarında ilk işleri vaaz vermek olmadı. İçlerinden birini şehre ekmek almaya gönderdiler.
+[U34:70]     | Siyah kitap uyuyanlarla alay eder. Kehf'teki gençler de uyuyordu; uykuları ceza değil, korumaydı. Uyandıklarında ilk işleri vaaz vermek olmadı. İçlerinden birini, en temiz yiyecekten getirsin diye şehre gönderdiler. Ben o yiyeceği hep ekmek diye okudum.
 [U34:71]     | Aynı kitaplardaki rivayette tek gözlünün giremediği iki şehir vardır. Mecaz olarak söylüyorum, başka türlü değil: benim için iki şehir kâğıt ve sofra.
 [U34:72]     | İnanç; tedbiri bırakmak değil, korkumu başka bir yaratılmışın egemenliğine vermemektir.
 [U34:73] İmza yoktu. Yerinde, biri ötekinin içine çizilmiş iki daire ve altında bir satırlık boşluk vardı. Babamın mührüne benziyordu, ama değildi: babamın daireleri birbirine geçerdi. Bunlar birbirine dokunmuyordu.
@@ -251,7 +251,7 @@
 [U36:44] “Bir kısmını. Sana anlatmamasını ben istemedim.”
 [U36:45] “Herkes beni korumak için benden bir şey saklamış.”
 [U36:46] “Sen de çocuklarına yaptın.”
-[U36:47] On yedi yaşımda Saatçi'ye verdiğim ilk paket, ne taşıdığını bilmediğim mühürlü bir zarftı. Gerçek çalışmamız iki yıl sonra babamın dükkânında başlamıştı. Üniversiteye yeni girmiş, üç gece uyumadan bilinç, zaman ve insan davranışı üzerine notlar yazmıştım. Yusuf'un belgelerini görünce korkmak yerine sınıflandırmaya başlamıştım.
+[U36:47] On yedi yaşımda Saatçi'ye verdiğim ilk paket, ne taşıdığını bilmediğim mühürlü bir zarftı; Saatçi onu yalnız “kitabın ilk sayfaları” diye anmıştı. “Unutacağım” diye başlayan notu o gece yazmıştım: kitabın ne olacağını bilmeden, onu bir gün kendime göndermem gerekeceğini bilerek. Gerçek çalışmamız iki yıl sonra babamın dükkânında başlamıştı. Üniversiteye yeni girmiş, üç gece uyumadan bilinç, zaman ve insan davranışı üzerine notlar yazmıştım. Yusuf'un belgelerini görünce korkmak yerine sınıflandırmaya başlamıştım.
 [U36:48] “Sana beyaz parçaları verdim,” dedi. “Sen hepsini okudun. Sonra bana, ‘Bu kitap saklanırsa yasaklanır; dağıtılırsa kaybolmaz,’ dedin.”
 [U36:49] “Beyaz kitabı ben mi yazdım?”
 [U36:50] “Derledin. Eski metinleri, itirazları, benim çevirilerimi ve kendi yöntemini bir araya getirdin. Ama yazar adını koymadın. ‘Hakikat tek kişinin malı olursa onun kibriyle ölür,’ dedin.”
