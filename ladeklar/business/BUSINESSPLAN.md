@@ -42,8 +42,9 @@ Muttersprache als Deutsch [Q22].
 **Lösung.** Ladeklar ist eine White-Label-App für Speditionen, Transportunternehmen, Kurierdienste und Betriebe mit
 eigenem Fuhrpark. Die Disposition legt Lieferungen an, der Fahrer bestätigt jeden Schritt mit einem großen Knopf
 (Bestätigt, Aufgeladen, Abgeladen, Lieferschein-Foto), die Disposition sieht alles live und bekommt eine
-Push-Mitteilung. Keine Hardware, Einführung in 10 Minuten, Fahrer-App in 8 Sprachen, unter dem Logo des Kunden.
-Standort nur im Moment eines Statuswechsels und nur, wenn der Betrieb es einschaltet – keine Dauerortung.
+Push-Mitteilung. Keine Hardware, Einrichtung in etwa 10 Minuten, Fahrer-App in 8 Sprachen, unter dem Logo des Kunden.
+Standort nur im Moment eines Statuswechsels und nur, wenn der Betrieb es einschaltet und der Fahrer zustimmt – keine
+Dauerortung.
 
 **Geschäftsmodell.** Der Gründer ist **Lizenzgeber** und vermietet Zugänge als Software-as-a-Service an
 **Lizenznehmer** (Unternehmen): Start 49 €, Flotte 129 €, Premium 299 € je Monat, Zusatzfahrer 7 € bzw. 6 €,
@@ -78,14 +79,14 @@ TAM rund 140 Mio. € pro Jahr, SAM rund 92 Mio. € (Rechnung in `MARKTANALYSE.
 
 | Rolle | Wer | Was sie tun |
 |---|---|---|
-| **Lizenzgeber** | der Gründer, später das Ladeklar-Team (geplant als GmbH) | betreibt die Plattform, legt Lizenzen an, setzt Tarif, Plätze, Laufzeit, Branding; sieht Kennzahlen und Abrechnung, **keine Auftragsdaten** |
+| **Lizenzgeber** | der Gründer, später das Ladeklar-Team (geplant als GmbH; die Konsole hat heute genau einen Lizenzgeber-Zugang) | betreibt die Plattform, legt Lizenzen an, setzt Tarif, Plätze, Laufzeit, Zahlweise und Markenfarbe, pflegt Firmendaten, setzt bei Bedarf das Admin-Passwort des Kunden zurück; sieht Kennzahlen und Abrechnung, **keine Auftragsdaten** |
 | **Lizenznehmer** | Spedition, Transportunternehmen, Kurierdienst, Bau- oder Handelsbetrieb mit Fuhrpark | arbeitet unter eigenem Logo, eigenen Farben und eigenem App-Namen; legt Disponenten, Fahrer, Fahrzeuge und Lieferungen an |
 | **Fahrer** | angestellte Fahrer und Subunternehmer-Fahrer | bedienen die Fahrer-App über große Icon-Knöpfe |
 | **Partner** (ab 2028) | Verbände, Telematik-Händler, Steuerberater, IT-Dienstleister | vermitteln Kunden, erhalten 20–30 % Provision (Plan: 25 %) |
 
 Der Lizenzgeber ist datenschutzrechtlich **Auftragsverarbeiter** (Art. 28 DSGVO), der Lizenznehmer
-**Verantwortlicher**. Support-Zugriff auf Kundendaten gibt es nur nach Freigabe durch den Kunden, zeitlich
-begrenzt und protokolliert (PLAN.md Kap. 2).
+**Verantwortlicher**. Die Konsole zeigt keine Auftragsdaten. Der Kunde kann eine befristete Support-Freigabe
+erteilen; sie wird protokolliert, öffnet aber keinen Zugriff auf Kundendaten in der Konsole (PLAN.md Kap. 2).
 
 ### 2.2 Gründerprofil (Platzhalter)
 
@@ -111,21 +112,26 @@ beantragen).
 
 ### 3.1 Was Ladeklar heute kann (v1.0)
 
-- **Lizenzkonsole** für den Lizenzgeber: Lizenznehmer anlegen, Tarif, Plätze, Laufzeit, Status, Branding, MRR-Übersicht.
-- **Einrichtungs-Assistent** in 4 Schritten: Logo & Farbe, Fahrzeuge, Fahrer (6-stellige PIN, Einladungslink/QR per
-  WhatsApp oder SMS), erste Lieferung.
+- **Lizenzkonsole** für den Lizenzgeber: Lizenznehmer anlegen, Tarif, Plätze, Laufzeit, Status, Firmendaten, eigene
+  Domains (Premium), Admin-Passwort zurücksetzen, gekündigte Kunden endgültig löschen, MRR-Übersicht,
+  Rechnungsvorschau je Monat.
+- **Einrichtung** in 4 Schritten (über die Menüs, kein geführter Assistent): Logo & Farbe, Fahrzeuge, Fahrer
+  (6-stellige PIN, Einladungslink/QR per WhatsApp oder SMS), erste Lieferung. Beim ersten Login vergibt der Admin
+  ein eigenes Passwort.
 - **Disposition (Web/Tablet):** Lieferung anlegen (Pflicht nur Route und Ladedatum), automatische Buchungsnummer,
   zuweisen oder „offen für alle Fahrer“, „Wiederholen“ für Stammrouten, Live-Board, Verlauf, Suche,
-  Abliefernachweis als PDF, Berichte, CSV-Export.
+  Abliefernachweis als PDF, Berichte je Fahrer, Auftraggeber und Lade-/Entladestelle, CSV-Export.
 - **Fahrer-App (PWA, optional Store-App):** immer genau ein großer Knopf für den nächsten Schritt; Notiz und
-  Schnellbausteine („Stau“, „Warte an Rampe“), Problem melden mit Foto, Navigation, Anrufen, Rückgängig 2 Minuten.
-- **Eingebaute Antworten auf Alltagsprobleme:** 8 Sprachen (DE, EN, PL, RO, CS, TR, RU, UK), Fahrsperre ab ca. 8 km/h,
-  Offline-Warteschlange, Foto-Pflicht vor Abschluss, Standzeit-Erfassung, Palettentausch, Fahrzeugbelegung, HU/SP-
-  Fristen, Unterschrift, Dunkelmodus, Datenexport (EU Data Act), REST-API (Premium).
+  Schnellbausteine („Stau, ca. 30 Min. später“, „Warte an der Rampe“), Problem melden mit Foto, Navigation (Apple
+  Karten auf iPhone/iPad, sonst Google Maps), Anrufen, Rückgängig 2 Minuten (mit Netz).
+- **Eingebaute Antworten auf Alltagsprobleme:** 8 Sprachen in der Fahrer-App (DE, EN, PL, RO, CS, TR, RU, UK), Fahrsperre
+  ab ca. 8 km/h (mit Standortfreigabe, Auswertung nur auf dem Handy), Offline-Warteschlange auch für Lieferschein-Foto
+  und Unterschrift, Foto-Pflicht vor Abschluss, Standzeit-Erfassung, Palettentausch, Fahrzeugbelegung, HU/SP-Fristen,
+  Unterschrift, Dunkelmodus, Personen löschen (DSGVO), Datenexport als ZIP (EU Data Act), REST-API (Premium).
 
 ### 3.2 So funktioniert es in drei Schritten
 
-1. **Einrichten (10 Minuten):** Logo hochladen, Fahrzeuge und Fahrer eintragen, Einladung per WhatsApp verschicken.
+1. **Einrichten (ca. 10 Minuten):** Logo hochladen, Fahrzeuge und Fahrer eintragen, Einladung per WhatsApp verschicken.
 2. **Lieferung anlegen:** Route, Datum, Fahrer – fertig. Der Fahrer bekommt eine Push-Mitteilung.
 3. **Tippen statt telefonieren:** Der Fahrer tippt Bestätigt, Aufgeladen, Abgeladen, fotografiert den Lieferschein.
    Die Disposition sieht jeden Schritt live; der Abliefernachweis geht am selben Tag an Kunde und Buchhaltung.
@@ -135,7 +141,7 @@ beantragen).
 | Version | Zeitraum (Plan) | Inhalt |
 |---|---|---|
 | v1.0 | jetzt | siehe oben |
-| v1.1 | Q2/2027 | **Zwischenstopps/Sammeltouren**, Kundenportal mit Sendungsverfolgungs-Link, Webhooks, Sprache **Bulgarisch** (Tschechisch ist seit v1.0 enthalten), **Gastzugänge für Subunternehmer-Fahrer** |
+| v1.1 | Q2/2027 | **Zwischenstopps/Sammeltouren**, Kundenportal mit Sendungsverfolgungs-Link, Webhooks, Sprache **Bulgarisch** (Tschechisch ist seit v1.0 enthalten), **Gastzugänge für Subunternehmer-Fahrer**, Push über APNs/FCM für Store-Apps |
 | v1.2 | Q4/2027 | Abrechnung automatisch (SEPA, Rechnungen, lexoffice/sevDesk/DATEV), **Schritt-Bausteine je Auftragsart** (Temperatur, Wiegeschein, Kran), **Saisonpause** |
 | v1.3 | 2028 | eCMR, Schnittstellen zu Frachtbörsen, Telematik (Positionen optional übernehmen), Zeitfenster-Nummern, **automatischer Standgeld-Beleg** |
 | v2.0 | 2029 | Arbeitszeit/Spesen, Lenk- und Ruhezeit-Hinweise, Lieferschein-Erkennung (OCR) |
@@ -209,7 +215,7 @@ Ausführlich mit Tabelle in `MARKTANALYSE.md`, Kap. 8. Kurzfassung:
 - **Plattformen und digitale Speditionen** (TIMOCOM, Transporeon, sennder, Cargonexx) sind Ergänzungen oder eine
   andere Kategorie.
 
-**Positionierung:** Ladeklar ist die **schnellste Einführung** (10 Minuten, keine Hardware), **unter eigener Marke**,
+**Positionierung:** Ladeklar ist die **schnellste Einführung** (ca. 10 Minuten, keine Hardware), **unter eigener Marke**,
 mit **Icon-Bedienung in 8 Sprachen** und **ohne Dauerortung** – deshalb auch in Betrieben mit Betriebsrat einführbar.
 
 ---
@@ -220,10 +226,10 @@ mit **Icon-Bedienung in 8 Sprachen** und **ohne Dauerortung** – deshalb auch i
 
 | Zielgruppe | Botschaft |
 |---|---|
-| Inhaber | „Tippen statt telefonieren. Ab 49 € im Monat, in 10 Minuten startklar, ohne Hardware.“ |
+| Inhaber | „Tippen statt telefonieren. Ab 49 € im Monat, in etwa 10 Minuten startklar, ohne Hardware.“ |
 | Disposition | „Sie sehen jede Tour live. Das Telefon klingelt nur noch, wenn wirklich etwas ist.“ |
-| Fahrer | „Ein Knopf. In deiner Sprache. Kein Tracking.“ |
-| Betriebsrat | „Keine Dauerortung. Standort nur beim Statuswechsel, Muster-Betriebsvereinbarung liegt bei.“ |
+| Fahrer | „Ein Knopf. In deiner Sprache. Keine Dauerortung.“ |
+| Betriebsrat | „Keine Dauerortung. Standort nur beim Statuswechsel und nur mit Zustimmung des Fahrers, Muster-Betriebsvereinbarung liegt bei.“ |
 
 ### 7.2 Kanäle
 
@@ -237,7 +243,7 @@ mit **Icon-Bedienung in 8 Sprachen** und **ohne Dauerortung** – deshalb auch i
 | **Fachpresse** – VerkehrsRundschau, DVZ, trans aktuell, eurotransport | Pressemitteilung zum Start, Anzeigen im Newsletter, Fallstudie | ab Jan. 2027 |
 | **Partner** – Telematik-Händler, Steuerberater, IT-Dienstleister, Verbände | Empfehlung gegen 25 % Provision (Plan), ab 2028 10 %, 2029 20 %, 2030 25 %, 2031 30 % des Umsatzes über Partner | Pilot Q4/2027 |
 | **Förder-Check** für Kunden | prüfen, ob Kunden ein Ladeklar-Abo über das BALM-Programm „Umweltschutz und Sicherheit“ (bis 33.000 € je Antragsteller/Jahr; Telematik- und Effizienzlösungen förderfähig) bezuschussen können [Q92] – **noch nicht bestätigt** | Q1/2027 |
-| **Eingebaute Reichweite** | Einladungslink an Fahrer, später Gastzugänge für Subunternehmer, Abliefernachweis-PDF mit „erstellt mit Ladeklar“ (abschaltbar) | ab v1.1 |
+| **Eingebaute Reichweite** | Einladungslink an Fahrer und Abliefernachweis mit „Erstellt mit Ladeklar“ (beides seit v1.0), später Gastzugänge für Subunternehmer | Gastzugänge ab v1.1 |
 
 ### 7.3 Go-to-Market: die ersten 12 Monate
 
@@ -304,6 +310,7 @@ im Modell nicht einzeln gerechnet, sondern über das Budget.
 | Fahrzeuge | 6 | 40 | unbegrenzt |
 | Disponenten-Zugänge | 1 | 5 | unbegrenzt |
 | Lieferschein-Speicher | 5 GB | 50 GB | 250 GB |
+| Berichte und CSV-Export | ja | ja | ja |
 | Eigene Domain | – | Subdomain | eigene Domain |
 | REST-API, Prioritäts-Support, SLA 99,5 % | – | – | ja |
 | White-Label-App im App Store / Google Play | – | – | 1.990 € einmalig + 99 €/Monat |
@@ -361,22 +368,26 @@ Türkisch (Teilzeit, Rückruf binnen 2 Stunden).
   optional Store-Apps über Capacitor). Kern-Engine in JavaScript, Server Node.js 22 ohne Framework, SQLite,
   Live-Updates per Server-Sent Events, Web-Push (VAPID) – siehe PLAN.md Kap. 8.
 - **Mandantentrennung** in der Engine erzwungen (jede Abfrage prüft die `tenantId`), automatisierter Test.
-- **Hosting in Deutschland** bei einem deutschen Anbieter, verschlüsselte Backups täglich, Wiederherstellung monatlich
+- **Hosting in Deutschland** (geplant) bei einem deutschen Anbieter; Vorlage für Docker, Caddy (HTTPS) und tägliche
+  Sicherung liegt in `deploy/`. Geplant zusätzlich: verschlüsselter Speicherort für die Backups, Wiederherstellung monatlich
   getestet, Monitoring, Staging-System. Plankosten: Grundkosten 300 € (2027) bis 1.000 € (2031) je Monat plus
   variabel 0,80 € (Start), 2,00 € (Flotte), 5,00 € (Premium) je Kunde und Monat. Hetzner hat die Cloud-Preise 2026
   zweimal erhöht (April und Juni) [Q79]; das Modell enthält deshalb Puffer.
 - **Skalierung:** SQLite reicht nach unserer Einschätzung für die ersten Hundert Mandanten auf einem Server; vor
   500 Kunden (Plan: Mitte 2029) wird die Datenhaltung auf PostgreSQL oder eine Instanz je Kundengruppe umgestellt
   (Aufwand in Softwareentwicklung 2 eingeplant).
-- **Sicherheit:** Passwörter mit scrypt, Login-Sperre, Sicherheits-Header, Typprüfung bei Uploads, Audit-Log,
-  keine externen Schriften und Tracker, Datenexport jederzeit.
+- **Sicherheit:** Passwörter mit scrypt, eigenes Passwort beim ersten Login erzwungen, Login-Sperre nach 5 Fehlversuchen,
+  Sicherheits-Header, Typprüfung bei Uploads, Audit-Log mit Anmeldungen und Fehlversuchen (IP nach 90 Tagen
+  entfernt), keine externen Schriften und Tracker, Datenexport jederzeit durch den Admin.
 - **Verfügbarkeit:** SLA 99,5 % für Premium (≈ 3,6 Std. Ausfall je Monat zulässig).
 - **Store-Apps:** Apple verlangt 99 USD je Jahr für ein Entwicklerkonto, Google einmalig 25 USD [Q84]. Nach unserem
   Kenntnisstand müssen White-Label-Apps im App Store über das Entwicklerkonto des Kunden veröffentlicht werden
   (App-Store-Richtlinie 4.2.6 – vor dem ersten Auftrag prüfen). Die Einrichtungsgebühr von 1.990 € deckt Aufbau,
-  Store-Texte, Prüfung und erste Veröffentlichung; 99 € je Monat decken Updates.
+  Store-Texte, Prüfung und erste Veröffentlichung; 99 € je Monat decken Updates. Push über APNs/FCM für die Store-App
+  ist noch zu bauen (Roadmap v1.1); bis dahin gilt Web-Push.
 - **Zahlungsabwicklung:** SEPA-Lastschrift und Rechnung über einen Zahlungsdienst (z. B. Stripe: SEPA 0,35 € je
-  Zahlung, Karten 1,5 % + 0,25 € [Q78]); im Modell 0,8 % vom Umsatz + 0,35 € je Kunde und Monat.
+  Zahlung, Karten 1,5 % + 0,25 € [Q78]); im Modell 0,8 % vom Umsatz + 0,35 € je Kunde und Monat. Heute zeigt die
+  Konsole eine Rechnungsvorschau je Monat mit CSV-Export; Rechnungen und Lastschrift laufen bis v1.2 außerhalb der App.
 
 ---
 
@@ -559,14 +570,14 @@ Eine Preissenkung ist teurer als 50 % mehr Churn – Rabatte sind daher kein Wac
 | Risiko | Wahrscheinlichkeit | Wirkung | Gegenmaßnahme |
 |---|---|---|---|
 | Neukunden wachsen langsamer als geplant | mittel | hoch (Wachstum −30 % → Break-even Monat 57) | Einstellungsregel (Kap. 9), Partnerkanal früh testen, Förder-Check als Türöffner, Kosten je Kanal monatlich messen |
-| Fahrer nutzen die App nicht | mittel | hoch | Ein-Knopf-Bedienung, 8 Sprachen, Einladung per WhatsApp, Erfolgsquote je Fahrer im Board, Einführungsschulung per Video in der Muttersprache |
+| Fahrer nutzen die App nicht | mittel | hoch | Ein-Knopf-Bedienung, 8 Sprachen, Einladung per WhatsApp, Lieferungen je Fahrer im Bericht (abschaltbar), Einführungsschulung per Video in der Muttersprache |
 | Betriebsrat oder Fahrer lehnen Privathandy ab | mittel | mittel | keine Dauerortung, Muster-Betriebsvereinbarung, Firmen-Handys/Tablets als Option, PWA ohne Store-Download |
 | Churn höher als geplant (Insolvenzen, Saisonbetrieb) | mittel | mittel | Saisonpause (v1.2), Kundenerfolgs-Anrufe in Monat 1 und 3, Jahreszahlung fördern |
 | Wettbewerber bietet Gleiches kostenlos (Telematik-Bündel) | mittel | mittel | Schnittstellen statt Konkurrenz (v1.3), White-Label und Einfachheit als Unterschied, Partnerschaften mit Telematik-Händlern |
 | Preisdruck | mittel | hoch (Preise −15 % → Finanzbedarf +188.251 €) | keine Listenpreis-Rabatte, Nutzen über ROI-Rechner belegen, Premium-Funktionen ausbauen |
 | Abhängigkeit vom Gründer | hoch im Jahr 1 | hoch | Dokumentation, Beirat, früh Vertrieb (Juli 2027) und Entwicklung (Okt. 2027) einstellen, Schlüsselpersonen-Versicherung |
 | Technischer Ausfall oder Datenverlust | niedrig | hoch | tägliche Backups, Wiederherstellungstest, Monitoring, Offline-Warteschlange in der App, SLA nur Premium |
-| Datenschutzverstoß | niedrig | hoch | AVV, TOM, Mandantentest, Support-Zugriff nur mit Freigabe, externer DSB, Cyber-Versicherung |
+| Datenschutzverstoß | niedrig | hoch | AVV, TOM, Mandantentest, kein Zugriff des Lizenzgebers auf Auftragsdaten, Löschen von Personen, externer DSB, Cyber-Versicherung |
 | Apple/Google ändern PWA- oder Store-Regeln | niedrig | mittel | Store-App über Capacitor vorbereitet, Push-Fallback per In-App-Mitteilung |
 | Finanzierungsrunde verzögert sich | mittel | hoch | Angel-Gespräche ab Q2/2027, KfW-Betrag bis 200.000 € erhöhbar (prüfen), Kostenbremse, sobald die Kasse mehr als 25.000 € unter der Planlinie liegt |
 
@@ -578,7 +589,7 @@ Eine Preissenkung ist teurer als 50 % mehr Churn – Rabatte sind daher kein Wac
 |---|---|---|
 | Dez. 2026 | Pilotphase abgeschlossen, GmbH gegründet, Marke angemeldet | 5 Piloten, Telefonate −50 % in der Strichliste (Ziel) |
 | Jan. 2027 | Verkaufsstart, KfW-Kredit ausgezahlt | 150.000 € auf dem Konto |
-| Apr. 2027 | transport logistic, v1.1 (Zwischenstopps, Gastzugänge, CS/BG) | 19 Kunden |
+| Apr. 2027 | transport logistic, v1.1 (Zwischenstopps, Gastzugänge, Bulgarisch) | 19 Kunden |
 | Juli 2027 | erste Einstellung Vertrieb & Kundenerfolg | 38 Kunden |
 | Okt. 2027 | Business-Angel-Runde 200.000 €, Entwickler eingestellt | 65 Kunden |
 | Dez. 2027 | Ende Jahr 1 | 86 Kunden, ARR 125.230 € |

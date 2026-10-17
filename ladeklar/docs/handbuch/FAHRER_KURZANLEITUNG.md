@@ -1,8 +1,12 @@
 # Ladeklar – Fahrer-Kurzanleitung
 
-Eine Seite je Sprache zum Ausdrucken und Weitergeben. Die App trägt den Namen und das Logo Ihrer Firma – die Knöpfe sind überall gleich.
+Ein Abschnitt je Sprache zum Ausdrucken und Weitergeben; jede Sprache beginnt auf einer neuen Seite. Die App trägt den Namen und das Logo Ihrer Firma – die Knöpfe sind überall gleich.
 
 [Deutsch](#deutsch--kurzanleitung-für-fahrer) · [English](#english--quick-guide-for-drivers) · [Polski](#polski--krótka-instrukcja-dla-kierowców) · [Română](#română--ghid-rapid-pentru-șoferi) · [Čeština](#čeština--stručný-návod-pro-řidiče) · [Türkçe](#türkçe--sürücüler-için-kısa-kılavuz) · [Русский](#русский--краткая-инструкция-для-водителей) · [Українська](#українська--коротка-інструкція-для-водіїв)
+
+Ist in Ihren Einstellungen die **Fahrsperre während der Fahrt** an (Voreinstellung), fragt die App jeden Fahrer einmal nach dem Standort. Die Geschwindigkeit wird nur auf dem Handy ausgewertet; der Standort wird weder gespeichert noch gesendet. **Später** blendet die Frage 7 Tage aus. So sieht die Frage aus (hier auf Deutsch):
+
+![Fahrer-App mit der Karte „Fahrsperre einschalten“: „Damit die Knöpfe während der Fahrt gesperrt sind, braucht die App die Standortfreigabe. Die Geschwindigkeit wird nur auf diesem Handy ausgewertet – Ihr Standort wird weder gespeichert noch gesendet.“ und den Knöpfen „Standort freigeben“ und „Später“; darunter die nächste Tour Ludwigsburg → München](img/fahrer-17-fahrsperre-freigabe.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -26,22 +30,22 @@ PIN vergessen? Ruf die Disposition an. Du bekommst sofort eine neue PIN.
 3. ⬆ **Aufgeladen** – wenn die Ware auf dem LKW ist.
 4. ⬇ **Abgeladen** – wenn die Ware beim Kunden ist.
 5. 📷 **Lieferschein fotografieren** – mehrere Seiten gehen (**Weitere Seite**). Name des Empfängers eintragen, wenn verlangt unterschreiben lassen.
-6. ✔ **Bestätigen & abschließen** – fertig. Der Lieferschein ist sofort im Büro.
+6. ✔ **Bestätigen & abschließen** – fertig. Mit Netz ist der Lieferschein sofort im Büro.
 
 Manche Firmen nutzen zusätzlich **Angekommen – Ladestelle** / **Angekommen – Entladestelle** oder fragen beim Abladen den **Palettentausch** ab. Der Knopf erscheint dann von selbst.
 
 ### Immer auf der Tour-Karte
 
-- 🧭 **Navi** – öffnet die Route in Google Maps.
+- 🧭 **Navi** – öffnet die Route in Apple Karten (iPhone, iPad), sonst in Google Maps.
 - 📞 **Anrufen** – ruft die Lade- oder Entladestelle an, sonst die Disposition.
 - **Notiz** – kurze Nachricht ans Büro, mit Schnelltexten wie „Warte an der Rampe“.
 - ⚠ **Problem** – Grund antippen (z. B. Panne, Unfall, Lange Wartezeit) → **Jetzt melden**. Ein Foto geht auch.
 
 ### Gut zu wissen
 
-- **Falsch getippt?** Unten erscheint **Rückgängig** – 2 Minuten lang.
-- **Kein Netz?** Einfach weiter tippen. Alles wird gespeichert und automatisch gesendet, sobald Netz da ist. Erst mit Netz abmelden.
-- **Nur im Stand mit Motor aus bedienen (§ 23 StVO).** Während der Fahrt sperrt sich die App.
+- **Falsch getippt?** Unten erscheint **Rückgängig** – 2 Minuten lang, nur mit Netz.
+- **Kein Netz?** Einfach weiter tippen, auch Lieferschein-Foto und **Bestätigen & abschließen**. Schritte, Fotos, Notizen und Problemmeldungen werden gespeichert und automatisch gesendet, sobald Netz da ist. Erst mit Netz abmelden.
+- **Nur im Stand mit Motor aus bedienen (§ 23 StVO).** Während der Fahrt sperrt sich die App. Dafür fragt sie einmal nach dem Standort (**Fahrsperre einschalten**): Tippe **Standort freigeben**. Dein Standort wird weder gespeichert noch gesendet. **Später** blendet die Frage 7 Tage aus.
 - **Tour abgeben?** Vor dem Beladen: **Zurückgeben** + Grund. Nach dem Beladen: Disposition anrufen.
 - **Sprache ändern:** unten **Mehr** → **Sprache**.
 
@@ -56,7 +60,7 @@ Manche Firmen nutzen zusätzlich **Angekommen – Ladestelle** / **Angekommen �
 ### Sign in
 
 1. Open the link or scan the QR code from your company. Enter your **PIN** (6 digits) – done.
-2. No link? Tab **Drivers** → **Company code** + **Mobile number** + **PIN (6 digits)** → **Let’s go**.
+2. No link? Tab **Driver** → **Company code** + **Mobile number** + **PIN (6 digits)** → **Let’s go**.
 
 Forgot your PIN? Call dispatch. You get a new PIN right away.
 
@@ -67,22 +71,22 @@ Forgot your PIN? Call dispatch. You get a new PIN right away.
 3. ⬆ **Loaded** – when the goods are on the truck.
 4. ⬇ **Unloaded** – when the goods are at the customer.
 5. 📷 **Photograph delivery note** – several pages are possible (**Another page**). Enter the recipient’s name; get a signature if required.
-6. ✔ **Confirm & finish** – done. The delivery note is in the office at once.
+6. ✔ **Confirm & finish** – done. With signal, the delivery note is in the office at once.
 
 Some companies also use **Arrived – pickup** / **Arrived – drop-off** or ask for the **Pallet exchange** when unloading. The button then appears by itself.
 
 ### Always on the trip card
 
-- 🧭 **Navigate** – opens the route in Google Maps.
+- 🧭 **Navigate** – opens the route in Apple Maps (iPhone, iPad), otherwise in Google Maps.
 - 📞 **Call** – calls the pickup or drop-off point, otherwise dispatch.
 - **Note** – short message to the office, with quick texts such as “Waiting at the ramp”.
 - ⚠ **Problem** – tap the reason (e.g. Breakdown, Accident, Long waiting time) → **Report now**. You can add a photo.
 
 ### Good to know
 
-- **Tapped by mistake?** **Undo** appears at the bottom – for 2 minutes.
-- **No signal?** Just keep tapping. Everything is saved and sent automatically as soon as there is signal. Sign out only when you have signal.
-- **Use the app only when stationary with the engine off (§ 23 StVO).** The app locks itself while driving.
+- **Tapped by mistake?** **Undo** appears at the bottom – for 2 minutes, only with signal.
+- **No signal?** Just keep tapping, including the delivery note photo and **Confirm & finish**. Steps, photos, notes and problem reports are saved and sent automatically as soon as there is signal. Sign out only when you have signal.
+- **Use the app only when stationary with the engine off (§ 23 StVO).** The app locks itself while driving. For this it asks once for your location (**Turn on the driving lock**): tap **Allow location**. Your location is neither stored nor sent. **Later** hides the question for 7 days.
 - **Give back a trip?** Before loading: **Return** + reason. After loading: call dispatch.
 - **Change language:** at the bottom **More** → **Language**.
 
@@ -108,22 +112,22 @@ Zapomniany PIN? Zadzwoń do dyspozytora. Od razu dostaniesz nowy PIN.
 3. ⬆ **Załadowane** – gdy towar jest na ciężarówce.
 4. ⬇ **Rozładowane** – gdy towar jest u klienta.
 5. 📷 **Sfotografuj dokument WZ** – można kilka stron (**Kolejna strona**). Wpisz nazwisko odbiorcy; jeśli trzeba, poproś o podpis.
-6. ✔ **Potwierdź i zakończ** – gotowe. Dokument od razu trafia do biura.
+6. ✔ **Potwierdź i zakończ** – gotowe. Przy zasięgu dokument od razu trafia do biura.
 
 Niektóre firmy używają też **Na miejscu – załadunek** / **Na miejscu – rozładunek** albo pytają przy rozładunku o palety (**Wymiana palet**). Przycisk pojawi się wtedy sam.
 
 ### Zawsze na karcie trasy
 
-- 🧭 **Nawigacja** – otwiera trasę w Google Maps.
+- 🧭 **Nawigacja** – otwiera trasę w Mapach Apple (iPhone, iPad), w innym razie w Google Maps.
 - 📞 **Zadzwoń** – dzwoni na miejsce załadunku lub rozładunku, w innym razie do dyspozytora.
 - **Notatka** – krótka wiadomość do biura, z gotowymi tekstami, np. „Czekam przy rampie”.
 - ⚠ **Problem** – dotknij powodu (np. Awaria, Wypadek, Długie czekanie) → **Zgłoś teraz**. Można dodać zdjęcie.
 
 ### Warto wiedzieć
 
-- **Pomyłka?** Na dole pojawia się **Cofnij** – przez 2 minuty.
-- **Brak zasięgu?** Po prostu dotykaj dalej. Wszystko zostanie zapisane i wysłane automatycznie, gdy będzie zasięg. Wylogowuj się tylko przy zasięgu.
-- **Obsługuj aplikację tylko na postoju z wyłączonym silnikiem (§ 23 StVO).** Podczas jazdy aplikacja blokuje się sama.
+- **Pomyłka?** Na dole pojawia się **Cofnij** – przez 2 minuty, tylko przy zasięgu.
+- **Brak zasięgu?** Po prostu dotykaj dalej, także zdjęcie dokumentu WZ i **Potwierdź i zakończ**. Kroki, zdjęcia, notatki i zgłoszenia problemów zostaną zapisane i wysłane automatycznie, gdy będzie zasięg. Wylogowuj się tylko przy zasięgu.
+- **Obsługuj aplikację tylko na postoju z wyłączonym silnikiem (§ 23 StVO).** Podczas jazdy aplikacja blokuje się sama. Dlatego raz zapyta o lokalizację (**Włącz blokadę podczas jazdy**): dotknij **Zezwól na lokalizację**. Twoja lokalizacja nie jest ani zapisywana, ani wysyłana. **Później** ukrywa pytanie na 7 dni.
 - **Oddać trasę?** Przed załadunkiem: **Zwróć** + powód. Po załadunku: zadzwoń do dyspozytora.
 - **Zmiana języka:** na dole **Więcej** → **Język**.
 
@@ -149,22 +153,22 @@ Ai uitat PIN-ul? Sună la dispecerat. Primești imediat un PIN nou.
 3. ⬆ **Încărcat** – când marfa este în camion.
 4. ⬇ **Descărcat** – când marfa este la client.
 5. 📷 **Fotografiază avizul de însoțire** – merg mai multe pagini (**Altă pagină**). Scrie numele destinatarului; dacă se cere, ia semnătura.
-6. ✔ **Confirmă și finalizează** – gata. Avizul ajunge imediat la birou.
+6. ✔ **Confirmă și finalizează** – gata. Cu semnal, avizul ajunge imediat la birou.
 
 Unele firme folosesc și **Am ajuns – încărcare** / **Am ajuns – descărcare** sau cer la descărcare **Schimb de paleți**. Butonul apare atunci singur.
 
 ### Mereu pe cardul cursei
 
-- 🧭 **Navigare** – deschide traseul în Google Maps.
+- 🧭 **Navigare** – deschide traseul în Apple Maps (iPhone, iPad), altfel în Google Maps.
 - 📞 **Sună** – sună locul de încărcare sau descărcare, altfel dispeceratul.
 - **Notă** – mesaj scurt către birou, cu texte rapide, de ex. „Aștept la rampă”.
 - ⚠ **Problemă** – atinge motivul (de ex. Defecțiune, Accident, Așteptare lungă) → **Raportează acum**. Poți adăuga o fotografie.
 
 ### Bine de știut
 
-- **Ai apăsat greșit?** Jos apare **Anulează** – timp de 2 minute.
-- **Fără semnal?** Apasă mai departe. Totul se salvează și se trimite automat când ai semnal. Deconectează-te doar când ai semnal.
-- **Folosește aplicația doar în staționare, cu motorul oprit (§ 23 StVO).** În timpul mersului aplicația se blochează singură.
+- **Ai apăsat greșit?** Jos apare **Anulează** – timp de 2 minute, doar cu semnal.
+- **Fără semnal?** Apasă mai departe, inclusiv fotografia avizului și **Confirmă și finalizează**. Pașii, fotografiile, notele și problemele raportate se salvează și se trimit automat când ai semnal. Deconectează-te doar când ai semnal.
+- **Folosește aplicația doar în staționare, cu motorul oprit (§ 23 StVO).** În timpul mersului aplicația se blochează singură. Pentru asta îți cere o dată locația (**Activează blocarea în mers**): atinge **Permite locația**. Locația ta nu este nici salvată, nici trimisă. **Mai târziu** ascunde întrebarea 7 zile.
 - **Vrei să predai cursa?** Înainte de încărcare: **Returnează** + motiv. După încărcare: sună la dispecerat.
 - **Schimbă limba:** jos **Mai mult** → **Limbă**.
 
@@ -190,22 +194,22 @@ Zapomněl jsi PIN? Zavolej dispečink. Hned dostaneš nový PIN.
 3. ⬆ **Naloženo** – když je zboží na kamionu.
 4. ⬇ **Vyloženo** – když je zboží u zákazníka.
 5. 📷 **Vyfotit dodací list** – jde i více stran (**Další strana**). Zapiš jméno příjemce; když je potřeba, nech ho podepsat.
-6. ✔ **Potvrdit a dokončit** – hotovo. Dodací list je hned v kanceláři.
+6. ✔ **Potvrdit a dokončit** – hotovo. Se signálem je dodací list hned v kanceláři.
 
 Některé firmy používají i **Na místě – nakládka** / **Na místě – vykládka** nebo se při vykládce ptají na palety (**Výměna palet**). Tlačítko se pak objeví samo.
 
 ### Vždy na kartě jízdy
 
-- 🧭 **Navigace** – otevře trasu v Google Maps.
+- 🧭 **Navigace** – otevře trasu v Mapách Apple (iPhone, iPad), jinak v Google Maps.
 - 📞 **Volat** – zavolá na nakládku nebo vykládku, jinak na dispečink.
 - **Poznámka** – krátká zpráva do kanceláře, s rychlými texty, např. „Čekám u rampy“.
 - ⚠ **Problém** – klepni na důvod (např. Porucha, Nehoda, Dlouhé čekání) → **Nahlásit**. Můžeš přidat foto.
 
 ### Dobré vědět
 
-- **Špatně klepnuto?** Dole se objeví **Vrátit zpět** – po dobu 2 minut.
-- **Bez signálu?** Klidně klepej dál. Vše se uloží a odešle automaticky, jakmile bude signál. Odhlas se až se signálem.
-- **Aplikaci používej jen ve stání s vypnutým motorem (§ 23 StVO).** Za jízdy se aplikace sama zamkne.
+- **Špatně klepnuto?** Dole se objeví **Vrátit zpět** – po dobu 2 minut, jen se signálem.
+- **Bez signálu?** Klidně klepej dál, i fotku dodacího listu a **Potvrdit a dokončit**. Kroky, fotky, poznámky a nahlášené problémy se uloží a odešlou automaticky, jakmile bude signál. Odhlas se až se signálem.
+- **Aplikaci používej jen ve stání s vypnutým motorem (§ 23 StVO).** Za jízdy se aplikace sama zamkne. Proto se jednou zeptá na polohu (**Zapnout blokování za jízdy**): klepni na **Povolit polohu**. Tvoje poloha se neukládá ani neodesílá. **Později** skryje otázku na 7 dní.
 - **Vrátit jízdu?** Před nakládkou: **Vrátit** + důvod. Po nakládce: zavolej dispečink.
 - **Změna jazyka:** dole **Více** → **Jazyk**.
 
@@ -231,22 +235,22 @@ PIN’i mi unuttun? Sevkiyatı ara. Hemen yeni bir PIN alırsın.
 3. ⬆ **Yüklendi** – mal kamyondayken.
 4. ⬇ **Boşaltıldı** – mal müşterideyken.
 5. 📷 **İrsaliyeyi fotoğrafla** – birden fazla sayfa olabilir (**Bir sayfa daha**). Alıcının adını yaz; gerekirse imza al.
-6. ✔ **Onayla ve bitir** – bitti. İrsaliye hemen ofiste.
+6. ✔ **Onayla ve bitir** – bitti. Bağlantı varsa irsaliye hemen ofiste.
 
 Bazı firmalar ayrıca **Vardım – yükleme** / **Vardım – boşaltma** kullanır veya boşaltmada **Palet değişimi** sorar. Buton o zaman kendiliğinden çıkar.
 
 ### Sefer kartında her zaman
 
-- 🧭 **Navigasyon** – rotayı Google Maps’te açar.
+- 🧭 **Navigasyon** – rotayı iPhone ve iPad’de Apple Haritalar’da, diğer cihazlarda Google Maps’te açar.
 - 📞 **Ara** – yükleme veya boşaltma yerini, yoksa sevkiyatı arar.
 - **Not** – ofise kısa mesaj, hazır metinlerle, ör. “Rampada bekliyorum”.
 - ⚠ **Sorun** – nedene dokun (ör. Arıza, Kaza, Uzun bekleme) → **Şimdi bildir**. Fotoğraf da eklenebilir.
 
 ### Bilmekte fayda var
 
-- **Yanlış mı dokundun?** Altta **Geri al** çıkar – 2 dakika boyunca.
-- **Çekim yok mu?** Dokunmaya devam et. Her şey kaydedilir ve bağlantı gelince otomatik gönderilir. Çıkışı sadece bağlantı varken yap.
-- **Uygulamayı yalnızca araç dururken ve motor kapalıyken kullan (§ 23 StVO).** Sürüş sırasında uygulama kendini kilitler.
+- **Yanlış mı dokundun?** Altta **Geri al** çıkar – 2 dakika boyunca, sadece bağlantı varken.
+- **Çekim yok mu?** Dokunmaya devam et, irsaliye fotoğrafı ve **Onayla ve bitir** dahil. Adımlar, fotoğraflar, notlar ve sorun bildirimleri kaydedilir ve bağlantı gelince otomatik gönderilir. Çıkışı sadece bağlantı varken yap.
+- **Uygulamayı yalnızca araç dururken ve motor kapalıyken kullan (§ 23 StVO).** Sürüş sırasında uygulama kendini kilitler. Bunun için bir kez konum ister (**Sürüş kilidini etkinleştir**): **Konuma izin ver**’e dokun. Konumun ne kaydedilir ne de gönderilir. **Sonra** soruyu 7 gün gizler.
 - **Seferi geri vermek mi?** Yüklemeden önce: **Geri ver** + neden. Yüklemeden sonra: sevkiyatı ara.
 - **Dili değiştir:** altta **Daha fazla** → **Dil**.
 
@@ -272,22 +276,22 @@ Bazı firmalar ayrıca **Vardım – yükleme** / **Vardım – boşaltma** kull
 3. ⬆ **Загружено** — когда груз в машине.
 4. ⬇ **Выгружено** — когда груз у клиента.
 5. 📷 **Сфотографировать накладную** — можно несколько страниц (**Ещё страница**). Впиши имя получателя; если нужно, возьми подпись.
-6. ✔ **Подтвердить и завершить** — готово. Накладная сразу в офисе.
+6. ✔ **Подтвердить и завершить** — готово. Если есть сеть, накладная сразу в офисе.
 
 Некоторые компании используют ещё **Прибыл – погрузка** / **Прибыл – выгрузка** или спрашивают при выгрузке про поддоны (**Обмен поддонов**). Тогда кнопка появится сама.
 
 ### Всегда на карточке рейса
 
-- 🧭 **Навигация** — открывает маршрут в Google Maps.
+- 🧭 **Навигация** — открывает маршрут в Apple Картах (iPhone, iPad), иначе в Google Maps.
 - 📞 **Позвонить** — звонок на место погрузки или выгрузки, иначе диспетчеру.
 - **Заметка** — короткое сообщение в офис, с готовыми фразами, напр. «Жду у рампы».
 - ⚠ **Проблема** — нажми причину (напр. Поломка, Авария, Долгое ожидание) → **Сообщить**. Можно добавить фото.
 
 ### Полезно знать
 
-- **Нажал не то?** Внизу появится **Отменить** — на 2 минуты.
-- **Нет сети?** Просто продолжай. Всё сохранится и отправится автоматически, когда появится сеть. Выходи из приложения только при наличии сети.
-- **Пользуйся приложением только на стоянке с заглушённым двигателем (§ 23 StVO).** Во время движения приложение блокируется само.
+- **Нажал не то?** Внизу появится **Отменить** — на 2 минуты, только при наличии сети.
+- **Нет сети?** Просто продолжай, включая фото накладной и **Подтвердить и завершить**. Шаги, фото, заметки и сообщения о проблемах сохранятся и отправятся автоматически, когда появится сеть. Выходи из приложения только при наличии сети.
+- **Пользуйся приложением только на стоянке с заглушённым двигателем (§ 23 StVO).** Во время движения приложение блокируется само. Для этого оно один раз спросит про геолокацию (**Включить блокировку в пути**): нажми **Разрешить геолокацию**. Твоё местоположение не сохраняется и не передаётся. **Позже** скрывает вопрос на 7 дней.
 - **Вернуть рейс?** До погрузки: **Вернуть** + причина. После погрузки: позвони диспетчеру.
 - **Сменить язык:** внизу **Ещё** → **Язык**.
 
@@ -313,21 +317,21 @@ Bazı firmalar ayrıca **Vardım – yükleme** / **Vardım – boşaltma** kull
 3. ⬆ **Завантажено** — коли вантаж у машині.
 4. ⬇ **Розвантажено** — коли вантаж у клієнта.
 5. 📷 **Сфотографувати накладну** — можна кілька сторінок (**Ще сторінка**). Впиши ім’я одержувача; якщо потрібно, візьми підпис.
-6. ✔ **Підтвердити й завершити** — готово. Накладна одразу в офісі.
+6. ✔ **Підтвердити й завершити** — готово. Якщо є мережа, накладна одразу в офісі.
 
 Деякі компанії також використовують **Прибув – завантаження** / **Прибув – розвантаження** або питають під час розвантаження про піддони (**Обмін піддонів**). Тоді кнопка з’явиться сама.
 
 ### Завжди на картці рейсу
 
-- 🧭 **Навігація** — відкриває маршрут у Google Maps.
+- 🧭 **Навігація** — відкриває маршрут в Apple Картах (iPhone, iPad), інакше в Google Maps.
 - 📞 **Зателефонувати** — дзвінок на місце завантаження або розвантаження, інакше диспетчеру.
 - **Нотатка** — коротке повідомлення в офіс, з готовими фразами, напр. «Чекаю біля рампи».
 - ⚠ **Проблема** — натисни причину (напр. Поломка, Аварія, Довге очікування) → **Повідомити**. Можна додати фото.
 
 ### Корисно знати
 
-- **Натиснув не те?** Внизу з’явиться **Відмінити** — на 2 хвилини.
-- **Немає мережі?** Просто продовжуй. Усе збережеться й надішлеться автоматично, щойно з’явиться мережа. Виходь із додатка лише за наявності мережі.
-- **Користуйся додатком лише на стоянці із заглушеним двигуном (§ 23 StVO).** Під час руху додаток блокується сам.
+- **Натиснув не те?** Внизу з’явиться **Відмінити** — на 2 хвилини, лише за наявності мережі.
+- **Немає мережі?** Просто продовжуй, зокрема фото накладної та **Підтвердити й завершити**. Кроки, фото, нотатки й повідомлення про проблеми збережуться й надішлються автоматично, щойно з’явиться мережа. Виходь із додатка лише за наявності мережі.
+- **Користуйся додатком лише на стоянці із заглушеним двигуном (§ 23 StVO).** Під час руху додаток блокується сам. Для цього він один раз запитає про геолокацію (**Увімкнути блокування в дорозі**): натисни **Дозволити геолокацію**. Твоє місцезнаходження не зберігається і не надсилається. **Пізніше** приховує питання на 7 днів.
 - **Повернути рейс?** До завантаження: **Повернути** + причина. Після завантаження: зателефонуй диспетчеру.
 - **Змінити мову:** внизу **Більше** → **Мова**.

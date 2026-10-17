@@ -4,12 +4,13 @@
 
 Sie sind **Lizenzgeber** und vermieten Ladeklar an Logistikunternehmen (**Lizenznehmer**). Jeder Lizenznehmer
 arbeitet unter seinem eigenen Logo: Das Büro legt Fahrer, Lkw und Lieferungen an. Die Fahrer bestätigen jeden
-Schritt mit einem Tipp und laden den Lieferschein hoch. Das Büro sieht alles live und bekommt Push-Mitteilungen.
+Schritt mit einem Tipp und laden den Lieferschein hoch, auch im Funkloch (die App sendet nach, sobald Netz da ist).
+Das Büro sieht alles live und bekommt Push-Mitteilungen. Die Fahrer-App gibt es in 8 Sprachen.
 
 | Rolle | Wo | Was |
 |---|---|---|
-| Lizenzgeber | Konsole (Web) | Lizenznehmer anlegen, Tarif und Laufzeit, sperren/kündigen, Abrechnung |
-| Lizenznehmer: Admin, Disposition | Web, Tablet, Handy | Live-Übersicht, Lieferungen, Fahrer, Fahrzeuge, Berichte, Marke, Abläufe |
+| Lizenzgeber | Konsole (Web) | Lizenznehmer anlegen, Tarif und Laufzeit, sperren/kündigen, Admin-Passwort zurücksetzen, nach Kündigung endgültig löschen, Abrechnung |
+| Lizenznehmer: Admin, Disposition | Web, Tablet, Handy | Live-Übersicht, Lieferungen, Fahrer, Fahrzeuge, Berichte; nur Admin: Marke, Abläufe, Büro-Zugänge, Löschen, Protokoll, Gesamtexport (ZIP) |
 | Fahrer | Handy oder Tablet (installierbare App) | Lkw wählen, Auftrag bestätigen, Aufgeladen/Abgeladen, Lieferschein, Notiz, Problem |
 
 ## Die wichtigsten Dateien
@@ -17,7 +18,7 @@ Schritt mit einem Tipp und laden den Lieferschein hoch. Das Büro sieht alles li
 | Was | Datei |
 |---|---|
 | Produktplan mit Lückenanalyse | `PLAN.md` (PDF: `docs/pdf/PLAN.pdf`) |
-| Benutzerhandbücher | `docs/handbuch/` (PDF: `docs/handbuch/pdf/`) |
+| Benutzerhandbücher | `docs/handbuch/` (PDF nach `node tools/build-docs.js handbuch` in `docs/handbuch/pdf/`) |
 | Rechtstexte (Muster) | `docs/recht/` (PDF/DOCX: `docs/recht/pdf/`) |
 | Marktanalyse, Businessplan, Werbetexte | `business/` (PDF/DOCX: `business/pdf/`) |
 | Pitch-Deck | `business/Ladeklar_Pitch.pptx` und `business/pdf/Ladeklar_Pitch.pdf` |
@@ -25,7 +26,7 @@ Schritt mit einem Tipp und laden den Lieferschein hoch. Das Büro sieht alles li
 | Social-Media-Bilder zu den 5 LinkedIn-Posts (1080 × 1350) | `marketing/social/Ladeklar_Post_1.png` … `_5.png`, Texte in `business/WERBETEXTE.md` |
 | Trailer | `video/Ladeklar_Trailer_16x9.mp4` (72 s), `video/Ladeklar_Trailer_9x16.mp4` (30 s, Social Media) |
 | Website | Quelle `site/`, fertig gebaut `dist/site/` |
-| Online-Demo ohne Server | `dist/demo.html` (eine Datei, läuft im Browser) |
+| Online-Demo ohne Server | `dist/demo.html` (eine Datei, läuft im Browser; Büro und Fahrer-Handy nebeneinander) |
 | Testbericht | `e2e/TESTBERICHT.md` (PDF: `docs/pdf/TESTBERICHT.pdf`), Bildschirmfotos `e2e/screens/` |
 
 ## Schnellstart (lokal)
@@ -42,8 +43,10 @@ Demo-Zugänge (nur mit `--demo-data`):
 | Rolle | Anmeldung |
 |---|---|
 | Lizenzgeber | `inhaber@ladeklar.de` / `Ladeklar-Demo-2026` |
-| Büro Kaya Logistik | Firmencode `KAYA`, `ayse@kaya-logistik.de` / `Demo-Passwort-2026` |
+| Büro Kaya Logistik (Admin) | `ayse@kaya-logistik.de` / `Demo-Passwort-2026` (Disponent: `jonas@kaya-logistik.de`, gleiches Passwort) |
 | Fahrer | Firmencode `KAYA`, Telefon `+49 176 1000 0004` (Sven Krause), PIN `123456` |
+
+Neue Büro- und Admin-Zugänge mit Startpasswort müssen beim ersten Login ein eigenes Passwort vergeben.
 
 ## Betrieb (Produktion)
 
@@ -56,13 +59,16 @@ PORT=8080 BASE_URL=https://app.ladeklar.de node server/index.js
 |---|---|
 | `PORT`, `HOST` | Adresse des Servers (Standard 8080, 0.0.0.0) |
 | `DATA_DIR` | Datenbank und Dateien (Standard `./data`) – täglich sichern, siehe `deploy/backup.sh` |
-| `BASE_URL` | öffentliche https-Adresse (Cookies, Einladungslinks, Push) |
+| `BASE_URL` | öffentliche https-Adresse; mit `https://` gelten Secure-Cookies und HSTS (Einladungslinks nutzen die aufgerufene Adresse) |
 | `TRUST_PROXY=1` | hinter Caddy/nginx, damit die echte IP im Protokoll steht |
 | `PUSH_SUBJECT`, `SECURITY_CONTACT` | Kontakt für Push-Dienste und `/.well-known/security.txt` |
+| `PLATFORM_EMAIL`, `PLATFORM_PASSWORD` | legt beim ersten Start den Lizenzgeber-Zugang an (danach entfernen); es gibt genau einen Lizenzgeber-Zugang |
 
 Mit Docker: `deploy/docker-compose.yml` (App + Caddy mit Let's-Encrypt-Zertifikat), Einstellungen in
-`deploy/.env.example`. Die Website (`dist/site/`) ist statisch und kann von jedem Webserver ausgeliefert werden;
-Beispiel im `deploy/Caddyfile`. Eigene Store-Apps für Premium-Kunden: `mobile/README.md`.
+`deploy/.env.example`. Subdomains (`kaya.ladeklar.de`) und eigene Domains von Premium-Kunden brauchen je eine Zeile im
+`deploy/Caddyfile` und einen DNS-Eintrag beim Kunden. Die Website (`dist/site/`) ist statisch und kann von jedem
+Webserver ausgeliefert werden. Eigene Store-Apps für Premium-Kunden: `mobile/README.md` (vorbereitet; Push über
+APNs/FCM fehlt noch). Sicherung: `deploy/backup.sh` täglich per Cron einrichten.
 
 ## Tests
 

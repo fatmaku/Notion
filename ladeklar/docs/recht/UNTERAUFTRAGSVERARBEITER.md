@@ -15,7 +15,9 @@ Stand: [Datum] · Version [1.0] · veröffentlicht unter [Website-URL/unterauftr
 |---|---|---|---|---|---|---|---|
 | 1 | [Hosting-Anbieter], [Anschrift] | Rechenzentrum, Server, Speicher, Netz | alle Kundendaten (Anlage 1 AVV) | [Ort], Deutschland; Rechenzentrum zertifiziert nach ISO/IEC 27001 | nicht erforderlich | [keine / Angabe] | [Datum] |
 | 2 | [Backup-Anbieter], [Anschrift] | Speicherung verschlüsselter Datensicherungen | alle Kundendaten, vor Übertragung verschlüsselt; kein Zugriff auf Schlüssel | [Ort], Deutschland | nicht erforderlich | [keine / Angabe] | [Datum] |
-| 3 | [E-Mail-Versanddienst], [Anschrift] | Versand von System-E-Mails (Einladung von Admins und Disponenten, Passwort zurücksetzen, Benachrichtigungen zum Konto) | Name, E-Mail-Adresse, Inhalt der System-E-Mail, Zustellprotokolle | [Ort], [EU/Deutschland] | [nicht erforderlich / Angabe] | [Angabe] | [Datum] |
+| 3 | [E-Mail-Versanddienst, nur falls eingesetzt], [Anschrift] | Versand von System-E-Mails (Einladung von Admins und Disponenten, Benachrichtigungen zum Konto) | Name, E-Mail-Adresse, Inhalt der System-E-Mail, Zustellprotokolle | [Ort], [EU/Deutschland] | [nicht erforderlich / Angabe] | [Angabe] | [Datum] |
+
+> **Prüfhinweis (Technik):** Die Plattform versendet derzeit keine E-Mails (Stand 17.10.2026). Zugangsdaten zeigt sie einmalig auf dem Bildschirm an; die Lizenzgeber-Konsole bietet nur einen vorbereiteten Willkommenstext für das eigene E-Mail-Programm des Anbieters. Zeile 3 streichen, solange kein Versanddienst eingesetzt wird.
 
 ## 2. Push-Dienste (Sonderstellung)
 
@@ -36,7 +38,7 @@ Nicht als Unterauftragsverarbeiter gelten insbesondere:
 
 1. Telekommunikations- und Internetzugangsanbieter;
 2. die App-Stores von Apple und Google beim Vertrieb der White-Label-App (eigene Verantwortlichkeit gegenüber den Nutzern der Stores);
-3. Navigationsdienste (Google Maps, Apple Karten), die die Fahrer-App lediglich mit der Zieladresse öffnet; die Plattform bindet keine Karten ein;
+3. Navigationsdienste (Apple Karten auf iPhone und iPad, Google Maps auf anderen Geräten), die die Fahrer-App erst nach einem Tippen lediglich mit der Zieladresse öffnet, sowie Google Maps, das sich beim Klick auf den Link „Standort“ im Verlauf einer Lieferung mit den Koordinaten öffnet; die Plattform bindet keine Karten ein;
 4. Messenger-Dienste, über die der Kunde Einladungslinks selbst weiterleitet;
 5. Dienstleister des Anbieters ohne Zugriff auf Kundendaten (z. B. Buchhaltung, Steuerberatung, Erreichbarkeitsüberwachung ohne personenbezogene Daten).
 

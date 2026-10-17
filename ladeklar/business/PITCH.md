@@ -1,6 +1,6 @@
 # Ladeklar – Pitch-Deck (Inhalt)
 
-Stand: 16.10.2026 · 14 Folien · Redezeit gesamt ca. 15–18 Minuten plus 3 Minuten Live-Demo
+Stand: 17.10.2026 · 14 Folien · Redezeit gesamt ca. 15–18 Minuten plus 3 Minuten Live-Demo
 Zahlen aus `Ladeklar_Finanzmodell.xlsx` (Basisplan) und `MARKTANALYSE.md`; Quellen `[Qn]` in `QUELLEN.md`.
 Jeder Sprechertext ist auf höchstens 90 Sekunden ausgelegt (ca. 110–170 Wörter).
 
@@ -15,7 +15,7 @@ der App, keine Stockfotos von Lkw-Kolonnen.
 
 - White-Label-App für Speditionen und Transportunternehmen
 - Fahrer tippen statt telefonieren, die Disposition sieht jede Tour live
-- In 10 Minuten startklar, ohne Hardware, in 8 Sprachen
+- In etwa 10 Minuten startklar, ohne Hardware, Fahrer-App in 8 Sprachen
 
 **Große Kennzahl:** –
 
@@ -60,7 +60,7 @@ Quellen: Telematik [Q29], Disponenten [Q28], Fahrer [Q18]; Geschichte und Beispi
 - Fahrer sieht immer genau einen großen Knopf: den nächsten Schritt
 - Jeder Schritt erzeugt eine Push-Mitteilung und einen Zeitstempel im Büro
 - Lieferschein-Foto vor Abschluss, Abliefernachweis als PDF am selben Tag
-- Standzeit an der Rampe wird gemessen – Beleg für Standgeld
+- Standzeit an der Rampe wird aus den Ankunfts-Tipps gemessen – Beleg für Standgeld
 - Eigenes Logo, 8 Sprachen, keine Dauerortung
 
 **Große Kennzahl:** **1 Knopf**
@@ -72,7 +72,8 @@ Disposition, mit Uhrzeit. Bevor eine Tour abgeschlossen werden kann, braucht es 
 geht der Abliefernachweis noch am selben Tag an den Kunden und an die Buchhaltung. Wenn der Fahrer an der Rampe
 ankommt, tippt er „Angekommen“ – so entsteht ein Beleg für die Wartezeit, und Standgeld wird durchsetzbar. Die App
 läuft in acht Sprachen und funktioniert auch im Funkloch. Und ganz wichtig für Betriebsräte: Ladeklar ortet nicht
-dauerhaft. Ein Standort wird nur im Moment eines Statuswechsels gespeichert, und nur, wenn der Betrieb das einschaltet.
+dauerhaft. Ein Standort wird nur im Moment eines Statuswechsels gespeichert, und nur, wenn der Betrieb das einschaltet
+und der Fahrer zustimmt.
 
 ---
 
@@ -80,19 +81,19 @@ dauerhaft. Ein Standort wird nur im Moment eines Statuswechsels gespeichert, und
 
 **Überschrift:** In drei Schritten zur ersten Tour
 
-- **1. Einrichten (10 Minuten):** Logo hochladen, Lkw und Fahrer eintragen, Einladung per WhatsApp
+- **1. Einrichten (ca. 10 Min.):** Logo hochladen, Lkw und Fahrer eintragen, Einladung per WhatsApp
 - **2. Lieferung anlegen:** Route, Datum, Fahrer – die Buchungsnummer entsteht automatisch
 - **3. Fahrer tippt, Büro sieht's:** Live-Board, Push, Lieferschein im Archiv
 
-**Große Kennzahl:** **10 Minuten** bis zur ersten Tour
+**Große Kennzahl:** **ca. 10 Minuten** bis zur ersten Tour
 
 **Sprechertext (ca. 60 Sek.):**
 Die Einführung ist der Punkt, an dem die meisten Softwareprojekte in kleinen Betrieben scheitern. Deshalb haben wir
 sie radikal kurz gemacht. Schritt eins: Der Inhaber lädt sein Logo hoch, trägt seine Lkw und Fahrer ein und schickt
 jedem Fahrer einen Einladungslink per WhatsApp. Der Fahrer braucht keinen App Store, nur den Link und eine PIN.
-Schritt zwei: Die Disposition legt eine Lieferung an – Pflicht sind nur Route und Datum. Stammrouten lassen sich mit
-einem Klick wiederholen. Schritt drei: Der Fahrer tippt, das Büro sieht es. Es gibt keinen Einbautermin, keine Box,
-keinen Vertrag über 36 Monate. Nach zehn Minuten läuft die erste Tour.
+Schritt zwei: Die Disposition legt eine Lieferung an – Pflicht sind nur Route und Datum. Stammrouten legt sie mit
+„Wiederholen“ als Kopie neu an. Schritt drei: Der Fahrer tippt, das Büro sieht es. Es gibt keinen Einbautermin, keine Box,
+keinen Vertrag über 36 Monate. Nach etwa zehn Minuten läuft die erste Tour.
 
 ---
 
@@ -102,23 +103,25 @@ keinen Vertrag über 36 Monate. Nach zehn Minuten läuft die erste Tour.
 
 - Links Laptop: Disposition mit Live-Board (Logo eines Beispielkunden)
 - Rechts Handy: Fahrer-App auf Rumänisch
-- Ablauf: Lieferung anlegen → Bestätigen → Aufgeladen → Abgeladen → Lieferschein-Foto → Abliefernachweis-PDF
-- Dauer: 3 Minuten; Ersatz: Bildschirmvideo, falls das WLAN streikt
+- Ablauf: Lieferung anlegen → Bestätigen → Angekommen → Aufgeladen → Abgeladen → Lieferschein-Foto → Nachweis
+- Dauer: 3 Minuten; Ersatz: geteilte Ansicht oder Video
 
 **Große Kennzahl:** **3 Minuten**
 
 **Regiehinweise für die Demo:**
-1. Vorher: Online-Demo auf beiden Geräten geöffnet, Live-Sync zwischen Handy und Laptop aktiv, Beispielfirma
-   „Kaya Transporte“ mit Logo, Fahrer „Ion“ mit Sprache Rumänisch.
-2. Auf dem Laptop Lieferung *Stuttgart → Hamburg* anlegen und Ion zuweisen (20 Sekunden).
-3. Handy hochhalten: Push kommt an, Ion tippt „Bestätigen“ – Laptop zeigt „Bestätigt, vor 1 Sek.“
-4. „Aufgeladen“, „Abgeladen“, Foto eines mitgebrachten Lieferscheins – Laptop zeigt das Foto.
-5. Abliefernachweis als PDF öffnen: Zeitstrahl, Foto, Unterschrift.
+1. Vorher: Online-Demo (Artifact-Fassung, als Eigentümer angemeldet) auf beiden Geräten geöffnet, Live-Sync zwischen
+   Handy und Laptop über „Mit zweitem Gerät verbinden“ aktiv, Beispielfirma „Kaya Logistik“ mit Logo, Fahrer
+   „Andrei Popescu“ mit Sprache Rumänisch.
+2. Auf dem Laptop Lieferung *Stuttgart → Hamburg* anlegen und Andrei zuweisen (20 Sekunden).
+3. Handy hochhalten: Die Mitteilung kommt an, Andrei tippt „Buchung bestätigen“ – der Laptop zeigt die Meldung „gerade eben“.
+4. „Angekommen“, „Aufgeladen“, „Angekommen“, „Abgeladen“ (Palettentausch bestätigen), Foto eines mitgebrachten
+   Lieferscheins, auf Wunsch Unterschrift – Laptop zeigt das Foto.
+5. Abliefernachweis öffnen: Zeitstempel, Standzeit, Foto, Unterschrift (in der echten App als PDF druckbar).
 6. Zum Schluss Sprache am Handy auf Türkisch umstellen – die Knöpfe bleiben gleich.
 
 **Sprechertext (ca. 40 Sek., davor/danach die Demo):**
 Ich zeige Ihnen das jetzt live. Links sehen Sie die Disposition, rechts das Handy eines Fahrers, eingestellt auf
-Rumänisch. Ich lege eine Lieferung an und weise sie Ion zu. Achten Sie auf den Laptop, während Ion tippt.
+Rumänisch. Ich lege eine Lieferung an und weise sie Andrei zu. Achten Sie auf den Laptop, während Andrei tippt.
 [Demo] Was Sie gerade gesehen haben, ersetzt vier Telefonate und einen Lieferschein, der sonst erst am Freitag
 im Büro gewesen wäre.
 
@@ -180,7 +183,7 @@ Deckungsbeitrag. Ab 2028 vertreiben auch Partner gegen 25 Prozent Provision.
 - Telematik (Webfleet, YellowFox, Fleetboard): Hardware, 15–35 € je Fahrzeug, 24–36 Monate Laufzeit [Q51]
 - TMS (CarLo, WinSped): Projekt, Preise auf Anfrage [Q58][Q59]
 - App-Tools (LOGISTIQO, SPEDION-App, Couplink): nah dran, aber ohne White-Label und ohne beworbene Mehrsprachigkeit
-- Ladeklar: 10 Minuten, keine Hardware, eigene Marke, 8 Sprachen, keine Dauerortung
+- Ladeklar: ca. 10 Minuten, keine Hardware, eigene Marke, 8 Sprachen, keine Dauerortung
 
 **Große Kennzahl:** **129 €** im Monat für 10 Fahrer – ohne Hardware und Einbau
 
@@ -190,7 +193,7 @@ Das kostet keine Lizenz, aber es erzeugt keine Belege und frisst Zeit. Telematik
 YellowFox lösen Ortung und Lenkzeiten, brauchen aber meist eine Box im Fahrzeug, kosten je Fahrzeug 15 bis 35
 Euro und binden zwei bis drei Jahre. Speditionssoftware wie CarLo oder WinSped ist ein Projekt für den
 Mittelstand. Am nächsten sind uns App-Tools wie LOGISTIQO oder die Apps von SPEDION und Couplink. Unser
-Unterschied: Wir sind in zehn Minuten startklar, ohne Hardware, wir erscheinen unter der Marke des Kunden, wir
+Unterschied: Wir sind in etwa zehn Minuten startklar, ohne Hardware, wir erscheinen unter der Marke des Kunden, wir
 führen Fahrer in acht Sprachen über Icons, und wir orten nicht dauerhaft. Für einen Betrieb mit zehn Fahrern
 kostet das 129 Euro im Monat. Was wir von den Wettbewerbern lernen, haben wir in die Roadmap übernommen:
 Mehrstopp-Touren, Saisonpause und Schnittstellen zur vorhandenen Telematik.
@@ -202,7 +205,7 @@ Mehrstopp-Touren, Saisonpause und Schnittstellen zur vorhandenen Telematik.
 **Überschrift:** Produkt fertig, Pilot startet im November
 
 - v1.0 fertig: Lizenzkonsole, White-Label, Disposition, Fahrer-App, Push, Offline, 8 Sprachen, Rechtsvorlagen
-- Online-Demo mit Live-Sync zwischen Handy und PC
+- Online-Demo: Büro und Fahrer-Handy nebeneinander, Live-Sync zwischen Handy und PC (Artifact-Fassung)
 - Pilot November/Dezember 2026: 5 Betriebe mit 4–15 Lkw (Stückgut, Baustoff)
 - Messgrößen: ≥ 80 % Fahrer aktiv in Woche 1, ≥ 90 % Lieferungen mit Foto, Telefonate −50 % (Strichliste)
 - Umwandlung der Piloten in zahlende Kunden zum 01.01.2027
@@ -289,8 +292,8 @@ Monatsumsatz.
 **Sprechertext (ca. 70 Sek.):**
 Unser Modell ist ein Lizenzmodell. Ich bin der Lizenzgeber: Ich betreibe die Plattform, lege Lizenzen an und rechne
 ab. Jeder Kunde ist Lizenznehmer und arbeitet unter seinem eigenen Namen, Logo und App-Namen. Die Daten gehören
-dem Kunden; wir sind Auftragsverarbeiter und sehen keine Lieferungen, keine Fahrernamen und keine Lieferscheine –
-außer der Kunde gibt den Support-Zugriff zeitlich begrenzt frei. Zu mir: [zwei Sätze zu Ausbildung und Erfahrung].
+dem Kunden; wir sind Auftragsverarbeiter und sehen keine Lieferungen, keine Fahrernamen und keine Lieferscheine.
+Braucht der Kunde Hilfe, erteilt er eine befristete Support-Freigabe, die protokolliert wird. Zu mir: [zwei Sätze zu Ausbildung und Erfahrung].
 Ich habe Version 1.0 gebaut. Was mir fehlt, ist Vertriebskraft in der Fläche und eine zweite Entwicklerin oder
 ein zweiter Entwickler. Deshalb stellen wir im Juli 2027 jemanden für Vertrieb und Kundenerfolg ein, im Oktober
 eine Entwicklungskraft und im Januar 2028 Partnermanagement und mehrsprachigen Support. Ende 2028 sind wir sechs,
@@ -334,8 +337,8 @@ Transportbranche öffnet.
 **Große Kennzahl:** –
 
 **Sprechertext (ca. 30 Sek.):**
-Danke für Ihre Zeit. Wenn Sie es selbst ausprobieren möchten: Der QR-Code öffnet die Online-Demo. Nehmen Sie Ihr
-Handy als Fahrer und den Laptop als Disposition, und tippen Sie eine Tour durch. Sie werden merken: Ein Tipp, und
+Danke für Ihre Zeit. Wenn Sie es selbst ausprobieren möchten: Der QR-Code öffnet die Online-Demo. Auf dem Laptop
+zeigt die geteilte Ansicht Büro und Fahrer-Handy nebeneinander – tippen Sie eine Tour durch. Sie werden merken: Ein Tipp, und
 alles ist klar. Ich freue mich auf Ihre Fragen.
 
 ---
@@ -348,4 +351,4 @@ alles ist klar. Ich freue mich auf Ihre Fragen.
 | Sensitivität | 11 Szenarien, Finanzbedarf 171.533 € bis 1.540.022 € | Finanzmodell, Blatt „Sensitivität“ |
 | Datenschutz und Betriebsrat | keine Dauerortung, AVV, Muster-Betriebsvereinbarung | PLAN.md Kap. 7, [Q83] |
 | Wettbewerbstabelle | 17 Anbieter und Status quo | MARKTANALYSE Kap. 8 |
-| Roadmap | v1.1 Zwischenstopps, Gastzugänge, CS/BG · v1.2 Abrechnung, Schritt-Bausteine, Saisonpause · v1.3 eCMR, Schnittstellen | BUSINESSPLAN Kap. 3.3 |
+| Roadmap | v1.1 Zwischenstopps, Gastzugänge, Bulgarisch · v1.2 Abrechnung, Schritt-Bausteine, Saisonpause · v1.3 eCMR, Schnittstellen | BUSINESSPLAN Kap. 3.3 |

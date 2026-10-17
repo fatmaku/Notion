@@ -59,7 +59,7 @@ Legende: [ ] offen · [x] erledigt · **Pflicht** = gesetzliche Pflicht · **Emp
 
 Fristbeginn: Ende des Kalenderjahres, in dem die Unterlage entstanden ist. Die Frist läuft nicht ab, solange die Unterlagen für noch nicht verjährte Steuern von Bedeutung sind.
 
-- [ ] **Lieferschein als Buchungsbeleg (für Kunden relevant):** Ein Lieferschein ist Buchungsbeleg, wenn er selbst gebucht wird oder Teil der Rechnung ist, etwa weil die Rechnung auf ihn Bezug nimmt und sich die nach § 14 Abs. 4 UStG erforderlichen Angaben aus ihm ergeben (§ 31 UStDV), oder wenn er Buchungsvermerke trägt. Dann gilt die Frist von acht Jahren. Diese Einordnung trifft der Kunde für seine Unterlagen; LADEKLAR bietet einstellbare Löschfristen von 1 bis 10 Jahren.
+- [ ] **Lieferschein als Buchungsbeleg (für Kunden relevant):** Ein Lieferschein ist Buchungsbeleg, wenn er selbst gebucht wird oder Teil der Rechnung ist, etwa weil die Rechnung auf ihn Bezug nimmt und sich die nach § 14 Abs. 4 UStG erforderlichen Angaben aus ihm ergeben (§ 31 UStDV), oder wenn er Buchungsvermerke trägt. Dann gilt die Frist von acht Jahren. Diese Einordnung trifft der Kunde für seine Unterlagen; LADEKLAR bietet eine einstellbare Aufbewahrung abgeschlossener Lieferungen von 1 bis 10 Jahren (Voreinstellung 3 Jahre). Die Frist der Plattform zählt ab der letzten Änderung der Lieferung, nicht ab dem Ende des Kalenderjahres; wer acht Jahre einhalten muss, stellt mindestens neun Jahre ein oder archiviert vorher. Eine Ausnahme einzelner Lieferungen von der Löschung gibt es nicht.
 - [ ] GoBD (BMF-Schreiben, zweite Änderung vom 14.07.2025 wegen E-Rechnung): Verfahrensdokumentation für die eigene Buchhaltung anlegen; bei E-Rechnungen genügt in der Regel die Aufbewahrung des strukturierten Teils.
 - [ ] Klarstellen (AGB § 5 Abs. 5, § 9 Abs. 7): LADEKLAR ist kein GoBD-Archiv.
 
@@ -93,12 +93,14 @@ Fristbeginn: Ende des Kalenderjahres, in dem die Unterlage entstanden ist. Die F
 ## 7. Hosting, Technik, Verträge mit Dienstleistern
 
 - [ ] **Hosting-Vertrag** mit Rechenzentrum in Deutschland, ISO/IEC 27001-Zertifikat anfordern und ablegen.
-- [ ] **AVV mit jedem Unterauftragsverarbeiter** (Hosting, Backup, E-Mail-Versand) abschließen und in UNTERAUFTRAGSVERARBEITER.md eintragen.
+- [ ] **AVV mit jedem Unterauftragsverarbeiter** (Hosting, Backup; E-Mail-Versand nur falls eingesetzt – die Plattform versendet derzeit keine E-Mails) abschließen und in UNTERAUFTRAGSVERARBEITER.md eintragen.
 - [ ] Backup-Ziel räumlich getrennt, verschlüsselt; ersten Wiederherstellungstest dokumentieren.
 - [ ] Statusseite und Erreichbarkeitsüberwachung einrichten.
 - [ ] `security.txt` und Postfach [Sicherheits-E-Mail] für Schwachstellenmeldungen einrichten.
 - [ ] TOM.md mit der tatsächlichen Umsetzung abgleichen (alle Zeilen „U“ oder mit Termin „G“).
-- [ ] Exportformate dokumentieren und unter [Website-URL/export-formate] veröffentlichen (Data Act Art. 26).
+- [ ] Exportformate dokumentieren und unter [Website-URL/export-formate] veröffentlichen (Data Act Art. 26): Inhalt des ZIP-Archivs (`daten.json`, `lieferungen.csv`, Ordner `dateien/`, `LIESMICH.txt`), Aufbau von `daten.json`, Spalten der CSV-Dateien.
+- [ ] Den einzigen Lizenzgeber-Zugang mit langem Passwort schützen und sicher verwahren; die Konsole hat keine Zwei-Faktor-Authentifizierung und keinen zweiten Zugang.
+- [ ] Löschung gekündigter Kunden organisieren: Frist (§ 18 AGB) überwachen, Kunden vorher an den Export erinnern, Abrechnungsdaten des Kunden außerhalb der Plattform sichern, dann in der Konsole löschen (nur im Status „Gekündigt“, Eingabe des Firmencodes). Eine automatische Löschung gibt es nicht.
 - [ ] Informationsseite zum Anbieterwechsel und zum Schutz vor Drittstaatenzugriff veröffentlichen (Data Act Art. 26, 28).
 
 ## 8. Datenschutz
@@ -107,6 +109,7 @@ Fristbeginn: Ende des Kalenderjahres, in dem die Unterlage entstanden ist. Die F
 - [ ] **Verzeichnis von Verarbeitungstätigkeiten** als Verantwortlicher (Art. 30 Abs. 1 DSGVO: Website, Kundenkonto, Abrechnung, Support, Sicherheitsprotokolle) und **als Auftragsverarbeiter** (Art. 30 Abs. 2 DSGVO: je Kunde bzw. als Sammelverzeichnis).
 - [ ] Prozess für Datenschutzverletzungen: Erkennen, Bewerten, Kunden binnen [24] Stunden informieren (AVV § 9).
 - [ ] Prozess für Betroffenenanfragen (Weiterleitung an Kunden).
+- [ ] Prozess für ausgesperrte Kunden-Admins: Einmalpasswort nur auf Anforderung des Kunden erzeugen, auf einem zweiten Weg (z. B. telefonisch) übermitteln, Vorgang dokumentieren (AVV Anlage 4 Abs. 7).
 - [ ] Mitarbeiter und Freelancer auf Vertraulichkeit verpflichten, schulen.
 - [ ] DPF-Zertifizierung der US-Push-Dienste prüfen und dokumentieren (dataprivacyframework.gov); Stand des Verfahrens C-703/25 P beobachten.
 - [ ] Datenschutz-Folgenabschätzung: Pflicht liegt beim Kunden; Anbieter stellt Unterlagen bereit (Systembeschreibung, Datenflüsse, TOM).
@@ -137,7 +140,7 @@ Fristbeginn: Ende des Kalenderjahres, in dem die Unterlage entstanden ist. Die F
 ## 12. Zahlungsabwicklung und Vertrieb
 
 - [ ] Zahlungsweg festlegen: Rechnung mit Überweisung (Start), später SEPA-Lastschrift über [Zahlungsdienstleister] (Roadmap v1.2). Vertrag und gegebenenfalls AVV mit dem Zahlungsdienstleister prüfen; Rolle (eigener Verantwortlicher oder Auftragsverarbeiter) in der Datenschutzerklärung angeben.
-- [ ] Mahnwesen und Sperrprozess nach § 14 AGB (Mahnung mit Sperrandrohung, Frist von mindestens [10] Werktagen).
+- [ ] Mahnwesen und Sperrprozess nach § 14 AGB (Mahnung mit Sperrandrohung, Frist von mindestens [10] Werktagen). Die Abrechnungsvorschau der Konsole führt einen Kunden ab dem Monat, in dem er gesperrt oder gekündigt wird, nicht mehr auf; die während der Sperrung fortbestehende Vergütung (§ 14 Abs. 4 AGB) daher gesondert abrechnen.
 - [ ] Reseller-/Partnerverträge (20–30 % Provision, Roadmap) erst nach anwaltlicher Prüfung; Datenschutzrollen klären.
 - [ ] **Muster-Kundenangebot** (Abschnitt 13) verwenden.
 
@@ -174,7 +177,7 @@ Fristbeginn: Ende des Kalenderjahres, in dem die Unterlage entstanden ist. Die F
 
 1. Gesellschaft gründen, Konto, Steuernummer und USt-IdNr.
 2. Marke anmelden, Domains sichern.
-3. Hosting-, Backup- und E-Mail-Verträge mit AVV schließen.
+3. Hosting- und Backup-Verträge (und, falls eingesetzt, E-Mail-Versand) mit AVV schließen.
 4. TOM und Unterauftragsverarbeiter-Liste mit der Technik abgleichen.
 5. Rechtstexte anwaltlich prüfen lassen, Platzhalter füllen, Prüfhinweise entfernen.
 6. Impressum, Datenschutzerklärung, Speicherhinweis, AGB, AVV, Leistungsbeschreibung veröffentlichen.

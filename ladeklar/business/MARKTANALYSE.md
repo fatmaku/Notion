@@ -204,11 +204,11 @@ Firma, und mit Datenschutzrisiken bei privaten Messengern auf Fahrerhandys (Eins
 | Disposition ist unterbesetzt | 64 % der Speditionen können Dispo-Stellen nicht besetzen | [Q28] | weniger Telefon je Tour, mehr Touren je Disponent |
 | Lieferscheine kommen Tage später ins Büro, Rechnung verzögert sich | 4 Tage Verzug (**Annahme**); Zahlungsziel 29,05 Tage, Geldeingang nach 37,76 Tagen (Creditreform, ca. 4 Mio. Rechnungen); 82 % der Firmen von Zahlungsverzug betroffen (Coface 2026); in einer älteren DSLV-Umfrage warteten 78 % der Speditionen 28–40 Tage auf ihr Geld | [Q42][Q43][Q88][Q44] | Foto-Pflicht vor Abschluss, Abliefernachweis als PDF am selben Tag |
 | Wartezeit an der Rampe wird nicht bezahlt | 78 % warten > 30 Min., 46 % > 1 Std., ca. 12 % ca. 2 Std.; 62,2 % der Rampenbetreiber informieren Fahrer selten oder nie über die erwartete Wartezeit | [Q35][Q37] | Ankunft erfassen, Standzeit mit Zeitstempel |
-| Standgeld ohne Nachweis kaum durchsetzbar | üblich 30–50 €/Std., oft erst nach 2–3 Std.; VBGL: 2 Std. Be- und 2 Std. Entladung frei (Komplettladung 40 t) | [Q36][Q39][Q40] | Standzeit-Bericht je Lieferung |
+| Standgeld ohne Nachweis kaum durchsetzbar | üblich 30–50 €/Std., oft erst nach 2–3 Std.; VBGL: 2 Std. Be- und 2 Std. Entladung frei (Komplettladung 40 t) | [Q36][Q39][Q40] | Standzeit je Lieferung im Abliefernachweis, Bericht je Kunde und Lade-/Entladestelle |
 | Fahrer warten teils sehr lange | 37 % der Fahrer warten manchmal über 3 Std. (Stiftung Truckers Life 2021, Sekundärzitat); 55 % warten oft länger als geplant (Verdi, 200 Fahrer, nicht repräsentativ) | [Q41][Q38] | wie oben |
 | Sprachbarriere | 30,4 % ausländische Berufskraftfahrer | [Q22] | 8 Sprachen, Icons statt Text |
-| Handy am Steuer | 100 € Bußgeld + 1 Punkt (BKatV Nr. 246.1) | [Q82] | Fahrsperre ab ca. 8 km/h |
-| Betriebsrat und Datenschutz bei Ortung | GPS-Ortung ist mitbestimmungspflichtig (§ 87 Abs. 1 Nr. 6 BetrVG; ArbG Kaiserslautern 1 BVGa 5/08); Test mit Echtdaten ohne Information unzulässig (BayLDA) | [Q83] | keine Dauerortung, Standort nur beim Statuswechsel, Muster-Betriebsvereinbarung |
+| Handy am Steuer | 100 € Bußgeld + 1 Punkt (BKatV Nr. 246.1) | [Q82] | Fahrsperre ab ca. 8 km/h (mit Standortfreigabe auf dem Handy) |
+| Betriebsrat und Datenschutz bei Ortung | GPS-Ortung ist mitbestimmungspflichtig (§ 87 Abs. 1 Nr. 6 BetrVG; ArbG Kaiserslautern 1 BVGa 5/08); Test mit Echtdaten ohne Information unzulässig (BayLDA) | [Q83] | keine Dauerortung, Standort nur beim Statuswechsel und nur mit Zustimmung des Fahrers, Muster-Betriebsvereinbarung |
 | Kostendruck, Insolvenzen | Insolvenzdichte 14 je 1.000 Unternehmen (höchster Wert) | [Q45] | ab 49 € im Monat, keine Hardware, 30 Tage Test |
 
 ---
@@ -292,10 +292,10 @@ sondern rund 55 neue zahlende Kunden je Monat im Jahr 5 (Kap. E im Finanzmodell)
 | Branche | Besonderheiten | Passung Ladeklar v1 | Lücke / Ergänzung |
 |---|---|---|---|
 | **Stückgut / Verteilerverkehr** | viele Stopps je Tour, Palettentausch (EPAL), feste Stammrouten | Palettentausch, „Wiederholen“, Lieferschein-Foto | **Zwischenstopps/Sammeltouren erst v1.1** – Pflicht für dieses Segment |
-| **Baustofflogistik** (Kipper, Kran-Lkw, Werkverkehr Baustoffhandel) | Baustellen ohne Hausnummer, Wiegescheine, Unterschrift des Poliers, Bau trägt 2026 die Erholung [Q14] | Unterschrift auf Display, Foto, Standort bei Statuswechsel | Felder „Abladestelle per Kartenpin“, „Wiegeschein“ als Dokumentart |
+| **Baustofflogistik** (Kipper, Kran-Lkw, Werkverkehr Baustoffhandel) | Baustellen ohne Hausnummer, Wiegescheine, Unterschrift des Poliers, Bau trägt 2026 die Erholung [Q14] | Unterschrift auf Display, Foto, Standort bei Statuswechsel (optional, mit Zustimmung) | Felder „Abladestelle per Kartenpin“, „Wiegeschein“ als Dokumentart |
 | **Kühltransporte** | Temperaturvorgaben, Reklamationen, Nachweispflichten | Temperaturfeld, Fotos, Zeitstempel | kein Temperaturlogger: Ladeklar ergänzt Kühlgeräte-Telematik, ersetzt sie nicht; Schritt „Temperatur ablesen“ als Pflichtfeld |
 | **Kurier / Express** | viele kurze Aufträge, Subunternehmer, Transporter < 3,5 t | schnelle Auftragsanlage, offene Aufträge für alle Fahrer | Mehrstopp-Touren und Sendungsverfolgungs-Link für Endkunden (v1.1) |
-| **Werkverkehr** (Handel, Entsorgung, Landwirtschaft) | kein Vollzeit-Disponent, Fahrer sind Lager-/Betriebspersonal | 10-Minuten-Einrichtung, Icons | – |
+| **Werkverkehr** (Handel, Entsorgung, Landwirtschaft) | kein Vollzeit-Disponent, Fahrer sind Lager-/Betriebspersonal | Einrichtung in ca. 10 Minuten, Icons | – |
 
 **Startreihenfolge:** Segment B in Stückgut-Nahverkehr und Baustofflogistik zuerst (hoher Telefonanteil,
 klare Lieferscheinpflicht, regionale Verbände). Kurier erst mit Mehrstopp-Touren (v1.1).
@@ -330,7 +330,7 @@ klare Lieferscheinpflicht, regionale Verbände). Kurier erst mit Mehrstopp-Toure
 
 | Anbieter | Kategorie | Kernfunktionen | Preis (öffentlich) | Hardware nötig? | White-Label? | Sprachen Fahrer-App | Quelle |
 |---|---|---|---|---|---|---|---|
-| **Ladeklar** | Auftrags-App | Aufträge, Status per Knopf, Push, Lieferschein-Foto, Unterschrift, Standzeit, Palettentausch, Fristen, Offline | **49 / 129 / 299 €/Monat**, öffentlich | **nein** (PWA, Firmencode + PIN) | **ja, alle Tarife**; Store-App als Zusatz | **7** (DE, EN, PL, RO, CS, TR, RU, UK) | PLAN.md |
+| **Ladeklar** | Auftrags-App | Aufträge, Status per Knopf, Push, Lieferschein-Foto, Unterschrift, Standzeit, Palettentausch, Fristen, Offline | **49 / 129 / 299 €/Monat**, öffentlich | **nein** (PWA, Firmencode + PIN) | **ja, alle Tarife**; Store-App als Zusatz (Premium) | **8** (DE, EN, PL, RO, CS, TR, RU, UK) | PLAN.md |
 | Papier + Telefon + WhatsApp + Excel | Status quo | Nachrichten, Fotos, Tabellen | 0 € Lizenz | nein | – | jede, aber unstrukturiert | – |
 | SPEDION | App-Telematik | Telematik-App (Android), Aufträge, Navigation, Lenk-/Ruhezeiten, Module einzeln buchbar | k. A.; Pay-per-Use: Kombigebühr je bewegtes Fahrzeug, Einrichtungsgebühr, keine Laufzeitbindung | Android-Gerät; keine Box beworben | nicht beworben | k. A. | [Q46] |
 | Couplink | Telematik, hardwareunabhängig | Smartmatics-App, Auftragsmanagement, Disposition, Ortung, Workflow-Creator; seit 2000, > 800 Kunden DACH | Starter-Paket mit Ortung kostenlos (Stand älterer Artikel), sonst k. A. | nein (Smartphone) oder vorhandene Telematik | nicht beworben | k. A. | [Q47] |
@@ -376,7 +376,7 @@ einer älteren Spediteursbefragung bei rund 60 € je Fahrzeug und Monat [Q63].
  Projekt, Vertrag                        │                      keine Hardware
                                         │   LOGISTIQO, Couplink-App, SPEDION-App
                                         │
-                                        │           ● LADEKLAR  (10 Minuten, eigene Marke,
+                                        │           ● LADEKLAR  (ca. 10 Min., eigene Marke,
                                         │                        8 Sprachen, keine Dauerortung)
                                         ▼
                          wenig, aber genau die nötigen Schritte
@@ -384,7 +384,7 @@ einer älteren Spediteursbefragung bei rund 60 € je Fahrzeug und Monat [Q63].
 
 Kernaussage: **Ladeklar ist das schnellste Werkzeug vom Zettel zur digitalen Tour.** Keine Hardware, kein
 Einbautermin, Fahrer starten mit Firmencode und PIN, Bedienung über einen großen Knopf, Fahrer-App in 8 Sprachen,
-unter dem Logo des Kunden. Standort nur beim Statuswechsel und nur wenn eingeschaltet – damit auch in Betrieben
+unter dem Logo des Kunden. Standort nur beim Statuswechsel, nur wenn eingeschaltet und der Fahrer zustimmt – damit auch in Betrieben
 mit Betriebsrat einführbar.
 
 ---
@@ -393,7 +393,7 @@ mit Betriebsrat einführbar.
 
 | Stärken | Schwächen |
 |---|---|
-| Einführung in 10 Minuten, keine Hardware, PWA ohne Store-Download | Neue Marke ohne Referenzen, Gründer allein im ersten Halbjahr |
+| Einführung in ca. 10 Minuten, keine Hardware, PWA ohne Store-Download | Neue Marke ohne Referenzen, Gründer allein im ersten Halbjahr |
 | White-Label in allen Tarifen (eigene Marke gegenüber Fahrern und Kunden) | Noch keine Mehrstopp-Touren (v1.1), keine Telematik-Schnittstelle |
 | Icons + 8 Sprachen, Fahrsperre, Offline-Warteschlange | Keine Live-Ortung – für manche Kunden ein Nachteil |
 | Datenschutz by Design: keine Dauerortung, AVV, Muster-Betriebsvereinbarung | Kein Temperatur-Monitoring, kein Lenkzeit-Modul (v2.0) |

@@ -6,19 +6,21 @@ In diesem Ordner liegen die drei Benutzerhandbücher für Ladeklar. Jedes Handbu
 
 | Handbuch | Für wen | Inhalt in Kürze |
 |---|---|---|
-| [HANDBUCH_UNTERNEHMEN.md](HANDBUCH_UNTERNEHMEN.md) | Inhaber, Unternehmens-Admins und Disponenten eines Lizenznehmers (Spedition, Transportunternehmen) | Einrichtung in 10 Minuten, Live-Übersicht, Lieferungen, Fahrer, Fahrzeug-Pool, Berichte, Einstellungen, Datenexport, Lizenz, häufige Fragen, Glossar |
+| [HANDBUCH_UNTERNEHMEN.md](HANDBUCH_UNTERNEHMEN.md) | Inhaber, Unternehmens-Admins und Disponenten eines Lizenznehmers (Spedition, Transportunternehmen) | Einrichtung in 10 Minuten mit eigenem Passwort beim ersten Anmelden, Live-Übersicht, Lieferungen (auch Nachbearbeiten), Abschluss ohne Netz, Fahrer und Personen löschen, Fahrzeug-Pool, Berichte je Fahrer, Auftraggeber und Lade-/Entladestelle mit CSV, Einstellungen mit Fahrsperre und Büro-Zugängen, Datenexport als ZIP, Lizenz und Kündigung, häufige Fragen, Glossar |
 | [FAHRER_KURZANLEITUNG.md](FAHRER_KURZANLEITUNG.md) | Fahrerinnen und Fahrer | Eine Druckseite je Sprache: Anmelden, LKW wählen, Auftrag bestätigen, Aufgeladen, Abgeladen, Lieferschein, Bestätigen – in 8 Sprachen (Deutsch, English, Polski, Română, Čeština, Türkçe, Русский, Українська) |
 | [HANDBUCH_LIZENZGEBER.md](HANDBUCH_LIZENZGEBER.md) | Plattformbetreiber (Lizenzgeber) und dessen Mitarbeitende | Lizenzgeber-Konsole, Lizenznehmer anlegen, Lizenz und Status ändern, Abrechnung, Tarife, Datenschutz-Grenze, Server-Betrieb, Checkliste für den Kundenstart |
 
 ## Bildschirmfotos
 
-Alle Bildschirmfotos liegen im Unterordner [`img/`](img/). Sie zeigen die deutsche Oberfläche mit den Demodaten der Beispielfirma „Kaya Logistik“. Die Dateinamen beginnen mit der Rolle:
+Alle Bildschirmfotos liegen im Unterordner [`img/`](img/). Sie zeigen die deutsche Oberfläche mit den Demodaten der Beispielfirma „Kaya Logistik“, Datum und Uhrzeit im deutschen Format. Die Dateinamen beginnen mit der Rolle:
 
 - `fahrer-…` – Fahrer-App auf dem Handy
 - `sprache-…` – Startbildschirm der Fahrer-App in jeder der 8 Sprachen
 - `buero-…` – Disposition und Unternehmens-Einstellungen im Browser
 - `tablet-…` – Disposition und Fahrer-App auf dem Tablet
 - `lizenzgeber-…` – Lizenzgeber-Konsole
+
+Die Bildschirmfotos erzeugt `node tools/manual-shots.js` neu. Das Skript startet dafür einen eigenen Server mit der Demo-Welt. Prüfen Sie danach jede Bildunterschrift in den Handbüchern gegen das neue Bild.
 
 ## PDF-Fassungen
 

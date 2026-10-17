@@ -4,7 +4,7 @@ Stand: 16.10.2026 · Motion-Design, **ohne Sprecher**, nur Texteinblendungen, Mu
 Hauptfassung **72 Sekunden, 16:9** · Kurzfassung **30 Sekunden, 9:16** (Reels, Shorts, WhatsApp-Status, Messe-Stele)
 
 Regeln: Jede Texteinblendung höchstens 6 Wörter. Keine fremden Marken und Logos (Chatblasen neutral gestalten,
-kein Messenger-Logo, keine echten Kundenlogos außer der Beispielfirma „Kaya Transporte“). Zahlen nur aus der
+kein Messenger-Logo, keine echten Kundenlogos außer der Beispielfirma „Kaya Logistik“ aus der Online-Demo). Zahlen nur aus der
 Beispielrechnung im Businessplan, mit Fußnote.
 
 ---
@@ -41,7 +41,7 @@ Beispielrechnung im Businessplan, mit Fußnote.
 | 12 | 0:48–0:52 | Der Knopf auf dem Handy wechselt die Sprache: DE → PL → RO → CS → TR → RU → UK → EN; das Icon bleibt gleich. Kleines Schild-Icon mit Häkchen. | 8 Sprachen. Keine Dauerortung. | Vertrauen | Klick je Sprachwechsel |
 | 13 | 0:52–0:57 | Abendlicht. Die Disponentin klappt den Laptop zu. Auf dem Bildschirm vorher: Abliefernachweis-PDF „gesendet“, Rechnung mit Stempel „RAUS“. | 17:00 Uhr. Alles erledigt. Rechnung raus. | Feierabend-Gefühl | warmer Akkord |
 | 14 | 0:57–1:03 | Drei Zahlen zählen nacheinander hoch, je mit Icon (Telefonhörer, Dokument, Uhr). Fußnote unten klein. | 25 Stunden weniger Telefon im Monat* / Rechnung am selben Tag / Standzeit belegt. Standgeld gesichert. | Stolz | drei Beats |
-| 15 | 1:03–1:07 | Das App-Icon auf einem Home-Bildschirm wechselt das Logo: Ladeklar → „Kaya Transporte“ → ein weiteres Beispiellogo; Login-Seite färbt sich in die Kundenfarbe. | Ihr Logo. Ihre App. | Stolz, Zugehörigkeit | sanfter Swoosh |
+| 15 | 1:03–1:07 | Das App-Icon auf einem Home-Bildschirm wechselt das Logo: Ladeklar → „Kaya Logistik“ → ein weiteres Beispiellogo; Login-Seite färbt sich in die Kundenfarbe. | Ihr Logo. Ihre App. | Stolz, Zugehörigkeit | sanfter Swoosh |
 | 16 | 1:07–1:12 | Endkarte: Ladeklar-Logo, darunter Claim, Website, QR-Code. | 30 Tage kostenlos testen. / Ein Tipp. Alles klar. | Zuversicht | Schlussakkord, Push-Ton als letzter Ton |
 
 *Fußnote in Szene 14 (klein, 3 Sekunden sichtbar):* „*Beispiel: 10 Fahrer. Annahmen auf [Website].“
@@ -74,7 +74,7 @@ Erste Sekunde muss ohne Ton funktionieren.
 ## 4. Produktionsliste
 
 - Bildschirmaufnahmen: Fahrer-App (Knöpfe Bestätigen, Aufgeladen, Abgeladen, Kamera, Sprachwechsel), Live-Board mit
-  Push, Abliefernachweis-PDF, Login-Seite mit zwei Kundenfarben – aus der Online-Demo mit Beispielfirma „Kaya Transporte“.
+  Push, Abliefernachweis, Login-Seite mit zwei Kundenfarben – aus der Online-Demo mit Beispielfirma „Kaya Logistik“.
 - Illustrationen: Schreibtisch, Telefon, Chatblasen (neutral), Zettel, Lieferschein, Lkw an Rampe, Paletten, Sanduhr,
   Rechnung mit Stempel, Abendlicht-Büro.
 - Exporte: 16:9 (1920 × 1080) und 9:16 (1080 × 1920), je mit und ohne Endkarten-QR; Messe-Schleife ohne Ton.

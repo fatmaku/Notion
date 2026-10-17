@@ -98,10 +98,10 @@ const root = document.getElementById('root');
 const BENEFITS = [
   ['phone', 'Weniger Anrufe', 'Jeder Schritt kommt als Push ins Büro: Bestätigt, Aufgeladen, Abgeladen. Kein „Wo bist du?“ mehr.'],
   ['camera', 'Lieferschein sofort', 'Foto vor Abschluss. Der Abliefernachweis geht am selben Tag als PDF raus – die Rechnung auch.'],
-  ['hourglass', 'Standgeld mit Beleg', 'Ankunft und Abfahrt mit Zeitstempel. Die Wartezeit an der Rampe ist belegt.'],
-  ['languages', '8 Sprachen, große Knöpfe', 'Deutsch, Englisch, Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch. Bedienbar mit Handschuhen.'],
+  ['hourglass', 'Standgeld mit Beleg', 'Ankunft und Ladeende mit Zeitstempel. Die Wartezeit an der Rampe ist belegt.'],
+  ['languages', '8 Sprachen, große Knöpfe', 'Deutsch, Englisch, Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch – in der Fahrer-App.'],
   ['palette', 'Ihre Marke', 'Ihr Logo, Ihre Farben, Ihr App-Name – auf dem Fahrerhandy und in jeder Mitteilung.'],
-  ['shield-check', 'Keine Dauerortung', 'Standort nur beim Statuswechsel und nur, wenn Sie es einschalten. Muster-Betriebsvereinbarung inklusive.'],
+  ['shield-check', 'Keine Dauerortung', 'Standort nur beim Statuswechsel, wenn Sie es einschalten und der Fahrer zustimmt. Muster-Betriebsvereinbarung inklusive.'],
 ];
 if ((Q.get('doc') || 'flyer') === 'flyer') {
   root.innerHTML = `
@@ -109,7 +109,7 @@ if ((Q.get('doc') || 'flyer') === 'flyer') {
     <div class="wm" style="position:absolute;left:12mm;top:14mm">${MARK}LADEKLAR</div>
     <div class="stoerer"><div><b>30</b>Tage kostenlos testen</div></div>
     <h1 class="disp">Tippen statt<br><em>telefonieren.</em></h1>
-    <p class="sub">Die App für Ihre Fahrer und Ihre Disposition – unter Ihrem Logo. In 10 Minuten startklar, ohne Hardware.</p>
+    <p class="sub">Die App für Ihre Fahrer und Ihre Disposition – unter Ihrem Logo. In ca. 10 Minuten startklar, ohne Hardware.</p>
     <div class="lap" style="left:74mm;top:104mm;width:118mm"><img src="/video/assets/office-live.png" alt=""></div><div class="lapbase" style="left:68mm;top:178.5mm;width:130mm;display:none"></div>
     <div class="phoneimg" style="left:150mm;top:58mm;width:50mm"><img src="/video/assets/phone-2-loaded.png" alt=""></div>
   </div>
@@ -119,13 +119,13 @@ if ((Q.get('doc') || 'flyer') === 'flyer') {
   <section class="page A4 bk"><div class="safe" style="inset:11mm 12mm">
     <h2 class="disp">So einfach geht’s</h2>
     <div class="steps">
-      <div class="step"><div class="n">1</div><b>Einrichten</b><p>Logo hochladen, LKW und Fahrer eintragen, Einladung per WhatsApp verschicken. Fertig in 10 Minuten.</p></div>
-      <div class="step"><div class="n">2</div><b>Lieferung anlegen</b><p>Route, Datum, Fahrer. Die Buchungsnummer entsteht automatisch, Stammrouten wiederholen Sie mit einem Klick.</p></div>
+      <div class="step"><div class="n">1</div><b>Einrichten</b><p>Logo hochladen, LKW und Fahrer eintragen, Einladung per WhatsApp verschicken. Fertig in ca. 10 Minuten.</p></div>
+      <div class="step"><div class="n">2</div><b>Lieferung anlegen</b><p>Route, Datum, Fahrer. Die Buchungsnummer entsteht automatisch, Stammrouten legen Sie mit „Wiederholen“ neu an.</p></div>
       <div class="step"><div class="n">3</div><b>Fahrer tippt, Büro sieht’s</b><p>Ihr Fahrer tippt den nächsten Schritt, Sie sehen ihn live. Der Lieferschein liegt sofort im Archiv.</p></div>
     </div>
     <div class="roi ink"><canvas class="net" style="right:-20mm;top:-30mm;width:90mm;height:110mm;opacity:.6"></canvas><div style="position:relative"><span style="font:800 7.5pt Manrope;letter-spacing:.16em;color:#e6cd92">WAS DAS BRINGT · BEISPIEL 10 FAHRER</span><div class="k" style="margin-top:2mm">≈ 25 Stunden</div><p>weniger Telefon im Monat, Rechnung am selben Tag, Standzeit belegt.*</p></div>
       <div class="vs" style="position:relative"><div><b>1.244 €</b><span>rechnerischer Nutzen / Monat*</span></div><div style="background:rgba(200,164,92,.18)"><b>129 €</b><span>Ladeklar Flotte / Monat</span></div></div></div>
-    <ul class="more">${['Funktioniert auch im Funkloch (Offline-Speicher)', 'Fahrsperre während der Fahrt', 'Rückgängig 2 Minuten lang', 'Unterschrift des Empfängers auf dem Display', 'Palettentausch erfassen', 'HU-/SP-Fristen je Fahrzeug', 'Läuft auf jedem Smartphone, kein App Store nötig', 'Daten in Deutschland gehostet, Export jederzeit'].map((x) => `<li>${x}</li>`).join('')}</ul>
+    <ul class="more">${['Funktioniert auch im Funkloch (Offline-Speicher)', 'Fahrsperre während der Fahrt', 'Rückgängig 2 Minuten lang', 'Unterschrift des Empfängers auf dem Display', 'Palettentausch erfassen', 'HU-/SP-Fristen je Fahrzeug', 'Läuft auf aktuellen Smartphones, kein App Store nötig', 'Daten in Deutschland gehostet, Export jederzeit'].map((x) => `<li>${x}</li>`).join('')}</ul>
     <div class="plans">
       <div class="plan"><div class="t">Start</div><div class="p">49 €<small> / Monat</small></div><p>3 Fahrer · 6 Fahrzeuge · 1 Disponent</p></div>
       <div class="plan hl"><div class="t" style="color:#8a6a26">Flotte · beliebt</div><div class="p">129 €<small> / Monat</small></div><p>15 Fahrer · 40 Fahrzeuge · 5 Disponenten · jeder weitere Fahrer 7 €</p></div>

@@ -42,7 +42,7 @@ Der Anbieter stellt dem Kunden die Plattform LADEKLAR als Software-as-a-Service 
 (2) Weisungen sind:
 
 1. dieser Vertrag und der Hauptvertrag;
-2. die vom Kunden in der Plattform gewählten Einstellungen, insbesondere zu Rollen und Rechten, Standort beim Statuswechsel, Fahrsperre, Ankunftserfassung, Fotopflicht, Unterschrift, offenen Touren und Löschfristen;
+2. die vom Kunden in der Plattform gewählten Einstellungen, insbesondere zu Rollen und Rechten, Standort beim Statuswechsel, Fahrsperre, Ankunftserfassung, Fotopflicht, Unterschrift, offenen Touren, Auswertungen je Fahrer und der Löschfrist für Lieferungen;
 3. die Nutzung der Funktionen der Plattform durch den Kunden und seine Nutzer, insbesondere Anlegen, Ändern, Exportieren und Löschen von Daten;
 4. Einzelweisungen der in **Anlage 5** benannten weisungsberechtigten Personen in Textform.
 
@@ -58,13 +58,15 @@ Der Anbieter stellt dem Kunden die Plattform LADEKLAR als Software-as-a-Service 
 
 (3) **Sicherheit.** Der Anbieter trifft die technischen und organisatorischen Maßnahmen nach Art. 32 DSGVO, die in **Anlage 2** (TOM) beschrieben sind. Er darf die Maßnahmen an den technischen Fortschritt anpassen, sofern das Schutzniveau nicht unterschritten wird. Wesentliche Änderungen dokumentiert er und teilt sie dem Kunden mit.
 
-(4) **Keine Einsicht in Auftragsdaten.** Die Plattform ist so gestaltet, dass Mitarbeiter des Anbieters über die Plattform-Konsole keine Auftragsdaten einsehen können. Zugriffe auf Auftragsdaten erfolgen ausschließlich
+(4) **Keine Einsicht in Auftragsdaten.** Die Plattform ist so gestaltet, dass Mitarbeiter des Anbieters über die Lizenzgeber-Konsole keine Auftragsdaten einsehen können; die Konsole zeigt je Kunde nur Firmen-, Kontakt- und Lizenzdaten sowie Anzahl der Fahrer, Büro-Zugänge, Fahrzeuge und Lieferungen. Zugriffe auf Auftragsdaten erfolgen ausschließlich
 
 1. im Rahmen eines vom Kunden freigegebenen Support-Zugriffs nach **Anlage 4**,
 2. bei der Wiederherstellung aus Datensicherungen auf Anforderung des Kunden oder zur Behebung einer Störung, oder
 3. wenn dies zur Abwehr einer akuten Gefahr für die Sicherheit der Plattform zwingend erforderlich ist; in diesem Fall informiert der Anbieter den Kunden unverzüglich und dokumentiert Anlass, Umfang und handelnde Person.
 
 Administrative Zugriffe auf Server und Datenbank sind auf [Anzahl] namentlich benannte Personen beschränkt und werden protokolliert.
+
+Die Konsole erlaubt dem Anbieter, für einen ausgesperrten Admin des Kunden ein Einmalpasswort zu erzeugen (Anlage 4 Abs. 7). Der Anbieter nutzt diese Funktion nur auf Anforderung des Kunden, übermittelt das Einmalpasswort nur an den Kunden und meldet sich damit nicht selbst an.
 
 (5) **Datenschutzbeauftragter.** Der Anbieter teilt dem Kunden die Kontaktdaten seines Datenschutzkontakts bzw. – falls benannt – seines Datenschutzbeauftragten mit: [Datenschutzkontakt].
 
@@ -104,7 +106,7 @@ Administrative Zugriffe auf Server und Datenbank sind auf [Anzahl] namentlich be
 
 (1) Der Anbieter unterstützt den Kunden mit geeigneten technischen und organisatorischen Maßnahmen bei der Erfüllung der Rechte betroffener Personen nach Kapitel III DSGVO (Art. 28 Abs. 3 Satz 2 lit. e DSGVO).
 
-(2) Die Plattform stellt hierfür insbesondere bereit: Suche und Export der Daten einer Person (z. B. eines Fahrers), Berichtigung von Stammdaten, Löschung und Deaktivierung von Nutzern, Datenexport in maschinenlesbarem Format.
+(2) Die Plattform stellt hierfür insbesondere bereit: Suche und Filter der Lieferungen nach Fahrer, Berichtigung von Stammdaten, Sperren von Zugängen, Löschen von Personen durch den Admin (Anonymisierung nach Anlage 1 Ziffer 1.5) und den vollständigen Datenexport in maschinenlesbarem Format (ZIP mit JSON, CSV und allen Dateien), aus dem der Kunde die Daten einer Person entnehmen kann. Einen Export nur für eine Person gibt es nicht. Das Löschen von Personen ist in jedem Lizenzstatus möglich, auch nach der Kündigung.
 
 (3) Wendet sich eine betroffene Person direkt an den Anbieter, leitet er das Anliegen unverzüglich an den Kunden weiter und beantwortet es nicht selbst, es sei denn, der Kunde weist ihn dazu an.
 
@@ -154,9 +156,9 @@ Informationen, die zum Zeitpunkt der Meldung nicht vorliegen, reicht der Anbiete
 
 (1) Nach Abschluss der Leistungen und nach Ablauf des Abrufzeitraums bzw. Datenabrufzeitraums (§ 17 und § 18 AGB), in dem der Kunde seine Daten selbst vollständig exportieren kann, löscht der Anbieter alle personenbezogenen Daten des Kunden, sofern nicht nach Unionsrecht oder dem Recht eines Mitgliedstaats eine Verpflichtung zur Speicherung besteht (Art. 28 Abs. 3 Satz 2 lit. g DSGVO).
 
-(2) Die Löschung im Produktivsystem erfolgt innerhalb von [30] Tagen nach Ablauf des Abrufzeitraums. Datensicherungen werden im regulären Zyklus von 30 Tagen überschrieben. Der Anbieter bestätigt die Löschung auf Verlangen in Textform.
+(2) Die Löschung im Produktivsystem erfolgt innerhalb von [30] Tagen nach Ablauf des Abrufzeitraums. Der Anbieter löscht dazu den Mandanten in der Lizenzgeber-Konsole; das ist nur im Status „Gekündigt“ möglich und verlangt die Eingabe des Firmencodes. Gelöscht werden Lieferungen mit Verlauf, alle Dateien samt Verzeichnis, Nutzer, Fahrzeuge, Mitteilungen, das Audit-Log des Mandanten, Sitzungen und Push-Abonnements sowie die Firmen- und Lizenzdaten. Im Protokoll des Anbieters bleibt ein Eintrag mit Firmencode, Firmenname und Anzahl der gelöschten Nutzer und Dateien. Eine automatische Löschung nach Fristablauf gibt es nicht; der Anbieter überwacht die Frist. Datensicherungen werden im regulären Zyklus von 30 Tagen überschrieben. Der Anbieter bestätigt die Löschung auf Verlangen in Textform.
 
-(3) Während der Vertragslaufzeit löscht die Plattform Daten nach den vom Kunden festgelegten Löschfristen automatisch (Leistungsbeschreibung Teil A Ziffer 6).
+(3) Während der Vertragslaufzeit löscht die Plattform Daten automatisch: abgeschlossene und stornierte Lieferungen nach der vom Kunden festgelegten Frist (1 bis 10 Jahre), alle übrigen Daten nach festen Fristen (Leistungsbeschreibung Teil A Ziffer 6).
 
 ## § 12 Haftung
 
@@ -191,8 +193,8 @@ Für die Haftung gelten Art. 82 DSGVO sowie im Innenverhältnis die Haftungsrege
 | Hosting, Speicherung und Sicherung | Bereitstellung der Plattform und ihrer Daten, Wiederherstellung nach Störungen |
 | Verarbeitung im Rahmen der Funktionen | Planung und Zuweisung von Lieferungen, Statusmeldungen, Live-Übersicht, Benachrichtigungen, Dokumentation der Ablieferung (Abliefernachweis), Berechnung von Standzeiten, Fahrzeugverwaltung, Berichte, Export |
 | Authentifizierung und Rechteprüfung | Schutz der Zugänge, Mandantentrennung |
-| Protokollierung | Nachvollziehbarkeit von Änderungen und Zugriffen (Audit-Log), Sicherheit |
-| Versand von Benachrichtigungen | Push-Benachrichtigungen und System-E-Mails (z. B. Einladung, Passwort zurücksetzen) |
+| Protokollierung | Nachvollziehbarkeit von Anmeldungen, Änderungen und Exporten (Audit-Log), Sicherheit |
+| Versand von Benachrichtigungen | In-App-Mitteilungen und Push-Benachrichtigungen; die Plattform versendet derzeit keine E-Mails |
 | Support | Analyse und Behebung von Störungen nach Freigabe (Anlage 4) |
 | Löschung | Umsetzung der Löschfristen und Löschung nach Vertragsende |
 
@@ -200,18 +202,18 @@ Für die Haftung gelten Art. 82 DSGVO sowie im Innenverhältnis die Haftungsrege
 
 | Nr. | Kategorie | Beispiele |
 |---|---|---|
-| 1 | Stammdaten der Fahrer | Name, Handynummer, Sprache, Führerscheinklasse, Rolle, Status, zugeordnetes Fahrzeug und Auflieger, PIN-Hash |
-| 2 | Stammdaten der Admins und Disponenten | Name, E-Mail, Telefon, Rolle, Passwort-Hash |
+| 1 | Stammdaten der Fahrer | Name, Handynummer, Personalnummer, Sprache, Führerscheinklasse, Notiz, Rolle, Status, zugeordnetes Fahrzeug und Auflieger, PIN-Hash, Zeitpunkt der letzten Anmeldung, Zustimmung zum Standort mit Zeitpunkt |
+| 2 | Stammdaten der Admins und Disponenten | Name, E-Mail, Telefon, Rolle, Sprache, Passwort-Hash, Zeitpunkt der letzten Anmeldung |
 | 3 | Kontaktdaten an Lade- und Entladestellen | Name des Ansprechpartners, Telefonnummer, Adresse, Zeitfenster |
 | 4 | Auftragsdaten | Buchungsnummer, Auftraggeber, Kundenreferenz, Route, Ware, Paletten, Gewicht, Gefahrgut, Temperatur, Hinweise, Zuweisung, Status, Zeitpunkte |
 | 5 | Ereignis- und Verlaufsdaten | Statusschritte mit Zeitpunkt und handelnder Person, Rücknahmen, Rückgaben mit Grund, Notizen, Problemmeldungen, Palettentausch, Ankunftszeiten und Standzeiten |
 | 6 | Fotos und Dokumente | Lieferschein-Fotos, PDF-Dokumente, Fotos zu Problemmeldungen (z. B. Schäden); diese können Namen, Unterschriften und Adressen Dritter enthalten |
 | 7 | Empfängerangaben und Unterschriften | Name des Empfängers, Unterschrift auf dem Display (Bilddatei), Zeitpunkt |
-| 8 | optionale Standortdaten | Koordinaten und Genauigkeit im Moment eines Statuswechsels, nur wenn vom Kunden eingeschaltet und vom Fahrer freigegeben |
-| 9 | Protokolldaten | Anmeldungen, fehlgeschlagene Anmeldeversuche, Änderungen, Exporte, Support-Zugriffe, jeweils mit Zeitpunkt, Nutzer und IP-Adresse |
-| 10 | Geräte- und Push-Daten | Push-Abonnement (Endpunkt-URL des Push-Dienstes, öffentlicher Schlüssel), Sitzungskennung (gehasht), Gerätetyp und Browser |
+| 8 | optionale Standortdaten | Koordinaten und Genauigkeit beim Tippen auf einen Statusschritt oder beim Melden eines Problems, nur wenn vom Kunden eingeschaltet und vom Fahrer in der App zugestimmt und im Gerät freigegeben; Löschung nach 90 Tagen |
+| 9 | Protokolldaten | Anmeldungen und fehlgeschlagene Anmeldeversuche (bei unbekannter Handynummer mit der eingegebenen Nummer), Änderungen, vollständige Exporte, Freigaben des Support-Zugriffs, Zustimmungen zum Standort, jeweils mit Zeitpunkt, Nutzer, Rolle und IP-Adresse; IP-Adressen und eingegebene Kennungen werden nach 90 Tagen entfernt, die Einträge nach 3 Jahren gelöscht |
+| 10 | Geräte- und Push-Daten | Push-Abonnement (Endpunkt-URL des Push-Dienstes, öffentlicher Schlüssel), Sitzungskennung (gehasht) mit Browser-Kennung (User-Agent) |
 | 11 | Fahrzeugdaten mit Personenbezug | Kennzeichen, Belegung durch einen Fahrer, Fristen |
-| 12 | Berichtsdaten | Lieferungen je Fahrer und Monat, Pünktlichkeit, Standzeiten |
+| 12 | Berichtsdaten | bei Abruf berechnet, nicht gespeichert: Lieferungen, Standzeiten und Probleme je Fahrer (nur wenn „Auswertungen je Fahrer“ eingeschaltet ist), je Auftraggeber und je Lade- bzw. Entladestelle, Pünktlichkeit |
 
 Besondere Kategorien personenbezogener Daten (Art. 9 DSGVO) sind nicht Gegenstand der Verarbeitung. Sie können ausnahmsweise in Freitexten oder Fotos enthalten sein (z. B. Angaben zu Verletzungen bei einer Unfallmeldung); der Kunde wirkt darauf hin, dass dies unterbleibt, soweit es nicht erforderlich ist.
 
@@ -227,6 +229,10 @@ Besondere Kategorien personenbezogener Daten (Art. 9 DSGVO) sind nicht Gegenstan
 ### 1.4 Dauer
 
 Für die Dauer des Hauptvertrags einschließlich Testphase und Abrufzeitraum; Löschung nach § 11.
+
+### 1.5 Löschen einzelner Personen
+
+Löscht der Admin eine Person, anonymisiert die Plattform den Zugang: Der Name wird „Gelöschter Nutzer“; E-Mail-Adresse, Telefon- bzw. Handynummer, Personalnummer, Führerscheinklasse, Notiz, Passwort- bzw. PIN-Hash, die Zustimmung zum Standort und alle Mitteilungen der Person werden gelöscht; Sitzungen und Push-Abonnements enden sofort. Abgeschlossene Lieferungen behalten den Bezug auf den anonymisierten Zugang. Offene und bestätigte Aufträge eines Fahrers gehen an die Disposition zurück; hat der Fahrer eine beladene Tour, lehnt die Plattform das Löschen ab, bis die Tour abgeschlossen oder umgeplant ist. Notizen, Fotos und Verlaufseinträge, die die Person in Lieferungen erfasst hat, bleiben Teil dieser Lieferungen.
 
 ---
 
@@ -244,7 +250,7 @@ Es gilt die Liste der Unterauftragsverarbeiter in der jeweils aktuellen Fassung 
 |---|---|---|---|
 | 1 | [Hosting-Anbieter], [Anschrift] | Rechenzentrum, Server, Speicher | Deutschland |
 | 2 | [Backup-Anbieter], [Anschrift] | verschlüsselte Datensicherung | Deutschland |
-| 3 | [E-Mail-Versanddienst], [Anschrift] | Versand von System-E-Mails | [EU/Deutschland] |
+| 3 | [E-Mail-Versanddienst, nur falls eingesetzt], [Anschrift] | Versand von System-E-Mails (die Plattform versendet derzeit keine) | [EU/Deutschland] |
 | 4 | Push-Dienste der Browser- und Betriebssystemhersteller | Zustellung von Push-Benachrichtigungen (verschlüsselte Nutzlast) | EU/USA, siehe Liste |
 
 ---
@@ -253,17 +259,19 @@ Es gilt die Liste der Unterauftragsverarbeiter in der jeweils aktuellen Fassung 
 
 (1) **Grundsatz.** Mitarbeiter des Anbieters haben keinen Zugriff auf Auftragsdaten. Ein Support-Zugriff auf den Mandanten setzt eine Freigabe durch einen Admin des Kunden voraus.
 
-(2) **Freigabe.** Der Admin erteilt die Freigabe in den Einstellungen der Plattform. Er wählt die Dauer (Voreinstellung [24] Stunden, höchstens [7] Tage). Die Plattform speichert das Ende der Freigabe (`supportAccessUntil`). Nach Ablauf erlischt der Zugriff automatisch. Der Admin kann die Freigabe jederzeit vorzeitig widerrufen.
+(2) **Freigabe.** Der Admin erteilt die Freigabe in der Plattform unter „Einstellungen → Daten & Datenschutz“ mit „Für 24 Stunden freigeben“. Die Plattform speichert das Ende der Freigabe (`supportAccessUntil`). Nach Ablauf erlischt die Freigabe automatisch. Der Admin kann sie jederzeit mit „Jetzt beenden“ vorzeitig widerrufen.
 
-(3) **Umfang.** Der Support-Zugriff erlaubt das Lesen der Daten des Mandanten, soweit dies für die Analyse des gemeldeten Anliegens erforderlich ist. Änderungen nimmt der Anbieter nur auf ausdrückliche Weisung in Textform vor. Exporte von Auftragsdaten durch den Anbieter sind ausgeschlossen.
+(3) **Umfang.** Der Support-Zugriff erlaubt das Lesen der Daten des Mandanten, soweit dies für die Analyse des gemeldeten Anliegens erforderlich ist. Änderungen nimmt der Anbieter nur auf ausdrückliche Weisung in Textform vor. Exporte von Auftragsdaten durch den Anbieter sind ausgeschlossen. Die Plattform hat derzeit keinen Support-Modus: Die Freigabe wird gespeichert und protokolliert, eröffnet aber keinen technischen Zugang; die Lizenzgeber-Konsole zeigt auch während einer Freigabe keine Auftragsdaten. Bis zur Umsetzung erfolgt Support ohne Zugriff des Anbieters auf den Mandanten, z. B. anhand von Bildschirmfotos oder einer Bildschirmfreigabe durch den Kunden.
 
 (4) **Personen.** Den Support-Zugriff dürfen nur namentlich benannte und auf Vertraulichkeit verpflichtete Mitarbeiter des Anbieters nutzen, die sich mit [Zwei-Faktor-Authentifizierung] anmelden.
 
-(5) **Protokollierung.** Beginn und Ende der Freigabe, jede Anmeldung im Support-Modus und jede Änderung werden mit Zeitpunkt und Mitarbeiter im Audit-Log des Mandanten gespeichert. Der Admin kann das Protokoll jederzeit einsehen und exportieren.
+(5) **Protokollierung.** Beginn und vorzeitiges Ende der Freigabe stehen mit Zeitpunkt, Admin und IP-Adresse im Audit-Log des Mandanten. [Nach Umsetzung eines Support-Modus zusätzlich jede Anmeldung im Support-Modus und jede Änderung mit Zeitpunkt und Mitarbeiter.] Der Admin kann das Protokoll in den Einstellungen einsehen (neueste Einträge) und vollständig mit dem Datenexport abrufen.
 
 (6) **Ticketbezug.** Jeder Support-Zugriff ist einem Support-Vorgang zugeordnet. Nach Abschluss teilt der Anbieter dem Kunden mit, welche Maßnahmen er vorgenommen hat.
 
-> **Prüfhinweis (Technik):** Zwei-Faktor-Authentifizierung für die Plattform-Konsole und den Support-Modus sowie die Kennzeichnung „nur Lesen“ als Anforderungen mit der Umsetzung abgleichen.
+(7) **Ausgesperrter Admin.** Kann sich der Admin nicht mehr anmelden, erzeugt der Anbieter auf Anforderung des Kunden in der Lizenzgeber-Konsole ein Einmalpasswort für diesen Admin. Die Plattform zeigt es dem Anbieter einmalig an, entsperrt den Zugang, beendet alle Sitzungen des Admins und verlangt bei der nächsten Anmeldung ein eigenes Passwort; der Vorgang steht im Audit-Log des Mandanten. Der Anbieter übermittelt das Einmalpasswort auf einem zweiten Weg (z. B. telefonisch) an den Kunden und meldet sich damit nicht selbst an.
+
+> **Prüfhinweis (Technik):** Zwei-Faktor-Authentifizierung für die Lizenzgeber-Konsole und den Support-Modus sowie die Kennzeichnung „nur Lesen“ als Anforderungen mit der Umsetzung abgleichen. Stand 17.10.2026: Es gibt weder Support-Modus noch Zwei-Faktor-Authentifizierung; die Freigabe wird nur gespeichert und protokolliert (`grantSupportAccess`, höchstens 72 Stunden über die Schnittstelle, in der Oberfläche fest 24 Stunden). Mit dem Einmalpasswort nach Abs. 7 könnte sich der Anbieter technisch als Admin anmelden; der Kunde würde das bemerken, weil sein Passwort danach nicht mehr gilt und der Vorgang im Protokoll steht. Ob diese organisatorische Zusage genügt, ist zu prüfen.
 
 ---
 

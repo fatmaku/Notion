@@ -1,6 +1,6 @@
 # Ladeklar – Texte für Flyer (A4) und Postkarte (A6)
 
-Stand: 16.10.2026 · Tarife laut `PLAN.md` · Beispielrechnung laut `BUSINESSPLAN.md` Kap. 4
+Stand: 17.10.2026 · Tarife laut `PLAN.md` · Beispielrechnung laut `BUSINESSPLAN.md` Kap. 4
 Platzhalter in eckigen Klammern. Icons als Beschreibung für die Gestaltung (einfarbige Linien-Icons in der
 Markenfarbe, gleiche Strichstärke). Pflichtangaben im Kleingedruckten nicht weglassen.
 
@@ -12,7 +12,7 @@ Markenfarbe, gleiche Strichstärke). Pflichtangaben im Kleingedruckten nicht weg
 Tippen statt telefonieren.
 
 **Subline:**
-Die App für Ihre Fahrer und Ihre Disposition – unter Ihrem Logo. In 10 Minuten startklar, ohne Hardware.
+Die App für Ihre Fahrer und Ihre Disposition – unter Ihrem Logo. In ca. 10 Minuten startklar, ohne Hardware.
 
 **Bildidee:** Links ein Fahrerhandy mit einem einzigen großen grünen Knopf „Aufgeladen“, rechts ein Laptop mit dem
 Live-Board, dazwischen eine feine Linie mit kleinem Häkchen. Kein Stockfoto, echte App-Screens.
@@ -23,10 +23,10 @@ Live-Board, dazwischen eine feine Linie mit kleinem Häkchen. Kein Stockfoto, ec
 |---|---|---|
 | Telefonhörer mit Häkchen | **Weniger Anrufe** | Jeder Schritt kommt als Push ins Büro: Bestätigt, Aufgeladen, Abgeladen. Kein „Wo bist du?“ mehr. |
 | Kamera über einem Blatt Papier | **Lieferschein sofort** | Foto vor Abschluss. Der Abliefernachweis geht am selben Tag als PDF raus – die Rechnung auch. |
-| Uhr neben einer Laderampe | **Standgeld mit Beleg** | Ankunft und Abfahrt mit Zeitstempel. Die Wartezeit an der Rampe ist belegt. |
-| Sprechblase mit Weltkugel | **8 Sprachen, große Knöpfe** | Deutsch, Englisch, Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch. Bedienbar mit Handschuhen. |
+| Uhr neben einer Laderampe | **Standgeld mit Beleg** | Ankunft und Ladeende mit Zeitstempel. Die Wartezeit an der Rampe ist belegt. |
+| Sprechblase mit Weltkugel | **8 Sprachen, große Knöpfe** | Deutsch, Englisch, Polnisch, Rumänisch, Tschechisch, Türkisch, Russisch, Ukrainisch – in der Fahrer-App. |
 | Schild mit leerem Logofeld | **Ihre Marke** | Ihr Logo, Ihre Farben, Ihr App-Name – auf dem Fahrerhandy und in jeder Mitteilung. |
-| Schutzschild mit Häkchen | **Keine Dauerortung** | Standort nur beim Statuswechsel und nur, wenn Sie es einschalten. Muster-Betriebsvereinbarung inklusive. |
+| Schutzschild mit Häkchen | **Keine Dauerortung** | Standort nur beim Statuswechsel, wenn Sie es einschalten und der Fahrer zustimmt. Muster-Betriebsvereinbarung inklusive. |
 
 **Störer (rund, Ecke oben rechts):**
 30 Tage kostenlos testen
@@ -45,8 +45,8 @@ So einfach geht's
 
 | Schritt | Icon | Text |
 |---|---|---|
-| **1 Einrichten** | Zahnrad mit Uhr „10“ | Logo hochladen, Lkw und Fahrer eintragen, Einladung per WhatsApp verschicken. Fertig in 10 Minuten. |
-| **2 Lieferung anlegen** | Karte mit Pfeil A → B | Route, Datum, Fahrer. Die Buchungsnummer entsteht automatisch, Stammrouten wiederholen Sie mit einem Klick. |
+| **1 Einrichten** | Zahnrad mit Uhr „10“ | Logo hochladen, Lkw und Fahrer eintragen, Einladung per WhatsApp verschicken. Fertig in ca. 10 Minuten. |
+| **2 Lieferung anlegen** | Karte mit Pfeil A → B | Route, Datum, Fahrer. Die Buchungsnummer entsteht automatisch, Stammrouten legen Sie mit „Wiederholen“ neu an. |
 | **3 Fahrer tippt, Büro sieht's** | Handy mit Knopf und Glocke | Ihr Fahrer tippt den nächsten Schritt, Sie sehen ihn live. Der Lieferschein liegt sofort im Archiv. |
 
 **Kasten „Was das bringt“ (Beispiel):**
@@ -60,7 +60,7 @@ Rechnerischer Nutzen ca. **1.244 € im Monat** – bei **129 €** für Ladekla
 - Unterschrift des Empfängers auf dem Display
 - Palettentausch erfassen
 - HU-/SP-Fristen je Fahrzeug
-- Läuft auf jedem Smartphone, kein App Store nötig
+- Läuft auf aktuellen Smartphones, kein App Store nötig
 - Daten in Deutschland gehostet, Export jederzeit
 
 **Tarife (netto je Monat)**
@@ -78,7 +78,8 @@ Jetzt 30 Tage kostenlos testen – ohne Zahlungsdaten.
 
 **Kontaktblock:**
 [Firmenname] · [Ansprechpartner] · [Telefon] · [E-Mail] · [Website]
-[QR-Code: Testzugang starten] – Unterzeile: „Scannen, Firmendaten eingeben, losfahren.“
+[QR-Code: Website mit Online-Demo] – Unterzeile: „Scannen, Demo ausprobieren, Testzugang anfragen.“
+(Einen Testzugang zum Selbstanlegen gibt es nicht; den Zugang legt der Lizenzgeber in der Konsole an.)
 
 **Kleingedrucktes:**
 *Beispielrechnung für einen Betrieb mit 10 Fahrern und 420 Lieferungen im Monat; Annahmen: 2 Statusanrufe à 3 Minuten
