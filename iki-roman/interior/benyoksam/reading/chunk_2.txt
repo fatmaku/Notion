@@ -219,120 +219,118 @@
 [U13:13] “İnsan bazen bedensel bir değişikliği sözden önce fark eder,” dedi. “Bazen de yoğun stres, bedende kesinlik hissi yaratır. İkisini ayırmak için takip edeceğiz.”
 [U13:14] “Ya ikisi de değilse?”
 [U13:15] “O zaman yine takip edeceğiz.”
-[U13:16] Tıbbın en dürüst cümlesi bazen “bilmiyoruz”dur.
-[U13:17] Hastaneden çıkınca Nina, “Şimdi ne hissediyorsun?” diye sordu.
-[U13:18] “Kalbim yaşına göre fena değilmiş.”
-[U13:19] “Soruma cevap vermedin.”
-[U13:20] “Rahatlamam gerektiğini hissediyorum.”
-[U13:21] “Rahatladın mı?”
-[U13:22] “Hayır.”
-[U13:23] “Korktun mu?”
-[U13:24] “Hayır.”
-[U13:25] “O zaman?”
-[U13:26] Bir süre kaldırımdaki sarı çizgiyi izledim. Çizgi rögar kapağında kesiliyor, karşı tarafta devam ediyordu. İnsan gözü kesintiyi otomatik tamamlar. Belki zihin de hayatın sonunu böyle görüyordu: Devamını bilmediği hâlde çizgiyi öbür tarafta varsayarak.
-[U13:27] “Özlüyorum,” dedim.
-[U13:28] “Kimi?”
-[U13:29] “Henüz ayrılmadığım insanları.”
-[U13:30] Nina yürümeyi bıraktı.
-[U13:31] “Bunu çocuklarına söyleme.”
-[U13:32] “Söylemeyeceğim.”
-[U13:33] “Bana da şiir gibi söyleme. Korkuyorum.”
-[U13:34] İlk kez duygusunu yorumlamadan söyledi. Ben de düzeltmeye çalışmadım.
-[U13:35] “Ben de,” dedim.
-[U13:36] Eve dönünce eski iş kutusunu indirdim. Sara kutunun yerini tarif etmişti: Emil'in bebek eşyalarını sakladığımız kolinin altı. Eski hayatımı bulmak için önce oğlumun küçücük ayakkabılarını kaldırmam gerekti. O ayakkabılar bir zamanlar doluydu. Bunu her seferinde yeniden öğreniyordum.
-[U13:37] 2015 yazılı dosyada, bir rehabilitasyon merkezinin okuma salonuna götürülen taşınabilir projektör için kesilmiş servis fişinin bana kalan karbon nüshası vardı. İş bana ait firmadan değil, yardım ettiğim arkadaşımdan geçmişti; cihazı teslim alan çalışan olarak benim imzam vardı. Adresi, makinenin kurduğu hastane değildi. Otuz bir yaşındaydım. Lara altı yaşında, Emil bir yaşındaydı. O gün orada olmam için henüz bilmediğim bir tanıya ihtiyacım yoktu. Kira ödemem gerekiyordu.
-[U13:38] Fişin arkasına “Üst kapak kırık; sağ başparmak kesildi” yazmıştım. Parçayı sipariş edebilmek için çektiğim baskı fotoğrafında cihazın kapağı, yanındaki elim ve bant görünüyordu. Bir yara hissedince yara icat etmiş değildim. Fakat yaranın hatırası, içtiğimi sandığım suyun bana verildiğini de kanıtlamıyordu.
-[U13:39] Cihazı salondan çıkarmış, yanındaki küçük bekleme odasının masasında toplamıştım. Etkinliği düzenleyen görevli orayı göstermişti. Kilitli bir servise girmemiştim. Hatırladığım sahnede çantamın, kâğıtlarımın ve su bekleyen birinin neden aynı dar yerde bulunduğunu ilk kez bu sıradan iş açıklıyordu.
-[U13:40] Dosyanın arkasındaki eski, kahverengi zarftan okuma gününün yarım sayfalık programı çıktı. Başlığı elle düzeltilmişti: Bir hikâyeyi kim tamamlar? Altında hasta dosyası numarası değil, salondaki sandalye sayısı yazıyordu.
-[U13:41] Nina kâğıdı çevirdi.
-[U13:42] Kurumuş, yarım ay biçiminde bir su izi vardı. İzin bir yanında dört kelime:
-[U13:43] Okurken eline de bak.
-[U13:44] Yazı benimkine benziyordu. İmza yoktu. Fişin tarihi belli diye aynı dosyadaki bütün yazıları o gün yazılmış sayamazdık.
-[U13:45] Kâğıdı kaldırırken bardaktaki kıvrımı yeniden gördüm.
-[U13:46] Bu defa parmağım düzeltemedi. Banttaki yapışkan derimi çekti. Karşımda oturan biri, kendi sağlam başparmağıyla plastiği dışarı itti. Sonra aynı el, bardağı uzatan doktorun eli gibi göründü. İki yüzü yan yana getirmeye çalıştım; biri belirince öteki dağıldı. Metnin bana gösterdiği iki bakışı, aynı odada iki bedene çevirmiş olabilirdim. Fotoğrafta ise yalnız projektörün kapağıyla benim bantlı başparmağım vardı.
-[U13:47] “Su içen ben olmayabilirim,” dedim.
-[U13:48] “Şimdi öyle hatırlıyorsun,” dedi Nina.
-[U13:49] Kâğıda tekrar baktım. Elimi tanıyor, yerini tanıyamıyordum. Bedenimden geldiğini sandığım bir hatıranın, benim baktığım yerden gelmeyebileceğini ilk kez bu kadar yakından hissettim.
-[U13:50] Tuncay'a fişin kendi bilgilerimi gösteren kısmını, programın iki yüzünü ve kesik görünen eski fotoğrafı yolladım. Başka kişilerin isimlerini kapattım. Yazıyla cevap vermedi; yarım saat sonra aradı.
-[U13:51] “Arkadaki dört kelime benim,” dedi. “Okuma günlerinde imza yerine onu yazarım.”
-[U13:52] Cümleyi o an tanıdım. @happytuncay hesabındaki paylaşımların, kitaplarının son sayfasının altındaki dört kelime. Basılı hâlini çok görmüştüm; kendi yazıma benzeyen bir elden çıkınca tanıdıklığı cümleye değil, yazıya vermiştim.
-[U13:53] “Okumadan önce beni salonun yanındaki küçük odada beklettiler,” dedi. “Masada bir teknisyen cihaz söküyordu. Bir ara sandalyeyi ters taşıdı; sırtlığından tutmuş, ayakları havada.”
-[U13:54] Sandalyeyi hatırlamıyordum.
-[U13:55] O akşam Lara'yla buluştum. Bir kafede üniversite bölümlerine bakıyordu. Masanın üstünde üç broşür, iki kalem, bir kulaklık ve yarısı yenmiş tarçınlı çörek vardı. Broşürlerin kenarlarını renk kodlarına göre dizmişti; bunun kendisini sakinleştirdiğini biliyordum.
-[U13:56] “Yine doktor?” diye sordu hastane bilekliğini görünce.
-[U13:57] “Kontrol.”
-[U13:58] “Bir şey var mı?”
-[U13:59] “Şimdilik yok.”
-[U13:60] “Şimdilik kelimesi insanı hiç rahatlatmıyor.”
-[U13:61] “Doktorlar ‘sonsuza kadar kesinlikle yok’ yazmıyor.”
-[U13:62] Lara kulaklığının bir tarafını çıkardı. “Sen son zamanlarda vedalaşıyor gibi konuşuyorsun.”
-[U13:63] Çocuklara her şeyi aynı anda anlatmamanın yalan olmadığını Sara söylemişti. O an, bunun da bir sınırı olduğunu anladım.
-[U13:64] “Bazen gidecekmişim gibi hissediyorum,” dedim. “Ama bunun doğru bilgi olduğunu bilmiyorum. Sağlığımı kontrol ettiriyorum. Kendime zarar vermeyi düşünmüyorum. Senden bir şeyi gizleyip sonra ‘seni korudum’ demek istemedim.”
-[U13:65] Lara uzun süre yüzüme baktı.
-[U13:66] “Ben ne yapacağım bu bilgiyle?”
-[U13:67] Doğru soru buydu. Dürüstlüğün bedelini ona vermiştim.
-[U13:68] “Hiçbir şey yapmak zorunda değilsin,” dedim. “Bu benim hissim. Senin görevin değil.”
-[U13:69] “O zaman neden söyledin?”
-[U13:70] “Benden geldiğini anlarsan kendini suçlamaman için.”
-[U13:71] Lara kulaklığını masaya bıraktı. “Ölmeyeceğine söz veremezsin.”
-[U13:72] “Veremem.”
-[U13:73] “Ama kaybolmayacağına söz verebilirsin.”
-[U13:74] “Nasıl?”
-[U13:75] “Korkunca ortadan kayboluyorsun. Aynı odada olsan bile. Kafana gidiyorsun.”
-[U13:76] “Söz,” dedim. “Kafana gittiğimi fark edersem geri geleceğim.”
-[U13:77] “Benim kafama mı?”
-[U13:78] “Kendi kafama.”
-[U13:79] “Orası kalabalık. Kaybolursan güvenliğe haber ver.”
-[U13:80] Güldük. Çöreğin son parçası için kısa bir kavga ettik.
-[U13:81] Lara yedi.
-[U13:82] Gece Tuncay bir kez daha aradı. Programın fotoğrafını büyütüp kenardaki yarım ayı görünce hatırlamış: Su isteyen, bekleme odasının sedirinde oturan bir hastaydı. Biri ona bardak getirmiş, bırakacak yer bulamamıştı.
-[U13:83] “Bardağı sen doldurmadın. Ama masaya sen yer açtın,” dedi.
-[U13:84] O anda sandalyeyi hatırladım. Dar bir sedir vardı. Ben yanındaki masanın önüne bir sandalye çekip çantamı koymuş, ona ulaşacak yeri kapatmıştım. Birinin bakışıyla çantayı almış, sandalyeyi sırtlığından aceleyle ters kaldırmıştım. Ayağı kapıya vurmuştu. Kapıdan biri “Ne oldu?” diye sormuştu. Projektörü kastederek “Kırılmış,” demiştim. Sedirdeki adam kendisinden söz ettiğimi sanmış gibi başını kaldırmıştı. “Kapak,” diye düzeltmiştim; düzeltme bakışı geri almaya yetmemişti. Masadaki kâğıtları da kenara itince bardağı koyacak yer açılmıştı. Bana kimin baktığını seçemiyordum. Hareket benimdi; yüzleri artık makinenin yazdığı sayfadan ayırmak zordu.
-[U13:85] “Yüzümü hatırlıyor musun?” diye sordum.
-[U13:86] “Yüzünü hatırlamıyorum. Hareketini hatırlıyorum.”
-[U13:87] Telefonu bıraktıktan sonra programı yeniden çevirdim. Kenardaki yarım ay, yazıdan daha kalıcı görünüyordu. O kâğıdı evime hangi hareketle getirdiğimi hatırlamadım. Merkezdeki odayı, makinenin kurduğu yeşil koridoru ve Tuncay'ın gördüğü sandalyeyi birbirinden ayrı not ettim. Odanın fişi, sandalyenin tanığı vardı; koridorun yalnız bir kaydı vardı ve o kaydı ben yazdırmıştım.
+[U13:16] Hastaneden çıkınca Nina, “Şimdi ne hissediyorsun?” diye sordu.
+[U13:17] “Kalbim yaşına göre fena değilmiş.”
+[U13:18] “Soruma cevap vermedin.”
+[U13:19] “Rahatlamam gerektiğini hissediyorum.”
+[U13:20] “Rahatladın mı?”
+[U13:21] “Hayır.”
+[U13:22] “Korktun mu?”
+[U13:23] “Hayır.”
+[U13:24] “O zaman?”
+[U13:25] Bir süre kaldırımdaki sarı çizgiyi izledim. Çizgi rögar kapağında kesiliyor, karşı tarafta devam ediyordu. İnsan gözü kesintiyi otomatik tamamlar. Belki zihin de hayatın sonunu böyle görüyordu: Devamını bilmediği hâlde çizgiyi öbür tarafta varsayarak.
+[U13:26] “Özlüyorum,” dedim.
+[U13:27] “Kimi?”
+[U13:28] “Henüz ayrılmadığım insanları.”
+[U13:29] Nina yürümeyi bıraktı.
+[U13:30] “Bunu çocuklarına söyleme.”
+[U13:31] “Söylemeyeceğim.”
+[U13:32] “Bana da şiir gibi söyleme. Korkuyorum.”
+[U13:33] İlk kez duygusunu yorumlamadan söyledi. Ben de düzeltmeye çalışmadım.
+[U13:34] “Ben de,” dedim.
+[U13:35] Eve dönünce eski iş kutusunu indirdim. Sara kutunun yerini tarif etmişti: Emil'in bebek eşyalarını sakladığımız kolinin altı. Eski hayatımı bulmak için önce oğlumun küçücük ayakkabılarını kaldırmam gerekti. O ayakkabılar bir zamanlar doluydu. Bunu her seferinde yeniden öğreniyordum.
+[U13:36] 2015 yazılı dosyada, bir rehabilitasyon merkezinin okuma salonuna götürülen taşınabilir projektör için kesilmiş servis fişinin bana kalan karbon nüshası vardı. İş bana ait firmadan değil, yardım ettiğim arkadaşımdan geçmişti; cihazı teslim alan çalışan olarak benim imzam vardı. Adresi, makinenin kurduğu hastane değildi. Otuz bir yaşındaydım. Lara altı yaşında, Emil bir yaşındaydı. O gün orada olmam için henüz bilmediğim bir tanıya ihtiyacım yoktu. Kira ödemem gerekiyordu.
+[U13:37] Fişin arkasına “Üst kapak kırık; sağ başparmak kesildi” yazmıştım. Parçayı sipariş edebilmek için çektiğim baskı fotoğrafında cihazın kapağı, yanındaki elim ve bant görünüyordu. Bir yara hissedince yara icat etmiş değildim. Fakat yaranın hatırası, içtiğimi sandığım suyun bana verildiğini de kanıtlamıyordu.
+[U13:38] Cihazı salondan çıkarmış, yanındaki küçük bekleme odasının masasında toplamıştım. Etkinliği düzenleyen görevli orayı göstermişti. Kilitli bir servise girmemiştim. Hatırladığım sahnede çantamın, kâğıtlarımın ve su bekleyen birinin neden aynı dar yerde bulunduğunu ilk kez bu sıradan iş açıklıyordu.
+[U13:39] Dosyanın arkasındaki eski, kahverengi zarftan okuma gününün yarım sayfalık programı çıktı. Başlığı elle düzeltilmişti: Bir hikâyeyi kim tamamlar? Altında hasta dosyası numarası değil, salondaki sandalye sayısı yazıyordu.
+[U13:40] Nina kâğıdı çevirdi.
+[U13:41] Kurumuş, yarım ay biçiminde bir su izi vardı. İzin bir yanında dört kelime:
+[U13:42] Okurken eline de bak.
+[U13:43] Yazı benimkine benziyordu. İmza yoktu. Fişin tarihi belli diye aynı dosyadaki bütün yazıları o gün yazılmış sayamazdık.
+[U13:44] Kâğıdı kaldırırken bardaktaki kıvrımı yeniden gördüm.
+[U13:45] Bu defa parmağım düzeltemedi. Banttaki yapışkan derimi çekti. Karşımda oturan biri, kendi sağlam başparmağıyla plastiği dışarı itti. Sonra aynı el, bardağı uzatan doktorun eli gibi göründü. İki yüzü yan yana getirmeye çalıştım; biri belirince öteki dağıldı. Metnin bana gösterdiği iki bakışı, aynı odada iki bedene çevirmiş olabilirdim. Fotoğrafta ise yalnız projektörün kapağıyla benim bantlı başparmağım vardı.
+[U13:46] “Su içen ben olmayabilirim,” dedim.
+[U13:47] “Şimdi öyle hatırlıyorsun,” dedi Nina.
+[U13:48] Kâğıda tekrar baktım. Elimi tanıyor, yerini tanıyamıyordum. Bedenimden geldiğini sandığım bir hatıranın, benim baktığım yerden gelmeyebileceğini ilk kez bu kadar yakından hissettim.
+[U13:49] Tuncay'a fişin kendi bilgilerimi gösteren kısmını, programın iki yüzünü ve kesik görünen eski fotoğrafı yolladım. Başka kişilerin isimlerini kapattım. Yazıyla cevap vermedi; yarım saat sonra aradı.
+[U13:50] “Arkadaki dört kelime benim,” dedi. “Okuma günlerinde imza yerine onu yazarım.”
+[U13:51] Cümleyi o an tanıdım. @happytuncay hesabındaki paylaşımların, kitaplarının son sayfasının altındaki dört kelime. Basılı hâlini çok görmüştüm; kendi yazıma benzeyen bir elden çıkınca tanıdıklığı cümleye değil, yazıya vermiştim.
+[U13:52] “Okumadan önce beni salonun yanındaki küçük odada beklettiler,” dedi. “Masada bir teknisyen cihaz söküyordu. Bir ara sandalyeyi ters taşıdı; sırtlığından tutmuş, ayakları havada.”
+[U13:53] Sandalyeyi hatırlamıyordum.
+[U13:54] O akşam Lara'yla buluştum. Bir kafede üniversite bölümlerine bakıyordu. Masanın üstünde üç broşür, iki kalem, bir kulaklık ve yarısı yenmiş tarçınlı çörek vardı. Broşürlerin kenarlarını renk kodlarına göre dizmişti; bunun kendisini sakinleştirdiğini biliyordum.
+[U13:55] “Yine doktor?” diye sordu hastane bilekliğini görünce.
+[U13:56] “Kontrol.”
+[U13:57] “Bir şey var mı?”
+[U13:58] “Şimdilik yok.”
+[U13:59] “Şimdilik kelimesi insanı hiç rahatlatmıyor.”
+[U13:60] “Doktorlar ‘sonsuza kadar kesinlikle yok’ yazmıyor.”
+[U13:61] Lara kulaklığının bir tarafını çıkardı. “Sen son zamanlarda vedalaşıyor gibi konuşuyorsun.”
+[U13:62] Çocuklara her şeyi aynı anda anlatmamanın yalan olmadığını Sara söylemişti. O an, bunun da bir sınırı olduğunu anladım.
+[U13:63] “Bazen gidecekmişim gibi hissediyorum,” dedim. “Ama bunun doğru bilgi olduğunu bilmiyorum. Sağlığımı kontrol ettiriyorum. Kendime zarar vermeyi düşünmüyorum. Senden bir şeyi gizleyip sonra ‘seni korudum’ demek istemedim.”
+[U13:64] Lara uzun süre yüzüme baktı.
+[U13:65] “Ben ne yapacağım bu bilgiyle?”
+[U13:66] Doğru soru buydu. Dürüstlüğün bedelini ona vermiştim.
+[U13:67] “Hiçbir şey yapmak zorunda değilsin,” dedim. “Bu benim hissim. Senin görevin değil.”
+[U13:68] “O zaman neden söyledin?”
+[U13:69] “Benden geldiğini anlarsan kendini suçlamaman için.”
+[U13:70] Lara kulaklığını masaya bıraktı. “Ölmeyeceğine söz veremezsin.”
+[U13:71] “Veremem.”
+[U13:72] “Ama kaybolmayacağına söz verebilirsin.”
+[U13:73] “Nasıl?”
+[U13:74] “Korkunca ortadan kayboluyorsun. Aynı odada olsan bile. Kafana gidiyorsun.”
+[U13:75] “Söz,” dedim. “Kafana gittiğimi fark edersem geri geleceğim.”
+[U13:76] “Benim kafama mı?”
+[U13:77] “Kendi kafama.”
+[U13:78] “Orası kalabalık. Kaybolursan güvenliğe haber ver.”
+[U13:79] Güldük. Çöreğin son parçası için kısa bir kavga ettik.
+[U13:80] Lara yedi.
+[U13:81] Gece Tuncay bir kez daha aradı. Programın fotoğrafını büyütüp kenardaki yarım ayı görünce hatırlamış: Su isteyen, bekleme odasının sedirinde oturan bir hastaydı. Biri ona bardak getirmiş, bırakacak yer bulamamıştı.
+[U13:82] “Bardağı sen doldurmadın. Ama masaya sen yer açtın,” dedi.
+[U13:83] O anda sandalyeyi hatırladım. Dar bir sedir vardı. Ben yanındaki masanın önüne bir sandalye çekip çantamı koymuş, ona ulaşacak yeri kapatmıştım. Birinin bakışıyla çantayı almış, sandalyeyi sırtlığından aceleyle ters kaldırmıştım. Ayağı kapıya vurmuştu. Kapıdan biri “Ne oldu?” diye sormuştu. Projektörü kastederek “Kırılmış,” demiştim. Sedirdeki adam kendisinden söz ettiğimi sanmış gibi başını kaldırmıştı. “Kapak,” diye düzeltmiştim; düzeltme bakışı geri almaya yetmemişti. Masadaki kâğıtları da kenara itince bardağı koyacak yer açılmıştı. Bana kimin baktığını seçemiyordum. Hareket benimdi; yüzleri artık makinenin yazdığı sayfadan ayırmak zordu.
+[U13:84] “Yüzümü hatırlıyor musun?” diye sordum.
+[U13:85] “Yüzünü hatırlamıyorum. Hareketini hatırlıyorum.”
+[U13:86] Telefonu bıraktıktan sonra programı yeniden çevirdim. Kenardaki yarım ay, yazıdan daha kalıcı görünüyordu. O kâğıdı evime hangi hareketle getirdiğimi hatırlamadım. Merkezdeki odayı, makinenin kurduğu yeşil koridoru ve Tuncay'ın gördüğü sandalyeyi birbirinden ayrı not ettim. Odanın fişi, sandalyenin tanığı vardı; koridorun yalnız bir kaydı vardı ve o kaydı ben yazdırmıştım.
 [U14:0] # 15. Nüshaların Söylemediği
 [U14:1] Yusuf Vural'ın izini emanet dolabı fişinden bulduk. Adı, eski dizgiciler birliğinin kayıtlarında ve kapanmış bir matbaanın ortaklık belgesinde geçiyordu. Son adresi, Duman'ın bizi götürdüğü cilt atölyesiydi.
-[U14:2] Polis ilk gece yalnız dışarıyı ve açık çatı hattını kontrol etmişti. İçeri girmemiş, “kimse yok” da dememişti. Çatıdaki pencere yıllardır kırıktı, içeriden yardım çağrısı gelmemişti; savcılık hâkim kararı olmadan iş yerinde arama yapılamayacağını bildirdi.
-[U14:3] Kapsülün aslı mühürlenip teslim edildi; bize yalnız kişisel olmayan bölümlerin adli kopyası açıldı. “Kopyası bizde” demek kolaydı; gerçekte her dosyanın arkasında sıkıcı bir zincir vardı.
-[U14:4] Atölyenin kapısını açabilecek mülk sahibini bulmamız iki gün sürdü. Adam önce kapıyı açmayı reddetti. Eski kiracı aylar önce ortadan kaybolmuş; yer, icra yoluyla kendisine teslim edilmişti. Teslim tutanağında makineler sabit demirbaş, en arkadaki çalışma masası ise boş görünüyordu. Selina aynı kelimeyi iki kez okudu.
-[U14:5] “İçeride gerçekten kitap varsa,” dedi, “ya tutanak yanlış ya da teslimden sonra biri geri girdi.”
-[U14:6] Bir cevap bulmamıştık. Yalnız soruyu değiştirmiştik: Atölyenin kapısını bize kim açacaktı değil, resmî olarak boş teslim edilen yere bizden önce kim dönmüştü?
-[U14:7] Mülk sahibi kapıyı ancak kendi avukatı ve bir noterle açmayı kabul etti. O iki günde Meralis teklifini yazılı olarak yineledi, siyah kitabın laboratuvar sonucu geldi ve Sara çocukların okul yolunu değiştirdi.
-[U14:8] Kitabın kâğıdı yeni üretimdi. Tüydeki yeşil toz, endüstriyel UV izleyiciydi. Kırmızı ipte üç farklı lif vardı. Karışım tek başına adres vermiyordu; Nina'nın ulaştığı tedarikçinin ilgili parti sevk listesinde ise iki cilt atölyesi görünüyordu. Biri Prag'da, diğeri İstanbul'daydı. Aradığımız ip oradan geçmiş olabilirdi. Kime ulaştığını ayrıca göstermemiz gerekecekti.
-[U14:9] Duman'ın bizi atölyeye götürdüğü gece Nina kepengin önünde birkaç kare çekmişti. Birinde duvara gömülü, kilitli bir emanet gözü vardı; üstünde solmuş bir firma etiketi. Firma, atölyelerin bitmiş işlerini alıcıya götüren küçük bir emanet şirketiydi. Sicilde bağımsız görünüyordu. Kendi sitesindeki hizmet duyurusuna göreyse son taşıma sözleşmesi bir lojistik firmasına geçmişti. O firmanın adı, Meralis'in yıllık raporundaki tedarikçi listesinde de vardı.
-[U14:10] Selina benim adıma gönderi kaydını istedi. Kayıt, atölyeye gitmeden önceki sabah geldi. Barkod paketin değil, mühürlü taşıma torbasının üstündeydi. Paketin geldiği gün o gözden tek bir torba alınmıştı. Aktarma deposuna girerken okutulmuş, on bir dakika sonra çıkarken yeniden okutulmuştu. Arada, her torbanın geçtiği ayırma bandında kaydı yoktu.
-[U14:11] Teslim satırındaki saat, kapımın önündeki kameranın donduğu dakikaydı.
-[U14:12] Nina deponun yerini haritada işaretledi. Selina kuryenin adı için ikinci bir yazı hazırladı.
-[U14:13] İstanbul'daki adres önümüzdeydi.
-[U14:14] Anahtarı mülk sahibi çevirdi; yanında avukatı, Selina ve noter vardı. Nina'yla ben gözlemci olarak, hiçbir şeye dokunmamak şartıyla girdik. Adam yalnız icrayla eline geçen yerin o günkü hâlini kayda aldırıyordu.
-[U14:15] Kapı açılınca ağır metal, nem ve turunç kokusu yüzümüze geldi. İçeride eski baskı makineleri siyah hayvanlar gibi sıralanmıştı. Yerde kâğıt kırpıntıları, duvarlarda nem izleri vardı. En arkadaki masanın üstü ise yeni temizlenmişti.
-[U14:16]     | TOPLAYICI: Temiz masa, kirli zeminden daha çok şey söyler.
-[U14:17]     | AVCI: Arka kapı açık.
-[U14:18]     | ŞÜPHECİ: İkiniz aynı anda konuşunca hiçbir şey duyamıyorum.
-[U14:19] Masanın altında yedi kilitli çekmece vardı. Teslim tutanağında aynı masanın çekmeceleri açık ve boş görünüyordu. Şimdi kilit yuvalarının çevresinde yeni metal çizikleri vardı.
-[U14:20] Kapsülden çıkan kartın bize açılan son dosyasında yedi şifre vardı. Sayıları ve uzunlukları bu kilitlere uyuyordu. Şifreleri ben girmedim. Mülk sahibi, tutanaktaki farkı noterin önünde kayda geçirmek için ilkini kendisi girdi. Çekmece açılırken cildi gevşek bir kitap yana devrildi; birbirine yapışmamış iki yaprak yüzü yukarı bakacak biçimde masaya kaydı.
-[U14:21] Selina hepimizi geri çekti ve savcılığı aradı. Mülk sahibiyle avukatı ön bölüme geçti; noterin yardımcısı açık çekmeceyi ve bizi kesintisiz kayda alarak kapıda kaldı. Dokunmamamız gerekiyordu. Okumak için dokunmamız gerekmiyordu.
-[U14:22] Daha sonra yapılan incelemede kapıma bırakılan kitabın kesim izi ve cilt lifi, atölyedeki yedi deneme nüshasıyla karşılaştırılacaktı. Aynı üretim ailesinden geliyorlardı; benimkinin kenar notlarıysa yeniden hazırlanmıştı. Kendi cümlelerim, çocukluk anılarım ve yalnız birkaç kişinin bildiği ayrıntılar vardı.
-[U14:23] Bir sayfada, kırmızı defterimde yıllar önce yazdığım cümle duruyordu:
-[U14:24]     | Bir insanı kendi yarasına göre nasıl kandırırsın? Önce yarasını doğru anlatırsın.
-[U14:25] Altında başka bir not:
-[U14:26]     | Hedef bunun kendisine ait olduğunu fark ederse ikinci aşamaya geç. Ona fikrinin çalındığını değil, tamamlandığını hissettir.
-[U14:27] “Beni yalnız izlememişler,” dedim. “Benimle birlikte yazmışlar.”
-[U14:28] Nina, yanına düşen ikinci yaprağa baktı.
-[U14:29] El yazısı bana aitti.
-[U14:30]     | İlk kitabı aldım. Beklediğim kadar eski değil. İçindeki fikirlerin yarısı bana ait olabilir. Beni bana satarak neyi ölçüyorlar?
-[U14:31] Tarih yedi yıl önceydi.
-[U14:32] “Kitabı hiç teslim almadığını söyledin,” dedi Nina.
-[U14:33] “Hatırlamıyorum.”
-[U14:34] Sayfanın altında ikinci bir cümle vardı:
-[U14:35]     | İkinci kitabı Nina'ya vermeden önce onu denemeliyim.
-[U14:36] Nina adını okudu.
-[U14:37] Sonra bana baktı.
-[U14:38] “Yedi yıl önce beni tanımıyordun,” dedi.
-[U14:39] Atölyenin arka kapısı kapandı.
-[U14:40] İçeride bizden başka birinin nefesi duyuldu.
-[U14:41] ⟨resim 1238⟩
+[U14:2] Polis ilk gece yalnız dışarıyı ve açık çatı hattını kontrol etmişti; hâkim kararı olmadan iş yerine girilemiyordu. Kapsülün aslı mühürlenip teslim edildi, bize yalnız kişisel olmayan bölümlerin adli kopyası açıldı.
+[U14:3] Atölyenin kapısını açabilecek mülk sahibini bulmamız iki gün sürdü. Adam önce kapıyı açmayı reddetti. Eski kiracı aylar önce ortadan kaybolmuş; yer, icra yoluyla kendisine teslim edilmişti. Teslim tutanağında makineler sabit demirbaş, en arkadaki çalışma masası ise boş görünüyordu. Selina aynı kelimeyi iki kez okudu.
+[U14:4] “İçeride gerçekten kitap varsa,” dedi, “ya tutanak yanlış ya da teslimden sonra biri geri girdi.”
+[U14:5] Bir cevap bulmamıştık. Yalnız soruyu değiştirmiştik: Atölyenin kapısını bize kim açacaktı değil, resmî olarak boş teslim edilen yere bizden önce kim dönmüştü?
+[U14:6] Mülk sahibi kapıyı ancak kendi avukatı ve bir noterle açmayı kabul etti. O iki günde Meralis teklifini yazılı olarak yineledi, siyah kitabın laboratuvar sonucu geldi ve Sara çocukların okul yolunu değiştirdi.
+[U14:7] Kitabın kâğıdı yeni üretimdi. Tüydeki yeşil toz, endüstriyel UV izleyiciydi. Kırmızı ipte üç farklı lif vardı. Karışım tek başına adres vermiyordu; Nina'nın ulaştığı tedarikçinin ilgili parti sevk listesinde ise iki cilt atölyesi görünüyordu. Biri Prag'da, diğeri İstanbul'daydı. Aradığımız ip oradan geçmiş olabilirdi. Kime ulaştığını ayrıca göstermemiz gerekecekti.
+[U14:8] Duman'ın bizi atölyeye götürdüğü gece Nina kepengin önünde birkaç kare çekmişti. Birinde duvara gömülü, kilitli bir emanet gözü vardı; üstünde solmuş bir firma etiketi. Firma, atölyelerin bitmiş işlerini alıcıya götüren küçük bir emanet şirketiydi. Sicilde bağımsız görünüyordu. Kendi sitesindeki hizmet duyurusuna göreyse son taşıma sözleşmesi bir lojistik firmasına geçmişti. O firmanın adı, Meralis'in yıllık raporundaki tedarikçi listesinde de vardı.
+[U14:9] Selina benim adıma gönderi kaydını istedi. Kayıt, atölyeye gitmeden önceki sabah geldi. Barkod paketin değil, mühürlü taşıma torbasının üstündeydi. Paketin geldiği gün o gözden tek bir torba alınmıştı. Aktarma deposuna girerken okutulmuş, on bir dakika sonra çıkarken yeniden okutulmuştu. Arada, her torbanın geçtiği ayırma bandında kaydı yoktu.
+[U14:10] Teslim satırındaki saat, kapımın önündeki kameranın donduğu dakikaydı.
+[U14:11] Nina deponun yerini haritada işaretledi. Selina kuryenin adı için ikinci bir yazı hazırladı.
+[U14:12] İstanbul'daki adres önümüzdeydi.
+[U14:13] Anahtarı mülk sahibi çevirdi. Nina'yla ben, hiçbir şeye dokunmamak şartıyla arkalarından girdik.
+[U14:14] Kapı açılınca ağır metal, nem ve turunç kokusu yüzümüze geldi. İçeride eski baskı makineleri siyah hayvanlar gibi sıralanmıştı. Yerde kâğıt kırpıntıları, duvarlarda nem izleri vardı. En arkadaki masanın üstü ise yeni temizlenmişti.
+[U14:15]     | TOPLAYICI: Temiz masa, kirli zeminden daha çok şey söyler.
+[U14:16]     | AVCI: Arka kapı açık.
+[U14:17]     | ŞÜPHECİ: İkiniz aynı anda konuşunca hiçbir şey duyamıyorum.
+[U14:18] Masanın altında yedi kilitli çekmece vardı. Teslim tutanağında aynı masanın çekmeceleri açık ve boş görünüyordu. Şimdi kilit yuvalarının çevresinde yeni metal çizikleri vardı.
+[U14:19] Kapsülden çıkan kartın bize açılan son dosyasında yedi şifre vardı. Sayıları ve uzunlukları bu kilitlere uyuyordu. Şifreleri ben girmedim; ilkini mülk sahibi, noterin gözü önünde girdi. Çekmece açılırken cildi gevşek bir kitap yana devrildi; birbirine yapışmamış iki yaprak yüzü yukarı bakacak biçimde masaya kaydı.
+[U14:20] Selina hepimizi geri çekti ve savcılığı aradı. Noterin yardımcısı kapıda kalıp açık çekmeceyi kayda aldı. Dokunmamamız gerekiyordu. Okumak için dokunmamız gerekmiyordu.
+[U14:21] Daha sonra yapılan incelemede kapıma bırakılan kitabın kesim izi ve cilt lifi, atölyedeki yedi deneme nüshasıyla karşılaştırılacaktı. Aynı üretim ailesinden geliyorlardı; benimkinin kenar notlarıysa yeniden hazırlanmıştı. Kendi cümlelerim, çocukluk anılarım ve yalnız birkaç kişinin bildiği ayrıntılar vardı.
+[U14:22] Bir sayfada, kırmızı defterimde yıllar önce yazdığım cümle duruyordu:
+[U14:23]     | Bir insanı kendi yarasına göre nasıl kandırırsın? Önce yarasını doğru anlatırsın.
+[U14:24] Altında başka bir not:
+[U14:25]     | Hedef bunun kendisine ait olduğunu fark ederse ikinci aşamaya geç. Ona fikrinin çalındığını değil, tamamlandığını hissettir.
+[U14:26] “Beni yalnız izlememişler,” dedim. “Benimle birlikte yazmışlar.”
+[U14:27] Nina, yanına düşen ikinci yaprağa baktı.
+[U14:28] El yazısı bana aitti.
+[U14:29]     | İlk kitabı aldım. Beklediğim kadar eski değil. İçindeki fikirlerin yarısı bana ait olabilir. Beni bana satarak neyi ölçüyorlar?
+[U14:30] Tarih yedi yıl önceydi.
+[U14:31] “Kitabı hiç teslim almadığını söyledin,” dedi Nina.
+[U14:32] “Hatırlamıyorum.”
+[U14:33] Sayfanın altında ikinci bir cümle vardı:
+[U14:34]     | İkinci kitabı Nina'ya vermeden önce onu denemeliyim.
+[U14:35] Nina adını okudu.
+[U14:36] Sonra bana baktı.
+[U14:37] “Yedi yıl önce beni tanımıyordun,” dedi.
+[U14:38] Atölyenin arka kapısı kapandı.
+[U14:39] İçeride bizden başka birinin nefesi duyuldu.
+[U14:40] ⟨resim 1238⟩
 [U15:0] # 16. Görmek ile Yetişmek Arasındaki Mesafe
 [U15:1] Nina ikinci kitabı hiç almamıştı.
 [U15:2] Atölyenin arka tarafındaki nefes, onun değildi. Biz masanın iki yanındaydık. Ses, kâğıt istiflerinin arkasından geliyordu: yavaş, ölçülü, yaşlı bir insanın nefesi.

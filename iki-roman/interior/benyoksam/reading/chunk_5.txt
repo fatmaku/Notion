@@ -318,7 +318,7 @@ Yoksa sana anlatıldığı gibi mi?
 [U43:32] “Elimden geldiğince dedim.”
 [U43:33] “Kelimelerin sınırını değiştiriyorsun.”
 [U43:34] “Senden öğrendim.”
-[U43:35] Gözlerinden yaş akarken güldü. Bazı gülüşler mutluluktan doğmaz. Acının insanı tamamen ele geçirmesine karşı açtığımız küçük pencerelerdir.
+[U43:35] Gözlerinden yaş akarken güldü.
 [U43:36] İsimler, dosyalar, tanılar ve hazırladığım bütün cümleler geriye çekildi. Kalan tek kelimeyi içimden söyledim.
 [U43:37] Ben.
 [U43:38] Saat 14.52'de odanın dışına bir karga kondu.

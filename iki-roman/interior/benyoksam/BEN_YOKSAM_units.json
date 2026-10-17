@@ -5825,11 +5825,6 @@
   },
   {
    "style": "Normal",
-   "text": "Tıbbın en dürüst cümlesi bazen “bilmiyoruz”dur.",
-   "uid": "U13"
-  },
-  {
-   "style": "Normal",
    "text": "Hastaneden çıkınca Nina, “Şimdi ne hissediyorsun?” diye sordu.",
    "uid": "U13"
   },
@@ -6195,12 +6190,7 @@
   },
   {
    "style": "Normal",
-   "text": "Polis ilk gece yalnız dışarıyı ve açık çatı hattını kontrol etmişti. İçeri girmemiş, “kimse yok” da dememişti. Çatıdaki pencere yıllardır kırıktı, içeriden yardım çağrısı gelmemişti; savcılık hâkim kararı olmadan iş yerinde arama yapılamayacağını bildirdi.",
-   "uid": "U14"
-  },
-  {
-   "style": "Normal",
-   "text": "Kapsülün aslı mühürlenip teslim edildi; bize yalnız kişisel olmayan bölümlerin adli kopyası açıldı. “Kopyası bizde” demek kolaydı; gerçekte her dosyanın arkasında sıkıcı bir zincir vardı.",
+   "text": "Polis ilk gece yalnız dışarıyı ve açık çatı hattını kontrol etmişti; hâkim kararı olmadan iş yerine girilemiyordu. Kapsülün aslı mühürlenip teslim edildi, bize yalnız kişisel olmayan bölümlerin adli kopyası açıldı.",
    "uid": "U14"
   },
   {
@@ -6255,7 +6245,7 @@
   },
   {
    "style": "Normal",
-   "text": "Anahtarı mülk sahibi çevirdi; yanında avukatı, Selina ve noter vardı. Nina'yla ben gözlemci olarak, hiçbir şeye dokunmamak şartıyla girdik. Adam yalnız icrayla eline geçen yerin o günkü hâlini kayda aldırıyordu.",
+   "text": "Anahtarı mülk sahibi çevirdi. Nina'yla ben, hiçbir şeye dokunmamak şartıyla arkalarından girdik.",
    "uid": "U14"
   },
   {
@@ -6285,12 +6275,12 @@
   },
   {
    "style": "Normal",
-   "text": "Kapsülden çıkan kartın bize açılan son dosyasında yedi şifre vardı. Sayıları ve uzunlukları bu kilitlere uyuyordu. Şifreleri ben girmedim. Mülk sahibi, tutanaktaki farkı noterin önünde kayda geçirmek için ilkini kendisi girdi. Çekmece açılırken cildi gevşek bir kitap yana devrildi; birbirine yapışmamış iki yaprak yüzü yukarı bakacak biçimde masaya kaydı.",
+   "text": "Kapsülden çıkan kartın bize açılan son dosyasında yedi şifre vardı. Sayıları ve uzunlukları bu kilitlere uyuyordu. Şifreleri ben girmedim; ilkini mülk sahibi, noterin gözü önünde girdi. Çekmece açılırken cildi gevşek bir kitap yana devrildi; birbirine yapışmamış iki yaprak yüzü yukarı bakacak biçimde masaya kaydı.",
    "uid": "U14"
   },
   {
    "style": "Normal",
-   "text": "Selina hepimizi geri çekti ve savcılığı aradı. Mülk sahibiyle avukatı ön bölüme geçti; noterin yardımcısı açık çekmeceyi ve bizi kesintisiz kayda alarak kapıda kaldı. Dokunmamamız gerekiyordu. Okumak için dokunmamız gerekmiyordu.",
+   "text": "Selina hepimizi geri çekti ve savcılığı aradı. Noterin yardımcısı kapıda kalıp açık çekmeceyi kayda aldı. Dokunmamamız gerekiyordu. Okumak için dokunmamız gerekmiyordu.",
    "uid": "U14"
   },
   {
@@ -11714,12 +11704,12 @@
   },
   {
    "style": "Normal",
-   "text": "Veri merkezine gizlice girmek yerine başkasının kapısını çaldık. Aynı kampüsteki hukuk şirketi ayrı girişliydi; iki blok ortak bir servis çekirdeğine bağlanıyordu. Selina, yanan atölyenin sigorta dosyasının sonradan değiştirildiğini gösteren iki kayıt bulmuş, mahkemeden yalnız o dosyaya, bir bilirkişinin önünde bakma izni almıştı.",
+   "text": "Veri merkezine gizlice girmek yerine başkasının kapısını çaldık. Aynı kampüsteki hukuk şirketi ayrı girişliydi; iki blok ortak bir servis çekirdeğine bağlanıyordu. Selina, yanan atölyenin sigorta dosyasının sonradan değiştirildiğini gösteren iki kayıt bulmuş, o dosyaya bir bilirkişinin önünde bakma izni almıştı.",
    "uid": "U28"
   },
   {
    "style": "Normal",
-   "text": "İçeride Selina, şirket avukatı, bir icra memuru ve bilirkişi olacaktı; Nina gözlemciydi. Tarek ağ kayıtlarına, Yusuf eski taşeron kodlarına bakacak, ben tarih örüntülerini çıkaracaktım. Kimse zorla girmeyecek, kimse tek başına kalmayacaktı. En azından kâğıt üzerindeki plan buydu.",
+   "text": "Heyete Selina ile bilirkişi girecek, şirketin avukatı onlara eşlik edecekti; Nina gözlemciydi. Tarek ağ kayıtlarına, Yusuf eski taşeron kodlarına bakacak, ben tarih örüntülerini çıkaracaktım. Kimse zorla girmeyecek, kimse tek başına kalmayacaktı. En azından kâğıt üzerindeki plan buydu.",
    "uid": "U28"
   },
   {
@@ -11920,11 +11910,6 @@
   {
    "style": "Normal",
    "text": "“Tam olarak.”",
-   "uid": "U29"
-  },
-  {
-   "style": "Normal",
-   "text": "Kötülük bazen büyük bir kahkaha atmaz. Düzgün bir ceket giyer, hukuki bir cümle kurar ve size özgür iradenizle girdiğiniz kapının makbuzunu uzatır.",
    "uid": "U29"
   },
   {
@@ -13894,7 +13879,7 @@
   },
   {
    "style": "Normal",
-   "text": "Öfkem haklıydı. Ama haklı öfke, her vurduğu yeri haklı yapmaz. Nina bir karar vermiş, kararın bedeli korkunç olmuştu. Bu, onun Leyla'yı öldürdüğü anlamına gelmiyordu. Yine de benden gerçeği saklamıştı.",
+   "text": "Öfkem haklıydı, ama nereye vurduğunu seçmiyordu. Nina bir karar vermiş, kararın bedeli korkunç olmuştu. Bu, onun Leyla'yı öldürdüğü anlamına gelmiyordu. Yine de benden gerçeği saklamıştı.",
    "uid": "U32"
   },
   {
@@ -14234,7 +14219,7 @@
   },
   {
    "style": "Normal",
-   "text": "Büyük yapıların hızı ayaklarında değildir. Kapıların arkasında önceden imzalanmış kâğıtları vardır.",
+   "text": "Hızlı davranmamışlardı; önceden davranmışlardı. Kâğıt biz yola çıkmadan imzalanmıştı.",
    "uid": "U33"
   },
   {
@@ -15204,7 +15189,7 @@
   },
   {
    "style": "Normal",
-   "text": "Yusuf daha sonra Sam'in hikâyesini anlattı. Sam, Yusuf hâlâ eski ağ için çalışırken doğmuştu. Annesi Alina veri arşivinde doktordu; araştırmaların insanların davranışını iyileştireceğine inanıyordu. Dosyalardaki zararları gördüğünde Yusuf'la birlikte ayrılmaya karar vermiş, fakat hazırladıkları kaçıştan iki gün önce bir trafik kazasında ölmüştü.",
+   "text": "“Sam, ben hâlâ eski ağ için çalışırken doğdu,” dedi Yusuf. “Annesi Alina veri arşivinde doktordu; araştırmaların insanları iyileştireceğine inanıyordu. Dosyalardaki zararları görünce benimle ayrılmaya karar verdi. Hazırladığımız kaçıştan iki gün önce bir trafik kazasında öldü.” Hattın öbür ucunda bir tıkırtı vardı; konuşurken bir cep saatinin kapağını açıp kapatıyordu.",
    "uid": "U36"
   },
   {
@@ -15219,7 +15204,7 @@
   },
   {
    "style": "Normal",
-   "text": "Yusuf, sekiz yaşındaki Sam'i kız kardeşine bırakıp belgelerle kaçmıştı. Bunun geçici olacağını düşünmüş; altı ay sonra döndüğünde ev gözetim altındaymış. Oğlunu korumak için uzak kalmayı seçmiş, fakat çocuğa bunu kimse açıklamamıştı.",
+   "text": "“Onu sekiz yaşında kız kardeşime bıraktım. Altı ay sürecekti. Döndüğümde ev gözetim altındaydı; uzak durmayı seçtim. Bunu ona kimse açıklamadı.” Kapağın tıkırtısı durdu.",
    "uid": "U36"
   },
   {
@@ -15239,7 +15224,7 @@
   },
   {
    "style": "Normal",
-   "text": "Yıllar sonra Sam, babasının kaçtığı ağa kendi isteğiyle girmişti; önce Yusuf'u bulmak için. Sonra kendisini terk eden güçsüz adamla dünyayı yöneten kurum arasında seçim yaptığını düşünmüş ve kurumu seçmişti. Doğru kişilerin elinde düzenin merhamet olduğuna inanıyordu.",
+   "text": "“Yıllar sonra ağa kendi isteğiyle girdi,” dedi Yusuf. “Önce beni bulmak için. Sonra kendisini bırakan güçsüz adamla dünyayı yöneten kurum arasında seçim yaptığını düşündü ve kurumu seçti. Doğru ellerde düzenin merhamet olduğuna inanıyor.”",
    "uid": "U36"
   },
   {
@@ -15319,12 +15304,12 @@
   },
   {
    "style": "Normal",
-   "text": "Meralis bugünkü adıyla doğmamıştı. Yusuf, yetmişlerin sonunda davranış araştırmaları yapan küçük bir ağda çevirmen ve dizgiciydi. Askerî kurumlar, reklam şirketleri ve kapalı klinikler birbirinden yöntem alıyor, aynı soruyu soruyordu: Bir insanın karar verdiğini sanarken hangi kararları önceden hazırlayabiliriz?",
+   "text": "Yusuf, İstanbul kutusundan sararmış bir dizgi provası çıkardı; kenarlarında kurşun kalemle düzeltme işaretleri vardı. “Meralis o zaman bu adla doğmamıştı,” dedi. “Yetmişlerin sonunda davranış araştırmaları yapan küçük bir ağdı. Ben çevirmen ve dizgiciydim. Askerî kurumlar, reklam şirketleri, kapalı klinikler birbirinden yöntem alıyor, hep aynı soruyu soruyordu.” Parmağını provanın başlığına koydu: <i>Bir insanın karar verdiğini sanarken hangi kararları önceden hazırlayabiliriz?</i>",
    "uid": "U36"
   },
   {
    "style": "Normal",
-   "text": "Yusuf metinleri basmış, insanların zayıf noktalarının ürün özelliği gibi listelendiğini görmüştü. Önce buna düzen demişti. Sonra dosyalardan birinde, duyusal hassasiyeti olan çocukların “erken uyum” programına alındığını gördü. Uyum dedikleri, çocuğun acısını söylemeyi bırakmasıydı.",
+   "text": "“İnsanların zayıf noktalarını ürün özelliği gibi dizdim. Önce buna düzen dedim.” Provanın altından ince bir dosya çekti. Kapağında “erken uyum” yazıyordu; içindeki listede duyusal hassasiyeti olan çocukların adları vardı. “Uyum dedikleri, çocuğun acısını söylemeyi bırakmasıydı.”",
    "uid": "U36"
   },
   {
@@ -17199,42 +17184,7 @@
   },
   {
    "style": "Normal",
-   "text": "“‘Bir oda gerideyim’?”",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "“Değerlendirme merkezinden sigortaya, oradan davranış ortaklarımıza. Tek cümle yeterliydi.”",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "“Lara'nın peşindeki kırmızı montlu kadın?”",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "“Rota gözlemcisiydi. Dokunmayacaktı. Dükkânı başka ekip kurdu: paspastaki anahtar, kepenkteki kesici, kapıya uzaktan sürgü, saatlerde hoparlör.”",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "“Gözlemevindeki uygulama talebi dört kutuyu elli dört dakika önceden nasıl biliyordu?”",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "“Servis binasının eski haberleşme kutusunda fiber kamera vardı. Yusuf kutuları sizden bir saat önce masaya dizmişti. Görüntüyü AYNA okudu, talebi o yazdı; avukat imzaladı.”",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "“Yusuf tavana bunun için baktı.”",
-   "uid": "U40"
-  },
-  {
-   "style": "Normal",
-   "text": "“Geç fark etti.”",
+   "text": "Geri kalanları tek tek sormam gerekmedi. Sam her soruya masaya bir kâğıt koyarak cevap verdi, parmağını tek bir satırın üstünde tuttu. “Bir oda gerideyim” cümlesi, değerlendirme merkezinden sigortaya, oradan davranış ortaklarına giden bir iletim fişindeydi. Lara'nın peşindeki kırmızı montlu kadın bir rota gözlemcisiydi; dokunmayacaktı. Dükkânı başka bir ekip kurmuştu: paspastaki anahtar, kepenkteki kesici, kapıya uzaktan sürgü, saatlerde hoparlör. Gözlemevindeki talep dört kutuyu elli dört dakika önceden, servis binasının eski haberleşme kutusundaki fiber kameradan biliyordu; Yusuf kutuları bizden bir saat önce masaya dizmiş, görüntüyü AYNA okumuş, talebi o yazmış, avukat imzalamıştı. Yusuf'un o gün tavana neden baktığını o kâğıtta gördüm. Geç fark etmişti.",
    "uid": "U40"
   },
   {
@@ -17799,7 +17749,7 @@
   },
   {
    "style": "Normal",
-   "text": "Bir ilişkiye başlama kararı vermedik. Birbirimize sonsuzluk sözü de vermedik. Ertesi gün birlikte markete gittik. Nina listeyle ilerledi, ben indirimdeki zeytinlerin fiyat–gram oranını hesaplamaya dalıp listede olmayan üç tür kahve aldım. Kasada tartıştık. Akşam yemek yaptık. Bazen “evet” büyük bir kapıdan geçmek değildir. Ertesi gün de aynı insanın yanında sıradan bir iş yapmayı seçmektir.",
+   "text": "Bir ilişkiye başlama kararı vermedik. Birbirimize sonsuzluk sözü de vermedik. Ertesi gün birlikte markete gittik. Nina listeyle ilerledi, ben indirimdeki zeytinlerin fiyat–gram oranını hesaplamaya dalıp listede olmayan üç tür kahve aldım. Kasada tartıştık. Akşam yemek yaptık.",
    "uid": "U40"
   },
   {
@@ -19484,7 +19434,7 @@
   },
   {
    "style": "Normal",
-   "text": "Gözlerinden yaş akarken güldü. Bazı gülüşler mutluluktan doğmaz. Acının insanı tamamen ele geçirmesine karşı açtığımız küçük pencerelerdir.",
+   "text": "Gözlerinden yaş akarken güldü.",
    "uid": "U43"
   },
   {

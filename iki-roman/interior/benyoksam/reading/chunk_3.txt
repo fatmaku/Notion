@@ -455,8 +455,8 @@
 [U28:15] Yusuf şaşırdı.
 [U28:16] “Bunu senden duymayı beklemiyordum.”
 [U28:17] “Ben de. Olgunluk olabilir. Ateşim de çıkmış olabilir.”
-[U28:18] Veri merkezine gizlice girmek yerine başkasının kapısını çaldık. Aynı kampüsteki hukuk şirketi ayrı girişliydi; iki blok ortak bir servis çekirdeğine bağlanıyordu. Selina, yanan atölyenin sigorta dosyasının sonradan değiştirildiğini gösteren iki kayıt bulmuş, mahkemeden yalnız o dosyaya, bir bilirkişinin önünde bakma izni almıştı.
-[U28:19] İçeride Selina, şirket avukatı, bir icra memuru ve bilirkişi olacaktı; Nina gözlemciydi. Tarek ağ kayıtlarına, Yusuf eski taşeron kodlarına bakacak, ben tarih örüntülerini çıkaracaktım. Kimse zorla girmeyecek, kimse tek başına kalmayacaktı. En azından kâğıt üzerindeki plan buydu.
+[U28:18] Veri merkezine gizlice girmek yerine başkasının kapısını çaldık. Aynı kampüsteki hukuk şirketi ayrı girişliydi; iki blok ortak bir servis çekirdeğine bağlanıyordu. Selina, yanan atölyenin sigorta dosyasının sonradan değiştirildiğini gösteren iki kayıt bulmuş, o dosyaya bir bilirkişinin önünde bakma izni almıştı.
+[U28:19] Heyete Selina ile bilirkişi girecek, şirketin avukatı onlara eşlik edecekti; Nina gözlemciydi. Tarek ağ kayıtlarına, Yusuf eski taşeron kodlarına bakacak, ben tarih örüntülerini çıkaracaktım. Kimse zorla girmeyecek, kimse tek başına kalmayacaktı. En azından kâğıt üzerindeki plan buydu.
 [U28:20] Ben, Tarek ve Yusuf evdeki masanın başında kaldık. Nina'nın görüntü hattında yalnız incelemenin bize açılan kısmını görüyorduk. İlk sorun, hukuk şirketinin heyete gösterdiği katın aslında boş olmasıydı.
 [U28:21] Resepsiyon, toplantı odaları ve çalışanlar vardı; ama bilgisayarlar yerel bir görüntü ağına bağlıydı. Masalardaki kişisel eşyaların hepsi birbirine fazla benziyordu: aynı marka kupa, aynı yeni not defteri, aynı solmamış aile fotoğrafları. Bir ofis değil, ofis fikri kurulmuştu.
 [U28:22] Nina kulaklığından fısıldadı:
@@ -497,56 +497,55 @@
 [U29:6] “Bunu kanıtlayan kayıt yok.”
 [U29:7] “Kayıtları siz tutuyorsunuz.”
 [U29:8] “Tam olarak.”
-[U29:9] Kötülük bazen büyük bir kahkaha atmaz. Düzgün bir ceket giyer, hukuki bir cümle kurar ve size özgür iradenizle girdiğiniz kapının makbuzunu uzatır.
-[U29:10] Tarek kamera akışını kesmeye çalıştı; ağ bağlantısı değişti. Yusuf acil çıkışın katın kuzeyinde olması gerektiğini söyledi. Nina, ekranın karşısındaki metal masada tek bir disk gördü. Üzerinde Leyla'nın el yazısıyla KAYNAK 1453 yazıyordu.
-[U29:11] “Dokunma,” dedim.
-[U29:12] “Ablamın yazısı.”
-[U29:13] “Tam da bu yüzden dokunma.”
-[U29:14] Sam gülümsedi. “Yanındaki adam artık doğru soruyu soruyor. Geç de olsa.”
-[U29:15] “Doğru soru ne?” dedi Nina.
-[U29:16] “Bu diskin neden burada olduğu.”
-[U29:17] Nina diske yaklaşmadı. Telefonunu masaya doğru tuttu, seri numarasını ve kapağın çiziklerini kaydetti. Sonra acil çıkışa yürüdü. Kapı açılmadı.
-[U29:18] “Kartımı mı okutayım?” diye sordu.
-[U29:19] “Kart değil,” dedi Lara kulaklıktan.
-[U29:20] Sesini duyunca öfkelendim.
-[U29:21] “Lara, bu hatta ne işin var?”
-[U29:22] “Bir dakika.”
-[U29:23] Bekledik. Tarek, Nina'dan telefonu kapı kolunun altındaki etikete çevirmesini istedi. Az önce bulduğu bakım sayfasında aynı serinin acil çıkış düzeneği de vardı. Etiketteki son iki harfi büyüttü, doğru modele ait şemayı açtı.
-[U29:24] “Kart okuyucu giriş için,” dedi. “Çıkış mekanik. Kolu tam indiremiyorsun; kapı kanadı kasaya yük bindirmiş olabilir. Önce kanadı kendine doğru biraz çek, sonra kolu indir.”
-[U29:25] “Lara, sen bunu sesten mi anladın?” diye sordum.
-[U29:26] “Buradayım.”
-[U29:27] Soruma cevap saydım. Korkarken insan yanındaki sesin mantığını değil, varlığını kontrol ediyordu.
-[U29:28] Nina telefonu cebine koydu. İki eliyle kapıyı kendine çekti; içeride metal sürtündü. Kolu yeniden bastığında bu kez sonuna kadar indi.
-[U29:29] Kapı açıldı.
-[U29:30]     | TOPLAYICI: Lara önce duydu.
-[U29:31]     | MUHASEBECİ: Ve sen onu korumak isterken bilgisiz bıraktın.
-[U29:32]     | AVCI: Şimdi çıkmalarını sağla. Sonra suçluluk duyarsın.
-[U29:33] Nina merdivenlerden inerken Sam'in sesi kattaki hoparlörlerden geldi.
-[U29:34] “Diski almadığın için kazandığını sanıyorsun.”
-[U29:35] “Bugünlük yeter,” dedi Nina.
-[U29:36] “Onu zaten üç hafta önce aldın.”
-[U29:37] Nina durdu.
-[U29:38] Ben de nefesimi tuttum.
-[U29:39] Sam, Nina'nın telefonuna bir güvenlik kaydı gönderdi. Açılan görüntüde Nina, başka bir gece aynı metal masanın başında duruyor, KAYNAK 1453 yazılı diski çantasına koyuyordu.
-[U29:40] Tarih, Leyla'nın ölümünün öğrenildiği günden iki gün sonraydı.
-[U29:41] Görüntünün devamında Nina, binanın arka çıkışında Sam'le buluşuyor ve diski ona veriyordu.
-[U29:42] “Bu montaj,” dedim.
-[U29:43] Nina hemen cevap vermedi.
-[U29:44] “Tamamı değil,” dedi sonunda.
-[U29:45] “Hangi kısmı?”
-[U29:46] “Diski aldım.”
-[U29:47] “Sam'e verdin mi?”
-[U29:48] Nina'nın ayak sesleri kesildi.
-[U29:49] “Evet.”
-[U29:50] Aynı anda Sara aradı; koridorun öbür ucundan, Lara'nın odasından. Sesi nefessizdi.
-[U29:51] “Lara evde değil.”
-[U29:52] “Az önce benimle konuşuyordu.”
-[U29:53] “Odasından. Öyle sandım. Telefonu yatağında, kulaklığı bilgisayara bağlı. Biri önceden kaydettiği sesini hatta vermiş.”
-[U29:54] Saatime baktım.
-[U29:55] 14.53.
-[U29:56] Sara bir fotoğraf gönderdi. Lara'nın boş sandalyesinde beyaz bir tüy ve kırmızı defterim duruyordu.
-[U29:57] Defterin üstündeki not benim el yazımlaydı:
-[U29:58]     | Kızımı bulmak istiyorsam önce ona neden yalan söylediğimi hatırlamalıyım.
+[U29:9] Tarek kamera akışını kesmeye çalıştı; ağ bağlantısı değişti. Yusuf acil çıkışın katın kuzeyinde olması gerektiğini söyledi. Nina, ekranın karşısındaki metal masada tek bir disk gördü. Üzerinde Leyla'nın el yazısıyla KAYNAK 1453 yazıyordu.
+[U29:10] “Dokunma,” dedim.
+[U29:11] “Ablamın yazısı.”
+[U29:12] “Tam da bu yüzden dokunma.”
+[U29:13] Sam gülümsedi. “Yanındaki adam artık doğru soruyu soruyor. Geç de olsa.”
+[U29:14] “Doğru soru ne?” dedi Nina.
+[U29:15] “Bu diskin neden burada olduğu.”
+[U29:16] Nina diske yaklaşmadı. Telefonunu masaya doğru tuttu, seri numarasını ve kapağın çiziklerini kaydetti. Sonra acil çıkışa yürüdü. Kapı açılmadı.
+[U29:17] “Kartımı mı okutayım?” diye sordu.
+[U29:18] “Kart değil,” dedi Lara kulaklıktan.
+[U29:19] Sesini duyunca öfkelendim.
+[U29:20] “Lara, bu hatta ne işin var?”
+[U29:21] “Bir dakika.”
+[U29:22] Bekledik. Tarek, Nina'dan telefonu kapı kolunun altındaki etikete çevirmesini istedi. Az önce bulduğu bakım sayfasında aynı serinin acil çıkış düzeneği de vardı. Etiketteki son iki harfi büyüttü, doğru modele ait şemayı açtı.
+[U29:23] “Kart okuyucu giriş için,” dedi. “Çıkış mekanik. Kolu tam indiremiyorsun; kapı kanadı kasaya yük bindirmiş olabilir. Önce kanadı kendine doğru biraz çek, sonra kolu indir.”
+[U29:24] “Lara, sen bunu sesten mi anladın?” diye sordum.
+[U29:25] “Buradayım.”
+[U29:26] Soruma cevap saydım. Korkarken insan yanındaki sesin mantığını değil, varlığını kontrol ediyordu.
+[U29:27] Nina telefonu cebine koydu. İki eliyle kapıyı kendine çekti; içeride metal sürtündü. Kolu yeniden bastığında bu kez sonuna kadar indi.
+[U29:28] Kapı açıldı.
+[U29:29]     | TOPLAYICI: Lara önce duydu.
+[U29:30]     | MUHASEBECİ: Ve sen onu korumak isterken bilgisiz bıraktın.
+[U29:31]     | AVCI: Şimdi çıkmalarını sağla. Sonra suçluluk duyarsın.
+[U29:32] Nina merdivenlerden inerken Sam'in sesi kattaki hoparlörlerden geldi.
+[U29:33] “Diski almadığın için kazandığını sanıyorsun.”
+[U29:34] “Bugünlük yeter,” dedi Nina.
+[U29:35] “Onu zaten üç hafta önce aldın.”
+[U29:36] Nina durdu.
+[U29:37] Ben de nefesimi tuttum.
+[U29:38] Sam, Nina'nın telefonuna bir güvenlik kaydı gönderdi. Açılan görüntüde Nina, başka bir gece aynı metal masanın başında duruyor, KAYNAK 1453 yazılı diski çantasına koyuyordu.
+[U29:39] Tarih, Leyla'nın ölümünün öğrenildiği günden iki gün sonraydı.
+[U29:40] Görüntünün devamında Nina, binanın arka çıkışında Sam'le buluşuyor ve diski ona veriyordu.
+[U29:41] “Bu montaj,” dedim.
+[U29:42] Nina hemen cevap vermedi.
+[U29:43] “Tamamı değil,” dedi sonunda.
+[U29:44] “Hangi kısmı?”
+[U29:45] “Diski aldım.”
+[U29:46] “Sam'e verdin mi?”
+[U29:47] Nina'nın ayak sesleri kesildi.
+[U29:48] “Evet.”
+[U29:49] Aynı anda Sara aradı; koridorun öbür ucundan, Lara'nın odasından. Sesi nefessizdi.
+[U29:50] “Lara evde değil.”
+[U29:51] “Az önce benimle konuşuyordu.”
+[U29:52] “Odasından. Öyle sandım. Telefonu yatağında, kulaklığı bilgisayara bağlı. Biri önceden kaydettiği sesini hatta vermiş.”
+[U29:53] Saatime baktım.
+[U29:54] 14.53.
+[U29:55] Sara bir fotoğraf gönderdi. Lara'nın boş sandalyesinde beyaz bir tüy ve kırmızı defterim duruyordu.
+[U29:56] Defterin üstündeki not benim el yazımlaydı:
+[U29:57]     | Kızımı bulmak istiyorsam önce ona neden yalan söylediğimi hatırlamalıyım.
 [IL3:0] ~~~ ARA BÖLÜM (Tuncay'ın metni, değiştirilmez): ÜÇÜNCÜ GÖZ
 [IL3:1] ~~ IV. Büyünün Gerçek Adı
 [IL3:2] ~ Bir zamanlar insanlar büyüden korkardı.
@@ -696,7 +695,7 @@
 [IL3:146] ~ Kimsenin mahremiyeti kalmamıştı.
 [IL3:147] ~ Fakat hikâye burada bitmiyordu.
 [IL3:148] ~ Çünkü Mehdi'nin kendisinin bile bilmediği çok daha eski bir sır vardı.
-[U29:59] === DÖRDÜNCÜ PERDE — FETİH
+[U29:58] === DÖRDÜNCÜ PERDE — FETİH
 [U30:0] # 34. Unutulmuş Dükkânın Anahtarı
 [U30:1] Kırmızı defterin Lara'nın sandalyesinde durması, onu götüren kişinin defteri artık saklamaya ihtiyaç duymadığını gösteriyordu.
 [U30:2] Ya da Lara'yı kimse götürmemişti.
@@ -891,7 +890,7 @@
 [U32:38] “Kaynağı aç demedim. Ablanı ara dedim.”
 [U32:39] Elindeki telefonu masaya koydu. Ekrandaki mesajı kapatmadı.
 [U32:40] “Evet,” dedi. “Arayabilirdim. Yanına da gidebilirdim. On dokuz kişiyi korumak zorundaydım. Bu, yirminciyi eksik uyarmamı gerektirmiyordu.”
-[U32:41] Öfkem haklıydı. Ama haklı öfke, her vurduğu yeri haklı yapmaz. Nina bir karar vermiş, kararın bedeli korkunç olmuştu. Bu, onun Leyla'yı öldürdüğü anlamına gelmiyordu. Yine de benden gerçeği saklamıştı.
+[U32:41] Öfkem haklıydı, ama nereye vurduğunu seçmiyordu. Nina bir karar vermiş, kararın bedeli korkunç olmuştu. Bu, onun Leyla'yı öldürdüğü anlamına gelmiyordu. Yine de benden gerçeği saklamıştı.
 [U32:42] “Sana güvenemiyorum,” dedim.
 [U32:43] “Anlıyorum.”
 [U32:44] “Hayır. Şimdilik güvenemiyorum. Bu aynı şey değil.”
