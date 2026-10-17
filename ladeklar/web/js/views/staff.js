@@ -121,7 +121,8 @@ function livePage(app) {
           ${d.vehicles.due.map((v) => `<div class="banner ${v.due.some((x) => x.overdue) ? 'bad' : ''}">${icon('calendar-clock')}<span class="grow">${plate(v.plate)} ${v.due.map((x) => `${x.kind === 'huDue' ? 'HU' : 'SP'} ${x.overdue ? t('überfällig seit') : t('fällig am')} ${esc(x.date.split('-').reverse().join('.'))}`).join(' · ')}</span></div>`).join('')}</section>
       </div></div>`;
 }
-const greeting = (name) => { const h = Number(new Intl.DateTimeFormat('de-DE', { hour: 'numeric', hourCycle: 'h23', timeZone: 'Europe/Berlin' }).format(Date.now())); return h < 11 ? t('Guten Morgen, {name}', { name }) : h < 17 ? t('Guten Tag, {name}', { name }) : t('Guten Abend, {name}', { name }); };
+// hour of the day in Berlin (en-GB parts: de-DE would format the hour as '07 Uhr')
+const greeting = (name) => { const h = Number(new Intl.DateTimeFormat('en-GB', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Berlin' }).formatToParts(Date.now()).find((x) => x.type === 'hour').value); return h < 11 ? t('Guten Morgen, {name}', { name }) : h < 17 ? t('Guten Tag, {name}', { name }) : t('Guten Abend, {name}', { name }); };
 
 // ---------- deliveries ----------
 function deliveriesPage(app) {

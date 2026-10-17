@@ -124,7 +124,7 @@ await o.click('[data-act=newDelivery] >> nth=0'); await o.fill('#dForm [name="pi
 await o.click('.suggest .menu button >> nth=0'); await o.fill('#dForm [name="dropoff.city"]', 'Hamburg'); await o.fill('#dForm [name="goods.text"]', 'Ersatzteile'); await o.fill('#dForm [name="goods.pallets"]', '20');
 await o.click('button[form=dForm]'); await o.waitForSelector('[data-key=delivery]'); await shot(o, 'buero-10-lieferung-angelegt'); await o.keyboard.press('Escape');
 await o.click('.rail [data-to=drivers]'); await o.waitForSelector('[data-key^="u-"]'); await shot(o, 'buero-11-fahrer');
-await o.click('[data-act=resetPin] >> nth=0'); await o.waitForSelector('.qr'); await shot(o, 'buero-12-fahrer-einladung'); await o.keyboard.press('Escape');
+await o.click('[data-act=resetPin] >> nth=-1'); await o.waitForSelector('.qr'); await shot(o, 'buero-12-fahrer-einladung'); await o.keyboard.press('Escape');
 await o.click('[data-act=newDriver] >> nth=0'); await shot(o, 'buero-13-fahrer-anlegen'); await o.keyboard.press('Escape');
 await o.click('.rail [data-to=vehicles]'); await o.waitForSelector('[data-key^="v-"]'); await shot(o, 'buero-14-fahrzeuge');
 await o.click('[data-act=newVehicle] >> nth=0'); await shot(o, 'buero-15-fahrzeug-anlegen'); await o.keyboard.press('Escape');
@@ -141,7 +141,13 @@ await office(tb, 'jonas@kaya-logistik.de'); await shot(tb, 'tablet-01-dispositio
 const tbd = await ctx({ width: 1180, height: 820 }, true);
 await tbd.goto(BASE + '/t/KAYA'); await tbd.fill('form[data-form=driver] [name=phone]', '0176 1000 0001');
 for (const k of '123456') await tbd.tap(`[data-act=pinKey][data-k="${k}"]`);
-await tbd.waitForSelector('.drv'); await shot(tbd, 'tablet-02-fahrerhaus');
+// the server allows 20 logins per minute and address – this script signs in often, so wait once if needed
+if (!(await tbd.waitForSelector('.drv', { timeout: 8000 }).catch(() => null))) {
+  await wait(61000); await tbd.goto(BASE + '/t/KAYA'); await tbd.fill('form[data-form=driver] [name=phone]', '0176 1000 0001');
+  for (const k of '123456') await tbd.tap(`[data-act=pinKey][data-k="${k}"]`);
+  await tbd.waitForSelector('.drv');
+}
+await shot(tbd, 'tablet-02-fahrerhaus');
 
 // ---------- licensor ----------
 const l = await ctx({ width: 1440, height: 900 });
@@ -163,7 +169,11 @@ if (process.argv.includes('--langs') || ONLY) {
   const p = await ctx({ width: 390, height: 844 }, true);
   await p.goto(BASE + '/t/KAYA'); await p.fill('form[data-form=driver] [name=phone]', '0176 1000 0001');
   for (const k of '123456') await p.tap(`[data-act=pinKey][data-k="${k}"]`);
-  await p.waitForSelector('.drv');
+  if (!(await p.waitForSelector('.drv', { timeout: 8000 }).catch(() => null))) {
+    await wait(61000); await p.goto(BASE + '/t/KAYA'); await p.fill('form[data-form=driver] [name=phone]', '0176 1000 0001');
+    for (const k of '123456') await p.tap(`[data-act=pinKey][data-k="${k}"]`);
+    await p.waitForSelector('.drv');
+  }
   for (const lang of ['de', 'en', 'pl', 'ro', 'cs', 'tr', 'ru', 'uk']) {
     await ui(p, (l) => window.ladeklar.setLang(l), lang);
     await ui(p, () => document.querySelector('.drv-main').scrollTo(0, 0));
