@@ -753,4 +753,11 @@ export default {
   "Kein Lizenzgeber-Zugang mit dieser E-Mail.": "Niciun cont de licențiator cu acest e-mail.",
   "Lizenznehmer nicht gefunden.": "Licențiatul nu a fost găsit.",
   "Löschen ist erst nach der Kündigung möglich.": "Ștergerea este posibilă doar după reziliere.",
+  "Ihr Tarif „{plan}“ umfasst {max} Fahrer. Für weitere Fahrer bitte Tarif erweitern.": "Planul „{plan}” include {max} șoferi. Pentru mai mulți șoferi, vă rugăm să extindeți planul.",
+  "Ihr Tarif „{plan}“ umfasst {max} Büro-Zugänge plus Admin.": "Planul „{plan}” include {max} conturi de birou plus administratorul.",
+  "Das Kennzeichen {plate} ist schon angelegt.": "Numărul de înmatriculare {plate} există deja.",
+  "Ihr Tarif „{plan}“ umfasst {max} Fahrzeuge.": "Planul „{plan}” include {max} vehicule.",
+  "{plate} ist in der Werkstatt.": "{plate} este în service.",
+  "{plate} fährt gerade {name}.": "{plate} este condus acum de {name}.",
+  "Unbekannte Anfrage.": "Solicitare necunoscută.",
 };

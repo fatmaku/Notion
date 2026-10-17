@@ -130,7 +130,7 @@ So sehen Sie eine Anfrage:
 
 Eine Kündigungsanfrage verschwindet, sobald der Status „Gekündigt“ ist. Ein Tarifwunsch verschwindet, sobald Sie den Tarif ändern. Die Anfragen stehen auch im Protokoll des Kunden.
 
-> **Wichtig:** Ablehnen oder als erledigt markieren können Sie eine Anfrage in der Konsole nicht. Klären Sie sie mit dem Kunden. Ein Kündigungswunsch bleibt sichtbar, bis der Status „Gekündigt“ ist. Setzen Sie nur **Laufzeit bis**, bleibt der Hinweis auch nach dem Vertragsende stehen, bis Sie **Kündigen** klicken.
+Haben Sie eine Anfrage anders geklärt (zum Beispiel am Telefon oder mit **Laufzeit bis** zum Vertragsende), klicken Sie im Hinweis auf **Anfrage erledigt**. Der Hinweis verschwindet, Tarif und Status bleiben unverändert. Auch das steht im Protokoll des Kunden.
 
 ---
 
@@ -216,7 +216,7 @@ Ist die Laufzeit vorbei, steht im Bereich **Status** „Die Laufzeit endete am �
 Wählen Sie einen kleineren Tarif und klicken auf **Lizenz speichern**, fragt die Konsole zuerst nach: „Tarif auf … verkleinern?“ mit den neuen Grenzen („Ab sofort gelten die Grenzen von …: … Fahrer, … Fahrzeuge, … GB Speicher.“). Fallen eigene Domains oder die Store-App weg, steht das dabei („Eigene Domains werden entfernt.“, „Die White-Label-App im Store entfällt.“).
 
 1. Klicken Sie auf **Tarif ändern**, um fortzufahren, oder auf **Abbrechen**.
-2. Nutzt der Kunde mehr Fahrer, Fahrzeuge oder Büro-Zugänge, als der neue Tarif erlaubt, lehnt Ladeklar zunächst ab: „Der neue Tarif ist zu klein“ mit einer Liste wie „Fahrer: 6 in Nutzung, erlaubt 3“ und „Fahrzeuge: 10 in Nutzung, erlaubt 6“.
+2. Nutzt der Kunde mehr Fahrer, Fahrzeuge, Büro-Zugänge oder Speicher, als der neue Tarif erlaubt, lehnt Ladeklar zunächst ab: „Der neue Tarif ist zu klein“ mit einer Liste wie „Fahrer: 6 in Nutzung, erlaubt 3“ und „Fahrzeuge: 10 in Nutzung, erlaubt 6“.
 3. Klären Sie das am besten mit dem Kunden. Soll der Wechsel trotzdem sein, klicken Sie auf **Trotzdem ändern**.
 
 Nach **Trotzdem ändern** bleiben alle bestehenden Fahrer, Fahrzeuge und Büro-Zugänge erhalten. Der Kunde sieht auf den betroffenen Seiten einen roten Hinweis und kann keine neuen anlegen, bis er unter der Grenze liegt. Senken Sie nur **Zusätzliche Fahrer** unter die Zahl der aktiven Fahrer, erscheint gleich „Der neue Tarif ist zu klein“ mit **Trotzdem ändern**.

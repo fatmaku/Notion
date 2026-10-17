@@ -292,7 +292,7 @@ test('demo world: seededAt stamp, demo-local links, hashed API keys, invite toke
   for (const k of Object.keys(local)) local.removeItem(k);
   const w = createDemoWorld();
   assert.equal(w.refreshed, false);
-  const snap = JSON.parse(local.getItem('ladeklar.demo.v2'));
+  const snap = JSON.parse(local.getItem('ladeklar.demo.v4'));
   assert.ok(Math.abs(snap.seededAt - Date.now()) < 60e3, 'seededAt written with the first save');
   const api = w.client('main');
   assert.equal(api.tenantLink('KAYA'), 'https://demo.test/ladeklar/demo.html#t/KAYA');
@@ -324,7 +324,7 @@ test('demo world: seededAt stamp, demo-local links, hashed API keys, invite toke
 test('demo world older than 12 hours (or without seededAt) is seeded again; a younger one is kept', async () => {
   for (const k of Object.keys(local)) local.removeItem(k);
   createDemoWorld();
-  const KEY = 'ladeklar.demo.v2';
+  const KEY = 'ladeklar.demo.v4';
   const mark = (fn) => { const s = JSON.parse(local.getItem(KEY)); fn(s); local.setItem(KEY, JSON.stringify(s)); };
   // 11 h old, with a visitor's change: kept
   mark((s) => { s.seededAt = Date.now() - 11 * 3600e3; s.tenants[0].name = 'GEÄNDERT'; });

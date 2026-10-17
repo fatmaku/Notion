@@ -93,7 +93,9 @@ export function createApp(root, opts = {}) {
   };
   app.try = async (fn) => { try { return await fn(); } catch { return null; } };
   // engine/server messages stay German and stable – the dictionaries translate them (C8)
-  app.error = (e) => app.toast({ title: e?.message ? t(e.message) : t('Das hat nicht geklappt.'), plain: true, err: true, icon: 'circle-alert' });
+  // templated messages (e.g. '{plate} fährt gerade {name}.') carry their key and values in details
+  app.errText = (e) => (e?.details?.tkey ? t(e.details.tkey, e.details.params || {}) : e?.message ? t(e.message) : t('Das hat nicht geklappt.'));
+  app.error = (e) => app.toast({ title: app.errText(e), plain: true, err: true, icon: 'circle-alert' });
   app.fileUrl = (id) => app.api.fileUrl(id, app.me?.user);
 
   // ---------- toasts ----------
@@ -166,7 +168,7 @@ export function createApp(root, opts = {}) {
       app.refresh(60);
     } else if (e.type === 'queue-error') {
       const what = app.view().queueLabel?.(app, e.item);
-      app.toast({ title: what ? t('Nicht gesendet: {s}', { s: what }) : t('Ein gespeicherter Schritt wurde abgelehnt: {m}', { m: t(e.error.message) }), body: what ? t(e.error.message) : '', plain: true, err: true, icon: 'circle-alert', ms: 9000 });
+      app.toast({ title: what ? t('Nicht gesendet: {s}', { s: what }) : t('Ein gespeicherter Schritt wurde abgelehnt: {m}', { m: app.errText(e.error) }), body: what ? app.errText(e.error) : '', plain: true, err: true, icon: 'circle-alert', ms: 9000 });
       app.refresh();
     } else if (e.type === 'session') { app.me = { ...app.me, ...e.me }; app.refresh(); }
     else if (e.type === 'auth') app.signedOut(e.queued ? t('Bitte neu anmelden. Gespeicherte Schritte werden danach gesendet.') : t('Bitte anmelden.'));

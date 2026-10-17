@@ -69,6 +69,11 @@ export const NOTIFY_TEXT = {
     note: ['Notiz von {from}', '{no}: {text}'],
     returned: ['Auftrag zurückgegeben', '{driver} · {no}: {text}'],
     undo: ['Schritt zurückgenommen', '{driver} · {no}: wieder „{status}“'],
+    lockout: ['Zugang gesperrt: {name}', 'Zu viele falsche Anmeldeversuche. Gesperrt für 24 Stunden – neuer PIN bzw. neues Passwort hebt die Sperre auf.'],
+    storage80: ['Speicher zu 80 % belegt', 'Bitte alte Lieferscheine exportieren und löschen oder den Tarif wechseln.'],
+    storage100: ['Speicher voll', 'Neue Fotos und Lieferscheine können nicht mehr hochgeladen werden. Bitte alte Lieferscheine exportieren und löschen oder den Tarif wechseln.'],
+    cancelRequest: ['Kündigungswunsch: {name}', '{name} ({code}) möchte kündigen.{reason}'],
+    planRequest: ['Tarifwunsch: {name}', '{name} ({code}) möchte in den Tarif {plan} wechseln.{note}'],
   },
   en: {
     assigned: ['New job {no}', '{route} · loading {date} – please confirm.'],
@@ -83,6 +88,11 @@ export const NOTIFY_TEXT = {
     note: ['Note from {from}', '{no}: {text}'],
     returned: ['Job returned', '{driver} · {no}: {text}'],
     undo: ['Step undone', '{driver} · {no}: back to “{status}”'],
+    lockout: ['Login locked: {name}', 'Too many failed sign-in attempts. Locked for 24 hours – a new PIN or password lifts the lock.'],
+    storage80: ['Storage 80 % full', 'Please export and delete old delivery notes or change your plan.'],
+    storage100: ['Storage full', 'New photos and delivery notes can no longer be uploaded. Please export and delete old delivery notes or change your plan.'],
+    cancelRequest: ['Cancellation request: {name}', '{name} ({code}) wants to cancel.{reason}'],
+    planRequest: ['Plan request: {name}', '{name} ({code}) wants to switch to the {plan} plan.{note}'],
   },
   pl: {
     assigned: ['Nowe zlecenie {no}', '{route} · załadunek {date} – potwierdź.'],
@@ -97,6 +107,9 @@ export const NOTIFY_TEXT = {
     note: ['Notatka od {from}', '{no}: {text}'],
     returned: ['Zlecenie zwrócone', '{driver} · {no}: {text}'],
     undo: ['Krok cofnięty', '{driver} · {no}: znów „{status}”'],
+    lockout: ['Dostęp zablokowany: {name}', 'Zbyt wiele nieudanych prób logowania. Blokada na 24 godziny – nowy PIN lub nowe hasło ją znosi.'],
+    storage80: ['Pamięć zajęta w 80 %', 'Proszę wyeksportować i usunąć stare WZ albo zmienić pakiet.'],
+    storage100: ['Pamięć pełna', 'Nie można już przesyłać nowych zdjęć ani WZ. Proszę wyeksportować i usunąć stare WZ albo zmienić pakiet.'],
   },
   ro: {
     assigned: ['Comandă nouă {no}', '{route} · încărcare {date} – te rog confirmă.'],
@@ -111,6 +124,9 @@ export const NOTIFY_TEXT = {
     note: ['Notă de la {from}', '{no}: {text}'],
     returned: ['Comandă returnată', '{driver} · {no}: {text}'],
     undo: ['Pas anulat', '{driver} · {no}: din nou „{status}”'],
+    lockout: ['Acces blocat: {name}', 'Prea multe încercări greșite de autentificare. Blocat 24 de ore – un PIN nou sau o parolă nouă ridică blocarea.'],
+    storage80: ['Spațiu de stocare ocupat 80 %', 'Vă rugăm să exportați și să ștergeți avizele vechi sau să schimbați planul.'],
+    storage100: ['Spațiu de stocare plin', 'Nu se mai pot încărca fotografii și avize noi. Vă rugăm să exportați și să ștergeți avizele vechi sau să schimbați planul.'],
   },
   cs: {
     assigned: ['Nová zakázka {no}', '{route} · nakládka {date} – prosím potvrďte.'],
@@ -125,6 +141,9 @@ export const NOTIFY_TEXT = {
     note: ['Poznámka od {from}', '{no}: {text}'],
     returned: ['Zakázka vrácena', '{driver} · {no}: {text}'],
     undo: ['Krok vrácen', '{driver} · {no}: opět „{status}“'],
+    lockout: ['Přístup zablokován: {name}', 'Příliš mnoho chybných pokusů o přihlášení. Blokace na 24 hodin – nový PIN nebo nové heslo ji zruší.'],
+    storage80: ['Úložiště z 80 % plné', 'Prosím exportujte a smažte staré dodací listy nebo změňte tarif.'],
+    storage100: ['Úložiště plné', 'Nové fotky a dodací listy už nelze nahrát. Prosím exportujte a smažte staré dodací listy nebo změňte tarif.'],
   },
   tr: {
     assigned: ['Yeni sipariş {no}', '{route} · yükleme {date} – lütfen onayla.'],
@@ -139,6 +158,11 @@ export const NOTIFY_TEXT = {
     note: ['{from} notu', '{no}: {text}'],
     returned: ['Sipariş geri verildi', '{driver} · {no}: {text}'],
     undo: ['Adım geri alındı', '{driver} · {no}: tekrar „{status}“'],
+    lockout: ['Erişim kilitlendi: {name}', 'Çok fazla hatalı giriş denemesi. 24 saat kilitli – yeni PIN veya yeni şifre kilidi kaldırır.'],
+    storage80: ['Depolama %80 dolu', 'Lütfen eski irsaliyeleri dışa aktarıp silin veya paketinizi değiştirin.'],
+    storage100: ['Depolama dolu', 'Yeni fotoğraf ve irsaliye yüklenemiyor. Lütfen eski irsaliyeleri dışa aktarıp silin veya paketinizi değiştirin.'],
+    cancelRequest: ['İptal talebi: {name}', '{name} ({code}) sözleşmeyi feshetmek istiyor.{reason}'],
+    planRequest: ['Paket talebi: {name}', '{name} ({code}) {plan} paketine geçmek istiyor.{note}'],
   },
   ru: {
     assigned: ['Новый заказ {no}', '{route} · погрузка {date} – подтвердите.'],
@@ -153,6 +177,9 @@ export const NOTIFY_TEXT = {
     note: ['Заметка от {from}', '{no}: {text}'],
     returned: ['Заказ возвращён', '{driver} · {no}: {text}'],
     undo: ['Шаг отменён', '{driver} · {no}: снова «{status}»'],
+    lockout: ['Доступ заблокирован: {name}', 'Слишком много неудачных попыток входа. Блокировка на 24 часа – новый PIN или новый пароль снимает её.'],
+    storage80: ['Хранилище заполнено на 80 %', 'Пожалуйста, экспортируйте и удалите старые накладные или смените тариф.'],
+    storage100: ['Хранилище заполнено', 'Новые фото и накладные больше нельзя загрузить. Пожалуйста, экспортируйте и удалите старые накладные или смените тариф.'],
   },
   uk: {
     assigned: ['Нове замовлення {no}', '{route} · завантаження {date} – підтвердіть.'],
@@ -167,6 +194,9 @@ export const NOTIFY_TEXT = {
     note: ['Нотатка від {from}', '{no}: {text}'],
     returned: ['Замовлення повернуто', '{driver} · {no}: {text}'],
     undo: ['Крок скасовано', '{driver} · {no}: знову «{status}»'],
+    lockout: ['Доступ заблоковано: {name}', 'Забагато невдалих спроб входу. Блокування на 24 години – новий PIN або новий пароль знімає його.'],
+    storage80: ['Сховище заповнене на 80 %', 'Будь ласка, експортуйте й видаліть старі накладні або змініть тариф.'],
+    storage100: ['Сховище заповнене', 'Нові фото й накладні більше не можна завантажити. Будь ласка, експортуйте й видаліть старі накладні або змініть тариф.'],
   },
 };
 

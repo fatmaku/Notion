@@ -753,4 +753,11 @@ export default {
   "Kein Lizenzgeber-Zugang mit dieser E-Mail.": "S tímto e-mailem neexistuje přístup poskytovatele licence.",
   "Lizenznehmer nicht gefunden.": "Držitel licence nebyl nalezen.",
   "Löschen ist erst nach der Kündigung möglich.": "Smazání je možné až po výpovědi.",
+  "Ihr Tarif „{plan}“ umfasst {max} Fahrer. Für weitere Fahrer bitte Tarif erweitern.": "Tarif „{plan}“ zahrnuje {max} řidičů. Pro další řidiče prosím tarif rozšiřte.",
+  "Ihr Tarif „{plan}“ umfasst {max} Büro-Zugänge plus Admin.": "Tarif „{plan}“ zahrnuje {max} přístupy pro kancelář a k tomu admina.",
+  "Das Kennzeichen {plate} ist schon angelegt.": "SPZ {plate} už je založená.",
+  "Ihr Tarif „{plan}“ umfasst {max} Fahrzeuge.": "Tarif „{plan}“ zahrnuje {max} vozidel.",
+  "{plate} ist in der Werkstatt.": "{plate} je v servisu.",
+  "{plate} fährt gerade {name}.": "{plate} právě řídí {name}.",
+  "Unbekannte Anfrage.": "Neznámý požadavek.",
 };

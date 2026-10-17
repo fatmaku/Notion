@@ -68,15 +68,6 @@ const NOTIFY_KEEP = 100;
 const OP_KEEP_MS = 7 * 864e5; // idempotency records (C1)
 const INVITE_MS = 14 * 864e5;
 const GiB = 2 ** 30;
-// Notification templates of the account features (German; recipients are office admins and the
-// licensor). texts.js has the translated delivery templates; these are used when it has none.
-const ACCOUNT_TEXT = {
-  lockout: ['Zugang gesperrt: {name}', 'Zu viele falsche Anmeldeversuche. Gesperrt für 24 Stunden – neuer PIN bzw. neues Passwort hebt die Sperre auf.'],
-  storage80: ['Speicher zu 80 % belegt', 'Bitte alte Lieferscheine exportieren und löschen oder den Tarif wechseln.'],
-  storage100: ['Speicher voll', 'Neue Fotos und Lieferscheine können nicht mehr hochgeladen werden. Bitte alte Lieferscheine exportieren und löschen oder den Tarif wechseln.'],
-  cancelRequest: ['Kündigungswunsch: {name}', '{name} ({code}) möchte kündigen.{reason}'],
-  planRequest: ['Tarifwunsch: {name}', '{name} ({code}) möchte in den Tarif {plan} wechseln.{note}'],
-};
 
 export class EngineError extends Error {
   constructor(code, message, status = 400, details) {
@@ -87,6 +78,9 @@ export class EngineError extends Error {
   }
 }
 const fail = (code, message, status = 400, details) => { throw new EngineError(code, message, status, details); };
+// fail with a translatable template: the client shows t(details.tkey, details.params), logs keep the filled German text
+const fillT = (tpl, p = {}) => tpl.replace(/\{(\w+)\}/g, (m, k) => (k in p ? String(p[k]) : m));
+const failT = (code, tkey, params, status = 400, details = {}) => fail(code, fillT(tkey, params), status, { ...details, tkey, params });
 
 // ---------- small helpers ----------
 const clone = (o) => (o == null ? o : JSON.parse(JSON.stringify(o)));
@@ -255,7 +249,7 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
       const u = store.get('users', uid);
       if (!u || !u.active) continue;
       const lang = pickLang(u.lang);
-      const tpl = (NOTIFY_TEXT[lang] || NOTIFY_TEXT.de)[type] || NOTIFY_TEXT.de[type] || ACCOUNT_TEXT[type];
+      const tpl = (NOTIFY_TEXT[lang] || NOTIFY_TEXT.de)[type] || NOTIFY_TEXT.de[type];
       const p = { ...params };
       if (params.status) p.status = statusText(lang, params.status);
       if (params.problem) p.problem = problemText(lang, params.problem);
@@ -428,9 +422,9 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     const p = planOf(t);
     if (role === 'driver') {
       const max = driverSeats(t);
-      if (users.filter((u) => u.role === 'driver').length >= max) fail('seat_limit', `Ihr Tarif „${p.name}“ umfasst ${max} Fahrer. Für weitere Fahrer bitte Tarif erweitern.`, 409, { max });
+      if (users.filter((u) => u.role === 'driver').length >= max) failT('seat_limit', 'Ihr Tarif „{plan}“ umfasst {max} Fahrer. Für weitere Fahrer bitte Tarif erweitern.', { plan: p.name, max }, 409, { max });
     } else if (p.staff != null && users.filter((u) => u.role !== 'driver').length >= p.staff + 1) {
-      fail('seat_limit', `Ihr Tarif „${p.name}“ umfasst ${p.staff} Disponenten-Zugang/Zugänge plus Admin.`, 409, { max: p.staff });
+      failT('seat_limit', 'Ihr Tarif „{plan}“ umfasst {max} Büro-Zugänge plus Admin.', { plan: p.name, max: p.staff }, 409, { max: p.staff });
     }
   }
 
@@ -804,12 +798,15 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     // a smaller plan must fit the drivers, vehicles and office accounts in use – or is forced on purpose;
     // then new drivers/vehicles are refused until the numbers fit again
     const lim = limitsOf(t), old = limitsOf(before);
-    if (!bool(force) && ['drivers', 'vehicles', 'staff'].some((k) => lim[k] != null && (old[k] == null || lim[k] < old[k]))) {
+    const shrinks = ['drivers', 'vehicles', 'staff'].some((k) => lim[k] != null && (old[k] == null || lim[k] < old[k])) || storageLimit(t) < storageLimit(before);
+    if (!bool(force) && shrinks) {
       const u = usage(t), over = [];
+      // the files in use must fit too – otherwise every delivery-note upload would be refused afterwards
+      if (storageOf(t) > storageLimit(t)) over.push(`${(storageOf(t) / GiB).toLocaleString('de-DE', { maximumFractionDigits: 1 })} GB Speicher (erlaubt ${planOf(t).storageGB} GB)`);
       if (u.drivers > lim.drivers) over.push(`${u.drivers} Fahrer (erlaubt ${lim.drivers})`);
       if (lim.vehicles != null && u.vehicles > lim.vehicles) over.push(`${u.vehicles} Fahrzeuge (erlaubt ${lim.vehicles})`);
       if (lim.staff != null && u.staff > lim.staff) over.push(`${u.staff} Büro-Zugänge (erlaubt ${lim.staff})`);
-      if (over.length) fail('over_limit', `Der neue Tarif ist zu klein: ${over.join(', ')}.`, 409, { drivers: u.drivers, vehicles: u.vehicles, staff: u.staff, limits: lim });
+      if (over.length) fail('over_limit', `Der neue Tarif ist zu klein: ${over.join(', ')}.`, 409, { drivers: u.drivers, vehicles: u.vehicles, staff: u.staff, storageUsed: storageOf(t), storageLimit: storageLimit(t), limits: lim });
     }
     if (t.plan !== before.plan) t.planRequest = null;
     pushHistory(t);
@@ -1036,6 +1033,19 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     return { planRequest: t.planRequest };
   });
 
+  // the licensor closes a customer request without changing plan or status (e.g. after a phone call)
+  def('closeRequest', ['platform'], (a, { id, kind } = {}) => {
+    const t = clone(getT(str(id, 64)));
+    if (!t) fail('not_found', 'Lizenznehmer nicht gefunden.', 404);
+    if (kind === 'cancel') { t.cancelRequestedAt = null; t.cancelReason = null; }
+    else if (kind === 'plan') t.planRequest = null;
+    else fail('invalid', 'Unbekannte Anfrage.');
+    store.put('tenants', t);
+    audit(a, 'tenant.request_closed', t.id, { kind });
+    changed('tenants', t);
+    return { ok: true };
+  });
+
   def('exportData', ['admin'], (a) => {
     const t = tenantOf(a);
     const by = (col) => store.find(col, { tenantId: t.id });
@@ -1212,7 +1222,7 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     if ('kind' in p) v.kind = p.kind === 'trailer' ? 'trailer' : 'truck';
     if ('plate' in p) v.plate = normPlate(p.plate);
     if (!v.plate || v.plate.length < 3) fail('invalid', 'Bitte das Kennzeichen angeben.', 400, { fields: ['plate'] });
-    if (store.find('vehicles', { tenantId: t.id }).some((x) => x.active !== false && x.plate === v.plate && x.id !== v.id)) fail('conflict', `Das Kennzeichen ${v.plate} ist schon angelegt.`, 409, { fields: ['plate'] });
+    if (store.find('vehicles', { tenantId: t.id }).some((x) => x.active !== false && x.plate === v.plate && x.id !== v.id)) failT('conflict', 'Das Kennzeichen {plate} ist schon angelegt.', { plate: v.plate }, 409, { fields: ['plate'] });
     if ('type' in p) v.type = VEHICLE_TYPES[v.kind || 'truck'].includes(p.type) ? p.type : VEHICLE_TYPES[v.kind || 'truck'][0];
     if (!v.type) v.type = VEHICLE_TYPES[v.kind || 'truck'][0];
     if ('name' in p) v.name = str(p.name, 40);
@@ -1236,7 +1246,7 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
   def('createVehicle', STAFF, (a, p) => {
     const t = tenantOf(a);
     const max = planOf(t).vehicles;
-    if (max != null && store.find('vehicles', { tenantId: t.id }).filter((v) => v.active !== false).length >= max) fail('seat_limit', `Ihr Tarif „${planOf(t).name}“ umfasst ${max} Fahrzeuge.`, 409, { max });
+    if (max != null && store.find('vehicles', { tenantId: t.id }).filter((v) => v.active !== false).length >= max) failT('seat_limit', 'Ihr Tarif „{plan}“ umfasst {max} Fahrzeuge.', { plan: planOf(t).name, max }, 409, { max });
     const v = vehicleInput({ id: newId(), tenantId: t.id, kind: p.kind === 'trailer' ? 'trailer' : 'truck', status: 'ok', driverId: null, features: [], active: true, createdAt: now() }, p, t);
     store.put('vehicles', v);
     audit(a, 'vehicle.create', v.id);
@@ -1298,8 +1308,8 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     const take = (id, kind) => {
       const v = clone(scoped('vehicles', id, a));
       if (v.active === false || v.kind !== kind) fail('invalid', 'Fahrzeug nicht verfügbar.');
-      if (v.status === 'workshop') fail('vehicle_busy', `${v.plate} ist in der Werkstatt.`, 409);
-      if (v.driverId && v.driverId !== me.id) fail('vehicle_busy', `${v.plate} fährt gerade ${userName(v.driverId).split(' ')[0]}.`, 409);
+      if (v.status === 'workshop') failT('vehicle_busy', '{plate} ist in der Werkstatt.', { plate: v.plate }, 409);
+      if (v.driverId && v.driverId !== me.id) failT('vehicle_busy', '{plate} fährt gerade {name}.', { plate: v.plate, name: userName(v.driverId).split(' ')[0] }, 409);
       return v;
     };
     const truck = vehicleId ? take(vehicleId, 'truck') : null;
@@ -1654,7 +1664,9 @@ export function createEngine({ store, now = () => Date.now(), newId, hash, onEve
     const e = [...(d.events || [])].reverse().find((x) => !x.undone && STATUSES.includes(x.type));
     // the 2 minutes run from the step's tap to the undo tap (both device times when plausible, C2)
     const ts = tapTime(d, at);
-    if (!e || e.by !== a.id || !e.from || ts - e.at > UNDO_MS) fail('undo_expired', 'Rückgängig ist nur 2 Minuten nach dem eigenen Schritt möglich.', 409);
+    // also bounded by the server receive time, so a forged device time cannot reopen a step days later
+    const rx = e ? (e.rx ?? e.at) : 0;
+    if (!e || e.by !== a.id || !e.from || ts - e.at > UNDO_MS || now() - rx > UNDO_MS + 60e3) fail('undo_expired', 'Rückgängig ist nur 2 Minuten nach dem eigenen Schritt möglich.', 409);
     e.undone = true;
     d.status = e.from;
     if (e.type === 'accepted') { newDriverReset(d); if (e.claimed) { d.driverId = null; d.openForAll = true; } }

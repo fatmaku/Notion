@@ -45,7 +45,7 @@ function callArgs(src, name) {
 // a message, not a code or a status word: has a blank or ends like a sentence
 const isMessage = (s) => /\s/.test(s.trim()) || /[.!?]$/.test(s);
 const engine = fs.readFileSync(path.join(repo, 'core/engine.js'), 'utf8');
-for (const fn of ['fail', 'loginRefused', 'new EngineError']) {
+for (const fn of ['fail', 'failT', 'loginRefused', 'new EngineError']) {
   for (const lit of callArgs(engine, fn.replace('new ', 'new\\s+'))) {
     // fail('code', '…'), loginRefused(u, meta, extra, 'code', '…'): the code comes first
     const msgs = lit.filter((x, i) => !(i === 0 && /^\w+$/.test(x))).filter(isMessage);

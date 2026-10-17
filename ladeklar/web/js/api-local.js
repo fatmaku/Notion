@@ -7,7 +7,7 @@ import { createMemStore } from '../../core/memstore.js';
 import { seedDemo, DEMO } from '../../core/seed.js';
 import { sha256 } from '../../core/sha256.js';
 
-const KEY = 'ladeklar.demo.v2';
+const KEY = 'ladeklar.demo.v4';
 const MAX_AGE = 12 * 3600e3; // an older demo world is seeded again, so "today's" tours and trial ends stay current
 const PERSIST = ['tenants', 'users', 'vehicles', 'deliveries', 'notifications', 'files', 'audit'];
 const storage = (() => { try { const s = window.localStorage; s.setItem('lk.t', '1'); s.removeItem('lk.t'); return s; } catch { return null; } })();

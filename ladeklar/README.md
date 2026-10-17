@@ -103,6 +103,7 @@ Anzahl der Tests und Ergebnisse: siehe `e2e/TESTBERICHT.md`.
 | `test/office-ui.test.js` | Büro: Formulare, Aufbewahrung, Lizenz-Seite, Exporte, Zwei-Faktor-Anmeldung, Einladungslink |
 | `test/licensor-demo.test.js` | Konsole und Online-Demo: Rückfragen, Abrechnung, Tarifverkleinerung, Kundenanfragen, Zwei-Faktor-Anmeldung |
 | `test/integration.test.js` | Zusammenspiel der Teile: Foto-Upload ohne Doppel nach Wiederholung, REST-API mit Seiten, deutsches Datum in Exporten, Übersetzungsliste |
+| `test/final.test.js` | Letzte Korrekturen: Speicher beim Tarifwechsel, Rückgängig nur kurz nach Eingang, Kundenanfragen schließen, übersetzbare Fehlermeldungen |
 
 ## Bauen
 

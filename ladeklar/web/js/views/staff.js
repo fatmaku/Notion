@@ -478,7 +478,7 @@ function deliveryFormSheet(app) {
       <div class="section-t">${icon('building-2')} ${t('Auftrag')}</div>
       <div class="fgrid"><label class="field"><span>${t('Auftraggeber')}</span><input class="input" name="customer" value="${esc(f.customer || '')}"></label><label class="field"><span>${t('Referenz des Kunden')}</span><input class="input" name="reference" value="${esc(f.reference || '')}"></label></div>
       <div class="section-t">${icon('users')} ${t('Fahrer & Fahrzeug')}</div>
-      <div class="fgrid" style="--cols:3"><label class="field"><span>${t('Fahrer')}</span><select class="input" name="driverId" ${f.locked ? 'disabled' : ''}><option value="">${S(app).driverTakesOpen ? t('— offen für alle Fahrer —') : t('— wartet auf Zuweisung —')}</option>${driverOptions(app, f.driverId, f.driverName, true)}</select>${f.locked ? `<span class="hint">${t('Nach dem Beladen bleibt der Fahrer.')}</span>` : ''}</label>
+      <div class="fgrid" style="--cols:3"><label class="field"><span>${t('Fahrer')}</span><select class="input" name="driverId" ${f.locked ? 'disabled' : ''}><option value="">${S(app).driverTakesOpen && (f.id ? f.openForAll : true) ? t('— offen für alle Fahrer —') : t('— wartet auf Zuweisung —')}</option>${driverOptions(app, f.driverId, f.driverName, true)}</select>${f.locked ? `<span class="hint">${t('Nach dem Beladen bleibt der Fahrer.')}</span>` : ''}</label>
         <label class="field"><span>${t('LKW (optional)')}</span><select class="input" name="vehicleId"><option value="">${t('Fahrer wählt selbst')}</option>${vehicleOptions(vs, 'truck', f.vehicleId, f.vehiclePlate, (v) => `${v.plate} · ${v.name || vehicleTypeText(v.type)}`)}</select></label>
         <label class="field"><span>${t('Auflieger (optional)')}</span><select class="input" name="trailerId"><option value="">—</option>${vehicleOptions(vs, 'trailer', f.trailerId, f.trailerPlate, (v) => `${v.plate} · ${vehicleTypeText(v.type)}`)}</select></label></div>
       <label class="field"><span>${t('Hinweise für den Fahrer')}</span><textarea class="input" name="instructions" rows="2" placeholder="${t('z. B. Gate B anmelden, Ladungssicherung, Rampe 12')}">${esc(f.instructions || '')}</textarea></label>
@@ -618,7 +618,7 @@ function fromDelivery(d, copy = false) {
     base.copyOf = d.id; base.driverId = ''; base.vehicleId = ''; base.trailerId = '';
     return base;
   }
-  return { ...base, id: d.id, bookingNo: d.bookingNo, done: ['delivered', 'cancelled'].includes(d.status), locked: ['loaded', 'arrived_dropoff', 'unloaded'].includes(d.status), driverName: d.driverName, vehiclePlate: d.vehiclePlate, trailerPlate: d.trailerPlate };
+  return { ...base, id: d.id, openForAll: !!d.openForAll, bookingNo: d.bookingNo, done: ['delivered', 'cancelled'].includes(d.status), locked: ['loaded', 'arrived_dropoff', 'unloaded'].includes(d.status), driverName: d.driverName, vehiclePlate: d.vehiclePlate, trailerPlate: d.trailerPlate };
 }
 let suggestTimer = 0;
 

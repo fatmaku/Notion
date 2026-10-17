@@ -231,8 +231,10 @@ function askBox(app, kinds, at = '') {
   if (a.kind === 'force') {
     // C15: the engine refused (over_limit) – show what does not fit and offer to change anyway
     const d = a.details || {}, lim = d.limits || {}, L = LIMIT_LABEL();
-    const rows = ['drivers', 'vehicles', 'staff'].filter((k) => lim[k] != null && d[k] > lim[k]).map((k) => `<li>${esc(t('{what}: {n} in Nutzung, erlaubt {max}', { what: L[k], n: d[k], max: lim[k] }))}</li>`).join('');
-    return box(t('Der neue Tarif ist zu klein'), esc(t('Trotzdem ändern? Bis die Zahlen passen, kann der Kunde keine neuen Zugänge und Fahrzeuge anlegen.')), t('Trotzdem ändern'), { extra: rows ? `<ul class="bill-rules small">${rows}</ul>` : '' });
+    const gb = (b) => (b / 2 ** 30).toLocaleString('de-DE', { maximumFractionDigits: 1 }) + ' GB';
+    const rows = ['drivers', 'vehicles', 'staff'].filter((k) => lim[k] != null && d[k] > lim[k]).map((k) => `<li>${esc(t('{what}: {n} in Nutzung, erlaubt {max}', { what: L[k], n: d[k], max: lim[k] }))}</li>`).join('')
+      + (d.storageLimit != null && d.storageUsed > d.storageLimit ? `<li>${esc(t('{what}: {n} in Nutzung, erlaubt {max}', { what: t('Speicher'), n: gb(d.storageUsed), max: gb(d.storageLimit) }))}</li>` : '');
+    return box(t('Der neue Tarif ist zu klein'), esc(t('Trotzdem ändern? Bis die Zahlen passen, kann der Kunde keine neuen Zugänge und Fahrzeuge anlegen; bei vollem Speicher auch keine neuen Fotos und Lieferscheine hochladen.')), t('Trotzdem ändern'), { extra: rows ? `<ul class="bill-rules small">${rows}</ul>` : '' });
   }
   return '';
 }
@@ -240,8 +242,8 @@ function askBox(app, kinds, at = '') {
 function requestBanners(app, x) {
   if (!x.cancelRequestedAt && !x.planRequest) return '';
   const pr = x.planRequest;
-  return `${x.cancelRequestedAt ? `<div class="banner bad" style="align-items:flex-start">${icon('mail')}<div class="grow stack" style="--gap:6px"><b>${t('Kündigungswunsch vom {d}', { d: esc(dateTime(x.cancelRequestedAt)) })}</b>${x.cancelReason ? `<span>${esc(t('Grund: {r}', { r: x.cancelReason }))}</span>` : ''}<span class="small muted">${t('Sofort kündigen oder zum Vertragsende „Laufzeit bis“ setzen.')}</span></div>${x.state !== 'cancelled' ? `<button class="btn btn-sm" data-act="ask" data-k="cancelled" data-at="req">${icon('ban')}${t('Kündigen')}</button>` : ''}</div>` : ''}
-    ${pr ? `<div class="banner info" style="align-items:flex-start">${icon('layers')}<div class="grow stack" style="--gap:6px"><b>${esc(t('Tarifwunsch: {p}', { p: planName(pr.plan) }))} · ${esc(dateTime(pr.at))}</b>${pr.note ? `<span>${esc(pr.note)}</span>` : ''}</div>${pr.plan !== x.plan ? `<button class="btn btn-sm btn-primary" data-act="applyPlanRequest">${t('Tarif {p} übernehmen', { p: esc(planName(pr.plan)) })}</button>` : ''}</div>` : ''}
+  return `${x.cancelRequestedAt ? `<div class="banner bad" style="align-items:flex-start">${icon('mail')}<div class="grow stack" style="--gap:6px"><b>${t('Kündigungswunsch vom {d}', { d: esc(dateTime(x.cancelRequestedAt)) })}</b>${x.cancelReason ? `<span>${esc(t('Grund: {r}', { r: x.cancelReason }))}</span>` : ''}<span class="small muted">${t('Sofort kündigen oder zum Vertragsende „Laufzeit bis“ setzen.')}</span></div><div class="row wrap" style="--gap:6px;justify-content:flex-end">${x.state !== 'cancelled' ? `<button class="btn btn-sm" data-act="ask" data-k="cancelled" data-at="req">${icon('ban')}${t('Kündigen')}</button>` : ''}<button class="btn btn-sm btn-ghost" data-act="closeRequest" data-k="cancel">${icon('check')}${t('Anfrage erledigt')}</button></div></div>` : ''}
+    ${pr ? `<div class="banner info" style="align-items:flex-start">${icon('layers')}<div class="grow stack" style="--gap:6px"><b>${esc(t('Tarifwunsch: {p}', { p: planName(pr.plan) }))} · ${esc(dateTime(pr.at))}</b>${pr.note ? `<span>${esc(pr.note)}</span>` : ''}</div><div class="row wrap" style="--gap:6px;justify-content:flex-end">${pr.plan !== x.plan ? `<button class="btn btn-sm btn-primary" data-act="applyPlanRequest">${t('Tarif {p} übernehmen', { p: esc(planName(pr.plan)) })}</button>` : ''}<button class="btn btn-sm btn-ghost" data-act="closeRequest" data-k="plan">${icon('check')}${t('Anfrage erledigt')}</button></div></div>` : ''}
     ${askBox(app, ['cancelled', 'downgrade', 'force'], 'req')}`;
 }
 
@@ -350,6 +352,15 @@ export const actions = {
     const x = app.data.tenant, plan = x?.planRequest?.plan;
     if (!plan || !PLANS[plan]) return;
     return saveLicense(app, { id: x.id, plan, ...(plan !== 'premium' && x.storeApp ? { storeApp: false } : {}) }, { at: 'req' }).catch(() => null);
+  },
+  async closeRequest(el, ev, app) {
+    const id = app.ui.sheet?.id;
+    if (!id) return;
+    const r = await app.call('closeRequest', { id, kind: el.dataset.k }).catch(() => null);
+    if (!r) return;
+    app.data.tenant = await app.call('getTenantLicense', { id }).catch(() => app.data.tenant);
+    app.toast({ title: t('Anfrage als erledigt markiert'), icon: 'check' });
+    app.render();
   },
   billingCsv: (el, ev, app) => (app.data.billing ? download(app, `abrechnung-${app.data.billing.month}.csv`, billingCsv(app.data.billing)) : null),
   async tfaSetup(el, ev, app) { const r = await app.call('twoFactorSetup', {}).catch(() => null); if (r?.otpauthUrl) { app.ui.tfa = r; app.render(); } },

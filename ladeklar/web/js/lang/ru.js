@@ -753,4 +753,11 @@ export default {
   "Kein Lizenzgeber-Zugang mit dieser E-Mail.": "Нет доступа лицензиара с этим e-mail.",
   "Lizenznehmer nicht gefunden.": "Лицензиат не найден.",
   "Löschen ist erst nach der Kündigung möglich.": "Удаление возможно только после расторжения.",
+  "Ihr Tarif „{plan}“ umfasst {max} Fahrer. Für weitere Fahrer bitte Tarif erweitern.": "Тариф «{plan}» включает {max} водителей. Чтобы добавить ещё, расширьте тариф.",
+  "Ihr Tarif „{plan}“ umfasst {max} Büro-Zugänge plus Admin.": "Тариф «{plan}» включает {max} офисных доступа плюс администратора.",
+  "Das Kennzeichen {plate} ist schon angelegt.": "Номер {plate} уже добавлен.",
+  "Ihr Tarif „{plan}“ umfasst {max} Fahrzeuge.": "Тариф «{plan}» включает {max} транспортных средств.",
+  "{plate} ist in der Werkstatt.": "{plate} в мастерской.",
+  "{plate} fährt gerade {name}.": "{plate} сейчас ведёт {name}.",
+  "Unbekannte Anfrage.": "Неизвестный запрос.",
 };

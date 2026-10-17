@@ -18,7 +18,7 @@ Ist in Ihren Einstellungen die **Fahrsperre während der Fahrt** an (Voreinstell
 
 ### Anmelden
 
-1. Öffne den Link oder scanne den QR-Code von deiner Firma. Gib deine **PIN** (6 Ziffern) ein – fertig.
+1. Öffne den Link oder scanne den QR-Code von deiner Firma. Gib deine **PIN** (6 Ziffern) ein – fertig. Der Link gilt einmal und 14 Tage lang.
 2. Ohne Link: Reiter **Fahrer** → **Firmencode** + **Handynummer** + **PIN (6 Ziffern)** → **Los geht’s**.
 
 PIN vergessen? Ruf die Disposition an. Du bekommst sofort eine neue PIN.
@@ -44,7 +44,7 @@ Manche Firmen nutzen zusätzlich **Angekommen – Ladestelle** / **Angekommen �
 ### Gut zu wissen
 
 - **Falsch getippt?** Unten erscheint **Rückgängig** – 2 Minuten lang, nur mit Netz.
-- **Kein Netz?** Einfach weiter tippen, auch Lieferschein-Foto und **Bestätigen & abschließen**. Schritte, Fotos, Notizen und Problemmeldungen werden gespeichert und automatisch gesendet, sobald Netz da ist. Erst mit Netz abmelden.
+- **Kein Netz?** Einfach weiter tippen, auch Lieferschein-Foto und **Bestätigen & abschließen**. Schritte, Fotos, Notizen und Problemmeldungen werden gespeichert und automatisch gesendet, sobald Netz da ist. Erst mit Netz abmelden. Auch nach einem Neustart ohne Netz siehst du deine Touren, wenn du die App vorher einmal mit Netz geöffnet hast.
 - **Nur im Stand mit Motor aus bedienen (§ 23 StVO).** Während der Fahrt sperrt sich die App. Dafür fragt sie einmal nach dem Standort (**Fahrsperre einschalten**): Tippe **Standort freigeben**. Dein Standort wird weder gespeichert noch gesendet. **Später** blendet die Frage 7 Tage aus.
 - **Tour abgeben?** Vor dem Beladen: **Zurückgeben** + Grund. Nach dem Beladen: Disposition anrufen.
 - **Sprache ändern:** unten **Mehr** → **Sprache**.
@@ -59,7 +59,7 @@ Manche Firmen nutzen zusätzlich **Angekommen – Ladestelle** / **Angekommen �
 
 ### Sign in
 
-1. Open the link or scan the QR code from your company. Enter your **PIN** (6 digits) – done.
+1. Open the link or scan the QR code from your company. Enter your **PIN** (6 digits) – done. The link works once and for 14 days.
 2. No link? Tab **Driver** → **Company code** + **Mobile number** + **PIN (6 digits)** → **Let’s go**.
 
 Forgot your PIN? Call dispatch. You get a new PIN right away.
@@ -85,7 +85,7 @@ Some companies also use **Arrived – pickup** / **Arrived – drop-off** or ask
 ### Good to know
 
 - **Tapped by mistake?** **Undo** appears at the bottom – for 2 minutes, only with signal.
-- **No signal?** Just keep tapping, including the delivery note photo and **Confirm & finish**. Steps, photos, notes and problem reports are saved and sent automatically as soon as there is signal. Sign out only when you have signal.
+- **No signal?** Just keep tapping, including the delivery note photo and **Confirm & finish**. Steps, photos, notes and problem reports are saved and sent automatically as soon as there is signal. Sign out only when you have signal. Even after a restart without signal you see your trips, if you opened the app with signal once before.
 - **Use the app only when stationary with the engine off (§ 23 StVO).** The app locks itself while driving. For this it asks once for your location (**Turn on the driving lock**): tap **Allow location**. Your location is neither stored nor sent. **Later** hides the question for 7 days.
 - **Give back a trip?** Before loading: **Return** + reason. After loading: call dispatch.
 - **Change language:** at the bottom **More** → **Language**.
@@ -100,7 +100,7 @@ Some companies also use **Arrived – pickup** / **Arrived – drop-off** or ask
 
 ### Logowanie
 
-1. Otwórz link albo zeskanuj kod QR od swojej firmy. Wpisz **PIN** (6 cyfr) – gotowe.
+1. Otwórz link albo zeskanuj kod QR od swojej firmy. Wpisz **PIN** (6 cyfr) – gotowe. Link działa jednorazowo i przez 14 dni.
 2. Bez linku: zakładka **Kierowca** → **Kod firmy** + **Numer telefonu** + **PIN (6 cyfr)** → **Zaczynamy**.
 
 Zapomniany PIN? Zadzwoń do dyspozytora. Od razu dostaniesz nowy PIN.
@@ -126,7 +126,7 @@ Niektóre firmy używają też **Na miejscu – załadunek** / **Na miejscu – 
 ### Warto wiedzieć
 
 - **Pomyłka?** Na dole pojawia się **Cofnij** – przez 2 minuty, tylko przy zasięgu.
-- **Brak zasięgu?** Po prostu dotykaj dalej, także zdjęcie dokumentu WZ i **Potwierdź i zakończ**. Kroki, zdjęcia, notatki i zgłoszenia problemów zostaną zapisane i wysłane automatycznie, gdy będzie zasięg. Wylogowuj się tylko przy zasięgu.
+- **Brak zasięgu?** Po prostu dotykaj dalej, także zdjęcie dokumentu WZ i **Potwierdź i zakończ**. Kroki, zdjęcia, notatki i zgłoszenia problemów zostaną zapisane i wysłane automatycznie, gdy będzie zasięg. Wylogowuj się tylko przy zasięgu. Także po ponownym uruchomieniu bez zasięgu widzisz swoje trasy, jeśli wcześniej choć raz otworzyłeś aplikację z zasięgiem.
 - **Obsługuj aplikację tylko na postoju z wyłączonym silnikiem (§ 23 StVO).** Podczas jazdy aplikacja blokuje się sama. Dlatego raz zapyta o lokalizację (**Włącz blokadę podczas jazdy**): dotknij **Zezwól na lokalizację**. Twoja lokalizacja nie jest ani zapisywana, ani wysyłana. **Później** ukrywa pytanie na 7 dni.
 - **Oddać trasę?** Przed załadunkiem: **Zwróć** + powód. Po załadunku: zadzwoń do dyspozytora.
 - **Zmiana języka:** na dole **Więcej** → **Język**.
@@ -141,7 +141,7 @@ Niektóre firmy używają też **Na miejscu – załadunek** / **Na miejscu – 
 
 ### Autentificare
 
-1. Deschide linkul sau scanează codul QR de la firma ta. Introdu **PIN-ul** (6 cifre) – gata.
+1. Deschide linkul sau scanează codul QR de la firma ta. Introdu **PIN-ul** (6 cifre) – gata. Linkul funcționează o singură dată, timp de 14 zile.
 2. Fără link: fila **Șofer** → **Cod firmă** + **Număr de mobil** + **PIN (6 cifre)** → **Să începem**.
 
 Ai uitat PIN-ul? Sună la dispecerat. Primești imediat un PIN nou.
@@ -167,7 +167,7 @@ Unele firme folosesc și **Am ajuns – încărcare** / **Am ajuns – descărca
 ### Bine de știut
 
 - **Ai apăsat greșit?** Jos apare **Anulează** – timp de 2 minute, doar cu semnal.
-- **Fără semnal?** Apasă mai departe, inclusiv fotografia avizului și **Confirmă și finalizează**. Pașii, fotografiile, notele și problemele raportate se salvează și se trimit automat când ai semnal. Deconectează-te doar când ai semnal.
+- **Fără semnal?** Apasă mai departe, inclusiv fotografia avizului și **Confirmă și finalizează**. Pașii, fotografiile, notele și problemele raportate se salvează și se trimit automat când ai semnal. Deconectează-te doar când ai semnal. Și după o repornire fără semnal îți vezi cursele, dacă ai deschis aplicația înainte o dată cu semnal.
 - **Folosește aplicația doar în staționare, cu motorul oprit (§ 23 StVO).** În timpul mersului aplicația se blochează singură. Pentru asta îți cere o dată locația (**Activează blocarea în mers**): atinge **Permite locația**. Locația ta nu este nici salvată, nici trimisă. **Mai târziu** ascunde întrebarea 7 zile.
 - **Vrei să predai cursa?** Înainte de încărcare: **Returnează** + motiv. După încărcare: sună la dispecerat.
 - **Schimbă limba:** jos **Mai mult** → **Limbă**.
@@ -182,7 +182,7 @@ Unele firme folosesc și **Am ajuns – încărcare** / **Am ajuns – descărca
 
 ### Přihlášení
 
-1. Otevři odkaz nebo naskenuj QR kód od své firmy. Zadej **PIN** (6 číslic) – hotovo.
+1. Otevři odkaz nebo naskenuj QR kód od své firmy. Zadej **PIN** (6 číslic) – hotovo. Odkaz platí jednou a 14 dní.
 2. Bez odkazu: záložka **Řidič** → **Kód firmy** + **Číslo mobilu** + **PIN (6 číslic)** → **Jdeme na to**.
 
 Zapomněl jsi PIN? Zavolej dispečink. Hned dostaneš nový PIN.
@@ -208,7 +208,7 @@ Některé firmy používají i **Na místě – nakládka** / **Na místě – v
 ### Dobré vědět
 
 - **Špatně klepnuto?** Dole se objeví **Vrátit zpět** – po dobu 2 minut, jen se signálem.
-- **Bez signálu?** Klidně klepej dál, i fotku dodacího listu a **Potvrdit a dokončit**. Kroky, fotky, poznámky a nahlášené problémy se uloží a odešlou automaticky, jakmile bude signál. Odhlas se až se signálem.
+- **Bez signálu?** Klidně klepej dál, i fotku dodacího listu a **Potvrdit a dokončit**. Kroky, fotky, poznámky a nahlášené problémy se uloží a odešlou automaticky, jakmile bude signál. Odhlas se až se signálem. I po restartu bez signálu uvidíš své jízdy, pokud jsi aplikaci předtím aspoň jednou otevřel se signálem.
 - **Aplikaci používej jen ve stání s vypnutým motorem (§ 23 StVO).** Za jízdy se aplikace sama zamkne. Proto se jednou zeptá na polohu (**Zapnout blokování za jízdy**): klepni na **Povolit polohu**. Tvoje poloha se neukládá ani neodesílá. **Později** skryje otázku na 7 dní.
 - **Vrátit jízdu?** Před nakládkou: **Vrátit** + důvod. Po nakládce: zavolej dispečink.
 - **Změna jazyka:** dole **Více** → **Jazyk**.
@@ -223,7 +223,7 @@ Některé firmy používají i **Na místě – nakládka** / **Na místě – v
 
 ### Giriş
 
-1. Firmandan gelen bağlantıyı aç veya QR kodu tara. **PIN**’ini (6 hane) gir – bitti.
+1. Firmandan gelen bağlantıyı aç veya QR kodu tara. **PIN**’ini (6 hane) gir – bitti. Bağlantı bir kez ve 14 gün geçerlidir.
 2. Bağlantı yoksa: **Sürücü** sekmesi → **Firma kodu** + **Cep telefonu** + **PIN (6 hane)** → **Başla**.
 
 PIN’i mi unuttun? Sevkiyatı ara. Hemen yeni bir PIN alırsın.
@@ -249,7 +249,7 @@ Bazı firmalar ayrıca **Vardım – yükleme** / **Vardım – boşaltma** kull
 ### Bilmekte fayda var
 
 - **Yanlış mı dokundun?** Altta **Geri al** çıkar – 2 dakika boyunca, sadece bağlantı varken.
-- **Çekim yok mu?** Dokunmaya devam et, irsaliye fotoğrafı ve **Onayla ve bitir** dahil. Adımlar, fotoğraflar, notlar ve sorun bildirimleri kaydedilir ve bağlantı gelince otomatik gönderilir. Çıkışı sadece bağlantı varken yap.
+- **Çekim yok mu?** Dokunmaya devam et, irsaliye fotoğrafı ve **Onayla ve bitir** dahil. Adımlar, fotoğraflar, notlar ve sorun bildirimleri kaydedilir ve bağlantı gelince otomatik gönderilir. Çıkışı sadece bağlantı varken yap. Uygulamayı daha önce bir kez sinyalle açtıysan, sinyalsiz yeniden başlattıktan sonra da seferlerini görürsün.
 - **Uygulamayı yalnızca araç dururken ve motor kapalıyken kullan (§ 23 StVO).** Sürüş sırasında uygulama kendini kilitler. Bunun için bir kez konum ister (**Sürüş kilidini etkinleştir**): **Konuma izin ver**’e dokun. Konumun ne kaydedilir ne de gönderilir. **Sonra** soruyu 7 gün gizler.
 - **Seferi geri vermek mi?** Yüklemeden önce: **Geri ver** + neden. Yüklemeden sonra: sevkiyatı ara.
 - **Dili değiştir:** altta **Daha fazla** → **Dil**.
@@ -264,7 +264,7 @@ Bazı firmalar ayrıca **Vardım – yükleme** / **Vardım – boşaltma** kull
 
 ### Вход
 
-1. Открой ссылку или отсканируй QR-код от своей компании. Введи **PIN** (6 цифр) — готово.
+1. Открой ссылку или отсканируй QR-код от своей компании. Введи **PIN** (6 цифр) — готово. Ссылка действует один раз и 14 дней.
 2. Без ссылки: вкладка **Водитель** → **Код компании** + **Номер телефона** + **PIN (6 цифр)** → **Поехали**.
 
 Забыл PIN? Позвони диспетчеру. Новый PIN ты получишь сразу.
@@ -290,7 +290,7 @@ Bazı firmalar ayrıca **Vardım – yükleme** / **Vardım – boşaltma** kull
 ### Полезно знать
 
 - **Нажал не то?** Внизу появится **Отменить** — на 2 минуты, только при наличии сети.
-- **Нет сети?** Просто продолжай, включая фото накладной и **Подтвердить и завершить**. Шаги, фото, заметки и сообщения о проблемах сохранятся и отправятся автоматически, когда появится сеть. Выходи из приложения только при наличии сети.
+- **Нет сети?** Просто продолжай, включая фото накладной и **Подтвердить и завершить**. Шаги, фото, заметки и сообщения о проблемах сохранятся и отправятся автоматически, когда появится сеть. Выходи из приложения только при наличии сети. Даже после перезапуска без связи ты видишь свои рейсы, если хотя бы раз открывал приложение со связью.
 - **Пользуйся приложением только на стоянке с заглушённым двигателем (§ 23 StVO).** Во время движения приложение блокируется само. Для этого оно один раз спросит про геолокацию (**Включить блокировку в пути**): нажми **Разрешить геолокацию**. Твоё местоположение не сохраняется и не передаётся. **Позже** скрывает вопрос на 7 дней.
 - **Вернуть рейс?** До погрузки: **Вернуть** + причина. После погрузки: позвони диспетчеру.
 - **Сменить язык:** внизу **Ещё** → **Язык**.
@@ -305,7 +305,7 @@ Bazı firmalar ayrıca **Vardım – yükleme** / **Vardım – boşaltma** kull
 
 ### Вхід
 
-1. Відкрий посилання або відскануй QR-код від своєї компанії. Введи **PIN** (6 цифр) — готово.
+1. Відкрий посилання або відскануй QR-код від своєї компанії. Введи **PIN** (6 цифр) — готово. Посилання діє один раз і 14 днів.
 2. Без посилання: вкладка **Водій** → **Код компанії** + **Номер телефону** + **PIN (6 цифр)** → **Поїхали**.
 
 Забув PIN? Зателефонуй диспетчеру. Новий PIN отримаєш одразу.
@@ -331,7 +331,7 @@ Bazı firmalar ayrıca **Vardım – yükleme** / **Vardım – boşaltma** kull
 ### Корисно знати
 
 - **Натиснув не те?** Внизу з’явиться **Відмінити** — на 2 хвилини, лише за наявності мережі.
-- **Немає мережі?** Просто продовжуй, зокрема фото накладної та **Підтвердити й завершити**. Кроки, фото, нотатки й повідомлення про проблеми збережуться й надішлються автоматично, щойно з’явиться мережа. Виходь із додатка лише за наявності мережі.
+- **Немає мережі?** Просто продовжуй, зокрема фото накладної та **Підтвердити й завершити**. Кроки, фото, нотатки й повідомлення про проблеми збережуться й надішлються автоматично, щойно з’явиться мережа. Виходь із додатка лише за наявності мережі. Навіть після перезапуску без зв’язку ти бачиш свої рейси, якщо хоч раз відкривав застосунок зі зв’язком.
 - **Користуйся додатком лише на стоянці із заглушеним двигуном (§ 23 StVO).** Під час руху додаток блокується сам. Для цього він один раз запитає про геолокацію (**Увімкнути блокування в дорозі**): натисни **Дозволити геолокацію**. Твоє місцезнаходження не зберігається і не надсилається. **Пізніше** приховує питання на 7 днів.
 - **Повернути рейс?** До завантаження: **Повернути** + причина. Після завантаження: зателефонуй диспетчеру.
 - **Змінити мову:** внизу **Більше** → **Мова**.
