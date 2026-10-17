@@ -79,8 +79,10 @@ LiveFX läuft auf http://127.0.0.1:8787/
 | Windows: „Der Computer wurde durch Windows geschützt“ | „Weitere Informationen“ → „Trotzdem ausführen“. Vermeiden: vor dem Entpacken Rechtsklick auf die ZIP → Eigenschaften → „Zulassen“. |
 | Windows-Firewall fragt | „Zugriff zulassen“ (private Netzwerke). Später: Windows-Sicherheit → Firewall → „App durch Firewall zulassen“ → „Node.js JavaScript Runtime“ → Haken bei „Privat“. |
 | Windows: Firewall erlaubt, QR tut trotzdem nichts | Windows 11 stellt ein neues WLAN oft auf **„Öffentlich“** – dann gilt „privat zulassen“ nicht. Einstellungen → Netzwerk und Internet → WLAN → dein Netz → Netzwerkprofil **„Privat“** (oder in der Firewall-Frage zusätzlich „Öffentliche Netzwerke“ ankreuzen). |
-| macOS: „nicht verifizierter Entwickler“ | Rechtsklick (ctrl-Klick) auf `Start-LiveFX.command` → „Öffnen“ → „Öffnen“. Ab macOS 15: Systemeinstellungen → Datenschutz & Sicherheit → „Dennoch öffnen“. |
-| macOS: „keine Berechtigung“ | Terminal öffnen, `bash ` tippen (mit Leerzeichen), die Datei hineinziehen, Enter. |
+| macOS: **„Start-LiveFX.command“ ist beschädigt und kann nicht geöffnet werden** | Die Datei ist nicht kaputt – macOS sperrt nicht signierte Startdateien aus dem Internet (Quarantäne-Markierung). „Abbrechen“ klicken (**nicht** in den Papierkorb). Einmalig: Terminal öffnen (⌘ + Leertaste → „Terminal“) → `xattr -cr ` tippen (mit Leerzeichen) → den LiveFX-Ordner (`live-fx`) hineinziehen → Enter. Danach startet `Start-LiveFX.command` per Doppelklick. Kurzfassung: `start/MAC-HILFE.txt`. |
+| macOS: „nicht verifizierter Entwickler“ / „Apple konnte nicht überprüfen …“ | Wie oben (`xattr -cr` + Ordner) – oder Systemeinstellungen → Datenschutz & Sicherheit → ganz unten „Dennoch öffnen“ (bis macOS 14: Rechtsklick → „Öffnen“ → „Öffnen“). |
+| macOS: „keine Berechtigung“ oder nichts hilft | Terminal öffnen, `bash ` tippen (mit Leerzeichen), die Datei `start/start.sh` hineinziehen, Enter – das startet LiveFX immer. |
+| macOS: „Terminal möchte auf ‚Downloads‘ zugreifen“ / „Eingehende Verbindungen erlauben?“ | „Erlauben“. |
 | Handy findet den PC nicht | Gleiches WLAN? Kein Gäste-WLAN (trennt Geräte)? VPN aus? Im Fenster stehen „Weitere Adressen dieses PCs“ – im Panel die andere Adresse wählen. Sonst „Internet-Link“. |
 | QR-Code „abgelaufen“ / „schon benutzt“ | Im Panel unter „📱 Handy“ einen neuen anzeigen. |
 | „Zu viele Fehlversuche“ | Nach 20 falschen Codes ist das **Eintippen** 5 Minuten gesperrt. Den QR-Code scannen geht weiter – oder im Panel „Neuer Code“ klicken, dann klappt auch das Eintippen sofort wieder. |
@@ -179,8 +181,11 @@ Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'
   **„Özel“** (ya da güvenlik duvarı sorusunda „Ortak ağlar“ı da işaretle).
 - 20 yanlış kod yazılırsa **kod yazma** 5 dakika kilitlenir (QR kodu taramak çalışır; panelde „Neuer Code“ kilidi
   hemen kaldırır). Panelden silinen cihazın bağlantısı anında kesilir.
-- **Mac** „doğrulanmamış geliştirici“
-  derse: sağ tık → „Aç“ → „Aç“ (macOS 15+: Sistem Ayarları → Gizlilik ve Güvenlik → „Yine de Aç“).
+- **Mac** „… hasarlı ve açılamıyor“ ya da „doğrulanmamış geliştirici“ derse: dosya bozuk **değil** – macOS
+  internetten gelen imzasız başlatma dosyalarını engelliyor. „Vazgeç“e bas (Çöp Sepeti’ne taşıma). Bir kez:
+  Terminal’i aç (⌘ + boşluk → „Terminal“) → `xattr -cr ` yaz (boşlukla) → LiveFX klasörünü (`live-fx`) sürükle →
+  Enter; sonra `Start-LiveFX.command` çift tıkla çalışır. Ya da Terminal’de `bash ` + `start/start.sh` sürükle → Enter.
+  (Sadece „doğrulanmamış geliştirici“de: Sistem Ayarları → Gizlilik ve Güvenlik → „Yine de Aç“.) Kısa: `start/MAC-HILFE.txt`.
 - **OBS aynı PC’de:** `http://127.0.0.1:8787/overlay.html`. **OBS başka PC’de:** pencerede/panelde gösterilen
   `…/overlay.html?key=…` adresini kullan (anahtar yalnızca overlay’i açar).
 - Sadece bu PC (telefonsuz): `node server.js --local`.
@@ -218,8 +223,11 @@ Panels bekommen über `/events?role=panel` live `{type:'pairing', event:'paired'
   Network profile **“Private”** (or also tick “Public networks” in the firewall prompt).
 - 20 wrong typed codes lock **typing** for 5 minutes (scanning the QR code still works; “Neuer Code” in the panel
   lifts the lock). Removing a device in the panel disconnects it at once.
-- **macOS** “unidentified developer”: right-click →
-  “Open” → “Open” (macOS 15+: System Settings → Privacy & Security → “Open Anyway”).
+- **macOS** “… is damaged and can’t be opened” or “unidentified developer”: the file is **not** broken – macOS
+  blocks unsigned start files downloaded from the internet. Click “Cancel” (don’t move it to the Trash). Once: open
+  Terminal (⌘ + Space → “Terminal”) → type `xattr -cr ` (with a space) → drag the LiveFX folder (`live-fx`) in →
+  Enter; then `Start-LiveFX.command` works by double-click. Or in Terminal: `bash ` + drag `start/start.sh` → Enter.
+  (“Unidentified developer” only: System Settings → Privacy & Security → “Open Anyway”.) Short: `start/MAC-HILFE.txt`.
 - **OBS on the same PC:** `http://127.0.0.1:8787/overlay.html`. **OBS on another PC:** use the
   `…/overlay.html?key=…` address shown in the start window / panel (the key opens the overlay only, read-only).
 - This PC only (no phone): `node server.js --local`. Options: `--open`, `--lan` (default), `--port <n>`, `--no-qr`.

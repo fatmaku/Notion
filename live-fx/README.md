@@ -17,7 +17,8 @@ Panel: eigene GIFs/PNGs/MP3s hochladen, Trigger bearbeiten ───────
 ## Schnellstart – 3 Schritte
 
 1. **Doppelklick auf „Start-LiveFX“** im Ordner `start` – Windows: `Start-LiveFX.bat`, Mac: `Start-LiveFX.command`
-   (beim ersten Mal Rechtsklick → „Öffnen“). Das Panel öffnet sich im Browser (`http://127.0.0.1:8787/`, am besten
+   (meldet der Mac „beschädigt“: Terminal → `xattr -cr ` + LiveFX-Ordner hineinziehen → Enter, siehe
+   `start/MAC-HILFE.txt`). Das Panel öffnet sich im Browser (`http://127.0.0.1:8787/`, am besten
    Chrome oder Edge – die haben die Spracherkennung). Fehlt Node.js, sagt das Startfenster, was zu tun ist:
    [docs/START.md](docs/START.md). (Klassisch geht weiterhin `node server.js` im LiveFX-Ordner.)
 2. **Handy scannt den QR-Code.** Ganz oben im **🚀 Start-Assistenten** steht Schritt 0 **„📱 Handy verbinden“** mit
